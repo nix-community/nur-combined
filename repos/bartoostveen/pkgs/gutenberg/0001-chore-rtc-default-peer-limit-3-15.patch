@@ -1,4 +1,4 @@
-From efd6388a9608fa69434f1ca7c9e94983ef8b008d Mon Sep 17 00:00:00 2001
+From 9614a52fefe96bc9cbf8622edc3fcf1a9115c1d2 Mon Sep 17 00:00:00 2001
 From: Bart Oostveen <bart@bartoostveen.nl>
 Date: Fri, 26 Jun 2026 20:17:57 +0200
 Subject: [PATCH 1/5] chore(rtc): default peer limit 3 -> 15

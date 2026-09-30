@@ -1,4 +1,4 @@
-From 5512d5f3869bc5afa7703caf2fefc923724b6142 Mon Sep 17 00:00:00 2001
+From 928ea41e3950ff59f207c572f0212850c9bf5147 Mon Sep 17 00:00:00 2001
 From: Bart Oostveen <bart@bartoostveen.nl>
 Date: Mon, 6 Jul 2026 23:25:15 +0200
 Subject: [PATCH 3/5] fix(build): do not run commands silently

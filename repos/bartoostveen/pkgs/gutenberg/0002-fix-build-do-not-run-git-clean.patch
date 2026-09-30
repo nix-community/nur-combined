@@ -1,4 +1,4 @@
-From aa3309506cfdac38b95c902699c9bdbc5b20063e Mon Sep 17 00:00:00 2001
+From 0cfe1b99fb2ba353d7dde1635b9d56c272878dfa Mon Sep 17 00:00:00 2001
 From: Bart Oostveen <bart@bartoostveen.nl>
 Date: Fri, 26 Jun 2026 20:37:05 +0200
 Subject: [PATCH 2/5] fix(build): do not run git clean
@@ -8,7 +8,7 @@ Subject: [PATCH 2/5] fix(build): do not run git clean
  1 file changed, 10 deletions(-)
 
 diff --git a/packages/icons/lib/generate-library.cjs b/packages/icons/lib/generate-library.cjs
-index fd1a5083886..e750d875633 100644
+index 738bc3818a4..f9afc1f06ea 100644
 --- a/packages/icons/lib/generate-library.cjs
 +++ b/packages/icons/lib/generate-library.cjs
 @@ -107,7 +107,6 @@ const SVG_ATTRIBUTE_WITH_DASHES = [

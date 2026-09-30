@@ -1,61 +1,114 @@
-From f1f8fdbe10a1a6c424e51dc4e8cd5dd1704ae229 Mon Sep 17 00:00:00 2001
+From ae5ee0531eca5671be041607a827c2731259dc99 Mon Sep 17 00:00:00 2001
 From: Bart Oostveen <bart@bartoostveen.nl>
 Date: Wed, 5 Aug 2026 17:38:02 +0200
 Subject: [PATCH 5/5] fix(build): reverse useless changes
 
 ---
- bin/build-plugin-zip.sh | 28 ----------------------------
- 1 file changed, 28 deletions(-)
+ tools/release/build-plugin-zip.mts | 70 ------------------------------
+ 1 file changed, 70 deletions(-)
 
-diff --git a/bin/build-plugin-zip.sh b/bin/build-plugin-zip.sh
-index 761ed2010b5..cc3607d03a9 100755
---- a/bin/build-plugin-zip.sh
-+++ b/bin/build-plugin-zip.sh
-@@ -63,35 +63,11 @@ if [ -z "$NO_CHECKS" ]; then
- 			exit 1
- 		fi
- 	fi
--
--	# WordPress Core builds prune non-public icons using jq, which is expected to be
--	# present on the system running this script.
--	if [ "$IS_WORDPRESS_CORE" = "true" ] && ! command -v jq > /dev/null 2>&1; then
--		error "ERROR: jq is required to build for WordPress Core but was not found. 🫥
--		Install jq (https://jqlang.org/) and try again."
--		exit 1
--	fi
- fi
+diff --git a/tools/release/build-plugin-zip.mts b/tools/release/build-plugin-zip.mts
+index cd9f7d82bad..c2bf6f1c46f 100644
+--- a/tools/release/build-plugin-zip.mts
++++ b/tools/release/build-plugin-zip.mts
+@@ -139,66 +139,6 @@ async function resetRepository(): Promise< void > {
+ 	run( 'git', [ 'clean', '-xdf' ] );
+ }
  
- status "Generating build... 👷‍♀️"
- npm run build
- 
--# Only including public icons when building for WordPress Core.
--#
--# This runs before creating the archive but after the build so icon collection validation passes as expected. Plugin
--# builds keep the full library.
--if [ "$IS_WORDPRESS_CORE" = "true" ]; then
--	status "Pruning non-public icons for WordPress Core... ✂️"
--	(
--  	cd packages/icons/src
--  	non_public_icons=$(comm -13 \
--  		<(jq -r "map(select(.public) | .filePath)[]" manifest.json | sort) \
--  		<(ls library/*.svg))
--  	echo "$non_public_icons" | sed 's|^|  Deleting packages/icons/src/|'
--  	echo "$non_public_icons" | xargs rm
--  )
--fi
+-/**
+- * Deletes the icons WordPress Core does not ship. An icon ships when its manifest
+- * entry belongs to at least one collection, matching the entries
+- * `generateManifestPHP()` writes to `manifest.php`.
+- *
+- * This runs after the build so that icon collection validation still sees the
+- * full library.
+- */
+-function prunePrivateIcons(): void {
+-	status( 'Pruning non-public icons for WordPress Core... ✂️' );
 -
- # Generate the plugin zip file.
- status "Creating archive... 🎁"
- zip --recurse-paths --no-dir-entries \
-@@ -107,8 +83,4 @@ zip --recurse-paths --no-dir-entries \
- 	changelog.txt \
- 	README.md
- 
--status "Restoring non-public icons... 🔁"
--git diff --name-only --diff-filter=D -- packages/icons/src | sed 's|^|  Restoring |'
--git restore packages/icons/src
+-	const manifest: { filePath: string; collections?: string[] }[] = JSON.parse(
+-		fs.readFileSync( path.join( ICONS_DIR, 'manifest.json' ), 'utf8' )
+-	);
+-	const shipped = new Set(
+-		manifest
+-			.filter( ( icon ) => ( icon.collections?.length ?? 0 ) > 0 )
+-			.map( ( icon ) => icon.filePath )
+-	);
 -
- success "Done. You've built Gutenberg! 🎉 "
+-	const library = fs
+-		.readdirSync( path.join( ICONS_DIR, 'library' ) )
+-		.filter( ( file ) => file.endsWith( '.svg' ) )
+-		.sort();
+-
+-	for ( const file of library ) {
+-		const filePath = `library/${ file }`;
+-		if ( shipped.has( filePath ) ) {
+-			continue;
+-		}
+-		console.log( `  Deleting packages/icons/src/${ filePath }` );
+-		fs.rmSync( path.join( ICONS_DIR, filePath ) );
+-	}
+-}
+-
+-/**
+- * Restores the icons `prunePrivateIcons` deleted, listing them as it goes.
+- */
+-function restorePrivateIcons(): void {
+-	status( 'Restoring non-public icons... 🔁' );
+-
+-	const deleted = git(
+-		'diff',
+-		'--name-only',
+-		'--diff-filter=D',
+-		'--',
+-		'packages/icons/src'
+-	);
+-	if ( deleted ) {
+-		console.log(
+-			deleted
+-				.split( '\n' )
+-				.map( ( file ) => `  Restoring ${ file }` )
+-				.join( '\n' )
+-		);
+-	}
+-
+-	run( 'git', [ 'restore', 'packages/icons/src' ] );
+-}
+-
+ /**
+  * Expands a plugin file entry into a fast-glob pattern. A directory stands for
+  * everything below it including dot files, which is what `zip --recurse-paths`
+@@ -284,9 +224,6 @@ async function main(): Promise< void > {
+ 	 * This script runs in Node, so it reads the real environment. The rules
+ 	 * below point at the globals esbuild defines for bundled sources instead.
+ 	 */
+-	// eslint-disable-next-line @wordpress/no-wp-process-env, @wordpress/wp-global-usage
+-	const isWordPressCore = process.env.IS_WORDPRESS_CORE === 'true';
+-
+ 	if ( ! process.env.NO_CHECKS ) {
+ 		assertPristineTree();
+ 		await resetRepository();
+@@ -298,9 +235,6 @@ async function main(): Promise< void > {
+ 	// Wrapped, because a thrown value is not necessarily truthy.
+ 	let failure: { error: unknown } | undefined;
+ 	try {
+-		if ( isWordPressCore ) {
+-			prunePrivateIcons();
+-		}
+ 		await createArchive();
+ 	} catch ( archiveError ) {
+ 		/*
+@@ -313,10 +247,6 @@ async function main(): Promise< void > {
+ 		);
+ 	}
+ 
+-	if ( isWordPressCore ) {
+-		restorePrivateIcons();
+-	}
+-
+ 	if ( failure ) {
+ 		throw failure.error;
+ 	}
 -- 
 2.55.0
 

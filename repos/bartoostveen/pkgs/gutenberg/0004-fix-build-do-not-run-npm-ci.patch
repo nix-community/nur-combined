@@ -1,26 +1,26 @@
-From 8e6d9707be249a5aa35fbffa99e95221a08b1e76 Mon Sep 17 00:00:00 2001
+From 0ac564d53ee8f713d460f5cc7dd51164c769828d Mon Sep 17 00:00:00 2001
 From: Bart Oostveen <bart@bartoostveen.nl>
 Date: Sun, 5 Jul 2026 21:27:35 +0200
 Subject: [PATCH 4/5] fix(build): do not run npm ci
 
 ---
- bin/build-plugin-zip.sh | 4 ----
+ tools/release/build-plugin-zip.mts | 4 ----
  1 file changed, 4 deletions(-)
 
-diff --git a/bin/build-plugin-zip.sh b/bin/build-plugin-zip.sh
-index 7eacc823530..761ed2010b5 100755
---- a/bin/build-plugin-zip.sh
-+++ b/bin/build-plugin-zip.sh
-@@ -73,10 +73,6 @@ if [ -z "$NO_CHECKS" ]; then
- 	fi
- fi
+diff --git a/tools/release/build-plugin-zip.mts b/tools/release/build-plugin-zip.mts
+index 91c72dcde6a..cd9f7d82bad 100644
+--- a/tools/release/build-plugin-zip.mts
++++ b/tools/release/build-plugin-zip.mts
+@@ -292,10 +292,6 @@ async function main(): Promise< void > {
+ 		await resetRepository();
+ 	}
  
--# Run the build.
--status "Installing dependencies... 📦"
--npm cache verify
--npm ci
- status "Generating build... 👷‍♀️"
- npm run build
+-	status( 'Installing dependencies... 📦' );
+-	run( 'npm', [ 'cache', 'verify' ] );
+-	run( 'npm', [ 'ci' ] );
+-
+ 	status( 'Generating build... 👷‍♀️' );
+ 	run( 'npm', [ 'run', 'build' ] );
  
 -- 
 2.55.0
