@@ -22,7 +22,7 @@
 }: let
   ver = lib.helper.read ./version.json;
 
-  version = lib.helper.getVersion stdenvNoCC.hostPlatform.system ver;
+  inherit (ver) version;
 
   src = fetchurl (lib.helper.getPlatform stdenvNoCC.hostPlatform.system ver);
 in

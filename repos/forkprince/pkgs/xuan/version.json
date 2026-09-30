@@ -3,9 +3,11 @@
   "source": {
     "type": "github-release",
     "query": "[0].tag_name",
+    "name_query": "[0].tag_name.replace(/^v/, \"\")",
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
+  "version": "0.3.0",
   "platforms": {
     "x86_64-linux": {
       "repo": "silverling/xuan",
