@@ -11,7 +11,7 @@ in
     # llmAgentsPkgs.omp
     # llmAgentsPkgs.dsh # deepseek harness
 
-    pkgs.llama-cpp # -vulkan
+    # pkgs.llama-cpp # -vulkan
     # pkgs.aichat
     self.llm-ttok
   ];
@@ -29,6 +29,7 @@ in
       "PI_SKIP_VERSION_CHECK"
 
       "DEEPSEEK_API_KEY"
+      "OPENROUTER_API_KEY"
       "CARGO_TARGET_DIR=/tmp/cargo-target"
     ];
   };

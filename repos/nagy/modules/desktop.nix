@@ -79,8 +79,6 @@ in
     pkgs.hunspellDicts.de-de
     pkgs.gh
 
-    pkgs.radicle-node
-
     (pkgs.redshift.override { withGeolocation = false; })
 
     (pkgs.rclone.overrideAttrs {

@@ -10,14 +10,14 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "mintalib";
-  version = "0.1.11";
+  version = "0.1.13";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "furechan";
     repo = "mintalib";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-8u9l8vIoq2FFeJVbm0ZRWSFtEfTL4Gw6za7gNYpjSbA=";
+    hash = "sha256-/HYIXXIvEHTHbblB8Wvyi0HENZAfgrzYyYUvmnoOCrw=";
   };
 
   build-system = [

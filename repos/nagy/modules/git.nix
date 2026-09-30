@@ -16,6 +16,10 @@ in
     GIT_TEMPLATE_DIR = pkgs.emptyDirectory.outPath;
   };
 
+  environment.systemPackages = [
+    pkgs.git-bug
+  ];
+
   programs.git = {
     enable = true;
     config = [

@@ -21,12 +21,12 @@
 
 buildPythonPackage rec {
   pname = "pcbdraw";
-  version = "1.2.0";
+  version = "1.3.0";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-3EfUHmqWRd7PnVO1bYvPmOmG9N7Raj0SLHsubnbrpAM=";
+    hash = "sha256-IjtA2RfXpYQmo3kubRK83i5M0Yqs2XfAw6PZGZlcELE=";
   };
 
   build-system = [

@@ -19,13 +19,13 @@
 
 buildPythonPackage rec {
   pname = "esp-pylib";
-  version = "1.1.4";
+  version = "1.1.5";
   pyproject = true;
 
   src = fetchPypi {
     pname = "esp_pylib";
     inherit version;
-    hash = "sha256-3L1xfooNcTnRjCg1K2N/DucPyOQPDbHAkHlsn60WyJo=";
+    hash = "sha256-MAa8lWL5UmlX4J7oSIF0Y8Iv4QzPjqaLYVU5BsvAieA=";
   };
 
   build-system = [

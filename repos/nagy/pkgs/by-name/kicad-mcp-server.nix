@@ -3,7 +3,7 @@
   pkgs,
   buildNpmPackage,
   fetchFromGitHub,
-  nodejs_22,
+  nodejs,
   makeWrapper,
   python3,
   kicad,
@@ -42,18 +42,16 @@ in
 
 buildNpmPackage (finalAttrs: {
   pname = "kicad-mcp-server";
-  version = "2.7.0";
+  version = "2.8.2";
 
   src = fetchFromGitHub {
     owner = "mixelpixx";
     repo = "KiCAD-MCP-Server";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-faCTkstk6LEm9qctoRObtlATUOW8JNQ645LepAFsgMI=";
+    hash = "sha256-Fz+l2SMxQvUaHXmJzM4LK/PMuzNWJQXo6do6NvBRll0=";
   };
 
-  npmDepsHash = "sha256-LBUZmYzYnaVyuU0/fwy6t3yoIIb8Qbve/mF/Fv6Y6qg=";
-
-  nodejs = nodejs_22;
+  npmDepsHash = "sha256-LYVEB/Q3Khqg9cDPue6S/H6D6C7X5t22mWAI1qmbnOQ=";
 
   nativeBuildInputs = [ makeWrapper ];
 
@@ -66,7 +64,7 @@ buildNpmPackage (finalAttrs: {
     cp -r python "$installDir"
     cp -r config "$installDir"
 
-    makeWrapper ${nodejs_22}/bin/node $out/bin/kicad-mcp-server \
+    makeWrapper ${nodejs}/bin/node $out/bin/kicad-mcp-server \
       --set KICAD_PYTHON ${pythonEnv}/bin/python \
       --set KICAD_CLI ${kicad.base}/bin/kicad-cli \
       --prefix PATH : ${kicad.base}/bin \
