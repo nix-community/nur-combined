@@ -28,6 +28,8 @@
 
   tunnet = pkgs.callPackage ./pkgs/tunnet { };
 
+  tunnet-unstable = pkgs.callPackage ./pkgs/tunnet-unstable { };
+
   udpxy = pkgs.callPackage ./pkgs/udpxy { };
 
   vatis = pkgs.callPackage ./pkgs/vatis { };

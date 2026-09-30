@@ -41,10 +41,26 @@ in
       '';
     };
 
+    useLatestCommit = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      example = true;
+      description = ''
+        Whether to run tunnet built from source at the latest pinned upstream commit
+        (`tunnet-unstable`) instead of the latest release binaries (`tunnet`).
+        This only changes the default of {option}`services.tunnet.package`; an
+        explicitly set package takes precedence.
+      '';
+    };
+
     package = lib.mkOption {
       type = lib.types.package;
-      default = pkgs.callPackage ../pkgs/tunnet { };
-      defaultText = lib.literalExpression "pkgs.tunnet";
+      default =
+        if cfg.useLatestCommit then
+          pkgs.callPackage ../pkgs/tunnet-unstable { }
+        else
+          pkgs.callPackage ../pkgs/tunnet { };
+      defaultText = lib.literalExpression "if config.services.tunnet.useLatestCommit then pkgs.tunnet-unstable else pkgs.tunnet";
       description = "The tunnet package to use.";
     };
 
