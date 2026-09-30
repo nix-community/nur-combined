@@ -18,6 +18,9 @@ rec {
   aria-csv = pkgs.callPackage ./pkgs/aria-csv { };
 
   consolas-nl = pkgs.callPackage ./pkgs/consolas-nl { };
+  manpages-ro = pkgs.callPackage ./pkgs/manpages-ro { };
+
+  manpages-ro-dev = pkgs.callPackage ./pkgs/manpages-ro-dev { };
 
   asmjit = pkgs.callPackage ./pkgs/asmjit { };
 
