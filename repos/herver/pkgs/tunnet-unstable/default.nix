@@ -1,6 +1,7 @@
 {
   lib,
   rustPlatform,
+  rustc,
   fetchFromGitHub,
 }:
 
@@ -61,5 +62,7 @@ rustPlatform.buildRustPackage {
       "aarch64-linux"
     ];
     mainProgram = "tunnet";
+    # Workspace declares rust-version = "1.97" (Cargo.toml); nixos-26.05 ships 1.95.
+    broken = lib.versionOlder rustc.version "1.97";
   };
 }
