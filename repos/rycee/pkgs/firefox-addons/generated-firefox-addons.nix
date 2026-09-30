@@ -166,10 +166,10 @@
     };
     "addy_io" = buildMozillaXpiAddon {
       pname = "addy_io";
-      version = "3.0.9";
+      version = "3.1.0";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4901177/addy_io-3.0.9.xpi";
-      sha256 = "d9eec7d29c99475d6c9a5979912f8e31e02346868ddae368a78943cdace08eed";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5070068/addy_io-3.1.0.xpi";
+      sha256 = "665876f48c7563b8e230077a48b73b7e295b790ff980776b040526ff4b018622";
       meta = with lib;
       {
         homepage = "https://addy.io";
@@ -6832,7 +6832,7 @@
       meta = with lib;
       {
         homepage = "https://immersivetranslate.com";
-        description = "Free Translate Website, Translate PDF &amp; Epub eBook, Translate Video Subtitles in Bilingual";
+        description = "Translate Website, Translate PDF &amp; Epub eBook, Translate Manga/Picture , Translate Video Subtitles in Bilingual";
         license = {
           shortName = "immersive-translate";
           fullName = "End-User License Agreement for Immersive Translate";
@@ -14875,10 +14875,10 @@
     };
     "time-zone-converter-savvy-time" = buildMozillaXpiAddon {
       pname = "time-zone-converter-savvy-time";
-      version = "1.10.3";
+      version = "1.11.0";
       addonId = "yuriy@savvytime.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5059276/time_zone_converter_savvy_time-1.10.3.xpi";
-      sha256 = "481473b8d0bb15a37f71e5db148db28a29c06b7077018342dfe8b9232f855e56";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5070319/time_zone_converter_savvy_time-1.11.0.xpi";
+      sha256 = "c4df9560fec72e5c2523bc6d11033b44393460347b6315b252ebc419c63a7cc3";
       meta = with lib;
       {
         homepage = "https://savvytime.com/converter";
