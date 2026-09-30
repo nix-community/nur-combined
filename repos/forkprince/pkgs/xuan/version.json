@@ -2,14 +2,22 @@
   "name": "Xuan",
   "source": {
     "type": "github-release",
-    "repo": "silverling/xuan",
+    "query": "[0].tag_name",
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "asset": {
-    "file": "xuan-{version}-linux-x86_64.tar.gz",
-    "unpack": false
-  },
-  "version": "0.3.0",
-  "hash": "sha256-DX/UugOJuYctIUNXBwtKJJat+vL5S1rMR9/oTfM2+iU="
+  "platforms": {
+    "x86_64-linux": {
+      "repo": "silverling/xuan",
+      "file": "xuan-{version}-linux-x86_64.tar.gz",
+      "hash": "sha256-DX/UugOJuYctIUNXBwtKJJat+vL5S1rMR9/oTfM2+iU=",
+      "version": "0.3.0"
+    },
+    "aarch64-linux": {
+      "repo": "ForkPrince/xuan",
+      "file": "xuan-{version}-linux-aarch64.tar.gz",
+      "hash": "sha256-HSvBaGjQjmfGpryqNoFvS9l0+VNZilbT4eodT9buoWo=",
+      "version": "0.3.0"
+    }
+  }
 }

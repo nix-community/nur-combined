@@ -22,9 +22,9 @@
 }: let
   ver = lib.helper.read ./version.json;
 
-  inherit (ver) version;
+  version = lib.helper.getVersion stdenvNoCC.hostPlatform.system ver;
 
-  src = fetchurl (lib.helper.getSingle ver);
+  src = fetchurl (lib.helper.getPlatform stdenvNoCC.hostPlatform.system ver);
 in
   stdenvNoCC.mkDerivation rec {
     pname = "xuan";
@@ -77,7 +77,7 @@ in
       homepage = "https://github.com/silverling/xuan";
       changelog = "https://github.com/silverling/xuan/releases/tag/v${version}";
       license = lib.licenses.mit;
-      platforms = ["x86_64-linux"];
+      platforms = lib.platforms.linux;
       maintainers = with lib.maintainers; [Prinky];
       mainProgram = "xuan";
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];
