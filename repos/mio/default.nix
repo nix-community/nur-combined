@@ -50,6 +50,7 @@ with (import ./private.nix { inherit pkgs; });
         "2.11.4:go1.26.5" = "sha256-QVKOjWXBEEQQkTJNcisiKMr2D63jjH9Gcv09aMaJkGk=";
         "2.11.4:go1.26.6" = "sha256-osGij5iuxA1hivbPLOSwVRGNLDRQDys9zMEvDFPSzAM=";
         "2.11.4:go1.26.7" = "sha256-W96s8vBrDuddi7pZ/bB+Ped21kfyxrZEqheb8Luz69o=";
+        "2.11.4:go1.26.8" = "";
       };
       nixosVersion = pkgs.lib.versions.majorMinor pkgs.lib.version;
       caddyVersion = pkgs.caddy.version;
