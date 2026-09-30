@@ -9,12 +9,12 @@
 
 buildDotnetModule (finalAttrs: {
   pname = "imewlconverter";
-  version = "3.4.3";
+  version = "3.5.0";
   src = fetchFromGitHub {
     owner = "studyzy";
     repo = "imewlconverter";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-gnvq7yuevjL5vZLA4WdStWLE8kq5pBb4dvuWmqJ4+Lg=";
+    hash = "sha256-PE1dAJiFHqrpE8ceCrCfSu7QwZsa4fgyJ5fW5UNsihI=";
   };
   projectFile = "src/ImeWlConverterCmd/ImeWlConverterCmd.csproj";
   nugetDeps = ./deps.json;

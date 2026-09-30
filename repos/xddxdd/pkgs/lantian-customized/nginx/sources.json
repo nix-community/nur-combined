@@ -1,9 +1,9 @@
 {
   "ja4-nginx-module": {
-    "hash": "sha256-jchUjo3BMFMZtBPxvaX0ah/4jrcmzg9y5W46SoMtKnE=",
+    "hash": "sha256-DU/GVaJp9Qp0g7lp7c3Y3Rl4mRYoltnWcSS36Xv7k6Q=",
     "owner": "FoxIO-LLC",
     "repo": "ja4-nginx-module",
-    "rev": "0b1d00ece651b744bfd9c23c65ec634158347b53"
+    "rev": "0ae2dee1b9cd47049926af3b3f1377baf3306c50"
   },
   "nginx-auth-jwt": {
     "fetchSubmodules": true,

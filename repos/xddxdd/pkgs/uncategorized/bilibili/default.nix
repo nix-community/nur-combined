@@ -9,7 +9,7 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "bilibili";
-  version = "1.19.0-1";
+  version = "1.19.0-3";
 
   bilibiliSrc = fetchFromGitHub {
     owner = "msojocs";
@@ -20,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchurl {
     url = "https://github.com/msojocs/bilibili-linux/releases/download/v${finalAttrs.version}/bilibili-asar-v${finalAttrs.version}.tar.gz";
-    hash = "sha256-/kuQMl9i+ffS9S3jmgnGNO2iBiCYpoMgWBgaGxVB7E8=";
+    hash = "sha256-ca4E0aI1PvITK0zzActcJkBxLY/B6YjJFUANRCCYifE=";
   };
   buildInputs = [ makeWrapper ];
 

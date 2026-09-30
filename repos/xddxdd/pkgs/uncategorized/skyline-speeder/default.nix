@@ -14,16 +14,16 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "skyline-speeder";
-  version = "0.3.0";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "CYBERVERSE-Research";
     repo = "skyline-speeder";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-WlUJ8HY3C1Mz0VyZI4+u6DY1sv0qiARIWNwDKTBS0x8=";
+    hash = "sha256-D2lzaMf9sS5eXtAFtm6yL4oIY/ZMI4NoH57flRdNxkU=";
   };
 
-  cargoHash = "sha256-DzvTaZHXYlg8LyYeQYj44z7I+0qrrzh6haM2HKx31YM=";
+  cargoHash = "sha256-uGRfwz/D06/Ed347zb91Iy87rQYVR1hVzuBTv4xCrKQ=";
 
   nativeBuildInputs = [
     pkg-config
