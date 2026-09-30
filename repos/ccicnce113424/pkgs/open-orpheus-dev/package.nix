@@ -12,7 +12,8 @@
   rustc,
   callPackage,
   zip,
-  cargo-zigbuild,
+  jq,
+  moreutils,
   pkg-config,
   freetype,
   makeWrapper,
@@ -86,7 +87,8 @@ stdenv.mkDerivation (finalAttrs: {
     rustc.llvmPackages.lld
     wasm-bindgen-cli
     zip
-    cargo-zigbuild
+    jq
+    moreutils
     pkg-config
     makeWrapper
     copyDesktopItems
@@ -103,6 +105,14 @@ stdenv.mkDerivation (finalAttrs: {
     # electron-forge's console output is squeezed into one narrow column if unset
     CI = "1";
   };
+
+  prePatch = ''
+    # drop the build:linux script from every module package.json (a no-op if absent)
+    for _pkg in modules/*/package.json; do
+      jq 'if (.scripts | type) == "object" then del(.scripts["build:linux"]) else . end' \
+        "$_pkg" | sponge "$_pkg"
+    done
+  '';
 
   buildPhase = ''
     runHook preBuild

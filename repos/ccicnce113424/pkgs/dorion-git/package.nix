@@ -30,7 +30,7 @@
 
 let
   webkitgtk_4_1' = webkitgtk_4_1.override {
-    enableExperimental = true;
+    # enableExperimental = true;
   };
 in
 rustPlatform.buildRustPackage (finalAttrs: {
