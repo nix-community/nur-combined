@@ -31,8 +31,8 @@ go = '1.27.0'
     hash = 'sha256-WOs/RQYjQbn41ui8ztHgWSd4jxydE+fvIrl/0dmHD9Y='
 
   [mod.'github.com/andybalholm/brotli']
-    version = 'v1.2.5'
-    hash = 'sha256-4Az9n3VpIZAP7yBSZNEH49ddwIBKVa3PVo7TT8cswac='
+    version = 'v1.2.6'
+    hash = 'sha256-t3Z1bHg8mRr7cEdTbffO6f2ppPSaXK7IiaVEnjC8TuQ='
 
   [mod.'github.com/bahlo/generic-list-go']
     version = 'v0.2.0'
@@ -95,7 +95,7 @@ go = '1.27.0'
     hash = 'sha256-Qa7BSAXtgH7CB5STBiXTTOCgivWUiA65u3KxDOSZCkQ='
 
   [mod.'github.com/easytier/easytier/easytier-go']
-    version = 'v0.0.0-20260924040536-ff3921ce6842'
+    version = 'v0.0.0-20260930032809-ed73d318bb3b'
     hash = 'sha256-mue1cW4H2yXz6wC6GI3N0oKUIe1MGr1zoU0fehpKDv4='
 
   [mod.'github.com/enfein/mieru/v3']
@@ -175,8 +175,8 @@ go = '1.27.0'
     hash = 'sha256-I3BWBluCakfFuTKkwi5Dh+DlzpdcizOAxa4lKOUo8Ak='
 
   [mod.'github.com/goccy/go-json']
-    version = 'v0.11.1'
-    hash = 'sha256-btbKScie2R6Yb0jZfubK7gzdXadFpkEfGJHNA2U6kUI='
+    version = 'v0.11.2'
+    hash = 'sha256-MMFJd0ePB1LuLce8Mgpo0WxhJqSQT5Mt/oQfzMneWZM='
 
   [mod.'github.com/goccy/go-yaml']
     version = 'v1.19.2'
@@ -371,8 +371,8 @@ go = '1.27.0'
     hash = 'sha256-v4GXNwlXSVPg9Q77vA9gH6MSFKIiH904Y9oUKvITPXs='
 
   [mod.'github.com/metacubex/mipstack']
-    version = 'v0.0.0-20260926151545-332a03e253ef'
-    hash = 'sha256-bTQA49Z3Gaye+QankS5hG4v+44a0InPmfImdBfNaO1o='
+    version = 'v0.0.0-20260929145719-a4e600e17158'
+    hash = 'sha256-IZ/N3FWRhC5ZJDihsbMgGnfl5RG6FvYlm/2dYybdT7k='
 
   [mod.'github.com/metacubex/mlkem']
     version = 'v0.1.0'
@@ -507,8 +507,8 @@ go = '1.27.0'
     hash = 'sha256-pIZrY4ivjlUDssuB66lAQqFTUT9lnkD4QnuLYPMuWec='
 
   [mod.'github.com/oschwald/maxminddb-golang/v2']
-    version = 'v2.6.0'
-    hash = 'sha256-nYpy+EpnCQnUFT1m3V+BPY4S9PdsNNbHBQnBBJ+hjbc='
+    version = 'v2.7.0'
+    hash = 'sha256-MBwpR/MEfkG2sgkddhf3Lxhso68Jegw2d9eAGU4OsYg='
 
   [mod.'github.com/pelletier/go-toml/v2']
     version = 'v2.4.3'
@@ -571,8 +571,8 @@ go = '1.27.0'
     hash = 'sha256-Gh12LPp/k4s+9UQunPO4ULpknc3KWf19qjn26HUANe0='
 
   [mod.'github.com/sinspired/subs-check-pro-webui']
-    version = 'v1.3.6'
-    hash = 'sha256-Ga02IlYMr6xZ9vdFPeXFGLBcFHd+e0LeTrUhVE9K/Ts='
+    version = 'v1.3.7'
+    hash = 'sha256-rF2ZF4tZ35ojoG5jdaW9oDjIG/dTTfyONmmEozdaPw8='
 
   [mod.'github.com/sirupsen/logrus']
     version = 'v1.10.2'

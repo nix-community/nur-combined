@@ -200,13 +200,13 @@
   };
   magic-context = {
     pname = "magic-context";
-    version = "v0.44.2";
+    version = "v0.44.4";
     src = fetchFromGitHub {
       owner = "cortexkit";
       repo = "magic-context";
-      rev = "v0.44.2";
+      rev = "v0.44.4";
       fetchSubmodules = false;
-      sha256 = "sha256-naS8qo7/+zPvKRN+pEcgweFQ18K/kjDodBFt247wzeY=";
+      sha256 = "sha256-L5p+D9K7r5LBQC2dq4OPCDzZ2ZG76/LoMps2Yip5A9o=";
     };
   };
   manboster = {
@@ -301,13 +301,13 @@
   };
   subs-check-pro = {
     pname = "subs-check-pro";
-    version = "v3.2.2";
+    version = "v3.2.4";
     src = fetchFromGitHub {
       owner = "sinspired";
       repo = "subs-check-pro";
-      rev = "v3.2.2";
+      rev = "v3.2.4";
       fetchSubmodules = false;
-      sha256 = "sha256-7WRowxhsTj1/GYweAs0ZLlMLk/+ggzbY6OvacvAZFX8=";
+      sha256 = "sha256-AebP64YFZy23m8ooVX2aL+EuMwPNGJchtdyAHs3OIyc=";
     };
   };
   tree-sitter-nix = {

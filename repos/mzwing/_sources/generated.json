@@ -369,12 +369,12 @@
             "name": null,
             "owner": "cortexkit",
             "repo": "magic-context",
-            "rev": "v0.44.2",
-            "sha256": "sha256-naS8qo7/+zPvKRN+pEcgweFQ18K/kjDodBFt247wzeY=",
+            "rev": "v0.44.4",
+            "sha256": "sha256-L5p+D9K7r5LBQC2dq4OPCDzZ2ZG76/LoMps2Yip5A9o=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.44.2"
+        "version": "v0.44.4"
     },
     "manboster": {
         "cargoLock": null,
@@ -558,12 +558,12 @@
             "name": null,
             "owner": "sinspired",
             "repo": "subs-check-pro",
-            "rev": "v3.2.2",
-            "sha256": "sha256-7WRowxhsTj1/GYweAs0ZLlMLk/+ggzbY6OvacvAZFX8=",
+            "rev": "v3.2.4",
+            "sha256": "sha256-AebP64YFZy23m8ooVX2aL+EuMwPNGJchtdyAHs3OIyc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.2.2"
+        "version": "v3.2.4"
     },
     "tree-sitter-nix": {
         "cargoLock": null,
