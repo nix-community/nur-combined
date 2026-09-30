@@ -27,7 +27,7 @@ jobs:
       id-token: write
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@c7537bc73ce11ca01e53bd9d119d6e46363f9888 # v1.65.0
+        uses: spotdemo4/nix-init@af9aaf53d1ae2230cb82617c563c9427a22a8c15 # v1.66.0
 
       - name: Check flake
         env:
@@ -61,7 +61,7 @@ jobs:
       id-token: write
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@c7537bc73ce11ca01e53bd9d119d6e46363f9888 # v1.65.0
+        uses: spotdemo4/nix-init@af9aaf53d1ae2230cb82617c563c9427a22a8c15 # v1.66.0
         with:
           shell: check
 
@@ -85,13 +85,13 @@ jobs:
       id-token: write
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@c7537bc73ce11ca01e53bd9d119d6e46363f9888 # v1.65.0
+        uses: spotdemo4/nix-init@af9aaf53d1ae2230cb82617c563c9427a22a8c15 # v1.66.0
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch_depth: 0
 
       - name: Run codex
-        uses: spotdemo4/codex-action@9ed96011a74513c734e6183e85ff2a6f5203ea57 # v0.5.6
+        uses: spotdemo4/codex-action@b1226c70204b9dff506587c864c52d69a66fbdf9 # v0.5.7
         with:
           auth: ${{ secrets.CODEX_ACTION_AUTH }}
           client-id: ${{ vars.CLIENT_ID }}

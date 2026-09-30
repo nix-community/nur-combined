@@ -6,8 +6,8 @@ let
   base =
     (getForgejoFlake {
       url = "https://trev.zip/llc/shellHook";
-      rev = "f4966180ea02e6cce3067a952aa5cea237c5791d"; # v0.3.1
-      hash = "sha256-ACfqbYRLAqLIZ9ZWD0zm0ac311D2US+kHWY8qUpL9UY=";
+      rev = "48ca9bd5c7dd6a108c0c95374364190ecc48f24b"; # v0.3.2
+      hash = "sha256-wjz7u627tlCYMXP/S6WtLibEQmA1ybpglqql8+fdDuc=";
     }).packages."${system}".default;
 in
 base.overrideAttrs (old: {
