@@ -9,6 +9,7 @@
   hyprpanel = lib.callPackage ./pkgs/hyprpanel {};
   rhythia = lib.callPackage ./pkgs/rhythia {};
   syslock = lib.callPackage ./pkgs/syslock {};
+  sysbar = lib.callPackage ./pkgs/sysbar {};
   xuan = lib.callPackage ./pkgs/xuan {};
 
   tinywiibackupmanager = lib.callPackage ./pkgs/tinywiibackupmanager {};
