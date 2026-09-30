@@ -17,6 +17,7 @@ def get_tags() -> list[str]:
     response = requests.get(
         "https://api.github.com/repos/Betterbird/thunderbird-patches/tags",
         headers=headers,
+        timeout=30,
     )
     if response.status_code != 200:
         raise RuntimeError(f"Failed to fetch release info: {response.status_code} ({response.json().get('message')})")
@@ -44,7 +45,11 @@ def convert_hash_to_sri(base32: str) -> str:
 
 
 def main() -> int:
-    self_path = Path(sys.argv[1]).absolute()
+    self_path = (
+        Path(sys.argv[1]).absolute()
+        if len(sys.argv) > 1
+        else Path.cwd() / "by-name/be/betterbird-unwrapped"
+    )
     if self_path.is_file():
         self_path = self_path.parent
     nixpkgs_path = self_path.parent.parent.parent
@@ -64,7 +69,7 @@ def main() -> int:
     if old_rev not in valid_tags:
         print(f"Warning: current rev {old_rev!r} not in {valid_tags!r}", file=sys.stderr)
 
-    new_rev = valid_tags[0]
+    new_rev = max(valid_tags, key=lambda tag: tuple(map(int, re.findall(r"\d+", tag))))
 
     if new_rev == old_rev:
         # nothing to do
