@@ -1,5 +1,5 @@
 # Nix related settings
-{ config, inputs, lib, options, pkgs, ... }:
+{ config, inputs, lib, pkgs, ... }:
 let
   cfg = config.my.system.nix;
 
@@ -120,10 +120,10 @@ in
     })
 
     (lib.mkIf cfg.inputs.addToNixPath {
-      nix.nixPath = [
+      nix.settings.nix-path = [
         "/etc/nix/inputs"
       ]
-      ++ options.nix.nixPath.default;
+      ++ lib.optional config.nix.channel.enable "/nix/var/nix/profiles/per-user/root/channels";
     })
   ]);
 }
