@@ -23,7 +23,7 @@
           allowUnfree = true;
         };
       };
-      legacyPackages = warnPackages;
+      legacyPackages = defaultNix;
       packages = pkgs.lib.filterAttrs (_: pkgs.lib.isDerivation) warnPackages;
     };
 }
