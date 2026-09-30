@@ -37,8 +37,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     OPENSSL_NO_VENDOR = true;
   };
 
-  doCheck = false;
-
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
 

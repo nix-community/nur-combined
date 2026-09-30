@@ -1,27 +1,32 @@
 {
   lib,
   rustPlatform,
-  fetchFromGitHub,
+  fetchCrate,
+  versionCheckHook,
 }:
 
-rustPlatform.buildRustPackage {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rustdoc-md";
-  version = "0-unstable-2025-10-28";
+  version = "0.2.0";
 
-  src = fetchFromGitHub {
-    owner = "tqwewe";
-    repo = "rustdoc-md";
-    rev = "427b1e781a96290d1044d8d29996100e6ed88b1c";
-    hash = "sha256-nPSwhIA9D0NBFWudqzDB8cBEpPtpCdKcdkpFJHhwXEY=";
+  src = fetchCrate {
+    inherit (finalAttrs) pname version;
+    hash = "sha256-Gk3T3uMMN80tpSFgLfeXyarZTJI7c+iw/Jv3YLFDfYQ=";
   };
 
-  cargoHash = "sha256-W3kYntxQ5vxy1jIF3jIewxf4cDdhNBLkaadEJB9kGuY=";
+  cargoHash = "sha256-lk8nFoSqIfRnk1zFcTL6EbmTOpGExt6g0rgcYEvNL2M=";
+
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  doInstallCheck = true;
 
   meta = {
     description = "Convert Rust documentation JSON into clean, organized Markdown files";
     homepage = "https://github.com/tqwewe/rustdoc-md";
-    license = lib.licenses.mit;
+    license = with lib.licenses; [
+      mit
+      asl20
+    ];
     maintainers = with lib.maintainers; [ nagy ];
     mainProgram = "rustdoc-md";
   };
-}
+})
