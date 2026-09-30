@@ -111,8 +111,8 @@
             "url": "https://github.com/Freed-Wu/nur-packages"
         },
         "Greep": {
-            "rev": "fe745e57cb5da36d26124b2675d614294f4fa987",
-            "sha256": "1asy7hpwnw7xp4xlwdbfgpild8nyhf87avr5wx5my1x26grwnj9w",
+            "rev": "0b238ba0f3a446578ae9db84258bda6502d20da8",
+            "sha256": "1ah0yzxmm233j6fkk9bp35j8nrqqdm2li9v7sf630nmil5jzjhrh",
             "url": "https://github.com/GreepTheSheep/nix-nurpkgs"
         },
         "GriefNorth": {
@@ -978,6 +978,11 @@
             "rev": "43c29fa76d0b1cf74650b2bc346059b0b1440d0f",
             "sha256": "1h44kpx9y62h7bdxr7ad7ra4pg9rl2wrcdm15rjx4s3mqymh805s",
             "url": "https://github.com/fooker/nur-packages"
+        },
+        "foolnotion": {
+            "rev": "f6d179fe11fb8ee9d159b729d07b5c46a3c180c4",
+            "sha256": "054qidshabilsbf4d8q2n1l6ps7918cl893sjmpk87hvr9vr1bw6",
+            "url": "https://github.com/foolnotion/nur-pkg"
         },
         "foresense": {
             "rev": "af832ac9bbe2213339c3c6d8e6d8f4adf4ae2d4a",
