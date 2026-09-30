@@ -6,39 +6,39 @@
     "version_path": ".version",
     "url_path": ".url"
   },
-  "version": "4.3.160",
+  "version": "4.3.162",
   "platforms": {
     "x86_64-linux": {
-      "url": "https://beeper-desktop.download.beeper.com/builds/Beeper-Nightly-4.3.160-x86_64.AppImage",
+      "url": "https://beeper-desktop.download.beeper.com/builds/Beeper-Nightly-4.3.162-x86_64.AppImage",
       "substitutions": [
         "linux",
         "x64"
       ],
-      "hash": "sha256-TJ9tfd3NQ33FfgUiRpOJf/ur4aoggNJ4DRcQFmvwkAk="
+      "hash": "sha256-ogCEPzNtzcHuqP+sXbrWyn2Bf3nO028/hgToAGchoM0="
     },
     "aarch64-linux": {
-      "url": "https://beeper-desktop.download.beeper.com/builds/Beeper-Nightly-4.3.160-arm64.AppImage",
+      "url": "https://beeper-desktop.download.beeper.com/builds/Beeper-Nightly-4.3.162-arm64.AppImage",
       "substitutions": [
         "linux",
         "arm64"
       ],
-      "hash": "sha256-8pGm2b9nQs9TpwQqIr/s4+Fx5Zis4Cpal54YnLKx3Nk="
+      "hash": "sha256-YJgOJWB9eCT/QA1K+HsSQMCOLEtqziPOUx2eItnezSI="
     },
     "x86_64-darwin": {
-      "url": "https://beeper-desktop.download.beeper.com/builds/Beeper%20Nightly-4.3.160-mac.zip",
+      "url": "https://beeper-desktop.download.beeper.com/builds/Beeper%20Nightly-4.3.162-mac.zip",
       "substitutions": [
         "macos",
         "x64"
       ],
-      "hash": "sha256-8L7MSO37oGjgdTbu83h1DodTi4utDyuK0vn74NpQ74M="
+      "hash": "sha256-pOmgEdnRYN2m5wmqNSKqUO8JoPsqDjAd4fke0z+3xJs="
     },
     "aarch64-darwin": {
-      "url": "https://beeper-desktop.download.beeper.com/builds/Beeper%20Nightly-4.3.160-arm64-mac.zip",
+      "url": "https://beeper-desktop.download.beeper.com/builds/Beeper%20Nightly-4.3.162-arm64-mac.zip",
       "substitutions": [
         "macos",
         "arm64"
       ],
-      "hash": "sha256-m3enXJ0gK9egm2MVnN0yhv58+gIe35FE38XoViGyz0A="
+      "hash": "sha256-wQMWP9ZHJl5/QAS1TK+ISnTYIYbX+m2WONnErMpPRgQ="
     }
   }
 }
