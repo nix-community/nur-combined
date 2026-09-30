@@ -3,6 +3,7 @@
   rustPlatform,
   fetchFromGitHub,
   nix-update-script,
+  fetchpatch,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -13,22 +14,28 @@ rustPlatform.buildRustPackage (finalAttrs: {
   strictDeps = true;
 
   src = fetchFromGitHub {
-    owner = "FundamentalComputing";
-    repo = "FitchVIZIER";
-    rev = "6e3d81f7e73ff88f2da36d340772d6fabe7bd434";
-    hash = "sha256-2bpUbAYVzJyaXctiAek1GdVCklZBGbxr/oCPQHyoxVA=";
+    owner = "fundamentalcomputing";
+    repo = "fitchvizier";
+    rev = "5fafd203e0dadd78ba95147b7fd2ef492ce3a2ea";
+    hash = "sha256-BgFvupg69Y+8lGgwWTPFCvcFjqZKBZFKlNk/BrUvAbw=";
   };
 
-  sourceRoot = "${finalAttrs.src.name}/cli";
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/friedelschoen/FitchVIZIER/commit/81f9edea9aab394292be43d5de14d26f2576c275.patch";
+      hash = "sha256-3SRKBQdOeVr1FAZOlqMQ/2GuCI6sgyxLmA2mpKda6I4=";
+    })
+    ./workspace-toml.patch
+  ];
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs)
       pname
       version
       src
-      sourceRoot
+      patches
       ;
-    hash = "sha256-jdf5haLe/vxv86meNP2ViIoMUrsodV+Bfz9eNG1ZXhs=";
+    hash = "sha256-YzpHJWcdkcnsmVH9YvjJaZU1c5T477mYP5oOArOD2Qo=";
   };
 
   passthru.updateScript = nix-update-script { };

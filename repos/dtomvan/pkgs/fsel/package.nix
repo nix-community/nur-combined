@@ -6,16 +6,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "fsel";
-  version = "3.6.0";
+  version = "4.0.0";
 
   src = fetchFromGitHub {
     owner = "Mjoyufull";
     repo = "fsel";
     tag = finalAttrs.version;
-    hash = "sha256-yUenkuZ5ryUSpeGjJPO7xgbMObZ5SeBs8/LKU3ROo4g=";
+    hash = "sha256-+KzmiWJqtM6lJL/aWYvU2XuLT7k8FqTWsVWn8hWOMRc=";
   };
 
-  cargoHash = "sha256-WmHrMALgP52OJH1acrB7DMgo/8FMgksPyXpeRL9Q7s0=";
+  cargoHash = "sha256-Vo3J2/XphNhvYkt4oasB2Z6OOj/nez7agSJZJbu+h1I=";
 
   postInstall = ''
     install -Dm644 fsel.1 $out/share/man/man1/fsel.1
