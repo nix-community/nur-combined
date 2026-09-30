@@ -6,13 +6,13 @@
 
 buildGoModule {
   pname = "benchstat";
-  version = "unstable-2026-09-08";
+  version = "unstable-2026-09-29";
 
   src = fetchFromGitHub {
     owner = "golang";
     repo = "perf";
-    rev = "22c9c6c9d4da6248aedbc79f02ecedcd59f8f5f2";
-    hash = "sha256-RSiI5I92l9bMWxTbHNKhcti4OKj8kD9yFxeHaWQJiFU=";
+    rev = "406019bb8b6893dd1245d31bf511c719619bb5c9";
+    hash = "sha256-R0Gu3giMeJKbDNT1LcKCOZTznoc1wGYCxmvt+dA5mhM=";
   };
 
   subPackages = [ "cmd/benchstat" ];
