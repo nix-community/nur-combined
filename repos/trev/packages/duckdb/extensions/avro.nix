@@ -37,8 +37,8 @@ in
   name = "avro";
   repo = "duckdb-avro";
   branch = "v1.5-variegata";
-  rev = "f9d590297485f0318f480372c70bdd852826e258";
-  hash = "sha256-1JiLOHgnqd7Oao3S8W2/erlqi8fgvpbHXSURhigBQSM=";
+  rev = "a54bd1746e583f723e580c4a85a9c014adecd810";
+  hash = "sha256-g7R++xN2hMPOluitJx8pqGM7jOJqYt+fu11fGGCqHhc=";
   duckdbBuildInputs = [
     duckdbAvroC
     jansson
