@@ -6,13 +6,13 @@
  import type { ThemeColor } from "@earendil-works/pi-coding-agent";
  import { visibleWidth } from "@earendil-works/pi-tui";
  import { config } from "../../config/config.ts";
-@@ -61,24 +61,17 @@
+@@ -66,24 +66,17 @@
  	payload?: string;
  };
  
 -function pathApi(value: string) {
--	if (win32.isAbsolute(value)) return win32;
 -	if (posix.isAbsolute(value)) return posix;
+-	if (win32.isAbsolute(value)) return win32;
 -	return undefined;
 -}
 -
