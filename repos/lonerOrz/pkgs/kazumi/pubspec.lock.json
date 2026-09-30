@@ -487,11 +487,11 @@
       "dependency": "direct main",
       "description": {
         "name": "ech_http",
-        "sha256": "71d3fc4cbc9e9d17be63922c6bb8f59dea3da83e763e6efc267066063a52e4df",
+        "sha256": "0fb7ae7fcc44e4a015e2b19a98c04d72cf65079467d61c1142c22fdc21fc4d2d",
         "url": "https://pub.dev"
       },
       "source": "hosted",
-      "version": "0.1.1"
+      "version": "0.2.1"
     },
     "equatable": {
       "dependency": "transitive",
@@ -1221,8 +1221,8 @@
       "dependency": "direct main",
       "description": {
         "path": "media_kit",
-        "ref": "d13fc22ba1b19b45de3090c2d1b0f8a541b585a0",
-        "resolved-ref": "d13fc22ba1b19b45de3090c2d1b0f8a541b585a0",
+        "ref": "803c4a27912091db6f839d48d1b984a0d9f588c7",
+        "resolved-ref": "803c4a27912091db6f839d48d1b984a0d9f588c7",
         "url": "https://github.com/Predidit/media-kit.git"
       },
       "source": "git",
@@ -1232,8 +1232,8 @@
       "dependency": "direct main",
       "description": {
         "path": "media_kit_video",
-        "ref": "d13fc22ba1b19b45de3090c2d1b0f8a541b585a0",
-        "resolved-ref": "d13fc22ba1b19b45de3090c2d1b0f8a541b585a0",
+        "ref": "803c4a27912091db6f839d48d1b984a0d9f588c7",
+        "resolved-ref": "803c4a27912091db6f839d48d1b984a0d9f588c7",
         "url": "https://github.com/Predidit/media-kit.git"
       },
       "source": "git",
