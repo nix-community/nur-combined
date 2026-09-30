@@ -15,9 +15,13 @@ in {
     lesskey.enable = mkEnableOption "lesskey file";
   };
   config = mkIf (cfg.enable or false && !cfg.lesskey.enable) {
-    home.file.".lesskey" = {
+    home.file.".lesskey" = let
+      binary = pkgs.callPackage lesskey { } cfg.keys;
+    in {
       target = ".less";
-      source = pkgs.callPackage lesskey { } cfg.keys;
+      source = if lib.versionOlder cfg.package.version "710"
+        then binary
+        else builtins.toFile "lesskey" cfg.keys;
     };
   };
 }

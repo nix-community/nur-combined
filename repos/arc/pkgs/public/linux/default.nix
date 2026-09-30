@@ -123,6 +123,10 @@ let
       makeFlags = kernelMakeFlags linux;
       enableParallelBuilding = true;
 
+      postPatch = lib.optionalString (lib.versionAtLeast linux.version "7.2") ''
+        sed -e '/^#include <asm\/io\.h>/a #include <asm/cpuid/api.h>' \
+          -i smu.c
+      '';
       installPhase = ''
         install -Dm644 -t $out/lib/modules/$kernelVersion/kernel/drivers/ ryzen_smu.ko
       '';
