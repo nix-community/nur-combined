@@ -25,9 +25,6 @@ in
           name = "ghostty";
         }
         {
-          name = "jetbrains-toolbox";
-        }
-        {
           name = "onlyoffice";
         }
         {

@@ -52,9 +52,6 @@ in
           systemfd
           uv
         ]
-        ++ lib.optionals cfg.gui.enable [
-          jetbrains-toolbox
-        ]
         ++ lib.optionals stdenv.hostPlatform.isLinux [
           gcc
           clang
