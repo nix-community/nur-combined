@@ -11,6 +11,18 @@ Conformance is tracked separately as a ratchet against the official
 
 ## [Unreleased]
 
+## [0.19.3] - 2026-09-30
+
+_More of a selector survives as written. sasso used to treat NBSP and the
+other Unicode spaces as whitespace, and it no longer does, in a selector (#71)
+or anywhere else (#237). Whitespace inside a quoted attribute value is kept as
+well. Selectors, attribute selectors and keyframe stops now follow dart's
+grammar (#238). Input that dart rejects, such as `a^b`, `[a=1]` or a keyframe
+block named `foo`, used to compile and may now fail. A type error names the
+parameter and writes the value the way dart does (#139). The flake's package
+no longer runs the test suite, so a devenv or flake input builds sasso in
+about a fifth of the time._
+
 ### Changed
 
 - **The flake's `sasso` package no longer runs the test suite when it is
@@ -3723,7 +3735,8 @@ real-world SCSS byte-identically to dart-sass.
 - Distribution: CLI binary (prebuilt via cargo-dist), library crate, and a
   zero-dependency WebAssembly build published to npm as `@momiji-rs/sasso`.
 
-[Unreleased]: https://github.com/momiji-rs/sasso/compare/v0.19.2...HEAD
+[Unreleased]: https://github.com/momiji-rs/sasso/compare/v0.19.3...HEAD
+[0.19.3]: https://github.com/momiji-rs/sasso/compare/v0.19.2...v0.19.3
 [0.19.2]: https://github.com/momiji-rs/sasso/compare/v0.19.1...v0.19.2
 [0.19.1]: https://github.com/momiji-rs/sasso/compare/v0.19.0...v0.19.1
 [0.19.0]: https://github.com/momiji-rs/sasso/compare/v0.18.0...v0.19.0
