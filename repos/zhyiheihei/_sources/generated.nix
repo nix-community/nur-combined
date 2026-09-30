@@ -46,14 +46,14 @@
   };
   epd-food-server = {
     pname = "epd-food-server";
-    version = "325af7dab1dd7d65f24a3598e3abd88868dedd8e";
+    version = "a2709f2c8cabcc4248cb1d2b2bed1e9f38834b27";
     src = fetchgit {
       url = "https://github.com/zhyiheihei/EPD-Dashboard.git";
-      rev = "325af7dab1dd7d65f24a3598e3abd88868dedd8e";
+      rev = "a2709f2c8cabcc4248cb1d2b2bed1e9f38834b27";
       fetchSubmodules = false;
-      hash = "sha256-5Sla1hvq70O4vkZMo3SSz//Z59I2gICnSziUA4YckuE=";
+      hash = "sha256-bT87XZrS5kgZ7nkAZms5wSTit+GSI/rYU6lX4D30Qek=";
     };
-    date = "2026-09-14";
+    date = "2026-10-01";
   };
   filecodebox = {
     pname = "filecodebox";
@@ -180,10 +180,10 @@
   };
   tachidesk-server = {
     pname = "tachidesk-server";
-    version = "2.3.2243";
+    version = "2.4.2366";
     src = fetchurl {
-      url = "https://gh-proxy.com/https://github.com/Suwayomi/Suwayomi-Server/releases/download/v2.3.2243/Suwayomi-Server-v2.3.2243.jar";
-      hash = "sha256-ghFBsy4XDUoC08vf7Vd+2PB70iOD/19BMuu1rkDpjdU=";
+      url = "https://gh-proxy.com/https://github.com/Suwayomi/Suwayomi-Server/releases/download/v2.4.2366/Suwayomi-Server-v2.4.2366.jar";
+      hash = "sha256-r5/rIK+dfr6eMHaebG68f8erHERziNQuAoCx2l/ge/0=";
     };
   };
   telegramify-markdown = {
@@ -208,18 +208,18 @@
   };
   vaults3-linux-amd64 = {
     pname = "vaults3-linux-amd64";
-    version = "4.4.76";
+    version = "4.4.77";
     src = fetchurl {
-      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.76/vaults3-linux-amd64.tar.gz";
-      hash = "sha256-L+Rw8mE2J3X+p5CurQwAdByRwH78NBTq33aWkWSE6wQ=";
+      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.77/vaults3-linux-amd64.tar.gz";
+      hash = "sha256-3+2y/0MHoOnW3bs15NpVCTn6LQ1+WI9LrT846LTh0jw=";
     };
   };
   vaults3-linux-arm64 = {
     pname = "vaults3-linux-arm64";
-    version = "4.4.76";
+    version = "4.4.77";
     src = fetchurl {
-      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.76/vaults3-linux-arm64.tar.gz";
-      hash = "sha256-Q04erfR1pvITCDMP4m2rXsIU1Khl03jN1FQiO75fd0g=";
+      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.77/vaults3-linux-arm64.tar.gz";
+      hash = "sha256-9XkF32AeZR8RNhhCljwXNTt8Gl7jpwiONEYKQUwybmE=";
     };
   };
   vertex = {
@@ -234,14 +234,14 @@
   };
   ws-scrcpy = {
     pname = "ws-scrcpy";
-    version = "8855ad1184ec7b41f1b28d1b899856f828e09c3e";
+    version = "cd6cea6ebde17af6685c2b325183fc24bef9d52b";
     src = fetchgit {
       url = "https://github.com/NetrisTV/ws-scrcpy.git";
-      rev = "8855ad1184ec7b41f1b28d1b899856f828e09c3e";
+      rev = "cd6cea6ebde17af6685c2b325183fc24bef9d52b";
       fetchSubmodules = false;
-      hash = "sha256-bhzVkVDWdpmaMYtf8APcgwCjo9KffzhL+3UTNOzFMEs=";
+      hash = "sha256-DYlhHBb6ajl9nqMs9/C8Hq/9yQw/Q101gE6ahkYq2zA=";
     };
-    date = "2026-08-24";
+    date = "2026-09-30";
   };
   zcode = {
     pname = "zcode";

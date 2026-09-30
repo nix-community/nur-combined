@@ -73,13 +73,13 @@ Build artifacts are cached in the Attic binary cache:
 | - [x] |  | `pyromark` | [pyromark](https://github.com/monosans/pyromark) | 0.9.13 | Blazingly fast Markdown parser |
 | - [x] |  | `sublinkpro` | [sublinkpro](https://github.com/ZeroDeng01/sublinkPro) | 1.2.19 | Modern proxy subscription management panel with smart tags, speed tests and relay chains |
 | - [x] |  | `sun-panel` | [sun-panel](https://github.com/hslr-s/sun-panel) | 1.8.1 | Server and NAS navigation panel, homepage, browser homepage |
-| - [x] |  | `tachidesk-server` | [tachidesk-server](https://github.com/Suwayomi/Suwayomi-Server) | 2.3.2243 | Self-hosted manga reader and aggregator server |
+| - [x] |  | `tachidesk-server` | [tachidesk-server](https://github.com/Suwayomi/Suwayomi-Server) | 2.4.2366 | Self-hosted manga reader and aggregator server |
 | - [x] |  | `telegramify-markdown` | [telegramify-markdown](https://github.com/sudoskys/telegramify-markdown) | 1.4.0 | Convert Markdown to Telegram plain text and entities |
 | - [ ] |  | `torrentool` | [torrentool](https://github.com/idlesign/torrentool) | 1.2.0 | Tool to work with torrent files |
 | - [x] |  | `tortoise-orm` | [tortoise-orm](https://github.com/tortoise/tortoise-orm) | 0.25.3 | Easy async ORM for Python with relations in mind |
-| - [x] |  | `vaults3` | [vaults3](https://github.com/Kodiqa-Solutions/VaultS3) | 4.4.76 | Lightweight S3-compatible object storage with built-in web dashboard |
+| - [x] |  | `vaults3` | [vaults3](https://github.com/Kodiqa-Solutions/VaultS3) | 4.4.77 | Lightweight S3-compatible object storage with built-in web dashboard |
 | - [x] |  | `vertex` | [vertex](https://github.com/vertex-center/vertex) | 0.17.0 | Self-hosted lab manager for one-click container service installation |
-| - [ ] |  | `ws-scrcpy` | [ws-scrcpy](https://github.com/NetrisTV/ws-scrcpy) | 0-unstable-2026-08-24 | Control Android devices from your browser via scrcpy over WebSocket |
+| - [ ] |  | `ws-scrcpy` | [ws-scrcpy](https://github.com/NetrisTV/ws-scrcpy) | 0-unstable-2026-09-30 | Control Android devices from your browser via scrcpy over WebSocket |
 | - [ ] | `x86_64-linux` | `zcode` | [zcode](https://zcode.z.ai) | 3.14.4 | Z.ai's official agentic development environment desktop app for GLM models |
 | - [x] |  | `zhconv-rs` | [zhconv-rs](https://github.com/Gowee/zhconv-rs) | 0.4.2-1 | Fast Chinese variant conversion backed by Rust |
 </details>
@@ -119,10 +119,10 @@ Build artifacts are cached in the Attic binary cache:
 | - [ ] |  | `uncategorized.nexus-media-web` | [nexus-media-web](https://github.com/linyuan0213/nexus-media-web) | 4.21.4 | Vue 3 web frontend for the Nexus Media media library manager |
 | - [ ] |  | `uncategorized.sublinkpro` | [sublinkpro](https://github.com/ZeroDeng01/sublinkPro) | 1.2.19 | Modern proxy subscription management panel with smart tags, speed tests and relay chains |
 | - [ ] |  | `uncategorized.sun-panel` | [sun-panel](https://github.com/hslr-s/sun-panel) | 1.8.1 | Server and NAS navigation panel, homepage, browser homepage |
-| - [ ] |  | `uncategorized.tachidesk-server` | [tachidesk-server](https://github.com/Suwayomi/Suwayomi-Server) | 2.3.2243 | Self-hosted manga reader and aggregator server |
-| - [ ] |  | `uncategorized.vaults3` | [vaults3](https://github.com/Kodiqa-Solutions/VaultS3) | 4.4.76 | Lightweight S3-compatible object storage with built-in web dashboard |
+| - [ ] |  | `uncategorized.tachidesk-server` | [tachidesk-server](https://github.com/Suwayomi/Suwayomi-Server) | 2.4.2366 | Self-hosted manga reader and aggregator server |
+| - [ ] |  | `uncategorized.vaults3` | [vaults3](https://github.com/Kodiqa-Solutions/VaultS3) | 4.4.77 | Lightweight S3-compatible object storage with built-in web dashboard |
 | - [ ] |  | `uncategorized.vertex` | [vertex](https://github.com/vertex-center/vertex) | 0.17.0 | Self-hosted lab manager for one-click container service installation |
-| - [ ] |  | `uncategorized.ws-scrcpy` | [ws-scrcpy](https://github.com/NetrisTV/ws-scrcpy) | 0-unstable-2026-08-24 | Control Android devices from your browser via scrcpy over WebSocket |
+| - [ ] |  | `uncategorized.ws-scrcpy` | [ws-scrcpy](https://github.com/NetrisTV/ws-scrcpy) | 0-unstable-2026-09-30 | Control Android devices from your browser via scrcpy over WebSocket |
 | - [ ] | `x86_64-linux` | `uncategorized.zcode` | [zcode](https://zcode.z.ai) | 3.14.4 | Z.ai's official agentic development environment desktop app for GLM models |
 </details>
 
