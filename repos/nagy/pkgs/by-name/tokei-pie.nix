@@ -6,12 +6,13 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "tokei-pie";
-  version = "1.2.0";
+  version = "1.2.2";
   pyproject = true;
 
   src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-uVRVBtsiALyX3iE3Dv3NaMXEFHFR0UrdTP/DgXusXeI=";
+    pname = "tokei_pie";
+    inherit version;
+    hash = "sha256-xglHgQCu7PZ45D3PSHodxCkez5d1gRh1WLcrGaGXcVw=";
   };
 
   nativeBuildInputs = [ python3.pkgs.poetry-core ];
@@ -22,6 +23,8 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   pythonImportsCheck = [ "tokei_pie" ];
+
+  pythonRelaxDeps = [ "plotly" ];
 
   meta = {
     description = "Draw a pie chart for tokei output";

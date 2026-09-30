@@ -2,20 +2,23 @@
   lib,
   fetchFromGitHub,
   rustPlatform,
+  zbar,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "zedbar";
-  version = "0.4.2";
+  version = "0.5.1";
 
   src = fetchFromGitHub {
     owner = "eventualbuddha";
     repo = "zedbar";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-lXDSUIB6cWRS2/PzuqgDhukz+ecsfP2ghAmMP+zCd/s=";
+    hash = "sha256-r/sQknpi8v3YemIXuH0r8rlFBHIsiqcGt6VlA3MRWAg=";
   };
 
-  cargoHash = "sha256-hhr8IaYwSitxnXHtDeuPf9tC/3pkCSTjk4/aAHZjYiA=";
+  cargoHash = "sha256-UJkFGTKF+UNBXbCwcobsfFE4tGkLRl7xqDftn6rys3E=";
+
+  nativeCheckInputs = [ zbar ];
 
   meta = {
     description = "Pure Rust barcode and QR code scanning library with a CLI";
