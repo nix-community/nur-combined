@@ -122,6 +122,87 @@ lib.mkOption {
                 description = "Arguments to pass to the MCP server command";
               };
 
+              channel_enabled = lib.mkOption {
+                type = lib.types.nullOr lib.types.bool;
+                default = false;
+                description = "Enable this MCP server as a channel (equivalent to --channels)";
+              };
+
+              channel_reply = lib.mkOption {
+                type = lib.types.submodule {
+                  options = {
+                    group = lib.mkOption {
+                      type = lib.types.submodule {
+                        options = {
+                          target_meta = lib.mkOption {
+                            type = lib.types.nullOr lib.types.str;
+                            default = null;
+                            description = "Channel meta attribute carrying the reply target; defaults to sender (user route) or group (group route)";
+                          };
+
+                          target_param = lib.mkOption {
+                            type = lib.types.nullOr lib.types.str;
+                            default = null;
+                            description = "Tool argument name that receives the reply target";
+                          };
+
+                          tool = lib.mkOption {
+                            type = lib.types.nullOr lib.types.str;
+                            default = null;
+                            description = "MCP tool name that sends the reply";
+                          };
+
+                        };
+                      };
+                      default = { };
+                      description = "Reply route for group messages";
+                    };
+
+                    message_param = lib.mkOption {
+                      type = lib.types.nullOr lib.types.str;
+                      default = "message";
+                      description = "Tool argument name that receives the reply text";
+                    };
+
+                    suppress_tools = lib.mkOption {
+                      type = lib.types.nullOr (lib.types.listOf lib.types.str);
+                      default = null;
+                      description = "Additional tool names that suppress the automatic reply when the model already called one of them during the turn";
+                    };
+
+                    user = lib.mkOption {
+                      type = lib.types.submodule {
+                        options = {
+                          target_meta = lib.mkOption {
+                            type = lib.types.nullOr lib.types.str;
+                            default = null;
+                            description = "Channel meta attribute carrying the reply target; defaults to sender (user route) or group (group route)";
+                          };
+
+                          target_param = lib.mkOption {
+                            type = lib.types.nullOr lib.types.str;
+                            default = null;
+                            description = "Tool argument name that receives the reply target";
+                          };
+
+                          tool = lib.mkOption {
+                            type = lib.types.nullOr lib.types.str;
+                            default = null;
+                            description = "MCP tool name that sends the reply";
+                          };
+
+                        };
+                      };
+                      default = { };
+                      description = "Reply route for direct messages";
+                    };
+
+                  };
+                };
+                default = { };
+                description = "Automatically route replies for turns originating from this channel back through one of the server's tools";
+              };
+
               command = lib.mkOption {
                 type = lib.types.nullOr lib.types.str;
                 default = null;
