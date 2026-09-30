@@ -657,6 +657,11 @@
             "sha256": "0kj93a4qadv5cr64cj3s76jlx4dl189nypc6k443125348jgh2l2",
             "url": "https://github.com/codgician/nur-packages"
         },
+        "colinsane": {
+            "rev": "61ce47ee492e1fd0af5b0710cb984d9df47bc917",
+            "sha256": "0v22n0j7gl38w87pz1knsswymp296i45xphdji3943d47a3irhrv",
+            "url": "https://git.uninsane.org/colin/nix-files"
+        },
         "colorman": {
             "rev": "26215976a192e9f0e1366f414e801963951bfad1",
             "sha256": "0ppw5swkg0awp2vh439fp0msa4sf2p49fq9zrc47h93y90s2vihg",
@@ -2632,8 +2637,8 @@
             "url": "https://github.com/uniquepointer/nur-babies"
         },
         "unstable-code": {
-            "rev": "7166edc84d42f5480dd14a398ceefe3114294a6d",
-            "sha256": "0ahjji21985xhji09pg2fa5spnja2xq18bjbivi8p0xjcdvpsaqm",
+            "rev": "dcb042d64697583c51c479de7493cd62f4cb1c72",
+            "sha256": "1bjvic31fkld901pj4c2jh38jc3ijv077c6n73cp6zdgblmq0dap",
             "url": "https://github.com/unstable-code/nur-packages"
         },
         "uriotv": {
