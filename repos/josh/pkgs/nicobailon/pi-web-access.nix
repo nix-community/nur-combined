@@ -8,13 +8,13 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "pi-web-access";
-  version = "0.33.0";
+  version = "0.34.0";
 
   src = fetchFromGitHub {
     owner = "nicobailon";
     repo = "pi-web-access";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-culvDJyexdP3eS6w3nfSBbWQ7atWD1iLH0PS+CpUA8k=";
+    hash = "sha256-KYcScVwKKuY393nzHtZBUVvQzBYaVm3JmBxVRuJY8PI=";
   };
 
   # Pi provides these packages at runtime, but their nested lock entries have no
@@ -34,7 +34,7 @@ buildNpmPackage (finalAttrs: {
     mv package-lock.patched.json package-lock.json
   '';
 
-  npmDepsHash = "sha256-Ah1hFuBbXNOQ/Aoj5eL+P4sf1WLwzK77vU0I/ylkV0g=";
+  npmDepsHash = "sha256-zpmjXj9+ntOAO9id3muGk2aGvsWzFAoP3gMSVSfHo4I=";
 
   npmFlags = [
     "--ignore-scripts"
