@@ -1,21 +1,27 @@
-name: Auto-update packages and flake
+name: Update packages and flake
 
 on:
   schedule:
-    # Run every day at 00:00 UTC
     - cron: '0 0 * * *'
-  workflow_dispatch: # Allow manual triggering
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: package-updates
+  cancel-in-progress: false
 
 jobs:
   update:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-      
+
       - name: Install nix
         uses: cachix/install-nix-action@630ae543ea3a38a9a4166f03376c02c50f408342 # v31.11.0
         with:
@@ -25,24 +31,27 @@ jobs:
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= mio.cachix.org-1:FlupyyLPURqwdRqtPT/LBWKsXY7JKsDkzZQo2K6LeMM= mio-cache.cachix.org-1:ouuIJZ59HIflYjpLW6DRyMc1c+6r3kC/LHuqGUsWigg= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8=
             substituters = https://mio.cachix.org/ https://mio-cache.cachix.org/ https://nix-community.cachix.org/ https://chaotic-nyx.cachix.org/ https://cache.nixos.org/
-      
+
       - name: Configure Git
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-      
-      - name: Update flake
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Update flake and packages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NIXPKGS_ALLOW_INSECURE: '1'
+          NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: '1'
         run: |
           nix flake update
-          git add flake.lock
-          if ! git diff --staged --quiet; then
-            git commit -m "chore: update flake.lock [automated]"
+          ./scripts/update-packages.sh
+
+      - name: Commit and push changes
+        run: |
+          git add flake.lock by-name pkgs
+          if git diff --cached --quiet; then
+            echo "No updates found."
+            exit 0
           fi
-      
-      - name: Auto-update packages
-        run: |
-          nix run nixpkgs#nix-update -- clice --flake --commit || true
-      
-      - name: Push changes
-        run: |
-          git push || echo "No changes to push"
+          git commit -m "chore: update packages [automated]"
+          git push

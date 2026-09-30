@@ -26,7 +26,53 @@
         }
       );
       packages = forAllSystems (
-        system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system}
+        system:
+        let
+          lib = nixpkgs.lib;
+          pkgs = nixpkgs.legacyPackages.${system};
+          legacyPackages = lib.filterAttrs (_: v: lib.isDerivation v) self.legacyPackages.${system};
+          isRunnable = value: lib.isDerivation value || builtins.isPath value || builtins.isString value;
+          directUpdateScript =
+            name: package:
+            let
+              updateScript = package.passthru.updateScript or null;
+              command =
+                if lib.isDerivation updateScript then
+                  {
+                    executable = lib.getExe updateScript;
+                    arguments = [ ];
+                  }
+                else if
+                  builtins.isList updateScript
+                  && updateScript != [ ]
+                  && isRunnable (builtins.head updateScript)
+                  && builtins.all (argument: builtins.isString argument || builtins.isPath argument) (
+                    builtins.tail updateScript
+                  )
+                then
+                  {
+                    executable =
+                      if lib.isDerivation (builtins.head updateScript) then
+                        lib.getExe (builtins.head updateScript)
+                      else
+                        builtins.toString (builtins.head updateScript);
+                    arguments = builtins.tail updateScript;
+                  }
+                else
+                  null;
+            in
+            if command == null then
+              package
+            else
+              package.overrideAttrs (_: {
+                passthru = (package.passthru or { }) // {
+                  updateScript = pkgs.writeShellScriptBin "update-${name}" ''
+                    exec ${command.executable} ${lib.escapeShellArgs command.arguments} "$@"
+                  '';
+                };
+              });
+        in
+        lib.mapAttrs directUpdateScript legacyPackages
       );
       cached = forAllSystems (system: self.legacyPackages.${system}.cached-set);
       cached-cuda = forAllSystems (
