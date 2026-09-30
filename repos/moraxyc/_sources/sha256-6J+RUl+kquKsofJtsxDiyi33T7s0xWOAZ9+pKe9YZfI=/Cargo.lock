@@ -561,7 +561,7 @@ checksum = "c8d4a3bb8b1e0c1050499d1815f5ab16d04f0959b233085fb31653fbfc9d98f9"
 
 [[package]]
 name = "clash-api"
-version = "1.0.0-rc.7"
+version = "1.0.0-rc.8"
 dependencies = [
  "axum",
  "backon",
@@ -578,6 +578,9 @@ dependencies = [
  "serde",
  "serde_json",
  "specta",
+ "specta-serde",
+ "specta-typescript",
+ "specta-util",
  "thiserror 2.0.19",
  "tokio",
  "tokio-util",
@@ -2189,13 +2192,14 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-core-manager"
-version = "1.0.0-rc.7"
+version = "1.0.0-rc.8"
 dependencies = [
  "camino",
  "chrono",
  "clash-api",
  "enumset",
  "futures-util",
+ "libc",
  "nyanpasu-core-manager",
  "nyanpasu-core-metadata",
  "nyanpasu-utils",
@@ -2218,7 +2222,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-core-metadata"
-version = "1.0.0-rc.7"
+version = "1.0.0-rc.8"
 dependencies = [
  "constcat",
  "enumset",
@@ -2231,7 +2235,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-ipc"
-version = "2.0.0-rc.7"
+version = "2.0.0-rc.8"
 dependencies = [
  "anyhow",
  "axum",
@@ -2261,7 +2265,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-jobs"
-version = "0.1.1-rc.1"
+version = "0.1.1-rc.2"
 dependencies = [
  "futures-util",
  "jiff",
@@ -2284,7 +2288,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-logging"
-version = "0.1.1-rc.3"
+version = "0.1.1-rc.4"
 dependencies = [
  "chrono",
  "file-id",
@@ -2302,7 +2306,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-service"
-version = "2.0.0-rc.9"
+version = "2.0.0-rc.10"
 dependencies = [
  "nyanpasu-service-runtime",
  "nyanpasu-utils",
@@ -2314,7 +2318,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-service-runtime"
-version = "2.0.0-rc.9"
+version = "2.0.0-rc.10"
 dependencies = [
  "ansi-str",
  "anyhow",
@@ -2403,7 +2407,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-windows-security"
-version = "0.1.1-rc.2"
+version = "0.1.1-rc.3"
 dependencies = [
  "anyhow",
  "tokio",
@@ -3629,6 +3633,15 @@ name = "specta-typescript"
 version = "0.0.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "639404ee95557f2f8b7e4cb773ffefd45304c7ab8ba21ac83b69051595e083c0"
+dependencies = [
+ "specta",
+]
+
+[[package]]
+name = "specta-util"
+version = "0.0.12"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "29b1fc02b446f7244a92924fe68c0555921209f1d342990cd1539e9138e69502"
 dependencies = [
  "specta",
 ]
