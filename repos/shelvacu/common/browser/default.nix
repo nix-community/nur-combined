@@ -139,6 +139,7 @@ lib.optionalAttrs (vacuModuleType == "nixos") {
       "browser.aboutConfig.showWarning" = false;
       "browser.display.use_system_colors" = true;
       "browser.download.lastDir" = "/home/shelvacu/Downloads";
+      "browser.nova.enabled" = false;
       "browser.protections_panel.infoMessage.seen" = true;
       "browser.rights.3.shown" = true;
       "browser.safebrowsing.blockedURIs.enabled" = false;
