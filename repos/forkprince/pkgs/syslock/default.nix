@@ -1,54 +1,48 @@
 {
-  wayland-protocols,
   gtk4-layer-shell,
-  wayland-scanner,
   fetchFromGitHub,
   wrapGAppsHook4,
-  nlohmann_json,
   pkg-config,
-  wlr-randr,
   libevdev,
   stdenv,
   gtkmm4,
   pam,
   lib,
-  git,
   ...
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "syslock";
-  version = "unstable-2025-05-10";
+  version = "unstable-2026-09-26";
 
   src = fetchFromGitHub {
     owner = "System64fumo";
     repo = "syslock";
-    rev = "18910f055ec57619e1685c8dd57514513836402c";
-    hash = "sha256-TaEkjxgw1yK5eaRs7mTxKsPt79ngID9F1L0Yqf/VFUM=";
+    rev = "d50ff661ad9142a5f1959b46e7a85d2fd621341d";
+    hash = "sha256-94HFPduHrxyuJYVscAqWKDWITiyrYD47+5jIbCC44WI=";
   };
 
   nativeBuildInputs = [
-    wayland-protocols
-    wayland-scanner
     wrapGAppsHook4
-    nlohmann_json
     pkg-config
-    wlr-randr
-    libevdev
-    pam
-    git
   ];
 
   buildInputs = [
     gtk4-layer-shell
     gtkmm4
+    libevdev
+    pam
   ];
 
-  # The auto-monitor patch may not be needed, further testing is needed.
-  patches = [./wayland-protocols.patch ./auto-monitor.patch];
+  postPatch = ''
+        cat > src/git_info.hpp <<EOF
+    #define GIT_COMMIT_MESSAGE "${finalAttrs.src.rev}"
+    #define GIT_COMMIT_DATE "${lib.removePrefix "unstable-" finalAttrs.version}"
+    EOF
+  '';
+
+  patches = [./auto-monitor.patch];
 
   NIX_CFLAGS_COMPILE = "-fexceptions";
-
-  makeFlags = ["WAYLAND_PROTOCOLS_DIR=${wayland-protocols}/share/wayland-protocols"];
 
   installPhase = ''
     runHook preInstall
@@ -64,11 +58,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     homepage = "https://github.com/System64fumo/syslock";
-    description = "Simple screen locker for wayland written in gtkmm 4.";
+    description = "Simple screen locker for Wayland written in gtkmm4";
     mainProgram = "syslock";
-    license = lib.licenses.wtfpl;
+    license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [Prinky];
-    platforms = ["x86_64-linux"];
+    platforms = lib.platforms.linux;
     sourceProvenance = [lib.sourceTypes.fromSource];
   };
 })

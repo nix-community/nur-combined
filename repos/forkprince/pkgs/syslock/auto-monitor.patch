@@ -1,61 +1,29 @@
-diff --git a/src/window.cpp b/src/window.cpp
-index 408db9c..e37a9ad 100644
---- a/src/window.cpp
-+++ b/src/window.cpp
-@@ -9,6 +9,36 @@
- #include <glibmm/main.h>
- #include <ctime>
+diff --git a/src/syslock.cpp b/src/syslock.cpp
+--- a/src/syslock.cpp
++++ b/src/syslock.cpp
+@@ -88,9 +88,23 @@
+ 	if (monitor != NULL)
+ 		connector = gdk_monitor_get_connector(monitor);
  
-+#include <nlohmann/json.hpp>
-+#include <cstdio>
-+#include <sstream>
-+
-+std::string get_primary_monitor_connector() {
-+	std::string output;
-+	char buffer[128];
-+	FILE* pipe = popen("wlr-randr --json", "r");
-+	if (!pipe) return "";
-+
-+	while (fgets(buffer, sizeof(buffer), pipe) != nullptr) {
-+		output += buffer;
-+	}
-+	pclose(pipe);
-+
-+	try {
-+		auto json = nlohmann::json::parse(output);
-+		for (auto& monitor : json["outputs"]) {
-+			if (monitor["enabled"] && monitor["make"] != nullptr) {
-+				// Pick the first enabled monitor
-+				return monitor["name"];
-+			}
-+		}
-+	} catch (...) {
-+		return "";
+-	const char *main_monitor = config_main["main"]["main-monitor"].c_str();
++	std::string main_monitor = config_main["main"]["main-monitor"];
+ 
+-	if (connector == NULL || !strcmp(connector, main_monitor)) {
++	bool is_main;
++	if (connector == NULL)
++		is_main = true;
++	else if (!main_monitor.empty())
++		is_main = !strcmp(connector, main_monitor.c_str());
++	else {
++		// No monitor configured, fall back to the first one in the layout
++		auto monitors = Gdk::Display::get_default()->get_monitors();
++		GObject* first = static_cast<GObject*>(g_list_model_get_item(monitors->gobj(), 0));
++		is_main = first != NULL && GDK_MONITOR(first) == monitor;
++		if (first != NULL)
++			g_object_unref(first);
 +	}
 +
-+	return "";
-+}
-+
- syslock::syslock(const std::map<std::string, std::map<std::string, std::string>>& cfg) {
- 	config_main = cfg;
- 
-@@ -199,6 +229,9 @@ void syslock::on_monitors_changed(guint position, guint removed, guint added) {
- 		if (monitor_windows.find(conn_str) == monitor_windows.end()) {			
- 			Gtk::Window* window;
- 			std::string main_monitor = config_main["main"]["main-monitor"];
-+			if (main_monitor.empty()) {
-+				main_monitor = get_primary_monitor_connector();
-+			}
- 
- 			if (main_monitor == conn_str || (main_monitor == "" && i == 0)) {
- 				window = create_main_window(monitor);
-@@ -242,6 +275,9 @@ void syslock::handle_monitors_initial() {
- 	guint n_monitors = monitor_list->get_n_items();
- 
- 	std::string main_monitor = config_main["main"]["main-monitor"];
-+	if (main_monitor.empty()) {
-+		main_monitor = get_primary_monitor_connector();
-+	}
- 	for (guint i = 0; i < n_monitors; ++i) {
- 		GObject* raw = static_cast<GObject*>(g_list_model_get_item(monitor_list->gobj(), i));
- 		auto monitor = GDK_MONITOR(raw);
++	if (is_main) {
+ 		syslock_window* window = new syslock_window(&config_main);
+ 		window->dispatcher_auth.connect(sigc::mem_fun(*this, &syslock::unlock));
+ 		setup_window(window->gobj(), monitor, "syslock");
