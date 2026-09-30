@@ -15,8 +15,8 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "suwayomi-webui";
-  version = "20260726.01";
-  revision = "3379";
+  version = "20260929.01";
+  revision = "3518";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -25,14 +25,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     owner = "Suwayomi";
     repo = "Suwayomi-WebUI";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-1eYVgoYSBX2ZHTZUXi0TN17m1UresEfdTc4Sq8rykbU=";
+    hash = "sha256-qw6PU9tuzWvxuHS6JiBouHnmbMZvFcjV1mLvjUsmnug=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-tbaNDI2kJKwriZGaSgqQAKPAB8ser53Nc6J4Jp6aqFY=";
+    hash = "sha256-LnbT0i6y+5xDmxHPcJUeaJ2c97OgW9a49GLMilk5VkM=";
   };
 
   nativeBuildInputs = [

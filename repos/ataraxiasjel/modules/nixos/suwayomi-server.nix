@@ -25,6 +25,7 @@ let
           "basicAuthEnabled"
           "basicAuthPasswordFile"
           "basicAuthUsername"
+          "syncYomiApiKeyFile"
         ];
       }
     )
@@ -128,6 +129,17 @@ in
               '';
             };
 
+            # NOTE: this is not a real upstream option
+            syncYomiApiKeyFile = mkOption {
+              type = types.nullOr types.externalPath;
+              default = null;
+              example = "/var/secrets/suwayomi-server-syncyomi-apikey";
+              description = ''
+                The file containing the API key used for SyncYomi (maps to the upstream
+                {option}`services.suwayomi-server.settings.server.syncYomiApiKey` option).
+              '';
+            };
+
             downloadAsCbz = mkOption {
               type = types.bool;
               default = false;
@@ -191,6 +203,14 @@ in
           [suwayomi-server]: the username and the password file cannot be null when the basic auth is enabled
         '';
       }
+      {
+        assertion =
+          with cfg.settings.server;
+          syncYomiApiKeyFile == null || !(cfg.settings.server ? syncYomiApiKey);
+        message = ''
+          [suwayomi-server]: server.syncYomiApiKey and server.syncYomiApiKeyFile cannot both be set
+        '';
+      }
     ];
 
     networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.settings.server.port ];
@@ -244,6 +264,10 @@ in
           set -u
           JAVA_TOOL_OPTIONS="''${JAVA_TOOL_OPTIONS:+$JAVA_TOOL_OPTIONS }-Dsuwayomi.tachidesk.config.server.authPassword=$(cat "$CREDENTIALS_DIRECTORY/TACHIDESK_SERVER_AUTH_PASSWORD")"
         '')
+        + (lib.optionalString (cfg.settings.server.syncYomiApiKeyFile != null) ''
+          set -u
+          JAVA_TOOL_OPTIONS="''${JAVA_TOOL_OPTIONS:+$JAVA_TOOL_OPTIONS }-Dsuwayomi.tachidesk.config.server.syncYomiApiKey=$(cat "$CREDENTIALS_DIRECTORY/TACHIDESK_SERVER_SYNCYOMI_API_KEY")"
+        '')
         + ''
           ${lib.getExe cfg.package}
         '';
@@ -253,9 +277,13 @@ in
         Restart = "on-failure";
 
         StateDirectory = mkIf (cfg.dataDir == "/var/lib/suwayomi-server") "suwayomi-server";
-        LoadCredential = mkIf (cfg.settings.server.authMode != "none") [
-          "TACHIDESK_SERVER_AUTH_PASSWORD:${cfg.settings.server.authPasswordFile}"
-        ];
+        LoadCredential =
+          lib.optionals (cfg.settings.server.authMode != "none") [
+            "TACHIDESK_SERVER_AUTH_PASSWORD:${cfg.settings.server.authPasswordFile}"
+          ]
+          ++ lib.optionals (cfg.settings.server.syncYomiApiKeyFile != null) [
+            "TACHIDESK_SERVER_SYNCYOMI_API_KEY:${cfg.settings.server.syncYomiApiKeyFile}"
+          ];
 
         # Hardening
         User = cfg.user;

@@ -21,14 +21,14 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "suwayomi-server";
-  version = "2.3.2243";
+  version = "2.4.2366";
 
   __structuredAttrs = true;
   src = fetchFromGitHub {
     owner = "Suwayomi";
     repo = "Suwayomi-Server";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-QKI014c7ktf6OGB1pd7gKzVGiqBGSZjpMecn2Adu3Ik=";
+    hash = "sha256-a54ltRYnCCemMFGbh8ENIc+PPautKwduV6hUcFJoMzI=";
   };
 
   patches = [
