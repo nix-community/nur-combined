@@ -10,6 +10,6 @@
     "file": "xuan-{version}-linux-x86_64.tar.gz",
     "unpack": false
   },
-  "version": "0.2.3",
-  "hash": "sha256-TWSXBnFAXL9KoP4buZxFjjq1v9Yu7NKRAJTIluPFYVQ="
+  "version": "0.3.0",
+  "hash": "sha256-DX/UugOJuYctIUNXBwtKJJat+vL5S1rMR9/oTfM2+iU="
 }

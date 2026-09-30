@@ -8,16 +8,16 @@
   "version": "0.5.0-alpha2",
   "platforms": {
     "x86_64-linux": {
-      "version": "0.5.0-alpha2",
-      "file": "oak-editor_0.5.0_x86_64.AppImage",
+      "version": "0.5.1-alpha",
+      "file": "oak-editor_0.5.1_x86_64.AppImage",
       "query": "[0].assets.find(a => a.name.endsWith('_x86_64.AppImage')).name",
-      "hash": "sha256-GTlCJNF2ynwEbnoaUsH7al+ZrRyv/ADbiFIs7Cgrv1Q="
+      "hash": "sha256-1VuJ1PLMJti1gkTZqh4gKL0hd6soXwF9b8Y5w81ZlmA="
     },
     "aarch64-darwin": {
-      "version": "0.5.0-alpha2",
+      "version": "0.5.1-alpha",
       "file": "Oak-macOS-arm64.dmg",
       "query": "[0].assets.find(a => a.name.endsWith('.dmg')).name",
-      "hash": "sha256-Ids4A/GPQFzeUMHd5vcphghHrhXnDsUeb2RrGwI/IzM="
+      "hash": "sha256-rdGoccvjRD6qui7IY35Tw260epufHTr27HS9BKPkISY="
     }
   }
 }
