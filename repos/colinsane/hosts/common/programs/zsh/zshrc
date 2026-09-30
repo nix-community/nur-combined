@@ -5,7 +5,8 @@ HISTFILE="$HOME/.local/share/zsh/history"
 HISTSIZE=1000000
 SAVEHIST=1000000
 
-# auto-cd into any of these dirs by typing them and pressing 'enter':
+# auto-cd into any of these dirs by typing them and pressing 'enter'.
+# in case of ambiguity, prefix with ~ e.g. ~3rd.
 hash -d 3rd="$HOME/dev/3rd"
 hash -d dev="$HOME/dev"
 hash -d knowledge="$HOME/knowledge"

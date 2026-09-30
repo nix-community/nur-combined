@@ -7,6 +7,8 @@
 let
   models = {
     inherit (mlModels)
+      # bonsai-8b-q1_0
+      bonsai-27b-q1_0
       # # gemma-4-e2b-it-bf16
       # gemma-4-e2b-it-q4_k_s
       # # gemma-4-e2b-it-q6_k
@@ -40,13 +42,14 @@ let
       # lfm2_5-230m-fable-5-q8_0
       # lfm2_5-8b-a1b-ud-iq4_xs
       # liquidai-lfm2-24b-a2b-iq4_xs
+      minicpm5-2b-q4_k_m
       # minimax-m2_5
       # nemotron-3-nano-4b
       # nemotron-3-nano-30b-a3b
       # omnicoder-9b
       # ornith-1_0-35b-q4_k_m
       # qwen-agentworld-35b-a3b-ud-iq2_m
-      qwen-agentworld-35b-a3b-ud-iq3_s  # seems equally capable as iq4_nl
+      # qwen-agentworld-35b-a3b-ud-iq3_s  # seems equally capable as iq4_nl
       # qwen-agentworld-35b-a3b-iq4_nl
       qwen3_5-2b-mtp-ud-q4_k_xl
       # qwen3_5-35b-a3b-q4_k_m
@@ -58,18 +61,19 @@ let
       # qwen3_5-9b-claude-4_6-opus-reasoning-distilled-q2_k
       # qwen3_5-9b-claude-4_6-opus-reasoning-distilled-q3_k_m
       # qwen3_5-27b-claude-4_6-opus-reasoning-distilled-v2
-      qwen3_5-122b-a10b-ud-iq4_xs
+      # qwen3_5-122b-a10b-ud-iq4_xs
       # qwen3_5-122b-a10b-ud-q4_k_xl
       # qwen3_6-27b-mtp-q4_k_m
       # qwen3_6-35b-a3b-ud-q4_k_m
       qwen3_6-35b-a3b-mtp-ud-q4_k_m
       qwen3_6-35b-a3b-uncensored-hauhaucs-aggressive-q3_k_p
-      qwen3_5-122b-a10b-uncensored-hauhaucs-aggressive-q3_k_p
-      qwen3-next-80b-a3b-thinking-grpo-uncensored-i1-q4_k_s
+      # qwen3_5-122b-a10b-uncensored-hauhaucs-aggressive-q3_k_p
+      # qwen3-next-80b-a3b-thinking-grpo-uncensored-i1-q4_k_s
       # qwopus3_6-35b-a3b-coder-mtp-q4_k_m
       # qwythos-9b-claude-mythos-5-1m-q4_k_m
-      qwythos-9b-v2-q4_k_m
+      # qwythos-9b-v2-q4_k_m
       # step3_7-flash-iq4_xs
+      ternary-bonsai-2-27b-ptq1_0
     ;
   };
   models' = lib.mapAttrs (k: drv: drv.overrideAttrs (prevAttrs': {
@@ -82,17 +86,21 @@ let
     value = model.preset or {};
   }) models';
 in
-(linkFarm "llama-cpp-models" (lib.mapAttrs'
-  (k: value: {
-    inherit value;
-    inherit (value) name;
-  })
-  models'
+(linkFarm "llama-cpp-models" (
+  {
+    "presets.ini" = writeText "presets.ini" (lib.generators.toINI { } presets);
+  } //
+  (lib.mapAttrs'
+    (k: value: {
+      inherit value;
+      inherit (value) name;
+    })
+    models'
+  )
 )).overrideAttrs (prevAttrs: {
   passthru = (prevAttrs.passthru or {}) // {
     inherit presets;
     models = models';
-    presetsIni = writeText "presets.ini" (lib.generators.toINI { } presets);
   };
 })
 

@@ -549,7 +549,7 @@
     "id": "z-ai/glm-5.3-flash-uncensored",
     "name": "GLM 5.3 Flash Uncensored",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0001,
+      "cacheReadInputPer1kTokens": 7e-05,
       "completion": 0.8,
       "currency": "USD",
       "prompt": 0.2,
@@ -1318,13 +1318,13 @@
     }
   },
   {
-    "id": "xiaomi/mimo-v2.6-flash-uncensored",
-    "name": "MiMo V2.6 Flash Uncensored",
+    "id": "heabsy/cyberheabsy",
+    "name": "CyberHeabsy",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.000275,
-      "completion": 1.5,
+      "completion": 4.5,
       "currency": "USD",
-      "prompt": 0.5,
+      "prompt": 1.5,
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
@@ -1339,8 +1339,52 @@
     }
   },
   {
+    "id": "xiaomi/mimo-v2.6-flash-uncensored",
+    "name": "MiMo V2.6 Flash Uncensored",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.0001995,
+      "completion": 1.5,
+      "currency": "USD",
+      "prompt": 0.5,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1048576,
+    "max_output_tokens": 65536,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
     "id": "xiaomi/mimo-v2.6-flash-uncensored:thinking",
     "name": "MiMo V2.6 Flash Uncensored Thinking",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.0001995,
+      "completion": 1.5,
+      "currency": "USD",
+      "prompt": 0.5,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1048576,
+    "max_output_tokens": 65536,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "xiaomi/mimo-v2.6-flash-abliterated",
+    "name": "MiMo V2.6 Flash Abliterated",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.000275,
       "completion": 1.5,
@@ -1355,7 +1399,8 @@
     },
     "architecture": {
       "input_modalities": [
-        "text"
+        "text",
+        "image"
       ]
     }
   },
@@ -1749,6 +1794,28 @@
         "image",
         "video",
         "audio"
+      ]
+    }
+  },
+  {
+    "id": "longcat-2.5-preview",
+    "name": "LongCat 2.5 Preview",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 1.5e-05,
+      "completion": 2.95,
+      "currency": "USD",
+      "prompt": 0.75,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1000000,
+    "max_output_tokens": 131072,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
       ]
     }
   },
@@ -4310,50 +4377,6 @@
         "image",
         "video",
         "audio"
-      ]
-    }
-  },
-  {
-    "id": "nex-agi/nex-n2.5-mini",
-    "name": "Nex N2.5 Mini",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 2.5e-06,
-      "completion": 0.1,
-      "currency": "USD",
-      "prompt": 0.025,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "nex-agi/nex-n2.5-pro",
-    "name": "Nex N2.5 Pro",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 1.5e-05,
-      "completion": 0.25,
-      "currency": "USD",
-      "prompt": 0.075,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
       ]
     }
   },

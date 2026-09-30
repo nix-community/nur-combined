@@ -14,6 +14,7 @@ interface LlamaModel {
 async function startServer(): Promise<{ child: ChildProcess; url: string; models: LlamaModel[] }> {
   const child = spawn("@llama_server@", [
     "--models-dir", modelsDir,
+    "--models-preset", join(modelsDir, "presets.ini"),
     "--fit-ctx", "131072",
     "--fit-target", "512",
     "--no-warmup",

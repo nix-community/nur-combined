@@ -200,6 +200,32 @@ in
         pushd "$1"
       }
 
+      function _cdNamed() {
+        # N.B.: we want to inherit the caller's `auto_cd` option, so use `setopt local_options` instead of `emulate -L zsh`.
+        # both create a new option namespace; `emulate -L` resets all options within it while `setopt local_options` does not.
+        setopt local_options err_return nounset pipefail
+        local name=$1
+        shift
+        local d=''${nameddirs[$name]-}
+        if [[ -n "$d" ]] && [[ "$d" == "$PWD/$name/"* ]]; then
+          # if the named dir is a descendent of an entry in PWD with the same name, descend all the way
+          ~"$name" "$@"
+        else
+          # otherwise, defer to zsh's default auto-cd behavior
+          command "$name" "$@"
+        fi
+      }
+
+      function nixos() {
+        setopt local_options err_return nounset pipefail
+        _cdNamed nixos "$@"
+      }
+
+      function nixpkgs() {
+        setopt local_options err_return nounset pipefail
+        _cdNamed nixpkgs "$@"
+      }
+
       function repo() {
         # navigate to a local checkout of the source code for repo (i.e. package) $1
         eval $(sane-clone "$1")

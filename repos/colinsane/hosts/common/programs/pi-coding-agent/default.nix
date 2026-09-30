@@ -313,7 +313,7 @@ in
     ];
     fs.".config/pi/trust.json".symlink.target = "trust/trust.json";
 
-    fs.".config/pi/mcp.json".symlink.target = mcpConfig;
+    fs.".config/pi/mcp-adapter.json".symlink.target = mcpConfig;
     fs.${if cfg.pi-offline-provider then ".config/pi/offline-provider/models" else null} = {
       symlink.target = offlineModels;
     };
@@ -360,7 +360,8 @@ in
       # defaultModel = llamaCppModels.gemma-4-26b-a4b-it-qat-ud-q4_k_xl.id;
       # defaultModel = llamaCppModels.qwen3_5-122b-a10b-ud-q4_k_xl.id;
       # defaultModel = llamaCppModels.qwen3_5-122b-a10b-ud-iq4_xs.id;
-      defaultModel = llamaCppModels.qwen-agentworld-35b-a3b-ud-iq3_s.id;
+      # defaultModel = llamaCppModels.qwen-agentworld-35b-a3b-ud-iq3_s.id;
+      defaultModel = llamaCppModels.qwen3_6-35b-a3b-mtp-ud-q4_k_m.id;
       defaultProvider = "llama-cpp";
       defaultThinkingLevel = "medium";
       enableInstallTelemetry = false;
