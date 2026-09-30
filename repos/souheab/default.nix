@@ -23,6 +23,7 @@
 
   anything-llm = pkgs.callPackage ./pkgs/anything-llm { };
   claude-desktop = pkgs.callPackage ./pkgs/claude-desktop { };
+  koharu = pkgs.callPackage ./pkgs/koharu { };
   open-pencil = pkgs.callPackage ./pkgs/open-pencil { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
