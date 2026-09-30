@@ -37,7 +37,7 @@
     },
     "emacs-plus": {
         "cargoLock": null,
-        "date": "2026-09-29",
+        "date": "2026-09-30",
         "extract": null,
         "name": "emacs-plus",
         "passthru": null,
@@ -49,12 +49,12 @@
             "name": null,
             "owner": "d12frosted",
             "repo": "homebrew-emacs-plus",
-            "rev": "2d6afb2ec4869b8dc3098541696d0d9d362cc8f0",
-            "sha256": "sha256-0LrPyoSbxHDlkIjerjbrVDjmHslCNGEurGtYzqPajdo=",
+            "rev": "25123e7b19ee93d61956ef3c83341d51d0a77d33",
+            "sha256": "sha256-dR7NumTtlSdh9EhwnFmCAHJDRnZJyo5XNqti34WB5N4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2d6afb2ec4869b8dc3098541696d0d9d362cc8f0"
+        "version": "25123e7b19ee93d61956ef3c83341d51d0a77d33"
     },
     "hammerspoon": {
         "cargoLock": null,
@@ -194,11 +194,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-IoyVcUdVT2sb4jYHHBqI1GR1NFNguDsjqOu02ifQN28=",
+            "sha256": "sha256-hcP32y/Oidsk4sOdf7RB82LII+FnfW7opTCdjK/sF3k=",
             "type": "url",
-            "url": "https://downloads.vivaldi.com/stable/Vivaldi.8.2.4133.76.universal.dmg"
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.8.2.4133.80.universal.dmg"
         },
-        "version": "8.2.4133.76"
+        "version": "8.2.4133.80"
     },
     "zen-browser": {
         "cargoLock": null,
