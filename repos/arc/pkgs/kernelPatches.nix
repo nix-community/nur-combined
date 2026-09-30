@@ -49,6 +49,21 @@
             -e 's/-331,12 +742,12/-331,11 +742,11/' -e '/^ \tdefault "4"$/d'
         '';
       };
+      "7.2" = {
+        versionRange = "6.16+";
+        sha256 = "sha256-9qqy4N0XZKWbjiA22Gf5PSzt9KOJKDz2W9DKllAJWXs=";
+        lite = true;
+        # compensate for 7.1 and more
+        postFetch = ''
+          sed -i $out \
+            -e 's/MELAN || M486SX || M486 || //' \
+            -e 's/MWINCHIP3D || MWINCHIPC6 || //' \
+            -e 's/-281,6 +296,402/-281,6 +296,401/' -e '/^.\tdepends on !X86_NATIVE_CPU/d' \
+            -e 's/-309,19 +720,19/-309,18 +720,18/' -e '/^.\tdepends on (MW/d' \
+            -e 's/ if X86_32 && X86_CX8$//' \
+            -e 's/-331,12 +742,12/-331,11 +742,11/' -e '/^ \tdefault "4"$/d'
+        '';
+      };
     };
     doSrc = v: { versionRange, sha256, postFetch ? null, ... }@src: fetchpatch {
       name = name + "-${versionRange}.patch";
@@ -82,7 +97,9 @@
       then srcs."6.15-rc1"
       else if lib.versionOlder linux.version "7.1"
       then srcs."6.16"
-      else srcs."7.1";
+      else if lib.versionOlder linux.version "7.2"
+      then srcs."7.1"
+      else srcs."7.2";
     extraConfig = let
       archconfig = if kernelArch != null then kernelArch else {
         barcelona = "MBARCELONA";
