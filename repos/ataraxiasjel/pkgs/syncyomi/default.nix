@@ -39,7 +39,7 @@ buildGoModule rec {
         ;
       inherit pnpm;
       fetcherVersion = 4;
-      hash = "sha256-o9MwiZ4tbIbe8KxpXPSJqcBSGcukHsfB+TEgcqGF+Is=";
+      hash = "sha256-blfqDY8Is/CtNE653yWU+v0Q/BcTZAa89VVmknPmXAA=";
     };
 
     nativeBuildInputs = [
