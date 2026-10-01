@@ -130,5 +130,11 @@ in symlinkJoin {
             redistributable = true;
         };
         platforms = pkgs.lib.platforms.linux;
+        # pi's dependencies come from its npm workspace lockfile, which needs
+        # the npmDepsFetcherVersion packument cache; that fetcher only exists
+        # from the 26.05 channels on, so the stable 25.11 leg cannot resolve
+        # @earendil-works/*. Mark the whole package unsupported there instead
+        # of failing that CI leg.
+        broken = lib.versionOlder lib.trivial.release "26.05";
     };
 }

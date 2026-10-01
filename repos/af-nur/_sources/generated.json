@@ -308,12 +308,12 @@
             "name": null,
             "owner": "SHORiN-KiWATA",
             "repo": "linuxqq-wayland-screenshare-fix",
-            "rev": "25d0767b55bf432a70c70b9883a950cdd60533eb",
-            "sha256": "sha256-L83+So0eoeZb5EuObz4ScjUnWfkzp1Y6HlFnWEP5XKQ=",
+            "rev": "c5b84d930178fe6eb4f97b5f89d3933e63f514e9",
+            "sha256": "sha256-bBv1iUgQTGDxbkO0tvTdMlXoH942oNlEGquqlvVdF8s=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "25d0767b55bf432a70c70b9883a950cdd60533eb"
+        "version": "c5b84d930178fe6eb4f97b5f89d3933e63f514e9"
     },
     "qq-x86_64": {
         "cargoLock": null,

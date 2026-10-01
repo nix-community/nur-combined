@@ -5,6 +5,9 @@
   glib,
   libpulseaudio,
   pipewire,
+  libx11,
+  wayland,
+  wayland-scanner,
   qq,
   sources,
 }:
@@ -34,28 +37,34 @@ let
 
     src = sources.qq-wlss.src;
 
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [
+      pkg-config
+      wayland-scanner
+    ];
     buildInputs = [
       glib
       libpulseaudio
       pipewire
+      libx11
+      wayland
     ];
 
     buildPhase = ''
       runHook preBuild
-      make libqq-wl-portal.so VERSION=${screenshareVersion}
+      make libqq-wl-portal.so libqq-clipbridge.so VERSION=${screenshareVersion}
       runHook postBuild
     '';
 
     installPhase = ''
       runHook preInstall
       install -Dm755 libqq-wl-portal.so $out/lib/libqq-wl-portal.so
+      install -Dm755 libqq-clipbridge.so $out/lib/libqq-clipbridge.so
       install -Dm644 LICENSE $out/share/licenses/linuxqq-wayland-screenshare-fix/LICENSE
       runHook postInstall
     '';
 
     meta = {
-      description = "LD_PRELOAD shim that enables Linux QQ's built-in Wayland screen sharing";
+      description = "LD_PRELOAD shims that fix Linux QQ's Wayland screen sharing and clipboard integration";
       homepage = "https://github.com/SHORiN-KiWATA/linuxqq-wayland-screenshare-fix";
       license = lib.licenses.mit;
       platforms = [
@@ -76,6 +85,7 @@ qq.overrideAttrs (old: {
   postFixup = (old.postFixup or "") + ''
     wrapProgram $out/bin/qq \
       --prefix LD_PRELOAD : ${screenshareFix}/lib/libqq-wl-portal.so \
+      --prefix LD_PRELOAD : ${screenshareFix}/lib/libqq-clipbridge.so \
       --prefix LD_LIBRARY_PATH : ${lib.getLib pipewire}/lib \
       --set XDG_SESSION_TYPE x11 \
       --set-default MESA_SHADER_CACHE_DISABLE true \

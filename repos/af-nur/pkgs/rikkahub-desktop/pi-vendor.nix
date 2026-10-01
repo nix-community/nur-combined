@@ -68,4 +68,9 @@ buildNpmPackage {
         cp -a . $out/
         runHook postInstall
     '';
+    # NOTE: the stable 25.11 channel cannot install this npm workspace (no
+    # npmDepsFetcherVersion packument cache), so pkgs/rikkahub-desktop marks
+    # the top-level package broken there; this inner derivation is not a
+    # separately exported attribute, so a `broken` flag here would be ignored
+    # by ci.nix and `nix-build -A`.
 }

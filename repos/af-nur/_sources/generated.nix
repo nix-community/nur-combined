@@ -180,13 +180,13 @@
   };
   qq-wlss = {
     pname = "qq-wlss";
-    version = "25d0767b55bf432a70c70b9883a950cdd60533eb";
+    version = "c5b84d930178fe6eb4f97b5f89d3933e63f514e9";
     src = fetchFromGitHub {
       owner = "SHORiN-KiWATA";
       repo = "linuxqq-wayland-screenshare-fix";
-      rev = "25d0767b55bf432a70c70b9883a950cdd60533eb";
+      rev = "c5b84d930178fe6eb4f97b5f89d3933e63f514e9";
       fetchSubmodules = false;
-      sha256 = "sha256-L83+So0eoeZb5EuObz4ScjUnWfkzp1Y6HlFnWEP5XKQ=";
+      sha256 = "sha256-bBv1iUgQTGDxbkO0tvTdMlXoH942oNlEGquqlvVdF8s=";
     };
     date = "2026-10-01";
   };
