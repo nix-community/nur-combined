@@ -8,39 +8,16 @@ Personal Nix packages and modules.
 
 </div>
 
+## Unattended updates
+
+Packages get updated automatically, and updates that build successfully go straight to `main` without human review. A passing build does not mean everything works, so occasional breakage is possible.
+
 ## Usage
 
 ### Run directly from this flake
 
 ```sh
 nix run github:duncannah/nur-packages#gomerge -- --help
-```
-
-### Manual flake installation
-
-Add this repository as an input in your own `flake.nix`:
-
-```nix
-inputs = {
-  nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-  nurPackages.url = "github:duncannah/nur-packages";
-};
-```
-
-Add the package to your system package list:
-
-```nix
-environment.systemPackages = [
-  nurPackages.packages.${pkgs.system}.gomerge
-];
-```
-
-The `nurPackages` input must be available in the `outputs` function:
-
-```nix
-outputs = { self, nixpkgs, nurPackages, ... }: {
-  # Your system and user configurations go here.
-};
 ```
 
 ### Use through NUR
@@ -72,6 +49,33 @@ You can then add the package to your system or user packages:
 pkgs.nur.repos.duncannah.gomerge
 ```
 
+### Manual flake installation
+
+Add this repository as an input in your own `flake.nix`:
+
+```nix
+inputs = {
+  nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  nurPackages.url = "github:duncannah/nur-packages";
+};
+```
+
+Add the package to your system package list:
+
+```nix
+environment.systemPackages = [
+  nurPackages.packages.${pkgs.system}.gomerge
+];
+```
+
+The `nurPackages` input must be available in the `outputs` function:
+
+```nix
+outputs = { self, nixpkgs, nurPackages, ... }: {
+  # Your system and user configurations go here.
+};
+```
+
 ## Cachix
 
 Cachix provides builds from the `duncannah-nur` cache, for `x86_64-linux`, `aarch64-linux`, and `aarch64-darwin`.
@@ -85,4 +89,6 @@ nixConfig = {
 };
 ```
 
-These settings work with standalone Nix, NixOS, and nix-darwin. Only trust caches and signing keys that you have reviewed. See the [Nix binary cache guide](https://nix.dev/guides/recipes/add-binary-cache.html) and [Stop trusting Nix caches](https://web.archive.org/web/20251001154446/https://garnix.io/blog/stop-trusting-nix-caches).
+These settings work with standalone Nix, NixOS, and nix-darwin.
+
+Only trust caches and signing keys that you have reviewed. See the [Nix binary cache guide](https://nix.dev/guides/recipes/add-binary-cache.html) and [Stop trusting Nix caches](https://web.archive.org/web/20251001154446/https://garnix.io/blog/stop-trusting-nix-caches).
