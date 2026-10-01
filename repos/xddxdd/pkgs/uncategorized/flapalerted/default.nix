@@ -6,12 +6,12 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "flapalerted";
-  version = "4.5.1";
+  version = "4.6.0";
   src = fetchFromGitHub {
     owner = "Kioubit";
     repo = "FlapAlerted";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-SEXiD/PVqlCozQPBlCKbLmdXueyQsCjc2Fsmhy4r5qI=";
+    hash = "sha256-7uK8d0XLSYRWHmw7wMxJsNpefdJTdzWWc5/lavz1vjM=";
   };
   vendorHash = null;
 
