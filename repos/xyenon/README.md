@@ -139,6 +139,16 @@ Uncomment this if you use travis:
 </details>
 
 <details>
+<summary><strong><code>magpie</code></strong> — Manage models, providers, and accounts for AI coding agents in one place</summary>
+
+- **Version:** `0.1.603`
+- **License:** MIT
+- **Homepage:** [https://github.com/yetone/magpie](https://github.com/yetone/magpie)
+- **Build:** `nix build github:XYenon/nur-packages#magpie`
+
+</details>
+
+<details>
 <summary><strong><code>nginx</code></strong> — Reverse proxy and lightweight webserver</summary>
 
 - **Version:** `1.30.5`
