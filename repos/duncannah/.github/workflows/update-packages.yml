@@ -48,6 +48,8 @@ jobs:
           echo "NIX_PATH=nixpkgs=$nixpkgs_path" >> "$GITHUB_ENV"
 
       - name: Discover, update, and build packages
+        env:
+          NIXPKGS_ALLOW_UNFREE: "1"
         run: |
           updater=$(nix-build scripts/update-packages.nix -A script --no-out-link)
           "$updater"
