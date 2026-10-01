@@ -15,7 +15,8 @@ package_json="$(
           builtins.isAttrs package
           && (package.type or null) == "derivation"
           && builtins.isAttrs (package.passthru or {})
-          && builtins.isAttrs (package.passthru.updateScript or null) && (package.passthru.updateScript.type or null) == "derivation")
+          && (package.passthru ? updateScript)
+        )
         (builtins.attrNames packages)
     ' ".#packages.${system}"
 )" || {
@@ -32,11 +33,43 @@ fi
 failed=()
 for package in "${packages[@]}"; do
   echo "::group::Updating ${package}"
-  if nix run --impure ".#${package}.passthru.updateScript"; then
-    echo "Updated ${package}."
+  
+  is_drv=$(nix eval --impure --json ".#packages.${system}.${package}.passthru.updateScript.type" 2>/dev/null || echo '""')
+  if [[ "$is_drv" == '"derivation"' ]]; then
+    if nix run --impure ".#${package}.passthru.updateScript"; then
+      echo "Updated ${package}."
+    else
+      echo "Update failed for ${package}." >&2
+      failed+=("${package}")
+    fi
   else
-    echo "Update failed for ${package}." >&2
-    failed+=("${package}")
+    echo "Running non-derivation update script for ${package}..."
+    script_json=$(nix eval --impure --json ".#packages.${system}.${package}.passthru.updateScript" 2>/dev/null || echo "")
+    if [[ -n "$script_json" && "$script_json" != '""' ]]; then
+      if echo "$script_json" | jq -e 'type == "array"' > /dev/null; then
+        mapfile -t cmd_args < <(echo "$script_json" | jq -r '.[]')
+        if env UPDATE_NIX_ATTR_PATH="${package}" "${cmd_args[@]}"; then
+          echo "Updated ${package}."
+        else
+          echo "Update failed for ${package}." >&2
+          failed+=("${package}")
+        fi
+      elif echo "$script_json" | jq -e 'type == "string"' > /dev/null; then
+        script_path=$(echo "$script_json" | jq -r '.')
+        if env UPDATE_NIX_ATTR_PATH="${package}" "$script_path"; then
+          echo "Updated ${package}."
+        else
+          echo "Update failed for ${package}." >&2
+          failed+=("${package}")
+        fi
+      else
+        echo "Unsupported updateScript format for ${package}." >&2
+        failed+=("${package}")
+      fi
+    else
+      echo "Failed to evaluate updateScript for ${package}." >&2
+      failed+=("${package}")
+    fi
   fi
   echo "::endgroup::"
 done
