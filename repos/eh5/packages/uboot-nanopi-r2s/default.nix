@@ -18,7 +18,7 @@ let
     bootflow scan -lb
   '';
 in
-buildUBoot {
+(buildUBoot {
   defconfig = "nanopi-r2s-rk3328_defconfig";
   extraPatches = [
     ./expand-kernel-image-addr-space.patch
@@ -48,4 +48,12 @@ buildUBoot {
     "idbloader.img"
     "u-boot-rockchip.bin"
   ];
-}
+}).overrideAttrs
+  (oldAttrs: {
+    # fix build with dtc 1.8, https://github.com/NixOS/nixpkgs/pull/568745
+    postPatch = (oldAttrs.postPatch or "") + ''
+      for f in scripts/Makefile.lib dts/upstream/Makefile; do
+        substituteInPlace "$f" --replace-fail -Wno-pci_device_reg "-Wno-pci_device_reg -Eno-node_name_not_empty"
+      done
+    '';
+  })

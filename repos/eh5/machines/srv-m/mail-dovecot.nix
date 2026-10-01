@@ -230,9 +230,10 @@ in
 
     "sieve_script after" = {
       path = builtins.toFile "spam.sieve" ''
-        require ["variables", "fileinto", "envelope", "subaddress", "mailbox", "duplicate"];
+        require ["variables", "fileinto", "envelope", "subaddress", "mailbox", "duplicate", "imap4flags"];
 
         if header :is "X-Spam" "Yes" {
+            addflag "\\Seen";
             fileinto "Junk";
             stop;
         }
