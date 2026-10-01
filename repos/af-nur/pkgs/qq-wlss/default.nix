@@ -99,15 +99,22 @@ qq.overrideAttrs (old: {
   meta = old.meta // {
     description = "Tencent QQ with Wayland screen sharing via its built-in xdg-desktop-portal/PipeWire capture path";
     longDescription = ''
-      Retains the nixpkgs QQ packaging and launcher, with installer URLs tracked
-      from nixpkgs-unstable independently of the caller's nixpkgs channel. The
-      linuxqq-wayland-screenshare-fix LD_PRELOAD shim enables QQ's built-in
-      xdg-desktop-portal ScreenCast + PipeWire capture path while its UI sees X11.
+      Retains the nixpkgs QQ packaging and launcher. Installer URLs are resolved
+      from Tencent's official pcConfig.json and fetched through a self-hosted
+      signing proxy (https://qqdl.aflare.top) that 302s to a freshly signed
+      official URL, because Tencent requires a time-limited signature that
+      fetchurl cannot produce; the download is still pinned by a fixed hash, so
+      the proxy cannot change the content. Building therefore depends on that
+      third-party endpoint.
+
+      The linuxqq-wayland-screenshare-fix LD_PRELOAD shims enable QQ's built-in
+      xdg-desktop-portal ScreenCast + PipeWire capture path while its UI sees X11,
+      and fix clipboard integration under Wayland.
 
       Runtime requirements: a Wayland session with XWayland (DISPLAY must be set),
       PipeWire, and a working ScreenCast portal backend such as
       xdg-desktop-portal-gnome, xdg-desktop-portal-kde or xdg-desktop-portal-wlr.
-      The injected library and its MIT license are provided by
+      The injected libraries and their MIT license are provided by
       `passthru.screenshareFix`.
 
       `qq-wlss` installs the same `qq` command and menu entry as the `qq` package;
