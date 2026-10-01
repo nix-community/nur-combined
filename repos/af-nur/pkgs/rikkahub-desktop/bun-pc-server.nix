@@ -13,24 +13,39 @@
   ...
 }:
 {
-  "@types/bun@1.3.14" = fetchurl {
-    url = "https://registry.npmjs.org/@types/bun/-/bun-1.3.14.tgz";
-    hash = "sha512-h1hFqFVcvAvD9j9K7ZW7vd82aSA+rTdznZa+5bwvCwqSB1jmmfLcbIWhOLx1/+boy/xmjgCs/OMUL8hRJSmnPw==";
+  "@types/bun@1.4.2" = fetchurl {
+    url = "https://registry.npmjs.org/@types/bun/-/bun-1.4.2.tgz";
+    hash = "sha512-GimotNn7+ZV0uVArItBbriZsR1oNf0+WTzPkdcFrzShI7k2norL0uzEaJT8T33dWr7O/c9ZDuAFQrctKCi72oQ==";
+    name = "bun-1.4.2.tgz";
   };
   "@types/node@25.9.1" = fetchurl {
     url = "https://registry.npmjs.org/@types/node/-/node-25.9.1.tgz";
     hash = "sha512-xfrlY7UD5rMJk3ZVJP8BNzS28J36YJg+xp+LPXV1TdWxr8uMH5A860QNxYDGQe/ylDSgjxE52Q9VnO7p75tJxg==";
+    name = "node-25.9.1.tgz";
   };
-  "bun-types@1.3.14" = fetchurl {
-    url = "https://registry.npmjs.org/bun-types/-/bun-types-1.3.14.tgz";
-    hash = "sha512-4N0ig0fEomHt5R0KCFWjovxow98rIoRwKolrYdCcknNwMekCXRnWEUvgu5soYV8QXtVsrUD8B95MBOZGPvr6KQ==";
+  "bun-types@1.4.2" = fetchurl {
+    url = "https://registry.npmjs.org/bun-types/-/bun-types-1.4.2.tgz";
+    hash = "sha512-bxV1FgK7yBIzjRe5zBozIM4Bem11ZJcCXSrjWRG3YWLt8yFDePu4cLjpebO8OvPeIE9trbyPF4fuj3Cia4Fj3w==";
+    name = "bun-types-1.4.2.tgz";
+  };
+  "diff@8.0.4" = fetchurl {
+    url = "https://registry.npmjs.org/diff/-/diff-8.0.4.tgz";
+    hash = "sha512-DPi0FmjiSU5EvQV0++GFDOJ9ASQUVFh5kD+OzOnYdi7n3Wpm9hWWGfB/O2blfHcMVTL5WkQXSnRiK9makhrcnw==";
+    name = "diff-8.0.4.tgz";
   };
   "mupdf@1.27.0" = fetchurl {
     url = "https://registry.npmjs.org/mupdf/-/mupdf-1.27.0.tgz";
     hash = "sha512-vEPUYwZeu5NgiFLz4e20R7Vp2pNY7szirGEvTxHyQQpQs6ab4DeGdonwT6sH1JZG5EhyHSrojZrZn2/0ee6qZQ==";
+    name = "mupdf-1.27.0.tgz";
+  };
+  "typescript@5.9.3" = fetchurl {
+    url = "https://registry.npmjs.org/typescript/-/typescript-5.9.3.tgz";
+    hash = "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==";
+    name = "typescript-5.9.3.tgz";
   };
   "undici-types@7.24.6" = fetchurl {
     url = "https://registry.npmjs.org/undici-types/-/undici-types-7.24.6.tgz";
     hash = "sha512-WRNW+sJgj5OBN4/0JpHFqtqzhpbnV0GuB+OozA9gCL7a993SmU+1JBZCzLNxYsbMfIeDL+lTsphD5jN5N+n0zg==";
+    name = "undici-types-7.24.6.tgz";
   };
 }

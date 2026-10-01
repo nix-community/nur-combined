@@ -1,6 +1,6 @@
 { lib
 , stdenv
-, fetchurl
+, sources
 , dpkg
 , autoPatchelfHook
 , makeWrapper
@@ -41,12 +41,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "aiot-ide";
-  version = "1.7.0";
-
-  src = fetchurl {
-    url = "https://vela-ide.cnbj3-fusion.mi-fds.com/vela-ide/ide/v${finalAttrs.version}/AIoT_IDE_ubuntu.deb";
-    hash = "sha256-N4Cf3hbKx4OOdX6BdUI28jWvcYClbs9Ax4rYAw9VM+Y=";
-  };
+  inherit (sources.aiot-ide) version src;
 
   nativeBuildInputs = [
     dpkg

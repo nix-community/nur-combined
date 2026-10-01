@@ -1,5 +1,4 @@
 { lib
-, fetchFromGitHub
 , flutter
 , runCommand
 , rustPlatform
@@ -29,19 +28,17 @@
 , sqlite
 , webkitgtk_4_1
 , zstd
+, sources
 ,
 }:
 
 let
   pname = "astral";
-  version = "2.9.12";
+  # nvfetcher keeps the upstream tag verbatim ("v2.9.60") so that fetch.github
+  # resolves the right archive; the Nix version drops the prefix.
+  version = lib.removePrefix "v" sources.astral.version;
 
-  src = fetchFromGitHub {
-    owner = "ldoubil";
-    repo = "astral";
-    tag = "v${version}";
-    hash = "sha256-ihdscsq4sM+bA455JovsimPZ14wKhNdhlf3amwpTYFQ=";
-  };
+  src = sources.astral.src;
 
   astralLicense = {
     shortName = "CC-BY-NC-ND-4.0";
@@ -96,21 +93,10 @@ let
     inherit version src;
 
     sourceRoot = "${src.name}/rust";
-    cargoLock = {
-      lockFile = ./Cargo.lock;
-      outputHashes = {
-        "easytier-2.6.4" = "sha256-AXFusEVs+7WgKGrcefS+c0J4vPL0siCBAXc0C022Uco=";
-        "easytier-rpc-build-0.1.0" = "sha256-AXFusEVs+7WgKGrcefS+c0J4vPL0siCBAXc0C022Uco=";
-        "http_req-0.13.1" = "sha256-Q6tPOUrXY14K+QFNuK3JGsxWx3VezQH3LgP3rBPeHi0=";
-        "kcp-sys-0.1.0" = "sha256-kIYYFOdfS+SzFfCNRUUxeD8+j8Gt8OYDPLK/FTeb1AU=";
-        "service-manager-0.8.0" = "sha256-b2eR11kG7txfOC6OmUXa9xGM9RAHy+W85QFaiozYSVI=";
-        "smoltcp-0.12.0" = "sha256-sOsBc1CF/5ofpjQ54d114d39SAFijzyz5pb3w55gdmI=";
-        "thunk-rs-0.3.5" = "sha256-cFREqmXHacEdam7wC0LgudsUTk1WRZwj2jWwkCbW4kE=";
-        "tun-easytier-1.1.1" = "sha256-pYyO2YWw2KXeMwMirQ//oIZvberOV+9nPuZ0mfmJRcQ=";
-        "windivert-0.6.0" = "sha256-FPwXG9J9FN2m+9WmQHNidBU6pI5Sl9odMtLldSL0jHY=";
-        "windivert-sys-0.10.0" = "sha256-FPwXG9J9FN2m+9WmQHNidBU6pI5Sl9odMtLldSL0jHY=";
-      };
-    };
+    # nvfetcher extracts rust/Cargo.lock from the fetched revision and re-hashes
+    # every git dependency, so the lock file and its output hashes always move
+    # together with the source.
+    cargoLock = sources.astral.cargoLock."rust/Cargo.lock";
 
     nativeBuildInputs = [
       cmake

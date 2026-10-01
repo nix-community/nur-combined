@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  fetchurl,
+  sources,
   makeWrapper,
   patchelf,
   unzip,
@@ -22,12 +22,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "rikkahub-desktop-bin";
-  version = "1.5.0";
-
-  src = fetchurl {
-    url = "https://github.com/yuh-G/rikkahub-desktop/releases/download/v${finalAttrs.version}/Rikkahub_${finalAttrs.version}_linux_x64.tar.gz";
-    hash = "sha256-iYaWV5HvrPX2ajfZS3y2NE3K5mF+NalSqS4vWdhuGR8=";
-  };
+  inherit (sources.rikkahub-desktop-bin) version src;
 
   nativeBuildInputs = [
     makeWrapper

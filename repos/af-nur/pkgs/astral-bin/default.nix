@@ -1,6 +1,6 @@
 { lib
 , stdenv
-, fetchurl
+, sources
 , autoPatchelfHook
 , copyDesktopItems
 , makeDesktopItem
@@ -28,6 +28,8 @@
 }:
 
 let
+  source = if stdenv.hostPlatform.isAarch64 then sources.astral-bin-aarch64 else sources.astral-bin-x86_64;
+
   runtimeLibraries = [
     alsa-lib
     atk
@@ -53,18 +55,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "astral-bin";
-  version = "2.9.12";
-
-  src = fetchurl {
-    url = if stdenv.hostPlatform.isAarch64 then
-      "https://github.com/ldoubil/astral/releases/download/v${finalAttrs.version}/astral-linux-arm64.tar.gz"
-    else
-      "https://github.com/ldoubil/astral/releases/download/v${finalAttrs.version}/astral-linux-x64.tar.gz";
-    hash = if stdenv.hostPlatform.isAarch64 then
-      "sha256-IgoOMd7bZfyI3XVLcwLYL5AmSh/+7n3PMwL6R6/p1l8="
-    else
-      "sha256-1MegvxRQHcGNfoXtHvbMz6s99PbYKo6xP29Pd151Pgk=";
-  };
+  inherit (source) version src;
 
   sourceRoot = ".";
 

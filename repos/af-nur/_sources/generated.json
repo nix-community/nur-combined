@@ -1,0 +1,387 @@
+{
+    "aiot-ide": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "aiot-ide",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-N4Cf3hbKx4OOdX6BdUI28jWvcYClbs9Ax4rYAw9VM+Y=",
+            "type": "url",
+            "url": "https://vela-ide.cnbj3-fusion.mi-fds.com/vela-ide/ide/v1.7.0/AIoT_IDE_ubuntu.deb"
+        },
+        "version": "1.7.0"
+    },
+    "astral": {
+        "cargoLock": {
+            "rust/Cargo.lock": [
+                "sha256-kHZ8YFYq+o6hBtADhs+cliw8rnxViJXAHKxQ38O3NiE=/rust/Cargo.lock",
+                {
+                    "easytier-2.6.4": "sha256-AXFusEVs+7WgKGrcefS+c0J4vPL0siCBAXc0C022Uco=",
+                    "http_req-0.13.1": "sha256-Q6tPOUrXY14K+QFNuK3JGsxWx3VezQH3LgP3rBPeHi0=",
+                    "kcp-sys-0.1.0": "sha256-kIYYFOdfS+SzFfCNRUUxeD8+j8Gt8OYDPLK/FTeb1AU=",
+                    "service-manager-0.8.0": "sha256-b2eR11kG7txfOC6OmUXa9xGM9RAHy+W85QFaiozYSVI=",
+                    "smoltcp-0.12.0": "sha256-sOsBc1CF/5ofpjQ54d114d39SAFijzyz5pb3w55gdmI=",
+                    "thunk-rs-0.3.5": "sha256-cFREqmXHacEdam7wC0LgudsUTk1WRZwj2jWwkCbW4kE=",
+                    "tun-easytier-1.1.1": "sha256-pYyO2YWw2KXeMwMirQ//oIZvberOV+9nPuZ0mfmJRcQ=",
+                    "windivert-0.6.0": "sha256-FPwXG9J9FN2m+9WmQHNidBU6pI5Sl9odMtLldSL0jHY="
+                }
+            ]
+        },
+        "date": null,
+        "extract": {
+            "pubspec.lock": "sha256-kHZ8YFYq+o6hBtADhs+cliw8rnxViJXAHKxQ38O3NiE=/pubspec.lock"
+        },
+        "name": "astral",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "ldoubil",
+            "repo": "astral",
+            "rev": "v2.9.60",
+            "sha256": "sha256-kHZ8YFYq+o6hBtADhs+cliw8rnxViJXAHKxQ38O3NiE=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v2.9.60"
+    },
+    "astral-bin-aarch64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "astral-bin-aarch64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-gS1W5qx1nZXx+0ay0A1C4q8BfOiajM1bENxXQNEa7m8=",
+            "type": "url",
+            "url": "https://github.com/ldoubil/astral/releases/download/v2.9.60/astral-linux-arm64.tar.gz"
+        },
+        "version": "2.9.60"
+    },
+    "astral-bin-x86_64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "astral-bin-x86_64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-Qn5+f9RMo1TMbog+BfnSgjZ1H9m0p3nBOwYTTVqxEHs=",
+            "type": "url",
+            "url": "https://github.com/ldoubil/astral/releases/download/v2.9.60/astral-linux-x64.tar.gz"
+        },
+        "version": "2.9.60"
+    },
+    "astrobox": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "astrobox",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-INLK7GaiguIKkEcYQeCVSo0W+0ViujjOcvY2tEP7/MQ=",
+            "type": "url",
+            "url": "https://github.com/AstralSightStudios/AstroBox-NG/releases/download/v2.1.0/AstroBox_2.1.0_amd64.deb"
+        },
+        "version": "2.1.0"
+    },
+    "chatgpt-aarch64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "chatgpt-aarch64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-s8Pzfe38V9ty6BCh3FvnsiWG8LmbfUh1hosGvdhVuoY=",
+            "type": "url",
+            "url": "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_26.928.31416_arm64.deb"
+        },
+        "version": "26.928.31416"
+    },
+    "chatgpt-x86_64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "chatgpt-x86_64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-xGNyfx7V3O14M4yOKmXYib0VMnb/Nz/XdpjMua8y0YE=",
+            "type": "url",
+            "url": "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_26.928.31416_amd64.deb"
+        },
+        "version": "26.928.31416"
+    },
+    "classin-aarch64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "classin-aarch64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-HtivK9HWaEdlPlo5xqHzKlNH0Bp6Q5/URKR2GHuDP4o=",
+            "type": "url",
+            "url": "https://www.eeo.cn/download/client/classin_6.0.9.1758_arm64.deb"
+        },
+        "version": "6.0.9.1758"
+    },
+    "classin-x86_64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "classin-x86_64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-QzHmNjcpKexdLNxF2najKKDPgrNwedCs/mxKQ+nQ7yg=",
+            "type": "url",
+            "url": "https://www.eeo.cn/download/client/classin_6.0.9.1757_amd64.deb"
+        },
+        "version": "6.0.9.1757"
+    },
+    "hhsh": {
+        "cargoLock": null,
+        "date": "2021-07-09",
+        "extract": null,
+        "name": "hhsh",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "yihong0618",
+            "repo": "nbnhhsh-cli",
+            "rev": "3c8241dbc772b4b693e06b350c4351e75572596a",
+            "sha256": "sha256-Dw6DouP9sjmaUzpePUX6MDQ3E/2wAFe+AeB4x/qBbOY=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "3c8241dbc772b4b693e06b350c4351e75572596a"
+    },
+    "linuxqq-clipsync": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-j2VdbHuQMcqELa8g5edtL5wzvtJfUoFv2v5ByN_LDws=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": "2026-10-01",
+        "extract": null,
+        "name": "linuxqq-clipsync",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "SHORiN-KiWATA",
+            "repo": "linuxqq-clipsync",
+            "rev": "cfb43a3c28258bf5a664abc0cda6c9acfdb5b5e3",
+            "sha256": "sha256-j2VdbHuQMcqELa8g5edtL5wzvtJfUoFv2v5ByN/LDws=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "cfb43a3c28258bf5a664abc0cda6c9acfdb5b5e3"
+    },
+    "pi": {
+        "cargoLock": null,
+        "date": null,
+        "extract": {
+            "package-lock.json": "sha256-gU8BSiqqOYt2RRuQONHHGvZeSM5KFQVrwif9bmuUXUc=/package-lock.json"
+        },
+        "name": "pi",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "earendil-works",
+            "repo": "pi",
+            "rev": "d981de1229ef899957bbe968bc8dcda02a21f477",
+            "sha256": "sha256-gU8BSiqqOYt2RRuQONHHGvZeSM5KFQVrwif9bmuUXUc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "d981de1229ef899957bbe968bc8dcda02a21f477"
+    },
+    "pixivbiu": {
+        "cargoLock": null,
+        "date": null,
+        "extract": {
+            "frontend/bun.lock": "sha256-B1Ldib8Lerw3XFS6cTSN9ZyIw7GwGdt1v+xwQXpxirw=/frontend/bun.lock"
+        },
+        "name": "pixivbiu",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "txperl",
+            "repo": "PixivBiu",
+            "rev": "v3.1.4",
+            "sha256": "sha256-B1Ldib8Lerw3XFS6cTSN9ZyIw7GwGdt1v+xwQXpxirw=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v3.1.4"
+    },
+    "pixivbiu-bin-aarch64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "pixivbiu-bin-aarch64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-zZpfWUp0P2XavdRK37qr5IiDJ/tYx74hemCMfTzcEWA=",
+            "type": "url",
+            "url": "https://github.com/txperl/PixivBiu/releases/download/v3.1.4/PixivBiu_3.1.4_linux_arm64.tar.gz"
+        },
+        "version": "3.1.4"
+    },
+    "pixivbiu-bin-x86_64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "pixivbiu-bin-x86_64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-7D7FZDeoXDZrEBfCK14+vDBScTAhCkwyEhPZx95vtR4=",
+            "type": "url",
+            "url": "https://github.com/txperl/PixivBiu/releases/download/v3.1.4/PixivBiu_3.1.4_linux_amd64.tar.gz"
+        },
+        "version": "3.1.4"
+    },
+    "qq-aarch64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "qq-aarch64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-h5bM/WaswCXvGNs3GFUy1AvIxYkh4X2m0owpWsvPj5I=",
+            "type": "url",
+            "url": "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.33/release/3f89efc5/QQ_3.2.32_260812_arm64_01.deb"
+        },
+        "version": "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.33/release/3f89efc5/QQ_3.2.32_260812_arm64_01.deb"
+    },
+    "qq-wlss": {
+        "cargoLock": null,
+        "date": "2026-10-01",
+        "extract": null,
+        "name": "qq-wlss",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "SHORiN-KiWATA",
+            "repo": "linuxqq-wayland-screenshare-fix",
+            "rev": "25d0767b55bf432a70c70b9883a950cdd60533eb",
+            "sha256": "sha256-L83+So0eoeZb5EuObz4ScjUnWfkzp1Y6HlFnWEP5XKQ=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "25d0767b55bf432a70c70b9883a950cdd60533eb"
+    },
+    "qq-x86_64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "qq-x86_64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-0IXdiTlyJQYeufGUMI9ogSmBjtRFd36XpKChbhPXsOg=",
+            "type": "url",
+            "url": "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.33/release/3f89efc5/QQ_3.2.32_260812_amd64_01.deb"
+        },
+        "version": "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.33/release/3f89efc5/QQ_3.2.32_260812_amd64_01.deb"
+    },
+    "rikkahub-desktop": {
+        "cargoLock": null,
+        "date": null,
+        "extract": {
+            "pc-server/bun.lock": "sha256-eA5bXKFdFqikB1ZTHz6XFUxfZnHIN67GSzT2TnlE0gI=/pc-server/bun.lock",
+            "web-ui/bun.lock": "sha256-eA5bXKFdFqikB1ZTHz6XFUxfZnHIN67GSzT2TnlE0gI=/web-ui/bun.lock"
+        },
+        "name": "rikkahub-desktop",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "yuh-G",
+            "repo": "rikkahub-desktop",
+            "rev": "v2.0.0-preview-v4",
+            "sha256": "sha256-eA5bXKFdFqikB1ZTHz6XFUxfZnHIN67GSzT2TnlE0gI=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v2.0.0-preview-v4"
+    },
+    "rikkahub-desktop-bin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "rikkahub-desktop-bin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-EsIlPsIDzuJ78Qfa03cShNU9nO6UwizRl1b4wjZ9XqA=",
+            "type": "url",
+            "url": "https://github.com/yuh-G/rikkahub-desktop/releases/download/v2.0.0-preview-v4/Rikkahub_2.0.0-preview-v4_linux_x64.tar.gz"
+        },
+        "version": "2.0.0-preview-v4"
+    },
+    "xwaylandvideobridge": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "xwaylandvideobridge",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-uWGUxo72esMSfPNT8Ca1tp01x9XiBL2J0RVcdPL+Bzo=",
+            "type": "url",
+            "url": "https://download.kde.org/stable/xwaylandvideobridge/src/xwaylandvideobridge-0.5.3.tar.xz"
+        },
+        "version": "0.5.3"
+    }
+}
