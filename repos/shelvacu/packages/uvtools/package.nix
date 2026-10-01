@@ -16,6 +16,11 @@ buildDotnetModule (finalAttrs: {
     hash = "sha256-oLLbvtWSAscgbDyPNg1JDvZQWI/n2lRnCbozUHOCpbw=";
   };
 
+  postPatch = ''
+    substituteInPlace UVtools.AvaloniaControls/UVtools.AvaloniaControls.csproj \
+      --replace-fail '<TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>' '<TargetFrameworks>net10.0</TargetFrameworks>'
+  '';
+
   nugetDeps = ./deps.json;
 
   dotnet-sdk = dotnetCorePackages.sdk_10_0;
