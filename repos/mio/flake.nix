@@ -27,42 +27,49 @@
       );
       packages = forAllSystems (
         system:
-          let
-            pkgs = import nixpkgs { inherit system; };
-            lib = pkgs.lib;
-            legacy = self.legacyPackages.${system};
-            filtered = lib.filterAttrs (_: v: lib.isDerivation v) legacy;
-            wrapUpdateScript = name: pkg:
-              if !(pkg ? passthru && pkg.passthru ? updateScript) then pkg
+        let
+          pkgs = import nixpkgs { inherit system; };
+          lib = pkgs.lib;
+          legacy = self.legacyPackages.${system};
+          filtered = lib.filterAttrs (_: v: lib.isDerivation v) legacy;
+          wrapUpdateScript =
+            name: pkg:
+            if !(pkg ? passthru && pkg.passthru ? updateScript) then
+              pkg
+            else
+              let
+                raw = pkg.passthru.updateScript;
+              in
+              if lib.isDerivation raw then
+                pkg
+              else if lib.isList raw then
+                pkg.overrideAttrs (old: {
+                  passthru = (old.passthru or { }) // {
+                    updateScript = pkgs.writeShellApplication {
+                      name = "update-${name}";
+                      text = ''
+                        export UPDATE_NIX_ATTR_PATH="${name}"
+                        exec ${lib.escapeShellArgs raw} "$@"
+                      '';
+                    };
+                  };
+                })
+              else if lib.isString raw || lib.isPath raw then
+                pkg.overrideAttrs (old: {
+                  passthru = (old.passthru or { }) // {
+                    updateScript = pkgs.writeShellApplication {
+                      name = "update-${name}";
+                      text = ''
+                        export UPDATE_NIX_ATTR_PATH="${name}"
+                        exec ${raw} "$@"
+                      '';
+                    };
+                  };
+                })
               else
-                let raw = pkg.passthru.updateScript; in
-                if lib.isDerivation raw then pkg
-                else if lib.isList raw then
-                  pkg // {
-                    passthru = pkg.passthru // {
-                      updateScript = pkgs.writeShellApplication {
-                        name = "update-${name}";
-                        text = ''
-                          export UPDATE_NIX_ATTR_PATH="${name}"
-                          exec ${lib.escapeShellArgs raw} "$@"
-                        '';
-                      };
-                    };
-                  }
-                else if lib.isString raw || lib.isPath raw then
-                  pkg // {
-                    passthru = pkg.passthru // {
-                      updateScript = pkgs.writeShellApplication {
-                        name = "update-${name}";
-                        text = ''
-                          export UPDATE_NIX_ATTR_PATH="${name}"
-                          exec ${raw} "$@"
-                        '';
-                      };
-                    };
-                  }
-                else pkg;
-          in lib.mapAttrs wrapUpdateScript filtered
+                pkg;
+        in
+        lib.mapAttrs wrapUpdateScript filtered
       );
       cached = forAllSystems (system: self.legacyPackages.${system}.cached-set);
       cached-cuda = forAllSystems (

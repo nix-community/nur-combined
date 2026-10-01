@@ -15,7 +15,7 @@ package_json="$(
           builtins.isAttrs package
           && (package.type or null) == "derivation"
           && builtins.isAttrs (package.passthru or {})
-          && package.passthru ? updateScript)
+          && builtins.isAttrs (package.passthru.updateScript or null) && (package.passthru.updateScript.type or null) == "derivation")
         (builtins.attrNames packages)
     ' ".#packages.${system}"
 )" || {

@@ -48,6 +48,10 @@ jobs:
           fi
       
       - name: Auto-update packages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NIXPKGS_ALLOW_INSECURE: '1'
+          NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: '1'
         run: |
           ./scripts/update-packages.sh
           

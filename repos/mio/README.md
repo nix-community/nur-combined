@@ -130,3 +130,22 @@ files are copied from following locations. some are modified in this repo and so
 ## llm policy
 
 headache. use LLM for boring no brain task
+
+## Updating packages
+
+Packages with an executable `passthru.updateScript` can be updated from the
+repository checkout with:
+
+```sh
+nix run .#package-name.passthru.updateScript
+```
+
+For example:
+
+```sh
+nix run .#chatbox.passthru.updateScript
+```
+
+The daily GitHub Actions workflow discovers and runs all executable package
+update scripts, then commits and pushes any resulting changes. Update scripts
+implemented as Nix update-script combinator lists are transparently wrapped and executed as well.
