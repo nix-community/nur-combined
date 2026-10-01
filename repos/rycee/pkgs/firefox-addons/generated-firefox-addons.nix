@@ -2,10 +2,10 @@
   {
     "10ten-ja-reader" = buildMozillaXpiAddon {
       pname = "10ten-ja-reader";
-      version = "1.27.2";
+      version = "1.28.0";
       addonId = "{59812185-ea92-4cca-8ab7-cfcacee81281}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4796856/10ten_ja_reader-1.27.2.xpi";
-      sha256 = "4c429187e27547153abf9ea30f9c5f9311641f690c001dc9b0e0486b40474377";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4999556/10ten_ja_reader-1.28.0.xpi";
+      sha256 = "b156f4a5663230cb3d9075e2baa33753b04f0cefd075f6473683af0a8d0b494e";
       meta = with lib;
       {
         homepage = "https://10ten.life";
@@ -97,21 +97,22 @@
     };
     "adaptive-tab-bar-colour" = buildMozillaXpiAddon {
       pname = "adaptive-tab-bar-colour";
-      version = "4.2.0";
+      version = "4.3.0";
       addonId = "ATBC@EasonWong";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5029534/adaptive_tab_bar_colour-4.2.0.xpi";
-      sha256 = "4c83fa7322261e59a5f97bb51a10cd6ba6958e840ff75eec8cd27f153be1e0c6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5072867/adaptive_tab_bar_colour-4.3.0.xpi";
+      sha256 = "5c259df117f67be9ce6fa5e7fe3452f7344441df332b367cfc1d511b2d67c842";
       meta = with lib;
       {
         homepage = "https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour";
         description = "Changes the color of Firefox theme to match the website’s appearance.";
         license = licenses.mit;
         mozPermissions = [
-          "tabs"
-          "theme"
-          "storage"
+          "activeTab"
           "browserSettings"
           "management"
+          "storage"
+          "tabs"
+          "theme"
           "http://*/*"
           "https://*/*"
         ];
@@ -2976,10 +2977,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "158.0.20260928.120211";
+      version = "158.0.20260930.90528";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5066094/dansk_da_language_pack-158.0.20260928.120211.xpi";
-      sha256 = "cdcaefe66006e336aefb54382044972494e94596ff666c92548fec4cff2f1196";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5072265/dansk_da_language_pack-158.0.20260930.90528.xpi";
+      sha256 = "b82e73dfedd63f5a5fe4008640264784a6dd47395dadeeb649930e988d34cc83";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3192,10 +3193,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "158.0.20260928.120211";
+      version = "158.0.20260930.90528";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5066087/deutsch_de_language_pack-158.0.20260928.120211.xpi";
-      sha256 = "dd06088fa37b09a618e9f94b9cd85377c0398e35b9591a4b1cb1e6b8a365a756";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5072264/deutsch_de_language_pack-158.0.20260930.90528.xpi";
+      sha256 = "f0c5159758d45b744331912ec4a3ff72cfd588f7f82495f3b68eeb4b03c3ff57";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4694,10 +4695,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "158.0.20260928.120211";
+      version = "158.0.20260930.90528";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5066088/francais_language_pack-158.0.20260928.120211.xpi";
-      sha256 = "1d398212bb3e0dedc98d7df31da8c069bb13b112afc6a4a64ffc53f6e0c13f74";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5072174/francais_language_pack-158.0.20260930.90528.xpi";
+      sha256 = "3bd2a2ae4c0b81a878176b13ed1f1f68d3e0804014fb7d1c36d9064d813da2ef";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4731,10 +4732,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "158.0.20260928.120211";
+      version = "158.0.20260930.90528";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5066057/gaidhlig_language_pack-158.0.20260928.120211.xpi";
-      sha256 = "a69cbaaa18f31b97baff1351686ab28b853e3d09a6d3fe9a35a835bea0bd6f2a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5072166/gaidhlig_language_pack-158.0.20260930.90528.xpi";
+      sha256 = "ffdf4da351a44190e793a98bf5a577b15b31ca95ff52e5c66ad46849ba6bafb0";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -4934,10 +4935,10 @@
     };
     "github-isometric-contributions" = buildMozillaXpiAddon {
       pname = "github-isometric-contributions";
-      version = "1.2.7";
+      version = "1.2.8";
       addonId = "isometric-contributions@jasonlong.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5001889/github_isometric_contributions-1.2.7.xpi";
-      sha256 = "aac3842e00253583a1deff5502c1d0ee43e7e015800f9f9bcce1d412bee228be";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5074179/github_isometric_contributions-1.2.8.xpi";
+      sha256 = "6d5d16e7e4eaa01e7604d48cbcdf571ae71246d690bf19900b865236ec3ad462";
       meta = with lib;
       {
         description = "Renders an isometric pixel view of GitHub contribution graphs.";
@@ -9776,10 +9777,10 @@
     };
     "metamask" = buildMozillaXpiAddon {
       pname = "metamask";
-      version = "13.44.0.0";
+      version = "13.49.0.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4963931/ether_metamask-13.44.0.0.xpi";
-      sha256 = "a455d476c0139ca5e846755b5fd443603678fdd9f1a4ca307c9d1a9f57f476f6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5053331/ether_metamask-13.49.0.0.xpi";
+      sha256 = "10ff1596e8f567a6640dbe5fa92f31c7eeda611b096146f9143813f2c1b5994b";
       meta = with lib;
       {
         description = "The most secure wallet for crypto, NFTs, and DeFi, trusted by millions of users";
@@ -10566,10 +10567,10 @@
     };
     "octotree" = buildMozillaXpiAddon {
       pname = "octotree";
-      version = "9.2.1";
+      version = "9.3.0";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5067731/octotree-9.2.1.xpi";
-      sha256 = "ce5526fc2ab94fcb9b9c271414699feeade90ac121d7031271e3d61cd54a8941";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5073334/octotree-9.3.0.xpi";
+      sha256 = "2bab24fba7b6c3cea867b944a20e8bda9b2ddc1f0258fcc1b16937503c7420f3";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -10937,10 +10938,10 @@
     };
     "page-assist" = buildMozillaXpiAddon {
       pname = "page-assist";
-      version = "1.5.84";
+      version = "1.5.85";
       addonId = "page-assist@nazeem";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5044187/page_assist-1.5.84.xpi";
-      sha256 = "2edff305ddc1b9ed89907f1ad71c243ec9e5fb644df03056b2305c436619e9c6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5063403/page_assist-1.5.85.xpi";
+      sha256 = "c085cb50bb086358888ea708a045012777f9849dc4ca797a56fd379da288d637";
       meta = with lib;
       {
         homepage = "https://github.com/n4ze3m/page-assist";
@@ -13211,10 +13212,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "158.0.20260928.120211";
+      version = "158.0.20260930.90528";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5066151/scots_language_pack-158.0.20260928.120211.xpi";
-      sha256 = "205be9336568774106e6739f1abd4d769c35c2d827ec369b2a0ab984114a4a48";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5072283/scots_language_pack-158.0.20260930.90528.xpi";
+      sha256 = "cd4b409f35c62fff4ff43f652ee343f808bf5cbbeb1559c77fb0f6db7314f099";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -14541,10 +14542,10 @@
     };
     "tabwrangler" = buildMozillaXpiAddon {
       pname = "tabwrangler";
-      version = "8.4.1";
+      version = "8.5.2";
       addonId = "{81b74d53-9416-4fb3-afa2-ab46684b253b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4989975/tabwrangler-8.4.1.xpi";
-      sha256 = "0f049f66d4540e02795b833fd77960eeff7d34521657b33fa1033d63dcd7e113";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5073711/tabwrangler-8.5.2.xpi";
+      sha256 = "63445f0b4fbbfc1e07f776c66f39d9584afa981c6838777ad99dd6645345db0f";
       meta = with lib;
       {
         homepage = "https://github.com/tabwrangler/tabwrangler/";
@@ -15006,10 +15007,10 @@
     };
     "topcashback-cashback-coupons" = buildMozillaXpiAddon {
       pname = "topcashback-cashback-coupons";
-      version = "7.12.0.0";
+      version = "7.14.0.0";
       addonId = "{f89939f9-1978-4203-9802-835ce5844ce7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4970266/topcashback_cashback_coupons-7.12.0.0.xpi";
-      sha256 = "bd3bf44bf69c75aff9844a04e801603c7be586ade82772aa1433dd9a8391bcc5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5071206/topcashback_cashback_coupons-7.14.0.0.xpi";
+      sha256 = "8a5360c6f77878013ef9d6ebc6899590fc405c8fd978f13f02b38ac4ec7f21c6";
       meta = with lib;
       {
         homepage = "https://www.topcashback.com";
@@ -15197,10 +15198,10 @@
     };
     "tree-style-tab" = buildMozillaXpiAddon {
       pname = "tree-style-tab";
-      version = "4.4.8";
+      version = "4.4.9";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5068525/tree_style_tab-4.4.8.xpi";
-      sha256 = "62f6fd91fe90b52255434da5d43ebf8b395d6286d69663fe6f8785180c1270bf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5072919/tree_style_tab-4.4.9.xpi";
+      sha256 = "6fa89f9228ecd5d61bebb38f38ba6851e24ee521d446525fba0b24a492e96984";
       meta = with lib;
       {
         homepage = "https://github.com/piroor/treestyletab";
