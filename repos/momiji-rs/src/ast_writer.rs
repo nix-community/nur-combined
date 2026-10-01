@@ -571,6 +571,7 @@ fn walk_expr(e: &Expr, out: &mut Found) {
             pos,
             length,
             module,
+            ..
         } => {
             // The arguments first: dart builds the expression bottom up, so a
             // nested `if()` is reported before the one holding it.

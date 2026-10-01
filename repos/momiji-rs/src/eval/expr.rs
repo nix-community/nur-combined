@@ -475,19 +475,32 @@ impl<'a> Evaluator<'a> {
                 pos,
                 length,
                 module,
+                facts,
             } => {
                 // A namespaced call `ns.fn(...)` resolves only against the used
                 // built-in module bound to `ns`.
                 if let Some(ns) = module {
                     return self.eval_module_call(ns, name, args, *pos, *length);
                 }
+                // Worked out on this call site's first evaluation, after the
+                // namespaced return above, which needs none of it.
+                let facts: &crate::ast::CallFacts =
+                    facts.get_or_init(|| Box::new(crate::ast::CallFacts::of(name)));
+                // They are made from the name, so this only fails if a call is
+                // renamed after its first evaluation; every debug test run
+                // checks that none is.
+                debug_assert_eq!(
+                    *facts,
+                    crate::ast::CallFacts::of(name),
+                    "stale CallFacts for {name}()"
+                );
                 // In a plain-CSS module no function is invoked (dart-sass
                 // `plainCss` looks none up): the call re-serializes verbatim
                 // with its arguments evaluated. CSS calculations (min/max/…)
                 // still simplify through their normal paths below.
                 if self.in_plain_css
                     && !is_supports_calc_function(name)
-                    && !name.eq_ignore_ascii_case("calc")
+                    && !facts.calc
                     && !args.iter().any(|a| a.splat || a.name.is_some())
                 {
                     let mut parts: Vec<String> = Vec::with_capacity(args.len());
@@ -509,7 +522,7 @@ impl<'a> Evaluator<'a> {
                 // to a user function even though `@function __a` would normalize
                 // to the same `--a` key. Every later "no user override" guard
                 // reuses `has_user_fn`.
-                let user_fn = if name.starts_with("--") {
+                let user_fn = if facts.dashed {
                     None
                 } else {
                     self.lookup_function(name)
@@ -527,7 +540,7 @@ impl<'a> Evaluator<'a> {
                 // if() is lazy: only the selected branch is evaluated. (Its
                 // `[if-function]` deprecation is raised when the FILE is
                 // parsed, not here — see `warn_import_rules`.)
-                if name == "if" {
+                if facts.is_if {
                     return self.eval_if_function(args, *pos);
                 }
                 // User-defined @function takes precedence over builtins.
@@ -538,19 +551,14 @@ impl<'a> Evaluator<'a> {
                 // built-in lookup from here down runs on the canonical spelling
                 // (`map_get(…)` IS the deprecated `map-get(…)`). The name as
                 // WRITTEN stays in `name` for the plain-CSS passthrough.
-                let canonical = if name.contains('_') {
-                    Cow::Owned(name.replace('_', "-"))
-                } else {
-                    Cow::Borrowed(name.as_str())
-                };
-                let canonical = canonical.as_ref();
+                let canonical = facts.canonical.as_deref().unwrap_or(name.as_str());
                 // A member exposed unprefixed via `@use … as *` — from a user
                 // module, or from a built-in one (directly or through a user
                 // module that forwards it). All of them compete for the bare
                 // name, so ONE ambiguity check covers them, and it runs before
                 // the arguments are evaluated: a call that resolves to nothing
                 // must not warn about what is inside it.
-                let star_user: Vec<(Rc<Module>, Rc<UserCallable>)> = if is_private_member(name) {
+                let star_user: Vec<(Rc<Module>, Rc<UserCallable>)> = if facts.private {
                     Vec::new()
                 } else {
                     self.star_user_modules
@@ -573,12 +581,12 @@ impl<'a> Evaluator<'a> {
                 // treats `calc(<arg>)` as a calculation), so a user
                 // `@function calc()` could have handled it above. With no user
                 // override it is the CSS `calc()`, which requires an argument.
-                if name.eq_ignore_ascii_case("calc") && args.is_empty() {
+                if facts.calc && args.is_empty() {
                     return Err(Error::at("Missing argument.", *pos));
                 }
                 // The pure CSS-calculation functions are parsed as
                 // calculations, which cannot take a `...` rest argument.
-                if is_calc_function(name) && args.iter().any(|a| a.splat) {
+                if facts.calc_function && args.iter().any(|a| a.splat) {
                     return Err(Error::at("Rest arguments can't be used with calculations.", *pos));
                 }
                 // The single-/double-argument math calculations (`sin`, `cos`,
@@ -593,20 +601,14 @@ impl<'a> Evaluator<'a> {
                 // argument reduces to a plain number the normal builtin path
                 // computes the result (and applies its unit checks), so this only
                 // changes the two calc-specific behaviours above.
-                if is_pure_calc_math_function(name)
-                    && !has_user_fn
-                    && !args.iter().any(|a| a.splat || a.name.is_some())
-                {
+                if facts.pure_calc_math && !has_user_fn && !args.iter().any(|a| a.splat || a.name.is_some()) {
                     if let Some(v) = self.try_eval_calc_math_call(name, args, *pos)? {
                         return Ok(v);
                     }
                 }
                 // `calc-size()` is a two-argument calculation: a sizing keyword
                 // (or `var()`/calculation) plus a calculation, always preserved.
-                if name.eq_ignore_ascii_case("calc-size")
-                    && !has_user_fn
-                    && !args.iter().any(|a| a.splat || a.name.is_some())
-                {
+                if facts.calc_size && !has_user_fn && !args.iter().any(|a| a.splat || a.name.is_some()) {
                     return self.eval_calc_size(args, *pos);
                 }
                 // A three-argument `clamp()` evaluates its bounds and value as
@@ -614,7 +616,7 @@ impl<'a> Evaluator<'a> {
                 // keeps the call preserved instead of erroring as Sass
                 // arithmetic. Other arities (a preserved single argument, or an
                 // arity error) fall through to the builtin.
-                if name.eq_ignore_ascii_case("clamp")
+                if facts.clamp
                     && !has_user_fn
                     && args.len() == 3
                     && !args.iter().any(|a| a.splat || a.name.is_some())
@@ -629,7 +631,7 @@ impl<'a> Evaluator<'a> {
                 // Without such a substitution the argument resolves to a plain
                 // number, so the deprecated `math.abs` global handles it as
                 // before (`abs(1 + 1px)` -> `2px`, `abs(-3) -> 3`).
-                if name.eq_ignore_ascii_case("abs")
+                if facts.abs
                     && !has_user_fn
                     && args.len() == 1
                     && args[0].name.is_none()
@@ -651,7 +653,7 @@ impl<'a> Evaluator<'a> {
                 // preserved. Calc-incompatible SassScript (`7 % 3`) falls back
                 // to the legacy one-argument `math.round` (arity errors and
                 // all).
-                if name.eq_ignore_ascii_case("round")
+                if facts.round
                     && !has_user_fn
                     && (1..=3).contains(&args.len())
                     && !args.iter().any(|a| a.splat || a.name.is_some())
@@ -705,7 +707,7 @@ impl<'a> Evaluator<'a> {
                 // every argument folds to a number the builtin computes as
                 // before, and SassScript-only operators (`7 % 3`) keep the
                 // whole call on the legacy path.
-                if (name.eq_ignore_ascii_case("min") || name.eq_ignore_ascii_case("max"))
+                if facts.min_max
                     && !has_user_fn
                     && !args.is_empty()
                     && !args.iter().any(|a| a.splat || a.name.is_some())
@@ -753,7 +755,7 @@ impl<'a> Evaluator<'a> {
                 // star branch that dispatches to the module and emits that
                 // warning, so the star path must fall through to it (#124).
                 let ms_alpha_filter = via_star.is_none()
-                    && canonical == "alpha"
+                    && facts.alpha
                     && crate::builtins::ms_filter_args(&pos_args, &named).is_some();
                 // Same reasoning for the four names that are BOTH a CSS filter
                 // function and a Sass global colour function: with a plain-CSS
@@ -787,18 +789,28 @@ impl<'a> Evaluator<'a> {
                         self.options.functions.iter().any(|f| f.name == norm)
                     });
                 if !ms_alpha_filter && !css_filter_call {
-                    self.emit_call_deprecations(
-                        canonical,
-                        via_star.as_ref().map(|(owner, _)| owner.as_str()),
-                        *pos,
-                        *length,
-                    );
+                    match &via_star {
+                        // A global call: what it is deprecated for is the
+                        // name's, read from this call site's facts (worked out
+                        // on its first evaluation, above).
+                        None => self.emit_call_deprecations_with(
+                            canonical,
+                            None,
+                            facts.global_replacement,
+                            facts.feature_exists,
+                            *pos,
+                            *length,
+                        ),
+                        Some((owner, _)) => {
+                            self.emit_call_deprecations(canonical, Some(owner), *pos, *length)
+                        }
+                    }
                 }
                 // The global (deprecated) aliases of the `sass:meta` existence
                 // predicates resolve against the evaluator state, not the
                 // value-only builtin layer. A user-defined function of the same
                 // name still wins (checked above).
-                if crate::builtins::EVAL_GLOBAL_NAMES.contains(&canonical) {
+                if facts.eval_global {
                     for v in &mut pos_args {
                         *v = std::mem::replace(v, Value::Null).without_slash();
                     }
@@ -918,7 +930,7 @@ impl<'a> Evaluator<'a> {
                 // A bare slash-division argument collapses to its number when
                 // passed to a real Sass function (dart-sass `withoutSlash`);
                 // plain CSS functions (`foo(1/2)`) keep the slash verbatim.
-                if crate::builtins::is_builtin(name) {
+                if facts.builtin {
                     for v in &mut pos_args {
                         *v = std::mem::replace(v, Value::Null).without_slash();
                     }
@@ -933,7 +945,11 @@ impl<'a> Evaluator<'a> {
                 // lookup, and a name that is no builtin passes through as the
                 // plain-CSS function it was spelled as.
                 let v = crate::builtins::call(name, &pos_args, &named, *pos)?;
-                self.emit_color_function_deprecation(canonical, None, *pos, *length, &pos_args, &named);
+                // With no module, this deprecation is raised for exactly the
+                // names `color_deprecates` records, and is a no-op otherwise.
+                if facts.color_deprecates {
+                    self.emit_color_function_deprecation(canonical, None, *pos, *length, &pos_args, &named);
+                }
                 Ok(v.without_slash())
             }
         }

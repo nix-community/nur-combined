@@ -2393,7 +2393,32 @@ impl<'a> Evaluator<'a> {
             None
         };
         let feature_exists = name == "feature-exists" && module.map_or(true, |m| m == "meta");
+        // Gate here too, not only in `_with`: nearly every call deprecates
+        // nothing, and a module call reaches only this wrapper.
         if replacement.is_none() && !feature_exists {
+            return;
+        }
+        self.emit_call_deprecations_with(name, module, replacement, feature_exists, pos, len);
+    }
+
+    /// [`Self::emit_call_deprecations`] once the name-only questions have been
+    /// answered: `name` canonical, `replacement` the `[global-builtin]`
+    /// suggestion if the call is global, `feature_exists` whether it is
+    /// `feature-exists` as a global or `meta.` member. A global call has these
+    /// on its [`crate::ast::CallFacts`] already.
+    pub(super) fn emit_call_deprecations_with(
+        &mut self,
+        name: &str,
+        module: Option<&str>,
+        replacement: Option<&'static str>,
+        feature_exists: bool,
+        pos: Pos,
+        len: usize,
+    ) {
+        if replacement.is_none() && !feature_exists {
+            return;
+        }
+        if !self.diag_enabled() {
             return;
         }
         // Only now the gate that can take a lock: a name nothing deprecates has
@@ -5383,6 +5408,36 @@ fn decode_ident_escapes(s: &str) -> String {
 /// as a calculation expression, and so cannot accept a `...` rest argument
 /// (`clamp`, `hypot`, the exponent/trig functions). `min`/`max` are excluded:
 /// they are variadic Sass functions that also accept a splat.
+impl crate::ast::CallFacts {
+    /// Answer, once, every name-only question the call path asks. Each field
+    /// delegates to the predicate the evaluator used to call directly, so the
+    /// rules stay in one place and this only moves WHEN they run.
+    pub(crate) fn of(name: &str) -> Self {
+        let canonical = name.contains('_').then(|| name.replace('_', "-"));
+        let c = canonical.as_deref().unwrap_or(name);
+        Self {
+            dashed: name.starts_with("--"),
+            private: is_private_member(name),
+            is_if: name == "if",
+            calc: name.eq_ignore_ascii_case("calc"),
+            calc_size: name.eq_ignore_ascii_case("calc-size"),
+            calc_function: is_calc_function(name),
+            pure_calc_math: is_pure_calc_math_function(name),
+            clamp: name.eq_ignore_ascii_case("clamp"),
+            abs: name.eq_ignore_ascii_case("abs"),
+            round: name.eq_ignore_ascii_case("round"),
+            min_max: name.eq_ignore_ascii_case("min") || name.eq_ignore_ascii_case("max"),
+            alpha: c == "alpha",
+            builtin: crate::builtins::is_builtin(name),
+            eval_global: crate::builtins::EVAL_GLOBAL_NAMES.contains(&c),
+            global_replacement: crate::builtins::global_builtin_replacement(c),
+            feature_exists: c == "feature-exists",
+            color_deprecates: crate::builtins::color_function_deprecates(c),
+            canonical: canonical.map(String::into_boxed_str),
+        }
+    }
+}
+
 fn is_calc_function(name: &str) -> bool {
     matches!(name, "clamp" | "hypot" | "atan2" | "log" | "pow")
 }

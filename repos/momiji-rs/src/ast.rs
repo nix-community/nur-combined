@@ -493,6 +493,55 @@ pub(crate) enum TplPiece {
     Interp(Expr),
 }
 
+/// Everything about a function call that follows from its NAME alone, and so
+/// can never change between two evaluations of the same call. The evaluator's
+/// call path used to ask each of these questions, one string comparison or
+/// list scan at a time, on every call; now they are answered once per call
+/// site, on its first evaluation ([`CallFacts::of`], next to the predicates it
+/// delegates to).
+///
+/// What depends on evaluation state is deliberately absent: whether a user
+/// `@function`, a host function or an `@use … as *` member shadows the name,
+/// and whether the call sits in plain CSS or a `@supports` declaration. So is
+/// the one question only those two contexts ask (`is_supports_calc_function`):
+/// answering it for every call site cost more than it saved.
+#[derive(Default, Debug, PartialEq)]
+pub(crate) struct CallFacts {
+    /// The canonical spelling (`_` read as `-`), when it differs from the name
+    /// as written.
+    pub canonical: Option<Box<str>>,
+    /// Starts with `--`: always a plain-CSS custom function.
+    pub dashed: bool,
+    /// Starts with `-` or `_`: a private member name.
+    pub private: bool,
+    pub is_if: bool,
+    /// `calc`, any case.
+    pub calc: bool,
+    pub calc_size: bool,
+    /// One of the calculation functions that cannot take a rest argument.
+    pub calc_function: bool,
+    /// One of the single-/double-argument math calculations (`sin`, `pow`, …).
+    pub pure_calc_math: bool,
+    pub clamp: bool,
+    pub abs: bool,
+    pub round: bool,
+    /// `min` or `max`, any case.
+    pub min_max: bool,
+    /// Canonically `alpha`, for the Microsoft filter overload.
+    pub alpha: bool,
+    /// A built-in function name.
+    pub builtin: bool,
+    /// A `sass:meta` global the evaluator answers itself.
+    pub eval_global: bool,
+    /// The module function a GLOBAL call to this name is deprecated in favour
+    /// of (`[global-builtin]`), if any.
+    pub global_replacement: Option<&'static str>,
+    /// Canonically `feature-exists`, deprecated however it is spelled.
+    pub feature_exists: bool,
+    /// A legacy colour function with a `[color-functions]` deprecation.
+    pub color_deprecates: bool,
+}
+
 /// A value expression.
 pub(crate) enum Expr {
     /// Numeric literal: value + unit (`""` for unitless). The unit is spelled
@@ -560,6 +609,11 @@ pub(crate) enum Expr {
         /// Byte length of the whole call `name(args)`, for the diagnostic caret.
         length: usize,
         module: Option<String>,
+        /// What the name alone decides, worked out the first time this call
+        /// is evaluated rather than re-derived on every evaluation. Lazily,
+        /// not by the parser: working it out for a call that never runs, or
+        /// runs once, costs more than the checks it replaces.
+        facts: std::cell::OnceCell<Box<CallFacts>>,
     },
     /// A function call whose name contains interpolation (`qu#{o}te(arg)`).
     /// dart-sass treats these as *plain CSS* calls: the name resolves at

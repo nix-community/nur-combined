@@ -617,6 +617,7 @@ impl Parser {
         let args = self.parse_args_after_paren()?;
         Ok(vec![TplPiece::Interp(Expr::Func {
             // dart writes the canonical spelling, not the one in the source.
+            facts: std::cell::OnceCell::new(),
             name: "url".to_string(),
             args,
             pos: url_pos,

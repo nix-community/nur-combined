@@ -1436,6 +1436,7 @@ impl Parser {
                     self.sc.bump(); // '('
                     let args = self.parse_args_after_paren()?;
                     Ok(Some(Expr::Func {
+                        facts: std::cell::OnceCell::new(),
                         name: member,
                         args,
                         pos: name_pos,
@@ -1538,6 +1539,7 @@ impl Parser {
                 // (dart-sass).
                 let args = self.parse_args_after_paren()?;
                 return Ok(Expr::Func {
+                    facts: std::cell::OnceCell::new(),
                     name,
                     args,
                     pos: name_pos,
@@ -1579,6 +1581,7 @@ impl Parser {
             self.sc.reset(mark);
             let args = self.parse_args_after_paren()?;
             return Ok(Expr::Func {
+                facts: std::cell::OnceCell::new(),
                 name,
                 args,
                 pos: name_pos,
@@ -1600,6 +1603,7 @@ impl Parser {
             if lower == "var" || lower == "env" {
                 let args = self.parse_args_after_paren_opt_empty_second(lower == "var")?;
                 return Ok(Expr::Func {
+                    facts: std::cell::OnceCell::new(),
                     name,
                     args,
                     pos: name_pos,
@@ -1637,6 +1641,7 @@ impl Parser {
         }
         let args = self.parse_args_after_paren()?;
         Ok(Expr::Func {
+            facts: std::cell::OnceCell::new(),
             name,
             args,
             pos: name_pos,

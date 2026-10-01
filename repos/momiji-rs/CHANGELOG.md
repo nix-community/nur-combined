@@ -125,6 +125,32 @@ Conformance is tracked separately as a ratchet against the official
   reference, `meta.call`, a module function) shared one swap, written out
   six times. It is one `enter_callable` / `leave_callable` pair now, which
   is what let this change be made once.
+- **A global built-in call asks its name-only questions once per call site.**
+  Before it dispatched, every call to a global function ran a series of
+  string tests on its name, about fifteen of them: is it `if`, `calc`,
+  `clamp`, `round`, `min`/`max`, a calculation, a private name, a `sass:meta`
+  global, a built-in at all, deprecated in favour of what, and so on. None of
+  those answers can change between two evaluations of the same call. They now
+  live on the call's AST node, worked out on its first evaluation
+  (`CallFacts`), and every later evaluation reads them. A call site that
+  never runs costs nothing. Per call, a global built-in saves ~530–690
+  instructions (`nth($l, 1)` went from 3,534 to 2,877). Marginal instructions
+  on Linux/x86_64, output byte-identical:
+
+  ```
+                                  before     now        change
+    legacy_deprecations.scss      117.19M    108.92M    -7.06%
+    large.scss, expanded          97.36M     94.32M     -3.12%
+    minimal-mistakes              166.7M     161.9M     -2.87%
+    bootstrap                     839.1M     820.6M     -2.20%
+    forem                         308.0M     304.5M     -1.13%
+    bulma                         1932.2M    1911.9M    -1.05%
+  ```
+
+  An earlier version computed the facts in the parser. That made a call that
+  runs once, or never, pay for all fifteen answers, and it made mastodon
+  0.3% slower. The lazy version is no slower than before on any project
+  measured.
 
 ## [0.19.3] - 2026-09-30
 
