@@ -122,7 +122,13 @@ let
   # Do not put systemd on PATH here: its resolvconf (resolvectl) would beat
   # wireguard-tools' openresolv PATH suffix and break DNS= when openresolv is
   # the backend. programs.wireguird prefixes networking.resolvconf.package.
-  wireguardToolPath = "/run/wrappers/bin:${lib.makeBinPath [ wireguard-tools dbus gnugrep ]}";
+  wireguardToolPath = "/run/wrappers/bin:${
+    lib.makeBinPath [
+      wireguard-tools
+      dbus
+      gnugrep
+    ]
+  }";
 in
 stdenv.mkDerivation {
   pname = "wireguird";
@@ -139,7 +145,7 @@ stdenv.mkDerivation {
   ];
 
   unpackPhase = "true";
-  
+
   dontWrapGApps = true;
 
   installPhase = ''
@@ -159,14 +165,14 @@ stdenv.mkDerivation {
     cat <<'EOF' > "$out/libexec/wireguird-launcher"
     #!/bin/sh
     export GTK_USE_PORTAL=0
-    
+
     # Drop capabilities and query the portal for the color scheme
     if ${util-linux}/bin/setpriv --ambient-caps=-all --inh-caps=-all dbus-send --print-reply --session \
         --dest=org.freedesktop.portal.Desktop /org/freedesktop/portal/desktop \
         org.freedesktop.portal.Settings.Read string:'org.freedesktop.appearance' string:'color-scheme' 2>/dev/null | grep -q 'uint32 1'; then
         export GTK_THEME=Adwaita:dark
     fi
-    
+
     exec "$out/libexec/wireguird-raw" "$@"
     EOF
     chmod +x "$out/libexec/wireguird-launcher"
