@@ -37,7 +37,7 @@ jobs:
       - name: Configure Git
         run: |
           git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
       
       - name: Update flake
         run: |
@@ -48,6 +48,7 @@ jobs:
           fi
       
       - name: Auto-update packages
+        continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NIXPKGS_ALLOW_INSECURE: '1'
@@ -56,7 +57,7 @@ jobs:
           ./scripts/update-packages.sh
           
       - name: Commit and push changes
-        if: always()
+
         run: |
           git add flake.lock by-name pkgs
           if git diff --cached --quiet; then
