@@ -6,18 +6,30 @@
 
 stdenvNoCC.mkDerivation {
   pname = "tunnckocore-pi-gpt-fast-mode";
-  version = "0.4.0-unstable-2026-09-08";
+  version = "0.4.0-unstable-2026-10-01";
 
   __structuredAttrs = true;
   strictDeps = true;
 
-  # https://github.com/tunnckoCore/pi-gpt-fast-mode/pull/3
   src = fetchFromGitHub {
-    owner = "alexanderkreidich";
+    owner = "tunnckoCore";
     repo = "pi-gpt-fast-mode";
-    rev = "0904bebaddeeaf529fdca876a32b0149356bac7a";
-    hash = "sha256-gibz8nJ70JQFVh30hixOhrXaVuy3IWhww65k3UXsGZw=";
+    rev = "0d9baba259fc9231bc10d4568b738971151fdba8";
+    hash = "sha256-OWd1yVNk9oXS28BN+B35fBke6To08zyzMGwUgQDSQEo=";
   };
+
+  postPatch = ''
+    sed -i -e '/SUPPORTED_MODELS =/a\
+      "openai/gpt-6-astra",\
+      "openai/gpt-6-luna",\
+      "openai/gpt-6-sol",\
+      "openai/gpt-6.1-sol",\
+      "openai-codex/gpt-6-astra",\
+      "openai-codex/gpt-6-luna",\
+      "openai-codex/gpt-6-sol",\
+      "openai-codex/gpt-6.1-sol",\
+    ' src/index.ts
+  '';
 
   installPhase = ''
     runHook preInstall
