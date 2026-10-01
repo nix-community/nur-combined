@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-cd "$SCRIPT_DIR"
+cd "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 
-export DOWNLOAD_DIR="$(mktemp -d)"
-
-curl -s https://raw.githubusercontent.com/lewtec/modot/refs/heads/master/setup > "$DOWNLOAD_DIR/setup"
-chmod +x "$DOWNLOAD_DIR/setup"
-
-"$DOWNLOAD_DIR/setup" self-install -f
-"$DOWNLOAD_DIR/setup" home apply
+# Keep the installer outside DOWNLOAD_DIR. modot's setup treats every
+# executable in that directory as the release binary and would re-exec itself.
+installer=$(mktemp)
+trap 'rm -f "$installer"' EXIT
+curl -fsSL https://raw.githubusercontent.com/lewtec/modot/master/setup -o "$installer"
+# No args: self-install -f. With args: self-install, then pass them to modot.
+bash "$installer" "$@"
 
 

@@ -446,7 +446,11 @@ modules: {
 #is_whiterun: runtime.hostname == "whiterun"
 #is_riverwood: runtime.hostname == "riverwood"
 #is_massan: runtime.hostname == "MacBook-Air-de-Lucas.local"
+#is_ravenrock: runtime.hostname == "ravenrock"
 #is_computer: #is_whiterun || #is_riverwood || #is_massan
+// github:lewtec/skills is private. Leave this off so a new machine can
+// home apply before anyone logs in or copies a token.
+#should_have_skills: #is_whiterun || #is_riverwood || #is_massan || #is_ravenrock
 #is_phone: runtime.is_phone
 #remote_path: "backup/lucasew"
 
@@ -536,7 +540,7 @@ backup: {
 // ========== Agent skills
 
 #skills: {
-	if !#is_phone {
+	if #should_have_skills {
 		lewtec: {
 			from: "github:lewtec/skills"
 			version: "a475a4310f39efdb4125079bb5dd27dcfcc92799"
@@ -565,7 +569,7 @@ backup: {
 // ~/.grok/agents (Grok user agents) so spawn_subagent can see the type.
 
 #agents: {
-	if !#is_phone {
+	if #should_have_skills {
 		lewtec: {
 			from:    #skills.lewtec.from
 			version: #skills.lewtec.version
