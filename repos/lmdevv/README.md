@@ -27,12 +27,6 @@ Ultra-fast, minimal AI commit helper I made specifically for own workflow, it is
 quite simple. Nixpkgs hosts richer alternatives (opencommit, geminicommit, etc.)
 if you need more features.
 
-### t3code
-
-Personal T3 Code build with Vim-style picker navigation and editable model-options and
-right-panel shortcuts. Packaged from unsigned AppImage/DMG releases built daily from the
-`lmdevv/t3code` fork after rebasing onto upstream `main`.
-
 ### paper-design (unfree)
 
 Official Paper desktop app, a connected design canvas with local MCP integration.
