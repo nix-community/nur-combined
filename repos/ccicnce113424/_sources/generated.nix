@@ -54,21 +54,21 @@
   };
   fast-nix-gc = {
     pname = "fast-nix-gc";
-    version = "de33bdb8a5ca304d443252dd61702f8649dcc26b";
+    version = "78aeb273d682ae18197f7036ca8e03a2715568fc";
     src = fetchFromGitHub {
       owner = "Mic92";
       repo = "fast-nix-gc";
-      rev = "de33bdb8a5ca304d443252dd61702f8649dcc26b";
+      rev = "78aeb273d682ae18197f7036ca8e03a2715568fc";
       fetchSubmodules = false;
-      sha256 = "sha256-EbXqCoQYMtNBjbPOW+6A5wp8Xn9d2wcnyUq2OJ6qXKY=";
+      sha256 = "sha256-wnFAQIAnjxqXUtkhdxSwegmI3kmDg23zrqsl5iI/jgA=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-EbXqCoQYMtNBjbPOW+6A5wp8Xn9d2wcnyUq2OJ6qXKY=/Cargo.lock";
+      lockFile = ./. + "/sha256-wnFAQIAnjxqXUtkhdxSwegmI3kmDg23zrqsl5iI_jgA=/Cargo.lock";
       outputHashes = {
         "harmonia-file-core-3.1.0" = "sha256-YklzRujFo5lvFsdLoedE6OL6OvSwNk/nfwlGxulyTS4=";
       };
     };
-    date = "2026-09-24";
+    date = "2026-10-01";
   };
   flake-linter = {
     pname = "flake-linter";
@@ -240,16 +240,16 @@
   };
   open-orpheus-dev = {
     pname = "open-orpheus-dev";
-    version = "10e3acd12fe5702d099e61d8ea3ea23965b92a2b";
+    version = "ac86941295d068aaa531a2df8cb0e4c676e89947";
     src = fetchFromGitHub {
       owner = "YUCLing";
       repo = "open-orpheus";
-      rev = "10e3acd12fe5702d099e61d8ea3ea23965b92a2b";
+      rev = "ac86941295d068aaa531a2df8cb0e4c676e89947";
       fetchSubmodules = false;
-      sha256 = "sha256-gLvMHN3pkyvvOfPKSVWGetyfxTtqRQSR1uqaSRYyHiY=";
+      sha256 = "sha256-FsvaSkooHu1ZjBoctiQOP/yJWNxXhTof9jTpmCPdtvw=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-gLvMHN3pkyvvOfPKSVWGetyfxTtqRQSR1uqaSRYyHiY=/Cargo.lock";
+      lockFile = ./. + "/sha256-FsvaSkooHu1ZjBoctiQOP_yJWNxXhTof9jTpmCPdtvw=/Cargo.lock";
       outputHashes = {
         "font-kit-0.14.3" = "sha256-1/5w7y6XhNNg7jRZmJazM188v6vWkdYHn+94WqmJpMg=";
         "avs3a-0.1.0" = "sha256-OcI39YMDhcBpP6Tij11rATcKtp+mVrXHsjy8gRSm3eI=";

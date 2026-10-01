@@ -79,13 +79,13 @@
     "fast-nix-gc": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-EbXqCoQYMtNBjbPOW+6A5wp8Xn9d2wcnyUq2OJ6qXKY=/Cargo.lock",
+                "sha256-wnFAQIAnjxqXUtkhdxSwegmI3kmDg23zrqsl5iI_jgA=/Cargo.lock",
                 {
                     "harmonia-file-core-3.1.0": "sha256-YklzRujFo5lvFsdLoedE6OL6OvSwNk/nfwlGxulyTS4="
                 }
             ]
         },
-        "date": "2026-09-24",
+        "date": "2026-10-01",
         "extract": null,
         "name": "fast-nix-gc",
         "passthru": null,
@@ -97,12 +97,12 @@
             "name": null,
             "owner": "Mic92",
             "repo": "fast-nix-gc",
-            "rev": "de33bdb8a5ca304d443252dd61702f8649dcc26b",
-            "sha256": "sha256-EbXqCoQYMtNBjbPOW+6A5wp8Xn9d2wcnyUq2OJ6qXKY=",
+            "rev": "78aeb273d682ae18197f7036ca8e03a2715568fc",
+            "sha256": "sha256-wnFAQIAnjxqXUtkhdxSwegmI3kmDg23zrqsl5iI/jgA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "de33bdb8a5ca304d443252dd61702f8649dcc26b"
+        "version": "78aeb273d682ae18197f7036ca8e03a2715568fc"
     },
     "flake-linter": {
         "cargoLock": null,
@@ -384,7 +384,7 @@
     "open-orpheus-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-gLvMHN3pkyvvOfPKSVWGetyfxTtqRQSR1uqaSRYyHiY=/Cargo.lock",
+                "sha256-FsvaSkooHu1ZjBoctiQOP_yJWNxXhTof9jTpmCPdtvw=/Cargo.lock",
                 {
                     "avs3a-0.1.0": "sha256-OcI39YMDhcBpP6Tij11rATcKtp+mVrXHsjy8gRSm3eI=",
                     "font-kit-0.14.3": "sha256-1/5w7y6XhNNg7jRZmJazM188v6vWkdYHn+94WqmJpMg="
@@ -403,12 +403,12 @@
             "name": null,
             "owner": "YUCLing",
             "repo": "open-orpheus",
-            "rev": "10e3acd12fe5702d099e61d8ea3ea23965b92a2b",
-            "sha256": "sha256-gLvMHN3pkyvvOfPKSVWGetyfxTtqRQSR1uqaSRYyHiY=",
+            "rev": "ac86941295d068aaa531a2df8cb0e4c676e89947",
+            "sha256": "sha256-FsvaSkooHu1ZjBoctiQOP/yJWNxXhTof9jTpmCPdtvw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "10e3acd12fe5702d099e61d8ea3ea23965b92a2b"
+        "version": "ac86941295d068aaa531a2df8cb0e4c676e89947"
     },
     "piliplus": {
         "cargoLock": null,
