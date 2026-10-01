@@ -25,9 +25,6 @@ let
 
     mySources = callPackage ./_sources/generated.nix { };
 
-    bailian-cli = callPackage ./pkgs/tools/misc/bailian-cli { };
-    codebuddy = callPackage ./pkgs/tools/misc/codebuddy { };
-
     gopass-symlinks = callPackage ./pkgs/shells/symlinks/gopass-symlinks { };
     proxychains-symlinks = callPackage ./pkgs/shells/symlinks/proxychains-symlinks { };
 
