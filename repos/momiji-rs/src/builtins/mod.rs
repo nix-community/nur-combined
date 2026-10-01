@@ -25,6 +25,7 @@ mod selector;
 mod string;
 
 use crate::error::Error;
+use crate::fxhash::FxHashMap;
 use crate::scanner::Pos;
 use crate::value::{Color, Number, SassStr, Value};
 
@@ -257,6 +258,18 @@ fn verify_args(f: &Fun, pos_args: &[Value], named: &[(String, Value)], pos: Pos)
     };
     let declared = f.named_params();
 
+    // With no named argument, rules 0 and 3 cannot fire and rule 1 is a count.
+    // Nearly every call a stylesheet makes takes this path.
+    if named.is_empty() {
+        if let Some(param) = declared.iter().take(f.required).nth(pos_args.len()) {
+            return Err(Error::at(format!("Missing argument ${param}."), pos));
+        }
+        if f.rest().is_some() {
+            return Ok(());
+        }
+        return check_arity(declared.len(), pos_args, named, pos);
+    }
+
     // 0. A parameter given both ways outranks everything below — measured, and
     //    `list.nth(1, 2, 3, $list: 4)` is the duplicate rather than the
     //    overflow (#147).
@@ -462,7 +475,50 @@ pub(crate) fn verify_member_args(
 
 /// The `Fun` row for a module member, for [`verify_args`].
 fn member_of(module: &str, member: &str) -> Option<&'static Fun> {
-    members_of(module)?.functions.iter().find(|f| f.name == member)
+    member_index().members[module_slot(module)?].get(member).copied()
+}
+
+/// Every [`Fun`] row, keyed both ways a call can name it. Built once per
+/// process, because verification runs ahead of EVERY built-in call and a
+/// linear walk of all seven tables there was measurable (#260).
+struct MemberIndex {
+    /// By [`module_slot`], then by member name.
+    members: [FxHashMap<&'static str, &'static Fun>; MODULES.len()],
+    globals: FxHashMap<&'static str, &'static Fun>,
+}
+
+/// The modules [`members_of`] describes, in the order [`global_member`] has
+/// always searched them: the first to name a global is the one that answers.
+const MODULES: [&str; 7] = ["math", "color", "list", "map", "selector", "string", "meta"];
+
+/// `module`'s position in [`MODULES`].
+fn module_slot(module: &str) -> Option<usize> {
+    MODULES.iter().position(|m| *m == module)
+}
+
+fn member_index() -> &'static MemberIndex {
+    static INDEX: std::sync::OnceLock<MemberIndex> = std::sync::OnceLock::new();
+    INDEX.get_or_init(|| {
+        // The index outlives the compile that first asks for it, so it must not
+        // be allocated in that compile's arena.
+        let _paused = crate::arena::pause();
+        let mut index = MemberIndex {
+            members: Default::default(),
+            globals: FxHashMap::default(),
+        };
+        for (slot, module) in MODULES.iter().enumerate() {
+            let Some(m) = members_of(module) else { continue };
+            for f in m.functions {
+                // First wins in both maps, as the linear `find` this replaces
+                // did: a later row never shadows an earlier one.
+                index.members[slot].entry(f.name).or_insert(f);
+                if let Some(g) = f.global.filter(|g| !CALCULATION_GLOBALS.contains(g)) {
+                    index.globals.entry(g).or_insert(f);
+                }
+            }
+        }
+        index
+    })
 }
 
 /// The `Fun` row a GLOBAL name is a view of, or `None` when this build does not
@@ -477,14 +533,7 @@ fn member_of(module: &str, member: &str) -> Option<&'static Fun> {
 /// member NAME would give those dart's Sass-function message where dart gives
 /// the calculation one.
 fn global_member(name: &str) -> Option<&'static Fun> {
-    if CALCULATION_GLOBALS.contains(&name) {
-        return None;
-    }
-    ["math", "color", "list", "map", "selector", "string", "meta"]
-        .iter()
-        .filter_map(|m| members_of(m))
-        .flat_map(|m| m.functions.iter())
-        .find(|f| f.global == Some(name))
+    member_index().globals.get(name).copied()
 }
 
 /// The globals dart treats as CSS CALCULATIONS rather than as Sass functions,
@@ -841,11 +890,17 @@ struct Fun {
     /// collected, so a named argument is part of its interface rather than a
     /// mistake. Only meaningful with a rest parameter; see [`f_kw`].
     reads_keywords: bool,
+    /// Whether the last of `params` is a rest parameter, decided once when the
+    /// table is built rather than by a suffix test on every call (#260).
+    has_rest: bool,
 }
 
 impl Fun {
     /// The rest parameter's name, if the last parameter is one.
     fn rest(&self) -> Option<&'static str> {
+        if !self.has_rest {
+            return None;
+        }
         self.params?.last()?.strip_suffix("...")
     }
 
@@ -854,10 +909,7 @@ impl Fun {
     /// `math.max(1, $numbers: 2)` with `No parameter named $numbers.`.
     fn named_params(&self) -> &'static [&'static str] {
         let all = self.params.unwrap_or(&[]);
-        match all.last() {
-            Some(last) if last.ends_with("...") => &all[..all.len() - 1],
-            _ => all,
-        }
+        &all[..all.len() - self.has_rest as usize]
     }
 }
 
@@ -886,6 +938,7 @@ const fn f(
         params: Some(params),
         required,
         reads_keywords: false,
+        has_rest: ends_in_rest(params),
     }
 }
 
@@ -915,6 +968,7 @@ const fn f_kw(
         params: Some(params),
         required,
         reads_keywords: true,
+        has_rest: ends_in_rest(params),
     }
 }
 
@@ -939,7 +993,17 @@ const fn no_sig(name: &'static str, global: Option<&'static str>) -> Fun {
         params: None,
         required: 0,
         reads_keywords: false,
+        has_rest: false,
     }
+}
+
+/// Whether the last parameter is written with dart's `...` rest suffix.
+const fn ends_in_rest(params: &[&str]) -> bool {
+    let Some(last) = params.last() else {
+        return false;
+    };
+    let b = last.as_bytes();
+    b.len() >= 3 && b[b.len() - 3] == b'.' && b[b.len() - 2] == b'.' && b[b.len() - 1] == b'.'
 }
 
 /// The table every member question is answered from.
@@ -1945,6 +2009,56 @@ mod tests {
             }
         }
         assert_eq!(unverified, ["color.hwb", "color.alpha"]);
+    }
+
+    /// The index answers exactly what a walk of the tables answers, for every
+    /// member and every global, including a name that is both. It replaced
+    /// that walk for speed alone (#260), and its first-wins rule is what keeps
+    /// a later row from shadowing an earlier one.
+    #[test]
+    fn the_member_index_agrees_with_the_tables() {
+        let tables = || {
+            super::MODULES
+                .iter()
+                .filter_map(|m| super::members_of(m).map(|t| (*m, t)))
+        };
+        for (module, table) in tables() {
+            for f in table.functions {
+                let walked = table.functions.iter().find(|g| g.name == f.name).unwrap();
+                assert!(std::ptr::eq(super::member_of(module, f.name).unwrap(), walked));
+            }
+        }
+        assert!(super::member_of("math", "nope").is_none());
+        assert!(super::member_of("nope", "abs").is_none());
+        for (_, table) in tables() {
+            for g in table.functions.iter().filter_map(|f| f.global) {
+                let walked = tables()
+                    .flat_map(|(_, t)| t.functions.iter())
+                    .find(|f| f.global == Some(g))
+                    .filter(|_| !super::CALCULATION_GLOBALS.contains(&g));
+                let indexed = super::global_member(g);
+                assert_eq!(
+                    indexed.map(|f| f as *const _),
+                    walked.map(|f| f as *const _),
+                    "{g}"
+                );
+            }
+        }
+    }
+
+    /// `has_rest` is computed once, in a `const fn`; it must agree with the
+    /// suffix test it replaced.
+    #[test]
+    fn has_rest_matches_the_rest_suffix() {
+        for module in super::MODULES {
+            for f in super::members_of(module).unwrap().functions {
+                let suffixed = f
+                    .params
+                    .and_then(|p| p.last())
+                    .is_some_and(|p| p.ends_with("..."));
+                assert_eq!(f.has_rest, suffixed, "sass:{module}.{}", f.name);
+            }
+        }
     }
 
     /// A rest parameter is not addressable by its own name, and dart says so:

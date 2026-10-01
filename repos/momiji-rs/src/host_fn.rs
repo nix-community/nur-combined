@@ -154,12 +154,14 @@ pub(crate) fn bind_host_args(
     //
     // …and the callback does NOT run in either case, which is why this is here
     // rather than inside it (r4130220838).
-    if let Some(msg) = crate::builtins::argument_passed_twice(
-        param_names.iter().map(String::as_str),
-        positional.len(),
-        |name| keyword.contains_key(name),
-    ) {
-        return Err(msg);
+    if !keyword.is_empty() {
+        if let Some(msg) = crate::builtins::argument_passed_twice(
+            param_names.iter().map(String::as_str),
+            positional.len(),
+            |name| keyword.contains_key(name),
+        ) {
+            return Err(msg);
+        }
     }
     let mut out = Vec::with_capacity(param_names.len() + rest.is_some() as usize);
     let mut pos_iter = positional.into_iter();

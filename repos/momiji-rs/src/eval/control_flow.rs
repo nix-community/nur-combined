@@ -342,11 +342,18 @@ impl<'a> Evaluator<'a> {
         // binder used to let the positional win silently and then report the
         // keyword as unrecognized, so `f(1, $a: 2)` blamed `$a` — a real
         // parameter — for not being one (#147).
-        if let Some(msg) = crate::builtins::argument_passed_twice(
-            params.params.iter().map(|p| p.name.as_str()),
-            positional_count,
-            |name| keyword.contains_key(name),
-        ) {
+        // With nothing passed by name there is nothing to duplicate, and this
+        // runs on every call (#260).
+        let twice = if keyword.is_empty() {
+            None
+        } else {
+            crate::builtins::argument_passed_twice(
+                params.params.iter().map(|p| p.name.as_str()),
+                positional_count,
+                |name| keyword.contains_key(name),
+            )
+        };
+        if let Some(msg) = twice {
             // The INVOCATION alone. dart renders this one with a single span —
             // no `declaration` arm — unlike `Missing argument` below, which
             // carries the declaration it was measured against. Verified by

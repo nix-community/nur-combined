@@ -11,6 +11,31 @@ Conformance is tracked separately as a ratchet against the official
 
 ## [Unreleased]
 
+### Performance
+
+- **Built-in calls cost about what they did before 0.19.1 again** (#260).
+  0.19.1 began checking every built-in call against dart's declaration (#62),
+  and 0.19.2 added the passed-twice rule (#147). No output changed, but a
+  stylesheet heavy in built-in calls ran 6–8% more instructions. Three
+  things did most of the work, and they still do the same checks. Each call
+  used to walk all seven module tables to find its declaration; that is now
+  a lookup in an index built once per process. A call with no named argument
+  now checks two counts instead of running the full four-rule verification.
+  And whether a function takes a rest parameter is decided when the table is
+  built, not by a suffix test on every call. Marginal instructions on
+  Linux/x86_64, output byte-identical:
+
+  ```
+                                  0.19.3     now        change
+    large.scss, expanded          104.15M    99.19M     -4.77%
+    large.scss, compressed        117.36M   112.40M     -4.23%
+    legacy_deprecations.scss      131.27M   123.45M     -5.96%
+  ```
+
+  With the checks switched off entirely, `large.scss` would run 97.30M. What
+  is left, about 1.9M, is the lookup itself: roughly 180 instructions for each
+  of the ~10,400 built-in calls `large.scss` makes.
+
 ## [0.19.3] - 2026-09-30
 
 _More of a selector survives as written. sasso used to treat NBSP and the
