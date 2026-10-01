@@ -1,19 +1,17 @@
 { lib
 , python3
-, fetchFromGitHub
+, sources
 }:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "hhsh";
-  version = "0.1.1";
+  # Upstream publishes neither tags nor releases; nvfetcher tracks the branch
+  # tip and exposes its UTC commit date.
+  version = "0-unstable-${sources.hhsh.date}";
+
   pyproject = true;
 
-  src = fetchFromGitHub {
-    owner = "yihong0618";
-    repo = "nbnhhsh-cli";
-    rev = "main";
-    hash = "sha256-Dw6DouP9sjmaUzpePUX6MDQ3E/2wAFe+AeB4x/qBbOY=";
-  };
+  src = sources.hhsh.src;
 
   build-system = [ python3.pkgs.setuptools ];
 

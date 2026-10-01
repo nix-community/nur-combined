@@ -1,6 +1,6 @@
 { lib
 , stdenv
-, fetchurl
+, sources
 , dpkg
 , autoPatchelfHook
 , makeWrapper
@@ -44,6 +44,7 @@
 , nss
 , pango
 , pcre
+, pipewire
 , pixman
 , pulseaudio
 , systemd
@@ -54,22 +55,14 @@
 , xcbutilwm
 }:
 
-stdenv.mkDerivation (finalAttrs: {
-  pname = "classin";
+let
   # Note: the official Linux amd64/arm64 builds are not version-synced
   # (see https://www.eeo.cn/sysshare/custom/download_conf.json).
-  version = if stdenv.hostPlatform.isAarch64 then "6.0.8.2738" else "6.0.8.2737";
-
-  src = fetchurl {
-    url = if stdenv.hostPlatform.isAarch64 then
-      "https://www.eeo.cn/download/client/classin_${finalAttrs.version}_arm64.deb"
-    else
-      "https://www.eeo.cn/download/client/classin_${finalAttrs.version}_amd64.deb";
-    hash = if stdenv.hostPlatform.isAarch64 then
-      "sha256-35qdkyKoTjYDiNvdxH3ila1xvFrWHJk4FMiATm/+UjA="
-    else
-      "sha256-w+hx6vbygQ0Mn/sW9CWaapd4T27XMPQifd3vZoLXPgc=";
-  };
+  source = if stdenv.hostPlatform.isAarch64 then sources.classin-aarch64 else sources.classin-x86_64;
+in
+stdenv.mkDerivation (finalAttrs: {
+  pname = "classin";
+  inherit (source) version src;
 
   nativeBuildInputs = [
     dpkg
@@ -83,7 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
     fontconfig freetype glib keyutils libGL libdrm libice libkrb5 libselinux
     libsm libuuid libx11 libxcb libxcomposite libxcursor libxdamage libxext
     libxfixes libxi libxinerama libxkbcommon libxrandr libxrender libxscrnsaver
-    libxtst mesa nspr nss pango pcre pixman pulseaudio systemd util-linux
+    libxtst mesa nspr nss pango pcre pipewire pixman pulseaudio systemd util-linux
     xcbutilimage xcbutilkeysyms xcbutilrenderutil xcbutilwm
   ];
 
@@ -113,7 +106,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     if [ -f $out/share/applications/classin.desktop ]; then
       substituteInPlace $out/share/applications/classin.desktop \
-        --replace "Exec=/usr/bin/classin" "Exec=classin"
+        --replace-fail "/opt/apps/classin/ClassIn" "$out/bin/classin"
     fi
     runHook postInstall
   '';

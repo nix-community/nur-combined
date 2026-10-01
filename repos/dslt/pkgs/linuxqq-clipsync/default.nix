@@ -1,10 +1,10 @@
 { lib
 , rustPlatform
-, fetchFromGitHub
 , makeWrapper
 , clipnotify
 , wl-clipboard
 , xclip
+, sources
 }:
 
 let
@@ -16,18 +16,15 @@ let
 in
 rustPlatform.buildRustPackage rec {
   pname = "linuxqq-clipsync";
-  version = "git-cbbca25";
+  # Upstream publishes neither tags nor releases; nvfetcher tracks the branch
+  # tip and exposes its UTC commit date.
+  version = "0-unstable-${sources.linuxqq-clipsync.date}";
 
-  src = fetchFromGitHub {
-    owner = "SHORiN-KiWATA";
-    repo = "linuxqq-clipsync";
-    rev = "cbbca254f6dad6155bf55236a195f5343cddbe25";
-    hash = "sha256-ztbtsCCxA4qKEE9/qprcxbbbfD4uG70DAeLKzezLIxQ=";
-  };
+  src = sources.linuxqq-clipsync.src;
 
-  cargoLock = {
-    lockFile = ./Cargo.lock;
-  };
+  # The lock file is extracted from the fetched revision and its git
+  # dependencies are re-hashed by nvfetcher, so it cannot go stale.
+  cargoLock = sources.linuxqq-clipsync.cargoLock."Cargo.lock";
 
   nativeBuildInputs = [ makeWrapper ];
 

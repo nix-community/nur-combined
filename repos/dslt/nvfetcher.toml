@@ -1,0 +1,216 @@
+# nvfetcher configuration for nur-packages.
+#
+# `scripts/update.sh` drives this file: it runs nvfetcher here (optionally with
+# `--filter REGEX`), then regenerates the secondary artifacts nvfetcher cannot
+# own (bun.nix manifests, Go vendor hash, flake.lock, vendor/bun2nix submodule)
+# and finally reports what changed. It never commits; the caller decides.
+#
+# Conventions
+# - Source (git) records keep the upstream tag verbatim, "v" included, because
+#   nvfetcher derives fetch URLs from it
+#   (https://github.com/<owner>/<repo>/archive/$ver.tar.gz). Consumers strip the
+#   prefix for the Nix `version` attribute with `lib.removePrefix "v"`.
+# - Binary records use `src.prefix = "v"`, so `version` is the plain release
+#   number and release URL templates add the "v" they need themselves.
+# - Commit-tracked records (`src.git`) expose `version` = commit sha and
+#   `date` = "%Y-%m-%d" (UTC) commit date; consumers use `"0-unstable-${date}"`.
+# - Every fetch URL is immutable: pinned to a tag, commit, or a path that
+#   contains the version (chatgpt-*, classin-*). A hash therefore only moves
+#   when the version moves. `fetch.force` is intentionally unset so prefetch
+#   results stay cached; add it to a record if upstream is ever caught
+#   replacing a file without changing its version.
+# - `_sources/generated.nix`, `_sources/generated.json` and every extracted
+#   lock file (`_sources/<sha256-...>/...`) are committed: consumers reference
+#   those lock files through the generated `cargoLock`/`extract` attributes.
+#
+# Deliberately not managed here
+# - openssl-1.1 (pkgs/openssl-1.1): frozen end-of-life ABI backup for legacy
+#   packages. 1.1.1w is the final 1.1.x release; tracking openssl/openssl would
+#   follow the 3.x series, which is a different package.
+# - mefrpc (pkgs/mefrpc): its distribution host drive.mcsl.com.cn has been
+#   unreachable since 2026-09 and the package is meta.broken. It keeps its own
+#   pkgs/mefrpc/update.sh, which `scripts/update.sh --mefrpc` runs only when the
+#   API answers.
+
+# --------------------------------------------------------------------------
+# Vendor-hosted binaries with a machine readable version endpoint
+# --------------------------------------------------------------------------
+
+# Track the installers maintained by nixpkgs-unstable, independently of the
+# caller's nixpkgs channel. Full URLs retain Tencent's release-directory IDs;
+# qq-wlss derives its display version from the selected installer filename.
+[qq-x86_64]
+src.webpage = "https://raw.githubusercontent.com/NixOS/nixpkgs/nixpkgs-unstable/pkgs/by-name/qq/qq/sources.nix"
+src.regex = 'url = "(https://[^"]+_amd64_[^"]+\.deb)";'
+fetch.url = "$ver"
+
+[qq-aarch64]
+src.webpage = "https://raw.githubusercontent.com/NixOS/nixpkgs/nixpkgs-unstable/pkgs/by-name/qq/qq/sources.nix"
+src.regex = 'url = "(https://[^"]+_arm64_[^"]+\.deb)";'
+fetch.url = "$ver"
+
+[aiot-ide]
+# The download page renders the artifact list from a content-hashed VuePress
+# JS chunk, so resolve the chunk that mentions the artifact and read the
+# version field from it instead of hardcoding the chunk name.
+src.cmd = '''
+u=https://iot.mi.com/vela/quickapp
+page=$(curl -fsSL "$u/zh/guide/start/use-ide.html") || exit 1
+for chunk in $(printf '%s' "$page" | grep -oE 'assets/js/[0-9]+\.[0-9a-f]+\.js' | sort -u); do
+  body=$(curl -fsSL "$u/$chunk") || continue
+  case "$body" in
+  *AIoT_IDE_ubuntu*)
+    printf '%s' "$body" | grep -oE 'version:"[0-9]+\.[0-9]+\.[0-9]+"' | head -n1 | cut -d'"' -f2
+    break
+    ;;
+  esac
+done
+'''
+fetch.url = "https://vela-ide.cnbj3-fusion.mi-fds.com/vela-ide/ide/v$ver/AIoT_IDE_ubuntu.deb"
+
+[classin-x86_64]
+# Official download configuration; the artifact URL carries the real version
+# (the adjacent "*_version" field is allowed to drift from it upstream).
+src.webpage = "https://www.eeo.cn/sysshare/custom/download_conf.json"
+src.regex = '"confName":\s*"eeocn_linux_amd64",\s*"confValue":\s*"https://www\.eeo\.cn/download/client/classin_([0-9][0-9.]*)_amd64\.deb"'
+fetch.url = "https://www.eeo.cn/download/client/classin_$ver_amd64.deb"
+
+[classin-aarch64]
+# ClassIn does not version-sync architectures (amd64 and arm64 diverge today),
+# hence one record per architecture rather than one shared version.
+src.webpage = "https://www.eeo.cn/sysshare/custom/download_conf.json"
+src.regex = '"confName":\s*"eeocn_linux_arm",\s*"confValue":\s*"https://www\.eeo\.cn/download/client/classin_([0-9][0-9.]*)_arm64\.deb"'
+fetch.url = "https://www.eeo.cn/download/client/classin_$ver_arm64.deb"
+
+[chatgpt-x86_64]
+# OpenAI publishes a Debian repository; the Packages index carries the version
+# whose pool path is immutable. The old mutable .../deb/latest/ alias is gone
+# on purpose: it changed content without changing the version and broke CI.
+src.webpage = "https://persistent.oaistatic.com/codex-app-prod/linux/deb/dists/stable/main/binary-amd64/Packages"
+src.regex = 'Version: ([0-9][0-9.]*)'
+fetch.url = "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_$ver_amd64.deb"
+
+[chatgpt-aarch64]
+src.webpage = "https://persistent.oaistatic.com/codex-app-prod/linux/deb/dists/stable/main/binary-arm64/Packages"
+src.regex = 'Version: ([0-9][0-9.]*)'
+fetch.url = "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_$ver_arm64.deb"
+
+# --------------------------------------------------------------------------
+# GitHub release sources (source builds)
+# --------------------------------------------------------------------------
+
+[astral]
+src.github = "ldoubil/astral"
+fetch.github = "ldoubil/astral"
+# Regenerates source hash + the ten git-dependency output hashes of the
+# vendored EasyTier crates (rust/Cargo.lock) in one step.
+cargo_lock = ["rust/Cargo.lock"]
+# Extracted so scripts/update.py can refresh pkgs/astral/pubspec.lock.json
+# (Flutter) against the same revision.
+extract = ["pubspec.lock"]
+
+[pixivbiu]
+src.github = "txperl/PixivBiu"
+fetch.github = "txperl/PixivBiu"
+# Extracted so scripts/update.py can regenerate pkgs/pixivbiu/bun.nix with the
+# vendored bun2nix; the Go vendor hash is regenerated alongside it.
+extract = ["frontend/bun.lock"]
+
+[rikkahub-desktop]
+# The package is built from source at the release tag, matching the binaries in
+# rikkahub-desktop-bin; the tag is currently the branch tip as well.
+src.github = "yuh-G/rikkahub-desktop"
+fetch.github = "yuh-G/rikkahub-desktop"
+extract = ["web-ui/bun.lock", "pc-server/bun.lock"]
+
+[pi]
+# pc-server imports upstream pi's TypeScript sources through ../pi/..., and
+# RikkaHub ships no pi/ of its own: the Dockerfile clones earendil-works/pi as
+# a gitignored local checkout and pins the commit there. Read that commit out
+# of the Dockerfile of the release the [rikkahub-desktop] record above tracks
+# (the latest release, same source as its "src.github"), so a RikkaHub bump
+# carries the matching pi pin instead of leaving it behind. A missing release
+# or an unparsable Dockerfile fails the update; it never yields a stale pin.
+src.cmd = '''
+set -eu
+tag=$(curl -fsSL https://api.github.com/repos/yuh-G/rikkahub-desktop/releases/latest |
+    jq -r '.tag_name // empty')
+[ -n "$tag" ] || { echo "no release tag for yuh-G/rikkahub-desktop" >&2; exit 1; }
+commit=$(curl -fsSL "https://raw.githubusercontent.com/yuh-G/rikkahub-desktop/$tag/Dockerfile" |
+    sed -n 's/.*git checkout \([0-9a-f]\{40\}\).*/\1/p' | head -n 1)
+[ -n "$commit" ] || { echo "no pi commit in the $tag Dockerfile" >&2; exit 1; }
+printf '%s\n' "$commit"
+'''
+fetch.github = "earendil-works/pi"
+# pi is locked with npm (package-lock.json; there is no bun.lock upstream), so
+# scripts/update.py refreshes the npmDepsHash of
+# pkgs/rikkahub-desktop/pi-vendor.nix from this extracted lock.
+extract = ["package-lock.json"]
+
+# --------------------------------------------------------------------------
+# GitHub release binaries
+# --------------------------------------------------------------------------
+
+[astral-bin-x86_64]
+src.github = "ldoubil/astral"
+src.prefix = "v"
+fetch.url = "https://github.com/ldoubil/astral/releases/download/v$ver/astral-linux-x64.tar.gz"
+
+[astral-bin-aarch64]
+src.github = "ldoubil/astral"
+src.prefix = "v"
+fetch.url = "https://github.com/ldoubil/astral/releases/download/v$ver/astral-linux-arm64.tar.gz"
+
+[astrobox]
+src.github = "AstralSightStudios/AstroBox-NG"
+src.prefix = "v"
+fetch.url = "https://github.com/AstralSightStudios/AstroBox-NG/releases/download/v$ver/AstroBox_$ver_amd64.deb"
+
+[pixivbiu-bin-x86_64]
+src.github = "txperl/PixivBiu"
+src.prefix = "v"
+fetch.url = "https://github.com/txperl/PixivBiu/releases/download/v$ver/PixivBiu_$ver_linux_amd64.tar.gz"
+
+[pixivbiu-bin-aarch64]
+src.github = "txperl/PixivBiu"
+src.prefix = "v"
+fetch.url = "https://github.com/txperl/PixivBiu/releases/download/v$ver/PixivBiu_$ver_linux_arm64.tar.gz"
+
+[rikkahub-desktop-bin]
+src.github = "yuh-G/rikkahub-desktop"
+src.prefix = "v"
+fetch.url = "https://github.com/yuh-G/rikkahub-desktop/releases/download/v$ver/Rikkahub_$ver_linux_x64.tar.gz"
+
+# --------------------------------------------------------------------------
+# Commit-tracked sources (no usable releases/tags upstream)
+# --------------------------------------------------------------------------
+
+[hhsh]
+src.git = "https://github.com/yihong0618/nbnhhsh-cli"
+fetch.github = "yihong0618/nbnhhsh-cli"
+git.date_tz = "UTC"
+
+[linuxqq-clipsync]
+src.git = "https://github.com/SHORiN-KiWATA/linuxqq-clipsync"
+fetch.github = "SHORiN-KiWATA/linuxqq-clipsync"
+git.date_tz = "UTC"
+# Cargo.lock is extracted and re-hashed, so the copy inside the repository is
+# not needed any more.
+cargo_lock = ["Cargo.lock"]
+
+[qq-wlss]
+src.git = "https://github.com/SHORiN-KiWATA/linuxqq-wayland-screenshare-fix"
+fetch.github = "SHORiN-KiWATA/linuxqq-wayland-screenshare-fix"
+git.date_tz = "UTC"
+
+# --------------------------------------------------------------------------
+# Non-GitHub upstream
+# --------------------------------------------------------------------------
+
+[xwaylandvideobridge]
+# KDE keeps releasing this from the stable tree; the directory listing is the
+# canonical index. Fetching from download.kde.org directly (instead of
+# mirror://kde/) is what makes the source hash trackable.
+src.webpage = "https://download.kde.org/stable/xwaylandvideobridge/src/"
+src.regex = 'xwaylandvideobridge-([0-9.]+)\.tar\.xz'
+fetch.url = "https://download.kde.org/stable/xwaylandvideobridge/src/xwaylandvideobridge-$ver.tar.xz"

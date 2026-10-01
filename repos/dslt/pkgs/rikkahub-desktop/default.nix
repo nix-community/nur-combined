@@ -1,4 +1,13 @@
-{ symlinkJoin, makeWrapper, pkgs, bun2nix, ... }: let
+{ symlinkJoin, makeWrapper, pkgs, bun2nix, lib, sources, ... }: let
+    # nvfetcher tracks the release tag that the binaries ship from; the Nix
+    # version drops the leading "v".
+    version = lib.removePrefix "v" sources.rikkahub-desktop.version;
+    src = sources.rikkahub-desktop.src;
+
+    # pc-server imports pi's sources through ../../pi/..., so the vendored tree
+    # has to sit next to pc-server/ in the source checkout; see pi-vendor.nix.
+    rikkahub-pi = pkgs.callPackage ./pi-vendor.nix { inherit sources; };
+
     runtimeDeps = [
         pkgs.unzip
         pkgs.zip
@@ -8,17 +17,10 @@
     ];
 
     rikkahub-webui = pkgs.callPackage (
-        { stdenv, bun2nix, pkgs, lib, fetchFromGitHub, ... }:
+        { stdenv, bun2nix, pkgs, lib, ... }:
         stdenv.mkDerivation {
             pname = "rikkahub-webui";
-            version = "git";
-
-            src = fetchFromGitHub {
-                owner = "yuh-G";
-                repo = "rikkahub-desktop";
-                rev = "d01a80ab335a88a94d3aab69fd2e5a4cb2d31e2c";
-                hash = "sha256-fEvCW8L1bdRm0iT+aDjTe8O4fZ6kjM5BR2kIDI2WRWw=";
-            };
+            inherit version src;
 
             nativeBuildInputs = [
                 bun2nix.hook
@@ -42,7 +44,7 @@
 
             postBunPatchPhase = ''
                 substituteInPlace web-ui/bun.lock \
-                    --replace-fail "https://registry.npmmirror.com/" "https://registry.npmjs.org/"
+                    --replace "https://registry.npmmirror.com/" "https://registry.npmjs.org/"
             '';
 
             buildPhase = ''
@@ -60,17 +62,10 @@
     ) { bun2nix = bun2nix; };
     
     rikkahub-pcs = pkgs.callPackage (
-        { stdenv, bun2nix, pkgs, lib, fetchFromGitHub, ...}:
+        { stdenv, bun2nix, pkgs, lib, ...}:
         stdenv.mkDerivation {
             pname = "rikkahub-pcs";
-            version = "git";
-
-            src = fetchFromGitHub {
-                owner = "yuh-G";
-                repo = "rikkahub-desktop";
-                rev = "d01a80ab335a88a94d3aab69fd2e5a4cb2d31e2c";
-                hash = "sha256-fEvCW8L1bdRm0iT+aDjTe8O4fZ6kjM5BR2kIDI2WRWw=";
-            };
+            inherit version src;
 
             nativeBuildInputs = [
                 bun2nix.hook
@@ -89,6 +84,12 @@
             '';
 
             buildPhase = ''
+                # pc-server imports ../../pi/...; put the vendored tree where
+                # RikkaHub's Dockerfile clones it. Copied, not symlinked: bun
+                # bakes the resolved path into the compiled binary, and a store
+                # symlink would therefore pin the whole tree to the output.
+                cp -a ${rikkahub-pi} pi
+
                 cd pc-server
                 bun build --compile --target=bun-linux-x64 server.ts --outfile ../dist/rikkahub-pc
             '';
@@ -124,7 +125,7 @@ in symlinkJoin {
         license = {
             shortName = "rikkahub-segmented-dual";
             fullName = "RikkaHub Segmented Dual License";
-            url = "https://github.com/yuh-G/rikkahub-desktop/blob/d01a80ab335a88a94d3aab69fd2e5a4cb2d31e2c/LICENSE";
+            url = "https://github.com/yuh-G/rikkahub-desktop/blob/${sources.rikkahub-desktop.version}/LICENSE";
             free = false;
             redistributable = true;
         };

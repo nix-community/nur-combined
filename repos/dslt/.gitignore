@@ -1,3 +1,7 @@
 result
 result-*
 .marscode/
+
+# Python bytecode (scripts/*.py)
+__pycache__/
+*.pyc

@@ -1,6 +1,6 @@
 { lib
 , stdenv
-, fetchurl
+, sources
 , dpkg
 , autoPatchelfHook
 , makeWrapper
@@ -16,12 +16,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "astrobox";
-  version = "2.1.0";
-
-  src = fetchurl {
-    url = "https://github.com/AstralSightStudios/AstroBox-NG/releases/download/v${finalAttrs.version}/AstroBox_${finalAttrs.version}_amd64.deb";
-    hash = "sha256-INLK7GaiguIKkEcYQeCVSo0W+0ViujjOcvY2tEP7/MQ=";
-  };
+  inherit (sources.astrobox) version src;
 
   nativeBuildInputs = [
     dpkg
