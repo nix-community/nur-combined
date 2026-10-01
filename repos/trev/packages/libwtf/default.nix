@@ -21,6 +21,13 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
   };
 
+  # glibc 2.44 declares C23 once_flag/call_once in stdlib.h, which collides with
+  # tinycthread's macros unless stdlib.h is included before they are defined
+  postPatch = ''
+    substituteInPlace deps/tinycthreads/tinycthread.h \
+      --replace-fail "#include <pthread.h>" $'#include <pthread.h>\n#include <stdlib.h>'
+  '';
+
   nativeBuildInputs = [
     cmake
     git
