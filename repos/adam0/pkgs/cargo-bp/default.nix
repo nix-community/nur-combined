@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-9hfr0wF5m3rME0gHlZ50OHZzUPseS1rJsbGAwIRNcE8=";
   };
 
-  cargoLock.lockFile = "${src}/Cargo.lock";
+  cargoHash = "sha256-SxUKCYMqQLY3qWKoRLKfOV4qzfjUb9nD2y03Zmnn3nA=";
   cargoBuildFlags = ["-p" pname];
   # One test fetches crates.io, and the other has a stale upstream snapshot.
   cargoTestFlags = ["-p" pname "--" "--skip" "add_template_registry_download_keeps_tempdir_alive" "--skip" "with_template_two_level_generation"];
