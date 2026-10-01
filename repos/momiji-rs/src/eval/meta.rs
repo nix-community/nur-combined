@@ -677,17 +677,10 @@ impl<'a> Evaluator<'a> {
                 // then runs against the function's defining file.
                 let saved_member =
                     (pos.line > 0).then(|| self.enter_call(pos, length, Rc::clone(&callable.frame_name)));
-                let saved_file = self.enter_origin_file(Some(&callable.origin));
-                let saved_scopes = std::mem::replace(&mut self.scopes, callable.env.clone());
-                let saved_var_spans = std::mem::replace(&mut self.var_spans, callable.env_spans.clone());
-                let saved_semi = std::mem::replace(&mut self.scope_semi_global, callable.env_semi.clone());
-                let saved_fns = std::mem::replace(&mut self.functions, callable.env_fns.clone());
-                let saved_mixins = std::mem::replace(&mut self.mixins, callable.env_mixins.clone());
                 // The body resolves `ns.member` against ITS definition site's
                 // `@use` namespaces, not the caller's (as the direct-call and
                 // mixin-reference paths already do).
-                let saved_env_modules = self.install_env_modules(&callable.env_modules);
-                self.push_scope(false);
+                let saved_env = self.enter_callable(&callable);
                 // Like `invoke_mixin_ref`: the arguments arrive already
                 // evaluated and reordered by `meta.call`, so no per-argument
                 // span survives. Bind with none rather than guess.
@@ -705,14 +698,7 @@ impl<'a> Evaluator<'a> {
                         r
                     })
                     .map_err(|e| self.finalize_error(e));
-                self.pop_scope();
-                self.scopes = saved_scopes;
-                self.var_spans = saved_var_spans;
-                self.scope_semi_global = saved_semi;
-                self.functions = saved_fns;
-                self.mixins = saved_mixins;
-                self.restore_env_modules(saved_env_modules);
-                self.leave_module_file(saved_file);
+                self.leave_callable(saved_env);
                 if let Some(saved_member) = saved_member {
                     self.leave_call(saved_member);
                 }
@@ -1260,17 +1246,10 @@ impl<'a> Evaluator<'a> {
         let saved = self.enter_module(module);
         // The function's own defining file beats the module handed to us (a
         // multi-hop `@forward` can name another module).
-        let saved_file = self.enter_origin_file(Some(&func.origin));
-        let saved_scopes = std::mem::replace(&mut self.scopes, func.env.clone());
-        let saved_var_spans = std::mem::replace(&mut self.var_spans, func.env_spans.clone());
-        let saved_semi = std::mem::replace(&mut self.scope_semi_global, func.env_semi.clone());
-        let saved_fns = std::mem::replace(&mut self.functions, func.env_fns.clone());
-        let saved_mixins = std::mem::replace(&mut self.mixins, func.env_mixins.clone());
         // The captured tables beat the module's own: a multi-hop `@forward`
         // can hand us a module whose namespaces differ from the file that
         // DEFINED the function (uswds `units()` reaching `sass:meta`).
-        let saved_env_modules = self.install_env_modules(&func.env_modules);
-        self.push_scope(false);
+        let saved_env = self.enter_callable(func);
         let result = self
             .bind_evaled_into_scope(
                 &func.def.params,
@@ -1288,14 +1267,7 @@ impl<'a> Evaluator<'a> {
                 r
             })
             .map_err(|e| self.finalize_error(e));
-        self.pop_scope();
-        self.scopes = saved_scopes;
-        self.var_spans = saved_var_spans;
-        self.scope_semi_global = saved_semi;
-        self.functions = saved_fns;
-        self.mixins = saved_mixins;
-        self.restore_env_modules(saved_env_modules);
-        self.leave_module_file(saved_file);
+        self.leave_callable(saved_env);
         self.leave_module(saved);
         if let Some(saved_member) = saved_member {
             self.leave_call(saved_member);

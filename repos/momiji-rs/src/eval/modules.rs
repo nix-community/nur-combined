@@ -3,7 +3,7 @@ use super::*;
 /// The evaluator file-context fields swapped by [`Evaluator::enter_origin_file`]
 /// and restored by [`Evaluator::leave_module_file`]:
 /// `(current_url, current_source, current_file_dir, current_canonical)`.
-type SavedModuleFile = (String, Rc<str>, Option<String>, Option<CanonicalUrl>);
+pub(super) type SavedModuleFile = (String, Rc<str>, Option<String>, Option<CanonicalUrl>);
 
 impl<'a> Evaluator<'a> {
     /// Register an `@extend` directive: validate the (interpolation-resolved)

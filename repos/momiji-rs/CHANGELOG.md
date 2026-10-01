@@ -79,8 +79,7 @@ Conformance is tracked separately as a ratchet against the official
   file's url there. The tables are now shared and copied only when a `@use`
   changes them. A function's frame name is made once per definition, an
   `@include`'s once when it is parsed, and the url is shared between frames.
-  A call still clones the five scope chains it runs against. That cost is
-  next, at ~1,140 instructions a call. A call to a one-argument function went
+  The five scope chains a call runs against are the next entry. A call to a one-argument function went
   from 4,904 to 4,091 instructions, the same with six modules in scope as
   with none, and an `@include` from 4,401 to 3,590. Errors and warnings print
   byte for byte as before. Marginal instructions on Linux/x86_64:
@@ -98,6 +97,34 @@ Conformance is tracked separately as a ratchet against the official
   The last five are pinned real-world projects from `bench/real-world`, with
   output byte-identical before and after. `bench/corpus/gate/user_functions.scss`
   is new: no benchmark defined a `@function` until now.
+- **A user call reuses its scope-chain buffers.** Running a `@function` or
+  `@mixin` body means swapping in the five scope chains the callable
+  captured. Each call cloned them into fresh `Vec`s and freed them on the
+  way out, though each usually holds a single entry: four allocations and
+  four frees a call, five of each with a source map (the span chain is
+  empty without one, and an empty `Vec` allocates nothing). The callee now
+  copies the entries into buffers it takes from a pool, one set per call
+  depth, and clears them when it returns. They are the same entries,
+  dropped at the same moment, without the allocator. A one-argument
+  call went from 4,091 to 3,300 instructions, a function calling a function
+  from 7,148 to 5,563, and an `@include` from 3,590 to 2,799. Marginal
+  instructions on Linux/x86_64, output byte-identical:
+
+  ```
+                                  before     now        change
+    user_functions.scss           23.34M     21.49M     -7.93%
+    bulma                         1990.4M    1932.2M    -2.92%
+    vuetify                       342.0M     335.3M     -1.96%
+    govuk-frontend                199.6M     196.1M     -1.76%
+    minimal-mistakes              169.3M     166.7M     -1.55%
+    uswds                         5968.8M    5905.6M    -1.06%
+    large.scss                    97.87M     97.35M     -0.53%
+  ```
+
+  The six places a user callable can run (a call, two mixin paths, a mixin
+  reference, `meta.call`, a module function) shared one swap, written out
+  six times. It is one `enter_callable` / `leave_callable` pair now, which
+  is what let this change be made once.
 
 ## [0.19.3] - 2026-09-30
 

@@ -1039,6 +1039,12 @@ pub(crate) struct Evaluator<'a> {
     /// to a table it is about to free — and entering the next block would
     /// immediately allocate another. Bounded by [`SCOPE_POOL_MAX`].
     scope_pool: Vec<Scope>,
+    /// Spare chain buffers for [`Evaluator::enter_callable`], one set per call
+    /// depth in use. A call copies its callable's five captured chains into
+    /// buffers that keep their capacity, instead of allocating five `Vec`s on
+    /// entry and freeing them on exit (#260's analysis put the swap at ~1,140
+    /// instructions a call).
+    chain_pool: Vec<scope::ChainBufs>,
     /// The same for the definition-span frames, which are pushed in lockstep
     /// with `scopes` when a source map is being built.
     span_pool: Vec<SpanScope>,
@@ -1667,6 +1673,7 @@ impl<'a> Evaluator<'a> {
             // flow scope (its child) becomes semi-global too.
             scope_semi_global: vec![true],
             scope_pool: Vec::new(),
+            chain_pool: Vec::new(),
             span_pool: Vec::new(),
             css_buf: String::new(),
             options,

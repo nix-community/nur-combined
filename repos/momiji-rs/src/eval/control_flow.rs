@@ -482,14 +482,7 @@ impl<'a> Evaluator<'a> {
         // The call frame records the CALL site (this file); the body then runs
         // against the function's defining file.
         let saved = call.map(|(pos, len)| self.enter_call(pos, len, Rc::clone(&func.frame_name)));
-        let saved_file = self.enter_origin_file(Some(&func.origin));
-        let saved_scopes = std::mem::replace(&mut self.scopes, func.env.clone());
-        let saved_var_spans = std::mem::replace(&mut self.var_spans, func.env_spans.clone());
-        let saved_semi = std::mem::replace(&mut self.scope_semi_global, func.env_semi.clone());
-        let saved_fns = std::mem::replace(&mut self.functions, func.env_fns.clone());
-        let saved_mixins = std::mem::replace(&mut self.mixins, func.env_mixins.clone());
-        let saved_env_modules = self.install_env_modules(&func.env_modules);
-        self.push_scope(false);
+        let saved_env = self.enter_callable(func);
         let result = self
             .bind_evaled_into_scope(&func.def.params, evaled, &arg_spans, &declared(func))
             .and_then(|()| {
@@ -502,14 +495,7 @@ impl<'a> Evaluator<'a> {
             })
             // Render a positioned error while its file is still current.
             .map_err(|e| self.finalize_error(e));
-        self.pop_scope();
-        self.scopes = saved_scopes;
-        self.var_spans = saved_var_spans;
-        self.scope_semi_global = saved_semi;
-        self.functions = saved_fns;
-        self.mixins = saved_mixins;
-        self.restore_env_modules(saved_env_modules);
-        self.leave_module_file(saved_file);
+        self.leave_callable(saved_env);
         if let Some(saved) = saved {
             self.leave_call(saved);
         }
@@ -819,14 +805,7 @@ impl<'a> Evaluator<'a> {
         });
         // The body runs against the mixin's defining file (the `@include`
         // frame, recorded by the caller, already names this file).
-        let saved_file = self.enter_origin_file(Some(&mixin.origin));
-        let saved_scopes = std::mem::replace(&mut self.scopes, mixin.env.clone());
-        let saved_var_spans = std::mem::replace(&mut self.var_spans, mixin.env_spans.clone());
-        let saved_semi = std::mem::replace(&mut self.scope_semi_global, mixin.env_semi.clone());
-        let saved_fns = std::mem::replace(&mut self.functions, mixin.env_fns.clone());
-        let saved_mixins = std::mem::replace(&mut self.mixins, mixin.env_mixins.clone());
-        let saved_env_modules = self.install_env_modules(&mixin.env_modules);
-        self.push_scope(false);
+        let saved_env = self.enter_callable(&mixin);
         let result = self
             .bind_evaled_into_scope(&mixin.def.params, evaled, &arg_spans, &declared(&mixin))
             .and_then(|()| {
@@ -838,14 +817,7 @@ impl<'a> Evaluator<'a> {
                 r
             })
             .map_err(|e| self.finalize_error(e));
-        self.pop_scope();
-        self.scopes = saved_scopes;
-        self.var_spans = saved_var_spans;
-        self.scope_semi_global = saved_semi;
-        self.functions = saved_fns;
-        self.mixins = saved_mixins;
-        self.restore_env_modules(saved_env_modules);
-        self.leave_module_file(saved_file);
+        self.leave_callable(saved_env);
         result
     }
 
@@ -893,14 +865,7 @@ impl<'a> Evaluator<'a> {
         // The mixin's own defining file beats the module handed to us: a
         // multi-hop `@forward` can name a module other than the file that
         // wrote the mixin.
-        let saved_file = self.enter_origin_file(Some(&mixin.origin));
-        let saved_scopes = std::mem::replace(&mut self.scopes, mixin.env.clone());
-        let saved_var_spans = std::mem::replace(&mut self.var_spans, mixin.env_spans.clone());
-        let saved_semi = std::mem::replace(&mut self.scope_semi_global, mixin.env_semi.clone());
-        let saved_fns = std::mem::replace(&mut self.functions, mixin.env_fns.clone());
-        let saved_mixins = std::mem::replace(&mut self.mixins, mixin.env_mixins.clone());
-        let saved_env_modules = self.install_env_modules(&mixin.env_modules);
-        self.push_scope(false);
+        let saved_env = self.enter_callable(mixin);
         let result = self
             .bind_evaled_into_scope(&mixin.def.params, evaled, &arg_spans, &declared(mixin))
             .and_then(|()| {
@@ -914,14 +879,7 @@ impl<'a> Evaluator<'a> {
                 r
             })
             .map_err(|e| self.finalize_error(e));
-        self.pop_scope();
-        self.scopes = saved_scopes;
-        self.var_spans = saved_var_spans;
-        self.scope_semi_global = saved_semi;
-        self.functions = saved_fns;
-        self.mixins = saved_mixins;
-        self.restore_env_modules(saved_env_modules);
-        self.leave_module_file(saved_file);
+        self.leave_callable(saved_env);
         self.leave_module(saved);
         result
     }
@@ -1091,14 +1049,7 @@ impl<'a> Evaluator<'a> {
         // The body runs against the mixin's defining file (so its output and
         // diagnostics belong there, and a relative `meta.load-css` resolves
         // against it): the callable's own capture, which every callable has.
-        let saved_file = self.enter_origin_file(Some(&callable.origin));
-        let saved_scopes = std::mem::replace(&mut self.scopes, callable.env.clone());
-        let saved_var_spans = std::mem::replace(&mut self.var_spans, callable.env_spans.clone());
-        let saved_semi = std::mem::replace(&mut self.scope_semi_global, callable.env_semi.clone());
-        let saved_fns = std::mem::replace(&mut self.functions, callable.env_fns.clone());
-        let saved_mixins = std::mem::replace(&mut self.mixins, callable.env_mixins.clone());
-        let saved_env_modules = self.install_env_modules(&callable.env_modules);
-        self.push_scope(false);
+        let saved_env = self.enter_callable(&callable);
         // A first-class mixin reference arrives here with already-evaluated,
         // RESHUFFLED arguments (`meta.apply` strips `$mixin` off the front), so
         // the caller's per-argument spans no longer line up positionally. Bind
@@ -1120,14 +1071,7 @@ impl<'a> Evaluator<'a> {
                 r
             })
             .map_err(|e| self.finalize_error(e));
-        self.pop_scope();
-        self.scopes = saved_scopes;
-        self.var_spans = saved_var_spans;
-        self.scope_semi_global = saved_semi;
-        self.functions = saved_fns;
-        self.mixins = saved_mixins;
-        self.restore_env_modules(saved_env_modules);
-        self.leave_module_file(saved_file);
+        self.leave_callable(saved_env);
         self.member = saved_member_name;
         if let Some(saved) = saved {
             self.leave_module(saved);
