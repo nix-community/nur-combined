@@ -1,11 +1,11 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index 26e0559..ad96411 100644
+index 9e1b7a2..93b182a 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
 @@ -56,6 +56,8 @@
    "devDependencies": {
      "@csstools/normalize.css": "12.1.1",
-     "@iconify/json": "2.2.535",
+     "@iconify/json": "2.2.536",
 +    "@inlang/plugin-m-function-matcher": "^2.2.16",
 +    "@inlang/plugin-message-format": "^4.4.4",
      "@monaco-editor/react": "4.7.0",
@@ -27,13 +27,13 @@ index cb96b35..3777c63 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index f83a1a4..acb3d16 100644
+index 37ddf4c..3c353a9 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -433,6 +433,12 @@ importers:
        '@iconify/json':
-         specifier: 2.2.535
-         version: 2.2.535
+         specifier: 2.2.536
+         version: 2.2.536
 +      '@inlang/plugin-m-function-matcher':
 +        specifier: ^2.2.16
 +        version: 2.2.16
@@ -56,7 +56,7 @@ index f83a1a4..acb3d16 100644
    '@inlang/recommend-sherlock@0.2.1':
      resolution: {integrity: sha512-ckv8HvHy/iTqaVAEKrr+gnl+p3XFNwe5D2+6w6wJk2ORV2XkcRkKOJ/XsTUJbPSiyi4PI+p+T3bqbmNx/rDUlg==}
  
-@@ -5323,6 +5335,11 @@ packages:
+@@ -5332,6 +5344,11 @@ packages:
    flat-cache@6.1.23:
      resolution: {integrity: sha512-f++BY9pTk+983xK1FLzlLpmM0i0z+jHmx3QESGkURMXujQZz1k5wzwX6hjnQ8goaD0B+sYnDK1yZ6MTyZfUaqA==}
  
@@ -68,7 +68,7 @@ index f83a1a4..acb3d16 100644
    flatted@3.4.2:
      resolution: {integrity: sha512-PjDse7RzhcPkIJwy5t7KPWQSZ9cAbzQXcafsetQoD7sOJRQlGikNbx7yZp2OotDnJyrDcbyRq3Ttb18iYOqkxA==}
  
-@@ -8857,6 +8874,14 @@ snapshots:
+@@ -8866,6 +8883,14 @@ snapshots:
        typescript: 7.0.2
        vite: 8.3.1(@types/node@24.19.0)(jiti@2.7.0)(less@4.9.1(supports-color@10.2.2))(sass-embedded@1.105.1)(sass@1.103.1)(terser@5.36.0)(yaml@2.9.0)
  
@@ -83,7 +83,7 @@ index f83a1a4..acb3d16 100644
    '@inlang/recommend-sherlock@0.2.1':
      dependencies:
        comment-json: 4.5.0
-@@ -12241,6 +12266,8 @@ snapshots:
+@@ -12259,6 +12284,8 @@ snapshots:
        flatted: 3.4.2
        hookified: 1.15.1
  
