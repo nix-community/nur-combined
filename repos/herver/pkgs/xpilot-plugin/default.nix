@@ -8,12 +8,12 @@
 
 stdenv.mkDerivation {
   pname = "xpilot-plugin";
-  version = "4.0.0-beta.7";
+  version = "4.0.0-beta.9";
 
   src = fetchurl {
-    url = "https://xpilot.app/downloads/artifacts/4.0.0-beta.7/Plugin-linux.zip";
-    hash = "sha256-f3MdFKdhveFvNfNaW5q1kTLzfgC2IF93AXk5hs9CTWY=";
-    name = "xpilot-plugin-4.0.0-beta.7.zip";
+    url = "https://xpilot.app/downloads/artifacts/4.0.0-beta.9/Plugin-linux.zip";
+    hash = "sha256-Mkgaccompl4ivU3zRSMVKqSFkqW4014aRicAcdt7Yj8=";
+    name = "xpilot-plugin-4.0.0-beta.9.zip";
   };
 
   nativeBuildInputs = [
