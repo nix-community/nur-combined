@@ -1,5 +1,6 @@
 {
   lib,
+  writeShellApplication,
   stdenv,
   fetchFromGitHub,
   gradle_8,
@@ -188,7 +189,13 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = writeShellApplication {
+    name = "update-komi-store";
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="komi-store"
+      exec ${lib.escapeShellArgs (nix-update-script { })} "$@"
+    '';
+  };
 
   meta = {
     description = "Cross-platform app store for GitHub releases";

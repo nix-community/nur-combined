@@ -1,5 +1,6 @@
 {
   lib,
+  writeShellApplication,
   stdenv,
   fetchFromGitHub,
   cmake,
@@ -93,7 +94,13 @@ stdenv.mkDerivation (finalAttrs: {
   dontWrapQtApps = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = writeShellApplication {
+      name = "update-freesmlauncher-unwrapped";
+      text = ''
+        export UPDATE_NIX_ATTR_PATH="freesmlauncher-unwrapped"
+        exec ${lib.escapeShellArgs (nix-update-script { })} "$@"
+      '';
+    };
   };
 
   meta = {

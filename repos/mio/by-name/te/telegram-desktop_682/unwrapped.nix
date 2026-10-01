@@ -1,5 +1,6 @@
 {
   lib,
+  writeShellApplication,
   stdenv,
   fetchFromGitHub,
   callPackage,
@@ -120,7 +121,13 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     inherit tg_owt;
-    updateScript = nix-update-script { };
+    updateScript = writeShellApplication {
+      name = "update-telegram-desktop_682";
+      text = ''
+        export UPDATE_NIX_ATTR_PATH="telegram-desktop_682"
+        exec ${lib.escapeShellArgs (nix-update-script { })} "$@"
+      '';
+    };
   };
 
   meta = {

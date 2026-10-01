@@ -1,5 +1,6 @@
 {
   lib,
+  writeShellApplication,
   stdenv,
   bun,
   darwin,
@@ -196,11 +197,19 @@ stdenv.mkDerivation (finalAttrs: {
       tui = "${finalAttrs.finalPackage}/share/tui.json";
     };
     node_modules = node_modules finalAttrs;
-    updateScript = nix-update-script {
-      extraArgs = [
-        "--subpackage"
-        "node_modules"
-      ];
+    updateScript = writeShellApplication {
+      name = "update-chipotlai-max";
+      text = ''
+        export UPDATE_NIX_ATTR_PATH="chipotlai-max"
+        exec ${
+          lib.escapeShellArgs (nix-update-script {
+            extraArgs = [
+              "--subpackage"
+              "node_modules"
+            ];
+          })
+        } "$@"
+      '';
     };
   };
 

@@ -20,8 +20,8 @@ in
     meta = (old.meta or { }) // {
       platforms = pkgs.lib.platforms.all;
     };
-    patches = (old.patches or [ ]) ++ [ 
-      ./patches/kiwix-opds-url.patch 
+    patches = (old.patches or [ ]) ++ [
+      ./patches/kiwix-opds-url.patch
       ./patches/kiwix-mac-tabbar-crash.patch
     ];
     postPatch =

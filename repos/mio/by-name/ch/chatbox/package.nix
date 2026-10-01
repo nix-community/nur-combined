@@ -1,5 +1,6 @@
 {
   lib,
+  writeShellApplication,
   stdenv,
   fetchFromGitHub,
   fetchPnpmDeps,
@@ -214,7 +215,17 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     inherit (finalAttrs) pnpmDeps;
-    updateScript = nix-update-script { extraArgs = [ "--use-github-releases" ]; };
+    updateScript = writeShellApplication {
+      name = "update-chatbox";
+      text = ''
+        export UPDATE_NIX_ATTR_PATH="chatbox"
+        exec ${
+          lib.escapeShellArgs (nix-update-script {
+            extraArgs = [ "--use-github-releases" ];
+          })
+        } "$@"
+      '';
+    };
   };
 
   meta = {

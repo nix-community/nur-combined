@@ -1,5 +1,6 @@
 {
   lib,
+  writeShellApplication,
   stdenv,
   callPackage,
   fetchFromGitHub,
@@ -222,7 +223,13 @@ buildNpmPackage (finalAttrs: {
     };
     # NOTE: a version bump also requires refreshing backend.nix's vendorHash and
     # regenerating tsunami-scaffold-package-lock.json from the new template.
-    updateScript = nix-update-script { };
+    updateScript = writeShellApplication {
+      name = "update-waveterm";
+      text = ''
+        export UPDATE_NIX_ATTR_PATH="waveterm"
+        exec ${lib.escapeShellArgs (nix-update-script { })} "$@"
+      '';
+    };
   };
 
   meta = {

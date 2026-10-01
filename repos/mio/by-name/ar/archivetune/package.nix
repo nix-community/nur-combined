@@ -1,5 +1,6 @@
 {
   lib,
+  writeShellApplication,
   stdenv,
   fetchFromGitHub,
   gradle_9,
@@ -65,7 +66,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "archivetune";
-  version = "15.0.0";
+  version = "15.1.0";
 
   strictDeps = true;
 
@@ -228,7 +229,13 @@ stdenv.mkDerivation (finalAttrs: {
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = writeShellApplication {
+    name = "update-archivetune";
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="archivetune"
+      exec ${lib.escapeShellArgs (nix-update-script { })} "$@"
+    '';
+  };
 
   meta = {
     description = "Cute music player with local file and YouTube Music support (Linux desktop via Compose Multiplatform)";

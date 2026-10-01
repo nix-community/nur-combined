@@ -1,5 +1,6 @@
 {
   lib,
+  writeShellApplication,
   stdenvNoCC,
   fetchFromGitLab,
   tweego,
@@ -120,7 +121,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstallCheck
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = writeShellApplication {
+    name = "update-degrees-of-lewdity";
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="degrees-of-lewdity"
+      exec ${lib.escapeShellArgs (nix-update-script { })} "$@"
+    '';
+  };
 
   meta = {
     description = "Single-player adult school-life RPG written in Twine/SugarCube";
