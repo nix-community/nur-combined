@@ -17,13 +17,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "shimelinux";
-  version = "1.3.2";
+  version = "1.3.3";
 
   src = fetchFromGitHub {
     owner = "BujjuIsABee";
     repo = "shimelinux";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-3SdHPc3AL/AlnsheCPN1lLZHTdydeG61iOQBFsgGdBs=";
+    hash = "sha256-guS370n3YZ9lIt+jhGaA+a8ovHIZx8LFE2jo6rBe+V0=";
   };
 
   nativeBuildInputs = [

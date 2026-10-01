@@ -17,7 +17,7 @@ let
   gnomeDeps =
     pkgs: with pkgs; [
       zenity
-      gtksourceview
+      gtksourceview5
       gnome-desktop
       libgnome-keyring
       webkitgtk_4_1

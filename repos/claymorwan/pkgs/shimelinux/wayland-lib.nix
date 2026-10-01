@@ -1,5 +1,5 @@
 {
-  # lib,
+  lib,
   rustPlatform,
   pkg-config,
   libxkbcommon,
@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   src = "${shimelinux.src}/shimelinux_wayland";
 
-  cargoHash = "sha256-2Lv2vNslHFqc327OAgjJFoFAITXVah7g/WNvky771ls=";
+  cargoHash = "sha256-+/lKQOtRmA6NyGdYlKGa5A7qtOIrEkOobN6rylLWlac=";
 
   nativeBuildInputs = [
     pkg-config
