@@ -2,6 +2,7 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+  installShellFiles,
 }:
 
 buildGoModule (finalAttrs: {
@@ -24,10 +25,13 @@ buildGoModule (finalAttrs: {
     "-X main.revision=v${finalAttrs.version}"
   ];
 
+  nativeBuildInputs = [ installShellFiles ];
+
   doCheck = false;
 
   postInstall = ''
     mv $out/bin/{app,revdiff}
+    installShellCompletion completions/*
   '';
 
   meta = {

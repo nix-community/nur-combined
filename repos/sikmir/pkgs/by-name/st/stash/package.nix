@@ -2,39 +2,45 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+  installShellFiles,
 }:
 
 buildGoModule (finalAttrs: {
-  pname = "revmux";
-  version = "0.2.6";
+  pname = "stash";
+  version = "0.21.0";
 
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "umputun";
-    repo = "revmux";
+    repo = "stash";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-h5uBAnIJf/rpTkOC/k9ihyhjBc2j4VZfFv3tkhyXHBs=";
+    hash = "sha256-ltLn3k0HOxbCx37S271SS1ZmuySOK//lcG8vSwXklYk=";
   };
 
   vendorHash = null;
+
+  subPackages = [ "app" ];
 
   ldflags = [
     "-s"
     "-X main.revision=v${finalAttrs.version}"
   ];
 
+  nativeBuildInputs = [ installShellFiles ];
+
   doCheck = false;
 
   postInstall = ''
-    mv $out/bin/{app,revmux}
+    mv $out/bin/{app,stash}
+    installShellCompletion completions/*
   '';
 
   meta = {
-    description = "Multi-agent code review, supervised and auditable";
-    homepage = "https://github.com/umputun/revmux";
+    description = "Simple key-value configuration service";
+    homepage = "https://github.com/umputun/stash";
     maintainers = with lib.maintainers; [ sikmir ];
     license = lib.licenses.mit;
-    mainProgram = "revmux";
+    mainProgram = "stash";
   };
 })
