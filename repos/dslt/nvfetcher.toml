@@ -36,17 +36,29 @@
 # Vendor-hosted binaries with a machine readable version endpoint
 # --------------------------------------------------------------------------
 
-# Track the installers maintained by nixpkgs-unstable, independently of the
-# caller's nixpkgs channel. Full URLs retain Tencent's release-directory IDs;
-# qq-wlss derives its display version from the selected installer filename.
+# Tencent requires a time-limited signature (`sign`/`t`) on current installers,
+# which fetchurl cannot produce and which expires, so it cannot be pinned.
+# Resolve the URL from the vendor config and route it through the signing proxy
+# (https://github.com/DeepslateQAQ/qq-download-worker), whose 302 hands fetchurl
+# a freshly signed official URL. The pinned hash is still the content hash of
+# the official file. Read the vendor config rather than nixpkgs' sources.nix so
+# a format change there cannot break the record.
 [qq-x86_64]
-src.webpage = "https://raw.githubusercontent.com/NixOS/nixpkgs/nixpkgs-unstable/pkgs/by-name/qq/qq/sources.nix"
-src.regex = 'url = "(https://[^"]+_amd64_[^"]+\.deb)";'
+src.cmd = '''
+set -eu
+url=$(curl -fsSL https://qq-web.cdn-go.cn/im.qq.com_new/latest/rainbow/pcConfig.json \
+  | jq -er '.Linux.x64DownloadUrl.deb')
+printf 'https://qqdl.aflare.top/%s\n' "${url#https://qqdl.gtimg.cn/}"
+'''
 fetch.url = "$ver"
 
 [qq-aarch64]
-src.webpage = "https://raw.githubusercontent.com/NixOS/nixpkgs/nixpkgs-unstable/pkgs/by-name/qq/qq/sources.nix"
-src.regex = 'url = "(https://[^"]+_arm64_[^"]+\.deb)";'
+src.cmd = '''
+set -eu
+url=$(curl -fsSL https://qq-web.cdn-go.cn/im.qq.com_new/latest/rainbow/pcConfig.json \
+  | jq -er '.Linux.armDownloadUrl.deb')
+printf 'https://qqdl.aflare.top/%s\n' "${url#https://qqdl.gtimg.cn/}"
+'''
 fetch.url = "$ver"
 
 [aiot-ide]

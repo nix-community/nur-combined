@@ -172,10 +172,10 @@
   };
   qq-aarch64 = {
     pname = "qq-aarch64";
-    version = "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.33/release/3f89efc5/QQ_3.2.32_260812_arm64_01.deb";
+    version = "https://qqdl.aflare.top/qqfile/QQNTV2/9.9.36/release/9ee04bef/QQ_3.2.34_260924_arm64_01.deb";
     src = fetchurl {
-      url = "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.33/release/3f89efc5/QQ_3.2.32_260812_arm64_01.deb";
-      sha256 = "sha256-h5bM/WaswCXvGNs3GFUy1AvIxYkh4X2m0owpWsvPj5I=";
+      url = "https://qqdl.aflare.top/qqfile/QQNTV2/9.9.36/release/9ee04bef/QQ_3.2.34_260924_arm64_01.deb";
+      sha256 = "sha256-GBuJXLVzVI45blS7BUjMqS/9wbGksBj6RVG7BiOF/co=";
     };
   };
   qq-wlss = {
@@ -192,10 +192,10 @@
   };
   qq-x86_64 = {
     pname = "qq-x86_64";
-    version = "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.33/release/3f89efc5/QQ_3.2.32_260812_amd64_01.deb";
+    version = "https://qqdl.aflare.top/qqfile/QQNTV2/9.9.36/release/9ee04bef/QQ_3.2.34_260924_amd64_01.deb";
     src = fetchurl {
-      url = "https://qqdl.gtimg.cn/qqfile/QQNT/9.9.33/release/3f89efc5/QQ_3.2.32_260812_amd64_01.deb";
-      sha256 = "sha256-0IXdiTlyJQYeufGUMI9ogSmBjtRFd36XpKChbhPXsOg=";
+      url = "https://qqdl.aflare.top/qqfile/QQNTV2/9.9.36/release/9ee04bef/QQ_3.2.34_260924_amd64_01.deb";
+      sha256 = "sha256-Q2xl4d0oQi4SiiHL3bX+Ti5sB51/J/7CVB4BTTjMM24=";
     };
   };
   rikkahub-desktop = {
