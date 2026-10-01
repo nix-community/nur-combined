@@ -978,6 +978,51 @@ fn a_global_builtin_with_a_module_form_is_deprecated() {
     assert!(w[0].contains("in.sass 2:6"), "{}", w[0]);
 }
 
+/// The `[global-builtin]` probe memo keys a span by its file's id and the name
+/// it was asked about, so neither may stand in for the other. Measured against
+/// dart-sass 1.105.1 on 2026-10-01, which prints exactly these:
+///
+/// - one span reached with two names, three times each, warns once per name;
+/// - one span in two files with identical text warns once per file.
+#[test]
+fn the_global_builtin_memo_tells_names_and_files_apart() {
+    let src = "@use \"sass:meta\";\n\
+               $fs: meta.get-function(\"percentage\"), meta.get-function(\"unitless\");\n\
+               @each $f in $fs {\n  @for $i from 1 through 3 {\n    .a-#{$i} { b: meta.call($f, 0.5); }\n  }\n}\n";
+    let w = warnings(src, "in.scss");
+    assert_eq!(w.len(), 2, "{w:?}");
+    assert!(w[0].contains("Use math.percentage instead."), "{}", w[0]);
+    assert!(w[1].contains("Use math.is-unitless instead."), "{}", w[1]);
+    assert!(w.iter().all(|w| w.contains("in.scss 5:19")), "{w:?}");
+
+    use std::cell::RefCell;
+    use std::rc::Rc;
+    let dir = std::env::temp_dir().join(format!("sasso_dep_memo_files_{}", std::process::id()));
+    std::fs::create_dir_all(&dir).expect("mkdir");
+    for partial in ["_a.scss", "_b.scss"] {
+        std::fs::write(dir.join(partial), ".x { y: percentage(0.5); }\n").expect("write");
+    }
+    let entry = dir.join("two.scss");
+    let url = entry.to_string_lossy().into_owned();
+    let src = "@use \"a\";\n@use \"b\";\n";
+    std::fs::write(&entry, src).expect("write");
+    let imp = sasso::FsImporter::new(Vec::new());
+    let seen: Rc<RefCell<Vec<String>>> = Rc::new(RefCell::new(Vec::new()));
+    let sink = Rc::clone(&seen);
+    let opts = Options::default()
+        .with_importer(&imp)
+        .with_url(&url)
+        .with_warn_handler(Rc::new(move |ev: &sasso::WarnEvent<'_>| {
+            sink.borrow_mut().push(ev.formatted.to_string());
+        }));
+    compile(src, &opts).expect("compiles");
+    let w = seen.borrow().clone();
+    let _ = std::fs::remove_dir_all(&dir);
+    assert_eq!(w.len(), 2, "{w:?}");
+    assert!(w[0].contains("_a.scss 1:9"), "{}", w[0]);
+    assert!(w[1].contains("_b.scss 1:9"), "{}", w[1]);
+}
+
 #[test]
 fn a_deprecated_function_reached_indirectly_still_warns() {
     // dart reports the global built-in a `call()` reaches — by name or through

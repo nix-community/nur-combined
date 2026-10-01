@@ -57,6 +57,20 @@ Conformance is tracked separately as a ratchet against the official
   `lighten`) were found early. `bench/corpus/gate/module_calls.scss` is new:
   until now no benchmark called a module function other than `math.div`,
   which returns before this path.
+- **Repeating a deprecated global call costs half what it did.** dart
+  reports a `[global-builtin]` warning once per place, so sasso remembers
+  every call site it has already warned about and skips the rest. Checking
+  that memo was itself about 290 instructions a call. It hashed the whole
+  file URL and compared it as text, for a question that takes no arguments.
+  That question now has a memo of its own, keyed by a small per-file id, and
+  costs about 145. Which warnings print is unchanged, byte for byte. Marginal
+  instructions on Linux/x86_64:
+
+  ```
+                                  before     now        change
+    legacy_deprecations.scss      121.53M    119.11M    -1.99%
+    large.scss, expanded          98.87M     98.23M     -0.65%
+  ```
 
 ## [0.19.3] - 2026-09-30
 

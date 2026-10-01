@@ -1291,6 +1291,19 @@ pub(crate) struct Evaluator<'a> {
     /// [`Self::probe_arg_memoizable`] caps what one entry can hold. No `Value`
     /// graph ever enters it.
     dep_memo: HashMap<(u32, u32, u32, u64), DepProbe>,
+    /// [`Self::emit_call_deprecations`]'s own memo: the `[global-builtin]` and
+    /// `[feature-exists]` probes, which take no arguments and are asked on
+    /// every global call. Keyed by the url's id from [`Self::dep_url_id`], not
+    /// its text, so a hit hashes four small integers and compares a name
+    /// rather than hashing and comparing the whole url (#260's analysis put
+    /// that at ~290 instructions a call). Same rules as [`Self::dep_memo`]: the
+    /// stored name and module are compared on a hit, a mismatch takes the
+    /// slow path, and past [`Self::DEP_MEMO_MAX`] it stops learning.
+    call_dep_memo: HashMap<(u32, u32, u32, u64), CallProbe>,
+    /// The url [`Self::dep_url_id`] last answered for, and its id (0: none).
+    dep_url: (String, u32),
+    /// Every url a deprecation memo has seen, interned.
+    dep_url_ids: HashMap<String, u32>,
     /// Small interned ids for source files, stamped into [`SrcLines`] so the
     /// serializer's trailing-comment rule can require same-file adjacency and
     /// the source map can name the file. Keyed by the file's CANONICAL URL —
@@ -1626,6 +1639,9 @@ impl<'a> Evaluator<'a> {
             deprecations_omitted: 0,
             deprecations_seen: crate::fxhash::FxHashSet::default(),
             dep_memo: HashMap::default(),
+            call_dep_memo: HashMap::default(),
+            dep_url: (String::new(), 0),
+            dep_url_ids: HashMap::default(),
             file_ids: HashMap::default(),
             file_texts,
             file_map_urls: HashMap::default(),
@@ -2120,6 +2136,53 @@ impl<'a> Evaluator<'a> {
     /// protects is locked from the outside as well: one span reached with two
     /// different colours must warn twice, with a different suggestion each time
     /// (`tests/diagnostics.rs`, `a_legacy_color_function_suggests_its_replacement`).
+    /// [`Self::probe_already_done`] for [`Self::emit_call_deprecations`], which
+    /// has no arguments to fingerprint. The name is still part of the key and is still
+    /// compared: `meta.call` probes one span with whatever name it is handed.
+    fn call_probe_already_done(&mut self, name: &str, module: Option<&str>, pos: Pos) -> bool {
+        use std::hash::Hasher;
+        let url = self.dep_url_id();
+        let mut h = crate::fxhash::FxHasher::default();
+        h.write(name.as_bytes());
+        match module {
+            Some(m) => {
+                h.write_u8(1);
+                h.write(m.as_bytes());
+            }
+            None => h.write_u8(0),
+        }
+        let key = (url, pos.line as u32, pos.col as u32, h.finish());
+        if let Some(prev) = self.call_dep_memo.get(&key) {
+            return prev.name == name && prev.module.as_deref() == module;
+        }
+        if self.call_dep_memo.len() < Self::DEP_MEMO_MAX {
+            let probe = CallProbe {
+                name: name.to_string(),
+                module: module.map(str::to_string),
+            };
+            self.call_dep_memo.insert(key, probe);
+        }
+        false
+    }
+
+    /// `current_url` as a small id, for the deprecation memos' keys. Checked
+    /// against the url itself on every call, so it stays right however
+    /// `current_url` was last assigned; only a CHANGE of file interns.
+    fn dep_url_id(&mut self) -> u32 {
+        if self.dep_url.1 == 0 || self.dep_url.0 != self.current_url {
+            let id = match self.dep_url_ids.get(&self.current_url) {
+                Some(&id) => id,
+                None => {
+                    let id = self.dep_url_ids.len() as u32 + 1;
+                    self.dep_url_ids.insert(self.current_url.clone(), id);
+                    id
+                }
+            };
+            self.dep_url = (self.current_url.clone(), id);
+        }
+        self.dep_url.1
+    }
+
     fn probe_already_done(
         &mut self,
         probe: DepProbePath,
@@ -2323,7 +2386,7 @@ impl<'a> Evaluator<'a> {
         if self.deprecation_quieted() {
             return;
         }
-        if self.probe_already_done(DepProbePath::Call, name, module, pos, &[], &[]) {
+        if self.call_probe_already_done(name, module, pos) {
             return;
         }
         if let Some(replacement) = replacement {
@@ -9365,15 +9428,20 @@ struct DepProbe {
     named: Vec<(String, Value)>,
 }
 
+/// What a [`Evaluator::call_dep_memo`] entry was asked about, compared on a hit.
+struct CallProbe {
+    name: String,
+    module: Option<String>,
+}
+
 /// Which question a [`DepProbe`] answered. Part of the memo's key, because two
 /// probes made at one span from the same arguments still ask different things —
-/// `color.grayscale(1)` is asked about `[global-builtin]`, about
-/// `[color-functions]` and about `[color-module-compat]`, and one answering for
-/// another would silently drop a warning.
+/// `color.grayscale(1)` is asked about `[color-functions]` and about
+/// `[color-module-compat]`, and one answering for the other would silently drop
+/// a warning. The third question, `[global-builtin]`, has a memo of its own
+/// ([`Evaluator::call_dep_memo`]), so it cannot collide with either.
 #[derive(Clone, Copy)]
 enum DepProbePath {
-    /// [`Evaluator::emit_call_deprecations`] — the name-only ids.
-    Call = 0,
     /// [`Evaluator::emit_color_function_deprecation`]'s `[color-functions]`
     /// half, whose suggestions come from the argument VALUES.
     ColorFunction = 1,
