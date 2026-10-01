@@ -7,11 +7,11 @@
 }:
 let
   pname = "geosurge";
-  version = "1.0.7";
+  version = "1.1.0";
 
   src = fetchurl {
     url = "https://github.com/geosurge-ai/geoSurge-releases/releases/download/v${version}/geosurge-${version}-x86_64.AppImage";
-    hash = "sha256-bgGis5wbO7sY93PMXU1Pkf5mpRsPqIs4M6mgQzQSGss=";
+    hash = "sha256-mgVe0iI7zY7EVu+vDzBOYxVrSxM/WYIKUTL/o+E4PrY=";
   };
 
   # Only used to lift the desktop entry and the icon out of the image, the
