@@ -35,6 +35,28 @@ Conformance is tracked separately as a ratchet against the official
   With the checks switched off entirely, `large.scss` would run 97.30M. What
   is left, about 1.9M, is the lookup itself: roughly 180 instructions for each
   of the ~10,400 built-in calls `large.scss` makes.
+- **A built-in called by namespace is verified once, not twice** (#260).
+  `color.adjust(…)`, `map.get(…)` and every other module call that has a
+  global spelling was checked against its declaration, then handed to the
+  global path, which looked the function up again and checked the same row a
+  second time. It now goes straight to the dispatch. The evaluator's
+  is-this-a-built-in test, asked on every global call, now uses the same
+  index instead of walking every family's name list. Marginal instructions on
+  Linux/x86_64, output byte-identical:
+
+  ```
+                                  before     now        change
+    module_calls.scss (new)       28.74M     27.60M     -3.96%
+    legacy_deprecations.scss      123.35M    121.63M    -1.40%
+    large.scss, expanded          99.17M     98.86M     -0.31%
+  ```
+
+  Per call, a global whose name came late in the old scan saves the most
+  (`nth` −324, plain-CSS `foo()` −334), and a module call saves 135–184.
+  `large.scss` moves least because most of its calls (`percentage`,
+  `lighten`) were found early. `bench/corpus/gate/module_calls.scss` is new:
+  until now no benchmark called a module function other than `math.div`,
+  which returns before this path.
 
 ## [0.19.3] - 2026-09-30
 

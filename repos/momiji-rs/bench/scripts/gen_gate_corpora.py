@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generator for the four corpora the CI performance gate was missing.
+"""Generator for the corpora the CI performance gate was missing.
 
 `benches/compile.rs` protects only the shapes that happen to be in
 `bench/corpus/generated/`, and three planned improvements measure *zero* there
@@ -24,6 +24,12 @@ in CI:
                                  `share_current == false` branch -- the one
                                  every other corpus, `large.scss` included,
                                  leaves at zero.
+  gate/module_calls.scss         built-in calls written the module-system way
+                                 (`map.get`, `color.adjust`, `list.nth`), the
+                                 shape a sheet written with `@use` has. Every
+                                 other corpus calls globals, or only
+                                 `math.div`, which returns before the general
+                                 module path; that path was measured nowhere.
 
 Deterministic by construction -- no PRNG, no clock, no environment -- so
 re-running rewrites byte-identical files. The output is checked into git, like
@@ -47,7 +53,7 @@ import json
 import sys
 from pathlib import Path
 
-GENERATOR_VERSION = 2
+GENERATOR_VERSION = 3
 REPO_ROOT = Path(__file__).resolve().parents[2]
 OUT_DIR = REPO_ROOT / "bench" / "corpus" / "gate"
 
@@ -476,6 +482,80 @@ $columns: 12;
     return files
 
 
+# ----------------------------------------------------------------- corpus 5
+
+MODULE_CALL_STEPS = 40
+MODULE_CALL_THEME = [
+    ("primary", "#0d6efd"),
+    ("secondary", "#6c757d"),
+    ("success", "#198754"),
+    ("info", "#0dcaf0"),
+    ("warning", "#ffc107"),
+    ("danger", "#dc3545"),
+    ("light", "#f8f9fa"),
+    ("dark", "#212529"),
+]
+
+
+def module_calls() -> str:
+    """Built-in calls through `@use "sass:<module>"`, at the density of a theme.
+
+    A sheet written with the module system calls its built-ins by namespace,
+    and that path is not the global one: `call_module` verifies against the
+    member's row and dispatches by module before it reaches a family. No other
+    corpus here exercises it. `large.scss` and the rest call globals, and the
+    one module function they do call, `math.div`, returns before the general
+    path. So when #260 found the module path verifying every call twice, no
+    benchmark could see it.
+
+    Named arguments are kept, because a theme passes them (`color.adjust($c,
+    $lightness: ...)`) and they take the verifier's full path rather than its
+    fast one. Nothing here is deprecated, so the deprecation bookkeeping costs
+    what a modern sheet pays and no more.
+    """
+    out = [HEADER]
+    out.append(
+        """@use "sass:color";
+@use "sass:list";
+@use "sass:map";
+@use "sass:math";
+@use "sass:meta";
+@use "sass:string";
+
+$theme: (%s);
+$spacers: (0: 0, 1: 0.25rem, 2: 0.5rem, 3: 1rem, 4: 1.5rem, 5: 3rem);
+$font-sizes: 2.5rem 2rem 1.75rem 1.5rem 1.25rem 1rem;
+$steps: %d;
+
+"""
+        % (
+            ", ".join("%s: %s" % (n, c) for n, c in MODULE_CALL_THEME),
+            MODULE_CALL_STEPS,
+        )
+    )
+    out.append(
+        """@each $name, $c in $theme {
+  @for $step from 1 through $steps {
+    .#{$name}-#{$step} {
+      color: color.adjust($c, $lightness: -$step * 0.5%);
+      background-color: color.scale($c, $lightness: math.percentage(math.div($step, $steps * 2)));
+      border-color: color.mix(white, $c, $step * 2%);
+      opacity: math.div(math.round(math.div($step * 100, $steps)), 100);
+      padding: map.get($spacers, $step % 6);
+      font-size: list.nth($font-sizes, $step % 6 + 1);
+      width: math.percentage(math.div($step, $steps));
+      --name: #{string.unquote(string.to-upper-case($name))};
+      --kind: #{meta.type-of(map.get($theme, $name))};
+      --count: #{list.length(map.keys($theme))};
+    }
+  }
+}
+"""
+    )
+    out.append("%s { --generated: true; }\n" % MARKER)
+    return "".join(out)
+
+
 # --------------------------------------------------------------------- main
 
 
@@ -485,6 +565,7 @@ def build() -> dict[str, str]:
         "legacy_deprecations.scss": legacy_deprecations(),
         "extend_heavy.scss": extend_heavy(),
         "selector_lists.scss": selector_lists(),
+        "module_calls.scss": module_calls(),
     }
     for rel, text in use_graph().items():
         files["use_graph/" + rel] = text

@@ -25,7 +25,7 @@ mod selector;
 mod string;
 
 use crate::error::Error;
-use crate::fxhash::FxHashMap;
+use crate::fxhash::{FxHashMap, FxHashSet};
 use crate::scanner::Pos;
 use crate::value::{Color, Number, SassStr, Value};
 
@@ -165,24 +165,28 @@ pub(crate) fn is_builtin(name: &str) -> bool {
     // runs on the canonical spelling (`str_index` is `str-index`).
     let canonical = canonical_name(name);
     let name = canonical.as_ref();
-    // The `math` family matches `name.to_ascii_lowercase()`, so it owns these
-    // names case-insensitively.
-    if is_math_builtin_name(name) {
+    if member_index().builtins.contains(name) {
         return true;
     }
-    [
-        color::NAMES,
-        color::MODERN_NAMES,
-        color_ext::NAMES,
-        string::NAMES,
-        map::NAMES,
-        list::NAMES,
-        meta::NAMES,
-        selector::NAMES,
-    ]
-    .iter()
-    .any(|family| family.contains(&name))
+    // The `math` family matches `name.to_ascii_lowercase()`, so it owns its
+    // names case-insensitively. The set holds them lowercase, so only a name
+    // with an uppercase letter can still be one of them.
+    name.bytes().any(|b| b.is_ascii_uppercase()) && is_math_builtin_name(name)
 }
+
+/// Every family's `NAMES`, whose union is [`is_builtin`]. `math::NAMES` is the
+/// lowercase spelling of names that family owns case-insensitively.
+const FAMILY_NAMES: [&[&str]; 9] = [
+    math::NAMES,
+    color::NAMES,
+    color::MODERN_NAMES,
+    color_ext::NAMES,
+    string::NAMES,
+    map::NAMES,
+    list::NAMES,
+    meta::NAMES,
+    selector::NAMES,
+];
 
 /// Whether `name` (case-insensitively) is a `math` builtin. `math::NAMES` holds
 /// the lowercase spellings, because the family's own dispatcher
@@ -478,13 +482,17 @@ fn member_of(module: &str, member: &str) -> Option<&'static Fun> {
     member_index().members[module_slot(module)?].get(member).copied()
 }
 
-/// Every [`Fun`] row, keyed both ways a call can name it. Built once per
-/// process, because verification runs ahead of EVERY built-in call and a
-/// linear walk of all seven tables there was measurable (#260).
+/// Every [`Fun`] row, keyed both ways a call can name it, and every global
+/// built-in name. Built once per process, because verification runs ahead of
+/// EVERY built-in call and a linear walk of all seven tables there was
+/// measurable (#260). So was [`is_builtin`]'s walk of every family's names,
+/// which the evaluator asks on every global call.
 struct MemberIndex {
     /// By [`module_slot`], then by member name.
     members: [FxHashMap<&'static str, &'static Fun>; MODULES.len()],
     globals: FxHashMap<&'static str, &'static Fun>,
+    /// The union of [`FAMILY_NAMES`].
+    builtins: FxHashSet<&'static str>,
 }
 
 /// The modules [`members_of`] describes, in the order [`global_member`] has
@@ -505,6 +513,7 @@ fn member_index() -> &'static MemberIndex {
         let mut index = MemberIndex {
             members: Default::default(),
             globals: FxHashMap::default(),
+            builtins: FAMILY_NAMES.iter().flat_map(|f| f.iter().copied()).collect(),
         };
         for (slot, module) in MODULES.iter().enumerate() {
             let Some(m) = members_of(module) else { continue };
@@ -1316,11 +1325,7 @@ pub(crate) fn module_variable_names(module: &str) -> &'static [&'static str] {
 /// Translate a `(module, member)` pair to the global builtin that implements
 /// it, or `None` when the member has no global alias — see [`Members`].
 pub(crate) fn module_member_to_global(module: &str, member: &str) -> Option<&'static str> {
-    members_of(module)?
-        .functions
-        .iter()
-        .find(|f| f.name == member)
-        .and_then(|f| f.global)
+    member_of(module, member)?.global
 }
 
 /// Whether `module` exposes `member` as a FUNCTION.
@@ -1464,8 +1469,12 @@ fn call_module_body(
             ));
         }
     }
+    // Straight to the dispatch, not through [`call`]: [`call_module`] already
+    // verified these arguments against this member's row, and the global is a
+    // view of the same row (`a_module_members_global_is_the_same_row`), so a
+    // second lookup and verification would repeat the first (#260).
     match module_member_to_global(module, member) {
-        Some(global) => call(global, pos_args, named, pos),
+        Some(global) => call_body(global, global, pos_args, named, pos),
         None => Err(Error::at("Undefined function.".to_string(), pos)),
     }
 }
@@ -2042,6 +2051,23 @@ mod tests {
                     walked.map(|f| f as *const _),
                     "{g}"
                 );
+            }
+        }
+    }
+
+    /// A module member and the global it names share one [`super::Fun`] row
+    /// whenever the global is verified at all, which is what lets
+    /// `call_module_body` skip [`super::call`]'s second verification. A global
+    /// that resolves to a DIFFERENT row would make that skip change an error.
+    #[test]
+    fn a_module_members_global_is_the_same_row() {
+        for module in super::MODULES {
+            for f in super::members_of(module).unwrap().functions {
+                let Some(g) = f.global else { continue };
+                if let Some(row) = super::global_member(g) {
+                    let own = super::member_of(module, f.name).unwrap();
+                    assert!(std::ptr::eq(row, own), "sass:{module}.{} -> {g}", f.name);
+                }
             }
         }
     }

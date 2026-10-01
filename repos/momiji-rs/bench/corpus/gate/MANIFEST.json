@@ -9,6 +9,10 @@
       "bytes": 758,
       "sha256": "59840c35d807da91"
     },
+    "module_calls.scss": {
+      "bytes": 1282,
+      "sha256": "901b174b666da594"
+    },
     "selector_lists.scss": {
       "bytes": 25046,
       "sha256": "a82e26fd0323bb6b"
@@ -187,5 +191,5 @@
     }
   },
   "generator": "bench/scripts/gen_gate_corpora.py",
-  "generatorVersion": 2
+  "generatorVersion": 3
 }

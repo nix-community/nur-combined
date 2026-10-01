@@ -52,6 +52,12 @@ const EXTEND_HEAVY: &str = include_str!("../bench/corpus/gate/extend_heavy.scss"
 /// Carries a few dropped `> +` selectors too, at the density a real sheet has.
 const SELECTOR_LISTS: &str = include_str!("../bench/corpus/gate/selector_lists.scss");
 
+/// Built-in calls through `@use "sass:<module>"` (`map.get`, `color.adjust`,
+/// `list.nth`): the shape of a sheet written with the module system. Every
+/// other corpus calls globals, or only `math.div`, which returns before the
+/// general module path, so that path was benchmarked nowhere (#260).
+const MODULE_CALLS: &str = include_str!("../bench/corpus/gate/module_calls.scss");
+
 /// Multi-file `@use` graph: 43 files behind one entry.
 const USE_GRAPH_ENTRY: &str = include_str!("../bench/corpus/gate/use_graph/entry.scss");
 
@@ -176,6 +182,7 @@ fn corpora_still_compile() {
         ("legacy_deprecations.scss", LEGACY_DEPRECATIONS),
         ("extend_heavy.scss", EXTEND_HEAVY),
         ("selector_lists.scss", SELECTOR_LISTS),
+        ("module_calls.scss", MODULE_CALLS),
     ] {
         let css = compile(source, &diagnostics_live(name))
             .unwrap_or_else(|e| panic!("bench corpus {name} failed to compile: {e}"));
@@ -276,6 +283,18 @@ fn selector_lists_with_url_silent(bencher: Bencher<'_, '_>) {
         )
         .unwrap()
     });
+}
+
+/// Built-in calls written the module-system way, with the diagnostics live.
+///
+/// The module path verifies a call against the member's row and dispatches by
+/// module first, which is not what a global call does. Until this corpus, the
+/// only module function any benchmark called was `math.div`, which returns
+/// before that path, and so the path verifying every call twice (#260) moved
+/// no benchmark at all.
+#[divan::bench]
+fn module_calls_with_url_silent(bencher: Bencher<'_, '_>) {
+    bencher.bench(|| compile(black_box(MODULE_CALLS), &diagnostics_live("module_calls.scss")).unwrap());
 }
 
 /// A multi-file `@use` graph, 43 files behind one entry: the corpus for A3,

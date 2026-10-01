@@ -44,7 +44,8 @@ happened to be in `corpus/generated/`, while three of the improvements in
 `../docs/PERF_PLAN_2026-09-16.md` measure ~0.00% there. Landing one and later
 regressing it would have looked identical in CI. The first four were verified to
 show their lever, byte-identical output in both arms, on macOS/arm64 2026-09-16;
-the fifth is coverage rather than a lever, and is explained under the table:
+the fifth is coverage rather than a lever, and is explained under the table, and
+the sixth was added when #260 found a path none of the others reached:
 
 | Corpus | Protects | Delta on this corpus | On `large.scss` |
 | --- | --- | --- | --- |
@@ -53,16 +54,18 @@ the fifth is coverage rather than a lever, and is explained under the table:
 | `gate/use_graph/entry.scss` | the module cache (A3) | **−39.5%** | −2.1% |
 | `gate/use_graph/redundant.scss` | ditto, redundant `@use` | **−42.2%** | — |
 | `gate/selector_lists.scss` | `eval_style_rule`'s `share_current == false` branch, and the #119/#120 span mapping | — (coverage, no lever) | — |
+| `gate/module_calls.scss` | built-in calls through `@use "sass:<module>"` (#260) | **−3.96%** | −0.31% |
 
-All five are compiled through the `diagnostics_live()` helper in
+All six are compiled through the `diagnostics_live()` helper in
 `../benches/compile.rs`, which is the only place the URL-and-silent-handler
 pairing lives: a corpus wired up with a bare `Options::default()` would leave
-`diag_enabled()` false and protect half of what it was added for. All five also
+`diag_enabled()` false and protect half of what it was added for. All six also
 produce output byte-identical to dart-sass — the first four against 1.103.1
 (verified 2026-09-16), `selector_lists.scss` against 1.104.1 (verified
 2026-09-19: expanded 76,624 bytes and compressed 70,978 bytes, plus stderr, the
 five `bogus-combinators` warnings it prints and the seven its repetition cap
-omits) — so the gate measures shapes that are in parity rather than shapes only
+omits), `module_calls.scss` against 1.105.1 (verified 2026-10-01: expanded
+106,334 bytes and compressed 85,322 bytes, no stderr on either side) — so the gate measures shapes that are in parity rather than shapes only
 sasso accepts. `corpora_still_compile()` runs before divan and asserts the
 marker rule `.sasso-gate-corpus` in each — a corpus that stops resolving its
 imports would otherwise just report a faster number, which is exactly how three
@@ -80,6 +83,16 @@ density a real sheet has them, so the span mapping behind `bogus-combinators` is
 visited rather than dominant. No speed claim attaches to it: an ABBA on this
 corpus put the two arms inside each other's spread. A corpus that makes a future
 regression visible is worth gating even when nothing is trying to make it faster.
+
+`module_calls.scss` (added 2026-10-01) is a theme written with the module
+system: eight colours times 40 steps, each rule calling `color.adjust`,
+`color.scale`, `color.mix`, `map.get`, `list.nth`, `math.percentage` and a few
+more by namespace, some with named arguments. A call by namespace takes a
+different path from a global one. The only module function any other corpus
+calls is `math.div`, which returns before that path, so when #260 found it
+verifying every call twice, nothing here moved. Its row is marginal
+instructions on Linux/x86_64, not the macOS wall-time figure of the rows above:
+the change that added it measured −3.96% here against −0.31% on `large.scss`.
 
 One more plan benchmark, `large_expanded_with_map_silent`, arrived on 2026-09-17
 without a corpus of its own: it compiles `generated/large.scss` through
@@ -130,6 +143,7 @@ bench/
 │       ├── legacy_deprecations.scss   #   deprecation-dense (protects A1)
 │       ├── extend_heavy.scss          #   @extend-heavy (protects A2)
 │       ├── selector_lists.scss        #   multi-line comma lists (coverage corpus)
+│       ├── module_calls.scss          #   built-ins called by namespace (#260)
 │       ├── use_graph/                 #   43-file @use graph + a redundant entry
 │       └── MANIFEST.json              #   generator version, bytes, sha256
 ├── grass_runner/             # tiny Rust crate: grass CLI wrapper (build --release)
