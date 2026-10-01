@@ -1,0 +1,335 @@
+{
+  "fields": {
+    "auto_max_connections": {
+      "default": "16",
+      "kind": "Integer",
+      "max": 128,
+      "min": 0
+    },
+    "auto_resume_on_start": {
+      "default": "false",
+      "kind": "Bool"
+    },
+    "auto_retry_delay_secs": {
+      "default": "5",
+      "kind": "Integer",
+      "max": 86400,
+      "min": 0
+    },
+    "bt_auto_reseed": {
+      "default": "true",
+      "kind": "Bool"
+    },
+    "bt_custom_trackers": {
+      "default": "",
+      "kind": "Text"
+    },
+    "bt_enable_dht": {
+      "default": "true",
+      "kind": "Bool"
+    },
+    "bt_enable_upnp": {
+      "default": "true",
+      "kind": "Bool"
+    },
+    "bt_mse_mode": {
+      "default": "enabled",
+      "kind": "Enum",
+      "values": [
+        "disabled",
+        "enabled",
+        "forced"
+      ]
+    },
+    "bt_port_end": {
+      "default": "6891",
+      "kind": "Integer",
+      "max": 65535,
+      "min": 1
+    },
+    "bt_port_start": {
+      "default": "6881",
+      "kind": "Integer",
+      "max": 65535,
+      "min": 1
+    },
+    "bt_seed_enabled": {
+      "default": "true",
+      "kind": "Bool"
+    },
+    "bt_seed_inactive_time_limit_minutes": {
+      "default": "0",
+      "kind": "Integer",
+      "max": 9223372036854775807,
+      "min": 0
+    },
+    "bt_seed_inactive_time_limit_unit": {
+      "default": "minutes",
+      "kind": "Enum",
+      "values": [
+        "minutes",
+        "hours",
+        "days"
+      ]
+    },
+    "bt_seed_limit_operator": {
+      "default": "or",
+      "kind": "Enum",
+      "values": [
+        "or",
+        "and"
+      ]
+    },
+    "bt_seed_max_active": {
+      "default": "0",
+      "kind": "Integer",
+      "max": 9223372036854775807,
+      "min": 0
+    },
+    "bt_seed_post_ratio_limit": {
+      "default": "0",
+      "kind": "Float",
+      "min": 0.0
+    },
+    "bt_seed_ratio_limit": {
+      "default": "0",
+      "kind": "Float",
+      "min": 0.0
+    },
+    "bt_seed_then_action": {
+      "default": "stop",
+      "kind": "Enum",
+      "values": [
+        "stop",
+        "delete",
+        "delete_files"
+      ]
+    },
+    "bt_seed_time_limit_minutes": {
+      "default": "0",
+      "kind": "Integer",
+      "max": 9223372036854775807,
+      "min": 0
+    },
+    "bt_seed_time_limit_unit": {
+      "default": "minutes",
+      "kind": "Enum",
+      "values": [
+        "minutes",
+        "hours",
+        "days"
+      ]
+    },
+    "bt_tracker_sub_cache": {
+      "default": "",
+      "kind": "ReadOnly"
+    },
+    "bt_tracker_sub_enabled": {
+      "default": "true",
+      "kind": "Bool"
+    },
+    "bt_tracker_sub_updated_at": {
+      "default": "0",
+      "kind": "ReadOnly"
+    },
+    "bt_tracker_sub_urls": {
+      "default": "",
+      "kind": "Text"
+    },
+    "cdn_max_nodes": {
+      "default": "0",
+      "kind": "Integer",
+      "max": 8,
+      "min": 0
+    },
+    "cdn_multi_enabled": {
+      "default": "false",
+      "kind": "Bool"
+    },
+    "component.ffmpeg.path": {
+      "default": "",
+      "kind": "Text"
+    },
+    "component.ytdlp.path": {
+      "default": "",
+      "kind": "Text"
+    },
+    "component_mirror_base": {
+      "default": "",
+      "kind": "Text"
+    },
+    "dedup_same_url": {
+      "default": "false",
+      "kind": "Bool"
+    },
+    "default_queue_id": {
+      "default": "",
+      "kind": "Text"
+    },
+    "default_save_dir": {
+      "default": "",
+      "kind": "Text"
+    },
+    "default_segments": {
+      "default": "0",
+      "kind": "Integer",
+      "max": 64,
+      "min": 0
+    },
+    "domain_conn_caps": {
+      "default": "",
+      "kind": "ReadOnly"
+    },
+    "ed2k_enable_kad": {
+      "default": "true",
+      "kind": "Bool"
+    },
+    "ed2k_enable_upnp": {
+      "default": "true",
+      "kind": "Bool"
+    },
+    "ed2k_listen_port": {
+      "default": "0",
+      "kind": "Integer",
+      "max": 65535,
+      "min": 0
+    },
+    "ed2k_nodes_dat_url": {
+      "default": "",
+      "kind": "Text"
+    },
+    "ed2k_server_list": {
+      "default": "",
+      "kind": "Text"
+    },
+    "ed2k_server_sub_cache": {
+      "default": "",
+      "kind": "ReadOnly"
+    },
+    "ed2k_server_sub_enabled": {
+      "default": "true",
+      "kind": "Bool"
+    },
+    "ed2k_server_sub_updated_at": {
+      "default": "0",
+      "kind": "ReadOnly"
+    },
+    "ed2k_server_sub_urls": {
+      "default": "",
+      "kind": "Text"
+    },
+    "file_exists_behavior": {
+      "default": "rename",
+      "kind": "Enum",
+      "values": [
+        "rename",
+        "overwrite",
+        "skip"
+      ]
+    },
+    "file_missing_action": {
+      "default": "keep",
+      "kind": "Enum",
+      "values": [
+        "keep",
+        "delete"
+      ]
+    },
+    "global_user_agent": {
+      "default": "",
+      "kind": "Text"
+    },
+    "idle_file_scan": {
+      "default": "false",
+      "kind": "Bool"
+    },
+    "log_max_size_mb": {
+      "default": "10",
+      "kind": "Integer",
+      "max": 1024,
+      "min": 1
+    },
+    "max_auto_retries": {
+      "default": "3",
+      "kind": "Integer",
+      "max": 20,
+      "min": -1
+    },
+    "max_concurrent_tasks": {
+      "default": "5",
+      "kind": "Integer",
+      "max": 1024,
+      "min": 1
+    },
+    "multi_nic_enabled": {
+      "default": "false",
+      "kind": "Bool"
+    },
+    "proxy_host": {
+      "default": "",
+      "kind": "Text"
+    },
+    "proxy_mode": {
+      "default": "none",
+      "kind": "Enum",
+      "values": [
+        "none",
+        "system",
+        "manual",
+        "auto"
+      ]
+    },
+    "proxy_no_list": {
+      "default": "",
+      "kind": "Text"
+    },
+    "proxy_password": {
+      "default": "",
+      "kind": "Text"
+    },
+    "proxy_port": {
+      "default": "",
+      "kind": "Text"
+    },
+    "proxy_type": {
+      "default": "http",
+      "kind": "Enum",
+      "values": [
+        "http",
+        "https",
+        "socks4",
+        "socks5"
+      ]
+    },
+    "proxy_username": {
+      "default": "",
+      "kind": "Text"
+    },
+    "speed_limit_bytes": {
+      "default": "0",
+      "kind": "Integer",
+      "max": 9223372036854775807,
+      "min": 0
+    },
+    "upload_limit_bytes": {
+      "default": "0",
+      "kind": "Integer",
+      "max": 9223372036854775807,
+      "min": 0
+    },
+    "use_server_time": {
+      "default": "false",
+      "kind": "Bool"
+    },
+    "webhook.endpoints": {
+      "default": "",
+      "kind": "Text"
+    }
+  },
+  "protocolVersion": 6,
+  "sourceHashes": {
+    "native/protocol/src/daemon_config.rs": "e5c2d29ac95ebe4fd02ca9c9c7563ccf771e4bfcdd789756b8ebe52998badd2d",
+    "native/protocol/src/rpc.rs": "1bb67d84422a46c2682ecf88685e99b8cd8da6450b5769bd544c39af97998189"
+  },
+  "version": "0.5.2"
+}
