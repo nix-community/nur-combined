@@ -55,6 +55,7 @@ in
 
       settings = {
         overwriteprotocol = "https"; # Nginx only allows SSL
+        maintenance_window_start = 1; # Run maintenance between 1AM and 5AM (UTC)
       };
 
       notify_push = {

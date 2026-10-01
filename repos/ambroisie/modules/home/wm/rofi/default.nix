@@ -7,6 +7,8 @@ in
     programs.rofi = {
       enable = true;
 
+      terminal = config.my.home.terminal.program; # null by default
+
       package = pkgs.rofi.override {
         plugins = with pkgs; [
           rofi-emoji
@@ -14,10 +16,6 @@ in
       };
 
       theme = "gruvbox-dark-hard";
-
-      settings = {
-        terminal = config.my.home.terminal.program; # null by default
-      };
     };
   };
 }
