@@ -60,9 +60,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     updateScript = writeScript "update-proton-wineland" ''
       #!/usr/bin/env nix-shell
       #!nix-shell -i bash -p curl jq common-updater-scripts
+      set -euo pipefail
       repo="https://api.github.com/repos/nanomatters/proton-cachyos/releases"
-      version="$(curl -sL "$repo" | jq 'map(select(.prerelease == false)) | .[0].tag_name | sub("^wineland-"; "")' --raw-output)"
-      update-source-version proton-wineland "$version" --ignore-same-version --source-key="variants.x86_64-linux.src"
+      version="$(curl --fail --silent --show-error --location "$repo" | jq --exit-status --raw-output '
+        [.[] | select(.prerelease == false and (.tag_name | startswith("wineland-")))]
+        | .[0].tag_name | strings | sub("^wineland-"; "") | select(length > 0)
+      ')"
+      update-source-version proton-wineland "$version" --source-key="variants.x86_64-linux.src"
     '';
   };
 

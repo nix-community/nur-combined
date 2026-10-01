@@ -1,0 +1,75 @@
+name: Update packages
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+      timezone: "Europe/Brussels"
+  workflow_dispatch:
+    inputs:
+      commit:
+        description: Commit and push updates to main
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: repository-updates
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Require main for published updates
+        if: ${{ inputs.commit && github.ref != 'refs/heads/main' }}
+        run: |
+          echo "Run with commit enabled only on main."
+          exit 1
+
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Install Nix
+        uses: DeterminateSystems/determinate-nix-action@v3
+
+      - name: Cache Nix builds in GitHub Actions
+        uses: DeterminateSystems/magic-nix-cache-action@v14
+        with:
+          use-flakehub: false
+
+      - name: Use the locked Nixpkgs input
+        run: |
+          nixpkgs_path=$(nix eval --impure --raw --expr '(builtins.getFlake (toString ./.)).inputs.nixpkgs.outPath')
+          echo "NIX_PATH=nixpkgs=$nixpkgs_path" >> "$GITHUB_ENV"
+
+      - name: Discover, update, and build packages
+        run: |
+          updater=$(nix-build scripts/update-packages.nix -A script --no-out-link)
+          "$updater"
+
+      - name: Commit and push changes
+        id: commit
+        if: ${{ github.event_name == 'schedule' || inputs.commit }}
+        run: |
+          set -euo pipefail
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No package updates."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore(packages): update packages"
+          git push origin HEAD:main
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - name: Trigger builds, cache uploads, and the NUR update
+        if: ${{ steps.commit.outputs.changed == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run build.yml --ref main

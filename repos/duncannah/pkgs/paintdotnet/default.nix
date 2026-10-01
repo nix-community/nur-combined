@@ -9,6 +9,7 @@
   stdenvNoCC,
   unzip,
   wineWow64Packages,
+  writeScript,
 }:
 
 let
@@ -110,6 +111,18 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     chmod +x $out/bin/paintdotnet
 
     runHook postInstall
+  '';
+
+  passthru.updateScript = writeScript "update-paintdotnet" ''
+    #!/usr/bin/env nix-shell
+    #!nix-shell -i bash -p curl jq common-updater-scripts
+    set -euo pipefail
+    repo="https://api.github.com/repos/paintdotnet/Paint.NET-on-Wine/releases"
+    version="$(curl --fail --silent --show-error --location "$repo" | jq --exit-status --raw-output '
+      [.[] | select(.prerelease == false and (.tag_name | test("^v[0-9]+(\\.[0-9]+)+$")))]
+      | .[0].tag_name | strings | sub("^v"; "") | select(length > 0)
+    ')"
+    update-source-version paintdotnet "$version"
   '';
 
   meta = {

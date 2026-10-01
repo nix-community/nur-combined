@@ -10,8 +10,8 @@ permissions:
   contents: write
 
 concurrency:
-  group: update-flake-lock
-  cancel-in-progress: true
+  group: repository-updates
+  cancel-in-progress: false
 
 jobs:
   lockfile:
