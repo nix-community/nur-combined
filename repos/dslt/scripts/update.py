@@ -498,15 +498,47 @@ def regenerate_go_vendor_hash(args, env: dict) -> list[str]:
     return changed
 
 
+def npm_deps_hash_for(rel_path: str, env: dict) -> str:
+    """Build the npm deps cache with the locked nixpkgs and read it back.
+
+    The fake-hash mismatch gives the real value without duplicating fetcher
+    details here.
+    """
+    expr = f"""
+      let
+        repo = {str(REPO_ROOT)};
+        flake = builtins.getFlake (toString repo);
+        pkgs = import flake.inputs.nixpkgs {{
+          system = builtins.currentSystem;
+          config = {{ allowUnfree = true; allowInsecurePredicate = _: true; }};
+        }};
+        gen = import (repo + "/_sources/generated.nix");
+        sources = gen (builtins.intersectAttrs (builtins.functionArgs gen) pkgs);
+      in (pkgs.callPackage (repo + "/{rel_path}") {{
+        inherit sources;
+        npmDepsHash = pkgs.lib.fakeHash;
+      }}).npmDeps
+    """
+    proc = subprocess.run(
+        ["nix", "build", "--no-link", "--impure", "--expr", expr],
+        cwd=str(REPO_ROOT), env=env, capture_output=True, text=True,
+    )
+    match = re.search(r"got:\s+(sha256-[A-Za-z0-9+/=]+)", proc.stdout + proc.stderr)
+    if not match:
+        if proc.returncode == 0:
+            return ""
+        print(proc.stdout + proc.stderr, file=sys.stderr, end="")
+        raise UpdateError(f"{rel_path}: could not determine the npm deps hash")
+    return match.group(1)
+
+
 def regenerate_npm_deps_hashes(args, env: dict) -> list[str]:
     """Refresh the npmDepsHash of every npm-locked source.
 
-    The hash covers the fetchNpmDeps cache (tarballs plus, for workspace
-    projects, packuments), so it has to be recomputed whenever the extracted
-    package-lock.json moves. The package expression takes npmDepsHash as an
-    argument, so the cache can be built with the fake hash and the real one
-    read back out of the mismatch - which also keeps the fetcher version in
-    sync with the package expression instead of duplicating it here.
+    The hash covers the fetchNpmDeps cache, so it is recomputed whenever the
+    extracted package-lock.json moves. The package expression takes
+    npmDepsHash as an argument, so the cache is built with a fake hash and the
+    real one read back out of the mismatch.
     """
     changed = []
     for record, (rel, rel_path) in NPM_DEPS_HASH.items():
@@ -515,38 +547,15 @@ def regenerate_npm_deps_hashes(args, env: dict) -> list[str]:
         # The hash belongs to the extracted lock; make sure nvfetcher produced
         # it before spending a download on the cache.
         extract_path(record, rel, env)
-        expr = f"""
-          let
-            repo = {str(REPO_ROOT)};
-            flake = builtins.getFlake (toString repo);
-            pkgs = import flake.inputs.nixpkgs {{
-              system = builtins.currentSystem;
-              config = {{ allowUnfree = true; allowInsecurePredicate = _: true; }};
-            }};
-            gen = import (repo + "/_sources/generated.nix");
-            sources = gen (builtins.intersectAttrs (builtins.functionArgs gen) pkgs);
-          in (pkgs.callPackage (repo + "/{rel_path}") {{
-            inherit sources;
-            npmDepsHash = pkgs.lib.fakeHash;
-          }}).npmDeps
-        """
-        proc = subprocess.run(
-            ["nix", "build", "--no-link", "--impure", "--expr", expr],
-            cwd=str(REPO_ROOT), env=env, capture_output=True, text=True,
-        )
-        match = re.search(r"got:\s+(sha256-[A-Za-z0-9+/=]+)", proc.stdout + proc.stderr)
-        if not match:
-            if proc.returncode == 0:
-                log(f"{record}: npm deps hash already up to date")
-                continue
-            print(proc.stdout + proc.stderr, file=sys.stderr, end="")
-            raise UpdateError(f"{record}: could not determine the npm deps hash")
-        new_hash = match.group(1)
+        new_hash = npm_deps_hash_for(rel_path, env)
+        if not new_hash:
+            log(f"{record}: npm deps hash already up to date")
+            continue
 
         path = REPO_ROOT / rel_path
         text = path.read_text()
         updated, count = re.subn(
-            r'npmDepsHash \? "(sha256-[A-Za-z0-9+/=]+)"',
+            r'npmDepsHash \? "sha256-[A-Za-z0-9+/=]+"',
             f'npmDepsHash ? "{new_hash}"',
             text,
         )
