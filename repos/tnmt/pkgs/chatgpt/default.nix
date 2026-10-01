@@ -44,16 +44,16 @@
 
 let
   pname = "chatgpt";
-  version = "26.928.21956";
+  version = "26.928.31416";
 
   allArchives = {
     x86_64-linux = {
       arch = "amd64";
-      hash = "sha256-msjQcRtGATaNSd7dv1Co/lI1jLYbbZ96XBi0HtRQCtg=";
+      hash = "sha256-xGNyfx7V3O14M4yOKmXYib0VMnb/Nz/XdpjMua8y0YE=";
     };
     aarch64-linux = {
       arch = "arm64";
-      hash = "sha256-mwz2cAjHRt+AarOn6+lY/+tInZwfbLyXf4IsgxPcqSE=";
+      hash = "sha256-s8Pzfe38V9ty6BCh3FvnsiWG8LmbfUh1hosGvdhVuoY=";
     };
   };
 
