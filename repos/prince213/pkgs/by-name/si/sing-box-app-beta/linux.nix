@@ -8,7 +8,7 @@
   fetchPnpmDeps,
   makeDesktopItem,
   sing-box-beta,
-  sing-box-dashboard,
+  sing-box-dashboard-beta,
 
   # nativeBuildInputs
   buf,
@@ -31,7 +31,7 @@ let
       mainProgram = "boxdd";
     };
   });
-  dashboard = sing-box-dashboard.overrideAttrs {
+  dashboard = sing-box-dashboard-beta.overrideAttrs {
     installPhase = ''
       runHook preInstall
       mkdir -p $out
@@ -49,8 +49,8 @@ buildNpmPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "SagerNet";
     repo = "sing-box-for-desktop";
-    rev = "5553ab83cb3a527a9b100ee1130ab844dbb467b5";
-    hash = "sha256-kKs+UJBNM+aSRVaB4yEE1VYC4kpAKBbXFe30JDnFitM=";
+    rev = "a9c4a473592545897f757e82bb1b8d1d48266b53";
+    hash = "sha256-J5m6BKtZkGOzRBhLp7lHsp2odjKdbrWYMSTkAxz2PPc=";
   };
 
   postPatch = ''

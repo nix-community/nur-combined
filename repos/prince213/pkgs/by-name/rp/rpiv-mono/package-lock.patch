@@ -8,3 +8,19 @@
  			"license": "MIT",
  			"dependencies": {
  				"@earendil-works/pi-ai": "^0.80.6",
+@@ -1433,6 +1434,7 @@
+ 		"node_modules/@earendil-works/pi-coding-agent/node_modules/@earendil-works/pi-ai": {
+ 			"version": "0.80.6",
+ 			"resolved": "https://registry.npmjs.org/@earendil-works/pi-ai/-/pi-ai-0.80.6.tgz",
++			"integrity": "sha512-7xfLk8sANBp+bpPEbjoOZTbPxsa+++b1JXAoSJsNa3vbs9AHHEclmvg54XLQcxH+fuwaeti/g2jeIfJ+mVYLpA==",
+ 			"license": "MIT",
+ 			"dependencies": {
+ 				"@anthropic-ai/sdk": "0.91.1",
+@@ -1457,6 +1459,7 @@
+ 		"node_modules/@earendil-works/pi-coding-agent/node_modules/@earendil-works/pi-tui": {
+ 			"version": "0.80.6",
+ 			"resolved": "https://registry.npmjs.org/@earendil-works/pi-tui/-/pi-tui-0.80.6.tgz",
++			"integrity": "sha512-bSuzS4EVSqEPj/Qr/p9eqCESfKsGuDNbl77EGci8Iaqqt/C/XCBZL1MjXaxSWW1NsT5afjp/Cb0NTPzOLv/aPA==",
+ 			"license": "MIT",
+ 			"dependencies": {
+ 				"get-east-asian-width": "1.6.0",

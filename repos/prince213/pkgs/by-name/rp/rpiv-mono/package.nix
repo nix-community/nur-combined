@@ -2,12 +2,11 @@
   lib,
   buildNpmPackage,
   fetchFromGitHub,
-  fetchpatch2,
 }:
 
 buildNpmPackage (finalAttrs: {
   pname = "rpiv-mono";
-  version = "2.11.0";
+  version = "2.12.0";
 
   __structuredAttrs = true;
 
@@ -15,25 +14,13 @@ buildNpmPackage (finalAttrs: {
     owner = "juicesharp";
     repo = "rpiv-mono";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-lXSj7i0bKuOKdajoJqLukCqNMi6398IxRFgFbXHgUUA=";
+    hash = "sha256-gvl2xi9BqNandBDCAdIVWTa9df3fb/+CiWGTZbaEz3g=";
   };
 
-  patches = [
-    # https://github.com/juicesharp/rpiv-mono/pull/278
-    (fetchpatch2 {
-      url = "https://github.com/BasamAhmed640/rpiv-mono/commit/e325a8b8269af69f63799c7fc5d2b34be88dfb08.patch?full_index=1";
-      excludes = [
-        "package-lock.json"
-        "packages/rpiv-workflow/CHANGELOG.md"
-      ];
-      hash = "sha256-zU9eJrp70OURBRV6AHPm2TrxHT47nsqIKUMsV4Wit9A=";
-    })
-
-    ./package-lock.patch
-  ];
+  patches = [ ./package-lock.patch ];
 
   npmDepsFetcherVersion = 2;
-  npmDepsHash = "sha256-l1OC1Klv06K2O8S1SJSiErTBthmG0UllBcFoR7REO6E=";
+  npmDepsHash = "sha256-xL5y0R38DJiOK432d7wyNaWv69erhk7pEEmh+SRgCQM=";
 
   dontNpmBuild = true;
 

@@ -6,7 +6,7 @@
   fetchurl,
   makeDesktopItem,
   sing-box-beta,
-  sing-box-dashboard,
+  sing-box-dashboard-beta,
   stdenvNoCC,
 
   # nativeBuildInputs
@@ -64,7 +64,7 @@ else
       fetchPnpmDeps
       makeDesktopItem
       sing-box-beta
-      sing-box-dashboard
+      sing-box-dashboard-beta
       buf
       copyDesktopItems
       makeBinaryWrapper

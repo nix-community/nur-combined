@@ -13,16 +13,16 @@ let
 in
 buildNpmPackage (finalAttrs: {
   pname = "sing-box-dashboard";
-  version = "0-unstable-2026-09-18";
+  version = "0-unstable-2026-09-28";
 
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "SagerNet";
     repo = "sing-box-dashboard";
-    rev = "9c498355c9973187b04c09991e2aca8100fd00ec";
+    rev = "a9b1dd7595ccce5dd8006d5b0fef8b3f0821e501";
     fetchSubmodules = true;
-    hash = "sha256-s3gilFk10IPMyC945XwaLzu6M6S6xYU+ZbB8QQ7tggk=";
+    hash = "sha256-P8RWsfUamgSNpCVF4MOqoRWbOzb0mKe5ZiEwwcT700w=";
   };
 
   npmDeps = null;

@@ -13,7 +13,7 @@
 
 stdenv.mkDerivation {
   pname = "gallant";
-  version = "0.1-unstable-2026-09-25";
+  version = "0.1-unstable-2026-09-30";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -21,8 +21,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "NanoBillion";
     repo = "gallant";
-    rev = "e4beb004edf621c5c6985f17ff928cc94344f8f4";
-    hash = "sha256-fwOR66CaVzTLLaAXCHvZtQfQBbnimKtNBn/slXp/BOE=";
+    rev = "59e9dc64b03c5a2cfa30477447d2f6edb124a6f2";
+    hash = "sha256-89VzXkMafND/iA2Tb+gEj+ZkeULS2MSNuJ14cJe49pE=";
   };
 
   nativeBuildInputs = [
