@@ -28,15 +28,15 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "25123e7b19ee93d61956ef3c83341d51d0a77d33";
+    version = "40593a9368efd5877ccb1b080dda8af51c998191";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "25123e7b19ee93d61956ef3c83341d51d0a77d33";
+      rev = "40593a9368efd5877ccb1b080dda8af51c998191";
       fetchSubmodules = false;
-      sha256 = "sha256-dR7NumTtlSdh9EhwnFmCAHJDRnZJyo5XNqti34WB5N4=";
+      sha256 = "sha256-LztNI9HSYINXkGqMn9ii8vRlkBlgaKMgsHXYlLPZTco=";
     };
-    date = "2026-09-30";
+    date = "2026-10-01";
   };
   hammerspoon = {
     pname = "hammerspoon";
