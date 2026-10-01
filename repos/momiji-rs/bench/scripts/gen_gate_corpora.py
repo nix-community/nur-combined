@@ -30,6 +30,12 @@ in CI:
                                  other corpus calls globals, or only
                                  `math.div`, which returns before the general
                                  module path; that path was measured nowhere.
+  gate/user_functions.scss       a design-token sheet built from its own
+                                 `@function`s and `@mixin`s, with five
+                                 modules `@use`d. No other corpus defines a
+                                 single `@function`, so the user-callable path
+                                 (argument binding, the environment swap, the
+                                 call frame) was measured nowhere.
 
 Deterministic by construction -- no PRNG, no clock, no environment -- so
 re-running rewrites byte-identical files. The output is checked into git, like
@@ -53,7 +59,7 @@ import json
 import sys
 from pathlib import Path
 
-GENERATOR_VERSION = 3
+GENERATOR_VERSION = 4
 REPO_ROOT = Path(__file__).resolve().parents[2]
 OUT_DIR = REPO_ROOT / "bench" / "corpus" / "gate"
 
@@ -556,6 +562,105 @@ $steps: %d;
     return "".join(out)
 
 
+# ----------------------------------------------------------------- corpus 6
+
+USER_FUNCTION_STEPS = 30
+USER_FUNCTION_SCALE = [
+    ("xs", "0.75"),
+    ("sm", "0.875"),
+    ("md", "1"),
+    ("lg", "1.25"),
+    ("xl", "1.5"),
+    ("xxl", "2"),
+]
+
+
+def user_functions() -> str:
+    """A token sheet whose values come from its own functions and mixins.
+
+    Every other corpus calls built-ins, and none defines a `@function`. A user
+    callable takes a different path: its arguments bind into a fresh scope, the
+    body runs against the environment the callable captured, and the call
+    pushes a diagnostics frame. Each of those is per-call work, and none of it
+    showed up in any benchmark.
+
+    The shapes are the ones a real token sheet uses: default and named
+    arguments, a local variable, an `@if`, functions calling functions, and a
+    mixin taking `@content`. Five modules are `@use`d because the environment a
+    callable captures includes them, and their count changes what a call costs.
+    """
+    out = [HEADER]
+    out.append(
+        """@use "sass:color";
+@use "sass:list";
+@use "sass:map";
+@use "sass:math";
+@use "sass:string";
+
+$base: 16px;
+$scale: (%s);
+$layers: (base: 1, dropdown: 10, sticky: 20, modal: 100);
+
+@function rem($px, $root: $base) {
+  @return math.div($px, $root) * 1rem;
+}
+
+@function step($name) {
+  @return map.get($scale, $name);
+}
+
+@function type-size($name) {
+  $s: step($name);
+  @if $s > 1 {
+    @return rem($s * 18px);
+  }
+  @return rem($s * 16px);
+}
+
+@function z($layer, $offset: 0) {
+  @return map.get($layers, $layer) + $offset;
+}
+
+@function label($name, $i) {
+  @return string.unquote("#{$name}-#{$i}");
+}
+
+@mixin size($name) {
+  font-size: type-size($name);
+  line-height: math.div(math.round(step($name) * 24), 16);
+}
+
+@mixin button($bg, $pad: 8px) {
+  padding: rem($pad) rem($pad * 2);
+  background: $bg;
+  &:hover {
+    background: color.adjust($bg, $lightness: -5%%);
+  }
+  @content;
+}
+
+@each $name, $v in $scale {
+  @for $i from 1 through %d {
+    .t-#{label($name, $i)} {
+      @include size($name);
+      margin: rem($i * 2px) rem($i * 4px, $root: 10px);
+      z-index: z(dropdown, $offset: $i);
+      @include button(#336699, $pad: $i * 1px) {
+        border-width: rem(1px);
+      }
+    }
+  }
+}
+"""
+        % (
+            ", ".join("%s: %s" % (n, v) for n, v in USER_FUNCTION_SCALE),
+            USER_FUNCTION_STEPS,
+        )
+    )
+    out.append("%s { --generated: true; }\n" % MARKER)
+    return "".join(out)
+
+
 # --------------------------------------------------------------------- main
 
 
@@ -566,6 +671,7 @@ def build() -> dict[str, str]:
         "extend_heavy.scss": extend_heavy(),
         "selector_lists.scss": selector_lists(),
         "module_calls.scss": module_calls(),
+        "user_functions.scss": user_functions(),
     }
     for rel, text in use_graph().items():
         files["use_graph/" + rel] = text

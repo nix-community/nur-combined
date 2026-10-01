@@ -26,7 +26,7 @@ impl<'a> Evaluator<'a> {
         // frame; mirror `eval_expr`'s fallback order so the span matches the
         // value that was actually read.
         if !is_private_member(name) {
-            for m in &self.star_user_modules {
+            for m in self.star_user_modules.iter() {
                 if m.vars.borrow().contains_key(name) {
                     return m.var_spans.borrow().get(name).copied();
                 }
@@ -121,6 +121,7 @@ impl<'a> Evaluator<'a> {
         materialize_fn_frames(&mut self.functions);
         materialize_fn_frames(&mut self.mixins);
         Rc::new(UserCallable {
+            frame_name: Rc::from(format!("{}()", def.name)),
             def: Rc::clone(def),
             origin,
             env: self.scopes.clone(),

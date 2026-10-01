@@ -481,7 +481,7 @@ impl<'a> Evaluator<'a> {
         let (evaled, arg_spans) = self.eval_call_args_spanned(args)?;
         // The call frame records the CALL site (this file); the body then runs
         // against the function's defining file.
-        let saved = call.map(|(pos, len)| self.enter_call(pos, len, &format!("{}()", func.def.name)));
+        let saved = call.map(|(pos, len)| self.enter_call(pos, len, Rc::clone(&func.frame_name)));
         let saved_file = self.enter_origin_file(Some(&func.origin));
         let saved_scopes = std::mem::replace(&mut self.scopes, func.env.clone());
         let saved_var_spans = std::mem::replace(&mut self.var_spans, func.env_spans.clone());
@@ -1087,7 +1087,7 @@ impl<'a> Evaluator<'a> {
         let saved = module.as_ref().map(|m| self.enter_module(m));
         // Frames inside the body name the mixin itself (`m()`), not the
         // `meta.apply` that invoked it.
-        let saved_member_name = std::mem::replace(&mut self.member, format!("{}()", callable.def.name));
+        let saved_member_name = std::mem::replace(&mut self.member, Rc::clone(&callable.frame_name));
         // The body runs against the mixin's defining file (so its output and
         // diagnostics belong there, and a relative `meta.load-css` resolves
         // against it): the callable's own capture, which every callable has.

@@ -188,8 +188,12 @@
     "use_graph/vendor/lib/_reset.scss": {
       "bytes": 245,
       "sha256": "547fb6c917134145"
+    },
+    "user_functions.scss": {
+      "bytes": 1428,
+      "sha256": "d3d5f73162bb2937"
     }
   },
   "generator": "bench/scripts/gen_gate_corpora.py",
-  "generatorVersion": 3
+  "generatorVersion": 4
 }

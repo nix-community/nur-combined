@@ -676,7 +676,7 @@ impl<'a> Evaluator<'a> {
                 // user-overridden `calc()` hook) records no frame. The body
                 // then runs against the function's defining file.
                 let saved_member =
-                    (pos.line > 0).then(|| self.enter_call(pos, length, &format!("{}()", callable.def.name)));
+                    (pos.line > 0).then(|| self.enter_call(pos, length, Rc::clone(&callable.frame_name)));
                 let saved_file = self.enter_origin_file(Some(&callable.origin));
                 let saved_scopes = std::mem::replace(&mut self.scopes, callable.env.clone());
                 let saved_var_spans = std::mem::replace(&mut self.var_spans, callable.env_spans.clone());
@@ -1135,7 +1135,7 @@ impl<'a> Evaluator<'a> {
         }
         let name = name.replace('_', "-");
         let mut hits: Vec<(String, String)> = Vec::new();
-        for m in &self.star_modules {
+        for m in self.star_modules.iter() {
             let owns = match kind {
                 MemberKind::Function => crate::builtins::module_has_member(m, &name),
                 MemberKind::Variable => crate::builtins::module_var(m, &name, Pos::NONE).is_ok(),
@@ -1146,7 +1146,7 @@ impl<'a> Evaluator<'a> {
                 hits.push(hit);
             }
         }
-        for m in &self.star_user_modules {
+        for m in self.star_user_modules.iter() {
             // A module's OWN member shadows the built-in it forwards under the
             // same name — `@forward "sass:string"` beside `@function index` is
             // that module's `index`, namespaced and starred alike — so the
@@ -1256,7 +1256,7 @@ impl<'a> Evaluator<'a> {
         call: Option<(Pos, usize)>,
     ) -> Result<Value, Error> {
         let (evaled, arg_spans) = self.eval_call_args_spanned(args)?;
-        let saved_member = call.map(|(pos, len)| self.enter_call(pos, len, &format!("{}()", func.def.name)));
+        let saved_member = call.map(|(pos, len)| self.enter_call(pos, len, Rc::clone(&func.frame_name)));
         let saved = self.enter_module(module);
         // The function's own defining file beats the module handed to us (a
         // multi-hop `@forward` can name another module).

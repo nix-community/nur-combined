@@ -58,6 +58,12 @@ const SELECTOR_LISTS: &str = include_str!("../bench/corpus/gate/selector_lists.s
 /// general module path, so that path was benchmarked nowhere (#260).
 const MODULE_CALLS: &str = include_str!("../bench/corpus/gate/module_calls.scss");
 
+/// A token sheet built from its own `@function`s and `@mixin`s, with five
+/// modules `@use`d. No other corpus defines a `@function`, so a user
+/// callable's per-call work (binding, the environment swap, the call frame)
+/// was benchmarked nowhere.
+const USER_FUNCTIONS: &str = include_str!("../bench/corpus/gate/user_functions.scss");
+
 /// Multi-file `@use` graph: 43 files behind one entry.
 const USE_GRAPH_ENTRY: &str = include_str!("../bench/corpus/gate/use_graph/entry.scss");
 
@@ -183,6 +189,7 @@ fn corpora_still_compile() {
         ("extend_heavy.scss", EXTEND_HEAVY),
         ("selector_lists.scss", SELECTOR_LISTS),
         ("module_calls.scss", MODULE_CALLS),
+        ("user_functions.scss", USER_FUNCTIONS),
     ] {
         let css = compile(source, &diagnostics_live(name))
             .unwrap_or_else(|e| panic!("bench corpus {name} failed to compile: {e}"));
@@ -295,6 +302,23 @@ fn selector_lists_with_url_silent(bencher: Bencher<'_, '_>) {
 #[divan::bench]
 fn module_calls_with_url_silent(bencher: Bencher<'_, '_>) {
     bencher.bench(|| compile(black_box(MODULE_CALLS), &diagnostics_live("module_calls.scss")).unwrap());
+}
+
+/// User `@function`s and `@mixin`s, with the diagnostics live.
+///
+/// A user callable binds its arguments into a fresh scope, runs against the
+/// environment it captured, modules included, and pushes a call frame. Until
+/// this corpus no benchmark defined one, so that per-call work was invisible
+/// to the gate.
+#[divan::bench]
+fn user_functions_with_url_silent(bencher: Bencher<'_, '_>) {
+    bencher.bench(|| {
+        compile(
+            black_box(USER_FUNCTIONS),
+            &diagnostics_live("user_functions.scss"),
+        )
+        .unwrap()
+    });
 }
 
 /// A multi-file `@use` graph, 43 files behind one entry: the corpus for A3,

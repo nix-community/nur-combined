@@ -176,6 +176,13 @@ pub(crate) enum Stmt {
         /// included — dart's `span`, which sizes the caret of an error about
         /// the rule: an undefined mixin, a namespace that is not there.
         full_length: usize,
+        /// `name()`, the member the diagnostic frame this include pushes
+        /// names: dart prints the bare mixin name with empty parens, without
+        /// the `ns.` namespace. Made once when the rule is parsed, not on every
+        /// execution:
+        /// the frame is pushed before the mixin is resolved, so the
+        /// definition's own `frame_name` is not available yet.
+        frame_name: Rc<str>,
     },
     /// `@content;` or `@content(args)` — runs the `@include`'s content block,
     /// passing any arguments to its `using (params)`.

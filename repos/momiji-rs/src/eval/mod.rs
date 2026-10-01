@@ -225,10 +225,10 @@ fn materialize_fn_frames(chain: &mut [FnFrame]) {
 /// (uswds `units()`, quasar `str-fe()`).
 #[derive(Clone)]
 pub(crate) struct EnvModules {
-    pub(self) used_modules: HashMap<String, &'static str>,
-    pub(self) star_modules: Vec<&'static str>,
-    pub(self) used_user_modules: HashMap<String, Rc<Module>>,
-    pub(self) star_user_modules: Vec<Rc<Module>>,
+    pub(self) used_modules: Rc<HashMap<String, &'static str>>,
+    pub(self) star_modules: Rc<Vec<&'static str>>,
+    pub(self) used_user_modules: Rc<HashMap<String, Rc<Module>>>,
+    pub(self) star_user_modules: Rc<Vec<Rc<Module>>>,
 }
 
 /// A user `@function`/`@mixin` with its LEXICAL environment: the variable and
@@ -264,6 +264,9 @@ pub(crate) struct UserCallable {
     pub env_fns: Vec<FnFrame>,
     pub env_mixins: Vec<FnFrame>,
     pub env_modules: EnvModules,
+    /// `<name>()`, the member a diagnostic frame names while the body runs.
+    /// Made once here rather than formatted on every call.
+    pub frame_name: Rc<str>,
 }
 
 /// A style rule's selector list, carried through the output tree either as the
@@ -1220,15 +1223,15 @@ pub(crate) struct Evaluator<'a> {
     /// in-scope namespace (default = the part after `sass:`, or the `as ns`
     /// override). The value is the canonical built-in module name (e.g.
     /// `math`) — one of a closed set, so it is borrowed, not owned.
-    used_modules: HashMap<String, &'static str>,
+    used_modules: Rc<HashMap<String, &'static str>>,
     /// Built-in modules brought into scope unprefixed via `@use "sass:<mod>"
     /// as *`. Their members resolve as bare calls/variables.
-    star_modules: Vec<&'static str>,
+    star_modules: Rc<Vec<&'static str>>,
     /// User stylesheet modules brought into scope via `@use "<file>" [as ns]`,
     /// keyed by the in-scope namespace.
-    used_user_modules: HashMap<String, Rc<Module>>,
+    used_user_modules: Rc<HashMap<String, Rc<Module>>>,
     /// User modules brought into scope unprefixed via `@use "<file>" as *`.
-    star_user_modules: Vec<Rc<Module>>,
+    star_user_modules: Rc<Vec<Rc<Module>>>,
     /// All user modules loaded so far, keyed by the importer's canonical key so
     /// each file is evaluated once and shared between every `@use`/`@forward`.
     /// Shared so a module's own forwarded sub-modules see the same cache.
@@ -1252,8 +1255,13 @@ pub(crate) struct Evaluator<'a> {
     consumed_config: Vec<String>,
     /// The name of the member whose body is currently executing, as it appears
     /// in a diagnostic stack frame: `root stylesheet` at the entrypoint, or
-    /// `<name>()` inside a user mixin/function. dart-sass `_member`.
-    member: String,
+    /// `<name>()` inside a user mixin/function. dart-sass `_member`. Shared,
+    /// not owned: every call pushes the caller's onto the stack, and a user
+    /// callable carries its own, ready-made ([`UserCallable::frame_name`]).
+    member: Rc<str>,
+    /// `current_url` as the `Rc` a [`DiagFrame`] stores, rebuilt only when the
+    /// url it was made from no longer matches (see [`Self::frame_url`]).
+    frame_url: Rc<str>,
     /// The diagnostic call stack: one entry per active user callable/import,
     /// recording the call site and the *caller's* member name. dart-sass
     /// `_stack`. Used to render byte-exact stack traces under errors/warnings.
@@ -1324,10 +1332,10 @@ pub(crate) struct Evaluator<'a> {
 /// position) and the name of the member that contained that call.
 #[derive(Clone)]
 struct DiagFrame {
-    url: String,
+    url: Rc<str>,
     pos: Pos,
     /// The member name to print for this frame (`root stylesheet` or `name()`).
-    member: String,
+    member: Rc<str>,
     /// Byte length of the call-site span, to size the snippet caret when this
     /// frame is the primary (innermost) one — used by `@error`.
     length: usize,
@@ -1359,11 +1367,11 @@ struct Module {
     mixins: FnScope,
     /// Namespaced user modules this module `@use`d (for transitive `ns.fn()`
     /// calls evaluated inside this module's own functions/mixins).
-    used_user_modules: HashMap<String, Rc<Module>>,
-    star_user_modules: Vec<Rc<Module>>,
+    used_user_modules: Rc<HashMap<String, Rc<Module>>>,
+    star_user_modules: Rc<Vec<Rc<Module>>>,
     /// Built-in modules this module `@use`d, by namespace, and unprefixed.
-    used_builtin_modules: HashMap<String, &'static str>,
-    star_builtin_modules: Vec<&'static str>,
+    used_builtin_modules: Rc<HashMap<String, &'static str>>,
+    star_builtin_modules: Rc<Vec<&'static str>>,
     /// Built-in `sass:*` modules re-exported via `@forward`. A `ns.member` that
     /// misses every captured member is retried against these.
     forwarded_builtins: Vec<ForwardedBuiltin>,
@@ -1505,10 +1513,10 @@ struct SavedModuleEnv {
     scope_semi_global: Vec<bool>,
     functions: Vec<FnFrame>,
     mixins: Vec<FnFrame>,
-    used_modules: HashMap<String, &'static str>,
-    star_modules: Vec<&'static str>,
-    used_user_modules: HashMap<String, Rc<Module>>,
-    star_user_modules: Vec<Rc<Module>>,
+    used_modules: Rc<HashMap<String, &'static str>>,
+    star_modules: Rc<Vec<&'static str>>,
+    used_user_modules: Rc<HashMap<String, Rc<Module>>>,
+    star_user_modules: Rc<Vec<Rc<Module>>>,
     /// When set (a cross-module call), the module whose global scope was
     /// installed: `leave_module` writes the (possibly mutated) global scope back
     /// so a `!global` assignment inside the module persists.
@@ -1631,7 +1639,8 @@ impl<'a> Evaluator<'a> {
         let source: Rc<str> = Rc::from(options.source);
         let file_texts: HashMap<String, Rc<str>> = [(url.clone(), Rc::clone(&source))].into_iter().collect();
         Evaluator {
-            member: "root stylesheet".to_string(),
+            member: Rc::from("root stylesheet"),
+            frame_url: Rc::from(""),
             call_stack: Vec::new(),
             current_url: url,
             current_source: source,
@@ -1703,10 +1712,10 @@ impl<'a> Evaluator<'a> {
             cur_rule_extend_base: usize::MAX,
             bogus_selectors: Vec::new(),
             placeholder_rules: Vec::new(),
-            used_modules: HashMap::default(),
-            star_modules: Vec::new(),
-            used_user_modules: HashMap::default(),
-            star_user_modules: Vec::new(),
+            used_modules: Rc::default(),
+            star_modules: Rc::default(),
+            used_user_modules: Rc::default(),
+            star_user_modules: Rc::default(),
             module_cache: Rc::new(RefCell::new(HashMap::default())),
             forwarded: Forwarded::default(),
             pending_config: HashMap::default(),
@@ -1879,7 +1888,7 @@ impl<'a> Evaluator<'a> {
     fn frames_for(&self, pos: Pos) -> Vec<DiagFrame> {
         let mut frames = Vec::with_capacity(self.call_stack.len() + 1);
         frames.push(DiagFrame {
-            url: self.current_url.clone(),
+            url: Rc::from(self.current_url.as_str()),
             pos,
             member: self.member.clone(),
             length: 0,
@@ -2718,7 +2727,7 @@ impl<'a> Evaluator<'a> {
         }
         let (decl_url, decl_source) = match decl.origin {
             Some(o) => (o.diag_url.clone(), Rc::clone(&o.source)),
-            None => (frames[0].url.clone(), Rc::clone(&frames[0].source)),
+            None => (frames[0].url.to_string(), Rc::clone(&frames[0].source)),
         };
         let decl_span = crate::diag::Span {
             line: decl.pos.line,
@@ -2781,7 +2790,7 @@ impl<'a> Evaluator<'a> {
         }
         let (decl_url, decl_source) = match decl.origin {
             Some(o) => (o.diag_url.clone(), Rc::clone(&o.source)),
-            None => (frame.url.clone(), Rc::clone(&frame.source)),
+            None => (frame.url.to_string(), Rc::clone(&frame.source)),
         };
         let decl_span = crate::diag::Span {
             line: decl.pos.line,
@@ -2881,31 +2890,45 @@ impl<'a> Evaluator<'a> {
         e
     }
 
-    fn enter_call(&mut self, call_pos: Pos, call_len: usize, new_member: &str) -> String {
+    fn enter_call(&mut self, call_pos: Pos, call_len: usize, new_member: Rc<str>) -> Rc<str> {
         self.push_frame(call_pos, call_len, new_member, false)
     }
 
     /// [`Self::enter_call`] for a `@content;` invocation: the frame shows in
     /// the trace under the `@content` member but is never an `@error`
     /// boundary (see [`DiagFrame::content`]).
-    pub(super) fn enter_content_call(&mut self, call_pos: Pos) -> String {
-        self.push_frame(call_pos, "@content".len(), "@content", true)
+    pub(super) fn enter_content_call(&mut self, call_pos: Pos) -> Rc<str> {
+        self.push_frame(call_pos, "@content".len(), Rc::from("@content"), true)
     }
 
-    fn push_frame(&mut self, call_pos: Pos, call_len: usize, new_member: &str, content: bool) -> String {
+    /// Every user call pushes one of these, so it allocates nothing: the url
+    /// is the shared [`Self::frame_url`], the member an `Rc` the caller made.
+    fn push_frame(&mut self, call_pos: Pos, call_len: usize, new_member: Rc<str>, content: bool) -> Rc<str> {
+        let url = self.frame_url();
         self.call_stack.push(DiagFrame {
-            url: self.current_url.clone(),
+            url,
             pos: call_pos,
-            member: self.member.clone(),
+            member: Rc::clone(&self.member),
             length: call_len,
             content,
             source: Rc::clone(&self.current_source),
         });
-        std::mem::replace(&mut self.member, new_member.to_string())
+        std::mem::replace(&mut self.member, new_member)
+    }
+
+    /// `current_url` as an `Rc<str>`, shared by every frame pushed while it
+    /// stays the same. Checked against the url's text each time, so it is
+    /// right however `current_url` was last assigned (the same reasoning as
+    /// [`Self::dep_url_id`]).
+    fn frame_url(&mut self) -> Rc<str> {
+        if *self.frame_url != *self.current_url {
+            self.frame_url = Rc::from(self.current_url.as_str());
+        }
+        Rc::clone(&self.frame_url)
     }
 
     /// Leave a user callable: pop its diagnostic frame and restore `member`.
-    fn leave_call(&mut self, saved_member: String) {
+    fn leave_call(&mut self, saved_member: Rc<str>) {
         self.call_stack.pop();
         self.member = saved_member;
     }
@@ -3004,7 +3027,7 @@ impl<'a> Evaluator<'a> {
         // @error's own frame is dropped). At the root, the @error span is used.
         let frames: Vec<DiagFrame> = if self.call_stack.is_empty() {
             vec![DiagFrame {
-                url: self.current_url.clone(),
+                url: Rc::from(self.current_url.as_str()),
                 pos,
                 member: self.member.clone(),
                 length,
@@ -3199,10 +3222,11 @@ impl<'a> Evaluator<'a> {
                     pos,
                     length,
                     full_length,
+                    frame_name,
                 } => {
                     // Push a diagnostic call frame so an error/warning raised in
                     // the mixin body unwinds through this `@include` call site.
-                    let saved = self.enter_call(*pos, *length, &mixin_frame_name(name, module));
+                    let saved = self.enter_call(*pos, *length, Rc::clone(frame_name));
                     let r = self.exec_include(
                         name,
                         args,
@@ -3924,7 +3948,8 @@ impl<'a> Evaluator<'a> {
                                             // `@import` frame at the URL token
                                             // (dart: `_mod.scss 3:19  @import`).
                                             let diag = self.module_diag_url(path, &resolved_key);
-                                            let saved_member = self.enter_call(*pos, *length, "@import");
+                                            let saved_member =
+                                                self.enter_call(*pos, *length, Rc::from("@import"));
                                             let saved_url = std::mem::replace(&mut self.current_url, diag);
                                             let saved_source = std::mem::replace(
                                                 &mut self.current_source,
@@ -3957,7 +3982,7 @@ impl<'a> Evaluator<'a> {
                             // The diagnostic `@import` frame records the
                             // IMPORTING file at the URL token — push it before
                             // the context swap below rebinds current_url.
-                            let saved_member = self.enter_call(*pos, *length, "@import");
+                            let saved_member = self.enter_call(*pos, *length, Rc::from("@import"));
                             // The imported file becomes the diagnostics/stamp
                             // context while its body runs (dart shows ITS name
                             // in error frames, and the trailing-comment check
@@ -5520,12 +5545,6 @@ fn for_indices(start: i64, end: i64, inclusive: bool) -> Vec<i64> {
         }
     }
     out
-}
-
-/// The diagnostic stack-frame name for an `@include`: dart-sass prints the bare
-/// mixin name with empty parens (`name()`), without the `ns.` namespace.
-fn mixin_frame_name(name: &str, _module: &Option<String>) -> String {
-    format!("{name}()")
 }
 
 /// Whether a mixin body contains a reachable `@content`. dart-sass scans the

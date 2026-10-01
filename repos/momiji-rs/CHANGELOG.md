@@ -71,6 +71,33 @@ Conformance is tracked separately as a ratchet against the official
     legacy_deprecations.scss      121.53M    119.11M    -1.99%
     large.scss, expanded          98.87M     98.23M     -0.65%
   ```
+- **A user `@function` or `@mixin` call no longer copies its `@use` tables
+  or its stack-frame name** (#260's analysis). Each call used to clone the
+  `@use` tables its callable captured, four of them, every entry copied.
+  That made a call ~140 instructions dearer for each module in scope. Each
+  call also formatted its `name()` for the diagnostics stack and copied the
+  file's url there. The tables are now shared and copied only when a `@use`
+  changes them. A function's frame name is made once per definition, an
+  `@include`'s once when it is parsed, and the url is shared between frames.
+  A call still clones the five scope chains it runs against. That cost is
+  next, at ~1,140 instructions a call. A call to a one-argument function went
+  from 4,904 to 4,091 instructions, the same with six modules in scope as
+  with none, and an `@include` from 4,401 to 3,590. Errors and warnings print
+  byte for byte as before. Marginal instructions on Linux/x86_64:
+
+  ```
+                                  before     now        change
+    user_functions.scss (new)     27.26M     23.34M     -14.38%
+    bulma                         2141.2M    1990.4M    -7.04%
+    govuk-frontend                207.0M     199.6M     -3.58%
+    vuetify                       350.3M     342.0M     -2.37%
+    uswds                         6096.7M    5968.4M    -2.10%
+    minimal-mistakes              172.1M     169.3M     -1.64%
+  ```
+
+  The last five are pinned real-world projects from `bench/real-world`, with
+  output byte-identical before and after. `bench/corpus/gate/user_functions.scss`
+  is new: no benchmark defined a `@function` until now.
 
 ## [0.19.3] - 2026-09-30
 

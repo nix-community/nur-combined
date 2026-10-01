@@ -471,13 +471,13 @@ impl<'a> Evaluator<'a> {
             }
             if star {
                 if !self.star_modules.contains(&module) {
-                    self.star_modules.push(module);
+                    Rc::make_mut(&mut self.star_modules).push(module);
                 }
                 return Ok(());
             }
             let ns = namespace.unwrap_or(module).to_string();
             self.check_namespace_free(&ns, pos)?;
-            self.used_modules.insert(ns, module);
+            Rc::make_mut(&mut self.used_modules).insert(ns, module);
             return Ok(());
         }
 
@@ -497,7 +497,7 @@ impl<'a> Evaluator<'a> {
         // The load runs under a diagnostic `@use` frame so an error anywhere
         // in the module (parse or eval) carries the loader chain
         // (dart: `_mod.scss 3:19  @use` / `main.scss 1:1  root stylesheet`).
-        let saved_member = self.enter_call(pos, 0, "@use");
+        let saved_member = self.enter_call(pos, 0, Rc::from("@use"));
         let result = self.load_module(url, conf, config_id, pos, parents, false, sink);
         self.leave_call(saved_member);
         let (module, consumed) = result?;
@@ -528,7 +528,7 @@ impl<'a> Evaluator<'a> {
             // ambiguity), so de-duplicate by module identity.
             let ptr = Rc::as_ptr(&module);
             if !self.star_user_modules.iter().any(|m| Rc::as_ptr(m) == ptr) {
-                self.star_user_modules.push(module);
+                Rc::make_mut(&mut self.star_user_modules).push(module);
             }
             return Ok(());
         }
@@ -537,7 +537,7 @@ impl<'a> Evaluator<'a> {
             None => default_namespace(url, pos)?,
         };
         self.check_namespace_free(&ns, pos)?;
-        self.used_user_modules.insert(ns, module);
+        Rc::make_mut(&mut self.used_user_modules).insert(ns, module);
         Ok(())
     }
 
@@ -1364,7 +1364,7 @@ impl<'a> Evaluator<'a> {
         };
         // Diagnostic `@forward` frame — see the matching `@use` wrap in
         // `exec_use`.
-        let saved_member = self.enter_call(pos, 0, "@forward");
+        let saved_member = self.enter_call(pos, 0, Rc::from("@forward"));
         let load_result = self.load_module(url, combined, combined_id, pos, parents, false, sink);
         self.leave_call(saved_member);
         self.config_is_implicit = saved_implicit;

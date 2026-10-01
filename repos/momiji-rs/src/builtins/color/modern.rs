@@ -340,7 +340,7 @@ pub(crate) fn modify_in_space_full(
         };
         for i in 0..3 {
             if work.channels[i].is_none() {
-                let authored = channel_category(space, i).is_some_and(&missing_in_src);
+                let authored = channel_category(space, i).is_some_and(missing_in_src);
                 if !authored {
                     work.channels[i] = Some(0.0);
                 }

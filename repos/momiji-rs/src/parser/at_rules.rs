@@ -2878,6 +2878,7 @@ impl Parser {
             None
         };
         Ok(Stmt::Include {
+            frame_name: format!("{name}()").into(),
             name,
             args,
             content,
