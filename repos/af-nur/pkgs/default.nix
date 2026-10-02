@@ -8,6 +8,9 @@ let
   );
 
   qq-wayland-fix = pkgs.callPackage ./qq-wayland-fix { inherit sources; };
+  qqRuntimeEnv = pkgs.callPackage ./qq-wayland-fix/runtime-env.nix {
+    qqPackage = qq-wayland-fix.passthru.qqBase;
+  };
 in
 {
   aiot-ide = pkgs.callPackage ./aiot-ide { inherit sources; };
@@ -23,13 +26,13 @@ in
   qq-wayland-fix = qq-wayland-fix;
   # Standalone upstream launcher + desktop entry driving a separately installed QQ.
   qq-wayland-fix-launcher = pkgs.callPackage ./qq-wayland-fix/launcher.nix {
-    inherit sources;
+    inherit sources qqRuntimeEnv;
     qq = qq-wayland-fix.passthru.qqBase;
     waylandFix = qq-wayland-fix.passthru.waylandFix;
   };
   # Upstream prebuilt release of the launcher + shims above (x86_64-linux only).
   qq-wayland-fix-bin = pkgs.callPackage ./qq-wayland-fix/bin.nix {
-    inherit sources;
+    inherit sources qqRuntimeEnv;
     qq = qq-wayland-fix.passthru.qqBase;
   };
   # Deprecated: superseded by qq-wayland-fix; the alias warns on evaluation.
