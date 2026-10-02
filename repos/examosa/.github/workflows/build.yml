@@ -79,7 +79,6 @@ jobs:
           --no-nom --skip-cached --file ci.nix --attr cacheOutputs
 
       - name: Trigger NUR update
-        if: ${{ false }}
         run: >
           curl --request POST
           --url-query 'repo=${{ github.repository_owner }}'
