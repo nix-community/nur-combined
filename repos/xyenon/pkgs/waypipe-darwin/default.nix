@@ -11,16 +11,16 @@
 
 rustPlatform.buildRustPackage {
   pname = "waypipe-darwin";
-  version = "0.11.0-darwin.1-unstable-2026-07-15";
+  version = "0.11.2-darwin.1-unstable-2026-10-02";
 
   src = fetchFromGitHub {
     owner = "J-x-Z";
     repo = "waypipe-darwin";
-    rev = "99522d966db86ffa45f4c2c3e2ee91ea58115040";
-    hash = "sha256-Jm+OZ//de6+tkFwMafnxvTEowyVO69/EimFaScmwEhM=";
+    rev = "ac82084a4e154742c0f2a1a0303fdb4b562826c1";
+    hash = "sha256-0y5q3U55gPToG9oW/DX7H52r2geDwwiUAyF9/rvyL4o=";
   };
 
-  cargoHash = "sha256-IUvXHLxrhc2Au57wsE53Q+NL1cZzFcaRG3HDV8s3xWw=";
+  cargoHash = "sha256-38C9H1NL14xuacvjlUR45EYomdUznKC5BXg1Y5RkSH4=";
 
   nativeBuildInputs = [
     pkg-config
