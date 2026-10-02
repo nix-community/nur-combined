@@ -14,8 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "RigsOfRods";
     repo = "SocketW";
-    rev = "35cd91e18dfa14419879b737b7d01dacdf39e610";
-    hash = "sha256-wtDq60eYslroTVVwulDSIr4irY6cg1p3ZZ3oeMGx5Fg=";
+    rev = finalAttrs.version;
+    hash = "sha256-Mv/dt+UzbHeevvCiLF5Yzn0ra7sbuDqp0P4awf3GHSU=";
   };
 
   nativeBuildInputs = [

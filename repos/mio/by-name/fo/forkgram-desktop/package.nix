@@ -9,32 +9,32 @@
 
 telegram-desktop.override {
   pname = "forkgram-desktop";
-  unwrapped = telegram-desktop.unwrapped.overrideAttrs (old: {
+  unwrapped = telegram-desktop.unwrapped.overrideAttrs (finalAttrs: previousAttrs: {
     pname = "forkgram-desktop-unwrapped";
     version = "7.2.10";
 
     src = fetchFromGitHub {
       owner = "forkgram";
       repo = "tdesktop";
-      rev = "v7.2.9";
+      rev = "v${finalAttrs.version}";
       fetchSubmodules = true;
-      hash = "sha256-tG+spRV+MbU+rTk9rUnz7kSMXYDpgk3QgsIeqxJ4CRo=";
+      hash = "sha256-r9DATa06/BqHVRjIkkne/0RNluGN6Jzu/Q5rXiPpLBE=";
     };
 
-    buildInputs = old.buildInputs ++ [
+    buildInputs = previousAttrs.buildInputs ++ [
       zbar
       pango
       tlottie
     ];
 
-    postPatch = (old.postPatch or "") + ''
+    postPatch = (previousAttrs.postPatch or "") + ''
       pushd cmake
       patch -p1 < ../patches/cmake_zbar.patch
       popd
       sed -i 's/cmark_parser_set_allocation_abort_flag/\/\/cmark_parser_set_allocation_abort_flag/g' Telegram/SourceFiles/iv/markdown/iv_markdown_parse_convert.cpp
     '';
 
-    meta = old.meta // {
+    meta = previousAttrs.meta // {
       description = "Forkgram desktop messaging app";
       homepage = "https://github.com/forkgram/tdesktop";
       mainProgram = "Forkgram";

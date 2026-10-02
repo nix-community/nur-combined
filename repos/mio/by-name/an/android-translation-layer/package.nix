@@ -12,6 +12,7 @@
   gtk4,
   openxr-loader,
   libglvnd,
+  libsecret,
   libportal-gtk4,
   sqlite,
   libdrm,
@@ -26,15 +27,15 @@
   bintools,
 }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "android-translation-layer";
   version = "aa80e74";
 
   src = fetchFromGitLab {
     owner = "android_translation_layer";
     repo = "android_translation_layer";
-    rev = "b4bd403";
-    hash = "sha256-G0rsDUALgFiGmcx9dzRLl6bosLGOAoiQ8cXmpdoCTRs=";
+    rev = finalAttrs.version;
+    hash = "sha256-EkhuSLSqPs1ESoBT2q7rSWQLLdZmtQFooOEX76C+fgw=";
   };
 
   patches = [
@@ -67,6 +68,7 @@ stdenv.mkDerivation {
     gtk4
     libdrm
     libglvnd
+    libsecret
     libgudev
     libportal-gtk4
     openxr-loader
@@ -100,4 +102,4 @@ stdenv.mkDerivation {
     maintainers = with lib.maintainers; [ onny ];
     mainProgram = "android-translation-layer";
   };
-}
+})
