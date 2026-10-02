@@ -37,7 +37,7 @@ jobs:
         with:
           name: af-nur
           authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-      - name: Test update rollback
+      - name: Test dependency updater
         run: python3 -m unittest discover -s scripts -p 'test_update.py' -v
       - name: Update sources and dependency locks
         env:

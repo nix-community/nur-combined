@@ -62,13 +62,13 @@ printf 'https://qqdl.aflare.top/%s\n' "${url#https://qqdl.gtimg.cn/}"
 fetch.url = "$ver"
 
 [aiot-ide]
-# The download page renders the artifact list from a content-hashed VuePress
-# JS chunk, so resolve the chunk that mentions the artifact and read the
-# version field from it instead of hardcoding the chunk name.
+# Resolve the content-hashed download component from scripts loaded by this page.
+# VuePress also prefetches chunks for other pages; scanning those can exceed
+# nvchecker's command timeout before reaching the download component.
 src.cmd = '''
 u=https://iot.mi.com/vela/quickapp
 page=$(curl -fsSL "$u/zh/guide/start/use-ide.html") || exit 1
-for chunk in $(printf '%s' "$page" | grep -oE 'assets/js/[0-9]+\.[0-9a-f]+\.js' | sort -u); do
+for chunk in $(printf '%s' "$page" | grep -oE '<script[^>]+src="[^"]*assets/js/[0-9]+\.[0-9a-f]+\.js"' | grep -oE 'assets/js/[0-9]+\.[0-9a-f]+\.js'); do
   body=$(curl -fsSL "$u/$chunk") || continue
   case "$body" in
   *AIoT_IDE_ubuntu*)
