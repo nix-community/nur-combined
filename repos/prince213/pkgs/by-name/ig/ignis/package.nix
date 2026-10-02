@@ -16,7 +16,7 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "ignis";
-  version = "0.8.14";
+  version = "0.8.15";
 
   __structuredAttrs = true;
 
@@ -24,10 +24,10 @@ buildNpmPackage (finalAttrs: {
     owner = "Nystik-gh";
     repo = "ignis";
     tag = "v${finalAttrs.version}+obsidian.${finalAttrs.passthru.obsidianAssets.version}";
-    hash = "sha256-prOr7EfbArzR9IvsaDcpRs6uygHlFCcOrAajIkLdS+c=";
+    hash = "sha256-8HVEaBhqp3Xb4r0CTLZGdKM02Ejqc4F7+qHvvqyjB8Y=";
   };
 
-  npmDepsHash = "sha256-jmFk47njHHjotoKMAo75sVOp8ymRpdwmDMMCU3mrNDQ=";
+  npmDepsHash = "sha256-spaCD2VS3aNMAQVPnR1xD8IpX1KG2orjtS2B2ij1Up8=";
 
   nativeBuildInputs = [ makeBinaryWrapper ];
 
