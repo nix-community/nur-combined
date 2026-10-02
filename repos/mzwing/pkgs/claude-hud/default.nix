@@ -19,12 +19,11 @@ in
 
     nativeBuildInputs = [makeWrapper];
 
-    # 0.8.0 rejects symlinked config outright, which is the only shape home-manager can deliver.
-    # The size bound and the JSON shape check below it stay.
+    # 0.9.0 opens the config with O_NOFOLLOW, rejecting the symlink that is the only shape home-manager can deliver.
+    # The regular-file check on the opened descriptor, the bounded read and the JSON shape check stay.
     postPatch = ''
       substituteInPlace src/config.ts \
-        --replace-fail 'const stat = fs.lstatSync(configPath);' 'const stat = fs.statSync(configPath);' \
-        --replace-fail 'if (stat.isSymbolicLink() || !stat.isFile()) {' 'if (!stat.isFile()) {'
+        --replace-fail 'const flags = fs.constants.O_RDONLY | (fs.constants.O_NOFOLLOW ?? 0);' 'const flags = fs.constants.O_RDONLY;'
     '';
 
     # npm run build deletes the dist/ upstream CI commits and recompiles it from src/.
