@@ -10,21 +10,21 @@
 }:
 stdenv.mkDerivation rec {
   pname = "tmux-rime";
-  version = "0.0.4";
+  version = "0.0.5";
   srcs = [
     (fetchFromGitHub {
       owner = "Freed-Wu";
       repo = pname;
       rev = version;
       name = pname;
-      sha256 = "sha256-hFwq1Qna6DKNGk0U9MpUZT6qcTmJR4FdlS7+4+4wTIY=";
+      sha256 = "sha256-t+l/37WJ0yVhhPiPuJn/EXBil0r/EPEhoopmVq/Kq9k=";
     })
     (fetchFromGitHub {
       owner = "xmake-io";
       repo = "xmake-repo";
-      rev = "9e39ee6a9c9a4c43192b95b7efcc95ea1c79a28d";
+      rev = "5b066a0dcf5ab8b8f7daaa0119defbf2643bc663";
       name = "xmake-repo";
-      sha256 = "sha256-LNXxNJalnJ18T/1JY1b3OxWBT1QMEnJkur2WVYa44aM=";
+      sha256 = "sha256-PlKAmsY9wuyYxEr0RJABQFzQ6K4c04fYzWC6KfeveO4=";
     })
   ];
   sourceRoot = ".";

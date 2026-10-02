@@ -17,6 +17,27 @@ let
       f = import path;
     in
     f ((builtins.intersectAttrs (builtins.functionArgs f) allPkgs) // overrides);
+
+  # nixpkgs' by-name layout: pkgs/by-name/<first two letters>/<pname>/package.nix
+  byNamePkgs =
+    let
+      dir = ./pkgs/by-name;
+      subDirs =
+        path:
+        builtins.filter (name: (builtins.readDir path).${name} == "directory") (
+          builtins.attrNames (builtins.readDir path)
+        );
+      packagePaths = pkgs.lib.concatMap (
+        prefix: map (name: dir + "/${prefix}/${name}/package.nix") (subDirs (dir + "/${prefix}"))
+      ) (subDirs dir);
+    in
+    builtins.listToAttrs (
+      map (path: {
+        name = baseNameOf (dirOf path);
+        value = callPackage path { };
+      }) packagePaths
+    );
+
   myPkgs = {
     # The `lib`, `modules`, and `overlay` names are special
     lib = pkgs.lib // import ./lib { inherit pkgs; }; # functions
@@ -24,16 +45,6 @@ let
     overlays = import ./overlays; # nixpkgs overlays
 
     mySources = callPackage ./_sources/generated.nix { };
-
-    gopass-symlinks = callPackage ./pkgs/shells/symlinks/gopass-symlinks { };
-    proxychains-symlinks = callPackage ./pkgs/shells/symlinks/proxychains-symlinks { };
-
-    rime-kaomoji = callPackage ./pkgs/data/misc/rime-kaomoji { };
-    undollar = callPackage ./pkgs/tools/misc/undollar { };
-    manpager = callPackage ./pkgs/tools/misc/manpager { };
-    jq-emojify = callPackage ./pkgs/tools/misc/jq-emojify { };
-    tmux-rime = callPackage ./pkgs/tools/misc/tmux-rime { };
-    luahbtex = callPackage ./pkgs/tools/misc/luahbtex { };
 
     tcl-prompt = callPackage ./pkgs/development/tcl-modules/tcl-prompt { };
 
@@ -59,17 +70,8 @@ let
 
     translate-shell = callPackage ./pkgs/development/python-modules/translate-shell { };
     mulimgviewer = callPackage ./pkgs/development/python-modules/mulimgviewer { };
-    stardict-ecdict = callPackage ./pkgs/data/misc/stardict-ecdict { };
-    stardict-jmdict-en-ja = callPackage ./pkgs/data/misc/stardict-jmdict-en-ja { };
-    stardict-jmdict-ja-en = callPackage ./pkgs/data/misc/stardict-jmdict-ja-en { };
-    stardict-langdao-ce-gb = callPackage ./pkgs/data/misc/stardict-langdao-ce-gb { };
-    stardict-langdao-ec-gb = callPackage ./pkgs/data/misc/stardict-langdao-ec-gb { };
-    windows10-themes = callPackage ./pkgs/data/misc/windows10-themes { };
 
     pyrime = callPackage ./pkgs/development/python-modules/pyrime { };
-    python313-pyrime = callPackage ./pkgs/development/python-modules/pyrime {
-      python3 = pkgs.python313;
-    };
     lsp-tree-sitter = callPackage ./pkgs/development/python-modules/lsp-tree-sitter { };
     tree-sitter-muttrc = callPackage ./pkgs/development/python-modules/tree-sitter-muttrc { };
     mutt-language-server = callPackage ./pkgs/development/python-modules/mutt-language-server { };
@@ -88,6 +90,7 @@ let
     sublime-syntax-language-server =
       callPackage ./pkgs/development/python-modules/sublime-syntax-language-server
         { };
-  };
+  }
+  // byNamePkgs;
 in
 myPkgs
