@@ -199,6 +199,26 @@ Uncomment this if you use travis:
 </details>
 
 <details>
+<summary><strong><code>pgbot</code></strong> — In-database observability for PostgreSQL</summary>
+
+- **Version:** `0.8.1`
+- **License:** Apache-2.0
+- **Homepage:** [https://pgbot.dev](https://pgbot.dev)
+- **Build:** `nix build github:XYenon/nur-packages#pgbot`
+
+</details>
+
+<details>
+<summary><strong><code>pgterm</code></strong> — Multi-database terminal UI for PostgreSQL powered by pgbot</summary>
+
+- **Version:** `0.3.1`
+- **License:** Apache-2.0
+- **Homepage:** [https://pgterm.dev](https://pgterm.dev)
+- **Build:** `nix build github:XYenon/nur-packages#pgterm`
+
+</details>
+
+<details>
 <summary><strong><code>pleroma</code></strong> — ActivityPub microblogging server</summary>
 
 - **Version:** `2.10.2`
