@@ -101,6 +101,7 @@ in
       fastfetch
       lls # like netstat
       cached-nix-shell
+      ncdu
     ];
   };
   cachix.enable = true;

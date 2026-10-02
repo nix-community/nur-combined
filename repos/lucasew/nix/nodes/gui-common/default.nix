@@ -50,6 +50,8 @@ in
     libnotify
     zenity
     nix-output-monitor
+
+    wayvnc
   ];
 
   documentation.man.enable = true;
