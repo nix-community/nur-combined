@@ -178,17 +178,17 @@
       sha256 = "sha256-GBuJXLVzVI45blS7BUjMqS/9wbGksBj6RVG7BiOF/co=";
     };
   };
-  qq-wlss = {
-    pname = "qq-wlss";
-    version = "c5b84d930178fe6eb4f97b5f89d3933e63f514e9";
+  qq-wayland-fix = {
+    pname = "qq-wayland-fix";
+    version = "106e0c2c6c99f1cc88d98321d8cee4865fed00b4";
     src = fetchFromGitHub {
       owner = "SHORiN-KiWATA";
-      repo = "linuxqq-wayland-screenshare-fix";
-      rev = "c5b84d930178fe6eb4f97b5f89d3933e63f514e9";
+      repo = "linuxqq-wayland-fix";
+      rev = "106e0c2c6c99f1cc88d98321d8cee4865fed00b4";
       fetchSubmodules = false;
-      sha256 = "sha256-bBv1iUgQTGDxbkO0tvTdMlXoH942oNlEGquqlvVdF8s=";
+      sha256 = "sha256-PWzi9rEVrMGUfF8XWLTDhbRHKeMCW5vLhU1PMftNElQ=";
     };
-    date = "2026-10-01";
+    date = "2026-10-02";
   };
   qq-x86_64 = {
     pname = "qq-x86_64";

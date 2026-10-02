@@ -6,6 +6,8 @@ let
   sources = import ../_sources/generated.nix (
     builtins.intersectAttrs (builtins.functionArgs (import ../_sources/generated.nix)) pkgs
   );
+
+  qq-wayland-fix = pkgs.callPackage ./qq-wayland-fix { inherit sources; };
 in
 {
   aiot-ide = pkgs.callPackage ./aiot-ide { inherit sources; };
@@ -18,7 +20,14 @@ in
   mefrpc = pkgs.callPackage ./mefrpc { };
   pixivbiu = pkgs.callPackage ./pixivbiu { inherit bun2nix sources; };
   pixivbiu-bin = pkgs.callPackage ./pixivbiu-bin { inherit sources; };
-  qq-wlss = pkgs.callPackage ./qq-wlss { inherit sources; };
+  qq-wayland-fix = qq-wayland-fix;
+  # Standalone upstream launcher + desktop entry driving a separately installed QQ.
+  qq-wayland-fix-launcher = pkgs.callPackage ./qq-wayland-fix/launcher.nix {
+    inherit sources;
+    waylandFix = qq-wayland-fix.passthru.waylandFix;
+  };
+  # Deprecated: superseded by qq-wayland-fix; the alias warns on evaluation.
+  qq-wlss = pkgs.callPackage ./qq-wlss { inherit qq-wayland-fix; };
   xwaylandvideobridge = pkgs.kdePackages.callPackage ./xwaylandvideobridge { inherit sources; };
   rikkahub-desktop = pkgs.callPackage ./rikkahub-desktop { inherit bun2nix sources; };
   rikkahub-desktop-bin = pkgs.callPackage ./rikkahub-desktop-bin { inherit sources; };
