@@ -56,8 +56,6 @@ let
 
     bash-prompt = callPackage ./pkgs/development/bash-modules/bash-prompt { };
 
-    warna = callPackage ./pkgs/development/lua-modules/warna { };
-
     translate-shell = callPackage ./pkgs/development/python-modules/translate-shell { };
     mulimgviewer = callPackage ./pkgs/development/python-modules/mulimgviewer { };
 
