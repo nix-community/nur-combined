@@ -1323,10 +1323,10 @@
     };
     "bitwarden" = buildMozillaXpiAddon {
       pname = "bitwarden";
-      version = "2026.9.0";
+      version = "2026.9.3";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5037282/bitwarden_password_manager-2026.9.0.xpi";
-      sha256 = "324a2d97e365092fe9db0f0069e4c748c935858523868361a3277c1bbf339a17";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5076543/bitwarden_password_manager-2026.9.3.xpi";
+      sha256 = "5dd6efa5d228dbeac7a0c6a883f951787dc66e57985322ce549210b0df8d054c";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -1679,10 +1679,10 @@
     };
     "capital-one-eno" = buildMozillaXpiAddon {
       pname = "capital-one-eno";
-      version = "6.0.0";
+      version = "6.1.0";
       addonId = "{4d5b7a5e-5232-9e45-97f4-f8e1ca2626e5}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4915136/capital_one_eno-6.0.0.xpi";
-      sha256 = "2266b7afb9f846c26bedb105336ec535184696f854a0a70a2622faf40c14c680";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5023429/capital_one_eno-6.1.0.xpi";
+      sha256 = "e7a40761568e85e7b2588e49129d379c86906a37195350c8783e154fb5c73138";
       meta = with lib;
       {
         homepage = "https://www.capitalone.com/applications/eno/virtualnumbers/";
@@ -1695,14 +1695,10 @@
         };
         mozPermissions = [
           "activeTab"
-          "alarms"
           "tabs"
           "storage"
-          "cookies"
           "https://*/*"
           "http://*/*"
-          "https://*.capitalone.com/*"
-          "http://*.capitalone.com/*"
         ];
         platforms = platforms.all;
       };
@@ -3229,10 +3225,10 @@
     };
     "dictionaries" = buildMozillaXpiAddon {
       pname = "dictionaries";
-      version = "8.1.1";
+      version = "8.1.2";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5024683/dictionaries-8.1.1.xpi";
-      sha256 = "2965748ac5858cd15d035bf5ef6df9eabc9bf0f8bee072dddae4e7994a761b5f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5076714/dictionaries-8.1.2.xpi";
+      sha256 = "0469ad181afa5dd2ca218856aee50b2f31f3e7d5eaba0faa835cce5f2d7b4fa2";
       meta = with lib;
       {
         homepage = "https://dictionariez.pnl.dev";
@@ -3913,10 +3909,10 @@
     };
     "enhancer-for-nebula" = buildMozillaXpiAddon {
       pname = "enhancer-for-nebula";
-      version = "1.7.9";
+      version = "1.7.10";
       addonId = "nebula-enhancer@piber.at";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4974533/enhancer_for_nebula-1.7.9.xpi";
-      sha256 = "111e167a71d26e93b7bd196fb0981701a89b517baba85b65e987bce7f8ed9ddd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5076187/enhancer_for_nebula-1.7.10.xpi";
+      sha256 = "2241362e54216b4042ed1c65434e9275377131a167fef1801cb8623f39a6dd7e";
       meta = with lib;
       {
         homepage = "https://github.com/cpiber/NebulaEnhance#readme";
@@ -4838,10 +4834,10 @@
     };
     "ghostery" = buildMozillaXpiAddon {
       pname = "ghostery";
-      version = "10.6.4";
+      version = "10.6.5";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5052953/ghostery-10.6.4.xpi";
-      sha256 = "6f3ae796b69ed37be81ea82110e6b32d494e4a71bffef9eb9ccf48c2ad9fca59";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5074839/ghostery-10.6.5.xpi";
+      sha256 = "85b8afac20a4c5ad4b1f3bd414c1d73637b5dc0a5259688a04b0cdd071b80755";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -7233,10 +7229,10 @@
     };
     "kagi-privacy-pass" = buildMozillaXpiAddon {
       pname = "kagi-privacy-pass";
-      version = "1.0.12";
+      version = "1.0.13";
       addonId = "privacypass@kagi.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4812979/kagi_privacy_pass-1.0.12.xpi";
-      sha256 = "65cd7881f1ee87e91a3353e2408ab9f60773d669d8c4e7741e074553a5c99a15";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5076327/kagi_privacy_pass-1.0.13.xpi";
+      sha256 = "74cfe0ed0171371934ca061be030f66800b2f3e367c9553d771cfabfad8b61af";
       meta = with lib;
       {
         homepage = "https://kagi.com";
@@ -8314,10 +8310,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.4.247";
+      version = "2.4.249";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5057716/lichess_tools_by_siderite-2.4.247.xpi";
-      sha256 = "fb82b35af575d2dc16282c3c1d9937026b4b78d3de415903bfe9cdb7eda8e1d4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5076101/lichess_tools_by_siderite-2.4.249.xpi";
+      sha256 = "eb039f445fa05de3098047a7c6c7911df6b6e0ef1ce491d2ea4d11f6aa55881e";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -8329,6 +8325,7 @@
           "https://lichess.dev/*"
           "https://testy.lichess.dev/*"
           "https://*.lichessladders.com/*"
+          "https://api.chess-insights.app/*"
           "*://lichess.org/*"
           "*://lichess.dev/*"
           "*://testy.lichess.dev/*"
@@ -10447,10 +10444,10 @@
     };
     "noscript" = buildMozillaXpiAddon {
       pname = "noscript";
-      version = "13.6.35";
+      version = "13.6.36";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5066348/noscript-13.6.35.xpi";
-      sha256 = "2153eff4ef2b08ff75d885304eb0d84552fa0cc033c39eeea11eccc3fe1085a1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5075209/noscript-13.6.36.xpi";
+      sha256 = "10863851d18fe74a680e46e4a813fd59550bb4a356a254cde3e8f85c80db0078";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -12889,10 +12886,10 @@
     };
     "refined-github" = buildMozillaXpiAddon {
       pname = "refined-github";
-      version = "26.9.12";
+      version = "26.10";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5024350/refined_github-26.9.12.xpi";
-      sha256 = "eff601153ab28f19ac3bcda4b5d8f3f8c8f4eb47ac45dddaa3a49a67b734138d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5075070/refined_github-26.10.xpi";
+      sha256 = "ee4784797ac6af961e8bdea62767357a753dbfefbad51a25a04746d6156ea192";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -14235,10 +14232,10 @@
     };
     "super-agent" = buildMozillaXpiAddon {
       pname = "super-agent";
-      version = "4.6.5";
+      version = "4.6.8";
       addonId = "{a9cc4ef5-1149-47a9-8b94-490f324fe157}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5035969/super_agent-4.6.5.xpi";
-      sha256 = "e732d4e163ac60fa6c6c0e17b5faa6a59efc867a643330324125c99fd101a182";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5077119/super_agent-4.6.8.xpi";
+      sha256 = "8ba8f60a5f081d424bdcfe9fdb9bdcf136b7480c5bd70a0bd714bc00ea9de1bb";
       meta = with lib;
       {
         description = "Super Agent automatically fills out website's cookie consent forms for you based on your preferences. Super Agent will save you a lot of clicks and let you take control of your privacy in a very easy way.";
