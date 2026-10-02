@@ -66,18 +66,18 @@
   };
   chatgpt-aarch64 = {
     pname = "chatgpt-aarch64";
-    version = "26.928.31416";
+    version = "26.930.21537";
     src = fetchurl {
-      url = "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_26.928.31416_arm64.deb";
-      sha256 = "sha256-s8Pzfe38V9ty6BCh3FvnsiWG8LmbfUh1hosGvdhVuoY=";
+      url = "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_26.930.21537_arm64.deb";
+      sha256 = "sha256-9kbAHuvTekkxfvYq7eh3wina7uTxyrnvPrYaHPZClWQ=";
     };
   };
   chatgpt-x86_64 = {
     pname = "chatgpt-x86_64";
-    version = "26.928.31416";
+    version = "26.930.21537";
     src = fetchurl {
-      url = "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_26.928.31416_amd64.deb";
-      sha256 = "sha256-xGNyfx7V3O14M4yOKmXYib0VMnb/Nz/XdpjMua8y0YE=";
+      url = "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_26.930.21537_amd64.deb";
+      sha256 = "sha256-YP222JXXdviDH/NaeD3gTNv6KA8PPZclhDFfmOV6olY=";
     };
   };
   classin-aarch64 = {
@@ -110,16 +110,16 @@
   };
   linuxqq-clipsync = {
     pname = "linuxqq-clipsync";
-    version = "cfb43a3c28258bf5a664abc0cda6c9acfdb5b5e3";
+    version = "8cdef645940bf8d7ffc77fef2b3b0caf38cbabda";
     src = fetchFromGitHub {
       owner = "SHORiN-KiWATA";
       repo = "linuxqq-clipsync";
-      rev = "cfb43a3c28258bf5a664abc0cda6c9acfdb5b5e3";
+      rev = "8cdef645940bf8d7ffc77fef2b3b0caf38cbabda";
       fetchSubmodules = false;
-      sha256 = "sha256-j2VdbHuQMcqELa8g5edtL5wzvtJfUoFv2v5ByN/LDws=";
+      sha256 = "sha256-qYhCHb6Xy4cg3YYB9u5n1+m7pOBcrqIluOnB6r2esOM=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-j2VdbHuQMcqELa8g5edtL5wzvtJfUoFv2v5ByN_LDws=/Cargo.lock";
+      lockFile = ./. + "/sha256-qYhCHb6Xy4cg3YYB9u5n1+m7pOBcrqIluOnB6r2esOM=/Cargo.lock";
       outputHashes = {
 
       };
@@ -180,13 +180,13 @@
   };
   qq-wayland-fix = {
     pname = "qq-wayland-fix";
-    version = "106e0c2c6c99f1cc88d98321d8cee4865fed00b4";
+    version = "32d5b681b7335536e8ac27c8cd326412a5357a06";
     src = fetchFromGitHub {
       owner = "SHORiN-KiWATA";
       repo = "linuxqq-wayland-fix";
-      rev = "106e0c2c6c99f1cc88d98321d8cee4865fed00b4";
+      rev = "32d5b681b7335536e8ac27c8cd326412a5357a06";
       fetchSubmodules = false;
-      sha256 = "sha256-PWzi9rEVrMGUfF8XWLTDhbRHKeMCW5vLhU1PMftNElQ=";
+      sha256 = "sha256-n+4SkPDzL7BPbxj9PdQLN0Xk3Zln43IhIru8UNjJLPc=";
     };
     date = "2026-10-02";
   };
