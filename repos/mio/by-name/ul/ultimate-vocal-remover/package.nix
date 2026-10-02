@@ -261,7 +261,7 @@ let
 in
 py.buildPythonApplication rec {
   pname = "ultimate-vocal-remover";
-  version = "5.6.0";
+  version = "5.6";
   format = "other";
 
   src = fetchFromGitHub {

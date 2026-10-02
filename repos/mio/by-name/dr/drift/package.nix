@@ -6,7 +6,7 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "drift";
-  version = "unstable-2026-08-20";
+  version = "openai-endpoint-stage-10.6";
   pyproject = true;
 
   src = fetchFromGitHub {
