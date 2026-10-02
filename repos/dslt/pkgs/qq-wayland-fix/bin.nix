@@ -15,7 +15,7 @@ let
   source = sources.qq-wayland-fix-bin-x86_64;
 in
 stdenv.mkDerivation {
-  pname = "linuxqq-wayland-fix-launcher-bin";
+  pname = "linuxqq-wayland-fix-bin";
   inherit (source) version src;
 
   sourceRoot = ".";
@@ -73,14 +73,15 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    description = "Standalone linuxqq-wayland-fix launcher and shims from the upstream prebuilt release";
+    description = "LinuxQQ Wayland fix launcher and LD_PRELOAD shims, from the upstream prebuilt release";
     longDescription = ''
       The upstream prebuilt release of linuxqq-wayland-fix: launcher, the four
-      LD_PRELOAD shims, the desktop entry ("QQ（Wayland修复版）") and the docs,
-      extracted from the release Debian package and patched to run from the Nix
-      store. Equivalent to `qq-wayland-fix-launcher`, which builds the same
-      launcher and shims from the tracked git revision; this variant skips the
-      compiler and tracks upstream's release tags instead.
+      compiled LD_PRELOAD shims, the desktop entry ("QQ（Wayland修复版）") and the
+      docs, extracted from the release Debian package and patched to run from
+      the Nix store. It is the prebuilt counterpart of `qq-wayland-fix-launcher`,
+      which compiles the same launcher and shims from the tracked git revision;
+      upstream publishes no release containing a patched QQ, so this package
+      ships no `qq` wrapper either.
 
       QQ itself is not part of the release and must be installed separately:
       QQ_WAYLAND_FIX_QQ is seeded with the packaged `qq` wrapper and can still
