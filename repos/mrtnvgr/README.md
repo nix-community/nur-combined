@@ -19,4 +19,5 @@
 - [pitchnet](https://github.com/SessionLoops/PitchNet)
 - [soundfont-touhou](https://musical-artifacts.com/artifacts/433)
 - [splicedd](https://github.com/ascpixi/splicedd)
+- [tone3000](https://github.com/tone-3000/tone3000-plugin)
 <!-- packages:end -->
