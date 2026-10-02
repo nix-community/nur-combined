@@ -11,6 +11,7 @@ in
 lib.makeScope pkgs.newScope (
   self:
   {
+    # keep-sorted start block=yes newline_separated=yes
     algermusicplayer = self.callPackage ./algermusicplayer { inherit fetchedSrc; };
 
     avm = self.callPackage ./avm { };
@@ -71,6 +72,7 @@ lib.makeScope pkgs.newScope (
     };
 
     kanzi-cpp = self.callPackage ./kanzi-cpp/package.nix { };
+
     kanzi-go = self.callPackage ./kanzi-go/package.nix { };
 
     kikoflu = self.callPackage ./kikoflu rec {
@@ -144,6 +146,7 @@ lib.makeScope pkgs.newScope (
       pubspecLock = lib.importJSON ./pixes/pubspec.lock.json;
       gitHashes = lib.importJSON ./pixes/git-hashes.json;
     };
+
     pixes-git = self.callPackage ./pixes rec {
       sources = fetchedSrc.pixes-git;
       version = unstableVersion sources self.pixes.version;
@@ -239,12 +242,12 @@ lib.makeScope pkgs.newScope (
       inherit (sources) version;
     };
 
-    # wpsoffice-365 = pkgs.libsForQt5.callPackage ./wpsoffice-365 { };
-
     zhuque = self.callPackage ./zhuque rec {
       sources = fetchedSrc.zhuque;
       version = stableVersion sources;
     };
+
+    # keep-sorted end
   }
   // modules
 )

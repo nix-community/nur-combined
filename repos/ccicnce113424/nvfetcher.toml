@@ -137,13 +137,13 @@ src.git = "https://github.com/Tony15246/uosc_danmaku"
 
 [waywallen-bin]
 fetch.url = "https://github.com/waywallen/waywallen/releases/download/v$ver/waywallen-$ver-x86_64.AppImage"
-src.prefix = "v"
 src.github = "waywallen/waywallen"
+src.prefix = "v"
 
 [waywallen-display-bin]
 fetch.url = "https://github.com/waywallen/waywallen-display/releases/download/v$ver/waywallen-kde-$ver-x86_64-embed.zip"
-src.prefix = "v"
 src.github = "waywallen/waywallen-display"
+src.prefix = "v"
 
 [zhuque]
 fetch.url = "https://github.com/TrionesType/zhuque/releases/download/$ver/ZhuqueFangsong-$ver.zip"
