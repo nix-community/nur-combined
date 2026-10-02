@@ -5503,10 +5503,12 @@ fn look_voxel_ahead(
     mod_runtime: &ModRuntime,
     locale: Locale,
 ) -> (IVec3, String, String) {
-    // Cast toward the surface being looked at. A fixed 2-block sample sits at
-    // eye level and reads "air" even when a wall is right there; the raycast
-    // reports the first solid voxel, or the 2-block fallback when nothing is hit.
-    let origin = transform.translation;
+    // Cast from the eyes toward the surface being looked at. A fixed 2-block
+    // sample sits at eye level and reads "air" even when a wall is right there;
+    // a ray from the body origin also starts inside the ground voxel we stand
+    // on. The eye ray reports the first solid voxel ahead, or the 2-block
+    // fallback when nothing is hit.
+    let origin = transform.translation + *transform.up() * 0.55;
     let forward = transform.forward();
     let hit = voxel_world.raycast(
         Ray3d::new(origin, forward),
