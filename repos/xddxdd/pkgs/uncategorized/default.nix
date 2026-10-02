@@ -17,4 +17,6 @@ packages
   ik-llama-cpp-cuda = callPackage ./ik-llama-cpp { cudaSupport = true; };
   ik-llama-cpp-avx = callPackage ./ik-llama-cpp { avxSupport = true; };
   ik-llama-cpp-avx2 = callPackage ./ik-llama-cpp { avx2Support = true; };
+  prismml-llama-cpp-cuda = callPackage ./prismml-llama-cpp { cudaSupport = true; };
+  beellama-cpp-cuda = callPackage ./beellama-cpp { cudaSupport = true; };
 }
