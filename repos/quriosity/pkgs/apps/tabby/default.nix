@@ -38,11 +38,11 @@
 
 let
   pname = "tabby";
-  version = "1.0.235";
+  version = "1.0.237";
 
   src = fetchurl {
     url = "https://github.com/Eugeny/tabby/releases/download/v${version}/tabby-${version}-linux-x64.AppImage";
-    hash = "sha256-DKXcAV/l7nhA8rIGhkzDfFL3w2t6c06GU6Oa6KV23O8=";
+    hash = "sha256-3l3BJGatSbesX7ST5/u4pN8NLCMmWZaoxV9JA2fKa+Q=";
   };
 
   appimageContents = appimageTools.extract {

@@ -24,11 +24,11 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "olauncher";
-  version = "2.3.1";
+  version = "2.3.2";
 
   src = fetchurl {
     url = "https://github.com/RagedMeteor1837/olauncher/releases/download/v${version}/olauncher-${version}-redist.jar";
-    hash = "sha256-dkZ+hEvYTEWLGOpZii0wzHafP06vCIusdBIOcP2zbn4=";
+    hash = "sha256-GZ+p2v3Q95gsWpmA07qRxn8oKlAA7P0nEFREatcSjbY=";
   };
 
   dontUnpack = true;
