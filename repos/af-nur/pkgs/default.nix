@@ -27,8 +27,8 @@ in
     qq = qq-wayland-fix.passthru.qqBase;
     waylandFix = qq-wayland-fix.passthru.waylandFix;
   };
-  # Prebuilt release artifact of the launcher above (x86_64-linux only).
-  qq-wayland-fix-launcher-bin = pkgs.callPackage ./qq-wayland-fix/launcher-bin.nix {
+  # Upstream prebuilt release of the launcher + shims above (x86_64-linux only).
+  qq-wayland-fix-bin = pkgs.callPackage ./qq-wayland-fix/bin.nix {
     inherit sources;
     qq = qq-wayland-fix.passthru.qqBase;
   };
