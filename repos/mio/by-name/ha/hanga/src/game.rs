@@ -93,7 +93,8 @@ impl GameSpec {
 
     /// Wire id for P2P: game id plus mods in load order. Mismatched peers drop actions.
     pub fn collection_key(&self) -> String {
-        format!("{}:{}", self.id, self.mods.join("+"))
+        let mods: Vec<String> = self.mods.iter().map(|m| mod_key(m)).collect();
+        format!("{}:{}", self.id, mods.join("+"))
     }
 
     pub fn title(&self, locale: &str) -> String {
@@ -126,16 +127,34 @@ pub fn selected_game_id(args: &[String], default_mod: &str) -> String {
         .unwrap_or_else(|| default_mod.to_string())
 }
 
+/// A lone `--mod` spec with no `.game`. The menu/collection id is the file
+/// stem, so `--mod ./hello-world.wasm` shows `hello-world`, while the mod list
+/// keeps the original spec so the WASM still resolves.
 pub fn implicit_game(spec: &str) -> GameSpec {
-    let id = spec.trim();
+    let spec = spec.trim();
+    let id = mod_key(spec);
+    let id = if id.is_empty() { spec.to_string() } else { id };
     GameSpec {
-        id: id.to_string(),
-        mods: vec![id.to_string()],
+        id,
+        mods: vec![spec.to_string()],
         titles: BTreeMap::new(),
         backdrop: NEUTRAL_BACKDROP,
         atmosphere: NEUTRAL_ATMOSPHERE,
         asset_dir: None,
     }
+}
+
+/// Normalize a mod id for display and P2P keys: a bare name is unchanged, a
+/// path or `.wasm` collapses to its file stem (`mods/foo.wasm` -> `foo`).
+pub fn mod_key(name: &str) -> String {
+    let name = name.trim();
+    let looks_like_path = name.contains('/') || name.contains('\\') || name.ends_with(".wasm");
+    if looks_like_path {
+        if let Some(stem) = Path::new(name).file_stem().and_then(|s| s.to_str()) {
+            return stem.to_string();
+        }
+    }
+    name.to_string()
 }
 
 pub fn resolve_game(catalog: &[GameSpec], spec: &str) -> GameSpec {
@@ -442,6 +461,47 @@ pub fn load_game_catalog(dirs: &[PathBuf]) -> Vec<GameSpec> {
     by_id.into_values().collect()
 }
 
+/// Load the `.game` that sits next to a lone `--mod` WASM, then fall back to
+/// the parent directories an author is likely to use (`mods/`, cwd, `.wasm`
+/// directly). `None` keeps the neutral implicit game.
+pub fn load_local_game(spec: &str, cwd: &Path) -> Option<GameSpec> {
+    let spec = spec.trim();
+    let (dir, stem) = if spec.ends_with(".wasm") || spec.contains('/') || spec.contains('\\') {
+        let path = Path::new(spec);
+        let path = if path.is_absolute() {
+            path.to_path_buf()
+        } else {
+            cwd.join(path)
+        };
+        (
+            path.parent().map(Path::to_path_buf),
+            path.file_stem().and_then(|s| s.to_str()).map(str::to_string),
+        )
+    } else {
+        (None, Some(spec.to_string()))
+    };
+    let stem = stem?;
+    let file = format!("{stem}.game");
+    let mut candidates = Vec::new();
+    if let Some(dir) = &dir {
+        candidates.push(dir.join(&file));
+        if let Some(parent) = dir.parent() {
+            candidates.push(parent.join(&file));
+        }
+    }
+    candidates.push(cwd.join(&file));
+    candidates.push(cwd.join("games").join(&file));
+    for path in candidates {
+        if let Ok(text) = std::fs::read_to_string(&path) {
+            if let Ok(mut game) = parse_game_file(&text) {
+                game.asset_dir = path.parent().map(Path::to_path_buf);
+                return Some(game);
+            }
+        }
+    }
+    None
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -576,6 +636,38 @@ mod tests {
         let bed = catalog.iter().find(|g| g.id == "testbed").unwrap();
         assert_eq!(bed.title("en"), "Override Bed");
         assert!(catalog.iter().any(|g| g.id == "urban_chaos"));
+        let _ = std::fs::remove_dir_all(&root);
+    }
+
+    #[test]
+    fn implicit_game_normalizes_paths() {
+        let game = implicit_game("./mods/hello-world.wasm");
+        assert_eq!(game.id, "hello-world");
+        assert_eq!(game.mods, vec!["./mods/hello-world.wasm".to_string()]);
+        assert_eq!(game.collection_key(), "hello-world:hello-world");
+        assert_eq!(mod_key("mods/foo.wasm"), "foo");
+        assert_eq!(mod_key("plain"), "plain");
+        assert_eq!(mod_key(""), "");
+    }
+
+    #[test]
+    fn local_game_file_next_to_mod_wins() {
+        let root = std::env::temp_dir().join(format!("hanga-local-{}", std::process::id()));
+        let _ = std::fs::remove_dir_all(&root);
+        let pack = root.join("mods");
+        std::fs::create_dir_all(&pack).unwrap();
+        std::fs::write(
+            pack.join("hello.game"),
+            "id=hello\nmods=hello\ntitle.en=Hello World\n",
+        )
+        .unwrap();
+        let spec = pack.join("hello.wasm");
+        let game = load_local_game(spec.to_str().unwrap(), &root).unwrap();
+        assert_eq!(game.id, "hello");
+        assert_eq!(game.title("en"), "Hello World");
+        assert_eq!(game.asset_dir.as_deref(), Some(pack.as_path()));
+        // A bare name with no file on disk stays neutral.
+        assert!(load_local_game("ghost", &root).is_none());
         let _ = std::fs::remove_dir_all(&root);
     }
 }

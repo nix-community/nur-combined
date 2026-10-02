@@ -8,7 +8,6 @@
   callPackage,
   hanga-signal,
   apple-sdk_14,
-  cargo-kani,
 }:
 
 let
@@ -43,7 +42,6 @@ rustPlatform.buildRustPackage {
     pkg-config
     rustPlatform.bindgenHook
     makeWrapper
-    cargo-kani
   ];
 
   buildInputs =
@@ -64,9 +62,11 @@ rustPlatform.buildRustPackage {
     mkdir -p $out/share/hanga
     cp -r ${mods}/share/hanga/mods $out/share/hanga/mods
     cp -r ${mods}/share/hanga/games $out/share/hanga/games
+    cp -r ./wit $out/share/hanga/wit
     wrapProgram $out/bin/hanga \
       --set HANGA_MODS $out/share/hanga/mods \
       --set HANGA_GAMES $out/share/hanga/games \
+      --set HANGA_WIT $out/share/hanga/wit \
       --prefix PATH : ${lib.makeBinPath [ hanga-signal ]} \
       ${lib.optionalString stdenv.hostPlatform.isLinux ''
         --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath linuxGraphics}

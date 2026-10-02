@@ -2,7 +2,6 @@
   pkgs,
   lib,
   hanga-signal,
-  cargo-kani,
 }:
 
 let
@@ -14,10 +13,12 @@ let
     apple-sdk_14
     ;
   mods = pkgs.callPackage ../hanga/mods.nix { };
+  wit = ../hanga/wit;
   wrapHanga = ''
     wrapProgram $out/bin/hanga \
       --set HANGA_MODS ${mods}/share/hanga/mods \
       --set HANGA_GAMES ${mods}/share/hanga/games \
+      --set HANGA_WIT ${wit} \
       --prefix PATH : ${lib.makeBinPath [ hanga-signal ]}
   '';
 in
@@ -43,13 +44,13 @@ if stdenv.hostPlatform.isLinux then
         nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [
           pkg-config
           makeWrapper
-          cargo-kani
         ];
         buildInputs = (attrs.buildInputs or [ ]) ++ linuxGraphics;
         postInstall = ''
           wrapProgram $out/bin/hanga \
             --set HANGA_MODS ${mods}/share/hanga/mods \
             --set HANGA_GAMES ${mods}/share/hanga/games \
+            --set HANGA_WIT ${wit} \
             --prefix PATH : ${lib.makeBinPath [ hanga-signal ]} \
             --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath linuxGraphics}
         '';

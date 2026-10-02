@@ -182,7 +182,10 @@ for vehicles, agents, and loot. Extra packs cannot replace lead worldgen.
 
 ```
 hanga
+hanga --help
 hanga --mod testbed
+hanga --mod ./hello-world.wasm      # local file; picks ./hello-world.wasm + sibling .game
+hanga init-mod hello-world          # scaffold a standalone WASM mod crate
 hanga --game testbed
 hanga --headless
 hanga --text-client
@@ -203,7 +206,14 @@ hanga-signal                    # same binary, also as matchbox_server
 `nix run .#hanga` and `nix run .#hanga-dev` wrap `HANGA_MODS` so gameplay WASM
 loads without a local Cargo target dir. Day-to-day: `nix build .#hanga-dev`
 (crate2nix, runs host + mod + agent tests). `.#hanga` is the rustPlatform wrap
-and does not re-run that suite.
+and does not re-run that suite. Kani proofs moved to the separate `.#hanga-kani`
+package so `cargo-kani` / `cbmc` no longer block the everyday gate.
+
+Text and agent clients have no key to hold, so a one-shot `move forward`
+(`{"action":"MoveForward"}`) charges a short walk pulse the physics clock
+integrates; repeats extend it instead of stacking speed. `--mod NAME` resolves
+`./NAME.wasm` in the cwd before installed mods, and adopts a sibling `NAME.game`
+for real menu chrome.
 
 `nix run .#hanga-dev` opens a main menu (Play / Multiplayer / Room / Game / Language / Controls / Quit).
 The Game row cycles discovered `.game` files. Each game owns the menu title,
@@ -235,9 +245,20 @@ Text-client extras: `look` / `status`, `accept job`, `complete job`, `fence`, `l
 English commands always work; each locale has native aliases (`前進`, `avancer`, `titiro`, …).
 Agent JSON stays keyed in English, with `locale` + `voxel_label` on Look.
 
-Build a mod as a WASM component (needs `lld` / `wasm-ld` on PATH). Host
-`Cargo.toml` keeps `crate-type = ["rlib"]` so native tests link; switch to
-`cdylib` only for the wasm target:
+Build a mod as a WASM component (needs `lld` / `wasm-ld` and `wasm-tools` on PATH).
+The scaffold writes a self-contained crate (its own copy of the sandbox `wit/`)
+that builds with plain `cargo` — no dependency on this tree:
+
+```
+hanga init-mod hello-world
+cd hello-world
+cargo build --release --target wasm32-unknown-unknown
+wasm-tools component new target/wasm32-unknown-unknown/release/hello_world.wasm -o hello-world.wasm
+hanga --mod ./hello-world.wasm
+```
+
+For the shipped mods, host `Cargo.toml` keeps `crate-type = ["rlib"]` so native
+tests link; `mods.nix` patches it to `cdylib` only for the wasm target:
 
 ```
 sed -i 's/crate-type = \["rlib"\]/crate-type = ["cdylib"]/' mods/urban_chaos/Cargo.toml
@@ -255,8 +276,9 @@ under xvfb; `mods.nix` runs `urban_chaos` / `testbed` unit tests before the WASM
 - `cargo test --lib` — pure engine predicates (anti-cheat, fracture, economy pack)
 - `cargo test -p urban_chaos` / `-p testbed` — mod rules
 - `cargo test --test '*'` — agent-client integration (needs a display / xvfb)
-- Kani proofs stay behind `cfg(kani)` for `cargo kani`; the same properties replay as
-  `kani_replay_*` tests in `.#hanga-dev`
+- Kani proofs stay behind `cfg(kani)` for `cargo kani`; the same properties replay
+  as `kani_replay_*` tests in `.#hanga-dev`, and `.#hanga-kani` runs the real
+  `cargo kani` suite on its own (it pulls the older toolchain + `cbmc`).
 
 ## Next
 

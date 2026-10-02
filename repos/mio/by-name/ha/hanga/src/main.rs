@@ -23,6 +23,7 @@ use hanga::bindings::{
 use hanga::i18n::{self, Locale, TextCommand};
 use hanga::{
     action_fingerprint, apply_mouse_look, catalog_index, catalog_name, clamp_hotbar_index,
+    pulse_remaining,
     clamp_mod_state, clamp_voxel_type, clamp_wallet, contract_is_offered, fracture_offsets,
     inventory_add, inventory_craft_pair, inventory_insert_stack, inventory_pick_stack,
     inventory_place_stack, inventory_selected, inventory_take, is_action_physically_possible,
@@ -51,8 +52,8 @@ use hanga::vehicle::{
     traffic_ahead_blocks, VehicleKit, BEAM_ROUNDS,
 };
 use hanga::game::{
-    cycle_game, game_search_dirs, load_game_catalog, resolve_game, selected_game_id, GameSpec,
-    MenuBackdrop, DEFAULT_GAME,
+    cycle_game, game_search_dirs, load_game_catalog, load_local_game, parse_game_spec,
+    resolve_game, selected_game_id, GameSpec, MenuBackdrop, DEFAULT_GAME,
 };
 use hanga::sign::{self, ActionKey};
 
@@ -77,6 +78,22 @@ pub enum NetworkMode {
 
 #[derive(Resource, Default)]
 struct ServerPeer(Option<matchbox_socket::PeerId>);
+
+/// Remaining one-shot walk pulse (text / agent clients). Drained by physics time.
+#[derive(Resource)]
+struct MovePulse {
+    remaining_ms: f32,
+    walk: f32,
+}
+
+impl Default for MovePulse {
+    fn default() -> Self {
+        Self {
+            remaining_ms: 0.0,
+            walk: 0.0,
+        }
+    }
+}
 
 
 thread_local! {
@@ -408,8 +425,89 @@ impl TrustLedger {
     }
 }
 
+fn print_usage() {
+    println!(
+        "Hanga — a Bevy host for WASM component mods\n\
+\n\
+Usage:\n\
+  hanga [--game NAME] [--mod NAME|PATH]   play a collection or lone mod\n\
+  hanga --headless | --text-client | --agent-client\n\
+  hanga --p2p [URL] | --bindings PATH | --lang CODE | --cheat\n\
+\n\
+Mod development:\n\
+  hanga init-mod NAME [--dir DIR]   scaffold a standalone WASM mod crate\n\
+\n\
+The sandbox ABI lives in wit/world.wit. See DESIGN.md for the full model."
+    );
+}
+
+/// `hanga init-mod NAME [--dir DIR]`. Copies the host WIT from `$HANGA_WIT`
+/// when set, else the directory next to the executable.
+fn run_init_mod(args: &[String]) -> i32 {
+    let mut name: Option<String> = None;
+    let mut dir = std::env::current_dir().unwrap_or_else(|_| PathBuf::from("."));
+    let mut i = 0;
+    while i < args.len() {
+        match args[i].as_str() {
+            "--dir" => {
+                if let Some(value) = args.get(i + 1) {
+                    dir = PathBuf::from(value);
+                    i += 2;
+                    continue;
+                }
+                eprintln!("--dir needs a path");
+                return 2;
+            }
+            other if other.starts_with('-') => {
+                eprintln!("unknown init-mod flag '{other}'");
+                return 2;
+            }
+            other => name = Some(other.to_string()),
+        }
+        i += 1;
+    }
+    let Some(name) = name else {
+        eprintln!("usage: hanga init-mod NAME [--dir DIR]");
+        return 2;
+    };
+    let wit_dir = std::env::var_os("HANGA_WIT")
+        .map(PathBuf::from)
+        .or_else(|| {
+            std::env::current_exe()
+                .ok()
+                .and_then(|exe| exe.parent().map(|dir| dir.join("wit")))
+        })
+        .unwrap_or_else(|| PathBuf::from("wit"));
+    match hanga::scaffold::write_starter_mod(&dir, &name, &wit_dir) {
+        Ok(path) => {
+            println!("Wrote {name} to {}", path.display());
+            println!(
+                "  cd {} && cargo build --release --target wasm32-unknown-unknown",
+                path.display()
+            );
+            println!(
+                "  wasm-tools component new target/wasm32-unknown-unknown/release/{}.wasm -o {name}.wasm",
+                hanga::scaffold::crate_name(&name)
+            );
+            println!("  hanga --mod ./{name}.wasm");
+            0
+        }
+        Err(err) => {
+            eprintln!("init-mod failed: {err}");
+            1
+        }
+    }
+}
+
 fn main() {
     let args: Vec<String> = std::env::args().collect();
+    if args.iter().any(|a| a == "--help" || a == "-h") {
+        print_usage();
+        return;
+    }
+    if args.get(1).map(String::as_str) == Some("init-mod") {
+        std::process::exit(run_init_mod(&args[2..]));
+    }
     let is_headless = args.contains(&"--headless".to_string());
     let is_cheater = args.contains(&"--cheat".to_string());
     let is_text_client = args.contains(&"--text-client".to_string());
@@ -451,15 +549,56 @@ fn main() {
         .ok()
         .and_then(|p| p.parent().map(PathBuf::from));
     let cwd = std::env::current_dir().unwrap_or_else(|_| PathBuf::from("."));
-    let game_dirs = game_search_dirs(
+    let mut game_dirs = game_search_dirs(
         &cwd,
         exe_dir.as_deref(),
         env_games.as_deref(),
         env_mods.as_deref(),
     );
+    // Local authoring: a `.game` next to a lone `--mod`/`--game` file, plus the
+    // usual `mods/` + `games/` next to the cwd, so scratch mods are discoverable
+    // without installing them.
+    for arg in ["--mod", "--game"] {
+        if let Some(spec) = args.windows(2).find(|w| w[0] == arg).map(|w| &w[1]) {
+            let path = std::path::Path::new(spec);
+            if path.is_absolute() || path.components().count() > 1 {
+                let abs = if path.is_absolute() {
+                    path.to_path_buf()
+                } else {
+                    cwd.join(path)
+                };
+                if let Some(parent) = abs.parent() {
+                    if !game_dirs.contains(&parent.to_path_buf()) {
+                        game_dirs.push(parent.to_path_buf());
+                    }
+                }
+            }
+        }
+    }
     let catalog = load_game_catalog(&game_dirs);
     let game_id = selected_game_id(&args, DEFAULT_GAME);
-    let game = resolve_game(&catalog, &game_id);
+    let mut game = resolve_game(&catalog, &game_id);
+    // `--mod` with no matching `.game`: adopt the sibling `.game` if present
+    // (real menu chrome), otherwise keep the neutral implicit game.
+    if parse_game_spec(&args).is_none() {
+        if let Some(spec) = args.windows(2).find(|w| w[0] == "--mod").map(|w| &w[1]) {
+            let local = load_local_game(spec, &cwd);
+            match local {
+                Some(mut local) => {
+                    // Keep the explicit spec so `--mod ./x.wasm` still resolves,
+                    // even when a sibling `.game` names the mod differently.
+                    if local.mods.len() == 1 {
+                        local.mods[0] = spec.clone();
+                    }
+                    game = local;
+                }
+                None if game.id == *spec => {
+                    game = hanga::game::implicit_game(spec);
+                }
+                None => {}
+            }
+        }
+    }
     let mod_name = game.lead_mod().to_string();
     let wasm_path = resolve_wasm_path(
         &mod_name,
@@ -559,6 +698,7 @@ fn main() {
         .init_resource::<VoxelEdits>()
         .init_resource::<SkyFor>()
         .init_resource::<WorldGravity>()
+        .init_resource::<MovePulse>()
         .insert_resource(Gravity(Vec3::ZERO))
         .insert_resource(CheatMode(is_cheater))
         .insert_resource(UiLocale(locale))
@@ -662,7 +802,7 @@ fn main() {
             (
                 generate_voxel_colliders,
                 apply_guest_voxels.run_if(in_state(GameMode::Playing)),
-                player_movement.run_if(in_state(GameMode::Playing)),
+                player_physics.run_if(in_state(GameMode::Playing)),
                 snapshot_player.run_if(in_state(GameMode::Playing)),
                 player_interaction.run_if(in_state(GameMode::Playing)),
                 validate_incoming_actions,
@@ -2597,6 +2737,19 @@ fn apply_wish(vel: &mut LinearVelocity, wish: Vec3, speed: f32, kit: &GravityKit
     ));
 }
 
+/// Charge the walk pulse for a one-shot text/agent `move forward`.
+///
+/// Repeats extend the pulse and never slow an in-progress faster walk, so
+/// `move forward` spam walks smoothly instead of stuttering.
+fn charge_move_pulse(pulse: &mut MovePulse, walk: f32) {
+    pulse.walk = if pulse.remaining_ms > 0.0 {
+        pulse.walk.max(walk)
+    } else {
+        walk
+    };
+    pulse.remaining_ms = pulse_remaining(pulse.remaining_ms, walk);
+}
+
 fn apply_point_gravity(
     time: Res<Time>,
     field: Res<WorldGravity>,
@@ -2612,12 +2765,18 @@ fn apply_point_gravity(
     }
 }
 
-/// Very basic first person controller for MVP (and vehicle controller)
-fn player_movement(
+/// Very basic first person controller for MVP (and vehicle controller).
+///
+/// Also drains the one-shot [`MovePulse`] that text and agent commands charge,
+/// so those clients move for a short window instead of the single physics frame
+/// a lone velocity write would survive.
+fn player_physics(
     keyboard_input: Res<ButtonInput<KeyCode>>,
     mouse_input: Res<ButtonInput<MouseButton>>,
     bindings: Res<KeyBindings>,
     gravity: Res<WorldGravity>,
+    time: Res<Time>,
+    mut pulse: ResMut<MovePulse>,
     voxel_world: VoxelWorld<DefaultWorld>,
     mut players: Query<(&mut Transform, &mut LinearVelocity, Option<&InVehicle>), With<Player>>,
     mut vehicles: Query<
@@ -2631,6 +2790,8 @@ fn player_movement(
         (With<Vehicle>, Without<Player>),
     >,
 ) {
+    let dt_ms = time.delta_secs() * 1000.0;
+    pulse.remaining_ms = (pulse.remaining_ms - dt_ms).max(0.0);
     if let Some((mut player_transform, mut player_velocity, in_vehicle)) = players.iter_mut().next() {
         let mut direction = Vec3::ZERO;
         let mut rotation_y = 0.0;
@@ -2661,6 +2822,8 @@ fn player_movement(
         if action_pressed(&keyboard_input, &mouse_input, &bindings.0, ACTION_FORWARD) {
             direction += *forward;
         }
+        // A one-shot pulse from a text/agent command walks on its own.
+        let pulse_active = pulse.remaining_ms > 0.0 && in_vehicle.is_none();
         if action_pressed(&keyboard_input, &mouse_input, &bindings.0, ACTION_BACK) {
             direction -= *forward;
         }
@@ -2688,13 +2851,18 @@ fn player_movement(
             player_velocity.0 = v_vel.0;
         } else {
             let pos = player_transform.translation;
-            apply_wish(
-                &mut player_velocity,
-                direction,
-                gravity.0.walk,
-                &gravity.0,
-                pos,
-            );
+            if pulse_active {
+                // Keep the pulse's own speed so a slower kit cannot clip it.
+                apply_wish(&mut player_velocity, *forward, pulse.walk, &gravity.0, pos);
+            } else {
+                apply_wish(
+                    &mut player_velocity,
+                    direction,
+                    gravity.0.walk,
+                    &gravity.0,
+                    pos,
+                );
+            }
             if gravity.0.jump > 0.0
                 && action_just_pressed(&keyboard_input, &mouse_input, &bindings.0, ACTION_JUMP)
             {
@@ -5335,13 +5503,31 @@ fn look_voxel_ahead(
     mod_runtime: &ModRuntime,
     locale: Locale,
 ) -> (IVec3, String, String) {
-    let forward_pos = transform.translation + (transform.forward() * 2.0);
-    let voxel_pos = IVec3::new(
-        forward_pos.x.round() as i32,
-        forward_pos.y.round() as i32,
-        forward_pos.z.round() as i32,
+    // Cast toward the surface being looked at. A fixed 2-block sample sits at
+    // eye level and reads "air" even when a wall is right there; the raycast
+    // reports the first solid voxel, or the 2-block fallback when nothing is hit.
+    let origin = transform.translation;
+    let forward = transform.forward();
+    let hit = voxel_world.raycast(
+        Ray3d::new(origin, forward),
+        &|(_pos, voxel)| matches!(voxel, WorldVoxel::Solid(_)),
     );
-    let voxel_type = voxel_type_of(voxel_world.get_voxel(voxel_pos)).unwrap_or(0);
+    let voxel_pos = hit
+        .as_ref()
+        .map(|result| result.voxel_pos())
+        .unwrap_or_else(|| {
+            let forward_pos = origin + (*forward * 2.0);
+            IVec3::new(
+                forward_pos.x.round() as i32,
+                forward_pos.y.round() as i32,
+                forward_pos.z.round() as i32,
+            )
+        });
+    let voxel_type = if let Some(result) = hit {
+        voxel_type_of(result.voxel).unwrap_or(0)
+    } else {
+        voxel_type_of(voxel_world.get_voxel(voxel_pos)).unwrap_or(0)
+    };
     let voxel = catalog_name(&catalog.0, voxel_type)
         .unwrap_or("air")
         .to_string();
@@ -5456,6 +5642,7 @@ fn read_terminal_input(
     mod_runtime: Res<ModRuntime>,
     offer: Res<ModOffer>,
     gravity: Res<WorldGravity>,
+    mut pulse: ResMut<MovePulse>,
     mut locale: ResMut<UiLocale>,
     mut events: MessageWriter<ProposedAction>,
 ) {
@@ -5471,6 +5658,7 @@ fn read_terminal_input(
                             &gravity.0,
                             transform.translation,
                         );
+                        charge_move_pulse(&mut pulse, gravity.0.walk);
                         say(locale.0, i18n::t(locale.0, "moving"));
                     }
                 }
@@ -5606,6 +5794,7 @@ fn read_agent_input(
     locale: Res<UiLocale>,
     mut events: MessageWriter<ProposedAction>,
     trust_ledger: Res<TrustLedger>,
+    mut pulse: ResMut<MovePulse>,
 ) {
     if let Ok(rx) = receiver.rx.lock() {
         while let Ok(line) = rx.try_recv() {
@@ -5620,6 +5809,7 @@ fn read_agent_input(
                                 &gravity.0,
                                 transform.translation,
                             );
+                            charge_move_pulse(&mut pulse, gravity.0.walk);
                         }
                     }
                     AgentCommand::BreakBlock { pos } => {

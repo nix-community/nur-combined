@@ -16,6 +16,7 @@ pub mod palette;
 pub mod sign;
 pub mod vehicle;
 pub mod persistence;
+pub mod scaffold;
 
 // ─── Anti-cheat / Trust ──────────────────────────────────────────────────────
 
@@ -469,6 +470,9 @@ pub fn resolve_wasm_path(
 
     let file = format!("{spec}.wasm");
     let mut candidates: Vec<PathBuf> = Vec::new();
+    // Authoring a scratch mod: a WASM built in the cwd wins over an installed
+    // one, so `--mod hello-world` picks up `./hello-world.wasm`.
+    candidates.push(cwd.join(&file));
     if let Some(dir) = env_mods {
         candidates.push(dir.join(&file));
     }
@@ -743,6 +747,33 @@ pub fn parse_container_kit_node(node: &crate::kit::Node) -> ContainerKit {
 }
 
 pub const LOOK_SENSITIVITY: f32 = 0.0025;
+
+// ─── Movement impulses (text / agent clients) ────────────────────────────────
+//
+// The graphical client holds a key and `player_movement` re-derives `walk`
+// velocity every frame. Text and agent clients send one-shot commands instead,
+// so they cannot hold a key: the host turns the command into a short coalesced
+// walk velocity that the physics clock actually integrates.
+
+/// How long a one-shot `move forward` keeps walking velocity, in milliseconds.
+pub const MOVE_PULSE_MS: f32 = 350.0;
+
+/// Fraction of `walk` still available at the end of a pulse. Exported for tests.
+pub fn move_pulse_speed(walk: f32, remaining_ms: f32) -> f32 {
+    if walk <= 0.0 || remaining_ms <= 0.0 {
+        return 0.0;
+    }
+    let t = (remaining_ms / MOVE_PULSE_MS).clamp(0.0, 1.0);
+    walk * t
+}
+
+/// Coalesce one-shot movement commands into the remaining pulse duration.
+///
+/// Repeated commands while already moving extend the pulse instead of stacking
+/// speed, and a higher `walk` from a gravity kit never shortens a live pulse.
+pub fn pulse_remaining(remaining_ms: f32, wired_walk: f32) -> f32 {
+    remaining_ms.max(wired_walk).max(MOVE_PULSE_MS)
+}
 pub const LOOK_PITCH_LIMIT: f32 = std::f32::consts::FRAC_PI_2 - 0.02;
 
 /// Integrate mouse delta into yaw/pitch. `dx` right and `dy` down are screen-space.
@@ -826,6 +857,29 @@ pub fn contract_is_offered(kind: &str) -> bool {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    // ── Movement impulses ─────────────────────────────────────────────────────
+
+    #[test]
+    fn move_pulse_speed_is_bounded_by_walk() {
+        assert_eq!(move_pulse_speed(10.0, 0.0), 0.0);
+        assert_eq!(move_pulse_speed(0.0, MOVE_PULSE_MS), 0.0);
+        assert_eq!(move_pulse_speed(10.0, MOVE_PULSE_MS), 10.0);
+        assert!((move_pulse_speed(10.0, MOVE_PULSE_MS / 2.0) - 5.0).abs() < 1e-6);
+        // A stale pulse never exceeds walk, and extra ms never adds speed.
+        assert_eq!(move_pulse_speed(10.0, MOVE_PULSE_MS * 4.0), 10.0);
+    }
+
+    #[test]
+    fn pulse_remaining_coalesces_repeats() {
+        assert_eq!(pulse_remaining(0.0, 0.0), MOVE_PULSE_MS);
+        // Repeat while moving extends the pulse; it does not stack speed.
+        assert_eq!(pulse_remaining(80.0, 0.0), MOVE_PULSE_MS);
+        // A slower kit walk never cuts a live pulse short.
+        assert_eq!(pulse_remaining(500.0, 0.0), 500.0);
+        // Every pulse is at least MOVE_PULSE_MS, even for a faster kit.
+        assert_eq!(pulse_remaining(100.0, 250.0), MOVE_PULSE_MS);
+    }
 
     // ── TrustLedger ───────────────────────────────────────────────────────────
 
@@ -1377,6 +1431,22 @@ mod tests {
 
         let missing = resolve_wasm_path("testbed", &cwd, None, Some(&mods));
         assert_eq!(missing, mods.join("testbed.wasm"));
+        let _ = fs::remove_dir_all(&root);
+    }
+
+    #[test]
+    fn wasm_path_cwd_wins_for_scratch_authoring() {
+        use std::fs;
+        let root = std::env::temp_dir().join(format!("hanga-wasm-cwd-{}", std::process::id()));
+        let mods = root.join("installed");
+        let cwd = root.join("cwd");
+        fs::create_dir_all(&mods).unwrap();
+        fs::create_dir_all(&cwd).unwrap();
+        // Same name installed and in the cwd: the scratch build should win.
+        fs::write(mods.join("demo.wasm"), b"\0asm-installed").unwrap();
+        fs::write(cwd.join("demo.wasm"), b"\0asm-local").unwrap();
+        let found = resolve_wasm_path("demo", &cwd, None, Some(&mods));
+        assert_eq!(found, cwd.join("demo.wasm"));
         let _ = fs::remove_dir_all(&root);
     }
 
