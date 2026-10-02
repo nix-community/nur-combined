@@ -28,6 +28,7 @@ Commands:
   clean                     Remove untracked files and directories
   setup-remotes             Register all git remotes
   print-remotes             Display configured git remotes
+  addons                    Regenerate the Firefox add-on lock file
   help                      Show this help message
 EOF
     exit 0
@@ -118,6 +119,24 @@ push-tags() {
     fi
 }
 
+addons() {
+    local script='scripts/update-firefox-addons'
+
+    if [[ ! -x "$script" ]]; then
+        fail "'${script}' not found or not executable"
+        return 1
+    fi
+
+    info "regenerating Firefox add-on lock file"
+    if "$script"; then
+        ok "firefox add-on lock file regenerated"
+        info "review the diff and commit pkgs/firefox-addons/addons.lock.json"
+    else
+        fail "failed to regenerate the Firefox add-on lock file"
+        return 1
+    fi
+}
+
 clean() {
     echo -e "Cleaning untracked files"
     git clean -ffdx
@@ -134,6 +153,7 @@ case $arg in
     setup-remotes|sr) setup-remotes ;;
     push|p) push "$@" ;;
     push-tags|pusht|pt) push-tags "$@" ;;
+    addons|a) addons ;;
     clean|c) clean ;;
     *) error "$arg" ;;
 esac

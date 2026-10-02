@@ -14,6 +14,8 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  firefox-addons = import ./pkgs/firefox-addons { inherit pkgs; };
+
   example-package = pkgs.callPackage ./pkgs/example-package { };
   ducker = pkgs.callPackage ./pkgs/ducker { };
   lpl = pkgs.callPackage ./pkgs/lpl { };
@@ -23,7 +25,6 @@
   patent = pkgs.callPackage ./pkgs/patent { };
   proxelar = pkgs.callPackage ./pkgs/proxelar { };
   xsetwall = pkgs.callPackage ./pkgs/xsetwall { };
-  disktree = pkgs.callPackage ./pkgs/disktree { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }

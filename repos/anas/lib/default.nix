@@ -1,7 +1,6 @@
 { pkgs }:
 
-with pkgs.lib; {
-  # Add your library functions here
-  #
-  # hexint = x: hexvals.${toLower x};
+{
+  lib = pkgs.lib;
+  mozilla = import ./mozilla.nix { lib = pkgs.lib; };
 }

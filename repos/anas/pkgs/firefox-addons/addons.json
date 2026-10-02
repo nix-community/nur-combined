@@ -1,0 +1,58 @@
+[
+  {
+    "slug": "auto-tab-discard"
+  },
+  {
+    "slug": "clearurls"
+  },
+  {
+    "slug": "darkreader"
+  },
+  {
+      "slug": "foxytab"
+  },
+  {
+    "slug": "floccus"
+  },
+  {
+    "slug": "istilldontcareaboutcookies"
+  },
+  {
+    "slug": "keepassxc-browser"
+  },
+  {
+    "slug": "libredirect"
+  },
+  {
+    "slug": "multi-account-containers"
+  },
+  {
+    "slug": "new-tab-override"
+  },
+  {
+    "pname": "privacy-badger",
+    "slug": "privacy-badger17"
+  },
+  {
+    "slug": "sidebery"
+  },
+  {
+    "license": {
+      "shortName": "agpl3Plus",
+      "tag": "predefined"
+    },
+    "slug": "single-file"
+  },
+  {
+    "slug": "sponsorblock"
+  },
+  {
+    "slug": "tab-stash"
+  },
+  {
+    "slug": "ublock-origin"
+  },
+  {
+    "slug": "violentmonkey"
+  }
+]

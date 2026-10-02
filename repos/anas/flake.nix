@@ -19,6 +19,8 @@
       });
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
 
+      overlays.default = (import ./overlays).default;
+
       nixosModules.autolock = ./modules/autolock.nix;
       homeManagerModules.autolock = ./modules/autolock.nix;
 
@@ -52,6 +54,9 @@
               pre-commit
               just
               fzf
+
+              # Firefox add-on lock file updates
+              curlMinimal
             ];
 
             shellHook = ''

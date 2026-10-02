@@ -1,0 +1,102 @@
+#!/usr/bin/env bash
+# Regenerate pkgs/firefox-addons/addons.lock.json from the add-on allowlist in
+# pkgs/firefox-addons/addons.json.
+#
+# Metadata is taken from the addons.mozilla.org API (v4), the same API used by
+# upstream's `mozilla-addons-to-nix` generator. Only the API is queried: the
+# add-on permissions are reported by the API, so no XPI has to be downloaded or
+# unpacked here.
+#
+# Requirements: curl, jq
+
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+readonly allowlist='pkgs/firefox-addons/addons.json'
+readonly lockfile='pkgs/firefox-addons/addons.lock.json'
+readonly api='https://addons.mozilla.org/api/v4/addons/addon'
+
+info() { echo -e "INFO: $1" >&2; }
+fail() { echo -e "FAIL: $1" >&2; }
+
+fetch_addon() {
+    local slug="$1"
+    local url="${api}/${slug}/?app=firefox&lang=en-US"
+    local response
+
+    if ! response="$(curl --fail --silent --show-error --location \
+        --retry 3 --retry-delay 2 "$url")"; then
+        fail "failed to fetch ${slug} from ${url}"
+        return 1
+    fi
+
+    jq --null-input \
+        --argjson response "$response" \
+        --arg slug "$slug" '
+        $response
+        | if (.current_version.files | length) == 0 then
+            error("no downloadable file listed for " + $slug)
+          else
+            if (.current_version.files[0].hash | test("^sha256:[0-9a-f]{64}$")) then
+              .
+            else
+              error("unexpected hash format for " + $slug + ": " + .current_version.files[0].hash)
+            end
+          end
+        | {
+            slug: $slug,
+            addonId: .guid,
+            version: .current_version.version,
+            url: .current_version.files[0].url,
+            hash: .current_version.files[0].hash,
+            permissions: (.current_version.files[0].permissions // []),
+            summary: (.summary // ""),
+            homepage: (if (.homepage // "") == "" then null else .homepage end),
+            licenseId: .current_version.license.id
+          }
+        | with_entries(select(.value != null))
+        '
+}
+
+main() {
+    local slugs total unique tmp
+
+    if ! command -v curl >/dev/null; then
+        fail "curl is required"
+        return 1
+    fi
+    if ! command -v jq >/dev/null; then
+        fail "jq is required"
+        return 1
+    fi
+
+    mapfile -t slugs < <(jq --raw-output '.[].slug' "$allowlist")
+    total="${#slugs[@]}"
+    unique="$(printf '%s\n' "${slugs[@]}" | sort -u | wc -l)"
+
+    if [ "$total" -eq 0 ]; then
+        fail "${allowlist} is empty"
+        return 1
+    fi
+    if [ "$total" -ne "$unique" ]; then
+        fail "${allowlist} contains duplicate slugs"
+        return 1
+    fi
+
+    tmp="$(mktemp)"
+    # shellcheck disable=SC2064
+    trap "rm -f '${tmp}'" RETURN
+
+    for slug in "${slugs[@]}"; do
+        info "fetching ${slug}"
+        fetch_addon "$slug" >>"$tmp"
+    done
+
+    jq --slurp --sort-keys 'sort_by(.slug)' "$tmp" >"${lockfile}.new"
+    mv "${lockfile}.new" "$lockfile"
+
+    info "wrote ${total} add-ons to ${lockfile}"
+}
+
+main "$@"
