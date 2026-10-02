@@ -64,6 +64,12 @@ Only the current platform is build-tested. For flat binary archives, hashes for
 other platforms are fetched on the local machine without foreign builders.
 Generic source/dependency updates use `nix-update` and may need other builders.
 
+Both workflows use the repository's self-hosted runner and its existing Nix
+installation. `Package checks` runs on pushes to `main`, same-repository PRs,
+and manual dispatch; fork PRs are skipped to avoid running external code on the
+persistent runner. Only run trusted code there; this filter is not a sandbox.
+Checks have a 120-minute timeout and do not persist checkout credentials.
+
 To build without the maintenance tools:
 
 ```sh

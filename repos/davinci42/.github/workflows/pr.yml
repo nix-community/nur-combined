@@ -15,13 +15,14 @@ concurrency:
 
 jobs:
   tests:
-    runs-on: ubuntu-latest
+    if: (github.event.pull_request.head.repo.full_name || github.repository) == 'DaVinci42/nur-packages'
+    runs-on: self-hosted
+    timeout-minutes: 120
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
-      - uses: cachix/install-nix-action@630ae543ea3a38a9a4166f03376c02c50f408342
         with:
-          nix_path: nixpkgs=channel:nixos-unstable
-          extra_nix_config: |
-            experimental-features = nix-command flakes
+          persist-credentials: false
       - name: Build and validate packages
         run: nix-shell --run 'just check-all'
