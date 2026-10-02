@@ -19,11 +19,11 @@ in
 
     nativeBuildInputs = [makeWrapper];
 
-    # 0.9.0 opens the config with O_NOFOLLOW, rejecting the symlink that is the only shape home-manager can deliver.
+    # Upstream opens the config with O_NOFOLLOW, rejecting the symlink that is the only shape home-manager can deliver.
     # The regular-file check on the opened descriptor, the bounded read and the JSON shape check stay.
     postPatch = ''
       substituteInPlace src/config.ts \
-        --replace-fail 'const flags = fs.constants.O_RDONLY | (fs.constants.O_NOFOLLOW ?? 0);' 'const flags = fs.constants.O_RDONLY;'
+        --replace-fail 'fs.constants.O_RDONLY | (fs.constants.O_NOFOLLOW ?? 0)' 'fs.constants.O_RDONLY'
     '';
 
     # npm run build deletes the dist/ upstream CI commits and recompiles it from src/.
@@ -31,9 +31,9 @@ in
     installPhase = ''
       runHook preInstall
 
-      # Claude Code loads the plugin from $out itself, so the manifest and commands stay at the root.
+      # Claude Code loads the plugin from $out itself, so the manifest, commands and the scripts they run stay at the root.
       mkdir -p $out
-      cp -r .claude-plugin commands dist $out/
+      cp -r .claude-plugin commands dist scripts $out/
 
       # dist/*.js are ESM; node reads the module type from this package.json.
       install -Dm644 package.json $out/package.json
@@ -53,6 +53,7 @@ in
       grep -qF '"version": "${version}"' $out/.claude-plugin/plugin.json
       test -f $out/commands/setup.md
       test -f $out/commands/configure.md
+      test -f $out/scripts/setup.mjs
 
       # The statusline renders one frame per stdin payload; this is upstream's own smoke input.
       payload='{"model":{"display_name":"Opus"},"context_window":{"current_usage":{"input_tokens":45000},"context_window_size":200000},"transcript_path":"/nonexistent/transcript.jsonl"}'
