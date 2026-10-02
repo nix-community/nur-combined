@@ -18,18 +18,24 @@ let
     in
     f ((builtins.intersectAttrs (builtins.functionArgs f) allPkgs) // overrides);
 
-  # nixpkgs' by-name layout: pkgs/by-name/<first two letters>/<pname>/package.nix
+  # nixpkgs' by-name layout: <root>/<first two letters>/<pname>/package.nix
   byNamePkgs =
     let
-      dir = ./pkgs/by-name;
+      dirs = [
+        ./pkgs/by-name
+        ./pkgs/development/tcl-modules/by-name
+      ];
       subDirs =
         path:
         builtins.filter (name: (builtins.readDir path).${name} == "directory") (
           builtins.attrNames (builtins.readDir path)
         );
       packagePaths = pkgs.lib.concatMap (
-        prefix: map (name: dir + "/${prefix}/${name}/package.nix") (subDirs (dir + "/${prefix}"))
-      ) (subDirs dir);
+        dir:
+        pkgs.lib.concatMap (
+          prefix: map (name: dir + "/${prefix}/${name}/package.nix") (subDirs (dir + "/${prefix}"))
+        ) (subDirs dir)
+      ) dirs;
     in
     builtins.listToAttrs (
       map (path: {
@@ -46,27 +52,11 @@ let
 
     mySources = callPackage ./_sources/generated.nix { };
 
-    tcl-prompt = callPackage ./pkgs/development/tcl-modules/tcl-prompt { };
-
     gdb-prompt = callPackage ./pkgs/development/gdb-modules/gdb-prompt { };
 
     bash-prompt = callPackage ./pkgs/development/bash-modules/bash-prompt { };
 
-    lua51-prompt-style = callPackage ./pkgs/development/lua-modules/prompt-style {
-      luaPackages = pkgs.lua51Packages;
-    };
-    lua52-prompt-style = callPackage ./pkgs/development/lua-modules/prompt-style {
-      luaPackages = pkgs.lua52Packages;
-    };
-    lua53-prompt-style = callPackage ./pkgs/development/lua-modules/prompt-style {
-      luaPackages = pkgs.lua53Packages;
-    };
-    lua54-prompt-style = callPackage ./pkgs/development/lua-modules/prompt-style {
-      luaPackages = pkgs.lua54Packages;
-    };
-    luajit-prompt-style = callPackage ./pkgs/development/lua-modules/prompt-style {
-      luaPackages = pkgs.luajitPackages;
-    };
+    warna = callPackage ./pkgs/development/lua-modules/warna { };
 
     translate-shell = callPackage ./pkgs/development/python-modules/translate-shell { };
     mulimgviewer = callPackage ./pkgs/development/python-modules/mulimgviewer { };
