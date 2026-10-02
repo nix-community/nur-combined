@@ -77,14 +77,19 @@ let
       ];
     };
   };
+  # Plain QQ built from the tracked installer, without the shims. The
+  # standalone launcher drives it and injects the shims at launch time, so it
+  # must not depend on nixpkgs' QQ whose pinned installer URLs rot.
+  qqBase = qq.overrideAttrs (old: {
+    version = qqVersion;
+    src = qqSource.src;
+  });
 in
 # `qq-wayland-fix` provides the same `qq` command and menu entry as the `qq`
 # package, but preloads the Wayland fix into QQ's existing wrapper. Install
 # exactly one of the two.
-qq.overrideAttrs (old: {
+qqBase.overrideAttrs (old: {
   pname = "qq-wayland-fix";
-  version = qqVersion;
-  src = qqSource.src;
 
   postFixup = (old.postFixup or "") + ''
     wrapProgram $out/bin/qq \
@@ -95,7 +100,7 @@ qq.overrideAttrs (old: {
   '';
 
   passthru = (old.passthru or { }) // {
-    inherit waylandFix;
+    inherit qqBase waylandFix;
   };
 
   meta = old.meta // {

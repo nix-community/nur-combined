@@ -24,6 +24,7 @@ in
   # Standalone upstream launcher + desktop entry driving a separately installed QQ.
   qq-wayland-fix-launcher = pkgs.callPackage ./qq-wayland-fix/launcher.nix {
     inherit sources;
+    qq = qq-wayland-fix.passthru.qqBase;
     waylandFix = qq-wayland-fix.passthru.waylandFix;
   };
   # Deprecated: superseded by qq-wayland-fix; the alias warns on evaluation.
