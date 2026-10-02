@@ -190,6 +190,14 @@
     };
     date = "2026-10-02";
   };
+  qq-wayland-fix-bin-x86_64 = {
+    pname = "qq-wayland-fix-bin-x86_64";
+    version = "0.2.7";
+    src = fetchurl {
+      url = "https://github.com/SHORiN-KiWATA/linuxqq-wayland-fix/releases/download/v0.2.7/linuxqq-wayland-fix_0.2.7-1.debian12_amd64.deb";
+      sha256 = "sha256-Z2y+CTK2fV97lUE5kWiW766p+i7yPPstdcV+CLWY2/g=";
+    };
+  };
   qq-x86_64 = {
     pname = "qq-x86_64";
     version = "https://qqdl.aflare.top/qqfile/QQNTV2/9.9.36/release/9ee04bef/QQ_3.2.34_260924_amd64_01.deb";
