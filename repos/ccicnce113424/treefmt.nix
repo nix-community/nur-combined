@@ -20,14 +20,15 @@
           enable = true;
           priority = 2;
         };
-        programs.prettier.enable = true;
-        programs.just.enable = true;
         programs.toml-sort = {
           enable = true;
           all = true;
         };
+        programs.prettier.enable = true;
+        programs.just.enable = true;
         programs.shfmt.enable = true;
         programs.keep-sorted.enable = true;
+        programs.actionlint.enable = true;
       };
     };
 }
