@@ -11,6 +11,17 @@ Conformance is tracked separately as a ratchet against the official
 
 ## [Unreleased]
 
+## [0.20.0] - 2026-10-02
+
+_Faster, and nothing else changes: output and diagnostics are byte-identical
+to 0.19.3 on every project and corpus measured, and sass-spec scores the
+same, stderr included. A call to a built-in or to a user `@function` or `@mixin` does much
+less work per call, and that is most of a compile for a framework built on
+them. Against 0.19.3, in instructions on Linux/x86_64: vuetify -24%, bulma
+-21%, govuk-frontend and minimal-mistakes -11%, bootstrap -8%, uswds -7%,
+and `large.scss` -10%. The argument checks 0.19.1 added to every built-in
+call (#260) no longer cost what they did._
+
 ### Performance
 
 - **Built-in calls cost about what they did before 0.19.1 again** (#260).
@@ -3900,7 +3911,8 @@ real-world SCSS byte-identically to dart-sass.
 - Distribution: CLI binary (prebuilt via cargo-dist), library crate, and a
   zero-dependency WebAssembly build published to npm as `@momiji-rs/sasso`.
 
-[Unreleased]: https://github.com/momiji-rs/sasso/compare/v0.19.3...HEAD
+[Unreleased]: https://github.com/momiji-rs/sasso/compare/v0.20.0...HEAD
+[0.20.0]: https://github.com/momiji-rs/sasso/compare/v0.19.3...v0.20.0
 [0.19.3]: https://github.com/momiji-rs/sasso/compare/v0.19.2...v0.19.3
 [0.19.2]: https://github.com/momiji-rs/sasso/compare/v0.19.1...v0.19.2
 [0.19.1]: https://github.com/momiji-rs/sasso/compare/v0.19.0...v0.19.1
