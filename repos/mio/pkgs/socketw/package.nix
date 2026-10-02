@@ -9,7 +9,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "socketw";
-  version = "3.10.27";
+  version = "813375e";
 
   src = fetchFromGitHub {
     owner = "RigsOfRods";

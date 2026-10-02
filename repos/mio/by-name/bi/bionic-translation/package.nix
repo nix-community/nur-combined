@@ -14,7 +14,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "bionic-translation";
-  version = "0-unstable-2026-09-18";
+  version = "6253dec";
 
   src = fetchFromGitLab {
     owner = "android_translation_layer";

@@ -19,32 +19,29 @@
 # We skip -fuse-ld=lld: with clang+lld, mid-build host flatc loses libstdc++
 # RPATH and schema codegen fails in the sandbox (luochen's flake hits the same).
 let
-  inherit (llvmPackages_23) stdenv;
+  stdenv = llvmPackages_23.libcxxStdenv;
 
   # Matches cmake/package.cmake setup_llvm(...). Distro LLVM lacks the private
   # Clang headers clice needs, so we use the project's published prebuilts.
-  llvmVersion = "23.1.1+r1";
+  llvmVersion = "23.1.2.4";
 
   llvmArtifact =
     if stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isx86_64 then
       {
-        name = "x86_64-unknown-linux-gnu.releasedbg";
+        name = "libclang-${llvmVersion}-x86_64-unknown-linux-gnu";
         hash = "sha256-jhrynHZIPJdHy4Oa7/lCWMpV0TYyQFKtOrD8SCzerTA=";
       }
     else if stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64 then
       {
-        name = "aarch64-unknown-linux-gnu.releasedbg";
+        name = "libclang-${llvmVersion}-aarch64-unknown-linux-gnu";
         hash = "";
       }
     else
       throw "clice: unsupported platform ${stdenv.hostPlatform.system}";
 
   clice-llvm = fetchzip {
-    url = "https://github.com/clice-io/clice-llvm/releases/download/${
-      lib.replaceStrings [ "+" ] [ "%2B" ] llvmVersion
-    }/${llvmArtifact.name}.tar.xz";
+    url = "https://github.com/clice-io/xclang/releases/download/${llvmVersion}/${llvmArtifact.name}.tar.xz";
     hash = llvmArtifact.hash;
-    stripRoot = false;
   };
 
   # Vendored FetchContent deps (cmake/package.cmake + kotatsu nested deps).
@@ -149,16 +146,17 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "clice";
-  version = "0.1.2026092407";
+  version = "0.1.2026100108";
 
   src = fetchFromGitHub {
     owner = "clice-io";
     repo = "clice";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-DcZbkVhlFDezgBzlEV7LLDRbXZqp5z0oOk8qLVQ7GAk=";
+    hash = "sha256-cQ0ndT9ND29HsgMUtUatW1qx20D58aY9zxXKI4KMRx4=";
   };
 
   nativeBuildInputs = [
+    llvmPackages_23.lld
     cmake
     ninja
     python3
@@ -167,6 +165,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   env.CXXFLAGS = "-Wno-error=unused-template";
+  env.LDFLAGS = "-fuse-ld=lld";
 
   buildInputs = [
     zlib

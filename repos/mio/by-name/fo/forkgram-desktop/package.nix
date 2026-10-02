@@ -11,7 +11,7 @@ telegram-desktop.override {
   pname = "forkgram-desktop";
   unwrapped = telegram-desktop.unwrapped.overrideAttrs (old: {
     pname = "forkgram-desktop-unwrapped";
-    version = "7.2.9";
+    version = "7.2.10";
 
     src = fetchFromGitHub {
       owner = "forkgram";

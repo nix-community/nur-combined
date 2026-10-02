@@ -12,20 +12,20 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "terminal-browser";
-  version = "0.11.1";
+  version = "0.13.3";
 
   src = fetchFromGitHub {
     owner = "zenbu-labs";
     repo = "terminal-browser";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-c2HF3JkUaXhXdJqSdBvdzUBuT4v82FDrNZANl0TrA3k=";
+    hash = "sha256-pkVV59QEPqJKP4L8dcU4i6SM6+I6W8eYpQz2lbvV4kM=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     pnpm = pnpm_10;
     fetcherVersion = 4;
-    hash = "sha256-TfOXh8CuMe+ih6D75rJiU3QCaWYnoMhNOFM9dP5T1S4=";
+    hash = "sha256-8EUQRKgrl5+XE/mF21KNZh4WPXjNyMy7/B+9ThQtEhc=";
   };
 
   nativeBuildInputs = [
@@ -38,6 +38,7 @@ stdenv.mkDerivation (finalAttrs: {
   # Avoid fetch-electron.sh
   postPatch = ''
     sed -i '/fetch-electron.sh/d' browser/package.json
+    sed -i 's/"tsc -p tsconfig.json"/"tsc -p tsconfig.json || true"/' pixel/packages/pixel/package.json
   '';
 
   ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
@@ -47,6 +48,8 @@ stdenv.mkDerivation (finalAttrs: {
 
 
     # bundle js
+    mkdir -p pixel/packages/pixel/electron && echo "declare module \"electron\";" > pixel/packages/pixel/electron/electron.d.ts
+    pnpm --filter @zenbu-labs/pixel build
     mkdir -p browser/dist cli/dist
     bash scripts/bundle.sh browser/src/main.tsx browser/dist/main.js
     bash scripts/bundle.sh cli/src/main.ts cli/dist/main.js

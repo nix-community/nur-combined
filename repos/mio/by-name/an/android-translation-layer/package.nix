@@ -28,7 +28,7 @@
 
 stdenv.mkDerivation {
   pname = "android-translation-layer";
-  version = "0-unstable-2026-09-18";
+  version = "aa80e74";
 
   src = fetchFromGitLab {
     owner = "android_translation_layer";

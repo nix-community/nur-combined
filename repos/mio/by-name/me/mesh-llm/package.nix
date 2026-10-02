@@ -10,16 +10,19 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "mesh-llm";
-  version = "0.76.2";
+  version = "0.77.0";
 
   src = fetchFromGitHub {
     owner = "Mesh-LLM";
     repo = "mesh-llm";
     rev = "v${version}";
-    hash = "sha256-xbyNjc2oInEkmQWkGDAslCM/cNhAVjE4xcpVLFixlLE=";
+    hash = "sha256-+1NuJTkCPZHwQAlnAKMzfpGyQxSMYJcNFyW4WJZ5J0Q=";
   };
 
-  cargoHash = "sha256-ccZZR/ghTD+mg2jhsuQLqLAZgMTeagvfKkHmNZ+KWag=";
+  cargoHash = "sha256-EJKzMoqXCLc0xooKqpXA5InIUNt3IjJicbadiTfJWVU=";
+  postPatch = ''
+    rm -f .cargo/config.toml
+  '';
 
   nativeBuildInputs = [
     pkg-config

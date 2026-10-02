@@ -12,7 +12,7 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "bitwarden-extension";
-  version = "2026.9.2";
+  version = "browser-v2026.9.3";
 
   extid = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
 

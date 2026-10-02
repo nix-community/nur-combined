@@ -10,13 +10,13 @@
 
 let
   pname = "unsloth";
-  version = "prebuilt-wheels-cu13";
+  version = "0.1.902-beta";
 
   src = fetchFromGitHub {
     owner = "unslothai";
     repo = "unsloth";
     rev = "v${version}";
-    hash = "sha256-/RJ7WsDAlqUlzMaYX+IjxTQgYwx31uFSEvhFV2b1jc4=";
+    hash = "sha256-3PxgkjmlflA+HCkw488G0LtnouH0tbq0jzYBEhkbR/8=";
   };
 
   # Unsloth Studio frontend is built with npm/vite

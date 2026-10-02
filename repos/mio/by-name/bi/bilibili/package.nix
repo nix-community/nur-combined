@@ -22,24 +22,24 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "bilibili";
-  version = "1.19.0-1";
+  version = "1.19.0-3";
 
   src = fetchFromGitHub {
     owner = "msojocs";
     repo = "bilibili-linux";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-gqI4S2VX44od1gjBKMXr2JAv7NlVJib5hqN08r+aRoo=";
+    hash = "sha256-6nTLW2C7DXgsu7hhUv/20NlpETBEAMfg1ooe3DRoM8U=";
   };
 
   bilibiliInstaller = fetchurl {
     url = "https://dl.hdslb.com/mobile/fixed/bili_win/bili_win-install.exe";
-    hash = "sha256-ftvTt963focWWbW6tzwoi0cdNnEothXxYByefJPlvBs=";
+    hash = "sha256-Q2q6LdnW09dwGRIbdtG3LOKFzWUV7Cw1t5wMQJ1GDAQ=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 4;
-    hash = "sha256-lHXcwLotj/tprrkHRVBUyYx9MML/NvuN2AnWhbmNnCA=";
+    hash = "sha256-kf68g4GiLP89lojXIlkSHBgA4RR4MCwsQ8hP46yuZvY=";
   };
 
   nativeBuildInputs = [
