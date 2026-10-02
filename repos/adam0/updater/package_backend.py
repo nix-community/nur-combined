@@ -3,6 +3,7 @@ from __future__ import annotations
 import logging
 import re
 import subprocess
+import tempfile
 from pathlib import Path
 
 from .manifest import latest_release_prefix_for_url, package_has_manifest_updater
@@ -34,7 +35,16 @@ def update_package(
 
     with FileTransaction(owned_roots) as transaction:
         try:
-            _run_nix_update(ref, before.version_mode, timeout=timeout)
+            if (
+                before.version_mode == "branch"
+                and before.src_rev
+                and before.src_url
+                and before.src_url.startswith("https://tangled.org/")
+            ):
+                if _update_tangled_revision(ref.file_path, before, timeout=timeout):
+                    _run_nix_update(ref, "skip", timeout=timeout)
+            else:
+                _run_nix_update(ref, before.version_mode, timeout=timeout)
         except CommandError as error:
             transaction.restore()
             logger.info("nix-update failed for %s:\n%s", ref.attr_path, error.details)
@@ -141,6 +151,39 @@ def _rejected_status(reason: str) -> ResultStatus:
         "rejected version-only branch prefix change",
     )
     return "skipped" if reason.startswith(skipped_prefixes) else "invalid"
+
+
+def _update_tangled_revision(file_path: Path, before: PackageState, *, timeout: str | None) -> bool:
+    repository_url = (before.src_url or "").split("/archive/", 1)[0]
+    with tempfile.TemporaryDirectory(prefix="nur-tangled-") as directory:
+        checkout = Path(directory) / "source"
+        run(["git", "clone", "--depth=1", repository_url, str(checkout)], timeout=timeout)
+        revision, date = (
+            run(["git", "show", "-s", "--format=%H%n%cs", "HEAD"], cwd=checkout, timeout=timeout)
+            .stdout.strip()
+            .splitlines()
+        )
+    if revision == before.src_rev:
+        return False
+    parts = branch_parts(before.version)
+    prefix = parts[0] if parts else before.version
+    text = file_path.read_text()
+    text, revision_count = re.subn(
+        r'rev = "' + re.escape(before.src_rev or "") + r'";',
+        f'rev = "{revision}";',
+        text,
+        count=1,
+    )
+    text, version_count = re.subn(
+        r'version = "' + re.escape(before.version) + r'";',
+        f'version = "{prefix}-unstable-{date}";',
+        text,
+        count=1,
+    )
+    if not revision_count or not version_count:
+        raise ValueError(f"cannot locate Tangled revision/version in {file_path}")
+    file_path.write_text(text)
+    return True
 
 
 def _run_nix_update(ref: PackageRef, version_mode: str, *, timeout: str | None) -> None:

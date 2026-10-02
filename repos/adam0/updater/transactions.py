@@ -30,7 +30,15 @@ class FileTransaction:
             shutil.rmtree(self._tmpdir, ignore_errors=True)
 
     def new_changed_files(self) -> set[Path]:
-        return git_changed_files() - self.before_diff
+        changed = git_changed_files() - self.before_diff
+        current = set(_files_under(self.owned_paths))
+        changed.update(current.symmetric_difference(self._backups))
+        changed.update(
+            path
+            for path in current.intersection(self._backups)
+            if path.read_bytes() != self._backups[path].read_bytes()
+        )
+        return changed
 
     def restore(self) -> None:
         before = set(self._backups)
