@@ -210,9 +210,9 @@ git.date_tz = "UTC"
 # not needed any more.
 cargo_lock = ["Cargo.lock"]
 
-[qq-wlss]
-src.git = "https://github.com/SHORiN-KiWATA/linuxqq-wayland-screenshare-fix"
-fetch.github = "SHORiN-KiWATA/linuxqq-wayland-screenshare-fix"
+[qq-wayland-fix]
+src.git = "https://github.com/SHORiN-KiWATA/linuxqq-wayland-fix"
+fetch.github = "SHORiN-KiWATA/linuxqq-wayland-fix"
 git.date_tz = "UTC"
 
 # --------------------------------------------------------------------------

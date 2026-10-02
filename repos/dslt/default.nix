@@ -18,6 +18,7 @@ let
   );
 
   chatgpt = pkgs.callPackage ./pkgs/chatgpt { inherit sources; };
+  qq-wayland-fix = pkgs.callPackage ./pkgs/qq-wayland-fix { inherit sources; };
 in
 {
   # The `lib`, `modules`, and `overlays` names are special
@@ -39,7 +40,14 @@ in
   openssl_1_1 = (pkgs.callPackage ./pkgs/openssl-1.1 { }).openssl_1_1;
   pixivbiu = pkgs.callPackage ./pkgs/pixivbiu { inherit bun2nix sources; };
   pixivbiu-bin = pkgs.callPackage ./pkgs/pixivbiu-bin { inherit sources; };
-  qq-wlss = pkgs.callPackage ./pkgs/qq-wlss { inherit sources; };
+  qq-wayland-fix = qq-wayland-fix;
+  # Standalone upstream launcher + desktop entry driving a separately installed QQ.
+  qq-wayland-fix-launcher = pkgs.callPackage ./pkgs/qq-wayland-fix/launcher.nix {
+    inherit sources;
+    waylandFix = qq-wayland-fix.passthru.waylandFix;
+  };
+  # Deprecated: superseded by qq-wayland-fix; the alias warns on evaluation.
+  qq-wlss = pkgs.callPackage ./pkgs/qq-wlss { inherit qq-wayland-fix; };
   xwaylandvideobridge = pkgs.kdePackages.callPackage ./pkgs/xwaylandvideobridge { inherit sources; };
   rikkahub-desktop = pkgs.callPackage ./pkgs/rikkahub-desktop { inherit bun2nix sources; };
   rikkahub-desktop-bin = pkgs.callPackage ./pkgs/rikkahub-desktop-bin { inherit sources; };

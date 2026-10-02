@@ -294,11 +294,11 @@
         },
         "version": "https://qqdl.aflare.top/qqfile/QQNTV2/9.9.36/release/9ee04bef/QQ_3.2.34_260924_arm64_01.deb"
     },
-    "qq-wlss": {
+    "qq-wayland-fix": {
         "cargoLock": null,
-        "date": "2026-10-01",
+        "date": "2026-10-02",
         "extract": null,
-        "name": "qq-wlss",
+        "name": "qq-wayland-fix",
         "passthru": null,
         "pinned": false,
         "src": {
@@ -307,13 +307,13 @@
             "leaveDotGit": false,
             "name": null,
             "owner": "SHORiN-KiWATA",
-            "repo": "linuxqq-wayland-screenshare-fix",
-            "rev": "c5b84d930178fe6eb4f97b5f89d3933e63f514e9",
-            "sha256": "sha256-bBv1iUgQTGDxbkO0tvTdMlXoH942oNlEGquqlvVdF8s=",
+            "repo": "linuxqq-wayland-fix",
+            "rev": "106e0c2c6c99f1cc88d98321d8cee4865fed00b4",
+            "sha256": "sha256-PWzi9rEVrMGUfF8XWLTDhbRHKeMCW5vLhU1PMftNElQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c5b84d930178fe6eb4f97b5f89d3933e63f514e9"
+        "version": "106e0c2c6c99f1cc88d98321d8cee4865fed00b4"
     },
     "qq-x86_64": {
         "cargoLock": null,
