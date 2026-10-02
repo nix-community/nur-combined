@@ -47,6 +47,11 @@ in
     qq = qq-wayland-fix.passthru.qqBase;
     waylandFix = qq-wayland-fix.passthru.waylandFix;
   };
+  # Prebuilt release artifact of the launcher above (x86_64-linux only).
+  qq-wayland-fix-launcher-bin = pkgs.callPackage ./pkgs/qq-wayland-fix/launcher-bin.nix {
+    inherit sources;
+    qq = qq-wayland-fix.passthru.qqBase;
+  };
   # Deprecated: superseded by qq-wayland-fix; the alias warns on evaluation.
   qq-wlss = pkgs.callPackage ./pkgs/qq-wlss { inherit qq-wayland-fix; };
   xwaylandvideobridge = pkgs.kdePackages.callPackage ./pkgs/xwaylandvideobridge { inherit sources; };

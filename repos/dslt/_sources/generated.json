@@ -315,6 +315,21 @@
         },
         "version": "32d5b681b7335536e8ac27c8cd326412a5357a06"
     },
+    "qq-wayland-fix-bin-x86_64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "qq-wayland-fix-bin-x86_64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-Z2y+CTK2fV97lUE5kWiW766p+i7yPPstdcV+CLWY2/g=",
+            "type": "url",
+            "url": "https://github.com/SHORiN-KiWATA/linuxqq-wayland-fix/releases/download/v0.2.7/linuxqq-wayland-fix_0.2.7-1.debian12_amd64.deb"
+        },
+        "version": "0.2.7"
+    },
     "qq-x86_64": {
         "cargoLock": null,
         "date": null,

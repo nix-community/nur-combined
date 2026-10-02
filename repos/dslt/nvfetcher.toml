@@ -188,6 +188,13 @@ src.github = "txperl/PixivBiu"
 src.prefix = "v"
 fetch.url = "https://github.com/txperl/PixivBiu/releases/download/v$ver/PixivBiu_$ver_linux_arm64.tar.gz"
 
+[qq-wayland-fix-bin-x86_64]
+# Upstream's release bundles carry the launcher, the four compiled shims and the
+# desktop entry (no QQ itself); no aarch64 asset is published yet.
+src.github = "SHORiN-KiWATA/linuxqq-wayland-fix"
+src.prefix = "v"
+fetch.url = "https://github.com/SHORiN-KiWATA/linuxqq-wayland-fix/releases/download/v$ver/linuxqq-wayland-fix_$ver-1.debian12_amd64.deb"
+
 [rikkahub-desktop-bin]
 src.github = "yuh-G/rikkahub-desktop"
 src.prefix = "v"
