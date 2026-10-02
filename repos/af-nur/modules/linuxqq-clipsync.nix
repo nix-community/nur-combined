@@ -3,7 +3,7 @@
 let
   programCfg = config.programs.linuxqq-clipsync;
   serviceCfg = config.services.linuxqq-clipsync;
-  defaultPackage = pkgs.callPackage ../pkgs/linuxqq-clipsync { };
+  defaultPackage = (import ../pkgs { inherit pkgs; }).linuxqq-clipsync;
 in
 {
   options.programs.linuxqq-clipsync = {
@@ -12,7 +12,7 @@ in
     package = lib.mkOption {
       type = lib.types.package;
       default = defaultPackage;
-      defaultText = lib.literalExpression "pkgs.callPackage <nur-packages>/pkgs/linuxqq-clipsync { }";
+      defaultText = lib.literalExpression "(import <nur-packages>/pkgs { inherit pkgs; }).linuxqq-clipsync";
       description = "linuxqq-clipsync package to install into the system profile.";
     };
   };
