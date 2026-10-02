@@ -49,6 +49,10 @@
 
     sourceRoot = ".";
 
+    unpackCmd = ''
+      LANG=C.UTF-8 unzip -qq "$curSrc" || [ $? -eq 1 ]
+    '';
+
     nativeBuildInputs =
       [
         makeWrapper
