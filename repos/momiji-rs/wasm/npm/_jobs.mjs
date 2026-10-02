@@ -14,7 +14,9 @@
 // a fork. Apple silicon has no SMT, so the logical count is already right
 // there; Intel Macs and Windows keep the logical count rather than pay a
 // subprocess at start-up for a number that is, at worst, today's default.
-import { readFileSync } from "node:fs";
+import { createRequire } from "node:module";
+// `require`, not `import`: see `require_` in _addon.mjs.
+const { readFileSync } = createRequire(import.meta.url)("node:fs");
 // Default import, NOT a named one: `availableParallelism` only exists on
 // Node >= 18.14, and a missing named export fails ESM *linking* — this module
 // is reached from the package's `bin`, so the CLI would not start at all on an

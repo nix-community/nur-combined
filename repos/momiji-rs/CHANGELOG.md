@@ -11,6 +11,34 @@ Conformance is tracked separately as a ratchet against the official
 
 ## [Unreleased]
 
+### Performance
+
+- **The npm CLI compiles a single entry 24–31% faster on the native addon**
+  (#272). A build watcher that spawns the CLI on every save compiles one
+  entry each time, and most of that run went to loading code the command
+  line never used. It loaded the whole JS API (importers, the Value classes,
+  the wasm loader) to reach the addon, and it imported `node:fs` through
+  ESM, whose export facade loads node's stream stack. It also loaded
+  `node:child_process` and `node:worker_threads` with nothing to spawn, and
+  on Linux it checked glibc by building the full diagnostic report three
+  times. The CLI now loads the addon core and what a command line uses. One
+  entry of a real-world project, run through a pnpm `.bin` shim, on
+  Linux/x86_64, medians of 60 interleaved runs:
+
+  ```
+                                             0.20.0     now        change
+    --embed-sources                          51.3 ms    39.0 ms    -24.1%
+    --style=compressed --no-source-map       49.6 ms    34.4 ms    -30.7%
+  ```
+
+  The second row is faster partly because it writes no source map: only
+  `--embed-sources` still triggers one young-generation GC (3.4 ms).
+
+  148 entries in one process: −5.4% (196.2 → 185.6 ms). On macOS/arm64, which
+  never paid the Linux glibc check, one entry is −6.6%. The wasm engine and the
+  hand-off to a binary on `PATH` are within 3%. Output, stderr and exit codes
+  are byte-identical to 0.20.0 on every engine.
+
 ## [0.20.0] - 2026-10-02
 
 _Faster, and nothing else changes: output and diagnostics are byte-identical

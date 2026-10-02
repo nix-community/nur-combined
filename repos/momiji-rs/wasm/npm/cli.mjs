@@ -4,7 +4,14 @@
 // is installed and the wasm build otherwise (see `loadEngine`), and spreads
 // independent jobs over `node:worker_threads`.
 // A subset of the dart-sass `sass` CLI flags, sharing the package's compiler.
-import {
+import { createRequire } from "node:module";
+import { basename, dirname, join, resolve, relative, sep, delimiter } from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
+// Builtins through `require`, not `import`: an ESM import of `node:fs` builds
+// its whole export facade, and reading every getter loads the stream stack
+// with it (3.6 ms of a one-entry compile, measured 2026-10-02; #272).
+const require_ = createRequire(import.meta.url);
+const {
   readFileSync,
   writeFileSync,
   writeSync,
@@ -20,13 +27,17 @@ import {
   readSync,
   closeSync,
   accessSync,
-  constants as fsConstants,
-} from "node:fs";
-import { basename, dirname, join, resolve, relative, sep, delimiter } from "node:path";
-import { fileURLToPath, pathToFileURL } from "node:url";
-import { isMainThread, workerData, parentPort, Worker, MessageChannel, receiveMessageOnPort } from "node:worker_threads";
-import { spawnSync } from "node:child_process";
-import { constants as osConstants } from "node:os";
+  constants: fsConstants,
+} = require_("node:fs");
+// Only a batch or `--watch` runs workers, and `node:worker_threads` brings the
+// stream stack with it, so it waits for one of those. A worker starts from
+// `_cliworker.mjs` (see the end of this file) and asks for it there.
+const workerThreads = () => require_("node:worker_threads");
+const WORKER_ENTRY = fileURLToPath(new URL("./_cliworker.mjs", import.meta.url));
+// Only a hand-off spawns anything, so `node:child_process` (and the `node:net`
+// it loads, 1.1 ms) waits until one does.
+const spawnSync = (...args) => require_("node:child_process").spawnSync(...args);
+const { constants: osConstants } = require_("node:os");
 // The pool's default size — physical cores rather than SMT threads on Linux,
 // where `/proc/cpuinfo` publishes the topology, and the CPU count everywhere
 // else. See _jobs.mjs for the measurement and for both fallbacks.
@@ -77,7 +88,10 @@ async function loadEngine() {
   let kind = "native";
   if (want !== "wasm") {
     try {
-      mod = await import("./native.mjs");
+      // The core alone, not native.mjs: a command line passes no importers
+      // and no functions, so the API layer over it would only be loaded to
+      // go unused — most of what choosing the engine cost (#272).
+      mod = await import("./_nativecore.mjs");
     } catch (e) {
       // Through the same coerced string in both places: a `throw null` or a
       // thrown string from anything native.mjs imports has no `.message`, and
@@ -2219,12 +2233,13 @@ const WORKER_GONE = -1;
 function makeWatchPool(size, opts, sourceMap) {
   // [0] the next job to take, [1] bumped on every report, [2 + k] the round
   // worker k last finished, or WORKER_GONE.
+  const { Worker, MessageChannel, receiveMessageOnPort } = workerThreads();
   const ctl = new Int32Array(new SharedArrayBuffer(4 * (2 + size)));
   const { positionals: _unused, ...workerOpts } = opts;
   const workers = [];
   const ports = Array.from({ length: size }, (_, k) => {
     const { port1, port2 } = new MessageChannel();
-    const worker = new Worker(fileURLToPath(import.meta.url), {
+    const worker = new Worker(WORKER_ENTRY, {
       workerData: { sassoWatchWorker: true, opts: workerOpts, sourceMap, port: port2, ctl, slot: 2 + k },
       transferList: [port2],
     });
@@ -2270,7 +2285,7 @@ function makeWatchPool(size, opts, sourceMap) {
 
 /** A `--watch` pool thread: compile what the round hands out, until the watch ends. */
 async function runWatchWorker() {
-  const { opts, sourceMap, port, ctl, slot } = workerData;
+  const { opts, sourceMap, port, ctl, slot } = workerThreads().workerData;
   const report = (state) => {
     Atomics.store(ctl, slot, state);
     Atomics.add(ctl, 1, 1);
@@ -2395,6 +2410,7 @@ function runLoop(opts, common) {
 
 /** A worker thread: same compile loop, same code, pulling from the shared index. */
 async function runWorker() {
+  const { workerData, parentPort } = workerThreads();
   const { shared, opts, ctl, stdinBytes } = workerData;
   await loadEngine();
   const common = commonOptions(opts);
@@ -2577,7 +2593,9 @@ async function main() {
  * and an order needs a sequence.
  */
 async function runJobs(jobs, opts, common) {
-  const wanted = opts.jobs ?? defaultJobs();
+  // One job is one worker whatever the default is, so the default (a read of
+  // `/proc/cpuinfo` on Linux, 1 ms) is only worked out for a batch.
+  const wanted = opts.jobs ?? (jobs.length > 1 ? defaultJobs() : 1);
   // Standard input is read ONCE, here, and handed to whoever needs it — as
   // SHARED bytes, because `workerData` copies what it carries and only the one
   // worker that claims the `-` job ever reads them. (It used to force the whole
@@ -2644,7 +2662,7 @@ async function runJobs(jobs, opts, common) {
   const { positionals: _unused, ...workerOpts } = opts;
   const results = await Promise.all(
     Array.from({ length: workers }, () => {
-      const worker = new Worker(fileURLToPath(import.meta.url), {
+      const worker = new (workerThreads().Worker)(WORKER_ENTRY, {
         workerData: { sassoWorker: true, shared, opts: workerOpts, ctl, stdinBytes },
         // stdout/stderr are NOT captured here: a job's diagnostics are
         // collected around the compile itself (see `captureStderr`) and come
@@ -2873,19 +2891,50 @@ function compileOrError(fn) {
  */
 function captureStderr(fn) {
   const chunks = [];
-  const original = process.stderr.write;
-  process.stderr.write = (chunk, encoding, callback) => {
+  const write = (chunk, encoding, callback) => {
     chunks.push(typeof chunk === "string" ? chunk : Buffer.from(chunk).toString("utf8"));
     if (typeof encoding === "function") encoding();
     else if (typeof callback === "function") callback();
     return true;
   };
+  // A stand-in for `process.stderr` rather than a patch on it: reading
+  // `process.stderr` creates the stream, and creating it loads node's stream
+  // stack — 2.6 ms of a one-entry compile that prints nothing (measured
+  // 2026-10-02; #272). Every write in the engines goes through
+  // `process.stderr.write(…)`, never a reference kept from before, so the
+  // stand-in sees all of them; anything else it is asked for is the real
+  // stream's.
+  const desc = Object.getOwnPropertyDescriptor(process, "stderr");
+  if (!desc?.configurable) {
+    const original = process.stderr.write;
+    process.stderr.write = write;
+    try {
+      return { value: fn(), text: chunks.join("") };
+    } catch (e) {
+      return { error: e, text: chunks.join("") };
+    } finally {
+      process.stderr.write = original;
+    }
+  }
+  const real = () => (desc.get ? desc.get.call(process) : desc.value);
+  const standIn = new Proxy(
+    {},
+    {
+      get(_, key) {
+        if (key === "write") return write;
+        const stream = real();
+        const value = Reflect.get(stream, key);
+        return typeof value === "function" ? value.bind(stream) : value;
+      },
+    },
+  );
+  Object.defineProperty(process, "stderr", { configurable: true, enumerable: desc.enumerable, get: () => standIn });
   try {
     return { value: fn(), text: chunks.join("") };
   } catch (e) {
     return { error: e, text: chunks.join("") };
   } finally {
-    process.stderr.write = original;
+    Object.defineProperty(process, "stderr", desc);
   }
 }
 
@@ -3085,7 +3134,10 @@ function compileSlice(jobs, opts, common, ctl, stdinBytes, diagnostics, compiled
   return { failed, worst };
 }
 
-// A worker thread runs the same file, telling itself apart by its workerData.
-if (!isMainThread && workerData && workerData.sassoWorker) runWorker();
-else if (!isMainThread && workerData && workerData.sassoWatchWorker) runWatchWorker();
-else main();
+// A worker thread runs the same file, entered through `_cliworker.mjs`, which
+// sets the mark before importing it; its workerData says which kind it is.
+if (globalThis[Symbol.for("sasso.cliWorker")]) {
+  const { workerData } = workerThreads();
+  if (workerData?.sassoWorker) runWorker();
+  else if (workerData?.sassoWatchWorker) runWatchWorker();
+} else main();

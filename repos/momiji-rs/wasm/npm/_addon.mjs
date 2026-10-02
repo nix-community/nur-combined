@@ -18,6 +18,13 @@
 // `napi/Cargo.toml`'s version (`0.1.0`), which has nothing to do with the
 // published package's. The platform package's own `package.json` does.
 
+import { createRequire } from "node:module";
+
+// Builtins through `require`, not `import`: an ESM import of `node:fs` builds
+// its whole export facade, and reading every getter loads the stream stack
+// with it (3.6 ms of a one-entry CLI compile, measured 2026-10-02; #272).
+const require_ = createRequire(import.meta.url);
+
 /**
  * Refuse a native addon whose version does not match this `sasso`.
  *
@@ -61,14 +68,36 @@ export const SUPPORTED = {
   "linux-arm64-gnu": "sasso-native-linux-arm64-gnu",
 };
 
+let key;
+
 export function platformKey() {
-  const { platform, arch } = process;
-  if (platform === "linux") {
+  if (key === undefined) {
+    const { platform, arch } = process;
     // glibc vs musl: the prebuilds are gnu-only for now.
-    const glibc = process.report?.getReport?.()?.header?.glibcVersionRuntime;
-    return `linux-${arch}-${glibc ? "gnu" : "musl"}`;
+    key = platform === "linux" ? `linux-${arch}-${isGlibc() ? "gnu" : "musl"}` : `${platform}-${arch}`;
   }
-  return `${platform}-${arch}`;
+  return key;
+}
+
+/**
+ * Whether this Linux runs glibc, asked of the system's `ldd` first.
+ *
+ * `process.report.getReport()` answers it exactly, but by building the whole
+ * diagnostic report: 1.0–1.4 ms, and the CLI asked three times before every
+ * compile (measured 2026-10-02, Linux/x86_64; #272). glibc's `ldd` is a
+ * script that names "GNU C Library" and musl's names "musl", which is the
+ * check `detect-libc` makes first; the report stays as the answer when the
+ * file says neither or cannot be read.
+ */
+function isGlibc() {
+  try {
+    const ldd = require_("node:fs").readFileSync("/usr/bin/ldd", "latin1");
+    if (ldd.includes("musl")) return false;
+    if (ldd.includes("GNU C Library")) return true;
+  } catch {
+    // No readable `ldd`: fall through to the report.
+  }
+  return !!process.report?.getReport?.()?.header?.glibcVersionRuntime;
 }
 
 /**

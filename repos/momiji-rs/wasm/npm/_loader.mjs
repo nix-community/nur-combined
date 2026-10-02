@@ -72,24 +72,9 @@ try {
   // ignore — `info` falls back to the placeholder
 }
 
-/**
- * A Sass compilation error. Approximates the dart-sass `Exception`:
- * `instanceof Error`, `name === "Exception"`, plus `sassMessage` (the message
- * without the leading `Error: `). Structured `span` data awaits a later release.
- */
-export class Exception extends Error {
-  constructor(message, sassMessage, span) {
-    super(message);
-    this.name = "Exception";
-    // dart-sass `sassMessage` is the raw one-line message (no "Error:" header /
-    // snippet); fall back to stripping the header off the rendered block.
-    this.sassMessage = sassMessage ?? message.replace(/^Error:\s*/, "");
-    if (span) this.span = span;
-  }
-  toString() {
-    return this.message;
-  }
-}
+// One class for every engine; see _exception.mjs.
+import { Exception, Logger } from "./_exception.mjs";
+export { Exception, Logger };
 
 // `info` masquerades as dart-sass so build tools that gate on the
 // implementation *name* accept sasso as a drop-in. sass-loader hard-rejects any
@@ -99,11 +84,6 @@ export class Exception extends Error {
 // honestly discloses the real engine. See ../../docs/NPM_BARE_NAME_PLAN.md.
 const DART_SASS_COMPAT = "1.101.0";
 export const info = `dart-sass\t${DART_SASS_COMPAT}\t(sasso ${VERSION})\t[Rust]`;
-
-/** dart-sass `Logger` namespace. `Logger.silent` discards all warnings/debugs. */
-export const Logger = {
-  silent: { warn() {}, debug() {} },
-};
 
 /** Coerce a path or URL to a `file:` (or other-scheme) URL for `loadedUrls`. */
 function toFileUrl(pathOrUrl) {

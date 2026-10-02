@@ -30,12 +30,12 @@ import { pathToFileURL, fileURLToPath } from "node:url";
 import * as nodePath from "node:path";
 import { decodeUtf8 } from "./_utf8.mjs";
 
-// Re-exported: `_loader.mjs` and `native.mjs` read entry files with it too.
-export { decodeUtf8 };
+import { syntaxCode, syntaxForPath } from "./_syntax.mjs";
 
-const SYNTAX_SCSS = 0;
-const SYNTAX_SASS = 1;
-const SYNTAX_CSS = 2;
+// Re-exported: `_loader.mjs` reads entry files with it too.
+export { decodeUtf8 };
+// Re-exported for `_loader.mjs`, which names a syntax the same way.
+export { syntaxCode, syntaxForPath };
 
 export function isThenable(x) {
   return x != null && typeof x.then === "function";
@@ -45,21 +45,6 @@ const ASYNC_UNSUPPORTED =
   "sasso: asynchronous importers are not supported — the wasm engine is " +
   "synchronous, so importer callbacks must return synchronously (even under " +
   "compileStringAsync).";
-
-/** Map a dart-sass syntax string to the wasm syntax code. */
-export function syntaxCode(syntax) {
-  if (syntax === "indented" || syntax === "sass") return SYNTAX_SASS;
-  if (syntax === "css") return SYNTAX_CSS;
-  return SYNTAX_SCSS;
-}
-
-/** The syntax code for a resolved file path, from its extension. */
-export function syntaxForPath(p) {
-  const ext = nodePath.extname(p).toLowerCase();
-  if (ext === ".sass") return SYNTAX_SASS;
-  if (ext === ".css") return SYNTAX_CSS;
-  return SYNTAX_SCSS;
-}
 
 /**
  * Most probes miss: one Lichess entry point makes ~980 of them, and ~850 name a
