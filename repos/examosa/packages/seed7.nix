@@ -117,9 +117,10 @@ stdenv.mkDerivation (finalAttrs: {
       - runs under Linux/Unix/Windows.
     '';
     homepage = "https://seed7.net/";
-    changelog = "https://github.com/ThomasMertes/seed7/blob/${finalAttrs.src.rev}/doc/chlog.txt";
+    changelog = "https://github.com/ThomasMertes/seed7/blob/${finalAttrs.src.tag}/doc/chlog.txt";
     license = lib.licenses.lgpl2;
-    platforms = lib.platforms.all;
+    maintainers = [lib.maintainers.examosa];
     mainProgram = "s7";
+    platforms = lib.platforms.all;
   };
 })

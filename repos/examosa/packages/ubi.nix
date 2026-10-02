@@ -55,9 +55,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
   meta = {
     description = "The Universal Binary Installer";
     homepage = "https://github.com/houseabsolute/ubi";
-    changelog = "https://github.com/houseabsolute/ubi/blob/${finalAttrs.src.rev}/Changes.md";
+    changelog = "https://github.com/houseabsolute/ubi/blob/${finalAttrs.src.tag}/Changes.md";
     license = [lib.licenses.asl20 lib.licenses.mit];
-    platforms = lib.platforms.all;
+    maintainers = [lib.maintainers.examosa];
     mainProgram = "ubi";
+    platforms = lib.platforms.all;
   };
 })

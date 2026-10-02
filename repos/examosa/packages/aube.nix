@@ -112,8 +112,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     broken = lib.versionOlder rustc.version "1.93" || lib.versionOlder usage.version "4";
     description = "A fast Node.js package manager";
     homepage = "https://github.com/endevco/aube";
-    changelog = "https://github.com/endevco/aube/blob/${finalAttrs.src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/endevco/aube/blob/${finalAttrs.src.tag}/CHANGELOG.md";
     license = [lib.licenses.mit lib.licenses.bsd2Patent];
+    maintainers = [lib.maintainers.examosa];
     mainProgram = "aube";
+    platforms = lib.platforms.all;
   };
 })

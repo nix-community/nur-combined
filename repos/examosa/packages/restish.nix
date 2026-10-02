@@ -50,8 +50,9 @@ buildGoModule (finalAttrs: {
       manage profiles and auth, render structured output, follow pagination links, and run plugins.
     '';
     homepage = "https://rest.sh/";
-    changelog = "https://github.com/danielgtaylor/restish/releases/tag/${finalAttrs.version}";
+    changelog = "https://github.com/rest-sh/restish/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.mit;
+    maintainers = [lib.maintainers.examosa];
     mainProgram = "restish";
   };
 })

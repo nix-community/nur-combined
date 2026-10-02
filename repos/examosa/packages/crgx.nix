@@ -24,8 +24,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
   meta = {
     description = "Npx for Rust — run any crate binary instantly without cargo install";
     homepage = "https://github.com/yfedoseev/crgx";
-    changelog = "https://github.com/yfedoseev/crgx/blob/${finalAttrs.src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/yfedoseev/crgx/blob/${finalAttrs.src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
     mainProgram = "crgx";
+    maintainers = [lib.maintainers.examosa];
+    platforms = lib.platforms.all;
   };
 })

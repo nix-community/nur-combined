@@ -1,6 +1,5 @@
 {
   emacs,
-  emacs-unstable ? emacs,
   fetchFromGitHub,
   lib,
 }: let
@@ -11,9 +10,9 @@
     hash = "sha256-OAbS5/rv9dNmtFy/oQVLL4jToYN20YvULk4ox8fvQ5Q=";
   };
 
-  majorVersion = lib.versions.major (lib.getVersion emacs-unstable);
+  majorVersion = lib.versions.major (lib.getVersion emacs);
 in
-  emacs-unstable.overrideAttrs (oldAttrs: {
+  emacs.overrideAttrs (oldAttrs: {
     pname = "emacs-plus";
 
     patches =
@@ -31,5 +30,12 @@ in
         cp ${src}/community/icons/memeplex-wide/icon.icns nextstep/Cocoa/Emacs.base/Contents/Resources/Emacs.icns
       '';
 
-    meta = oldAttrs.meta // {platforms = lib.platforms.darwin;};
+    mainDarwinApp = "Emacs.app";
+
+    meta =
+      oldAttrs.meta
+      // {
+        maintainers = oldAttrs.meta.maintainers ++ [lib.maintainers.examosa];
+        platforms = lib.platforms.darwin;
+      };
   })

@@ -48,9 +48,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
   meta = {
     description = "A command line tool to download release assets from GitHub";
     homepage = "https://github.com/devmatteini/dra";
-    changelog = "https://github.com/devmatteini/dra/blob/${finalAttrs.src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/devmatteini/dra/blob/${finalAttrs.src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
-    platforms = lib.platforms.all;
     mainProgram = "dra";
+    maintainers = [lib.maintainers.examosa];
+    platforms = lib.platforms.all;
   };
 })

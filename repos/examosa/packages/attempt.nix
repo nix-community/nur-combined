@@ -41,7 +41,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
   meta = {
     description = "CLI for retrying fallible commands";
     homepage = "https://maxbondabe.github.io/attempt/";
+    changelog = "https://github.com/MaxBondABE/attempt/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.unlicense;
+    maintainers = [lib.maintainers.examosa];
     mainProgram = "attempt";
+    platforms = lib.platforms.all;
   };
 })

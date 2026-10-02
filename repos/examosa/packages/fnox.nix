@@ -64,8 +64,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
     broken = lib.versionOlder usage.version "6";
     description = "Encrypted/remote secret manager";
     homepage = "https://github.com/jdx/fnox";
-    changelog = "https://github.com/jdx/fnox/blob/${finalAttrs.src.rev}/CHANGELOG.md";
+    changelog = "https://github.com/jdx/fnox/blob/${finalAttrs.src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
+    maintainers = [lib.maintainers.examosa];
     mainProgram = "fnox";
   };
 })
