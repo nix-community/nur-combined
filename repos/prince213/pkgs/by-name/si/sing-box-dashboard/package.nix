@@ -20,9 +20,9 @@ buildNpmPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "SagerNet";
     repo = "sing-box-dashboard";
-    rev = "a9b1dd7595ccce5dd8006d5b0fef8b3f0821e501";
+    rev = "f231354bc786dfcffcf09f6ec771bc5683050194";
     fetchSubmodules = true;
-    hash = "sha256-P8RWsfUamgSNpCVF4MOqoRWbOzb0mKe5ZiEwwcT700w=";
+    hash = "sha256-+ZjEH3GecYEMmUPawWa6KzUkaHp9utLMCDLEphs1Hmk=";
   };
 
   npmDeps = null;
