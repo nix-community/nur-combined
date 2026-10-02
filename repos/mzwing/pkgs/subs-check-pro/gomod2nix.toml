@@ -7,8 +7,8 @@ go = '1.27.0'
     hash = 'sha256-fZhFWgQrWEecPkCSsst9tCAh7sTRmh/ICofayeQfqTU='
 
   [mod.'github.com/42wim/httpsig']
-    version = 'v1.2.4'
-    hash = 'sha256-RBLwZUmjB+F+TyL69zMC4z79EhirbjyC+fxnAlPwKNU='
+    version = 'v1.3.0'
+    hash = 'sha256-7luWE5l9mgJayTq+rix0Q7yIpFqoF2H0uHc1AsfVX7s='
 
   [mod.'github.com/Masterminds/semver/v3']
     version = 'v3.5.0'
@@ -95,7 +95,7 @@ go = '1.27.0'
     hash = 'sha256-Qa7BSAXtgH7CB5STBiXTTOCgivWUiA65u3KxDOSZCkQ='
 
   [mod.'github.com/easytier/easytier/easytier-go']
-    version = 'v0.0.0-20260930032809-ed73d318bb3b'
+    version = 'v0.0.0-20261001013245-a017dc133c45'
     hash = 'sha256-mue1cW4H2yXz6wC6GI3N0oKUIe1MGr1zoU0fehpKDv4='
 
   [mod.'github.com/enfein/mieru/v3']
@@ -215,8 +215,8 @@ go = '1.27.0'
     hash = 'sha256-F/Ve4oDaEqho8RryvdGSRR22/DbYHWZQa6M60n6oSYM='
 
   [mod.'github.com/google/pprof']
-    version = 'v0.0.0-20260926063103-aaccee046517'
-    hash = 'sha256-pHfGiGrBDELmvjWxherk0lHWVgfQ1V6p9a8k+oJgvlU='
+    version = 'v0.0.0-20261002000307-77d3b59017a0'
+    hash = 'sha256-pSqJyk80ttr/tlYZ62KMGuEI6/bVN+kfJFglygL2uUM='
 
   [mod.'github.com/google/uuid']
     version = 'v1.6.0'
@@ -319,8 +319,8 @@ go = '1.27.0'
     hash = 'sha256-oPqSnboAmbiFpJ2Luc9SDGB6ZvyQ2v9i68XgRBkIjcc='
 
   [mod.'github.com/metacubex/cpu']
-    version = 'v0.1.1'
-    hash = 'sha256-E4d72+T6h8VbrpLH2Bcvl8cAPUTe1IwKuohc+d+imWI='
+    version = 'v0.1.2'
+    hash = 'sha256-VhTxp5BLzT2/elCnByafy0Zn+kK/LUeaoRUKFNeXV/Y='
 
   [mod.'github.com/metacubex/edwards25519']
     version = 'v1.2.0'
@@ -347,8 +347,8 @@ go = '1.27.0'
     hash = 'sha256-jKgX7EkrKvra/ztXmOkyydkruZoIetj4wVusYS+Gvco='
 
   [mod.'github.com/metacubex/http']
-    version = 'v0.1.7'
-    hash = 'sha256-LrYvERgY1NWHSq1UjQI9N/0tUq4Bkw6Wrer4AUO/Zh0='
+    version = 'v0.1.8'
+    hash = 'sha256-G/khcAB+eFacGThxhzM3q4dtiVgAeZ9N/0FpgXspS2E='
 
   [mod.'github.com/metacubex/jls-quic-go']
     version = 'v0.0.0-20260727080412-732f2fc9a34d'
@@ -367,12 +367,12 @@ go = '1.27.0'
     hash = 'sha256-mSoEP99j0lFbpPC6vfBiC05P5tQ2EiSqfjSsgJEfT20='
 
   [mod.'github.com/metacubex/mihomo']
-    version = 'v1.19.31'
-    hash = 'sha256-v4GXNwlXSVPg9Q77vA9gH6MSFKIiH904Y9oUKvITPXs='
+    version = 'v1.19.32'
+    hash = 'sha256-Ic472ZD/kMw2nMh3YtbjELSU7n2ou5RR4KG97z+WHkI='
 
   [mod.'github.com/metacubex/mipstack']
-    version = 'v0.0.0-20260929145719-a4e600e17158'
-    hash = 'sha256-IZ/N3FWRhC5ZJDihsbMgGnfl5RG6FvYlm/2dYybdT7k='
+    version = 'v0.0.0-20260930071539-961d4b1c1983'
+    hash = 'sha256-z7MRNlagWTNOXK47+g+u3K3pvOxDoMVNRaQasP1uORw='
 
   [mod.'github.com/metacubex/mlkem']
     version = 'v0.1.0'
@@ -399,8 +399,8 @@ go = '1.27.0'
     hash = 'sha256-JZ5NRSUJwga/3eWd6rFOxQ2hl3hdtzCmLTRnaVrjIoY='
 
   [mod.'github.com/metacubex/sing-mux']
-    version = 'v0.3.11'
-    hash = 'sha256-nA9z10+A87Q0D3m35cLsmWHezWvBh4bV4k6Hukn8dz0='
+    version = 'v0.3.12'
+    hash = 'sha256-uZxUky882c71qWnLVoKC36hD3ORYwstYZsPR9TamslQ='
 
   [mod.'github.com/metacubex/sing-quic']
     version = 'v0.0.0-20260904234848-1c242664697a'
@@ -419,8 +419,8 @@ go = '1.27.0'
     hash = 'sha256-rNzjiN5J/qsjPiXObA75/xlcJQf+IcsscjwdSf93pZU='
 
   [mod.'github.com/metacubex/sing-wireguard']
-    version = 'v0.0.0-20260826105301-c3ae17d19f9e'
-    hash = 'sha256-4Ej84P4XF15UO1k2KWjMgWBp+jCZLP1upADt5Q8Iwlw='
+    version = 'v0.0.0-20261002050126-e5fa1a607406'
+    hash = 'sha256-uCxvifeHdTph5iFYpz3H43RlDxvobey/Kx3juBH19UU='
 
   [mod.'github.com/metacubex/smux']
     version = 'v0.0.0-20260105030934-d0c8756d3141'
@@ -447,8 +447,8 @@ go = '1.27.0'
     hash = 'sha256-3tHIEtRnak9j8aE5XkXMdakSjm9xfuYcn0MzuT2zW/k='
 
   [mod.'github.com/metacubex/utls']
-    version = 'v1.8.7'
-    hash = 'sha256-yS4+70KsGOFXR5V9zDXvCvna/P/14y5yODoYcUe9aWw='
+    version = 'v1.8.8'
+    hash = 'sha256-Ju3kY/A1Il60oBeXwgt/iaJZA4RQOLrg5Hs7qJQX4yg='
 
   [mod.'github.com/metacubex/wazero']
     version = 'v0.0.0-20260628025728-9ae6bdcf2a7d'
@@ -571,8 +571,8 @@ go = '1.27.0'
     hash = 'sha256-Gh12LPp/k4s+9UQunPO4ULpknc3KWf19qjn26HUANe0='
 
   [mod.'github.com/sinspired/subs-check-pro-webui']
-    version = 'v1.3.7'
-    hash = 'sha256-rF2ZF4tZ35ojoG5jdaW9oDjIG/dTTfyONmmEozdaPw8='
+    version = 'v1.4.0'
+    hash = 'sha256-aQgQDcu3Dc3OT3IK7F616XQQpHmoGIXQRXVwXcXf3Gc='
 
   [mod.'github.com/sirupsen/logrus']
     version = 'v1.10.2'
@@ -599,8 +599,8 @@ go = '1.27.0'
     hash = 'sha256-m8Avdt5Y0G9xSf68Bznzc+lV5VOrdACBQaYF17vRk1E='
 
   [mod.'github.com/tinylib/msgp']
-    version = 'v1.6.4'
-    hash = 'sha256-obRMzgNod1WvJCEquhze0v3Yu9L+6uSnXA5ogTCw3gc='
+    version = 'v1.6.5'
+    hash = 'sha256-ZgTnuEaTWYET/VUTsEoRFe46KVRyyij1NL8rGTwLapc='
 
   [mod.'github.com/twitchyliquid64/golang-asm']
     version = 'v0.15.1'
@@ -627,8 +627,8 @@ go = '1.27.0'
     hash = 'sha256-M9QyaKhSmmYwsJk7gkjtqu9PuiqZHSmTkous8VWkWY0='
 
   [mod.'github.com/wailsapp/wails/v3']
-    version = 'v3.0.0-beta.26'
-    hash = 'sha256-jN9NRWW4J916ealr3zSZmZaudAEVsXwY1cyzB0Zyx3s='
+    version = 'v3.0.0-beta.27'
+    hash = 'sha256-6galn6HskayFCVtR+KyhzpAcRdX42r4Cjx4NAWh0tCE='
 
   [mod.'github.com/x448/float16']
     version = 'v0.8.4'

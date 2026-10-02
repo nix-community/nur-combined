@@ -52,13 +52,13 @@
   };
   claude-hud = {
     pname = "claude-hud";
-    version = "v0.8.0";
+    version = "v0.10.0";
     src = fetchFromGitHub {
       owner = "jarrodwatts";
       repo = "claude-hud";
-      rev = "v0.8.0";
+      rev = "v0.10.0";
       fetchSubmodules = false;
-      sha256 = "sha256-2Oo5cI8Xq0MgRkDshJ9Ls56n6++975R4+fqNJpF0ZCQ=";
+      sha256 = "sha256-VqE3r5CN5l0OgzAzPdhZptoW+uYJg6mLHv+qz8r8GR0=";
     };
   };
   cliproxyapiplus = {
@@ -301,13 +301,13 @@
   };
   subs-check-pro = {
     pname = "subs-check-pro";
-    version = "v3.2.4";
+    version = "v3.3.0";
     src = fetchFromGitHub {
       owner = "sinspired";
       repo = "subs-check-pro";
-      rev = "v3.2.4";
+      rev = "v3.3.0";
       fetchSubmodules = false;
-      sha256 = "sha256-AebP64YFZy23m8ooVX2aL+EuMwPNGJchtdyAHs3OIyc=";
+      sha256 = "sha256-HVc59aMirm9pnFGYlm+5CHYuskSFv0SeVsOYRJ5wCuY=";
     };
   };
   tree-sitter-nix = {

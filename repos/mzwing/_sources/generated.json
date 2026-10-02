@@ -97,12 +97,12 @@
             "name": null,
             "owner": "jarrodwatts",
             "repo": "claude-hud",
-            "rev": "v0.8.0",
-            "sha256": "sha256-2Oo5cI8Xq0MgRkDshJ9Ls56n6++975R4+fqNJpF0ZCQ=",
+            "rev": "v0.10.0",
+            "sha256": "sha256-VqE3r5CN5l0OgzAzPdhZptoW+uYJg6mLHv+qz8r8GR0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.8.0"
+        "version": "v0.10.0"
     },
     "cliproxyapiplus": {
         "cargoLock": null,
@@ -558,12 +558,12 @@
             "name": null,
             "owner": "sinspired",
             "repo": "subs-check-pro",
-            "rev": "v3.2.4",
-            "sha256": "sha256-AebP64YFZy23m8ooVX2aL+EuMwPNGJchtdyAHs3OIyc=",
+            "rev": "v3.3.0",
+            "sha256": "sha256-HVc59aMirm9pnFGYlm+5CHYuskSFv0SeVsOYRJ5wCuY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.2.4"
+        "version": "v3.3.0"
     },
     "tree-sitter-nix": {
         "cargoLock": null,
