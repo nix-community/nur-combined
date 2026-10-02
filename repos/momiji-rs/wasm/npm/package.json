@@ -24,6 +24,11 @@
       "types": "./native.d.ts",
       "import": "./native.mjs",
       "default": "./native.mjs"
+    },
+    "./binary": {
+      "types": "./binary.d.ts",
+      "import": "./binary.mjs",
+      "default": "./binary.mjs"
     }
   },
   "files": [
@@ -50,6 +55,7 @@
     "sasso.mjs",
     "sasso.speed.mjs",
     "native.mjs",
+    "binary.mjs",
     "sasso.wasm",
     "sasso.speed.wasm",
     "sasso.async.wasm",
@@ -57,6 +63,7 @@
     "sasso.d.ts",
     "sasso.speed.d.ts",
     "native.d.ts",
+    "binary.d.ts",
     "README.md",
     "LICENSE-APACHE",
     "LICENSE-MIT"

@@ -306,7 +306,9 @@ jobs:
           targets: wasm32-unknown-unknown
       - uses: Swatinem/rust-cache@v2
         with:
+          # `.` for the CLI binary the platform-package check below builds.
           workspaces: |
+            .
             napi
             wasm
           cache-directories: |
@@ -341,6 +343,18 @@ jobs:
         run: git diff --exit-code napi/Cargo.lock
       - name: node parity + behavior tests
         run: node napi/test.mjs
+      # The release ships the CLI binary inside each platform package, for
+      # `sasso/binary` (#272). Stage one the way release-wasm.yml does, with
+      # this commit's binary in place of the release's, and install it, so
+      # a change to the staging or to `sasso/binary` fails here and not on a
+      # release leg.
+      - name: build the CLI binary
+        run: cargo build --release --locked --bin sasso
+      - name: stage a platform package and install it
+        run: |
+          V=$(grep -m1 '^version = ' Cargo.toml | cut -d'"' -f2)
+          node napi/make-platform-package.mjs linux-x64-gnu "$V" napi/npm/sasso.node dist-native target/release/sasso
+          node napi/pack-test.mjs dist-native
 
   ffi:
     name: C ABI (ffi)

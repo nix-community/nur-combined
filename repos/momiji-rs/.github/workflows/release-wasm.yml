@@ -93,12 +93,14 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { target: darwin-arm64,    runner: macos-14 }
+          # `triple` names the cargo-dist release asset whose binary ships
+          # in the package (see "fetch the release binary").
+          - { target: darwin-arm64,    runner: macos-14,         triple: aarch64-apple-darwin }
           # macos-13 is retired/starved; macos-15-intel is GitHub's continued
           # Intel-mac runner label.
-          - { target: darwin-x64,      runner: macos-15-intel }
-          - { target: linux-x64-gnu,   runner: ubuntu-latest }
-          - { target: linux-arm64-gnu, runner: ubuntu-24.04-arm }
+          - { target: darwin-x64,      runner: macos-15-intel,   triple: x86_64-apple-darwin }
+          - { target: linux-x64-gnu,   runner: ubuntu-latest,    triple: x86_64-unknown-linux-gnu }
+          - { target: linux-arm64-gnu, runner: ubuntu-24.04-arm, triple: aarch64-unknown-linux-gnu }
     steps:
       - uses: actions/checkout@v6
       - uses: dtolnay/rust-toolchain@stable
@@ -120,8 +122,45 @@ jobs:
           rustup target add wasm32-unknown-unknown
           bash wasm/build.sh
           node napi/test.mjs
+      - name: fetch the release binary
+        # The package carries the `sasso` binary beside the addon, for
+        # `sasso/binary` (#272), and it is the GitHub release's own, byte for
+        # byte: cargo-dist (release.yml) builds it from the `v` tag of this
+        # version. That release is published a few minutes after its tag, and
+        # the `npm-v` tag can be pushed before then (0.20.0: npm-v tagged
+        # 14:48, release published 14:52), so wait for it rather than race
+        # it. The sha256 is the release's own, and the binary has to run on
+        # this leg's runner, which is the platform it ships to. Plain curl on
+        # the public download URL: no token, and nothing the runner image has
+        # to provide. A release still in draft answers 404 there, which reads
+        # the same as "not yet".
+        run: |
+          set -euo pipefail
+          V="${GITHUB_REF_NAME#npm-v}"
+          A="sasso-${{ matrix.triple }}.tar.xz"
+          U="https://github.com/$GITHUB_REPOSITORY/releases/download/v$V/$A"
+          mkdir -p release-bin && cd release-bin
+          for i in $(seq 1 60); do
+            if curl -fsSL -o "$A" "$U" && curl -fsSL -o "$A.sha256" "$U.sha256"; then break; fi
+            rm -f "$A" "$A.sha256"
+            echo "v$V has no $A yet ($i/60); waiting 30 s"; sleep 30
+          done
+          test -f "$A" || { echo "::error::release v$V still has no $A after 30 minutes"; exit 1; }
+          want=$(awk '{print $1}' "$A.sha256")
+          got=$( (sha256sum "$A" 2>/dev/null || shasum -a 256 "$A") | awk '{print $1}')
+          [ "$want" = "$got" ] || { echo "::error::$A is $got, the release says $want"; exit 1; }
+          tar -xJf "$A"
+          mv "$(find . -mindepth 2 -type f -name sasso -perm -u+x | head -1)" ./sasso
+          test "$(./sasso --version)" = "sasso $V" || { echo "::error::$A reports $(./sasso --version), not sasso $V"; exit 1; }
+          echo "$A: sha256 $got, $(./sasso --version)"
       - name: stage platform package
-        run: node napi/make-platform-package.mjs "${{ matrix.target }}" "${GITHUB_REF_NAME#npm-v}" napi/npm/sasso.node dist-native
+        run: node napi/make-platform-package.mjs "${{ matrix.target }}" "${GITHUB_REF_NAME#npm-v}" napi/npm/sasso.node dist-native release-bin/sasso
+      - name: install the staged package and run sasso/binary
+        # Packs it, installs it with the main package into an empty project,
+        # and checks the binary there: mode, path, version, and the same CSS
+        # as the addon. The last look before the registry, which cannot take
+        # a version back.
+        run: node napi/pack-test.mjs dist-native
       - name: npm publish (platform package)
         working-directory: dist-native
         # Idempotent: a retried release run (e.g. after one leg's runner

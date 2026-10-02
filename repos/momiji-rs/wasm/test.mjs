@@ -1140,6 +1140,58 @@ console.log("ok: cli — version/help/stdin/style/file @use/load-path/errors + e
   console.log("ok: addon pairing — a version skew is refused, both directions, dev paths exempt");
 }
 
+// === sasso/binary: the platform package's CLI binary, by path (#272) ===
+// Fabricated the way the pairing test above fabricates an addon: a platform
+// package on NODE_PATH, in a child process so resolution starts fresh. The
+// binary is a placeholder file; whether the real one runs is napi/pack-test.mjs's
+// question, asked of an actual install.
+{
+  const { platformKey, SUPPORTED } = await import("./npm/_addon.mjs");
+  const pkgName = SUPPORTED[platformKey()];
+  const binaryUrl = new URL("./npm/binary.mjs", import.meta.url).href;
+  const ask = (nodePath) =>
+    spawnSync(
+      process.execPath,
+      [
+        "--input-type=module",
+        "-e",
+        `import(${JSON.stringify(binaryUrl)}).then((m) => { try { console.log(JSON.stringify(m.binaryPath())); } catch (e) { console.log(e.code); } })`,
+      ],
+      { encoding: "utf8", env: { ...process.env, NODE_PATH: nodePath ?? "" } },
+    ).stdout.trim();
+  // Nothing installed, which is also every platform with no prebuild.
+  assert.equal(ask(), "null", "binary: no platform package answers null");
+  if (!pkgName) {
+    console.log(`  (sasso/binary: no prebuild for ${platformKey()}, so only the null case applies)`);
+  } else {
+    const nodePath = mkdtempSync(join(tmpdir(), "sasso-binpath-"));
+    const pkgDir = join(nodePath, pkgName);
+    mkdirSync(pkgDir, { recursive: true });
+    const ours = JSON.parse(readFileSync(new URL("./npm/package.json", import.meta.url), "utf8")).version;
+    const manifest = (version) => writeFileSync(join(pkgDir, "package.json"), JSON.stringify({ name: pkgName, version }));
+    manifest(ours);
+    // A platform package from before the binary shipped in it: nothing to name.
+    assert.equal(ask(nodePath), "null", "binary: a platform package without the binary answers null");
+    // … and one that is also an older version, which is what a pre-binary
+    // package usually is: still null, not a mismatch, since there is no
+    // binary for the mismatch to be about.
+    manifest("0.0.1");
+    assert.equal(ask(nodePath), "null", "binary: an older platform package without the binary answers null");
+    manifest(ours);
+    writeFileSync(join(pkgDir, "sasso"), "");
+    assert.equal(
+      ask(nodePath),
+      JSON.stringify(join(realpathSync(pkgDir), "sasso")),
+      "binary: a matching platform package answers its binary's absolute path",
+    );
+    // A skew is refused, as the addon is: another version takes other flags.
+    manifest("9.9.9");
+    assert.equal(ask(nodePath), "SASSO_ADDON_VERSION_MISMATCH", "binary: a version skew throws");
+    rmSync(nodePath, { recursive: true, force: true });
+  }
+  console.log("ok: sasso/binary — null without a binary, its path when paired, a skew refused");
+}
+
 // === Phase 3c: directory pairs, --no-css, --stop-on-error ===
 {
   const dir = mkdtempSync(join(tmpdir(), "sasso-dir-"));

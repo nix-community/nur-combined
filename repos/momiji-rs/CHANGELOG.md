@@ -11,6 +11,23 @@ Conformance is tracked separately as a ratchet against the official
 
 ## [Unreleased]
 
+### Added
+
+- **`"sasso/binary"`: the native `sasso` binary ships in the npm package**
+  (#272). Each prebuilt platform package (`sasso-native-<target>`) now carries
+  the release's command-line binary beside the addon, byte-identical to the
+  one on the Releases page, and `binaryPath()` returns its absolute path. It
+  returns `null` where there is no prebuild (Windows, musl) or optional
+  dependencies were skipped, and it throws, as `"sasso/native"` does, when
+  the binary it would return is from another version. It is for tools that spawn the compiler, and for those it
+  removes node from the run. One entry of a real-world project, Linux/x86_64:
+  38.3 ms through `node_modules/.bin/sasso`, 4.3 ms through the binary, 20.7 ms
+  for dart-sass. Nothing uses the binary unless asked. `.bin/sasso` stays the
+  node CLI, and there is no install script: npm 12, pnpm 12 and yarn 4 skip
+  dependency install scripts by default, and pnpm 12 fails the install over
+  one. Each platform package's tarball grows by 1.2–1.4 MB (darwin-arm64: 1.45
+  → 2.62 MB).
+
 ### Performance
 
 - **The npm CLI compiles a single entry 24–31% faster on the native addon**

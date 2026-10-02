@@ -203,6 +203,37 @@ Node: starting it and spawning a child costs 35.0 ms of the 48.2 on a single
 tiny file. Nothing about a stylesheet makes that cheaper, which is why the
 binary is worth installing on its own.
 
+**Spawning the compiler from a tool.** You may not need to install the binary
+separately: the platform package that brings the addon also carries the
+release's `sasso` binary, byte-identical to the one on the Releases page, and
+`"sasso/binary"` returns its path. A tool that spawns the compiler once per
+change, as a build watcher does, can skip node entirely:
+
+```js
+import { spawnSync } from "node:child_process";
+import { binaryPath } from "sasso/binary";
+
+// null where there is no prebuild (Windows, musl) or optional deps were skipped
+const sasso = binaryPath() ?? "node_modules/.bin/sasso";
+spawnSync(sasso, ["src/app.scss:dist/app.css"], { stdio: "inherit" });
+```
+
+One entry point of a real-world project, `--embed-sources`, Linux/x86_64
+(2026-10-02): **38.3 ms** through `node_modules/.bin/sasso` and **4.3 ms**
+through the binary, against 20.7 ms for dart-sass. The same path works in a
+shell, for a tool that reads `SASS_PATH` or similar:
+
+```console
+$ node --input-type=module -e 'import("sasso/binary").then((m) => console.log(m.binaryPath()))'
+```
+
+Nothing switches over by itself. `node_modules/.bin/sasso` stays the node
+CLI, because an install script is the only way to repoint it, and npm 12,
+pnpm 12 and yarn 4 all skip dependency install scripts by default (pnpm 12
+fails the install over an unapproved one). `binaryPath()` throws, as
+`"sasso/native"` does, if the platform package carries a binary but is not the
+same version as `sasso`.
+
 ```js
 import { compileString } from "sasso";
 compileString("a { color: #ffffff }", { style: "compressed" }).css; // a{color:#fff}
