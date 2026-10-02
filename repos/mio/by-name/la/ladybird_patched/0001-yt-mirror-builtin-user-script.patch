@@ -1,0 +1,339 @@
+diff --git a/Base/res/ladybird/user-scripts/yt-mirror.js b/Base/res/ladybird/user-scripts/yt-mirror.js
+new file mode 100644
+index 00000000..d80c708c
+--- /dev/null
++++ b/Base/res/ladybird/user-scripts/yt-mirror.js
+@@ -0,0 +1,160 @@
++// YT Mirror — in-browser port of the "YT Mirror" extension for Ladybird.
++//
++// Adds a "Mirror" button to the YouTube player that flips the video (and Shorts)
++// horizontally with one click. Ladybird has no extension store, so this script is
++// injected into matching pages by the WebContent process (see PageClient).
++//
++// Mirrored from the Chrome extension at
++// https://chromewebstore.google.com/detail/yt-mirror/nokjcgeafjfhlbclmmgfeiiebgjfollb
++
++(function () {
++  "use strict";
++
++  const oldSvgPath =
++    "M 12.99 16.5 L 9 20.5 l 3.99 4 v -3 H 20 v -2 H 12.99 v -3 z M 27 14.5 l -3.99 -4 v 3 H 16 v 2 h 7.01 v 3 L 27 14.5 z";
++  const newSvgPath =
++    "M5.32 10.1429L0 15.5714L5.32 21V16.9286H14.6667V14.2143H5.32V10.1429ZM24 7.42857L18.68 2V6.07143H9.33333V8.78571H18.68V12.8571L24 7.42857Z";
++
++  const mirror = {
++    state: false,
++    videoButton: null,
++    shortButton: null,
++    styleSheet: null,
++
++    isNewUI() {
++      return !!document.querySelector(".ytp-right-controls-left");
++    },
++
++    embedVideoButton() {
++      if (mirror.videoButton || !document.querySelector(".ytp-right-controls")) return;
++      if (mirror.isNewUI()) mirror.embedVideoButtonNew();
++      else mirror.embedVideoButtonOld();
++    },
++
++    embedVideoButtonOld() {
++      const button = document.createElement("button");
++      button.classList.add("ytp-button");
++      button.style.height = "100%";
++      button.style.width = "56px";
++      button.title = "YT Mirror";
++      button.addEventListener("click", mirror.toggle);
++      button.innerHTML = `
++    <svg height="100%" version="1.1" viewBox="0 0 36 36" width="100%" fill-opacity="1">
++      <use class="ytp-svg-shadow" href="#ytp-mirror-button-path"></use>
++      <path d="${oldSvgPath}" fill="white" id="ytp-mirror-button-path"></path>
++    </svg>
++    `;
++      mirror.videoButton = button;
++      document.querySelector(".ytp-right-controls").prepend(button);
++    },
++
++    embedVideoButtonNew() {
++      const button = document.createElement("button");
++      button.classList.add("ytp-button");
++      button.title = "YT Mirror";
++      button.setAttribute("data-tooltip-title", "YT Mirror");
++      button.setAttribute("aria-expanded", "false");
++      button.setAttribute("aria-haspopup", "false");
++      button.addEventListener("click", mirror.toggle);
++      button.innerHTML = `
++    <svg fill="none" height="24" viewBox="0 0 24 24" width="24">
++      <use class="ytp-svg-shadow" href="#ytp-mirror-button-path"></use>
++      <path d="${newSvgPath}" fill="white" id="ytp-mirror-button-path"></path>
++    </svg>
++    `;
++      mirror.videoButton = button;
++      document
++        .querySelector(".ytp-right-controls")
++        .querySelector(".ytp-right-controls-left")
++        .prepend(button);
++    },
++
++    embedShortButton() {
++      if (mirror.shortButton || !document.querySelector(".navigation-container")) return;
++
++      const navigationButton = document.createElement("div");
++      navigationButton.classList.add("navigation-button", "style-scope", "ytd-shorts");
++      navigationButton.style.position = "absolute";
++      navigationButton.style.top = "unset";
++      navigationButton.style.bottom = "30px";
++
++      const button = document.createElement("button");
++      button.classList.add(
++        "yt-spec-button-shape-next",
++        "yt-spec-button-shape-next--tonal",
++        "yt-spec-button-shape-next--mono",
++        "yt-spec-button-shape-next--size-xl",
++        "yt-spec-button-shape-next--icon-button"
++      );
++      button.title = "YT Mirror";
++      button.addEventListener("click", mirror.toggle);
++      button.innerHTML = `
++    <svg height="100%" version="1.1" viewBox="0 0 36 36" width="100%" fill-opacity="1">
++      <use class="ytp-svg-shadow" href="#ytp-mirror-button-path"></use>
++      <path d="${oldSvgPath}" fill="#FFFFFF" id="ytp-mirror-button-path"></path>
++    </svg>
++    `;
++
++      navigationButton.appendChild(button);
++      mirror.shortButton = button;
++      document.querySelector(".navigation-container").prepend(navigationButton);
++    },
++
++    changeButtonColor() {
++      // Match the extension: yellow while the mirror is being turned on, white while it is being turned off.
++      const fill = mirror.state ? "#FFFFFF" : "#fbff12";
++      for (const button of [mirror.videoButton, mirror.shortButton]) {
++        if (!button) continue;
++        const path = button.querySelector("svg path");
++        if (path) path.style.fill = fill;
++      }
++    },
++
++    flipPlayer() {
++      if (mirror.state) {
++        if (mirror.styleSheet && mirror.styleSheet.parentNode)
++          mirror.styleSheet.parentNode.removeChild(mirror.styleSheet);
++      } else {
++        const styleSheet = document.createElement("style");
++        styleSheet.type = "text/css";
++        // `scaleX(-1)` on the video container flips the composited video surface.
++        styleSheet.innerText =
++          ".html5-video-container { transform: scaleX(-1) !important; }";
++        mirror.styleSheet = styleSheet;
++        (document.head || document.documentElement).appendChild(styleSheet);
++      }
++    },
++
++    toggle() {
++      mirror.changeButtonColor();
++      mirror.flipPlayer();
++      mirror.state = !mirror.state;
++    },
++
++    ensureButtons() {
++      const path = window.location.pathname;
++      if (path === "/watch" || path.startsWith("/live")) mirror.embedVideoButton();
++      if (path.indexOf("/shorts/") !== -1) mirror.embedShortButton();
++    },
++  };
++
++  function install() {
++    mirror.ensureButtons();
++
++    const observer = new MutationObserver(function () {
++      mirror.ensureButtons();
++    });
++    observer.observe(document.documentElement, { childList: true, subtree: true });
++
++    // YouTube is a single-page app; re-check after in-app navigation settles.
++    setInterval(function () {
++      if (window.location.pathname === "/watch" || window.location.pathname.indexOf("/shorts/") !== -1)
++        mirror.ensureButtons();
++    }, 1000);
++  }
++
++  if (document.readyState === "loading")
++    document.addEventListener("DOMContentLoaded", install, { once: true });
++  else
++    install();
++})();
+diff --git a/Services/WebContent/PageClient.cpp b/Services/WebContent/PageClient.cpp
+index 621c4c55..3e8a7b7c 100644
+--- a/Services/WebContent/PageClient.cpp
++++ b/Services/WebContent/PageClient.cpp
+@@ -14,6 +14,7 @@
+ #include <AK/Utf16String.h>
+ #include <AK/Utf16StringBuilder.h>
+ #include <LibCore/Process.h>
++#include <LibCore/Resource.h>
+ #include <LibCore/Timer.h>
+ #include <LibDevTools/IndexedDBSerialization.h>
+ #include <LibGC/Heap.h>
+@@ -361,6 +362,13 @@ void PageClient::page_did_change_replicated_navigable_state(Web::HTML::CrossProc
+ 
+ void PageClient::page_did_completely_finish_loading(Web::HTML::CrossProcessId navigable_id)
+ {
++    if (auto* navigable = as_if<Web::HTML::LocalNavigable>(page().navigable_with_id(navigable_id).ptr())) {
++        if (navigable->is_top_level_traversable()) {
++            if (auto document = navigable->active_document())
++                maybe_inject_site_user_scripts(*document);
++        }
++    }
++
+     client().async_did_completely_finish_loading(m_id, navigable_id);
+ }
+ 
+@@ -918,6 +926,13 @@ void PageClient::page_did_change_active_document_in_top_level_browsing_context(W
+ 
+ void PageClient::page_did_finish_loading(Web::HTML::CrossProcessId navigable_id, Optional<Utf16String> const& navigation_id)
+ {
++    if (auto* navigable = as_if<Web::HTML::LocalNavigable>(page().navigable_with_id(navigable_id).ptr())) {
++        if (navigable->is_top_level_traversable()) {
++            if (auto document = navigable->active_document())
++                maybe_inject_site_user_scripts(*document);
++        }
++    }
++
+     client().async_did_finish_loading(m_id, navigable_id, navigation_id);
+ }
+ 
+@@ -1958,6 +1973,74 @@ void PageClient::run_javascript(StringView js_source)
+         dbgln("Exception :(");
+ }
+ 
++// Ladybird has no extension store, so a small built-in list of per-site user scripts is injected into matching
++// documents after they load. Each script is a plain resource shipped in `resource://ladybird/user-scripts`.
++static bool is_youtube_document(URL::URL const& url)
++{
++    if (url.scheme() != "http"sv && url.scheme() != "https"sv)
++        return false;
++
++    auto host = url.serialized_host();
++    return host == "youtube.com"sv || host.ends_with(".youtube.com"sv);
++}
++
++static ErrorOr<String> load_site_user_script(StringView filename)
++{
++    auto resource = TRY(Core::Resource::load_from_uri(TRY(String::formatted("resource://ladybird/user-scripts/{}", filename))));
++    auto data = resource->data();
++    return String::from_utf8_with_replacement_character(StringView { data });
++}
++
++void PageClient::maybe_inject_site_user_scripts(Web::DOM::Document& document)
++{
++    if (!document.is_fully_active())
++        return;
++
++    if (!is_youtube_document(document.url()))
++        return;
++
++    auto document_id = document.unique_id().value();
++    if (m_documents_with_injected_user_scripts.contains(document_id))
++        return;
++    if (m_documents_with_pending_user_script_injection.contains(document_id))
++        return;
++
++    auto script_or_error = load_site_user_script("yt-mirror.js"sv);
++    if (script_or_error.is_error()) {
++        dbgln("Failed to load site user script: {}", script_or_error.error());
++        return;
++    }
++
++    m_documents_with_pending_user_script_injection.set(document_id);
++
++    // Queue a task rather than running immediately: this is invoked from within the document's load algorithm, and
++    // running script re-entrantly there is not safe.
++    Web::HTML::queue_a_task(Web::HTML::Task::Source::Unspecified, nullptr, document,
++        GC::create_function(heap(), [page_client = GC::Ref { *this }, document = GC::Ref { document }, source = script_or_error.release_value()]() {
++            page_client->run_site_user_script(document, source, "yt-mirror.js"sv);
++        }));
++}
++
++void PageClient::run_site_user_script(Web::DOM::Document& document, String const& source, StringView label)
++{
++    m_documents_with_pending_user_script_injection.remove(document.unique_id().value());
++
++    if (!document.is_fully_active())
++        return;
++
++    m_documents_with_injected_user_scripts.set(document.unique_id().value());
++
++    auto& settings = document.relevant_settings_object();
++    auto base_url = settings.api_base_url();
++    auto script_source = Utf16String::from_utf8(source);
++
++    auto script = Web::HTML::ClassicScript::create(ByteString::formatted("(site user script: {})", label), script_source, settings, move(base_url));
++    auto evaluation_status = script->run();
++
++    if (evaluation_status.is_error())
++        dbgln("Site user script '{}' threw an exception", label);
++}
++
+ void PageClient::did_output_js_console_message(WebView::ConsoleOutput console_output)
+ {
+     client().async_did_output_js_console_message(m_id, move(console_output));
+diff --git a/Services/WebContent/PageClient.h b/Services/WebContent/PageClient.h
+index a57ac21c..562c5be0 100644
+--- a/Services/WebContent/PageClient.h
++++ b/Services/WebContent/PageClient.h
+@@ -119,6 +119,8 @@ public:
+     void js_console_input(StringView js_source);
+     void did_execute_js_console_input(JsonValue const&);
+     void run_javascript(StringView js_source);
++    void maybe_inject_site_user_scripts(Web::DOM::Document&);
++    void run_site_user_script(Web::DOM::Document&, String const& source, StringView label);
+     void did_output_js_console_message(WebView::ConsoleOutput);
+     void console_peer_did_misbehave(char const* reason);
+ 
+@@ -381,6 +383,9 @@ private:
+ 
+     GC::Ptr<WebContentConsoleClient> m_top_level_document_console_client;
+ 
++    HashTable<i64> m_documents_with_injected_user_scripts;
++    HashTable<i64> m_documents_with_pending_user_script_injection;
++
+     RefPtr<Core::Timer> m_frame_timer;
+     FrameTimerPurpose m_frame_timer_purpose { FrameTimerPurpose::Inactive };
+     Optional<double> m_last_scheduled_frame_dispatch_time;
+diff --git a/UI/cmake/ResourceFiles.cmake b/UI/cmake/ResourceFiles.cmake
+index 3c0a9142..a44a55fd 100644
+--- a/UI/cmake/ResourceFiles.cmake
++++ b/UI/cmake/ResourceFiles.cmake
+@@ -36,6 +36,11 @@ set(SITE_COMPATIBILITY_RESOURCES
+ )
+ list(TRANSFORM SITE_COMPATIBILITY_RESOURCES PREPEND "${LADYBIRD_SOURCE_DIR}/WebCompat/")
+ 
++set(USER_SCRIPTS
++    yt-mirror.js
++)
++list(TRANSFORM USER_SCRIPTS PREPEND "${LADYBIRD_SOURCE_DIR}/Base/res/ladybird/user-scripts/")
++
+ set(ABOUT_PAGES
+     about.html
+     blocking.html
+@@ -174,6 +179,10 @@ function(copy_resources_to_build base_directory bundle_target)
+         DESTINATION ${base_directory} TARGET ${bundle_target}
+     )
+ 
++    copy_resource_set(ladybird/user-scripts RESOURCES ${USER_SCRIPTS}
++        DESTINATION ${base_directory} TARGET ${bundle_target}
++    )
++
+     copy_resource_set(ladybird/about-pages RESOURCES ${ABOUT_PAGES}
+         DESTINATION ${base_directory} TARGET ${bundle_target}
+     )
+@@ -216,6 +225,7 @@ function(install_ladybird_resources destination component)
+     install(FILES ${THEMES} DESTINATION "${destination}/themes" COMPONENT ${component})
+     install(FILES ${INTERNAL_RESOURCES} DESTINATION "${destination}/ladybird" COMPONENT ${component})
+     install(FILES ${SITE_COMPATIBILITY_RESOURCES} DESTINATION "${destination}/ladybird/site-compatibility" COMPONENT ${component})
++    install(FILES ${USER_SCRIPTS} DESTINATION "${destination}/ladybird/user-scripts" COMPONENT ${component})
+     install(FILES ${ABOUT_PAGES} DESTINATION "${destination}/ladybird/about-pages" COMPONENT ${component})
+     install(FILES ${ABOUT_SETTINGS_RESOURCES} DESTINATION "${destination}/ladybird/about-pages/settings" COMPONENT ${component})
+     install(FILES ${WEB_TEMPLATES} DESTINATION "${destination}/ladybird/templates" COMPONENT ${component})
