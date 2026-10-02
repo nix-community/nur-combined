@@ -1,6 +1,10 @@
-"""Regression coverage for source/lock consistency across failed updates."""
+"""Regression coverage for source discovery and transactional dependency updates."""
 
+import http.server
+import subprocess
 import tempfile
+import threading
+import tomllib
 import unittest
 from pathlib import Path
 
@@ -48,6 +52,60 @@ class UpdateTransactionTests(unittest.TestCase):
                 created.write_text("matching dependencies\n")
             self.assertEqual(lock.read_text(), "new toolchain\n")
             self.assertEqual(created.read_text(), "matching dependencies\n")
+
+
+class AiotVersionTests(unittest.TestCase):
+    def test_download_version_ignores_unrelated_prefetched_chunks(self):
+        config = tomllib.loads(
+            (Path(__file__).resolve().parents[1] / "nvfetcher.toml").read_text()
+        )
+        requests = []
+        pages = {
+            "/zh/guide/start/use-ide.html": (
+                '<link rel="prefetch" href="/assets/js/1.aaaa.js">'
+                '<link rel="preload" href="/assets/js/29.bbbb.js" as="script">'
+                '<script src="/assets/js/5.cccc.js" defer></script>'
+                '<script src="/assets/js/29.bbbb.js" defer></script>'
+            ),
+            "/assets/js/1.aaaa.js": 'ubuntu:"AIoT_IDE_ubuntu",version:"9.9.9"',
+            "/assets/js/5.cccc.js": 'version:"2.0.0"',
+            "/assets/js/29.bbbb.js": 'ubuntu:"AIoT_IDE_ubuntu",version:"1.7.0"',
+        }
+
+        class Handler(http.server.BaseHTTPRequestHandler):
+            def do_GET(self):
+                requests.append(self.path)
+                body = pages.get(self.path)
+                self.send_response(200 if body is not None else 404)
+                self.end_headers()
+                if body is not None:
+                    self.wfile.write(body.encode())
+
+            def log_message(self, *args):
+                pass
+
+        with http.server.HTTPServer(("127.0.0.1", 0), Handler) as server:
+            thread = threading.Thread(target=server.serve_forever, daemon=True)
+            thread.start()
+            command = config["aiot-ide"]["src"]["cmd"].replace(
+                "https://iot.mi.com/vela/quickapp",
+                f"http://127.0.0.1:{server.server_port}",
+            )
+            try:
+                result = subprocess.run(
+                    ["sh", "-c", command],
+                    capture_output=True, text=True, timeout=10,
+                )
+            finally:
+                server.shutdown()
+                thread.join()
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(result.stdout, "1.7.0\n")
+        self.assertEqual(requests, [
+            "/zh/guide/start/use-ide.html",
+            "/assets/js/5.cccc.js",
+            "/assets/js/29.bbbb.js",
+        ])
 
 
 if __name__ == "__main__":
