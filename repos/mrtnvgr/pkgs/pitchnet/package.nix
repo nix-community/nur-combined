@@ -141,10 +141,6 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Lightweight pitch editor with neural pitch detection and vocoder resynthesis";
     homepage = "https://github.com/SessionLoops/PitchNet";
     license = lib.licenses.agpl3Only;
-    sourceProvenance = with lib.sourceTypes; [
-      fromSource
-      binaryNativeCode
-    ];
     platforms = [ "x86_64-linux" ];
     mainProgram = "PitchNet";
   };
