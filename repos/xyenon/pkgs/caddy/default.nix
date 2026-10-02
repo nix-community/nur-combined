@@ -1,6 +1,6 @@
 {
   callPackage,
-  buildGo126Module,
+  buildGoModule,
   lib,
   sources,
   go,
@@ -9,7 +9,7 @@
 let
   caddy = callPackage ./package.nix {
     inherit caddy;
-    inherit buildGo126Module;
+    inherit buildGoModule;
   };
   pluginSources = lib.filterAttrs (_n: v: (v.isCaddyPlugin or null) == "true") sources;
   plugins = lib.mapAttrsToList (
