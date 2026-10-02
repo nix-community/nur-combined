@@ -9,6 +9,7 @@ packages.
 | --- | --- |
 | `radiopropa` | Radio propagation in inhomogeneous media ray tracing. |
 | `rainlendar2` | Customizable desktop calendar (Rainlendar Lite). |
+| `jammy-flows` | Python library for normalizing flow PDFs on manifolds. |
 
 ## Installation
 
