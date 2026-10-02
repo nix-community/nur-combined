@@ -4,6 +4,7 @@
   pkg-config,
   glib,
   libpulseaudio,
+  libva,
   pipewire,
   libx11,
   wayland,
@@ -92,10 +93,26 @@ qqBase.overrideAttrs (old: {
   pname = "qq-wayland-fix";
 
   postFixup = (old.postFixup or "") + ''
-    wrapProgram $out/bin/qq \
+    # QQ's resources/app/avsdk/broadcast-core.so dlopens libpipewire-0.3.so.0
+    # and libva.so by bare name; NixOS has no global library directory and its
+    # ld.so.cache has neither, so both lookups fail and screen sharing never
+    # opens a portal (encoding also stays software-only). /run/opengl-driver/lib
+    # carries the vendor codec libraries (NVENC/NVDEC/CUDA, AMF, oneVPL) and is
+    # appended last so it cannot shadow store libraries. EGL_PLATFORM: with no
+    # platform hint glvnd hands eglGetDisplay(EGL_DEFAULT_DISPLAY) to Mesa,
+    # which cannot drive the NVIDIA blob and degrades to llvmpipe (share
+    # encoding then pegs several cores).
+    # makeShellWrapper, not wrapProgram: the binary wrapper from wrapGAppsHook3
+    # cannot express the conditional EGL_PLATFORM export (--run is unsupported).
+    mv $out/bin/qq $out/bin/.qq-nixpkgs
+    makeShellWrapper $out/bin/.qq-nixpkgs $out/bin/qq \
+      --inherit-argv0 \
       --prefix LD_PRELOAD : "${waylandFix}/lib/libqq-wl-portal.so:${waylandFix}/lib/libqq-clipbridge.so:${waylandFix}/lib/libqq-screenshot.so:${waylandFix}/lib/libqq-borderfix.so" \
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libva (lib.getLib pipewire) ]} \
+      --suffix LD_LIBRARY_PATH : /run/opengl-driver/lib \
       --set XDG_SESSION_TYPE x11 \
       --set-default MESA_SHADER_CACHE_DISABLE true \
+      --run 'if [ -z "''${EGL_PLATFORM:-}" ] && [ -n "''${WAYLAND_DISPLAY:-}" ]; then export EGL_PLATFORM=wayland; fi' \
       --add-flags "--ozone-platform=wayland"
   '';
 

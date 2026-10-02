@@ -3,11 +3,11 @@
   stdenv,
   autoPatchelfHook,
   dpkg,
-  bashInteractive,
   glib,
   libx11,
   wayland,
   qq,
+  qqRuntimeEnv,
   sources,
 }:
 
@@ -55,19 +55,18 @@ stdenv.mkDerivation {
     install -Dm644 usr/share/licenses/linuxqq-wayland-fix/LICENSE \
       $out/share/licenses/linuxqq-wayland-fix/LICENSE
 
-    # The release launcher hardcodes the distro libdir and a distro bash: point
-    # LIBDIR at this output, use the interactive bash that provides compgen, and
-    # seed QQ_WAYLAND_FIX_QQ with the packaged QQ so it works out of the box
-    # (the user's own export still wins).
+    # The release launcher hardcodes the distro libdir; point it at this output.
+    # The remaining NixOS adaptations (interactive bash for compgen, PATH,
+    # library paths, EGL/ANGLE environment, the store QQ default, --doctor's
+    # /opt/QQ lookups and the absolute Exec) come from the shared snippet.
     substituteInPlace $out/bin/linuxqq-wayland-fix \
-      --replace-fail '#!/bin/bash' "#!${lib.getExe bashInteractive}" \
-      --replace-fail 'LIBDIR="/usr/lib/linuxqq-wayland-fix"' "LIBDIR=\"$out/lib/linuxqq-wayland-fix\"" \
-      --replace-fail 'set -u' 'set -u
-: "''${QQ_WAYLAND_FIX_QQ:=${qq}/bin/qq}"'
+      --replace-fail 'LIBDIR="/usr/lib/linuxqq-wayland-fix"' "LIBDIR=\"$out/lib/linuxqq-wayland-fix\""
 
     # Icon=qq resolves through the session's XDG_DATA_DIRS, which never contains
     # a dependency's share tree; expose QQ's icons from this output.
     ln -s ${qq}/share/icons $out/share/icons
+
+${qqRuntimeEnv}
 
     runHook postInstall
   '';
@@ -86,7 +85,10 @@ stdenv.mkDerivation {
       QQ itself is not part of the release and must be installed separately:
       QQ_WAYLAND_FIX_QQ is seeded with the packaged `qq` wrapper and can still
       be overridden, otherwise the launcher falls back to a `linuxqq` command in
-      PATH and /opt/QQ/qq. Upstream publishes no aarch64 asset, so this package
+      PATH and /opt/QQ/qq. The launcher carries the same NixOS adaptations as the
+      source package: the interactive bash, the PATH of helper tools, the
+      pipewire/libva/opengl-driver library paths, the EGL/Vulkan hints and the
+      store-side QQ paths. Upstream publishes no aarch64 asset, so this package
       is x86_64-linux only.
     '';
     homepage = "https://github.com/SHORiN-KiWATA/linuxqq-wayland-fix";

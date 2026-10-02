@@ -1,9 +1,9 @@
 {
   lib,
   stdenv,
-  bashInteractive,
   sources,
   qq,
+  qqRuntimeEnv,
   waylandFix,
 }:
 
@@ -27,19 +27,6 @@ stdenv.mkDerivation {
   installPhase = ''
     runHook preInstall
 
-    # Upstream's launcher is a distro bash script: it calls compgen, which
-    # nixpkgs' non-interactive bash build does not compile in, so keep the
-    # interactive build as the interpreter.
-    #
-    # The upstream launcher only looks for a `linuxqq` command or /opt/QQ/qq;
-    # neither exists for the nixpkgs `qq` install. Seed its documented
-    # QQ_WAYLAND_FIX_QQ override with the packaged QQ wrapper, which the user
-    # can still replace by exporting the variable.
-    substituteInPlace linuxqq-wayland-fix \
-      --replace-fail '#!/bin/bash' "#!${lib.getExe bashInteractive}" \
-      --replace-fail 'set -u' 'set -u
-: "''${QQ_WAYLAND_FIX_QQ:=${qq}/bin/qq}"'
-
     install -Dm755 linuxqq-wayland-fix $out/bin/linuxqq-wayland-fix
     install -Dm644 linuxqq-wayland-fix.desktop $out/share/applications/linuxqq-wayland-fix.desktop
     install -Dm644 README.md $out/share/doc/linuxqq-wayland-fix/README.md
@@ -52,6 +39,12 @@ stdenv.mkDerivation {
     # session's XDG_DATA_DIRS, which never contains a dependency's share tree;
     # expose QQ's icons from this output so a standalone install shows them.
     ln -s ${qq}/share/icons $out/share/icons
+
+    # LIBDIR is already substituted by the Makefile (LIBEXECDIR above); the rest
+    # of what NixOS needs -- interactive bash for compgen, PATH, library paths,
+    # EGL/ANGLE environment, the store QQ default, --doctor's /opt/QQ lookups and
+    # the absolute Exec -- comes from the shared snippet.
+${qqRuntimeEnv}
 
     runHook postInstall
   '';
@@ -66,16 +59,16 @@ stdenv.mkDerivation {
       documented QQ_WAYLAND_FIX_QQ override (seeded with the packaged `qq`
       wrapper, still overridable), then a `linuxqq` command in PATH, then
       /opt/QQ/qq; the four LD_PRELOAD shims are shared with `qq-wayland-fix`.
-      The desktop entry is installed byte-identical to upstream and the launcher
-      only swaps its shebang for the interactive bash that provides compgen and
-      seeds the QQ default.
 
       The launcher keeps the upstream tools: `--doctor` checks the environment
       and whether the running QQ still matches the shims, `--version`, the
       QQ_WAYLAND_FIX_ANGLE backend switch (auto/vulkan/swiftshader/off) and the
       QQ_*_DISABLE troubleshooting switches. It logs to
       $XDG_RUNTIME_DIR/linuxqq-wayland-fix.log and preserves QQ crash records
-      under ~/.cache/linuxqq-wayland-fix/crash.
+      under ~/.cache/linuxqq-wayland-fix/crash. The installed script carries the
+      NixOS adaptations upstream's packaging needs: the interactive bash, the
+      PATH of helper tools, the pipewire/libva/opengl-driver library paths, the
+      EGL/Vulkan hints and the store-side QQ paths.
     '';
     homepage = "https://github.com/SHORiN-KiWATA/linuxqq-wayland-fix";
     license = lib.licenses.mit;
