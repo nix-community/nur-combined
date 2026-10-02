@@ -63,22 +63,34 @@ buildGo126Module (finalAttrs: {
     "-X github.com/alyraffauf/tg/internal/cli.version=${finalAttrs.version}"
   ];
 
-  passthru.tgmcp = python314Packages.buildPythonApplication {
-    pname = "tgmcp";
-    inherit (finalAttrs) version src;
-    sourceRoot = "source/mcp";
-    pyproject = true;
-    build-system = [python314Packages.uv-build];
-    dependencies = with python314Packages; [fastmcp pydantic];
-    pythonRemoveDeps = ["ruff" "ty"];
-    pythonRelaxDeps = ["fastmcp" "pydantic"];
-    postPatch = ''
-      substituteInPlace pyproject.toml --replace-fail 'uv_build>=0.12.17,<0.13.0' 'uv_build'
-      substituteInPlace tests/test_tools.py --replace-fail '.input_schema' '.inputSchema' --replace-fail '.output_schema' '.outputSchema' --replace-fail '.read_only_hint' '.readOnlyHint' --replace-fail '.idempotent_hint' '.idempotentHint' --replace-fail '.destructive_hint' '.destructiveHint'
-    '';
-    nativeCheckInputs = with python314Packages; [pytestCheckHook pytest-asyncio];
-    pythonImportsCheck = ["tgmcp"];
-  };
+  passthru.tgmcp = let
+    pythonPackages = python314Packages.overrideScope (_final: prev:
+      lib.optionalAttrs (python314Packages.py-key-value-aio.version == "0.3.0" && python314Packages.aws-sam-translator.disabled) {
+        py-key-value-aio = prev.py-key-value-aio.overridePythonAttrs (old: {
+          # Version 0.3.0's DynamoDB tests require aws-sam-translator via aioboto3.
+          nativeCheckInputs = lib.filter (dep:
+            !(lib.elem (lib.getName dep) ["aioboto3" "types-aiobotocore-dynamodb"]))
+          old.nativeCheckInputs;
+          disabledTestPaths = (old.disabledTestPaths or []) ++ ["tests/stores/dynamodb"];
+        });
+      });
+  in
+    pythonPackages.buildPythonApplication {
+      pname = "tgmcp";
+      inherit (finalAttrs) version src;
+      sourceRoot = "source/mcp";
+      pyproject = true;
+      build-system = [pythonPackages.uv-build];
+      dependencies = with pythonPackages; [fastmcp pydantic];
+      pythonRemoveDeps = ["ruff" "ty"];
+      pythonRelaxDeps = ["fastmcp" "pydantic"];
+      postPatch = ''
+        substituteInPlace pyproject.toml --replace-fail 'uv_build>=0.12.17,<0.13.0' 'uv_build'
+        substituteInPlace tests/test_tools.py --replace-fail '.input_schema' '.inputSchema' --replace-fail '.output_schema' '.outputSchema' --replace-fail '.read_only_hint' '.readOnlyHint' --replace-fail '.idempotent_hint' '.idempotentHint' --replace-fail '.destructive_hint' '.destructiveHint'
+      '';
+      nativeCheckInputs = with pythonPackages; [pytestCheckHook pytest-asyncio];
+      pythonImportsCheck = ["tgmcp"];
+    };
 
   meta = {
     # keep-sorted start
