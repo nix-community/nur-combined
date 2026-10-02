@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-exec mise exec uv -- uv run python3 "$@"
