@@ -108,22 +108,22 @@
   };
   nexus-media = {
     pname = "nexus-media";
-    version = "v4.21.4";
+    version = "v4.21.5";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media";
-      tag = "v4.21.4";
-      hash = "sha256-If3EjmuWYDwKc/HAIOKmB0liJZI1/vRJ4sPie1neWXk=";
+      tag = "v4.21.5";
+      hash = "sha256-3poOzTK6T3MPz/BlGWe5xj5pm2f+ZukQu8Ae3dr12Gs=";
     };
   };
   nexus-media-web = {
     pname = "nexus-media-web";
-    version = "v4.21.4";
+    version = "v4.21.5";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media-web";
-      tag = "v4.21.4";
-      hash = "sha256-tCTkWEAVts95/Ke+G/NeOsfu5utdYAlXdA+IgluabfY=";
+      tag = "v4.21.5";
+      hash = "sha256-bkRyqvb3cqhqyqTwJFAAp0SCIDyGwDOnjP9gKAK6PEo=";
     };
   };
   pinyin2hanzi = {
@@ -144,12 +144,12 @@
   };
   pyromark = {
     pname = "pyromark";
-    version = "v0.9.13";
+    version = "v0.9.14";
     src = fetchFromGitHub {
       owner = "monosans";
       repo = "pyromark";
-      tag = "v0.9.13";
-      hash = "sha256-lyU3GtkAbZekqXj7JOeKZQALf5s1J8umDwJZU8NRDW4=";
+      tag = "v0.9.14";
+      hash = "sha256-uqb+2E7CYXOZ78/A8RdVzBmbBRC00LUPTUkaErYlyaY=";
     };
   };
   sublinkpro-linux-amd64 = {
