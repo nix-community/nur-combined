@@ -1490,6 +1490,7 @@ subshells
 Substack
 substituter
 substituters
+subtree
 sudo
 sumatriptan
 sunsetting
@@ -1682,6 +1683,7 @@ unsetting
 unstage
 unstaged
 unstick
+unstyled
 unsuffixed
 untagged
 untargeted

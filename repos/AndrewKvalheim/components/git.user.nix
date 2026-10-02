@@ -70,6 +70,8 @@ in
     ];
 
     ignores = [
+      ".❯"
+      ".❯.*"
       ".direnv/"
       ".envrc"
       ".envrc.gemset.nix"

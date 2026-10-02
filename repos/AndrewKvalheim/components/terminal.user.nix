@@ -56,6 +56,7 @@ in
       "alt+shift+down" = "move_window down";
 
       # Tabs
+      "ctrl+shift+l" = "set_tab_title";
       "ctrl+t" = "new_tab";
       "ctrl+shift+t" = "detach_window ask";
       "ctrl+shift+tab" = "previous_tab";

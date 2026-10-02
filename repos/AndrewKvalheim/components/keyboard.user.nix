@@ -20,10 +20,11 @@ in
     "‽" = "!?"; # interrobang
     "′" = "`'"; # prime
     "″" = "`\""; # double prime
-    "»" = ">>"; # right double angle quotation mark
-    "›" = ">."; # right single angle quotation mark
-    "«" = "<<"; # left double angle quotation mark
-    "‹" = "<."; # left single angle quotation mark
+    "»" = ">\""; # right double angle quotation mark
+    "›" = ">'"; # right single angle quotation mark
+    "❯" = ">$"; # heavy right single angle quotation mark
+    "«" = "<\""; # left double angle quotation mark
+    "‹" = "<'"; # left single angle quotation mark
     "—" = "--"; # em dash
     "–" = "-n"; # en dash
     "­" = "-?"; # soft hyphen

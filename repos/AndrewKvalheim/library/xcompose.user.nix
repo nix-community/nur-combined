@@ -30,6 +30,7 @@ let
       ">" = "greater";
       "|" = "bar";
       "~" = "asciitilde";
+      "$" = "dollar";
     };
 in
 {

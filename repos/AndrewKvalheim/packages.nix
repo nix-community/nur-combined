@@ -4,7 +4,7 @@ with import ./library/override-utils.lib.nix { inherit stable; nur = ./nur.nix; 
 
 let
   inherit (builtins) readFile;
-  inherit (lib) makeBinPath throwIf;
+  inherit (lib) escapeShellArg makeBinPath throwIf;
   inherit (stable) lib writeTextDir;
 
   community-vscode-extensions = (import <community-vscode-extensions>).extensions.${stable.stdenv.hostPlatform.system}.forVSCodeVersion resolved.vscodium.vscodeVersion;
@@ -38,6 +38,13 @@ specify {
   darktable.version = "≥5.6"; # color harmonizer module
   dawarich.patch = [ ./library/assets/dawarich_issue-2951.patch ./library/assets/dawarich_viridis.patch ];
   decompiler-mc = any;
+  direnv.overlay = d: {
+    # Workaround for direnv/direnv#348
+    postPatch = let name = ".❯"; in d.postPatch or "" + ''
+      grep --exclude-dir 'man' --files-with-matches --fixed-strings --recursive '.envrc' . | xargs sed --in-place 's/\.envrc/'${escapeShellArg name}'/g'
+      find . -name '.envrc' -execdir mv '.envrc' ${escapeShellArg name} ';'
+    '';
+  };
   dmarc-report-notifier = any;
   doh = any;
   easy-timeline = any;

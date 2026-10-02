@@ -333,6 +333,7 @@ in
         # Highlights
         "editor.unicodeHighlight.allowedCharacters" = {
           "’" = true;
+          "❯" = true;
           "×" = true;
         };
         "highlight.minDelay" = 2000; # Workaround for fabiospampinato/vscode-highlight#139
@@ -448,6 +449,7 @@ in
         # Icons
         "material-icon-theme.files.associations" = {
           "*.🡕" = "Http";
+          ".❯" = "Tune";
           ".envrc" = "Tune";
         };
         "material-icon-theme.folders.associations" = {
