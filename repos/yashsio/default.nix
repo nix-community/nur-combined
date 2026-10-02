@@ -22,6 +22,7 @@
   mozart = pkgs.callPackage ./pkgs/mozart { };
   krypton-cli = pkgs.callPackage ./pkgs/krypton-cli { };
   sfm = pkgs.callPackage ./pkgs/sfm { };
+  aether = pkgs.callPackage ./pkgs/aether { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
