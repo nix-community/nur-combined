@@ -151,6 +151,30 @@ Conformance is tracked separately as a ratchet against the official
   runs once, or never, pay for all fifteen answers, and it made mastodon
   0.3% slower. The lazy version is no slower than before on any project
   measured.
+- **A built-in call skips the families that cannot answer it.** A built-in is
+  dispatched down a chain of eight families (colour, the colour extras, math,
+  string, map, list, meta, selector). Each one compares the name against its
+  own list and passes the call on, so a call to `nth` was turned down five
+  times before the list family took it. Each call site now records where in
+  the chain its name can first be claimed, and it also records the
+  declaration a global call is verified against, so neither is looked up
+  again. Namespaced calls get the same skip from the member index they
+  already consult. Per call, a global built-in saves 100–510 instructions
+  (`nth($l, 1)` went from 2,876 to 2,457) and a namespaced one 120–330
+  (`list.nth` from 2,721 to 2,393). Marginal instructions on Linux/x86_64,
+  output byte-identical:
+
+  ```
+                                  before     now        change
+    vuetify                       334.0M     316.4M     -5.28%
+    module_calls.scss             27.47M     26.67M     -2.91%
+    legacy_deprecations.scss      109.07M    106.16M    -2.67%
+    bulma                         1911.9M    1874.2M    -1.98%
+    minimal-mistakes              161.9M     159.0M     -1.78%
+    bootstrap                     820.6M     808.3M     -1.50%
+    govuk-frontend                195.5M     193.0M     -1.32%
+    large.scss                    94.31M     93.62M     -0.73%
+  ```
 
 ## [0.19.3] - 2026-09-30
 

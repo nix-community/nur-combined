@@ -944,7 +944,14 @@ impl<'a> Evaluator<'a> {
                 // The name as WRITTEN: `builtins::call` canonicalizes its own
                 // lookup, and a name that is no builtin passes through as the
                 // plain-CSS function it was spelled as.
-                let v = crate::builtins::call(name, &pos_args, &named, *pos)?;
+                let v = crate::builtins::call_dispatched(
+                    canonical,
+                    name,
+                    &facts.dispatch,
+                    &pos_args,
+                    &named,
+                    *pos,
+                )?;
                 // With no module, this deprecation is raised for exactly the
                 // names `color_deprecates` records, and is a no-op otherwise.
                 if facts.color_deprecates {

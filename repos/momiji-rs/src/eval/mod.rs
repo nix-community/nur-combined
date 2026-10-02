@@ -5433,6 +5433,7 @@ impl crate::ast::CallFacts {
             global_replacement: crate::builtins::global_builtin_replacement(c),
             feature_exists: c == "feature-exists",
             color_deprecates: crate::builtins::color_function_deprecates(c),
+            dispatch: crate::builtins::Dispatch::of(c),
             canonical: canonical.map(String::into_boxed_str),
         }
     }

@@ -73,6 +73,97 @@ pub(crate) fn call(
     call_body(name, written, pos_args, named, pos)
 }
 
+/// [`call`] for a call site that has already resolved its name: `name` is the
+/// canonical spelling, `written` the one in the source, and `d` what
+/// [`Dispatch::of`] made from `name`. Verifies against the same row and runs the
+/// same chain, only without looking either up again.
+pub(crate) fn call_dispatched(
+    name: &str,
+    written: &str,
+    d: &Dispatch,
+    pos_args: &[Value],
+    named: &[(String, Value)],
+    pos: Pos,
+) -> Result<Value, Error> {
+    if let Some(f) = d.global {
+        verify_args(f, pos_args, named, pos)?;
+        if f.rest().is_some() {
+            let out = call_body_from(d.start, name, written, pos_args, named, pos);
+            return reject_leftover(f, named, pos, out);
+        }
+    }
+    call_body_from(d.start, name, written, pos_args, named, pos)
+}
+
+/// What [`call`] works out from a canonical name before it dispatches: the
+/// [`Fun`] row a global call is verified against, and where in
+/// [`call_body_from`]'s family chain the first family that can claim the name
+/// sits. Both follow from the name alone, so a call site makes this once (it
+/// is part of [`crate::ast::CallFacts`]).
+#[derive(Clone, Copy, Default)]
+pub(crate) struct Dispatch {
+    global: Option<&'static Fun>,
+    /// 0 starts at the top of the chain, which is always correct; see
+    /// [`chain_start`].
+    start: u8,
+}
+
+impl Dispatch {
+    pub(crate) fn of(canonical: &str) -> Self {
+        Self {
+            global: global_member(canonical),
+            start: chain_start(canonical),
+        }
+    }
+}
+
+impl PartialEq for Dispatch {
+    fn eq(&self, other: &Self) -> bool {
+        let same_row = match (self.global, other.global) {
+            (Some(a), Some(b)) => std::ptr::eq(a, b),
+            (None, None) => true,
+            _ => false,
+        };
+        same_row && self.start == other.start
+    }
+}
+
+impl std::fmt::Debug for Dispatch {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("Dispatch")
+            .field("global", &self.global.map(|g| g.name))
+            .field("start", &self.start)
+            .finish()
+    }
+}
+
+/// The families of [`call_body_from`], in its order, as the names each one can
+/// claim. A family's `try_call` claims only names in its own `NAMES`, with two
+/// exceptions written in here: `math` matches case-insensitively, and `map`
+/// also claims `length`/`nth` when the first argument is a map.
+/// `a_family_before_the_chain_start_claims_nothing` checks the rule against
+/// every family's `try_call`, for every name and a spread of argument shapes.
+const CHAIN: [fn(&str) -> bool; 8] = [
+    |n| color::NAMES.contains(&n) || color::MODERN_NAMES.contains(&n),
+    |n| color_ext::NAMES.contains(&n),
+    is_math_builtin_name,
+    |n| string::NAMES.contains(&n),
+    |n| map::NAMES.contains(&n) || n == "length" || n == "nth",
+    |n| list::NAMES.contains(&n),
+    |n| meta::NAMES.contains(&n),
+    |n| selector::NAMES.contains(&n),
+];
+
+/// The index of the first family in [`CHAIN`] that can claim `name`, or
+/// `CHAIN.len()` when none can and the call is plain CSS. Every family before
+/// it would answer `None`, so skipping them changes nothing.
+fn chain_start(name: &str) -> u8 {
+    CHAIN
+        .iter()
+        .position(|claims| claims(name))
+        .unwrap_or(CHAIN.len()) as u8
+}
+
 /// [`call`]'s dispatch, split out so the rest-parameter post-check can wrap it.
 fn call_body(
     name: &str,
@@ -81,31 +172,65 @@ fn call_body(
     named: &[(String, Value)],
     pos: Pos,
 ) -> Result<Value, Error> {
-    if let Some(r) = color::try_call(name, pos_args, named, pos) {
-        return r;
+    call_body_from(0, name, written, pos_args, named, pos)
+}
+
+/// The family chain, from family `start` on. Each family claims the call or
+/// declines it, and the first claim wins.
+/// The ONE copy of the chain. Every dispatch reaches it, the module path with
+/// the start its index records: a second copy made each family's `try_call`
+/// two-caller, which stopped LLVM inlining them, and cost a module call 30–170
+/// instructions, measured. `a_family_before_the_chain_start_claims_nothing` is
+/// what makes skipping its head safe.
+fn call_body_from(
+    start: u8,
+    name: &str,
+    written: &str,
+    pos_args: &[Value],
+    named: &[(String, Value)],
+    pos: Pos,
+) -> Result<Value, Error> {
+    if start == 0 {
+        if let Some(r) = color::try_call(name, pos_args, named, pos) {
+            return r;
+        }
     }
-    if let Some(r) = color_ext::try_call(name, pos_args, named, pos) {
-        return r;
+    if start <= 1 {
+        if let Some(r) = color_ext::try_call(name, pos_args, named, pos) {
+            return r;
+        }
     }
-    if let Some(r) = math::try_call(name, pos_args, named, pos) {
-        return r;
+    if start <= 2 {
+        if let Some(r) = math::try_call(name, pos_args, named, pos) {
+            return r;
+        }
     }
-    if let Some(r) = string::try_call(name, pos_args, named, pos) {
-        return r;
+    if start <= 3 {
+        if let Some(r) = string::try_call(name, pos_args, named, pos) {
+            return r;
+        }
     }
     // Map runs before list so `length`/`nth` on a map are handled here; the
     // map family declines those names for non-map arguments, falling through.
-    if let Some(r) = map::try_call(name, pos_args, named, pos) {
-        return r;
+    if start <= 4 {
+        if let Some(r) = map::try_call(name, pos_args, named, pos) {
+            return r;
+        }
     }
-    if let Some(r) = list::try_call(name, pos_args, named, pos) {
-        return r;
+    if start <= 5 {
+        if let Some(r) = list::try_call(name, pos_args, named, pos) {
+            return r;
+        }
     }
-    if let Some(r) = meta::try_call(name, pos_args, named, pos) {
-        return r;
+    if start <= 6 {
+        if let Some(r) = meta::try_call(name, pos_args, named, pos) {
+            return r;
+        }
     }
-    if let Some(r) = selector::try_call(name, pos_args, named, pos) {
-        return r;
+    if start <= 7 {
+        if let Some(r) = selector::try_call(name, pos_args, named, pos) {
+            return r;
+        }
     }
     plain_css_function(written, pos_args, named, pos)
 }
@@ -479,7 +604,9 @@ pub(crate) fn verify_member_args(
 
 /// The `Fun` row for a module member, for [`verify_args`].
 fn member_of(module: &str, member: &str) -> Option<&'static Fun> {
-    member_index().members[module_slot(module)?].get(member).copied()
+    member_index().members[module_slot(module)?]
+        .get(member)
+        .map(|m| m.0)
 }
 
 /// Every [`Fun`] row, keyed both ways a call can name it, and every global
@@ -489,7 +616,9 @@ fn member_of(module: &str, member: &str) -> Option<&'static Fun> {
 /// which the evaluator asks on every global call.
 struct MemberIndex {
     /// By [`module_slot`], then by member name.
-    members: [FxHashMap<&'static str, &'static Fun>; MODULES.len()],
+    /// Each with the [`chain_start`] of the global it names (0 when none), so
+    /// the module path's one lookup also says where its dispatch can start.
+    members: [FxHashMap<&'static str, (&'static Fun, u8)>; MODULES.len()],
     globals: FxHashMap<&'static str, &'static Fun>,
     /// The union of [`FAMILY_NAMES`].
     builtins: FxHashSet<&'static str>,
@@ -520,7 +649,8 @@ fn member_index() -> &'static MemberIndex {
             for f in m.functions {
                 // First wins in both maps, as the linear `find` this replaces
                 // did: a later row never shadows an earlier one.
-                index.members[slot].entry(f.name).or_insert(f);
+                let start = f.global.map_or(0, chain_start);
+                index.members[slot].entry(f.name).or_insert((f, start));
                 if let Some(g) = f.global.filter(|g| !CALCULATION_GLOBALS.contains(g)) {
                     index.globals.entry(g).or_insert(f);
                 }
@@ -1324,8 +1454,16 @@ pub(crate) fn module_variable_names(module: &str) -> &'static [&'static str] {
 
 /// Translate a `(module, member)` pair to the global builtin that implements
 /// it, or `None` when the member has no global alias — see [`Members`].
+#[cfg(test)]
 pub(crate) fn module_member_to_global(module: &str, member: &str) -> Option<&'static str> {
     member_of(module, member)?.global
+}
+
+/// [`module_member_to_global`] with the [`chain_start`] of that global, from
+/// one index lookup.
+fn module_member_dispatch(module: &str, member: &str) -> Option<(&'static str, u8)> {
+    let (f, start) = *member_index().members[module_slot(module)?].get(member)?;
+    Some((f.global?, start))
 }
 
 /// Whether `module` exposes `member` as a FUNCTION.
@@ -1473,8 +1611,8 @@ fn call_module_body(
     // verified these arguments against this member's row, and the global is a
     // view of the same row (`a_module_members_global_is_the_same_row`), so a
     // second lookup and verification would repeat the first (#260).
-    match module_member_to_global(module, member) {
-        Some(global) => call_body(global, global, pos_args, named, pos),
+    match module_member_dispatch(module, member) {
+        Some((global, start)) => call_body_from(start, global, global, pos_args, named, pos),
         None => Err(Error::at("Undefined function.".to_string(), pos)),
     }
 }
@@ -2070,6 +2208,94 @@ mod tests {
                 }
             }
         }
+    }
+
+    /// The premise of [`super::chain_start`], checked against the code it
+    /// skips: every family BEFORE a name's start declines that name, whatever
+    /// the arguments. If a family began claiming a name outside its `NAMES`,
+    /// starting later would silently send that call somewhere else.
+    ///
+    /// Every name any family lists, the `math` names upper-cased (that family
+    /// matches case-insensitively), and some names no family owns, each called
+    /// with a spread of argument shapes, maps included because `map` claims
+    /// `length`/`nth` only for a map.
+    #[test]
+    fn a_family_before_the_chain_start_claims_nothing() {
+        use crate::scanner::Pos;
+        use crate::value::{Color, List, ListSep, Map, Number, SassStr, Value};
+        type TryCall =
+            fn(&str, &[Value], &[(String, Value)], Pos) -> Option<Result<Value, crate::error::Error>>;
+        let chain: [(&str, TryCall); 8] = [
+            ("color", super::color::try_call),
+            ("color_ext", super::color_ext::try_call),
+            ("math", super::math::try_call),
+            ("string", super::string::try_call),
+            ("map", super::map::try_call),
+            ("list", super::list::try_call),
+            ("meta", super::meta::try_call),
+            ("selector", super::selector::try_call),
+        ];
+        assert_eq!(chain.len(), super::CHAIN.len());
+
+        let num = || Value::Number(Number::unitless(1.0));
+        let pct = || Value::Number(Number::with_unit(10.0, "%"));
+        let s = |t: &str| {
+            Value::Str(SassStr {
+                text: t.into(),
+                quoted: true,
+            })
+        };
+        let color = || Value::Color(Color::rgb(10.0, 20.0, 30.0, 1.0));
+        let list = || Value::List(List::new(vec![num(), num()], ListSep::Space, false));
+        let map = || Value::Map(Map::new(vec![(s("a"), num())]));
+        type Args = (Vec<Value>, Vec<(String, Value)>);
+        let shapes: Vec<Args> = vec![
+            (vec![], vec![]),
+            (vec![num()], vec![]),
+            (vec![num(), num()], vec![]),
+            (vec![pct()], vec![]),
+            (vec![s("a")], vec![]),
+            (vec![s("a"), num(), num()], vec![]),
+            (vec![color()], vec![]),
+            (vec![color(), pct()], vec![]),
+            (vec![list()], vec![]),
+            (vec![list(), num()], vec![]),
+            (vec![map()], vec![]),
+            (vec![map(), s("a")], vec![]),
+            (vec![], vec![("amount".to_string(), pct())]),
+        ];
+
+        let mut names: Vec<String> = Vec::new();
+        for family in super::FAMILY_NAMES {
+            names.extend(family.iter().map(|n| n.to_string()));
+        }
+        names.extend(super::math::NAMES.iter().map(|n| n.to_ascii_uppercase()));
+        names.extend(["length", "nth", "foo", "url", "var", "calc", "if", "expression"].map(String::from));
+        // Every global a module member names: the module path dispatches it
+        // from the start its index records, including globals no family owns.
+        for module in super::MODULES {
+            for f in super::members_of(module).unwrap().functions {
+                names.extend(f.global.map(String::from));
+            }
+        }
+
+        let mut checked = 0;
+        for name in &names {
+            let start = super::chain_start(name) as usize;
+            for (family, try_call) in &chain[..start] {
+                for (pos_args, named) in &shapes {
+                    let claimed = try_call(name, pos_args, named, Pos { line: 1, col: 1 });
+                    assert!(
+                        claimed.is_none(),
+                        "{family} claims {name}() although the chain starts after it, at {}",
+                        chain.get(start).map_or("plain CSS", |(f, _)| f),
+                    );
+                    checked += 1;
+                }
+            }
+        }
+        // The premise is only worth something if it was exercised.
+        assert!(checked > 1000, "only {checked} calls checked");
     }
 
     /// `has_rest` is computed once, in a `const fn`; it must agree with the

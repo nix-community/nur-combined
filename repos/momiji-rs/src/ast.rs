@@ -540,6 +540,9 @@ pub(crate) struct CallFacts {
     pub feature_exists: bool,
     /// A legacy colour function with a `[color-functions]` deprecation.
     pub color_deprecates: bool,
+    /// The built-in dispatch for the canonical name: the row a global call
+    /// is verified against, and where the family chain can start.
+    pub dispatch: crate::builtins::Dispatch,
 }
 
 /// A value expression.
