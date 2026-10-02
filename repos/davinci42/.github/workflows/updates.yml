@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: '0 */6 * * *'
   workflow_dispatch:
+    inputs:
+      force:
+        description: 'Ignore existing PRs and use a new branch; keep all validation, never force-push'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -33,9 +38,12 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.UPDATE_TOKEN || github.token }}
           UPDATE_BASE: ${{ github.event.repository.default_branch }}
+          UPDATE_FORCE: ${{ inputs.force || false }}
         run: |
           if [ "${ACT:-false}" = "true" ]; then
             nix-shell --run 'just check-updates --update'
+          elif [ "$UPDATE_FORCE" = "true" ]; then
+            nix-shell --run 'just check-updates --pr --force'
           else
             nix-shell --run 'just check-updates --pr'
           fi

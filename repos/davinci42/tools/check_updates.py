@@ -9,6 +9,7 @@ import tempfile
 from collections.abc import Iterator
 from pathlib import Path
 from typing import TypedDict, cast
+from uuid import uuid4
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tools import maintain
@@ -31,6 +32,7 @@ class Release(TypedDict):
 class Arguments(argparse.Namespace):
     pr: bool = False
     update: bool = False
+    force: bool = False
 
 
 def github(root: Path, arguments: list[str]) -> str:
@@ -147,6 +149,7 @@ def open_pr(
     release: Release,
     spec: maintain.Specification,
     systems: list[str],
+    force: bool = False,
 ) -> str:
     version = release["tag_name"].removeprefix("v")
     branch = f"updates/{package}-{current}-to-{version}"
@@ -172,8 +175,10 @@ def open_pr(
             )
         ),
     )
-    if existing:
+    if existing and not force:
         return "existing PR: " + existing[0]["url"]
+    if force:
+        branch += f"-force-{uuid4().hex}"
     title = f"{package}: {current} -> {version}"
     with tempfile.TemporaryDirectory(prefix="nur-pr-") as temporary:
         worktree = Path(temporary) / "repo"
@@ -258,7 +263,11 @@ def ready_updates(
         yield package, spec, current, systems, release
 
 
-def check_updates(root: Path, pr: bool = False, update: bool = False) -> None:
+def check_updates(
+    root: Path, pr: bool = False, update: bool = False, force: bool = False
+) -> None:
+    if force and not pr:
+        raise ValueError("--force requires --pr")
     if pr and maintain.run(root, ["git", "status", "--porcelain"], capture=True):
         raise ValueError("PR publishing requires a clean checkout")
     repository, base = (
@@ -269,7 +278,15 @@ def check_updates(root: Path, pr: bool = False, update: bool = False) -> None:
         if pr:
             report(
                 open_pr(
-                    root, repository, base, package, current, release, spec, systems
+                    root,
+                    repository,
+                    base,
+                    package,
+                    current,
+                    release,
+                    spec,
+                    systems,
+                    force=force,
                 )
             )
         elif update:
@@ -286,9 +303,14 @@ def main() -> None:
     mode = parser.add_mutually_exclusive_group()
     _ = mode.add_argument("--pr", action="store_true")
     _ = mode.add_argument("--update", action="store_true")
+    _ = parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Ignore existing PRs and publish from a new branch; still run all validation (requires --pr)",
+    )
     args = parser.parse_args(namespace=Arguments())
     try:
-        check_updates(maintain.ROOT, args.pr, args.update)
+        check_updates(maintain.ROOT, args.pr, args.update, args.force)
     except (OSError, ValueError, KeyError, subprocess.SubprocessError) as error:
         report(f"Update failed: {error}")
         parser.exit(1)

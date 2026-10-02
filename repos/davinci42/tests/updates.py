@@ -231,6 +231,151 @@ class UpdateTests(unittest.TestCase):
         self.assertIn("not build-tested: aarch64-linux", body)
         self.assertNotIn("Pinned contract verified", body)
 
+    def test_force_uses_fresh_branches_and_keeps_validation(self) -> None:
+        with (
+            patch.object(
+                check_updates,
+                "github",
+                side_effect=['[{"url":"existing"}]', "new-pr"] * 2,
+            ) as api,
+            patch.object(
+                maintain,
+                "run",
+                side_effect=["", "", "", '"x86_64-linux"', "", "", "", ""] * 2,
+            ) as run,
+        ):
+            for _ in range(2):
+                self.assertEqual(
+                    check_updates.open_pr(
+                        self.root,
+                        "owner/nur",
+                        "main",
+                        "example",
+                        "1.0.0",
+                        self.release,
+                        self.spec,
+                        ["x86_64-linux"],
+                        force=True,
+                    ),
+                    "new-pr",
+                )
+        branches: list[str] = []
+        for index in range(2):
+            commands = [
+                cast(list[str], call.args[1])
+                for call in run.call_args_list[index * 8 : (index + 1) * 8]
+            ]
+            self.assertEqual(commands[1], ["just", "update", "example", "1.1.0"])
+            self.assertEqual(commands[2], ["git", "diff", "--check"])
+            create = cast(list[str], api.call_args_list[index * 2 + 1].args[1])
+            branch = create[create.index("--head") + 1]
+            self.assertRegex(
+                branch, r"^updates/example-1\.0\.0-to-1\.1\.0-force-[0-9a-f]{32}$"
+            )
+            self.assertEqual(
+                commands[6],
+                ["git", "push", "-u", "origin", f"HEAD:refs/heads/{branch}"],
+            )
+            branches.append(branch)
+        self.assertNotEqual(*branches)
+
+    def test_force_does_not_bypass_validation_failure(self) -> None:
+        with (
+            patch.object(
+                check_updates, "github", return_value='[{"url":"existing"}]'
+            ) as api,
+            patch.object(
+                maintain, "run", side_effect=["", ValueError("contract changed"), ""]
+            ) as run,
+            self.assertRaisesRegex(ValueError, "contract changed"),
+        ):
+            _ = check_updates.open_pr(
+                self.root,
+                "owner/nur",
+                "main",
+                "example",
+                "1.0.0",
+                self.release,
+                self.spec,
+                ["x86_64-linux"],
+                force=True,
+            )
+        commands = [cast(list[str], call.args[1]) for call in run.call_args_list]
+        self.assertEqual(commands[1], ["just", "update", "example", "1.1.0"])
+        self.assertEqual(commands[-1][:3], ["git", "worktree", "remove"])
+        self.assertFalse(
+            any("commit" in command or "push" in command for command in commands)
+        )
+        api.assert_called_once()
+
+    def test_force_requires_pr_before_any_work(self) -> None:
+        for update in [False, True]:
+            with (
+                self.subTest(update=update),
+                patch.object(check_updates, "ready_updates") as ready,
+                patch.object(maintain, "run") as run,
+                self.assertRaisesRegex(ValueError, "--force requires --pr"),
+            ):
+                check_updates.check_updates(self.root, update=update, force=True)
+            ready.assert_not_called()
+            run.assert_not_called()
+
+    def test_force_keeps_release_and_clean_checkout_gates(self) -> None:
+        with (
+            patch.dict(
+                os.environ, {"GITHUB_REPOSITORY": "owner/nur", "UPDATE_BASE": "main"}
+            ),
+            patch.object(maintain, "run", return_value="") as run,
+            patch.object(
+                maintain, "package_info", return_value=("1.0.0", ["x86_64-linux"])
+            ),
+            patch.object(check_updates, "candidates", return_value=[]) as candidates,
+            patch.object(check_updates, "open_pr") as publish,
+        ):
+            check_updates.check_updates(self.root, pr=True, force=True)
+            self.release["assets"] = []
+            candidates.return_value = [self.release]
+            check_updates.check_updates(self.root, pr=True, force=True)
+            publish.assert_not_called()
+            run.return_value = "modified"
+            with self.assertRaisesRegex(ValueError, "clean checkout"):
+                check_updates.check_updates(self.root, pr=True, force=True)
+            publish.assert_not_called()
+
+    def test_force_cli_and_publishing_wiring(self) -> None:
+        with (
+            patch.object(sys, "argv", ["check_updates.py", "--pr", "--force"]),
+            patch.object(check_updates, "check_updates") as check,
+        ):
+            check_updates.main()
+        check.assert_called_once_with(maintain.ROOT, True, False, True)
+        with (
+            patch.dict(
+                os.environ, {"GITHUB_REPOSITORY": "owner/nur", "UPDATE_BASE": "main"}
+            ),
+            patch.object(maintain, "run", return_value=""),
+            patch.object(
+                check_updates,
+                "ready_updates",
+                return_value=[
+                    ("example", self.spec, "1.0.0", ["x86_64-linux"], self.release)
+                ],
+            ),
+            patch.object(check_updates, "open_pr", return_value="new-pr") as publish,
+        ):
+            check_updates.check_updates(self.root, pr=True, force=True)
+        publish.assert_called_once_with(
+            self.root,
+            "owner/nur",
+            "main",
+            "example",
+            "1.0.0",
+            self.release,
+            self.spec,
+            ["x86_64-linux"],
+            force=True,
+        )
+
     def test_body_reports_only_declared_checks(self) -> None:
         spec = self.spec.copy()
         spec["sync"] = ["generate"]
