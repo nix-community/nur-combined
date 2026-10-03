@@ -316,7 +316,6 @@
                   nixpkgs-esp-dev.overlays.default
                   nur.overlays.default
                   rust-overlay.overlays.default
-                  # zed.overlays.default
                 ];
                 config = {
                   allowUnfree = true;

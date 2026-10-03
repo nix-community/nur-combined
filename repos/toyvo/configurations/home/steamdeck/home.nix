@@ -15,7 +15,6 @@
       inputs.self.overlays.default
       inputs.nur.overlays.default
       inputs.rust-overlay.overlays.default
-      # inputs.zed.overlays.default
     ];
     config = {
       allowUnfree = true;

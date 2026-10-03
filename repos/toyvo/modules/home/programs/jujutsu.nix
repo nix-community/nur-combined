@@ -66,30 +66,25 @@ in
         "bash"
         "-c"
         ''
-          if [ -n "$1" ]; then
-            CHANGE_ID="$1"
-          else
-            CHANGE_ID="@"
-          fi
-          # Parse extra context flags
+          CHANGE_ID="@"
           EXTRA_CONTEXT=""
-          shift 2>/dev/null || true
+          MODEL_OVERRIDE=""
+          PROVIDER_OVERRIDE=""
           while [ $# -gt 0 ]; do
             case "$1" in
-              -C)
-                if [ -n "$2" ]; then
-                  EXTRA_CONTEXT="Add context: $2"
-                  shift 2
-                else
-                  shift
-                fi
-                ;;
-              *)
-                shift
-                ;;
+              -r|--revision) CHANGE_ID="$2"; shift 2 || shift ;;
+              --revision=*) CHANGE_ID="''${1#*=}"; shift ;;
+              -C|--context) EXTRA_CONTEXT="$2"; shift 2 || shift ;;
+              --context=*) EXTRA_CONTEXT="''${1#*=}"; shift ;;
+              --model) MODEL_OVERRIDE="$2"; shift 2 || shift ;;
+              --model=*) MODEL_OVERRIDE="''${1#*=}"; shift ;;
+              --provider) PROVIDER_OVERRIDE="$2"; shift 2 || shift ;;
+              --provider=*) PROVIDER_OVERRIDE="''${1#*=}"; shift ;;
+              -*) echo "Error: unknown flag $1" >&2; exit 2 ;;
+              *) CHANGE_ID="$1"; shift ;;
             esac
           done
-          DIFF_OUTPUT=$(jj diff -r "$CHANGE_ID" --no-pager 2>/dev/null)
+          DIFF_OUTPUT=$(jj diff -r "$CHANGE_ID" --git --color never 2>/dev/null)
           if [ -z "$DIFF_OUTPUT" ]; then
             echo "Error: No diff found for change $CHANGE_ID" >&2
             exit 1
@@ -101,12 +96,14 @@ in
           ${lib.optionalString (
             cfg.aiDescribe.model != null
           ) "PI_ARGS+=(--model ${lib.escapeShellArg cfg.aiDescribe.model})"}
+          [ -n "$PROVIDER_OVERRIDE" ] && PI_ARGS+=(--provider "$PROVIDER_OVERRIDE")
+          [ -n "$MODEL_OVERRIDE" ] && PI_ARGS+=(--model "$MODEL_OVERRIDE")
           FULL_PROMPT=${lib.escapeShellArg cfg.aiDescribe.prompt}
           if [ -n "$EXTRA_CONTEXT" ]; then
-            FULL_PROMPT="$EXTRA_CONTEXT"$'\n\n'"$FULL_PROMPT"
+            FULL_PROMPT="Add context: $EXTRA_CONTEXT"$'\n\n'"$FULL_PROMPT"
           fi
-          # pi's plain print mode writes only the response text to stdout
-          if ! MESSAGE=$(pi -p --no-session "''${PI_ARGS[@]}" "$FULL_PROMPT"$'\n\n'"$DIFF_OUTPUT"); then
+          # diff goes via stdin (too large for argv); print mode writes only the response to stdout
+          if ! MESSAGE=$(pi -p --no-session "''${PI_ARGS[@]}" "$FULL_PROMPT" <<<"$DIFF_OUTPUT"); then
             echo "Error: pi failed to generate a commit message" >&2
             exit 1
           fi
