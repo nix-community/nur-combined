@@ -236,6 +236,7 @@ in
       openssl
       # p7zip-unfree
       pciutils
+      pigz
       progress
       psmisc
       psutils
