@@ -1,8 +1,8 @@
 {
-  "version": "0.70.0",
+  "version": "0.71.0",
   "hashes": {
-    "aarch64-linux": "sha256-dLTzYGMKwV0up5UJyk/K/yBfMsQKiLr/kA4uKafyb5A=",
-    "x86_64-linux": "sha256-4/a+GP5waNst/PqTxbO+4gmijXpxpSRV7584Oj0sRZw="
+    "aarch64-linux": "sha256-lESu9p6cJRQ7myLYoyoTYmjKBlNHcsNnc8IdzSYAe8w=",
+    "x86_64-linux": "sha256-2VzCuoBpXR+3PyWzcAy5L8aHB0tokCc0w9D2liEBixI="
   },
   "updater": {
     "type": "github-release-assets",
