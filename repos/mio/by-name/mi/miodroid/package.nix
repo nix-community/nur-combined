@@ -6,6 +6,9 @@
   gawk,
   getent,
   gobject-introspection,
+  e2fsprogs,
+  fuse-overlayfs,
+  fuse3,
   gtk3,
   kmod,
   lxc,
@@ -98,6 +101,77 @@ python3Packages.buildPythonApplication rec {
       tools/actions/initializer.py \
       tools/actions/session_manager.py \
       tools/helpers/ipc.py
+
+    cat > tools/helpers/rootless.py <<'EOF'
+    import logging
+    import os
+    import shutil
+
+    def _run(args, command):
+        return tools.helpers.run.user(args, command)
+
+    def _ismount(path):
+        path = os.path.realpath(path)
+        with open("/proc/mounts") as mounts:
+            return any(len(words) >= 2 and words[1] == path
+                       for words in (line.split() for line in mounts))
+
+    def bind(args, source, destination, create_folders=True, umount=False):
+        if os.path.isdir(source):
+            if create_folders:
+                os.makedirs(destination, exist_ok=True)
+            shutil.copytree(source, destination, dirs_exist_ok=True)
+            return
+        bind_file(args, source, destination, create_folders)
+
+    def bind_file(args, source, destination, create_folders=False):
+        os.makedirs(os.path.dirname(destination), exist_ok=True)
+        shutil.copy2(source, destination)
+
+    def mount(args, source, destination, create_folders=True, umount=False,
+              readonly=True, mount_type=None, options=None, force=True):
+        if _ismount(destination) and mount_type == "overlay":
+            umount_all(args, destination)
+        os.makedirs(destination, exist_ok=True)
+        if source.endswith(".img"):
+            command = ["fuse2fs", "-o", "ro" if readonly else "rw",
+                       source, destination]
+        elif mount_type == "overlay":
+            command = ["fuse-overlayfs"]
+            if options:
+                command += ["-o", ",".join(options)]
+            command.append(destination)
+        else:
+            raise RuntimeError(
+                "Rootless mode cannot mount {} at {}; use a rootful helper"
+                .format(source, destination))
+        _run(args, command)
+        if not _ismount(destination):
+            raise RuntimeError("Rootless mount failed: " + destination)
+
+    def umount_all(args, folder):
+        if not shutil.which("fusermount3"):
+            raise RuntimeError("fusermount3 is required for rootless mode")
+        folder = os.path.realpath(folder)
+        with open("/proc/mounts") as mounts:
+            paths = sorted(
+                (words[1] for words in (line.split() for line in mounts)
+                 if len(words) >= 2 and words[1].startswith(folder)),
+                reverse=True)
+        for path in paths:
+            _run(args, ["fusermount3", "-u", path])
+EOF
+    sed -i 's/^    //' tools/helpers/rootless.py
+    sed -i '1i import tools.helpers.run\n' tools/helpers/rootless.py
+    cat >> tools/helpers/mount.py <<'EOF'
+
+    if os.environ.get("MIODROID_ROOTLESS"):
+        from tools.helpers import rootless
+        bind = rootless.bind
+        bind_file = rootless.bind_file
+        mount = rootless.mount
+        umount_all = rootless.umount_all
+EOF
 
     # cfg["waydroid"] section key in Python  →  cfg["miodroid"]
     find . -name "*.py" -exec sed -i \
@@ -242,6 +316,9 @@ python3Packages.buildPythonApplication rec {
           gawk
           kmod
           lxc
+          e2fsprogs
+          fuse-overlayfs
+          fuse3
           util-linux
           wl-clipboard
         ]

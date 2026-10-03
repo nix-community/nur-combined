@@ -8,6 +8,30 @@
 let
   cfg = config.virtualisation.miodroid;
   kCfg = config.lib.kernelConfig;
+  rootlessUser = if cfg.rootlessUser == null then "root" else cfg.rootlessUser;
+  rootlessHelper = pkgs.writeShellScript "miodroid-rootless-helper" ''
+    set -eu
+
+    user=${lib.escapeShellArg rootlessUser}
+    uid="$(id -u "$user")"
+    gid="$(id -g "$user")"
+
+    ${pkgs.kmod}/bin/modprobe binder_linux
+    ${pkgs.coreutils}/bin/install -d -m 0755 /dev/binderfs
+    if ! ${pkgs.util-linux}/bin/mountpoint -q /dev/binderfs; then
+      ${pkgs.util-linux}/bin/mount -t binder binder /dev/binderfs
+    fi
+
+    for node in binder vndbinder hwbinder; do
+      test -e "/dev/binderfs/$node"
+      ${pkgs.coreutils}/bin/chmod 0660 "/dev/binderfs/$node"
+      ${pkgs.coreutils}/bin/chown "$uid:$gid" "/dev/binderfs/$node"
+      ${pkgs.coreutils}/bin/ln -sfn "/dev/binderfs/$node" "/dev/$node"
+    done
+
+    test -x ${pkgs.lxc}/bin/lxc-start
+    test -x ${pkgs.lxc}/bin/lxc-user-nic
+  '';
   miodroidGbinderConf = pkgs.writeText "miodroid.conf" ''
     [Protocol]
     /dev/binder = aidl2
@@ -49,6 +73,16 @@ in
     ];
 
     boot.kernelParams = [ "psi=1" ];
+    boot.kernelModules = lib.mkIf (cfg.rootlessUser != null) [ "binder_linux" ];
+    boot.extraModprobeConfig = lib.mkIf (cfg.rootlessUser != null) ''
+      options binder_linux devices=binder,vndbinder,hwbinder
+    '';
+
+    services.udev.extraRules = lib.mkIf (cfg.rootlessUser != null) ''
+      KERNEL=="binder", MODE="0666"
+      KERNEL=="vndbinder", MODE="0666"
+      KERNEL=="hwbinder", MODE="0666"
+    '';
 
     environment.etc."gbinder.d/miodroid.conf".source = miodroidGbinderConf;
     environment.systemPackages = [ cfg.package ];
@@ -70,15 +104,28 @@ in
       };
     };
 
-    systemd.services.miodroid-container = {
-      description = "Miodroid Container";
-      wantedBy = [ "multi-user.target" ];
+    systemd.services = {
+      "miodroid-rootless-helper-${rootlessUser}" = lib.mkIf (cfg.rootlessUser != null) {
+        description = "Miodroid rootless host preparation";
+        wantedBy = [ "multi-user.target" ];
+        before = [ "miodroid-container.service" ];
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = rootlessHelper;
+          RemainAfterExit = true;
+        };
+      };
 
-      serviceConfig = {
-        Type = "dbus";
-        UMask = "0022";
-        ExecStart = "${cfg.package}/bin/miodroid container start";
-        BusName = "id.miodro.Container";
+      miodroid-container = {
+        description = "Miodroid Container";
+        wantedBy = [ "multi-user.target" ];
+
+        serviceConfig = {
+          Type = "dbus";
+          UMask = "0022";
+          ExecStart = "${cfg.package}/bin/miodroid container start";
+          BusName = "id.miodro.Container";
+        };
       };
     };
 
