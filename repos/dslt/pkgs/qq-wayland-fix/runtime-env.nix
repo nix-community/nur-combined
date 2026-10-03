@@ -65,9 +65,26 @@ if [ -z "''${VK_DRIVER_FILES:-}''${VK_ICD_FILENAMES:-}" ] && [ -d /run/opengl-dr
 fi
 : "''${QQ_WAYLAND_FIX_QQ:=${qqPackage}/bin/qq}"
 : "''${QQ_WAYLAND_FIX_QQ_ROOT:=${qqPackage}/opt/QQ}"' \
+    --replace-fail 'elif [[ -x /opt/QQ/qq ]]; then' 'elif [[ -x "''${QQ_WAYLAND_FIX_QQ_ROOT:-/opt/QQ}/qq" ]]; then' \
+    --replace-fail '        echo /opt/QQ/qq' '        echo "''${QQ_WAYLAND_FIX_QQ_ROOT:-/opt/QQ}/qq"' \
     --replace-fail 'elif [[ -d /opt/QQ/resources/app ]]; then' 'elif [[ -d "''${QQ_WAYLAND_FIX_QQ_ROOT:-/opt/QQ}/resources/app" ]]; then' \
     --replace-fail '        echo /opt/QQ/resources/app' '        echo "''${QQ_WAYLAND_FIX_QQ_ROOT:-/opt/QQ}/resources/app"' \
-    --replace-fail 'local qqbin=/opt/QQ/qq offs' 'local qqbin="''${QQ_WAYLAND_FIX_QQ_ROOT:-/opt/QQ}/qq" offs'
+    --replace-fail '/opt/QQ/resources/app/wrapper.node' '"''${QQ_WAYLAND_FIX_QQ_ROOT:-/opt/QQ}/resources/app/wrapper.node"'
+
+  # Newer launchers inspect the running QQ (including AppImages) before falling
+  # back to the installed binary. Keep that discovery and adapt only its fallback;
+  # older launchers inspect the installed binary directly. Each layout must still
+  # match its required substitutions so further upstream changes fail the build.
+  if grep -Fq 'qq_runtime_exe() {' $out/bin/linuxqq-wayland-fix; then
+    substituteInPlace $out/bin/linuxqq-wayland-fix \
+      --replace-fail '[[ -x /opt/QQ/qq ]] && echo /opt/QQ/qq' \
+        '[[ -x "''${QQ_WAYLAND_FIX_QQ_ROOT:-/opt/QQ}/qq" ]] && echo "''${QQ_WAYLAND_FIX_QQ_ROOT:-/opt/QQ}/qq"' \
+      --replace-fail 'roots+=(/opt/QQ)' 'roots+=("''${QQ_WAYLAND_FIX_QQ_ROOT:-/opt/QQ}")'
+  else
+    substituteInPlace $out/bin/linuxqq-wayland-fix \
+      --replace-fail 'find "$vdir" /opt/QQ -name' 'find "$vdir" "''${QQ_WAYLAND_FIX_QQ_ROOT:-/opt/QQ}" -name' \
+      --replace-fail 'local qqbin=/opt/QQ/qq offs' 'local qqbin="''${QQ_WAYLAND_FIX_QQ_ROOT:-/opt/QQ}/qq" offs'
+  fi
 
   # The menu entry must not depend on the launcher being on PATH.
   substituteInPlace $out/share/applications/linuxqq-wayland-fix.desktop \
