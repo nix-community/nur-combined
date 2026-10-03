@@ -9,6 +9,7 @@
   nodejs,
   pnpm,
   pnpmConfigHook,
+  pnpmBuildHook,
   rustc,
   pciutils,
   nix-update-script,
@@ -62,6 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
     nodejs
     pnpm
     pnpmConfigHook
+    pnpmBuildHook
     rustc
     rustPlatform.bindgenHook
     rustPlatform.cargoBuildHook
@@ -78,8 +80,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   cargoBuildType = "release";
 
-  postBuild = ''
-    pnpm run build
+  buildPhase = ''
+    runHook cargoBuildHook
+    runHook pnpmBuildHook
   '';
 
   cargoCheckType = finalAttrs.cargoBuildType;
