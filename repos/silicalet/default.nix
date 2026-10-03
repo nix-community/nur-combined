@@ -33,6 +33,7 @@
   folia-major-bin = pkgs.callPackage ./pkgs/folia-major/binary.nix { };
   ghost-downloader-3 = pkgs.callPackage ./pkgs/ghost-downloader-3 { };
   ipgw = pkgs.callPackage ./pkgs/ipgw { };
+  kuake-cli = pkgs.callPackage ./pkgs/kuake-cli { };
   meatshell = pkgs.callPackage ./pkgs/meatshell { };
   meatshell-bin = pkgs.callPackage ./pkgs/meatshell/binary.nix { };
   modeltrace = pkgs.callPackage ./pkgs/modeltrace { };
@@ -40,6 +41,7 @@
   nyaterm = pkgs.callPackage ./pkgs/nyaterm { };
   nyaterm-bin = pkgs.callPackage ./pkgs/nyaterm/binary.nix { };
   oh-dsh-bin = pkgs.callPackage ./pkgs/oh-dsh/binary.nix { };
+  quarkpan = pkgs.callPackage ./pkgs/quarkpan { };
   quien = pkgs.callPackage ./pkgs/quien { };
   seekey = pkgs.callPackage ./pkgs/seekey { };
   uipro-cli = pkgs.callPackage ./pkgs/uipro-cli { };

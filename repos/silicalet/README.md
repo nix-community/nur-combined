@@ -5,6 +5,22 @@ Personal [NUR](https://github.com/nix-community/NUR) packages.
 All package sources are pinned by version/tag or commit and hash, so evaluation remains
 pure and reproducible.
 
+## Quark Drive CLIs
+
+Run either client:
+
+```console
+nix run .#quarkpan -- --help
+nix run .#kuake-cli -- --help
+```
+
+`quarkpan` builds [quarkpan-rs](https://github.com/niuhuan/quarkpan-rs)
+from a pinned commit; its updater follows the default branch because upstream
+has no release tags. `kuake-cli` builds tagged releases of
+[kuake_cli](https://github.com/zhangjingwei/kuake_cli) and installs the `kuake`
+command. Both clients require your own Quark cookies for cloud operations.
+Both packages are included in the default update set.
+
 ## ModelTrace
 
 Run the local model-attribution web application:
