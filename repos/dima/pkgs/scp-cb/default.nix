@@ -13,14 +13,29 @@ pkgs.stdenv.mkDerivation {
 		unzip
 		makeWrapper
 		initool
+		copyDesktopItems
+		imagemagick
 	];
 
 	buildInputs = with pkgs; [
 		wine
 	];
 
+	desktopItems = [
+		(pkgs.makeDesktopItem {
+			name = "scp-cb";
+			desktopName = "SCP: Containment Breach";
+			comment = "Free survival horror game based on the works of the SCP Foundation community";
+			exec = "scp-cb";
+			icon = "scp-cb";
+			categories = [
+				"Game"
+			];
+		})
+	];
+
 	unpackPhase = ''
-		mkdir -p $out/lib/scp-cb
+		mkdir -p $out/{lib/scp-cb,share/icons/hicolor/64x64/apps}
 		unzip $src -d $out/lib/scp-cb
 	'';
 
@@ -51,6 +66,8 @@ pkgs.stdenv.mkDerivation {
 	'';
 
 	installPhase = with pkgs; ''
+		runHook preInstall
+
 		mkdir -p $out/bin
 		cp ${./scp-cb} $out/bin/scp-cb
 
@@ -71,6 +88,12 @@ pkgs.stdenv.mkDerivation {
 
 		rm -r $out/lib/scp-cb/Saves
 		ln -s ${dataPath}/scp-cb/saves $out/lib/scp-cb/Saves
+
+		runHook postInstall
+	'';
+
+	postInstall = ''
+		magick "$out/lib/scp-cb/logo.ico[3]" "$out/share/icons/hicolor/64x64/apps/scp-cb.png"
 	'';
 
 	meta = with pkgs.lib; {
