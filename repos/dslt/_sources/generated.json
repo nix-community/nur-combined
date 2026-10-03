@@ -308,12 +308,12 @@
             "name": null,
             "owner": "SHORiN-KiWATA",
             "repo": "linuxqq-wayland-fix",
-            "rev": "b29088d849b27253641383d633dd4102ac4afcfb",
-            "sha256": "sha256-fm9PKq5ZkrG6D6KTD6ZIIgV/aPKwr6jARBzzEGkJHtU=",
+            "rev": "9b4c35596905f1c786c1fa6b4265d07de32ba948",
+            "sha256": "sha256-+H0b3fDi+3CGd2hlFA1YE+wWO0XMtJPNBMht/bh1O3c=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b29088d849b27253641383d633dd4102ac4afcfb"
+        "version": "9b4c35596905f1c786c1fa6b4265d07de32ba948"
     },
     "qq-wayland-fix-bin-x86_64": {
         "cargoLock": null,
@@ -324,11 +324,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Z8m7hOzk0K8Ee6TTy2u+6tezBh7mM6RZQ7VoTdEVUEo=",
+            "sha256": "sha256-ZjkVUJwkU/6HLLpANKjxk7qOvrBACKdDk7FFUdnHkZU=",
             "type": "url",
-            "url": "https://github.com/SHORiN-KiWATA/linuxqq-wayland-fix/releases/download/v0.2.8/linuxqq-wayland-fix_0.2.8-1.debian12_amd64.deb"
+            "url": "https://github.com/SHORiN-KiWATA/linuxqq-wayland-fix/releases/download/v0.2.13/linuxqq-wayland-fix_0.2.13-1.debian12_amd64.deb"
         },
-        "version": "0.2.8"
+        "version": "0.2.13"
     },
     "qq-x86_64": {
         "cargoLock": null,
