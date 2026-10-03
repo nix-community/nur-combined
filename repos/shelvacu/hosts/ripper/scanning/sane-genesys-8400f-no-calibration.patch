@@ -1,0 +1,156 @@
+diff --git i/backend/genesys/genesys.cpp w/backend/genesys/genesys.cpp
+index 74ef74e..b47310d 100644
+--- i/backend/genesys/genesys.cpp
++++ w/backend/genesys/genesys.cpp
+@@ -4008,15 +4008,17 @@ static void genesys_start_scan(Genesys_Device* dev, bool lamp_off)
+     // when setting option value */
+     dev->cmd_set->send_gamma_table(dev, sensor);
+ 
++    // don't run calibration for those scanners where all passes are disabled, and don't
++    // restore a cached one either: it would bring back calibrated AFE offsets/gains
++    bool shading_disabled =
++            has_flag(dev->model->flags, ModelFlag::DISABLE_ADC_CALIBRATION) &&
++            has_flag(dev->model->flags, ModelFlag::DISABLE_EXPOSURE_CALIBRATION) &&
++            has_flag(dev->model->flags, ModelFlag::DISABLE_SHADING_CALIBRATION);
++
+   /* try to use cached calibration first */
+-  if (!genesys_restore_calibration (dev, sensor))
++  if (shading_disabled || !genesys_restore_calibration (dev, sensor))
+     {
+         // calibration : sheetfed scanners can't calibrate before each scan.
+-        // also don't run calibration for those scanners where all passes are disabled
+-        bool shading_disabled =
+-                has_flag(dev->model->flags, ModelFlag::DISABLE_ADC_CALIBRATION) &&
+-                has_flag(dev->model->flags, ModelFlag::DISABLE_EXPOSURE_CALIBRATION) &&
+-                has_flag(dev->model->flags, ModelFlag::DISABLE_SHADING_CALIBRATION);
+         if (!shading_disabled && !dev->model->is_sheetfed) {
+             genesys_scanner_calibration(dev, sensor);
+             genesys_save_calibration(dev, sensor);
+diff --git i/backend/genesys/tables_frontend.cpp w/backend/genesys/tables_frontend.cpp
+index 65fc7f4..d435876 100644
+--- i/backend/genesys/tables_frontend.cpp
++++ w/backend/genesys/tables_frontend.cpp
+@@ -622,6 +622,16 @@ void genesys_init_frontend_tables()
+         { 0x29, 0x9f },
+         { 0x2a, 0xc2 },
+     };
++    // Manual overrides for finding raw-mode settings: WM8199 offset DAC and PGA codes (R,G,B).
++    // Calibration overwrites these unless SANE_GENESYS_8400F_NO_CALIBRATION is set.
++    auto offset_8400f = get_env_unsigned_list("SANE_GENESYS_8400F_AFE_OFFSET", 3, 0, 255);
++    auto gain_8400f = get_env_unsigned_list("SANE_GENESYS_8400F_AFE_GAIN", 3, 0, 255);
++    for (unsigned ch = 0; ch < offset_8400f.size(); ch++) {
++        fe.set_offset(ch, offset_8400f[ch]);
++    }
++    for (unsigned ch = 0; ch < gain_8400f.size(); ch++) {
++        fe.set_gain(ch, gain_8400f[ch]);
++    }
+     fe.reg2 = {0x00, 0x00, 0x00};
+     s_frontends->push_back(fe);
+ 
+diff --git i/backend/genesys/tables_model.cpp w/backend/genesys/tables_model.cpp
+index 6d02db8..268caa8 100644
+--- i/backend/genesys/tables_model.cpp
++++ w/backend/genesys/tables_model.cpp
+@@ -519,6 +519,14 @@ void genesys_init_usb_device_tables()
+                   ModelFlag::DARK_CALIBRATION |
+                   ModelFlag::CUSTOM_GAMMA |
+                   ModelFlag::SHADING_REPARK;
++    // Raw mode: skip offset/gain and shading calibration entirely; the AFE uses the fixed
++    // defaults from tables_frontend.cpp and hardware shading is off, so the output is the
++    // uncorrected sensor data for flat-fielding on the host.
++    if (get_env_flag("SANE_GENESYS_8400F_NO_CALIBRATION")) {
++        model.flags |= ModelFlag::DISABLE_ADC_CALIBRATION |
++                       ModelFlag::DISABLE_EXPOSURE_CALIBRATION |
++                       ModelFlag::DISABLE_SHADING_CALIBRATION;
++    }
+     model.buttons = GENESYS_HAS_SCAN_SW | GENESYS_HAS_FILE_SW | GENESYS_HAS_COPY_SW | GENESYS_HAS_EMAIL_SW;
+     model.search_lines = 100;
+ 
+diff --git i/backend/genesys/tables_sensor.cpp w/backend/genesys/tables_sensor.cpp
+index fb18abc..c5767f9 100644
+--- i/backend/genesys/tables_sensor.cpp
++++ w/backend/genesys/tables_sensor.cpp
+@@ -2004,6 +2004,15 @@ void genesys_init_sensor_tables()
+     sensor.fau_gain_white_ref = 160;
+     sensor.gain_white_ref = 160;
+     sensor.exposure = { 0x9c40, 0x9c40, 0x9c40 };
++    // Manual overrides for finding raw-mode settings: per-colour CCD shutter time (R,G,B) and
++    // line period, both in pixel times, applied to every resolution and scan method.
++    auto exposure_8400f = get_env_unsigned_list("SANE_GENESYS_8400F_EXPOSURE", 3, 1, 65535);
++    if (!exposure_8400f.empty()) {
++        sensor.exposure = { static_cast<std::uint16_t>(exposure_8400f[0]),
++                            static_cast<std::uint16_t>(exposure_8400f[1]),
++                            static_cast<std::uint16_t>(exposure_8400f[2]) };
++    }
++    auto lperiod_8400f = get_env_unsigned_list("SANE_GENESYS_8400F_LPERIOD", 1, 1, 65535);
+     sensor.custom_regs = {};
+     sensor.gamma = { 1.0f, 1.0f, 1.0f };
+ 
+@@ -2148,7 +2157,8 @@ void genesys_init_sensor_tables()
+                     sensor.shading_resolution = resolution;
+                     sensor.register_dpiset = setting.register_dpiset;
+                     sensor.pixel_count_ratio = setting.pixel_count_ratio;
+-                    sensor.exposure_lperiod = setting.exposure_lperiod;
++                    sensor.exposure_lperiod = lperiod_8400f.empty() ? setting.exposure_lperiod
++                                                                   : lperiod_8400f[0];
+                     sensor.output_pixel_offset = setting.output_pixel_offset;
+                     sensor.shading_pixel_offset = setting.shading_pixel_offset;
+                     sensor.method = method;
+diff --git i/backend/genesys/utilities.h w/backend/genesys/utilities.h
+index 8c872c9..75cf7ec 100644
+--- i/backend/genesys/utilities.h
++++ w/backend/genesys/utilities.h
+@@ -24,8 +24,11 @@
+ #include "error.h"
+ #include <algorithm>
+ #include <cstdint>
++#include <cstdlib>
++#include <cstring>
+ #include <iostream>
+ #include <sstream>
++#include <string>
+ #include <vector>
+ 
+ 
+@@ -290,6 +293,41 @@ std::string format_vector_indent_braced(unsigned indent, const char* type,
+     return out.str();
+ }
+ 
++// Returns true if the environment variable is set, non-empty and not "0"
++inline bool get_env_flag(const char* name)
++{
++    const char* value = std::getenv(name);
++    return value != nullptr && value[0] != '\0' && std::strcmp(value, "0") != 0;
++}
++
++// Parses an environment variable holding exactly `count` comma-separated integers, each within
++// [min, max]. Returns an empty vector if the variable is unset or empty.
++inline std::vector<unsigned> get_env_unsigned_list(const char* name, std::size_t count,
++                                                   unsigned min, unsigned max)
++{
++    std::vector<unsigned> ret;
++    const char* value = std::getenv(name);
++    if (value == nullptr || value[0] == '\0') {
++        return ret;
++    }
++    std::stringstream str{std::string{value}};
++    std::string item;
++    while (std::getline(str, item, ',')) {
++        char* end = nullptr;
++        unsigned long v = std::strtoul(item.c_str(), &end, 10);
++        if (item.empty() || *end != '\0' || v < min || v > max) {
++            throw SaneException(SANE_STATUS_INVAL, "%s: '%s' is not an integer in [%u, %u]",
++                                name, item.c_str(), min, max);
++        }
++        ret.push_back(static_cast<unsigned>(v));
++    }
++    if (ret.size() != count) {
++        throw SaneException(SANE_STATUS_INVAL, "%s: expected %zu comma-separated values, got %zu",
++                            name, count, ret.size());
++    }
++    return ret;
++}
++
+ } // namespace genesys
+ 
+ #endif // BACKEND_GENESYS_UTILITIES_H
