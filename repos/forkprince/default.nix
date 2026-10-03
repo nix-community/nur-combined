@@ -85,9 +85,6 @@
   blip = lib.callPackage ./pkgs/blip {};
   clop = lib.callPackage ./pkgs/clop {};
 
-  nintoolbox = lib.callPackage ./pkgs/nintoolbox {};
-  nintoolbox-gui = lib.callPackage ./pkgs/nintoolbox-gui {};
-
   github-desktop = lib.callPackage ./pkgs/github-desktop {};
   sublime-text = lib.callPackage ./pkgs/sublime-text {};
   pixelflasher = lib.callPackage ./pkgs/pixelflasher {};
