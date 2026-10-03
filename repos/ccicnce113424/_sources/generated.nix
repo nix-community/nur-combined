@@ -216,15 +216,15 @@
   };
   nix-auth = {
     pname = "nix-auth";
-    version = "575338159cc1a196e931ee96ff0bb94b90f42f7a";
+    version = "5654037100e7215d1b1701592581e4e3c18966ad";
     src = fetchFromGitHub {
       owner = "numtide";
       repo = "nix-auth";
-      rev = "575338159cc1a196e931ee96ff0bb94b90f42f7a";
+      rev = "5654037100e7215d1b1701592581e4e3c18966ad";
       fetchSubmodules = false;
-      sha256 = "sha256-8OQB4IYOfePVk+rDyxg623inTP9R1DqSdwz5afbpP0w=";
+      sha256 = "sha256-JzjmRIH+cQzVKCHFFnATJMXLgSTlXHXNlx8U+3CYSkA=";
     };
-    date = "2026-09-04";
+    date = "2026-10-02";
   };
   ntfsprogs-plus = {
     pname = "ntfsprogs-plus";
@@ -240,16 +240,16 @@
   };
   open-orpheus-dev = {
     pname = "open-orpheus-dev";
-    version = "187e8cf74ec7d867d6e0e4065006a2111ddcd186";
+    version = "d94767da84e3284a8ed22ed1b1b54a9aff794ab6";
     src = fetchFromGitHub {
       owner = "YUCLing";
       repo = "open-orpheus";
-      rev = "187e8cf74ec7d867d6e0e4065006a2111ddcd186";
+      rev = "d94767da84e3284a8ed22ed1b1b54a9aff794ab6";
       fetchSubmodules = false;
-      sha256 = "sha256-N5HzSVABd8ZK+NtcxrvBcqgFubWhayTDDCejSqTiVnw=";
+      sha256 = "sha256-EMxh5ErBXOQ4BKg+BSe7cmtQntb76oxyb//w1TeXDMA=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-N5HzSVABd8ZK+NtcxrvBcqgFubWhayTDDCejSqTiVnw=/Cargo.lock";
+      lockFile = ./. + "/sha256-EMxh5ErBXOQ4BKg+BSe7cmtQntb76oxyb__w1TeXDMA=/Cargo.lock";
       outputHashes = {
         "font-kit-0.14.3" = "sha256-1/5w7y6XhNNg7jRZmJazM188v6vWkdYHn+94WqmJpMg=";
         "avs3a-0.1.0" = "sha256-OcI39YMDhcBpP6Tij11rATcKtp+mVrXHsjy8gRSm3eI=";
