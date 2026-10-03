@@ -46,7 +46,8 @@ regressing it would have looked identical in CI. The first four were verified to
 show their lever, byte-identical output in both arms, on macOS/arm64 2026-09-16;
 the fifth is coverage rather than a lever, and is explained under the table, and
 the sixth and seventh were added when the #260 analysis found paths none of
-the others reached, and the eighth when a profile of uswds found another:
+the others reached, and the eighth and ninth when profiles of uswds and
+govuk-frontend found two more:
 
 | Corpus | Protects | Delta on this corpus | On `large.scss` |
 | --- | --- | --- | --- |
@@ -58,11 +59,12 @@ the others reached, and the eighth when a profile of uswds found another:
 | `gate/module_calls.scss` | built-in calls through `@use "sass:<module>"` (#260) | **−3.96%** | −0.31% |
 | `gate/user_functions.scss` | user `@function` and `@mixin` calls | **−14.38%** | −0.37% |
 | `gate/star_forward/entry.scss` | variable lookup through `@forward` and several `@use … as *` | **−90.6%** | 0 |
+| `gate/extend_modules/entry.scss` | `@extend` across a graph of modules | **−37.1%** | 0 |
 
-All eight are compiled through the `diagnostics_live()` helper in
+All nine are compiled through the `diagnostics_live()` helper in
 `../benches/compile.rs`, which is the only place the URL-and-silent-handler
 pairing lives: a corpus wired up with a bare `Options::default()` would leave
-`diag_enabled()` false and protect half of what it was added for. All eight also
+`diag_enabled()` false and protect half of what it was added for. All nine also
 produce output byte-identical to dart-sass — the first four against 1.103.1
 (verified 2026-09-16), `selector_lists.scss` against 1.104.1 (verified
 2026-09-19: expanded 76,624 bytes and compressed 70,978 bytes, plus stderr, the
@@ -72,7 +74,9 @@ omits), `module_calls.scss` against 1.105.1 (verified 2026-10-01: expanded
 `user_functions.scss` against 1.105.1 (verified 2026-10-01: expanded 44,528
 bytes and compressed 34,376 bytes, no stderr on either side), and
 `star_forward/entry.scss` against 1.105.1 (verified 2026-10-02: expanded 14,855
-bytes and compressed 10,949 bytes, no stderr on either side) — so the gate measures shapes that are in parity rather than shapes only
+bytes and compressed 10,949 bytes, no stderr on either side), and
+`extend_modules/entry.scss` against 1.105.1 (verified 2026-10-02: expanded 6,623
+bytes and compressed 5,273 bytes, no stderr on either side) — so the gate measures shapes that are in parity rather than shapes only
 sasso accepts. `corpora_still_compile()` runs before divan and asserts the
 marker rule `.sasso-gate-corpus` in each — a corpus that stops resolving its
 imports would otherwise just report a faster number, which is exactly how three
@@ -118,6 +122,14 @@ order, so most lookups miss in several modules before the one that has it, and
 each miss used to scan that module's variable and forwarded-origin tables. That
 was a third of a uswds compile. Its row is marginal instructions on
 Linux/x86_64, 186.3M → 17.5M, from the change that added it.
+
+`extend_modules/` (added 2026-10-02) puts twelve placeholders in one module and
+`@extend`s them from thirty modules that each load it. Across modules dart keeps
+an extension store per module and merges them in an order that depends on who
+loads whom, and sasso works that order out per module scope in the output,
+keyed by module URL. `extend_heavy` is one file and never reaches it. Its row is
+marginal instructions on Linux/x86_64, 69.2M → 43.5M, from the change that added
+it, which moved those tables off SipHash.
 
 One more plan benchmark, `large_expanded_with_map_silent`, arrived on 2026-09-17
 without a corpus of its own: it compiles `generated/large.scss` through
@@ -175,6 +187,7 @@ bench/
 │       ├── module_calls.scss          #   built-ins called by namespace (#260)
 │       ├── user_functions.scss        #   user @function / @mixin calls
 │       ├── star_forward/              #   lookups through @forward + @use … as *
+│       ├── extend_modules/            #   @extend across a graph of modules
 │       ├── use_graph/                 #   43-file @use graph + a redundant entry
 │       └── MANIFEST.json              #   generator version, bytes, sha256
 ├── grass_runner/             # tiny Rust crate: grass CLI wrapper (build --release)

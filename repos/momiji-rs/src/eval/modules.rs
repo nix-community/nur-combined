@@ -88,7 +88,7 @@ impl<'a> Evaluator<'a> {
         // module keys each origin can see, including itself).
         let deps = self.module_deps.borrow();
         let bfs = |start: &str| {
-            let mut seen: std::collections::HashSet<String> = std::collections::HashSet::new();
+            let mut seen: crate::fxhash::FxHashSet<String> = crate::fxhash::FxHashSet::default();
             seen.insert(start.to_string());
             let mut stack = vec![start.to_string()];
             while let Some(k) = stack.pop() {
@@ -102,7 +102,7 @@ impl<'a> Evaluator<'a> {
             }
             seen
         };
-        let mut raw_cache: HashMap<String, std::collections::HashSet<String>> = HashMap::default();
+        let mut raw_cache: HashMap<String, crate::fxhash::FxHashSet<String>> = HashMap::default();
         for pe in &self.extends {
             if raw_cache.contains_key(&pe.origin) {
                 continue;
@@ -137,7 +137,7 @@ impl<'a> Evaluator<'a> {
         }
         drop(copies);
         drop(deps);
-        let closure_cache: HashMap<String, std::rc::Rc<std::collections::HashSet<String>>> = raw_cache
+        let closure_cache: HashMap<String, std::rc::Rc<crate::fxhash::FxHashSet<String>>> = raw_cache
             .into_iter()
             .map(|(k, v)| (k, std::rc::Rc::new(v)))
             .collect();
@@ -196,7 +196,7 @@ impl<'a> Evaluator<'a> {
         // CSS when that module is (transitively) loaded by the origin.
         // Parallel to the (sorted) extensions list.
         let mut origins: Vec<String> = extensions.iter().map(|e| e.origin.clone()).collect();
-        let closures: HashMap<String, std::collections::HashSet<String>> = closure_cache
+        let closures: HashMap<String, crate::fxhash::FxHashSet<String>> = closure_cache
             .iter()
             .map(|(k, v)| (k.clone(), (**v).clone()))
             .collect();
@@ -594,7 +594,7 @@ impl<'a> Evaluator<'a> {
 
     fn subtree_css(&self, key: &str) -> Vec<OutNode> {
         let mut out = Vec::new();
-        let mut visited = std::collections::HashSet::new();
+        let mut visited = crate::fxhash::FxHashSet::default();
         self.walk_subtree(key, &mut visited, &mut out);
         trim_leading_blanks(&mut out);
         out
@@ -603,7 +603,7 @@ impl<'a> Evaluator<'a> {
     fn walk_subtree(
         &self,
         key: &str,
-        visited: &mut std::collections::HashSet<String>,
+        visited: &mut crate::fxhash::FxHashSet<String>,
         out: &mut Vec<OutNode>,
     ) {
         if !visited.insert(key.to_string()) {

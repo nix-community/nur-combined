@@ -32,6 +32,27 @@ Conformance is tracked separately as a ratchet against the official
     bootstrap                     808.2M     797.1M     -1.36%
   ```
 
+- **`@extend` across many modules hashes with FxHash, not SipHash.** When
+  extensions span modules, sasso tracks which module loads which, and in what
+  order, to merge their extension stores the way dart does. The sets and maps
+  doing that are keyed by each module's full URL, and they used Rust's default
+  hasher, SipHash, which is built to resist hash flooding and is slow on long
+  keys. They now use the FxHash the rest of the evaluator uses. Only the hash
+  changes, and none of these tables is read in an order that reaches the
+  output. Marginal instructions on Linux/x86_64, output byte-identical:
+
+  ```
+                                  before     now        change
+    extend_modules (new corpus)   69.2M      43.5M      -37.1%
+    chirpy                        109.7M     88.7M      -19.11%
+    govuk-frontend                186.3M     168.2M     -9.70%
+    uswds                         3004.0M    2754.5M    -8.30%
+    bulma                         1826.2M    1811.6M    -0.80%
+  ```
+
+  `bench/corpus/gate/extend_modules/` is new: the existing `@extend` corpus is
+  a single file, and the multi-file one has no `@extend`.
+
 ## [0.21.0] - 2026-10-02
 
 _A faster npm CLI, and a way around node for the tools that spawn it. One

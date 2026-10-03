@@ -104,6 +104,17 @@ const STAR_FORWARD_URL: &str = concat!(
     "/bench/corpus/gate/star_forward/entry.scss"
 );
 
+/// Placeholders in one module, `@extend`ed from thirty modules that load it.
+/// Across modules the extension stores merge in an order worked out per module
+/// scope, which one-file `extend_heavy` never reaches.
+const EXTEND_MODULES_ENTRY: &str = include_str!("../bench/corpus/gate/extend_modules/entry.scss");
+
+/// As [`USE_GRAPH_ENTRY_URL`], for the extend-modules entry.
+const EXTEND_MODULES_URL: &str = concat!(
+    env!("CARGO_MANIFEST_DIR"),
+    "/bench/corpus/gate/extend_modules/entry.scss"
+);
+
 /// The load path the corpus's vendored `lib` package resolves through, so the
 /// benchmark exercises the load-path arm of `FsImporter::canonicalize` -- the
 /// arm that records dependencies -- and not only relative resolution.
@@ -215,6 +226,7 @@ fn corpora_still_compile() {
         (USE_GRAPH_ENTRY_URL, USE_GRAPH_ENTRY),
         (USE_GRAPH_REDUNDANT_URL, USE_GRAPH_REDUNDANT),
         (STAR_FORWARD_URL, STAR_FORWARD_ENTRY),
+        (EXTEND_MODULES_URL, EXTEND_MODULES_ENTRY),
     ] {
         let importer = use_graph_importer();
         let opts = diagnostics_live(url).with_importer(&importer);
@@ -378,6 +390,17 @@ fn star_forward_with_url_silent(bencher: Bencher<'_, '_>) {
         let importer = use_graph_importer();
         let opts = diagnostics_live(STAR_FORWARD_URL).with_importer(&importer);
         compile(black_box(STAR_FORWARD_ENTRY), &opts).unwrap()
+    });
+}
+
+/// `@extend` across a graph of modules: each module scope works out the order
+/// its extension stores merge in, keyed by module URL.
+#[divan::bench]
+fn extend_modules_with_url_silent(bencher: Bencher<'_, '_>) {
+    bencher.bench(|| {
+        let importer = use_graph_importer();
+        let opts = diagnostics_live(EXTEND_MODULES_URL).with_importer(&importer);
+        compile(black_box(EXTEND_MODULES_ENTRY), &opts).unwrap()
     });
 }
 

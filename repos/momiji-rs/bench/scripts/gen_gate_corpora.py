@@ -41,6 +41,11 @@ in CI:
                                  system such as uswds: a variable is looked up
                                  in each starred module before the one that has
                                  it, and every miss used to scan the module.
+  gate/extend_modules/**         `@extend` across a graph of modules: placeholders
+                                 in one shared module, extended from many
+                                 component modules. Single-file `extend_heavy`
+                                 cannot reach the per-module-scope store-merge
+                                 ordering this exercises.
 
 Deterministic by construction -- no PRNG, no clock, no environment -- so
 re-running rewrites byte-identical files. The output is checked into git, like
@@ -64,7 +69,7 @@ import json
 import sys
 from pathlib import Path
 
-GENERATOR_VERSION = 5
+GENERATOR_VERSION = 6
 REPO_ROOT = Path(__file__).resolve().parents[2]
 OUT_DIR = REPO_ROOT / "bench" / "corpus" / "gate"
 
@@ -715,6 +720,47 @@ def star_forward() -> dict[str, str]:
     return files
 
 
+# ----------------------------------------------------------------- corpus 8
+
+EXTEND_MODULES = 30
+EXTEND_PLACEHOLDERS = 12
+
+
+def extend_modules() -> dict[str, str]:
+    """Placeholders in one module, extended from many modules that load it.
+
+    Returns a `{relative path: contents}` map rooted at `gate/extend_modules/`.
+
+    `extend_heavy` is one file, so every extension lives in one store. Across
+    modules dart keeps a store per module and merges them in an order that
+    depends on who loads whom, and sasso works that order out per module scope
+    in the output (`ExtendOrderCtx::rank_for`). That walk, and the sets keyed
+    by module URL around it, run once per scope, so they grow with the module
+    count. govuk-frontend, uswds and chirpy have this shape.
+    """
+    files: dict[str, str] = {}
+    base = [HEADER.rstrip("\n")]
+    for p in range(1, EXTEND_PLACEHOLDERS + 1):
+        base.append("%%ph-%d { color: #%02x%02x%02x; margin: %dpx; }" % (p, p * 17 % 256, p * 31 % 256, p * 47 % 256, p))
+    base.append("@mixin gate-marker {\n  %s { --generated: true; }\n}" % MARKER)
+    files["_base.scss"] = "\n".join(base) + "\n"
+    for c in range(1, EXTEND_MODULES + 1):
+        lines = [HEADER.rstrip("\n"), '@use "base";', ""]
+        for k in range(1, 5):
+            p = (c * k) % EXTEND_PLACEHOLDERS + 1
+            lines.append(
+                ".c%d-e%d { @extend %%ph-%d; padding: %dpx; &:hover { @extend %%ph-%d; } }"
+                % (c, k, p, k, (p % EXTEND_PLACEHOLDERS) + 1)
+            )
+        files["_comp_%d.scss" % c] = "\n".join(lines) + "\n"
+    entry = [HEADER.rstrip("\n"), '@use "base";']
+    for c in range(1, EXTEND_MODULES + 1):
+        entry.append('@use "comp_%d";' % c)
+    entry += ["", "@include base.gate-marker;", ""]
+    files["entry.scss"] = "\n".join(entry)
+    return files
+
+
 # --------------------------------------------------------------------- main
 
 
@@ -731,6 +777,8 @@ def build() -> dict[str, str]:
         files["use_graph/" + rel] = text
     for rel, text in star_forward().items():
         files["star_forward/" + rel] = text
+    for rel, text in extend_modules().items():
+        files["extend_modules/" + rel] = text
     return files
 
 

@@ -940,9 +940,8 @@ pub(crate) struct Extension {
     /// downstream store whose absorption created it) — within a home store,
     /// derived entries follow the absorption order of their trigger.
     pub via_origin: Option<String>,
-    // Module-origin set, built in eval (`closure_cache`); kept on std `HashSet`
-    // so the FxHash migration stays scoped to this file's selector maps.
-    pub origin_closure: std::rc::Rc<std::collections::HashSet<String>>,
+    // Module-origin set, built in eval (`closure_cache`).
+    pub origin_closure: std::rc::Rc<crate::fxhash::FxHashSet<String>>,
 }
 
 /// Whether any compound in any complex selector of `list` contains `target`.
@@ -1030,7 +1029,7 @@ pub(crate) struct ExtendPlan {
     batch_is_own: Vec<bool>,
     /// Per-origin rank in this scope's downstream store-merge flatten
     /// (dart `addExtensions` order): smaller = earlier in the merged map.
-    origin_rank: std::collections::HashMap<String, usize>,
+    origin_rank: crate::fxhash::FxHashMap<String, usize>,
     /// Legacy fold order for @import-mixed compiles: no foreign one-shot,
     /// pre-rule split ignores origins (the pre-store-merge model).
     legacy_order: bool,
@@ -1066,7 +1065,7 @@ impl ExtendPlan {
 pub(crate) fn build_extend_plan(
     extensions: &[Extension],
     scope: &str,
-    origin_rank: std::collections::HashMap<String, usize>,
+    origin_rank: crate::fxhash::FxHashMap<String, usize>,
     legacy_order: bool,
 ) -> ExtendPlan {
     let source_spec = source_specificity_map(extensions);

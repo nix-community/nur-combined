@@ -1125,7 +1125,7 @@ pub(crate) struct Evaluator<'a> {
     /// Module dependency edges: user key -> the canonical keys it loads
     /// (via `@use`/`@forward`/`meta.load-css`). An extension whose origin can
     /// reach a module along these edges may rewrite that module's CSS.
-    module_deps: RefCell<HashMap<String, std::collections::HashSet<String>>>,
+    module_deps: RefCell<HashMap<String, crate::fxhash::FxHashSet<String>>>,
     /// The same load edges in *load order* (for `meta.load-css` subtree
     /// re-emission, which walks dependencies upstream-first).
     module_dep_order: RefCell<HashMap<String, Vec<String>>>,
@@ -1170,7 +1170,7 @@ pub(crate) struct Evaluator<'a> {
     /// share ONE copy scope key and ONE visited set (a diamond emits its
     /// shared upstream once per import, not once per use edge), and record no
     /// main-tree edge.
-    import_clone: Option<(String, std::collections::HashSet<String>)>,
+    import_clone: Option<(String, crate::fxhash::FxHashSet<String>)>,
     /// The directory of the file currently being evaluated, used to resolve
     /// relative `@use`/`@forward`/`@import` URLs against the containing file
     /// first (dart-sass resolution order).
@@ -1628,11 +1628,11 @@ struct ForwardFilter {
     /// variables still hides every function and mixin.
     has_show: bool,
     /// `show`/`hide` lists of exported function and mixin names.
-    show: Option<std::collections::HashSet<String>>,
-    hide: Option<std::collections::HashSet<String>>,
+    show: Option<crate::fxhash::FxHashSet<String>>,
+    hide: Option<crate::fxhash::FxHashSet<String>>,
     /// The same, for the `$variable` entries of those clauses.
-    show_vars: Option<std::collections::HashSet<String>>,
-    hide_vars: Option<std::collections::HashSet<String>>,
+    show_vars: Option<crate::fxhash::FxHashSet<String>>,
+    hide_vars: Option<crate::fxhash::FxHashSet<String>>,
 }
 
 /// Which kind of member a forwarded-built-in lookup is for: `show`/`hide`
@@ -4191,7 +4191,7 @@ impl<'a> Evaluator<'a> {
                                 let n = self.copy_counter.get() + 1;
                                 self.copy_counter.set(n);
                                 self.import_clone
-                                    .replace((format!("#import{n}"), std::collections::HashSet::new()))
+                                    .replace((format!("#import{n}"), crate::fxhash::FxHashSet::default()))
                             } else {
                                 self.import_clone.take()
                             };
@@ -6765,7 +6765,7 @@ fn rewrite_nodes_scoped(
     scope: &str,
     all: &[crate::selector::Extension],
     origins: &[String],
-    closures: &HashMap<String, std::collections::HashSet<String>>,
+    closures: &HashMap<String, crate::fxhash::FxHashSet<String>>,
     order: &ExtendOrderCtx,
 ) {
     // The extensions whose origin can reach `scope` along load edges. A
@@ -6795,7 +6795,7 @@ fn rewrite_nodes_scoped(
         &visible,
         scope,
         if order.has_import_clones {
-            std::collections::HashMap::new()
+            crate::fxhash::FxHashMap::default()
         } else {
             order.rank_for(scope)
         },
@@ -6827,12 +6827,12 @@ impl ExtendOrderCtx {
     /// downstream modules in DESCENDING first-load order (a later-loaded
     /// sibling's store registers earlier into the upstream's list), own
     /// store before its absorbed downstreams (pre-order).
-    fn rank_for(&self, scope: &str) -> std::collections::HashMap<String, usize> {
-        let mut rank = std::collections::HashMap::new();
+    fn rank_for(&self, scope: &str) -> crate::fxhash::FxHashMap<String, usize> {
+        let mut rank = crate::fxhash::FxHashMap::default();
         let mut next = 0usize;
         let mut stack: Vec<String> = Vec::new();
         let push_children =
-            |of: &str, stack: &mut Vec<String>, rank: &std::collections::HashMap<String, usize>| {
+            |of: &str, stack: &mut Vec<String>, rank: &crate::fxhash::FxHashMap<String, usize>| {
                 let mut kids: Vec<&String> = self
                     .rev_deps
                     .get(of)
@@ -6867,7 +6867,7 @@ fn rewrite_with_scopes(
     scope: &str,
     all: &[crate::selector::Extension],
     origins: &[String],
-    closures: &HashMap<String, std::collections::HashSet<String>>,
+    closures: &HashMap<String, crate::fxhash::FxHashSet<String>>,
     order: &ExtendOrderCtx,
 ) {
     for node in nodes.iter_mut() {
@@ -7068,7 +7068,7 @@ fn is_builtin_mixin(module: &str, name: &str) -> bool {
 fn member_set(
     members: &Option<Vec<crate::ast::ForwardMember>>,
     vars: bool,
-) -> Option<std::collections::HashSet<String>> {
+) -> Option<crate::fxhash::FxHashSet<String>> {
     members.as_ref().map(|list| {
         list.iter()
             .filter_map(|m| match (m, vars) {
@@ -9646,7 +9646,7 @@ mod tests {
 
         // The two lists together are the whole enum, so a new variant cannot be
         // added without landing on one side of it or the other.
-        let variants: std::collections::HashSet<_> = admitted
+        let variants: crate::fxhash::FxHashSet<_> = admitted
             .iter()
             .chain(refused.iter())
             .map(std::mem::discriminant)
