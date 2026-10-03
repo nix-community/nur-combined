@@ -15,20 +15,24 @@ perlPackages.buildPerlPackage rec {
     hash = "sha256-AGL2GKV5ttv5s9wsJPsjV+iHYeyXtGABuERAwJwMsRc=";
   };
 
-  prePatch = ''
+  postPatch = ''
     touch Makefile.PL
+    substituteInPlace fhem.pl \
+      --replace-fail 'global modpath .' "global modpath $out/opt/fhem"
   '';
 
   nativeBuildInputs = [ makeWrapper ];
 
+  buildInputs = [ perlPackages.DeviceSerialPort ];
+
   dontBuild = true;
 
-  installFlags = [ "BINDIR=$(out)" ];
+  installFlags = [ "BINDIR=$(out)/opt/fhem" ];
 
   postInstall = ''
     makeWrapper ${lib.getExe perlPackages.perl} $out/bin/fhem \
-      --prefix PERL5LIB : "$out/FHEM:$PERL5LIB" \
-      --add-flags "$out/fhem.pl"
+      --prefix PERL5LIB : "$out/opt/fhem/FHEM:$PERL5LIB" \
+      --add-flags "$out/opt/fhem/fhem.pl"
   '';
 
   outputs = [ "out" ];
