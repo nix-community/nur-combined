@@ -53,6 +53,17 @@ Conformance is tracked separately as a ratchet against the official
   `bench/corpus/gate/extend_modules/` is new: the existing `@extend` corpus is
   a single file, and the multi-file one has no `@extend`.
 
+- **A call no longer scans a `@use … as *` module that lacks it, when the
+  module's names are all spelled with `-`.** A function or mixin called
+  without a namespace is looked up in each module `@use`d `as *`, built-ins
+  included, and each module that lacked the name was scanned name by name in
+  case one was spelled with `_`. Names are stored with `-`, so for such a module
+  one lookup now gives the same answer, as variable lookup already does (#273).
+  A module whose names keep a `_`, such as one forwarded `as p_*`, still scans.
+  With three starred modules of 80 functions each, a call to `abs()` went from
+  33,915 to 4,197 instructions. Marginal instructions on
+  Linux/x86_64, output byte-identical: govuk-frontend −0.88%, uswds −0.72%.
+
 ## [0.21.0] - 2026-10-02
 
 _A faster npm CLI, and a way around node for the tools that spawn it. One

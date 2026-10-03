@@ -8289,6 +8289,43 @@ fn parity_module_variable_spellings() {
 }
 
 #[test]
+fn parity_module_callable_spellings() {
+    // `parity_module_variable_spellings` for functions and mixins. A module
+    // whose member names are all canonical answers a miss with one lookup; one
+    // reached through `@forward … as p_*` keeps the `_` of its prefix in its
+    // keys and must keep the scan. Both kinds of module are here, read through
+    // a namespace and through `@use … as *`.
+    let lib = (
+        "_lib.scss",
+        "@function f-a($x) { @return $x * 2; }\n@function g_b($x) { @return $x + 1; }\n\
+         @mixin m-a { k: 1; }\n@mixin n_b { k: 2; }\n",
+    );
+    let fwd = ("_fwd.scss", "@forward \"lib\" as p_*;\n");
+    let fwd2 = ("_fwd2.scss", "@forward \"lib\" as q-*;\n");
+    assert_module_parity(&[
+        lib,
+        fwd,
+        fwd2,
+        (
+            "input.scss",
+            "@use \"lib\";\n@use \"fwd\";\n@use \"fwd2\";\n\
+             x { a: lib.f_a(1); b: lib.g-b(1); c: fwd.p_f-a(1); d: fwd.p-f_a(1); e: fwd.p_g_b(1); \
+             f: fwd2.q_f-a(1); @include fwd.p_m-a; @include fwd.p-n_b; @include lib.m_a; }\n",
+        ),
+    ]);
+    assert_module_parity(&[
+        lib,
+        fwd,
+        fwd2,
+        (
+            "input.scss",
+            "@use \"fwd\" as *;\n@use \"fwd2\" as *;\n\
+             x { a: p_f-a(1); b: p-g_b(1); c: q_f_a(1); d: abs(-1); @include p_m-a; @include q-n_b; }\n",
+        ),
+    ]);
+}
+
+#[test]
 fn parity_use_and_forward_with_config() {
     // `with (...)` overrides a module's `!default` variables; a `@forward ...
     // with` default yields to a downstream `@use ... with` override.

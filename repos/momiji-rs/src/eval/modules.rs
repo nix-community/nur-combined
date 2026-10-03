@@ -1220,6 +1220,8 @@ impl<'a> Evaluator<'a> {
 
         let origins_canonical = var_origins.keys().all(|k| !k.contains('_'));
         let write_origins_canonical = var_write_origins.keys().all(|k| !k.contains('_'));
+        let fn_origins_canonical = fn_origins.keys().all(|k| !k.contains('_'));
+        let mixin_origins_canonical = mixin_origins.keys().all(|k| !k.contains('_'));
         Ok((
             Module {
                 vars: vars_scope,
@@ -1243,6 +1245,10 @@ impl<'a> Evaluator<'a> {
                 vars_canon: std::cell::Cell::new((0, true)),
                 origins_canonical,
                 write_origins_canonical,
+                fns_canon: std::cell::Cell::new((0, true)),
+                mixins_canon: std::cell::Cell::new((0, true)),
+                fn_origins_canonical,
+                mixin_origins_canonical,
             },
             consumed,
         ))

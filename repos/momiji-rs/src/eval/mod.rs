@@ -1409,6 +1409,28 @@ struct Module {
     /// Those tables never change after the module is built.
     origins_canonical: bool,
     write_origins_canonical: bool,
+    /// As `vars_canon`, for `functions` and `mixins`: live tables that, like the
+    /// global scope, only ever gain keys while this module holds them.
+    fns_canon: std::cell::Cell<(usize, bool)>,
+    mixins_canon: std::cell::Cell<(usize, bool)>,
+    /// As `origins_canonical`, for `fn_origins` / `mixin_origins`.
+    fn_origins_canonical: bool,
+    mixin_origins_canonical: bool,
+}
+
+/// Whether every key of `map` is canonical (no `_`), cached in `cache` against
+/// the key count. That is exact only for a table that never loses a key, which
+/// is what a module's global scope and its function and mixin frames are: a
+/// scope is cleared only when recycled, which needs no other holder, and the
+/// module holds these. So the same count means the same keys.
+fn keys_canonical<T>(cache: &std::cell::Cell<(usize, bool)>, map: &HashMap<String, T>) -> bool {
+    let (len, canonical) = cache.get();
+    if len == map.len() {
+        return canonical;
+    }
+    let canonical = map.keys().all(|k| !k.contains('_'));
+    cache.set((map.len(), canonical));
+    canonical
 }
 
 impl Module {
@@ -1448,13 +1470,7 @@ impl Module {
     /// holder, and this module is one. So it only ever grows, and the same
     /// count means the same keys.
     fn vars_canonical(&self, vars: &HashMap<String, Value>) -> bool {
-        let (len, canonical) = self.vars_canon.get();
-        if len == vars.len() {
-            return canonical;
-        }
-        let canonical = vars.keys().all(|k| !k.contains('_'));
-        self.vars_canon.set((vars.len(), canonical));
-        canonical
+        keys_canonical(&self.vars_canon, vars)
     }
     /// The defining module (and original variable name) of a forwarded
     /// variable, dash/underscore-insensitively.
@@ -1505,6 +1521,14 @@ impl Module {
             return Some(Rc::clone(m));
         }
         let norm = normalize_var_name(name);
+        // As in [`Self::var`]: with canonical keys the scan is one lookup.
+        if self.fn_origins_canonical {
+            return if norm == name {
+                None
+            } else {
+                self.fn_origins.get(norm.as_ref()).cloned()
+            };
+        }
         self.fn_origins
             .iter()
             .find(|(k, _)| normalize_var_name(k) == norm)
@@ -1515,6 +1539,13 @@ impl Module {
             return Some(Rc::clone(m));
         }
         let norm = normalize_var_name(name);
+        if self.mixin_origins_canonical {
+            return if norm == name {
+                None
+            } else {
+                self.mixin_origins.get(norm.as_ref()).cloned()
+            };
+        }
         self.mixin_origins
             .iter()
             .find(|(k, _)| normalize_var_name(k) == norm)
@@ -1526,6 +1557,17 @@ impl Module {
             return Some(Rc::clone(f));
         }
         let norm = normalize_var_name(name);
+        // An unnamespaced call asks every `@use … as *` module for the name,
+        // built-ins included, and misses in each that lacks it: govuk-frontend
+        // and uswds spent about 2% of a compile in this scan. With canonical
+        // keys it is one lookup, as in [`Self::var`].
+        if keys_canonical(&self.fns_canon, &fns) {
+            return if norm == name {
+                None
+            } else {
+                fns.get(norm.as_ref()).cloned()
+            };
+        }
         fns.iter()
             .find(|(k, _)| normalize_var_name(k) == norm)
             .map(|(_, f)| Rc::clone(f))
@@ -1536,6 +1578,13 @@ impl Module {
             return Some(Rc::clone(m));
         }
         let norm = normalize_var_name(name);
+        if keys_canonical(&self.mixins_canon, &mixins) {
+            return if norm == name {
+                None
+            } else {
+                mixins.get(norm.as_ref()).cloned()
+            };
+        }
         mixins
             .iter()
             .find(|(k, _)| normalize_var_name(k) == norm)
