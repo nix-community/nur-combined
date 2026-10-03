@@ -141,7 +141,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>magpie</code></strong> — Manage models, providers, and accounts for AI coding agents in one place</summary>
 
-- **Version:** `0.1.661`
+- **Version:** `0.1.708`
 - **License:** MIT
 - **Homepage:** [https://github.com/yetone/magpie](https://github.com/yetone/magpie)
 - **Build:** `nix build github:XYenon/nur-packages#magpie`
@@ -171,7 +171,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>nh-unwrapped</code></strong> — Yet another nix cli helper</summary>
 
-- **Version:** `4.4.2-unstable-2026-09-18`
+- **Version:** `4.4.2-unstable-2026-10-02`
 - **License:** EUPL-1.2
 - **Homepage:** [https://github.com/XYenon/nh](https://github.com/XYenon/nh)
 - **Build:** `nix build github:XYenon/nur-packages#nh-unwrapped`
@@ -201,7 +201,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>pgbot</code></strong> — In-database observability for PostgreSQL</summary>
 
-- **Version:** `0.8.1`
+- **Version:** `1`
 - **License:** Apache-2.0
 - **Homepage:** [https://pgbot.dev](https://pgbot.dev)
 - **Build:** `nix build github:XYenon/nur-packages#pgbot`
@@ -211,7 +211,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>pgterm</code></strong> — Multi-database terminal UI for PostgreSQL powered by pgbot</summary>
 
-- **Version:** `0.3.1`
+- **Version:** `0.4.0`
 - **License:** Apache-2.0
 - **Homepage:** [https://pgterm.dev](https://pgterm.dev)
 - **Build:** `nix build github:XYenon/nur-packages#pgterm`
@@ -397,7 +397,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.yazi-rs.chmod</code></strong> — Execute `chmod` on the selected files to change their mode</summary>
 
-- **Version:** `0-unstable-2026-09-30`
+- **Version:** `0-unstable-2026-10-02`
 - **License:** MIT
 - **Homepage:** [https://github.com/yazi-rs/plugins/tree/main/chmod.yazi](https://github.com/yazi-rs/plugins/tree/main/chmod.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.yazi-rs.chmod`
@@ -407,7 +407,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.yazi-rs.diff</code></strong> — Diff the selected file with the hovered file, create a living patch, and copy it to the clipboard</summary>
 
-- **Version:** `0-unstable-2026-09-30`
+- **Version:** `0-unstable-2026-10-02`
 - **License:** MIT
 - **Homepage:** [https://github.com/yazi-rs/plugins/tree/main/diff.yazi](https://github.com/yazi-rs/plugins/tree/main/diff.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.yazi-rs.diff`
@@ -417,7 +417,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.yazi-rs.full-border</code></strong> — Add a full border to Yazi to make it look fancier</summary>
 
-- **Version:** `0-unstable-2026-09-30`
+- **Version:** `0-unstable-2026-10-02`
 - **License:** MIT
 - **Homepage:** [https://github.com/yazi-rs/plugins/tree/main/full-border.yazi](https://github.com/yazi-rs/plugins/tree/main/full-border.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.yazi-rs.full-border`
@@ -427,7 +427,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.yazi-rs.git</code></strong> — Show the status of Git file changes as linemode in the file list</summary>
 
-- **Version:** `0-unstable-2026-09-30`
+- **Version:** `0-unstable-2026-10-02`
 - **License:** MIT
 - **Homepage:** [https://github.com/yazi-rs/plugins/tree/main/git.yazi](https://github.com/yazi-rs/plugins/tree/main/git.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.yazi-rs.git`
@@ -437,7 +437,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.yazi-rs.jump-to-char</code></strong> — Vim-like `f&lt;char&gt;`, jump to the next file whose name starts with `&lt;char&gt;`</summary>
 
-- **Version:** `0-unstable-2026-09-30`
+- **Version:** `0-unstable-2026-10-02`
 - **License:** MIT
 - **Homepage:** [https://github.com/yazi-rs/plugins/tree/main/jump-to-char.yazi](https://github.com/yazi-rs/plugins/tree/main/jump-to-char.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.yazi-rs.jump-to-char`
@@ -447,7 +447,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.yazi-rs.lsar</code></strong> — Previewing archive contents with `lsar`, which is something you might not want to use anyway</summary>
 
-- **Version:** `0-unstable-2026-09-30`
+- **Version:** `0-unstable-2026-10-02`
 - **License:** MIT
 - **Homepage:** [https://github.com/yazi-rs/plugins/tree/main/lsar.yazi](https://github.com/yazi-rs/plugins/tree/main/lsar.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.yazi-rs.lsar`
@@ -457,7 +457,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.yazi-rs.mactag</code></strong> — Bring macOS&#x27;s awesome tagging feature to Yazi</summary>
 
-- **Version:** `0-unstable-2026-09-30`
+- **Version:** `0-unstable-2026-10-02`
 - **License:** MIT
 - **Homepage:** [https://github.com/yazi-rs/plugins/tree/main/mactag.yazi](https://github.com/yazi-rs/plugins/tree/main/mactag.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.yazi-rs.mactag`
@@ -467,7 +467,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.yazi-rs.mime-ext</code></strong> — MIME type provider based on a file extension database, replacing the builtin `file(1)` to speed up MIME type retrieval at the expense of accuracy</summary>
 
-- **Version:** `0-unstable-2026-09-30`
+- **Version:** `0-unstable-2026-10-02`
 - **License:** MIT
 - **Homepage:** [https://github.com/yazi-rs/plugins/tree/main/mime-ext.yazi](https://github.com/yazi-rs/plugins/tree/main/mime-ext.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.yazi-rs.mime-ext`
@@ -477,7 +477,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.yazi-rs.mount</code></strong> — Mount manager for Yazi, providing disk mount, unmount, and eject functionality</summary>
 
-- **Version:** `0-unstable-2026-09-30`
+- **Version:** `0-unstable-2026-10-02`
 - **License:** MIT
 - **Homepage:** [https://github.com/yazi-rs/plugins/tree/main/mount.yazi](https://github.com/yazi-rs/plugins/tree/main/mount.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.yazi-rs.mount`
@@ -487,7 +487,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.yazi-rs.no-status</code></strong> — Remove the status bar</summary>
 
-- **Version:** `0-unstable-2026-09-30`
+- **Version:** `0-unstable-2026-10-02`
 - **License:** MIT
 - **Homepage:** [https://github.com/yazi-rs/plugins/tree/main/no-status.yazi](https://github.com/yazi-rs/plugins/tree/main/no-status.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.yazi-rs.no-status`
@@ -497,7 +497,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.yazi-rs.piper</code></strong> — Pipe any shell command as a previewer</summary>
 
-- **Version:** `0-unstable-2026-09-30`
+- **Version:** `0-unstable-2026-10-02`
 - **License:** MIT
 - **Homepage:** [https://github.com/yazi-rs/plugins/tree/main/piper.yazi](https://github.com/yazi-rs/plugins/tree/main/piper.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.yazi-rs.piper`
@@ -507,7 +507,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.yazi-rs.rclone</code></strong> — Manage 100+ remote file services supported by Rclone within Yazi</summary>
 
-- **Version:** `0-unstable-2026-09-30`
+- **Version:** `0-unstable-2026-10-02`
 - **License:** MIT
 - **Homepage:** [https://github.com/yazi-rs/plugins/tree/main/rclone.yazi](https://github.com/yazi-rs/plugins/tree/main/rclone.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.yazi-rs.rclone`
@@ -517,7 +517,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.yazi-rs.smart-enter</code></strong> — [`Open`][open] files or [`enter`][enter] directories all in one key</summary>
 
-- **Version:** `0-unstable-2026-09-30`
+- **Version:** `0-unstable-2026-10-02`
 - **License:** MIT
 - **Homepage:** [https://github.com/yazi-rs/plugins/tree/main/smart-enter.yazi](https://github.com/yazi-rs/plugins/tree/main/smart-enter.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.yazi-rs.smart-enter`
@@ -527,7 +527,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.yazi-rs.smart-filter</code></strong> — Yazi plugin that makes filters smarter: continuous filtering, automatically enter unique directory, open file on submitting</summary>
 
-- **Version:** `0-unstable-2026-09-30`
+- **Version:** `0-unstable-2026-10-02`
 - **License:** MIT
 - **Homepage:** [https://github.com/yazi-rs/plugins/tree/main/smart-filter.yazi](https://github.com/yazi-rs/plugins/tree/main/smart-filter.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.yazi-rs.smart-filter`
@@ -537,7 +537,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.yazi-rs.smart-paste</code></strong> — Paste files into the hovered directory or to the CWD if hovering over a file</summary>
 
-- **Version:** `0-unstable-2026-09-30`
+- **Version:** `0-unstable-2026-10-02`
 - **License:** MIT
 - **Homepage:** [https://github.com/yazi-rs/plugins/tree/main/smart-paste.yazi](https://github.com/yazi-rs/plugins/tree/main/smart-paste.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.yazi-rs.smart-paste`
@@ -547,7 +547,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.yazi-rs.term-cwd</code></strong> — Inform terminal about current directory change by sending OSC code</summary>
 
-- **Version:** `0-unstable-2026-09-30`
+- **Version:** `0-unstable-2026-10-02`
 - **License:** MIT
 - **Homepage:** [https://github.com/yazi-rs/plugins/tree/main/term-cwd.yazi](https://github.com/yazi-rs/plugins/tree/main/term-cwd.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.yazi-rs.term-cwd`
@@ -557,7 +557,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.yazi-rs.toggle-pane</code></strong> — Toggle the show, hide, and maximize states for different panes: parent, current, and preview</summary>
 
-- **Version:** `0-unstable-2026-09-30`
+- **Version:** `0-unstable-2026-10-02`
 - **License:** MIT
 - **Homepage:** [https://github.com/yazi-rs/plugins/tree/main/toggle-pane.yazi](https://github.com/yazi-rs/plugins/tree/main/toggle-pane.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.yazi-rs.toggle-pane`
@@ -567,7 +567,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.yazi-rs.types</code></strong> — Type definitions for Yazi&#x27;s Lua API, empowering an efficient plugin development experience</summary>
 
-- **Version:** `0-unstable-2026-09-30`
+- **Version:** `0-unstable-2026-10-02`
 - **License:** MIT
 - **Homepage:** [https://github.com/yazi-rs/plugins/tree/main/types.yazi](https://github.com/yazi-rs/plugins/tree/main/types.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.yazi-rs.types`
@@ -577,7 +577,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.yazi-rs.vcs-files</code></strong> — Show Git file changes in Yazi</summary>
 
-- **Version:** `0-unstable-2026-09-30`
+- **Version:** `0-unstable-2026-10-02`
 - **License:** MIT
 - **Homepage:** [https://github.com/yazi-rs/plugins/tree/main/vcs-files.yazi](https://github.com/yazi-rs/plugins/tree/main/vcs-files.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.yazi-rs.vcs-files`
@@ -587,7 +587,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.yazi-rs.vfs-demo</code></strong> — Plugin that demonstrates the new custom VFS provider (nightly only)</summary>
 
-- **Version:** `0-unstable-2026-09-30`
+- **Version:** `0-unstable-2026-10-02`
 - **License:** MIT
 - **Homepage:** [https://github.com/yazi-rs/plugins/tree/main/vfs-demo.yazi](https://github.com/yazi-rs/plugins/tree/main/vfs-demo.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.yazi-rs.vfs-demo`
@@ -597,7 +597,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.yazi-rs.visual-pivot</code></strong> — Vim-like `o` for Yazi visual selections</summary>
 
-- **Version:** `0-unstable-2026-09-30`
+- **Version:** `0-unstable-2026-10-02`
 - **License:** MIT
 - **Homepage:** [https://github.com/yazi-rs/plugins/tree/main/visual-pivot.yazi](https://github.com/yazi-rs/plugins/tree/main/visual-pivot.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.yazi-rs.visual-pivot`
@@ -607,7 +607,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.yazi-rs.zoom</code></strong> — Enlarge or shrink the preview image of a file, which is useful for magnifying small files for viewing</summary>
 
-- **Version:** `0-unstable-2026-09-30`
+- **Version:** `0-unstable-2026-10-02`
 - **License:** MIT
 - **Homepage:** [https://github.com/yazi-rs/plugins/tree/main/zoom.yazi](https://github.com/yazi-rs/plugins/tree/main/zoom.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.yazi-rs.zoom`

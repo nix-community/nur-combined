@@ -12,6 +12,7 @@
   versionCheckHook,
   nix-update-script,
   coreutils,
+  dbus,
   xdg-utils,
   xcbuild,
   guiSupport ? true,
@@ -21,13 +22,13 @@ buildGoModule (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "magpie";
-  version = "0.1.661";
+  version = "0.1.708";
 
   src = fetchFromGitHub {
     owner = "yetone";
     repo = "magpie";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-/Z+84p6rY7zxhmGjVMlWdf8uD6SDdSlvVpiNZVREIEQ=";
+    hash = "sha256-FijmFDwcKyW6mG1jZKLzfM4lnpocFAeJ2Gta/KEjOoI=";
   };
 
   vendorHash = "sha256-XEaHZVw3co0yUV6fLUlSkvg9LlroKFj2B2sjMW1e6BU=";
@@ -58,9 +59,15 @@ buildGoModule (finalAttrs: {
       --replace-fail '/bin/cat' '${lib.getExe' coreutils "cat"}'
     substituteInPlace internal/library/rtk_test.go \
       --replace-fail '/bin/mkdir' '${lib.getExe' coreutils "mkdir"}'
+    substituteInPlace internal/gui/providers_fetching_unix_test.go \
+      --replace-fail '"/usr/bin"+string(os.PathListSeparator)+"/bin"' '"${lib.makeBinPath [ coreutils ]}"'
     # The source policy check must not scan dependencies added by buildGoModule.
     substituteInPlace internal/proc/proc_test.go \
       --replace-fail 'd.Name() == "node_modules"' 'd.Name() == "node_modules" || d.Name() == "vendor"'
+  ''
+  + lib.optionalString stdenv.hostPlatform.isLinux ''
+    substituteInPlace internal/agent/zed_credential_secret_test.go \
+      --replace-fail '"--session"' '"--config-file=${dbus}/share/dbus-1/session.conf"'
   ''
   + lib.optionalString stdenv.hostPlatform.isDarwin ''
     # The AppleScript interpreter is not available in the Darwin build sandbox.
@@ -72,7 +79,9 @@ buildGoModule (finalAttrs: {
         }
         // AppleScript unescapes it back to the script'
   '';
-  nativeCheckInputs = lib.optionals stdenv.hostPlatform.isDarwin [ xcbuild ];
+  nativeCheckInputs =
+    lib.optionals stdenv.hostPlatform.isLinux [ dbus ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [ xcbuild ];
   checkPhase = ''
     runHook preCheck
     go test -tags=${lib.concatStringsSep "," finalAttrs.tags} ./...

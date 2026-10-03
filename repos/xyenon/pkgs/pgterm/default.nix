@@ -12,16 +12,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "pgterm";
-  version = "0.3.1";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "pgrundev";
     repo = "pgterm";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-rU2je/EOyLU0O1HUafqnwLBN2W+cWfUo3KYx8qsN3OU=";
+    hash = "sha256-5btrdsaYNgUSXrQKqYBnkkXElG63mNc/3R2ALyj0Cx8=";
   };
 
-  cargoHash = "sha256-GwbXwhmqLXdNKYq55ShzYWILZvQde1gaKbHESjWasEY=";
+  cargoHash = "sha256-xZ4ldyUDMijZP4j5Sz0rsyY5BGVOXMTztRMS/n7VOzc=";
 
   nativeBuildInputs = [ makeWrapper ];
 

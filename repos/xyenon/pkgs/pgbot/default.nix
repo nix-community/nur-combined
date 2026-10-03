@@ -10,7 +10,7 @@ buildGoLatestModule (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "pgbot";
-  version = "0.8.1";
+  version = "1";
 
   src = fetchFromGitHub {
     owner = "pgrundev";
