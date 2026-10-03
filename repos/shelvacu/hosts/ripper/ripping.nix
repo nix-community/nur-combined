@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, config, ... }: {
   boot.kernelModules = [ "sg" ]; # SG = scsi generic, what allows pass-thru of the optical drive to wine with model# and such
 
   users.users.ripper = {
@@ -7,6 +7,8 @@
       "vboxusers"
       "dialout"
     ];
+
+    openssh.authorizedKeys.keys = config.users.users.shelvacu.openssh.authorizedKeys.keys;
   };
 
   hardware.graphics = {
