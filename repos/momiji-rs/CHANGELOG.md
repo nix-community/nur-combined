@@ -11,6 +11,27 @@ Conformance is tracked separately as a ratchet against the official
 
 ## [Unreleased]
 
+### Performance
+
+- **`map.get` and `map.has-key` no longer copy the map they read.** Each call
+  copied every entry of the map before looking one up, so a lookup cost the
+  size of the map. A design system that reads its large configuration maps on
+  nearly every rule paid that each time. They now read the map in place, and
+  so do `map.keys`, `map.values`, and `length` and `nth` on a map. On a
+  200-entry map, a `map.get` went from 45,805 to 11,041 instructions and a
+  `length` from 36,357 to 1,608. Marginal instructions on Linux/x86_64, output
+  byte-identical:
+
+  ```
+                                  before     now        change
+    uswds                         3447.7M    3004.0M    -12.88%
+    module_calls.scss             26.67M     25.44M     -4.62%
+    govuk-frontend                192.2M     186.3M     -3.07%
+    vuetify                       316.4M     306.7M     -3.05%
+    bulma                         1874.2M    1826.2M    -2.57%
+    bootstrap                     808.2M     797.1M     -1.36%
+  ```
+
 ## [0.21.0] - 2026-10-02
 
 _A faster npm CLI, and a way around node for the tools that spawn it. One

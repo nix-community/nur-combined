@@ -77,13 +77,18 @@ fn first_is_map(pos_args: &[Value], named: &[(String, Value)]) -> bool {
         .any(|(n, v)| (n == "list" || n == "map") && matches!(v, Value::Map(_)))
 }
 
-/// Coerce a value into map entries. A map yields its entries; the empty list
-/// `()` is the empty map; any other value is not a map (an error).
-fn as_map(v: &Value, fname: &str, pos: Pos) -> Result<Vec<(Value, Value)>, Error> {
+/// Coerce a value into map entries, borrowed. A map yields its entries; the
+/// empty list `()` is the empty map; any other value is not a map (an error).
+///
+/// Borrowed because a lookup reads one entry: copying them all first made every
+/// `map.get` and `map.has-key` cost the size of the map, 8.7% of a uswds
+/// profile's samples, whose configuration maps are large and read on nearly
+/// every rule.
+fn map_entries<'v>(v: &'v Value, fname: &str, pos: Pos) -> Result<&'v [(Value, Value)], Error> {
     match v {
-        Value::Map(m) => Ok(m.entries.as_ref().clone()),
+        Value::Map(m) => Ok(m.entries.as_slice()),
         // The empty list doubles as the empty map.
-        Value::List(l) if l.items.is_empty() => Ok(Vec::new()),
+        Value::List(l) if l.items.is_empty() => Ok(&[]),
         other => Err(Error::at(
             format!("$map: {} is not a map for `{fname}`.", other.to_inspect_message()),
             pos,
@@ -132,22 +137,19 @@ fn key_path<'v>(
 /// when any key along the path is absent (or an intermediate value is not a map).
 fn fn_map_get(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
     let map_v = super::require(&["map"], pos_args, named, 0, pos)?;
-    let mut entries = as_map(map_v, "map-get", pos)?;
+    let mut entries = map_entries(map_v, "map-get", pos)?;
     let keys = key_path(pos_args, named, pos)?;
     for (i, key) in keys.iter().enumerate() {
-        let found = entries
-            .iter()
-            .find(|(k, _)| k.sass_eq(key))
-            .map(|(_, v)| v.clone());
+        let found = entries.iter().find(|(k, _)| k.sass_eq(key)).map(|(_, v)| v);
         match found {
             Some(v) => {
                 if i + 1 == keys.len() {
-                    return Ok(v);
+                    return Ok(v.clone());
                 }
                 // Descend; a non-map intermediate value means "not found".
-                match &v {
-                    Value::Map(m) => entries = m.entries.as_ref().clone(),
-                    Value::List(l) if l.items.is_empty() => entries = Vec::new(),
+                match v {
+                    Value::Map(m) => entries = m.entries.as_slice(),
+                    Value::List(l) if l.items.is_empty() => entries = &[],
                     _ => return Ok(Value::Null),
                 }
             }
@@ -167,37 +169,34 @@ fn check_arity(pos_args: &[Value], named: &[(String, Value)], max: usize, pos: P
 fn fn_map_keys(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
     check_arity(pos_args, named, 1, pos)?;
     let map_v = super::require(&["map"], pos_args, named, 0, pos)?;
-    let entries = as_map(map_v, "map-keys", pos)?;
-    Ok(comma_list(entries.into_iter().map(|(k, _)| k).collect()))
+    let entries = map_entries(map_v, "map-keys", pos)?;
+    Ok(comma_list(entries.iter().map(|(k, _)| k.clone()).collect()))
 }
 
 /// `map-values($map)`: a comma list of the map's values in order.
 fn fn_map_values(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
     check_arity(pos_args, named, 1, pos)?;
     let map_v = super::require(&["map"], pos_args, named, 0, pos)?;
-    let entries = as_map(map_v, "map-values", pos)?;
-    Ok(comma_list(entries.into_iter().map(|(_, v)| v).collect()))
+    let entries = map_entries(map_v, "map-values", pos)?;
+    Ok(comma_list(entries.iter().map(|(_, v)| v.clone()).collect()))
 }
 
 /// `map-has-key($map, $key, $keys...)`: whether the map contains the nested key
 /// path.
 fn fn_map_has_key(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
     let map_v = super::require(&["map"], pos_args, named, 0, pos)?;
-    let mut entries = as_map(map_v, "map-has-key", pos)?;
+    let mut entries = map_entries(map_v, "map-has-key", pos)?;
     let keys = key_path(pos_args, named, pos)?;
     for (i, key) in keys.iter().enumerate() {
-        let found = entries
-            .iter()
-            .find(|(k, _)| k.sass_eq(key))
-            .map(|(_, v)| v.clone());
+        let found = entries.iter().find(|(k, _)| k.sass_eq(key)).map(|(_, v)| v);
         match found {
             Some(v) => {
                 if i + 1 == keys.len() {
                     return Ok(Value::Bool(true));
                 }
-                match &v {
-                    Value::Map(m) => entries = m.entries.as_ref().clone(),
-                    Value::List(l) if l.items.is_empty() => entries = Vec::new(),
+                match v {
+                    Value::Map(m) => entries = m.entries.as_slice(),
+                    Value::List(l) if l.items.is_empty() => entries = &[],
                     _ => return Ok(Value::Bool(false)),
                 }
             }
@@ -432,7 +431,7 @@ fn as_map_named(v: &Value, param: &str, pos: Pos) -> Result<Vec<(Value, Value)>,
 /// `length($map)`: the number of entries.
 fn fn_length(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
     let map_v = super::require(&["map"], pos_args, named, 0, pos)?;
-    let entries = as_map(map_v, "length", pos)?;
+    let entries = map_entries(map_v, "length", pos)?;
     Ok(unitless(entries.len() as f64))
 }
 
@@ -441,7 +440,7 @@ fn fn_length(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<
 fn fn_nth(pos_args: &[Value], named: &[(String, Value)], pos: Pos) -> Result<Value, Error> {
     let params = ["list", "n"];
     let map_v = super::require(&params, pos_args, named, 0, pos)?;
-    let entries = as_map(map_v, "nth", pos)?;
+    let entries = map_entries(map_v, "nth", pos)?;
     let n = super::require(&params, pos_args, named, 1, pos)?;
     let raw = super::num(n, Some(params[1]), pos)?;
     if raw.fract() != 0.0 {
