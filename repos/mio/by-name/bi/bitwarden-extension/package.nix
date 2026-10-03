@@ -32,7 +32,7 @@ buildNpmPackage (finalAttrs: {
   npmWorkspace = "apps/browser";
   npmDepsFetcherVersion = 2;
   npmDepsHash = "sha256-hd8k2Bow0t9Y0nmMa7G8dfN1mdrdur84d0NEGDtt7YY=";
-
+sha256-JI5U4Q7zrF7UZXxVtsaJRJK6QAuLQuievd0z1/3GJfE=
   env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 
   nativeBuildInputs = [
