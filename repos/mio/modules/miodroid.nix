@@ -24,6 +24,16 @@ in
   options.virtualisation.miodroid = {
     enable = lib.mkEnableOption "Miodroid";
     package = lib.mkPackageOption pkgs "miodroid" { };
+    rootlessUser = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      example = "alice";
+      description = ''
+        Prepare unprivileged LXC networking and subordinate IDs for this user.
+        The Home Manager rootless module remains experimental and does not yet
+        provide all mounts and device setup required by Miodroid.
+      '';
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -45,7 +55,20 @@ in
 
     networking.firewall.trustedInterfaces = [ "miodroid0" ];
 
-    virtualisation.lxc.enable = true;
+    virtualisation.lxc = {
+      enable = true;
+      unprivilegedContainers = cfg.rootlessUser != null;
+      usernetConfig = lib.mkIf (cfg.rootlessUser != null) ''
+        ${cfg.rootlessUser} veth lxcbr0 10
+      '';
+    };
+
+    users.users = lib.mkIf (cfg.rootlessUser != null) {
+      ${cfg.rootlessUser} = {
+        autoSubUidGidRange = lib.mkDefault true;
+        extraGroups = lib.mkAfter [ "lxc-user" ];
+      };
+    };
 
     systemd.services.miodroid-container = {
       description = "Miodroid Container";

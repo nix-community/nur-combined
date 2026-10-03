@@ -82,6 +82,23 @@ python3Packages.buildPythonApplication rec {
     sed -i 's|/waydroid{instance_suffix}|/miodroid{instance_suffix}|' \
       tools/config/__init__.py
 
+    # Rootless mode is experimental: use per-user paths and D-Bus, but keep
+    # rootful behavior unchanged.
+    substituteInPlace tools/__init__.py \
+      --replace-fail \
+        'args.work = config.defaults["work"]' \
+        'args.work = os.environ.get("MIODROID_WORK", config.defaults["work"]); config.defaults.update({key: args.work + config.defaults[key][len(config.defaults["work"]):] for key in ("images_path", "rootfs", "overlay", "overlay_rw", "overlay_work", "data", "lxc", "host_perms")}) if os.environ.get("MIODROID_ROOTLESS") else None; config.defaults["work"] = args.work'
+    substituteInPlace tools/__init__.py \
+      --replace-fail \
+        'if os.geteuid() != 0:' \
+        'if os.geteuid() != 0 and not os.environ.get("MIODROID_ROOTLESS"):'
+    sed -i \
+      's/dbus\.SystemBus()/dbus.SessionBus() if os.environ.get("MIODROID_ROOTLESS") else dbus.SystemBus()/g' \
+      tools/actions/container_manager.py \
+      tools/actions/initializer.py \
+      tools/actions/session_manager.py \
+      tools/helpers/ipc.py
+
     # cfg["waydroid"] section key in Python  →  cfg["miodroid"]
     find . -name "*.py" -exec sed -i \
       -e 's/cfg\["waydroid"\]/cfg["miodroid"]/g' \
