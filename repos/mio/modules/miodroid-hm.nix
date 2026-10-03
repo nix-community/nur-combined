@@ -7,7 +7,7 @@
 
 let
   cfg = config.programs.miodroid-rootless;
-  wipWarning = "programs.miodroid-rootless is experimental: add each Home Manager user to virtualisation.miodroid-rootless.users to provision unprivileged LXC and shared binder access.";
+  wipWarning = "programs.miodroid-rootless is experimental: add this user to the NixOS rootless group and lxc-user, and enable users.users.<name>.autoSubUidGidRange = true.";
 in
 {
   options.programs.miodroid-rootless = {
@@ -39,10 +39,7 @@ in
       systemd.user.services.miodroid-container = {
         Unit = {
           Description = "Experimental Rootless Miodroid Container";
-          After = [
-            "graphical-session.target"
-            cfg.hostHelperService
-          ];
+          After = [ "graphical-session.target" ];
           PartOf = [ "graphical-session.target" ];
         };
         Service = {
