@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)"
+LIB="$SCRIPT_DIR/../lib/scp-cb"
+
+OPTIONS="$LIB/options.ini"
+OPTIONS_BAK="$LIB/options.ini.bak"
+OPTIONS_LINK=$(readlink "$OPTIONS")
+
+LOADING="$LIB/Loadingscreens/loadingscreens.ini"
+LOADING_BAK="$LIB/Loadingscreens/loadingscreens.ini.bak"
+LOADING_LINK=$(readlink "$LOADING")
+
+ROOMS="$LIB/Data/rooms.ini"
+ROOMS_BAK="$LIB/Data/rooms.ini.bak"
+ROOMS_LINK=$(readlink "$ROOMS")
+
+SAVES="$LIB/Saves"
+SAVES_LINK=$(readlink "$SAVES")
+
+if [ ! -f $OPTIONS_LINK ]; then
+	mkdir -p $(dirname $OPTIONS_LINK)
+	cp $OPTIONS_BAK $OPTIONS_LINK
+fi
+
+chmod 644 $OPTIONS_LINK
+
+if [ ! -f $LOADING_LINK ]; then
+	mkdir -p $(dirname $LOADING_LINK)
+	cp $LOADING_BAK $LOADING_LINK
+fi
+
+chmod 644 $LOADING_LINK
+
+if [ ! -f $ROOMS_LINK ]; then
+	mkdir -p $(dirname $ROOMS_LINK)
+	cp $ROOMS_BAK $ROOMS_LINK
+fi
+
+chmod 644 $ROOMS_LINK
+
+mkdir -p $SAVES_LINK
+
+cd $LIB
+
+wine "$LIB/SCP - Containment Breach.exe"

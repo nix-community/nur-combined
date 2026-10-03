@@ -17,6 +17,7 @@ rec {
 	obsidian-smart-typography = pkgs.callPackage ./pkgs/obsidian-smart-typography { };
 	vtt = pkgs.callPackage ./pkgs/vtt { };
 	stripzip = pkgs.callPackage ./pkgs/stripzip { };
+	scp-cb = pkgs.callPackage ./pkgs/scp-cb { dataPath = "/home/example/.local/share"; };
 
 	rich-argparse-rich-13-9-4 = pkgs.callPackage ./pkgs/rich-argparse-rich-13-9-4 { inherit rich-13-9-4; };
 	rich-13-9-4 = pkgs.callPackage ./pkgs/rich-13-9-4 { };

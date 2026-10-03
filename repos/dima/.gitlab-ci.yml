@@ -32,3 +32,4 @@ build_flakes:
           - playit-agent
           - vtt
           - obsidian-daily-note-navbar
+          - scp-cb
