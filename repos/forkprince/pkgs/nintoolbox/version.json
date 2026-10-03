@@ -1,0 +1,36 @@
+{
+  "name": "Nintendont/Nintoolbox",
+  "source": {
+    "type": "github-release",
+    "repo": "quatric/nintoolbox",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "1.2",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "nintoolbox-macos-universal.tar.gz",
+      "hash": "sha256-2CKqh6SqOuHBlfjAPPdyxpCUutXuzEGNO7effxiv/Mk="
+    },
+    "aarch64-linux": {
+      "file": "nintoolbox-linux-arm64.tar.gz",
+      "hash": "sha256-QIbqC11eQZP+R7QgsXbyfo5KWfOWzdNzn/XysHSS3G4="
+    },
+    "armv7l-linux": {
+      "file": "nintoolbox-linux-armhf.tar.gz",
+      "hash": "sha256-UpH+Na/xR+vxPC1sSzQ/vddYLyz3WPL+XiZBHIZhzGo="
+    },
+    "i686-linux": {
+      "file": "nintoolbox-linux-x86.tar.gz",
+      "hash": "sha256-iugQw1V2KbwsJPQ5R6aqAKb/biEwy6NstsWDKvnEaKo="
+    },
+    "x86_64-darwin": {
+      "file": "nintoolbox-macos-universal.tar.gz",
+      "hash": "sha256-2CKqh6SqOuHBlfjAPPdyxpCUutXuzEGNO7effxiv/Mk="
+    },
+    "x86_64-linux": {
+      "file": "nintoolbox-linux-x86_64.tar.gz",
+      "hash": "sha256-cACqhn4eeM9GLWZAXDR4VZzR1BSbHSy92yr+gTpvDP0="
+    }
+  }
+}

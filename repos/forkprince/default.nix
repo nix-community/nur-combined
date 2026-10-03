@@ -17,17 +17,20 @@
   re-lunatic-player = lib.callPackage ./pkgs/re-lunatic-player {};
   punktfunk-client = lib.callPackage ./pkgs/punktfunk-client {};
   quiver-launcher = lib.callPackage ./pkgs/quiver-launcher {};
+  nintoolbox-gui = lib.callPackage ./pkgs/nintoolbox-gui {};
   beeper-nightly = lib.callPackage ./pkgs/beeper-nightly {};
   app-librescore = lib.callPackage ./pkgs/app-librescore {};
   wiiudownloader = lib.callPackage ./pkgs/wiiudownloader {};
   ab-download-manager = lib.callPackage ./pkgs/abdm {};
   osu-tachyon = lib.callPackage ./pkgs/osu-tachyon {};
+  nintoolbox = lib.callPackage ./pkgs/nintoolbox {};
   oak-editor = lib.callPackage ./pkgs/oak-editor {};
   helixnotes = lib.callPackage ./pkgs/helixnotes {};
   moonplayer = lib.callPackage ./pkgs/moonplayer {};
   noisetorch = lib.callPackage ./pkgs/noisetorch {};
   altersend = lib.callPackage ./pkgs/altersend {};
   equicord = lib.callPackage ./pkgs/equicord {};
+  orbolay = lib.callPackage ./pkgs/orbolay {};
   wg-nord = lib.callPackage ./pkgs/wg-nord {};
   sonixd = lib.callPackage ./pkgs/sonixd {};
   hytale = lib.callPackage ./pkgs/hytale {};
@@ -81,6 +84,9 @@
   muxy = lib.callPackage ./pkgs/muxy {};
   blip = lib.callPackage ./pkgs/blip {};
   clop = lib.callPackage ./pkgs/clop {};
+
+  nintoolbox = lib.callPackage ./pkgs/nintoolbox {};
+  nintoolbox-gui = lib.callPackage ./pkgs/nintoolbox-gui {};
 
   github-desktop = lib.callPackage ./pkgs/github-desktop {};
   sublime-text = lib.callPackage ./pkgs/sublime-text {};
