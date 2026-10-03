@@ -9,18 +9,18 @@ let
     {
       "aarch64-linux" = {
         archive = "arm64";
-        hash = "sha256-pD44H/rDzdNNarJbFMBKI+3p7WcolCfSOpo+MRSQjVM=";
+        hash = "sha256-ZMWx6UORm1BZJwoDl9zHjwVx2cED/HmMdx6bTOOOIHY=";
       };
       "x86_64-linux" = {
         archive = "x86_64";
-        hash = "sha256-EjPv1rCIWI9VtP5CuRfGpmmalmpaw2hCIJx+9XAj6M8=";
+        hash = "sha256-vUW+5pDy9wUBmHUpaqKLsDrRI6+dO2rl8Dp3/M3VW/E=";
       };
     }
     .${stdenv.hostPlatform.system} or (throw "ncmm is not available on ${stdenv.hostPlatform.system}");
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "ncmm";
-  version = "1.2.4";
+  version = "1.2.5";
   src = fetchurl {
     url = "https://github.com/3899/ncmm/releases/download/v${finalAttrs.version}/ncmm_Linux_${platform.archive}.tar.gz";
     inherit (platform) hash;
