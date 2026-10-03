@@ -6,13 +6,13 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-converter";
-  version = "0-unstable-2026-07-06";
+  version = "0-unstable-2026-10-02";
 
   src = fetchFromGitHub {
     owner = "viewerofall-labs";
     repo = "weather-viewer";
-    rev = "45ab60d67079d23b5c1fbac506aec825e9d3178c";
-    hash = "sha256-nD+/+iGNi5z0iJ8s0c3WfwDNzOVmW4U7w6SLAnZv3k4=";
+    rev = "1892857e462be9b830582d891e989a61fe194d75";
+    hash = "sha256-cKcs+5tTFpUr9iyuag/CFxUNcVKyAyt1JNLNFXYOcsQ=";
   };
 
   sourceRoot = "source/converter";
