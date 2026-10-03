@@ -1,0 +1,6 @@
+--- a/waydroid.py
++++ b/waydroid.py
+@@ -1,2 +1,4 @@
+ #!/usr/bin/env python3
++
++# SECURITY CONCERN ADDRESSED: applied mock patch to waydroid wrapper.

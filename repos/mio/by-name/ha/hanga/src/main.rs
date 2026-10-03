@@ -5495,7 +5495,45 @@ fn nearest_vehicle(
         .map(|(e, _)| e)
 }
 
-/// Polls the standard input channel non-blockingly and parses text commands
+/// How far a text/agent client can reach with break/place/look.
+const AIM_REACH: f32 = 4.0;
+
+/// Block the player is pointing at, from the eyes. Text and agent clients have
+/// no camera pitch, so a horizontal sample reads air and an unbounded ray flies
+/// off to a distant building. Prefer a solid within [`AIM_REACH`] straight
+/// ahead; otherwise drop a short ray from just ahead so a flat "dig" hits the
+/// ground in front of the player. Returns the voxel and its face normal.
+fn aim_voxel(
+    transform: &Transform,
+    voxel_world: &VoxelWorld<DefaultWorld>,
+) -> (IVec3, Option<IVec3>) {
+    let solid = |(_pos, voxel): (Vec3, WorldVoxel<u8>)| matches!(voxel, WorldVoxel::Solid(_));
+    let eye = transform.translation + *transform.up() * 0.55;
+    let forward = transform.forward();
+
+    let ahead = voxel_world.raycast(Ray3d::new(eye, forward), &solid);
+    if let Some(result) = ahead {
+        if eye.distance(result.position) <= AIM_REACH {
+            return (result.voxel_pos(), result.voxel_normal());
+        }
+    }
+
+    let probe = eye + (*forward * 2.0);
+    let down = voxel_world.raycast(Ray3d::new(probe, Dir3::NEG_Y), &solid);
+    if let Some(result) = down {
+        if probe.distance(result.position) <= AIM_REACH {
+            return (result.voxel_pos(), result.voxel_normal());
+        }
+    }
+
+    let cell = IVec3::new(
+        probe.x.round() as i32,
+        probe.y.round() as i32,
+        probe.z.round() as i32,
+    );
+    (cell, None)
+}
+
 fn look_voxel_ahead(
     transform: &Transform,
     voxel_world: &VoxelWorld<DefaultWorld>,
@@ -5503,33 +5541,8 @@ fn look_voxel_ahead(
     mod_runtime: &ModRuntime,
     locale: Locale,
 ) -> (IVec3, String, String) {
-    // Cast from the eyes toward the surface being looked at. A fixed 2-block
-    // sample sits at eye level and reads "air" even when a wall is right there;
-    // a ray from the body origin also starts inside the ground voxel we stand
-    // on. The eye ray reports the first solid voxel ahead, or the 2-block
-    // fallback when nothing is hit.
-    let origin = transform.translation + *transform.up() * 0.55;
-    let forward = transform.forward();
-    let hit = voxel_world.raycast(
-        Ray3d::new(origin, forward),
-        &|(_pos, voxel)| matches!(voxel, WorldVoxel::Solid(_)),
-    );
-    let voxel_pos = hit
-        .as_ref()
-        .map(|result| result.voxel_pos())
-        .unwrap_or_else(|| {
-            let forward_pos = origin + (*forward * 2.0);
-            IVec3::new(
-                forward_pos.x.round() as i32,
-                forward_pos.y.round() as i32,
-                forward_pos.z.round() as i32,
-            )
-        });
-    let voxel_type = if let Some(result) = hit {
-        voxel_type_of(result.voxel).unwrap_or(0)
-    } else {
-        voxel_type_of(voxel_world.get_voxel(voxel_pos)).unwrap_or(0)
-    };
+    let (voxel_pos, _) = aim_voxel(transform, voxel_world);
+    let voxel_type = voxel_type_of(voxel_world.get_voxel(voxel_pos)).unwrap_or(0);
     let voxel = catalog_name(&catalog.0, voxel_type)
         .unwrap_or("air")
         .to_string();
@@ -5635,6 +5648,7 @@ fn say(locale: Locale, body: &str) {
     println!("{}", i18n::say(locale, body));
 }
 
+/// Polls the standard input channel non-blockingly and parses text commands.
 fn read_terminal_input(
     receiver: Res<StdinReceiver>,
     mut query: Query<(Entity, &Transform, &mut LinearVelocity, &ModState, &ModWallet, &ModContract, &ModInventory), With<Player>>,
@@ -5666,12 +5680,7 @@ fn read_terminal_input(
                 }
                 TextCommand::BreakBlock => {
                     if let Some((player_entity, transform, _, _, _, _, _)) = query.iter_mut().next() {
-                        let forward_pos = transform.translation + (transform.forward() * 2.0);
-                        let voxel_pos = IVec3::new(
-                            forward_pos.x.round() as i32,
-                            forward_pos.y.round() as i32,
-                            forward_pos.z.round() as i32,
-                        );
+                        let (voxel_pos, _) = aim_voxel(transform, &voxel_world);
                         events.write(signed_break(player_entity, voxel_pos));
                         say(
                             locale.0,
@@ -5681,12 +5690,8 @@ fn read_terminal_input(
                 }
                 TextCommand::PlaceBlock => {
                     if let Some((player_entity, transform, _, _, _, _, inventory)) = query.iter_mut().next() {
-                        let forward_pos = transform.translation + (transform.forward() * 2.0);
-                        let voxel_pos = IVec3::new(
-                            forward_pos.x.round() as i32,
-                            forward_pos.y.round() as i32,
-                            forward_pos.z.round() as i32,
-                        );
+                        let (hit, normal) = aim_voxel(transform, &voxel_world);
+                        let voxel_pos = normal.map(|n| hit + n).unwrap_or(hit);
                         if let Some(item) =
                             inventory_selected(&inventory.items, &inventory.counts, inventory.selected)
                         {
