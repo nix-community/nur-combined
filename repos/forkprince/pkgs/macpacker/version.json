@@ -1,0 +1,14 @@
+{
+  "name": "MacPacker",
+  "source": {
+    "type": "github-release",
+    "repo": "sarensw/MacPacker",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "MacPacker_v{version}.zip"
+  },
+  "version": "1.0.0",
+  "hash": "sha256-8jNarrdhcl4je9y/Mx88gGijIssFlHRu1ikdwMLAeFI="
+}

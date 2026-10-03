@@ -57,6 +57,7 @@
   cot-editor = lib.callPackage ./pkgs/cot-editor {};
   screendrop = lib.callPackage ./pkgs/screendrop {};
   beswitched = lib.callPackage ./pkgs/beswitched {};
+  macpacker = lib.callPackage ./pkgs/macpacker {};
   vorssaint = lib.callPackage ./pkgs/vorssaint {};
   playcover = lib.callPackage ./pkgs/playcover {};
   dropshare = lib.callPackage ./pkgs/dropshare {};
