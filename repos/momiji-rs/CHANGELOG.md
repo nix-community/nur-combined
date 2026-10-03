@@ -13,6 +13,29 @@ Conformance is tracked separately as a ratchet against the official
 
 ### Performance
 
+- **A `sasso` of another version on `PATH` no longer slows every npm CLI run.**
+  The npm CLI hands its command line to a `sasso` binary on `PATH` only when
+  that binary is exactly the package's version. To find out, it ran the binary
+  with `--version` on every run, which also meant loading
+  `node:child_process`, and with a mismatched one, such as an older Homebrew
+  sasso, the answer was always no. The binary now embeds its version as a
+  marker (`\0sasso-cli-version=<version>\0`), and the CLI reads that from the
+  file first. With no marker, or another version in it, the CLI compiles
+  in-process without starting anything. A matching marker still goes through
+  the `--version` check before anything is handed over, and `--engine` still
+  asks the binary itself. One entry of a real-world project, macOS/arm64, 60
+  interleaved runs:
+
+  ```
+                                          before     now
+    a mismatched sasso on PATH costs      4.8 ms     1.3 ms
+    no sasso on PATH                      45.9 ms    46.0 ms
+    a matched sasso on PATH (hand-off)    48.5 ms    49.1 ms
+  ```
+
+  What is left of the mismatched case is reading the file. A binary older
+  than the marker has to be read to the end to show it has none.
+
 - **`map.get` and `map.has-key` no longer copy the map they read.** Each call
   copied every entry of the map before looking one up, so a lookup cost the
   size of the map. A design system that reads its large configuration maps on

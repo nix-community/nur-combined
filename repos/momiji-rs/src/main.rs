@@ -475,6 +475,27 @@ mod default_jobs_tests {
     }
 }
 
+/// This binary's version, spelled so that it can be read out of the file
+/// without running it.
+///
+/// The npm CLI hands its command line to a `sasso` on `PATH` only when that
+/// binary is exactly the package's version (`pickBinary` in
+/// `wasm/npm/cli.mjs`), and learning a binary's version used to mean spawning
+/// it with `--version`. With a mismatched sasso on `PATH`, such as an older
+/// Homebrew one, that cost every npm CLI run 5.0 ms (macOS/arm64, measured
+/// 2026-10-03). The CLI now looks for this marker first: no marker, or another
+/// version in it, means "not this version" without running anything.
+///
+/// `--version` prints from the same literal through `black_box`, so the
+/// optimiser cannot fold the marker away and keep only the printed part.
+/// `tests/version_marker.rs` checks that the built binary still carries it.
+const VERSION_MARKER: &str = concat!("\0sasso-cli-version=", env!("CARGO_PKG_VERSION"), "\0");
+
+fn version() -> &'static str {
+    let marker = std::hint::black_box(VERSION_MARKER);
+    &marker["\0sasso-cli-version=".len()..marker.len() - 1]
+}
+
 fn main() -> ExitCode {
     // Touch stdout/stderr once before any compile scope: std lazily heap-
     // allocates their lock (a boxed pthread_mutex_t on macOS) on first use,
@@ -494,7 +515,7 @@ fn main() -> ExitCode {
             ExitCode::SUCCESS
         }
         Ok(Action::Version) => {
-            println!("sasso {}", env!("CARGO_PKG_VERSION"));
+            println!("sasso {}", version());
             ExitCode::SUCCESS
         }
         Err(msg) => {

@@ -159,7 +159,10 @@ and the run ends with its exit code — so `brew install momiji-rs/tap/sasso`
 speeds up the `npx sasso` in a project's scripts without touching them
 (momiji-rs/sasso#24). The version has to match because a package pinned in
 `devDependencies` must not silently compile with whatever sasso a developer
-happens to have; a mismatch is passed over in silence. `SASSO_BINARY=<path>`
+happens to have; a mismatch is passed over in silence. The version is read
+from a marker in the binary's file before anything is run, so a mismatched
+`sasso` on `PATH`, such as an older Homebrew one, costs a file read instead of a
+process start. `SASSO_BINARY=<path>`
 names a binary explicitly, version unchecked, and `SASSO_BINARY=0` turns the
 hand-off off. `SASSO_DEBUG_ENGINE=1` prints which of these happened and why.
 `--watch` always stays in-process, and now by choice rather than for want of

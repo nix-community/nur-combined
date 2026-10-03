@@ -26,6 +26,7 @@ const {
   openSync,
   readSync,
   closeSync,
+  fstatSync,
   accessSync,
   constants: fsConstants,
 } = require_("node:fs");
@@ -331,6 +332,67 @@ function binaryVersion(path) {
   return m ? m[1] : undefined;
 }
 
+const VERSION_MARK = Buffer.from("\0sasso-cli-version=");
+// How much of a binary `markedVersion` reads, from the end, before giving up.
+const MARKER_SCAN_BYTES = 8 << 20;
+
+/**
+ * The version a binary's marker names, read from the file without running it:
+ * a string, `null` when the file carries no marker, or `undefined` when it
+ * could not be read or the marker is malformed.
+ *
+ * The binary embeds `\0sasso-cli-version=<version>\0` (`VERSION_MARKER` in
+ * src/main.rs). Asking `--version` instead meant a spawn, plus loading
+ * `node:child_process` for it, on every run with a `sasso` on PATH, and on
+ * the common path that answer is a mismatch: 5.0 ms per run with Homebrew's
+ * older sasso on PATH (macOS/arm64, measured 2026-10-03). A marker only ever
+ * lets `pickBinary` decline sooner. A binary whose marker MATCHES still has
+ * to pass the `--version` gate before it is handed anything.
+ *
+ * Read from the end in overlapping windows, since the marker sits in the
+ * read-only data near the end of the image (92% of the way into a 2.5 MB
+ * macOS/arm64 release build).
+ *
+ * At most MARKER_SCAN_BYTES from the end are read. Showing a file has NO
+ * marker means reading all of it, and a large or slow file named `sasso`
+ * would stall every run for as long as that takes, where `--version` is at
+ * least capped by its timeout. Past the bound this answers `undefined`, and
+ * the caller asks `--version` as it did before the marker. Release binaries
+ * are 2.4-3.2 MB, so they stay well inside it.
+ */
+function markedVersion(path) {
+  let fd;
+  try {
+    fd = openSync(path, "r");
+    const size = fstatSync(fd).size;
+    const CHUNK = 1 << 18;
+    // A marker and its version fit in KEEP bytes, so a window that runs KEEP
+    // past its end catches one that straddles the boundary.
+    const KEEP = VERSION_MARK.length + 64;
+    const buf = Buffer.allocUnsafe(CHUNK + KEEP);
+    const floor = Math.max(0, size - MARKER_SCAN_BYTES);
+    for (let end = size; end > 0; ) {
+      // Out of budget before the start of the file: no answer, not "no marker".
+      if (end <= floor) return undefined;
+      const start = Math.max(0, end - CHUNK);
+      const n = readSync(fd, buf, 0, Math.min(size, end + KEEP) - start, start);
+      const view = buf.subarray(0, n);
+      const at = view.lastIndexOf(VERSION_MARK);
+      if (at >= 0) {
+        const from = at + VERSION_MARK.length;
+        const nul = view.indexOf(0, from);
+        return nul > from && nul - from <= 64 ? view.toString("latin1", from, nul) : undefined;
+      }
+      end = start;
+    }
+    return null;
+  } catch {
+    return undefined;
+  } finally {
+    if (fd !== undefined) closeSync(fd);
+  }
+}
+
 /**
  * The binary to hand this command line to, or undefined to compile in-process.
  *
@@ -384,8 +446,22 @@ function pickBinary(opts) {
 
   const found = sassoOnPath();
   if (!found) return compileInProcess("no sasso binary on PATH");
-  const theirs = binaryVersion(found);
   const ours = packageVersion();
+  // Read before running anything. No marker means a binary older than the
+  // marker (so not this version), or something that is not sasso at all;
+  // another version in it is a mismatch. Either way this compiles here
+  // without starting the binary. `--engine` still asks the binary itself, so
+  // the version it reports stays the binary's own answer.
+  if (!opts.printEngine) {
+    const marked = markedVersion(found);
+    if (marked === null) {
+      return compileInProcess(`${found} carries no sasso version marker, so it is not sasso ${ours}`);
+    }
+    if (marked !== undefined && marked !== ours) {
+      return compileInProcess(`${found} is ${marked} (its version marker), this package is ${ours}`);
+    }
+  }
+  const theirs = binaryVersion(found);
   // Silent by default: a mismatch is a normal state of the world, not a problem
   // to interrupt a build over. `--engine` is where to go and ask.
   if (theirs === undefined) {

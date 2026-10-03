@@ -68,6 +68,13 @@ assert.ok(statSync(bin).mode & 0o100, "the installed binary is executable");
 
 const version = execFileSync(bin, ["--version"], { encoding: "utf8" }).trim();
 assert.equal(version, `sasso ${plat.version}`, "the binary is the package's version");
+// The version marker the npm CLI reads instead of running a binary on PATH
+// (`VERSION_MARKER` in src/main.rs). tests/version_marker.rs checks a debug
+// build; this checks the release build that ships.
+assert.ok(
+  readFileSync(bin).includes(Buffer.from(`\0sasso-cli-version=${plat.version}\0`)),
+  "the binary carries its version marker",
+);
 
 for (const file of ["extend_heavy.scss", "user_functions.scss"]) {
   const viaBinary = spawnSync(bin, ["--no-source-map", "--quiet", `corpus/${file}`], { cwd: project, encoding: "utf8" });
