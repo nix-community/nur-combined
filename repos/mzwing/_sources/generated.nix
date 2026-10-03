@@ -96,13 +96,13 @@
   };
   codegraph = {
     pname = "codegraph";
-    version = "v1.6.1";
+    version = "v1.6.2";
     src = fetchFromGitHub {
       owner = "colbymchenry";
       repo = "codegraph";
-      rev = "v1.6.1";
+      rev = "v1.6.2";
       fetchSubmodules = false;
-      sha256 = "sha256-Aqr4kSrB3Sg870hDHx96RueORQOzy+rpYrFfAPbt20w=";
+      sha256 = "sha256-G/rBBP1dk1JB17Y4+xubUlPd3iDU2oKLuoiaxZh6Lnw=";
     };
   };
   cpa-plugin-antigravity-coding-filter = {
@@ -268,13 +268,13 @@
   };
   sing-box-alpha = {
     pname = "sing-box-alpha";
-    version = "v1.15.0-alpha.9";
+    version = "v1.15.0-alpha.10";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "sing-box";
-      rev = "v1.15.0-alpha.9";
+      rev = "v1.15.0-alpha.10";
       fetchSubmodules = false;
-      sha256 = "sha256-2We28JxX2uVSdYPz7t7WnTNxFAH/k3REmCh1F7vIeFg=";
+      sha256 = "sha256-7e+8EXtZN3x/vrgOzxu7ze+2EjTQLWnhHpDcjqLTHc0=";
     };
   };
   sing-box-beta = {
@@ -312,15 +312,15 @@
   };
   tree-sitter-nix = {
     pname = "tree-sitter-nix";
-    version = "929f53586dcc0611d2c9406886d9d18033ed71bc";
+    version = "f5b1119859a538ad63232c41e4fe5e35b095c054";
     src = fetchFromGitHub {
       owner = "nix-community";
       repo = "tree-sitter-nix";
-      rev = "929f53586dcc0611d2c9406886d9d18033ed71bc";
+      rev = "f5b1119859a538ad63232c41e4fe5e35b095c054";
       fetchSubmodules = false;
-      sha256 = "sha256-fAdq5luxS6klTenlFOztDSnCgtE9JfA+VJpYcDAJz/Q=";
+      sha256 = "sha256-hKFWvSx4VLtlvByBnJVLS+XmhBQ3SEeqt9Gftoa0uTQ=";
     };
-    date = "2026-09-28";
+    date = "2026-10-03";
   };
   typenix = {
     pname = "typenix";

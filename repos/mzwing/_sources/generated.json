@@ -181,12 +181,12 @@
             "name": null,
             "owner": "colbymchenry",
             "repo": "codegraph",
-            "rev": "v1.6.1",
-            "sha256": "sha256-Aqr4kSrB3Sg870hDHx96RueORQOzy+rpYrFfAPbt20w=",
+            "rev": "v1.6.2",
+            "sha256": "sha256-G/rBBP1dk1JB17Y4+xubUlPd3iDU2oKLuoiaxZh6Lnw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.6.1"
+        "version": "v1.6.2"
     },
     "cpa-plugin-antigravity-coding-filter": {
         "cargoLock": null,
@@ -495,12 +495,12 @@
             "name": null,
             "owner": "SagerNet",
             "repo": "sing-box",
-            "rev": "v1.15.0-alpha.9",
-            "sha256": "sha256-2We28JxX2uVSdYPz7t7WnTNxFAH/k3REmCh1F7vIeFg=",
+            "rev": "v1.15.0-alpha.10",
+            "sha256": "sha256-7e+8EXtZN3x/vrgOzxu7ze+2EjTQLWnhHpDcjqLTHc0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.15.0-alpha.9"
+        "version": "v1.15.0-alpha.10"
     },
     "sing-box-beta": {
         "cargoLock": null,
@@ -567,7 +567,7 @@
     },
     "tree-sitter-nix": {
         "cargoLock": null,
-        "date": "2026-09-28",
+        "date": "2026-10-03",
         "extract": null,
         "name": "tree-sitter-nix",
         "passthru": null,
@@ -579,12 +579,12 @@
             "name": null,
             "owner": "nix-community",
             "repo": "tree-sitter-nix",
-            "rev": "929f53586dcc0611d2c9406886d9d18033ed71bc",
-            "sha256": "sha256-fAdq5luxS6klTenlFOztDSnCgtE9JfA+VJpYcDAJz/Q=",
+            "rev": "f5b1119859a538ad63232c41e4fe5e35b095c054",
+            "sha256": "sha256-hKFWvSx4VLtlvByBnJVLS+XmhBQ3SEeqt9Gftoa0uTQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "929f53586dcc0611d2c9406886d9d18033ed71bc"
+        "version": "f5b1119859a538ad63232c41e4fe5e35b095c054"
     },
     "typenix": {
         "cargoLock": null,
