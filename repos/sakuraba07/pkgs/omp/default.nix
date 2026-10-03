@@ -6,7 +6,7 @@
 }:
 
 let
-  version = "18.4.10";
+  version = "18.5.0";
 
   # Prebuilt, single-file executables published on each GitHub release.
   # Upstream releases almost daily and does not publish source tarballs
@@ -15,19 +15,19 @@ let
   sources = {
     x86_64-linux = {
       url = "https://github.com/can1357/oh-my-pi/releases/download/v${version}/omp-linux-x64";
-      hash = "sha256-4/JMR12QuDrOwFom/USZ0ubf+/TKOw7p4+G8GrGk4ok=";
+      hash = "sha256-uEE+bghaQjx6mx17wCXCr3lJI7a2xXMwowljm2F2yKE=";
     };
     aarch64-linux = {
       url = "https://github.com/can1357/oh-my-pi/releases/download/v${version}/omp-linux-arm64";
-      hash = "sha256-j2sLZUexSbf1ONRISOgFAvWJVmPKnO9rFMcze+L09hc=";
+      hash = "sha256-EkSGDFi7aKOkU5DUky5ceYMYPsjBLLaEjBr9cJ3jigc=";
     };
     x86_64-darwin = {
       url = "https://github.com/can1357/oh-my-pi/releases/download/v${version}/omp-darwin-x64";
-      hash = "sha256-iMtbx/yKMqFidr4686fp6fGVpMmU23XxXuC8JN0wko0=";
+      hash = "sha256-vgGyIT12M7cWvxglDH73Vu4pER39dsyrxC5+OzXTW0s=";
     };
     aarch64-darwin = {
       url = "https://github.com/can1357/oh-my-pi/releases/download/v${version}/omp-darwin-arm64";
-      hash = "sha256-I9P5q3Ev5wDoCkPb0egVnf6o4Qa/cXZIpJsbuhrT5Qg=";
+      hash = "sha256-Vgi6FwWugIH0vO2bVLWDdS0Fkm/5xjd5qoZqTBPUOq0=";
     };
   };
 in
