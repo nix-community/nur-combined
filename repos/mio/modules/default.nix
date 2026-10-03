@@ -31,5 +31,5 @@ rec {
   local-ai = ../by-name/lo/local-ai/module.nix;
   toshy = ../by-name/to/toshy/nixos-module.nix;
   toshy-hm = ../by-name/to/toshy/hm-module.nix;
-  miodroid-hm = ./miodroid-hm.nix;
+  miodroid-rootless = ./miodroid-hm.nix;
 }

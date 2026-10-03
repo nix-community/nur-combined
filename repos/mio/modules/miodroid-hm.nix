@@ -6,11 +6,11 @@
 }:
 
 let
-  cfg = config.programs.miodroid;
-  wipWarning = "programs.miodroid is experimental: enable virtualisation.miodroid.rootlessUser in NixOS to provision unprivileged LXC and host binder devices; FUSE mounts and the remaining device setup are still evolving.";
+  cfg = config.programs.miodroid-rootless;
+  wipWarning = "programs.miodroid-rootless is experimental: add each Home Manager user to virtualisation.miodroid-rootless.users to provision unprivileged LXC and shared binder access.";
 in
 {
-  options.programs.miodroid = {
+  options.programs.miodroid-rootless = {
     enable = lib.mkEnableOption "experimental rootless Miodroid";
     package = lib.mkPackageOption pkgs "miodroid" { };
     workDirectory = lib.mkOption {
@@ -26,8 +26,8 @@ in
     };
     hostHelperService = lib.mkOption {
       type = lib.types.str;
-      default = "miodroid-rootless-helper-${config.home.username}.service";
-      defaultText = lib.literalExpression ''"miodroid-rootless-helper-\${config.home.username}.service"'';
+      default = "miodroid-rootless-helper.service";
+      defaultText = lib.literalExpression ''"miodroid-rootless-helper.service"'';
       description = "NixOS system service that prepares host devices for rootless Miodroid.";
     };
   };
@@ -46,6 +46,7 @@ in
           PartOf = [ "graphical-session.target" ];
         };
         Service = {
+          ExecStartPre = "${pkgs.systemd}/bin/systemctl --system is-active --quiet ${cfg.hostHelperService}";
           ExecStart = "${cfg.package}/bin/miodroid container start";
           Environment = [
             "MIODROID_ROOTLESS=1"

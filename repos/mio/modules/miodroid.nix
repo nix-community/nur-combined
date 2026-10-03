@@ -7,14 +7,12 @@
 
 let
   cfg = config.virtualisation.miodroid;
+  rootlessCfg = config.virtualisation.miodroid-rootless;
+  miodroidEnabled = cfg.enable || rootlessCfg.enable;
+  miodroidPackage = if rootlessCfg.enable then rootlessCfg.package else cfg.package;
   kCfg = config.lib.kernelConfig;
-  rootlessUser = if cfg.rootlessUser == null then "root" else cfg.rootlessUser;
   rootlessHelper = pkgs.writeShellScript "miodroid-rootless-helper" ''
     set -eu
-
-    user=${lib.escapeShellArg rootlessUser}
-    uid="$(id -u "$user")"
-    gid="$(id -g "$user")"
 
     ${pkgs.kmod}/bin/modprobe binder_linux
     ${pkgs.coreutils}/bin/install -d -m 0755 /dev/binderfs
@@ -25,7 +23,7 @@ let
     for node in binder vndbinder hwbinder; do
       test -e "/dev/binderfs/$node"
       ${pkgs.coreutils}/bin/chmod 0660 "/dev/binderfs/$node"
-      ${pkgs.coreutils}/bin/chown "$uid:$gid" "/dev/binderfs/$node"
+      ${pkgs.coreutils}/bin/chown root:miodroid-binder "/dev/binderfs/$node"
       ${pkgs.coreutils}/bin/ln -sfn "/dev/binderfs/$node" "/dev/$node"
     done
 
@@ -48,23 +46,32 @@ in
   options.virtualisation.miodroid = {
     enable = lib.mkEnableOption "Miodroid";
     package = lib.mkPackageOption pkgs "miodroid" { };
-    rootlessUser = lib.mkOption {
-      type = lib.types.nullOr lib.types.str;
-      default = null;
-      example = "alice";
-      description = ''
-        Prepare unprivileged LXC networking and subordinate IDs for this user.
-        The Home Manager rootless module remains experimental and does not yet
-        provide all mounts and device setup required by Miodroid.
-      '';
+  };
+  options.virtualisation.miodroid-rootless = {
+    enable = lib.mkEnableOption "experimental rootless Miodroid support";
+    package = lib.mkPackageOption pkgs "miodroid" { };
+    users = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      example = [
+        "alice"
+        "bob"
+      ];
+      description = "Users allowed to run rootless Miodroid containers.";
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    assertions = lib.singleton {
-      assertion = lib.versionAtLeast (lib.getVersion config.boot.kernelPackages.kernel) "4.18";
-      message = "Miodroid needs user namespace support to work properly";
-    };
+  config = lib.mkIf miodroidEnabled {
+    assertions = [
+      {
+        assertion = lib.versionAtLeast (lib.getVersion config.boot.kernelPackages.kernel) "4.18";
+        message = "Miodroid needs user namespace support to work properly";
+      }
+      {
+        assertion = !rootlessCfg.enable || rootlessCfg.users != [ ];
+        message = "virtualisation.miodroid-rootless.users must not be empty when rootless support is enabled";
+      }
+    ];
 
     system.requiredKernelConfig = [
       (kCfg.isEnabled "ANDROID_BINDER_IPC")
@@ -73,42 +80,45 @@ in
     ];
 
     boot.kernelParams = [ "psi=1" ];
-    boot.kernelModules = lib.mkIf (cfg.rootlessUser != null) [ "binder_linux" ];
-    boot.extraModprobeConfig = lib.mkIf (cfg.rootlessUser != null) ''
+    boot.kernelModules = lib.mkIf rootlessCfg.enable [ "binder_linux" ];
+    boot.extraModprobeConfig = lib.mkIf rootlessCfg.enable ''
       options binder_linux devices=binder,vndbinder,hwbinder
     '';
 
-    services.udev.extraRules = lib.mkIf (cfg.rootlessUser != null) ''
-      KERNEL=="binder", MODE="0666"
-      KERNEL=="vndbinder", MODE="0666"
-      KERNEL=="hwbinder", MODE="0666"
+    services.udev.extraRules = lib.mkIf rootlessCfg.enable ''
+      KERNEL=="binder", GROUP="miodroid-binder", MODE="0660"
+      KERNEL=="vndbinder", GROUP="miodroid-binder", MODE="0660"
+      KERNEL=="hwbinder", GROUP="miodroid-binder", MODE="0660"
     '';
 
     environment.etc."gbinder.d/miodroid.conf".source = miodroidGbinderConf;
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [ miodroidPackage ];
 
-    networking.firewall.trustedInterfaces = [ "miodroid0" ];
+    networking.firewall.trustedInterfaces = lib.mkIf cfg.enable [ "miodroid0" ];
 
     virtualisation.lxc = {
       enable = true;
-      unprivilegedContainers = cfg.rootlessUser != null;
-      usernetConfig = lib.mkIf (cfg.rootlessUser != null) ''
-        ${cfg.rootlessUser} veth lxcbr0 10
-      '';
+      unprivilegedContainers = rootlessCfg.enable;
+      usernetConfig = lib.mkIf rootlessCfg.enable (
+        lib.concatMapStrings (user: "${user} veth lxcbr0 10\n") rootlessCfg.users
+      );
     };
 
-    users.users = lib.mkIf (cfg.rootlessUser != null) {
-      ${cfg.rootlessUser} = {
+    users.groups.miodroid-binder = lib.mkIf rootlessCfg.enable { };
+    users.users = lib.mkIf rootlessCfg.enable (
+      lib.genAttrs rootlessCfg.users (user: {
         autoSubUidGidRange = lib.mkDefault true;
-        extraGroups = lib.mkAfter [ "lxc-user" ];
-      };
-    };
+        extraGroups = lib.mkAfter [
+          "lxc-user"
+          "miodroid-binder"
+        ];
+      })
+    );
 
     systemd.services = {
-      "miodroid-rootless-helper-${rootlessUser}" = lib.mkIf (cfg.rootlessUser != null) {
+      miodroid-rootless-helper = lib.mkIf rootlessCfg.enable {
         description = "Miodroid rootless host preparation";
         wantedBy = [ "multi-user.target" ];
-        before = [ "miodroid-container.service" ];
         serviceConfig = {
           Type = "oneshot";
           ExecStart = rootlessHelper;
@@ -116,14 +126,14 @@ in
         };
       };
 
-      miodroid-container = {
+      miodroid-container = lib.mkIf cfg.enable {
         description = "Miodroid Container";
         wantedBy = [ "multi-user.target" ];
 
         serviceConfig = {
           Type = "dbus";
           UMask = "0022";
-          ExecStart = "${cfg.package}/bin/miodroid container start";
+          ExecStart = "${miodroidPackage}/bin/miodroid container start";
           BusName = "id.miodro.Container";
         };
       };
@@ -133,6 +143,6 @@ in
       "d /var/lib/misc 0755 root root -"
     ];
 
-    services.dbus.packages = [ cfg.package ];
+    services.dbus.packages = [ miodroidPackage ];
   };
 }
