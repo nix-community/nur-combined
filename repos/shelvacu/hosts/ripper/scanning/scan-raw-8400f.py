@@ -105,6 +105,9 @@ def main():
                     metavar="R,G,B", help="WM8199 offset DAC codes, 0-255; on this scanner a "
                     "LOWER code raises the black level")
     ap.add_argument("--dark", action="store_true", help="lamp off during the scan (dark frame)")
+    ap.add_argument("--strip", action="store_true",
+                    help="measure -t from the head's home position instead of the glass, so "
+                    "the white calibration strip (about 0-3 mm) is in the scan")
     ap.add_argument("-l", "--left", type=float, default=0, metavar="MM")
     ap.add_argument("-t", "--top", type=float, default=0, metavar="MM")
     ap.add_argument("-x", "--width", type=float, default=215, metavar="MM")
@@ -128,6 +131,7 @@ def main():
     cmd = [SCANIMAGE, "--format=pnm", "--mode=Color", "--depth=16",
            f"--resolution={args.dpi}", "--source=Flatbed",
            f"--lamp-off-scan={'yes' if args.dark else 'no'}",
+           *(["--ignore-internal-offsets"] if args.strip else []),
            "-l", str(args.left), "-t", str(args.top),
            "-x", str(args.width), "-y", str(args.height)]
     if args.device:
@@ -142,6 +146,7 @@ def main():
         "gain_rgb": args.gain,
         "offset_rgb": args.offset,
         "dark": args.dark,
+        "strip": args.strip,
         "area_mm": {"left": args.left, "top": args.top,
                     "width": args.width, "height": args.height},
     }
