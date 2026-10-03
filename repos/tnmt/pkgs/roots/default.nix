@@ -1,17 +1,17 @@
-{ lib, buildGoModule, fetchFromGitHub, nix-update-script }:
+{ lib, buildGoModule, fetchFromGitHub, go, nix-update-script }:
 
 buildGoModule rec {
   pname = "roots";
-  version = "0.4.1";
+  version = "0.4.2";
 
   src = fetchFromGitHub {
     owner = "k1LoW";
     repo = "roots";
     rev = "v${version}";
-    hash = "sha256-ACMRfWY/lhc3C/KVhuUyS1rgkSHGWPxZrmYt+pXupJI=";
+    hash = "sha256-neK1K3Emam70LJR/oVi1Gn0dNM+OC6X5TyAufQJE7BQ=";
   };
 
-  vendorHash = "sha256-uxcT5VzlTCxxnx09p13mot0wVbbas/otoHdg7QSDt4E=";
+  vendorHash = "sha256-po/kY9zXId2qvk3oNgdrgFLEbVIWedYjfqMfdX4J5Ls=";
 
   doCheck = false;
 
@@ -28,5 +28,7 @@ buildGoModule rec {
     homepage = "https://github.com/k1LoW/roots";
     license = lib.licenses.mit;
     mainProgram = "roots";
+    # go.mod requires go >= 1.26.8, which stable channels (e.g. nixos-25.11) don't ship yet.
+    broken = lib.versionOlder go.version "1.26.8";
   };
 }
