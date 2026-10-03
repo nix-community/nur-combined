@@ -19,7 +19,8 @@
   wrapGAppsHook3,
   wl-clipboard,
   nix-update-script,
-  withNftables ? false,
+  callPackage,
+  withNftables ? true,
 }:
 
 # miodroid: a fork of waydroid designed to coexist alongside an upstream
@@ -42,7 +43,8 @@
 # The local patch files are applied by the patches list below; rebranding is
 # then done with substitutions in postPatch.
 
-python3Packages.buildPythonApplication rec {
+let
+  package = python3Packages.buildPythonApplication rec {
   pname = "miodroid";
   version = "1.6.3";
   pyproject = false;
@@ -82,6 +84,10 @@ python3Packages.buildPythonApplication rec {
           tools/helpers/instance.py tools/helpers/ipc.py \
           tools/actions/session_manager.py
         sed -i 's/waydroid/miodroid/g' tools/helpers/instance.py
+        substituteInPlace tools/helpers/instance.py \
+          --replace-fail \
+            'return f"miodroid{get_suffix_dash()}"' \
+            'return f"miodroid0{get_suffix_dash()}"'
         sed -i 's|/waydroid{instance_suffix}|/miodroid{instance_suffix}|' \
           tools/config/__init__.py
 
@@ -172,11 +178,20 @@ python3Packages.buildPythonApplication rec {
             mount = rootless.mount
             umount_all = rootless.umount_all
     EOF
+        sed -i '/^    if os.environ.get("MIODROID_ROOTLESS"):/,$ s/^    //' \
+          tools/helpers/mount.py
 
         # cfg["waydroid"] section key in Python  →  cfg["miodroid"]
         find . -name "*.py" -exec sed -i \
           -e 's/cfg\["waydroid"\]/cfg["miodroid"]/g' \
           -e "s/cfg\['waydroid'\]/cfg['miodroid']/g" \
+          {} +
+        find data/configs -type f -exec sed -i \
+          -e 's|/var/lib/waydroid|/var/lib/miodroid|g' \
+          -e 's|/lxc/waydroid|/lxc/miodroid|g' \
+          -e 's|waydroid\.seccomp|miodroid.seccomp|g' \
+          -e 's|waydroid0|miodroid0|g' \
+          -e 's|waydroid|miodroid|g' \
           {} +
 
         # D-Bus name (id.waydro → id.miodro)
@@ -235,6 +250,19 @@ python3Packages.buildPythonApplication rec {
           -e 's/cfg\["waydroid"\] = {}/cfg["miodroid"] = {}/g' \
           tools/config/load.py
 
+        # OTA servers use the upstream waydroid_<arch> path as a protocol
+        # identifier; it is not a local name and must remain unchanged.
+        substituteInPlace tools/actions/initializer.py \
+          --replace-fail '"/miodroid_"' '"/waydroid_"'
+        substituteInPlace tools/actions/container_manager.py \
+          --replace-fail '"/data/scripts/waydroid-net.sh", "start", args.instance]' \
+          '"/data/scripts/waydroid-net.sh", "start", args.instance or ""]' \
+          --replace-fail '"/data/scripts/waydroid-net.sh", "stop", args.instance]' \
+          '"/data/scripts/waydroid-net.sh", "stop", args.instance or ""]'
+        substituteInPlace tools/actions/container_manager.py \
+          --replace-fail 'tools.config.defaults["lxc"] + "/waydroid/config"' \
+          'tools.config.defaults["lxc"] + "/miodroid/config"'
+
         # Rename D-Bus files
         mv dbus/id.waydro.Container.conf    dbus/id.miodro.Container.conf
         mv dbus/id.waydro.Container.service dbus/id.miodro.Container.service
@@ -262,6 +290,9 @@ python3Packages.buildPythonApplication rec {
            data/configs/apparmor_profiles/lxc-miodroid
         sed -i 's/lxc-waydroid/lxc-miodroid/g' \
           data/configs/apparmor_profiles/lxc-miodroid || true
+
+        # The LXC configuration uses the rebranded seccomp filename.
+        mv data/configs/waydroid.seccomp data/configs/miodroid.seccomp
   '';
 
   nativeBuildInputs = [
@@ -327,8 +358,6 @@ python3Packages.buildPythonApplication rec {
 
   '';
 
-  passthru.updateScript = nix-update-script { };
-
   meta = {
     description = "Miodroid: a rebranded Waydroid fork for parallel installation (container-based Android on Linux)";
     mainProgram = "miodroid";
@@ -337,4 +366,11 @@ python3Packages.buildPythonApplication rec {
     platforms = lib.platforms.linux;
     maintainers = [ ];
   };
-}
+  };
+in
+package.overrideAttrs (old: {
+  passthru = (old.passthru or { }) // {
+    updateScript = nix-update-script { };
+    tests.nixos = callPackage ./tests.nix { inherit package; };
+  };
+})
