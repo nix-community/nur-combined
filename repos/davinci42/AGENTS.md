@@ -19,6 +19,11 @@
 
 ## Commit style
 
+For commits, PRs, merges, and history recovery, load
+`.agents/skills/clean-main-workflow/SKILL.md`. Prefer one commit per PR and squash
+merging so each PR adds one non-merge commit to main. Keep release-specific notes
+in the PR rather than appending them to READMEs.
+
 For package version updates, use `pkg-name: old-ver -> new-ver`, with the package
 attribute and actual versions, without a Conventional Commit prefix.
 For other changes, use English Conventional Commit titles: `feat:`, `fix:`,
