@@ -66,6 +66,8 @@
 - num-conv version 0.2.1 by Jacob Pratt <jacob@jhpratt.dev>, licensed under MIT OR Apache-2.0
 - num-traits version 0.2.19 by The Rust Project Developers, licensed under MIT OR Apache-2.0
 - once_cell version 1.21.4 by Aleksey Kladov <aleksey.kladov@gmail.com>, licensed under MIT OR Apache-2.0
+- openh264 version 0.9.8 by Ralf Biedert <rb@xr.io>, licensed under BSD-2-Clause
+- openh264-sys2 version 0.9.8 by Ralf Biedert <rb@xr.io>, licensed under BSD-2-Clause
 - owned_ttf_parser version 0.15.2 by Alex Butler <alexheretic@gmail.com>, licensed under Apache-2.0
 - percent-encoding version 2.3.2 by The rust-url developers, licensed under MIT OR Apache-2.0
 - pin-project-lite version 0.2.17 (author unspecified), licensed under Apache-2.0 OR MIT
@@ -86,6 +88,7 @@
 - rustls-pki-types version 1.15.1 (author unspecified), licensed under MIT OR Apache-2.0
 - rustls-webpki version 0.103.13 (author unspecified), licensed under ISC
 - rusttype version 0.9.3 by Alex Butler <alexheretic@gmail.com>, Dylan Ede <dylanede@googlemail.com>, Jeremy Soller <jackpot51@gmail.com>, licensed under MIT / Apache-2.0
+- safe_arch version 1.2.0 by Lokathor <zefria@gmail.com>, licensed under Zlib OR Apache-2.0 OR MIT
 - scopeguard version 1.2.0 by bluss, licensed under MIT OR Apache-2.0
 - sdl2 version 0.37.0 by Cobrand <cobrandw@gmail.com>, Tony Aldridge <tony@angry-lawyer.com>, licensed under MIT
 - sdl2-sys version 0.37.0 by Cobrand <cobrandw@gmail.com>, Tony Aldridge <tony@angry-lawyer.com>, licensed under MIT AND Zlib
@@ -134,6 +137,7 @@
 - wasm-bindgen-shared version 0.2.121 by The wasm-bindgen Developers, licensed under MIT OR Apache-2.0
 - webpki-roots version 0.26.11 (author unspecified), licensed under CDLA-Permissive-2.0
 - webpki-roots version 1.0.9 (author unspecified), licensed under CDLA-Permissive-2.0
+- wide version 1.7.1 by Lokathor <zefria@gmail.com>, licensed under Zlib OR Apache-2.0 OR MIT
 - windows-link version 0.2.1 (author unspecified), licensed under MIT OR Apache-2.0
 - windows-sys version 0.52.0 by Microsoft, licensed under MIT OR Apache-2.0
 - windows-sys version 0.59.0 by Microsoft, licensed under MIT OR Apache-2.0

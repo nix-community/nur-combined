@@ -670,6 +670,19 @@ rec {
             packageId = "find-msvc-tools";
           }
           {
+            name = "jobserver";
+            packageId = "jobserver";
+            optional = true;
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "libc";
+            packageId = "libc";
+            optional = true;
+            usesDefaultFeatures = false;
+            target = { target, features }: (target."unix" or false);
+          }
+          {
             name = "shlex";
             packageId = "shlex";
           }
@@ -677,6 +690,7 @@ rec {
         features = {
           "parallel" = [ "dep:libc" "dep:jobserver" ];
         };
+        resolvedDefaultFeatures = [ "parallel" ];
       };
       "cfg-if" = rec {
         crateName = "cfg-if";
@@ -1392,7 +1406,7 @@ rec {
         };
         resolvedDefaultFeatures = [ "default" "unicode" ];
       };
-      "getrandom" = rec {
+      "getrandom 0.2.17" = rec {
         crateName = "getrandom";
         version = "0.2.17";
         edition = "2018";
@@ -1426,6 +1440,80 @@ rec {
           "rustc-dep-of-std" = [ "compiler_builtins" "core" "libc/rustc-dep-of-std" "wasi/rustc-dep-of-std" ];
           "wasm-bindgen" = [ "dep:wasm-bindgen" ];
         };
+      };
+      "getrandom 0.4.3" = rec {
+        crateName = "getrandom";
+        version = "0.4.3";
+        edition = "2024";
+        sha256 = "16b0202fkdwz3p2cyll82dv24ljbn0wiyy829v4lwbkbflyqh3ih";
+        authors = [
+          "The Rand Project Developers"
+        ];
+        dependencies = [
+          {
+            name = "cfg-if";
+            packageId = "cfg-if";
+          }
+          {
+            name = "libc";
+            packageId = "libc";
+            usesDefaultFeatures = false;
+            target = { target, features }: ((("linux" == target."os" or null) || ("android" == target."os" or null)) && (!((("linux" == target."os" or null) && ("" == target."env" or null)) || ("custom" == target."getrandom_backend" or null) || ("linux_raw" == target."getrandom_backend" or null) || ("rdrand" == target."getrandom_backend" or null) || ("rndr" == target."getrandom_backend" or null))));
+          }
+          {
+            name = "libc";
+            packageId = "libc";
+            usesDefaultFeatures = false;
+            target = { target, features }: (("dragonfly" == target."os" or null) || ("freebsd" == target."os" or null) || ("hurd" == target."os" or null) || ("illumos" == target."os" or null) || ("cygwin" == target."os" or null) || (("horizon" == target."os" or null) && ("arm" == target."arch" or null)));
+          }
+          {
+            name = "libc";
+            packageId = "libc";
+            usesDefaultFeatures = false;
+            target = { target, features }: (("haiku" == target."os" or null) || ("redox" == target."os" or null) || ("nto" == target."os" or null) || ("aix" == target."os" or null));
+          }
+          {
+            name = "libc";
+            packageId = "libc";
+            usesDefaultFeatures = false;
+            target = { target, features }: (("ios" == target."os" or null) || ("visionos" == target."os" or null) || ("watchos" == target."os" or null) || ("tvos" == target."os" or null));
+          }
+          {
+            name = "libc";
+            packageId = "libc";
+            usesDefaultFeatures = false;
+            target = { target, features }: (("macos" == target."os" or null) || ("openbsd" == target."os" or null) || ("vita" == target."os" or null) || ("emscripten" == target."os" or null));
+          }
+          {
+            name = "libc";
+            packageId = "libc";
+            usesDefaultFeatures = false;
+            target = { target, features }: ("netbsd" == target."os" or null);
+          }
+          {
+            name = "libc";
+            packageId = "libc";
+            usesDefaultFeatures = false;
+            target = { target, features }: ("solaris" == target."os" or null);
+          }
+          {
+            name = "libc";
+            packageId = "libc";
+            usesDefaultFeatures = false;
+            target = { target, features }: ("vxworks" == target."os" or null);
+          }
+          {
+            name = "r-efi";
+            packageId = "r-efi";
+            usesDefaultFeatures = false;
+            target = { target, features }: (("uefi" == target."os" or null) && ("efi_rng" == target."getrandom_backend" or null));
+          }
+        ];
+        features = {
+          "sys_rng" = [ "dep:rand_core" ];
+          "wasm_js" = [ "dep:wasm-bindgen" "dep:js-sys" ];
+        };
+        resolvedDefaultFeatures = [ "std" ];
       };
       "gl_generator" = rec {
         crateName = "gl_generator";
@@ -2018,6 +2106,29 @@ rec {
           "no-panic" = [ "dep:no-panic" ];
         };
       };
+      "jobserver" = rec {
+        crateName = "jobserver";
+        version = "0.1.35";
+        edition = "2021";
+        sha256 = "1crwgbb0wjph42ni4hqryjxlv4vlr0hyk81g76id9fpa56ysq00w";
+        authors = [
+          "Alex Crichton <alex@alexcrichton.com>"
+        ];
+        dependencies = [
+          {
+            name = "getrandom";
+            packageId = "getrandom 0.4.3";
+            target = { target, features }: (target."windows" or false);
+            features = [ "std" ];
+          }
+          {
+            name = "libc";
+            packageId = "libc";
+            target = { target, features }: (target."unix" or false);
+          }
+        ];
+
+      };
       "js-sys" = rec {
         crateName = "js-sys";
         version = "0.3.98";
@@ -2374,6 +2485,30 @@ rec {
         };
         resolvedDefaultFeatures = [ "simd" "simd-adler32" "with-alloc" ];
       };
+      "nasm-rs" = rec {
+        crateName = "nasm-rs";
+        version = "0.3.2";
+        edition = "2018";
+        sha256 = "0jd1z9s5rn3qqq7c5x7h2zgbrx11plqisaf3528vkpf8x2jzhsvh";
+        libName = "nasm_rs";
+        authors = [
+          "Allen Goodman <allen@goodman.io>"
+          "Gavin Massey <mdk@mystacktrace.org>"
+          "Jerome Rasky <jyrome.112@gmail.com>"
+          "Justinas Stankevičius <justinas@users.noreply.github.com>"
+          "Kornel Lesinski <kornel@geekhood.net>"
+        ];
+        dependencies = [
+          {
+            name = "log";
+            packageId = "log";
+          }
+        ];
+        features = {
+          "jobserver" = [ "dep:jobserver" ];
+          "parallel" = [ "jobserver" ];
+        };
+      };
       "nibarchive" = rec {
         crateName = "nibarchive";
         version = "0.1.0";
@@ -2463,6 +2598,66 @@ rec {
           "std" = [ "alloc" ];
         };
         resolvedDefaultFeatures = [ "alloc" "default" "race" "std" ];
+      };
+      "openh264" = rec {
+        crateName = "openh264";
+        version = "0.9.8";
+        edition = "2024";
+        sha256 = "022sfnkwsar2fllsal64kmwwq8nr00k6q1h1vlfm172z1cd0gjgw";
+        authors = [
+          "Ralf Biedert <rb@xr.io>"
+        ];
+        dependencies = [
+          {
+            name = "openh264-sys2";
+            packageId = "openh264-sys2";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "wide";
+            packageId = "wide";
+          }
+        ];
+        features = {
+          "default" = [ "source" ];
+          "libloading" = [ "openh264-sys2/libloading" ];
+          "source" = [ "openh264-sys2/source" ];
+        };
+        resolvedDefaultFeatures = [ "source" ];
+      };
+      "openh264-sys2" = rec {
+        crateName = "openh264-sys2";
+        version = "0.9.8";
+        edition = "2024";
+        sha256 = "0w7x080rngwz9rclgzlrgl6j29722dyghykk4v9x84ywraj2knka";
+        libName = "openh264_sys2";
+        authors = [
+          "Ralf Biedert <rb@xr.io>"
+        ];
+        buildDependencies = [
+          {
+            name = "cc";
+            packageId = "cc";
+            optional = true;
+            features = [ "parallel" ];
+          }
+          {
+            name = "nasm-rs";
+            packageId = "nasm-rs";
+            optional = true;
+          }
+          {
+            name = "walkdir";
+            packageId = "walkdir";
+            optional = true;
+          }
+        ];
+        features = {
+          "default" = [ "source" ];
+          "libloading" = [ "dep:libloading" "dep:sha2" ];
+          "source" = [ "dep:cc" "dep:walkdir" "dep:nasm-rs" ];
+        };
+        resolvedDefaultFeatures = [ "source" ];
       };
       "os_str_bytes" = rec {
         crateName = "os_str_bytes";
@@ -2782,6 +2977,17 @@ rec {
         };
         resolvedDefaultFeatures = [ "default" "proc-macro" ];
       };
+      "r-efi" = rec {
+        crateName = "r-efi";
+        version = "6.0.0";
+        edition = "2018";
+        sha256 = "1gyrl2k5fyzj9k7kchg2n296z5881lg7070msabid09asp3wkp7q";
+        libName = "r_efi";
+        features = {
+          "core" = [ "dep:core" ];
+          "rustc-dep-of-std" = [ "core" ];
+        };
+      };
       "regex" = rec {
         crateName = "regex";
         version = "1.12.3";
@@ -2947,7 +3153,7 @@ rec {
           }
           {
             name = "getrandom";
-            packageId = "getrandom";
+            packageId = "getrandom 0.2.17";
           }
           {
             name = "libc";
@@ -3242,6 +3448,44 @@ rec {
         features = {
           "no-panic" = [ "dep:no-panic" ];
         };
+      };
+      "safe_arch" = rec {
+        crateName = "safe_arch";
+        version = "1.2.0";
+        edition = "2024";
+        sha256 = "0przxg40043xxwgfgzx5qpx882x4q6qb07x6kjryrrkmb2hyzij2";
+        authors = [
+          "Lokathor <zefria@gmail.com>"
+        ];
+        dependencies = [
+          {
+            name = "bytemuck";
+            packageId = "bytemuck";
+            optional = true;
+          }
+        ];
+        features = {
+          "bytemuck" = [ "dep:bytemuck" ];
+        };
+        resolvedDefaultFeatures = [ "bytemuck" "default" ];
+      };
+      "same-file" = rec {
+        crateName = "same-file";
+        version = "1.0.6";
+        edition = "2018";
+        sha256 = "00h5j1w87dmhnvbv9l8bic3y7xxsnjmssvifw2ayvgx9mb1ivz4k";
+        libName = "same_file";
+        authors = [
+          "Andrew Gallant <jamslam@gmail.com>"
+        ];
+        dependencies = [
+          {
+            name = "winapi-util";
+            packageId = "winapi-util";
+            target = { target, features }: (target."windows" or false);
+          }
+        ];
+
       };
       "scopeguard" = rec {
         crateName = "scopeguard";
@@ -3802,7 +4046,7 @@ rec {
           "vorbis" = [ "dep:symphonia-codec-vorbis" ];
           "wav" = [ "dep:symphonia-format-riff" "symphonia-format-riff/wav" ];
         };
-        resolvedDefaultFeatures = [ "aac" "adpcm" "aiff" "alac" "ape" "caf" "id3v1" "id3v2" "isomp4" "mp3" "pcm" "wav" ];
+        resolvedDefaultFeatures = [ "aac" "adpcm" "aiff" "alac" "ape" "caf" "exp-video-codecs" "id3v1" "id3v2" "isomp4" "mp3" "pcm" "wav" ];
       };
       "symphonia-bundle-mp3" = rec {
         crateName = "symphonia-bundle-mp3";
@@ -3999,7 +4243,7 @@ rec {
           "opt-simd-sse" = [ "rustfft/sse" ];
           "rustfft" = [ "dep:rustfft" ];
         };
-        resolvedDefaultFeatures = [ "default" ];
+        resolvedDefaultFeatures = [ "default" "exp-video-codecs" ];
       };
       "symphonia-format-caf" = rec {
         crateName = "symphonia-format-caf";
@@ -4538,6 +4782,12 @@ rec {
             packageId = "nibarchive";
           }
           {
+            name = "openh264";
+            packageId = "openh264";
+            usesDefaultFeatures = false;
+            features = [ "source" ];
+          }
+          {
             name = "plist";
             packageId = "plist";
           }
@@ -4579,7 +4829,7 @@ rec {
             name = "symphonia";
             packageId = "symphonia";
             usesDefaultFeatures = false;
-            features = [ "aiff" "caf" "isomp4" "wav" "aac" "adpcm" "alac" "mp3" "pcm" "ape" "id3v1" "id3v2" ];
+            features = [ "aiff" "caf" "isomp4" "wav" "aac" "adpcm" "alac" "mp3" "pcm" "ape" "id3v1" "id3v2" "exp-video-codecs" ];
           }
           {
             name = "touchHLE_dynarmic_wrapper";
@@ -5070,6 +5320,27 @@ rec {
         ];
 
       };
+      "walkdir" = rec {
+        crateName = "walkdir";
+        version = "2.5.0";
+        edition = "2018";
+        sha256 = "0jsy7a710qv8gld5957ybrnc07gavppp963gs32xk4ag8130jy99";
+        authors = [
+          "Andrew Gallant <jamslam@gmail.com>"
+        ];
+        dependencies = [
+          {
+            name = "same-file";
+            packageId = "same-file";
+          }
+          {
+            name = "winapi-util";
+            packageId = "winapi-util";
+            target = { target, features }: (target."windows" or false);
+          }
+        ];
+
+      };
       "wasi" = rec {
         crateName = "wasi";
         version = "0.11.1+wasi-snapshot-preview1";
@@ -5244,6 +5515,38 @@ rec {
           }
         ];
 
+      };
+      "wide" = rec {
+        crateName = "wide";
+        version = "1.7.1";
+        edition = "2024";
+        sha256 = "0kycv850zdsmjcg5ps6w25h04vad6axpvl5q1h8wxvf8qfcsq86r";
+        authors = [
+          "Lokathor <zefria@gmail.com>"
+        ];
+        dependencies = [
+          {
+            name = "bytemuck";
+            packageId = "bytemuck";
+          }
+          {
+            name = "safe_arch";
+            packageId = "safe_arch";
+            target = { target, features }: ("x86" == target."arch" or null);
+            features = [ "bytemuck" ];
+          }
+          {
+            name = "safe_arch";
+            packageId = "safe_arch";
+            target = { target, features }: ("x86_64" == target."arch" or null);
+            features = [ "bytemuck" ];
+          }
+        ];
+        features = {
+          "default" = [ "std" ];
+          "serde" = [ "dep:serde_core" ];
+        };
+        resolvedDefaultFeatures = [ "default" "std" ];
       };
       "winapi" = rec {
         crateName = "winapi";
