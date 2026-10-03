@@ -83,6 +83,7 @@ python3Packages.buildPythonApplication rec {
         -e 's|/etc/waydroid-extra|/etc/miodroid-extra|g' \
         -e 's|/usr/share/waydroid-extra|/usr/share/miodroid-extra|g' \
         -e 's|/lxc/waydroid|/lxc/miodroid|g' \
+        -e 's|+ "/waydroid"|+ "/miodroid"|g' \
         -e 's|/waydroid\.cfg|/miodroid.cfg|g' \
         -e 's|/waydroid\.log|/miodroid.log|g' \
         -e 's|waydroid_base\.prop|miodroid_base.prop|g' \
@@ -91,6 +92,10 @@ python3Packages.buildPythonApplication rec {
         -e 's|"-n", "waydroid"|"-n", "miodroid"|g' \
         -e 's|waydroid0|miodroid0|g' \
         -e 's|waydroid_|miodroid_|g' \
+        -e 's|"waydroid\.cfg"|"miodroid.cfg"|g' \
+        -e 's|waydroid-bugreport|miodroid-bugreport|g' \
+        -e 's|glob("waydroid\.|glob("miodroid.|g' \
+        -e "s|glob('waydroid\\.|glob('miodroid.|g" \
       {} +
 
     # CLI/user-facing text in Python
@@ -101,6 +106,9 @@ python3Packages.buildPythonApplication rec {
       -e 's/WayDroid container is/Miodroid container is/g' \
       -e "s/\"Run waydroid/\"Run miodroid/g" \
       -e 's/set_icon_name("waydroid")/set_icon_name("miodroid")/g' \
+      -e 's/f"waydroid app /f"miodroid app /g' \
+      -e 's/f"waydroid\.{/f"miodroid.{/g' \
+      -e 's/f"waydroid\.{appInfo/f"miodroid.{appInfo/g' \
       {} +
 
     # Version string bump
@@ -169,17 +177,6 @@ python3Packages.buildPythonApplication rec {
     "SYSCONFDIR=${placeholder "out"}/etc"
   ]
   ++ lib.optional withNftables "USE_NFTABLES=1";
-
-  # The Makefile is already patched to install as 'miodroid', so postInstall
-  # just renames any residual waydro D-Bus installed files (polkit, etc).
-  postInstall = ''
-    # Rename any D-Bus / polkit installed files with old name (best-effort)
-    for f in "$out"/share/dbus-1/system.d/id.waydro.Container.conf \
-              "$out"/share/dbus-1/system-services/id.waydro.Container.service \
-              "$out"/share/polkit-1/actions/id.waydro.Container.policy; do
-      [ -e "$f" ] && mv "$f" "$(dirname "$f")/$(basename "$f" | sed 's/waydro/miodro/g')" || true
-    done
-  '';
 
   preFixup = ''
     makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
