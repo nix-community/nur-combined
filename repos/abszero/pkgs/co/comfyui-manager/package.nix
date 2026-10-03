@@ -6,13 +6,13 @@
 }:
 stdenvNoCC.mkDerivation (final: {
   pname = "comfyui-manager";
-  version = "4.3-unstable-2026-10-01";
+  version = "4.3-unstable-2026-10-03";
 
   src = fetchFromGitHub {
     owner = "Comfy-Org";
     repo = "ComfyUI-Manager";
-    rev = "2a6cb164309d4db45471d4bf14c8beb75014e56c";
-    hash = "sha256-gAoaE8JC894CYhsqM4mj62Mom9r/nPNsRG9hDMDYBHo=";
+    rev = "855a0f50ecc842adacab08aa24d8655a742fae40";
+    hash = "sha256-VaQVYOBI0BVz4qqgXON3y9Gd9gWhoqopZLtzJ3ajTA4=";
   };
 
   propagatedBuildInputs = with python3.pkgs; [
