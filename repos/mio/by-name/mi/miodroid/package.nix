@@ -30,6 +30,8 @@
 #   0003 – rename LXC container + AppArmor profile + internal filenames
 #   0004 – Android 13-16 / LineageOS 20-23 vendor detection
 #           upstream PR: https://github.com/waydroid/waydroid/pull/2393
+#   0005 – multi-instance support (--instance / -I)
+#           upstream PR: https://github.com/waydroid/waydroid/pull/1990
 #
 # Community Android 16 images:  miodroid init -c <system> -v <vendor> -r lineage
 # See: https://github.com/supechicken/waydroid-builds
@@ -50,13 +52,27 @@ python3Packages.buildPythonApplication rec {
   };
   patches = [
     ./patches/0004-android16-vendor-detection.patch
+    ./patches/0005-multi-instance-support.patch
   ];
+  patchFlags = [ "-p1" "--fuzz=10" ];
 
   postPatch = ''
     # ── Patches 0001-0003: global rebrand waydroid → miodroid ──────────────
     #
     # Use sed across the whole tree to avoid per-file failures.
     # Order matters: rename more-specific strings first.
+
+    # Rebrand patch 0005 after applying it, without touching Android props.
+    substituteInPlace tools/helpers/instance.py \
+      --replace-fail 'from tools.helpers.arguments import arguments' \
+        'import os\nfrom tools.helpers.arguments import arguments'
+    substituteInPlace tools/helpers/instance.py \
+      --replace-fail 'INSTANCE_NAME = arguments("").instance' \
+        'INSTANCE_NAME = arguments(os.environ.get("MIODROID_INSTANCE", "")).instance'
+    sed -i 's/id\.waydro/id.miodro/g' \
+      tools/helpers/instance.py tools/helpers/ipc.py \
+      tools/actions/session_manager.py
+    sed -i 's/waydroid/miodroid/g' tools/helpers/instance.py
 
     # cfg["waydroid"] section key in Python  →  cfg["miodroid"]
     find . -name "*.py" -exec sed -i \
