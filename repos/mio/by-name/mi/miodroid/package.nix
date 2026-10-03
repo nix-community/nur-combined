@@ -15,7 +15,6 @@
   util-linux,
   wrapGAppsHook3,
   wl-clipboard,
-  runtimeShell,
   nix-update-script,
   withNftables ? false,
 }:
@@ -29,9 +28,14 @@
 #   0001 – rebrand binary / CLI prog name / config INI section / D-Bus names
 #   0002 – separate data+config paths  (/var/lib/miodroid, ~/.local/share/miodroid)
 #   0003 – rename LXC container + AppArmor profile + internal filenames
+#   0004 – Android 13-16 / LineageOS 20-23 vendor detection
+#           upstream PR: https://github.com/waydroid/waydroid/pull/2393
 #
-# To pull changes from upstream Lepton (https://github.com/casualsnek/waydroid-lepton
-# or similar), add further patches in the patches/ directory and list them below.
+# Community Android 16 images:  miodroid init -c <system> -v <vendor> -r lineage
+# See: https://github.com/supechicken/waydroid-builds
+#
+# The local patch files are applied by the patches list below; rebranding is
+# then done with substitutions in postPatch.
 
 python3Packages.buildPythonApplication rec {
   pname = "miodroid";
@@ -44,14 +48,9 @@ python3Packages.buildPythonApplication rec {
     tag = version;
     hash = "sha256-1YYNSqIW+0vkCRZ+vemqu0CXhU6aOGvpMzdswvlAc84=";
   };
-
-  # ---------------------------------------------------------------------------
-  # Patch series
-  # ---------------------------------------------------------------------------
-  # Renaming is applied via sed across all source files. The patches/ directory
-  # has human-readable git-style commit descriptions for each change set so they
-  # can be ported to a real upstream fork later.
-  # ---------------------------------------------------------------------------
+  patches = [
+    ./patches/0004-android16-vendor-detection.patch
+  ];
 
   postPatch = ''
     # ── Patches 0001-0003: global rebrand waydroid → miodroid ──────────────
@@ -208,9 +207,6 @@ python3Packages.buildPythonApplication rec {
       )
     }"
 
-    substituteInPlace $out/lib/miodroid/tools/helpers/run.py \
-                      $out/lib/miodroid/tools/helpers/lxc.py \
-      --replace-fail '"sh"' '"${runtimeShell}"'
   '';
 
   passthru.updateScript = nix-update-script { };
