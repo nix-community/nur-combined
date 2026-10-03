@@ -17,6 +17,9 @@
 #
 # The updater only writes _sources/, pkgs/, flake.lock and vendor/bun2nix; it
 # never commits or pushes.
+#
+# Flutter lock generation keeps upstream versions and checksums, but rewrites
+# hosted pub.flutter-io.cn URLs to pub.dev so CI fetches from the origin.
 set -euo pipefail
 
 here=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)

@@ -606,7 +606,16 @@ def regenerate_pubspec_locks(args, env: dict) -> list[str]:
                     f"{out_rel}: regenerated lock shrank from {old_count} to "
                     f"{len(data['packages'])} packages; refusing to write it"
                 )
-        if write_if_changed(out_path, proc.stdout if proc.stdout.endswith("\n") else proc.stdout + "\n"):
+        # The upstream lock uses a public pub.dev mirror; keep its pinned
+        # versions and checksums, but fetch hosted archives from the origin.
+        for meta in data["packages"].values():
+            description = meta.get("description")
+            if (meta.get("source") == "hosted"
+                    and isinstance(description, dict)
+                    and description.get("url") == "https://pub.flutter-io.cn"):
+                description["url"] = "https://pub.dev"
+        content = json.dumps(data, indent=2, ensure_ascii=False) + "\n"
+        if write_if_changed(out_path, content):
             changed.append(out_rel)
     return changed
 

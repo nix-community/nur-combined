@@ -88,8 +88,10 @@ ${qqRuntimeEnv}
       PATH and /opt/QQ/qq. The launcher carries the same NixOS adaptations as the
       source package: the interactive bash, the PATH of helper tools, the
       pipewire/libva/opengl-driver library paths, the EGL/Vulkan hints and the
-      store-side QQ paths. Upstream publishes no aarch64 asset, so this package
-      is x86_64-linux only.
+      store-side QQ paths. QQ_WAYLAND_FIX_QQ_ROOT overrides the installed QQ
+      root used by diagnostics; newer launchers still prefer a running QQ's
+      executable and resources. Upstream publishes no aarch64 asset, so this
+      package is x86_64-linux only.
     '';
     homepage = "https://github.com/SHORiN-KiWATA/linuxqq-wayland-fix";
     changelog = "https://github.com/SHORiN-KiWATA/linuxqq-wayland-fix/releases/tag/v${source.version}";

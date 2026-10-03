@@ -68,7 +68,9 @@ ${qqRuntimeEnv}
       under ~/.cache/linuxqq-wayland-fix/crash. The installed script carries the
       NixOS adaptations upstream's packaging needs: the interactive bash, the
       PATH of helper tools, the pipewire/libva/opengl-driver library paths, the
-      EGL/Vulkan hints and the store-side QQ paths.
+      EGL/Vulkan hints and the store-side QQ paths. QQ_WAYLAND_FIX_QQ_ROOT
+      overrides the installed QQ root used by diagnostics; newer launchers
+      still prefer the executable and resources of a running QQ process.
     '';
     homepage = "https://github.com/SHORiN-KiWATA/linuxqq-wayland-fix";
     license = lib.licenses.mit;
