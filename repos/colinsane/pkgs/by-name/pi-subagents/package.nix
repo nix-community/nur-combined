@@ -6,17 +6,17 @@
 }:
 mkPiExtension (finalAttrs: {
   pname = "pi-subagents";
-  version = "0.73.1";
+  version = "0.75.0";
 
   src = fetchFromGitHub {
     owner = "nicobailon";
     repo = "pi-subagents";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-EqWfWHlyXkhWNgov4gQnpnX/Gnz4QjjBBAPcx8Xrvjo=";
+    hash = "sha256-PaM7Rlupg24ZTfUKvqHtDZHR8BPuvVpMcZ8BVDgC/XU=";
   };
 
   npmDepsFetcherVersion = 2;
-  npmDepsHash = "sha256-KWGXfyR+qSeeEZ+hOERlYAA7t06Znl308ApJus1mqzw=";
+  npmDepsHash = "sha256-y5/SfWe9AhuUUDG6td0iHdl7Lq7/b04AwqhA6cHiBqk=";
 
   dontNpmBuild = true;  # package.json defines no build script
 

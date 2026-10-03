@@ -31,7 +31,8 @@ mkPiExtension (finalAttrs: {
     inherit (finalAttrs) pname version src postPatch;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-GZANtpa3CW2PCxvwaiPowjTVrxOLa8x6LwKBHJbMdP4=";
+    # XXX(2026-10-03): this hash does not seem to be 100% reproducible -- it was found to be invalidated ~10 days after computation
+    hash = "sha256-HwuQT3ErdJTzY2TSSPioyrhZHUdjc/0JFqaXyBoKoLE=";
   };
   npmConfigHook = pnpmConfigHook;
 

@@ -21,18 +21,13 @@
   },
   {
     "pname": "DotNext",
-    "version": "6.4.1",
-    "hash": "sha256-xXlOHuD/U/LqjNopepeqZoT20DaCjXhCxymMNSBBC08="
-  },
-  {
-    "pname": "DotNext",
-    "version": "6.7.2",
-    "hash": "sha256-CMbhp4ifr7n2TnuV+QXyFapYCzVsPmKbivLO9OGPWPw="
+    "version": "6.8.0",
+    "hash": "sha256-VwAd2tSxnh8vsTiEdusAEUiEq+F5uERYE2Avvoz+fNY="
   },
   {
     "pname": "DotNext.IO",
-    "version": "6.4.1",
-    "hash": "sha256-FtscGbuOoSuyWoHMpOn8Im/LRKnKRfW7pHXYGKAYmn8="
+    "version": "6.8.0",
+    "hash": "sha256-w1R3X4YOR+qTCGaWY2n4nnzZqQubvocviroSexarBQg="
   },
   {
     "pname": "Emgu.CV",
@@ -71,8 +66,8 @@
   },
   {
     "pname": "EmguExtensions",
-    "version": "0.1.9",
-    "hash": "sha256-BGXtMvUbwzsMdcjDqJ8iW1Hs7M6vGSt8m9hoyO2ivY4="
+    "version": "0.2.1",
+    "hash": "sha256-qVeC8iUWOpLpbLaSdLT2pOubuKDF+ykyEbm+Dd/2YQs="
   },
   {
     "pname": "K4os.Compression.LZ4",
@@ -311,33 +306,23 @@
   },
   {
     "pname": "StageKit",
-    "version": "0.4.0",
-    "hash": "sha256-H/VsskAK75DmC8ZkGdROo6GsU+z+1lxdD+vMNHBhssQ="
+    "version": "0.4.1",
+    "hash": "sha256-DpQVwzVoxSRgtQF7DYICmlxWwStduZRC/ZC31qMekHw="
   },
   {
     "pname": "StageKit.Primitives",
-    "version": "0.2.4",
-    "hash": "sha256-WUhXWCXkMRmaVWUTnnBLiasdMNezOUXCouOv3+0ymYc="
-  },
-  {
-    "pname": "StageKit.Primitives",
-    "version": "0.4.0",
-    "hash": "sha256-4CPmxqSugJOgUYwcY+237i4itJvxUWUtGCx7t7cxlIo="
+    "version": "0.4.1",
+    "hash": "sha256-treNF8PPMYGa2EH2tc2U3mP3ikwwuoExqF0FmR49zso="
   },
   {
     "pname": "StageKit.Runtime",
-    "version": "0.4.0",
-    "hash": "sha256-J9Yx4twzqdwJ1QuVaKiOEcGanQn99pH2usmXi2O25fQ="
+    "version": "0.4.1",
+    "hash": "sha256-ggX9Xojd5+V8y+2/O/cPXuuMgedhC9XJK8phDTYWXj8="
   },
   {
     "pname": "System.CommandLine",
     "version": "2.0.12",
     "hash": "sha256-SUCaKOYrCvfw3JjQcJhyXryXaa8ao7BmctGfYoR7zuk="
-  },
-  {
-    "pname": "System.IO.Hashing",
-    "version": "10.0.10",
-    "hash": "sha256-TPzhNJAi0x/X5NoYu62MbRLB7GgVCneSqRDbV3aYQ0M="
   },
   {
     "pname": "System.IO.Hashing",

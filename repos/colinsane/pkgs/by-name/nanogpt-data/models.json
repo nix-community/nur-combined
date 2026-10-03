@@ -67,6 +67,28 @@
     }
   },
   {
+    "id": "unbiased/pareto-26.10-preview",
+    "name": "Pareto 26.10 Preview",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 3e-05,
+      "completion": 3.2,
+      "currency": "USD",
+      "prompt": 0.8,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1048576,
+    "max_output_tokens": 131072,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
     "id": "unbiased/pareto",
     "name": "Pareto",
     "pricing": {
@@ -89,28 +111,6 @@
     }
   },
   {
-    "id": "kitani/clover-1-150b",
-    "name": "Clover 1 150B Preview",
-    "pricing": {
-      "cacheReadInputPer1kTokens": null,
-      "completion": 0.8,
-      "currency": "USD",
-      "prompt": 0.15,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 200000,
-    "max_output_tokens": 100000,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
     "id": "google/gemma4-31b-splituntied",
     "name": "Gemma 4 31B Split-Untied",
     "pricing": {
@@ -122,6 +122,111 @@
     },
     "context_length": 262144,
     "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "llmtech/decider-0.8b-fp8",
+    "name": "Decider 0.8B FP8",
+    "pricing": {
+      "cacheReadInputPer1kTokens": null,
+      "completion": 0.0,
+      "currency": "USD",
+      "prompt": 0.02,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 32768,
+    "max_output_tokens": null,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "llmtech/decider-2b-fp8",
+    "name": "Decider 2B FP8",
+    "pricing": {
+      "cacheReadInputPer1kTokens": null,
+      "completion": 0.0,
+      "currency": "USD",
+      "prompt": 0.03,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 32768,
+    "max_output_tokens": null,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "llmtech/decider-4b-nvfp4",
+    "name": "Decider 4B NVFP4",
+    "pricing": {
+      "cacheReadInputPer1kTokens": null,
+      "completion": 0.0,
+      "currency": "USD",
+      "prompt": 0.04,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 32768,
+    "max_output_tokens": null,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "cloudflare/clef",
+    "name": "Clef",
+    "pricing": {
+      "cacheReadInputPer1kTokens": null,
+      "completion": 0.0,
+      "currency": "USD",
+      "prompt": 0.2,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 16000,
+    "max_output_tokens": 0,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "liquid/d1",
+    "name": "Liquid D1",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4e-05,
+      "completion": 0.0,
+      "currency": "USD",
+      "prompt": 0.04,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 65536,
+    "max_output_tokens": 0,
     "capabilities": {
       "reasoning": false
     },
@@ -373,10 +478,10 @@
     "id": "z-ai/glm-5.3-flash",
     "name": "GLM 5.3 Flash",
     "pricing": {
-      "cacheReadInputPer1kTokens": 1.5e-05,
-      "completion": 0.25,
+      "cacheReadInputPer1kTokens": 2.5e-05,
+      "completion": 0.3,
       "currency": "USD",
-      "prompt": 0.075,
+      "prompt": 0.1,
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
@@ -1616,28 +1721,6 @@
     }
   },
   {
-    "id": "TEE/qwen3.8-27b-uncensored",
-    "name": "Qwen3.8 27B Uncensored TEE",
-    "pricing": {
-      "cacheReadInputPer1kTokens": null,
-      "completion": 1.5,
-      "currency": "USD",
-      "prompt": 0.3,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": 262144,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
     "id": "TEE/qwen3.8-27b",
     "name": "Qwen3.8 27B TEE",
     "pricing": {
@@ -1829,8 +1912,8 @@
       "prompt": 0.75,
       "unit": "per_million_tokens"
     },
-    "context_length": 1048756,
-    "max_output_tokens": 262144,
+    "context_length": 1000000,
+    "max_output_tokens": 131072,
     "capabilities": {
       "reasoning": false
     },
@@ -1850,8 +1933,8 @@
       "prompt": 0.75,
       "unit": "per_million_tokens"
     },
-    "context_length": 1048756,
-    "max_output_tokens": 262144,
+    "context_length": 1000000,
+    "max_output_tokens": 131072,
     "capabilities": {
       "reasoning": true
     },
@@ -1951,6 +2034,28 @@
         "text",
         "image",
         "video"
+      ]
+    }
+  },
+  {
+    "id": "sakana/sakana-namazu",
+    "name": "Sakana Namazu",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.00015,
+      "completion": 4.0,
+      "currency": "USD",
+      "prompt": 0.95,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 65536,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
       ]
     }
   },
@@ -2530,6 +2635,50 @@
     }
   },
   {
+    "id": "anthropic/claude-sonnet-5.5",
+    "name": "Claude Sonnet 5.5",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.0002,
+      "completion": 10.0,
+      "currency": "USD",
+      "prompt": 2.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1000000,
+    "max_output_tokens": 128000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "anthropic/claude-sonnet-5.5:thinking",
+    "name": "Claude Sonnet 5.5 Thinking",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.0002,
+      "completion": 10.0,
+      "currency": "USD",
+      "prompt": 2.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1000000,
+    "max_output_tokens": 128000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
     "id": "anthropic/claude-sonnet-5",
     "name": "Claude Sonnet 5",
     "pricing": {
@@ -2908,6 +3057,50 @@
       "completion": 0.5,
       "currency": "USD",
       "prompt": 0.1,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1050000,
+    "max_output_tokens": 128000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "openai/gpt-6.1-sol",
+    "name": "GPT 6.1 Sol",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.0001,
+      "completion": 10.0,
+      "currency": "USD",
+      "prompt": 2.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1050000,
+    "max_output_tokens": 128000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "openai/gpt-6.1-sol-pro",
+    "name": "GPT 6.1 Sol Pro",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.0001,
+      "completion": 10.0,
+      "currency": "USD",
+      "prompt": 2.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1050000,
@@ -4381,6 +4574,50 @@
     }
   },
   {
+    "id": "nex-agi/nex-n2.5-mini",
+    "name": "Nex N2.5 Mini",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 2.5e-06,
+      "completion": 0.1,
+      "currency": "USD",
+      "prompt": 0.025,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": null,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "nex-agi/nex-n2.5-pro",
+    "name": "Nex N2.5 Pro",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 1.5e-05,
+      "completion": 0.25,
+      "currency": "USD",
+      "prompt": 0.075,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": null,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
     "id": "openai/o1-pro",
     "name": "OpenAI o1 Pro",
     "pricing": {
@@ -5461,28 +5698,6 @@
     }
   },
   {
-    "id": "anthropic/claude-opus-4",
-    "name": "Claude 4 Opus",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.0015,
-      "completion": 75.0,
-      "currency": "USD",
-      "prompt": 15.0,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 200000,
-    "max_output_tokens": 32000,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
     "id": "anthropic/claude-sonnet-4:thinking",
     "name": "Claude 4 Sonnet Thinking",
     "pricing": {
@@ -5494,28 +5709,6 @@
     },
     "context_length": 1000000,
     "max_output_tokens": 64000,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "anthropic/claude-opus-4:thinking",
-    "name": "Claude 4 Opus Thinking",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.0015,
-      "completion": 75.0,
-      "currency": "USD",
-      "prompt": 15.0,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 200000,
-    "max_output_tokens": 32000,
     "capabilities": {
       "reasoning": true
     },
@@ -7073,10 +7266,10 @@
     "id": "z-ai/glm-4.7",
     "name": "GLM 4.7",
     "pricing": {
-      "cacheReadInputPer1kTokens": null,
-      "completion": 0.8,
+      "cacheReadInputPer1kTokens": 8.008e-05,
+      "completion": 1.9292,
       "currency": "USD",
-      "prompt": 0.2,
+      "prompt": 0.4004,
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
@@ -7094,10 +7287,10 @@
     "id": "z-ai/glm-4.7:thinking",
     "name": "GLM 4.7 Thinking",
     "pricing": {
-      "cacheReadInputPer1kTokens": null,
-      "completion": 0.8,
+      "cacheReadInputPer1kTokens": 8.008e-05,
+      "completion": 1.9292,
       "currency": "USD",
-      "prompt": 0.2,
+      "prompt": 0.4004,
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
@@ -10978,72 +11171,6 @@
     }
   },
   {
-    "id": "anthropic/claude-opus-4:thinking:1024",
-    "name": "Claude 4 Opus Thinking (1K)",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.0015,
-      "completion": 75.0,
-      "currency": "USD",
-      "prompt": 15.0,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 200000,
-    "max_output_tokens": 32000,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "anthropic/claude-opus-4:thinking:8192",
-    "name": "Claude 4 Opus Thinking (8K)",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.0015,
-      "completion": 75.0,
-      "currency": "USD",
-      "prompt": 15.0,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 200000,
-    "max_output_tokens": 32000,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "anthropic/claude-opus-4:thinking:32768",
-    "name": "Claude 4 Opus Thinking (32K)",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.0015,
-      "completion": 75.0,
-      "currency": "USD",
-      "prompt": 15.0,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 200000,
-    "max_output_tokens": 32000,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
     "id": "anthropic/claude-opus-4.6",
     "name": "Claude 4.6 Opus",
     "pricing": {
@@ -12802,6 +12929,27 @@
     }
   },
   {
+    "id": "inclusionai/ling-3.1-flash",
+    "name": "Ling 3.1 Flash",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 1.5e-05,
+      "completion": 0.22,
+      "currency": "USD",
+      "prompt": 0.075,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
     "id": "inclusionai/ling-3.0-flash-vl",
     "name": "Ling 3.0 Flash VL",
     "pricing": {
@@ -13492,7 +13640,7 @@
     "id": "openai/gpt-sol-latest",
     "name": "GPT Sol Latest",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0002,
+      "cacheReadInputPer1kTokens": 0.0001,
       "completion": 10.0,
       "currency": "USD",
       "prompt": 2.0,
