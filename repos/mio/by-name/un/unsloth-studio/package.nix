@@ -10,7 +10,7 @@
 
 let
   pname = "unsloth";
-  version = "0.1.902-beta";
+  version = "prebuilt-wheels-cu13";
 
   src = fetchFromGitHub {
     owner = "unslothai";

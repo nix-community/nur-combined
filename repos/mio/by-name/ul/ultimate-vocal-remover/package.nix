@@ -267,7 +267,7 @@ py.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "Anjok07";
     repo = "ultimatevocalremovergui";
-    rev = "refs/tags/v5.6";
+    rev = "v5.6";
     hash = "sha256-2FV7qO40LcyJTrHiWeCzAPvelcgGc+InrsXv9/QGLkA=";
   };
 
