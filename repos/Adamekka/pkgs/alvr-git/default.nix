@@ -4,8 +4,10 @@
   fetchFromGitHub,
   fetchpatch,
   ffmpeg_8,
+  glibc,
   lib,
   maintainer,
+  makeBinaryWrapper,
   nix-update,
   replaceVars,
   rustPlatform,
@@ -61,6 +63,13 @@ in
     maintainers = oldAttrs.meta.maintainers ++ [ maintainer ];
   };
 
+  nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [
+    # The hook clears linker flags; pass static linking and libc directly to its compiler.
+    (makeBinaryWrapper.overrideAttrs (attrs: {
+      cc = "${attrs.cc} -static -L${glibc.static}/lib";
+    }))
+  ];
+
   passthru = oldAttrs.passthru // {
     updateScript = lib.getExe (writeShellApplication {
       name = "update-alvr-git";
@@ -76,7 +85,9 @@ in
   postInstall = oldAttrs.postInstall + ''
     # ALVR looks for adb beside its binaries when installing the Quest client.
     mkdir -p $out/bin/platform-tools
-    ln -s ${android-tools}/bin/adb $out/bin/platform-tools/adb
+    # Static linking lets the wrapper clear Steam's incompatible library path before loading adb.
+    makeBinaryWrapper ${android-tools}/bin/adb "$out/bin/platform-tools/adb" \
+      --unset LD_LIBRARY_PATH
   '';
 
   # The release patch targets an older build script and its FFmpeg 6.0 dependency.
