@@ -1402,6 +1402,13 @@ struct Module {
     /// `@import`-reached module can re-emit it at each import site (dart
     /// clones the module's CSS tree per import).
     css: Vec<OutNode>,
+    /// Whether every key of `vars` is already canonical (no `_`), as of when
+    /// it held this many keys. See [`Module::vars_canonical`].
+    vars_canon: std::cell::Cell<(usize, bool)>,
+    /// Whether every key of `var_origins` / `var_write_origins` is canonical.
+    /// Those tables never change after the module is built.
+    origins_canonical: bool,
+    write_origins_canonical: bool,
 }
 
 impl Module {
@@ -1419,9 +1426,35 @@ impl Module {
             return Some(v.clone());
         }
         let norm = normalize_var_name(name);
+        // With every key canonical, `normalize(k) == norm` IS `k == norm`, so
+        // the scan below is one lookup. It used to run on every miss, and a
+        // lookup through `@use … as *` misses in each module it asks before the
+        // one that has the variable: uswds spent a third of a compile here.
+        if self.vars_canonical(&vars) {
+            return if norm == name {
+                None
+            } else {
+                vars.get(norm.as_ref()).cloned()
+            };
+        }
         vars.iter()
             .find(|(k, _)| normalize_var_name(k) == norm)
             .map(|(_, v)| v.clone())
+    }
+
+    /// Whether every key of `vars` is canonical. Cached against the key count,
+    /// which is exact here: the table is the module's global scope, and a scope
+    /// only loses keys when it is recycled, which needs it to have no other
+    /// holder, and this module is one. So it only ever grows, and the same
+    /// count means the same keys.
+    fn vars_canonical(&self, vars: &HashMap<String, Value>) -> bool {
+        let (len, canonical) = self.vars_canon.get();
+        if len == vars.len() {
+            return canonical;
+        }
+        let canonical = vars.keys().all(|k| !k.contains('_'));
+        self.vars_canon.set((vars.len(), canonical));
+        canonical
     }
     /// The defining module (and original variable name) of a forwarded
     /// variable, dash/underscore-insensitively.
@@ -1430,6 +1463,16 @@ impl Module {
             return Some((Rc::clone(m), o.clone()));
         }
         let norm = normalize_var_name(name);
+        // As in [`Self::var`]: with canonical keys the scan is one lookup.
+        if self.origins_canonical {
+            if norm == name {
+                return None;
+            }
+            return self
+                .var_origins
+                .get(norm.as_ref())
+                .map(|(m, o)| (Rc::clone(m), o.clone()));
+        }
         self.var_origins
             .iter()
             .find(|(k, _)| normalize_var_name(k) == norm)
@@ -1442,6 +1485,15 @@ impl Module {
             return Some((Rc::clone(m), o.clone()));
         }
         let norm = normalize_var_name(name);
+        if self.write_origins_canonical {
+            if norm == name {
+                return None;
+            }
+            return self
+                .var_write_origins
+                .get(norm.as_ref())
+                .map(|(m, o)| (Rc::clone(m), o.clone()));
+        }
         self.var_write_origins
             .iter()
             .find(|(k, _)| normalize_var_name(k) == norm)

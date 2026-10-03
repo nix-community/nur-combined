@@ -8257,6 +8257,38 @@ fn parity_forward_reexport() {
 }
 
 #[test]
+fn parity_module_variable_spellings() {
+    // `-` and `_` are one character in a variable name, across module
+    // boundaries too: through a namespace, through a `@forward` prefix written
+    // with `_`, and through `@use … as *`. Module variable lookup takes a
+    // one-lookup path when a module's keys are all canonical and scans when
+    // one is not; these are the spellings that would tell the two apart.
+    let lib = ("_lib.scss", "$a-b: 1;\n$c: 2;\n");
+    let fwd = ("_fwd.scss", "@forward \"lib\" as p_*;\n");
+    let fwd2 = ("_fwd2.scss", "@forward \"lib\" as q-*;\n");
+    assert_module_parity(&[
+        lib,
+        fwd,
+        fwd2,
+        (
+            "input.scss",
+            "@use \"sass:meta\";\n@use \"lib\";\n@use \"fwd\";\n@use \"fwd2\";\n@use \"fwd\" as s;\n\
+             x { a: lib.$a_b; b: fwd.$p_a-b; c: fwd.$p-a_b; d: fwd2.$q_c; \
+             h: meta.inspect(meta.module-variables(\"fwd\")); i: s.$p_c; }\n",
+        ),
+    ]);
+    assert_module_parity(&[
+        lib,
+        fwd,
+        fwd2,
+        (
+            "input.scss",
+            "@use \"fwd\" as *;\n@use \"fwd2\" as *;\nx { a: $p_a-b; b: $q_a_b; c: $p-c; }\n",
+        ),
+    ]);
+}
+
+#[test]
 fn parity_use_and_forward_with_config() {
     // `with (...)` overrides a module's `!default` variables; a `@forward ...
     // with` default yields to a downstream `@use ... with` override.

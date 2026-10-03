@@ -92,6 +92,18 @@ const USE_GRAPH_REDUNDANT_URL: &str = concat!(
     "/bench/corpus/gate/use_graph/redundant.scss"
 );
 
+/// Six large modules, each forwarded once more and all `@use`d `as *`: the
+/// shape of a design system like uswds. A bare variable is looked up in each
+/// starred module before the one that has it, and each of those misses used to
+/// scan the module's whole table.
+const STAR_FORWARD_ENTRY: &str = include_str!("../bench/corpus/gate/star_forward/entry.scss");
+
+/// As [`USE_GRAPH_ENTRY_URL`], for the star-forward entry.
+const STAR_FORWARD_URL: &str = concat!(
+    env!("CARGO_MANIFEST_DIR"),
+    "/bench/corpus/gate/star_forward/entry.scss"
+);
+
 /// The load path the corpus's vendored `lib` package resolves through, so the
 /// benchmark exercises the load-path arm of `FsImporter::canonicalize` -- the
 /// arm that records dependencies -- and not only relative resolution.
@@ -202,6 +214,7 @@ fn corpora_still_compile() {
     for (url, source) in [
         (USE_GRAPH_ENTRY_URL, USE_GRAPH_ENTRY),
         (USE_GRAPH_REDUNDANT_URL, USE_GRAPH_REDUNDANT),
+        (STAR_FORWARD_URL, STAR_FORWARD_ENTRY),
     ] {
         let importer = use_graph_importer();
         let opts = diagnostics_live(url).with_importer(&importer);
@@ -353,6 +366,18 @@ fn use_graph_redundant_with_url_silent(bencher: Bencher<'_, '_>) {
         let importer = use_graph_importer();
         let opts = diagnostics_live(USE_GRAPH_REDUNDANT_URL).with_importer(&importer);
         compile(black_box(USE_GRAPH_REDUNDANT), &opts).unwrap()
+    });
+}
+
+/// Variables looked up through several `@use … as *` modules, each reached
+/// through `@forward`. Every module a lookup asks before the one that defines
+/// the variable is a miss, which is where uswds spent a third of a compile.
+#[divan::bench]
+fn star_forward_with_url_silent(bencher: Bencher<'_, '_>) {
+    bencher.bench(|| {
+        let importer = use_graph_importer();
+        let opts = diagnostics_live(STAR_FORWARD_URL).with_importer(&importer);
+        compile(black_box(STAR_FORWARD_ENTRY), &opts).unwrap()
     });
 }
 

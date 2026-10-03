@@ -17,6 +17,62 @@
       "bytes": 25046,
       "sha256": "a82e26fd0323bb6b"
     },
+    "star_forward/_bundle_1.scss": {
+      "bytes": 161,
+      "sha256": "6ec84d08a3d845b2"
+    },
+    "star_forward/_bundle_2.scss": {
+      "bytes": 161,
+      "sha256": "9e4dac1a46802285"
+    },
+    "star_forward/_bundle_3.scss": {
+      "bytes": 161,
+      "sha256": "f00dc9ee977f4597"
+    },
+    "star_forward/_bundle_4.scss": {
+      "bytes": 161,
+      "sha256": "e19fc2cb49dc360d"
+    },
+    "star_forward/_bundle_5.scss": {
+      "bytes": 161,
+      "sha256": "cdb8110cdff298e4"
+    },
+    "star_forward/_bundle_6.scss": {
+      "bytes": 161,
+      "sha256": "611caddb0b06dd5b"
+    },
+    "star_forward/_marker.scss": {
+      "bytes": 205,
+      "sha256": "8788015548385618"
+    },
+    "star_forward/_settings_1.scss": {
+      "bytes": 3018,
+      "sha256": "521ccbb84512d4f6"
+    },
+    "star_forward/_settings_2.scss": {
+      "bytes": 3020,
+      "sha256": "280774e7aeaa22e8"
+    },
+    "star_forward/_settings_3.scss": {
+      "bytes": 3020,
+      "sha256": "0692ad42e9f35e1a"
+    },
+    "star_forward/_settings_4.scss": {
+      "bytes": 3020,
+      "sha256": "a917e6295e2f1ecf"
+    },
+    "star_forward/_settings_5.scss": {
+      "bytes": 3020,
+      "sha256": "eaf69398e169ae41"
+    },
+    "star_forward/_settings_6.scss": {
+      "bytes": 3020,
+      "sha256": "c223613b6fdb2c01"
+    },
+    "star_forward/entry.scss": {
+      "bytes": 16484,
+      "sha256": "06e19bab9ee462c9"
+    },
     "use_graph/_mixins.scss": {
       "bytes": 559,
       "sha256": "8e096421c270b512"
@@ -195,5 +251,5 @@
     }
   },
   "generator": "bench/scripts/gen_gate_corpora.py",
-  "generatorVersion": 4
+  "generatorVersion": 5
 }

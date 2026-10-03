@@ -1218,6 +1218,8 @@ impl<'a> Evaluator<'a> {
             }
         }
 
+        let origins_canonical = var_origins.keys().all(|k| !k.contains('_'));
+        let write_origins_canonical = var_write_origins.keys().all(|k| !k.contains('_'));
         Ok((
             Module {
                 vars: vars_scope,
@@ -1236,6 +1238,11 @@ impl<'a> Evaluator<'a> {
                 config_origin: std::cell::Cell::new(self.pending_config_id),
                 emitted_main: std::cell::Cell::new(false),
                 css: Vec::new(),
+                // (0, true) is right for an empty table and wrong for nothing:
+                // the first lookup that finds a different count recomputes it.
+                vars_canon: std::cell::Cell::new((0, true)),
+                origins_canonical,
+                write_origins_canonical,
             },
             consumed,
         ))

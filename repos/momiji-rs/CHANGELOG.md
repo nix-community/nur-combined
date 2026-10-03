@@ -11,6 +11,16 @@ Conformance is tracked separately as a ratchet against the official
 
 ## [Unreleased]
 
+## [0.21.0] - 2026-10-02
+
+_A faster npm CLI, and a way around node for the tools that spawn it. One
+entry through the npm CLI on the native addon is 24–31% faster (#274). The
+release binary now ships in each platform package, and `"sasso/binary"`
+returns its path: 4.3 ms for the same entry, against 38.3 ms through node
+(#275). A variable reached through `@use … as *` no longer scans every module
+it misses in, which takes 41% of uswds's instructions (#273). Output is
+byte-identical to 0.20.0._
+
 ### Added
 
 - **`"sasso/binary"`: the native `sasso` binary ships in the npm package**
@@ -19,8 +29,9 @@ Conformance is tracked separately as a ratchet against the official
   one on the Releases page, and `binaryPath()` returns its absolute path. It
   returns `null` where there is no prebuild (Windows, musl) or optional
   dependencies were skipped, and it throws, as `"sasso/native"` does, when
-  the binary it would return is from another version. It is for tools that spawn the compiler, and for those it
-  removes node from the run. One entry of a real-world project, Linux/x86_64:
+  the binary it would return is from another version. It is for tools that
+  spawn the compiler, and for those it removes node from the run. One entry
+  of a real-world project, Linux/x86_64:
   38.3 ms through `node_modules/.bin/sasso`, 4.3 ms through the binary, 20.7 ms
   for dart-sass. Nothing uses the binary unless asked. `.bin/sasso` stays the
   node CLI, and there is no install script: npm 12, pnpm 12 and yarn 4 skip
@@ -55,6 +66,28 @@ Conformance is tracked separately as a ratchet against the official
   never paid the Linux glibc check, one entry is −6.6%. The wasm engine and the
   hand-off to a binary on `PATH` are within 3%. Output, stderr and exit codes
   are byte-identical to 0.20.0 on every engine.
+
+- **A variable reached through `@use … as *` no longer scans every module it
+  misses in.** A variable written without a namespace is looked up in each
+  module `@use`d `as *`, in order, and in each module's forwarded members, until
+  one has it. `-` and `_` are one character in a variable name, so a miss
+  compared the name against every variable the module had, one by one, in case
+  one was spelled the other way. The parser already writes every variable name
+  with `-`, so when none of a module's names contains `_` (nearly always), one
+  lookup now gives the same answer. A design system whose packages each
+  star-load a large shared core pays for that on every reference. uswds spent
+  a third of its compile there. Marginal instructions on Linux/x86_64, output
+  byte-identical:
+
+  ```
+                                  before     now        change
+    uswds                         5840.9M    3447.7M    -40.97%
+    star_forward (new corpus)     186.3M     17.5M      -90.6%
+    govuk-frontend                193.0M     192.2M     -0.38%
+  ```
+
+  `bench/corpus/gate/star_forward/` is new: no corpus reached this path
+  before.
 
 ## [0.20.0] - 2026-10-02
 
@@ -3956,7 +3989,8 @@ real-world SCSS byte-identically to dart-sass.
 - Distribution: CLI binary (prebuilt via cargo-dist), library crate, and a
   zero-dependency WebAssembly build published to npm as `@momiji-rs/sasso`.
 
-[Unreleased]: https://github.com/momiji-rs/sasso/compare/v0.20.0...HEAD
+[Unreleased]: https://github.com/momiji-rs/sasso/compare/v0.21.0...HEAD
+[0.21.0]: https://github.com/momiji-rs/sasso/compare/v0.20.0...v0.21.0
 [0.20.0]: https://github.com/momiji-rs/sasso/compare/v0.19.3...v0.20.0
 [0.19.3]: https://github.com/momiji-rs/sasso/compare/v0.19.2...v0.19.3
 [0.19.2]: https://github.com/momiji-rs/sasso/compare/v0.19.1...v0.19.2
