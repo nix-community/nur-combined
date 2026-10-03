@@ -7,8 +7,10 @@ variables:
 .build_flake_template:
   stage: build
   image: nixos/nix:2.18.1
+  variables:
+    NIXPKGS_ALLOW_UNFREE: "1"
   script:
-    - nix --extra-experimental-features 'nix-command flakes' build .#"$FLAKE_PATH"
+    - nix --extra-experimental-features 'nix-command flakes' build --impure .#"$FLAKE_PATH"
 
 build_flakes:
   extends: .build_flake_template
