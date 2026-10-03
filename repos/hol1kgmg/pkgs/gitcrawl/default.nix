@@ -8,16 +8,16 @@
 # go.mod が go 1.27 を要求する。nixpkgs の既定 go が追いつくまで固定する
 (buildGoModule.override { go = go_1_27; }) rec {
   pname = "gitcrawl";
-  version = "0.11.0";
+  version = "0.14.0";
 
   src = fetchFromGitHub {
     owner = "openclaw";
     repo = "gitcrawl";
     rev = "v${version}";
-    hash = "sha256-qlE1ApbGU1VKtm9RxvWjLtjor0rvFiaow83+s7OWfl8=";
+    hash = "sha256-m7dnVgeUAl/mHRVSUed50gMCeGtL+AT6gMOo1w/vY1o=";
   };
 
-  vendorHash = "sha256-GSe7QQg5oSMuYThvx3gm2HKIovUf6Kk+RYxqn05QjWM=";
+  vendorHash = "sha256-uSHFoi6nFR2I6T4s26WFoM4pUO/c1mfVV5W/O5sda7c=";
 
   subPackages = [ "cmd/gitcrawl" ];
 
