@@ -46,7 +46,7 @@ let
   ;
   fetchAports = {
     path,
-    rev ? "3afe6023de702a1b55fe0fbbd5e2e9297fc5768f",  # 2026-09-16
+    rev ? "a9ee19e3bec8d1ac288a0912f6c860b0000766fd",  # 2026-10-02
     ...
   }@args: let
     args' = lib.removeAttrs args [ "path" "rev" ];
@@ -58,7 +58,7 @@ let
   });
   fetchCports = {
     path,
-    rev ? "131833264017c454d677bee73f5034e275515631",  # 2026-09-15
+    rev ? "c5ac74a45c801e4fd9748b21918b74067dc6fb24",  # 2026-10-02
     ...
   }@args: let
     args' = lib.removeAttrs args [ "path" "rev" ];
@@ -70,7 +70,7 @@ let
   });
   fetchVoid = {
     path,
-    rev ? "c5234c049b4334f4d1f79fbb3f5412aacba96375",  # 2026-08-30
+    rev ? "47899a40ffcbafb794b65748c1b398e5ead54752",  # 2026-10-02
     ...
   }@args: let
     args' = lib.removeAttrs args [ "path" "rev" ];
@@ -490,6 +490,11 @@ super.lib.composeManyExtensions [
           path = "main/firefox/patches/musl-rust-thread-id.patch";
           hash = "sha256-dmgJrEcecPVB9ehBoPplxbsP/1uoQnUdIARYQ9Jjt08=";
         })
+        (fetchVoid {
+          # 2026-10-02: fixes "/build/firefox-157.0/third_party/parakeet.cpp/src/backend.hpp:116:39: error: unknown type name 'int64_t'"
+          path = "srcpkgs/firefox/patches/firefox-157-parakeet_cpp-missing-includes.patch";
+          hash = "sha256-pqkxuyJP+NFUOPPKQM0m54sMbpc178NJmJXZUWXdE8Y=";
+        })
 
         # (fetchVoid {
         #   path = "srcpkgs/firefox/patches/big-endian-image-decoders.patch";
@@ -906,6 +911,11 @@ super.lib.composeManyExtensions [
     # only `nwg-panel` uses hyprland; `null`ing it seems to Just Work.
     hyprland = null;
 
+    # 2026-10-02: jemalloc's test suite hangs on musl during checkPhase.
+    jemalloc = prev.jemalloc.overrideAttrs {
+      doCheck = false;
+    };
+
     # 2026-08-30: still required
     # 2026-01-25: fails building a test, so disable that test. probably not suitable for upstream.
     ldb = prev.ldb.overrideAttrs (upstream: {
@@ -943,6 +953,11 @@ super.lib.composeManyExtensions [
       doCheck = false;
     };
 
+    # 2026-10-02: pseudotcp and gstreamer tests fail
+    libnice = prev.libnice.overrideAttrs {
+      doCheck = false;
+    };
+
     # 2026-08-30: still required
     # 2026-01-29: fails tests
     # > # Begin functests/test_walkone.sh
@@ -973,6 +988,16 @@ super.lib.composeManyExtensions [
       # ];
 
       doCheck = false;
+    });
+
+    lixPackageSets = prev.lixPackageSets.extend (_: lixPrev: {
+      lix_2_95 = lixPrev.lix_2_95.overrideScope (_: compsPrev: {
+        lix = compsPrev.lix.overrideAttrs (prevAttrs: {
+          env = (prevAttrs.env or {}) // {
+            NIX_CFLAGS_COMPILE = (lib.optionalString ((prevAttrs.env.NIX_CFLAGS_COMPILE or "") != "") "${prevAttrs.env.NIX_CFLAGS_COMPILE} ") + "-include sys/syscall.h";
+          };
+        });
+      });
     });
 
     # 2026-08-30: still required
@@ -1066,7 +1091,7 @@ super.lib.composeManyExtensions [
         (fetchVoid {
           # 2026-04-07: still required
           path = "srcpkgs/nfs-utils/patches/musl-fix_long_unsigned_int.patch";
-          hash = "sha256-wcQ2IRmlBP61qZVlXk6osi4UH8ETtjllVogPEaZNK9o=";
+          hash = "sha256-OTxzl6UKy8ZKDK1OdUQylUFzRCzeDeYJHxOW0nh0z00=";
         })
         # (fetchVoid {
         #   path = "srcpkgs/nfs-utils/patches/musl-getservbyport.patch";
@@ -1246,6 +1271,33 @@ super.lib.composeManyExtensions [
       #   # })
       # ];
     });
+
+    # 2026-10-02: musl lacks close_range(), and nix relies on glibc transitively including <sys/syscall.h> for the fallback:
+    # > ../unix/file-descriptor.cc:82:20: error: ‘SYS_close_range’ was not declared in this scope
+    # upstream issue: <https://github.com/NixOS/nix/issues/11931>
+    nixVersions = prev.nixVersions.extend (_: nixPrev: {
+      nixComponents_2_34 = nixPrev.nixComponents_2_34.overrideScope (_: componentsPrev: {
+        nix-util = componentsPrev.nix-util.overrideAttrs (prevAttrs: {
+          env = (prevAttrs.env or {}) // {
+            NIX_CFLAGS_COMPILE = (lib.optionalString ((prevAttrs.env.NIX_CFLAGS_COMPILE or "") != "") "${prevAttrs.env.NIX_CFLAGS_COMPILE} ") + "-include sys/syscall.h";
+          };
+        });
+      });
+      nixComponents_2_35 = nixPrev.nixComponents_2_35.overrideScope (_: componentsPrev: {
+        nix-util = componentsPrev.nix-util.overrideAttrs (prevAttrs: {
+          env = (prevAttrs.env or {}) // {
+            NIX_CFLAGS_COMPILE = (lib.optionalString ((prevAttrs.env.NIX_CFLAGS_COMPILE or "") != "") "${prevAttrs.env.NIX_CFLAGS_COMPILE} ") + "-include sys/syscall.h";
+          };
+        });
+      });
+    });
+
+    # nixd = prev.nixd.override {
+    #   nixVersions.nixComponents_2_34 = final.nixVersions.nixComponents_2_31;
+    # };
+    # nixf = prev.nixf.override {
+    #   nixVersions.nixComponents_2_34 = final.nixVersions.nixComponents_2_31;
+    # };
 
     # 2026-08-30: still required
     nmon = prev.nmon.overrideAttrs (upstream:

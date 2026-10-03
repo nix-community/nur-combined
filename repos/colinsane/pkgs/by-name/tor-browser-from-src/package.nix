@@ -17,18 +17,18 @@ let
   # Tor Browser version and the Firefox ESR version it is based on. The
   # mapping is taken from the source tarball published at
   # https://dist.torproject.org/torbrowser/<version>/
-  version = "15.0.19";
+  version = "15.0.24";
   # buildMozillaMach selects patches and toolchains based on the Firefox
   # version, so it is tracked separately from the Tor Browser version.
-  firefoxVersion = "140.13.0";
-  srcVersion = "140.13.0esr-15.0-1-build2";
+  firefoxVersion = "140.17.0";
+  srcVersion = "140.17.0esr-15.0-1-build4";
 
   src = fetchurl {
     urls = [
       "https://dist.torproject.org/torbrowser/${version}/src-firefox-tor-browser-${srcVersion}.tar.xz"
       "https://archive.torproject.org/tor-package-archive/torbrowser/${version}/src-firefox-tor-browser-${srcVersion}.tar.xz"
     ];
-    hash = "sha256-3R8PZmnes9Irs/fhFl4yCTgmwrr8DVxiLgIRT1O7UqU=";
+    hash = "sha256-whemmhySmoHVIXJH6xDcUwYXbZSyq3kY3dnkxaKOFp8=";
   };
 
   # The official Tor Browser binary bundle for this version. Some release
@@ -42,7 +42,7 @@ let
       "https://dist.torproject.org/torbrowser/${version}/tor-browser-linux-x86_64-${version}.tar.xz"
     ];
     # Same tarball as the `src` of the binary tor-browser package in nixpkgs.
-    hash = "sha256-LrSrQx9JIcpjsSO2+fRFoHP797ZfGI9FpXfVdusr4s8=";
+    hash = "sha256-sD7vtuvirLU6HWT4LJXA3wztnA+dYmWG6MbIHZgF1gQ=";
   };
 
   # The browser's integrated tor-launcher (toolkit/components/tor-launcher)
@@ -198,7 +198,7 @@ let
           # buildMozillaMach uses to set a reproducible MOZ_BUILD_DATE. Use
           # the BuildID of the corresponding official build (see the
           # application.ini of the published tor-browser binaries).
-          echo 20260720080000 > sourcestamp.txt
+          echo 20260928083000 > sourcestamp.txt
         '';
         # TODO: upstream also patches the geoip data
 

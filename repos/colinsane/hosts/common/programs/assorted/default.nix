@@ -161,7 +161,7 @@ in
     consoleUtils = declPackageSet [
       "alsa-utils"  # for aplay, speaker-test
       "bc"  # CLI calculator
-      "cdecl"  # like <https://cdecl.org>. `cdecl explain 'struct foo *const inst'`
+      # "cdecl"  # like <https://cdecl.org>. `cdecl explain 'struct foo *const inst'`
       # "cdrtools"
       # "clinfo"
       "colordiff"
@@ -291,7 +291,7 @@ in
 
     gameApps = declPackageSet [
       "animatch"
-      "gnome-2048"
+      # "gnome-2048"
       # "hitori"  # like sudoku
       # "quadrapassel"  # like tetris
       "space-cadet-pinball"  # LMB/RMB controls (bindable though. volume buttons?)

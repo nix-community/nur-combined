@@ -1,9 +1,10 @@
 { config, pkgs, ... }:
 {
   sane.programs.nixpkgs-review = {
-    packageUnwrapped = (pkgs.nixpkgs-review.override {
-      nix = config.sane.programs.nix.package;
-    }).overrideAttrs (upstream: {
+    # packageUnwrapped = (pkgs.nixpkgs-review.override {
+    #   nix = config.sane.programs.nix.package;
+    # }).overrideAttrs (upstream: {
+    packageUnwrapped = config.sane.programs.nix.config.packageSet.nixpkgs-review.overrideAttrs (upstream: {
       makeWrapperArgs = upstream.makeWrapperArgs ++ [
         # fixes `error: path '/home/colin/.cache/nixpkgs-review' is a symlink`.
         # only required if ~/.cache/nixpkgs-review is persisted

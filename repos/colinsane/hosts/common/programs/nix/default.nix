@@ -4,7 +4,15 @@ let
 in
 {
   sane.programs.nix = {
-    packageUnwrapped = pkgs.lix;
+    configOption = with lib; mkOption {
+      default = {};
+      type = types.submodule {
+        options.packageSet = mkOption {
+          default = pkgs.lixPackageSets.latest;
+        };
+      };
+    };
+    packageUnwrapped = cfg.config.packageSet.nix or cfg.config.packageSet.lix;
     # packageUnwrapped = pkgs.nixVersions.latest; #< XXX(2025-03-17): sometimes `nixVersions.latest` fails to eval T_T
     # packageUnwrapped = pkgs.nix.overrideAttrs (_: {
     #   # ship debug info, used by gdb (/run/current-system/sw/lib/debug)

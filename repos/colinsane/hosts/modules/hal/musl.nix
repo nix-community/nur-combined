@@ -51,7 +51,9 @@ in
     sane.programs.mumble.enableFor.user.colin = false;  #< 2026-08-01: blocked on poco
     sane.programs.newsflash.enableFor.user.colin = false;  #< 2026-05-23: fails build "error[E0425]: cannot find function `malloc_trim` in crate `libc`"
     # sane.programs.nix.packageUnwrapped = lib.mkForce pkgs.nixVersions.latest;  #< 2026-02-28 - 2026-03-27: `pkgsMusl.lix` fails several unit tests right now
-    sane.programs.nix.packageUnwrapped = lib.mkForce pkgs.pkgsStatic.lixPackageSets.latest.lix;  #< 2026-02-28 - 2026-09-02: `pkgsMusl.lix` fails building docs
+    # sane.programs.nix.packageUnwrapped = lib.mkForce pkgs.pkgsStatic.lixPackageSets.latest.lix;  #< 2026-02-28 - 2026-09-02: `pkgsMusl.lix` fails building docs
+    # sane.programs.nix.config.packageSet = pkgs.pkgsStatic.lixPackageSets.latest;  #< 2026-02-28 - 2026-09-02: `pkgsMusl.lix` fails building docs
+    # sane.programs.nix.config.packageSet = pkgs.lixPackageSets.lix_2_94;  #< 2026-10-02: `pkgsMusl.lix` fails buildings docs; `pkgsStatic.lix` fails to find rnix
     sane.programs.openscad-lsp.enableFor = { system = false; user.colin = false; };  #< 2026-01-24 - 2026-09-02: fails rust linking
     sane.programs.papers.enableFor.user.colin = false;  #< 2026-03-01: papers crashes on launch (even just `papers --version`)
     sane.programs.guiBaseApps.suggestedPrograms = [ "evince" ];  # instead of papers

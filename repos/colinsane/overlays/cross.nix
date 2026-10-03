@@ -115,6 +115,8 @@ let
     inherit (cargo) meta;
   };
 in with final; {
+  # default-gcc-version = 15;
+
   # 2025/12/07: appears to be no longer required
   # armTrustedFirmwareRK3399 = prev.armTrustedFirmwareRK3399.overrideAttrs (upstream: {
   #   # 2025-10-06: fixes "arm-none-eabi-ld: /build/source/build/rk3399/release/m0/rk3399m0pmu.elf: error: PHDR segment not covered by LOAD segment".
@@ -209,6 +211,28 @@ in with final; {
   #      "CXX_${rustTargetPlatform}" = "${cxxForHost}";
   #    };
   # });
+
+  # 2026-10-01: still needed
+  gcc16 = wrapCC (prev.gcc16.cc.overrideAttrs (prevAttrs: {
+    # nixpkgs has a in-tree patch to fix the cross gccNG; it applies cleanly => grab it.
+    # see: pkgs/development/compilers/gcc/ng/16/libgomp/uid-buffer-size.patch
+    # there's no patch sharing mechanism between gcc and gccNG inside nixpkgs, so i don't see an easy upstream fix.
+    # (gccNG expressions are way overcomplicated).
+    #
+    # fixes build error:
+    # > ../../../gcc-16.2.0/libgomp/target.c:5956:31: error: '__builtin___snprintf_chk' output may be truncated before the last format character [-Werror=format-truncation=]
+    # >  5956 |       snprintf (uid, ln, "%s%d", STR_OMP_DEV_PREFIX, device_num);
+    patches = (prevAttrs.patches or []) ++ gccNGPackages_16.libgomp.patches;
+  }));
+
+  # 2026-10-01: still required
+  # gdb = prev.gdb.override {
+  #   # nixpkgs default includes `lib.getLib targetPackages.stdenv.cc.cc`, but `pkgsCross.aarch64-multiplatform.gcc16` (stdenv's cc) currently fails
+  #   safePaths = [
+  #     "$debugdir"
+  #     "$datadir/auto-load"
+  #   ];
+  # };
 
   # 2026-05-23: out for PR: <https://github.com/NixOS/nixpkgs/pull/523489>
   # gexiv2_0_16 = prev.gexiv2_0_16.overrideAttrs (prevAttrs: {
@@ -410,6 +434,19 @@ in with final; {
   #   callPackage = self.newScope { inherit (self) qtCompatVersion qtModule srcs; inherit stdenv; };
   # });
 
+  lixPackageSets = prev.lixPackageSets.extend (_: lixPrev: {
+    lix_2_95 = lixPrev.lix_2_95.overrideScope (_: compsPrev: {
+      lix = compsPrev.lix.overrideAttrs (prevAttrs: {
+        # meson's cargo subproject (rnix) needs a rust compiler for the build machine (proc-macros, build.rs),
+        # which in turn requires a build-machine C compiler/linker.
+        # fixes: "lix/lix-doc/meson.build:1:7: ERROR: Unknown compiler(s): [['rustc']]"
+        depsBuildBuild = (prevAttrs.depsBuildBuild or []) ++ [
+          pkgsBuildBuild.stdenv.cc
+        ];
+      });
+    });
+  });
+
   # 2026/01/27: upstreaming is unblocked
   mepo = (prev.mepo.override {
     # nixpkgs mepo correctly puts `zig_0_14.hook` in nativeBuildInputs,
@@ -448,6 +485,21 @@ in with final; {
     # - --help
     zigBuildFlags = [ "-Dtarget=aarch64-linux-gnu" ];
   });
+
+  # 2026-10-02: still required
+  orc = prev.orc.overrideAttrs (upstream: {
+    nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
+      buildPackages.mesonEmulatorHook
+    ];
+  });
+
+  # 2026-10-01: still required
+  # mesa = prev.mesa.overrideAttrs (prevAttrs: {
+  #   # nixpkgs mesa places both `llvmPackages.clang` and `llvmPackages.clang-unwrapped` in the buildInputs,
+  #   # but only the latter cross compiles.
+  #   # unclear why they're both present, fingers crossed the wrapped one is extraneous.
+  #   buildInputs = lib.remove llvmPackages.clang prevAttrs.buildInputs;
+  # });
 
   # fixes: "ar: command not found"
   # `ar` is provided by bintools

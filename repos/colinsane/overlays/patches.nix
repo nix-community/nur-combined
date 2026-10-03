@@ -39,6 +39,14 @@ final: prev: {
     nativeCheckInputs = prev.lib.subtractLists prevAttrs.optional-dependencies.saml2 prevAttrs.nativeCheckInputs;
   });
 
+  # GCC 16 diagnoses several pre-existing const-qualifier warnings in the C code;
+  # upstream builds with -Werror, so don't promote this warning to an error.
+  clightning = prev.clightning.overrideAttrs (prevAttrs: {
+    env = prevAttrs.env // {
+      NIX_CFLAGS_COMPILE = (prevAttrs.env.NIX_CFLAGS_COMPILE or "") + " -Wno-error=discarded-qualifiers";
+    };
+  });
+
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (pyself: pysuper: {
       lancedb = pysuper.lancedb.overridePythonAttrs (prevAttrs: {

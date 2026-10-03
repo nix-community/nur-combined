@@ -13,6 +13,7 @@ let
       (builtins.attrNames (builtins.readDir ./preferences))
     );
   cross = import ./cross.nix;
+  gnu = import ./gnu.nix;
   musl = import ./musl.nix;
   static = import ./static.nix;
   strict = import ./strict.nix;
@@ -21,6 +22,7 @@ let
 in
 let
   isCross = pkgs: !(pkgs.lib.systems.equals pkgs.stdenv.hostPlatform pkgs.stdenv.buildPlatform);
+  isGnu = pkgs: pkgs.stdenv.hostPlatform.isGnu;
   isMusl = pkgs: pkgs.stdenv.hostPlatform.isMusl;
   isStatic = pkgs: pkgs.stdenv.hostPlatform.isStatic;
   isStrict = pkgs: pkgs.config.strictDepsByDefault or false;
@@ -28,8 +30,8 @@ let
     prev.lib.optionalAttrs (condition prev) (overlay final prev);
 in
   [
-    patches
     pkgs'
+    patches
   ]
   ++ [
     preferences.electron-bin
@@ -40,6 +42,7 @@ in
   ]
   ++ [
     (optional isCross cross)
+    (optional isGnu gnu)
     (optional isMusl musl)
     (optional isStatic static)
     (optional isStrict strict)
