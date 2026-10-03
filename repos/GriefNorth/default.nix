@@ -8,6 +8,8 @@
 
   torrserver = pkgs.callPackage ./pkgs/torrserver { };
 
+  ps5upload = pkgs.callPackage ./pkgs/ps5upload { };
+
   nixosModules = import ./modules;
   homeModules = import ./hm-modules;
 }

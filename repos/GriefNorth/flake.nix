@@ -29,6 +29,7 @@
           throne = pkgs.callPackage ./pkgs/throne { };
           teambridge = pkgs.callPackage ./pkgs/teambridge { };
           torrserver = pkgs.callPackage ./pkgs/torrserver { };
+          ps5upload = pkgs.callPackage ./pkgs/ps5upload { };
         };
       }
     ))
