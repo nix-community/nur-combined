@@ -19,7 +19,7 @@ buildNpmPackage (finalAttrs: {
     owner = "bitwarden";
     repo = "clients";
     tag = "browser-v${finalAttrs.version}";
-    hash = "sha256-qHaq5ANwC5yXRf82LMnShPzCOcC/uYX4skOAOVS6WMI=";
+    hash = "sha256-Ag3hTOvIRf9CwfzTvhICKV9ols+yd16rvSqC66QRbOs=";
   };
 
   nodejs = nodejs_22;
