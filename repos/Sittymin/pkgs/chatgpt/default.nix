@@ -52,7 +52,7 @@
   libxscrnsaver,
 }:
 let
-  version = "26.930.21537";
+  version = "26.930.31730";
 
   libPath = lib.makeLibraryPath [
     alsa-lib
@@ -106,7 +106,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url = "https://persistent.oaistatic.com/codex-app-prod/linux/deb/latest/chatgpt_amd64.deb";
-    hash = "sha256-YP222JXXdviDH/NaeD3gTNv6KA8PPZclhDFfmOV6olY=";
+    hash = "sha256-4BdNjQpfQUEUVFjIFPPC2GPdZ+lCuGh4Wh9drJy6PhY=";
   };
 
   dontBuild = true;
