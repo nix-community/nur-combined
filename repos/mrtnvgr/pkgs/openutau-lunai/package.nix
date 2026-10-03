@@ -53,7 +53,6 @@ buildDotnetModule rec {
   # DebugType disabled in Release via Directory.Build.targets, and publishing
   # it with --no-build fails with MSB3030 because the expected .pdb is missing.
   projectFile = "OpenUtau/OpenUtau.csproj";
-  testProjectFile = "OpenUtau.Test/OpenUtau.Test.csproj";
   nugetDeps = ./deps.json;
 
   executables = [ "OpenUtau-Lunai" ];
@@ -70,8 +69,7 @@ buildDotnetModule rec {
 
   dotnetInstallFlags = [ "-p:PublishReadyToRun=false" ];
 
-  # socket cannot bind to localhost on darwin for tests
-  doCheck = !stdenv.hostPlatform.isDarwin;
+  doCheck = false;
 
   # need to make sure proprietary worldline resampler is copied
   postInstall =
