@@ -1,5 +1,6 @@
 {
   cmake,
+  common-updater-scripts,
   cubeb,
   curl,
   enableDiscordRpc ? false,
@@ -19,6 +20,7 @@
   llvm,
   maintainer,
   miniupnpc,
+  nix,
   openal,
   opencv,
   pkg-config,
@@ -29,13 +31,13 @@
   rtmidi,
   sdl3,
   stdenv,
-  unstableGitUpdater,
   vulkan-headers,
   vulkan-loader,
   vulkan-memory-allocator,
   wayland,
   waylandSupport ? true,
   wrapGAppsHook3,
+  writeShellApplication,
   zlib,
   zstd,
 }:
@@ -47,6 +49,9 @@ let
     qtwayland
     wrapQtAppsHook
     ;
+  submodules = lib.mapAttrs (_: pin: fetchFromGitHub pin) (
+    builtins.fromJSON (builtins.readFile ./submodules.json)
+  );
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "rpcs3-git";
@@ -55,13 +60,17 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     hash = "sha256-ni17PnetyBkL2wBAuc/58MBVU/teKNgpkLPHfm+Rr9k=";
     owner = "RPCS3";
-    postCheckout = ''
-      cd $out/3rdparty
-      git submodule update --init \
-        asmjit/asmjit discord-rpc/discord-rpc feralinteractive/feralinteractive \
-        fusion/fusion SoundTouch/soundtouch \
-        stblib/stb wolfssl/wolfssl yaml-cpp/yaml-cpp
-    '';
+    # Independent archive fetches retain successful downloads when another fails.
+    # Check gitlinks so an upstream update cannot silently reuse stale dependencies.
+    postCheckout = lib.concatStrings (
+      lib.mapAttrsToList (path: source: ''
+        if [[ "$(git -C "$out" ls-tree HEAD ${lib.escapeShellArg path})" != ${lib.escapeShellArg "160000 commit ${source.rev}\t${path}"} ]]; then
+          echo ${lib.escapeShellArg "Submodule ${path} does not match its cached pin; run the RPCS3 updater."} >&2
+          exit 1
+        fi
+        cp -R ${source}/. "$out"/${lib.escapeShellArg path}/
+      '') submodules
+    );
     repo = "rpcs3";
     rev = "46aee28f85b9cecc8fd0e5dee0c771f9c88cd27a";
   };
@@ -162,11 +171,16 @@ stdenv.mkDerivation (finalAttrs: {
     install -D ${./99-dualsense-controllers.rules} $out/etc/udev/rules.d/99-dualsense-controllers.rules
   '';
 
-  passthru.updateScript = unstableGitUpdater {
-    branch = "master";
-    tagPrefix = "v";
-    url = "https://github.com/RPCS3/rpcs3.git";
-  };
+  passthru.updateScript = lib.getExe (writeShellApplication {
+    name = "update-rpcs3-git";
+    runtimeInputs = [
+      common-updater-scripts
+      git
+      nix
+      python3
+    ];
+    text = ''exec python3 pkgs/rpcs3-git/update.py "$@"'';
+  });
 
   meta = {
     description = "PS3 emulator/debugger";

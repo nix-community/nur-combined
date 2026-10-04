@@ -31,15 +31,32 @@ jobs:
           NIXPKGS_ALLOW_UNFREE: "1"
         run: nix run nixpkgs#nix-update -- --flake --use-update-script rpcs3-git
 
+      - name: Validate updated package
+        env:
+          NIXPKGS_ALLOW_UNFREE: "1"
+        run: |
+          if git diff --quiet pkgs/rpcs3-git/default.nix pkgs/rpcs3-git/submodules.json; then
+            exit 0
+          fi
+
+          nix build --impure --no-link --print-build-logs --cores 2 .#rpcs3-git
+
       - name: Commit and push package update
         run: |
-          if git diff --quiet pkgs/rpcs3-git/default.nix; then
+          if git diff --quiet pkgs/rpcs3-git/default.nix pkgs/rpcs3-git/submodules.json; then
             exit 0
+          fi
+
+          # Refuse a stale update if main changed while this exact package was built.
+          git fetch origin main
+          if [ "$(git rev-parse origin/main)" != "$(git rev-parse HEAD)" ]; then
+            echo "main changed during validation; rerun the update" >&2
+            exit 1
           fi
 
           git config user.name "github-actions[bot]"
           git config user.email \
             "41898282+github-actions[bot]@users.noreply.github.com"
-          git add pkgs/rpcs3-git/default.nix
+          git add pkgs/rpcs3-git/default.nix pkgs/rpcs3-git/submodules.json
           git commit -m "Update rpcs3-git"
           git push origin HEAD:main

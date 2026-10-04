@@ -1,0 +1,50 @@
+{
+  "3rdparty/SoundTouch/soundtouch": {
+    "hash": "sha256-uCx2956nlPUC3p/pZ0SupR+w8fZvOgJOnrRcpBqwqZI=",
+    "owner": "RPCS3",
+    "repo": "soundtouch",
+    "rev": "a0fba77b6f9cfbdb71f8bbec58b6ac4e5e3b1097"
+  },
+  "3rdparty/asmjit/asmjit": {
+    "hash": "sha256-xhnzJwi0CD7lgRvk9Ctcfp8CP/Sg2d46c9PgDqbWgMI=",
+    "owner": "asmjit",
+    "repo": "asmjit",
+    "rev": "416f7356967c1f66784dc1580fe157f9406d8bff"
+  },
+  "3rdparty/discord-rpc/discord-rpc": {
+    "hash": "sha256-6JXW5bsoPARwUJFswiv832Iogg2+jTJ9Pt3H50ThGZQ=",
+    "owner": "Vestrel",
+    "repo": "discord-rpc",
+    "rev": "fb04b1766bbbe7d2f47985b8b82fded0366efdf9"
+  },
+  "3rdparty/feralinteractive/feralinteractive": {
+    "hash": "sha256-V0rewbSVOGFqJqXyCz4jXpuDM0EfjdkpGPl+WdDwI5I=",
+    "owner": "FeralInteractive",
+    "repo": "gamemode",
+    "rev": "c54d6d4243b0dd0afcb49f2c9836d432da171a2b"
+  },
+  "3rdparty/fusion/fusion": {
+    "hash": "sha256-YoTko4G6DyO25pbFDA0+wcwKmRdzkmDSMslAD1x0Yv4=",
+    "owner": "xioTechnologies",
+    "repo": "Fusion",
+    "rev": "9325424011892abacc0ce42b8bb1a8ae20264b9b"
+  },
+  "3rdparty/stblib/stb": {
+    "hash": "sha256-cgoOF3MO88QIPSC0qEogOGbNsOEx4M33Z9Vtb/1n+2s=",
+    "owner": "nothings",
+    "repo": "stb",
+    "rev": "013ac3beddff3dbffafd5177e7972067cd2b5083"
+  },
+  "3rdparty/wolfssl/wolfssl": {
+    "hash": "sha256-wIbqua+V+03qfogPKxxhNWlEsllWwa6sAkn4tFbyFL8=",
+    "owner": "wolfSSL",
+    "repo": "wolfssl",
+    "rev": "3c5eead44904df64e6a5a1f4ebdce377d35a849a"
+  },
+  "3rdparty/yaml-cpp/yaml-cpp": {
+    "hash": "sha256-2b3dkgidPdAlMy8kJzM2FhlLm2zFGZc/BZLfd8mlAt4=",
+    "owner": "RPCS3",
+    "repo": "yaml-cpp",
+    "rev": "51a5d623e3fde1f58829a56ba910f1cb33596222"
+  }
+}
