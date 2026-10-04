@@ -33,8 +33,8 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
-    description = "CNB OpenAPI command line tool for issues, pull requests, Git, organizations and every other platform API";
-    homepage = "https://cnb.cool/cnb/skills/cnb-skill";
+    description = "CNB CLI is the command line tool of CNB platform OpenAPI";
+    homepage = "https://docs.cnb.cool/zh/develops/cnb-cli.html";
     changelog = "https://cnb.cool/cnb/skills/cnb-skill/-/releases/tag/${source.version}";
     license = lib.licenses.mit;
     mainProgram = "cnb";
