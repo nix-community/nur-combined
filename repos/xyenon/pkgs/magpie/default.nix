@@ -9,6 +9,7 @@
   wrapGAppsHook3,
   makeDesktopItem,
   copyDesktopItems,
+  imagemagick,
   versionCheckHook,
   nix-update-script,
   coreutils,
@@ -97,6 +98,7 @@ buildGoModule (finalAttrs: {
     pkg-config
     wrapGAppsHook3
     copyDesktopItems
+    imagemagick
   ];
   buildInputs = lib.optionals (guiSupport && stdenv.hostPlatform.isLinux) [
     gtk3
@@ -134,7 +136,9 @@ buildGoModule (finalAttrs: {
       ''
     else
       ''
-        install -Dm644 internal/gui/icon-1024.png $out/share/icons/hicolor/1024x1024/apps/magpie.png
+        install -Dm644 internal/gui/icon-1024.png $out/share/icons/hicolor/512x512@2/apps/magpie.png
+        mkdir -p $out/share/icons/hicolor/512x512/apps
+        magick internal/gui/icon-1024.png -resize 512x512 $out/share/icons/hicolor/512x512/apps/magpie.png
       ''
   );
 
