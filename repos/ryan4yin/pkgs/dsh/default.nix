@@ -12,6 +12,7 @@
   runCommand,
   stdenv,
   versionCheckHook,
+  writeText,
 }:
 
 let
@@ -34,6 +35,27 @@ let
     version = "11.7.0";
     hash = "sha256-3q+n7JihIYtqBHKJuS++I5XB4i00lbtxFlMBMhjuFe4=";
   };
+
+  # The prebuilt node-addon-require-builtin probes V8 getter machine code and
+  # fails on nixpkgs' nodejs builds (the zerocallusedregs hardening flag
+  # changes the codegen the pattern matcher expects; nixpkgs#565667, still
+  # open). dsh-app-boot calls the addon unconditionally at boot, so without a
+  # fix the CLI cannot start on NixOS at all. The wrapper already runs node
+  # with --expose-internals, under which internal modules are requirable
+  # directly, so replace the addon entry with that fallback.
+  requireBuiltinShim = writeText "require-builtin-shim.js" ''
+    "use strict";
+    // Nix-specific shim replacing the native probe (see package.nix).
+    const { createRequire } = require("node:module");
+    const nodeRequire = createRequire(__filename);
+    const requireBuiltin = (moduleId) => nodeRequire(moduleId);
+    const isAllowedInternalId = () => true;
+    const getBindingInfo = () => ({ backend: "shim" });
+    exports.requireBuiltin = requireBuiltin;
+    exports.isAllowedInternalId = isAllowedInternalId;
+    exports.getBindingInfo = getBindingInfo;
+    exports.default = { requireBuiltin, isAllowedInternalId, getBindingInfo };
+  '';
 
   # The npm tarball ships no lockfile. Ours is generated without
   # devDependencies (they reference unpublished workspace packages), so
@@ -64,6 +86,13 @@ buildNpmPackage {
   nativeBuildInputs = [ makeWrapper ];
 
   postInstall = ''
+    # Replace the native require-builtin probe with the --expose-internals
+    # fallback (see requireBuiltinShim above). The grep guard fails the build
+    # if upstream ever changes the addon entry shape.
+    addonEntry=$out/lib/node_modules/@deepseek-ai/dsh/node_modules/node-addon-require-builtin/lib/index.js
+    grep -q createEntryApi "$addonEntry"
+    install -m644 ${requireBuiltinShim} "$addonEntry"
+
     # /bin/bash does not exist on NixOS: the persistent-bash terminal's
     # DEFAULT_BASH_SHELL literal. The non-interactive `bash` tool resolves
     # `bash` through PATH instead, which the wrapper below provides.
