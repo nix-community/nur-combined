@@ -16,31 +16,25 @@ final: prev: {
   # - localized entirely to my kitchen.
   # well, it's a feature i don't use, so disable the checks.
   # > 193/201 local-overlay-store - nix-functional-tests:stale-file-handle        FAIL            1.22s   exit status 1
-  nixVersions = prev.nixVersions.extend (_: nixSuper: {
-    nixComponents_2_31 = nixSuper.nixComponents_2_31.overrideScope (_: _: {
-      nix-functional-tests = null;
-    });
-    nixComponents_2_32 = nixSuper.nixComponents_2_32.overrideScope (_: _: {
-      nix-functional-tests = null;
-    });
-    nixComponents_2_33 = nixSuper.nixComponents_2_33.overrideScope (_: _: {
-      nix-functional-tests = null;
-    });
-    nixComponents_2_34 = nixSuper.nixComponents_2_34.overrideScope (_: _: {
-      nix-functional-tests = null;
-    });
-    nixComponents_git = nixSuper.nixComponents_git.overrideScope (_: _: {
-      nix-functional-tests = null;
-    });
-  });
+  # nixVersions = prev.nixVersions.extend (_: nixSuper: {
+  #   nixComponents_2_31 = nixSuper.nixComponents_2_31.overrideScope (_: _: {
+  #     nix-functional-tests = null;
+  #   });
+  #   nixComponents_2_32 = nixSuper.nixComponents_2_32.overrideScope (_: _: {
+  #     nix-functional-tests = null;
+  #   });
+  #   nixComponents_2_33 = nixSuper.nixComponents_2_33.overrideScope (_: _: {
+  #     nix-functional-tests = null;
+  #   });
+  #   nixComponents_2_34 = nixSuper.nixComponents_2_34.overrideScope (_: _: {
+  #     nix-functional-tests = null;
+  #   });
+  #   nixComponents_git = nixSuper.nixComponents_git.overrideScope (_: _: {
+  #     nix-functional-tests = null;
+  #   });
+  # });
 
-  # XXX(2026-09-23): `python3Packages.pysaml2` fails build, takes down matrix-syanpse alongside it.
-  matrix-synapse-unwrapped = prev.matrix-synapse-unwrapped.overridePythonAttrs (prevAttrs: {
-    nativeCheckInputs = prev.lib.subtractLists prevAttrs.optional-dependencies.saml2 prevAttrs.nativeCheckInputs;
-  });
-
-  # GCC 16 diagnoses several pre-existing const-qualifier warnings in the C code;
-  # upstream builds with -Werror, so don't promote this warning to an error.
+  # XXX(2026-10-02): gcc15 -> gcc16 upgrade detects more warnings than before; default -Werror flag breaks the build.
   clightning = prev.clightning.overrideAttrs (prevAttrs: {
     env = prevAttrs.env // {
       NIX_CFLAGS_COMPILE = (prevAttrs.env.NIX_CFLAGS_COMPILE or "") + " -Wno-error=discarded-qualifiers";
@@ -49,47 +43,10 @@ final: prev: {
 
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (pyself: pysuper: {
-      lancedb = pysuper.lancedb.overridePythonAttrs (prevAttrs: {
-        postPatch = (prevAttrs.postPatch or "") + ''
-          for f in $cargoDepsCopy/source-registry-0/lance-linalg-*/src/distance/{cosine_u8.rs,dot_u8.rs,l2_u8.rs}; do
-            substituteInPlace $f \
-              --replace-fail '_avx512_vnni' '_avx2' \
-              --replace-fail '#[target_feature(enable = "avx512f,avx512bw,avx512vnni")]' '#[cfg(false)]'
-          done
-        '';
-      });
-      pylance = pysuper.pylance.overridePythonAttrs (prevAttrs: {
-        # disable avx512vnni primitives which fail to compile, like
-        # - _mm512_dpbusd_epi32
-        # - _mm512_dpwssd_epi32
-        # > rustc-LLVM ERROR: Cannot select: intrinsic %llvm.x86.avx512.vpdpbusd.512
-        postPatch = (prevAttrs.postPatch or "") + ''
-          for f in ../rust/lance-linalg/src/distance/{cosine_u8.rs,dot_u8.rs,l2_u8.rs}; do
-            substituteInPlace $f \
-              --replace-fail '_avx512_vnni' '_avx2' \
-              --replace-fail '#[target_feature(enable = "avx512f,avx512bw,avx512vnni")]' '#[cfg(false)]'
-          done
-        '';
-      });
       torchaudio = pysuper.torchaudio.overridePythonAttrs {
         # XXX(2026-07-25): hangs around test/torchaudio_unittest/functional/torchscript_consistency_cuda_test.py
         doCheck = false;
       };
-      # XXX(2026-07-27): nixpkgs' new pythonMetadataCheckHook queries the dist-info by
-      # derivation pname (`python-tree-sitter-<lang>`), but these generated bindings name
-      # their project `tree_sitter_<lang>`, so the check can never find the metadata.
-      # upstream bug: <https://github.com/NixOS/nixpkgs/issues/545533>
-      tree-sitter-grammars = pysuper.tree-sitter-grammars // (
-        prev.lib.genAttrs [
-          "tree-sitter-go"
-          "tree-sitter-java"
-          "tree-sitter-typescript"
-        ] (name:
-          pysuper.tree-sitter-grammars.${name}.overridePythonAttrs {
-            dontCheckPythonMetadata = true;
-          }
-        )
-      );
     })
   ];
 

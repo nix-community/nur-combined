@@ -5,10 +5,10 @@ with final;
   # placing libgcrypt.dev in nativeBuildInputs seems to be OK,
   # but the long-term fix is probably to get the autoconf hooks reading .m4 files out of buildInputs
   # (same as pkgConfig hook does with .pc files)
-  shishi = prev.shishi.overrideAttrs (upstream: {
-    nativeBuildInputs = upstream.nativeBuildInputs ++ [
-      libgcrypt.dev
-    ];
-  });
+  # shishi = prev.shishi.overrideAttrs (upstream: {
+  #   nativeBuildInputs = upstream.nativeBuildInputs ++ [
+  #     libgcrypt.dev
+  #   ];
+  # });
 }
 

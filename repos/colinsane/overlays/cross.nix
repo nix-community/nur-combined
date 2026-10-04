@@ -117,19 +117,6 @@ let
 in with final; {
   # default-gcc-version = 15;
 
-  # 2025/12/07: appears to be no longer required
-  # armTrustedFirmwareRK3399 = prev.armTrustedFirmwareRK3399.overrideAttrs (upstream: {
-  #   # 2025-10-06: fixes "arm-none-eabi-ld: /build/source/build/rk3399/release/m0/rk3399m0pmu.elf: error: PHDR segment not covered by LOAD segment".
-  #   # TODO: send this to upstream arm-trusted-firmware, then PR a cherry-pick into nixpkgs
-  #   patches = (upstream.patches or []) ++ [
-  #     (pkgs.fetchpatch2 {
-  #       name = "fix(rockchip): set no-pie option when building m0 elf file";
-  #       url = "https://git.uninsane.org/colin/arm-trusted-firmare/commit/c192c366b8c423a6bf4293573fccfc258e801c87.patch";
-  #       hash = "sha256-oXAJe3pahe3dnYfpmmW8KbSpN8XIzc1Zpm1CvXNrnAY=";
-  #     })
-  #   ];
-  # });
-
   # binutils = prev.binutils.override {
   #   # fix that resulting binary files would specify build #!sh as their interpreter.
   #   # dtrx is the primary beneficiary of this.
@@ -139,14 +126,14 @@ in with final; {
   #   shell = runtimeShell;
   # };
 
-  # 2026-08-31: still required
+  # 2026-10-03: still required
   clapper-enhancers = prev.clapper-enhancers.overrideAttrs (prevAttrs: {
     nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [
       buildPackages.mesonEmulatorHook
     ];
   });
 
-  # 2026-08-31: still required
+  # 2026-10-03: still required
   # 2026-01-27: upstreaming is unblocked, but a cleaner solution than this doesn't seem to exist yet
   confy = prev.confy.overrideAttrs (upstream: {
     # meson's `python.find_installation` method somehow just doesn't support cross compilation.
@@ -225,31 +212,13 @@ in with final; {
     patches = (prevAttrs.patches or []) ++ gccNGPackages_16.libgomp.patches;
   }));
 
-  # 2026-10-01: still required
-  # gdb = prev.gdb.override {
-  #   # nixpkgs default includes `lib.getLib targetPackages.stdenv.cc.cc`, but `pkgsCross.aarch64-multiplatform.gcc16` (stdenv's cc) currently fails
-  #   safePaths = [
-  #     "$debugdir"
-  #     "$datadir/auto-load"
-  #   ];
+  # 2026-10-03: build is still broken but this no longer fixes it
+  # 2026-05-24: upstreaming is unblocked
+  # gnome-2048 = prev.gnome-2048.override {
+  #   cargo = crossCargo;
   # };
 
-  # 2026-05-23: out for PR: <https://github.com/NixOS/nixpkgs/pull/523489>
-  # gexiv2_0_16 = prev.gexiv2_0_16.overrideAttrs (prevAttrs: {
-  #   # 2026-05-22: fixes:
-  #   # > Build-time dependency gi-docgen found: NO (tried pkgconfig and cmake)
-  #   depsBuildBuild = (prevAttrs.depsBuildBuild or []) ++ [
-  #     pkgsBuildBuild.pkg-config
-  #   ];
-  # });
-
-  # 2026-08-31: still required
-  # 2026-05-24: upstreaming is unblocked
-  gnome-2048 = prev.gnome-2048.override {
-    cargo = crossCargo;
-  };
-
-  # 2026-08-31: still required
+  # 2026-10-03: still required
   # 2026-06-13: upstreaming is blocked by openblas.
   # rebase `pr-frog-zbar` and send for review once openblas is fixed.
   gnome-frog = prev.gnome-frog.override {
@@ -262,31 +231,6 @@ in with final; {
   # fixes: "gdbus-codegen not found or executable"
   # gnome-session = mvToNativeInputs [ glib ] super.gnome-session;
 
-  # 2025/08/31: upstreaming is blocked on evolution-data-server -> gnome-online-accounts -> gvfs -> ... -> ruby
-  # gnome-shell = super.gnome-shell.overrideAttrs (orig: {
-  #   # fixes "meson.build:128:0: ERROR: Program 'gjs' not found or not executable"
-  #   # does not fix "_giscanner.cpython-310-x86_64-linux-gnu.so: cannot open shared object file: No such file or directory"  (python import failure)
-  #   nativeBuildInputs = orig.nativeBuildInputs ++ [ gjs gobject-introspection ];
-  #   # try to reduce gobject-introspection/shew dependencies
-  #   mesonFlags = [
-  #     "-Dextensions_app=false"
-  #     "-Dextensions_tool=false"
-  #     "-Dman=false"
-  #   ];
-  #   # fixes "gvc| Build-time dependency gobject-introspection-1.0 found: NO"
-  #   # inspired by gupnp_1_6
-  #   # outputs = [ "out" "dev" ]
-  #   #   ++ lib.optionals (prev.stdenv.buildPlatform == prev.stdenv.hostPlatform) [ "devdoc" ];
-  #   # mesonFlags = [
-  #   #   "-Dgtk_doc=${lib.boolToString (prev.stdenv.buildPlatform == prev.stdenv.hostPlatform)}"
-  #   # ];
-  # });
-  # gnome-shell = super.gnome-shell.overrideAttrs (upstream: {
-  #   nativeBuildInputs = upstream.nativeBuildInputs ++ [
-  #     gjs  # fixes "meson.build:128:0: ERROR: Program 'gjs' not found or not executable"
-  #   ];
-  # });
-
   # 2025/12/07: upstreaming is unblocked
   # # gnustep is going to need a *lot* of work/domain-specific knowledge to truly cross-compile,
   # gnustep-base = prev.gnustep-base.overrideAttrs (upstream: {
@@ -295,7 +239,7 @@ in with final; {
   #   buildInputs = (upstream.buildInputs or []) ++ [ prev.pkg-config ];
   # });
 
-  # 2026-08-31: still required
+  # 2026-10-03: still required
   gom = prev.gom.overrideAttrs (prevAttrs: {
     # 2026-05-22: fixes:
     # > bindings/python/meson.build:1:27: ERROR: python3 not found
@@ -325,8 +269,8 @@ in with final; {
   # only `nwg-panel` uses hyprland; `null`ing it seems to Just Work.
   hyprland = null;
 
-  # 2026/01/27: blocked on hyprland-qt-support
-  # used by hyprland (which is an indirect dep of waybar, nwg-panel, etc),
+  # 2026-10-03: still required; upstreaming is blocked on hyprland-qt-support
+  # XXX(2026-01-27): used by hyprland (which is an indirect dep of waybar, nwg-panel, etc),
   # which it shells out to at runtime (and hence, not ever used by me).
   hyprland-qtutils = null;
 
@@ -362,61 +306,11 @@ in with final; {
   #   nativeBuildInputs = lib.remove [ qt6.wrapQtAppsHook ] upstream.nativeBuildInputs;
   # });
 
-  # lemoa = prev.lemoa.override { cargo = crossCargo; };
-
   # 2026-03-27: upstreaming is unblocked, out for PR: <https://github.com/NixOS/nixpkgs/pull/504221>
   # libdng = prev.libdng.overrideAttrs (upstream: {
   #   # to find scdoc for cross builds
   #   depsBuildBuild = (upstream.depsBuildBuild or []) ++ [
   #     pkgsBuildBuild.pkg-config
-  #   ];
-  # });
-
-  # 2026-05-23: out for PR: <https://github.com/NixOS/nixpkgs/pull/523487>
-  # libglycin = prev.libglycin.overrideAttrs (prevAttrs: {
-  #   postPatch = (prevAttrs.postPatch or "") + ''
-  #     substituteInPlace libglycin/meson.build --replace-fail \
-  #       "cargo_output = cargo_target_dir / rust_target" \
-  #       "cargo_output = cargo_target_dir / '${stdenv.hostPlatform.rust.cargoShortTarget}' / rust_target"
-  #   '';
-  #   env = (prevAttrs.env or {}) // {
-  #     CARGO_BUILD_TARGET = stdenv.hostPlatform.rust.rustcTargetSpec;
-  #   };
-  # });
-  # libglycin = prev.libglycin.override {
-  #   cargo = crossCargo;
-  #   # 2026-02-12: `libglycin.patchVendorHook` partially fixed by <https://github.com/NixOS/nixpkgs/pull/489743>
-  #   # XXX(2026-02-04): users like `loupe`, `fractal`, place `libglycin.patchVendorHook` into `nativeBuildInputs`.
-  #   # that doesn't splice, and it's generally unclear what the correct solution is to this.
-  #   # further, the hook itself mixes build and host dependencies:
-  #   # `jq` and `sponge` (moreutils) are used at hook time, whereas `bwrap` is injected by the hook into the package to be built.
-  #   # jq = final.buildPackages.jq;
-  #   # moreutils = final.buildPackages.moreutils;
-  #   # leave bwrap unmodified -- it ought to be a runtime dependency
-  # };
-
-  # 2026-05-23: out for PR: <https://github.com/NixOS/nixpkgs/pull/523487>
-  # libglycin-gtk4 = prev.libglycin-gtk4.overrideAttrs (prevAttrs: {
-  #   postPatch = (prevAttrs.postPatch or "") + ''
-  #     substituteInPlace libglycin/meson.build --replace-fail \
-  #       "cargo_output = cargo_target_dir / rust_target" \
-  #       "cargo_output = cargo_target_dir / '${stdenv.hostPlatform.rust.cargoShortTarget}' / rust_target"
-  #   '';
-  #   env = (prevAttrs.env or {}) // {
-  #     CARGO_BUILD_TARGET = stdenv.hostPlatform.rust.rustcTargetSpec;
-  #   };
-  # });
-  # libglycin-gtk4 = prev.libglycin-gtk4.override {
-  #   cargo = crossCargo;
-  # };
-
-  # 2026-04-28: out for PR: <https://github.com/NixOS/nixpkgs/pull/509396>
-  # libqmi = prev.libqmi.overrideAttrs (prevAttrs: {
-  #   depsBuildBuild = prevAttrs.depsBuildBuild or [] ++ [
-  #     final.pkgsBuildBuild.pkg-config
-  #   ];
-  #   buildInputs = prevAttrs.buildInputs or [] ++ [
-  #     final.bash
   #   ];
   # });
 
@@ -437,9 +331,7 @@ in with final; {
   lixPackageSets = prev.lixPackageSets.extend (_: lixPrev: {
     lix_2_95 = lixPrev.lix_2_95.overrideScope (_: compsPrev: {
       lix = compsPrev.lix.overrideAttrs (prevAttrs: {
-        # meson's cargo subproject (rnix) needs a rust compiler for the build machine (proc-macros, build.rs),
-        # which in turn requires a build-machine C compiler/linker.
-        # fixes: "lix/lix-doc/meson.build:1:7: ERROR: Unknown compiler(s): [['rustc']]"
+        # XXX(2026-10-02): fixes: "lix/lix-doc/meson.build:1:7: ERROR: Unknown compiler(s): [['rustc']]"
         depsBuildBuild = (prevAttrs.depsBuildBuild or []) ++ [
           pkgsBuildBuild.stdenv.cc
         ];
@@ -599,83 +491,11 @@ in with final; {
     ];
   });
 
-  # 2026-08-31: still required
+  # 2026-10-03: still required
   onnxruntime = prev.onnxruntime.override {
     # openvino does not cross compile
     openvinoSupport = false;
   };
-
-  # alternatively, remove all mention of `ARMV9SME` from cmake/arch.cmake
-  # openblas = prev.openblas.overrideAttrs (prevAttrs: {
-  #   # <https://github.com/NixOS/nixpkgs/pull/513589>
-  #   # this fixes `pkgsCross.aarch64-multiplatform.openblas`.
-  #   # implemented manually here because it doesn't cherry-pick onto master
-  #   # (master, staging-next, staging, ... what will they dream up next?? staging-nixos? nah, nobody could be _that_ retarded)
-  #   # version = lib.warnIf (lib.versionOlder "0.3.32" prevAttrs.version) "openblas is updated upstream: remove version override?" "0.3.33";
-  #   # src = prevAttrs.src.overrideAttrs {
-  #   #   hash = "sha256-EArf0K2Gs+w8IRD5wkMOQv79e8yMoTgQfa9kzjXKn3Y=";
-  #   # };
-  #   # patches = lib.map
-  #   #   (p:
-  #   #     if p.url or "" == "https://github.com/OpenMathLib/OpenBLAS/commit/7086a1b075ca317e12cfe79d40a32ad342a30496.patch" then
-  #   #       (fetchpatch {
-  #   #         url = "https://github.com/OpenMathLib/OpenBLAS/commit/e3ce4623c299068bbd47c35ee87aab334bac73b1.patch";
-  #   #         revert = true;
-  #   #         hash = "sha256-WrP3RCDk/EbpqVOw9XGLnFI+6/bBGJTIrt2TRYGLVQ4=";
-  #   #       })
-  #   #     else
-  #   #       p
-  #   #   )
-  #   #   prevAttrs.patches;
-
-  #   # version = lib.warnIf (lib.versionOlder "0.3.32" prevAttrs.version) "openblas is updated upstream: remove version override?" "0.3.33-unstable-2026-04-27";
-  #   # src = prevAttrs.src.overrideAttrs {
-  #   #   rev = "10cf63eea44f53176444c3767c0a5a8843e91485";
-  #   #   hash = "sha256-7h5snfJvDYYgjlxxCDwwWaXH9+RMoqKRQTa6IcKH9HQ=";
-  #   # };
-
-  #   # patches = [];
-
-  #   # patches =
-  #   # (lib.filter
-  #   #   (p: p.url or "" != "https://github.com/OpenMathLib/OpenBLAS/commit/7086a1b075ca317e12cfe79d40a32ad342a30496.patch")
-  #   #   prevAttrs.patches
-  #   # ) ++ [
-  #   #   (fetchpatch {
-  #   #     name = "Accumulate results in output register explicitly";
-  #   #     url = "https://github.com/OpenMathLib/OpenBLAS/commit/5442aff218e47fdf882dd2828b3552618b4bc761.patch";
-  #   #     hash = "sha256-UHXzPAfFfFo11eOjnqmVF0lN1ZITrqSkrc46L4cRdbU=";
-  #   #   })
-  #   #   (fetchpatch {
-  #   #     name = "Declare result as volatile to keep compilers from optimizing it out";
-  #   #     url = "https://github.com/OpenMathLib/OpenBLAS/commit/3f6e928d34aca977bd5d4191e6d2c2338a342db5.patch";
-  #   #     hash = "sha256-XTEojxcqnLiB/+N/OE/qkfoO2EiqOeAv2v1d9x8Lvic=";
-  #   #   })
-  #   #   (fetchpatch {
-  #   #     name = "Use volatile attribute for SDOT only, to avoid creating new miscompilations";
-  #   #     url = "https://github.com/OpenMathLib/OpenBLAS/commit/e3ce4623c299068bbd47c35ee87aab334bac73b1.patch";
-  #   #     hash = "sha256-j0zIJjNiAdIVPgdxB+pXiOrOtedDu6Yq+dgaJ/wCquk=";
-  #   #   })
-  #   #   (fetchpatch {
-  #   #     name ="CMake-properly-fix-build-on-macOS-with-Ninja-related-to-response-files";
-  #   #     url = "https://github.com/OpenMathLib/OpenBLAS/commit/ca4d867cbbc7896715ddceb142e7fef3945fd6ed.patch";
-  #   #     hash = "sha256-wUDLBsxyX1dupQZlEiuQS4f3CQf+kCBiSLIoem9IrLw=";
-  #   #   })
-  #   # ];
-
-  #   version = lib.warnIf (lib.versionOlder "0.3.32" prevAttrs.version) "openblas is updated upstream: remove version override?" "0.3.31";
-  #   src = prevAttrs.src.overrideAttrs {
-  #     hash = "sha256-YBR81GOLnTsc0g1SZL+j31/OFucJrBRFqtOTV8lcy8U=";
-  #   };
-
-  #   patches = lib.filter
-  #     (p:
-  #       p.url or "" != "https://github.com/OpenMathLib/OpenBLAS/commit/7086a1b075ca317e12cfe79d40a32ad342a30496.patch"
-  #       && p.url or "" != "https://github.com/OpenMathLib/OpenBLAS/commit/3f6e928d34aca977bd5d4191e6d2c2338a342.patch"
-  #     )
-  #     prevAttrs.patches
-  #   ;
-  # });
 
   # 2025/07/27: upstreaming is blocked on gnome-session (itself blocked on gnome-shell)
   # phosh = prev.phosh.overrideAttrs (upstream: {
@@ -826,22 +646,6 @@ in with final; {
   # 2026/01/27: upstreaming is blocked on gnustep-base cross compilation
   # unar = addNativeInputs [ bintools ] prev.unar;
 
-  # unixODBCDrivers = prev.unixODBCDrivers // {
-  #   # TODO: should this package be deduped with toplevel psqlodbc in upstream nixpkgs?
-  #   # N.B.: psqlodbc is a WAY MORE DIFFICULT PACKAGE TO GET CROSS COMPILING
-  #   # - even after fixing configurePhase to actually find all its shit, there are actual C compilation errors like
-  #   #   > misc.h:23:17: error: conflicting types for 'strlcat';
-  #   psql = prev.unixODBCDrivers.psql.overrideAttrs (_upstream: {
-  #     # XXX: these are both available as configureFlags, if we prefer that (we probably do, so as to make them available only during specific parts of the build).
-  #     ODBC_CONFIG = buildPackages.writeShellScript "odbc_config" ''
-  #       exec ${stdenv.hostPlatform.emulator buildPackages} ${unixODBC}/bin/odbc_config $@
-  #     '';
-  #     PG_CONFIG = buildPackages.writeShellScript "pg_config" ''
-  #       exec ${stdenv.hostPlatform.emulator buildPackages} ${postgresql}/bin/pg_config $@
-  #     '';
-  #   });
-  # };
-
   # 2025/12/07: upstreaming is blocked on h5py, pyarrow/arrow-cpp, thrift, apache-orc, google-cloud-cpp
   # visidata = prev.visidata.override {
   #   # hdf5 / h5py don't cross-compile, but i don't use that file format anyway.
@@ -903,7 +707,7 @@ in with final; {
   #     upstream.postBuild;
   # });
 
-  # 2026-08-31: still required
+  # 2026-10-03: still required
   # 2026-01-27: upstreaming is unblocked
   xdg-desktop-portal-phosh = prev.xdg-desktop-portal-phosh.overrideAttrs (orig: {
     postPatch = (orig.postPatch or "") + ''
