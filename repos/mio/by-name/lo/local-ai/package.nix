@@ -114,8 +114,8 @@ let
           owner = "ggerganov";
           repo = "llama.cpp";
           # Pin from LocalAI backend/cpp/llama-cpp/Makefile (LLAMA_VERSION).
-          rev = "38a5b42d9a3e82e0a586bcd1caed121f36c87a73";
-          hash = "sha256-E7CdvipRswHbAXCwzBfm9NWamLa6jwuUM3jeI/SfZS8=";
+          rev = "a868c3e3c56657f7e8a6231190dbbe90e7dd86c0";
+          hash = "sha256-eceL+KQdz/DWvNn3CR51+Zh/wgv9kp/klaGCBU4Q7VA=";
           fetchSubmodules = true;
         };
         npmDeps = null;
@@ -144,6 +144,8 @@ let
             "$llamaCppBackend"/model_load_error_test.cpp \
             "$llamaCppBackend"/message_content.h \
             "$llamaCppBackend"/message_content_test.cpp \
+            "$llamaCppBackend"/parallel_params.h \
+            "$llamaCppBackend"/parallel_params_test.cpp \
             "$llamaCppBackend"/passthrough_options.h \
             "$llamaCppBackend"/passthrough_options_test.cpp \
             "$llamaCppBackend"/parent_watch.h \
@@ -191,7 +193,9 @@ let
           sed -i tools/grpc-server/CMakeLists.txt \
             -e '/get_filename_component/ s;[.\/]*backend/;;' \
             -e 's;PRIVATE ../llava;PRIVATE ../mtmd;' \
-            -e '$a\install(TARGETS ''${TARGET} RUNTIME)'
+            -e '$a\install(TARGETS ''${TARGET} RUNTIME)' \
+            -e 's/set(CMAKE_CXX_STANDARD 17)/set(CMAKE_CXX_STANDARD 20)/' \
+            -e 's/target_compile_features(''${TARGET} PRIVATE cxx_std_11)/target_compile_features(''${TARGET} PRIVATE cxx_std_20)/'
 
           if ! grep -q "grpc-server" tools/CMakeLists.txt; then
             echo "add_subdirectory(grpc-server)" >> tools/CMakeLists.txt
@@ -274,6 +278,9 @@ let
     name = "piper-phonemize";
     inherit (go-piper) src;
     sourceRoot = "${go-piper.src.name}/piper-phonemize";
+    postPatch = ''
+      sed -i 's/std::cerr << phoneme/std::cerr << (uint32_t)phoneme/g' src/test.cpp || true
+    '';
     buildInputs = [
       espeak-ng'
       onnxruntime
@@ -465,12 +472,12 @@ let
       stdenv;
 
   pname = "local-ai";
-  version = "4.10.0";
+  version = "4.11.0";
   src = fetchFromGitHub {
     owner = "mudler";
     repo = "LocalAI";
     tag = "v${version}";
-    hash = "sha256-deXiylJUExTBL9C+CKsKKRTb24b4mS2bT59ZaF5NzXA=";
+    hash = "sha256-Udqs56KpL2P0gMz1ecTLuODrvCLVuB8F00SNfnVYIqg=";
   };
 
   prepare-sources =
@@ -496,7 +503,7 @@ let
 
     npmDeps = fetchNpmDeps {
       src = "${src}/core/http/react-ui";
-      hash = "sha256-bNzYhMW/phuBx2ALUgsLa9/dCcGduIUp1AZUrQ3edvQ=";
+      hash = "sha256-pTFu5KVUu1tbbxxmT0xrCSffdLUpO8XRlz09Vqlxv5w=";
     };
 
     nativeBuildInputs = [
@@ -520,7 +527,7 @@ let
   self = buildGoModule.override { stdenv = effectiveStdenv; } {
     inherit pname version src;
 
-    vendorHash = "sha256-LZ+rGeDSMh6HxsRJEh799qHmPqT63S7VUwHLz8PR1n4=";
+    vendorHash = "sha256-i85TDkXV/xONew/oRMEE8/sAXgWs0l7whlUvmKCpEXw=";
 
     env.NIX_CFLAGS_COMPILE = " -isystem ${opencv}/include/opencv4";
 

@@ -8,7 +8,7 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "floccus-firefox";
-  version = "5.11.0";
+  version = "5.11.1";
 
   extid = "floccus@handmadeideas.org";
 
@@ -16,12 +16,12 @@ buildNpmPackage (finalAttrs: {
     owner = "floccusaddon";
     repo = "floccus";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-jZPr4Yo5Ie38b3s5Wjv8JvTnLkC/jSCJN05HproUDzw=";
+    hash = "sha256-TgldeLiCT4+MPciSC/BHwzwzpxu2rvFk8Wv8NGkAWWE=";
   };
 
   nodejs = nodejs_22;
 
-  npmDepsHash = "sha256-ZtDaKVprjqRpsQUlBWyU1BrP7EHXmF4uVTewV2ywHwI=";
+  npmDepsHash = "sha256-f51fH+bh5jA7J1snHT4BWJxwj0CvNrOpgRPQCUYdMrU=";
 
   nativeBuildInputs = [ zip ];
 
