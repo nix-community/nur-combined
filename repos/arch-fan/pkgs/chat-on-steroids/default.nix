@@ -6,11 +6,11 @@
 
 let
   pname = "chat-on-steroids";
-  version = "2.1.25";
+  version = "2.1.26";
 
   src = fetchurl {
     url = "https://github.com/totec448-spec/chat-on-steroids/releases/download/v${version}/Chat-On-Steroids-Linux-x64.AppImage";
-    hash = "sha256-EtjhSdy3rc0z75fuX9I2B8RtGCCaGlhFoqPZeleBYNs=";
+    hash = "sha256-xeqijbLHeysU+VwiIso5Z6rd3/DBEa8zxVD5hPWmb+4=";
   };
 
   contents = appimageTools.extract {
