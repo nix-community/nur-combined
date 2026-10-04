@@ -16,4 +16,5 @@
 
   computer-use-linux = pkgs.callPackage ./pkgs/computer-use-linux { };
   cua-driver = pkgs.callPackage ./pkgs/cua-driver { };
+  rime-data-flypy = pkgs.callPackage ./pkgs/rime-data-flypy { };
 }
