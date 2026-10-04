@@ -13,6 +13,7 @@
   versionCheckHook,
   nix-update-script,
   coreutils,
+  python3,
   dbus,
   xdg-utils,
   xcbuild,
@@ -23,13 +24,13 @@ buildGoModule (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "magpie";
-  version = "0.1.817";
+  version = "0.1.900";
 
   src = fetchFromGitHub {
     owner = "yetone";
     repo = "magpie";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-iJs0l17eTqh39E5OYZ4PJVgaDYPs8v5T012G6CNCc1g=";
+    hash = "sha256-/J6/bMwLfFoecg25+LBKokWM8sGW/oTENSLCi64RUxU=";
   };
 
   vendorHash = "sha256-XEaHZVw3co0yUV6fLUlSkvg9LlroKFj2B2sjMW1e6BU=";
@@ -56,6 +57,12 @@ buildGoModule (finalAttrs: {
   ];
 
   preCheck = ''
+    substituteInPlace internal/gateway/automode_test.go \
+      --replace-fail '#!/usr/bin/env python3' '#!${lib.getExe python3}'
+    # Allow the filesystem change-time clock to advance before the same-size rewrite.
+    substituteInPlace internal/sessions/codex_archive_test.go \
+      --replace-fail 'writeLines(t, archived, `{"x":2}`)' \
+        'time.Sleep(20 * time.Millisecond); writeLines(t, archived, `{"x":2}`)'
     substituteInPlace internal/agent/cliupdate_test.go internal/library/rtk_upgrade_test.go \
       --replace-fail '/bin/cat' '${lib.getExe' coreutils "cat"}'
     substituteInPlace internal/library/rtk_test.go \
@@ -80,9 +87,11 @@ buildGoModule (finalAttrs: {
         }
         // AppleScript unescapes it back to the script'
   '';
-  nativeCheckInputs =
-    lib.optionals stdenv.hostPlatform.isLinux [ dbus ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ xcbuild ];
+  nativeCheckInputs = [
+    python3
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [ dbus ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [ xcbuild ];
   # The native AppKit/WebKit panel test fails in the Darwin build sandbox.
   checkFlags = lib.optionals stdenv.hostPlatform.isDarwin [
     "-skip=^TestTrayCellClickReleasedPanel$"

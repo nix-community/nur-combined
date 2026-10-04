@@ -1,11 +1,12 @@
 diff --git a/internal/gui/scheme_linux.go b/internal/gui/scheme_linux.go
 --- a/internal/gui/scheme_linux.go
 +++ b/internal/gui/scheme_linux.go
-@@ -4,44 +4,30 @@ import (
+@@ -4,45 +4,32 @@ import (
  	"os"
  	"path/filepath"
  	"strings"
--
+ 
+ 	"github.com/yetone/magpie/internal/appdir"
 -	"github.com/yetone/magpie/internal/proc"
  )
  
@@ -19,7 +20,7 @@ diff --git a/internal/gui/scheme_linux.go b/internal/gui/scheme_linux.go
 -	if err != nil {
 -		return err
 -	}
- 	data := os.Getenv("XDG_DATA_HOME")
+ 	data := appdir.Getenv("XDG_DATA_HOME")
  	if data == "" {
  		home, _ := os.UserHomeDir()
  		data = filepath.Join(home, ".local", "share")
@@ -83,7 +84,7 @@ diff --git a/internal/autostart/autostart.go b/internal/autostart/autostart.go
 diff --git a/internal/autostart/autostart_other.go b/internal/autostart/autostart_other.go
 --- a/internal/autostart/autostart_other.go
 +++ b/internal/autostart/autostart_other.go
-@@ -42,5 +42,23 @@ func disable() error {
+@@ -44,5 +44,23 @@ func disable() error {
  	return nil
  }
  
