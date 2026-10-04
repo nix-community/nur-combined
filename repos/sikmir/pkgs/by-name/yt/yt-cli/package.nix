@@ -9,7 +9,7 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "yt-cli";
-  version = "0.25.1";
+  version = "0.26.0";
   pyproject = true;
 
   __structuredAttrs = true;
@@ -18,7 +18,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     owner = "ryancheley";
     repo = "yt-cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-niOyM9VQ+xHddOiI0U60m5zDYlZV3eMtvnbLC+acWvg=";
+    hash = "sha256-lU+bMO00dj2N5N3QWJd+UdbdDV3wYh6ezcItN3WadsI=";
   };
 
   build-system = with python3Packages; [ hatchling ];
