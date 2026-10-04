@@ -19,7 +19,7 @@ let
   rootlessHelper = pkgs.writeShellScript "miodroid-rootless-helper" ''
     set -eu
 
-    ${pkgs.kmod}/bin/modprobe binder_linux
+    ${pkgs.kmod}/bin/modprobe binder_linux || true
     ${pkgs.coreutils}/bin/install -d -m 0755 /dev/binderfs
     if ! ${pkgs.util-linux}/bin/mountpoint -q /dev/binderfs; then
       ${pkgs.util-linux}/bin/mount -t binder binder /dev/binderfs
@@ -33,7 +33,7 @@ let
     done
 
     test -x ${pkgs.lxc}/bin/lxc-start
-    test -x ${pkgs.lxc}/bin/lxc-user-nic
+    test -x ${pkgs.lxc}/libexec/lxc/lxc-user-nic
   '';
   miodroidGbinderConf = pkgs.writeText "miodroid.conf" ''
     [Protocol]
@@ -100,7 +100,6 @@ in
     ];
 
     boot.kernelParams = [ "psi=1" ];
-    boot.kernelModules = lib.mkIf rootlessCfg.enable [ "binder_linux" ];
     boot.extraModprobeConfig = lib.mkIf rootlessCfg.enable ''
       options binder_linux devices=binder,vndbinder,hwbinder
     '';

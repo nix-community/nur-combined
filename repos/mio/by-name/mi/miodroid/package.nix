@@ -6,7 +6,7 @@
   gawk,
   getent,
   gobject-introspection,
-  e2fsprogs,
+  fuse2fs,
   fuse-overlayfs,
   fuse3,
   gtk3,
@@ -111,6 +111,16 @@ let
             tools/actions/initializer.py \
             tools/actions/session_manager.py \
             tools/helpers/ipc.py
+          substituteInPlace tools/helpers/ipc.py \
+            --replace-fail \
+              'return dbus.Interface(dbus.SessionBus() if os.environ.get("MIODROID_ROOTLESS") else dbus.SystemBus().get_object(instance.get_container_dbus_name(), object_path), intf)' \
+              'return dbus.Interface((dbus.SessionBus() if os.environ.get("MIODROID_ROOTLESS") else dbus.SystemBus()).get_object(instance.get_container_dbus_name(), object_path), intf)'
+          sed -i \
+            '165,170 s/    tools.helpers.run.user(args, command)/    if not os.environ.get("MIODROID_ROOTLESS"): tools.helpers.run.user(args, command)/' \
+            tools/actions/container_manager.py
+          sed -i \
+            '238,241 s/        tools.helpers.run.user(args, command, check=False)/        if not os.environ.get("MIODROID_ROOTLESS"): tools.helpers.run.user(args, command, check=False)/' \
+            tools/actions/container_manager.py
 
           cat > tools/helpers/rootless.py <<'EOF'
           import logging
@@ -351,7 +361,7 @@ let
             gawk
             kmod
             lxc
-            e2fsprogs
+            fuse2fs
             fuse-overlayfs
             fuse3
             util-linux
@@ -373,8 +383,16 @@ let
   };
 in
 package.overrideAttrs (old: {
-  passthru = (old.passthru or { }) // {
-    updateScript = nix-update-script { };
-    tests.nixos = callPackage ./tests.nix { inherit package; };
-  };
+  passthru =
+    let
+      tests = callPackage ./tests.nix { inherit package; };
+    in
+    (old.passthru or { })
+    // {
+      updateScript = nix-update-script { };
+      tests = (old.passthru.tests or { }) // {
+        nixos = tests.rootful;
+        nixos-rootless = tests.rootless;
+      };
+    };
 })
