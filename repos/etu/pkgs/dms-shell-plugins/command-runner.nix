@@ -6,13 +6,13 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-command-runner";
-  version = "0-unstable-2026-07-04";
+  version = "0-unstable-2026-10-03";
 
   src = fetchFromGitHub {
     owner = "devnullvoid";
     repo = "dms-command-runner";
-    rev = "5c2cab404335ceb96c60cf9e97a9682994209cd4";
-    hash = "sha256-3dWzbyFh+5VygSTgMAVR+hn5ltv8GFMsX0EdW/lXdqw=";
+    rev = "ea59490eede60d7dc87697b670f1eccc6ad54593";
+    hash = "sha256-EmYYvPvSwG7ELTgRS6tcVEqFgyk8uYiB491Gp7nkPvs=";
   };
 
   dontBuild = true;
