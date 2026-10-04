@@ -12,6 +12,21 @@
       forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
       pkgsFor = system: import nixpkgs { inherit system; };
       cangjieBuildPkgsFor = system: import cangjie-nixpkgs { inherit system; };
+      findUpdaters =
+        dir:
+        nixpkgs.lib.concatMap (
+          name:
+          let
+            path = dir + "/${name}";
+          in
+          if (builtins.readDir dir).${name} != "directory" then
+            [ ]
+          else if builtins.pathExists (path + "/update.ab") then
+            [ { inherit name path; } ]
+          else
+            findUpdaters path
+        ) (builtins.attrNames (builtins.readDir dir));
+
     in
     {
       legacyPackages = forAllSystems (
@@ -35,15 +50,14 @@
         system:
         let
           pkgs = pkgsFor system;
-          packageUpdaterNames = builtins.filter (name: builtins.pathExists (./pkgs + "/${name}/update.ab")) (
-            builtins.attrNames (builtins.readDir ./pkgs)
-          );
           packageUpdaters = map (
-            name:
+            updater:
             let
               updaterName =
-                "nur-update-${name}"
-                + nixpkgs.lib.optionalString (builtins.hasAttr "${name}-bin" self.legacyPackages.${system}) "-bin";
+                "nur-update-${updater.name}"
+                + nixpkgs.lib.optionalString (builtins.hasAttr "${updater.name}-bin"
+                  self.legacyPackages.${system}
+                ) "-bin";
             in
             pkgs.runCommand updaterName
               {
@@ -52,10 +66,10 @@
               ''
                 mkdir -p "$out/bin"
                 amber build \
-                  ${./pkgs + "/${name}/update.ab"} \
+                  ${updater.path + "/update.ab"} \
                   "$out/bin/${updaterName}"
               ''
-          ) packageUpdaterNames;
+          ) (findUpdaters ./pkgs);
           update =
             pkgs.runCommand "nur-packages-update"
               {

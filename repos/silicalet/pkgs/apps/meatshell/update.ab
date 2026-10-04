@@ -11,8 +11,8 @@ main (args) {
         exit(1)
     }
 
-    const package = "nyaterm-bin"
-    const github_repo = "nyakang/nyaterm"
+    const package = "meatshell-bin"
+    const github_repo = "yituorou/meatshell"
     const repo_root = $ git rev-parse --show-toplevel $?
     const release_file = $ mktemp $?
     const github_token = env_var_load("GITHUB_TOKEN", "/dev/null")
@@ -37,9 +37,9 @@ main (args) {
         exit(1)
     }
 
-    let asset = "NyaTerm_{version}_linux_x64.AppImage"
+    let asset = "meatshell-v{version}-linux-x86_64.AppImage"
     if system == "aarch64-linux" {
-        asset = "NyaTerm_{version}_linux_arm64.AppImage"
+        asset = "meatshell-v{version}-linux-aarch64.tar.gz"
     }
 
     const url = $ jq -er --arg asset {asset} \
@@ -57,7 +57,7 @@ main (args) {
         hash = $ nix store prefetch-file --json {url} | jq -er '.hash' $?
     }
 
-    const source_file = "{repo_root}/pkgs/nyaterm/sources/{system}.nix"
+    const source_file = "{repo_root}/pkgs/apps/meatshell/sources/{system}.nix"
     $ sed -i \
         -e 's|^  version = ".*";|  version = "{version}";|' \
         -e 's|^  hash = ".*";|  hash = "{hash}";|' \

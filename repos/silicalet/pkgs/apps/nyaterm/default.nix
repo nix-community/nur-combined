@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     hash = "sha256-DUfoNsZSdTILeL9Qc3QVuaT/wilUpsDPgS6h2G1XMZg=";
   };
 
-  # Use cargoLock (like pkgs/meatshell) instead of cargoHash: the lockfile
+  # Use cargoLock (like meatshell) instead of cargoHash: the lockfile
   # lives inside src, so version bumps need no extra cargo hash maintenance.
   cargoLock.lockFile = "${finalAttrs.src}/src-tauri/Cargo.lock";
   cargoRoot = "src-tauri";
