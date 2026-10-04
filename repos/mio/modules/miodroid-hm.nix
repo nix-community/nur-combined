@@ -13,6 +13,16 @@ in
   options.programs.miodroid-rootless = {
     enable = lib.mkEnableOption "experimental rootless Miodroid";
     package = lib.mkPackageOption pkgs "miodroid" { };
+    imagePackage = lib.mkOption {
+      type = lib.types.nullOr lib.types.package;
+      default = null;
+      example = lib.literalExpression "pkgs.miodroid-images.a16";
+      description = ''
+        Declarative system.img and vendor.img bundle to make available in
+        the rootless Miodroid work directory. When null, use the normal OTA
+        workflow.
+      '';
+    };
     workDirectory = lib.mkOption {
       type = lib.types.path;
       default = "${config.xdg.dataHome}/miodroid";
@@ -43,7 +53,14 @@ in
           PartOf = [ "graphical-session.target" ];
         };
         Service = {
-          ExecStartPre = "${pkgs.systemd}/bin/systemctl --system is-active --quiet ${cfg.hostHelperService}";
+          ExecStartPre = [
+            "${pkgs.systemd}/bin/systemctl --system is-active --quiet ${cfg.hostHelperService}"
+          ]
+          ++ lib.optionals (cfg.imagePackage != null) [
+            "${pkgs.coreutils}/bin/install -d ${cfg.workDirectory}/images"
+            "${pkgs.coreutils}/bin/install -m 0644 ${cfg.imagePackage}/system.img ${cfg.workDirectory}/images/system.img"
+            "${pkgs.coreutils}/bin/install -m 0644 ${cfg.imagePackage}/vendor.img ${cfg.workDirectory}/images/vendor.img"
+          ];
           ExecStart = "${cfg.package}/bin/miodroid container start";
           Environment = [
             "MIODROID_ROOTLESS=1"
