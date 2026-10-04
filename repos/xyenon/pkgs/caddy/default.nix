@@ -7,10 +7,7 @@
 }:
 
 let
-  caddy = callPackage ./package.nix {
-    inherit caddy;
-    inherit buildGoModule;
-  };
+  caddy = callPackage ./package.nix { inherit buildGoModule; };
   pluginSources = lib.filterAttrs (_n: v: (v.isCaddyPlugin or null) == "true") sources;
   plugins = lib.mapAttrsToList (
     _n: v: "${v.moduleName}@v0.0.0-${v.date}-${lib.substring 0 12 v.version}"
@@ -18,5 +15,5 @@ let
 in
 (caddy.withPlugins.override { inherit go; }) {
   inherit plugins;
-  hash = "sha256-T8ekfSbCJkpZkiujlpBFbYit9yMzKhS6iskX5PALsAU=";
+  hash = "sha256-fVU2ufJFU5n1FqEB57yzw62i20tQxTmxQps9GWYKRJE=";
 }

@@ -41,7 +41,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>caddy</code></strong> — Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS</summary>
 
-- **Version:** `2.11.4`
+- **Version:** `2.11.7`
 - **License:** Apache-2.0
 - **Homepage:** [https://caddyserver.com](https://caddyserver.com)
 - **Build:** `nix build github:XYenon/nur-packages#caddy`
