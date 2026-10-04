@@ -30,7 +30,6 @@ let
     pandoc-to-anki = callPackage ./pandoc-to-anki { };
 
     # override packages
-    fcitx5 = callPackage ./fcitx5 { inherit (prev) fcitx5; };
     pam_ssh_agent_auth = callPackage ./pam_ssh_agent_auth { inherit (prev) pam_ssh_agent_auth; };
     xclip = callPackage ./xclip {
       inherit (prev) xclip;
