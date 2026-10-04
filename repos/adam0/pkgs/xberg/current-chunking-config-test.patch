@@ -1,0 +1,19 @@
+--- a/crates/xberg-cli/tests/contract_cli.rs
++++ b/crates/xberg-cli/tests/contract_cli.rs
+@@ -92,7 +92,7 @@
+         "chunking": {
+             "max_characters": 2000,
+             "overlap": 400,
+-            "strategy": "sliding_window"
++            "chunker_type": "text"
+         }
+     }"#;
+ 
+@@ -113,6 +113,7 @@
+     let chunking = config.chunking.unwrap();
+     assert_eq!(chunking.max_characters, 2000);
+     assert_eq!(chunking.overlap, 400);
++    assert_eq!(chunking.chunker_type, xberg::core::config::ChunkerType::Text);
+ }
+ 
+ #[test]

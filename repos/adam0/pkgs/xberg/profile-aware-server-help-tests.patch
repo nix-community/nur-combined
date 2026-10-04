@@ -1,0 +1,54 @@
+--- a/crates/xberg-cli/tests/server_test.rs
++++ b/crates/xberg-cli/tests/server_test.rs
+@@ -119,17 +119,17 @@
+ #[cfg(not(coverage))]
+ #[test]
+ fn test_serve_command_help() {
+-    let build_status = Command::new("cargo")
+-        .args(["build", "--bin", "xberg", "--features", "all"])
+-        .status()
+-        .expect("Failed to build binary");
+-
+-    assert!(build_status.success(), "Failed to build xberg binary");
+-
+-    let output = Command::new(xberg_debug_binary())
++    let output = Command::new(env!("CARGO_BIN_EXE_xberg"))
+         .args(["serve", "--help"])
+         .output()
+         .expect("Failed to execute command");
++
++    if !cfg!(feature = "api") {
++        assert!(!output.status.success(), "serve must be unavailable without api");
++        let stderr = String::from_utf8_lossy(&output.stderr);
++        assert!(stderr.contains("unrecognized subcommand") || stderr.contains("invalid subcommand"));
++        return;
++    }
+ 
+     assert!(output.status.success());
+ 
+@@ -143,17 +143,17 @@
+ #[cfg(not(coverage))]
+ #[test]
+ fn test_mcp_command_help() {
+-    let build_status = Command::new("cargo")
+-        .args(["build", "--bin", "xberg", "--features", "all"])
+-        .status()
+-        .expect("Failed to build binary");
+-
+-    assert!(build_status.success(), "Failed to build xberg binary");
+-
+-    let output = Command::new(xberg_debug_binary())
++    let output = Command::new(env!("CARGO_BIN_EXE_xberg"))
+         .args(["mcp", "--help"])
+         .output()
+         .expect("Failed to execute command");
++
++    if !cfg!(feature = "mcp") {
++        assert!(!output.status.success(), "mcp must be unavailable without mcp");
++        let stderr = String::from_utf8_lossy(&output.stderr);
++        assert!(stderr.contains("unrecognized subcommand") || stderr.contains("invalid subcommand"));
++        return;
++    }
+ 
+     assert!(output.status.success());
+ 

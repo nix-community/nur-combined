@@ -37,8 +37,14 @@ in
       hash = "sha256-+nkWIgrLZ7vx4wSOA9We/72cbw7S06wJKPxytAcpQ7s=";
     };
 
-    # Keep help assertions aligned with the selected CLI feature profile.
-    patches = [./feature-gated-cli-help-tests.patch];
+    # Align upstream tests with the selected features and current config schema.
+    patches = [
+      # keep-sorted start
+      ./current-chunking-config-test.patch
+      ./feature-gated-cli-help-tests.patch
+      ./profile-aware-server-help-tests.patch
+      # keep-sorted end
+    ];
 
     # Release archives omit submodules required by the integration tests.
     postPatch = ''
@@ -51,7 +57,8 @@ in
 
     cargoHash = "sha256-70Tm9T5gr9D1MmmhQkwlvfGRlvZCDYL92aYacQXj+fU=";
     cargoBuildFlags = ["--package" "xberg-cli"];
-    cargoTestFlags = ["--package" "xberg-cli"];
+    # Report failures across all test targets in one remote build.
+    cargoTestFlags = ["--no-fail-fast" "--package" "xberg-cli"];
 
     # Isolate process-wide tracing state and ambient log filters during tests.
     checkFlags = ["--test-threads=1"];
