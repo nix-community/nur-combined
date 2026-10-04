@@ -3,7 +3,6 @@
   lib,
   buildNpmPackage,
   nodejs,
-  nix-update-script,
 }:
 
 buildNpmPackage (finalAttrs: {
@@ -15,12 +14,14 @@ buildNpmPackage (finalAttrs: {
   };
   sourceRoot = "package";
 
-  npmDepsHash = "sha256-8W0iGEp9tWrgCmtp/5NQB+zMTP28bPRaLJd0W1RGopU=";
+  npmDepsHash = "sha256-FxsN+waMvw8YERzFNLAwlVNQY8JFD2xMpIw65C0GcSE=";
 
   patches = [ ./runtime-path.patch ];
 
   postPatch = ''
     cp ${./package-lock.json} package-lock.json
+    cp -r node_modules/@waline/core "$NIX_BUILD_TOP/waline-core"
+    sed -i '/"@waline\/core":/d' package.json
   '';
 
   npmFlags = [ "--omit=dev" ];
@@ -32,6 +33,8 @@ buildNpmPackage (finalAttrs: {
     makeWrapper ${lib.getExe nodejs} $out/bin/waline \
       --set NODE_ENV production \
       --add-flags "$out/lib/node_modules/@waline/vercel/vanilla.js"
+    mkdir -p $out/lib/node_modules/@waline/vercel/node_modules/@waline
+    cp -r "$NIX_BUILD_TOP/waline-core" $out/lib/node_modules/@waline/vercel/node_modules/@waline/core
   '';
 
   meta = {
@@ -43,5 +46,5 @@ buildNpmPackage (finalAttrs: {
     platforms = lib.platforms.linux;
   };
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--generate-lockfile" ]; };
+  passthru.updateScript = [ (toString ./update.sh) ];
 })

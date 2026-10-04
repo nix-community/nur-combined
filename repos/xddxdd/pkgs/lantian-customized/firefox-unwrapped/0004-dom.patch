@@ -3952,7 +3952,7 @@ diff --git a/dom/quota/ActorsParent.cpp b/dom/quota/ActorsParent.cpp
  #include "mozilla/StaticPtr.h"
  #include "mozilla/StorageOriginAttributes.h"
  #include "mozilla/SystemPrincipal.h"
-@@ -8266,6 +8267,17 @@
+@@ -8367,6 +8368,17 @@
      const OriginMetadata& aOriginMetadata) {
    AssertIsOnIOThread();
  
@@ -3967,32 +3967,32 @@ diff --git a/dom/quota/ActorsParent.cpp b/dom/quota/ActorsParent.cpp
 +      StaticPrefs::zoom_stealth_storage_quota_mb();
 +  const bool stealthOverride = (stealthQuotaMb > 0);
 +
-   uint64_t totalGroupUsage = 0;
+   int64_t totalGroupUsage = 0;
  
    {
-@@ -8284,8 +8296,11 @@
-             // bound by the global temporary storage limit instead, so it
-             // reports its own origin usage against that limit.
+@@ -8387,8 +8399,12 @@
              if (originInfo && originInfo->LockedPersisted()) {
--              return std::pair(originInfo->LockedUsage(),
--                               static_cast<uint64_t>(mTemporaryStorageLimit));
+               // This is exposed to content via navigator.storage.estimate() so
+               // clamp it to 0.
 +              const uint64_t limit =
 +                  stealthOverride
 +                      ? (uint64_t(stealthQuotaMb) * 1024 * 1024)
 +                      : static_cast<uint64_t>(mTemporaryStorageLimit);
-+              return std::pair(originInfo->LockedUsage(), limit);
+               return std::pair(QM_CLAMP_TO_ZERO(originInfo->LockedUsage()),
+-                               mTemporaryStorageLimit);
++                               limit);
              }
            }
  
-@@ -8296,7 +8311,10 @@
-     }
+@@ -8400,7 +8416,10 @@
    }
  
--  return std::pair(totalGroupUsage, GetGroupLimit());
+   // Also exposed to content via navigator.storage.estimate().
+-  return std::pair(QM_CLAMP_TO_ZERO(totalGroupUsage), GetGroupLimit());
 +  const uint64_t limit =
 +      stealthOverride ? (uint64_t(stealthQuotaMb) * 1024 * 1024)
-+                      : GetGroupLimit();
-+  return std::pair(totalGroupUsage, limit);
++                      : static_cast<uint64_t>(GetGroupLimit());
++  return std::pair(QM_CLAMP_TO_ZERO(totalGroupUsage), limit);
  }
  
  uint64_t QuotaManager::GetOriginUsage(

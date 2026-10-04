@@ -293,3 +293,13 @@ appimageTools.wrapType2 {
   NEW_HASH=$(prefetch-npm-deps "$SCRIPT_DIR/package-lock.json")
   sed -i "s|npmDepsHash = \"sha256-[^"]*\";|npmDepsHash = \"$NEW_HASH\";|" "$SCRIPT_DIR/default.nix"
   ```
+
+## Hydra 构建失败修复
+
+当被要求修复 Hydra 构建失败时，按以下流程执行：
+
+1. 访问 <https://hydra.lantian.pub/jobset/lantian/nur-packages>，进入最近一次构建（latest build）
+2. 从该构建的 job 列表中找出所有失败的包
+3. 逐个修复失败的包
+
+不要凭猜测或历史构建判断失败项，一律以该 jobset 的最新构建为准。

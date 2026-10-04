@@ -1,0 +1,43 @@
+Work around UHD 4.11 no longer installing the private header
+uhd/utils/log_add_impl.hpp, which the installed (but deprecated)
+uhd/utils/log_add.hpp includes unconditionally.  UHD's own
+host/include/uhd/utils/CMakeLists.txt installs log_add.hpp but omits
+log_add_impl.hpp, so compiling SoapyUHDDevice.cpp against the UHD 4.11
+development headers fails with:
+
+  <uhd/utils/log_add.hpp>:13:10: fatal error: uhd/utils/log_add_impl.hpp:
+  No such file or directory
+
+Since only the modern logger registration API declared by
+log_add_impl.hpp is actually used, declare it directly on top of the
+public uhd/utils/log.hpp header and switch the logger to the modern
+uhd::log::detail::logging_info type.
+
+--- a/SoapyUHDDevice.cpp
++++ b/SoapyUHDDevice.cpp
+@@ -15,7 +15,15 @@
+ #ifdef UHD_HAS_MSG_HPP
+ #include <uhd/utils/msg.hpp>
+ #else
+-#include <uhd/utils/log_add.hpp>
++#include <uhd/utils/log.hpp>
++#include <functional>
++
++// UHD 4.11 no longer installs the private header uhd/utils/log_add_impl.hpp
++// that uhd/utils/log_add.hpp includes, so declare the modern logger
++// registration API directly here instead.
++namespace uhd { namespace log {
++UHD_API void add_logger(const std::string& key, std::function<void(const uhd::log::detail::logging_info&)> logger_fn);
++}}
+ #endif
+ #include <uhd/usrp/multi_usrp.hpp>
+ #include <uhd/property_tree.hpp>
+@@ -1073,7 +1081,7 @@
+     }
+ }
+ #else
+-static void SoapyUHDLogger(const uhd::log::logging_info &info)
++static void SoapyUHDLogger(const uhd::log::detail::logging_info &info)
+ {
+     //build a log message formatted from the information
+     std::string message;

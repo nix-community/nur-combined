@@ -1,6 +1,6 @@
 --- a/plugin/pkg/proxy/connect.go
 +++ b/plugin/pkg/proxy/connect.go
-@@ -116,7 +116,7 @@
+@@ -118,7 +118,7 @@
  	return &persistConn{c: conn, created: time.Now()}, false, err
  }
  
@@ -9,7 +9,14 @@
  	var proto string
  	switch {
  	case opts.ForceTCP: // TCP flag has precedence over UDP flag
-@@ -129,7 +129,7 @@
+@@ -140,13 +140,13 @@
+ 		var err error
+ 		wire, err = state.Req.Pack()
+ 		if err != nil {
+-			return nil, nil, proto, fmt.Errorf("%w: %w", ErrInvalidRequest, err)
++			return nil, nil, nil, proto, fmt.Errorf("%w: %w", ErrInvalidRequest, err)
+ 		}
+ 	}
  
  	pc, cached, err := p.transport.Dial(proto)
  	if err != nil {
@@ -18,7 +25,7 @@
  	}
  
  	// Dial may have upgraded the transport (e.g. from udp to tcp for DoT),
-@@ -150,6 +150,54 @@
+@@ -167,6 +167,54 @@
  	// Set buffer size correctly for this client.
  	pc.c.UDPSize = max(uint16(state.Size()), 512) // #nosec G115 -- UDP size fits in uint16
  
@@ -71,10 +78,10 @@
 +	}
 +
  	pc.c.SetWriteDeadline(time.Now().Add(maxTimeout))
- 	// records the origin Id before upstream.
- 	originId := state.Req.Id
-@@ -161,9 +209,9 @@
- 	if err := pc.c.WriteMsg(state.Req); err != nil {
+ 	if wire != nil {
+ 		_, err = pc.c.Write(wire)
+@@ -176,9 +224,9 @@
+ 	if err != nil {
  		pc.c.Close() // not giving it back
  		if err == io.EOF && cached {
 -			return nil, localAddr, proto, ErrCachedClosed
@@ -85,7 +92,7 @@
  	}
  
  	var ret *dns.Msg
-@@ -185,13 +233,13 @@
+@@ -206,13 +254,13 @@
  
  			pc.c.Close() // not giving it back
  			if err == io.EOF && cached {
@@ -101,7 +108,7 @@
  		}
  		// drop out-of-order responses
  		if state.Req.Id == ret.Id {
-@@ -200,10 +248,10 @@
+@@ -221,10 +269,10 @@
  	}
  	p.transport.Yield(pc)
  
@@ -114,9 +121,9 @@
  	// DoH always runs over TCP (HTTPS), regardless of the downstream
  	// client's protocol.
  	const proto = "tcp"
-@@ -218,47 +266,48 @@
+@@ -246,51 +294,52 @@
  
- 	req, err := doh.NewRequestWithContext(ctx, p.dohMethod, p.addr, state.Req)
+ 	req, err := doh.NewRequestWithContext(ctx, p.dohMethod, p.addr, p.dohHost, state.Req)
  	if err != nil {
 -		return nil, nil, proto, err
 +		return nil, nil, nil, proto, err
@@ -135,6 +142,10 @@
 +		return nil, nil, localAddr, proto, err
  	}
  
+ 	// recovery the origin Id after upstream.
+ 	if ret != nil {
+ 		ret.Id = originId
+ 	}
 -	return ret, localAddr, proto, nil
 +	return ret, nil, localAddr, proto, nil
  }
@@ -172,7 +183,7 @@
  	}
  
  	// recovery the origin Id after upstream.
-@@ -271,7 +320,7 @@
+@@ -303,7 +352,7 @@
  
  	requestDuration.WithLabelValues(p.proxyName, p.addr, rc).Observe(time.Since(start).Seconds())
  
@@ -183,7 +194,7 @@
  const cumulativeAvgWeight = 4
 --- a/plugin/forward/forward.go
 +++ b/plugin/forward/forward.go
-@@ -173,6 +173,7 @@
+@@ -181,6 +181,7 @@
  
  		var (
  			ret           *dns.Msg
@@ -191,7 +202,7 @@
  			localAddr     net.Addr
  			upstreamProto string
  			err           error
-@@ -180,7 +181,7 @@
+@@ -188,7 +189,7 @@
  		opts := f.opts
  
  		for {
@@ -200,7 +211,7 @@
  
  			if err == proxyPkg.ErrCachedClosed { // Remote side closed conn, can only happen with TCP.
  				continue
-@@ -193,6 +194,26 @@
+@@ -201,6 +202,26 @@
  			break
  		}
  
@@ -229,7 +240,7 @@
  		}
 --- a/plugin/pkg/proxy/proxy_test.go
 +++ b/plugin/pkg/proxy/proxy_test.go
-@@ -36,7 +36,7 @@
+@@ -38,7 +38,7 @@
  	rec := dnstest.NewRecorder(&test.ResponseWriter{})
  	req := request.Request{Req: m, W: rec}
  
@@ -238,7 +249,7 @@
  	if err != nil {
  		t.Errorf("Failed to connect to testdnsserver: %s", err)
  	}
-@@ -67,7 +67,7 @@
+@@ -69,7 +69,7 @@
  	rec := dnstest.NewRecorder(&test.ResponseWriter{})
  	req := request.Request{Req: m, W: rec}
  
@@ -247,7 +258,7 @@
  	if err == nil {
  		t.Fatal("Expected *not* to receive reply, but got one")
  	}
-@@ -121,7 +121,7 @@
+@@ -123,7 +123,7 @@
  				Req: m,
  			}
  
@@ -256,7 +267,7 @@
  			if err != nil {
  				t.Fatalf("Connect failed: %v", err)
  			}
-@@ -218,7 +218,7 @@
+@@ -220,7 +220,7 @@
  		recorder := dnstest.NewRecorder(&test.ResponseWriter{})
  		request := request.Request{Req: queryMsg, W: recorder}
  
@@ -264,4 +275,24 @@
 +		response, _, _, _, err := p.Connect(context.Background(), request, options)
  		if err != nil {
  			t.Errorf("Failed to connect to testdnsserver: %s", err)
- 		}
+ 			return
+@@ -359,7 +359,7 @@
+ 				W:   &test.ResponseWriter{},
+ 			}
+ 
+-			resp, _, _, err := p.Connect(
++			resp, _, _, _, err := p.Connect(
+ 				context.Background(),
+ 				req,
+ 				Options{PreferUDP: true},
+--- a/plugin/pkg/proxy/connect_test.go
++++ b/plugin/pkg/proxy/connect_test.go
+@@ -95,7 +95,7 @@
+ 	// The downstream client connected over UDP.
+ 	req := request.Request{W: &test.ResponseWriter{TCP: false}, Req: m}
+ 
+-	resp, _, proto, err := p.Connect(context.Background(), req, Options{})
++	resp, _, _, proto, err := p.Connect(context.Background(), req, Options{})
+ 	if err != nil {
+ 		t.Fatalf("Connect failed: %v", err)
+ 	}

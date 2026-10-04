@@ -8,4 +8,7 @@ if [ -z "$NEW_VERSION" ]; then
   echo "Failed to detect new version" >&2
   exit 1
 fi
+if [ "$NEW_VERSION" = "${UPDATE_NIX_OLD_VERSION:-}" ]; then
+  exec nix-update "$UPDATE_NIX_ATTR_PATH" --version skip
+fi
 exec nix-update "$UPDATE_NIX_ATTR_PATH" --version "$NEW_VERSION"

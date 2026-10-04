@@ -59,7 +59,7 @@ let
 
   adspowerSrc = fetchurl {
     url = "https://version.adspower.net/software/linux-x64-global/${version}/AdsPower-Global-${version}-x64.deb";
-    hash = "sha256-ehbDWRqLZ9ekQGZt9SNJnIaAt9JQJIBudmOP+07jFSA=";
+    hash = "sha256-NNSUtZdOdaDu7FsumBNVEfHWy8zvCXjtkxfV2KBX2rk=";
   };
 
   libraries = [
@@ -141,6 +141,7 @@ in
 stdenv.mkDerivation (finalAttrs: {
   pname = "adspower";
   inherit version;
+  src = adspowerSrc;
   dontUnpack = true;
 
   installPhase = ''

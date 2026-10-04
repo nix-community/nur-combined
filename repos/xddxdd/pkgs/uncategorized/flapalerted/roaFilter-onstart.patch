@@ -1,0 +1,19 @@
+--- a/modules/roaFilter/mod_roaFilter.go
++++ b/modules/roaFilter/mod_roaFilter.go
+@@ -27,14 +27,11 @@ func (m *Module) Name() string {
+ 	return m.name
+ }
+ 
+-func (m *Module) OnStart(ctx context.Context, _ *sync.WaitGroup) bool {
++func (m *Module) OnStart(_ context.Context, _ *sync.WaitGroup, logger *slog.Logger) bool {
+ 	if *roaJsonFile == "" {
+ 		return false
+ 	}
+-
+-	m.logger = slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
+-		Level: monitor.LogLevelFromContext(ctx),
+-	})).With("module", m.Name())
++	m.logger = logger
+ 	return true
+ }
+ 

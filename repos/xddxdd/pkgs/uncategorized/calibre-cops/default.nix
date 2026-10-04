@@ -1,7 +1,6 @@
 {
   fetchurl,
   lib,
-  nix-update-script,
   stdenv,
   unzip,
 }:
@@ -10,7 +9,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "calibre-cops";
-  version = "4.5.5";
+  version = "4.5.4";
   src = fetchurl {
     url = "https://github.com/mikespub-org/seblucas-cops/releases/download/${finalAttrs.version}/cops-${finalAttrs.version}-php84.zip";
     hash = "sha256-KSPecmpzyV/OSvkW4Skvesbw3qe/LnT9a6wZ655Py4o=";
@@ -37,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = [ (toString ./update.sh) ];
   meta = {
     changelog = "https://github.com/mikespub-org/seblucas-cops/releases/tag/${finalAttrs.version}";
     maintainers = with lib.maintainers; [ xddxdd ];
