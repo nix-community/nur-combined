@@ -10,6 +10,11 @@ let
   rootlessCfg = config.virtualisation.miodroid-rootless;
   miodroidEnabled = cfg.enable || rootlessCfg.enable;
   miodroidPackage = if rootlessCfg.enable then rootlessCfg.package else cfg.package;
+  imagePackage =
+    if rootlessCfg.enable && rootlessCfg.imagePackage != null then
+      rootlessCfg.imagePackage
+    else
+      cfg.imagePackage;
   kCfg = config.lib.kernelConfig;
   rootlessHelper = pkgs.writeShellScript "miodroid-rootless-helper" ''
     set -eu
@@ -46,10 +51,28 @@ in
   options.virtualisation.miodroid = {
     enable = lib.mkEnableOption "Miodroid";
     package = lib.mkPackageOption pkgs "miodroid" { };
+    imagePackage = lib.mkOption {
+      type = lib.types.nullOr lib.types.package;
+      default = null;
+      example = lib.literalExpression "pkgs.miodroid-images.a16";
+      description = ''
+        Declarative system.img and vendor.img bundle to install before
+        initialization. When null, miodroid uses its normal OTA workflow.
+      '';
+    };
   };
   options.virtualisation.miodroid-rootless = {
     enable = lib.mkEnableOption "experimental rootless Miodroid support";
     package = lib.mkPackageOption pkgs "miodroid" { };
+    imagePackage = lib.mkOption {
+      type = lib.types.nullOr lib.types.package;
+      default = null;
+      example = lib.literalExpression "pkgs.miodroid-images.a16";
+      description = ''
+        Declarative system.img and vendor.img bundle to install before
+        initialization. When null, miodroid uses its normal OTA workflow.
+      '';
+    };
     group = lib.mkOption {
       type = lib.types.str;
       default = "miodroid";
@@ -90,6 +113,9 @@ in
 
     environment.etc."gbinder.d/miodroid.conf".source = miodroidGbinderConf;
     environment.systemPackages = [ miodroidPackage ];
+    environment.etc."miodroid-extra/images" = lib.mkIf (imagePackage != null) {
+      source = imagePackage;
+    };
 
     networking.firewall.trustedInterfaces = lib.mkIf cfg.enable [ "miodroid0" ];
 
