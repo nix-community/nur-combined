@@ -10356,10 +10356,10 @@
     };
     "nixpkgs-pr-tracker" = buildMozillaXpiAddon {
       pname = "nixpkgs-pr-tracker";
-      version = "0.1.3";
+      version = "0.1.4";
       addonId = "nixpkgs-pr-tracker@tahayassine.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4703557/nixpkgs_pr_tracker-0.1.3.xpi";
-      sha256 = "a3e9bd563995fcbdcde643b2f7510a01de20098f203d5719bd9c6d3b85e9295e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5083277/nixpkgs_pr_tracker-0.1.4.xpi";
+      sha256 = "744b21365a2c72123550b9a9976d8f635f29a02402ac2c45999e17011a7be520";
       meta = with lib;
       {
         description = "Shows which branch a Nixpkgs PR is merged into.";
@@ -14031,10 +14031,10 @@
     };
     "statshunters" = buildMozillaXpiAddon {
       pname = "statshunters";
-      version = "3.4.0";
+      version = "3.4.1";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5078782/statshunters-3.4.0.xpi";
-      sha256 = "0efdbc14205af9f6deeca8db5f517cc906526e829cb1de39f0b4fd4c17c3be65";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5082539/statshunters-3.4.1.xpi";
+      sha256 = "462a5ddd88f4d7d64ce1835d639c2c3d9599914a46b706215e874c21985edff2";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -14877,10 +14877,10 @@
     };
     "time-zone-converter-savvy-time" = buildMozillaXpiAddon {
       pname = "time-zone-converter-savvy-time";
-      version = "1.11.0";
+      version = "1.11.1";
       addonId = "yuriy@savvytime.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5070319/time_zone_converter_savvy_time-1.11.0.xpi";
-      sha256 = "c4df9560fec72e5c2523bc6d11033b44393460347b6315b252ebc419c63a7cc3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5082139/time_zone_converter_savvy_time-1.11.1.xpi";
+      sha256 = "ed5cd547a057ac7978f36149403a79a6bb0bbc4a4a1c5338f3bfd8827523a043";
       meta = with lib;
       {
         homepage = "https://savvytime.com/converter";
@@ -15936,10 +15936,10 @@
     };
     "user-agent-string-switcher" = buildMozillaXpiAddon {
       pname = "user-agent-string-switcher";
-      version = "0.7.1";
+      version = "0.7.2";
       addonId = "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4997127/user_agent_string_switcher-0.7.1.xpi";
-      sha256 = "73d57b46b1b56a909ad1ac9506dae56be31af242d2d3a99d6b0049f1ddf2793a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5081116/user_agent_string_switcher-0.7.2.xpi";
+      sha256 = "9ad0e03d737db36366e16f1c6102c5ac5867e34e7a5f95f0bcdf00e2cda0b682";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/useragent-switcher.html";
