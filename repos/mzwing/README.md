@@ -17,6 +17,7 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 | `cliproxyapiplus` | [Usage](https://github.com/kaitranntt/CLIProxyAPIPlus) |
 | `cloudflarespeedtest` | [Usage](https://github.com/XIU2/CloudflareSpeedTest) |
 | `cloudflarewarpspeedtest` | [Usage](https://github.com/puzige/CloudflareWarpSpeedTest) |
+| `cnb-cli` | [Usage](https://cnb.cool/cnb/skills/cnb-skill) |
 | `codegraph` | [Usage](https://github.com/colbymchenry/codegraph) |
 | `cpa-plugin-antigravity-coding-filter` | [Usage](https://github.com/jellyfish-p/cpa-plugin-antigravity-coding-filter) |
 | `getopts-fish` | [Usage](https://github.com/jorgebucaran/getopts.fish) |

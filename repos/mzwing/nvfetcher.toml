@@ -38,6 +38,12 @@ fetch.github = "puzige/CloudflareWarpSpeedTest"
 src.github_tag = "puzige/CloudflareWarpSpeedTest"
 src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
 
+# nvfetcher has no npm source, so read the version from the latest dist-tag's manifest.
+[cnb-cli]
+fetch.url = "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-$ver.tgz"
+src.webpage = "https://registry.npmjs.org/@cnbcool/cnb-cli/latest"
+src.regex = '"version":"([^"]+)"'
+
 [codegraph]
 fetch.github = "colbymchenry/codegraph"
 src.github_tag = "colbymchenry/codegraph"

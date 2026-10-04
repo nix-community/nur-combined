@@ -167,6 +167,21 @@
         },
         "version": "v1.5.15"
     },
+    "cnb-cli": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "cnb-cli",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-wN+hksPnqiz4xUMXq7dX6we+zOvLCeAO7tw/+J/oR/Q=",
+            "type": "url",
+            "url": "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.16.19.tgz"
+        },
+        "version": "1.16.19"
+    },
     "codegraph": {
         "cargoLock": null,
         "date": null,
@@ -558,12 +573,12 @@
             "name": null,
             "owner": "sinspired",
             "repo": "subs-check-pro",
-            "rev": "v3.3.0",
-            "sha256": "sha256-HVc59aMirm9pnFGYlm+5CHYuskSFv0SeVsOYRJ5wCuY=",
+            "rev": "v3.4.0",
+            "sha256": "sha256-hOJtsCJRVGbUbrEhV3IDWNfxjqr9a/ii4NImYg/nG2M=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.3.0"
+        "version": "v3.4.0"
     },
     "tree-sitter-nix": {
         "cargoLock": null,

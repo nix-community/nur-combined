@@ -94,6 +94,14 @@
       sha256 = "sha256-xCXFx7jkc4hIeXCtlTaMAaT7/+ocDjFRZ01czcL5+oE=";
     };
   };
+  cnb-cli = {
+    pname = "cnb-cli";
+    version = "1.16.19";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.16.19.tgz";
+      sha256 = "sha256-wN+hksPnqiz4xUMXq7dX6we+zOvLCeAO7tw/+J/oR/Q=";
+    };
+  };
   codegraph = {
     pname = "codegraph";
     version = "v1.6.2";
@@ -301,13 +309,13 @@
   };
   subs-check-pro = {
     pname = "subs-check-pro";
-    version = "v3.3.0";
+    version = "v3.4.0";
     src = fetchFromGitHub {
       owner = "sinspired";
       repo = "subs-check-pro";
-      rev = "v3.3.0";
+      rev = "v3.4.0";
       fetchSubmodules = false;
-      sha256 = "sha256-HVc59aMirm9pnFGYlm+5CHYuskSFv0SeVsOYRJ5wCuY=";
+      sha256 = "sha256-hOJtsCJRVGbUbrEhV3IDWNfxjqr9a/ii4NImYg/nG2M=";
     };
   };
   tree-sitter-nix = {
