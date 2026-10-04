@@ -4,12 +4,12 @@ Subject: [PATCH] intercept GMS bindService
 
 Return a dummy binder object when apps attempt to bind to Google Play Services.
 
---- a/src/api-impl/android/app/ContextImpl.java
-+++ b/src/api-impl/android/app/ContextImpl.java
-@@ -259,6 +259,25 @@
- 
- 	@Override
- 	public boolean bindService(Intent intent, ServiceConnection serviceConnection, int flags) {
+--- a/src/api-impl/android/app/ContextImpl.java	2026-10-04 20:19:59.383206606 +1100
++++ b/src/api-impl/android/app/ContextImpl.java	2026-10-04 20:19:59.383206606 +1100
+@@ -33,6 +33,25 @@
+ 			serviceConnection.onServiceConnected(intent.getComponent(), requestMessenger.getBinder());
+ 			return true;
+ 		}
 +		String pkg = intent.getPackage();
 +		String action = intent.getAction();
 +		if ((pkg != null && pkg.equals("com.google.android.gms")) || 
