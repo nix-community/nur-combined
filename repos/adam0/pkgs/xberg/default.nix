@@ -42,6 +42,7 @@ in
       # keep-sorted start
       ./current-chunking-config-test.patch
       ./feature-gated-cli-help-tests.patch
+      ./nonnegative-batch-timing-test.patch
       ./profile-aware-server-help-tests.patch
       # keep-sorted end
     ];

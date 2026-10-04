@@ -1,0 +1,12 @@
+--- a/crates/xberg-cli/tests/extract_envelope.rs
++++ b/crates/xberg-cli/tests/extract_envelope.rs
+@@ -170,7 +170,8 @@
+ 
+     for (i, timing) in per_file_ms.iter().enumerate() {
+         let ms = timing.as_f64().expect("per_file_ms entry must be a number");
+-        assert!(ms > 0.0, "per_file_ms[{i}] must be positive, got {ms}");
++        // Whole-millisecond durations round sub-millisecond extractions down to zero.
++        assert!(ms >= 0.0, "per_file_ms[{i}] must be non-negative, got {ms}");
+     }
+ 
+     for (i, result) in results.iter().enumerate() {
