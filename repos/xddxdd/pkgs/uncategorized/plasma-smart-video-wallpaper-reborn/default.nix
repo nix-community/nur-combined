@@ -6,12 +6,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "plasma-smart-video-wallpaper-reborn";
-  version = "2.15.0";
+  version = "2.16.0";
   src = fetchFromGitHub {
     owner = "luisbocanegra";
     repo = "plasma-smart-video-wallpaper-reborn";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-LgIe+ytAf6AHSpgOUeqFRWOtx+uV71FZixMQKY+iJWM=";
+    hash = "sha256-Ao1hBIt0VWhwJV6VTvjDKsHYNXyAR7yzHka3EF2dWOo=";
   };
   postInstall = ''
     mkdir -p $out/share/plasma/wallpapers/luisbocanegra.smart.video.wallpaper.reborn
