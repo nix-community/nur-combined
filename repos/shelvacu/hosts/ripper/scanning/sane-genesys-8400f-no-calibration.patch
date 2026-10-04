@@ -1,5 +1,5 @@
 diff --git i/backend/genesys/genesys.cpp w/backend/genesys/genesys.cpp
-index 74ef74e..b47310d 100644
+index 74ef74e..7a09fe4 100644
 --- i/backend/genesys/genesys.cpp
 +++ w/backend/genesys/genesys.cpp
 @@ -4008,15 +4008,17 @@ static void genesys_start_scan(Genesys_Device* dev, bool lamp_off)
@@ -26,6 +26,30 @@ index 74ef74e..b47310d 100644
          if (!shading_disabled && !dev->model->is_sheetfed) {
              genesys_scanner_calibration(dev, sensor);
              genesys_save_calibration(dev, sensor);
+@@ -4482,7 +4484,13 @@ static void set_xy_range_option_values(Genesys_Scanner& s)
+     if (s.scan_method == ScanMethod::FLATBED)
+     {
+         s.opt_x_range = create_range(s.dev->model->x_size);
+-        s.opt_y_range = create_range(s.dev->model->y_size);
++        // with internal offsets ignored the scan area starts y_offset earlier, so keep the bottom
++        // edge of the glass reachable
++        float y_size = s.dev->model->y_size;
++        if (s.dev->ignore_offsets) {
++            y_size += s.dev->model->y_offset;
++        }
++        s.opt_y_range = create_range(y_size);
+     }
+   else
+     {
+@@ -6093,6 +6101,8 @@ static void set_option_value(Genesys_Scanner* s, int option, void *val, SANE_Int
+ 
+         case OPT_IGNORE_OFFSETS: {
+             dev->ignore_offsets = true;
++            set_xy_range_option_values(*s);
++            *myinfo |= SANE_INFO_RELOAD_PARAMS | SANE_INFO_RELOAD_OPTIONS;
+             break;
+         }
+         default: {
 diff --git i/backend/genesys/tables_frontend.cpp w/backend/genesys/tables_frontend.cpp
 index 65fc7f4..d435876 100644
 --- i/backend/genesys/tables_frontend.cpp
