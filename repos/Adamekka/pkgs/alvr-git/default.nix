@@ -2,7 +2,6 @@
   alvr,
   android-tools,
   fetchFromGitHub,
-  fetchpatch,
   ffmpeg_8,
   glibc,
   lib,
@@ -19,10 +18,10 @@
 let
   src = fetchFromGitHub {
     fetchSubmodules = true;
-    hash = "sha256-72o9l6kxMwkkJme7186O0YJ02RKB9oPo6QTxN30WKdU=";
+    hash = "sha256-CEqJkHcrhicfT0czpgC+dM5gxw/QxKMB2PWHJoGNXuo=";
     owner = "alvr-org";
     repo = "ALVR";
-    rev = "9f11839431f95f0df6764790d9a16f8e308a0d79";
+    rev = "ee6d3b1669e4d8526fa46dbf29567e1a6d604459";
   };
 
   # ALVR master uses FFmpeg 8.1 and patches its encoder; Nixpkgs ALVR uses FFmpeg 6.0.
@@ -54,7 +53,7 @@ in
 (alvr.override { inherit ffmpeg-alvr; }).overrideAttrs (oldAttrs: {
   # buildRustPackage captures the release cargoHash before overrideAttrs runs.
   cargoDeps = rustPlatform.fetchCargoVendor {
-    hash = "sha256-5yzFedwUtWrm180GPYAXr69G9S0o7wKUnYBw1g+Zre0=";
+    hash = "sha256-Wj8FVh8X7biYf/Fnjz/9t7jRfG85j9W21Pae5RnXZVA=";
     inherit src;
   };
 
@@ -82,7 +81,16 @@ in
     });
   };
 
-  postInstall = oldAttrs.postInstall + ''
+  postInstall = ''
+    install -Dm755 ${src}/alvr/xtask/resources/alvr.desktop $out/share/applications/alvr.desktop
+    install -Dm644 ${src}/resources/ALVR-Icon.svg $out/share/icons/hicolor/scalable/apps/alvr.svg
+
+    # Direct mode no longer generates the Vulkan layer's share directory.
+    mkdir -p $out/{libexec,lib/alvr,share}
+    cp -r ./build/alvr_streamer_linux/lib64/. $out/lib
+    cp -r ./build/alvr_streamer_linux/libexec/. $out/libexec
+    ln -s $out/lib $out/lib64
+
     # ALVR looks for adb beside its binaries when installing the Quest client.
     mkdir -p $out/bin/platform-tools
     # Static linking lets the wrapper clear Steam's incompatible library path before loading adb.
@@ -92,11 +100,6 @@ in
 
   # The release patch targets an older build script and its FFmpeg 6.0 dependency.
   patches = [
-    # PR #3353 fixes pose matching with stripped SteamVR binaries to reduce stutter.
-    (fetchpatch {
-      hash = "sha256-AOUgD6Z509IJ14lLitIruE2b4+ypNmEJuBQ1mi3y6go=";
-      url = "https://github.com/alvr-org/ALVR/commit/20a319ba0ccef16081763c4456856b3491c94a9e.patch";
-    })
     (replaceVars ./fix-finding-libs.patch {
       ffmpeg = lib.getDev ffmpeg-alvr;
       vulkanHeaders = lib.getDev vulkan-headers;
@@ -106,5 +109,5 @@ in
 
   pname = "alvr-git";
   inherit src;
-  version = "20.14.1-unstable-2026-09-29";
+  version = "20.14.1-unstable-2026-10-04";
 })
