@@ -3140,12 +3140,20 @@ impl<'a> Evaluator<'a> {
 
     /// Execute a `@debug`: emit `<path>:<line> DEBUG: <value>` to stderr (the
     /// value serialized as in CSS, a string unquoted). No snippet, no frames.
+    ///
+    /// `<path>` is named the way a stack frame is (`frame_name`, dart's
+    /// `p.prettyUri`), not printed as `current_url` stands. The entry's
+    /// `current_url` is whatever the host passed as `Options::url`: a path
+    /// from the binary, which read right, but a `file://` URL from the JS API,
+    /// which printed as `file:///…/main.scss:2 DEBUG: …`, percent-encoded,
+    /// where dart and the binary print `main.scss:2 DEBUG: …`. The event's
+    /// `url` stays the URL: a logger is handed a span, not this text.
     fn emit_debug(&mut self, value: &Expr, pos: Pos) -> Result<(), Error> {
         let v = self.eval_expr(value)?;
         let msg = v.to_message();
         let url = self.current_url.clone();
         let formatted = if self.diag_enabled() {
-            format!("{url}:{} DEBUG: {msg}", pos.line)
+            format!("{}:{} DEBUG: {msg}", self.frame_name(&url), pos.line)
         } else {
             format!("DEBUG: {msg}")
         };

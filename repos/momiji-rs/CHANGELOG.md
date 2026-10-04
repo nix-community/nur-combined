@@ -13,6 +13,21 @@ Conformance is tracked separately as a ratchet against the official
 
 ### Fixed
 
+- **`@debug` names the entry file as a path, not a `file://` URL, from npm.**
+  `<path>:<line> DEBUG: <value>` used the url the entry reached the compiler
+  with. The binary passes a path, which already read right. The npm CLI and
+  the JS API pass a `file://` URL, and printed it as it stood,
+  percent-encoded: `file:///…/sub/a%20b.scss:2 DEBUG: entry`, where dart's CLI
+  and its npm `sass` package print `sub/a b.scss:2 DEBUG: entry`. The name now
+  comes from the same rule a stack frame uses (dart's `p.prettyUri`): relative
+  to the working directory, decoded. A logger's `span.url` is unchanged.
+  Against dart-sass 1.104.1 on macOS/arm64, 13 CLI cases on three front ends
+  (binary, npm native, npm wasm): 18 `DEBUG` lines differed before and 2 do
+  now. Every case but `--stdin` now gives the same stderr as dart, byte for
+  byte. On `--stdin` the npm CLI still prints no location: it compiles stdin
+  with no url, so it gets no diagnostics at all, `@warn`'s frame included. The
+  binary prints dart's `-:1`.
+
 - **An `@extend` across media queries is an error in every shape dart
   rejects** (#282). An `@extend` written inside `@media` may only extend
   selectors in that same media context. sasso enforced this only against a

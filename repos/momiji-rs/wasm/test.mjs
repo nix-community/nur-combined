@@ -6000,6 +6000,59 @@ for (const how of ["fails-to-start", "dies"]) {
   );
 }
 
+// === how @debug names a file, on BOTH engines, CLI and API ===
+//
+// `<path>:<line> DEBUG: <value>` named the ENTRY by the url it reached the
+// compiler as, so the npm front ends printed a percent-encoded `file://` URL
+// where dart prints a path relative to the working directory. Measured on
+// macOS/arm64 against dart-sass 1.104.1 (CLI) and the npm `sass` 1.104.1
+// package (JS API, default logger):
+//
+//   dart, binary   sub/a b.scss:2 DEBUG: entry
+//   npm (both)     file:///…/sub/a%20b.scss:2 DEBUG: entry
+//
+// A partial was already right: its url is the name a frame gives it.
+{
+  const ddir = realpathSync(mkdtempSync(join(tmpdir(), "sasso-debug-")));
+  mkdirSync(join(ddir, "sub"), { recursive: true });
+  writeFileSync(join(ddir, "sub", "_p.scss"), '@debug "partial";\n');
+  writeFileSync(join(ddir, "sub", "a b ü.scss"), '@use "p";\n@debug "entry";\n');
+  const want = [`${join("sub", "_p.scss")}:1 DEBUG: partial`, `${join("sub", "a b ü.scss")}:2 DEBUG: entry`];
+  const debugLines = (s) => s.split("\n").filter((l) => l.includes("DEBUG:"));
+  const engines = ["wasm"];
+  // As the frame case above does: native is skipped only when the addon is
+  // genuinely absent, and that has to be the reason the probe failed. Any
+  // other failure is a native regression, and skipping on it would hide it.
+  const probe = spawnSync(process.execPath, [cliPath, "--stdin"], { input: ".a{b:1}\n", encoding: "utf8", env: { ...process.env, SASSO_ENGINE: "native" } });
+  if (probe.status === 0) {
+    engines.push("native");
+  } else {
+    assert.match(
+      probe.stderr,
+      /SASSO_ENGINE=native/,
+      `debug: native was skipped, and the reason must be a missing addon (stderr: ${probe.stderr})`,
+    );
+  }
+  for (const engine of engines) {
+    for (const entry of [join("sub", "a b ü.scss"), join(ddir, "sub", "a b ü.scss")]) {
+      const r = spawnSync(process.execPath, [cliPath, "--no-source-map", entry], { cwd: ddir, encoding: "utf8", env: { ...process.env, SASSO_ENGINE: engine } });
+      assert.equal(r.status, 0, `debug (${engine}): compiles (stderr: ${r.stderr})`);
+      assert.deepEqual(debugLines(r.stderr), want, `debug (${engine} CLI, ${entry === join("sub", "a b ü.scss") ? "relative" : "absolute"} entry): paths, not URLs`);
+    }
+    // The JS API with no logger prints the same lines, as npm `sass` does.
+    const api = engine === "native" ? "./npm/native.mjs" : "./npm/sasso.mjs";
+    const viaApi = spawnSync(
+      process.execPath,
+      ["--input-type=module", "-e", `const m = await import(${JSON.stringify(new URL(api, import.meta.url).href)}); m.compile(${JSON.stringify(join("sub", "a b ü.scss"))});`],
+      { cwd: ddir, encoding: "utf8" },
+    );
+    assert.equal(viaApi.status, 0, `debug (${engine} API): compiles (stderr: ${viaApi.stderr})`);
+    assert.deepEqual(debugLines(viaApi.stderr), want, `debug (${engine} API, default logger): paths, not URLs`);
+  }
+  rmSync(ddir, { recursive: true, force: true });
+  console.log(`ok: @debug — names files as paths relative to the cwd, CLI and API (${engines.join(" + ")})`);
+}
+
 // === a compile whose working directory has been deleted ===
 //
 // `process.cwd()` THROWS `ENOENT` once the directory the process started in

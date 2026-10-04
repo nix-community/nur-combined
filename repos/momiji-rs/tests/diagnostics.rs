@@ -2797,3 +2797,47 @@ fn one_file_gets_one_header_when_both_spans_are_the_entrys() {
         "one file should get one header, got {headers}: {rendered}"
     );
 }
+
+/// `@debug`'s `<path>:<line>` names the file the way a stack frame does
+/// (dart's `p.prettyUri`), whichever spelling the host passed as the url. The
+/// JS front ends pass a `file://` URL and used to print it as it stood,
+/// percent-encoded, where dart's CLI and its npm package print the path
+/// relative to the working directory. The event's `url` stays as passed.
+#[test]
+fn debug_names_its_file_as_a_frame_does() {
+    use std::cell::RefCell;
+    use std::rc::Rc;
+    let debug = |url: &str| {
+        let seen: Rc<RefCell<Vec<(String, String)>>> = Rc::new(RefCell::new(Vec::new()));
+        let sink = Rc::clone(&seen);
+        let opts = Options::default()
+            .with_url(url)
+            .with_cwd("/work/proj")
+            .with_warn_handler(Rc::new(move |ev: &sasso::WarnEvent<'_>| {
+                sink.borrow_mut()
+                    .push((ev.formatted.to_string(), ev.url.to_string()));
+            }));
+        compile("@debug \"x\";\n", &opts).expect("compiles");
+        let out = seen.borrow().clone();
+        assert_eq!(out.len(), 1, "one debug event for {url}");
+        out.into_iter().next().unwrap()
+    };
+    // The JS front ends: a file URL, decoded and made relative to the cwd,
+    // with the platform's separator, as a frame is (and as dart does, #151).
+    let sep = std::path::MAIN_SEPARATOR;
+    assert_eq!(
+        debug("file:///work/proj/sub/a%20b.scss"),
+        (
+            format!("sub{sep}a b.scss:1 DEBUG: x"),
+            "file:///work/proj/sub/a%20b.scss".to_string()
+        )
+    );
+    assert_eq!(
+        debug("file:///work/outside/o.scss").0,
+        format!("..{sep}outside{sep}o.scss:1 DEBUG: x")
+    );
+    // The binary: a path, which already read as dart prints it.
+    assert_eq!(debug("main.scss").0, "main.scss:1 DEBUG: x");
+    // The binary's stdin: dart's `-`.
+    assert_eq!(debug("-").0, "-:1 DEBUG: x");
+}
