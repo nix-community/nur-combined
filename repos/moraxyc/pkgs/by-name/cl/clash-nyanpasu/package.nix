@@ -49,7 +49,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   patches = [
     ./fix-local-inlang-plugins.patch
-    ./fix-nyanpasu-utils-package-entry.patch
   ];
 
   cargoRoot = "backend";
@@ -88,7 +87,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       ;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-ueWGrhHHwb9AJdL0xcQZCia4zHcQoGkKC3mtYYx4Xas=";
+    hash = "sha256-5DNjeM1grZhaybnECiP+p9/SuNEPZaiJUkz0rc8if4I=";
   };
 
   nativeBuildInputs = [
