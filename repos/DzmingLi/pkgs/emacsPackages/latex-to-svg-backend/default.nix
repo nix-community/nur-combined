@@ -28,10 +28,10 @@ emacsPackages.trivialBuild {
   pname = "latex-to-svg-backend";
   version = "0.5.0-unstable-2026-08-07";
 
-  # Temporary pin to the pull-request branch that runs latex and dvisvgm
-  # directly instead of routing them through the user's shell.
+  # Keep the direct-process invocation commit, available in the upstream
+  # repository after the temporary fork became unavailable.
   src = fetchFromGitHub {
-    owner = "DzmingLi";
+    owner = "alberti42";
     repo = "latex-to-svg-backend";
     rev = "7891dbd164b179ff4a781259aa34a25d758cf818";
     hash = "sha256-R0ZBjetRYl4dHarVk86qJn/xQ6caxCds3wDwXJyJ94w=";
