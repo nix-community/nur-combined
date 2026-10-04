@@ -471,6 +471,10 @@ in
             prefix = "co";
             body = [ "Co-authored-by: $1 <$2>" ];
           };
+          "Update dependencies" = {
+            prefix = "up";
+            body = "Update dependencies";
+          };
         };
         jj-commit = git-commit;
         shellscript = {

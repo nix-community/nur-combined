@@ -31,7 +31,7 @@ let
 in
 stdenvNoCC.mkDerivation (chunker: {
   pname = "chunker";
-  version = "1.20.0";
+  version = "1.21.0";
   meta = {
     description = "Convert Minecraft worlds between game versions";
     homepage = "https://www.chunker.app/";
@@ -46,7 +46,7 @@ stdenvNoCC.mkDerivation (chunker: {
     repo = "Chunker";
     rev = "refs/tags/${chunker.version}";
     postCheckout = fakeGitInit;
-    hash = "sha256-FTPXicy58L3LrbM6pBqli1CMtEWc5C+mgnc/1yMq8GU=";
+    hash = "sha256-CPVbPSoeFM4yFZ37KPFpoxM/qNYLYyd+Utav6lHkVbQ=";
   });
 
   mitmCache =
