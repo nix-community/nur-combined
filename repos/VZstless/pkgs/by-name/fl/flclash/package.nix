@@ -1,7 +1,7 @@
 {
   lib,
   fetchFromGitHub,
-  flutter344,
+  flutter347,
   libayatana-appindicator,
   buildGoModule,
   rustPlatform,
@@ -14,7 +14,7 @@
 
 let
   pname = "flclash";
-  version = "0.8.98";
+  version = "0.8.99";
 
   src = fetchFromGitHub {
     owner = "chen08209";
@@ -25,7 +25,7 @@ let
       export GIT_CONFIG_KEY_0=url.https://github.com/.insteadOf
       export GIT_CONFIG_VALUE_0=git@github.com:
     '';
-    hash = "sha256-GCNp5bC/1qBjPLNc4Rd3aJG+gJcPMe+jVnYrz4biP5o=";
+    hash = "sha256-tjjIO4MLnDHiu9ff4lJgiK87J1kOquIkpYasajLo3C0=";
     fetchSubmodules = true;
   };
 
@@ -42,7 +42,7 @@ let
 
     modRoot = "core";
 
-    vendorHash = "sha256-m+VO6GJyaJmF/4SE/6PzlPI5EvP1XNlEl7gUoQ9c/FI=";
+    vendorHash = "sha256-1GWh1ftgF4XSj4s5f6nijAEhGWN+IZKo8gJDH0PbjLw=";
 
     env.CGO_ENABLED = 0;
 
@@ -62,7 +62,7 @@ let
 
     sourceRoot = "${src.name}/plugins/rust_api/rust";
 
-    cargoHash = "sha256-Nbj+KNgQO8UeUnmURqLu7h7WZp+ipECCyqNQFfjtiVY=";
+    cargoHash = "sha256-59cjtvAvo62VksthtV+ej0mDPhVmCHev0hvyNddIMO8=";
 
     installPhase = ''
       runHook preInstall
@@ -100,7 +100,7 @@ let
     '';
   };
 in
-flutter344.buildFlutterApplication {
+flutter347.buildFlutterApplication {
   inherit pname version src;
 
   pubspecLock = lib.importJSON ./pubspec.lock.json;
@@ -140,6 +140,15 @@ flutter344.buildFlutterApplication {
     sed --in-place '/^  user_defines:$/a\    sqlite3:\n      source: system' pubspec.yaml
     substituteInPlace pubspec.yaml \
       --replace-fail "build_assets: true" "build_assets: false"
+
+    # Dart 3.13.0 as bundled with flutter347 does not accept the `final`
+    # modifier on named parameters (written against Dart >=3.13.2). The
+    # modifier only forbids reassigning the parameter inside the function
+    # body, so it can be dropped safely.
+    sed --in-place --regexp-extended \
+      's/^(\s*)final (VoidCallback\? onPressed,)$/\1\2/' \
+      lib/views/profiles/overwrite/custom/groups.dart \
+      lib/views/profiles/overwrite/custom/rules.dart
   '';
 
   # RustLib.init() loads librust_api.so with dlopen(), which ignores
@@ -165,15 +174,6 @@ flutter344.buildFlutterApplication {
   ];
 
   preBuild = ''
-    # pubspec.lock aggregates the Dart >=3.13 constraint of freezed (a
-    # development-only code generator) into sdks.dart, which would give the
-    # root package a language version too high for the Dart toolchain shipped
-    # with flutter344. The app itself only declares Dart >=3.10.
-    tmp=$(mktemp)
-    jq '(.packages[] | select(.rootUri == "../") | .languageVersion) = "3.10"' \
-      .dart_tool/package_config.json >"$tmp"
-    mv "$tmp" .dart_tool/package_config.json
-
     mkdir --parents libclash/linux
     cp ${core}/bin/FlClashCore libclash/linux/FlClashCore
     cp ${helper}/bin/FlClashHelperService libclash/linux/FlClashHelperService
@@ -205,6 +205,7 @@ flutter344.buildFlutterApplication {
   passthru = {
     inherit core rustApi helper;
     updateScript = ./update.sh;
+    flutter = flutter347;
   };
 
   meta = meta // {

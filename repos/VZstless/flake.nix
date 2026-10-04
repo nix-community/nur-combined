@@ -17,7 +17,7 @@
         in {
           type = "app";
           program = toString (pkgs.writeShellScript "nur-update" ''
-            exec ${pkgs.nix}/bin/nix-shell ${./update.nix} --argstr nixpkgsPath ${nixpkgs.outPath} --argstr nurPath ${self.outPath} "$@"
+            exec ${pkgs.nix}/bin/nix-shell ${./update.nix} --argstr nixpkgsPath ${nixpkgs.outPath} --argstr nurPath "$PWD" "$@"
           '');
         };
       });
