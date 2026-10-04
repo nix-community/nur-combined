@@ -47,14 +47,14 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "pitchnet";
-  version = "0.6.1";
+  version = "0.7.0";
 
   src = fetchFromGitHub {
     owner = "SessionLoops";
     repo = "PitchNet";
     tag = "v${finalAttrs.version}";
     fetchSubmodules = true;
-    hash = "sha256-tn4T2j2xOIIoV2B/XTc6fti5HBl4aEMevJa4fneCZ2A=";
+    hash = "sha256-a6UbiiwSbvnrsD+zYHS+jFTU2NLRIeguESsKgCwem08=";
   };
 
   nativeBuildInputs = [
