@@ -41,6 +41,15 @@ let
     test -x ${pkgs.lxc}/bin/lxc-start
     test -x ${pkgs.lxc}/libexec/lxc/lxc-user-nic
   '';
+  rootlessDbusService = pkgs.writeTextFile {
+    name = "miodroid-rootless-dbus-service";
+    destination = "/share/dbus-1/services/id.miodro.Container.service";
+    text = ''
+      [D-BUS Service]
+      Name=id.miodro.Container
+      Exec=${miodroidPackage}/bin/miodroid container start
+    '';
+  };
   miodroidGbinderConf = pkgs.writeText "miodroid.conf" ''
     [Protocol]
     /dev/binder = aidl2
@@ -117,7 +126,10 @@ in
     '';
 
     environment.etc."gbinder.d/miodroid.conf".source = miodroidGbinderConf;
-    environment.systemPackages = [ miodroidPackage ];
+    environment.systemPackages = [
+      miodroidPackage
+    ]
+    ++ lib.optional rootlessCfg.enable rootlessDbusService;
     environment.etc."miodroid-extra/images" = lib.mkIf (imagePackage != null) {
       source = imagePackage;
     };

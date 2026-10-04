@@ -3,6 +3,8 @@
   fetchFromGitHub,
   python3Packages,
   dnsmasq,
+  android-tools,
+  e2fsprogs,
   gawk,
   getent,
   gobject-introspection,
@@ -89,10 +91,14 @@ let
             --replace-fail \
               'return f"miodroid{get_suffix_dash()}"' \
               'return f"miodroid0{get_suffix_dash()}"'
+          substituteInPlace tools/helpers/instance.py \
+            --replace-fail \
+              'return f"/var/lib/miodroid{get_suffix()}"' \
+              'return os.environ.get("MIODROID_WORK", f"/var/lib/miodroid{get_suffix()}")'
           substituteInPlace tools/config/__init__.py \
             --replace-fail \
               'defaults["images_path"] = defaults["work"] + "/images"' \
-              'defaults["images_path"] = defaults["work"] + "/images"; defaults["preinstalled_images_paths"].append(os.environ["MIODROID_WORK"] + "/images") if os.environ.get("MIODROID_ROOTLESS") and os.environ.get("MIODROID_WORK") else None'
+              'defaults["images_path"] = defaults["work"] + "/images"'
           sed -i 's|/waydroid{instance_suffix}|/miodroid{instance_suffix}|' \
             tools/config/__init__.py
 
@@ -106,6 +112,16 @@ let
             --replace-fail \
               'if os.geteuid() != 0:' \
               'if os.geteuid() != 0 and not os.environ.get("MIODROID_ROOTLESS"):'
+          substituteInPlace tools/__init__.py \
+            --replace-fail \
+              '        tools_logging.init(args)' \
+              '        os.makedirs(args.work, exist_ok=True) if os.environ.get("MIODROID_ROOTLESS") else None
+              tools_logging.init(args)'
+          substituteInPlace tools/actions/initializer.py \
+            --replace-fail \
+              '    if args.images_path not in tools.config.defaults["preinstalled_images_paths"]:' \
+              '    os.makedirs(args.images_path, exist_ok=True)
+          if args.images_path not in tools.config.defaults["preinstalled_images_paths"]:'
           sed -i \
             's/dbus\.SystemBus()/dbus.SessionBus() if os.environ.get("MIODROID_ROOTLESS") else dbus.SystemBus()/g' \
             tools/actions/container_manager.py \
@@ -117,9 +133,10 @@ let
           import logging
           import os
           import shutil
+          import hashlib
 
-          def _run(args, command):
-              return tools.helpers.run.user(args, command)
+          def _run(args, command, check=True):
+              return tools.helpers.run.user(args, command, check=check)
 
           def _ismount(path):
               path = os.path.realpath(path)
@@ -145,7 +162,28 @@ let
                   umount_all(args, destination)
               os.makedirs(destination, exist_ok=True)
               if source.endswith(".img"):
-                  command = ["fuse2fs", "-o", "ro" if readonly else "rw",
+                  with open(source, "rb") as image:
+                      is_sparse = image.read(4) == b"\x3a\xff\x26\xed"
+                  cache_dir = os.path.join(
+                      os.environ.get("MIODROID_WORK", "/tmp"),
+                      "raw-images")
+                  os.makedirs(cache_dir, exist_ok=True)
+                  cache = os.path.join(
+                      cache_dir,
+                      hashlib.sha256(os.fsencode(source)).hexdigest() + ".img")
+                  if not os.path.exists(cache):
+                      if is_sparse:
+                          _run(args, ["simg2img", source, cache])
+                      else:
+                          shutil.copyfile(source, cache)
+                  status = _run(args, ["e2fsck", "-fy", cache], check=False)
+                  if status not in (0, 1, 2):
+                      raise RuntimeError(
+                          "e2fsck failed for rootless image: " + source)
+                  source = cache
+                  mount_options = ["fakeroot"]
+                  mount_options.append("ro" if readonly else "rw")
+                  command = ["fuse2fs", "-o", ",".join(mount_options),
                              source, destination]
               elif mount_type == "overlay":
                   command = ["fuse-overlayfs"]
@@ -348,6 +386,8 @@ let
             kmod
             lxc
             fuse2fs
+            android-tools
+            e2fsprogs
             fuse-overlayfs
             fuse3
             util-linux

@@ -167,8 +167,17 @@ in
       machine.succeed("""cat > /tmp/miodroid-rootless-test.sh <<'EOF'
       #!/bin/sh
       set -eu
-      miodroid init -c http://127.0.0.1:8000/system -v http://127.0.0.1:8000/vendor -r lineage -s VANILLA ||
-          { cat /tmp/tools.log 2>/dev/null || true; exit 1; }
+      if ! miodroid init -c http://127.0.0.1:8000/system \
+          -v http://127.0.0.1:8000/vendor -r lineage -s VANILLA; then
+          if test -f /tmp/tools.log; then cat /tmp/tools.log; fi
+          exit 1
+      fi
+      if test ! -f "$MIODROID_WORK/images/system.img"; then
+          cat "$MIODROID_WORK/miodroid.cfg"
+          cat "$MIODROID_WORK/miodroid.log"
+          find "$MIODROID_WORK" -maxdepth 3 -type f -print
+          exit 1
+      fi
       echo rootless-init-complete
       EOF
       chmod 0755 /tmp/miodroid-rootless-test.sh
