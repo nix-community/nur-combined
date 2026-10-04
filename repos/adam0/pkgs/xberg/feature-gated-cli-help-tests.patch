@@ -1,0 +1,91 @@
+--- a/crates/xberg-cli/tests/commands_test.rs
++++ b/crates/xberg-cli/tests/commands_test.rs
+@@ -637,22 +637,36 @@
+     let stdout = String::from_utf8_lossy(&output.stdout);
+ 
+     let expected_flags = [
++        #[cfg(feature = "ocr-surface")]
+         "--ocr",
++        #[cfg(feature = "ocr-surface")]
+         "--ocr-backend",
++        #[cfg(feature = "ocr-surface")]
+         "--ocr-language",
++        #[cfg(feature = "ocr-surface")]
+         "--force-ocr",
+         "--no-cache",
++        #[cfg(feature = "ocr-surface")]
+         "--ocr-auto-rotate",
++        #[cfg(any(feature = "core-cli", feature = "analysis"))]
+         "--chunk",
++        #[cfg(any(feature = "core-cli", feature = "analysis"))]
+         "--chunk-size",
++        #[cfg(any(feature = "core-cli", feature = "analysis"))]
+         "--chunk-overlap",
++        #[cfg(any(feature = "core-cli", feature = "analysis"))]
+         "--chunking-tokenizer",
+         "--content-format",
+         "--include-structure",
++        #[cfg(feature = "analysis")]
+         "--quality",
++        #[cfg(feature = "analysis")]
+         "--detect-language",
++        #[cfg(feature = "layout-detection")]
+         "--layout",
++        #[cfg(feature = "layout-detection")]
+         "--layout-confidence",
++        #[cfg(feature = "layout-detection")]
+         "--layout-table-model",
+         "--acceleration",
+         "--max-concurrent",
+@@ -661,7 +675,9 @@
+         "--page-markers",
+         "--extract-images",
+         "--target-dpi",
++        #[cfg(feature = "pdf-surface")]
+         "--pdf-password",
++        #[cfg(feature = "analysis")]
+         "--token-reduction",
+         "--msg-codepage",
+     ];
+@@ -695,19 +711,31 @@
+     let batch_help = String::from_utf8_lossy(&batch_output.stdout);
+ 
+     let shared_flags = [
++        #[cfg(feature = "ocr-surface")]
+         "--ocr",
++        #[cfg(feature = "ocr-surface")]
+         "--ocr-backend",
++        #[cfg(feature = "ocr-surface")]
+         "--ocr-language",
++        #[cfg(feature = "ocr-surface")]
+         "--force-ocr",
+         "--no-cache",
++        #[cfg(any(feature = "core-cli", feature = "analysis"))]
+         "--chunk",
++        #[cfg(any(feature = "core-cli", feature = "analysis"))]
+         "--chunk-size",
++        #[cfg(any(feature = "core-cli", feature = "analysis"))]
+         "--chunk-overlap",
+         "--content-format",
++        #[cfg(feature = "analysis")]
+         "--quality",
++        #[cfg(feature = "analysis")]
+         "--detect-language",
++        #[cfg(feature = "layout-detection")]
+         "--layout",
++        #[cfg(feature = "layout-detection")]
+         "--layout-confidence",
++        #[cfg(feature = "layout-detection")]
+         "--layout-table-model",
+         "--acceleration",
+         "--max-concurrent",
+@@ -716,7 +744,9 @@
+         "--page-markers",
+         "--extract-images",
+         "--target-dpi",
++        #[cfg(feature = "pdf-surface")]
+         "--pdf-password",
++        #[cfg(feature = "analysis")]
+         "--token-reduction",
+         "--msg-codepage",
+     ];

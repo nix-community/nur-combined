@@ -37,6 +37,9 @@ in
       hash = "sha256-+nkWIgrLZ7vx4wSOA9We/72cbw7S06wJKPxytAcpQ7s=";
     };
 
+    # Keep help assertions aligned with the selected CLI feature profile.
+    patches = [./feature-gated-cli-help-tests.patch];
+
     # Release archives omit submodules required by the integration tests.
     postPatch = ''
       cp -r ${testDocuments}/. test_documents/
