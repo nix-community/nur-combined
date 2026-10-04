@@ -1,11 +1,9 @@
-# NOTE: Applied a dirty patch while either nixpkgs or equicord fixes the pnpm lock issue
-# Hopefully we can remove this patch once the issue is resolved
 {
   nix-update-script,
   fetchFromGitHub,
   fetchPnpmDeps,
   equicord,
-  pnpm_10,
+  pnpm_11,
   ...
 }: let
   version = "2026-10-04";
@@ -20,13 +18,19 @@
   pnpmDeps = fetchPnpmDeps {
     inherit (equicord) pname;
     inherit version src;
-    pnpm = pnpm_10;
-    fetcherVersion = 3;
-    hash = "sha256-rx8z6PAlAPaZbkmg+3Vvq8OXR/yy5ZP0PmAk97ZDOSQ=";
+    pnpm = pnpm_11;
+    fetcherVersion = 4;
+    hash = "sha256-hBZHHB5kRkNqep5vWMMnwIblNCAOZvLotDjJUJd9iMU=";
   };
 in
   equicord.overrideAttrs (old: {
     inherit version src pnpmDeps;
+
+    nativeBuildInputs = map (input:
+      if builtins.isAttrs input && (input.pname or "") == "pnpm"
+      then pnpm_11
+      else input)
+    (old.nativeBuildInputs or []);
 
     env =
       old.env

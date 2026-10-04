@@ -1,7 +1,7 @@
 {
   electron,
   nodejs,
-  pnpm_10,
+  pnpm_11,
   stdenvNoCC,
   autoPatchelfHook,
   copyDesktopItems,
@@ -33,7 +33,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     [
       makeWrapper
       pnpmConfigHook
-      pnpm_10
+      pnpm_11
       nodejs
     ]
     ++ lib.optionals stdenvNoCC.hostPlatform.isLinux [
@@ -88,9 +88,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
-    pnpm = pnpm_10;
-    fetcherVersion = 3;
-    hash = "sha256-BHcHLDE4KBVWrG1Jevg9OPq/xdaN1PdtIfoqzDKDGYY=";
+    pnpm = pnpm_11;
+    fetcherVersion = 4;
+    hash = "sha256-jP1sXb0n0PIofi/6kJfBxPxeYzPKrken4shGiXvgZoM=";
   };
 
   buildPhase = ''
