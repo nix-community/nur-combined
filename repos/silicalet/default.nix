@@ -41,6 +41,7 @@
   # nyaterm source builds are too heavy; use nyaterm-bin.
   # nyaterm = pkgs.callPackage ./pkgs/apps/nyaterm { };
   nyaterm-bin = pkgs.callPackage ./pkgs/apps/nyaterm/binary.nix { };
+  nyaterm-gpui-bin = pkgs.callPackage ./pkgs/apps/nyaterm-gpui/binary.nix { };
   oh-dsh-bin = pkgs.callPackage ./pkgs/apps/oh-dsh/binary.nix { };
   quarkpan = pkgs.callPackage ./pkgs/tools/quarkpan { };
   quien = pkgs.callPackage ./pkgs/tools/quien { };

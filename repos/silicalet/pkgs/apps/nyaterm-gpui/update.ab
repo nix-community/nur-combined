@@ -1,0 +1,88 @@
+import { env_var_load } from "std/env"
+
+main (args) {
+    let system = "x86_64-linux"
+    if len(args) > 1 {
+        system = args[1]
+    }
+
+    if system != "x86_64-linux" and system != "aarch64-linux" {
+        echo("error: unsupported architecture: {system}")
+        exit(1)
+    }
+
+    const package = "nyaterm-gpui-bin"
+    const github_repo = "nyakang/nyaterm"
+    const repo_root = $ git rev-parse --show-toplevel $?
+    const release_file = $ mktemp $?
+    const github_token = env_var_load("GITHUB_TOKEN", "/dev/null")
+
+    if github_token == "" {
+        $ curl --fail --silent --show-error --location \
+            --retry 5 --retry-all-errors --retry-delay 2 \
+            "https://api.github.com/repos/{github_repo}/releases?per_page=30" \
+            --output {release_file} $?
+    } else {
+        $ curl --fail --silent --show-error --location \
+            --retry 5 --retry-all-errors --retry-delay 2 \
+            --header "Authorization: Bearer {github_token}" \
+            "https://api.github.com/repos/{github_repo}/releases?per_page=30" \
+            --output {release_file} $?
+    }
+
+    const filter_dir = $ mktemp -d $?
+    const version_filter = "{filter_dir}/version.jq"
+    const asset_filter = "{filter_dir}/asset.jq"
+    $ cp {repo_root}/pkgs/apps/nyaterm-gpui/version.jq {version_filter} $?
+    $ cp {repo_root}/pkgs/apps/nyaterm-gpui/asset.jq {asset_filter} $?
+
+    const version = $ jq -erf {version_filter} {release_file} $?
+    $ printf '%s\n' {version} | grep -Eq '^2\.0\.0-preview\.[0-9]+\$' $
+    failed {
+        echo("error: invalid GPUI preview version: {version}")
+        exit(1)
+    }
+
+    let asset = "NyaTerm_{version}_linux_x64.AppImage"
+    if system == "aarch64-linux" {
+        asset = "NyaTerm_{version}_linux_arm64.AppImage"
+    }
+
+    const url = $ jq -er --arg version {version} --arg asset {asset} \
+        -f {asset_filter} \
+        {release_file} | jq -er '.browser_download_url' $?
+    const digest = $ jq -r --arg version {version} --arg asset {asset} \
+        -f {asset_filter} \
+        {release_file} | jq -r '.digest // empty' $?
+    $ rm -rf {filter_dir} $?
+    let hash = ""
+
+    if digest != "" {
+        const digest_hex = $ printf '%s\n' {digest} | sed 's/^sha256://' $?
+        hash = $ nix hash convert --hash-algo sha256 --to sri {digest_hex} $?
+    } else {
+        hash = $ nix store prefetch-file --json {url} | jq -er '.hash' $?
+    }
+
+    const source_file = "{repo_root}/pkgs/apps/nyaterm-gpui/sources/{system}.nix"
+    $ sed -i \
+        -e 's|^  version = ".*";|  version = "{version}";|' \
+        -e 's|^  hash = ".*";|  hash = "{hash}";|' \
+        {source_file} $?
+    $ rm -f {release_file} $?
+
+    echo("Updated {package} for {system} to {version}")
+    $ nix eval --raw \
+        "path:{repo_root}#packages.{system}.{package}.drvPath" \
+        > /dev/null $?
+
+    const current_system = $ nix eval --impure --raw \
+        --expr builtins.currentSystem $?
+    if system == current_system {
+        $ nix build \
+            "path:{repo_root}#packages.{system}.{package}" \
+            --no-link $?
+    } else {
+        echo("Skipping build for non-native system {system} on {current_system}")
+    }
+}

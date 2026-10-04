@@ -81,6 +81,9 @@ and hash. The default update set uses `meatshell-bin` to avoid rebuilding its
 slower source package. `nyaterm` is binary-only and updates through `nyaterm-bin`.
 Both select the matching release asset for `x86_64-linux` or `aarch64-linux`;
 MeatShell uses its official ARM64 tarball because upstream does not publish an ARM64 AppImage.
+`nyaterm-gpui-bin` tracks the `v2.0.0-preview` GPUI pre-release instead of the stable Tauri release.
+Run it with `nix run .#nyaterm-gpui-bin`.
+
 `cangjie` is built from the upstream source repositories, while the previous
 vendor binary package remains available as `cangjie-bin`.
 

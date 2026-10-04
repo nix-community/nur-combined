@@ -77,6 +77,7 @@ jobs:
           - { package: modeltrace, system: x86_64-linux, runner: ubuntu-latest }
           - { package: neomacs-bin, system: x86_64-linux, runner: ubuntu-latest }
           - { package: nyaterm-bin, system: x86_64-linux, runner: ubuntu-latest }
+          - { package: nyaterm-gpui-bin, system: x86_64-linux, runner: ubuntu-latest }
           - { package: oh-dsh-bin, system: x86_64-linux, runner: ubuntu-latest }
           - { package: quien, system: x86_64-linux, runner: ubuntu-latest }
           - { package: seekey, system: x86_64-linux, runner: ubuntu-latest }
@@ -85,6 +86,7 @@ jobs:
           - { package: meatshell-bin, system: aarch64-linux, runner: ubuntu-24.04-arm }
           - { package: neomacs-bin, system: aarch64-linux, runner: ubuntu-24.04-arm }
           - { package: nyaterm-bin, system: aarch64-linux, runner: ubuntu-24.04-arm }
+          - { package: nyaterm-gpui-bin, system: aarch64-linux, runner: ubuntu-24.04-arm }
 
     steps:
       - name: Fetch repository

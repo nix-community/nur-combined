@@ -16,6 +16,7 @@ main (args) {
         "modeltrace",
         "neomacs-bin",
         "nyaterm-bin",
+        "nyaterm-gpui-bin",
         "oh-dsh-bin",
         "quarkpan",
         "quien",
