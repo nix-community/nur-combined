@@ -22,13 +22,13 @@ buildGoModule (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "magpie";
-  version = "0.1.708";
+  version = "0.1.817";
 
   src = fetchFromGitHub {
     owner = "yetone";
     repo = "magpie";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-FijmFDwcKyW6mG1jZKLzfM4lnpocFAeJ2Gta/KEjOoI=";
+    hash = "sha256-iJs0l17eTqh39E5OYZ4PJVgaDYPs8v5T012G6CNCc1g=";
   };
 
   vendorHash = "sha256-XEaHZVw3co0yUV6fLUlSkvg9LlroKFj2B2sjMW1e6BU=";
@@ -82,9 +82,14 @@ buildGoModule (finalAttrs: {
   nativeCheckInputs =
     lib.optionals stdenv.hostPlatform.isLinux [ dbus ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [ xcbuild ];
+  # The native AppKit/WebKit panel test fails in the Darwin build sandbox.
+  checkFlags = lib.optionals stdenv.hostPlatform.isDarwin [
+    "-skip=^TestTrayCellClickReleasedPanel$"
+  ];
   checkPhase = ''
     runHook preCheck
-    go test -tags=${lib.concatStringsSep "," finalAttrs.tags} ./...
+    export GOFLAGS=''${GOFLAGS//-trimpath/}
+    buildGoDir test ./...
     runHook postCheck
   '';
 
