@@ -151,8 +151,8 @@
             "url": "https://github.com/Nick1296/nur-packages"
         },
         "NicoWeio": {
-            "rev": "3930abb1276234d60a88c9ced4689a96678e3eaa",
-            "sha256": "16s7w0b2f66sj0d1lj59q8w379g5d306w6qp6vf04vwzcj8fa2i0",
+            "rev": "f506a51a2f7c82c8778af0d9b62de71ca0384e76",
+            "sha256": "07jd6gs5fjj0sxmk5mk69gwfyvx0jz1xdgham9vrn9sz31a36jw4",
             "url": "https://github.com/NicoWeio/nur-packages"
         },
         "NotBalds": {
@@ -1380,8 +1380,8 @@
             "url": "https://github.com/jorsn/nur-packages"
         },
         "josh": {
-            "rev": "7e22384da911b253afd55b135af18a857cafc9e6",
-            "sha256": "0srndg2xl9ia3pq9wnpr156g0cwq5nhlzqf7hfhhdn8lww3871iv",
+            "rev": "9cfd82e76de0310c843bd6a9f0a694773cd63ff1",
+            "sha256": "16350999lyc50iaq6nrq5ba7jm4cf4z0vdigl9p23ispmbq9bjhj",
             "url": "https://github.com/josh/nurpkgs"
         },
         "jpts": {
@@ -2338,11 +2338,6 @@
             "rev": "b8ea2432f6751e8f86390fcc91fda72b4a9fd2e6",
             "sha256": "1ccg903m8km0p50ql0li0cwnxpvan4w4565w09kn2brb1az1zlp1",
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
-        },
-        "shelvacu": {
-            "rev": "f9fd755a9385215f8ef24f29d86595d9b84f434f",
-            "sha256": "060q43gw9njg55ws29936m8y0qxrq58sjnns4wfpbv69cqvhrjs3",
-            "url": "https://git.uninsane.org/shelvacu/nix-stuff"
         },
         "shirok1": {
             "rev": "ecb32d0c015600a0b5af51aefe528ac23cf525c8",
