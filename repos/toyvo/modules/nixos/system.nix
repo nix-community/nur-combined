@@ -90,7 +90,7 @@ in
       stateVersion = "26.11";
       autoUpgrade = {
         enable = true;
-        flake = "github:ToyVoDev/nixcfg";
+        flake = "github:toyvo/nixcfg";
         persistent = true;
         allowReboot = true;
         rebootWindow = {

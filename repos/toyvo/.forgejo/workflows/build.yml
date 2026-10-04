@@ -14,8 +14,15 @@ on:
       - main
       - master
   schedule:
-    # rebuild everyday at 8:26
-    - cron: "26 8 * * *"
+    # Rebuild daily at 13:26 UTC (07:26 CDT / 06:26 CST on the nas).
+    # Forgejo cron runs in UTC while the nas autoUpgrade timer runs at
+    # 04:40 America/Chicago + up to 45min randomized delay (09:40-11:10 UTC)
+    # with allowReboot in the 01:00-05:00 local window. The old 08:26 UTC
+    # schedule started right before the upgrade/reboot, and the resulting
+    # nixos-rebuild switch / reboot SIGTERMs the runner mid-job:
+    # "ctx: context canceled, exec: RUN signal: terminated".
+    # Keep this safely after that window (job itself runs ~3h).
+    - cron: "26 13 * * *"
   workflow_dispatch:
 concurrency:
   group: ${{ forgejo.workflow }}
@@ -110,6 +117,11 @@ jobs:
   build:
     needs: update
     runs-on: native
+    # This builds .#checks.<system>.all with -j 1 and routinely takes ~3h.
+    # Set an explicit 4h job timeout so the Forgejo default (which would
+    # cancel the job with "ctx: context canceled") can't kill it early,
+    # with ~1h padding over the expected runtime.
+    timeout-minutes: 240
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -210,6 +222,8 @@ jobs:
           fi
   nur:
     needs: build
+    # Each matrix leg builds ci.nix cacheOutputs; allow the same 4h headroom as build.
+    timeout-minutes: 240
     strategy:
       matrix:
         nixPath:

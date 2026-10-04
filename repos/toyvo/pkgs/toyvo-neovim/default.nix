@@ -194,25 +194,13 @@ if inputs ? "nvf" then
               enable = true;
               lightbulb.enable = true;
               trouble.enable = true;
-              lspconfig.sources.nix-lsp = lib.mkForce ''
-                lspconfig.nil_ls.setup{
-                  capabilities = capabilities,
-                  on_attach = default_on_attach,
-                  cmd = {"${lib.getExe nil}"},
-                  settings = {
-                    ["nil"] = {
-                      formatting = {
-                        command = {"${lib.getExe nixfmt}"},
-                      },
-                      nix = {
-                        flake = {
-                          autoArchive = true,
-                        },
-                      },
-                    },
-                  },
-                }
-              '';
+              servers.nil.settings.nil = {
+                formatting.command = [ "${lib.getExe nixfmt}" ];
+                nix.flake = {
+                  autoArchive = true;
+                  autoEvalInputs = true;
+                };
+              };
             };
 
             theme = {

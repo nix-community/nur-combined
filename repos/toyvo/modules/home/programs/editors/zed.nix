@@ -8,8 +8,178 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
-    xdg.configFile."zed/settings.json".source =
-      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nixcfg/modules/home/programs/editors/zed-settings.json";
-    home.packages = [ cfg.package ];
+    programs.zed-editor = {
+      mutableUserSettings = true;
+      userSettings = {
+        cli_default_open_behavior = "new_window";
+        agent = {
+          default_model = {
+            effort = "xhigh";
+            enable_thinking = true;
+            model = "go/muse-spark-1.3-contributor";
+            provider = "opencode";
+          };
+          default_profile = "write";
+        };
+        agent_servers = {
+          "pi-acp" = {
+            default_config_options = {
+              model = "opencode-go/muse-spark-1.3-contributor";
+            };
+            type = "registry";
+          };
+          "claude-acp" = {
+            default_config_options = {
+              mode = "bypassPermissions";
+              model = "sonnet";
+            };
+            type = "registry";
+          };
+          opencode = {
+            default_config_options = {
+              model = "opencode-go/muse-spark-1.3-contributor";
+            };
+            type = "registry";
+          };
+        };
+        auto_update = false;
+        autosave = "on_focus_change";
+        buffer_font_family = "MonaspiceNe Nerd Font";
+        buffer_font_features = {
+          calt = true;
+          dlig = true;
+          ss01 = true;
+          ss02 = true;
+          ss03 = true;
+          ss04 = true;
+          ss05 = true;
+          ss06 = true;
+          ss07 = true;
+          ss08 = true;
+        };
+        buffer_font_size = 16;
+        code_lens = "on";
+        context_servers = {
+          "mcp-server-brave-search" = {
+            enabled = true;
+            remote = false;
+            settings = { };
+          };
+          "mcp-server-github" = {
+            enabled = true;
+            remote = false;
+            settings = { };
+          };
+        };
+        edit_predictions = {
+          provider = "zed";
+          open_ai_compatible_api = {
+            api_url = "https://opencode.ai/zen/v1/completions";
+            model = "muse-spark-1.3-free";
+            prompt_format = "infer";
+            max_output_tokens = 512;
+          };
+        };
+        format_on_save = "modifications_if_available";
+        formatter = [
+          {
+            language_server = {
+              name = "rust-analyzer";
+            };
+          }
+          {
+            external = {
+              arguments = [
+                "-e"
+                "s/ *$//"
+              ];
+              command = "sed";
+            };
+          }
+        ];
+        git_panel = {
+          sort_by_path = true;
+          tree_view = true;
+        };
+        icon_theme = "Catppuccin Frappé";
+        inlay_hints = {
+          enabled = true;
+        };
+        language_models = {
+          ollama = {
+            api_url = "https://ollama.diekvoss.net";
+          };
+        };
+        languages = {
+          JSON = {
+            tab_size = 4;
+            formatter = {
+              external = {
+                arguments = [
+                  "--stdin-filepath"
+                  "{buffer_path}"
+                ];
+                command = "prettier";
+              };
+            };
+          };
+          JavaScript = {
+            code_actions_on_format = {
+              "source.fixAll.eslint" = true;
+              "source.organizeImports" = true;
+            };
+            formatter = {
+              external = {
+                arguments = [
+                  "--stdin-filepath"
+                  "{buffer_path}"
+                ];
+                command = "prettier";
+              };
+            };
+          };
+          Nix = {
+            language_servers = [
+              "nil"
+              "!nixd"
+            ];
+          };
+          http = {
+            inlay_hints = {
+              enabled = true;
+            };
+          };
+        };
+        lsp = {
+          nil = {
+            initialization_options = {
+              formatting = {
+                command = [ "nixfmt" ];
+              };
+              nix = {
+                flake = {
+                  autoArchive = true;
+                };
+              };
+            };
+          };
+        };
+        terminal = {
+          shell = {
+            program = "fish";
+          };
+        };
+        theme = {
+          mode = "dark";
+          dark = "Catppuccin Frappé (red)";
+          light = "Catppuccin Frappé (red)";
+        };
+        ui_font_size = 16;
+        vim_mode = true;
+        auto_install_extensions = {
+          "catppuccin-icons" = true;
+        };
+      };
+    };
   };
 }

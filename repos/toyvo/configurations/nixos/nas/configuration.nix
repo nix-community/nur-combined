@@ -288,6 +288,13 @@ in
     };
   };
 
+  # Don't restart the runner on every nixos-rebuild switch: that SIGTERMs
+  # running CI jobs with "ctx: context canceled, exec: RUN signal:
+  # terminated". Restart it manually after changing its config. (This
+  # doesn't cover the autoUpgrade reboot itself — the workflow schedule is
+  # kept outside the 01:00-05:00 reboot window for that.)
+  systemd.services.gitea-runner-nas.restartIfChanged = false;
+
   # Forgejo 15 creates runners server-side: the UI (Site Administration ->
   # Actions -> Runners -> Create new runner) shows a uuid and a secret, and
   # there is no registration token for the nixpkgs module's `register` step

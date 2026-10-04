@@ -15,3 +15,4 @@ Outstanding work and follow-up items for this repository.
 - [ ] Authentik OIDC login for Forgejo
 - [ ] Periodic backups via `services.forgejo.dump.enable`
 - [ ] Homepage widget (`type: gitea`) with an API key stored in sops as `HOMEPAGE_VAR_FORGEJO_API_KEY`
+- [ ] Consider sharding the ~3h `checks.<system>.all` monolith build (matrix over package groups, higher `-j`, or nix-fast-build) so scheduled CI is less exposed to any single interruption
