@@ -15,4 +15,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   # gowin-eda-edu-ide = pkgs.callPackage ./pkgs/gowin-eda-edu-ide { };
+  computer-use-linux = pkgs.callPackage ./pkgs/computer-use-linux { };
+  cua-driver = pkgs.callPackage ./pkgs/cua-driver { };
 } // (pkgs.callPackage ./pkgs/themes { })
