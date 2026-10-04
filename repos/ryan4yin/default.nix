@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   computer-use-linux = pkgs.callPackage ./pkgs/computer-use-linux { };
+  dsh = pkgs.callPackage ./pkgs/dsh { };
   cua-driver = pkgs.callPackage ./pkgs/cua-driver { };
   rime-data-flypy = pkgs.callPackage ./pkgs/rime-data-flypy { };
 }
