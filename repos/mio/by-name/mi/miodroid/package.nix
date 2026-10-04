@@ -58,6 +58,7 @@ let
     patches = [
       ./patches/0004-android16-vendor-detection.patch
       ./patches/0005-multi-instance-support.patch
+      ./patches/0006-rootless-container-manager.patch
     ];
     patchFlags = [
       "-p1"
@@ -111,16 +112,6 @@ let
             tools/actions/initializer.py \
             tools/actions/session_manager.py \
             tools/helpers/ipc.py
-          substituteInPlace tools/helpers/ipc.py \
-            --replace-fail \
-              'return dbus.Interface(dbus.SessionBus() if os.environ.get("MIODROID_ROOTLESS") else dbus.SystemBus().get_object(instance.get_container_dbus_name(), object_path), intf)' \
-              'return dbus.Interface((dbus.SessionBus() if os.environ.get("MIODROID_ROOTLESS") else dbus.SystemBus()).get_object(instance.get_container_dbus_name(), object_path), intf)'
-          sed -i \
-            '165,170 s/    tools.helpers.run.user(args, command)/    if not os.environ.get("MIODROID_ROOTLESS"): tools.helpers.run.user(args, command)/' \
-            tools/actions/container_manager.py
-          sed -i \
-            '238,241 s/        tools.helpers.run.user(args, command, check=False)/        if not os.environ.get("MIODROID_ROOTLESS"): tools.helpers.run.user(args, command, check=False)/' \
-            tools/actions/container_manager.py
 
           cat > tools/helpers/rootless.py <<'EOF'
           import logging
@@ -268,11 +259,6 @@ let
           # identifier; it is not a local name and must remain unchanged.
           substituteInPlace tools/actions/initializer.py \
             --replace-fail '"/miodroid_"' '"/waydroid_"'
-          substituteInPlace tools/actions/container_manager.py \
-            --replace-fail '"/data/scripts/waydroid-net.sh", "start", args.instance]' \
-            '"/data/scripts/waydroid-net.sh", "start", args.instance or ""]' \
-            --replace-fail '"/data/scripts/waydroid-net.sh", "stop", args.instance]' \
-            '"/data/scripts/waydroid-net.sh", "stop", args.instance or ""]'
           substituteInPlace tools/actions/container_manager.py \
             --replace-fail 'tools.config.defaults["lxc"] + "/waydroid/config"' \
             'tools.config.defaults["lxc"] + "/miodroid/config"'

@@ -19,7 +19,13 @@ let
   rootlessHelper = pkgs.writeShellScript "miodroid-rootless-helper" ''
     set -eu
 
-    ${pkgs.kmod}/bin/modprobe binder_linux || true
+    if ${pkgs.coreutils}/bin/test -e /sys/module/binder_linux ||
+      ${pkgs.gzip}/bin/gzip -cd /proc/config.gz |
+      ${pkgs.gnugrep}/bin/grep -q 'CONFIG_ANDROID_BINDER_IPC=y'; then
+      :
+    else
+      ${pkgs.kmod}/bin/modprobe binder_linux
+    fi
     ${pkgs.coreutils}/bin/install -d -m 0755 /dev/binderfs
     if ! ${pkgs.util-linux}/bin/mountpoint -q /dev/binderfs; then
       ${pkgs.util-linux}/bin/mount -t binder binder /dev/binderfs

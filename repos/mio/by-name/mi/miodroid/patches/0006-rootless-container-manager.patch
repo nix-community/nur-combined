@@ -1,0 +1,29 @@
+From: miodroid contributors
+Subject: [PATCH 0006] rootless container manager support
+
+Rootless containers use the user's D-Bus session and do not have
+permission to configure the system network namespace.
+
+diff --git a/tools/actions/container_manager.py b/tools/actions/container_manager.py
+--- a/tools/actions/container_manager.py
++++ b/tools/actions/container_manager.py
+@@ -166,1 +166,1 @@
+-               "/data/scripts/waydroid-net.sh", "start", args.instance]
++               "/data/scripts/waydroid-net.sh", "start", args.instance or ""]
+@@ -168,1 +168,2 @@
+-    tools.helpers.run.user(args, command)
++    if not os.environ.get("MIODROID_ROOTLESS"):
++        tools.helpers.run.user(args, command)
+@@ -240,1 +241,1 @@
+-                   "/data/scripts/waydroid-net.sh", "stop", args.instance]
++                   "/data/scripts/waydroid-net.sh", "stop", args.instance or ""]
+@@ -241,1 +242,2 @@
+-        tools.helpers.run.user(args, command, check=False)
++        if not os.environ.get("MIODROID_ROOTLESS"):
++            tools.helpers.run.user(args, command, check=False)
+diff --git a/tools/helpers/ipc.py b/tools/helpers/ipc.py
+--- a/tools/helpers/ipc.py
++++ b/tools/helpers/ipc.py
+@@ -10,1 +10,1 @@
+-    return dbus.Interface(dbus.SystemBus().get_object(instance.get_container_dbus_name(), object_path), intf)
++    return dbus.Interface((dbus.SessionBus() if os.environ.get("MIODROID_ROOTLESS") else dbus.SystemBus()).get_object(instance.get_container_dbus_name(), object_path), intf)
