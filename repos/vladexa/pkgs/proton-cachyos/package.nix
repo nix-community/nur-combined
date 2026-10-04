@@ -18,9 +18,9 @@ stdenvNoCC.mkDerivation (
     pureVersion = lib.removeSuffix "-${archVersion}" finalAttrs.version;
     fullname = "proton-cachyos-${pureVersion}-slr-${archVersion}";
     hashes = {
-      x86_64 = "";
-      x86_64_v3 = "";
-      arm64 = "";
+      x86_64 = "sha256-qcNHgFPIG6c3q53dyeZ18fZu+cBXzs5npyxgj/WIhkg=";
+      x86_64_v3 = "sha256-LlAnK4fAyLrWF+Z0L9Ft4kwfoSB+g+0o9XNvKlOSZXg=";
+      arm64 = "sha256-yGphSPwNp0IA+V+HFL1vQP9P6qamHocnWooD8670vjE=";
     };
   in
   {
