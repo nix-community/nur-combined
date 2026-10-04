@@ -2584,6 +2584,164 @@ fn selector_pseudo_grammar_matches_dart() {
     }
 }
 
+/// An extension written inside `@media` may only apply to selectors in the same
+/// media context, and one extension written in two different contexts is an
+/// error even when nothing matches (#282). dart has rejected the cross-media
+/// shapes since well before 1.105; sasso used to check only an in-media
+/// extension against a rule at the root. Every expectation here was measured
+/// against dart-sass 1.105.1 on 2026-10-03.
+#[test]
+fn extend_across_media_contexts() {
+    let across = "Error: You may not @extend selectors across media queries.";
+    for src in [
+        // Extension in one `@media`, target in another.
+        "@media screen {\n  a {@extend b}\n}\n\n@media print {\n  b {c: d}\n}\n",
+        "@media print {\n  a {b: c}\n}\n\n@media screen {\n  d {@extend a}\n}\n",
+        // Extension in the root's child context, target in the parent's.
+        "@media screen {\n  a {b: c}\n  @media (min-width: 10px) {\n    d {@extend a}\n  }\n}\n",
+        // The shape the old check did catch: target at the root.
+        "@media screen {\n  a {@extend b}\n}\n\nb {c: d}\n",
+    ] {
+        assert_eq!(compile_err(src), across, "{src}");
+    }
+    assert_eq!(
+        compile_err(
+            "@media screen {\n  a {@extend b !optional}\n}\n\n@media print {\n  a {@extend b !optional}\n}\n"
+        ),
+        "Error: You may not @extend the same selector from within different media queries.",
+    );
+    // "The same" is the parsed selector, not its spelling (review on #285).
+    assert_eq!(
+        compile_err(
+            "@media screen { a {@extend .foo !optional} }\n@media print { a {@extend .f\\6f o !optional} }\n"
+        ),
+        "Error: You may not @extend the same selector from within different media queries.",
+    );
+    // An empty placeholder rule emits nothing but is still a target, and so
+    // is an omitted bogus one.
+    for src in [
+        "@media print { %p {} }\n@media screen { a {@extend %p} }\n",
+        "@media print {.x > + y {z: w}}\n@media screen {a {@extend .x}}\n",
+    ] {
+        assert_eq!(compile_err(src), across, "{src}");
+    }
+    // dart raises whichever error comes first as extensions and selectors
+    // register (second review on #285). An extension applies to a rule that
+    // already exists as it registers, so the across error beats the later
+    // copy's merge error ...
+    for src in [
+        "b {x: y}\n@media screen {a {@extend b}}\n@media print {a {@extend b}}\n",
+        // ... and to a rule that registers later as THAT registers.
+        "@media screen {a {@extend b}}\nb {x: y}\n@media print {a {@extend b}}\n",
+        "@media screen {a {@extend b}}\n@media print {b {x: y}}\n@media print {a {@extend b}}\n",
+        // A later rule meets the merged extension, whose context is the first
+        // one set: here `screen`, from the second copy.
+        "a {@extend b}\n@media screen {a {@extend b}}\nb {x: y}\n",
+        // `(color) or (hover)` is `(color) and (hover)` to dart, not `screen`.
+        "@media screen {a {@extend .x}}\n@media (color) or (hover) {.x {a: b}}\n",
+    ] {
+        assert_eq!(compile_err(src), across, "{src}");
+    }
+
+    let in_screen = "@media screen {\n  a, d {\n    b: c;\n  }\n}\n";
+    for (src, want) in [
+        ("@media screen {\n  a {b: c}\n  d {@extend a}\n}\n", in_screen),
+        // An extension outside any `@media` applies everywhere.
+        ("@media screen { a {b: c} }\nd {@extend a}\n", in_screen),
+        // Two `@media` blocks with the same query are one context.
+        (
+            "@media screen { a {b: c} }\n@media screen { d {@extend a} }\n",
+            in_screen,
+        ),
+        (
+            "@media screen {\n  @media (min-width: 10px) {\n    a {b: c}\n    d {@extend a}\n  }\n}\n",
+            "@media screen and (min-width: 10px) {\n  a, d {\n    b: c;\n  }\n}\n",
+        ),
+        (
+            "@media screen {\n  %p {b: c}\n  d {@extend %p}\n}\n",
+            "@media screen {\n  d {\n    b: c;\n  }\n}\n",
+        ),
+        (
+            "@supports (display: grid) {\n  @media screen {\n    a {b: c}\n    d {@extend a}\n  }\n}\n",
+            "@supports (display: grid) {\n  @media screen {\n    a, d {\n      b: c;\n    }\n  }\n}\n",
+        ),
+        // A copy outside any `@media` merges with one inside: no conflict.
+        (
+            "a {@extend b !optional}\n@media screen {\n  a {@extend b !optional}\n}\n",
+            "",
+        ),
+        // A merged copy is not re-applied to a rule that already exists, so
+        // the root `b` never meets the `screen` context.
+        (
+            "b {x: y}\na {@extend b}\n@media screen {\n  a {@extend b}\n}\n",
+            "b, a {\n  x: y;\n}\n",
+        ),
+        // dart's media-query equality ignores `and` vs `or`.
+        (
+            "@media (color) and (hover) {\n  .x {a: b}\n}\n@media (color) or (hover) {\n  d {@extend .x}\n}\n",
+            "@media (color) and (hover) {\n  .x, d {\n    a: b;\n  }\n}\n",
+        ),
+        // An interpolated `@#{"media"}` is a generic at-rule, not a media
+        // query, so the target inside it is still in `screen` (review on #285).
+        (
+            "@media screen {\n  @#{\"media\"} print {\n    a {b: c}\n  }\n  d {@extend a}\n}\n",
+            "@media screen {\n  @media print {\n    a, d {\n      b: c;\n    }\n  }\n}\n",
+        ),
+    ] {
+        assert_eq!(css(src), want, "{src}");
+    }
+}
+
+/// The cross-media check sees only the selectors an extension can reach, by
+/// the extend rewrite's own visibility rule (review on #285): a module's
+/// extensions reach that module and the modules it loads, never a sibling, and
+/// a private placeholder only its own module. Measured against dart-sass
+/// 1.105.1 on 2026-10-03.
+#[test]
+fn extend_across_media_contexts_respects_module_reach() {
+    let dir = std::env::temp_dir().join(format!("sasso_xmedia_{}", std::process::id()));
+    std::fs::create_dir_all(&dir).expect("mkdir");
+    let imp = sasso::FsImporter::new(vec![dir.clone()]);
+    let run = |modules: &[(&str, &str)], entry: &str| {
+        for (name, text) in modules {
+            std::fs::write(dir.join(format!("_{name}.scss")), text).unwrap();
+        }
+        compile(entry, &Options::default().with_importer(&imp)).map_err(err_message)
+    };
+    let across = "Error: You may not @extend selectors across media queries.".to_string();
+    // A sibling's rule is out of reach: dart compiles this.
+    assert_eq!(
+        run(
+            &[
+                ("xa", "@media screen { a {@extend .x !optional} }\n"),
+                ("xb", "@media print { .x {y: z} }\n"),
+            ],
+            "@use \"xa\";\n@use \"xb\";\n",
+        ),
+        Ok("@media print {\n  .x {\n    y: z;\n  }\n}".to_string()),
+    );
+    // A module the extension's own file loads is in reach.
+    assert_eq!(
+        run(
+            &[("xu", "@media print { .x {y: z} }\n")],
+            "@use \"xu\";\n@media screen { a {@extend .x} }\n"
+        ),
+        Err(across.clone()),
+    );
+    // A private placeholder, extended from its own module.
+    assert_eq!(
+        run(
+            &[(
+                "xp",
+                "@media screen { %-p {x: y} }\n@media print { a {@extend %-p !optional} }\n"
+            )],
+            "@use \"xp\";\n",
+        ),
+        Err(across),
+    );
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
 #[test]
 fn selector_bang_and_extend_leading_comma_match_dart() {
     let err = |src: &str| compile(src, &Options::default()).unwrap_err().message;

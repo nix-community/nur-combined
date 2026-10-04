@@ -1159,11 +1159,15 @@ pub(crate) struct Evaluator<'a> {
     cur_rule_extend_base: usize,
     /// Bogus-combinator selectors omitted from the CSS (`.a > + x`): they
     /// still satisfy `@extend` target matching like dart's extend graph.
-    bogus_selectors: Vec<String>,
-    /// Placeholder-rule selectors seen during eval (module key, selector).
-    /// An empty placeholder rule is pruned from the output tree but still
-    /// counts as an `@extend` target within the modules the extension sees.
-    placeholder_rules: Vec<(String, String)>,
+    bogus_selectors: Vec<TargetSite>,
+    /// Placeholder-rule selectors seen during eval. An empty placeholder rule
+    /// is pruned from the output tree but still counts as an `@extend` target
+    /// within the modules the extension sees.
+    placeholder_rules: Vec<TargetSite>,
+    /// Emitted `@media` preludes whose media context ([`media_context_key`])
+    /// is spelled differently: only a query that joins its conditions with
+    /// `or`. Lets the output-tree walk recover the context from a prelude.
+    media_context_aliases: HashMap<String, String>,
     /// Set while module loads run inside a module-loading `@import`: dart
     /// clones the whole import subtree's CSS at the import site (the same
     /// `_combineCss(clone: true)` as meta.load-css). All loads in the chain
@@ -1730,12 +1734,28 @@ struct PendingExtend {
     /// inherits its extender's flag, dart's ComplexSelector.lineBreak).
     extender_breaks: Vec<bool>,
     optional: bool,
-    /// Whether this `@extend` was registered inside a `@media` context.
-    in_media: bool,
+    /// The media context the `@extend` was written in ([`media_context_key`]
+    /// of its enclosing `@media` queries; `None` outside any `@media`). dart
+    /// compares these contexts, not just whether there is one: an extension
+    /// may only apply to a selector in the same context, and two copies of one
+    /// extension may not sit in different ones.
+    media: Option<String>,
     /// The canonical key of the module this `@extend` was written in
     /// (empty for the root stylesheet).
     origin: String,
     pos: Pos,
+}
+
+/// A selector that is an `@extend` target but is not a style rule in the
+/// output tree at extend time: an empty placeholder rule, or a bogus one.
+struct TargetSite {
+    /// The canonical key of the module the rule was written in.
+    module: String,
+    selector: String,
+    /// As [`PendingExtend::media`].
+    media: Option<String>,
+    /// As [`OutNode::Rule`]'s `extend_base`.
+    extend_base: usize,
 }
 
 impl<'a> Evaluator<'a> {
@@ -1820,6 +1840,7 @@ impl<'a> Evaluator<'a> {
             cur_rule_extend_base: usize::MAX,
             bogus_selectors: Vec::new(),
             placeholder_rules: Vec::new(),
+            media_context_aliases: HashMap::default(),
             used_modules: Rc::default(),
             star_modules: Rc::default(),
             used_user_modules: Rc::default(),
@@ -3504,9 +3525,43 @@ impl<'a> Evaluator<'a> {
     /// is recorded with its module scope).
     fn note_placeholder_rule(&mut self, s: &str) {
         if s.contains('%') {
-            self.placeholder_rules
-                .push((self.current_module.clone(), s.to_string()));
+            self.note_target_site(s, false);
         }
+    }
+
+    /// Record `selector`, a style rule's selector, as an `@extend` target
+    /// registered now, in the current module and media context: a placeholder
+    /// one, or an omitted `bogus` one.
+    fn note_target_site(&mut self, selector: &str, bogus: bool) {
+        let site = TargetSite {
+            module: self.current_module.clone(),
+            selector: selector.to_string(),
+            media: self.media_context(),
+            extend_base: self.extends.len(),
+        };
+        if bogus {
+            self.bogus_selectors.push(site);
+        } else {
+            self.placeholder_rules.push(site);
+        }
+    }
+
+    /// Record the media context of an emitted `@media` whose prelude spells it
+    /// differently (see [`Evaluator::media_context_aliases`]).
+    fn note_media_context_alias(&mut self, prelude: &str, queries: &[ResolvedQuery]) {
+        if !queries
+            .iter()
+            .all(|q| q.conjunction_and || q.conditions.len() < 2)
+        {
+            let key = media_context_key(queries, self.compressed());
+            self.media_context_aliases.insert(prelude.to_string(), key);
+        }
+    }
+
+    /// The current media context as an `@extend` compares it: `None` outside
+    /// any `@media`, else [`media_context_key`] of the enclosing queries.
+    pub(super) fn media_context(&self) -> Option<String> {
+        (!self.media_queries.is_empty()).then(|| media_context_key(&self.media_queries, self.compressed()))
     }
 
     fn eval_style_rule(&mut self, rule: &Rule, parents: &[String], sink: &mut Sink<'_>) -> Result<(), Error> {
@@ -3656,10 +3711,12 @@ impl<'a> Evaluator<'a> {
                     // The omitted selector still participates in @extend target
                     // matching (dart keeps the rule in the extend graph and only
                     // omits it from the emitted CSS).
-                    self.bogus_selectors.push(s.clone());
+                    self.note_target_site(s, true);
                     continue;
                 }
-                self.note_placeholder_rule(s);
+                if any_percent {
+                    self.note_placeholder_rule(s);
+                }
                 emit_selectors.push(s.clone());
                 if !full_lbs.is_empty() {
                     emit_linebreaks.push(full_lbs.get(i).copied().unwrap_or(false));
@@ -6787,18 +6844,243 @@ fn unquote_plain_attribute_value(raw: &str) -> String {
     raw.to_string()
 }
 
-/// Whether any TOP-LEVEL style rule (not nested inside an at-rule such as
-/// `@media`) contains the extend `target` simple selector. Used to detect an
-/// `@extend` that crosses a media-query boundary.
-fn root_rule_contains_target(nodes: &[OutNode], target: &crate::selector::Simple) -> bool {
-    nodes.iter().any(|node| match node {
-        OutNode::Rule { selectors, .. } => selectors.to_strings().iter().any(|s| {
-            crate::selector::parse_list(s)
-                .map(|cs| crate::selector::list_contains_simple(&cs, target))
-                .unwrap_or(false)
-        }),
-        _ => false,
-    })
+/// Which module scopes an extension can reach, by the rewrite's own rule
+/// ([`rewrite_nodes_scoped`]): its own module and every module whose CSS it
+/// can rewrite along load edges, and only its own for a private placeholder.
+pub(super) struct ExtendReach<'a> {
+    origin: &'a str,
+    private: bool,
+    closure: Option<&'a crate::fxhash::FxHashSet<String>>,
+    target: &'a crate::selector::Simple,
+}
+
+impl<'a> ExtendReach<'a> {
+    pub(super) fn new(
+        origin: &'a str,
+        target: &'a crate::selector::Simple,
+        closures: &'a HashMap<String, crate::fxhash::FxHashSet<String>>,
+    ) -> Self {
+        let private = matches!(target,
+            crate::selector::Simple::Placeholder(n) if n.starts_with('-') || n.starts_with('_'));
+        ExtendReach {
+            origin,
+            private,
+            closure: closures.get(origin),
+            target,
+        }
+    }
+
+    pub(super) fn sees(&self, scope: &str) -> bool {
+        if self.private {
+            return scope == self.origin;
+        }
+        scope == self.origin || self.closure.is_some_and(|c| c.contains(scope))
+    }
+}
+
+/// One dart `Extension` and every copy of it: the same extender complex
+/// extending the same target, written in the same module. dart keeps the
+/// first copy and merges each later one into it (`MergedExtension.merge`).
+struct MediaGroup<'a> {
+    reach: ExtendReach<'a>,
+    /// `(registration index, media context)` of each copy, in order.
+    copies: Vec<(usize, Option<&'a str>)>,
+}
+
+impl MediaGroup<'_> {
+    /// The context of the extension applied to a selector registered when
+    /// `base` `@extend`s were (see [`OutNode::Rule`]'s `extend_base`), and
+    /// when dart applies it, on the clock of [`first_media_error`]. A
+    /// selector registered before the first copy is extended as that copy
+    /// registers, in its context. A later one is extended as it registers, by
+    /// the merged extension, whose context is the first one set so far: a
+    /// merged copy is never re-applied to a selector that already exists.
+    fn applied(&self, base: usize) -> (usize, Option<&str>) {
+        let first = self.copies[0].0;
+        // `usize::MAX` is a rule eval did not register; date it to the start.
+        let base = if base == usize::MAX { 0 } else { base };
+        if base <= first {
+            (2 * first + 1, self.copies[0].1)
+        } else {
+            let media = self.copies.iter().take_while(|c| c.0 < base).find_map(|c| c.1);
+            (2 * base, media)
+        }
+    }
+
+    /// Whether some copy's context could differ from `context`.
+    fn may_conflict(&self, context: Option<&str>) -> bool {
+        self.copies.iter().any(|c| c.1.is_some() && c.1 != context)
+    }
+}
+
+/// The first media-context error dart raises while registering these
+/// extensions and selectors, if any. Both errors come from the extension
+/// store as things register, so the one reported is the earliest:
+///
+/// * "You may not @extend selectors across media queries." when an extension
+///   applies to a selector in a context other than its own
+///   (`assertCompatibleMediaContext`). An extension outside any `@media`
+///   applies everywhere. It points at the extension's first copy.
+/// * "You may not @extend the same selector from within different media
+///   queries." when a copy merges into an extension whose context is set and
+///   differs from its own (`MergedExtension.merge`). It points at the copy.
+///
+/// Time runs on the registration clock: copy `j` registers at `2j + 1`, and
+/// a selector registered after `b` extensions at `2b`. Only selectors an
+/// extension can reach count, by the rewrite's own rule, and a selector that
+/// emits nothing (an empty placeholder, a bogus one) still does.
+fn first_media_error(
+    extends: &[PendingExtend],
+    extensions: &[crate::selector::Extension],
+    out: &[OutNode],
+    sites: &[&TargetSite],
+    closures: &HashMap<String, crate::fxhash::FxHashSet<String>>,
+    aliases: &HashMap<String, String>,
+) -> Option<Error> {
+    let in_media: crate::fxhash::FxHashSet<&crate::selector::Simple> = extends
+        .iter()
+        .filter(|pe| pe.media.is_some())
+        .map(|pe| &pe.target)
+        .collect();
+    if in_media.is_empty() {
+        return None;
+    }
+    type Key<'k> = (&'k str, &'k crate::selector::Complex, &'k crate::selector::Simple);
+    let mut index: HashMap<Key<'_>, usize> = HashMap::default();
+    let mut groups: Vec<MediaGroup<'_>> = Vec::new();
+    for (j, (pe, ext)) in extends.iter().zip(extensions).enumerate() {
+        if !in_media.contains(&pe.target) {
+            continue;
+        }
+        for extender in &ext.extenders {
+            let g = *index
+                .entry((&pe.origin, extender, &pe.target))
+                .or_insert_with(|| {
+                    groups.push(MediaGroup {
+                        reach: ExtendReach::new(&pe.origin, &pe.target, closures),
+                        copies: Vec::new(),
+                    });
+                    groups.len() - 1
+                });
+            groups[g].copies.push((j, pe.media.as_deref()));
+        }
+    }
+    groups.retain(|g| g.copies.iter().any(|c| c.1.is_some()));
+
+    let mut first: Option<(usize, Pos, &'static str)> = None;
+    let mut note = |time: usize, pos: Pos, msg: &'static str| {
+        if !matches!(first, Some((t, ..)) if t <= time) {
+            first = Some((time, pos, msg));
+        }
+    };
+    for g in &groups {
+        let mut context = g.copies[0].1;
+        for &(j, media) in &g.copies[1..] {
+            match (context, media) {
+                (Some(a), Some(b)) if a != b => {
+                    note(
+                        2 * j + 1,
+                        extends[j].pos,
+                        "You may not @extend the same selector from within different media queries.",
+                    );
+                    break;
+                }
+                (None, Some(_)) => context = media,
+                _ => {}
+            }
+        }
+    }
+    let mut across = |scope: &str, context: Option<&str>, base: usize, contains: ContainsTarget<'_>| {
+        for g in &groups {
+            if !g.reach.sees(scope) {
+                continue;
+            }
+            let (time, media) = g.applied(base);
+            if media.is_some() && media != context && contains(g.reach.target) {
+                note(
+                    time,
+                    extends[g.copies[0].0].pos,
+                    "You may not @extend selectors across media queries.",
+                );
+            }
+        }
+    };
+    for site in sites {
+        across(&site.module, site.media.as_deref(), site.extend_base, &|t| {
+            crate::selector::selector_contains_simple(&site.selector, t)
+        });
+    }
+    walk_media_targets(out, "", None, &groups, aliases, &mut across);
+    first.map(|(_, pos, msg)| Error::at(msg, pos))
+}
+
+/// Whether a selector contains an extension's target.
+type ContainsTarget<'a> = &'a dyn Fn(&crate::selector::Simple) -> bool;
+
+/// [`walk_media_targets`]'s visitor: a rule's scope, media context,
+/// `extend_base` and target test.
+type VisitTarget<'a> = dyn FnMut(&str, Option<&str>, usize, ContainsTarget<'_>) + 'a;
+
+/// Hand every style rule in `nodes` to `visit` with its module scope (as
+/// [`OutNode::ModuleScope`] switches it), its media context, its
+/// `extend_base` and a test of whether its selector contains a target. Only a
+/// real `@media` starts a context: an interpolated `@#{"media"}` is a generic
+/// at-rule, and `@keyframes` bodies hold keyframe stops, not style rules. A
+/// rule no group could conflict with is not parsed.
+fn walk_media_targets(
+    nodes: &[OutNode],
+    scope: &str,
+    context: Option<&str>,
+    groups: &[MediaGroup<'_>],
+    aliases: &HashMap<String, String>,
+    visit: &mut VisitTarget<'_>,
+) {
+    for node in nodes {
+        match node {
+            OutNode::Rule {
+                selectors,
+                extend_base,
+                ..
+            } => {
+                if !groups
+                    .iter()
+                    .any(|g| g.reach.sees(scope) && g.may_conflict(context))
+                {
+                    continue;
+                }
+                let parsed: Vec<crate::selector::Complex> = selectors
+                    .to_strings()
+                    .iter()
+                    .filter_map(|s| crate::selector::parse_list(s))
+                    .flatten()
+                    .collect();
+                visit(scope, context, *extend_base, &|t| {
+                    crate::selector::list_contains_simple(&parsed, t)
+                });
+            }
+            OutNode::AtRule {
+                name,
+                prelude,
+                body,
+                kind,
+                ..
+            } => {
+                if is_keyframes_name(name) {
+                    continue;
+                }
+                let inner = if kind.is_conditional() && name == "media" {
+                    Some(aliases.get(prelude).map_or(prelude.as_str(), String::as_str))
+                } else {
+                    context
+                };
+                walk_media_targets(body, scope, inner, groups, aliases, visit);
+            }
+            OutNode::ModuleScope { key, nodes } => {
+                walk_media_targets(nodes, key, context, groups, aliases, visit)
+            }
+            _ => {}
+        }
+    }
 }
 
 /// Walk the flattened output tree, rewriting each style-rule selector list per
@@ -9340,6 +9622,28 @@ fn css_media_parse_one(t: &str) -> Result<ResolvedQuery, Error> {
         conditions,
         conjunction_and: true,
     })
+}
+
+/// A media context as dart compares two of them for `@extend`:
+/// `CssMediaQuery.==` weighs the modifier, the type and the conditions, but
+/// not whether the conditions join by `and` or by `or`, so
+/// `(color) and (hover)` and `(color) or (hover)` are one context. Spelled as
+/// the `and` query's prelude, so in the common case it IS the prelude.
+fn media_context_key(queries: &[ResolvedQuery], compressed: bool) -> String {
+    if queries
+        .iter()
+        .all(|q| q.conjunction_and || q.conditions.len() < 2)
+    {
+        return serialize_media_queries(queries, compressed);
+    }
+    let and: Vec<ResolvedQuery> = queries
+        .iter()
+        .map(|q| ResolvedQuery {
+            conjunction_and: true,
+            ..q.clone()
+        })
+        .collect();
+    serialize_media_queries(&and, compressed)
 }
 
 fn serialize_media_queries(queries: &[ResolvedQuery], compressed: bool) -> String {

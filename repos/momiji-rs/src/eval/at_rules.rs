@@ -279,6 +279,7 @@ impl<'a> Evaluator<'a> {
         let node_queries = if bubble_out { &child_queries } else { &queries };
         let prelude = serialize_media_queries(node_queries, self.compressed());
 
+        self.note_media_context_alias(&prelude, &child_queries);
         let enclosing = !self.media_queries.is_empty();
         let saved = std::mem::replace(&mut self.media_queries, child_queries);
         let saved_hoist = std::mem::take(&mut self.media_hoist);

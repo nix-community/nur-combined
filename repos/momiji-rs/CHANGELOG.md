@@ -11,6 +11,48 @@ Conformance is tracked separately as a ratchet against the official
 
 ## [Unreleased]
 
+### Fixed
+
+- **An `@extend` across media queries is an error in every shape dart
+  rejects** (#282). An `@extend` written inside `@media` may only extend
+  selectors in that same media context. sasso enforced this only against a
+  rule outside any `@media`, so an extension in one `@media` reaching a
+  selector in another compiled. dart has always rejected that:
+
+  ```
+    @media print { a {b: c} }
+    @media screen { d {@extend a} }
+                     dart   You may not @extend selectors across media queries.
+                     sasso  compiled, with d added to the print rule
+  ```
+
+  The same goes for an extension in a nested `@media` that reaches a
+  selector in the enclosing one. And one extension written in two different
+  media contexts is now dart's own error, `You may not @extend the same
+  selector from within different media queries.`, even with `!optional` and
+  nothing to extend, and "the same" means the same parsed selector, so
+  `.foo` and `.f\6f o` are one. A copy outside any `@media` still combines with
+  one inside, as in dart. Only selectors the extension can reach count, which
+  means its own module and the modules it loads, never a sibling. An empty
+  placeholder rule (`%p {}`) and an omitted bogus one (`.x > + y`) count too,
+  though they emit nothing. Two queries that differ only in `and` versus `or`
+  are one context, because dart's media-query equality ignores the
+  conjunction. When a stylesheet breaks both rules, the error reported is the
+  one dart raises first, in registration order. A stylesheet that relied on
+  the cross-media extend compiling now fails, as it does in dart.
+
+  One shape that dart compiles now compiles in sasso too. A copy of an
+  extension merges into the first copy, and the merged copy is never
+  re-applied to a rule that already exists:
+
+  ```
+    b {x: y}
+    a {@extend b}
+    @media screen { a {@extend b} }
+                     dart   b, a { x: y; }
+                     sasso  was: You may not @extend selectors across media queries.
+  ```
+
 ### Performance
 
 - **A `sasso` of another version on `PATH` no longer slows every npm CLI run.**
@@ -35,6 +77,21 @@ Conformance is tracked separately as a ratchet against the official
 
   What is left of the mismatched case is reading the file. A binary older
   than the marker has to be read to the end to show it has none.
+
+- **An `@extend` inside `@media` no longer re-reads the stylesheet.** Each
+  such extension made sasso parse every top-level selector again to check its
+  media context, so the check cost the number of rules times the number of
+  in-media extensions. All the checks now share one pass that parses each
+  rule at most once (#285). Marginal instructions on Linux/x86_64, output
+  byte-identical:
+
+  | project | before | after | change |
+  | --- | ---: | ---: | ---: |
+  | quasar | 1,580,862,648 | 692,030,378 | −56.22% |
+  | tabler | 1,306,069,941 | 1,029,178,066 | −21.20% |
+  | bootstrap | 797,093,957 | 690,231,885 | −13.41% |
+
+  No other measured project moved by more than ±0.15%.
 
 - **`map.get` and `map.has-key` no longer copy the map they read.** Each call
   copied every entry of the map before looking one up, so a lookup cost the

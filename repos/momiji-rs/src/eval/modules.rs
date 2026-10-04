@@ -42,7 +42,7 @@ impl<'a> Evaluator<'a> {
         if let Some((_, msg)) = super::find_stray_selector_char(&target) {
             return Err(Error::at(msg, pos));
         }
-        let in_media = !self.media_queries.is_empty();
+        let media = self.media_context();
         for t in split_commas(&target).iter() {
             let t = t.trim_matches(is_css_whitespace);
             if t.is_empty() {
@@ -57,7 +57,7 @@ impl<'a> Evaluator<'a> {
                         extenders: extenders.clone(),
                         extender_breaks: self.current_linebreaks.clone(),
                         optional,
-                        in_media,
+                        media: media.clone(),
                         pos,
                     });
                 }
@@ -179,19 +179,6 @@ impl<'a> Evaluator<'a> {
         // misplaced sibling stores with unequal upstream counts — bulma's
         // form vs elements modules.)
 
-        // An `@extend` registered inside `@media` may not extend a selector
-        // outside any media context (dart-sass "You may not @extend selectors
-        // across media queries."). Detect when an in-media extend's target
-        // matches a root-level (non-media) rule.
-        for pe in &self.extends {
-            if pe.in_media && root_rule_contains_target(out, &pe.target) {
-                return Err(Error::at(
-                    "You may not @extend selectors across media queries.",
-                    pe.pos,
-                ));
-            }
-        }
-
         // Per-module visibility: an extension's origin can rewrite a module's
         // CSS when that module is (transitively) loaded by the origin.
         // Parallel to the (sorted) extensions list.
@@ -200,6 +187,25 @@ impl<'a> Evaluator<'a> {
             .iter()
             .map(|(k, v)| (k.clone(), (**v).clone()))
             .collect();
+
+        // dart checks media contexts as extensions and selectors register,
+        // which this deferred pass replays (see `first_media_error`). It needs
+        // `extensions` in registration order, so it runs before any reorder.
+        let sites: Vec<&TargetSite> = self
+            .placeholder_rules
+            .iter()
+            .chain(&self.bogus_selectors)
+            .collect();
+        if let Some(e) = first_media_error(
+            &self.extends,
+            &extensions,
+            out,
+            &sites,
+            &closures,
+            &self.media_context_aliases,
+        ) {
+            return Err(e);
+        }
         // The store-merge order context: reverse load edges + first-load
         // ranks (an origin's registrations are contiguous, so its smallest
         // reg index is its load rank).
@@ -251,14 +257,14 @@ impl<'a> Evaluator<'a> {
                 && !self
                     .bogus_selectors
                     .iter()
-                    .any(|s| crate::selector::selector_contains_simple(s, &pe.target))
-                && !self.placeholder_rules.iter().any(|(m, s)| {
+                    .any(|b| crate::selector::selector_contains_simple(&b.selector, &pe.target))
+                && !self.placeholder_rules.iter().any(|p| {
                     let visible = if private {
-                        *m == ext.origin
+                        p.module == ext.origin
                     } else {
-                        ext.origin_closure.contains(m)
+                        ext.origin_closure.contains(&p.module)
                     };
-                    visible && crate::selector::selector_contains_simple(s, &pe.target)
+                    visible && crate::selector::selector_contains_simple(&p.selector, &pe.target)
                 })
             {
                 return Err(Error::at(
