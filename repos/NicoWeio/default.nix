@@ -13,6 +13,10 @@ in
     python = pkgs.python312;
     numpy = pkgs.python312Packages.numpy;
   };
+  proposal = pkgs.callPackage ./proposal {
+    python = pkgs.python312;
+    pybind11 = pkgs.python312Packages.pybind11;
+  };
   rainlendar2 = pkgs.callPackage ./rainlendar2 { };
   jammy-flows = pythonPackages.callPackage ./jammy-flows { inherit mhealpy; };
 }
