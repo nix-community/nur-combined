@@ -444,10 +444,10 @@
     };
     "archivebox-exporter" = buildMozillaXpiAddon {
       pname = "archivebox-exporter";
-      version = "3.3.3";
+      version = "3.3.6";
       addonId = "archivebox@tjhorner.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5053012/archivebox_exporter-3.3.3.xpi";
-      sha256 = "60a4ecff1a1f8d77bbb15d493a9f5b595126dd86a720a88d1fcbbeb02202041b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5085201/archivebox_exporter-3.3.6.xpi";
+      sha256 = "9f9f17819a48b169b5cc3b64d0b0695d17997eba8a7a93a7ef25f1a92132844a";
       meta = with lib;
       {
         homepage = "https://extension.archivebox.io/";
@@ -1272,10 +1272,10 @@
     };
     "bilisponsorblock" = buildMozillaXpiAddon {
       pname = "bilisponsorblock";
-      version = "0.15.0";
+      version = "0.16.0";
       addonId = "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5057692/bilisponsorblock-0.15.0.xpi";
-      sha256 = "09592c1242dac1198f30c66930d2599fc3331438bb3f874d2d0f4e7008cd8225";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5086418/bilisponsorblock-0.16.0.xpi";
+      sha256 = "f379cdaaaba9253bc2497e5ed16ba095e5b2f157af1c8cc9489f96048da0984d";
       meta = with lib;
       {
         homepage = "https://www.bsbsb.top";
@@ -8310,10 +8310,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.4.249";
+      version = "2.4.251";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5076101/lichess_tools_by_siderite-2.4.249.xpi";
-      sha256 = "eb039f445fa05de3098047a7c6c7911df6b6e0ef1ce491d2ea4d11f6aa55881e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5084869/lichess_tools_by_siderite-2.4.251.xpi";
+      sha256 = "3578ffd9730f48aab230f710cb39bce9e1e70563f3392bfbf0f0830b49837e9f";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -10564,10 +10564,10 @@
     };
     "octotree" = buildMozillaXpiAddon {
       pname = "octotree";
-      version = "9.3.0";
+      version = "9.3.2";
       addonId = "jid1-Om7eJGwA1U8Akg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5073334/octotree-9.3.0.xpi";
-      sha256 = "2bab24fba7b6c3cea867b944a20e8bda9b2ddc1f0258fcc1b16937503c7420f3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5085903/octotree-9.3.2.xpi";
+      sha256 = "8b0897fbdc746ee331f442c32baf2828f319b1785efc4ff4ecb7ddbe98497972";
       meta = with lib;
       {
         homepage = "https://github.com/buunguyen/octotree/";
@@ -13726,10 +13726,10 @@
     };
     "single-file" = buildMozillaXpiAddon {
       pname = "single-file";
-      version = "1.28.0";
+      version = "1.28.1";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5080622/single_file-1.28.0.xpi";
-      sha256 = "970756b0a6f42b117d2dbce30c39f34fb901901daece498979fbb8bf3b8d9a49";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5084732/single_file-1.28.1.xpi";
+      sha256 = "a935081a8b46a580b4ec1230f272569a280866570fbe1047031a4aed76886b67";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";
