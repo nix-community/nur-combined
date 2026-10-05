@@ -13,7 +13,7 @@
 }:
 let
   binaryVersion = "7.3.2";
-  version = "04c85acae0736f8e3616a5dd1787635be599b7b0";
+  version = "fc56d5e7cbe9c8a0b13af3969d277b0f10ba841a";
   # version = binaryVersion;
   db = "h2";
 
@@ -21,7 +21,7 @@ let
     owner = "Athou";
     repo = "commafeed";
     rev = version;
-    hash = "sha256-Dodee7uFzze2hhGdueZ4s7Ppk3aAFY+msiWi0dAt6v8=";
+    hash = "sha256-lLBbDTm4/IJLDPv0dGun6omHmdHvMGFHM3LH2n2TIeQ=";
   };
 
   frontend = buildNpmPackage {
@@ -30,7 +30,7 @@ let
 
     sourceRoot = "${src.name}/commafeed-client";
 
-    npmDepsHash = "sha256-6jdwRHZjsSmveRFIgpOqoaXMs+tZNWpsuHWKTH/HD5w=";
+    npmDepsHash = "sha256-/lxHm45OmXsC5hPFOcgzzvpTdoUXTa4037CV+Xf+6kQ=";
 
     nativeBuildInputs = [ biome ];
 
