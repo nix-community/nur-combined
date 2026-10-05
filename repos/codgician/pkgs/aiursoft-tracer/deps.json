@@ -611,23 +611,23 @@
   },
   {
     "pname": "SkiaSharp",
-    "version": "4.153.0",
-    "hash": "sha256-ZYhvSqeMib+mP0BA6QjgbcQQBOvGAGMdF0ZxJdu6lUA="
+    "version": "4.153.1",
+    "hash": "sha256-nPD6aBIj1JVr+9N5lcnqqNJZk1rj0ZX6xoH/mk6cSBY="
   },
   {
     "pname": "SkiaSharp.NativeAssets.Linux.NoDependencies",
-    "version": "4.153.0",
-    "hash": "sha256-q1OiPWdS5Gf68zMcoAySekTO6+sRLgVHyphkTBV07do="
+    "version": "4.153.1",
+    "hash": "sha256-FnhXLdXRSIw/OYkkYL7BbCsJQkifOlFJq/vLrj2lNDE="
   },
   {
     "pname": "SkiaSharp.NativeAssets.macOS",
-    "version": "4.153.0",
-    "hash": "sha256-/gS+soC+vgmdZ7aJLnkU1pEvBbTDE5yFnIHefYgMCAE="
+    "version": "4.153.1",
+    "hash": "sha256-2olnSU6xHYgUlND9JWKJMXTpIFbUHCLJB7KjbK8QMsk="
   },
   {
     "pname": "SkiaSharp.NativeAssets.Win32",
-    "version": "4.153.0",
-    "hash": "sha256-J1U7ysYal8iz6f1yGtVUAYh81ckCyw7tLoZ4VC3UI4k="
+    "version": "4.153.1",
+    "hash": "sha256-wnsEM40eTUAMIN5TQ1YxC5lx4SPggccyr5flb1Vy4a4="
   },
   {
     "pname": "SQLite",
