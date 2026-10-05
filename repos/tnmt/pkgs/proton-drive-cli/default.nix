@@ -4,6 +4,7 @@
   fetchurl,
   autoPatchelfHook,
   libsecret,
+  glib,
 }:
 
 let
@@ -39,8 +40,12 @@ stdenv.mkDerivation {
   nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
 
   # The default "keychain" credential store goes through Bun.secrets, which
-  # dlopens libsecret-1.so.0 at runtime instead of linking it.
-  runtimeDependencies = lib.optionals stdenv.hostPlatform.isLinux [ libsecret ];
+  # dlopens libsecret-1.so.0 and libglib-2.0.so.0 directly at runtime instead
+  # of linking them.
+  runtimeDependencies = lib.optionals stdenv.hostPlatform.isLinux [
+    libsecret
+    glib.out
+  ];
 
   installPhase = ''
     runHook preInstall
