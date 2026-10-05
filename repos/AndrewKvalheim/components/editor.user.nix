@@ -83,7 +83,7 @@ in
         ms-python.python
         ms-vscode.wasm-wasi-core # Dependency of loriscro.super
         ms-vsliveshare.vsliveshare
-        pkief.material-icon-theme
+        pkief.material-icon-theme # FIXME: https://github.com/material-extensions/vscode-material-icon-theme/issues/2263#issuecomment-5981478977
         ronnidc.nunjucks
         rust-lang.rust-analyzer
         samuelcolvin.jinjahtml

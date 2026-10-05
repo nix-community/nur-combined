@@ -17,6 +17,22 @@ let
   toStyles = a: concatLines (mapAttrsToListRecursive (p: v: "zstyle ${escapeShellArg (concatStringsSep ":" ([ "" ] ++ init p))} ${escapeShellArg (last p)} ${tryEscapeShellArgs (toList v)}") a);
 in
 {
+  systemd.user.services.direnv-use-bwrap-dbus-proxy = {
+    Install.WantedBy = [ "default.target" ]; # Socket activation pending flatpak/xdg-dbus-proxy#44
+    Service = {
+      SyslogIdentifier = "%N";
+
+      RuntimeDirectory = "%N";
+
+      ExecStart = ''
+        ${getExe pkgs.xdg-dbus-proxy} \
+          "''${DBUS_SESSION_BUS_ADDRESS}" \
+          '%t/%N/bus' \
+          --filter
+      '';
+    };
+  };
+
   programs.bash = {
     enable = true;
     historyControl = [ "ignorespace" ];
@@ -56,8 +72,30 @@ in
         source_env '.venv/bin/activate'
       }
 
+      use_bwrap() { local forward_env="$1"
+        if [[ -z "$DIRENV_USING_BWRAP" ]]; then
+          export DIRENV_USE_BWRAP="$PWD"
+          export DIRENV_USE_BWRAP_FORWARD_ENV="$forward_env"
+          export DIRENV_USE_BWRAP_LAYOUT_DIR="$(direnv_layout_dir)"
+          exit 0
+        elif [[ "$DIRENV_USING_BWRAP" != "$PWD" ]]; then
+          log_error "Expected bubblewrap: $DIRENV_USING_BWRAP"
+          exit 1
+        fi
+      }
+
       use_gopass() {
         eval "$(${getExe gopass-await} "$@")"
+      }
+
+      eval "_original_$(declare -f use_nix)"
+      use_nix() {
+        if (( $# == 0 )); then
+          _original_use_nix '.❯.nix'
+          watch_file '.❯.nix'
+        else
+          _original_use_nix "$@"
+        fi
       }
     '';
   };
@@ -86,7 +124,7 @@ in
           "([ $username(@$hostname) ](${contextStyle})[](bg:${directoryBg} fg:prev_bg))"
           "[ $directory ](bg:${directoryBg} fg:black bold)"
           "([](bg:blue fg:prev_bg)[( \${custom.git_commit})( \${custom.git_branch})( \${custom.git_tag})$git_status( \${custom.git_dirty})( $git_state)( \${custom.jj}) ](bg:blue fg:black bold))"
-          "([](bg:green fg:prev_bg)[( $shell)( $nix_shell) ](bg:green fg:black bold))"
+          "([](bg:green fg:prev_bg)[( \${env_var.DIRENV_USING_BWRAP})( $shell)( $nix_shell) ](bg:green fg:black bold))"
           "[](fg:prev_bg) "
         ];
         right_format = concatStrings [
@@ -99,6 +137,10 @@ in
         # TODO: Resolve starship/starship#3653
         directory = {
           format = "$path";
+        };
+        env_var.DIRENV_USING_BWRAP = {
+          format = "$symbol";
+          symbol = "󱩆 ";
         };
         git_branch = {
           disabled = true;
@@ -298,6 +340,7 @@ in
           window-title.format = "%1~";
         };
       }))
+      (main (readFile ./assets/direnv-use-bwrap.zsh))
       (main (readFile ./assets/init.zsh))
 
       # Key bindings
@@ -353,7 +396,7 @@ in
       extract-pdf-images = "mkdir \"\${1%.pdf}\" && ${getExe' poppler-utils "pdfimages"} -all -p \"$1\" \"\${1%.pdf}/\${1%.pdf}\"";
       idiff = "${getExe' imagemagick "compare"} \"$@\" png:- | kitty +kitten icat";
       maintenance-notice = ''
-        [[ "$(< /sys/class/power_supply/AC/online)" == '1' ]] || return
+        [[ -z "$DIRENV_USING_BWRAP" && "$(< /sys/class/power_supply/AC/online)" == '1' ]] || return
         local flag="$XDG_RUNTIME_DIR/maintenance-notice-ran"; [[ ! -e "$flag" ]] || return; touch "$flag"
         ${getExe audit-nix-roots}
       '';
