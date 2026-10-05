@@ -7,6 +7,7 @@
   jq,
   makeSetupHook,
   makeWrapper,
+  mkUpdateScript,
   nodejs,
   pkgs,
   runCommand,
@@ -122,6 +123,11 @@ buildNpmPackage {
     versionCheckHomeHook
   ];
   versionCheckProgramArg = "--version";
+
+  passthru.updateScript = mkUpdateScript {
+    name = "dsh";
+    extraRuntimeInputs = [ nodejs ];
+  };
 
   meta = {
     description = "Open-source agent harness developed by DeepSeek AI";

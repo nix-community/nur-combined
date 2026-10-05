@@ -8,14 +8,18 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
+let
+  # Builds a package's `passthru.updateScript` from `pkgs/<name>/update.py`.
+  mkUpdateScript = pkgs.callPackage ./lib/mk-update-script.nix { };
+in
 {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  computer-use-linux = pkgs.callPackage ./pkgs/computer-use-linux { };
-  dsh = pkgs.callPackage ./pkgs/dsh { };
-  cua-driver = pkgs.callPackage ./pkgs/cua-driver { };
+  computer-use-linux = pkgs.callPackage ./pkgs/computer-use-linux { inherit mkUpdateScript; };
+  dsh = pkgs.callPackage ./pkgs/dsh { inherit mkUpdateScript; };
+  cua-driver = pkgs.callPackage ./pkgs/cua-driver { inherit mkUpdateScript; };
   rime-data-flypy = pkgs.callPackage ./pkgs/rime-data-flypy { };
 }

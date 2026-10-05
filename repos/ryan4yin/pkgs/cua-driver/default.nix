@@ -5,21 +5,20 @@
   autoPatchelfHook,
   libxkbcommon,
   xorg,
+  mkUpdateScript,
 }:
 let
-  version = "0.24.0";
-
-  # Prebuilt release binary; the crate is not packaged in nixpkgs.
-  asset = {
-    url = "https://github.com/trycua/cua/releases/download/cua-driver-rs-v${version}/cua-driver-rs-${version}-linux-x86_64-binary.tar.gz";
-    hash = "sha256-s7j/Ullf6xESGaoKyQ47NmGMxoaqggWu1PPn4aZ8e2Q=";
-  };
+  versionData = lib.importJSON ./hashes.json;
+  inherit (versionData) version;
 in
 stdenv.mkDerivation {
   pname = "cua-driver";
   inherit version;
 
-  src = fetchurl asset;
+  src = fetchurl {
+    url = "https://github.com/trycua/cua/releases/download/cua-driver-rs-v${version}/cua-driver-rs-${version}-linux-x86_64-binary.tar.gz";
+    inherit (versionData) hash;
+  };
 
   nativeBuildInputs = [ autoPatchelfHook ];
   buildInputs = [
@@ -44,6 +43,8 @@ stdenv.mkDerivation {
     cp -r wayland-helper $out/share/cua-driver/wayland-helper
     runHook postInstall
   '';
+
+  passthru.updateScript = mkUpdateScript { name = "cua-driver"; };
 
   meta = {
     description = "Desktop-automation driver for computer-use agents (MCP/CLI)";

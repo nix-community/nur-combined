@@ -53,6 +53,27 @@ Use this repository in `flake.nix`:
 }
 ```
 
+## Automated updates
+
+Packages expose a passthru.updateScript; rime-data-flypy is a manually
+vendored snapshot and intentionally has none. The Update packages workflow
+(.github/workflows/update.yml) runs daily (and on demand) to open one pull
+request per outdated package and per outdated flake input.
+
+Run an updater locally from the repository root:
+
+    nix run .#dsh.updateScript
+
+Discovery treats any package exposing updateScript as updatable, so new
+packages are picked up automatically.
+
+The workflow uses the default GITHUB_TOKEN, which needs the repository
+setting Settings -> Actions -> General -> Workflow permissions -> "Allow
+GitHub Actions to create and approve pull requests" to be enabled.
+
+PRs created this way do not trigger other workflows, so the update job
+builds each updated package before opening its PR.
+
 ## Notes for myself
 
 1. Add your packages to the [pkgs](./pkgs) directory and to
