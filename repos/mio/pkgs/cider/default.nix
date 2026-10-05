@@ -33,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     prePnpmInstall = ''
       sed -i '/^overrides:/,+2d' pnpm-lock.yaml
     '';
-    hash = "sha256-4oApBc4QkcdgPktsRa3oktTkTVDLBXqOyKn3/Cp4as0=";
+    hash = "sha256-lRA0rlAX0F/4uJab+Nz9nVXXanZXF3ziloTgMDT2okA=";
   };
 
   nativeBuildInputs = [
