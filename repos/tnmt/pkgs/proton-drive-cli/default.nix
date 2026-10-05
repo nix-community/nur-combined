@@ -3,6 +3,7 @@
   stdenv,
   fetchurl,
   autoPatchelfHook,
+  makeWrapper,
   libsecret,
   glib,
 }:
@@ -37,20 +38,27 @@ stdenv.mkDerivation {
   # payload; stripping truncates it.
   dontStrip = true;
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [
+    autoPatchelfHook
+    makeWrapper
+  ];
 
   # The default "keychain" credential store goes through Bun.secrets, which
   # dlopens libsecret-1.so.0 and libglib-2.0.so.0 directly at runtime instead
-  # of linking them.
-  runtimeDependencies = lib.optionals stdenv.hostPlatform.isLinux [
-    libsecret
-    glib.out
-  ];
+  # of linking them. A RUNPATH of 2+ colon-separated entries (or one long
+  # enough entry) corrupts this binary -- autoPatchelfHook's patchelf rewrite
+  # then segfaults inside ld.so (reproduced; verified safe up to ~70 chars).
+  # LD_LIBRARY_PATH via a wrapper avoids touching the binary at all.
 
   installPhase = ''
     runHook preInstall
     install -Dm755 $src $out/bin/proton-drive
     runHook postInstall
+  '';
+
+  postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
+    wrapProgram $out/bin/proton-drive \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libsecret glib.out ]}"
   '';
 
   meta = {
