@@ -87,6 +87,11 @@ buildGoModule (finalAttrs: {
       extraArgs = [
         "--version"
         "unstable"
+        # Skip dependency hashes: the frontend pnpmDeps FOD is not reproducible
+        # on GitHub Actions, and the Go vendorHash depends on it through
+        # frontendDist, so an unreliable pnpmDeps hash also corrupts
+        # vendorHash. Update only version/src and refresh both hashes manually.
+        "--src-only"
       ];
     };
     # nix-update reads dependency hashes from attributes of the top-level

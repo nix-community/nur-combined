@@ -4,7 +4,7 @@
   stdenv,
   cmake,
   liboqs-unstable,
-  openssl_3,
+  openssl,
 }:
 let
   qscKeyEncoderSrc = fetchFromGitHub {
@@ -32,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [
     liboqs-unstable
-    openssl_3
+    openssl
   ];
 
   cmakeFlags = [ (lib.cmakeFeature "CMAKE_BUILD_TYPE" "Release") ];

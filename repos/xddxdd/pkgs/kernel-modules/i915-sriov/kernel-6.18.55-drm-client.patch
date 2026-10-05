@@ -1,0 +1,70 @@
+Backport the kernel 6.18.55 drm_client_dev_suspend/resume signature change.
+
+Linux 6.18.55 backported the mainline change that removed the `bool
+runtime` argument from drm_client_dev_suspend()/drm_client_dev_resume().
+Upstream i915-sriov-dkms guards the old/new signatures on 6.19.0, so the
+6.18.55 build takes the old branch and fails with:
+
+  drivers/gpu/drm/xe/display/xe_display.c:311:9: error: too many arguments
+  to function 'drm_client_dev_suspend'; expected 1, have 2
+
+Lower the guard to the version that actually carries the change.
+
+--- a/drivers/gpu/drm/i915/i915_driver.c
++++ b/drivers/gpu/drm/i915/i915_driver.c
+@@ -1086,7 +1086,7 @@
+ 	intel_runtime_pm_disable(&i915->runtime_pm);
+ 	intel_display_power_disable(display);
+ 
+-#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 19, 0)
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 18, 55)
+ 	drm_client_dev_suspend(&i915->drm);
+ #else
+ 	drm_client_dev_suspend(&i915->drm, false);
+@@ -1176,7 +1176,7 @@
+ 	 * properly. */
+ 	intel_display_power_disable(display);
+ 
+-#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 19, 0)
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 18, 55)
+ 	drm_client_dev_suspend(dev);
+ #else
+ 	drm_client_dev_suspend(dev, false);
+@@ -1398,7 +1398,7 @@
+ 
+ 	intel_opregion_resume(display);
+ 
+-#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 19, 0)
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 18, 55)
+ 	drm_client_dev_resume(dev);
+ #else
+ 	drm_client_dev_resume(dev, false);
+--- a/drivers/gpu/drm/xe/display/xe_display.c
++++ b/drivers/gpu/drm/xe/display/xe_display.c
+@@ -305,7 +305,7 @@
+ 	 */
+ 	intel_display_power_disable(display);
+ 
+-#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 19, 0)
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 18, 55)
+ 	drm_client_dev_suspend(&xe->drm);
+ #else
+ 	drm_client_dev_suspend(&xe->drm, false);
+@@ -343,7 +343,7 @@
+ 
+ 	intel_display_power_disable(display);
+ 
+-#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 19, 0)
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 18, 55)
+ 	drm_client_dev_suspend(&xe->drm);
+ #else 
+ 	drm_client_dev_suspend(&xe->drm, false);
+@@ -472,7 +472,7 @@
+ 
+ 	intel_opregion_resume(display);
+ 
+-#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 19, 0)
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 18, 55)
+ 	drm_client_dev_resume(&xe->drm);
+ #else
+ 	drm_client_dev_resume(&xe->drm, false);

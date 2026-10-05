@@ -9,7 +9,6 @@
 let
   soapyuhd' = soapyuhd.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [
-      ./soapyuhd-get-stream-info.patch
       ./soapyuhd-uhd-4.11-log-add-impl.patch
     ];
   });

@@ -18,6 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
     "pic"
     "format"
   ];
+  patches = [ ./kernel-6.18.55-drm-client.patch ];
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
   enableParallelBuilding = true;

@@ -13,12 +13,13 @@ log_add_impl.hpp is actually used, declare it directly on top of the
 public uhd/utils/log.hpp header and switch the logger to the modern
 uhd::log::detail::logging_info type.
 
+---
 --- a/SoapyUHDDevice.cpp
 +++ b/SoapyUHDDevice.cpp
-@@ -15,7 +15,15 @@
- #ifdef UHD_HAS_MSG_HPP
- #include <uhd/utils/msg.hpp>
- #else
+@@ -12,7 +12,15 @@
+ #include <SoapySDR/Logger.hpp>
+ #include <uhd/version.hpp>
+ #include <uhd/device.hpp>
 -#include <uhd/utils/log_add.hpp>
 +#include <uhd/utils/log.hpp>
 +#include <functional>
@@ -29,13 +30,13 @@ uhd::log::detail::logging_info type.
 +namespace uhd { namespace log {
 +UHD_API void add_logger(const std::string& key, std::function<void(const uhd::log::detail::logging_info&)> logger_fn);
 +}}
- #endif
  #include <uhd/usrp/multi_usrp.hpp>
  #include <uhd/property_tree.hpp>
-@@ -1073,7 +1081,7 @@
-     }
- }
- #else
+ #include <uhd/version.hpp>
+@@ -1072,7 +1080,7 @@
+ /***********************************************************************
+  * Register into logger
+  **********************************************************************/
 -static void SoapyUHDLogger(const uhd::log::logging_info &info)
 +static void SoapyUHDLogger(const uhd::log::detail::logging_info &info)
  {
