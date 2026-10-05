@@ -13,6 +13,14 @@ let
           [ "${config.hardware.sane.backends-package}/bin/scanimage" ]
           (builtins.readFile ./scan-raw-8400f.py)
       );
+  # flat-fields scan-raw-8400f output against a white/dark reference into a linear 16-bit TIFF
+  flatfield-8400f = pkgs.writers.writePython3Bin "flatfield-8400f" {
+    libraries = [ pkgs.python3Packages.numpy ];
+    flakeIgnore = [
+      "E501"
+      "W503"
+    ];
+  } (builtins.readFile ./flatfield-8400f.py);
 in
 {
   hardware.sane.enable = true;
@@ -24,7 +32,10 @@ in
     patches = (old.patches or [ ]) ++ [ ./sane-genesys-8400f-no-calibration.patch ];
   });
 
-  environment.systemPackages = [ scan-raw-8400f ];
+  environment.systemPackages = [
+    scan-raw-8400f
+    flatfield-8400f
+  ];
 
   users.groups.scanner.members = [
     "ripper"
