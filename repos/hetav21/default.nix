@@ -20,5 +20,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   direnv-nvim = pkgs.callPackage ./pkgs/direnv-nvim { };
+  px0 = pkgs.callPackage ./pkgs/px0 { };
   wsl-notify-send = pkgs.callPackage ./pkgs/wsl-notify-send { };
 }
