@@ -1,5 +1,6 @@
 {
   callPackage,
+  lib,
   unixodbc,
 }:
 
@@ -11,8 +12,15 @@
   rev = "a33698df40f95cc3eb339703dcb085497eabfca3";
   hash = "sha256-H3seSmjDKK5R+xYyEjOe1zGpM7kch8I0qqD/5KzUWQg=";
   loadOptions = [ "DONT_LINK" ];
+  # C API extension with its own target instead of build_loadable_extension
+  loadableTarget = "odbc_scanner";
+  linkable = false;
   duckdbBuildInputs = [ unixodbc ];
   duckdbPostPatch = ''
+    substituteInPlace extension_external/odbc_scanner/CMakeLists.txt \
+      --replace-fail '/opt/homebrew/opt/unixodbc/lib;/usr/local/opt/unixodbc/lib;/opt/local/lib' \
+        '${lib.getLib unixodbc}/lib'
+
     python3 - <<'PY'
     from pathlib import Path
 

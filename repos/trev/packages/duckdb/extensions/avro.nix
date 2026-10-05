@@ -39,6 +39,7 @@ in
   branch = "v1.5-variegata";
   rev = "a54bd1746e583f723e580c4a85a9c014adecd810";
   hash = "sha256-g7R++xN2hMPOluitJx8pqGM7jOJqYt+fu11fGGCqHhc=";
+  loadOptions = [ "DONT_LINK" ];
   duckdbBuildInputs = [
     duckdbAvroC
     jansson

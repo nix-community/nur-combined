@@ -59,7 +59,7 @@ Embeddable SQL OLAP Database Management System
 nix run github:spotdemo4/trevpkgs#duckdb
 ```
 
-Extensions are compiled into the binary rather than downloaded at runtime with `INSTALL`. The in-tree `autocomplete`, `icu`, `json`, `tpcds` and `tpch` extensions are enabled by default; out-of-tree extensions can be enabled with an override:
+Extensions are built with nix rather than downloaded at runtime with `INSTALL`. The in-tree `autocomplete`, `icu`, `json`, `tpcds` and `tpch` extensions are enabled by default; out-of-tree extensions can be enabled with an override:
 
 ```nix
 pkgs.trev.duckdb.override {
@@ -71,6 +71,8 @@ pkgs.trev.duckdb.override {
 
 - out-of-tree: `withAvro`, `withAws`, `withAzure`, `withDucklake`, `withEncodings`, `withExcel`, `withFts`, `withHttpfs`, `withIceberg`, `withInet`, `withMysqlScanner`, `withOdbcScanner`, `withPostgresScanner`, `withQuack`, `withSpatial`, `withSqliteScanner`, `withSqlsmith`, `withVss`
 - drivers: `withJdbc`, `withOdbc`
+
+Out-of-tree extensions are built as loadable extensions against the default duckdb, so enabling them does not rebuild duckdb; the `duckdb` binary finds them through `DUCKDB_NIX_EXTENSION_DIRECTORIES`, which programs linking `libduckdb` can set to `duckdb.extensionDirectory`. `spatial`, `vss` and `odbc_scanner` are not autoloaded and need `LOAD`. Static builds (`pkgsStatic`) compile every extension into the binary, except `odbc_scanner` which is unsupported.
 
 ### [ffmpeg-quality-metrics](https://github.com/slhck/ffmpeg-quality-metrics)
 

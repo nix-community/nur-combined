@@ -1,0 +1,88 @@
+diff --git a/src/include/duckdb/main/extension_helper.hpp b/src/include/duckdb/main/extension_helper.hpp
+index f268b9f..46c08a0 100644
+--- a/src/include/duckdb/main/extension_helper.hpp
++++ b/src/include/duckdb/main/extension_helper.hpp
+@@ -255,6 +255,8 @@ private:
+ 	                                                                 optional_ptr<ClientContext> context = nullptr);
+ 	static const vector<string> PathComponents();
+ 	static vector<string> DefaultExtensionFolders(FileSystem &fs);
++	//! Read-only extension folders provided by nix through DUCKDB_NIX_EXTENSION_DIRECTORIES
++	static vector<string> NixExtensionFolders();
+ 	static bool AllowAutoInstall(const string &extension);
+ 	static ExtensionInitResult InitialLoad(DatabaseInstance &db, FileSystem &fs, const string &extension);
+ 	static bool TryInitialLoad(DatabaseInstance &db, FileSystem &fs, const string &extension,
+diff --git a/src/main/extension/extension_install.cpp b/src/main/extension/extension_install.cpp
+index 81a453d..f0a340f 100644
+--- a/src/main/extension/extension_install.cpp
++++ b/src/main/extension/extension_install.cpp
+@@ -91,6 +91,17 @@ vector<duckdb::string> ExtensionHelper::DefaultExtensionFolders(FileSystem &fs)
+ 	return default_folders;
+ }
+ 
++vector<duckdb::string> ExtensionHelper::NixExtensionFolders() {
++	vector<duckdb::string> nix_folders;
++	auto dirs_string = FileSystem::GetEnvVariable("DUCKDB_NIX_EXTENSION_DIRECTORIES");
++	for (auto &dir : StringUtil::Split(dirs_string, ':')) {
++		if (!dir.empty()) {
++			nix_folders.push_back(dir);
++		}
++	}
++	return nix_folders;
++}
++
+ vector<string> ExtensionHelper::GetExtensionDirectoryPath(ClientContext &context) {
+ 	auto &db = DatabaseInstance::GetDatabase(context);
+ 	auto &fs = FileSystem::GetFileSystem(context);
+@@ -118,6 +129,9 @@ vector<string> ExtensionHelper::GetExtensionDirectoryPath(DatabaseInstance &db,
+ 			extension_directories.push_back(default_dir);
+ 		}
+ 	}
++	for (const auto &nix_dir : ExtensionHelper::NixExtensionFolders()) {
++		extension_directories.push_back(nix_dir);
++	}
+ 
+ 	// Process all directories with common path operations
+ 	auto path_components = PathComponents();
+diff --git a/src/main/extension/extension_load.cpp b/src/main/extension/extension_load.cpp
+index 50f95a2..c859df9 100644
+--- a/src/main/extension/extension_load.cpp
++++ b/src/main/extension/extension_load.cpp
+@@ -371,6 +371,7 @@ bool ExtensionHelper::TryInitialLoad(DatabaseInstance &db, FileSystem &fs, const
+ 	auto filename = fs.ConvertSeparators(extension);
+ 
+ 	bool direct_load;
++	bool nix_provided = false;
+ 
+ 	// shorthand case
+ 	if (!ExtensionHelper::IsFullPath(extension)) {
+@@ -434,12 +435,19 @@ bool ExtensionHelper::TryInitialLoad(DatabaseInstance &db, FileSystem &fs, const
+ 			}
+ 		}
+ 
++		// Extensions provided by nix are searched last and trusted without a signature
++		auto nix_directories_start = search_directories.size();
++		for (const auto &path : ExtensionHelper::NixExtensionFolders()) {
++			search_directories.push_back(path);
++		}
++
+ 		// Try each directory in sequence until extension is found
+ 		bool found = false;
+-		for (const auto &directory : search_directories) {
+-			filename = ComputeLocalExtensionPath(directory, extension_name);
++		for (idx_t i = 0; i < search_directories.size(); i++) {
++			filename = ComputeLocalExtensionPath(search_directories[i], extension_name);
+ 			if (fs.FileExists(filename)) {
+ 				found = true;
++				nix_provided = i >= nix_directories_start;
+ 				break;
+ 			}
+ 		}
+@@ -480,7 +488,7 @@ bool ExtensionHelper::TryInitialLoad(DatabaseInstance &db, FileSystem &fs, const
+ 		metadata_mismatch_error = StringUtil::Format("Failed to load '%s', %s", extension, metadata_mismatch_error);
+ 	}
+ 
+-	if (!Settings::Get<AllowUnsignedExtensionsSetting>(db)) {
++	if (!Settings::Get<AllowUnsignedExtensionsSetting>(db) && !nix_provided) {
+ 		bool signature_valid;
+ 		if (parsed_metadata.AppearsValid()) {
+ 			bool allow_community_extensions = Settings::Get<AllowCommunityExtensionsSetting>(db);

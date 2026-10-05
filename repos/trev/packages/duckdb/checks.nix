@@ -28,12 +28,19 @@ let
 
   mkExtensionCheck =
     name:
-    (callPackage ./default.nix { ${"with${toPascalCase name}"} = true; }).overrideAttrs (
-      _finalAttrs: previousAttrs: {
-        pname = "${previousAttrs.pname}-extension-${name}";
-        doInstallCheck = false;
-      }
-    );
+    let
+      duckdb = callPackage ./default.nix { ${"with${toPascalCase name}"} = true; };
+    in
+    # loadable extensions share the default core, the wrapper loads each extension
+    if duckdb ? unwrapped then
+      duckdb
+    else
+      duckdb.overrideAttrs (
+        _finalAttrs: previousAttrs: {
+          pname = "${previousAttrs.pname}-extension-${name}";
+          doInstallCheck = false;
+        }
+      );
 in
 
 lib.listToAttrs (

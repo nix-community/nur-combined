@@ -148,6 +148,7 @@ in
   branch = "v1.5-variegata";
   rev = "73bd62b7693413423830216b2680e7443bd7b090";
   hash = "sha256-kPN2B8r43l4BjEfmNU8QcRTtiKAA+yCgfPk/aNWUZyE=";
+  loadOptions = [ "DONT_LINK" ];
   duckdbBuildInputs = [
     azure-identity-cpp
     azure-storage-blobs-cpp
