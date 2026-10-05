@@ -240,22 +240,22 @@
   };
   open-orpheus-dev = {
     pname = "open-orpheus-dev";
-    version = "d94767da84e3284a8ed22ed1b1b54a9aff794ab6";
+    version = "e3d56666baaf1aa86aa56114d5bba9c8cdc259fe";
     src = fetchFromGitHub {
       owner = "YUCLing";
       repo = "open-orpheus";
-      rev = "d94767da84e3284a8ed22ed1b1b54a9aff794ab6";
+      rev = "e3d56666baaf1aa86aa56114d5bba9c8cdc259fe";
       fetchSubmodules = false;
-      sha256 = "sha256-EMxh5ErBXOQ4BKg+BSe7cmtQntb76oxyb//w1TeXDMA=";
+      sha256 = "sha256-DrInKnE/1JdA28qDBvBr7GFHXIfQK76qZR2knuUiFJ0=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-EMxh5ErBXOQ4BKg+BSe7cmtQntb76oxyb__w1TeXDMA=/Cargo.lock";
+      lockFile = ./. + "/sha256-DrInKnE_1JdA28qDBvBr7GFHXIfQK76qZR2knuUiFJ0=/Cargo.lock";
       outputHashes = {
         "font-kit-0.14.3" = "sha256-1/5w7y6XhNNg7jRZmJazM188v6vWkdYHn+94WqmJpMg=";
         "avs3a-0.1.0" = "sha256-OcI39YMDhcBpP6Tij11rATcKtp+mVrXHsjy8gRSm3eI=";
       };
     };
-    date = "2026-10-02";
+    date = "2026-10-04";
   };
   piliplus = {
     pname = "piliplus";
@@ -313,16 +313,16 @@
   };
   rayburst-beta = {
     pname = "rayburst-beta";
-    version = "v4.0.1-beta.1";
+    version = "v4.0.1-beta.4";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "rayburst";
-      rev = "v4.0.1-beta.1";
+      rev = "v4.0.1-beta.4";
       fetchSubmodules = false;
-      sha256 = "sha256-QKbpLWLo3WDlZEHmGB7VgwF7aKnVa139O21nIIvKvOo=";
+      sha256 = "sha256-oTJmPLOpuly6ojJAV9/SnYEPugs2ahPFV895OKAZZ50=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-QKbpLWLo3WDlZEHmGB7VgwF7aKnVa139O21nIIvKvOo=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-oTJmPLOpuly6ojJAV9_SnYEPugs2ahPFV895OKAZZ50=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
