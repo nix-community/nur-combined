@@ -15,6 +15,18 @@
 # caller bases this on nixpkgs-unstable (darktable 5.6.0) for the closest
 # dependency match. LibRaw/RawSpeed come in as git submodules (fetchSubmodules)
 # so they self-match the pinned master revision.
+#
+# Only the src/external/* submodules are fetched. darktable also registers
+# src/tests/integration (darktable-tests, ~900MB of raw test images) which the
+# build never reads. Pulling it is not just slow: that one burst trips GitHub's
+# per-IP rate limit for anonymous git access, and GitHub answers the *next*
+# request with HTTP 401. That next request is always LibRaw's, because LibRaw is
+# the one submodule pinned behind its branch tip and so needs a second fetch
+# after the clones finish -- hence the misleading "could not read Username for
+# 'https://github.com'" failures (reproduced in a sandbox: 200 in isolation, 401
+# right after the burst). gitConfigFile is exported as GIT_CONFIG_GLOBAL for
+# every git call in the fetch, and `git submodule update --init` with no paths
+# only initialises submodules matched by submodule.active.
 {
   lib,
   darktable,
@@ -72,7 +84,11 @@ let
       #   git ls-remote https://github.com/darktable-org/darktable refs/heads/master
       rev = "b1321bb8f8b5daf20063530f7aedc80c93bd66b5";
       fetchSubmodules = true;
-      hash = "sha256-R2pbqGcigG7vni/D4Dx+LEbExPp0kouQGpg7IpLOIR8=";
+      gitConfigFile = builtins.toFile "darktable-submodules.gitconfig" ''
+        [submodule]
+        	active = src/external/*
+      '';
+      hash = "sha256-jvl+E7saSuCrcVkJMeHyn1oW3ECx2OX3k+bQruTW5Lw=";
     };
 
     # No local patches here: the toggle-helper shim we used to carry is now
