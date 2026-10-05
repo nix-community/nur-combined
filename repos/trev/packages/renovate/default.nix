@@ -28,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   patches = [
-    ./40282.diff
+    ./45258.diff
   ];
 
   postPatch = ''
@@ -121,7 +121,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru.updateScript = [
-    "wget https://patch-diff.githubusercontent.com/raw/renovatebot/renovate/pull/40282.diff -O ./packages/renovate/40282.diff"
+    "wget https://patch-diff.githubusercontent.com/raw/renovatebot/renovate/pull/45258.diff -O ./packages/renovate/45258.diff"
     "&&"
   ]
   ++ nix-update-script {
