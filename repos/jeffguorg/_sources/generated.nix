@@ -188,10 +188,10 @@
   };
   dsh-tui = {
     pname = "dsh-tui";
-    version = "0.12.0";
+    version = "0.13.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@deepseek-harness-tui/dsh-tui/-/dsh-tui-0.12.0.tgz";
-      sha256 = "sha256-uyPFD6A+5hOlw/PPe9deA2Xj2fFA2fyrkUtqJ3AYoXg=";
+      url = "https://registry.npmjs.org/@deepseek-harness-tui/dsh-tui/-/dsh-tui-0.13.0.tgz";
+      sha256 = "sha256-DoTxXR74Mcqs8XWMumNLA6uRCNdy6Pd2p1HjgaHOndw=";
     };
   };
   garble = {
@@ -258,82 +258,82 @@
   };
   oh-my-pi-bin-amd64-darwin = {
     pname = "oh-my-pi-bin-amd64-darwin";
-    version = "v18.5.0";
+    version = "v18.6.1";
     src = fetchurl {
-      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.5.0/omp-darwin-x64";
-      sha256 = "sha256-vgGyIT12M7cWvxglDH73Vu4pER39dsyrxC5+OzXTW0s=";
+      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.6.1/omp-darwin-x64";
+      sha256 = "sha256-TIyl+N/pgHb7aIj3ZGWkO+VQOrOhg8viDMF0j51bm6g=";
     };
   };
   oh-my-pi-bin-amd64-linux = {
     pname = "oh-my-pi-bin-amd64-linux";
-    version = "v18.5.0";
+    version = "v18.6.1";
     src = fetchurl {
-      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.5.0/omp-linux-x64";
-      sha256 = "sha256-uEE+bghaQjx6mx17wCXCr3lJI7a2xXMwowljm2F2yKE=";
+      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.6.1/omp-linux-x64";
+      sha256 = "sha256-ySpoRtAphOhPB8Y2LRit03g/Uo9JT/zx4PJuWU8ydGM=";
     };
   };
   oh-my-pi-bin-arm64-darwin = {
     pname = "oh-my-pi-bin-arm64-darwin";
-    version = "v18.5.0";
+    version = "v18.6.1";
     src = fetchurl {
-      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.5.0/omp-darwin-arm64";
-      sha256 = "sha256-Vgi6FwWugIH0vO2bVLWDdS0Fkm/5xjd5qoZqTBPUOq0=";
+      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.6.1/omp-darwin-arm64";
+      sha256 = "sha256-tcpc0XuMwJ7ONoRZiP1AH30QAuGrW5VgDg8yiSQkbVI=";
     };
   };
   oh-my-pi-bin-arm64-linux = {
     pname = "oh-my-pi-bin-arm64-linux";
-    version = "v18.5.0";
+    version = "v18.6.1";
     src = fetchurl {
-      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.5.0/omp-linux-arm64";
-      sha256 = "sha256-EkSGDFi7aKOkU5DUky5ceYMYPsjBLLaEjBr9cJ3jigc=";
+      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.6.1/omp-linux-arm64";
+      sha256 = "sha256-y3gVMwuxF4d+ThM1YuqC4wAe5HDkc5NVJQe1p/BAf0o=";
     };
   };
   pi-agent = {
     pname = "pi-agent";
-    version = "1.0.2";
+    version = "1.0.3";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@earendil-works/pi-coding-agent/-/pi-coding-agent-1.0.2.tgz";
-      sha256 = "sha256-7aWueHU0O9kC/+VXGPtlskBtewOr7MXLidjkuwnO7aI=";
+      url = "https://registry.npmjs.org/@earendil-works/pi-coding-agent/-/pi-coding-agent-1.0.3.tgz";
+      sha256 = "sha256-EG6tsfgj9y8BLAjyO9NuQ1+eYvbIHpil2PcMipVD3QU=";
     };
   };
   pi-agent-bin-amd64-darwin = {
     pname = "pi-agent-bin-amd64-darwin";
-    version = "v1.0.2";
+    version = "v1.0.3";
     src = fetchurl {
-      url = "https://github.com/earendil-works/pi/releases/download/v1.0.2/pi-darwin-x64.tar.gz";
-      sha256 = "sha256-1Uvo3zOrai80V719437clHBQrEp/BDRW034Dr9FWhN4=";
+      url = "https://github.com/earendil-works/pi/releases/download/v1.0.3/pi-darwin-x64.tar.gz";
+      sha256 = "sha256-dp4MHVmdvI5jrDVZV77I6YMr/5HxkNZ0MjkuYqxVIZQ=";
     };
   };
   pi-agent-bin-amd64-linux = {
     pname = "pi-agent-bin-amd64-linux";
-    version = "v1.0.2";
+    version = "v1.0.3";
     src = fetchurl {
-      url = "https://github.com/earendil-works/pi/releases/download/v1.0.2/pi-linux-x64.tar.gz";
-      sha256 = "sha256-DXaHpqn8uqiP9mTLayhoPOnuPgKJMbVetIpwrpooXRg=";
+      url = "https://github.com/earendil-works/pi/releases/download/v1.0.3/pi-linux-x64.tar.gz";
+      sha256 = "sha256-m4x/9SO9kIgdHBUFFo8LnessA1c5a5K2L3mVUKSP8e0=";
     };
   };
   pi-agent-bin-arm64-darwin = {
     pname = "pi-agent-bin-arm64-darwin";
-    version = "v1.0.2";
+    version = "v1.0.3";
     src = fetchurl {
-      url = "https://github.com/earendil-works/pi/releases/download/v1.0.2/pi-darwin-arm64.tar.gz";
-      sha256 = "sha256-wvA16krbqHkW8AXJlRXjyRZ0sR0WunXZXQiB5Hgao7s=";
+      url = "https://github.com/earendil-works/pi/releases/download/v1.0.3/pi-darwin-arm64.tar.gz";
+      sha256 = "sha256-exqom6E1QvGsph69Y0htBBe10v79XEHt7djQg6txmyM=";
     };
   };
   pi-agent-bin-arm64-linux = {
     pname = "pi-agent-bin-arm64-linux";
-    version = "v1.0.2";
+    version = "v1.0.3";
     src = fetchurl {
-      url = "https://github.com/earendil-works/pi/releases/download/v1.0.2/pi-linux-arm64.tar.gz";
-      sha256 = "sha256-MyHM3D/zjWxSJ0vasoJG4GQ0YY0ZiKVOmczkXlNaATw=";
+      url = "https://github.com/earendil-works/pi/releases/download/v1.0.3/pi-linux-arm64.tar.gz";
+      sha256 = "sha256-0wk6eayeIu9DDipz4AKj3etFHeB7cis6pTqmqU6qntw=";
     };
   };
   pi-agent-git = {
     pname = "pi-agent-git";
-    version = "1.0.2";
+    version = "1.0.3";
     src = fetchurl {
-      url = "https://github.com/earendil-works/pi/releases/download/v1.0.2/pi-1.0.2-source.tar.gz";
-      sha256 = "sha256-/umNh3jEJDKQYGZyi35jJeMVoN9sEhd85h/E9yYvBHM=";
+      url = "https://github.com/earendil-works/pi/releases/download/v1.0.3/pi-1.0.3-source.tar.gz";
+      sha256 = "sha256-cAk+uBzhxBT06hU32ZFQXoieP33vPjBzXsdNiNHfCiM=";
     };
   };
   vagrant-vmware-utility = {
