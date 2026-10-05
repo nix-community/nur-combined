@@ -13,14 +13,17 @@ let
           _llvmFinal: llvmPrev:
           let
             targetPrefix = llvmPrev.bintools-unwrapped.passthru.targetPrefix;
+            crossLlvm = llvmPrev.llvm;
+            # rustc rebuilds libllvm with a clang stdenv for useLLVM targets, and
             # llvm-exegesis CPU-pinning checks hang in sandboxed Linux builds.
-            withoutChecks =
-              package:
-              package.overrideAttrs (_: {
-                doCheck = false;
-              });
-            crossLlvm = withoutChecks llvmPrev.llvm;
-            crossLibllvm = withoutChecks llvmPrev.libllvm;
+            # Only overridden variants are touched so the default stays cached.
+            crossLibllvm = llvmPrev.libllvm // {
+              override =
+                args:
+                (llvmPrev.libllvm.override args).overrideAttrs (_: {
+                  doCheck = false;
+                });
+            };
             crossLibunwind = llvmPrev.libunwind.override { doFakeLibgcc = false; };
             darwinLd = prev.buildPackages.writeShellScript "darwin-ld" ''
               set -eu
@@ -93,7 +96,6 @@ let
               });
           in
           {
-            llvm = crossLlvm;
             libllvm = crossLibllvm;
             bintools-unwrapped = llvmPrev.bintools-unwrapped.overrideAttrs (old: {
               buildCommand = old.buildCommand + ''
