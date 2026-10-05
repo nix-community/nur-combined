@@ -4,7 +4,7 @@
   fetchFromGitea,
   fetchPnpmDeps,
   pnpmConfigHook,
-  pnpm_10,
+  pnpm_11,
   nodejs_24,
   nix-update-script,
   makeWrapper,
@@ -14,7 +14,7 @@
 }:
 
 let
-  pnpm = pnpm_10;
+  pnpm = pnpm_11;
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "strudel";
@@ -35,7 +35,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-VloQ39SAhbRw9Rc3ZAE4ngtu6OFwed5Yq8FVSZMHkNM=";
+    hash = "sha256-0RBB2294wedVuNHqlFnYPJf4n0MU49yW+z665WJP/x4=";
   };
 
   nativeBuildInputs = [
