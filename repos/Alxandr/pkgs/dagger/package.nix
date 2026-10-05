@@ -11,13 +11,13 @@
 
 buildGoModule (finalAttrs: {
   pname = "dagger";
-  version = "0.21.9";
+  version = "0.21.10";
 
   src = fetchFromGitHub {
     owner = "dagger";
     repo = "dagger";
     rev = "v${finalAttrs.version}";
-    sha256 = "sha256-ZI9R0fp0qFGQljfNgrwKj071a10ZVpNMmEKHDFNUW3c=";
+    sha256 = "sha256-aRWgwGRWJgUVSy4DanmrRBX8cpF86n/YxStaE2C67HA=";
     fetchSubmodules = true;
   };
 
