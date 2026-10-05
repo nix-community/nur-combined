@@ -7,13 +7,13 @@
 let
   self = buildLakePackage rec {
     pname = "lean4-xdg-user-dirs";
-    version = "0.3.0";
+    version = "0.3.1";
 
     src = fetchFromGitHub {
       owner = "wrvsrx";
       repo = "xdg-user-dirs";
       rev = version;
-      hash = "sha256-s62/B5MUn5Dk6gjYbE6UN3H1+bnEF3iwjQxsPkm/me8=";
+      hash = "sha256-JBmwDaBMn/2U20Ui8kPI/etB20armK5L4FK2yWYj8v8=";
     };
     leanPackageName = "«xdg-user-dirs»";
     leanDeps = [ xdg ];
