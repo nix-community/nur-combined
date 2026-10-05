@@ -13,6 +13,7 @@
 | **`nmssaveeditor`** | Save editor for No Man's Sky | **Auto** (Weekly) |
 | **`optiscaler-install`** | Downloader and launcher for the official OptiScaler Linux setup script | Manual (runtime latest) |
 | **`optipatcher-install`** | Downloader for the latest OptiPatcher ASI plugin | Manual (runtime latest) |
+| **`pig`** | Pi coding agent rebuilt in Go as a single native binary | **Auto** (Weekly) |
 | **`rimsort-appimage`** | Open source mod manager for RimWorld (AppImage) | **Auto** (Weekly) |
 | **`wowup-cf`** | World of Warcraft addon manager with CurseForge support (AppImage) | **Auto** (Weekly) |
 | **`scopebuddy`** | ScopeBuddy application | **Auto** (Weekly) |

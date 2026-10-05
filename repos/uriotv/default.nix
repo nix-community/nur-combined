@@ -30,6 +30,7 @@
   # Tools
   optipatcher-install = pkgs.callPackage ./pkgs/optipatcher-install { };
   optiscaler-install = pkgs.callPackage ./pkgs/optiscaler-install { };
+  pig = pkgs.callPackage ./pkgs/pig { };
   scopebuddy = pkgs.callPackage ./pkgs/scopebuddy { };
   # Launcher
   vs-launcher = pkgs.callPackage ./pkgs/vs-launcher { };
