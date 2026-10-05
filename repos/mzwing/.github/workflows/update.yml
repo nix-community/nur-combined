@@ -14,7 +14,7 @@ on:
       - '.github/workflows/update.yml'
       - 'scripts/**'
   schedule:
-    - cron: "23 12 * * *"
+    - cron: "23 8 * * *"
   workflow_dispatch:
 
 permissions:

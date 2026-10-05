@@ -43,3 +43,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: curl -XPOST "https://nur-update.nix-community.org/update?repo=mzwing"
+
+  # Replaces nix-config's own schedule, which raced this build and pinned nur revisions Cachix did not have yet.
+  nix-config-update:
+    name: Trigger nix-config update
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GH_TOKEN: ${{ secrets.NIX_CONFIG_DISPATCH_TOKEN }}
+        run: gh workflow run update.yml --repo mzwing/nix-config
