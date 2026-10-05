@@ -12,7 +12,7 @@
 [package]
 edition = "2024"
 name = "gpui-pre-linux"
-version = "0.3.5"
+version = "0.3.8"
 build = false
 publish = true
 autolib = false
@@ -20,23 +20,19 @@ autobins = false
 autoexamples = false
 autotests = false
 autobenches = false
-description = "Zed's `gpui_linux` crate (gpui-pre snapshot of zed@d89e9c2)"
+description = "Zed's `gpui_linux` crate (gpui-pre snapshot of zed@279fe07)"
 readme = false
 license = "Apache-2.0"
 repository = "https://github.com/zed-industries/zed"
 resolver = "2"
 
 [package.metadata.cargo-shear]
-ignored = [
-    "bitflags",
-    "scap",
-    "x11-clipboard",
-]
+ignored = ["scap"]
 
 [package.metadata.gpui-pre]
 zed-crate = "gpui_linux"
 zed-version = "0.1.0"
-zed-rev = "d89e9c2124b2786a390c7a451c7488601b4da2e1"
+zed-rev = "279fe070bb389b79652e52065b2f001edcc0b11b"
 
 [features]
 default = [
@@ -49,7 +45,6 @@ screen-capture = [
 ]
 test-support = ["gpui/test-support"]
 wayland = [
-    "bitflags",
     "gpui_wgpu",
     "ashpd/wayland",
     "calloop-wayland-source",
@@ -71,7 +66,6 @@ x11 = [
     "x11rb",
     "xkbcommon/x11",
     "xim",
-    "x11-clipboard",
     "filedescriptor",
     "open",
     "scap?/x11",
@@ -80,6 +74,7 @@ x11 = [
 [lib]
 name = "gpui_linux"
 path = "src/gpui_linux.rs"
+doctest = false
 
 [target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.accesskit]
 version = "0.24.0"
@@ -109,10 +104,6 @@ features = [
 optional = true
 default-features = false
 
-[target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.bitflags]
-version = "2.6.0"
-optional = true
-
 [target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.bytemuck]
 version = "1"
 
@@ -124,7 +115,7 @@ version = "0.4.1"
 optional = true
 
 [target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.collections]
-version = "=0.3.5"
+version = "=0.3.8"
 package = "gpui-pre-collections"
 
 [target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.filedescriptor]
@@ -135,22 +126,22 @@ optional = true
 version = "0.3.34"
 
 [target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.gpui]
-version = "=0.3.5"
+version = "=0.3.8"
 default-features = false
 package = "gpui-pre"
 
 [target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.gpui_util]
-version = "=0.3.5"
+version = "=0.3.8"
 package = "gpui-pre-util"
 
 [target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.gpui_wgpu]
-version = "=0.3.5"
+version = "=0.3.8"
 features = ["font-kit"]
 optional = true
 package = "gpui-pre-wgpu"
 
 [target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.http_client]
-version = "=0.3.5"
+version = "=0.3.8"
 package = "gpui-pre-http-client"
 
 [target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.libc]
@@ -250,10 +241,6 @@ optional = true
 [target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.wayland-protocols-wlr]
 version = "0.3.9"
 features = ["client"]
-optional = true
-
-[target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.x11-clipboard]
-version = "0.9.3"
 optional = true
 
 [target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.x11rb]

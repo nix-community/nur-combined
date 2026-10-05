@@ -12,7 +12,7 @@
 [package]
 edition = "2024"
 name = "gpui-pre-wgpu"
-version = "0.3.5"
+version = "0.3.8"
 build = false
 publish = true
 autolib = false
@@ -20,7 +20,7 @@ autobins = false
 autoexamples = false
 autotests = false
 autobenches = false
-description = "Zed's `gpui_wgpu` crate (gpui-pre snapshot of zed@d89e9c2)"
+description = "Zed's `gpui_wgpu` crate (gpui-pre snapshot of zed@279fe07)"
 readme = false
 license = "Apache-2.0"
 repository = "https://github.com/zed-industries/zed"
@@ -29,15 +29,24 @@ resolver = "2"
 [package.metadata.gpui-pre]
 zed-crate = "gpui_wgpu"
 zed-version = "0.1.0"
-zed-rev = "d89e9c2124b2786a390c7a451c7488601b4da2e1"
+zed-rev = "279fe070bb389b79652e52065b2f001edcc0b11b"
 
 [features]
+bench-support = [
+    "gpui/bench-support",
+    "dep:image",
+]
 default = []
 font-kit = ["dep:font-kit"]
+test-support = [
+    "gpui/test-support",
+    "dep:image",
+]
 
 [lib]
 name = "gpui_wgpu"
 path = "src/gpui_wgpu.rs"
+doctest = false
 
 [[bench]]
 name = "layout_line"
@@ -51,7 +60,7 @@ version = "1.0.86"
 version = "1"
 
 [dependencies.collections]
-version = "=0.3.5"
+version = "=0.3.8"
 package = "gpui-pre-collections"
 
 [dependencies.cosmic-text]
@@ -66,13 +75,35 @@ optional = true
 package = "zed-font-kit"
 
 [dependencies.gpui]
-version = "=0.3.5"
+version = "=0.3.8"
 default-features = false
 package = "gpui-pre"
 
 [dependencies.gpui_util]
-version = "=0.3.5"
+version = "=0.3.8"
 package = "gpui-pre-util"
+
+[dependencies.image]
+version = "0.25.1"
+features = [
+    "bmp",
+    "dds",
+    "exr",
+    "ff",
+    "gif",
+    "hdr",
+    "ico",
+    "jpeg",
+    "png",
+    "pnm",
+    "qoi",
+    "rayon",
+    "tga",
+    "tiff",
+    "webp",
+]
+optional = true
+default-features = false
 
 [dependencies.itertools]
 version = "0.14.0"

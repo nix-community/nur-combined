@@ -80,6 +80,8 @@ Rough chronological / thematic summary of edits under this vendor tree:
 - `write_input` for paste into the PTY.
 - Safer mouse report row indexing; middle/right mouse buttons registered on the view.
 - Event enum extended / cleaned so host-bound replies are first-class (`event.rs`).
+- `Cargo.toml`: the `gpui` (`gpui-pre`) requirement tracks the vendored release
+  (currently `0.3.8`).
 
 ## Refresh / rebase tips
 
@@ -117,22 +119,30 @@ Keep `src/`, `Cargo.toml`, `LICENSE-APACHE`, `.cargo_vcs_info.json`. Do **not** 
 
 ---
 
-# Vendored gpui-pre platform crates (0.3.5)
+# Vendored gpui-pre platform crates (0.3.8)
 
-Omnimux depends on crates.io **`gpui-pre` 0.3.5** + **`gpui-pre-platform`** +
-**`gpui-component` 0.6.4** (no longer vendors the monolithic `gpui-ce` tree).
+Omnimux depends on crates.io **`gpui-pre` 0.3.8** + **`gpui-pre-platform`** +
+**`gpui-component` 0.7.1** (no longer vendors the monolithic `gpui-ce` tree).
 Platform backends are split: we path-patch only the crates that carry Omnimux
 deltas via `[patch.crates-io]` in `src/Cargo.toml`.
 
 | Vendored crate | Upstream | Why patched |
 | --- | --- | --- |
-| `vendor/gpui-pre-linux` | `gpui-pre-linux` 0.3.5 (zed@d89e9c2) | Wayland `wl_touch`, pointer press orphan fix, XDP appearance RefCell, maximized resize guard |
-| `vendor/gpui-pre-wgpu` | `gpui-pre-wgpu` 0.3.5 | cosmic-text emoji / Nerd fallback (Starship `🐍` tofu) |
-| `vendor/gpui-pre-macos` | `gpui-pre-macos` 0.3.5 | `CTFontManagerRegisterGraphicsFont` + Nerd symbols `has_m_glyph` bypass |
+| `vendor/gpui-pre-linux` | `gpui-pre-linux` 0.3.8 (zed@279fe07) | Wayland `wl_touch`, pointer press orphan fix, XDP appearance RefCell, maximized resize guard |
+| `vendor/gpui-pre-wgpu` | `gpui-pre-wgpu` 0.3.8 (zed@279fe07) | cosmic-text emoji / Nerd fallback (Starship `🐍` tofu) |
+| `vendor/gpui-pre-macos` | `gpui-pre-macos` 0.3.8 (zed@279fe07) | `CTFontManagerRegisterGraphicsFont` + Nerd symbols `has_m_glyph` bypass |
 
 App entry uses `gpui_platform::application()` (platforms no longer live inside `gpui`).
 
-## Local changes (vs stock 0.3.5)
+> **The `[patch.crates-io]` trap.** A bare `cargo update` moves `gpui-pre` to the
+> newest release that `gpui-component` allows, while these vendored crates keep the
+> version in their own `Cargo.toml`. Cargo then reports *"patch `gpui-pre-linux
+> v0.3.x` was not used in the crate graph"*, quietly falls back to the crates.io
+> build, and **the local patches are lost while `nix build` still succeeds**. Always
+> check `cargo metadata` for that warning after a dependency bump; the fix is to
+> re-vendor the three crates at the new version (below).
+
+## Local changes (vs stock 0.3.8)
 
 Touch source: [zed#40139](https://github.com/zed-industries/zed/pull/40139) /
 `robert7k` `feature/touch-events` (still not in this gpui-pre snapshot). Pinch-to-zoom
@@ -160,15 +170,37 @@ from that PR omitted (`KeyDownEvent` lacks the fields it needs).
   Unifont* / Segoe emoji. Strip competing system faces so Starship bold `🐍` does not
   paint yellow tofu.
 - `remove_competing_emoji_faces` before `FontSystem::new_with_locale_and_db_and_fallback`.
+- Adds a `unicode-script` dependency, used by the fallback's `script_fallback`, which
+  defers to cosmic-text's `PlatformFallback`.
 
 **`gpui-pre-macos`** (`text_system.rs`)
 
 - Register bundled fonts with `CTFontManagerRegisterGraphicsFont`.
 - Treat Symbols Nerd Font like Segoe Fluent Icons for the `m`-glyph load gate.
 
-`gpui-component` 0.6.4 is used from crates.io (maximized window-border guard is upstream).
+`gpui-component` 0.7.1 is used from crates.io (maximized window-border guard is upstream).
 Default theme still ships a `drag_border` JSON key while schema expects `drag.border`;
 serde ignores the typo and falls back to `primary` — acceptable, not worth re-vendoring
 the whole crate for.
+
+## Refreshing the vendored platform crates
+
+The `gpui-pre` version is chosen by whatever `gpui-component` pins with
+`gpui = "=0.3.x"`, **not** by the newest release on crates.io. To bump:
+
+1. Download the matching `gpui-pre-linux`, `gpui-pre-wgpu` and `gpui-pre-macos` from
+   `https://static.crates.io/crates/<crate>/<crate>-<version>.crate`.
+2. Drop `Cargo.lock` and `Cargo.toml.orig` (tree hygiene, as for the other vendors),
+   then re-apply the patches listed above. Regenerate them by diffing the old vendor
+   tree against the old release: `diff -u <crate>-<old>/src/... <vendor>/src/...`.
+3. Expect manual rebases in `gpui-pre-linux` `wayland/client.rs` and `x11/client.rs`:
+   the XDP appearance / button-layout handlers track upstream refactors such as the
+   0.3.6 move of `common` into `Rc<RefCell<LinuxCommon>>`. Drop the client borrow
+   (collect cloned window pointers first) before `set_appearance` /
+   `set_button_layout`, otherwise appearance observers panic with `RefCell already
+   borrowed`.
+4. `gpui-pre-macos` cannot be compiled on Linux — review that patch by eye.
+5. `git add` the whole vendor tree (flake eval ignores untracked files), then run
+   `cargo check --all-targets` and `nix build .#omnimux`.
 
 ---
