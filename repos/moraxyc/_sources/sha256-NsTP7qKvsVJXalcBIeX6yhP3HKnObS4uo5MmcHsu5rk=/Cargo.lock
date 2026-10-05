@@ -561,7 +561,7 @@ checksum = "c8d4a3bb8b1e0c1050499d1815f5ab16d04f0959b233085fb31653fbfc9d98f9"
 
 [[package]]
 name = "clash-api"
-version = "1.0.0-rc.9"
+version = "1.0.0-rc.10"
 dependencies = [
  "axum",
  "backon",
@@ -581,6 +581,7 @@ dependencies = [
  "specta-serde",
  "specta-typescript",
  "specta-util",
+ "tempfile",
  "thiserror 2.0.19",
  "tokio",
  "tokio-util",
@@ -2192,7 +2193,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-core-manager"
-version = "1.0.0-rc.9"
+version = "1.0.0-rc.10"
 dependencies = [
  "camino",
  "chrono",
@@ -2222,7 +2223,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-core-metadata"
-version = "1.0.0-rc.9"
+version = "1.0.0-rc.10"
 dependencies = [
  "constcat",
  "enumset",
@@ -2235,7 +2236,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-ipc"
-version = "2.0.0-rc.9"
+version = "2.0.0-rc.10"
 dependencies = [
  "anyhow",
  "axum",
@@ -2265,7 +2266,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-jobs"
-version = "0.1.1-rc.3"
+version = "0.1.1-rc.4"
 dependencies = [
  "futures-util",
  "jiff",
@@ -2288,7 +2289,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-logging"
-version = "0.1.1-rc.5"
+version = "0.1.1-rc.6"
 dependencies = [
  "chrono",
  "file-id",
@@ -2306,7 +2307,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-service"
-version = "2.0.0-rc.11"
+version = "2.0.0-rc.12"
 dependencies = [
  "nyanpasu-service-runtime",
  "nyanpasu-utils",
@@ -2318,7 +2319,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-service-runtime"
-version = "2.0.0-rc.11"
+version = "2.0.0-rc.12"
 dependencies = [
  "ansi-str",
  "anyhow",
@@ -2407,7 +2408,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-windows-security"
-version = "0.1.1-rc.4"
+version = "0.1.1-rc.5"
 dependencies = [
  "anyhow",
  "tokio",
