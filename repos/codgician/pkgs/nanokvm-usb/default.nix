@@ -3,7 +3,9 @@
   stdenv,
   fetchFromGitHub,
   nodejs,
-  pnpm_10,
+  pnpm_11,
+  jq,
+  yq,
   fetchPnpmDeps,
   pnpmConfigHook,
   electron,
@@ -21,9 +23,8 @@
 let
   # Pin the pnpm major so the offline-store layout (and therefore
   # `pnpmDeps.hash`) is stable across nixpkgs bumps of the default `pnpm`
-  # attribute. The upstream lockfile is `lockfileVersion: '9.0'`, which is
-  # produced by pnpm 9/10.
-  pnpm = pnpm_10;
+  # attribute. pnpm 11 supports the upstream lockfile's `lockfileVersion: '9.0'`.
+  pnpm = pnpm_11;
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "nanokvm-usb";
@@ -42,6 +43,8 @@ stdenv.mkDerivation (finalAttrs: {
     pnpm
     pnpmConfigHook
     nodejs
+    jq
+    yq
     pkg-config
     makeWrapper
   ]
@@ -55,6 +58,15 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   pnpmInstallFlags = [ "--shamefully-hoist" ];
+  # pnpm 11 moved overrides and build approvals into pnpm-workspace.yaml.
+  # Preserve the upstream policy: allow only Electron's install script.
+  prePnpmInstall = ''
+    jq '.pnpm | { overrides, confirmModulesPurge: false, shamefullyHoist: true, allowBuilds: { "@serialport/bindings-cpp": false, electron: true, "electron-winstaller": false, esbuild: false } }' package.json | yq -y '.' > pnpm-workspace.yaml
+    jq 'del(.pnpm)' package.json > package.json.tmp
+    mv package.json.tmp package.json
+    rm .npmrc
+  '';
+
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs)
@@ -62,10 +74,12 @@ stdenv.mkDerivation (finalAttrs: {
       version
       src
       sourceRoot
+      prePnpmInstall
       ;
     inherit pnpm;
-    fetcherVersion = 3;
-    hash = "sha256-2Ct2u4FoMEFfSm7i1BSa4317puMzFgh35J0L5hci75U=";
+    nativeBuildInputs = [ jq yq ];
+    fetcherVersion = 4;
+    hash = "sha256-iQ55ubHccv5+DVOU0iAyPKH3kFwOS/Wg+cOAHAN7r3Q=";
   };
 
   buildInputs = lib.optionals stdenv.isLinux [
