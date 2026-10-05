@@ -3,14 +3,11 @@
   src,
   updateScript,
   stdenvNoCC,
-  pkgs,
+  fontmake,
+  gftools,
   lib,
 }:
 
-let
-  inherit (pkgs.python312Packages) fontmake gftools;
-
-in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "fira-code-vf";
   version = "git-${lib.strings.substring 0 7 finalAttrs.src.rev}";

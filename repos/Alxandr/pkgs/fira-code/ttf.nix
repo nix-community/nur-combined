@@ -3,15 +3,11 @@
   src,
   updateScript,
   stdenvNoCC,
-  pkgs,
+  fontmake,
+  ttfautohint,
   lib,
 }:
 
-let
-  inherit (pkgs) ttfautohint;
-  inherit (pkgs.python312Packages) fontmake;
-
-in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "fira-code-ttf";
   version = "git-${lib.strings.substring 0 7 finalAttrs.src.rev}";
