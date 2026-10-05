@@ -1,5 +1,3 @@
 package androidx.collection
 
-open class ArrayMap {
-    companion object { }
-}
+open class ArrayMap<K, V> : java.util.HashMap<K, V>()

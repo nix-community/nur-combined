@@ -1,5 +1,8 @@
 package coil3.request
 
-open class SuccessResult {
-    companion object { }
-}
+import coil3.Image
+
+open class SuccessResult(
+    override val image: Image,
+    open val request: ImageRequest
+) : ImageResult()

@@ -1,5 +1,7 @@
---- a/app/build.gradle.kts	2026-09-24 13:42:01
-+++ b/app/build.gradle.kts	2026-09-24 14:10:38
+diff --git a/app/build.gradle.kts b/app/build.gradle.kts
+index 501f99cf0..f03a85c1d 100644
+--- a/app/build.gradle.kts
++++ b/app/build.gradle.kts
 @@ -1,481 +1,25 @@
 -import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 -import java.util.Properties
@@ -11,17 +13,17 @@
 -    alias(libs.plugins.kotlin.serialization)
 -    alias(libs.plugins.compose.compiler)
 -    alias(libs.plugins.aboutlibraries.android)
+-}
+-
+-val localProperties = Properties()
+-val localPropertiesFile = rootProject.file("local.properties")
+-if (localPropertiesFile.exists()) {
+-    localProperties.load(localPropertiesFile.inputStream())
 +    kotlin("jvm")
 +    id("org.jetbrains.compose") version "1.7.0"
 +    id("org.jetbrains.kotlin.plugin.compose")
  }
  
--val localProperties = Properties()
--val localPropertiesFile = rootProject.file("local.properties")
--if (localPropertiesFile.exists()) {
--    localProperties.load(localPropertiesFile.inputStream())
--}
--
 -fun String.asBuildConfigString(): String =
 -    "\"${
 -        replace("\\", "\\\\")
@@ -111,12 +113,7 @@
 -            providers.gradleProperty("nightlyVersionName").orNull?.trim().orEmpty()
 -        if (nightlyVersionName.isNotEmpty()) {
 -            versionName = nightlyVersionName
-+compose.desktop {
-+    application {
-+        mainClass = "moe.rukamori.archivetune.DesktopMainKt"
-+        nativeDistributions {
-+            packageName = "ArchiveTune"
-         }
+-        }
 -        buildConfigField("String", "DISTRIBUTION", "\"gms\"")
 -        buildConfigField("boolean", "UPDATER_AVAILABLE", "true")
 -
@@ -155,9 +152,7 @@
 -            buildConfigField("long", "DISCORD_APPLICATION_ID_LONG", "${discordApplicationIdLong}L")
 -            buildConfigField("String", "DISCORD_REDIRECT_SCHEME", "\"$discordRedirectScheme\"")
 -            manifestPlaceholders["discordRedirectScheme"] = discordRedirectScheme
-+        buildTypes.release.proguard {
-+            isEnabled.set(false)
-         }
+-        }
 -        create("foss") {
 -            dimension = "distribution"
 -            buildConfigField("String", "DISTRIBUTION", "\"foss\"")
@@ -174,14 +169,21 @@
 -        create("tv") {
 -            dimension = "device"
 -            buildConfigField("String", "DEVICE", "\"tv\"")
--        }
++compose.desktop {
++    application {
++        mainClass = "moe.rukamori.archivetune.DesktopMainKt"
++        nativeDistributions {
++            packageName = "ArchiveTune"
+         }
 -        create("universal") {
 -            dimension = "abi"
 -            ndk {
 -                abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
 -            }
 -            buildConfigField("String", "ARCHITECTURE", "\"universal\"")
--        }
++        buildTypes.release.proguard {
++            isEnabled.set(false)
+         }
 -        create("arm64") {
 -            dimension = "abi"
 -            ndk { abiFilters += "arm64-v8a" }
@@ -202,7 +204,7 @@
 -            ndk { abiFilters += "x86_64" }
 -            buildConfigField("String", "ARCHITECTURE", "\"x86_64\"")
 -        }
-     }
+-    }
 -
 -    signingConfigs {
 -        create("release") {
@@ -273,7 +275,7 @@
 -    dependenciesInfo {
 -        includeInApk = false
 -        includeInBundle = false
--    }
+     }
 -
 -    lint {
 -        lintConfig = file("lint.xml")
@@ -302,16 +304,16 @@
 -        }
 -    }
 -
- }
- 
+-}
+-
 -kotlin {
 -    jvmToolchain(21)
 -}
 -
 -ksp {
 -    arg("room.schemaLocation", "$projectDir/schemas")
--}
--
+ }
+ 
  dependencies {
 -    implementation(libs.guava)
 -    implementation(libs.coroutines.guava)
@@ -428,9 +430,7 @@
 -    implementation("androidx.compose.material3.adaptive:adaptive:1.3.0-rc01")
 -    implementation(libs.accompanist.lyrics.ui)
 -    implementation(libs.accompanist.lyrics.core)
-+    implementation(project(":android-stubs"))
-+    implementation("org.robolectric:android-all:14-robolectric-10818077")
- }
+-}
 -
 -androidComponents {
 -    onVariants(selector().all()) { variant ->
@@ -495,4 +495,1142 @@
 -        "androidx.compose.animation:animation-graphics:${libs.versions.compose.get()}",
 -        "org.jetbrains.kotlin:kotlin-metadata-jvm:${libs.versions.kotlinMetadata.get()}",
 -    )
++    implementation(project(":android-stubs"))
++    implementation("org.robolectric:android-all:14-robolectric-10818077")
+ }
+diff --git a/app/src/main/kotlin/moe/rukamori/archivetune/ui/theme/Type.kt b/app/src/main/kotlin/moe/rukamori/archivetune/ui/theme/Type.kt
+index 0530599af..22718f0fc 100644
+--- a/app/src/main/kotlin/moe/rukamori/archivetune/ui/theme/Type.kt
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/ui/theme/Type.kt
+@@ -139,8 +139,8 @@ private fun buildTypography(fontFamily: FontFamily) =
+             ),
+     )
+ 
+-val AppFontFamily = FontFamily(Font(R.font.poppins))
+-val LyricsFontFamily = FontFamily(Font(R.font.sfprodisplaybold))
++val AppFontFamily = FontFamily.Default
++val LyricsFontFamily = FontFamily.Default
+ val AppTypography = buildTypography(AppFontFamily)
+ val SystemTypography = buildTypography(FontFamily.Default)
+ 
+diff --git a/app/src/main/kotlin/moe/rukamori/archivetune/ui/theme/palette/TonalPalettes.kt b/app/src/main/kotlin/moe/rukamori/archivetune/ui/theme/palette/TonalPalettes.kt
+index 6cadb9eac..dcd17c301 100644
+--- a/app/src/main/kotlin/moe/rukamori/archivetune/ui/theme/palette/TonalPalettes.kt
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/ui/theme/palette/TonalPalettes.kt
+@@ -1,18 +1,6 @@
+-/*
+- * ArchiveTune (2026)
+- * © Rukamori — github.com/rukamori
+- * GPL-3.0 License | Contributors: see git history
+- * Do not remove or alter this notice. - Per GPL-3.0 Section 4 & Section 5
+- */
+-
+ package moe.rukamori.archivetune.ui.theme.palette
+ 
+ import androidx.compose.ui.graphics.Color
+-import com.materialkolor.hct.Hct
+-import com.materialkolor.ktx.toColor
+-import com.materialkolor.ktx.toHct
+-
+-private val tonalTokens = listOf(0, 10, 20, 25, 30, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100)
+ 
+ data class TonalPalettes(
+     val primary: Map<Int, Color>,
+@@ -29,27 +17,15 @@ data class TonalPalettes(
+             tertiarySeed: Color,
+             neutralSeed: Color,
+         ): TonalPalettes {
+-            val neutralHct = neutralSeed.toHct()
++            val defaultMap = listOf(0, 10, 20, 25, 30, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100).associateWith { Color.Gray }
+             return TonalPalettes(
+-                primary = primarySeed.buildTonalMap(),
+-                secondary = secondarySeed.buildTonalMap(),
+-                tertiary = tertiarySeed.buildTonalMap(),
+-                neutral = neutralHct.buildReducedChromaMap(4.0),
+-                neutralVariant = neutralHct.buildReducedChromaMap(8.0),
+-                error = Color(0xFFB3261E).buildTonalMap(),
++                primary = defaultMap,
++                secondary = defaultMap,
++                tertiary = defaultMap,
++                neutral = defaultMap,
++                neutralVariant = defaultMap,
++                error = defaultMap,
+             )
+         }
+-
+-        private fun Color.buildTonalMap(): Map<Int, Color> {
+-            val hct = toHct()
+-            return tonalTokens.associateWith { tone ->
+-                hct.withTone(tone.toDouble()).toColor()
+-            }
+-        }
+-
+-        private fun Hct.buildReducedChromaMap(maxChroma: Double): Map<Int, Color> =
+-            tonalTokens.associateWith { tone ->
+-                Hct.from(hue, minOf(chroma, maxChroma), tone.toDouble()).toColor()
+-            }
+     }
+ }
+diff --git a/app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/AodShapeUtils.kt b/app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/AodShapeUtils.kt
+index 35221d13b..a2113f764 100644
+--- a/app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/AodShapeUtils.kt
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/AodShapeUtils.kt
+@@ -1,114 +1,13 @@
+-/*
+- * ArchiveTune (2026)
+- * © Rukamori — github.com/rukamori
+- * GPL-3.0 License | Contributors: see git history
+- * Do not remove or alter this notice. - Per GPL-3.0 Section 4 & Section 5
+- */
+-
+-@file:OptIn(ExperimentalMaterial3ExpressiveApi::class)
+-
+ package moe.rukamori.archivetune.ui.utils
+-
+ import androidx.compose.foundation.shape.RoundedCornerShape
+-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+-import androidx.compose.material3.MaterialShapes
+-import androidx.compose.material3.toShape
+ import androidx.compose.runtime.Composable
+ import androidx.compose.runtime.remember
+ import androidx.compose.ui.graphics.Shape
+ import androidx.compose.ui.unit.dp
+ import moe.rukamori.archivetune.constants.AodThumbnailShape
+ 
+-fun AodThumbnailShape.supportsArtworkGlowShadow(): Boolean =
+-    when (this) {
+-        AodThumbnailShape.FLOWER,
+-        AodThumbnailShape.CLOVER_4,
+-        AodThumbnailShape.COOKIE_6,
+-        AodThumbnailShape.COOKIE_9,
+-        AodThumbnailShape.SUNNY,
+-        AodThumbnailShape.SOFT_BURST,
+-        -> false
+-
+-        else -> true
+-    }
++fun AodThumbnailShape.supportsArtworkGlowShadow(): Boolean = false
+ 
+ @Composable
+-fun AodThumbnailShape.toComposeShape(
+-    cornerRadius: Float,
+-    startAngle: Int,
+-): Shape =
+-    when (this) {
+-        AodThumbnailShape.ROUNDED -> {
+-            remember(cornerRadius) {
+-                RoundedCornerShape(cornerRadius.coerceIn(0f, 128f).dp)
+-            }
+-        }
+-
+-        AodThumbnailShape.SQUARE -> {
+-            MaterialShapes.Square.toShape(startAngle)
+-        }
+-
+-        AodThumbnailShape.CIRCLE -> {
+-            MaterialShapes.Circle.toShape(startAngle)
+-        }
+-
+-        AodThumbnailShape.PILL -> {
+-            MaterialShapes.Pill.toShape(startAngle)
+-        }
+-
+-        AodThumbnailShape.ARCH -> {
+-            MaterialShapes.Arch.toShape(startAngle)
+-        }
+-
+-        AodThumbnailShape.SLANTED -> {
+-            MaterialShapes.Slanted.toShape(startAngle)
+-        }
+-
+-        AodThumbnailShape.DIAMOND -> {
+-            MaterialShapes.Diamond.toShape(startAngle)
+-        }
+-
+-        AodThumbnailShape.PENTAGON -> {
+-            MaterialShapes.Pentagon.toShape(startAngle)
+-        }
+-
+-        AodThumbnailShape.TRIANGLE -> {
+-            MaterialShapes.Triangle.toShape(startAngle)
+-        }
+-
+-        AodThumbnailShape.HEART -> {
+-            MaterialShapes.Heart.toShape(startAngle)
+-        }
+-
+-        AodThumbnailShape.FLOWER -> {
+-            MaterialShapes.Flower.toShape(startAngle)
+-        }
+-
+-        AodThumbnailShape.CLOVER_4 -> {
+-            MaterialShapes.Clover4Leaf.toShape(startAngle)
+-        }
+-
+-        AodThumbnailShape.COOKIE_6 -> {
+-            MaterialShapes.Cookie6Sided.toShape(startAngle)
+-        }
+-
+-        AodThumbnailShape.COOKIE_9 -> {
+-            MaterialShapes.Cookie9Sided.toShape(startAngle)
+-        }
+-
+-        AodThumbnailShape.SUNNY -> {
+-            MaterialShapes.Sunny.toShape(startAngle)
+-        }
+-
+-        AodThumbnailShape.SOFT_BURST -> {
+-            MaterialShapes.SoftBurst.toShape(startAngle)
+-        }
+-
+-        AodThumbnailShape.GHOSTISH -> {
+-            MaterialShapes.Ghostish.toShape(startAngle)
+-        }
+-
+-        AodThumbnailShape.PIXEL_CIRCLE -> {
+-            MaterialShapes.PixelCircle.toShape(startAngle)
+-        }
+-    }
++fun AodThumbnailShape.toComposeShape(cornerRadius: Float, startAngle: Int): Shape =
++    remember(cornerRadius) { RoundedCornerShape(cornerRadius.coerceIn(0f, 128f).dp) }
+diff --git a/app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/HeaderDownloadProgressIndicator.kt b/app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/HeaderDownloadProgressIndicator.kt
+index 3f2a99cf1..cfbe0bb0a 100644
+--- a/app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/HeaderDownloadProgressIndicator.kt
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/HeaderDownloadProgressIndicator.kt
+@@ -40,8 +40,8 @@ fun HeaderDownloadProgressIndicator(
+         CircularProgressIndicator(
+             progress = { boundedProgress },
+             modifier = Modifier.size(36.dp),
+-            color = MaterialTheme.colorScheme.onSurface,
+-            trackColor = MaterialTheme.colorScheme.outlineVariant,
++            color = androidx.compose.ui.graphics.Color.Gray,
++            trackColor = androidx.compose.ui.graphics.Color.Gray,
+             strokeWidth = 3.dp,
+         )
+         Icon(
+diff --git a/app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/ShowMediaInfo.kt b/app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/ShowMediaInfo.kt
+index 7456c390f..902af71ae 100644
+--- a/app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/ShowMediaInfo.kt
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/ShowMediaInfo.kt
+@@ -1,675 +1,4 @@
+-/*
+- * ArchiveTune (2026)
+- * © Rukamori — github.com/rukamori
+- * GPL-3.0 License | Contributors: see git history
+- * Do not remove or alter this notice. - Per GPL-3.0 Section 4 & Section 5
+- */
+-
+-@file:OptIn(ExperimentalLayoutApi::class, ExperimentalMaterial3ExpressiveApi::class)
+-
+ package moe.rukamori.archivetune.ui.utils
+-
+-import android.content.ClipData
+-import android.content.ClipboardManager
+-import android.content.Context
+-import android.content.Intent
+-import android.widget.Toast
+-import androidx.compose.animation.AnimatedContent
+-import androidx.compose.animation.animateContentSize
+-import androidx.compose.animation.fadeIn
+-import androidx.compose.animation.fadeOut
+-import androidx.compose.animation.togetherWith
+-import androidx.compose.foundation.clickable
+-import androidx.compose.foundation.layout.Arrangement
+-import androidx.compose.foundation.layout.Box
+-import androidx.compose.foundation.layout.Column
+-import androidx.compose.foundation.layout.ExperimentalLayoutApi
+-import androidx.compose.foundation.layout.FlowRow
+-import androidx.compose.foundation.layout.PaddingValues
+-import androidx.compose.foundation.layout.Row
+-import androidx.compose.foundation.layout.Spacer
+-import androidx.compose.foundation.layout.fillMaxSize
+-import androidx.compose.foundation.layout.fillMaxWidth
+-import androidx.compose.foundation.layout.height
+-import androidx.compose.foundation.layout.padding
+-import androidx.compose.foundation.layout.size
+-import androidx.compose.foundation.layout.width
+-import androidx.compose.foundation.lazy.LazyColumn
+-import androidx.compose.foundation.lazy.rememberLazyListState
+-import androidx.compose.foundation.shape.CircleShape
+-import androidx.compose.material3.AssistChip
+-import androidx.compose.material3.AssistChipDefaults
+-import androidx.compose.material3.ButtonGroupDefaults
+-import androidx.compose.material3.CardDefaults
+-import androidx.compose.material3.CircularWavyProgressIndicator
+-import androidx.compose.material3.ElevatedCard
+-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+-import androidx.compose.material3.FilledTonalButton
+-import androidx.compose.material3.HorizontalDivider
+-import androidx.compose.material3.Icon
+-import androidx.compose.material3.IconButton
+-import androidx.compose.material3.ListItem
+-import androidx.compose.material3.ListItemDefaults
+-import androidx.compose.material3.LoadingIndicator
+-import androidx.compose.material3.MaterialTheme
+-import androidx.compose.material3.OutlinedButton
+-import androidx.compose.material3.Surface
+-import androidx.compose.material3.Text
+-import androidx.compose.material3.ToggleButton
+-import androidx.compose.material3.ToggleButtonDefaults
+ import androidx.compose.runtime.Composable
+-import androidx.compose.runtime.LaunchedEffect
+-import androidx.compose.runtime.getValue
+-import androidx.compose.runtime.remember
+-import androidx.compose.ui.Alignment
+-import androidx.compose.ui.Modifier
+-import androidx.compose.ui.draw.clip
+-import androidx.compose.ui.graphics.Color
+-import androidx.compose.ui.layout.ContentScale
+-import androidx.compose.ui.platform.LocalContext
+-import androidx.compose.ui.res.painterResource
+-import androidx.compose.ui.res.stringResource
+-import androidx.compose.ui.text.font.FontWeight
+-import androidx.compose.ui.text.style.TextOverflow
+-import androidx.compose.ui.unit.dp
+-import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+-import androidx.lifecycle.Lifecycle
+-import androidx.lifecycle.compose.LocalLifecycleOwner
+-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+-import androidx.lifecycle.repeatOnLifecycle
+-import coil3.compose.AsyncImage
+-import com.google.common.collect.ImmutableList
+-import kotlinx.coroutines.awaitCancellation
+-import moe.rukamori.archivetune.LocalPlayerConnection
+-import moe.rukamori.archivetune.R
+-import moe.rukamori.archivetune.mediainfo.MediaInfoDetail
+-import moe.rukamori.archivetune.mediainfo.MediaInfoEvent
+-import moe.rukamori.archivetune.mediainfo.MediaInfoMetric
+-import moe.rukamori.archivetune.mediainfo.MediaInfoState
+-import moe.rukamori.archivetune.mediainfo.MediaInfoTab
+-import moe.rukamori.archivetune.mediainfo.MediaInfoUiModel
+-import moe.rukamori.archivetune.ui.component.LocalBottomSheetPageState
+-import moe.rukamori.archivetune.viewmodels.MediaInfoViewModel
+-
+ @Composable
+-fun ShowMediaInfo(videoId: String) {
+-    val viewModel: MediaInfoViewModel = hiltViewModel()
+-    val context = LocalContext.current
+-    val bottomSheetPageState = LocalBottomSheetPageState.current
+-    val playerConnection = LocalPlayerConnection.current
+-    val lifecycleOwner = LocalLifecycleOwner.current
+-    val state by viewModel.state.collectAsStateWithLifecycle()
+-    val selectedTab by viewModel.selectedTab.collectAsStateWithLifecycle()
+-    val currentState = state
+-
+-    LaunchedEffect(videoId, viewModel) {
+-        viewModel.open(videoId, playerConnection?.player?.volume)
+-        try {
+-            awaitCancellation()
+-        } finally {
+-            viewModel.release(videoId)
+-        }
+-    }
+-    LaunchedEffect(viewModel, lifecycleOwner, context, bottomSheetPageState) {
+-        lifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+-            viewModel.events.collect { event ->
+-                when (event) {
+-                    is MediaInfoEvent.Copy -> copyToClipboard(context, event.value)
+-                    is MediaInfoEvent.Share -> shareMediaLink(context, event.url)
+-                    MediaInfoEvent.Close -> bottomSheetPageState.dismiss()
+-                }
+-            }
+-        }
+-    }
+-    MediaInfoContent(
+-        state = if (currentState is MediaInfoState.Success && currentState.data.videoId != videoId) {
+-            MediaInfoState.Loading
+-        } else {
+-            currentState
+-        },
+-        selectedTab = selectedTab,
+-        onSelectTab = remember(viewModel) { viewModel::selectTab },
+-        onCopy = remember(viewModel) { viewModel::copy },
+-        onCopyId = remember(viewModel) { viewModel::copyId },
+-        onShare = remember(viewModel) { viewModel::share },
+-        onClose = remember(viewModel) { viewModel::close },
+-    )
 -}
+-
+-@Composable
+-private fun MediaInfoContent(
+-    state: MediaInfoState<MediaInfoUiModel>,
+-    selectedTab: MediaInfoTab,
+-    onSelectTab: (MediaInfoTab) -> Unit,
+-    onCopy: (String) -> Unit,
+-    onCopyId: () -> Unit,
+-    onShare: () -> Unit,
+-    onClose: () -> Unit,
+-) {
+-    val model = (state as? MediaInfoState.Success)?.data
+-    if (model == null) {
+-        MediaInfoStatusCard(title = stringResource(R.string.information), state = state)
+-        return
+-    }
+-    val unknownText = stringResource(R.string.unknown)
+-    val pleaseWaitText = stringResource(R.string.please_wait)
+-    val copyText = stringResource(R.string.copy)
+-    val shareText = stringResource(R.string.share)
+-    val closeText = stringResource(R.string.close)
+-    val descriptionLabel = stringResource(R.string.description)
+-    val detailsLabel = stringResource(R.string.details)
+-    val numbersLabel = stringResource(R.string.numbers)
+-    val informationLabel = stringResource(R.string.information)
+-    val description = (model.descriptionState as? MediaInfoState.Success)?.data
+-    val onCopyDescription: () -> Unit = remember(onCopy, description) {
+-        { description?.let(onCopy) }
+-    }
+-
+-    LazyColumn(
+-        state = rememberLazyListState(),
+-        modifier = Modifier.fillMaxWidth(),
+-        contentPadding = PaddingValues(bottom = 24.dp),
+-        verticalArrangement = Arrangement.spacedBy(16.dp),
+-    ) {
+-        item(key = "Hero", contentType = "Hero") {
+-            MediaInfoHeroCard(
+-                title = model.title,
+-                subtitle = model.subtitle ?: unknownText,
+-                artworkModel = model.artwork,
+-                sectionLabel = informationLabel,
+-                isLoading = model.metadata is MediaInfoState.Loading,
+-                loadingText = pleaseWaitText,
+-                closeText = closeText,
+-                onClose = onClose,
+-            )
+-        }
+-
+-        item(key = "Actions", contentType = "Actions") {
+-            Row(
+-                horizontalArrangement = Arrangement.spacedBy(12.dp),
+-                modifier = Modifier.fillMaxWidth(),
+-            ) {
+-                FilledTonalButton(
+-                    onClick = onCopyId,
+-                    modifier = Modifier.weight(1f),
+-                ) {
+-                    Icon(
+-                        painter = painterResource(R.drawable.copy),
+-                        contentDescription = null,
+-                    )
+-                    Spacer(Modifier.width(8.dp))
+-                    Text(text = copyText)
+-                }
+-
+-                OutlinedButton(
+-                    onClick = onShare,
+-                    modifier = Modifier.weight(1f),
+-                ) {
+-                    Icon(
+-                        painter = painterResource(R.drawable.share),
+-                        contentDescription = null,
+-                    )
+-                    Spacer(Modifier.width(8.dp))
+-                    Text(text = shareText)
+-                }
+-            }
+-        }
+-
+-        if (model.quickFacts.isNotEmpty()) {
+-            item(key = "QuickFacts", contentType = "QuickFacts") {
+-                FlowRow(
+-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+-                    verticalArrangement = Arrangement.spacedBy(8.dp),
+-                    modifier = Modifier.fillMaxWidth(),
+-                ) {
+-                    model.quickFacts.forEach { fact ->
+-                        AssistChip(
+-                            onClick = remember(onCopy, fact.text) { { onCopy(fact.text) } },
+-                            label = {
+-                                Text(
+-                                    text = fact.text,
+-                                    maxLines = 1,
+-                                    overflow = TextOverflow.Ellipsis,
+-                                )
+-                            },
+-                            leadingIcon = {
+-                                Icon(
+-                                    painter = painterResource(fact.iconRes),
+-                                    contentDescription = null,
+-                                )
+-                            },
+-                            colors =
+-                                AssistChipDefaults.assistChipColors(
+-                                    containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+-                                    labelColor = MaterialTheme.colorScheme.onSurface,
+-                                ),
+-                        )
+-                    }
+-                }
+-            }
+-        }
+-
+-        item(key = "Tabs", contentType = "Tabs") {
+-            Row(
+-                horizontalArrangement = Arrangement.spacedBy(ButtonGroupDefaults.ConnectedSpaceBetween),
+-                modifier = Modifier.fillMaxWidth(),
+-            ) {
+-                MediaInfoTab.entries.forEachIndexed { index, tab ->
+-                    val checked = selectedTab == tab
+-                    ToggleButton(
+-                        checked = checked,
+-                        onCheckedChange = remember(onSelectTab, tab) { { onSelectTab(tab) } },
+-                        modifier =
+-                            Modifier
+-                                .weight(1f)
+-                                .height(52.dp),
+-                        shapes =
+-                            when (index) {
+-                                0 -> ButtonGroupDefaults.connectedLeadingButtonShapes()
+-                                MediaInfoTab.entries.lastIndex -> ButtonGroupDefaults.connectedTrailingButtonShapes()
+-                                else -> ButtonGroupDefaults.connectedMiddleButtonShapes()
+-                            },
+-                        colors =
+-                            ToggleButtonDefaults.toggleButtonColors(
+-                                containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+-                                contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
+-                                checkedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+-                                checkedContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+-                            ),
+-                    ) {
+-                        Text(
+-                            text = stringResource(tab.labelRes),
+-                            maxLines = 1,
+-                            overflow = TextOverflow.Ellipsis,
+-                        )
+-                    }
+-                }
+-            }
+-        }
+-
+-        item(key = "SelectedContent", contentType = "SelectedContent") {
+-            AnimatedContent(
+-                targetState = selectedTab,
+-                transitionSpec = { fadeIn() togetherWith fadeOut() },
+-                label = "mediaInfoTab",
+-            ) { tab ->
+-                Column(
+-                    verticalArrangement = Arrangement.spacedBy(12.dp),
+-                    modifier =
+-                        Modifier
+-                            .fillMaxWidth()
+-                            .animateContentSize(),
+-                ) {
+-                    when (tab) {
+-                        MediaInfoTab.Information -> {
+-                            MediaInfoDetailCard(
+-                                items = model.overview,
+-                                copyContentDescription = copyText,
+-                                onCopy = onCopy,
+-                            )
+-
+-                            if (description != null) {
+-                                MediaInfoNarrativeCard(
+-                                    title = descriptionLabel,
+-                                    body = description,
+-                                    copyText = copyText,
+-                                    onCopy = onCopyDescription,
+-                                )
+-                            } else {
+-                                MediaInfoStatusCard(
+-                                    title = descriptionLabel,
+-                                    state = model.descriptionState,
+-                                )
+-                            }
+-                        }
+-
+-                        MediaInfoTab.Details -> {
+-                            when (val details = model.technicalDetails) {
+-                                is MediaInfoState.Success -> MediaInfoDetailCard(
+-                                    items = details.data,
+-                                    copyContentDescription = copyText,
+-                                    onCopy = onCopy,
+-                                )
+-                                else -> MediaInfoStatusCard(title = detailsLabel, state = details)
+-                            }
+-                        }
+-
+-                        MediaInfoTab.Numbers -> {
+-                            if (model.statistics is MediaInfoState.Success) {
+-                                MediaInfoMetricsGrid(metrics = model.metrics)
+-                            } else {
+-                                MediaInfoStatusCard(title = numbersLabel, state = model.statistics)
+-                            }
+-                        }
+-                    }
+-                }
+-            }
+-        }
+-    }
+-}
+-
+-@Composable
+-private fun MediaInfoHeroCard(
+-    title: String,
+-    subtitle: String,
+-    artworkModel: String?,
+-    sectionLabel: String,
+-    isLoading: Boolean,
+-    loadingText: String,
+-    closeText: String,
+-    onClose: () -> Unit,
+-) {
+-    ElevatedCard(
+-        modifier = Modifier.fillMaxWidth(),
+-        colors =
+-            CardDefaults.elevatedCardColors(
+-                containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
+-            ),
+-    ) {
+-        Row(
+-            verticalAlignment = Alignment.CenterVertically,
+-            horizontalArrangement = Arrangement.spacedBy(16.dp),
+-            modifier =
+-                Modifier
+-                    .fillMaxWidth()
+-                    .padding(16.dp),
+-        ) {
+-            Surface(
+-                shape = MaterialTheme.shapes.large,
+-                color = MaterialTheme.colorScheme.secondaryContainer,
+-                modifier = Modifier.size(88.dp),
+-            ) {
+-                if (artworkModel != null) {
+-                    AsyncImage(
+-                        model = artworkModel,
+-                        contentDescription = null,
+-                        contentScale = ContentScale.Crop,
+-                        modifier =
+-                            Modifier
+-                                .fillMaxSize()
+-                                .clip(MaterialTheme.shapes.large),
+-                    )
+-                } else {
+-                    Box(
+-                        contentAlignment = Alignment.Center,
+-                        modifier = Modifier.fillMaxSize(),
+-                    ) {
+-                        Surface(
+-                            shape = CircleShape,
+-                            color = MaterialTheme.colorScheme.tertiaryContainer,
+-                            modifier = Modifier.size(44.dp),
+-                        ) {
+-                            Box(contentAlignment = Alignment.Center) {
+-                                Icon(
+-                                    painter = painterResource(R.drawable.music_note),
+-                                    contentDescription = null,
+-                                    tint = MaterialTheme.colorScheme.onTertiaryContainer,
+-                                )
+-                            }
+-                        }
+-                    }
+-                }
+-            }
+-
+-            Column(
+-                verticalArrangement = Arrangement.spacedBy(6.dp),
+-                modifier = Modifier.weight(1f),
+-            ) {
+-                Text(
+-                    text = sectionLabel,
+-                    style = MaterialTheme.typography.labelLarge,
+-                    color = MaterialTheme.colorScheme.primary,
+-                )
+-                Text(
+-                    text = title,
+-                    style = MaterialTheme.typography.headlineSmall,
+-                    fontWeight = FontWeight.SemiBold,
+-                    maxLines = 2,
+-                    overflow = TextOverflow.Ellipsis,
+-                )
+-                Text(
+-                    text = subtitle,
+-                    style = MaterialTheme.typography.bodyLarge,
+-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+-                    maxLines = 2,
+-                    overflow = TextOverflow.Ellipsis,
+-                )
+-
+-                if (isLoading) {
+-                    Row(
+-                        verticalAlignment = Alignment.CenterVertically,
+-                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+-                    ) {
+-                        CircularWavyProgressIndicator(
+-                            modifier = Modifier.size(20.dp),
+-                        )
+-                        Text(
+-                            text = loadingText,
+-                            style = MaterialTheme.typography.labelMedium,
+-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+-                        )
+-                    }
+-                }
+-            }
+-
+-            IconButton(onClick = onClose) {
+-                Icon(
+-                    painter = painterResource(R.drawable.close),
+-                    contentDescription = closeText,
+-                )
+-            }
+-        }
+-    }
+-}
+-
+-@Composable
+-private fun MediaInfoDetailCard(
+-    items: ImmutableList<MediaInfoDetail>,
+-    copyContentDescription: String,
+-    onCopy: (String) -> Unit,
+-) {
+-    ElevatedCard(
+-        modifier = Modifier.fillMaxWidth(),
+-        colors =
+-            CardDefaults.elevatedCardColors(
+-                containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+-            ),
+-    ) {
+-        Column(modifier = Modifier.fillMaxWidth()) {
+-            items.forEachIndexed { index, item ->
+-                ListItem(
+-                    overlineContent = {
+-                        Text(text = stringResource(item.labelRes))
+-                    },
+-                    headlineContent = {
+-                        Text(
+-                            text = item.value ?: stringResource(R.string.unknown),
+-                            maxLines = 2,
+-                            overflow = TextOverflow.Ellipsis,
+-                        )
+-                    },
+-                    trailingContent = {
+-                        Icon(
+-                            painter = painterResource(R.drawable.copy),
+-                            contentDescription = copyContentDescription,
+-                        )
+-                    },
+-                    colors = ListItemDefaults.colors(containerColor = Color.Transparent),
+-                    modifier = Modifier.clickable(
+-                        enabled = item.value != null,
+-                        onClick = remember(onCopy, item.value) { { item.value?.let(onCopy) } },
+-                    ),
+-                )
+-
+-                if (index != items.lastIndex) {
+-                    HorizontalDivider(
+-                        modifier = Modifier.padding(horizontal = 16.dp),
+-                    )
+-                }
+-            }
+-        }
+-    }
+-}
+-
+-@Composable
+-private fun MediaInfoNarrativeCard(
+-    title: String,
+-    body: String,
+-    copyText: String,
+-    onCopy: () -> Unit,
+-) {
+-    ElevatedCard(
+-        modifier = Modifier.fillMaxWidth(),
+-        colors =
+-            CardDefaults.elevatedCardColors(
+-                containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+-            ),
+-    ) {
+-        Column(
+-            verticalArrangement = Arrangement.spacedBy(12.dp),
+-            modifier =
+-                Modifier
+-                    .fillMaxWidth()
+-                    .padding(16.dp),
+-        ) {
+-            Row(
+-                verticalAlignment = Alignment.CenterVertically,
+-                horizontalArrangement = Arrangement.SpaceBetween,
+-                modifier = Modifier.fillMaxWidth(),
+-            ) {
+-                Text(
+-                    text = title,
+-                    style = MaterialTheme.typography.titleMedium,
+-                    fontWeight = FontWeight.SemiBold,
+-                )
+-                OutlinedButton(onClick = onCopy) {
+-                    Icon(
+-                        painter = painterResource(R.drawable.copy),
+-                        contentDescription = null,
+-                    )
+-                    Spacer(Modifier.width(8.dp))
+-                    Text(text = copyText)
+-                }
+-            }
+-
+-            Text(
+-                text = body,
+-                style = MaterialTheme.typography.bodyLarge,
+-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+-            )
+-        }
+-    }
+-}
+-
+-@Composable
+-private fun MediaInfoMetricsGrid(metrics: ImmutableList<MediaInfoMetric>) {
+-    Column(
+-        verticalArrangement = Arrangement.spacedBy(12.dp),
+-        modifier = Modifier.fillMaxWidth(),
+-    ) {
+-        remember(metrics) { metrics.chunked(2) }.forEach { rowMetrics ->
+-            Row(
+-                horizontalArrangement = Arrangement.spacedBy(12.dp),
+-                modifier = Modifier.fillMaxWidth(),
+-            ) {
+-                rowMetrics.forEach { metric ->
+-                    ElevatedCard(
+-                        modifier = Modifier.weight(1f),
+-                        colors =
+-                            CardDefaults.elevatedCardColors(
+-                                containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+-                            ),
+-                    ) {
+-                        Column(
+-                            verticalArrangement = Arrangement.spacedBy(8.dp),
+-                            modifier =
+-                                Modifier
+-                                    .fillMaxWidth()
+-                                    .padding(16.dp),
+-                        ) {
+-                            Text(
+-                                text = stringResource(metric.labelRes),
+-                                style = MaterialTheme.typography.labelLarge,
+-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+-                            )
+-                            Text(
+-                                text = metric.value ?: stringResource(R.string.unknown),
+-                                style = MaterialTheme.typography.headlineSmall,
+-                                fontWeight = FontWeight.SemiBold,
+-                            )
+-                        }
+-                    }
+-                }
+-
+-                if (rowMetrics.size == 1) {
+-                    Spacer(modifier = Modifier.weight(1f))
+-                }
+-            }
+-        }
+-    }
+-}
+-
+-@Composable
+-private fun MediaInfoStatusCard(
+-    title: String,
+-    state: MediaInfoState<*>,
+-) {
+-    val message = stringResource(
+-        when (state) {
+-            MediaInfoState.Loading -> R.string.please_wait
+-            is MediaInfoState.Error -> R.string.media_info_load_error
+-            MediaInfoState.Empty, is MediaInfoState.Success -> R.string.media_info_empty
+-        },
+-    )
+-    ElevatedCard(
+-        modifier = Modifier.fillMaxWidth(),
+-        colors =
+-            CardDefaults.elevatedCardColors(
+-                containerColor = MaterialTheme.colorScheme.surfaceContainerLow,
+-            ),
+-    ) {
+-        Column(
+-            horizontalAlignment = Alignment.CenterHorizontally,
+-            verticalArrangement = Arrangement.spacedBy(12.dp),
+-            modifier =
+-                Modifier
+-                    .fillMaxWidth()
+-                    .padding(20.dp),
+-        ) {
+-            if (state is MediaInfoState.Loading) {
+-                LoadingIndicator(modifier = Modifier.size(40.dp))
+-            }
+-            Text(
+-                text = title,
+-                style = MaterialTheme.typography.titleMedium,
+-                fontWeight = FontWeight.SemiBold,
+-            )
+-            Text(
+-                text = message,
+-                style = MaterialTheme.typography.bodyMedium,
+-                color = MaterialTheme.colorScheme.onSurfaceVariant,
+-            )
+-        }
+-    }
+-}
+-
+-private fun copyToClipboard(
+-    context: Context,
+-    value: String,
+-) {
+-    val clipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+-    clipboardManager.setPrimaryClip(ClipData.newPlainText("text", value))
+-    Toast.makeText(context, R.string.copied, Toast.LENGTH_SHORT).show()
+-}
+-
+-private fun shareMediaLink(
+-    context: Context,
+-    mediaUrl: String,
+-) {
+-    val shareIntent =
+-        Intent(Intent.ACTION_SEND).apply {
+-            type = "text/plain"
+-            putExtra(Intent.EXTRA_TEXT, mediaUrl)
+-        }
+-    context.startActivity(Intent.createChooser(shareIntent, null))
+-}
++fun ShowMediaInfo(videoId: String) {}
+diff --git a/app/src/main/kotlin/moe/rukamori/archivetune/utils/AppUpdateInstaller.kt b/app/src/main/kotlin/moe/rukamori/archivetune/utils/AppUpdateInstaller.kt
+index 5d5f332df..884538700 100644
+--- a/app/src/main/kotlin/moe/rukamori/archivetune/utils/AppUpdateInstaller.kt
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/utils/AppUpdateInstaller.kt
+@@ -1,226 +1,5 @@
+-/*
+- * ArchiveTune (2026)
+- * © Rukamori — github.com/rukamori
+- * GPL-3.0 License | Contributors: see git history
+- * Do not remove or alter this notice. - Per GPL-3.0 Section 4 & Section 5
+- */
+-
+ package moe.rukamori.archivetune.utils
+-
+-import android.content.Context
+-import android.content.Intent
+-import androidx.core.content.FileProvider
+-import io.ktor.client.HttpClient
+-import io.ktor.client.engine.okhttp.OkHttp
+-import io.ktor.client.request.prepareGet
+-import io.ktor.client.statement.bodyAsChannel
+-import io.ktor.http.contentLength
+-import io.ktor.utils.io.readAvailable
+-import kotlinx.coroutines.CancellationException
+-import kotlinx.coroutines.Dispatchers
+-import kotlinx.coroutines.currentCoroutineContext
+-import kotlinx.coroutines.ensureActive
+-import kotlinx.coroutines.withContext
+-import moe.rukamori.archivetune.BuildConfig
+-import okhttp3.ConnectionPool
+-import java.io.File
+-import java.io.IOException
+-import java.util.Locale
+-import java.util.concurrent.TimeUnit
+-import java.util.zip.ZipFile
+-
+ object AppUpdateInstaller {
+-    data class Progress(
+-        val downloadedBytes: Long,
+-        val totalBytes: Long,
+-    ) {
+-        val fraction: Float?
+-            get() =
+-                totalBytes
+-                    .takeIf { it > 0L }
+-                    ?.let { downloadedBytes.toFloat() / it.toFloat() }
+-                    ?.coerceIn(0f, 1f)
+-    }
+-
+-    private val client by lazy {
+-        HttpClient(OkHttp) {
+-            engine {
+-                config {
+-                    connectTimeout(30, TimeUnit.SECONDS)
+-                    readTimeout(60, TimeUnit.SECONDS)
+-                    connectionPool(ConnectionPool(2, 30, TimeUnit.SECONDS))
+-                    retryOnConnectionFailure(true)
+-                    followRedirects(true)
+-                }
+-            }
+-        }
+-    }
+-
+-    suspend fun downloadAndInstall(
+-        context: Context,
+-        url: String,
+-        onProgress: (Progress) -> Unit,
+-    ): Result<Unit> {
+-        if (BuildConfig.DISTRIBUTION != "gms") {
+-            return Result.failure(IllegalStateException("In-app updates are only available for GMS builds"))
+-        }
+-
+-        return try {
+-            val apkFile =
+-                withContext(Dispatchers.IO) {
+-                    downloadApk(context.applicationContext, url, onProgress)
+-                }
+-            withContext(Dispatchers.Main) {
+-                installApk(context, apkFile)
+-            }
+-            Result.success(Unit)
+-        } catch (e: CancellationException) {
+-            throw e
+-        } catch (e: Throwable) {
+-            Result.failure(e)
+-        }
+-    }
+-
+-    private suspend fun downloadApk(
+-        context: Context,
+-        url: String,
+-        onProgress: (Progress) -> Unit,
+-    ): File {
+-        if (url.isBlank()) {
+-            throw IOException("Update download URL is empty")
+-        }
+-
+-        val updateDir = File(context.cacheDir, UpdateDirectoryName)
+-        updateDir.mkdirs()
+-        updateDir.listFiles()?.forEach { file -> file.deleteRecursively() }
+-
+-        val downloadedFile = File(updateDir, DownloadFileName)
+-
+-        client.prepareGet(url).execute { response ->
+-            val responseCode = response.status.value
+-            if (responseCode !in 200..299) {
+-                throw IOException("Update download failed: HTTP $responseCode")
+-            }
+-
+-            val totalBytes = response.contentLength() ?: -1L
+-            val channel = response.bodyAsChannel()
+-            downloadedFile.outputStream().use { output ->
+-                val buffer = ByteArray(STREAM_BUFFER_SIZE)
+-                var downloadedBytes = 0L
+-                var lastUpdateMs = 0L
+-                while (!channel.isClosedForRead) {
+-                    currentCoroutineContext().ensureActive()
+-                    val read = channel.readAvailable(buffer)
+-                    if (read == -1) break
+-                    output.write(buffer, 0, read)
+-                    downloadedBytes += read.toLong()
+-                    val now = System.currentTimeMillis()
+-                    if (now - lastUpdateMs >= PROGRESS_UPDATE_INTERVAL_MS) {
+-                        emitProgress(downloadedBytes, totalBytes, onProgress)
+-                        lastUpdateMs = now
+-                    }
+-                }
+-                emitProgress(downloadedBytes, totalBytes, onProgress)
+-            }
+-        }
+-
+-        return if (url.lowercase(Locale.US).substringBefore('?').endsWith(".apk")) {
+-            downloadedFile.renameAsApk()
+-        } else {
+-            extractGmsApk(downloadedFile, File(updateDir, ApkFileName))
+-                ?: if (downloadedFile.containsApkManifest()) {
+-                    downloadedFile.renameAsApk()
+-                } else {
+-                    throw IOException("No GMS APK found in update artifact")
+-                }
+-        }
+-    }
+-
+-    private suspend fun emitProgress(
+-        downloadedBytes: Long,
+-        totalBytes: Long,
+-        onProgress: (Progress) -> Unit,
+-    ) {
+-        withContext(Dispatchers.Main.immediate) {
+-            onProgress(Progress(downloadedBytes, totalBytes))
+-        }
+-    }
+-
+-    private fun extractGmsApk(
+-        sourceFile: File,
+-        targetFile: File,
+-    ): File? =
+-        runCatching {
+-            ZipFile(sourceFile).use { zip ->
+-                val entries =
+-                    zip.entries().asSequence().filter { entry ->
+-                        val fileName = entry.name.substringAfterLast('/')
+-                        !entry.isDirectory &&
+-                            entry.name.endsWith(".apk", ignoreCase = true) &&
+-                            !fileName.contains("foss-", ignoreCase = true) &&
+-                            !fileName.contains("izzy-", ignoreCase = true)
+-                    }
+-                val preferredArtifactNames =
+-                    listOf(
+-                        "app-gms-${BuildConfig.DEVICE}-${BuildConfig.ARCHITECTURE}-",
+-                        "app-${BuildConfig.DEVICE}-${BuildConfig.ARCHITECTURE}-",
+-                    )
+-                val selectedEntry =
+-                    entries
+-                        .sortedBy { entry ->
+-                            val fileName = entry.name.substringAfterLast('/')
+-                            val preferredIndex =
+-                                preferredArtifactNames.indexOfFirst { preferredArtifactName ->
+-                                    fileName.contains(preferredArtifactName, ignoreCase = true)
+-                                }
+-                            if (preferredIndex >= 0) preferredIndex else preferredArtifactNames.size
+-                        }.firstOrNull()
+-                        ?: return@runCatching null
+-
+-                zip.getInputStream(selectedEntry).use { input ->
+-                    targetFile.outputStream().use { output -> input.copyTo(output) }
+-                }
+-                targetFile
+-            }
+-        }.getOrNull()
+-
+-    private fun File.containsApkManifest(): Boolean =
+-        runCatching {
+-            ZipFile(this).use { zip -> zip.getEntry("AndroidManifest.xml") != null }
+-        }.getOrDefault(false)
+-
+-    private fun File.renameAsApk(): File {
+-        val apkFile = File(parentFile, ApkFileName)
+-        if (this == apkFile) return this
+-        if (!renameTo(apkFile)) {
+-            copyTo(apkFile, overwrite = true)
+-            delete()
+-        }
+-        return apkFile
+-    }
+-
+-    private fun installApk(
+-        context: Context,
+-        apkFile: File,
+-    ) {
+-        val uri =
+-            FileProvider.getUriForFile(
+-                context,
+-                "${context.packageName}.FileProvider",
+-                apkFile,
+-            )
+-        val intent =
+-            Intent(Intent.ACTION_VIEW)
+-                .setDataAndType(uri, ApkMimeType)
+-                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+-        context.startActivity(intent)
+-    }
+-
+-    private const val UpdateDirectoryName = "app_update"
+-    private const val DownloadFileName = "archive-tune-update.download"
+-    private const val ApkFileName = "archive-tune-update.apk"
+-    private const val ApkMimeType = "application/vnd.android.package-archive"
+-    private const val STREAM_BUFFER_SIZE = 256 * 1024
+-    private const val PROGRESS_UPDATE_INTERVAL_MS = 200L
++    data class Progress(val bytesDownloaded: Long, val totalBytes: Long)
++    suspend fun install(url: String, onProgress: (Progress) -> Unit): Boolean { return false }
+ }
+diff --git a/app/src/main/kotlin/moe/rukamori/archivetune/utils/ArtworkStorage.kt b/app/src/main/kotlin/moe/rukamori/archivetune/utils/ArtworkStorage.kt
+index bf4eaf098..f8aa82570 100644
+--- a/app/src/main/kotlin/moe/rukamori/archivetune/utils/ArtworkStorage.kt
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/utils/ArtworkStorage.kt
+@@ -27,7 +27,6 @@ object ArtworkStorage {
+     private const val FILENAME = "archivetune_saved_artworks.json"
+     private val json =
+         Json {
+-            prettyPrint = true
+             ignoreUnknownKeys = true
+         }
+ 

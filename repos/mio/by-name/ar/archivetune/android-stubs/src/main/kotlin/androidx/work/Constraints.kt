@@ -5,6 +5,7 @@ open class Constraints {
         fun setRequiresCharging(requires: Boolean): Builder = this
         fun setRequiresBatteryNotLow(requires: Boolean): Builder = this
         fun setRequiresStorageNotLow(requires: Boolean): Builder = this
+        fun setRequiredNetworkType(networkType: NetworkType): Builder = this
         fun build(): Constraints = Constraints()
     }
 }

@@ -1,5 +1,4 @@
 package androidx.work
-
-open class NetworkType {
-    companion object { }
+enum class NetworkType {
+    CONNECTED
 }

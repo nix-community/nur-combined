@@ -6,6 +6,17 @@ import androidx.compose.runtime.Composable
 @Composable
 fun LoadingIndicator(modifier: Any = Any()) {}
 
+@ExperimentalMaterial3ExpressiveApi
+@Composable
+fun LargeFlexibleTopAppBar(
+    title: @Composable () -> Unit,
+    modifier: Any = Any(),
+    navigationIcon: (@Composable () -> Unit)? = null,
+    actions: (@Composable () -> Unit)? = null,
+    colors: Any = Any(),
+    scrollBehavior: Any? = null,
+) {}
+
 object MaterialShapes {
     val Cookie4Sided: Any get() = Any()
     val Cookie6Sided: Any get() = Any()

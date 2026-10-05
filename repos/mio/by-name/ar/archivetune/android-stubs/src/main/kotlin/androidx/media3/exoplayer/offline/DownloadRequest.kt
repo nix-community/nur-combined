@@ -6,4 +6,10 @@ open class DownloadRequest(val id: String, val uri: android.net.Uri) {
     val customCacheKey: String? = null
     val data: ByteArray? = null
     val streamKeys: List<Any> = emptyList()
+
+    class Builder(val id: String, val uri: android.net.Uri) {
+        fun setCustomCacheKey(customCacheKey: String?) = this
+        fun setData(data: ByteArray?) = this
+        fun build() = DownloadRequest(id, uri)
+    }
 }

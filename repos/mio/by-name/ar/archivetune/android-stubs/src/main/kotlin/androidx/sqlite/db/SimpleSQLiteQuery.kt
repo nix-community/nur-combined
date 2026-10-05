@@ -1,5 +1,3 @@
 package androidx.sqlite.db
 
-open class SimpleSQLiteQuery {
-    companion object { }
-}
+class SimpleSQLiteQuery(val query: String, val bindArgs: Array<out Any?> = emptyArray()) : SupportSQLiteQuery()

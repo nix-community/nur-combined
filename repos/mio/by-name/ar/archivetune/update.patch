@@ -1,0 +1,35 @@
+diff --git a/app/src/main/kotlin/moe/rukamori/archivetune/utils/AppUpdateInstaller.kt b/app/src/main/kotlin/moe/rukamori/archivetune/utils/AppUpdateInstaller.kt
+index 5d5f332..e1a2720 100644
+--- a/app/src/main/kotlin/moe/rukamori/archivetune/utils/AppUpdateInstaller.kt
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/utils/AppUpdateInstaller.kt
+@@ -104,7 +104,8 @@ object AppUpdateInstaller {
+ 
+             val totalBytes = response.contentLength() ?: -1L
+             val channel = response.bodyAsChannel()
+-            downloadedFile.outputStream().use { output ->
++            val output = downloadedFile.outputStream()
++try {
+                 val buffer = ByteArray(STREAM_BUFFER_SIZE)
+                 var downloadedBytes = 0L
+                 var lastUpdateMs = 0L
+@@ -121,7 +122,7 @@ object AppUpdateInstaller {
+                     }
+                 }
+                 emitProgress(downloadedBytes, totalBytes, onProgress)
+-            }
++            } finally { output.close() }
+         }
+ 
+         return if (url.lowercase(Locale.US).substringBefore('?').endsWith(".apk")) {
+diff --git a/app/src/main/kotlin/moe/rukamori/archivetune/utils/ArtworkStorage.kt b/app/src/main/kotlin/moe/rukamori/archivetune/utils/ArtworkStorage.kt
+index bf4eaf0..f8aa825 100644
+--- a/app/src/main/kotlin/moe/rukamori/archivetune/utils/ArtworkStorage.kt
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/utils/ArtworkStorage.kt
+@@ -27,7 +27,6 @@ object ArtworkStorage {
+     private const val FILENAME = "archivetune_saved_artworks.json"
+     private val json =
+         Json {
+-            prettyPrint = true
+             ignoreUnknownKeys = true
+         }
+ 

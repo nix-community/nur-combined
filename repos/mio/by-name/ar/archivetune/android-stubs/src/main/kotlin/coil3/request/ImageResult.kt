@@ -1,5 +1,7 @@
 package coil3.request
 
-open class ImageResult {
-    companion object { }
+import coil3.Image
+
+sealed class ImageResult {
+    open val image: Image? = null
 }

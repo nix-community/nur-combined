@@ -1,0 +1,37 @@
+--- a/app/src/main/kotlin/moe/rukamori/archivetune/utils/potoken/ChallengeParser.kt	2026-09-28 18:33:41
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/utils/potoken/ChallengeParser.kt	2026-09-28 22:50:19
+@@ -64,22 +64,19 @@
+             ?.jsonArray
+             ?.firstOrNull { it.jsonPrimitive.isString }
+ 
+-    return json.encodeToString(
+-        JsonObject.serializer(),
+-        JsonObject(
+-            mapOf(
+-                "program" to JsonPrimitive(program),
+-                "globalName" to JsonPrimitive(globalName),
+-                "interpreterJavascript" to
+-                    JsonObject(
+-                        mapOf(
+-                            "privateDoNotAccessOrElseSafeScriptWrappedValue" to (interpreterJs ?: JsonNull),
+-                            "privateDoNotAccessOrElseTrustedResourceUrlWrappedValue" to (interpreterUrl ?: JsonNull),
+-                        ),
++    return JsonObject(
++        mapOf(
++            "program" to JsonPrimitive(program),
++            "globalName" to JsonPrimitive(globalName),
++            "interpreterJavascript" to
++                JsonObject(
++                    mapOf(
++                        "privateDoNotAccessOrElseSafeScriptWrappedValue" to (interpreterJs ?: JsonNull),
++                        "privateDoNotAccessOrElseTrustedResourceUrlWrappedValue" to (interpreterUrl ?: JsonNull),
+                     ),
+-            ),
+-        ),
+-    )
++                ),
++        )
++    ).toString()
+ }
+ 
+ /**

@@ -98,3 +98,5 @@ interface Player {
         const val PLAY_WHEN_READY_CHANGE_REASON_USER_REQUEST = 1
     }
 }
+
+// C constants

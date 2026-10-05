@@ -1,9 +1,11 @@
 package io.ktor.client.engine.okhttp
 
-import okhttp3.OkHttpClient
+import io.ktor.client.HttpClientConfig
 
 object OkHttp
 
 class OkHttpConfig {
-    fun config(block: OkHttpClient.Builder.() -> Unit) {}
+    fun config(block: Any.() -> Unit) {}
 }
+
+fun HttpClientConfig<Any>.engine(block: OkHttpConfig.() -> Unit) {}

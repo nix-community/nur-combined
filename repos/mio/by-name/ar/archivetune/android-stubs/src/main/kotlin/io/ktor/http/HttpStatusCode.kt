@@ -1,7 +1,14 @@
 package io.ktor.http
 
-class HttpStatusCode(val value: Int, val description: String) {
+open class HttpStatusCode {
+    open val value: Int = 0
     companion object {
-        val OK = HttpStatusCode(200, "OK")
+        val BadRequest: HttpStatusCode = HttpStatusCode()
+        val Forbidden: HttpStatusCode = HttpStatusCode()
+        val NotModified: HttpStatusCode = HttpStatusCode()
     }
+}
+
+open class Headers {
+    operator fun get(name: String): String? = null
 }

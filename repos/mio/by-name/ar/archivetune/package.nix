@@ -2,6 +2,7 @@
   lib,
   writeShellApplication,
   stdenv,
+  python3,
   fetchFromGitHub,
   gradle_9,
   jdk21,
@@ -98,22 +99,53 @@ stdenv.mkDerivation (finalAttrs: {
     # Copy our desktop UI components
     patch -p1 < ${./desktop-ui.patch}
 
-    # Fix shapes parameter in TextButton
+    # Fix shapes parameter in TextButton/SegmentedButton (avoid mangling MaterialTheme.shapes.xxx)
     find app/src/main/kotlin -type f -name "*.kt" -exec sed -i "s/@DrawableRes//g" {} +
     find app/src/main/kotlin -type f -name "*.kt" -exec sed -i "s/shapes = ButtonDefaults.shapes()/shape = ButtonDefaults.textShape/g" {} +
-    find app/src/main/kotlin -type f -name "*.kt" -exec sed -i "s/shapes = /shape = /g" {} +
+    find app/src/main/kotlin -type f -name "*.kt" -exec sed -i "s/shapes = SegmentedButtonDefaults/shape = SegmentedButtonDefaults/g" {} +
+    find app/src/main/kotlin -type f -name "*.kt" -exec sed -i "s/shapes = IconButtonDefaults/shape = IconButtonDefaults/g" {} +
+    find app/src/main/kotlin -type f -name "*.kt" -exec sed -i "s/shapes = expressiveShapes/shapes = expressiveShapes/g" {} +
     sed -i 's/DefaultCastPlaybackRepository(context.applicationContext)/TODO()/g' app/src/main/kotlin/moe/rukamori/archivetune/cast/CastPlaybackRepositoryLocator.kt
     # Apply build script patches
     patch -p1 < ${./root-build.patch}
     patch -p1 < ${./app-source.patch}
     patch -p1 < ${./settings.patch}
     patch -p1 < ${./app-build.patch}
+    python3 ${./fix_theme.py}
+    echo "dependencies { implementation(\"org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0\") }" >> app/build.gradle.kts
+    patch -p1 < ${./challenge.patch}
+    sed -i "s/chain.withRequest(refreshedRequest).proceed()/chain.proceed(refreshedRequest)/g" app/src/main/kotlin/moe/rukamori/archivetune/utils/PlaylistCoverInterceptor.kt
+    sed -i "s/image = result.image,/result.image,/" app/src/main/kotlin/moe/rukamori/archivetune/utils/PlaylistCoverInterceptor.kt
+    sed -i "s/request = request,/request,/" app/src/main/kotlin/moe/rukamori/archivetune/utils/PlaylistCoverInterceptor.kt
+    sed -i "s/throwable = exception,/exception/" app/src/main/kotlin/moe/rukamori/archivetune/utils/PlaylistCoverInterceptor.kt
 
     # Copy android stubs
     cp -r  ${./android-stubs} android-stubs
     chmod -R +w .
     ls -la android-stubs
+    # Simplify BotGuardTokenGenerator patches
+    python3 << 'PYTHON_EOF'
+import sys
+content = open('app/src/main/kotlin/moe/rukamori/archivetune/utils/potoken/BotGuardTokenGenerator.kt').read()
 
+html_block = """                val html =
+                    withContext(Dispatchers.IO) {
+                        webView.context.assets
+                            .open("po_token.html")
+                            .bufferedReader()
+                            .use { it.readText() }
+                    }"""
+content = content.replace(html_block, '                val html = ""\n')
+
+js_block = """                            webView.context.assets
+                                .open("botguard.js")
+                                .bufferedReader()
+                                .use { it.readText() }"""
+content = content.replace(js_block, '                            ""\n')
+
+content = content.replace('wv.post(engine::close)', 'engine.close()')
+open('app/src/main/kotlin/moe/rukamori/archivetune/utils/potoken/BotGuardTokenGenerator.kt', 'w').write(content)
+PYTHON_EOF
     # We also have migration-patches if the user wants to apply them manually
     cp -r ${./migration-patches} patches/
     chmod -R +w .
@@ -142,7 +174,8 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postGradleUpdate
   '';
 
-  nativeBuildInputs = [
+  nativeBuildInputs = [ 
+    python3
     gradle
     jdk
     makeWrapper

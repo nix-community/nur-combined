@@ -1,5 +1,4 @@
 package androidx.work
-
-open class ExistingPeriodicWorkPolicy {
-    companion object { }
+enum class ExistingPeriodicWorkPolicy {
+    KEEP
 }

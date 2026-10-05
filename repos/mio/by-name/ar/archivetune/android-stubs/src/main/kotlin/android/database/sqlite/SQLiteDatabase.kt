@@ -1,5 +1,7 @@
 package android.database.sqlite
 
-object SQLiteDatabase {
-    const val CONFLICT_IGNORE = 4
+open class SQLiteDatabase {
+    interface CursorFactory
 }
+
+interface DatabaseErrorHandler

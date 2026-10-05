@@ -1,5 +1,5 @@
 package androidx.annotation
 
-open class MainThread {
-    companion object { }
-}
+@Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER, AnnotationTarget.CONSTRUCTOR, AnnotationTarget.CLASS)
+@Retention(AnnotationRetention.SOURCE)
+annotation class MainThread
