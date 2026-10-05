@@ -48,6 +48,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NIXPKGS_ALLOW_UNFREE: 1
           NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1
+          # gradle mitm-cache (suwayomi-server) uses bubblewrap, which fails on
+          # GitHub's ubuntu-latest with "bwrap: setting up uid map: Permission denied".
+          # Disable the nix sandbox for the bulk update so fetch-deps can run.
+          NIX_CONFIG: "sandbox = false"
         timeout-minutes: 90
         run: |
           # shellcheck disable=SC2155
@@ -57,11 +61,15 @@ jobs:
           FAILED_FILE="$RUNNER_TEMP/failed-updates.txt"
           : > "$FAILED_FILE"
           while read -r pkg; do
+            # `<<< "$var"` yields one empty line when the list is empty;
+            # without this guard we'd run `nix-update --flake ""` once.
+            [[ -z "${pkg//[[:space:]]/}" ]] && continue
             if ! nix-update --use-update-script --commit --flake "$pkg"; then
               echo "$pkg" >> "$FAILED_FILE"
             fi
           done <<< "$pkgsNames"
           while read -r py; do
+            [[ -z "${py//[[:space:]]/}" ]] && continue
             if ! nix-update --commit -f default.nix "python3Packages.$py"; then
               echo "python3Packages.$py" >> "$FAILED_FILE"
             fi
@@ -74,11 +82,44 @@ jobs:
           TG_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TG_CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          if [ -s "$RUNNER_TEMP/failed-updates.txt" ]; then
-            MSG="⚠️ auto-update $(date -u +%F) failed for: $(paste -sd' ' "$RUNNER_TEMP/failed-updates.txt")"
-            curl -fsSL -X POST "https://api.telegram.org/bot$TG_TOKEN/sendMessage" \
-              -d chat_id="$TG_CHAT" -d text="$MSG" -d disable_notification=true || true
+          FAILED_FILE="$RUNNER_TEMP/failed-updates.txt"
+          if [[ ! -f "$FAILED_FILE" ]] || [[ ! -s "$FAILED_FILE" ]]; then
+            echo "No failed updates to report."
+            exit 0
           fi
+          # 404 from api.telegram.org almost always means the bot token is
+          # missing/invalid (URL becomes .../bot/sendMessage). Fail loudly
+          # here instead of a cryptic `curl: (22) ... 404`.
+          if [[ -z "${TG_TOKEN//[[:space:]]/}" ]]; then
+            echo "::warning::TELEGRAM_BOT_TOKEN is empty, skipping Telegram notify. Set it in Settings → Secrets → Actions."
+            cat "$FAILED_FILE"
+            exit 0
+          fi
+          if [[ -z "${TG_CHAT//[[:space:]]/}" ]]; then
+            echo "::warning::TELEGRAM_CHAT_ID is empty, skipping Telegram notify. Set it in Settings → Secrets → Actions."
+            cat "$FAILED_FILE"
+            exit 0
+          fi
+          # Telegram caps text at 4096 chars; keep the message safely below.
+          FAILED_LIST="$(paste -sd' ' "$FAILED_FILE")"
+          MSG="⚠️ auto-update $(date -u +%F) failed for: $FAILED_LIST"
+          if ((${#MSG} > 4000)); then
+            MSG="${MSG:0:3900}… (truncated, see job log)"
+          fi
+          echo "Notifying Telegram chat about: $FAILED_LIST"
+          # No -f flag on purpose: on error we want the API body in the log
+          # (e.g. {"ok":false,"error_code":404,...}), not just `curl: (22)`.
+          # `|| true`: notify must never fail the job / block the PR.
+          HTTP_CODE="$(curl -sS -o /tmp/tg-response.txt -w '%{http_code}' -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
+            --data-urlencode "chat_id=${TG_CHAT}" \
+            --data-urlencode "text=${MSG}" \
+            --data-urlencode "disable_notification=true" || echo "curl-failed")"
+          echo "Telegram HTTP code: $HTTP_CODE"
+          head -c 1000 /tmp/tg-response.txt 2>/dev/null; echo
+          if [[ "$HTTP_CODE" != "200" ]]; then
+            echo "::warning::Telegram notify failed with HTTP $HTTP_CODE (see body above). Check TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID."
+          fi
+          exit 0
       - name: Check evaluation
         env:
           NIXPKGS_ALLOW_UNFREE: 1

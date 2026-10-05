@@ -10,7 +10,6 @@
   unzip,
   makeDesktopItem,
   copyDesktopItems,
-  replaceVars,
   nix-update-script,
 }:
 buildDotnetModule (finalAttrs: {
@@ -39,14 +38,33 @@ buildDotnetModule (finalAttrs: {
 
   patches = [
     ./fix-build.patch
-    (replaceVars ./fix-paths.patch {
-      _7zz = lib.getExe _7zz-rar;
-      # curl = lib.getExe curl-impersonate;
-      tar = lib.getExe gnutar;
-      unzip = lib.getExe unzip;
-      cacert = "${cacert}/etc/ssl/certs/ca-bundle.crt";
-    })
   ];
+
+  postPatch = ''
+    substituteInPlace LibCurlImpersonate/CurlHttp.cs \
+      --replace-fail 'private static readonly string PathToCacert = Path.Join(CurDir, "cacert.pem");' \
+      'private static readonly string PathToCacert = "${cacert}/etc/ssl/certs/ca-bundle.crt";'
+    substituteInPlace Stalker.Gamma/Models/StalkerGammaSettings.cs \
+      --replace-fail 'public string PathToUnzip = "unzip";' \
+        'public string PathToUnzip = "${lib.getExe unzip}";' \
+      --replace-fail 'public string PathTo7Z = OperatingSystem.IsWindows() ? "7zz.exe" : "7zz";' \
+        'public string PathTo7Z = "${lib.getExe _7zz-rar}";' \
+      --replace-fail 'public string PathToTar = "tar";' \
+        'public string PathToTar = "${lib.getExe gnutar}";'
+    substituteInPlace stalker-gamma-cli/Commands/Anomaly.cs \
+      --replace-fail 'var resourcesPath = Path.Join(Path.GetDirectoryName(AppContext.BaseDirectory), "resources");
+        stalkerGammaSettings.PathTo7Z = Path.Join(
+            resourcesPath,
+            OperatingSystem.IsWindows() ? "7zz.exe" : "7zz"
+        );' \
+      'stalkerGammaSettings.PathToTar = "${lib.getExe gnutar}";'
+    substituteInPlace stalker-gamma-cli/Services/SetupUtilitiesService.cs \
+      --replace-fail 'settings.PathTo7Z = Path.Join(
+            ResourcesPath,
+            OperatingSystem.IsWindows() ? "7zz.exe" : "7zz"
+        );' \
+      'settings.PathTo7Z = "${lib.getExe _7zz-rar}";'
+  '';
 
   postInstall = ''
     mkdir -p $out/share/icons/hicolor/256x256/apps
