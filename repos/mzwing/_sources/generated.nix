@@ -96,10 +96,10 @@
   };
   cnb-cli = {
     pname = "cnb-cli";
-    version = "1.16.19";
+    version = "1.16.20";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.16.19.tgz";
-      sha256 = "sha256-wN+hksPnqiz4xUMXq7dX6we+zOvLCeAO7tw/+J/oR/Q=";
+      url = "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.16.20.tgz";
+      sha256 = "sha256-89c/b/mA8kmje0lX5h8AP59yId6NR6uOPgj9bC6qg4U=";
     };
   };
   codegraph = {
@@ -320,15 +320,15 @@
   };
   tree-sitter-nix = {
     pname = "tree-sitter-nix";
-    version = "f5b1119859a538ad63232c41e4fe5e35b095c054";
+    version = "2e8d07a2ee5ae3ac3d0c3073b058fb174e000321";
     src = fetchFromGitHub {
       owner = "nix-community";
       repo = "tree-sitter-nix";
-      rev = "f5b1119859a538ad63232c41e4fe5e35b095c054";
+      rev = "2e8d07a2ee5ae3ac3d0c3073b058fb174e000321";
       fetchSubmodules = false;
-      sha256 = "sha256-hKFWvSx4VLtlvByBnJVLS+XmhBQ3SEeqt9Gftoa0uTQ=";
+      sha256 = "sha256-YuVYmhpmgpghpVJcIznfKq0suvEnURdbg9qpwiyspvA=";
     };
-    date = "2026-10-03";
+    date = "2026-10-05";
   };
   typenix = {
     pname = "typenix";
