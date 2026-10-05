@@ -84,7 +84,19 @@ jobs:
             -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
             -I $PWD
       - name: Build nix packages
-        run: nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --retries 2 --file ci.nix -A cacheOutputAttrs
+        # Work around ineffective --retries: https://github.com/Mic92/nix-fast-build/pull/431
+        run: |
+          for attempt in 1 2 3; do
+            if nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --file ci.nix -A cacheOutputAttrs; then
+              break
+            else
+              status=$?
+            fi
+            if [ "$attempt" -eq 3 ]; then
+              exit "$status"
+            fi
+            echo "Build attempt $attempt failed (exit $status); retrying"
+          done
       - name: Trigger NUR update
         # Don't replace <YOUR_REPO_NAME> here!
         if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' && github.event_name == 'push' }}
@@ -103,4 +115,16 @@ jobs:
       - *installAttic
       - *setupAttic
       - name: Build nix packages
-        run: nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --retries 2 --flake ".#cacheOutputAttrs.$(nix eval --raw --impure --expr builtins.currentSystem)"
+        # Work around ineffective --retries: https://github.com/Mic92/nix-fast-build/pull/431
+        run: |
+          for attempt in 1 2 3; do
+            if nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --flake ".#cacheOutputAttrs.$(nix eval --raw --impure --expr builtins.currentSystem)"; then
+              break
+            else
+              status=$?
+            fi
+            if [ "$attempt" -eq 3 ]; then
+              exit "$status"
+            fi
+            echo "Build attempt $attempt failed (exit $status); retrying"
+          done
