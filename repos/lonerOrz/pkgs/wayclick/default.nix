@@ -8,16 +8,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "wayclick";
-  version = "0-unstable-2026-10-01";
+  version = "0.2.0-unstable-2026-10-04";
 
   src = fetchFromGitHub {
     owner = "lonerOrz";
     repo = "wayclick";
-    rev = "340441f4e7e7f9b5ba76e88410f091b2ce1e622f";
-    hash = "sha256-1Kdhvm0DjUBFMCTL72OGLd1PijOfcvCY8JjVetLJ7cw=";
+    rev = "6f90ea84521260f4ce6a9cc5316deb6bae614657";
+    hash = "sha256-wzFB6Rs0A6nV/7uvk2+Mne5N3NqQ2hAy5ATXU/f+5fc=";
   };
 
-  cargoHash = "sha256-QYp5B+amLHIY4Yr/kCKngbv4voeBdiY+8czbcWvmdtQ=";
+  cargoHash = "sha256-tYlI+hrsfcpK1yBPhlwWmWFWhreIJ8Xh3S1biXP5SfY=";
 
   nativeBuildInputs = [
     pkg-config

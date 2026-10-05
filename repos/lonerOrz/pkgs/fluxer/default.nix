@@ -40,14 +40,19 @@ appimageTools.wrapType2 {
   ];
 
   extraInstallCommands = ''
-    # Install desktop entry from the stable AppImage
+    # fluxer upstream keeps renaming the desktop file every other release
+    # (it used to be fluxer.desktop, now it's app.fluxer.FluxerDesktop.desktop,
+    # who knows what it'll be tomorrow). Stop hardcoding it and just grep
+    # the extracted AppImage for whatever .desktop they shipped this time.
+    desktopFile=$(find ${appimageContents} -maxdepth 2 -name '*.desktop' | head -n1)
     install -Dm644 \
-      ${appimageContents}/fluxer.desktop \
+      "$desktopFile" \
       $out/share/applications/fluxer.desktop
 
-    # The stable AppImage ships fluxer.png, not fluxer-canary.png
+    # same story with the icon path, so don't trust the directory layout either
+    iconFile=$(find ${appimageContents} -name 'fluxer.png' | head -n1)
     install -Dm644 \
-      ${appimageContents}/usr/share/icons/hicolor/1024x1024/apps/fluxer.png \
+      "$iconFile" \
       $out/share/icons/hicolor/1024x1024/apps/fluxer.png
 
     # Make the desktop entry usable after AppImage extraction.
