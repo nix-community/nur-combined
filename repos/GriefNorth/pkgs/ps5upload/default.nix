@@ -5,12 +5,11 @@
   makeWrapper,
   stdenvNoCC,
   unzip,
-  wayland,
 }:
 
 let
   pname = "ps5upload";
-  version = "5.41.0";
+  version = "6.0.0";
 
   cpu = stdenvNoCC.hostPlatform.parsed.cpu.name;
 
@@ -26,8 +25,8 @@ let
     url = "https://github.com/phantomptr/ps5upload/releases/download/v${version}/PS5Upload-${version}-linux-${arch}.zip";
     hash =
       {
-        x86_64 = "sha256-ueLIMeG1R/HNX6AEN0oDNTNk15u87jRYnvhO6RHoqcM=";
-        aarch64 = "sha256-Y2KJDdbh6ipq1noZ7NFnsSG3cwoXE9s+pmGBbFR5Eiw=";
+        x86_64 = "sha256-I7xiBREOcUk+44G/IF8/gCzBMfdKgaU3BbPF4w28H7Y=";
+        aarch64 = "sha256-vm9d+g65LBMbHfVb00tUQbp1m/vipYInZvQZ6QzRy5E=";
       }
       .${cpu} or (throw "ps5upload: unsupported cpu ${cpu}");
   };
@@ -73,17 +72,17 @@ appimageTools.wrapType2 {
         $out/share/icons/hicolor/$size/apps/${pname}.png
     done
 
-    # the AppImage bundles an old libwayland-client that shadows the nix one, so
-    # libEGL cannot resolve wl_fixes_interface, the webkit GPU process aborts with
-    # "Could not create default EGL display" and the webview stays empty; preloading
-    # the nix copy fixes it (same trick as upstream's own launcher). The AppImage
-    # also ships no gstreamer plugins at all, but webkit's bundled libgstreamer still
-    # rescans QT_PLUGIN_PATH and floods stderr with "Failed to load plugin" warnings
-    # about unrelated kde/qt plugins, so drop it.
+    # 6.0 no longer bundles a libwayland-client of its own, so libEGL resolves
+    # wl_fixes_interface against the nix one and the webkit GPU process is happy;
+    # what it does need is DMABUF off (same as upstream's own launcher does), or
+    # the webview comes up blank on compositors where WebKitGTK's accelerated
+    # path fails. The AppImage also ships no gstreamer plugins at all, but
+    # webkit's bundled libgstreamer still rescans QT_PLUGIN_PATH and floods
+    # stderr with "Failed to load plugin" warnings about unrelated kde/qt
+    # plugins, so drop it.
     wrapProgram "$out/bin/${pname}" \
       --set QT_PLUGIN_PATH "" \
-      --set-default WEBKIT_DISABLE_DMABUF_RENDERER 1 \
-      --set-default LD_PRELOAD "${wayland}/lib/libwayland-client.so.0"
+      --set-default WEBKIT_DISABLE_DMABUF_RENDERER 1
   '';
 
   meta = {
