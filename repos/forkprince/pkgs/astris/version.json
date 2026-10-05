@@ -6,9 +6,9 @@
     "version_path": ".tag_name.replace('astris-', '')",
     "url_path": ".assets[0].browser_download_url"
   },
-  "version": "1.0.29",
+  "version": "1.0.30",
   "asset": {
-    "url": "https://codeberg.org/V380-Ori/Astris.Binaries/releases/download/astris-1.0.29/Astris-1.0.29+835d74ccc.dmg",
-    "hash": "sha256-vvuMlJNj+c6sHd1T5+J89mTtLTebk5PMMFq2tFMv7RE="
+    "url": "https://codeberg.org/V380-Ori/Astris.Binaries/releases/download/astris-1.0.30/Astris-1.0.30+115dc1ae0.dmg",
+    "hash": "sha256-w2uVqqJMQLLKtyFuS0EsGTDCN/LCT1lxBsUHMosMokA="
   }
 }
