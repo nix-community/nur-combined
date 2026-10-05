@@ -14,5 +14,6 @@
 | [givy](./pkgs/givy) | Local GitHub-like git viewer with a web UI |
 | [kagiana](./pkgs/kagiana) | OAuth Authenticator & Vault Certificate Getter |
 | [oneaws](./pkgs/oneaws) | CLI tool for AWS authentication via OneLogin |
+| [proton-drive-cli](./pkgs/proton-drive-cli) | Official Proton Drive command-line interface |
 | [roots](./pkgs/roots) | Tool for exploring multiple root directories, such as those in a monorepo project |
 | [symbol-desktop-wallet](./pkgs/symbol-desktop-wallet) | Official desktop wallet for the Symbol blockchain |

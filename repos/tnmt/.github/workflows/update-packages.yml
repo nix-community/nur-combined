@@ -258,3 +258,71 @@ jobs:
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: gh pr merge --squash --auto "${{ steps.cpr.outputs.pull-request-number }}"
+
+  update-proton-drive-cli:
+    # Proton publishes binaries on its own CDN with no GitHub releases for
+    # nix-update to follow, so read version and SHA-512 checksums from the
+    # official version.json manifest.
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v7
+
+    - name: Install nix
+      uses: cachix/install-nix-action@v31
+      with:
+        nix_path: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+
+    - name: Capture current version
+      id: before
+      run: echo "version=$(jq -r .version pkgs/proton-drive-cli/sources.json)" >> "$GITHUB_OUTPUT"
+
+    - name: Update sources.json from version.json
+      id: fetch
+      run: |
+        curl -fsSL https://proton.me/download/drive/cli/version.json | jq '
+          [.Releases[] | select(.CategoryName == "Stable")]
+          | max_by(.Version | split(".") | map(tonumber))
+          | {
+              version: .Version,
+              hashes: ([.Files[] | {key: (.Url | split("/")[-2]), value: .Sha512CheckSum}] | from_entries
+                       | with_entries(select(.key | IN("linux-x64", "linux-arm64", "darwin-x64", "darwin-arm64"))))
+            }' > pkgs/proton-drive-cli/sources.json
+        echo "version=$(jq -r .version pkgs/proton-drive-cli/sources.json)" >> "$GITHUB_OUTPUT"
+
+    - name: Detect changes
+      id: after
+      run: |
+        if git diff --quiet pkgs/proton-drive-cli/; then
+          echo "changed=false" >> "$GITHUB_OUTPUT"
+        else
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+        fi
+
+    - name: Build package
+      if: steps.after.outputs.changed == 'true'
+      run: nix-build -E 'with import <nixpkgs> { }; callPackage ./pkgs/proton-drive-cli { }'
+
+    - name: Create Pull Request
+      id: cpr
+      if: steps.after.outputs.changed == 'true'
+      uses: peter-evans/create-pull-request@v8
+      with:
+        token: ${{ secrets.NUR_UPDATE_PAT }}
+        branch: update/proton-drive-cli-${{ steps.fetch.outputs.version }}
+        commit-message: "proton-drive-cli: ${{ steps.before.outputs.version }} -> ${{ steps.fetch.outputs.version }}"
+        title: "proton-drive-cli: ${{ steps.before.outputs.version }} -> ${{ steps.fetch.outputs.version }}"
+        body: |
+          Automated update of proton-drive-cli from `${{ steps.before.outputs.version }}` to `${{ steps.fetch.outputs.version }}`.
+        labels: automated
+
+    - name: Enable auto-merge
+      if: steps.after.outputs.changed == 'true'
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: gh pr merge --squash --auto "${{ steps.cpr.outputs.pull-request-number }}"
