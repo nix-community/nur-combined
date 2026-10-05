@@ -4,6 +4,7 @@
   fetchFromGitHub,
   makeWrapper,
   nftables,
+  nix-update-script,
 }:
 
 buildGoModule (finalAttrs: {
@@ -41,6 +42,10 @@ buildGoModule (finalAttrs: {
     wrapProgram $out/bin/pvpnd \
       --prefix PATH : ${lib.makeBinPath [ nftables ]}
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version-regex=v(\\d+\\.\\d+\\.\\d+)" ];
+  };
 
   meta = {
     description = "Unofficial Proton VPN client for Linux";

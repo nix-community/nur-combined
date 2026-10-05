@@ -3,18 +3,17 @@
   lib,
   fetchFromGitHub,
   gradle,
+  rustPlatform,
+  cargo,
   makeWrapper,
   libappindicator,
   glib,
   jdk21,
-  callPackage,
-  bash,
-  nix-update-script,  
+  pkg-config,
+  libxkbcommon,
+  nix-update-script,
 }:
 
-let
-  wayland-lib = callPackage ./wayland-lib.nix { };
-in
 stdenv.mkDerivation (finalAttrs: {
   pname = "shimelinux";
   version = "1.3.3";
@@ -29,7 +28,15 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     gradle
     makeWrapper
-    bash
+
+    # For Wayland rust lib
+    rustPlatform.cargoSetupHook
+    cargo
+    pkg-config
+  ];
+
+  buildInputs = [
+    libxkbcommon
   ];
 
   mitmCache = gradle.fetchDeps {
@@ -38,6 +45,13 @@ stdenv.mkDerivation (finalAttrs: {
     data = ./deps.json;
   };
 
+  cargoDeps = rustPlatform.fetchCargoVendor {
+    src = "${finalAttrs.src}/shimelinux_wayland";
+    hash = "sha256-+/lKQOtRmA6NyGdYlKGa5A7qtOIrEkOobN6rylLWlac=";
+  };
+
+  cargoRoot = "shimelinux_wayland";
+
   # __darwinAllowLocalNetworking = true;
   doCheck = true;
   gradleFlags = [ "-Dfile.encoding=utf-8" ];
@@ -45,10 +59,6 @@ stdenv.mkDerivation (finalAttrs: {
   prePatch = ''
     substituteInPlace ./shimelinux.sh \
       --replace-fail '/usr/share' "$out/share"
-
-    substituteInPlace ./build.gradle.kts \
-      --replace-fail 'dependsOn("buildWaylandLib")' "" \
-      --replace-fail '$projectDir/shimelinux_wayland/target/release/libshimelinux_wayland.so' '${wayland-lib}/lib/libshimelinux_wayland.so'
 
     substituteInPlace ./shimelinux.desktop \
       --replace-fail "/usr/bin/" ""
@@ -67,7 +77,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version-regex=v(\\d\\.\\d\\.\\d))" ];
+    extraArgs = [ "--version-regex=v(\\d+\\.\\d+\\.\\d+)" ];
   };
 
   meta = {
