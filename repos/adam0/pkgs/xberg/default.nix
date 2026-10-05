@@ -28,13 +28,13 @@
 in
   rustPlatform.buildRustPackage (finalAttrs: {
     pname = "xberg";
-    version = "1.3.3";
+    version = "1.3.4";
 
     src = fetchFromGitHub {
       owner = "xberg-io";
       repo = "xberg";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-+nkWIgrLZ7vx4wSOA9We/72cbw7S06wJKPxytAcpQ7s=";
+      hash = "sha256-SdFBBlsfPoJHfD0+XctGr5QF21lSDzF7XTdhMRXstKQ=";
     };
 
     # Align upstream tests with the selected features and current config schema.
@@ -56,7 +56,7 @@ in
       cp ${pdfFixture} test_documents/pdf/pdfa_001.pdf
     '';
 
-    cargoHash = "sha256-70Tm9T5gr9D1MmmhQkwlvfGRlvZCDYL92aYacQXj+fU=";
+    cargoHash = "sha256-ZSrNcqIXGMidPYiW8SHbs8ShG/0MBlv/c3RNkEBQ8nk=";
     cargoBuildFlags = ["--package" "xberg-cli"];
     # Report failures across all test targets in one remote build.
     cargoTestFlags = ["--no-fail-fast" "--package" "xberg-cli"];
