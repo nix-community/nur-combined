@@ -1,5 +1,6 @@
 { ... }:
 rec {
+  fail2ban-rs = ./fail2ban-rs;
   fungi = ./fungi;
   nextppp = ./nextppp;
   selector4nix = ./selector4nix;
@@ -9,6 +10,7 @@ rec {
     { ... }:
     {
       imports = [
+        fail2ban-rs
         fungi
         nextppp
         selector4nix

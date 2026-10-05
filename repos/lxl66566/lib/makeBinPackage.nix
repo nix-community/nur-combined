@@ -19,6 +19,8 @@
   license ? lib.licenses.mit,
   overrideStdenv ? null,
   owner ? "lxl66566",
+  # manager.py 元数据：为 false 时 CI 不自动更新该包；构建时忽略
+  autoupdate ? true,
 }:
 
 let
@@ -73,7 +75,12 @@ currentStdenv.mkDerivation {
   installPhase = ''
     runHook preInstall
     mkdir -p $out/bin
-    install -D ${nbname} $out/bin/${nbname}
+    bin="$(find . -type f -name '${nbname}' -print -quit)"
+    if [ -z "$bin" ]; then
+      echo "error: binary '${nbname}' not found in unpacked source" >&2
+      exit 1
+    fi
+    install -D "$bin" $out/bin/${nbname}
     runHook postInstall
   '';
 

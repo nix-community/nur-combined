@@ -2,6 +2,7 @@
 import argparse
 import asyncio
 import copy
+import functools
 import hashlib
 import json
 from concurrent.futures import ThreadPoolExecutor
@@ -72,7 +73,7 @@ async def calculate_sha256_from_url(session, url):
         return None
 
 
-async def process_single_package(package_name, binary_name=None):
+async def process_single_package(package_name, binary_name=None, force=False):
     """
     处理单个包的核心逻辑：获取最新版本，并更新或创建 source-info.json。
     """
@@ -90,6 +91,10 @@ async def process_single_package(package_name, binary_name=None):
             repo_owner = current_info.get("owner", REPO_OWNER)
         except (json.JSONDecodeError, KeyError):
             print(f"    [!] {source_info_path} 文件损坏，将使用默认 owner 并重新生成。")
+
+    if current_info.get("autoupdate") is False and not force:
+        print(f"    [-] {package_name} 设置了 autoupdate=false，跳过（使用 --force 强制更新）。")
+        return
 
     if repo_owner != REPO_OWNER:
         print(f"    [*] 检测到自定义 owner: {repo_owner}")
@@ -196,6 +201,9 @@ async def process_single_package(package_name, binary_name=None):
             "version": latest_version,
             "hashes": new_hashes,
         }
+        # 保留 autoupdate 标记：--force 更新后跳过策略不变
+        if "autoupdate" in current_info:
+            new_source_info["autoupdate"] = current_info["autoupdate"]
 
         source_info_path.parent.mkdir(exist_ok=True)
         with open(source_info_path, "w") as f:
@@ -206,10 +214,10 @@ async def process_single_package(package_name, binary_name=None):
         )
 
 
-def run_process_single_package(package_name, binary_name=None):
+def run_process_single_package(package_name, binary_name=None, force=False):
     """同步的包装器，用于在线程池中运行异步函数"""
     try:
-        asyncio.run(process_single_package(package_name, binary_name))
+        asyncio.run(process_single_package(package_name, binary_name, force))
     except Exception as e:
         print(f"[!!!] 处理 {package_name} 时发生意外错误: {e}")
 
@@ -238,7 +246,7 @@ def handle_update(args):
             if not pkg_dir.is_dir():
                 print(f"[!] 找不到包目录 '{package}'，跳过。")
                 continue
-            run_process_single_package(package)
+            run_process_single_package(package, force=args.force)
     else:
         print("--- 扫描并更新所有包 ---")
         packages_to_update = [
@@ -254,8 +262,11 @@ def handle_update(args):
         print(f"找到 {len(packages_to_update)} 个包: {', '.join(packages_to_update)}")
         print(f"使用最多 {MAX_CONCURRENT_UPDATES} 个并发任务进行更新...")
 
+        update_one = functools.partial(
+            run_process_single_package, force=args.force
+        )
         with ThreadPoolExecutor(max_workers=MAX_CONCURRENT_UPDATES) as executor:
-            executor.map(run_process_single_package, packages_to_update)
+            executor.map(update_one, packages_to_update)
 
 
 def main():
@@ -286,6 +297,12 @@ def main():
     )
     parser_update.add_argument(
         "packages", nargs="*", help="（可选）需要更新的包的目录名。"
+    )
+    parser_update.add_argument(
+        "-f",
+        "--force",
+        action="store_true",
+        help="强制更新设置了 autoupdate=false 的包。",
     )
     parser_update.set_defaults(func=handle_update)
 

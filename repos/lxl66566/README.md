@@ -60,6 +60,7 @@ Only tested on x86_64-linux. Packages may work on aarch64 systems, but I'm not s
 | Name | Outputs | Description |
 | --- | --- | --- |
 | [audio-loudness-batch-normalize](https://github.com/lxl66566/audio-loudness-batch-normalize) | null, musl | Easy to use audio loudness batch normalization tool based on EBU R128, written in Rust |
+| [fail2ban-rs](https://github.com/aejimmi/fail2ban-rs) | null | A pure-Rust fail2ban replacement. Single static binary, fast two-phase matching, nftables/iptables/ipset firewall backends. |
 | [fungi](https://github.com/enbop/fungi) | null | p2p tool cross platform |
 | [git-simple-encrypt](https://github.com/lxl66566/git-simple-encrypt) | null, musl | Encrypt/decrypt files in git repo using one password |
 | [git-sync-backup](https://github.com/lxl66566/git-sync-backup) | null, musl | Synchronize and backup files/folders using Git, cross-device & configurable |
@@ -141,6 +142,38 @@ reference to [StarryReverie/selector4nix](https://github.com/StarryReverie/selec
 }
 ```
 
+### fail2ban-rs
+
+reference to [aejimmi/fail2ban-rs](https://github.com/aejimmi/fail2ban-rs) for all config options.
+
+Firewall tools (`nftables`/`iptables`/`ipset`), `curl` (webhooks) and `journalctl` (`log_backend = "systemd"`) are already on the daemon PATH; trim `services.fail2ban-rs.path` if you want less.
+
+```nix
+{
+  services.fail2ban-rs = {
+    enable = true;
+    settings = {
+      jail.sshd = {
+        log_path = "/var/log/auth.log";
+        date_format = "syslog";
+        filter = [
+          ''sshd\[\d+\]: Failed password for .* from <HOST>''
+          ''sshd\[\d+\]: Invalid user .* from <HOST>''
+        ];
+        port = [ "22" ];
+        protocol = "tcp";
+        max_retry = 5;
+        find_time = "10m";
+        ban_time = "1h";
+        backend = "nftables";
+        bantime_increment = true;
+        ignoreip = [ "127.0.0.1/8" "::1/128" ];
+      };
+    };
+  };
+}
+```
+
 ### fungi
 
 not support attrSet config, since I don't use _fungi_ now... (currently using easytier.)
@@ -190,3 +223,7 @@ how to test packages/modules in this NUR:
 nix-build -A openppp2               # build a package
 nix-build tests/fungi-test.nix      # test a module
 ```
+
+### disable auto update
+
+set `"autoupdate": false` in a package's `source-info.json` to exclude it from the CI auto update (`manager.py update`). update such a package manually with `uv run python manager.py update <pkg> --force`. e.g. [fail2ban-rs](pkgs/fail2ban-rs) is excluded because its release assets don't follow the tag naming the updater assumes.
