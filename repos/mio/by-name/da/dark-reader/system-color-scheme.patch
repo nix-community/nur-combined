@@ -1,0 +1,217 @@
+--- a/src/background/extension.ts
++++ b/src/background/extension.ts
+@@ -158,6 +158,25 @@
+         );
+     }
+ 
++    // Automation mode "system" with behavior "Scheme" forces a color scheme, which
++    // must also win over the manually configured theme mode for the browser theme
++    // (per-tab themes already get the forced mode in getTabMessage()).
++    private static getAutoSchemeMode(): 0 | 1 | null {
++        if (Extension.autoState === 'scheme-dark') {
++            return 1;
++        }
++        if (Extension.autoState === 'scheme-light') {
++            return 0;
++        }
++        return null;
++    }
++
++    private static getEffectiveTheme(): Theme {
++        const theme = UserStorage.settings.theme;
++        const autoMode = Extension.getAutoSchemeMode();
++        return autoMode === null ? theme : {...theme, mode: autoMode};
++    }
++
+     private static updateAutoState() {
+         const {mode, behavior, enabled} = UserStorage.settings.automation;
+ 
+@@ -560,7 +579,7 @@
+         }
+         if (Extension.isExtensionSwitchedOn() && $settings.changeBrowserTheme != null && prev.changeBrowserTheme !== $settings.changeBrowserTheme) {
+             if ($settings.changeBrowserTheme) {
+-                setWindowTheme(UserStorage.settings.theme);
++                setWindowTheme(Extension.getEffectiveTheme());
+             } else {
+                 resetWindowTheme();
+             }
+@@ -585,7 +604,7 @@
+         UserStorage.set({theme: {...UserStorage.settings.theme, ...$theme}});
+ 
+         if (Extension.isExtensionSwitchedOn() && UserStorage.settings.changeBrowserTheme) {
+-            setWindowTheme(UserStorage.settings.theme);
++            setWindowTheme(Extension.getEffectiveTheme());
+         }
+ 
+         Extension.onSettingsChanged();
+@@ -654,7 +673,7 @@
+ 
+         if (UserStorage.settings.changeBrowserTheme) {
+             if (Extension.isExtensionSwitchedOn() && Extension.autoState !== 'scheme-light') {
+-                setWindowTheme(UserStorage.settings.theme);
++                setWindowTheme(Extension.getEffectiveTheme());
+             } else {
+                 resetWindowTheme();
+             }
+--- a/src/background/user-storage.ts
++++ b/src/background/user-storage.ts
+@@ -1,6 +1,7 @@
+ import {ThemeEngine} from '../generators/theme-engines';
+ import {DEFAULT_SETTINGS, DEFAULT_THEME} from '../defaults';
+ import type {UserSettings} from '../definitions';
++import {AutomationMode} from '../utils/automation';
+ import {debounce} from '../utils/debounce';
+ import {PromiseBarrier} from '../utils/promise-barrier';
+ import {isURLMatched} from '../utils/url';
+@@ -66,6 +67,26 @@
+         }
+     }
+ 
++    // The "Use system color scheme" automation (Dark Reader follows the system
++    // color scheme the browser reports, which on Linux comes from the desktop's
++    // XDG portal / GTK theme) is enabled by default for this build. Profiles that never configured automation still hold the old disabled
++    // default, so switch them over once. Bumping schemeVersion makes it a
++    // one-shot change: switching automation off afterwards sticks.
++    private static migrateSystemColorSchemeAutomation(settings: UserSettings): void {
++        if (settings.schemeVersion >= 3) {
++            return;
++        }
++        settings.schemeVersion = 3;
++        const {enabled, mode, behavior} = settings.automation;
++        if (!enabled && mode === AutomationMode.NONE && behavior === 'OnOff') {
++            settings.automation = {
++                enabled: true,
++                mode: AutomationMode.SYSTEM,
++                behavior: 'OnOff',
++            };
++        }
++    }
++
+     private static migrateSiteListsV2(deprecated: any): Partial<UserSettings> {
+         const settings: Partial<UserSettings> = {};
+         settings.enabledByDefault = !deprecated.applyToListedOnly;
+@@ -127,6 +148,7 @@
+         }
+         if (!local.syncSettings) {
+             UserStorage.migrateAutomationSettings(local);
++            UserStorage.migrateSystemColorSchemeAutomation(local);
+             UserStorage.migrateBuiltInSVGFilterToCSSFilter(local);
+             UserStorage.fillDefaults(local);
+             UserStorage.loadBarrier.resolve(local);
+@@ -147,6 +169,7 @@
+         syncCfgErrors.forEach((err) => logWarn(err));
+ 
+         UserStorage.migrateAutomationSettings($sync);
++        UserStorage.migrateSystemColorSchemeAutomation($sync);
+         UserStorage.migrateBuiltInSVGFilterToCSSFilter($sync);
+         UserStorage.fillDefaults($sync);
+ 
+--- a/src/defaults.ts
++++ b/src/defaults.ts
+@@ -3,7 +3,7 @@
+ import {ThemeEngine} from './generators/theme-engines';
+ import {AutomationMode} from './utils/automation';
+ import type {ParsedColorSchemeConfig} from './utils/colorscheme-parser';
+-import {isMacOS, isWindows, isCSSColorSchemePropSupported, isEdge, isMobile} from './utils/platform';
++import {isMacOS, isWindows, isCSSColorSchemePropSupported} from './utils/platform';
+ 
+ declare const __CHROMIUM_MV3__: boolean;
+ declare const __PLUS__: boolean;
+@@ -69,7 +69,7 @@
+ ];
+ 
+ export const DEFAULT_SETTINGS: UserSettings = {
+-    schemeVersion: 0,
++    schemeVersion: 3,
+     enabled: true,
+     fetchNews: true,
+     theme: DEFAULT_THEME,
+@@ -89,8 +89,8 @@
+     syncSettings: true,
+     syncSitesFixes: false,
+     automation: {
+-        enabled: isEdge && isMobile ? true : false,
+-        mode: isEdge && isMobile ? AutomationMode.SYSTEM : AutomationMode.NONE,
++        enabled: true,
++        mode: AutomationMode.SYSTEM,
+         behavior: 'OnOff',
+     },
+     time: {
+--- a/src/utils/media-query.ts
++++ b/src/utils/media-query.ts
+@@ -3,10 +3,43 @@
+ declare const __TEST__: boolean;
+ let override: boolean | null = null;
+ 
++// Re-read the system color scheme on a timer in addition to the media query
++// change event: the event is not reliably delivered to every document (notably
++// not to Firefox extension background pages), and on Linux the scheme comes from
++// the desktop environment (XDG portal / GTK theme), which can change without any
++// document noticing. This is what makes "Use system color scheme" self-healing
++// instead of sticking to whatever the scheme was when a page last loaded.
++const RECHECK_INTERVAL = 60000;
++
+ let query: MediaQueryList | null = null;
+-const onChange: ({matches}: {matches: boolean}) => void = ({matches}) => listeners.forEach((listener) => listener(matches));
++let recheckIntervalId: number | null = null;
++let lastSeenIsDark: boolean | null = null;
+ const listeners = new Set<(isDark: boolean) => void>();
+ 
++function notifyListeners(isDark: boolean): void {
++    if (isDark === lastSeenIsDark) {
++        return;
++    }
++    lastSeenIsDark = isDark;
++    listeners.forEach((listener) => listener(isDark));
++}
++
++const onChange: ({matches}: {matches: boolean}) => void = ({matches}) => notifyListeners(matches);
++
++// Always evaluate a *new* MediaQueryList: an existing one keeps the result of
++// the last media feature update its document processed, and when that update is
++// never delivered its `matches` stays arbitrarily old.
++function readIsDark(): boolean {
++    return matchMedia('(prefers-color-scheme: dark)').matches;
++}
++
++function recheckColorScheme(): void {
++    if (listeners.size === 0) {
++        return;
++    }
++    notifyListeners(isSystemDarkModeEnabled());
++}
++
+ export function runColorSchemeChangeDetector(callback: (isDark: boolean) => void): void {
+     listeners.add(callback);
+     if (query) {
+@@ -19,6 +52,8 @@
+     } else {
+         query.addListener(onChange);
+     }
++    lastSeenIsDark = readIsDark();
++    recheckIntervalId = setInterval(recheckColorScheme, RECHECK_INTERVAL);
+ }
+ 
+ export function stopColorSchemeChangeDetector(): void {
+@@ -32,14 +67,20 @@
+     }
+     listeners.clear();
+     query = null;
++    lastSeenIsDark = null;
++    if (recheckIntervalId !== null) {
++        clearInterval(recheckIntervalId);
++        recheckIntervalId = null;
++    }
+ }
+ 
+ export function emulateColorScheme(colorScheme: 'light' | 'dark'): void {
+     if (__TEST__) {
+         const isDark = colorScheme === 'dark';
+         override = isDark;
++        lastSeenIsDark = isDark;
+         listeners.forEach((l) => l(isDark));
+     }
+ }
+ 
+-export const isSystemDarkModeEnabled = (): boolean => (__TEST__ && typeof override === 'boolean') ? override : (query || matchMedia('(prefers-color-scheme: dark)')).matches;
++export const isSystemDarkModeEnabled = (): boolean => (__TEST__ && typeof override === 'boolean') ? override : readIsDark();

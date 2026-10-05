@@ -16,6 +16,7 @@ buildNpmPackage (finalAttrs: {
 
   patches = [
     ./firefox-color-scheme-wakeup.patch
+    ./system-color-scheme.patch
   ];
 
   src = fetchFromGitHub {
