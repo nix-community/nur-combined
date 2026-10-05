@@ -1,4 +1,8 @@
-{ pkgs, dataPath }:
+{
+	pkgs,
+	dataRoot,
+	savesDirectory ? "${dataRoot}/Saves",
+}:
 
 pkgs.stdenv.mkDerivation {
 	pname = "scp-cb";
@@ -78,16 +82,19 @@ pkgs.stdenv.mkDerivation {
 			--prefix PATH : ${wine}/bin
 
 		mv $out/lib/scp-cb/options.ini $out/lib/scp-cb/options.ini.bak
-		ln -s ${dataPath}/scp-cb/options.ini $out/lib/scp-cb/options.ini
+		ln -s ${dataRoot}/options.ini $out/lib/scp-cb/options.ini
 
 		mv $out/lib/scp-cb/Loadingscreens/loadingscreens.ini $out/lib/scp-cb/Loadingscreens/loadingscreens.ini.bak
-		ln -s ${dataPath}/scp-cb/loadingscreens.ini $out/lib/scp-cb/Loadingscreens/loadingscreens.ini
+		ln -s ${dataRoot}/loadingscreens.ini $out/lib/scp-cb/Loadingscreens/loadingscreens.ini
 
 		mv $out/lib/scp-cb/Data/rooms.ini $out/lib/scp-cb/Data/rooms.ini.bak
-		ln -s ${dataPath}/scp-cb/rooms.ini $out/lib/scp-cb/Data/rooms.ini
+		ln -s ${dataRoot}/rooms.ini $out/lib/scp-cb/Data/rooms.ini
+
+		mv $out/lib/scp-cb/Data/materials.ini $out/lib/scp-cb/Data/materials.ini.bak
+		ln -s ${dataRoot}/materials.ini $out/lib/scp-cb/Data/materials.ini
 
 		rm -r $out/lib/scp-cb/Saves
-		ln -s ${dataPath}/scp-cb/saves $out/lib/scp-cb/Saves
+		ln -s ${savesDirectory} $out/lib/scp-cb/Saves
 
 		runHook postInstall
 	'';

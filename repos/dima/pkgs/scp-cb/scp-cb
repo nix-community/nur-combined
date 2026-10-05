@@ -14,6 +14,10 @@ ROOMS="$LIB/Data/rooms.ini"
 ROOMS_BAK="$LIB/Data/rooms.ini.bak"
 ROOMS_LINK=$(readlink "$ROOMS")
 
+MATERIALS="$LIB/Data/materials.ini"
+MATERIALS_BAK="$LIB/Data/materials.ini.bak"
+MATERIALS_LINK=$(readlink $MATERIALS)
+
 SAVES="$LIB/Saves"
 SAVES_LINK=$(readlink "$SAVES")
 
@@ -37,6 +41,13 @@ if [ ! -f $ROOMS_LINK ]; then
 fi
 
 chmod 644 $ROOMS_LINK
+
+if [ ! -f $MATERIALS ]; then
+	mkdir -p $(dirname $MATERIALS_LINK)
+	cp $MATERIALS_BAK $MATERIALS_LINK
+fi
+
+chmod 644 $MATERIALS_LINK
 
 mkdir -p $SAVES_LINK
 
