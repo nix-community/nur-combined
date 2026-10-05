@@ -40,6 +40,7 @@ nix.settings = {
 ```nix
 nixConfig = {
   extra-substituters = [ "https://hetav21.cachix.org" ];
+  extra-trusted-substituters = [ "https://hetav21.cachix.org" ];
   extra-trusted-public-keys = [ "hetav21.cachix.org-1:O5O3aE7/wLp4F0uMLu4vJEr/Rn5UUWu97clxBxFALzc=" ];
 };
 ```
@@ -61,6 +62,7 @@ nixConfig = {
   # Optional: Binary cache for faster builds
   nixConfig = {
     extra-substituters = [ "https://hetav21.cachix.org" ];
+    extra-trusted-substituters = [ "https://hetav21.cachix.org" ];
     extra-trusted-public-keys = [ "hetav21.cachix.org-1:O5O3aE7/wLp4F0uMLu4vJEr/Rn5UUWu97clxBxFALzc=" ];
   };
 
@@ -74,6 +76,7 @@ nixConfig = {
         ({ pkgs, ... }: {
           environment.systemPackages = [
             pkgs.nur.repos.hetav21.direnv-nvim
+            pkgs.nur.repos.hetav21.px0
             pkgs.nur.repos.hetav21.wsl-notify-send
           ];
         })
