@@ -16,6 +16,7 @@
   opusfile,
   sdl3,
   zlib,
+  nix-update-script,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "realrtcw";
@@ -66,6 +67,8 @@ stdenv.mkDerivation (finalAttrs: {
           --chdir "$out/opt/realrtcw"
       done
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "RealRTCW mod based on ioRTCW engine";

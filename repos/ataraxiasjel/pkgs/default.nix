@@ -13,103 +13,100 @@ let
   };
   finalOverlay = nurOverlay pkgsWithNur pkgs;
 
-  nurOverlay =
-    final: prev:
-    (import ./ocis-bin {
-      inherit lib;
-      inherit (final) callPackage;
-    })
-    // {
-      a2ln = final.python3Packages.callPackage ./a2ln { };
-      arkenfox-userjs = final.callPackage ./arkenfox-userjs { };
-      bibata-cursors-tokyonight = final.callPackage ./bibata-cursors-tokyonight { };
-      cargo-doc-mcp = final.callPackage ./cargo-doc-mcp { };
-      ceserver = final.callPackage ./ceserver { };
-      endfield-daily = final.callPackage ./endfield-daily { };
-      github-mcp-server = final.callPackage ./github-mcp-server { };
-      hoyolab-claim-bot = final.callPackage ./hoyolab-claim-bot { };
-      json-liquid-rs = final.callPackage ./json-liquid-rs { };
-      kes = final.callPackage ./kes { };
-      maki = final.callPackage ./maki { };
-      mcp-server-searxng = final.callPackage ./mcp-server-searxng { };
-      mpris-ctl = final.callPackage ./mpris-ctl { };
-      nix-update-docker-image = final.python3Packages.callPackage ./nix-update-docker-image { };
-      opencodex = final.callPackage ./opencodex { };
-      prometheus-podman-exporter = final.callPackage ./prometheus/podman-exporter.nix { };
-      protonhax = final.callPackage ./protonhax { };
-      prts-cursor = final.callPackage ./prts-cursor { };
-      realrtcw = final.callPackage ./realrtcw { };
-      reshade-shaders = final.callPackage ./reshade-shaders { };
-      seadrive-fuse = final.callPackage ./seadrive-fuse { };
-      sing-box-beta = final.callPackage ./sing-box/beta.nix { };
-      sing-box-beta-full = final.callPackage ./sing-box/beta.nix { withCGO = true; };
-      sing-box-extended = final.callPackage ./sing-box/extended.nix { };
-      sing-box-extended-full = final.callPackage ./sing-box/extended.nix { withCGO = true; };
-      sing-box-lx = final.callPackage ./sing-box/lx.nix { };
-      sing-box-lx-full = final.callPackage ./sing-box/lx.nix { withCGO = true; };
-      sing-box-stable = final.callPackage ./sing-box/stable.nix { };
-      sing-box-stable-full = final.callPackage ./sing-box/stable.nix { withCGO = true; };
-      stalker-gamma-cli = final.callPackage ./stalker-gamma-cli { };
-      strudel = final.callPackage ./strudel { };
-      strudel-with-server = final.strudel.override { withServer = true; };
-      suwayomi-server = final.callPackage ./suwayomi-server { };
-      suwayomi-webui = final.callPackage ./suwayomi-webui { };
-      syncyomi = final.callPackage ./syncyomi { };
-      telemt = final.callPackage ./telemt { };
-      voidrun = final.callPackage ./voidrun { };
-      waydroid-script = final.python3Packages.callPackage ./waydroid-script { };
-      whoogle-search = final.python3Packages.callPackage ./whoogle-search { };
-      wopiserver = final.python3Packages.callPackage ./wopiserver { };
+  nurOverlay = final: prev: {
+    a2ln = final.python3Packages.callPackage ./a2ln { };
+    arkenfox-userjs = final.callPackage ./arkenfox-userjs { };
+    bibata-cursors-tokyonight = final.callPackage ./bibata-cursors-tokyonight { };
+    cargo-doc-mcp = final.callPackage ./cargo-doc-mcp { };
+    ceserver = final.callPackage ./ceserver { };
+    endfield-daily = final.callPackage ./endfield-daily { };
+    github-mcp-server = final.callPackage ./github-mcp-server { };
+    hoyolab-claim-bot = final.callPackage ./hoyolab-claim-bot { };
+    json-liquid-rs = final.callPackage ./json-liquid-rs { };
+    kes = final.callPackage ./kes { };
+    maki = final.callPackage ./maki { };
+    mcp-server-searxng = final.callPackage ./mcp-server-searxng { };
+    mpris-ctl = final.callPackage ./mpris-ctl { };
+    nix-update-docker-image = final.python3Packages.callPackage ./nix-update-docker-image { };
+    opencodex = final.callPackage ./opencodex { };
+    prometheus-podman-exporter = final.callPackage ./prometheus/podman-exporter.nix { };
+    protonhax = final.callPackage ./protonhax { };
+    prts-cursor = final.callPackage ./prts-cursor { };
+    realrtcw = final.callPackage ./realrtcw { };
+    reshade-shaders = final.callPackage ./reshade-shaders { };
+    seadrive-fuse = final.callPackage ./seadrive-fuse { };
+    sing-box-beta = final.callPackage ./sing-box/beta.nix { };
+    sing-box-beta-full = final.callPackage ./sing-box/beta.nix { withCGO = true; };
+    sing-box-extended = final.callPackage ./sing-box/extended.nix { };
+    sing-box-extended-full = final.callPackage ./sing-box/extended.nix { withCGO = true; };
+    sing-box-lx = final.callPackage ./sing-box/lx.nix { };
+    sing-box-lx-full = final.callPackage ./sing-box/lx.nix { withCGO = true; };
+    sing-box-stable = final.callPackage ./sing-box/stable.nix { };
+    sing-box-stable-full = final.callPackage ./sing-box/stable.nix { withCGO = true; };
+    stalker-gamma-cli = final.callPackage ./stalker-gamma-cli { };
+    strudel = final.callPackage ./strudel { };
+    strudel-with-server = final.strudel.override { withServer = true; };
+    suwayomi-server = final.callPackage ./suwayomi-server { };
+    suwayomi-webui = final.callPackage ./suwayomi-webui { };
+    syncyomi = final.callPackage ./syncyomi { };
+    telemt = final.callPackage ./telemt { };
+    voidrun = final.callPackage ./voidrun { };
+    waydroid-script = final.python3Packages.callPackage ./waydroid-script { };
+    whoogle-search = final.python3Packages.callPackage ./whoogle-search { };
+    wopiserver = final.python3Packages.callPackage ./wopiserver { };
 
-      inherit (final.callPackage ./rosepine-gtk { }) rosepine-gtk-theme rosepine-gtk-icons;
-      inherit (final.callPackage ./tokyonight-gtk { }) tokyonight-gtk-theme tokyonight-gtk-icons;
+    inherit (final.callPackage ./rosepine-gtk { }) rosepine-gtk-theme rosepine-gtk-icons;
+    inherit (final.callPackage ./tokyonight-gtk { }) tokyonight-gtk-theme tokyonight-gtk-icons;
 
-      pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-        # nixpkgs marks paste broken with setuptools>=82 (pkg_resources is gone),
-        # but paste only needs pkg_resources for the egg-resource-serving
-        # feature (guarded imports, NotImplementedError when used); the WSGI
-        # core used by cygrpc works without it. Unmark + skip its test suite,
-        # which unconditionally `import pkg_resources` in tests/__init__.py.
-        (_pyFinal: pyPrev: {
-          paste = pyPrev.paste.overridePythonAttrs (oa: {
-            meta = oa.meta // {
-              broken = false;
-            };
-            doCheck = false;
-          });
+    pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+      # nixpkgs marks paste broken with setuptools>=82 (pkg_resources is gone),
+      # but paste only needs pkg_resources for the egg-resource-serving
+      # feature (guarded imports, NotImplementedError when used); the WSGI
+      # core used by cygrpc works without it. Unmark + skip its test suite,
+      # which unconditionally `import pkg_resources` in tests/__init__.py.
+      (_pyFinal: pyPrev: {
+        paste = pyPrev.paste.overridePythonAttrs (oa: {
+          meta = oa.meta // {
+            broken = false;
+          };
+          doCheck = false;
+        });
+      })
+      (
+        pyFinal: _pyPrev:
+        import ./python3Packages {
+          inherit (pyFinal) callPackage;
+          inherit lib;
+        }
+      )
+    ];
+    # Overrides
+    # From PR: https://github.com/ValveSoftware/gamescope/pull/1908
+    gamescope = prev.gamescope.overrideAttrs (oa: {
+      patches = oa.patches or [ ] ++ [
+        (prev.fetchpatch2 {
+          name = "kill_then_wait_for_child_in_reverse.patch";
+          url = "https://github.com/zlice/gamescope/commit/fa900b0694ffc8b835b91ef47a96ed90ac94823b.patch?full_index=1";
+          hash = "sha256-Nagl95FbJgVSRbX/tW/+bsbyFHTLmU8KfF2WHylFuuY=";
         })
-        (
-          pyFinal: _pyPrev:
-          import ./python3Packages {
-            inherit (pyFinal) callPackage;
-            inherit lib;
-          }
-        )
       ];
-      # expose nur python packages
-      python-pkgs = lib.recurseIntoAttrs (final.python3Packages.callPackage ./python3Packages { });
-
-      # Overrides
-      # From PR: https://github.com/ValveSoftware/gamescope/pull/1908
-      gamescope = prev.gamescope.overrideAttrs (oa: {
-        patches = oa.patches or [ ] ++ [
-          (prev.fetchpatch2 {
-            name = "kill_then_wait_for_child_in_reverse.patch";
-            url = "https://github.com/zlice/gamescope/commit/fa900b0694ffc8b835b91ef47a96ed90ac94823b.patch?full_index=1";
-            hash = "sha256-Nagl95FbJgVSRbX/tW/+bsbyFHTLmU8KfF2WHylFuuY=";
-          })
-        ];
-      });
-      gamescope-wsi = prev.gamescope-wsi.overrideAttrs (oa: {
-        patches = oa.patches or [ ] ++ [
-          (prev.fetchpatch2 {
-            name = "kill_then_wait_for_child_in_reverse.patch";
-            url = "https://github.com/zlice/gamescope/commit/fa900b0694ffc8b835b91ef47a96ed90ac94823b.patch?full_index=1";
-            hash = "sha256-Nagl95FbJgVSRbX/tW/+bsbyFHTLmU8KfF2WHylFuuY=";
-          })
-        ];
-      });
-    };
+      passthru = oa.passthru or { } // {
+        skipBulkUpdate = true;
+      };
+    });
+    gamescope-wsi = prev.gamescope-wsi.overrideAttrs (oa: {
+      patches = oa.patches or [ ] ++ [
+        (prev.fetchpatch2 {
+          name = "kill_then_wait_for_child_in_reverse.patch";
+          url = "https://github.com/zlice/gamescope/commit/fa900b0694ffc8b835b91ef47a96ed90ac94823b.patch?full_index=1";
+          hash = "sha256-Nagl95FbJgVSRbX/tW/+bsbyFHTLmU8KfF2WHylFuuY=";
+        })
+      ];
+      passthru = oa.passthru or { } // {
+        skipBulkUpdate = true;
+      };
+    });
+  };
 in
 finalOverlay
 // {

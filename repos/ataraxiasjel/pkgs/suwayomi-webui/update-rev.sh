@@ -51,8 +51,12 @@ fi
 
 # Revision = total commit count reachable from the tag commit.
 # With per_page=1 the "last" page number in the Link header equals that count.
-LINK="$(curl -fsSI "${CURL_ARGS[@]}" "https://api.github.com/repos/Suwayomi/Suwayomi-WebUI/commits?per_page=1&sha=$COMMIT_SHA" | grep -i '^link:' | tr -d '\r' | head -n 1 || true)"
+HEADERS="$(curl -I "${CURL_ARGS[@]}" "https://api.github.com/repos/Suwayomi/Suwayomi-WebUI/commits?per_page=1&sha=$COMMIT_SHA" || true)"
+LINK="$(grep -i '^link:' <<<"$HEADERS" | tr -d '\r' | head -n 1 || true)"
 REVISION="$(grep -oP 'page=\K[0-9]+(?=>; rel="last")' <<<"$LINK" | head -n 1 || true)"
+if [[ -z "$REVISION" && -z "$LINK" ]]; then
+  REVISION=1
+fi
 
 if ! [[ "$REVISION" =~ ^[0-9]+$ ]]; then
   echo "error: could not parse revision from Link header (got '$LINK')" >&2

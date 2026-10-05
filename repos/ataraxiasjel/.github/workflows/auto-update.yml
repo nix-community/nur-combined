@@ -38,6 +38,7 @@ jobs:
           direnv status
           nix flake metadata --json --inputs-from . nixpkgs | jq .url
       - name: Update packages
+        id: update
         env:
           XDG_RUNTIME_DIR: ${{ github.workspace }}
           GIT_AUTHOR_NAME: AtaraxiaSjel (bot)
@@ -47,13 +48,37 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NIXPKGS_ALLOW_UNFREE: 1
           NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1
-        timeout-minutes: 30
-        continue-on-error: true
+        timeout-minutes: 90
         run: |
           # shellcheck disable=SC2155
-          export NIX_PATH="nixpkgs=$(nix flake metadata --json --inputs-from . nixpkgs | jq -r .path)"
+          export NIX_PATH="nixpkgs=$(nix eval --raw --impure --expr '(builtins.getFlake (toString ./.)).inputs.nixpkgs.outPath')"
           pkgsNames=$(nix eval --json --impure --expr "(import ./ci.nix {}).updatablePkgsNames" | jq -r ".[]")
-          echo "$pkgsNames" | while read -r pkg; do nix-update --use-update-script --commit --flake "$pkg" || true; done
+          pyNames=$(nix eval --json --impure --expr "(import ./ci.nix {}).pyUpdatablePkgsNames" | jq -r ".[]")
+          FAILED_FILE="$RUNNER_TEMP/failed-updates.txt"
+          : > "$FAILED_FILE"
+          while read -r pkg; do
+            if ! nix-update --use-update-script --commit --flake "$pkg"; then
+              echo "$pkg" >> "$FAILED_FILE"
+            fi
+          done <<< "$pkgsNames"
+          while read -r py; do
+            if ! nix-update --commit -f default.nix "python3Packages.$py"; then
+              echo "python3Packages.$py" >> "$FAILED_FILE"
+            fi
+          done <<< "$pyNames"
+          echo "failed-count=$(wc -l < "$FAILED_FILE")" >> "$GITHUB_OUTPUT"
+          cat "$FAILED_FILE" || true
+      - name: Notify Telegram on failures
+        if: always()
+        env:
+          TG_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TG_CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [ -s "$RUNNER_TEMP/failed-updates.txt" ]; then
+            MSG="⚠️ auto-update $(date -u +%F) failed for: $(paste -sd' ' "$RUNNER_TEMP/failed-updates.txt")"
+            curl -fsSL -X POST "https://api.telegram.org/bot$TG_TOKEN/sendMessage" \
+              -d chat_id="$TG_CHAT" -d text="$MSG" -d disable_notification=true || true
+          fi
       - name: Check evaluation
         env:
           NIXPKGS_ALLOW_UNFREE: 1

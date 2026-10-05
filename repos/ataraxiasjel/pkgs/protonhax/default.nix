@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Program to help executing outside programs in proton";
-    homepage = "https://github.com/aoleg94/protonhax";
+    homepage = "https://github.com/jcnils/protonhax";
     platforms = [ "x86_64-linux" ];
     license = licenses.bsd3;
     maintainers = with maintainers; [ ataraxiasjel ];

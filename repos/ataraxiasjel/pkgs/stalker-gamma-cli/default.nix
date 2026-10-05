@@ -11,8 +11,7 @@
   makeDesktopItem,
   copyDesktopItems,
   replaceVars,
-  # _experimental-update-script-combinators,
-  # gitUpdater,
+  nix-update-script,
 }:
 buildDotnetModule (finalAttrs: {
   pname = "stalker-gamma-cli";
@@ -67,10 +66,12 @@ buildDotnetModule (finalAttrs: {
     })
   ];
 
-  # passthru.updateScript = _experimental-update-script-combinators.sequence [
-  #   (gitUpdater { }).command
-  #   (finalAttrs.passthru.fetch-deps)
-  # ];
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--flake"
+      "stalker-gamma-cli"
+    ];
+  };
 
   meta = {
     description = "A CLI to install Stalker GAMMA";

@@ -10,9 +10,7 @@
   libappindicator,
   jdk25,
   suwayomi-webui,
-  _experimental-update-script-combinators,
   nix-update-script,
-  writeShellScript,
   electron,
   makeDesktopItem,
 
@@ -127,14 +125,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     )
   );
 
-  passthru = {
-    updateScript = _experimental-update-script-combinators.sequence [
-      (nix-update-script { })
-      (writeShellScript "update-deps.sh" ''
-        $(nix-build -A suwayomi-server.mitmCache.updateScript)
-      '')
-    ];
-  };
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Free and open source manga reader server that runs extensions built for Mihon (Tachiyomi)";

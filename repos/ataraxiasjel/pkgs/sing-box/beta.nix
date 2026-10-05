@@ -39,5 +39,7 @@ import ./common.nix {
     "unstable"
     "--version-regex"
     "v(.*-(?:alpha|beta|rc).*)"
+    "--override-filename"
+    "pkgs/sing-box/beta.nix"
   ];
 }

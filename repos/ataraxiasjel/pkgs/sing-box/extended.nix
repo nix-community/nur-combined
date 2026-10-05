@@ -34,6 +34,14 @@ import ./common.nix {
     hash = "sha256-bDE90wcoTLBm3lDICO+z7Kl+hhIXBYZN5lsrLXQbL10=";
   };
   vendorHash = "sha256-fR6ZlkSBiM0EiGwd6mWQ07p+gMnYuhugai4x4SsUNiU=";
+  updateExtraArgs = [
+    "--version"
+    "unstable"
+    "--version-regex"
+    "v(.*-extended.*)"
+    "--override-filename"
+    "pkgs/sing-box/extended.nix"
+  ];
   extraTags = [
     # extended-specific, all non-CGO
     "with_masque"

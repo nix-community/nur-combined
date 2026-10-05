@@ -67,7 +67,9 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version=branch" ];
+  };
 
   meta = with lib; {
     description = "A MCP server for managing Rust documentation through cargo doc commands";

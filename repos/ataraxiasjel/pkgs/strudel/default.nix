@@ -7,6 +7,7 @@
   pnpm_11,
   nodejs_24,
   nix-update-script,
+  _experimental-update-script-combinators,
   makeWrapper,
   miniserve,
   xdg-utils,
@@ -18,7 +19,7 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "strudel";
-  version = "0-unstable-2026-08-19";
+  version = "0-unstable-2026-10-04";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -27,8 +28,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     domain = "codeberg.org";
     owner = "uzu";
     repo = "strudel";
-    rev = "8f81463b9cb5ddd5f117ed7baef6a1fde9445dc2";
-    hash = "sha256-1crdG/ev1gW+OmHEjLq9Wi2bnksfQ84qRMpw2+uxyGw=";
+    rev = "0a6d61e14a37ad6f3c687c4b0397c8fbf57f37ca";
+    hash = "sha256-wIrKpPHnzMft5pZpmuXF/yZ/D2auqzJRp+N23vAFRbY=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -82,9 +83,15 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       }
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch" ];
-  };
+  passthru.updateScript = _experimental-update-script-combinators.sequence [
+    (nix-update-script {
+      extraArgs = [ "--version=branch" ];
+    })
+    [
+      ./fixup-version.sh
+      "./pkgs/strudel"
+    ]
+  ];
 
   meta = {
     description = "Music live coding environment for the browser (strudel.cc)";

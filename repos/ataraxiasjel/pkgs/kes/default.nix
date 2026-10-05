@@ -2,20 +2,23 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+  nix-update-script,
 }:
 
 buildGoModule rec {
   pname = "kes";
-  version = "2025-03-12T09-35-18Z";
+  version = "0.24.0";
 
   src = fetchFromGitHub {
     owner = "minio";
     repo = "kes";
-    rev = version;
-    hash = "sha256-S2RdYe07MbQ2xTJLOHYG7rHWxzEeZn6JwjyuWDbkTkY=";
+    tag = "v${version}";
+    hash = "sha256-NpB6+89vQHke60JKy35eqN6xsLGEKLz6zRQRGZex+jQ=";
   };
 
-  vendorHash = "sha256-+n1yiAD7STcf73fpkQEPczHK0Pv2ESkdBE8KA4pNsBk=";
+  vendorHash = "sha256-3aibbr7pDHyMFjCJLFXhYRMUVS6luA0owVYqdFia6Jw=";
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "Key Managament Server for Object Storage and more";

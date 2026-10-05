@@ -27,8 +27,15 @@ let
   isUpdatable =
     p:
     isDerivation p
-    && (p.passthru ? updateScript && p.passthru.updateScript != null)
+    && (p ? passthru && p.passthru ? updateScript && p.passthru.updateScript != null)
     && !(p.passthru.skipBulkUpdate or false);
+
+  isBulkDuplicate =
+    n:
+    lib.hasSuffix "-full" n
+    || n == "strudel-with-server"
+    || n == "rosepine-gtk-icons"
+    || n == "tokyonight-gtk-icons";
 
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 
@@ -53,26 +60,53 @@ let
 
   filterAttrsRec =
     func: attrs:
-    let
-      op =
-        n: v:
+    listToAttrs (
+      lib.concatMap (
+        n:
+        let
+          v = attrs.${n};
+        in
         if shouldRecurseForDerivations v then
-          { ${n} = listToAttrs (filterAttrsRec func v); }
+          let
+            sub = filterAttrsRec func v;
+          in
+          lib.optional (sub != { }) {
+            name = n;
+            value = sub;
+          }
         else if func v then
-          true
+          [
+            {
+              name = n;
+              value = v;
+            }
+          ]
         else
-          false;
-    in
-    filterAttrs op attrs;
+          [ ]
+      ) (lib.attrNames attrs)
+    );
 
   nurAttrs = import ./pkgs/default.nix { inherit pkgs lib system; };
   nurPkgs = flattenAttrs isDerivation nurAttrs;
+
+  pyExtensions = nurAttrs.pythonPackagesExtensions or [ ];
+  pyExtended = pkgs.python3Packages.overrideScope (lib.composeManyExtensions pyExtensions);
+  pyOurs = import ./pkgs/python3Packages {
+    inherit (pyExtended) callPackage;
+    inherit lib;
+  };
+  pyUpdatablePkgsRaw = filterAttrs (_: v: isUpdatable v && isNotBroken v) pyOurs;
 in
 rec {
   notReserved = filterAttrs (n: _: !(isReserved n)) nurAttrs;
   test = filterAttrsRec isUpdatable notReserved;
-  updatablePkgs = flattenAttrs isUpdatable nurAttrs;
+  updatablePkgs = filterAttrs (n: _: !(isBulkDuplicate n)) (
+    flattenAttrs (p: isUpdatable p && isNotBroken p) nurAttrs
+  );
   updatablePkgsNames = attrNames updatablePkgs;
+
+  pyUpdatablePkgs = pyUpdatablePkgsRaw;
+  pyUpdatablePkgsNames = attrNames pyUpdatablePkgsRaw;
 
   allPkgs = nurPkgs;
   buildPkgs = filterAttrs (_: v: isNotBroken v) allPkgs;
