@@ -33,8 +33,8 @@ let
   finalUrl =
     if urlTemplate != null then
       lib.replaceStrings
-        [ "__pname__" "__bname__" "__version__" "__targetSystem__" "__owner__" ]
-        [ pname nbname version hashInfo.targetSystem owner ]
+        [ "__pname__" "__bname__" "__version__" "__bare_version__" "__targetSystem__" "__owner__" ]
+        [ pname nbname version (lib.removePrefix "v" version) hashInfo.targetSystem owner ]
         urlTemplate
     else
       defaultUrl;

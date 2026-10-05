@@ -151,6 +151,7 @@ async def process_single_package(package_name, binary_name=None, force=False):
                     .replace("__bname__", binary_name or package_name)
                     .replace("__owner__", repo_owner)
                     .replace("__version__", latest_version)
+                    .replace("__bare_version__", latest_version.removeprefix("v"))
                     .replace("__targetSystem__", target_system)
                 )
             else:

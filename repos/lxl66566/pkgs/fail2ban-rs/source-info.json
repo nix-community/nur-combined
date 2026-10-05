@@ -1,21 +1,21 @@
 {
   "owner": "aejimmi",
-  "version": "1.5.4",
-  "autoupdate": false,
+  "version": "v1.5.5",
   "hashes": {
     "x86_64-linux": {
       "musl": {
-        "sha256": "33db78ed3f2f46eaa4f0665ac453e41e4a8f1f32d10ac2fd66a6154153ad6d06",
-        "template": "https://github.com/__owner__/__pname__/releases/download/v__version__/__pname__-__version__-linux-amd64.tar.gz",
+        "sha256": "ee54185edab0e1a0e2396171c5231648f24cf993fff3cb93a8b9a1321bf2de0c",
+        "template": "https://github.com/__owner__/__pname__/releases/download/__version__/__pname__-__bare_version__-linux-amd64.tar.gz",
         "targetSystem": "x86_64-unknown-linux-musl"
       }
     },
     "aarch64-linux": {
       "musl": {
-        "sha256": "00ee23dfd324441503f853828735b3c6f9d4aa1269b8308174f172b956f35f54",
-        "template": "https://github.com/__owner__/__pname__/releases/download/v__version__/__pname__-__version__-linux-arm64.tar.gz",
+        "sha256": "7da7fd53038d35ed8ff3e617d8b7d53f2251a9ea804a004f89c123d38d52c96d",
+        "template": "https://github.com/__owner__/__pname__/releases/download/__version__/__pname__-__bare_version__-linux-arm64.tar.gz",
         "targetSystem": "aarch64-unknown-linux-musl"
       }
     }
-  }
+  },
+  "autoupdate": false
 }
