@@ -36,8 +36,8 @@
             "url": "https://github.com/Alxandr/nur"
         },
         "AndrewKvalheim": {
-            "rev": "5d190585748af0f1131d476e4e5df2e3bfd64e48",
-            "sha256": "0g50ikqpi401x6x5bmq25w1k6spaaipz0fnij8i3lxhrzi39w6fr",
+            "rev": "db60233b8e560e4016e9202f206d1d070dd5ea53",
+            "sha256": "0m5ciblga4ly2v1h2rr71b4k7i9sdbgj2rrvca05k4kvmm8b6gg4",
             "url": "https://codeberg.org/AndrewKvalheim/configuration"
         },
         "AsterisMono": {
@@ -1718,8 +1718,8 @@
             "url": "https://git.sr.ht/~misterio/nix-config"
         },
         "misuzu": {
-            "rev": "9f572398b91d60a49e260626180347745c39187c",
-            "sha256": "178yq7rnnciq87fd9prkbx5wcm0k1x693rxl8x6mz6psydpx9ifa",
+            "rev": "02694b63e5d2b2d7de22fa965380e6b356109b91",
+            "sha256": "0gz5ym9gv0nxlbyid5n8ha4lnhqzh6gmwn1idd3m9j1f4qfab1m4",
             "url": "https://github.com/misuzu/mur"
         },
         "mloeper": {
@@ -2587,8 +2587,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "661597802a6fdbca3b34e7dbf003bb6df0c0f736",
-            "sha256": "1p71vlhgl09jij23bbrdx7fmbgblw1bvjnqxyfp4s2fadpqbvwgk",
+            "rev": "ad394cb815a8cdc7953810b2bdaf0171caf62d5e",
+            "sha256": "0y1gjmjs91fywhb1q49hzp34jzqwb16p4mnlim5rz1716901gr7f",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
