@@ -34,6 +34,7 @@ jobs:
   tests:
     strategy:
       fail-fast: false
+      max-parallel: 1 # We serialize such that the first completed job can populate the attic cache, hopefully allowing the remaining jobs to skip most of the work
       matrix:
         nixpkgs:
           - nixpkgs-unstable
