@@ -11,7 +11,7 @@
 }:
 python3Packages.buildPythonApplication rec {
   pname = "mochi-desktop";
-  version = "0.3.0-alpha.1";
+  version = "archive/2026-09-08/prebaseline-main";
 
   pyproject = true;
   __structuredAttrs = true;
@@ -19,8 +19,8 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "miflow13";
     repo = "mochi-desktop";
-    rev = "535b520866b84d28f5755ef698a704c849ae1599";
-    hash = "sha256-aRUnknk/4AStecTjVPWbFOsbwobAXVlyNoiWsbS8quk=";
+    rev = "8ac1478e064673657c4206e2a20d6024bb026291";
+    hash = "sha256-Y8tfUE7nlpoCujOa6GpTrid9ymFUw4jtdepsFyN4vIk=";
   };
 
   patches = [

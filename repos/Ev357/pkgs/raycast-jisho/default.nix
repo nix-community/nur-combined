@@ -10,8 +10,8 @@ buildNpmPackage rec {
 
   src = fetchgit {
     url = "https://github.com/raycast/extensions";
-    rev = "54a2c7d36a79ed199044925497aa9c08049c2e96";
-    sha256 = "sha256-snQ2TSPHNed3l6s0vFv+AmNZBT2ajUoxLfZ3jbUOrC8=";
+    rev = "2a329b9368078f672dd4ef6324a16d676ed04437";
+    sha256 = "sha256-fY3GoLuUgG+OZb2mnpOB8S+sEw9CptyQSubgSO/LdKU=";
     sparseCheckout = ["/extensions/${pname}"];
     rootDir = "/extensions/${pname}";
   };
@@ -35,8 +35,8 @@ buildNpmPackage rec {
       set -eu -o pipefail
 
       REV="$(curl -s https://api.github.com/repos/raycast/extensions/commits?per_page=1 | jq -r '.[0].sha')"
-      update-source-version vicinae-${pname} "${version}" --ignore-same-version --rev="$REV"
-      update-source-version vicinae-${pname} "${version}" --ignore-same-version --source-key=npmDeps
+      update-source-version raycast-${pname} "${version}" --ignore-same-version --rev="$REV"
+      update-source-version raycast-${pname} "${version}" --ignore-same-version --source-key=npmDeps
     '';
 
   npmDepsHash = "sha256-RFfMJ3qN2wy4ycHgJeljcZXE5MRvgMXOCJQ+FqjTcyY=";
