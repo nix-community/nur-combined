@@ -271,7 +271,6 @@ main() {
 
   run_nvfetcher_filter "agent-run" "agent-run" '^(agent-run)$'
   run_nvfetcher_filter "create-tauri-app" "create-tauri-app" '^(create-tauri-app)$'
-  run_nvfetcher_filter "dingtalk" "dingtalk-bin-amd64, dingtalk-bin-arm64" '^(dingtalk-bin-amd64|dingtalk-bin-arm64)$'
   run_nvfetcher_filter "claude-code" "claude-code-bin-arm64-linux, claude-code-bin-amd64-linux, claude-code-bin-arm64-darwin, claude-code-bin-amd64-darwin" '^(claude-code-bin-arm64-linux|claude-code-bin-amd64-linux|claude-code-bin-arm64-darwin|claude-code-bin-amd64-darwin)$'
   run_npm_deps_gate "kimi-code" "kimi-code" '^(kimi-code)$'
   run_npm_deps_gate "pi-agent" "pi-agent" '^(pi-agent|pi-agent-git)$'

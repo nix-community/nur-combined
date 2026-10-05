@@ -164,18 +164,18 @@
   };
   dingtalk-bin-amd64 = {
     pname = "dingtalk-bin-amd64";
-    version = "8.1.0.6021101";
+    version = "8.2.8.260818002";
     src = fetchurl {
-      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_8.1.0.6021101_amd64.deb";
-      sha256 = "sha256-7EkvEv6r7ONHAupH48/BoWSuLo2r3umwXnSjpeTeIdU=";
+      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_8.2.8.260818002_amd64.deb";
+      sha256 = "sha256-iNrWB7u3pykYOZORydU67fz6Om2rAffQZZ5iwcoyZ48=";
     };
   };
   dingtalk-bin-arm64 = {
     pname = "dingtalk-bin-arm64";
-    version = "8.1.0.6021101";
+    version = "8.2.8.260818002";
     src = fetchurl {
-      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_8.1.0.6021101_arm64.deb";
-      sha256 = "sha256-SEKPcpWGmBWQDDQYZ7u9J5sOsXI2QofdeLshzt+0me8=";
+      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_8.2.8.260818002_arm64.deb";
+      sha256 = "sha256-Iiaeqtql59q2okwcN7ryxFpXIiGjg5qf9KSHB5gS2rw=";
     };
   };
   dsh = {
