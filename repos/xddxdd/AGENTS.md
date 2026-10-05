@@ -5,6 +5,13 @@
 - **持续更新文档**：每次根据用户建议修改包后，应将可推广的经验教训更新到本文档（AGENTS.md）中
 - **提炼通用规则**：关注用户指出的模式、最佳实践和常见错误，将其转化为可应用于其他包的通用规则
 
+## 提交信息格式
+
+- 本仓库的提交信息格式为 `包名: 描述`，例如 `qemu: add QEMU with qemu-vmvga and nvkvm-pv overlays`、`ik-llama-cpp: add`、`AGENTS.md: document …`
+- 一次改动涉及多个包时用逗号列出，例如 `ncmm, uni-api: fix package updates after upstream changes`
+- 自动化提交用 `auto: update packages`；整仓库性修复可用描述性标题，如 `Fix Hydra build failures (eval <id>)`
+- 描述用简短的陈述/祈使句，不加结尾句号
+
 ## Nix 包定义规范
 
 ### 代码风格
@@ -323,6 +330,9 @@ it-tools 的 `pnpmDeps` 哈希会被 auto-update 反复改错（`ba9c1129` 手�
 
 - 从 GHA auto-update run 日志（`gh run view <id> --repo xddxdd/nur-packages --log`）确认该 run 用 `NIX_PATH=nixpkgs=channel:nixos-unstable`，而 `channels.nixos.org/nixos-unstable/git-revision` 当时和现在都是 `a7868a7…`，即与 flake.lock 钉住的 nixpkgs 完全相同。
 - 用 channel a7868a7（默认 config）和 flake（带 allowUnfree 等 config）分别求值 `it-tools.pnpmDeps.drvPath`，得到同一个 drv `42x3kyifb9ds…`。同一个 drv、同一个 pnpm 11.27.0 / node 24.21.0 / sqlite 3.53.3，GHA 算出 `sha256-qfoBr6…`，兰天构建机算出 `sha256-Qn2DCJ…`。
-- 即纯粹是构建环境/时序差异（nixpkgs issue #422889、#484013：pnpm `initStore` 竞态、文件权限、构建目录与 `$out` 是否同一分区），GHA 产物在 hash mismatch 后即被丢弃，不在任何 store/cache 里，无法事后 diff。
+- 即纯粹是构建环境/时序差异（nixpkgs issue #422889、#484013），GHA 产物在 hash mismatch 后即被丢弃，不在任何 store/cache 里，无法事后 diff。
 
-**对策（已落地）**：所有含 `pnpmDeps` 哈希的包（it-tools、axonhub）一律把 updateScript 改成 `nix-update-script { extraArgs = [ "--src-only" ]; }`（axonhub 再加上它原有的 `--version unstable`），让 auto-update 只更新 version/src，**永远不写 GHA 上算出的依赖哈希**。版本升级后 pnpmDeps 哈希会变旧，此时 Hydra 会明确报 FOD hash mismatch，需在可信构建机上手工刷新。对 axonhub 这同时也避免了 vendorHash 被污染：其 `goModules` FOD 的 `preBuild` 引用 `frontendDist`，故 `goModules` 依赖 `frontendPnpmDeps`，一个错误的 pnpmDeps 哈希会让 nix-update 把 pnpm store 的哈希写进 vendorHash（见“依赖哈希必须暴露为顶层 passthru”条目）。
+**实测只影响 `fetcherVersion = 4`（pnpm 11）：**
+
+- it-tools 用 `pnpm_11` + `fetcherVersion = 4`，GHA 与兰天哈希不一致，已实测复现。改用 `pnpm_10` + `fetcherVersion = 3` 不可行：it-tools 的 lockfile（pnpm 11 生成）在 `patchedDependencies:` 里存的是 pnpm 11 的补丁哈希，pnpm 10.34.5 校验时报 `ERR_PNPM_LOCKFILE_CONFIG_MISMATCH`。因此 it-tools 保持 `nix-update-script { extraArgs = [ "--src-only" ]; }`，auto-update 只更新 version/src，**不写 GHA 上算出的 pnpmDeps 哈希**；版本升级后哈希变旧、Hydra 报 FOD hash mismatch，需在可信构建机上手工刷新。
+- axonhub 用 `pnpm_10` + `fetcherVersion = 3`，不受影响：GHA 算出的 `sha256-Juge/qz…` 与本地/远程构建机一致（pnpm 10.34.5 已含 10.29.0 的 `initStore` 修复）。历史上 axonhub 出现过的 vendorHash 被污染是 `passthru.pnpmDeps` 缺失导致的字段错位（见 commit `0aa06b4a`，由 `75b86aff` 修复），与哈希不可复现无关。因此 axonhub 保持普通 `nix-update-script { extraArgs = [ "--version" "unstable" ]; }`。

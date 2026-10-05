@@ -51,10 +51,11 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru.updateScript = nix-update-script {
-    # Skip dependency hashes: nix-update runs on GitHub Actions, whose
-    # fetchPnpmDeps output is not reproducible (pnpm store race), so the
-    # computed pnpmDeps hash does not match lantian's builders. Update only
-    # version/src and refresh pnpmDeps manually when the lockfile changes.
+    # Skip dependency hashes: the fetcherVersion = 4 (pnpm 11) pnpmDeps hash
+    # computed on GitHub Actions does not match lantian's builders. Switching
+    # to pnpm_10 + fetcherVersion = 3 is not possible because this lockfile
+    # stores pnpm 11 patch hashes in patchedDependencies, which pnpm 10
+    # rejects. Update only version/src; refresh pnpmDeps manually.
     extraArgs = [ "--src-only" ];
   };
   meta = {
