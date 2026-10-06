@@ -6,13 +6,13 @@
   pnpm_11,
   ...
 }: let
-  version = "2026-10-05";
+  version = "2026-10-06";
 
   src = fetchFromGitHub {
     owner = "Equicord";
     repo = "Equicord";
     tag = version;
-    hash = "sha256-utAAobxSmcmM8ZiM0y6E5OtvEpKDOtq5eP3KSu22saM=";
+    hash = "sha256-N+gWNWwwLH6/eGhCddMvK60AnJ4yUUOE+R4eEEtM4D0=";
   };
 
   pnpmDeps = fetchPnpmDeps {

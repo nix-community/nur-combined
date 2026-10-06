@@ -5,25 +5,25 @@
     "url": "{0}",
     "version_path": ".version"
   },
-  "version": "1.2.3",
+  "version": "1.2.4",
   "platforms": {
     "x86_64-linux": {
       "url_path": ".files[\"{1}\"].url",
-      "url": "https://static.blip.net/linux/blip-1.2.3-linux-amd64.tar.gz",
+      "url": "https://static.blip.net/linux/blip-1.2.4-linux-amd64.tar.gz",
       "substitutions": [
         "https://static.blip.net/linux/latest.json",
         "linux-amd64"
       ],
-      "hash": "sha256-ZzToQpTxKKx9s7CtBJnpmW+EsgpaqYNkFbc3Dct+YQs="
+      "hash": "sha256-lALruevtH+Zbx1mCgEWU8qtOYbAsQ5jQRdDVKk5xpPg="
     },
     "aarch64-linux": {
       "url_path": ".files[\"{1}\"].url",
-      "url": "https://static.blip.net/linux/blip-1.2.3-linux-aarch64.tar.gz",
+      "url": "https://static.blip.net/linux/blip-1.2.4-linux-aarch64.tar.gz",
       "substitutions": [
         "https://static.blip.net/linux/latest.json",
         "linux-aarch64"
       ],
-      "hash": "sha256-PFgt5ljv+F/L6TAbeHdLhi3CL0BAHXd0WNISasPxxKk="
+      "hash": "sha256-gvQd/86HqSeg57Wz2ItiE1SextkEBhJUki/GJXRKAw0="
     },
     "aarch64-darwin": {
       "url_path": ".url",
