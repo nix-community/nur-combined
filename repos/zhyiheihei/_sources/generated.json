@@ -411,11 +411,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-3+2y/0MHoOnW3bs15NpVCTn6LQ1+WI9LrT846LTh0jw=",
+            "sha256": "sha256-Xj0AD6HOeDRa434DWBPfEzATdExxfGXHKrz9Bws5JSM=",
             "type": "url",
-            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.77/vaults3-linux-amd64.tar.gz"
+            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.79/vaults3-linux-amd64.tar.gz"
         },
-        "version": "4.4.77"
+        "version": "4.4.79"
     },
     "vaults3-linux-arm64": {
         "cargoLock": null,
@@ -426,11 +426,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-9XkF32AeZR8RNhhCljwXNTt8Gl7jpwiONEYKQUwybmE=",
+            "sha256": "sha256-jSaP2rCzuExtelx/i28hmTx/LIS6h5NG6lZ9dvkzvzA=",
             "type": "url",
-            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.77/vaults3-linux-arm64.tar.gz"
+            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v4.4.79/vaults3-linux-arm64.tar.gz"
         },
-        "version": "4.4.77"
+        "version": "4.4.79"
     },
     "vertex": {
         "cargoLock": null,
