@@ -341,7 +341,7 @@
     },
     "nix-auth": {
         "cargoLock": null,
-        "date": "2026-10-02",
+        "date": "2026-10-06",
         "extract": null,
         "name": "nix-auth",
         "passthru": null,
@@ -353,12 +353,12 @@
             "name": null,
             "owner": "numtide",
             "repo": "nix-auth",
-            "rev": "5654037100e7215d1b1701592581e4e3c18966ad",
-            "sha256": "sha256-JzjmRIH+cQzVKCHFFnATJMXLgSTlXHXNlx8U+3CYSkA=",
+            "rev": "bc9c30b71dd7c3f3fb6ef6a780d966432ef2299f",
+            "sha256": "sha256-AKdCBYxkUyDMWUA9filA8Cb+UXF/n3ypj9aRCW8Ll78=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5654037100e7215d1b1701592581e4e3c18966ad"
+        "version": "bc9c30b71dd7c3f3fb6ef6a780d966432ef2299f"
     },
     "ntfsprogs-plus": {
         "cargoLock": null,
@@ -668,11 +668,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-eMaUjkoUEt3pj/egM+hoKkRh5nrB6oNo2UEsml8Sl04=",
+            "sha256": "sha256-P1KWhxhGYFNUiYcRs8ARN/dUsFg5vWJNaacxYfuch8U=",
             "type": "url",
-            "url": "https://github.com/waywallen/waywallen/releases/download/v0.4.3/waywallen-0.4.3-x86_64.AppImage"
+            "url": "https://github.com/waywallen/waywallen/releases/download/v0.4.4/waywallen-0.4.4-x86_64.AppImage"
         },
-        "version": "0.4.3"
+        "version": "0.4.4"
     },
     "waywallen-display-bin": {
         "cargoLock": null,
@@ -683,11 +683,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-CBGTomn7nQ9NQ/7mg+m+S70x8Dy/7imUBhYUT2SVeNY=",
+            "sha256": "sha256-U1jOFpOiO2nH/hdR0bivuXbvTJZXSHXuhFo43wE4N0M=",
             "type": "url",
-            "url": "https://github.com/waywallen/waywallen-display/releases/download/v0.4.0/waywallen-kde-0.4.0-x86_64-embed.zip"
+            "url": "https://github.com/waywallen/waywallen-display/releases/download/v0.4.1/waywallen-kde-0.4.1-x86_64-embed.zip"
         },
-        "version": "0.4.0"
+        "version": "0.4.1"
     },
     "zhuque": {
         "cargoLock": null,
