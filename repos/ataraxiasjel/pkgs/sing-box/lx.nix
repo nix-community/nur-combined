@@ -10,7 +10,7 @@
   withCGO ? false,
 }:
 let
-  version = "1.14.2-lx.3";
+  version = "1.14.2-lx.11";
 in
 import ./common.nix {
   inherit
@@ -32,13 +32,13 @@ import ./common.nix {
     owner = "Leadaxe";
     repo = "sing-box-lx";
     tag = "v${version}";
-    hash = "sha256-qZo6pJ/lzKr2wIxQW9zkcWJDfkhRsoUojaVkLeffSzw=";
+    hash = "sha256-jElpdX+vQqxppQ8tSoFP7oF1FKuoF9D8BrQ+9wtyUwA=";
     # go.mod replaces 4 modules with local fork submodules
     # (wireguard-go/sing-tun/gvisor/utls), so the source must
     # include submodules, like the fork's own CI clone does.
     fetchSubmodules = true;
   };
-  vendorHash = "sha256-FUnUSHHgykw4GLoPEmevtdaowziMJEXXdvvXEkLN810=";
+  vendorHash = "sha256-QnGCUkgpzGaaoXWRjfdhAe7qvvA9yLqc5Ee+TFyOa0k=";
   # canonical desktop tag set from Makefile.lx (LX_TAGS).
   baseTags = [
     "with_gvisor"
