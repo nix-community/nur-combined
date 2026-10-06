@@ -213,6 +213,16 @@ in
       "full-screen-api.ignore-widgets" = true;
 
       # "browser.altClickSave" = true;
+
+      # Changes for Firefox 156 coming up:
+      # https://news.ycombinator.com/item?id=49713385
+      # "browser.urlbar.suggest.engines" = false;
+      # "browser.urlbar.suggest.openpage" = false;
+      # "browser.urlbar.suggest.topsites" = false;
+      # "browser.urlbar.suggest.quickactions" = false;
+      # "browser.urlbar.suggest.recentsearches" = false;
+      # "browser.urlbar.suggest.quicksuggest.all" = false;
+      # "browser.urlbar.suggest.quicksuggest.sponsored" = false;
     };
   };
 
@@ -236,7 +246,7 @@ in
   # variable. This improves touchscreen support and enables additional touchpad
   # gestures. It also enables smooth scrolling as opposed to the stepped
   # scrolling that Firefox has by default.
-  environment.sessionVariables = lib.mkIf config.services.xserver.enable {
+  environment.sessionVariables = {
     MOZ_USE_XINPUT2 = "1";
     MOZ_CRASHREPORTER_DISABLE = "1";
   };

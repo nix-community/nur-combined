@@ -22,6 +22,11 @@ in
     PI_SKIP_VERSION_CHECK = "1";
     PONYTAIL_DEFAULT_MODE = "off";
 
+    # might not be needed with modern deepseek
+    PI_HARNESS_HASHLINES_TOOL_ENABLED = "0";
+    # Never used
+    PI_HARNESS_PLANMODE_ENABLED = "0";
+
     # Custom tool ../bin/agent.rs
     AGENT_ENVS = lib.concatStringsSep "," [
       "PI_TELEMETRY"

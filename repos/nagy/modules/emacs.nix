@@ -159,7 +159,7 @@ let
           allowSubstitutes = false;
         };
 
-        pilish = super.pi-coding-agent.overrideAttrs (old: {
+        pilish = super.pilish.overrideAttrs (old: {
           pname = "pilish";
           ename = "pilish";
           version = "3.0.0";
@@ -259,9 +259,9 @@ in
     nixpkgs.overlays = lib.mkIf cfg.useEmacsOverlay [
       (import (
         builtins.fetchTarball {
-          # updated 2026-09-04
+          # updated 2026-09-26
           # to update: curl -s https://api.github.com/repos/nix-community/emacs-overlay/commits/master | head -2
-          url = "https://github.com/nix-community/emacs-overlay/archive/4b10a0f910b9fd4d6f923a271fc1a04d71fcbf0e.tar.gz";
+          url = "https://github.com/nix-community/emacs-overlay/archive/260fba0a160f4d1bb52b4a8f1ed025874e40aa50.tar.gz";
         }
       ))
     ];

@@ -64,6 +64,8 @@ in
     (lib.getMan pkgs.msmtp)
     (lib.getMan pkgs.isync)
     pkgs.darkhttpd
+
+    pkgs.trurl
   ];
 
   # tmpfs on all machines
