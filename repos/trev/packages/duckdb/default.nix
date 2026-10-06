@@ -194,7 +194,8 @@ let
         cmake
         ninja
         python3
-      ];
+      ]
+      ++ extension.duckdbNativeBuildInputs;
       buildInputs = [ openssl ] ++ extension.duckdbBuildInputs;
 
       postPatch = mkPostPatch [ extension ] [ extension ];
@@ -289,7 +290,8 @@ withLoadableExtensions (
       cmake
       ninja
       python3
-    ];
+    ]
+    ++ lib.concatMap (extension: extension.duckdbNativeBuildInputs) linkedExtensions;
     buildInputs = [
       openssl
     ]

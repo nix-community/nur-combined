@@ -21,6 +21,7 @@
   # other extensions (by attribute name) this extension loads
   dependencies ? [ ],
   duckdbBuildInputs ? [ ],
+  duckdbNativeBuildInputs ? [ ],
   duckdbPostPatch ? "",
 }:
 
@@ -65,6 +66,7 @@ stdenvNoCC.mkDerivation {
         linkable
         dependencies
         duckdbBuildInputs
+        duckdbNativeBuildInputs
         duckdbPostPatch
         ;
     };
