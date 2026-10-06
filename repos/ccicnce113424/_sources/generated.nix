@@ -240,35 +240,35 @@
   };
   open-orpheus-dev = {
     pname = "open-orpheus-dev";
-    version = "e3d56666baaf1aa86aa56114d5bba9c8cdc259fe";
+    version = "67c2c27fb179224467996daf9a3bf3e59a9829da";
     src = fetchFromGitHub {
       owner = "YUCLing";
       repo = "open-orpheus";
-      rev = "e3d56666baaf1aa86aa56114d5bba9c8cdc259fe";
+      rev = "67c2c27fb179224467996daf9a3bf3e59a9829da";
       fetchSubmodules = false;
-      sha256 = "sha256-DrInKnE/1JdA28qDBvBr7GFHXIfQK76qZR2knuUiFJ0=";
+      sha256 = "sha256-+ordjlRy7u5RZeu+RmIW65ZFSLAHg8GlxmCDrygRzbM=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-DrInKnE_1JdA28qDBvBr7GFHXIfQK76qZR2knuUiFJ0=/Cargo.lock";
+      lockFile = ./. + "/sha256-+ordjlRy7u5RZeu+RmIW65ZFSLAHg8GlxmCDrygRzbM=/Cargo.lock";
       outputHashes = {
         "font-kit-0.14.3" = "sha256-1/5w7y6XhNNg7jRZmJazM188v6vWkdYHn+94WqmJpMg=";
         "avs3a-0.1.0" = "sha256-OcI39YMDhcBpP6Tij11rATcKtp+mVrXHsjy8gRSm3eI=";
       };
     };
-    date = "2026-10-04";
+    date = "2026-10-05";
   };
   piliplus = {
     pname = "piliplus";
-    version = "2.1.5";
+    version = "2.1.6";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      rev = "2.1.5";
+      rev = "2.1.6";
       fetchSubmodules = false;
-      sha256 = "sha256-0yWyMEU1SCgsvhN+R6fFg9iUgUMUESEpUR4bGxxdS48=";
+      sha256 = "sha256-HfGbqVhz7YbGR/b0YuIm8WGmTzNbSC3lovbP3HfTWHM=";
     };
     extract = {
-      "pubspec.lock" = ./. + "/sha256-0yWyMEU1SCgsvhN+R6fFg9iUgUMUESEpUR4bGxxdS48=/pubspec.lock";
+      "pubspec.lock" = ./. + "/sha256-HfGbqVhz7YbGR_b0YuIm8WGmTzNbSC3lovbP3HfTWHM=/pubspec.lock";
     };
   };
   pixes = {
@@ -395,15 +395,15 @@
   };
   uosc-danmaku-git = {
     pname = "uosc-danmaku-git";
-    version = "763dcd39a46e3d3c6fafe0185acfaf7976f73371";
+    version = "3ca47092c216fc92f18590306d2192ca308a4729";
     src = fetchFromGitHub {
       owner = "Tony15246";
       repo = "uosc_danmaku";
-      rev = "763dcd39a46e3d3c6fafe0185acfaf7976f73371";
+      rev = "3ca47092c216fc92f18590306d2192ca308a4729";
       fetchSubmodules = false;
-      sha256 = "sha256-8ihBDgdUdMJc5/M2+yFf8LWqPkBFtYcrPPpYqky6AME=";
+      sha256 = "sha256-sOpUwhmgF5t2rvfE5TiidZM5QcTDM0I7poNj/HvFBsE=";
     };
-    date = "2026-09-26";
+    date = "2026-10-05";
   };
   waywallen-bin = {
     pname = "waywallen-bin";

@@ -49,12 +49,12 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "open-orpheus";
-  version = "0.19.1";
+  version = "0.19.2";
   src = fetchFromGitHub {
     owner = "YUCLing";
     repo = "open-orpheus";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-EMxh5ErBXOQ4BKg+BSe7cmtQntb76oxyb//w1TeXDMA=";
+    hash = "sha256-+ordjlRy7u5RZeu+RmIW65ZFSLAHg8GlxmCDrygRzbM=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -65,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
       ;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-ImmN2LewNXX384Uq2q0QaR+L+t9wBR0LeWkYcFbhIAM=";
+    hash = "sha256-DT7nbUPoYihGPJcG1bC5gKgYnDvP9cT5yUZ0xQlNqTc=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
