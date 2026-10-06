@@ -7,7 +7,7 @@
   fetchPnpmDeps,
   pnpmConfigHook,
   nodejs,
-  pnpm,
+  pnpm_12,
   pkg-config,
   wrapGAppsHook4,
   cargo-tauri,
@@ -22,25 +22,26 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ai-toolbox";
-  version = "1.1.7";
+  version = "1.1.9";
 
   src = fetchFromGitHub {
     owner = "coulsontl";
     repo = "ai-toolbox";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-VZoT12J6+thpxU4DhshP/mGLQts3FZyniUclA37KsG8=";
+    hash = "sha256-EMnRAluOyR9OeYpFcfNqa6c6WWQ6Z+15cgypz2uNRtE=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
+    pnpm = pnpm_12;
     fetcherVersion = 4;
-    hash = "sha256-2iusNCMU1x/CPXhP2B+h/d8HhEGgestdf+NJXeMJjYE=";
+    hash = "sha256-kRASqFDJuJDtC2/D6MELaO48hZFf4C9zKumo3WIbqZ0=";
   };
 
   doCheck = false;
 
   cargoRoot = "tauri";
-  cargoHash = "sha256-9tQBSYYG5NkD8cFmfXIatkRy3QiZjY6+T4Jga8Xzu7I=";
+  cargoHash = "sha256-F9kwfOMDtDpdBukfbWexRwU6HbiU89R/fl+od41rpQ8=";
   buildAndTestSubdir = finalAttrs.cargoRoot;
 
   postPatch = ''
@@ -57,7 +58,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     nodejs
     pkg-config
     pnpmConfigHook
-    pnpm
+    pnpm_12
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [ wrapGAppsHook4 ];
 

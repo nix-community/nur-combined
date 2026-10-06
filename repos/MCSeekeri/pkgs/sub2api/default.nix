@@ -5,26 +5,35 @@
   fetchPnpmDeps,
   pnpmConfigHook,
   nix-update-script,
-  pnpm_10,
+  pnpm_12,
   nodejs,
+  jq,
   stdenvNoCC,
 }:
 let
-  version = "0.2.8";
+  version = "0.2.13";
   src = fetchFromGitHub {
     owner = "Wei-Shaw";
     repo = "sub2api";
     rev = "v${version}";
-    hash = "sha256-QQ35ueOsev4T7MvqxKybdpM0ugn9wwJSkOfX9EqhTaY=";
+    hash = "sha256-AHRrhnvHIyg0r7tmf/wYIMxQHH4u6F+EgzBp/XBBGXc=";
   };
+
+  pnpmWorkspaceOverrides = ''
+    if jq -e '.pnpm.overrides | length > 0' package.json > /dev/null; then
+      jq -r '"overrides:", (.pnpm.overrides | to_entries[] | "  \(.key | tojson): \(.value | tojson)")' \
+        package.json > pnpm-workspace.yaml
+    fi
+  '';
 
   frontendPnpmDeps = fetchPnpmDeps {
     pname = "sub2api-frontend";
     inherit version src;
-    pnpm = pnpm_10;
+    pnpm = pnpm_12;
     fetcherVersion = 4;
     sourceRoot = "source/frontend";
-    hash = "sha256-D6lEnYH90wrum1mYHWYJZ2vGOghADxKnNcYxgKz2/10=";
+    postPatch = pnpmWorkspaceOverrides;
+    hash = "sha256-lKyZZiF1TQJrwXZzj45cX5PsPp3/x/4/SIvskg8w4uk=";
   };
 
   frontend = stdenvNoCC.mkDerivation {
@@ -36,14 +45,16 @@ let
     postPatch = ''
       substituteInPlace vite.config.ts \
         --replace-fail "../backend/internal/web/dist" "dist"
-    '';
+    ''
+    + pnpmWorkspaceOverrides;
 
     pnpmDeps = frontendPnpmDeps;
 
     nativeBuildInputs = [
       nodejs
       pnpmConfigHook
-      pnpm_10
+      pnpm_12
+      jq
     ];
 
     env.NODE_ENV = "production";

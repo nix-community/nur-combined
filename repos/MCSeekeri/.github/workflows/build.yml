@@ -116,5 +116,5 @@ jobs:
           nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached \
             --show-trace --option log-lines 0 ci.nix -A cacheOutputs
       - name: Trigger NUR update
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         run: curl -XPOST "https://nur-update.nix-community.org/update?repo=MCSeekeri"

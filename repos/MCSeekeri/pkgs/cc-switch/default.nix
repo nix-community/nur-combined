@@ -7,7 +7,7 @@
   fetchPnpmDeps,
   pnpmConfigHook,
   nodejs,
-  pnpm,
+  pnpm_12,
   pkg-config,
   wrapGAppsHook4,
   cargo-tauri,
@@ -33,8 +33,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
+    pnpm = pnpm_12;
     fetcherVersion = 4;
-    hash = "sha256-Ghgq4NfPcgnFI4fttgYvTJqSQXCpLbeukUifgLzEGNY=";
+    hash = "sha256-GZUHgl8EQFjYqYEHpJnMYXKIS0v3jbEeSzh7O0ojCnc=";
   };
 
   cargoRoot = "src-tauri";
@@ -62,7 +63,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     nodejs
     pkg-config
     pnpmConfigHook
-    pnpm
+    pnpm_12
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [ wrapGAppsHook4 ];
 

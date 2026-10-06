@@ -6,7 +6,7 @@
   fetchPnpmDeps,
   pnpmConfigHook,
   nodejs_22,
-  pnpm_11,
+  pnpm_12,
   cmake,
   pkg-config,
   darwin,
@@ -30,14 +30,14 @@ let
     ;
 
   src = fetchFromGitHub (
-    srcArgs // { hash = "sha256-Im+cNzIFfke0ctVA85TtTCnhL05llLQXWX9j65uF4ug="; }
+    srcArgs // { hash = "sha256-OT3LYJ9V2tN4KPMnU+DUcmcAMrjo4cRn4Tmh93GHiPg="; }
   );
 
   pnpmDeps = fetchPnpmDeps {
     inherit pname version src;
-    pnpm = pnpm_11;
+    pnpm = pnpm_12;
     fetcherVersion = 4;
-    hash = "sha256-+c2AiOPCIrG08BmVXbvnvIoQD+R+PHBKzpScYDK3NV8=";
+    hash = "sha256-WhalB4hhGOdBFg/lqXS6luIub6aS93Jj72ZuihRrxxI=";
   };
 
   patches = [
@@ -58,7 +58,7 @@ let
       cmake
       nodejs_22
       pkg-config
-      pnpm_11
+      pnpm_12
       pnpmConfigHook
       python3
     ]
