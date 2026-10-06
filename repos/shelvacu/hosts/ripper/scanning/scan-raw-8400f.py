@@ -105,6 +105,10 @@ def main():
                     metavar="R,G,B", help="WM8199 offset DAC codes, 0-255; on this scanner a "
                     "LOWER code raises the black level")
     ap.add_argument("--dark", action="store_true", help="lamp off during the scan (dark frame)")
+    ap.add_argument("--lamp-timeout", type=int, default=0, metavar="MINUTES",
+                    help="leave the lamp on after the scan and let the scanner switch it off after "
+                    "this many minutes, 1-28; the default 0 switches it off right away as the stock "
+                    "driver does, which measured more repeatable than keeping it on")
     ap.add_argument("--strip", action="store_true",
                     help="measure -t from the head's home position instead of the glass, so "
                     "the white calibration strip (about 0-3 mm) is in the scan")
@@ -119,6 +123,9 @@ def main():
     env["SANE_GENESYS_8400F_NO_CALIBRATION"] = "1"
     env["SANE_GENESYS_8400F_AFE_GAIN"] = ",".join(map(str, args.gain))
     env["SANE_GENESYS_8400F_AFE_OFFSET"] = ",".join(map(str, args.offset))
+    if not 0 <= args.lamp_timeout <= 28:
+        ap.error("--lamp-timeout must be in 0-28")
+    env["SANE_GENESYS_8400F_LAMP_TIMEOUT"] = str(args.lamp_timeout)
     env.pop("SANE_GENESYS_8400F_LPERIOD", None)
     env.pop("SANE_GENESYS_8400F_EXPOSURE", None)
     if args.lperiod is not None:
@@ -147,6 +154,7 @@ def main():
         "offset_rgb": args.offset,
         "dark": args.dark,
         "strip": args.strip,
+        "lamp_timeout_min": args.lamp_timeout,
         "area_mm": {"left": args.left, "top": args.top,
                     "width": args.width, "height": args.height},
     }

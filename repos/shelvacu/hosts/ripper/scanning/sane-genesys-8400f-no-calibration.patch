@@ -1,5 +1,5 @@
 diff --git i/backend/genesys/genesys.cpp w/backend/genesys/genesys.cpp
-index 74ef74e..7a09fe4 100644
+index 74ef74e..9438ca9 100644
 --- i/backend/genesys/genesys.cpp
 +++ w/backend/genesys/genesys.cpp
 @@ -4008,15 +4008,17 @@ static void genesys_start_scan(Genesys_Device* dev, bool lamp_off)
@@ -41,7 +41,39 @@ index 74ef74e..7a09fe4 100644
      }
    else
      {
-@@ -6093,6 +6101,8 @@ static void set_option_value(Genesys_Scanner* s, int option, void *val, SANE_Int
+@@ -5550,8 +5558,29 @@ sane_close_impl(SANE_Handle handle)
+     dev->already_initialized = false;
+     dev->clear();
+ 
+-    // LAMP OFF : same register across all the ASICs */
+-    dev->interface->write_register(0x03, 0x00);
++    // On the 8400F, SANE_GENESYS_8400F_LAMP_TIMEOUT=MINUTES (1-28) leaves the flatbed lamp on and
++    // lets the GL843's lamp timer (LAMPDOG/LAMPTIM in reg 0x03, MTLLAMP in reg 0x05) switch it off
++    // after that long, so consecutive scans don't each start with a freshly lit lamp.
++    unsigned lamp_minutes = 0;
++    if (dev->model->model_id == ModelId::CANON_8400F) {
++        catch_all_exceptions(__func__, [&]()
++        {
++            auto v = get_env_unsigned_list("SANE_GENESYS_8400F_LAMP_TIMEOUT", 1, 0, 28);
++            lamp_minutes = v.empty() ? 0 : v[0];
++        });
++    }
++    if (lamp_minutes > 0) {
++        unsigned mult = lamp_minutes <= 7 ? 1 : (lamp_minutes <= 14 ? 2 : 4);
++        unsigned count = (lamp_minutes + mult - 1) / mult;
++        std::uint8_t mtllamp = mult == 1 ? 0x00 : (mult == 2 ? 0x10 : 0x20);
++        std::uint8_t reg05 = dev->interface->read_register(0x05);
++        dev->interface->write_register(0x05, (reg05 & ~0x30) | mtllamp);
++        DBG(DBG_info, "%s: leaving lamp on, off after %u x %u minutes\n", __func__, mult, count);
++        dev->interface->write_register(0x03, static_cast<std::uint8_t>(0x80 | 0x10 | count));
++    } else {
++        // LAMP OFF : same register across all the ASICs */
++        dev->interface->write_register(0x03, 0x00);
++    }
+ 
+     catch_all_exceptions(__func__, [&](){ dev->interface->get_usb_device().clear_halt(); });
+ 
+@@ -6093,6 +6122,8 @@ static void set_option_value(Genesys_Scanner* s, int option, void *val, SANE_Int
  
          case OPT_IGNORE_OFFSETS: {
              dev->ignore_offsets = true;
