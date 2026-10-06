@@ -22,6 +22,8 @@
   dependencies ? [ ],
   duckdbBuildInputs ? [ ],
   duckdbNativeBuildInputs ? [ ],
+  # pkg-config modules whose libraries programs linking the extension statically also need
+  pkgConfigModules ? [ ],
   duckdbPostPatch ? "",
 }:
 
@@ -67,6 +69,7 @@ stdenvNoCC.mkDerivation {
         dependencies
         duckdbBuildInputs
         duckdbNativeBuildInputs
+        pkgConfigModules
         duckdbPostPatch
         ;
     };

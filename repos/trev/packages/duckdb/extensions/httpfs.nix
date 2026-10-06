@@ -16,6 +16,7 @@
   duckdbBuildInputs = [
     curl
   ];
+  pkgConfigModules = [ "libcurl" ];
   # FindCURL only reports libcurl itself, but libcurl.a also needs its private dependencies
   duckdbNativeBuildInputs = lib.optionals stdenv.hostPlatform.isStatic [
     pkg-config

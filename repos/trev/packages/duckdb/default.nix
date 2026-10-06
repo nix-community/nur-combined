@@ -8,6 +8,7 @@
   lndir,
   makeWrapper,
   ninja,
+  pkg-config,
   openssl,
   openjdk11,
   nix-update-script,
@@ -146,6 +147,12 @@ let
   isLoadable = extension: lib.elem "DONT_LINK" extension.loadOptions;
   linkedExtensions = lib.filter (extension: !isLoadable extension) externalExtensions;
   loadableExtensions = lib.filter isLoadable externalExtensions;
+
+  # system libraries of linked extensions, resolved at build time for passthru.link.static
+  pkgConfigModules = lib.unique (
+    lib.concatMap (extension: extension.pkgConfigModules) linkedExtensions
+  );
+  systemLibrariesFile = "nix-support/duckdb-static-ldflags";
 
   formatExtensionLoad =
     extension:
@@ -291,7 +298,8 @@ withLoadableExtensions (
       ninja
       python3
     ]
-    ++ lib.concatMap (extension: extension.duckdbNativeBuildInputs) linkedExtensions;
+    ++ lib.concatMap (extension: extension.duckdbNativeBuildInputs) linkedExtensions
+    ++ lib.optionals (pkgConfigModules != [ ]) [ pkg-config ];
     buildInputs = [
       openssl
     ]
@@ -307,6 +315,15 @@ withLoadableExtensions (
     ];
 
     postPatch = mkPostPatch (inTreeExtensions ++ linkedExtensions) linkedExtensions;
+
+    postInstall =
+      if pkgConfigModules == [ ] then
+        null
+      else
+        ''
+          mkdir -p "$dev/${builtins.dirOf systemLibrariesFile}"
+          "$PKG_CONFIG" --static --libs ${lib.escapeShellArgs pkgConfigModules} > "$dev/${systemLibrariesFile}"
+        '';
 
     cmakeFlags = [
       (lib.cmakeBool "BUILD_ODBC_DRIVER" withOdbc)
@@ -486,6 +503,9 @@ withLoadableExtensions (
             "m"
           ];
           driverFlags = [ "-pthread" ];
+          # gcc and clang read the linker flags of extension system libraries from this file
+          systemLibraryFlagsFile =
+            if pkgConfigModules == [ ] then null else "${finalAttrs.finalPackage.dev}/${systemLibrariesFile}";
         in
         {
           includeDir = "${finalAttrs.finalPackage.dev}/include";
@@ -500,13 +520,20 @@ withLoadableExtensions (
           };
 
           static = {
-            inherit archives systemLibraries driverFlags;
+            inherit
+              archives
+              systemLibraries
+              driverFlags
+              pkgConfigModules
+              systemLibraryFlagsFile
+              ;
             groupArchives = true;
             flags = [
               "-Wl,--start-group"
             ]
             ++ archives
             ++ [ "-Wl,--end-group" ]
+            ++ lib.optional (systemLibraryFlagsFile != null) "@${systemLibraryFlagsFile}"
             ++ map (library: "-l${library}") systemLibraries
             ++ driverFlags;
           };
