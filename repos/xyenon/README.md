@@ -241,7 +241,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>rime-ice-unstable</code></strong> — Rime 配置：雾凇拼音 | 长期维护的简体词库</summary>
 
-- **Version:** `2026.06.30-unstable-2026-09-25`
+- **Version:** `2026.06.30-unstable-2026-10-05`
 - **License:** GPL-3.0-only
 - **Homepage:** [https://github.com/iDvel/rime-ice](https://github.com/iDvel/rime-ice)
 - **Build:** `nix build github:XYenon/nur-packages#rime-ice-unstable`
@@ -387,7 +387,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.yafg</code></strong> — Fuzzy find and grep plugin for Yazi file manager with interactive ripgrep/fzf search</summary>
 
-- **Version:** `0-unstable-2026-09-01`
+- **Version:** `0-unstable-2026-10-05`
 - **License:** AGPL-3.0-or-later
 - **Homepage:** [https://github.com/XYenon/yafg.yazi](https://github.com/XYenon/yafg.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.yafg`
