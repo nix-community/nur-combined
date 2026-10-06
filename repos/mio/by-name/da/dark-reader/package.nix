@@ -15,7 +15,10 @@ buildNpmPackage (finalAttrs: {
   nativeBuildInputs = [ zip ];
 
   patches = [
-    ./firefox-color-scheme-wakeup.patch
+    # Follow the system color scheme (KDE/Plasma on Linux): enable Dark Reader's
+    # "Use system color scheme" automation by default, switch profiles still
+    # holding the disabled stock default over once, and make a scheme change
+    # actually reach the background page (fresh MediaQueryList + recheck).
     ./system-color-scheme.patch
   ];
 

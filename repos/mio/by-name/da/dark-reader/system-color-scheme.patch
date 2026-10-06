@@ -1,6 +1,8 @@
+diff --git a/src/background/extension.ts b/src/background/extension.ts
+index 09c3f0e..f3e7b49 100644
 --- a/src/background/extension.ts
 +++ b/src/background/extension.ts
-@@ -158,6 +158,25 @@
+@@ -158,6 +158,25 @@ export class Extension {
          );
      }
  
@@ -26,7 +28,7 @@
      private static updateAutoState() {
          const {mode, behavior, enabled} = UserStorage.settings.automation;
  
-@@ -560,7 +579,7 @@
+@@ -553,7 +572,7 @@ export class Extension {
          }
          if (Extension.isExtensionSwitchedOn() && $settings.changeBrowserTheme != null && prev.changeBrowserTheme !== $settings.changeBrowserTheme) {
              if ($settings.changeBrowserTheme) {
@@ -35,7 +37,7 @@
              } else {
                  resetWindowTheme();
              }
-@@ -585,7 +604,7 @@
+@@ -578,7 +597,7 @@ export class Extension {
          UserStorage.set({theme: {...UserStorage.settings.theme, ...$theme}});
  
          if (Extension.isExtensionSwitchedOn() && UserStorage.settings.changeBrowserTheme) {
@@ -44,7 +46,7 @@
          }
  
          Extension.onSettingsChanged();
-@@ -654,7 +673,7 @@
+@@ -647,7 +666,7 @@ export class Extension {
  
          if (UserStorage.settings.changeBrowserTheme) {
              if (Extension.isExtensionSwitchedOn() && Extension.autoState !== 'scheme-light') {
@@ -53,6 +55,8 @@
              } else {
                  resetWindowTheme();
              }
+diff --git a/src/background/user-storage.ts b/src/background/user-storage.ts
+index 950413f..e7de3cb 100644
 --- a/src/background/user-storage.ts
 +++ b/src/background/user-storage.ts
 @@ -1,6 +1,7 @@
@@ -63,52 +67,79 @@
  import {debounce} from '../utils/debounce';
  import {PromiseBarrier} from '../utils/promise-barrier';
  import {isURLMatched} from '../utils/url';
-@@ -66,6 +67,26 @@
+@@ -12,6 +13,13 @@ import {logWarn} from './utils/log';
+ 
+ const SAVE_TIMEOUT = 1000;
+ 
++// One-shot marker for the "this build enabled the system color scheme automation"
++// migration below. It is stored next to the settings in the local storage area
++// instead of inside them: it is a preference of this build, not part of the
++// settings schema, and readLocalStorage() only returns the keys it is asked for,
++// so it never shows up in UserSettings.
++const SYSTEM_COLOR_SCHEME_DEFAULT_APPLIED = '__systemColorSchemeDefaultApplied';
++
+ export default class UserStorage {
+     private static loadBarrier: PromiseBarrier<UserSettings, void>;
+     private static saveStorageBarrier: PromiseBarrier<void, void> | null;
+@@ -66,6 +74,37 @@ export default class UserStorage {
          }
      }
  
-+    // The "Use system color scheme" automation (Dark Reader follows the system
-+    // color scheme the browser reports, which on Linux comes from the desktop's
-+    // XDG portal / GTK theme) is enabled by default for this build. Profiles that never configured automation still hold the old disabled
-+    // default, so switch them over once. Bumping schemeVersion makes it a
-+    // one-shot change: switching automation off afterwards sticks.
-+    private static migrateSystemColorSchemeAutomation(settings: UserSettings): void {
-+        if (settings.schemeVersion >= 3) {
++    // "Use system color scheme" is off in the stock defaults, which on Linux
++    // (KDE/Plasma, via the XDG portal) leaves Dark Reader light while the desktop
++    // is dark. This build wants it on, and a profile that saved the stock default
++    // has to be switched over once.
++    //
++    // That "once" is tracked by a marker of our own rather than by schemeVersion:
++    // schemeVersion is upstream's settings-schema version, only ever read as
++    // `< 2`, so raising it would make upstream skip a real migration of its own
++    // later on. Matching on the value alone is not enough either, because
++    // selecting "None" in the automation settings stores the very same shape as
++    // the stock default, and the migration would then have to fight the user.
++    private static async migrateSystemColorSchemeDefault(settings: UserSettings, area: 'local' | 'sync'): Promise<void> {
++        const {[SYSTEM_COLOR_SCHEME_DEFAULT_APPLIED]: applied} = await readLocalStorage({[SYSTEM_COLOR_SCHEME_DEFAULT_APPLIED]: false});
++        if (applied) {
 +            return;
 +        }
-+        settings.schemeVersion = 3;
 +        const {enabled, mode, behavior} = settings.automation;
 +        if (!enabled && mode === AutomationMode.NONE && behavior === 'OnOff') {
-+            settings.automation = {
-+                enabled: true,
-+                mode: AutomationMode.SYSTEM,
-+                behavior: 'OnOff',
-+            };
++            settings.automation = {enabled: true, mode: AutomationMode.SYSTEM, behavior};
++            const automation = {automation: settings.automation};
++            try {
++                await (area === 'sync' ? writeSyncStorage(automation) : writeLocalStorage(automation));
++            } catch (err) {
++                // Leave the marker unset so the next load retries.
++                logWarn('Could not enable the system color scheme automation:', err);
++                return;
++            }
 +        }
++        await writeLocalStorage({[SYSTEM_COLOR_SCHEME_DEFAULT_APPLIED]: true});
 +    }
 +
      private static migrateSiteListsV2(deprecated: any): Partial<UserSettings> {
          const settings: Partial<UserSettings> = {};
          settings.enabledByDefault = !deprecated.applyToListedOnly;
-@@ -127,6 +148,7 @@
+@@ -127,6 +166,7 @@ export default class UserStorage {
          }
          if (!local.syncSettings) {
              UserStorage.migrateAutomationSettings(local);
-+            UserStorage.migrateSystemColorSchemeAutomation(local);
++            await UserStorage.migrateSystemColorSchemeDefault(local, 'local');
              UserStorage.migrateBuiltInSVGFilterToCSSFilter(local);
              UserStorage.fillDefaults(local);
              UserStorage.loadBarrier.resolve(local);
-@@ -147,6 +169,7 @@
+@@ -147,6 +187,7 @@ export default class UserStorage {
          syncCfgErrors.forEach((err) => logWarn(err));
  
          UserStorage.migrateAutomationSettings($sync);
-+        UserStorage.migrateSystemColorSchemeAutomation($sync);
++        await UserStorage.migrateSystemColorSchemeDefault($sync, 'sync');
          UserStorage.migrateBuiltInSVGFilterToCSSFilter($sync);
          UserStorage.fillDefaults($sync);
  
+diff --git a/src/defaults.ts b/src/defaults.ts
+index 7e73c07..44039eb 100644
 --- a/src/defaults.ts
 +++ b/src/defaults.ts
-@@ -3,7 +3,7 @@
+@@ -3,7 +3,7 @@ import type {Theme, UserSettings} from './definitions';
  import {ThemeEngine} from './generators/theme-engines';
  import {AutomationMode} from './utils/automation';
  import type {ParsedColorSchemeConfig} from './utils/colorscheme-parser';
@@ -117,16 +148,7 @@
  
  declare const __CHROMIUM_MV3__: boolean;
  declare const __PLUS__: boolean;
-@@ -69,7 +69,7 @@
- ];
- 
- export const DEFAULT_SETTINGS: UserSettings = {
--    schemeVersion: 0,
-+    schemeVersion: 3,
-     enabled: true,
-     fetchNews: true,
-     theme: DEFAULT_THEME,
-@@ -89,8 +89,8 @@
+@@ -89,8 +89,8 @@ export const DEFAULT_SETTINGS: UserSettings = {
      syncSettings: true,
      syncSitesFixes: false,
      automation: {
@@ -137,9 +159,11 @@
          behavior: 'OnOff',
      },
      time: {
+diff --git a/src/utils/media-query.ts b/src/utils/media-query.ts
+index 31f75c8..c27f021 100644
 --- a/src/utils/media-query.ts
 +++ b/src/utils/media-query.ts
-@@ -3,10 +3,43 @@
+@@ -3,10 +3,43 @@ import {isMatchMediaChangeEventListenerSupported} from './platform';
  declare const __TEST__: boolean;
  let override: boolean | null = null;
  
@@ -184,7 +208,7 @@
  export function runColorSchemeChangeDetector(callback: (isDark: boolean) => void): void {
      listeners.add(callback);
      if (query) {
-@@ -19,6 +52,8 @@
+@@ -19,6 +52,8 @@ export function runColorSchemeChangeDetector(callback: (isDark: boolean) => void
      } else {
          query.addListener(onChange);
      }
@@ -193,7 +217,7 @@
  }
  
  export function stopColorSchemeChangeDetector(): void {
-@@ -32,14 +67,20 @@
+@@ -32,14 +67,20 @@ export function stopColorSchemeChangeDetector(): void {
      }
      listeners.clear();
      query = null;
