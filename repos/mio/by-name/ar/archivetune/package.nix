@@ -138,66 +138,7 @@ stdenv.mkDerivation (finalAttrs: {
         python3 ${./narrow.py}
         python3 ${./fix_theme.py}
         patch -p1 < ${./challenge.patch}
-        sed -i "s/chain.withRequest(refreshedRequest).proceed()/chain.proceed(refreshedRequest)/g" app/src/main/kotlin/moe/rukamori/archivetune/utils/PlaylistCoverInterceptor.kt
-        sed -i "s/image = result.image,/result.image,/" app/src/main/kotlin/moe/rukamori/archivetune/utils/PlaylistCoverInterceptor.kt
-        sed -i "s/request = request,/request,/" app/src/main/kotlin/moe/rukamori/archivetune/utils/PlaylistCoverInterceptor.kt
-        sed -i "s/throwable = exception,/exception/" app/src/main/kotlin/moe/rukamori/archivetune/utils/PlaylistCoverInterceptor.kt
-
-        # Java getter read as a property: media3's DownloadService exposes getDownloadManager(),
-        # which Kotlin does not synthesise into `downloadManager` for a Kotlin-declared base class.
-        sed -i "s/^\( *\)downloadManager\./\1getDownloadManager()./" app/src/main/kotlin/moe/rukamori/archivetune/playback/ExoDownloadService.kt
-
-        # Java getters on media3's Cache are reached as properties by these two files, which do not
-        # import the port's extension forms. fix_theme.py's markers are case-sensitive and cannot
-        # match them without also hitting unrelated files, so add the imports here.
-        sed -i "0,/^import /s//import androidx.media3.datasource.cache.cacheSpace\n&/" \
-          app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/StorageSettings.kt
-        sed -i "0,/^import /s//import androidx.media3.datasource.cache.keys\n&/" \
-          app/src/main/kotlin/moe/rukamori/archivetune/viewmodels/CachePlaylistViewModel.kt
-
-        # material3 1.9's SliderDefaults.Track takes trackCornerSize; the port's compose 1.7 does not,
-        # so drop that named argument from upstream's slider call sites.
-        sed -i "s/^\( *\)trackCornerSize = 12.dp,$//" \
-          app/src/main/kotlin/moe/rukamori/archivetune/ui/component/Preference.kt
-
-        # Build.VERSION_CODES.VANILLA_ICE_CREAM (API 35) is absent from the robolectric android-all
-        # jar (API 34) the port compiles against.
-        sed -i "s/Build\.VERSION_CODES\.VANILLA_ICE_CREAM/35/g" \
-          app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/AppearanceSettings.kt
-
-        # Long + String has no plus overload upstream relies on; build the key explicitly.
-        # (No shell/nix expansions here on purpose: the phase is eval'd and this file is a nix string.)
-        sed -i 's/key(entry\.timestamp + entry\.endpoint)/key(entry.timestamp.toString() + entry.endpoint)/' \
-          app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/LyricsSettings.kt
-
-        # The port's paint stub exposes `typeface` as a String setter; upstream assigns a Typeface, so
-        # use the setter method form instead.
-        sed -i 's/typeface = \(Typeface\..*\)$/setTypeface(\1)/' \
-          app/src/main/kotlin/moe/rukamori/archivetune/utils/ComposeToImage.kt
-
-        # The transition scope's targetState/initialState are nullable in the navigation version the
-        # port resolves; upstream dereferences them directly.
-        sed -i 's/targetState\.destination\.route/targetState?.destination?.route/g' \
-          app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/NavigationBuilder.kt
-        sed -i 's/initialState\.destination\.route/initialState?.destination?.route/g' \
-          app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/NavigationBuilder.kt
-
-        # FilterChip(shapes = ...) is material3 1.9 API; compose 1.7 has no such parameter.
-        sed -i "s/^\( *\)shapes = FilterChipDefaults.shapes(),$//" \
-          app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/HomeScreenComponents.kt
-
-        # DialogProperties(decorFitsSystemWindows = ...) is a newer compose field than 1.7 provides.
-        sed -i "s/^\( *\)decorFitsSystemWindows = false,$//" \
-          app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/AboutScreen.kt \
-          app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/ViewNewsScreen.kt
-
-        # DesktopMain.kt (from desktop-ui.patch) calls SettingsScreen with two arguments, but the
-        # screen gained a third parameter upstream.
-        sed -i "s/SettingsScreen(TODO(), TODO())/SettingsScreen(TODO(), TODO(), TODO())/" \
-          app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt
-        # LibraryScreen's scrollBehavior parameter has no default.
-        sed -i "s/LibraryScreen(TODO())/LibraryScreen(TODO(), TODO())/" \
-          app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt
+    patch -p1 < ${./sed-replacements.patch}
 
         # Copy android stubs
         cp -r  ${./android-stubs} android-stubs

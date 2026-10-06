@@ -5,7 +5,7 @@ import java.util.concurrent.Executor
 open class RoomDatabase : java.io.Closeable {
     // Declared as a member (not an extension) so call sites resolve without an import.
     open val openHelper: SupportSQLiteOpenHelper
-        get() = SupportSQLiteOpenHelper.create(null, null, object : SupportSQLiteOpenHelper.Callback(1) {})
+        get() = TODO()
 
     val queryExecutor: Executor = Executor { it.run() }
     val transactionExecutor: Executor = Executor { it.run() }

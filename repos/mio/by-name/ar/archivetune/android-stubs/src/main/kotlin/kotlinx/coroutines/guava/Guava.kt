@@ -11,7 +11,7 @@ fun <T> CoroutineScope.future(
     block: suspend CoroutineScope.() -> T
 ): ListenableFuture<T> {
     val future = com.google.common.util.concurrent.SettableFuture.create<T>()
-    kotlinx.coroutines.launch(context) {
+    this.launch(context) {
         try {
             future.set(block())
         } catch (e: Throwable) {

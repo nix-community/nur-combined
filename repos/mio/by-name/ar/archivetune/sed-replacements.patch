@@ -1,0 +1,220 @@
+diff -urN archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt
+--- archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt	2026-10-06 21:50:55.115808952 +1100
++++ archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt	2026-10-06 21:50:55.301808627 +1100
+@@ -47,7 +47,7 @@
+                     0 -> HomeScreen(TODO(), TODO())
+                     1 -> ExploreScreen(TODO())
+                     2 -> LibraryScreen(TODO(), TODO())
+-                    3 -> SettingsScreen(TODO(), TODO())
++                    3 -> SettingsScreen(TODO(), TODO(), TODO())
+                 }
+             }
+         }
+diff -urN archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/playback/ExoDownloadService.kt archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/playback/ExoDownloadService.kt
+--- archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/playback/ExoDownloadService.kt	2026-10-06 21:50:55.167808861 +1100
++++ archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/playback/ExoDownloadService.kt	2026-10-06 21:50:55.263808693 +1100
+@@ -43,8 +43,8 @@
+         startId: Int,
+     ): Int {
+         if (intent?.action == REMOVE_ALL_PENDING_DOWNLOADS) {
+-            downloadManager.currentDownloads.forEach { download ->
+-                downloadManager.removeDownload(download.request.id)
++            getDownloadManager().currentDownloads.forEach { download ->
++                getDownloadManager().removeDownload(download.request.id)
+             }
+         }
+         return super.onStartCommand(intent, flags, startId)
+diff -urN archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/ui/component/Preference.kt archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/ui/component/Preference.kt
+--- archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/ui/component/Preference.kt	2026-10-06 21:50:55.132808922 +1100
++++ archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/ui/component/Preference.kt	2026-10-06 21:50:55.275808673 +1100
+@@ -1041,7 +1041,7 @@
+                         track = {
+                             SliderDefaults.Track(
+                                 sliderState = sliderState,
+-                                trackCornerSize = 12.dp,
++
+                             )
+                         },
+                     )
+@@ -1154,7 +1154,7 @@
+                         track = {
+                             SliderDefaults.Track(
+                                 sliderState = crossfadeSliderState,
+-                                trackCornerSize = 12.dp,
++
+                             )
+                         },
+                     )
+@@ -1259,7 +1259,7 @@
+                         track = {
+                             SliderDefaults.Track(
+                                 sliderState = pickerSliderState,
+-                                trackCornerSize = 12.dp,
++
+                             )
+                         },
+                     )
+diff -urN archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/HomeScreenComponents.kt archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/HomeScreenComponents.kt
+--- archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/HomeScreenComponents.kt	2026-10-06 21:50:55.140808908 +1100
++++ archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/HomeScreenComponents.kt	2026-10-06 21:50:55.292808643 +1100
+@@ -195,7 +195,7 @@
+                     } else {
+                         null
+                     },
+-                shapes = FilterChipDefaults.shapes(),
++
+                 colors =
+                     FilterChipDefaults.filterChipColors(
+                         containerColor = MaterialTheme.colorScheme.surfaceContainerHigh.copy(alpha = 0.78f),
+diff -urN archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/NavigationBuilder.kt archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/NavigationBuilder.kt
+--- archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/NavigationBuilder.kt	2026-10-06 21:50:55.140808908 +1100
++++ archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/NavigationBuilder.kt	2026-10-06 21:50:55.289808648 +1100
+@@ -199,7 +199,7 @@
+         exitTransition = {
+             if (disableAnimations) {
+                 fadeOut(tween(0))
+-            } else if (targetState.destination.route?.startsWith(OnlineSearchResultRoutePrefix) == true) {
++            } else if (targetState?.destination?.route?.startsWith(OnlineSearchResultRoutePrefix) == true) {
+                 fadeOut(tween(200))
+             } else {
+                 fadeOut(tween(200)) + slideOutHorizontally { -it / 2 }
+@@ -208,7 +208,7 @@
+         popEnterTransition = {
+             if (disableAnimations) {
+                 fadeIn(tween(0))
+-            } else if (initialState.destination.route?.startsWith(OnlineSearchResultRoutePrefix) == true) {
++            } else if (initialState?.destination?.route?.startsWith(OnlineSearchResultRoutePrefix) == true) {
+                 fadeIn(tween(250))
+             } else {
+                 fadeIn(tween(250)) + slideInHorizontally { -it / 2 }
+diff -urN archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/AboutScreen.kt archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/AboutScreen.kt
+--- archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/AboutScreen.kt	2026-10-06 21:50:55.140808908 +1100
++++ archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/AboutScreen.kt	2026-10-06 21:50:55.295808638 +1100
+@@ -336,7 +336,7 @@
+         properties =
+             DialogProperties(
+                 usePlatformDefaultWidth = false,
+-                decorFitsSystemWindows = false,
++
+             ),
+     ) {
+         Scaffold(
+diff -urN archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/AppearanceSettings.kt archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/AppearanceSettings.kt
+--- archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/AppearanceSettings.kt	2026-10-06 21:50:55.142808905 +1100
++++ archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/AppearanceSettings.kt	2026-10-06 21:50:55.278808667 +1100
+@@ -1167,7 +1167,7 @@
+     activity: Activity?,
+     requestedFps: Float,
+ ) {
+-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
++    if (Build.VERSION.SDK_INT >= 35) {
+         view.setRequestedFrameRate(requestedFps)
+         return
+     }
+diff -urN archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/LyricsSettings.kt archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/LyricsSettings.kt
+--- archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/LyricsSettings.kt	2026-10-06 21:50:55.146808898 +1100
++++ archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/LyricsSettings.kt	2026-10-06 21:50:55.282808660 +1100
+@@ -979,7 +979,7 @@
+             )
+             Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                 stats.requestLog.take(5).forEach { entry ->
+-                    key(entry.timestamp + entry.endpoint) {
++                    key(entry.timestamp.toString() + entry.endpoint) {
+                         Card(
+                             modifier = Modifier.fillMaxWidth(),
+                             colors =
+diff -urN archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/StorageSettings.kt archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/StorageSettings.kt
+--- archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/StorageSettings.kt	2026-10-06 21:50:55.146808898 +1100
++++ archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/StorageSettings.kt	2026-10-06 21:50:55.268808685 +1100
+@@ -9,6 +9,7 @@
+ 
+ package moe.rukamori.archivetune.ui.screens.settings
+ 
++import androidx.media3.datasource.cache.cacheSpace
+ import androidx.compose.animation.core.animateFloatAsState
+ import androidx.compose.foundation.clickable
+ import androidx.compose.foundation.layout.Arrangement
+diff -urN archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/ViewNewsScreen.kt archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/ViewNewsScreen.kt
+--- archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/ViewNewsScreen.kt	2026-10-06 21:50:55.139808910 +1100
++++ archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/ViewNewsScreen.kt	2026-10-06 21:50:55.295808638 +1100
+@@ -402,7 +402,7 @@
+                 usePlatformDefaultWidth = false,
+                 dismissOnBackPress = true,
+                 dismissOnClickOutside = true,
+-                decorFitsSystemWindows = false,
++
+             ),
+     ) {
+         val context = LocalContext.current
+diff -urN archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/utils/ComposeToImage.kt archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/utils/ComposeToImage.kt
+--- archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/utils/ComposeToImage.kt	2026-10-06 21:50:55.160808873 +1100
++++ archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/utils/ComposeToImage.kt	2026-10-06 21:50:55.284808657 +1100
+@@ -343,7 +343,7 @@
+                 TextPaint().apply {
+                     color = mainTextColor
+                     textSize = baseSize * 0.038f
+-                    typeface = Typeface.DEFAULT_BOLD
++                    setTypeface(Typeface.DEFAULT_BOLD)
+                     isAntiAlias = true
+                     letterSpacing = -0.02f
+                 }
+@@ -351,7 +351,7 @@
+                 TextPaint().apply {
+                     color = secondaryTxtColor
+                     textSize = baseSize * 0.028f
+-                    typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
++                    setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL))
+                     isAntiAlias = true
+                 }
+ 
+@@ -411,7 +411,7 @@
+             val lyricsPaint =
+                 TextPaint().apply {
+                     color = mainTextColor
+-                    typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
++                    setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD))
+                     isAntiAlias = true
+                     letterSpacing = -0.01f
+                 }
+@@ -712,7 +712,7 @@
+             TextPaint().apply {
+                 color = textColor
+                 textSize = baseSize * 0.028f
+-                typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
++                setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL))
+                 isAntiAlias = true
+                 letterSpacing = 0.02f
+             }
+diff -urN archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/utils/PlaylistCoverInterceptor.kt archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/utils/PlaylistCoverInterceptor.kt
+--- archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/utils/PlaylistCoverInterceptor.kt	2026-10-06 21:50:55.165808865 +1100
++++ archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/utils/PlaylistCoverInterceptor.kt	2026-10-06 21:50:55.259808700 +1100
+@@ -53,14 +53,14 @@
+                         .memoryCacheKey(refreshedUrl)
+                         .diskCacheKey(refreshedUrl)
+                         .build()
+-                chain.withRequest(refreshedRequest).proceed()
++                chain.proceed(refreshedRequest)
+             } catch (exception: CancellationException) {
+                 throw exception
+             } catch (exception: Exception) {
+                 ErrorResult(
+-                    image = result.image,
+-                    request = request,
+-                    throwable = exception,
++                    result.image,
++                    request,
++                    exception
+                 )
+             }
+         }
+diff -urN archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/viewmodels/CachePlaylistViewModel.kt archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/viewmodels/CachePlaylistViewModel.kt
+--- archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/viewmodels/CachePlaylistViewModel.kt	2026-10-06 21:50:55.109808962 +1100
++++ archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/viewmodels/CachePlaylistViewModel.kt	2026-10-06 21:50:55.272808678 +1100
+@@ -7,6 +7,7 @@
+ 
+ package moe.rukamori.archivetune.viewmodels
+ 
++import androidx.media3.datasource.cache.keys
+ import android.content.Context
+ import androidx.lifecycle.ViewModel
+ import androidx.lifecycle.viewModelScope

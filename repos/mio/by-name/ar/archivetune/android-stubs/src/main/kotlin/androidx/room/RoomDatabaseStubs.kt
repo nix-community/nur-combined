@@ -11,4 +11,4 @@ typealias SupportSQLiteDatabase = androidx.sqlite.db.SupportSQLiteDatabase
 typealias SupportSQLiteOpenHelper = androidx.sqlite.db.SupportSQLiteOpenHelper
 
 val RoomDatabase.openHelper: SupportSQLiteOpenHelper
-    get() = androidx.sqlite.db.SupportSQLiteOpenHelper.create(null, null, object : androidx.sqlite.db.SupportSQLiteOpenHelper.Callback(1) {})
+    get() = TODO()

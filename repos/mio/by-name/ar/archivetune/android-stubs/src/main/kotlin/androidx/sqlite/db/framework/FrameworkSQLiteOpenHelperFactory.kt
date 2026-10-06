@@ -8,7 +8,7 @@ import androidx.sqlite.db.SupportSQLiteOpenHelper
  */
 open class FrameworkSQLiteOpenHelperFactory : SupportSQLiteOpenHelper.Factory {
     override fun create(configuration: SupportSQLiteOpenHelper.Configuration): SupportSQLiteOpenHelper =
-        SupportSQLiteOpenHelper.create(null, configuration)
+        TODO()
 
     companion object { }
 }
