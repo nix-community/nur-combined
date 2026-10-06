@@ -9,6 +9,7 @@ open class Configuration {
     var fontScale: Float = 1f
     var orientation: Int = ORIENTATION_PORTRAIT
     var smallestScreenWidthDp: Int = 0
+    var locales: android.os.LocaleList = android.os.LocaleList.getDefault()
     open fun setLocale(locale: java.util.Locale) {}
     
     companion object {

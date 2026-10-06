@@ -1,0 +1,100 @@
+diff --git a/app/src/main/kotlin/moe/rukamori/archivetune/ui/theme/Type.kt b/app/src/main/kotlin/moe/rukamori/archivetune/ui/theme/Type.kt
+index 0530599af..22718f0fc 100644
+--- a/app/src/main/kotlin/moe/rukamori/archivetune/ui/theme/Type.kt
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/ui/theme/Type.kt
+@@ -139,8 +139,8 @@ private fun buildTypography(fontFamily: FontFamily) =
+             ),
+     )
+ 
+-val AppFontFamily = FontFamily(Font(R.font.poppins))
+-val LyricsFontFamily = FontFamily(Font(R.font.sfprodisplaybold))
++val AppFontFamily = FontFamily.Default
++val LyricsFontFamily = FontFamily.Default
+ val AppTypography = buildTypography(AppFontFamily)
+ val SystemTypography = buildTypography(FontFamily.Default)
+ 
+diff --git a/app/src/main/kotlin/moe/rukamori/archivetune/ui/theme/palette/TonalPalettes.kt b/app/src/main/kotlin/moe/rukamori/archivetune/ui/theme/palette/TonalPalettes.kt
+index 6cadb9eac..dcd17c301 100644
+--- a/app/src/main/kotlin/moe/rukamori/archivetune/ui/theme/palette/TonalPalettes.kt
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/ui/theme/palette/TonalPalettes.kt
+@@ -1,18 +1,6 @@
+-/*
+- * ArchiveTune (2026)
+- * © Rukamori — github.com/rukamori
+- * GPL-3.0 License | Contributors: see git history
+- * Do not remove or alter this notice. - Per GPL-3.0 Section 4 & Section 5
+- */
+-
+ package moe.rukamori.archivetune.ui.theme.palette
+ 
+ import androidx.compose.ui.graphics.Color
+-import com.materialkolor.hct.Hct
+-import com.materialkolor.ktx.toColor
+-import com.materialkolor.ktx.toHct
+-
+-private val tonalTokens = listOf(0, 10, 20, 25, 30, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100)
+ 
+ data class TonalPalettes(
+     val primary: Map<Int, Color>,
+@@ -29,27 +17,15 @@ data class TonalPalettes(
+             tertiarySeed: Color,
+             neutralSeed: Color,
+         ): TonalPalettes {
+-            val neutralHct = neutralSeed.toHct()
++            val defaultMap = listOf(0, 10, 20, 25, 30, 40, 50, 60, 70, 80, 90, 95, 98, 99, 100).associateWith { Color.Gray }
+             return TonalPalettes(
+-                primary = primarySeed.buildTonalMap(),
+-                secondary = secondarySeed.buildTonalMap(),
+-                tertiary = tertiarySeed.buildTonalMap(),
+-                neutral = neutralHct.buildReducedChromaMap(4.0),
+-                neutralVariant = neutralHct.buildReducedChromaMap(8.0),
+-                error = Color(0xFFB3261E).buildTonalMap(),
++                primary = defaultMap,
++                secondary = defaultMap,
++                tertiary = defaultMap,
++                neutral = defaultMap,
++                neutralVariant = defaultMap,
++                error = defaultMap,
+             )
+         }
+-
+-        private fun Color.buildTonalMap(): Map<Int, Color> {
+-            val hct = toHct()
+-            return tonalTokens.associateWith { tone ->
+-                hct.withTone(tone.toDouble()).toColor()
+-            }
+-        }
+-
+-        private fun Hct.buildReducedChromaMap(maxChroma: Double): Map<Int, Color> =
+-            tonalTokens.associateWith { tone ->
+-                Hct.from(hue, minOf(chroma, maxChroma), tone.toDouble()).toColor()
+-            }
+     }
+ }
+diff --git a/app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/HeaderDownloadProgressIndicator.kt b/app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/HeaderDownloadProgressIndicator.kt
+index 3f2a99cf1..cfbe0bb0a 100644
+--- a/app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/HeaderDownloadProgressIndicator.kt
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/HeaderDownloadProgressIndicator.kt
+@@ -40,8 +40,8 @@ fun HeaderDownloadProgressIndicator(
+         CircularProgressIndicator(
+             progress = { boundedProgress },
+             modifier = Modifier.size(36.dp),
+-            color = MaterialTheme.colorScheme.onSurface,
+-            trackColor = MaterialTheme.colorScheme.outlineVariant,
++            color = androidx.compose.ui.graphics.Color.Gray,
++            trackColor = androidx.compose.ui.graphics.Color.Gray,
+             strokeWidth = 3.dp,
+         )
+         Icon(
+diff --git a/app/src/main/kotlin/moe/rukamori/archivetune/utils/ArtworkStorage.kt b/app/src/main/kotlin/moe/rukamori/archivetune/utils/ArtworkStorage.kt
+index bf4eaf098..f8aa82570 100644
+--- a/app/src/main/kotlin/moe/rukamori/archivetune/utils/ArtworkStorage.kt
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/utils/ArtworkStorage.kt
+@@ -27,7 +27,6 @@ object ArtworkStorage {
+     private const val FILENAME = "archivetune_saved_artworks.json"
+     private val json =
+         Json {
+-            prettyPrint = true
+             ignoreUnknownKeys = true
+         }
+ 

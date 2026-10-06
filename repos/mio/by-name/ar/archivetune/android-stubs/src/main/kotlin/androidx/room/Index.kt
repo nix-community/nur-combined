@@ -1,4 +1,13 @@
 package androidx.room
 
-@Target(AnnotationTarget.CLASS, AnnotationTarget.ANNOTATION_CLASS)
-annotation class Index(val value: Array<String> = [], val unique: Boolean = false, val orders: IntArray = intArrayOf())
+/*
+ * Room's @Index annotation. Upstream writes `indices = [Index("targetId")]`, so value must be a
+ * vararg (an Array<String> parameter would need arrayOf(...)).
+ */
+@Retention(AnnotationRetention.BINARY)
+@Target(AnnotationTarget.CLASS)
+annotation class Index(
+    vararg val value: String,
+    val unique: Boolean = false,
+    val orders: IntArray = intArrayOf(),
+)

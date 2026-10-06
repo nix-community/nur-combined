@@ -18,7 +18,14 @@ open class ContentResolver {
     open fun openInputStream(uri: Uri): InputStream? = null
     open fun openOutputStream(uri: Uri): OutputStream? = null
     open fun openOutputStream(uri: Uri, mode: String): OutputStream? = null
-    open fun notifyChange(uri: Uri, observer: Any?) {}
+    open fun openFileDescriptor(uri: Uri, mode: String): android.os.ParcelFileDescriptor? = null
+    open fun takePersistableUriPermission(uri: Uri, flags: Int) {}
+    open fun releasePersistableUriPermission(uri: Uri, flags: Int) {}
+    /* Persisted-permission bookkeeping used by the background customisation screen. */
+    open val persistedUriPermissions: List<UriPermission> get() = emptyList()
     open fun getType(uri: Uri): String? = null
-    open fun takePersistableUriPermission(uri: Uri, modeFlags: Int) {}
+    open fun registerContentObserver(uri: Uri, notifyForDescendants: Boolean, observer: Any?) {}
+    open fun unregisterContentObserver(observer: Any?) {}
+    open fun call(uri: Uri, method: String, arg: String?, extras: android.os.Bundle?): android.os.Bundle? = null
+    open fun notifyChange(uri: Uri, observer: Any?) {}
 }

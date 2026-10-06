@@ -8,6 +8,13 @@ open class Palette {
     }
     class Builder {
         fun maximumColorCount(colors: Int): Builder = this
+
+        fun resizeBitmapArea(bitmapArea: Int): Builder = this
+
+        fun clearFilters(): Builder = this
+
+        fun addFilter(filter: Any): Builder = this
+
         fun generate(): Palette = Palette()
     }
     class Swatch(val rgb: Int, val population: Int)

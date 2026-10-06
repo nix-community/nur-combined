@@ -3,6 +3,12 @@ package moe.rukamori.archivetune
 object R {
     object string {
         const val about = 0
+        const val automatic_update_checks = 0
+        const val automatic_update_checks_desc = 0
+        const val playing_from = 0
+        const val remaining_time = 0
+        const val android_auto = 0
+        const val android_auto_settings_subtitle = 0
         const val about_archive_tune_team = 0
         const val about_content_desc_discord = 0
         const val about_content_desc_donate = 0
@@ -11,6 +17,12 @@ object R {
         const val about_content_desc_website = 0
         const val about_contributor_translation = 0
         const val about_contributors = 0
+        const val about_translation_contributors_error = 0
+        const val browse_empty_description = 0
+        const val your_shows = 0
+        const val search_episodes = 0
+        const val library_sync_failed = 0
+        const val browse_load_failed = 0
         const val about_lead_developer = 0
         const val about_license = 0
         const val about_license_unknown = 0
@@ -1794,7 +1806,17 @@ object R {
         const val youtube_synced = 0
         const val yt_sync = 0
     }
+    object raw {
+        const val translation_contributors = 0
+    }
+
+    object font {
+        const val poppins = 0
+    }
+
     object drawable {
+        const val immersive_artwork_placeholder = 0
+        const val directions_car = 0
         const val about_appbar = 0
         const val about_splash = 0
         const val account = 0

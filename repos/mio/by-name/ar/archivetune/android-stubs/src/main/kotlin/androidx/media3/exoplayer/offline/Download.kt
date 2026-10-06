@@ -9,8 +9,24 @@ open class Download(
     val stopReason: Int = 0,
     val failureReason: Int = 0,
     val bytesDownloaded: Long = 0L,
-    val percentDownloaded: Float = 0f
+    @get:JvmName("percentDownloadedValue") val percentDownloaded: Float = 0f,
 ) {
+    /*
+     * Upstream calls the Java-style getter `download.getPercentDownloaded()` while the rest of
+     * the app reads the property; both would produce the same JVM signature, so the property's
+     * getter is renamed instead.
+     */
+    fun getPercentDownloaded(): Float = percentDownloaded
+
+    @Target(
+        AnnotationTarget.VALUE_PARAMETER,
+        AnnotationTarget.FIELD,
+        AnnotationTarget.PROPERTY,
+        AnnotationTarget.FUNCTION,
+    )
+    @Retention(AnnotationRetention.RUNTIME)
+    annotation class State
+
     companion object {
         const val STATE_QUEUED = 0
         const val STATE_STOPPED = 1

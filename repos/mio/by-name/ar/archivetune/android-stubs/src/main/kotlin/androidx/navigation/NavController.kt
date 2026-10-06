@@ -1,6 +1,9 @@
 package androidx.navigation
 
 open class NavController {
+    /* Upstream reaches the ambient Context through the controller. */
+    val context: android.content.Context get() = TODO()
+
     open fun navigate(route: String) {}
     open fun navigate(route: String, builder: NavOptionsBuilder.() -> Unit) {}
     open fun popBackStack(): Boolean = false

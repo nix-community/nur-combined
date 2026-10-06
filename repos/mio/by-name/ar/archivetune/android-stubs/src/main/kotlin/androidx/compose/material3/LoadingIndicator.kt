@@ -1,51 +1,65 @@
 package androidx.compose.material3
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
+import androidx.graphics.shapes.RoundedPolygon
 
-@ExperimentalMaterial3ExpressiveApi
-@Composable
-fun LoadingIndicator(modifier: Any = Any()) {}
+/*
+ * Upstream calls LoadingIndicator(modifier, color, polygons) - the polygon list is what the
+ * ports earlier one-parameter stub was missing, so every call site failed on parameter names.
+ */
 
-@ExperimentalMaterial3ExpressiveApi
 @Composable
-fun LargeFlexibleTopAppBar(
-    title: @Composable () -> Unit,
-    modifier: Any = Any(),
-    navigationIcon: (@Composable () -> Unit)? = null,
-    actions: (@Composable () -> Unit)? = null,
-    colors: Any = Any(),
-    scrollBehavior: Any? = null,
+fun LoadingIndicator(
+    modifier: Modifier = Modifier,
+    color: Color = Color.Unspecified,
+    polygons: List<RoundedPolygon> = emptyList(),
 ) {}
 
+
+@Composable
+fun LoadingIndicator(
+    progress: () -> Float,
+    modifier: Modifier = Modifier,
+    color: Color = Color.Unspecified,
+    polygons: List<RoundedPolygon> = emptyList(),
+) {}
+
+/**
+ * Real MaterialShapes entries are RoundedPolygons; typed as such so `.toShape()` resolves to a
+ * real [Shape] instead of Any (which upstream then refuses to pass where a Shape is expected).
+ */
 object MaterialShapes {
-    val Cookie4Sided: Any get() = Any()
-    val Cookie6Sided: Any get() = Any()
-    val Cookie7Sided: Any get() = Any()
-    val Cookie9Sided: Any get() = Any()
-    val Cookie12Sided: Any get() = Any()
-    val Sunny: Any get() = Any()
-    val Flower: Any get() = Any()
-    val Puffy: Any get() = Any()
-    val PuffyDiamond: Any get() = Any()
-    val Pentagon: Any get() = Any()
-    val Gem: Any get() = Any()
-    val Diamond: Any get() = Any()
-    val Scallop: Any get() = Any()
-    val Clover4Leaf: Any get() = Any()
-    val Clover8Leaf: Any get() = Any()
-    val Burst: Any get() = Any()
-    val SoftBurst: Any get() = Any()
-    val Boom: Any get() = Any()
-    val SoftBoom: Any get() = Any()
-    val Circle: Any get() = Any()
-    val Square: Any get() = Any()
-    val Pill: Any get() = Any()
-    val VerySunny: Any get() = Any()
-    val Ghostish: Any get() = Any()
-    val PixelCircle: Any get() = Any()
-    val PixelTriangle: Any get() = Any()
-    val Arch: Any get() = Any()
-    val Fan: Any get() = Any()
-    val Arrow: Any get() = Any()
-    val Slanted: Any get() = Any()
+    val Cookie4Sided: RoundedPolygon get() = RoundedPolygon()
+    val Cookie6Sided: RoundedPolygon get() = RoundedPolygon()
+    val Cookie7Sided: RoundedPolygon get() = RoundedPolygon()
+    val Cookie9Sided: RoundedPolygon get() = RoundedPolygon()
+    val Cookie12Sided: RoundedPolygon get() = RoundedPolygon()
+    val Sunny: RoundedPolygon get() = RoundedPolygon()
+    val Flower: RoundedPolygon get() = RoundedPolygon()
+    val Puffy: RoundedPolygon get() = RoundedPolygon()
+    val PuffyDiamond: RoundedPolygon get() = RoundedPolygon()
+    val Pentagon: RoundedPolygon get() = RoundedPolygon()
+    val Gem: RoundedPolygon get() = RoundedPolygon()
+    val Diamond: RoundedPolygon get() = RoundedPolygon()
+    val Scallop: RoundedPolygon get() = RoundedPolygon()
+    val Clover4Leaf: RoundedPolygon get() = RoundedPolygon()
+    val Clover8Leaf: RoundedPolygon get() = RoundedPolygon()
+    val Burst: RoundedPolygon get() = RoundedPolygon()
+    val SoftBurst: RoundedPolygon get() = RoundedPolygon()
+    val Boom: RoundedPolygon get() = RoundedPolygon()
+    val SoftBoom: RoundedPolygon get() = RoundedPolygon()
+    val Circle: RoundedPolygon get() = RoundedPolygon()
+    val Square: RoundedPolygon get() = RoundedPolygon()
+    val Pill: RoundedPolygon get() = RoundedPolygon()
+    val VerySunny: RoundedPolygon get() = RoundedPolygon()
+    val Ghostish: RoundedPolygon get() = RoundedPolygon()
+    val PixelCircle: RoundedPolygon get() = RoundedPolygon()
+    val PixelTriangle: RoundedPolygon get() = RoundedPolygon()
+    val Arch: RoundedPolygon get() = RoundedPolygon()
+    val Fan: RoundedPolygon get() = RoundedPolygon()
+    val Arrow: RoundedPolygon get() = RoundedPolygon()
+    val Slanted: RoundedPolygon get() = RoundedPolygon()
 }

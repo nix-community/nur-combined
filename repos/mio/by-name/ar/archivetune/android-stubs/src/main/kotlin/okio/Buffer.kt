@@ -1,3 +1,0 @@
-package okio
-
-class Buffer

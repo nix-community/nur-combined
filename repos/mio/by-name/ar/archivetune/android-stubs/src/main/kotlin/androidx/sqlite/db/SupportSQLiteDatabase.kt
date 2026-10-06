@@ -15,8 +15,8 @@ interface SupportSQLiteDatabase : java.io.Closeable {
     fun insert(table: String, conflictAlgorithm: Int, values: ContentValues): Long
     fun update(table: String, conflictAlgorithm: Int, values: ContentValues, whereClause: String?, whereArgs: Array<out Any?>?): Int
     fun delete(table: String, whereClause: String?, whereArgs: Array<out Any?>?): Int
-    fun isOpen(): Boolean
-    fun isReadOnly(): Boolean
-    val version: Int
-    val path: String?
+    fun isOpen(): Boolean = true
+    fun isReadOnly(): Boolean = false
+    val version: Int get() = 0
+    val path: String? get() = null
 }

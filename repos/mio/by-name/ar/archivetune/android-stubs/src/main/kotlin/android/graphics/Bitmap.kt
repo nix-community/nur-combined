@@ -10,6 +10,8 @@ open class Bitmap {
 
     open fun compress(format: CompressFormat, quality: Int, stream: OutputStream): Boolean = true
     open fun copy(config: Config, isMutable: Boolean): Bitmap = Bitmap()
+
+    open fun recycle() {}
     open fun getPixels(pixels: IntArray, offset: Int, stride: Int, x: Int, y: Int, width: Int, height: Int) {}
     open fun setPixels(pixels: IntArray, offset: Int, stride: Int, x: Int, y: Int, width: Int, height: Int) {}
 
@@ -25,5 +27,14 @@ open class Bitmap {
         fun createBitmap(width: Int, height: Int, config: Config): Bitmap = Bitmap()
         fun createBitmap(source: Bitmap, x: Int, y: Int, width: Int, height: Int): Bitmap = Bitmap()
         fun createScaledBitmap(src: Bitmap, dstWidth: Int, dstHeight: Int, filter: Boolean): Bitmap = Bitmap()
+        fun createBitmap(
+            source: Bitmap,
+            x: Int,
+            y: Int,
+            width: Int,
+            height: Int,
+            m: android.graphics.Matrix?,
+            filter: Boolean,
+        ): Bitmap = Bitmap()
     }
 }

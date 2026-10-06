@@ -35,9 +35,15 @@ open class Intent {
     fun setClassName(context: Context, className: String): Intent = this
     fun addCategory(category: String): Intent = this
     fun setDataAndType(data: android.net.Uri, type: String): Intent = this
+    val dataString: String? get() = data?.toString()
+    fun resolveActivity(packageManager: android.content.pm.PackageManager?): android.content.ComponentName? = null
 
     companion object {
         fun createChooser(target: Intent, title: CharSequence?): Intent = Intent()
+
+        fun parseUri(uriString: String, flags: Int): Intent? = null
+
+        const val URI_INTENT_SCHEME = 1
         const val EXTRA_TEXT = "android.intent.extra.TEXT"
         const val EXTRA_STREAM = "android.intent.extra.STREAM"
         const val ACTION_MAIN = "android.intent.action.MAIN"
@@ -45,6 +51,11 @@ open class Intent {
         const val ACTION_SEND = "android.intent.action.SEND"
         const val ACTION_PICK = "android.intent.action.PICK"
         const val ACTION_GET_CONTENT = "android.intent.action.GET_CONTENT"
+        const val ACTION_WEB_SEARCH = "android.intent.action.WEB_SEARCH"
+        const val ACTION_DIAL = "android.intent.action.DIAL"
+        const val ACTION_SENDTO = "android.intent.action.SENDTO"
+        const val ACTION_SEARCH = "android.intent.action.SEARCH"
+        const val EXTRA_QUERY = "android.intent.extra.QUERY"
         const val CATEGORY_LAUNCHER = "android.intent.category.LAUNCHER"
         const val CATEGORY_BROWSABLE = "android.intent.category.BROWSABLE"
         const val FLAG_ACTIVITY_CLEAR_TASK = 32768

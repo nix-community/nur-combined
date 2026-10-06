@@ -3,6 +3,10 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import java.util.concurrent.Executor
 
 open class RoomDatabase : java.io.Closeable {
+    // Declared as a member (not an extension) so call sites resolve without an import.
+    open val openHelper: SupportSQLiteOpenHelper
+        get() = TODO()
+
     val queryExecutor: Executor = TODO()
     val transactionExecutor: Executor = TODO()
     
@@ -19,7 +23,19 @@ open class RoomDatabase : java.io.Closeable {
         fun addMigrations(vararg migrations: androidx.room.migration.Migration): Builder<T> = this
         fun addCallback(callback: Callback): Builder<T> = this
         fun fallbackToDestructiveMigration(): Builder<T> = this
+        fun fallbackToDestructiveMigrationOnDowngrade(): Builder<T> = this
+        fun fallbackToDestructiveMigrationFrom(vararg versionNumbers: Int): Builder<T> = this
         fun addAutoMigrationSpec(spec: androidx.room.migration.AutoMigrationSpec): Builder<T> = this
+        fun setQueryExecutor(executor: java.util.concurrent.Executor): Builder<T> = this
+        fun setTransactionExecutor(executor: java.util.concurrent.Executor): Builder<T> = this
+        fun allowMainThreadQueries(): Builder<T> = this
+        fun openHelperFactory(factory: Any?): Builder<T> = this
+        fun createFromAsset(assetPath: String): Builder<T> = this
+        fun createFromFile(file: java.io.File): Builder<T> = this
+        fun setAutoCloseTimeout(
+            autoCloseTimeout: Long,
+            autoCloseTimeoutUnit: java.util.concurrent.TimeUnit,
+        ): Builder<T> = this
     }
 
     open class Callback {

@@ -18,6 +18,10 @@ fun SplitButtonLayout(
 
 object SplitButtonDefaults {
     val MediumContainerHeight: Dp = 0.dp
+
+    val TrailingIconSize: Dp = 0.dp
+
+    val LeadingIconSize: Dp = 0.dp
     
     @ExperimentalMaterial3ExpressiveApi
     @Composable
@@ -35,6 +39,60 @@ object SplitButtonDefaults {
     @ExperimentalMaterial3ExpressiveApi
     @Composable
     fun TonalTrailingButton(
+        checked: Boolean,
+        onCheckedChange: (Boolean) -> Unit,
+        modifier: Any = Any(),
+        enabled: Boolean = true,
+        colors: Any = Any(),
+        interactionSource: Any = Any(),
+        content: @Composable () -> Unit
+    ) {
+        content()
+    }
+
+    @ExperimentalMaterial3ExpressiveApi
+    @Composable
+    fun ElevatedLeadingButton(
+        onClick: () -> Unit,
+        modifier: Any = Any(),
+        enabled: Boolean = true,
+        colors: Any = Any(),
+        interactionSource: Any = Any(),
+        content: @Composable () -> Unit
+    ) {
+        content()
+    }
+
+    @ExperimentalMaterial3ExpressiveApi
+    @Composable
+    fun ElevatedTrailingButton(
+        checked: Boolean,
+        onCheckedChange: (Boolean) -> Unit,
+        modifier: Any = Any(),
+        enabled: Boolean = true,
+        colors: Any = Any(),
+        interactionSource: Any = Any(),
+        content: @Composable () -> Unit
+    ) {
+        content()
+    }
+
+    @ExperimentalMaterial3ExpressiveApi
+    @Composable
+    fun FilledLeadingButton(
+        onClick: () -> Unit,
+        modifier: Any = Any(),
+        enabled: Boolean = true,
+        colors: Any = Any(),
+        interactionSource: Any = Any(),
+        content: @Composable () -> Unit
+    ) {
+        content()
+    }
+
+    @ExperimentalMaterial3ExpressiveApi
+    @Composable
+    fun FilledTrailingButton(
         checked: Boolean,
         onCheckedChange: (Boolean) -> Unit,
         modifier: Any = Any(),

@@ -7,7 +7,7 @@ open class Cursor : java.io.Closeable {
     open fun getColumnIndexOrThrow(columnName: String): Int = 0
     override fun close() {}
     
-    open fun getString(columnIndex: Int): String? = null
+    open fun getString(columnIndex: Int): String = ""
     open fun getInt(columnIndex: Int): Int = 0
     open fun getLong(columnIndex: Int): Long = 0L
     open fun getDouble(columnIndex: Int): Double = 0.0

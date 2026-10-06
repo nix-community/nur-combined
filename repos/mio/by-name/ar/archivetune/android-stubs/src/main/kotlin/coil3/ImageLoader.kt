@@ -18,6 +18,12 @@ open class ComponentRegistry {
 
 open class ImageLoader {
     open suspend fun execute(request: ImageRequest): ImageResult = throw NotImplementedError()
+
+    /* Upstream reads these off an ImageLoader instance (cache maintenance screen). */
+    open val diskCache: DiskCache? = null
+
+    open val memoryCache: coil3.memory.MemoryCache? = null
+
     open class Builder(context: Any?) {
         fun crossfade(enable: Boolean) = this
         fun allowHardware(enable: Boolean) = this

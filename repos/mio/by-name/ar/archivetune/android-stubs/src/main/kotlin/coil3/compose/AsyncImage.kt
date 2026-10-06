@@ -14,6 +14,9 @@ fun AsyncImage(
     alignment: Any = Any(),
     alpha: Float = 1f,
     colorFilter: Any? = null,
+    onState: ((coil3.compose.AsyncImagePainter.State) -> Unit)? = null,
+    onSuccess: ((coil3.compose.AsyncImagePainter.State.Success) -> Unit)? = null,
+    onError: ((coil3.compose.AsyncImagePainter.State.Error) -> Unit)? = null,
 ) {}
 
 @Composable

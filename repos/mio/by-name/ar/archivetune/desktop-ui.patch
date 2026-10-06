@@ -50,7 +50,7 @@ diff -urN ../empty_dir/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.
 +                when (selectedItem) {
 +                    0 -> HomeScreen(TODO(), TODO())
 +                    1 -> ExploreScreen(TODO())
-+                    2 -> LibraryScreen(TODO())
++                    2 -> LibraryScreen(TODO(), TODO())
 +                    3 -> SettingsScreen(TODO(), TODO())
 +                }
 +            }

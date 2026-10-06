@@ -6,9 +6,15 @@ import androidx.compose.runtime.Composable
 @Composable
 fun SegmentedListItem(
     selected: Boolean = false,
+    checked: Boolean = false,
+    onCheckedChange: ((Boolean) -> Unit)? = null,
     onClick: () -> Unit = {},
+    onLongClick: (() -> Unit)? = null,
+    onLongClickLabel: String? = null,
     enabled: Boolean = true,
     shapes: Any? = null,
+    contentPadding: Any? = null,
+    verticalAlignment: Any? = null,
     colors: Any? = null,
     modifier: Any = Any(),
     overlineContent: (@Composable () -> Unit)? = null,
