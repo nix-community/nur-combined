@@ -1,7 +1,7 @@
 {
-  "version": "1.0.109",
-  "rev": "80117f8d9efee964c79da34ce30831ac64d7c1a9",
-  "hash": "sha256-WgrCeW+A7y2juwLod8Pzw+ftNh8Jv/7VGNuQh8Lhnt4=",
+  "version": "1.0.112",
+  "rev": "4dee324fd2485d9f43c5f60ab06aa2fd6c145d27",
+  "hash": "sha256-zs6iyHbSV2Gspk4igz7K8dsj6oj8zAgq2Ii69s6Ig4Y=",
   "components": {
     "touchHLE_dynarmic_wrapper": "sha256-GtbX29sDTkUBM1WCzdI2v68haV1mO/f4c+PFaGBNb7I=",
     "touchHLE_gl_bindings": "sha256-oDsEbLxqs//YYt9E11r+ATDq438RGiJVdd7qM9YzSoQ=",
