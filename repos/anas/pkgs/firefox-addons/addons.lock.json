@@ -1,7 +1,7 @@
 [
   {
     "addonId": "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}",
-    "hash": "sha256:66a98738e69df9ad7c7aeb12a495c5880d1f56fb93610f51cd3207a9b73ee702",
+    "hash": "sha256:77e7a630e3ab378440c3924e57450db88bf262803608b1a47430f3cc8c5294f6",
     "homepage": "https://webextension.org/listing/tab-discard.html",
     "licenseId": 3338,
     "permissions": [
@@ -15,8 +15,25 @@
     ],
     "slug": "auto-tab-discard",
     "summary": "Increase browser speed and reduce memory load and when you have numerous open tabs.",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/4978053/auto_tab_discard-0.7.3.xpi",
-    "version": "0.7.3"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5090327/auto_tab_discard-0.7.5.xpi",
+    "version": "0.7.5"
+  },
+  {
+    "addonId": "{a8cf72f7-09b7-4cd4-9aaa-7a023bf09916}",
+    "hash": "sha256:e2791936eff6245621789ca3546abfedd6e92d44aaf66e644956294e794c0e55",
+    "homepage": "https://time-tracker-4-browser.app/en/",
+    "licenseId": 22,
+    "permissions": [
+      "storage",
+      "tabs",
+      "contextMenus",
+      "alarms",
+      "<all_urls>"
+    ],
+    "slug": "besttimetracker",
+    "summary": "Track time, analyze your habits and block addictive sites",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5048157/besttimetracker-4.6.3.xpi",
+    "version": "4.6.3"
   },
   {
     "addonId": "{74145f27-f039-47ce-a470-a662b129930a}",
@@ -236,6 +253,44 @@
     "version": "1.27.3"
   },
   {
+    "addonId": "{5cce4ab5-3d47-41b9-af5e-8203eea05245}",
+    "hash": "sha256:283e844c870939df9dec4be8a840c5a9e3b2c42c0223a87dbf5cea34822d3a8b",
+    "homepage": "https://soitis.dev/control-panel-for-twitter",
+    "licenseId": 22,
+    "permissions": [
+      "storage",
+      "https://twitter.com/*",
+      "https://mobile.twitter.com/*",
+      "https://x.com/*",
+      "https://mobile.x.com/*"
+    ],
+    "slug": "control-panel-for-twitter",
+    "summary": "Gives you more control over Twitter and adds missing features and UI improvements",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5086598/control_panel_for_twitter-4.24.4.xpi",
+    "version": "4.24.4"
+  },
+  {
+    "addonId": "crxviewer-firefox@robwu.nl",
+    "hash": "sha256:9e09ae5a01e7165288678553cb4b1252ebd1f9ecd25a0784ad2e7b14aa7a7a78",
+    "homepage": "https://github.com/Rob--W/crxviewer",
+    "licenseId": 3338,
+    "permissions": [
+      "tabs",
+      "storage",
+      "contextMenus",
+      "downloads",
+      "alarms",
+      "cookies",
+      "webRequest",
+      "webRequestBlocking",
+      "*://*/*"
+    ],
+    "slug": "crxviewer",
+    "summary": "View source code of Firefox add-ons and Chrome extensions (crx/nex/xpi) from addons.mozilla.org, the Chrome Webstore and elsewhere, with CRX Viewer (crxviewer).",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4998970/crxviewer-1.7.1.xpi",
+    "version": "1.7.1"
+  },
+  {
     "addonId": "addon@darkreader.org",
     "hash": "sha256:eb06c5096d761616c7f1d954c11524ca4bff4fe7229044dc1fce288a8c0853ab",
     "homepage": "https://darkreader.org/",
@@ -366,6 +421,31 @@
     "version": "3.4.0"
   },
   {
+    "addonId": "{eac6e624-97fa-4f28-9d24-c06c9b8aa713}",
+    "hash": "sha256:6cbd72b544f948e177a3a46df806844409bc67e4de24eac2038fd9b0bcb90558",
+    "homepage": "https://github.com/material-extensions/material-icons-browser-extension",
+    "licenseId": 22,
+    "permissions": [
+      "storage",
+      "activeTab",
+      "scripting",
+      "*://github.com/*",
+      "*://bitbucket.org/*",
+      "*://dev.azure.com/*",
+      "*://*.visualstudio.com/*",
+      "*://gitea.com/*",
+      "*://gitlab.com/*",
+      "*://gitee.com/*",
+      "*://sourceforge.net/*",
+      "*://codeberg.org/*",
+      "*://tangled.org/*"
+    ],
+    "slug": "material-icons-for-github",
+    "summary": "Replace the file/folder icons on github file browsers with icons representing the file's type and which tool it is used by.",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5080172/material_icons_for_github-1.17.1.xpi",
+    "version": "1.17.1"
+  },
+  {
     "addonId": "@testpilot-containers",
     "hash": "sha256:306a294845363f15a7478e9620b43f91ea1761088727808e2327bfff16c14447",
     "homepage": "https://github.com/mozilla/multi-account-containers/#readme",
@@ -410,6 +490,26 @@
     "summary": "New Tab Override allows you to set the page that shows whenever you open a new tab.",
     "url": "https://addons.mozilla.org/firefox/downloads/file/4907726/new_tab_override-19.0.0.xpi",
     "version": "19.0.0"
+  },
+  {
+    "addonId": "{6706d386-2d33-4e1e-bbf1-51b9e1ce47e1}",
+    "hash": "sha256:f6563ce33539e75ce9dc33b9c74c47d51f71ef684beefea26c4c4f6033ab07a6",
+    "homepage": "https://github.com/leoding86/webextension-pixiv-toolkit",
+    "licenseId": 7057,
+    "permissions": [
+      "webRequest",
+      "webRequestBlocking",
+      "storage",
+      "unlimitedStorage",
+      "*://*.pixiv.net/*",
+      "*://*.pximg.net/*",
+      "*://*.techorus-cdn.com/*",
+      "*://*.fanbox.cc/*"
+    ],
+    "slug": "pixiv-toolkit",
+    "summary": "Convert ugoira to gif or/and webm, pack manga for downloading and download novel on Pixiv.",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/3801770/pixiv_toolkit-4.9.0.xpi",
+    "version": "4.9.0"
   },
   {
     "addonId": "jid1-MnnxcxisBPnSXQ@jetpack",
@@ -822,6 +922,53 @@
     "version": "2026.9.15"
   },
   {
+    "addonId": "contact@lukaslen.com",
+    "hash": "sha256:d37db2e463d0e7789458977d2b073f33a79e4c4d024c134bbd3c19aaf369ee11",
+    "homepage": "https://github.com/aryomuzakki/Privacy-Extension-For-WhatsApp-Web",
+    "licenseId": 22,
+    "permissions": [
+      "storage",
+      "https://web.whatsapp.com/*"
+    ],
+    "slug": "privacy-extension-for-whatsapp",
+    "summary": "The Privacy Extension For WhatsApp™ Web hides your messages from unwanted glimpses until you hover over them. In the search bar, you can disable the blur effect on all messages manually and specify what elements to blur.",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4931372/privacy_extension_for_whatsapp-3.4.4.1.xpi",
+    "version": "3.4.4.1"
+  },
+  {
+    "addonId": "readeck@readeck.com",
+    "hash": "sha256:d5f9b1a25856133048ff0a96f7d2b5abe0beb3ce890a61ae1a64f8ab2b0facaf",
+    "homepage": "https://readeck.org/en/",
+    "licenseId": 12,
+    "permissions": [
+      "activeTab",
+      "contextMenus",
+      "scripting",
+      "storage",
+      "webRequest"
+    ],
+    "slug": "readeck",
+    "summary": "Readeck companion browser extension",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4751337/readeck-2.6.3.xpi",
+    "version": "2.6.3"
+  },
+  {
+    "addonId": "{762f9885-5a13-4abd-9c77-433dcd38b8fd}",
+    "hash": "sha256:59719749f6df38c1601ca5f39c02158d5f005c43e9eeea1f19527f468c941217",
+    "licenseId": 6,
+    "permissions": [
+      "activeTab",
+      "*://*.youtube.com/*",
+      "storage",
+      "*://returnyoutubedislikeapi.com/*",
+      "identity"
+    ],
+    "slug": "return-youtube-dislikes",
+    "summary": "Returns ability to see dislike statistics on youtube",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5012638/return_youtube_dislikes-4.0.6.xpi",
+    "version": "4.0.6"
+  },
+  {
     "addonId": "{3c078156-979c-498b-8990-85f7987dd929}",
     "hash": "sha256:e8a0a4b556ab7dd536897c1816af9d0918030223068ea6683a04376103a6caf2",
     "homepage": "https://github.com/mbnuqw/sidebery",
@@ -847,7 +994,7 @@
   },
   {
     "addonId": "{531906d3-e22f-4a6c-a102-8057b88a1a63}",
-    "hash": "sha256:799ea061e768c587b14c6bbaf66dca718d8ef6213da6f5c145bbcfa86882bef9",
+    "hash": "sha256:a935081a8b46a580b4ec1230f272569a280866570fbe1047031a4aed76886b67",
     "homepage": "https://www.getsinglefile.com",
     "licenseId": 7714,
     "permissions": [
@@ -860,8 +1007,8 @@
     ],
     "slug": "single-file",
     "summary": "Save an entire web page—including images and styling—as a single HTML file.",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5064052/single_file-1.27.0.xpi",
-    "version": "1.27.0"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5084732/single_file-1.28.1.xpi",
+    "version": "1.28.1"
   },
   {
     "addonId": "sponsorBlocker@ajay.app",
@@ -880,6 +1027,48 @@
     "summary": "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos. Other browsers: https://sponsor.ajay.app",
     "url": "https://addons.mozilla.org/firefox/downloads/file/4897574/sponsorblock-6.1.7.xpi",
     "version": "6.1.7"
+  },
+  {
+    "addonId": "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}",
+    "hash": "sha256:51d4efd6aa6484a749b97e36222f7bbe2ff699ed16b9a13adf40ecb6a0597081",
+    "homepage": "https://add0n.com/stylus.html",
+    "licenseId": 6,
+    "permissions": [
+      "alarms",
+      "contextMenus",
+      "storage",
+      "tabs",
+      "unlimitedStorage",
+      "webNavigation",
+      "webRequest",
+      "webRequestBlocking",
+      "<all_urls>",
+      "https://userstyles.org/*"
+    ],
+    "slug": "styl-us",
+    "summary": "Redesign your favorite websites with Stylus, an actively developed and community driven userstyles manager. Easily install custom themes from popular online repositories, or create, edit, and manage your own personalized CSS stylesheets.",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5044316/styl_us-2.4.14.xpi",
+    "version": "2.4.14"
+  },
+  {
+    "addonId": "Tab-Session-Manager@sienori",
+    "hash": "sha256:10ddc3bc27179cb32962fa8629e87d9d2c3897a604ba347666ebe16a1488751b",
+    "homepage": "https://tab-session-manager.sienori.com/",
+    "licenseId": 3338,
+    "permissions": [
+      "storage",
+      "unlimitedStorage",
+      "tabs",
+      "tabGroups",
+      "cookies",
+      "downloads",
+      "identity",
+      "alarms"
+    ],
+    "slug": "tab-session-manager",
+    "summary": "Save and restore the state of windows and tabs. It also supports automatic saving and cloud sync.",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4905104/tab_session_manager-7.4.0.xpi",
+    "version": "7.4.0"
   },
   {
     "addonId": "tab-stash@condordes.net",
@@ -903,6 +1092,22 @@
     "summary": "Easily save and organize batches of tabs as bookmarks. Clear your tabs, clear your mind. Only for Firefox.",
     "url": "https://addons.mozilla.org/firefox/downloads/file/5028003/tab_stash-3.5.xpi",
     "version": "3.5"
+  },
+  {
+    "addonId": "{036a55b4-5e72-4d05-a06c-cba2dfcc134a}",
+    "hash": "sha256:67f4b90279426590ccf88f85aef14509948b4e661682d938a93c0bcce94c523b",
+    "licenseId": 3338,
+    "permissions": [
+      "<all_urls>",
+      "storage",
+      "activeTab",
+      "contextMenus",
+      "webRequest"
+    ],
+    "slug": "traduzir-paginas-web",
+    "summary": "Translate your page in real time using Google, Bing or Yandex.\nIt is not necessary to open new tabs.",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4962745/traduzir_paginas_web-10.2.1.0.xpi",
+    "version": "10.2.1.0"
   },
   {
     "addonId": "uBlock0@raymondhill.net",
@@ -960,5 +1165,46 @@
     "summary": "Userscript support for browsers, open source.",
     "url": "https://addons.mozilla.org/firefox/downloads/file/5009389/violentmonkey-2.49.0.xpi",
     "version": "2.49.0"
+  },
+  {
+    "addonId": "wayback_machine@mozilla.org",
+    "hash": "sha256:75da413fee7c28e22ed61380f959888ec80c14e2a38f7b6f9d622f8a4ea853e4",
+    "homepage": "https://archive.org",
+    "licenseId": 6,
+    "permissions": [
+      "activeTab",
+      "cookies",
+      "contextMenus",
+      "notifications",
+      "storage",
+      "webRequest",
+      "webRequestBlocking",
+      "https://archive.org/*",
+      "https://*.archive.org/*",
+      "https://hypothes.is/*",
+      "<all_urls>",
+      "http://*.wikipedia.org/*",
+      "https://*.wikipedia.org/*"
+    ],
+    "slug": "wayback-machine_new",
+    "summary": "Welcome to the Official Internet Archive Wayback Machine Browser Extension! Go back in time to see how a website has changed through the history of the Web. Save websites, view missing 404 Not Found pages, or read archived books &amp; papers.",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4047136/wayback_machine_new-3.2.xpi",
+    "version": "3.2"
+  },
+  {
+    "addonId": "myallychou@gmail.com",
+    "hash": "sha256:46bbf40b781ace323771ff193c5de2785b410d5d883641f8f07c393a8f96d69c",
+    "homepage": "https://unhook.app",
+    "licenseId": 7057,
+    "permissions": [
+      "storage",
+      "webRequest",
+      "https://www.youtube.com/*",
+      "https://m.youtube.com/*"
+    ],
+    "slug": "youtube-recommended-videos",
+    "summary": "Hide YouTube related videos, comments, video suggestions wall, homepage recommendations, trending tab, and other distractions.",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/4733035/youtube_recommended_videos-1.6.9.xpi",
+    "version": "1.6.9"
   }
 ]
