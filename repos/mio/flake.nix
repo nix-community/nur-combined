@@ -29,6 +29,14 @@
         system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system}
       );
       cached = forAllSystems (system: self.legacyPackages.${system}.cached-set);
+      # The miodroid NixOS VM tests are the only real gate on that fork: they
+      # boot Android in a container in both rootful and rootless mode and wait
+      # for sys.boot_completed.  They are x86_64-only (the OTA images are
+      # x86_64) and heavy: each run downloads ~1.5 GiB of images and needs KVM.
+      checks.x86_64-linux = {
+        miodroid-nixos = self.legacyPackages.x86_64-linux.miodroid.tests.nixos;
+        miodroid-nixos-rootless = self.legacyPackages.x86_64-linux.miodroid.tests.nixos-rootless;
+      };
       cached-cuda = forAllSystems (
         system:
         let

@@ -122,8 +122,7 @@ in
               running=$((running + 1))
               if test $running -ge 10; then
                   echo container-running
-                  kill $session $wlserver 2>/dev/null || true
-                  exit 0
+                  break
               fi
           else
               running=0
@@ -135,6 +134,27 @@ in
           sleep 1
       done
 
+      # RUNNING only means that Android's init started. A container that never
+      # reaches sys.boot_completed=1 is not a working Miodroid, so gate the
+      # test on Android's own boot flag instead of on the LXC state.
+      if test $running -ge 10; then
+          for i in $(seq 1 900); do
+              if lxc-attach -P /var/lib/miodroid/lxc -n miodroid -- \
+                      /system/bin/getprop sys.boot_completed 2>/dev/null |
+                      grep -q '^1'; then
+                  echo android-booted
+                  kill $session $wlserver 2>/dev/null || true
+                  exit 0
+              fi
+              if ! test -d /proc/$session; then
+                  echo "session exited while Android was booting"
+                  break
+              fi
+              sleep 1
+          done
+          echo "Android never reported sys.boot_completed=1"
+      fi
+
       echo "=== SESSION LOG ===" ; cat /tmp/miodroid-session.log || true
       echo "=== MIODROID LOG ===" ; cat /var/lib/miodroid/miodroid.log 2>/dev/null || true
       echo "=== JOURNALCTL ===" ; journalctl --user -n 100 -xe || true
@@ -142,7 +162,7 @@ in
       exit 1
       EOF
       chmod 0755 /tmp/miodroid-session-test.sh""")
-      machine.succeed("dbus-run-session -- /tmp/miodroid-session-test.sh", timeout=300)
+      machine.succeed("dbus-run-session -- /tmp/miodroid-session-test.sh", timeout=1200)
       machine.wait_for_unit("miodroid-container.service")
       machine.succeed("test -f /var/lib/miodroid/images/system.img")
       machine.succeed("test -f /var/lib/miodroid/images/vendor.img")
@@ -195,13 +215,13 @@ in
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")
-      machine.wait_for_unit("miodroid-rootless-helper.service")
       machine.succeed("zgrep -q 'ANDROID_BINDER_IPC=y' /proc/config.gz || test -e /sys/module/binder_linux")
-      # miodroid-rootless-helper already mounts binderfs and hands the nodes
-      # over to the miodroid group; mounting a second binderfs here would hide
-      # that instance (and its permissions) behind a fresh, root-only one.
-      machine.succeed("mountpoint -q /dev/binderfs || { mkdir -p /dev/binderfs && mount -t binder binder /dev/binderfs; }")
-      machine.succeed("test -e /dev/binderfs/binder -a -e /dev/binderfs/vndbinder -a -e /dev/binderfs/hwbinder")
+      # Rootless mode must not need anything from the host here: no helper
+      # service, no /dev/binderfs and no device nodes.  Asserting their absence
+      # keeps a regression back to host-side binderfs preparation visible.
+      machine.fail("systemctl status miodroid-rootless-helper.service")
+      machine.succeed("test ! -e /dev/binderfs")
+      machine.succeed("test ! -e /dev/binder")
       # Android's init logs to /dev/kmsg and the rootless container is given the
       # host's node (mknod is refused inside a user namespace), so let the
       # container's root write there.
@@ -244,7 +264,10 @@ in
       machine.succeed("grep -q 'lxcbr0' /etc/lxc/lxc-usernet")
       machine.succeed("grep -q 'lxc.idmap = u 0 1000 1' /home/alice/.local/share/miodroid/lxc/miodroid/config")
       machine.succeed("grep -q 'lxc.rootfs.mount' /home/alice/.local/share/miodroid/lxc/miodroid/config")
-      machine.succeed("su - alice -c 'test -r /dev/binder -a -w /dev/binder'")
+      # The container is told to bring up its own binderfs, and no host node was
+      # handed over to shadow it (there is none).
+      machine.succeed("grep -q 'zz-miodroid-binder.rc' /home/alice/.local/share/miodroid/lxc/miodroid/config")
+      machine.fail("grep -q ' dev/binder none bind' /home/alice/.local/share/miodroid/lxc/miodroid/config")
       machine.succeed("""cat > /tmp/test-session.sh << 'EOFSCRIPT'
       #!/bin/sh
       set -eu
@@ -280,8 +303,7 @@ in
               running=$((running + 1))
               if test $running -ge 10; then
                   echo container-running
-                  kill $session $wlserver 2>/dev/null || true
-                  exit 0
+                  break
               fi
           else
               running=0
@@ -293,6 +315,38 @@ in
           sleep 1
       done
 
+      # RUNNING only means that Android's init started; the interesting part of
+      # rootless mode is whether Android itself boots with its own binderfs,
+      # its idmapped root and the user's images.
+      if test $running -ge 10; then
+          for i in $(seq 1 900); do
+              if lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- \
+                      /system/bin/getprop sys.boot_completed 2>/dev/null |
+                      grep -q '^1'; then
+                  echo android-booted
+                  # boot_completed=1 already implies that Android's
+                  # servicemanager opened /dev/binder, so this only makes the
+                  # reason for a failure obvious: the container must have
+                  # mounted its own binderfs, with no host device nodes.
+                  if ! lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- \
+                          /system/bin/ls -L /dev/binder /dev/vndbinder /dev/hwbinder \
+                          /dev/binderfs/binder-control; then
+                      echo "container is missing its binder devices"
+                      kill $session $wlserver 2>/dev/null || true
+                      exit 1
+                  fi
+                  kill $session $wlserver 2>/dev/null || true
+                  exit 0
+              fi
+              if ! test -d /proc/$session; then
+                  echo "session exited while Android was booting"
+                  break
+              fi
+              sleep 1
+          done
+          echo "Android never reported sys.boot_completed=1"
+      fi
+
       echo "=== SESSION LOG ===" ; cat /tmp/miodroid-session.log || true
       echo "=== MIODROID LOG ===" ; cat /home/alice/.local/share/miodroid/miodroid.log 2>/dev/null || true
       echo "=== KMSG (container init) ===" ; dmesg | tail -n 80 || true
@@ -301,7 +355,7 @@ in
       exit 1
       EOFSCRIPT
       chmod 0755 /tmp/test-session.sh""")
-      machine.succeed("su - alice -c '/tmp/test-session.sh'", timeout=300)
+      machine.succeed("su - alice -c '/tmp/test-session.sh'", timeout=1200)
     '';
   };
 }

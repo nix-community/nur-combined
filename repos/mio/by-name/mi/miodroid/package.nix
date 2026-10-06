@@ -30,23 +30,28 @@
 # the LXC container name are scoped to "miodroid" / "miodro" so the two
 # can run simultaneously without conflicts.
 #
-# Patch series:
-#   0001 – rebrand binary / CLI prog name / config INI section / D-Bus names
-#   0002 – separate data+config paths  (/var/lib/miodroid, ~/.local/share/miodroid)
-#   0003 – rename LXC container + AppArmor profile + internal filenames
+# Patch series (`patches` below, all written against upstream waydroid 1.6.3):
 #   0004 – Android 13-16 / LineageOS 20-23 vendor detection
 #           upstream PR: https://github.com/waydroid/waydroid/pull/2393
 #   0005 – multi-instance support (--instance / -I)
 #           upstream PR: https://github.com/waydroid/waydroid/pull/1990
 #   0006 – rootless container manager
-#   0007 – experimental rootless mode: per-user fuse mounts, idmap, no overlay
+#
+#   0007 – experimental rootless mode: per-user fuse mounts, idmap, image growth
+#
+# The rebrand is not a patch: 0004-0006 stay valid only because they apply to
+# pristine upstream code, so the waydroid -> miodroid substitutions happen in
+# postPatch *after* they are applied.  0007 edits the rebranded code (miodroid
+# paths, the multi-instance helpers) and therefore runs at the very end of
+# postPatch instead of in the list above.
+#
+# postPatch is deliberately merciless: the whitespace-free `grep -q` at the end
+# of each rebrand block fails the build when upstream changes the line a rule
+# depends on.  Do not "fix" a failure by adding --fuzz back to patchFlags; a
+# hunk that does not apply exactly is a hunk that silently disappears.
 #
 # Community Android 16 images:  miodroid init -c <system> -v <vendor> -r lineage
 # See: https://github.com/supechicken/waydroid-builds
-#
-# The local patch files are applied by the patches list below; rebranding is
-# then done with substitutions in postPatch. 0007 has to touch the rebranded
-# code, so it is applied at the end of postPatch instead of in that list.
 
 let
   package = python3Packages.buildPythonApplication rec {
@@ -65,13 +70,10 @@ let
       ./patches/0005-multi-instance-support.patch
       ./patches/0006-rootless-container-manager.patch
     ];
-    patchFlags = [
-      "-p1"
-      "--fuzz=10"
-    ];
+    patchFlags = [ "-p1" ];
 
     postPatch = ''
-      # ── Patches 0001-0003: global rebrand waydroid → miodroid ──────────────
+      # ── Rebrand waydroid → miodroid (was patches 0001-0003) ───────────────
       #
       # Use sed across the whole tree to avoid per-file failures.
       # Order matters: rename more-specific strings first.
@@ -151,6 +153,11 @@ let
           -e "s|glob('waydroid\\.|glob('miodroid.|g" \
         {} +
 
+      # Desktop category shared by the entries below, the menu that groups
+      # them and every per-app entry tools/services/user_manager.py writes.
+      find . \( -name "*.py" -o -name "*.menu" -o -name "*.desktop" \) \
+        -exec sed -i 's/X-WayDroid-App/X-Miodroid-App/g' {} +
+
       # CLI/user-facing text in Python
       find . -name "*.py" -exec sed -i \
         -e 's/prog="waydroid"/prog="miodroid"/g' \
@@ -213,6 +220,62 @@ let
       # The LXC configuration uses the rebranded seccomp filename.
       mv data/configs/waydroid.seccomp data/configs/miodroid.seccomp
 
+      # ── Multi-instance names (patch 0005) ─────────────────────────────────
+      #
+      # 0005 builds the per-instance interface and runtime directory from
+      # "waydroid-", which none of the rules above catch.  The interface name
+      # must be exactly what instance.get_inet_name() writes into the LXC
+      # config, otherwise waydroid-net.sh takes its "bailing out" path and a
+      # named instance never gets a bridge, NAT or DHCP.  The runtime
+      # directory is shared with upstream Waydroid otherwise, which defeats
+      # the point of the fork.
+      sed -i \
+        -e 's|iface_name="waydroid-''${WAYDROID_INSTANCE}"|iface_name="miodroid0-''${WAYDROID_INSTANCE}"|' \
+        -e 's|/run/waydroid-|/run/miodroid-|g' \
+        -e 's|waydroid-net|miodroid-net|g' \
+        data/scripts/waydroid-net.sh
+      mv data/scripts/waydroid-net.sh data/scripts/miodroid-net.sh
+      find . \( -name "*.py" -o -name "Makefile" \) -exec sed -i \
+        -e 's|/data/scripts/waydroid-net.sh|/data/scripts/miodroid-net.sh|g' \
+        -e 's|data/scripts/waydroid-net.sh|data/scripts/miodroid-net.sh|g' \
+        {} +
+      # Both sides of the interface name contract: fail the build instead of
+      # shipping a renamed script whose named instances are silently offline.
+      grep -q 'f"miodroid0{get_suffix_dash()}"' tools/helpers/instance.py
+      grep -q 'iface_name="miodroid0-''${WAYDROID_INSTANCE}"' data/scripts/miodroid-net.sh
+
+      # ── Desktop entries, menu and metainfo ────────────────────────────────
+      #
+      # These keep upstream's file names, Exec= and Icon=, so they collide
+      # with an installed upstream Waydroid in every XDG data directory and
+      # would start a "waydroid" binary that this package does not provide.
+      # The icon itself is already installed as miodroid.png.
+      for entry in \
+        Waydroid.desktop \
+        waydroid.app.install.desktop \
+        waydroid.market.desktop \
+        waydroid.directory \
+        waydroid.menu \
+        "id.waydro.waydroid.metainfo.xml"; do
+        sed -i \
+          -e 's/Waydroid/Miodroid/g' \
+          -e 's/^Exec=waydroid/Exec=miodroid/' \
+          -e 's/^Icon=waydroid$/Icon=miodroid/' \
+          -e 's|waydroid\.|miodroid.|g' \
+          -e 's|id\.waydro\.waydroid|id.miodro.miodroid|g' \
+          data/"$entry"
+      done
+      mv data/Waydroid.desktop                  data/Miodroid.desktop
+      mv data/waydroid.app.install.desktop      data/miodroid.app.install.desktop
+      mv data/waydroid.market.desktop           data/miodroid.market.desktop
+      mv data/waydroid.directory                data/miodroid.directory
+      mv data/waydroid.menu                     data/miodroid.menu
+      mv data/id.waydro.waydroid.metainfo.xml   data/id.miodro.miodroid.metainfo.xml
+
+      # "patch" leaves these behind when it has to apply a hunk with fuzz.
+      # They are dead weight in the package and a sign that a patch drifted.
+      find . -name "*.orig" -delete
+
       # ── Patch 0007: rootless mode ──────────────────────────────────────────
       #
       # Applied here rather than in the series above: the rootless changes
@@ -254,7 +317,7 @@ let
       makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
 
       patchShebangs --host $out/lib/miodroid/data/scripts
-      wrapProgram $out/lib/miodroid/data/scripts/waydroid-net.sh \
+      wrapProgram $out/lib/miodroid/data/scripts/miodroid-net.sh \
         --prefix PATH ":" ${
           lib.makeBinPath [
             dnsmasq

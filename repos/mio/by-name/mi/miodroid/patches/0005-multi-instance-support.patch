@@ -3,14 +3,15 @@ Subject: [PATCH 0005] add named multi-instance support
 
 Source: https://github.com/waydroid/waydroid/pull/1990
 Backported to Waydroid 1.6.3 for miodroid.
- 
+
 Adds --instance/-I, with per-instance work directories, D-Bus names,
 container names, network interfaces, and binderfs mount points.
- 
+
 diff --git a/data/scripts/waydroid-net.sh b/data/scripts/waydroid-net.sh
---- a/data/scripts/waydroid-net.sh
-+++ b/data/scripts/waydroid-net.sh
-@@ -2,22 +2,36 @@
+--- a/data/scripts/waydroid-net.sh	2026-05-29 06:02:24.000000000 +1000
++++ b/data/scripts/waydroid-net.sh	2026-10-06 16:09:20.375740948 +1100
+@@ -1,26 +1,40 @@
+ #!/bin/sh -
  
  varrun="/run/waydroid-lxc"
 +WORK="/var/lib/waydroid"
@@ -55,10 +56,13 @@ diff --git a/data/scripts/waydroid-net.sh b/data/scripts/waydroid-net.sh
 -LXC_DHCP_RANGE="192.168.240.2,192.168.240.254"
 +LXC_NETWORK="192.168.${NET_ID}.0/24"
 +LXC_DHCP_RANGE="192.168.${NET_ID}.16,192.168.${NET_ID}.254"
+ LXC_DHCP_MAX="253"
+ LXC_DHCP_CONFILE=""
+ LXC_DHCP_PING="true"
 diff --git a/tools/actions/container_manager.py b/tools/actions/container_manager.py
---- a/tools/actions/container_manager.py
-+++ b/tools/actions/container_manager.py
-@@ -134,7 +134,8 @@ def do_start(args, session):
+--- a/tools/actions/container_manager.py	2026-05-29 06:02:24.000000000 +1000
++++ b/tools/actions/container_manager.py	2026-10-06 16:09:20.376740944 +1100
+@@ -163,7 +163,8 @@
  
      # Networking
      command = [tools.config.tools_src +
@@ -68,7 +72,7 @@ diff --git a/tools/actions/container_manager.py b/tools/actions/container_manage
      tools.helpers.run.user(args, command)
  
      # Sensors
-@@ -202,7 +203,7 @@ def stop(args, quit_session=True):
+@@ -236,7 +237,7 @@
  
          # Networking
          command = [tools.config.tools_src +
@@ -78,28 +82,28 @@ diff --git a/tools/actions/container_manager.py b/tools/actions/container_manage
  
          #TODO: remove NFC hacks
 diff --git a/tools/actions/initializer.py b/tools/actions/initializer.py
---- a/tools/actions/initializer.py
-+++ b/tools/actions/initializer.py
-@@ -186,6 +186,7 @@ def init(args):
-         helpers.lxc.setup_host_perms(args)
-         helpers.lxc.set_lxc_config(args)
-         helpers.lxc.make_base_props(args)
+--- a/tools/actions/initializer.py	2026-10-06 16:09:20.344741085 +1100
++++ b/tools/actions/initializer.py	2026-10-06 16:09:20.376740944 +1100
+@@ -186,6 +186,7 @@
+     helpers.lxc.set_lxc_config(args)
+     helpers.lxc.make_base_props(args)
+     if status != "STOPPED":
 +        helpers.dbus.setup_policy(args)
-         if status != "STOPPED":
-             logging.info("Starting container")
-             try:
+         try:
+             if "running_init_in_service" in args:
+                 tools.actions.container_manager.do_start(args, session)
 diff --git a/tools/actions/session_manager.py b/tools/actions/session_manager.py
---- a/tools/actions/session_manager.py
-+++ b/tools/actions/session_manager.py
-@@ -4,6 +4,7 @@ import signal
+--- a/tools/actions/session_manager.py	2026-05-29 06:02:24.000000000 +1000
++++ b/tools/actions/session_manager.py	2026-10-06 16:09:20.376740944 +1100
+@@ -4,6 +4,7 @@
+ import os
+ import signal
  import sys
++from tools.helpers import instance
  import tools.config
  import tools.helpers.ipc
-+from tools.helpers import instance
- import dbus
- import dbus.service
  from tools import services
-@@ -43,7 +44,7 @@ def service(args, looper):
+@@ -39,7 +40,7 @@
  
  def start(args, unlocked_cb=None, background=True):
      try:
@@ -109,32 +113,21 @@ diff --git a/tools/actions/session_manager.py b/tools/actions/session_manager.py
          logging.error("Session is already running")
          if unlocked_cb:
 diff --git a/tools/config/__init__.py b/tools/config/__init__.py
---- a/tools/config/__init__.py
-+++ b/tools/config/__init__.py
-@@ -70,8 +70,9 @@ session_defaults = {
+--- a/tools/config/__init__.py	2026-05-29 06:02:24.000000000 +1000
++++ b/tools/config/__init__.py	2026-10-06 16:09:20.376740944 +1100
+@@ -68,7 +68,8 @@
      "lcd_density": "0",
      "background_start": "true"
  }
 -session_defaults["waydroid_user_state"] = session_defaults["xdg_data_home"] + "/waydroid"
--session_defaults["waydroid_data"] = session_defaults["waydroid_user_state"] + "/data"
 +instance_suffix = f".{os.environ['MIODROID_INSTANCE']}" if os.environ.get("MIODROID_INSTANCE") else ""
 +session_defaults["waydroid_user_state"] = session_defaults["xdg_data_home"] + f"/waydroid{instance_suffix}"
-+session_defaults["waydroid_data"] = session_defaults["waydroid_user_state"] + "/data"
+ session_defaults["waydroid_data"] = session_defaults["waydroid_user_state"] + "/data"
  if session_defaults["pulse_runtime_path"] == "None":
      session_defaults["pulse_runtime_path"] = session_defaults["xdg_runtime_dir"] + "/pulse"
- 
-diff --git a/tools/helpers/__init__.py b/tools/helpers/__init__.py
---- a/tools/helpers/__init__.py
-+++ b/tools/helpers/__init__.py
-@@ -12,3 +12,5 @@ import tools.helpers.ipc
- import tools.helpers.gpu
- import tools.helpers.protocol
- import tools.helpers.version
-+import tools.helpers.instance
-+import tools.helpers.dbus
 diff --git a/tools/helpers/arguments.py b/tools/helpers/arguments.py
---- a/tools/helpers/arguments.py
-+++ b/tools/helpers/arguments.py
+--- a/tools/helpers/arguments.py	2026-05-29 06:02:24.000000000 +1000
++++ b/tools/helpers/arguments.py	2026-10-06 16:09:20.376740944 +1100
 @@ -1,6 +1,7 @@
  # Copyright 2021 Oliver Smith
  # SPDX-License-Identifier: GPL-3.0-or-later
@@ -144,16 +137,16 @@ diff --git a/tools/helpers/arguments.py b/tools/helpers/arguments.py
  try:
      import argcomplete
 @@ -146,6 +147,9 @@
-                         help="do not output any log messages")
-     parser.add_argument("-w", "--wait", dest="wait_for_init", action="store_true",
-                         help="wait for init before running")
+     # Logging
+     parser.add_argument("-l", "--log", dest="log", default=None,
+                         help="path to log file")
 +    parser.add_argument("-I", "--instance", type=validate_instance_name,
 +                     help="instance name (default is nothing)")
 +
- 
-     # Actions
-     sub = parser.add_subparsers(title="action", dest="action")
-@@ -185,3 +191,8 @@ def arguments(version):
+     parser.add_argument("--details-to-stdout", dest="details_to_stdout",
+                         help="print details (e.g. build output) to stdout,"
+                              " instead of writing to the log",
+@@ -180,3 +184,8 @@
      # Parse and extend arguments (also backup unmodified result from argparse)
      args = parser.parse_args()
      return args
@@ -163,9 +156,9 @@ diff --git a/tools/helpers/arguments.py b/tools/helpers/arguments.py
 +        raise argparse.ArgumentError(None, "instance name must consist of letters, numbers and underscores only")
 +    return name
 diff --git a/tools/helpers/drivers.py b/tools/helpers/drivers.py
---- a/tools/helpers/drivers.py
-+++ b/tools/helpers/drivers.py
-@@ -7,7 +7,10 @@ import fcntl
+--- a/tools/helpers/drivers.py	2026-05-29 06:02:24.000000000 +1000
++++ b/tools/helpers/drivers.py	2026-10-06 16:09:25.346719066 +1100
+@@ -8,8 +8,11 @@
  import struct
  import tools.config
  import tools.helpers.run
@@ -176,7 +169,8 @@ diff --git a/tools/helpers/drivers.py b/tools/helpers/drivers.py
 +    return [wrap_suffix(input) for input in input_array]
  
  BINDER_DRIVERS = [
-@@ -14,15 +17,15 @@
+     "anbox-binder",
+@@ -17,18 +20,18 @@
      "bonder",
      "binder"
  ]
@@ -197,17 +191,20 @@ diff --git a/tools/helpers/drivers.py b/tools/helpers/drivers.py
 -]
 +])
  
-@@ -61,7 +63,7 @@ def allocBinderNodes(args, binder_dev_nodes):
+ 
+ def isBinderfsLoaded(args):
+@@ -58,7 +61,7 @@
          return IOC(READ|WRITE, _type, nr, size)
  
      BINDER_CTL_ADD = IOWR(98, 1, 264)
--    binderctrlfd = open('/dev/binderfs/binder-control','rb')
-+    binderctrlfd = open(f'{get_binderfs_dir()}/binder-control','rb')
+-    with open('/dev/binderfs/binder-control', 'rb') as f:
++    with open(f'{get_binderfs_dir()}/binder-control', 'rb') as f:
+         for node in binder_dev_nodes:
+             node_struct = struct.pack('256sII', bytes(node, 'utf-8'), 0, 0)
+             with suppress(FileExistsError):
+@@ -96,13 +99,13 @@
+                 logging.error(output.strip())
  
-     for node in binder_dev_nodes:
-@@ -98,14 +100,14 @@ def probeBinderDriver(args):
-         if not (has_vndbinder and has_hwbinder):
-             binder_dev_nodes = []
          if isBinderfsLoaded(args):
 -            command = ["mkdir", "-p", "/dev/binderfs"]
 +            command = ["mkdir", "-p", get_binderfs_dir()]
@@ -222,10 +219,19 @@ diff --git a/tools/helpers/drivers.py b/tools/helpers/drivers.py
              command.append("/dev/")
              tools.helpers.run.user(args, command, check=False)
  
+diff --git a/tools/helpers/__init__.py b/tools/helpers/__init__.py
+--- a/tools/helpers/__init__.py	2026-05-29 06:02:24.000000000 +1000
++++ b/tools/helpers/__init__.py	2026-10-06 16:09:20.376740944 +1100
+@@ -12,4 +12,6 @@
+ import tools.helpers.gpu
+ import tools.helpers.protocol
+ import tools.helpers.version
++import tools.helpers.instance
++import tools.helpers.dbus
+ import tools.helpers.logging
 diff --git a/tools/helpers/instance.py b/tools/helpers/instance.py
-new file mode 100644
---- /dev/null
-+++ b/tools/helpers/instance.py
+--- a/tools/helpers/instance.py	1970-01-01 10:00:00.000000000 +1000
++++ b/tools/helpers/instance.py	2026-10-06 16:09:20.376740944 +1100
 @@ -0,0 +1,35 @@
 +from tools.helpers.arguments import arguments
 +
@@ -263,16 +269,14 @@ new file mode 100644
 +def wrap_suffix(input):
 +    return f"{input}{get_suffix_dash()}"
 diff --git a/tools/helpers/ipc.py b/tools/helpers/ipc.py
---- a/tools/helpers/ipc.py
-+++ b/tools/helpers/ipc.py
-@@ -4,5 +4,6 @@
+--- a/tools/helpers/ipc.py	2026-05-29 06:02:24.000000000 +1000
++++ b/tools/helpers/ipc.py	2026-10-06 16:09:20.377740939 +1100
+@@ -4,9 +4,10 @@
  # Currently implemented as FIFO
  import os
  import dbus
 +from . import instance
  
- BASE_DIR = "/var/run/"
-@@ -8,5 +9,5 @@
  def DBusContainerService(object_path="/ContainerManager", intf="id.waydro.ContainerManager"):
 -    return dbus.Interface(dbus.SystemBus().get_object("id.waydro.Container", object_path), intf)
 +    return dbus.Interface(dbus.SystemBus().get_object(instance.get_container_dbus_name(), object_path), intf)
@@ -281,16 +285,17 @@ diff --git a/tools/helpers/ipc.py b/tools/helpers/ipc.py
 -    return dbus.Interface(dbus.SessionBus().get_object("id.waydro.Session", object_path), intf)
 +    return dbus.Interface(dbus.SessionBus().get_object(instance.get_session_dbus_name(), object_path), intf)
 diff --git a/tools/helpers/lxc.py b/tools/helpers/lxc.py
---- a/tools/helpers/lxc.py
-+++ b/tools/helpers/lxc.py
-@@ -12,5 +12,6 @@ import platform
+--- a/tools/helpers/lxc.py	2026-05-29 06:02:24.000000000 +1000
++++ b/tools/helpers/lxc.py	2026-10-06 16:09:20.377740939 +1100
+@@ -12,6 +12,7 @@
+ import platform
  import gbinder
  import tools.config
- import tools.helpers.run
 +from tools.helpers.instance import get_container_name, get_inet_name, get_work_dir
- 
- def get_lxc_version(args):
-@@ -164,5 +166,18 @@ def set_lxc_config(args):
+ import tools.helpers.run
+ from contextlib import suppress
+ from pathlib import Path
+@@ -160,7 +161,20 @@
  
      command = ["mkdir", "-p", lxc_path]
      tools.helpers.run.user(args, command)
@@ -309,25 +314,34 @@ diff --git a/tools/helpers/lxc.py b/tools/helpers/lxc.py
 +                output.write(output_line)
 +    
 +    tools.helpers.run.user(args, command)
+     tools.helpers.run.user(args, command)
      command = ["sed", "-i", "s/LXCARCH/{}/".format(platform.machine()), lxc_path + "/config"]
-@@ -391,3 +406,3 @@ def setup_host_perms(args):
+     tools.helpers.run.user(args, command)
+@@ -378,7 +392,7 @@
+         shutil.copy(filename, tools.config.defaults["host_perms"])
  
  def status(args):
 -    command = ["lxc-info", "-P", tools.config.defaults["lxc"], "-n", "waydroid", "-sH"]
 +    command = ["lxc-info", "-P", tools.config.defaults["lxc"], "-n", get_container_name(), "-sH"]
-@@ -412,4 +427,4 @@ def wait_for_running(args):
+     try:
+         return tools.helpers.run.user(args, command, output_return=True).strip()
+     except Exception:
+@@ -399,7 +413,7 @@
  
  def start(args):
      command = ["lxc-start", "-P", tools.config.defaults["lxc"],
 -               "-F", "-n", "waydroid", "--", "/init"]
 +               "-F", "-n", get_container_name(), "--", "/init"]
-@@ -420,4 +435,4 @@ def start(args):
+     tools.helpers.run.user(args, command, output="background")
+     wait_for_running(args)
+     # Workaround lxc-start changing stdout/stderr permissions to 700
+@@ -408,11 +422,11 @@
  
  def stop(args):
      command = ["lxc-stop", "-P",
 -               tools.config.defaults["lxc"], "-n", "waydroid", "-k"]
 +               tools.config.defaults["lxc"], "-n", get_container_name(), "-k"]
-@@ -428,7 +443,7 @@ def stop(args):
+     tools.helpers.run.user(args, command)
  
  def freeze(args):
 -    command = ["lxc-freeze", "-P", tools.config.defaults["lxc"], "-n", "waydroid"]
@@ -335,19 +349,3 @@ diff --git a/tools/helpers/lxc.py b/tools/helpers/lxc.py
      tools.helpers.run.user(args, command)
  
  def unfreeze(args):
-     command = ["lxc-unfreeze", "-P",
--               tools.config.defaults["lxc"], "-n", "waydroid"]
-+               tools.config.defaults["lxc"], "-n", get_container_name()]
-@@ -456,6 +471,6 @@ def android_env_attach_options(args):
-     local_env = ANDROID_ENV.copy()
-     # Include CLASSPATH env that was generated by Android
-     command = ["lxc-attach", "-P", tools.config.defaults["lxc"],
--               "-n", "waydroid", "--clear-env", "--",
-+               "-n", get_container_name(), "--clear-env", "--",
-                "/system/bin/cat" ,"/data/system/environ/classpath"]
-@@ -480,5 +495,5 @@ def shell(args):
-         logging.error("WayDroid container is {}".format(state))
-         return
-     command = ["lxc-attach", "-P", tools.config.defaults["lxc"],
--               "-n", "waydroid", "--clear-env"]
-+               "-n", get_container_name(), "--clear-env"]
