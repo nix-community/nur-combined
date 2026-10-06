@@ -11,39 +11,22 @@ jobs:
   tests:
     strategy:
       matrix:
-        # Set this to notify the global nur package registry that changes are
-        # available.
-        #
-        # The repo name as used in
-        # https://github.com/nix-community/NUR/blob/master/repos.json
-        nurRepo:
-          - duncannah
-        # Set this to cache your build results in cachix for faster builds
-        # in CI and for everyone who uses your cache.
-        #
-        # Format: Your cachix cache host name without the ".cachix.org" suffix.
-        # Example: mycache (for mycache.cachix.org)
-        #
-        # For this to work, you also need to set the CACHIX_SIGNING_KEY or
-        # CACHIX_AUTH_TOKEN secret in your repository secrets settings in
-        # Github found at
-        # https://github.com/<your_githubname>/nur-packages/settings/secrets
-        cachixName:
-          - duncannah-nur
-        nixPath:
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-26.05.tar.gz
         include:
-          - system: x86_64-linux
+          - nixpkgs: unstable
+            system: x86_64-linux
             runner: ubuntu-24.04
-          - system: aarch64-linux
+          - nixpkgs: unstable
+            system: aarch64-linux
             runner: ubuntu-24.04-arm
-          - system: aarch64-darwin
+          - nixpkgs: unstable
+            system: aarch64-darwin
             runner: macos-15
 
-    name: ${{ matrix.system }} / ${{ matrix.nixPath }}
+    name: ${{ matrix.system }} / ${{ matrix.nixpkgs }}
     runs-on: ${{ matrix.runner }}
+    env:
+      nurRepo: duncannah
+      cachixName: duncannah-nur
 
     steps:
       - name: Checkout repository
@@ -52,7 +35,7 @@ jobs:
       - name: Install nix
         uses: cachix/install-nix-action@v31
         with:
-          nix_path: "${{ matrix.nixPath }}"
+          nix_path: "nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-${{ matrix.nixpkgs }}.tar.gz"
           extra_nix_config: |
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
@@ -64,10 +47,8 @@ jobs:
 
       - name: Setup cachix
         uses: cachix/cachix-action@v17
-        # Don't replace <YOUR_CACHIX_NAME> here!
-        if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
         with:
-          name: ${{ matrix.cachixName }}
+          name: ${{ env.cachixName }}
           signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
 
@@ -84,6 +65,4 @@ jobs:
         run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
 
       - name: Trigger NUR update
-        # Don't replace <YOUR_REPO_NAME> here!
-        if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
-        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
+        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ env.nurRepo }}"
