@@ -47,7 +47,7 @@ let
     text = ''
       [D-BUS Service]
       Name=id.miodro.Container
-      Exec=${miodroidPackage}/bin/miodroid container start
+      Exec=${pkgs.bash}/bin/bash -c "exec env MIODROID_ROOTLESS=1 MIODROID_WORK=''${XDG_DATA_HOME:-$HOME/.local/share}/miodroid ${miodroidPackage}/bin/miodroid --details-to-stdout container start"
     '';
   };
   miodroidGbinderConf = pkgs.writeText "miodroid.conf" ''
@@ -126,6 +126,7 @@ in
     '';
 
     environment.etc."gbinder.d/miodroid.conf".source = miodroidGbinderConf;
+    programs.fuse.userAllowOther = lib.mkIf rootlessCfg.enable true;
     environment.systemPackages = [
       miodroidPackage
     ]

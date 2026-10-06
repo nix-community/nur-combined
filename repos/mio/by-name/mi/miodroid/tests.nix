@@ -90,28 +90,64 @@ in
       machine.wait_for_unit("miodroid-container.service")
       machine.succeed("python3 -m http.server 8000 --directory /etc/miodroid-test >/tmp/miodroid-http.log 2>&1 &")
       machine.succeed("miodroid init -c http://127.0.0.1:8000/system -v http://127.0.0.1:8000/vendor -r lineage -s VANILLA", timeout=3600)
-      machine.succeed(
-          "install -d -m 0700 /run/user/0 && dbus-run-session -- sh -c '"
-          "python3 -c \"import os,socket,time; os.makedirs(\\\"/run/user/0/pulse\\\",exist_ok=True); "
-          "s=[]; [ (os.unlink(p) if os.path.exists(p) else None, "
-          "s.append(socket.socket(socket.AF_UNIX)), s[-1].bind(p), s[-1].listen(1)) "
-          "for p in [\\\"/run/user/0/wayland-0\\\",\\\"/run/user/0/pulse/native\\\"]]; "
-          "time.sleep(120)\" & "
-          "wayland=$!; XDG_RUNTIME_DIR=/run/user/0 miodroid session start "
-          ">/tmp/miodroid-session.log 2>&1 || true; "
-          "for i in $(seq 1 60); do "
-          "lxc-info -P /var/lib/miodroid/lxc -n miodroid -sH | "
-          "grep -q RUNNING && kill $wayland && exit 0; sleep 1; done; "
-          "cat /tmp/miodroid-session.log; cat /var/lib/miodroid/miodroid.log; "
-          "kill $wayland; exit 1'",
-          timeout=300,
-      )
+      machine.succeed("""cat > /tmp/miodroid-session-test.sh << 'EOF'
+      #!/bin/sh
+      set -eu
+      install -d -m 0700 /run/user/0
+      mkdir -p /run/user/0/pulse
+      # Listening Wayland and PulseAudio sockets for the session to bind into
+      # the container.
+      python3 << 'PYEOF' &
+      import os, socket, time
+      for path in ["/run/user/0/wayland-0", "/run/user/0/pulse/native"]:
+          if os.path.exists(path):
+              os.unlink(path)
+          s = socket.socket(socket.AF_UNIX)
+          s.bind(path)
+          s.listen(1)
+      time.sleep(600)
+      PYEOF
+      wlserver=$!
+
+      # `session start` stays in the foreground for as long as the session
+      # lives, so run it in the background and watch the container instead.
+      # The container has to stay up, not just reach RUNNING once; the session
+      # is left running, the assertions below stop it.
+      XDG_RUNTIME_DIR=/run/user/0 miodroid session start > /tmp/miodroid-session.log 2>&1 &
+      session=$!
+
+      running=0
+      for i in $(seq 1 180); do
+          if lxc-info -P /var/lib/miodroid/lxc -n miodroid -sH | grep -q RUNNING; then
+              running=$((running + 1))
+              if test $running -ge 10; then
+                  echo container-running
+                  kill $session $wlserver 2>/dev/null || true
+                  exit 0
+              fi
+          else
+              running=0
+          fi
+          if ! test -d /proc/$session; then
+              echo "session exited before the container came up"
+              break
+          fi
+          sleep 1
+      done
+
+      echo "=== SESSION LOG ===" ; cat /tmp/miodroid-session.log || true
+      echo "=== MIODROID LOG ===" ; cat /var/lib/miodroid/miodroid.log 2>/dev/null || true
+      echo "=== JOURNALCTL ===" ; journalctl --user -n 100 -xe || true
+      kill $session $wlserver 2>/dev/null || true
+      exit 1
+      EOF
+      chmod 0755 /tmp/miodroid-session-test.sh""")
+      machine.succeed("dbus-run-session -- /tmp/miodroid-session-test.sh", timeout=300)
       machine.wait_for_unit("miodroid-container.service")
       machine.succeed("test -f /var/lib/miodroid/images/system.img")
       machine.succeed("test -f /var/lib/miodroid/images/vendor.img")
       machine.succeed("test -f /var/lib/miodroid/lxc/miodroid/config")
       machine.succeed("test -f /var/lib/miodroid/lxc/miodroid/miodroid.seccomp")
-      machine.succeed("lxc-info -P /var/lib/miodroid/lxc -n miodroid -sH | grep -q RUNNING")
     '';
   };
 
@@ -153,16 +189,28 @@ in
           }
         ];
       };
+
+      programs.fuse.enable = true;
     };
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")
       machine.wait_for_unit("miodroid-rootless-helper.service")
       machine.succeed("zgrep -q 'ANDROID_BINDER_IPC=y' /proc/config.gz || test -e /sys/module/binder_linux")
-      machine.succeed("mkdir -p /dev/binderfs && mount -t binder binder /dev/binderfs")
+      # miodroid-rootless-helper already mounts binderfs and hands the nodes
+      # over to the miodroid group; mounting a second binderfs here would hide
+      # that instance (and its permissions) behind a fresh, root-only one.
+      machine.succeed("mountpoint -q /dev/binderfs || { mkdir -p /dev/binderfs && mount -t binder binder /dev/binderfs; }")
       machine.succeed("test -e /dev/binderfs/binder -a -e /dev/binderfs/vndbinder -a -e /dev/binderfs/hwbinder")
+      # Android's init logs to /dev/kmsg and the rootless container is given the
+      # host's node (mknod is refused inside a user namespace), so let the
+      # container's root write there.
+      machine.succeed("chmod 0666 /dev/kmsg")
       machine.succeed("python3 -m http.server 8000 --directory /etc/miodroid-test >/tmp/miodroid-http.log 2>&1 &")
       machine.succeed("sleep 2")
+      machine.succeed("loginctl enable-linger alice")
+      machine.wait_until_succeeds("test -S /run/user/1000/bus")
+      machine.wait_until_succeeds("su - alice -c 'DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus busctl --user call org.freedesktop.systemd1 /org/freedesktop/systemd1 org.freedesktop.DBus.Peer Ping'")
       machine.succeed("install -d -m 0700 -o alice -g users /run/user/1000")
       machine.succeed("""cat > /tmp/miodroid-rootless-test.sh <<'EOF'
       #!/bin/sh
@@ -185,11 +233,75 @@ in
       machine.succeed(
           "su - alice -c 'env MIODROID_ROOTLESS=1 "
           "MIODROID_WORK=/home/alice/.local/share/miodroid "
-          "XDG_RUNTIME_DIR=/run/user/1000 dbus-run-session "
+          "XDG_RUNTIME_DIR=/run/user/1000 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus "
           "/tmp/miodroid-rootless-test.sh'",
           timeout=420,
       )
       machine.succeed("test -f /home/alice/.local/share/miodroid/miodroid.cfg")
+      # The unprivileged network and the container's idmap are what make the
+      # rootless container reachable and able to run Android; assert them
+      # instead of only printing them while debugging.
+      machine.succeed("grep -q 'lxcbr0' /etc/lxc/lxc-usernet")
+      machine.succeed("grep -q 'lxc.idmap = u 0 1000 1' /home/alice/.local/share/miodroid/lxc/miodroid/config")
+      machine.succeed("grep -q 'lxc.rootfs.mount' /home/alice/.local/share/miodroid/lxc/miodroid/config")
+      machine.succeed("su - alice -c 'test -r /dev/binder -a -w /dev/binder'")
+      machine.succeed("""cat > /tmp/test-session.sh << 'EOFSCRIPT'
+      #!/bin/sh
+      set -eu
+      export MIODROID_ROOTLESS=1
+      export MIODROID_WORK=/home/alice/.local/share/miodroid
+      export XDG_RUNTIME_DIR=/run/user/1000
+      export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+
+      mkdir -p /run/user/1000/pulse
+      # Listening Wayland and PulseAudio sockets for the session to bind into
+      # the container.
+      python3 << 'PYEOF' &
+      import os, socket, time
+      for path in ["/run/user/1000/wayland-0", "/run/user/1000/pulse/native"]:
+          if os.path.exists(path):
+              os.unlink(path)
+          s = socket.socket(socket.AF_UNIX)
+          s.bind(path)
+          s.listen(1)
+      time.sleep(600)
+      PYEOF
+      wlserver=$!
+
+      # `session start` stays in the foreground for as long as the session
+      # lives, so run it in the background and watch the container instead.
+      # The container has to stay up, not just reach RUNNING once.
+      miodroid --details-to-stdout session start > /tmp/miodroid-session.log 2>&1 &
+      session=$!
+
+      running=0
+      for i in $(seq 1 180); do
+          if lxc-info -P /home/alice/.local/share/miodroid/lxc -n miodroid -sH | grep -q RUNNING; then
+              running=$((running + 1))
+              if test $running -ge 10; then
+                  echo container-running
+                  kill $session $wlserver 2>/dev/null || true
+                  exit 0
+              fi
+          else
+              running=0
+          fi
+          if ! test -d /proc/$session; then
+              echo "session exited before the container came up"
+              break
+          fi
+          sleep 1
+      done
+
+      echo "=== SESSION LOG ===" ; cat /tmp/miodroid-session.log || true
+      echo "=== MIODROID LOG ===" ; cat /home/alice/.local/share/miodroid/miodroid.log 2>/dev/null || true
+      echo "=== KMSG (container init) ===" ; dmesg | tail -n 80 || true
+      echo "=== JOURNALCTL ===" ; journalctl --user -n 100 -xe || true
+      kill $session $wlserver 2>/dev/null || true
+      exit 1
+      EOFSCRIPT
+      chmod 0755 /tmp/test-session.sh""")
+      machine.succeed("su - alice -c '/tmp/test-session.sh'", timeout=300)
     '';
   };
 }

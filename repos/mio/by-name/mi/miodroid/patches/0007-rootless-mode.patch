@@ -1,0 +1,350 @@
+--- a/tools/actions/container_manager.py
++++ b/tools/actions/container_manager.py
+@@ -115,11 +115,11 @@
+     GLib.unix_signal_add(GLib.PRIORITY_HIGH, signal.SIGINT, sigint_handler, None)
+     GLib.unix_signal_add(GLib.PRIORITY_HIGH, signal.SIGTERM, sigint_handler, None)
+ 
+-    initializer = actions.initializer.DbusInitializer(mainloop, dbus.SystemBus(), '/Initializer', args)
+-    _container_manager = DbusContainerManager(mainloop, dbus.SystemBus(), '/ContainerManager', args)
++    initializer = actions.initializer.DbusInitializer(mainloop, dbus.SessionBus() if os.environ.get("MIODROID_ROOTLESS") else dbus.SystemBus(), '/Initializer', args)
++    _container_manager = DbusContainerManager(mainloop, dbus.SessionBus() if os.environ.get("MIODROID_ROOTLESS") else dbus.SystemBus(), '/ContainerManager', args)
+ 
+     try:
+-        _name = dbus.service.BusName("id.miodro.Container", dbus.SystemBus(), do_not_queue=True)
++        _name = dbus.service.BusName("id.miodro.Container", dbus.SessionBus() if os.environ.get("MIODROID_ROOTLESS") else dbus.SystemBus(), do_not_queue=True)
+     except dbus.exceptions.NameExistsException:
+         logging.error("Container service is already running")
+         return
+--- a/tools/actions/initializer.py
++++ b/tools/actions/initializer.py
+@@ -168,6 +168,7 @@
+             except Exception as e:
+                 logging.debug(e)
+                 tools.actions.container_manager.stop(args, False)
++    os.makedirs(args.images_path, exist_ok=True)
+     if args.images_path not in tools.config.defaults["preinstalled_images_paths"]:
+         helpers.images.get(args)
+     else:
+@@ -240,7 +241,7 @@
+ def ensure_polkit_auth(sender, conn, privilege):
+     dbus_info = dbus.Interface(conn.get_object("org.freedesktop.DBus", "/org/freedesktop/DBus/Bus", False), "org.freedesktop.DBus")
+     pid = dbus_info.GetConnectionUnixProcessID(sender)
+-    polkit = dbus.Interface(dbus.SystemBus().get_object("org.freedesktop.PolicyKit1", "/org/freedesktop/PolicyKit1/Authority", False), "org.freedesktop.PolicyKit1.Authority")
++    polkit = dbus.Interface(dbus.SessionBus() if os.environ.get("MIODROID_ROOTLESS") else dbus.SystemBus().get_object("org.freedesktop.PolicyKit1", "/org/freedesktop/PolicyKit1/Authority", False), "org.freedesktop.PolicyKit1.Authority")
+     try:
+         (is_auth, _, _) = polkit.CheckAuthorization(
+             ("unix-process", {
+--- a/tools/helpers/images.py
++++ b/tools/helpers/images.py
+@@ -162,9 +162,13 @@
+ def mount_rootfs(args, images_dir, session):
+     cfg = tools.config.load(args)
+     helpers.mount.mount(args, images_dir + "/system.img",
+-                        tools.config.defaults["rootfs"], umount=True)
+-    if cfg["miodroid"]["mount_overlays"] == "True":
++                        tools.config.defaults["rootfs"], umount=True, readonly=False)
++    if cfg["miodroid"]["mount_overlays"] == "True" and not os.environ.get("MIODROID_ROOTLESS"):
+         try:
++            if os.environ.get("MIODROID_ROOTLESS"):
++                os.makedirs(tools.config.defaults["overlay_rw"] + "/system/proc", exist_ok=True)
++                os.makedirs(tools.config.defaults["overlay_rw"] + "/system/sys", exist_ok=True)
++                os.makedirs(tools.config.defaults["overlay_rw"] + "/system/dev", exist_ok=True)
+             helpers.mount.mount_overlay(args, [tools.config.defaults["overlay"],
+                                                tools.config.defaults["rootfs"]],
+                                     tools.config.defaults["rootfs"],
+@@ -176,8 +180,8 @@
+             logging.warning("Mounting overlays failed. The feature has been disabled.")
+ 
+     helpers.mount.mount(args, images_dir + "/vendor.img",
+-                           tools.config.defaults["rootfs"] + "/vendor")
+-    if cfg["miodroid"]["mount_overlays"] == "True":
++                           tools.config.defaults["rootfs"] + "/vendor", readonly=False)
++    if cfg["miodroid"]["mount_overlays"] == "True" and not os.environ.get("MIODROID_ROOTLESS"):
+         helpers.mount.mount_overlay(args, [tools.config.defaults["overlay"] + "/vendor",
+                                            tools.config.defaults["rootfs"] + "/vendor"],
+                                     tools.config.defaults["rootfs"] + "/vendor",
+@@ -197,8 +201,6 @@
+                 args, "/vendor/odm", tools.config.defaults["rootfs"] + "/odm_extra")
+ 
+     make_prop(args, session, args.work + "/waydroid.prop")
+-    helpers.mount.bind_file(args, args.work + "/waydroid.prop",
+-                            tools.config.defaults["rootfs"] + "/vendor/waydroid.prop")
+ 
+ def umount_rootfs(args):
+     helpers.mount.umount_all(args, tools.config.defaults["rootfs"])
+--- a/tools/helpers/instance.py
++++ b/tools/helpers/instance.py
+@@ -21,7 +21,7 @@
+     return f"/miodroid{get_suffix()}/data"
+ 
+ def get_inet_name():
+-    return f"miodroid0{get_suffix_dash()}"
++    return "lxcbr0" if os.environ.get("MIODROID_ROOTLESS") else f"miodroid0{get_suffix_dash()}"
+ 
+ def get_suffix():
+     return f".{INSTANCE_NAME}" if INSTANCE_NAME else ""
+--- a/tools/helpers/ipc.py
++++ b/tools/helpers/ipc.py
+@@ -7,7 +7,7 @@
+ from . import instance
+ 
+ def DBusContainerService(object_path="/ContainerManager", intf="id.miodro.ContainerManager"):
+-    return dbus.Interface((dbus.SessionBus() if os.environ.get("MIODROID_ROOTLESS") else dbus.SystemBus()).get_object(instance.get_container_dbus_name(), object_path), intf)
++    return dbus.Interface((dbus.SessionBus() if os.environ.get("MIODROID_ROOTLESS") else dbus.SessionBus() if os.environ.get("MIODROID_ROOTLESS") else dbus.SystemBus()).get_object(instance.get_container_dbus_name(), object_path), intf)
+ 
+ def DBusSessionService(object_path="/SessionManager", intf="id.miodro.SessionManager"):
+     return dbus.Interface(dbus.SessionBus().get_object(instance.get_session_dbus_name(), object_path), intf)
+--- a/tools/helpers/lxc.py
++++ b/tools/helpers/lxc.py
+@@ -50,6 +50,9 @@
+     make_entry("/dev/full")
+     make_entry("/dev/ashmem")
+     make_entry("/dev/fuse")
++    if os.environ.get("MIODROID_ROOTLESS"):
++        make_entry("/dev/kmsg", "dev/kmsg", options="bind,create=file 0 0")
++        make_entry("tmpfs", "dev/socket", "tmpfs", "mode=0755,create=dir 0 0", False)
+     make_entry("/dev/ion")
+     make_entry("/dev/tty")
+     make_entry("/dev/char", options="bind,create=dir,optional 0 0")
+@@ -164,6 +167,9 @@
+ 
+     if os.path.exists(lxc_path + "/config"):
+         os.remove(lxc_path + "/config")
++    if os.environ.get("MIODROID_ROOTLESS"):
++        from tools.helpers import rootless
++        rootless.write_lxc_idmap(lxc_path)
+     for w in config_snippets:
+         with open(w, "r") as input:
+             lines = input.readlines()
+@@ -413,7 +419,7 @@
+ 
+ def start(args):
+     command = ["lxc-start", "-P", tools.config.defaults["lxc"],
+-               "-F", "-n", get_container_name(), "--", "/init"]
++               "-F", "-n", get_container_name(), "--", "/init"] + (["second_stage"] if os.environ.get("MIODROID_ROOTLESS") else [])
+     tools.helpers.run.user(args, command, output="background")
+     wait_for_running(args)
+     # Workaround lxc-start changing stdout/stderr permissions to 700
+--- a/tools/helpers/mount.py
++++ b/tools/helpers/mount.py
+@@ -178,3 +178,10 @@
+ 
+     mount(args, "overlay", destination, mount_type="overlay", options=options,
+           readonly=readonly, create_folders=create_folders, force=True)
++
++if os.environ.get("MIODROID_ROOTLESS"):
++    from tools.helpers import rootless
++    bind = rootless.bind
++    bind_file = rootless.bind_file
++    mount = rootless.mount
++    umount_all = rootless.umount_all
+--- /dev/null
++++ b/tools/helpers/rootless.py
+@@ -0,0 +1,172 @@
++import tools.helpers.run
++
++import logging
++import os
++import pwd
++import shutil
++import hashlib
++
++def _run(args, command, check=True):
++    return tools.helpers.run.user(args, command, check=check)
++
++def _ismount(path):
++    path = os.path.realpath(path)
++    with open("/proc/mounts") as mounts:
++        return any(len(words) >= 2 and words[1] == path
++                   for words in (line.split() for line in mounts))
++
++def _grow(args, path):
++    """Give a cached image some free space.
++
++    The OTA images are shipped with no free blocks at all, and
++    rootless mode mounts the image itself read-write (there is no
++    overlay to absorb writes), so Android cannot even create
++    /mnt/user. Growing the cache copy once is enough.
++    """
++    if os.environ.get("MIODROID_NO_IMAGE_GROWTH"):
++        return
++    marker = path + ".grown"
++    if os.path.exists(marker):
++        return
++    with open(path, "rb+") as image:
++        image.truncate(os.path.getsize(path) + 1024 * 1024 * 1024)
++    _run(args, ["resize2fs", path])
++    open(marker, "w").close()
++
++def _fusermount():
++    """Locate a usable fusermount3.
++
++    libfuse looks the helper up in /run/wrappers/bin (the store copy
++    is not setuid, and /nix/store is mounted nosuid), so resolving it
++    through PATH from the wrapped miodroid can find a binary that
++    cannot unmount anything.
++    """
++    for candidate in ("/run/wrappers/bin/fusermount3", "fusermount3"):
++        path = shutil.which(candidate)
++        if path:
++            return path
++    raise RuntimeError("fusermount3 is required for rootless mode")
++
++def _subid_range(path, uid, name):
++    """First subordinate id range for the user in an /etc/subuid
++    style file, as (start, count). NixOS writes the account name,
++    other systems may write the numeric id."""
++    try:
++        with open(path) as subids:
++            for line in subids:
++                fields = line.split(":")
++                if len(fields) == 3 and fields[0] in (name, str(uid)):
++                    return int(fields[1]), int(fields[2])
++    except (OSError, ValueError):
++        pass
++    return 100000, 65536
++
++def write_lxc_idmap(lxc_path):
++    """Write the rootless idmap and rootfs lines to a container config.
++
++    The container's root is mapped to the invoking user: that is the
++    only account the unprivileged fuse2fs/fuse-overlayfs mounts can
++    hand to the container, and it is the only account that may
++    traverse the paths miodroid has to bind into it (XDG_RUNTIME_DIR,
++    the work directory, the user's home). The remaining container ids
++    come from the account's own subordinate id ranges.
++    """
++    uid = os.getuid()
++    gid = os.getgid()
++    try:
++        name = pwd.getpwuid(uid).pw_name
++    except KeyError:
++        name = str(uid)
++    subuid, subuid_count = _subid_range("/etc/subuid", uid, name)
++    subgid, subgid_count = _subid_range("/etc/subgid", gid, name)
++    os.makedirs(os.path.join(lxc_path, "rootfs"), exist_ok=True)
++    with open(os.path.join(lxc_path, "config"), "a") as output:
++        output.write("lxc.idmap = u 0 {} 1\n".format(uid))
++        output.write("lxc.idmap = g 0 {} 1\n".format(gid))
++        output.write("lxc.idmap = u 1 {} {}\n".format(
++            subuid, min(subuid_count, 65535)))
++        output.write("lxc.idmap = g 1 {} {}\n".format(
++            subgid, min(subgid_count, 65535)))
++        output.write("lxc.rootfs.mount = {}/rootfs\n".format(lxc_path))
++
++def bind(args, source, destination, create_folders=True, umount=False):
++    if os.path.isdir(source):
++        if create_folders:
++            os.makedirs(destination, exist_ok=True)
++        shutil.copytree(source, destination, dirs_exist_ok=True)
++        return
++    bind_file(args, source, destination, create_folders)
++
++def bind_file(args, source, destination, create_folders=False):
++    os.makedirs(os.path.dirname(destination), exist_ok=True)
++    shutil.copy2(source, destination)
++
++def mount(args, source, destination, create_folders=True, umount=False,
++          readonly=True, mount_type=None, options=None, force=True):
++    if _ismount(destination) and mount_type == "overlay":
++        umount_all(args, destination)
++    os.makedirs(destination, exist_ok=True)
++    if source.endswith(".img"):
++        with open(source, "rb") as image:
++            is_sparse = image.read(4) == b"\x3a\xff\x26\xed"
++        cache_dir = os.path.join(
++            os.environ.get("MIODROID_WORK", "/tmp"),
++            "raw-images")
++        os.makedirs(cache_dir, exist_ok=True)
++        cache = os.path.join(
++            cache_dir,
++            hashlib.sha256(os.fsencode(source)).hexdigest() + ".img")
++        if not os.path.exists(cache):
++            if is_sparse:
++                _run(args, ["simg2img", source, cache])
++            else:
++                shutil.copyfile(source, cache)
++        status = _run(args, ["e2fsck", "-fy", cache], check=False)
++        if status not in (0, 1, 2):
++            raise RuntimeError(
++                "e2fsck failed for rootless image: " + source)
++        source = cache
++        os.system("chmod u+w " + cache)
++        _grow(args, cache)
++        mount_options = ["fakeroot"]
++        mount_options.append("ro" if readonly else "rw")
++        if os.environ.get("MIODROID_ROOTLESS"):
++            mount_options.append("allow_other")
++        command = ["fuse2fs", "-o", ",".join(mount_options),
++                   source, destination]
++    elif mount_type == "overlay":
++        command = ["fuse-overlayfs"]
++        if options:
++            opts = options.copy()
++            if os.environ.get("MIODROID_ROOTLESS"):
++                # The container's root is mapped to the invoking user
++                # (see write_lxc_idmap), so that account is the only
++                # owner the daemon can give files it creates: it has
++                # no CAP_CHOWN for any other id. The extra one-id
++                # mapping keeps the image's root-owned files (uid 0)
++                # looking like the container's root.
++                uid = os.getuid()
++                gid = os.getgid()
++                opts.append("uidmapping={0}:0:65536,{0}:{0}:1".format(uid))
++                opts.append("gidmapping={0}:0:65536,{0}:{0}:1".format(gid))
++                opts.append("allow_other")
++            command += ["-o", ",".join(opts)]
++        command.append(destination)
++    else:
++        raise RuntimeError(
++            "Rootless mode cannot mount {} at {}; use a rootful helper"
++            .format(source, destination))
++    _run(args, command)
++    if not _ismount(destination):
++        raise RuntimeError("Rootless mount failed: " + destination)
++
++def umount_all(args, folder):
++    fusermount = _fusermount()
++    folder = os.path.realpath(folder)
++    with open("/proc/mounts") as mounts:
++        paths = sorted(
++            (words[1] for words in (line.split() for line in mounts)
++             if len(words) >= 2 and words[1].startswith(folder)),
++            reverse=True)
++    for path in paths:
++        _run(args, [fusermount, "-u", path])
+--- a/tools/__init__.py
++++ b/tools/__init__.py
+@@ -16,7 +16,13 @@
+ 
+ def prep_args(args):
+     args.cache = {}
+-    args.work = config.defaults["work"]
++    args.work = os.environ.get("MIODROID_WORK", config.defaults["work"])
++    if os.environ.get("MIODROID_ROOTLESS"):
++        suffix = len(config.defaults["work"])
++        for key in ("images_path", "rootfs", "overlay", "overlay_rw",
++                    "overlay_work", "data", "lxc", "host_perms"):
++            config.defaults[key] = args.work + config.defaults[key][suffix:]
++    config.defaults["work"] = args.work
+     args.config = args.work + "/miodroid.cfg"
+     args.log = args.work + "/miodroid.log"
+     args.sudo_timer = True
+@@ -24,7 +24,7 @@
+ 
+ def main():
+     def actionNeedRoot(action):
+-        if os.geteuid() != 0:
++        if os.geteuid() != 0 and not os.environ.get("MIODROID_ROOTLESS"):
+             raise RuntimeError(
+                 "Action \"{}\" needs root access".format(action))
+ 
+@@ -41,6 +41,8 @@
+         elif not os.path.exists(args.log):
+             args.log = "/tmp/tools.log"
+ 
++        if os.environ.get("MIODROID_ROOTLESS"):
++            os.makedirs(args.work, exist_ok=True)
+         tools_logging.init(args)
+ 
+         dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
