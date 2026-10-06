@@ -157,11 +157,6 @@ lazy_tools: {
 		global: true
 		bins: ["herdr-reflow"]
 	}
-	grok: {
-		ref: "grok-build"
-		global: true
-		bins: ["grok"]
-	}
 	beans: {
 		ref: "github:hmans/beans"
 		global: true
