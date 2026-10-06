@@ -331,5 +331,5 @@
     "native/protocol/src/daemon_config.rs": "e5c2d29ac95ebe4fd02ca9c9c7563ccf771e4bfcdd789756b8ebe52998badd2d",
     "native/protocol/src/rpc.rs": "c8fa66843403af81b91ef98d2786637deaf5279b4f47bc44a0ceacd6b1015a01"
   },
-  "version": "0.5.3"
+  "version": "0.5.4"
 }

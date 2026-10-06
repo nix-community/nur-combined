@@ -7,18 +7,18 @@ let
   sources = {
     x86_64-linux = {
       arch = "x64";
-      hash = "sha256-I4Fz2F6XV7mR835goyM9CZsfYkfvGok0wUxCmDvxBL0=";
+      hash = "sha256-t24YCEXU/lmDfuFTKQ055twyPcortssgaxPKns9EE0c=";
     };
     aarch64-linux = {
       arch = "arm64";
-      hash = "sha256-rv+vLF1a+3UQBjVl2JuXTjE8vAqoz2dcYCk+IX3w8L8=";
+      hash = "sha256-knny2S1YL+33vK6DCtuNfsKcs+e7d6y/nREPlaE/NHw=";
     };
   };
   source = sources.${stdenvNoCC.hostPlatform.system};
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "fluxdown-server";
-  version = "0.5.3";
+  version = "0.5.4";
 
   src = fetchurl {
     url = "https://github.com/zerx-lab/FluxDown/releases/download/v${finalAttrs.version}/FluxDown-Server-${finalAttrs.version}-linux-${source.arch}.tar.gz";
