@@ -56,6 +56,7 @@
   linearmouse = lib.callPackage ./pkgs/linearmouse {};
   pearcleaner = lib.callPackage ./pkgs/pearcleaner {};
   supercharge = lib.callPackage ./pkgs/supercharge {};
+  removemacai = lib.callPackage ./pkgs/removemacai {};
   compositor = lib.callPackage ./pkgs/compositor {};
   cot-editor = lib.callPackage ./pkgs/cot-editor {};
   screendrop = lib.callPackage ./pkgs/screendrop {};
