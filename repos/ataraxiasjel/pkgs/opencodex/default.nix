@@ -4,16 +4,17 @@
   fetchFromGitHub,
   bun,
   versionCheckHook,
+  _experimental-update-script-combinators,
 }:
 
 let
-  version = "2.13.0";
+  version = "2.78.0";
 
   src = fetchFromGitHub {
     owner = "lidge-jun";
     repo = "opencodex";
     rev = "v${version}";
-    hash = "sha256-IZLVVUbVRirOwNmPRyr/3VI1zE0c85TaAHEoOgi+iwg=";
+    hash = "sha256-3PQiKaHhvLLBUql5DEx7wRa46Tm8LmNYbdqjB0F8a5Y=";
   };
 
   packageLock = ./package-lock.json;
@@ -26,7 +27,7 @@ let
     # The repo keeps frontend sources in gui/; the fetched tree's top dir is src.name.
     sourceRoot = "${src.name}/gui";
 
-    npmDepsHash = "sha256-BvFAFT3Gegf759AdZIlO5s6aKQSFji1282UGKnT2Xo0=";
+    npmDepsHash = "sha256-OtVx0uM1+vbKM75jUYi4WXB6zQXOVWLricYST3uNPt0=";
 
     # npmConfigHook requires a package-lock.json at the source root; the repo
     # only ships bun.lock, so vendored lockfile is copied in.
@@ -52,7 +53,7 @@ buildNpmPackage {
   pname = "opencodex";
   inherit version src;
 
-  npmDepsHash = "sha256-xHJUGAwUbK7Q5uMTMI75Z4/MUHX/fdnCo1Z4S0s6WY8=";
+  npmDepsHash = "sha256-+5hFEWYQOsQiZvw14N2H+sIEGQDgjFCooEIPcTDfJBc=";
 
   # The root has no `build` script; TS runs directly under Bun.
   dontNpmBuild = true;
@@ -83,7 +84,14 @@ buildNpmPackage {
   doInstallCheck = true;
   nativeInstallCheckInputs = [ versionCheckHook ];
 
-  passthru.updateScript = ./update.sh;
+  # update.sh takes the checkout-relative package dir: it executes from the
+  # read-only store copy of the flake, so it must not write next to itself.
+  passthru.updateScript = _experimental-update-script-combinators.sequence [
+    [
+      ./update.sh
+      "./pkgs/opencodex"
+    ]
+  ];
 
   meta = with lib; {
     description = "Universal provider proxy for OpenAI Codex & Claude Code";

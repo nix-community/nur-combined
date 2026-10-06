@@ -48,10 +48,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NIXPKGS_ALLOW_UNFREE: 1
           NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1
-          # gradle mitm-cache (suwayomi-server) uses bubblewrap, which fails on
-          # GitHub's ubuntu-latest with "bwrap: setting up uid map: Permission denied".
-          # Disable the nix sandbox for the bulk update so fetch-deps can run.
-          NIX_CONFIG: "sandbox = false"
+          # suwayomi-server's gradle deps updater wraps gradle in bubblewrap, which
+          # fails on GitHub's ubuntu-latest with "bwrap: setting up uid map:
+          # Permission denied" (unprivileged user namespaces are restricted there;
+          # bwrap runs outside the nix sandbox, so sandbox=false would not help).
+          # nixpkgs honors USE_BWRAP=0 to skip it (pure hygiene wrapper, see
+          # gradle/update-deps.nix in nixpkgs).
+          USE_BWRAP: "0"
         timeout-minutes: 90
         run: |
           # shellcheck disable=SC2155

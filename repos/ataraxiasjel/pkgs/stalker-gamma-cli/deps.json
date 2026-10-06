@@ -60,6 +60,11 @@
     "hash": "sha256-HV30fu+lF/GYkeVP+Yq/EU1FzgdMqwqlepCpvxUgugE="
   },
   {
+    "pname": "Microsoft.Extensions.DependencyInjection.Abstractions",
+    "version": "8.0.0",
+    "hash": "sha256-75KzEGWjbRELczJpCiJub+ltNUMMbz5A/1KQU+5dgP8="
+  },
+  {
     "pname": "Microsoft.Extensions.DependencyInjection.AutoActivation",
     "version": "10.6.0",
     "hash": "sha256-czgMHcJJiO6sq7u/EfD53gcXyK9EzBi4kAtn/ONBCiM="
@@ -165,6 +170,46 @@
     "hash": "sha256-q8X7XOU4ssvvxMnrZJhcxaDuj9aZjVNERc0KOp9oQcI="
   },
   {
+    "pname": "Microsoft.IO.RecyclableMemoryStream",
+    "version": "3.0.1",
+    "hash": "sha256-unFg/5EcU/XKJbob4GtQC43Ydgi5VjeBGs7hfhj4EYo="
+  },
+  {
+    "pname": "Microsoft.Kiota.Abstractions",
+    "version": "2.0.0",
+    "hash": "sha256-vTpcCiHDNaDE7slU7C0ebP7g9TD7hS5/Mushl/by9Sc="
+  },
+  {
+    "pname": "Microsoft.Kiota.Bundle",
+    "version": "2.0.0",
+    "hash": "sha256-qBxPXJa884XUWSrvarA+s28DFrhwcW+0X93O7T+2Ink="
+  },
+  {
+    "pname": "Microsoft.Kiota.Http.HttpClientLibrary",
+    "version": "2.0.0",
+    "hash": "sha256-sYQHaCZlES6FvGkWYAhwhPocFRQevrLW/8ZAjN8YyE8="
+  },
+  {
+    "pname": "Microsoft.Kiota.Serialization.Form",
+    "version": "2.0.0",
+    "hash": "sha256-D/QX/mt2Yg+q8ZUf0cLdD+C7slqTF8kaU3DgtZI1FXg="
+  },
+  {
+    "pname": "Microsoft.Kiota.Serialization.Json",
+    "version": "2.0.0",
+    "hash": "sha256-1bzWjJui+N2RY5sKQGX4fQ2kJ7AfHjIf76cX2kXCFD0="
+  },
+  {
+    "pname": "Microsoft.Kiota.Serialization.Multipart",
+    "version": "2.0.0",
+    "hash": "sha256-582wl6HXnE7/e98tD7mLP9waalxF2PUnl6Ogh1neSGk="
+  },
+  {
+    "pname": "Microsoft.Kiota.Serialization.Text",
+    "version": "2.0.0",
+    "hash": "sha256-VSavUvB92SSaF4DpPxquYcQDKiME07pxCNi9PAkjaCE="
+  },
+  {
     "pname": "Polly.Core",
     "version": "8.4.2",
     "hash": "sha256-4fn5n6Bu29uqWg8ciii3MDsi9bO2/moPa9B3cJ9Ihe8="
@@ -198,6 +243,11 @@
     "pname": "Serilog.Sinks.File",
     "version": "7.0.0",
     "hash": "sha256-LxZYUoUPkCjIIVarJilnXnqQiMrFNJtoRilmzTNtUjo="
+  },
+  {
+    "pname": "Std.UriTemplate",
+    "version": "2.0.8",
+    "hash": "sha256-0f3ydgUE2KDzzHmN4FREzXLDrPJgLZemx917muHX90k="
   },
   {
     "pname": "System.Reactive",

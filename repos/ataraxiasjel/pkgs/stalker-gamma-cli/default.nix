@@ -14,13 +14,13 @@
 }:
 buildDotnetModule (finalAttrs: {
   pname = "stalker-gamma-cli";
-  version = "1.34.0";
+  version = "1.36.1";
 
   src = fetchFromGitHub {
     owner = "FaithBeam";
     repo = finalAttrs.pname;
     rev = finalAttrs.version;
-    sha256 = "sha256-yRa1RCqCNgQwWQZXstDaVUV3jpNgFaUNW4mcHiG9JjE=";
+    sha256 = "sha256-if+sGTHHklkLq6IQ7n4Zi8pedV+yXSgmiioKutqerg0=";
   };
 
   projectFile = "stalker-gamma-cli/stalker-gamma-cli.csproj";
@@ -51,19 +51,15 @@ buildDotnetModule (finalAttrs: {
         'public string PathTo7Z = "${lib.getExe _7zz-rar}";' \
       --replace-fail 'public string PathToTar = "tar";' \
         'public string PathToTar = "${lib.getExe gnutar}";'
-    substituteInPlace stalker-gamma-cli/Commands/Anomaly.cs \
-      --replace-fail 'var resourcesPath = Path.Join(Path.GetDirectoryName(AppContext.BaseDirectory), "resources");
-        stalkerGammaSettings.PathTo7Z = Path.Join(
-            resourcesPath,
-            OperatingSystem.IsWindows() ? "7zz.exe" : "7zz"
-        );' \
-      'stalkerGammaSettings.PathToTar = "${lib.getExe gnutar}";'
-    substituteInPlace stalker-gamma-cli/Services/SetupUtilitiesService.cs \
-      --replace-fail 'settings.PathTo7Z = Path.Join(
-            ResourcesPath,
-            OperatingSystem.IsWindows() ? "7zz.exe" : "7zz"
-        );' \
-      'settings.PathTo7Z = "${lib.getExe _7zz-rar}";'
+    # NOTE: sed ranges, not multi-line substituteInPlace, on purpose: Nix strips
+    # the common indent of indented string blocks, so a multi-line literal
+    # pattern silently stops matching upstream (this broke the 1.36.1 update). Ranges match
+    # content only and survive re-indentation.
+    # Anomaly.cs: drop the resources-based 7zz override (no resources/ dir in
+    # the nix build) and pin tar instead, as the old fix-paths.patch did.
+    sed -i -e '/var resourcesPath = Path\.Join(Path\.GetDirectoryName(AppContext\.BaseDirectory), "resources");/,/);/c\            stalkerGammaSettings.PathToTar = "${lib.getExe gnutar}";' stalker-gamma-cli/Commands/Anomaly.cs
+    # SetupUtilitiesService.cs: collapse the resources-based assignment to nix 7zz.
+    sed -i -e '/settings\.PathTo7Z = Path\.Join(/,/);/c\            settings.PathTo7Z = "${lib.getExe _7zz-rar}";' stalker-gamma-cli/Services/SetupUtilitiesService.cs
   '';
 
   postInstall = ''

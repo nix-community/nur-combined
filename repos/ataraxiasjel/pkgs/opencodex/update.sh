@@ -2,11 +2,27 @@
 #!nix-shell -i bash -p prefetch-npm-deps nix-prefetch-github jq nodejs git curl nixfmt
 # Regenerate vendored npm lockfiles (upstream ships only bun.lock),
 # recompute src + npmDeps hashes and patch default.nix atomically.
+#
+# Usage: update.sh [pkg-dir] [version]
+#   pkg-dir defaults to the script's own dir (manual runs); CI passes the
+#   checkout-relative package dir, because the script itself executes from a
+#   read-only store copy. A lone non-directory arg is a version pin.
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-DEFAULT_NIX="$SCRIPT_DIR/default.nix"
+# nix-update executes this script from the read-only nix store copy of the
+# flake, so every write must go to the package dir in the local checkout,
+# passed as $1 (relative to the caller's cwd, as wired in default.nix via the
+# sequence combinator). Falls back to the script's own dir for manual runs.
+# A single non-directory $1 keeps the old meaning: a version pin.
+if [ $# -ge 1 ] && [ -d "$1" ]; then
+  PKG_DIR="$(cd "$1" && pwd)"
+  shift
+else
+  PKG_DIR="$SCRIPT_DIR"
+fi
+DEFAULT_NIX="$PKG_DIR/default.nix"
 TMPDIR_OCX="$(mktemp -d)"
 trap 'rm -rf "$TMPDIR_OCX"' EXIT
 
@@ -82,8 +98,8 @@ for h in "$NEW_VERSION" "$SRC_HASH" "$ROOT_DEPS_HASH" "$GUI_DEPS_HASH"; do
   grep -qF "$h" "$DEFAULT_NIX" || { echo "error: failed to patch $h into default.nix" >&2; exit 1; }
 done
 
-cp "$SRC/package-lock.json" "$SCRIPT_DIR/package-lock.json"
-cp "$SRC/gui/package-lock.json" "$SCRIPT_DIR/gui-package-lock.json"
+cp "$SRC/package-lock.json" "$PKG_DIR/package-lock.json"
+cp "$SRC/gui/package-lock.json" "$PKG_DIR/gui-package-lock.json"
 
 nixfmt "$DEFAULT_NIX"
 
