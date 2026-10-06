@@ -10,13 +10,13 @@
 
 beamPackages.buildMix rec {
   name = "req";
-  version = "0.7.4";
+  version = "0.7.5";
 
   src = fetchFromGitHub {
     owner = "wojtekmach";
     repo = "req";
     rev = "v${version}";
-    hash = "sha256-xTW2xA9gxfgwy2WVsgUjdOrQkrRh8l1T+hb28EnHjcY=";
+    hash = "sha256-oGWmXzzlbMcnkKvUpY0y169yUbKXPfISZ+G6cMKvMxU=";
   };
 
   beamDeps = [
