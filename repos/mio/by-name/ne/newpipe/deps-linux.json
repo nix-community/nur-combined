@@ -1863,9 +1863,6 @@
   "dl.google.com/dl/android/maven2/com/google/android/material/material/1.11.0/material-1.11.0": {
    "aar": "sha256-jq9/OZ7glNwTSVw259TvRx6n74o5nk15yWtQ/U+CRQw="
   },
-  "dl.google.com/play-sdk/index/snapshot": {
-   "gz": "sha256-LKT05VpB4K5/V5qFl5vCDMGCQjP9N14iR8EqG5ee/eM="
-  },
   "jitpack.io/com/github/TeamNewPipe#NewPipeExtractor/v0.26.5": {
    "jar": "sha256-kjvwpgk41XCtF27XsI+p/sfQdy16OGyomi3TuSEpecc=",
    "module": "sha256-Ip7kRBVgiQa280hbWzi7L5gwClPiIXmAsk+pPbgpLZw=",
