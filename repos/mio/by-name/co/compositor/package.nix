@@ -11,24 +11,30 @@ let
     (allow file-read* file-write* process-exec mach-lookup)
     (deny file-read* file-write* process-exec mach-lookup (subpath "/usr/local") (with no-log))
   '';
+in
+stdenvNoCC.mkDerivation (finalAttrs: {
+  pname = "compositor";
+  version = "1.4.5";
 
-  spmDeps = stdenvNoCC.mkDerivation (finalAttrs: {
-    name = "compositor-spm-1.4.5";
+  src = fetchFromGitHub {
+    owner = "robbietilton";
+    repo = "Compositor";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-VwGIy0eam0UfBCj+d58mzHYYaXLD07sb41eLLrOX2c4=";
+  };
+
+  passthru.spmDeps = stdenvNoCC.mkDerivation {
+    name = "compositor-spm-${finalAttrs.version}";
     outputHashMode = "recursive";
     outputHash = "sha256-9eSSVS8/4caRbXZzMopicFPeFodsCAPliAA4h7vxXgY=";
 
-    src = fetchFromGitHub {
-      owner = "robbietilton";
-      repo = "Compositor";
-      rev = "v1.4.5";
-      hash = "sha256-VwGIy0eam0UfBCj+d58mzHYYaXLD07sb41eLLrOX2c4=";
-    };
+    inherit (finalAttrs) src;
 
     nativeBuildInputs = [
       jq
       writableTmpDirAsHomeHook
     ];
-    
+
     sandboxProfile = xcodeSandboxProfile;
 
     buildCommand = ''
@@ -59,17 +65,6 @@ let
       substituteInPlace "$out/workspace-state.json" \
         --replace-fail "$out" '@SPM@'
     '';
-  });
-in
-stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "compositor";
-  version = "1.4.5";
-
-  src = fetchFromGitHub {
-    owner = "robbietilton";
-    repo = "Compositor";
-    rev = "v1.4.5";
-    hash = "sha256-VwGIy0eam0UfBCj+d58mzHYYaXLD07sb41eLLrOX2c4=";
   };
 
   nativeBuildInputs = [
@@ -88,7 +83,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     unset NIX_ENFORCE_PURITY NIX_CFLAGS_COMPILE NIX_LDFLAGS NIX_CC NIX_CXX LD CC CXX OBJC OBJCXX
 
     mkdir -p build/swiftpm
-    cp -a ${spmDeps}/. build/swiftpm/
+    cp -a ${finalAttrs.passthru.spmDeps}/. build/swiftpm/
     chmod -R u+w build/swiftpm
     substituteInPlace build/swiftpm/workspace-state.json \
       --replace-fail '@SPM@' "$PWD/build/swiftpm"
@@ -113,10 +108,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   installPhase = ''
     runHook preInstall
-    
+
     mkdir -p $out/Applications
     cp -R build/Build/Products/Release/Compositor.app $out/Applications/
-    
+
     runHook postInstall
   '';
 
