@@ -65,6 +65,7 @@ jobs:
       - name: Show nixpkgs version
         run: nix flake metadata --json --inputs-from . nixpkgs | jq .url
       - name: Check evaluation
+        id: eval
         env:
           NIXPKGS_ALLOW_UNFREE: 1
           NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: 1
@@ -82,6 +83,53 @@ jobs:
       - name: Print failed builds
         if: steps.build-cache.outcome == 'failure'
         run: jq '.results[] | select(.success != true)' build.json
+      - name: Notify Telegram on failures
+        if: always()
+        env:
+          TG_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TG_CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          FAILED=""
+          if [[ "${{ steps.eval.outcome }}" == "failure" ]]; then
+            FAILED="evaluation, ${FAILED}"
+          fi
+          if [[ -f build.json ]]; then
+            PKGS="$(jq -r '[.results[] | select(.success != true) | .attr] | unique | .[]' build.json | paste -sd' ')"
+            if [[ -n "$PKGS" ]]; then
+              FAILED="${FAILED} build: ${PKGS}"
+            fi
+          elif [[ "${{ steps.build-cache.outcome }}" == "failure" ]]; then
+            FAILED="${FAILED} build (no build.json)"
+          fi
+          if [[ -z "${FAILED//[[:space:],]/}" ]]; then
+            echo "No failures to report."
+            exit 0
+          fi
+          if [[ -z "${TG_TOKEN//[[:space:]]/}" ]]; then
+            echo "::warning::TELEGRAM_BOT_TOKEN is empty, skipping Telegram notify."
+            echo "Failed: $FAILED"
+            exit 0
+          fi
+          if [[ -z "${TG_CHAT//[[:space:]]/}" ]]; then
+            echo "::warning::TELEGRAM_CHAT_ID is empty, skipping Telegram notify."
+            echo "Failed: $FAILED"
+            exit 0
+          fi
+          MSG="⚠️ build (${{ matrix.nixpkgs }}) failed: ${FAILED}"
+          if ((${#MSG} > 4000)); then
+            MSG="${MSG:0:3900}… (truncated, see job log)"
+          fi
+          echo "Notifying Telegram chat about: $FAILED"
+          HTTP_CODE="$(curl -sS -o /tmp/tg-response.txt -w '%{http_code}' -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
+            --data-urlencode "chat_id=${TG_CHAT}" \
+            --data-urlencode "text=${MSG}" \
+            --data-urlencode "disable_notification=true" || echo "curl-failed")"
+          echo "Telegram HTTP code: $HTTP_CODE"
+          head -c 1000 /tmp/tg-response.txt 2>/dev/null; echo
+          if [[ "$HTTP_CODE" != "200" ]]; then
+            echo "::warning::Telegram notify failed with HTTP $HTTP_CODE (see body above). Check TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID."
+          fi
+          exit 0
       - name: Trigger NUR update
         if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
         run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"

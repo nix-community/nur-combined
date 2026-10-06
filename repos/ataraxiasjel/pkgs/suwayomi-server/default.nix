@@ -63,7 +63,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   ++ lib.optional asApplication copyDesktopItems;
 
   mitmCache = gradle_9.fetchDeps {
-    inherit (finalAttrs) pname;
+    pkg = finalAttrs.finalPackage;
     data = ./deps.json;
   };
 

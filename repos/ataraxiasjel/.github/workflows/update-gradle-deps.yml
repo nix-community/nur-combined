@@ -1,0 +1,60 @@
+name: "Update Gradle deps.json"
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master]
+    paths: ["flake.lock"]
+  pull_request:
+    paths: ["flake.lock"]
+
+permissions:
+  contents: write
+
+jobs:
+  update-deps:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: navikt/github-app-token-generator@v1
+        id: get-token
+        with:
+          app-id: ${{ vars.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+      # On PRs (e.g. the bot's flake-lock PR) push deps.json to the PR
+      # branch; on master pushes and manual runs commit on the default ref.
+      - uses: actions/checkout@v7
+        with:
+          token: ${{ steps.get-token.outputs.token }}
+          ref: ${{ github.event_name == 'pull_request' && github.head_ref || github.ref }}
+      - uses: DeterminateSystems/determinate-nix-action@v3
+      - name: Regenerate Gradle deps.json
+        env:
+          # See auto-update.yml: bwrap fails on GitHub runners; pure hygiene wrapper.
+          USE_BWRAP: "0"
+          NIXPKGS_ALLOW_UNFREE: "1"
+          NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM: "1"
+          XDG_RUNTIME_DIR: ${{ github.workspace }}
+          GIT_AUTHOR_NAME: AtaraxiaSjel (bot)
+          GIT_AUTHOR_EMAIL: ataraxiasjel@users.noreply.github.com
+          GIT_COMMITTER_NAME: AtaraxiaSjel (bot)
+          GIT_COMMITTER_EMAIL: ataraxiasjel@users.noreply.github.com
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          NIX_PATH="nixpkgs=$(nix eval --raw --impure --expr '(builtins.getFlake (toString ./.)).inputs.nixpkgs.outPath')"
+          export NIX_PATH
+          for pkg in $(nix eval --json --impure --expr "builtins.attrNames (import ./ci.nix {}).gradleDepsPkgs" | jq -r '.[]'); do
+            echo "::group::$pkg"
+            "$(nix build ".#$pkg.mitmCache.updateScript" --print-out-paths)"
+            echo "::endgroup::"
+          done
+          git add -- 'pkgs/**/deps.json'
+          if git diff --cached --quiet; then
+            echo "deps.json unchanged"
+            exit 0
+          fi
+          git commit -m "chore(deps): regenerate gradle deps.json"
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            git push origin "HEAD:$HEAD_REF"
+          else
+            git push
+          fi

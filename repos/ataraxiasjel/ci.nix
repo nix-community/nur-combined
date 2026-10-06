@@ -105,6 +105,10 @@ rec {
   );
   updatablePkgsNames = attrNames updatablePkgs;
 
+  hasGradleDeps = p: isDerivation p && p ? mitmCache && p.mitmCache ? updateScript;
+  gradleDepsPkgs = flattenAttrs hasGradleDeps nurAttrs;
+  gradleDepsPkgsNames = attrNames gradleDepsPkgs;
+
   pyUpdatablePkgs = pyUpdatablePkgsRaw;
   pyUpdatablePkgsNames = attrNames pyUpdatablePkgsRaw;
 
