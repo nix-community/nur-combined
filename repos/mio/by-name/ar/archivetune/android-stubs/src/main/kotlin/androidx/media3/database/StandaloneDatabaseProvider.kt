@@ -7,9 +7,9 @@ package androidx.media3.database
 open class StandaloneDatabaseProvider(
     val context: Any? = null,
 ) : DatabaseProvider {
-    override fun getWritableDatabase(): Any? = TODO()
+    override fun getWritableDatabase(): Any? = null
 
-    override fun getReadableDatabase(): Any? = TODO()
+    override fun getReadableDatabase(): Any? = null
 
     companion object { }
 }

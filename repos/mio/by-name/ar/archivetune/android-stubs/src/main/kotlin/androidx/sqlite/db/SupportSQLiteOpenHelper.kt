@@ -58,17 +58,24 @@ interface SupportSQLiteOpenHelper : AutoCloseable {
     }
 
     companion object {
+        private val mockHelper = object : SupportSQLiteOpenHelper {
+            override val writableDatabase: SupportSQLiteDatabase = SupportSQLiteDatabase()
+            override val readableDatabase: SupportSQLiteDatabase = SupportSQLiteDatabase()
+            override fun setWriteAheadLoggingEnabled(enabled: Boolean) {}
+            override fun close() {}
+        }
+
         @JvmStatic
         fun create(
             context: Any?,
             name: String?,
             callback: Callback,
-        ): SupportSQLiteOpenHelper = TODO()
+        ): SupportSQLiteOpenHelper = mockHelper
 
         @JvmStatic
         fun create(
             context: Any?,
             configuration: Configuration,
-        ): SupportSQLiteOpenHelper = TODO()
+        ): SupportSQLiteOpenHelper = mockHelper
     }
 }

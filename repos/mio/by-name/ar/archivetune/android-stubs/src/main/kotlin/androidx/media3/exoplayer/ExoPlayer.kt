@@ -12,6 +12,6 @@ abstract class ExoPlayer : Player {
         fun setHandleAudioBecomingNoisy(handle: Boolean): Builder = this
         fun setWakeMode(mode: Int): Builder = this
         fun setAudioAttributes(attrs: Any, handleAudioFocus: Boolean): Builder = this
-        fun build(): ExoPlayer = TODO()
+        fun build(): ExoPlayer = ExoPlayer()
     }
 }
