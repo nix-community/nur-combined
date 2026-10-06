@@ -57,6 +57,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-a6UbiiwSbvnrsD+zYHS+jFTU2NLRIeguESsKgCwem08=";
   };
 
+  # Upstream only treats AI Resynthesis (the neural vocoder) as available on
+  # macOS (Core ML) and Windows (DirectML), so the rendering radio is greyed
+  # out on Linux even though the bundled ONNX Runtime CPU provider can run it.
+  patches = [ ./enable-ai-resynthesis-on-linux.patch ];
+
   nativeBuildInputs = [
     cmake
     ninja

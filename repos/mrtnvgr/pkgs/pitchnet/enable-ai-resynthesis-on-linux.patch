@@ -1,0 +1,11 @@
+--- a/Source/UI/GpuDeviceList.cpp
++++ b/Source/UI/GpuDeviceList.cpp
+@@ -230,6 +230,8 @@
+ {
+ #if JUCE_MAC
+   return true;
++#elif JUCE_LINUX
++  return true;
+ #elif defined(_WIN32) && defined(USE_DIRECTML) && defined(HAVE_ONNXRUNTIME)
+   try
+   {
