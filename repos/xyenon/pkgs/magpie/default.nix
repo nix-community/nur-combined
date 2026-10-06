@@ -26,16 +26,16 @@ buildGoModule (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "magpie";
-  version = "0.1.934";
+  version = "0.1.1082";
 
   src = fetchFromGitHub {
     owner = "yetone";
     repo = "magpie";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-/wkjFskfLJkVrtIL6+llTxlUMeXIWBjjc7OBgiRaTHM=";
+    hash = "sha256-W+JwAxMSaLTdbgE0U5xcCBb0yPxvv9oiufwf5qe6PU0=";
   };
 
-  vendorHash = "sha256-XEaHZVw3co0yUV6fLUlSkvg9LlroKFj2B2sjMW1e6BU=";
+  vendorHash = "sha256-dqFc8UTREaRFt3G3DS7IllBx8ysOlcA5JUqGaQ/XlcI=";
 
   postPatch = lib.optionalString (guiSupport && stdenv.hostPlatform.isLinux) ''
     bash ${./linux-launcher.sh} "$out/bin/magpie"
@@ -94,9 +94,19 @@ buildGoModule (finalAttrs: {
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [ dbus ]
   ++ lib.optionals stdenv.hostPlatform.isDarwin [ xcbuild ];
-  # The native AppKit/WebKit panel test fails in the Darwin build sandbox.
-  checkFlags = lib.optionals stdenv.hostPlatform.isDarwin [
-    "-skip=^TestTrayCellClickReleasedPanel$"
+  checkFlags = [
+    "-skip=^(${
+      lib.concatStringsSep "|" (
+        [
+          # Downloads Bun from GitHub, which is unavailable in the build sandbox.
+          "TestPluginListSaysMiddleware"
+          # The WSL probe finds omp but reports an empty version in Linux sandbox builds.
+          "TestWSLProbeFindsBunOmp"
+        ]
+        # The native AppKit/WebKit panel test fails in the Darwin build sandbox.
+        ++ lib.optional stdenv.hostPlatform.isDarwin "TestTrayCellClickReleasedPanel"
+      )
+    })$"
   ];
   checkPhase = ''
     runHook preCheck
