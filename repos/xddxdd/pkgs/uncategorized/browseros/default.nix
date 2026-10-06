@@ -5,11 +5,11 @@
 }:
 
 let
-  version = "0.50.5";
+  version = "0.51.0";
 
   src = fetchurl {
     url = "https://github.com/browseros-ai/BrowserOS/releases/download/v${version}/BrowserOS_v${version}_x64.AppImage";
-    hash = "sha256-qfgH+hkOZtPFW8KfXHTwhOyrGr+d706p74o7uq5GcIk=";
+    hash = "sha256-tYbfcgg8BG4uotHMG2RjMl7Uywwxl11I4JzBQhXj578=";
   };
 
   contents = appimageTools.extract {

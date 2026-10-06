@@ -12,8 +12,8 @@ let
   qemuVmvgaSrc = fetchFromGitHub {
     owner = "qemus";
     repo = "qemu-vmvga";
-    tag = "v1.0.2";
-    hash = "sha256-0EQY8t8QUpUAPOJ34Bba3HzkKuwIicH3THwRI5/Kh9c=";
+    tag = "v1.03";
+    hash = "sha256-hkYIJjTqaC3FADeDmNlCWgRraIOg33SBJ+LnJ+mNGxU=";
   };
 
   nvkvmSrc = fetchFromGitHub {
