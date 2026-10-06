@@ -32,16 +32,16 @@ let
     libgcrypt.lib
   ];
 
-  version = "0.8.0";
+  version = "0.9.0";
 
   sources = {
     x86_64-linux = fetchurl {
       url = "https://proton.me/download/drive/cli/${version}/linux-x64/proton-drive";
-      hash = "sha512-z2HCaIxF4QVdit1iIdlHGlpbZL87zbhkYPXLGEFFlsxN8822YnyQl8lL7DKjyZFa2jIR7yrlvjPEbrvJlsyqKA==";
+      hash = "sha512-NTMCW6aa4RK2Tj4B+8wa0GiBNqQEP2z2pyiGln2F/c2ewjVHnC4RMXFhS+UiW/upNCdQmgXKWqYHHZJPp+kcqA==";
     };
     aarch64-linux = fetchurl {
       url = "https://proton.me/download/drive/cli/${version}/linux-arm64/proton-drive";
-      hash = "sha512-J6GuwdIJX9ShqB4dR80fn9SQG9V5/+UDQtFeLlIHjW6LLd3PWKSjhkONx1YgF3eL4mwbpiOZ+QGugsdDDiFAow==";
+      hash = "sha512-yNWmsXTlfwbQXLVINAC5lj+vWOdDtrM3Brtz7P9xgEf/zmtDmZQlW5S1sia5DS6RvvdBjslsHD9di/ObbNATIQ==";
     };
   };
 
