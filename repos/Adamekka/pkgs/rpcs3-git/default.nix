@@ -55,10 +55,10 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "rpcs3-git";
-  version = "0.0.43-unstable-2026-10-05";
+  version = "0.0.43-unstable-2026-10-06";
 
   src = fetchFromGitHub {
-    hash = "sha256-/rIr9ZYaJ6ICluX+wCf3gXYLXxmTqD/2H2cYhcnTQy4=";
+    hash = "sha256-Qub+L+cHgtth0C2U6ZwzTt+oF1nacQsGyZg4r3bHvMA=";
     owner = "RPCS3";
     # Independent archive fetches retain successful downloads when another fails.
     # Check gitlinks so an upstream update cannot silently reuse stale dependencies.
@@ -72,7 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
       '') submodules
     );
     repo = "rpcs3";
-    rev = "30ee6cc358180de6cb36cd961ac6f26f7bd3c10c";
+    rev = "532b6520b4d04e12632c249f34a6fc41f23b1fa6";
   };
 
   nativeBuildInputs = [
