@@ -58,17 +58,37 @@ interface SupportSQLiteOpenHelper : AutoCloseable {
     }
 
     companion object {
+        private val mockHelper = object : SupportSQLiteOpenHelper {
+            private val db = java.lang.reflect.Proxy.newProxyInstance(
+                SupportSQLiteDatabase::class.java.classLoader,
+                arrayOf(SupportSQLiteDatabase::class.java)
+            ) { _, method, _ ->
+                val ret = method.returnType
+                when {
+                    ret == Boolean::class.java -> false
+                    ret == Int::class.java -> 0
+                    ret == Long::class.java -> 0L
+                    else -> null
+                }
+            } as SupportSQLiteDatabase
+
+            override val writableDatabase: SupportSQLiteDatabase = db
+            override val readableDatabase: SupportSQLiteDatabase = db
+            override fun setWriteAheadLoggingEnabled(enabled: Boolean) {}
+            override fun close() {}
+        }
+
         @JvmStatic
         fun create(
             context: Any?,
             name: String?,
             callback: Callback,
-        ): SupportSQLiteOpenHelper = TODO()
+        ): SupportSQLiteOpenHelper = mockHelper
 
         @JvmStatic
         fun create(
             context: Any?,
             configuration: Configuration,
-        ): SupportSQLiteOpenHelper = TODO()
+        ): SupportSQLiteOpenHelper = mockHelper
     }
 }
