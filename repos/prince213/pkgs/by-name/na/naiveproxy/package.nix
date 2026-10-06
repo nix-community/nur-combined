@@ -38,7 +38,7 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "naiveproxy";
-  version = "154.0.8037.49-2";
+  version = "154.0.8037.49-3";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -47,7 +47,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     owner = "klzgrad";
     repo = "naiveproxy";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Ws65rwNbJjg19omAMARTKPNy2qn6WW47I3zzmNdxoxk=";
+    hash = "sha256-dabylknJY+JjuBBZKRVpqmMqRWFleHqs4TG3H3OY1A0=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/src";

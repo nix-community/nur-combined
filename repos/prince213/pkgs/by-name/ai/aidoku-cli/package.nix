@@ -9,14 +9,14 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "aidoku-cli";
-  version = "0-unstable-2026-08-30";
+  version = "0-unstable-2026-10-06";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "Aidoku";
     repo = "aidoku-rs";
-    rev = "e1320b0a2e11afb59e4dee374883a2212d325699";
-    hash = "sha256-NAD70kpKQHYo4X/6kWKvYqk1wq26B6zFxR0bNh7gO14=";
+    rev = "ae6485e3c14ecd1fd5497d170eae884c68d04a87";
+    hash = "sha256-GDgoscsdxBmWx0MyM6tSjzlEastsp8CDuBT3+qIVEtw=";
   };
 
   cargoHash = "sha256-zA9UgryFsJhuTZfquDj7sIC1Omjuy8WWdc5uwWIx2UY=";
