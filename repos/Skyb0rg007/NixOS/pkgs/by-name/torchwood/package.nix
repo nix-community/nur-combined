@@ -1,5 +1,6 @@
 {
   lib,
+  stdenv,
   fetchFromGitHub,
   buildGo127Module,
   openssh,
@@ -21,11 +22,18 @@ buildGo127Module (finalAttrs: {
     hurl
   ];
 
-  # Network access is required:
   # - TestReadEndpoint and TestSumDB fetch from https://sum.golang.org/
   # - age-keyserver scripts verify the hCaptcha test secret against https://hcaptcha.com/
+  # - On darwin, each parallel script's Setup rebuilds witnessctl into a shared $PATH dir.
+  #   /tmp and /nix are on different volumes, so go build copies instead of renaming,
+  #   and scripts get SIGKILLed exec'ing a partially written binary.
   checkFlags = [
-    "-skip=^Test(ReadEndpoint|SumDB)$|^TestScript$/^(age-keyserver|age-keylookup|monitor)$"
+    (
+      if stdenv.hostPlatform.isDarwin then
+        "-skip=^Test(ReadEndpoint|SumDB|Script)$"
+      else
+        "-skip=^Test(ReadEndpoint|SumDB)$|^TestScript$/^(age-keyserver|age-keylookup|monitor)$"
+    )
   ];
 
   vendorHash = "sha256-S1/PInF5TvvuY/lcn5DPQS5NJJaiH3y1gXZZzJzWvtU=";
