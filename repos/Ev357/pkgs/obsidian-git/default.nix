@@ -53,5 +53,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Vinzent03/obsidian-git";
     changelog = "https://github.com/Vinzent03/obsidian-git/releases/tag/${version}";
     license = lib.licenses.mit;
+    broken = true;
   };
 }
