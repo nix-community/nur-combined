@@ -44,6 +44,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     license = with lib.licenses; [ mit ];
     mainProgram = "maki";
     maintainers = with lib.maintainers; [ ataraxiasjel ];
+    broken = lib.versionOlder rustPlatform.rust.rustc.version "1.99";
     platforms = [
       "x86_64-linux"
       "aarch64-linux"
