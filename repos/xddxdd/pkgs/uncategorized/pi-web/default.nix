@@ -1,5 +1,5 @@
 {
-  fetchurl,
+  fetchFromGitHub,
   lib,
   buildNpmPackage,
 }:
@@ -7,23 +7,36 @@
 buildNpmPackage (finalAttrs: {
   pname = "pi-web";
   version = "0.10.0";
-  src = fetchurl {
-    url = "https://registry.npmjs.org/@agegr/pi-web/-/pi-web-${finalAttrs.version}.tgz";
-    hash = "sha256-ywu7u2XVgrN4gWWgFR8RQ2eU/44ijictHkS8J+rbs/g=";
+  src = fetchFromGitHub {
+    owner = "agegr";
+    repo = "pi-web";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-dDE+m6ZpiC4N2xWNMvhRshCjqFU5gr2+t7RpvC9dNUk=";
   };
-  sourceRoot = "package";
 
   npmDepsHash = "sha256-eR2dkQt8nyFJ0cRTypCJK1W2b7gl9haL9CsppYHC7oU=";
 
+  patches = [ ./no-google-font.patch ];
+
+  # Generated lockfile; the lockfile shipped by upstream is a bun secondary
+  # artifact that prefetch-npm-deps rejects (shrinkwrap subtrees without
+  # integrity panic it, plus stale zod resolution and missing platform
+  # optionals).
   postPatch = ''
     cp ${./package-lock.json} package-lock.json
   '';
 
-  dontNpmBuild = true;
   makeCacheWritable = true;
 
-  npmFlags = [ "--omit=dev" ];
   dontNpmPrune = true;
+
+  # Build needs devDependencies (tailwind, remark/rehype, typescript, ...);
+  # slim the runtime tree back to production deps after the build. npm ci
+  # rebuilds node_modules from scratch, avoiding the npm prune arborist bug
+  # documented in AGENTS.md.
+  postBuild = ''
+    npm ci --omit=dev --ignore-scripts
+  '';
 
   makeWrapperArgs = [
     "--set"
