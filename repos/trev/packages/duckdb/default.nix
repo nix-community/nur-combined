@@ -374,6 +374,7 @@ withLoadableExtensions (
             "test/sql/copy/csv/test_mixed_lines.test"
             "test/parquet/parquet_long_string_stats.test"
             "test/sql/attach/attach_remote.test"
+            "test/sql/attach/attach_remote_http_logging.test"
             "test/sql/attach/remote_file_concurrently.test"
             "test/sql/copy/csv/test_sniff_httpfs.test"
             "test/sql/httpfs/internal_issue_2490.test"
