@@ -1,22 +1,22 @@
-From: miodroid contributors
+From: waydroid contributors
 Subject: [PATCH 0007] experimental rootless mode
 
 Per-user fuse mounts and an idmapped, unprivileged LXC container, with the
 container mounting its own binderfs.  Applied after the rebrand because it
 edits the rebranded code and adds tools/helpers/rootless.py and
-data/configs/miodroid-binder.rc.
+data/configs/waydroid-binder.rc.
 
-diff --git a/data/configs/miodroid-binder.rc b/data/configs/miodroid-binder.rc
---- a/data/configs/miodroid-binder.rc	1970-01-01 10:00:00.000000000 +1000
-+++ b/data/configs/miodroid-binder.rc	2026-10-06 16:18:35.472754666 +1100
+diff --git a/data/configs/waydroid-binder.rc b/data/configs/waydroid-binder.rc
+--- a/data/configs/waydroid-binder.rc	1970-01-01 10:00:00.000000000 +1000
++++ b/data/configs/waydroid-binder.rc	2026-10-06 16:18:35.472754666 +1100
 @@ -0,0 +1,18 @@
-+# Miodroid: bring up the binder devices inside the container.
++# Waydroid: bring up the binder devices inside the container.
 +#
 +# A user namespace may mount binderfs, so nothing on the host has to provide
 +# /dev/binder, /dev/vndbinder or /dev/hwbinder for a rootless container: the
 +# container's own root mounts them and binderfs creates the nodes from the
 +# kernel's ANDROID_BINDER_DEVICES list (which the NixOS module pins to
-+# binder,vndbinder,hwbinder).  This is also why rootless Miodroid needs no root
++# binder,vndbinder,hwbinder).  This is also why rootless Waydroid needs no root
 +# helper, no dedicated group and no device nodes on the host.
 +#
 +# Android's first-stage init would normally mount binderfs itself, but rootless
@@ -37,12 +37,12 @@ diff --git a/tools/actions/container_manager.py b/tools/actions/container_manage
  
 -    initializer = actions.initializer.DbusInitializer(mainloop, dbus.SystemBus(), '/Initializer', args)
 -    _container_manager = DbusContainerManager(mainloop, dbus.SystemBus(), '/ContainerManager', args)
-+    initializer = actions.initializer.DbusInitializer(mainloop, dbus.SessionBus() if os.environ.get("MIODROID_ROOTLESS") else dbus.SystemBus(), '/Initializer', args)
-+    _container_manager = DbusContainerManager(mainloop, dbus.SessionBus() if os.environ.get("MIODROID_ROOTLESS") else dbus.SystemBus(), '/ContainerManager', args)
++    initializer = actions.initializer.DbusInitializer(mainloop, dbus.SessionBus() if os.environ.get("WAYDROID_ROOTLESS") else dbus.SystemBus(), '/Initializer', args)
++    _container_manager = DbusContainerManager(mainloop, dbus.SessionBus() if os.environ.get("WAYDROID_ROOTLESS") else dbus.SystemBus(), '/ContainerManager', args)
  
      try:
--        _name = dbus.service.BusName("id.miodro.Container", dbus.SystemBus(), do_not_queue=True)
-+        _name = dbus.service.BusName("id.miodro.Container", dbus.SessionBus() if os.environ.get("MIODROID_ROOTLESS") else dbus.SystemBus(), do_not_queue=True)
+-        _name = dbus.service.BusName("id.waydro.Container", dbus.SystemBus(), do_not_queue=True)
++        _name = dbus.service.BusName("id.waydro.Container", dbus.SessionBus() if os.environ.get("WAYDROID_ROOTLESS") else dbus.SystemBus(), do_not_queue=True)
      except dbus.exceptions.NameExistsException:
          logging.error("Container service is already running")
          return
@@ -61,7 +61,7 @@ diff --git a/tools/actions/initializer.py b/tools/actions/initializer.py
          pass
  
  def ensure_polkit_auth(sender, conn, privilege):
-+    if os.environ.get("MIODROID_ROOTLESS"):
++    if os.environ.get("WAYDROID_ROOTLESS"):
 +        # A rootless container runs as the invoking user inside that user's
 +        # own work directory: there is no privilege to escalate to, and
 +        # polkitd only ever serves the system bus.
@@ -76,10 +76,10 @@ diff --git a/tools/helpers/drivers.py b/tools/helpers/drivers.py
                  fcntl.ioctl(f.fileno(), BINDER_CTL_ADD, node_struct)
  
  def probeBinderDriver(args):
-+    if os.environ.get("MIODROID_ROOTLESS"):
++    if os.environ.get("WAYDROID_ROOTLESS"):
 +        # An unprivileged user can neither mount binderfs nor create device
 +        # nodes on the host, and does not need to: the container mounts its own
-+        # binderfs (data/configs/miodroid-binder.rc) and binderfs creates the
++        # binderfs (data/configs/waydroid-binder.rc) and binderfs creates the
 +        # nodes there.  Nothing to do, and nothing to fail on.
 +        return 0
      binder_dev_nodes = []
@@ -89,7 +89,7 @@ diff --git a/tools/helpers/drivers.py b/tools/helpers/drivers.py
      has_binder = False
      has_vndbinder = False
      has_hwbinder = False
-+    if os.environ.get("MIODROID_ROOTLESS"):
++    if os.environ.get("WAYDROID_ROOTLESS"):
 +        # Names the container's own binderfs provides, unless the host already
 +        # hands us its nodes (the hostBinderfs fallback).  A missing host node
 +        # is not an error here: see probeBinderDriver.
@@ -120,22 +120,22 @@ diff --git a/tools/helpers/images.py b/tools/helpers/images.py
 +    """The opt-in, lepton-style rootless image handling: keep the OTA images
 +    read-only and absorb writes in a host-side fuse-overlayfs overlay, instead
 +    of growing and writing to a copy of the image itself."""
-+    return (bool(os.environ.get("MIODROID_ROOTLESS")) and
-+            bool(os.environ.get("MIODROID_ROOTLESS_OVERLAY")))
++    return (bool(os.environ.get("WAYDROID_ROOTLESS")) and
++            bool(os.environ.get("WAYDROID_ROOTLESS_OVERLAY")))
 +
  def mount_rootfs(args, images_dir, session):
      cfg = tools.config.load(args)
-+    # A read-only image with an overlay for the writes is how rootful Miodroid
++    # A read-only image with an overlay for the writes is how rootful Waydroid
 +    # works, and what the "overlay" rootless strategy does.  Only the "grow"
 +    # strategy needs a writable image, and then an overlay over it would be
 +    # pointless.
-+    rootless_grow = (bool(os.environ.get("MIODROID_ROOTLESS")) and
++    rootless_grow = (bool(os.environ.get("WAYDROID_ROOTLESS")) and
 +                     not _rootless_overlay())
 +    use_overlays = not rootless_grow and (
-+        _rootless_overlay() or cfg["miodroid"]["mount_overlays"] == "True")
++        _rootless_overlay() or cfg["waydroid"]["mount_overlays"] == "True")
      helpers.mount.mount(args, images_dir + "/system.img",
 -                        tools.config.defaults["rootfs"], umount=True)
--    if cfg["miodroid"]["mount_overlays"] == "True":
+-    if cfg["waydroid"]["mount_overlays"] == "True":
 +                        tools.config.defaults["rootfs"], umount=True,
 +                        readonly=not rootless_grow)
 +    if use_overlays:
@@ -147,7 +147,7 @@ diff --git a/tools/helpers/images.py b/tools/helpers/images.py
  
      helpers.mount.mount(args, images_dir + "/vendor.img",
 -                           tools.config.defaults["rootfs"] + "/vendor")
--    if cfg["miodroid"]["mount_overlays"] == "True":
+-    if cfg["waydroid"]["mount_overlays"] == "True":
 +                           tools.config.defaults["rootfs"] + "/vendor",
 +                           readonly=not rootless_grow)
 +    if use_overlays:
@@ -168,11 +168,11 @@ diff --git a/tools/helpers/instance.py b/tools/helpers/instance.py
 --- a/tools/helpers/instance.py	2026-10-06 16:12:48.704823887 +1100
 +++ b/tools/helpers/instance.py	2026-10-06 16:12:53.134804386 +1100
 @@ -21,7 +21,7 @@
-     return f"/miodroid{get_suffix()}/data"
+     return f"/waydroid{get_suffix()}/data"
  
  def get_inet_name():
--    return f"miodroid0{get_suffix_dash()}"
-+    return "lxcbr0" if os.environ.get("MIODROID_ROOTLESS") else f"miodroid0{get_suffix_dash()}"
+-    return f"waydroid{get_suffix_dash()}"
++    return "lxcbr0" if os.environ.get("WAYDROID_ROOTLESS") else f"waydroid0{get_suffix_dash()}"
  
  def get_suffix():
      return f".{INSTANCE_NAME}" if INSTANCE_NAME else ""
@@ -183,13 +183,13 @@ diff --git a/tools/helpers/lxc.py b/tools/helpers/lxc.py
      make_entry("/dev/full")
      make_entry("/dev/ashmem")
      make_entry("/dev/fuse")
-+    if os.environ.get("MIODROID_ROOTLESS"):
++    if os.environ.get("WAYDROID_ROOTLESS"):
 +        make_entry("/dev/kmsg", "dev/kmsg", options="bind,create=file 0 0")
 +        make_entry("tmpfs", "dev/socket", "tmpfs", "mode=0755,create=dir 0 0", False)
 +        # Let the container mount its own binderfs: a user namespace is allowed
 +        # to, and that is what keeps rootless mode free of host device nodes.
-+        make_entry(tools.config.tools_src + "/data/configs/miodroid-binder.rc",
-+                   "vendor/etc/init/zz-miodroid-binder.rc",
++        make_entry(tools.config.tools_src + "/data/configs/waydroid-binder.rc",
++                   "vendor/etc/init/zz-waydroid-binder.rc",
 +                   options="bind,create=file 0 0")
      make_entry("/dev/ion")
      make_entry("/dev/tty")
@@ -201,8 +201,8 @@ diff --git a/tools/helpers/lxc.py b/tools/helpers/lxc.py
 -    make_entry("/dev/" + args.BINDER_DRIVER, "dev/binder", check=False)
 -    make_entry("/dev/" + args.VNDBINDER_DRIVER, "dev/vndbinder", check=False)
 -    make_entry("/dev/" + args.HWBINDER_DRIVER, "dev/hwbinder", check=False)
-+    if os.environ.get("MIODROID_ROOTLESS"):
-+        # The container brings up its own binderfs (see miodroid-binder.rc), so
++    if os.environ.get("WAYDROID_ROOTLESS"):
++        # The container brings up its own binderfs (see waydroid-binder.rc), so
 +        # only hand it host nodes if the host actually has some (the
 +        # hostBinderfs fallback).  Binding a node the container also creates
 +        # would shadow its own, and an unprivileged user cannot create them.
@@ -222,7 +222,7 @@ diff --git a/tools/helpers/lxc.py b/tools/helpers/lxc.py
  
      if os.path.exists(lxc_path + "/config"):
          os.remove(lxc_path + "/config")
-+    if os.environ.get("MIODROID_ROOTLESS"):
++    if os.environ.get("WAYDROID_ROOTLESS"):
 +        from tools.helpers import rootless
 +        rootless.write_lxc_idmap(lxc_path)
      for w in config_snippets:
@@ -233,7 +233,7 @@ diff --git a/tools/helpers/lxc.py b/tools/helpers/lxc.py
  def start(args):
      command = ["lxc-start", "-P", tools.config.defaults["lxc"],
 -               "-F", "-n", get_container_name(), "--", "/init"]
-+               "-F", "-n", get_container_name(), "--", "/init"] + (["second_stage"] if os.environ.get("MIODROID_ROOTLESS") else [])
++               "-F", "-n", get_container_name(), "--", "/init"] + (["second_stage"] if os.environ.get("WAYDROID_ROOTLESS") else [])
      tools.helpers.run.user(args, command, output="background")
      wait_for_running(args)
      # Workaround lxc-start changing stdout/stderr permissions to 700
@@ -245,7 +245,7 @@ diff --git a/tools/helpers/mount.py b/tools/helpers/mount.py
      mount(args, "overlay", destination, mount_type="overlay", options=options,
            readonly=readonly, create_folders=create_folders, force=True)
 +
-+if os.environ.get("MIODROID_ROOTLESS"):
++if os.environ.get("WAYDROID_ROOTLESS"):
 +    from tools.helpers import rootless
 +    bind = rootless.bind
 +    bind_file = rootless.bind_file
@@ -281,7 +281,7 @@ diff --git a/tools/helpers/rootless.py b/tools/helpers/rootless.py
 +    to absorb writes), so Android cannot even create /mnt/user. Growing the
 +    cache copy once is enough.
 +    """
-+    if os.environ.get("MIODROID_NO_IMAGE_GROWTH"):
++    if os.environ.get("WAYDROID_NO_IMAGE_GROWTH"):
 +        return
 +    marker = path + ".grown"
 +    if os.path.exists(marker):
@@ -296,7 +296,7 @@ diff --git a/tools/helpers/rootless.py b/tools/helpers/rootless.py
 +
 +    libfuse looks the helper up in /run/wrappers/bin (the store copy
 +    is not setuid, and /nix/store is mounted nosuid), so resolving it
-+    through PATH from the wrapped miodroid can find a binary that
++    through PATH from the wrapped waydroid can find a binary that
 +    cannot unmount anything.
 +    """
 +    for candidate in ("/run/wrappers/bin/fusermount3", "fusermount3"):
@@ -325,7 +325,7 @@ diff --git a/tools/helpers/rootless.py b/tools/helpers/rootless.py
 +    The container's root is mapped to the invoking user: that is the
 +    only account the unprivileged fuse2fs/fuse-overlayfs mounts can
 +    hand to the container, and it is the only account that may
-+    traverse the paths miodroid has to bind into it (XDG_RUNTIME_DIR,
++    traverse the paths waydroid has to bind into it (XDG_RUNTIME_DIR,
 +    the work directory, the user's home). The remaining container ids
 +    come from the account's own subordinate id ranges.
 +    """
@@ -371,7 +371,7 @@ diff --git a/tools/helpers/rootless.py b/tools/helpers/rootless.py
 +        with open(source, "rb") as image:
 +            is_sparse = image.read(4) == b"\x3a\xff\x26\xed"
 +        cache_dir = os.path.join(
-+            os.environ.get("MIODROID_WORK", "/tmp"),
++            os.environ.get("WAYDROID_WORK", "/tmp"),
 +            "raw-images")
 +        os.makedirs(cache_dir, exist_ok=True)
 +        cache = os.path.join(
@@ -398,7 +398,7 @@ diff --git a/tools/helpers/rootless.py b/tools/helpers/rootless.py
 +        source = cache
 +        mount_options = ["fakeroot"]
 +        mount_options.append("ro" if readonly else "rw")
-+        if os.environ.get("MIODROID_ROOTLESS"):
++        if os.environ.get("WAYDROID_ROOTLESS"):
 +            mount_options.append("allow_other")
 +        command = ["fuse2fs", "-o", ",".join(mount_options),
 +                   source, destination]
@@ -406,7 +406,7 @@ diff --git a/tools/helpers/rootless.py b/tools/helpers/rootless.py
 +        command = ["fuse-overlayfs"]
 +        if options:
 +            opts = options.copy()
-+            if os.environ.get("MIODROID_ROOTLESS"):
++            if os.environ.get("WAYDROID_ROOTLESS"):
 +                # The container's root is mapped to the invoking user
 +                # (see write_lxc_idmap), so that account is the only
 +                # owner the daemon can give files it creates: it has
@@ -449,28 +449,28 @@ diff --git a/tools/__init__.py b/tools/__init__.py
  def prep_args(args):
      args.cache = {}
 -    args.work = config.defaults["work"]
-+    args.work = os.environ.get("MIODROID_WORK", config.defaults["work"])
-+    if os.environ.get("MIODROID_ROOTLESS"):
++    args.work = os.environ.get("WAYDROID_WORK", config.defaults["work"])
++    if os.environ.get("WAYDROID_ROOTLESS"):
 +        suffix = len(config.defaults["work"])
 +        for key in ("images_path", "rootfs", "overlay", "overlay_rw",
 +                    "overlay_work", "data", "lxc", "host_perms"):
 +            config.defaults[key] = args.work + config.defaults[key][suffix:]
 +    config.defaults["work"] = args.work
-+    if os.environ.get("MIODROID_WORK"):
++    if os.environ.get("WAYDROID_WORK"):
 +        # The Android userdata path is derived from the user's XDG data dir at
 +        # import time, so it does not follow an overridden work directory on
 +        # its own. One work directory is one instance's private state.
-+        config.session_defaults["miodroid_user_state"] = args.work
-+        config.session_defaults["miodroid_data"] = args.work + "/data"
-     args.config = args.work + "/miodroid.cfg"
-     args.log = args.work + "/miodroid.log"
++        config.session_defaults["waydroid_user_state"] = args.work
++        config.session_defaults["waydroid_data"] = args.work + "/data"
+     args.config = args.work + "/waydroid.cfg"
+     args.log = args.work + "/waydroid.log"
      args.sudo_timer = True
 @@ -24,7 +36,7 @@
  
  def main():
      def actionNeedRoot(action):
 -        if os.geteuid() != 0:
-+        if os.geteuid() != 0 and not os.environ.get("MIODROID_ROOTLESS"):
++        if os.geteuid() != 0 and not os.environ.get("WAYDROID_ROOTLESS"):
              raise RuntimeError(
                  "Action \"{}\" needs root access".format(action))
  
@@ -478,7 +478,7 @@ diff --git a/tools/__init__.py b/tools/__init__.py
          elif not os.path.exists(args.log):
              args.log = "/tmp/tools.log"
  
-+        if os.environ.get("MIODROID_ROOTLESS"):
++        if os.environ.get("WAYDROID_ROOTLESS"):
 +            os.makedirs(args.work, exist_ok=True)
          tools_logging.init(args)
  

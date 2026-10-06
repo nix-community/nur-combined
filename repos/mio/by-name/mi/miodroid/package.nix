@@ -69,6 +69,7 @@ let
       ./patches/0004-android16-vendor-detection.patch
       ./patches/0005-multi-instance-support.patch
       ./patches/0006-rootless-container-manager.patch
+      ./patches/0007-rootless-mode.patch
     ];
     patchFlags = [ "-p1" ];
 
@@ -92,10 +93,6 @@ let
         tools/helpers/instance.py tools/helpers/ipc.py \
         tools/actions/session_manager.py
       sed -i 's/waydroid/miodroid/g' tools/helpers/instance.py
-      substituteInPlace tools/helpers/instance.py \
-        --replace-fail \
-          'return f"miodroid{get_suffix_dash()}"' \
-          'return f"miodroid0{get_suffix_dash()}"'
       substituteInPlace tools/helpers/instance.py \
         --replace-fail \
           'return f"/var/lib/miodroid{get_suffix()}"' \
@@ -281,7 +278,6 @@ let
       # Applied here rather than in the series above: the rootless changes
       # edit the rebranded code (miodroid paths, the multi-instance
       # helpers) and add tools/helpers/rootless.py.
-      patch -p1 --batch < ${./patches/0007-rootless-mode.patch}
 
     '';
 
@@ -314,35 +310,35 @@ let
     ++ lib.optional withNftables "USE_NFTABLES=1";
 
     postInstall = ''
-              # The Makefile installs bin/miodroid as a symlink to the Python entry
-              # point.  Put the instance wrapper in its place:
-              # without it `miodroid -I <name>` hands the name to miodroid-net.sh while
-              # get_inet_name() and get_work_dir() keep returning the default instance,
-              # so the script bails out and the instance silently loses its network.
-              rm -f $out/bin/miodroid
-              cat << 'EOF2' > $out/bin/miodroid
-        #!/bin/sh
-        INSTANCE=""
-        PREV=""
-        for arg in "$@"; do
-          if [ "$PREV" = "-I" ] || [ "$PREV" = "--instance" ]; then
-            INSTANCE="$arg"
-            break
-          fi
-          case "$arg" in
-            -I*) INSTANCE="''${arg#-I}"; break ;;
-            --instance=*) INSTANCE="''${arg#--instance=}"; break ;;
-          esac
-          PREV="$arg"
-        done
-        if [ -n "$INSTANCE" ]; then
-          export MIODROID_INSTANCE="$INSTANCE"
+            # The Makefile installs bin/miodroid as a symlink to the Python entry
+            # point.  Put the instance wrapper in its place:
+            # without it `miodroid -I <name>` hands the name to miodroid-net.sh while
+            # get_inet_name() and get_work_dir() keep returning the default instance,
+            # so the script bails out and the instance silently loses its network.
+            rm -f $out/bin/miodroid
+            cat << 'EOF2' > $out/bin/miodroid
+      #!/bin/sh
+      INSTANCE=""
+      PREV=""
+      for arg in "$@"; do
+        if [ "$PREV" = "-I" ] || [ "$PREV" = "--instance" ]; then
+          INSTANCE="$arg"
+          break
         fi
-        substituteInPlace $out/bin/miodroid \
-          --replace-fail '@entrypoint@' "$out/lib/miodroid/waydroid.py"
-      ';
-        EOF2
-              chmod 0755 $out/bin/miodroid
+        case "$arg" in
+          -I*) INSTANCE="''${arg#-I}"; break ;;
+          --instance=*) INSTANCE="''${arg#--instance=}"; break ;;
+        esac
+        PREV="$arg"
+      done
+      if [ -n "$INSTANCE" ]; then
+        export MIODROID_INSTANCE="$INSTANCE"
+      fi
+      exec "@entrypoint@" "$@"
+      EOF2
+            chmod 0755 $out/bin/miodroid
+            substituteInPlace $out/bin/miodroid \
+              --replace-fail '@entrypoint@' "$out/lib/miodroid/waydroid.py"
     '';
 
     preFixup = ''
