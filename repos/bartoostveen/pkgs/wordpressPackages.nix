@@ -41,9 +41,9 @@ makeScope newScope (
       };
       contact-form-7 = self.callPackage self.mkWpPlugin {
         pname = "wp-contact-form-7";
-        version = "6.1.7";
+        version = "6.2";
         id = "contact-form-7";
-        hash = "sha256-adfCO2g+P/0mF82/k0GbDqi5rYCyz2/ewhEOVGm7XEA=";
+        hash = "sha256-fEE8frWaY8j2mrZP9SPdkVpeBKbyEyrx0cmHwNgJPms=";
       };
       indexnow = self.callPackage self.mkWpPlugin {
         pname = "indexnow";
@@ -82,6 +82,12 @@ makeScope newScope (
         version = "1.2.1";
         id = "view-transitions";
         hash = "sha256-RNcdPFfRuRHljuh2IhR+L/NuayreNBeLAvuAEqLMrFA=";
+      };
+      wp-user-avatars = self.callPackage self.mkWpPlugin {
+        pname = "wp-user-avatars";
+        version = "2.1.0";
+        id = "wp-user-avatars";
+        hash = "sha256-JmMOLm7EhMKlsfgx875ocgst3Zsp74Ztfv11rBPrbh0=";
       };
     };
 
