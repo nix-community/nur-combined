@@ -313,6 +313,38 @@ let
     ]
     ++ lib.optional withNftables "USE_NFTABLES=1";
 
+    postInstall = ''
+              # The Makefile installs bin/miodroid as a symlink to the Python entry
+              # point.  Put the instance wrapper in its place:
+              # without it `miodroid -I <name>` hands the name to miodroid-net.sh while
+              # get_inet_name() and get_work_dir() keep returning the default instance,
+              # so the script bails out and the instance silently loses its network.
+              rm -f $out/bin/miodroid
+              cat << 'EOF2' > $out/bin/miodroid
+        #!/bin/sh
+        INSTANCE=""
+        PREV=""
+        for arg in "$@"; do
+          if [ "$PREV" = "-I" ] || [ "$PREV" = "--instance" ]; then
+            INSTANCE="$arg"
+            break
+          fi
+          case "$arg" in
+            -I*) INSTANCE="''${arg#-I}"; break ;;
+            --instance=*) INSTANCE="''${arg#--instance=}"; break ;;
+          esac
+          PREV="$arg"
+        done
+        if [ -n "$INSTANCE" ]; then
+          export MIODROID_INSTANCE="$INSTANCE"
+        fi
+        substituteInPlace $out/bin/miodroid \
+          --replace-fail '@entrypoint@' "$out/lib/miodroid/waydroid.py"
+      ';
+        EOF2
+              chmod 0755 $out/bin/miodroid
+    '';
+
     preFixup = ''
       makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
 
@@ -357,6 +389,7 @@ let
       license = lib.licenses.gpl3Only;
       platforms = lib.platforms.linux;
       maintainers = [ ];
+      # Credits to Valve Lepton project (https://gitlab.steamos.cloud/frame-public/lepton) for rootless architecture
     };
   };
 in
