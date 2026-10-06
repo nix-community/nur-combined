@@ -10,6 +10,8 @@
   makeDesktopItem,
   copyDesktopItems,
   imagemagick,
+  ast-grep,
+  gotools,
   versionCheckHook,
   nix-update-script,
   coreutils,
@@ -35,11 +37,11 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-XEaHZVw3co0yUV6fLUlSkvg9LlroKFj2B2sjMW1e6BU=";
 
-  patches = lib.optionals (guiSupport && stdenv.hostPlatform.isLinux) [
-    ./linux-launcher.patch
-  ];
   postPatch = lib.optionalString (guiSupport && stdenv.hostPlatform.isLinux) ''
-    substituteInPlace internal/autostart/autostart.go internal/autostart/launcher_linux_test.go \
+    bash ${./linux-launcher.sh} "$out/bin/magpie"
+    cp ${./scheme_linux_test.go} internal/gui/nix_scheme_linux_test.go
+    cp ${./launcher_linux_test.go} internal/autostart/nix_launcher_linux_test.go
+    substituteInPlace internal/autostart/nix_launcher_linux_test.go \
       --replace-fail '@magpie@' "$out/bin/magpie"
   '';
 
@@ -108,6 +110,8 @@ buildGoModule (finalAttrs: {
     wrapGAppsHook3
     copyDesktopItems
     imagemagick
+    ast-grep
+    gotools
   ];
   buildInputs = lib.optionals (guiSupport && stdenv.hostPlatform.isLinux) [
     gtk3
