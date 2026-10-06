@@ -67,7 +67,10 @@
       };
       boot = {
         supportedFilesystems = [ ];
-        kernelModules = [ "tcp_bbr" ];
+        kernelModules = [
+          "tcp_bbr"
+        ];
+        extraModulePackages = [ ];
         loader = {
           timeout = 3;
           grub.enable = false;
@@ -141,11 +144,18 @@
           RuntimeWatchdogSec = "30s";
         };
       };
+
       services = {
         alloy.enable = true;
         yggdrasil.settings.AllowedPublicKeys = [
           "870b1f8c965df2b3220d9d6e4e8457f8f025f641873d00266adb3275d9025f14"
         ];
+        hysteria.instances.main = {
+          enable = true;
+          configFile = config.vaultix.secrets.hy.path;
+          serve = true;
+          openFirewall = 4500;
+        };
         # dnsproxy.settings = lib.mkForce {
         #   bootstrap = [
         #     "1.1.1.1"

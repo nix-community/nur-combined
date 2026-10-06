@@ -71,6 +71,12 @@
 
       services = {
         metrics.enable = true;
+        hysteria.instances.main = {
+          enable = true;
+          serve = true;
+          configFile = config.vaultix.secrets.hy.path;
+          openFirewall = 4500;
+        };
       };
 
       nixpkgs = {

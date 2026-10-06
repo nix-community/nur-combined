@@ -40,7 +40,7 @@
             #--base
             vxlan-mesh
             yggdrasil
-            xray
+            # xray
             perlless
             space-opt
           ])
@@ -52,7 +52,7 @@
 
       config = {
         identity.user = "elen";
-        xray.configFile = config.vaultix.secrets.xray.path;
+        # xray.configFile = config.vaultix.secrets.xray.path;
 
         system = {
           # This headless machine uses to perform heavy task.
@@ -155,6 +155,12 @@
         services = {
           metrics.enable = true;
           qemuGuest.enable = false;
+          hysteria.instances.main = {
+            enable = true;
+            serve = true;
+            configFile = config.vaultix.secrets.hy.path;
+            openFirewall = 4500;
+          };
         };
         documentation = {
           enable = false;

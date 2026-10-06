@@ -121,7 +121,7 @@
             "/persist"
           ];
         };
-        # sing-box.enable = true;
+        sing-box.enable = true;
         alloy.enable = true;
         # hysteria.instances.main = {
         #   enable = true;

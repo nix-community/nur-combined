@@ -107,6 +107,7 @@
           ".claude"
           ".cargo"
           ".rustup"
+          ".agents"
           ".mozilla"
           ".FeelUOwn"
           ".antigravity"

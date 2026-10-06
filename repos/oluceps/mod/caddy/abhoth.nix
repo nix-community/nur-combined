@@ -94,15 +94,15 @@
                             {
                               handler = "subroute";
                               routes = [
-                                {
-                                  handle = [
-                                    {
-                                      handler = "rewrite";
-                                      uri = "/jmap/session";
-                                    }
-                                  ];
-                                  match = [ { path = [ "/.well-known/jmap" ]; } ];
-                                }
+                                # {
+                                #   handle = [
+                                #     {
+                                #       handler = "rewrite";
+                                #       uri = "/jmap/session";
+                                #     }
+                                #   ];
+                                #   match = [ { path = [ "/.well-known/jmap" ]; } ];
+                                # }
                                 {
                                   handle = [
                                     {

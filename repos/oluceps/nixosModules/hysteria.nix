@@ -26,6 +26,7 @@ in
         types.submodule {
           options = {
             enable = mkEnableOption "enable this hysteria instance";
+            mimic = mkEnableOption "contain mimic path";
             package = mkPackageOption pkgs "hysteria" { };
             credentials = mkOption {
               type = types.listOf types.str;
@@ -82,17 +83,20 @@ in
           StartLimitIntervalSec = 0;
         };
         description = "hysteria daemon";
-        path = [ pkgs.mimic-bpf ];
+        path = mkIf opts.mimic [ pkgs.mimic-bpf ];
         serviceConfig =
           let
             binSuffix = if opts.serve then "server" else "client";
           in
           {
             Type = "simple";
-            # DynamicUser = true;
+            DynamicUser = true;
             ExecStart = "${lib.getExe' opts.package "hysteria"} ${binSuffix} -c \${CREDENTIALS_DIRECTORY}/config.yaml";
             LoadCredential = [ "config.yaml:${opts.configFile}" ] ++ opts.credentials;
             Environment = [ "HYSTERIA_DISABLE_UPDATE_CHECK=1" ];
+            StateDirectory = "hysteria-${name}";
+            WorkingDirectory = "/var/lib/hysteria-${name}";
+            RuntimeDirectory = mkIf opts.mimic "mimic";
             AmbientCapabilities = [
               "CAP_NET_ADMIN"
               "CAP_NET_BIND_SERVICE"

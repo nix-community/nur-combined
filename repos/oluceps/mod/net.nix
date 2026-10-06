@@ -31,6 +31,7 @@ let
         trustedInterfaces = [
           "virbr0"
           "podman*"
+          "tun0"
         ];
         allowedUDPPorts = [
         ];
@@ -594,12 +595,12 @@ in
             enable = true;
             anyInterface = true;
           };
-          links."10-eno1" = {
+          links."10-eth0" = {
             matchConfig.MACAddress = "bc:24:11:21:c7:2c";
-            linkConfig.Name = "eno1";
+            linkConfig.Name = "eth0";
           };
-          networks."8-eno1" = {
-            matchConfig.Name = "eno1";
+          networks."8-eth0" = {
+            matchConfig.Name = "eth0";
             networkConfig = {
               DHCP = "no";
               IPv4Forwarding = true;

@@ -133,8 +133,9 @@
               antigravity-ide
               inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.codex
               inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.antigravity-cli
+              inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
+              # (inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.dsh)
               opencode
-              pi-coding-agent
               # claude-code
             ];
 

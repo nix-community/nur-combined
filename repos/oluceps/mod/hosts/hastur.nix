@@ -39,14 +39,14 @@
             vxlan-mesh
             yggdrasil
             earlyoom
-            dae
+            # dae
             # honk
             # limes
             secureboot
             home
             chrony
             prometheus
-            xray
+            # xray
             june
             vocat
             # ipex
@@ -59,7 +59,7 @@
 
       identity.user = "riro";
       incus.bridgeAddr = "fdcc:1::1/64";
-      xray.configFile = config.vaultix.secrets.xray-cli.path;
+      # xray.configFile = config.vaultix.secrets.xray-cli.path;
 
       environment.systemPackages = [
         pkgs.nvtopPackages.intel
@@ -146,7 +146,9 @@
           "kvm-amd"
           "wacom"
         ];
-        extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+        extraModulePackages = with config.boot.kernelPackages; [
+          v4l2loopback
+        ];
         extraModprobeConfig = ''
           options v4l2loopback devices=1 video_nr=1 card_label="OBS Virtual Camera" exclusive_caps=1
         '';
@@ -225,7 +227,7 @@
             timerConfig.onCalendar = "daily";
           }
         ];
-        # sing-box.enable = true;
+        sing-box.enable = true;
         gvfs.enable = false;
         alloy.enable = true;
 

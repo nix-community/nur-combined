@@ -71,7 +71,7 @@ in
             owner = config.services.pocket-id.user;
           };
 
-          xray-cli = { };
+          # xray-cli = { };
           age = {
             mode = "400";
             owner = config.identity.user;
@@ -111,6 +111,7 @@ in
           # postfix-sasl = { };
           stalwart = { };
           xray = { };
+          hy = { };
         };
       };
     };
@@ -130,6 +131,7 @@ in
 
         secrets = {
           xray = { };
+          hy = { };
         };
       };
     };
@@ -168,6 +170,7 @@ in
           };
 
           xray = { };
+          hy = { };
         };
       };
     };
@@ -226,7 +229,7 @@ in
 
         secrets = {
           sing = { };
-          xray-cli = { };
+          # xray-cli = { };
         };
       };
     };
@@ -250,6 +253,7 @@ in
             group = "root";
             name = "subs.ts";
           };
+          hy = { };
         };
       };
     };

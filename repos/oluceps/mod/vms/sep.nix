@@ -14,6 +14,7 @@
 
       networking.firewall.extraInputRules = ''
         iifname "vm1" ip saddr 10.255.0.1 ip daddr 10.255.0.0 tcp dport { 3030, 53 } accept
+        iifname "vm1" ip saddr 10.255.0.1 ip daddr 10.255.0.0 udp dport 53 accept
       '';
       networking = {
         nat = {

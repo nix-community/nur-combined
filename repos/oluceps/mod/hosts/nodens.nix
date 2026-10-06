@@ -37,7 +37,7 @@
             earlyoom
             chrony
             # sing-server
-            xray
+            # xray
             mc
             wgmesh
 
@@ -49,7 +49,7 @@
         ];
 
       identity.user = "elen";
-      xray.configFile = config.vaultix.secrets.xray.path;
+      # xray.configFile = config.vaultix.secrets.xray.path;
       wgmesh = {
         configFile = "/var/lib/wgmesh/config.json";
         image = "ghcr.io/asoul-rec/wg-mesh:master@sha256:4a22da9332b01c2fa70dc9df2d82342880881f9dcf05f68cde308a2517b1b496";
@@ -147,6 +147,13 @@
       };
       services = {
         alloy.enable = true;
+
+        hysteria.instances.main = {
+          enable = true;
+          serve = true;
+          configFile = config.vaultix.secrets.hy.path;
+          openFirewall = 4500;
+        };
         # dnsproxy.settings = lib.mkForce {
         #   bootstrap = [
         #     "1.1.1.1"
