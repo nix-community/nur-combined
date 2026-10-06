@@ -1,6 +1,7 @@
 {
   lib,
   callPackage,
+  runCommand,
 }:
 
 let
@@ -46,3 +47,18 @@ in
 lib.listToAttrs (
   map (name: lib.nameValuePair "duckdb-extension-${name}" (mkExtensionCheck name)) extensionNames
 )
+// {
+  duckdb-link-archives =
+    let
+      duckdb = callPackage ./default.nix { };
+    in
+    runCommand "duckdb-link-archives" { } ''
+      for archive in ${lib.escapeShellArgs duckdb.link.static.archives}; do
+        if [ ! -f "$archive" ]; then
+          echo "missing archive: $archive" >&2
+          exit 1
+        fi
+      done
+      touch $out
+    '';
+}

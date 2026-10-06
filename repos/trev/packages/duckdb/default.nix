@@ -448,32 +448,36 @@ withLoadableExtensions (
       link =
         let
           libDir = "${finalAttrs.finalPackage.lib}/lib";
+          # always loaded by extension/extension_config.cmake
+          builtinExtensions = map mkExtension [
+            "core_functions"
+            "parquet"
+          ];
+          staticExtensions = builtinExtensions ++ inTreeExtensions ++ linkedExtensions;
+          # add_third_party in CMakeLists.txt, which only builds jemalloc on 64-bit linux
+          thirdPartyLibraries = [
+            "fastpforlib"
+            "fmt"
+            "fsst"
+            "hyperloglog"
+            "mbedtls"
+            "miniz"
+            "pg_query"
+            "re2"
+            "skiplistlib"
+            "utf8proc"
+            "yyjson"
+            "zstd"
+          ]
+          ++ lib.optionals (
+            stdenv.hostPlatform.isLinux && stdenv.hostPlatform.is64bit && !stdenv.hostPlatform.isAndroid
+          ) [ "jemalloc" ];
           archiveNames = [
             "libduckdb_static.a"
             "libduckdb_generated_extension_loader.a"
-            "libautocomplete_extension.a"
-            "libcore_functions_extension.a"
-            "libhttpfs_extension.a"
-            "libicu_extension.a"
-            "libjson_extension.a"
-            "libparquet_extension.a"
-            "libquack_extension.a"
-            "libtpcds_extension.a"
-            "libtpch_extension.a"
-            "libduckdb_fastpforlib.a"
-            "libduckdb_fmt.a"
-            "libduckdb_fsst.a"
-            "libduckdb_hyperloglog.a"
-            "libduckdb_jemalloc.a"
-            "libduckdb_mbedtls.a"
-            "libduckdb_miniz.a"
-            "libduckdb_pg_query.a"
-            "libduckdb_re2.a"
-            "libduckdb_skiplistlib.a"
-            "libduckdb_utf8proc.a"
-            "libduckdb_yyjson.a"
-            "libduckdb_zstd.a"
-          ];
+          ]
+          ++ map (extension: "lib${extension.name}_extension.a") staticExtensions
+          ++ map (library: "libduckdb_${library}.a") thirdPartyLibraries;
           archives = map (archive: "${libDir}/${archive}") archiveNames;
           systemLibraries = [
             "stdc++"
