@@ -995,8 +995,8 @@
             "url": "https://github.com/foresense/nur-packages"
         },
         "forkprince": {
-            "rev": "26af642935f3241e7a2027acd9b673b7c5edd7af",
-            "sha256": "11d3zzma4s11maz8wpwpf2fw76mmsj9byvcm3yi9m2q846cnknz6",
+            "rev": "3b614e4e0a19561505242372935d71516399ad14",
+            "sha256": "1xfr7qjy3lk02f3f37h1j393wndfajamy822dviyrrmbrdy8c7r5",
             "url": "https://github.com/forkprince/nur-packages"
         },
         "fortuneteller2k": {
@@ -2338,6 +2338,11 @@
             "rev": "b8ea2432f6751e8f86390fcc91fda72b4a9fd2e6",
             "sha256": "1ccg903m8km0p50ql0li0cwnxpvan4w4565w09kn2brb1az1zlp1",
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
+        },
+        "shelvacu": {
+            "rev": "f405c5e76de23f375baad739297c65dd497c5002",
+            "sha256": "1xr19rx765d962dc6hhnrhya9k1mxyf1p94bfmqv7yzzz160dfxb",
+            "url": "https://git.uninsane.org/shelvacu/nix-stuff"
         },
         "shirok1": {
             "rev": "ecb32d0c015600a0b5af51aefe528ac23cf525c8",
