@@ -27,6 +27,7 @@
   xsetwall = pkgs.callPackage ./pkgs/xsetwall { };
   disktree = pkgs.callPackage ./pkgs/disktree { };
   raddebugger = pkgs.callPackage ./pkgs/raddebugger { };
+  drag = pkgs.callPackage ./pkgs/drag { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
