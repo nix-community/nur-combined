@@ -56,9 +56,14 @@ Use this repository in `flake.nix`:
 ## Automated updates
 
 Packages expose a passthru.updateScript; rime-data-flypy is a manually
-vendored snapshot and intentionally has none. The Update packages workflow
-(.github/workflows/update.yml) runs daily (and on demand) to open one pull
-request per outdated package and per outdated flake input.
+vendored snapshot and intentionally has none. Two scheduled workflows keep the
+repository fresh:
+
+* **Update packages** (.github/workflows/update-packages.yml) runs daily (and
+  on demand) and opens one pull request per outdated package.
+* **Update flake inputs** (.github/workflows/update-flake-inputs.yml) runs
+  weekly (and on demand), bumps every flake input in flake.lock and commits
+  the result straight to main, without opening a pull request.
 
 Run an updater locally from the repository root:
 
@@ -67,12 +72,14 @@ Run an updater locally from the repository root:
 Discovery treats any package exposing updateScript as updatable, so new
 packages are picked up automatically.
 
-The workflow uses the default GITHUB_TOKEN, which needs the repository
-setting Settings -> Actions -> General -> Workflow permissions -> "Allow
-GitHub Actions to create and approve pull requests" to be enabled.
+Both workflows use the default GITHUB_TOKEN, so they need write access to the
+repository contents: Settings -> Actions -> General -> Workflow permissions ->
+"Read and write permissions". The package workflow additionally needs "Allow
+GitHub Actions to create and approve pull requests".
 
-PRs created this way do not trigger other workflows, so the update job
-builds each updated package before opening its PR.
+Events triggered by GITHUB_TOKEN do not start other workflows, so the package
+job builds each updated package before opening its PR, and the flake input job
+evaluates the repository before pushing.
 
 ## Notes for myself
 

@@ -2,8 +2,9 @@
 """Print the update matrix for the scheduled update workflow.
 
 Packages opt in by exposing passthru.updateScript (so rime-data-flypy is
-skipped automatically), and flake.lock inputs are listed too. Writes
-matrix and has-updates to GITHUB_OUTPUT.
+skipped automatically), and flake.lock inputs are listed too. The optional
+TYPES environment variable restricts which kinds are emitted (for example
+TYPES=package). Writes matrix and has-updates to GITHUB_OUTPUT.
 """
 
 from __future__ import annotations
@@ -68,18 +69,26 @@ def main() -> None:
     """Build and emit the update matrix."""
     packages_filter = os.environ.get("PACKAGES", "").split()
     inputs_filter = os.environ.get("INPUTS", "").split()
+    types_filter = os.environ.get("TYPES", "").split()
     system = os.environ.get("SYSTEM", "x86_64-linux")
 
-    items = [
-        {"type": "package", "name": name, "version": version}
-        for name, version in sorted(package_versions(system).items())
-        if not packages_filter or name in packages_filter
-    ]
-    items += [
-        {"type": "flake-input", "name": name, "version": ""}
-        for name in flake_inputs()
-        if not inputs_filter or name in inputs_filter
-    ]
+    def wanted(kind: str) -> bool:
+        """Whether kind survives the optional TYPES filter."""
+        return not types_filter or kind in types_filter
+
+    items: list[dict[str, str]] = []
+    if wanted("package"):
+        items += [
+            {"type": "package", "name": name, "version": version}
+            for name, version in sorted(package_versions(system).items())
+            if not packages_filter or name in packages_filter
+        ]
+    if wanted("flake-input"):
+        items += [
+            {"type": "flake-input", "name": name, "version": ""}
+            for name in flake_inputs()
+            if not inputs_filter or name in inputs_filter
+        ]
 
     matrix = {"include": items}
     write_output("matrix", json.dumps(matrix, separators=(",", ":")))

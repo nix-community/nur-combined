@@ -1,4 +1,12 @@
 name: Update packages
+
+# Runs daily (and on demand) and opens one pull request per outdated package.
+# Flake inputs are handled by update-flake-inputs.yml, which runs weekly and
+# commits flake.lock straight to main.
+#
+# The default GITHUB_TOKEN can push branches and open PRs, but workflows it
+# triggers do not run. The update job therefore builds each package before
+# opening the PR.
 on:
   schedule:
     # Random off-peak minute (UTC), away from the top-of-hour rush and the
@@ -10,20 +18,13 @@ on:
         description: 'Space-separated package names to update (empty = all)'
         required: false
         default: ''
-      inputs:
-        description: 'Space-separated flake inputs to update (empty = all)'
-        required: false
-        default: ''
 
-# The default GITHUB_TOKEN can push branches and open PRs, but workflows it
-# triggers do not run. The update job therefore builds each package before
-# opening the PR.
 permissions:
   contents: write
   pull-requests: write
 
 concurrency:
-  group: update-${{ github.ref }}
+  group: update-packages-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -39,7 +40,7 @@ jobs:
         id: discover
         env:
           PACKAGES: ${{ github.event.inputs.packages }}
-          INPUTS: ${{ github.event.inputs.inputs }}
+          TYPES: package
         run: python3 scripts/discover_updates.py
 
   update:
@@ -56,34 +57,21 @@ jobs:
       - name: Update
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TYPE: ${{ matrix.type }}
           NAME: ${{ matrix.name }}
-        run: |
-          if [ "$TYPE" = "package" ]; then
-            nix run ".#packages.x86_64-linux.$NAME.updateScript"
-          else
-            nix flake update "$NAME"
-          fi
+        run: nix run ".#packages.x86_64-linux.$NAME.updateScript"
       - name: Verify updated package
-        if: matrix.type == 'package'
         env:
           NAME: ${{ matrix.name }}
         run: nix build --no-link ".#packages.x86_64-linux.$NAME"
       - name: Compute PR metadata
         id: pr
         env:
-          TYPE: ${{ matrix.type }}
           NAME: ${{ matrix.name }}
           OLD_VERSION: ${{ matrix.version }}
         run: |
-          if [ "$TYPE" = "package" ]; then
-            new=$(nix eval --raw ".#packages.x86_64-linux.$NAME.version")
-            echo "title=$NAME: $OLD_VERSION -> $new" >> "$GITHUB_OUTPUT"
-            echo "commit=chore($NAME): update to $new" >> "$GITHUB_OUTPUT"
-          else
-            echo "title=flake.lock: update $NAME" >> "$GITHUB_OUTPUT"
-            echo "commit=chore(flake.lock): update $NAME" >> "$GITHUB_OUTPUT"
-          fi
+          new=$(nix eval --raw ".#packages.x86_64-linux.$NAME.version")
+          echo "title=$NAME: $OLD_VERSION -> $new" >> "$GITHUB_OUTPUT"
+          echo "commit=chore($NAME): update to $new" >> "$GITHUB_OUTPUT"
       - name: Create or update pull request
         uses: peter-evans/create-pull-request@v8
         with:
@@ -94,6 +82,6 @@ jobs:
           title: ${{ steps.pr.outputs.title }}
           commit-message: ${{ steps.pr.outputs.commit }}
           body: |
-            Automated update from .github/workflows/update.yml.
+            Automated update from .github/workflows/update-packages.yml.
 
-            - item: ${{ matrix.name }} (${{ matrix.type }})
+            - package: ${{ matrix.name }}

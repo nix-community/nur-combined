@@ -1,0 +1,66 @@
+name: Update flake inputs
+
+# Runs weekly (and on demand) and commits flake.lock straight to main, without
+# opening pull requests. Package updaters are handled by update-packages.yml,
+# which runs daily and opens one pull request per outdated package.
+#
+# The default GITHUB_TOKEN is used, so the push does not trigger other
+# workflows; the job therefore evaluates the whole repository before pushing.
+on:
+  schedule:
+    # Weekly on Monday, at a random off-peak minute (UTC), away from the
+    # top-of-hour rush and the 03:23 build workflow.
+    - cron: '42 6 * * 1'
+  workflow_dispatch:
+    inputs:
+      inputs:
+        description: 'Space-separated flake inputs to update (empty = all)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-flake-inputs-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    # Bumping flake.lock and evaluating the repo is quick; keep a tight limit.
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: cachix/install-nix-action@v31
+      - name: Update flake inputs
+        env:
+          INPUTS: ${{ github.event.inputs.inputs }}
+        run: |
+          if [ -n "$INPUTS" ]; then
+            # Unquoted on purpose: one argument per input name.
+            nix flake update $INPUTS
+          else
+            nix flake update
+          fi
+      - name: Check evaluation
+        run: |
+          nix-env -f . -qa \* --meta --xml \
+            --allowed-uris https://static.rust-lang.org \
+            --option restrict-eval true \
+            --option allow-import-from-derivation true \
+            --drv-path --show-trace \
+            -I nixpkgs="$(nix-instantiate --find-file nixpkgs)" \
+            -I "$PWD"
+      - name: Commit and push to main
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet && git diff --cached --quiet; then
+            echo "No flake.lock changes; nothing to commit."
+            exit 0
+          fi
+          git add -A
+          git commit -m "chore(flake.lock): update inputs"
+          git push origin HEAD:main
