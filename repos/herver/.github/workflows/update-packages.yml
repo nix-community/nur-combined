@@ -10,8 +10,16 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
+    - name: Generate app token
+      id: app-token
+      uses: actions/create-github-app-token@v3
+      with:
+        client-id: ${{ vars.UPDATE_APP_CLIENT_ID }}
+        private-key: ${{ secrets.UPDATE_APP_PRIVATE_KEY }}
     - name: Checkout repository
       uses: actions/checkout@v7
+      with:
+        token: ${{ steps.app-token.outputs.token }}
     - name: Install nix
       uses: cachix/install-nix-action@v31
       with:
@@ -31,7 +39,7 @@ jobs:
         done
     - name: Create PRs for updated packages
       env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GH_TOKEN: ${{ steps.app-token.outputs.token }}
       run: |
         if git diff --quiet; then
           echo "No updates found"
@@ -66,6 +74,9 @@ jobs:
                 --title "$pkg: update to ${version}" \
                 --body "Automated update detected a new \`${pkg}\` release (\`${version}\`)." \
                 --base main --head "$branch"
+            fi
+            if [ "$(gh pr view "$branch" --json autoMergeRequest --jq '.autoMergeRequest == null')" = "true" ]; then
+              gh pr merge "$branch" --auto --squash
             fi
           ); then
             echo "opened/updated PR for $pkg"
