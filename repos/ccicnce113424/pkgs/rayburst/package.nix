@@ -26,16 +26,16 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rayburst";
-  version = "4.0.0";
+  version = "4.0.1";
 
   src = fetchFromGitHub {
     owner = "AnInsomniacy";
     repo = "rayburst";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-2GuZEFwua3SY7EVywAi0r8ITz/9cUbks7K7ux8SijAo=";
+    hash = "sha256-ViMwZA3HsouYH7bV5BWPuNrOxT1ySfOruBRIyPrasgw=";
   };
 
-  cargoHash = "sha256-xxKzyefv4UjbOW5q/ei6urXETEDZnN3BeUjAkOwu7ZA=";
+  cargoHash = "sha256-5OkOO9jnI9/CSGN7Bsmbe7S5MGfAPWBGYz1PPYzHWm0=";
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs)
