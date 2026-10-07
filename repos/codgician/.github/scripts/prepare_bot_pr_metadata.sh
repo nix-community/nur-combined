@@ -7,6 +7,15 @@ old_version=${2-}
 new_package=${3:?new package state is required}
 output_dir=${4:?output directory is required}
 attempt=${5:?repair attempt is required}
+repair_kind=${6:-}
+failed_run_url=${7:-}
+if [[ -z "$repair_kind" ]]; then
+  if [[ "$new_package" == "true" ]]; then
+    repair_kind=new-package
+  else
+    repair_kind=update
+  fi
+fi
 
 if [[ ! "$package" =~ ^[a-z][a-z0-9_-]{0,63}$ ]]; then
   echo "Invalid package attribute: $package" >&2
@@ -18,6 +27,22 @@ if [[ "$new_package" != "true" && "$new_package" != "false" ]]; then
 fi
 if [[ ! "$attempt" =~ ^[1-9][0-9]*$ ]]; then
   echo "Invalid repair attempt: $attempt" >&2
+  exit 2
+fi
+if [[ "$repair_kind" != "update" && "$repair_kind" != "new-package" && "$repair_kind" != "build-fix" ]]; then
+  echo "Invalid repair kind: $repair_kind" >&2
+  exit 2
+fi
+if [[ ( "$new_package" == "true" && "$repair_kind" != "new-package" ) || ( "$new_package" == "false" && "$repair_kind" == "new-package" ) ]]; then
+  echo "Repair kind does not match new package state: $repair_kind" >&2
+  exit 2
+fi
+if [[ "$repair_kind" == "build-fix" && -z "$failed_run_url" ]]; then
+  echo "Build repair requires a failed run URL" >&2
+  exit 2
+fi
+if [[ -n "$failed_run_url" && ( "$failed_run_url" == *$'\n'* || ! "$failed_run_url" =~ ^https?://[^[:space:]]{1,2048}$ ) ]]; then
+  echo "Invalid failed run URL" >&2
   exit 2
 fi
 
@@ -55,11 +80,22 @@ if [[ "$new_package" == "true" ]]; then
     fi
   } > "$output_dir/body.md"
 else
-  printf '%s: %s -> %s' "$package" "$old_version" "$new_version" > "$output_dir/title"
+  if [[ "$repair_kind" == "build-fix" ]]; then
+    printf '%s: fix build' "$package" > "$output_dir/title"
+  else
+    printf '%s: %s -> %s' "$package" "$old_version" "$new_version" > "$output_dir/title"
+  fi
   {
-    printf "Automated update of \`%s\` from \`%s\` to \`%s\`.\n\n" "$package" "$old_version" "$new_version"
+    if [[ "$repair_kind" == "build-fix" ]]; then
+      printf "Automated build repair of \`%s\` at \`%s\`.\n\n" "$package" "$new_version"
+    else
+      printf "Automated update of \`%s\` from \`%s\` to \`%s\`.\n\n" "$package" "$old_version" "$new_version"
+    fi
     printf -- "- Origin: \`AI repair\`\n"
     printf -- '- Validation: full required pull-request CI before review\n'
+    if [[ -n "$failed_run_url" ]]; then
+      printf -- '- Failed run: %s\n' "$failed_run_url"
+    fi
     if [[ -n "$changelog" ]]; then
       printf -- '- Changelog: %s\n' "$changelog"
     fi

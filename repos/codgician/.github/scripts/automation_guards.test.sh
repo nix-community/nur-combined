@@ -67,6 +67,80 @@ if .github/scripts/validate_package_source.sh "$tmpdir/package" >/dev/null 2>&1;
   exit 1
 fi
 
+# Exercise the candidate version gate with real Nix evaluation and comparison.
+# Formatting and the already-idempotent updater are unrelated fixture boundaries.
+real_nix=$(command -v nix)
+version_repo="$tmpdir/version-repo"
+mkdir -p "$version_repo/.github/scripts" "$version_repo/pkgs/fixture" "$tmpdir/version-bin"
+cp .github/scripts/{validate_candidate_structure,validate_package_source,classify_version}.sh "$version_repo/.github/scripts/"
+cat > "$version_repo/.github/scripts/run_updater.sh" <<'EOF'
+#!/usr/bin/env bash
+exit 0
+EOF
+chmod +x "$version_repo/.github/scripts/run_updater.sh"
+cat > "$tmpdir/version-bin/nix" <<'EOF'
+#!/usr/bin/env bash
+set -euo pipefail
+if [[ "${1-}" == fmt ]]; then
+  exit 0
+fi
+exec "${REAL_NIX_BIN:?}" "$@"
+EOF
+chmod +x "$tmpdir/version-bin/nix"
+cat > "$version_repo/flake.nix" <<'EOF'
+{
+  outputs = { self }: {
+    fixture = import ./pkgs/fixture/default.nix;
+  };
+}
+EOF
+printf '{ version = "1.2.3"; repaired = false; }\n' > "$version_repo/pkgs/fixture/default.nix"
+git -C "$version_repo" init --quiet
+git -C "$version_repo" add .
+git -C "$version_repo" -c user.name=Fixture -c user.email=fixture@example.invalid -c commit.gpgsign=false commit --quiet -m fixture
+
+assert_candidate_version() {
+  local version=$1
+  local policy=$2
+  local expected=$3
+  local actual=0
+  local output_file="$tmpdir/candidate-version"
+  local -a policy_args=()
+  if [[ -n "$policy" ]]; then
+    policy_args=("$policy")
+  fi
+  rm -f "$output_file"
+  printf '{ version = "%s"; repaired = true; }\n' "$version" > "$version_repo/pkgs/fixture/default.nix"
+  (
+    cd "$version_repo"
+    PATH="$tmpdir/version-bin:$PATH" REAL_NIX_BIN="$real_nix" \
+      bash .github/scripts/validate_candidate_structure.sh fixture 1.2.3 "$output_file" "${policy_args[@]}"
+  ) > "$tmpdir/version-validation.log" 2>&1 || actual=$?
+  if [[ "$actual" != "$expected" ]]; then
+    cat "$tmpdir/version-validation.log" >&2
+    echo "Expected candidate 1.2.3 -> $version under ${policy:-default} to exit $expected, got $actual" >&2
+    exit 1
+  fi
+  if [[ "$actual" == 0 ]]; then
+    if [[ ! -f "$output_file" || "$(cat "$output_file")" != "$version" ]]; then
+      echo 'Accepted candidate did not record its actual version' >&2
+      exit 1
+    fi
+  elif [[ -e "$output_file" ]]; then
+    echo 'Rejected candidate unexpectedly recorded an accepted version' >&2
+    exit 1
+  fi
+}
+
+assert_candidate_version 1.2.4 '' 0
+assert_candidate_version 1.2.3 '' 1
+assert_candidate_version 1.2.2 '' 1
+assert_candidate_version 1.2.3 unchanged 0
+assert_candidate_version 1.2.4 unchanged 1
+assert_candidate_version 1.2.2 unchanged 1
+assert_candidate_version 1.02.3 unchanged 1
+assert_candidate_version 1.2.3 unsupported 2
+
 mkdir -p "$tmpdir/bin"
 cat > "$tmpdir/bin/nix" <<'EOF'
 #!/usr/bin/env bash

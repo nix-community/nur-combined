@@ -1,0 +1,281 @@
+name: package repair
+on:
+  workflow_call:
+    inputs:
+      target:
+        description: Validated package repair target
+        required: true
+        type: string
+      run-id:
+        required: true
+        type: string
+      run-url:
+        required: true
+        type: string
+    secrets:
+      DENDRO_API_KEY:
+        required: true
+      APP_PRIVATE_KEY:
+        required: true
+permissions:
+  actions: read
+  contents: read
+  pull-requests: read
+concurrency:
+  group: package-repair-${{ fromJSON(inputs.target).package }}
+  cancel-in-progress: false
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    permissions:
+      actions: read
+      contents: read
+      pull-requests: read
+    env:
+      PACKAGE: ${{ fromJSON(inputs.target).package }}
+      BASE_SHA: ${{ fromJSON(inputs.target).base_sha }}
+      HEAD_SHA: ${{ fromJSON(inputs.target).head_sha }}
+      REPAIR_ATTEMPT: ${{ fromJSON(inputs.target).attempt }}
+      NEW_PACKAGE: ${{ fromJSON(inputs.target).kind == 'new-package' }}
+      REPAIR_KIND: ${{ fromJSON(inputs.target).kind }}
+      RUN_URL: ${{ inputs.run-url }}
+    steps:
+      - name: Checkout failed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ fromJSON(inputs.target).head_sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@3138316df39ed29be04236d7ffc686fa525866aa # v23
+        with:
+          extra-conf: |
+            accept-flake-config = true
+            experimental-features = nix-command flakes
+      - name: Collect failed CI evidence
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ inputs.run-id }}
+          REPOSITORY: ${{ github.repository }}
+          FAILURE_REASON: ${{ fromJSON(inputs.target).reason }}
+        run: |
+          mkdir -p .ai-state
+          printf '\n.ai-state/\n' >> .git/info/exclude
+          gh run view "$RUN_ID" --repo "$REPOSITORY" --log-failed > .ai-state/ci-failure.log
+          jq -n \
+            --arg package "$PACKAGE" \
+            --arg head_sha "$HEAD_SHA" \
+            --arg base_sha "$BASE_SHA" \
+            --arg reason "$FAILURE_REASON" \
+            --arg repair_kind "$REPAIR_KIND" \
+            --argjson attempt "$REPAIR_ATTEMPT" \
+            '{package: $package, route: "ci-repair", repair_kind: $repair_kind, head_sha: $head_sha, base_sha: $base_sha, failure_reason: $reason, repair_attempt: $attempt, ci_log: ".ai-state/ci-failure.log"}' \
+            > .ai-state/state.json
+      - name: Record base package contract
+        if: fromJSON(inputs.target).kind != 'new-package'
+        run: |
+          git worktree add --detach "$RUNNER_TEMP/base" "$BASE_SHA"
+          nix eval --raw "$RUNNER_TEMP/base#$PACKAGE.version" > "$RUNNER_TEMP/old-version"
+          if ! nix eval --raw "$RUNNER_TEMP/base#$PACKAGE.meta.mainProgram" > "$RUNNER_TEMP/main-program" 2>/dev/null; then
+            printf 'none' > "$RUNNER_TEMP/main-program"
+          fi
+          git worktree remove "$RUNNER_TEMP/base"
+      - name: Repair pull request with Pi
+        env:
+          DENDRO_API_KEY: ${{ secrets.DENDRO_API_KEY }}
+        run: |
+          {
+            if [[ "$NEW_PACKAGE" == "true" ]]; then
+              cat .github/new-package-prompt.md
+            else
+              cat .github/evergreen-review-prompt.md
+            fi
+            printf "\n\nRepair attempt %s for package \`%s\`. The failed revision is \`%s\`; compare it with baseline \`%s\` and read \`.ai-state/ci-failure.log\`.\n" \
+              "$REPAIR_ATTEMPT" "$PACKAGE" "$HEAD_SHA" "$BASE_SHA"
+          } > .ai-state/prompt.md
+          nix develop .# -c .github/scripts/run_pi_agent.sh .ai-state/prompt.md
+      - name: Validate repaired candidate
+        run: |
+          if [[ "$NEW_PACKAGE" == "true" ]]; then
+            git add -A -- "pkgs/$PACKAGE"
+            before=$(git diff --cached --binary --full-index HEAD -- "pkgs/$PACKAGE" | sha256sum)
+            nix develop .# -c .github/scripts/run_updater.sh "$PACKAGE"
+            outside=$(git status --porcelain --untracked-files=all -- . ":(exclude)pkgs/$PACKAGE/**")
+            if [[ -n "$outside" ]]; then
+              echo "Updater changed files outside pkgs/$PACKAGE:" >&2
+              printf '%s\n' "$outside" >&2
+              exit 1
+            fi
+            git add -A -- "pkgs/$PACKAGE"
+            after=$(git diff --cached --binary --full-index HEAD -- "pkgs/$PACKAGE" | sha256sum)
+            if [[ "$before" != "$after" ]]; then
+              echo "Updater changed the repaired package; it is not idempotent" >&2
+              exit 1
+            fi
+            nix fmt -- --ci "pkgs/$PACKAGE"
+            nix develop .# -c .github/scripts/validate_new_package.sh "$PACKAGE"
+          else
+            version_policy=advanced
+            if [[ "$REPAIR_KIND" == "build-fix" ]]; then
+              version_policy=unchanged
+            fi
+            nix develop .# -c .github/scripts/validate_candidate.sh \
+              "$PACKAGE" \
+              "$(cat "$RUNNER_TEMP/main-program")" \
+              "$(cat "$RUNNER_TEMP/old-version")" \
+              "$RUNNER_TEMP/new-version" \
+              "$version_policy"
+          fi
+          git add -A -- "pkgs/$PACKAGE"
+          git diff --cached --check
+          mkdir -p "$RUNNER_TEMP/repair"
+          git diff --cached --binary --full-index HEAD -- "pkgs/$PACKAGE" > "$RUNNER_TEMP/repair/repair.patch"
+          old_version=
+          if [[ "$NEW_PACKAGE" == "false" ]]; then
+            old_version=$(cat "$RUNNER_TEMP/old-version")
+          fi
+          bash .github/scripts/prepare_bot_pr_metadata.sh \
+            "$PACKAGE" \
+            "$old_version" \
+            "$NEW_PACKAGE" \
+            "$RUNNER_TEMP/repair" \
+            "$REPAIR_ATTEMPT" \
+            "$REPAIR_KIND" \
+            "$RUN_URL"
+      - name: Upload repair patch
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: bot-repair-${{ fromJSON(inputs.target).package }}-${{ fromJSON(inputs.target).attempt }}
+          path: ${{ runner.temp }}/repair
+          if-no-files-found: error
+          retention-days: 1
+  publish-repair:
+    needs: repair
+    if: needs.repair.result == 'success'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      pull-requests: read
+    env:
+      PACKAGE: ${{ fromJSON(inputs.target).package }}
+      BRANCH: ${{ fromJSON(inputs.target).branch }}
+      EXPECTED_HEAD: ${{ fromJSON(inputs.target).head_sha }}
+      PR_NUMBER: ${{ fromJSON(inputs.target).number }}
+      REPAIR_ATTEMPT: ${{ fromJSON(inputs.target).attempt }}
+      NEW_PACKAGE: ${{ fromJSON(inputs.target).kind == 'new-package' }}
+      REPAIR_KIND: ${{ fromJSON(inputs.target).kind }}
+      RUN_URL: ${{ inputs.run-url }}
+    steps:
+      - name: Generate bot token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+      - name: Checkout expected bot revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ fromJSON(inputs.target).head_sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Download repair patch
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: bot-repair-${{ fromJSON(inputs.target).package }}-${{ fromJSON(inputs.target).attempt }}
+          path: ${{ runner.temp }}/repair
+      - name: Verify current head and apply repair
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          if [[ -n "$PR_NUMBER" ]]; then
+            current=$(gh api "repos/$REPOSITORY/pulls/$PR_NUMBER" --jq 'if .state == "open" then .head.sha else "closed" end')
+          else
+            current=$(gh api "repos/$REPOSITORY/branches/main" --jq .commit.sha)
+            existing=$(gh api --method GET "repos/$REPOSITORY/pulls" \
+              -f state=open -f head="${REPOSITORY%%/*}:$BRANCH" --jq 'length')
+            if [[ "$existing" != "0" ]]; then
+              echo "A repair PR for $PACKAGE already exists; refusing duplicate publication" >&2
+              exit 1
+            fi
+          fi
+          if [[ "$current" != "$EXPECTED_HEAD" ]]; then
+            echo "Repair target advanced from $EXPECTED_HEAD to $current; refusing stale repair" >&2
+            exit 1
+          fi
+          git apply --index "$RUNNER_TEMP/repair/repair.patch"
+          .github/scripts/validate_package_source.sh "pkgs/$PACKAGE"
+          while IFS= read -r path; do
+            if [[ "$path" != "pkgs/$PACKAGE/"* ]]; then
+              echo "Repair contains a path outside pkgs/$PACKAGE: $path" >&2
+              exit 1
+            fi
+          done < <(git diff --cached --name-only)
+          if git ls-files --stage -- "pkgs/$PACKAGE" | grep -q '^120000 '; then
+            echo "Package repairs may not contain symlinks" >&2
+            exit 1
+          fi
+          git diff --cached --check
+      - name: Read repaired pull request metadata
+        id: metadata
+        run: |
+          echo "title=$(cat "$RUNNER_TEMP/repair/title")" >> "$GITHUB_OUTPUT"
+          echo "commit-message=$(cat "$RUNNER_TEMP/repair/commit-message")" >> "$GITHUB_OUTPUT"
+      - name: Publish signed repair
+        id: pull_request
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          base: main
+          branch: ${{ fromJSON(inputs.target).branch }}
+          delete-branch: true
+          add-paths: pkgs/${{ fromJSON(inputs.target).package }}
+          commit-message: ${{ steps.metadata.outputs.commit-message }}
+          committer: galactic-batter[bot] <304539431+galactic-batter[bot]@users.noreply.github.com>
+          author: galactic-batter[bot] <304539431+galactic-batter[bot]@users.noreply.github.com>
+          sign-commits: true
+          title: ${{ steps.metadata.outputs.title }}
+          body-path: ${{ runner.temp }}/repair/body.md
+      - name: Require verified repair commits
+        env:
+          VERIFIED: ${{ steps.pull_request.outputs.pull-request-commits-verified }}
+        run: |
+          if [[ "$VERIFIED" != "true" ]]; then
+            echo "Repair commits were not verified" >&2
+            exit 1
+          fi
+      - name: Mark pull request as AI-assisted
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
+        env:
+          PR_NUMBER: ${{ steps.pull_request.outputs.pull-request-number }}
+        with:
+          github-token: ${{ steps.app-token.outputs.token }}
+          script: |
+            const pullNumber = Number(process.env.PR_NUMBER);
+            await github.rest.issues.setLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pullNumber,
+              labels: ["bot", "bot-ai-repair", ...(process.env.NEW_PACKAGE === "true" ? ["enhancement"] : []), ...(process.env.REPAIR_KIND === "build-fix" ? ["bot-build-fix"] : [])],
+            });
+            const { data: pull } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pullNumber,
+            });
+            try {
+              await github.graphql(
+                `mutation($pullRequestId: ID!) {
+                  disablePullRequestAutoMerge(input: {pullRequestId: $pullRequestId}) {
+                    pullRequest { id }
+                  }
+                }`,
+                { pullRequestId: pull.node_id },
+              );
+            } catch (error) {
+              if (!/not enabled|not in the auto-merge queue/i.test(error.message)) throw error;
+            }

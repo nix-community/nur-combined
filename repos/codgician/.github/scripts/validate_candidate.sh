@@ -6,10 +6,12 @@ package=${1:?package is required}
 baseline_main_program=${2:?baseline main program is required}
 old_version=${3:?old version is required}
 new_version_file=${4:?new version output file is required}
+version_policy=${5:-advanced}
 
 bash .github/scripts/validate_candidate_structure.sh \
   "$package" \
   "$old_version" \
-  "$new_version_file"
+  "$new_version_file" \
+  "$version_policy"
 
 .github/scripts/validate_bump.sh "$package" "$baseline_main_program"

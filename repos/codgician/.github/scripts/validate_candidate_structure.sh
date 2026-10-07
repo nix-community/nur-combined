@@ -5,6 +5,12 @@ set -euo pipefail
 package=${1:?package is required}
 old_version=${2:?old version is required}
 new_version_file=${3:?new version output file is required}
+version_policy=${4:-advanced}
+
+if [[ "$version_policy" != "advanced" && "$version_policy" != "unchanged" ]]; then
+  echo "Invalid package version policy: $version_policy" >&2
+  exit 2
+fi
 
 if [[ ! "$package" =~ ^[a-z][a-z0-9_-]{0,63}$ ]]; then
   echo "Invalid package attribute: $package" >&2
@@ -43,8 +49,8 @@ fi
 nix fmt -- --ci "$package_path"
 new_version=$(nix eval --raw ".#$package.version")
 version_state=$(.github/scripts/classify_version.sh "$old_version" "$new_version")
-if [[ "$version_state" != "advanced" ]]; then
-  echo "Package version did not advance: $old_version -> $new_version" >&2
+if [[ "$version_state" != "$version_policy" || ( "$version_policy" == "unchanged" && "$new_version" != "$old_version" ) ]]; then
+  echo "Package version must be $version_policy: $old_version -> $new_version" >&2
   exit 1
 fi
 
