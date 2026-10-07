@@ -171,11 +171,22 @@ import moe.rukamori.archivetune.playback.DownloadUtil
 import moe.rukamori.archivetune.playback.PlayerConnection
 import moe.rukamori.archivetune.utils.SyncUtils
 
-val LocalDatabase = staticCompositionLocalOf<MusicDatabase> { androidx.hilt.navigation.compose._createViewModelInstance(MusicDatabase::class.java) as MusicDatabase }
+fun <T> allocateDummy(clazz: Class<T>): T {
+    return try {
+        val unsafeClass = Class.forName("sun.misc.Unsafe")
+        val f = unsafeClass.getDeclaredField("theUnsafe").apply { isAccessible = true }
+        val unsafe = f.get(null)
+        unsafeClass.getMethod("allocateInstance", Class::class.java).invoke(unsafe, clazz) as T
+    } catch (e: Exception) {
+        throw RuntimeException(e)
+    }
+}
+
+val LocalDatabase = staticCompositionLocalOf<MusicDatabase> { allocateDummy(MusicDatabase::class.java) }
 val LocalPlayerConnection = staticCompositionLocalOf<PlayerConnection?> { null }
 val LocalPlayerAwareWindowInsets = compositionLocalOf<WindowInsets> { WindowInsets(0, 0, 0, 0) }
-val LocalDownloadUtil = staticCompositionLocalOf<DownloadUtil> { androidx.hilt.navigation.compose._createViewModelInstance(DownloadUtil::class.java) as DownloadUtil }
-val LocalSyncUtils = staticCompositionLocalOf<SyncUtils> { androidx.hilt.navigation.compose._createViewModelInstance(SyncUtils::class.java) as SyncUtils }
+val LocalDownloadUtil = staticCompositionLocalOf<DownloadUtil> { allocateDummy(DownloadUtil::class.java) }
+val LocalSyncUtils = staticCompositionLocalOf<SyncUtils> { allocateDummy(SyncUtils::class.java) }
 """)
 
 # Material3-expressive members that upstream Android's material3 has as *members* of
