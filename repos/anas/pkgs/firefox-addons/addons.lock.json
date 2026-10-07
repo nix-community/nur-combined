@@ -356,6 +356,17 @@
     "version": "2.31"
   },
   {
+    "addonId": "{eb8c4a94-e603-49ef-8e81-73d3c4cc04ff}",
+    "hash": "sha256:de417b35a4747f5c51b2b73dd8db9d484953fcd8909f0c7d936ca7fc6f8ca4e2",
+    "homepage": "https://codeberg.org/calvinchd/GruvboxDarkFirefoxTheme",
+    "licenseId": 6979,
+    "permissions": [],
+    "slug": "gruvbox-dark-theme",
+    "summary": "Gruvbox dark theme for Firefox. Using https://github.com/morhetz/gruvbox color palette",
+    "url": "https://addons.mozilla.org/firefox/downloads/file/3595905/gruvbox_dark_theme-1.1.xpi",
+    "version": "1.1"
+  },
+  {
     "addonId": "idcac-pub@guus.ninja",
     "hash": "sha256:42922f61cfc53e2103e492ddbe5736caf503d9dad4a88690efc4c64dac10d5c7",
     "homepage": "https://github.com/OhMyGuus/I-Dont-Care-About-Cookies",

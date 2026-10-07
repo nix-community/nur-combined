@@ -65,7 +65,14 @@
     "slug": "material-icons-for-github"
   },
   {
-    "slug": "pixiv-toolkit"
+    "slug": "pixiv-toolkit",
+    "license": {
+      "tag": "custom",
+      "shortName": "pixiv-toolkit-eula",
+      "fullName": "All Rights Reserved",
+      "url": "https://gist.github.com/Techcable/e7bbc22ecbc0050efbcc},",
+      "free": true
+    }
   },
   {
     "slug": "privacy-extension-for-whatsapp"
@@ -89,9 +96,19 @@
     "slug": "traduzir-paginas-web"
   },
   {
-    "slug": "youtube-recommended-videos"
+    "slug": "youtube-recommended-videos",
+    "license": {
+      "tag": "custom",
+      "shortName": "unhook-eula",
+      "fullName": "End-User License Agreement for Unhook: Remove YouTube Recommended Videos Comments",
+      "url": "https://addons.mozilla.org/en-US/firefox/addon/youtube-recommended-videos/eula/},",
+      "free": false
+    }
   },
   {
     "slug": "wayback-machine_new"
+  },
+  {
+    "slug": "gruvbox-dark-theme"
   }
 ]
