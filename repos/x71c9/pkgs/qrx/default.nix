@@ -1,4 +1,4 @@
-{ lib, rustPlatform, fetchFromGitHub, xorg }:
+{ lib, rustPlatform, fetchFromGitHub, libxcb }:
 
 rustPlatform.buildRustPackage rec {
   pname = "qrx";
@@ -13,7 +13,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoLock.lockFile = ./Cargo.lock;
 
-  buildInputs = [ xorg.libxcb ];
+  buildInputs = [ libxcb ];
 
   doCheck = false;
 
