@@ -26,13 +26,13 @@ buildGoModule (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "magpie";
-  version = "0.1.1082";
+  version = "0.1.1098";
 
   src = fetchFromGitHub {
     owner = "yetone";
     repo = "magpie";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-W+JwAxMSaLTdbgE0U5xcCBb0yPxvv9oiufwf5qe6PU0=";
+    hash = "sha256-0z++U6t9tNYf8WQZnDE7NBCHJmdH+1L7sGaZgXg3enE=";
   };
 
   vendorHash = "sha256-dqFc8UTREaRFt3G3DS7IllBx8ysOlcA5JUqGaQ/XlcI=";
@@ -70,7 +70,8 @@ buildGoModule (finalAttrs: {
     substituteInPlace internal/library/rtk_test.go \
       --replace-fail '/bin/mkdir' '${lib.getExe' coreutils "mkdir"}'
     substituteInPlace internal/gui/providers_fetching_unix_test.go \
-      --replace-fail '"/usr/bin"+string(os.PathListSeparator)+"/bin"' '"${lib.makeBinPath [ coreutils ]}"'
+      --replace-fail '"/usr/bin"' '"${lib.getBin coreutils}/bin"' \
+      --replace-fail '"/bin"' '"${lib.getBin coreutils}/bin"'
     # The source policy check must not scan dependencies added by buildGoModule.
     substituteInPlace internal/proc/proc_test.go \
       --replace-fail 'd.Name() == "node_modules"' 'd.Name() == "node_modules" || d.Name() == "vendor"'
