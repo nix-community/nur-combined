@@ -10,6 +10,6 @@
     "file": "removemacai-darwin-arm64.tar.gz",
     "unpack": false
   },
-  "version": "0.2.5",
-  "hash": "sha256-KTpDixirFg1Yyh13rCgtXeZ1N7FznPpc190PI/gNYrE="
+  "version": "1.0.1",
+  "hash": "sha256-VoAJ7P82D7G9wltAj40y9norrkIYQ5CQIFDmj3SceWQ="
 }
