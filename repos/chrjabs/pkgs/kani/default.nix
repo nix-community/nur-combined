@@ -10,6 +10,7 @@
   makeWrapper,
   stdenv,
   autoPatchelfHook,
+  zlib,
 }:
 let
   version = "0.68.0";
@@ -57,15 +58,15 @@ let
       releases.${stdenv.hostPlatform.system}
         or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
-    buildInputs = [
+    buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
       stdenv.cc.cc.lib # libs needed by patchelf
     ];
 
-    runtimeDependencies = [
+    runtimeDependencies = lib.optionals stdenv.hostPlatform.isLinux [
       glibc # not detected as missing by patchelf for some reason
     ];
 
-    nativeBuildInputs = [ autoPatchelfHook ];
+    nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
 
     installPhase = ''
       runHook preInstall
@@ -89,6 +90,10 @@ rustPlatform.buildRustPackage {
 
   cargoPatches = [
     ./deduplicate-tracing-tree.patch
+  ];
+
+  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [
+    zlib
   ];
 
   nativeBuildInputs = [ makeWrapper ];

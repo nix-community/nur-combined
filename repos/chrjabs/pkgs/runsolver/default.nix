@@ -43,5 +43,6 @@ stdenv.mkDerivation (finalAttrs: {
     ];
     maintainers = [ (import ../../maintainer.nix { inherit (lib) maintainers; }) ];
     mainProgram = "runsolver";
+    platforms = lib.platforms.linux;
   };
 })
