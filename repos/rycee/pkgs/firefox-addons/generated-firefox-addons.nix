@@ -444,10 +444,10 @@
     };
     "archivebox-exporter" = buildMozillaXpiAddon {
       pname = "archivebox-exporter";
-      version = "3.3.6";
+      version = "3.3.8";
       addonId = "archivebox@tjhorner.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5085201/archivebox_exporter-3.3.6.xpi";
-      sha256 = "9f9f17819a48b169b5cc3b64d0b0695d17997eba8a7a93a7ef25f1a92132844a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5093573/archivebox_exporter-3.3.8.xpi";
+      sha256 = "3d836cbe5fe3d9cf7eafada1ca9e55bd5901a39a0e73d1693c2bde22eb55b993";
       meta = with lib;
       {
         homepage = "https://extension.archivebox.io/";
@@ -845,10 +845,10 @@
     };
     "auto-tab-discard" = buildMozillaXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.7.3";
+      version = "0.7.5";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4978053/auto_tab_discard-0.7.3.xpi";
-      sha256 = "66a98738e69df9ad7c7aeb12a495c5880d1f56fb93610f51cd3207a9b73ee702";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5090327/auto_tab_discard-0.7.5.xpi";
+      sha256 = "77e7a630e3ab378440c3924e57450db88bf262803608b1a47430f3cc8c5294f6";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/tab-discard.html";
@@ -1116,10 +1116,10 @@
     };
     "betterttv" = buildMozillaXpiAddon {
       pname = "betterttv";
-      version = "7.7.25";
+      version = "7.7.28";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4903880/betterttv-7.7.25.xpi";
-      sha256 = "bb1a3caff685c125a0c7f3285cd79a9ea4cc14413c4cfcf11fa3250d18c2f6dc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5092056/betterttv-7.7.28.xpi";
+      sha256 = "adee5bba1148550a96e1a5e9db207077609083abd2e040e9ef418d57bd02c049";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -3225,10 +3225,10 @@
     };
     "dictionaries" = buildMozillaXpiAddon {
       pname = "dictionaries";
-      version = "8.1.2";
+      version = "8.1.3";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5076714/dictionaries-8.1.2.xpi";
-      sha256 = "0469ad181afa5dd2ca218856aee50b2f31f3e7d5eaba0faa835cce5f2d7b4fa2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5092921/dictionaries-8.1.3.xpi";
+      sha256 = "9c90c0bd1cc0a837db14de3499a1c867fdb5993101ed32615fcc6c7ee7f06d8e";
       meta = with lib;
       {
         homepage = "https://dictionariez.pnl.dev";
@@ -14849,10 +14849,10 @@
     };
     "themesong-for-youtube-music" = buildMozillaXpiAddon {
       pname = "themesong-for-youtube-music";
-      version = "1.3.4";
+      version = "1.3.5";
       addonId = "{6458ac08-a9d7-4e42-a1b0-f0c43bf90f7d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4963069/themesong_for_youtube_music-1.3.4.xpi";
-      sha256 = "50c8e222c2c95fdb19b1e53682ab6255218b9432ba725fb5532385237c03ccb8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5091909/themesong_for_youtube_music-1.3.5.xpi";
+      sha256 = "316cab904114431d88746ea16ebef9a6882bfb6a34ca89ae32211e85ed383f25";
       meta = with lib;
       {
         homepage = "https://www.themesong.app";
@@ -14877,10 +14877,10 @@
     };
     "time-zone-converter-savvy-time" = buildMozillaXpiAddon {
       pname = "time-zone-converter-savvy-time";
-      version = "1.11.1";
+      version = "1.11.2";
       addonId = "yuriy@savvytime.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5082139/time_zone_converter_savvy_time-1.11.1.xpi";
-      sha256 = "ed5cd547a057ac7978f36149403a79a6bb0bbc4a4a1c5338f3bfd8827523a043";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5090863/time_zone_converter_savvy_time-1.11.2.xpi";
+      sha256 = "f640ffbf3541ada4e2b70175d98bc9d9623f2946278af324ff660c303474df80";
       meta = with lib;
       {
         homepage = "https://savvytime.com/converter";
@@ -17526,10 +17526,10 @@
     };
     "youtube-auto-hd-fps" = buildMozillaXpiAddon {
       pname = "youtube-auto-hd-fps";
-      version = "1.18.0";
+      version = "1.18.1";
       addonId = "avi6106@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5061494/youtube_auto_hd_fps-1.18.0.xpi";
-      sha256 = "559e0ff69b7ab625f0132fc4fa853762462331e6a9946eafc2cfc3a71679924e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5092736/youtube_auto_hd_fps-1.18.1.xpi";
+      sha256 = "52a441e57c5114060687bceab6fe485877888d7406b11da15c19cd77c2c6062f";
       meta = with lib;
       {
         homepage = "https://avi12.com/youtube-auto-hd";

@@ -2,10 +2,10 @@
   {
     "cardbook" = buildMozillaXpiAddon {
       pname = "cardbook";
-      version = "106.4";
+      version = "106.9";
       addonId = "cardbook@vigneau.philippe";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1051965/cardbook-106.4-tb.xpi?src=";
-      sha256 = "7cd0ef0dc9eb7e5192b67eeb589d1d66ca84b614addfe09ec73a74b7e6a06ebf";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1052896/cardbook-106.9-tb.xpi?src=";
+      sha256 = "1f1c792d6266c63c8c4ed4aea4dc9a4c30cb805e0b1ea880ac2207b1efbfbdd6";
       meta = with lib;
       {
         homepage = "https://gitlab.com/CardBook/CardBook";
@@ -198,10 +198,10 @@
     };
     "owl-for-exchange" = buildMozillaXpiAddon {
       pname = "owl-for-exchange";
-      version = "1.5.6.1";
+      version = "1.5.7";
       addonId = "owl@beonex.com";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1051800/eule_fur_exchange-1.5.6.1-tb.xpi?src=";
-      sha256 = "a54cc3d52113b34f97942ee19190947dee23561e2217f18db3d80ac023991221";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1052486/eule_fur_exchange-1.5.7-tb.xpi?src=";
+      sha256 = "d64aa56210da0a5744ddb34c74c6d7eb53ad468840b86e5190d460e816312695";
       meta = with lib;
       {
         homepage = "https://www.beonex.com/owl/";
@@ -246,10 +246,10 @@
     };
     "quickfilters" = buildMozillaXpiAddon {
       pname = "quickfilters";
-      version = "6.13.3";
+      version = "6.13.4";
       addonId = "quickFilters@axelg.com";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1050816/quickfilters-6.13.3-tb.xpi?src=";
-      sha256 = "bb64d96aa0b01decd69eebb3979c3d5c86641ad710c4ba78dcc5c30f86c228e0";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1052832/quickfilters-6.13.4-tb.xpi?src=";
+      sha256 = "4ed3d31916ea09bba4392e4fcbbcb348db9a86e0b96d8b97cb150159ef11256b";
       meta = with lib;
       {
         homepage = "https://quickfilters.quickfolders.org/";
@@ -264,6 +264,7 @@
           "accountsRead"
           "clipboardRead"
           "notifications"
+          "management"
           "menus"
           "messagesRead"
           "storage"
