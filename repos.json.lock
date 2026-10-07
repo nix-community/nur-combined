@@ -26,8 +26,8 @@
             "url": "https://git.catgirl.cloud/999eagle/nur-packages"
         },
         "Adamekka": {
-            "rev": "1ec1a6c844249200cfeeab45573d8b3fa513fdbd",
-            "sha256": "0a2m2xmlg93wsils2mf3ysddbn0lp0q2b3gcdiswv2vv2h6fp1xw",
+            "rev": "111b7853b9ebabb24f1cd58bbdb2f1196520546f",
+            "sha256": "054hj0si94dmwg9b0729ys7scyj78dan4nzqvh7vagnzzdcvgwf0",
             "url": "https://github.com/Adamekka/nur-packages"
         },
         "Alxandr": {
@@ -81,8 +81,8 @@
             "url": "https://github.com/DimitarNestorov/Nix-user-repository-packages"
         },
         "DzmingLi": {
-            "rev": "46bc3a738224df1b910ae5f3fd4b3e485fa797d9",
-            "sha256": "1g3qpysrwi1g1330mddi0k23hglhpp0gkrdr0339kgx13cds2ahr",
+            "rev": "af112ac9f72f1b5ca030dd45a3573bd4547bd668",
+            "sha256": "0ar550670cvyv5lh7l35q1syh3v6lx7zhqal0s40nwkfrl2skbsv",
             "url": "https://github.com/DzmingLi/nur-packages"
         },
         "Educorreia932": {
@@ -251,8 +251,8 @@
             "url": "https://github.com/abemedia/nur-packages"
         },
         "abszero": {
-            "rev": "aad8744528bd6c4b3c7e02a1d999d9b9e3f188fb",
-            "sha256": "1y34izm2ix467rhpy6dwmki03rg1kpmr8hgkxjr44xvrm9ppar75",
+            "rev": "ba36f77a1f2834a61f0ec043ba4dec07dc0ba138",
+            "sha256": "1bjw41gch8a1f4wwn083m9q5iki468vlrlaf20mdp5kdl9s3ryg8",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -1718,8 +1718,8 @@
             "url": "https://git.sr.ht/~misterio/nix-config"
         },
         "misuzu": {
-            "rev": "125f60835fc89300c8ee6ab3ad429d87f98f9a78",
-            "sha256": "1ld54kjfxpxsgg4rv02p0vly9m6jsgc95fv47gkfa41niga6p9m0",
+            "rev": "73f5eff8cd12d7adc283e0281793ca5b6e713b2c",
+            "sha256": "0cm6545pfiw04pvfb7jgzcsbjr9rzs38rj9gqw4jmkajkp4kb7x9",
             "url": "https://github.com/misuzu/mur"
         },
         "mloeper": {
@@ -2365,8 +2365,8 @@
             "url": "https://github.com/sigprof/nur-packages"
         },
         "sikmir": {
-            "rev": "6ad275432dea8fc86332dbc76c501950066d1e29",
-            "sha256": "1ks9jhkrmrnv00xqwsd2lcjhilm12lfw77asdn092gw4hw50dzyd",
+            "rev": "605d93b0ef5725ed050654a3a9a92312d0957fda",
+            "sha256": "0ipl3mccri3qna3vb59188b8ia9667jq68d1x3cpppm156j9m3y8",
             "url": "https://github.com/sikmir/nur-packages"
         },
         "silicalet": {
