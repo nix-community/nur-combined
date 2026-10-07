@@ -18,5 +18,5 @@ jobs:
           nix_path: "nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz"
       - name: Update flake packages
         uses: gepbird/nix-update-action@v3.1.2
-        with:
-          packages: "utmt-cli,shimelinux"
+        # with:
+        #   packages: "utmt-cli,shimelinux"

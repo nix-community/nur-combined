@@ -15,6 +15,7 @@
   perl,
   libayatana-appindicator,
   wrapGAppsHook4,
+  nix-update-script,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -72,6 +73,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libayatana-appindicator ]}
     )
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version-regex=ttl-v(\\d+\\.\\d+\\.\\d+)" ];
+  };
 
   meta = {
     description = "A multi-platform launcher for your anime games.";
