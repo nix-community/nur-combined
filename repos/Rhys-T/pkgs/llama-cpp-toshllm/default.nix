@@ -23,9 +23,10 @@
     llama-cpp'' = llama-cpp'.overrideAttrs (finalAttrs: old: {
         pname = "${lib.getName llama-cpp}-toshllm";
         version = toshllm-version;
-        src = old.src.override {
+        src = fetchFromGitHub {
+            owner = "ggml-org";
+            repo = "llama.cpp";
             rev = llama-cpp-rev;
-            tag = null;
             hash = llama-cpp-hash;
         };
         npmDepsHash = llama-cpp-npmDepsHash;
@@ -34,9 +35,10 @@
             patches+=" $(find "$toshllmSrc/patches/llama" -name '*.patch' -print | \
                 awk -F/ '{print $NF"\t"$0}' | sort | cut -f2-)"
         '';
-        cmakeFlags = builtins.map (flag: if lib.hasInfix "LLAMA_BUILD_NUMBER" flag then
-            lib.cmakeFeature "LLAMA_BUILD_NUMBER" "0"
-        else flag) (old.cmakeFlags or []);
+        cmakeFlags = builtins.filter (flag: !(lib.hasInfix "LLAMA_BUILD_NUMBER" flag || lib.hasInfix "LLAMA_BUILD_COMMIT" flag)) (old.cmakeFlags or []) ++ [
+            (lib.cmakeFeature "LLAMA_BUILD_NUMBER" "0")
+            (lib.cmakeFeature "LLAMA_BUILD_COMMIT" (builtins.substring 0 7 llama-cpp-rev))
+        ];
         passthru = (old.passthru or {}) // {
             updateScript = ./update.sh;
             _pkgForUpdater = finalAttrs.finalPackage // {
