@@ -50,6 +50,7 @@ jobs:
           pkgs/piliplus/update.sh
           pkgs/pixes/update.sh
           pkgs/pixes/update-git.sh
+          pkgs/rayburst/update.sh
           pkgs/rayburst/update-beta.sh
           pkgs/splayer-next-dev/update.sh
 
