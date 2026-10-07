@@ -1,0 +1,11 @@
+{
+  "name": "Orb",
+  "source": {
+    "type": "github-repo",
+    "repo": "WalshyDev/orb",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "0.5.0",
+  "hash": "sha256-W8aGMrHnKI0bi0Qa+LkKoIRL4M6kUZlad+Yq+caGoxI="
+}

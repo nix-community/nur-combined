@@ -39,6 +39,7 @@
   mcman = lib.callPackage ./pkgs/mcman {};
   nuvio = lib.callPackage ./pkgs/nuvio {};
   sfw = lib.callPackage ./pkgs/sfw {};
+  orb = lib.callPackage ./pkgs/orb {};
   fx = lib.callPackage ./pkgs/fx {};
 
   keka-external-helper = lib.callPackage ./pkgs/keka-external-helper {};
