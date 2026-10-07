@@ -1169,6 +1169,8 @@ pub(crate) struct Evaluator<'a> {
     /// is pruned from the output tree but still counts as an `@extend` target
     /// within the modules the extension sees.
     placeholder_rules: Vec<TargetSite>,
+    /// See [`EmptyRule`].
+    empty_rules: Vec<EmptyRule>,
     /// Emitted `@media` preludes whose media context ([`media_context_key`])
     /// is spelled differently: only a query that joins its conditions with
     /// `or`. Lets the output-tree walk recover the context from a prelude.
@@ -1766,6 +1768,18 @@ struct TargetSite {
     extend_base: usize,
 }
 
+/// A style rule whose own block never emitted (`.x {}`, `.x {c: null}`, a
+/// rule holding only nested rules or `@at-root`). It is in no output tree,
+/// but dart registers every style rule's selector, so it is still an
+/// `@extend` target (#286). Fields as in [`TargetSite`]; the selector list is
+/// the rule's own, shared.
+struct EmptyRule {
+    module: String,
+    selectors: Rc<Vec<String>>,
+    media: Option<String>,
+    extend_base: usize,
+}
+
 impl<'a> Evaluator<'a> {
     pub(crate) fn new(options: EvalOptions<'a>) -> Self {
         let url = options.url.to_string();
@@ -1849,6 +1863,7 @@ impl<'a> Evaluator<'a> {
             cur_rule_extend_base: usize::MAX,
             bogus_selectors: Vec::new(),
             placeholder_rules: Vec::new(),
+            empty_rules: Vec::new(),
             media_context_aliases: HashMap::default(),
             used_modules: Rc::default(),
             star_modules: Rc::default(),
@@ -3833,6 +3848,17 @@ impl<'a> Evaluator<'a> {
         self.cur_rule_extend_base = prev_rule_extend_base;
         self.pop_scope();
         result?;
+        // A rule whose own block never emitted is in no output tree, but dart
+        // registered its selector all the same (a keyframe stop is not one).
+        if flushed.is_none() && !self.in_keyframes {
+            let rule = EmptyRule {
+                module: self.current_module.clone(),
+                selectors: Rc::clone(&current),
+                media: self.media_context(),
+                extend_base,
+            };
+            self.empty_rules.push(rule);
+        }
         // The body's own trailing-invisible state gates THIS rule's group
         // end; then report this rule's contribution to the PARENT body
         // (empty output = dart's invisible node).
@@ -6958,7 +6984,7 @@ fn first_media_error(
     extends: &[PendingExtend],
     extensions: &[crate::selector::Extension],
     out: &[OutNode],
-    sites: &[&TargetSite],
+    sites: &[SiteRef<'_>],
     closures: &HashMap<String, crate::fxhash::FxHashSet<String>>,
     aliases: &HashMap<String, String>,
 ) -> Option<Error> {
@@ -6991,6 +7017,7 @@ fn first_media_error(
         }
     }
     groups.retain(|g| g.copies.iter().any(|c| c.1.is_some()));
+    let needles = TargetNeedles::new(groups.iter().map(|g| g.reach.target));
 
     let mut first: Option<(usize, Pos, &'static str)> = None;
     let mut note = |time: usize, pos: Pos, msg: &'static str| {
@@ -7031,12 +7058,98 @@ fn first_media_error(
         }
     };
     for site in sites {
-        across(&site.module, site.media.as_deref(), site.extend_base, &|t| {
-            crate::selector::selector_contains_simple(&site.selector, t)
-        });
+        let context = site.media;
+        if !groups
+            .iter()
+            .any(|g| g.reach.sees(site.module) && g.may_conflict(context))
+            || !site.selectors.iter().any(|s| needles.may_contain(s))
+        {
+            continue;
+        }
+        across(site.module, context, site.extend_base, &|t| site.contains(t));
     }
-    walk_media_targets(out, "", None, &groups, aliases, &mut across);
+    walk_media_targets(out, "", None, &groups, &needles, aliases, &mut across);
     first.map(|(_, pos, msg)| Error::at(msg, pos))
+}
+
+/// A textual pre-test for "this selector may contain one of the targets",
+/// so a selector that cannot is never parsed. A class, id, placeholder or
+/// type target is spelled by its name in any selector holding it, unless the
+/// selector escapes something; an escaped name or any other kind of target
+/// defeats the pre-test.
+struct TargetNeedles<'a> {
+    names: Vec<&'a str>,
+    exhaustive: bool,
+}
+
+impl<'a> TargetNeedles<'a> {
+    fn new(targets: impl Iterator<Item = &'a crate::selector::Simple>) -> Self {
+        use crate::selector::Simple;
+        let mut names = Vec::new();
+        let mut exhaustive = true;
+        for t in targets {
+            match t {
+                Simple::Class(n) | Simple::Id(n) | Simple::Placeholder(n) | Simple::Type(n)
+                    if !n.contains('\\') =>
+                {
+                    if !names.contains(&n.as_str()) {
+                        names.push(n.as_str());
+                    }
+                }
+                _ => exhaustive = false,
+            }
+        }
+        TargetNeedles { names, exhaustive }
+    }
+
+    fn may_contain(&self, selector: &str) -> bool {
+        !self.exhaustive || selector.contains('\\') || self.names.iter().any(|n| selector.contains(n))
+    }
+}
+
+/// One `@extend` target site as the checks read it, whichever record it
+/// came from: a [`TargetSite`] holds one selector, an [`EmptyRule`] a list.
+pub(super) struct SiteRef<'a> {
+    module: &'a str,
+    selectors: &'a [String],
+    media: Option<&'a str>,
+    extend_base: usize,
+}
+
+impl<'a> SiteRef<'a> {
+    /// Whether one of these selectors contains `target`. Lenient about bogus
+    /// combinators, which [`crate::selector::parse_list`] would reject.
+    pub(super) fn contains(&self, target: &crate::selector::Simple) -> bool {
+        self.selectors
+            .iter()
+            .any(|s| crate::selector::selector_contains_simple(s, target))
+    }
+
+    pub(super) fn module(&self) -> &'a str {
+        self.module
+    }
+}
+
+impl TargetSite {
+    pub(super) fn site(&self) -> SiteRef<'_> {
+        SiteRef {
+            module: &self.module,
+            selectors: std::slice::from_ref(&self.selector),
+            media: self.media.as_deref(),
+            extend_base: self.extend_base,
+        }
+    }
+}
+
+impl EmptyRule {
+    pub(super) fn site(&self) -> SiteRef<'_> {
+        SiteRef {
+            module: &self.module,
+            selectors: &self.selectors,
+            media: self.media.as_deref(),
+            extend_base: self.extend_base,
+        }
+    }
 }
 
 /// Whether a selector contains an extension's target.
@@ -7057,6 +7170,7 @@ fn walk_media_targets(
     scope: &str,
     context: Option<&str>,
     groups: &[MediaGroup<'_>],
+    needles: &TargetNeedles<'_>,
     aliases: &HashMap<String, String>,
     visit: &mut VisitTarget<'_>,
 ) {
@@ -7073,8 +7187,11 @@ fn walk_media_targets(
                 {
                     continue;
                 }
-                let parsed: Vec<crate::selector::Complex> = selectors
-                    .to_strings()
+                let strings = selectors.to_strings();
+                if !strings.iter().any(|s| needles.may_contain(s)) {
+                    continue;
+                }
+                let parsed: Vec<crate::selector::Complex> = strings
                     .iter()
                     .filter_map(|s| crate::selector::parse_list(s))
                     .flatten()
@@ -7098,10 +7215,10 @@ fn walk_media_targets(
                 } else {
                     context
                 };
-                walk_media_targets(body, scope, inner, groups, aliases, visit);
+                walk_media_targets(body, scope, inner, groups, needles, aliases, visit);
             }
             OutNode::ModuleScope { key, nodes } => {
-                walk_media_targets(nodes, key, context, groups, aliases, visit)
+                walk_media_targets(nodes, key, context, groups, needles, aliases, visit)
             }
             _ => {}
         }

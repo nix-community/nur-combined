@@ -61,6 +61,25 @@ Conformance is tracked separately as a ratchet against the official
   now. Every case but `--stdin` now gives the same stderr as dart, byte for
   byte. `--stdin` is the url-less compile fixed in the entry above.
 
+- **A style rule that emits nothing is still an `@extend` target** (#286).
+  dart registers every style rule's selector before it knows whether the rule
+  produces any CSS. sasso only looked at the rules left in its output, so
+  extending an empty rule was an error:
+
+  ```
+    .x {}
+    a {@extend .x}
+                     dart   compiles (to nothing)
+                     sasso  was: The target selector was not found.
+  ```
+
+  The same applies to a rule whose declarations are all `null`, a rule that
+  only holds nested rules or `@at-root`, and an empty rule inside `@media`.
+  Such a rule's media context now also counts, so extending it from another
+  `@media` is dart's "You may not @extend selectors across media queries."
+  where sasso said "target not found". The rule is visible to the same
+  modules as any other rule, and a keyframe stop is still not a target.
+
 - **An `@extend` across media queries is an error in every shape dart
   rejects** (#282). An `@extend` written inside `@media` may only extend
   selectors in that same media context. sasso enforced this only against a

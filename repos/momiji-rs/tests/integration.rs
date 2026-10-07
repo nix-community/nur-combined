@@ -2692,6 +2692,37 @@ fn extend_across_media_contexts() {
     }
 }
 
+/// Every style rule is an `@extend` target, whether or not it emits anything
+/// (#286): dart registers a rule's selector before it knows the rule is empty.
+/// A keyframe stop is not a style rule. Measured against dart-sass 1.105.1 on
+/// 2026-10-04.
+#[test]
+fn extend_targets_a_rule_that_emits_nothing() {
+    for src in [
+        ".x {}\na {@extend .x}\n",
+        ".x {$v: 1}\na {@extend .x}\n",
+        ".x {c: null}\na {@extend .x}\n",
+        // Only an empty nested rule, an empty `@media`, or an `@at-root`.
+        ".x { .y {} }\na {@extend .x}\n",
+        ".x { @media print {} }\na {@extend .x}\n",
+        ".x { @at-root .z {} }\na {@extend .x}\n",
+        "@media print { .x {} }\na {@extend .x}\n",
+        "@supports (a: b) { .x {} }\na {@extend .x}\n",
+    ] {
+        assert_eq!(css(src), "", "{src}");
+    }
+    // Its media context still counts.
+    let across = "Error: You may not @extend selectors across media queries.";
+    for src in [
+        "@media print { .x {} }\n@media screen { a {@extend .x} }\n",
+        ".x {}\n@media screen { a {@extend .x} }\n",
+    ] {
+        assert_eq!(compile_err(src), across, "{src}");
+    }
+    assert!(compile_err("@keyframes k { from {} }\na {@extend from}\n")
+        .starts_with("Error: The target selector was not found."),);
+}
+
 /// The cross-media check sees only the selectors an extension can reach, by
 /// the extend rewrite's own visibility rule (review on #285): a module's
 /// extensions reach that module and the modules it loads, never a sibling, and
@@ -2728,6 +2759,17 @@ fn extend_across_media_contexts_respects_module_reach() {
         ),
         Err(across.clone()),
     );
+    // An empty rule in a loaded module is in reach, one in a sibling is not
+    // (#286).
+    assert_eq!(
+        run(&[("eu", ".x {}\n")], "@use \"eu\";\na {@extend .x}\n"),
+        Ok(String::new())
+    );
+    assert!(run(
+        &[("ea", "a {@extend .x}\n"), ("eb", ".x {}\n")],
+        "@use \"ea\";\n@use \"eb\";\n"
+    )
+    .is_err_and(|e| e.starts_with("Error: The target selector was not found.")));
     // A private placeholder, extended from its own module.
     assert_eq!(
         run(
