@@ -6,6 +6,7 @@ import shlex
 import subprocess
 import sys
 import tempfile
+import time
 from collections.abc import Iterator
 from pathlib import Path
 from typing import TypedDict, cast
@@ -33,6 +34,7 @@ class Arguments(argparse.Namespace):
     pr: bool = False
     update: bool = False
     force: bool = False
+    scheduled: bool = False
 
 
 def github(root: Path, arguments: list[str]) -> str:
@@ -108,7 +110,16 @@ def pr_body(
     spec: maintain.Specification,
     systems: list[str],
     host: str,
+    current: str = "",
 ) -> str:
+    if "snapshot" in spec:
+        return (
+            f"Update `{package}` source from `{current}` to `{release['tag_name']}`.\n\n"
+            + f"Upstream: {release['html_url']}\n\n"
+            + f"Validated with `just check {package}` on `{host}`: package build, "
+            + "regression tests, lint, and `git diff --check`. "
+            + "Playback, ad blocking, and VM tests were not run.\n"
+        )
     checks = [
         "Required release assets are uploaded and nonempty.",
         "Source hashes refreshed for: " + ", ".join(systems) + ".",
@@ -140,6 +151,19 @@ def pr_body(
     )
 
 
+def update_package(
+    root: Path, package: str, version: str, spec: maintain.Specification
+) -> None:
+    snapshot = spec.get("snapshot")
+    if not snapshot:
+        _ = maintain.run(root, ["just", "update", package, version])
+        return
+    _ = maintain.run(root, snapshot["command"])
+    if snapshot_revision(root, snapshot) != version:
+        raise ValueError("Upstream moved during update; retry the check")
+    _ = maintain.run(root, ["just", "check", package])
+
+
 def open_pr(
     root: Path,
     repository: str,
@@ -151,6 +175,7 @@ def open_pr(
     systems: list[str],
     force: bool = False,
 ) -> str:
+    snapshot = spec.get("snapshot")
     version = release["tag_name"].removeprefix("v")
     branch = f"updates/{package}-{current}-to-{version}"
     existing = cast(
@@ -179,14 +204,18 @@ def open_pr(
         return "existing PR: " + existing[0]["url"]
     if force:
         branch += f"-force-{uuid4().hex}"
-    title = f"{package}: {current} -> {version}"
+    title = (
+        f"chore: update {package} source to {version[:12]}"
+        if snapshot
+        else f"{package}: {current} -> {version}"
+    )
     with tempfile.TemporaryDirectory(prefix="nur-pr-") as temporary:
         worktree = Path(temporary) / "repo"
         _ = maintain.run(
             root, ["git", "worktree", "add", "--detach", str(worktree), "HEAD"]
         )
         try:
-            _ = maintain.run(worktree, ["just", "update", package, version])
+            update_package(worktree, package, version, spec)
             _ = maintain.run(worktree, ["git", "diff", "--check"])
             host = cast(
                 str,
@@ -205,7 +234,15 @@ def open_pr(
                     )
                 ),
             )
-            files = [f"pkgs/{package}/{name}" for name in spec["files"]]
+            files = [f"pkgs/{package}/{name}" for name in (snapshot or spec)["files"]]
+            if snapshot:
+                changed = maintain.run(
+                    worktree, ["git", "diff", "--name-only"], capture=True
+                ).splitlines()
+                if not changed or set(changed) - set(files):
+                    raise ValueError(
+                        "Snapshot update changed undeclared files or made no changes"
+                    )
             _ = maintain.run(worktree, ["git", "add", "--", *files])
             _ = maintain.run(worktree, ["git", "commit", "-m", title])
             _ = maintain.run(
@@ -225,7 +262,7 @@ def open_pr(
                     "--title",
                     title,
                     "--body",
-                    pr_body(package, release, spec, systems, host),
+                    pr_body(package, release, spec, systems, host, current),
                 ],
             )
         finally:
@@ -242,29 +279,92 @@ def report(message: str) -> None:
             _ = output.write(f"- {message}\n")
 
 
-def ready_updates(
+def snapshot_revision(root: Path, spec: maintain.SnapshotSpecification) -> str:
+    revision = maintain.run(
+        root,
+        ["nix", "eval", "-f", ".", spec["attribute"] + ".src.rev", "--raw"],
+        capture=True,
+    )
+    if not re.fullmatch(r"[0-9a-f]{40}", revision):
+        raise ValueError("Invalid pinned snapshot commit")
+    return revision
+
+
+def ready_package(
     root: Path,
-) -> Iterator[tuple[str, maintain.Specification, str, list[str], Release]]:
-    for path in sorted((root / "pkgs").glob("*/maintenance.toml")):
-        package = path.parent.name
-        spec = maintain.specification(root, package)
-        if "release" not in spec:
-            raise ValueError(f"{package}: missing release monitoring metadata")
-        current, systems = maintain.package_info(root, package)
+    package: str,
+    spec: maintain.Specification,
+) -> tuple[str, list[str], Release] | None:
+    current, systems = maintain.package_info(root, package)
+    if "snapshot" in spec:
+        snapshot = spec["snapshot"]
+        current = snapshot_revision(root, snapshot)
+        target = github(
+            root,
+            [
+                "api",
+                f"repos/{snapshot['repository']}/commits/{snapshot['branch']}",
+                "--template",
+                "{{.sha}}",
+            ],
+        )
+        if not re.fullmatch(r"[0-9a-f]{40}", target):
+            raise ValueError("Invalid upstream snapshot commit")
+        if current == target:
+            report(f"{package}: source is already current.")
+            return None
+        release: Release = {
+            "tag_name": target,
+            "draft": False,
+            "prerelease": False,
+            "html_url": f"https://github.com/{snapshot['repository']}/commit/{target}",
+            "assets": [],
+        }
+    else:
+        assert "release" in spec
         newer = candidates(root, spec["release"]["repository"], current)
         if not newer:
             report(f"{package}: no newer stable release (packaged {current}).")
-            continue
+            return None
         release = newer[0]
-        version = release["tag_name"].removeprefix("v")
         if not ready(release, spec["release"]):
-            report(f"{package} {version}: waiting for required assets.")
+            report(f"{package} {release['tag_name']}: waiting for required assets.")
+            return None
+    return current, systems, release
+
+
+def ready_updates(
+    root: Path,
+    scheduled: bool = False,
+) -> Iterator[tuple[str, maintain.Specification, str, list[str], Release]]:
+    state = Path(os.environ["UPDATE_STATE_DIR"]) if scheduled else None
+    for path in sorted((root / "pkgs").glob("*/maintenance.toml")):
+        package = path.parent.name
+        spec = maintain.specification(root, package)
+        if "release" not in spec and "snapshot" not in spec:
             continue
-        yield package, spec, current, systems, release
+        stamp = state / package if state else None
+        now = time.time()
+        if stamp and stamp.exists():
+            elapsed = now - float(stamp.read_text())
+            if 0 <= elapsed < spec.get("checkIntervalHours", 4) * 3600:
+                report(f"{package}: check interval has not elapsed.")
+                continue
+        candidate = ready_package(root, package, spec)
+        if candidate:
+            current, systems, release = candidate
+            yield package, spec, current, systems, release
+        if stamp:
+            stamp.parent.mkdir(parents=True, exist_ok=True)
+            _ = stamp.write_text(str(time.time()))
 
 
 def check_updates(
-    root: Path, pr: bool = False, update: bool = False, force: bool = False
+    root: Path,
+    pr: bool = False,
+    update: bool = False,
+    force: bool = False,
+    scheduled: bool = False,
 ) -> None:
     if force and not pr:
         raise ValueError("--force requires --pr")
@@ -273,7 +373,7 @@ def check_updates(
     repository, base = (
         (os.environ["GITHUB_REPOSITORY"], os.environ["UPDATE_BASE"]) if pr else ("", "")
     )
-    for package, spec, current, systems, release in ready_updates(root):
+    for package, spec, current, systems, release in ready_updates(root, scheduled):
         version = release["tag_name"].removeprefix("v")
         if pr:
             report(
@@ -290,10 +390,10 @@ def check_updates(
                 )
             )
         elif update:
-            _ = maintain.run(root, ["just", "update", package, version])
+            update_package(root, package, version, spec)
             report(f"{package}: {current} -> {version}, validated without committing.")
         else:
-            report(f"{package} {version}: assets ready (read-only check).")
+            report(f"{package} {version}: update ready (read-only check).")
 
 
 def main() -> None:
@@ -308,9 +408,14 @@ def main() -> None:
         action="store_true",
         help="Ignore existing PRs and publish from a new branch; still run all validation (requires --pr)",
     )
+    _ = parser.add_argument(
+        "--scheduled",
+        action="store_true",
+        help="Respect maintenance check intervals using UPDATE_STATE_DIR",
+    )
     args = parser.parse_args(namespace=Arguments())
     try:
-        check_updates(maintain.ROOT, args.pr, args.update, args.force)
+        check_updates(maintain.ROOT, args.pr, args.update, args.force, args.scheduled)
     except (OSError, ValueError, KeyError, subprocess.SubprocessError) as error:
         report(f"Update failed: {error}")
         parser.exit(1)

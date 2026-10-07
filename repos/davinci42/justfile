@@ -9,6 +9,9 @@ update package version="stable":
 update-reviewed package version:
     python3 tools/maintain.py update "$1" --version "$2" --accept-contract
 
+update-spotx:
+    NIXPKGS_ALLOW_UNFREE=1 nix-update -f . spotify-spotx.spotx --version=branch=main --url https://github.com/SpotX-Official/SpotX-Bash --src-only
+
 build package:
     nix build -f . "$1" --no-link
 

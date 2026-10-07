@@ -130,10 +130,10 @@ class UpdateTests(unittest.TestCase):
         folder = self.root / "pkgs/another"
         folder.mkdir()
         _ = (folder / "default.nix").write_text("")
-        _ = (folder / "maintenance.toml").write_text('files = ["default.nix"]')
+        _ = (folder / "maintenance.toml").write_text('files = ["missing.nix"]')
         with (
             patch.object(check_updates, "candidates") as candidates,
-            self.assertRaisesRegex(ValueError, "another"),
+            self.assertRaisesRegex(ValueError, "regular files"),
         ):
             check_updates.check_updates(self.root, update=True)
         candidates.assert_not_called()
@@ -348,7 +348,7 @@ class UpdateTests(unittest.TestCase):
             patch.object(check_updates, "check_updates") as check,
         ):
             check_updates.main()
-        check.assert_called_once_with(maintain.ROOT, True, False, True)
+        check.assert_called_once_with(maintain.ROOT, True, False, True, False)
         with (
             patch.dict(
                 os.environ, {"GITHUB_REPOSITORY": "owner/nur", "UPDATE_BASE": "main"}
@@ -425,6 +425,316 @@ class UpdateTests(unittest.TestCase):
                 for call in publish.call_args_list
             )
         )
+
+    def test_nonrelease_packages_are_skipped(self) -> None:
+        _ = (self.root / "pkgs/example/maintenance.toml").write_text(
+            'files = ["default.nix"]'
+        )
+        with patch.object(maintain, "package_info") as info:
+            self.assertEqual(list(check_updates.ready_updates(self.root)), [])
+        info.assert_not_called()
+
+    def configure_snapshot(self) -> None:
+        folder = self.root / "pkgs/example"
+        _ = (folder / "spotx.nix").write_text("")
+        _ = (folder / "maintenance.toml").write_text(
+            'files = ["default.nix", "spotx.nix"]\ncheckIntervalHours = 168\n'
+            + '[snapshot]\nrepository = "SpotX-Official/SpotX-Bash"\nbranch = "main"\n'
+            + 'attribute = "spotify-spotx.spotx"\ncommand = ["just", "update-spotx"]\n'
+            + 'files = ["spotx.nix"]\n'
+        )
+        self.spec = maintain.specification(self.root, "example")
+        info = patch.object(
+            maintain, "package_info", return_value=("1.0.0", ["x86_64-linux"])
+        )
+        _ = info.start()
+        self.addCleanup(info.stop)
+        self.release["tag_name"] = "b" * 40
+
+    def test_spotx_readonly_and_current_never_update(self) -> None:
+        self.configure_snapshot()
+        with (
+            patch.object(check_updates, "snapshot_revision", return_value="a" * 40),
+            patch.object(check_updates, "github", return_value="b" * 40) as api,
+            patch.object(maintain, "run") as run,
+        ):
+            check_updates.check_updates(self.root)
+            api.return_value = "a" * 40
+            check_updates.check_updates(self.root, update=True)
+        run.assert_not_called()
+
+    def test_spotx_update_checks_without_publishing(self) -> None:
+        self.configure_snapshot()
+        with (
+            patch.object(
+                check_updates, "snapshot_revision", side_effect=["a" * 40, "b" * 40]
+            ),
+            patch.object(check_updates, "github", return_value="b" * 40),
+            patch.object(maintain, "run", return_value="") as run,
+            patch.object(check_updates, "open_pr") as publish,
+        ):
+            check_updates.check_updates(self.root, update=True)
+        self.assertEqual(
+            [call.args[1] for call in run.call_args_list],
+            [["just", "update-spotx"], ["just", "check", "example"]],
+        )
+        publish.assert_not_called()
+
+    def test_spotx_rejects_invalid_and_moving_revision(self) -> None:
+        self.configure_snapshot()
+        with (
+            patch.object(check_updates, "snapshot_revision", return_value="a" * 40),
+            patch.object(check_updates, "github", return_value="invalid"),
+            patch.object(maintain, "run") as run,
+            self.assertRaisesRegex(ValueError, "Invalid upstream"),
+        ):
+            check_updates.check_updates(self.root, update=True)
+        run.assert_not_called()
+        with (
+            patch.object(
+                check_updates, "snapshot_revision", side_effect=["a" * 40, "c" * 40]
+            ),
+            patch.object(check_updates, "github", return_value="b" * 40),
+            patch.object(maintain, "run", return_value="") as run,
+            self.assertRaisesRegex(ValueError, "moved"),
+        ):
+            check_updates.check_updates(self.root, update=True)
+        run.assert_called_once_with(self.root, ["just", "update-spotx"])
+
+    def test_spotx_pr_validates_before_publishing(self) -> None:
+        self.configure_snapshot()
+        release = self.release
+        with (
+            patch.object(check_updates, "github", side_effect=["[]", "pr"]) as api,
+            patch.object(check_updates, "snapshot_revision", return_value="b" * 40),
+            patch.object(
+                maintain,
+                "run",
+                side_effect=[
+                    "",
+                    "",
+                    "",
+                    "",
+                    '"x86_64-linux"',
+                    "pkgs/spotify-spotx/spotx.nix",
+                    "",
+                    "",
+                    "",
+                    "",
+                ],
+            ) as run,
+        ):
+            _ = check_updates.open_pr(
+                self.root,
+                "owner/nur",
+                "main",
+                "spotify-spotx",
+                "a" * 40,
+                release,
+                self.spec,
+                ["x86_64-linux"],
+            )
+        commands = [call.args[1] for call in run.call_args_list]
+        self.assertEqual(
+            commands[1:3],
+            [["just", "update-spotx"], ["just", "check", "spotify-spotx"]],
+        )
+        self.assertEqual(
+            commands[6], ["git", "add", "--", "pkgs/spotify-spotx/spotx.nix"]
+        )
+        create = cast(list[str], api.call_args.args[1])
+        body = create[create.index("--body") + 1]
+        self.assertIn("Playback, ad blocking, and VM tests were not run", body)
+        self.assertNotIn("assets", body)
+
+    def test_spotx_failed_validation_never_publishes(self) -> None:
+        self.configure_snapshot()
+        with (
+            patch.object(check_updates, "github", return_value="[]") as api,
+            patch.object(check_updates, "snapshot_revision", return_value="b" * 40),
+            patch.object(
+                maintain, "run", side_effect=["", "", ValueError("failed check"), ""]
+            ) as run,
+            self.assertRaisesRegex(ValueError, "failed check"),
+        ):
+            _ = check_updates.open_pr(
+                self.root,
+                "owner/nur",
+                "main",
+                "spotify-spotx",
+                "a" * 40,
+                self.release,
+                self.spec,
+                ["x86_64-linux"],
+            )
+        self.assertFalse(
+            any(
+                "push" in call.args[1] or "commit" in call.args[1]
+                for call in run.call_args_list
+            )
+        )
+        api.assert_called_once()
+
+    def test_spotx_existing_pr_and_dirty_checkout(self) -> None:
+        self.configure_snapshot()
+        with (
+            patch.object(check_updates, "github", return_value='[{"url":"existing"}]'),
+            patch.object(maintain, "run") as run,
+        ):
+            result = check_updates.open_pr(
+                self.root,
+                "owner/nur",
+                "main",
+                "spotify-spotx",
+                "a" * 40,
+                self.release,
+                self.spec,
+                ["x86_64-linux"],
+            )
+        self.assertIn("existing", result)
+        run.assert_not_called()
+        with (
+            patch.object(maintain, "run", return_value="modified"),
+            patch.object(check_updates, "ready_updates") as check,
+            self.assertRaisesRegex(ValueError, "clean checkout"),
+        ):
+            check_updates.check_updates(self.root, pr=True)
+        check.assert_not_called()
+
+    def test_spotx_cli(self) -> None:
+        with (
+            patch.object(sys, "argv", ["check_updates.py", "--scheduled", "--pr"]),
+            patch.object(check_updates, "check_updates") as check,
+        ):
+            check_updates.main()
+        check.assert_called_once_with(maintain.ROOT, True, False, False, True)
+
+    def test_scheduled_interval_and_manual_bypass(self) -> None:
+        self.configure_snapshot()
+        state = self.root / "state"
+        stamp = state / "example"
+        with (
+            patch.dict(os.environ, {"UPDATE_STATE_DIR": str(state)}),
+            patch("tools.check_updates.time.time", return_value=1000000) as clock,
+            patch.object(check_updates, "ready_package", return_value=None) as ready,
+        ):
+            check_updates.check_updates(self.root, scheduled=True)
+            self.assertEqual(stamp.read_text(), "1000000")
+            clock.return_value = 1000000 + 168 * 3600 - 1
+            check_updates.check_updates(self.root, scheduled=True)
+            ready.assert_called_once()
+            check_updates.check_updates(self.root)
+            self.assertEqual(ready.call_count, 2)
+            self.assertEqual(stamp.read_text(), "1000000")
+            clock.return_value = 1000000 + 168 * 3600
+            check_updates.check_updates(self.root, scheduled=True)
+            self.assertEqual(ready.call_count, 3)
+
+    def test_failed_scheduled_check_is_retried(self) -> None:
+        state = self.root / "state"
+        with (
+            patch.dict(os.environ, {"UPDATE_STATE_DIR": str(state)}),
+            patch.object(
+                check_updates, "ready_package", side_effect=ValueError("network")
+            ),
+            self.assertRaisesRegex(ValueError, "network"),
+        ):
+            check_updates.check_updates(self.root, scheduled=True)
+        self.assertFalse((state / "example").exists())
+        with (
+            patch.dict(os.environ, {"UPDATE_STATE_DIR": str(state)}),
+            patch.object(
+                check_updates,
+                "ready_package",
+                return_value=("1.0.0", ["x86_64-linux"], self.release),
+            ),
+            patch.object(maintain, "run", side_effect=ValueError("validation")),
+            self.assertRaisesRegex(ValueError, "validation"),
+        ):
+            check_updates.check_updates(self.root, update=True, scheduled=True)
+        self.assertFalse((state / "example").exists())
+
+    def test_interval_does_not_skip_other_due_packages(self) -> None:
+        self.configure_snapshot()
+        folder = self.root / "pkgs/frequent"
+        folder.mkdir()
+        _ = (folder / "default.nix").write_text("")
+        _ = (folder / "maintenance.toml").write_text(
+            'files = ["default.nix"]\ncheckIntervalHours = 4\n'
+            + '[release]\nrepository = "owner/project"\nassets = ["app"]\n'
+        )
+        state = self.root / "state"
+        state.mkdir()
+        for package in ("example", "frequent"):
+            _ = (state / package).write_text("1000000")
+        with (
+            patch.dict(os.environ, {"UPDATE_STATE_DIR": str(state)}),
+            patch("tools.check_updates.time.time", return_value=1000000 + 4 * 3600),
+            patch.object(check_updates, "ready_package", return_value=None) as ready,
+        ):
+            check_updates.check_updates(self.root, scheduled=True)
+        self.assertEqual([call.args[1] for call in ready.call_args_list], ["frequent"])
+
+    def test_monitor_fields_are_required_and_validated(self) -> None:
+        self.configure_snapshot()
+        assert "snapshot" in self.spec
+        monitors: dict[str, dict[str, object]] = {
+            "release": {"repository": "owner/project", "assets": ["app"]},
+            "snapshot": dict(self.spec["snapshot"]),
+        }
+        invalid_values: list[object] = [None, "", [], 1]
+        for kind, fields in monitors.items():
+            maintain.validate_monitor(kind, fields)
+            for key in fields:
+                for invalid in invalid_values:
+                    with (
+                        self.subTest(kind=kind, key=key, value=invalid),
+                        self.assertRaises(ValueError),
+                    ):
+                        maintain.validate_monitor(kind, fields | {key: invalid})
+                with (
+                    self.subTest(kind=kind, missing=key),
+                    self.assertRaises(ValueError),
+                ):
+                    maintain.validate_monitor(
+                        kind,
+                        {name: value for name, value in fields.items() if name != key},
+                    )
+            with self.subTest(kind=kind, unknown=True), self.assertRaises(ValueError):
+                maintain.validate_monitor(kind, fields | {"unknown": "value"})
+
+    def test_monitor_metadata_validation(self) -> None:
+        manifest = self.root / "pkgs/example/maintenance.toml"
+        for value in ("0", "-1", "true", '"weekly"', "1.5"):
+            with self.subTest(value=value):
+                _ = manifest.write_text(
+                    'files = ["default.nix"]\ncheckIntervalHours = ' + value
+                )
+                with self.assertRaisesRegex(ValueError, "checkIntervalHours"):
+                    _ = maintain.specification(self.root, "example")
+        self.configure_snapshot()
+        content = manifest.read_text()
+        for old, new in (
+            ('branch = "main"', 'branch = "main?invalid"'),
+            ('attribute = "spotify-spotx.spotx"', 'attribute = "bad/path"'),
+            ('command = ["just", "update-spotx"]', "command = []"),
+            ('files = ["spotx.nix"]', 'files = ["undeclared.nix"]'),
+        ):
+            _ = manifest.write_text(content.replace(old, new))
+            with self.subTest(new=new), self.assertRaises(ValueError):
+                _ = maintain.specification(self.root, "example")
+
+    def test_workflow_uses_metadata_schedule(self) -> None:
+        workflow = (maintain.ROOT / ".github/workflows/updates.yml").read_text()
+        self.assertEqual(workflow.count("cron:"), 1)
+        self.assertIn("just check-updates --pr --scheduled", workflow)
+        self.assertIn(
+            'UPDATE_STATE_DIR="$HOME/.local/state/nur-updates/$GITHUB_REPOSITORY"',
+            workflow,
+        )
+        self.assertNotIn("--spotx", workflow)
+        self.assertNotIn("17 3 * * 1", workflow)
+        self.assertIn("just check-updates --update", workflow)
 
     def test_github_errors_propagate(self) -> None:
         with (

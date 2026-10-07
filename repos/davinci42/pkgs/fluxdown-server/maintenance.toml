@@ -1,4 +1,5 @@
 files = ["default.nix", "settings-schema.json"]
+checkIntervalHours = 4
 rawSource = "default.nix"
 sync = ["python3", "pkgs/fluxdown-server/update-settings.py"]
 contract = ["python3", "pkgs/fluxdown-server/update-settings.py", "--check"]

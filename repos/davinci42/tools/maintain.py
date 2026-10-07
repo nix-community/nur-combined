@@ -21,6 +21,14 @@ class ReleaseSpecification(TypedDict):
     assets: list[str]
 
 
+class SnapshotSpecification(TypedDict):
+    repository: str
+    branch: str
+    attribute: str
+    command: list[str]
+    files: list[str]
+
+
 class Specification(TypedDict):
     files: list[str]
     sync: NotRequired[list[str]]
@@ -29,6 +37,8 @@ class Specification(TypedDict):
     runtimePackageEnv: NotRequired[str]
     rawSource: NotRequired[str]
     release: NotRequired[ReleaseSpecification]
+    snapshot: NotRequired[SnapshotSpecification]
+    checkIntervalHours: NotRequired[int]
 
 
 class Arguments(argparse.Namespace):
@@ -64,16 +74,23 @@ def string_list(value: object) -> bool:
     )
 
 
-def validate_release(release: dict[str, object]) -> None:
-    repository = release.get("repository")
-    if not isinstance(repository, str) or not re.fullmatch(
-        r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+", repository
-    ):
-        raise ValueError("release.repository must be owner/repository")
-    if not string_list(release.get("assets")):
-        raise ValueError("release.assets must be a nonempty list of filenames")
-    if set(release) - {"repository", "assets"}:
-        raise ValueError("Unknown release metadata fields")
+def validate_monitor(kind: str, fields: dict[str, object]) -> None:
+    patterns = {"repository": r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+"}
+    lists = ["assets"]
+    if kind == "snapshot":
+        patterns |= dict.fromkeys(
+            ("branch", "attribute"), r"[A-Za-z0-9][A-Za-z0-9_.-]*"
+        )
+        lists = ["command", "files"]
+    if set(fields) != set(patterns) | set(lists):
+        raise ValueError(f"Invalid {kind} metadata fields")
+    for key, pattern in patterns.items():
+        field = fields[key]
+        if not isinstance(field, str) or not re.fullmatch(pattern, field):
+            raise ValueError(f"Invalid {kind}.{key}")
+    for key in lists:
+        if not string_list(fields[key]):
+            raise ValueError(f"{kind}.{key} must be a nonempty string array")
 
 
 def specification(root: Path, package: str) -> Specification:
@@ -98,11 +115,19 @@ def specification(root: Path, package: str) -> Specification:
     for key in ("runtimePackageEnv", "rawSource"):
         if key in raw and not isinstance(raw[key], str):
             raise ValueError(key + " must be a string")
-    if "release" in raw:
-        if not isinstance(raw["release"], dict):
-            raise ValueError("release must be a table")
-        validate_release(cast(dict[str, object], raw["release"]))
+    if "release" in raw and "snapshot" in raw:
+        raise ValueError("Declare either release or snapshot, not both")
+    for kind in ("release", "snapshot"):
+        if kind in raw:
+            if not isinstance(raw[kind], dict):
+                raise ValueError(f"{kind} must be a table")
+            validate_monitor(kind, cast(dict[str, object], raw[kind]))
+    interval = raw.get("checkIntervalHours", 4)
+    if type(interval) is not int or interval < 1:
+        raise ValueError("checkIntervalHours must be a positive integer")
     spec = cast(Specification, cast(object, raw))
+    if "snapshot" in spec and not set(spec["snapshot"]["files"]) <= set(spec["files"]):
+        raise ValueError("snapshot.files must be listed in files")
     allowed = {
         "files",
         "sync",
@@ -111,6 +136,8 @@ def specification(root: Path, package: str) -> Specification:
         "runtimePackageEnv",
         "rawSource",
         "release",
+        "snapshot",
+        "checkIntervalHours",
     }
     if set(spec) - allowed:
         raise ValueError("Unknown maintenance metadata fields")

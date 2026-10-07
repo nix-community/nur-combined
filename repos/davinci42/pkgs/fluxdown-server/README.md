@@ -1,15 +1,17 @@
 # FluxDown Server
 
-Pinned upstream binaries for `x86_64-linux` and `aarch64-linux`, including
-`fluxdown-agent`, `fluxdownd`, and the embedded Web UI, but not the desktop GUI.
+Pinned binaries for `x86_64-linux` and `aarch64-linux`: `fluxdown-agent`,
+`fluxdownd`, and the embedded Web UI, without the desktop GUI.
 
 ## Usage
 
-Run commands from the repository root. Adjust the import path to your configuration:
+Build from the repository root:
 
 ```sh
 nix-build . -A fluxdown-server --no-out-link
 ```
+
+Adjust the module import path for your configuration:
 
 ```nix
 {
@@ -23,29 +25,29 @@ nix-build . -A fluxdown-server --no-out-link
 ```
 
 Defaults: `127.0.0.1:17800`, user `fluxdown`, state `/var/lib/fluxdown`, downloads
-in its `downloads` subdirectory. Analytics and mDNS are disabled.
+in its `downloads` subdirectory; analytics and mDNS disabled.
 
-The optional environment file may contain `FLUXDOWN_TOKEN=<access-key>`; keep it
-outside the Nix store with mode `0600`. Keys need 8 to 128 visible ASCII characters,
-including letters and digits. Without a key, the Web UI opens first-run setup.
-There is no Web username or LAN authentication bypass.
+The optional environment file can set `FLUXDOWN_TOKEN=<access-key>`. Keep it
+outside the Nix store with mode `0600`. Keys require 8–128 visible ASCII characters,
+including letters and digits. Without a key, the Web UI offers first-run setup;
+there is no Web username or LAN authentication bypass.
 
 For LAN access, set `listenAddress = "0.0.0.0"; openFirewall = true;`.
-This opens the port globally, not just to LAN clients. Initialize authentication
-before exposure; use HTTPS and WebSocket forwarding for remote access.
-Use brackets for IPv6 addresses, such as `[::1]`.
+The firewall rule opens the port globally, not just to LAN clients. Initialize
+authentication before exposure; use HTTPS with WebSocket forwarding remotely.
+Bracket IPv6 addresses, for example `[::1]`.
 
 ## Configuration
 
-The module exposes `enable`, `package`, `listenAddress`, `port`, `openFirewall`,
-`environment`, `environmentFile`, `settings`, and `settingsFile`. Additional startup settings:
+Module options: `enable`, `package`, `listenAddress`, `port`, `openFirewall`,
+`environment`, `environmentFile`, `settings`, and `settingsFile`.
 
-| Variable | Purpose |
+| Environment variable | Purpose |
 | --- | --- |
-| `FLUXDOWN_SAVE_DIR` | Seed the initial download directory; saved settings take precedence |
-| `FLUXDOWN_DATABASE_URL` | SQLite or PostgreSQL connection string; credentials belong in the environment file |
-| `FLUXDOWN_WEBROOT` | Replace the embedded Web UI with a static directory |
-| `FLUXDOWN_TOKEN` / `FLUXDOWN_TOKEN_FORCE` | Seed the key; force replaces it on each start when set to `1` |
+| `FLUXDOWN_SAVE_DIR` | Initial download directory; saved settings take precedence |
+| `FLUXDOWN_DATABASE_URL` | SQLite/PostgreSQL URL; keep credentials in the environment file |
+| `FLUXDOWN_WEBROOT` | Static directory replacing the embedded Web UI |
+| `FLUXDOWN_TOKEN` / `FLUXDOWN_TOKEN_FORCE` | Seed the key; force `1` replaces it on each start |
 | `FLUXDOWN_LANG` | Fallback language: `en` or `zh` |
 | `FLUXDOWN_MDNS` / `FLUXDOWN_LINK_NAME` | Discovery and device name |
 | `FLUXDOWN_ANALYTICS` | Anonymous analytics |
@@ -53,16 +55,14 @@ The module exposes `enable`, `package`, `listenAddress`, `port`, `openFirewall`,
 | `FLUXDOWN_DEMO` / `FLUXDOWN_DEMO_URL` | Demo mode and permitted URL |
 
 Do not override module-managed `FLUXDOWN_BIND` or `FLUXDOWN_DATA_DIR` in runtime
-files. Custom download directories must be writable by the service user;
-home directories are inaccessible by default.
+files. Custom download directories must be writable by `fluxdown`; home
+directories are inaccessible by default.
 
-## Declarative daemon settings
+### Daemon settings
 
-`services.fluxdown.settings` exposes all 57 writable entries from upstream
-`DAEMON_CONFIG_FIELDS`: downloads, upload/download limits, concurrency, retries,
-BitTorrent, ED2K, proxies, webhooks, component paths, and logging. Types, bounds,
-enums, and documented upstream defaults come from `settings-schema.json`,
-generated from the packaged release. Read-only fields and unknown keys are rejected.
+`services.fluxdown.settings` exposes writable upstream `DAEMON_CONFIG_FIELDS`.
+The generated `settings-schema.json` defines types, bounds, enums, and upstream
+defaults. Unknown and read-only keys are rejected.
 
 ```nix
 services.fluxdown.settings = {
@@ -75,48 +75,29 @@ services.fluxdown.settings = {
 };
 ```
 
-Limits use bytes per second; zero means unlimited. All settings default to `null`,
-meaning unmanaged, not the upstream default. Only declared values are reapplied
-through the official RPC on each start, including restarts after configuration
-changes. Web UI edits to declared keys last until the next restart. Removing a
-key leaves its stored value unchanged; explicitly set its upstream default to
-reset it. Existing downloads are not moved when `default_save_dir` changes.
+- Speed limits use bytes/second; zero means unlimited.
+- All settings default to `null` (unmanaged), not upstream defaults. Declared
+  values are reapplied through RPC on each start, overwriting Web UI changes.
+  Removing a key leaves its stored value; set its upstream default to reset it.
+- Changing `default_save_dir` does not move existing downloads.
+- Effective `auto_resume_on_start = true` resumes **all** paused tasks after
+  applying settings, even unchanged settings and manually paused tasks. Set it
+  to false to disable this extra resume step.
 
-When the effective `auto_resume_on_start` is true, the helper calls
-`daemon.task.resumeAll` after successfully applying settings, even if no values
-changed. This resumes all paused tasks, including manually paused tasks, rather
-than only tasks paused by BT session reconfiguration. Explicitly setting it to
-false disables this extra resume step.
+Put secrets in `settingsFile`, an absolute path to a runtime JSON object using
+the same keys and types. It must be readable by the service user, unlike
+`environmentFile`; for agenix, use owner `fluxdown` and mode `0400`. Do not
+duplicate keys across `settings` and `settingsFile`.
 
-For passwords or webhook secrets, use `settingsFile`, an absolute path to a
-runtime JSON object with the same keys and JSON value types. Make it readable by
-the service user (for agenix, set the secret owner to `fluxdown` and mode to
-`0400`). Do not duplicate keys between `settings` and `settingsFile`. Unlike
-`environmentFile`, the settings helper reads this file as the service user.
-
-The startup helper authenticates using the local agent token, without requiring
-a Web UI access key or modifying the database. It retries startup and revision
-conflicts, and fails startup if settings cannot be applied. Upstream performs
-additional semantic checks, such as validating component mirror URLs.
-
-This covers daemon configuration, not agent/UI preferences such as automatic
-update checks, cloud accounts, queues, or RSS subscriptions.
+The helper uses the local agent token, not a Web UI key or direct database edits.
+It retries startup and revision conflicts, then fails startup if settings cannot
+be applied. Upstream also checks semantics such as component mirror URLs.
+Agent/UI preferences, cloud accounts, queues, and RSS are not managed here.
 
 ## Maintenance
 
-Follow the package-set `AGENTS.md`. Verify both architecture hashes and that the
-two executables remain siblings with an embedded Web UI.
-
-Configuration authorities in [upstream](https://github.com/zerx-lab/FluxDown),
-at the packaged tag:
-
-- `native/protocol/src/daemon_config.rs`: daemon keys, types, defaults, bounds.
-- `native/protocol/src/settings.rs`: synchronized settings, not all preferences.
-- `native/agent/src/server_mode.rs`: server startup and access-key validation.
-- `native/agent/src/runtime.rs`, `native/daemon/src/config.rs`: component startup.
-- `native/agent/src/gateway.rs`, `native/protocol/src/rpc.rs`: persistent-setting RPCs.
-
-Use the shared maintenance flow in `nix-shell` (requires authenticated `gh`):
+Use the [shared workflow](../../README.md#local-maintenance) in `nix-shell`
+with authenticated `gh`:
 
 ```sh
 just update fluxdown-server
@@ -124,37 +105,40 @@ just contract fluxdown-server
 just check fluxdown-server
 ```
 
-The package's `maintenance.toml` selects flat-archive hash updates, schema
-regeneration, Nix evaluation, and isolated RPC tests. Contract changes require
-review with `just update-reviewed fluxdown-server <version>`. The lower-level
-`python3 pkgs/fluxdown-server/update-settings.py --check` remains available.
+Verify both architecture hashes and sibling executables with an embedded Web UI.
+The four-hour monitor requires both Linux archives and `SHA256SUMS-server.txt`
+before validation. It checks Server readiness, not desktop/mobile/Docker or the
+checksum manifest contents. Contract changes require review, then
+`just update-reviewed fluxdown-server <version>`.
 
-To compare a candidate upstream release without writing files, add
-`--check --ref <tag>`. Differences in the catalog, validation source, or RPC
-protocol source fail the check and print a diff. Unknown catalog syntax also
-fails instead of silently dropping options. The module rejects managed settings
-when its package version differs from the recorded schema version. This is a
-manual contract check; it does not cover every upstream configuration surface.
+Configuration authorities at the packaged tag in
+[upstream](https://github.com/zerx-lab/FluxDown):
 
-The six-hour monitor requires both Linux archives and `SHA256SUMS-server.txt`
-(upstream's Server completion marker), then runs the shared update validation.
-A successful update opens a PR titled `fluxdown-server: old-version -> new-version`
-with its checks listed. Contract changes stop for review. Readiness covers Server,
-not desktop, mobile, or Docker, and does not verify the checksum manifest contents.
+| Source | Authority |
+| --- | --- |
+| `native/protocol/src/daemon_config.rs` | Daemon keys, types, defaults, bounds |
+| `native/protocol/src/settings.rs` | Synchronized settings, not all preferences |
+| `native/agent/src/server_mode.rs` | Server startup and access-key validation |
+| `native/agent/src/runtime.rs`, `native/daemon/src/config.rs` | Component startup |
+| `native/agent/src/gateway.rs`, `native/protocol/src/rpc.rs` | Persistent-setting RPCs |
 
-Lightweight regression test:
+Compare a candidate without writing files:
+
+```sh
+python3 pkgs/fluxdown-server/update-settings.py --check --ref <tag>
+```
+
+Omit `--ref` to check the packaged release. Catalog, validation-source, or
+RPC-source drift prints a diff and fails; unknown catalog syntax also fails.
+Managed settings require the package and schema versions to match. This contract
+does not cover every upstream configuration surface.
+
+`just check` includes Nix evaluation and isolated RPC tests, without a VM.
+For evaluation only:
 
 ```sh
 nix-instantiate --eval --strict --expr 'import ./tests/eval.nix {}'
 ```
 
-Runtime validation and isolated RPC integration tests (no VM):
-
-```sh
-export FLUXDOWN_TEST_PACKAGE=$(nix build -f . fluxdown-server --no-link --print-out-paths)
-nix-shell -p 'python3.withPackages (p: [ p.websocket-client ])' --run 'PYTHONDONTWRITEBYTECODE=1 python3 tests/settings.py -v'
-```
-
-Optional VM integration test: `nix-build ./tests/fluxdown.nix`.
-It checks startup, Web UI, key persistence, and shutdown; first-run dependencies
-can be large.
+Optional VM test: `nix-build ./tests/fluxdown.nix`. It checks startup, Web UI,
+key persistence, and shutdown; first-run dependencies can be large.
