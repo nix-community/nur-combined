@@ -1,0 +1,26 @@
+{
+  "name": "StreamNook",
+  "source": {
+    "type": "github-release",
+    "repo": "StreamNook/StreamNook",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "8.8.5",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "StreamNook.app.tar.gz",
+      "hash": "sha256-Wve/WR+/6Us6anD5gcpon3Ex9Lope537Vjj01SubU54=",
+      "unpack": true
+    },
+    "x86_64-darwin": {
+      "file": "StreamNook.app.tar.gz",
+      "hash": "sha256-Wve/WR+/6Us6anD5gcpon3Ex9Lope537Vjj01SubU54=",
+      "unpack": true
+    },
+    "x86_64-linux": {
+      "url": "https://web.archive.org/web/20261007225048/https://streamnook.app/download/linux",
+      "hash": "sha256-LXdJ4HuOFhm0XUEj8M8F4FIlTvhuHTwtZJsbxeVa8KY="
+    }
+  }
+}

@@ -28,6 +28,7 @@
   helixnotes = lib.callPackage ./pkgs/helixnotes {};
   moonplayer = lib.callPackage ./pkgs/moonplayer {};
   noisetorch = lib.callPackage ./pkgs/noisetorch {};
+  streamnook = lib.callPackage ./pkgs/streamnook {};
   altersend = lib.callPackage ./pkgs/altersend {};
   genoffice = lib.callPackage ./pkgs/genoffice {};
   equicord = lib.callPackage ./pkgs/equicord {};
