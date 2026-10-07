@@ -31,8 +31,8 @@
             "url": "https://github.com/Adamekka/nur-packages"
         },
         "Alxandr": {
-            "rev": "03cde487c40bbf12d6b441fcf3b802bf5d306437",
-            "sha256": "0jbhrpcz980qwxib218k7six37v8jaxrx4q2qagbfk9m3ddi2v05",
+            "rev": "4d74ce07a81b8fc423d89d7ad4fd0753fb10ff79",
+            "sha256": "1a8z35iphfq7kdsc03srq5a0qf33i6ffy0glsx42j7iw84hwnx5w",
             "url": "https://github.com/Alxandr/nur"
         },
         "AndrewKvalheim": {
@@ -402,8 +402,8 @@
             "url": "https://github.com/aster-void/nix-repository"
         },
         "ataraxiasjel": {
-            "rev": "6ca91c341396dd2826d0fed8482b3d5a5c20a592",
-            "sha256": "1dh0yw39pgkpzhjjqzdrnb4ja4d3hswxdi2hvdffnyjfxx31j314",
+            "rev": "de6cb89d8f6bcca66b89a79f9551407b94b2b891",
+            "sha256": "0lvmqfzl0hywckapld6p781qsad54gwdj8gi2rm7h9lp88y9541w",
             "url": "https://github.com/AtaraxiaSjel/nur"
         },
         "avrahambenaram": {
