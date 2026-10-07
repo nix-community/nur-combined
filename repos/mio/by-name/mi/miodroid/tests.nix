@@ -266,8 +266,8 @@ in
       machine.succeed("grep -q 'lxc.rootfs.mount' /home/alice/.local/share/miodroid/lxc/miodroid/config")
       # The container is told to bring up its own binderfs, and no host node was
       # handed over to shadow it (there is none).
-      machine.succeed("grep -q 'zz-miodroid-binder.rc' /home/alice/.local/share/miodroid/lxc/miodroid/config")
-      machine.fail("grep -q ' dev/binder none bind' /home/alice/.local/share/miodroid/lxc/miodroid/config")
+      machine.succeed("grep -q 'zz-miodroid-binder.rc' /home/alice/.local/share/miodroid/lxc/miodroid/config_nodes")
+      machine.fail("grep -q ' dev/binder none bind' /home/alice/.local/share/miodroid/lxc/miodroid/config_nodes")
       machine.succeed("""cat > /tmp/test-session.sh << 'EOFSCRIPT'
       #!/bin/sh
       set -eu

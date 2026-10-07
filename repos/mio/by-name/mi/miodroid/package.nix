@@ -216,6 +216,11 @@ let
 
       # The LXC configuration uses the rebranded seccomp filename.
       mv data/configs/waydroid.seccomp data/configs/miodroid.seccomp
+      mv data/configs/waydroid-binder.rc data/configs/miodroid-binder.rc
+      
+      find . \( -name "*.py" -o -name "*.sh" -o -name "Makefile" \) -exec sed -i \
+        -e 's|waydroid-binder|miodroid-binder|g' \
+        {} +
 
       # ── Multi-instance names (patch 0005) ─────────────────────────────────
       #
@@ -227,7 +232,7 @@ let
       # directory is shared with upstream Waydroid otherwise, which defeats
       # the point of the fork.
       sed -i \
-        -e 's|iface_name="waydroid-''${WAYDROID_INSTANCE}"|iface_name="miodroid0-''${WAYDROID_INSTANCE}"|' \
+        -e 's|iface_name="waydroid-''${WAYDROID_INSTANCE}"|iface_name="miodroid0-''${MIODROID_INSTANCE}"|' \
         -e 's|/run/waydroid-|/run/miodroid-|g' \
         -e 's|waydroid-net|miodroid-net|g' \
         data/scripts/waydroid-net.sh
@@ -236,10 +241,19 @@ let
         -e 's|/data/scripts/waydroid-net.sh|/data/scripts/miodroid-net.sh|g' \
         -e 's|data/scripts/waydroid-net.sh|data/scripts/miodroid-net.sh|g' \
         {} +
+        
+      # ── Environment Variables ─────────────────────────────────────────────
+      find . -type f -exec sed -i \
+        -e 's/WAYDROID_ROOTLESS/MIODROID_ROOTLESS/g' \
+        -e 's/WAYDROID_WORK/MIODROID_WORK/g' \
+        -e 's/WAYDROID_INSTANCE/MIODROID_INSTANCE/g' \
+        -e 's/WAYDROID_NO_IMAGE_GROWTH/MIODROID_NO_IMAGE_GROWTH/g' \
+        {} +
+
       # Both sides of the interface name contract: fail the build instead of
       # shipping a renamed script whose named instances are silently offline.
       grep -q 'f"miodroid0{get_suffix_dash()}"' tools/helpers/instance.py
-      grep -q 'iface_name="miodroid0-''${WAYDROID_INSTANCE}"' data/scripts/miodroid-net.sh
+      grep -q 'iface_name="miodroid0-''${MIODROID_INSTANCE}"' data/scripts/miodroid-net.sh
 
       # ── Desktop entries, menu and metainfo ────────────────────────────────
       #
