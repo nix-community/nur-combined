@@ -4,7 +4,9 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import android.database.DatabaseErrorHandler
 import android.database.sqlite.SQLiteDatabase
+import androidx.compose.runtime.Stable
 
+@Stable
 open class Context {
     open val contentResolver: ContentResolver = ContentResolver()
     open val packageName: String = "moe.rukamori.archivetune"
