@@ -30,7 +30,9 @@ fun _createViewModelInstance(clazz: Class<*>): Any? {
                 ret == Float::class.java -> 0f
                 ret == Double::class.java -> 0.0
                 ret == String::class.java -> ""
-                else -> null
+                ret.name == "kotlinx.coroutines.flow.Flow" -> kotlinx.coroutines.flow.emptyFlow<Any>()
+                ret.name == "kotlinx.coroutines.flow.StateFlow" -> kotlinx.coroutines.flow.MutableStateFlow<Any?>(null)
+                else -> _createViewModelInstance(ret)
             }
         }
     }
@@ -48,7 +50,17 @@ fun _createViewModelInstance(clazz: Class<*>): Any? {
             val args = constructor.parameterTypes.map { _createViewModelInstance(it) }
             return constructor.newInstance(*args.toTypedArray())
         }
-    } catch (e: Exception) {}
-    
+    } catch (e: Exception) {
+        try {
+            val unsafeClass = Class.forName("sun.misc.Unsafe")
+            val f = unsafeClass.getDeclaredField("theUnsafe")
+            f.isAccessible = true
+            val unsafe = f.get(null)
+            val allocateInstance = unsafeClass.getMethod("allocateInstance", Class::class.java)
+            return allocateInstance.invoke(unsafe, clazz)
+        } catch (ue: Exception) {
+            ue.printStackTrace()
+        }
+    }
     return null
 }
