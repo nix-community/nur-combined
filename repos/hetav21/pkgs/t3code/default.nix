@@ -36,6 +36,16 @@ in
 (appimageTools.wrapType2 {
   inherit pname version src;
 
+  profile = ''
+    if [ -z "''${SSL_CERT_FILE:-}" ]; then
+      if [ -f /etc/ssl/certs/ca-certificates.crt ]; then
+        export SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+      elif [ -f /etc/ssl/certs/ca-bundle.crt ]; then
+        export SSL_CERT_FILE=/etc/ssl/certs/ca-bundle.crt
+      fi
+    fi
+  '';
+
   extraInstallCommands = ''
     mkdir -p $out/share/applications
     cp -r ${appimageContents}/usr/share/icons $out/share/
