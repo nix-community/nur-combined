@@ -7,11 +7,9 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{
-  pkgs ? import <nixpkgs> { },
-}:
+{ pkgs ? import <nixpkgs> { } }:
 
-rec {
+{
   # The `lib`, `overlays`, `nixosModules`, `homeModules`,
   # `darwinModules` and `flakeModules` names are special
   lib = import ./lib { inherit pkgs; }; # functions
@@ -24,6 +22,5 @@ rec {
   direnv-nvim = pkgs.callPackage ./pkgs/direnv-nvim { };
   px0 = pkgs.callPackage ./pkgs/px0 { };
   t3code = pkgs.callPackage ./pkgs/t3code { };
-  t3code-desktop = t3code.desktop;
   wsl-notify-send = pkgs.callPackage ./pkgs/wsl-notify-send { };
 }

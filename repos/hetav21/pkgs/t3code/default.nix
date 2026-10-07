@@ -11,11 +11,6 @@ stdenvNoCC.mkDerivation {
   pname = "t3code";
   inherit (t3code-unwrapped) version;
 
-  outputs = [
-    "out"
-    "desktop"
-  ];
-
   dontUnpack = true;
   strictDeps = true;
 
@@ -24,7 +19,7 @@ stdenvNoCC.mkDerivation {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p "$out/bin" "$desktop/bin"
+    mkdir -p "$out/bin"
 
     sslCertHook='if [ -z "''${SSL_CERT_FILE:-}" ]; then
       if [ -f /etc/ssl/certs/ca-certificates.crt ]; then
@@ -42,19 +37,6 @@ stdenvNoCC.mkDerivation {
       } \
       --run "$sslCertHook"
 
-    makeWrapper ${t3code-unwrapped.desktop}/bin/t3code-desktop \
-      "$desktop/bin/t3code-desktop" \
-      ${
-        lib.optionalString (
-          providerPackages != [ ]
-        ) "--prefix PATH : ${lib.escapeShellArg (lib.makeBinPath providerPackages)}"
-      } \
-      --run "$sslCertHook" \
-      --inherit-argv0
-    ln -s t3code-desktop "$desktop/bin/t3code"
-    ln -s ${t3code-unwrapped.desktop}/share "$desktop/share"
-
-    # Also install desktop entry and wrapper into $out for standard NUR package usage
     makeWrapper ${t3code-unwrapped.desktop}/bin/t3code-desktop \
       "$out/bin/t3code-desktop" \
       ${
@@ -76,7 +58,7 @@ stdenvNoCC.mkDerivation {
 
     ${lib.optionalString stdenvNoCC.hostPlatform.isDarwin ''
       sourceApp=${lib.escapeShellArg "${t3code-unwrapped.desktop}/Applications/${t3code-unwrapped.appName}.app"}
-      targetApp="$desktop/Applications/${t3code-unwrapped.appName}.app"
+      targetApp="$out/Applications/${t3code-unwrapped.appName}.app"
       mkdir -p "$targetApp/Contents/MacOS"
       ln -s "$sourceApp/Contents/Info.plist" "$targetApp/Contents/Info.plist"
       ln -s "$sourceApp/Contents/Resources" "$targetApp/Contents/Resources"
@@ -88,7 +70,6 @@ stdenvNoCC.mkDerivation {
   '';
 
   passthru = {
-    category = "AI Coding Agents";
     inherit providerPackages;
     inherit (t3code-unwrapped) pnpmDeps resourceMonitor src;
     unwrapped = t3code-unwrapped;
