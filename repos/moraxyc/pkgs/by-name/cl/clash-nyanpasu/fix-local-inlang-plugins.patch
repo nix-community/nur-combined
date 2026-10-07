@@ -1,5 +1,5 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index b88e840..9dbf081 100644
+index b88e840..b55e5fc 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
 @@ -20,6 +20,13 @@
@@ -33,8 +33,8 @@ index b88e840..9dbf081 100644
    "devDependencies": {
      "@csstools/normalize.css": "12.1.1",
      "@iconify/json": "2.2.539",
-+    "@inlang/plugin-m-function-matcher": "^2.2.16",
-+    "@inlang/plugin-message-format": "^4.4.4",
++    "@inlang/plugin-m-function-matcher": "^2.2.17",
++    "@inlang/plugin-message-format": "^4.4.5",
      "@monaco-editor/react": "4.7.0",
      "@tailwindcss/vite": "4.3.3",
      "@tanstack/react-query": "5.104.1",
@@ -54,7 +54,7 @@ index cb96b35..3777c63 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index c56b15f..b7183ad 100644
+index ac498b6..736f9e8 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -425,6 +425,12 @@ importers:
@@ -62,28 +62,49 @@ index c56b15f..b7183ad 100644
          specifier: 2.2.539
          version: 2.2.539
 +      '@inlang/plugin-m-function-matcher':
-+        specifier: ^2.2.16
-+        version: 2.2.16
++        specifier: ^2.2.17
++        version: 2.2.17
 +      '@inlang/plugin-message-format':
-+        specifier: ^4.4.4
-+        version: 4.4.4
++        specifier: ^4.4.5
++        version: 4.4.5
        '@monaco-editor/react':
          specifier: 4.7.0
          version: 4.7.0(monaco-editor@0.57.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
-@@ -1604,6 +1610,12 @@ packages:
+@@ -1611,6 +1617,12 @@ packages:
        vite:
          optional: true
  
-+  '@inlang/plugin-m-function-matcher@2.2.16':
-+    resolution: {integrity: sha512-OnlpBFcLLapK0DeHOhuP+u0Ut0Ls/wcvcAKEdhtjOk/WrpmAiRvSuvCCctsfW8qR+GI71oqGkt4zZ7uOhcLmvg==}
++  '@inlang/plugin-m-function-matcher@2.2.17':
++    resolution: {integrity: sha512-KzJuRQiXVRJR48HCqIjx83cOwuvnyvugSl2VrBtPmyW7w5p+ulEGdNCZu2+KvIiOI/Q1HAEWwM/XSpLY9vunMA==}
 +
-+  '@inlang/plugin-message-format@4.4.4':
-+    resolution: {integrity: sha512-50tkyH/qMFudcIOZSCRdi+BeCVuJQo3BWbvfRTVKr8pEslBiRaZDTKBC1NkCI3ivmkyqzK8k+ktBci3NtDu3Lg==}
++  '@inlang/plugin-message-format@4.4.5':
++    resolution: {integrity: sha512-g3WpG00mx3Wq/3zulz4uuT+HhdBRB7UMz2hVbfSm+E4RJHXNYyFyvS0elPETX7gEz8yiTd0KbyukZGJHetmkZA==}
 +
    '@inlang/recommend-sherlock@0.2.1':
      resolution: {integrity: sha512-ckv8HvHy/iTqaVAEKrr+gnl+p3XFNwe5D2+6w6wJk2ORV2XkcRkKOJ/XsTUJbPSiyi4PI+p+T3bqbmNx/rDUlg==}
  
-@@ -4562,6 +4574,11 @@ packages:
+@@ -1618,6 +1630,10 @@ packages:
+     resolution: {integrity: sha512-JyUxQNjKNWglT8qhInmenKK/AnKkbX9AhAM8vFnTT8SyQ0gFA2YGKPntGp+3+UZP9F06Nmawf4sFTn7nGIyTXQ==}
+     engines: {node: '>=20.0.0'}
+ 
++  '@inlang/sdk@3.1.0':
++    resolution: {integrity: sha512-l8LqeyqLfe00cmDvKY7J6YuCkfWVfgzaNWlB8IAHxWOWqkUAwyG4AhuMYUiBbeA0wM6zdVphPCG2lay/OzTdFg==}
++    engines: {node: '>=20.0.0'}
++
+   '@internationalized/date@3.12.4':
+     resolution: {integrity: sha512-M1dEn4c1U1HsSlaVR8upZtSqvXrTkHDfv18H01uCSJyjVLDxnBR38v/fMxecmlwXKR4i9HeZcmgQAPE6A+aGJQ==}
+ 
+@@ -1687,6 +1703,9 @@ packages:
+   '@lix-js/sdk@0.17.0':
+     resolution: {integrity: sha512-xplbKYEokKbm0/soUy9eXlROF55Si1J9HK97iwJrNl/av1VixZ2mvpDTa0QsX96UyxFnzkXru6hngjtIJTl73g==}
+ 
++  '@lix-js/sdk@0.19.0':
++    resolution: {integrity: sha512-ks7hKZdJGH0APlSLWtFYCXDO3yIoleoPqzLgkZYtMbaiWRN2Ih772tNGGBZFLKbutq6DuNRwcjNkG94KqWRbBA==}
++
+   '@material/material-color-utilities@0.4.0':
+     resolution: {integrity: sha512-dlq6VExJReb8dhjj3a/yTigr3ncNwoFmL5Iy2ENtbDX03EmNeOEdZ+vsaGrj7RTuO+mB7L58II4LCsl4NpM8uw==}
+ 
+@@ -4572,6 +4591,11 @@ packages:
    flat-cache@6.1.23:
      resolution: {integrity: sha512-f++BY9pTk+983xK1FLzlLpmM0i0z+jHmx3QESGkURMXujQZz1k5wzwX6hjnQ8goaD0B+sYnDK1yZ6MTyZfUaqA==}
  
@@ -95,22 +116,51 @@ index c56b15f..b7183ad 100644
    flatted@3.4.4:
      resolution: {integrity: sha512-5+ybhBZANEJxaH3X5evAFatUxLfEHSr7n6kYJ+1Qd0mUqr4eu9gIf6GDbWHf8RJijHrjjO8G+la14SlL2SeS1Q==}
  
-@@ -7672,6 +7689,14 @@ snapshots:
+@@ -7682,6 +7706,16 @@ snapshots:
        typescript: 7.0.2
        vite: 8.3.3(@types/node@24.19.1)(jiti@2.7.0)(less@4.9.1(supports-color@10.2.2))(terser@5.36.0)(yaml@2.9.0)
  
-+  '@inlang/plugin-m-function-matcher@2.2.16':
++  '@inlang/plugin-m-function-matcher@2.2.17':
 +    dependencies:
-+      '@inlang/sdk': 3.0.6
++      '@inlang/sdk': 3.1.0
 +
-+  '@inlang/plugin-message-format@4.4.4':
++  '@inlang/plugin-message-format@4.4.5':
 +    dependencies:
++      '@inlang/sdk': 3.1.0
++      '@sinclair/typebox': 0.31.28
 +      flat: 6.0.1
 +
    '@inlang/recommend-sherlock@0.2.1':
      dependencies:
        comment-json: 4.5.0
-@@ -10344,6 +10369,8 @@ snapshots:
+@@ -7693,6 +7727,13 @@ snapshots:
+       kysely: 0.28.14
+       uuid: 14.0.0
+ 
++  '@inlang/sdk@3.1.0':
++    dependencies:
++      '@lix-js/sdk': 0.19.0
++      '@sinclair/typebox': 0.31.28
++      kysely: 0.28.14
++      uuid: 14.0.0
++
+   '@internationalized/date@3.12.4':
+     dependencies:
+       '@swc/helpers': 0.5.23
+@@ -7769,6 +7810,12 @@ snapshots:
+       '@lix-js/sdk-linux-x64': 0.17.0
+       '@lix-js/sdk-win32-x64': 0.17.0
+ 
++  '@lix-js/sdk@0.19.0':
++    dependencies:
++      '@bytecodealliance/jco-transpile': 0.13.0
++      binaryen: 130.0.0
++      fflate: 0.8.3
++
+   '@material/material-color-utilities@0.4.0': {}
+ 
+   '@mermaid-js/parser@2.0.1':
+@@ -10356,6 +10403,8 @@ snapshots:
        flatted: 3.4.4
        hookified: 1.15.1
  
