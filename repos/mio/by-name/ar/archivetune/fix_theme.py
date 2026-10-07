@@ -176,7 +176,33 @@ fun <T> allocateDummy(clazz: Class<T>): T {
         val unsafeClass = Class.forName("sun.misc.Unsafe")
         val f = unsafeClass.getDeclaredField("theUnsafe").apply { isAccessible = true }
         val unsafe = f.get(null)
-        unsafeClass.getMethod("allocateInstance", Class::class.java).invoke(unsafe, clazz) as T
+        val instance = unsafeClass.getMethod("allocateInstance", Class::class.java).invoke(unsafe, clazz) as T
+        for (field in clazz.declaredFields) {
+            if (field.name.startsWith("\$\$delegate_") || field.name.startsWith("delegate")) {
+                field.isAccessible = true
+                if (field.type.isInterface) {
+                    val proxy = java.lang.reflect.Proxy.newProxyInstance(
+                        clazz.classLoader,
+                        arrayOf(field.type)
+                    ) { _, method, _ ->
+                        val returnType = method.returnType
+                        if (returnType.name == "kotlinx.coroutines.flow.Flow") {
+                            kotlinx.coroutines.flow.emptyFlow<Any>()
+                        } else if (returnType.name == "kotlinx.coroutines.flow.StateFlow") {
+                            kotlinx.coroutines.flow.MutableStateFlow<Any?>(null)
+                        } else if (returnType == Boolean::class.java || returnType == Boolean::class.javaPrimitiveType) {
+                            false
+                        } else if (returnType == Int::class.java || returnType == Int::class.javaPrimitiveType) {
+                            0
+                        } else {
+                            null
+                        }
+                    }
+                    field.set(instance, proxy)
+                }
+            }
+        }
+        instance
     } catch (e: Exception) {
         throw RuntimeException(e)
     }

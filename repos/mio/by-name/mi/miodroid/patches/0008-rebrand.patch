@@ -1,0 +1,2976 @@
+diff -urN waydroid-src/data/configs/apparmor_profiles/adbd waydroid-patched/data/configs/apparmor_profiles/adbd
+--- waydroid-src/data/configs/apparmor_profiles/adbd	2026-10-07 20:21:55.534111436 +1100
++++ waydroid-patched/data/configs/apparmor_profiles/adbd	2026-10-07 20:21:55.640110742 +1100
+@@ -43,13 +43,13 @@
+   capability sys_resource,
+   capability fowner,
+ 
+-  ptrace (read,readby,trace,tracedby) peer=lxc-waydroid,
+-  ptrace (read,readby,trace,tracedby) peer=android_app//&lxc-waydroid,
+-  ptrace (read,readby,trace,tracedby) peer=adbd//&lxc-waydroid,
++  ptrace (read,readby,trace,tracedby) peer=lxc-miodroid,
++  ptrace (read,readby,trace,tracedby) peer=android_app//&lxc-miodroid,
++  ptrace (read,readby,trace,tracedby) peer=adbd//&lxc-miodroid,
+ 
+-  signal (send,receive) peer=lxc-waydroid,
+-  signal (send,receive) peer=android_app//&lxc-waydroid,
+-  signal (send) peer=adbd//&lxc-waydroid,
++  signal (send,receive) peer=lxc-miodroid,
++  signal (send,receive) peer=android_app//&lxc-miodroid,
++  signal (send) peer=adbd//&lxc-miodroid,
+   signal (receive),
+   
+ }
+diff -urN waydroid-src/data/configs/apparmor_profiles/android_app waydroid-patched/data/configs/apparmor_profiles/android_app
+--- waydroid-src/data/configs/apparmor_profiles/android_app	2026-10-07 20:21:55.534111436 +1100
++++ waydroid-patched/data/configs/apparmor_profiles/android_app	2026-10-07 20:21:55.641110735 +1100
+@@ -33,13 +33,13 @@
+   mount -> /,
+   umount /storage**,
+ 
+-  ptrace (read,readby,trace,tracedby) peer=android_app//&lxc-waydroid,
+-  ptrace (read,trace,readby,tracedby) peer=lxc-waydroid,
+-  ptrace (read,trace,readby,tracedby) peer=adbd//&lxc-waydroid,
++  ptrace (read,readby,trace,tracedby) peer=android_app//&lxc-miodroid,
++  ptrace (read,trace,readby,tracedby) peer=lxc-miodroid,
++  ptrace (read,trace,readby,tracedby) peer=adbd//&lxc-miodroid,
+ 
+-  signal (send,receive) peer=android_app//&lxc-waydroid,
+-  signal (receive) peer=adbd//&lxc-waydroid,
+-  signal (send,receive) peer=lxc-waydroid,
++  signal (send,receive) peer=android_app//&lxc-miodroid,
++  signal (receive) peer=adbd//&lxc-miodroid,
++  signal (send,receive) peer=lxc-miodroid,
+   signal (receive),
+ 
+   /acct** rwkl,
+diff -urN waydroid-src/data/configs/apparmor_profiles/lxc-miodroid waydroid-patched/data/configs/apparmor_profiles/lxc-miodroid
+--- waydroid-src/data/configs/apparmor_profiles/lxc-miodroid	1970-01-01 10:00:00.000000000 +1000
++++ waydroid-patched/data/configs/apparmor_profiles/lxc-miodroid	2026-10-07 20:21:55.740110088 +1100
+@@ -0,0 +1,68 @@
++profile lxc-miodroid flags=(attach_disconnected, complain, mediate_deleted) {
++  #include <local/lxc-miodroid>
++  /** ix,
++  /system/bin/app_process Pix -> lxc-miodroid//&android_app,
++  /system/bin/app_process32 Pix -> lxc-miodroid//&android_app,
++  /system/bin/app_process64 Pix -> lxc-miodroid//&android_app,
++  /system/bin/adbd Pix -> lxc-miodroid//&adbd,
++  /dev** rw,
++  network,
++  unix,
++  owner /proc** rw,
++  / r,
++  /** r,
++  /acct** rwkl,
++  /acct rwkl,
++  /storage** rwkl,
++  /data** rwkl,
++  /proc** rw,
++  /sys** rw,
++  /dev** rw,
++  /tmp** rw,
++  /var** rw,
++  /run** rw,
++  /mnt** rw,
++  /apex** rwk,
++  /sbin** rw,
++  /linkerconfig** rwk,
++  /system** k,
++  mount,
++  umount,
++
++  capability sys_nice,
++  capability wake_alarm,
++  capability setpcap,
++  capability setgid,
++  capability setuid,
++  capability sys_ptrace,
++  capability sys_admin,
++  capability wake_alarm,
++  capability block_suspend,
++  capability sys_time,
++  capability net_admin,
++  capability net_raw,
++  capability net_bind_service,
++  capability kill,
++  capability dac_override,
++  capability dac_read_search,
++  capability fsetid,
++  capability mknod,
++  capability syslog,
++  capability chown,
++  capability sys_resource,
++  capability fowner,
++  capability sys_module,
++  capability ipc_lock,
++  capability sys_chroot,
++
++  ptrace (read,readby,trace,tracedby) peer=lxc-miodroid,
++  ptrace (read,readby,trace,tracedby) peer=android_app//&lxc-miodroid,
++  ptrace (read,readby,trace,tracedby) peer=adbd//&lxc-miodroid,
++
++  signal (send,receive) peer=lxc-miodroid,
++  signal (send,receive) peer=android_app//&lxc-miodroid,
++  signal (send) peer=adbd//&lxc-miodroid,
++  signal (receive),
++  
++}
++
+diff -urN waydroid-src/data/configs/apparmor_profiles/lxc-waydroid waydroid-patched/data/configs/apparmor_profiles/lxc-waydroid
+--- waydroid-src/data/configs/apparmor_profiles/lxc-waydroid	2026-10-07 20:21:55.534111436 +1100
++++ waydroid-patched/data/configs/apparmor_profiles/lxc-waydroid	1970-01-01 10:00:00.000000000 +1000
+@@ -1,68 +0,0 @@
+-profile lxc-waydroid flags=(attach_disconnected, complain, mediate_deleted) {
+-  #include <local/lxc-waydroid>
+-  /** ix,
+-  /system/bin/app_process Pix -> lxc-waydroid//&android_app,
+-  /system/bin/app_process32 Pix -> lxc-waydroid//&android_app,
+-  /system/bin/app_process64 Pix -> lxc-waydroid//&android_app,
+-  /system/bin/adbd Pix -> lxc-waydroid//&adbd,
+-  /dev** rw,
+-  network,
+-  unix,
+-  owner /proc** rw,
+-  / r,
+-  /** r,
+-  /acct** rwkl,
+-  /acct rwkl,
+-  /storage** rwkl,
+-  /data** rwkl,
+-  /proc** rw,
+-  /sys** rw,
+-  /dev** rw,
+-  /tmp** rw,
+-  /var** rw,
+-  /run** rw,
+-  /mnt** rw,
+-  /apex** rwk,
+-  /sbin** rw,
+-  /linkerconfig** rwk,
+-  /system** k,
+-  mount,
+-  umount,
+-
+-  capability sys_nice,
+-  capability wake_alarm,
+-  capability setpcap,
+-  capability setgid,
+-  capability setuid,
+-  capability sys_ptrace,
+-  capability sys_admin,
+-  capability wake_alarm,
+-  capability block_suspend,
+-  capability sys_time,
+-  capability net_admin,
+-  capability net_raw,
+-  capability net_bind_service,
+-  capability kill,
+-  capability dac_override,
+-  capability dac_read_search,
+-  capability fsetid,
+-  capability mknod,
+-  capability syslog,
+-  capability chown,
+-  capability sys_resource,
+-  capability fowner,
+-  capability sys_module,
+-  capability ipc_lock,
+-  capability sys_chroot,
+-
+-  ptrace (read,readby,trace,tracedby) peer=lxc-waydroid,
+-  ptrace (read,readby,trace,tracedby) peer=android_app//&lxc-waydroid,
+-  ptrace (read,readby,trace,tracedby) peer=adbd//&lxc-waydroid,
+-
+-  signal (send,receive) peer=lxc-waydroid,
+-  signal (send,receive) peer=android_app//&lxc-waydroid,
+-  signal (send) peer=adbd//&lxc-waydroid,
+-  signal (receive),
+-  
+-}
+-
+diff -urN waydroid-src/data/configs/config_1 waydroid-patched/data/configs/config_1
+--- waydroid-src/data/configs/config_1	2026-10-07 20:21:55.534111436 +1100
++++ waydroid-patched/data/configs/config_1	2026-10-07 20:21:55.640110742 +1100
+@@ -1,13 +1,13 @@
+-lxc.utsname = waydroid
++lxc.utsname = miodroid
+ 
+ lxc.init_cmd = /init
+ 
+ lxc.aa_profile = unconfined
+-lxc.seccomp = /var/lib/waydroid/lxc/waydroid/waydroid.seccomp
++lxc.seccomp = /var/lib/miodroid/lxc/miodroid/miodroid.seccomp
+ 
+ lxc.network.type = veth
+ lxc.network.flags = up
+-lxc.network.link = waydroid0
++lxc.network.link = miodroid0
+ lxc.network.name = eth0
+ lxc.network.hwaddr = 00:16:3e:f9:d3:03
+ lxc.network.mtu = 1500
+diff -urN waydroid-src/data/configs/config_3 waydroid-patched/data/configs/config_3
+--- waydroid-src/data/configs/config_3	2026-10-07 20:21:55.535111429 +1100
++++ waydroid-patched/data/configs/config_3	2026-10-07 20:21:55.640110742 +1100
+@@ -1,7 +1,7 @@
+-lxc.uts.name = waydroid
++lxc.uts.name = miodroid
+ 
+ lxc.apparmor.profile = unconfined
+-lxc.seccomp.profile = /var/lib/waydroid/lxc/waydroid/waydroid.seccomp
++lxc.seccomp.profile = /var/lib/miodroid/lxc/miodroid/miodroid.seccomp
+ 
+ lxc.no_new_privs = 1
+ 
+@@ -9,7 +9,7 @@
+ 
+ lxc.net.0.type = veth
+ lxc.net.0.flags = up
+-lxc.net.0.link = waydroid0
++lxc.net.0.link = miodroid0
+ lxc.net.0.name = eth0
+ lxc.net.0.hwaddr = 00:16:3e:f9:d3:03
+ lxc.net.0.mtu = 1500
+diff -urN waydroid-src/data/configs/config_base waydroid-patched/data/configs/config_base
+--- waydroid-src/data/configs/config_base	2026-10-07 20:21:55.547111350 +1100
++++ waydroid-patched/data/configs/config_base	2026-10-07 20:21:55.641110735 +1100
+@@ -1,6 +1,6 @@
+ # Waydroid LXC Config
+ 
+-lxc.rootfs.path = /var/lib/waydroid/rootfs
++lxc.rootfs.path = /var/lib/miodroid/rootfs
+ lxc.arch = LXCARCH
+ lxc.autodev = 0
+ # lxc.autodev.tmpfs.size = 25000000
+@@ -11,8 +11,8 @@
+ 
+ lxc.console.path = none
+ 
+-lxc.include = /var/lib/waydroid/lxc/waydroid/config_nodes
+-lxc.include = /var/lib/waydroid/lxc/waydroid/config_session
++lxc.include = /var/lib/miodroid/lxc/miodroid/config_nodes
++lxc.include = /var/lib/miodroid/lxc/miodroid/config_session
+ 
+ lxc.hook.post-stop = /dev/null
+ 
+diff -urN waydroid-src/data/configs/miodroid.seccomp waydroid-patched/data/configs/miodroid.seccomp
+--- waydroid-src/data/configs/miodroid.seccomp	1970-01-01 10:00:00.000000000 +1000
++++ waydroid-patched/data/configs/miodroid.seccomp	2026-10-07 20:21:55.640110742 +1100
+@@ -0,0 +1,22 @@
++2
++blacklist
++init_module
++finit_module
++delete_module
++_sysctl
++kexec_file_load
++kexec_load
++reboot
++open_by_handle_at errno 38
++adjtimex errno 0
++clock_adjtime errno 0
++clock_adjtime64 errno 0
++clock_settime errno 0
++clock_settime64 errno 0
++settimeofday errno 0
++stime errno 0
++add_key errno 0
++keyctl errno 0
++request_key errno 0
++swapoff errno 0
++swapon errno 0
+diff -urN waydroid-src/data/configs/waydroid.seccomp waydroid-patched/data/configs/waydroid.seccomp
+--- waydroid-src/data/configs/waydroid.seccomp	2026-10-07 20:21:55.535111429 +1100
++++ waydroid-patched/data/configs/waydroid.seccomp	1970-01-01 10:00:00.000000000 +1000
+@@ -1,22 +0,0 @@
+-2
+-blacklist
+-init_module
+-finit_module
+-delete_module
+-_sysctl
+-kexec_file_load
+-kexec_load
+-reboot
+-open_by_handle_at errno 38
+-adjtimex errno 0
+-clock_adjtime errno 0
+-clock_adjtime64 errno 0
+-clock_settime errno 0
+-clock_settime64 errno 0
+-settimeofday errno 0
+-stime errno 0
+-add_key errno 0
+-keyctl errno 0
+-request_key errno 0
+-swapoff errno 0
+-swapon errno 0
+diff -urN waydroid-src/data/id.miodro.miodroid.metainfo.xml waydroid-patched/data/id.miodro.miodroid.metainfo.xml
+--- waydroid-src/data/id.miodro.miodroid.metainfo.xml	1970-01-01 10:00:00.000000000 +1000
++++ waydroid-patched/data/id.miodro.miodroid.metainfo.xml	2026-10-07 20:21:55.773109871 +1100
+@@ -0,0 +1,58 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<!-- Copyright 2023 Miodroid -->
++<component type="desktop-application">
++  <id>id.miodro.miodroid</id>
++
++  <name>Miodroid</name>
++  <summary>Run Android apps natively alongside desktop programs</summary>
++
++  <metadata_license>CC0-1.0</metadata_license>
++  <project_license>GPL-3.0-only</project_license>
++  <developer_name>Miodroid</developer_name>
++
++  <url type="homepage">https://waydro.id/</url>
++  <url type="bugtracker">https://github.com/waydroid/waydroid/issues</url>
++  <url type="faq">https://docs.waydro.id/faq</url>
++  <url type="help">https://matrix.to/#/#waydroid:matrix.org</url>
++  <url type="donation">https://opencollective.com/waydroid/donate</url>
++  <url type="contact">https://matrix.to/#/#waydroid:matrix.org</url>
++
++  <supports>
++    <control>pointing</control>
++    <control>keyboard</control>
++    <control>touch</control>
++    <control>tablet</control>
++  </supports>
++
++  <description>
++    <p>
++      Miodroid is a container-based approach to boot a full Android system on a regular GNU/Linux system. The Android system inside the container has direct access to needed hardware through LXC and the binder interface.
++    </p>
++  </description>
++
++  <launchable type="desktop-id">Miodroid.desktop</launchable>
++  <screenshots>
++    <screenshot type="default">
++      <image>https://waydro.id/assets/images/hero/main_landing.jpeg</image>
++    </screenshot>
++    <screenshot>
++      <image>https://waydro.id/assets/images/hero/clean_desktop.jpeg</image>
++    </screenshot>
++  </screenshots>
++
++  <!-- Update to latest release information -->
++  <releases>
++    <release version="1.4.1" date="2023-04-24"/>
++    <release version="1.4.0" date="2023-02-08"/>
++    <release version="1.3.4" date="2022-12-14"/>
++  </releases>
++
++  <content_rating type="oars-1.1">
++    <content_attribute id="social-chat">intense</content_attribute>
++    <content_attribute id="social-info">intense</content_attribute>
++    <content_attribute id="social-audio">intense</content_attribute>
++    <content_attribute id="social-location">intense</content_attribute>
++    <content_attribute id="social-contacts">intense</content_attribute>
++  </content_rating>
++
++</component>
+diff -urN waydroid-src/data/id.waydro.waydroid.metainfo.xml waydroid-patched/data/id.waydro.waydroid.metainfo.xml
+--- waydroid-src/data/id.waydro.waydroid.metainfo.xml	2026-10-07 20:21:55.547111350 +1100
++++ waydroid-patched/data/id.waydro.waydroid.metainfo.xml	1970-01-01 10:00:00.000000000 +1000
+@@ -1,58 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<!-- Copyright 2023 Waydroid -->
+-<component type="desktop-application">
+-  <id>id.waydro.waydroid</id>
+-
+-  <name>Waydroid</name>
+-  <summary>Run Android apps natively alongside desktop programs</summary>
+-
+-  <metadata_license>CC0-1.0</metadata_license>
+-  <project_license>GPL-3.0-only</project_license>
+-  <developer_name>Waydroid</developer_name>
+-
+-  <url type="homepage">https://waydro.id/</url>
+-  <url type="bugtracker">https://github.com/waydroid/waydroid/issues</url>
+-  <url type="faq">https://docs.waydro.id/faq</url>
+-  <url type="help">https://matrix.to/#/#waydroid:matrix.org</url>
+-  <url type="donation">https://opencollective.com/waydroid/donate</url>
+-  <url type="contact">https://matrix.to/#/#waydroid:matrix.org</url>
+-
+-  <supports>
+-    <control>pointing</control>
+-    <control>keyboard</control>
+-    <control>touch</control>
+-    <control>tablet</control>
+-  </supports>
+-
+-  <description>
+-    <p>
+-      Waydroid is a container-based approach to boot a full Android system on a regular GNU/Linux system. The Android system inside the container has direct access to needed hardware through LXC and the binder interface.
+-    </p>
+-  </description>
+-
+-  <launchable type="desktop-id">Waydroid.desktop</launchable>
+-  <screenshots>
+-    <screenshot type="default">
+-      <image>https://waydro.id/assets/images/hero/main_landing.jpeg</image>
+-    </screenshot>
+-    <screenshot>
+-      <image>https://waydro.id/assets/images/hero/clean_desktop.jpeg</image>
+-    </screenshot>
+-  </screenshots>
+-
+-  <!-- Update to latest release information -->
+-  <releases>
+-    <release version="1.4.1" date="2023-04-24"/>
+-    <release version="1.4.0" date="2023-02-08"/>
+-    <release version="1.3.4" date="2022-12-14"/>
+-  </releases>
+-
+-  <content_rating type="oars-1.1">
+-    <content_attribute id="social-chat">intense</content_attribute>
+-    <content_attribute id="social-info">intense</content_attribute>
+-    <content_attribute id="social-audio">intense</content_attribute>
+-    <content_attribute id="social-location">intense</content_attribute>
+-    <content_attribute id="social-contacts">intense</content_attribute>
+-  </content_rating>
+-
+-</component>
+diff -urN waydroid-src/data/miodroid.app.install.desktop waydroid-patched/data/miodroid.app.install.desktop
+--- waydroid-src/data/miodroid.app.install.desktop	1970-01-01 10:00:00.000000000 +1000
++++ waydroid-patched/data/miodroid.app.install.desktop	2026-10-07 20:21:55.765109924 +1100
+@@ -0,0 +1,7 @@
++[Desktop Entry]
++Type=Application
++Name=Install in Miodroid
++NoDisplay=true
++MimeType=application/vnd.android.package-archive
++Exec=miodroid app install %f
++Icon=miodroid
+diff -urN waydroid-src/data/Miodroid.desktop waydroid-patched/data/Miodroid.desktop
+--- waydroid-src/data/Miodroid.desktop	1970-01-01 10:00:00.000000000 +1000
++++ waydroid-patched/data/Miodroid.desktop	2026-10-07 20:21:55.763109937 +1100
+@@ -0,0 +1,19 @@
++[Desktop Entry]
++Type=Application
++Name=Miodroid
++GenericName=Android Container
++Exec=miodroid
++Comment=Run Android apps in a containerized environment.
++Icon=miodroid
++Categories=X-Miodroid-App;Utility;
++Actions=stop;initialize;
++X-Purism-FormFactor=Workstation;Mobile;
++
++[Desktop Action stop]
++Name=Stop Miodroid
++Exec=miodroid session stop
++Icon=miodroid
++
++[Desktop Action initialize]
++Name=Initialize Miodroid
++Exec=miodroid init --client
+diff -urN waydroid-src/data/miodroid.directory waydroid-patched/data/miodroid.directory
+--- waydroid-src/data/miodroid.directory	1970-01-01 10:00:00.000000000 +1000
++++ waydroid-patched/data/miodroid.directory	2026-10-07 20:21:55.769109898 +1100
+@@ -0,0 +1,4 @@
++[Desktop Entry]
++Name=Miodroid
++Icon=miodroid
++Type=Directory
+diff -urN waydroid-src/data/miodroid.market.desktop waydroid-patched/data/miodroid.market.desktop
+--- waydroid-src/data/miodroid.market.desktop	1970-01-01 10:00:00.000000000 +1000
++++ waydroid-patched/data/miodroid.market.desktop	2026-10-07 20:21:55.768109904 +1100
+@@ -0,0 +1,12 @@
++[Desktop Entry]
++Name=Miodroid Market
++Comment=Android Market Protocol Handler
++Exec=miodroid app intent android.intent.action.VIEW %u
++Icon=miodroid
++Type=Application
++Encoding=UTF-8
++Terminal=false
++NoDisplay=true
++Categories=Utility;
++MimeType=x-scheme-handler/market;
++X-KDE-Protocols=market;
+diff -urN waydroid-src/data/miodroid.menu waydroid-patched/data/miodroid.menu
+--- waydroid-src/data/miodroid.menu	1970-01-01 10:00:00.000000000 +1000
++++ waydroid-patched/data/miodroid.menu	2026-10-07 20:21:55.771109885 +1100
+@@ -0,0 +1,12 @@
++<!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN"
++"http://www.freedesktop.org/standards/menu-spec/menu-1.0.dtd">
++<Menu>
++	<Name>Applications</Name>
++	<Menu>
++		<Name>Miodroid</Name>
++		<Directory>miodroid.directory</Directory>
++		<Include>
++			<Category>X-Miodroid-App</Category>
++		</Include>
++	</Menu>
++</Menu>
+diff -urN waydroid-src/data/scripts/miodroid-net.sh waydroid-patched/data/scripts/miodroid-net.sh
+--- waydroid-src/data/scripts/miodroid-net.sh	1970-01-01 10:00:00.000000000 +1000
++++ waydroid-patched/data/scripts/miodroid-net.sh	2026-10-07 20:21:55.744110061 +1100
+@@ -0,0 +1,298 @@
++#!/bin/sh -
++
++varrun="/run/miodroid-lxc"
++WORK="/var/lib/miodroid"
++iface_name="miodroid0"
++
++WAYDROID_INSTANCE=$2
++if [ ! -z "$WAYDROID_INSTANCE" ]; then
++    varrun="/run/miodroid-${WAYDROID_INSTANCE}-lxc"
++    WORK="/var/lib/miodroid.${WAYDROID_INSTANCE}"
++    iface_name="miodroid0-${WAYDROID_INSTANCE}"
++fi
++varlib="/var/lib"
++net_link_key="lxc.net.0.link"
++case "$(lxc-info --version)" in [012].*) net_link_key="lxc.network.link" ;; esac
++vnic=$(awk "\$1 == \"$net_link_key\" {print \$3}" $WORK/lxc/miodroid/config)
++: ${vnic:=$iface_name}
++
++if [ "$vnic" != "$iface_name" ]; then
++    echo "vnic is $vnic, bailing out"
++    exit 0
++else 
++    echo "vnic is $iface_name"
++fi
++
++MD5HASH=$(echo -n "$WAYDROID_INSTANCE" | md5sum | cut -d ' ' -f1 )
++AS_DECIMAL=$(printf "%d" 0x$(echo "$MD5HASH" | cut -c1-8))
++SUB_ADDR=$(($AS_DECIMAL % 16 + 2))
++NET_ID=$(($AS_DECIMAL % 16 + 241))
++
++USE_LXC_BRIDGE="true"
++LXC_BRIDGE="${iface_name}"
++LXC_BRIDGE_MAC="00:16:3e:00:00:01"
++LXC_ADDR="192.168.${NET_ID}.${SUB_ADDR}"
++LXC_NETMASK="255.255.255.0"
++LXC_NETWORK="192.168.${NET_ID}.0/24"
++LXC_DHCP_RANGE="192.168.${NET_ID}.16,192.168.${NET_ID}.254"
++LXC_DHCP_MAX="253"
++LXC_DHCP_CONFILE=""
++LXC_DHCP_PING="true"
++LXC_DOMAIN=""
++LXC_USE_NFT="false"
++
++LXC_IPV6_ADDR=""
++LXC_IPV6_MASK=""
++LXC_IPV6_NETWORK=""
++LXC_IPV6_NAT="false"
++
++IPTABLES_BIN="$(command -v iptables-legacy)"
++if [ ! -n "$IPTABLES_BIN" ]; then
++    IPTABLES_BIN="$(command -v iptables)"
++fi
++IP6TABLES_BIN="$(command -v ip6tables-legacy)"
++if [ ! -n "$IP6TABLES_BIN" ]; then
++    IP6TABLES_BIN="$(command -v ip6tables)"
++fi
++
++use_nft() {
++    [ -n "$NFT" ] && nft list ruleset > /dev/null 2>&1 && [ "$LXC_USE_NFT" = "true" ]
++}
++
++NFT="$(command -v nft)"
++if ! use_nft; then
++    use_iptables_lock="-w"
++    $IPTABLES_BIN -w -L -n > /dev/null 2>&1 || use_iptables_lock=""
++fi
++
++_netmask2cidr ()
++{
++    # Assumes there's no "255." after a non-255 byte in the mask
++    local x=${1##*255.}
++    set -- 0^^^128^192^224^240^248^252^254^ $(( (${#1} - ${#x})*2 )) ${x%%.*}
++    x=${1%%$3*}
++    echo $(( $2 + (${#x}/4) ))
++}
++
++_ifdown() {
++    ip addr flush dev ${LXC_BRIDGE}
++    ip link set dev ${LXC_BRIDGE} down
++}
++
++_ifup() {
++    MASK=`_netmask2cidr ${LXC_NETMASK}`
++    CIDR_ADDR="${LXC_ADDR}/${MASK}"
++    ip addr add ${CIDR_ADDR} broadcast + dev ${LXC_BRIDGE}
++    ip link set dev ${LXC_BRIDGE} address $LXC_BRIDGE_MAC
++    ip link set dev ${LXC_BRIDGE} up
++}
++
++start_ipv6() {
++    LXC_IPV6_ARG=""
++    if [ -n "$LXC_IPV6_ADDR" ] && [ -n "$LXC_IPV6_MASK" ] && [ -n "$LXC_IPV6_NETWORK" ]; then
++        echo 1 > /proc/sys/net/ipv6/conf/all/forwarding
++        echo 0 > /proc/sys/net/ipv6/conf/${LXC_BRIDGE}/autoconf
++        ip -6 addr add dev ${LXC_BRIDGE} ${LXC_IPV6_ADDR}/${LXC_IPV6_MASK}
++        LXC_IPV6_ARG="--dhcp-range=${LXC_IPV6_ADDR},ra-only --listen-address ${LXC_IPV6_ADDR}"
++    fi
++}
++
++start_iptables() {
++    start_ipv6
++    if [ -n "$LXC_IPV6_ARG" ] && [ "$LXC_IPV6_NAT" = "true" ]; then
++        $IP6TABLES_BIN $use_iptables_lock -t nat -A POSTROUTING -s ${LXC_IPV6_NETWORK} ! -d ${LXC_IPV6_NETWORK} -j MASQUERADE
++    fi
++    $IPTABLES_BIN $use_iptables_lock -I INPUT -i ${LXC_BRIDGE} -p udp --dport 67 -j ACCEPT
++    $IPTABLES_BIN $use_iptables_lock -I INPUT -i ${LXC_BRIDGE} -p tcp --dport 67 -j ACCEPT
++    $IPTABLES_BIN $use_iptables_lock -I INPUT -i ${LXC_BRIDGE} -p udp --dport 53 -j ACCEPT
++    $IPTABLES_BIN $use_iptables_lock -I INPUT -i ${LXC_BRIDGE} -p tcp --dport 53 -j ACCEPT
++    $IPTABLES_BIN $use_iptables_lock -I FORWARD -i ${LXC_BRIDGE} -j ACCEPT
++    $IPTABLES_BIN $use_iptables_lock -I FORWARD -o ${LXC_BRIDGE} -j ACCEPT
++    $IPTABLES_BIN $use_iptables_lock -t nat -A POSTROUTING -s ${LXC_NETWORK} ! -d ${LXC_NETWORK} -j MASQUERADE
++    $IPTABLES_BIN $use_iptables_lock -t mangle -A POSTROUTING -o ${LXC_BRIDGE} -p udp -m udp --dport 68 -j CHECKSUM --checksum-fill
++}
++
++start_nftables() {
++    start_ipv6
++    NFT_RULESET=""
++    if [ -n "$LXC_IPV6_ARG" ] && [ "$LXC_IPV6_NAT" = "true" ]; then
++        NFT_RULESET="${NFT_RULESET}
++add table ip6 lxc;
++flush table ip6 lxc;
++add chain ip6 lxc postrouting { type nat hook postrouting priority 100; };
++add rule ip6 lxc postrouting ip saddr ${LXC_IPV6_NETWORK} ip daddr != ${LXC_IPV6_NETWORK} counter masquerade;
++"
++    fi
++    NFT_RULESET="${NFT_RULESET};
++add table inet lxc;
++flush table inet lxc;
++add chain inet lxc input { type filter hook input priority 0; };
++add rule inet lxc input iifname ${LXC_BRIDGE} udp dport { 53, 67 } accept;
++add rule inet lxc input iifname ${LXC_BRIDGE} tcp dport { 53, 67 } accept;
++add chain inet lxc forward { type filter hook forward priority 0; };
++add rule inet lxc forward iifname ${LXC_BRIDGE} accept;
++add rule inet lxc forward oifname ${LXC_BRIDGE} accept;
++add table ip lxc;
++flush table ip lxc;
++add chain ip lxc postrouting { type nat hook postrouting priority 100; };
++add rule ip lxc postrouting ip saddr ${LXC_NETWORK} ip daddr != ${LXC_NETWORK} counter masquerade"
++    nft "${NFT_RULESET}"
++}
++
++start() {
++    [ "x$USE_LXC_BRIDGE" = "xtrue" ] || { exit 0; }
++
++    [ ! -f "${varrun}/network_up" ] || { echo "miodroid-net is already running"; exit 0; }
++
++    if [ -d /sys/class/net/${LXC_BRIDGE} ]; then
++        stop force || true
++    fi
++
++    FAILED=1
++
++    cleanup() {
++        set +e
++        if [ "$FAILED" = "1" ]; then
++            echo "Failed to setup miodroid-net." >&2
++            stop force
++            exit 1
++        fi
++    }
++
++    trap cleanup EXIT HUP INT TERM
++    set -e
++
++    # set up the lxc network
++    [ ! -d /sys/class/net/${LXC_BRIDGE} ] && ip link add dev ${LXC_BRIDGE} type bridge
++    echo 1 > /proc/sys/net/ipv4/ip_forward
++    echo 0 > /proc/sys/net/ipv6/conf/${LXC_BRIDGE}/accept_dad || true
++
++    # if we are run from systemd on a system with selinux enabled,
++    # the mkdir will create /run/lxc as init_var_run_t which dnsmasq
++    # can't write its pid into, so we restorecon it (to var_run_t)
++    if [ ! -d "${varrun}" ]; then
++        mkdir -p "${varrun}"
++        if command -v restorecon >/dev/null 2>&1; then
++            restorecon "${varrun}"
++        fi
++    fi
++
++    _ifup
++
++    if use_nft; then
++        start_nftables
++    else
++        start_iptables
++    fi
++
++    LXC_DOMAIN_ARG=""
++    if [ -n "$LXC_DOMAIN" ]; then
++        LXC_DOMAIN_ARG="-s $LXC_DOMAIN -S /$LXC_DOMAIN/"
++    fi
++
++    # lxc's dnsmasq should be hermetic and not read `/etc/dnsmasq.conf` (which
++    # it does by default if `--conf-file` is not present
++    LXC_DHCP_CONFILE_ARG="--conf-file=${LXC_DHCP_CONFILE:-/dev/null}"
++
++    # https://lists.linuxcontainers.org/pipermail/lxc-devel/2014-October/010561.html
++    for DNSMASQ_USER in lxc-dnsmasq dnsmasq nobody
++    do
++        if getent passwd ${DNSMASQ_USER} >/dev/null; then
++            break
++        fi
++    done
++
++    LXC_DHCP_PING_ARG=""
++    if [ "x$LXC_DHCP_PING" = "xfalse" ]; then
++        LXC_DHCP_PING_ARG="--no-ping"
++    fi
++
++    if [ ! -d "${varlib}"/misc ]; then
++        mkdir "${varlib}"/misc
++    fi
++
++    dnsmasq $LXC_DHCP_CONFILE_ARG $LXC_DOMAIN_ARG $LXC_DHCP_PING_ARG -u ${DNSMASQ_USER} \
++            --strict-order --bind-interfaces --pid-file="${varrun}"/dnsmasq.pid \
++            --listen-address ${LXC_ADDR} --dhcp-range ${LXC_DHCP_RANGE} \
++            --dhcp-lease-max=${LXC_DHCP_MAX} --dhcp-no-override \
++            --except-interface=lo --interface=${LXC_BRIDGE} \
++            --dhcp-leasefile="${varlib}"/misc/dnsmasq.${LXC_BRIDGE}.leases \
++            --dhcp-authoritative $LXC_IPV6_ARG || cleanup
++
++    touch "${varrun}"/network_up
++    FAILED=0
++}
++
++stop_iptables() {
++    $IPTABLES_BIN $use_iptables_lock -D INPUT -i ${LXC_BRIDGE} -p udp --dport 67 -j ACCEPT
++    $IPTABLES_BIN $use_iptables_lock -D INPUT -i ${LXC_BRIDGE} -p tcp --dport 67 -j ACCEPT
++    $IPTABLES_BIN $use_iptables_lock -D INPUT -i ${LXC_BRIDGE} -p udp --dport 53 -j ACCEPT
++    $IPTABLES_BIN $use_iptables_lock -D INPUT -i ${LXC_BRIDGE} -p tcp --dport 53 -j ACCEPT
++    $IPTABLES_BIN $use_iptables_lock -D FORWARD -i ${LXC_BRIDGE} -j ACCEPT
++    $IPTABLES_BIN $use_iptables_lock -D FORWARD -o ${LXC_BRIDGE} -j ACCEPT
++    $IPTABLES_BIN $use_iptables_lock -t nat -D POSTROUTING -s ${LXC_NETWORK} ! -d ${LXC_NETWORK} -j MASQUERADE
++    $IPTABLES_BIN $use_iptables_lock -t mangle -D POSTROUTING -o ${LXC_BRIDGE} -p udp -m udp --dport 68 -j CHECKSUM --checksum-fill
++    if [ "$LXC_IPV6_NAT" = "true" ]; then
++        $IP6TABLES_BIN $use_iptables_lock -t nat -D POSTROUTING -s ${LXC_IPV6_NETWORK} ! -d ${LXC_IPV6_NETWORK} -j MASQUERADE
++    fi
++}
++
++stop_nftables() {
++    # Adding table before removing them is just to avoid
++    # delete error for non-existent table
++    NFT_RULESET="add table inet lxc;
++delete table inet lxc;
++add table ip lxc;
++delete table ip lxc;
++"
++    if [ "$LXC_IPV6_NAT" = "true" ]; then
++        NFT_RULESET="${NFT_RULESET};
++add table ip6 lxc;
++delete table ip6 lxc;"
++    fi
++    nft "${NFT_RULESET}"
++}
++
++stop() {
++    [ "x$USE_LXC_BRIDGE" = "xtrue" ] || { exit 0; }
++
++    [ -f "${varrun}/network_up" ] || [ "$1" = "force" ] || { echo "miodroid-net isn't running"; exit 1; }
++
++    if [ -d /sys/class/net/${LXC_BRIDGE} ]; then
++        _ifdown
++        if use_nft; then
++            stop_nftables
++        else
++            stop_iptables
++        fi
++
++        pid=`cat "${varrun}"/dnsmasq.pid 2>/dev/null` && kill -9 $pid
++        rm -f "${varrun}"/dnsmasq.pid
++        # if $LXC_BRIDGE has attached interfaces, don't destroy the bridge
++        ls /sys/class/net/${LXC_BRIDGE}/brif/* > /dev/null 2>&1 || ip link delete ${LXC_BRIDGE}
++    fi
++
++    rm -f "${varrun}"/network_up
++}
++
++# See how we were called.
++case "$1" in
++    start)
++        start
++    ;;
++
++    stop)
++        stop
++    ;;
++
++    restart|reload|force-reload)
++        $0 stop
++        $0 start
++    ;;
++
++    *)
++        echo "Usage: $0 {start|stop|restart|reload|force-reload}"
++        exit 2
++esac
++
++exit $?
+diff -urN waydroid-src/data/scripts/waydroid-net.sh waydroid-patched/data/scripts/waydroid-net.sh
+--- waydroid-src/data/scripts/waydroid-net.sh	2026-10-07 20:21:55.556111291 +1100
++++ waydroid-patched/data/scripts/waydroid-net.sh	1970-01-01 10:00:00.000000000 +1000
+@@ -1,298 +0,0 @@
+-#!/bin/sh -
+-
+-varrun="/run/waydroid-lxc"
+-WORK="/var/lib/waydroid"
+-iface_name="waydroid0"
+-
+-WAYDROID_INSTANCE=$2
+-if [ ! -z "$WAYDROID_INSTANCE" ]; then
+-    varrun="/run/waydroid-${WAYDROID_INSTANCE}-lxc"
+-    WORK="/var/lib/waydroid.${WAYDROID_INSTANCE}"
+-    iface_name="waydroid-${WAYDROID_INSTANCE}"
+-fi
+-varlib="/var/lib"
+-net_link_key="lxc.net.0.link"
+-case "$(lxc-info --version)" in [012].*) net_link_key="lxc.network.link" ;; esac
+-vnic=$(awk "\$1 == \"$net_link_key\" {print \$3}" $WORK/lxc/waydroid/config)
+-: ${vnic:=$iface_name}
+-
+-if [ "$vnic" != "$iface_name" ]; then
+-    echo "vnic is $vnic, bailing out"
+-    exit 0
+-else 
+-    echo "vnic is $iface_name"
+-fi
+-
+-MD5HASH=$(echo -n "$WAYDROID_INSTANCE" | md5sum | cut -d ' ' -f1 )
+-AS_DECIMAL=$(printf "%d" 0x$(echo "$MD5HASH" | cut -c1-8))
+-SUB_ADDR=$(($AS_DECIMAL % 16 + 2))
+-NET_ID=$(($AS_DECIMAL % 16 + 241))
+-
+-USE_LXC_BRIDGE="true"
+-LXC_BRIDGE="${iface_name}"
+-LXC_BRIDGE_MAC="00:16:3e:00:00:01"
+-LXC_ADDR="192.168.${NET_ID}.${SUB_ADDR}"
+-LXC_NETMASK="255.255.255.0"
+-LXC_NETWORK="192.168.${NET_ID}.0/24"
+-LXC_DHCP_RANGE="192.168.${NET_ID}.16,192.168.${NET_ID}.254"
+-LXC_DHCP_MAX="253"
+-LXC_DHCP_CONFILE=""
+-LXC_DHCP_PING="true"
+-LXC_DOMAIN=""
+-LXC_USE_NFT="false"
+-
+-LXC_IPV6_ADDR=""
+-LXC_IPV6_MASK=""
+-LXC_IPV6_NETWORK=""
+-LXC_IPV6_NAT="false"
+-
+-IPTABLES_BIN="$(command -v iptables-legacy)"
+-if [ ! -n "$IPTABLES_BIN" ]; then
+-    IPTABLES_BIN="$(command -v iptables)"
+-fi
+-IP6TABLES_BIN="$(command -v ip6tables-legacy)"
+-if [ ! -n "$IP6TABLES_BIN" ]; then
+-    IP6TABLES_BIN="$(command -v ip6tables)"
+-fi
+-
+-use_nft() {
+-    [ -n "$NFT" ] && nft list ruleset > /dev/null 2>&1 && [ "$LXC_USE_NFT" = "true" ]
+-}
+-
+-NFT="$(command -v nft)"
+-if ! use_nft; then
+-    use_iptables_lock="-w"
+-    $IPTABLES_BIN -w -L -n > /dev/null 2>&1 || use_iptables_lock=""
+-fi
+-
+-_netmask2cidr ()
+-{
+-    # Assumes there's no "255." after a non-255 byte in the mask
+-    local x=${1##*255.}
+-    set -- 0^^^128^192^224^240^248^252^254^ $(( (${#1} - ${#x})*2 )) ${x%%.*}
+-    x=${1%%$3*}
+-    echo $(( $2 + (${#x}/4) ))
+-}
+-
+-_ifdown() {
+-    ip addr flush dev ${LXC_BRIDGE}
+-    ip link set dev ${LXC_BRIDGE} down
+-}
+-
+-_ifup() {
+-    MASK=`_netmask2cidr ${LXC_NETMASK}`
+-    CIDR_ADDR="${LXC_ADDR}/${MASK}"
+-    ip addr add ${CIDR_ADDR} broadcast + dev ${LXC_BRIDGE}
+-    ip link set dev ${LXC_BRIDGE} address $LXC_BRIDGE_MAC
+-    ip link set dev ${LXC_BRIDGE} up
+-}
+-
+-start_ipv6() {
+-    LXC_IPV6_ARG=""
+-    if [ -n "$LXC_IPV6_ADDR" ] && [ -n "$LXC_IPV6_MASK" ] && [ -n "$LXC_IPV6_NETWORK" ]; then
+-        echo 1 > /proc/sys/net/ipv6/conf/all/forwarding
+-        echo 0 > /proc/sys/net/ipv6/conf/${LXC_BRIDGE}/autoconf
+-        ip -6 addr add dev ${LXC_BRIDGE} ${LXC_IPV6_ADDR}/${LXC_IPV6_MASK}
+-        LXC_IPV6_ARG="--dhcp-range=${LXC_IPV6_ADDR},ra-only --listen-address ${LXC_IPV6_ADDR}"
+-    fi
+-}
+-
+-start_iptables() {
+-    start_ipv6
+-    if [ -n "$LXC_IPV6_ARG" ] && [ "$LXC_IPV6_NAT" = "true" ]; then
+-        $IP6TABLES_BIN $use_iptables_lock -t nat -A POSTROUTING -s ${LXC_IPV6_NETWORK} ! -d ${LXC_IPV6_NETWORK} -j MASQUERADE
+-    fi
+-    $IPTABLES_BIN $use_iptables_lock -I INPUT -i ${LXC_BRIDGE} -p udp --dport 67 -j ACCEPT
+-    $IPTABLES_BIN $use_iptables_lock -I INPUT -i ${LXC_BRIDGE} -p tcp --dport 67 -j ACCEPT
+-    $IPTABLES_BIN $use_iptables_lock -I INPUT -i ${LXC_BRIDGE} -p udp --dport 53 -j ACCEPT
+-    $IPTABLES_BIN $use_iptables_lock -I INPUT -i ${LXC_BRIDGE} -p tcp --dport 53 -j ACCEPT
+-    $IPTABLES_BIN $use_iptables_lock -I FORWARD -i ${LXC_BRIDGE} -j ACCEPT
+-    $IPTABLES_BIN $use_iptables_lock -I FORWARD -o ${LXC_BRIDGE} -j ACCEPT
+-    $IPTABLES_BIN $use_iptables_lock -t nat -A POSTROUTING -s ${LXC_NETWORK} ! -d ${LXC_NETWORK} -j MASQUERADE
+-    $IPTABLES_BIN $use_iptables_lock -t mangle -A POSTROUTING -o ${LXC_BRIDGE} -p udp -m udp --dport 68 -j CHECKSUM --checksum-fill
+-}
+-
+-start_nftables() {
+-    start_ipv6
+-    NFT_RULESET=""
+-    if [ -n "$LXC_IPV6_ARG" ] && [ "$LXC_IPV6_NAT" = "true" ]; then
+-        NFT_RULESET="${NFT_RULESET}
+-add table ip6 lxc;
+-flush table ip6 lxc;
+-add chain ip6 lxc postrouting { type nat hook postrouting priority 100; };
+-add rule ip6 lxc postrouting ip saddr ${LXC_IPV6_NETWORK} ip daddr != ${LXC_IPV6_NETWORK} counter masquerade;
+-"
+-    fi
+-    NFT_RULESET="${NFT_RULESET};
+-add table inet lxc;
+-flush table inet lxc;
+-add chain inet lxc input { type filter hook input priority 0; };
+-add rule inet lxc input iifname ${LXC_BRIDGE} udp dport { 53, 67 } accept;
+-add rule inet lxc input iifname ${LXC_BRIDGE} tcp dport { 53, 67 } accept;
+-add chain inet lxc forward { type filter hook forward priority 0; };
+-add rule inet lxc forward iifname ${LXC_BRIDGE} accept;
+-add rule inet lxc forward oifname ${LXC_BRIDGE} accept;
+-add table ip lxc;
+-flush table ip lxc;
+-add chain ip lxc postrouting { type nat hook postrouting priority 100; };
+-add rule ip lxc postrouting ip saddr ${LXC_NETWORK} ip daddr != ${LXC_NETWORK} counter masquerade"
+-    nft "${NFT_RULESET}"
+-}
+-
+-start() {
+-    [ "x$USE_LXC_BRIDGE" = "xtrue" ] || { exit 0; }
+-
+-    [ ! -f "${varrun}/network_up" ] || { echo "waydroid-net is already running"; exit 0; }
+-
+-    if [ -d /sys/class/net/${LXC_BRIDGE} ]; then
+-        stop force || true
+-    fi
+-
+-    FAILED=1
+-
+-    cleanup() {
+-        set +e
+-        if [ "$FAILED" = "1" ]; then
+-            echo "Failed to setup waydroid-net." >&2
+-            stop force
+-            exit 1
+-        fi
+-    }
+-
+-    trap cleanup EXIT HUP INT TERM
+-    set -e
+-
+-    # set up the lxc network
+-    [ ! -d /sys/class/net/${LXC_BRIDGE} ] && ip link add dev ${LXC_BRIDGE} type bridge
+-    echo 1 > /proc/sys/net/ipv4/ip_forward
+-    echo 0 > /proc/sys/net/ipv6/conf/${LXC_BRIDGE}/accept_dad || true
+-
+-    # if we are run from systemd on a system with selinux enabled,
+-    # the mkdir will create /run/lxc as init_var_run_t which dnsmasq
+-    # can't write its pid into, so we restorecon it (to var_run_t)
+-    if [ ! -d "${varrun}" ]; then
+-        mkdir -p "${varrun}"
+-        if command -v restorecon >/dev/null 2>&1; then
+-            restorecon "${varrun}"
+-        fi
+-    fi
+-
+-    _ifup
+-
+-    if use_nft; then
+-        start_nftables
+-    else
+-        start_iptables
+-    fi
+-
+-    LXC_DOMAIN_ARG=""
+-    if [ -n "$LXC_DOMAIN" ]; then
+-        LXC_DOMAIN_ARG="-s $LXC_DOMAIN -S /$LXC_DOMAIN/"
+-    fi
+-
+-    # lxc's dnsmasq should be hermetic and not read `/etc/dnsmasq.conf` (which
+-    # it does by default if `--conf-file` is not present
+-    LXC_DHCP_CONFILE_ARG="--conf-file=${LXC_DHCP_CONFILE:-/dev/null}"
+-
+-    # https://lists.linuxcontainers.org/pipermail/lxc-devel/2014-October/010561.html
+-    for DNSMASQ_USER in lxc-dnsmasq dnsmasq nobody
+-    do
+-        if getent passwd ${DNSMASQ_USER} >/dev/null; then
+-            break
+-        fi
+-    done
+-
+-    LXC_DHCP_PING_ARG=""
+-    if [ "x$LXC_DHCP_PING" = "xfalse" ]; then
+-        LXC_DHCP_PING_ARG="--no-ping"
+-    fi
+-
+-    if [ ! -d "${varlib}"/misc ]; then
+-        mkdir "${varlib}"/misc
+-    fi
+-
+-    dnsmasq $LXC_DHCP_CONFILE_ARG $LXC_DOMAIN_ARG $LXC_DHCP_PING_ARG -u ${DNSMASQ_USER} \
+-            --strict-order --bind-interfaces --pid-file="${varrun}"/dnsmasq.pid \
+-            --listen-address ${LXC_ADDR} --dhcp-range ${LXC_DHCP_RANGE} \
+-            --dhcp-lease-max=${LXC_DHCP_MAX} --dhcp-no-override \
+-            --except-interface=lo --interface=${LXC_BRIDGE} \
+-            --dhcp-leasefile="${varlib}"/misc/dnsmasq.${LXC_BRIDGE}.leases \
+-            --dhcp-authoritative $LXC_IPV6_ARG || cleanup
+-
+-    touch "${varrun}"/network_up
+-    FAILED=0
+-}
+-
+-stop_iptables() {
+-    $IPTABLES_BIN $use_iptables_lock -D INPUT -i ${LXC_BRIDGE} -p udp --dport 67 -j ACCEPT
+-    $IPTABLES_BIN $use_iptables_lock -D INPUT -i ${LXC_BRIDGE} -p tcp --dport 67 -j ACCEPT
+-    $IPTABLES_BIN $use_iptables_lock -D INPUT -i ${LXC_BRIDGE} -p udp --dport 53 -j ACCEPT
+-    $IPTABLES_BIN $use_iptables_lock -D INPUT -i ${LXC_BRIDGE} -p tcp --dport 53 -j ACCEPT
+-    $IPTABLES_BIN $use_iptables_lock -D FORWARD -i ${LXC_BRIDGE} -j ACCEPT
+-    $IPTABLES_BIN $use_iptables_lock -D FORWARD -o ${LXC_BRIDGE} -j ACCEPT
+-    $IPTABLES_BIN $use_iptables_lock -t nat -D POSTROUTING -s ${LXC_NETWORK} ! -d ${LXC_NETWORK} -j MASQUERADE
+-    $IPTABLES_BIN $use_iptables_lock -t mangle -D POSTROUTING -o ${LXC_BRIDGE} -p udp -m udp --dport 68 -j CHECKSUM --checksum-fill
+-    if [ "$LXC_IPV6_NAT" = "true" ]; then
+-        $IP6TABLES_BIN $use_iptables_lock -t nat -D POSTROUTING -s ${LXC_IPV6_NETWORK} ! -d ${LXC_IPV6_NETWORK} -j MASQUERADE
+-    fi
+-}
+-
+-stop_nftables() {
+-    # Adding table before removing them is just to avoid
+-    # delete error for non-existent table
+-    NFT_RULESET="add table inet lxc;
+-delete table inet lxc;
+-add table ip lxc;
+-delete table ip lxc;
+-"
+-    if [ "$LXC_IPV6_NAT" = "true" ]; then
+-        NFT_RULESET="${NFT_RULESET};
+-add table ip6 lxc;
+-delete table ip6 lxc;"
+-    fi
+-    nft "${NFT_RULESET}"
+-}
+-
+-stop() {
+-    [ "x$USE_LXC_BRIDGE" = "xtrue" ] || { exit 0; }
+-
+-    [ -f "${varrun}/network_up" ] || [ "$1" = "force" ] || { echo "waydroid-net isn't running"; exit 1; }
+-
+-    if [ -d /sys/class/net/${LXC_BRIDGE} ]; then
+-        _ifdown
+-        if use_nft; then
+-            stop_nftables
+-        else
+-            stop_iptables
+-        fi
+-
+-        pid=`cat "${varrun}"/dnsmasq.pid 2>/dev/null` && kill -9 $pid
+-        rm -f "${varrun}"/dnsmasq.pid
+-        # if $LXC_BRIDGE has attached interfaces, don't destroy the bridge
+-        ls /sys/class/net/${LXC_BRIDGE}/brif/* > /dev/null 2>&1 || ip link delete ${LXC_BRIDGE}
+-    fi
+-
+-    rm -f "${varrun}"/network_up
+-}
+-
+-# See how we were called.
+-case "$1" in
+-    start)
+-        start
+-    ;;
+-
+-    stop)
+-        stop
+-    ;;
+-
+-    restart|reload|force-reload)
+-        $0 stop
+-        $0 start
+-    ;;
+-
+-    *)
+-        echo "Usage: $0 {start|stop|restart|reload|force-reload}"
+-        exit 2
+-esac
+-
+-exit $?
+diff -urN waydroid-src/data/waydroid.app.install.desktop waydroid-patched/data/waydroid.app.install.desktop
+--- waydroid-src/data/waydroid.app.install.desktop	2026-10-07 20:21:55.547111350 +1100
++++ waydroid-patched/data/waydroid.app.install.desktop	1970-01-01 10:00:00.000000000 +1000
+@@ -1,7 +0,0 @@
+-[Desktop Entry]
+-Type=Application
+-Name=Install in Waydroid
+-NoDisplay=true
+-MimeType=application/vnd.android.package-archive
+-Exec=waydroid app install %f
+-Icon=waydroid
+diff -urN waydroid-src/data/Waydroid.desktop waydroid-patched/data/Waydroid.desktop
+--- waydroid-src/data/Waydroid.desktop	2026-10-07 20:21:55.547111350 +1100
++++ waydroid-patched/data/Waydroid.desktop	1970-01-01 10:00:00.000000000 +1000
+@@ -1,19 +0,0 @@
+-[Desktop Entry]
+-Type=Application
+-Name=Waydroid
+-GenericName=Android Container
+-Exec=waydroid
+-Comment=Run Android apps in a containerized environment.
+-Icon=waydroid
+-Categories=X-WayDroid-App;Utility;
+-Actions=stop;initialize;
+-X-Purism-FormFactor=Workstation;Mobile;
+-
+-[Desktop Action stop]
+-Name=Stop Waydroid
+-Exec=waydroid session stop
+-Icon=waydroid
+-
+-[Desktop Action initialize]
+-Name=Initialize Waydroid
+-Exec=waydroid init --client
+diff -urN waydroid-src/data/waydroid.directory waydroid-patched/data/waydroid.directory
+--- waydroid-src/data/waydroid.directory	2026-10-07 20:21:55.535111429 +1100
++++ waydroid-patched/data/waydroid.directory	1970-01-01 10:00:00.000000000 +1000
+@@ -1,4 +0,0 @@
+-[Desktop Entry]
+-Name=Waydroid
+-Icon=waydroid
+-Type=Directory
+diff -urN waydroid-src/data/waydroid.market.desktop waydroid-patched/data/waydroid.market.desktop
+--- waydroid-src/data/waydroid.market.desktop	2026-10-07 20:21:55.547111350 +1100
++++ waydroid-patched/data/waydroid.market.desktop	1970-01-01 10:00:00.000000000 +1000
+@@ -1,12 +0,0 @@
+-[Desktop Entry]
+-Name=Waydroid Market
+-Comment=Android Market Protocol Handler
+-Exec=waydroid app intent android.intent.action.VIEW %u
+-Icon=waydroid
+-Type=Application
+-Encoding=UTF-8
+-Terminal=false
+-NoDisplay=true
+-Categories=Utility;
+-MimeType=x-scheme-handler/market;
+-X-KDE-Protocols=market;
+diff -urN waydroid-src/data/waydroid.menu waydroid-patched/data/waydroid.menu
+--- waydroid-src/data/waydroid.menu	2026-10-07 20:21:55.535111429 +1100
++++ waydroid-patched/data/waydroid.menu	1970-01-01 10:00:00.000000000 +1000
+@@ -1,12 +0,0 @@
+-<!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN"
+-"http://www.freedesktop.org/standards/menu-spec/menu-1.0.dtd">
+-<Menu>
+-	<Name>Applications</Name>
+-	<Menu>
+-		<Name>Waydroid</Name>
+-		<Directory>waydroid.directory</Directory>
+-		<Include>
+-			<Category>X-WayDroid-App</Category>
+-		</Include>
+-	</Menu>
+-</Menu>
+diff -urN waydroid-src/dbus/id.miodro.Container.conf waydroid-patched/dbus/id.miodro.Container.conf
+--- waydroid-src/dbus/id.miodro.Container.conf	1970-01-01 10:00:00.000000000 +1000
++++ waydroid-patched/dbus/id.miodro.Container.conf	2026-10-07 20:21:55.662110598 +1100
+@@ -0,0 +1,12 @@
++<!DOCTYPE busconfig PUBLIC
++ "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
++ "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
++<busconfig>
++    <policy user="root">
++        <allow own="id.miodro.Container"/>
++    </policy>
++    <policy context="default">
++        <allow send_destination="id.miodro.Container"/>
++        <allow receive_sender="id.miodro.Container"/>
++    </policy>
++</busconfig>
+diff -urN waydroid-src/dbus/id.miodro.Container.policy waydroid-patched/dbus/id.miodro.Container.policy
+--- waydroid-src/dbus/id.miodro.Container.policy	1970-01-01 10:00:00.000000000 +1000
++++ waydroid-patched/dbus/id.miodro.Container.policy	2026-10-07 20:21:55.648110690 +1100
+@@ -0,0 +1,18 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<!DOCTYPE policyconfig PUBLIC
++ "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
++ "http://www.freedesktop.org/standards/PolicyKit/1.0/policyconfig.dtd">
++
++<policyconfig>
++  <vendor>Waydroid</vendor>
++  <vendor_url>https://waydro.id</vendor_url>
++  <action id="id.waydro.Initializer.Init">
++    <description>Waydroid Initialization</description>
++    <message>Initialize Waydroid with user-provided OTA channels. Do you trust the source?</message>
++    <defaults>
++      <allow_any>auth_admin</allow_any>
++      <allow_inactive>auth_admin</allow_inactive>
++      <allow_active>auth_admin_keep</allow_active>
++    </defaults>
++  </action>
++</policyconfig>
+diff -urN waydroid-src/dbus/id.miodro.Container.service waydroid-patched/dbus/id.miodro.Container.service
+--- waydroid-src/dbus/id.miodro.Container.service	1970-01-01 10:00:00.000000000 +1000
++++ waydroid-patched/dbus/id.miodro.Container.service	2026-10-07 20:21:55.663110591 +1100
+@@ -0,0 +1,5 @@
++[D-BUS Service]
++Name=id.miodro.Container
++Exec=/usr/bin/miodroid -w container start
++User=root
++SystemdService=miodroid-container.service
+diff -urN waydroid-src/dbus/id.waydro.Container.conf waydroid-patched/dbus/id.waydro.Container.conf
+--- waydroid-src/dbus/id.waydro.Container.conf	2026-10-07 20:21:55.535111429 +1100
++++ waydroid-patched/dbus/id.waydro.Container.conf	1970-01-01 10:00:00.000000000 +1000
+@@ -1,12 +0,0 @@
+-<!DOCTYPE busconfig PUBLIC
+- "-//freedesktop//DTD D-BUS Bus Configuration 1.0//EN"
+- "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
+-<busconfig>
+-    <policy user="root">
+-        <allow own="id.waydro.Container"/>
+-    </policy>
+-    <policy context="default">
+-        <allow send_destination="id.waydro.Container"/>
+-        <allow receive_sender="id.waydro.Container"/>
+-    </policy>
+-</busconfig>
+diff -urN waydroid-src/dbus/id.waydro.Container.policy waydroid-patched/dbus/id.waydro.Container.policy
+--- waydroid-src/dbus/id.waydro.Container.policy	2026-10-07 20:21:55.535111429 +1100
++++ waydroid-patched/dbus/id.waydro.Container.policy	1970-01-01 10:00:00.000000000 +1000
+@@ -1,18 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<!DOCTYPE policyconfig PUBLIC
+- "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+- "http://www.freedesktop.org/standards/PolicyKit/1.0/policyconfig.dtd">
+-
+-<policyconfig>
+-  <vendor>Waydroid</vendor>
+-  <vendor_url>https://waydro.id</vendor_url>
+-  <action id="id.waydro.Initializer.Init">
+-    <description>Waydroid Initialization</description>
+-    <message>Initialize Waydroid with user-provided OTA channels. Do you trust the source?</message>
+-    <defaults>
+-      <allow_any>auth_admin</allow_any>
+-      <allow_inactive>auth_admin</allow_inactive>
+-      <allow_active>auth_admin_keep</allow_active>
+-    </defaults>
+-  </action>
+-</policyconfig>
+diff -urN waydroid-src/dbus/id.waydro.Container.service waydroid-patched/dbus/id.waydro.Container.service
+--- waydroid-src/dbus/id.waydro.Container.service	2026-10-07 20:21:55.535111429 +1100
++++ waydroid-patched/dbus/id.waydro.Container.service	1970-01-01 10:00:00.000000000 +1000
+@@ -1,5 +0,0 @@
+-[D-BUS Service]
+-Name=id.waydro.Container
+-Exec=/usr/bin/waydroid -w container start
+-User=root
+-SystemdService=waydroid-container.service
+diff -urN waydroid-src/Makefile waydroid-patched/Makefile
+--- waydroid-src/Makefile	2026-10-07 20:21:55.533111442 +1100
++++ waydroid-patched/Makefile	2026-10-07 20:21:55.754109996 +1100
+@@ -5,7 +5,7 @@
+ USE_NFTABLES ?= 0
+ 
+ SYSCONFDIR := /etc
+-WAYDROID_DIR := $(PREFIX)/lib/waydroid
++MIODROID_DIR := $(PREFIX)/lib/miodroid
+ BIN_DIR := $(PREFIX)/bin
+ APPS_DIR := $(PREFIX)/share/applications
+ APPS_DIRECTORY_DIR := $(PREFIX)/share/desktop-directories
+@@ -17,7 +17,7 @@
+ POLKIT_DIR := $(PREFIX)/share/polkit-1
+ APPARMOR_DIR := $(SYSCONFDIR)/apparmor.d
+ 
+-INSTALL_WAYDROID_DIR := $(DESTDIR)$(WAYDROID_DIR)
++INSTALL_MIODROID_DIR := $(DESTDIR)$(MIODROID_DIR)
+ INSTALL_BIN_DIR := $(DESTDIR)$(BIN_DIR)
+ INSTALL_APPS_DIR := $(DESTDIR)$(APPS_DIR)
+ INSTALL_APPS_DIRECTORY_DIR := $(DESTDIR)$(APPS_DIRECTORY_DIR)
+@@ -33,30 +33,30 @@
+ 	@echo "Nothing to build, run 'make install' to copy the files!"
+ 
+ install:
+-	install -d $(INSTALL_WAYDROID_DIR) $(INSTALL_BIN_DIR) $(INSTALL_DBUS_DIR)/system.d $(INSTALL_POLKIT_DIR)/actions
++	install -d $(INSTALL_MIODROID_DIR) $(INSTALL_BIN_DIR) $(INSTALL_DBUS_DIR)/system.d $(INSTALL_POLKIT_DIR)/actions
+ 	install -d $(INSTALL_APPS_DIR) $(INSTALL_METAINFO_DIR) $(INSTALL_ICONS_DIR)/hicolor/512x512/apps
+ 	install -d $(INSTALL_APPS_DIRECTORY_DIR) $(INSTALL_APPS_MENU_DIR)
+-	cp -a data tools waydroid.py $(INSTALL_WAYDROID_DIR)
++	cp -a data tools waydroid.py $(INSTALL_MIODROID_DIR)
+ 	ln -sf \
+-		$$(realpath --relative-to=$(INSTALL_BIN_DIR) $(INSTALL_WAYDROID_DIR)/waydroid.py) \
+-		$(INSTALL_BIN_DIR)/waydroid
+-	mv $(INSTALL_WAYDROID_DIR)/data/AppIcon.png $(INSTALL_ICONS_DIR)/hicolor/512x512/apps/waydroid.png
+-	mv $(INSTALL_WAYDROID_DIR)/data/*.desktop $(INSTALL_APPS_DIR)
+-	mv $(INSTALL_WAYDROID_DIR)/data/*.menu $(INSTALL_APPS_MENU_DIR)
+-	mv $(INSTALL_WAYDROID_DIR)/data/*.directory $(INSTALL_APPS_DIRECTORY_DIR)
+-	mv $(INSTALL_WAYDROID_DIR)/data/*.metainfo.xml $(INSTALL_METAINFO_DIR)
+-	cp dbus/id.waydro.Container.conf $(INSTALL_DBUS_DIR)/system.d/
+-	cp dbus/id.waydro.Container.policy $(INSTALL_POLKIT_DIR)/actions/
++		$$(realpath --relative-to=$(INSTALL_BIN_DIR) $(INSTALL_MIODROID_DIR)/waydroid.py) \
++		$(INSTALL_BIN_DIR)/miodroid
++	mv $(INSTALL_MIODROID_DIR)/data/AppIcon.png $(INSTALL_ICONS_DIR)/hicolor/512x512/apps/miodroid.png
++	mv $(INSTALL_MIODROID_DIR)/data/*.desktop $(INSTALL_APPS_DIR)
++	mv $(INSTALL_MIODROID_DIR)/data/*.menu $(INSTALL_APPS_MENU_DIR)
++	mv $(INSTALL_MIODROID_DIR)/data/*.directory $(INSTALL_APPS_DIRECTORY_DIR)
++	mv $(INSTALL_MIODROID_DIR)/data/*.metainfo.xml $(INSTALL_METAINFO_DIR)
++	cp dbus/id.miodro.Container.conf $(INSTALL_DBUS_DIR)/system.d/
++	cp dbus/id.miodro.Container.policy $(INSTALL_POLKIT_DIR)/actions/
+ 	if [ $(USE_DBUS_ACTIVATION) = 1 ]; then \
+ 		install -d $(INSTALL_DBUS_DIR)/system-services; \
+-		cp dbus/id.waydro.Container.service $(INSTALL_DBUS_DIR)/system-services/; \
++		cp dbus/id.miodro.Container.service $(INSTALL_DBUS_DIR)/system-services/; \
+ 	fi
+ 	if [ $(USE_SYSTEMD) = 1 ]; then \
+ 		install -d $(INSTALL_SYSD_DIR); \
+-		cp systemd/waydroid-container.service $(INSTALL_SYSD_DIR); \
++		cp systemd/miodroid-container.service $(INSTALL_SYSD_DIR); \
+ 	fi
+ 	if [ $(USE_NFTABLES) = 1 ]; then \
+-		sed '/LXC_USE_NFT=/ s/false/true/' -i $(INSTALL_WAYDROID_DIR)/data/scripts/waydroid-net.sh; \
++		sed '/LXC_USE_NFT=/ s/false/true/' -i $(INSTALL_MIODROID_DIR)/data/scripts/miodroid-net.sh; \
+ 	fi
+ 
+ install_apparmor:
+@@ -64,13 +64,13 @@
+ 	mkdir -p $(INSTALL_APPARMOR_DIR)/local/
+ 	touch $(INSTALL_APPARMOR_DIR)/local/adbd
+ 	touch $(INSTALL_APPARMOR_DIR)/local/android_app
+-	touch $(INSTALL_APPARMOR_DIR)/local/lxc-waydroid
++	touch $(INSTALL_APPARMOR_DIR)/local/lxc-miodroid
+ 	cp -f data/configs/apparmor_profiles/adbd $(INSTALL_APPARMOR_DIR)/adbd
+ 	cp -f data/configs/apparmor_profiles/android_app $(INSTALL_APPARMOR_DIR)/android_app
+-	cp -f data/configs/apparmor_profiles/lxc-waydroid $(INSTALL_APPARMOR_DIR)/lxc/lxc-waydroid
++	cp -f data/configs/apparmor_profiles/lxc-miodroid $(INSTALL_APPARMOR_DIR)/lxc/lxc-miodroid
+ 	# Load the profiles if not just packaging
+ 	if [ -z $(DESTDIR) ] && { aa-enabled --quiet || systemctl is-active -q apparmor; } 2>/dev/null; then \
+ 		apparmor_parser -r -T -W "$(INSTALL_APPARMOR_DIR)/adbd"; \
+ 		apparmor_parser -r -T -W "$(INSTALL_APPARMOR_DIR)/android_app"; \
+-		apparmor_parser -r -T -W "$(INSTALL_APPARMOR_DIR)/lxc/lxc-waydroid"; \
++		apparmor_parser -r -T -W "$(INSTALL_APPARMOR_DIR)/lxc/lxc-miodroid"; \
+ 	fi
+diff -urN waydroid-src/systemd/miodroid-container.service waydroid-patched/systemd/miodroid-container.service
+--- waydroid-src/systemd/miodroid-container.service	1970-01-01 10:00:00.000000000 +1000
++++ waydroid-patched/systemd/miodroid-container.service	2026-10-07 20:21:55.733110134 +1100
+@@ -0,0 +1,10 @@
++[Unit]
++Description=Miodroid Container
++
++[Service]
++UMask=0022
++BusName=id.miodro.Container
++ExecStart=/usr/bin/miodroid container start
++
++[Install]
++WantedBy=multi-user.target
+diff -urN waydroid-src/systemd/waydroid-container.service waydroid-patched/systemd/waydroid-container.service
+--- waydroid-src/systemd/waydroid-container.service	2026-10-07 20:21:55.536111422 +1100
++++ waydroid-patched/systemd/waydroid-container.service	1970-01-01 10:00:00.000000000 +1000
+@@ -1,10 +0,0 @@
+-[Unit]
+-Description=Waydroid Container
+-
+-[Service]
+-UMask=0022
+-BusName=id.waydro.Container
+-ExecStart=/usr/bin/waydroid container start
+-
+-[Install]
+-WantedBy=multi-user.target
+diff -urN waydroid-src/tools/actions/app_manager.py waydroid-patched/tools/actions/app_manager.py
+--- waydroid-src/tools/actions/app_manager.py	2026-10-07 20:21:55.536111422 +1100
++++ waydroid-patched/tools/actions/app_manager.py	2026-10-07 20:21:55.755109989 +1100
+@@ -20,14 +20,14 @@
+         if session["state"] == "FROZEN":
+             cm.Unfreeze()
+ 
+-        tmp_dir = tools.config.session_defaults["waydroid_data"] + "/waydroid_tmp"
++        tmp_dir = tools.config.session_defaults["miodroid_data"] + "/miodroid_tmp"
+         if not os.path.exists(tmp_dir):
+             os.makedirs(tmp_dir)
+ 
+         shutil.copyfile(args.PACKAGE, tmp_dir + "/base.apk")
+         platformService = IPlatform.get_service(args)
+         if platformService:
+-            platformService.installApp("/data/waydroid_tmp/base.apk")
++            platformService.installApp("/data/miodroid_tmp/base.apk")
+         else:
+             logging.error("Failed to access IPlatform service")
+         os.remove(tmp_dir + "/base.apk")
+diff -urN waydroid-src/tools/actions/bugreport.py waydroid-patched/tools/actions/bugreport.py
+--- waydroid-src/tools/actions/bugreport.py	2026-10-07 20:21:55.537111415 +1100
++++ waydroid-patched/tools/actions/bugreport.py	2026-10-07 20:21:55.755109989 +1100
+@@ -13,7 +13,7 @@
+ import time
+ 
+ WAYDROID = sys.argv[0]
+-TARBALL = "waydroid-bugreport.tar.xz"
++TARBALL = "miodroid-bugreport.tar.xz"
+ 
+ def logcat(output_path):
+     with open(output_path, "w+") as fd:
+@@ -23,7 +23,7 @@
+     with open(output_path, "w+") as fd:
+         return subprocess.Popen(["sudo", "dmesg", "-T"] + params, stdout=fd, stderr=fd, stdin=None)
+ 
+-def waydroid_session(output_path):
++def miodroid_session(output_path):
+     with open(output_path, "w+") as fd:
+         return subprocess.Popen([WAYDROID, "session", "start"], stdout=fd, stderr=fd, stdin=None, start_new_session=True)
+ 
+@@ -61,8 +61,8 @@
+ The following information will be collected:
+   - System kernel logs (kmsg)
+   - Android system and user logs (logcat)
+-  - Waydroid container manager logs (/var/lib/waydroid/waydroid.log)
+-  - Waydroid configuration files (/var/lib/waydroid/*)
++  - Waydroid container manager logs (/var/lib/miodroid/miodroid.log)
++  - Waydroid configuration files (/var/lib/miodroid/*)
+ 
+ The information will be stored on your machine.
+ 
+@@ -94,7 +94,7 @@
+ 
+     if not session:
+         print("Waydroid session not found. Trying to start one...")
+-        procs.append(waydroid_session(logfile("session.txt")))
++        procs.append(miodroid_session(logfile("session.txt")))
+         sleep_progress(10)
+         try:
+             session = tools.helpers.ipc.DBusContainerService().GetSession()
+@@ -123,11 +123,11 @@
+     try:
+         with tarfile.open(TARBALL, "w:xz", preset=9) as tar:
+             files = [
+-                "/var/lib/waydroid/waydroid.log",
+-                "/var/lib/waydroid/waydroid.cfg",
+-                "/var/lib/waydroid/waydroid_base.prop",
+-                "/var/lib/waydroid/waydroid.prop",
+-                "/var/lib/waydroid/lxc",
++                "/var/lib/miodroid/miodroid.log",
++                "/var/lib/miodroid/miodroid.cfg",
++                "/var/lib/miodroid/miodroid_base.prop",
++                "/var/lib/miodroid/waydroid.prop",
++                "/var/lib/miodroid/lxc",
+             ] + logfiles
+ 
+             for f in files:
+diff -urN waydroid-src/tools/actions/container_manager.py waydroid-patched/tools/actions/container_manager.py
+--- waydroid-src/tools/actions/container_manager.py	2026-10-07 20:21:55.562111252 +1100
++++ waydroid-patched/tools/actions/container_manager.py	2026-10-07 20:21:55.755109989 +1100
+@@ -23,7 +23,7 @@
+         dbus.service.Object.__init__(self, bus, object_path)
+ 
+     @helpers.logging.log_exceptions
+-    @dbus.service.method("id.waydro.ContainerManager", in_signature='a{ss}', out_signature='', sender_keyword="sender", connection_keyword="conn")
++    @dbus.service.method("id.miodro.ContainerManager", in_signature='a{ss}', out_signature='', sender_keyword="sender", connection_keyword="conn")
+     def Start(self, session, sender, conn):
+         dbus_info = dbus.Interface(conn.get_object("org.freedesktop.DBus", "/org/freedesktop/DBus/Bus", False), "org.freedesktop.DBus")
+         uid = dbus_info.GetConnectionUnixUser(sender)
+@@ -35,29 +35,29 @@
+         do_start(self.args, session)
+ 
+     @helpers.logging.log_exceptions
+-    @dbus.service.method("id.waydro.ContainerManager", in_signature='b', out_signature='')
++    @dbus.service.method("id.miodro.ContainerManager", in_signature='b', out_signature='')
+     def Stop(self, quit_session):
+         stop(self.args, quit_session)
+ 
+     @helpers.logging.log_exceptions
+-    @dbus.service.method("id.waydro.ContainerManager", in_signature='', out_signature='')
++    @dbus.service.method("id.miodro.ContainerManager", in_signature='', out_signature='')
+     def Freeze(self):
+         if not actions.initializer.is_initialized(self.args):
+-            raise RuntimeError("Waydroid is not initialized")
++            raise RuntimeError("Miodroid is not initialized")
+         freeze(self.args)
+ 
+     @helpers.logging.log_exceptions
+-    @dbus.service.method("id.waydro.ContainerManager", in_signature='', out_signature='')
++    @dbus.service.method("id.miodro.ContainerManager", in_signature='', out_signature='')
+     def Unfreeze(self):
+         if not actions.initializer.is_initialized(self.args):
+-            raise RuntimeError("Waydroid is not initialized")
++            raise RuntimeError("Miodroid is not initialized")
+         unfreeze(self.args)
+ 
+     @helpers.logging.log_exceptions
+-    @dbus.service.method("id.waydro.ContainerManager", in_signature='', out_signature='a{ss}')
++    @dbus.service.method("id.miodro.ContainerManager", in_signature='', out_signature='a{ss}')
+     def GetSession(self):
+         if not actions.initializer.is_initialized(self.args):
+-            raise RuntimeError("Waydroid is not initialized")
++            raise RuntimeError("Miodroid is not initialized")
+         try:
+             session = self.args.session
+             session["state"] = helpers.lxc.status(self.args)
+@@ -119,7 +119,7 @@
+     _container_manager = DbusContainerManager(mainloop, dbus.SessionBus() if os.environ.get("WAYDROID_ROOTLESS") else dbus.SystemBus(), '/ContainerManager', args)
+ 
+     try:
+-        _name = dbus.service.BusName("id.waydro.Container", dbus.SessionBus() if os.environ.get("WAYDROID_ROOTLESS") else dbus.SystemBus(), do_not_queue=True)
++        _name = dbus.service.BusName("id.miodro.Container", dbus.SessionBus() if os.environ.get("WAYDROID_ROOTLESS") else dbus.SystemBus(), do_not_queue=True)
+     except dbus.exceptions.NameExistsException:
+         logging.error("Container service is already running")
+         return
+@@ -138,7 +138,7 @@
+ 
+     # Load binder and ashmem drivers
+     cfg = tools.config.load(args)
+-    if cfg["waydroid"]["vendor_type"] == "MAINLINE":
++    if cfg["miodroid"]["vendor_type"] == "MAINLINE":
+         if helpers.drivers.probeBinderDriver(args) != 0:
+             logging.error("Failed to load Binder driver")
+         helpers.drivers.probeAshmemDriver(args)
+@@ -152,7 +152,7 @@
+ 
+ def do_start(args, session):
+     if not actions.initializer.is_initialized(args):
+-        raise RuntimeError("Waydroid is not initialized")
++        raise RuntimeError("Miodroid is not initialized")
+ 
+     if "session" in args:
+         raise RuntimeError("Already tracking a session")
+@@ -163,7 +163,7 @@
+ 
+     # Networking
+     command = [tools.config.tools_src +
+-               "/data/scripts/waydroid-net.sh", "start", args.instance or ""]
++               "/data/scripts/miodroid-net.sh", "start", args.instance or ""]
+ 
+     if not os.environ.get("MIODROID_ROOTLESS"):
+         tools.helpers.run.user(args, command)
+@@ -206,14 +206,14 @@
+     # Create session-specific LXC config file
+     helpers.lxc.generate_session_lxc_config(args, session)
+     # Backwards compatibility
+-    with open(tools.config.defaults["lxc"] + "/waydroid/config") as f:
++    with open(tools.config.defaults["lxc"] + "/miodroid/config") as f:
+         if "config_session" not in f.read():
+-            helpers.mount.bind(args, session["waydroid_data"],
++            helpers.mount.bind(args, session["miodroid_data"],
+                                tools.config.defaults["data"])
+ 
+     # Mount rootfs
+     cfg = tools.config.load(args)
+-    helpers.images.mount_rootfs(args, cfg["waydroid"]["images_path"], session)
++    helpers.images.mount_rootfs(args, cfg["miodroid"]["images_path"], session)
+ 
+     helpers.protocol.set_aidl_version(args)
+ 
+@@ -224,7 +224,7 @@
+ 
+ def stop(args, quit_session=True):
+     if not actions.initializer.is_initialized(args):
+-        raise RuntimeError("Waydroid is not initialized")
++        raise RuntimeError("Miodroid is not initialized")
+ 
+     logging.info("Stopping container")
+ 
+@@ -238,7 +238,7 @@
+ 
+         # Networking
+         command = [tools.config.tools_src +
+-                   "/data/scripts/waydroid-net.sh", "stop", args.instance or ""]
++                   "/data/scripts/miodroid-net.sh", "stop", args.instance or ""]
+         if not os.environ.get("MIODROID_ROOTLESS"):
+             tools.helpers.run.user(args, command, check=False)
+ 
+@@ -280,7 +280,7 @@
+         helpers.lxc.stop(args)
+         helpers.lxc.start(args)
+     else:
+-        logging.error("WayDroid container is {}".format(status))
++        logging.error("Miodroid container is {}".format(status))
+ 
+ def freeze(args):
+     status = helpers.lxc.status(args)
+@@ -289,7 +289,7 @@
+         while helpers.lxc.status(args) == "RUNNING":
+             pass
+     else:
+-        logging.error("WayDroid container is {}".format(status))
++        logging.error("Miodroid container is {}".format(status))
+ 
+ def unfreeze(args):
+     status = helpers.lxc.status(args)
+diff -urN waydroid-src/tools/actions/initializer.py waydroid-patched/tools/actions/initializer.py
+--- waydroid-src/tools/actions/initializer.py	2026-10-07 20:21:55.562111252 +1100
++++ waydroid-patched/tools/actions/initializer.py	2026-10-07 20:21:55.755109989 +1100
+@@ -60,15 +60,15 @@
+ def setup_config(args):
+     cfg = tools.config.load(args)
+     args.arch = helpers.arch.host()
+-    cfg["waydroid"]["arch"] = args.arch
++    cfg["miodroid"]["arch"] = args.arch
+ 
+     args.vendor_type = get_vendor_type(args)
+-    cfg["waydroid"]["vendor_type"] = args.vendor_type
++    cfg["miodroid"]["vendor_type"] = args.vendor_type
+ 
+     helpers.drivers.setupBinderNodes(args)
+-    cfg["waydroid"]["binder"] = args.BINDER_DRIVER
+-    cfg["waydroid"]["vndbinder"] = args.VNDBINDER_DRIVER
+-    cfg["waydroid"]["hwbinder"] = args.HWBINDER_DRIVER
++    cfg["miodroid"]["binder"] = args.BINDER_DRIVER
++    cfg["miodroid"]["vndbinder"] = args.VNDBINDER_DRIVER
++    cfg["miodroid"]["hwbinder"] = args.HWBINDER_DRIVER
+ 
+     has_preinstalled_images = False
+     preinstalled_images_paths = tools.config.defaults["preinstalled_images_paths"]
+@@ -87,13 +87,13 @@
+ 
+     if not args.images_path:
+         args.images_path = tools.config.defaults["images_path"]
+-    cfg["waydroid"]["images_path"] = args.images_path
++    cfg["miodroid"]["images_path"] = args.images_path
+ 
+     if has_preinstalled_images:
+-        cfg["waydroid"]["system_ota"] = args.system_ota = "None"
+-        cfg["waydroid"]["vendor_ota"] = args.vendor_ota = "None"
+-        cfg["waydroid"]["system_datetime"] = tools.config.defaults["system_datetime"]
+-        cfg["waydroid"]["vendor_datetime"] = tools.config.defaults["vendor_datetime"]
++        cfg["miodroid"]["system_ota"] = args.system_ota = "None"
++        cfg["miodroid"]["vendor_ota"] = args.vendor_ota = "None"
++        cfg["miodroid"]["system_datetime"] = tools.config.defaults["system_datetime"]
++        cfg["miodroid"]["vendor_datetime"] = tools.config.defaults["vendor_datetime"]
+         tools.config.save(args, cfg)
+         return True
+ 
+@@ -133,14 +133,14 @@
+         raise ValueError(
+             "Failed to get vendor OTA channel: {}".format(vendor_ota))
+ 
+-    if args.system_ota != cfg["waydroid"].get("system_ota"):
+-        cfg["waydroid"]["system_datetime"] = tools.config.defaults["system_datetime"]
+-    if args.vendor_ota != cfg["waydroid"].get("vendor_ota"):
+-        cfg["waydroid"]["vendor_datetime"] = tools.config.defaults["vendor_datetime"]
+-
+-    cfg["waydroid"]["vendor_type"] = args.vendor_type
+-    cfg["waydroid"]["system_ota"] = args.system_ota
+-    cfg["waydroid"]["vendor_ota"] = args.vendor_ota
++    if args.system_ota != cfg["miodroid"].get("system_ota"):
++        cfg["miodroid"]["system_datetime"] = tools.config.defaults["system_datetime"]
++    if args.vendor_ota != cfg["miodroid"].get("vendor_ota"):
++        cfg["miodroid"]["vendor_datetime"] = tools.config.defaults["vendor_datetime"]
++
++    cfg["miodroid"]["vendor_type"] = args.vendor_type
++    cfg["miodroid"]["system_ota"] = args.system_ota
++    cfg["miodroid"]["vendor_ota"] = args.vendor_ota
+     tools.config.save(args, cfg)
+     return True
+ 
+@@ -153,7 +153,7 @@
+ 
+     status = "STOPPED"
+     session = None
+-    if os.path.exists(tools.config.defaults["lxc"] + "/waydroid"):
++    if os.path.exists(tools.config.defaults["lxc"] + "/miodroid"):
+         status = helpers.lxc.status(args)
+     if status != "STOPPED":
+         if "running_init_in_service" in args:
+@@ -187,7 +187,6 @@
+     helpers.lxc.set_lxc_config(args)
+     helpers.lxc.make_base_props(args)
+     if status != "STOPPED":
+-        helpers.dbus.setup_policy(args)
+         try:
+             if "running_init_in_service" in args:
+                 tools.actions.container_manager.do_start(args, session)
+@@ -340,7 +339,7 @@
+             channels_cfg = tools.config.load_channels()
+ 
+             self.set_default_size(600, 250)
+-            self.set_icon_name("waydroid")
++            self.set_icon_name("miodroid")
+ 
+             grid = Gtk.Grid(row_spacing=6, column_spacing=6, margin=10, column_homogeneous=True)
+             grid.set_hexpand(True)
+diff -urN waydroid-src/tools/actions/initializer.py.orig waydroid-patched/tools/actions/initializer.py.orig
+--- waydroid-src/tools/actions/initializer.py.orig	2026-10-07 20:21:55.556111291 +1100
++++ waydroid-patched/tools/actions/initializer.py.orig	1970-01-01 10:00:00.000000000 +1000
+@@ -1,483 +0,0 @@
+-# Copyright 2021 Erfan Abdi
+-# SPDX-License-Identifier: GPL-3.0-or-later
+-import logging
+-import os
+-from tools import helpers
+-import tools.config
+-import stat
+-import sys
+-import threading
+-import multiprocessing
+-import select
+-import queue
+-import time
+-import dbus
+-import dbus.service
+-import argparse
+-from gi.repository import GLib
+-
+-def is_initialized(args):
+-    return os.path.isfile(args.config) and os.path.isdir(tools.config.defaults["rootfs"])
+-
+-def _int_or_none(value):
+-    """Parse an Android version prop as int, or None if absent/garbage."""
+-    try:
+-        return int(value)
+-    except ValueError:
+-        # Non-numeric props (e.g. "29.0") must not crash init; treat them
+-        # as absent so detection falls back to the next source or MAINLINE.
+-        logging.debug("Ignoring non-numeric Android version prop: %r", value)
+-        return None
+-
+-def get_vendor_type(args):
+-    """
+-    Detect the vendor type from host props (Halium versions, or MAINLINE).
+-
+-    Uses ro.vndk.version primarily (vndk 20+ maps to Halium N), falling
+-    back to ro.vendor.build.version.sdk for Halium 15+ images that no
+-    longer expose ro.vndk.version.
+-    """
+-    vndk_str = helpers.props.host_get(args, "ro.vndk.version")
+-    vendorapi_str = helpers.props.host_get(args, "ro.vendor.build.version.sdk")
+-    ret = "MAINLINE"
+-    vndk = _int_or_none(vndk_str)
+-    if vndk is not None:
+-        if vndk > 19:
+-            halium_ver = vndk - 19
+-            if vndk > 31:
+-                halium_ver -= 1  # 12L -> Halium 12
+-            ret = "HALIUM_" + str(halium_ver)
+-            if vndk == 32:
+-                ret += "L"
+-    else:
+-        vendorapi = _int_or_none(vendorapi_str)
+-        if vendorapi is not None and vendorapi > 32:
+-            halium_ver = vendorapi - 20
+-            ret = "HALIUM_" + str(halium_ver)
+-
+-    return ret
+-
+-def setup_config(args):
+-    cfg = tools.config.load(args)
+-    args.arch = helpers.arch.host()
+-    cfg["waydroid"]["arch"] = args.arch
+-
+-    args.vendor_type = get_vendor_type(args)
+-    cfg["waydroid"]["vendor_type"] = args.vendor_type
+-
+-    helpers.drivers.setupBinderNodes(args)
+-    cfg["waydroid"]["binder"] = args.BINDER_DRIVER
+-    cfg["waydroid"]["vndbinder"] = args.VNDBINDER_DRIVER
+-    cfg["waydroid"]["hwbinder"] = args.HWBINDER_DRIVER
+-
+-    has_preinstalled_images = False
+-    preinstalled_images_paths = tools.config.defaults["preinstalled_images_paths"]
+-    for preinstalled_images in preinstalled_images_paths:
+-        if os.path.isdir(preinstalled_images):
+-            system_path = preinstalled_images + "/system.img"
+-            vendor_path = preinstalled_images + "/vendor.img"
+-            system_exists = os.path.isfile(system_path) or stat.S_ISBLK(os.stat(system_path).st_mode)
+-            vendor_exists = os.path.isfile(vendor_path) or stat.S_ISBLK(os.stat(vendor_path).st_mode)
+-            if system_exists and vendor_exists:
+-                has_preinstalled_images = True
+-                args.images_path = preinstalled_images
+-                break
+-            else:
+-                logging.warning("Found directory {} but missing system or vendor image, ignoring...".format(preinstalled_images))
+-
+-    if not args.images_path:
+-        args.images_path = tools.config.defaults["images_path"]
+-    cfg["waydroid"]["images_path"] = args.images_path
+-
+-    if has_preinstalled_images:
+-        cfg["waydroid"]["system_ota"] = args.system_ota = "None"
+-        cfg["waydroid"]["vendor_ota"] = args.vendor_ota = "None"
+-        cfg["waydroid"]["system_datetime"] = tools.config.defaults["system_datetime"]
+-        cfg["waydroid"]["vendor_datetime"] = tools.config.defaults["vendor_datetime"]
+-        tools.config.save(args, cfg)
+-        return True
+-
+-    channels_cfg = tools.config.load_channels()
+-    if not args.system_channel:
+-        args.system_channel = channels_cfg["channels"]["system_channel"]
+-    if not args.vendor_channel:
+-        args.vendor_channel = channels_cfg["channels"]["vendor_channel"]
+-    if not args.rom_type:
+-        args.rom_type = channels_cfg["channels"]["rom_type"]
+-    if not args.system_type:
+-        args.system_type = channels_cfg["channels"]["system_type"]
+-
+-    if not args.system_channel or not args.vendor_channel:
+-        logging.error("ERROR: You must provide 'System OTA' and 'Vendor OTA' URLs.")
+-        return False
+-
+-    args.system_ota = args.system_channel + "/" + args.rom_type + \
+-        "/waydroid_" + args.arch + "/" + args.system_type + ".json"
+-    system_request = helpers.http.retrieve(args.system_ota)
+-    if system_request[0] != 200:
+-        raise ValueError(
+-            "Failed to get system OTA channel: {}, error: {}".format(args.system_ota, system_request[0]))
+-
+-    device_codename = helpers.props.host_get(args, "ro.product.device")
+-    args.vendor_type = None
+-    for vendor in [device_codename, get_vendor_type(args)]:
+-        vendor_ota = args.vendor_channel + "/waydroid_" + \
+-            args.arch + "/" + vendor.replace(" ", "_") + ".json"
+-        vendor_request = helpers.http.retrieve(vendor_ota)
+-        if vendor_request[0] == 200:
+-            args.vendor_type = vendor
+-            args.vendor_ota = vendor_ota
+-            break
+-
+-    if not args.vendor_type:
+-        raise ValueError(
+-            "Failed to get vendor OTA channel: {}".format(vendor_ota))
+-
+-    if args.system_ota != cfg["waydroid"].get("system_ota"):
+-        cfg["waydroid"]["system_datetime"] = tools.config.defaults["system_datetime"]
+-    if args.vendor_ota != cfg["waydroid"].get("vendor_ota"):
+-        cfg["waydroid"]["vendor_datetime"] = tools.config.defaults["vendor_datetime"]
+-
+-    cfg["waydroid"]["vendor_type"] = args.vendor_type
+-    cfg["waydroid"]["system_ota"] = args.system_ota
+-    cfg["waydroid"]["vendor_ota"] = args.vendor_ota
+-    tools.config.save(args, cfg)
+-    return True
+-
+-def init(args):
+-    if is_initialized(args) and not args.force:
+-        logging.info("Already initialized")
+-
+-    if not setup_config(args):
+-        return
+-
+-    status = "STOPPED"
+-    session = None
+-    if os.path.exists(tools.config.defaults["lxc"] + "/waydroid"):
+-        status = helpers.lxc.status(args)
+-    if status != "STOPPED":
+-        if "running_init_in_service" in args:
+-            session = args.session
+-            tools.actions.container_manager.stop(args, False)
+-        else:
+-            logging.info("Stopping container")
+-            try:
+-                container = tools.helpers.ipc.DBusContainerService()
+-                session = container.GetSession()
+-                container.Stop(False)
+-            except Exception as e:
+-                logging.debug(e)
+-                tools.actions.container_manager.stop(args, False)
+-    if args.images_path not in tools.config.defaults["preinstalled_images_paths"]:
+-        helpers.images.get(args)
+-    else:
+-        helpers.images.remove_overlay(args)
+-    if not os.path.isdir(tools.config.defaults["rootfs"]):
+-        os.mkdir(tools.config.defaults["rootfs"])
+-    if not os.path.isdir(tools.config.defaults["overlay"]):
+-        os.mkdir(tools.config.defaults["overlay"])
+-        os.mkdir(tools.config.defaults["overlay"]+"/vendor")
+-    if not os.path.isdir(tools.config.defaults["overlay_rw"]):
+-        os.mkdir(tools.config.defaults["overlay_rw"])
+-        os.mkdir(tools.config.defaults["overlay_rw"]+"/system")
+-        os.mkdir(tools.config.defaults["overlay_rw"]+"/vendor")
+-    helpers.drivers.probeAshmemDriver(args)
+-    helpers.lxc.setup_host_perms(args)
+-    helpers.lxc.set_lxc_config(args)
+-    helpers.lxc.make_base_props(args)
+-    if status != "STOPPED":
+-        helpers.dbus.setup_policy(args)
+-        try:
+-            if "running_init_in_service" in args:
+-                tools.actions.container_manager.do_start(args, session)
+-            else:
+-                logging.info("Starting container")
+-                container.Start(session)
+-        except Exception as e:
+-            logging.debug(e)
+-            logging.error("Failed to restart container. Please do so manually.")
+-
+-class DbusInitializer(dbus.service.Object):
+-    def __init__(self, looper, bus, object_path, args):
+-        self.args = args
+-        self.looper = looper
+-        self.worker_thread = None
+-        dbus.service.Object.__init__(self, bus, object_path)
+-
+-    @helpers.logging.log_exceptions
+-    @dbus.service.method("id.waydro.Initializer", in_signature='a{ss}', out_signature='', sender_keyword="sender", connection_keyword="conn")
+-    def Init(self, params, sender=None, conn=None):
+-        if self.worker_thread is not None:
+-            self.worker_thread.kill()
+-            self.worker_thread.join()
+-
+-        channels_cfg = tools.config.load_channels()
+-        no_auth = params["system_channel"] == channels_cfg["channels"]["system_channel"] and \
+-                  params["vendor_channel"] == channels_cfg["channels"]["vendor_channel"]
+-        if no_auth or ensure_polkit_auth(sender, conn, "id.waydro.Initializer.Init"):
+-            self.worker_thread = remote_init_server(self.args, self, params)
+-        else:
+-            raise PermissionError("Polkit: Authentication failed")
+-
+-    @helpers.logging.log_exceptions
+-    @dbus.service.method("id.waydro.Initializer", in_signature='', out_signature='')
+-    def Cancel(self):
+-        if self.worker_thread is not None:
+-            self.worker_thread.kill()
+-            self.worker_thread.join()
+-
+-    @dbus.service.signal("id.waydro.Initializer", signature='s')
+-    def ProgressChanged(self, message):
+-        pass
+-
+-    @dbus.service.signal("id.waydro.Initializer", signature='')
+-    def Finished(self):
+-        pass
+-
+-    @dbus.service.signal("id.waydro.Initializer", signature='')
+-    def Interrupted(self):
+-        pass
+-
+-def ensure_polkit_auth(sender, conn, privilege):
+-    dbus_info = dbus.Interface(conn.get_object("org.freedesktop.DBus", "/org/freedesktop/DBus/Bus", False), "org.freedesktop.DBus")
+-    pid = dbus_info.GetConnectionUnixProcessID(sender)
+-    polkit = dbus.Interface(dbus.SystemBus().get_object("org.freedesktop.PolicyKit1", "/org/freedesktop/PolicyKit1/Authority", False), "org.freedesktop.PolicyKit1.Authority")
+-    try:
+-        (is_auth, _, _) = polkit.CheckAuthorization(
+-            ("unix-process", {
+-                "pid": dbus.UInt32(pid, variant_level=1),
+-                "start-time": dbus.UInt64(0, variant_level=1)}),
+-            privilege, {"AllowUserInteraction": "true"},
+-            dbus.UInt32(1),
+-            "",
+-            timeout=300)
+-        return is_auth
+-    except dbus.DBusException:
+-        raise PermissionError("Polkit: Authentication timed out")
+-
+-class StdoutRedirect(logging.StreamHandler):
+-    def __init__(self, pipe):
+-        logging.StreamHandler.__init__(self)
+-        self.pipe = pipe
+-    def write(self, s):
+-        self.pipe.send(s)
+-    def flush(self):
+-        pass
+-    def emit(self, record):
+-        if record.levelno >= logging.INFO:
+-            self.write(self.format(record) + self.terminator)
+-
+-def remote_init_proc_entry(args, pipe):
+-    out = StdoutRedirect(pipe)
+-    sys.stdout = sys.stderr = out
+-
+-    helpers.logging.add_verbose_log_level()
+-    logging.getLogger().addHandler(out)
+-
+-    try:
+-        init(args)
+-        sys.exit(0)
+-    except KeyboardInterrupt:
+-        sys.exit(1)
+-    except Exception:
+-        logging.exception("Exception during init")
+-        sys.exit(1)
+-    finally:
+-        pipe.close()
+-
+-def remote_init_server(_args, dbus_obj, params):
+-    args = argparse.Namespace()
+-    tools.prep_args(args)
+-    args.details_to_stdout = _args.details_to_stdout
+-    args.verbose = _args.verbose
+-    args.quiet = _args.quiet
+-    args.force = True
+-    args.images_path = ""
+-    args.rom_type = ""
+-    args.system_channel = params["system_channel"]
+-    args.vendor_channel = params["vendor_channel"]
+-    args.system_type = params["system_type"]
+-    args.running_init_in_service = True
+-
+-    parent_conn, child_conn = multiprocessing.Pipe(False)
+-    p = multiprocessing.Process(target=remote_init_proc_entry, args=(args, child_conn,), daemon=True)
+-    p.start()
+-
+-    def monitor_init(p, pipe):
+-        try:
+-            while True:
+-                dbus_obj.ProgressChanged(pipe.recv())
+-        except EOFError:
+-            pass
+-
+-        p.join()
+-        if p.exitcode == 0:
+-            GLib.idle_add(dbus_obj.Finished)
+-        else:
+-            GLib.idle_add(dbus_obj.Interrupted)
+-
+-    t = threading.Thread(target=monitor_init, args=(p, parent_conn,), daemon=True)
+-    t.kill = lambda: p.kill()
+-    t.start()
+-    return t
+-
+-
+-def remote_init_client(args):
+-    # Local imports cause Gtk is intrusive
+-    import gi
+-    gi.require_version("Gtk", "3.0")
+-    from gi.repository import Gtk
+-
+-    class WaydroidInitWindow(Gtk.Window):
+-        def __init__(self):
+-            super().__init__(title="Initialize Waydroid")
+-            channels_cfg = tools.config.load_channels()
+-
+-            self.set_default_size(600, 250)
+-            self.set_icon_name("waydroid")
+-
+-            grid = Gtk.Grid(row_spacing=6, column_spacing=6, margin=10, column_homogeneous=True)
+-            grid.set_hexpand(True)
+-            grid.set_vexpand(True)
+-            self.add(grid)
+-
+-            sysOtaLabel = Gtk.Label("System OTA")
+-            sysOtaEntry = Gtk.Entry()
+-            sysOtaEntry.set_text(channels_cfg["channels"]["system_channel"])
+-            grid.attach(sysOtaLabel, 0, 0, 1, 1)
+-            grid.attach_next_to(sysOtaEntry ,sysOtaLabel, Gtk.PositionType.RIGHT, 2, 1)
+-            self.sysOta = sysOtaEntry.get_buffer()
+-
+-            vndOtaLabel = Gtk.Label("Vendor OTA")
+-            vndOtaEntry = Gtk.Entry()
+-            vndOtaEntry.set_text(channels_cfg["channels"]["vendor_channel"])
+-            grid.attach(vndOtaLabel, 0, 1, 1, 1)
+-            grid.attach_next_to(vndOtaEntry, vndOtaLabel, Gtk.PositionType.RIGHT, 2, 1)
+-            self.vndOta = vndOtaEntry.get_buffer()
+-
+-            sysTypeLabel = Gtk.Label("Android Type")
+-            sysTypesStore = Gtk.ListStore(str, str)
+-            sysTypesStore.append(["VANILLA", "Minimal Android"])
+-            sysTypesStore.append(["GAPPS", "Android with Google Apps"])
+-
+-            sysTypeCombo = Gtk.ComboBox.new_with_model(sysTypesStore)
+-            renderer_text = Gtk.CellRendererText()
+-            sysTypeCombo.pack_start(renderer_text, True)
+-            sysTypeCombo.add_attribute(renderer_text, "text", 1)
+-            sysTypeCombo.set_active(0)
+-            grid.attach(sysTypeLabel, 0, 2, 1, 1)
+-            grid.attach_next_to(sysTypeCombo, sysTypeLabel, Gtk.PositionType.RIGHT, 2, 1)
+-            self.sysType = sysTypeCombo
+-
+-            downloadBtn = Gtk.Button("Download")
+-            downloadBtn.connect("clicked", self.on_download_btn_clicked)
+-            grid.attach(downloadBtn, 1,3,1,1)
+-            self.downloadBtn = downloadBtn
+-
+-            doneBtn = Gtk.Button("Done")
+-            doneBtn.connect("clicked", lambda x: self.destroy())
+-            doneBtn.get_style_context().add_class('suggested-action')
+-            grid.attach_next_to(doneBtn, downloadBtn, Gtk.PositionType.RIGHT, 1, 1)
+-            self.doneBtn = doneBtn
+-
+-            outScrolledWindow = Gtk.ScrolledWindow()
+-            outScrolledWindow.set_hexpand(True)
+-            outScrolledWindow.set_vexpand(True)
+-            outTextView = Gtk.TextView()
+-            outTextView.set_property('editable', False)
+-            outTextView.set_property('cursor-visible', False)
+-            outScrolledWindow.add(outTextView)
+-            grid.attach(outScrolledWindow, 0, 4, 3, 1)
+-            self.outScrolledWindow = outScrolledWindow
+-            self.outTextView = outTextView
+-            self.outBuffer = outTextView.get_buffer()
+-            self.outBuffer.create_mark("end", self.outBuffer.get_end_iter(), False)
+-
+-            self.bus_signals = []
+-            self.initializing = False
+-
+-            self.connect("destroy", self.on_destroy)
+-
+-        def scroll_to_bottom(self):
+-            self.outTextView.scroll_mark_onscreen(self.outBuffer.get_mark("end"))
+-
+-        def on_download_btn_clicked(self, widget):
+-            widget.set_sensitive(False)
+-            self.doneBtn.hide()
+-            self.outTextView.show()
+-            sysType = self.sysType.get_model()[self.sysType.get_active_iter()][0]
+-            self.run_init(self.sysOta.get_text(), self.vndOta.get_text(), sysType)
+-
+-        def draw(self, s):
+-            if s.startswith('\r'):
+-                last = self.outBuffer.get_iter_at_line(self.outBuffer.get_line_count()-1)
+-                last.backward_char()
+-                self.outBuffer.delete(last, self.outBuffer.get_end_iter())
+-            self.outBuffer.insert(self.outBuffer.get_end_iter(), s)
+-            self.scroll_to_bottom()
+-
+-        def on_progress(self, message):
+-            self.draw(message)
+-
+-        def on_finished(self):
+-            self.initializing = False
+-            if is_initialized(args):
+-                self.doneBtn.show()
+-                self.draw("\nDone\n")
+-
+-        def on_interrupted(self):
+-            self.initializing = False
+-            self.draw("\nInterrupted\n")
+-
+-        def on_reply(self):
+-            self.downloadBtn.set_sensitive(True)
+-
+-        def on_bus_error(self, e):
+-            if e.get_dbus_name() == "org.freedesktop.DBus.Python.PermissionError":
+-                self.draw(e.get_dbus_message().splitlines()[-1] + "\n")
+-            else:
+-                self.draw(str(e))
+-            self.downloadBtn.set_sensitive(True)
+-
+-        def on_destroy(self, _):
+-            if self.initializing:
+-                try:
+-                    tools.helpers.ipc.DBusContainerService("/Initializer", "id.waydro.Initializer").Cancel()
+-                except Exception as e:
+-                    logging.debug("Unexpected error while cancelling initializer: %s", e)
+-            Gtk.main_quit()
+-
+-        def run_init(self, systemOta, vendorOta, systemType):
+-            for signal in self.bus_signals:
+-                signal.remove()
+-
+-            self.draw("\nWaiting for waydroid container service...\n")
+-            self.bus_signals = []
+-            self.initializing = True
+-
+-            try:
+-                initializer = tools.helpers.ipc.DBusContainerService("/Initializer", "id.waydro.Initializer")
+-
+-                self.bus_signals.append(initializer.connect_to_signal("ProgressChanged", self.on_progress))
+-                self.bus_signals.append(initializer.connect_to_signal("Finished", self.on_finished))
+-                self.bus_signals.append(initializer.connect_to_signal("Interrupted", self.on_interrupted))
+-
+-                params = {
+-                    "system_channel": systemOta,
+-                    "vendor_channel": vendorOta,
+-                    "system_type": systemType
+-                }
+-                initializer.Init(params, reply_handler=self.on_reply, error_handler=self.on_bus_error)
+-            except dbus.DBusException as e:
+-                self.on_bus_error(e)
+-            except Exception as e:
+-                self.draw(f"{e}\n")
+-
+-    GLib.set_prgname("Waydroid")
+-    win = WaydroidInitWindow()
+-
+-    win.show_all()
+-    win.outTextView.hide()
+-    win.doneBtn.hide()
+-
+-    Gtk.main()
+diff -urN waydroid-src/tools/actions/session_manager.py waydroid-patched/tools/actions/session_manager.py
+--- waydroid-src/tools/actions/session_manager.py	2026-10-07 20:21:55.557111285 +1100
++++ waydroid-patched/tools/actions/session_manager.py	2026-10-07 20:21:55.756109983 +1100
+@@ -20,7 +20,7 @@
+         self.looper = looper
+         dbus.service.Object.__init__(self, bus, object_path)
+ 
+-    @dbus.service.method("id.waydro.SessionManager", in_signature='', out_signature='')
++    @dbus.service.method("id.miodro.SessionManager", in_signature='', out_signature='')
+     def Stop(self):
+         do_stop(self.args, self.looper)
+         stop_container(quit_session=False)
+@@ -67,9 +67,9 @@
+         logging.error(f"Wayland socket '{wayland_socket_path}' doesn't exist; are you running a Wayland compositor?")
+         sys.exit(1)
+ 
+-    waydroid_data = session["waydroid_data"]
+-    if not os.path.isdir(waydroid_data):
+-        os.makedirs(waydroid_data)
++    miodroid_data = session["miodroid_data"]
++    if not os.path.isdir(miodroid_data):
++        os.makedirs(miodroid_data)
+ 
+     dpi = tools.helpers.props.host_get(args, "ro.sf.lcd_density")
+     if dpi == "":
+@@ -102,7 +102,7 @@
+         if e.get_dbus_name().startswith("org.freedesktop.DBus.Python"):
+             logging.error(e.get_dbus_message().splitlines()[-1])
+         else:
+-            logging.error("WayDroid container is not listening")
++            logging.error("Miodroid container is not listening")
+         sys.exit(0)
+ 
+     services.user_manager.start(args, session, unlocked_cb)
+diff -urN waydroid-src/tools/actions/status.py waydroid-patched/tools/actions/status.py
+--- waydroid-src/tools/actions/status.py	2026-10-07 20:21:55.537111415 +1100
++++ waydroid-patched/tools/actions/status.py	2026-10-07 20:21:55.754109996 +1100
+@@ -9,14 +9,14 @@
+     cfg = tools.config.load(args)
+     def print_stopped():
+         print("Session:\tSTOPPED")
+-        print("Vendor type:\t" + cfg["waydroid"]["vendor_type"])
++        print("Vendor type:\t" + cfg["miodroid"]["vendor_type"])
+ 
+     try:
+         session = tools.helpers.ipc.DBusContainerService().GetSession()
+         if session:
+             print("Session:\tRUNNING")
+             print("Container:\t" + session["state"])
+-            print("Vendor type:\t" + cfg["waydroid"]["vendor_type"])
++            print("Vendor type:\t" + cfg["miodroid"]["vendor_type"])
+             print("IP address:\t" + (tools.helpers.net.get_device_ip_address() or "UNKNOWN"))
+             print("Session user:\t{}({})".format(session["user_name"], session["user_id"]))
+             print("Wayland display:\t" + session["wayland_display"])
+diff -urN waydroid-src/tools/actions/upgrader.py waydroid-patched/tools/actions/upgrader.py
+--- waydroid-src/tools/actions/upgrader.py	2026-10-07 20:21:55.537111415 +1100
++++ waydroid-patched/tools/actions/upgrader.py	2026-10-07 20:21:55.755109989 +1100
+@@ -8,25 +8,25 @@
+ 
+ def get_config(args):
+     cfg = tools.config.load(args)
+-    args.arch = cfg["waydroid"]["arch"]
+-    args.images_path = cfg["waydroid"]["images_path"]
+-    args.vendor_type = cfg["waydroid"]["vendor_type"]
+-    args.system_ota = cfg["waydroid"]["system_ota"]
+-    args.vendor_ota = cfg["waydroid"]["vendor_ota"]
++    args.arch = cfg["miodroid"]["arch"]
++    args.images_path = cfg["miodroid"]["images_path"]
++    args.vendor_type = cfg["miodroid"]["vendor_type"]
++    args.system_ota = cfg["miodroid"]["system_ota"]
++    args.vendor_ota = cfg["miodroid"]["vendor_ota"]
+     args.session = None
+ 
+ def migration(args):
+     try:
+-        old_ver = tools.helpers.props.file_get(args, args.work + "/waydroid_base.prop", "waydroid.tools_version")
++        old_ver = tools.helpers.props.file_get(args, args.work + "/miodroid_base.prop", "waydroid.tools_version")
+         if versiontuple(old_ver) <= versiontuple("1.3.4"):
+-            chmod_paths = ["cache_http", "host-permissions", "lxc", "images", "rootfs", "data", "waydroid_base.prop", "waydroid.prop", "waydroid.cfg"]
++            chmod_paths = ["cache_http", "host-permissions", "lxc", "images", "rootfs", "data", "miodroid_base.prop", "waydroid.prop", "miodroid.cfg"]
+             tools.helpers.run.user(args, ["chmod", "-R", "g-w,o-w"] + [os.path.join(args.work, f) for f in chmod_paths], check=False)
+             tools.helpers.run.user(args, ["chmod", "g-w,o-w", args.work], check=False)
+             os.remove(os.path.join(args.work, "session.cfg"))
+         if versiontuple(old_ver) <= versiontuple("1.6.0"):
+             # Because we now default adb to secure, disable auto_adb to avoid prompting the user on every session startup
+             cfg = tools.config.load(args)
+-            cfg["waydroid"]["auto_adb"] = "False"
++            cfg["miodroid"]["auto_adb"] = "False"
+             tools.config.save(args, cfg)
+     except Exception as e:
+         logging.debug("Error during migration: %s", e)
+@@ -34,7 +34,7 @@
+ def upgrade(args):
+     get_config(args)
+     status = "STOPPED"
+-    if os.path.exists(tools.config.defaults["lxc"] + "/waydroid"):
++    if os.path.exists(tools.config.defaults["lxc"] + "/miodroid"):
+         status = helpers.lxc.status(args)
+     if status != "STOPPED":
+         logging.info("Stopping container")
+diff -urN waydroid-src/tools/config/__init__.py waydroid-patched/tools/config/__init__.py
+--- waydroid-src/tools/config/__init__.py	2026-10-07 20:21:55.557111285 +1100
++++ waydroid-patched/tools/config/__init__.py	2026-10-07 20:21:55.757109977 +1100
+@@ -12,7 +12,7 @@
+ #
+ # Exported variables (internal configuration)
+ #
+-version = "1.6.3"
++version = "1.6.3+miodroid1"
+ tools_src = os.path.normpath(os.path.realpath(__file__) + "/../../..")
+ 
+ # Keys saved in the config file (mostly what we ask in 'waydroid init')
+@@ -30,13 +30,13 @@
+ # overridden on the commandline)
+ defaults = {
+     "arch": "arm64",
+-    "work": "/var/lib/waydroid",
++    "work": "/var/lib/miodroid",
+     "vendor_type": "MAINLINE",
+     "system_datetime": "0",
+     "vendor_datetime": "0",
+     "preinstalled_images_paths": [
+-        "/etc/waydroid-extra/images",
+-        "/usr/share/waydroid-extra/images",
++        "/etc/miodroid-extra/images",
++        "/usr/share/miodroid-extra/images",
+     ],
+     "suspend_action": "freeze",
+     "mount_overlays": "True",
+@@ -69,13 +69,13 @@
+     "background_start": "true"
+ }
+ instance_suffix = f".{os.environ['MIODROID_INSTANCE']}" if os.environ.get("MIODROID_INSTANCE") else ""
+-session_defaults["waydroid_user_state"] = session_defaults["xdg_data_home"] + f"/waydroid{instance_suffix}"
+-session_defaults["waydroid_data"] = session_defaults["waydroid_user_state"] + "/data"
++session_defaults["miodroid_user_state"] = session_defaults["xdg_data_home"] + f"/miodroid{instance_suffix}"
++session_defaults["miodroid_data"] = session_defaults["miodroid_user_state"] + "/data"
+ if session_defaults["pulse_runtime_path"] == "None":
+     session_defaults["pulse_runtime_path"] = session_defaults["xdg_runtime_dir"] + "/pulse"
+ 
+ channels_defaults = {
+-    "config_path": "/usr/share/waydroid-extra/channels.cfg",
++    "config_path": "/usr/share/miodroid-extra/channels.cfg",
+     "system_channel": "https://ota.waydro.id/system",
+     "vendor_channel": "https://ota.waydro.id/vendor",
+     "rom_type": "lineage",
+diff -urN waydroid-src/tools/config/load.py waydroid-patched/tools/config/load.py
+--- waydroid-src/tools/config/load.py	2026-10-07 20:21:55.537111415 +1100
++++ waydroid-patched/tools/config/load.py	2026-10-07 20:21:55.756109983 +1100
+@@ -11,20 +11,20 @@
+     if os.path.isfile(args.config):
+         cfg.read(args.config)
+ 
+-    if "waydroid" not in cfg:
+-        cfg["waydroid"] = {}
++    if "miodroid" not in cfg:
++        cfg["miodroid"] = {}
+ 
+     for key in tools.config.defaults:
+-        if key in tools.config.config_keys and key not in cfg["waydroid"]:
+-            cfg["waydroid"][key] = str(tools.config.defaults[key])
++        if key in tools.config.config_keys and key not in cfg["miodroid"]:
++            cfg["miodroid"][key] = str(tools.config.defaults[key])
+ 
+         # We used to save default values in the config, which can *not* be
+         # configured in "waydroid init". That doesn't make sense, we always
+         # want to use the defaults from tools/config/__init__.py in that case,
+-        if key not in tools.config.config_keys and key in cfg["waydroid"]:
++        if key not in tools.config.config_keys and key in cfg["miodroid"]:
+             logging.debug("Ignored unconfigurable and possibly outdated"
+-                          " default value from config: {}".format(cfg['waydroid'][key]))
+-            del cfg["waydroid"][key]
++                          " default value from config: {}".format(cfg['miodroid'][key]))
++            del cfg["miodroid"][key]
+ 
+     if "properties" not in cfg:
+         cfg["properties"] = {}
+diff -urN waydroid-src/tools/helpers/arguments.py waydroid-patched/tools/helpers/arguments.py
+--- waydroid-src/tools/helpers/arguments.py	2026-10-07 20:21:55.557111285 +1100
++++ waydroid-patched/tools/helpers/arguments.py	2026-10-07 20:21:55.760109956 +1100
+@@ -23,7 +23,7 @@
+                                " configs and install images")
+     ret.add_argument("-i", "--images_path",
+                         help="custom path to waydroid images (default in"
+-                             " /var/lib/waydroid/images)")
++                             " /var/lib/miodroid/images)")
+     ret.add_argument("-f", "--force", action="store_true",
+                      help="re-initialize configs and images")
+     ret.add_argument("-c", "--system_channel",
+@@ -138,7 +138,7 @@
+     return ret
+ 
+ def arguments():
+-    parser = argparse.ArgumentParser(prog="waydroid")
++    parser = argparse.ArgumentParser(prog="miodroid")
+ 
+     # Other
+     parser.add_argument("-V", "--version", action="version",
+diff -urN waydroid-src/tools/helpers/drivers.py waydroid-patched/tools/helpers/drivers.py
+--- waydroid-src/tools/helpers/drivers.py	2026-10-07 20:21:55.562111252 +1100
++++ waydroid-patched/tools/helpers/drivers.py	2026-10-07 20:21:55.760109956 +1100
+@@ -194,9 +194,9 @@
+ 
+ def loadBinderNodes(args):
+     cfg = tools.config.load(args)
+-    args.BINDER_DRIVER = cfg["waydroid"]["binder"]
+-    args.VNDBINDER_DRIVER = cfg["waydroid"]["vndbinder"]
+-    args.HWBINDER_DRIVER = cfg["waydroid"]["hwbinder"]
++    args.BINDER_DRIVER = cfg["miodroid"]["binder"]
++    args.VNDBINDER_DRIVER = cfg["miodroid"]["vndbinder"]
++    args.HWBINDER_DRIVER = cfg["miodroid"]["hwbinder"]
+     # These might not be in cfg on package upgrade
+-    args.BINDER_PROTOCOL = cfg["waydroid"].get("binder_protocol")
+-    args.SERVICE_MANAGER_PROTOCOL = cfg["waydroid"].get("service_manager_protocol")
++    args.BINDER_PROTOCOL = cfg["miodroid"].get("binder_protocol")
++    args.SERVICE_MANAGER_PROTOCOL = cfg["miodroid"].get("service_manager_protocol")
+diff -urN waydroid-src/tools/helpers/gpu.py waydroid-patched/tools/helpers/gpu.py
+--- waydroid-src/tools/helpers/gpu.py	2026-10-07 20:21:55.538111409 +1100
++++ waydroid-patched/tools/helpers/gpu.py	2026-10-07 20:21:55.758109970 +1100
+@@ -19,7 +19,7 @@
+ 
+ def getDriNode(args):
+     cfg = tools.config.load(args)
+-    node = cfg["waydroid"].get("drm_device")
++    node = cfg["miodroid"].get("drm_device")
+     if node:
+         if not os.path.exists(node):
+             raise OSError("The specified drm_device {} does not exist".format(node))
+diff -urN waydroid-src/tools/helpers/images.py waydroid-patched/tools/helpers/images.py
+--- waydroid-src/tools/helpers/images.py	2026-10-07 20:21:55.562111252 +1100
++++ waydroid-patched/tools/helpers/images.py	2026-10-07 20:21:55.759109963 +1100
+@@ -24,7 +24,7 @@
+ 
+ def get(args):
+     cfg = tools.config.load(args)
+-    system_ota = cfg["waydroid"]["system_ota"]
++    system_ota = cfg["miodroid"]["system_ota"]
+     system_request = helpers.http.retrieve(system_ota)
+     if system_request[0] != 200:
+         raise ValueError(
+@@ -34,7 +34,7 @@
+         raise ValueError("No images found on system channel")
+ 
+     for system_response in system_responses:
+-        if system_response['datetime'] > int(cfg["waydroid"]["system_datetime"]):
++        if system_response['datetime'] > int(cfg["miodroid"]["system_datetime"]):
+             images_zip = helpers.http.download(
+                 args, system_response['url'], system_response['filename'], cache=False)
+             logging.info("Validating system image")
+@@ -47,12 +47,12 @@
+                 logging.info("Extracting to " + args.images_path)
+                 with zipfile.ZipFile(f, 'r') as zip_ref:
+                     zip_ref.extractall(args.images_path)
+-            cfg["waydroid"]["system_datetime"] = str(system_response['datetime'])
++            cfg["miodroid"]["system_datetime"] = str(system_response['datetime'])
+             tools.config.save(args, cfg)
+             os.remove(images_zip)
+             break
+ 
+-    vendor_ota = cfg["waydroid"]["vendor_ota"]
++    vendor_ota = cfg["miodroid"]["vendor_ota"]
+     vendor_request = helpers.http.retrieve(vendor_ota)
+     if vendor_request[0] != 200:
+         raise ValueError(
+@@ -62,7 +62,7 @@
+         raise ValueError("No images found on vendor channel")
+ 
+     for vendor_response in vendor_responses:
+-        if vendor_response['datetime'] > int(cfg["waydroid"]["vendor_datetime"]):
++        if vendor_response['datetime'] > int(cfg["miodroid"]["vendor_datetime"]):
+             images_zip = helpers.http.download(
+                 args, vendor_response['url'], vendor_response['filename'], cache=False)
+             logging.info("Validating vendor image")
+@@ -75,7 +75,7 @@
+                 logging.info("Extracting to " + args.images_path)
+                 with zipfile.ZipFile(f, 'r') as zip_ref:
+                     zip_ref.extractall(args.images_path)
+-            cfg["waydroid"]["vendor_datetime"] = str(vendor_response['datetime'])
++            cfg["miodroid"]["vendor_datetime"] = str(vendor_response['datetime'])
+             tools.config.save(args, cfg)
+             os.remove(images_zip)
+             break
+@@ -84,7 +84,7 @@
+ def validate(args, channel, f):
+     # Verify that the zip comes from the channel
+     cfg = tools.config.load(args)
+-    channel_url = cfg["waydroid"][channel]
++    channel_url = cfg["miodroid"][channel]
+     channel_request = helpers.http.retrieve(channel_url)
+     if channel_request[0] != 200:
+         return False
+@@ -98,13 +98,13 @@
+ 
+ def replace(args, system_zip, system_time, vendor_zip, vendor_time):
+     cfg = tools.config.load(args)
+-    args.images_path = cfg["waydroid"]["images_path"]
++    args.images_path = cfg["miodroid"]["images_path"]
+     if os.path.exists(system_zip):
+         with open(system_zip, 'rb') as f:
+             if validate(args, "system_ota", f):
+                 with zipfile.ZipFile(f, 'r') as zip_ref:
+                     zip_ref.extractall(args.images_path)
+-                cfg["waydroid"]["system_datetime"] = str(system_time)
++                cfg["miodroid"]["system_datetime"] = str(system_time)
+             else:
+                 logging.warning("Failed to validate update system image, ignoring")
+         os.remove(system_zip)
+@@ -113,7 +113,7 @@
+             if validate(args, "vendor_ota", f):
+                 with zipfile.ZipFile(f, 'r') as zip_ref:
+                     zip_ref.extractall(args.images_path)
+-                cfg["waydroid"]["vendor_datetime"] = str(vendor_time)
++                cfg["miodroid"]["vendor_datetime"] = str(vendor_time)
+             else:
+                 logging.warning("Failed to validate update vendor image, ignoring")
+         os.remove(vendor_zip)
+@@ -127,12 +127,12 @@
+         shutil.rmtree(tools.config.defaults["overlay_work"])
+ 
+ def make_prop(args, cfg, full_props_path):
+-    if not os.path.isfile(args.work + "/waydroid_base.prop"):
+-        raise RuntimeError("waydroid_base.prop Not found")
+-    with open(args.work + "/waydroid_base.prop") as f:
++    if not os.path.isfile(args.work + "/miodroid_base.prop"):
++        raise RuntimeError("miodroid_base.prop Not found")
++    with open(args.work + "/miodroid_base.prop") as f:
+         props = f.read().splitlines()
+     if not props:
+-        raise RuntimeError("waydroid_base.prop is broken!!?")
++        raise RuntimeError("miodroid_base.prop is broken!!?")
+ 
+     def add_prop(key, cfg_key):
+         value = cfg[cfg_key]
+@@ -143,7 +143,7 @@
+     add_prop("waydroid.host.user", "user_name")
+     add_prop("waydroid.host.uid", "user_id")
+     add_prop("waydroid.host.gid", "group_id")
+-    add_prop("waydroid.host_data_path", "waydroid_data")
++    add_prop("waydroid.host_data_path", "miodroid_data")
+     add_prop("waydroid.background_start", "background_start")
+     props.append("waydroid.xdg_runtime_dir=" + tools.config.defaults["container_xdg_runtime_dir"])
+     props.append("waydroid.pulse_runtime_path=" + tools.config.defaults["container_pulse_runtime_path"])
+@@ -175,7 +175,7 @@
+     rootless_grow = (bool(os.environ.get("WAYDROID_ROOTLESS")) and
+                      not _rootless_overlay())
+     use_overlays = not rootless_grow and (
+-        _rootless_overlay() or cfg["waydroid"]["mount_overlays"] == "True")
++        _rootless_overlay() or cfg["miodroid"]["mount_overlays"] == "True")
+     helpers.mount.mount(args, images_dir + "/system.img",
+                         tools.config.defaults["rootfs"], umount=True,
+                         readonly=not rootless_grow)
+@@ -187,7 +187,7 @@
+                                     upper_dir=tools.config.defaults["overlay_rw"] + "/system",
+                                     work_dir=tools.config.defaults["overlay_work"] + "/system")
+         except RuntimeError:
+-            cfg["waydroid"]["mount_overlays"] = "False"
++            cfg["miodroid"]["mount_overlays"] = "False"
+             tools.config.save(args, cfg)
+             logging.warning("Mounting overlays failed. The feature has been disabled.")
+ 
+diff -urN waydroid-src/tools/helpers/__init__.py waydroid-patched/tools/helpers/__init__.py
+--- waydroid-src/tools/helpers/__init__.py	2026-10-07 20:21:55.558111279 +1100
++++ waydroid-patched/tools/helpers/__init__.py	2026-10-07 20:21:55.758109970 +1100
+@@ -13,5 +13,4 @@
+ import tools.helpers.protocol
+ import tools.helpers.version
+ import tools.helpers.instance
+-import tools.helpers.dbus
+ import tools.helpers.logging
+diff -urN waydroid-src/tools/helpers/instance.py waydroid-patched/tools/helpers/instance.py
+--- waydroid-src/tools/helpers/instance.py	2026-10-07 20:21:55.562111252 +1100
++++ waydroid-patched/tools/helpers/instance.py	2026-10-07 20:21:55.760109956 +1100
+@@ -1,26 +1,27 @@
+-from tools.helpers.arguments import arguments
++import os
++
+ 
+ # hack: we pass version because tools.config depends on this file and that
+ # would cause a circular dependency. We just need the instance name here.
+-INSTANCE_NAME = arguments("").instance
++INSTANCE_NAME = os.environ.get("MIODROID_INSTANCE", "")
+ 
+ def get_container_dbus_name():
+-    return f"id.waydro.Container{get_suffix()}"
++    return f"id.miodro.Container{get_suffix()}"
+ 
+ def get_container_name():
+-    return "waydroid"
++    return "miodroid"
+ 
+ def get_session_dbus_name():
+-    return f"id.waydro.Session{get_suffix()}"
++    return f"id.miodro.Session{get_suffix()}"
+ 
+ def get_work_dir():
+-    return f"/var/lib/waydroid{get_suffix()}"
++    return os.environ.get("MIODROID_WORK", f"/var/lib/miodroid{get_suffix()}")
+ 
+ def get_data_dir():
+-    return f"/waydroid{get_suffix()}/data"
++    return f"/miodroid{get_suffix()}/data"
+ 
+ def get_inet_name():
+-    return "lxcbr0" if os.environ.get("WAYDROID_ROOTLESS") else f"waydroid0{get_suffix_dash()}"
++    return "lxcbr0" if os.environ.get("WAYDROID_ROOTLESS") else f"miodroid0{get_suffix_dash()}"
+ 
+ def get_suffix():
+     return f".{INSTANCE_NAME}" if INSTANCE_NAME else ""
+diff -urN waydroid-src/tools/helpers/instance.py.orig waydroid-patched/tools/helpers/instance.py.orig
+--- waydroid-src/tools/helpers/instance.py.orig	2026-10-07 20:21:55.558111279 +1100
++++ waydroid-patched/tools/helpers/instance.py.orig	1970-01-01 10:00:00.000000000 +1000
+@@ -1,35 +0,0 @@
+-from tools.helpers.arguments import arguments
+-
+-# hack: we pass version because tools.config depends on this file and that
+-# would cause a circular dependency. We just need the instance name here.
+-INSTANCE_NAME = arguments("").instance
+-
+-def get_container_dbus_name():
+-    return f"id.waydro.Container{get_suffix()}"
+-
+-def get_container_name():
+-    return "waydroid"
+-
+-def get_session_dbus_name():
+-    return f"id.waydro.Session{get_suffix()}"
+-
+-def get_work_dir():
+-    return f"/var/lib/waydroid{get_suffix()}"
+-
+-def get_data_dir():
+-    return f"/waydroid{get_suffix()}/data"
+-
+-def get_inet_name():
+-    return f"waydroid{get_suffix_dash()}"
+-
+-def get_suffix():
+-    return f".{INSTANCE_NAME}" if INSTANCE_NAME else ""
+-
+-def get_suffix_dash():
+-    return f"-{INSTANCE_NAME}" if INSTANCE_NAME else ""
+-
+-def get_binderfs_dir():
+-    return f"/dev/binderfs{get_suffix_dash()}"
+-
+-def wrap_suffix(input):
+-    return f"{input}{get_suffix_dash()}"
+diff -urN waydroid-src/tools/helpers/ipc.py waydroid-patched/tools/helpers/ipc.py
+--- waydroid-src/tools/helpers/ipc.py	2026-10-07 20:21:55.560111265 +1100
++++ waydroid-patched/tools/helpers/ipc.py	2026-10-07 20:21:55.760109956 +1100
+@@ -6,8 +6,8 @@
+ import dbus
+ from . import instance
+ 
+-def DBusContainerService(object_path="/ContainerManager", intf="id.waydro.ContainerManager"):
++def DBusContainerService(object_path="/ContainerManager", intf="id.miodro.ContainerManager"):
+     return dbus.Interface((dbus.SessionBus() if os.environ.get("MIODROID_ROOTLESS") else dbus.SystemBus()).get_object(instance.get_container_dbus_name(), object_path), intf)
+ 
+-def DBusSessionService(object_path="/SessionManager", intf="id.waydro.SessionManager"):
++def DBusSessionService(object_path="/SessionManager", intf="id.miodro.SessionManager"):
+     return dbus.Interface(dbus.SessionBus().get_object(instance.get_session_dbus_name(), object_path), intf)
+diff -urN waydroid-src/tools/helpers/lxc.py waydroid-patched/tools/helpers/lxc.py
+--- waydroid-src/tools/helpers/lxc.py	2026-10-07 20:21:55.563111245 +1100
++++ waydroid-patched/tools/helpers/lxc.py	2026-10-07 20:21:55.761109950 +1100
+@@ -146,7 +146,7 @@
+ 
+     return nodes
+ 
+-LXC_APPARMOR_PROFILE = "lxc-waydroid"
++LXC_APPARMOR_PROFILE = "lxc-miodroid"
+ def get_apparmor_status(args):
+     enabled = False
+     if shutil.which("aa-enabled"):
+@@ -161,12 +161,12 @@
+     return enabled
+ 
+ def set_lxc_config(args):
+-    lxc_path = tools.config.defaults["lxc"] + "/waydroid"
++    lxc_path = tools.config.defaults["lxc"] + "/miodroid"
+     lxc_ver = get_lxc_version(args)
+     if lxc_ver == 0:
+         raise OSError("LXC is not installed")
+     config_paths = tools.config.tools_src + "/data/configs/config_"
+-    seccomp_profile = tools.config.tools_src + "/data/configs/waydroid.seccomp"
++    seccomp_profile = tools.config.tools_src + "/data/configs/miodroid.seccomp"
+ 
+     config_snippets = [ config_paths + "base" ]
+     # lxc v1 and v2 are bit special because some options got renamed later
+@@ -192,15 +192,15 @@
+ 
+         with open(lxc_path + "/config", "a") as output:
+             for line in lines:
+-                output_line = line.replace("/var/lib/waydroid", get_work_dir())
+-                output_line = output_line.replace("waydroid0", get_inet_name())
++                output_line = line.replace("/var/lib/miodroid", get_work_dir())
++                output_line = output_line.replace("miodroid0", get_inet_name())
+                 output.write(output_line)
+     
+     tools.helpers.run.user(args, command)
+     tools.helpers.run.user(args, command)
+     command = ["sed", "-i", "s/LXCARCH/{}/".format(platform.machine()), lxc_path + "/config"]
+     tools.helpers.run.user(args, command)
+-    command = ["cp", "-fpr", seccomp_profile, lxc_path + "/waydroid.seccomp"]
++    command = ["cp", "-fpr", seccomp_profile, lxc_path + "/miodroid.seccomp"]
+     tools.helpers.run.user(args, command)
+     if get_apparmor_status(args):
+         command = ["sed", "-i", "-E", "/lxc.aa_profile|lxc.apparmor.profile/ s/unconfined/{}/g".format(LXC_APPARMOR_PROFILE), lxc_path + "/config"]
+@@ -242,10 +242,10 @@
+     pulse_container_socket = os.path.join(tools.config.defaults["container_pulse_runtime_path"], "native")
+     make_entry(pulse_host_socket, pulse_container_socket[1:])
+ 
+-    if not make_entry(session["waydroid_data"], "data", options="rbind 0 0"):
++    if not make_entry(session["miodroid_data"], "data", options="rbind 0 0"):
+         raise OSError("Failed to bind userdata")
+ 
+-    lxc_path = tools.config.defaults["lxc"] + "/waydroid"
++    lxc_path = tools.config.defaults["lxc"] + "/miodroid"
+     config_nodes_tmp_path = args.work + "/config_session"
+     with open(config_nodes_tmp_path, "w") as f:
+         f.writelines(node + "\n" for node in nodes)
+@@ -381,7 +381,7 @@
+                 props.pop(idx)
+         props.append(k+"="+v)
+ 
+-    with open(args.work + "/waydroid_base.prop", "w") as f:
++    with open(args.work + "/miodroid_base.prop", "w") as f:
+         f.writelines(prop + "\n" for prop in props)
+ 
+ 
+@@ -453,7 +453,7 @@
+ 
+ def unfreeze(args):
+     command = ["lxc-unfreeze", "-P",
+-               tools.config.defaults["lxc"], "-n", "waydroid"]
++               tools.config.defaults["lxc"], "-n", "miodroid"]
+     tools.helpers.run.user(args, command)
+ 
+ ANDROID_ENV = {
+@@ -472,7 +472,7 @@
+     local_env = ANDROID_ENV.copy()
+     # Include CLASSPATH env that was generated by Android
+     command = ["lxc-attach", "-P", tools.config.defaults["lxc"],
+-               "-n", "waydroid", "--clear-env", "--",
++               "-n", "miodroid", "--clear-env", "--",
+                "/system/bin/cat" ,"/data/system/environ/classpath"]
+     allowed = ["CLASSPATH", "SYSTEMSERVER"]
+     with suppress(Exception):
+@@ -491,10 +491,10 @@
+     if state == "FROZEN":
+         unfreeze(args)
+     elif state != "RUNNING":
+-        logging.error("WayDroid container is {}".format(state))
++        logging.error("Miodroid container is {}".format(state))
+         return
+     command = ["lxc-attach", "-P", tools.config.defaults["lxc"],
+-               "-n", "waydroid", "--clear-env"]
++               "-n", "miodroid", "--clear-env"]
+     command.extend(android_env_attach_options(args))
+     if args.uid is not None:
+         command.append("--uid="+str(args.uid))
+diff -urN waydroid-src/tools/helpers/net.py waydroid-patched/tools/helpers/net.py
+--- waydroid-src/tools/helpers/net.py	2026-10-07 20:21:55.538111409 +1100
++++ waydroid-patched/tools/helpers/net.py	2026-10-07 20:21:55.759109963 +1100
+@@ -40,7 +40,7 @@
+ def get_device_ip_address():
+     # The IP address is queried from the DHCP lease file.
+     with suppress(IOError):
+-        with open("/var/lib/misc/dnsmasq.waydroid0.leases") as f:
++        with open("/var/lib/misc/dnsmasq.miodroid0.leases") as f:
+             match = re.search(r"(\d{1,3}\.){3}\d{1,3}\s", f.read())
+             if match:
+                 return match.group().strip()
+diff -urN waydroid-src/tools/helpers/protocol.py waydroid-patched/tools/helpers/protocol.py
+--- waydroid-src/tools/helpers/protocol.py	2026-10-07 20:21:55.538111409 +1100
++++ waydroid-patched/tools/helpers/protocol.py	2026-10-07 20:21:55.759109963 +1100
+@@ -35,6 +35,6 @@
+         binder_protocol = "aidl3"
+         sm_protocol =     "aidl6"
+ 
+-    cfg["waydroid"]["binder_protocol"] = binder_protocol
+-    cfg["waydroid"]["service_manager_protocol"] = sm_protocol
++    cfg["miodroid"]["binder_protocol"] = binder_protocol
++    cfg["miodroid"]["service_manager_protocol"] = sm_protocol
+     tools.config.save(args, cfg)
+diff -urN waydroid-src/tools/__init__.py waydroid-patched/tools/__init__.py
+--- waydroid-src/tools/__init__.py	2026-10-07 20:21:55.563111245 +1100
++++ waydroid-patched/tools/__init__.py	2026-10-07 20:21:55.756109983 +1100
+@@ -27,10 +27,10 @@
+         # The Android userdata path is derived from the user's XDG data dir at
+         # import time, so it does not follow an overridden work directory on
+         # its own. One work directory is one instance's private state.
+-        config.session_defaults["waydroid_user_state"] = args.work
+-        config.session_defaults["waydroid_data"] = args.work + "/data"
+-    args.config = args.work + "/waydroid.cfg"
+-    args.log = args.work + "/waydroid.log"
++        config.session_defaults["miodroid_user_state"] = args.work
++        config.session_defaults["miodroid_data"] = args.work + "/data"
++    args.config = args.work + "/miodroid.cfg"
++    args.log = args.work + "/miodroid.log"
+     args.sudo_timer = True
+     args.timeout = 1800
+ 
+@@ -65,7 +65,7 @@
+ 
+         if not actions.initializer.is_initialized(args) and \
+                 args.action not in ("init", "container", "first-launch", "log", "bugreport"):
+-            print('Waydroid is not initialized, run "waydroid init"')
++            print('Miodroid is not initialized, run "miodroid init"')
+             return 0
+ 
+         if args.action == "init":
+@@ -84,7 +84,7 @@
+                 actions.session_manager.stop(args)
+             else:
+                 logging.info(
+-                    "Run waydroid {} -h for usage information.".format(args.action))
++                    "Run miodroid {} -h for usage information.".format(args.action))
+         elif args.action == "container":
+             actionNeedRoot(args.action)
+             if args.subaction == "start":
+@@ -99,7 +99,7 @@
+                 actions.container_manager.unfreeze(args)
+             else:
+                 logging.info(
+-                    "Run waydroid {} -h for usage information.".format(args.action))
++                    "Run miodroid {} -h for usage information.".format(args.action))
+         elif args.action == "app":
+             if args.subaction == "install":
+                 actions.app_manager.install(args)
+@@ -113,7 +113,7 @@
+                 actions.app_manager.list(args)
+             else:
+                 logging.info(
+-                    "Run waydroid {} -h for usage information.".format(args.action))
++                    "Run miodroid {} -h for usage information.".format(args.action))
+         elif args.action == "prop":
+             if args.subaction == "get":
+                 actions.prop.get(args)
+@@ -121,7 +121,7 @@
+                 actions.prop.set(args)
+             else:
+                 logging.info(
+-                    "Run waydroid {} -h for usage information.".format(args.action))
++                    "Run miodroid {} -h for usage information.".format(args.action))
+         elif args.action == "shell":
+             actionNeedRoot(args.action)
+             helpers.lxc.shell(args)
+@@ -143,7 +143,7 @@
+             elif args.subaction == "disconnect":
+                 helpers.net.adb_disconnect(args)
+             else:
+-                logging.info("Run waydroid {} -h for usage information.".format(args.action))
++                logging.info("Run miodroid {} -h for usage information.".format(args.action))
+         elif args.action == "log":
+             if args.clear_log:
+                 helpers.run.user(args, ["truncate", "-s", "0", args.log])
+@@ -155,7 +155,7 @@
+         elif args.action == "bugreport":
+             actions.bugreport(args)
+         else:
+-            logging.info("Run waydroid -h for usage information.")
++            logging.info("Run miodroid -h for usage information.")
+ 
+         #logging.info("Done")
+ 
+diff -urN waydroid-src/tools/services/hardware_manager.py waydroid-patched/tools/services/hardware_manager.py
+--- waydroid-src/tools/services/hardware_manager.py	2026-10-07 20:21:55.539111402 +1100
++++ waydroid-patched/tools/services/hardware_manager.py	2026-10-07 20:21:55.756109983 +1100
+@@ -21,7 +21,7 @@
+ 
+     def suspend():
+         cfg = tools.config.load(args)
+-        if cfg["waydroid"]["suspend_action"] == "stop":
++        if cfg["miodroid"]["suspend_action"] == "stop":
+             tools.actions.session_manager.stop(args)
+         else:
+             tools.actions.container_manager.freeze(args)
+diff -urN waydroid-src/tools/services/notification_manager.py waydroid-patched/tools/services/notification_manager.py
+--- waydroid-src/tools/services/notification_manager.py	2026-10-07 20:21:55.539111402 +1100
++++ waydroid-patched/tools/services/notification_manager.py	2026-10-07 20:21:55.756109983 +1100
+@@ -24,11 +24,11 @@
+         # By reading the spec, I believe app_icon should be pointing to the desktop entry Icon=
+         # but when we set it plasmashell uses it in place of image-data.
+         # Ignore app_icon and use desktop-entry to show the app icon.
+-        # app_icon = f"file://{waydroid_data}/icons/{package_name}.png"
++        # app_icon = f"file://{miodroid_data}/icons/{package_name}.png"
+         app_icon = ""
+         actions_flat = [s for action in actions for s in (action.id, action.label)]
+         hints = {
+-            "desktop-entry": f"waydroid.{package_name}",
++            "desktop-entry": f"miodroid.{package_name}",
+             "resident": dbus.types.Boolean(resident),
+             "transient": dbus.types.Boolean(transient),
+             "urgency": dbus.types.Byte(urgency),
+diff -urN waydroid-src/tools/services/user_manager.py waydroid-patched/tools/services/user_manager.py
+--- waydroid-src/tools/services/user_manager.py	2026-10-07 20:21:55.539111402 +1100
++++ waydroid-patched/tools/services/user_manager.py	2026-10-07 20:21:55.756109983 +1100
+@@ -18,8 +18,8 @@
+     apps_dir = Path(session["xdg_data_home"]) / "applications"
+     apps_dir.mkdir(0o700, exist_ok=True)
+ 
+-    waydroid_user_state_dir = Path(session["waydroid_user_state"])
+-    waydroid_data_icons_dir = Path(session["waydroid_data"]) / "icons"
++    miodroid_user_state_dir = Path(session["miodroid_user_state"])
++    miodroid_data_icons_dir = Path(session["miodroid_data"]) / "icons"
+ 
+     system_apps = [
+         "com.android.calculator2",
+@@ -64,19 +64,19 @@
+ 
+     # Migrate waydroid user configs after upgrade
+     def user_migration():
+-        if not any(apps_dir.glob('waydroid.*.desktop')):
++        if not any(apps_dir.glob('miodroid.*.desktop')):
+             # first ever run, no need to migrate
+             return
+ 
+-        migrated_main_path = waydroid_user_state_dir / ".migrated-main-desktop-file"
++        migrated_main_path = miodroid_user_state_dir / ".migrated-main-desktop-file"
+         if not migrated_main_path.exists():
+             main_app_path = apps_dir / "Waydroid.desktop"
+             main_app_path.unlink(missing_ok=True)
+             migrated_main_path.touch()
+ 
+-        migrated_apps_path = waydroid_user_state_dir / ".migrated-app-settings-desktop-action"
++        migrated_apps_path = miodroid_user_state_dir / ".migrated-app-settings-desktop-action"
+         if not migrated_apps_path.exists():
+-            for app in apps_dir.glob("waydroid.*.desktop"):
++            for app in apps_dir.glob("miodroid.*.desktop"):
+                 with suppress(GLib.GError):
+                     desktop_file = GLib.KeyFile()
+                     flags = GLib.KeyFileFlags.KEEP_COMMENTS | GLib.KeyFileFlags.KEEP_TRANSLATIONS
+@@ -96,7 +96,7 @@
+             return
+ 
+         packageName = appInfo["packageName"]
+-        desktop_file_path = apps_dir / f"waydroid.{packageName}.desktop"
++        desktop_file_path = apps_dir / f"miodroid.{packageName}.desktop"
+ 
+         showApp = False
+         for cat in appInfo["categories"]:
+@@ -116,17 +116,17 @@
+ 
+         desktop_file.set_string("Desktop Entry", "Type", "Application")
+         desktop_file.set_string("Desktop Entry", "Name", appInfo["name"])
+-        desktop_file.set_string("Desktop Entry", "Exec", f"waydroid app launch {packageName}")
+-        desktop_file.set_string("Desktop Entry", "Icon", str(waydroid_data_icons_dir / f"{packageName}.png"))
+-        glib_key_file_prepend_string_list(desktop_file, "Desktop Entry", "Categories", ["X-WayDroid-App"])
++        desktop_file.set_string("Desktop Entry", "Exec", f"miodroid app launch {packageName}")
++        desktop_file.set_string("Desktop Entry", "Icon", str(miodroid_data_icons_dir / f"{packageName}.png"))
++        glib_key_file_prepend_string_list(desktop_file, "Desktop Entry", "Categories", ["X-Miodroid-App"])
+         desktop_file.set_string_list("Desktop Entry", "X-Purism-FormFactor", ["Workstation", "Mobile"])
+         glib_key_file_prepend_string_list(desktop_file, "Desktop Entry", "Actions", ["app-settings"])
+         if packageName in system_apps and not glib_key_file_has_value(desktop_file, "Desktop Entry", "NoDisplay"):
+             desktop_file.set_boolean("Desktop Entry", "NoDisplay", True)
+ 
+         desktop_file.set_string("Desktop Action app-settings", "Name", "App Settings")
+-        desktop_file.set_string("Desktop Action app-settings", "Exec", f"waydroid app intent android.settings.APPLICATION_DETAILS_SETTINGS package:{packageName}")
+-        desktop_file.set_string("Desktop Action app-settings", "Icon", str(waydroid_data_icons_dir / "com.android.settings.png"))
++        desktop_file.set_string("Desktop Action app-settings", "Exec", f"miodroid app intent android.settings.APPLICATION_DETAILS_SETTINGS package:{packageName}")
++        desktop_file.set_string("Desktop Action app-settings", "Icon", str(miodroid_data_icons_dir / "com.android.settings.png"))
+ 
+         desktop_file.save_to_file(str(desktop_file_path))
+ 
+@@ -136,7 +136,7 @@
+ 
+         user_migration()
+ 
+-        if cfg["waydroid"]["auto_adb"] == "True":
++        if cfg["miodroid"]["auto_adb"] == "True":
+             with suppress(RuntimeError):
+                 tools.helpers.net.adb_connect(args)
+ 
+@@ -145,8 +145,8 @@
+             appsList = platformService.getAppsInfo()
+             for app in appsList:
+                 updateDesktopFile(app)
+-            for existing in apps_dir.glob("waydroid.*.desktop"):
+-                if existing.name not in map(lambda appInfo: f"waydroid.{appInfo['packageName']}.desktop", appsList):
++            for existing in apps_dir.glob("miodroid.*.desktop"):
++                if existing.name not in map(lambda appInfo: f"miodroid.{appInfo['packageName']}.desktop", appsList):
+                     existing.unlink()
+         if unlocked_cb:
+             unlocked_cb()
+@@ -154,7 +154,7 @@
+     def packageStateChanged(mode, packageName, uid):
+         platformService = IPlatform.get_service(args)
+         if platformService:
+-            desktop_file_path = apps_dir / f"waydroid.{packageName}.desktop"
++            desktop_file_path = apps_dir / f"miodroid.{packageName}.desktop"
+             if mode == IUserMonitor.PACKAGE_REMOVED:
+                 desktop_file_path.unlink(missing_ok=True)
+             else:
