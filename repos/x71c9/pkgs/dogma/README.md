@@ -37,59 +37,52 @@ secrets:
     server_ip: { from: infra, unit: hetzner, output: server_ip }
 ```
 
-```
-$ dogma deploy prod --new
-dogma: checking dependencies...
-dogma: normalizing config...
-dogma: refreshing infra cache (hetzner)...
-dogma: generating .sops.yaml from SSH host keys...
-dogma: encrypting secrets for myproject-prod...
-dogma: deploying backend (1.2.3.4)...
-  → nixos-rebuild switch --target-host root@1.2.3.4 --flake .#myproject-prod
-dogma: tagging deploy/v26.06.0001
-dogma: done in 142s
-```
+`dogma infra apply prod hetzner`\
+Runs `tofu apply` on the `hetzner` unit with vault credentials injected.
 
-```
-$ dogma infra apply prod hetzner
-dogma: normalizing config...
-dogma: resolving credentials...
-dogma: tofu init...
-dogma: tofu apply...
-  hcloud_server.backend: Creating...
-  hcloud_server.backend: Creation complete (id=12345678)
-Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
-```
+`dogma deploy prod --new`\
+Encrypts secrets with sops, deploys every machine with `nixos-rebuild` and tags the release.
 
-```
-$ dogma shell prod
-dogma: entering prod shell (exit to return)
-[dogma-prod 14:23:01] ~/myproject $
-```
+`dogma shell prod`\
+Opens a shell with all `prod` secrets loaded as environment variables.
 
-```
-$ dogma env prod
-export BACKEND_STRIPE_WEBHOOK_SECRET='whsec_...'
-export BACKEND_SERVER_IP='1.2.3.4'
-```
+`dogma env prod`\
+Prints `export` lines for all `prod` secrets.
 
 ## Install
 
+### NUR
+
 ```bash
-cargo install dogma-rust          # binary installed as `dogma`
-# or from source
-cargo build --release             # binary at target/release/dogma
+nix-env -iA nur.repos.x71c9.dogma
 ```
 
-Packages are also published for NixOS/Nix (`nur.repos.x71c9.dogma`), Arch Linux
-(AUR `dogma` and `dogma-bin`) and Homebrew (`brew install x71c9/x71c9/dogma`).
-These install bash, zsh and fish completions, so the
-[Shell completion](#shell-completion) steps below only apply to cargo installs.
+### AUR
+
+```bash
+yay -S dogma          # or dogma-bin for the prebuilt binary
+```
+
+### Homebrew
+
+```bash
+brew install x71c9/x71c9/dogma
+```
+
+### Rust
+
+```bash
+cargo install dogma-rust
+```
+
+NUR, AUR and Homebrew packages include shell completions; for cargo see [Shell completion](#shell-completion).
+
+### Vault backend
 
 Set `DOGMA_VAULT` per developer in `.bashrc` or per project in `shell.nix`:
 
 ```bash
-export DOGMA_VAULT=pass           # or: envvar (default)
+export DOGMA_VAULT=pass           # or: envvar (default). More backends in the future
 ```
 
 ## Shell completion
@@ -285,7 +278,7 @@ machines:
       output: <output-key>
     secrets:                # secret groups to encrypt for this machine
       - <group>
-    deployer: nixos-rebuild # default; only option currently
+    deployer: nixos-rebuild # default; only option currently, more in the future
     depends-on:             # deploy after these machines; a bare name
       - <name>              # is also accepted
 
@@ -305,7 +298,7 @@ nix:
   sops: ./nix/.sops.yaml    # default: ./nix/.sops.yaml
 
 deploy:
-  strategy: nixos-rebuild   # default
+  strategy: nixos-rebuild   # default; only option currently, more in the future
 
 hooks:                      # for the implicit default pipeline — only valid
   post-deploy:              # when no pipeline: block is declared below
@@ -337,6 +330,8 @@ Set `DOGMA_VAULT` per developer — not in `dogma.yml`.
 |---------|---------------|-----------------|
 | `envvar` | (default) | Reads `$VAR` from process env. Var name from `vault.<key>.envvar.<env>`, auto-derived as `UPPER_SNAKE` if omitted |
 | `pass` | `pass` | Calls `pass <path>`. Path from `vault.<key>.pass.<env>`, auto-derived as `<name>/<env>/<key>` if omitted |
+
+More backends in the future.
 
 ## Hooks
 
@@ -409,3 +404,4 @@ The binary runs on any Linux with no runtime deps. External tools are checked la
 | `ssh-to-age` | `deploy --new` |
 | `sops` | `deploy --new` |
 | `nixos-rebuild` | `deploy` (nixos-rebuild strategy) |
+
