@@ -33,7 +33,11 @@ stdenv.mkDerivation (finalAttrs: {
     "KOBJ=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
     "modulesymfile=Module.symvers"
   ];
-  env.CPPFLAGS = "-Wno-error=format-truncation -Wno-error=unused-but-set-variable -Wno-error=unused-but-set-parameter";
+  env.CPPFLAGS =
+    "-Wno-error=format-truncation -Wno-error=unused-but-set-variable -Wno-error=unused-but-set-parameter"
+    + lib.optionalString (builtins.elem "LLVM=1" (
+      kernel.commonMakeFlags or kernel.makeFlags or [ ]
+    )) " -Wno-error=parentheses-equality";
   buildFlags = [
     "mod_pf"
     "mod_vf"
