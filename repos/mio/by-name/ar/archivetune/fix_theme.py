@@ -171,13 +171,11 @@ import moe.rukamori.archivetune.playback.DownloadUtil
 import moe.rukamori.archivetune.playback.PlayerConnection
 import moe.rukamori.archivetune.utils.SyncUtils
 
-val LocalDatabase = staticCompositionLocalOf<MusicDatabase> { error("No database provided") }
-val LocalPlayerConnection =
-    staticCompositionLocalOf<PlayerConnection?> { error("No PlayerConnection provided") }
-val LocalPlayerAwareWindowInsets =
-    compositionLocalOf<WindowInsets> { error("No WindowInsets provided") }
-val LocalDownloadUtil = staticCompositionLocalOf<DownloadUtil> { error("No DownloadUtil provided") }
-val LocalSyncUtils = staticCompositionLocalOf<SyncUtils> { error("No SyncUtils provided") }
+val LocalDatabase = staticCompositionLocalOf<MusicDatabase> { androidx.hilt.navigation.compose._createViewModelInstance(MusicDatabase::class.java) as MusicDatabase }
+val LocalPlayerConnection = staticCompositionLocalOf<PlayerConnection?> { null }
+val LocalPlayerAwareWindowInsets = compositionLocalOf<WindowInsets> { WindowInsets(0, 0, 0, 0) }
+val LocalDownloadUtil = staticCompositionLocalOf<DownloadUtil> { androidx.hilt.navigation.compose._createViewModelInstance(DownloadUtil::class.java) as DownloadUtil }
+val LocalSyncUtils = staticCompositionLocalOf<SyncUtils> { androidx.hilt.navigation.compose._createViewModelInstance(SyncUtils::class.java) as SyncUtils }
 """)
 
 # Material3-expressive members that upstream Android's material3 has as *members* of
