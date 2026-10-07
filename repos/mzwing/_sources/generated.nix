@@ -30,13 +30,13 @@
   };
   bakamusic = {
     pname = "bakamusic";
-    version = "v1.9.3";
+    version = "v1.9.4";
     src = fetchFromGitHub {
       owner = "Zencok";
       repo = "BakaMusic";
-      rev = "v1.9.3";
+      rev = "v1.9.4";
       fetchSubmodules = false;
-      sha256 = "sha256-fgVpkZqDmMWfs0+Cgex6JLIlb2zFpV5ktDBrrjchoHA=";
+      sha256 = "sha256-ixHCEhZp76MlM95rzyT+Z95aMRA+dADgdqongxlp008=";
     };
   };
   claude-code-wakatime = {
@@ -96,10 +96,10 @@
   };
   cnb-cli = {
     pname = "cnb-cli";
-    version = "1.16.31";
+    version = "1.16.33";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.16.31.tgz";
-      sha256 = "sha256-7IIH3cxdvZB77q/6fZBn9glMSh+1v/mh6cAwzzAmrKs=";
+      url = "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.16.33.tgz";
+      sha256 = "sha256-8O9iAHkWXSY+st7OYLn8hqdehNxIufT9/zT1pRRqlJ8=";
     };
   };
   codegraph = {
@@ -309,13 +309,13 @@
   };
   subs-check-pro = {
     pname = "subs-check-pro";
-    version = "v3.4.0";
+    version = "v3.5.0";
     src = fetchFromGitHub {
       owner = "sinspired";
       repo = "subs-check-pro";
-      rev = "v3.4.0";
+      rev = "v3.5.0";
       fetchSubmodules = false;
-      sha256 = "sha256-hOJtsCJRVGbUbrEhV3IDWNfxjqr9a/ii4NImYg/nG2M=";
+      sha256 = "sha256-acwSDIPPTXgQp+td7e4fb2vEe31gQB/OHgRBbTRiTJ0=";
     };
   };
   tree-sitter-nix = {

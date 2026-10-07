@@ -55,12 +55,12 @@
             "name": null,
             "owner": "Zencok",
             "repo": "BakaMusic",
-            "rev": "v1.9.3",
-            "sha256": "sha256-fgVpkZqDmMWfs0+Cgex6JLIlb2zFpV5ktDBrrjchoHA=",
+            "rev": "v1.9.4",
+            "sha256": "sha256-ixHCEhZp76MlM95rzyT+Z95aMRA+dADgdqongxlp008=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.9.3"
+        "version": "v1.9.4"
     },
     "claude-code-wakatime": {
         "cargoLock": null,
@@ -176,11 +176,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-7IIH3cxdvZB77q/6fZBn9glMSh+1v/mh6cAwzzAmrKs=",
+            "sha256": "sha256-8O9iAHkWXSY+st7OYLn8hqdehNxIufT9/zT1pRRqlJ8=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.16.31.tgz"
+            "url": "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.16.33.tgz"
         },
-        "version": "1.16.31"
+        "version": "1.16.33"
     },
     "codegraph": {
         "cargoLock": null,
@@ -573,12 +573,12 @@
             "name": null,
             "owner": "sinspired",
             "repo": "subs-check-pro",
-            "rev": "v3.4.0",
-            "sha256": "sha256-hOJtsCJRVGbUbrEhV3IDWNfxjqr9a/ii4NImYg/nG2M=",
+            "rev": "v3.5.0",
+            "sha256": "sha256-acwSDIPPTXgQp+td7e4fb2vEe31gQB/OHgRBbTRiTJ0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.4.0"
+        "version": "v3.5.0"
     },
     "tree-sitter-nix": {
         "cargoLock": null,

@@ -123,8 +123,8 @@ go = '1.27.0'
     hash = 'sha256-6LBLgsh4nKkMpgRKVsYFEaGDSU1fncBcWVSjKBdfgjU='
 
   [mod.'github.com/fxamacker/cbor/v2']
-    version = 'v2.9.4'
-    hash = 'sha256-9ApJh33oLwgBKYvINBjvwlWBAWXs8L3DN7yS9nyBXr0='
+    version = 'v2.9.6'
+    hash = 'sha256-rF42MKl4TDC0UOWBw8BDWXW1MzAiEij/JUF3of/+fWc='
 
   [mod.'github.com/gabriel-vasile/mimetype']
     version = 'v1.4.15'
@@ -215,8 +215,8 @@ go = '1.27.0'
     hash = 'sha256-F/Ve4oDaEqho8RryvdGSRR22/DbYHWZQa6M60n6oSYM='
 
   [mod.'github.com/google/pprof']
-    version = 'v0.0.0-20261003200830-ebaad5f31b4d'
-    hash = 'sha256-Ta7Zp1ICIEAvRkACexEOfrzLaT2QVaNABprm+2ao0gA='
+    version = 'v0.0.0-20261006160405-d99a6174ef52'
+    hash = 'sha256-nrjFbfyp33Rakgy4vxeDV4UBt6+ut8mUHoyzws2+omI='
 
   [mod.'github.com/google/uuid']
     version = 'v1.6.0'
@@ -275,8 +275,8 @@ go = '1.27.0'
     hash = 'sha256-crJTQAzHbG650e1V52l/jmFVbWndOW68kX9feWvZMN4='
 
   [mod.'github.com/mattn/go-colorable']
-    version = 'v0.1.15'
-    hash = 'sha256-hH+yMJHjboEDQbv399OEjfc50RgtO/edw0r2sJfxEJg='
+    version = 'v0.1.16'
+    hash = 'sha256-f6a+e6/dSux1xiWSkd/8gmfoWV1i4sNy6Z+6CuXkhrk='
 
   [mod.'github.com/mattn/go-isatty']
     version = 'v0.0.24'
@@ -567,12 +567,12 @@ go = '1.27.0'
     hash = 'sha256-UZABlJVkOP4bvNv2TKTLMRneaC6BykU8ccYPgPzo9so='
 
   [mod.'github.com/sinspired/checkip']
-    version = 'v0.5.4'
-    hash = 'sha256-Gh12LPp/k4s+9UQunPO4ULpknc3KWf19qjn26HUANe0='
+    version = 'v0.5.5'
+    hash = 'sha256-pJbm3VP+VOI9ABAxMPRMiK2GhZi/x3aj3XnVQyITlNE='
 
   [mod.'github.com/sinspired/subs-check-pro-webui']
-    version = 'v1.5.0'
-    hash = 'sha256-8C9SojRpSs8Ac7h3FCAc6JnzAtcRPqvuHeSEvjdJTa0='
+    version = 'v1.6.0'
+    hash = 'sha256-HLiX0N8PePqfrjLhQPKErETI56nfQ5wNlV1CZXICyt4='
 
   [mod.'github.com/sirupsen/logrus']
     version = 'v1.10.2'
@@ -627,8 +627,8 @@ go = '1.27.0'
     hash = 'sha256-M9QyaKhSmmYwsJk7gkjtqu9PuiqZHSmTkous8VWkWY0='
 
   [mod.'github.com/wailsapp/wails/v3']
-    version = 'v3.0.0-beta.27'
-    hash = 'sha256-6galn6HskayFCVtR+KyhzpAcRdX42r4Cjx4NAWh0tCE='
+    version = 'v3.0.0-beta.28'
+    hash = 'sha256-wJF4shSI2PViJwRGaVEn9FqYxFKtL8Wma4bkoA4+CUw='
 
   [mod.'github.com/x448/float16']
     version = 'v0.8.4'
@@ -659,8 +659,8 @@ go = '1.27.0'
     hash = 'sha256-tvGplyqhRvSd9kRKKi0VZCcu0e0RND9vE8CJdeFNj/A='
 
   [mod.'go.mongodb.org/mongo-driver/v2']
-    version = 'v2.9.1'
-    hash = 'sha256-/ouzHSfFCGCr6aBuW7/DrpssWQKS5fWAcnsPxIK1PJ4='
+    version = 'v2.9.2'
+    hash = 'sha256-/pT60ercnMEtD4V34YaaT2ErPFw9COUCsFn3K1Tpfdo='
 
   [mod.'go.yaml.in/yaml/v3']
     version = 'v3.0.5'
@@ -683,8 +683,8 @@ go = '1.27.0'
     hash = 'sha256-3/hkB+mZVBKnoxUaJv7DOzvxaL+8uQ7V6ofW4JiHhz4='
 
   [mod.'golang.org/x/exp']
-    version = 'v0.0.0-20260908205506-85c1c2202aba'
-    hash = 'sha256-g/gNDzulP2hxBtZf3w2cASzcWbUAI6r0Q9zy5Q/wrRQ='
+    version = 'v0.0.0-20261005173118-76772065c9b0'
+    hash = 'sha256-fUIMzHbfZDKihbK0oUGtBk2xId07eus3Z9k4sFU24h0='
 
   [mod.'golang.org/x/net']
     version = 'v0.59.0'
