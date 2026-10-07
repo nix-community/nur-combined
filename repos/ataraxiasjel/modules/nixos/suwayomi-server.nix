@@ -315,21 +315,32 @@ in
 
       environment = {
         JAVA_TOOL_OPTIONS = "-Dsuwayomi.tachidesk.config.server.rootDir=${cfg.dataDir}";
+        # Off-screen rendering still requires an X server on Linux.
+        DISPLAY = ":99";
+        # Chromium needs fontconfig config, not provided by ProtectSystem.
+        FONTCONFIG_FILE = "${pkgs.fontconfig}/etc/fonts/fonts.conf";
       };
 
       preStart = ''
+        # CEF requires an X server even in off-screen mode
+        "${pkgs.xvfb}/bin/Xvfb" :99 -screen 0 1024x768x24 &
+        sleep 1
+
         # Ensure the data dir exists with the right ownership before systemd
         # hardening and the kcef links are set up.
         mkdir -p "${cfg.dataDir}"
         chown "${cfg.user}:${cfg.group}" "${cfg.dataDir}"
         chmod 0700 "${cfg.dataDir}"
 
-        # Patch Jetbrains JCEF
+        # Patch Jetbrains JCEF: kcefDir must directly contain the native
+        # libs (libcef.so, libjcef.so, jcef_helper, ...) and a regular
+        # `release` file — CEFManager validates the install via
+        # release's JCEF_VERSION_DETAILED line before loading.
         kcefDir="${serverDir}/bin/kcef"
         rm -rf "$kcefDir"
         mkdir -p "$kcefDir"
-        ln -fs ${cfg.package.jetbrains.jdk-21}/lib/openjdk/lib "$kcefDir"
-        ln -fs ${cfg.package.jetbrains.jdk-21}/lib/openjdk/release "$kcefDir/release"
+        cp -rs ${cfg.package.jetbrains.jdk-21}/lib/openjdk/lib/. "$kcefDir"/
+        ln -s ${cfg.package.jetbrains.jdk-21}/lib/openjdk/release "$kcefDir/release"
       ''
       + (lib.optionalString cfg.settings.server.webUIEnabled ''
         rm -fr "${serverDir}/webUI"
@@ -372,7 +383,6 @@ in
           ];
 
         CapabilityBoundingSet = "";
-        SystemCallFilter = [ "@system-service" ];
 
         ReadOnlyPaths = [ configFile ];
         ReadWritePaths = [ cfg.dataDir ];
@@ -385,6 +395,8 @@ in
         RestrictAddressFamilies = [
           "AF_INET"
           "AF_INET6"
+          "AF_UNIX"
+          "AF_NETLINK"
         ];
         # Java limitations don't allow the
         # following hardening option
