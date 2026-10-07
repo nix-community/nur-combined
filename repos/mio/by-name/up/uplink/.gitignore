@@ -49,6 +49,6 @@ app.*.map.json
 /target/
 
 # Generated signals
-/lib/src/bincode
-/lib/src/serde
-/lib/src/bindings
+#/lib/src/bincode
+#/lib/src/serde
+#/lib/src/bindings
