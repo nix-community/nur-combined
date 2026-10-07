@@ -75,6 +75,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Voice input addon for Fcitx5, built without local ASR";
     homepage = "https://github.com/xifan2333/fcitx5-vinput";
+    changelog = "https://github.com/xifan2333/fcitx5-vinput/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
     platforms = [
       "x86_64-linux"

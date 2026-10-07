@@ -11,16 +11,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "kache";
-  version = "0.26.3";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "kunobi-ninja";
     repo = "kache";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-7osbe1nDyJmH99oTUvFiWlSPgPkvhO/OCRgxuw6ijtw=";
+    hash = "sha256-Kbww7mmdUAASh1sbjdoqoosSA76EALJata+Aa8SJUnE=";
   };
 
-  cargoHash = "sha256-Mt078AxY84RX+5Lb6q8zdE8R/Qw+e2sd8gouNYWIdXE=";
+  cargoHash = "sha256-/qpQMj48/wp+Ui8OWpdCdqptv1ON/xLLdslVmumZhIY=";
 
   strictDeps = true;
   nativeBuildInputs = [ installShellFiles ];
@@ -77,6 +77,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   meta = {
     description = "Content-addressed build cache for Rust, C/C++ and CUDA";
     homepage = "https://github.com/kunobi-ninja/kache";
+    changelog = "https://github.com/kunobi-ninja/kache/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ merrkry ];
     mainProgram = "kache";

@@ -13,14 +13,18 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     owner = "GabePoel";
     repo = "KvLibadwaita";
     rev = "1f4e0bec44b13dabfa1fe4047aa8eeaccf2f3557";
-    sha256 = "sha256-jCXME6mpqqWd7gWReT04a//2O83VQcOaqIIXa+Frntc=";
+    hash = "sha256-jCXME6mpqqWd7gWReT04a//2O83VQcOaqIIXa+Frntc=";
   };
 
   strictDeps = true;
+  dontBuild = true;
 
   installPhase = ''
-    mkdir -p $out/share/Kvantum
-    cp -a src/KvLibadwaita $out/share/Kvantum
+    runHook preInstall
+
+    install -Dm644 -t "$out/share/Kvantum/KvLibadwaita" src/KvLibadwaita/*
+
+    runHook postInstall
   '';
 
   meta = {

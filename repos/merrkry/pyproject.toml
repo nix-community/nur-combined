@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "github-release-updater"
+version = "0.1.0"
+requires-python = ">=3.9"
+
+[project.scripts]
+github-release-updater = "updaters.__main__:main"
+
+[tool.setuptools]
+packages = ["updaters"]
