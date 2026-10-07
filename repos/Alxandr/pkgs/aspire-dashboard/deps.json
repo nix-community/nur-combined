@@ -1,75 +1,87 @@
 [
   {
+    "pname": "Dapper",
+    "version": "2.1.86",
+    "hash": "sha256-YKmosU8PHZPq0brGsX7iMFskpD0G+lz0jQtWNxdeRhY=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/dapper/2.1.86/dapper.2.1.86.nupkg"
+  },
+  {
+    "pname": "Dapper.AOT",
+    "version": "1.1.0",
+    "hash": "sha256-en0lVU9Rf5KNZ7/cdrCDiMZRcaBnYhht/VJ0SNLcKBk=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/dapper.aot/1.1.0/dapper.aot.1.1.0.nupkg"
+  },
+  {
     "pname": "dotnet-coverage",
-    "version": "17.13.1",
-    "hash": "sha256-dAkzNlDprnzxoYetM1lgljXhr00Mf8ZyDHdnv1YAAkY=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/dotnet-coverage/17.13.1/dotnet-coverage.17.13.1.nupkg"
+    "version": "18.11.0",
+    "hash": "sha256-ioFWEpsU4E1FY6UwoNylJqllcviBf34wH05aKYWLFwE=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/dotnet-coverage/18.11.0/dotnet-coverage.18.11.0.nupkg"
   },
   {
     "pname": "Google.Protobuf",
-    "version": "3.34.1",
-    "hash": "sha256-NO7/fypM+vnpBLeZOeTx2WsQbOY2BAawZF92T9WZPhU=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/google.protobuf/3.34.1/google.protobuf.3.34.1.nupkg"
+    "version": "3.36.1",
+    "hash": "sha256-5ZnaMCRL/KtObOunxlRmjjN7WGzQyhLLpIJscQNpUgE=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/google.protobuf/3.36.1/google.protobuf.3.36.1.nupkg"
   },
   {
     "pname": "Grpc.AspNetCore",
-    "version": "2.80.0",
-    "hash": "sha256-ygEVOd03/17WCr4iUyG789j59zbFPSzb54fBGgwKT/U=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/grpc.aspnetcore/2.80.0/grpc.aspnetcore.2.80.0.nupkg"
+    "version": "2.83.0",
+    "hash": "sha256-tO6kvqrkatE/W2wSNjdsHjL/pQ0yGiZUozkHCKiG/2s=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/grpc.aspnetcore/2.83.0/grpc.aspnetcore.2.83.0.nupkg"
   },
   {
     "pname": "Grpc.AspNetCore.Server",
-    "version": "2.80.0",
-    "hash": "sha256-22j5qUW4nerTfZkVYnteO61sWY9l/Z8KWyhmX8kIJeE=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/grpc.aspnetcore.server/2.80.0/grpc.aspnetcore.server.2.80.0.nupkg"
+    "version": "2.83.0",
+    "hash": "sha256-aNULCfrfM1BOWH+RkkHWb8t03JGPu2PgWnBMwdyH3eU=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/grpc.aspnetcore.server/2.83.0/grpc.aspnetcore.server.2.83.0.nupkg"
   },
   {
     "pname": "Grpc.AspNetCore.Server.ClientFactory",
-    "version": "2.80.0",
-    "hash": "sha256-Lmapi2fO+/FbSVkBe13CbQk5QiEwNYtQjXNV4IPWGC8=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/grpc.aspnetcore.server.clientfactory/2.80.0/grpc.aspnetcore.server.clientfactory.2.80.0.nupkg"
+    "version": "2.83.0",
+    "hash": "sha256-9v2kpiWx/C6gut/5FQEj/dPGY2Bi0a8Glpial9NrvBs=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/grpc.aspnetcore.server.clientfactory/2.83.0/grpc.aspnetcore.server.clientfactory.2.83.0.nupkg"
   },
   {
     "pname": "Grpc.Core.Api",
-    "version": "2.80.0",
-    "hash": "sha256-OVFeykeI5HNVuktAw48tPVg46Lxek8WKmEYu0JvO26g=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/grpc.core.api/2.80.0/grpc.core.api.2.80.0.nupkg"
+    "version": "2.83.0",
+    "hash": "sha256-rza6+/VO+stTq94v847+vsToReqkvcWsoemnESJ4izw=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/grpc.core.api/2.83.0/grpc.core.api.2.83.0.nupkg"
   },
   {
     "pname": "Grpc.Net.Client",
-    "version": "2.80.0",
-    "hash": "sha256-yvPRt3Z4ARre65PKIFMAt8J1fMp/G7Oig55dvZPRQHI=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/grpc.net.client/2.80.0/grpc.net.client.2.80.0.nupkg"
+    "version": "2.83.0",
+    "hash": "sha256-icY72lmCIXgWBzpFSnx/0G43bu04tMsDLGBlP3vjnJ8=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/grpc.net.client/2.83.0/grpc.net.client.2.83.0.nupkg"
   },
   {
     "pname": "Grpc.Net.ClientFactory",
-    "version": "2.80.0",
-    "hash": "sha256-2PjJub9d2KbxvsieULpdT35z7ZDMXttviuZGo+6saMQ=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/grpc.net.clientfactory/2.80.0/grpc.net.clientfactory.2.80.0.nupkg"
+    "version": "2.83.0",
+    "hash": "sha256-aEOf7931OnO3lux/kY4BA4t9CQGykXLrOGWvPoUSstI=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/grpc.net.clientfactory/2.83.0/grpc.net.clientfactory.2.83.0.nupkg"
   },
   {
     "pname": "Grpc.Net.Common",
-    "version": "2.80.0",
-    "hash": "sha256-T45jPSyl7psOufGGJv1o6ZyewvlGK2ZFRS8bhzNAh0E=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/grpc.net.common/2.80.0/grpc.net.common.2.80.0.nupkg"
+    "version": "2.83.0",
+    "hash": "sha256-otllQvXwGdFGrGt1M/hp2iIWPLjbbPKw6dqNAkQ7Bec=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/grpc.net.common/2.83.0/grpc.net.common.2.83.0.nupkg"
   },
   {
     "pname": "Grpc.Tools",
-    "version": "2.68.1",
-    "hash": "sha256-sbJWCrzK2UAcHdWw/wRY+hmwcqoTc02+fYsFHG6tiFY=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/grpc.tools/2.68.1/grpc.tools.2.68.1.nupkg"
+    "version": "2.83.0",
+    "hash": "sha256-yvakvrmuQYZSUN4KxDN5odP4XL3h+1qg/Jhzjq5HyuU=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/grpc.tools/2.83.0/grpc.tools.2.83.0.nupkg"
   },
   {
     "pname": "Hex1b",
-    "version": "0.163.0",
-    "hash": "sha256-L4eRaw1LOmLp16/VB+kDrf5caeRExPcFS0AcGRYZxZg=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/hex1b/0.163.0/hex1b.0.163.0.nupkg"
+    "version": "0.168.0",
+    "hash": "sha256-Deb0W6nZqfK7TCQTvQR5JKajYnoeWskPMWeLtAu0jbA=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/hex1b/0.168.0/hex1b.0.168.0.nupkg"
   },
   {
     "pname": "Hex1b.Tool",
-    "version": "0.78.0",
-    "hash": "sha256-EqsLIQdC29bGXUWj1M0IS8LM+HlYgizBNZ/L8UWkilo=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/hex1b.tool/0.78.0/hex1b.tool.0.78.0.nupkg"
+    "version": "0.165.0",
+    "hash": "sha256-uD5TNIMeD4ySbAJQ59ogMiDAUfdTwFgp2B4F4xfdtw0=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/hex1b.tool/0.165.0/hex1b.tool.0.165.0.nupkg"
   },
   {
     "pname": "Humanizer.Core",
@@ -79,39 +91,39 @@
   },
   {
     "pname": "Markdig",
-    "version": "1.2.0",
-    "hash": "sha256-Z05n323rxztLtJdrqz6+kqKSpua/byYLk6/8lVnHbxU=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/markdig/1.2.0/markdig.1.2.0.nupkg"
-  },
-  {
-    "pname": "Microsoft.AspNetCore.App.Internal.Assets",
-    "version": "10.0.8",
-    "hash": "sha256-RDVnIdDbovBE0eqh4YfGVIZZcRvf/baaVlAP/b8V1DI=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.aspnetcore.app.internal.assets/10.0.8/microsoft.aspnetcore.app.internal.assets.10.0.8.nupkg"
-  },
-  {
-    "pname": "Microsoft.AspNetCore.App.Internal.Assets",
-    "version": "11.0.0-preview.6.26359.118",
-    "hash": "sha256-2NteA0WyzlgLY0oZk5cqGUBHkcIAOOjbxVUgdU37H8k=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.aspnetcore.app.internal.assets/11.0.0-preview.6.26359.118/microsoft.aspnetcore.app.internal.assets.11.0.0-preview.6.26359.118.nupkg"
+    "version": "1.3.2",
+    "hash": "sha256-rlIUsV0QBtkdXHsWvJAREQr5XYNQWOGKMOgOKMJ48Zo=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/markdig/1.3.2/markdig.1.3.2.nupkg"
   },
   {
     "pname": "Microsoft.AspNetCore.Authentication.Certificate",
-    "version": "8.0.30",
-    "hash": "sha256-rcOL3e1U6xERfr3r0GcDBdOETVw1nivPaViiaxuqX10=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.aspnetcore.authentication.certificate/8.0.30/microsoft.aspnetcore.authentication.certificate.8.0.30.nupkg"
+    "version": "11.0.0-rc.1.26425.128",
+    "hash": "sha256-EC1swDCENEDlItdEK+J6u29viE8uGymjfzEnG1Uzp+E=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.aspnetcore.authentication.certificate/11.0.0-rc.1.26425.128/microsoft.aspnetcore.authentication.certificate.11.0.0-rc.1.26425.128.nupkg"
   },
   {
     "pname": "Microsoft.AspNetCore.Authentication.OpenIdConnect",
-    "version": "8.0.30",
-    "hash": "sha256-baCX8FI5VoctzFIFNngKVPNGr5AEMkl/2AHIzqNXvpk=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.aspnetcore.authentication.openidconnect/8.0.30/microsoft.aspnetcore.authentication.openidconnect.8.0.30.nupkg"
+    "version": "11.0.0-rc.1.26425.128",
+    "hash": "sha256-8Aal12jlpKq95wQlWfmGJB499DebBAx5rVzb48PANDs=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.aspnetcore.authentication.openidconnect/11.0.0-rc.1.26425.128/microsoft.aspnetcore.authentication.openidconnect.11.0.0-rc.1.26425.128.nupkg"
+  },
+  {
+    "pname": "Microsoft.Bcl.Cryptography",
+    "version": "10.0.12",
+    "hash": "sha256-DGpOj14Tsf8ZH1kPjSg/zV74tApYX8T39gpAtb/IL+Y=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.bcl.cryptography/10.0.12/microsoft.bcl.cryptography.10.0.12.nupkg"
+  },
+  {
+    "pname": "Microsoft.Data.Sqlite.Core",
+    "version": "10.0.12",
+    "hash": "sha256-Xo7TUwBtrfVdXH9W0jcyHCC7EMeGJi5rJVJnVuEDYzI=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.data.sqlite.core/10.0.12/microsoft.data.sqlite.core.10.0.12.nupkg"
   },
   {
     "pname": "Microsoft.DotNet.Arcade.Sdk",
-    "version": "10.0.0-beta.26324.4",
-    "hash": "sha256-fWa0FQbzdjixhefPDMlrjqrv+8emp6OjgSI5/yGuzHI=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/1a5f89f6-d8da-4080-b15f-242650c914a8/nuget/v3/flat2/microsoft.dotnet.arcade.sdk/10.0.0-beta.26324.4/microsoft.dotnet.arcade.sdk.10.0.0-beta.26324.4.nupkg"
+    "version": "10.0.0-beta.26423.1",
+    "hash": "sha256-dtoGMoENvM1QeS22HFLpMhVtkPQq46Pg3xQs93qot4Y=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/1a5f89f6-d8da-4080-b15f-242650c914a8/nuget/v3/flat2/microsoft.dotnet.arcade.sdk/10.0.0-beta.26423.1/microsoft.dotnet.arcade.sdk.10.0.0-beta.26423.1.nupkg"
   },
   {
     "pname": "Microsoft.DotNet.GenAPI.Task",
@@ -121,57 +133,57 @@
   },
   {
     "pname": "Microsoft.DotNet.XliffTasks",
-    "version": "10.0.0-beta.26324.4",
-    "hash": "sha256-CjmPwtmujQM9GK/yfP8nvHQk2KNosyr0dxLsR2SSobs=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/1a5f89f6-d8da-4080-b15f-242650c914a8/nuget/v3/flat2/microsoft.dotnet.xlifftasks/10.0.0-beta.26324.4/microsoft.dotnet.xlifftasks.10.0.0-beta.26324.4.nupkg"
+    "version": "10.0.0-beta.26423.1",
+    "hash": "sha256-E2LJsmDCsW2fqnz0jd2bt9jYfIaqUMYCAEhtzjIRMXc=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/1a5f89f6-d8da-4080-b15f-242650c914a8/nuget/v3/flat2/microsoft.dotnet.xlifftasks/10.0.0-beta.26423.1/microsoft.dotnet.xlifftasks.10.0.0-beta.26423.1.nupkg"
   },
   {
     "pname": "Microsoft.FluentUI.AspNetCore.Components",
-    "version": "4.14.4",
-    "hash": "sha256-Z9zU5VFRs4g+Qavw6jAWMjnTnhL+JMtvwi0Fzwz+k9M=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.fluentui.aspnetcore.components/4.14.4/microsoft.fluentui.aspnetcore.components.4.14.4.nupkg"
+    "version": "5.0.0",
+    "hash": "sha256-mYhwvSYZuHCVEktzUIzGkHyi++35AY91b9qrKvZslrM=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.fluentui.aspnetcore.components/5.0.0/microsoft.fluentui.aspnetcore.components.5.0.0.nupkg"
   },
   {
     "pname": "Microsoft.FluentUI.AspNetCore.Components.Icons",
-    "version": "4.14.4",
-    "hash": "sha256-QAnxJXFuhq57U2xyLqzlvITxnUroRkvOcLLqywNqk1o=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.fluentui.aspnetcore.components.icons/4.14.4/microsoft.fluentui.aspnetcore.components.icons.4.14.4.nupkg"
+    "version": "5.0.0",
+    "hash": "sha256-N5gKV6UeBZKtT8z9oKxOP+HsonvP60PvTUIOE9XghZA=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.fluentui.aspnetcore.components.icons/5.0.0/microsoft.fluentui.aspnetcore.components.icons.5.0.0.nupkg"
   },
   {
     "pname": "Microsoft.IdentityModel.Abstractions",
-    "version": "7.7.3",
-    "hash": "sha256-GpGVM/+3slnlZhYNY3sW0aF7X22SnaVsz16uH+Kx5Ig=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.identitymodel.abstractions/7.7.3/microsoft.identitymodel.abstractions.7.7.3.nupkg"
+    "version": "8.19.2",
+    "hash": "sha256-vNGK6u6V+S0MIaYTg+sSkRF4XUjM1K+cKuR1a9aRCLs=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.identitymodel.abstractions/8.19.2/microsoft.identitymodel.abstractions.8.19.2.nupkg"
   },
   {
     "pname": "Microsoft.IdentityModel.JsonWebTokens",
-    "version": "7.7.3",
-    "hash": "sha256-kN2TwRJ5eaCW1MvhWeESriq1/s0TI+Z55jmlQyi9N3U=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.identitymodel.jsonwebtokens/7.7.3/microsoft.identitymodel.jsonwebtokens.7.7.3.nupkg"
+    "version": "8.19.2",
+    "hash": "sha256-j9ai0NrgytDsfQiIijp1Ib4jRGX9lgREQBoE6XW9SOc=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.identitymodel.jsonwebtokens/8.19.2/microsoft.identitymodel.jsonwebtokens.8.19.2.nupkg"
   },
   {
     "pname": "Microsoft.IdentityModel.Logging",
-    "version": "7.7.3",
-    "hash": "sha256-fBZ6IxlAn+nCOevofqus225ZdQmh2QTTRxq/4h2dS+M=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.identitymodel.logging/7.7.3/microsoft.identitymodel.logging.7.7.3.nupkg"
+    "version": "8.19.2",
+    "hash": "sha256-ja8PAYUNwlfIrkL6EOuZ7SgZfRJwIORGG/ETDD1BtRE=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.identitymodel.logging/8.19.2/microsoft.identitymodel.logging.8.19.2.nupkg"
   },
   {
     "pname": "Microsoft.IdentityModel.Protocols",
-    "version": "7.7.3",
-    "hash": "sha256-p5wkYE4n8QT28DBi2Jbw0yGEKy0XUAApUsfM+oW4wyc=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.identitymodel.protocols/7.7.3/microsoft.identitymodel.protocols.7.7.3.nupkg"
+    "version": "8.19.2",
+    "hash": "sha256-soADEUQsOp1Hytt1qLo+jOOeq7uy7I7tUOWogXeQXFY=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.identitymodel.protocols/8.19.2/microsoft.identitymodel.protocols.8.19.2.nupkg"
   },
   {
     "pname": "Microsoft.IdentityModel.Protocols.OpenIdConnect",
-    "version": "7.7.3",
-    "hash": "sha256-HdWgNTEiNzuV+7daXfeAXNuye+GpLFtZErpfEKsTebs=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.identitymodel.protocols.openidconnect/7.7.3/microsoft.identitymodel.protocols.openidconnect.7.7.3.nupkg"
+    "version": "8.19.2",
+    "hash": "sha256-uSrN5xlG+SXlxg4NACFU2FSlC3V3hYojdhU8lUc687o=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.identitymodel.protocols.openidconnect/8.19.2/microsoft.identitymodel.protocols.openidconnect.8.19.2.nupkg"
   },
   {
     "pname": "Microsoft.IdentityModel.Tokens",
-    "version": "7.7.3",
-    "hash": "sha256-i74fs1rFZEarqbIhvS0w3/o7nuhN3AnuEf/3yYg8RPM=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.identitymodel.tokens/7.7.3/microsoft.identitymodel.tokens.7.7.3.nupkg"
+    "version": "8.19.2",
+    "hash": "sha256-POi3SzcK3+iB3104wXYh3ooVD1GbltwTUf+KMj//UYU=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.identitymodel.tokens/8.19.2/microsoft.identitymodel.tokens.8.19.2.nupkg"
   },
   {
     "pname": "Microsoft.Win32.SystemEvents",
@@ -180,10 +192,46 @@
     "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/microsoft.win32.systemevents/6.0.0/microsoft.win32.systemevents.6.0.0.nupkg"
   },
   {
+    "pname": "OpenTelemetry",
+    "version": "1.17.0",
+    "hash": "sha256-z68MFp4PEANJeJ3O0nTfJcWosZ4eZl7Y5T93wVYKdKA=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/opentelemetry/1.17.0/opentelemetry.1.17.0.nupkg"
+  },
+  {
+    "pname": "OpenTelemetry.Api",
+    "version": "1.17.0",
+    "hash": "sha256-r/Op/9OQhmL3H+XnkumD8BSdb6WwazolraVXCWDvfdA=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/opentelemetry.api/1.17.0/opentelemetry.api.1.17.0.nupkg"
+  },
+  {
+    "pname": "OpenTelemetry.Api.ProviderBuilderExtensions",
+    "version": "1.17.0",
+    "hash": "sha256-dAzEFnvUGs0BjQ0Dpxl6ird18yk9ur3djAFVZXJktGM=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/opentelemetry.api.providerbuilderextensions/1.17.0/opentelemetry.api.providerbuilderextensions.1.17.0.nupkg"
+  },
+  {
+    "pname": "OpenTelemetry.Exporter.OpenTelemetryProtocol",
+    "version": "1.17.0",
+    "hash": "sha256-VkJp58nhgmxB0Mbc2mMmOtyEQU6AE90tDpL+9AHtQ9Y=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/opentelemetry.exporter.opentelemetryprotocol/1.17.0/opentelemetry.exporter.opentelemetryprotocol.1.17.0.nupkg"
+  },
+  {
+    "pname": "OpenTelemetry.Extensions.Hosting",
+    "version": "1.17.0",
+    "hash": "sha256-wesl30ehEO8aIf4kDRRE2iHkMKnv6Ox/4LyQdmtLBnc=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/opentelemetry.extensions.hosting/1.17.0/opentelemetry.extensions.hosting.1.17.0.nupkg"
+  },
+  {
+    "pname": "OpenTelemetry.Instrumentation.AspNetCore",
+    "version": "1.17.0",
+    "hash": "sha256-ydRp8bo5vnHkNzUUHl631WAwbl2d78jQRWXLVvL/QEs=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/opentelemetry.instrumentation.aspnetcore/1.17.0/opentelemetry.instrumentation.aspnetcore.1.17.0.nupkg"
+  },
+  {
     "pname": "PowerShell",
-    "version": "7.5.0",
-    "hash": "sha256-ThXsm9QkfioS/p/qYx7s+Izdg5fr3SJDMKqGvN2uGFc=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/powershell/7.5.0/powershell.7.5.0.nupkg"
+    "version": "7.6.6",
+    "hash": "sha256-Yx/fBjBMq8TNwDbSPW8xWY22sAajA39eFxslXq46oWM=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/powershell/7.6.6/powershell.7.6.6.nupkg"
   },
   {
     "pname": "QRCoder",
@@ -198,6 +246,42 @@
     "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/semver/3.0.0/semver.3.0.0.nupkg"
   },
   {
+    "pname": "SQLite",
+    "version": "3.53.4",
+    "hash": "sha256-VkHrWOiEKf1z0J/ClL2qYQpumQmfQUHekSpeSqbXc8o=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/sqlite/3.53.4/sqlite.3.53.4.nupkg"
+  },
+  {
+    "pname": "SQLitePCLRaw.bundle_e_sqlite3",
+    "version": "3.0.5",
+    "hash": "sha256-4yXOYahryjgfvTVIcmRIHhxqOWY1Rv7IIDX6ZhGYwqE=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/sqlitepclraw.bundle_e_sqlite3/3.0.5/sqlitepclraw.bundle_e_sqlite3.3.0.5.nupkg"
+  },
+  {
+    "pname": "SQLitePCLRaw.config.e_sqlite3",
+    "version": "3.0.5",
+    "hash": "sha256-HDkIERpKFOiYg5g2vqnE2jkO3GabKXxATekkIqvuOrE=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/sqlitepclraw.config.e_sqlite3/3.0.5/sqlitepclraw.config.e_sqlite3.3.0.5.nupkg"
+  },
+  {
+    "pname": "SQLitePCLRaw.core",
+    "version": "2.1.12",
+    "hash": "sha256-rwaQQTj/ptyVpZkTPWTSVHFtb6zHVDprO5EHk9rp3KU=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/sqlitepclraw.core/2.1.12/sqlitepclraw.core.2.1.12.nupkg"
+  },
+  {
+    "pname": "SQLitePCLRaw.core",
+    "version": "3.0.5",
+    "hash": "sha256-dHa0uOBn2IxMtZijGJO1EQN7iOBcKNUk9LRDP+n2kEg=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/sqlitepclraw.core/3.0.5/sqlitepclraw.core.3.0.5.nupkg"
+  },
+  {
+    "pname": "SQLitePCLRaw.provider.e_sqlite3",
+    "version": "3.0.5",
+    "hash": "sha256-EMbT2qxDK7OC3aBsNeX3/8zjYYeSFBvZFlZSfwbvWyU=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/sqlitepclraw.provider.e_sqlite3/3.0.5/sqlitepclraw.provider.e_sqlite3.3.0.5.nupkg"
+  },
+  {
     "pname": "System.Drawing.Common",
     "version": "6.0.0",
     "hash": "sha256-/9EaAbEeOjELRSMZaImS1O8FmUe8j4WuFUw1VOrPyAo=",
@@ -205,26 +289,14 @@
   },
   {
     "pname": "System.IdentityModel.Tokens.Jwt",
-    "version": "7.7.3",
-    "hash": "sha256-UBcysNUMwHHaC4VtWbia0RY2Lo83m16Ay2HCtVXNiyc=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/system.identitymodel.tokens.jwt/7.7.3/system.identitymodel.tokens.jwt.7.7.3.nupkg"
+    "version": "8.19.2",
+    "hash": "sha256-kEqfEiWkotfDUDphn0MsMqhOc82qQLXlbo5XYg58/io=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/system.identitymodel.tokens.jwt/8.19.2/system.identitymodel.tokens.jwt.8.19.2.nupkg"
   },
   {
-    "pname": "System.IO.Pipelines",
-    "version": "10.0.11",
-    "hash": "sha256-2gBbActq+Wfeng8uTBFHek/GEdjpBx0+1X/cJeLI80s=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/system.io.pipelines/10.0.11/system.io.pipelines.10.0.11.nupkg"
-  },
-  {
-    "pname": "System.Text.Encodings.Web",
-    "version": "10.0.11",
-    "hash": "sha256-T19fI5f3CZRtLVWTxV2kl66dGPn+Dzg0iqfwyZlcm7Y=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/system.text.encodings.web/10.0.11/system.text.encodings.web.10.0.11.nupkg"
-  },
-  {
-    "pname": "System.Text.Json",
-    "version": "10.0.11",
-    "hash": "sha256-bOJ+B/ziXHw+Vy8i8ggk+HkG6zjuUqg/SoetkOopbrw=",
-    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/system.text.json/10.0.11/system.text.json.10.0.11.nupkg"
+    "pname": "System.IO.Hashing",
+    "version": "10.0.12",
+    "hash": "sha256-2RjeBEFopI4UinPoTG22+P6lcJY4SNxMA2MarZeVjdE=",
+    "url": "https://pkgs.dev.azure.com/dnceng/9ee6d478-d288-47f7-aacc-f6e6d082ae6d/_packaging/45bacae2-5efb-47c8-91e5-8ec20c22b4f8/nuget/v3/flat2/system.io.hashing/10.0.12/system.io.hashing.10.0.12.nupkg"
   }
 ]

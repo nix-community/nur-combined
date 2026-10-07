@@ -3,31 +3,39 @@
   buildDotnetModule,
   fetchFromGitHub,
   dotnetCorePackages,
+  autoPatchelfHook,
+  clang,
+  openssl,
+  zlib,
   curl,
   nix-update-script,
 }:
 
 buildDotnetModule (finalAttrs: {
   pname = "aspire-dashboard";
-  version = "13.5.4";
+  version = "13.6.1";
 
   src = fetchFromGitHub {
     owner = "microsoft";
     repo = "aspire";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-X6qefCB8b5W+CGLHxAu5M77Yp80dtfJhBVYkbiJNKWM=";
+    hash = "sha256-Q6OXFUFai3swj1vnoL1UWmFwR7wqeB1i5oAnHphkSfI=";
   };
 
   projectFile = "src/Aspire.Dashboard/Aspire.Dashboard.csproj";
   nugetDeps = ./deps.json;
 
-  dotnet-sdk = dotnetCorePackages.combinePackages [
-    dotnetCorePackages.sdk_10_0
-    dotnetCorePackages.sdk_8_0
-  ];
-  dotnet-runtime = dotnetCorePackages.aspnetcore_8_0;
+  dotnet-sdk = dotnetCorePackages.sdk_11_0;
+  dotnet-runtime = null;
   runtimeId = "linux-x64";
-  selfContainedBuild = false;
+  selfContainedBuild = true;
+
+  nativeBuildInputs = [
+    autoPatchelfHook
+    clang
+  ];
+  buildInputs = [ zlib ];
+  runtimeDeps = [ openssl ];
 
   executables = [ "Aspire.Dashboard" ];
 
@@ -56,7 +64,7 @@ buildDotnetModule (finalAttrs: {
 
     dashboardReady=
     for _ in $(seq 1 50); do
-      if curl --fail --silent --show-error http://127.0.0.1:18888/css/app.css > /dev/null; then
+      if curl --fail --silent --show-error http://127.0.0.1:18888/css/design.css > /dev/null; then
         dashboardReady=1
         break
       fi
@@ -72,11 +80,14 @@ buildDotnetModule (finalAttrs: {
       exit 1
     fi
 
+    curl --fail --silent --show-error --location http://127.0.0.1:18888/ \
+      | grep -F 'name="dotnet-runtime-mode" content="AOT"'
+
     curl --fail --silent --show-error \
       http://127.0.0.1:18888/Aspire.Dashboard.styles.css \
       > /dev/null
     curl --fail --silent --show-error \
-      http://127.0.0.1:18888/framework/blazor.web.10.js \
+      http://127.0.0.1:18888/_framework/blazor.web.js \
       > /dev/null
     curl --fail --silent --show-error \
       http://127.0.0.1:18888/_content/Microsoft.FluentUI.AspNetCore.Components/css/reboot.css \
