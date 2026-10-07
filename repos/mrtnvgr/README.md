@@ -7,6 +7,12 @@
 
 <!-- packages:begin -->
 - [anina](https://crql.works/archive/anina/)
+- [auburn-sounds-couture](https://www.auburnsounds.com/products/Couture.html)
+- [auburn-sounds-graillon](https://www.auburnsounds.com/products/Graillon.html)
+- [auburn-sounds-inner-pitch](https://www.auburnsounds.com/products/InnerPitch.html)
+- [auburn-sounds-lens](https://www.auburnsounds.com/products/Lens.html)
+- [auburn-sounds-panagement](https://www.auburnsounds.com/products/Panagement.html)
+- [auburn-sounds-renegate](https://www.auburnsounds.com/products/Renegate.html)
 - [celeste](https://www.celestegame.com)
 - [celeste-classic-2](https://mattmakesgames.itch.io/celeste-classic-2)
 - [convert-gig-file](https://github.com/stevefolta/gig2sfz)
