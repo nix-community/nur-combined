@@ -7,7 +7,7 @@
 
 let
   pname = "xsetwall";
-  version = "1.0.2";
+  version = "1.0.3";
 in
 stdenv.mkDerivation {
   inherit pname version;
@@ -16,7 +16,7 @@ stdenv.mkDerivation {
     owner = "0x61nas";
     repo = "xsetwall";
     rev = "v${version}";
-    hash = "sha256-bgSt0uxDRx1FIW3ypyJDqDJRc7e+jrDQQfggT+Nh4NY=";
+    hash = "sha256-EufKPjHwGE/EvrT1fPN9RwgbUsy4ab38gDn9oRBo0nI=";
   };
 
   buildInputs = [
