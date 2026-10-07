@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       force:
-        description: 'Ignore existing PRs and use a new branch; keep all validation, never force-push'
+        description: 'Create a new PR even if one exists'
         type: boolean
         default: false
 

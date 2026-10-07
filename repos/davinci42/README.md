@@ -78,16 +78,14 @@ Snapshot updates in this mode modify working files in place, even on failure.
 
 ### CI requirements
 
-Both workflows use the existing self-hosted runner in `DaVinci42/nur-packages`
-and have a 120-minute timeout. `Package checks` runs `just check-all` on main
-pushes, same-repository PRs, and manual dispatch, without VMs. Fork PRs are skipped;
-this is not a sandbox, so run only trusted code. Checkouts for checks do not
-persist credentials.
+`Package updates` uses the self-hosted runner in `DaVinci42/nur-packages` with a
+120-minute timeout. It validates updates before publishing; there is no separate
+push or PR check workflow. Run `NIXPKGS_ALLOW_UNFREE=1 just check-all` locally for
+other changes. The persistent runner is not a sandbox; run only trusted code.
 
 Publishing needs `contents: write`, `pull-requests: write`, and permission for
-Actions to create PRs. `GITHUB_TOKEN` PRs do not trigger further workflows;
-validation runs before publication. Set `UPDATE_TOKEN` to an App token or scoped
-PAT if PR-triggered CI is needed. Git identity comes from environment variables.
+Actions to create PRs. Use `GITHUB_TOKEN` or optional `UPDATE_TOKEN` (an App token
+or scoped PAT). Git identity comes from environment variables.
 
 ## Maintenance metadata
 
@@ -108,7 +106,10 @@ Declare at most one upstream monitor; packages without one are skipped:
   in filenames. Requires a newer stable `vX.Y.Z` or `X.Y.Z` and nonempty uploaded
   assets. Asset readiness is not checksum-manifest verification.
 - `[snapshot]`: `repository`, `branch`, `attribute` exposing `src.rev`, update
-  `command`, and `files` restricted to the package's declared files.
+  `command`, and `files` restricted to the package's declared files. Optional
+  `name` labels PR and commit titles: `spotify-spotx: SpotX 2026-10-03 (5cf0c31)`.
+  Dates come from the pinned upstream commits; old dates and full SHAs stay in
+  the PR body. Without `name`, the last component of `attribute` is used.
 
 Changes to generated `*-schema.json` files, except the top-level version, require
 review. Other contract formats need equivalent checks. Metadata commands are

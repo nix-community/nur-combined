@@ -5,6 +5,7 @@ tests = [
 ]
 
 [snapshot]
+name = "SpotX"
 repository = "SpotX-Official/SpotX-Bash"
 branch = "main"
 attribute = "spotify-spotx.spotx"

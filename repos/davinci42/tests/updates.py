@@ -439,7 +439,7 @@ class UpdateTests(unittest.TestCase):
         _ = (folder / "spotx.nix").write_text("")
         _ = (folder / "maintenance.toml").write_text(
             'files = ["default.nix", "spotx.nix"]\ncheckIntervalHours = 168\n'
-            + '[snapshot]\nrepository = "SpotX-Official/SpotX-Bash"\nbranch = "main"\n'
+            + '[snapshot]\nname = "SpotX"\nrepository = "SpotX-Official/SpotX-Bash"\nbranch = "main"\n'
             + 'attribute = "spotify-spotx.spotx"\ncommand = ["just", "update-spotx"]\n'
             + 'files = ["spotx.nix"]\n'
         )
@@ -506,6 +506,9 @@ class UpdateTests(unittest.TestCase):
         release = self.release
         with (
             patch.object(check_updates, "github", side_effect=["[]", "pr"]) as api,
+            patch.object(
+                check_updates, "snapshot_date", side_effect=["2026-09-28", "2026-10-03"]
+            ),
             patch.object(check_updates, "snapshot_revision", return_value="b" * 40),
             patch.object(
                 maintain,
@@ -546,11 +549,18 @@ class UpdateTests(unittest.TestCase):
         body = create[create.index("--body") + 1]
         self.assertIn("Playback, ad blocking, and VM tests were not run", body)
         self.assertNotIn("assets", body)
+        self.assertIn("2026-09-28 -> 2026-10-03", body)
+        self.assertIn("a" * 40, body)
+        self.assertIn("b" * 40, body)
+        title = create[create.index("--title") + 1]
+        self.assertEqual(title, "spotify-spotx: SpotX 2026-10-03 (bbbbbbb)")
+        self.assertEqual(commands[7], ["git", "commit", "-m", title])
 
     def test_spotx_failed_validation_never_publishes(self) -> None:
         self.configure_snapshot()
         with (
             patch.object(check_updates, "github", return_value="[]") as api,
+            patch.object(check_updates, "snapshot_date", return_value="2026-10-03"),
             patch.object(check_updates, "snapshot_revision", return_value="b" * 40),
             patch.object(
                 maintain, "run", side_effect=["", "", ValueError("failed check"), ""]
@@ -600,6 +610,69 @@ class UpdateTests(unittest.TestCase):
         ):
             check_updates.check_updates(self.root, pr=True)
         check.assert_not_called()
+
+    def test_snapshot_dates_use_pinned_commits(self) -> None:
+        with patch.object(
+            check_updates, "github", return_value="2026-10-03T21:39:36Z"
+        ) as api:
+            self.assertEqual(
+                check_updates.snapshot_date(self.root, "owner/project", "b" * 40),
+                "2026-10-03",
+            )
+        self.assertIn(
+            "repos/owner/project/commits/" + "b" * 40,
+            cast(list[str], api.call_args.args[1]),
+        )
+        with (
+            patch.object(check_updates, "github", return_value="invalid"),
+            self.assertRaises(ValueError),
+        ):
+            _ = check_updates.snapshot_date(self.root, "owner/project", "b" * 40)
+
+    def test_same_day_snapshot_titles_differ(self) -> None:
+        self.configure_snapshot()
+        titles: list[str] = []
+        for revision in ("b" * 40, "c" * 40):
+            release = self.release.copy()
+            release["tag_name"] = revision
+            with (
+                patch.object(check_updates, "github", side_effect=["[]", "pr"]) as api,
+                patch.object(check_updates, "snapshot_date", return_value="2026-10-03"),
+                patch.object(check_updates, "update_package"),
+                patch.object(
+                    maintain,
+                    "run",
+                    side_effect=[
+                        "",
+                        "",
+                        '"x86_64-linux"',
+                        "pkgs/spotify-spotx/spotx.nix",
+                        "",
+                        "",
+                        "",
+                        "",
+                    ],
+                ),
+            ):
+                _ = check_updates.open_pr(
+                    self.root,
+                    "owner/nur",
+                    "main",
+                    "spotify-spotx",
+                    "a" * 40,
+                    release,
+                    self.spec,
+                    ["x86_64-linux"],
+                )
+            create = cast(list[str], api.call_args.args[1])
+            titles.append(create[create.index("--title") + 1])
+        self.assertEqual(
+            titles,
+            [
+                "spotify-spotx: SpotX 2026-10-03 (bbbbbbb)",
+                "spotify-spotx: SpotX 2026-10-03 (ccccccc)",
+            ],
+        )
 
     def test_spotx_cli(self) -> None:
         with (
@@ -692,6 +765,12 @@ class UpdateTests(unittest.TestCase):
                         self.assertRaises(ValueError),
                     ):
                         maintain.validate_monitor(kind, fields | {key: invalid})
+                if key == "name":
+                    maintain.validate_monitor(
+                        kind,
+                        {name: value for name, value in fields.items() if name != key},
+                    )
+                    continue
                 with (
                     self.subTest(kind=kind, missing=key),
                     self.assertRaises(ValueError),

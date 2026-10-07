@@ -8,6 +8,7 @@ import sys
 import tempfile
 import time
 from collections.abc import Iterator
+from datetime import date
 from pathlib import Path
 from typing import TypedDict, cast
 from uuid import uuid4
@@ -111,10 +112,16 @@ def pr_body(
     systems: list[str],
     host: str,
     current: str = "",
+    snapshot_dates: tuple[str, str] | None = None,
 ) -> str:
     if "snapshot" in spec:
         return (
             f"Update `{package}` source from `{current}` to `{release['tag_name']}`.\n\n"
+            + (
+                f"Snapshot dates: {snapshot_dates[0]} -> {snapshot_dates[1]}.\n\n"
+                if snapshot_dates
+                else ""
+            )
             + f"Upstream: {release['html_url']}\n\n"
             + f"Validated with `just check {package}` on `{host}`: package build, "
             + "regression tests, lint, and `git diff --check`. "
@@ -164,6 +171,19 @@ def update_package(
     _ = maintain.run(root, ["just", "check", package])
 
 
+def snapshot_date(root: Path, repository: str, revision: str) -> str:
+    timestamp = github(
+        root,
+        [
+            "api",
+            f"repos/{repository}/commits/{revision}",
+            "--template",
+            "{{.commit.committer.date}}",
+        ],
+    )
+    return date.fromisoformat(timestamp.split("T")[0]).isoformat()
+
+
 def open_pr(
     root: Path,
     repository: str,
@@ -204,11 +224,15 @@ def open_pr(
         return "existing PR: " + existing[0]["url"]
     if force:
         branch += f"-force-{uuid4().hex}"
-    title = (
-        f"chore: update {package} source to {version[:12]}"
-        if snapshot
-        else f"{package}: {current} -> {version}"
-    )
+    title = f"{package}: {current} -> {version}"
+    snapshot_dates = None
+    if snapshot:
+        snapshot_dates = (
+            snapshot_date(root, snapshot["repository"], current),
+            snapshot_date(root, snapshot["repository"], version),
+        )
+        name = snapshot.get("name", snapshot["attribute"].split(".")[-1])
+        title = f"{package}: {name} {snapshot_dates[1]} ({version[:7]})"
     with tempfile.TemporaryDirectory(prefix="nur-pr-") as temporary:
         worktree = Path(temporary) / "repo"
         _ = maintain.run(
@@ -262,7 +286,9 @@ def open_pr(
                     "--title",
                     title,
                     "--body",
-                    pr_body(package, release, spec, systems, host, current),
+                    pr_body(
+                        package, release, spec, systems, host, current, snapshot_dates
+                    ),
                 ],
             )
         finally:

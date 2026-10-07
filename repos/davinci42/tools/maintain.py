@@ -22,6 +22,7 @@ class ReleaseSpecification(TypedDict):
 
 
 class SnapshotSpecification(TypedDict):
+    name: NotRequired[str]
     repository: str
     branch: str
     attribute: str
@@ -82,6 +83,8 @@ def validate_monitor(kind: str, fields: dict[str, object]) -> None:
             ("branch", "attribute"), r"[A-Za-z0-9][A-Za-z0-9_.-]*"
         )
         lists = ["command", "files"]
+        if "name" in fields:
+            patterns["name"] = r"[A-Za-z0-9][A-Za-z0-9_.-]*"
     if set(fields) != set(patterns) | set(lists):
         raise ValueError(f"Invalid {kind} metadata fields")
     for key, pattern in patterns.items():
