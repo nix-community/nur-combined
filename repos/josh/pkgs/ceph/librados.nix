@@ -67,6 +67,9 @@ let
 
   version = if ceph20 then ceph.version else "20.2.0";
 
+  # 20.2.4 moved `namespace TOPNSPC::auth {` into each getentropy branch but missed the fallback
+  crypto-namespace-missing = lib.strings.versionAtLeast version "20.2.4";
+
   src =
     if ceph20 then
       ceph.src
@@ -246,6 +249,12 @@ stdenv.mkDerivation (finalAttrs: {
                      'max_prims_per_osd = std::max(max_prims_per_osd, static_cast<uint64_t>(n_prims));' \
       --replace-fail 'max_acting_prims_per_osd = std::max(max_acting_prims_per_osd, n_aprims);' \
                      'max_acting_prims_per_osd = std::max(max_acting_prims_per_osd, static_cast<uint64_t>(n_aprims));'
+  ''
+  + lib.strings.optionalString (stdenv.hostPlatform.isDarwin && crypto-namespace-missing) ''
+    # /dev/urandom fallback (taken on macOS, no getentropy in unistd.h) never opens the namespace
+    substituteInPlace src/auth/Crypto.cc \
+      --replace-fail $'#else // !HAVE_GETENTROPY && !_WIN32\n// open /dev/urandom' \
+                     $'#else // !HAVE_GETENTROPY && !_WIN32\nnamespace TOPNSPC::auth {\n// open /dev/urandom'
   '';
 
   preBuild = ''
