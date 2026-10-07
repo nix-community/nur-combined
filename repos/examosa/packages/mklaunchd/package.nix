@@ -27,11 +27,6 @@ in
 
     nativeBuildInputs = [pandoc swift swiftpm];
 
-    buildInputs = [
-      swiftPackages.Dispatch
-      swiftPackages.Foundation
-    ];
-
     configurePhase = ''
       runHook preConfigure
 
@@ -42,8 +37,18 @@ in
 
     installFlags = ["INSTALL_BIN:=$(out)/bin" "INSTALL_MAN:=$(out)/share/man/man1"];
 
-    preInstall = ''
-      mkdir -p $out/{bin,share/man/man1}
+    installPhase = ''
+      runHook preInstall
+
+      mkdir -p $out/bin
+
+      local flagsArray=()
+
+      concatTo flagsArray installFlags
+
+      make install "''${flagsArray[@]}"
+
+      runHook postInstall
     '';
 
     passthru.updateScript = nix-update-script {};
@@ -52,6 +57,7 @@ in
       description = "Utility to create launchd services on MacOS";
       homepage = "https://github.com/uRadical/mklaunchd";
       license = lib.licenses.mit;
+      maintainers = [lib.maintainers.examosa];
       mainProgram = "mklaunchd";
       platforms = lib.platforms.darwin;
     };
