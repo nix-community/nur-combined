@@ -86,3 +86,5 @@ open class Context {
         const val CLIPBOARD_SERVICE = "clipboard"
     }
 }
+
+class DummyContext : Context()

@@ -2,7 +2,7 @@ package androidx.navigation
 
 open class NavController {
     /* Upstream reaches the ambient Context through the controller. */
-    val context: android.content.Context get() = android.content.Context()
+    val context: android.content.Context get() = android.content.DummyContext()
 
 
     open fun navigate(route: String) {}

@@ -3,7 +3,7 @@ package android.view
 import android.content.Context
 
 open class View(val context: Context) {
-    constructor() : this(Context())
+    constructor() : this(android.content.DummyContext())
 
     interface OnCreateContextMenuListener
     
