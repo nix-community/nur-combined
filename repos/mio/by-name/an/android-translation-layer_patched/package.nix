@@ -91,6 +91,21 @@
         cp -r ${./darwin_compat_headers} $NIX_BUILD_TOP/darwin_headers
         chmod -R +w $NIX_BUILD_TOP/darwin_headers
         export CFLAGS="-I$NIX_BUILD_TOP/darwin_headers -Wno-int-conversion -Wno-c23-extensions -Doff64_t=off_t -Dlseek64=lseek -Dftruncate64=ftruncate -Dpread64=pread -Dpwrite64=pwrite -DCLOCK_BOOTTIME=CLOCK_MONOTONIC $CFLAGS"
+        sed -i "s|dependency('wayland-protocols', version: '>=1.12')|dependency('dummy', required: false)|g" meson.build
+        sed -i "s|subdir('protocol')|wl_proto_headers = []|g" meson.build
+        sed -i "s|wl_proto_sources,||g" meson.build
+        
+        sed -i "s|dependency('wayland-client')|dependency('dummy', required: false)|g" meson.build
+        sed -i "s|dependency('libportal')|dependency('dummy', required: false)|g" meson.build
+        sed -i "s|dependency('libdrm')|dependency('dummy', required: false)|g" meson.build
+        sed -i "s|dependency('gudev-1.0')|dependency('dummy', required: false)|g" meson.build
+        sed -i "s|dependency('webkitgtk-6.0')|dependency('dummy', required: false)|g" meson.build
+        
+        sed -i "s|'-lasound'||g" meson.build
+
+        sed -i "s|'-Wl,-z,lazy',||g" meson.build
+
+
       '';
     postInstall = (old.postInstall or "") + ''
       mkdir -p $out/etc/security
