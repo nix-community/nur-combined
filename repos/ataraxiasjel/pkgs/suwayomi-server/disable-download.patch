@@ -1,8 +1,8 @@
 diff --git a/server/build.gradle.kts b/server/build.gradle.kts
-index 4e11d4a8..605a49ef 100644
+index 77c03ce7..38260a29 100644
 --- a/server/build.gradle.kts
 +++ b/server/build.gradle.kts
-@@ -198,33 +198,6 @@ tasks {
+@@ -206,33 +206,6 @@ tasks {
  
      named<Copy>("processResources") {
          duplicatesStrategy = DuplicatesStrategy.INCLUDE

@@ -8,7 +8,8 @@
   copyDesktopItems,
   glib,
   libappindicator,
-  jdk25,
+  jdk21_headless,
+  jetbrains,
   suwayomi-webui,
   nix-update-script,
   electron,
@@ -16,6 +17,11 @@
 
   asApplication ? false,
 }:
+
+let
+  gradle = gradle_9;
+  jdk = jdk21_headless;
+in
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "suwayomi-server";
@@ -58,17 +64,17 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     zip
     makeWrapper
-    gradle_9
+    gradle
   ]
   ++ lib.optional asApplication copyDesktopItems;
 
-  mitmCache = gradle_9.fetchDeps {
+  mitmCache = gradle.fetchDeps {
     pkg = finalAttrs.finalPackage;
     data = ./deps.json;
   };
 
   gradleFlags = [
-    "-Dorg.gradle.java.home=${jdk25}"
+    "-Dorg.gradle.java.home=${jdk}"
     "-Dorg.gradle.jvmargs=-Xmx2G"
   ];
 
@@ -81,7 +87,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     cp server/build/Suwayomi-Server-v${finalAttrs.version}.jar $out/share/suwayomi-server
 
     # Use nixpkgs suwayomi-webui and disable auto download and update
-    makeWrapper ${lib.getExe jdk25} $out/bin/tachidesk-server \
+    makeWrapper ${lib.getExe jdk} $out/bin/tachidesk-server \
       --add-flags "-Dsuwayomi.tachidesk.config.server.webUIFlavor=WebUI" \
       --add-flags "-Dsuwayomi.tachidesk.config.server.webUIChannel=BUNDLED" \
       --add-flags "-Dsuwayomi.tachidesk.config.server.webUIUpdateCheckInterval=0" \
@@ -125,7 +131,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     )
   );
 
-  passthru.updateScript = nix-update-script { };
+  passthru = {
+    inherit jetbrains suwayomi-webui;
+    updateScript = nix-update-script { };
+  };
 
   meta = {
     description = "Free and open source manga reader server that runs extensions built for Mihon (Tachiyomi)";
@@ -140,7 +149,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     downloadPage = "https://github.com/Suwayomi/Suwayomi-Server/releases";
     changelog = "https://github.com/Suwayomi/Suwayomi-Server/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mpl20;
-    inherit (jdk25.meta) platforms;
+    inherit (jdk.meta) platforms;
     sourceProvenance = with lib.sourceTypes; [
       fromSource
       binaryBytecode

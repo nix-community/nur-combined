@@ -50,28 +50,15 @@ If you want to create a desktop icon, you can activate the system tray option:
 
     settings = {
       server.port = 4567;
-      server.systemTrayEnabled = true;
+      server.enableSystemTray = true;
     };
   };
 }
 ```
 
-The module always starts Suwayomi-Server with
-`-Dsuwayomi.tachidesk.config.server.rootDir=${dataDir}`,
-so the app stores its files (including `server.conf`) directly in
-`services.suwayomi-server.dataDir`.
-Previously, Suwayomi-Server would store its files under `${dataDir}/.local/share/Tachidesk`.
-To migrate, move the contents of `${dataDir}/.local/share/Tachidesk` into `${dataDir}`.
-
-The `server.conf` itself is Nix-managed: on each start the module copies the
-generated config to `${dataDir}/server.conf` as a writable file (the server
-rewrites it on startup, so a symlink into `/nix/store` does not work).
-A stale symlink left at `${dataDir}/.local/share/Tachidesk/server.conf` is
-removed automatically.
-
 ## Basic authentication {#module-services-suwayomi-server-basic-auth}
 
-You can configure authentication for the web interface with:
+You can configure a basic authentication to the web interface with:
 
 ```nix
 { ... }:
@@ -88,9 +75,8 @@ You can configure authentication for the web interface with:
         authMode = "basic_auth";
         authUsername = "username";
 
-        # NOTE: this option is a NixOS option only
-        # and doesn't exist in the upstream configuration
-        authPasswordFile = "/run/secrets/your-secret-password-file";
+        # NOTE: this is not a real upstream option
+        authPasswordFile = ./path/to/the/password/file;
       };
     };
   };
@@ -115,8 +101,8 @@ Not all the configuration options are available directly in this module, but you
         port = 4567;
         autoDownloadNewChapters = false;
         maxSourcesInParallel = 6;
-        extensionRepos = [
-          "https://raw.githubusercontent.com/MY_ACCOUNT/MY_REPO/repo/index.min.json"
+        extensionStores = [
+          "https://github.com/MY_ACCOUNT/MY_REPO/raw/repo/index.pb"
         ];
       };
     };
@@ -124,11 +110,7 @@ Not all the configuration options are available directly in this module, but you
 }
 ```
 
-<!--
-  NOTE: this chapter must define exactly the anchor IDs listed for
-  suwayomi-server in nixpkgs' nixos/doc/manual/redirects.json
-  (module-services-suwayomi-server, -basic-usage, -basic-auth,
-  -extra-config) — no more, no fewer — otherwise the manual build
-  (documentation.nixos.checkRedirects) fails with RedirectsError.
-  Do not add anchored sections here.
--->
+## Migrating the data directory {#module-services-suwayomi-migrating-data-directory}
+
+The app's data directory has changed to reflect `services.suwayomi-server.dataDir` accurately.
+Before 26.11 release, Suwayomi-Server would store it's files under `${dataDir}/.local/share/Tachidesk`.

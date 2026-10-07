@@ -11,33 +11,62 @@ let
     mkOption
     mkEnableOption
     mkIf
+    mkPackageOption
     types
     ;
 
   format = pkgs.formats.hocon { };
-
   configFile = format.generate "server.conf" (
-    lib.filterAttrsRecursive (_: x: x != null) (
-      cfg.settings
-      // {
-        server = removeAttrs cfg.settings.server [
-          "authPasswordFile"
-          "basicAuthEnabled"
-          "basicAuthPasswordFile"
-          "basicAuthUsername"
-          "syncYomiApiKeyFile"
-        ];
-      }
-    )
+    lib.pipe cfg.settings [
+      (
+        settings:
+        lib.recursiveUpdate settings {
+          server.basicAuthEnabled = null;
+          server.basicAuthUsername = null;
+          server.basicAuthPasswordFile = null;
+          server.authPasswordFile = null;
+          server.authPassword =
+            if (settings.server.authMode == "basic_auth" || settings.server.authMode == "simple_login") then
+              "$TACHIDESK_SERVER_AUTH_PASSWORD"
+            else
+              null;
+          server.syncYomiApiKeyFile = null;
+          server.syncYomiApiKey =
+            if settings.server.syncYomiApiKeyFile != null then "$TACHIDESK_SERVER_SYNCYOMI_API_KEY" else null;
+        }
+      )
+      (lib.filterAttrsRecursive (_: x: x != null))
+    ]
   );
+  serverDir = cfg.dataDir;
   serverConf = "${cfg.dataDir}/server.conf";
 in
 {
+  imports = [
+    (lib.mkChangedOptionModule
+      [ "services" "suwayomi-server" "settings" "server" "basicAuthEnabled" ]
+      [ "services" "suwayomi-server" "settings" "server" "authMode" ]
+      (
+        config:
+        let
+          isEnabled = lib.getAttrFromPath [
+            "services"
+            "suwayomi-server"
+            "settings"
+            "server"
+            "basicAuthEnabled"
+          ] config;
+        in
+        if isEnabled then "basic_auth" else "none"
+      )
+    )
+  ];
+
   options = {
     services.suwayomi-server = {
       enable = mkEnableOption "Suwayomi, a free and open source manga reader server that runs extensions built for Tachiyomi";
 
-      package = lib.mkPackageOption pkgs "suwayomi-server" { };
+      package = mkPackageOption pkgs "suwayomi-server" { };
 
       dataDir = mkOption {
         type = types.path;
@@ -76,105 +105,144 @@ in
 
       settings = mkOption {
         type = types.submodule {
+          imports = [
+            (lib.mkRenamedOptionModule [ "server" "basicAuthUsername" ] [ "server" "authUsername" ])
+            (lib.mkRenamedOptionModule [ "server" "basicAuthPasswordFile" ] [ "server" "authPasswordFile" ])
+            (lib.mkRenamedOptionModule [ "server" "extensionRepos" ] [ "server" "extensionStores" ])
+          ];
           freeformType = format.type;
-          options.server = {
-            ip = mkOption {
-              type = types.str;
-              default = "0.0.0.0";
-              example = "127.0.0.1";
-              description = ''
-                The ip that Suwayomi will bind to.
-              '';
-            };
+          options = {
+            server = {
+              ip = mkOption {
+                type = types.str;
+                default = "0.0.0.0";
+                example = "127.0.0.1";
+                description = ''
+                  The ip that Suwayomi will bind to.
+                '';
+              };
 
-            port = mkOption {
-              type = types.port;
-              default = 8080;
-              example = 4567;
-              description = ''
-                The port that Suwayomi will listen to.
-              '';
-            };
+              port = mkOption {
+                type = types.port;
+                default = 8080;
+                example = 4567;
+                description = ''
+                  The port that Suwayomi will listen to.
+                '';
+              };
 
-            authMode = mkOption {
-              type = types.enum [
-                "none"
-                "basic_auth"
-                "simple_login"
-                "ui_auth"
-              ];
-              default = "none";
-              description = ''
-                The auth mode to use when authenticating with the server.
-                See <https://github.com/Suwayomi/Suwayomi-Server/blob/v2.3.2243/docs/Configuring-Suwayomi%E2%80%90Server.md#authentication>
-                for more information.
-              '';
-            };
+              webUIEnabled = mkOption {
+                type = types.bool;
+                default = true;
+                example = false;
+                description = ''
+                  Whether suwayomi-server should serve a the webui package.
+                '';
+              };
 
-            authUsername = mkOption {
-              type = types.nullOr types.str;
-              default = null;
-              description = ''
-                The username value that you have to provide when authenticating.
-              '';
-            };
+              webUIFlavor = mkOption {
+                type = types.enum [
+                  "Custom"
+                  "WebUI"
+                ];
+                default = "Custom";
+                example = "WebUI";
+                description = ''
+                  Choose "Custom" to use the nix package of suwayomi-webui, and
+                  "WebUI" to let suwayomi-server to download the WebUI.
+                '';
+              };
 
-            # NOTE: this is not a real upstream option
-            authPasswordFile = mkOption {
-              type = types.nullOr types.externalPath;
-              default = null;
-              example = "/var/secrets/suwayomi-server-password";
-              description = ''
-                The password file containing the value that you have to provide when authenticating.
-              '';
-            };
+              kcefEnabled = mkOption {
+                type = types.bool;
+                default = true;
+                example = false;
+                description = ''
+                  Whether to enable KCEF WebView provider.
+                '';
+              };
 
-            # NOTE: this is not a real upstream option
-            syncYomiApiKeyFile = mkOption {
-              type = types.nullOr types.externalPath;
-              default = null;
-              example = "/var/secrets/suwayomi-server-syncyomi-apikey";
-              description = ''
-                The file containing the API key used for SyncYomi (maps to the upstream
-                {option}`services.suwayomi-server.settings.server.syncYomiApiKey` option).
-              '';
-            };
+              authMode = mkOption {
+                type = types.enum [
+                  "none"
+                  "basic_auth"
+                  "simple_login"
+                  "ui_auth"
+                ];
+                default = "none";
+                description = ''
+                  The auth mode to use when authenticating with the server.
+                  See <https://github.com/Suwayomi/Suwayomi-Server/blob/master/docs/Configuring-Suwayomi%E2%80%90Server.md#authentication>
+                  for more information.
+                '';
+              };
 
-            downloadAsCbz = mkOption {
-              type = types.bool;
-              default = false;
-              description = ''
-                Download chapters as `.cbz` files.
-              '';
-            };
+              authUsername = mkOption {
+                type = types.nullOr types.str;
+                default = null;
+                description = ''
+                  The username value that you have to provide when authenticating.
+                '';
+              };
 
-            extensionRepos = mkOption {
-              type = types.listOf types.str;
-              default = [ ];
-              example = [
-                "https://raw.githubusercontent.com/MY_ACCOUNT/MY_REPO/repo/index.min.json"
-              ];
-              description = ''
-                URL of repositories from which the extensions can be installed.
-              '';
-            };
+              # NOTE: this is not a real upstream option
+              authPasswordFile = mkOption {
+                type = types.nullOr types.externalPath;
+                default = null;
+                example = "/var/secrets/suwayomi-server-password";
+                description = ''
+                  The password file containing the value that you have to provide when authenticating.
+                '';
+              };
 
-            localSourcePath = mkOption {
-              type = types.path;
-              default = cfg.dataDir;
-              defaultText = lib.literalExpression "suwayomi-server.dataDir";
-              example = "/var/data/local_mangas";
-              description = ''
-                Path to the local source folder.
-              '';
-            };
+              # NOTE: this is not a real upstream option
+              syncYomiApiKeyFile = mkOption {
+                type = types.nullOr types.externalPath;
+                default = null;
+                example = "/var/secrets/suwayomi-server-syncyomi-apikey";
+                description = ''
+                  The file containing the API key used for SyncYomi (maps to the upstream
+                  {option}`services.suwayomi-server.settings.server.syncYomiApiKey` option).
+                '';
+              };
 
-            systemTrayEnabled = mkOption {
-              type = types.bool;
-              default = false;
-              description = ''
-                Whether to enable a system tray icon, if possible.
-              '';
+              downloadAsCbz = mkOption {
+                type = types.bool;
+                default = false;
+                description = ''
+                  Download chapters as `.cbz` files.
+                '';
+              };
+
+              extensionStores = mkOption {
+                type = types.listOf types.str;
+                default = [ ];
+                example = [
+                  "https://github.com/MY_ACCOUNT/MY_REPO/raw/repo/index.pb"
+                ];
+                description = ''
+                  URLs of the extension store indexes from which extensions can be
+                  installed.
+                '';
+              };
+
+              localSourcePath = mkOption {
+                type = types.path;
+                default = cfg.dataDir;
+                defaultText = lib.literalExpression "suwayomi-server.dataDir";
+                example = "/var/data/local_mangas";
+                description = ''
+                  Path to the local source folder.
+                '';
+              };
+
+              systemTrayEnabled = mkOption {
+                type = types.bool;
+                default = false;
+                description = ''
+                  Whether to enable a system tray icon, if possible.
+                '';
+              };
             };
           };
         };
@@ -193,11 +261,12 @@ in
   };
 
   config = mkIf cfg.enable {
+
     assertions = [
       {
         assertion =
           with cfg.settings.server;
-          authMode != "none"
+          (authMode == "basic_auth" || authMode == "simple_login")
           -> (authUsername != null && authPasswordFile != null && !(cfg.settings.server ? authPassword));
         message = ''
           [suwayomi-server]: the username and the password file cannot be null when the basic auth is enabled
@@ -229,9 +298,11 @@ in
     };
 
     systemd.tmpfiles.settings = {
-      "10-suwayomi-server"."${cfg.dataDir}".d = {
-        mode = "0700";
-        inherit (cfg) user group;
+      "10-suwayomi-server" = {
+        "${cfg.dataDir}".d = {
+          mode = "0700";
+          inherit (cfg) user group;
+        };
       };
     };
 
@@ -247,50 +318,63 @@ in
       };
 
       preStart = ''
-        # Suwayomi-Server rewrites server.conf on startup (updateUserConfig),
-        # so it must be a writable copy, not a symlink into /nix/store.
+        # Ensure the data dir exists with the right ownership before systemd
+        # hardening and the kcef links are set up.
         mkdir -p "${cfg.dataDir}"
         chown "${cfg.user}:${cfg.group}" "${cfg.dataDir}"
         chmod 0700 "${cfg.dataDir}"
-        rm -f "${serverConf}"
-        # Clean up the pre-rootDir symlink location so a stale link
-        # is never mistaken for the real config.
-        rm -f "${cfg.dataDir}/.local/share/Tachidesk/server.conf"
-        install -Dm600 -o "${cfg.user}" -g "${cfg.group}" "${configFile}" "${serverConf}"
-      '';
 
-      script =
-        (lib.optionalString (cfg.settings.server.authMode != "none") ''
-          set -u
-          JAVA_TOOL_OPTIONS="''${JAVA_TOOL_OPTIONS:+$JAVA_TOOL_OPTIONS }-Dsuwayomi.tachidesk.config.server.authPassword=$(cat "$CREDENTIALS_DIRECTORY/TACHIDESK_SERVER_AUTH_PASSWORD")"
-        '')
-        + (lib.optionalString (cfg.settings.server.syncYomiApiKeyFile != null) ''
-          set -u
-          JAVA_TOOL_OPTIONS="''${JAVA_TOOL_OPTIONS:+$JAVA_TOOL_OPTIONS }-Dsuwayomi.tachidesk.config.server.syncYomiApiKey=$(cat "$CREDENTIALS_DIRECTORY/TACHIDESK_SERVER_SYNCYOMI_API_KEY")"
-        '')
-        + ''
-          ${lib.getExe cfg.package}
-        '';
+        # Patch Jetbrains JCEF
+        kcefDir="${serverDir}/bin/kcef"
+        rm -rf "$kcefDir"
+        mkdir -p "$kcefDir"
+        ln -fs ${cfg.package.jetbrains.jdk-21}/lib/openjdk/lib "$kcefDir"
+        ln -fs ${cfg.package.jetbrains.jdk-21}/lib/openjdk/release "$kcefDir/release"
+      ''
+      + (lib.optionalString cfg.settings.server.webUIEnabled ''
+        rm -fr "${serverDir}/webUI"
+        cp -a "${cfg.package.suwayomi-webui}/share/suwayomi-webui" "${serverDir}/webUI"
+        chmod u+rwX -R "${serverDir}"
+      '');
+
+      script = ''
+        [[ -f ${serverConf} ]] && rm ${serverConf}
+        ${lib.optionalString
+          (cfg.settings.server.authMode == "basic_auth" || cfg.settings.server.authMode == "simple_login")
+          ''
+            export TACHIDESK_SERVER_AUTH_PASSWORD="$(cat "$CREDENTIALS_DIRECTORY/TACHIDESK_SERVER_AUTH_PASSWORD")"
+          ''
+        }
+        ${lib.optionalString (cfg.settings.server.syncYomiApiKeyFile != null) ''
+          export TACHIDESK_SERVER_SYNCYOMI_API_KEY="$(cat "$CREDENTIALS_DIRECTORY/TACHIDESK_SERVER_SYNCYOMI_API_KEY")"
+        ''}
+        ${lib.getExe pkgs.envsubst} -i ${configFile} -o ${serverConf}
+
+        exec ${lib.getExe cfg.package}
+      '';
 
       serviceConfig = {
         Type = "simple";
         Restart = "on-failure";
 
+        User = cfg.user;
+        Group = cfg.group;
+
         StateDirectory = mkIf (cfg.dataDir == "/var/lib/suwayomi-server") "suwayomi-server";
         LoadCredential =
-          lib.optionals (cfg.settings.server.authMode != "none") [
-            "TACHIDESK_SERVER_AUTH_PASSWORD:${cfg.settings.server.authPasswordFile}"
-          ]
+          lib.optionals
+            (cfg.settings.server.authMode == "basic_auth" || cfg.settings.server.authMode == "simple_login")
+            [
+              "TACHIDESK_SERVER_AUTH_PASSWORD:${cfg.settings.server.authPasswordFile}"
+            ]
           ++ lib.optionals (cfg.settings.server.syncYomiApiKeyFile != null) [
             "TACHIDESK_SERVER_SYNCYOMI_API_KEY:${cfg.settings.server.syncYomiApiKeyFile}"
           ];
 
-        # Hardening
-        User = cfg.user;
-        Group = cfg.group;
         CapabilityBoundingSet = "";
         SystemCallFilter = [ "@system-service" ];
 
+        ReadOnlyPaths = [ configFile ];
         ReadWritePaths = [ cfg.dataDir ];
         NoNewPrivileges = true;
         ProtectClock = true;
@@ -322,8 +406,8 @@ in
 
   meta = {
     maintainers = with lib.maintainers; [
-      ratcornu
       nanoyaki
+      ratcornu
       ataraxiasjel
     ];
     doc = ./suwayomi-server.md;
