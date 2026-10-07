@@ -19,6 +19,8 @@ in
   ];
 }).overrideAttrs
   (old: {
+    __structuredAttrs = true;
+    strictDeps = true;
     meta = old.meta // {
       maintainers = with lib.maintainers; [ xddxdd ];
       inherit (vapoursynth.meta) platforms;

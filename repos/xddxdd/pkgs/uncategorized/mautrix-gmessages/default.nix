@@ -21,6 +21,8 @@ buildGoModule (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-xIPH/IqnxfyeCaW/9utpN+SPZRkEp5KyabwjT8PsMUI=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   vendorHash = "sha256-fCu/cJoQdWZHAYgfYtGj+sxeJ9P6br7BinJiMkX5vk8=";
 
   buildInputs = lib.optional (!withGoolm) olm;

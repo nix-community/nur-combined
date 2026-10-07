@@ -67,6 +67,8 @@ stdenv.mkDerivation (finalAttrs: {
     url = "https://github.com/adryfish/fingerprint-chromium/releases/download/${finalAttrs.version}/ungoogled-chromium-${finalAttrs.version}-1-x86_64_linux.tar.xz";
     hash = "sha256-SO/4YAU+/ZrUmNUTcPCh9Z+YPfOcAqcq0qhoLN6tQFU=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
 
   nativeBuildInputs = [
     autoPatchelfHook

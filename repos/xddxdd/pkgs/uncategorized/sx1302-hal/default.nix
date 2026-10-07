@@ -13,6 +13,8 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "3760434a18e6ba47b695c22786195e57cc6b4c1c";
     hash = "sha256-8u4gQ1ifNrXzoOiXAZ535ZMZi8w6VRCljOC0u9xbJOg=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   enableParallelBuilding = true;
 
   installPhase = ''

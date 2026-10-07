@@ -14,6 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-1CJWqbOGND00+xziSnaZVWtvnfhV9epKd7GVbAOQZvw=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   postInstall = ''
     mkdir -p $out/share/plasma/plasmoids/ink.chyk.lyricakde
     cp -r frontend/kde/* $out/share/plasma/plasmoids/ink.chyk.lyricakde

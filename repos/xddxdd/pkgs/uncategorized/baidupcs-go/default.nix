@@ -16,6 +16,8 @@ buildGoModule (finalAttrs: {
     rev = "1b9131817aaf8ca7dee24bc00e33ebc4c7a5cc73";
     hash = "sha256-TRM9bZJDBFFrFSIab4DiZ75JdtvJFvZvji5cJtNDPM8=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   vendorHash = "sha256-3kvB5QxtWuElhDIFFr3Awf5myf6l2Hx0M2k53ltQYeQ=";
 
   patches = [ ./fix-config-dir.patch ];

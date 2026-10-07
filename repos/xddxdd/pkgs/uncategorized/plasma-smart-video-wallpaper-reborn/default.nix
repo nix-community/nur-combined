@@ -13,6 +13,8 @@ stdenv.mkDerivation (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-Ao1hBIt0VWhwJV6VTvjDKsHYNXyAR7yzHka3EF2dWOo=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   postInstall = ''
     mkdir -p $out/share/plasma/wallpapers/luisbocanegra.smart.video.wallpaper.reborn
     cp -r package/* $out/share/plasma/wallpapers/luisbocanegra.smart.video.wallpaper.reborn

@@ -36,6 +36,8 @@ stdenv.mkDerivation (finalAttrs: {
     tag = finalAttrs.version;
     hash = "sha256-iNBnH9GLKh3IXdhgnwrinoZqnIQgugtDcTAESldnAug=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   nativeBuildInputs = [
     cmake
     makeWrapper

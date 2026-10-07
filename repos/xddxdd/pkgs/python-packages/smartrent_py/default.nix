@@ -20,6 +20,8 @@ buildPythonPackage (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-UptzFqGpQtefvBE2X0ji1UvEOP8+f/E0w64XuVoVpSM=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace-fail '"poetry>=' '"poetry-core>='

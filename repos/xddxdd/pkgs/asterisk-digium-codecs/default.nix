@@ -10,6 +10,8 @@ let
   mkLibrary =
     asterisk_version: name: _bits: value:
     stdenv.mkDerivation (finalAttrs: {
+      __structuredAttrs = true;
+      strictDeps = true;
       pname = "asterisk-${asterisk_version}-codec-${name}";
       inherit (value) version;
       src = fetchurl {

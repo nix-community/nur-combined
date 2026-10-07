@@ -28,6 +28,8 @@ appimageTools.wrapType2 {
     url = "https://github.com/bambulab/BambuStudio/releases/download/v02.05.02.51/BambuStudio_ubuntu-24.04_v02.05.02.51-20260327222803.AppImage";
     hash = "sha256-tWda80M3cV5hztEoYkZVGabQMgg6pyc/OniPJfghN0Q=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   inherit version;
 
   profile = ''

@@ -17,6 +17,8 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "2736cb094a51d186dabf2204a7599e9b8118f8dd";
     hash = "sha256-pv/5CxmojkfOwE/r1T2Ow96XkFw/FQvLcY49bWWiEwo=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   enableParallelBuilding = true;
 
   nativeBuildInputs = [ cmake ];

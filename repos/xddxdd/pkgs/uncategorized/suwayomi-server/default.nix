@@ -14,6 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
     url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v${finalAttrs.version}/Suwayomi-Server-v${finalAttrs.version}.jar";
     hash = "sha256-r5/rIK+dfr6eMHaebG68f8erHERziNQuAoCx2l/ge/0=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   dontUnpack = true;
 
   nativeBuildInputs = [

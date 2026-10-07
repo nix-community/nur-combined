@@ -142,6 +142,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "adspower";
   inherit version;
   src = adspowerSrc;
+  __structuredAttrs = true;
+  strictDeps = true;
   dontUnpack = true;
 
   installPhase = ''

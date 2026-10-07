@@ -13,6 +13,8 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "32a49117ca3ff17d7681713a8dc8812323142dcb";
     hash = "sha256-jKuCBKUm32ulgH0+/be2s+CgeBqTww+4K3RETFFCCOc=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
   passthru.updateScript = unstableGitUpdater {

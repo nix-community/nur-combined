@@ -117,6 +117,8 @@ in
 stdenv.mkDerivation (finalAttrs: {
   pname = "unigine-superposition";
   inherit version;
+  __structuredAttrs = true;
+  strictDeps = true;
   dontUnpack = true;
 
   nativeBuildInputs = [ copyDesktopItems ];

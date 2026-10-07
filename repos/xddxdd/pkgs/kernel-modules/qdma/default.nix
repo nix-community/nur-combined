@@ -17,6 +17,8 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "b8466090b4e812e191da9e9305ffb11cb7ace768";
     hash = "sha256-az23GPWf3wfMhMK4dR89o1hZAHkCMCgdrmnGakxLwBo=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
 
   postPatch = ''
     substituteInPlace QDMA/linux-kernel/driver/Makefile \
@@ -31,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     "KOBJ=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
     "modulesymfile=Module.symvers"
   ];
-  CPPFLAGS = "-Wno-error=format-truncation -Wno-error=unused-but-set-variable -Wno-error=unused-but-set-parameter";
+  env.CPPFLAGS = "-Wno-error=format-truncation -Wno-error=unused-but-set-variable -Wno-error=unused-but-set-parameter";
   buildFlags = [
     "mod_pf"
     "mod_vf"

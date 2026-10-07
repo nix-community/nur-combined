@@ -8,6 +8,8 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   inherit pname version src;
+  __structuredAttrs = true;
+  strictDeps = true;
 
   enableParallelBuilding = true;
   dontFixCmake = true;

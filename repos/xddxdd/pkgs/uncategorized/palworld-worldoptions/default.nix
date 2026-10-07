@@ -16,6 +16,8 @@ stdenv.mkDerivation (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-U0PlWK5KPr6m9nIrD+qWRiKWb4zr2hBCEROVI5qBor0=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   nativeBuildInputs = [ makeWrapper ];
 
   postPatch = ''

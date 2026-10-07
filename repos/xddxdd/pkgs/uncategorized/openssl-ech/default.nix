@@ -13,6 +13,8 @@ openssl_3_6.overrideAttrs (old: {
     rev = "5191045371b4ae1383f0ae1a0f078117e9d9b1c4";
     hash = "sha256-VrO3c0p2goejbgDLFK/0TH++oVKZxtdMC0+DXXS0y3s=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   patches =
     (builtins.filter (
       p: !(lib.hasInfix "use-etc-ssl-certs.patch" "${p}") && !(lib.hasInfix "aes-gcm-ppc" "${p}")

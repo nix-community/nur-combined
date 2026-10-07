@@ -80,6 +80,8 @@ let
 in
 writeTextFile {
   name = "README.md";
+  derivationArgs.__structuredAttrs = true;
+  derivationArgs.strictDeps = true;
   text = ''
     # Lan Tian's NUR Packages
 

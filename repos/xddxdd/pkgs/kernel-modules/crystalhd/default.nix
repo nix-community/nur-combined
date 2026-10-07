@@ -15,6 +15,8 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "af931d9ae5a63adfefe398defb99f225ae181c24";
     hash = "sha256-5fsezV8OQjCKSr3m4jgEVMQhOfvfryBazWHeTcaUzUE=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   patches = [ ./fix.patch ];
 
   postPatch = ''
@@ -31,12 +33,12 @@ stdenv.mkDerivation (finalAttrs: {
   ];
   nativeBuildInputs = kernel.moduleBuildDependencies ++ [ autoreconfHook ];
 
-  KSRC = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
-  INSTALL_MOD_PATH = placeholder "out";
+  env.KSRC = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
+  env.INSTALL_MOD_PATH = placeholder "out";
 
   makeFlags = kernel.commonMakeFlags or kernel.makeFlags;
   preBuild = ''
-    makeFlags="$makeFlags -C ${finalAttrs.KSRC} M=$(pwd)"
+    makeFlagsArray+=("-C" "${finalAttrs.env.KSRC}" "M=$(pwd)")
   '';
   installTargets = [ "modules_install" ];
 

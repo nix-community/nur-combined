@@ -5,6 +5,8 @@
 }:
 writeTextFile rec {
   name = "00000-howto";
+  derivationArgs.__structuredAttrs = true;
+  derivationArgs.strictDeps = true;
   text = ''
     This NUR has a binary cache. Use the following settings to access it:
 

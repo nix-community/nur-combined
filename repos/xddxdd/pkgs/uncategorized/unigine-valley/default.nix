@@ -33,6 +33,8 @@ stdenv.mkDerivation (finalAttrs: {
     url = "https://assets.unigine.com/d/Unigine_Valley-${finalAttrs.version}.run";
     hash = "sha256-L7R6nEXQbLTEi76VUoUyhS2LFeTdgdaTaIQVWGn/1+8=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   nativeBuildInputs = [
     autoPatchelfHook
     copyDesktopItems

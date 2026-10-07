@@ -16,6 +16,8 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "454cac2d57a47d3cc28577dc817793aec1881ca7";
     hash = "sha256-ABqIi46lkiywEd1mG5DH7LtLIXSsNHppgh4QAkQKFiU=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   patches = [
     ./fix-install-path.patch
     ./qt6-qchar-fix.patch

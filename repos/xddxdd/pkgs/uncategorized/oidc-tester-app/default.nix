@@ -13,6 +13,8 @@ buildGoModule (finalAttrs: {
     rev = "daf9d286d1f0017ef543d6bc637dea1c1044d14d";
     hash = "sha256-ggRQb2X+45rMlZ0Km23nwkPbxf//jDhlHYVnedAoFFo=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   vendorHash = "sha256-/cLusGRFKwSte/iHWmKwdC6stY3ITHvKPv9ughn+YCQ=";
 
   passthru.updateScript = nix-update-script {

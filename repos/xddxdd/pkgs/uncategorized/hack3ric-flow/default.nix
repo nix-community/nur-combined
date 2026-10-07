@@ -13,6 +13,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     rev = "cd665d1ed1521f0e042ff8a5cf5e78ca992f090d";
     hash = "sha256-dsWCaOuZBrRNHuy/dOxDKQWTQ2PgaOaPLK4nRFM9h48=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   cargoHash = "sha256-FEc5j2tMRCfU2nRYC/0gbdk4BkF99R88dWdJzgDUoVU=";
 
   # Check requires netlink privileges

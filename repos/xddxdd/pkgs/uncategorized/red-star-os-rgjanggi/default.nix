@@ -87,6 +87,8 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   inherit pname version;
+  __structuredAttrs = true;
+  strictDeps = true;
   dontUnpack = true;
 
   nativeBuildInputs = [

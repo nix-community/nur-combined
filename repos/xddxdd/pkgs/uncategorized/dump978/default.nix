@@ -22,6 +22,8 @@ stdenv.mkDerivation (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-GErOwkO3dJBXOCI7RpXezNXa3hL6AOyl3KpMUmjfkTg=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   enableParallelBuilding = true;
 
   buildInputs = [

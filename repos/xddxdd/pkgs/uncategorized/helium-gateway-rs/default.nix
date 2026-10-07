@@ -14,7 +14,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
     rev = "b736b006af618d67433e0d4c19d626260fad6dcb";
     hash = "sha256-Q4wJJIIk59qI9NNnxUIBDBZFFFvjuUFCJAfCdtFMdGU=";
   };
-  PROTOC = "${protobuf}/bin/protoc";
+  __structuredAttrs = true;
+  strictDeps = true;
+  env.PROTOC = "${protobuf}/bin/protoc";
 
   cargoHash = "sha256-CvjbgGfphDk61BnKkKWOUXL8pbofz/EDsABaW+QUWec=";
 

@@ -26,6 +26,8 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "edaed2afd2cdedcc4648380185d8d7cf7a1eee97";
     hash = "sha256-CAU48qeRffUZLpZXDFaPCK1muB3w38VpDD/yAaGBLes=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   nativeBuildInputs = [ makeWrapper ];
 
   doCheck = true;

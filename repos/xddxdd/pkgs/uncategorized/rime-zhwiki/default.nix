@@ -10,6 +10,8 @@ stdenv.mkDerivation (finalAttrs: {
     url = "https://github.com/felixonmars/fcitx5-pinyin-zhwiki/releases/download/0.2.5/zhwiki-${finalAttrs.version}.dict.yaml";
     hash = "sha256-lihR5q+brhaweHD1ggtAzvFMqQ2Rt+REeOH4K8V20gI=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   dontUnpack = true;
   installPhase = ''
     runHook preInstall

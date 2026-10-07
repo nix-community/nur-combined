@@ -14,6 +14,8 @@ buildNpmPackage (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-jaBAT3DWbsE5upQD4rERUVW/sb5Hu8pyuY7RdvhVDMs=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   sourceRoot = "source/code/frontend";
 
   nodejs = nodejs_26;

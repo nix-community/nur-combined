@@ -14,6 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-Ir/tQde7hfqlgOVXE2HqJSzEXdceCTywptN8PRqylMI=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   makeFlags = [
     "CC=${stdenv.cc.targetPrefix}cc"
   ];

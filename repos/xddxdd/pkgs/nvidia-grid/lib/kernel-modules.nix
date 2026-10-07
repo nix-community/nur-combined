@@ -9,6 +9,8 @@ stdenv.mkDerivation (finalAttrs: {
   version = "${nvidia_x11.version}-${kernel.version}";
 
   src = nvidia_x11.modsrc;
+  __structuredAttrs = true;
+  strictDeps = true;
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 

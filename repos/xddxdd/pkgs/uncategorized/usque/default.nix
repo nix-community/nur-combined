@@ -18,6 +18,8 @@ buildGoModule (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-aUAji41gVsRs47IDtLAinxUZsZjTQvO/SMWe5GdmJLw=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   vendorHash = "sha256-XvbH6w0po2piUwuHTRxGbqwoKEOl2nLp0VnXONOvA14=";
 
   ldflags = [

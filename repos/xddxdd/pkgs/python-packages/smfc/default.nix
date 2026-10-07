@@ -17,6 +17,8 @@ buildPythonPackage (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-4VbC1DrP4eqSy3xaK6WV2bpWRrcZHP4/AhlzRzOV2+o=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
 
   build-system = [ setuptools ];
 

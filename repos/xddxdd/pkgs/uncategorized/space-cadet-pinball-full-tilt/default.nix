@@ -11,6 +11,8 @@ let
   };
 in
 space-cadet-pinball.overrideAttrs (old: {
+  __structuredAttrs = true;
+  strictDeps = true;
   nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ unzip ];
 
   postInstall = (old.postInstall or "") + ''

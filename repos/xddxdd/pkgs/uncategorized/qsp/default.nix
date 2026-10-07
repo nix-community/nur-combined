@@ -48,6 +48,8 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "0cac60ce0593ab7aba50f05e457282a694fca7e8";
     hash = "sha256-23Yx2DMHPQEIvY/UKLC6Dswz3rv10/7YLdb8DFB8DTY=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   patches = [ ./use-prebuilt-qsp-lib.patch ];
 
   nativeBuildInputs = [

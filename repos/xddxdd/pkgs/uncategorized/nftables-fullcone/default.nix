@@ -4,6 +4,8 @@
   libnftnl-fullcone,
 }:
 (nftables.override { libnftnl = libnftnl-fullcone; }).overrideAttrs (old: {
+  __structuredAttrs = true;
+  strictDeps = true;
   patches = (old.patches or [ ]) ++ [
     # Adapted from https://raw.githubusercontent.com/wongsyrone/lede-1/master/package/network/utils/nftables/patches/999-01-nftables-add-fullcone-expression-support.patch
     ./999-01-nftables-add-fullcone-expression-support.patch

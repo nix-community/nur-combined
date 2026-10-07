@@ -19,7 +19,7 @@ lib.mapAttrs' (
     patches = pkgs.callPackage ./patches { };
   in
   lib.nameValuePair (lib.removePrefix prefix n) (
-    v.override (orig: {
+    (v.override (orig: {
       autoModules = true;
       ignoreConfigErrors = true;
       modDirVersion = "${ver0}-lantian-cachy";
@@ -27,6 +27,10 @@ lib.mapAttrs' (
       structuredExtraConfig = (import (./custom-config + "/${major}.nix") importArgs) // {
         LOCALVERSION = lib.kernel.freeform "-lantian-cachy";
       };
-    })
+    })).overrideAttrs
+      (_: {
+        __structuredAttrs = true;
+        strictDeps = true;
+      })
   )
 ) (lib.filterAttrs (n: v: lib.hasPrefix "${prefix}lts" n) kernels)

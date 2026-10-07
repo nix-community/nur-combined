@@ -13,6 +13,8 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "739c70ffde6bb7670d57d3507804408ae13edf25";
     hash = "sha256-1VKLkGw9jxJvYDoUgkRjnCT6+ol2dJAmppM61lvVOi8=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   postInstall = ''
     mkdir -p $out/share/plasma/plasmoids/org.kde.panel.transparency.toggle
     cp -r * $out/share/plasma/plasmoids/org.kde.panel.transparency.toggle

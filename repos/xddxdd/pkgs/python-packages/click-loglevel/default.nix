@@ -19,6 +19,8 @@ buildPythonPackage (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-Z66xy8d9KAjni4AmwZwGdHTzJHkjgO/2D+vkOhh/te8=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   propagatedBuildInputs = [
     click
     hatchling

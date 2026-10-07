@@ -11,6 +11,8 @@ stdenv.mkDerivation (finalAttrs: {
     url = "https://github.com/outloudvi/mw2fcitx/releases/download/${finalAttrs.version}/moegirl.dict.yaml";
     hash = "sha256-FhFH9wfUab5/X2DyRzWqwr+geCE84ijmfVloEOM1Lg0=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   dontUnpack = true;
   installPhase = ''
     runHook preInstall

@@ -13,6 +13,8 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "af931d9ae5a63adfefe398defb99f225ae181c24";
     hash = "sha256-5fsezV8OQjCKSr3m4jgEVMQhOfvfryBazWHeTcaUzUE=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   sourceRoot = "source/linux_lib/libcrystalhd";
 
   postPatch = ''

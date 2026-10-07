@@ -53,6 +53,8 @@ let
   ];
 in
 (asterisk.override { withOpus = false; }).overrideAttrs (old: {
+  __structuredAttrs = true;
+  strictDeps = true;
   prePatch =
     (lib.concatStrings (builtins.map (p: "cp -r ${p}/* ./\n") myExtraFiles)) + (old.prePatch or "");
 

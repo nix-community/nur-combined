@@ -7,6 +7,8 @@
 }:
 buildGoModule (finalAttrs: {
   inherit (coredns) pname version src;
+  __structuredAttrs = true;
+  strictDeps = true;
 
   patches = [ ./fix-large-axfr.patch ];
 

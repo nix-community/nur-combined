@@ -197,5 +197,10 @@ let
   };
 in
 stdenv.mkDerivation (
-  (common stdenv.hostPlatform) // (if stdenv.hostPlatform.isDarwin then darwin else linux)
+  (common stdenv.hostPlatform)
+  // (if stdenv.hostPlatform.isDarwin then darwin else linux)
+  // {
+    __structuredAttrs = true;
+    strictDeps = true;
+  }
 )

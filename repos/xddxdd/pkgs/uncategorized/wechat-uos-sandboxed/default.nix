@@ -55,4 +55,7 @@ let
       }
     );
 in
-pkgs.wechat-uos.override { buildFHSEnv = buildFHSEnvWithOverride; }
+(pkgs.wechat-uos.override { buildFHSEnv = buildFHSEnvWithOverride; }).overrideAttrs (_: {
+  __structuredAttrs = true;
+  strictDeps = true;
+})

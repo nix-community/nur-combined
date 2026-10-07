@@ -14,6 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-gDcEzZKtHMULtTtJSDTRH1W9otSB6IC0E6EBF9j6F7Q=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   sourceRoot = "source/src";
   hardeningDisable = [
     "pic"
@@ -21,12 +23,12 @@ stdenv.mkDerivation (finalAttrs: {
   ];
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  KSRC = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
-  INSTALL_MOD_PATH = placeholder "out";
+  env.KSRC = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
+  env.INSTALL_MOD_PATH = placeholder "out";
 
   makeFlags = kernel.commonMakeFlags or kernel.makeFlags;
   preBuild = ''
-    makeFlags="$makeFlags -C ${finalAttrs.KSRC} M=$(pwd)"
+    makeFlagsArray+=("-C" "${finalAttrs.env.KSRC}" "M=$(pwd)")
   '';
   installTargets = [ "modules_install" ];
 

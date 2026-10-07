@@ -24,6 +24,8 @@ buildPythonPackage (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-qaMym8qnXwO3Fq8QPWUq7PZM1G57BGwtuqSbZQA2WCo=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   propagatedBuildInputs = [
     click
     httpx

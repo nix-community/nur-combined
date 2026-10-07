@@ -22,6 +22,8 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
     hash = "sha256-gD+BOfM/2QN0UxhlVZNgsHCgIJkGZppHfM1ONsnMe2U=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   nativeBuildInputs = [
     meson
     ninja

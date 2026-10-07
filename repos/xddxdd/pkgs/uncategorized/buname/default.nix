@@ -16,6 +16,8 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "a62d3d214dafb92932f4e5478eebc212ae4cb57d";
     hash = "sha256-5pzAhggb8BD/5uxMXdg53A/4DLXTdwP2iqx9iw6diA8=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''

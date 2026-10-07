@@ -14,6 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
     url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v${finalAttrs.version}/PeerBanHelper_${finalAttrs.version}.zip";
     hash = "sha256-YhjyveMbhAI0uHLFEo9nqdNUFKUspakesZaJvK5s/7M=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   nativeBuildInputs = [
     makeWrapper
     unzip

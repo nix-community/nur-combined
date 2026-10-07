@@ -9,18 +9,20 @@ stdenv.mkDerivation (finalAttrs: {
   version = "0.1.0-${kernel.version}";
 
   src = ./src;
+  __structuredAttrs = true;
+  strictDeps = true;
 
   hardeningDisable = [ "pic" ];
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
   enableParallelBuilding = true;
 
-  KSRC = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
-  INSTALL_MOD_PATH = placeholder "out";
+  env.KSRC = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
+  env.INSTALL_MOD_PATH = placeholder "out";
 
   makeFlags = kernel.commonMakeFlags or kernel.makeFlags;
   preBuild = ''
-    makeFlags="$makeFlags -C ${finalAttrs.KSRC} M=$(pwd)"
+    makeFlagsArray+=("-C" "${finalAttrs.env.KSRC}" "M=$(pwd)")
   '';
   installTargets = [ "modules_install" ];
 

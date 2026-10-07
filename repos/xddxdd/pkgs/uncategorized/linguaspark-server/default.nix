@@ -15,6 +15,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     fetchSubmodules = true;
     hash = "sha256-gctAIemzCCk9zOWGlUFLGuRuzhVNttBojn/TJi8nIcQ=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) pname version src;
     hash = "sha256-zmyBVEldNwNZvScs0PBRZtXXSk7vx6v/vC08bZl7bg0=";

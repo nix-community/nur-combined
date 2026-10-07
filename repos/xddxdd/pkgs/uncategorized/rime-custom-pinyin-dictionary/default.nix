@@ -14,6 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
     url = "https://github.com/wuhgit/CustomPinyinDictionary/releases/download/assets/CustomPinyinDictionary_Fcitx_Magisk_${finalAttrs.version}.zip";
     hash = "sha256-0+da8NepstQWR3YIJRgoF5bGokqFRxqLfPKS9EPya6k=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   sourceRoot = ".";
 
   nativeBuildInputs = [

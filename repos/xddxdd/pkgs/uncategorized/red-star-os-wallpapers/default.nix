@@ -12,6 +12,8 @@ stdenv.mkDerivation (finalAttrs: {
     url = "https://archive.org/download/RedStarOS/Red%20Star%20OS%203.0%20Desktop/DESKTOP_redstar_desktop3.0_sign.iso";
     hash = "sha256-iVrQ4Brg01pl6axC3TTQodaF1t+jMc5bTyS7x1NDm+M=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
 
   nativeBuildInputs = [
     p7zip

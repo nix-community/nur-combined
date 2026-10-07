@@ -3,6 +3,8 @@
   attic-server,
 }:
 attic-server.overrideAttrs (old: {
+  __structuredAttrs = true;
+  strictDeps = true;
   patches = (old.patches or [ ]) ++ [ ./disable-presign-url.patch ];
 
   postPatch = (old.postPatch or "") + ''

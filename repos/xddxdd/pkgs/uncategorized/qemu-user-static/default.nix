@@ -12,6 +12,8 @@ let
     stdenv.mkDerivation {
       pname = "qemu-user-static";
       inherit (source) version src;
+      __structuredAttrs = true;
+      strictDeps = true;
 
       nativeBuildInputs = [ dpkg ];
 

@@ -16,6 +16,8 @@ buildPythonPackage (finalAttrs: {
     rev = "b85452e384a3650109809fe5fefacb2ae4fe89d2";
     hash = "sha256-47BW23SmZcSfjrEhUd7hIUAt451Ci2n8MEMaL0ngb04=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   build-system = [ setuptools ];
 
   pythonImportsCheck = [ "opencc" ];

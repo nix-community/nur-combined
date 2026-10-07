@@ -22,6 +22,8 @@ stdenv.mkDerivation (finalAttrs: {
     url = "https://github.com/msojocs/bilibili-linux/releases/download/v${finalAttrs.version}/bilibili-asar-v${finalAttrs.version}.tar.gz";
     hash = "sha256-ca4E0aI1PvITK0zzActcJkBxLY/B6YjJFUANRCCYifE=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   buildInputs = [ makeWrapper ];
 
   sourceRoot = ".";

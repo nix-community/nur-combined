@@ -29,6 +29,8 @@ stdenv.mkDerivation (finalAttrs: {
     url = "https://github.com/Grasscutters/Grasscutter/releases/download/v${finalAttrs.version}/grasscutter-${finalAttrs.version}.jar";
     hash = "sha256-tIYnCxtB14M+cGSuIZSZHworIzFEXKowyAgwmJ1jZpU=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   dontUnpack = true;
 
   nativeBuildInputs = [

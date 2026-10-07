@@ -52,6 +52,8 @@ stdenv.mkDerivation (finalAttrs: {
     name = "qqmusic.deb";
     hash = "sha256-QtGNaow8F0FOW228DDrIk7slQMHFwJzpDSQYQ8xZN4g=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   nativeBuildInputs = [
     autoPatchelfHook
     makeWrapper

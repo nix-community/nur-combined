@@ -19,6 +19,8 @@ buildPythonPackage (finalAttrs: {
     fetchSubmodules = false;
     hash = "sha256-/QPEadNkCYvjXFW1DB5vKvxlxx6KTv2sYqJ09NhCY8Y=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   build-system = [ setuptools ];
   dependencies = [
     construct

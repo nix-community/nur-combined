@@ -16,6 +16,8 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
     hash = "sha256-52nt0TtPDpMjC0QCTrWYUhpHXZNCDrds0LrkQdDN1Mo=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   nativeBuildInputs = [ cmake ];
   buildInputs = [ openssl ];
 

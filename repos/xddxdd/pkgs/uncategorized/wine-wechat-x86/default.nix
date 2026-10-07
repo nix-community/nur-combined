@@ -30,6 +30,8 @@ stdenv.mkDerivation (finalAttrs: {
     url = "https://github.com/tom-snow/wechat-windows-versions-x86/releases/download/v${finalAttrs.version}/WeChatSetupX86-${finalAttrs.version}.exe";
     hash = "sha256-luFiOhyEkCy/MxOKliV2xOjMxrq/kmWceiY/cDmo76k=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
 
   dontUnpack = true;
 

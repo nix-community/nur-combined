@@ -83,6 +83,8 @@ in
 stdenv.mkDerivation (finalAttrs: {
   pname = "baidunetdisk";
   inherit version src;
+  __structuredAttrs = true;
+  strictDeps = true;
   dontUnpack = true;
 
   nativeBuildInputs = [

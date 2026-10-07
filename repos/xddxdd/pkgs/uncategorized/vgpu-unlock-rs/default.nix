@@ -13,6 +13,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-5/cFc8JWgwxYm0JQX6aBGhIn2cNvGB4kh/w96P+lTgw=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   cargoLock.lockFile = ./Cargo.lock;
 
   postPatch = ''

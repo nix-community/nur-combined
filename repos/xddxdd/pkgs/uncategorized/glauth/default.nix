@@ -14,6 +14,8 @@ buildGoModule (finalAttrs: {
     tag = "GLAuth-v${finalAttrs.version}";
     hash = "sha256-b5R3aXrvHyKDoRhNIXIZncnkIV5DuWr4pPQCv0I36JU=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   vendorHash = "sha256-T0nzmnnM7Cps9nmt4Rfzn4nl2+i/1baP0AwIrjk4hXk=";
 
   postPatch = ''

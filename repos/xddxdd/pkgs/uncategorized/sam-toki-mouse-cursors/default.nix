@@ -21,6 +21,8 @@ stdenv.mkDerivation (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-juRUv7/9dd+bIDjbwzfznPyPUZpPyL9sYKcNgZXngro=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   nativeBuildInputs = [ py ];
 
   installPhase = ''

@@ -11,6 +11,8 @@ stdenv.mkDerivation (finalAttrs: {
     url = "https://gopherus.sourceforge.net/gopherus-${finalAttrs.version}.tar.xz";
     hash = "sha256-7l/7ZK5KQ/V2Ym02Sbc0qAGov36P4P0hVWzIzbQzipo=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   buildInputs = [ ncurses ];
 
   buildPhase = ''

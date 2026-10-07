@@ -13,6 +13,8 @@ stdenv.mkDerivation (finalAttrs: {
     url = "https://files.phpmyadmin.net/phpMyAdmin/${finalAttrs.version}/phpMyAdmin-${finalAttrs.version}-all-languages.tar.xz";
     hash = "sha256-V4gTSCl8RBL4bEEFR892tNiiNldN0sa31qK+6+f8ROM=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   installPhase = ''
     runHook preInstall
 

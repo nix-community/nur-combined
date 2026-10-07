@@ -40,6 +40,8 @@ buildPythonPackage (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-6PnTrP5q8jP089+InKNizsZIHmUlZv8XrS/eFk5xbrk=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   prePatch = ''
     cat requirements.txt | cut -d' ' -f1 > requirements2.txt
     mv requirements2.txt requirements.txt

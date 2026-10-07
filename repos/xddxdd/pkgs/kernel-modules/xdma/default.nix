@@ -17,6 +17,8 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "b8466090b4e812e191da9e9305ffb11cb7ace768";
     hash = "sha256-az23GPWf3wfMhMK4dR89o1hZAHkCMCgdrmnGakxLwBo=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
 
   patches = [ ./xdma-kbuild-ccflags.patch ];
 
@@ -27,11 +29,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   preConfigure = "cd XDMA/linux-kernel/xdma";
 
-  KSRC = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
+  env.KSRC = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
 
   makeFlags = kernel.commonMakeFlags or kernel.makeFlags;
   preBuild = ''
-    makeFlags="$makeFlags -C ${finalAttrs.KSRC} M=$(pwd)"
+    makeFlagsArray+=("-C" "${finalAttrs.env.KSRC}" "M=$(pwd)")
   '';
 
   installPhase = ''

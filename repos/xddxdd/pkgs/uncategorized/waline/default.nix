@@ -12,6 +12,8 @@ buildNpmPackage (finalAttrs: {
     url = "https://registry.npmjs.org/@waline/vercel/-/vercel-${finalAttrs.version}.tgz";
     hash = "sha256-1xm2WSF40K1vk6gD3vS5PLsn+oErZ0LcMvcyq+14inw=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   sourceRoot = "package";
 
   npmDepsHash = "sha256-0xVsKuLKl8zANbIv0czIfB+A1x7+V9yE11V0pm9KARY=";

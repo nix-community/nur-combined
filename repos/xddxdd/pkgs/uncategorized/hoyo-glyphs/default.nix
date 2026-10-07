@@ -12,6 +12,8 @@ stdenv.mkDerivation (finalAttrs: {
     url = "https://github.com/SpeedyOrc-C/HoYo-Glyphs/releases/download/${finalAttrs.version}/HoYo-Glyphs-${finalAttrs.version}.zip";
     hash = "sha256-MT+RrgsC2Y1EWFNdBuVyy23hAnHOy0TvARxl4Zy6A6k=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   sourceRoot = ".";
 
   nativeBuildInputs = [ unzip ];

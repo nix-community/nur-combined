@@ -13,6 +13,8 @@ stdenv.mkDerivation (finalAttrs: {
     url = "https://www.thomas-krenn.com/redx/tools/mb_download.php/ct.YuuHGw/mid.y9b3b4ba2bf7ab3b8/bnxtnvm.zip";
     sha256 = "0aryj1zxbmknj3isd0w1lf5q87y35g3sv7pdrj4lzmbg6d1b9w63";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   sourceRoot = ".";
 
   nativeBuildInputs = [

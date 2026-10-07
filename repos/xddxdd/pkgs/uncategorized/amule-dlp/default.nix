@@ -12,6 +12,8 @@ amule.overrideAttrs (old: {
     rev = "7b3a07ab554d95267cca0c4a819b26d8474d6b3b";
     hash = "sha256-aZ+BjBNKHbHP44L7iOK9t1n/4l4U+R/pZYfTSBjFOA4=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   patches = [ ];
 
   cmakeFlags = (old.cmakeFlags or [ ]) ++ [

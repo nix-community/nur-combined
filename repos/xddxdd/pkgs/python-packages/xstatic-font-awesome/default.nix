@@ -13,6 +13,8 @@ buildPythonPackage (finalAttrs: {
     url = "mirror://pypi/X/XStatic-Font-Awesome/xstatic_font_awesome-${finalAttrs.version}.tar.gz";
     hash = "sha256-nzyy8Dj619NSciN10/Ja80banuCT7Z3CyMRr2RGrGXE=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   build-system = [ setuptools ];
 
   pythonImportsCheck = [ "xstatic.pkg.font_awesome" ];

@@ -90,6 +90,8 @@ in
 stdenv.mkDerivation (finalAttrs: {
   pname = "fr24feed";
   inherit (source) version;
+  __structuredAttrs = true;
+  strictDeps = true;
   dontUnpack = true;
 
   installPhase = ''

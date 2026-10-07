@@ -15,6 +15,8 @@ python3Packages.buildPythonPackage (finalAttrs: {
     tag = finalAttrs.version;
     hash = "sha256-cvd7XgSn213aR4BqrdBoQed7i2m4MCkQBkLcO9uB+bo=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   dontCheckPythonMetadata = true;
 
   build-system = [ python3Packages.setuptools ];

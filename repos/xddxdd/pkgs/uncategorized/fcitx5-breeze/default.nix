@@ -13,6 +13,8 @@ stdenv.mkDerivation (finalAttrs: {
     url = "https://gitlab.com/scratch-er/fcitx5-breeze/-/archive/v${finalAttrs.version}/fcitx5-breeze-v${finalAttrs.version}.tar.gz";
     hash = "sha256-rRVRUY69M5Nz8MwarePlqy2JIOX8MP0nz6Ia2pwmkTA=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   nativeBuildInputs = [
     python3
     inkscape

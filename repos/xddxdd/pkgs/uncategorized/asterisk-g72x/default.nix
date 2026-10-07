@@ -16,6 +16,8 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "5106838f3aabf8fe09fa3780a8e9d3ed4c2a0063";
     hash = "sha256-6NF5ISpaXrEZUfFilWVeRAJnCb1b+Qaaq7p4AJHqjf0=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   nativeBuildInputs = [ autoreconfHook ];
   buildInputs = [
     asterisk

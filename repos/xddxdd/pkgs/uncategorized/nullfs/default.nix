@@ -14,6 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "0884f87ec01faaee219f59742c14ed3c3945f5c0";
     hash = "sha256-cokSWBZIeCfdxd+o59BssQetffFSdHrVipQuRLbqNdU=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   patches = [ ./6-nulnfs-fix-warnings.patch ];
 
   buildInputs = [ fuse ];

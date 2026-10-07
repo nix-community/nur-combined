@@ -27,6 +27,8 @@ stdenv.mkDerivation (finalAttrs: {
     url = "mirror://sourceforge/wxpython/wxPython-src-${finalAttrs.version}.tar.bz2";
     hash = "sha256-Hz8VPZ8VBMbOLSxLI+lAuPWLgfTLo1zaGluzEUIkPNA=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
 
   patches = [
     ./make-abicheck-non-fatal.patch
@@ -63,10 +65,12 @@ stdenv.mkDerivation (finalAttrs: {
   hardeningDisable = [ "format" ];
 
   # These variables are used by configure to find some dependencies.
-  SEARCH_INCLUDE = "${libXinerama.dev}/include ${libSM.dev}/include ${libXxf86vm.dev}/include";
-  SEARCH_LIB =
-    "${libXinerama.out}/lib ${libSM.out}/lib ${libXxf86vm.out}/lib "
-    + lib.optionalString withMesa "${libGLU.out}/lib ${libGL.out}/lib ";
+  env = {
+    SEARCH_INCLUDE = "${libXinerama.dev}/include ${libSM.dev}/include ${libXxf86vm.dev}/include";
+    SEARCH_LIB =
+      "${libXinerama.out}/lib ${libSM.out}/lib ${libXxf86vm.out}/lib "
+      + lib.optionalString withMesa "${libGLU.out}/lib ${libGL.out}/lib ";
+  };
 
   # Work around a bug in configure.
   NIX_CFLAGS_COMPILE = "-DHAVE_X11_XLIB_H=1 -lX11 -lcairo -Wno-narrowing";

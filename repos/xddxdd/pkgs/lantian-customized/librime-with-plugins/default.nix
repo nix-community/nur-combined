@@ -32,6 +32,8 @@ in
   ];
 }).overrideAttrs
   (old: {
+    __structuredAttrs = true;
+    strictDeps = true;
     passthru.updateScript = [ (toString ./update.sh) ];
     meta = old.meta // {
       maintainers = with lib.maintainers; [ xddxdd ];

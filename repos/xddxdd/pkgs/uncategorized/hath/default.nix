@@ -13,6 +13,8 @@ stdenv.mkDerivation (finalAttrs: {
     stripRoot = false;
     hash = "sha256-0c8ltti19c6QBkcxZThdqHRGN7pDP0YUwwFXcvvmqDM=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
 
   nativeBuildInputs = [ makeWrapper ];
 

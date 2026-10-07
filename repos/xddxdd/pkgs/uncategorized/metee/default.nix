@@ -14,6 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
     tag = finalAttrs.version;
     hash = "sha256-oBXc+wcCDw6+PVHKMnhU+4fZYNb1EQ1yUyDYfZzSPaI=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   nativeBuildInputs = [ cmake ];
 
   passthru.updateScript = nix-update-script { };

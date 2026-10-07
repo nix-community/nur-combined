@@ -5,6 +5,8 @@
 writeShellApplication rec {
   name = "ls-iommu";
   derivationArgs.version = "1.0";
+  derivationArgs.__structuredAttrs = true;
+  derivationArgs.strictDeps = true;
   text = ''
     shopt -s nullglob
     lastgroup=""

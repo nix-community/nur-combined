@@ -33,6 +33,8 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "52e9f2cae9e2ae791e810593a99d642763431806";
     hash = "sha256-nTWvnoHIOt1jHv2m9JGPhFithu2/VZdl+Ju2n6woVHY=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   nativeBuildInputs = [
     makeWrapper
     openssl

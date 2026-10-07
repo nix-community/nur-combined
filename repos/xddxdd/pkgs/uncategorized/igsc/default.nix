@@ -16,6 +16,8 @@ stdenv.mkDerivation (finalAttrs: {
     tag = "V${finalAttrs.version}";
     hash = "sha256-eqp4QIACQh4wGYHwb6CnDm7PGzKEdgdur+yo7deh0EI=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   buildInputs = [
     metee
     udev

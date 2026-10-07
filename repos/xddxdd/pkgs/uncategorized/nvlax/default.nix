@@ -96,6 +96,8 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "b3699ad40c4dfbb9d46c53325d63ae8bf4a94d7f";
     hash = "sha256-xNZnMa4SFUFwnJAOruez9JxnCC91htqzR5HOqD4RZtc=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
 
   patches = [ ./nvlax-cpm.patch ] ++ lib.optionals enableNvidia530Patch [ nvidia530Patch ];
 

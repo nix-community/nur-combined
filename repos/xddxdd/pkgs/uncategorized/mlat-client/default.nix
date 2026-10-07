@@ -15,6 +15,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-V//LpYmBXtT8haX1aZ4XldzzyUY2YN7x3lTpQ2csTmw=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   build-system = [ python3Packages.setuptools ];
 
   propagatedBuildInputs = with python3Packages; [

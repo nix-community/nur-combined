@@ -25,6 +25,8 @@ stdenv.mkDerivation (finalAttrs: {
     url = "https://github.com/topjohnwu/Magisk/releases/download/v${finalAttrs.version}/Magisk-v${finalAttrs.version}.apk";
     hash = "sha256-LIpIi5pSk+V46Vrk8H48V6uk/uxKUspN2FKiaS1t1Og=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   dontUnpack = true;
 
   nativeBuildInputs = [ unzip ];

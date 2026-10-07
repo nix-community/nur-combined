@@ -13,6 +13,8 @@ googleearth-pro.overrideAttrs (old: {
     url = "https://dl.google.com/linux/earth/deb/pool/main/g/google-earth-pro-stable/google-earth-pro-stable_${version}-r0_amd64.deb";
     hash = "sha256-ynVnHveF5hPQwkvu+RRCnAR+rEhkG3x5+8EbQv77C3o=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   unpackPhase = ''
     runHook preUnpack
 

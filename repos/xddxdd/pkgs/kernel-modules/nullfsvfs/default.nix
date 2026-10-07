@@ -14,20 +14,22 @@ stdenv.mkDerivation (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-BvixSZN9GqFS4llaiKHfkLb21+qG74YtyNb8bUP0jdU=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   hardeningDisable = [
     "pic"
     "format"
   ];
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  KSRC = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
-  INSTALL_MOD_PATH = placeholder "out";
+  env.KSRC = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
+  env.INSTALL_MOD_PATH = placeholder "out";
 
   patches = [ ./nullfsvfs-change-reported-free-space.patch ];
 
   makeFlags = kernel.commonMakeFlags or kernel.makeFlags;
   preBuild = ''
-    makeFlags="$makeFlags -C ${finalAttrs.KSRC} M=$(pwd)"
+    makeFlagsArray+=("-C" "${finalAttrs.env.KSRC}" "M=$(pwd)")
   '';
   installTargets = [ "modules_install" ];
 

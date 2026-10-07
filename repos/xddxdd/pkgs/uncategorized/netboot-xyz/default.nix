@@ -17,6 +17,8 @@ assert ("3.0.2" == "3.0.2");
 stdenv.mkDerivation (finalAttrs: {
   pname = "netboot-xyz";
   version = "3.0.3-RC";
+  __structuredAttrs = true;
+  strictDeps = true;
   dontUnpack = true;
   postInstall = ''
     mkdir $out

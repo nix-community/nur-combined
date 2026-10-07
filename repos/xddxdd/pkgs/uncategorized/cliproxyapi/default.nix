@@ -13,6 +13,8 @@ buildGoModule (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-eBWqOqWkvaONEut28hUHOmuc4JcZBp2SCEnXT2CAxS4=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   vendorHash = "sha256-ju7dRQIDvz/oHP5Y6y0hklEBNPzwrtWqSQ7cr51jwTY=";
 
   proxyVendor = true;

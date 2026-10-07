@@ -23,6 +23,8 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "ocfs2-tools-${finalAttrs.version}";
     hash = "sha256-zSChd4QuIzVsoBu4aVXAo7kdvJJ6YecTivBjdlUK93g=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
 
   nativeBuildInputs = [
     autoreconfHook

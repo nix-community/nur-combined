@@ -15,6 +15,8 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "aeaac6eeb1ac84c1bc4439d9aae5267ef9832ef0";
     hash = "sha256-WiglDtRD84K3f8HsLwtx6tfRWFt77U0LDXgu20tCT5E=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
 
   enableParallelBuilding = true;
   dontFixCmake = true;

@@ -21,7 +21,11 @@ let
     };
   });
 in
-telegram-desktop.override {
+(telegram-desktop.override {
   inherit (materialgram) pname;
   inherit unwrapped;
-}
+}).overrideAttrs
+  (_: {
+    __structuredAttrs = true;
+    strictDeps = true;
+  })

@@ -43,6 +43,8 @@ let
     pname = "openj9-ibm-semeru-${thisSource.type}-bin";
     inherit (thisSource) version;
     src = fetchurl { inherit (thisSource) url sha256; };
+    __structuredAttrs = true;
+    strictDeps = true;
 
     buildInputs = [
       alsa-lib # libasound.so wanted by lib/libjsound.so

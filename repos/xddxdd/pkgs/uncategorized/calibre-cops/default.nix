@@ -14,6 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
     url = "https://github.com/mikespub-org/seblucas-cops/releases/download/${finalAttrs.version}/cops-${finalAttrs.version}-php84.zip";
     hash = "sha256-KSPecmpzyV/OSvkW4Skvesbw3qe/LnT9a6wZ655Py4o=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   unpackPhase = ''
     runHook preUnpack
 

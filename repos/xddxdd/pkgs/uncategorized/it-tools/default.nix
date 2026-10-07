@@ -19,6 +19,8 @@ stdenv.mkDerivation (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-tOTtibNYctIOX63MJzB28eq8FLmAuvtFuO/m226KUpE=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   pnpmDeps = fetchPnpmDeps {
     pname = "it-tools";
     inherit (finalAttrs) version;

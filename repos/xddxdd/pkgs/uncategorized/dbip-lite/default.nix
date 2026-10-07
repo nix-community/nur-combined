@@ -9,6 +9,8 @@ in
 stdenv.mkDerivation (finalAttrs: {
   pname = "dbip-lite";
   version = sources.dbip-country-lite.version;
+  __structuredAttrs = true;
+  strictDeps = true;
   dontUnpack = true;
 
   installPhase = ''

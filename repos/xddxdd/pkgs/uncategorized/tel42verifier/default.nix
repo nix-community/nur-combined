@@ -15,6 +15,8 @@ buildGoModule (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-WfJxlE6Xg1MoLIQdhznuh96T0Yi3N/AuFWjrYAe3fQA=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   vendorHash = "sha256-kS1oS7I1jGTJn1jpId8MwsPd/v+0NOpayUNWfZZHaRQ=";
 
   subPackages = [ "./cmd/tel42verifier" ];

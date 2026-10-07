@@ -13,6 +13,8 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "8f4bc05980195fef4b66474dccbfaa87912e3097";
     hash = "sha256-5sb4RxF9tDK5Ha51W6vhC3V0hN/ANbKYY40iyzTJ0W0=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   postInstall = ''
     mkdir -p $out/share/plasma/plasmoids/org.kde.plasma.yesplaymusic-lyrics
     cp -r * $out/share/plasma/plasmoids/org.kde.plasma.yesplaymusic-lyrics

@@ -20,6 +20,8 @@ in
 stdenv.mkDerivation (finalAttrs: {
   pname = "geolite2";
   version = "2026.10.04";
+  __structuredAttrs = true;
+  strictDeps = true;
   dontUnpack = true;
 
   installPhase = ''

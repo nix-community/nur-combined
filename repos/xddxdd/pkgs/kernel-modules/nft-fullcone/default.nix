@@ -14,6 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "07d93b626ce5ea885cd16f9ab07fac3213c355d9";
     hash = "sha256-PJHKt7w72lYFAb2OSswX7QyLnSY0jB93DkBxGk8AwD4=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   sourceRoot = "source/src";
 
   patches = [ ./nft-fullcone.patch ];
@@ -24,12 +26,12 @@ stdenv.mkDerivation (finalAttrs: {
   ];
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  KSRC = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
-  INSTALL_MOD_PATH = placeholder "out";
+  env.KSRC = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
+  env.INSTALL_MOD_PATH = placeholder "out";
 
   makeFlags = kernel.commonMakeFlags or kernel.makeFlags;
   preBuild = ''
-    makeFlags="$makeFlags -C ${finalAttrs.KSRC} M=$(pwd)"
+    makeFlagsArray+=("-C" "${finalAttrs.env.KSRC}" "M=$(pwd)")
   '';
   installTargets = [ "modules_install" ];
 

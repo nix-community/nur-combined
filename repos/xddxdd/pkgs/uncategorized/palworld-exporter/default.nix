@@ -17,6 +17,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-1hYOiU3fYQBOKEqE6HvqmLF4+kS+PjAph0LoYpmglrg=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   # Remove dependency on get_version package
   postPatch = ''
     sed -i "/get_version/d" pyproject.toml

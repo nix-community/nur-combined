@@ -34,6 +34,8 @@ buildGoModule (finalAttrs: {
     tag = finalAttrs.version;
     hash = "sha256-zVZgAvq6V85hxO79Ct8s+VVyf9yPa/YbRL4D5z31qEs=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   vendorHash = "sha256-jcV7dZZITkvzqKq1EQ4qLiGar568WsDPLtxMvBoh7B8=";
   proxyVendor = true;
 

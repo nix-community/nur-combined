@@ -6,6 +6,9 @@
 writeTextFile (finalAttrs: {
   name = "x86-arch-level";
   derivationArgs.version = "1.0";
+  derivationArgs.__structuredAttrs = true;
+  derivationArgs.strictDeps = true;
+
   executable = true;
   destination = "/bin/${finalAttrs.name}";
   text = ''

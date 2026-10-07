@@ -15,6 +15,8 @@ buildNpmPackage (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-lC8/gQKK0nnJ5RC+ABmL5Pavq03ztFm9TiURONSbvtQ=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   sourceRoot = "${finalAttrs.src.name}/mcp-server";
   npmDepsHash = "sha256-C2XXxn1P3COFXdBnNzYGzQwx3GRHv3nfFUvRV8v/MI8=";
 

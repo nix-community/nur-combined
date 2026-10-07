@@ -16,6 +16,8 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = false;
     hash = "sha256-84eztV9ExTP9a/L1qpp8uyQJgF6aFVRe52bCje18JOY=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [
     libcrystalhd

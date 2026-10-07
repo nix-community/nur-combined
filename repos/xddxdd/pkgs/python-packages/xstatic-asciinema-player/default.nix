@@ -14,6 +14,8 @@ buildPythonPackage (finalAttrs: {
     url = "mirror://pypi/X/XStatic-asciinema-player/XStatic-asciinema-player-${finalAttrs.version}.tar.gz";
     hash = "sha256-yA6WC067St82Dm6StaCKdWrRBhmNemswetIO8iodfcw=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   build-system = [ setuptools ];
 
   postPatch = ''

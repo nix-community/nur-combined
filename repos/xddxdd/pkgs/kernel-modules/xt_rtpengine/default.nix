@@ -14,6 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "eaa388824d0ebf2e6c45f50fa1d6c159f352bd07";
     hash = "sha256-O4P7kfWl/hqDMePABtYz1aKlW9Nyu7veoGgyq3L7fxU=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   sourceRoot = "source/kernel-module";
 
   hardeningDisable = [
@@ -22,8 +24,8 @@ stdenv.mkDerivation (finalAttrs: {
   ];
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  KSRC = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
-  INSTALL_MOD_PATH = placeholder "out";
+  env.KSRC = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
+  env.INSTALL_MOD_PATH = placeholder "out";
 
   postPatch = ''
     patchShebangs .

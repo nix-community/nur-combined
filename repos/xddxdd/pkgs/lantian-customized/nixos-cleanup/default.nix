@@ -5,6 +5,8 @@
 writeShellApplication rec {
   name = "nixos-cleanup";
   derivationArgs.version = "1.0";
+  derivationArgs.__structuredAttrs = true;
+  derivationArgs.strictDeps = true;
   text = ''
     nix-env -p /nix/var/nix/profiles/system --delete-generations +1 || true
     nix-env -p /root/.local/state/nix/profiles/home-manager --delete-generations +1 || true

@@ -63,6 +63,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "qq";
   version = builtins.elemAt (lib.splitString "_" source.version) 1;
   inherit (source) src;
+  __structuredAttrs = true;
+  strictDeps = true;
 
   nativeBuildInputs = [
     autoPatchelfHook

@@ -4,6 +4,8 @@
   autoreconfHook,
 }:
 libnftnl.overrideAttrs (old: {
+  __structuredAttrs = true;
+  strictDeps = true;
   nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ autoreconfHook ];
   patches = (old.patches or [ ]) ++ [
     # Adapted from https://raw.githubusercontent.com/wongsyrone/lede-1/master/package/libs/libnftnl/patches/999-01-libnftnl-add-fullcone-expression-support.patch

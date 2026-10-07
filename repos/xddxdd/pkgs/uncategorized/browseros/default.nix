@@ -20,6 +20,8 @@ in
 appimageTools.wrapType2 {
   pname = "browseros";
   inherit version src;
+  __structuredAttrs = true;
+  strictDeps = true;
 
   extraInstallCommands = ''
     install -Dm644 ${contents}/browseros.desktop $out/share/applications/browseros.desktop

@@ -14,6 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "e24745d5fe29b52d30e5c08cda4f2ecdf4909abb";
     hash = "sha256-/O1Oal3RBqCNTgTzvFkq6DkUJH8rHWQyuoCu3e97tro=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
 
   buildInputs = [ libftdi1 ];
 

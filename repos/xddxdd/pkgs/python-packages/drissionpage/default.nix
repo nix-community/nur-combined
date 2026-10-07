@@ -24,6 +24,8 @@ buildPythonPackage (finalAttrs: {
     url = "mirror://pypi/d/drissionpage/drissionpage-${finalAttrs.version}.tar.gz";
     hash = "sha256-TGJEhcvFduFHftt3zZKjGEcE99bQ/QGSjJRKXma6Rxk=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   build-system = [ setuptools ];
   dependencies = [
     requests

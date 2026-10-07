@@ -8,6 +8,8 @@ let
   composer2nixOutput = callPackage ./composer2nix { };
 in
 composer2nixOutput.overrideAttrs (old: rec {
+  __structuredAttrs = true;
+  strictDeps = true;
   pname = "oci-arm-host-capacity";
   version = "0-unstable-2024-08-13";
   src = fetchFromGitHub {

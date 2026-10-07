@@ -25,6 +25,8 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = false;
     hash = "sha256-eDTiY1OSR1+5DUaieaepxMVFe1qBVSyKhSMWtXavKUI=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''

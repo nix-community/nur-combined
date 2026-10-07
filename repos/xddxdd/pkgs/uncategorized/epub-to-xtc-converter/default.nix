@@ -15,6 +15,8 @@ buildNpmPackage (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-+xBomEJXbOTlQj9nzgLYDCeuziFgAeDIBL+uV/X1fyE=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   sourceRoot = "${finalAttrs.src.name}/cli";
   npmDepsHash = "sha256-/K91TBbhmJ6reZYvto6Fb++ZDXjl3ld2jWEqL0HJ7fs=";
 

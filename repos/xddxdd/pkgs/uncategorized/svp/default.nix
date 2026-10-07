@@ -111,6 +111,8 @@ in
 stdenv.mkDerivation {
   pname = "svp";
   inherit (svp-dist) version;
+  __structuredAttrs = true;
+  strictDeps = true;
 
   dontUnpack = true;
 

@@ -57,6 +57,8 @@ in
 buildGoModule (finalAttrs: {
   pname = "axonhub";
   inherit version src;
+  __structuredAttrs = true;
+  strictDeps = true;
   vendorHash = "sha256-K18rrVXTwiFlPFGjVyvTLQbuohOBT7N7igqw0mkoWPk=";
 
   tags = [ "nomsgpack" ];

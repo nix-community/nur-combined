@@ -41,6 +41,8 @@ in
   openGLSupport = true;
 }).overrideAttrs
   (old: {
+    __structuredAttrs = true;
+    strictDeps = true;
     nativeBuildInputs = old.nativeBuildInputs ++ [
       patchelf
       xxd

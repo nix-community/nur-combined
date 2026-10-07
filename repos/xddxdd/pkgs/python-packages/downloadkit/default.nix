@@ -17,6 +17,8 @@ buildPythonPackage (finalAttrs: {
     url = "mirror://pypi/D/DownloadKit/DownloadKit-${finalAttrs.version}.tar.gz";
     hash = "sha256-YB5CPR1NC9PpM1JNBskT50RXfUVZkOwgr8P7H3muqac=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   build-system = [ setuptools ];
   dependencies = [
     requests

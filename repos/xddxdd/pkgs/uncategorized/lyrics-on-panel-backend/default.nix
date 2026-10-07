@@ -24,6 +24,8 @@ stdenv.mkDerivation (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-r7eoDm92k1ZjnBOtIt09a6P2MMLItqva6aXgLmqk3no=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   nativeBuildInputs = [ makeWrapper ];
 
   buildInputs = [ pythonEnv ];

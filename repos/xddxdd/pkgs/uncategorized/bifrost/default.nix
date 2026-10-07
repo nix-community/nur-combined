@@ -13,12 +13,14 @@ buildGo127Module (finalAttrs: {
     url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v${finalAttrs.version}.tar.gz";
     hash = "sha256-I+Bm5TsBUbi6B0K0ej+jYmp6aAJhqB63FeFmYf/s0X4=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   sourceRoot = "bifrost-transports-v${finalAttrs.version}/transports";
 
   vendorHash = "sha256-y9q3wdnWEfKekZWVrmbL+bvomWLNAmydx2ld08C2D5Y=";
 
   env.CGO_ENABLED = 1;
-  GOWORK = "off";
+  env.GOWORK = "off";
 
   tags = [ "sqlite_static" ];
 

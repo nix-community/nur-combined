@@ -17,6 +17,8 @@ buildPythonPackage (finalAttrs: {
     url = "mirror://pypi/x/xue/xue-${finalAttrs.version}.tar.gz";
     hash = "sha256-1fTAmCuZYVOrNihGQZfGK0pwV910KD19KK+MYkuyA3w=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   build-system = [ setuptools ];
 
   propagatedBuildInputs = [ httpx ];

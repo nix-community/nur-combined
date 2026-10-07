@@ -23,6 +23,8 @@ stdenv.mkDerivation (finalAttrs: {
       }
     else
       throw "Unsupported architecture";
+  __structuredAttrs = true;
+  strictDeps = true;
 
   dontUnpack = true;
 

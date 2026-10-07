@@ -11,6 +11,8 @@ stdenv.mkDerivation (finalAttrs: {
     url = "https://sourceforge.net/projects/hesuvi/files/HeSuVi_${finalAttrs.version}.exe/download";
     sha256 = "1fh1lqkv992xjglwkp3b544ai552pyjbmgfm9yp8fylg9mqp85x3";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
 
   nativeBuildInputs = [ p7zip ];
   unpackCmd = "7z x $src";

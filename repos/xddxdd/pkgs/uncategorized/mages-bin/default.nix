@@ -26,6 +26,8 @@ in
 appimageTools.wrapAppImage {
   pname = "mages-bin";
   inherit (arch) version;
+  __structuredAttrs = true;
+  strictDeps = true;
   inherit contents;
 
   extraInstallCommands = ''

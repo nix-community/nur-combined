@@ -72,8 +72,8 @@
 
 ## 内核模块包
 
-- **模仿现有内核模块包结构，不覆盖 buildPhase**：`pkgs/kernel-modules/` 下的包参照 acpi-ec 的写法——`nativeBuildInputs = kernel.moduleBuildDependencies`、`KSRC` 指向 `kernel.dev`、`makeFlags = kernel.commonMakeFlags or kernel.makeFlags`、用 `preBuild`/`preConfigure` 移动或追加参数、`installTargets = [ "modules_install" ]`。不要自写 buildPhase；多个目标用 `buildFlags = [ "targetA" "targetB" ]` 传入（当前 stdenv 已移除 `buildTargets` 属性，不再被默认 buildPhase 消费）。
-- **含空格的 `XXX=value` 参数不能放 makeFlags，要放派生环境属性**：非 structuredAttrs 路径下 makeFlags 会被按空白分词，`makeFlags = [ "CPPFLAGS=-a -b -c" ]` 中 `-b -c` 会变成杂散 make 参数，只有第一个 flag 生效。把这类变量（如 CPPFLAGS、KSRC）写成派生级环境属性（如 `CPPFLAGS = "-a -b -c";`）或独立单值 makeFlags 条目。
+- **模仿现有内核模块包结构，不覆盖 buildPhase**：`pkgs/kernel-modules/` 下的包参照 acpi-ec 的写法——`nativeBuildInputs = kernel.moduleBuildDependencies`、`env.KSRC` 指向 `kernel.dev`、`makeFlags = kernel.commonMakeFlags or kernel.makeFlags`、在 `preBuild` 里用 `makeFlagsArray+=("-C" "${...}" "M=$(pwd)")` 追加参数、`installTargets = [ "modules_install" ]`。不要自写 buildPhase；多个目标用 `buildFlags = [ "targetA" "targetB" ]` 传入（当前 stdenv 已移除 `buildTargets` 属性，不再被默认 buildPhase 消费）。
+- **含空格的 `XXX=value` 参数不能放 makeFlags，要派生环境属性**：非 structuredAttrs 路径下 makeFlags 会被按空白分词，`makeFlags = [ "CPPFLAGS=-a -b -c" ]` 中 `-b -c` 会变成杂散 make 参数，只有第一个 flag 生效。structuredAttrs 下此类变量（如 CPPFLAGS）必须写成 `env.CPPFLAGS = "-a -b -c";`，顶层属性不会进环境。
 - **现代内核 external module 的 `modules_install` 装到 `updates/` 且可能压缩**：Linux 6.18 默认把 `.ko` 压成 `.ko.xz` 放进 `updates/`；需要未压缩 `.ko`（如装到 `extra/` 以匹配参考实现或自定义加载逻辑）时改用自定义 installPhase 手动 `install`（注意这不是覆盖 buildPhase，安装逻辑放在 installPhase 内属常规做法）。
 - **Clang 专属诊断开关（`-Wno-error=parentheses-equality` 等）在 GCC 下硬报错**：nixpkgs 默认 GCC 不认识该 option，出现在命令行会直接编译失败；从面向 Clang 的参考构建移植参数时要剔除，只保留 GCC 认识的 `-Wno-error=...`。
 
@@ -110,6 +110,17 @@
 
 - **无 v 前缀**：版本号不应以 `v` 开头
 - **Git 提交哈希格式**：如果使用 Git 提交哈希作为版本，应使用类似 `unstable-2020-01-01` 的日期格式，而不是 40 位哈希值
+
+### structuredAttrs 约定
+
+本仓库所有包统一设置 `__structuredAttrs = true;` 和 `strictDeps = true;`。新增包必须带上这两个属性，并遵守：
+
+- **位置**：放在推导 `pname`/`version`/`src` 身份块之后（有 `src` 放 `src` 之后；`inherit` 形式同理；都没有时放在 override/包裹的属性集开头）。
+- **自定义环境变量必须放 `env`**：`__structuredAttrs` 打开后，顶层的非特殊属性只进入 `__json`（仅 builder 能读），不再作为进程环境变量导出——setup.sh 只导出 `env = { ... }` 中的项。需要被构建工具/子进程以 `$VAR` 形式读到的东西（如内核模块的 `KSRC`、`INSTALL_MOD_PATH`、`CPPFLAGS`，Rust 的 `PROTOC`、Go 的 `GOWORK`）必须写成 `env.X = ...`。
+- **flags 变量在 structuredAttrs 下是 bash 数组**：`makeFlags` 等以 JSON 数组桥接为 bash 数组，`preBuild` 里不能再写 `makeFlags="$makeFlags ..."` 字符串拼接（拼接后整体变成单个变量赋值、`-C` 被吞进去），应写 `makeFlagsArray+=("-C" "${...}" "M=$(pwd)")`；数组桥接的 list 属性（makeFlags、makeWrapperArgs 等）可直接消费。
+- **writeShellApplication / writeTextFile 的属性放 `derivationArgs`**：这两个 builder 的参数签名是strict的，直接传 `__structuredAttrs` 会报 unexpected argument，须写 `derivationArgs.__structuredAttrs = true;`。
+- **override 链上挂 flag 用 `.overrideAttrs`，不要塞进 `.override { }`**：参数签名严格的 builder（kernel builder、writeShellApplication 等）会把多余参数直接拒掉。
+- **不要写顶层推导属性当环境变量后再在 phase 里以 `$VAR` 读**：该写法只在非 structuredAttrs 下成立；structuredAttrs 下 `$VAR` 为空。
 
 ### 构建阶段钩子
 

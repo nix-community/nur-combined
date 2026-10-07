@@ -13,6 +13,8 @@ buildNpmPackage (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-dDE+m6ZpiC4N2xWNMvhRshCjqFU5gr2+t7RpvC9dNUk=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
 
   npmDepsHash = "sha256-eR2dkQt8nyFJ0cRTypCJK1W2b7gl9haL9CsppYHC7oU=";
 

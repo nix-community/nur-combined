@@ -10,6 +10,8 @@ stdenv.mkDerivation (finalAttrs: {
     url = "http://www.ftpproxy.org/download/ftpproxy-${finalAttrs.version}.tgz";
     hash = "sha256-36r+iOaKEA9DMHBufEW+eoiRlEu1+VsYaWvK957l1uU=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   postPatch = ''
     substituteInPlace src/ip-lib.c \
       --replace-fail ", *gethostbyname();" ";" \

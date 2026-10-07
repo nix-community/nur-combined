@@ -20,6 +20,8 @@ buildPythonPackage (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-h3wNlrvphb+Pc17s4wAKmqHHTSwTdMUnoEF3Tq+PljI=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   propagatedBuildInputs = [
     baize
     pdm-pep517

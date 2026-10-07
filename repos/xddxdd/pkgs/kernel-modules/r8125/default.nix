@@ -14,6 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
     tag = finalAttrs.version;
     hash = "sha256-yeQsyraNrms1Txm7ZAKeiPfF0tfN6WSHUo5DnvfFosw=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   postPatch = ''
     sed -i 's/$(KERNELDIR)/''${KSRC}/g' src/Makefile
     sed -i 's/$(RTKDIR)/updates/g' src/Makefile
@@ -29,8 +31,8 @@ stdenv.mkDerivation (finalAttrs: {
   ];
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  KSRC = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
-  INSTALL_MOD_PATH = placeholder "out";
+  env.KSRC = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
+  env.INSTALL_MOD_PATH = placeholder "out";
 
   makeFlags = kernel.commonMakeFlags or kernel.makeFlags;
 

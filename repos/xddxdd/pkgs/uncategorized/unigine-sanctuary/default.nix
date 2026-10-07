@@ -67,6 +67,8 @@ in
 stdenv.mkDerivation (finalAttrs: {
   pname = "unigine-sanctuary";
   inherit version;
+  __structuredAttrs = true;
+  strictDeps = true;
   dontUnpack = true;
 
   nativeBuildInputs = [

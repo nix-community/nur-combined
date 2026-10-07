@@ -25,6 +25,8 @@ stdenv.mkDerivation (finalAttrs: {
     url = "https://github.com/3899/ncmm/releases/download/v${finalAttrs.version}/ncmm_Linux_${platform.archive}.tar.gz";
     inherit (platform) hash;
   };
+  __structuredAttrs = true;
+  strictDeps = true;
 
   sourceRoot = ".";
   nativeInstallCheckInputs = [ versionCheckHook ];

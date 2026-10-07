@@ -6,6 +6,8 @@
 }:
 let
   package = firefox-unwrapped.overrideAttrs (old: {
+    __structuredAttrs = true;
+    strictDeps = true;
     patches = (old.patches or [ ]) ++ [
       ./0001-juggler.patch
       ./0002-browser.patch

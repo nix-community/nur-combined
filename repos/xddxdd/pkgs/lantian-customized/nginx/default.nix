@@ -59,6 +59,8 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchurl {
     inherit (sources.openresty) url hash;
   };
+  __structuredAttrs = true;
+  strictDeps = true;
 
   enableParallelBuilding = true;
 

@@ -15,6 +15,8 @@ stdenv.mkDerivation (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-RbFgz2ed1eEVy44LX+milP4hPSeiabakU3TMvHYR7TU=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   sourceRoot = "source/QtWebApp";
 
   postPatch = ''

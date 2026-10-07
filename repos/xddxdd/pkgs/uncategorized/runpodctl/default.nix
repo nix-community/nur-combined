@@ -14,6 +14,8 @@ buildGo127Module (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-TFUEc6mZSE5FC++fuF7fn3bzAlo+q4glj9LkOLSTb64=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   vendorHash = "sha256-TZrffoC4He+ltwDkDS+6/eqA4/Pv8+BtG+kZbDHb6Fw=";
 
   postFixup = ''

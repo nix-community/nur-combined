@@ -22,6 +22,8 @@ buildPythonPackage (finalAttrs: {
     tag = finalAttrs.version;
     hash = "sha256-Zjng/7ALTjmDS4ubSFWoBJQ8TNsc2Ijl9V3jSyKifMc=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
 
   build-system = [ setuptools ];
   dependencies = [

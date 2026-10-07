@@ -14,6 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "08644db02d43478f802755903212f5ee506af73b";
     hash = "sha256-tYTiyysofO23ApXQbnJF5muTTLv1kKu/nLggGv3ntr4=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   nativeBuildInputs = kernel.moduleBuildDependencies;
   hardeningDisable = [ "pic" ];
 

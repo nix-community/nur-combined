@@ -18,6 +18,8 @@ buildPythonPackage (finalAttrs: {
     url = "mirror://pypi/t/torch_complex/torch_complex-${finalAttrs.version}.tar.gz";
     hash = "sha256-QVP9aySgutaJ5vGTv70A84KDsYkNgIvvaE3cbR9j/T8=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   build-system = [ setuptools ];
 
   propagatedBuildInputs = [

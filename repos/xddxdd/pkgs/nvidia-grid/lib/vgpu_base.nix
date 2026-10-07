@@ -52,6 +52,8 @@ let
 in
 kernel.stdenv.mkDerivation (finalAttrs: {
   pname = "nvidia-x11-vgpu";
+  __structuredAttrs = true;
+  strictDeps = true;
 
   builder = ./vgpu-builder.sh;
 

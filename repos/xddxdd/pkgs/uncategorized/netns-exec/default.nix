@@ -14,6 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
     hash = "sha256-CnIgzRb58KIvdx7T9LpervSB2Ol6JMxmSM/Ti3K1+Dg=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   postPatch = ''
     substituteInPlace Makefile \
       --replace-fail "-m4755" "-m755"

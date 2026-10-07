@@ -34,6 +34,8 @@ buildPythonPackage (finalAttrs: {
     rev = "cd25cf9c1ff6d36e82697ac2c798e69e9cfb78c3";
     hash = "sha256-k3Ktj8KcNzjIUQKQo8cPM8qazXDKKZhTg3VMPBjfXJU=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   buildInputs = [ keystone ];
   propagatedBuildInputs = [
     capstone

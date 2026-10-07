@@ -18,6 +18,8 @@ buildPythonPackage (finalAttrs: {
     rev = "5083a123a4df17b6cb3cf3a80c0206c39eb5ec0b";
     hash = "sha256-NmokphM0trQmIm3Ke436gRMctAvV38hbo5MLjbcgLDs=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   propagatedBuildInputs = [
     poetry-core
     tqdm

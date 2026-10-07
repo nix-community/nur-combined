@@ -16,6 +16,8 @@ buildPythonPackage (finalAttrs: {
     url = "mirror://pypi/d/drissionrecord/drissionrecord-${finalAttrs.version}.tar.gz";
     hash = "sha256-N+M35g5FGHbw98tjXtor7h9SfL3odFDQPsKcjfdWje0=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   build-system = [ setuptools ];
   dependencies = [ openpyxl ];
 

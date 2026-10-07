@@ -14,6 +14,8 @@ let
       tag = "V${finalAttrs.version}";
       hash = "sha256-7Y18HcCvwWTX5CWguLuo6Z+l/tcTfKmblZ5st/TL6TI=";
     };
+    __structuredAttrs = true;
+    strictDeps = true;
     installPhase = ''
       runHook preInstall
 

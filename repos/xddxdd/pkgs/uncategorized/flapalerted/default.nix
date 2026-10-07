@@ -13,6 +13,8 @@ buildGo127Module (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-7uK8d0XLSYRWHmw7wMxJsNpefdJTdzWWc5/lavz1vjM=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   vendorHash = null;
 
   patches = [ ./roaFilter-onstart.patch ];

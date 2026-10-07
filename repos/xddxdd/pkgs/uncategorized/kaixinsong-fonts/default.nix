@@ -16,6 +16,8 @@ in
 stdenv.mkDerivation (finalAttrs: {
   pname = "kaixinsong-fonts";
   version = "3.0";
+  __structuredAttrs = true;
+  strictDeps = true;
 
   dontUnpack = true;
   postInstall = ''

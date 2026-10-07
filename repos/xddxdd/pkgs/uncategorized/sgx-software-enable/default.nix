@@ -13,6 +13,8 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "7977d6dd373f3a14a615ee9be6f24ecd37c0b43d";
     hash = "sha256-xBmFCrnNQq0xKwv7irJFN8YRfBCLmSxtak5dtHFv/xk=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   installPhase = ''
     runHook preInstall
 

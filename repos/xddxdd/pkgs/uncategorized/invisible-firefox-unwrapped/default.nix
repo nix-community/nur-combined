@@ -34,6 +34,8 @@ let
       { enablePGO = false; }
     ).overrideAttrs
       (old: {
+        __structuredAttrs = true;
+        strictDeps = true;
         configureFlags = builtins.filter (f: f != "--disable-updater") (old.configureFlags or [ ]);
 
         patches = (old.patches or [ ]) ++ [

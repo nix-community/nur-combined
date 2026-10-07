@@ -12,6 +12,8 @@ let
   };
 in
 transmission_4.overrideAttrs (old: {
+  __structuredAttrs = true;
+  strictDeps = true;
   postInstall = (old.postInstall or "") + ''
     mv $out/share/transmission/public_html/index.html $out/share/transmission/public_html/index.original.html
     cp -r ${transmissionWebControlSrc}/src/* $out/share/transmission/public_html/

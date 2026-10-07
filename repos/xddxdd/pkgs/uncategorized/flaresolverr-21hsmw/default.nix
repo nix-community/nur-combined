@@ -53,6 +53,8 @@ stdenv.mkDerivation (finalAttrs: {
     rev = "008ff71315baa40761d9d6283a248e50c43db491";
     hash = "sha256-Xf8eXXUV38Yl9fG+ToP0uNqBl+M6JdiRn3rUMltQ3a0=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   nativeBuildInputs = [ makeWrapper ];
 
   postPatch = ''

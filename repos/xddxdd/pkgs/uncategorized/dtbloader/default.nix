@@ -14,6 +14,8 @@ llvmPackages.stdenv.mkDerivation (finalAttrs: {
     fetchSubmodules = true;
     hash = "sha256-KxeFtzi9iWlnvAdHyM7NF/RX0n+dGyHM7ZrJkqer3F0=";
   };
+  __structuredAttrs = true;
+  strictDeps = true;
   nativeBuildInputs = with llvmPackages; [
     clang-unwrapped
     lld
