@@ -6053,6 +6053,45 @@ for (const how of ["fails-to-start", "dies"]) {
   console.log(`ok: @debug — names files as paths relative to the cwd, CLI and API (${engines.join(" + ")})`);
 }
 
+// === diagnostics with NO url: `compileString` and `--stdin` (#288, #74) ===
+//
+// A compile with no url had diagnostics switched off in the core, which
+// dropped `@warn`'s stack frame, `@debug`'s location, every deprecation
+// warning (#74) and the error snippet. dart names such a source `-`. Every
+// expected text below is dart-sass 1.104.1's: `sass --stdin` for the CLI, and
+// npm `sass`'s `compileString` with no url, default logger, for the API.
+{
+  const engines = ["wasm"];
+  const probe = spawnSync(process.execPath, [cliPath, "--stdin"], { input: ".a{b:1}\n", encoding: "utf8", env: { ...process.env, SASSO_ENGINE: "native" } });
+  if (probe.status === 0) {
+    engines.push("native");
+  } else {
+    assert.match(probe.stderr, /SASSO_ENGINE=native/, `no-url: native was skipped, and the reason must be a missing addon (stderr: ${probe.stderr})`);
+  }
+  const cases = [
+    ["@warn", '@warn "w";\n.a{b:c}\n', "WARNING: w\n    - 1:1  root stylesheet\n\n"],
+    ["@debug", '@debug "d";\n.a{b:c}\n', "-:1 DEBUG: d\n"],
+  ];
+  for (const engine of engines) {
+    const api = new URL(engine === "native" ? "./npm/native.mjs" : "./npm/sasso.mjs", import.meta.url).href;
+    for (const [what, src, want] of cases) {
+      const cli = spawnSync(process.execPath, [cliPath, "--stdin"], { input: src, encoding: "utf8", env: { ...process.env, SASSO_ENGINE: engine } });
+      assert.equal(cli.stderr, want, `no-url (${engine} CLI --stdin): ${what} as dart prints it`);
+      const viaApi = spawnSync(process.execPath, ["--input-type=module", "-e", `const m = await import(${JSON.stringify(api)}); m.compileString(${JSON.stringify(src)});`], { encoding: "utf8" });
+      assert.equal(viaApi.stderr, want, `no-url (${engine} API compileString): ${what} as dart prints it`);
+    }
+    // #74: a deprecation is reported, with its frame, rather than dropped.
+    const dep = spawnSync(process.execPath, [cliPath, "--stdin"], { input: ".a { b: lighten(#036, 10%); }\n", encoding: "utf8", env: { ...process.env, SASSO_ENGINE: engine } });
+    assert.match(dep.stderr, /^DEPRECATION WARNING \[global-builtin\]/m, `no-url (${engine}): a deprecation is reported (#74), got ${JSON.stringify(dep.stderr)}`);
+    assert.match(dep.stderr, /    - 1:9  root stylesheet/, `no-url (${engine}): … with its frame`);
+    // An error carries the snippet and the `-` frame.
+    const err = spawnSync(process.execPath, [cliPath, "--stdin"], { input: ".a { b: $x; }\n", encoding: "utf8", env: { ...process.env, SASSO_ENGINE: engine } });
+    assert.equal(err.status, 65, `no-url (${engine}): an error exits 65`);
+    assert.equal(err.stderr, "Error: Undefined variable.\n  ╷\n1 │ .a { b: $x; }\n  │         ^^\n  ╵\n  - 1:9  root stylesheet\n", `no-url (${engine}): the error as dart prints it`);
+  }
+  console.log(`ok: no-url diagnostics — @warn frame, @debug location, deprecations, error snippet, named \`-\` (${engines.join(" + ")})`);
+}
+
 // === a compile whose working directory has been deleted ===
 //
 // `process.cwd()` THROWS `ENOENT` once the directory the process started in

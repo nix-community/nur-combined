@@ -11,7 +11,42 @@ Conformance is tracked separately as a ratchet against the official
 
 ## [Unreleased]
 
+### Added
+
+- **`Options::anonymous_diagnostics`** (`with_anonymous_diagnostics`): render
+  diagnostics for a compile with no `url`, naming the entry `-` as dart-sass
+  does for a source with no URL. Off by default, so a Rust or C caller's
+  url-less errors keep the documented one-liner. The npm front ends turn it on
+  (below).
+
 ### Fixed
+
+- **A compile with no url gets its diagnostics, from npm** (#288, #74).
+  `compileString` with no `url`, and the npm CLI's `--stdin`, which compiles
+  through it, had diagnostics switched off in the core. So `@warn` printed
+  without its stack frame, `@debug` without its location, an error without its
+  snippet, and every deprecation warning was dropped (#74). dart renders them
+  all, naming the source `-`:
+
+  ```
+    WARNING: w
+        - 1:1  root stylesheet
+
+    -:2 DEBUG: d
+  ```
+
+  Both npm engines now do the same. The binary already did, because it names
+  stdin `-` itself. Against dart-sass 1.104.1 on macOS/arm64, with seven
+  url-less cases for the API (npm `sass` as the reference) and for `--stdin`
+  (the dart binary), on wasm and the addon: the API differed in 22 places
+  and now differs in 14, and the CLI in 15 places and now 3. What is left
+  is outside this change. A logger's span and stack differ (#289). An
+  `Exception.message` starts with `Error: `, with or without a url. And
+  stdin's relative `@use` fails on npm, where dart resolves it against the
+  cwd. Resolution itself is untouched: the entry's url stays empty, so a
+  relative `@use` resolves, or fails, as it did. A url-less compile now costs
+  what a compile with a url always did, about 5% more than before on
+  `large.scss`, because it is doing the diagnostics it skipped.
 
 - **`@debug` names the entry file as a path, not a `file://` URL, from npm.**
   `<path>:<line> DEBUG: <value>` used the url the entry reached the compiler
@@ -24,9 +59,7 @@ Conformance is tracked separately as a ratchet against the official
   Against dart-sass 1.104.1 on macOS/arm64, 13 CLI cases on three front ends
   (binary, npm native, npm wasm): 18 `DEBUG` lines differed before and 2 do
   now. Every case but `--stdin` now gives the same stderr as dart, byte for
-  byte. On `--stdin` the npm CLI still prints no location: it compiles stdin
-  with no url, so it gets no diagnostics at all, `@warn`'s frame included. The
-  binary prints dart's `-:1`.
+  byte. `--stdin` is the url-less compile fixed in the entry above.
 
 - **An `@extend` across media queries is an error in every shape dart
   rejects** (#282). An `@extend` written inside `@media` may only extend

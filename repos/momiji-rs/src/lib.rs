@@ -136,7 +136,8 @@ pub struct Options<'a> {
     pub importer: Option<&'a dyn Importer>,
     /// The input's path/URL as it should appear in diagnostics (e.g.
     /// `input.scss`). `None` disables byte-exact diagnostic snippets (errors
-    /// then render as the legacy `Error: <msg> (line:col)` one-liner).
+    /// then render as the legacy `Error: <msg> (line:col)` one-liner), unless
+    /// [`Options::anonymous_diagnostics`] asks for them.
     ///
     /// A `file://` URL is accepted and SHOWN as a path — the JS API passes
     /// one because its importer bridge resolves relative `@use` against it,
@@ -144,6 +145,18 @@ pub struct Options<'a> {
     /// can paste into an editor. See [`Options::cwd`] for what it is spelled
     /// relative to.
     pub url: Option<&'a str>,
+    /// Render diagnostics even when [`Options::url`] is `None`, naming the
+    /// entry `-` as dart-sass does for a source with no URL: `@warn`'s stack
+    /// frame (`- 1:1  root stylesheet`), `@debug`'s `-:1`, every deprecation
+    /// warning, and the snippet of an error. Off by default, which keeps the
+    /// one-liner errors documented on `url`.
+    ///
+    /// The npm front ends turn it on, because dart's JS API (`compileString`
+    /// with no `url`) and its CLI (`--stdin`) both render these. With it off,
+    /// a url-less compile dropped `@warn`'s frame, `@debug`'s location, every
+    /// deprecation warning and the error snippet (#288, #74). It changes
+    /// nothing a url resolves against: the entry's url stays empty.
+    pub anonymous_diagnostics: bool,
     /// The directory diagnostic paths are spelled relative to, as dart's
     /// `p.prettyUri` does. `None` asks the operating system.
     ///
@@ -266,6 +279,18 @@ fn entry_frame_name(url: &str, cwd: Option<&str>) -> String {
     pathstyle::pretty_name(pathstyle::style_for(cwd, url), url, cwd).unwrap_or_else(|| url.to_string())
 }
 
+/// The name a parse error's lone frame gives the entry: [`entry_frame_name`]
+/// for a url, `-` for none under [`Options::anonymous_diagnostics`] (the name
+/// the evaluator gives such an entry, and dart's for a null source URL,
+/// #288), or `None` when the error stays the one-liner.
+fn parse_error_frame_name(options: &Options<'_>) -> Option<String> {
+    match options.url {
+        Some(url) => Some(entry_frame_name(url, options.cwd)),
+        None if options.anonymous_diagnostics => Some("-".to_string()),
+        None => None,
+    }
+}
+
 impl Default for Options<'_> {
     fn default() -> Self {
         Options {
@@ -273,6 +298,7 @@ impl Default for Options<'_> {
             syntax: Syntax::default(),
             importer: None,
             url: None,
+            anonymous_diagnostics: false,
             cwd: None,
             unicode: true,
             source_map_include_sources: false,
@@ -316,6 +342,14 @@ impl<'a> Options<'a> {
     #[must_use]
     pub fn with_url(mut self, url: &'a str) -> Self {
         self.url = Some(url);
+        self
+    }
+
+    /// Builder: render diagnostics without a url, naming the entry `-` (see
+    /// [`Options::anonymous_diagnostics`]).
+    #[must_use]
+    pub fn with_anonymous_diagnostics(mut self, on: bool) -> Self {
+        self.anonymous_diagnostics = on;
         self
     }
 
@@ -558,26 +592,19 @@ fn compile_inner_sm(source: &str, options: &Options<'_>) -> Result<CompileResult
     let sheet = match sheet {
         Ok(s) => s,
         Err(mut e) => {
-            if let Some(url) = options.url {
-                if e.rendered.is_none() && e.has_position() {
-                    let span = diag::trim_empty_span_to_content(
-                        source,
-                        diag::Span {
-                            line: e.line,
-                            col: e.col,
-                            length: e.length,
-                        },
-                    );
-                    e.line = span.line;
-                    e.col = span.col;
-                    e.rendered = Some(diag::render_error(
-                        &e.message,
-                        source,
-                        &entry_frame_name(url, options.cwd),
-                        span,
-                        glyphs,
-                    ));
-                }
+            let name = parse_error_frame_name(options);
+            if let (true, Some(name)) = (e.rendered.is_none() && e.has_position(), name) {
+                let span = diag::trim_empty_span_to_content(
+                    source,
+                    diag::Span {
+                        line: e.line,
+                        col: e.col,
+                        length: e.length,
+                    },
+                );
+                e.line = span.line;
+                e.col = span.col;
+                e.rendered = Some(diag::render_error(&e.message, source, &name, span, glyphs));
             }
             return Err(e);
         }
@@ -597,6 +624,7 @@ fn compile_inner_sm(source: &str, options: &Options<'_>) -> Result<CompileResult
         cwd: options.cwd,
         source,
         url: entry_name,
+        anonymous_entry: options.url.is_none() && options.anonymous_diagnostics,
         glyphs,
         warn: options.warn.as_ref(),
         quiet_deps: options.quiet_deps.as_ref(),
@@ -653,41 +681,36 @@ fn compile_inner(source: &str, options: &Options<'_>) -> Result<String, Error> {
         Ok(sheet)
     });
     // A parse error never reached the evaluator, so render its snippet here
-    // (single `root stylesheet` frame) when a diagnostic URL is configured.
+    // (a single `root stylesheet` frame), naming an entry with no url `-`.
     let sheet = match sheet {
         Ok(s) => s,
         Err(mut e) => {
-            if let Some(url) = options.url {
-                if e.rendered.is_none() && e.has_position() {
-                    let span = diag::trim_empty_span_to_content(
-                        source,
-                        diag::Span {
-                            line: e.line,
-                            col: e.col,
-                            length: e.length,
-                        },
-                    );
-                    e.line = span.line;
-                    e.col = span.col;
-                    e.rendered = Some(diag::render_error(
-                        &e.message,
-                        source,
-                        &entry_frame_name(url, options.cwd),
-                        span,
-                        glyphs_for(),
-                    ));
-                }
+            let name = parse_error_frame_name(options);
+            if let (true, Some(name)) = (e.rendered.is_none() && e.has_position(), name) {
+                let span = diag::trim_empty_span_to_content(
+                    source,
+                    diag::Span {
+                        line: e.line,
+                        col: e.col,
+                        length: e.length,
+                    },
+                );
+                e.line = span.line;
+                e.col = span.col;
+                e.rendered = Some(diag::render_error(&e.message, source, &name, span, glyphs_for()));
             }
             return Err(e);
         }
     };
-    // Diagnostics are enabled only when the caller supplies a display URL; then
-    // the evaluator renders byte-exact `Error:`/`WARNING:` blocks against the
-    // source. Without a URL it falls back to the legacy one-liner.
-    let (diag_source, diag_url) = match options.url {
-        Some(url) => (source, url),
-        None => ("", ""),
-    };
+    // Diagnostics are on when the caller supplies a display URL, or asks for
+    // them without one (`anonymous_diagnostics`, the npm front ends); then the
+    // evaluator renders byte-exact `Error:`/`WARNING:` blocks against the
+    // source. Without a url the entry is dart's null source URL, named `-`
+    // (`anonymous_entry`), and its url stays `""`, so nothing that resolves
+    // against it moves. Otherwise it is the legacy one-liner.
+    let diagnose = options.url.is_some() || options.anonymous_diagnostics;
+    let diag_source = if diagnose { source } else { "" };
+    let diag_url = options.url.unwrap_or("");
     let glyphs = if options.unicode {
         diag::GlyphSet::Unicode
     } else {
@@ -700,6 +723,7 @@ fn compile_inner(source: &str, options: &Options<'_>) -> Result<String, Error> {
         cwd: options.cwd,
         source: diag_source,
         url: diag_url,
+        anonymous_entry: options.url.is_none() && options.anonymous_diagnostics,
         glyphs,
         warn: options.warn.as_ref(),
         quiet_deps: options.quiet_deps.as_ref(),

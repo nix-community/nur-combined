@@ -996,6 +996,11 @@ pub(crate) struct EvalOptions<'a> {
     /// The entrypoint's file path/URL as it should appear in diagnostics
     /// (e.g. `input.scss`).
     pub url: &'a str,
+    /// The host gave the entry no url (`compileString` without `url`, the npm
+    /// CLI's `--stdin`). `url` is then a placeholder, `""` or the source map's
+    /// `"stdin"`, and diagnostics name the entry `-`, as dart's do for a
+    /// null source URL (#288). Everything else keeps the placeholder.
+    pub anonymous_entry: bool,
     /// The directory diagnostic paths are relative to, or `None` to ask the
     /// operating system (see [`crate::Options::cwd`]).
     pub cwd: Option<&'a str>,
@@ -1272,6 +1277,9 @@ pub(crate) struct Evaluator<'a> {
     /// `current_url` as the `Rc` a [`DiagFrame`] stores, rebuilt only when the
     /// url it was made from no longer matches (see [`Self::frame_url`]).
     frame_url: Rc<str>,
+    /// The entry's placeholder url when the host gave it none
+    /// ([`EvalOptions::anonymous_entry`]): [`Self::frame_name`] names it `-`.
+    anonymous_entry: Option<String>,
     /// The diagnostic call stack: one entry per active user callable/import,
     /// recording the call site and the *caller's* member name. dart-sass
     /// `_stack`. Used to render byte-exact stack traces under errors/warnings.
@@ -1768,6 +1776,7 @@ impl<'a> Evaluator<'a> {
         Evaluator {
             member: Rc::from("root stylesheet"),
             frame_url: Rc::from(""),
+            anonymous_entry: options.anonymous_entry.then(|| url.clone()),
             call_stack: Vec::new(),
             current_url: url,
             current_source: source,
@@ -2177,6 +2186,14 @@ impl<'a> Evaluator<'a> {
     /// does not name a file — a `data:` URL, a custom importer's key — keeps
     /// the display string it already has.
     fn frame_name(&self, url: &str) -> String {
+        // An entry the host gave no url is dart's null source URL, which its
+        // frames and `@debug` both call `-` (#288). The match is by display
+        // name, which holds for a file: one `stdin.scss` keeps its name. A
+        // custom importer's key whose last segment is exactly the
+        // source-map path's `stdin` placeholder would also print as `-`.
+        if self.anonymous_entry.as_deref() == Some(url) {
+            return "-".to_string();
+        }
         self.pretty_name(url).unwrap_or_else(|| url.to_string())
     }
 

@@ -2841,3 +2841,75 @@ fn debug_names_its_file_as_a_frame_does() {
     // The binary's stdin: dart's `-`.
     assert_eq!(debug("-").0, "-:1 DEBUG: x");
 }
+
+/// With no url, `Options::anonymous_diagnostics` renders what dart renders for
+/// a source with no URL, the entry named `-` (#288, #74): `@warn`'s frame,
+/// `@debug`'s location, deprecation warnings, and error snippets, parse errors
+/// included. Each expected text is dart-sass 1.104.1's (`sass --stdin`, and npm
+/// `sass`'s `compileString` with no url). Off, the documented one-liner stays.
+#[test]
+fn anonymous_diagnostics_name_the_entry_dash() {
+    use std::cell::RefCell;
+    use std::rc::Rc;
+    let events = |src: &str, anonymous: bool| {
+        let seen: Rc<RefCell<Vec<(String, String)>>> = Rc::new(RefCell::new(Vec::new()));
+        let sink = Rc::clone(&seen);
+        let opts = Options::default()
+            .with_anonymous_diagnostics(anonymous)
+            .with_warn_handler(Rc::new(move |ev: &sasso::WarnEvent<'_>| {
+                sink.borrow_mut()
+                    .push((ev.formatted.to_string(), ev.url.to_string()));
+            }));
+        let result = compile(src, &opts).map_err(|e| e.to_string());
+        let out = seen.borrow().clone();
+        (out, result)
+    };
+
+    let (warn, _) = events("@warn \"w\";\n.a{b:c}\n", true);
+    // The event's url stays empty: a logger is told there is no URL.
+    assert_eq!(
+        warn,
+        vec![(
+            "WARNING: w\n    - 1:1  root stylesheet\n".to_string(),
+            String::new()
+        )]
+    );
+    let (debug, _) = events("@debug \"d\";\n", true);
+    assert_eq!(debug[0].0, "-:1 DEBUG: d");
+    // #74: a deprecation is reported, not dropped.
+    let (deprecated, _) = events(".a { b: lighten(#036, 10%); }\n", true);
+    assert!(
+        deprecated
+            .iter()
+            .any(|(f, _)| f.starts_with("DEPRECATION WARNING [global-builtin]")
+                && f.contains("- 1:9  root stylesheet")),
+        "{deprecated:?}"
+    );
+    let (_, runtime) = events(".a { b: $x; }\n", true);
+    assert_eq!(
+        runtime.unwrap_err(),
+        "Error: Undefined variable.\n  ╷\n1 │ .a { b: $x; }\n  │         ^^\n  ╵\n  - 1:9  root stylesheet"
+    );
+    let (_, parse) = events(".a { b: }\n", true);
+    assert_eq!(
+        parse.unwrap_err(),
+        "Error: Expected expression.\n  ╷\n1 │ .a { b: }\n  │         ^\n  ╵\n  - 1:9  root stylesheet"
+    );
+
+    // Off (the default): the documented one-liners, and no deprecations,
+    // exactly as before this option existed.
+    let (warn_off, _) = events("@warn \"w\";\n", false);
+    assert_eq!(warn_off[0].0, "WARNING: w");
+    let (_, runtime_off) = events(".a { b: $x; }\n", false);
+    assert_eq!(runtime_off.unwrap_err(), "Error: Undefined variable. (1:9)");
+
+    // The source-map path names its url-less entry `stdin` in the map, and
+    // only diagnostics say `-`: the map is unchanged.
+    let opts = Options::default().with_anonymous_diagnostics(true);
+    let err = sasso::compile_with_source_map(".a { b: $x; }\n", &opts)
+        .unwrap_err()
+        .to_string();
+    assert!(err.ends_with("  - 1:9  root stylesheet"), "{err}");
+    let map = sasso::compile_with_source_map(".a { b: c; }\n", &opts).unwrap();
+    assert_eq!(map.source_map.file.as_deref(), Some("stdin"));
+}

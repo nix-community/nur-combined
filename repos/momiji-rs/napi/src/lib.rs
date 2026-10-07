@@ -659,7 +659,10 @@ fn compile_parts(
         .with_syntax(syntax_from(cfg.syntax))
         .with_charset(cfg.charset)
         .with_unicode(cfg.unicode)
-        .with_importer(chain);
+        .with_importer(chain)
+        // A `compileString` with no url still gets dart's diagnostics, the
+        // entry named `-` (#288), as the wasm engine's does.
+        .with_anonymous_diagnostics(true);
     if let Some(ids) = cfg.silence_deprecations.as_ref().filter(|v| !v.is_empty()) {
         opts = opts.with_silenced_deprecations(ids.iter().cloned());
     }

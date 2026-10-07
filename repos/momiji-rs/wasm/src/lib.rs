@@ -462,11 +462,14 @@ pub extern "C" fn sasso_compile4(
 
     let (bytes, ok): (Vec<u8>, u8) = match std::str::from_utf8(input) {
         Ok(scss) => {
+            // `anonymous_diagnostics`: a `compileString` with no url still
+            // gets dart's diagnostics, the entry named `-` (#288).
             let mut opts = Options::default()
                 .with_syntax(syntax)
                 .with_source_map_include_sources(include_sources != 0)
                 .with_charset(charset != 0)
-                .with_unicode(unicode != 0);
+                .with_unicode(unicode != 0)
+                .with_anonymous_diagnostics(true);
             if compressed != 0 {
                 opts = opts.with_style(OutputStyle::Compressed);
             }
