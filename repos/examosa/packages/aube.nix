@@ -114,7 +114,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/endevco/aube";
     changelog = "https://github.com/endevco/aube/blob/${finalAttrs.src.tag}/CHANGELOG.md";
     license = [lib.licenses.mit lib.licenses.bsd2Patent];
-    maintainers = [lib.maintainers.examosa];
+    maintainers = lib.optional (lib.maintainers ? examosa) lib.maintainers.examosa;
     mainProgram = "aube";
     platforms = lib.platforms.all;
   };
