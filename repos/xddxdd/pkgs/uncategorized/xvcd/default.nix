@@ -3,20 +3,19 @@
   lib,
   unstableGitUpdater,
   stdenv,
-  libftdi,
+  libftdi1,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "xvcd";
-  version = "0-unstable-2019-11-20";
+  version = "0-unstable-2025-03-06";
   src = fetchFromGitHub {
-    owner = "RHSResearchLLC";
+    owner = "tmbinc";
     repo = "xvcd";
-    rev = "d42b07f70cffd9e53f41c33b3960e1474cfbfc04";
-    hash = "sha256-ke2Ct+ganBHh+Res0NHGfQiLhyacbXnczN6R8DIT3RA=";
+    rev = "e24745d5fe29b52d30e5c08cda4f2ecdf4909abb";
+    hash = "sha256-/O1Oal3RBqCNTgTzvFkq6DkUJH8rHWQyuoCu3e97tro=";
   };
-  sourceRoot = "source/linux";
 
-  buildInputs = [ libftdi ];
+  buildInputs = [ libftdi1 ];
 
   installPhase = ''
     runHook preInstall
@@ -27,14 +26,15 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru.updateScript = unstableGitUpdater {
-    url = "https://github.com/RHSResearchLLC/xvcd";
+    url = "https://github.com/tmbinc/xvcd";
     hardcodeZeroVersion = true;
   };
+
   meta = {
     mainProgram = "xvcd";
     maintainers = with lib.maintainers; [ xddxdd ];
     description = "Xilinx Virtual Cable Daemon";
-    homepage = "https://github.com/RHSResearchLLC/xvcd";
+    homepage = "https://github.com/tmbinc/xvcd";
     license = lib.licenses.cc0;
   };
 })

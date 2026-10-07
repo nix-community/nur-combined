@@ -1,0 +1,12 @@
+diff --git a/XDMA/linux-kernel/xdma/Makefile b/XDMA/linux-kernel/xdma/Makefile
+--- a/XDMA/linux-kernel/xdma/Makefile
++++ b/XDMA/linux-kernel/xdma/Makefile
+@@ -23 +23 @@
+-EXTRA_CFLAGS := -I$(topdir)/include $(XVC_FLAGS)
++ccflags-y := -I$(topdir)/include $(XVC_FLAGS)
+@@ -25 +25 @@
+-	EXTRA_CFLAGS += -D__LIBXDMA_DEBUG__
++	ccflags-y += -D__LIBXDMA_DEBUG__
+@@ -28 +28 @@
+-	EXTRA_CFLAGS += -DXDMA_CONFIG_BAR_NUM=$(config_bar_num)
++	ccflags-y += -DXDMA_CONFIG_BAR_NUM=$(config_bar_num)

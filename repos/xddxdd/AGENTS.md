@@ -70,6 +70,13 @@
   - **qemu-vmvga 的 3D 加速要三件事同时成立**：(a) 设备在运行期 `dlopen("libdxvk_d3d9.so.0")`/`libdxvk_d3d11.so.0`，这两个库没有任何 DT_NEEDED 引用它们，linker 因此不会把其目录写进 rpath，需在 `postFixup` 里对 `$out/bin/qemu-system-*` 与 `.qemu-system-*-wrapped` 逐个 `patchelf --add-rpath ${lib.getLib dxvk}/lib`；(b) 设备初始化 DXVK 前会把自己合成的 headless SDL2 装进 loader 的 namespace（伪造 SONAME `libSDL2-2.0.so.0`），一旦发现真 SDL2 已加载就放弃 3D，所以宿主 QEMU 不能自己链接 SDL2（`qemu.override { sdlSupport = false; }`）；(c) nixpkgs 的 dxvk 被 patch 成按**绝对路径** `dlopen` 它依赖的 SDL2，正好绕过 (b) 的伪造 SONAME，必须在 dxvk 派生里把该替换改回裸 soname（`substituteInPlace src/wsi/sdl2/wsi_platform_sdl2.cpp --replace-fail '${lib.getLib SDL2}/lib/libSDL2-2.0.so.0' 'libSDL2-2.0.so.0'`）。三者缺一的症状各不相同：缺 (b)/(c) 是带 `-device vmvga` 启动即 SIGSEGV（gdb 栈顶落在 sdl2-compat/SDL3 的 `SDL_Vulkan_GetInstanceExtensions_REAL`）；缺 (a) 是 `failed to load libdxvk_d3d9.so.0` 后静默退回软件渲染。验证手法：`-device vmvga,debug=on -display none -S` 下 DXVK 日志出现 `Extension providers: Platform WSI` 且启用的实例扩展含 `VK_EXT_headless_surface`（证明用的是设备自带的 headless WSI 而不是真 SDL2），并能枚举到真实 GPU；再由 `-monitor stdio` 发 `quit` 确认退出码为 0（rpath/SDL2 有问题时这一步会 SIGSEGV）。
   - **继承 nixpkgs 的 `meta.platforms` 可能让包直接从 README 里消失**：nixpkgs 给 qemu 设的是新式 platform pattern（`lib.systems.inspect.patternLogicalAnd ...`）而不是字符串列表，而本仓库 README 生成器用 `lib.elem system p.meta.platforms` 判断平台，匹配不上就不列出该包。此类包必须显式覆盖 `meta.platforms`（如 `lib.platforms.linux`）。
 
+## 内核模块包
+
+- **模仿现有内核模块包结构，不覆盖 buildPhase**：`pkgs/kernel-modules/` 下的包参照 acpi-ec 的写法——`nativeBuildInputs = kernel.moduleBuildDependencies`、`KSRC` 指向 `kernel.dev`、`makeFlags = kernel.commonMakeFlags or kernel.makeFlags`、用 `preBuild`/`preConfigure` 移动或追加参数、`installTargets = [ "modules_install" ]`。不要自写 buildPhase；多个目标用 `buildFlags = [ "targetA" "targetB" ]` 传入（当前 stdenv 已移除 `buildTargets` 属性，不再被默认 buildPhase 消费）。
+- **含空格的 `XXX=value` 参数不能放 makeFlags，要放派生环境属性**：非 structuredAttrs 路径下 makeFlags 会被按空白分词，`makeFlags = [ "CPPFLAGS=-a -b -c" ]` 中 `-b -c` 会变成杂散 make 参数，只有第一个 flag 生效。把这类变量（如 CPPFLAGS、KSRC）写成派生级环境属性（如 `CPPFLAGS = "-a -b -c";`）或独立单值 makeFlags 条目。
+- **现代内核 external module 的 `modules_install` 装到 `updates/` 且可能压缩**：Linux 6.18 默认把 `.ko` 压成 `.ko.xz` 放进 `updates/`；需要未压缩 `.ko`（如装到 `extra/` 以匹配参考实现或自定义加载逻辑）时改用自定义 installPhase 手动 `install`（注意这不是覆盖 buildPhase，安装逻辑放在 installPhase 内属常规做法）。
+- **Clang 专属诊断开关（`-Wno-error=parentheses-equality` 等）在 GCC 下硬报错**：nixpkgs 默认 GCC 不认识该 option，出现在命令行会直接编译失败；从面向 Clang 的参考构建移植参数时要剔除，只保留 GCC 认识的 `-Wno-error=...`。
+
 ## 包元数据规范
 
 ### meta.description（包描述）
