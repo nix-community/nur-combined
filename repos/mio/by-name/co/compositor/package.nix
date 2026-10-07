@@ -2,7 +2,6 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  jq,
   writableTmpDirAsHomeHook,
 }:
 
@@ -24,16 +23,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   passthru.spmDeps = stdenvNoCC.mkDerivation {
-    name = "compositor-spm-${finalAttrs.version}";
+    pname = "${finalAttrs.pname}-spm-deps";
+    inherit (finalAttrs) version src;
+
     outputHashMode = "recursive";
     outputHash = "sha256-9eSSVS8/4caRbXZzMopicFPeFodsCAPliAA4h7vxXgY=";
 
-    inherit (finalAttrs) src;
-
-    nativeBuildInputs = [
-      jq
-      writableTmpDirAsHomeHook
-    ];
+    nativeBuildInputs = [ writableTmpDirAsHomeHook ];
 
     sandboxProfile = xcodeSandboxProfile;
 
@@ -67,9 +63,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     '';
   };
 
-  nativeBuildInputs = [
-    writableTmpDirAsHomeHook
-  ];
+  nativeBuildInputs = [ writableTmpDirAsHomeHook ];
 
   sandboxProfile = xcodeSandboxProfile;
 
@@ -88,20 +82,24 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     substituteInPlace build/swiftpm/workspace-state.json \
       --replace-fail '@SPM@' "$PWD/build/swiftpm"
 
+    local -a xcodebuildFlags=(
+      -project Compositor.xcodeproj
+      -scheme Compositor
+      -configuration Release
+      -derivedDataPath build
+      -clonedSourcePackagesDirPath build/swiftpm
+      -disableAutomaticPackageResolution
+      -onlyUsePackageVersionsFromResolvedFile
+      -IDEPackageSupportDisableManifestSandbox=YES
+      -IDEPackageSupportDisablePluginExecutionSandbox=YES
+      CODE_SIGN_IDENTITY="-"
+      MODULE_VERIFIER_SUPPORTED_LANGUAGES=""
+      MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS=""
+      OTHER_SWIFT_FLAGS="-Xfrontend -disable-sandbox"
+    )
+
     env PATH="$DEVELOPER_DIR/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH" \
-    xcodebuild -project Compositor.xcodeproj \
-               -scheme Compositor \
-               -configuration Release \
-               -derivedDataPath build \
-               -clonedSourcePackagesDirPath build/swiftpm \
-               -disableAutomaticPackageResolution \
-               -onlyUsePackageVersionsFromResolvedFile \
-               -IDEPackageSupportDisableManifestSandbox=YES \
-               -IDEPackageSupportDisablePluginExecutionSandbox=YES \
-               CODE_SIGN_IDENTITY="-" \
-               MODULE_VERIFIER_SUPPORTED_LANGUAGES="" \
-               MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS="" \
-               OTHER_SWIFT_FLAGS="-Xfrontend -disable-sandbox"
+      xcodebuild "''${xcodebuildFlags[@]}"
 
     runHook postBuild
   '';
@@ -109,16 +107,21 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/Applications
+    mkdir -p $out/Applications $out/bin
     cp -R build/Build/Products/Release/Compositor.app $out/Applications/
+
+    # Symlink the executable into bin/ for CLI access
+    ln -s $out/Applications/Compositor.app/Contents/MacOS/Compositor $out/bin/Compositor
 
     runHook postInstall
   '';
 
-  meta = with lib; {
+  meta = {
     description = "The Photoshop alternative for Mac";
     homepage = "https://github.com/robbietilton/Compositor";
-    license = licenses.mit;
-    platforms = platforms.darwin;
+    license = lib.licenses.mit;
+    platforms = lib.platforms.darwin;
+    sourceProvenance = [ lib.sourceTypes.fromSource ];
+    mainProgram = "Compositor";
   };
 })
