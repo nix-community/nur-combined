@@ -29,6 +29,7 @@
   moonplayer = lib.callPackage ./pkgs/moonplayer {};
   noisetorch = lib.callPackage ./pkgs/noisetorch {};
   altersend = lib.callPackage ./pkgs/altersend {};
+  genoffice = lib.callPackage ./pkgs/genoffice {};
   equicord = lib.callPackage ./pkgs/equicord {};
   orbolay = lib.callPackage ./pkgs/orbolay {};
   wg-nord = lib.callPackage ./pkgs/wg-nord {};

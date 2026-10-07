@@ -1,0 +1,24 @@
+{
+  "name": "GenOffice",
+  "source": {
+    "type": "github-release",
+    "repo": "genspark-ai/genoffice",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "0.11.0",
+  "platforms": {
+    "x86_64-linux": {
+      "file": "GenOffice-{version}.AppImage",
+      "hash": "sha256-iYKCjYfFFe4YzfezxahhCbwMl+FvkBkogZGSnhxOQWw="
+    },
+    "x86_64-darwin": {
+      "file": "GenOffice-{version}.dmg",
+      "hash": "sha256-8Nh+tVwcEMg0S3h5qeIRuRiOtBmaMnFwxj8cSMTSVfE="
+    },
+    "aarch64-darwin": {
+      "file": "GenOffice-{version}-arm64.dmg",
+      "hash": "sha256-sUb1bVNfUdIUGE+Sb6FQQSKizgRfKVgbSdyGVVWzdWo="
+    }
+  }
+}
