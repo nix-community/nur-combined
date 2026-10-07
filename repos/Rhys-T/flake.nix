@@ -1,6 +1,7 @@
 {
   description = "My personal NUR repository";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs.nixpkgs-x86_64-darwin.url = "github:NixOS/nixpkgs/nixpkgs-26.05-darwin";
   inputs.ciSubsetName = {
     url = "file+file:///dev/null";
     flake = false;
@@ -14,7 +15,7 @@
   #   extra-substituters = ["https://rhys-t.cachix.org"];
   #   extra-trusted-public-keys = ["rhys-t.cachix.org-1:u01ifDlaQjvJbtMT1Saw+oaFX1Lf/Urw+ND0i/L4kgw="];
   # };
-  outputs = { self, nixpkgs, ciSubsetName, ciCachedBuildFailures }:
+  outputs = { self, nixpkgs, nixpkgs-x86_64-darwin, ciSubsetName, ciCachedBuildFailures }:
     let
       inherit (nixpkgs) lib;
       systems = [
@@ -34,10 +35,11 @@
         "aarch64-linux"
       ];
       # forAllCISystems = f: lib.genAttrs ciSystems (system: f system);
+      nixpkgsForSystem = system: if system == "x86_64-darwin" then nixpkgs-x86_64-darwin else nixpkgs;
     in
     {
       legacyPackages = forAllSystems (system: import ./default.nix {
-        pkgs = import nixpkgs { inherit system; };
+        pkgs = import (nixpkgsForSystem system) { inherit system; };
       } // lib.optionalAttrs (builtins.elem system ciSystems) {
         ci = let
           subsetName = lib.pipe ciSubsetName.outPath [
@@ -48,7 +50,7 @@
           cachedBuildFailures' = ciCachedBuildFailures.outPath;
           cachedBuildFailures = if lib.pathIsDirectory cachedBuildFailures' then cachedBuildFailures' else null;
           ci = import ./ci.nix {
-            pkgs = import nixpkgs {
+            pkgs = import (nixpkgsForSystem system) {
               inherit system;
               config.allowAliases = false;
               config.allowDeprecatedx86_64Darwin = true;

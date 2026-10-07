@@ -77,7 +77,7 @@ jobs:
               ($runner | split("/")) as [$displayRunner, $runner] |
               (if ($runner | startswith("macos") and endswith("intel")) then [
                 "nixpkgs-26.05-darwin",
-                "e48b5f12dbcc02fe43d5c0a9f36b569981f41b45", # last commit on unstable before x86_64-darwin was removed
+                # "e48b5f12dbcc02fe43d5c0a9f36b569981f41b45", # last commit on unstable before x86_64-darwin was removed
               empty] else $nixpkgss end) as $nixpkgss |
               (if ($runner | startswith("macos") and endswith("intel")) then
                 "?ref=b676082bd0b5c4042ca1279ae69709c6b3c69179"
