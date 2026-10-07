@@ -10,7 +10,7 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "paper-mono";
-  version = "0.320-unstable-2026-08-26";
+  version = "1.000-unstable-2026-08-26";
   __structuredAttrs = true;
 
   outputs = [
