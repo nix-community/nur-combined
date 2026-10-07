@@ -141,6 +141,7 @@ in
 
       # File
       binsider
+      concessio
       duperemove
       file
       fq

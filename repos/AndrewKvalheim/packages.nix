@@ -41,9 +41,11 @@ specify {
   direnv.overlay = d: {
     # Workaround for direnv/direnv#348
     postPatch = let name = ".❯"; in d.postPatch or "" + ''
-      grep --exclude-dir 'man' --files-with-matches --fixed-strings --recursive '.envrc' . | xargs sed --in-place 's/\.envrc/'${escapeShellArg name}'/g'
+      grep --files-with-matches --fixed-strings --recursive '.envrc' . \
+      | while read -r f; do substituteInPlace "$f" --replace-fail '.envrc' ${escapeShellArg name}; done
       find . -name '.envrc' -execdir mv '.envrc' ${escapeShellArg name} ';'
     '';
+    nativeBuildInputs = d.nativeBuildInputs or [ ] ++ [ resolved.go-md2man ];
   };
   dmarc-report-notifier = any;
   doh = any;
