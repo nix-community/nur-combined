@@ -30,7 +30,7 @@ buildGoModule (finalAttrs: {
 
   preBuild = ''
     export MAUTRIX_VERSION=$(cat go.mod | grep 'maunium.net/go/mautrix ' | awk '{ print $2 }')
-    ldflags=("''$ldflags[@]" "-X maunium.net/go/mautrix.GoModVersion=$MAUTRIX_VERSION")
+    ldflags+=("-X maunium.net/go/mautrix.GoModVersion=$MAUTRIX_VERSION")
   '';
 
   ldflags = [
