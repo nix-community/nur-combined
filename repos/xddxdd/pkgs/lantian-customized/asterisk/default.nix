@@ -10,6 +10,8 @@
   codec2,
   libvorbis,
   vo-amrwbenc,
+  wget,
+  curl,
 }:
 let
   asteriskAmrSrc = fetchFromGitHub {
@@ -55,6 +57,12 @@ in
 (asterisk.override { withOpus = false; }).overrideAttrs (old: {
   __structuredAttrs = true;
   strictDeps = true;
+  # With strictDeps, buildInputs no longer land on PATH; asterisk's bundled
+  # pjproject configure requires a download utility (wget/curl) to be present.
+  nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
+    wget
+    curl
+  ];
   prePatch =
     (lib.concatStrings (builtins.map (p: "cp -r ${p}/* ./\n") myExtraFiles)) + (old.prePatch or "");
 

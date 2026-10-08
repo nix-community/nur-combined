@@ -19,7 +19,9 @@ in
   ];
 }).overrideAttrs
   (old: {
-    __structuredAttrs = true;
+    # symlinkJoin bridges `paths` through passAsFile, which does not survive
+    # __structuredAttrs; no symlinks get created and postBuild's rm fails.
+    __structuredAttrs = false;
     strictDeps = true;
     meta = old.meta // {
       maintainers = with lib.maintainers; [ xddxdd ];

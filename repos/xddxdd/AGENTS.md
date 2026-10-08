@@ -121,6 +121,7 @@
 - **writeShellApplication / writeTextFile 的属性放 `derivationArgs`**：这两个 builder 的参数签名是strict的，直接传 `__structuredAttrs` 会报 unexpected argument，须写 `derivationArgs.__structuredAttrs = true;`。
 - **override 链上挂 flag 用 `.overrideAttrs`，不要塞进 `.override { }`**：参数签名严格的 builder（kernel builder、writeShellApplication 等）会把多余参数直接拒掉。
 - **不要写顶层推导属性当环境变量后再在 phase 里以 `$VAR` 读**：该写法只在非 structuredAttrs 下成立；structuredAttrs 下 `$VAR` 为空。
+- **基于 symlinkJoin 的包装包必须关掉 `__structuredAttrs`**：nixpkgs 的 symlinkJoin（mpv wrapper 等）用 `passAsFile` 传递 `paths`，structuredAttrs 下该文件内容非预期，`lndir` 不产生任何链接，`postBuild` 对 `$out` 的操作随之失败。对这类包装设 `__structuredAttrs = false;`（`strictDeps = true;` 可保留）后再 override 其他属性。
 
 ### 构建阶段钩子
 

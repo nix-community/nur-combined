@@ -13,6 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
   __structuredAttrs = true;
   strictDeps = true;
+  nativeBuildInputs = [ ncurses.dev ];
   buildInputs = [ ncurses ];
 
   buildPhase = ''
