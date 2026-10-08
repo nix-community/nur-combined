@@ -8360,6 +8360,20 @@
         platforms = platforms.all;
       };
     };
+    "limit-tabs" = buildMozillaXpiAddon {
+      pname = "limit-tabs";
+      version = "2.2.10";
+      addonId = "rudolf.fernandes@gmail.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4490148/rudolf_fernandes-2.2.10.xpi";
+      sha256 = "cc343211154fde95c91d2f41e7b5a7d4489717c30e4a6cc816b4fcf2b65f6408";
+      meta = with lib;
+      {
+        description = "Limits tabs to maintain system responsiveness.";
+        license = licenses.gpl3;
+        mozPermissions = [ "storage" ];
+        platforms = platforms.all;
+      };
+    };
     "lingq-importer2" = buildMozillaXpiAddon {
       pname = "lingq-importer2";
       version = "2.3.52";
@@ -16159,10 +16173,10 @@
     };
     "video-downloadhelper" = buildMozillaXpiAddon {
       pname = "video-downloadhelper";
-      version = "10.5.49.2";
+      version = "10.6.1.2";
       addonId = "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5014115/video_downloadhelper-10.5.49.2.xpi";
-      sha256 = "6b2a2f953da4d52c5057872e6dc13926d3ce05e76883dcf0fb5bac40f66d7465";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5098021/video_downloadhelper-10.6.1.2.xpi";
+      sha256 = "81652b53dac2aa56ce3b9608ac25c5974a1844eab54fa747168520997d05d1c9";
       meta = with lib;
       {
         homepage = "https://www.downloadhelper.net/";
@@ -16211,6 +16225,7 @@
           "https://downloadhelper.net/activate*"
           "https://app.downloadhelper.net/activate*"
           "https://v10.downloadhelper.net/activate*"
+          "https://downloadhelper.net/premium*"
         ];
         platforms = platforms.all;
       };
