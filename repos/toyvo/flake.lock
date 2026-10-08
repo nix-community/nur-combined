@@ -799,6 +799,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-darwin-x64": {
+      "locked": {
+        "lastModified": 1788334797,
+        "narHash": "sha256-nskSa8kDimM7F0VFSP8IdoSNo4G0vKzOtxwvOFpoGDI=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "c19db427a1fdfc7591c0b0baeb4665dcef2c61da",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-26.05-darwin",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-esp-dev": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -1251,6 +1267,27 @@
         "type": "github"
       }
     },
+    "pi": {
+      "inputs": {
+        "nixpkgs": [
+          "nixos-unstable"
+        ],
+        "nixpkgs-darwin-x64": "nixpkgs-darwin-x64"
+      },
+      "locked": {
+        "lastModified": 1791291949,
+        "narHash": "sha256-lY+6z+Zl2nmhp5oDcphP27x2Ec7MpxW7OelRIE9tUrg=",
+        "owner": "earendil-works",
+        "repo": "pi",
+        "rev": "56b25ff4ebbd8a119ef9185447c7b2416059dbcb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "earendil-works",
+        "repo": "pi",
+        "type": "github"
+      }
+    },
     "plasma-manager": {
       "inputs": {
         "home-manager": "home-manager_3",
@@ -1394,6 +1431,7 @@
         "nur": "nur",
         "nvf": "nvf",
         "odysseus": "odysseus",
+        "pi": "pi",
         "plasma-manager": "plasma-manager",
         "preservation": "preservation",
         "rust-overlay": "rust-overlay_2",

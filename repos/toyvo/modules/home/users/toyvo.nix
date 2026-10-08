@@ -150,6 +150,10 @@ in
           nodejs
           bun
         ];
+        mcpServers.github-toyvo = {
+          url = "https://api.githubcopilot.com/mcp";
+          headers.Authorization = "!echo Bearer $(cat ${config.sops.secrets.github_toyvo_pat.path})";
+        };
       };
       # TODO: undo
       rio.enable = cfg.gui.enable && pkgs.stdenv.hostPlatform.isLinux;

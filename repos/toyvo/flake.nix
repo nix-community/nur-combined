@@ -30,10 +30,6 @@
     };
     jovian.url = "github:Jovian-Experiments/Jovian-NixOS";
     mac-app-util.url = "github:hraban/mac-app-util";
-    odysseus = {
-      url = "github:odysseus-dev/odysseus/dev";
-      flake = false;
-    };
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixos-unstable";
@@ -54,6 +50,14 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nur.url = "github:nix-community/nur";
     nvf.url = "github:NotAShelf/nvf";
+    odysseus = {
+      url = "github:odysseus-dev/odysseus/dev";
+      flake = false;
+    };
+    pi = {
+      url = "github:earendil-works/pi";
+      inputs.nixpkgs.follows = "nixos-unstable";
+    };
     plasma-manager.url = "github:pjones/plasma-manager";
     preservation.url = "github:WilliButz/preservation";
     rust-overlay.url = "github:oxalica/rust-overlay";

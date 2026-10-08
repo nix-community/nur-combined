@@ -7,6 +7,7 @@ Outstanding work and follow-up items for this repository.
 > deferred work or manual steps before finishing a task.
 
 - [ ] setup forwarding to binary cache/nas with nix.settings.post-build-hook
+- [ ] Jellyfin LDAP: `ldap.diekvoss.net` resolves to router (10.1.0.1) with nothing on 6636; Jellyfin `LDAP-Auth.xml` manually pointed at `10.200.0.16:6636`. Decide durable fix: Technitium split-horizon override for `ldap.diekvoss.net` -> `10.200.0.16`, router TCP proxy for 6636, or document direct-IP convention
 
 ## Forgejo (git.toyvo.dev) Enhancements
 
