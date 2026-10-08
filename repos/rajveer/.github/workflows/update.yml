@@ -1,0 +1,55 @@
+name: Update NixBox release
+on:
+  schedule:
+    - cron: '23 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: nixbox-release-update
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      - name: Find the newest successfully published release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/update-nixbox.py
+      - name: Check for an update
+        id: changes
+        run: |
+          if git diff --quiet -- pkgs/nixbox; then
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
+          else
+            echo 'changed=true' >> "$GITHUB_OUTPUT"
+          fi
+      - name: Check restricted evaluation
+        if: steps.changes.outputs.changed == 'true'
+        run: bash scripts/check-evaluation.sh
+      - name: Build and test the new release
+        if: steps.changes.outputs.changed == 'true'
+        run: nix-build default.nix -A nixbox -A nixbox-cli -A nixbox-gui --no-out-link
+      - name: Commit the validated release
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          version="$(python -c 'import json; print(json.load(open("pkgs/nixbox/source.json"))["version"])')"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add pkgs/nixbox/source.json pkgs/nixbox/Cargo.lock
+          git commit -m "nixbox: update to $version"
+          git push origin HEAD:main
+      # Commits made with GITHUB_TOKEN do not start another push workflow.
+      # The new packages were built above; notify NUR here directly.
+      - name: Notify NUR
+        if: steps.changes.outputs.changed == 'true'
+        run: curl --fail --show-error --retry 3 -X POST 'https://nur-update.nix-community.org/update?repo=rajveer'
