@@ -79,7 +79,7 @@
     },
     "epd-food-server": {
         "cargoLock": null,
-        "date": "2026-10-01",
+        "date": "2026-10-08",
         "extract": null,
         "name": "epd-food-server",
         "passthru": null,
@@ -89,13 +89,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "a2709f2c8cabcc4248cb1d2b2bed1e9f38834b27",
-            "sha256": "sha256-bT87XZrS5kgZ7nkAZms5wSTit+GSI/rYU6lX4D30Qek=",
+            "rev": "53fa0a3d250615b6b6e56a75e9f75b51672fa7ea",
+            "sha256": "sha256-E5uh2cKYLZ8uOSd0X0Qvn+VWAzkScaklgYk5QESXPVs=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/zhyiheihei/EPD-Dashboard.git"
         },
-        "version": "a2709f2c8cabcc4248cb1d2b2bed1e9f38834b27"
+        "version": "53fa0a3d250615b6b6e56a75e9f75b51672fa7ea"
     },
     "filecodebox": {
         "cargoLock": null,
