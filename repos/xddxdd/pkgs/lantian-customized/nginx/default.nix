@@ -66,6 +66,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     git
+    perl
     which
   ];
 
@@ -81,7 +82,6 @@ stdenv.mkDerivation (finalAttrs: {
     libxslt
     openssl
     pcre
-    perl
     quickjs-ng
     zlib
     zstd
