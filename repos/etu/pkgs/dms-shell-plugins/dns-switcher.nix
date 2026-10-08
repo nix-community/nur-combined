@@ -6,13 +6,13 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-dns-switcher";
-  version = "0-unstable-2026-09-07";
+  version = "Release-unstable-2026-10-07";
 
   src = fetchFromGitHub {
     owner = "JDKamalakar";
     repo = "DMS-DNS_Switcher";
-    rev = "a36f41d93e3ced7aa0787f5b8287532cb3aaeabc";
-    hash = "sha256-zUJVXnKH2/jsbsezoDiOkHvJL4AokXecgUJekkHyoUA=";
+    rev = "09feae14e4aa743b37031ff82a197176ba886a8b";
+    hash = "sha256-jnTrvDDAhPnE+z00BIgt09bMlQeBZi53dSFwkb8DpuI=";
   };
 
   dontBuild = true;
