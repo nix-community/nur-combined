@@ -42,6 +42,11 @@ static void my_application_activate(GApplication* application) {
     }
   }
 #endif
+  const gchar* xdg_current_desktop = g_getenv("XDG_CURRENT_DESKTOP");
+  if (xdg_current_desktop != nullptr && g_strstr_len(xdg_current_desktop, -1, "KDE") != nullptr) {
+    use_header_bar = FALSE;
+  }
+
   if (use_header_bar) {
     GtkHeaderBar* header_bar = GTK_HEADER_BAR(gtk_header_bar_new());
     gtk_widget_show(GTK_WIDGET(header_bar));
