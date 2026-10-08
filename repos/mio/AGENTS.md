@@ -8,3 +8,4 @@
 - When developing Hanga specifically, the development gate is `nix build .#hanga-dev` (runs host, mod, and xvfb agent tests). Do not wait on `nix build .#hanga` for day-to-day Hanga work; that wrap skips the long cargo checkPhase.
 - Omnimux vendors `gpui-terminal`: see `by-name/om/omnimux/VENDOR.md` for upstream baselines (gpui-terminal, alacritty_terminal and the patched gpui-pre platform crates) and our local patches. App-level notes (appearance/OSC, sessions, packaging): `by-name/om/omnimux/README.md`.
 - Always check `git status` to clean up any temporary files or scratch scripts created during problem solving.
+- "check updates" or similar requests mean you should run `./check_updates.py`.
