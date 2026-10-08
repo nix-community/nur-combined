@@ -1915,7 +1915,6 @@ dependencies = [
  "clap",
  "clash-api",
  "colored",
- "convert_case",
  "ctrlc",
  "dashmap",
  "deelevate",
@@ -1949,7 +1948,6 @@ dependencies = [
  "nix 0.31.3",
  "notify",
  "notify-debouncer-full",
- "nyanpasu-application",
  "nyanpasu-config",
  "nyanpasu-core",
  "nyanpasu-core-manager",
@@ -1961,6 +1959,7 @@ dependencies = [
  "nyanpasu-logging",
  "nyanpasu-macro",
  "nyanpasu-panics",
+ "nyanpasu-paths",
  "nyanpasu-platform",
  "nyanpasu-traffic",
  "nyanpasu-utils",
@@ -5202,9 +5201,9 @@ checksum = "4275b20e6057cd7733fd8df8a5a31701e4fe44497dad0f3fa0e1c4fb971506be"
 
 [[package]]
 name = "inventory"
-version = "0.3.24"
+version = "0.3.25"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a4f0c30c76f2f4ccee3fe55a2435f691ca00c0e4bd87abe4f4a851b1d4dac39b"
+checksum = "6928282826c822ad91bf1c9a1cb90a30ba1c26770749929b4656cd6be829cd7c"
 dependencies = [
  "rustversion",
 ]
@@ -6535,19 +6534,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "nyanpasu-application"
-version = "0.1.0"
-dependencies = [
- "nyanpasu-config",
- "serde",
- "serde_json",
- "serde_yaml_ng 0.10.0 (git+https://github.com/libnyanpasu/serde-yaml-ng.git?rev=363da138dc97f90ef0a356f971c2dc1d8fe04c9e)",
- "snafu",
- "specta",
- "strum",
-]
-
-[[package]]
 name = "nyanpasu-config"
 version = "0.1.0"
 dependencies = [
@@ -6596,8 +6582,13 @@ dependencies = [
  "fs-err",
  "gxhash",
  "indexmap 2.14.2",
+ "nyanpasu-config",
  "serde",
+ "serde_json",
  "serde_yaml_ng 0.10.0 (git+https://github.com/libnyanpasu/serde-yaml-ng.git?rev=363da138dc97f90ef0a356f971c2dc1d8fe04c9e)",
+ "snafu",
+ "specta",
+ "strum",
  "tempfile",
  "thiserror 2.0.21",
  "tokio",
@@ -6776,6 +6767,22 @@ dependencies = [
 ]
 
 [[package]]
+name = "nyanpasu-paths"
+version = "0.1.0"
+dependencies = [
+ "camino",
+ "convert_case",
+ "dunce",
+ "fs-err",
+ "fs_extra",
+ "log",
+ "nyanpasu-utils",
+ "snafu",
+ "tempfile",
+ "winreg 0.56.0",
+]
+
+[[package]]
 name = "nyanpasu-platform"
 version = "0.1.0"
 dependencies = [
@@ -6787,8 +6794,8 @@ dependencies = [
  "dunce",
  "indexmap 2.14.2",
  "mlua",
- "nyanpasu-application",
  "nyanpasu-config",
+ "nyanpasu-core",
  "oxc_allocator",
  "oxc_ast",
  "oxc_ast_visit",
