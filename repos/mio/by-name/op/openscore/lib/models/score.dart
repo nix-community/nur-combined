@@ -62,25 +62,34 @@ class SearchHit {
   final String snippet;
 }
 
-enum DownloadFormat { midi, mp3, pdf }
+enum DownloadFormat { midi, mp3, pdf, mscz, mxl, flac }
 
 extension DownloadFormatX on DownloadFormat {
   String get apiType => switch (this) {
     DownloadFormat.midi => 'midi',
     DownloadFormat.mp3 => 'mp3',
     DownloadFormat.pdf => 'img',
+    DownloadFormat.mscz => 'mscz',
+    DownloadFormat.mxl => 'mxl',
+    DownloadFormat.flac => 'flac',
   };
 
   String get fileExtension => switch (this) {
     DownloadFormat.midi => 'mid',
     DownloadFormat.mp3 => 'mp3',
     DownloadFormat.pdf => 'pdf',
+    DownloadFormat.mscz => 'mscz',
+    DownloadFormat.mxl => 'mxl',
+    DownloadFormat.flac => 'flac',
   };
 
   String get label => switch (this) {
     DownloadFormat.midi => 'MIDI',
     DownloadFormat.mp3 => 'MP3',
     DownloadFormat.pdf => 'PDF',
+    DownloadFormat.mscz => 'MSCZ',
+    DownloadFormat.mxl => 'MusicXML',
+    DownloadFormat.flac => 'FLAC',
   };
 }
 

@@ -46,6 +46,9 @@ class _DownloadsScreenState extends State<DownloadsScreen> {
                           DownloadFormat.midi => Icons.piano,
                           DownloadFormat.mp3 => Icons.audiotrack,
                           DownloadFormat.pdf => Icons.picture_as_pdf,
+                          DownloadFormat.mscz => Icons.library_music,
+                          DownloadFormat.mxl => Icons.code,
+                          DownloadFormat.flac => Icons.audiotrack,
                         }),
                         title: Text(item.title),
                         subtitle: Text(

@@ -133,10 +133,13 @@ class MuseScoreApi {
     switch (format) {
       case DownloadFormat.midi:
       case DownloadFormat.mp3:
+      case DownloadFormat.mscz:
+      case DownloadFormat.mxl:
+      case DownloadFormat.flac:
         onProgress?.call('Resolving ${format.label}…');
         final fileUrl = await getFileUrl(
           score.id,
-          format == DownloadFormat.midi ? 'midi' : 'mp3',
+          format.apiType,
           score.url,
         );
         onProgress?.call('Downloading ${format.label}…');
