@@ -2,13 +2,12 @@
   lib,
   python3Packages,
   fetchFromGitHub,
-  nur,
   nix-update-script,
   runCommand,
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "imdb-plex-sync";
-  version = "0.3.0";
+  version = "0.4.0";
 
   pyproject = true;
   __structuredAttrs = true;
@@ -17,7 +16,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     owner = "josh";
     repo = "imdb-plex-sync";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Qy75EpZkTZkn0Uk5Imt+aXKnPrUWO1qDAYw2CfInuQk=";
+    hash = "sha256-8dynEU8IrRHIV1FCrKV58dCDtif1s+RoOFqjHebKwew=";
   };
 
   build-system = with python3Packages; [
@@ -26,7 +25,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   dependencies = with python3Packages; [
     click
-    nur.repos.josh.polars
+    pyarrow
   ];
 
   pythonImportsCheck = [ "imdb_plex_sync" ];
@@ -54,6 +53,5 @@ python3Packages.buildPythonApplication (finalAttrs: {
     license = lib.licenses.mit;
     mainProgram = "imdb-plex-sync";
     platforms = lib.platforms.all;
-    broken = lib.strings.versionOlder nur.repos.josh.polars.version "1.30";
   };
 })
