@@ -26,13 +26,13 @@ buildGoModule (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "magpie";
-  version = "0.1.1099";
+  version = "0.1.1108";
 
   src = fetchFromGitHub {
     owner = "yetone";
     repo = "magpie";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-PTMMRbYw9H/H6li2y6lu89flwLKVZFM5HCXLkoSBiA4=";
+    hash = "sha256-M8M+E3aGXfSxRwIXGvSQCpki8p4HLsvJ7Yc0LKIenI0=";
   };
 
   vendorHash = "sha256-dqFc8UTREaRFt3G3DS7IllBx8ysOlcA5JUqGaQ/XlcI=";
@@ -99,6 +99,8 @@ buildGoModule (finalAttrs: {
     "-skip=^(${
       lib.concatStringsSep "|" (
         [
+          # Requires ps to query process groups and sessions in the build sandbox.
+          "TestAskShellOwnSession"
           # Downloads Bun from GitHub, which is unavailable in the build sandbox.
           "TestPluginListSaysMiddleware"
           # The WSL probe finds omp but reports an empty version in Linux sandbox builds.
