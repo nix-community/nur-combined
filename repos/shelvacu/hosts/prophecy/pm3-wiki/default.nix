@@ -35,7 +35,7 @@ in
         (map (
           folder:
           lib.nameValuePair "/wiki-pm3-public/${folder}" {
-            device = "/persistence/var/lib/dokuwiki/${domain}/data/${folder}";
+            device = "/persistent/var/lib/dokuwiki/${domain}/data/${folder}";
             fsType = "none";
             options = [
               "ro"
@@ -92,6 +92,7 @@ in
       dnslookups = false;
       dformat = "%Y-%m-%d %H:%M %Z (%f)";
       auth_security_timeout = 10;
+      disableactions = "register";
 
       plugin.preregister = {
         send_confirm = true;
