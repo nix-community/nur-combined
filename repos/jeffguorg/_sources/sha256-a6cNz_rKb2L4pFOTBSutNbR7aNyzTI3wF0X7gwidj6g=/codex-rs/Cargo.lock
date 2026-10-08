@@ -1945,6 +1945,7 @@ dependencies = [
  "anyhow",
  "chrono",
  "codex-agent-message-board-extension",
+ "codex-extension-api",
  "codex-http-client",
  "codex-protocol",
  "eventsource-stream",
@@ -1954,6 +1955,8 @@ dependencies = [
  "serde",
  "serde_json",
  "tokio",
+ "tokio-util",
+ "tracing",
  "url",
  "wiremock",
 ]
@@ -2021,8 +2024,10 @@ name = "codex-ansi-escape"
 version = "0.0.0"
 dependencies = [
  "ansi-to-tui",
+ "pretty_assertions",
  "ratatui",
  "tracing",
+ "tracing-subscriber",
 ]
 
 [[package]]
@@ -2144,6 +2149,7 @@ dependencies = [
  "futures",
  "hmac 0.12.1",
  "http 1.4.0",
+ "keyring",
  "opentelemetry",
  "opentelemetry_sdk",
  "pretty_assertions",
@@ -2504,6 +2510,7 @@ dependencies = [
  "clap_complete",
  "codex-api",
  "codex-app-server",
+ "codex-app-server-client",
  "codex-app-server-daemon",
  "codex-app-server-protocol",
  "codex-app-server-test-client",
@@ -2899,6 +2906,7 @@ dependencies = [
  "bm25",
  "chrono",
  "codex-agent-graph-store",
+ "codex-agent-message-board-client",
  "codex-agent-message-board-extension",
  "codex-agent-roles",
  "codex-analytics",
@@ -2974,6 +2982,7 @@ dependencies = [
  "codex-utils-string",
  "codex-web-search-extension",
  "codex-windows-sandbox",
+ "codex-windows-sandbox-test-support",
  "core_test_support",
  "ctor 0.6.3",
  "dirs",
@@ -3211,6 +3220,7 @@ dependencies = [
  "codex-utils-rustls-provider",
  "codex-websocket-auth",
  "codex-websocket-client",
+ "codex-windows-sandbox-test-support",
  "ctor 0.6.3",
  "dirs",
  "futures",
@@ -3248,6 +3258,7 @@ version = "0.0.0"
 dependencies = [
  "base64 0.22.1",
  "codex-file-system",
+ "codex-install-context",
  "codex-mxc-sandbox",
  "codex-network-proxy",
  "codex-protocol",
@@ -3370,6 +3381,7 @@ version = "0.0.0"
 dependencies = [
  "codex-network-proxy",
  "codex-protocol",
+ "codex-utils-redacted-string",
  "pretty_assertions",
  "schemars 0.8.22",
  "serde",
@@ -3756,6 +3768,7 @@ dependencies = [
  "codex-sandboxing",
  "codex-uds",
  "codex-utils-absolute-path",
+ "codex-utils-cargo-bin",
  "globset",
  "landlock",
  "libc",
@@ -3809,6 +3822,7 @@ dependencies = [
  "jsonwebtoken",
  "keyring",
  "once_cell",
+ "opentelemetry_sdk",
  "os_info",
  "pretty_assertions",
  "rand 0.9.3",
@@ -4260,6 +4274,7 @@ dependencies = [
  "codex-utils-path-uri",
  "codex-utils-redacted-string",
  "codex-utils-string",
+ "derive_more 2.1.1",
  "encoding_rs",
  "gix-url",
  "globset",
@@ -4381,6 +4396,7 @@ dependencies = [
  "libc",
  "memchr",
  "oauth2",
+ "opentelemetry_sdk",
  "pretty_assertions",
  "rmcp",
  "serde",
@@ -4392,6 +4408,7 @@ dependencies = [
  "thiserror 2.0.18",
  "tiny_http",
  "tokio",
+ "tokio-util",
  "tracing",
  "tracing-subscriber",
  "tracing-test",
@@ -4419,6 +4436,7 @@ dependencies = [
  "codex-utils-absolute-path",
  "codex-utils-path",
  "codex-utils-process",
+ "memchr",
  "pretty_assertions",
  "regex",
  "serde",
@@ -4602,6 +4620,7 @@ dependencies = [
  "codex-history",
  "codex-protocol",
  "codex-utils-absolute-path",
+ "file-id",
  "libsqlite3-sys",
  "log",
  "pretty_assertions",
@@ -5275,6 +5294,7 @@ dependencies = [
  "codex-utils-process",
  "codex-utils-pty",
  "codex-utils-string",
+ "codex-windows-sandbox-test-support",
  "dirs-next",
  "dunce",
  "glob",
@@ -5304,6 +5324,13 @@ dependencies = [
  "toml 0.9.11+spec-1.1.0",
  "windows 0.58.0",
  "windows-sys 0.52.0",
+]
+
+[[package]]
+name = "codex-windows-sandbox-test-support"
+version = "0.0.0"
+dependencies = [
+ "dirs",
 ]
 
 [[package]]
@@ -6959,6 +6986,15 @@ name = "fiat-crypto"
 version = "0.2.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "28dea519a9695b9977216879a3ebfddf92f1c08c05d984f8996aecd6ecdc811d"
+
+[[package]]
+name = "file-id"
+version = "0.2.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e1fc6a637b6dc58414714eddd9170ff187ecb0933d4c7024d1abbd23a3cc26e9"
+dependencies = [
+ "windows-sys 0.60.2",
+]
 
 [[package]]
 name = "filedescriptor"
@@ -11807,13 +11843,13 @@ dependencies = [
 
 [[package]]
 name = "process-wrap"
-version = "9.0.1"
+version = "10.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fd1395947e69c07400ef4d43db0051d6f773c21f647ad8b97382fc01f0204c60"
+checksum = "0e3f4237d0e4741eb50bc5584db701f1299c85fa31ff0274dd6445e79dc42d12"
 dependencies = [
  "futures",
  "indexmap 2.14.0",
- "nix 0.30.1",
+ "nix 0.31.3",
  "tokio",
  "tracing",
  "windows 0.62.2",
@@ -13006,9 +13042,8 @@ dependencies = [
 
 [[package]]
 name = "rmcp"
-version = "3.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "42b6914fac0be956fe704a38239c3f44a9f841d1b06a5713d2f638065593f5b5"
+version = "3.3.0"
+source = "git+https://github.com/modelcontextprotocol/rust-sdk?rev=3e636cab26c013eca5131103c03d20237f12c4df#3e636cab26c013eca5131103c03d20237f12c4df"
 dependencies = [
  "async-trait",
  "base64 0.23.0",
@@ -13042,9 +13077,8 @@ dependencies = [
 
 [[package]]
 name = "rmcp-macros"
-version = "3.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cdf1c49bd4d52014b94db0877410db273c2008f01628b0252a2e9460ad9b7fda"
+version = "3.3.0"
+source = "git+https://github.com/modelcontextprotocol/rust-sdk?rev=3e636cab26c013eca5131103c03d20237f12c4df#3e636cab26c013eca5131103c03d20237f12c4df"
 dependencies = [
  "darling 0.24.0",
  "proc-macro2",
