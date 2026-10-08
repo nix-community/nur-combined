@@ -76,7 +76,6 @@ in
 
   "podgrab/password.age".publicKeys = all;
 
-  "servarr/autobrr/session-secret.age".publicKeys = all;
   "servarr/cross-seed/configuration.json.age".publicKeys = all;
 
   "sso/auth-key.age".publicKeys = all;

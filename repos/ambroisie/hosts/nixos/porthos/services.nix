@@ -136,9 +136,6 @@ in
     # The whole *arr software suite
     servarr = {
       enableAll = true;
-      autobrr = {
-        sessionSecretFile = secrets."servarr/autobrr/session-secret".path;
-      };
       cross-seed = {
         secretSettingsFile = secrets."servarr/cross-seed/configuration.json".path;
       };

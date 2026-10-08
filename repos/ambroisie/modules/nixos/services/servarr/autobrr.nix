@@ -15,14 +15,6 @@ in
       example = 8080;
       description = "Internal port for webui";
     };
-
-    sessionSecretFile = mkOption {
-      type = types.str;
-      example = "/run/secrets/autobrr-secret.txt";
-      description = ''
-        File containing the session secret.
-      '';
-    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -33,8 +25,6 @@ in
         inherit (cfg) port;
         checkForUpdates = false;
       };
-
-      secretFile = cfg.sessionSecretFile;
     };
 
     my.services.nginx.virtualHosts = {
