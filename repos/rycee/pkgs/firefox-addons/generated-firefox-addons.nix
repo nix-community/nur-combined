@@ -480,10 +480,10 @@
     };
     "aria2-integration" = buildMozillaXpiAddon {
       pname = "aria2-integration";
-      version = "0.5.0";
+      version = "0.6.1";
       addonId = "{e2488817-3d73-4013-850d-b66c5e42d505}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5069291/aria2_integration-0.5.0.xpi";
-      sha256 = "d47b111100e14ec8e69b961371cdc718dbe2bd4b55c829613b22e4951c61a0a0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5094786/aria2_integration-0.6.1.xpi";
+      sha256 = "0d3651fac384b6775e010f0569fb96744c3f153916777aa5117deef725548101";
       meta = with lib;
       {
         description = "Replace built-in download manager. When activated, detects the download links to direct links to this add-on and send to Aria2";
@@ -1726,10 +1726,10 @@
     };
     "cardpointers-x" = buildMozillaXpiAddon {
       pname = "cardpointers-x";
-      version = "8.0.1";
+      version = "8.0.8";
       addonId = "firefox@cardpointers.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5029608/cardpointers_x-8.0.1.xpi";
-      sha256 = "9f15601e2f1d9994d271b6814b4920d23b69ea69b6747e6025b4b5983b7b4c4f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5096700/cardpointers_x-8.0.8.xpi";
+      sha256 = "691c287f0c640e5c0cefd77fed49c3e9e6a4630ee0c8461a3e2fdf6022327af3";
       meta = with lib;
       {
         homepage = "https://cardpointers.com/";
@@ -2973,10 +2973,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "157.0.20261005.135250";
+      version = "158.0.20261007.201254";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5088968/dansk_da_language_pack-157.0.20261005.135250.xpi";
-      sha256 = "70f4bf13a6655dad2c363be0808d989b47ad68888331f8f9594171095a447b90";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5097134/dansk_da_language_pack-158.0.20261007.201254.xpi";
+      sha256 = "20668750a4d818799a18f862708f0200e238c45b5fbeb39e2a8a12bd0bc92abc";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3189,10 +3189,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "157.0.20261005.135250";
+      version = "158.0.20261007.201254";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5088954/deutsch_de_language_pack-157.0.20261005.135250.xpi";
-      sha256 = "3fe2f045e1603dc344ebe19ea830ac316b2f37d0f2e6fc32a0afb61370459983";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5097130/deutsch_de_language_pack-158.0.20261007.201254.xpi";
+      sha256 = "efbe0776529aa0a5b5e265cdead9fafa5f02b640f3710c13c3c2b2eea3a50d20";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4691,10 +4691,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "157.0.20261005.135250";
+      version = "158.0.20261007.201254";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5089053/francais_language_pack-157.0.20261005.135250.xpi";
-      sha256 = "c696550291611adbe04943119373e7dc717066536483df61a9fdaa95057bff2f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5097055/francais_language_pack-158.0.20261007.201254.xpi";
+      sha256 = "8ef3160294f9feb9760cbc76a118cd7b6f12d99cc9710d8df35ac2780e18c540";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4728,10 +4728,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "157.0.20261005.135250";
+      version = "158.0.20261007.201254";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5088989/gaidhlig_language_pack-157.0.20261005.135250.xpi";
-      sha256 = "48ad760effade1edc79eec900422a4db16f15e3579a1b1042e510e50a9972702";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5097109/gaidhlig_language_pack-158.0.20261007.201254.xpi";
+      sha256 = "37ba360035072dd6b49ee75fb40c535b03e9fd630760c7fb8384a5dd86501fef";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -4834,10 +4834,10 @@
     };
     "ghostery" = buildMozillaXpiAddon {
       pname = "ghostery";
-      version = "10.6.6";
+      version = "10.6.7";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5079189/ghostery-10.6.6.xpi";
-      sha256 = "0c6a4234f7d4ff67511a8088d6932dca6c889fe29ad6e1553927b86ff47a9553";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5095624/ghostery-10.6.7.xpi";
+      sha256 = "a1e301ecce9cec32480ed7bd01dc41fa9d470d8778a043235943c8631cd4d38c";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -9887,10 +9887,10 @@
     };
     "momentumdash" = buildMozillaXpiAddon {
       pname = "momentumdash";
-      version = "2.27.4";
+      version = "2.27.6";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4979215/momentumdash-2.27.4.xpi";
-      sha256 = "d0e09ae6b1f1c52eedd4ef3400f3fe8a378c00740790c7a7f95da7ca93952c4a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5018285/momentumdash-2.27.6.xpi";
+      sha256 = "8bff70da68a82e7d7531d10a6a35a598ff04818b1da335ec65668bdc8912199d";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -10935,10 +10935,10 @@
     };
     "page-assist" = buildMozillaXpiAddon {
       pname = "page-assist";
-      version = "1.5.85";
+      version = "1.5.86";
       addonId = "page-assist@nazeem";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5063403/page_assist-1.5.85.xpi";
-      sha256 = "c085cb50bb086358888ea708a045012777f9849dc4ca797a56fd379da288d637";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5085057/page_assist-1.5.86.xpi";
+      sha256 = "22e5dcfda2ef15b02b1825db13591c028ae57c1eb609c941baa6b58868932a7c";
       meta = with lib;
       {
         homepage = "https://github.com/n4ze3m/page-assist";
@@ -13209,10 +13209,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "157.0.20261005.135250";
+      version = "158.0.20261007.201254";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5088982/scots_language_pack-157.0.20261005.135250.xpi";
-      sha256 = "6784020f31c342967f1ebaaa0fb1f64ab99a16a0424ed1e94f45411caa71becf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5097141/scots_language_pack-158.0.20261007.201254.xpi";
+      sha256 = "bc2139853ed16501c0a05a004082e77754edb2bab397bd65d9de09fa7712b7cc";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -14543,10 +14543,10 @@
     };
     "tabwrangler" = buildMozillaXpiAddon {
       pname = "tabwrangler";
-      version = "8.5.2";
+      version = "8.5.3";
       addonId = "{81b74d53-9416-4fb3-afa2-ab46684b253b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5073711/tabwrangler-8.5.2.xpi";
-      sha256 = "63445f0b4fbbfc1e07f776c66f39d9584afa981c6838777ad99dd6645345db0f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5095268/tabwrangler-8.5.3.xpi";
+      sha256 = "82a4bea3cda9722ee7b3c8875cb70233d0596259a9f6c8fe1a0c42b080a2e5f6";
       meta = with lib;
       {
         homepage = "https://github.com/tabwrangler/tabwrangler/";
@@ -17734,7 +17734,7 @@
       meta = with lib;
       {
         homepage = "https://pockettube.io";
-        description = "The best way to group your subscriptions\r\nUsing this simple extension you can create collections that seamlessly fit into YouTube's layout.";
+        description = "The best way to group your subscriptions\nUsing this simple extension you can create collections that seamlessly fit into YouTube's layout.";
         mozPermissions = [
           "alarms"
           "storage"
