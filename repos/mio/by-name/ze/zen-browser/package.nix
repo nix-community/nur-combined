@@ -18,12 +18,12 @@
 }:
 
 let
-  version = "1.22.3b";
-  firefoxVersion = "153.0.3";
+  version = "1.23.1b";
+  firefoxVersion = "157.0.1";
 
   firefoxSrc = fetchurl {
     url = "mirror://mozilla/firefox/releases/${firefoxVersion}/source/firefox-${firefoxVersion}.source.tar.xz";
-    hash = "sha512-RJ8wxRyU9T3yzrReJ9eickJpySlRkVkUnenI9j95evLByytc0Kaq9nMmzP0MI8Ez/WgxuDKvGiWGMtpahkgkvA==";
+    hash = "sha256-SDvt7pBZ3yR55FMcRDsQc8brrtNXC9oMFk61Yu4kHEw=";
   };
 
   # Surfer's async-icns shells out to macOS iconutil/sips. Provide nixpkgs-style
@@ -89,7 +89,7 @@ let
       owner = "zen-browser";
       repo = "desktop";
       tag = version;
-      hash = "sha256-Y09/9Xx99s/y2tTq5jidwqql0d61gX47TIaAEj+IbkI=";
+      hash = "sha256-Wz/rsUf14fLsQzuhP4pMbQ1xKo81iLD0XJTgmn6TUBM=";
       fetchSubmodules = true;
     };
 
@@ -158,6 +158,7 @@ let
       runHook postInstall
     '';
 
+    dontConfigure = true;
     dontFixup = true;
   });
 in
