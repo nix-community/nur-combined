@@ -93,6 +93,7 @@ def read_metadata(runner, log_name, attribute="inventory"):
         [
             "nix-instantiate",
             "--eval",
+            "--read-write-mode",
             "--strict",
             "--json",
             "update.nix",
