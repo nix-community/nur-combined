@@ -16,6 +16,10 @@
   nix-update-script,
   coreutils,
   python3,
+  bun,
+  procps,
+  zsh,
+  darwin,
   dbus,
   xdg-utils,
   xcbuild,
@@ -26,24 +30,40 @@ buildGoModule (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "magpie";
-  version = "0.1.1108";
+  version = "0.1.1118";
 
   src = fetchFromGitHub {
     owner = "yetone";
     repo = "magpie";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-M8M+E3aGXfSxRwIXGvSQCpki8p4HLsvJ7Yc0LKIenI0=";
+    hash = "sha256-lDMiXvBg4SCgN0PWiPzRj9CfEtEJ7S8GMSxVMm96Kvg=";
   };
 
   vendorHash = "sha256-dqFc8UTREaRFt3G3DS7IllBx8ysOlcA5JUqGaQ/XlcI=";
 
-  postPatch = lib.optionalString (guiSupport && stdenv.hostPlatform.isLinux) ''
-    bash ${./linux-launcher.sh} "$out/bin/magpie"
-    cp ${./scheme_linux_test.go} internal/gui/nix_scheme_linux_test.go
-    cp ${./launcher_linux_test.go} internal/autostart/nix_launcher_linux_test.go
-    substituteInPlace internal/autostart/nix_launcher_linux_test.go \
-      --replace-fail '@magpie@' "$out/bin/magpie"
-  '';
+  postPatch =
+    lib.optionalString (guiSupport && stdenv.hostPlatform.isLinux) ''
+      bash ${./linux-launcher.sh} "$out/bin/magpie"
+      cp ${./scheme_linux_test.go} internal/gui/nix_scheme_linux_test.go
+      cp ${./launcher_linux_test.go} internal/autostart/nix_launcher_linux_test.go
+      substituteInPlace internal/autostart/nix_launcher_linux_test.go \
+        --replace-fail '@magpie@' "$out/bin/magpie"
+    ''
+    + lib.optionalString (guiSupport && stdenv.hostPlatform.isDarwin) ''
+      # Keep native window tests behind their shared entry point in the build sandbox.
+      pattern='func runAppKit($T *testing.T, $$$PARAMS) ($$$RESULTS) {
+        $T.Helper()
+        $$$BODY
+      }'
+      ast-grep run --lang go --pattern "$pattern" --globs '*_test.go' \
+        --files-with-matches internal/gui
+      ast-grep run --lang go --pattern "$pattern" --globs '*_test.go' \
+        --rewrite 'func runAppKit($T *testing.T, $$$PARAMS) ($$$RESULTS) {
+          $T.Helper()
+          $T.Skip("Native AppKit/WebKit windows require a graphical session unavailable to Nix build users")
+          $$$BODY
+        }' --update-all internal/gui
+    '';
 
   subPackages = [ "." ];
   tags =
@@ -59,6 +79,9 @@ buildGoModule (finalAttrs: {
   ];
 
   preCheck = ''
+    export MAGPIE_BUN=${lib.getExe bun}
+    substituteInPlace main_test.go internal/plugin/main_test.go \
+      --replace-fail 'testenv.Main(m)' 'testenv.Offline(); testenv.Main(m)'
     substituteInPlace internal/gateway/automode_test.go \
       --replace-fail '#!/usr/bin/env python3' '#!${lib.getExe python3}'
     # Allow the filesystem change-time clock to advance before the same-size rewrite.
@@ -92,24 +115,20 @@ buildGoModule (finalAttrs: {
   '';
   nativeCheckInputs = [
     python3
+    bun
+    zsh
   ]
-  ++ lib.optionals stdenv.hostPlatform.isLinux [ dbus ]
-  ++ lib.optionals stdenv.hostPlatform.isDarwin [ xcbuild ];
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    dbus
+    procps
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    xcbuild
+    darwin.adv_cmds
+  ];
   checkFlags = [
-    "-skip=^(${
-      lib.concatStringsSep "|" (
-        [
-          # Requires ps to query process groups and sessions in the build sandbox.
-          "TestAskShellOwnSession"
-          # Downloads Bun from GitHub, which is unavailable in the build sandbox.
-          "TestPluginListSaysMiddleware"
-          # The WSL probe finds omp but reports an empty version in Linux sandbox builds.
-          "TestWSLProbeFindsBunOmp"
-        ]
-        # The native AppKit/WebKit panel test fails in the Darwin build sandbox.
-        ++ lib.optional stdenv.hostPlatform.isDarwin "TestTrayCellClickReleasedPanel"
-      )
-    })$"
+    # The WSL probe finds omp but reports an empty version in Linux sandbox builds.
+    "-skip=^TestWSLProbeFindsBunOmp$"
   ];
   checkPhase = ''
     runHook preCheck
@@ -118,14 +137,16 @@ buildGoModule (finalAttrs: {
     runHook postCheck
   '';
 
-  nativeBuildInputs = lib.optionals (guiSupport && stdenv.hostPlatform.isLinux) [
-    pkg-config
-    wrapGAppsHook3
-    copyDesktopItems
-    imagemagick
-    ast-grep
-    gotools
-  ];
+  nativeBuildInputs =
+    lib.optionals (guiSupport && stdenv.hostPlatform.isLinux) [
+      pkg-config
+      wrapGAppsHook3
+      copyDesktopItems
+      imagemagick
+      ast-grep
+      gotools
+    ]
+    ++ lib.optional (guiSupport && stdenv.hostPlatform.isDarwin) ast-grep;
   buildInputs = lib.optionals (guiSupport && stdenv.hostPlatform.isLinux) [
     gtk3
     webkitgtk_4_1
