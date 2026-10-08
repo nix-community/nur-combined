@@ -8,13 +8,13 @@
 
 buildDotnetModule (finalAttrs: {
   pname = "altinn-repoctl";
-  version = "1.2.0";
+  version = "2.0.0";
 
   src = fetchFromGitHub {
     owner = "Altinn";
     repo = "altinn-authorization-utils";
     tag = "tool/RepoCtl-v${finalAttrs.version}";
-    hash = "sha256-XDG7a0bl9EnYJ6lo2we7sV1QXGPab3JQ6WW7O4FzDpI=";
+    hash = "sha256-U0l80o76b7kJwZT8gf/mIL7JVma6qg1cw+yxg2JBSHY=";
   };
 
   dotnet-sdk = dotnetCorePackages.sdk_10_0;
@@ -29,10 +29,10 @@ buildDotnetModule (finalAttrs: {
   ];
 
   projectFile = [
-    "src/tools/Altinn.Authorization.RepoCtl/src/RepoCtl/Altinn.Authorization.RepoCtl.csproj"
+    "src/tools/Altinn.Authorization.RepoCtl/src/RepoCtl.Cli/Altinn.Authorization.RepoCtl.Cli.csproj"
   ];
   testProjectFile = [
-    "src/tools/Altinn.Authorization.RepoCtl/test/RepoCtl.Tests/Altinn.Authorization.RepoCtl.Tests.csproj"
+    "src/tools/Altinn.Authorization.RepoCtl/test/RepoCtl.Cli.Tests/Altinn.Authorization.RepoCtl.Tests.csproj"
   ];
   nugetDeps = ./deps.json;
   dotnetFlags = [
@@ -48,7 +48,7 @@ buildDotnetModule (finalAttrs: {
   };
 
   meta = {
-    description = "A dotnet tool for managing Verify snapshots";
+    description = "A dotnet tool for managing Altinn repositories";
     homepage = "https://github.com/Altinn/altinn-authorization-utils";
     license = lib.licenses.mit;
     mainProgram = "repoctl";
