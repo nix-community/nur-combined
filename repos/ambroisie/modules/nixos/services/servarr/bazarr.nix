@@ -20,7 +20,11 @@ in
     services.bazarr = {
       enable = true;
       group = "media";
-      listenPort = cfg.port;
+      settings = {
+        general = {
+          port = cfg.port;
+        };
+      };
     };
 
     # Set-up media group
