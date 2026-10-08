@@ -56,7 +56,7 @@
 
 let
   pname = "brave-origin";
-  version = "1.97.54";
+  version = "1.97.56";
 
   deps = [
     alsa-lib
@@ -113,7 +113,7 @@ stdenv.mkDerivation {
 
   src = fetchurl {
     url = "https://github.com/brave/brave-browser/releases/download/v${version}/brave-origin_${version}_amd64.deb";
-    hash = "sha256-mSNZ/VTZ/7VxGFKAzSF7hjBOAbKG8vEeh7ozGQjhsig=";
+    hash = "sha256-RkhpWdON7VhFZLIS/ZwhyqUOYd/KMCxMq2vXfuYGNRw=";
   };
 
   dontConfigure = true;
