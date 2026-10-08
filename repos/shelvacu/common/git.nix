@@ -27,39 +27,6 @@
     diff.mnemonicPrefix = true;
     gc.reflogExpire = "never";
     gc.reflogExpireUnreachable = "never";
-
-    url."https://github.com/".insteadOf = [
-      "hgh:"
-      "github-http:"
-      "github-https:"
-    ];
-    url."git@github.com:".insteadOf = [
-      "sgh:"
-      "gh:"
-      "github-ssh:"
-    ];
-    url."git@github.com:shelvacu/".insteadOf = [ "vgh:" ];
-    url."https://gitlab.com/".insteadOf = [
-      "hgl:"
-      "gitlab-http:"
-      "gitlab-https:"
-    ];
-    url."git@gitlab.com:".insteadOf = [
-      "sgl:"
-      "gl:"
-      "gitlab-ssh:"
-    ];
-    url."git@gitlab.com:shelvacu/".insteadOf = [ "vgl:" ];
-    url."https://git.uninsane.org/".insteadOf = [
-      "hu:"
-      "uninsane-http:"
-      "uninsane-https:"
-    ];
-    url."git@git.uninsane.org:".insteadOf = [
-      "u:"
-      "su:"
-      "uninsane-ssh"
-    ];
-    url."git@git.uninsane.org:shelvacu/".insteadOf = [ "vu:" ];
+    stash.showIncludeUntracked = true; # when `show`ing a stash, show *all* of it, even the untracked files
   };
 }
