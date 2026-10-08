@@ -3,6 +3,7 @@
 , autoPatchelfHook
 , makeBinaryWrapper
 , sources
+, xorg
 }:
 let
   os = if stdenv.hostPlatform.isDarwin then
@@ -34,6 +35,7 @@ in stdenv.mkDerivation rec {
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     stdenv.cc.cc.lib
+    xorg.libxcb
   ];
 
   dontConfigure = true;
