@@ -20,7 +20,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   aml-flash = pkgs.callPackage ./pkgs/aml-flash { };
-  satisfactorymodmanager = pkgs.callPackage ./pkgs/satisfactorymodmanager { };
+  wechat = pkgs.callPackage ./pkgs/wechat {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
