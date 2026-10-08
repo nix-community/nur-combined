@@ -81,8 +81,8 @@
             "url": "https://github.com/DimitarNestorov/Nix-user-repository-packages"
         },
         "DzmingLi": {
-            "rev": "f99e878d32ceb7ea0dc36cf52ccede9ec904ff76",
-            "sha256": "09qybvga3l0skyw1pa9z71g9bx94b5wxxlhpgqmbw7dwkl3nq0xg",
+            "rev": "25b35c56ededc599a18193d51ca53f5fbabf4be2",
+            "sha256": "0rdhb1rgspzyhicycg68djpbikvzbg4xlxan2v5sl7xjr9mph391",
             "url": "https://github.com/DzmingLi/nur-packages"
         },
         "Educorreia932": {
@@ -2353,11 +2353,6 @@
             "rev": "b8ea2432f6751e8f86390fcc91fda72b4a9fd2e6",
             "sha256": "1ccg903m8km0p50ql0li0cwnxpvan4w4565w09kn2brb1az1zlp1",
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
-        },
-        "shelvacu": {
-            "rev": "f58d488fcc3e5a7ffbd08e921f567195ec3d5ea2",
-            "sha256": "120glb3jhm3jrp546y9dy5rdwlqwsnn8scaaflab1v5xg87y1ymg",
-            "url": "https://git.uninsane.org/shelvacu/nix-stuff"
         },
         "shirok1": {
             "rev": "ecb32d0c015600a0b5af51aefe528ac23cf525c8",
