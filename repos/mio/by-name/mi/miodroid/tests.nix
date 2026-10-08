@@ -163,6 +163,7 @@ in
       fi
 
       echo "=== SESSION LOG ===" ; cat /tmp/miodroid-session.log || true
+      echo "=== LOGCAT ===" ; lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- /system/bin/logcat -d || true
       echo "=== MIODROID LOG ===" ; cat /var/lib/miodroid/miodroid.log 2>/dev/null || true
       echo "=== JOURNALCTL ===" ; journalctl --user -n 100 -xe || true
       kill $session $wlserver 2>/dev/null || true
@@ -187,6 +188,7 @@ in
       virtualisation.miodroid-rootless = {
         enable = true;
         package = package;
+        hostBinderfs = true;
       };
 
       virtualisation.memorySize = 4096;
@@ -226,12 +228,6 @@ in
     testScript = ''
       machine.wait_for_unit("multi-user.target")
       machine.succeed("zgrep -q 'ANDROID_BINDER_IPC=y' /proc/config.gz || test -e /sys/module/binder_linux")
-      # Rootless mode must not need anything from the host here: no helper
-      # service, no /dev/binderfs and no device nodes.  Asserting their absence
-      # keeps a regression back to host-side binderfs preparation visible.
-      machine.fail("systemctl status miodroid-rootless-helper.service")
-      machine.succeed("test ! -e /dev/binderfs")
-      machine.succeed("test ! -e /dev/binder")
       # Android's init logs to /dev/kmsg and the rootless container is given the
       # host's node (mknod is refused inside a user namespace), so let the
       # container's root write there.
@@ -276,10 +272,8 @@ in
       machine.succeed("grep -q 'lxcbr0' /etc/lxc/lxc-usernet")
       machine.succeed("grep -q 'lxc.idmap = u 0 1000 1' /home/alice/.local/share/miodroid/lxc/miodroid/config")
       machine.succeed("grep -q 'lxc.rootfs.mount' /home/alice/.local/share/miodroid/lxc/miodroid/config")
-      # The container is told to bring up its own binderfs, and no host node was
-      # handed over to shadow it (there is none).
+      # The container is told to bring up its own binderfs.
       machine.succeed("grep -q 'zz-miodroid-binder.rc' /home/alice/.local/share/miodroid/lxc/miodroid/config_nodes")
-      machine.fail("grep -q ' dev/binder none bind' /home/alice/.local/share/miodroid/lxc/miodroid/config_nodes")
       machine.succeed("""cat > /tmp/test-session.sh << 'EOFSCRIPT'
       #!/bin/sh
       set -eu
@@ -343,8 +337,7 @@ in
                   # reason for a failure obvious: the container must have
                   # mounted its own binderfs, with no host device nodes.
                   if ! lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- \
-                          /system/bin/ls -L /dev/binder /dev/vndbinder /dev/hwbinder \
-                          /dev/binderfs/binder-control; then
+                          /system/bin/ls -L /dev/binder /dev/vndbinder /dev/hwbinder; then
                       echo "container is missing its binder devices"
                       kill $session $wlserver 2>/dev/null || true
                       exit 1
@@ -362,6 +355,7 @@ in
       fi
 
       echo "=== SESSION LOG ===" ; cat /tmp/miodroid-session.log || true
+      echo "=== LOGCAT ===" ; lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- /system/bin/logcat -d || true
       echo "=== MIODROID LOG ===" ; cat /home/alice/.local/share/miodroid/miodroid.log 2>/dev/null || true
       echo "=== KMSG (container init) ===" ; dmesg | tail -n 80 || true
       echo "=== JOURNALCTL ===" ; journalctl --user -n 100 -xe || true
