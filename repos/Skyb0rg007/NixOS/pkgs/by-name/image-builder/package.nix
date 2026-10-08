@@ -14,13 +14,13 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "image-builder";
-  version = "85.0.0";
+  version = "86.0.0";
 
   src = fetchFromGitHub {
     owner = "osbuild";
     repo = "image-builder";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-N3IxuBQDKqT8VIoIkk5NXyM/bzqrUhvHFej1IlZmCtQ=";
+    hash = "sha256-d4iGgVdwqoWA/5GEgdEVJjptmedl8M3d4rWlNBbqIPc=";
   };
 
   nativeBuildInputs = [ pkg-config ];
@@ -33,7 +33,7 @@ buildGoModule (finalAttrs: {
     krb5
   ];
 
-  vendorHash = "sha256-cmmewEmLpXEZMLobM0c60Ar9AEmfb5IIKJKtBYL8t78=";
+  vendorHash = "sha256-Xbkig8yWhblZaedPNhHF6wq7jSnr2iL8WJnvxXAlf64=";
 
   doCheck = false;
 

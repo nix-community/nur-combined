@@ -17,16 +17,16 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "vectorcraft";
-  version = "0.3.1";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "vectorcraft";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-whn2OTG9xMVH2s6Q/YCaHKaIs/QLu69Uq8rS1OPLeLg=";
+    hash = "sha256-dCkDxRT1oeXfKc3bx8/0E2RImsIt1ESA9orwG9mE6Xo=";
   };
 
-  cargoHash = "sha256-UyP3ZvZ/PxH2thA+kKXv2emNwrzKDpTFQkiGMRdnGiU=";
+  cargoHash = "sha256-8MKEvl5rxhM7LcQYv2BjArv3er/CDyOyOyS9Vw+oj+Y=";
 
   nativeBuildInputs = [ copyDesktopItems ];
 

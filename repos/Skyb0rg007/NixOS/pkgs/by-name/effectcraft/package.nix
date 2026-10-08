@@ -19,16 +19,16 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "effectcraft";
-  version = "0.3.1";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "effectcraft";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-V5EOyrUCgKDrIi3x6QnvYN6dlc9ud2WBqeEvB1Ylm9Q=";
+    hash = "sha256-p9QrygPos65MYj2R/6n77UT9uIOoXOQ1bJN/Idd84Aw=";
   };
 
-  cargoHash = "sha256-OLh/e6jgpbB4eerwKWFdga2kXFFaO/sSHcRwkP+5uAs=";
+  cargoHash = "sha256-hdUbnK3w7Mum+DqgE0T9USEEB9kTICwQqY694JnZPCA=";
 
   nativeBuildInputs = [
     pkg-config

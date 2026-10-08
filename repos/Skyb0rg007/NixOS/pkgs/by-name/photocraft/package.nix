@@ -5,6 +5,7 @@
   rustPlatform,
   nix-update-script,
   copyDesktopItems,
+  makeWrapper,
   makeDesktopItem,
   libGL,
   libx11,
@@ -17,18 +18,21 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "photocraft";
-  version = "0.2.0";
+  version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "photocraft";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-4zwDB+4pccU3cB1YxTd6g1v13e5VCaaS3giZMsUKTJs=";
+    hash = "sha256-MpvMiONXNd3w/NUQI3xZ8SKJFor42w0sxHHEFHnXgGw=";
   };
 
-  cargoHash = "sha256-qp7Do+YREpz6UL2tYZv9ier1GpxbxjHKZLwxuGBbtO4=";
+  cargoHash = "sha256-GytJ3eaPf18GDgAPxbKCZ6ibrxzLcnht4KLC/0UxrbM=";
 
-  nativeBuildInputs = [ copyDesktopItems ];
+  nativeBuildInputs = [
+    copyDesktopItems
+    makeWrapper
+  ];
 
   cargoBuildFlags = [
     "-p"
@@ -111,6 +115,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
         wayland
       ]
     } $out/bin/photocraft
+    # Its startup check only consults ldconfig and /usr/lib, so it can't see the RPATH above.
+    wrapProgram $out/bin/photocraft --set-default PHOTOCRAFT_SKIP_LIB_CHECK 1
   '';
 
   doCheck = false;
