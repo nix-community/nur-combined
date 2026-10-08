@@ -1,3 +1,4 @@
+import 'package:archive/archive.dart';
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -136,6 +137,10 @@ class MuseScoreApi {
       case DownloadFormat.mscz:
       case DownloadFormat.mxl:
       case DownloadFormat.flac:
+      case DownloadFormat.mscx:
+      case DownloadFormat.xml:
+      case DownloadFormat.wav:
+      case DownloadFormat.ogg:
         onProgress?.call('Resolving ${format.label}…');
         final fileUrl = await getFileUrl(
           score.id,
@@ -146,8 +151,51 @@ class MuseScoreApi {
         return _getBytes(fileUrl);
       case DownloadFormat.pdf:
         return exportPdf(score, onProgress: onProgress);
+      case DownloadFormat.png:
+      case DownloadFormat.svg:
+        return exportImagesZip(score, format, onProgress: onProgress);
     }
   }
+
+  Future<Uint8List> exportImagesZip(
+    ScoreInfo score,
+    DownloadFormat format, {
+    void Function(String status)? onProgress,
+  }) async {
+
+    if (score.pageCount <= 0 || score.thumbnailUrl.isEmpty) {
+      throw MuseScoreException('Score sheet metadata is incomplete for ${format.label}.');
+    }
+
+    final urls = <String>[];
+    for (var i = 0; i < score.pageCount; i++) {
+      onProgress?.call('Fetching ${format.label} URL ${i + 1}/${score.pageCount}…');
+      if (i == 0) {
+        urls.add(score.thumbnailUrl);
+      } else {
+        urls.add(await getFileUrl(score.id, 'img', score.url, index: i));
+      }
+    }
+
+    final archive = Archive();
+    for (var i = 0; i < urls.length; i++) {
+      onProgress?.call('Downloading ${format.label} ${i + 1}/${urls.length}…');
+      var url = urls[i];
+      if (format == DownloadFormat.svg && url.contains('.png')) {
+          url = url.replaceAll('.png', '.svg');
+      }
+      final bytes = await _getBytes(url);
+      archive.addFile(ArchiveFile('page_${i + 1}.${format.fileExtension}', bytes.length, bytes));
+    }
+    
+    onProgress?.call('Creating ZIP archive…');
+    final zipData = ZipEncoder().encode(archive);
+    if (zipData == null) {
+      throw MuseScoreException('Failed to encode ZIP archive.');
+    }
+    return Uint8List.fromList(zipData);
+  }
+
 
   Future<String> getFileUrl(
     int id,

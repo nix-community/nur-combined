@@ -49,7 +49,14 @@ class _DownloadsScreenState extends State<DownloadsScreen> {
                           DownloadFormat.mscz => Icons.library_music,
                           DownloadFormat.mxl => Icons.code,
                           DownloadFormat.flac => Icons.audiotrack,
+                          DownloadFormat.mscx => Icons.library_music,
+                          DownloadFormat.xml => Icons.code,
+                          DownloadFormat.png => Icons.image,
+                          DownloadFormat.svg => Icons.image,
+                          DownloadFormat.wav => Icons.audiotrack,
+                          DownloadFormat.ogg => Icons.audiotrack,
                         }),
+
                         title: Text(item.title),
                         subtitle: Text(
                           '${item.format.label} · ${item.path}',

@@ -15,10 +15,11 @@ dependencies:
   path_provider: ^2.1.5
   shared_preferences: ^2.3.5
   url_launcher: ^6.3.1
-  file_picker: ^8.1.7
+  file_picker: ^13.1.0
   open_filex: ^4.6.0
   pdf: ^3.11.1
   image: ^4.5.2
+  archive: ^4.3.0
 
 dev_dependencies:
   flutter_test:

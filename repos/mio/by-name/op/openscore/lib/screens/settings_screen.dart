@@ -53,11 +53,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
             subtitle: Text(_folder ?? 'App documents / OpenScore'),
             trailing: const Icon(Icons.folder_open),
             onTap: () async {
-              final path = await FilePicker.platform.getDirectoryPath(
+              final path = await FilePicker.getDirectoryPath(
                 dialogTitle: 'Choose download folder',
               );
               if (path == null) return;
               setState(() => _folder = path);
+
               await _persist();
             },
           ),

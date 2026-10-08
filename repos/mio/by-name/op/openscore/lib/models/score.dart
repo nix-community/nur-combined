@@ -62,7 +62,7 @@ class SearchHit {
   final String snippet;
 }
 
-enum DownloadFormat { midi, mp3, pdf, mscz, mxl, flac }
+enum DownloadFormat { midi, mp3, pdf, mscz, mxl, flac, mscx, xml, png, svg, wav, ogg }
 
 extension DownloadFormatX on DownloadFormat {
   String get apiType => switch (this) {
@@ -72,6 +72,12 @@ extension DownloadFormatX on DownloadFormat {
     DownloadFormat.mscz => 'mscz',
     DownloadFormat.mxl => 'mxl',
     DownloadFormat.flac => 'flac',
+    DownloadFormat.mscx => 'mscx',
+    DownloadFormat.xml => 'xml',
+    DownloadFormat.png => 'img',
+    DownloadFormat.svg => 'img',
+    DownloadFormat.wav => 'wav',
+    DownloadFormat.ogg => 'ogg',
   };
 
   String get fileExtension => switch (this) {
@@ -81,6 +87,12 @@ extension DownloadFormatX on DownloadFormat {
     DownloadFormat.mscz => 'mscz',
     DownloadFormat.mxl => 'mxl',
     DownloadFormat.flac => 'flac',
+    DownloadFormat.mscx => 'mscx',
+    DownloadFormat.xml => 'xml',
+    DownloadFormat.png => 'png',
+    DownloadFormat.svg => 'svg',
+    DownloadFormat.wav => 'wav',
+    DownloadFormat.ogg => 'ogg',
   };
 
   String get label => switch (this) {
@@ -90,8 +102,15 @@ extension DownloadFormatX on DownloadFormat {
     DownloadFormat.mscz => 'MSCZ',
     DownloadFormat.mxl => 'MusicXML',
     DownloadFormat.flac => 'FLAC',
+    DownloadFormat.mscx => 'MSCX',
+    DownloadFormat.xml => 'XML',
+    DownloadFormat.png => 'PNG',
+    DownloadFormat.svg => 'SVG',
+    DownloadFormat.wav => 'WAV',
+    DownloadFormat.ogg => 'OGG',
   };
 }
+
 
 class DownloadedItem {
   const DownloadedItem({
