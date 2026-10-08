@@ -12,6 +12,7 @@ in
       s "_1f055e4fc0f439e67304a33945d09002.hkvuiqjoua.acm-validations.aws.";
     "_acme-challenge".CNAME = s "8cc7a174-c4a6-40f5-9fff-dfb271c5ce0b.auwwth.dis8.net.";
     "in".vacu.liamMail = true;
+    "mailjet._b01ec0ea".TXT = s "b01ec0ea9501dc45fca8ecd17b488fda";
     "stats".A = propA;
     "tdi-readings".CNAME = s "d20l6bh1gp7s8.cloudfront.net.";
     "www".A = propA;

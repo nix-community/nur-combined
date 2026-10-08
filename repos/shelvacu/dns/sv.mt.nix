@@ -18,6 +18,7 @@ in
     "jf".A = propA;
     # this points to javi public IP, and makes it so java does not have to type a long domain.
     "js".CNAME = [ "ssh.javamurray.com." ];
+    "mailjet._bb92e04e".TXT = [ "bb92e04e54b23491b8189653eba988ca" ];
     "thisthirdlevelisownedbyshelandwasnotmadeavailabletoemily".NS = [
       "thisns1isonlyusedbyshelandisnotusedforthirdlevelregistrationfor.emilygeil.com."
       "thisns2isonlyusedbyshelandisnotusedforthirdlevelregistrationfor.emilygeil.com."
