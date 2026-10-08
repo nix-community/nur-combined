@@ -18,7 +18,7 @@ jobs:
           ref: ${{ github.event.repository.default_branch }}
 
       - name: Install Determinate Nix
-        uses: DeterminateSystems/determinate-nix-action@v3.22.3
+        uses: DeterminateSystems/determinate-nix-action@v3.23.0
         with:
           github-token: ${{ github.token }}
 
