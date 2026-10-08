@@ -217,7 +217,7 @@ let
       # The LXC configuration uses the rebranded seccomp filename.
       mv data/configs/waydroid.seccomp data/configs/miodroid.seccomp
       mv data/configs/waydroid-binder.rc data/configs/miodroid-binder.rc
-      
+
       find . \( -name "*.py" -o -name "*.sh" -o -name "Makefile" \) -exec sed -i \
         -e 's|waydroid-binder|miodroid-binder|g' \
         {} +
@@ -249,6 +249,9 @@ let
         -e 's/WAYDROID_INSTANCE/MIODROID_INSTANCE/g' \
         -e 's/WAYDROID_NO_IMAGE_GROWTH/MIODROID_NO_IMAGE_GROWTH/g' \
         {} +
+
+      # Fix cgroup permissions for Android 13 (LineageOS 20) by changing cgroup:ro to cgroup:mixed or rw
+      sed -i 's|cgroup:ro sys:ro proc|cgroup:mixed sys:ro proc|g' data/configs/config_base
 
       # Both sides of the interface name contract: fail the build instead of
       # shipping a renamed script whose named instances are silently offline.
