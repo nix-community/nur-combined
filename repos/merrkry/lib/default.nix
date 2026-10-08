@@ -2,6 +2,8 @@
 
 let
   inherit (pkgs) lib;
+  getPackages = repository: lib.filterAttrs (_: lib.isDerivation) (repository // repository.impure);
+
   isBuildable =
     package:
     !(package.meta.broken or false)
@@ -26,5 +28,5 @@ let
     package: isBuildable package && (package.updateScript or null != null || hasGitHubSource package);
 in
 {
-  inherit isBuildable isUpdatable;
+  inherit getPackages isBuildable isUpdatable;
 }

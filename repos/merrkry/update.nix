@@ -7,7 +7,7 @@
 let
   inherit (pkgs) lib;
   nurLib = import ./lib { inherit pkgs; };
-  packages = lib.filterAttrs (_: lib.isDerivation) (import ./default.nix { inherit pkgs; });
+  packages = nurLib.getPackages (import ./default.nix { inherit pkgs; });
 
   metadata = lib.mapAttrs (
     _: package:
@@ -47,6 +47,8 @@ in
   ) packages;
 
   tests = lib.mapAttrs (_: package: package.passthru.tests or { }) packages;
+
+  builds = packages;
 
   derivations = lib.mapAttrs (_: package: {
     build = package.drvPath;

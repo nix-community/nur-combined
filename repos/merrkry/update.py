@@ -216,7 +216,13 @@ def update_package(runner, name, explicit, failed_builds):
 
         stage = "build"
         result["steps"][stage] = runner.run(
-            ["nix-build", "default.nix", "-A", json.dumps(name), "--no-out-link"],
+            [
+                "nix-build",
+                "update.nix",
+                "-A",
+                f"builds.{json.dumps(name)}",
+                "--no-out-link",
+            ],
             f"{name}-build",
         )
         stage = "tests"
