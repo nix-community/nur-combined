@@ -21,6 +21,5 @@
 
   direnv-nvim = pkgs.callPackage ./pkgs/direnv-nvim { };
   px0 = pkgs.callPackage ./pkgs/px0 { };
-  t3code = pkgs.callPackage ./pkgs/t3code { };
   wsl-notify-send = pkgs.callPackage ./pkgs/wsl-notify-send { };
 }

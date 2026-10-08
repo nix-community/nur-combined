@@ -11,7 +11,6 @@ Personal [NUR (Nix User Repository)](https://github.com/nix-community/NUR) repos
 | :--- | :--- | :--- |
 | [`direnv-nvim`](./pkgs/direnv-nvim) | Direnv integration for Neovim written in Lua | [NotAShelf/direnv.nvim](https://github.com/NotAShelf/direnv.nvim) |
 | [`px0`](./pkgs/px0) | IDE built for reviewing AI-generated code, optimized for speed | [px0-ai/px0](https://github.com/px0-ai/px0) |
-| [`t3code`](./pkgs/t3code) | Desktop control surface for local coding agents | [pingdotgg/t3code](https://github.com/pingdotgg/t3code) |
 | [`wsl-notify-send`](./pkgs/wsl-notify-send) | Send Windows 10/11 toast notifications from WSL | [stuartleeks/wsl-notify-send](https://github.com/stuartleeks/wsl-notify-send) |
 
 ---
@@ -78,7 +77,6 @@ nixConfig = {
           environment.systemPackages = [
             pkgs.nur.repos.hetav21.direnv-nvim
             pkgs.nur.repos.hetav21.px0
-            pkgs.nur.repos.hetav21.t3code
             pkgs.nur.repos.hetav21.wsl-notify-send
           ];
         })
