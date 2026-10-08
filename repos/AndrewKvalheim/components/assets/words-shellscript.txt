@@ -1,3 +1,4 @@
+-execdir
 alnum
 bwrap
 cjxl

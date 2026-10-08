@@ -2,6 +2,7 @@
 
 let
   inherit (builtins) readFile replaceStrings;
+  inherit (config.users) groups;
 
   identity = import ../library/identity.lib.nix { inherit lib; };
 in
@@ -30,5 +31,5 @@ in
   programs.ydotool.enable = true;
 
   # Permissions
-  users.users.${identity.username}.extraGroups = [ "ydotool" ];
+  users.users.${identity.username}.extraGroups = [ groups.ydotool.name ];
 }

@@ -1,6 +1,8 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
+  inherit (config.users) groups;
+
   identity = import ../library/identity.lib.nix { inherit lib; };
 in
 {
@@ -19,5 +21,5 @@ in
   };
 
   # Permissions
-  users.users.${identity.username}.extraGroups = [ "lp" ];
+  users.users.${identity.username}.extraGroups = [ groups.lp.name ];
 }

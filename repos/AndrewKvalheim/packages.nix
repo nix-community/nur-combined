@@ -14,11 +14,6 @@ in
 specify {
   "3mf-thumbnailer" = any;
   add-words = any;
-  aegisub.overlay = a: throwIf (a.version != "3.4.2") "aegisub overlay is outdated" {
-    version = "3.4.2-unstable-2025-12-01";
-    src = a.src.override (_: { tag = null; rev = "1ad6844de46159a7db66da163992ddd598e1b9c7"; hash = "sha256-70qIs/MASVtQHl2580C3iv9Do2G9JNptGnpjk765L7A="; });
-    postPatch = a.postPatch + "patchShebangs 'tools/combine-config.py'";
-  }; # Pending TypesettingTools/Aegisub#309 via ≥3.5
   affine-font = any;
   ai-robots-txt = any;
   album-art = any;

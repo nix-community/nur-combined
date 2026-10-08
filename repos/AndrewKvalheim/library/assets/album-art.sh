@@ -14,7 +14,7 @@ description="$(identify \
   "$jpg" \
 )"
 
-if [[ -n "${KITTY_WINDOW_ID-}" ]]; then
+if [[ -v KITTY_WINDOW_ID ]]; then
   kitty +kitten icat "$jpg"
   echo "$description"
 else

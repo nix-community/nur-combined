@@ -1,7 +1,8 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   inherit (builtins) readFile;
+  inherit (config.users) groups;
 
   identity = import ../library/identity.lib.nix { inherit lib; };
   nur = import ../nur.nix { inherit pkgs; };
@@ -17,7 +18,7 @@ in
       isNormalUser = true;
       uid = 1000;
       group = identity.username;
-      extraGroups = [ "wheel" ];
+      extraGroups = [ groups.wheel.name ];
       description = identity.name.short;
       hashedPassword = readFile ./assets/${identity.username}.local.passwd;
       shell = pkgs.zsh;

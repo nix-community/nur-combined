@@ -85,16 +85,16 @@ _direnv_use_bwrap() {
     "$HOME/src/configuration"
     "$XDG_RUNTIME_DIR/gnupg"
   )
-  if [[ -n "$DBUS_SESSION_BUS_ADDRESS" ]]; then
+  if [[ -v DBUS_SESSION_BUS_ADDRESS ]]; then
     local dbus_path="${${DBUS_SESSION_BUS_ADDRESS#unix:path=}%%,*}"; [[ -S "$dbus_path" ]]
     bwrap_args+=(--ro-bind "$XDG_RUNTIME_DIR/direnv-use-bwrap-dbus-proxy/bus" "$dbus_path")
   fi
-  if [[ -n "$WAYLAND_DISPLAY" ]]; then
+  if [[ -v WAYLAND_DISPLAY ]]; then
     ro_paths+=("$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY")
   fi
-  if [[ -n "$DISPLAY" ]]; then
+  if [[ -v DISPLAY ]]; then
     ro_paths+=('/tmp/.X11-unix')
-    if [[ -n "$XAUTHORITY" ]]; then
+    if [[ -v XAUTHORITY ]]; then
       ro_paths+=("$XAUTHORITY")
     fi
   fi
@@ -126,11 +126,11 @@ _direnv_use_bwrap() {
 
   bwrap "${bwrap_args[@]}" "$SHELL"
 
-  exec $etc_group>&-
-  exec $etc_passwd>&-
+  exec {etc_group}>&-
+  exec {etc_passwd}>&-
   cd -- "$previous_dir"
 }
 
-if [[ -z "$DIRENV_USING_BWRAP" ]]; then
+if [[ ! -v DIRENV_USING_BWRAP ]]; then
   chpwd_functions+=(_direnv_use_bwrap)
 fi

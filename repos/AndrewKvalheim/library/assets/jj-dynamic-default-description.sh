@@ -3,7 +3,7 @@ set -Eeuo pipefail
 
 readonly description_path="$1"
 
-debug() { [[ -z "${DEBUG:-}" ]] || echo "$1" >&2; }
+debug() { [[ ! -v DEBUG ]] || echo "$1" >&2; }
 
 # Scan description file and collect suggestions
 injection_position=''; position='1'; removed_version=''; scope=''; declare -A suggestions=()

@@ -1,6 +1,7 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 let
+  inherit (config.users) groups;
   inherit (lib) getExe';
 
   identity = import ../../library/identity.lib.nix { inherit lib; };
@@ -120,5 +121,8 @@ in
   services.udev.packages = with pkgs; [ espressif-serial ];
 
   # Permissions
-  users.users.${identity.username}.extraGroups = [ "adbusers" "usbmux" "wireshark" ];
+  users.users.${identity.username}.extraGroups = [
+    groups.usbmux.name
+    groups.wireshark.name
+  ];
 }

@@ -2,6 +2,7 @@
 
 let
   inherit (config) host;
+  inherit (config.users) groups;
   inherit (lib) mkOption;
   inherit (lib.types) str;
 
@@ -23,7 +24,7 @@ in
     };
 
     # Permissions
-    users.users.${identity.username}.extraGroups = [ "networkmanager" ];
+    users.users.${identity.username}.extraGroups = [ groups.networkmanager.name ];
 
     # Work around NixOS/nixpkgs#180175
     # TODO: Is this related to WireGuard? Or maybe virtualization?

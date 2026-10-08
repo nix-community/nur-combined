@@ -163,7 +163,7 @@ progress_start() {
 }
 
 progress_stop() {
-  exec $progress>&-
+  exec {progress}>&-
 }
 
 progress_update() { local action="$1" jid="$2"

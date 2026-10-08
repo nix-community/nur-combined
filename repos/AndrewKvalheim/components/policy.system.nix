@@ -3,6 +3,7 @@
 let
   inherit (builtins) storeDir;
   inherit (config.security.sudo) allowedCommands;
+  inherit (config.users) groups;
   inherit (lib) mkIf mkOption;
   inherit (lib.types) attrsOf bool listOf str submodule;
 in
@@ -26,7 +27,7 @@ in
 
   config = {
     security.sudo.extraRules = [{
-      groups = [ "wheel" ];
+      groups = [ groups.wheel.name ];
       commands = map (c: { command = c; options = [ "NOPASSWD" ]; }) allowedCommands;
     }];
   };

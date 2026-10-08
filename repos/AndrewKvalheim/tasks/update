@@ -3,7 +3,7 @@
 set -Eeuo pipefail
 
 root="$(readlink --canonicalize "${0%/*}/..")"; readonly root
-readonly attr="${1:-}"
+[[ ! -v 1 ]] || readonly attr="$1"
 
 # Mock nixpkgs
 trap 'rm --force "$root/default.nix" "$root/shell.nix"' EXIT
@@ -20,7 +20,7 @@ args=(
   --argstr order 'topological' \
   --argstr skip-prompt 'true'
 )
-if [[ -n "$attr" ]]; then
+if [[ -v attr ]]; then
   args+=(--argstr package "$attr")
 else
   args+=(--arg predicate '_: p: p.meta ? position && builtins.substring 0 5 p.meta.position != "/nix/"')

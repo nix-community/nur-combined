@@ -53,7 +53,10 @@ in
   programs.direnv = {
     enable = true;
     nix-direnv.enable = true;
-    config.global.warn_timeout = "5m";
+    config.global = {
+      strict_env = true;
+      warn_timeout = "5m";
+    };
     stdlib = with pkgs; ''
       # Adapted from https://github.com/direnv/direnv/wiki/Customizing-cache-location
       declare -A direnv_layout_dirs
@@ -72,8 +75,8 @@ in
         source_env '.venv/bin/activate'
       }
 
-      use_bwrap() { local forward_env="$1"
-        if [[ -z "$DIRENV_USING_BWRAP" ]]; then
+      use_bwrap() { local forward_env="''${1:-}"
+        if [[ ! -v DIRENV_USING_BWRAP ]]; then
           export DIRENV_USE_BWRAP="$PWD"
           export DIRENV_USE_BWRAP_FORWARD_ENV="$forward_env"
           export DIRENV_USE_BWRAP_LAYOUT_DIR="$(direnv_layout_dir)"
@@ -396,7 +399,7 @@ in
       extract-pdf-images = "mkdir \"\${1%.pdf}\" && ${getExe' poppler-utils "pdfimages"} -all -p \"$1\" \"\${1%.pdf}/\${1%.pdf}\"";
       idiff = "${getExe' imagemagick "compare"} \"$@\" png:- | kitty +kitten icat";
       maintenance-notice = ''
-        [[ -z "$DIRENV_USING_BWRAP" && "$(< /sys/class/power_supply/AC/online)" == '1' ]] || return
+        [[ ! -v DIRENV_USING_BWRAP && "$(< /sys/class/power_supply/AC/online)" == '1' ]] || return
         local flag="$XDG_RUNTIME_DIR/maintenance-notice-ran"; [[ ! -e "$flag" ]] || return; touch "$flag"
         ${getExe audit-nix-roots}
       '';

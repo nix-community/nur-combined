@@ -1232,6 +1232,7 @@ Ravenna
 Rayhunter
 ʳᵈ
 reactively
+reauthentication
 rebalance
 rebar
 rebase
