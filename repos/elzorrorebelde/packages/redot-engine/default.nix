@@ -14,9 +14,9 @@
 }:
 
 callPackage ./common.nix {
-  version = "26.3-rc.2";
-  tag = "redot-26.3-rc.2";
-  hash = "sha256-VMOr1oJ9hUpxpXpD0jOkNI3wcocZw8sjqhN9hO9YlV8=";
+  version = "26.3-rc.3";
+  tag = "redot-26.3-rc.3";
+  hash = "sha256-xHmiUvm+iD1enzIbEVdLTaRcRRGA6p66lQhYYZHL6/U=";
   inherit withMono;
   nugetDeps = ./deps.json;
 }
