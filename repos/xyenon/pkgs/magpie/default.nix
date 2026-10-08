@@ -7,6 +7,7 @@
   gtk3,
   webkitgtk_4_1,
   wrapGAppsHook3,
+  makeWrapper,
   makeDesktopItem,
   copyDesktopItems,
   imagemagick,
@@ -26,6 +27,10 @@
   guiSupport ? true,
 }:
 
+let
+  linuxGui = guiSupport && stdenv.hostPlatform.isLinux;
+  darwinGui = guiSupport && stdenv.hostPlatform.isDarwin;
+in
 buildGoModule (finalAttrs: {
   __structuredAttrs = true;
 
@@ -42,14 +47,14 @@ buildGoModule (finalAttrs: {
   vendorHash = "sha256-dqFc8UTREaRFt3G3DS7IllBx8ysOlcA5JUqGaQ/XlcI=";
 
   postPatch =
-    lib.optionalString (guiSupport && stdenv.hostPlatform.isLinux) ''
+    lib.optionalString linuxGui ''
       bash ${./linux-launcher.sh} "$out/bin/magpie"
       cp ${./scheme_linux_test.go} internal/gui/nix_scheme_linux_test.go
       cp ${./launcher_linux_test.go} internal/autostart/nix_launcher_linux_test.go
       substituteInPlace internal/autostart/nix_launcher_linux_test.go \
         --replace-fail '@magpie@' "$out/bin/magpie"
     ''
-    + lib.optionalString (guiSupport && stdenv.hostPlatform.isDarwin) ''
+    + lib.optionalString darwinGui ''
       # Keep native window tests behind their shared entry point in the build sandbox.
       pattern='func runAppKit($T *testing.T, $$$PARAMS) ($$$RESULTS) {
         $T.Helper()
@@ -137,26 +142,39 @@ buildGoModule (finalAttrs: {
     runHook postCheck
   '';
 
-  nativeBuildInputs =
-    lib.optionals (guiSupport && stdenv.hostPlatform.isLinux) [
-      pkg-config
-      wrapGAppsHook3
-      copyDesktopItems
-      imagemagick
-      ast-grep
-      gotools
-    ]
-    ++ lib.optional (guiSupport && stdenv.hostPlatform.isDarwin) ast-grep;
-  buildInputs = lib.optionals (guiSupport && stdenv.hostPlatform.isLinux) [
+  nativeBuildInputs = [
+    makeWrapper
+  ]
+  ++ lib.optionals linuxGui [
+    pkg-config
+    wrapGAppsHook3
+    copyDesktopItems
+    imagemagick
+    ast-grep
+    gotools
+  ]
+  ++ lib.optional darwinGui ast-grep;
+  buildInputs = lib.optionals linuxGui [
     gtk3
     webkitgtk_4_1
   ];
 
-  preFixup = lib.optionalString (guiSupport && stdenv.hostPlatform.isLinux) ''
-    gappsWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ xdg-utils ]})
-  '';
+  preFixup =
+    if linuxGui then
+      ''
+        gappsWrapperArgs+=(
+          --prefix PATH : ${lib.makeBinPath [ xdg-utils ]}
+          --set MAGPIE_BUN ${lib.getExe bun}
+        )
+      ''
+    else
+      ''
+        wrapProgram "$out/${
+          if darwinGui then "Applications/magpie.app/Contents/MacOS/magpie" else "bin/magpie"
+        }" --set MAGPIE_BUN ${lib.getExe bun}
+      '';
 
-  desktopItems = lib.optionals (guiSupport && stdenv.hostPlatform.isLinux) [
+  desktopItems = lib.optionals linuxGui [
     (makeDesktopItem {
       name = "magpie";
       desktopName = "magpie";
