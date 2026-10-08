@@ -20,7 +20,7 @@ in
         --no-update-lock-file
         --no-write-lock-file
         --keep-going
-        --to 'file://${cachePath}?parallel-compression=true&secret-key=/root/cache-priv-key.pem&want-mass-query=true&write-nar-listing=true'
+        --to 'file://${cachePath}?parallel-compression=true&secret-key=/root/cache-priv-key.pem&want-mass-query=true&write-nar-listing=true&compression=zstd'
         "$@"
       )
       printf "running:"
