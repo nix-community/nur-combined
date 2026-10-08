@@ -166,6 +166,7 @@ let
           spf.strict [
             "mx"
             "include:outbound.mailhop.org"
+            "include:spf.mailjet.com"
             "a:relay.dynu.com"
           ]
         );

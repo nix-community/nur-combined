@@ -75,6 +75,7 @@ in
     jf.A = propA;
     jobs.A = propA;
     mail.A = doA;
+    "mailjet._2a63b1df".TXT = s "2a63b1df1ccb26117f3c73439791a27e";
     matrix-rtc.A = propA;
     matrix.A = propA;
     matrix-test.NS = [
