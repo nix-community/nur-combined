@@ -3,13 +3,13 @@
   stdenv,
   pkgs,
   forkgram-desktop,
-  swift6-jen20,
+  swift,
 }:
 let
   inherit (import ../../../private.nix { inherit pkgs; }) v3overridegcc;
   # On-device Translation needs Swift 6 on Darwin. nixpkgs sets
   # DESKTOP_APP_DISABLE_SWIFT6 because stock nixpkgs has no Swift 6; we have
-  # swift6-jen20 (6.2.4). Feature is Apple-only (lib_translate enable_language(Swift)).
+  # swift (6.2.4). Feature is Apple-only (lib_translate enable_language(Swift)).
   enableSwift6 = stdenv.hostPlatform.isDarwin;
 in
 forkgram-desktop.overrideAttrs (old: {
@@ -28,7 +28,7 @@ forkgram-desktop.overrideAttrs (old: {
             ./nix-swift-runtime.patch
           ];
 
-        nativeBuildInputs = (old2.nativeBuildInputs or [ ]) ++ lib.optionals enableSwift6 [ swift6-jen20 ];
+        nativeBuildInputs = (old2.nativeBuildInputs or [ ]) ++ lib.optionals enableSwift6 [ swift ];
 
         # Drop nixpkgs' hard-disable, then set explicitly for this platform.
         cmakeFlags =
@@ -39,13 +39,13 @@ forkgram-desktop.overrideAttrs (old: {
             (lib.cmakeBool "DESKTOP_APP_DISABLE_SWIFT6" (!enableSwift6))
           ]
           ++ lib.optionals enableSwift6 [
-            (lib.cmakeFeature "CMAKE_Swift_COMPILER" "${swift6-jen20}/bin/swiftc")
+            (lib.cmakeFeature "CMAKE_Swift_COMPILER" "${swift}/bin/swiftc")
           ];
       }
       // lib.optionalAttrs enableSwift6 {
         # Assembled swift package puts Darwin dylibs in $out/lib (see stdlib packaging).
-        NIX_SWIFT_LIB_DIR = "${swift6-jen20}/lib";
-        SWIFTC = "${swift6-jen20}/bin/swiftc";
+        NIX_SWIFT_LIB_DIR = "${swift}/lib";
+        SWIFTC = "${swift}/bin/swiftc";
       }
     )
   );

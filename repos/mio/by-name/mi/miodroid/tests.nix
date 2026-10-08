@@ -79,7 +79,10 @@ in
       boot.kernelPackages = binderKernel;
       boot.extraModprobeConfig = "options binder_linux devices=binder,vndbinder,hwbinder";
       environment.etc."miodroid-test".source = testFiles;
-      environment.systemPackages = [ pkgs.python3 ];
+      environment.systemPackages = [
+        pkgs.python3
+        pkgs.weston
+      ];
     };
 
     testScript = ''
@@ -90,16 +93,20 @@ in
       machine.wait_for_unit("miodroid-container.service")
       machine.succeed("python3 -m http.server 8000 --directory /etc/miodroid-test >/tmp/miodroid-http.log 2>&1 &")
       machine.succeed("miodroid init -c http://127.0.0.1:8000/system -v http://127.0.0.1:8000/vendor -r lineage -s VANILLA", timeout=3600)
+      machine.succeed("miodroid prop set ro.hardware.gralloc default")
+      machine.succeed("miodroid prop set ro.hardware.egl swiftshader")
       machine.succeed("""cat > /tmp/miodroid-session-test.sh << 'EOF'
       #!/bin/sh
       set -eu
       install -d -m 0700 /run/user/0
       mkdir -p /run/user/0/pulse
-      # Listening Wayland and PulseAudio sockets for the session to bind into
-      # the container.
+      # Start a real Wayland compositor for Waydroid to connect to,
+      # and a fake PulseAudio socket.
+      XDG_RUNTIME_DIR=/run/user/0 weston --backend=headless-backend.so --socket=wayland-0 --idle-time=0 >/tmp/weston.log 2>&1 &
+      wlserver=$!
       python3 << 'PYEOF' &
       import os, socket, time
-      for path in ["/run/user/0/wayland-0", "/run/user/0/pulse/native"]:
+      for path in ["/run/user/0/pulse/native"]:
           if os.path.exists(path):
               os.unlink(path)
           s = socket.socket(socket.AF_UNIX)
@@ -107,7 +114,7 @@ in
           s.listen(1)
       time.sleep(600)
       PYEOF
-      wlserver=$!
+      pulseserver=$!
 
       # `session start` stays in the foreground for as long as the session
       # lives, so run it in the background and watch the container instead.
@@ -187,7 +194,10 @@ in
       boot.kernelPackages = binderKernel;
       boot.extraModprobeConfig = "options binder_linux devices=binder,vndbinder,hwbinder";
       environment.etc."miodroid-test".source = testFiles;
-      environment.systemPackages = [ pkgs.python3 ];
+      environment.systemPackages = [
+        pkgs.python3
+        pkgs.weston
+      ];
 
       users.users.alice = {
         isNormalUser = true;
@@ -240,6 +250,8 @@ in
           if test -f /tmp/tools.log; then cat /tmp/tools.log; fi
           exit 1
       fi
+      miodroid prop set ro.hardware.gralloc default
+      miodroid prop set ro.hardware.egl swiftshader
       if test ! -f "$MIODROID_WORK/images/system.img"; then
           cat "$MIODROID_WORK/miodroid.cfg"
           cat "$MIODROID_WORK/miodroid.log"
@@ -277,11 +289,13 @@ in
       export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
 
       mkdir -p /run/user/1000/pulse
-      # Listening Wayland and PulseAudio sockets for the session to bind into
-      # the container.
+      # Start a real Wayland compositor for Waydroid to connect to,
+      # and a fake PulseAudio socket.
+      XDG_RUNTIME_DIR=/run/user/1000 weston --backend=headless-backend.so --socket=wayland-0 --idle-time=0 >/tmp/weston.log 2>&1 &
+      wlserver=$!
       python3 << 'PYEOF' &
       import os, socket, time
-      for path in ["/run/user/1000/wayland-0", "/run/user/1000/pulse/native"]:
+      for path in ["/run/user/1000/pulse/native"]:
           if os.path.exists(path):
               os.unlink(path)
           s = socket.socket(socket.AF_UNIX)
@@ -289,7 +303,7 @@ in
           s.listen(1)
       time.sleep(600)
       PYEOF
-      wlserver=$!
+      pulseserver=$!
 
       # `session start` stays in the foreground for as long as the session
       # lives, so run it in the background and watch the container instead.
