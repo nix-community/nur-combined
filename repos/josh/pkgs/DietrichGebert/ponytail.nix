@@ -8,13 +8,13 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ponytail";
-  version = "5.0.0";
+  version = "5.1.0";
 
   src = fetchFromGitHub {
     owner = "DietrichGebert";
     repo = "ponytail";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-U+TGSju2VBYHqaWZckf/QQMZXZ15KhOREfpA5EN/Deo=";
+    hash = "sha256-diYM3gqcEboVi7OQff/SvlE0TKAIPTJDIggX7rZWslY=";
   };
 
   postPatch = ''
