@@ -33,6 +33,7 @@ def update_package(
     owned_roots = package_owned_roots(ref.file_path)
     before = read_state(ref.source_kind, ref.attrset, ref.attr)
 
+    update_mode = before.version_mode
     with FileTransaction(owned_roots) as transaction:
         try:
             if (
@@ -42,13 +43,20 @@ def update_package(
                 and before.src_url.startswith("https://tangled.org/")
             ):
                 if _update_tangled_revision(ref.file_path, before, timeout=timeout):
-                    _run_nix_update(ref, "skip", timeout=timeout)
+                    update_mode = "skip"
+                    _run_nix_update(ref, update_mode, timeout=timeout)
             else:
-                _run_nix_update(ref, before.version_mode, timeout=timeout)
+                _run_nix_update(ref, update_mode, timeout=timeout)
         except CommandError as error:
             transaction.restore()
             logger.info("nix-update failed for %s:\n%s", ref.attr_path, error.details)
             return UpdateResult(ref.attr_path, "skipped", f"nix-update failed: {error}")
+
+        verification = _update_source_with_verification(ref, before, update_mode, timeout=timeout)
+        if verification:
+            transaction.restore()
+            logger.info("source hash verification failed for %s", ref.attr_path)
+            return UpdateResult(ref.attr_path, "failed", verification)
 
         after = read_state(ref.source_kind, ref.attrset, ref.attr)
         changed = transaction.new_changed_files()
@@ -102,6 +110,62 @@ def update_package(
                 sorted(owned_changed),
             )
         return UpdateResult(ref.attr_path, "updated", validation.reason, sorted(owned_changed))
+
+
+def _update_source_with_verification(
+    ref: PackageRef, before: PackageState, update_mode: str, *, timeout: str | None
+) -> str | None:
+    """Return a failure reason when a source written by nix-update cannot be reproduced.
+
+    Feeds the freshly written source back through nix once more, so a hash that nix
+    cannot reproduce for the recorded reference is never handed to a commit. A stale
+    hash (for example an upstream tag that moved after the previous update) is retried
+    by recomputing the source, and only reported when the retry cannot fix it.
+    """
+    after = read_state(ref.source_kind, ref.attrset, ref.attr)
+    source_changed = (
+        after.src_hash != before.src_hash
+        or after.src_rev != before.src_rev
+        or after.src_url != before.src_url
+    )
+    if not source_changed:
+        return None
+
+    reason = _verify_source_hash(ref, timeout=timeout)
+    if reason is None or "hash mismatch" not in reason:
+        return reason
+
+    logger.info("source hash of %s does not match its source, re-running nix-update", ref.attr_path)
+    try:
+        _run_nix_update(ref, update_mode, timeout=timeout)
+    except CommandError as error:
+        return f"source hash verification failed and re-update failed: {error}"
+
+    reason = _verify_source_hash(ref, timeout=timeout)
+    return None if reason is None else f"source hash verification failed: {reason}"
+
+
+def _verify_source_hash(ref: PackageRef, *, timeout: str | None) -> str | None:
+    """Fetch the recorded source of a package and report a hash that does not match it."""
+    if not read_state(ref.source_kind, ref.attrset, ref.attr).src_hash:
+        return None
+
+    if ref.source_kind == "flake":
+        command = ["nix", "build", "--no-link", f".#{ref.attr_path}.src"]
+    else:
+        command = ["nix-build", "-f", "default.nix", "-A", f"{ref.attr_path}.src", "--no-out-link"]
+    result = run(command, check=False, timeout=timeout)
+    return None if result.returncode == 0 else _source_failure_line(result)
+
+
+def _source_failure_line(result: subprocess.CompletedProcess[str]) -> str:
+    details = result.stderr.strip() or result.stdout.strip()
+    lines = [line.strip() for line in details.splitlines() if line.strip()]
+    mismatch = next((line for line in lines if "hash mismatch" in line), None)
+    if mismatch:
+        return mismatch
+    failed = next((line for line in lines if "error:" in line), None)
+    return failed or (lines[-1] if lines else "source fetch failed")
 
 
 def package_owned_roots(file_path: Path) -> list[Path]:
