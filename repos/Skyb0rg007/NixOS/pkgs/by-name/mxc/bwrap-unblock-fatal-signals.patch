@@ -1,0 +1,42 @@
+diff --git a/mxc-sdk/src/backends/bubblewrap/common/bwrap_runner.rs b/mxc-sdk/src/backends/bubblewrap/common/bwrap_runner.rs
+index 788a117..476860a 100644
+--- a/mxc-sdk/src/backends/bubblewrap/common/bwrap_runner.rs
++++ b/mxc-sdk/src/backends/bubblewrap/common/bwrap_runner.rs
+@@ -591,6 +591,10 @@ impl BubblewrapScriptRunner {
+         // 4. Spawn `bwrap`.
+         let mut command = Command::new("bwrap");
+         command.args(&args);
++        // The workload must not inherit the signals lxc-exec blocks for its
++        // cleanup watchdog, or it ignores SIGTERM, SIGINT and SIGHUP.
++        #[cfg(target_os = "linux")]
++        crate::lxc_common::lxc_bindings::unblock_fatal_signals(&mut command);
+         let pty = match stdio {
+             StdioMode::Pipes => {
+                 command
+diff --git a/mxc-sdk/src/backends/bubblewrap/common/proxy_network.rs b/mxc-sdk/src/backends/bubblewrap/common/proxy_network.rs
+index 97b48e0..e33c84c 100644
+--- a/mxc-sdk/src/backends/bubblewrap/common/proxy_network.rs
++++ b/mxc-sdk/src/backends/bubblewrap/common/proxy_network.rs
+@@ -765,6 +765,9 @@ impl ProxyNetworkNamespace {
+         set_nonblocking(liveness_reader.as_raw_fd())?;
+ 
+         let mut command = Command::new("unshare");
++        // See bwrap_runner: the supervisor's TERM trap needs TERM unblocked.
++        #[cfg(target_os = "linux")]
++        crate::lxc_common::lxc_bindings::unblock_fatal_signals(&mut command);
+         command
+             .args([
+                 "--user",
+diff --git a/mxc-sdk/src/backends/lxc/common/lxc_bindings.rs b/mxc-sdk/src/backends/lxc/common/lxc_bindings.rs
+index ef4aba6..cf9128f 100644
+--- a/mxc-sdk/src/backends/lxc/common/lxc_bindings.rs
++++ b/mxc-sdk/src/backends/lxc/common/lxc_bindings.rs
+@@ -215,7 +215,7 @@ fn wait_for_drain(
+ /// Unblock the signals `lxc-exec` holds for its sigwait watchdog, so the child
+ /// does not inherit a mask that makes it ignore Ctrl-C and termination.
+ #[cfg(target_os = "linux")]
+-fn unblock_fatal_signals(command: &mut std::process::Command) {
++pub(crate) fn unblock_fatal_signals(command: &mut std::process::Command) {
+     use std::os::unix::process::CommandExt;
+ 
+     // SAFETY: `pre_exec` runs between fork and exec, where only

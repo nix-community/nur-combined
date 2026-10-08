@@ -21,6 +21,18 @@
       services.keylime.package = packages.keylime;
     };
   };
+  mxc-bwrap = pkgs.testers.runNixOSTest {
+    imports = [ ./mxc-bwrap.nix ];
+    node.specialArgs = {
+      inherit (packages) mxc;
+    };
+  };
+  mxc-lxc = pkgs.testers.runNixOSTest {
+    imports = [ ./mxc-lxc.nix ];
+    node.specialArgs = {
+      inherit (packages) mxc;
+    };
+  };
   credentialsd = pkgs.testers.runNixOSTest {
     imports = [ ./credentialsd.nix ];
     nodes.machine = {
