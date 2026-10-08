@@ -8,10 +8,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-iYgaHf3RwPUI/V4++7exiy1NLiOEIwwNOr1jXna31VQ=",
+            "sha256": "sha256-MLyBQuw3k7YgHoIG9PZbdMZbJ6oHmyHqt34l41+tQMk=",
             "type": "url",
-            "url": "https://github.com/cockpit-project/cockpit-podman/releases/download/131/cockpit-podman-131.tar.xz"
+            "url": "https://github.com/cockpit-project/cockpit-podman/releases/download/132/cockpit-podman-132.tar.xz"
         },
-        "version": "131"
+        "version": "132"
     }
 }
