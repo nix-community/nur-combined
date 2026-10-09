@@ -1,6 +1,4 @@
 {
-  description = "Python development environment";
-
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -39,7 +37,10 @@
               uvShellHook
             ];
 
-            UV_PYTHON_PREFERENCE = "only-managed";
+            env = {
+              UV_PYTHON = "${pkgs.python314}/bin/python3";
+              UV_PYTHON_DOWNLOADS = "never";
+            };
           };
         };
     };
