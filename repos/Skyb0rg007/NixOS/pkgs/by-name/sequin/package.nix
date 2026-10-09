@@ -18,19 +18,20 @@
   libxkbcommon,
   libglvnd,
   rust-skia,
+  nix-update-script,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "sequin";
-  version = "0-unstable-2026-09-23";
+  version = "0-unstable-2026-10-08";
 
   src = fetchFromGitLab {
     owner = "sequoia-pgp";
     repo = "Sequin";
-    rev = "e1fb26e9762e231a865b39fff1d35be56c010fef";
-    hash = "sha256-MwS5Imj5303pF0Dh4Sf1R3lmawrWK8tgJSVm7EgN4qQ=";
+    rev = "078734053402bb0f8428404441b6c593beaf06dd";
+    hash = "sha256-MRR3NNcgPUdNJqFyY+/WMxneWkFQQ/DuZXyGbtFaXrI=";
   };
 
-  cargoHash = "sha256-fUIAxpYJc0VCL/VTDww1NzysUHLj6oX5rg7rWLM1ruE=";
+  cargoHash = "sha256-u0IQe3TNA9U5dVGMOiDYr3fe7VTCClGyp8qiLPjY4F4=";
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -56,6 +57,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   env.SKIA_BINARIES_URL = "file://${rust-skia}/skia-binaries.tar.gz";
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version=branch" ];
+  };
 
   meta = {
     description = "Contact-centric PGP certificate manager built on Sequoia";

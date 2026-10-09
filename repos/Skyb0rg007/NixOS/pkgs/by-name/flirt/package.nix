@@ -4,17 +4,18 @@
   rustPlatform,
   installShellFiles,
   stdenv,
+  nix-update-script,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "flirt";
-  version = "0.1.0-unstable-2026-10-05";
+  version = "0-unstable-2026-10-07";
 
   src = fetchFromForgejo {
     domain = "codeberg.org";
     owner = "flirt";
     repo = "flirt";
-    rev = "08d07b35b4b33a3c8fd923ab4189e56906bdc633";
-    hash = "sha256-YlOwFIDMhSuTs6tXVhsS18CQ86y+N+dOOryQ3t1l2cM=";
+    rev = "a93a2d3632b1789e659fcbe503ecfe0e05597728";
+    hash = "sha256-YHIERwCY5ThpA/OVs8v3v7tFHHNoNMCtw7IqdEoOnwE=";
   };
 
   cargoHash = "sha256-gK6bfjHqlvLfNS3k3u2gKAg9KV61zL6O4FeNaamYVO8=";
@@ -34,6 +35,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --fish <($out/bin/flirt util completion fish) \
       --zsh <($out/bin/flirt util completion zsh)
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version=branch" ];
+  };
 
   meta = {
     description = "Review tool for patch series workflows";

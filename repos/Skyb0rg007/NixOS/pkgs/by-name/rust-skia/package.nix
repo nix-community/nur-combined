@@ -102,7 +102,7 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } (finalAttrs: {
   '';
 
   # Follows the skia-bindings version in sequin's Cargo.lock
-  passthru.updateScript = ./update.sh;
+  passthru.updateScript = [ ./update.sh ];
 
   meta = {
     description = "Skia static libraries and Rust bindings built for the skia-bindings crate";

@@ -8,6 +8,7 @@
   cargo-c,
   validatePkgConfig,
   testers,
+  nix-update-script,
 }:
 rustPlatform.buildRustPackage (
   finalAttrs:
@@ -62,6 +63,10 @@ rustPlatform.buildRustPackage (
     '';
 
     passthru = {
+      updateScript = nix-update-script {
+        extraArgs = [ "--version=branch" ];
+      };
+
       inherit landlockConfigFromClosure;
 
       tests = {

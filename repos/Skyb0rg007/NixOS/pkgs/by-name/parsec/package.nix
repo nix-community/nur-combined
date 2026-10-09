@@ -151,5 +151,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     license = lib.licenses.asl20;
     mainProgram = "parsec";
     platforms = lib.platforms.linux;
+    hydraPlatforms = [ ];
   };
 })

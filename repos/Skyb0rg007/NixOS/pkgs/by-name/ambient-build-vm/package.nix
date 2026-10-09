@@ -6,6 +6,7 @@
   installShellFiles,
   versionCheckHook,
   testers,
+  nix-update-script,
 }:
 let
   python = python3.withPackages (ps: [ ps.pyaml ]);
@@ -46,6 +47,8 @@ stdenv.mkDerivation (finalAttrs: {
       --target-directory="$out/share/ambient-build-vm" \
       ambient.service base.vmdb playbook.yml
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Build VM images for Ambient CI";

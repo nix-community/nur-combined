@@ -7,6 +7,7 @@
   rustPlatform,
   stdenv,
   versionCheckHook,
+  nix-update-script,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ambient-ci";
@@ -44,7 +45,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     installManPage *.1
   '';
 
-  passthru.updateScript = [ ./update.sh ];
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Ambient continuous integration engine";

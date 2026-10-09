@@ -11,6 +11,10 @@
       url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-update = {
+      url = "github:Mic92/nix-update";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -18,6 +22,7 @@
       self,
       nixpkgs,
       git-hooks,
+      nix-update,
     }:
     let
       inherit (nixpkgs) lib;
@@ -73,7 +78,7 @@
             nativeBuildInputs = [
               pkgs.git
               pkgs.nix
-              pkgs.nix-update
+              nix-update.packages.${system}.nix-update
               pkgs.nix-fast-build
               pkgs.zizmor
             ];

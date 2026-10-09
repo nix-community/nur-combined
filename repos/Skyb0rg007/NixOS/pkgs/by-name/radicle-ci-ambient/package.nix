@@ -4,20 +4,21 @@
   rustPlatform,
   installShellFiles,
   versionCheckHook,
+  nix-update-script,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "radicle-ci-ambient";
-  version = "0.21.1";
+  version = "0.23.0";
 
   src = fetchFromRadicle {
     seed = "radicle.liw.fi";
     repo = "z35CgFVYCKpqqDtJMzk8dyE6dViS6"; # radicle-ci-ambient
     node = "z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV"; # liw
     tag = "v${finalAttrs.version}";
-    hash = "sha256-PrCcvbGvZKjvCHkUDpCEhPjTJcboCA/DxWQTiqYvLyE=";
+    hash = "sha256-UPnkMj6LY8iNEuxafwhrzHWG1nlU7drRVuOCqmVcWSs=";
   };
 
-  cargoHash = "sha256-xTwlcLbka7liWTfBJ1iQarrxv3egxHjcfW8bgA9WdII=";
+  cargoHash = "sha256-vwq6F4lh03Z2delRz80BtXwgdqmnJGKBxFOty7IVBlo=";
 
   nativeBuildInputs = [ installShellFiles ];
   nativeInstallCheckInputs = [ versionCheckHook ];
@@ -36,6 +37,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   postInstall = ''
     installManPage ./radicle-ci-ambient.1
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Radicle CI adapter for Ambient CI";

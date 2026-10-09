@@ -138,6 +138,6 @@ stdenv.mkDerivation (finalAttrs: {
     ];
     platforms = [ "x86_64-linux" ];
     mainProgram = "browsertrix-crawl";
-    maintainers = [ lib.maintainers.skyesoss ];
+    broken = true; # Unmaintained
   };
 })

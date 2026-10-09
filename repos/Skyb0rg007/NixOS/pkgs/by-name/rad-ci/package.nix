@@ -4,20 +4,21 @@
   rustPlatform,
   installShellFiles,
   versionCheckHook,
+  nix-update-script,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rad-ci";
-  version = "0.10.0";
+  version = "0.11.0";
 
   src = fetchFromRadicle {
     seed = "radicle.liw.fi";
     repo = "z6QuhJTtgFCZGyQZhRMZmZKJ3SVG"; # rad-ci
     node = "z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV"; # liw
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Pfz8nvb7l2791Z4m/ogRtbDppu0/w4rGeCswY2JKGvI=";
+    hash = "sha256-0Qq0K8mrFeHxFGwvymWeEsOQ9NmnEQ2zuFvtslEgsMo=";
   };
 
-  cargoHash = "sha256-/Yrga3yEGxND4yb8IXW1PwpwO+m32AmazB6tOnFtqzc=";
+  cargoHash = "sha256-+Engv2UzmK9HQjVrPV+UCFtQZHhjKdYBBpZwDmkGdWE=";
 
   nativeBuildInputs = [ installShellFiles ];
   nativeInstallCheckInputs = [ versionCheckHook ];
@@ -26,6 +27,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   postInstall = ''
     installManPage ./rad-ci.1
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Emulate a Radicle CI run locally";

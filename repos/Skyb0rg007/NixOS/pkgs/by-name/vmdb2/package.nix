@@ -3,6 +3,7 @@
   python3,
   fetchFromRadicle,
   versionCheckHook,
+  nix-update-script,
 }:
 python3.pkgs.buildPythonPackage (finalAttrs: {
   pname = "vmdb2";
@@ -26,8 +27,9 @@ python3.pkgs.buildPythonPackage (finalAttrs: {
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
 
-  # buildPythonPackage sets a default passthru.updateScript, but it's hosted on radicle.
-  passthru.updateScript = null;
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version-regex=vmdb2-(.*)" ];
+  };
 
   meta = {
     description = "Debian virtual machine image builder";

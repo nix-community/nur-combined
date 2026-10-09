@@ -5,6 +5,7 @@
   buildGo127Module,
   openssh,
   hurl,
+  nix-update-script,
 }:
 buildGo127Module (finalAttrs: {
   pname = "torchwood";
@@ -35,6 +36,8 @@ buildGo127Module (finalAttrs: {
         "-skip=^Test(ReadEndpoint|SumDB)$|^TestScript$/^(age-keyserver|age-keylookup|monitor)$"
     )
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   vendorHash = "sha256-S1/PInF5TvvuY/lcn5DPQS5NJJaiH3y1gXZZzJzWvtU=";
 

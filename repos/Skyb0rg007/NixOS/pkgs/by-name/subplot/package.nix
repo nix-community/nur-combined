@@ -7,6 +7,7 @@
   plantuml,
   rustPlatform,
   versionCheckHook,
+  nix-update-script,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "subplot";
@@ -43,6 +44,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --set-default SUBPLOT_JAVA_PATH "$SUBPLOT_JAVA_PATH" \
       --set-default SUBPLOT_DOT_PATH "$SUBPLOT_DOT_PATH"
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Automated tool for acceptance testing";

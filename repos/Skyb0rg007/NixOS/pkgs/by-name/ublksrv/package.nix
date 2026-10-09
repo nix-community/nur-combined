@@ -14,6 +14,7 @@
   libiscsi,
   gnutls,
   nixosTests,
+  nix-update-script,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "ublksrv";
@@ -67,11 +68,14 @@ stdenv.mkDerivation (finalAttrs: {
   ];
   doInstallCheck = true;
 
-  passthru.tests = {
-    pkg-config = testers.hasPkgConfigModules {
-      package = finalAttrs.finalPackage;
+  passthru = {
+    updateScript = nix-update-script { };
+    tests = {
+      pkg-config = testers.hasPkgConfigModules {
+        package = finalAttrs.finalPackage;
+      };
+      nixos = nixosTests.ublksrv;
     };
-    nixos = nixosTests.ublksrv;
   };
 
   meta = {

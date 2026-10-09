@@ -15,9 +15,9 @@
 }:
 let
   hashes = {
-    "x86_64-linux" = "sha256-vLIAvuqbyGDuQEbf+JLUJdiLQsK75sIiZc+90468msA=";
-    "aarch64-linux" = "sha256-hcSNVbLLXHWNDqQGojw5h6jGhKbKtwsQsbQC3k13P3k=";
-    "aarch64-darwin" = "sha256-FYKH83c+ZYsv8Pfvaju2WGYlNucRTTu3Lpv9pznzcsU=";
+    "x86_64-linux" = "sha256-ui2p1uhfj0CjD1NCgW0Awqp20IxjTtriulaA0dfhWsE=";
+    "aarch64-linux" = "sha256-cw8LhauTORAK8Bc78yCuKvEDuQ2CFiHeNkcWUuaFklU=";
+    "aarch64-darwin" = "sha256-hYaJdiwKo7r9hUwRAQguso5EanE9/Ara5ewsQhIRKyQ=";
   };
   platformName = {
     "x86_64-linux" = "linux-amd64";
@@ -27,7 +27,7 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "docker-sbx";
-  version = "0.46.0-rc2";
+  version = "0.48.0-rc4";
   src =
     let
       throwPlat = throw "Unsupported platform ${stdenvNoCC.hostPlatform.system}";
@@ -104,7 +104,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         runHook postInstall
       '';
 
-  passthru.updateScript = ./update.sh;
+  passthru.updateScript = [ ./update.sh ];
 
   meta = {
     description = "Safe environments for agents";

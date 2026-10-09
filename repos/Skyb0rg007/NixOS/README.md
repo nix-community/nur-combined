@@ -1,6 +1,6 @@
 # Packages
 
-Generated from 57 packages.
+Generated from 69 packages.
 
 ## `ambient-build-vm`
 
@@ -13,7 +13,7 @@ Generated from 57 packages.
 ## `ambient-ci`
 
 - **Package name:** ambient-ci
-- **Version:** 0.20.0
+- **Version:** 0.21.0
 - **Description:** Ambient continuous integration engine
 - **Homepage:** [https://ambient.liw.fi/](https://ambient.liw.fi/)
 - **License:** AGPL-3.0-or-later
@@ -37,7 +37,7 @@ Generated from 57 packages.
 ## `attachment-converter`
 
 - **Package name:** attachment-converter
-- **Version:** 0.2.1
+- **Version:** 0.2.2
 - **Description:** Tool for converting email attachments' formats
 - **Homepage:** [https://dldc.lib.uchicago.edu/open/attachment-converter/](https://dldc.lib.uchicago.edu/open/attachment-converter/)
 - **License:** GPL-3.0-or-later
@@ -61,7 +61,7 @@ Generated from 57 packages.
 ## `brush`
 
 - **Package name:** brush
-- **Version:** 0.4.0-unstable-2026-09-21
+- **Version:** 0.4.0-unstable-2026-10-07
 - **Description:** Bash/POSIX-compatible shell implemented in Rust
 - **Homepage:** [https://github.com/reubeno/brush](https://github.com/reubeno/brush)
 - **License:** MIT
@@ -69,7 +69,7 @@ Generated from 57 packages.
 ## `buildgrid`
 
 - **Package name:** buildgrid
-- **Version:** 0.8.11
+- **Version:** 0.8.14
 - **Description:** Python remote execution service
 - **Homepage:** [https://buildgrid.build](https://buildgrid.build)
 - **License:** Apache-2.0
@@ -101,7 +101,7 @@ Generated from 57 packages.
 ## `credentialsd`
 
 - **Package name:** credentialsd
-- **Version:** 0.2.0
+- **Version:** 0.3.1
 - **Description:** Linux Credential Manager API
 - **Homepage:** [https://github.com/linux-credentials/credentialsd](https://github.com/linux-credentials/credentialsd)
 - **License:** LGPL-3.0-only
@@ -114,6 +114,22 @@ Generated from 57 packages.
 - **Homepage:** [https://github.com/lkhq/debspawn](https://github.com/lkhq/debspawn)
 - **License:** LGPL-3.0-or-later
 
+## `designcraft`
+
+- **Package name:** designcraft
+- **Version:** 0.2.1
+- **Description:** Open-source, clean-room reimplementation of Adobe InDesign
+- **Homepage:** [https://getartcraft.com/apps/designcraft](https://getartcraft.com/apps/designcraft)
+- **License:** MIT OR Apache-2.0
+
+## `dgit`
+
+- **Package name:** dgit
+- **Version:** 17.0
+- **Description:** git integration with the Debian archive
+- **Homepage:** [https://salsa.debian.org/dgit-team/dgit](https://salsa.debian.org/dgit-team/dgit)
+- **License:** GPL-3.0-or-later
+
 ## `dnclient`
 
 - **Package name:** dnclient
@@ -124,10 +140,18 @@ Generated from 57 packages.
 ## `docker-sbx`
 
 - **Package name:** docker-sbx
-- **Version:** 0.46.0-rc2
+- **Version:** 0.48.0-rc4
 - **Description:** Safe environments for agents
 - **Homepage:** [https://docs.docker.com/reference/cli/sbx/](https://docs.docker.com/reference/cli/sbx/)
 - **License:** LicenseRef-nixos-unfree
+
+## `effectcraft`
+
+- **Package name:** effectcraft
+- **Version:** 0.4.0
+- **Description:** Open-source, clean-room reimplementation of Adobe After Effects
+- **Homepage:** [https://getartcraft.com/apps/effectcraft](https://getartcraft.com/apps/effectcraft)
+- **License:** MIT OR Apache-2.0
 
 ## `filc-pizfix`
 
@@ -136,6 +160,22 @@ Generated from 57 packages.
 - **Description:** Fil-C toolchain (Pizfix)
 - **Homepage:** [https://fil-c.org/pizfix](https://fil-c.org/pizfix)
 - **License:** (Apache-2.0 WITH LLVM-exception) AND (BSD-2-Clause AND BSD-3-Clause)
+
+## `filmcraft`
+
+- **Package name:** filmcraft
+- **Version:** 0.2.1
+- **Description:** Open-source, clean-room reimplementation of Adobe Premiere Pro
+- **Homepage:** [https://getartcraft.com/apps/filmcraft](https://getartcraft.com/apps/filmcraft)
+- **License:** MIT OR Apache-2.0
+
+## `flirt`
+
+- **Package name:** flirt
+- **Version:** 0.1.0-unstable-2026-10-05
+- **Description:** Review tool for patch series workflows
+- **Homepage:** [https://codeberg.org/flirt/flirt](https://codeberg.org/flirt/flirt)
+- **License:** AGPL-3.0-or-later
 
 ## `grant`
 
@@ -148,7 +188,7 @@ Generated from 57 packages.
 ## `image-builder`
 
 - **Package name:** image-builder
-- **Version:** 83.0.0
+- **Version:** 86.0.0
 - **Description:** Tools to build and deploy disk-images
 - **Homepage:** [https://osbuild.org](https://osbuild.org)
 - **License:** Apache-2.0
@@ -196,15 +236,31 @@ Generated from 57 packages.
 ## `landstrip`
 
 - **Package name:** landstrip
-- **Version:** 0.19.2
+- **Version:** 0.19.7
 - **Description:** Run tools in OS-level sandboxes
 - **Homepage:** [https://github.com/landstrip/landstrip](https://github.com/landstrip/landstrip)
 - **License:** LGPL-3.0-or-later
 
+## `libturnstile`
+
+- **Package name:** libturnstile
+- **Version:** 0.8.1
+- **Description:** Seccomp-unotify access tracer
+- **Homepage:** [https://github.com/micromaomao/libturnstile](https://github.com/micromaomao/libturnstile)
+- **License:** MIT
+
+## `lightcraft`
+
+- **Package name:** lightcraft
+- **Version:** 0.2.1
+- **Description:** Open-source, clean-room reimplementation of Adobe Lightroom
+- **Homepage:** [https://getartcraft.com/apps/lightcraft](https://getartcraft.com/apps/lightcraft)
+- **License:** MIT OR Apache-2.0
+
 ## `masque-go`
 
 - **Package name:** masque-go
-- **Version:** 0.5.0
+- **Version:** 0.6.0
 - **Description:** Implementation of RFC 9298 based on quic-go
 - **Homepage:** [https://quic-go.net](https://quic-go.net)
 - **License:** MIT
@@ -220,7 +276,7 @@ Generated from 57 packages.
 ## `mkosi-HEAD`
 
 - **Package name:** mkosi-HEAD
-- **Version:** 27-unstable-2026-09-09
+- **Version:** 27.1-unstable-2026-10-06
 - **Description:** Build legacy-free OS images, built from git master
 - **Homepage:** [https://github.com/systemd/mkosi](https://github.com/systemd/mkosi)
 - **License:** LGPL-2.1-only
@@ -236,18 +292,10 @@ Generated from 57 packages.
 ## `mxc`
 
 - **Package name:** mxc
-- **Version:** 0.8.0
+- **Version:** 1.0.0
 - **Description:** Sandboxed code execution system for running untrusted code
 - **Homepage:** [https://github.com/microsoft/mxc](https://github.com/microsoft/mxc)
 - **License:** MIT
-
-## `nlnet-mimir`
-
-- **Package name:** nlnet-mimir
-- **Version:** 0-unstable-2026-01-06
-- **Description:** DNS proxy and load balancer
-- **Homepage:** [https://nlnetlabs.nl/projects/domain/mimir/](https://nlnetlabs.nl/projects/domain/mimir/)
-- **License:** MPL-2.0
 
 ## `parsec`
 
@@ -265,6 +313,14 @@ Generated from 57 packages.
 - **Homepage:** [https://parsec.community](https://parsec.community)
 - **License:** Apache-2.0
 
+## `photocraft`
+
+- **Package name:** photocraft
+- **Version:** 0.3.0
+- **Description:** Open-source, clean-room reimplementation of Adobe Photoshop
+- **Homepage:** [https://getartcraft.com/apps/photocraft](https://getartcraft.com/apps/photocraft)
+- **License:** MIT OR Apache-2.0
+
 ## `porkbun-ddns`
 
 - **Package name:** porkbun-ddns
@@ -272,6 +328,14 @@ Generated from 57 packages.
 - **Description:** An unofficial DDNS-Client for Porkbun Domains
 - **Homepage:** [https://github.com/mietzen/porkbun-ddns](https://github.com/mietzen/porkbun-ddns)
 - **License:** MIT
+
+## `printcraft`
+
+- **Package name:** printcraft
+- **Version:** 0.2.1
+- **Description:** Open-source, clean-room reimplementation of Adobe Acrobat
+- **Homepage:** [https://getartcraft.com/apps/printcraft](https://getartcraft.com/apps/printcraft)
+- **License:** MIT OR Apache-2.0
 
 ## `pristine-tar`
 
@@ -352,6 +416,14 @@ Generated from 57 packages.
 - **Homepage:** [https://keylime.dev](https://keylime.dev)
 - **License:** Apache-2.0
 
+## `rust-skia`
+
+- **Package name:** rust-skia
+- **Version:** 0.153.3
+- **Description:** Skia static libraries and Rust bindings built for the skia-bindings crate
+- **Homepage:** [https://github.com/rust-skia/rust-skia](https://github.com/rust-skia/rust-skia)
+- **License:** MIT AND BSD-3-Clause
+
 ## `sbuild`
 
 - **Package name:** sbuild
@@ -363,7 +435,7 @@ Generated from 57 packages.
 ## `sequin`
 
 - **Package name:** sequin
-- **Version:** 0-unstable-2026-09-04
+- **Version:** 0-unstable-2026-09-23
 - **Description:** Contact-centric PGP certificate manager built on Sequoia
 - **Homepage:** [https://gitlab.com/sequoia-pgp/sequin](https://gitlab.com/sequoia-pgp/sequin)
 - **License:** GPL-3.0-only
@@ -387,7 +459,7 @@ Generated from 57 packages.
 ## `systemd-btf`
 
 - **Package name:** systemd-btf
-- **Version:** 261.2
+- **Version:** 261.3
 - **Description:** System and service manager for Linux
 - **Homepage:** [https://systemd.io](https://systemd.io)
 - **License:** BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-or-later AND LGPL-2.0-or-later AND MIT AND MIT-0 AND OFL-1.1 AND LicenseRef-nixos-publicDomain
@@ -416,6 +488,14 @@ Generated from 57 packages.
 - **Homepage:** [https://github.com/rickstaa/tmux-notify](https://github.com/rickstaa/tmux-notify)
 - **License:** MIT
 
+## `torchwood`
+
+- **Package name:** torchwood
+- **Version:** 0.10.0
+- **Description:** Collection of open source tlog tooling
+- **Homepage:** [https://github.com/FiloSottile/torchwood](https://github.com/FiloSottile/torchwood)
+- **License:** BSD-3-Clause
+
 ## `tpm2sh`
 
 - **Package name:** tpm2sh
@@ -431,6 +511,14 @@ Generated from 57 packages.
 - **Description:** userspace block device driver
 - **Homepage:** [https://github.com/ublk-org/ublksrv](https://github.com/ublk-org/ublksrv)
 - **License:** (MIT OR GPL-2.0-only) AND (MIT OR LGPL-2.1-only) AND GPL-2.0-only
+
+## `vectorcraft`
+
+- **Package name:** vectorcraft
+- **Version:** 0.4.0
+- **Description:** Open-source, clean-room reimplementation of Adobe Illustrator
+- **Homepage:** [https://getartcraft.com/apps/vectorcraft](https://getartcraft.com/apps/vectorcraft)
+- **License:** MIT OR Apache-2.0
 
 ## `vmdb2`
 
@@ -449,6 +537,15 @@ Generated from 57 packages.
 - **Description:** CDash is a web-based software testing server
 - **Homepage:** [https://www.cdash.org](https://www.cdash.org)
 - **License:** BSD-3-Clause
+- **Status:** Broken
+
+## `nlnet-mimir`
+
+- **Package name:** nlnet-mimir
+- **Version:** 0-unstable-2026-01-06
+- **Description:** DNS proxy and load balancer
+- **Homepage:** [https://nlnetlabs.nl/projects/domain/mimir/](https://nlnetlabs.nl/projects/domain/mimir/)
+- **License:** MPL-2.0
 - **Status:** Broken
 
 ## `tubearchivist`
