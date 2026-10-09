@@ -15,29 +15,34 @@
   nix-update-script,
   versionCheckHook,
 }:
-let
+rustPlatform.buildRustPackage (finalAttrs: {
+  pname = "honk-core";
   version = "2026.10.9.native-api.2";
 
   src = fetchFromGitHub {
     owner = "Glassyiris";
     repo = "honk";
-    tag = "debug.${version}";
+    tag = "debug.${finalAttrs.version}";
     hash = "sha256-FjADhxK4axHk3AQvHo4xx/MZhppXgWlJ23TPKuJ17AE=";
   };
+  cargoHash = "sha256-NaQ28zDXBKiW6hx2AzrsJUlZVKiOdd+dq6sOeNGYJcM=";
 
   # crates/honk-ebpf is excluded from the workspace and pins its own toolchain
   # in crates/honk-ebpf/rust-toolchain.toml, so it has its own Cargo.lock and
   # builds standalone. honk-core's build.rs embeds the resulting object.
   honk-ebpf = stdenv.mkDerivation {
     pname = "honk-ebpf";
-    inherit version src;
+    inherit (finalAttrs) version src;
 
     __structuredAttrs = true;
     strictDeps = true;
+    dontStrip = true;
+    dontPatchELF = true;
+    noAuditTmpdir = true;
 
     cargoRoot = "crates/honk-ebpf";
     cargoDeps = rustPlatform.fetchCargoVendor {
-      inherit src version;
+      inherit (finalAttrs) version src;
       pname = "honk-ebpf";
       cargoRoot = "crates/honk-ebpf";
       hash = "sha256-4amHt9G5oGTogEyBQysZsTZJjMkMW0p3urzFm1y5nWE=";
@@ -106,11 +111,6 @@ let
       runHook postInstall
     '';
   };
-in
-rustPlatform.buildRustPackage {
-  pname = "honk-core";
-  inherit version src;
-  cargoHash = "sha256-NaQ28zDXBKiW6hx2AzrsJUlZVKiOdd+dq6sOeNGYJcM=";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -135,7 +135,7 @@ rustPlatform.buildRustPackage {
   buildInputs = [ systemdLibs ];
 
   # honk-core's build.rs stamps HONK_VERSION from the release ref
-  env.GITHUB_REF = "refs/tags/debug.${version}";
+  env.GITHUB_REF = "refs/tags/debug.${finalAttrs.version}";
 
   preBuild = ''
     # Embed the doona web UI packaged in this repository. Fonts stay out of
@@ -150,7 +150,7 @@ rustPlatform.buildRustPackage {
     # or not stamped with the toolchain pin of crates/honk-ebpf.
     objDir=crates/honk-ebpf/target/bpfel-unknown-none/release
     mkdir -p $objDir
-    cp ${honk-ebpf}/honk-ebpf $objDir/honk-ebpf
+    cp ${finalAttrs.honk-ebpf}/honk-ebpf $objDir/honk-ebpf
     channel=$(sed -n 's/^channel *= *"\(.*\)"/\1/p' crates/honk-ebpf/rust-toolchain.toml)
     printf %s "$channel" > $objDir/honk-ebpf.toolchain
     touch $objDir/honk-ebpf $objDir/honk-ebpf.toolchain
@@ -164,7 +164,7 @@ rustPlatform.buildRustPackage {
   nativeInstallCheckInputs = [ versionCheckHook ];
 
   passthru = {
-    inherit honk-ebpf;
+    inherit (finalAttrs) honk-ebpf;
     updateScript = nix-update-script {
       extraArgs = [
         "--use-github-releases"
@@ -185,4 +185,4 @@ rustPlatform.buildRustPackage {
     mainProgram = "honk-core";
     platforms = lib.platforms.linux;
   };
-}
+})
