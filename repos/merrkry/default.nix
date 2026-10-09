@@ -15,7 +15,7 @@ rec {
   bookerly = pkgs.callPackage ./pkgs/bookerly.nix { };
   chatgpt = pkgs.callPackage ./pkgs/chatgpt { };
   codex-bin = pkgs.callPackage ./pkgs/codex-bin { };
-  delta = pkgs.callPackage ./pkgs/delta.nix { };
+  delta = pkgs.callPackage ./pkgs/delta { };
   fcitx5-vinput-lite = pkgs.callPackage ./pkgs/fcitx5-vinput-lite { };
   kache = pkgs.callPackage ./pkgs/kache.nix { };
   kvlibadwaita-kvantum = pkgs.callPackage ./pkgs/kvlibadwaita-kvantum.nix { };
