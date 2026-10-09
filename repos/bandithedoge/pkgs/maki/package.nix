@@ -20,7 +20,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   nativeBuildInputs = [ perl ];
 
-  passthru.updateScript = nix-update-script { };
+  # XXX: waiting for https://github.com/NixOS/nixpkgs/pull/569018
+  # passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Efficient AI coding agent extendable by neovim-like Lua plugins";

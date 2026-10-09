@@ -6,9 +6,9 @@
 
   autoPatchelfHook,
   fftwFloat,
-  glibmm,
+  glibmm_2_4,
   juceCmakeHook,
-  libsigcxx,
+  libsigcxx_2_0,
   libsndfile,
   lilv,
   breakpointHook,
@@ -29,8 +29,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [
     fftwFloat
-    glibmm
-    libsigcxx
+    glibmm_2_4
+    libsigcxx_2_0
     libsndfile
     lilv
     stdenv.cc.cc.lib

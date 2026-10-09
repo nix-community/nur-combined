@@ -13,12 +13,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "partiels";
-  version = "2.5.2";
+  version = "2.6.0";
   src = fetchFromGitHub {
     owner = "Ircam-Partiels";
     repo = "Partiels";
     rev = finalAttrs.version;
-    hash = "sha256-sEQHyxawaeCuuwYULz5+FQjXDXn34Btuiylr55Hdb8Y=";
+    hash = "sha256-uhVd8dHZduSf0JhDpGw/hWor5sDz1Ok1d7YNKTfv54A=";
     fetchSubmodules = true;
   };
 
@@ -32,6 +32,11 @@ stdenv.mkDerivation (finalAttrs: {
     libjack2
     libxi
   ];
+
+  postPatch = ''
+    substituteInPlace Dependencies/ircam-vamp-extension/Source/IvePluginExtension.hpp \
+      --replace-fail "std::uint32_t" "uint32_t"
+  '';
 
   installPhase = ''
     runHook preInstall

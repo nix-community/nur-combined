@@ -12,6 +12,7 @@
   libdecor,
   libdrm,
   libgbm,
+  libjack2,
   libsndfile,
   libx11,
   libxcursor,
@@ -24,15 +25,16 @@
   makeWrapper,
   openal,
   openssl,
+  portaudio,
   unzip,
   wayland,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "helion-bin";
-  version = "1.0.0.0";
+  version = "1.1.0.0";
   src = fetchzip {
     url = "https://github.com/Helion-Engine/Helion/releases/download/${finalAttrs.version}/Helion-${finalAttrs.version}-linux-x64_AOT.zip";
-    sha256 = "sha256-+ung0E60Vnep1SwLQhMRGDp9+6l26xel7fGVMWXA/p4=";
+    sha256 = "sha256-rmveRTgqi7y2qTKk1Mhbh0hw6z17aFfr1S51a3SYSTs=";
     stripRoot = false;
   };
 
@@ -48,6 +50,7 @@ stdenv.mkDerivation (finalAttrs: {
     libdecor
     libdrm
     libgbm
+    libjack2
     libsndfile
     libx11
     libxcursor
@@ -59,6 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
     libxxf86vm
     openal
     openssl
+    portaudio
     stdenv.cc.cc.lib
     wayland
   ];
