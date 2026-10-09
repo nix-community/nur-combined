@@ -1,0 +1,109 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+BIN_DIR="$HOME/.local/share/tailscale-bin"
+STATE="$HOME/.local/state/tailscale/tailscaled.state"
+SOCK=/run/tailscale/tailscaled.sock
+LOG=/tmp/tailscaled.log
+SOCKS_HOST=127.0.0.1
+SOCKS_PORT=1055
+EXIT_NODE=ravenrock
+HOSTNAME_TS=grok-bot
+TIMEOUT=${LEDGER_PROXY_TIMEOUT:-30}
+TS="$BIN_DIR/tailscale"
+TSD="$BIN_DIR/tailscaled"
+
+log() { echo "ledger-proxy-up: $*" >&2; }
+
+exec 9>/tmp/ledger-proxy-up.lock
+flock -w 120 9 || { log "não consegui o lock"; exit 1; }
+
+socks_ok() { (exec 3<>"/dev/tcp/$SOCKS_HOST/$SOCKS_PORT") 2>/dev/null; }
+
+ts_state() {
+  "$TS" --socket="$SOCK" status --json 2>/dev/null | python3 -c '
+import json, sys
+try:
+    d = json.load(sys.stdin)
+except Exception:
+    sys.exit(0)
+s = d.get("BackendState", "")
+if s == "Running" and d.get("ExitNodeStatus"):
+    s += "+exit"
+print(s)' 2>/dev/null || true
+}
+
+if [[ -x "$TS" && -x "$TSD" ]] && pgrep -x tailscaled >/dev/null 2>&1 \
+   && [[ "$(ts_state)" == "Running+exit" ]] && socks_ok; then
+  exit 0
+fi
+
+if [[ ! -x "$TS" || ! -x "$TSD" ]]; then
+  case "$(uname -m)" in
+    x86_64) ARCH=amd64 ;; aarch64|arm64) ARCH=arm64 ;; armv7l) ARCH=arm ;; i?86) ARCH=386 ;;
+    *) log "arquitetura não suportada: $(uname -m)"; exit 1 ;;
+  esac
+  VER=$(curl -fsSL --max-time 30 'https://pkgs.tailscale.com/stable/?mode=json' \
+        | python3 -c 'import json,sys; print(json.load(sys.stdin)["TarballsVersion"])')
+  log "baixando tailscale $VER ($ARCH) para $BIN_DIR"
+  TMP=$(mktemp -d); trap 'rm -rf "$TMP"' EXIT
+  curl -fsSL --max-time 300 "https://pkgs.tailscale.com/stable/tailscale_${VER}_${ARCH}.tgz" \
+    | tar -xz -C "$TMP"
+  mkdir -p "$BIN_DIR"
+  install -m 755 "$TMP"/tailscale_*/tailscale "$TMP"/tailscale_*/tailscaled "$BIN_DIR/"
+fi
+for b in tailscale tailscaled; do
+  if [[ "$(readlink -f /usr/local/bin/$b 2>/dev/null)" != "$BIN_DIR/$b" ]]; then
+    sudo -n ln -sfn "$BIN_DIR/$b" "/usr/local/bin/$b" 2>/dev/null || true
+  fi
+done
+
+if ! pgrep -x tailscaled >/dev/null 2>&1; then
+  mkdir -p "$(dirname "$STATE")"; chmod 700 "$(dirname "$STATE")"
+  sudo -n mkdir -p "$(dirname "$SOCK")"
+  setsid -f sudo -n "$TSD" --tun=userspace-networking \
+    --socks5-server="localhost:$SOCKS_PORT" \
+    --state="$STATE" --socket="$SOCK" >>"$LOG" 2>&1 </dev/null 9>&-
+fi
+
+deadline=$((SECONDS + TIMEOUT))
+while [[ -z "$(ts_state)" ]]; do
+  (( SECONDS < deadline )) || { log "tailscaled não respondeu em ${TIMEOUT}s (veja $LOG)"; exit 1; }
+  sleep 0.5
+done
+while st=$(ts_state); [[ "$st" != "Running+exit" && "$st" != "NeedsLogin" && "$st" != "Stopped" ]] \
+      && (( SECONDS < deadline - 10 )); do sleep 0.5; done
+
+st=$(ts_state)
+if [[ "$st" != "Running+exit" ]]; then
+  if [[ "$st" == "NeedsLogin" ]]; then
+    log "o nó precisa de login. Abra a URL abaixo no navegador (aguardando até 5 min)."
+    up_timeout=300s
+  else
+    up_timeout=$((deadline - SECONDS > 5 ? deadline - SECONDS : 5))s
+  fi
+  ts_up() {
+    local cmd=(sudo -n "$TS" --socket="$SOCK" up --reset --timeout="$up_timeout"
+      --hostname="$HOSTNAME_TS" --accept-dns=false
+      --exit-node="$EXIT_NODE" --exit-node-allow-lan-access=false)
+    if [[ "$st" == "NeedsLogin" ]]; then
+      "${cmd[@]}" 2>&1 | tee /tmp/ledger-proxy-up.out >&2
+    else
+      "${cmd[@]}" >/tmp/ledger-proxy-up.out 2>&1
+    fi
+  }
+  until ts_up; do
+    if (( SECONDS >= deadline )) || ! grep -q 'starting up' /tmp/ledger-proxy-up.out; then
+      cat /tmp/ledger-proxy-up.out >&2
+      log "tailscale up falhou"; exit 1
+    fi
+    sleep 1
+  done
+  [[ "$st" == "NeedsLogin" ]] && deadline=$((SECONDS + TIMEOUT))
+fi
+
+until [[ "$(ts_state)" == "Running+exit" ]] && socks_ok; do
+  (( SECONDS < deadline )) || { log "SOCKS em $SOCKS_HOST:$SOCKS_PORT não ficou pronto em ${TIMEOUT}s (estado: $(ts_state))"; exit 1; }
+  sleep 0.5
+done
+exit 0

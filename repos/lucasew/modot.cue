@@ -442,6 +442,7 @@ modules: {
 #is_riverwood: runtime.hostname == "riverwood"
 #is_massan: runtime.hostname == "MacBook-Air-de-Lucas.local"
 #is_ravenrock: runtime.hostname == "ravenrock"
+#is_grokbot: strings.HasPrefix(runtime.hostname, "grok-bot-vm-")
 #is_computer: #is_whiterun || #is_riverwood || #is_massan
 // github:lewtec/skills is private. Leave this off so a new machine can
 // home apply before anyone logs in or copies a token.
@@ -458,7 +459,7 @@ backup: {
 			"personal-bookmarks",
 			"personal-decsync",
 			"personal-zettel-org",
-		] if (#is_computer || #is_phone) {
+		] if (#is_computer || #is_phone || (#is_grokbot && repo_name == "personal-beancount")) {
 			name: "git repo \(repo_name)"
 			kind: "git_repo_sync"
 			src:  "\(runtime.home)/.personal/\(repo_name)"

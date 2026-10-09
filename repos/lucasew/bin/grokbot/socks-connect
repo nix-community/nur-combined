@@ -1,0 +1,99 @@
+#!/usr/bin/env python3
+"""socks-connect HOST PORT: SOCKS5 ProxyCommand."""
+
+import os
+import socket
+import struct
+import sys
+import threading
+
+PROXY = (
+    os.environ.get("SOCKS_PROXY_HOST", "127.0.0.1"),
+    int(os.environ.get("SOCKS_PROXY_PORT", "1055")),
+)
+ERRORS = {
+    1: "falha geral",
+    2: "não permitido",
+    3: "rede inalcançável",
+    4: "host inalcançável",
+    5: "conexão recusada",
+    6: "TTL expirou",
+    7: "comando não suportado",
+    8: "tipo de endereço não suportado",
+}
+
+
+def die(msg):
+    sys.stderr.write(f"socks-connect: {msg}\n")
+    os._exit(1)
+
+
+def recv_exact(s, n):
+    buf = b""
+    while len(buf) < n:
+        chunk = s.recv(n - len(buf))
+        if not chunk:
+            die("proxy fechou a conexão durante o handshake")
+        buf += chunk
+    return buf
+
+
+def main():
+    if len(sys.argv) != 3:
+        die("uso: socks-connect HOST PORT")
+    host, port = sys.argv[1], int(sys.argv[2])
+    hb = host.encode("idna")
+    if len(hb) > 255:
+        die("hostname longo demais")
+    try:
+        s = socket.create_connection(PROXY, timeout=30)
+    except OSError as e:
+        die(f"não conectou no proxy {PROXY[0]}:{PROXY[1]}: {e}")
+    s.sendall(b"\x05\x01\x00")
+    ver, method = recv_exact(s, 2)
+    if ver != 5 or method != 0:
+        die("proxy não aceitou autenticação 'none'")
+    s.sendall(b"\x05\x01\x00\x03" + bytes([len(hb)]) + hb + struct.pack(">H", port))
+    ver, rep, _, atyp = recv_exact(s, 4)
+    if ver != 5 or rep != 0:
+        die(f"CONNECT {host}:{port} falhou: {ERRORS.get(rep, rep)}")
+    if atyp == 1:
+        recv_exact(s, 4 + 2)
+    elif atyp == 4:
+        recv_exact(s, 16 + 2)
+    elif atyp == 3:
+        recv_exact(s, recv_exact(s, 1)[0] + 2)
+    else:
+        die("resposta do proxy inválida")
+    s.settimeout(None)
+
+    def up():  # stdin -> socket
+        try:
+            while True:
+                data = os.read(0, 65536)
+                if not data:
+                    break
+                s.sendall(data)
+        except OSError:
+            pass
+        try:
+            s.shutdown(socket.SHUT_WR)
+        except OSError:
+            pass
+
+    threading.Thread(target=up, daemon=True).start()
+    try:  # socket -> stdout
+        while True:
+            data = s.recv(65536)
+            if not data:
+                break
+            view = memoryview(data)
+            while view:
+                view = view[os.write(1, view) :]
+    except OSError:
+        pass
+    os._exit(0)
+
+
+if __name__ == "__main__":
+    main()

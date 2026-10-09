@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+dir="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
+[[ "${1:-}" == "-G" ]] || "$dir/ledger-proxy-up" || { echo "rsyncnet-ssh: proxy indisponível" >&2; exit 255; }
+exec ssh -i "$HOME/.ssh/id_ed25519_rsyncnet" -o IdentitiesOnly=yes \
+  -o "UserKnownHostsFile=$dir/known_hosts" \
+  -o StrictHostKeyChecking=yes \
+  -o "ProxyCommand=$dir/socks-connect %h %p" "$@"

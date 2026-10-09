@@ -24,6 +24,7 @@
 - riverwood - laptop, Intel CPU/GPU, ext4, Sway/i3
 - whiterun - desktop, Ryzen 5600G, ZFS, monitoring/containers
 - ravenrock - Hostinger VPS, running debian, config has a older version for GCP
+- grok-bot-vm-* - `#is_grokbot`
 
 ## Common commands
 
