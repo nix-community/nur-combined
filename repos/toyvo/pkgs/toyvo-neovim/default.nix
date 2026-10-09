@@ -233,6 +233,16 @@ if inputs ? "nvf" then
             telescope.enable = true;
             autocomplete.blink-cmp = {
               enable = true;
+              # nvf turns these into explicit <Tab>/<S-Tab> bindings that
+              # override the super-tab preset's <Tab> (select_and_accept)
+              # with a cycle-only select_next — which is why Tab appeared to
+              # skip the first item instead of completing it. Null them so
+              # the preset owns <Tab> (completes the first/selected item).
+              # Cycling is still on <Down>/<Up>/<C-n>/<C-p>.
+              mappings = {
+                next = null;
+                previous = null;
+              };
               setupOpts = {
                 signature.enabled = true;
 
