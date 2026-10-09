@@ -197,6 +197,9 @@ let
       sed -i 's/Description=Waydroid Container/Description=Miodroid Container/' \
         systemd/miodroid-container.service
 
+      # Also add dma_heap for Android 13
+      sed -i 's|make_entry("/dev/ion")|make_entry("/dev/ion")\n    make_entry("/dev/dma_heap", "dev/dma_heap", check=False)|' tools/helpers/lxc.py
+
       # Rename Makefile: lib dir, binary symlink, icon, dbus files, apparmor, service
       sed -i \
         -e 's|lib/waydroid|lib/miodroid|g' \
@@ -217,6 +220,11 @@ let
       # The LXC configuration uses the rebranded seccomp filename.
       mv data/configs/waydroid.seccomp data/configs/miodroid.seccomp
       mv data/configs/waydroid-binder.rc data/configs/miodroid-binder.rc
+      # In rootless containers, ueventd crashes due to lack of global permissions.
+      # If it crashes 4 times, Android init triggers a fatal reboot.
+      # Stop it cleanly before wait_for_coldboot_done hangs or it triggers the loop limit.
+      # And set the cold boot property so init doesn't hang forever waiting for it.
+      echo -e "    stop ueventd\n    setprop ro.boottime.init.cold_boot_done 1" >> data/configs/miodroid-binder.rc
 
       find . \( -name "*.py" -o -name "*.sh" -o -name "Makefile" \) -exec sed -i \
         -e 's|waydroid-binder|miodroid-binder|g' \

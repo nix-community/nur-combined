@@ -188,7 +188,6 @@ in
       virtualisation.miodroid-rootless = {
         enable = true;
         package = package;
-        hostBinderfs = true;
       };
 
       virtualisation.memorySize = 4096;
@@ -327,7 +326,7 @@ in
       # rootless mode is whether Android itself boots with its own binderfs,
       # its idmapped root and the user's images.
       if test $running -ge 10; then
-          for i in $(seq 1 900); do
+          for i in $(seq 1 120); do
               if lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- \
                       /system/bin/getprop sys.boot_completed 2>/dev/null |
                       grep -q '^1'; then
