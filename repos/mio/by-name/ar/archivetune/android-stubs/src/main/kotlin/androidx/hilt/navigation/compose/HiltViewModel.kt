@@ -11,6 +11,10 @@ inline fun <reified VM : ViewModel> hiltViewModel(): VM {
 }
 
 fun _createViewModelInstance(clazz: Class<*>): Any? {
+    if (clazz.name == "android.content.Context") {
+        return android.content.DummyContext()
+    }
+    
     when {
         clazz == Int::class.java -> return 0
         clazz == Boolean::class.java -> return false
