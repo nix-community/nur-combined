@@ -7,7 +7,6 @@
   cargo,
   cmake,
   gitMinimal,
-  perl,
   pkg-config,
   rustc,
   systemdLibs,
@@ -127,7 +126,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
   nativeBuildInputs = [
     pkg-config
     cmake
-    perl
     gitMinimal
     rustPlatform.bindgenHook
   ];
