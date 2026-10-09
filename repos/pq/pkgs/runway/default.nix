@@ -9,19 +9,19 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    i686-linux = "1lxk1sbclinagq315d3c0rif7isyk204dj7zfq6nixj74h6k82rb";
-    x86_64-linux = "079dfc23n450dll38zmdyrgfi219v8w7a8vyikp42gb53gs7avsd";
-    aarch64-linux = "0nmj7df8pynd20ia69m2fih73j5wh6jrlxzdc2danha1qqxygmi6";
-    x86_64-darwin = "11hqky32a0f3f39ba0nfqfy5sfs93xcqzl4ilb5shdgdfxz9fxm6";
-    aarch64-darwin = "0ji43vqg8ff5svxzvw21vphg0jqchjxddwhvb6ahjxs2yb2qkhgl";
+    i686-linux = "007w8z40ascvrlws1sfr37l57d5602m9ps42b411hsl0j7d01wh3";
+    x86_64-linux = "0a5gq1j5sv5fkvma3yfx4rkv15ycf5bky7l557mwbq01i20nxcgy";
+    aarch64-linux = "11gdbqwf6b2877w0bsri9vcg6c6zx4mq8dig55csivmafasmjvpb";
+    x86_64-darwin = "10jar7dl3wp4pxrc3p01lnlnqz54n6b0sxyzn40yy0j1basw9lx9";
+    aarch64-darwin = "0makwgx4msy225b3sffisbd05v6919655qg6qdd0bld9c66xcwj2";
   };
 
   urlMap = {
-    i686-linux = "https://download.runway.horse/runway/1.47.2/runway_Linux_i386.tar.gz";
-    x86_64-linux = "https://download.runway.horse/runway/1.47.2/runway_Linux_x86_64.tar.gz";
-    aarch64-linux = "https://download.runway.horse/runway/1.47.2/runway_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://download.runway.horse/runway/1.47.2/runway_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://download.runway.horse/runway/1.47.2/runway_Darwin_arm64.tar.gz";
+    i686-linux = "https://download.runway.horse/runway/1.48.0/runway_Linux_i386.tar.gz";
+    x86_64-linux = "https://download.runway.horse/runway/1.48.0/runway_Linux_x86_64.tar.gz";
+    aarch64-linux = "https://download.runway.horse/runway/1.48.0/runway_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://download.runway.horse/runway/1.48.0/runway_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://download.runway.horse/runway/1.48.0/runway_Darwin_arm64.tar.gz";
   };
   sourceRootMap = {
     i686-linux = "runway_Linux_i386";
@@ -33,7 +33,7 @@ let
 in
 stdenvNoCC.mkDerivation {
   pname = "runway";
-  version = "1.47.2";
+  version = "1.48.0";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
@@ -44,8 +44,10 @@ stdenvNoCC.mkDerivation {
   nativeBuildInputs = [ installShellFiles ];
 
   installPhase = ''
+    runHook preInstall
     mkdir -p $out/bin
     cp -vr ./runway $out/bin/runway
+    runHook postInstall
   '';
 
   meta = {
