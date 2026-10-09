@@ -34,7 +34,7 @@ in
 
     modRoot = "cli";
     subPackages = ["cmd/albedo"];
-    vendorHash = "sha256-anejjYuFbxXkUn5L/jdNQXkR8oTBfv/9zjxCEZ/Qs9U=";
+    vendorHash = "sha256-38LeCRfuUZ/OrIpD4Cn9YPEkzWpfQvVCvCy/r5mJj0Q=";
 
     # keep-sorted start
     ALBEDO_NO_BROWSER = "1";

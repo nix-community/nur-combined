@@ -88,7 +88,8 @@
     # keep-sorted end
   ];
 
-  manifest = fromTOML (readFile "${src}/manifest.toml");
+  # Copy from the pinned source so restricted NUR evaluation needs no IFD.
+  manifest = fromTOML (readFile ./manifest.toml);
 
   hexPackages =
     map (p: {
@@ -129,6 +130,17 @@ in
 
     buildPhase = ''
       runHook preBuild
+
+      # Updating src also requires refreshing the vendored dependency manifest.
+      ${python311}/bin/python3 - <<'PY'
+      import tomllib
+      from pathlib import Path
+
+      upstream = tomllib.loads(Path("manifest.toml").read_text())
+      vendored = tomllib.loads(Path("${./manifest.toml}").read_text())
+      if upstream != vendored:
+          raise SystemExit("Refresh pkgs/albedo-git/manifest.toml from the pinned source")
+      PY
 
       export HOME="$TMPDIR/home"
       mkdir -p "$HOME" build/packages
