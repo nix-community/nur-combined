@@ -5,6 +5,7 @@
   cudaArchitectures ? "75;80;86;89;120",
   cudaPackages_13,
   fetchFromGitHub,
+  makeWrapper,
   ninja,
   python3,
 }:
@@ -28,6 +29,15 @@ let
     ps.pillow
     ps.psutil
   ]);
+  hydrateScript = ''
+    dest="''${XDG_DATA_HOME:-''$HOME/.local/share}/strata"
+    if [[ ! -f "$dest/.nix-store-version" || "''$(< "$dest/.nix-store-version")" != "${version}" ]]; then
+      rm -rf "$dest"
+      cp -a "${placeholder "out"}/share/strata/" "$dest/"
+      chmod -R u+w "$dest"
+      echo "${version}" > "$dest/.nix-store-version"
+    fi
+  '';
 in
 cudaPackages_13.backendStdenv.mkDerivation (finalAttrs: {
   pname = "strata";
@@ -50,6 +60,7 @@ cudaPackages_13.backendStdenv.mkDerivation (finalAttrs: {
     cudaPackages_13.cuda_nvcc
     pythonEnv
     autoAddDriverRunpath
+    makeWrapper
   ];
 
   buildInputs = [
@@ -57,8 +68,6 @@ cudaPackages_13.backendStdenv.mkDerivation (finalAttrs: {
     cudaPackages_13.cuda_cudart
     cudaPackages_13.libcublas
   ];
-
-  env.CUDA_ARCHS = cudaArchitectures;
 
   cmakeFlags = [
     (lib.cmakeBool "STRATA_ENABLE_CUDA" true)
@@ -71,76 +80,50 @@ cudaPackages_13.backendStdenv.mkDerivation (finalAttrs: {
   ninjaFlags = [ "strata" ];
 
   installPhase = ''
-        runHook preInstall
+    runHook preInstall
 
-        cd "$cmakeDir"
+    cd "$cmakeDir"
 
-        mkdir -p "$out/share/strata/engine" "$out/bin"
-        cp ./build/strata "$out/share/strata/engine/strata"
-        chmod 755 "$out/share/strata/engine/strata"
+    install -Dm755 build/strata "$out/share/strata/engine/strata"
 
-        rm -rf ./build
-        mkdir -p "$out/share/strata"
-        cp -a . "$out/share/strata/"
-        rm -rf "$out/share/strata/build"
+    cp -a . "$out/share/strata/"
+    rm -rf "$out/share/strata/build"
 
-        sed -i -e '/^cmake==/d' -e '/^ninja==/d' "$out/share/strata/requirements.txt"
+    sed -i -e '/^cmake==/d' -e '/^ninja==/d' "$out/share/strata/requirements.txt"
 
-        cd "$out/share/strata"
-        CUDA_ARCHS="$CUDA_ARCHS" STRATA_VERSION="${finalAttrs.version}" python3 - <<'PYEOF'
+    # the engine copy's BUILD.json must carry the same src hash setup.py
+    # recomputes at run time, or it recompiles the engine instead of using it
+    cd "$out/share/strata"
+    python3 - <<'PYEOF'
     import json
-    import os
     import setup
 
     meta = {
         "source": "local",
-        "version": os.environ["STRATA_VERSION"],
-        "archs": [int(a) for a in os.environ["CUDA_ARCHS"].split(";")],
+        "version": "${finalAttrs.version}",
+        "archs": [int(a) for a in "${cudaArchitectures}".split(";")],
         "vision": "none",
         "cuda": 13,
         "src": setup.source_hash(setup.ENGINE_SOURCES),
     }
-    with open(os.path.join("engine", "BUILD.json"), "w", encoding="utf-8") as f:
+    with open("engine/BUILD.json", "w", encoding="utf-8") as f:
         json.dump(meta, f, indent=1)
-    f2 = open(os.path.join("engine", "BUILD.json"), encoding="utf-8")
-    assert json.load(f2)["src"] == setup.source_hash(setup.ENGINE_SOURCES)
-    print("BUILD.json src hash verified:", meta["src"])
     PYEOF
+    rm -rf "$out/share/strata/__pycache__"
 
-        rm -rf "$out/share/strata/__pycache__"
+    # makeWrapper --run content is pasted verbatim into the generated wrapper, so
+    # $dest there is expanded each time the wrapper runs
+    makeWrapper ${lib.getExe pythonEnv} "$out/bin/strata" \
+      --run ${lib.escapeShellArg hydrateScript} \
+      --set STRATA_EXECV 1 \
+      --add-flags '"''$dest/setup.py"'
 
-        cat > "$out/bin/strata" <<'WEOF'
-    #!/usr/bin/env bash
-    set -euo pipefail
-    dest="''${XDG_DATA_HOME:-''$HOME/.local/share}/strata"
-    if [[ ! -f "$dest/.nix-store-version" || "''$(cat "$dest/.nix-store-version")" != "@version@" ]]; then
-      rm -rf "$dest"
-      cp -a "@out@/share/strata/" "$dest/"
-      chmod -R u+w "$dest"
-      echo "@version@" > "$dest/.nix-store-version"
-    fi
-    export STRATA_EXECV=1
-    exec "@python@/bin/python" "$dest/setup.py" "$@"
-    WEOF
-        cat > "$out/bin/strata-chat" <<'WEOF'
-    #!/usr/bin/env bash
-    set -euo pipefail
-    dest="''${XDG_DATA_HOME:-''$HOME/.local/share}/strata"
-    if [[ ! -f "$dest/.nix-store-version" || "''$(cat "$dest/.nix-store-version")" != "@version@" ]]; then
-      rm -rf "$dest"
-      cp -a "@out@/share/strata/" "$dest/"
-      chmod -R u+w "$dest"
-      echo "@version@" > "$dest/.nix-store-version"
-    fi
-    export STRATA_EXECV=1
-    exec "@python@/bin/python" "$dest/chat.py" "$@"
-    WEOF
-        for f in "$out/bin/strata" "$out/bin/strata-chat"; do
-          chmod 755 "$f"
-          sed -i -e "s|@out@|$out|g" -e "s|@python@|${pythonEnv}|g" -e "s|@version@|${finalAttrs.version}|g" "$f"
-        done
+    makeWrapper ${lib.getExe pythonEnv} "$out/bin/strata-chat" \
+      --run ${lib.escapeShellArg hydrateScript} \
+      --set STRATA_EXECV 1 \
+      --add-flags '"''$dest/chat.py"'
 
-        runHook postInstall
+    runHook postInstall
   '';
 
   passthru.llamaSrc = llamaSrc;
