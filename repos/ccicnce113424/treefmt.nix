@@ -27,6 +27,11 @@
         programs.prettier.enable = true;
         programs.just.enable = true;
         programs.shfmt.enable = true;
+        programs.shellcheck = {
+          enable = true;
+          external-sources = true;
+          source-path = "SCRIPTDIR";
+        };
         programs.keep-sorted.enable = true;
         programs.actionlint.enable = true;
       };

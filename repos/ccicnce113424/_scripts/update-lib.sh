@@ -15,7 +15,7 @@ parse_args() {
 setup_paths() {
   SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[1]}")" >/dev/null 2>&1 && pwd)
   REPO_ROOT=$(cd "$SCRIPT_DIR/../.." && pwd)
-  cd "$REPO_ROOT"
+  cd "$REPO_ROOT" || exit
   package_dir=$SCRIPT_DIR
   src_info=$package_dir/src-info.json
   pubspec_lock_json=$package_dir/pubspec.lock.json
@@ -23,7 +23,9 @@ setup_paths() {
 }
 
 # 从 _sources/generated.json 读取版本和源码哈希
-# 输出：设置 version, source_sha256
+# 输入：package_name 由调用脚本设置
+# 输出：设置 version, source_sha256，供调用脚本使用
+# shellcheck disable=SC2034,SC2154
 read_source_info() {
   version=$(jq -r ".\"$package_name\".src.rev" _sources/generated.json)
   source_sha256=$(jq -r ".\"$package_name\".src.sha256" _sources/generated.json)

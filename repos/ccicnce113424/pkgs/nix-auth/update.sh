@@ -1,5 +1,6 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i bash -p gnugrep jq
+# shellcheck shell=bash
 set -euo pipefail
 
 source "$(dirname "${BASH_SOURCE[0]}")/../../_scripts/update-lib.sh"

@@ -1,4 +1,5 @@
 #!/usr/bin/env -S nix shell -L nixpkgs#nix-prefetch-git nixpkgs#yq-go nixpkgs#jq -c bash
+# shellcheck shell=bash
 set -euo pipefail
 
 source "$(dirname "${BASH_SOURCE[0]}")/../../_scripts/update-lib.sh"

@@ -39,8 +39,10 @@ jobs:
           # cp "$NIXPKGS_PATH/pkgs/by-name/mo/motrix-next/package.nix" ./pkgs/motrix-next
           # keep-sorted start
           pkgs/dav2d/update.sh
+          pkgs/doona-web/update.sh
           pkgs/dorion-git/update.sh
           pkgs/enimul/update.sh
+          pkgs/honk-core/update.sh
           pkgs/kanzi-cpp/update.sh
           pkgs/kanzi-go/update.sh
           pkgs/kikoflu/update.sh
