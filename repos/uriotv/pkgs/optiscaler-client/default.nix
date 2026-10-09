@@ -40,7 +40,7 @@
 
 let
   pname = "optiscaler-client";
-  version = "1.0.7.2";
+  version = "1.0.8";
 
   runtimeLibs = [
     alsa-lib
@@ -80,7 +80,7 @@ buildDotnetModule {
     owner = "Agustinm28";
     repo = "Optiscaler-Client";
     tag = "OptiscalerClient-${version}";
-    hash = "sha256-dvlNbeWDhmiHLem55DBRb51uFkr08e8G+uP8uYZwN6M=";
+    hash = "sha256-6Kz5OE3/6h8tm6RxVLIVmpYwyoFD5GMHBlGLSMqF9os=";
   };
 
   dotnet-sdk = dotnetCorePackages.sdk_10_0;
