@@ -9,13 +9,13 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "prometheus-tailscale-exporter";
-  version = "1.2.0";
+  version = "1.3.0";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "tailscale_exporter";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-ffHrFPXycSLHfMN/uuOjyHTvsPHPEQKuBqHG4xUNrC0=";
+    hash = "sha256-9SScNiOGrSLqczeMwqtmuxqHQCLwBnz8/fv1unaaHxY=";
   };
 
   vendorHash = "sha256-KyA4s1FyWpwnnCGXT72fKJyCKbpXmG3vOscG1jFqR90=";
