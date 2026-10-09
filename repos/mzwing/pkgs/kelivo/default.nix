@@ -63,6 +63,11 @@ in
     postPatch = ''
       mkdir -p lib/secrets
       echo 'const String siliconflowFallbackKey = "";' > lib/secrets/fallback.dart
+
+      # v1.3.1 ships a syntax error: `final` on an overriding method parameter,
+      # rejected by Dart 3.13's kernel compiler. Still unfixed on master.
+      sed -i 's/final GptMarkdownConfig config,/GptMarkdownConfig config,/' \
+        lib/shared/widgets/markdown_with_highlight.dart
     '';
 
     # Required, not optional: the `sqlite3` package source builder hands sqlite over

@@ -96,10 +96,10 @@
   };
   cnb-cli = {
     pname = "cnb-cli";
-    version = "1.17.3";
+    version = "1.17.4";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.3.tgz";
-      sha256 = "sha256-ktQMkWdcR8Hgwgr8fFfaxOtNHtPk+dch03J9Ivmj3LM=";
+      url = "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.4.tgz";
+      sha256 = "sha256-m5XAyzgBPnJ6f1o2RuiI9Lpc57ACiNcg/WTRdqFJZk4=";
     };
   };
   codegraph = {

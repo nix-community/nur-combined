@@ -176,11 +176,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ktQMkWdcR8Hgwgr8fFfaxOtNHtPk+dch03J9Ivmj3LM=",
+            "sha256": "sha256-m5XAyzgBPnJ6f1o2RuiI9Lpc57ACiNcg/WTRdqFJZk4=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.3.tgz"
+            "url": "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.4.tgz"
         },
-        "version": "1.17.3"
+        "version": "1.17.4"
     },
     "codegraph": {
         "cargoLock": null,
