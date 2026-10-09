@@ -8,15 +8,34 @@ jobs:
         name: update
         runs-on: ubuntu-latest
         permissions:
-            contents: write
+            contents: read
         steps:
+            - name: Generate GitHub App Token
+              id: app-token
+              uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3
+              with:
+                  client-id: ${{ secrets.APP_ID }}
+                  private-key: ${{ secrets.APP_PRIVATE_KEY }}
+                  permission-contents: write
+
             - name: Checkout repository
               uses: actions/checkout@v7
+              with:
+                  token: ${{ steps.app-token.outputs.token }}
+
+            - name: Configure GitHub App identity
+              env:
+                  GH_TOKEN: ${{ steps.app-token.outputs.token }}
+                  APP_SLUG: ${{ steps.app-token.outputs.app-slug }}
+              run: |
+                  app_user_id=$(gh api "/users/${APP_SLUG}[bot]" --jq .id)
+                  git config user.name "${APP_SLUG}[bot]"
+                  git config user.email "${app_user_id}+${APP_SLUG}[bot]@users.noreply.github.com"
 
             - name: Prepare Nix Environment
               uses: ./.github/prepare-nix
               with:
-                  GH_PAT: ${{ secrets.GITHUB_TOKEN }}
+                  GH_PAT: ${{ steps.app-token.outputs.token }}
                   ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
                   ATTIC_SERVER: ${{ vars.ATTIC_SERVER }}
                   ATTIC_CACHE: ${{ vars.ATTIC_CACHE }}
@@ -31,23 +50,19 @@ jobs:
 
             - name: Flake update
               run: |
-                  git config user.name "github-actions[bot]"
-                  git config user.email "github-actions[bot]@users.noreply.github.com"
                   nix flake update --commit-lock-file
                   pushd flake-modules/dev
                   nix flake update --commit-lock-file
                   popd
 
             - name: Fetch new versions
+              env:
+                  GH_TOKEN: ${{ steps.app-token.outputs.token }}
               run: |
-                  cat > secrets.toml <<EOF
-                  [keys]
-                  github = "${{ secrets.GITHUB_TOKEN }}"
-                  EOF
-
-                  nix develop -c update-packages
-
-                  rm -f secrets.toml
+                  key_file=$(mktemp)
+                  trap 'rm -f "$key_file"' EXIT
+                  printf '[keys]\ngithub = "%s"\n' "$GH_TOKEN" > "$key_file"
+                  nix develop -c update-packages -k "$key_file"
 
             - name: copy nixpkgs scripts
               run: |
