@@ -3,10 +3,17 @@ import subprocess
 import argparse
 import shutil
 import json
+import sys
+import datetime
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 ROOT_NIX_FILE = str(REPO_ROOT / "default.nix")
+
+# Per-package result collector: {pkg, status, detail?}
+RESULTS = []
+
+log = lambda *a: print(*a, file=sys.stderr)
 
 
 def list_packages():
@@ -158,84 +165,119 @@ def run_update_script(script, pkg_dir: Path, pkg_name: str, extra_args=None):
             print(f"[SKIP] Unknown dictionary format in updateScript: {script}")
 
 
+def record(pkg_name, status, detail=None):
+    """Record a package's final status (idempotent: same pkg recorded once)."""
+    if any(r["pkg"] == pkg_name for r in RESULTS):
+        return
+    r = {"pkg": pkg_name, "status": status}
+    if detail is not None:
+        r["detail"] = detail
+    RESULTS.append(r)
+
+
 def update_package(pkg_name, extra_args=None):
-    """更新单个包，包含 drv 优先判断"""
+    """Update a single package; any exception is isolated so it does not abort others."""
     extra_args = extra_args or []
 
-    if not check_auto_update(pkg_name):
-        print(f"[SKIP] {pkg_name}: passthru.autoUpdate = false")
-        return
+    try:
+        if not check_auto_update(pkg_name):
+            log(f"[SKIP] {pkg_name}: passthru.autoUpdate = false")
+            record(pkg_name, "skipped", "passthru.autoUpdate = false")
+            return
 
-    update_args = get_update_args(pkg_name)
-    combined_args = update_args + extra_args
-    pkg_dir = (REPO_ROOT / "pkgs" / pkg_name).resolve()
+        update_args = get_update_args(pkg_name)
+        combined_args = update_args + extra_args
+        pkg_dir = (REPO_ROOT / "pkgs" / pkg_name).resolve()
 
-    # 1. 优先检查并使用 nix run 执行 drv 脚本
-    # 必须先于 get_update_script 执行，防止 drv 被错误识别为普通路径字符串
-    if is_derivation(pkg_name):
-        print(f"[NIX RUN] Running {pkg_name}'s updateScript as derivation...")
-        cmd = ["nix", "run", f".#{pkg_name}.passthru.updateScript", "--"] + combined_args
+        if is_derivation(pkg_name):
+            log(f"[NIX RUN] Running {pkg_name}'s updateScript as derivation...")
+            cmd = ["nix", "run", f".#{pkg_name}.passthru.updateScript", "--"] + combined_args
+            try:
+                subprocess.run(cmd, check=True)
+                log(f"[OK] {pkg_name} updated via nix run")
+                record(pkg_name, "updated", "nix run")
+                return
+            except subprocess.CalledProcessError as e:
+                msg = f"nix run failed: {e}"
+                log(f"[FAIL] {pkg_name} {msg}")
+                record(pkg_name, "failed", msg)
+                return
+
+        update_script = get_update_script(pkg_name)
+        if update_script:
+            log(f"[UPDATE SCRIPT] Running {pkg_name}'s traditional updateScript...")
+            try:
+                run_update_script(update_script, pkg_dir, pkg_name, combined_args)
+                log(f"[OK] {pkg_name} updated via traditional script")
+                record(pkg_name, "updated", "traditional script")
+                return
+            except subprocess.CalledProcessError as e:
+                msg = f"updateScript failed: {e}"
+                log(f"[FAIL] {pkg_name} {msg}")
+                record(pkg_name, "failed", msg)
+                return
+
+        if not shutil.which("nix-update"):
+            msg = "nix-update not found"
+            log(f"[ERROR] {msg}.")
+            record(pkg_name, "failed", msg)
+            return
+
+        cmd = ["nix-update", pkg_name, "-f", ROOT_NIX_FILE] + combined_args
+        log(f"[NIX-UPDATE] Running: {' '.join(cmd)}")
         try:
             subprocess.run(cmd, check=True)
-            print(f"[OK] {pkg_name} updated via nix run")
-            return
+            log(f"[OK] {pkg_name} updated via nix-update")
+            record(pkg_name, "updated", "nix-update")
         except subprocess.CalledProcessError as e:
-            print(f"[FAIL] {pkg_name} nix run failed: {e}")
-            return
+            msg = f"nix-update failed: {e}"
+            log(f"[FAIL] {pkg_name} {msg}")
+            record(pkg_name, "failed", msg)
 
-    # 2. 检查传统脚本格式 (string/list/dict)
-    update_script = get_update_script(pkg_name)
-    if update_script:
-        print(f"[UPDATE SCRIPT] Running {pkg_name}'s traditional updateScript...")
-        try:
-            run_update_script(update_script, pkg_dir, pkg_name, combined_args)
-            print(f"[OK] {pkg_name} updated via traditional script")
-        except subprocess.CalledProcessError as e:
-            print(f"[FAIL] {pkg_name} updateScript failed: {e}")
-        return
+    except Exception as e:  # covers pre-update eval failures (check_auto_update/is_derivation/...)
+        msg = f"unexpected error in pre-update eval: {type(e).__name__}: {e}"
+        log(f"[FAIL] {pkg_name} {msg}")
+        record(pkg_name, "failed", msg)
 
-    # 3. 兜底使用 nix-update
-    if not shutil.which("nix-update"):
-        print("[ERROR] nix-update not found.")
-        return
 
-    cmd = ["nix-update", pkg_name, "-f", ROOT_NIX_FILE] + combined_args
-    print(f"[NIX-UPDATE] Running: {' '.join(cmd)}")
-    try:
-        subprocess.run(cmd, check=True)
-        print(f"[OK] {pkg_name} updated via nix-update")
-    except subprocess.CalledProcessError as e:
-        print(f"[FAIL] {pkg_name} nix-update failed: {e}")
+def emit_summary():
+    """Emit the structured summary as a single JSON line on stdout."""
+    result = {
+        "updated": sum(1 for r in RESULTS if r["status"] == "updated"),
+        "skipped": sum(1 for r in RESULTS if r["status"] == "skipped"),
+        "failed": sum(1 for r in RESULTS if r["status"] == "failed"),
+        "packages": RESULTS,
+        "generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+    }
+    print(json.dumps(result, ensure_ascii=False))
+    log(f"[SUMMARY] {result['updated']} updated / {result['skipped']} skipped / {result['failed']} failed")
 
 
 def main():
     parser = argparse.ArgumentParser(description="Update Nix packages")
     parser.add_argument("--package", help="Update a single package")
-    parser.add_argument("--commit", action="store_true", help="Pass --commit")
-    parser.add_argument("--test", action="store_true", help="Pass --test")
-    parser.add_argument("--build", action="store_true", help="Pass --build")
-    parser.add_argument("extra_args", nargs="*", help="Additional args")
+    parser.add_argument("extra_args", nargs="*", help="Additional args forwarded to update scripts")
     args = parser.parse_args()
 
-    extra_args = []
-    if args.commit: extra_args.append("--commit")
-    if args.test: extra_args.append("--test")
-    if args.build: extra_args.append("--build")
-    extra_args.extend(args.extra_args)
+    extra_args = list(args.extra_args)
 
     packages = list_packages()
     if not packages:
-        print("[ERROR] No packages found.")
+        log("[ERROR] No packages found.")
+        print(json.dumps({"updated": 0, "skipped": 0, "failed": 0, "packages": []}))
         return
 
     if args.package:
         if args.package in packages:
             update_package(args.package, extra_args)
         else:
-            print(f"[ERROR] Package {args.package} not found")
+            log(f"[ERROR] Package {args.package} not found")
+            record(args.package, "failed", "package not found in repo")
     else:
         for pkg in packages:
             update_package(pkg, extra_args)
+
+    emit_summary()
 
 
 if __name__ == "__main__":

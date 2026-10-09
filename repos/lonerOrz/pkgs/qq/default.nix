@@ -38,9 +38,6 @@ let
 
   passthru = {
     updateScript = ./update.sh;
-    versionPolicy = {
-      file = "sources.nix";
-    };
   };
 
   meta = {

@@ -42,12 +42,29 @@ jobs:
           git checkout -b auto/update-custom-packages-${{ github.run_id }}
 
       - name: Run update script
+        id: update
         run: |
           if [[ -n "${{ github.event.inputs.package }}" ]]; then
-            python3 .github/script/update-nix.py --package ${{ github.event.inputs.package }}
+            SUMMARY=$(python3 .github/script/update-nix.py --package ${{ github.event.inputs.package }} 2>/dev/null | tail -1)
           else
-            python3 .github/script/update-nix.py
+            SUMMARY=$(python3 .github/script/update-nix.py 2>/dev/null | tail -1)
           fi
+          echo "summary=$SUMMARY" >> "$GITHUB_OUTPUT"
+
+      - name: Update summary
+        if: always()
+        env:
+          SUMMARY: ${{ steps.update.outputs.summary }}
+        run: |
+          {
+            echo "## 自动更新结果"
+            echo
+            echo "**$(echo "$SUMMARY" | jq -r '"\(.updated) 更新 / \(.skipped) 跳过 / \(.failed) 失败"')**"
+            echo
+            echo "### 更新失败的应用"
+            echo
+            echo "$SUMMARY" | jq -r '.packages[] | select(.status=="failed") | "- **\(.pkg)**：\(.detail)"'
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Commit and push changes to new branch
         id: commit
@@ -67,16 +84,26 @@ jobs:
       - name: Create Pull Request via gh
         if: steps.commit.outputs.changed == 'true'
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }} # 使用你自己配置的 PAT
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          SUMMARY: ${{ steps.update.outputs.summary }}
         run: |
           DATE=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          HEAD_REF="auto/update-custom-packages-${{ github.run_id }}"
 
           gh pr create \
             --title "Chore: auto update custom packages - $DATE" \
             --body "This PR was created automatically by GitHub Actions." \
             --base master \
-            --head auto/update-custom-packages-${{ github.run_id }}
+            --head "$HEAD_REF"
 
-          gh pr edit auto/update-custom-packages-${{ github.run_id }} \
+          gh pr edit "$HEAD_REF" \
             --add-label auto_update_custom_package \
             --add-label github_actions
+
+          FAIL_BODY=$(echo "$SUMMARY" | jq -r '
+            "## 更新失败的应用\n\n**" + (.updated | tostring) + " 更新 / " + (.skipped | tostring) + " 跳过 / " + (.failed | tostring) + " 失败**\n\n以下应用本次更新失败，请检查上游或更新脚本：\n\n" + (
+              [.packages[] | select(.status=="failed") | "- **" + .pkg + "**：" + (.detail // "")] | join("\n")
+            )')
+          if echo "$SUMMARY" | jq -e '.failed > 0' >/dev/null; then
+            gh pr comment "$HEAD_REF" --body "$FAIL_BODY"
+          fi
