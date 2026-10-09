@@ -89,13 +89,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "3ebaef3555281ccc97c48b1c80c90f5eac0338c7",
-            "sha256": "sha256-aCSzir0DOPCaeljwJwDpGogz95LpMUKdcqaUWNFRr3s=",
+            "rev": "b8ad51e86309e039cef22eaac4bd76fceda74ac6",
+            "sha256": "sha256-V5qHtCi6xatVujtSTjXAx06OyhBMPWz2Z5ElS5KfDZw=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/zhyiheihei/EPD-Dashboard.git"
         },
-        "version": "3ebaef3555281ccc97c48b1c80c90f5eac0338c7"
+        "version": "b8ad51e86309e039cef22eaac4bd76fceda74ac6"
     },
     "filecodebox": {
         "cargoLock": null,
@@ -215,12 +215,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media",
-            "rev": "v4.21.8",
-            "sha256": "sha256-PHh0KFFwgslGFqXvnNLnkoUPbnzxvAhc+ZR9fSN2Uaw=",
+            "rev": "v4.21.11",
+            "sha256": "sha256-Wexnl388XCJN9wGGbkgGvs8qLxmub1XPNORJVo1lYJw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.21.8"
+        "version": "v4.21.11"
     },
     "nexus-media-web": {
         "cargoLock": null,
@@ -236,12 +236,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media-web",
-            "rev": "v4.21.8",
-            "sha256": "sha256-sUwCMzKYeGIOl6FloZjFm7EOi8ntYBEaf1IKhurdpGQ=",
+            "rev": "v4.21.11",
+            "sha256": "sha256-8aOksxVNzqDaOHCPgciG+TR8+ntXjGIETSsaniEnV5Y=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.21.8"
+        "version": "v4.21.11"
     },
     "pinyin2hanzi": {
         "cargoLock": null,
@@ -303,11 +303,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-alWodD/6dLBJXnjKjoPbRE+KiINy9LP1mlXOC/SBV/I=",
+            "sha256": "sha256-bWiTSRKn104S4aO1v4/+xkxRvt96dpUy+jVX9k+/Buk=",
             "type": "url",
-            "url": "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.19/sublinkPro-linux-amd64"
+            "url": "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.20/sublinkPro-linux-amd64"
         },
-        "version": "1.2.19"
+        "version": "1.2.20"
     },
     "sublinkpro-linux-arm64": {
         "cargoLock": null,
@@ -318,11 +318,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-WDXcMFk7QNI4IujtViBQ+n8nwlZagsCqjm1hVovFPXk=",
+            "sha256": "sha256-Ki4MHLg5ZrA8PdM5e31osb5HT0mz3y9ONswZos9ZR8A=",
             "type": "url",
-            "url": "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.19/sublinkPro-linux-arm64"
+            "url": "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.20/sublinkPro-linux-arm64"
         },
-        "version": "1.2.19"
+        "version": "1.2.20"
     },
     "sun-panel": {
         "cargoLock": null,

@@ -46,12 +46,12 @@
   };
   epd-food-server = {
     pname = "epd-food-server";
-    version = "3ebaef3555281ccc97c48b1c80c90f5eac0338c7";
+    version = "b8ad51e86309e039cef22eaac4bd76fceda74ac6";
     src = fetchgit {
       url = "https://github.com/zhyiheihei/EPD-Dashboard.git";
-      rev = "3ebaef3555281ccc97c48b1c80c90f5eac0338c7";
+      rev = "b8ad51e86309e039cef22eaac4bd76fceda74ac6";
       fetchSubmodules = false;
-      hash = "sha256-aCSzir0DOPCaeljwJwDpGogz95LpMUKdcqaUWNFRr3s=";
+      hash = "sha256-V5qHtCi6xatVujtSTjXAx06OyhBMPWz2Z5ElS5KfDZw=";
     };
     date = "2026-10-08";
   };
@@ -108,22 +108,22 @@
   };
   nexus-media = {
     pname = "nexus-media";
-    version = "v4.21.8";
+    version = "v4.21.11";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media";
-      tag = "v4.21.8";
-      hash = "sha256-PHh0KFFwgslGFqXvnNLnkoUPbnzxvAhc+ZR9fSN2Uaw=";
+      tag = "v4.21.11";
+      hash = "sha256-Wexnl388XCJN9wGGbkgGvs8qLxmub1XPNORJVo1lYJw=";
     };
   };
   nexus-media-web = {
     pname = "nexus-media-web";
-    version = "v4.21.8";
+    version = "v4.21.11";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media-web";
-      tag = "v4.21.8";
-      hash = "sha256-sUwCMzKYeGIOl6FloZjFm7EOi8ntYBEaf1IKhurdpGQ=";
+      tag = "v4.21.11";
+      hash = "sha256-8aOksxVNzqDaOHCPgciG+TR8+ntXjGIETSsaniEnV5Y=";
     };
   };
   pinyin2hanzi = {
@@ -154,18 +154,18 @@
   };
   sublinkpro-linux-amd64 = {
     pname = "sublinkpro-linux-amd64";
-    version = "1.2.19";
+    version = "1.2.20";
     src = fetchurl {
-      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.19/sublinkPro-linux-amd64";
-      hash = "sha256-alWodD/6dLBJXnjKjoPbRE+KiINy9LP1mlXOC/SBV/I=";
+      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.20/sublinkPro-linux-amd64";
+      hash = "sha256-bWiTSRKn104S4aO1v4/+xkxRvt96dpUy+jVX9k+/Buk=";
     };
   };
   sublinkpro-linux-arm64 = {
     pname = "sublinkpro-linux-arm64";
-    version = "1.2.19";
+    version = "1.2.20";
     src = fetchurl {
-      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.19/sublinkPro-linux-arm64";
-      hash = "sha256-WDXcMFk7QNI4IujtViBQ+n8nwlZagsCqjm1hVovFPXk=";
+      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.20/sublinkPro-linux-arm64";
+      hash = "sha256-Ki4MHLg5ZrA8PdM5e31osb5HT0mz3y9ONswZos9ZR8A=";
     };
   };
   sun-panel = {
