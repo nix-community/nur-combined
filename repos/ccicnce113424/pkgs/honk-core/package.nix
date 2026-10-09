@@ -7,9 +7,7 @@
   cargo,
   cmake,
   gitMinimal,
-  pkg-config,
   rustc,
-  systemdLibs,
   doona-web,
   nix-update-script,
   versionCheckHook,
@@ -124,13 +122,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   nativeBuildInputs = [
-    pkg-config
     cmake
     gitMinimal
     rustPlatform.bindgenHook
   ];
-
-  buildInputs = [ systemdLibs ];
 
   # honk-core's build.rs stamps HONK_VERSION from the release ref
   env.GITHUB_REF = "refs/tags/debug.${finalAttrs.version}";
