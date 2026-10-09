@@ -10,6 +10,7 @@
   cargo-pretty = pkgs.callPackage ./pkgs/cargo-pretty { };
   deepseek-harness = pkgs.callPackage ./pkgs/deepseek-harness { };
   dingtalk = pkgs.callPackage ./pkgs/dingtalk { };
+  dsh-plugins = pkgs.callPackage ./pkgs/dsh-plugins { };
   firefoxpwa-xwayland = pkgs.callPackage ./pkgs/firefoxpwa-xwayland { };
   flutter-rust-bridge-codegen = pkgs.callPackage ./pkgs/flutter-rust-bridge-codegen { };
   gradle-language-server = pkgs.callPackage ./pkgs/gradle-language-server { };

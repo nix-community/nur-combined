@@ -1,0 +1,8 @@
+{
+  "name": "nix-repin-package",
+  "private": true,
+  "version": "1.0.0",
+  "dependencies": {
+    "dsh-context": "0.65.0"
+  }
+}

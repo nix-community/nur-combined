@@ -13,25 +13,27 @@ This package installs the official DeepSeek Harness as `dsh`.
 
     settings."llm-deepseek" = {
       apiKeyEnv = "DEEPSEEK_API_KEY";
-      thinking = "enabled";
-      reasoningEffort = "high";
     };
 
-    agentsFile = ''
-      Follow the instructions in the repository's AGENTS.md.
-    '';
-
-    profiles.automation = {
-      bundles = [
-        "@deepseek-ai/dsh-base"
-        "@deepseek-ai/dsh-headless"
-      ];
-      patch = { };
-    };
+    profiles.web.plugins = [
+      "npm:@deepseek-ai/dsh-base"
+      "npm:@deepseek-ai/dsh-web-app"
+      "npm:dsh-context"
+    ];
   };
 }
 ```
 
-The upstream `web` and `headless` profiles are initialized automatically when
-they are not declared here. Declarative third-party profile bundles require a
-custom `package` which already contains those npm dependencies.
+Set `DEEPSEEK_API_KEY`, then start dsh:
+
+```sh
+dsh --profile web
+```
+
+## Plugins
+
+Choose from the [plugin list](../dsh-plugins/README.md) and add their `npm:` or
+`github:` names to `profiles.<name>.plugins`. They apply in the listed order.
+
+Manage declared profiles in Nix. For manual plugin installation, use a profile
+not declared here; pnpm, Git and Node.js are included.

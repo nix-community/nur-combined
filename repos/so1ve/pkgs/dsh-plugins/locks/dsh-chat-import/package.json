@@ -1,0 +1,8 @@
+{
+  "name": "nix-repin-package",
+  "private": true,
+  "version": "1.0.0",
+  "dependencies": {
+    "dsh-chat-import": "0.25.2"
+  }
+}

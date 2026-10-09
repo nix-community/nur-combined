@@ -62,10 +62,21 @@
         system:
         let
           pkgs = pkgsFor system;
+          repository = repositoryFor system;
         in
-        lib.filterAttrs (
-          _: package: lib.isDerivation package && lib.meta.availableOn pkgs.stdenv.hostPlatform package
-        ) (repositoryFor system)
+        lib.filterAttrs
+          (_: package: lib.isDerivation package && lib.meta.availableOn pkgs.stdenv.hostPlatform package)
+          (
+            repository
+            // repository.dsh-plugins
+            // {
+              deepseek-harness-purge = pkgs.callPackage ./pkgs/dsh-plugins/purge-host.nix {
+                deepseek-harness = repository.deepseek-harness;
+              };
+
+              dsh-plugins = pkgs.callPackage ./pkgs/dsh-plugins/collection.nix { };
+            }
+          )
       );
 
       apps = forAllSystems (system: {

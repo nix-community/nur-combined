@@ -8,14 +8,36 @@
 let
   cfg = config.programs.deepseek-harness;
   yaml = pkgs.formats.yaml { };
+
+  installedPackage =
+    if
+      lib.any (profile: builtins.elem "github:YuJunZhiXue/dsh-purge" profile.plugins) (
+        builtins.attrValues cfg.profiles
+      )
+    then
+      pkgs.callPackage ../pkgs/dsh-plugins/purge-host.nix { deepseek-harness = cfg.package; }
+    else
+      cfg.package;
+
+  pluginPackages = pkgs.callPackage ../pkgs/dsh-plugins { deepseek-harness = installedPackage; };
+  catalog = import ../pkgs/dsh-plugins/catalog.nix { inherit lib; };
+
   profileType = lib.types.submodule {
+    imports = [ (lib.mkRenamedOptionModule [ "bundles" ] [ "plugins" ]) ];
+
     options = {
-      bundles = lib.mkOption {
-        type = lib.types.listOf lib.types.str;
-        description = "Ordered list of built-in or profile-local bundle package names.";
+      plugins = lib.mkOption {
+        type = lib.types.listOf (lib.types.enum (builtins.attrNames catalog));
+        description = ''
+          Plugins from the catalog, applied in list order.
+          Use npm: package names or github: repositories.
+        '';
+
         example = [
-          "@deepseek-ai/dsh-base"
-          "@deepseek-ai/dsh-headless"
+          "npm:@deepseek-ai/dsh-base"
+          "npm:@deepseek-ai/dsh-web-app"
+          "npm:dsh-context"
+          "npm:@ychris12138/dsh-usage-stats"
         ];
       };
 
@@ -29,15 +51,38 @@ let
 
   profileFiles = lib.concatMapAttrs (
     name: profile:
+    let
+      packages = lib.listToAttrs (
+        map (
+          source:
+          let
+            plugin = pluginPackages.${source};
+          in
+          {
+            name = plugin.packageName;
+            value = "${plugin}/lib/node_modules/${plugin.packageName}";
+          }
+        ) (lib.filter (source: !catalog.${source}.bundled) profile.plugins)
+      );
+
+      bundles = map (plugin: catalog.${plugin}.packageName) profile.plugins;
+    in
     {
       ".dsh/profiles/${name}/package.json".text = builtins.toJSON {
         name = "deepseek-harness-profile-${name}";
         private = true;
+
+        dependencies = lib.mapAttrs (_: path: "file:${path}") packages;
+
         dsh.profile = {
-          inherit (profile) bundles;
+          inherit bundles;
         };
       };
     }
+    // lib.mapAttrs' (packageName: path: {
+      name = ".dsh/profiles/${name}/node_modules/${packageName}";
+      value.source = path;
+    }) packages
     // lib.optionalAttrs (profile.patch != { }) {
       ".dsh/profiles/${name}/cordis.patch.yml".source =
         yaml.generate "dsh-${name}-patch.yml" profile.patch;
@@ -52,7 +97,9 @@ in
       type = lib.types.package;
       default = pkgs.callPackage ../pkgs/deepseek-harness { };
       defaultText = lib.literalExpression "pkgs.callPackage ../pkgs/deepseek-harness { }";
-      description = "DeepSeek Harness package to install.";
+      description = ''
+        DeepSeek Harness package. Enabling purge applies its patches to all profiles.
+      '';
     };
 
     settings = lib.mkOption {
@@ -80,16 +127,27 @@ in
     profiles = lib.mkOption {
       type = lib.types.attrsOf profileType;
       default = { };
-      description = ''
-        Declarative profiles composed from bundles bundled with DeepSeek
-        Harness. Third-party bundles must also be present in the selected
-        package's Node.js dependency tree.
-      '';
+      description = "Profiles and plugins managed by Home Manager.";
     };
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ cfg.package ];
+    assertions = lib.mapAttrsToList (name: _: {
+      assertion =
+        !(
+          lib.hasInfix "/" name
+          || lib.hasInfix "\\" name
+          || builtins.elem name [
+            ""
+            "."
+            ".."
+            "node_modules"
+          ]
+        );
+      message = "programs.deepseek-harness.profiles: invalid profile name ${name}";
+    }) cfg.profiles;
+
+    home.packages = [ installedPackage ];
 
     home.file =
       profileFiles

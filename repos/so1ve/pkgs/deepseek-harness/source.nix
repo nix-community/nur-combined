@@ -4,5 +4,5 @@
 
 {
   version = "0.2.0-rc.2";
-  npmDepsHash = "sha256-rc39MTHLHL5b+JFkD8L04Zs+M+tHX8GiUpOSwxq3uIw=";
+  npmDepsHash = "sha256-FSWGsyYDrALikG+L1yvb/GFPrXIFqPjmLc9BEVNchB4=";
 }

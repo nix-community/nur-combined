@@ -1,0 +1,32 @@
+{
+  "npm:dsh-chat-import": {
+    "version": "0.25.2",
+    "url": "https://registry.npmjs.org/dsh-chat-import/-/dsh-chat-import-0.25.2.tgz",
+    "integrity": "sha512-HebQGH1ef0xoYPDrNdPZfwkjL/BMXfUX9lNcpKRhWqsIlFP1Coy4mDJ/qqtSuvc1wUFJ+aR1BLp0gJb7Ch/4Ig==",
+    "npmDepsHash": "sha256-FSHuMmbDRueVAErcQ84SFdq+l29Ym/Fug7D684KRA/4="
+  },
+  "npm:dsh-context": {
+    "version": "0.65.0",
+    "url": "https://registry.npmjs.org/dsh-context/-/dsh-context-0.65.0.tgz",
+    "integrity": "sha512-yXEmTFjndyMsk1yAtuhrWJI7G42lF7x5DhWJFQBYqdg4VT2OiS9HfgcL4xRwfw7ur669kUPdoHb7gf8hsd4Vwg==",
+    "npmDepsHash": "sha256-vJLGCgXC3xCMBaogRO58rZMjUh+c7PgGvFUmX0u3y84="
+  },
+  "github:YuJunZhiXue/dsh-purge": {
+    "version": "1.1.65",
+    "rev": "76e64d65e0cc151879ce39ec703e6eabb8b558a9",
+    "url": "https://codeload.github.com/YuJunZhiXue/dsh-purge/tar.gz/76e64d65e0cc151879ce39ec703e6eabb8b558a9",
+    "hash": "sha256-RwKNaTZ7i/rA666ItknPjALEw1kxeJ8NpO+1Jde+rH4="
+  },
+  "npm:@anionex/dsh-turn-rewind": {
+    "version": "0.3.9",
+    "url": "https://registry.npmjs.org/@anionex/dsh-turn-rewind/-/dsh-turn-rewind-0.3.9.tgz",
+    "integrity": "sha512-Bbgi9sAaR+rV56DcPlAAwJgMWVWqJhCYCTtqOxaPgDexnWy1A6Vq4IRQgM0nfnDKUfHZv74iwHNWZ0POqw9G8g==",
+    "npmDepsHash": "sha256-LSr+XQ200EgTra2/JzAq78Quf+CxX9gPE2Xupl8WY6U="
+  },
+  "npm:@ychris12138/dsh-usage-stats": {
+    "version": "0.3.5",
+    "url": "https://registry.npmjs.org/@ychris12138/dsh-usage-stats/-/dsh-usage-stats-0.3.5.tgz",
+    "integrity": "sha512-R1eqlPP901e64pv+VEmWIm5gEJY45vZUHap6jv2Fs508kUlVUwAJvOselnmbG4K/3rf7E0ksRAeRc6BgPcbLnQ==",
+    "npmDepsHash": "sha256-mS92cIhTCSXVdf/D0A0UXChyyTZGsxLRWVDUXUOo2NA="
+  }
+}

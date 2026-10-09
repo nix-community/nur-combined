@@ -1,0 +1,46 @@
+{
+  "npm:@deepseek-ai/dsh-base": {
+    "bundled": true
+  },
+  "npm:@deepseek-ai/dsh-web-app": {
+    "bundled": true
+  },
+  "npm:@deepseek-ai/dsh-headless": {
+    "bundled": true
+  },
+  "npm:@deepseek-ai/dsh-acp-app": {
+    "bundled": true
+  },
+  "npm:@deepseek-ai/dsh-sdk-app": {
+    "bundled": true
+  },
+  "npm:@deepseek-ai/dsh-sdk-minimal": {
+    "bundled": true
+  },
+  "npm:dsh-chat-import": {
+    "description": "Import and export conversations from other coding agents",
+    "repository": "Nwflower/dsh-chat-import",
+    "license": "mit"
+  },
+  "npm:dsh-context": {
+    "description": "Inspect and manage conversation context and token usage",
+    "repository": "bowenliang123/dsh-context",
+    "license": "asl20"
+  },
+  "github:YuJunZhiXue/dsh-purge": {
+    "packageName": "dsh-purge",
+    "description": "Configure model-specific prompts and red-team evaluations",
+    "branch": "master",
+    "license": "mit"
+  },
+  "npm:@anionex/dsh-turn-rewind": {
+    "description": "Rewind conversation turns and workspace changes",
+    "repository": "Anionex/dsh-turn-rewind",
+    "license": "bsd3"
+  },
+  "npm:@ychris12138/dsh-usage-stats": {
+    "description": "Track token usage, costs, budgets and provider accounts",
+    "repository": "Ychris12138/dsh-usage-stats",
+    "license": "mit"
+  }
+}
