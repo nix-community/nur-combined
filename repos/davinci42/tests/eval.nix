@@ -64,6 +64,8 @@ let
       enable = true;
       settings = allDefaults // {
         upload_limit_bytes = 1048576;
+        bt_enabled = false;
+        file_exists_behavior = "ask";
       };
       settingsFile = "/run/secrets/fluxdown-settings.json";
     };
@@ -84,7 +86,14 @@ let
   checks = {
     allWritableSettings =
       builtins.attrNames enabled.services.fluxdown.settings == builtins.attrNames writable;
-    allDefaultsValid = builtins.deepSeq configured.services.fluxdown.settings true;
+    allDefaultsValid =
+      builtins.deepSeq
+        (evaluate {
+          services.fluxdown.settings = allDefaults;
+        }).services.fluxdown.settings
+        true;
+    btDisabled = configured.services.fluxdown.settings.bt_enabled == false;
+    askOnFileConflict = configured.services.fluxdown.settings.file_exists_behavior == "ask";
     omittedSettingsUnmanaged = lib.all (value: value == null) (
       builtins.attrValues enabled.services.fluxdown.settings
     );
@@ -98,6 +107,8 @@ let
     rejectBooleanLimit = invalidSetting "upload_limit_bytes" true;
     rejectInvalidEnum = invalidSetting "bt_mse_mode" "unknown";
     rejectStringBoolean = invalidSetting "bt_enable_upnp" "false";
+    rejectStringBtEnabled = invalidSetting "bt_enabled" "false";
+    rejectInvalidFileConflict = invalidSetting "file_exists_behavior" "unknown";
     rejectRange = invalidSetting "max_concurrent_tasks" 1025;
     rejectNegativeFloat = invalidSetting "bt_seed_ratio_limit" (-0.1);
     rejectVersionDrift = lib.any (

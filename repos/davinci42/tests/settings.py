@@ -110,7 +110,7 @@ class SettingsTests(unittest.TestCase):
                     if field["kind"] in ("Bool", "Integer", "Float")
                     else field["default"]
                 )
-        self.assertEqual(len(helper.load_settings(values, None, SCHEMA)), 57)
+        self.assertEqual(helper.load_settings(values, None, SCHEMA).keys(), values.keys())
 
     def test_invalid_values(self):
         for settings in [
@@ -118,6 +118,8 @@ class SettingsTests(unittest.TestCase):
             {"upload_limit_bytes": True},
             {"max_concurrent_tasks": 1025},
             {"bt_enable_upnp": "false"},
+            {"bt_enabled": "false"},
+            {"file_exists_behavior": "unknown"},
             {"bt_mse_mode": "unknown"},
             {"bt_seed_ratio_limit": float("nan")},
             {"bt_seed_ratio_limit": float("inf")},
@@ -354,6 +356,8 @@ class SettingsTests(unittest.TestCase):
                                 "upload_limit_bytes": "1048576",
                                 "max_concurrent_tasks": "3",
                                 "bt_enable_upnp": "false",
+                                "bt_enabled": "false",
+                                "file_exists_behavior": "ask",
                                 "auto_resume_on_start": "true",
                             }
                             if iteration == 0
@@ -398,6 +402,13 @@ class SettingsTests(unittest.TestCase):
                                 ],
                                 "3",
                             )
+                            for name, expected in {
+                                "bt_enabled": "false",
+                                "file_exists_behavior": "ask",
+                            }.items():
+                                self.assertEqual(
+                                    helper.object_dict(snapshot["values"])[name], expected
+                                )
                             revision = snapshot["revision"]
                             helper.apply_settings(
                                 url,
