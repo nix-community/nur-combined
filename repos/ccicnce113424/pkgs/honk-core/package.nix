@@ -156,6 +156,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
     touch $objDir/honk-ebpf $objDir/honk-ebpf.toolchain
   '';
 
+  # The NixOS module consumes this unit through systemd.packages.
+  postInstall = ''
+    install -Dm444 install/honk.service $out/lib/systemd/system/honk.service
+  '';
+
   # The test suite exercises eBPF, network namespaces and live endpoints
   # (see the upstream Justfile's test-* recipes).
   doCheck = false;

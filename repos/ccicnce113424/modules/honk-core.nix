@@ -157,7 +157,15 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    assertions = [
+      {
+        assertion = (cfg.config == null) != (cfg.configFile == null);
+        message = ''
+          Exactly one of `services.honk-core.config` and `services.honk-core.configFile`
+          must be set.
+        '';
+      }
+    ];
 
     # The ActivityPub `services.honk` module removed from nixpkgs in 26.11
     # used the same /var/lib/honk root (StateDirectory = "honk"): its database
@@ -169,6 +177,8 @@ in
       (honk.db, views/, backup/) stays untouched; honk-core keeps its state
       in /var/lib/honk/state.
     '';
+
+    environment.systemPackages = [ cfg.package ];
 
     environment.etc = lib.mkIf (cfg.configFile == null) {
       "honk/config.dae" = {
@@ -189,105 +199,42 @@ in
       "d /run/netns 0755 root root - -"
     ];
 
-    systemd.services.honk-core = {
-      description = "honk eBPF transparent proxy";
-      documentation = [ "https://github.com/Glassyiris/honk" ];
-      after = [ "network-online.target" ];
-      wants = [ "network-online.target" ];
+    # Consume the unit shipped in the honk repository (install/honk.service,
+    # installed into the package); only the Nix-specific Exec* and runtime
+    # paths are overlaid as a drop-in.
+    systemd.packages = [ cfg.package ];
+
+    systemd.services.honk = {
       wantedBy = [ "multi-user.target" ];
       reloadTriggers = [ cfg.config ];
       serviceConfig = {
-        Type = "notify";
+        # A drop-in replaces Exec* only after an empty assignment clears the
+        # unit's /usr/bin entries.
+        ExecStart = [
+          ""
+          (utils.escapeSystemdExecArgs [
+            (lib.getExe cfg.package)
+            "--disable-timestamp"
+            "--data-dir"
+            cfg.dataDir
+            "-c"
+            configPath
+          ])
+        ];
+        ExecReload = [
+          ""
+          (utils.escapeSystemdExecArgs [
+            (lib.getExe cfg.package)
+            "reload"
+          ])
+        ];
         ExecStartPre = lib.optional cfg.disableTxChecksumIpGeneric (
           utils.escapeSystemdExecArgs [ TxChecksumIpGenericWorkaround ]
         );
-        ExecStart = utils.escapeSystemdExecArgs [
-          (lib.getExe cfg.package)
-          "--disable-timestamp"
-          "--data-dir"
-          cfg.dataDir
-          "-c"
-          configPath
-        ];
         WorkingDirectory = cfg.dataDir;
-        ExecReload = utils.escapeSystemdExecArgs [
-          (lib.getExe cfg.package)
-          "reload"
-        ];
-        Restart = "on-abnormal";
-        TimeoutStartSec = 120;
-        LimitNPROC = 512;
-        LimitNOFILE = 1048576;
         Environment = "DAE_LOCATION_ASSET=${cfg.assetsPath}";
-
-        # Hardening
-        NoNewPrivileges = true;
-        CapabilityBoundingSet = [
-          "CAP_BPF"
-          "CAP_NET_BIND_SERVICE"
-          "CAP_NET_ADMIN"
-          "CAP_SYS_ADMIN"
-        ];
-        PrivateTmp = "disconnected";
-        PrivateIPC = true;
-        PrivateDevices = true;
-        PrivateMounts = true;
-        KeyringMode = "private";
-        ProtectHome = "read-only";
-        ProtectSystem = "strict";
-        ReadWritePaths = [
-          cfg.dataDir
-          "/run/netns"
-          # BPF map pins go to the default --bpf-pin-root
-          "-/sys/fs/bpf"
-        ];
-        UMask = "0077";
-        ProtectControlGroups = true;
-        ProtectClock = true;
-        ProtectHostname = true;
-        ProtectKernelLogs = true;
-        ProtectKernelModules = true;
-        LockPersonality = true;
-        MemoryDenyWriteExecute = true;
-        RestrictAddressFamilies = [
-          # sd_notify (Type=notify)
-          "AF_UNIX"
-          "AF_INET"
-          "AF_INET6"
-          "AF_NETLINK"
-        ];
-        RestrictNamespaces = [ "net" ];
-        RestrictRealtime = true;
-        RestrictSUIDSGID = true;
-        SystemCallArchitectures = "native";
-        SystemCallFilter = [
-          "~@aio"
-          "~@clock"
-          "~@cpu-emulation"
-          "~@debug"
-          "~@keyring"
-          "~@module"
-          "~@obsolete"
-          "~@pkey"
-          "~@raw-io"
-          "~@reboot"
-          "~@resources"
-          "~@sandbox"
-          "~@setuid"
-          "~@swap"
-        ];
       };
     };
-
-    assertions = [
-      {
-        assertion = (cfg.config == null) != (cfg.configFile == null);
-        message = ''
-          Exactly one of `services.honk-core.config` and `services.honk-core.configFile`
-          must be set.
-        '';
-      }
-    ];
   };
 
   meta.maintainers = with lib.maintainers; [ ccicnce113424 ];
