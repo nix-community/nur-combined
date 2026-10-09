@@ -1,9 +1,9 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index f8a85ed..e798b56 100644
+index d1a4463..9e0071b 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
 @@ -20,6 +20,13 @@
-     "@inlang/paraglide-js": "2.25.4",
+     "@inlang/paraglide-js": "2.26.0",
      "@juggle/resize-observer": "3.4.0",
      "@material/material-color-utilities": "0.4.0",
 +    "@nyanpasu/constants": "workspace:^",
@@ -32,7 +32,7 @@ index f8a85ed..e798b56 100644
    },
    "devDependencies": {
      "@csstools/normalize.css": "12.1.1",
-     "@iconify/json": "2.2.539",
+     "@iconify/json": "2.2.541",
 +    "@inlang/plugin-m-function-matcher": "^2.2.17",
 +    "@inlang/plugin-message-format": "^4.4.5",
      "@monaco-editor/react": "4.7.0",
@@ -54,13 +54,13 @@ index cb96b35..3777c63 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index ac498b6..736f9e8 100644
+index f13d2c8..f680441 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -425,6 +425,12 @@ importers:
        '@iconify/json':
-         specifier: 2.2.539
-         version: 2.2.539
+         specifier: 2.2.541
+         version: 2.2.541
 +      '@inlang/plugin-m-function-matcher':
 +        specifier: ^2.2.17
 +        version: 2.2.17
@@ -83,28 +83,7 @@ index ac498b6..736f9e8 100644
    '@inlang/recommend-sherlock@0.2.1':
      resolution: {integrity: sha512-ckv8HvHy/iTqaVAEKrr+gnl+p3XFNwe5D2+6w6wJk2ORV2XkcRkKOJ/XsTUJbPSiyi4PI+p+T3bqbmNx/rDUlg==}
  
-@@ -1618,6 +1630,10 @@ packages:
-     resolution: {integrity: sha512-JyUxQNjKNWglT8qhInmenKK/AnKkbX9AhAM8vFnTT8SyQ0gFA2YGKPntGp+3+UZP9F06Nmawf4sFTn7nGIyTXQ==}
-     engines: {node: '>=20.0.0'}
- 
-+  '@inlang/sdk@3.1.0':
-+    resolution: {integrity: sha512-l8LqeyqLfe00cmDvKY7J6YuCkfWVfgzaNWlB8IAHxWOWqkUAwyG4AhuMYUiBbeA0wM6zdVphPCG2lay/OzTdFg==}
-+    engines: {node: '>=20.0.0'}
-+
-   '@internationalized/date@3.12.4':
-     resolution: {integrity: sha512-M1dEn4c1U1HsSlaVR8upZtSqvXrTkHDfv18H01uCSJyjVLDxnBR38v/fMxecmlwXKR4i9HeZcmgQAPE6A+aGJQ==}
- 
-@@ -1687,6 +1703,9 @@ packages:
-   '@lix-js/sdk@0.17.0':
-     resolution: {integrity: sha512-xplbKYEokKbm0/soUy9eXlROF55Si1J9HK97iwJrNl/av1VixZ2mvpDTa0QsX96UyxFnzkXru6hngjtIJTl73g==}
- 
-+  '@lix-js/sdk@0.19.0':
-+    resolution: {integrity: sha512-ks7hKZdJGH0APlSLWtFYCXDO3yIoleoPqzLgkZYtMbaiWRN2Ih772tNGGBZFLKbutq6DuNRwcjNkG94KqWRbBA==}
-+
-   '@material/material-color-utilities@0.4.0':
-     resolution: {integrity: sha512-dlq6VExJReb8dhjj3a/yTigr3ncNwoFmL5Iy2ENtbDX03EmNeOEdZ+vsaGrj7RTuO+mB7L58II4LCsl4NpM8uw==}
- 
-@@ -4572,6 +4591,11 @@ packages:
+@@ -4552,6 +4564,11 @@ packages:
    flat-cache@6.1.23:
      resolution: {integrity: sha512-f++BY9pTk+983xK1FLzlLpmM0i0z+jHmx3QESGkURMXujQZz1k5wzwX6hjnQ8goaD0B+sYnDK1yZ6MTyZfUaqA==}
  
@@ -116,7 +95,7 @@ index ac498b6..736f9e8 100644
    flatted@3.4.4:
      resolution: {integrity: sha512-5+ybhBZANEJxaH3X5evAFatUxLfEHSr7n6kYJ+1Qd0mUqr4eu9gIf6GDbWHf8RJijHrjjO8G+la14SlL2SeS1Q==}
  
-@@ -7682,6 +7706,16 @@ snapshots:
+@@ -7662,6 +7679,16 @@ snapshots:
        typescript: 7.0.2
        vite: 8.3.3(@types/node@24.19.1)(jiti@2.7.0)(less@4.9.1(supports-color@10.2.2))(terser@5.36.0)(yaml@2.9.0)
  
@@ -133,34 +112,7 @@ index ac498b6..736f9e8 100644
    '@inlang/recommend-sherlock@0.2.1':
      dependencies:
        comment-json: 4.5.0
-@@ -7693,6 +7727,13 @@ snapshots:
-       kysely: 0.28.14
-       uuid: 14.0.0
- 
-+  '@inlang/sdk@3.1.0':
-+    dependencies:
-+      '@lix-js/sdk': 0.19.0
-+      '@sinclair/typebox': 0.31.28
-+      kysely: 0.28.14
-+      uuid: 14.0.0
-+
-   '@internationalized/date@3.12.4':
-     dependencies:
-       '@swc/helpers': 0.5.23
-@@ -7769,6 +7810,12 @@ snapshots:
-       '@lix-js/sdk-linux-x64': 0.17.0
-       '@lix-js/sdk-win32-x64': 0.17.0
- 
-+  '@lix-js/sdk@0.19.0':
-+    dependencies:
-+      '@bytecodealliance/jco-transpile': 0.13.0
-+      binaryen: 130.0.0
-+      fflate: 0.8.3
-+
-   '@material/material-color-utilities@0.4.0': {}
- 
-   '@mermaid-js/parser@2.0.1':
-@@ -10356,6 +10403,8 @@ snapshots:
+@@ -10319,6 +10346,8 @@ snapshots:
        flatted: 3.4.4
        hookified: 1.15.1
  
