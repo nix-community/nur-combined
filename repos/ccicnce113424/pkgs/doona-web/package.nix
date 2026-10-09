@@ -13,7 +13,7 @@ let
   pnpm = pnpm_11;
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "doona";
+  pname = "doona-web";
   version = "0.1.0-beta.19";
 
   src = fetchFromGitHub {

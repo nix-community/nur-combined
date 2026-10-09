@@ -20,7 +20,7 @@ lib.makeScope pkgs.newScope (
 
     dav2d = self.callPackage ./dav2d/package.nix { };
 
-    doona = self.callPackage ./doona/package.nix { };
+    doona-web = self.callPackage ./doona-web/package.nix { };
 
     dorion-git = self.callPackage ./dorion-git {
       inherit (lib.importJSON ./dorion-git/src-info.json) hash;
@@ -67,6 +67,8 @@ lib.makeScope pkgs.newScope (
           };
         }
       );
+
+    honk-core = self.callPackage ./honk-core/package.nix { };
 
     jj-lsp = self.callPackage ./jj-lsp rec {
       sources = fetchedSrc.jj-lsp;
