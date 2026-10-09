@@ -17,6 +17,9 @@ buildGoModule (finalAttrs: {
     hash = "sha256-89XMY1UggK5X9rGdLRmC5brF/xrfmBI+vhJNy+oiRk0=";
   };
 
+  # Preserve protected paths across symlink chains in the Nix container.
+  patches = [ ./guard-symlink-paths.patch ];
+
   vendorHash = "sha256-v/yHclHWgPWKNFEINmXc49aqYu1KBlKswdK61n3U2P8=";
 
   subPackages = [ "cmd" ];

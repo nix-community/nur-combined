@@ -1,0 +1,139 @@
+--- a/internal/guard/guard.go
++++ b/internal/guard/guard.go
+@@ -180,8 +180,8 @@
+ }
+ 
+ // CheckUploadLocalPath rejects local paths that point at well-known sensitive
+-// locations. The path is resolved to its absolute, symlink-followed form before
+-// matching, so symlinks pointing at protected locations are also blocked.
++// locations. Check the lexical path and every symlink hop: system files may
++// themselves be symlinks to otherwise unprotected locations such as /nix/store.
+ //
+ // Hardcoded blacklist by design — the threat model is an LLM tricked into
+ // uploading SSH keys or system files, and we want minimum protection that
+@@ -191,15 +191,47 @@
+ 	if err != nil {
+ 		return fmt.Errorf("invalid local_path: %w", err)
+ 	}
+-	abs = filepath.Clean(abs)
+-
+-	// Resolve symlinks so "harmless.txt -> /etc/passwd" can't slip through.
+-	// If the file does not exist yet, EvalSymlinks errors — fall back to the
+-	// lexical absolute path in that case (still useful for the prefix check).
+-	if real, err := filepath.EvalSymlinks(abs); err == nil {
+-		abs = real
+-	}
+-
++
++resolve:
++	for range 255 {
++		if err := checkUploadPath(abs, localPath); err != nil {
++			return err
++		}
++		for end := len(filepath.VolumeName(abs)); end < len(abs); {
++			if os.IsPathSeparator(abs[end]) {
++				end++
++				continue
++			}
++			for end < len(abs) && !os.IsPathSeparator(abs[end]) {
++				end++
++			}
++			info, err := os.Lstat(abs[:end])
++			if err != nil {
++				// Keep lexical checks for paths that do not exist yet.
++				if os.IsNotExist(err) {
++					return nil
++				}
++				return fmt.Errorf("invalid local_path: %w", err)
++			}
++			if info.Mode()&os.ModeSymlink == 0 {
++				continue
++			}
++			target, err := os.Readlink(abs[:end])
++			if err != nil {
++				return fmt.Errorf("invalid local_path: %w", err)
++			}
++			if !filepath.IsAbs(target) {
++				target = filepath.Join(filepath.Dir(abs[:end]), target)
++			}
++			abs = filepath.Clean(target + abs[end:])
++			continue resolve
++		}
++		return nil
++	}
++	return fmt.Errorf("too many symlinks in local_path %q", localPath)
++}
++
++func checkUploadPath(abs, localPath string) error {
+ 	matchPath := filepath.ToSlash(abs)
+ 
+ 	for _, prefix := range uploadDenyPrefixes {
+--- a/internal/guard/guard_test.go
++++ b/internal/guard/guard_test.go
+@@ -2,6 +2,7 @@
+ 
+ import (
+ 	"os"
++	"path/filepath"
+ 	"testing"
+ )
+ 
+@@ -234,8 +235,7 @@
+ }
+ 
+ func TestCheckUploadLocalPath_SymlinkEscape(t *testing.T) {
+-	// A symlink that points at /etc must be rejected even when the user-supplied
+-	// path looks innocent — EvalSymlinks should resolve to /etc.
++	// /etc/passwd must remain protected even when it is itself a symlink.
+ 	tmp := t.TempDir()
+ 	link := tmp + "/innocent.txt"
+ 	if err := os.Symlink("/etc/passwd", link); err != nil {
+@@ -246,3 +246,48 @@
+ 		t.Errorf("CheckUploadLocalPath(%q): expected error (symlink to /etc)", link)
+ 	}
+ }
++
++func TestCheckUploadLocalPath_SymlinkChains(t *testing.T) {
++	tmp := t.TempDir()
++	for _, dir := range []string{"public", ".ssh"} {
++		if err := os.Mkdir(filepath.Join(tmp, dir), 0700); err != nil {
++			t.Fatal(err)
++		}
++	}
++	if err := os.WriteFile(filepath.Join(tmp, "public", "report.txt"), []byte("report"), 0600); err != nil {
++		t.Fatal(err)
++	}
++	for _, link := range [][2]string{
++		{"public-link", "public/report.txt"},
++		{"public-dir", "public"},
++		{"id_rsa", "public/report.txt"},
++		{".ssh/key", "../public/report.txt"},
++		{"innocent.txt", ".ssh/key"},
++		{"credentials", ".ssh"},
++		{"loop", "loop"},
++	} {
++		if err := os.Symlink(link[1], filepath.Join(tmp, link[0])); err != nil {
++			t.Fatal(err)
++		}
++	}
++	g := NewGuard()
++	for _, tc := range []struct {
++		path    string
++		wantErr bool
++	}{
++		{"public-link", false},
++		{"public-dir/report.txt", false},
++		{"id_rsa", true},
++		{".ssh/key", true},
++		{"innocent.txt", true},
++		{"credentials/key", true},
++		{"loop", true},
++	} {
++		t.Run(tc.path, func(t *testing.T) {
++			err := g.CheckUploadLocalPath(filepath.Join(tmp, tc.path))
++			if (err != nil) != tc.wantErr {
++				t.Errorf("CheckUploadLocalPath(%q): got %v, want error=%v", tc.path, err, tc.wantErr)
++			}
++		})
++	}
++}

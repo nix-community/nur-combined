@@ -25,6 +25,12 @@ has no release tags. `kuake-cli` builds tagged releases of
 command. Both clients require your own Quark cookies for cloud operations.
 Both packages are included in the default update set.
 
+`kuake-cli` carries a path-guard patch that checks every symbolic-link hop.
+This keeps system and credential paths protected even when `/etc` files point
+into `/nix/store`, as in the CI container. All upstream Go tests remain enabled,
+with additional symlink-chain regressions; the x86_64 package is also built by
+the pull-request build workflow.
+
 ## ModelTrace
 
 Run the local model-attribution web application:
