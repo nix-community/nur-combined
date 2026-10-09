@@ -2457,10 +2457,10 @@
     };
     "control-panel-for-twitter" = buildMozillaXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.24.4";
+      version = "4.24.5";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5086598/control_panel_for_twitter-4.24.4.xpi";
-      sha256 = "283e844c870939df9dec4be8a840c5a9e3b2c42c0223a87dbf5cea34822d3a8b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5101304/control_panel_for_twitter-4.24.5.xpi";
+      sha256 = "05f10df14cd64ee917c3ab284cdbee2122d9f5feff9a30d9c1070e019f41cde8";
       meta = with lib;
       {
         homepage = "https://soitis.dev/control-panel-for-twitter";
@@ -2973,10 +2973,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "158.0.20261007.201254";
+      version = "159.0.20261008.150626";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5097134/dansk_da_language_pack-158.0.20261007.201254.xpi";
-      sha256 = "20668750a4d818799a18f862708f0200e238c45b5fbeb39e2a8a12bd0bc92abc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5100106/dansk_da_language_pack-159.0.20261008.150626.xpi";
+      sha256 = "d664d3d26a205a9bb6b0ed83f1b580546d8f3095891e34d30ca7692ed73f1f2a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3189,10 +3189,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "158.0.20261007.201254";
+      version = "159.0.20261008.150626";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5097130/deutsch_de_language_pack-158.0.20261007.201254.xpi";
-      sha256 = "efbe0776529aa0a5b5e265cdead9fafa5f02b640f3710c13c3c2b2eea3a50d20";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5100103/deutsch_de_language_pack-159.0.20261008.150626.xpi";
+      sha256 = "48275b7bbac7da0cc2051e9052388a8faa9c0f18eb27ce346ab38c91b4343af9";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4691,10 +4691,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "158.0.20261007.201254";
+      version = "159.0.20261008.150626";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5097055/francais_language_pack-158.0.20261007.201254.xpi";
-      sha256 = "8ef3160294f9feb9760cbc76a118cd7b6f12d99cc9710d8df35ac2780e18c540";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5100149/francais_language_pack-159.0.20261008.150626.xpi";
+      sha256 = "e5c00c932bad10b4957df2630326bf117be8e6910f23c3d8793cf834c126654f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4728,10 +4728,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "158.0.20261007.201254";
+      version = "159.0.20261008.150626";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5097109/gaidhlig_language_pack-158.0.20261007.201254.xpi";
-      sha256 = "37ba360035072dd6b49ee75fb40c535b03e9fd630760c7fb8384a5dd86501fef";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5100142/gaidhlig_language_pack-159.0.20261008.150626.xpi";
+      sha256 = "a56268a268a11f5dbfdf4546d29bd2f3fe8e72142dc7ad13e59bbe6869740cdc";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -12940,10 +12940,10 @@
     };
     "remove-youtube-s-suggestions" = buildMozillaXpiAddon {
       pname = "remove-youtube-s-suggestions";
-      version = "4.3.83";
+      version = "4.3.84";
       addonId = "{21f1ba12-47e1-4a9b-ad4e-3a0260bbeb26}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5008757/remove_youtube_s_suggestions-4.3.83.xpi";
-      sha256 = "0aabbf8ab874790d1bc762707e13ae126539dfad565cdacccd1352aeb84bc5ac";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5101070/remove_youtube_s_suggestions-4.3.84.xpi";
+      sha256 = "c4d89904ef233b50c7ba62ff1caa37188ae4b4a68afd783e798581dc1e1ab4d8";
       meta = with lib;
       {
         homepage = "https://lawrencehook.com/rys/";
@@ -13104,10 +13104,10 @@
     };
     "salesforce-inspector-reloaded" = buildMozillaXpiAddon {
       pname = "salesforce-inspector-reloaded";
-      version = "2.0.0";
+      version = "2.0.1";
       addonId = "salesforceinspector@reloaded";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5005519/salesforce_inspector_reloaded-2.0.0.xpi";
-      sha256 = "859bd3df5438ebdbaeeb5f059a309586d4d1335860501bdc656cc9eebee0fe5a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5098177/salesforce_inspector_reloaded-2.0.1.xpi";
+      sha256 = "aa9136a28eee907a02cb580e89491eb8ba9f38138ade67487fba8d37437a74cf";
       meta = with lib;
       {
         homepage = "https://tprouvot.github.io/Salesforce-Inspector-reloaded/";
@@ -13223,10 +13223,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "158.0.20261007.201254";
+      version = "159.0.20261008.150626";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5097141/scots_language_pack-158.0.20261007.201254.xpi";
-      sha256 = "bc2139853ed16501c0a05a004082e77754edb2bab397bd65d9de09fa7712b7cc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5100182/scots_language_pack-159.0.20261008.150626.xpi";
+      sha256 = "2076eee373eefc9f16f2a5088a1cd1660bc3589ba764a61e975800445f7ba636";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -14891,10 +14891,10 @@
     };
     "time-zone-converter-savvy-time" = buildMozillaXpiAddon {
       pname = "time-zone-converter-savvy-time";
-      version = "1.11.2";
+      version = "1.11.3";
       addonId = "yuriy@savvytime.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5090863/time_zone_converter_savvy_time-1.11.2.xpi";
-      sha256 = "f640ffbf3541ada4e2b70175d98bc9d9623f2946278af324ff660c303474df80";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5099600/time_zone_converter_savvy_time-1.11.3.xpi";
+      sha256 = "d24582020ba4e85dc7f5645432e37dc87d6735d9acf5c0b90067a600b42d29f6";
       meta = with lib;
       {
         homepage = "https://savvytime.com/converter";
@@ -17541,10 +17541,10 @@
     };
     "youtube-auto-hd-fps" = buildMozillaXpiAddon {
       pname = "youtube-auto-hd-fps";
-      version = "1.18.1";
+      version = "1.19.0";
       addonId = "avi6106@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5092736/youtube_auto_hd_fps-1.18.1.xpi";
-      sha256 = "52a441e57c5114060687bceab6fe485877888d7406b11da15c19cd77c2c6062f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5099909/youtube_auto_hd_fps-1.19.0.xpi";
+      sha256 = "c670c96354e2dcc1fb4585da5d7b22a6340b0ba5bf1f9d14e16540f092479097";
       meta = with lib;
       {
         homepage = "https://avi12.com/youtube-auto-hd";
