@@ -10,13 +10,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "data_tamer";
-  version = "1.0.3";
+  version = "1.0.4";
 
   src = fetchFromGitHub {
     owner = "PickNikRobotics";
     repo = "data_tamer";
     tag = finalAttrs.version;
-    hash = "sha256-hGfoU6oK7vh39TRCBTYnlqEsvGLWCsLVRBXh3RDrmnY=";
+    hash = "sha256-N9g1EB88sK2qfyl10H6xf/Nee4uHpXeNDX26VbJkzPc=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/data_tamer_cpp";

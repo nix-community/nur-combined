@@ -16,7 +16,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "vsgxchange";
-  version = "1.1.13";
+  version = "1.1.14";
 
   __structuredAttrs = true;
 
@@ -24,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "vsg-dev";
     repo = "vsgXchange";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-orjMGdXQj3AdLL431WVAbt4tt0Rl2L7a+LOD4vpNN3M=";
+    hash = "sha256-8u1b104O4qBoeBYUIkhJuXZoFvttO44zQk53kGk7oS0=";
   };
 
   nativeBuildInputs = [

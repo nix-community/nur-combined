@@ -13,7 +13,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "vsgimgui";
-  version = "0.7.0";
+  version = "0.8.0";
 
   __structuredAttrs = true;
 
@@ -21,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "vsg-dev";
     repo = "vsgImGui";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-GRHTpMTqK9UgvINZG2oN9zTh0lnBtNw0JdwB4ZT47gk=";
+    hash = "sha256-aThT+iY4j3maCuxyzg0iusMwTMz10v339Ku5aLx4wKM=";
     fetchSubmodules = true;
   };
 
