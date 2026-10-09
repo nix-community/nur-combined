@@ -33,5 +33,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     downloadPage = "https://github.com/NLnetLabs/mimir";
     mainProgram = "mimir";
     license = lib.licenses.mpl20;
+    broken = true;
   };
 })
