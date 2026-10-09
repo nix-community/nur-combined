@@ -6,17 +6,17 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "pi-web";
-  version = "0.10.0";
+  version = "0.11.0";
   src = fetchFromGitHub {
     owner = "agegr";
     repo = "pi-web";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-dDE+m6ZpiC4N2xWNMvhRshCjqFU5gr2+t7RpvC9dNUk=";
+    hash = "sha256-C1cdlyi7YRNjLXymObg4dHuvEkMutASkICykPlk2X24=";
   };
   __structuredAttrs = true;
   strictDeps = true;
 
-  npmDepsHash = "sha256-eR2dkQt8nyFJ0cRTypCJK1W2b7gl9haL9CsppYHC7oU=";
+  npmDepsHash = "sha256-QLW4ZwfDHx6T9D0eHoB/hjAjQlZdGKlQcPQz08Pz8wg=";
 
   patches = [ ./no-google-font.patch ];
 

@@ -13,9 +13,9 @@
 }:
 
 let
-  version = "0-unstable-2026-10-07";
-  rev = "c069e89e10202e37c7c2469cfa8ac1a6c7bc451b";
-  hash = "sha256-XxH3G/Hm5QZXBTd45cNVf8soGafx7xzqj+rhhWGj5D0=";
+  version = "0-unstable-2026-10-08";
+  rev = "04b4ebc2b32240c7495c33cb23ee35ac8108bb2a";
+  hash = "sha256-mCFaWQPi8Re+jKF1+pSCCzYqY5UNT5NGVtqzZ5Q+bG8=";
 
   effectiveStdenv = if cudaSupport then cudaPackages.backendStdenv else stdenv;
 in

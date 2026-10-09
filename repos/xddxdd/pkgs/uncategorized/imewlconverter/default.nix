@@ -9,12 +9,12 @@
 
 buildDotnetModule (finalAttrs: {
   pname = "imewlconverter";
-  version = "3.5.0";
+  version = "3.6.0";
   src = fetchFromGitHub {
     owner = "studyzy";
     repo = "imewlconverter";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-PE1dAJiFHqrpE8ceCrCfSu7QwZsa4fgyJ5fW5UNsihI=";
+    hash = "sha256-2xuxPGiOffABOT1F0ajQNYhF3GSgVmpo5KARJqLu8oM=";
   };
   __structuredAttrs = true;
   strictDeps = true;
