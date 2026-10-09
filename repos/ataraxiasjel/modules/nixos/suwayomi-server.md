@@ -110,7 +110,12 @@ Not all the configuration options are available directly in this module, but you
 }
 ```
 
-## Migrating the data directory {#module-services-suwayomi-migrating-data-directory}
-
-The app's data directory has changed to reflect `services.suwayomi-server.dataDir` accurately.
-Before 26.11 release, Suwayomi-Server would store it's files under `${dataDir}/.local/share/Tachidesk`.
+<!--
+  NOTE: this chapter must define exactly the anchor IDs listed for
+  suwayomi-server in nixpkgs' nixos/doc/manual/redirects.json
+  (module-services-suwayomi-server, -basic-usage, -basic-auth,
+  -extra-config) — no more, no fewer — otherwise the manual build
+  (documentation.nixos.checkRedirects) fails with RedirectsError.
+  Do not add anchored sections here; put migration notes inside
+  an existing section as plain text if needed.
+-->

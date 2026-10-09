@@ -16,14 +16,26 @@ let
     ;
 
   format = pkgs.formats.hocon { };
+  # Obsolete option names kept as aliases via `mkRenamedOptionModule` /
+  # `mkChangedOptionModule` below. Evaluating an alias prints an "Obsolete
+  # option ..." trace by design, so they must be dropped *before* traversing
+  # `cfg.settings`: `removeAttrs` does not evaluate the removed values, which
+  # avoids false-positive traces and keeps stale keys out of `server.conf`.
+  # Keep this list in sync with the rename modules.
+  obsoleteServerOptions = [
+    "basicAuthEnabled"
+    "basicAuthUsername"
+    "basicAuthPasswordFile"
+    "extensionRepos"
+  ];
+  cleanSettings = cfg.settings // {
+    server = removeAttrs cfg.settings.server obsoleteServerOptions;
+  };
   configFile = format.generate "server.conf" (
-    lib.pipe cfg.settings [
+    lib.pipe cleanSettings [
       (
         settings:
         lib.recursiveUpdate settings {
-          server.basicAuthEnabled = null;
-          server.basicAuthUsername = null;
-          server.basicAuthPasswordFile = null;
           server.authPasswordFile = null;
           server.authPassword =
             if (settings.server.authMode == "basic_auth" || settings.server.authMode == "simple_login") then
