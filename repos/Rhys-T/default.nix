@@ -477,6 +477,7 @@ in {
     shapez-ce = callPackage ./pkgs/shapez-ce {};
     
     llama-cpp-toshllm = callPackage ./pkgs/llama-cpp-toshllm {};
+    llama-cpp-toshllm-noavx2 = self.llama-cpp-toshllm.override { avx2Support = false; };
     
     # _ciOnly.dev = pkgs.lib.optionalAttrs (pkgs.stdenv.hostPlatform.system == "x86_64-darwin") (pkgs.lib.recurseIntoAttrs {
     #     checkpoint = pkgs.lib.recurseIntoAttrs (pkgs.lib.mapAttrs (k: pkgs.checkpointBuildTools.prepareCheckpointBuild) {

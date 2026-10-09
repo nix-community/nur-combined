@@ -1,6 +1,6 @@
-{ lib, fetchFromGitHub, llama-cpp, maintainers }: let
-    toshllm-version = "0.87.19";
-    toshllm-hash = "sha256-mRXxKmh/MN7ymQ+W9l2B8bNrW7fz4k862dm41TFWIJc=";
+{ lib, fetchFromGitHub, llama-cpp, avx2Support ? true, maintainers }: let
+    toshllm-version = "0.87.20";
+    toshllm-hash = "sha256-Nlh2BaS4HN0hlp1EKmYiLP6tX/qJbM78bzPKLNtXHB8=";
     llama-cpp-rev = "d81235049384534c167caea52b85a694f6103d14";
     llama-cpp-hash = "sha256-l6l6JIlIVTaVC6xh5M4fRHFtXsweQuugtkNTWHcZZF4=";
     llama-cpp-npmDepsHash = "sha256-a17M+L3nLdRnN6WMB6imPFmwqG2g8uv+gwN0XTAUrf8=";
@@ -38,6 +38,15 @@
         cmakeFlags = builtins.filter (flag: !(lib.hasInfix "LLAMA_BUILD_NUMBER" flag || lib.hasInfix "LLAMA_BUILD_COMMIT" flag)) (old.cmakeFlags or []) ++ [
             (lib.cmakeFeature "LLAMA_BUILD_NUMBER" "0")
             (lib.cmakeFeature "LLAMA_BUILD_COMMIT" (builtins.substring 0 7 llama-cpp-rev))
+            # Match ISA_FLAGS in `scripts/build-engines.sh`:
+            (lib.cmakeBool "GGML_SSE42" avx2Support)
+            (lib.cmakeBool "GGML_AVX" avx2Support)
+            (lib.cmakeBool "GGML_AVX2" avx2Support)
+            (lib.cmakeBool "GGML_FMA" avx2Support)
+            (lib.cmakeBool "GGML_F16C" avx2Support)
+            (lib.cmakeBool "GGML_BMI2" avx2Support)
+            (lib.cmakeBool "GGML_AVX_VNNI" false)
+            (lib.cmakeBool "GGML_AVX512" false)
         ];
         passthru = (old.passthru or {}) // {
             updateScript = ./update.sh;
