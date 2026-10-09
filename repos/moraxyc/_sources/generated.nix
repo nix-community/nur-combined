@@ -56,15 +56,15 @@
   };
   bark-server = {
     pname = "bark-server";
-    version = "5ea5486d8e4fe2fff0b4b170a89b2457e808c9c3";
+    version = "1da1117aa706ed1ac2c4b26b5040f81cbc7416d3";
     src = fetchFromGitHub {
       owner = "Finb";
       repo = "bark-server";
-      rev = "5ea5486d8e4fe2fff0b4b170a89b2457e808c9c3";
+      rev = "1da1117aa706ed1ac2c4b26b5040f81cbc7416d3";
       fetchSubmodules = false;
-      sha256 = "sha256-Dw16Mj65EOshqllp3TkKtzm/rMxXUofFsmvIgRNtNM4=";
+      sha256 = "sha256-M2EV5gppPhdc58RDMNeP2k8JSiM/NcCmBXmKJiiJ/tU=";
     };
-    date = "2026-09-28";
+    date = "2026-10-09";
   };
   bark-server-stable = {
     pname = "bark-server-stable";
@@ -87,16 +87,16 @@
   };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
-    version = "2c5f31904e5c755d3a532033c3407883f426bd94";
+    version = "aad4a0dfc175c61f78494628290af927c17f06e5";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "clash-nyanpasu";
-      rev = "2c5f31904e5c755d3a532033c3407883f426bd94";
+      rev = "aad4a0dfc175c61f78494628290af927c17f06e5";
       fetchSubmodules = false;
-      sha256 = "sha256-WMQxnRPgNyRsyxSVGybSPde0LibAltycZFEWERuJwrY=";
+      sha256 = "sha256-fvMwTeRz1SymzYKeUjx03pKZ7U81nl9k2EkSacoA3E0=";
     };
     cargoLock."backend/Cargo.lock" = {
-      lockFile = ./. + "/sha256-WMQxnRPgNyRsyxSVGybSPde0LibAltycZFEWERuJwrY=/backend/Cargo.lock";
+      lockFile = ./. + "/sha256-fvMwTeRz1SymzYKeUjx03pKZ7U81nl9k2EkSacoA3E0=/backend/Cargo.lock";
       outputHashes = {
         "auto-launch-0.5.0" = "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=";
         "runas-1.2.0" = "sha256-cTYTFtmdmCztL2JhgnOxwKhd+VfUmm5DB3gkNy92g04=";

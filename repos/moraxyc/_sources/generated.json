@@ -84,7 +84,7 @@
     },
     "bark-server": {
         "cargoLock": null,
-        "date": "2026-09-28",
+        "date": "2026-10-09",
         "extract": null,
         "name": "bark-server",
         "passthru": null,
@@ -96,12 +96,12 @@
             "name": null,
             "owner": "Finb",
             "repo": "bark-server",
-            "rev": "5ea5486d8e4fe2fff0b4b170a89b2457e808c9c3",
-            "sha256": "sha256-Dw16Mj65EOshqllp3TkKtzm/rMxXUofFsmvIgRNtNM4=",
+            "rev": "1da1117aa706ed1ac2c4b26b5040f81cbc7416d3",
+            "sha256": "sha256-M2EV5gppPhdc58RDMNeP2k8JSiM/NcCmBXmKJiiJ/tU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5ea5486d8e4fe2fff0b4b170a89b2457e808c9c3"
+        "version": "1da1117aa706ed1ac2c4b26b5040f81cbc7416d3"
     },
     "bark-server-stable": {
         "cargoLock": null,
@@ -142,7 +142,7 @@
     "clash-nyanpasu": {
         "cargoLock": {
             "backend/Cargo.lock": [
-                "sha256-WMQxnRPgNyRsyxSVGybSPde0LibAltycZFEWERuJwrY=/backend/Cargo.lock",
+                "sha256-fvMwTeRz1SymzYKeUjx03pKZ7U81nl9k2EkSacoA3E0=/backend/Cargo.lock",
                 {
                     "auto-launch-0.5.0": "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=",
                     "include_url_macro-0.1.0": "sha256-uWrm6/8aH2cny172IWwOsPbFW8WMQ1OzO3M0S8DqKX8=",
@@ -167,12 +167,12 @@
             "name": null,
             "owner": "libnyanpasu",
             "repo": "clash-nyanpasu",
-            "rev": "2c5f31904e5c755d3a532033c3407883f426bd94",
-            "sha256": "sha256-WMQxnRPgNyRsyxSVGybSPde0LibAltycZFEWERuJwrY=",
+            "rev": "aad4a0dfc175c61f78494628290af927c17f06e5",
+            "sha256": "sha256-fvMwTeRz1SymzYKeUjx03pKZ7U81nl9k2EkSacoA3E0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2c5f31904e5c755d3a532033c3407883f426bd94"
+        "version": "aad4a0dfc175c61f78494628290af927c17f06e5"
     },
     "clash-nyanpasu-stable": {
         "cargoLock": null,
