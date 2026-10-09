@@ -14,13 +14,13 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "honk-core";
-  version = "2026.10.9.native-api.2";
+  version = "2026.10.9.native-api.3";
 
   src = fetchFromGitHub {
     owner = "Glassyiris";
     repo = "honk";
     tag = "debug.${finalAttrs.version}";
-    hash = "sha256-FjADhxK4axHk3AQvHo4xx/MZhppXgWlJ23TPKuJ17AE=";
+    hash = "sha256-IzdWN/nktfaERVVGBxscrbN1JvTdk/WfT0plsyImIZ0=";
   };
   cargoHash = "sha256-NaQ28zDXBKiW6hx2AzrsJUlZVKiOdd+dq6sOeNGYJcM=";
 
