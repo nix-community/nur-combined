@@ -322,7 +322,6 @@ in
             ];
             linkConfig = {
               RequiredForOnline = "routable";
-              MTUBytes = 1280;
             };
           };
         };

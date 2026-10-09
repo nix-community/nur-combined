@@ -71,6 +71,7 @@
               bun
               pnpm
               devcontainer
+              bubblewrap
               lynx
               atuin
               yazi

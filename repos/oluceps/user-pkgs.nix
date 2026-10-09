@@ -21,6 +21,7 @@ with pkgs;
   # wpsoffice
   # fractal
   mari0
+  discord
   # anyrun
   # factorio
   loupe

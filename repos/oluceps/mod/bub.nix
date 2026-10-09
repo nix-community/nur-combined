@@ -129,7 +129,7 @@
       };
 
       virtualisation.oci-containers.containers."cliproxyapi" = {
-        image = "eceasy/cli-proxy-api:latest";
+        image = "docker.io/eceasy/cli-proxy-api:v8.0.21";
         volumes = [
           "${
             pkgs.writeText "cliproxyapi-config" # yaml
@@ -145,6 +145,11 @@
                   enable: false
                   cert: ""
                   key: ""
+
+                # Plugin settings
+                plugins:
+                  enabled: true
+                  dir: "/CLIProxyAPI/plugins"
 
                 # Management API settings
                 remote-management:

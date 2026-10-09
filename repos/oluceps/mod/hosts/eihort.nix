@@ -65,6 +65,7 @@
             forgejo
             sept
             zeek
+            virt
             # clickhouse
 
             # pxe

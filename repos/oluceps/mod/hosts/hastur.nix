@@ -49,6 +49,7 @@
             # xray
             june
             vocat
+            artex
             # ipex
             # scx
           ])
@@ -244,6 +245,45 @@
         bluetooth.enable = true; # enables support for Bluetooth
         bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
         cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+      };
+      virtualisation.oci-containers.containers."cliproxyapi" = {
+        image = "docker.io/eceasy/cli-proxy-api:v8.0.21";
+        volumes = [
+          "${
+            pkgs.writeText "cliproxyapi-config" # yaml
+              ''
+                # Server host/interface to bind to. Default is empty ("") to bind all interfaces (IPv4 + IPv6).
+                host: ""
+
+                # Server port
+                port: 8317
+
+                # TLS settings for HTTPS.
+                tls:
+                  enable: false
+                  cert: ""
+                  key: ""
+
+                # Plugin settings
+                plugins:
+                  enabled: true
+                  dir: "/CLIProxyAPI/plugins"
+
+                # Management API settings
+                remote-management:
+                  allow-remote: true
+                  secret-key: "admin123"
+                  disable-control-panel: false
+                  panel-github-repository: "https://github.com/router-for-me/Cli-Proxy-API-Management-Center"
+              ''
+          }:/CLIProxyAPI/config.yaml:rw"
+          "/var/lib/cliproxyapi/auth-dir:/root/.cli-proxy-api:rw"
+          "/var/lib/cliproxyapi/plugins:/CLIProxyAPI/plugins:rw"
+        ];
+        log-driver = "journald";
+        extraOptions = [
+          "--network=host"
+        ];
       };
 
       nixpkgs = {

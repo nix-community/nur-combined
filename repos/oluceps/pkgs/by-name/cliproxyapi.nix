@@ -1,21 +1,27 @@
 {
   lib,
   buildGoModule,
+  fetchurl,
+  fetchgit,
   fetchFromGitHub,
+  dockerTools,
 }:
 
-buildGoModule rec {
-  pname = "cliproxyapi";
-  version = "7.2.80";
-
-  src = fetchFromGitHub {
-    owner = "router-for-me";
-    repo = "CLIProxyAPI";
-    rev = "v${version}";
-    hash = "sha256-becB1mP/n5uqySpYr9fW5veT1Z08os6y5KrttLAj/VY=";
+let
+  sources = import ../../_sources/generated.nix {
+    inherit
+      fetchurl
+      fetchgit
+      fetchFromGitHub
+      dockerTools
+      ;
   };
+in
+buildGoModule {
+  inherit (sources.cliproxyapi) pname src;
+  version = lib.removePrefix "v" sources.cliproxyapi.version;
 
-  vendorHash = "sha256-xirNOpnPVwe/TqEYkHHLMWREajosaisBazvy8rFEIak=";
+  vendorHash = "sha256-r3yWkdMcM40G9jV7MxW/qNv3E9WrHavFilW24quEf+8=";
 
   subPackages = [ "cmd/server" ];
 

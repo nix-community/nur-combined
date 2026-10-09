@@ -122,6 +122,7 @@ in
       match at-startup=true app-id=r#"^google-chrome"#
       match at-startup=true app-id=r#"^chromium-browser"#
       open-on-workspace "surf"
+      open-maximized-to-edges true
   }
 
   window-rule {
@@ -404,6 +405,8 @@ in
       Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
       Mod+Ctrl+U         { move-column-to-workspace-down; }
       Mod+Ctrl+I         { move-column-to-workspace-up; }
+      Mod+M { maximize-window-to-edges; }
+
 
       // Alternatively, there are commands to move just a single window:
       // Mod+Ctrl+Page_Down { move-window-to-workspace-down; }

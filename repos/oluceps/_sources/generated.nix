@@ -33,6 +33,17 @@
       sha256 = "sha256-k9omzxl7m0WCo52dRhUpHdi/lY1UG3kdbw0cWEpPrCo=";
     };
   };
+  cliproxyapi = {
+    pname = "cliproxyapi";
+    version = "v8.0.21";
+    src = fetchFromGitHub {
+      owner = "router-for-me";
+      repo = "CLIProxyAPI";
+      rev = "v8.0.21";
+      fetchSubmodules = false;
+      sha256 = "sha256-dzdZG/akasV0f/YQ7DqqiEJ2I/DB/m167Qt+CxxY8Ow=";
+    };
+  };
   dnsproxy = {
     pname = "dnsproxy";
     version = "v0.86.0";

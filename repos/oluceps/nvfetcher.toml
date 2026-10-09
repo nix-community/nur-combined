@@ -16,6 +16,10 @@ fetch.github = "AlistGo/alist"
 src.github = "AdguardTeam/dnsproxy"
 fetch.github = "AdguardTeam/dnsproxy"
 
+[cliproxyapi]
+src.github = "router-for-me/CLIProxyAPI"
+fetch.github = "router-for-me/CLIProxyAPI"
+
 [mosdns]
 src.github = "IrineSistiana/mosdns"
 fetch.github = "IrineSistiana/mosdns"
