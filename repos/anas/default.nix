@@ -28,6 +28,7 @@
   disktree = pkgs.callPackage ./pkgs/disktree { };
   raddebugger = pkgs.callPackage ./pkgs/raddebugger { };
   drag = pkgs.callPackage ./pkgs/drag { };
+  wtfi2 = pkgs.callPackage ./pkgs/wtfi2 { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
