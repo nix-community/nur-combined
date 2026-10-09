@@ -96,10 +96,10 @@
   };
   cnb-cli = {
     pname = "cnb-cli";
-    version = "1.16.35";
+    version = "1.17.3";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.16.35.tgz";
-      sha256 = "sha256-+ykCrl3tLuk5NajPkl3HDjg/vXNhrjx7EfwM1tAcv+k=";
+      url = "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.3.tgz";
+      sha256 = "sha256-ktQMkWdcR8Hgwgr8fFfaxOtNHtPk+dch03J9Ivmj3LM=";
     };
   };
   codegraph = {
@@ -197,13 +197,13 @@
   };
   kelivo = {
     pname = "kelivo";
-    version = "v1.3.0";
+    version = "v1.3.1";
     src = fetchFromGitHub {
       owner = "Chevey339";
       repo = "kelivo";
-      rev = "v1.3.0";
+      rev = "v1.3.1";
       fetchSubmodules = false;
-      sha256 = "sha256-sQZPgIS6ZPnG1KLIgKCKJzWFnhpvURb+ZQcdsMvNXOk=";
+      sha256 = "sha256-ls4Et+daPEX28nKKcxtPuK1fXGw0x9FwDeMZXSp1MKc=";
     };
   };
   magic-context = {
@@ -276,35 +276,35 @@
   };
   sing-box-alpha = {
     pname = "sing-box-alpha";
-    version = "v1.15.0-alpha.10";
+    version = "v1.15.0-alpha.11";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "sing-box";
-      rev = "v1.15.0-alpha.10";
+      rev = "v1.15.0-alpha.11";
       fetchSubmodules = false;
-      sha256 = "sha256-7e+8EXtZN3x/vrgOzxu7ze+2EjTQLWnhHpDcjqLTHc0=";
+      sha256 = "sha256-SETjm9kMoo4M+EgrSXA36sLDQvHyPXRbPXyhDDds5mM=";
     };
   };
   sing-box-beta = {
     pname = "sing-box-beta";
-    version = "v1.14.2";
+    version = "v1.14.3";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "sing-box";
-      rev = "v1.14.2";
+      rev = "v1.14.3";
       fetchSubmodules = false;
-      sha256 = "sha256-KoJj5nn0d7uxs5x4arG1p3KGkDmaFAJKiVJ5M5vYxcU=";
+      sha256 = "sha256-Cy95gViVKmMYSXTKDbOxCOna7nBJ2b7/b8min1hZ2mM=";
     };
   };
   sing-box-rc = {
     pname = "sing-box-rc";
-    version = "v1.14.2";
+    version = "v1.14.3";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "sing-box";
-      rev = "v1.14.2";
+      rev = "v1.14.3";
       fetchSubmodules = false;
-      sha256 = "sha256-KoJj5nn0d7uxs5x4arG1p3KGkDmaFAJKiVJ5M5vYxcU=";
+      sha256 = "sha256-Cy95gViVKmMYSXTKDbOxCOna7nBJ2b7/b8min1hZ2mM=";
     };
   };
   subs-check-pro = {
@@ -320,15 +320,15 @@
   };
   tree-sitter-nix = {
     pname = "tree-sitter-nix";
-    version = "2e8d07a2ee5ae3ac3d0c3073b058fb174e000321";
+    version = "ed711d8499e17398e2c84f2a779f2c2b5ac54264";
     src = fetchFromGitHub {
       owner = "nix-community";
       repo = "tree-sitter-nix";
-      rev = "2e8d07a2ee5ae3ac3d0c3073b058fb174e000321";
+      rev = "ed711d8499e17398e2c84f2a779f2c2b5ac54264";
       fetchSubmodules = false;
-      sha256 = "sha256-YuVYmhpmgpghpVJcIznfKq0suvEnURdbg9qpwiyspvA=";
+      sha256 = "sha256-NNC2CjEuSmkJXUkakJOMbwFzE6oFuBmzPT38zXRkJgU=";
     };
-    date = "2026-10-05";
+    date = "2026-10-08";
   };
   typenix = {
     pname = "typenix";
@@ -344,24 +344,24 @@
   };
   wsrx = {
     pname = "wsrx";
-    version = "0.6.1";
+    version = "0.6.2";
     src = fetchFromGitHub {
       owner = "XDSEC";
       repo = "WebSocketReflectorX";
-      rev = "0.6.1";
+      rev = "0.6.2";
       fetchSubmodules = false;
-      sha256 = "sha256-hjFc0IC1faGOiwRxRTyuBZpl7jKAuNynHiAT143iR6U=";
+      sha256 = "sha256-eU0LYAz+APScz4z7z4ZWqpcdwSCWUTmiwKM2OP1A/o0=";
     };
   };
   wsrx-desktop = {
     pname = "wsrx-desktop";
-    version = "0.6.1";
+    version = "0.6.2";
     src = fetchFromGitHub {
       owner = "XDSEC";
       repo = "WebSocketReflectorX";
-      rev = "0.6.1";
+      rev = "0.6.2";
       fetchSubmodules = false;
-      sha256 = "sha256-hjFc0IC1faGOiwRxRTyuBZpl7jKAuNynHiAT143iR6U=";
+      sha256 = "sha256-eU0LYAz+APScz4z7z4ZWqpcdwSCWUTmiwKM2OP1A/o0=";
     };
   };
 }

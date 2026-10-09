@@ -176,11 +176,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-+ykCrl3tLuk5NajPkl3HDjg/vXNhrjx7EfwM1tAcv+k=",
+            "sha256": "sha256-ktQMkWdcR8Hgwgr8fFfaxOtNHtPk+dch03J9Ivmj3LM=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.16.35.tgz"
+            "url": "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.3.tgz"
         },
-        "version": "1.16.35"
+        "version": "1.17.3"
     },
     "codegraph": {
         "cargoLock": null,
@@ -363,12 +363,12 @@
             "name": null,
             "owner": "Chevey339",
             "repo": "kelivo",
-            "rev": "v1.3.0",
-            "sha256": "sha256-sQZPgIS6ZPnG1KLIgKCKJzWFnhpvURb+ZQcdsMvNXOk=",
+            "rev": "v1.3.1",
+            "sha256": "sha256-ls4Et+daPEX28nKKcxtPuK1fXGw0x9FwDeMZXSp1MKc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.3.0"
+        "version": "v1.3.1"
     },
     "magic-context": {
         "cargoLock": null,
@@ -510,12 +510,12 @@
             "name": null,
             "owner": "SagerNet",
             "repo": "sing-box",
-            "rev": "v1.15.0-alpha.10",
-            "sha256": "sha256-7e+8EXtZN3x/vrgOzxu7ze+2EjTQLWnhHpDcjqLTHc0=",
+            "rev": "v1.15.0-alpha.11",
+            "sha256": "sha256-SETjm9kMoo4M+EgrSXA36sLDQvHyPXRbPXyhDDds5mM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.15.0-alpha.10"
+        "version": "v1.15.0-alpha.11"
     },
     "sing-box-beta": {
         "cargoLock": null,
@@ -531,12 +531,12 @@
             "name": null,
             "owner": "SagerNet",
             "repo": "sing-box",
-            "rev": "v1.14.2",
-            "sha256": "sha256-KoJj5nn0d7uxs5x4arG1p3KGkDmaFAJKiVJ5M5vYxcU=",
+            "rev": "v1.14.3",
+            "sha256": "sha256-Cy95gViVKmMYSXTKDbOxCOna7nBJ2b7/b8min1hZ2mM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.14.2"
+        "version": "v1.14.3"
     },
     "sing-box-rc": {
         "cargoLock": null,
@@ -552,12 +552,12 @@
             "name": null,
             "owner": "SagerNet",
             "repo": "sing-box",
-            "rev": "v1.14.2",
-            "sha256": "sha256-KoJj5nn0d7uxs5x4arG1p3KGkDmaFAJKiVJ5M5vYxcU=",
+            "rev": "v1.14.3",
+            "sha256": "sha256-Cy95gViVKmMYSXTKDbOxCOna7nBJ2b7/b8min1hZ2mM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.14.2"
+        "version": "v1.14.3"
     },
     "subs-check-pro": {
         "cargoLock": null,
@@ -582,7 +582,7 @@
     },
     "tree-sitter-nix": {
         "cargoLock": null,
-        "date": "2026-10-05",
+        "date": "2026-10-08",
         "extract": null,
         "name": "tree-sitter-nix",
         "passthru": null,
@@ -594,12 +594,12 @@
             "name": null,
             "owner": "nix-community",
             "repo": "tree-sitter-nix",
-            "rev": "2e8d07a2ee5ae3ac3d0c3073b058fb174e000321",
-            "sha256": "sha256-YuVYmhpmgpghpVJcIznfKq0suvEnURdbg9qpwiyspvA=",
+            "rev": "ed711d8499e17398e2c84f2a779f2c2b5ac54264",
+            "sha256": "sha256-NNC2CjEuSmkJXUkakJOMbwFzE6oFuBmzPT38zXRkJgU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2e8d07a2ee5ae3ac3d0c3073b058fb174e000321"
+        "version": "ed711d8499e17398e2c84f2a779f2c2b5ac54264"
     },
     "typenix": {
         "cargoLock": null,
@@ -636,12 +636,12 @@
             "name": null,
             "owner": "XDSEC",
             "repo": "WebSocketReflectorX",
-            "rev": "0.6.1",
-            "sha256": "sha256-hjFc0IC1faGOiwRxRTyuBZpl7jKAuNynHiAT143iR6U=",
+            "rev": "0.6.2",
+            "sha256": "sha256-eU0LYAz+APScz4z7z4ZWqpcdwSCWUTmiwKM2OP1A/o0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0.6.1"
+        "version": "0.6.2"
     },
     "wsrx-desktop": {
         "cargoLock": null,
@@ -657,11 +657,11 @@
             "name": null,
             "owner": "XDSEC",
             "repo": "WebSocketReflectorX",
-            "rev": "0.6.1",
-            "sha256": "sha256-hjFc0IC1faGOiwRxRTyuBZpl7jKAuNynHiAT143iR6U=",
+            "rev": "0.6.2",
+            "sha256": "sha256-eU0LYAz+APScz4z7z4ZWqpcdwSCWUTmiwKM2OP1A/o0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0.6.1"
+        "version": "0.6.2"
     }
 }

@@ -555,8 +555,8 @@ go = '1.25.5'
     hash = 'sha256-JkrVd6e/FEfdf3GiKCWe6xDJHxzk7CWQxVAz23Vmn0U='
 
   [mod.'github.com/sagernet/sing-tun']
-    version = 'v0.9.7-0.20261002083955-3f8acd9da65b'
-    hash = 'sha256-IVhjjiJD+I6MxeqUr90Cy+hHDt+j1fZF29TDiptmTH4='
+    version = 'v0.9.7-0.20261009022811-5c2edb183cc9'
+    hash = 'sha256-oKPr4lE2A94jfgfyYNQCZpWxLoqRefGnDa6A9ysGnpI='
 
   [mod.'github.com/sagernet/sing-usbip']
     version = 'v0.0.0-20260817040617-28bd42667eca'
@@ -1480,6 +1480,7 @@ go = '1.25.5'
   [cacheModules.'github.com/sagernet/sing-tun']
     packages = [
       'github.com/sagernet/sing-tun',
+      'github.com/sagernet/sing-tun/dnsinfo',
       'github.com/sagernet/sing-tun/gtcpip',
       'github.com/sagernet/sing-tun/gtcpip/checksum',
       'github.com/sagernet/sing-tun/gtcpip/header',
