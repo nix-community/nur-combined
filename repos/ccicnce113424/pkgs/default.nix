@@ -200,6 +200,46 @@ lib.makeScope pkgs.newScope (
       }
     );
 
+    scx_rustscheds = pkgs.scx.rustscheds.overrideAttrs (
+      final: prev: {
+        version = "1.1.3";
+        src = prev.src.overrideAttrs {
+          hash = "sha256-LK0go5blWgCtDpS5xm9BQc7C2NvbfrW+Jp66ImIThxA=";
+        };
+        cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
+          inherit (final)
+            pname
+            version
+            src
+            ;
+          hash = "sha256-vEsbpor52DEUpYO5OubFPMzRltO5kUXjqAoO/9hsKXc=";
+        };
+        passthru = lib.recursiveUpdate prev.passthru {
+          schedulers = [
+            "scx_beerland"
+            "scx_bpfland"
+            "scx_cake"
+            "scx_chaos"
+            "scx_characterize"
+            "scx_cosmos"
+            "scx_flash"
+            "scx_flow"
+            "scx_forge"
+            "scx_lavd"
+            "scx_layered"
+            "scx_mitosis"
+            "scx_mlfq"
+            "scx_p2dq"
+            "scx_pandemonium"
+            "scx_rlfifo"
+            "scx_rustland"
+            "scx_rusty"
+            "scx_tickless"
+          ];
+        };
+      }
+    );
+
     shijima-qt = self.callPackage ./shijima-qt { };
 
     splayer-kde-bar-lyc = self.callPackage ./splayer-kde-bar-lyc {
