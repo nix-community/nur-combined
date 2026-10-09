@@ -8,6 +8,18 @@
 
 ## Packages
 
+### codexbar-cli
+
+CodexBar's CLI for AI coding-provider usage, quotas, and spending. Packaged from
+the official static musl releases for x86_64 and ARM64 Linux, with the provider
+resource bundle preserved beside the executable.
+
+Use `nix run github:lmdevv/nur-packages#codexbar-cli -- --version` or install
+`pkgs.nur.repos.lmdevv.codexbar-cli` through the NUR overlay. A daily GitHub
+Actions workflow updates the version and both hashes, validates the package,
+and notifies NUR. Run `bash scripts/update-codexbar-cli.sh` manually, or use
+`FORCE_VERSION=0.73.0 bash scripts/update-codexbar-cli.sh` to refresh a release.
+
 ### cursor-agent (unfree)
 
 The `cursor-agent` CLI is distributed as a prebuilt binary bundle by Cursor

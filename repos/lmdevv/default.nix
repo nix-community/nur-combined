@@ -17,6 +17,7 @@
   cursor-agent = pkgs.callPackage ./pkgs/cursor-agent { };
   code-cursor = pkgs.callPackage ./pkgs/code-cursor { };
   coderabbit-cli = pkgs.callPackage ./pkgs/coderabbit-cli { };
+  codexbar-cli = pkgs.callPackage ./pkgs/codexbar-cli { };
   commiter = pkgs.callPackage ./pkgs/commiter { };
   hunk = pkgs.callPackage ./pkgs/hunk { };
   plannotator = pkgs.callPackage ./pkgs/plannotator { };

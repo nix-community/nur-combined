@@ -1,0 +1,37 @@
+name: Update codexbar CLI package
+on:
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch: {}
+concurrency:
+  group: update-codexbar-cli
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+      - name: Set up Nix
+        uses: DeterminateSystems/nix-installer-action@v19
+      - name: Run updater
+        run: bash scripts/update-codexbar-cli.sh
+      - name: Validate package
+        run: |
+          set -euxo pipefail
+          nix build .#codexbar-cli --out-link result-codexbar-cli
+          ./result-codexbar-cli/bin/codexbar --version
+          ./result-codexbar-cli/bin/codexbar config providers --format json
+      - name: Commit, push, and notify NUR if changed
+        run: |
+          set -euxo pipefail
+          if ! git diff --quiet -- pkgs/codexbar-cli/default.nix; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add pkgs/codexbar-cli/default.nix
+            git commit -m "chore: update codexbar-cli version+hashes"
+            git push
+            curl --fail --show-error -X POST "https://nur-update.nix-community.org/update?repo=lmdevv"
+          fi
