@@ -21,3 +21,5 @@ META-INF/
 errors*.txt
 test-api.patch
 update_constraints.py
+
+.archivetune.db*
