@@ -10,7 +10,7 @@
   withCGO ? false,
 }:
 let
-  version = "1.14.2";
+  version = "1.14.3";
 in
 import ./common.nix {
   inherit
@@ -31,9 +31,9 @@ import ./common.nix {
     owner = "SagerNet";
     repo = "sing-box";
     tag = "v${version}";
-    hash = "sha256-KoJj5nn0d7uxs5x4arG1p3KGkDmaFAJKiVJ5M5vYxcU=";
+    hash = "sha256-Cy95gViVKmMYSXTKDbOxCOna7nBJ2b7/b8min1hZ2mM=";
   };
-  vendorHash = "sha256-DJNYQeCgAouLvpA8caZ0ILi9RYV82wteV6tR3gj+sfI=";
+  vendorHash = "sha256-wWe4aUpiCD+wgsj7YPJYVER7PxfgUbVTAhjarEzLtTc=";
   updateExtraArgs = [
     "--override-filename"
     "pkgs/sing-box/stable.nix"
