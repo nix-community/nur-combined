@@ -57,8 +57,8 @@ let
   configPath = if cfg.configFile != null then cfg.configFile else "/etc/honk/config.dae";
 
   TxChecksumIpGenericWorkaround = pkgs.writeShellScript "disable-tx-checksum-ip-generic" ''
-    iface=$(${pkgs.iproute2}/bin/ip route | ${pkgs.gawk}/bin/awk '/default/ {print $5}')
-    ${pkgs.ethtool}/bin/ethtool -K "$iface" tx-checksum-ip-generic off
+    iface=$(${lib.getExe' pkgs.iproute2 "ip"}route | ${lib.getExe' pkgs.gawk "awk"} '/default/ {print $5}')
+    ${lib.getExe pkgs.ethtool} -K "$iface" tx-checksum-ip-generic off
   '';
 in
 {
