@@ -1,6 +1,6 @@
 # Packages
 
-Generated from 69 packages.
+Generated from 62 packages.
 
 ## `ambient-build-vm`
 
@@ -49,14 +49,6 @@ Generated from 69 packages.
 - **Description:** iPhone iMessage/SMS and notifications bridge to Linux over Bluetooth
 - **Homepage:** [https://github.com/erikwb/blueferry](https://github.com/erikwb/blueferry)
 - **License:** GPL-2.0-only
-
-## `browsertrix-crawler`
-
-- **Package name:** browsertrix-crawler
-- **Version:** 1.14.0
-- **Description:** A simplified browser-based crawling system
-- **Homepage:** [https://crawler.docs.browsertrix.com](https://crawler.docs.browsertrix.com)
-- **License:** AGPL-3.0-or-later AND LicenseRef-nixos-unfree
 
 ## `brush`
 
@@ -114,14 +106,6 @@ Generated from 69 packages.
 - **Homepage:** [https://github.com/lkhq/debspawn](https://github.com/lkhq/debspawn)
 - **License:** LGPL-3.0-or-later
 
-## `designcraft`
-
-- **Package name:** designcraft
-- **Version:** 0.2.1
-- **Description:** Open-source, clean-room reimplementation of Adobe InDesign
-- **Homepage:** [https://getartcraft.com/apps/designcraft](https://getartcraft.com/apps/designcraft)
-- **License:** MIT OR Apache-2.0
-
 ## `dgit`
 
 - **Package name:** dgit
@@ -145,14 +129,6 @@ Generated from 69 packages.
 - **Homepage:** [https://docs.docker.com/reference/cli/sbx/](https://docs.docker.com/reference/cli/sbx/)
 - **License:** LicenseRef-nixos-unfree
 
-## `effectcraft`
-
-- **Package name:** effectcraft
-- **Version:** 0.4.0
-- **Description:** Open-source, clean-room reimplementation of Adobe After Effects
-- **Homepage:** [https://getartcraft.com/apps/effectcraft](https://getartcraft.com/apps/effectcraft)
-- **License:** MIT OR Apache-2.0
-
 ## `filc-pizfix`
 
 - **Package name:** filc-pizfix
@@ -161,18 +137,10 @@ Generated from 69 packages.
 - **Homepage:** [https://fil-c.org/pizfix](https://fil-c.org/pizfix)
 - **License:** (Apache-2.0 WITH LLVM-exception) AND (BSD-2-Clause AND BSD-3-Clause)
 
-## `filmcraft`
-
-- **Package name:** filmcraft
-- **Version:** 0.2.1
-- **Description:** Open-source, clean-room reimplementation of Adobe Premiere Pro
-- **Homepage:** [https://getartcraft.com/apps/filmcraft](https://getartcraft.com/apps/filmcraft)
-- **License:** MIT OR Apache-2.0
-
 ## `flirt`
 
 - **Package name:** flirt
-- **Version:** 0.1.0-unstable-2026-10-05
+- **Version:** 0-unstable-2026-10-07
 - **Description:** Review tool for patch series workflows
 - **Homepage:** [https://codeberg.org/flirt/flirt](https://codeberg.org/flirt/flirt)
 - **License:** AGPL-3.0-or-later
@@ -249,14 +217,6 @@ Generated from 69 packages.
 - **Homepage:** [https://github.com/micromaomao/libturnstile](https://github.com/micromaomao/libturnstile)
 - **License:** MIT
 
-## `lightcraft`
-
-- **Package name:** lightcraft
-- **Version:** 0.2.1
-- **Description:** Open-source, clean-room reimplementation of Adobe Lightroom
-- **Homepage:** [https://getartcraft.com/apps/lightcraft](https://getartcraft.com/apps/lightcraft)
-- **License:** MIT OR Apache-2.0
-
 ## `masque-go`
 
 - **Package name:** masque-go
@@ -313,14 +273,6 @@ Generated from 69 packages.
 - **Homepage:** [https://parsec.community](https://parsec.community)
 - **License:** Apache-2.0
 
-## `photocraft`
-
-- **Package name:** photocraft
-- **Version:** 0.3.0
-- **Description:** Open-source, clean-room reimplementation of Adobe Photoshop
-- **Homepage:** [https://getartcraft.com/apps/photocraft](https://getartcraft.com/apps/photocraft)
-- **License:** MIT OR Apache-2.0
-
 ## `porkbun-ddns`
 
 - **Package name:** porkbun-ddns
@@ -328,14 +280,6 @@ Generated from 69 packages.
 - **Description:** An unofficial DDNS-Client for Porkbun Domains
 - **Homepage:** [https://github.com/mietzen/porkbun-ddns](https://github.com/mietzen/porkbun-ddns)
 - **License:** MIT
-
-## `printcraft`
-
-- **Package name:** printcraft
-- **Version:** 0.2.1
-- **Description:** Open-source, clean-room reimplementation of Adobe Acrobat
-- **Homepage:** [https://getartcraft.com/apps/printcraft](https://getartcraft.com/apps/printcraft)
-- **License:** MIT OR Apache-2.0
 
 ## `pristine-tar`
 
@@ -363,7 +307,7 @@ Generated from 69 packages.
 ## `rad-ci`
 
 - **Package name:** rad-ci
-- **Version:** 0.10.0
+- **Version:** 0.11.0
 - **Description:** Emulate a Radicle CI run locally
 - **Homepage:** [https://radicle-ci.liw.fi](https://radicle-ci.liw.fi)
 - **License:** MIT OR Apache-2.0
@@ -371,7 +315,7 @@ Generated from 69 packages.
 ## `radicle-ci-ambient`
 
 - **Package name:** radicle-ci-ambient
-- **Version:** 0.21.1
+- **Version:** 0.23.0
 - **Description:** Radicle CI adapter for Ambient CI
 - **Homepage:** [https://radicle-ci.liw.fi](https://radicle-ci.liw.fi)
 - **License:** MIT OR Apache-2.0
@@ -435,7 +379,7 @@ Generated from 69 packages.
 ## `sequin`
 
 - **Package name:** sequin
-- **Version:** 0-unstable-2026-09-23
+- **Version:** 0-unstable-2026-10-08
 - **Description:** Contact-centric PGP certificate manager built on Sequoia
 - **Homepage:** [https://gitlab.com/sequoia-pgp/sequin](https://gitlab.com/sequoia-pgp/sequin)
 - **License:** GPL-3.0-only
@@ -512,14 +456,6 @@ Generated from 69 packages.
 - **Homepage:** [https://github.com/ublk-org/ublksrv](https://github.com/ublk-org/ublksrv)
 - **License:** (MIT OR GPL-2.0-only) AND (MIT OR LGPL-2.1-only) AND GPL-2.0-only
 
-## `vectorcraft`
-
-- **Package name:** vectorcraft
-- **Version:** 0.4.0
-- **Description:** Open-source, clean-room reimplementation of Adobe Illustrator
-- **Homepage:** [https://getartcraft.com/apps/vectorcraft](https://getartcraft.com/apps/vectorcraft)
-- **License:** MIT OR Apache-2.0
-
 ## `vmdb2`
 
 - **Package name:** vmdb2
@@ -529,6 +465,15 @@ Generated from 69 packages.
 - **License:** GPL-3.0-or-later
 
 # Broken Packages
+
+## `browsertrix-crawler`
+
+- **Package name:** browsertrix-crawler
+- **Version:** 1.14.0
+- **Description:** A simplified browser-based crawling system
+- **Homepage:** [https://crawler.docs.browsertrix.com](https://crawler.docs.browsertrix.com)
+- **License:** AGPL-3.0-or-later AND LicenseRef-nixos-unfree
+- **Status:** Broken
 
 ## `cdash`
 
