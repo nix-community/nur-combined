@@ -362,8 +362,8 @@ in
       # to /dev and /sys. Even with host-side workarounds (stopping ueventd, faking cold boot),
       # the lack of device nodes prevents hwservicemanager and others from starting fully.
       # Since we cannot modify the Android image (e.g. flattening APEX or Lepton's ueventd patches),
-      # boot_completed=1 is never reached. We consider the test successful if init started.
-      exit 0
+      # boot_completed=1 is never reached.
+      exit 1
       EOFSCRIPT
       chmod 0755 /tmp/test-session.sh""")
       machine.succeed("su - alice -c '/tmp/test-session.sh'", timeout=1200)
