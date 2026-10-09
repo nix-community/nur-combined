@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+# Point a branch at its upstream and set tracking so `git pull` takes no args.
+
+set -euo pipefail
+
+usage() {
+	echo "usage: git retake [branch]" >&2
+}
+
+if [[ $# -gt 1 ]]; then
+	usage
+	exit 2
+fi
+
+git rev-parse --is-inside-work-tree >/dev/null
+
+if [[ $# -eq 1 ]]; then
+	branch=$1
+else
+	branch=$(git branch --show-current)
+fi
+
+if [[ -z $branch || $branch == -* || $branch == HEAD ]]; then
+	if [[ $# -eq 0 && -z $branch ]]; then
+		echo "git retake: detached HEAD; pass a branch name" >&2
+	else
+		usage
+	fi
+	exit 2
+fi
+
+# Configured upstream wins. Otherwise use the only remote-tracking branch
+# with this name, which is the same guess `git switch` makes.
+upstream=
+remote=$(git config --get "branch.${branch}.remote" || true)
+merge=$(git config --get "branch.${branch}.merge" || true)
+if [[ -n $remote && -n $merge ]]; then
+	if [[ $remote == . ]]; then
+		upstream=${merge#refs/heads/}
+	else
+		upstream=${remote}/${merge#refs/heads/}
+	fi
+fi
+
+if [[ -z $upstream ]]; then
+	candidates=()
+	while IFS= read -r ref; do
+		[[ -n $ref ]] && candidates+=("$ref")
+	done < <(git for-each-ref --format='%(refname:short)' "refs/remotes/*/${branch}")
+
+	if [[ ${#candidates[@]} -eq 1 ]]; then
+		upstream=${candidates[0]}
+	elif [[ ${#candidates[@]} -eq 0 ]]; then
+		echo "git retake: no upstream configured for '$branch', and no remote has that branch" >&2
+		exit 1
+	else
+		echo "git retake: no upstream configured for '$branch', and more than one remote has it:" >&2
+		printf '  %s\n' "${candidates[@]}" >&2
+		exit 1
+	fi
+fi
+
+# -C is the builtin for "delete the local branch and check it out again":
+# it moves the branch to the start point, and --track writes
+# branch.<name>.remote / branch.<name>.merge so `git pull` needs no args.
+exec git switch -C "$branch" --track "$upstream"
