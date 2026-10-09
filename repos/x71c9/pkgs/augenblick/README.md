@@ -18,7 +18,8 @@ Options:
   -n <n>                  number of blinks, then exit (default: run forever)
   --sleep_secs <n>        seconds between blinks (default: 240)
   --animation_frames <n>  frames per eyelid sweep (default: 20)
-  --color <hex>           eyelid color, e.g. #ff0000 (default: #000000)
+  --color <hex>           eyelid color, e.g. #ff0000 (default: #000000);
+                          repeatable, each blink picks one at random
   -V, --version           print version
   -h, --help              show this help
 ```
@@ -98,6 +99,23 @@ color = "#000000"
 ```
 
 CLI flags override config file values.
+
+`color` also accepts an array. Each blink then picks one of the colors at
+random:
+
+```toml
+color = ["#cc241d", "#98971a", "#d79921", "#458588", "#b16286", "#689d6a"]
+```
+
+On the command line, `--color` can be repeated for the same effect:
+
+```bash
+augenblick --color '#cc241d' --color '#458588'
+```
+
+augenblick does not read colors from the desktop theme. To match a rice,
+the theming tool (pywal templates, Stylix, home-manager, …) generates
+`augenblick.toml` with the palette.
 
 ## Requirements
 

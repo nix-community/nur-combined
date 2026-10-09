@@ -2,13 +2,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "augenblick";
-  version = "0.3.0"; # without "v"
+  version = "0.4.0"; # without "v"
 
   src = fetchFromGitHub {
     owner = "x71c9";
     repo = "augenblick";
     rev = "v${version}";
-    hash = "sha256-2M6SAMYnA8FFtDCFaUSjwHgUDIK7OTX+p7DW9DP4vk4=";
+    hash = "sha256-sMzsRBS/Q9IhLkKlU9swqsKALBfvu7L4Q+zTHGjoG70=";
   };
 
   cargoLock.lockFile = ./Cargo.lock;
