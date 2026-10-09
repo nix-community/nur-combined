@@ -1,0 +1,17 @@
+diff --git a/alvr/adb/src/lib.rs b/alvr/adb/src/lib.rs
+--- a/alvr/adb/src/lib.rs
++++ b/alvr/adb/src/lib.rs
+@@ -22,9 +22,11 @@
+ impl WiredConnection {
+     pub fn new(
+         layout: &alvr_filesystem::Layout,
+-        download_progress_callback: impl Fn(usize, Option<usize>),
++        _download_progress_callback: impl Fn(usize, Option<usize>),
+     ) -> Result<Self> {
+-        let adb_path = commands::require_adb(layout, download_progress_callback)?;
++        // This package supplies an ADB wrapper that clears Steam's incompatible library path.
++        // Use it directly; bundled ADB needs no download or progress callback.
++        let adb_path = layout.local_adb_exe().to_string_lossy().to_string();
+ 
+         Ok(Self { adb_path })
+     }

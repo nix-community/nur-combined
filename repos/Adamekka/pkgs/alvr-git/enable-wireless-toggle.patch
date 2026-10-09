@@ -1,0 +1,303 @@
+diff --git a/alvr/dashboard/src/dashboard/components/devices.rs b/alvr/dashboard/src/dashboard/components/devices.rs
+--- a/alvr/dashboard/src/dashboard/components/devices.rs
++++ b/alvr/dashboard/src/dashboard/components/devices.rs
+@@ -1,7 +1,7 @@
+ use crate::dashboard::ServerRequest;
+ use alvr_common::ConnectionState;
+ use alvr_gui_common::theme::{self, log_colors};
+-use alvr_packets::ClientConnectionsAction;
++use alvr_packets::{ClientConnectionsAction, PathValuePair};
+ use alvr_session::{ClientConnectionConfig, SessionConfig};
+ use alvr_sockets::WIRED_CLIENT_HOSTNAME;
+ use eframe::{
+@@ -21,6 +21,7 @@
+     trusted_devices: Option<Vec<(String, ClientConnectionConfig)>>,
+     edit_popup_state: Option<EditPopupState>,
+     adb_download_progress: Option<f32>,
++    enable_wireless: bool,
+ }
+ 
+ impl DevicesTab {
+@@ -30,10 +31,14 @@
+             trusted_devices: None,
+             edit_popup_state: None,
+             adb_download_progress: None,
++            enable_wireless: alvr_session::session_settings_default()
++                .connection
++                .enable_wireless,
+         }
+     }
+ 
+     pub fn update_client_list(&mut self, session: &SessionConfig) {
++        self.enable_wireless = session.session_settings.connection.enable_wireless;
+         let (trusted_clients, untrusted_clients) =
+             session
+                 .client_connections
+@@ -98,6 +103,36 @@
+             }
+ 
+             ui.add_space(theme::FRAME_PADDING);
++
++            if self.trusted_devices.is_some() {
++                Frame::group(ui.style())
++                    .fill(theme::SECTION_BG)
++                    .inner_margin(egui::vec2(
++                        theme::FRAME_PADDING + theme::FRAME_TEXT_SPACING,
++                        theme::FRAME_PADDING,
++                    ))
++                    .show(ui, |ui| {
++                        ui.horizontal(|ui| {
++                            ui.heading("Enable wireless");
++                            ui.with_layout(Layout::right_to_left(Align::Center), |ui| {
++                                if alvr_gui_common::switch(ui, &mut self.enable_wireless).changed()
++                                {
++                                    requests.push(ServerRequest::SetSessionValues(vec![
++                                        PathValuePair {
++                                            path: alvr_packets::parse_path(
++                                                "session_settings.connection.enable_wireless",
++                                            )
++                                            .unwrap(),
++                                            value: serde_json::Value::Bool(self.enable_wireless),
++                                        },
++                                    ]));
++                                }
++                            });
++                        });
++                    });
++
++                ui.add_space(theme::FRAME_PADDING);
++            }
+ 
+             if let Some(clients) = &self.new_devices
+                 && let Some(request) = new_clients_section(ui, clients)
+diff --git a/alvr/server_core/src/connection.rs b/alvr/server_core/src/connection.rs
+--- a/alvr/server_core/src/connection.rs
++++ b/alvr/server_core/src/connection.rs
+@@ -290,17 +290,26 @@
+ pub fn handshake_loop(ctx: Arc<ConnectionContext>, lifecycle_state: Arc<RwLock<LifecycleState>>) {
+     dbg_connection!("handshake_loop: Begin");
+ 
+-    let welcome_socket = match WelcomeSocket::new() {
+-        Ok(socket) => socket,
+-        Err(e) => {
+-            error!("Failed to create discovery socket: {e:?}");
+-            return;
+-        }
+-    };
++    // Start discovery lazily so USB does not depend on multicast being available.
++    let mut welcome_socket = None;
+ 
+     let mut wired_connection = None;
+ 
+     while *lifecycle_state.read() != LifecycleState::ShuttingDown {
++        let (enable_wireless, discovery_config) = {
++            let session_manager = SESSION_MANAGER.read();
++            let connection = &session_manager.settings().connection;
++            (
++                connection.enable_wireless,
++                connection.client_discovery.clone(),
++            )
++        };
++
++        // USB setup can retry early, so stop discovery before those retry paths.
++        if !enable_wireless || matches!(&discovery_config, Switch::Disabled) {
++            welcome_socket = None;
++        }
++
+         dbg_connection!("handshake_loop: Try connect to wired device");
+ 
+         let mut wired_client_ips = HashMap::new();
+@@ -388,6 +397,11 @@
+             continue;
+         }
+ 
++        if !SESSION_MANAGER.read().settings().connection.enable_wireless {
++            thread::sleep(RETRY_CONNECT_MIN_INTERVAL);
++            continue;
++        }
++
+         dbg_connection!("handshake_loop: Try connect to manual IPs");
+ 
+         let available_manual_client_ips = {
+@@ -421,16 +435,23 @@
+             continue;
+         }
+ 
+-        let discovery_config = SESSION_MANAGER
+-            .read()
+-            .settings()
+-            .connection
+-            .client_discovery
+-            .clone();
+-        if let Switch::Enabled(config) = discovery_config {
++        if let Switch::Enabled(config) = discovery_config
++            && SESSION_MANAGER.read().settings().connection.enable_wireless
++        {
+             dbg_connection!("handshake_loop: Discovering clients");
+ 
+-            let clients = match welcome_socket.recv_all() {
++            if welcome_socket.is_none() {
++                match WelcomeSocket::new() {
++                    Ok(socket) => welcome_socket = Some(socket),
++                    Err(e) => {
++                        error!("Failed to create discovery socket: {e:?}");
++                        thread::sleep(RETRY_CONNECT_MIN_INTERVAL);
++                        continue;
++                    }
++                }
++            }
++
++            let clients = match welcome_socket.as_ref().unwrap().recv_all() {
+                 Ok(clients) => clients,
+                 Err(e) => {
+                     warn!("mDNS listening error: {e:?}");
+@@ -446,6 +467,11 @@
+             }
+ 
+             for (client_hostname, client_ip) in clients {
++                // A discovery batch can outlive a toggle change; do not start later attempts.
++                if !SESSION_MANAGER.read().settings().connection.enable_wireless {
++                    break;
++                }
++
+                 let trusted = {
+                     let mut session_manager = SESSION_MANAGER.write();
+ 
+diff --git a/alvr/server_core/src/sockets.rs b/alvr/server_core/src/sockets.rs
+--- a/alvr/server_core/src/sockets.rs
++++ b/alvr/server_core/src/sockets.rs
+@@ -8,14 +8,27 @@
+ use std::{collections::HashMap, net::IpAddr};
+ 
+ pub struct WelcomeSocket {
++    mdns_daemon: ServiceDaemon,
+     mdns_receiver: Receiver<ServiceEvent>,
+ }
+ 
+ impl WelcomeSocket {
+     pub fn new() -> Result<Self> {
+-        let mdns_receiver = ServiceDaemon::new()?.browse(alvr_sockets::MDNS_SERVICE_TYPE)?;
++        let mdns_daemon = ServiceDaemon::new()?;
++        let mdns_receiver = match mdns_daemon.browse(alvr_sockets::MDNS_SERVICE_TYPE) {
++            Ok(receiver) => receiver,
++            Err(e) => {
++                if let Err(shutdown_error) = mdns_daemon.shutdown() {
++                    warn!("Failed to stop discovery after startup error: {shutdown_error}");
++                }
++                return Err(e.into());
++            }
++        };
+ 
+-        Ok(Self { mdns_receiver })
++        Ok(Self {
++            mdns_daemon,
++            mdns_receiver,
++        })
+     }
+ 
+     // Returns: client IP, client hostname
+@@ -65,3 +78,12 @@
+         Ok(clients)
+     }
+ }
++
++impl Drop for WelcomeSocket {
++    fn drop(&mut self) {
++        // Dropping the receiver alone leaves the mDNS worker browsing in the background.
++        if let Err(e) = self.mdns_daemon.shutdown() {
++            warn!("Failed to stop discovery: {e}");
++        }
++    }
++}
+diff --git a/alvr/session/src/lib.rs b/alvr/session/src/lib.rs
+--- a/alvr/session/src/lib.rs
++++ b/alvr/session/src/lib.rs
+@@ -505,6 +505,7 @@
+ #[cfg(test)]
+ mod tests {
+     use super::*;
++    use settings_schema::Switch;
+ 
+     #[test]
+     fn test_manual_session_to_settings() {
+@@ -529,6 +530,55 @@
+         SessionConfig::default()
+             .merge_from_json(&json::to_value(SessionConfig::default()).unwrap())
+             .unwrap();
++    }
++
++    #[test]
++    fn test_wireless_toggle_migrates_existing_session() {
++        let mut old_session = json::to_value(SessionConfig::default()).unwrap();
++        old_session["session_settings"]["connection"]
++            .as_object_mut()
++            .unwrap()
++            .remove("enable_wireless");
++        old_session["session_settings"]["video"]["preferred_fps"] = json::json!(72.0);
++        old_session["session_settings"]["connection"]["client_discovery"]["enabled"] =
++            json::json!(false);
++        old_session["client_connections"] = json::json!({
++            "test.client": {
++                "display_name": "Saved headset",
++                "current_ip": null,
++                "manual_ips": ["192.0.2.1"],
++                "trusted": true,
++                "connection_state": "Disconnected"
++            }
++        });
++
++        let mut migrated = SessionConfig::default();
++        migrated.merge_from_json(&old_session).unwrap();
++        let settings = migrated.to_settings();
++
++        assert!(settings.connection.enable_wireless);
++        assert_eq!(settings.video.preferred_fps, 72.0);
++        assert!(matches!(
++            settings.connection.client_discovery,
++            Switch::Disabled
++        ));
++        assert_eq!(
++            json::to_value(&migrated.client_connections).unwrap(),
++            old_session["client_connections"]
++        );
++    }
++
++    #[test]
++    fn test_wireless_toggle_persists_disabled() {
++        let mut session = SessionConfig::default();
++        session.session_settings.connection.enable_wireless = false;
++        let saved = json::to_value(&session).unwrap();
++
++        let mut restored = SessionConfig::default();
++        restored.merge_from_json(&saved).unwrap();
++
++        assert!(!restored.session_settings.connection.enable_wireless);
++        assert!(!restored.to_settings().connection.enable_wireless);
+     }
+ 
+     #[test]
+diff --git a/alvr/session/src/settings.rs b/alvr/session/src/settings.rs
+--- a/alvr/session/src/settings.rs
++++ b/alvr/session/src/settings.rs
+@@ -1398,6 +1398,13 @@
+ TCP: Slower than UDP, but more stable. Pick this if you experience video or audio stutters with UDP."#
+     ))]
+     pub stream_protocol: SocketProtocol,
++
++    #[schema(flag = "real-time")]
++    #[schema(strings(
++        display_name = "Enable wireless",
++        help = "Allow discovery and new connections over Wi-Fi. Existing streams continue when this is disabled."
++    ))]
++    pub enable_wireless: bool,
+ 
+     pub client_discovery: Switch<DiscoveryConfig>,
+ 
+@@ -2172,6 +2179,7 @@
+             stream_protocol: SocketProtocolDefault {
+                 variant: SocketProtocolDefaultVariant::Udp,
+             },
++            enable_wireless: true,
+             client_discovery: SwitchDefault {
+                 enabled: true,
+                 content: DiscoveryConfigDefault {

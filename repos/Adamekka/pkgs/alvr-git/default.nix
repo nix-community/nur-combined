@@ -105,6 +105,8 @@ in
       vulkanHeaders = lib.getDev vulkan-headers;
       x264 = lib.getDev x264;
     })
+    ./enable-wireless-toggle.patch
+    ./use-bundled-adb.patch
   ];
 
   pname = "alvr-git";
