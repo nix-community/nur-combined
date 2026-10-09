@@ -55,6 +55,10 @@ buildGoModule (finalAttrs: {
         --replace-fail '@magpie@' "$out/bin/magpie"
     ''
     + lib.optionalString darwinGui ''
+      # Keep the bundle executable native: an exec wrapper breaks Launch Services tracking.
+      substituteInPlace main.go \
+        --replace-fail 'func main() {' 'func main() {
+          os.Setenv("MAGPIE_BUN", "${lib.getExe bun}")'
       # Keep native window tests behind their shared entry point in the build sandbox.
       pattern='func runAppKit($T *testing.T, $$$PARAMS) ($$$RESULTS) {
         $T.Helper()
@@ -168,10 +172,8 @@ buildGoModule (finalAttrs: {
         )
       ''
     else
-      ''
-        wrapProgram "$out/${
-          if darwinGui then "Applications/magpie.app/Contents/MacOS/magpie" else "bin/magpie"
-        }" --set MAGPIE_BUN ${lib.getExe bun}
+      lib.optionalString (!darwinGui) ''
+        wrapProgram "$out/bin/magpie" --set MAGPIE_BUN ${lib.getExe bun}
       '';
 
   desktopItems = lib.optionals linuxGui [
