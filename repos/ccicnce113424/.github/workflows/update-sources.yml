@@ -37,22 +37,23 @@ jobs:
           nix run -L .#nvfetcher-bin
           git add .
           # cp "$NIXPKGS_PATH/pkgs/by-name/mo/motrix-next/package.nix" ./pkgs/motrix-next
-          # pkgs/daed/update.sh
+          # keep-sorted start
           pkgs/dav2d/update.sh
           pkgs/dorion-git/update.sh
+          pkgs/enimul/update.sh
           pkgs/kanzi-cpp/update.sh
           pkgs/kanzi-go/update.sh
           pkgs/kikoflu/update.sh
           pkgs/loveiwara/update.sh
-          pkgs/enimul/update.sh
           pkgs/nix-auth/update.sh
           pkgs/open-orpheus-dev/update.sh
           pkgs/piliplus/update.sh
-          pkgs/pixes/update.sh
           pkgs/pixes/update-git.sh
-          pkgs/rayburst/update.sh
+          pkgs/pixes/update.sh
           pkgs/rayburst/update-beta.sh
+          pkgs/rayburst/update.sh
           pkgs/splayer-next-dev/update.sh
+          # keep-sorted end
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v8
