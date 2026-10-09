@@ -166,6 +166,7 @@ with open('app/src/main/kotlin/moe/rukamori/archivetune/CompositionLocals.kt', '
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.staticCompositionLocalOf
+import moe.rukamori.archivetune.db.InternalDatabase
 import moe.rukamori.archivetune.db.MusicDatabase
 import moe.rukamori.archivetune.playback.DownloadUtil
 import moe.rukamori.archivetune.playback.PlayerConnection
@@ -208,7 +209,7 @@ fun <T> allocateDummy(clazz: Class<T>): T {
     }
 }
 
-val LocalDatabase = staticCompositionLocalOf<MusicDatabase> { allocateDummy(MusicDatabase::class.java) }
+val LocalDatabase = staticCompositionLocalOf<MusicDatabase> { InternalDatabase.newInstance(android.content.DummyContext()) }
 val LocalPlayerConnection = staticCompositionLocalOf<PlayerConnection?> { null }
 val LocalPlayerAwareWindowInsets = compositionLocalOf<WindowInsets> { WindowInsets(0, 0, 0, 0) }
 val LocalDownloadUtil = staticCompositionLocalOf<DownloadUtil> { allocateDummy(DownloadUtil::class.java) }
@@ -298,3 +299,36 @@ for path in glob.glob('app/src/main/kotlin/moe/rukamori/archivetune/**/*.kt', re
         with open(path, 'w') as f:
             f.write(rewritten)
 
+
+import pathlib
+stringext_path = pathlib.Path('app/src/main/kotlin/moe/rukamori/archivetune/extensions/StringExt.kt')
+stringext_content = stringext_path.read_text()
+stringext_content = stringext_content.replace('fun String.toSQLiteQuery(): SimpleSQLiteQuery = SimpleSQLiteQuery(this)', 'fun String.toSQLiteQuery(): RoomRawQuery = RoomRawQuery(this)')
+stringext_path.write_text(stringext_content)
+stringext_content = stringext_path.read_text()
+stringext_content = stringext_content.replace('import androidx.sqlite.db.SimpleSQLiteQuery', 'import androidx.room.RoomRawQuery')
+stringext_path.write_text(stringext_content)
+
+# Room's KMP runtime has no SupportSQLiteOpenHelper, so MusicDatabase no longer exposes
+# `openHelper`. BackupArchiveRepository only used it to hold a transaction open around the raw
+# file copy of the database (+ -wal); the WAL checkpoint is already forced by the preceding
+# `database.checkpoint()`, so drop the helper transaction wrapper and keep the copy logic.
+backup_path = pathlib.Path('app/src/main/kotlin/moe/rukamori/archivetune/backup/BackupArchiveRepository.kt')
+backup_content = backup_path.read_text()
+backup_content = re.sub(
+    r'[ \t]*val connection = database\.openHelper\.writableDatabase\n'
+    r'[ \t]*connection\.beginTransactionNonExclusive\(\)\n'
+    r'[ \t]*try \{\n',
+    '                        run {\n',
+    backup_content,
+    count=1,
+)
+backup_content = re.sub(
+    r'[ \t]*\} finally \{\n'
+    r'[ \t]*connection\.endTransaction\(\)\n'
+    r'[ \t]*\}\n',
+    '                        }\n',
+    backup_content,
+    count=1,
+)
+backup_path.write_text(backup_content)

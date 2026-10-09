@@ -6,6 +6,7 @@ plugins {
     kotlin("plugin.serialization")
     id("org.jetbrains.compose") version "1.7.0"
     id("org.jetbrains.kotlin.plugin.compose")
+    id("com.google.devtools.ksp") version "2.3.10"
 }
 
 kotlin {
@@ -64,6 +65,10 @@ dependencies {
     implementation(project(":lastfm"))
     implementation(project(":shazamkit"))
     implementation("org.robolectric:android-all:14-robolectric-10818077")
+
+    implementation("androidx.room:room-runtime:2.8.4")
+    ksp("androidx.room:room-compiler:2.8.4")
+    implementation("androidx.sqlite:sqlite-bundled:2.5.0")
 
     // Plain-JVM libraries the app uses directly. These used to be hand-stubbed in
     // android-stubs; using the real artifacts instead removes a whole class of

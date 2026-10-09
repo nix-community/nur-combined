@@ -140,6 +140,13 @@ stdenv.mkDerivation (finalAttrs: {
         patch -p1 < ${./challenge.patch}
     patch -p1 < ${./sed-replacements.patch}
 
+        cp ${./files/MusicDatabase.kt} app/src/main/kotlin/moe/rukamori/archivetune/db/MusicDatabase.kt
+        cp ${./files/DatabaseDao.kt} app/src/main/kotlin/moe/rukamori/archivetune/db/DatabaseDao.kt
+        # JVM implementations of the two Android-only Room helpers the KSP code generator emits
+        # (see the file header). Placed in Room's own package so the generated DAO links.
+        mkdir -p app/src/main/kotlin/androidx/room/util
+        cp ${./files/RoomJvmSupport.kt} app/src/main/kotlin/androidx/room/util/RoomJvmSupport.kt
+
         # Copy android stubs
         cp -r  ${./android-stubs} android-stubs
         chmod -R +w .

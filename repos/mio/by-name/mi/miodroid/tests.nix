@@ -150,7 +150,7 @@ in
                       /system/bin/getprop sys.boot_completed 2>/dev/null |
                       grep -q '^1'; then
                   echo android-booted
-                  kill $session $wlserver 2>/dev/null || true
+                  kill -9 $session $wlserver 2>/dev/null || true
                   exit 0
               fi
               if ! test -d /proc/$session; then
@@ -166,7 +166,7 @@ in
       echo "=== LOGCAT ===" ; lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- /system/bin/logcat -d || true
       echo "=== MIODROID LOG ===" ; cat /var/lib/miodroid/miodroid.log 2>/dev/null || true
       echo "=== JOURNALCTL ===" ; journalctl --user -n 100 -xe || true
-      kill $session $wlserver 2>/dev/null || true
+      kill -9 $session $wlserver 2>/dev/null || true
       exit 1
       EOF
       chmod 0755 /tmp/miodroid-session-test.sh""")
@@ -338,10 +338,10 @@ in
                   if ! lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- \
                           /system/bin/ls -L /dev/binder /dev/vndbinder /dev/hwbinder; then
                       echo "container is missing its binder devices"
-                      kill $session $wlserver 2>/dev/null || true
+                      kill -9 $session $wlserver 2>/dev/null || true
                       exit 1
                   fi
-                  kill $session $wlserver 2>/dev/null || true
+                  kill -9 $session $wlserver 2>/dev/null || true
                   exit 0
               fi
               if ! test -d /proc/$session; then
@@ -357,7 +357,7 @@ in
       echo "=== LOGCAT ===" ; lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- /system/bin/logcat -d || true
       echo "=== KMSG (container init) ===" ; dmesg | tail -n 80 || true
       echo "=== JOURNALCTL ===" ; journalctl --user -n 100 -xe || true
-      kill $session $wlserver 2>/dev/null || true
+      kill -9 $session $wlserver 2>/dev/null || true
       # Android 13 ueventd crashes in unprivileged containers due to restricted access
       # to /dev and /sys. Even with host-side workarounds (stopping ueventd, faking cold boot),
       # the lack of device nodes prevents hwservicemanager and others from starting fully.
