@@ -54,21 +54,21 @@
   };
   fast-nix-gc = {
     pname = "fast-nix-gc";
-    version = "78aeb273d682ae18197f7036ca8e03a2715568fc";
+    version = "b4471ec56911541f72f7a7b9b8fee7f42183f21b";
     src = fetchFromGitHub {
       owner = "Mic92";
       repo = "fast-nix-gc";
-      rev = "78aeb273d682ae18197f7036ca8e03a2715568fc";
+      rev = "b4471ec56911541f72f7a7b9b8fee7f42183f21b";
       fetchSubmodules = false;
-      sha256 = "sha256-wnFAQIAnjxqXUtkhdxSwegmI3kmDg23zrqsl5iI/jgA=";
+      sha256 = "sha256-CNSHu5tKx//E9+ayDlfhk9C/3JVDFxiB0PKYQA37CC4=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-wnFAQIAnjxqXUtkhdxSwegmI3kmDg23zrqsl5iI_jgA=/Cargo.lock";
+      lockFile = ./. + "/sha256-CNSHu5tKx__E9+ayDlfhk9C_3JVDFxiB0PKYQA37CC4=/Cargo.lock";
       outputHashes = {
         "harmonia-file-core-3.1.0" = "sha256-YklzRujFo5lvFsdLoedE6OL6OvSwNk/nfwlGxulyTS4=";
       };
     };
-    date = "2026-10-01";
+    date = "2026-10-08";
   };
   flake-linter = {
     pname = "flake-linter";
@@ -216,15 +216,15 @@
   };
   nix-auth = {
     pname = "nix-auth";
-    version = "bc9c30b71dd7c3f3fb6ef6a780d966432ef2299f";
+    version = "806fc2f3f0dc8c6a3456248b2b1f252dacd2eba1";
     src = fetchFromGitHub {
       owner = "numtide";
       repo = "nix-auth";
-      rev = "bc9c30b71dd7c3f3fb6ef6a780d966432ef2299f";
+      rev = "806fc2f3f0dc8c6a3456248b2b1f252dacd2eba1";
       fetchSubmodules = false;
-      sha256 = "sha256-AKdCBYxkUyDMWUA9filA8Cb+UXF/n3ypj9aRCW8Ll78=";
+      sha256 = "sha256-+4pfWR3xnZyLm26+JacDXPz/0DBoLK6u7Vgji9Vw1pA=";
     };
-    date = "2026-10-06";
+    date = "2026-10-08";
   };
   ntfsprogs-plus = {
     pname = "ntfsprogs-plus";
