@@ -27,6 +27,7 @@ outputs.packages.${pkgs.stdenv.hostPlatform.system}.delta.overrideAttrs (old: {
   strictDeps = true;
 
   passthru = (old.passthru or { }) // {
+    packagingSource = source.src;
     updateScript = [
       (lib.getExe githubReleaseUpdater)
       "--owner"

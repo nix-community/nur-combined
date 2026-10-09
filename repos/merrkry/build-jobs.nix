@@ -4,8 +4,9 @@ let
   inherit (pkgs) lib;
   nurLib = import ./lib { inherit pkgs; };
 
-  packages = nurLib.getPackages (import ./default.nix { inherit pkgs; });
+  repository = import ./default.nix { inherit pkgs; };
+  packages = nurLib.getPackages repository;
 
   buildablePackages = lib.filterAttrs (_: nurLib.isBuildable) packages;
 in
-lib.recurseIntoAttrs buildablePackages
+lib.recurseIntoAttrs (buildablePackages // { inherit (repository) repo-sources; })

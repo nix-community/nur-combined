@@ -1,26 +1,36 @@
 {
   pkgs ? import <nixpkgs> { },
 }:
-rec {
+let
+  packages = rec {
+    bookerly = pkgs.callPackage ./pkgs/bookerly.nix { };
+    chatgpt = pkgs.callPackage ./pkgs/chatgpt { };
+    codex-bin = pkgs.callPackage ./pkgs/codex-bin { };
+    delta = pkgs.callPackage ./pkgs/delta { };
+    determinate-nix = pkgs.callPackage ./pkgs/determinate-nix { };
+    fcitx5-vinput-lite = pkgs.callPackage ./pkgs/fcitx5-vinput-lite { };
+    kache = pkgs.callPackage ./pkgs/kache.nix { };
+    kvlibadwaita-kvantum = pkgs.callPackage ./pkgs/kvlibadwaita-kvantum.nix { };
+    symseek = pkgs.callPackage ./pkgs/symseek.nix { };
+    t3code-bin = pkgs.callPackage ./pkgs/t3code-bin { channel = "stable"; };
+    t3code-nightly-bin = t3code-bin.override { channel = "nightly"; };
+    yaasm = pkgs.callPackage ./pkgs/yaasm.nix { };
+  };
+in
+packages
+// {
   lib = import ./lib { inherit pkgs; };
   modules = import ./modules;
   overlays = import ./overlays;
 
   # Top-level packages must evaluate without import from derivation (IFD).
   # Packages requiring IFD belong in impure.
-  impure = {
-    determinate-nix = pkgs.callPackage ./pkgs/determinate-nix { };
-  };
+  impure = { };
 
-  bookerly = pkgs.callPackage ./pkgs/bookerly.nix { };
-  chatgpt = pkgs.callPackage ./pkgs/chatgpt { };
-  codex-bin = pkgs.callPackage ./pkgs/codex-bin { };
-  delta = pkgs.callPackage ./pkgs/delta { };
-  fcitx5-vinput-lite = pkgs.callPackage ./pkgs/fcitx5-vinput-lite { };
-  kache = pkgs.callPackage ./pkgs/kache.nix { };
-  kvlibadwaita-kvantum = pkgs.callPackage ./pkgs/kvlibadwaita-kvantum.nix { };
-  symseek = pkgs.callPackage ./pkgs/symseek.nix { };
-  t3code-bin = pkgs.callPackage ./pkgs/t3code-bin { channel = "stable"; };
-  t3code-nightly-bin = t3code-bin.override { channel = "nightly"; };
-  yaasm = pkgs.callPackage ./pkgs/yaasm.nix { };
+  # Cache the complete upstream trees used to import packaging during evaluation.
+  repo-sources = pkgs.lib.recurseIntoAttrs (
+    pkgs.lib.mapAttrs (_: package: package.packagingSource) (
+      pkgs.lib.filterAttrs (_: package: package ? packagingSource) packages
+    )
+  );
 }

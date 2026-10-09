@@ -9,9 +9,14 @@
 
 let
   inherit (source) version src;
-  lock = builtins.fromJSON (builtins.readFile "${src}/flake.lock");
+  # Fetch packaging at evaluation time without realising the source derivation.
+  upstreamSource = builtins.fetchTarball {
+    inherit (src) url;
+    sha256 = src.outputHash;
+  };
+  lock = builtins.fromJSON (builtins.readFile "${upstreamSource}/flake.lock");
   gcSource = lock.nodes.${lock.nodes.root.inputs.bdwgc}.locked;
-  dependencies = import "${src}/packaging/dependencies.nix" {
+  dependencies = import "${upstreamSource}/packaging/dependencies.nix" {
     # Keep the release's Boost configuration on nixpkgs' compatible version.
     pkgs = pkgs // {
       inherit (pkgs.nixDependencies) boost;
@@ -22,7 +27,7 @@ let
       hash = gcSource.narHash;
     };
   };
-  upstreamComponents = import "${src}/packaging/components.nix" {
+  upstreamComponents = import "${upstreamSource}/packaging/components.nix" {
     inherit lib pkgs src;
     officialRelease = true;
     maintainers = with lib.maintainers; [ merrkry ];
@@ -69,6 +74,7 @@ components.nix-everything.overrideAttrs (
 
     passthru = old.passthru // {
       inherit version src components;
+      packagingSource = src;
       updateScript = [
         (lib.getExe githubReleaseUpdater)
         "--owner"
