@@ -8,21 +8,25 @@ let
     # example = prev.example.overrideAttrs (oldAttrs: rec {
     # ...
     # });
-    # t3code = prev.t3code.override {
-    #   t3code-unwrapped = final.callPackage "${
-    #     final.applyPatches {
-    #       name = "t3code-0.0.40-source";
-    #       src = "${prev.path}/pkgs/by-name/t3/t3code";
-    #       patches = [
-    #         (final.fetchpatch2 {
-    #           url = "https://github.com/NixOS/nixpkgs/pull/561115.patch?full_index=1";
-    #           hash = "sha256-epI0YrbNRVsEjsfzESyLdVmbTwE8crKUqDxWRPbXXR0=";
-    #         })
-    #       ];
-    #       patchFlags = [ "-p5" ];
-    #     }
-    #   }/unwrapped.nix" { };
-    # };
+    t3code = prev.t3code.override {
+      t3code-unwrapped = final.callPackage "${
+        final.applyPatches {
+          name = "t3code-0.0.45-source";
+          src = "${prev.path}/pkgs/by-name/t3/t3code";
+          patches = [
+            (final.fetchpatch2 {
+              url = "https://github.com/NixOS/nixpkgs/pull/570343.patch?full_index=1";
+              hash = "sha256-mcqJnmrNL03nE0f+9K5mpmOtv3gfNpkn1aYhcUGSmLs=";
+            })
+            (final.fetchpatch2 {
+              url = "https://github.com/NixOS/nixpkgs/pull/570724.patch?full_index=1";
+              hash = "sha256-Wz4VKSIPzWTRpCj3mv6SXMaMCkSxsiknPLtrFqbeTko=";
+            })
+          ];
+          patchFlags = [ "-p5" ];
+        }
+      }/unwrapped.nix" { };
+    };
   };
 
   # This one brings our custom packages from the 'pkgs' directory and makes
