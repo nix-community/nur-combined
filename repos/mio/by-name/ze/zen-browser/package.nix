@@ -203,4 +203,5 @@ in
   {
     crashreporterSupport = false;
     enableOfficialBranding = false;
+    ffmpegSupport = false;
   }
