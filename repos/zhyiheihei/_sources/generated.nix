@@ -57,24 +57,24 @@
   };
   filecodebox = {
     pname = "filecodebox";
-    version = "v2.7.1";
+    version = "v2.8.3";
     src = fetchFromGitHub {
       owner = "vastsa";
       repo = "FileCodeBox";
-      tag = "v2.7.1";
-      hash = "sha256-TPDQp1jICxJdbthGbMSbOlcvOmNqW1whngo4Qb6kmQw=";
+      tag = "v2.8.3";
+      hash = "sha256-iRzMZan0O/3rN54cjXnfrOxjkDbonNPVD1Ga0QOHebQ=";
     };
   };
   filecodebox-frontend = {
     pname = "filecodebox-frontend";
-    version = "b4c8aa8c10a9565d87ed80c3a3307317346110ed";
+    version = "bcc1dbda06b772d6f4afbcc12c6f12e60bbbc7da";
     src = fetchgit {
       url = "https://github.com/vastsa/FileCodeBoxFronted.git";
-      rev = "b4c8aa8c10a9565d87ed80c3a3307317346110ed";
+      rev = "bcc1dbda06b772d6f4afbcc12c6f12e60bbbc7da";
       fetchSubmodules = false;
-      hash = "sha256-QOe3J4Nhc75gf6sxQFclsPQdDWZfzwOBMlu9LbYSh5Y=";
+      hash = "sha256-i2VO6coUl/RfkJLZGVDJpw3XgOTdCPuAIXzyWgzFTOM=";
     };
-    date = "2026-09-20";
+    date = "2026-10-10";
   };
   hubproxy = {
     pname = "hubproxy";
@@ -108,22 +108,22 @@
   };
   nexus-media = {
     pname = "nexus-media";
-    version = "v4.24.4";
+    version = "v4.24.6";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media";
-      tag = "v4.24.4";
-      hash = "sha256-f7ORW0mO0I7WCozTF8frtoJl2HTyL0psHXPseO4HJlw=";
+      tag = "v4.24.6";
+      hash = "sha256-s2jP21zopleCpmiGOQl4h5uK16069JcvztS+Nnx5vA8=";
     };
   };
   nexus-media-web = {
     pname = "nexus-media-web";
-    version = "v4.24.4";
+    version = "v4.24.6";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media-web";
-      tag = "v4.24.4";
-      hash = "sha256-yUB26UYBopgx4PqkUDuV4hoijOnBH65EKhiSw4A2ByU=";
+      tag = "v4.24.6";
+      hash = "sha256-N7VB+XR5WW3NkUUrsuCnjQ+YtM/DEYJ0Puo2e29s4Yo=";
     };
   };
   pinyin2hanzi = {
