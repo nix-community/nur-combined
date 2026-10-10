@@ -1,39 +1,38 @@
 diff --git a/app/globals.css b/app/globals.css
-index 3399e0a..0ad2b6d 100644
 --- a/app/globals.css
 +++ b/app/globals.css
-@@ -712,7 +712,7 @@ button.extension-widget-trigger:focus-visible {
- }
+@@ -778,7 +778,7 @@
  
  :root {
--  --font-mono: var(--font-noto-mono), 'JetBrains Mono', 'Fira Code', 'Consolas', ui-monospace, 'PingFang SC', 'Microsoft YaHei', monospace;
-+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', ui-monospace, 'PingFang SC', 'Microsoft YaHei', monospace;
- }
- 
- pre, code {
+   --font-ui-default: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+-  --font-mono-default: var(--font-noto-mono), 'JetBrains Mono', 'Fira Code', 'Consolas', ui-monospace, 'PingFang SC', 'Microsoft YaHei', monospace;
++  --font-mono-default: 'JetBrains Mono', 'Fira Code', 'Consolas', ui-monospace, 'PingFang SC', 'Microsoft YaHei', monospace;
+   --font-ui: var(--font-ui-default);
+   --font-mono: var(--font-mono-default);
+   --font-ui-weight: 400;
 diff --git a/app/layout.tsx b/app/layout.tsx
-index 87786fc..a256b4f 100644
 --- a/app/layout.tsx
 +++ b/app/layout.tsx
-@@ -1,17 +1,10 @@
+@@ -1,5 +1,4 @@
  import type { Metadata, Viewport } from "next";
 -import { Noto_Sans_Mono } from "next/font/google";
  import { PwaRegistration } from "@/components/PwaRegistration";
  import { THEME_INIT_SCRIPT } from "@/lib/theme";
  import "katex/dist/katex.min.css";
- import "./globals.css";
+@@ -7,12 +6,6 @@
  import "./settings.css";
- 
+ import "./sidebar.css";
+ import "./sidebar-menu.css";
+-
 -const notoSansMono = Noto_Sans_Mono({
 -  subsets: ["latin", "cyrillic"],
 -  variable: "--font-noto-mono",
 -  display: "swap",
 -});
--
+ 
  export const metadata: Metadata = {
    title: "Pi Web",
-   description: "Pi Web interface for the pi coding agent",
-@@ -60,7 +53,7 @@ export default function RootLayout({
+@@ -62,7 +55,7 @@
    children: React.ReactNode;
  }) {
    return (
