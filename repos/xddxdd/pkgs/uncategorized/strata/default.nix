@@ -76,17 +76,27 @@ cudaPackages_13.backendStdenv.mkDerivation (finalAttrs: {
 
   ninjaFlags = [ "strata" ];
 
+  postBuild = ''
+    cmake -S "$cmakeDir/tools/vision" -B "$cmakeDir/build-vision" -G Ninja \
+      ${lib.cmakeFeature "CMAKE_BUILD_TYPE" "Release"} \
+      ${lib.cmakeFeature "LLAMA_DIR" "${llamaSrc}"} \
+      ${lib.cmakeBool "STRATA_VISION_CUDA" true} \
+      ${lib.escapeShellArg (lib.cmakeFeature "CMAKE_CUDA_ARCHITECTURES" cudaArchitectures)}
+    cmake --build "$cmakeDir/build-vision" --target strata-vision -j "$NIX_BUILD_CORES"
+  '';
+
   installPhase = ''
     runHook preInstall
 
     cd "$cmakeDir"
 
     install -Dm755 build/strata "$out/share/strata/engine/strata"
+    install -Dm755 build-vision/bin/strata-vision "$out/share/strata/engine/strata-vision"
     install -Dm644 ${./hydrate.py} "$out/libexec/strata/hydrate.py"
 
     cp -a . "$out/share/strata/"
     cp -a ${llamaSrc} "$out/share/strata/third_party/llama.cpp"
-    rm -rf "$out/share/strata/build"
+    rm -rf "$out/share/strata/build" "$out/share/strata/build-vision"
 
     sed -i -e '/^cmake==/d' -e '/^ninja==/d' "$out/share/strata/requirements.txt"
 
@@ -101,7 +111,9 @@ cudaPackages_13.backendStdenv.mkDerivation (finalAttrs: {
         "source": "local",
         "version": "${finalAttrs.version}",
         "archs": [int(a) for a in "${cudaArchitectures}".split(";")],
-        "vision": "none",
+        "vision": "gpu",
+        "vision_archs": [int(a) for a in "${cudaArchitectures}".split(";")],
+        "vision_src": setup.source_hash(setup.VISION_SOURCES),
         "cuda": 13,
         "src": setup.source_hash(setup.ENGINE_SOURCES),
     }
