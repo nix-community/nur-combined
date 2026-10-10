@@ -54,8 +54,6 @@ let
       inherit paths;
     };
 
-  configPath = if cfg.configFile != null then cfg.configFile else "/etc/honk/config.dae";
-
   # The UI is served from the system profile path so an administrated config
   # file keeps working across package upgrades.
   uiDir = "/run/current-system/sw/share/doona-web";
@@ -98,9 +96,10 @@ in
       default = null;
       description = ''
         WARNING: This option will expose your config unencrypted world-readable in the nix store.
-        Config text for honk. Mutually exclusive with {option}`configFile`; the
-        store path is read-only, so source administration through the native API
-        needs {option}`configFile`.
+        Config text for honk, managed declaratively at
+        {file}`/etc/honk/config.dae`; requires {option}`configFile` to keep its
+        default. The store path is read-only, so source administration through
+        the native API needs the mutable default {option}`configFile` instead.
 
         See <https://github.com/Glassyiris/honk/blob/main/config.dae>.
       '';
@@ -109,26 +108,25 @@ in
     configFile = mkOption {
       type =
         let
-          inherit (types) nullOr addCheck str;
+          inherit (types) addCheck str;
           isAbsolutePathString = x: lib.substring 0 1 x == "/";
           isNotInStore = x: !lib.hasPrefix builtins.storeDir x;
           combineTopic = x: isAbsolutePathString x && isNotInStore x;
         in
-        (nullOr (addCheck str combineTopic))
+        (addCheck str combineTopic)
         // {
           description = "${types.str.description} (with check: should be absolute path **string** which not a store path)";
         };
-      default = null;
+      default = "/etc/honk/config.dae";
       example = "/etc/honk/config.dae";
       description = ''
         The absolute path string of honk config file which is not in the nix
-        store. Falls back to {option}`config` being written to
-        {file}`/etc/honk/config.dae` if this is not set. If no file exists at
-        this path on service start, a starter config is written there with the
-        web UI served from {file}`/run/current-system/sw/share/doona-web`. The
-        file must live
-        outside the store so reloads and native-API source writes can update
-        it.
+        store. If no file exists at this path on service start, a starter
+        config is written there with the web UI served from
+        {file}`/run/current-system/sw/share/doona-web`. The file lives outside
+        the store so reloads and native-API source writes can update it.
+        Setting {option}`config` instead manages
+        {file}`/etc/honk/config.dae` declaratively and disables seeding.
       '';
     };
 
@@ -188,10 +186,10 @@ in
   config = lib.mkIf cfg.enable {
     assertions = [
       {
-        assertion = (cfg.config == null) != (cfg.configFile == null);
+        assertion = cfg.config == null || cfg.configFile == "/etc/honk/config.dae";
         message = ''
-          Exactly one of `services.honk-core.config` and `services.honk-core.configFile`
-          must be set.
+          `services.honk-core.config` is managed at /etc/honk/config.dae, so
+          `services.honk-core.configFile` must keep its default when `config` is set.
         '';
       }
     ];
@@ -213,7 +211,7 @@ in
     ];
     environment.pathsToLink = [ "/share/doona-web" ];
 
-    environment.etc = lib.mkIf (cfg.configFile == null) {
+    environment.etc = lib.mkIf (cfg.config != null) {
       "honk/config.dae" = {
         mode = "0400";
         source = pkgs.writeText "config.dae" cfg.config;
@@ -251,7 +249,7 @@ in
             "--data-dir"
             cfg.dataDir
             "-c"
-            configPath
+            cfg.configFile
           ])
         ];
         ExecReload = [
@@ -265,7 +263,7 @@ in
           lib.optional cfg.disableTxChecksumIpGeneric (
             utils.escapeSystemdExecArgs [ TxChecksumIpGenericWorkaround ]
           )
-          ++ lib.optional (cfg.configFile != null) (
+          ++ lib.optional (cfg.config == null) (
             utils.escapeSystemdExecArgs [
               initConfig
               cfg.configFile

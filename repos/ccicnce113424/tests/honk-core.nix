@@ -15,12 +15,10 @@
         enable = true;
         statusPage = true;
       };
-      services.honk-core = {
-        enable = true;
-        # Nothing exists at this path yet; the service seeds a starter config
-        # whose web UI is served from the system profile's doona-web.
-        configFile = "/etc/honk/config.dae";
-      };
+      # Defaults: configFile = "/etc/honk/config.dae" is seeded on first
+      # start with a starter config whose web UI is served from the system
+      # profile's doona-web.
+      services.honk-core.enable = true;
     };
 
   testScript = ''
