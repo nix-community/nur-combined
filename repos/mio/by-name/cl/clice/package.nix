@@ -3,31 +3,33 @@
   stdenv,
   fetchFromGitHub,
   fetchurl,
-  autoPatchelfHook,
+  buildFHSEnv,
+  writeShellScriptBin,
   python3,
+  nodejs,
+  bash,
+  removeReferencesTo,
 }:
 
 let
-  bazel_9 = stdenv.mkDerivation rec {
-    pname = "bazel";
-    version = "9.2.0";
-
-    src = fetchurl {
-      url = "https://github.com/bazelbuild/bazel/releases/download/${version}/bazel-${version}-linux-x86_64";
-      hash = "sha256-dmipXbElDxLEBAclHk4gO07Ivzm8SV0vSFstjJkEhpQ=";
-    };
-
-    dontUnpack = true;
-
-    nativeBuildInputs = [ autoPatchelfHook ];
-    buildInputs = [ stdenv.cc.cc.lib ];
-
-    installPhase = ''
-      mkdir -p $out/bin
-      cp $src $out/bin/bazel
-      chmod +x $out/bin/bazel
-    '';
+  bazel_9_bin = fetchurl {
+    url = "https://github.com/bazelbuild/bazel/releases/download/9.2.0/bazel-9.2.0-linux-x86_64";
+    hash = "sha256-g5Ex099AioWOG32vTs9nGo0oTLmH5e0q/CmbuI0Cg+A=";
+    executable = true;
   };
+
+  # Wrap bazel inside an FHS environment so it can execute without patchelf corruption
+  bazel_env = buildFHSEnv {
+    name = "bazel-env";
+    targetPkgs = pkgs: with pkgs; [ gcc zlib python3 ];
+    extraBwrapArgs = [ "--tmpfs" "/var" "--bind" "/tmp" "/var/tmp" ];
+    runScript = "bash";
+  };
+
+  bazel_9 = writeShellScriptBin "bazel" ''
+    mkdir -p /tmp/xclang-thinlto
+    exec ${bazel_env}/bin/bazel-env -c '"$0" "$@"' ${bazel_9_bin} "$@"
+  '';
 
   version = "0.1.2026100708";
 
@@ -41,26 +43,35 @@ let
   deps = stdenv.mkDerivation {
     name = "clice-deps";
     inherit src;
+    
+    nativeBuildInputs = [ bazel_9 python3 removeReferencesTo ];
 
-    nativeBuildInputs = [
-      bazel_9
-      python3
-    ];
+    dontCheckForBrokenSymlinks = true;
 
     buildPhase = ''
       export HOME=$TMPDIR
       export BAZEL_DO_NOT_DETECT_CPP_TOOLCHAIN=1
-      # Just fetch all external repositories
-      bazel fetch //...
+      # First pass: Fetch all external repositories from the network
+      bazel vendor -c opt --config=RelWithDebInfo //... --vendor_dir=$out
+      
+      # Pin all vendored repositories so that rewriting the registry URL doesn't invalidate them
+      for d in $out/*; do
+        if [ -d "$d" ]; then
+          repo=$(basename "$d")
+          if [ "$repo" != "_registries" ] && [[ "$repo" != "@"*.marker ]] && [[ "$repo" != "bazel-external" ]]; then
+            # The folder name is the canonical repo name, but the pin() command requires @@ prefix
+            echo "pin(\"@@$repo\")" >> $out/VENDOR.bazel
+          fi
+        fi
+      done
     '';
 
-    installPhase = ''
-      # The bazel cache is usually in $HOME/.cache/bazel
-      cp -r $HOME/.cache/bazel $out
-    '';
+    dontFixup = true;
+
+    installPhase = "true";
 
     outputHashMode = "recursive";
-    outputHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+    outputHash = "sha256-9n/hk0U4lUBAwQ+BDYXFjPnV4zysk/Kzc7Qj6emk/4k=";
   };
 
 in
@@ -68,26 +79,33 @@ stdenv.mkDerivation {
   pname = "clice";
   inherit version src;
 
-  nativeBuildInputs = [
-    bazel_9
-    python3
-  ];
+  nativeBuildInputs = [ bazel_9 python3 nodejs ];
 
   buildPhase = ''
     export HOME=$TMPDIR
     export BAZEL_DO_NOT_DETECT_CPP_TOOLCHAIN=1
+    
+    # Rewrite registry lines to point to the local vendored registries
+    sed -i -e "s|https://bazel.clice.io/|file://${deps}/_registries/bazel.clice.io|g" bazel/clice.bazelrc || true
+    sed -i -e "s|https://bcr.bazel.build/|file://${deps}/_registries/bcr.bazel.build|g" bazel/clice.bazelrc || true
 
-    # Copy the pre-fetched cache
-    mkdir -p $HOME/.cache
-    cp -r ${deps} $HOME/.cache/bazel
-    chmod -R +w $HOME/.cache/bazel
+    # Copy vendor directory using standard copy (no hardlinks) so it works across filesystems.
+    # Bazel attempts to delete .marker files for pinned repositories, which crashes
+    # if the vendor directory is a read-only Nix store path.
+    cp -R ${deps} $TMPDIR/vendor
+    chmod -R u+w $TMPDIR/vendor
 
-    bazel build -c opt --config=RelWithDebInfo //...
+    bazel build -c opt --config=RelWithDebInfo //... --vendor_dir=$TMPDIR/vendor
   '';
 
   installPhase = ''
     mkdir -p $out/bin
-    cp bazel-bin/bin/clice $out/bin/clice
+    find $TMPDIR -name "clice" -executable -exec cp -L {} $out/bin/clice \;
+    # Ensure it was copied
+    if [ ! -f $out/bin/clice ]; then
+      echo "Failed to find clice binary!"
+      exit 1
+    fi
   '';
 
   meta = with lib; {
@@ -97,4 +115,5 @@ stdenv.mkDerivation {
     maintainers = [ ];
     mainProgram = "clice";
   };
+  passthru = { inherit deps; };
 }

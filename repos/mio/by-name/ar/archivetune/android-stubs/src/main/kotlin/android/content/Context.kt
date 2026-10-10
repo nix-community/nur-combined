@@ -23,8 +23,8 @@ open class Context {
     open fun getDrawable(id: Int): android.graphics.drawable.Drawable? = null
     open fun openRawResource(id: Int): java.io.InputStream =
         java.io.ByteArrayInputStream(ByteArray(0))
-    open fun getString(resId: Int): String = ""
-    open fun getString(resId: Int, vararg formatArgs: Any?): String = ""
+    open fun getString(resId: Int): String = androidx.compose.ui.res.StringResources.stringMap[resId] ?: ""
+    open fun getString(resId: Int, vararg formatArgs: Any?): String = try { String.format(androidx.compose.ui.res.StringResources.stringMap[resId] ?: "", *formatArgs) } catch (e: Exception) { "" }
     open fun getSystemService(name: String): Any? = null
     open fun <T> getSystemService(serviceClass: Class<T>): T? = null
     
