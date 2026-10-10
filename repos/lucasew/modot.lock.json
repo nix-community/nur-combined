@@ -195,7 +195,7 @@
       "kind": "tool",
       "ref": "github:lewtec/contapila",
       "depName": "lewtec/contapila",
-      "currentValue": "0.2.4",
+      "currentValue": "0.6.1",
       "datasource": "github-releases"
     },
     {
