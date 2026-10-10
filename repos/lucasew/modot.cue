@@ -192,6 +192,11 @@ lazy_tools: {
 		global: true
 		bins: ["direnv"]
 	}
+	android_platform_tools: {
+		ref: "android-platform-tools"
+		global: true
+		bins: ["adb", "fastboot"]
+	}
 }
 
 modules: {

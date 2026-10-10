@@ -19,7 +19,6 @@ in
     ./networking.nix
     ./steam.nix
     ./gammastep.nix
-    ./adb.nix
     ./vbox.nix
     ./tuning.nix
     ./gamemode.nix

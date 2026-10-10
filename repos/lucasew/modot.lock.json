@@ -337,6 +337,14 @@
     },
     {
       "kind": "tool",
+      "ref": "registry:android-platform-tools",
+      "depName": "",
+      "currentValue": "37.0.1",
+      "datasource": "",
+      "versioning": "semver"
+    },
+    {
+      "kind": "tool",
       "ref": "registry:golang",
       "depName": "",
       "currentValue": "1.26.4",
