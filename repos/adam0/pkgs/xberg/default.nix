@@ -34,7 +34,7 @@ in
       owner = "xberg-io";
       repo = "xberg";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-5YCTM4prgo7k62MP31J+E6bBcTyW9H4SsBsSOypoGKI=";
+      hash = "sha256-foOsg9KXE2ciIm2+x5g0cks+/FXdVqFM0czKHiWz5eo=";
     };
 
     # Align upstream tests with the selected features and current config schema.
