@@ -29,6 +29,7 @@
   raddebugger = pkgs.callPackage ./pkgs/raddebugger { };
   drag = pkgs.callPackage ./pkgs/drag { };
   wtfi2 = pkgs.callPackage ./pkgs/wtfi2 { };
+  lrcget = pkgs.callPackage ./pkgs/lrcget { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
