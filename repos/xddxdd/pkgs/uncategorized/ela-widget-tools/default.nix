@@ -9,12 +9,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "ela-widget-tools";
-  version = "0-unstable-2026-09-16";
+  version = "0-unstable-2026-10-09";
   src = fetchFromGitHub {
     owner = "Liniyous";
     repo = "ElaWidgetTools";
-    rev = "454cac2d57a47d3cc28577dc817793aec1881ca7";
-    hash = "sha256-ABqIi46lkiywEd1mG5DH7LtLIXSsNHppgh4QAkQKFiU=";
+    rev = "aae58f5d0d98e05eabe10c263aa7da5f2491d702";
+    hash = "sha256-G3Qp4aOM3lhsyJfaybcfSrfW68UzK3zBCHURsQL/ljM=";
   };
   __structuredAttrs = true;
   strictDeps = true;
