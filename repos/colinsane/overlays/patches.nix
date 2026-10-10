@@ -34,6 +34,11 @@ final: prev: {
   #   });
   # });
 
+  # XXX(2026-09-23): `python3Packages.pysaml2` fails build, takes down matrix-syanpse alongside it.
+  matrix-synapse-unwrapped = prev.matrix-synapse-unwrapped.overridePythonAttrs (prevAttrs: {
+    nativeCheckInputs = prev.lib.subtractLists prevAttrs.optional-dependencies.saml2 prevAttrs.nativeCheckInputs;
+  });
+
   # XXX(2026-10-02): gcc15 -> gcc16 upgrade detects more warnings than before; default -Werror flag breaks the build.
   clightning = prev.clightning.overrideAttrs (prevAttrs: {
     env = prevAttrs.env // {
@@ -43,6 +48,7 @@ final: prev: {
 
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (pyself: pysuper: {
+      # 2026-10-03: still required
       torchaudio = pysuper.torchaudio.overridePythonAttrs {
         # XXX(2026-07-25): hangs around test/torchaudio_unittest/functional/torchscript_consistency_cuda_test.py
         doCheck = false;

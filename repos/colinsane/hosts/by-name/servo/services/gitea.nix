@@ -45,7 +45,6 @@
     server = {
       # options: "home", "explore", "organizations", "login" or URL fragment (or full URL)
       LANDING_PAGE = "explore";
-      DOMAIN = "git.uninsane.org";
       ROOT_URL = "https://git.uninsane.org/";
       LFS_START_SERVER = true;
       LFS_MAX_FILE_SIZE = 1 * 1000 * 1000 * 1000 * 1000; # 1 TB

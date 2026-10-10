@@ -28,6 +28,7 @@
 
     buildCost = 1;
 
+    sandbox.wrapperType = "inplace";
     sandbox.net = "clearnet";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus.user.call."org.freedesktop.secrets" = "*";  #< TODO: restrict to a subset of secrets

@@ -775,6 +775,50 @@ super.lib.composeManyExtensions [
       gpart = null;
     };
 
+    gst_all_1 = prev.gst_all_1.overrideScope (_final': prev': {
+      # 2026-08-31: still required
+      # XXX(2026-01-28): ffv1 tests timeout. it's some new codec, just disable it.
+      # <https://github.com/FFmpeg/FFV1>
+      #
+      # >      Running unittests src/lib.rs (build/target/x86_64-unknown-linux-musl/debug/deps/gstrswebrtc-1b727e3774204f81)
+      # >
+      # > running 3 tests
+      # > test utils::tests::test_find_smallest_available_ext_id ... ok
+      # > test utils::tests::test_deserialize_array ... ok
+      # > test utils::tests::test_serialize_meta ... ok
+      # >
+      # > test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+      # >
+      # >      Running unittests src/lib.rs (build/target/x86_64-unknown-linux-musl/debug/deps/gstwebrtchttp-b761b0ba82ee0d97)
+      # >
+      # > running 0 tests
+      # >
+      # > test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+      # >
+      # > Error: CliError { error: Some(1 target failed:
+      # >     `-p gst-plugin-ffv1 --test ffv1dec`), exit_code: 101 }
+      # >
+      # > 1/1 tests FAIL           947.07s   exit status 1
+      # >
+      # >
+      # > Summary of Failures:
+      # >
+      # > 1/1 tests FAIL           947.07s   exit status 1
+      # >
+      # > Ok:                0
+      # > Fail:              1
+      # >
+      # > Full log written to /build/source/build/meson-logs/testlog.txt
+      # For full logs, run:
+      #        nix log /nix/store/jlj6sglablmw8i7n6xy7ypxflbrd9afq-gst-plugins-rs-0.14.4.drv
+      # gst-plugins-rs = prev'.gst-plugins-rs.overrideAttrs {
+      #   doCheck = false;
+      # };
+      gst-plugins-rs = prev'.gst-plugins-rs.override {
+        plugins = lib.remove "ffv1" prev'.gst-plugins-rs.selectedPlugins;
+      };
+    });
+
     # 2026-08-31: still required
     # 2026-01-27: fails hyprland -> hyprcursor -> tomlplusplus (locale tests fail)
     # only `nwg-panel` uses hyprland; `null`ing it seems to Just Work.
@@ -1312,9 +1356,8 @@ super.lib.composeManyExtensions [
           # optionalDependencies = [];
         });
 
-        # 2026-08-31: still required
+        # 2026-10-03: still required
         # 2026-07-27: curl-cffi tests hang/fail on musl. Disable all tests to ensure build completes.
-        # The tests require network access and have issues with musl-specific behavior.
         curl-cffi = pysuper.curl-cffi.overridePythonAttrs (prevAttrs: {
           doCheck = false;
         });

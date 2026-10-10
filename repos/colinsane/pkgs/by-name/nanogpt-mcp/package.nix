@@ -7,14 +7,14 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "nanogpt-mcp";
-  version = "1.4.1";
+  version = "1.5.0";
 
   src = fetchzip {
     url = "https://registry.npmjs.org/@nanogpt/mcp/-/mcp-${finalAttrs.version}.tgz";
-    hash = "sha256-AeKYfE0GFyQVFozWvs+Ag25PX/SF5AELWILN1MqeAGA=";
+    hash = "sha256-/cwWHoCeYF5wXFfStwxH7Dlkg1JgsFXpw3an0z67HQY=";
   };
 
-  npmDepsHash = "sha256-/1ZtebyPIn3fwQULUO3fAAe5SvyOHwXQB5QQIqG2ZB0=";
+  npmDepsHash = "sha256-ka17FzE5QXLsNbhad7wbcVGPBk1gqqW/71TOm0x8Sxc=";
   dontNpmBuild = true;
 
   # generate package-lock.json with:

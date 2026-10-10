@@ -1,0 +1,49 @@
+From b0544aceda02fe816018c1f76e8d506ffd2a0ba7 Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Sun, 4 Oct 2026 21:41:18 +0000
+Subject: [PATCH] linux: increase NR_CPUS from 384 -> 512
+
+NR_CPUS=384 was introduced in 2016 (1cd7dbc00b82d1a0d92dbdb4905cb9c48c6860ff).
+
+meanwhile, AMD ships individual CPUs with as many as 384 logical CPUs
+(EPYC 9965) and supports dual-socket use of those (i.e. 768 logical CPUs).
+
+768 would seem a reasonable default, then, except that without enabling
+additional settings, we can only rely on the kernel supporting 512.
+512 remains an improvement for any dual-socket 256 cpu user, at least.
+
+mainline Kconfig docs for NR_CPUS reads [1]:
+
+> config NR_CPUS
+> 	int "Maximum number of CPUs" if SMP && !MAXSMP
+> 	range NR_CPUS_RANGE_BEGIN NR_CPUS_RANGE_END
+> 	default NR_CPUS_DEFAULT
+> 	help
+> 	  This allows you to specify the maximum number of CPUs which this
+> 	  kernel will support.  If CPUMASK_OFFSTACK is enabled, the maximum
+> 	  supported value is 8192, otherwise the maximum value is 512.  The
+> 	  minimum value which makes sense is 2.
+>
+> 	  This is purely to save memory: each supported CPU adds about 8KB
+> 	  to the kernel image.
+
+1: https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/x86/Kconfig?id=v7.2#n1036
+---
+ pkgs/os-specific/linux/kernel/common-config.nix | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/pkgs/os-specific/linux/kernel/common-config.nix b/pkgs/os-specific/linux/kernel/common-config.nix
+index 53008b3434e770c866948fd58da9ec5af41455d9..f0fbaa099d35a0166eb509c54a9bce974d25765e 100644
+--- a/pkgs/os-specific/linux/kernel/common-config.nix
++++ b/pkgs/os-specific/linux/kernel/common-config.nix
+@@ -1539,8 +1539,8 @@ let
+             SPARSEMEM = yes;
+ 
+             # Bump the maximum number of CPUs to support systems like EC2 x1.*
+-            # instances and Xeon Phi.
+-            NR_CPUS = freeform "384";
++            # instances and Xeon Phi or AMD EPYC.
++            NR_CPUS = freeform "512";
+ 
+             # Enable LEDS to display link-state status of PHY devices (i.e. eth lan/wan interfaces)
+             LED_TRIGGER_PHY = yes;

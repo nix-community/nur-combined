@@ -60,9 +60,11 @@ let
     };
   };
 
-  # MCP config consumed by pi-mcp-adapter
-  # config docs: <https://github.com/nicobailon/pi-mcp-adapter#config>
-  mcpConfig = (pkgs.formats.json {}).generate "pi-mcp.json" {
+  # config docs: <https://github.com/earendil-works/pi/tree/main/packages/coding-agent/docs/mcp.md>
+  # schema is similar to pi-mcp-adapter's: <https://github.com/nicobailon/pi-mcp-adapter#config>
+  # - but `exposure = "direct"` instead of `directTools = true`
+  # - lives at ~/.config/pi/mcp.json instead of ~/.config/pi/mcp-adapter.json
+  mcpConfig = (pkgs.formats.json {}).generate "mcp.json" {
     mcpServers = {
       # agent-lsp = {
       #   command = "agent-lsp";
@@ -79,7 +81,8 @@ let
       ${if cfg.auto-zoekt then "auto-zoekt" else null} = {
         command = "auto-zoekt";
         args = [ "mcp" ];
-        directTools = true;
+        # directTools = true;
+        exposure = "direct";
       };
       # ccc = {
       #   command = "ccc";
@@ -100,11 +103,11 @@ let
       ${if cfg.coderag then "coderag" else null} = {
         command = "coderag";
         args = [ "mcp" ];
-        directTools = [
-          "search_code"
-          "search_files"
-          # "get_file"
-        ];
+        toolExposure = {
+          search_code = "direct";
+          search_files = "direct";
+          # get_file = "codemode";
+        };
       };
       # fetch = {
       #   # seemingly no command to fetch w/o applying any transformation
@@ -127,11 +130,11 @@ let
       fetch = {
         command = "sane-fetch";
         args = [ "mcp" ];
-        directTools = true;
+        exposure = "direct";
       };
       home_assistant = {
         command = "ha-mcp";
-        directTools = false;
+        exposure = "deferred";
       };
       # XXX(2026-06-18): kagimcp requires emailing kagi support to be whitelisted
       # kagi = {
@@ -155,37 +158,36 @@ let
           "--isolated"
           "--output-dir"  "/tmp"
         ];
-        directTools = [
+        toolExposure = {
           # models don't know to load the playwright MCP unless aggressively prompted;
           # after loading the MCP, they gravitate toward this sequence:
           # 1. browser_navigate  to some page
           # 2. browser_evaluate  to extract the desired content
-          "browser_navigate"
-          "browser_evaluate"
-        ];
+          browser_navigate = "direct";
+          browser_evaluate = "direct";
+        };
       };
       search = {
         command = "kagi";
         args = [ "mcp" ];
-        directTools = [
+        toolExposure = {
           # "kagi_ask_page"
-          "kagi_batch_search"
-          "kagi_quick" # Get a Kagi Quick Answer
-          "kagi_search" # Search Kagi
-          "kagi_translate"
+          kagi_batch_search = "direct";
+          kagi_quick = "direct"; # Get a Kagi Quick Answer
+          kagi_search = "direct"; # Search Kagi
+          kagi_translate = "direct";
           # "kagi_news" # Fetch Kagi News stories for a category
-          "kagi_news_search" # Search the News tab of kagi.com
-        ];
-        excludeTools = [
-          "kagi_enrich_web"  #< "this command requires KAGI_API_TOKEN"
-          "kagi_extract" # Extract a page's full content as markdown (requires KAGI_API_KEY)
-          "kagi_fastgpt"  #< "this command requires KAGI_API_TOKEN"
-          "kagi_summarize" # Summarize a URL or text (requires KAGI_API_KEY)
-        ];
+          kagi_news_search = "direct"; # Search the News tab of kagi.com
+          # ----
+          kagi_enrich_web = "hidden";  #< "this command requires KAGI_API_TOKEN"
+          kagi_extract = "hidden"; # Extract a page's full content as markdown (requires KAGI_API_KEY)
+          kagi_fastgpt = "hidden";  #< "this command requires KAGI_API_TOKEN"
+          kagi_summarize = "hidden"; # Summarize a URL or text (requires KAGI_API_KEY)
+        };
       };
       ${if cfg.semble then "semble" else null} = {
         command = "semble";
-        directTools = true;
+        exposure = "direct";
       };
       # serena = {
       #   # memory system, code search, but in practice not that helpful
@@ -313,9 +315,13 @@ in
     ];
     fs.".config/pi/trust.json".symlink.target = "trust/trust.json";
 
-    fs.".config/pi/mcp-adapter.json".symlink.target = mcpConfig;
+    fs.".config/pi/mcp.json".symlink.target = mcpConfig;
     fs.${if cfg.pi-offline-provider then ".config/pi/offline-provider/models" else null} = {
       symlink.target = offlineModels;
+    };
+    fs.".config/pi/pi-speeed.json".symlink.target = (pkgs.formats.json {}).generate "pi-speeed.json" {
+      footer = false;  #< save 1 line of chrome
+      persistStats = false;
     };
 
     fs.".pi/agent/claude-bridge.json".symlink.target = "../../.config/pi/claude-bridge.json";
@@ -364,13 +370,23 @@ in
       defaultModel = llamaCppModels.qwen3_6-35b-a3b-mtp-ud-q4_k_m.id;
       defaultProvider = "llama-cpp";
       defaultThinkingLevel = "medium";
+      editorPaddingX = 0;
       enableInstallTelemetry = false;
+      fullscreenScrollbar = "always";
       terminal.showTerminalProgress = true;
-      theme = "light";
+      theme = "system";  #< v.s. "light";
+      # default tuiMode is "fullscreen", which is actually not bad, except that:
+      # - it has worse scrolling than native terminal scrolling (no fractional scrolling)
+      # - scroll area is comparatively smaller, due to the large amount of chrome in the fixed input area (7-8 lines)
+      # - doesn't inherit (i.e. blocks) native TUI scroll bindings (add Ctrl+PgUp/PgDown to keybindings.json to fix)
+      # - breaks terminal-native URL handling (i.e. can't click-to-open links)
+      # - breaks terminal-native selection copy
+      tuiMode = "regular";  #< v.s. "fullscreen"
+      outputPad = 0;
       packages = [
         # pkgs.pi-caveman  #< adds `/caveman` slash command
         pkgs.edb-context-viewer  #< adds `/context` slash command
-        pkgs.edb-diff-files  #< adds `/diff-files` slash command
+        # pkgs.edb-diff-files  #< adds `/diff-files` slash command
         # pkgs.leohenon-pi-vim
         pkgs.pi-claude-bridge
         pkgs.pi-claude-usage
@@ -379,7 +395,7 @@ in
         # pkgs.pi-goal  #< adds `/goal` slash command
         # pkgs.pi-kagi  #< adds `web_search` tool
         # pkgs.pi-lens  #< adds LSP support, but also a lot of tool noise
-        pkgs.pi-mcp-adapter  #< adds MCP (Model Context Protocol) support
+        # pkgs.pi-mcp-adapter  #< adds MCP (Model Context Protocol) support
         # pkgs.pi-md-export  #< adds `/md` slash command
         # pkgs.pi-move-session  #< adds `/move-session` slash command
         pkgs.pi-sane
@@ -410,17 +426,18 @@ in
         # # "llama-cpp/${llamaCppModels.qwen3_5-122b-a10b-ud-q4_k_xl.id}"
         # "llama-cpp/${llamaCppModels.step3_7-flash-iq4_xs.id}"
         # "poll/gpt-oss-20b"
-        "qwen3.5-122b-a10b"
-        "google/gemma-4-31b-it"
-        "moonshotai/kimi-k2.6"
-        "moonshotai/kimi-k3"  #< N.B.: k3 is worse than terra in most measures (cost, capability, speed)
-        "openai/gpt-5.6-luna"
-        "openai/gpt-5.6-terra"
-        "openai/gpt-5.6-sol"
+        # "qwen3.5-122b-a10b"
+        # "google/gemma-4-31b-it"
+        # "moonshotai/kimi-k2.6"
+        # "moonshotai/kimi-k3"  #< N.B.: k3 is worse than terra in most measures (cost, capability, speed)
+        "z-ai/glm-5.3-flash"  # $0.30/1M output <https://nano-gpt.com/models/text/z-ai/glm-5.3-flash>
+        "openai/gpt-6-luna"  # $0.50/1M output <https://nano-gpt.com/models/text/openai/gpt-6-luna>
+        "openai/gpt-6.1-sol"  # $10/1M output <https://nano-gpt.com/models/text/openai/gpt-6.1-sol>
+        "anthropic/claude-sonnet-5.5"  # $10/1M output <https://nano-gpt.com/models/text/anthropic/claude-sonnet-5.5>
+        "anthropic/claude-opus-5.5"  # $20/1M output <https://nano-gpt.com/models/text/anthropic/claude-opus-5.5>
         # "deepseek/deepseek-latest"
         # "zai-org/glm-latest"
         # "x-ai/grok-latest"
-        # "openai/gpt-5.5"
         # "openai/gpt-chat-latest"
         # "google/gemini-pro-latest"
         # "anthropic/claude-opus-latest"

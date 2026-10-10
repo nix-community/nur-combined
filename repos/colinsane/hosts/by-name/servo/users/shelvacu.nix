@@ -4,7 +4,7 @@
     isNormalUser = true;
     home = "/home/shelvacu";
     subUidRanges = [
-      { startUid=300000; count=1; }
+      { startUid=301000; count=1; }
     ];
     group = "users";
     initialPassword = lib.mkDefault "";

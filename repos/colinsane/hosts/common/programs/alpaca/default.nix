@@ -96,7 +96,9 @@ in
       # fixes cross compilation & simplifies closure.
       ollama = null;
       python3Packages = pkgs.python3Packages.overrideScope (self: super: {
-        markitdown = null;  #< XXX(2025-12-07): does not cross compile (markitdown -> speechrecognition -> onnxruntime)
+        #v XXX(2025-12-07): does not cross compile (markitdown -> speechrecognition -> onnxruntime)
+        #v XXX(2026-10-06): alpaca references `markitdown.optional-dependencies.<...>` though, so plumb the attrnames.
+        markitdown = pkgs.emptyDirectory // { optional-dependencies = lib.mapAttrs (_: _: []) super.markitdown.optional-dependencies; };
         opencv4 = null;  #< XXX(2025-10-11): doesn't cross compile. or, fails at import time: "OpenCV loader: missing configuration file: ..."
         rembg = null;  #< XXX(2025-10-11): pulls in opencv, which doesn't cross compile; marked as optional-dependency
         openai-whisper = null;  #< XXX(2025-10-11): doesn't cross compile; marked as optional-dependency

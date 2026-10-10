@@ -2,7 +2,8 @@ local mod = {}
 
 function mod:dump_table(t)
   local s = '{\n'
-  for k,v in pairs(t) do
+  for const_k,v in pairs(t) do
+     local k = const_k
      if type(k) ~= 'number' then k = '"'..k..'"' end
      s = s .. '  ['..k..'] = ' .. self:dump_one(v) .. ',\n'
   end

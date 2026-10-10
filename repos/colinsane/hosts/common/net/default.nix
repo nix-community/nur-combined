@@ -30,4 +30,10 @@
   # this is required separately by servo and by any `sane-vpn` users,
   # however Nix requires this be set centrally, in only one location (i.e. here)
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
+
+  # bbr congestion control increases throughput by literally 10x over lossly links,
+  # without much impact under nominal circumstances.
+  # "lossy links" seem to be a real problem in mixed stacks or layered tunnels with opaque/unpredictable MTU.
+  boot.kernel.sysctl."net.core.default_qdisc" = "fq";
+  boot.kernel.sysctl."net.ipv4.tcp_congestion_control" = "bbr";
 }

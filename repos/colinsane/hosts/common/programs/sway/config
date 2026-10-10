@@ -195,6 +195,7 @@ assign [app_id="org.gnome.Calls"] workspace number 1  # gnome-calls >= 47.0-beta
 assign [app_id="org.gnome.Fractal"] workspace number 1
 assign [app_id="org.tabos.stamp"] workspace number 1
 assign [app_id="signal"] workspace number 1
+assign [app_id="slack"] workspace number 1
 assign [app_id="so.libdb.dissent"]  workspace number 1
 
 ### window display settings
