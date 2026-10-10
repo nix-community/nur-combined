@@ -1,6 +1,7 @@
 name: "Update packages"
 on:
   schedule:
+    - cron: "23 4,10,16 * * *"
     - cron: "23 22 * * *"
   workflow_dispatch:
 concurrency:
@@ -51,6 +52,7 @@ jobs:
           signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - name: Check if weekly update
+        if: github.event.schedule == '23 22 * * *'
         id: weekly
         run: |
           if [ "$(date +%u)" = "5" ]; then
