@@ -6,18 +6,18 @@
 
 buildGoModule {
   pname = "benchstat";
-  version = "unstable-2026-09-29";
+  version = "unstable-2026-10-09";
 
   src = fetchFromGitHub {
     owner = "golang";
     repo = "perf";
-    rev = "406019bb8b6893dd1245d31bf511c719619bb5c9";
-    hash = "sha256-R0Gu3giMeJKbDNT1LcKCOZTznoc1wGYCxmvt+dA5mhM=";
+    rev = "be2c69fb417e05de5fec05c732911f4c5f172606";
+    hash = "sha256-Ura+yZPbWLQDB/R+OTSrUpKZtEjDvpitdpabKgDSm2M=";
   };
 
   subPackages = [ "cmd/benchstat" ];
 
-  vendorHash = "sha256-9y6O/R2fOPYAGjlIZ2lcO1TNiZPj6My3EoPRiiFZu3U=";
+  vendorHash = "sha256-caW4rox/r2eq0HxACaAsuDLAeGIKUiLgKtJol8OXzDE=";
 
   meta = with lib; {
     description = "Compute and compare statistics about benchmark results";
