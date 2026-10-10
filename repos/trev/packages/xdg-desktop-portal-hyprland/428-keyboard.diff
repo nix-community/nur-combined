@@ -1,0 +1,359 @@
+diff --git i/CMakeLists.txt w/CMakeLists.txt
+index 5ca4941..dc7f8e5 100644
+--- i/CMakeLists.txt
++++ w/CMakeLists.txt
+@@ -58,6 +58,7 @@ pkg_check_modules(
+   REQUIRED
+   IMPORTED_TARGET
+   libeis-1.0
++  xkbcommon
+   wayland-client
+   wayland-protocols
+   libpipewire-0.3>=1.1.82
+diff --git i/src/meson.build w/src/meson.build
+index 26bd79d..045c967 100644
+--- i/src/meson.build
++++ w/src/meson.build
+@@ -9,6 +9,7 @@ executable('xdg-desktop-portal-hyprland',
+     dependency('hyprlang'),
+     dependency('hyprutils'),
+     dependency('libeis-1.0'),
++    dependency('xkbcommon'),
+     dependency('libdrm'),
+     dependency('libpipewire-0.3'),
+     dependency('sdbus-c++'),
+diff --git i/src/portals/RemoteDesktop.cpp w/src/portals/RemoteDesktop.cpp
+index dd1206b..1f36aff 100644
+--- i/src/portals/RemoteDesktop.cpp
++++ w/src/portals/RemoteDesktop.cpp
+@@ -110,6 +110,7 @@ dbUasv CRemoteDesktopPortal::onCreateSession(sdbus::ObjectPath requestHandle, sd
+     PSESSION->eis                = std::make_unique<EmulatedInputServer>("eisr-" + std::to_string(m_uSessionCounter++));
+     PSESSION->eis->setVirtualPointer(PSESSION->pointer);
+     PSESSION->eis->setVirtualKeyboard(PSESSION->keyboard);
++    PSESSION->eis->setKeymap({.fd = keymap.fd, .size = keymap.size});
+ 
+     m_mSessions.emplace(sessionHandle, PSESSION);
+     
+diff --git i/src/shared/Eis.cpp w/src/shared/Eis.cpp
+index e9c8fd0..8f93d83 100644
+--- i/src/shared/Eis.cpp
++++ w/src/shared/Eis.cpp
+@@ -123,48 +123,18 @@ int EmulatedInputServer::onEvent(eis_event* e) {
+             device = eis_event_get_device(e);
+             Debug::log(LOG, "[EIS] Device {} will no longer send events", eis_device_get_name(device));
+ 
+-            depressed = 0;
+-            virtualKeyboard->sendModifiers(depressed, 0, locked, 3);
++            // Pointer idle/leave events must not reset the keyboard state.
++            if (device == client.keyboard)
++                releaseVirtualKeys();
+             break;
+         case EIS_EVENT_KEYBOARD_KEY:
+             if (!virtualKeyboard) break;
+             {
+-                uint32_t keycode = eis_event_keyboard_get_key(e);
+-                bool     pressed = eis_event_keyboard_get_key_is_press(e);
+-                uint32_t modmask = 0u;
+-                switch (keycode) {
+-                    case KEY_LEFTSHIFT:
+-                    case KEY_RIGHTSHIFT:
+-                        modmask = 1u;
+-                        break;
+-                    case KEY_CAPSLOCK:
+-                        if (pressed) locked ^= 1u << 1u;
+-                        break;
+-                    case KEY_LEFTCTRL:
+-                    case KEY_RIGHTCTRL:
+-                        modmask = 1u << 2u;
+-                        break;
+-                    case KEY_LEFTALT:
+-                    case KEY_RIGHTALT:
+-                        modmask = 1u << 3u;
+-                        break;
+-                    case KEY_NUMLOCK:
+-                        if (pressed) locked ^= 1u << 4u;
+-                        break;
+-                    case KEY_LEFTMETA:
+-                    case KEY_RIGHTMETA:
+-                        modmask = 1u << 6u;
+-                        break;
+-                    case KEY_SCROLLLOCK:
+-                        if (pressed) locked ^= 1u << 7u;
+-                        break;
+-                    default:
+-                        break;
+-                }
+-
+-                depressed = pressed ? depressed | modmask : depressed & (~modmask);
++                const uint32_t keycode = eis_event_keyboard_get_key(e);
++                const bool pressed = eis_event_keyboard_get_key_is_press(e);
++                keyboardState.key(keycode, pressed);
+                 virtualKeyboard->sendKey(1, keycode, pressed);
+-                virtualKeyboard->sendModifiers(depressed, 0, locked, 3);
++                sendVirtualModifiers();
+             }
+             break;
+         case EIS_EVENT_FRAME:
+@@ -261,9 +231,13 @@ void EmulatedInputServer::ensureKeyboard() {
+     eis_device_configure_name(keyboard, "captured keyboard");
+     eis_device_configure_capability(keyboard, EIS_DEVICE_CAP_KEYBOARD);
+ 
+-    if (keymap.fd != 0) {
++    if (keymap.fd >= 0 && keymap.size > 0) {
+         Keymap _keymap = openKeymap();
+-        Debug::log(LOG, "Using keymap {}", _keymap.fd);
++        if (_keymap.fd < 0) {
++            eis_device_unref(keyboard);
++            return;
++        }
++        Debug::log(LOG, "Using compositor keymap for EIS keyboard");
+         eis_keymap* eis_keymap = eis_device_new_keymap(keyboard, EIS_KEYMAP_TYPE_XKB, _keymap.fd, _keymap.size);
+         eis_keymap_add(eis_keymap);
+         eis_keymap_unref(eis_keymap);
+@@ -287,6 +261,7 @@ Keymap EmulatedInputServer::openKeymap() {
+ 
+     int keymapFD = allocateSHMFile(keymap.size);
+     if (keymapFD < 0) {
++        munmap(src, keymap.size);
+         Debug::log(ERR, "Failed to create a keymap file for keyboard grab");
+         return _keymap;
+     }
+@@ -295,6 +270,7 @@ Keymap EmulatedInputServer::openKeymap() {
+     if (dst == MAP_FAILED) {
+         Debug::log(ERR, "Failed to mmap a keymap file for keyboard grab");
+         close(keymapFD);
++        munmap(src, keymap.size);
+         return _keymap;
+     }
+ 
+@@ -322,6 +298,7 @@ void EmulatedInputServer::clearKeyboard() {
+     if (!client.keyboard)
+         return;
+     Debug::log(LOG, "[EIS] Clearing keyboard");
++    releaseVirtualKeys();
+ 
+     eis_device_remove(client.keyboard);
+     eis_device_unref(client.keyboard);
+@@ -353,7 +330,46 @@ void EmulatedInputServer::stopEmulating() {
+ }
+ 
+ void EmulatedInputServer::setKeymap(Keymap _keymap) {
+-    keymap = _keymap;
++    if (_keymap.fd < 0 || _keymap.size == 0)
++        return;
++    const int fd = dup(_keymap.fd);
++    if (fd < 0)
++        return;
++    const void* map = mmap(nullptr, _keymap.size, PROT_READ, MAP_PRIVATE, fd, 0);
++    if (map == MAP_FAILED) {
++        close(fd);
++        return;
++    }
++    // Own the FD: PortalManager can replace/close its copy on keymap updates.
++    const std::string text(static_cast<const char*>(map), _keymap.size);
++    releaseVirtualKeys();
++    const bool valid = keyboardState.setKeymap(text.c_str());
++    munmap(const_cast<void*>(map), _keymap.size);
++    if (!valid) {
++        close(fd);
++        Debug::log(ERR, "Failed to compile compositor keyboard map");
++        return;
++    }
++    if (keymap.fd >= 0)
++        close(keymap.fd);
++    keymap = {.fd = fd, .size = _keymap.size};
++}
++
++void EmulatedInputServer::sendVirtualModifiers() {
++    if (!virtualKeyboard)
++        return;
++    virtualKeyboard->sendModifiers(
++        keyboardState.modifiers(XKB_STATE_MODS_DEPRESSED),
++        keyboardState.modifiers(XKB_STATE_MODS_LATCHED),
++        keyboardState.modifiers(XKB_STATE_MODS_LOCKED), keyboardState.group());
++}
++
++void EmulatedInputServer::releaseVirtualKeys() {
++    for (const auto key : keyboardState.releaseAll()) {
++        if (virtualKeyboard)
++            virtualKeyboard->sendKey(1, key, false);
++    }
++    sendVirtualModifiers();
+ }
+ 
+ void EmulatedInputServer::resetPointer() {
+@@ -415,6 +431,11 @@ void EmulatedInputServer::sendPointerFrame() {
+ }
+ 
+ void EmulatedInputServer::stopServer() {
++    releaseVirtualKeys();
++    if (keymap.fd >= 0) {
++        close(keymap.fd);
++        keymap.fd = -1;
++    }
+     g_pPortalManager->removeFdFromEventLoop(eis_get_fd(eisCtx));
+     Debug::log(LOG, "[EIS] Server fd {} destroyed", eis_get_fd(eisCtx));
+     eis_unref(eisCtx);
+diff --git i/src/shared/Eis.hpp w/src/shared/Eis.hpp
+index d9b57dc..752f87d 100644
+--- i/src/shared/Eis.hpp
++++ w/src/shared/Eis.hpp
+@@ -6,9 +6,10 @@
+ #include "virtual-keyboard-unstable-v1.hpp"
+ #include <memory>
+ #include "../includes.hpp"
++#include "KeyboardState.hpp"
+ 
+ struct Keymap {
+-    int32_t  fd   = 0;
++    int32_t  fd   = -1;
+     uint32_t size = 0;
+ };
+ 
+@@ -57,9 +58,7 @@ class EmulatedInputServer {
+     SP<CCZwlrVirtualPointerV1> virtualPointer  = nullptr;
+     SP<CCZwpVirtualKeyboardV1> virtualKeyboard = nullptr;
+ 
+-    uint32_t                   depressed       = 0;
+-    uint32_t                   latched         = 0;
+-    uint32_t                   locked          = 0;
++    KeyboardState keyboardState;
+ 
+     Keymap keymap;
+ 
+@@ -70,4 +69,6 @@ class EmulatedInputServer {
+     Keymap openKeymap();
+     void   clearPointer();
+     void   clearKeyboard();
++    void   sendVirtualModifiers();
++    void   releaseVirtualKeys();
+ };
+diff --git i/src/shared/KeyboardState.hpp w/src/shared/KeyboardState.hpp
+new file mode 100644
+index 0000000..172b976
+--- /dev/null
++++ w/src/shared/KeyboardState.hpp
+@@ -0,0 +1,60 @@
++#pragma once
++
++#include <xkbcommon/xkbcommon.h>
++#include <cstdint>
++#include <memory>
++#include <unordered_set>
++#include <vector>
++
++// Track modifiers using the compositor's keymap, rather than fixed masks.
++class KeyboardState {
++  public:
++    bool setKeymap(const char* text) {
++        std::unique_ptr<xkb_context, decltype(&xkb_context_unref)> context(
++            xkb_context_new(XKB_CONTEXT_NO_FLAGS), xkb_context_unref);
++        if (!context)
++            return false;
++        std::unique_ptr<xkb_keymap, decltype(&xkb_keymap_unref)> map(
++            xkb_keymap_new_from_string(context.get(), text, XKB_KEYMAP_FORMAT_TEXT_V1, XKB_KEYMAP_COMPILE_NO_FLAGS), xkb_keymap_unref);
++        if (!map)
++            return false;
++        std::unique_ptr<xkb_state, decltype(&xkb_state_unref)> state(xkb_state_new(map.get()), xkb_state_unref);
++        if (!state)
++            return false;
++        m_state = std::move(state);
++        m_pressed.clear();
++        return true;
++    }
++
++    void key(uint32_t code, bool pressed) {
++        if (!m_state)
++            return;
++        // Repeated presses must not increment XKB's modifier reference count.
++        const bool changed = pressed ? m_pressed.insert(code).second : m_pressed.erase(code) != 0;
++        if (changed)
++            xkb_state_update_key(m_state.get(), code + 8, pressed ? XKB_KEY_DOWN : XKB_KEY_UP);
++    }
++
++    std::vector<uint32_t> releaseAll() {
++        std::vector<uint32_t> keys(m_pressed.begin(), m_pressed.end());
++        for (auto code : keys)
++            key(code, false);
++        return keys;
++    }
++
++    uint32_t modifiers(xkb_state_component component) const {
++        return m_state ? xkb_state_serialize_mods(m_state.get(), component) : 0;
++    }
++
++    uint32_t group() const {
++        return m_state ? xkb_state_serialize_layout(m_state.get(), XKB_STATE_LAYOUT_EFFECTIVE) : 0;
++    }
++
++    uint32_t character(uint32_t code) const {
++        return m_state ? xkb_state_key_get_utf32(m_state.get(), code + 8) : 0;
++    }
++
++  private:
++    std::unique_ptr<xkb_state, decltype(&xkb_state_unref)> m_state{nullptr, xkb_state_unref};
++    std::unordered_set<uint32_t> m_pressed;
++};
+diff --git i/tests/keyboard-state.cpp w/tests/keyboard-state.cpp
+new file mode 100644
+index 0000000..0d422e8
+--- /dev/null
++++ w/tests/keyboard-state.cpp
+@@ -0,0 +1,57 @@
++#include "../src/shared/KeyboardState.hpp"
++#include <cassert>
++#include <cstdlib>
++#include <iostream>
++#include <linux/input-event-codes.h>
++
++int main() {
++    auto* context = xkb_context_new(XKB_CONTEXT_NO_FLAGS);
++    assert(context);
++    xkb_rule_names names{};
++    names.layout = "fr";
++    names.options = "compose:caps,shift:both_capslock_cancel";
++    auto* map = xkb_keymap_new_from_names(context, &names, XKB_KEYMAP_COMPILE_NO_FLAGS);
++    assert(map);
++    char* text = xkb_keymap_get_as_string(map, XKB_KEYMAP_FORMAT_TEXT_V1);
++    assert(text);
++    KeyboardState state;
++    assert(state.setKeymap(text));
++    free(text);
++    assert(state.character(KEY_Q) == 'a');
++    assert(state.character(KEY_A) == 'q');
++    assert(state.character(KEY_W) == 'z');
++    assert(state.character(KEY_2) == U'é');
++    assert(state.group() == 0);
++    state.key(KEY_RIGHTALT, true);
++    auto mod5 = xkb_keymap_mod_get_index(map, "Mod5");
++    auto mod1 = xkb_keymap_mod_get_index(map, "Mod1");
++    assert(state.modifiers(XKB_STATE_MODS_DEPRESSED) & (1u << mod5));
++    assert(!(state.modifiers(XKB_STATE_MODS_DEPRESSED) & (1u << mod1)));
++    assert(state.character(KEY_0) == '@');
++    state.key(KEY_RIGHTALT, false);
++    state.key(KEY_LEFTSHIFT, true);
++    state.key(KEY_LEFTSHIFT, true); // Duplicate press must not leave Shift stuck.
++    assert(state.character(KEY_Q) == 'A');
++    state.key(KEY_LEFTSHIFT, false);
++    assert(state.character(KEY_Q) == 'a');
++    assert(state.modifiers(XKB_STATE_MODS_DEPRESSED) == 0);
++    state.key(KEY_LEFTCTRL, true);
++    state.key(KEY_RIGHTCTRL, true);
++    state.key(KEY_LEFTCTRL, false);
++    assert(state.modifiers(XKB_STATE_MODS_DEPRESSED) != 0);
++    state.key(KEY_RIGHTCTRL, false);
++    assert(state.modifiers(XKB_STATE_MODS_DEPRESSED) == 0);
++    for (int cycle = 0; cycle < 100; ++cycle) {
++        state.key(KEY_LEFTCTRL, true);
++        state.key(KEY_RIGHTALT, true);
++        state.key(KEY_Q, true);
++        assert(state.releaseAll().size() == 3);
++        assert(state.releaseAll().empty());
++        assert(state.modifiers(XKB_STATE_MODS_DEPRESSED) == 0);
++        assert(state.character(KEY_Q) == 'a');
++        assert(state.group() == 0);
++    }
++    xkb_keymap_unref(map);
++    xkb_context_unref(context);
++    std::cout << "PASS: French AZERTY, accents, AltGr, both Ctrl keys, duplicate presses, 100 stop/resume cycles\n";
++}

@@ -1,0 +1,1238 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 7abdec7c..5ca49413 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -57,6 +57,7 @@ pkg_check_modules(
+   deps
+   REQUIRED
+   IMPORTED_TARGET
++  libeis-1.0
+   wayland-client
+   wayland-protocols
+   libpipewire-0.3>=1.1.82
+@@ -127,6 +128,8 @@ protocolwayland()
+ protocolnew("${CMAKE_SOURCE_DIR}/protocols"
+             "wlr-foreign-toplevel-management-unstable-v1" true)
+ protocolnew("${CMAKE_SOURCE_DIR}/protocols" "wlr-screencopy-unstable-v1" true)
++protocolnew("${CMAKE_SOURCE_DIR}/protocols" "wlr-virtual-pointer-unstable-v1" true)
++protocolnew("${CMAKE_SOURCE_DIR}/protocols" "virtual-keyboard-unstable-v1" true)
+ protocolnew("${HYPRLAND_PROTOCOLS}/protocols" "hyprland-global-shortcuts-v1"
+             true)
+ protocolnew("${HYPRLAND_PROTOCOLS}/protocols" "hyprland-toplevel-export-v1"
+diff --git a/hyprland.portal b/hyprland.portal
+index cbaafa83..2e7ad8d8 100644
+--- a/hyprland.portal
++++ b/hyprland.portal
+@@ -1,4 +1,4 @@
+ [portal]
+ DBusName=org.freedesktop.impl.portal.desktop.hyprland
+-Interfaces=org.freedesktop.impl.portal.Screenshot;org.freedesktop.impl.portal.ScreenCast;org.freedesktop.impl.portal.GlobalShortcuts;org.freedesktop.impl.portal.InputCapture;
++Interfaces=org.freedesktop.impl.portal.Screenshot;org.freedesktop.impl.portal.ScreenCast;org.freedesktop.impl.portal.GlobalShortcuts;org.freedesktop.impl.portal.InputCapture;org.freedesktop.impl.portal.RemoteDesktop;
+ UseIn=wlroots;Hyprland;sway;Wayfire;river;
+diff --git a/protocols/meson.build b/protocols/meson.build
+index 233edd91..dda133cf 100644
+--- a/protocols/meson.build
++++ b/protocols/meson.build
+@@ -19,6 +19,8 @@ hyprwayland_scanner = find_program(
+ 
+ client_protocols = [
+ 	'wlr-screencopy-unstable-v1.xml',
++	'wlr-virtual-pointer-unstable-v1.xml',
++	'virtual-keyboard-unstable-v1.xml',
+ 	'wlr-foreign-toplevel-management-unstable-v1.xml',
+ 	hl_protocol_dir / 'protocols/hyprland-toplevel-export-v1.xml',
+ 	hl_protocol_dir / 'protocols/hyprland-toplevel-mapping-v1.xml',
+diff --git a/protocols/virtual-keyboard-unstable-v1.xml b/protocols/virtual-keyboard-unstable-v1.xml
+new file mode 100644
+index 00000000..5095c91b
+--- /dev/null
++++ b/protocols/virtual-keyboard-unstable-v1.xml
+@@ -0,0 +1,113 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<protocol name="virtual_keyboard_unstable_v1">
++  <copyright>
++    Copyright © 2008-2011  Kristian Høgsberg
++    Copyright © 2010-2013  Intel Corporation
++    Copyright © 2012-2013  Collabora, Ltd.
++    Copyright © 2018       Purism SPC
++
++    Permission is hereby granted, free of charge, to any person obtaining a
++    copy of this software and associated documentation files (the "Software"),
++    to deal in the Software without restriction, including without limitation
++    the rights to use, copy, modify, merge, publish, distribute, sublicense,
++    and/or sell copies of the Software, and to permit persons to whom the
++    Software is furnished to do so, subject to the following conditions:
++
++    The above copyright notice and this permission notice (including the next
++    paragraph) shall be included in all copies or substantial portions of the
++    Software.
++
++    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++    THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
++    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
++    DEALINGS IN THE SOFTWARE.
++  </copyright>
++
++  <interface name="zwp_virtual_keyboard_v1" version="1">
++    <description summary="virtual keyboard">
++      The virtual keyboard provides an application with requests which emulate
++      the behaviour of a physical keyboard.
++
++      This interface can be used by clients on its own to provide raw input
++      events, or it can accompany the input method protocol.
++    </description>
++
++    <request name="keymap">
++      <description summary="keyboard mapping">
++        Provide a file descriptor to the compositor which can be
++        memory-mapped to provide a keyboard mapping description.
++
++        Format carries a value from the keymap_format enumeration.
++      </description>
++      <arg name="format" type="uint" summary="keymap format"/>
++      <arg name="fd" type="fd" summary="keymap file descriptor"/>
++      <arg name="size" type="uint" summary="keymap size, in bytes"/>
++    </request>
++
++    <enum name="error">
++      <entry name="no_keymap" value="0" summary="No keymap was set"/>
++    </enum>
++
++    <request name="key">
++      <description summary="key event">
++        A key was pressed or released.
++        The time argument is a timestamp with millisecond granularity, with an
++        undefined base. All requests regarding a single object must share the
++        same clock.
++
++        Keymap must be set before issuing this request.
++
++        State carries a value from the key_state enumeration.
++      </description>
++      <arg name="time" type="uint" summary="timestamp with millisecond granularity"/>
++      <arg name="key" type="uint" summary="key that produced the event"/>
++      <arg name="state" type="uint" summary="physical state of the key"/>
++    </request>
++
++    <request name="modifiers">
++      <description summary="modifier and group state">
++        Notifies the compositor that the modifier and/or group state has
++        changed, and it should update state.
++
++        The client should use wl_keyboard.modifiers event to synchronize its
++        internal state with seat state.
++
++        Keymap must be set before issuing this request.
++      </description>
++      <arg name="mods_depressed" type="uint" summary="depressed modifiers"/>
++      <arg name="mods_latched" type="uint" summary="latched modifiers"/>
++      <arg name="mods_locked" type="uint" summary="locked modifiers"/>
++      <arg name="group" type="uint" summary="keyboard layout"/>
++    </request>
++
++    <request name="destroy" type="destructor" since="1">
++      <description summary="destroy the virtual keyboard keyboard object"/>
++    </request>
++  </interface>
++
++  <interface name="zwp_virtual_keyboard_manager_v1" version="1">
++    <description summary="virtual keyboard manager">
++      A virtual keyboard manager allows an application to provide keyboard
++      input events as if they came from a physical keyboard.
++    </description>
++
++    <enum name="error">
++      <entry name="unauthorized" value="0" summary="client not authorized to use the interface"/>
++    </enum>
++
++    <request name="create_virtual_keyboard">
++      <description summary="Create a new virtual keyboard">
++        Creates a new virtual keyboard associated to a seat.
++
++        If the compositor enables a keyboard to perform arbitrary actions, it
++        should present an error when an untrusted client requests a new
++        keyboard.
++      </description>
++      <arg name="seat" type="object" interface="wl_seat"/>
++      <arg name="id" type="new_id" interface="zwp_virtual_keyboard_v1"/>
++    </request>
++  </interface>
++</protocol>
+diff --git a/protocols/wlr-virtual-pointer-unstable-v1.xml b/protocols/wlr-virtual-pointer-unstable-v1.xml
+new file mode 100644
+index 00000000..ea243e7c
+--- /dev/null
++++ b/protocols/wlr-virtual-pointer-unstable-v1.xml
+@@ -0,0 +1,152 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<protocol name="wlr_virtual_pointer_unstable_v1">
++  <copyright>
++    Copyright © 2019 Josef Gajdusek
++
++    Permission is hereby granted, free of charge, to any person obtaining a
++    copy of this software and associated documentation files (the "Software"),
++    to deal in the Software without restriction, including without limitation
++    the rights to use, copy, modify, merge, publish, distribute, sublicense,
++    and/or sell copies of the Software, and to permit persons to whom the
++    Software is furnished to do so, subject to the following conditions:
++
++    The above copyright notice and this permission notice (including the next
++    paragraph) shall be included in all copies or substantial portions of the
++    Software.
++
++    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
++    THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
++    FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
++    DEALINGS IN THE SOFTWARE.
++  </copyright>
++
++  <interface name="zwlr_virtual_pointer_v1" version="2">
++    <description summary="virtual pointer">
++      This protocol allows clients to emulate a physical pointer device. The
++      requests are mostly mirror opposites of those specified in wl_pointer.
++    </description>
++
++    <enum name="error">
++      <entry name="invalid_axis" value="0"
++        summary="client sent invalid axis enumeration value" />
++      <entry name="invalid_axis_source" value="1"
++        summary="client sent invalid axis source enumeration value" />
++    </enum>
++
++    <request name="motion">
++      <description summary="pointer relative motion event">
++        The pointer has moved by a relative amount to the previous request.
++
++        Values are in the global compositor space.
++      </description>
++      <arg name="time" type="uint" summary="timestamp with millisecond granularity"/>
++      <arg name="dx" type="fixed" summary="displacement on the x-axis"/>
++      <arg name="dy" type="fixed" summary="displacement on the y-axis"/>
++    </request>
++
++    <request name="motion_absolute">
++      <description summary="pointer absolute motion event">
++        The pointer has moved in an absolute coordinate frame.
++
++        Value of x can range from 0 to x_extent, value of y can range from 0
++        to y_extent.
++      </description>
++      <arg name="time" type="uint" summary="timestamp with millisecond granularity"/>
++      <arg name="x" type="uint" summary="position on the x-axis"/>
++      <arg name="y" type="uint" summary="position on the y-axis"/>
++      <arg name="x_extent" type="uint" summary="extent of the x-axis"/>
++      <arg name="y_extent" type="uint" summary="extent of the y-axis"/>
++    </request>
++
++    <request name="button">
++      <description summary="button event">
++        A button was pressed or released.
++      </description>
++      <arg name="time" type="uint" summary="timestamp with millisecond granularity"/>
++      <arg name="button" type="uint" summary="button that produced the event"/>
++      <arg name="state" type="uint" enum="wl_pointer.button_state" summary="physical state of the button"/>
++    </request>
++
++    <request name="axis">
++      <description summary="axis event">
++        Scroll and other axis requests.
++      </description>
++      <arg name="time" type="uint" summary="timestamp with millisecond granularity"/>
++      <arg name="axis" type="uint" enum="wl_pointer.axis" summary="axis type"/>
++      <arg name="value" type="fixed" summary="length of vector in touchpad coordinates"/>
++    </request>
++
++    <request name="frame">
++      <description summary="end of a pointer event sequence">
++        Indicates the set of events that logically belong together.
++      </description>
++    </request>
++
++    <request name="axis_source">
++      <description summary="axis source event">
++        Source information for scroll and other axis.
++      </description>
++      <arg name="axis_source" type="uint" enum="wl_pointer.axis_source" summary="source of the axis event"/>
++    </request>
++
++    <request name="axis_stop">
++      <description summary="axis stop event">
++        Stop notification for scroll and other axes.
++      </description>
++      <arg name="time" type="uint" summary="timestamp with millisecond granularity"/>
++      <arg name="axis" type="uint" enum="wl_pointer.axis" summary="the axis stopped with this event"/>
++    </request>
++
++    <request name="axis_discrete">
++      <description summary="axis click event">
++        Discrete step information for scroll and other axes.
++
++        This event allows the client to extend data normally sent using the axis
++        event with discrete value.
++      </description>
++      <arg name="time" type="uint" summary="timestamp with millisecond granularity"/>
++      <arg name="axis" type="uint" enum="wl_pointer.axis" summary="axis type"/>
++      <arg name="value" type="fixed" summary="length of vector in touchpad coordinates"/>
++      <arg name="discrete" type="int" summary="number of steps"/>
++    </request>
++
++    <request name="destroy" type="destructor" since="1">
++      <description summary="destroy the virtual pointer object"/>
++    </request>
++  </interface>
++
++  <interface name="zwlr_virtual_pointer_manager_v1" version="2">
++    <description summary="virtual pointer manager">
++      This object allows clients to create individual virtual pointer objects.
++    </description>
++
++    <request name="create_virtual_pointer">
++      <description summary="Create a new virtual pointer">
++        Creates a new virtual pointer. The optional seat is a suggestion to the
++        compositor.
++      </description>
++      <arg name="seat" type="object" interface="wl_seat" allow-null="true"/>
++      <arg name="id" type="new_id" interface="zwlr_virtual_pointer_v1"/>
++    </request>
++
++    <request name="destroy" type="destructor" since="1">
++      <description summary="destroy the virtual pointer manager"/>
++    </request>
++
++    <!-- Version 2 additions -->
++    <request name="create_virtual_pointer_with_output" since="2">
++      <description summary="Create a new virtual pointer">
++        Creates a new virtual pointer. The seat and the output arguments are
++        optional. If the seat argument is set, the compositor should assign the
++        input device to the requested seat. If the output argument is set, the
++        compositor should map the input device to the requested output.
++      </description>
++      <arg name="seat" type="object" interface="wl_seat" allow-null="true"/>
++      <arg name="output" type="object" interface="wl_output" allow-null="true"/>
++      <arg name="id" type="new_id" interface="zwlr_virtual_pointer_v1"/>
++    </request>
++  </interface>
++</protocol>
+diff --git a/src/core/PortalManager.cpp b/src/core/PortalManager.cpp
+index 5dc98d44..db086120 100644
+--- a/src/core/PortalManager.cpp
++++ b/src/core/PortalManager.cpp
+@@ -96,6 +96,10 @@ void CPortalManager::onGlobal(uint32_t name, const char* interface, uint32_t ver
+         m_sPortals.globalShortcuts = std::make_unique<CGlobalShortcutsPortal>(makeShared<CCHyprlandGlobalShortcutsManagerV1>(
+             (wl_proxy*)wl_registry_bind((wl_registry*)m_sWaylandConnection.registry->resource(), name, &hyprland_global_shortcuts_manager_v1_interface, version)));
+     }
++
++    if (m_sPortals.remoteDesktop == nullptr)
++        m_sPortals.remoteDesktop = std::make_unique<CRemoteDesktopPortal>();
++
+     if (INTERFACE == hyprland_input_capture_manager_v1_interface.name)
+         m_sPortals.inputCapture = std::make_unique<CInputCapturePortal>(makeShared<CCHyprlandInputCaptureManagerV1>(
+             (wl_proxy*)wl_registry_bind((wl_registry*)m_sWaylandConnection.registry->resource(), name, &hyprland_input_capture_manager_v1_interface, version)));
+@@ -105,7 +109,17 @@ void CPortalManager::onGlobal(uint32_t name, const char* interface, uint32_t ver
+ 
+         for (auto& output : m_vOutputs)
+             setupXDGOutput(output.get());
+-    } else if (INTERFACE == hyprland_toplevel_export_manager_v1_interface.name) {
++    }
++
++    if (INTERFACE == zwlr_virtual_pointer_manager_v1_interface.name)
++        m_sPortals.remoteDesktop->registerPointer(makeShared<CCZwlrVirtualPointerManagerV1>(
++            (wl_proxy*)wl_registry_bind((wl_registry*)m_sWaylandConnection.registry->resource(), name, &zwlr_virtual_pointer_manager_v1_interface, version)));
++
++    if (INTERFACE == zwp_virtual_keyboard_manager_v1_interface.name)
++        m_sPortals.remoteDesktop->registerKeyboard(makeShared<CCZwpVirtualKeyboardManagerV1>(
++            (wl_proxy*)wl_registry_bind((wl_registry*)m_sWaylandConnection.registry->resource(), name, &zwp_virtual_keyboard_manager_v1_interface, version)));
++
++    else if (INTERFACE == hyprland_toplevel_export_manager_v1_interface.name) {
+         m_sWaylandConnection.hyprlandToplevelMgr = makeShared<CCHyprlandToplevelExportManagerV1>(
+             (wl_proxy*)wl_registry_bind((wl_registry*)m_sWaylandConnection.registry->resource(), name, &hyprland_toplevel_export_manager_v1_interface, version));
+     }
+@@ -119,6 +133,21 @@ void CPortalManager::onGlobal(uint32_t name, const char* interface, uint32_t ver
+         setupXDGOutput(POUTPUT);
+     }
+ 
++    else if (INTERFACE == wl_seat_interface.name) {
++        m_sWaylandConnection.seat = makeShared<CCWlSeat>((wl_proxy*)wl_registry_bind((wl_registry*)m_sWaylandConnection.registry->resource(), name, &wl_seat_interface, version));
++        m_sWaylandConnection.keyboard = makeShared<CCWlKeyboard>(m_sWaylandConnection.seat->sendGetKeyboard());
++        m_sWaylandConnection.keyboard->setKeymap([this](CCWlKeyboard*, wl_keyboard_keymap_format format, int32_t fd, uint32_t size) {
++            if (format != WL_KEYBOARD_KEYMAP_FORMAT_XKB_V1)
++                return;
++
++            if (m_sKeymap.fd >= 0)
++                close(m_sKeymap.fd);
++
++            m_sKeymap = {.format = format, .fd = dup(fd), .size = size};
++            close(fd);
++        });
++    }
++
+     else if (INTERFACE == zwp_linux_dmabuf_v1_interface.name) {
+         if (version < 4) {
+             Debug::log(ERR, "cannot use linux_dmabuf with ver < 4");
+@@ -485,6 +514,7 @@ void CPortalManager::startEventLoop() {
+     m_sPortals.screenshot.reset();
+     m_sHelpers.toplevel.reset();
+     m_sPortals.inputCapture.reset();
++    m_sPortals.remoteDesktop.reset();
+ 
+     m_pConnection.reset();
+     pw_loop_destroy(m_sPipewire.loop);
+diff --git a/src/core/PortalManager.hpp b/src/core/PortalManager.hpp
+index eb62c1be..bcd8605f 100644
+--- a/src/core/PortalManager.hpp
++++ b/src/core/PortalManager.hpp
+@@ -9,6 +9,7 @@
+ #include "../portals/Screenshot.hpp"
+ #include "../portals/GlobalShortcuts.hpp"
+ #include "../portals/InputCapture.hpp"
++#include "../portals/RemoteDesktop.hpp"
+ #include "../helpers/Timer.hpp"
+ #include "../shared/ToplevelManager.hpp"
+ #include "../shared/ToplevelMappingManager.hpp"
+@@ -21,6 +22,8 @@
+ #include "linux-dmabuf-v1.hpp"
+ #include "wlr-foreign-toplevel-management-unstable-v1.hpp"
+ #include "wlr-screencopy-unstable-v1.hpp"
++#include "wlr-virtual-pointer-unstable-v1.hpp"
++#include "virtual-keyboard-unstable-v1.hpp"
+ 
+ #include "../includes.hpp"
+ #include "../dbusDefines.hpp"
+@@ -71,6 +74,12 @@ class CPortalManager {
+     SOutput*                                     getOutputFromName(const std::string& name);
+     std::vector<std::unique_ptr<SOutput>> const& getAllOutputs();
+ 
++    struct {
++        enum wl_keyboard_keymap_format format = WL_KEYBOARD_KEYMAP_FORMAT_XKB_V1;
++        int32_t                         fd     = -1;
++        uint32_t                        size   = 0;
++    } m_sKeymap;
++
+     struct {
+         pw_loop* loop = nullptr;
+     } m_sPipewire;
+@@ -80,6 +89,7 @@ class CPortalManager {
+         std::unique_ptr<CScreenshotPortal>      screenshot;
+         std::unique_ptr<CGlobalShortcutsPortal> globalShortcuts;
+         std::unique_ptr<CInputCapturePortal>    inputCapture;
++        std::unique_ptr<CRemoteDesktopPortal>   remoteDesktop;
+     } m_sPortals;
+ 
+     struct {
+@@ -89,6 +99,8 @@ class CPortalManager {
+ 
+     struct {
+         wl_display*                           display = nullptr;
++        SP<CCWlSeat>                          seat;
++        SP<CCWlKeyboard>                      keyboard;
+         SP<CCWlRegistry>                      registry;
+         SP<CCHyprlandToplevelExportManagerV1> hyprlandToplevelMgr;
+         SP<CCZwpLinuxDmabufV1>                linuxDmabuf;
+diff --git a/src/meson.build b/src/meson.build
+index b141521a..26bd79d1 100644
+--- a/src/meson.build
++++ b/src/meson.build
+@@ -8,6 +8,7 @@ executable('xdg-desktop-portal-hyprland',
+     dependency('gbm'),
+     dependency('hyprlang'),
+     dependency('hyprutils'),
++    dependency('libeis-1.0'),
+     dependency('libdrm'),
+     dependency('libpipewire-0.3'),
+     dependency('sdbus-c++'),
+diff --git a/src/portals/RemoteDesktop.cpp b/src/portals/RemoteDesktop.cpp
+new file mode 100644
+index 00000000..dd1206bf
+--- /dev/null
++++ b/src/portals/RemoteDesktop.cpp
+@@ -0,0 +1,207 @@
++#include "RemoteDesktop.hpp"
++#include "../core/PortalManager.hpp"
++#include "../helpers/Log.hpp"
++#include "../helpers/MiscFunctions.hpp"
++
++void CRemoteDesktopPortal::registerPointer(SP<CCZwlrVirtualPointerManagerV1> mgr) {
++    m_sState.pointerMgr = mgr;
++}
++
++void CRemoteDesktopPortal::registerKeyboard(SP<CCZwpVirtualKeyboardManagerV1> mgr) {
++    m_sState.keyboardMgr = mgr;
++}
++
++CRemoteDesktopPortal::CRemoteDesktopPortal() {
++    Debug::log(LOG, "[remotedesktop] initializing remote desktop portal");
++    m_pObject = sdbus::createObject(*g_pPortalManager->getConnection(), OBJECT_PATH);
++    m_pObject
++        ->addVTable(
++            sdbus::registerMethod("CreateSession")
++                .implementedAs([this](sdbus::ObjectPath o1, sdbus::ObjectPath o2, std::string s, std::unordered_map<std::string, sdbus::Variant> m) {
++                    return onCreateSession(o1, o2, s, m);
++                }),
++            sdbus::registerMethod("SelectDevices")
++                .implementedAs([this](sdbus::ObjectPath o1, sdbus::ObjectPath o2, std::string s, std::unordered_map<std::string, sdbus::Variant> m) {
++                    return onSelectDevices(o1, o2, s, m);
++                }),
++            sdbus::registerMethod("Start")
++                .implementedAs([this](sdbus::ObjectPath o1, sdbus::ObjectPath o2, std::string s1, std::string s2, std::unordered_map<std::string, sdbus::Variant> m) {
++                    return onStart(o1, o2, s1, s2, m);
++                }),
++            sdbus::registerMethod("NotifyPointerMotion")
++                .implementedAs([this](sdbus::ObjectPath o, std::unordered_map<std::string, sdbus::Variant> m, double d1, double d2) {
++                    return onNotifyPointerMotion(o, d1, d2, m);
++                }),
++            sdbus::registerMethod("NotifyPointerMotionAbsolute")
++                .implementedAs([this](sdbus::ObjectPath o, std::unordered_map<std::string, sdbus::Variant> m, unsigned int u, double d1, double d2) {
++                    return onNotifyPointerMotionAbsolute(o, u, d1, d2, m);
++                }),
++            sdbus::registerMethod("NotifyPointerButton")
++                .implementedAs([this](sdbus::ObjectPath o, std::unordered_map<std::string, sdbus::Variant> m, int i, unsigned int u) {
++                    return onNotifyPointerButton(o, i, u, m);
++                }),
++            sdbus::registerMethod("NotifyPointerAxis")
++                .implementedAs([this](sdbus::ObjectPath o, std::unordered_map<std::string, sdbus::Variant> m, double d1, double d2) {
++                    return onNotifyPointerAxis(o, d1, d2, m);
++                }),
++            sdbus::registerMethod("NotifyPointerAxisDiscrete")
++                .implementedAs([this](sdbus::ObjectPath o, std::unordered_map<std::string, sdbus::Variant> m, unsigned int u, int i) {
++                    return onNotifyPointerAxisDiscrete(o, u, i, m);
++                }),
++            sdbus::registerMethod("NotifyKeyboardKeycode")
++                .implementedAs([this](sdbus::ObjectPath o, std::unordered_map<std::string, sdbus::Variant> m, int i, unsigned int u) {
++                    return onNotifyKeyboardKeycode(o, i, u, m);
++                }),
++            sdbus::registerMethod("NotifyKeyboardKeysym")
++                .implementedAs([this](sdbus::ObjectPath o, std::unordered_map<std::string, sdbus::Variant> m, int i, unsigned int u) {
++                    return onNotifyKeyboardKeysym(o, i, u, m);
++                }),
++            sdbus::registerMethod("NotifyTouchDown")
++                .implementedAs([this](sdbus::ObjectPath o, std::unordered_map<std::string, sdbus::Variant> m, unsigned int u1, unsigned int u2, double d1, double d2) {
++                    return onNotifyTouchDown(o, u1, u2, d1, d2, m);
++                }),
++            sdbus::registerMethod("NotifyTouchMotion")
++                .implementedAs([this](sdbus::ObjectPath o, std::unordered_map<std::string, sdbus::Variant> m, unsigned int u1, unsigned int u2, double d1, double d2) {
++                    return onNotifyTouchMotion(o, u1, u2, d1, d2, m);
++                }),
++            sdbus::registerMethod("NotifyTouchUp")
++                .implementedAs([this](sdbus::ObjectPath o, std::unordered_map<std::string, sdbus::Variant> m, unsigned int u) {
++                    return onNotifyTouchUp(o, u, m);
++                }),
++            sdbus::registerMethod("ConnectToEIS").implementedAs([this](sdbus::ObjectPath o, std::string s, std::unordered_map<std::string, sdbus::Variant> m) {
++                return onConnectToEIS(o, s, m);
++            }),
++            sdbus::registerProperty("AvailableDeviceTypes").withGetter([] { return (uint32_t)(1 | 2); }),
++            sdbus::registerProperty("version").withGetter([] { return (uint32_t)(2); }))
++        .forInterface(INTERFACE_NAME);
++
++}
++
++dbUasv CRemoteDesktopPortal::onCreateSession(sdbus::ObjectPath requestHandle, sdbus::ObjectPath sessionHandle, std::string appID,
++                                             std::unordered_map<std::string, sdbus::Variant> opts) {
++    Debug::log(LOG, "[remotedesktop] New session:");
++    Debug::log(LOG, "[remotedesktop]  | {}", requestHandle.c_str());
++    Debug::log(LOG, "[remotedesktop]  | {}", sessionHandle.c_str());
++    Debug::log(LOG, "[remotedesktop]  | appid: {}", appID);
++
++    std::shared_ptr<SSession> PSESSION = std::make_shared<SSession>(appID, requestHandle, sessionHandle);
++
++    // create objects
++    PSESSION->session            = createDBusSession(sessionHandle);
++    PSESSION->sessionHandle      = sessionHandle;
++    PSESSION->session->onDestroy = [PSESSION, this]() {
++        PSESSION->eis->stopServer();
++        PSESSION->eis.reset();
++        Debug::log(LOG, "[remotedesktop] Session {} destroyed", PSESSION->sessionHandle.c_str());
++        PSESSION->session.release();
++        m_mSessions.erase(PSESSION->sessionHandle);
++    };
++
++    PSESSION->request            = createDBusRequest(requestHandle);
++    PSESSION->requestHandle      = requestHandle;
++    PSESSION->request->onDestroy = [PSESSION]() { PSESSION->request.release(); };
++
++    PSESSION->pointer            = makeShared<CCZwlrVirtualPointerV1>(m_sState.pointerMgr->sendCreateVirtualPointer(g_pPortalManager->m_sWaylandConnection.seat->resource()));
++    PSESSION->keyboard           = makeShared<CCZwpVirtualKeyboardV1>(m_sState.keyboardMgr->sendCreateVirtualKeyboard(g_pPortalManager->m_sWaylandConnection.seat->resource()));
++
++    const auto& keymap = g_pPortalManager->m_sKeymap;
++    PSESSION->keyboard->sendKeymap(keymap.format, keymap.fd, keymap.size);
++
++    PSESSION->eis                = std::make_unique<EmulatedInputServer>("eisr-" + std::to_string(m_uSessionCounter++));
++    PSESSION->eis->setVirtualPointer(PSESSION->pointer);
++    PSESSION->eis->setVirtualKeyboard(PSESSION->keyboard);
++
++    m_mSessions.emplace(sessionHandle, PSESSION);
++    
++    return {0, {}};
++}
++
++dbUasv CRemoteDesktopPortal::onSelectDevices(sdbus::ObjectPath requestHandle, sdbus::ObjectPath sessionHandle, std::string appID,
++                                             std::unordered_map<std::string, sdbus::Variant> opts) {
++    return {0, {}};
++}
++
++dbUasv CRemoteDesktopPortal::onStart(sdbus::ObjectPath requestHandle, sdbus::ObjectPath sessionHandle, std::string appID, std::string parentWindow,
++                                     std::unordered_map<std::string, sdbus::Variant> opts) {
++    Debug::log(LOG, "[remotedesktop] start request");
++
++    std::unordered_map<std::string, sdbus::Variant> results;
++    results["devices"]   = sdbus::Variant{uint32_t{1 | 2}};
++    results["clipboard_enabled"] = sdbus::Variant{bool(true)};
++
++    std::unordered_map<std::string, sdbus::Variant> restoreData;
++    results["restore_data"] = sdbus::Variant{sdbus::Struct<std::string, uint32_t, sdbus::Variant>{"hyprland", 1, sdbus::Variant{restoreData}}};
++    results["persist_mode"] = sdbus::Variant{uint32_t{2}};
++
++    return {0, results};
++}
++
++dbUasv CRemoteDesktopPortal::onNotifyPointerMotion(sdbus::ObjectPath sessionHandle, double dx, double dy, std::unordered_map<std::string, sdbus::Variant> opts) {
++    const auto PSESSION = m_mSessions[sessionHandle];
++    PSESSION->pointer->sendMotion(0, dx, dy);
++    return {0, {}};
++}
++
++dbUasv CRemoteDesktopPortal::onNotifyPointerMotionAbsolute(sdbus::ObjectPath sessionHandle, unsigned int stream, double x, double y, std::unordered_map<std::string, sdbus::Variant> opts) {
++    const auto PSESSION = m_mSessions[sessionHandle];
++    PSESSION->pointer->sendMotionAbsolute(0, x, y, 1920, 1080);
++    return {0, {}};
++}
++
++dbUasv CRemoteDesktopPortal::onNotifyPointerButton(sdbus::ObjectPath sessionHandle, int button, unsigned int state, std::unordered_map<std::string, sdbus::Variant> opts) {
++    const auto PSESSION = m_mSessions[sessionHandle];
++    PSESSION->pointer->sendButton(0, button, state);
++    return {0, {}};
++}
++
++dbUasv CRemoteDesktopPortal::onNotifyPointerAxis(sdbus::ObjectPath sessionHandle, double dx, double dy, std::unordered_map<std::string, sdbus::Variant> opts) {
++    const auto PSESSION = m_mSessions[sessionHandle];
++    PSESSION->pointer->sendAxis(0, 0, dy);
++    PSESSION->pointer->sendAxis(0, 1, dx);
++    return {0, {}};
++}
++
++dbUasv CRemoteDesktopPortal::onNotifyPointerAxisDiscrete(sdbus::ObjectPath sessionHandle, unsigned int axis, int steps, std::unordered_map<std::string, sdbus::Variant> opts) {
++    const auto PSESSION = m_mSessions[sessionHandle];
++    PSESSION->pointer->sendAxisDiscrete(1, 0, axis, steps);
++    return {0, {}};
++}
++
++dbUasv CRemoteDesktopPortal::onNotifyKeyboardKeycode(sdbus::ObjectPath sessionHandle, int keycode, unsigned int state, std::unordered_map<std::string, sdbus::Variant> opts) {
++    const auto PSESSION = m_mSessions[sessionHandle];
++    PSESSION->keyboard->sendKey(1, keycode, state);
++    return {0, {}};
++}
++
++dbUasv CRemoteDesktopPortal::onNotifyKeyboardKeysym(sdbus::ObjectPath sessionHandle, int keysym, unsigned int state, std::unordered_map<std::string, sdbus::Variant> opts) {
++    const auto PSESSION = m_mSessions[sessionHandle];
++    return {0, {}};
++}
++
++dbUasv CRemoteDesktopPortal::onNotifyTouchDown(sdbus::ObjectPath sessionHandle, unsigned int stream, unsigned int slot, double x, double y,
++                                               std::unordered_map<std::string, sdbus::Variant> opts) {
++    const auto PSESSION = m_mSessions[sessionHandle];
++    return {0, {}};
++}
++
++dbUasv CRemoteDesktopPortal::onNotifyTouchMotion(sdbus::ObjectPath sessionHandle, unsigned int stream, unsigned int slot, double x, double y,
++                                                 std::unordered_map<std::string, sdbus::Variant> opts) {
++    const auto PSESSION = m_mSessions[sessionHandle];
++    return {0, {}};
++}
++
++dbUasv CRemoteDesktopPortal::onNotifyTouchUp(sdbus::ObjectPath sessionHandle, unsigned int slot, std::unordered_map<std::string, sdbus::Variant> opts) {
++    const auto PSESSION = m_mSessions[sessionHandle];
++    return {0, {}};
++}
++
++sdbus::UnixFd CRemoteDesktopPortal::onConnectToEIS(sdbus::ObjectPath sessionHandle, std::string appID, std::unordered_map<std::string, sdbus::Variant> opts) {
++    Debug::log(LOG, "[remotedesktop] New ConnectToEIS request: {}:", sessionHandle.c_str());
++    const auto PSESSION = m_mSessions[sessionHandle];
++    if (!PSESSION) return (sdbus::UnixFd)0;
++
++    int sockfd = PSESSION->eis->getFileDescriptor();
++
++    Debug::log(LOG, "[remotedesktop] Connected to the socket. File descriptor: {}", sockfd);
++    return (sdbus::UnixFd)sockfd;
++}
+diff --git a/src/portals/RemoteDesktop.hpp b/src/portals/RemoteDesktop.hpp
+new file mode 100644
+index 00000000..8573127a
+--- /dev/null
++++ b/src/portals/RemoteDesktop.hpp
+@@ -0,0 +1,64 @@
++#pragma once
++
++#include <sdbus-c++/sdbus-c++.h>
++#include "wlr-virtual-pointer-unstable-v1.hpp"
++#include "virtual-keyboard-unstable-v1.hpp"
++#include "../shared/Session.hpp"
++#include "../shared/Eis.hpp"
++#include "../dbusDefines.hpp"
++#include <libei-1.0/libeis.h>
++#include <queue>
++
++class CRemoteDesktopPortal {
++  public:
++    CRemoteDesktopPortal();
++    void registerPointer(SP<CCZwlrVirtualPointerManagerV1> mgr);
++    void registerKeyboard(SP<CCZwpVirtualKeyboardManagerV1> mgr);
++
++    dbUasv        onCreateSession(sdbus::ObjectPath requestHandle, sdbus::ObjectPath sessionHandle, std::string appID,
++                                  std::unordered_map<std::string, sdbus::Variant> opts);
++    dbUasv        onSelectDevices(sdbus::ObjectPath requestHandle, sdbus::ObjectPath sessionHandle, std::string appID,
++                                  std::unordered_map<std::string, sdbus::Variant> opts);
++    dbUasv        onStart(sdbus::ObjectPath requestHandle, sdbus::ObjectPath sessionHandle, std::string appID, std::string parentWindow,
++                          std::unordered_map<std::string, sdbus::Variant> opts);
++    dbUasv        onNotifyPointerMotion(sdbus::ObjectPath sessionHandle, double dx, double dy, std::unordered_map<std::string, sdbus::Variant> opts);
++    dbUasv        onNotifyPointerMotionAbsolute(sdbus::ObjectPath sessionHandle, unsigned int stream, double x, double y, std::unordered_map<std::string, sdbus::Variant> opts);
++    dbUasv        onNotifyPointerButton(sdbus::ObjectPath sessionHandle, int button, unsigned int state, std::unordered_map<std::string, sdbus::Variant> opts);
++    dbUasv        onNotifyPointerAxis(sdbus::ObjectPath sessionHandle, double dx, double dy, std::unordered_map<std::string, sdbus::Variant> opts);
++    dbUasv        onNotifyPointerAxisDiscrete(sdbus::ObjectPath sessionHandle, unsigned int axis, int steps, std::unordered_map<std::string, sdbus::Variant> opts);
++    dbUasv        onNotifyKeyboardKeycode(sdbus::ObjectPath sessionHandle, int keycode, unsigned int state, std::unordered_map<std::string, sdbus::Variant> opts);
++    dbUasv        onNotifyKeyboardKeysym(sdbus::ObjectPath sessionHandle, int keysym, unsigned int state, std::unordered_map<std::string, sdbus::Variant> opts);
++    dbUasv        onNotifyTouchDown(sdbus::ObjectPath sessionHandle, unsigned int stream, unsigned int slot, double x, double y,
++                                    std::unordered_map<std::string, sdbus::Variant> opts);
++    dbUasv        onNotifyTouchMotion(sdbus::ObjectPath sessionHandle, unsigned int stream, unsigned int slot, double x, double y,
++                                      std::unordered_map<std::string, sdbus::Variant> opts);
++    dbUasv        onNotifyTouchUp(sdbus::ObjectPath sessionHandle, unsigned int slot, std::unordered_map<std::string, sdbus::Variant> opts);
++    sdbus::UnixFd onConnectToEIS(sdbus::ObjectPath sessionHandle, std::string appID, std::unordered_map<std::string, sdbus::Variant> opts);
++
++    struct SSession {
++        std::string                            appid;
++        sdbus::ObjectPath                      requestHandle, sessionHandle;
++        std::unique_ptr<SDBusRequest>          request;
++        std::unique_ptr<SDBusSession>          session;
++
++        SP<CCZwlrVirtualPointerV1>             pointer;
++        SP<CCZwpVirtualKeyboardV1>             keyboard;
++        std::unique_ptr<EmulatedInputServer>   eis;
++    };
++
++    std::unordered_map<std::string, std::shared_ptr<SSession>> m_mSessions;
++
++  private:
++    std::priority_queue<int, std::vector<int>, std::greater<int>> m_pqFreeIds;
++
++    struct {
++        SP<CCZwlrVirtualPointerManagerV1> pointerMgr;
++        SP<CCZwpVirtualKeyboardManagerV1> keyboardMgr;
++    } m_sState;
++
++    std::unique_ptr<sdbus::IObject> m_pObject;
++    uint                            m_uSessionCounter = 0;
++
++    const sdbus::InterfaceName      INTERFACE_NAME = sdbus::InterfaceName{"org.freedesktop.impl.portal.RemoteDesktop"};
++    const sdbus::ObjectPath         OBJECT_PATH    = sdbus::ObjectPath{"/org/freedesktop/portal/desktop"};
++};
+diff --git a/src/shared/Eis.cpp b/src/shared/Eis.cpp
+new file mode 100644
+index 00000000..e9c8fd0e
+--- /dev/null
++++ b/src/shared/Eis.cpp
+@@ -0,0 +1,422 @@
++#include "Eis.hpp"
++#include "../core/PortalManager.hpp"
++#include "../helpers/MiscFunctions.hpp"
++#include "src/helpers/Log.hpp"
++#include <alloca.h>
++#include <cmath>
++#include <libeis.h>
++#include <sys/mman.h>
++#include <unistd.h>
++#include <linux/input-event-codes.h>
++
++EmulatedInputServer::EmulatedInputServer(std::string socketName) {
++    Debug::log(LOG, "[EIS] Init socket: {}", socketName);
++
++    const char* xdg = getenv("XDG_RUNTIME_DIR");
++    if (xdg)
++        socketPath = std::string(xdg) + "/" + socketName;
++
++    if (socketPath.empty()) {
++        Debug::log(ERR, "[EIS] Socket path is empty");
++        return;
++    }
++
++    eisCtx = eis_new(nullptr);
++
++    if (eis_setup_backend_socket(eisCtx, socketPath.c_str())) {
++        Debug::log(ERR, "[EIS] Cannot init eis socket on {}", socketPath);
++        return;
++    }
++    Debug::log(LOG, "[EIS] Listening on {}", socketPath);
++
++    g_pPortalManager->addFdToEventLoop(eis_get_fd(eisCtx), POLLIN, std::bind(&EmulatedInputServer::pollEvents, this));
++}
++
++void EmulatedInputServer::pollEvents() {
++    eis_dispatch(eisCtx);
++
++    //Pull every available events
++    while (true) {
++        eis_event* e = eis_get_event(eisCtx);
++
++        if (!e) {
++            eis_event_unref(e);
++            break;
++        }
++
++        int rc = onEvent(e);
++        eis_event_unref(e);
++        if (rc != 0)
++            break;
++    }
++}
++
++int EmulatedInputServer::onEvent(eis_event* e) {
++    eis_client* eisClient = nullptr;
++    eis_seat*   seat      = nullptr;
++    eis_device* device    = nullptr;
++
++    switch (eis_event_get_type(e)) {
++        case EIS_EVENT_CLIENT_CONNECT:
++            eisClient = eis_event_get_client(e);
++            Debug::log(LOG, "[EIS] {} client connected: {}", eis_client_is_sender(eisClient) ? "Sender" : "Receiver", eis_client_get_name(eisClient));
++
++            if (client.handle) {
++                Debug::log(WARN, "[EIS] Unexpected additional client {} connected to input capture session", eis_client_get_name(eisClient));
++                eis_client_disconnect(eisClient);
++                return 0;
++            }
++
++            client.handle = eisClient;
++
++            eis_client_connect(eisClient);
++            Debug::log(LOG, "[EIS] Creating new default seat");
++            seat = eis_client_new_seat(eisClient, "default");
++
++            eis_seat_configure_capability(seat, EIS_DEVICE_CAP_POINTER);
++            eis_seat_configure_capability(seat, EIS_DEVICE_CAP_POINTER_ABSOLUTE);
++            eis_seat_configure_capability(seat, EIS_DEVICE_CAP_BUTTON);
++            eis_seat_configure_capability(seat, EIS_DEVICE_CAP_SCROLL);
++            eis_seat_configure_capability(seat, EIS_DEVICE_CAP_KEYBOARD);
++            eis_seat_add(seat);
++            client.seat = seat;
++            break;
++        case EIS_EVENT_CLIENT_DISCONNECT:
++            eisClient = eis_event_get_client(e);
++            Debug::log(LOG, "[EIS] {} disconnected", eis_client_get_name(eisClient));
++            eis_client_disconnect(eisClient);
++
++            eis_seat_unref(client.seat);
++            clearPointer();
++            clearKeyboard();
++            client.handle = nullptr;
++            break;
++        case EIS_EVENT_SEAT_BIND:
++            Debug::log(LOG, "[EIS] Binding seats...");
++
++            if (eis_event_seat_has_capability(e, EIS_DEVICE_CAP_POINTER) && eis_event_seat_has_capability(e, EIS_DEVICE_CAP_BUTTON) &&
++                eis_event_seat_has_capability(e, EIS_DEVICE_CAP_SCROLL))
++                ensurePointer();
++            else
++                clearPointer();
++
++            if (eis_event_seat_has_capability(e, EIS_DEVICE_CAP_KEYBOARD))
++                ensureKeyboard();
++            else
++                clearKeyboard();
++            break;
++        case EIS_EVENT_DEVICE_CLOSED:
++            device = eis_event_get_device(e);
++            if (device == client.pointer)
++                clearPointer();
++            else if (device == client.keyboard) {
++                Debug::log(LOG, "[EIS] Clearing keyboard");
++                clearKeyboard();
++            } else
++                Debug::log(WARN, "[EIS] Unknown device to close");
++            break;
++        case EIS_EVENT_DEVICE_START_EMULATING:
++            device = eis_event_get_device(e);
++            Debug::log(LOG, "[EIS] Device {} is ready to send events", eis_device_get_name(device));
++            break;
++        case EIS_EVENT_DEVICE_STOP_EMULATING:
++            device = eis_event_get_device(e);
++            Debug::log(LOG, "[EIS] Device {} will no longer send events", eis_device_get_name(device));
++
++            depressed = 0;
++            virtualKeyboard->sendModifiers(depressed, 0, locked, 3);
++            break;
++        case EIS_EVENT_KEYBOARD_KEY:
++            if (!virtualKeyboard) break;
++            {
++                uint32_t keycode = eis_event_keyboard_get_key(e);
++                bool     pressed = eis_event_keyboard_get_key_is_press(e);
++                uint32_t modmask = 0u;
++                switch (keycode) {
++                    case KEY_LEFTSHIFT:
++                    case KEY_RIGHTSHIFT:
++                        modmask = 1u;
++                        break;
++                    case KEY_CAPSLOCK:
++                        if (pressed) locked ^= 1u << 1u;
++                        break;
++                    case KEY_LEFTCTRL:
++                    case KEY_RIGHTCTRL:
++                        modmask = 1u << 2u;
++                        break;
++                    case KEY_LEFTALT:
++                    case KEY_RIGHTALT:
++                        modmask = 1u << 3u;
++                        break;
++                    case KEY_NUMLOCK:
++                        if (pressed) locked ^= 1u << 4u;
++                        break;
++                    case KEY_LEFTMETA:
++                    case KEY_RIGHTMETA:
++                        modmask = 1u << 6u;
++                        break;
++                    case KEY_SCROLLLOCK:
++                        if (pressed) locked ^= 1u << 7u;
++                        break;
++                    default:
++                        break;
++                }
++
++                depressed = pressed ? depressed | modmask : depressed & (~modmask);
++                virtualKeyboard->sendKey(1, keycode, pressed);
++                virtualKeyboard->sendModifiers(depressed, 0, locked, 3);
++            }
++            break;
++        case EIS_EVENT_FRAME:
++            if (!virtualPointer) break;
++            virtualPointer->sendFrame();
++            break;
++        case EIS_EVENT_POINTER_MOTION:
++            if (!virtualPointer) break;
++            virtualPointer->sendMotion(0, eis_event_pointer_get_dx(e), eis_event_pointer_get_dy(e));
++            break;
++        case EIS_EVENT_POINTER_MOTION_ABSOLUTE:
++            if (!virtualPointer) break;
++            {
++                int x = eis_event_pointer_get_absolute_x(e);
++                int y = eis_event_pointer_get_absolute_y(e);
++                device = eis_event_get_device(e);
++                eis_region* region = eis_device_get_region_at(device, x, y);
++                virtualPointer->sendMotionAbsolute(0, x, y, eis_region_get_width(region), eis_region_get_height(region));
++            }
++            break;
++        case EIS_EVENT_BUTTON_BUTTON:
++            if (!virtualPointer) break;
++            virtualPointer->sendButton(0, eis_event_button_get_button(e), eis_event_button_get_is_press(e));
++            break;
++        case EIS_EVENT_SCROLL_DELTA:
++            if (!virtualPointer) break;
++            virtualPointer->sendAxis(0, 0, wl_fixed_from_double(eis_event_scroll_get_dy(e)));
++            virtualPointer->sendAxis(0, 1, wl_fixed_from_double(eis_event_scroll_get_dx(e)));
++            break;
++        case EIS_EVENT_SCROLL_STOP:
++            if (!virtualPointer) break;
++            if (eis_event_scroll_get_stop_x(e))
++                virtualPointer->sendAxisStop(0, 1);
++            if (eis_event_scroll_get_stop_y(e))
++                virtualPointer->sendAxisStop(0, 0);
++            break;
++        case EIS_EVENT_SCROLL_DISCRETE:
++            if (!virtualPointer) break;
++            {
++                int32_t dx = eis_event_scroll_get_discrete_dx(e);
++                int32_t dy = eis_event_scroll_get_discrete_dy(e);
++                if (dx != 0)
++                    virtualPointer->sendAxisDiscrete(0, 1, wl_fixed_from_int(dx), dx > 0 ? 1 : -1);
++                if (dy != 0)
++                    virtualPointer->sendAxisDiscrete(1, 0, wl_fixed_from_int(dy), dy > 0 ? 1 : -1);
++            }
++            break;
++        default:
++            break;
++    }
++
++    return 0;
++}
++
++void EmulatedInputServer::ensurePointer() {
++    if (client.pointer)
++        return;
++
++    Debug::log(LOG, "[EIS] Creating pointer");
++    eis_device* pointer = eis_seat_new_device(client.seat);
++    eis_device_configure_name(pointer, "captured relative pointer");
++    eis_device_configure_capability(pointer, EIS_DEVICE_CAP_POINTER);
++    eis_device_configure_capability(pointer, EIS_DEVICE_CAP_POINTER_ABSOLUTE);
++    eis_device_configure_capability(pointer, EIS_DEVICE_CAP_BUTTON);
++    eis_device_configure_capability(pointer, EIS_DEVICE_CAP_SCROLL);
++
++    for (auto& o : g_pPortalManager->getAllOutputs()) {
++        eis_region* r = eis_device_new_region(pointer);
++
++        const auto scale = o->scale > 0.0 ? o->scale : 1.0;
++        const auto x     = o->logicalPositionValid ? o->logicalX : o->x;
++        const auto y     = o->logicalPositionValid ? o->logicalY : o->y;
++        const auto width = o->logicalSizeValid ? o->logicalWidth : std::max(1, static_cast<int32_t>(std::lround(o->width / scale)));
++        const auto height = o->logicalSizeValid ? o->logicalHeight : std::max(1, static_cast<int32_t>(std::lround(o->height / scale)));
++
++        eis_region_set_offset(r, x, y);
++        eis_region_set_size(r, width, height);
++        eis_region_set_physical_scale(r, o->scale);
++        eis_region_add(r);
++        eis_region_unref(r);
++    }
++
++    eis_device_add(pointer);
++    eis_device_resume(pointer);
++
++    client.pointer = pointer;
++}
++
++void EmulatedInputServer::ensureKeyboard() {
++    if (client.keyboard)
++        return;
++
++    eis_device* keyboard = eis_seat_new_device(client.seat);
++    eis_device_configure_name(keyboard, "captured keyboard");
++    eis_device_configure_capability(keyboard, EIS_DEVICE_CAP_KEYBOARD);
++
++    if (keymap.fd != 0) {
++        Keymap _keymap = openKeymap();
++        Debug::log(LOG, "Using keymap {}", _keymap.fd);
++        eis_keymap* eis_keymap = eis_device_new_keymap(keyboard, EIS_KEYMAP_TYPE_XKB, _keymap.fd, _keymap.size);
++        eis_keymap_add(eis_keymap);
++        eis_keymap_unref(eis_keymap);
++        close(_keymap.fd);
++    }
++
++    eis_device_add(keyboard);
++    eis_device_resume(keyboard);
++
++    client.keyboard = keyboard;
++}
++
++Keymap EmulatedInputServer::openKeymap() {
++    Keymap _keymap;
++
++    void*  src = mmap(nullptr, keymap.size, PROT_READ, MAP_PRIVATE, keymap.fd, 0);
++    if (src == MAP_FAILED) {
++        Debug::log(ERR, "Failed to mmap the compositor keymap fd");
++        return _keymap;
++    }
++
++    int keymapFD = allocateSHMFile(keymap.size);
++    if (keymapFD < 0) {
++        Debug::log(ERR, "Failed to create a keymap file for keyboard grab");
++        return _keymap;
++    }
++
++    char* dst = (char*)mmap(nullptr, keymap.size, PROT_READ | PROT_WRITE, MAP_SHARED, keymapFD, 0);
++    if (dst == MAP_FAILED) {
++        Debug::log(ERR, "Failed to mmap a keymap file for keyboard grab");
++        close(keymapFD);
++        return _keymap;
++    }
++
++    memcpy(dst, src, keymap.size);
++    munmap(dst, keymap.size);
++    munmap(src, keymap.size);
++
++    _keymap.fd   = keymapFD;
++    _keymap.size = keymap.size;
++
++    return _keymap;
++}
++
++void EmulatedInputServer::clearPointer() {
++    if (!client.pointer)
++        return;
++    Debug::log(LOG, "[EIS] Clearing pointer");
++
++    eis_device_remove(client.pointer);
++    eis_device_unref(client.pointer);
++    client.pointer = nullptr;
++}
++
++void EmulatedInputServer::clearKeyboard() {
++    if (!client.keyboard)
++        return;
++    Debug::log(LOG, "[EIS] Clearing keyboard");
++
++    eis_device_remove(client.keyboard);
++    eis_device_unref(client.keyboard);
++    client.keyboard = nullptr;
++}
++
++int EmulatedInputServer::getFileDescriptor() {
++    return eis_backend_fd_add_client(eisCtx);
++}
++
++void EmulatedInputServer::startEmulating(int sequence) {
++    Debug::log(LOG, "[EIS] Start Emulating");
++
++    if (client.pointer)
++        eis_device_start_emulating(client.pointer, sequence);
++
++    if (client.keyboard)
++        eis_device_start_emulating(client.keyboard, sequence);
++}
++
++void EmulatedInputServer::stopEmulating() {
++    Debug::log(LOG, "[EIS] Stop Emulating");
++
++    if (client.pointer)
++        eis_device_stop_emulating(client.pointer);
++
++    if (client.keyboard)
++        eis_device_stop_emulating(client.keyboard);
++}
++
++void EmulatedInputServer::setKeymap(Keymap _keymap) {
++    keymap = _keymap;
++}
++
++void EmulatedInputServer::resetPointer() {
++	clearPointer();
++	ensurePointer();
++}
++
++void EmulatedInputServer::sendMotion(double x, double y) {
++    if (!client.pointer)
++        return;
++    eis_device_pointer_motion(client.pointer, x, y);
++}
++
++void EmulatedInputServer::sendKey(uint32_t key, bool pressed) {
++    if (!client.keyboard)
++        return;
++    uint64_t now = eis_now(eisCtx);
++    eis_device_keyboard_key(client.keyboard, key, pressed);
++    eis_device_frame(client.keyboard, now);
++}
++
++void EmulatedInputServer::sendModifiers(uint32_t modsDepressed, uint32_t modsLatched, uint32_t modsLocked, uint32_t group) {
++    if (!client.keyboard)
++        return;
++    uint64_t now = eis_now(eisCtx);
++    eis_device_keyboard_send_xkb_modifiers(client.keyboard, modsDepressed, modsLatched, modsLocked, group);
++    eis_device_frame(client.keyboard, now);
++}
++
++void EmulatedInputServer::sendButton(uint32_t button, bool pressed) {
++    if (!client.pointer)
++        return;
++    eis_device_button_button(client.pointer, button, pressed);
++}
++
++void EmulatedInputServer::sendScrollDiscrete(int32_t x, int32_t y) {
++    if (!client.pointer)
++        return;
++    eis_device_scroll_discrete(client.pointer, x, y);
++}
++
++void EmulatedInputServer::sendScrollDelta(double x, double y) {
++    if (!client.pointer)
++        return;
++    eis_device_scroll_delta(client.pointer, x, y);
++}
++
++void EmulatedInputServer::sendScrollStop(bool x, bool y) {
++    if (!client.pointer)
++        return;
++    eis_device_scroll_stop(client.pointer, x, y);
++}
++
++void EmulatedInputServer::sendPointerFrame() {
++    if (!client.pointer)
++        return;
++    uint64_t now = eis_now(eisCtx);
++    eis_device_frame(client.pointer, now);
++}
++
++void EmulatedInputServer::stopServer() {
++    g_pPortalManager->removeFdFromEventLoop(eis_get_fd(eisCtx));
++    Debug::log(LOG, "[EIS] Server fd {} destroyed", eis_get_fd(eisCtx));
++    eis_unref(eisCtx);
++    eisCtx = nullptr;
++}
+diff --git a/src/shared/Eis.hpp b/src/shared/Eis.hpp
+new file mode 100644
+index 00000000..d9b57dc1
+--- /dev/null
++++ b/src/shared/Eis.hpp
+@@ -0,0 +1,73 @@
++#pragma once
++
++#include <libei-1.0/libeis.h>
++#include <string>
++#include "wlr-virtual-pointer-unstable-v1.hpp"
++#include "virtual-keyboard-unstable-v1.hpp"
++#include <memory>
++#include "../includes.hpp"
++
++struct Keymap {
++    int32_t  fd   = 0;
++    uint32_t size = 0;
++};
++
++/*
++ * Responsible to creating a socket for input communication
++ */
++class EmulatedInputServer {
++  public:
++    EmulatedInputServer(std::string socketPath);
++    std::string socketPath;
++
++    void        startEmulating(int activationId);
++    void        stopEmulating();
++
++    void        setKeymap(Keymap _keymap);
++    void        resetPointer();
++
++    void        sendMotion(double x, double y);
++    void        sendKey(uint32_t key, bool pressed);
++    void        sendModifiers(uint32_t modsDepressed, uint32_t modsLatched, uint32_t modsLocked, uint32_t group);
++    void        sendButton(uint32_t button, bool pressed);
++    void        sendScrollDelta(double x, double y);
++    void        sendScrollDiscrete(int32_t x, int32_t y);
++    void        sendScrollStop(bool stopX, bool stopY);
++    void        sendPointerFrame();
++
++    int         getFileDescriptor();
++
++    void        setVirtualPointer(SP<CCZwlrVirtualPointerV1> ptr) {virtualPointer  = ptr;}
++    void        setVirtualKeyboard(SP<CCZwpVirtualKeyboardV1> kb) {virtualKeyboard = kb; }
++
++    void        stopServer();
++
++  private:
++    bool stop   = false;
++    eis* eisCtx = nullptr;
++
++    struct Client {
++        eis_client* handle = nullptr;
++        eis_seat*   seat   = nullptr;
++
++        eis_device* pointer  = nullptr;
++        eis_device* keyboard = nullptr;
++    } client;
++
++    SP<CCZwlrVirtualPointerV1> virtualPointer  = nullptr;
++    SP<CCZwpVirtualKeyboardV1> virtualKeyboard = nullptr;
++
++    uint32_t                   depressed       = 0;
++    uint32_t                   latched         = 0;
++    uint32_t                   locked          = 0;
++
++    Keymap keymap;
++
++    int    onEvent(eis_event* e);
++    void   pollEvents();
++    void   ensurePointer();
++    void   ensureKeyboard();
++    Keymap openKeymap();
++    void   clearPointer();
++    void   clearKeyboard();
++};
