@@ -46,13 +46,14 @@ let
   # own directory. A tree of store symlinks therefore only works while nothing
   # ever writes to it, so /etc/honk holds real files instead: an
   # `environment.etc` entry whose mode is not "symlink" is copied on every
-  # activation, which keeps the tree real, up to date and writable for honk.
+  # activation. They are copies of Nix-owned files, hence read-only, like the
+  # store paths they come from.
   fragmentName = file: builtins.unsafeDiscardStringContext (baseNameOf file);
 
   declaredFragments = lib.genAttrs' cfg.configFiles (
     file:
     lib.nameValuePair "${configBaseName}/config.d/${fragmentName file}" {
-      mode = "0600";
+      mode = "0400";
       source = file;
     }
   );
@@ -230,7 +231,7 @@ in
 
     environment.etc = declaredFragments // {
       "${configBaseName}/config.dae" = {
-        mode = "0600";
+        mode = "0400";
         source = entryConfig;
       };
     };
