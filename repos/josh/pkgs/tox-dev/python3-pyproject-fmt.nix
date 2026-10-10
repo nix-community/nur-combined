@@ -25,7 +25,7 @@ let
 in
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pyproject-fmt";
-  version = "2.30.2";
+  version = "2.30.3";
 
   pyproject = true;
   __structuredAttrs = true;
@@ -33,7 +33,7 @@ python3Packages.buildPythonPackage (finalAttrs: {
   src = fetchPypi {
     pname = "pyproject_fmt";
     inherit (finalAttrs) version;
-    hash = "sha256-oRLl68IdX6heHjnplLBl0Q4IJcvwNyJd2acucCUOGhc=";
+    hash = "sha256-9yffmmh9Y7j6ApdXFhG6HCUUZ4fdODb6gFz1taYSCIc=";
   };
 
   postPatch = ''
@@ -45,7 +45,7 @@ python3Packages.buildPythonPackage (finalAttrs: {
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) pname version src;
-    hash = "sha256-YGS8o7W12ZPcGBiLSbhhExzdQ/DoSIUvrqQ+2gCAP2M=";
+    hash = "sha256-gdT5Q8Vgm56lPIGhgT8oOW83zluTFslLhka6ZSk3sDg=";
   };
 
   nativeBuildInputs = [
