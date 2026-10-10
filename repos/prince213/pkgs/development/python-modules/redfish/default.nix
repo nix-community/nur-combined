@@ -24,7 +24,7 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "redfish";
-  version = "3.4.0";
+  version = "3.4.1";
   pyproject = true;
 
   __structuredAttrs = true;
@@ -33,7 +33,7 @@ buildPythonPackage (finalAttrs: {
     owner = "DMTF";
     repo = "python-redfish-library";
     tag = finalAttrs.version;
-    hash = "sha256-0l8VWNl6u0lHOdk03p4wgTjA8VRCH6nk/Uz7ACZcVgA=";
+    hash = "sha256-FGKcnI66ILbrtJjQAeseHbiZOO7nbm2+PTWPOLnnTb0=";
   };
 
   build-system = [ setuptools ];
