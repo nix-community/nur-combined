@@ -64,4 +64,12 @@
       port = homelab.MacMini-M1.services.odysseus.port;
     };
   };
+  nix.linux-builder = {
+    enable = true;
+    package = unstablePkgs.darwin.linux-builder-vz;
+    systems = [
+      "aarch64-linux"
+      "x86_64-linux"
+    ];
+  };
 }

@@ -85,4 +85,12 @@
     "Yubico Authenticator" = 1497506650;
     "Wireguard" = 1451685025;
   };
+  nix.linux-builder = {
+    enable = true;
+    package = unstablePkgs.darwin.linux-builder-vz;
+    systems = [
+      "aarch64-linux"
+      "x86_64-linux"
+    ];
+  };
 }
