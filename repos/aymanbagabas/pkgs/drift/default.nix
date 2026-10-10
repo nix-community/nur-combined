@@ -11,22 +11,22 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    x86_64-linux = "0s2722y1pb1qckq157jn08m71l34v5rv4mbi1gzg29cbw4ypz5hv";
-    aarch64-linux = "04zq0g2cp34k44447g40x9s2fbf86r41crz3spkdb6138698gizg";
-    x86_64-darwin = "0mnifc52dgvvkdqhdiqg5zi583whyr3xi7z59n4acd61ihjfnj1s";
-    aarch64-darwin = "0x2ki2pgcgg3mdy14g576bxxl2nk1gfl87644d6k1d6x1igw5w9l";
+    x86_64-linux = "0kd1bh3y78ymsf0nfpdd3yrw1v11aav19v2qcmkvaqp8lzqx49s0";
+    aarch64-linux = "1617lx62wq08ds20vh4gnhg1fk3i27lp6vg907ddy4swhnz1n70f";
+    x86_64-darwin = "0gwanabz3xrwr3g8xkdn5a3m0gqk9mps2ica3bcxmf6msrch4yrm";
+    aarch64-darwin = "1wmwihnaag0f9ks7as3pwj136vrs84wczx6174wrnhvi4dgk7djc";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/aymanbagabas/drift/releases/download/v0.0.10/drift_0.0.10_linux_amd64.tar.gz";
-    aarch64-linux = "https://github.com/aymanbagabas/drift/releases/download/v0.0.10/drift_0.0.10_linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/aymanbagabas/drift/releases/download/v0.0.10/drift_0.0.10_darwin_amd64.tar.gz";
-    aarch64-darwin = "https://github.com/aymanbagabas/drift/releases/download/v0.0.10/drift_0.0.10_darwin_arm64.tar.gz";
+    x86_64-linux = "https://github.com/aymanbagabas/drift/releases/download/v0.0.11/drift_0.0.11_linux_amd64.tar.gz";
+    aarch64-linux = "https://github.com/aymanbagabas/drift/releases/download/v0.0.11/drift_0.0.11_linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/aymanbagabas/drift/releases/download/v0.0.11/drift_0.0.11_darwin_amd64.tar.gz";
+    aarch64-darwin = "https://github.com/aymanbagabas/drift/releases/download/v0.0.11/drift_0.0.11_darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "drift";
-  version = "0.0.10";
+  version = "0.0.11";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
