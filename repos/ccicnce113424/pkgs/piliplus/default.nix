@@ -10,11 +10,15 @@
   powershell,
   makeDesktopItem,
   copyDesktopItems,
+  pkg-config,
   alsa-lib,
   mpv-unwrapped,
   libplacebo,
   libappindicator,
   webkitgtk_4_1,
+  gtk3,
+  libx11,
+  libxi,
 }:
 let
   description = "Third-party Bilibili client developed in Flutter";
@@ -34,6 +38,7 @@ flutter.buildFlutterApplication {
     gitMinimal # used extensively in lib/scripts/patch.ps1
     powershell
     copyDesktopItems
+    pkg-config
   ];
 
   buildInputs = [
@@ -42,6 +47,9 @@ flutter.buildFlutterApplication {
     libplacebo
     libappindicator
     webkitgtk_4_1
+    gtk3
+    libx11
+    libxi
   ];
 
   preBuild = ''

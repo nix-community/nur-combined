@@ -1,8 +1,8 @@
 {
   "audio_service": "sha256-BIcWJweiioTVjUjskj8VwoEhO9oWNYRvpScZTvFU/9k=",
   "audio_session": "sha256-9k8a7j8TJmxSl44KfXuUTBFgX71jXV4E9HdV+wTyJLg=",
-  "cached_network_image_ce": "sha256-8zWPHQLiJgSWVYrN2W0lWO4McI31iGNFRPcYhbB5jPY=",
-  "cached_network_image_platform_interface_ce": "sha256-8zWPHQLiJgSWVYrN2W0lWO4McI31iGNFRPcYhbB5jPY=",
+  "cached_network_image_ce": "sha256-+zZONmYor8LcoKrZSuVen/z4a5O82i4JSdpb1yZIMsc=",
+  "cached_network_image_platform_interface_ce": "sha256-+zZONmYor8LcoKrZSuVen/z4a5O82i4JSdpb1yZIMsc=",
   "canvas_danmaku": "sha256-IVIhIzK49yFqIT6MDo4KIzI3fEs8GfwvtiLcHd109ko=",
   "catcher_2": "sha256-CQ2l8iB+/YCrMtEZhCgsUmCl/C1buAj696PQ7KdIGQo=",
   "chat_bottom_container": "sha256-SUcPEb9eNCsllJ1O+wHXaUt2TuHbIGvxOMTk6GJgcSE=",
@@ -23,6 +23,7 @@
   "media_kit_native_event_loop": "sha256-0qS6x6uhyQjX8Q9DjIVmpfX/C0zx+SMSRxrJTj0VXX8=",
   "media_kit_video": "sha256-4f4QBSi/01xKm/R0hHxV7XjwBnINqjUw0e8vsvQJf/o=",
   "native_device_orientation": "sha256-yVO1rf3kPn1WDwRgwGwVqrxJREHN41vN7FC4lJPyaIc=",
+  "octo_image": "sha256-wWH3nH6uy75eD+jEiyKXjpI/JYkLbZcDqZfdLD6z2rA=",
   "super_sliver_list": "sha256-G24uRql1aIc1TDJwKqwQ72Pi4YbJybMn6lxOUySSDwk=",
   "webdav_client": "sha256-euNF7HdDtZ68BqSEq9BvO10BK09MxX2wWGoElFS0yeE=",
   "window_manager": "sha256-goeZVa2GzOaoC2cr5tElrUp/4+oDM/czV8bIKc0o/iY="
