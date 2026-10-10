@@ -1,10 +1,13 @@
 --- a/setup.py	2026-10-08 03:25:39.000000000 -0700
 +++ b/setup.py	2026-10-08 19:52:14.431126452 -0700
-@@ -1626,6 +1626,7 @@
+@@ -1626,6 +1626,10 @@
      bare = {p.lower() for p in have if req_name(p) == p.lower()}
      need = [p for p in packages if p not in have and req_name(p) not in bare
              and not (bare and "==" in p and _installed(req_name(p)))]
-+    need = [p for p in need if not _installed(req_name(p))]
++    from packaging.requirements import Requirement
++    need = [p for p in need if not _installed(req_name(p))
++            and ((req := Requirement(p)).marker is None or req.marker.evaluate())]
++
      if not need:
          ok(f"{what} already installed")
          return

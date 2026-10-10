@@ -28,15 +28,12 @@ let
     ps.requests
     ps.pillow
     ps.psutil
+    ps.packaging
   ]);
   hydrateScript = ''
     dest="''${XDG_DATA_HOME:-''$HOME/.local/share}/strata"
-    if [[ ! -f "$dest/.nix-store-version" || "''$(< "$dest/.nix-store-version")" != "${version}" ]]; then
-      rm -rf "$dest"
-      cp -a "${placeholder "out"}/share/strata/" "$dest/"
-      chmod -R u+w "$dest"
-      echo "${version}" > "$dest/.nix-store-version"
-    fi
+    ${lib.getExe pythonEnv} "${placeholder "out"}/libexec/strata/hydrate.py" \
+      "${placeholder "out"}/share/strata" "$dest"
   '';
 in
 cudaPackages_13.backendStdenv.mkDerivation (finalAttrs: {
@@ -85,8 +82,10 @@ cudaPackages_13.backendStdenv.mkDerivation (finalAttrs: {
     cd "$cmakeDir"
 
     install -Dm755 build/strata "$out/share/strata/engine/strata"
+    install -Dm644 ${./hydrate.py} "$out/libexec/strata/hydrate.py"
 
     cp -a . "$out/share/strata/"
+    cp -a ${llamaSrc} "$out/share/strata/third_party/llama.cpp"
     rm -rf "$out/share/strata/build"
 
     sed -i -e '/^cmake==/d' -e '/^ninja==/d' "$out/share/strata/requirements.txt"
@@ -124,6 +123,13 @@ cudaPackages_13.backendStdenv.mkDerivation (finalAttrs: {
       --add-flags '"''$dest/chat.py"'
 
     runHook postInstall
+  '';
+
+  doInstallCheck = true;
+  installCheckPhase = ''
+    runHook preInstallCheck
+    ${lib.getExe pythonEnv} ${./test-hydrate.py} "$out/libexec/strata/hydrate.py"
+    runHook postInstallCheck
   '';
 
   passthru.llamaSrc = llamaSrc;
