@@ -63,7 +63,59 @@
     autoEnable = true;
   };
   userPresets.toyvo.enable = true;
-  fileSystemPresets.boot.enable = true;
-  fileSystemPresets.btrfs.enable = true;
   services.desktopManager.cosmic.enable = true;
+  disko.devices.disk.nvme0n1 = {
+    type = "disk";
+    device = "/dev/nvme0n1";
+    content = {
+      type = "gpt";
+      partitions = {
+        ESP = {
+          name = "ESP";
+          size = "500M";
+          type = "EF00";
+          content = {
+            type = "filesystem";
+            format = "vfat";
+            mountpoint = "/boot";
+            extraArgs = [
+              "-n"
+              "BOOT"
+            ];
+          };
+        };
+        root = {
+          size = "100%";
+          content = {
+            type = "btrfs";
+            extraArgs = [
+              "-f"
+              "-L"
+              "NIXOS"
+            ];
+            subvolumes = {
+              "@" = {
+                mountpoint = "/";
+              };
+              "@home" = {
+                mountOptions = [ "compress=zstd" ];
+                mountpoint = "/home";
+              };
+              "@var" = {
+                mountOptions = [ "compress=zstd" ];
+                mountpoint = "/var";
+              };
+              "@nix" = {
+                mountOptions = [
+                  "compress=zstd"
+                  "noatime"
+                ];
+                mountpoint = "/nix";
+              };
+            };
+          };
+        };
+      };
+    };
+  };
 }

@@ -167,8 +167,6 @@ in
     ];
   };
   users.groups.hermes.gid = config.ids.gids.hermes;
-  fileSystemPresets.boot.enable = true;
-  fileSystemPresets.btrfs.enable = true;
   services = {
     cockpit = {
       enable = true;
@@ -707,4 +705,58 @@ in
     ];
   };
   zramSwap.enable = true;
+  disko.devices.disk.nvme0n1 = {
+    type = "disk";
+    device = "/dev/nvme0n1";
+    content = {
+      type = "gpt";
+      partitions = {
+        ESP = {
+          name = "ESP";
+          size = "500M";
+          type = "EF00";
+          content = {
+            type = "filesystem";
+            format = "vfat";
+            mountpoint = "/boot";
+            extraArgs = [
+              "-n"
+              "BOOT"
+            ];
+          };
+        };
+        root = {
+          size = "100%";
+          content = {
+            type = "btrfs";
+            extraArgs = [
+              "-f"
+              "-L"
+              "NIXOS"
+            ];
+            subvolumes = {
+              "@" = {
+                mountpoint = "/";
+              };
+              "@home" = {
+                mountOptions = [ "compress=zstd" ];
+                mountpoint = "/home";
+              };
+              "@var" = {
+                mountOptions = [ "compress=zstd" ];
+                mountpoint = "/var";
+              };
+              "@nix" = {
+                mountOptions = [
+                  "compress=zstd"
+                  "noatime"
+                ];
+                mountpoint = "/nix";
+              };
+            };
+          };
+        };
+      };
+    };
+  };
 }

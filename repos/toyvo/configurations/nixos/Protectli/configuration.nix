@@ -25,27 +25,9 @@ in
     inputs.nixos-unstable.nixosModules.notDetected
     inputs.nur.modules.nixos.default
     inputs.sops-nix.nixosModules.sops
-    # inputs.preservation.nixosModules.preservation  # Enable for ephemeral setup
+    inputs.preservation.nixosModules.preservation
   ];
 
-  # ============================================================================
-  # EPHEMERAL SETUP (Optional — requires reinstallation)
-  # ============================================================================
-  # To switch the Protectli to an impermanent (tmpfs-on-root) setup:
-  #
-  # 1. Uncomment the preservation module import above.
-  # 2. Uncomment the imports below.
-  # 3. Remove or comment out `fileSystemPresets.btrfs.enable` below.
-  # 4. On the Protectli, run from a NixOS installer:
-  #      nix run nixpkgs#disko -- --mode disko ./configurations/nixos/Protectli/disko.nix
-  #      nixos-install --flake .#Protectli
-  # 5. Reboot.
-  #
-  # imports = [
-  #   ./disko.nix
-  #   ./preservation.nix
-  # ];
-  # ============================================================================
   home-manager = {
     extraSpecialArgs = {
       inherit
@@ -196,8 +178,6 @@ in
     boot.enable = true;
   };
   userPresets.toyvo.enable = true;
-  fileSystemPresets.boot.enable = true;
-  fileSystemPresets.btrfs.enable = true;
   systemd = {
     network = {
       enable = true;
@@ -527,4 +507,126 @@ in
         };
       };
   };
+  disko.devices = {
+    disk.main = {
+      type = "disk";
+      device = "/dev/nvme0n1";
+      content = {
+        type = "gpt";
+        partitions = {
+          ESP = {
+            name = "ESP";
+            size = "500M";
+            type = "EF00";
+            content = {
+              type = "filesystem";
+              format = "vfat";
+              mountpoint = "/boot";
+              extraArgs = [
+                "-n"
+                "BOOT"
+              ];
+            };
+          };
+          root = {
+            size = "100%";
+            content = {
+              type = "btrfs";
+              extraArgs = [
+                "-f"
+                "-L"
+                "NIXOS"
+              ];
+              subvolumes = {
+                "@" = {
+                  mountpoint = "/";
+                };
+                "@home" = {
+                  mountOptions = [ "compress=zstd" ];
+                  mountpoint = "/home";
+                };
+                "@var" = {
+                  mountOptions = [ "compress=zstd" ];
+                  mountpoint = "/var";
+                };
+                "@nix" = {
+                  mountOptions = [
+                    "compress=zstd"
+                    "noatime"
+                  ];
+                  mountpoint = "/nix";
+                };
+                # "@persistent" = {
+                #   mountOptions = [
+                #     "compress=zstd"
+                #     "noatime"
+                #   ];
+                #   mountpoint = "/persistent";
+                # };
+              };
+            };
+          };
+        };
+      };
+    };
+    # nodev."/" = {
+    #   fsType = "tmpfs";
+    #   mountOptions = [
+    #     "size=2G"
+    #     "mode=755"
+    #   ];
+    # };
+  };
+  # ============================================================================
+  # EPHEMERAL SETUP (Optional — requires reinstallation)
+  # ============================================================================
+  # To switch the Protectli to an impermanent (tmpfs-on-root) setup:
+  #
+  # 1. In disko configuration above enable keep only the nix and preservation subvolumes
+  # 2. uncomment preservation options below
+  # 3. On the Protectli, run from a NixOS installer:
+  #      nix run nixpkgs#disko -- --mode destroy,format,mount --flake .#Protectli
+  #      nixos-install --flake .#Protectli
+  # 4. Reboot.
+  # ============================================================================
+  #   preservation.enable = true;
+  #   preservation.preserveAt."/persistent" = {
+  #     directories = [
+  #       # System state
+  #       "/var/lib/nixos"
+  #       "/var/lib/systemd"
+  #       "/var/log"
+  #
+  #       # DHCP leases (kea)
+  #       "/var/lib/kea"
+  #
+  #       # SSH host keys
+  #       "/etc/ssh"
+  #
+  #       # sops-nix age key
+  #       "/var/lib/sops-nix"
+  #     ];
+  #
+  #     files = [
+  #       # Machine ID (for systemd, DHCP, etc.)
+  #       "/etc/machine-id"
+  #     ];
+  #
+  #     users.toyvo = {
+  #       directories = [
+  #         ".ssh"
+  #       ];
+  #       files = [
+  #         ".bash_history"
+  #       ];
+  #     };
+  #   };
+  #
+  #   # Ensure preserved directories are created with correct permissions
+  #   systemd.tmpfiles.rules = [
+  #     "d /persistent/etc/ssh 0755 root root -"
+  #     "d /persistent/var/lib/kea 0755 kea kea -"
+  #     "d /persistent/var/log 0755 root root -"
+  #     "d /persistent/var/lib/sops-nix 0755 root root -"
+  #   ];
 }
