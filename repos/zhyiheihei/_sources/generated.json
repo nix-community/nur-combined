@@ -215,12 +215,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media",
-            "rev": "v4.21.11",
-            "sha256": "sha256-Wexnl388XCJN9wGGbkgGvs8qLxmub1XPNORJVo1lYJw=",
+            "rev": "v4.24.4",
+            "sha256": "sha256-f7ORW0mO0I7WCozTF8frtoJl2HTyL0psHXPseO4HJlw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.21.11"
+        "version": "v4.24.4"
     },
     "nexus-media-web": {
         "cargoLock": null,
@@ -236,12 +236,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media-web",
-            "rev": "v4.21.11",
-            "sha256": "sha256-8aOksxVNzqDaOHCPgciG+TR8+ntXjGIETSsaniEnV5Y=",
+            "rev": "v4.24.4",
+            "sha256": "sha256-yUB26UYBopgx4PqkUDuV4hoijOnBH65EKhiSw4A2ByU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.21.11"
+        "version": "v4.24.4"
     },
     "pinyin2hanzi": {
         "cargoLock": null,
@@ -482,11 +482,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-11NhiEXl4FfCnMvDkXwIpMjZk1Xe731qD00pFrpp5L4=",
+            "sha256": "sha256-rBqNy6Zb2FAQ8Uih5cCEuh1Bspy6Fp+qJihAa8L8W88=",
             "type": "url",
-            "url": "https://cdn-zcode.z.ai/zcode/electron/releases/3.14.4/linux-x64/ZCode-3.14.4-linux-x64.deb"
+            "url": "https://cdn-zcode.z.ai/zcode/electron/releases/3.14.5/linux-x64/ZCode-3.14.5-linux-x64.deb"
         },
-        "version": "3.14.4"
+        "version": "3.14.5"
     },
     "zhconv-rs": {
         "cargoLock": null,
