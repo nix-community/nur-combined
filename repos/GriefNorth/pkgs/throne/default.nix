@@ -26,13 +26,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "throne";
-  version = "1.4.0-beta.1";
+  version = "1.4.0-beta.2";
 
   src = fetchFromGitHub {
     owner = "throneproj";
     repo = "Throne";
     tag = finalAttrs.version;
-    hash = "sha256-JEe6VPXlMTlk10p88T17D8dWjQ5btsZcPhOltmo+ymU=";
+    hash = "sha256-vzUb8I1+ftw3Of4gkRuQsghy+V7q1mH2QLJsehvFdDA=";
   };
 
   strictDeps = true;
