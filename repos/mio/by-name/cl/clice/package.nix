@@ -21,8 +21,19 @@ let
   # Wrap bazel inside an FHS environment so it can execute without patchelf corruption
   bazel_env = buildFHSEnv {
     name = "bazel-env";
-    targetPkgs = pkgs: with pkgs; [ gcc zlib python3 ];
-    extraBwrapArgs = [ "--tmpfs" "/var" "--bind" "/tmp" "/var/tmp" ];
+    targetPkgs =
+      pkgs: with pkgs; [
+        gcc
+        zlib
+        python3
+      ];
+    extraBwrapArgs = [
+      "--tmpfs"
+      "/var"
+      "--bind"
+      "/tmp"
+      "/var/tmp"
+    ];
     runScript = "bash";
   };
 
@@ -43,8 +54,12 @@ let
   deps = stdenv.mkDerivation {
     name = "clice-deps";
     inherit src;
-    
-    nativeBuildInputs = [ bazel_9 python3 removeReferencesTo ];
+
+    nativeBuildInputs = [
+      bazel_9
+      python3
+      removeReferencesTo
+    ];
 
     dontCheckForBrokenSymlinks = true;
 
@@ -53,7 +68,7 @@ let
       export BAZEL_DO_NOT_DETECT_CPP_TOOLCHAIN=1
       # First pass: Fetch all external repositories from the network
       bazel vendor -c opt --config=RelWithDebInfo //... --vendor_dir=$out
-      
+
       # Pin all vendored repositories so that rewriting the registry URL doesn't invalidate them
       for d in $out/*; do
         if [ -d "$d" ]; then
@@ -79,12 +94,16 @@ stdenv.mkDerivation {
   pname = "clice";
   inherit version src;
 
-  nativeBuildInputs = [ bazel_9 python3 nodejs ];
+  nativeBuildInputs = [
+    bazel_9
+    python3
+    nodejs
+  ];
 
   buildPhase = ''
     export HOME=$TMPDIR
     export BAZEL_DO_NOT_DETECT_CPP_TOOLCHAIN=1
-    
+
     # Rewrite registry lines to point to the local vendored registries
     sed -i -e "s|https://bazel.clice.io/|file://${deps}/_registries/bazel.clice.io|g" bazel/clice.bazelrc || true
     sed -i -e "s|https://bcr.bazel.build/|file://${deps}/_registries/bcr.bazel.build|g" bazel/clice.bazelrc || true

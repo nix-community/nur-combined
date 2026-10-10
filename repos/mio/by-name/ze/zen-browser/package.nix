@@ -162,46 +162,50 @@ let
     dontFixup = true;
   });
 in
-(buildMozillaMach {
-  pname = "zen-browser";
-  packageVersion = version;
-  version = firefoxVersion;
-  applicationName = "Zen";
-  binaryName = "zen";
-  branding = "browser/branding/release";
-  requireSigning = false;
-  allowAddonSideload = true;
+(
+  (buildMozillaMach {
+    pname = "zen-browser";
+    packageVersion = version;
+    version = firefoxVersion;
+    applicationName = "Zen";
+    binaryName = "zen";
+    branding = "browser/branding/release";
+    requireSigning = false;
+    allowAddonSideload = true;
 
-  src = patchedSrc;
+    src = patchedSrc;
 
-  extraConfigureFlags = [
-    "--with-app-basename=Zen"
-  ];
-
-  updateScript = callPackage ./update.nix {
-    attrPath = "zen-browser";
-  };
-
-  meta = {
-    # since Firefox 60, build on 32-bit platforms fails with "out of memory".
-    # not in `badPlatforms` because cross-compilation on 64-bit machine might work.
-    broken = stdenv.buildPlatform.is32bit;
-    description = "Firefox based browser with a focus on privacy and customization";
-    homepage = "https://zen-browser.app";
-    changelog = "https://zen-browser.app/release-notes/#${version}";
-    license = lib.licenses.mpl20;
-    mainProgram = "zen";
-    maintainers = with lib.maintainers; [
-      matthewpi
-      titaniumtown
-      eveeifyeve
+    extraConfigureFlags = [
+      "--with-app-basename=Zen"
     ];
-    maxSilent = 14400; # 4h, double the default of 7200s (c.f. #129212, #129115)
-    platforms = lib.platforms.unix;
-  };
-}).override
-  {
-    crashreporterSupport = false;
-    enableOfficialBranding = false;
-    ffmpegSupport = false;
-  }
+
+    updateScript = callPackage ./update.nix {
+      attrPath = "zen-browser";
+    };
+
+    meta = {
+      # since Firefox 60, build on 32-bit platforms fails with "out of memory".
+      # not in `badPlatforms` because cross-compilation on 64-bit machine might work.
+      broken = stdenv.buildPlatform.is32bit;
+      description = "Firefox based browser with a focus on privacy and customization";
+      homepage = "https://zen-browser.app";
+      changelog = "https://zen-browser.app/release-notes/#${version}";
+      license = lib.licenses.mpl20;
+      mainProgram = "zen";
+      maintainers = with lib.maintainers; [
+        matthewpi
+        titaniumtown
+        eveeifyeve
+      ];
+      maxSilent = 14400; # 4h, double the default of 7200s (c.f. #129212, #129115)
+      platforms = lib.platforms.unix;
+    };
+  }).override
+    {
+      crashreporterSupport = false;
+      enableOfficialBranding = false;
+    }
+).overrideAttrs
+  (old: {
+    configureFlags = lib.remove "--enable-ffmpeg" (lib.remove "--disable-ffmpeg" old.configureFlags);
+  })
