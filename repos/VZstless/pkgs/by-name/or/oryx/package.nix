@@ -39,10 +39,18 @@ rustPlatform.buildRustPackage (finalAttrs: {
   # flathub manifest against the newest stable metainfo release. At the v1.2.0
   # tag those files still reference v1.1.1, so they fail on upstream's own
   # source; nothing to do with this build.
+  #
+  # allocator_tracks_live_and_peak asserts that a global counting allocator's
+  # live figure moves by exactly an allocation's size, which only holds if no
+  # other thread frees memory in between. Under the build sandbox's scheduling
+  # a background thread's small free (36 bytes observed) lands inside the
+  # probed window and breaks the exact-equality assertion. Racy by design, not
+  # a real defect; still unpatched upstream as of v1.2.1.
   checkFlags = [
     "--skip=the_source_pkgbuild_builds_the_tag_of_the_last_release_and_conflicts_with_oryx"
     "--skip=the_bin_pkgbuild_fetches_the_release_files_and_provides_oryx_editor"
     "--skip=the_flathub_manifest_builds_the_tag_offline_into_app"
+    "--skip=allocator_tracks_live_and_peak"
   ];
 
   passthru.updateScript = nix-update-script { };
