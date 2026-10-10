@@ -67,6 +67,8 @@ class UpdateTests(unittest.TestCase):
                 "v0.9.0",
                 "v2.0.0-rc.1",
                 "server-v3.0.0",
+                "0.51.01",
+                "v01.2.3",
             ]
         ]
         releases.extend(
@@ -94,6 +96,32 @@ class UpdateTests(unittest.TestCase):
         self.release["assets"][0]["state"] = "uploaded"
         self.release["assets"][0]["size"] = 0
         self.assertFalse(check_updates.ready(self.release, self.spec["release"]))
+
+    def test_source_only_release_uses_the_validated_update_flow(self) -> None:
+        _ = (self.root / "pkgs/example/maintenance.toml").write_text(
+            'files = ["default.nix"]\n'
+            + '[release]\nrepository = "owner/project"\nassets = []\n'
+        )
+        self.spec = maintain.specification(self.root, "example")
+        self.release["assets"] = []
+        assert "release" in self.spec
+        self.assertTrue(check_updates.ready(self.release, self.spec["release"]))
+        body = check_updates.pr_body(
+            "example", self.release, self.spec, ["x86_64-linux"], "x86_64-linux"
+        )
+        self.assertIn("Source-only release", body)
+        self.assertNotIn("assets are uploaded", body)
+        with (
+            patch.object(
+                maintain, "package_info", return_value=("1.0.0", ["x86_64-linux"])
+            ),
+            patch.object(check_updates, "candidates", return_value=[self.release]),
+            patch.object(maintain, "run", return_value="") as run,
+            patch.object(check_updates, "open_pr") as publish,
+        ):
+            check_updates.check_updates(self.root, update=True)
+        run.assert_called_once_with(self.root, ["just", "update", "example", "1.1.0"])
+        publish.assert_not_called()
 
     def test_read_only_and_update_modes_never_publish(self) -> None:
         with (
@@ -139,60 +167,95 @@ class UpdateTests(unittest.TestCase):
         candidates.assert_not_called()
 
     def test_pr_requires_clean_checkout_before_network(self) -> None:
-        with (
-            patch.object(maintain, "run", return_value="modified"),
-            patch.object(check_updates, "github") as api,
-            self.assertRaisesRegex(ValueError, "clean checkout"),
-        ):
-            check_updates.check_updates(self.root, pr=True)
-        api.assert_not_called()
+        for snapshot in (False, True):
+            if snapshot:
+                self.configure_snapshot()
+            with (
+                self.subTest(snapshot=snapshot),
+                patch.object(maintain, "run", return_value="modified"),
+                patch.object(check_updates, "github") as api,
+                patch.object(check_updates, "ready_updates") as ready,
+                self.assertRaisesRegex(ValueError, "clean checkout"),
+            ):
+                check_updates.check_updates(self.root, pr=True)
+            api.assert_not_called()
+            ready.assert_not_called()
 
     def test_existing_pr_skips_update_including_closed_pr(self) -> None:
-        with (
-            patch.object(
-                check_updates, "github", return_value='[{"url":"existing"}]'
-            ) as api,
-            patch.object(maintain, "run") as run,
-        ):
-            result = check_updates.open_pr(
-                self.root,
-                "owner/nur",
-                "main",
-                "example",
-                "1.0.0",
-                self.release,
-                self.spec,
-                ["x86_64-linux"],
-            )
-        run.assert_not_called()
-        self.assertIn("existing", result)
-        self.assertIn("all", cast(list[str], api.call_args.args[1]))
+        for snapshot in (False, True):
+            if snapshot:
+                self.configure_snapshot()
+            with (
+                self.subTest(snapshot=snapshot),
+                patch.object(
+                    check_updates, "github", return_value='[{"url":"existing"}]'
+                ) as api,
+                patch.object(maintain, "run") as run,
+            ):
+                result = check_updates.open_pr(
+                    self.root,
+                    "owner/nur",
+                    "main",
+                    "example",
+                    "a" * 40 if snapshot else "1.0.0",
+                    self.release,
+                    self.spec,
+                    ["x86_64-linux"],
+                )
+            run.assert_not_called()
+            self.assertIn("existing", result)
+            self.assertIn("all", cast(list[str], api.call_args.args[1]))
 
     def test_validation_failure_never_commits_or_pushes(self) -> None:
-        with (
-            patch.object(check_updates, "github", return_value="[]") as api,
-            patch.object(
-                maintain, "run", side_effect=["", ValueError("contract changed"), ""]
-            ) as run,
-            self.assertRaisesRegex(ValueError, "contract changed"),
-        ):
-            _ = check_updates.open_pr(
-                self.root,
-                "owner/nur",
-                "main",
-                "example",
-                "1.0.0",
-                self.release,
-                self.spec,
-                ["x86_64-linux"],
-            )
-        commands = [cast(list[str], call.args[1]) for call in run.call_args_list]
-        self.assertEqual(commands[1], ["just", "update", "example", "1.1.0"])
-        self.assertEqual(commands[-1][:3], ["git", "worktree", "remove"])
-        self.assertFalse(
-            any("commit" in command or "push" in command for command in commands)
-        )
-        api.assert_called_once()
+        for snapshot in (False, True):
+            if snapshot:
+                self.configure_snapshot()
+            for force in (False, True):
+                results: list[object] = [""] * (2 if snapshot else 1)
+                results.extend([ValueError("failed check"), ""])
+                with (
+                    self.subTest(snapshot=snapshot, force=force),
+                    patch.object(
+                        check_updates,
+                        "github",
+                        return_value='[{"url":"existing"}]' if force else "[]",
+                    ) as api,
+                    patch.object(
+                        check_updates, "snapshot_date", return_value="2026-10-03"
+                    ),
+                    patch.object(
+                        check_updates, "snapshot_revision", return_value="b" * 40
+                    ),
+                    patch.object(maintain, "run", side_effect=results) as run,
+                    self.assertRaisesRegex(ValueError, "failed check"),
+                ):
+                    _ = check_updates.open_pr(
+                        self.root,
+                        "owner/nur",
+                        "main",
+                        "example",
+                        "a" * 40 if snapshot else "1.0.0",
+                        self.release,
+                        self.spec,
+                        ["x86_64-linux"],
+                        force=force,
+                    )
+                commands = [
+                    cast(list[str], call.args[1]) for call in run.call_args_list
+                ]
+                expected = (
+                    [["just", "update-spotx"], ["just", "check", "example"]]
+                    if snapshot
+                    else [["just", "update", "example", "1.1.0"]]
+                )
+                self.assertEqual(commands[1:-1], expected)
+                self.assertEqual(commands[-1][:3], ["git", "worktree", "remove"])
+                self.assertFalse(
+                    any(
+                        "commit" in command or "push" in command for command in commands
+                    )
+                )
+                api.assert_called_once()
 
     def test_pr_isolated_branch_title_body_and_command_order(self) -> None:
         with (
@@ -279,35 +342,6 @@ class UpdateTests(unittest.TestCase):
             branches.append(branch)
         self.assertNotEqual(*branches)
 
-    def test_force_does_not_bypass_validation_failure(self) -> None:
-        with (
-            patch.object(
-                check_updates, "github", return_value='[{"url":"existing"}]'
-            ) as api,
-            patch.object(
-                maintain, "run", side_effect=["", ValueError("contract changed"), ""]
-            ) as run,
-            self.assertRaisesRegex(ValueError, "contract changed"),
-        ):
-            _ = check_updates.open_pr(
-                self.root,
-                "owner/nur",
-                "main",
-                "example",
-                "1.0.0",
-                self.release,
-                self.spec,
-                ["x86_64-linux"],
-                force=True,
-            )
-        commands = [cast(list[str], call.args[1]) for call in run.call_args_list]
-        self.assertEqual(commands[1], ["just", "update", "example", "1.1.0"])
-        self.assertEqual(commands[-1][:3], ["git", "worktree", "remove"])
-        self.assertFalse(
-            any("commit" in command or "push" in command for command in commands)
-        )
-        api.assert_called_once()
-
     def test_force_requires_pr_before_any_work(self) -> None:
         for update in [False, True]:
             with (
@@ -348,7 +382,7 @@ class UpdateTests(unittest.TestCase):
             patch.object(check_updates, "check_updates") as check,
         ):
             check_updates.main()
-        check.assert_called_once_with(maintain.ROOT, True, False, True, False)
+        check.assert_called_once_with(maintain.ROOT, True, False, True)
         with (
             patch.dict(
                 os.environ, {"GITHUB_REPOSITORY": "owner/nur", "UPDATE_BASE": "main"}
@@ -380,7 +414,7 @@ class UpdateTests(unittest.TestCase):
         spec = self.spec.copy()
         spec["sync"] = ["generate"]
         spec["contract"] = ["verify"]
-        spec["tests"] = [["python3", "tests/settings.py", "-v"]]
+        spec["tests"] = [["python3", "tests/pkgs/fluxdown/settings.py", "-v"]]
         body = check_updates.pr_body(
             "example", self.release, spec, ["x86_64-linux"], "x86_64-linux"
         )
@@ -391,7 +425,7 @@ class UpdateTests(unittest.TestCase):
         for text in [
             "generate",
             "verify",
-            "python3 tests/settings.py -v",
+            "python3 tests/pkgs/fluxdown/settings.py -v",
             "VM tests were not run",
             "zero errors and warnings",
         ]:
@@ -438,7 +472,7 @@ class UpdateTests(unittest.TestCase):
         folder = self.root / "pkgs/example"
         _ = (folder / "spotx.nix").write_text("")
         _ = (folder / "maintenance.toml").write_text(
-            'files = ["default.nix", "spotx.nix"]\ncheckIntervalHours = 168\n'
+            'files = ["default.nix", "spotx.nix"]\n'
             + '[snapshot]\nname = "SpotX"\nrepository = "SpotX-Official/SpotX-Bash"\nbranch = "main"\n'
             + 'attribute = "spotify-spotx.spotx"\ncommand = ["just", "update-spotx"]\n'
             + 'files = ["spotx.nix"]\n'
@@ -556,61 +590,6 @@ class UpdateTests(unittest.TestCase):
         self.assertEqual(title, "spotify-spotx: SpotX 2026-10-03 (bbbbbbb)")
         self.assertEqual(commands[7], ["git", "commit", "-m", title])
 
-    def test_spotx_failed_validation_never_publishes(self) -> None:
-        self.configure_snapshot()
-        with (
-            patch.object(check_updates, "github", return_value="[]") as api,
-            patch.object(check_updates, "snapshot_date", return_value="2026-10-03"),
-            patch.object(check_updates, "snapshot_revision", return_value="b" * 40),
-            patch.object(
-                maintain, "run", side_effect=["", "", ValueError("failed check"), ""]
-            ) as run,
-            self.assertRaisesRegex(ValueError, "failed check"),
-        ):
-            _ = check_updates.open_pr(
-                self.root,
-                "owner/nur",
-                "main",
-                "spotify-spotx",
-                "a" * 40,
-                self.release,
-                self.spec,
-                ["x86_64-linux"],
-            )
-        self.assertFalse(
-            any(
-                "push" in call.args[1] or "commit" in call.args[1]
-                for call in run.call_args_list
-            )
-        )
-        api.assert_called_once()
-
-    def test_spotx_existing_pr_and_dirty_checkout(self) -> None:
-        self.configure_snapshot()
-        with (
-            patch.object(check_updates, "github", return_value='[{"url":"existing"}]'),
-            patch.object(maintain, "run") as run,
-        ):
-            result = check_updates.open_pr(
-                self.root,
-                "owner/nur",
-                "main",
-                "spotify-spotx",
-                "a" * 40,
-                self.release,
-                self.spec,
-                ["x86_64-linux"],
-            )
-        self.assertIn("existing", result)
-        run.assert_not_called()
-        with (
-            patch.object(maintain, "run", return_value="modified"),
-            patch.object(check_updates, "ready_updates") as check,
-            self.assertRaisesRegex(ValueError, "clean checkout"),
-        ):
-            check_updates.check_updates(self.root, pr=True)
-        check.assert_not_called()
-
     def test_snapshot_dates_use_pinned_commits(self) -> None:
         with patch.object(
             check_updates, "github", return_value="2026-10-03T21:39:36Z"
@@ -674,79 +653,22 @@ class UpdateTests(unittest.TestCase):
             ],
         )
 
-    def test_spotx_cli(self) -> None:
-        with (
-            patch.object(sys, "argv", ["check_updates.py", "--scheduled", "--pr"]),
-            patch.object(check_updates, "check_updates") as check,
-        ):
-            check_updates.main()
-        check.assert_called_once_with(maintain.ROOT, True, False, False, True)
-
-    def test_scheduled_interval_and_manual_bypass(self) -> None:
+    def test_every_run_checks_all_packages(self) -> None:
         self.configure_snapshot()
-        state = self.root / "state"
-        stamp = state / "example"
-        with (
-            patch.dict(os.environ, {"UPDATE_STATE_DIR": str(state)}),
-            patch("tools.check_updates.time.time", return_value=1000000) as clock,
-            patch.object(check_updates, "ready_package", return_value=None) as ready,
-        ):
-            check_updates.check_updates(self.root, scheduled=True)
-            self.assertEqual(stamp.read_text(), "1000000")
-            clock.return_value = 1000000 + 168 * 3600 - 1
-            check_updates.check_updates(self.root, scheduled=True)
-            ready.assert_called_once()
-            check_updates.check_updates(self.root)
-            self.assertEqual(ready.call_count, 2)
-            self.assertEqual(stamp.read_text(), "1000000")
-            clock.return_value = 1000000 + 168 * 3600
-            check_updates.check_updates(self.root, scheduled=True)
-            self.assertEqual(ready.call_count, 3)
-
-    def test_failed_scheduled_check_is_retried(self) -> None:
-        state = self.root / "state"
-        with (
-            patch.dict(os.environ, {"UPDATE_STATE_DIR": str(state)}),
-            patch.object(
-                check_updates, "ready_package", side_effect=ValueError("network")
-            ),
-            self.assertRaisesRegex(ValueError, "network"),
-        ):
-            check_updates.check_updates(self.root, scheduled=True)
-        self.assertFalse((state / "example").exists())
-        with (
-            patch.dict(os.environ, {"UPDATE_STATE_DIR": str(state)}),
-            patch.object(
-                check_updates,
-                "ready_package",
-                return_value=("1.0.0", ["x86_64-linux"], self.release),
-            ),
-            patch.object(maintain, "run", side_effect=ValueError("validation")),
-            self.assertRaisesRegex(ValueError, "validation"),
-        ):
-            check_updates.check_updates(self.root, update=True, scheduled=True)
-        self.assertFalse((state / "example").exists())
-
-    def test_interval_does_not_skip_other_due_packages(self) -> None:
-        self.configure_snapshot()
-        folder = self.root / "pkgs/frequent"
+        folder = self.root / "pkgs/second"
         folder.mkdir()
         _ = (folder / "default.nix").write_text("")
         _ = (folder / "maintenance.toml").write_text(
-            'files = ["default.nix"]\ncheckIntervalHours = 4\n'
-            + '[release]\nrepository = "owner/project"\nassets = ["app"]\n'
+            'files = ["default.nix"]\n'
+            + '[release]\nrepository = "owner/project"\nassets = []\n'
         )
-        state = self.root / "state"
-        state.mkdir()
-        for package in ("example", "frequent"):
-            _ = (state / package).write_text("1000000")
-        with (
-            patch.dict(os.environ, {"UPDATE_STATE_DIR": str(state)}),
-            patch("tools.check_updates.time.time", return_value=1000000 + 4 * 3600),
-            patch.object(check_updates, "ready_package", return_value=None) as ready,
-        ):
-            check_updates.check_updates(self.root, scheduled=True)
-        self.assertEqual([call.args[1] for call in ready.call_args_list], ["frequent"])
+        with patch.object(check_updates, "ready_package", return_value=None) as ready:
+            check_updates.check_updates(self.root)
+            check_updates.check_updates(self.root)
+        self.assertEqual(
+            [call.args[1] for call in ready.call_args_list],
+            ["example", "second", "example", "second"],
+        )
 
     def test_monitor_fields_are_required_and_validated(self) -> None:
         self.configure_snapshot()
@@ -760,6 +682,8 @@ class UpdateTests(unittest.TestCase):
             maintain.validate_monitor(kind, fields)
             for key in fields:
                 for invalid in invalid_values:
+                    if key == "assets" and invalid == []:
+                        continue
                     with (
                         self.subTest(kind=kind, key=key, value=invalid),
                         self.assertRaises(ValueError),
@@ -784,13 +708,6 @@ class UpdateTests(unittest.TestCase):
 
     def test_monitor_metadata_validation(self) -> None:
         manifest = self.root / "pkgs/example/maintenance.toml"
-        for value in ("0", "-1", "true", '"weekly"', "1.5"):
-            with self.subTest(value=value):
-                _ = manifest.write_text(
-                    'files = ["default.nix"]\ncheckIntervalHours = ' + value
-                )
-                with self.assertRaisesRegex(ValueError, "checkIntervalHours"):
-                    _ = maintain.specification(self.root, "example")
         self.configure_snapshot()
         content = manifest.read_text()
         for old, new in (
@@ -803,17 +720,16 @@ class UpdateTests(unittest.TestCase):
             with self.subTest(new=new), self.assertRaises(ValueError):
                 _ = maintain.specification(self.root, "example")
 
-    def test_workflow_uses_metadata_schedule(self) -> None:
+    def test_workflow_runs_daily_or_manually(self) -> None:
         workflow = (maintain.ROOT / ".github/workflows/updates.yml").read_text()
         self.assertEqual(workflow.count("cron:"), 1)
-        self.assertIn("just check-updates --pr --scheduled", workflow)
-        self.assertIn(
-            'UPDATE_STATE_DIR="$HOME/.local/state/nur-updates/$GITHUB_REPOSITORY"',
-            workflow,
-        )
-        self.assertNotIn("--spotx", workflow)
-        self.assertNotIn("17 3 * * 1", workflow)
-        self.assertIn("just check-updates --update", workflow)
+        self.assertIn("cron: '0 0 * * *'", workflow)
+        self.assertIn("workflow_dispatch:", workflow)
+        self.assertIn("just check-updates --pr", workflow)
+        self.assertIn("just check-updates --pr --force", workflow)
+        self.assertNotIn("--scheduled", workflow)
+        self.assertNotIn("UPDATE_STATE_DIR", workflow)
+        self.assertIn("just check-all && just check-updates --update", workflow)
 
     def test_github_errors_propagate(self) -> None:
         with (

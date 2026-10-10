@@ -6,7 +6,7 @@ pkgs.testers.runNixOSTest {
   globalTimeout = 180;
 
   nodes.machine = {
-    imports = [ ../modules/fluxdown.nix ];
+    imports = [ ../../../modules/fluxdown.nix ];
     services.fluxdown = {
       enable = true;
       port = 17810;

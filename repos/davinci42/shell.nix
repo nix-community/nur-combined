@@ -3,6 +3,7 @@
 }:
 pkgs.mkShell {
   packages = with pkgs; [
+    (python315.withPackages (packages: [ packages.websocket-client ]))
     just
     nix-update
     nixfmt
@@ -13,6 +14,5 @@ pkgs.mkShell {
     git
     gh
     act
-    (python3.withPackages (packages: [ packages.websocket-client ]))
   ];
 }

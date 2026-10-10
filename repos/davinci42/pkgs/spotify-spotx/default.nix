@@ -11,7 +11,6 @@
 }:
 let
   spotx = callPackage ./spotx.nix { };
-  spotxSource = spotx.src;
   spotifyVersion = builtins.head (lib.splitString ".g" spotify.version);
   clientPath = "$out/share/spotify";
   allowedFlags = [
@@ -43,7 +42,7 @@ spotify.overrideAttrs (old: {
       export SPOTX_BUILD_MODE=true
       mkdir -p "$HOME"
       chmod -R u+w "${clientPath}"
-      ${lib.getExe bash} ${spotxSource} \
+      ${lib.getExe bash} ${spotx.src} \
         --noninteractive --nocolor -P "${clientPath}" -F ${lib.escapeShellArg spotifyVersion} \
         ${lib.escapeShellArgs spotxFlags}
     )
@@ -51,8 +50,7 @@ spotify.overrideAttrs (old: {
   '';
 
   passthru = removeAttrs (old.passthru or { }) [ "updateScript" ] // {
-    inherit spotx spotxSource spotxFlags;
-    unpatchedSpotify = spotify;
+    inherit spotx spotxFlags;
   };
 
   meta = old.meta // {

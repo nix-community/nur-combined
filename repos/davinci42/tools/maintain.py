@@ -39,7 +39,6 @@ class Specification(TypedDict):
     rawSource: NotRequired[str]
     release: NotRequired[ReleaseSpecification]
     snapshot: NotRequired[SnapshotSpecification]
-    checkIntervalHours: NotRequired[int]
 
 
 class Arguments(argparse.Namespace):
@@ -92,6 +91,8 @@ def validate_monitor(kind: str, fields: dict[str, object]) -> None:
         if not isinstance(field, str) or not re.fullmatch(pattern, field):
             raise ValueError(f"Invalid {kind}.{key}")
     for key in lists:
+        if key == "assets" and fields[key] == []:
+            continue
         if not string_list(fields[key]):
             raise ValueError(f"{kind}.{key} must be a nonempty string array")
 
@@ -125,9 +126,6 @@ def specification(root: Path, package: str) -> Specification:
             if not isinstance(raw[kind], dict):
                 raise ValueError(f"{kind} must be a table")
             validate_monitor(kind, cast(dict[str, object], raw[kind]))
-    interval = raw.get("checkIntervalHours", 4)
-    if type(interval) is not int or interval < 1:
-        raise ValueError("checkIntervalHours must be a positive integer")
     spec = cast(Specification, cast(object, raw))
     if "snapshot" in spec and not set(spec["snapshot"]["files"]) <= set(spec["files"]):
         raise ValueError("snapshot.files must be listed in files")
@@ -140,7 +138,6 @@ def specification(root: Path, package: str) -> Specification:
         "rawSource",
         "release",
         "snapshot",
-        "checkIntervalHours",
     }
     if set(spec) - allowed:
         raise ValueError("Unknown maintenance metadata fields")
@@ -156,9 +153,6 @@ def specification(root: Path, package: str) -> Specification:
             )
     if "rawSource" in spec and spec["rawSource"] not in spec["files"]:
         raise ValueError("rawSource must be listed in files")
-    for command in [spec.get("sync"), spec.get("contract"), *spec.get("tests", [])]:
-        if command is not None and (not command):
-            raise ValueError("Commands must be nonempty arrays of arguments")
     return spec
 
 
@@ -257,7 +251,9 @@ def lint(root: Path) -> None:
     )
 
 
-def check(root: Path, package: str, spec: Specification) -> None:
+def check(
+    root: Path, package: str, spec: Specification, *, run_lint: bool = True
+) -> None:
     _, systems = package_info(root, package)
     host = cast(
         str,
@@ -290,7 +286,8 @@ def check(root: Path, package: str, spec: Specification) -> None:
         env[spec["runtimePackageEnv"]] = output.splitlines()[0]
     for command in spec.get("tests", []):
         _ = run(root, command, env=env)
-    lint(root)
+    if run_lint:
+        lint(root)
     print(
         f"Built and tested: {host}. Other platforms not build-tested: {', '.join(system for system in systems if system != host) or 'none'}",
         flush=True,
@@ -441,13 +438,19 @@ def main() -> None:
             lint(ROOT)
         elif args.action == "check-all":
             for path in sorted((ROOT / "pkgs").glob("*/maintenance.toml")):
-                check(ROOT, path.parent.name, specification(ROOT, path.parent.name))
+                check(
+                    ROOT,
+                    path.parent.name,
+                    specification(ROOT, path.parent.name),
+                    run_lint=False,
+                )
             for test in ("maintenance", "updates"):
                 _ = run(
                     ROOT,
                     ["python3", f"tests/{test}.py", "-v"],
                     env=os.environ | {"PYTHONDONTWRITEBYTECODE": "1"},
                 )
+            lint(ROOT)
         elif not args.package:
             parser.error("package is required")
         elif args.action == "update":

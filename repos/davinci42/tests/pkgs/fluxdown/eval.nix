@@ -9,7 +9,7 @@ let
       inherit pkgs;
       system = pkgs.stdenv.hostPlatform.system;
       modules = [
-        ../modules/fluxdown.nix
+        ../../../modules/fluxdown.nix
         extra
       ];
     }).config;
@@ -44,7 +44,7 @@ let
       environmentFile = "relative.env";
     };
   };
-  schema = builtins.fromJSON (builtins.readFile ../pkgs/fluxdown-server/settings-schema.json);
+  schema = builtins.fromJSON (builtins.readFile ../../../pkgs/fluxdown-server/settings-schema.json);
   writable = lib.filterAttrs (_: field: field.kind != "ReadOnly") schema.fields;
   allDefaults = lib.mapAttrs (
     _: field:
@@ -114,7 +114,9 @@ let
     rejectVersionDrift = lib.any (
       item: !item.assertion && lib.hasPrefix "FluxDown settings schema" item.message
     ) wrongVersion.assertions;
-    moduleWithoutPkgs = builtins.isPath (import ../default.nix { pkgs = null; }).nixosModules.fluxdown;
+    moduleWithoutPkgs =
+      builtins.isPath
+        (import ../../../default.nix { pkgs = null; }).nixosModules.fluxdown;
     disabledService = !(disabled.systemd.services ? fluxdown);
     disabledUser = !(disabled.users.users ? fluxdown);
     packageDefault = disabled.services.fluxdown.package.pname == "fluxdown-server";

@@ -2,7 +2,7 @@ name: Package updates
 
 on:
   schedule:
-    - cron: '0 */4 * * *'
+    - cron: '0 0 * * *'
   workflow_dispatch:
     inputs:
       force:
@@ -25,6 +25,7 @@ jobs:
     timeout-minutes: 120
     env:
       PYTHONDONTWRITEBYTECODE: '1'
+      NO_COLOR: '1'
       NIXPKGS_ALLOW_UNFREE: '1'
       GH_PROMPT_DISABLED: '1'
       GIT_AUTHOR_NAME: github-actions[bot]
@@ -41,11 +42,8 @@ jobs:
           UPDATE_BASE: ${{ github.event.repository.default_branch }}
           UPDATE_FORCE: ${{ inputs.force || false }}
         run: |
-          export UPDATE_STATE_DIR="$HOME/.local/state/nur-updates/$GITHUB_REPOSITORY"
           if [ "${ACT:-false}" = "true" ]; then
-            nix-shell --run 'just check-updates --update'
-          elif [ "$GITHUB_EVENT_NAME" = "schedule" ]; then
-            nix-shell --run 'just check-updates --pr --scheduled'
+            nix-shell --run 'just check-all && just check-updates --update'
           elif [ "$UPDATE_FORCE" = "true" ]; then
             nix-shell --run 'just check-updates --pr --force'
           else

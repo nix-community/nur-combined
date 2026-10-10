@@ -1,7 +1,6 @@
 files = ["default.nix", "spotx.nix"]
-checkIntervalHours = 168
 tests = [
-  ["nix", "build", "-f", "tests/spotify-spotx.nix", "--no-link"],
+  ["nix", "build", "-f", "tests/pkgs/spotify-spotx.nix", "--no-link"],
 ]
 
 [snapshot]

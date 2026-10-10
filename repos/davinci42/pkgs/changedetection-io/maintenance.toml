@@ -1,0 +1,8 @@
+files = ["default.nix"]
+tests = [
+  ["nix", "build", "-f", "tests/pkgs/changedetection-io.nix", "--no-link"],
+]
+
+[release]
+repository = "dgtlmoon/changedetection.io"
+assets = []

@@ -6,7 +6,6 @@ import shlex
 import subprocess
 import sys
 import tempfile
-import time
 from collections.abc import Iterator
 from datetime import date
 from pathlib import Path
@@ -35,7 +34,6 @@ class Arguments(argparse.Namespace):
     pr: bool = False
     update: bool = False
     force: bool = False
-    scheduled: bool = False
 
 
 def github(root: Path, arguments: list[str]) -> str:
@@ -82,7 +80,9 @@ def candidates(root: Path, repository: str, current: str) -> list[Release]:
             if (
                 release["draft"]
                 or release["prerelease"]
-                or not re.fullmatch(r"v?[0-9]+\.[0-9]+\.[0-9]+", tag)
+                or not re.fullmatch(
+                    r"v?(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)", tag
+                )
             ):
                 continue
             if version_key(tag.removeprefix("v")) > current_version:
@@ -127,8 +127,13 @@ def pr_body(
             + "regression tests, lint, and `git diff --check`. "
             + "Playback, ad blocking, and VM tests were not run.\n"
         )
+    assert "release" in spec
     checks = [
-        "Required release assets are uploaded and nonempty.",
+        (
+            "Required release assets are uploaded and nonempty."
+            if spec["release"]["assets"]
+            else "Source-only release; no uploaded assets required."
+        ),
         "Source hashes refreshed for: " + ", ".join(systems) + ".",
         f"Package built on `{host}`.",
     ]
@@ -361,28 +366,16 @@ def ready_package(
 
 def ready_updates(
     root: Path,
-    scheduled: bool = False,
 ) -> Iterator[tuple[str, maintain.Specification, str, list[str], Release]]:
-    state = Path(os.environ["UPDATE_STATE_DIR"]) if scheduled else None
     for path in sorted((root / "pkgs").glob("*/maintenance.toml")):
         package = path.parent.name
         spec = maintain.specification(root, package)
         if "release" not in spec and "snapshot" not in spec:
             continue
-        stamp = state / package if state else None
-        now = time.time()
-        if stamp and stamp.exists():
-            elapsed = now - float(stamp.read_text())
-            if 0 <= elapsed < spec.get("checkIntervalHours", 4) * 3600:
-                report(f"{package}: check interval has not elapsed.")
-                continue
         candidate = ready_package(root, package, spec)
         if candidate:
             current, systems, release = candidate
             yield package, spec, current, systems, release
-        if stamp:
-            stamp.parent.mkdir(parents=True, exist_ok=True)
-            _ = stamp.write_text(str(time.time()))
 
 
 def check_updates(
@@ -390,7 +383,6 @@ def check_updates(
     pr: bool = False,
     update: bool = False,
     force: bool = False,
-    scheduled: bool = False,
 ) -> None:
     if force and not pr:
         raise ValueError("--force requires --pr")
@@ -399,7 +391,7 @@ def check_updates(
     repository, base = (
         (os.environ["GITHUB_REPOSITORY"], os.environ["UPDATE_BASE"]) if pr else ("", "")
     )
-    for package, spec, current, systems, release in ready_updates(root, scheduled):
+    for package, spec, current, systems, release in ready_updates(root):
         version = release["tag_name"].removeprefix("v")
         if pr:
             report(
@@ -434,14 +426,9 @@ def main() -> None:
         action="store_true",
         help="Ignore existing PRs and publish from a new branch; still run all validation (requires --pr)",
     )
-    _ = parser.add_argument(
-        "--scheduled",
-        action="store_true",
-        help="Respect maintenance check intervals using UPDATE_STATE_DIR",
-    )
     args = parser.parse_args(namespace=Arguments())
     try:
-        check_updates(maintain.ROOT, args.pr, args.update, args.force, args.scheduled)
+        check_updates(maintain.ROOT, args.pr, args.update, args.force)
     except (OSError, ValueError, KeyError, subprocess.SubprocessError) as error:
         report(f"Update failed: {error}")
         parser.exit(1)

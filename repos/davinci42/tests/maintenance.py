@@ -189,6 +189,32 @@ class MaintenanceTests(unittest.TestCase):
             ["nix", "store", "prefetch-file"],
         )
 
+    def test_check_all_lints_once_after_package_checks(self):
+        other = self.root / "pkgs/second"
+        other.mkdir()
+        _ = (other / "maintenance.toml").write_text("")
+        with (
+            patch.object(maintain, "ROOT", self.root),
+            patch("sys.argv", ["maintain.py", "check-all"]),
+            patch.object(maintain, "specification", return_value={"files": []}),
+            patch.object(maintain, "check") as check,
+            patch.object(maintain, "run", return_value=""),
+            patch.object(maintain, "lint") as lint,
+        ):
+            maintain.main()
+        self.assertEqual([call.args[1] for call in check.call_args_list], ["example", "second"])
+        self.assertTrue(all(call.kwargs == {"run_lint": False} for call in check.call_args_list))
+        lint.assert_called_once_with(self.root)
+
+    def test_package_check_lints_by_default(self):
+        with (
+            patch.object(maintain, "package_info", return_value=("1", ["x86_64-linux"])),
+            patch.object(maintain, "run", side_effect=['"x86_64-linux"', "/nix/store/example"]),
+            patch.object(maintain, "lint") as lint,
+        ):
+            maintain.check(self.root, "example", {"files": []})
+        lint.assert_called_once_with(self.root)
+
     def test_raw_archive_rejects_ambiguous_hash(self):
         target = self.package / "default.nix"
         _ = target.write_text('hash = "same"; other = "same";')
