@@ -63,6 +63,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
     # refuses the object ("unexpected BTF type id"). The upstream toolchain
     # (pinned nightly + bpf-linker 0.11.0) emits the complete type here; with
     # nixpkgs' LLVM a by-value use in this codegen unit forces it as well.
+    # Not a hardening-flag issue: the object is byte-identical with
+    # `hardeningDisable = [ "zerocallusedregs" ]` — that flag only reaches C
+    # compilers (dae/daed need it because clang compiles their C eBPF).
     postPatch = ''
       cat >> crates/honk-ebpf/src/maps.rs <<'EOF'
 
@@ -110,6 +113,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   __structuredAttrs = true;
   strictDeps = true;
+
+  # `[profile.release] strip = true` does not survive nixpkgs' auditable-cargo
+  # link post-processing, and the default fixup strip only removes debug info
+  # (-S). Strip symbols too (~7.7 MiB); same hook as nixos-init/userborn.
+  stripAllList = [ "bin" ];
 
   # `native-ui` would embed a doona build (HONK_DOONA_DIR) into the binary;
   # the UI is served from the doona-web package via `ui: <directory>` instead.
