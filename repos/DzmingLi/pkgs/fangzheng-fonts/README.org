@@ -8,7 +8,7 @@ NUR 包属性及 derivation 的 pname 均为 =fangzheng-fonts=；包目录由 =N
 
 - 方正书宋简体（FZShuSong-Z01S）
 - 方正黑体 GBK（FZHei-B01）
-- 方正楷体简体（FZKai-Z03S）
+- 方正楷体简体（FZKai-Z03S，文件名 =FZKai-Z03S.ttf=）
 
 * NEU S92 字体
 
@@ -21,17 +21,17 @@ NUR 包属性及 derivation 的 pname 均为 =fangzheng-fonts=；包目录由 =N
 
 * MPS 科技符号字体
 
-- 方正科技符号_MPS.ttf
-- 方正科技符号_MPS_Italic.ttf
-- 方正科技符号_MPS_Bold.ttf
-- 方正科技符号_MPS_Bold_Italic.ttf
-- 方正科技符号_Extra_MPS.ttf
+- FZSTS_MPS.ttf
+- FZSTS_MPS_Italic.ttf
+- FZSTS_MPS_Bold.ttf
+- FZSTS_MPS_Bold_Italic.ttf
+- FZS_Extra_MPS.ttf
 
 前四款保留 =FZSTS_MPS= 家族及其四种样式；Extra 字体保持独立的 =FZS_Extra_MPS= 家族。
 
 * 来源与使用
 
-原有书宋、黑体继续从已有 =cn-exam-fonts-1.0.0= Release 读取；历史下载地址保持有效，不随包属性改名。其余十个原始文件位于 =fonts/=，逐字节保留用户提供的文件。
+原有书宋、黑体继续从已有 =cn-exam-fonts-1.0.0= Release 读取；历史下载地址保持有效，不随包属性改名。其余十个原始文件位于 =fonts/=，逐字节保留用户提供的文件内容；文件名统一使用 ASCII，以兼容仓库归档解压时的 locale 设置。
 
 覆盖层中的 NixOS 字体包引用为 =fangzheng-fonts=；通过 NUR 使用时为 =nur.repos.DzmingLi.fangzheng-fonts=。
 
