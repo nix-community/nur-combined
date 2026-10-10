@@ -6,13 +6,13 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-developer-utilities";
-  version = "0-unstable-2026-10-08";
+  version = "0-unstable-2026-08-14";
 
   src = fetchFromGitHub {
     owner = "xxyangyoulin";
     repo = "dms-plugin-developer-utilities";
-    rev = "120512d8c54350c267aa5264cb3c09c3cf26ad30";
-    hash = "sha256-sSjYCAjXyp6Iw3QHuPJ4vsXCijAmFYpsT4AafHS2Ifo=";
+    rev = "b115dcbbe0d82c80190f4fcc255a935e33889f4a";
+    hash = "sha256-bpsE5x26Ou7Sfzgv/ttIxfqK3w51x+kSP2dKOIGakTA=";
   };
 
   dontBuild = true;
