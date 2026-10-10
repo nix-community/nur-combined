@@ -8,6 +8,8 @@
   git,
   ripgrep,
   fd,
+  fetchFromGitHub,
+  vimUtils,
   lua-language-server,
   rust-analyzer,
   typescript-language-server,
@@ -21,6 +23,32 @@
 
 if inputs ? "nvf" then
   let
+    # avante.nvim upstream added hard dependencies on
+    # ColinKennedy/mega.cmdparse (which needs ColinKennedy/mega.logging)
+    # that nvf does not package yet, so `require("mega.cmdparse")` in
+    # avante's setup fails on startup. Vendor them here and put them on the
+    # runtimepath via extraPlugins until nvf fixes it upstream.
+    mega-logging = vimUtils.buildVimPlugin {
+      pname = "mega.logging";
+      version = "0-unstable-194ad8c";
+      src = fetchFromGitHub {
+        owner = "ColinKennedy";
+        repo = "mega.logging";
+        rev = "194ad8c300186e73c3eb1ebeb3ede42eb219be3b";
+        hash = "sha256-hV7uJyu0XszGLOvcRcDNDE9P6d8GTxBX+la1lQVxx2s=";
+      };
+    };
+    mega-cmdparse = vimUtils.buildVimPlugin {
+      pname = "mega.cmdparse";
+      version = "0-unstable-47ea5b1";
+      dependencies = [ mega-logging ];
+      src = fetchFromGitHub {
+        owner = "ColinKennedy";
+        repo = "mega.cmdparse";
+        rev = "47ea5b1b23059fbb79a8e262002f32e7cd8aed90";
+        hash = "sha256-RgRsHt1O6UQ/90JeAkHvdpgfjF+I25zg/oGV0cK7t6U=";
+      };
+    };
     nvfConfig = inputs.nvf.lib.neovimConfiguration {
       inherit pkgs;
       modules = [
@@ -306,6 +334,13 @@ if inputs ? "nvf" then
             };
             binds.whichKey.enable = true;
             git.enable = true;
+          };
+        }
+        {
+          # Runtimepath dependencies of avante.nvim missing from nvf, see above.
+          config.vim.extraPlugins = {
+            mega-logging.package = mega-logging;
+            mega-cmdparse.package = mega-cmdparse;
           };
         }
       ];

@@ -31,11 +31,11 @@
       };
 
       mcp = {
-        nixos = {
-          command = [ (lib.getExe stablePkgs.mcp-nixos) ];
-          enabled = true;
-          type = "local";
-        };
+        # nixos = {
+        #   command = [ (lib.getExe stablePkgs.mcp-nixos) ];
+        #   enabled = true;
+        #   type = "local";
+        # };
         chrome-devtools = {
           command = [
             "npx"

@@ -27,7 +27,7 @@ in
         See https://pi.dev/docs/mcp for the server entry format.
       '';
       example = {
-        nixos.command = "/nix/store/…-mcp-nixos/bin/mcp-nixos";
+        nixos.command = "lib.getExe pkgs.mcp-nixos";
         github = {
           url = "https://api.githubcopilot.com/mcp";
           headers.Authorization = "!echo Bearer $(cat /run/secrets/github_pat)";
@@ -39,9 +39,9 @@ in
   config = lib.mkIf cfg.enable {
     programs.pi-coding-agent.package = inputs.pi.packages.${system}.pi;
     # Shared NixOS lookup server, mirroring programs.opencode.settings.mcp.nixos.
-    programs.pi-coding-agent.mcpServers.nixos = {
-      command = lib.getExe stablePkgs.mcp-nixos;
-    };
+    # programs.pi-coding-agent.mcpServers.nixos = {
+    #   command = lib.getExe stablePkgs.mcp-nixos;
+    # };
 
     home.file = {
       "${cfg.configDir}/auth.json" = lib.mkIf (cfg.auth != { }) {
