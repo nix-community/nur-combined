@@ -6,11 +6,11 @@
 
 let
   pname = "limusic";
-  version = "1.1.0";
+  version = "1.2.0";
 
   src = fetchurl {
     url = "https://github.com/SimoHypers/limusic/releases/download/v${version}/limusic_${version}_amd64.AppImage";
-    hash = "sha256-N3TSN8OukIddyDX2bVD+meJphAxcXXpppTrhEZWEI9g=";
+    hash = "sha256-6gsWgCFvJubOTntM2pugQobbQXYY0+wuR4KyjmVVDJg=";
   };
 
   contents = appimageTools.extract {
