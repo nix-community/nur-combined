@@ -23,7 +23,7 @@
           };
           defaults = {
             services.honk-core.package = self'.packages.honk-core;
-            services.honk-core.webUi = self'.packages.doona-web;
+            services.honk-core.doona.package = self'.packages.doona-web;
           };
         };
         # keep-sorted end

@@ -1,32 +1,3 @@
-/*
-  SPDX-License-Identifier: ISC AND MIT
-
-  This file is licensed under the ISC License AND the MIT License.
-  It contains code derived from https://github.com/daeuniverse/flake.nix
-
-  --- ISC License ---
-  Copyright (c) 2023, daeuniverse
-
-  Permission to use, copy, modify, and/or distribute this software for any
-  purpose with or without fee is hereby granted, provided that the above
-  copyright notice and this permission notice appear in all copies.
-
-  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
-  WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
-  MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
-  ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
-  WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
-  ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
-  OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
-
-  --- MIT License ---
-  Copyright (c) 2026 Nixpkgs/NixOS contributors
-
-  Licensed under the MIT License (the same license as the rest of Nixpkgs).
-  The full text of the MIT License can be found in the LICENSE file at the
-  root of this repository.
-*/
-
 {
   config,
   pkgs,
@@ -54,32 +25,56 @@ let
       inherit paths;
     };
 
-  # The UI is served from the system profile path so an administrated config
-  # file keeps working across package upgrades.
-  uiDir = "/run/current-system/sw/share/doona-web";
-
-  # Written to `configFile` on first start when nothing exists there yet.
-  # Only non-default settings: everything else (tproxy_port, the loopback
-  # listen address, routing fallback) already has these values by default.
-  # config_write requires a credential; password_auth also rules out
-  # allow_anonymous_loopback (honk-config rejects the combination).
-  defaultConfig = pkgs.writeText "config.dae" ''
+  doonaConfig = ''
     experimental {
         native_api {
             enabled: true
             password_auth: true
             config_write: true
-            ui: '${uiDir}'
+            listen: '${cfg.doona.listenAddress}:${toString cfg.doona.port}'
+            ui: '${cfg.doona.package}/share/doona-web'
         }
     }
   '';
 
-  initConfig = pkgs.writeShellScript "honk-init-config" ''
-    if [ ! -e "$1" ]; then
-      ${pkgs.coreutils}/bin/install -Dm600 ${defaultConfig} "$1"
-      echo "honk-core: initialized $1" >&2
-    fi
-  '';
+  configBaseName = "honk";
+  configDir = "/etc/${configBaseName}";
+  configFragmentDir = "${configDir}/config.d";
+
+  # honk resolves symlinks when it loads an `include` and refuses the whole
+  # configuration unless every included file ends up inside the entry config's
+  # own directory. A tree of store symlinks therefore only works while nothing
+  # ever writes to it, so /etc/honk holds real files instead: an
+  # `environment.etc` entry whose mode is not "symlink" is copied on every
+  # activation, which keeps the tree real, up to date and writable for honk.
+  fragmentName = file: builtins.unsafeDiscardStringContext (baseNameOf file);
+
+  declaredFragments = lib.genAttrs' cfg.configFiles (
+    file:
+    lib.nameValuePair "${configBaseName}/config.d/${fragmentName file}" {
+      mode = "0600";
+      source = file;
+    }
+  );
+
+  # The entry config is the file honk is started with (`-c`). It is copied
+  # from the store on every activation, so edits made at runtime (including
+  # through the web UI) are lost on the next switch; runtime changes belong
+  # into the included fragments.
+  entryConfig = pkgs.writeText "config.dae" (
+    ''
+      global {
+          data_dir: '${cfg.dataDir}'
+          tproxy_port: ${toString cfg.tproxyPort}
+          wan_interface: ${cfg.wanInterface}
+          ${lib.optionalString (cfg.lanInterface != "") "    lan_interface: ${cfg.lanInterface}"}
+      }
+      include {
+          '${configFragmentDir}/*.dae'
+      }
+    ''
+    + lib.optionalString cfg.doona.enable doonaConfig
+  );
 
   TxChecksumIpGenericWorkaround = pkgs.writeShellScript "disable-tx-checksum-ip-generic" ''
     iface=$(${lib.getExe' pkgs.iproute2 "ip"} route | ${lib.getExe' pkgs.gawk "awk"} '/default/ {print $5}')
@@ -92,45 +87,50 @@ in
 
     package = mkPackageOption pkgs "honk-core" { };
 
-    webUi = mkPackageOption pkgs "doona-web" { };
-
-    config = mkOption {
-      type = types.nullOr types.str;
-      default = null;
-      description = ''
-        WARNING: This option will expose your config unencrypted world-readable in the nix store.
-        Config text for honk at {file}`/etc/honk/config.dae`; the store copy
-        is read-only, so native-API edits need {option}`configFile`.
-        See <https://github.com/Glassyiris/honk/blob/main/config.dae>.
-      '';
+    doona = {
+      enable = mkEnableOption "the doona web UI and honk's native API (password login, configuration writes)";
+      package = mkPackageOption pkgs "doona-web" { };
+      listenAddress = mkOption {
+        type = types.str;
+        default = "127.0.0.1";
+        example = "0.0.0.0";
+        description = ''
+          Address the native API and the web UI bind to. The default keeps
+          them on loopback; exposing them needs a matching firewall rule (see
+          {option}`services.honk-core.openFirewall`), and honk's password login
+          applies either way.
+        '';
+      };
+      port = mkOption {
+        type = types.port;
+        default = 9527;
+        description = ''
+          Port the native API and the web UI listen on
+          (`experimental.native_api.listen`).
+        '';
+      };
+      openFirewall = mkEnableOption "opening the web UI and native API port in the firewall";
     };
 
-    configFile = mkOption {
-      type =
-        let
-          inherit (types) addCheck str;
-          isAbsolutePathString = x: lib.substring 0 1 x == "/";
-          isNotInStore = x: !lib.hasPrefix builtins.storeDir x;
-          combineTopic = x: isAbsolutePathString x && isNotInStore x;
-        in
-        (addCheck str combineTopic)
-        // {
-          description = "${types.str.description} (with check: should be absolute path **string** which not a store path)";
-        };
-      default = "/etc/honk/config.dae";
+    configFiles = mkOption {
+      type = with lib.types; listOf path;
+      default = [ ];
+      example = literalExpression "[ ./honk/routing.dae ]";
       description = ''
-        Config file for honk; a mutable path outside the nix store. If it
-        is missing on first start, a starter config is seeded here.
-        See <https://github.com/Glassyiris/honk/blob/main/doc/en/configuration.md>.
+        Extra honk configuration fragments. Each file is copied to
+        {file}`/etc/honk/config.d/<file name>` on every activation, so edits
+        made at runtime (including through the web UI) are overwritten; the
+        generated entry config includes every `*.dae` file of that directory,
+        so the file name must end in `.dae`.
       '';
     };
 
     dataDir = mkOption {
-      type = types.str;
+      type = types.path;
       default = "/var/lib/honk";
       description = ''
-        honk state directory, the upstream runtime root. Must match
-        `global.data_dir` if that is changed in the config.
+        honk state directory, the upstream runtime root. Set as
+        `global.data_dir` in the generated entry config.
       '';
     };
 
@@ -148,7 +148,7 @@ in
     };
 
     assetsPath = mkOption {
-      type = types.str;
+      type = types.path;
       default = "${genAssetsDrv assets}/share/v2ray";
       defaultText = literalExpression ''
         "''${pkgs.symlinkJoin {
@@ -162,16 +162,37 @@ in
       '';
     };
 
-    openFirewall = {
-      enable = mkEnableOption "opening `port` in the firewall";
-      port = mkOption {
-        type = types.port;
-        default = 12345;
-        description = ''
-          Port to be opened. Consist with `tproxy_port` in honk configuration.
-        '';
-      };
+    tproxyPort = mkOption {
+      type = types.port;
+      default = 12345;
+      description = ''
+        Port honk's transparent proxy listens on for TCP and UDP traffic,
+        written to `global.tproxy_port` in the generated entry config.
+      '';
     };
+
+    wanInterface = mkOption {
+      type = types.commas;
+      default = "auto";
+      example = "eth0, eth1";
+      description = ''
+        Interfaces carrying this host's own traffic (`global.wan_interface`);
+        `auto` follows the IPv4 default-route interface. Startup-only: honk
+        refuses to change it through the API.
+      '';
+    };
+
+    lanInterface = mkOption {
+      type = types.commas;
+      default = "";
+      example = "eth1, eth2";
+      description = ''
+        Interfaces receiving forwarded LAN traffic (`global.lan_interface`).
+        Empty by default, which leaves honk a host-only proxy. Startup-only.
+      '';
+    };
+
+    openFirewall = mkEnableOption "opening the transparent proxy port in the firewall";
 
     disableTxChecksumIpGeneric = mkEnableOption "" // {
       description = "See <https://github.com/daeuniverse/dae/issues/43>.";
@@ -179,16 +200,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    assertions = [
-      {
-        assertion = cfg.config == null || cfg.configFile == "/etc/honk/config.dae";
-        message = ''
-          `services.honk-core.config` is managed at /etc/honk/config.dae, so
-          `services.honk-core.configFile` must keep its default when `config` is set.
-        '';
-      }
-    ];
-
     # The ActivityPub `services.honk` module removed from nixpkgs in 26.11
     # used the same /var/lib/honk root (StateDirectory = "honk"): its database
     # lives at /var/lib/honk/honk.db, honk-core's at /var/lib/honk/state. The
@@ -200,22 +211,28 @@ in
       in /var/lib/honk/state.
     '';
 
-    environment.systemPackages = [
-      cfg.package
-      cfg.webUi
+    assertions = [
+      {
+        assertion = lib.all (file: lib.hasSuffix ".dae" (fragmentName file)) cfg.configFiles;
+        message = ''
+          services.honk-core.configFiles: the generated entry config only
+          includes files named '*.dae'.
+        '';
+      }
     ];
-    environment.pathsToLink = [ "/share/doona-web" ];
 
-    environment.etc = lib.mkIf (cfg.config != null) {
-      "honk/config.dae" = {
-        mode = "0400";
-        source = pkgs.writeText "config.dae" cfg.config;
-      };
+    networking.firewall = {
+      allowedTCPPorts =
+        lib.optional cfg.openFirewall cfg.tproxyPort
+        ++ lib.optional (cfg.doona.enable && cfg.doona.openFirewall) cfg.doona.port;
+      allowedUDPPorts = lib.optional cfg.openFirewall cfg.tproxyPort;
     };
 
-    networking.firewall = lib.mkIf cfg.openFirewall.enable {
-      allowedTCPPorts = [ cfg.openFirewall.port ];
-      allowedUDPPorts = [ cfg.openFirewall.port ];
+    environment.etc = declaredFragments // {
+      "${configBaseName}/config.dae" = {
+        mode = "0600";
+        source = entryConfig;
+      };
     };
 
     # /run/netns holds honk's compat bind-mount of the daens namespace; the
@@ -223,6 +240,10 @@ in
     systemd.tmpfiles.rules = [
       "d ${cfg.dataDir} 0750 root root - -"
       "d /run/netns 0755 root root - -"
+      "d ${configFragmentDir} 0750 root root - -"
+      # Created once and never overwritten: this fragment belongs to whoever
+      # edits it by hand or through the web UI, NixOS only provides the file.
+      "f ${configFragmentDir}/99-local.dae 0600 root root -"
     ];
 
     # Consume the unit shipped in the honk repository (install/honk.service,
@@ -232,7 +253,10 @@ in
 
     systemd.services.honk = {
       wantedBy = [ "multi-user.target" ];
-      reloadTriggers = [ cfg.config ];
+      # The entry config carries the startup-only settings (data directory,
+      # native API); changes to a fragment are picked up by honk's reload.
+      restartTriggers = [ entryConfig ];
+      reloadTriggers = cfg.configFiles;
       serviceConfig = {
         # A drop-in replaces Exec* only after an empty assignment clears the
         # unit's /usr/bin entries.
@@ -244,7 +268,7 @@ in
             "--data-dir"
             cfg.dataDir
             "-c"
-            cfg.configFile
+            "${configDir}/config.dae"
           ])
         ];
         ExecReload = [
@@ -254,16 +278,9 @@ in
             "reload"
           ])
         ];
-        ExecStartPre =
-          lib.optional cfg.disableTxChecksumIpGeneric (
-            utils.escapeSystemdExecArgs [ TxChecksumIpGenericWorkaround ]
-          )
-          ++ lib.optional (cfg.config == null) (
-            utils.escapeSystemdExecArgs [
-              initConfig
-              cfg.configFile
-            ]
-          );
+        ExecStartPre = lib.optional cfg.disableTxChecksumIpGeneric (
+          utils.escapeSystemdExecArgs [ TxChecksumIpGenericWorkaround ]
+        );
         WorkingDirectory = cfg.dataDir;
         Environment = "DAE_LOCATION_ASSET=${cfg.assetsPath}";
       };
