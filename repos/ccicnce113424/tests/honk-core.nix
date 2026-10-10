@@ -16,8 +16,8 @@
         statusPage = true;
       };
       # Defaults: configFile = "/etc/honk/config.dae" is seeded on first
-      # start with a starter config whose web UI is served from the system
-      # profile's doona-web.
+      # start with a starter config (password login + config writes) whose
+      # web UI is served from the system profile's doona-web.
       services.honk-core.enable = true;
     };
 

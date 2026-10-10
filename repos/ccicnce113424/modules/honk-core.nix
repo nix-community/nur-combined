@@ -61,11 +61,14 @@ let
   # Written to `configFile` on first start when nothing exists there yet.
   # Only non-default settings: everything else (tproxy_port, the loopback
   # listen address, routing fallback) already has these values by default.
+  # config_write requires a credential; password_auth also rules out
+  # allow_anonymous_loopback (honk-config rejects the combination).
   defaultConfig = pkgs.writeText "config.dae" ''
     experimental {
         native_api {
             enabled: true
-            allow_anonymous_loopback: true
+            password_auth: true
+            config_write: true
             ui: '${uiDir}'
         }
     }
@@ -96,11 +99,8 @@ in
       default = null;
       description = ''
         WARNING: This option will expose your config unencrypted world-readable in the nix store.
-        Config text for honk, managed declaratively at
-        {file}`/etc/honk/config.dae`; requires {option}`configFile` to keep its
-        default. The store path is read-only, so source administration through
-        the native API needs the mutable default {option}`configFile` instead.
-
+        Config text for honk at {file}`/etc/honk/config.dae`; the store copy
+        is read-only, so native-API edits need {option}`configFile`.
         See <https://github.com/Glassyiris/honk/blob/main/config.dae>.
       '';
     };
@@ -118,15 +118,10 @@ in
           description = "${types.str.description} (with check: should be absolute path **string** which not a store path)";
         };
       default = "/etc/honk/config.dae";
-      example = "/etc/honk/config.dae";
       description = ''
-        The absolute path string of honk config file which is not in the nix
-        store. If no file exists at this path on service start, a starter
-        config is written there with the web UI served from
-        {file}`/run/current-system/sw/share/doona-web`. The file lives outside
-        the store so reloads and native-API source writes can update it.
-        Setting {option}`config` instead manages
-        {file}`/etc/honk/config.dae` declaratively and disables seeding.
+        Config file for honk; a mutable path outside the nix store. If it
+        is missing on first start, a starter config is seeded here.
+        See <https://github.com/Glassyiris/honk/blob/main/doc/en/configuration.md>.
       '';
     };
 
