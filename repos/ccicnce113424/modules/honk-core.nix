@@ -241,7 +241,11 @@ in
     systemd.tmpfiles.rules = [
       "d ${cfg.dataDir} 0750 root root - -"
       "d /run/netns 0755 root root - -"
-      "d ${configFragmentDir} 0750 root root - -"
+      # The configuration tree belongs to root: honk and its web UI run as
+      # root, and it is the directory write bit, not the mode of the files
+      # inside, that decides whether somebody can replace them.
+      "d ${configDir} 0700 root root - -"
+      "d ${configFragmentDir} 0700 root root - -"
       # Created once and never overwritten: this fragment belongs to whoever
       # edits it by hand or through the web UI, NixOS only provides the file.
       "f ${configFragmentDir}/99-local.dae 0600 root root -"
