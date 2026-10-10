@@ -90,10 +90,12 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch_depth: 0
 
-      - name: Run codex
-        uses: spotdemo4/codex-action@45c32a71e8b274e465847f6ca648cc56067e1d8e # v0.5.11
+      - name: Run pi
+        uses: trev-zip/pi-action@dd01d6b28ab89b79a58b13a27a96172d150368b7 # v0.2.0
         with:
-          auth: ${{ secrets.CODEX_ACTION_AUTH }}
+          base-url: ${{ secrets.PI_ACTION_BASE_URL }}
+          api-key: ${{ secrets.PI_ACTION_API_KEY }}
+          model: claude-haiku-5-5
           client-id: ${{ vars.CLIENT_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
           prompt: .github/prompts/fix.md
