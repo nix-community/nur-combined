@@ -1546,6 +1546,13 @@
   "xml-apis#xml-apis/1.4.01": {
    "jar": "sha256-qECWgXZkVoS7Aa7TduBnqzlhSIX57uRKvjWl8g6+f60=",
    "pom": "sha256-Cagv8VCshr+jEUXgpq/YmgLkUEeF9doRLk+uFCUCDpI="
+  },
+  "org/jetbrains/compose/desktop#desktop-jvm-linux-x64/1.7.0": {
+   "pom": "sha256-2/9VPqXxybksnQwdoeEr983HeciyDY+m/CotdzXJpnY="
+  },
+  "org/jetbrains/skiko#skiko-awt-runtime-linux-x64/0.8.15": {
+   "jar": "sha256-L72ZRbh+1QE5HTE+jK396wDXXKsyhiIgzOs4Uuv/3Hc=",
+   "pom": "sha256-Nfg93UsA2fZYuezotPCaYkwrwPbGNGgtxS6a5FyNHQQ="
   }
  }
 }
