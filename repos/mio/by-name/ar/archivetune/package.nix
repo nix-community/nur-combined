@@ -150,6 +150,11 @@ stdenv.mkDerivation (finalAttrs: {
         # Copy android stubs
         cp -r  ${./android-stubs} android-stubs
         chmod -R +w .
+
+        # Bypass NetworkGatekeeper unofficial build block
+        substituteInPlace core/src/main/kotlin/moe/rukamori/archivetune/innertube/NetworkGatekeeper.kt \
+          --replace-fail "AtomicBoolean(true)" "AtomicBoolean(false)"
+
         ls -la android-stubs
         # Simplify BotGuardTokenGenerator patches
         python3 << 'PYTHON_EOF'
