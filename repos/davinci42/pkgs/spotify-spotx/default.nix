@@ -7,6 +7,7 @@
   unzip,
   zip,
   util-linux,
+  nix-update-script,
   spotxFlags ? [ ],
 }:
 let
@@ -49,8 +50,23 @@ spotify.overrideAttrs (old: {
     install -Dm644 ${./SpotX-Bash-LICENSE} "$out/share/licenses/spotify-spotx/SpotX-Bash-LICENSE"
   '';
 
-  passthru = removeAttrs (old.passthru or { }) [ "updateScript" ] // {
+  passthru = (old.passthru or { }) // {
     inherit spotx spotxFlags;
+    updateScript = {
+      attrPath = "spotify-spotx.spotx";
+      command = nix-update-script {
+        attrPath = "spotify-spotx.spotx";
+        extraArgs = [
+          "-f"
+          "."
+          "--version=branch=main"
+          "--url"
+          "https://github.com/SpotX-Official/SpotX-Bash"
+          "--src-only"
+        ];
+      };
+    };
+    tests.packaging = callPackage ../../tests/pkgs/spotify-spotx.nix { };
   };
 
   meta = old.meta // {

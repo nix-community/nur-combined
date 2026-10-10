@@ -1,240 +1,172 @@
-import importlib.util
 import json
 import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
-from typing import TYPE_CHECKING, cast, override
+from typing import cast
 from unittest.mock import patch
 
-if TYPE_CHECKING:
-    from tools import maintain
-else:
-    spec = importlib.util.spec_from_file_location(
-        "maintain", Path(__file__).resolve().parents[1] / "tools/maintain.py"
-    )
-    if spec is None or spec.loader is None:
-        raise ImportError("Cannot load maintenance tool")
-    maintain = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(maintain)
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from tools import maintain
 
 
 class MaintenanceTests(unittest.TestCase):
-    root: Path = Path()
-    package: Path = Path()
-    commands: list[list[str]]
-
-    def __init__(self, methodName: str = "runTest") -> None:
-        super().__init__(methodName)
-        self.commands = []
-
-    @override
-    def setUp(self) -> None:
-        temporary = tempfile.TemporaryDirectory()
-        self.addCleanup(temporary.cleanup)
-        self.root = Path(temporary.name)
-        self.commands = []
-        self.package = self.root / "pkgs/example"
-        self.package.mkdir(parents=True)
-        _ = (self.package / "default.nix").write_text('version = "1";')
-        _ = (self.package / "settings-schema.json").write_text(
-            json.dumps({"version": "1", "fields": {}})
-        )
-        _ = (self.package / "maintenance.toml").write_text(
-            'files = ["default.nix", "settings-schema.json"]\n'
-            + 'sync = ["generate"]\ncontract = ["verify"]\n'
-        )
-
-    def fake_run(self, root: Path, command: list[str], **_kwargs: object) -> None:
-        self.commands.append(command)
-        if command[0] == "nix-update" and "--version=stable" in command:
-            _ = (root / "pkgs/example/default.nix").write_text('version = "2";')
-        if command == ["generate"]:
-            _ = (root / "pkgs/example/settings-schema.json").write_text(
-                json.dumps({"version": "2", "fields": {}})
-            )
-
-    def test_isolated_update_and_all_hashes(self):
-        self.commands = []
-        with (
-            patch.object(
-                maintain,
-                "package_info",
-                side_effect=[
-                    ("1", ["aarch64-linux", "x86_64-linux"]),
-                    ("2", ["aarch64-linux", "x86_64-linux"]),
-                    ("2", []),
-                    ("2", []),
-                ],
-            ),
-            patch.object(maintain, "run", side_effect=self.fake_run),
-            patch.object(maintain, "check") as check,
-        ):
-            maintain.update(self.root, "example", "stable")
-        updates = [command for command in self.commands if command[0] == "nix-update"]
-        self.assertEqual(len(updates), 3)
-        self.assertEqual(
-            [command[-1] for command in updates],
-            ["--version=stable", "--version=skip", "--version=skip"],
-        )
-        self.assertEqual(
-            [command[-2] for command in updates],
-            ["aarch64-linux", "aarch64-linux", "x86_64-linux"],
-        )
-        self.assertIsNotNone(check.call_args)
-        assert check.call_args is not None
-        self.assertNotEqual(cast(object, check.call_args.args[0]), self.root)
-        self.assertEqual((self.package / "default.nix").read_text(), 'version = "2";')
-        self.assertEqual(self.commands[-2:], [["generate"], ["verify"]])
-
-    def test_build_failure_leaves_working_tree_unchanged(self):
-        self.commands = []
-        before = maintain.snapshot(self.root)
-        with (
-            patch.object(
-                maintain, "package_info", return_value=("2", ["x86_64-linux"])
-            ),
-            patch.object(maintain, "run", side_effect=self.fake_run),
-            patch.object(
-                maintain,
-                "check",
-                side_effect=subprocess.CalledProcessError(1, ["build"]),
-            ),
-            self.assertRaises(subprocess.CalledProcessError),
-        ):
-            maintain.update(self.root, "example", "stable")
-        self.assertEqual(maintain.snapshot(self.root), before)
-
-    def test_contract_requires_explicit_review(self):
-        self.commands = []
-        before = maintain.snapshot(self.root)
-
-        def update_contract(root: Path, command: list[str], **kwargs: object) -> None:
-            self.fake_run(root, command, **kwargs)
-            if command == ["generate"]:
-                _ = (root / "pkgs/example/settings-schema.json").write_text(
-                    json.dumps({"version": "2", "fields": {"new": "bool"}})
-                )
-
-        with (
-            patch.object(
-                maintain, "package_info", return_value=("2", ["x86_64-linux"])
-            ),
-            patch.object(maintain, "run", side_effect=update_contract),
-            patch.object(maintain, "check") as check,
-        ):
-            with self.assertRaisesRegex(ValueError, "contract changed"):
-                maintain.update(self.root, "example", "stable")
-            check.assert_not_called()
-            self.assertEqual(maintain.snapshot(self.root), before)
-            maintain.update(self.root, "example", "2", accept_contract=True)
-            check.assert_called_once()
-        self.assertIn(
-            "new",
-            cast(
-                dict[str, dict[str, object]],
-                json.loads((self.package / "settings-schema.json").read_text()),
-            )["fields"],
-        )
-
-    def test_publish_rejects_unlisted_and_concurrent_changes(self):
-        before = maintain.snapshot(self.root)
-        with self.assertRaisesRegex(ValueError, "undeclared"):
-            maintain.publish(self.root, before, before | {"unexpected": b"x"}, set())
-        _ = (self.package / "default.nix").write_text("concurrent change")
-        with self.assertRaisesRegex(ValueError, "Working files changed"):
-            maintain.publish(self.root, before, before, set())
-        self.assertEqual(
-            (self.package / "default.nix").read_text(), "concurrent change"
-        )
-
-    def test_manifest_rejects_path_escape(self):
-        with self.assertRaises(ValueError):
-            _ = maintain.specification(self.root, "../example")
-        _ = (self.package / "maintenance.toml").write_text('files = ["../../outside"]')
-        with self.assertRaises(ValueError):
-            _ = maintain.specification(self.root, "example")
-
-    def test_no_change_and_version_only_contract(self):
-        before = maintain.snapshot(self.root)
-        maintain.publish(self.root, before, before, set())
-        self.assertFalse(
-            maintain.contract_changed(
-                b'{"version":"1","fields":{}}', b'{"version":"2","fields":{}}'
-            )
-        )
-        self.assertEqual(maintain.snapshot(self.root), before)
-
-    def test_raw_archive_hash_uses_host_prefetch(self):
-        target = self.package / "default.nix"
-        _ = target.write_text('hash = "old-arm"; other = "old-x86";')
-        source = {
-            "url": "https://example.invalid/archive",
-            "outputHash": "old-arm",
-            "outputHashMode": "flat",
-        }
+    def test_update_command_comes_from_package(self) -> None:
+        command = ["nix-update", "-f", ".", "--version=branch=main", "example.source"]
         with patch.object(
-            maintain, "run", side_effect=[json.dumps(source), '{"hash":"new-arm"}']
-        ) as commands:
-            maintain.refresh_raw_source(
-                self.root, "example", "aarch64-linux", "default.nix"
-            )
-        self.assertEqual(target.read_text(), 'hash = "new-arm"; other = "old-x86";')
-        self.assertIn(
-            'system = "aarch64-linux"',
-            cast(list[str], commands.call_args_list[0].args[1])[-1],
+            maintain, "run", return_value=json.dumps({"command": command})
+        ) as run:
+            self.assertEqual(maintain.update_command(Path.cwd(), "example"), command)
+        self.assertIn("--argstr", cast(list[str], run.call_args.args[1]))
+        with self.assertRaises(ValueError):
+            _ = maintain.update_command(Path.cwd(), "../example")
+
+    def test_official_script_forms_and_attrpath(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            for declaration in (
+                '"/bin/true"',
+                '[ "/bin/true" "argument" ]',
+                '{ command = [ "/bin/true" ]; attrPath = "nested"; supportedFeatures = [ "commit" ]; }',
+            ):
+                _ = (root / "default.nix").write_text(
+                    '{ ... }: { example = { name = "example-1"; pname = "example"; version = "1"; updateScript = '
+                    + declaration
+                    + '; }; nested = { name = "nested-2"; pname = "nested"; version = "2"; }; }'
+                )
+                info = maintain.update_info(root, "example")
+                self.assertEqual(cast(list[str], info["command"])[0], "/bin/true")
+                if "attrPath" in declaration:
+                    self.assertEqual(info["identity"], "2")
+                    self.assertEqual(info["supportedFeatures"], ["commit"])
+                    self.assertEqual(
+                        cast(dict[str, str], info["env"])["UPDATE_NIX_ATTR_PATH"],
+                        "nested",
+                    )
+
+    def test_check_builds_standard_tests(self) -> None:
+        with (
+            patch.object(maintain, "update_command"),
+            patch.object(maintain, "run") as run,
+        ):
+            maintain.check(Path.cwd(), "example", run_lint=False)
+        run.assert_called_once_with(
+            Path.cwd(),
+            ["nix", "build", "-f", ".", "example", "example.tests", "--no-link"],
         )
-        self.assertEqual(
-            cast(list[str], commands.call_args_list[1].args[1])[:3],
-            ["nix", "store", "prefetch-file"],
-        )
 
-    def test_check_all_lints_once_after_package_checks(self):
-        other = self.root / "pkgs/second"
-        other.mkdir()
-        _ = (other / "maintenance.toml").write_text("")
-        with (
-            patch.object(maintain, "ROOT", self.root),
-            patch("sys.argv", ["maintain.py", "check-all"]),
-            patch.object(maintain, "specification", return_value={"files": []}),
-            patch.object(maintain, "check") as check,
-            patch.object(maintain, "run", return_value=""),
-            patch.object(maintain, "lint") as lint,
-        ):
-            maintain.main()
-        self.assertEqual([call.args[1] for call in check.call_args_list], ["example", "second"])
-        self.assertTrue(all(call.kwargs == {"run_lint": False} for call in check.call_args_list))
-        lint.assert_called_once_with(self.root)
+    def test_publish_rejects_outside_and_concurrent_changes(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            folder = root / "pkgs/example"
+            folder.mkdir(parents=True)
+            target = folder / "default.nix"
+            _ = target.write_text("old")
+            before = maintain.snapshot(root)
+            with self.assertRaisesRegex(ValueError, "outside"):
+                maintain.publish(root, before, before | {"outside": b"bad"}, "example")
+            _ = target.write_text("concurrent")
+            with self.assertRaisesRegex(ValueError, "Working files"):
+                maintain.publish(root, before, before, "example")
+            self.assertEqual(target.read_text(), "concurrent")
 
-    def test_package_check_lints_by_default(self):
-        with (
-            patch.object(maintain, "package_info", return_value=("1", ["x86_64-linux"])),
-            patch.object(maintain, "run", side_effect=['"x86_64-linux"', "/nix/store/example"]),
-            patch.object(maintain, "lint") as lint,
-        ):
-            maintain.check(self.root, "example", {"files": []})
-        lint.assert_called_once_with(self.root)
+    def test_update_is_isolated_and_validation_precedes_publish(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            folder = root / "pkgs/example"
+            folder.mkdir(parents=True)
+            target = folder / "default.nix"
+            _ = target.write_text("old")
 
-    def test_raw_archive_rejects_ambiguous_hash(self):
-        target = self.package / "default.nix"
-        _ = target.write_text('hash = "same"; other = "same";')
-        source = {
-            "url": "https://example.invalid/archive",
-            "outputHash": "same",
-            "outputHashMode": "flat",
-        }
-        with (
-            patch.object(
-                maintain,
-                "run",
-                side_effect=[json.dumps(source), '{"hash":"different"}'],
-            ),
-            self.assertRaisesRegex(ValueError, "uniquely"),
-        ):
-            maintain.refresh_raw_source(
-                self.root, "example", "aarch64-linux", "default.nix"
+            def run(directory: Path, command: list[str], **_kwargs: object) -> str:
+                if command[0] == "nix-update":
+                    self.assertNotEqual(directory, root)
+                    _ = (directory / "pkgs/example/default.nix").write_text("new")
+                return ""
+
+            with (
+                patch.object(
+                    maintain,
+                    "update_info",
+                    return_value={"command": ["nix-update", "example"], "env": {}},
+                ),
+                patch.object(maintain, "run", side_effect=run),
+                patch.object(
+                    maintain,
+                    "check",
+                    side_effect=subprocess.CalledProcessError(1, "check"),
+                ),
+                self.assertRaises(subprocess.CalledProcessError),
+            ):
+                _ = maintain.update(root, "example")
+            self.assertEqual(target.read_text(), "old")
+            with (
+                patch.object(
+                    maintain,
+                    "update_info",
+                    return_value={"command": ["nix-update", "example"], "env": {}},
+                ),
+                patch.object(maintain, "run", side_effect=run),
+                patch.object(maintain, "check"),
+            ):
+                self.assertTrue(maintain.update(root, "example"))
+            self.assertEqual(target.read_text(), "new")
+
+    def test_failed_custom_script_preserves_working_tree(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            folder = root / "pkgs/example"
+            folder.mkdir(parents=True)
+            _ = (folder / "default.nix").write_text("old")
+            _ = (folder / "update.py").write_text("")
+            before = maintain.snapshot(root)
+
+            def run(directory: Path, command: list[str], **kwargs: object) -> str:
+                if command[0] == "nix-update":
+                    _ = (directory / "pkgs/example/default.nix").write_text("new")
+                    self.assertEqual(
+                        cast(dict[str, str], kwargs["env"])["NUR_ACCEPT_CONTRACT"], "0"
+                    )
+                    raise subprocess.CalledProcessError(1, command)
+                return ""
+
+            with (
+                patch.object(
+                    maintain,
+                    "update_info",
+                    return_value={"command": ["nix-update", "example"], "env": {}},
+                ),
+                patch.object(maintain, "run", side_effect=run),
+                patch.object(maintain, "check") as check,
+                self.assertRaises(subprocess.CalledProcessError),
+            ):
+                _ = maintain.update(root, "example")
+            check.assert_not_called()
+            self.assertEqual(maintain.snapshot(root), before)
+
+    def test_real_packages_export_update_scripts_and_tests(self) -> None:
+        for package in maintain.packages(maintain.ROOT):
+            command = maintain.update_command(maintain.ROOT, package)
+            self.assertTrue(command[0].startswith("/nix/store/"))
+            tests = maintain.run(
+                maintain.ROOT,
+                [
+                    "nix",
+                    "eval",
+                    "-f",
+                    ".",
+                    package + ".tests",
+                    "--apply",
+                    "builtins.attrNames",
+                    "--json",
+                ],
+                capture=True,
             )
-        self.assertEqual(target.read_text(), 'hash = "same"; other = "same";')
+            self.assertIn("packaging", cast(list[str], json.loads(tests)))
+            self.assertFalse(
+                (maintain.ROOT / "pkgs" / package / "maintenance.toml").exists()
+            )
 
 
 if __name__ == "__main__":

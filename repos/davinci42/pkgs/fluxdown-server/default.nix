@@ -2,6 +2,13 @@
   lib,
   stdenvNoCC,
   fetchurl,
+  callPackage,
+  writeShellApplication,
+  python3,
+  nix-update,
+  nix,
+  gh,
+  git,
 }:
 let
   sources = {
@@ -33,6 +40,25 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     install -Dm755 fluxdown-agent fluxdownd -t "$out/bin"
     runHook postInstall
   '';
+
+  passthru = {
+    updateScript = lib.getExe (writeShellApplication {
+      name = "update-fluxdown-server";
+      runtimeInputs = [
+        python3
+        nix-update
+        nix
+        gh
+        git
+      ];
+      text = ''
+        exec python3 pkgs/fluxdown-server/update.py "$@"
+      '';
+    });
+    tests.packaging = callPackage ../../tests/pkgs/fluxdown {
+      package = finalAttrs.finalPackage;
+    };
+  };
 
   meta = {
     description = "Multi-protocol download server with an embedded Web UI";

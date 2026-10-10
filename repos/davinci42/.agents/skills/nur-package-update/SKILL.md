@@ -13,7 +13,8 @@ Run commands from the repository root, replacing placeholders with verified valu
 
 - Check `git status --short`; preserve existing work. Resolve the requested name
   through `default.nix`, then read its package expression, `README.md`, and
-  `maintenance.toml`. If metadata is missing, report that this flow is unsupported.
+  `passthru.updateScript` and `passthru.tests`. Update commands belong to the
+  package expression, not separate maintenance metadata.
 - Verify the target using upstream locations from those files; use `gh` for
   GitHub. Default to the latest stable release, not a prerelease or downgrade.
   Confirm release status and assets for every supported platform.
@@ -32,7 +33,10 @@ Pin the target to avoid changing releases mid-review:
 nix-shell --run 'just update <name> <version>'
 ```
 
-Let the updater refresh all platform hashes and generate contracts. Do not edit
+The shared runner executes the complete package updateScript. FluxDown's
+custom script calls nix-update, refreshes both platform hashes and generates
+its contract; there is no implicit follow-up. Other source packages refresh
+shared hashes on the host. Do not edit
 the working tree while it runs. Investigate unexpected same-version hash changes.
 
 ## 3. Handle a contract review gate
@@ -56,10 +60,10 @@ shared flow; do not weaken checks. Report external blockers and required remedie
 
 ## 4. Validate and report
 
-After the update and any follow-up edits:
+After the update and any follow-up edits (the contract command is FluxDown-only):
 
 ```sh
-nix-shell --run 'just contract <name>'
+nix-shell --run 'just contract fluxdown-server'
 nix-shell --run 'just check <name>'
 ```
 

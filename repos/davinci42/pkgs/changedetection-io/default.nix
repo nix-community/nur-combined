@@ -1,6 +1,8 @@
 {
   lib,
   fetchFromGitHub,
+  nix-update-script,
+  callPackage,
   python3Packages,
 }:
 
@@ -111,6 +113,20 @@ python3Packages.buildPythonApplication (finalAttrs: {
     "changedetectionio.flask_app"
     "changedetectionio.model.LLMSettings"
   ];
+
+  passthru = {
+    updateScript = nix-update-script {
+      attrPath = "changedetection-io";
+      extraArgs = [
+        "-f"
+        "."
+        "--use-github-releases"
+      ];
+    };
+    tests.packaging = callPackage ../../tests/pkgs/changedetection-io.nix {
+      package = finalAttrs.finalPackage;
+    };
+  };
 
   meta = {
     description = "Self-hosted website change monitoring and notifications";

@@ -21,8 +21,9 @@ nix-shell --run 'just update-spotx'
 NIXPKGS_ALLOW_UNFREE=1 nix-shell --run 'just check spotify-spotx'
 ```
 
-`update-spotx` updates the pinned script in place; Spotify follows nixpkgs.
-Do not use `just update spotify-spotx`. All packages are checked daily or manually.
+`update-spotx` aliases `just update spotify-spotx`. Its `passthru.updateScript`
+updates the pinned SpotX source, not the caller's Spotify package. Updates are
+validated in a temporary copy. All packages are checked daily or manually.
 
 Tests cover packaging, patching, desktop integration and lint, not authenticated
 playback or ad blocking.

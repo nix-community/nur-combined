@@ -16,15 +16,19 @@
 ## Updates
 
 Load `.agents/skills/nur-package-update/SKILL.md` for package updates and upstream
-checks. Read package metadata and its README, verify the upstream release, and
+checks. Read the package's `passthru.updateScript` and README, verify the upstream release, and
 review dependencies, license, platforms and configuration changes.
 
 ```sh
 nix-shell --run 'just update <name>'
-nix-shell --run 'just contract <name>'
+nix-shell --run 'just contract fluxdown-server'
 nix-shell --run 'just check <name>'
 ```
 
+Declare complete updates through `passthru.updateScript` (use nix-update-script
+for simple updates) and checks through `passthru.tests`. Do not add maintenance
+metadata or implicit follow-up hooks. Custom scripts must perform all package
+updates themselves and honor `NUR_DETECT_VERSION=1` for read-only detection.
 Refresh all supported source hashes. Use upstream schemas/parsers to review
 configuration semantics. Regenerate contracts through their tools, not by hand.
 Adapt affected modules and tests before accepting reviewed changes with

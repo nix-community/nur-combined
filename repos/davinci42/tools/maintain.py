@@ -1,5 +1,4 @@
 import argparse
-import difflib
 import json
 import os
 import re
@@ -8,44 +7,10 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
-from typing import NotRequired, TypedDict, cast
-
-import tomllib
+from typing import cast
 
 ROOT = Path(__file__).resolve().parents[1]
 EXCLUDED = {".git", ".crush", ".ruff_cache", ".mypy_cache", "__pycache__"}
-
-
-class ReleaseSpecification(TypedDict):
-    repository: str
-    assets: list[str]
-
-
-class SnapshotSpecification(TypedDict):
-    name: NotRequired[str]
-    repository: str
-    branch: str
-    attribute: str
-    command: list[str]
-    files: list[str]
-
-
-class Specification(TypedDict):
-    files: list[str]
-    sync: NotRequired[list[str]]
-    contract: NotRequired[list[str]]
-    tests: NotRequired[list[list[str]]]
-    runtimePackageEnv: NotRequired[str]
-    rawSource: NotRequired[str]
-    release: NotRequired[ReleaseSpecification]
-    snapshot: NotRequired[SnapshotSpecification]
-
-
-class Arguments(argparse.Namespace):
-    action: str = ""
-    package: str | None = None
-    version: str = "stable"
-    accept_contract: bool = False
 
 
 def run(
@@ -66,155 +31,109 @@ def run(
     return result.stdout.strip() if capture else ""
 
 
-def string_list(value: object) -> bool:
-    return (
-        isinstance(value, list)
-        and bool(cast(list[object], value))
-        and all(isinstance(item, str) for item in cast(list[object], value))
-    )
-
-
-def validate_monitor(kind: str, fields: dict[str, object]) -> None:
-    patterns = {"repository": r"[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+"}
-    lists = ["assets"]
-    if kind == "snapshot":
-        patterns |= dict.fromkeys(
-            ("branch", "attribute"), r"[A-Za-z0-9][A-Za-z0-9_.-]*"
-        )
-        lists = ["command", "files"]
-        if "name" in fields:
-            patterns["name"] = r"[A-Za-z0-9][A-Za-z0-9_.-]*"
-    if set(fields) != set(patterns) | set(lists):
-        raise ValueError(f"Invalid {kind} metadata fields")
-    for key, pattern in patterns.items():
-        field = fields[key]
-        if not isinstance(field, str) or not re.fullmatch(pattern, field):
-            raise ValueError(f"Invalid {kind}.{key}")
-    for key in lists:
-        if key == "assets" and fields[key] == []:
-            continue
-        if not string_list(fields[key]):
-            raise ValueError(f"{kind}.{key} must be a nonempty string array")
-
-
-def specification(root: Path, package: str) -> Specification:
-    if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]*", package):
-        raise ValueError("Invalid package name")
-    folder = root / "pkgs" / package
-    raw = cast(
-        dict[str, object], tomllib.loads((folder / "maintenance.toml").read_text())
-    )
-
-    if not string_list(raw.get("files")):
-        raise ValueError("files must be a nonempty list of strings")
-    for key in ("sync", "contract"):
-        if key in raw and not string_list(raw[key]):
-            raise ValueError("Commands must be nonempty arrays of arguments")
-    if "tests" in raw:
-        tests = raw["tests"]
-        if not isinstance(tests, list) or not all(
-            string_list(item) for item in cast(list[object], tests)
-        ):
-            raise ValueError("tests must contain command arrays")
-    for key in ("runtimePackageEnv", "rawSource"):
-        if key in raw and not isinstance(raw[key], str):
-            raise ValueError(key + " must be a string")
-    if "release" in raw and "snapshot" in raw:
-        raise ValueError("Declare either release or snapshot, not both")
-    for kind in ("release", "snapshot"):
-        if kind in raw:
-            if not isinstance(raw[kind], dict):
-                raise ValueError(f"{kind} must be a table")
-            validate_monitor(kind, cast(dict[str, object], raw[kind]))
-    spec = cast(Specification, cast(object, raw))
-    if "snapshot" in spec and not set(spec["snapshot"]["files"]) <= set(spec["files"]):
-        raise ValueError("snapshot.files must be listed in files")
-    allowed = {
-        "files",
-        "sync",
-        "contract",
-        "tests",
-        "runtimePackageEnv",
-        "rawSource",
-        "release",
-        "snapshot",
-    }
-    if set(spec) - allowed:
-        raise ValueError("Unknown maintenance metadata fields")
-    for name in spec["files"]:
-        path = folder / name
-        if (
-            path.is_symlink()
-            or not path.is_file()
-            or not path.resolve().is_relative_to(folder.resolve())
-        ):
-            raise ValueError(
-                "Update files must be regular files inside the package directory"
-            )
-    if "rawSource" in spec and spec["rawSource"] not in spec["files"]:
-        raise ValueError("rawSource must be listed in files")
-    return spec
-
-
-def package_info(root: Path, package: str) -> tuple[str, list[str]]:
-    version = run(
-        root, ["nix", "eval", "-f", ".", package + ".version", "--raw"], capture=True
-    )
-    systems = cast(
+def packages(root: Path) -> list[str]:
+    return cast(
         list[str],
         json.loads(
             run(
                 root,
-                ["nix", "eval", "-f", ".", package + ".meta.platforms", "--json"],
+                [
+                    "nix",
+                    "eval",
+                    "--impure",
+                    "--json",
+                    "--expr",
+                    'let packages = import ./. {}; in builtins.attrNames (builtins.removeAttrs packages ["nixosModules"])',
+                ],
                 capture=True,
             )
         ),
     )
-    if not systems or not all(
-        re.fullmatch(r"[A-Za-z0-9_]+-(linux|darwin|freebsd|netbsd|openbsd)", system)
-        for system in systems
-    ):
-        raise ValueError("meta.platforms must contain explicit supported system names")
-    return version, sorted(set(systems))
 
 
-def refresh_raw_source(root: Path, package: str, system: str, filename: str) -> None:
-    expression = (
-        f"let pkgs = import <nixpkgs> {{ system = {json.dumps(system)}; }}; "
-        f"src = (import ./. {{ inherit pkgs; }}).{package}.src; "
-        "in { inherit (src) url outputHash outputHashMode; }"
-    )
-    source = cast(
-        dict[str, str],
+def update_info(root: Path, package: str) -> dict[str, object]:
+    if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]*", package):
+        raise ValueError("Invalid package name")
+    return cast(
+        dict[str, object],
         json.loads(
             run(
                 root,
-                ["nix", "eval", "--impure", "--json", "--expr", expression],
+                [
+                    "nix-instantiate",
+                    "--eval",
+                    "--strict",
+                    "--json",
+                    str(Path(__file__).with_name("update-info.nix")),
+                    "--argstr",
+                    "root",
+                    str(root.resolve()),
+                    "--argstr",
+                    "name",
+                    package,
+                ],
                 capture=True,
             )
         ),
     )
-    if source["outputHashMode"] != "flat":
-        raise ValueError(
-            "rawSource requires a flat fetchurl source, not an unpacked archive"
-        )
-    fetched = cast(
-        dict[str, str],
-        json.loads(
-            run(
-                root,
-                ["nix", "store", "prefetch-file", "--json", source["url"]],
-                capture=True,
-            )
-        ),
+
+
+def update_command(root: Path, package: str) -> list[str]:
+    return cast(list[str], update_info(root, package)["command"])
+
+
+def execute_update(
+    root: Path,
+    package: str,
+    target: str | None = None,
+    accept_contract: bool = False,
+    detect: bool = False,
+    info: dict[str, object] | None = None,
+) -> None:
+    if info is None:
+        info = update_info(root, package)
+    command = list(cast(list[str], info["command"]))
+    if not command:
+        raise ValueError("Empty updateScript")
+    env = (
+        os.environ
+        | cast(dict[str, str], info["env"])
+        | {
+            "NUR_ACCEPT_CONTRACT": "1" if accept_contract else "0",
+        }
     )
-    target = root / "pkgs" / package / filename
-    content = target.read_text()
-    if source["outputHash"] == fetched["hash"]:
-        return
-    if content.count(source["outputHash"]) != 1:
-        raise ValueError("Cannot uniquely locate the platform hash in rawSource")
-    _ = target.write_text(content.replace(source["outputHash"], fetched["hash"]))
+    if target:
+        env["NUR_TARGET_VERSION"] = target
+        if Path(command[0]).name == "nix-update":
+            command = [
+                argument
+                for argument in command
+                if not argument.startswith("--version=")
+            ]
+            command.append("--version=" + target)
+    if detect:
+        if Path(command[0]).name == "nix-update":
+            command.extend(["--src-only", "--no-src"])
+        else:
+            env["NUR_DETECT_VERSION"] = "1"
+    _ = run(
+        root,
+        [
+            "nix-build",
+            "--no-out-link",
+            "--expr",
+            '{ name }: let pkgs = import <nixpkgs> {}; package = (import ./. {}).${name}; in pkgs.writeText "update-script" (builtins.toJSON package.updateScript)',
+            "--argstr",
+            "name",
+            package,
+        ],
+        capture=True,
+    )
+    _ = run(root, command, env=env)
+
+
+def version(root: Path, package: str) -> str:
+    return cast(str, update_info(root, package)["identity"])
 
 
 def snapshot(root: Path) -> dict[str, bytes]:
@@ -228,6 +147,19 @@ def snapshot(root: Path) -> dict[str, bytes]:
             for part in path.relative_to(root).parts
         )
     }
+
+
+def copy_repository(root: Path, destination: Path) -> None:
+    _ = shutil.copytree(
+        root,
+        destination,
+        symlinks=True,
+        ignore=lambda _folder, names: [
+            name for name in names if name in EXCLUDED or name.startswith("result")
+        ],
+    )
+    _ = run(destination, ["git", "init", "--quiet"])
+    _ = run(destination, ["git", "add", "."])
 
 
 def lint(root: Path) -> None:
@@ -251,219 +183,90 @@ def lint(root: Path) -> None:
     )
 
 
-def check(
-    root: Path, package: str, spec: Specification, *, run_lint: bool = True
-) -> None:
-    _, systems = package_info(root, package)
-    host = cast(
-        str,
-        json.loads(
-            run(
-                root,
-                [
-                    "nix",
-                    "eval",
-                    "--impure",
-                    "--json",
-                    "--expr",
-                    "builtins.currentSystem",
-                ],
-                capture=True,
-            )
-        ),
-    )
-    if host not in systems:
-        raise ValueError(
-            f"Cannot validate {package} on {host}; use a supported build host"
-        )
-    output = run(
-        root,
-        ["nix", "build", "-f", ".", package, "--no-link", "--print-out-paths"],
-        capture=True,
-    )
-    env = os.environ | {"PYTHONDONTWRITEBYTECODE": "1"}
-    if "runtimePackageEnv" in spec:
-        env[spec["runtimePackageEnv"]] = output.splitlines()[0]
-    for command in spec.get("tests", []):
-        _ = run(root, command, env=env)
+def check(root: Path, package: str, *, run_lint: bool = True) -> None:
+    _ = update_command(root, package)
+    _ = run(root, ["nix", "build", "-f", ".", package, package + ".tests", "--no-link"])
     if run_lint:
         lint(root)
-    print(
-        f"Built and tested: {host}. Other platforms not build-tested: {', '.join(system for system in systems if system != host) or 'none'}",
-        flush=True,
-    )
-
-
-def contract_changed(before: bytes, after: bytes) -> bool:
-    old = cast(dict[str, object], json.loads(before))
-    new = cast(dict[str, object], json.loads(after))
-    _ = old.pop("version", None)
-    _ = new.pop("version", None)
-    return old != new
 
 
 def publish(
-    root: Path, before: dict[str, bytes], candidate: dict[str, bytes], allowed: set[str]
+    root: Path, before: dict[str, bytes], after: dict[str, bytes], package: str
 ) -> None:
     changed = {
         name
-        for name in before.keys() | candidate.keys()
-        if before.get(name) != candidate.get(name)
+        for name in before.keys() | after.keys()
+        if before.get(name) != after.get(name)
     }
-    if changed - allowed:
-        raise ValueError(
-            "Updater modified undeclared files: " + ", ".join(sorted(changed - allowed))
-        )
+    if any(not name.startswith(f"pkgs/{package}/") for name in changed):
+        raise ValueError("Updater modified files outside its package directory")
+    if any(name not in before or name not in after for name in changed):
+        raise ValueError("Updater added or deleted files; review manually")
     if snapshot(root) != before:
         raise ValueError(
             "Working files changed during validation; refusing to overwrite them"
         )
-    for name in sorted(changed):
-        if name not in candidate:
-            raise ValueError("Updater deleted a declared file")
     written: list[str] = []
     try:
         for name in sorted(changed):
             written.append(name)
-            _ = (root / name).write_bytes(candidate[name])
+            _ = (root / name).write_bytes(after[name])
     except OSError:
         for name in written:
             _ = (root / name).write_bytes(before[name])
         raise
-    print(
-        f"Updated {len(changed)} file(s); review git diff. Nothing committed or pushed."
-    )
 
 
 def update(
-    root: Path, package: str, version: str, accept_contract: bool = False
-) -> None:
-    spec = specification(root, package)
+    root: Path, package: str, target: str | None = None, accept_contract: bool = False
+) -> bool:
+    _ = update_command(root, package)
     before = snapshot(root)
-    allowed = {f"pkgs/{package}/{name}" for name in spec["files"]}
     with tempfile.TemporaryDirectory(prefix="nur-update-") as temporary:
         candidate = Path(temporary) / "repo"
-        _ = shutil.copytree(
-            root,
-            candidate,
-            ignore=lambda _folder, names: [
-                name for name in names if name in EXCLUDED or name.startswith("result")
-            ],
-            symlinks=True,
-        )
-        _ = run(candidate, ["git", "init", "--quiet"])
-        _ = run(candidate, ["git", "add", "."])
-        _, systems = package_info(candidate, package)
-        _ = run(
-            candidate,
-            [
-                "nix-update",
-                "-f",
-                ".",
-                package,
-                "--system",
-                systems[0],
-                "--version=" + version,
-                *(["--no-src"] if "rawSource" in spec else []),
-            ],
-        )
-        target, target_systems = package_info(candidate, package)
-        if target_systems != systems:
-            raise ValueError(
-                "Supported platforms changed during version update; review manually"
-            )
-        for system in systems:
-            if "rawSource" in spec:
-                refresh_raw_source(candidate, package, system, spec["rawSource"])
-            else:
-                _ = run(
-                    candidate,
-                    [
-                        "nix-update",
-                        "-f",
-                        ".",
-                        package,
-                        "--system",
-                        system,
-                        "--version=skip",
-                    ],
-                )
-            if package_info(candidate, package)[0] != target:
-                raise ValueError(
-                    "Package version changed while refreshing platform hashes"
-                )
-        if "sync" in spec:
-            _ = run(candidate, spec["sync"])
-        if "contract" in spec:
-            _ = run(candidate, spec["contract"])
+        copy_repository(root, candidate)
+        execute_update(candidate, package, target, accept_contract)
         after = snapshot(candidate)
-        for name in sorted(allowed):
-            if before[name] != after[name]:
-                print(
-                    "".join(
-                        difflib.unified_diff(
-                            before[name].decode().splitlines(True),
-                            after[name].decode().splitlines(True),
-                            fromfile=name,
-                            tofile=name,
-                        )
-                    ),
-                    flush=True,
-                )
-        schema_changes = any(
-            name.endswith("-schema.json")
-            and contract_changed(before[name], after[name])
-            for name in allowed
-        )
-        if schema_changes and not accept_contract:
-            raise ValueError(
-                "Upstream contract changed. Review the diff, then rerun update-reviewed to accept it; working files are unchanged"
-            )
-        check(candidate, package, spec)
-        publish(root, before, snapshot(candidate), allowed)
-        print(f"Target version: {target}; refreshed hashes for: {', '.join(systems)}")
+        if before == after:
+            print(f"{package}: no changes")
+            return False
+        check(candidate, package)
+        _ = run(candidate, ["git", "diff", "--check"])
+        publish(root, before, snapshot(candidate), package)
+    print(f"{package}: updated and validated; nothing committed or pushed")
+    return True
+
+
+class Arguments(argparse.Namespace):
+    action: str = ""
+    package: str | None = None
+    version: str | None = None
+    accept_contract: bool = False
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Structured NUR package maintenance")
-    _ = parser.add_argument(
-        "action", choices=["update", "check", "contract", "lint", "check-all"]
-    )
+    parser = argparse.ArgumentParser(description="Run package update scripts and tests")
+    _ = parser.add_argument("action", choices=["update", "check", "check-all", "lint"])
     _ = parser.add_argument("package", nargs="?")
-    _ = parser.add_argument("--version", default="stable")
+    _ = parser.add_argument("--version")
     _ = parser.add_argument("--accept-contract", action="store_true")
     args = parser.parse_args(namespace=Arguments())
     try:
         if args.action == "lint":
             lint(ROOT)
         elif args.action == "check-all":
-            for path in sorted((ROOT / "pkgs").glob("*/maintenance.toml")):
-                check(
-                    ROOT,
-                    path.parent.name,
-                    specification(ROOT, path.parent.name),
-                    run_lint=False,
-                )
+            for package in packages(ROOT):
+                check(ROOT, package, run_lint=False)
             for test in ("maintenance", "updates"):
-                _ = run(
-                    ROOT,
-                    ["python3", f"tests/{test}.py", "-v"],
-                    env=os.environ | {"PYTHONDONTWRITEBYTECODE": "1"},
-                )
+                _ = run(ROOT, [sys.executable, f"tests/{test}.py", "-v"])
             lint(ROOT)
         elif not args.package:
             parser.error("package is required")
         elif args.action == "update":
-            update(ROOT, args.package, args.version, args.accept_contract)
+            _ = update(ROOT, args.package, args.version, args.accept_contract)
         else:
-            spec = specification(ROOT, args.package)
-            if args.action == "check":
-                check(ROOT, args.package, spec)
-            elif "contract" in spec:
-                _ = run(ROOT, spec["contract"])
-            else:
-                print("No upstream contract check declared for " + args.package)
-    except (OSError, ValueError, subprocess.CalledProcessError) as error:
+            check(ROOT, args.package)
+    except (OSError, ValueError, subprocess.SubprocessError) as error:
         parser.exit(1, f"Maintenance failed: {error}\n")
 
 
