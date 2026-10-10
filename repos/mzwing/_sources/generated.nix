@@ -96,10 +96,10 @@
   };
   cnb-cli = {
     pname = "cnb-cli";
-    version = "1.17.4";
+    version = "1.17.9";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.4.tgz";
-      sha256 = "sha256-m5XAyzgBPnJ6f1o2RuiI9Lpc57ACiNcg/WTRdqFJZk4=";
+      url = "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.9.tgz";
+      sha256 = "sha256-VYnU5QGZvjz7UMZpbfXNgISta4V8ugTK9XIAK/ZLn6w=";
     };
   };
   codegraph = {
@@ -208,13 +208,13 @@
   };
   magic-context = {
     pname = "magic-context";
-    version = "v0.46.1";
+    version = "v0.47.0";
     src = fetchFromGitHub {
       owner = "cortexkit";
       repo = "magic-context";
-      rev = "v0.46.1";
+      rev = "v0.47.0";
       fetchSubmodules = false;
-      sha256 = "sha256-xlRhfkueAQBqe27n/k4mU91riUx2P/L1fMSYOy8TT14=";
+      sha256 = "sha256-7RpBpCAuSKhKC+3rswQW1OB6Rv8zjU5dLNOKTIF0Deo=";
     };
   };
   manboster = {
@@ -320,15 +320,15 @@
   };
   tree-sitter-nix = {
     pname = "tree-sitter-nix";
-    version = "ed711d8499e17398e2c84f2a779f2c2b5ac54264";
+    version = "f9765b709987418e7526cca8b9dcf73429ddf169";
     src = fetchFromGitHub {
       owner = "nix-community";
       repo = "tree-sitter-nix";
-      rev = "ed711d8499e17398e2c84f2a779f2c2b5ac54264";
+      rev = "f9765b709987418e7526cca8b9dcf73429ddf169";
       fetchSubmodules = false;
-      sha256 = "sha256-NNC2CjEuSmkJXUkakJOMbwFzE6oFuBmzPT38zXRkJgU=";
+      sha256 = "sha256-5bP1KCksWjK05VoyfTOwkfOCijEe0f3+6Xn2oxSevIQ=";
     };
-    date = "2026-10-08";
+    date = "2026-10-10";
   };
   typenix = {
     pname = "typenix";
