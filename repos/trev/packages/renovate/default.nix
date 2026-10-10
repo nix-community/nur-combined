@@ -29,6 +29,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = [
     ./45258.diff
+    # update `rev` and `ref` attributes of flake inputs, applies on top of 45258
+    ./nix-rev-attributes.diff
   ];
 
   postPatch = ''

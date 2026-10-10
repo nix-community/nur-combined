@@ -1,0 +1,518 @@
+diff --git a/lib/modules/manager/nix/readme.md b/lib/modules/manager/nix/readme.md
+index 07cc677..37d3f6f 100644
+--- a/lib/modules/manager/nix/readme.md
++++ b/lib/modules/manager/nix/readme.md
+@@ -17,7 +17,18 @@ inputs.nixpkgs = {
+ };
+ ```
+ 
+-Complex Nix expressions and attribute sets where another member appears before `url` are not updated.
++Renovate also updates `rev` and `ref` string attributes declared directly on the input, whether or not it has a `url`:
++
++```nix
++inputs.nixpkgs = {
++  type = "github";
++  owner = "NixOS";
++  repo = "nixpkgs";
++  rev = "0123456789abcdef0123456789abcdef01234567";
++};
++```
++
++Apart from `rev` and `ref` attributes, complex Nix expressions and attribute sets where another member appears before `url` are not updated.
+ FlakeHub inputs are not supported because FlakeHub version constraints require registry-specific version lookup.
+ 
+ For specifying `packageRules` it is important to know how `depName` and `packageName` are defined for nix updates:
+diff --git a/lib/modules/manager/nix/update.spec.ts b/lib/modules/manager/nix/update.spec.ts
+index e14b652..926ad05 100644
+--- a/lib/modules/manager/nix/update.spec.ts
++++ b/lib/modules/manager/nix/update.spec.ts
+@@ -694,5 +694,290 @@ describe('modules/manager/nix/update', () => {
+         'No changes made to URL',
+       );
+     });
++
++    describe('rev and ref attributes', () => {
++      it('updates rev in an attribute set without url', () => {
++        const fileContent = codeBlock`
++          {
++            inputs = {
++              home-manager = {
++                type = "github";
++                owner = "nix-community";
++                repo = "home-manager";
++                rev = "fae6e9e42c3b762ab47635cddcfaf6f52374a61b";
++                inputs.nixpkgs.follows = "nixpkgs";
++              };
++            };
++          }
++        `;
++        const result = updateDependency({
++          fileContent,
++          upgrade: {
++            depName: 'home-manager',
++            currentDigest: 'fae6e9e42c3b762ab47635cddcfaf6f52374a61b',
++            newDigest: 'c58f54c00000000000000000000000000000000a',
++          },
++        });
++
++        expect(result).toBe(
++          fileContent.replace(
++            'fae6e9e42c3b762ab47635cddcfaf6f52374a61b',
++            'c58f54c00000000000000000000000000000000a',
++          ),
++        );
++        expect(logger.logger.debug).toHaveBeenCalledExactlyOnceWith(
++          {
++            depName: 'home-manager',
++            attribute: 'rev',
++            oldValue: 'fae6e9e42c3b762ab47635cddcfaf6f52374a61b',
++            newValue: 'c58f54c00000000000000000000000000000000a',
++          },
++          'Successfully updated Nix flake input attribute',
++        );
++      });
++
++      it('updates ref and rev in an attribute set where url is not first', () => {
++        const fileContent = codeBlock`
++          {
++            inputs = {
++              nixpkgs = {
++                type = "git";
++                url = "https://github.com/nixos/nixpkgs";
++                ref = "nixos-24.05";
++                rev = "151fa4e8ddfdd8dd25d945ad94ed54a13de9f6e4";
++                shallow = true;
++              };
++            };
++          }
++        `;
++        const result = updateDependency({
++          fileContent,
++          upgrade: {
++            depName: 'nixpkgs',
++            currentValue: 'nixos-24.05',
++            newValue: 'nixos-25.05',
++            currentDigest: '151fa4e8ddfdd8dd25d945ad94ed54a13de9f6e4',
++            newDigest: 'e7439b6000000000000000000000000000000000',
++          },
++        });
++
++        expect(result).toContain('ref = "nixos-25.05";');
++        expect(result).toContain(
++          'rev = "e7439b6000000000000000000000000000000000";',
++        );
++        expect(result).toContain('url = "https://github.com/nixos/nixpkgs";');
++      });
++
++      it('updates rev alongside a url', () => {
++        const fileContent = codeBlock`
++          {
++            inputs.mypackage = {
++              url = "github:owner/repo";
++              rev = "1111111111111111111111111111111111111111";
++            };
++          }
++        `;
++        const result = updateDependency({
++          fileContent,
++          upgrade: {
++            depName: 'mypackage',
++            currentDigest: '1111111111111111111111111111111111111111',
++            newDigest: '2222222222222222222222222222222222222222',
++          },
++        });
++
++        expect(result).toContain('url = "github:owner/repo";');
++        expect(result).toContain(
++          'rev = "2222222222222222222222222222222222222222";',
++        );
++      });
++
++      it('updates rev declared with dotted attribute syntax', () => {
++        const fileContent = codeBlock`
++          {
++            inputs.mypackage.type = "github";
++            inputs.mypackage.owner = "owner";
++            inputs.mypackage.repo = "repo";
++            inputs.mypackage.rev = "1111111111111111111111111111111111111111";
++          }
++        `;
++        const result = updateDependency({
++          fileContent,
++          upgrade: {
++            depName: 'mypackage',
++            currentDigest: '1111111111111111111111111111111111111111',
++            newDigest: '2222222222222222222222222222222222222222',
++          },
++        });
++
++        expect(result).toContain(
++          'inputs.mypackage.rev = "2222222222222222222222222222222222222222";',
++        );
++      });
++
++      it('only updates the matching input', () => {
++        const fileContent = codeBlock`
++          {
++            inputs = {
++              foo = {
++                type = "github";
++                owner = "owner";
++                repo = "foo";
++                rev = "1111111111111111111111111111111111111111";
++              };
++              bar = {
++                type = "github";
++                owner = "owner";
++                repo = "bar";
++                rev = "1111111111111111111111111111111111111111";
++              };
++            };
++          }
++        `;
++        const result = updateDependency({
++          fileContent,
++          upgrade: {
++            depName: 'bar',
++            currentDigest: '1111111111111111111111111111111111111111',
++            newDigest: '2222222222222222222222222222222222222222',
++          },
++        });
++
++        expect(result).toBe(codeBlock`
++          {
++            inputs = {
++              foo = {
++                type = "github";
++                owner = "owner";
++                repo = "foo";
++                rev = "1111111111111111111111111111111111111111";
++              };
++              bar = {
++                type = "github";
++                owner = "owner";
++                repo = "bar";
++                rev = "2222222222222222222222222222222222222222";
++              };
++            };
++          }
++        `);
++      });
++
++      it('does not update nested overrides, strings, or comments', () => {
++        const fileContent = codeBlock`
++          {
++            inputs = {
++              mypackage = {
++                type = "github";
++                owner = "owner";
++                repo = "repo";
++                # rev = "1111111111111111111111111111111111111111";
++                description = "rev = \\"1111111111111111111111111111111111111111\\"";
++                inputs.other = {
++                  rev = "1111111111111111111111111111111111111111";
++                };
++                prev = "1111111111111111111111111111111111111111";
++                rev = "1111111111111111111111111111111111111111";
++              };
++            };
++          }
++        `;
++        const result = updateDependency({
++          fileContent,
++          upgrade: {
++            depName: 'mypackage',
++            currentDigest: '1111111111111111111111111111111111111111',
++            newDigest: '2222222222222222222222222222222222222222',
++          },
++        });
++
++        expect(result).toBe(codeBlock`
++          {
++            inputs = {
++              mypackage = {
++                type = "github";
++                owner = "owner";
++                repo = "repo";
++                # rev = "1111111111111111111111111111111111111111";
++                description = "rev = \\"1111111111111111111111111111111111111111\\"";
++                inputs.other = {
++                  rev = "1111111111111111111111111111111111111111";
++                };
++                prev = "1111111111111111111111111111111111111111";
++                rev = "2222222222222222222222222222222222222222";
++              };
++            };
++          }
++        `);
++      });
++
++      it('does not update a nested override of another input', () => {
++        const fileContent = codeBlock`
++          {
++            inputs = {
++              foo = {
++                url = "github:owner/foo";
++                inputs.nixpkgs.rev = "1111111111111111111111111111111111111111";
++              };
++            };
++          }
++        `;
++        const result = updateDependency({
++          fileContent,
++          upgrade: {
++            depName: 'nixpkgs',
++            currentDigest: '1111111111111111111111111111111111111111',
++            newDigest: '2222222222222222222222222222222222222222',
++          },
++        });
++
++        expect(result).toBe(fileContent);
++        expect(logger.logger.debug).toHaveBeenCalledExactlyOnceWith(
++          'Could not find URL for dependency nixpkgs',
++        );
++      });
++
++      it('returns the original content when the rev does not match', () => {
++        const fileContent = codeBlock`
++          {
++            inputs.mypackage = {
++              type = "github";
++              owner = "owner";
++              repo = "repo";
++              rev = "3333333333333333333333333333333333333333";
++            };
++          }
++        `;
++        const result = updateDependency({
++          fileContent,
++          upgrade: {
++            depName: 'mypackage',
++            currentDigest: '1111111111111111111111111111111111111111',
++            newDigest: '2222222222222222222222222222222222222222',
++          },
++        });
++
++        expect(result).toBe(fileContent);
++        expect(logger.logger.debug).not.toHaveBeenCalled();
++      });
++
++      it('ignores an unterminated attribute set', () => {
++        const fileContent = codeBlock`
++          {
++            inputs.mypackage = {
++              rev = "1111111111111111111111111111111111111111";
++        `;
++        const result = updateDependency({
++          fileContent,
++          upgrade: {
++            depName: 'mypackage',
++            currentDigest: '1111111111111111111111111111111111111111',
++            newDigest: '2222222222222222222222222222222222222222',
++          },
++        });
++
++        expect(result).toBe(fileContent);
++      });
++    });
+   });
+ });
+diff --git a/lib/modules/manager/nix/update.ts b/lib/modules/manager/nix/update.ts
+index 7c15063..27d2adf 100644
+--- a/lib/modules/manager/nix/update.ts
++++ b/lib/modules/manager/nix/update.ts
+@@ -170,6 +170,155 @@ function findInputUrl(
+   );
+ }
+ 
++function maskNixStringsAndComments(content: string): string {
++  return content.replace(
++    regEx(/"(?:\\.|[^"\\])*"|''[\s\S]*?''|#[^\n]*|\/\*[\s\S]*?\*\//g),
++    (match) => ' '.repeat(match.length),
++  );
++}
++
++function findAttrSetEnd(maskedContent: string, start: number): number {
++  let depth = 0;
++  for (let i = start; i < maskedContent.length; i += 1) {
++    if (maskedContent[i] === '{') {
++      depth += 1;
++    } else if (maskedContent[i] === '}') {
++      depth -= 1;
++      if (depth === 0) {
++        return i;
++      }
++    }
++  }
++  return -1;
++}
++
++function getValueIndex(match: RegExpMatchArray): number {
++  return match.index! + match[0].length - match.groups!.value.length - 1;
++}
++
++interface InputAttribute {
++  name: string;
++  value: string;
++  index: number;
++}
++
++function findInputAttributes(
++  fileContent: string,
++  depName: string,
++): InputAttribute[] {
++  const inputPrefix = '(?:inputs\\.)?';
++  const attributes: InputAttribute[] = [];
++
++  // inputs.<name>.rev = "..."; or <name>.ref = "...";
++  const directPattern = regEx(
++    `^\\s*${inputPrefix}${RegExp.escape(depName)}\\.(?<name>rev|ref)\\s*=\\s*"(?<value>[^"\\\\$]*)"`,
++    'gm',
++  );
++  for (const match of fileContent.matchAll(directPattern)) {
++    if (getBraceDepth(fileContent, match.index) <= 2) {
++      attributes.push({
++        name: match.groups!.name,
++        value: match.groups!.value,
++        index: getValueIndex(match),
++      });
++    }
++  }
++
++  // <name> = { ...; rev = "..."; ref = "..."; };
++  const attrSetPattern = regEx(
++    `^\\s*${inputPrefix}${RegExp.escape(depName)}\\s*=\\s*\\{`,
++    'gm',
++  );
++  const attrSet = [...fileContent.matchAll(attrSetPattern)].find(
++    (match) => getBraceDepth(fileContent, match.index) <= 2,
++  );
++  if (attrSet?.index === undefined) {
++    return attributes;
++  }
++
++  const maskedContent = maskNixStringsAndComments(fileContent);
++  const start = attrSet.index + attrSet[0].length;
++  const end = findAttrSetEnd(maskedContent, start - 1);
++  if (end === -1) {
++    return attributes;
++  }
++
++  const body = fileContent.slice(start, end);
++  const maskedBody = maskedContent.slice(start, end);
++  const memberPattern = regEx(
++    /(?<prefix>^|[^\w'.-])(?<name>rev|ref)\s*=\s*"(?<value>[^"\\$]*)"/g,
++  );
++  for (const match of body.matchAll(memberPattern)) {
++    const nameIndex = match.index + match.groups!.prefix.length;
++    // Skip matches inside strings or comments and members of nested
++    // attribute sets such as input overrides.
++    if (
++      maskedBody[nameIndex] !== body[nameIndex] ||
++      getBraceDepth(maskedBody, nameIndex) !== 0
++    ) {
++      continue;
++    }
++    attributes.push({
++      name: match.groups!.name,
++      value: match.groups!.value,
++      index: start + getValueIndex(match),
++    });
++  }
++
++  return attributes;
++}
++
++function updateInputAttributes(
++  fileContent: string,
++  depName: string,
++  currentValue?: string,
++  newValue?: string,
++  currentDigest?: string,
++  newDigest?: string,
++): string | null {
++  const attributes = findInputAttributes(fileContent, depName);
++  if (!attributes.length) {
++    return null;
++  }
++
++  let updatedContent = fileContent;
++  for (const { name, value, index } of attributes.sort(
++    (a, b) => b.index - a.index,
++  )) {
++    let newAttributeValue = value;
++    if (name === 'ref') {
++      newAttributeValue = replaceVersion(value, currentValue, newValue);
++    } else if (
++      currentDigest &&
++      newDigest &&
++      currentDigest !== newDigest &&
++      value === currentDigest
++    ) {
++      newAttributeValue = newDigest;
++    }
++
++    if (newAttributeValue === value) {
++      continue;
++    }
++
++    updatedContent =
++      updatedContent.slice(0, index) +
++      newAttributeValue +
++      updatedContent.slice(index + value.length);
++    logger.debug(
++      {
++        depName,
++        attribute: name,
++        oldValue: value,
++        newValue: newAttributeValue,
++      },
++      'Successfully updated Nix flake input attribute',
++    );
++  }
++
++  return updatedContent;
++}
++
+ export function updateDependency({
+   fileContent,
+   upgrade,
+@@ -195,7 +344,22 @@ export function updateDependency({
+   );
+   const match = findInputUrl(fileContent, [directPattern, attrSetPattern]);
+ 
++  function updateAttributes(content: string): string | null {
++    return updateInputAttributes(
++      content,
++      depName!,
++      currentValue ?? undefined,
++      newValue ?? undefined,
++      currentDigest,
++      newDigest ?? undefined,
++    );
++  }
++
+   if (!match?.groups || match.index === undefined) {
++    const updatedContent = updateAttributes(fileContent);
++    if (updatedContent !== null) {
++      return updatedContent;
++    }
+     logger.debug(`Could not find URL for dependency ${depName}`);
+     return fileContent;
+   }
+@@ -215,7 +379,7 @@ export function updateDependency({
+ 
+   if (newUrl === oldUrl) {
+     logger.trace({ depName, url: oldUrl }, 'No changes made to URL');
+-    return fileContent;
++    return updateAttributes(fileContent) ?? fileContent;
+   }
+ 
+   const urlStart = match.index + match[0].lastIndexOf(oldUrl);
+@@ -225,5 +389,5 @@ export function updateDependency({
+     fileContent.slice(urlStart + oldUrl.length);
+ 
+   logger.debug({ depName, oldUrl, newUrl }, 'Successfully updated Nix flake');
+-  return updatedContent;
++  return updateAttributes(updatedContent) ?? updatedContent;
+ }
