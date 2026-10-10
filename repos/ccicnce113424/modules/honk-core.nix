@@ -56,8 +56,32 @@ let
 
   configPath = if cfg.configFile != null then cfg.configFile else "/etc/honk/config.dae";
 
+  # The UI is served from the system profile path so an administrated config
+  # file keeps working across package upgrades.
+  uiDir = "/run/current-system/sw/share/doona-web";
+
+  # Written to `configFile` on first start when nothing exists there yet.
+  # Only non-default settings: everything else (tproxy_port, the loopback
+  # listen address, routing fallback) already has these values by default.
+  defaultConfig = pkgs.writeText "config.dae" ''
+    experimental {
+        native_api {
+            enabled: true
+            allow_anonymous_loopback: true
+            ui: '${uiDir}'
+        }
+    }
+  '';
+
+  initConfig = pkgs.writeShellScript "honk-init-config" ''
+    if [ ! -e "$1" ]; then
+      ${pkgs.coreutils}/bin/install -Dm600 ${defaultConfig} "$1"
+      echo "honk-core: initialized $1" >&2
+    fi
+  '';
+
   TxChecksumIpGenericWorkaround = pkgs.writeShellScript "disable-tx-checksum-ip-generic" ''
-    iface=$(${lib.getExe' pkgs.iproute2 "ip"}route | ${lib.getExe' pkgs.gawk "awk"} '/default/ {print $5}')
+    iface=$(${lib.getExe' pkgs.iproute2 "ip"} route | ${lib.getExe' pkgs.gawk "awk"} '/default/ {print $5}')
     ${lib.getExe pkgs.ethtool} -K "$iface" tx-checksum-ip-generic off
   '';
 in
@@ -66,6 +90,8 @@ in
     enable = mkEnableOption "honk, an eBPF-based transparent proxy with a Clash API";
 
     package = mkPackageOption pkgs "honk-core" { };
+
+    webUi = mkPackageOption pkgs "doona-web" { };
 
     config = mkOption {
       type = types.nullOr types.str;
@@ -97,7 +123,10 @@ in
       description = ''
         The absolute path string of honk config file which is not in the nix
         store. Falls back to {option}`config` being written to
-        {file}`/etc/honk/config.dae` if this is not set. The file must live
+        {file}`/etc/honk/config.dae` if this is not set. If no file exists at
+        this path on service start, a starter config is written there with the
+        web UI served from {file}`/run/current-system/sw/share/doona-web`. The
+        file must live
         outside the store so reloads and native-API source writes can update
         it.
       '';
@@ -178,7 +207,11 @@ in
       in /var/lib/honk/state.
     '';
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [
+      cfg.package
+      cfg.webUi
+    ];
+    environment.pathsToLink = [ "/share/doona-web" ];
 
     environment.etc = lib.mkIf (cfg.configFile == null) {
       "honk/config.dae" = {
@@ -228,9 +261,16 @@ in
             "reload"
           ])
         ];
-        ExecStartPre = lib.optional cfg.disableTxChecksumIpGeneric (
-          utils.escapeSystemdExecArgs [ TxChecksumIpGenericWorkaround ]
-        );
+        ExecStartPre =
+          lib.optional cfg.disableTxChecksumIpGeneric (
+            utils.escapeSystemdExecArgs [ TxChecksumIpGenericWorkaround ]
+          )
+          ++ lib.optional (cfg.configFile != null) (
+            utils.escapeSystemdExecArgs [
+              initConfig
+              cfg.configFile
+            ]
+          );
         WorkingDirectory = cfg.dataDir;
         Environment = "DAE_LOCATION_ASSET=${cfg.assetsPath}";
       };

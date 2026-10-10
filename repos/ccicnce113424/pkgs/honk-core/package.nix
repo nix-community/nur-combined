@@ -8,7 +8,6 @@
   cmake,
   gitMinimal,
   rustc,
-  doona-web,
   nix-update-script,
   versionCheckHook,
 }:
@@ -112,9 +111,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
   __structuredAttrs = true;
   strictDeps = true;
 
+  # `native-ui` would embed a doona build (HONK_DOONA_DIR) into the binary;
+  # the UI is served from the doona-web package via `ui: <directory>` instead.
   buildFeatures = [
     "ebpf"
-    "native-ui"
+    "native-api"
   ];
   cargoBuildFlags = [
     "--package"
@@ -131,14 +132,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
   env.GITHUB_REF = "refs/tags/debug.${finalAttrs.version}";
 
   preBuild = ''
-    # Embed the doona web UI packaged in this repository. Fonts stay out of
-    # the binary, as in upstream's release archive (they ship separately).
-    export HONK_DOONA_DIR=$NIX_BUILD_TOP/doona-web
-    mkdir -p $HONK_DOONA_DIR
-    cp -rL ${doona-web}/share/doona-web/. $HONK_DOONA_DIR
-    chmod -R u+w $HONK_DOONA_DIR
-    rm -rf $HONK_DOONA_DIR/fonts $HONK_DOONA_DIR/.vite
-
     # honk-core's build.rs embeds the eBPF object and rejects one that is stale
     # or not stamped with the toolchain pin of crates/honk-ebpf.
     objDir=crates/honk-ebpf/target/bpfel-unknown-none/release

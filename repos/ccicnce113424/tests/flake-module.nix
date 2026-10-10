@@ -21,7 +21,10 @@
           extraBaseModules = {
             imports = [ self.nixosModules.honk-core ];
           };
-          defaults.services.honk-core.package = self'.packages.honk-core;
+          defaults = {
+            services.honk-core.package = self'.packages.honk-core;
+            services.honk-core.webUi = self'.packages.doona-web;
+          };
         };
         # keep-sorted end
       };

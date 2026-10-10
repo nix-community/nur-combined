@@ -47,6 +47,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     mkdir -p $out/share/doona-web
     cp -r dist/. $out/share/doona-web
+    rm -rf $out/share/doona-web/.vite
 
     runHook postInstall
   '';

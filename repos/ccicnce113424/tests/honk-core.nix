@@ -17,27 +17,9 @@
       };
       services.honk-core = {
         enable = true;
-        config = ''
-          global {
-              # the test network; hosts its traffic through the WAN hooks
-              wan_interface: 'eth1'
-              tproxy_port: 12345
-              nfqueue_enable: false
-          }
-
-          experimental {
-              native_api {
-                  enabled: true
-                  listen: '127.0.0.1:9527'
-                  allow_anonymous_loopback: true
-                  ui: 'embedded'
-              }
-          }
-
-          routing {
-              fallback: direct
-          }
-        '';
+        # Nothing exists at this path yet; the service seeds a starter config
+        # whose web UI is served from the system profile's doona-web.
+        configFile = "/etc/honk/config.dae";
       };
     };
 
