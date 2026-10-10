@@ -35,13 +35,13 @@ buildGoModule (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "magpie";
-  version = "0.1.1156";
+  version = "0.1.1166";
 
   src = fetchFromGitHub {
     owner = "yetone";
     repo = "magpie";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-9NFCNd8Omeu4LW+h2TIbhI/+c17iuyZuZ5DMXPFVNVE=";
+    hash = "sha256-5RSx0Oki0ngcKOypIC/rPnU5miEq8yykJjEIvSSPvRU=";
   };
 
   vendorHash = "sha256-dqFc8UTREaRFt3G3DS7IllBx8ysOlcA5JUqGaQ/XlcI=";
@@ -99,6 +99,8 @@ buildGoModule (finalAttrs: {
         'time.Sleep(20 * time.Millisecond); writeLines(t, archived, `{"x":2}`)'
     substituteInPlace internal/agent/cliupdate_test.go internal/library/rtk_upgrade_test.go \
       --replace-fail '/bin/cat' '${lib.getExe' coreutils "cat"}'
+    substituteInPlace internal/proc/path_other_test.go \
+      --replace-fail '\ncat ' '\n${lib.getExe' coreutils "cat"} '
     substituteInPlace internal/library/rtk_test.go \
       --replace-fail '/bin/mkdir' '${lib.getExe' coreutils "mkdir"}'
     substituteInPlace internal/gui/providers_fetching_unix_test.go \
