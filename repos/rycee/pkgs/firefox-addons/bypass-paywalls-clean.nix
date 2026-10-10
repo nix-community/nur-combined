@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "bypass-paywalls-clean";
-  version = "4.4.5.6";
+  version = "4.4.6.6";
   addonId = "magnolia@12.34";
-  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.5.6.xpi";
-  sha256 = "5c8427ae1025f3d33863c480bd654cceb625a73714bc67b7eb53a797a472f1b1";
+  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.6.6.xpi";
+  sha256 = "c610461834f130d01b2bc158b83c2eabe6e48077ba1475349e0af91323cd1d7a";
   meta = with lib; {
     homepage = "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean";
     description = "Bypass Paywalls of (custom) news sites";
@@ -20,6 +20,7 @@ buildFirefoxXpiAddon {
       "activeTab"
       "webRequest"
       "webRequestBlocking"
+      "*://*.11freunde.de/*"
       "*://*.24heures.ch/*"
       "*://*.360dx.com/*"
       "*://*.60millions-mag.com/*"
@@ -78,6 +79,7 @@ buildFirefoxXpiAddon {
       "*://*.bbc.com/*"
       "*://*.bd.nl/*"
       "*://*.beleggersbelangen.nl/*"
+      "*://*.belfasttelegraph.co.uk/*"
       "*://*.bendigoadvertiser.com.au/*"
       "*://*.benzinga.com/*"
       "*://*.beobachter.ch/*"
@@ -235,7 +237,6 @@ buildFirefoxXpiAddon {
       "*://*.eastwest.eu/*"
       "*://*.echo-online.de/*"
       "*://*.economictimes.com/*"
-      "*://*.economist.com/*"
       "*://*.ed.nl/*"
       "*://*.editorialedomani.it/*"
       "*://*.elcomercio.es/*"
@@ -283,6 +284,7 @@ buildFirefoxXpiAddon {
       "*://*.express.co.uk/*"
       "*://*.expressnews.com/*"
       "*://*.expresso.pt/*"
+      "*://*.falter.at/*"
       "*://*.farodevigo.es/*"
       "*://*.fastcompany.com/*"
       "*://*.faz.net/*"
@@ -299,7 +301,6 @@ buildFirefoxXpiAddon {
       "*://*.fnlondon.com/*"
       "*://*.focusplus.de/*"
       "*://*.fokus.se/*"
-      "*://*.forbes.com.au/*"
       "*://*.forbes.com/*"
       "*://*.forbes.pl/*"
       "*://*.forbes.ua/*"
@@ -380,6 +381,7 @@ buildFirefoxXpiAddon {
       "*://*.inc.com/*"
       "*://*.inc42.com/*"
       "*://*.independent.co.uk/*"
+      "*://*.independent.ie/*"
       "*://*.indianexpress.com/*"
       "*://*.indiatimes.com/*"
       "*://*.indiatoday.in/*"
@@ -522,6 +524,7 @@ buildFirefoxXpiAddon {
       "*://*.madison.com/*"
       "*://*.magazyn-kuchnia.pl/*"
       "*://*.mallorcazeitung.es/*"
+      "*://*.manager-magazin.de/*"
       "*://*.manoramaonline.com/*"
       "*://*.marca.com/*"
       "*://*.margriet.nl/*"
@@ -705,7 +708,6 @@ buildFirefoxXpiAddon {
       "*://*.saechsische.de/*"
       "*://*.sandiegouniontribune.com/*"
       "*://*.scholastic.com/*"
-      "*://*.schwarzwaelder-bote.de/*"
       "*://*.schweizermonat.ch/*"
       "*://*.science-et-vie.com/*"
       "*://*.science.org/*"
@@ -757,8 +759,6 @@ buildFirefoxXpiAddon {
       "*://*.stocknews.com/*"
       "*://*.straitstimes.com/*"
       "*://*.study.com/*"
-      "*://*.stuttgarter-nachrichten.de/*"
-      "*://*.stuttgarter-zeitung.de/*"
       "*://*.stylist.co.uk/*"
       "*://*.sudinfo.be/*"
       "*://*.sudouest.fr/*"
@@ -964,6 +964,7 @@ buildFirefoxXpiAddon {
       "*://*.californiatimes.com/*"
       "*://*.cedscdn.it/*"
       "*://*.cedsdigital.it/*"
+      "*://*.cloudfunctions.net/*"
       "*://*.coxohio.com/*"
       "*://*.danzz.ch/*"
       "*://*.emol.cl/*"

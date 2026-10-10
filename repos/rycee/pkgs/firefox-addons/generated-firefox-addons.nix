@@ -121,10 +121,10 @@
     };
     "adblocker-ultimate" = buildMozillaXpiAddon {
       pname = "adblocker-ultimate";
-      version = "4.4.1";
+      version = "4.4.2";
       addonId = "adblockultimate@adblockultimate.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4988632/adblocker_ultimate-4.4.1.xpi";
-      sha256 = "ec8f44269bbda3494ea034044ddab00b026d8f5ef48f5c6f5ec949f15d04a579";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5087736/adblocker_ultimate-4.4.2.xpi";
+      sha256 = "24d9ebe887fc2781544e6d58669aa36c131dc75231446eaaaed1ee40c9954a7e";
       meta = with lib;
       {
         homepage = "https://adblockultimate.net";
@@ -444,10 +444,10 @@
     };
     "archivebox-exporter" = buildMozillaXpiAddon {
       pname = "archivebox-exporter";
-      version = "3.3.8";
+      version = "3.3.14";
       addonId = "archivebox@tjhorner.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5093573/archivebox_exporter-3.3.8.xpi";
-      sha256 = "3d836cbe5fe3d9cf7eafada1ca9e55bd5901a39a0e73d1693c2bde22eb55b993";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5103793/archivebox_exporter-3.3.14.xpi";
+      sha256 = "7fa87c91280bd81835970b491b46478253e56b69a22bcab684d3e411273bcb73";
       meta = with lib;
       {
         homepage = "https://extension.archivebox.io/";
@@ -4772,10 +4772,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "2.2.2";
+      version = "2.2.3";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5033148/geo_spoof-2.2.2.xpi";
-      sha256 = "94993178e8407b97cad210e653658036ab3cb9d241500ff72785b2597238a47c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5101877/geo_spoof-2.2.3.xpi";
+      sha256 = "b8357f2461cbd4495c3aeb94472a1652354fa7adac498145b05298fc4f4c4254";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
@@ -8310,10 +8310,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.4.252";
+      version = "2.4.253";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5086591/lichess_tools_by_siderite-2.4.252.xpi";
-      sha256 = "b8bb4734d7232bc23e68a430d7eecc34388efc1d814cf555527c2f37606af958";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5102455/lichess_tools_by_siderite-2.4.253.xpi";
+      sha256 = "6f6abfc7e2db3a96a103f09ccc56d700c45353d4c47a666327054b9e5a31c140";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -10714,10 +10714,10 @@
     };
     "onepassword-password-manager" = buildMozillaXpiAddon {
       pname = "onepassword-password-manager";
-      version = "8.12.32.33";
+      version = "8.12.41.1";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4951729/1password_x_password_manager-8.12.32.33.xpi";
-      sha256 = "b952fb617027f78b5649ffdd88f58bc07da92d21dc73cc6bb6e28879e5e2e30b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5097307/1password_x_password_manager-8.12.41.1.xpi";
+      sha256 = "6b00acff73253865303af49e99329245a940348484cbd931ea39f9fa215134f5";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -14863,10 +14863,10 @@
     };
     "themesong-for-youtube-music" = buildMozillaXpiAddon {
       pname = "themesong-for-youtube-music";
-      version = "1.3.5";
+      version = "26.10.1";
       addonId = "{6458ac08-a9d7-4e42-a1b0-f0c43bf90f7d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5091909/themesong_for_youtube_music-1.3.5.xpi";
-      sha256 = "316cab904114431d88746ea16ebef9a6882bfb6a34ca89ae32211e85ed383f25";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5102830/themesong_for_youtube_music-26.10.1.xpi";
+      sha256 = "12c5988b55d8e3db460cf490bceed964d0d1f74e7d7b4edca71a3f19da434fc2";
       meta = with lib;
       {
         homepage = "https://www.themesong.app";
@@ -15518,10 +15518,10 @@
     };
     "ublacklist" = buildMozillaXpiAddon {
       pname = "ublacklist";
-      version = "10.1.1";
+      version = "10.1.2";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5040970/ublacklist-10.1.1.xpi";
-      sha256 = "766ebee97a0579a20c19391890ace18e4feaddcf23978b27d3408ee255fddcf7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5084901/ublacklist-10.1.2.xpi";
+      sha256 = "086accbfbd68662a75dd754c5f13a0673cd5e627a109d762eb5d332d255da1b2";
       meta = with lib;
       {
         homepage = "https://ublacklist.github.io/";
@@ -17467,10 +17467,10 @@
     };
     "ycs-continued" = buildMozillaXpiAddon {
       pname = "ycs-continued";
-      version = "1.10.1";
+      version = "1.10.2";
       addonId = "ycs-cont-public@pymaster.tw";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4931728/ycs_continued-1.10.1.xpi";
-      sha256 = "74fbbd15a6e85d166030fcc5c38e6e16217764b1e74976a97271058a9c16e2da";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5101431/ycs_continued-1.10.2.xpi";
+      sha256 = "e9d0dc5dae31c83642460d6223a4e9a5fa90f833dd90a5bb0c5d5f7322a79c6f";
       meta = with lib;
       {
         homepage = "https://github.com/pc035860/YCS-cont";
