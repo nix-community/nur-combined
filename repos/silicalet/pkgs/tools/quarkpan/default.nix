@@ -8,7 +8,7 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "quarkpan";
-  version = "0.4.0-unstable-2026-03-18";
+  version = "0-unstable-2026-03-18";
 
   src = fetchFromGitHub {
     owner = "niuhuan";
