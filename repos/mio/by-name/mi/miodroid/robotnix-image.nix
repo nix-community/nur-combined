@@ -1,7 +1,7 @@
-{ runCommand, unzip }:
+{ runCommand, unzip, callPackage }:
 
 let
-  robotnixZip = import ./build-android.nix;
+  robotnixZip = callPackage ./build-android.nix {};
 in
 runCommand "miodroid-robotnix-image" {
   nativeBuildInputs = [ unzip ];

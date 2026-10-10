@@ -240,8 +240,7 @@ in
       machine.succeed("""cat > /tmp/miodroid-rootless-test.sh <<'EOF'
       #!/bin/sh
       set -eu
-      if ! miodroid init -c http://127.0.0.1:8000/system \
-          -v http://127.0.0.1:8000/vendor -r lineage -s VANILLA; then
+      if ! miodroid init; then
           if test -f /tmp/tools.log; then cat /tmp/tools.log; fi
           exit 1
       fi
@@ -358,12 +357,10 @@ in
       echo "=== KMSG (container init) ===" ; dmesg | tail -n 80 || true
       echo "=== JOURNALCTL ===" ; journalctl --user -n 100 -xe || true
       kill -9 $session $wlserver 2>/dev/null || true
-      # Android 13 ueventd crashes in unprivileged containers due to restricted access
-      # to /dev and /sys. Even with host-side workarounds (stopping ueventd, faking cold boot),
-      # the lack of device nodes prevents hwservicemanager and others from starting fully.
-      # Since we cannot modify the Android image (e.g. flattening APEX or Lepton's ueventd patches),
-      # boot_completed=1 is never reached.
-      exit 1
+      if test "$booted" = 0; then
+          echo "Failed to boot rootless container!"
+          exit 1
+      fi
       EOFSCRIPT
       chmod 0755 /tmp/test-session.sh""")
       machine.succeed("su - alice -c '/tmp/test-session.sh'", timeout=1200)
