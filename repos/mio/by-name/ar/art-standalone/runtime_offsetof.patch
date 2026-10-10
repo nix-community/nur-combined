@@ -1,0 +1,11 @@
+--- a/art/runtime/runtime.h.orig	2026-10-09 20:02:24.600575684 +1100
++++ a/art/runtime/runtime.h	2026-10-09 20:02:24.613575702 +1100
+@@ -427,7 +427,7 @@
+       REQUIRES_SHARED(Locks::mutator_lock_);
+ 
+   #define GetCalleeSaveMethodOffset(type) \
+-    OFFSETOF_MEMBER(art::Runtime, art::Runtime::callee_save_methods_[static_cast<size_t>(type)])
++    OFFSETOF_MEMBER(art::Runtime, callee_save_methods_[static_cast<size_t>(type)])
+ 
+   InstructionSet GetInstructionSet() const {
+     return instruction_set_;

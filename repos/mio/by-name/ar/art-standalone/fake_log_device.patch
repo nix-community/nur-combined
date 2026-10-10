@@ -1,0 +1,16 @@
+--- a/system/core/liblog/fake_log_device.c.orig	2026-10-09 20:02:24.484575516 +1100
++++ a/system/core/liblog/fake_log_device.c	2026-10-09 20:02:24.497575535 +1100
+@@ -1,3 +1,4 @@
++#include <stdbool.h>
+ /*
+  * Copyright (C) 2008 The Android Open Source Project
+  *
+@@ -355,7 +356,7 @@
+     if (cached)
+         return should_colorize;
+ 
+-    if (char *liblog_color = getenv("LIBLOG_COLOR")) {
++    char *liblog_color = getenv("LIBLOG_COLOR"); if (liblog_color) {
+         if (!strcmp(liblog_color, "always")) {
+             should_colorize = true;
+         } else if (!strcmp(liblog_color, "never")) {

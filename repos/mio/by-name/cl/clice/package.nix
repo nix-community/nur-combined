@@ -41,8 +41,11 @@ let
   deps = stdenv.mkDerivation {
     name = "clice-deps";
     inherit src;
-    
-    nativeBuildInputs = [ bazel_9 python3 ];
+
+    nativeBuildInputs = [
+      bazel_9
+      python3
+    ];
 
     buildPhase = ''
       export HOME=$TMPDIR
@@ -65,17 +68,20 @@ stdenv.mkDerivation {
   pname = "clice";
   inherit version src;
 
-  nativeBuildInputs = [ bazel_9 python3 ];
+  nativeBuildInputs = [
+    bazel_9
+    python3
+  ];
 
   buildPhase = ''
     export HOME=$TMPDIR
     export BAZEL_DO_NOT_DETECT_CPP_TOOLCHAIN=1
-    
+
     # Copy the pre-fetched cache
     mkdir -p $HOME/.cache
     cp -r ${deps} $HOME/.cache/bazel
     chmod -R +w $HOME/.cache/bazel
-    
+
     bazel build -c opt --config=RelWithDebInfo //...
   '';
 

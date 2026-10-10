@@ -1,0 +1,20 @@
+--- a/art/runtime/runtime.cc.orig	2026-10-10 04:06:21.773616403 +1100
++++ a/art/runtime/runtime.cc	2026-10-10 04:06:21.780616412 +1100
+@@ -1843,7 +1843,7 @@
+       // if the above didn't work, try loading from the install path
+       Dl_info libart_so_dl_info;
+       // art_sigsegv_fault chosen arbitrarily, what matters is that it's a symbol exported by by libart.so
+-      dladdr(art_sigsegv_fault, &libart_so_dl_info);
++      dladdr((const void*)art_sigsegv_fault, &libart_so_dl_info);
+       // make sure we didn't get NULL
+       if(libart_so_dl_info.dli_fname) {
+         // it's simpler if we can modify the string, so strdup it
+@@ -1872,7 +1872,7 @@
+       // if the above didn't work, try loading from the install path
+       Dl_info libart_so_dl_info;
+       // art_sigsegv_fault chosen arbitrarily, what matters is that it's a symbol exported by by libart.so
+-      dladdr(art_sigsegv_fault, &libart_so_dl_info);
++      dladdr((const void*)art_sigsegv_fault, &libart_so_dl_info);
+       // make sure we didn't get NULL
+       if(libart_so_dl_info.dli_fname) {
+         // it's simpler if we can modify the string, so strdup it

@@ -1,29 +1,30 @@
-{ lib
-, rustPlatform
-, fetchFromGitHub
-, pkg-config
-, wrapGAppsHook4
-, openssl
-, gtk4
-, glib
-, webkitgtk_6_0
-, libadwaita
-, stdenv
-, darwin
+{
+  lib,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  wrapGAppsHook4,
+  openssl,
+  gtk4,
+  glib,
+  webkitgtk_6_0,
+  libadwaita,
+  stdenv,
+  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "penguin-mail";
-  version = "1.0.3";
+  version = "1.0.5";
 
   src = fetchFromGitHub {
     owner = "c9dev";
     repo = "penguin-mail";
     rev = "v${version}";
-    hash = "sha256-LUlSoYG56LvokST4c+Yo9tazaF/URMXGyxML1GiR7c8=";
+    hash = "sha256-2vFUXHUS2BpDmCqKkA1mO0rmS8OZtTyn1Jfm/IJJihc=";
   };
 
-  cargoHash = "sha256-NUh73jijo3FvEMZPmo6RXKvkcIgDqU3q0i+BOOaA0Ok=";
+  cargoHash = "sha256-IXQSrN0mIBnUZcny6huA89q2sHPDHWkknj1bXR/UXrI=";
 
   nativeBuildInputs = [
     pkg-config
@@ -36,7 +37,8 @@ rustPlatform.buildRustPackage rec {
     glib
     webkitgtk_6_0
     libadwaita
-  ] ++ lib.optionals stdenv.isDarwin [
+  ]
+  ++ lib.optionals stdenv.isDarwin [
     darwin.apple_sdk.frameworks.Security
     darwin.apple_sdk.frameworks.SystemConfiguration
   ];

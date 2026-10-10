@@ -1,0 +1,11 @@
+--- a/system/core/libbacktrace/BacktraceCurrent.cpp.orig	2026-10-09 20:11:17.279379373 +1100
++++ a/system/core/libbacktrace/BacktraceCurrent.cpp	2026-10-09 20:11:17.283379380 +1100
+@@ -87,7 +87,7 @@
+ 
+ bool BacktraceCurrent::DiscardFrame(const backtrace_frame_data_t& frame) {
+   if (BacktraceMap::IsValid(frame.map)) {
+-    const std::string library = basename(frame.map.name.c_str());
++    const std::string library = basename((char*)frame.map.name.c_str());
+     if (library == "libunwind.so" || library == "libbacktrace.so") {
+       return true;
+     }

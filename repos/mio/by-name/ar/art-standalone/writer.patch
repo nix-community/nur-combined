@@ -1,0 +1,7 @@
+--- a/art/libelffile/dwarf/writer.h.orig	2026-10-09 20:04:31.207758368 +1100
++++ a/art/libelffile/dwarf/writer.h	2026-10-09 20:04:31.213758377 +1100
+@@ -1,3 +1,4 @@
++#include <string.h>
+ /*
+  * Copyright (C) 2015 The Android Open Source Project
+  *

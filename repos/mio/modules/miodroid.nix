@@ -74,11 +74,12 @@ in
     package = lib.mkPackageOption pkgs "miodroid" { };
     imagePackage = lib.mkOption {
       type = lib.types.nullOr lib.types.package;
-      default = null;
+      default = pkgs.callPackage ../by-name/mi/miodroid/robotnix-image.nix {};
       example = lib.literalExpression "pkgs.miodroid-images.a16";
       description = ''
         Declarative system.img and vendor.img bundle to install before
-        initialization. When null, miodroid uses its normal OTA workflow.
+        initialization. Defaults to our custom Robotnix LineageOS build.
+        When null, miodroid uses its normal OTA workflow.
       '';
     };
   };
@@ -87,11 +88,12 @@ in
     package = lib.mkPackageOption pkgs "miodroid" { };
     imagePackage = lib.mkOption {
       type = lib.types.nullOr lib.types.package;
-      default = null;
+      default = pkgs.callPackage ../by-name/mi/miodroid/robotnix-image.nix {};
       example = lib.literalExpression "pkgs.miodroid-images.a16";
       description = ''
         Declarative system.img and vendor.img bundle to install before
-        initialization. When null, miodroid uses its normal OTA workflow.
+        initialization. Defaults to our custom Robotnix LineageOS build.
+        When null, miodroid uses its normal OTA workflow.
       '';
     };
     group = lib.mkOption {

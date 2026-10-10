@@ -1,6 +1,6 @@
 {
   lib,
-  stdenv,
+  clangStdenv,
   fetchFromGitLab,
   bionic-translation,
   python3,
@@ -20,7 +20,7 @@
   makeWrapper,
   binutils,
 }:
-stdenv.mkDerivation (finalAttrs: {
+clangStdenv.mkDerivation (finalAttrs: {
   pname = "art-standalone";
   version = "0-unstable-2026-08-03";
 
@@ -35,6 +35,16 @@ stdenv.mkDerivation (finalAttrs: {
     # Do not hardocde addr2line binary path
     ./no-hardcode-path-addr2line.patch
     ./remove-wolfssljni.patch
+    ./fake_log_device.patch
+    ./runtime_offsetof.patch
+    ./writer.patch
+    ./backtrace.patch
+    ./dex2oat.patch
+    ./check_jni.patch
+    ./jni_internal.patch
+    ./agent.patch
+    ./parsed_options.patch
+    ./runtime_dladdr.patch
   ];
 
   postPatch = ''
@@ -43,6 +53,8 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace build/core/config.mk build/core/main.mk \
       --replace-fail "/bin/bash" "${runtimeShell}"
   '';
+
+  env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
   enableParallelBuilding = true;
 
@@ -73,6 +85,10 @@ stdenv.mkDerivation (finalAttrs: {
     "____LIBDIR=lib"
     "____PREFIX=${placeholder "out"}"
     "____INSTALL_ETC=${placeholder "out"}/etc"
+    "CC=clang"
+    "CXX=clang++"
+    "HOST_CC=clang"
+    "HOST_CXX=clang++"
   ];
 
   postFixup = ''
