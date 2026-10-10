@@ -42,6 +42,7 @@ rpgNwjsFix() {
     echo "$newJson" > "$packageJson"
   fi
   cat "@rpgManagersPatch@" >> "$gameHome/www/js/rpg_managers.js"
+  cat "@rpgCorePatch@" >> "$gameHome/www/js/rpg_core.js"
 }
 
 rpgNwjsWrapHook() {

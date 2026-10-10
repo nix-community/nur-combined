@@ -19,6 +19,7 @@ makeSetupHook {
   substitutions = {
     nwjs = lib.getExe targetPackages.nwjs;
     rpgManagersPatch = ./fix-save-location.js;
+    rpgCorePatch = ./case-insensitive-paths.js;
   };
 
   meta = {
