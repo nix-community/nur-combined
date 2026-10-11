@@ -56,6 +56,9 @@ stdenv.mkDerivation {
 
   dontBuild = true;
 
+  # Stripping removes the application embedded in the Bun executable.
+  dontStrip = true;
+
   nativeBuildInputs =
     [ unzip installShellFiles ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
