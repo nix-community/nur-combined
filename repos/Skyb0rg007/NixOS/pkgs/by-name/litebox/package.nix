@@ -118,7 +118,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     license = lib.licenses.mit;
     homepage = "https://github.com/microsoft/litebox";
     changelog = "https://github.com/microsoft/litebox/releases/tag/v${finalAttrs.version}";
-    platforms = lib.platforms.linux;
+    platforms = [ "x86_64-linux" ];
     maintainers = [ lib.maintainers.skyesoss ];
   };
 })
