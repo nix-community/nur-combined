@@ -9,7 +9,7 @@
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "gh-audit";
-  version = "0.3.3";
+  version = "0.4.0";
 
   pyproject = true;
   __structuredAttrs = true;
@@ -18,7 +18,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     owner = "josh";
     repo = "gh-audit";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-LdyGIy8SpVScTpjvNdGrIKlSQ6ci4uwQW9yYlpsFvHg=";
+    hash = "sha256-enPNt8+/1FGx5AnQJwbQvkAwlcGrDIKfyH2bH8k1aBE=";
   };
 
   build-system = with python3Packages; [
