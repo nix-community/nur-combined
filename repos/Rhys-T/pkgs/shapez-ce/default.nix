@@ -12,12 +12,12 @@
     maintainers,
 }: buildNpmPackage (finalAttrs: {
     pname = "shapez-ce";
-    version = "0-unstable-2026-08-03";
+    version = "0-unstable-2026-10-10";
     src = fetchFromGitHub {
         owner = "tobspr-games";
         repo = "shapez-community-edition";
-        rev = "a3fdbf4f594772bbb8b72910987e7a23008fea8f";
-        hash = "sha256-SKJhoXyNS6dy68MvofN6kmMb/mOT/nVcX+1u6/r1FWM=";
+        rev = "6920522871c65de62c1cd0340a6755d7b46899cf";
+        hash = "sha256-wdrBR348VFhNThI9vomAZwzVYSrSwyCagkxQYI7ySUk=";
     };
     texturePacker = fetchurl {
         url = "https://web.archive.org/web/20241202185338id_/https://libgdx-nightlies.s3.amazonaws.com/libgdx-runnables/runnable-texturepacker.jar";
@@ -27,7 +27,7 @@
     nodejs = nodejs_22;
     npmRebuildFlags = [ "--ignore-scripts" ];
     env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
-    npmDepsHash = "sha256-1AGx2jiCXfgdie6ReC7hfEadS0/ijuCalgrE5o53IaA=";
+    npmDepsHash = "sha256-oCYfh62aoir+5sX9hFgO19HRxpDVKOB5GkqW7IH1/sk=";
     electronNpmDeps = fetchNpmDeps {
         name = "${finalAttrs.finalPackage.name}-electron-npm-deps";
         inherit (finalAttrs) src;
