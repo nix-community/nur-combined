@@ -6,6 +6,7 @@ Personal Nix packages and NixOS modules using the caller's `pkgs`.
 | --- | --- | --- |
 | `changedetection-io` | Use nixpkgs' module with this package | [changedetection.io](pkgs/changedetection-io/README.md) |
 | `fluxdown-server` | `nixosModules.fluxdown` | [FluxDown Server](pkgs/fluxdown-server/README.md) |
+| `mnamer-rs` | None | [mnamer Rust rewrite](pkgs/mnamer-rs/README.md) |
 | `rsshub` | Use nixpkgs' module with this package | [RSSHub](pkgs/rsshub/README.md) |
 | `spotify-spotx` | None | [Spotify with SpotX](pkgs/spotify-spotx/README.md) |
 
