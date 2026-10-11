@@ -13,7 +13,7 @@ check_stale "jq"
 
 nix_build_hash \
   "(import ./pkgs {}).${package_name}.pnpmDeps.overrideAttrs (_: { outputHash = \"\"; outputHashAlgo = \"sha256\"; })" \
-  "SPlayer git deps"
+  "Dorion git deps"
 
 jq -n \
   --arg version "$version" \

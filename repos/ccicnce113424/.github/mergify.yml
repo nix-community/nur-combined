@@ -1,6 +1,10 @@
 queue_rules:
   - name: default
     merge_method: rebase
+    batch_size:
+      min: 1
+      max: 8
+    batch_max_wait_time: "2 minutes"
     merge_conditions:
       - check-success=All
 
