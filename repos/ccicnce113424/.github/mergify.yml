@@ -1,8 +1,9 @@
 queue_rules:
   - name: default
     merge_method: rebase
-    merge_conditions:
+    queue_conditions:
       - check-success=All
+    merge_conditions: []
 
 pull_request_rules:
   - name: Queue when labeled and all CI jobs pass
