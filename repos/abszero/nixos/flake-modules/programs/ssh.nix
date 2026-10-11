@@ -91,6 +91,9 @@ let
                 User ${if h.user != null then h.user else elemAt nixos.config.abszero.users.admins 0}
                 IdentityFile ${h.identityFile}
                 IdentitiesOnly yes
+                # Fix Nix ssh timeout too slow
+                # https://github.com/NixOS/nix/issues/7459
+                ConnectTimeout 3
             ''))
           ];
         };

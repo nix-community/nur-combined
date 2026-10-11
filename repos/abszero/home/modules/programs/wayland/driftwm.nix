@@ -165,8 +165,15 @@ in
         {
           title = "KDE Connect";
           size = [
-            370
-            370
+            342
+            567
+          ];
+        }
+        {
+          title = "Lutris";
+          size = [
+            842
+            894
           ];
         }
         # Pin

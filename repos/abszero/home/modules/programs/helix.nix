@@ -193,7 +193,7 @@ in
         {
           name = "javascript";
           language-servers = [
-            "ts"
+            "typescript-language-server"
             "tailwindcss-language-server"
             "gpt"
           ];
@@ -259,7 +259,7 @@ in
         {
           name = "typescript";
           language-servers = [
-            "ts"
+            "typescript-language-server"
             "tailwindcss-language-server"
             "gpt"
           ];

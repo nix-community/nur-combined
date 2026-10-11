@@ -74,6 +74,7 @@ in
         gh
         git-absorb
         git-secret
+        godot
         goldendict-ng
         gpclient
         hyperfine
@@ -89,6 +90,7 @@ in
         obsidian
         proton-pass
         proton-vpn
+        skills
         taisei
         tenacity
         tetrio-desktop
@@ -102,7 +104,7 @@ in
         wl-clipboard-rs
         xeyes
         ytmdesktop
-        zotero
+        # zotero
       ];
     };
   };

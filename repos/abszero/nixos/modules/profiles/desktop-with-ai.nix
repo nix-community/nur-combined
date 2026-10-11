@@ -26,9 +26,5 @@ in
       };
       programs.crush.enable = true;
     };
-
-    environment.systemPackages = with pkgs; [
-      skills
-    ];
   };
 }
