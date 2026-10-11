@@ -4,11 +4,14 @@ import json
 import sys
 import time
 from http.client import IncompleteRead
+from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 
-def read_url(url, *, data=None, headers=None):
+def read_url(
+    url: str, *, data: bytes | None = None, headers: dict[str, str] | None = None
+) -> bytes:
     request = Request(
         url, data=data, headers={"User-Agent": "nur-updater"} | (headers or {})
     )
@@ -29,7 +32,10 @@ def read_url(url, *, data=None, headers=None):
     raise AssertionError("Unreachable")
 
 
-def read_json(url, *, data=None, headers=None):
+def read_json(
+    url: str, *, data: object = None, headers: dict[str, str] | None = None
+) -> Any:
+    # JSON response shapes belong to the caller.
     body = None if data is None else json.dumps(data).encode()
     request_headers = {"Accept": "application/json"}
     if body is not None:

@@ -6,18 +6,23 @@ Minified identifiers change between releases, so patterns are regexes that
 capture the identifiers they need instead of hard-coding them.
 """
 
+from __future__ import annotations
+
 import argparse
 import re
 import sys
-from collections.abc import Callable
 from pathlib import Path
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
 
 # ASAR patching and writable plugin copies adapted from:
 # https://github.com/numtide/llm-agents.nix/blob/main/packages/chatgpt/patch-asar.py
 # The glibc watcher workaround follows https://github.com/NixOS/nixpkgs/pull/551713.
 # autoPatchelf moves PT_INTERP beyond detect-libc's 2 KiB scan range.
 # Its process.report fallback trips Electron's CFI guard, so select glibc directly.
-GLIBC_WATCHER = (
+GLIBC_WATCHER: tuple[re.Pattern[bytes], Callable[[re.Match[bytes]], bytes]] = (
     re.compile(rb"const family = familySync\(\);"),
     lambda _m: b"const family = 'glibc';",
 )
@@ -29,7 +34,8 @@ GLIBC_WATCHER = (
 COPY_PLUGINS_WRITABLE = re.compile(
     rb"(?P<fn>async function [\w$]+\(e,t\)\{)"
     rb"if\((?P<plat>[\w$]+\.default\.platform)===`darwin`\)"
-    rb"(?P<ditto>\{await (?P<exec>[\w$]+)\(`/usr/bin/ditto`,\[`--noqtn`,e,t\]\);return\})"
+    rb"(?P<ditto>\{await (?P<exec>[\w$]+)\(`/usr/bin/ditto`,"
+    rb"\[`--noqtn`,e,t\]\);return\})"
     rb"if\((?P=plat)!==`win32`\)\{"
     rb"await [\w$]+\.default\.cp\(e,t,\{recursive:!0,verbatimSymlinks:!0\}\);return\}"
 )
@@ -68,7 +74,8 @@ def main() -> None:
         matches = list(pattern.finditer(data))
         if len(matches) != 1:
             sys.exit(
-                f"expected 1 match for {pattern.pattern[:60]!r} in {asar}, got {len(matches)}"
+                f"expected 1 match for {pattern.pattern[:60]!r} in {asar}, "
+                f"got {len(matches)}"
             )
         m = matches[0]
         original = m.group(0)

@@ -39,7 +39,7 @@ try:
             break
         except urllib.error.HTTPError:
             raise
-        except (urllib.error.URLError, TimeoutError):
+        except urllib.error.URLError, TimeoutError:
             if time.monotonic() >= deadline:
                 raise TimeoutError("Server did not become ready within 60 seconds")
             time.sleep(0.1)

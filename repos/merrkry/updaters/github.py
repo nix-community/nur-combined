@@ -2,11 +2,39 @@
 
 import os
 import re
+from typing import TypedDict, cast
 
 from .http import read_json
 
 
-def query_repository(owner, repo, fields, *, variables=None, declarations=""):
+class Release(TypedDict):
+    tagName: str
+    isPrerelease: bool
+    isDraft: bool
+
+
+class PageInfo(TypedDict):
+    hasNextPage: bool
+    endCursor: str | None
+
+
+class Releases(TypedDict):
+    nodes: list[Release]
+    pageInfo: PageInfo
+
+
+class Repository(TypedDict):
+    releases: Releases
+
+
+def query_repository(
+    owner: str,
+    repo: str,
+    fields: str,
+    *,
+    variables: dict[str, object] | None = None,
+    declarations: str = "",
+) -> Repository:
     token = os.environ.get("GITHUB_TOKEN") or os.environ.get("GH_TOKEN")
     if not token:
         raise ValueError("GitHub updates require GITHUB_TOKEN or GH_TOKEN")
@@ -27,10 +55,12 @@ def query_repository(owner, repo, fields, *, variables=None, declarations=""):
     repository = result["data"]["repository"]
     if repository is None:
         raise ValueError(f"GitHub repository not found: {owner}/{repo}")
-    return repository
+    return cast("Repository", repository)
 
 
-def release_version(owner, repo, pattern, *, prerelease=False):
+def release_version(
+    owner: str, repo: str, pattern: str, *, prerelease: bool = False
+) -> str:
     expression = re.compile(pattern)
     candidates = {}
     cursor = None
@@ -39,7 +69,8 @@ def release_version(owner, repo, pattern, *, prerelease=False):
         repository = query_repository(
             owner,
             repo,
-            """releases(first: 100, after: $cursor, orderBy: {field: CREATED_AT, direction: DESC}) {
+            """releases(first: 100, after: $cursor,
+              orderBy: {field: CREATED_AT, direction: DESC}) {
               nodes { tagName isPrerelease isDraft }
               pageInfo { hasNextPage endCursor }
             }""",
@@ -54,7 +85,7 @@ def release_version(owner, repo, pattern, *, prerelease=False):
             if match is None:
                 continue
             version = match.group(1)
-            # Current packages use numeric releases, optionally with a dated nightly suffix.
+            # Numeric releases may include a dated nightly suffix.
             if not re.fullmatch(r"\d+\.\d+\.\d+(?:-nightly\.\d{8}\.\d+)?", version):
                 raise ValueError(f"Unsupported version: {version}")
             key = tuple(int(part) for part in re.findall(r"\d+", version))

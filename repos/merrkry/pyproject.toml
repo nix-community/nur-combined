@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "github-release-updater"
 version = "0.1.0"
-requires-python = ">=3.9"
+requires-python = ">=3.14"
 
 [project.scripts]
 github-release-updater = "updaters.__main__:main"

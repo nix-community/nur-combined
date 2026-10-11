@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Update NUR packages and print build and test results as JSON."""
 
+from __future__ import annotations
+
 import argparse
 import hashlib
 import json
@@ -10,10 +12,56 @@ import subprocess
 import sys
 from contextlib import ExitStack
 from pathlib import Path
+from typing import Any, NotRequired, TypedDict
+
+
+class CommandResult(TypedDict):
+    command: list[str]
+    log: str
+    exitCode: int | None
+    status: str
+    error: NotRequired[str]
+
+
+class Derivations(TypedDict):
+    build: str
+    tests: dict[str, str]
+
+
+class FailedBuild(TypedDict):
+    derivations: Derivations
+    issueUrl: str
+
+
+class PackageResult(TypedDict, total=False):
+    package: str
+    status: str
+    oldVersion: str | None
+    newVersion: str | None
+    changelog: str | None
+    compare: str | None
+    changedFiles: list[str]
+    steps: dict[str, CommandResult]
+    tests: dict[str, CommandResult]
+    failedStage: str
+    error: str
+    reason: str
+    derivations: Derivations
+    failureIssue: str
+
+
+class Report(TypedDict, total=False):
+    schemaVersion: int
+    results: list[PackageResult]
+    system: str
+    discovery: CommandResult
+    packages: dict[str, Any]
+    error: str
+    success: bool
 
 
 class CommandFailed(Exception):
-    def __init__(self, result):
+    def __init__(self, result: CommandResult) -> None:
         self.result = result
         super().__init__(
             result.get("error", f"Command exited with {result['exitCode']}")
@@ -21,7 +69,7 @@ class CommandFailed(Exception):
 
 
 class Runner:
-    def __init__(self, repo):
+    def __init__(self, repo: Path) -> None:
         self.repo = repo
         self.logs = repo / ".update-results"
         self.logs.mkdir(exist_ok=True)
@@ -30,9 +78,20 @@ class Runner:
             "PYTHONUNBUFFERED": "1",
         }
 
-    def run(self, command, log_name, env=None, stdout_path=None):
+    def run(
+        self,
+        command: list[str],
+        log_name: str,
+        env: dict[str, str] | None = None,
+        stdout_path: Path | None = None,
+    ) -> CommandResult:
         log = self.logs / f"{log_name}.log"
-        result = {"command": command, "log": str(log), "exitCode": None}
+        result: CommandResult = {
+            "command": command,
+            "log": str(log),
+            "exitCode": None,
+            "status": "failed",
+        }
         with ExitStack() as files:
             output = files.enter_context(log.open("w"))
             stdout = (
@@ -41,7 +100,7 @@ class Runner:
                 else subprocess.PIPE
             )
 
-            def log_output(line):
+            def log_output(line: str) -> None:
                 output.write(line)
                 output.flush()
                 print(line, end="", file=sys.stderr, flush=True)
@@ -58,6 +117,7 @@ class Runner:
                     text=True,
                 ) as process:
                     stream = process.stderr if stdout_path else process.stdout
+                    assert stream is not None
                     for line in stream:
                         log_output(line)
                     result["exitCode"] = process.wait()
@@ -71,7 +131,7 @@ class Runner:
         return result
 
 
-def snapshot(repo):
+def snapshot(repo: Path) -> dict[str, str]:
     return {
         str(path.relative_to(repo)): hashlib.sha256(path.read_bytes()).hexdigest()
         for path in (repo / "pkgs").rglob("*.nix")
@@ -79,7 +139,7 @@ def snapshot(repo):
     }
 
 
-def changed_files(before, after):
+def changed_files(before: dict[str, str], after: dict[str, str]) -> list[str]:
     return sorted(
         name
         for name in before.keys() | after.keys()
@@ -87,7 +147,9 @@ def changed_files(before, after):
     )
 
 
-def read_metadata(runner, log_name, attribute="inventory"):
+def read_metadata(
+    runner: Runner, log_name: str, attribute: str = "inventory"
+) -> tuple[Any, CommandResult]:
     json_path = runner.logs / f"{log_name}.json"
     result = runner.run(
         [
@@ -106,8 +168,10 @@ def read_metadata(runner, log_name, attribute="inventory"):
     return json.loads(json_path.read_text()), result
 
 
-def update_package(runner, name, explicit, failed_builds):
-    result = {
+def update_package(
+    runner: Runner, name: str, explicit: bool, failed_builds: dict[str, FailedBuild]
+) -> PackageResult:
+    result: PackageResult = {
         "package": name,
         "status": "failed",
         "oldVersion": None,
@@ -187,8 +251,7 @@ def update_package(runner, name, explicit, failed_builds):
             and old_source["rev"] != new_source["rev"]
         ):
             result["compare"] = (
-                f"{new_source['url']}/compare/"
-                f"{old_source['rev']}...{new_source['rev']}"
+                f"{new_source['url']}/compare/{old_source['rev']}...{new_source['rev']}"
             )
         if not result["changedFiles"]:
             result["status"] = "unchanged"
@@ -255,7 +318,7 @@ def update_package(runner, name, explicit, failed_builds):
     return result
 
 
-def main():
+def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "packages", nargs="*", help="Package attributes; omit to update all"
@@ -269,9 +332,9 @@ def main():
         help="JSON file of previous failures; skip matching build and test derivations",
     )
     args = parser.parse_args()
-    report = {"schemaVersion": 1, "results": []}
+    report: Report = {"schemaVersion": 1, "results": []}
     try:
-        failed_builds = (
+        failed_builds: dict[str, FailedBuild] = (
             json.loads(args.failed_builds.read_text()) if args.failed_builds else {}
         )
         if not isinstance(failed_builds, dict) or any(

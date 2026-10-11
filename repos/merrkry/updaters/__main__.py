@@ -7,7 +7,7 @@ import subprocess
 from .github import release_version
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--owner", required=True)
     parser.add_argument("--repo", required=True)
