@@ -1,6 +1,7 @@
 # NUR packages
 
 Personal Nix packages and NixOS modules using the caller's `pkgs`.
+`default.nix` exports packages and module paths.
 
 | Package | NixOS module | Documentation |
 | --- | --- | --- |
@@ -11,13 +12,10 @@ Personal Nix packages and NixOS modules using the caller's `pkgs`.
 | `rsshub` | Use nixpkgs' module with this package | [RSSHub](pkgs/rsshub/README.md) |
 | `spotify-spotx` | None | [Spotify with SpotX](pkgs/spotify-spotx/README.md) |
 
-`default.nix` exports packages and module paths. This repository is not yet
-registered in the public NUR index.
-
 ## Maintenance and tests
 
 Run from the repository root with `<nixpkgs>` and `nix-command` enabled.
-`nix-shell` supplies the tools; GitHub queries use authenticated `gh`.
+`nix-shell` supplies the tools; GitHub queries require authenticated `gh`.
 
 ```sh
 nix-shell
@@ -25,48 +23,31 @@ just --list
 just build changedetection-io
 just update changedetection-io
 just check changedetection-io
-just update fluxdown-server
 just contract fluxdown-server
-just check fluxdown-server
-just update-spotx
-NIXPKGS_ALLOW_UNFREE=1 just check spotify-spotx
 NIXPKGS_ALLOW_UNFREE=1 just check-all
 NIXPKGS_ALLOW_UNFREE=1 just check-updates
 NIXPKGS_ALLOW_UNFREE=1 just check-updates --update
 just lint
 ```
 
-`just update <package> [version]` refreshes hashes and validates in a temporary
-copy before writing back. Review contract changes before accepting them with
-`just update-reviewed fluxdown-server <version>`. `just update-spotx` is an alias
-for `just update spotify-spotx`; Spotify itself follows the caller's nixpkgs.
+- `just update <package> [version]` refreshes hashes and validates in a temporary
+  copy before writing back. Review FluxDown contract changes before accepting
+  them with `just update-reviewed fluxdown-server <version>`.
+- `just update-spotx` updates `spotify-spotx`; Spotify follows the caller's nixpkgs.
+- `just check <package>` builds the package and its `passthru.tests`, then lints.
+  `just check-all` also runs updater tests. Builds cover the current platform only;
+  VM tests are opt-in.
+- `just check-updates` detects releases in temporary copies without source or
+  dependency downloads. Add `--update` to update and validate locally.
 
-`just check` builds the package and its `passthru.tests`, then lints. `just check-all` also runs
-updater tests. Only the current platform is build-tested; VM tests are opt-in.
-`just check-updates` runs each package's update script in a temporary copy
-with source and dependency downloads disabled. Add `--update` to update and
-validate locally. These commands do not deploy, commit or push.
+These commands do not deploy, commit or push. For in-place updates, use
+`nix-update -f . <package> --use-update-script`; plain nix-update does not select
+`passthru.updateScript` automatically. See [AGENTS.md](AGENTS.md) for maintenance rules.
 
 ## Automated updates
 
-GitHub Actions checks all packages daily at 00:00 UTC (08:00 China time), or
-manually through `workflow_dispatch`. Validated updates are proposed as PRs,
-without auto-merging. Publishing requires a self-hosted runner and a token with
-repository write and PR permissions.
-
-Packages declare `passthru.updateScript` and `passthru.tests`. Simple updates
-use `nix-update-script`; FluxDown declares a complete custom script that calls
-nix-update, refreshes both architecture hashes, verifies release checksums and
-regenerates its reviewed contract. There are no implicit follow-up scripts.
-Script paths, command arrays and `{ command, attrPath, supportedFeatures }`
-objects are supported, with the standard `UPDATE_NIX_*` environment variables.
-
-`nix-update -f . <package> --use-update-script` is supported through a small
-adapter to nixpkgs' official update runner. This updates in place; use `just
-update` for isolated validation and writeback. Plain nix-update does not select
-the package's updateScript automatically. No command schedules itself.
-
-The daily workflow supplies tokens to both gh and nix-update. A package failure
-is reported without skipping later packages; the job fails after the summary.
-For read-only detection, custom scripts honor `NUR_DETECT_VERSION=1`; this is
-a repository extension, not part of the official updateScript protocol.
+GitHub Actions checks packages daily at 00:00 UTC (08:00 China time) or via
+`workflow_dispatch`. Validated updates become PRs without auto-merging. Publishing
+requires a self-hosted runner and a token with repository write and PR permissions.
+The workflow supplies tokens to gh and nix-update, checks every package despite
+individual failures, and fails after the summary if any package failed.

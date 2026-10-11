@@ -3,13 +3,12 @@
 ## Style and scope
 
 - Prefer concise code, early errors and existing workflows. Avoid speculative
-  fallbacks and redundant defensive checks; fail clearly on invalid assumptions.
-  Preserve security and data-integrity checks. Do not split functions merely to
-  reduce complexity metrics.
-- Keep documentation short: usage, maintenance and test commands. Investigate
-  errors from their messages when they occur; omit speculative troubleshooting.
-- Write documentation in English; keep package notes in `pkgs/<name>/README.md`.
-- Keep packages in `pkgs/`, modules in `modules/`, package tests in `tests/pkgs/`,
+  fallbacks, redundant checks and function splits made only to reduce complexity
+  metrics. Preserve security and data-integrity checks.
+- Keep English documentation focused on usage, maintenance and tests; put package
+  notes in `pkgs/<name>/README.md`. Diagnose errors from their messages, not
+  speculative troubleshooting.
+- Keep packages in `pkgs/`, modules in `modules/`, package tests in `tests/pkgs/`
   and maintenance tests in `tests/`. Export through `default.nix`; module exports
   must evaluate with `pkgs = null` and use the caller's `pkgs`.
 - Keep secrets outside the Nix store. Do not change consuming configurations or
@@ -17,8 +16,8 @@
 
 ## Updates
 
-Load `.agents/skills/nur-package-update/SKILL.md` for package updates and upstream
-checks. Read the package's `passthru.updateScript` and README, verify the upstream release, and
+Load `.agents/skills/nur-package-update/SKILL.md` for updates and upstream checks.
+Read the package's `passthru.updateScript` and README; verify the release and
 review dependencies, license, platforms and configuration changes.
 
 ```sh
@@ -27,19 +26,20 @@ nix-shell --run 'just contract fluxdown-server'
 nix-shell --run 'just check <name>'
 ```
 
-Declare complete updates through `passthru.updateScript` (use nix-update-script
-for simple updates) and checks through `passthru.tests`. Do not add maintenance
-metadata or implicit follow-up hooks. Custom scripts must perform all package
-updates themselves and honor `NUR_DETECT_VERSION=1` for read-only detection.
-Refresh all supported source hashes. Use upstream schemas/parsers to review
-configuration semantics. Regenerate contracts through their tools, not by hand.
-Adapt affected modules and tests before accepting reviewed changes with
-`just update-reviewed <name> <version>`. Do not bypass failed checks.
+- Declare complete updates in `passthru.updateScript` (`nix-update-script` for
+  simple updates) and checks in `passthru.tests`. Do not add maintenance metadata
+  or implicit follow-up hooks. Custom scripts must complete all updates and honor
+  `NUR_DETECT_VERSION=1` for read-only detection.
+- Refresh hashes for every supported source. Review configuration semantics with
+  upstream schemas/parsers and regenerate contracts with their tools, not by hand.
+- Adapt affected modules and tests before accepting contract changes with
+  `just update-reviewed <name> <version>`. Never bypass failed checks.
 
 ## Validation
 
-Validate packaging and this repository's own logic; do not run upstream unit
-suites unless requested. Keep build, dependency and import checks.
+Validate packaging and repository logic, including build, dependency and import
+checks. Do not run upstream unit suites or VM tests unless requested; isolate
+runtime tests from existing services and data.
 
 ```sh
 NIXPKGS_ALLOW_UNFREE=1 nix-shell --run 'just check-all'
@@ -47,20 +47,22 @@ nix-shell --run 'just lint'
 git diff --check
 ```
 
-Python must pass basedpyright with zero errors and warnings. Review the complete
-diff, including new files. Only the current platform is build-tested; run VM
-tests only when requested and isolate runtime tests from existing services/data.
-Report actual checks and untested scope briefly.
+Require zero basedpyright errors and warnings. Review the full diff, including new
+files. Report passed checks and untested scope; builds cover the current platform.
 
 ## Git
 
 Load `.agents/skills/clean-main-workflow/SKILL.md` for commits, PRs and history
-changes. Prefer one commit per PR and squash merges. Do not commit, push or
-rewrite published history unless explicitly requested; use `--force-with-lease`
-for authorized history rewrites.
+changes. Prefer one commit per PR and squash merges. Do not commit, push or rewrite
+published history unless requested; use `--force-with-lease` for authorized rewrites.
 
-Use `pkg-name: old-ver -> new-ver` for version updates and English Conventional
-Commit titles for other changes. Keep titles under 72 characters. Put release
-notes in PRs, not READMEs. Use `.github/package-update-pr.md` for package-update
-PR descriptions: a visible upstream diff URL, completed-check task list, explicit
-platform and CI log link when available. Include only checks that actually passed.
+Use `pkg-name: old-ver -> new-ver` for updates and English Conventional Commit
+titles otherwise, under 72 characters. Keep release notes in PRs, not READMEs.
+Use `.github/package-update-pr.md` for update PRs: upstream diff URL, passed-check
+list, tested platform and CI log link when available.
+
+After publishing changes to `main`, refresh the [NUR index](https://nur-update.nix-community.org/):
+
+```sh
+curl -X POST 'https://nur-update.nix-community.org/update?repo=davinci42'
+```
