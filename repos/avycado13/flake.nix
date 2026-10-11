@@ -17,7 +17,6 @@
             nix
             git
           ] ++ (with legacyPackages; [
-            zmx
             brew2nur
           ]);
         };

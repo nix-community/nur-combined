@@ -1,5 +1,6 @@
 result
 result-*
 
- .direnv
+.direnv/
 .DS_Store
+.ds_store

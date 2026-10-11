@@ -17,7 +17,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   gitcredits = pkgs.callPackage ./pkgs/gitcredits { };
-  zmx = pkgs.callPackage ./pkgs/zmx { };
   brew2nur = pkgs.callPackage ./pkgs/brew2nur { };
   anylinuxfs-gui = pkgs.callPackage ./pkgs/anylinuxfs-gui { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
