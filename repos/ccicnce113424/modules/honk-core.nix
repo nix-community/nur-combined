@@ -89,7 +89,11 @@ in
     package = mkPackageOption pkgs "honk-core" { };
 
     doona = {
-      enable = mkEnableOption "the doona web UI and honk's native API (password login, configuration writes)";
+      enable =
+        mkEnableOption "the doona web UI and honk's native API (password login, configuration writes)"
+        // {
+          default = true;
+        };
       package = mkPackageOption pkgs "doona-web" { };
       listenAddress = mkOption {
         type = types.str;

@@ -15,6 +15,9 @@ dorion.overrideAttrs (
   final: prev: {
     inherit (sources) pname src;
     version = "${prev.version}-unstable-${sources.date}";
+    passthru = (prev.passthru or { }) // {
+      updateScript = [ ./update.sh ];
+    };
     pnpmDeps = fetchPnpmDeps {
       inherit (final) pname version src;
       inherit hash;

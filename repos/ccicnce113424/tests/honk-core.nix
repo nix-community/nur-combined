@@ -36,7 +36,6 @@
 
         services.honk-core = {
           enable = true;
-          doona.enable = true;
 
           # honk only hijacks the interfaces it is told about; `eth1` is the
           # one carrying this host's traffic.

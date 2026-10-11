@@ -1,0 +1,77 @@
+name: Update Packages
+
+on:
+  workflow_dispatch:
+    inputs:
+      units:
+        description: "Space-separated unit names to update (default: all)"
+        required: false
+        default: ""
+  schedule:
+    - cron: "0 5 * * *"
+      timezone: "Asia/Shanghai"
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    name: Plan
+    outputs:
+      units: ${{ steps.units.outputs.units }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Install Nix
+        uses: nixbuild/nix-quick-install-action@v35
+        with:
+          nix_conf: |
+            accept-flake-config = true
+
+      - name: List update units
+        id: units
+        env:
+          UNITS: ${{ inputs.units }}
+        run: |
+          # shellcheck disable=SC2086
+          echo "units=$(_scripts/run-update-scripts.sh --list $UNITS)" >> "$GITHUB_OUTPUT"
+
+  update:
+    needs: plan
+    if: needs.plan.outputs.units != '[]'
+    runs-on: ubuntu-latest
+    name: Update ${{ matrix.unit }}
+    strategy:
+      fail-fast: false
+      matrix:
+        unit: ${{ fromJSON(needs.plan.outputs.units) }}
+    concurrency:
+      group: update-unit-${{ matrix.unit }}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Install Nix
+        uses: nixbuild/nix-quick-install-action@v35
+        with:
+          nix_conf: |
+            accept-flake-config = true
+
+      - name: Update unit
+        run: |
+          _scripts/run-update-scripts.sh "${{ matrix.unit }}"
+          git add .
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }}
+          commit-message: Update ${{ matrix.unit }}
+          branch: ci/update-${{ matrix.unit }}
+          delete-branch: true
+          title: Update ${{ matrix.unit }}
+          labels: dependencies

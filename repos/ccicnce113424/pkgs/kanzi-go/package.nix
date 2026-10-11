@@ -2,6 +2,7 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+  nix-update-script,
 }:
 buildGoModule (finalAttrs: {
   pname = "kanzi-go";
@@ -18,6 +19,8 @@ buildGoModule (finalAttrs: {
   vendorHash = null;
 
   postInstall = "mv $out/bin/app $out/bin/kanzi";
+
+  passthru.updateScript = nix-update-script { extraArgs = [ "--use-github-releases" ]; };
 
   meta = {
     description = "Fast lossless data compressor";

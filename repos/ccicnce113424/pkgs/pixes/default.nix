@@ -3,6 +3,7 @@
   version,
   pubspecLock,
   gitHashes,
+  updateScript ? [ ./update.sh ],
   lib,
   flutter344,
   webkitgtk_4_1,
@@ -12,6 +13,8 @@
 flutter344.buildFlutterApplication {
   inherit (sources) pname src;
   inherit version pubspecLock gitHashes;
+
+  passthru = { inherit updateScript; };
 
   buildInputs = [ webkitgtk_4_1 ];
 

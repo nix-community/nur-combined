@@ -11,6 +11,8 @@ python3Packages.buildPythonPackage {
   pyproject = true;
   build-system = with python3Packages; [ setuptools ];
 
+  passthru.updateScript = null; # versions are tracked by nvfetcher (`just up`)
+
   meta = {
     description = "Find duplicate dependencies in flakes";
     homepage = "https://github.com/Mic92/flake-linter";

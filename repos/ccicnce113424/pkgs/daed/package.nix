@@ -9,9 +9,7 @@
   buildGoModule,
   fetchFromGitHub,
   lib,
-  _experimental-update-script-combinators,
   nixosTests,
-  nix-update-script,
 }:
 let
   pnpm = pnpm_10;
@@ -117,15 +115,6 @@ buildGoModule (finalAttrs: {
   passthru = {
     inherit (finalAttrs) web;
     tests = { inherit (nixosTests) daed; };
-    updateScript = _experimental-update-script-combinators.sequence [
-      (nix-update-script {
-        attrPath = "daed.web";
-        extraArgs = [ "--use-github-releases" ];
-      })
-      (nix-update-script {
-        extraArgs = [ "--version=skip" ];
-      })
-    ];
   };
 
   meta = {

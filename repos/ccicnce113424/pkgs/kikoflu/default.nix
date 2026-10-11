@@ -14,6 +14,8 @@ flutter.buildFlutterApplication (finalAttrs: {
   inherit (sources) pname src;
   inherit version pubspecLock gitHashes;
 
+  passthru.updateScript = [ ./update.sh ];
+
   desktopItems = [
     (makeDesktopItem {
       name = "kikoflu";

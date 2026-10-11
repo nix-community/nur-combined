@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p gnugrep jq nix-update
+#!nix-shell -i bash -p gnugrep jq
 # shellcheck shell=bash
 set -euo pipefail
 
@@ -8,10 +8,6 @@ package_name="open-orpheus-dev"
 
 parse_args "$@"
 setup_paths
-
-pushd "$SCRIPT_DIR/.."
-nix-update --use-github-releases open-orpheus
-popd
 
 read_source_info "jq"
 check_stale "jq"

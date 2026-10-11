@@ -1,11 +1,16 @@
+queue_rules:
+  - name: default
+    merge_method: rebase
+    merge_conditions:
+      - check-success=All
+
 pull_request_rules:
-  - name: Merge when labeled and all CI jobs pass
+  - name: Queue when labeled and all CI jobs pass
     conditions:
       - and:
           - label=dependencies
           - check-success=All
           - base=main
     actions:
-      update:
-      merge:
-        method: rebase
+      queue:
+        name: default

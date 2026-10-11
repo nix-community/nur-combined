@@ -10,6 +10,8 @@ buildGoModule {
   inherit version;
   vendorHash = hash;
 
+  passthru.updateScript = [ ./update.sh ];
+
   meta = {
     description = "Nix access-token management tool";
     homepage = "https://github.com/numtide/nix-auth";

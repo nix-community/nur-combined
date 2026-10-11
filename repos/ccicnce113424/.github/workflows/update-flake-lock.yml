@@ -1,0 +1,32 @@
+name: Update Flake Lock
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: update-flake-lock
+  cancel-in-progress: true
+
+jobs:
+  lockfile:
+    runs-on: ubuntu-latest
+    name: Update Lockfile
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Install Nix
+        uses: nixbuild/nix-quick-install-action@v35
+        with:
+          nix_conf: |
+            accept-flake-config = true
+
+      - name: Update flake.lock
+        uses: DeterminateSystems/update-flake-lock@v29
+        with:
+          token: ${{ secrets.GH_TOKEN_FOR_UPDATES }} # https://github.com/DeterminateSystems/update-flake-lock#with-a-personal-authentication-token
+          pr-title: "Update flake.lock" # Title of PR to be created
+          pr-labels: | # Labels to be set on the PR
+            dependencies

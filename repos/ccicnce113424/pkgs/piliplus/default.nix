@@ -30,6 +30,8 @@ flutter.buildFlutterApplication {
   inherit (sources) pname src;
   inherit version pubspecLock gitHashes;
 
+  passthru.updateScript = [ ./update.sh ];
+
   patches = [
     ./disable-auto-update.patch
     ./no-remove-before-patch.patch

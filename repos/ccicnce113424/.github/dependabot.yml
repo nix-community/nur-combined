@@ -5,6 +5,16 @@
 
 version: 2
 updates:
+  - package-ecosystem: "nix"
+    directory: "/"
+    open-pull-requests-limit: 32
+    cooldown:
+      exclude:
+        - "*"
+    schedule:
+      interval: "cron"
+      cronjob: "0 5 * * *"
+      timezone: "Asia/Shanghai"
   - package-ecosystem: "github-actions"
     directory: "/"
     cooldown:
