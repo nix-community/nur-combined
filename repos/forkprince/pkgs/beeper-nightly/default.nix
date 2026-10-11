@@ -64,6 +64,6 @@ in
       '';
     })
   else
-    beeper.overrideAttrs (old: {
+    beeper.overrideAttrs (_: {
       inherit pname version src meta;
     })

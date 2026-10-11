@@ -7,7 +7,7 @@
 }: let
   ver = lib.helper.read ./version.json;
 in
-  rustPlatform.buildRustPackage (finalAttrs: {
+  rustPlatform.buildRustPackage {
     pname = "orb";
     inherit (ver) version;
 
@@ -31,4 +31,4 @@ in
       platforms = lib.platforms.linux ++ lib.platforms.darwin;
       mainProgram = "orb";
     };
-  })
+  }

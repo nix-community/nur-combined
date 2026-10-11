@@ -1,0 +1,28 @@
+{
+  "name": "WordCraft",
+  "source": {
+    "type": "github-release",
+    "repo": "storytold/wordcraft",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "0.5.0",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "wordcraft-{version}-macos-universal.dmg",
+      "hash": "sha256-hVgS8ZoaJ7bcC7tcesccOmC4T1MBtLlwvoujxd/f7OU="
+    },
+    "x86_64-darwin": {
+      "file": "wordcraft-{version}-macos-universal.dmg",
+      "hash": "sha256-hVgS8ZoaJ7bcC7tcesccOmC4T1MBtLlwvoujxd/f7OU="
+    },
+    "x86_64-linux": {
+      "file": "wordcraft-{version}-linux-x86_64.AppImage",
+      "hash": "sha256-lHfqkt2e3yq5dL3jJZWEWyc3snskx6QGWctdzieydVE="
+    },
+    "aarch64-linux": {
+      "file": "wordcraft-{version}-linux-aarch64.AppImage",
+      "hash": "sha256-6LULic0RnkNsQjzvLP7/OFs16BtYSWiSBMJ+ttmBW7M="
+    }
+  }
+}

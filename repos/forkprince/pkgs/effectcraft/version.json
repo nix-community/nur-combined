@@ -1,0 +1,28 @@
+{
+  "name": "EffectCraft",
+  "source": {
+    "type": "github-release",
+    "repo": "storytold/effectcraft",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "0.7.0",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "effectcraft-{version}-macos-universal.dmg",
+      "hash": "sha256-05T9DAQ3Kq2J+5mhYL8u7s9+YDWya/LaIJzXgZsby10="
+    },
+    "x86_64-darwin": {
+      "file": "effectcraft-{version}-macos-universal.dmg",
+      "hash": "sha256-05T9DAQ3Kq2J+5mhYL8u7s9+YDWya/LaIJzXgZsby10="
+    },
+    "x86_64-linux": {
+      "file": "effectcraft-{version}-linux-x86_64.AppImage",
+      "hash": "sha256-eZLmpSecKcgpWHbxh0wor6kAbapNL+/syOyuMJJOzqo="
+    },
+    "aarch64-linux": {
+      "file": "effectcraft-{version}-linux-aarch64.AppImage",
+      "hash": "sha256-uHfaAbe0INEJ3mi+EcxBPj7sRK/Vk6fGgndoi0GrmHI="
+    }
+  }
+}

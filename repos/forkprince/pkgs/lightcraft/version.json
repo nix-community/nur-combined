@@ -1,0 +1,28 @@
+{
+  "name": "LightCraft",
+  "source": {
+    "type": "github-release",
+    "repo": "storytold/lightcraft",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "0.5.0",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "lightcraft-{version}-macos-universal.dmg",
+      "hash": "sha256-vSMwHVHJdWyXAVYSS8xHVxtTD79183IIZj7nXG6sBJ4="
+    },
+    "x86_64-darwin": {
+      "file": "lightcraft-{version}-macos-universal.dmg",
+      "hash": "sha256-vSMwHVHJdWyXAVYSS8xHVxtTD79183IIZj7nXG6sBJ4="
+    },
+    "x86_64-linux": {
+      "file": "lightcraft-{version}-linux-x86_64.AppImage",
+      "hash": "sha256-I84h/vKK+Rz+lY6ZycXVi/bQDte/cCsxohFCzUWkcGM="
+    },
+    "aarch64-linux": {
+      "file": "lightcraft-{version}-linux-aarch64.AppImage",
+      "hash": "sha256-ACbk2ykHqqJyhDnGRU1kiE2E7OaHG8FbNOYv1fgTPJc="
+    }
+  }
+}

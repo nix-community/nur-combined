@@ -1,6 +1,4 @@
 {
-  makeDesktopItem,
-  appimageTools,
   stdenvNoCC,
   fetchurl,
   _7zz,
@@ -28,31 +26,10 @@ in
 
       nativeBuildInputs = [_7zz];
     })
-  else let
-    contents = appimageTools.extract {inherit pname version src;};
-
-    desktopItem = makeDesktopItem {
-      name = "nuvio";
-      desktopName = "Nuvio";
-      comment = meta.description;
-      exec = "nuvio %U";
-      icon = "nuvio";
-      terminal = false;
-      categories = ["AudioVideo" "Video"];
-    };
-  in
-    appimageTools.wrapType2 {
+  else
+    lib.helper.mkAppImage {
       inherit pname version src meta;
 
-      extraInstallCommands = ''
-        install -Dm444 ${desktopItem}/share/applications/*.desktop \
-          $out/share/applications/nuvio.desktop
-        if [ -d ${contents}/usr/share/icons ]; then
-          cp -r ${contents}/usr/share/icons $out/share/ || true
-        fi
-        icon=$(find ${contents} -maxdepth 2 -name "*.png" | head -n1)
-        if [ -n "$icon" ]; then
-          install -Dm444 "$icon" $out/share/icons/hicolor/512x512/apps/nuvio.png || true
-        fi
-      '';
+      desktopName = "Nuvio";
+      categories = ["AudioVideo" "Video"];
     }

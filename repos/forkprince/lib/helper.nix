@@ -1,4 +1,7 @@
-{lib}: rec {
+{
+  pkgs,
+  lib,
+}: rec {
   githubUrl = repo: tagPrefix: version: file: sanitizeUrl "https://github.com/${repo}/releases/download/${tagPrefix}${version}/${file}";
 
   forgejoUrl = instance: repo: tagPrefix: version: file: sanitizeUrl "${instance}/${repo}/releases/download/${tagPrefix}${version}/${file}";
@@ -285,5 +288,46 @@
           sourceProvenance = [lib.sourceTypes.binaryNativeCode];
         }
         // meta;
+    };
+
+  mkAppImage = {
+    pname,
+    version,
+    src,
+    meta ? {},
+    desktopName ? pname,
+    desktopComment ? meta.description or "",
+    categories ? [],
+    exec ? "${pname} %U",
+    terminal ? false,
+    extraDesktopItem ? {},
+    extraInstallCommands ? "",
+  }: let
+    contents = pkgs.appimageTools.extract {inherit pname version src;};
+
+    desktopItem =
+      pkgs.makeDesktopItem {
+        name = pname;
+        inherit desktopName exec terminal categories;
+        comment = desktopComment;
+        icon = pname;
+      }
+      // extraDesktopItem;
+  in
+    pkgs.appimageTools.wrapType2 {
+      inherit pname version src meta;
+
+      extraInstallCommands =
+        ''
+          install -Dm444 ${desktopItem}/share/applications/*.desktop $out/share/applications/${pname}.desktop
+          if [ -d ${contents}/usr/share/icons ]; then
+            cp -r ${contents}/usr/share/icons $out/share/ || true
+          fi
+          icon=$(find ${contents} -maxdepth 2 -name "*.png" | head -n1)
+          if [ -n "$icon" ]; then
+            install -Dm444 "$icon" $out/share/icons/hicolor/512x512/apps/${pname}.png || true
+          fi
+        ''
+        + extraInstallCommands;
     };
 }

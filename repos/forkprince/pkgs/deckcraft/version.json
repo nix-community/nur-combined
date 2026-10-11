@@ -1,0 +1,28 @@
+{
+  "name": "DeckCraft",
+  "source": {
+    "type": "github-release",
+    "repo": "storytold/deckcraft",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "0.5.0",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "deckcraft-{version}-macos-universal.dmg",
+      "hash": "sha256-n/qpelBR36+CIKmJu07slpzH09ojc8Qx7zfS1O8bLA4="
+    },
+    "x86_64-darwin": {
+      "file": "deckcraft-{version}-macos-universal.dmg",
+      "hash": "sha256-n/qpelBR36+CIKmJu07slpzH09ojc8Qx7zfS1O8bLA4="
+    },
+    "x86_64-linux": {
+      "file": "deckcraft-{version}-linux-x86_64.AppImage",
+      "hash": "sha256-Zi9iNqHAqBwyboCxJq/VXdaNwqEsM7vDAJ8G2fObMR4="
+    },
+    "aarch64-linux": {
+      "file": "deckcraft-{version}-linux-aarch64.AppImage",
+      "hash": "sha256-rZ9yawq5WQ777yzZ80rr63va5YzOtW4GO6Mzu6T2TRA="
+    }
+  }
+}

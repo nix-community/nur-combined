@@ -1,0 +1,28 @@
+{
+  "name": "PhotoCraft",
+  "source": {
+    "type": "github-release",
+    "repo": "storytold/photocraft",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "0.6.0",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "photocraft-{version}-macos-universal.dmg",
+      "hash": "sha256-rtrDEcenbbMoVFHgNgqw2m574j5d7TjIrFhA1oytdNs="
+    },
+    "x86_64-darwin": {
+      "file": "photocraft-{version}-macos-universal.dmg",
+      "hash": "sha256-rtrDEcenbbMoVFHgNgqw2m574j5d7TjIrFhA1oytdNs="
+    },
+    "x86_64-linux": {
+      "file": "photocraft-{version}-linux-x86_64.AppImage",
+      "hash": "sha256-Y1+TiT+Unb8Xorwg4cKFqO/byIWchErS+6ro5wCfZ9Y="
+    },
+    "aarch64-linux": {
+      "file": "photocraft-{version}-linux-aarch64.AppImage",
+      "hash": "sha256-1YgB51b+jjsWWWgA1t5J6Hb35lP45obEyUiD4mCDAVQ="
+    }
+  }
+}

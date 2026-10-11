@@ -120,7 +120,7 @@ in
     name = pname;
     inherit (ver) version;
 
-    targetPkgs = pkgs: [
+    targetPkgs = _: [
       unwrapped
       # Launcher dependencies
       gsettings-desktop-schemas

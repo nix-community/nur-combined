@@ -1,0 +1,28 @@
+{
+  "name": "PdfCraft",
+  "source": {
+    "type": "github-release",
+    "repo": "storytold/pdfcraft",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "0.5.0",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "pdfcraft-{version}-macos-universal.dmg",
+      "hash": "sha256-Nr/U+x1v0iMh+SJj28l7Qcwma1J196rGMGRGS2vpgs0="
+    },
+    "x86_64-darwin": {
+      "file": "pdfcraft-{version}-macos-universal.dmg",
+      "hash": "sha256-Nr/U+x1v0iMh+SJj28l7Qcwma1J196rGMGRGS2vpgs0="
+    },
+    "x86_64-linux": {
+      "file": "pdfcraft-{version}-linux-x86_64.AppImage",
+      "hash": "sha256-cjwWcw69cs/xK0DmSO2TWQDzrLWQsi0DbirxOijOb0U="
+    },
+    "aarch64-linux": {
+      "file": "pdfcraft-{version}-linux-aarch64.AppImage",
+      "hash": "sha256-7+Cjo7sDypZlcR0vLuy26rfnzr7c9jL/g1FTH0bQb1E="
+    }
+  }
+}

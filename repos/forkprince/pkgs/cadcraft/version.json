@@ -1,0 +1,28 @@
+{
+  "name": "CADCraft",
+  "source": {
+    "type": "github-release",
+    "repo": "storytold/cadcraft",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "0.5.0",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "cadcraft-{version}-macos-universal.dmg",
+      "hash": "sha256-98moRwfq5YQF2JMHZKv92suJUxVx1jpKSdm5tzX2+Kc="
+    },
+    "x86_64-darwin": {
+      "file": "cadcraft-{version}-macos-universal.dmg",
+      "hash": "sha256-98moRwfq5YQF2JMHZKv92suJUxVx1jpKSdm5tzX2+Kc="
+    },
+    "x86_64-linux": {
+      "file": "cadcraft-{version}-linux-x86_64.AppImage",
+      "hash": "sha256-0pdWaTryscRBFd/aZ7c9BR+dZenjaFKSZ0S18xKuhcY="
+    },
+    "aarch64-linux": {
+      "file": "cadcraft-{version}-linux-aarch64.AppImage",
+      "hash": "sha256-5DM9Z5jrWM9863gYurDyBrZLBhfjlpvytncQVZSVZlY="
+    }
+  }
+}

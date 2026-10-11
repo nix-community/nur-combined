@@ -1,0 +1,28 @@
+{
+  "name": "SoundCraft",
+  "source": {
+    "type": "github-release",
+    "repo": "storytold/soundcraft",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "0.5.0",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "soundcraft-{version}-macos-universal.dmg",
+      "hash": "sha256-LRzrAKag1VM976CP+V1JQy9+dFXYMWE9nRdnwwv0maI="
+    },
+    "x86_64-darwin": {
+      "file": "soundcraft-{version}-macos-universal.dmg",
+      "hash": "sha256-LRzrAKag1VM976CP+V1JQy9+dFXYMWE9nRdnwwv0maI="
+    },
+    "x86_64-linux": {
+      "file": "soundcraft-{version}-linux-x86_64.AppImage",
+      "hash": "sha256-ygCL5GG1fKFpdflPn8dY851yfUR3wyEeP1sepGvq0nI="
+    },
+    "aarch64-linux": {
+      "file": "soundcraft-{version}-linux-aarch64.AppImage",
+      "hash": "sha256-t0xNizB4qbl0FayQwMi9HXQALHzz+l24U9YOvS8TPFw="
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "name": "GridCraft",
+  "source": {
+    "type": "github-release",
+    "repo": "storytold/gridcraft",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "0.5.0",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "gridcraft-{version}-macos-universal.dmg",
+      "hash": "sha256-43IXCtladiXjezFbFo2L4qXSVH3m3iUvg46Bu33phRM="
+    },
+    "x86_64-darwin": {
+      "file": "gridcraft-{version}-macos-universal.dmg",
+      "hash": "sha256-43IXCtladiXjezFbFo2L4qXSVH3m3iUvg46Bu33phRM="
+    },
+    "x86_64-linux": {
+      "file": "gridcraft-{version}-linux-x86_64.AppImage",
+      "hash": "sha256-+XqC0PIdM4H7sZoK4JKNZcXNxAL6pekgCDEs5Jh0XOI="
+    },
+    "aarch64-linux": {
+      "file": "gridcraft-{version}-linux-aarch64.AppImage",
+      "hash": "sha256-Dh5r+rb1CvsDglmw0i4a7bOCAJkcrAkRkY2hk37/w/c="
+    }
+  }
+}

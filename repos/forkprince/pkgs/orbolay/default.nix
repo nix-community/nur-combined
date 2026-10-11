@@ -1,6 +1,4 @@
 {
-  makeDesktopItem,
-  appimageTools,
   stdenvNoCC,
   fetchurl,
   unzip,
@@ -28,31 +26,10 @@ in
 
       nativeBuildInputs = [unzip];
     })
-  else let
-    contents = appimageTools.extract {inherit pname version src;};
-
-    desktopItem = makeDesktopItem {
-      name = "orbolay";
-      desktopName = "Orbolay";
-      comment = meta.description;
-      exec = "orbolay %U";
-      icon = "orbolay";
-      terminal = false;
-      categories = ["Network"];
-    };
-  in
-    appimageTools.wrapType2 {
+  else
+    lib.helper.mkAppImage {
       inherit pname version src meta;
 
-      extraInstallCommands = ''
-        install -Dm444 ${desktopItem}/share/applications/*.desktop \
-          $out/share/applications/orbolay.desktop
-        if [ -d ${contents}/usr/share/icons ]; then
-          cp -r ${contents}/usr/share/icons $out/share/ || true
-        fi
-        icon=$(find ${contents} -maxdepth 2 -name "*.png" | head -n1)
-        if [ -n "$icon" ]; then
-          install -Dm444 "$icon" $out/share/icons/hicolor/512x512/apps/orbolay.png || true
-        fi
-      '';
+      desktopName = "Orbolay";
+      categories = ["Network"];
     }

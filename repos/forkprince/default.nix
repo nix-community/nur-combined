@@ -118,6 +118,19 @@
   helium-nightly = lib.callPackage ./pkgs/helium-nightly {};
   waterfox-bin = lib.callPackage ./pkgs/waterfox-bin {};
 
+  vectorcraft = lib.callPackage ./pkgs/vectorcraft {};
+  effectcraft = lib.callPackage ./pkgs/effectcraft {};
+  designcraft = lib.callPackage ./pkgs/designcraft {};
+  photocraft = lib.callPackage ./pkgs/photocraft {};
+  soundcraft = lib.callPackage ./pkgs/soundcraft {};
+  lightcraft = lib.callPackage ./pkgs/lightcraft {};
+  filmcraft = lib.callPackage ./pkgs/filmcraft {};
+  deckcraft = lib.callPackage ./pkgs/deckcraft {};
+  gridcraft = lib.callPackage ./pkgs/gridcraft {};
+  wordcraft = lib.callPackage ./pkgs/wordcraft {};
+  pdfcraft = lib.callPackage ./pkgs/pdfcraft {};
+  cadcraft = lib.callPackage ./pkgs/cadcraft {};
+
   yaagl = lib.callPackage ./pkgs/yaagl {};
   yaagl-os = lib.callPackage ./pkgs/yaagl {region = "os";};
   yaagl-zzz = lib.callPackage ./pkgs/yaagl {game = "zzz";};
