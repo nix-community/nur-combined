@@ -2457,10 +2457,10 @@
     };
     "control-panel-for-twitter" = buildMozillaXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.24.5";
+      version = "4.25.0";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5101304/control_panel_for_twitter-4.24.5.xpi";
-      sha256 = "05f10df14cd64ee917c3ab284cdbee2122d9f5feff9a30d9c1070e019f41cde8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5105385/control_panel_for_twitter-4.25.0.xpi";
+      sha256 = "bf072e85094603bfc1bfc6ababfb778e36bb000065eca5aa06a88dd01decde96";
       meta = with lib;
       {
         homepage = "https://soitis.dev/control-panel-for-twitter";
@@ -3225,10 +3225,10 @@
     };
     "dictionaries" = buildMozillaXpiAddon {
       pname = "dictionaries";
-      version = "8.1.3";
+      version = "8.1.4";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5092921/dictionaries-8.1.3.xpi";
-      sha256 = "9c90c0bd1cc0a837db14de3499a1c867fdb5993101ed32615fcc6c7ee7f06d8e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5106766/dictionaries-8.1.4.xpi";
+      sha256 = "8eaf647877fbe880a63d9677626dc47bee907d93dd95d189a986914c8e6caeeb";
       meta = with lib;
       {
         homepage = "https://dictionariez.pnl.dev";
@@ -8310,10 +8310,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.4.253";
+      version = "2.4.254";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5102455/lichess_tools_by_siderite-2.4.253.xpi";
-      sha256 = "6f6abfc7e2db3a96a103f09ccc56d700c45353d4c47a666327054b9e5a31c140";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5105858/lichess_tools_by_siderite-2.4.254.xpi";
+      sha256 = "6c363916076e0c7486db99413ceaf0e6a92e0ca332deef36ac0624051d0d7f96";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -8826,7 +8826,7 @@
       sha256 = "2d2e3668b518fb7b1fcd5b5a207e1039baeaa85f3e9497e4503288b83ff1b9d6";
       meta = with lib;
       {
-        homepage = "https://kartikhalkunde.github.io/LockedIn-YT/";
+        homepage = "https://kartikrashmin.github.io/LockedIn-YT/";
         description = "Stop doomscrolling. Hide YouTube Shorts, feeds, and comments. Block the algorithm and stay LockedIn on what matters.";
         license = licenses.mit;
         mozPermissions = [
@@ -10052,16 +10052,20 @@
     };
     "multiselect-for-youtube" = buildMozillaXpiAddon {
       pname = "multiselect-for-youtube";
-      version = "3.7";
+      version = "4.0";
       addonId = "{1b84391e-7c49-4ff3-abab-07bd0a4523e4}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4363742/multiselect_for_youtube-3.7.xpi";
-      sha256 = "8fc92ee9527afcadd4b77ba8e6da65c2410574611dbe208af975b70b33e6f900";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5106543/multiselect_for_youtube-4.0.xpi";
+      sha256 = "84b59d586c5bb3c615bdc1919d5e54a157186a024d743d418664a3bc2513030d";
       meta = with lib;
       {
         homepage = "https://ms4yt.com/";
         description = "Move, sort, and copy videos in your playlists faster and easier.";
         license = licenses.mpl20;
-        mozPermissions = [ "storage" "https://www.youtube.com/*" ];
+        mozPermissions = [
+          "clipboardRead"
+          "storage"
+          "https://www.youtube.com/*"
+        ];
         platforms = platforms.all;
       };
     };
@@ -10777,10 +10781,10 @@
     };
     "onetab" = buildMozillaXpiAddon {
       pname = "onetab";
-      version = "2.20";
+      version = "2.22";
       addonId = "extension@one-tab.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5042610/onetab-2.20.xpi";
-      sha256 = "f4cbd1015e1c265f31dc7d8e74252b7ac57dafe93bd3df32d8e64d59230f4174";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5107549/onetab-2.22.xpi";
+      sha256 = "273ab5db1fc9babbda374744f22b865ea6951ab04cacd3359d727fdb6c3e9090";
       meta = with lib;
       {
         homepage = "https://www.one-tab.com";
@@ -12100,14 +12104,13 @@
     };
     "purpleadblock" = buildMozillaXpiAddon {
       pname = "purpleadblock";
-      version = "2.6.7";
+      version = "2.7.0";
       addonId = "{a7399979-5203-4489-9861-b168187b52e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4412968/purpleadblock-2.6.7.xpi";
-      sha256 = "0740e6f56f1c918fa5448595a4efc1a982ade104634952d0194c53d79c765029";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5107259/purpleadblock-2.7.0.xpi";
+      sha256 = "335bdc68dd912688e522db7d19c84c0a583ffc4829ab82b51a05cb70a15e6a0a";
       meta = with lib;
       {
-        description = "Purple AdBlock is a adblock for Twitch.tv";
-        license = licenses.gpl3;
+        description = "Blocks the ads Twitch puts in live streams by editing the stream playlists inside the Twitch player. No proxy, no data collected.";
         mozPermissions = [ "https://*.twitch.tv/*" "activeTab" "storage" ];
         platforms = platforms.all;
       };
@@ -12940,10 +12943,10 @@
     };
     "remove-youtube-s-suggestions" = buildMozillaXpiAddon {
       pname = "remove-youtube-s-suggestions";
-      version = "4.3.84";
+      version = "4.5.0";
       addonId = "{21f1ba12-47e1-4a9b-ad4e-3a0260bbeb26}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5101070/remove_youtube_s_suggestions-4.3.84.xpi";
-      sha256 = "c4d89904ef233b50c7ba62ff1caa37188ae4b4a68afd783e798581dc1e1ab4d8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5107327/remove_youtube_s_suggestions-4.5.0.xpi";
+      sha256 = "3c7dad01d4b147490f3f64d2cdad3c1add6528f94abe9d125f7d4ad90a578e62";
       meta = with lib;
       {
         homepage = "https://lawrencehook.com/rys/";
@@ -13740,10 +13743,10 @@
     };
     "single-file" = buildMozillaXpiAddon {
       pname = "single-file";
-      version = "1.28.1";
+      version = "1.29.0";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5084732/single_file-1.28.1.xpi";
-      sha256 = "a935081a8b46a580b4ec1230f272569a280866570fbe1047031a4aed76886b67";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5106051/single_file-1.29.0.xpi";
+      sha256 = "0ef6303f8473776522a16e62ad70d0e466f5c962f9b63072aa04c8943f4b877f";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";
