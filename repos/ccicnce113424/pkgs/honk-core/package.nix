@@ -150,9 +150,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     touch $objDir/honk-ebpf $objDir/honk-ebpf.toolchain
   '';
 
-  # The NixOS module consumes this unit through systemd.packages.
+  # Installed as honk-core.service — the name doona's restart notice uses.
+  # The NixOS module consumes it through systemd.packages.
   postInstall = ''
-    install -Dm444 install/honk.service $out/lib/systemd/system/honk.service
+    install -Dm444 install/honk.service $out/lib/systemd/system/honk-core.service
   '';
 
   # The test suite exercises eBPF, network namespaces and live endpoints

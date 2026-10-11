@@ -25,21 +25,13 @@ let
       inherit paths;
     };
 
-  doonaConfig = ''
-    experimental {
-        native_api {
-            enabled: true
-            password_auth: true
-            config_write: true
-            listen: '${cfg.doona.listenAddress}:${toString cfg.doona.port}'
-            ui: '${cfg.doona.package}/share/doona-web'
-        }
-    }
-  '';
-
   configBaseName = "honk";
   configDir = "/etc/${configBaseName}";
   configFragmentDir = "${configDir}/config.d";
+  # The entry config honk is started with (`-c`) and the writable file beside
+  # it that holds the routing block.
+  entryConfigPath = "${configDir}/entry.dae";
+  localConfigPath = "${configDir}/config.dae";
 
   # honk resolves symlinks when it loads an `include` and refuses the whole
   # configuration unless every included file ends up inside the entry config's
@@ -58,19 +50,33 @@ let
     }
   );
 
-  # The entry config is the file honk is started with (`-c`). It is copied
-  # from the store on every activation, so edits made at runtime (including
-  # through the web UI) are lost on the next switch; runtime changes belong
-  # into the included fragments.
-  entryConfig = pkgs.writeText "config.dae" (
+  doonaConfig = ''
+    experimental {
+        native_api {
+            enabled: true
+            password_auth: true
+            config_write: true
+            listen: '${cfg.doona.listenAddress}:${toString cfg.doona.port}'
+            ui: '${cfg.doona.package}/share/doona-web'
+        }
+    }
+  '';
+
+  # The entry config honk is started with (`-c`): the startup-only settings
+  # and includes, copied from the store on every activation. Its native_api
+  # block and `global.nfqueue_enable` keep the web UI from rewriting it;
+  # runtime changes belong in {file}`/etc/honk/config.dae` or the fragments.
+  entryConfig = pkgs.writeText "entry.dae" (
     ''
       global {
           data_dir: '${cfg.dataDir}'
           tproxy_port: ${toString cfg.tproxyPort}
           wan_interface: ${cfg.wanInterface}
           ${lib.optionalString (cfg.lanInterface != "") "    lan_interface: ${cfg.lanInterface}"}
+          nfqueue_enable: ${lib.boolToString cfg.nfqueue}
       }
       include {
+          '${localConfigPath}'
           '${configFragmentDir}/*.dae'
       }
     ''
@@ -87,6 +93,18 @@ in
     enable = mkEnableOption "honk, an eBPF-based transparent proxy with a Clash API";
 
     package = mkPackageOption pkgs "honk-core" { };
+
+    nfqueue = mkOption {
+      type = types.bool;
+      default = true;
+      description = ''
+        Whether to enable honk's NFQUEUE staging (`global.nfqueue_enable`) and
+        load the `nfnetlink_queue` kernel module for it. The key is written
+        explicitly so the configuration never disagrees with the runtime —
+        a mismatch blocks configuration writes from the web UI. See
+        <https://github.com/Glassyiris/honk/blob/main/doc/en/reference/global.md>.
+      '';
+    };
 
     doona = {
       enable =
@@ -126,7 +144,9 @@ in
         {file}`/etc/honk/config.d/<file name>` on every activation, so edits
         made at runtime (including through the web UI) are overwritten; the
         generated entry config includes every `*.dae` file of that directory,
-        so the file name must end in `.dae`.
+        so the file name must end in `.dae`. Keep the top-level `routing` block
+        in {file}`/etc/honk/config.dae`: doona's rule templates rewrite exactly
+        one file.
       '';
     };
 
@@ -226,6 +246,9 @@ in
       }
     ];
 
+    # NFQUEUE staging needs the netlink family (see the `nfqueue` option).
+    boot.kernelModules = lib.optional cfg.nfqueue "nfnetlink_queue";
+
     networking.firewall = {
       allowedTCPPorts =
         lib.optional cfg.openFirewall cfg.tproxyPort
@@ -234,7 +257,7 @@ in
     };
 
     environment.etc = declaredFragments // {
-      "${configBaseName}/config.dae" = {
+      "${configBaseName}/entry.dae" = {
         mode = "0400";
         source = entryConfig;
       };
@@ -250,20 +273,19 @@ in
       # inside, that decides whether somebody can replace them.
       "d ${configDir} 0700 root root - -"
       "d ${configFragmentDir} 0700 root root - -"
-      # Created once and never overwritten: this fragment belongs to whoever
-      # edits it by hand or through the web UI, NixOS only provides the file.
-      "f ${configFragmentDir}/99-local.dae 0600 root root -"
+      # Created once and never overwritten: seeded with the empty `global` and
+      # `routing` blocks doona's editors write into.
+      "f ${localConfigPath} 0600 root root - global { } routing { }"
     ];
 
-    # Consume the unit shipped in the honk repository (install/honk.service,
-    # installed into the package); only the Nix-specific Exec* and runtime
-    # paths are overlaid as a drop-in.
+    # The upstream unit is installed into the package as honk-core.service;
+    # the Nix-specific Exec* and runtime paths are overlaid as a drop-in.
     systemd.packages = [ cfg.package ];
 
-    systemd.services.honk = {
+    systemd.services.honk-core = {
       wantedBy = [ "multi-user.target" ];
-      # The entry config carries the startup-only settings (data directory,
-      # native API); changes to a fragment are picked up by honk's reload.
+      # The entry carries the startup-only settings; changes to a fragment are
+      # picked up by honk's reload.
       restartTriggers = [ entryConfig ];
       reloadTriggers = cfg.configFiles;
       serviceConfig = {
@@ -277,7 +299,7 @@ in
             "--data-dir"
             cfg.dataDir
             "-c"
-            "${configDir}/config.dae"
+            entryConfigPath
           ])
         ];
         ExecReload = [
