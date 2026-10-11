@@ -21,9 +21,10 @@
   YesPlayMusic = pkgs.callPackage ./pkgs/YesPlayMusic { };
   rime-flypy = pkgs.callPackage ./pkgs/rime-flypy { };
   Elegant-grub2-themes = pkgs.callPackage ./pkgs/Elegant-grub2-themes { };
-  sddm-eucalyptus-drop = pkgs.libsForQt5.callPackage ./pkgs/sddm-eucalyptus-drop { };
+  sddm-eucalyptus-drop = pkgs.callPackage ./pkgs/sddm-eucalyptus-drop { };
   pot-translation = pkgs.callPackage ./pkgs/pot-translation { };
   rime-prelude = pkgs.callPackage ./pkgs/rime-prelude { };
+  pycolmap = pkgs.python3Packages.callPackage ./pkgs/pycolmap { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
