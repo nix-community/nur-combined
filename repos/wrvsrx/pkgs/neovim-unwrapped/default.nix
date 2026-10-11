@@ -7,16 +7,16 @@
 neovim-unwrapped.overrideAttrs (
   finalAttrs: oldAttrs:
   let
-    versionSuffix = lib.removePrefix "0.12.5" finalAttrs.version;
+    versionSuffix = lib.removePrefix "0.12.6" finalAttrs.version;
   in
   {
-    version = "0.12.5+editor-fixes.6";
+    version = "0.12.6+editor-fixes.7";
     __intentionallyOverridingVersion = true;
     src = fetchFromGitHub {
       owner = "wrvsrx";
       repo = "neovim";
       tag = finalAttrs.version;
-      hash = "sha256-8U3OKaqEABX05BC9wI/nhvnFItvxKNSezRddU/BYOqY=";
+      hash = "sha256-t9fK+bA7Nv80GZVpCBiO4gE96lK64XXZiiyLbyCh4+k=";
     };
 
     postPatch = (oldAttrs.postPatch or "") + ''
