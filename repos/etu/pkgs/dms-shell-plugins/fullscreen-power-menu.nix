@@ -6,13 +6,13 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-fullscreen-power-menu";
-  version = "0-unstable-2026-09-07";
+  version = "1.2.0-unstable-2026-10-10";
 
   src = fetchFromGitHub {
     owner = "JDKamalakar";
     repo = "DMS-Fullscreen_Power_Menu";
-    rev = "d6a184c979696ad6ae24e98579d7ca9ba7c9268b";
-    hash = "sha256-SJ1ZZ2zfGg8xYx7GZmri4DCGE2LHLKKgbfSSv5HomFY=";
+    rev = "3ec625d2e0105a063492249ef732a0ca91cf91b8";
+    hash = "sha256-aKV0zwLCvRZdZdRfrbD6vjyFS6E7ckqmzOUy15oEwJ4=";
   };
 
   dontBuild = true;
