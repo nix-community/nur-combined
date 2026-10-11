@@ -4,7 +4,7 @@
   # Modules/Overlays
   lib = import ./lib { inherit pkgs; }; # functions
   nixosModules = import ./nixos-modules; # NixOS modules
-  # homeModules = { }; # Home Manager modules
+  homeModules = import ./home-modules; # Home Manager modules
   # darwinModules = { }; # nix-darwin modules
   # flakeModules = { }; # flake-parts modules
   overlays = import ./overlays; # nixpkgs overlays
