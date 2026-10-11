@@ -216,10 +216,10 @@
     };
     "auto-tab-discard" = buildMozillaXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.7.5";
+      version = "0.7.6";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5090327/auto_tab_discard-0.7.5.xpi";
-      sha256 = "77e7a630e3ab378440c3924e57450db88bf262803608b1a47430f3cc8c5294f6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5107827/auto_tab_discard-0.7.6.xpi";
+      sha256 = "7dbabc72bd5b1ba98776b14ed2b8f20da3498f6e70fdc4d7f09fb2506bf556a7";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/tab-discard.html";
@@ -259,10 +259,10 @@
     };
     "betterviewer" = buildMozillaXpiAddon {
       pname = "betterviewer";
-      version = "3.1.1";
+      version = "3.2.0";
       addonId = "ademking@betterviewer";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5082423/betterviewer-3.1.1.xpi";
-      sha256 = "801ffd69f989f394778ac3fd4ebf5ee9950d9427c342fc48d4671da71771f3fa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5107056/betterviewer-3.2.0.xpi";
+      sha256 = "0703c43512caec2198fa5d84fe99697cac9abe0ec667f562b768082c4963ed15";
       meta = with lib;
       {
         homepage = "https://github.com/Ademking/BetterViewer";
@@ -616,10 +616,10 @@
     };
     "nexusmods-advance" = buildMozillaXpiAddon {
       pname = "nexusmods-advance";
-      version = "0.27.2";
+      version = "0.27.3";
       addonId = "NexusModsAdvance@Caiota";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5083376/nexusmods_advance-0.27.2.xpi";
-      sha256 = "4d754989d90aa8878c00aee51e828a50b0b6415a6e68402c2a249b4bc93954de";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5107531/nexusmods_advance-0.27.3.xpi";
+      sha256 = "aaf225dcb3c4c734c4d7a6169eee2361de0fb505ea0cebbf3b7ae0de767ce965";
       meta = with lib;
       {
         description = "Enhance your browsing experience on the NexusMods site and manage your mods directly through the browser!";

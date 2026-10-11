@@ -241,6 +241,7 @@
         name
       ]);
   ysfx = [ "ysfx" ];
+  zigscient = [ "zigscient" ];
   zl-audio = {
     equalizer = [ "zlequalizer" ];
     compressor = [ "zlcompressor" ];
