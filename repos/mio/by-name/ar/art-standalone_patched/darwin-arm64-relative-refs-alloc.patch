@@ -1,0 +1,156 @@
+--- a/art/libartbase/base/mem_map.cc	2026-10-09 21:37:42.866002187 +1100
++++ b/art/libartbase/base/mem_map.cc	2026-10-10 22:58:48.003913793 +1100
+@@ -96,6 +96,46 @@
+ // The regular start of memory allocations. The first 64KB is protected by SELinux.
+ static constexpr uintptr_t LOW_MEM_START = 64 * KB;
+ 
++#if ART_USE_RELATIVE_REFS
++// With relative heap references the allocator hands out memory from a 4 GiB
++// window whose base is chosen at RUNTIME so it lands in actually-free memory
++// (macOS reserves/occupies much of the address space, so no fixed 4 GiB base is
++// safe).  Must match runtime_globals.h g_reference_base.
++extern "C" uintptr_t g_reference_base = 0;
++extern "C" uintptr_t art_get_reference_base() { return g_reference_base; }
++
++void ReserveReferenceWindow() {
++  constexpr size_t kWindow = 4ULL * GB;
++  // Ask the kernel where a free 8 GiB region is, take the 4 GiB-aligned half
++  // inside as the window base (so it is aligned without MAP_FIXED-clobbering
++  // live memory), then release the probe so the allocator can map the window
++  // itself (it must appear free to the msync check).
++  void* p = mmap(nullptr, 2 * kWindow, PROT_NONE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
++  CHECK(p != MAP_FAILED) << "Failed to probe for the reference window";
++  uintptr_t a = reinterpret_cast<uintptr_t>(p);
++  uintptr_t aligned = (a + kWindow - 1) & ~(kWindow - 1);
++  CHECK_LE(aligned + kWindow, a + 2 * kWindow) << "reference window alignment";
++  CHECK_EQ(munmap(p, 2 * kWindow), 0) << "Failed to release the reference window probe";
++  g_reference_base = aligned;
++  LOG(INFO) << "Reference window base at " << reinterpret_cast<void*>(aligned);
++}
++#endif
++
++static uintptr_t LowMemStart() {
++#if ART_USE_RELATIVE_REFS
++  return g_reference_base;
++#else
++  return LOW_MEM_START;
++#endif
++}
++static uintptr_t LowMemEnd() {
++#if ART_USE_RELATIVE_REFS
++  return g_reference_base + 4 * GB;
++#else
++  return 4 * GB;
++#endif
++}
++
+ // Generate random starting position.
+ // To not interfere with image position, take the image's address and only place it below. Current
+ // formula (sketch):
+@@ -260,12 +300,20 @@
+                                     int prot,
+                                     int flags,
+                                     int fd,
+-                                    off_t offset) {
++                                    off_t offset,
++                                    bool use_fixed) {
++#if ART_USE_RELATIVE_REFS
++  // Only map exactly when the caller has verified the target pages are free;
++  // MAP_FIXED over live memory would corrupt the process.
++  if (use_fixed) {
++    flags |= MAP_FIXED;
++  }
++#endif
+   void* actual = TargetMMap(ptr, page_aligned_byte_count, prot, flags, fd, offset);
+   if (actual != MAP_FAILED) {
+-    // Since we didn't use MAP_FIXED the kernel may have mapped it somewhere not in the low
+-    // 4GB. If this is the case, unmap and retry.
+-    if (reinterpret_cast<uintptr_t>(actual) + page_aligned_byte_count >= 4 * GB) {
++    // The kernel may have mapped it somewhere not in the window. If so, unmap.
++    if (reinterpret_cast<uintptr_t>(actual) + page_aligned_byte_count > LowMemEnd() ||
++        reinterpret_cast<uintptr_t>(actual) < LowMemStart()) {
+       TargetMUnmap(actual, page_aligned_byte_count);
+       actual = MAP_FAILED;
+     }
+@@ -1028,7 +1076,15 @@
+   bool first_run = true;
+ 
+   std::lock_guard<std::mutex> mu(*mem_maps_lock_);
+-  for (uintptr_t ptr = next_mem_pos_; ptr < 4 * GB; ptr += kPageSize) {
++#if ART_USE_RELATIVE_REFS
++  if (g_reference_base == 0) {
++    ReserveReferenceWindow();
++  }
++  if (next_mem_pos_ < LowMemStart() || next_mem_pos_ >= LowMemEnd()) {
++    next_mem_pos_ = LowMemStart();
++  }
++#endif
++  for (uintptr_t ptr = next_mem_pos_; ptr < LowMemEnd(); ptr += kPageSize) {
+     // Use gMaps as an optimization to skip over large maps.
+     // Find the first map which is address > ptr.
+     auto it = gMaps->upper_bound(reinterpret_cast<void*>(ptr));
+@@ -1053,7 +1109,8 @@
+     }
+ 
+     // Try to see if we get lucky with this address since none of the ART maps overlap.
+-    actual = TryMemMapLow4GB(reinterpret_cast<void*>(ptr), length, prot, flags, fd, offset);
++    actual = TryMemMapLow4GB(reinterpret_cast<void*>(ptr), length, prot, flags, fd, offset,
++                             /*use_fixed=*/false);
+     if (actual != MAP_FAILED) {
+       next_mem_pos_ = reinterpret_cast<uintptr_t>(actual) + length;
+       return actual;
+@@ -1060,6 +1117,6 @@
+     }
+ 
+-    if (4U * GB - ptr < length) {
++    if (LowMemEnd() - ptr < length) {
+       // Not enough memory until 4GB.
+       if (first_run) {
+         // Try another time from the bottom;
+@@ -1066,4 +1123,4 @@
+-        ptr = LOW_MEM_START - kPageSize;
++        ptr = LowMemStart() - kPageSize;
+         first_run = false;
+         continue;
+       } else {
+@@ -1088,7 +1145,8 @@
+     next_mem_pos_ = tail_ptr;  // update early, as we break out when we found and mapped a region
+ 
+     if (safe == true) {
+-      actual = TryMemMapLow4GB(reinterpret_cast<void*>(ptr), length, prot, flags, fd, offset);
++      actual = TryMemMapLow4GB(reinterpret_cast<void*>(ptr), length, prot, flags, fd, offset,
++                               /*use_fixed=*/true);
+       if (actual != MAP_FAILED) {
+         return actual;
+       }
+@@ -1120,6 +1178,11 @@
+ #ifdef __LP64__
+   // When requesting low_4g memory and having an expectation, the requested range should fit into
+   // 4GB.
++#if ART_USE_RELATIVE_REFS
++  if (low_4gb && addr != nullptr &&
++      (reinterpret_cast<uintptr_t>(addr) < g_reference_base ||
++       (reinterpret_cast<uintptr_t>(addr) + length) > g_reference_base + 4 * GB)) {
++#else
+   if (low_4gb && (
+       // Start out of bounds.
+       (reinterpret_cast<uintptr_t>(addr) >> 32) != 0 ||
+@@ -1126,5 +1189,6 @@
+       // End out of bounds. For simplicity, this will fail for the last page of memory.
+       ((reinterpret_cast<uintptr_t>(addr) + length) >> 32) != 0)) {
++#endif
+     LOG(ERROR) << "The requested address space (" << addr << ", "
+                << reinterpret_cast<void*>(reinterpret_cast<uintptr_t>(addr) + length)
+                << ") cannot fit in low_4gb";
+--- a/art/libartbase/base/mem_map.h	2026-10-10 18:03:39.397170373 +1100
++++ b/art/libartbase/base/mem_map.h	2026-10-10 18:03:48.327199226 +1100
+@@ -397,7 +397,8 @@
+                                int prot,
+                                int flags,
+                                int fd,
+-                               off_t offset);
++                               off_t offset,
++                               bool use_fixed);
+ #endif
+ 
+   static void TargetMMapInit();

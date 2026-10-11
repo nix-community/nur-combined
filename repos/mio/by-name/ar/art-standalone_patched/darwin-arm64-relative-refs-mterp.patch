@@ -1,0 +1,155 @@
+--- a/art/runtime/interpreter/mterp/arm64/main.S	2026-10-09 21:41:11.446258631 +1100
++++ b/art/runtime/interpreter/mterp/arm64/main.S	2026-10-10 22:50:19.207796642 +1100
+@@ -109,7 +109,31 @@
+ #define ip       x16
+ #define ip2      x17
+ 
++#if defined(ART_USE_RELATIVE_REFS) && ART_USE_RELATIVE_REFS
+ /*
++ * Base of the heap reference window (see runtime_globals.h kReferenceBase).
++ * References held in vregs and object fields are offsets from this base, so the
++ * base must be added before a reference is used as an address or passed to a
++ * C++ helper that expects a pointer.  x27 is callee-saved and unused by mterp;
++ * it is set up in ExecuteMterpImpl below.
++ */
++#define xREFBASE x27
++#endif
++
++/*
++ * Add the reference base to a register that holds a heap reference (which under
++ * relative references is an offset from xREFBASE).  No-op unless enabled.
++ */
++#if defined(ART_USE_RELATIVE_REFS) && ART_USE_RELATIVE_REFS
++.macro ADD_REF_BASE reg
++    add     \reg, \reg, xREFBASE
++.endm
++#else
++.macro ADD_REF_BASE reg
++.endm
++#endif
++
++/*
+  * Instead of holding a pointer to the shadow frame, we keep xFP at the base of the vregs.  So,
+  * to access other shadow frame fields, we need to use a backwards offset.  Define those here.
+  */
+@@ -429,6 +453,12 @@
+     add     xPC, x1, x0, uxtx #1                    // Create direct pointer to 1st dex opcode
+     CFI_DEFINE_DEX_PC_WITH_OFFSET(CFI_TMP, CFI_DEX, 0)
+     EXPORT_PC
++
++#if defined(ART_USE_RELATIVE_REFS) && ART_USE_RELATIVE_REFS
++    /* Heap reference base, chosen at runtime (art::g_reference_base). */
++    bl      _art_get_reference_base
++    mov     xREFBASE, x0
++#endif
+ 
+     /* Starting ibase */
+     ldr     xIBASE, [xSELF, #THREAD_CURRENT_IBASE_OFFSET]
+--- a/art/runtime/interpreter/mterp/arm64/object.S	2026-10-09 21:41:11.473362296 +1100
++++ b/art/runtime/interpreter/mterp/arm64/object.S	2026-10-09 21:41:16.992711731 +1100
+@@ -44,6 +44,7 @@
+ %  slow_path_label = add_helper(lambda: field(helper))
+    b.ne     ${slow_path_label}            // cache miss
+    cbz      w2, common_errNullObject      // null object
++    ADD_REF_BASE x2
+ %  if is_wide:
+      ldr      x0, [x2, x1]                // x0<- obj.field
+ %  else:
+@@ -108,6 +109,7 @@
+     FETCH w1, 1                         // w1<- field byte offset
+     EXPORT_PC
+     GET_VREG w0, w2                     // w0<- object we're operating on
++    ADD_REF_BASE x0
+     bl      _artIGetObjectFromMterp      // (obj, offset)
+     ldr     x3, [xSELF, #THREAD_EXCEPTION_OFFSET]
+     ubfx    w2, wINST, #8, #4           // w2<- A
+@@ -126,6 +128,7 @@
+     GET_VREG w3, w2                     // w3<- object we're operating on
+     ubfx    w2, wINST, #8, #4           // w2<- A
+     cbz     w3, common_errNullObject    // object was null
++    ADD_REF_BASE x3
+     $load   w0, [x3, x1]                // w0<- obj.field
+     FETCH_ADVANCE_INST 2                // advance rPC, load rINST
+     $extend
+@@ -149,6 +152,7 @@
+     GET_VREG w3, w2                     // w3<- object we're operating on
+     ubfx    w2, wINST, #8, #4           // w2<- A
+     cbz     w3, common_errNullObject    // object was null
++    ADD_REF_BASE x3
+     ldr     x0, [x3, x4]                // x0<- obj.field
+     FETCH_ADVANCE_INST 2                // advance rPC, load wINST
+     SET_VREG_WIDE_UXTX x0, x2
+@@ -222,6 +226,7 @@
+     GET_VREG w3, w2                     // w3<- fp[B], the object pointer
+     ubfx    w2, wINST, #8, #4           // w2<- A
+     cbz     w3, common_errNullObject    // object was null
++    ADD_REF_BASE x3
+     GET_VREG w0, w2                     // w0<- fp[A]
+     FETCH_ADVANCE_INST 2                // advance rPC, load rINST
+     $store     w0, [x3, x1]             // obj.field<- w0
+@@ -244,6 +249,7 @@
+     GET_VREG w2, w2                     // w2<- fp[B], the object pointer
+     ubfx    w0, wINST, #8, #4           // w0<- A
+     cbz     w2, common_errNullObject    // object was null
++    ADD_REF_BASE x2
+     GET_VREG_WIDE x0, x0                // x0<- fp[A]
+     FETCH_ADVANCE_INST 2                // advance rPC, load wINST
+     str     x0, [x2, x3]                // obj.field<- x0
+--- a/art/runtime/interpreter/mterp/arm64/array.S	2026-10-09 21:41:11.472728523 +1100
++++ b/art/runtime/interpreter/mterp/arm64/array.S	2026-10-09 21:41:16.998002951 +1100
+@@ -17,6 +17,7 @@
+     GET_VREG w0, w2                     // w0<- vBB (array object)
+     GET_VREG w1, w3                     // w1<- vCC (requested index)
+     cbz     x0, common_errNullObject    // bail if null array object.
++    ADD_REF_BASE x0
+     ldr     w3, [x0, #MIRROR_ARRAY_LENGTH_OFFSET]    // w3<- arrayObj->length
+     add     x0, x0, w1, uxtw #$shift    // w0<- arrayObj + index*width
+     cmp     w1, w3                      // compare unsigned index, length
+@@ -48,6 +49,7 @@
+     EXPORT_PC
+     GET_VREG w0, w2                     // w0<- vBB (array object)
+     GET_VREG w1, w3                     // w1<- vCC (requested index)
++    ADD_REF_BASE x0
+     bl       _artAGetObjectFromMterp     // (array, index)
+     ldr      x1, [xSELF, #THREAD_EXCEPTION_OFFSET]
+     lsr      w2, wINST, #8               // w9<- AA
+@@ -74,6 +76,7 @@
+     GET_VREG w0, w2                     // w0<- vBB (array object)
+     GET_VREG w1, w3                     // w1<- vCC (requested index)
+     cbz     w0, common_errNullObject        // yes, bail
++    ADD_REF_BASE x0
+     ldr     w3, [x0, #MIRROR_ARRAY_LENGTH_OFFSET]    // w3<- arrayObj->length
+     add     x0, x0, x1, uxtx #3          // w0<- arrayObj + index*width
+     cmp     w1, w3                      // compare unsigned index, length
+@@ -103,6 +106,7 @@
+     GET_VREG w0, w2                     // w0<- vBB (array object)
+     GET_VREG w1, w3                     // w1<- vCC (requested index)
+     cbz     w0, common_errNullObject    // bail if null
++    ADD_REF_BASE x0
+     ldr     w3, [x0, #MIRROR_ARRAY_LENGTH_OFFSET]     // w3<- arrayObj->length
+     add     x0, x0, x1, uxtx #$shift     // w0<- arrayObj + index*width
+     cmp     w1, w3                      // compare unsigned index, length
+@@ -153,6 +157,7 @@
+     GET_VREG w0, w2                     // w0<- vBB (array object)
+     GET_VREG w1, w3                     // w1<- vCC (requested index)
+     cbz     w0, common_errNullObject    // bail if null
++    ADD_REF_BASE x0
+     ldr     w3, [x0, #MIRROR_ARRAY_LENGTH_OFFSET]    // w3<- arrayObj->length
+     add     x0, x0, x1, uxtx #3          // w0<- arrayObj + index*width
+     cmp     w1, w3                      // compare unsigned index, length
+@@ -171,6 +176,7 @@
+     ubfx    w2, wINST, #8, #4           // w2<- A
+     GET_VREG w0, w1                     // w0<- vB (object ref)
+     cbz     w0, common_errNullObject    // yup, fail
++    ADD_REF_BASE x0
+     FETCH_ADVANCE_INST 1                // advance rPC, load rINST
+     ldr     w3, [x0, #MIRROR_ARRAY_LENGTH_OFFSET]    // w3<- array length
+     GET_INST_OPCODE ip                  // extract opcode from rINST
+@@ -186,6 +192,7 @@
+     orr     x1, x0, x1, lsl #16         // x1<- ssssssssBBBBbbbb
+     GET_VREG w0, w3                     // w0<- vAA (array object)
+     add     x1, xPC, x1, lsl #1         // x1<- PC + ssssssssBBBBbbbb*2 (array data off.)
++    ADD_REF_BASE x0
+     bl      _MterpFillArrayData          // (obj, payload)
+     cbz     w0, MterpPossibleException      // exception?
+     FETCH_ADVANCE_INST 3                // advance rPC, load rINST

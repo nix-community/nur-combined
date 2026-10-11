@@ -1,0 +1,45 @@
+--- a/art/runtime/gc/heap.cc	2026-10-10 23:51:34.750412356 +1100
++++ b/art/runtime/gc/heap.cc	2026-10-10 23:51:34.813039406 +1100
+@@ -820,7 +820,11 @@
+     current_allocator_ = allocator;
+     MutexLock mu(nullptr, *Locks::runtime_shutdown_lock_);
+     SetQuickAllocEntryPointsAllocator(current_allocator_);
++#if !defined(__APPLE__) || !defined(__LP64__)
++    // Upstream stubs ResetQuickAllocEntryPoints for Apple; skip it (the interpreter does not use
++    // the quick alloc entrypoints, which are not available on darwin arm64).
+     Runtime::Current()->GetInstrumentation()->ResetQuickAllocEntryPoints();
++#endif
+   }
+ }
+ 
+--- a/art/runtime/entrypoints/quick/quick_default_init_entrypoints.h	2026-10-10 23:41:13.209158393 +1100
++++ b/art/runtime/entrypoints/quick/quick_default_init_entrypoints.h	2026-10-10 23:41:13.253544798 +1100
+@@ -31,7 +31,9 @@
+   jpoints->pDlsymLookup = art_jni_dlsym_lookup_stub;
+ 
+   // Alloc
++#if !defined(__APPLE__) || !defined(__LP64__)
+   ResetQuickAllocEntryPoints(qpoints, /* is_marking= */ true);
++#endif
+ 
+   // Resolution and initialization
+   qpoints->pInitializeStaticStorage = art_quick_initialize_static_storage;
+--- a/art/runtime/entrypoints/quick/quick_alloc_entrypoints.cc	2026-10-11 11:30:55.037942109 +1100
++++ b/art/runtime/entrypoints/quick/quick_alloc_entrypoints.cc	2026-10-11 11:30:55.089175508 +1100
+@@ -251,7 +251,10 @@
+     default:
+       break;
+   }
++  UNIMPLEMENTED(FATAL);
++  UNREACHABLE();
+ #else
++  // Darwin: the quick alloc entrypoints are not available; the interpreter does not use them.
+   UNUSED(qpoints);
+   UNUSED(is_marking);
+ #endif
+@@ -258,5 +261,3 @@
+-  UNIMPLEMENTED(FATAL);
+-  UNREACHABLE();
+ }
+ 
+ }  // namespace art

@@ -32,6 +32,11 @@ let
 
   vixl_patched = vixl.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ ./vixl-compiler-fixes.patch ];
+    # The unpinned nixpkgs channel now marks vixl broken; it builds and works fine here, so clear
+    # the flag to allow evaluation.
+    meta = (old.meta or { }) // {
+      broken = false;
+    };
   });
 
   wolfssl-jni = (wolfssl.override { enableJni = true; }).overrideAttrs (_: {
@@ -50,6 +55,18 @@ let
     # Skip CHECK_EQ(sysconf(_SC_PAGE_SIZE), kPageSize) on Apple Silicon where
     # the host page size is 16 KB but ART's kPageSize is compiled as 4 KB.
     ./darwin-page-size.patch
+    # Arm64 Darwin: store heap references relative to a base above the low 4 GiB,
+    # which arm64 macOS reserves.  See DARWIN-ARM64.md.
+    ./darwin-arm64-relative-refs.patch
+    ./darwin-arm64-relative-refs-mterp.patch
+    ./darwin-arm64-relative-refs-alloc.patch
+    ./darwin-arm64-relative-refs-heap.patch
+    ./darwin-arm64-relative-refs-image-base.patch
+    # 16 KiB page-size: the heap does mprotect/madvise at page granularity, which macOS rejects at
+    # ART's 4 KiB kPageSize.  See DARWIN-ARM64.md.
+    ./darwin-arm64-page-size-mprotect.patch
+    # Upstream stubs the quick alloc entrypoints for Apple; skip the two calls to it.
+    ./darwin-arm64-quick-entrypoints.patch
   ];
 
   darwinPostPatch = ''
@@ -80,7 +97,7 @@ in
 art-standalone.overrideAttrs (old: {
   pname = "art-standalone-patched";
 
-  env.NIX_CFLAGS_COMPILE = optionalString stdenv.hostPlatform.isDarwin "-D_ALLBSD_SOURCE -DSIGRTMIN=32 -DSIGRTMAX=64";
+  env.NIX_CFLAGS_COMPILE = optionalString stdenv.hostPlatform.isDarwin "-D_ALLBSD_SOURCE -DSIGRTMIN=32 -DSIGRTMAX=64 -DART_USE_RELATIVE_REFS=1";
 
   patches =
     filter (p: baseNameOf (toString p) != "remove-wolfssljni.patch") (old.patches or [ ])

@@ -1,0 +1,56 @@
+--- a/art/runtime/gc/space/image_space.cc	2026-10-11 10:53:56.505809300 +1100
++++ b/art/runtime/gc/space/image_space.cc	2026-10-11 11:30:45.032748552 +1100
+@@ -101,9 +101,27 @@
+ }
+ 
+ static int32_t ChooseRelocationOffsetDelta() {
+-  return ChooseRelocationOffsetDelta(ART_BASE_ADDRESS_MIN_DELTA, ART_BASE_ADDRESS_MAX_DELTA);
++  int32_t delta = ChooseRelocationOffsetDelta(ART_BASE_ADDRESS_MIN_DELTA, ART_BASE_ADDRESS_MAX_DELTA);
++#if ART_USE_RELATIVE_REFS
++  // References are offsets from g_reference_base, so a negative delta would place the image below
++  // the window base and corrupt them (and the low_4gb check would reject the reservation).
++  if (delta < 0) {
++    delta = 0;
++  }
++#endif
++  return delta;
+ }
+ 
++// The base address of the host boot image.  With relative references the image must live inside
++// the runtime-chosen reference window (g_reference_base), not the fixed ART_BASE_ADDRESS.
++static uintptr_t ArtBaseAddress() {
++#if ART_USE_RELATIVE_REFS
++  return g_reference_base;
++#else
++  return ART_BASE_ADDRESS;
++#endif
++}
++
+ static bool GenerateImage(const std::string& image_filename,
+                           InstructionSet image_isa,
+                           std::string* error_msg) {
+@@ -164,8 +182,9 @@
+ 
+   int32_t base_offset = ChooseRelocationOffsetDelta();
+   LOG(INFO) << "Using an offset of 0x" << std::hex << base_offset << " from default "
+-            << "art base address of 0x" << std::hex << ART_BASE_ADDRESS;
+-  arg_vector.push_back(StringPrintf("--base=0x%x", ART_BASE_ADDRESS + base_offset));
++            << "art base address of 0x" << std::hex << ArtBaseAddress();
++  arg_vector.push_back(StringPrintf("--base=0x%zx",
++                                    static_cast<size_t>(ArtBaseAddress() + base_offset)));
+ 
+   if (!kIsTargetBuild) {
+     arg_vector.push_back("--host");
+@@ -1872,10 +1891,10 @@
+     DCHECK_LT(extra_reservation_size, std::numeric_limits<uint32_t>::max() - reservation_size);
+     size_t total_size = reservation_size + extra_reservation_size;
+     // If relocating, choose a random address for ALSR.
+-    uint32_t addr = relocate_ ? ART_BASE_ADDRESS + ChooseRelocationOffsetDelta() : image_start;
++    uintptr_t addr = relocate_ ? ArtBaseAddress() + ChooseRelocationOffsetDelta() : image_start;
+     *image_reservation =
+         MemMap::MapAnonymous("Boot image reservation",
+-                             reinterpret_cast32<uint8_t*>(addr),
++                             reinterpret_cast<uint8_t*>(addr),
+                              total_size,
+                              PROT_NONE,
+                              /*low_4gb=*/ true,

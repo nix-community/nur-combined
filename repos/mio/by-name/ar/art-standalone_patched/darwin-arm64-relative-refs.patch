@@ -1,0 +1,55 @@
+--- a/art/runtime/runtime_globals.h	2026-10-09 21:31:01.933140610 +1100
++++ b/art/runtime/runtime_globals.h	2026-10-11 11:31:10.968666462 +1100
+@@ -85,6 +85,24 @@
+ // Size of a heap reference.
+ static constexpr size_t kHeapReferenceSize = sizeof(uint32_t);
+ 
++// Whether heap references are encoded relative to a base address instead of as
++// truncated absolute addresses.  Opt in with -DART_USE_RELATIVE_REFS on hosts
++// whose address space has no usable low 4 GiB (e.g. aarch64 macOS, whose kernel
++// reserves the low 4 GiB as __PAGEZERO).  When enabled, every object and the
++// boot image must live in [g_reference_base, g_reference_base + 4 GiB) so that the
++// reference still fits in a uint32_t.  See
++// by-name/ar/art-standalone_patched/DARWIN-ARM64.md.
++#ifndef ART_USE_RELATIVE_REFS
++#define ART_USE_RELATIVE_REFS 0
++#endif
++
++#if ART_USE_RELATIVE_REFS
++// Base of the heap-reference window (4 GiB aligned).  Chosen at runtime by
++// art::ReserveReferenceWindow() so the window lands in actually-free memory
++// (macOS reserves/occupies much of the address space).
++extern "C" uintptr_t g_reference_base;
++#endif
++
+ }  // namespace art
+ 
+ #endif  // ART_RUNTIME_RUNTIME_GLOBALS_H_
+--- a/art/runtime/mirror/object_reference.h	2026-10-09 21:31:01.935865626 +1100
++++ b/art/runtime/mirror/object_reference.h	2026-10-11 11:31:11.046926643 +1100
+@@ -38,6 +38,11 @@
+   // Compress reference to its bit representation.
+   static uint32_t Compress(MirrorType* mirror_ptr) {
+     uintptr_t as_bits = reinterpret_cast<uintptr_t>(mirror_ptr);
++#if ART_USE_RELATIVE_REFS
++    // Store refs relative to g_reference_base so the heap/image do not have to
++    // live in the low 4 GiB.  Null must stay 0.
++    as_bits = (as_bits == 0) ? 0 : (as_bits - g_reference_base);
++#endif
+     return static_cast<uint32_t>(kPoisonReferences ? -as_bits : as_bits);
+   }
+ 
+@@ -44,7 +49,13 @@
+   // Uncompress an encoded reference from its bit representation.
+   static MirrorType* Decompress(uint32_t ref) {
+     uintptr_t as_bits = kPoisonReferences ? -ref : ref;
++#if ART_USE_RELATIVE_REFS
++    // Null (0) must decode back to null, not to g_reference_base.
++    return as_bits == 0 ? nullptr
++                        : reinterpret_cast<MirrorType*>(g_reference_base + as_bits);
++#else
+     return reinterpret_cast<MirrorType*>(as_bits);
++#endif
+   }
+ 
+   // Convert an ObjPtr to a compressed reference.

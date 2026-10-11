@@ -1,0 +1,78 @@
+--- a/art/runtime/gc/space/rosalloc_space.cc	2026-10-10 23:12:03.022311024 +1100
++++ b/art/runtime/gc/space/rosalloc_space.cc	2026-10-10 23:12:09.664402301 +1100
+@@ -94,7 +94,15 @@
+   // Protect memory beyond the starting size. MoreCore will add r/w permissions when necessory
+   uint8_t* end = mem_map.Begin() + starting_size;
+   if (capacity - starting_size > 0) {
+-    CheckedCall(mprotect, name.c_str(), end, capacity - starting_size, PROT_NONE);
++    // mprotect needs a host-page-aligned address; the host page (e.g. 16 KiB on
++    // Apple Silicon) may be larger than ART's kPageSize.
++    uintptr_t host_page = static_cast<uintptr_t>(sysconf(_SC_PAGE_SIZE));
++    uintptr_t aligned_end = (reinterpret_cast<uintptr_t>(end) + host_page - 1) & ~(host_page - 1);
++    uintptr_t map_end = reinterpret_cast<uintptr_t>(mem_map.Begin()) + capacity;
++    if (aligned_end < map_end) {
++      CheckedCall(mprotect, name.c_str(), reinterpret_cast<void*>(aligned_end),
++                  map_end - aligned_end, PROT_NONE);
++    }
+   }
+ 
+   // Everything is set so record in immutable structure and leave
+--- a/art/runtime/gc/space/dlmalloc_space.cc	2026-10-10 23:12:03.035471406 +1100
++++ b/art/runtime/gc/space/dlmalloc_space.cc	2026-10-10 23:12:09.774067542 +1100
+@@ -78,7 +78,15 @@
+   // Protect memory beyond the starting size. morecore will add r/w permissions when necessory
+   uint8_t* end = mem_map.Begin() + starting_size;
+   if (capacity - starting_size > 0) {
+-    CheckedCall(mprotect, name.c_str(), end, capacity - starting_size, PROT_NONE);
++    // mprotect needs a host-page-aligned address; the host page (e.g. 16 KiB on
++    // Apple Silicon) may be larger than ART's kPageSize.
++    uintptr_t host_page = static_cast<uintptr_t>(sysconf(_SC_PAGE_SIZE));
++    uintptr_t aligned_end = (reinterpret_cast<uintptr_t>(end) + host_page - 1) & ~(host_page - 1);
++    uintptr_t map_end = reinterpret_cast<uintptr_t>(mem_map.Begin()) + capacity;
++    if (aligned_end < map_end) {
++      CheckedCall(mprotect, name.c_str(), reinterpret_cast<void*>(aligned_end),
++                  map_end - aligned_end, PROT_NONE);
++    }
+   }
+ 
+   // Everything is set so record in immutable structure and leave
+--- a/art/runtime/gc/space/malloc_space.cc	2026-10-10 23:46:41.688407488 +1100
++++ b/art/runtime/gc/space/malloc_space.cc	2026-10-10 23:46:51.190179147 +1100
+@@ -154,6 +154,9 @@
+   if (increment != 0) {
+     VLOG(heap) << "MallocSpace::MoreCore " << PrettySize(increment);
+     uint8_t* new_end = original_end + increment;
++    // mprotect/madvise need a host-page-aligned address; the host page (16 KiB on Apple Silicon)
++    // may be larger than ART's kPageSize.
++    const uintptr_t host_page = static_cast<uintptr_t>(sysconf(_SC_PAGE_SIZE));
+     if (increment > 0) {
+       // Should never be asked to increase the allocation beyond the capacity of the space. Enforced
+       // by mspace_set_footprint_limit.
+@@ -160,5 +163,7 @@
+       CHECK_LE(new_end, Begin() + Capacity());
+-      CheckedCall(mprotect, GetName(), original_end, increment, PROT_READ | PROT_WRITE);
++      uintptr_t a = reinterpret_cast<uintptr_t>(original_end) & ~(host_page - 1);
++      uintptr_t b = (reinterpret_cast<uintptr_t>(new_end) + host_page - 1) & ~(host_page - 1);
++      CheckedCall(mprotect, GetName(), reinterpret_cast<void*>(a), b - a, PROT_READ | PROT_WRITE);
+     } else {
+       // Should never be asked for negative footprint (ie before begin). Zero footprint is ok.
+       CHECK_GE(original_end + increment, Begin());
+@@ -165,12 +170,10 @@
+       // Advise we don't need the pages and protect them
+-      // TODO: by removing permissions to the pages we may be causing TLB shoot-down which can be
+-      // expensive (note the same isn't true for giving permissions to a page as the protected
+-      // page shouldn't be in a TLB). We should investigate performance impact of just
+-      // removing ignoring the memory protection change here and in Space::CreateAllocSpace. It's
+-      // likely just a useful debug feature.
+-      size_t size = -increment;
+-      CheckedCall(madvise, GetName(), new_end, size, MADV_DONTNEED);
+-      CheckedCall(mprotect, GetName(), new_end, size, PROT_NONE);
++      uintptr_t a = (reinterpret_cast<uintptr_t>(new_end) + host_page - 1) & ~(host_page - 1);
++      uintptr_t b = reinterpret_cast<uintptr_t>(original_end) & ~(host_page - 1);
++      if (a < b) {
++        CheckedCall(madvise, GetName(), reinterpret_cast<void*>(a), b - a, MADV_DONTNEED);
++        CheckedCall(mprotect, GetName(), reinterpret_cast<void*>(a), b - a, PROT_NONE);
++      }
+     }
+     // Update end_.
+     SetEnd(new_end);
