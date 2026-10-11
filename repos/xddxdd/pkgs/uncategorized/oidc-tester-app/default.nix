@@ -6,12 +6,12 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "oidc-tester-app";
-  version = "0-unstable-2026-09-25";
+  version = "0-unstable-2026-10-10";
   src = fetchFromGitHub {
     owner = "authelia";
     repo = "oidc-tester-app";
-    rev = "daf9d286d1f0017ef543d6bc637dea1c1044d14d";
-    hash = "sha256-ggRQb2X+45rMlZ0Km23nwkPbxf//jDhlHYVnedAoFFo=";
+    rev = "a15bb3ccaaba9094a0032a089341667a4d3e6f29";
+    hash = "sha256-ulI3lVC5XcLdQe3wdV5VuBBehwHKP8mk+A0jHU8U+Es=";
   };
   __structuredAttrs = true;
   strictDeps = true;
