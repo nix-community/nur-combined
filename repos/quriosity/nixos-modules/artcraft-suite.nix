@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.quriosity.artcraft-suite;
+  cfg = config.quriosity.programs.artcraft-suite;
   helpers = import ../lib/artcraft-suite.nix { inherit lib; };
 
   appPackage = id: pkgs.callPackage (../pkgs/apps/artcraft-suite + "/${id}") { };
@@ -37,7 +37,7 @@ let
     '';
 in
 {
-  options.quriosity.artcraft-suite = (helpers.mkOptions { inherit pkgs; }) // {
+  options.quriosity.programs.artcraft-suite = (helpers.mkOptions { inherit pkgs; }) // {
     users = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = map (u: u.name) (

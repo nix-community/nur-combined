@@ -45,8 +45,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoHash = "sha256-UyQP8+z8gd5g0uoeGK6C8O0uw318vJ1l/IZ7ShTdcek=";
-  cargoBuildFlags = [ "--package" "lightcraft" ];
-  cargoTestFlags = [ "--package" "lightcraft" ];
+  cargoBuildFlags = [ "--package" "lightcraft" "--package" "lightcraft-cli" ];
+  cargoTestFlags = [ "--package" "lightcraft" "--package" "lightcraft-cli" ];
 
   nativeBuildInputs = [
     autoPatchelfHook

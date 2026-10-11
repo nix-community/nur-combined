@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 let
-  cfg = config.quriosity.artcraft-suite;
+  cfg = config.quriosity.programs.artcraft-suite;
   helpers = import ../lib/artcraft-suite.nix { inherit lib; };
 
   appPackage = id: pkgs.callPackage (../pkgs/apps/artcraft-suite + "/${id}") { };
@@ -13,7 +13,7 @@ let
   autostartEntry = pkgs.writeText "ai.storyteller.artcraft-launcher.desktop" (helpers.mkAutostart cfg.package);
 in
 {
-  options.quriosity.artcraft-suite = helpers.mkOptions { inherit pkgs; };
+  options.quriosity.programs.artcraft-suite = helpers.mkOptions { inherit pkgs; };
 
   config = lib.mkIf cfg.enable {
     home.packages = [ cfg.package ] ++ map appPackage cfg.packages;

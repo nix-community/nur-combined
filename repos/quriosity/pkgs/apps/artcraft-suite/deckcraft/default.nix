@@ -47,8 +47,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoHash = "sha256-5LjT/3EfDPguMPF4/TD6rpIefLk8+sIN0LD6Am3oDTQ=";
-  cargoBuildFlags = [ "--package" "deckcraft" ];
-  cargoTestFlags = [ "--package" "deckcraft" ];
+  cargoBuildFlags = [ "--package" "deckcraft" "--package" "deckcraft-cli" ];
+  cargoTestFlags = [ "--package" "deckcraft" "--package" "deckcraft-cli" ];
 
   nativeBuildInputs = [
     autoPatchelfHook

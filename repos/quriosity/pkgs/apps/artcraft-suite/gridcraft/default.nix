@@ -45,8 +45,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoHash = "sha256-bbKrNxzWaCgeohB9B0kkXAnncbD7ODJ04TbGrRQ/KXE=";
-  cargoBuildFlags = [ "--package" "gridcraft" ];
-  cargoTestFlags = [ "--package" "gridcraft" ];
+  cargoBuildFlags = [ "--package" "gridcraft" "--package" "gridcraft-cli" ];
+  cargoTestFlags = [ "--package" "gridcraft" "--package" "gridcraft-cli" ];
 
   nativeBuildInputs = [
     autoPatchelfHook

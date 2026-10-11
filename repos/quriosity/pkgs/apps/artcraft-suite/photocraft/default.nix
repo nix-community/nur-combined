@@ -45,8 +45,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoHash = "sha256-kpNg04RP5XbtW2rMaXUmGIKRJIqJmi7fmTbs5qHTLto=";
-  cargoBuildFlags = [ "--package" "photocraft" ];
-  cargoTestFlags = [ "--package" "photocraft" ];
+  cargoBuildFlags = [ "--package" "photocraft" "--package" "photocraft-cli" ];
+  cargoTestFlags = [ "--package" "photocraft" "--package" "photocraft-cli" ];
 
   nativeBuildInputs = [
     autoPatchelfHook

@@ -45,8 +45,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoHash = "sha256-OljEFWaPOT3nmWU/xVTcbn3ePAdEYkhG6/U4ysVG9Kc=";
-  cargoBuildFlags = [ "--package" "wordcraft" ];
-  cargoTestFlags = [ "--package" "wordcraft" ];
+  cargoBuildFlags = [ "--package" "wordcraft" "--package" "wordcraft-cli" ];
+  cargoTestFlags = [ "--package" "wordcraft" "--package" "wordcraft-cli" ];
 
   nativeBuildInputs = [
     autoPatchelfHook

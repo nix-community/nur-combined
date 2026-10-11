@@ -45,8 +45,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoHash = "sha256-Y8bqSY/ok6gmH/V4C0AL0j4CDMxEIXkYdm/VBHuB4UI=";
-  cargoBuildFlags = [ "--package" "cadcraft" ];
-  cargoTestFlags = [ "--package" "cadcraft" ];
+  cargoBuildFlags = [ "--package" "cadcraft" "--package" "cadcraft-cli" ];
+  cargoTestFlags = [ "--package" "cadcraft" "--package" "cadcraft-cli" ];
 
   nativeBuildInputs = [
     autoPatchelfHook

@@ -45,8 +45,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoHash = "sha256-mHsJXvsj+osNJOe1sTV9fJwEDj9t7Cm8eYC8JbLw90M=";
-  cargoBuildFlags = [ "--package" "designcraft" ];
-  cargoTestFlags = [ "--package" "designcraft" ];
+  cargoBuildFlags = [ "--package" "designcraft" "--package" "designcraft-cli" ];
+  cargoTestFlags = [ "--package" "designcraft" "--package" "designcraft-cli" ];
 
   nativeBuildInputs = [
     autoPatchelfHook

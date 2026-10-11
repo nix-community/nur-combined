@@ -47,8 +47,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoHash = "sha256-4zY/R2IJ8lpSrEx6+7cEtdsrjgPhyzwngbMoRk5yErk=";
-  cargoBuildFlags = [ "--package" "soundcraft" ];
-  cargoTestFlags = [ "--package" "soundcraft" ];
+  cargoBuildFlags = [ "--package" "soundcraft" "--package" "soundcraft-cli" ];
+  cargoTestFlags = [ "--package" "soundcraft" "--package" "soundcraft-cli" ];
 
   nativeBuildInputs = [
     autoPatchelfHook

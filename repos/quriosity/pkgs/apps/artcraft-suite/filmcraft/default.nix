@@ -47,8 +47,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoHash = "sha256-oJadymZHT/paCUvI9iXlUlST4SckUpdH6r5PCJkXbXI=";
-  cargoBuildFlags = [ "--package" "filmcraft" ];
-  cargoTestFlags = [ "--package" "filmcraft" ];
+  cargoBuildFlags = [ "--package" "filmcraft" "--package" "filmcraft-cli" ];
+  cargoTestFlags = [ "--package" "filmcraft" "--package" "filmcraft-cli" ];
 
   nativeBuildInputs = [
     autoPatchelfHook

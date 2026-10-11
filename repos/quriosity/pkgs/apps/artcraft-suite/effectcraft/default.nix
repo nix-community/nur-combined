@@ -47,8 +47,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoHash = "sha256-WJo1nqiP1uQA5hXs1jaLO0CmyxZ1oqEOQ90N9BEsxSc=";
-  cargoBuildFlags = [ "--package" "effectcraft" ];
-  cargoTestFlags = [ "--package" "effectcraft" ];
+  cargoBuildFlags = [ "--package" "effectcraft" "--package" "effectcraft-cli" ];
+  cargoTestFlags = [ "--package" "effectcraft" "--package" "effectcraft-cli" ];
 
   nativeBuildInputs = [
     autoPatchelfHook

@@ -45,8 +45,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoHash = "sha256-Sq2DWsBHzR/kTbiDjCcLVqLd66MF6dzUl/MtaU1EK/g=";
-  cargoBuildFlags = [ "--package" "pdfcraft" ];
-  cargoTestFlags = [ "--package" "pdfcraft" ];
+  cargoBuildFlags = [ "--package" "pdfcraft" "--package" "pdfcraft-cli" ];
+  cargoTestFlags = [ "--package" "pdfcraft" "--package" "pdfcraft-cli" ];
 
   nativeBuildInputs = [
     autoPatchelfHook

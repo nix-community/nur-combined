@@ -45,8 +45,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoHash = "sha256-jODG9lod5GN9w/xKBJOVe1HM0qFP/8Fna6JOCmJseTY=";
-  cargoBuildFlags = [ "--package" "vectorcraft" ];
-  cargoTestFlags = [ "--package" "vectorcraft" ];
+  cargoBuildFlags = [ "--package" "vectorcraft" "--package" "vectorcraft-cli" ];
+  cargoTestFlags = [ "--package" "vectorcraft" "--package" "vectorcraft-cli" ];
 
   nativeBuildInputs = [
     autoPatchelfHook
