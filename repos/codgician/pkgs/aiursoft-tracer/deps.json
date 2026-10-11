@@ -516,33 +516,28 @@
   },
   {
     "pname": "Microsoft.Testing.Extensions.Telemetry",
-    "version": "2.4.1",
-    "hash": "sha256-WTwczmEqomSSPBiwqQbnfplwPIXiNf0q03Kr3+DPhbc="
+    "version": "2.5.1",
+    "hash": "sha256-oUfepzPeFMcOISetmTpWPKNSytXI6TCrpyf+TATzjZQ="
   },
   {
     "pname": "Microsoft.Testing.Extensions.TrxReport.Abstractions",
-    "version": "2.4.1",
-    "hash": "sha256-mLii6ywdg2ASiOl7GwWrTwqSsDTC8ehsStnECwGkV2Y="
+    "version": "2.5.1",
+    "hash": "sha256-RSOwqSdDpTOZzb1UpG3XtEH7gC5RSzIxO3eNsMHQdLs="
   },
   {
     "pname": "Microsoft.Testing.Platform",
-    "version": "2.4.1",
-    "hash": "sha256-nXMFzWfor3E3aFiXOHtnD2q65i2r9EofWrtny6pk8qg="
+    "version": "2.5.1",
+    "hash": "sha256-fTUJLHC4ZZkxSt8Fv0pwYdoD/AjI5JPwKdpr1Npu82k="
   },
   {
     "pname": "Microsoft.Testing.Platform.MSBuild",
-    "version": "2.4.1",
-    "hash": "sha256-Z+WaryXPIey0Xm+9YXORz82RqzWuxPOLPDTQ5Qa7RhY="
+    "version": "2.5.1",
+    "hash": "sha256-M1E2gk5/m8i8d/ZwDd9TaiZPKyejB8MhQ737rBKpj2k="
   },
   {
     "pname": "Microsoft.TestPlatform.ObjectModel",
     "version": "18.10.1",
     "hash": "sha256-rtEsNPmOjjL1VCi6CRCLROMsbIia6sv6rGYciKUkbW8="
-  },
-  {
-    "pname": "Microsoft.TestPlatform.ObjectModel",
-    "version": "18.9.0",
-    "hash": "sha256-/RJOUlUCKDgC0qZ9ALc3nTm7nGa6hFktzxm3OQDscIo="
   },
   {
     "pname": "Microsoft.TestPlatform.TestHost",
@@ -561,18 +556,18 @@
   },
   {
     "pname": "MSTest.Analyzers",
-    "version": "4.4.1",
-    "hash": "sha256-LN/f7NpTUT18WNdmVtAtNU0quKDONK6NSGWHmHy5UM4="
+    "version": "4.5.1",
+    "hash": "sha256-cVEojeCv7lTed4nE8kbbiOc3KsB/eOemu/qcHUPX9iY="
   },
   {
     "pname": "MSTest.TestAdapter",
-    "version": "4.4.1",
-    "hash": "sha256-UPO2Vj1Egu1H2C2zx91FypvxN4PVY/NkD//tVf4UIeg="
+    "version": "4.5.1",
+    "hash": "sha256-6hTrGg/iiXUU+DvIm929NF4Y8voGnVp7Bbr2J1fO3Ak="
   },
   {
     "pname": "MSTest.TestFramework",
-    "version": "4.4.1",
-    "hash": "sha256-f5Ct5wA+q454Bq5KnHbhLiwWI+KHlAyBl7K69v4uonU="
+    "version": "4.5.1",
+    "hash": "sha256-tMPSCbG5nXljZ0OhBTz9Cjx6G7+eG537/91RdhADWiY="
   },
   {
     "pname": "MySqlConnector",
