@@ -1,0 +1,85 @@
+diff --git a/litebox_runner_linux_userland/tests/common/mod.rs b/litebox_runner_linux_userland/tests/common/mod.rs
+index 6fd0f8e..ec58c05 100644
+--- a/litebox_runner_linux_userland/tests/common/mod.rs
++++ b/litebox_runner_linux_userland/tests/common/mod.rs
+@@ -27,6 +27,14 @@ pub fn find_dependencies(prog: &str) -> Vec<String> {
+         }
+ 
+         if let Some(idx) = line.find("=>") {
++            // Format: "/lib/ld-linux-x86-64.so.2 => /lib64/ld-linux-x86-64.so.2 (0x...)"
++            // The left side is the PT_INTERP path the loader will actually open, which
++            // may differ from the resolved right side when lib64 is a symlink.
++            let left = line[..idx].trim();
++            if left.starts_with('/') {
++                paths.push(left.to_string());
++                continue;
++            }
+             // Format: "libc.so.6 => /lib/.../libc.so.6 (0x...)"
+             let right = line[idx + 2..].trim();
+             // Skip "not found"
+diff --git a/litebox_runner_linux_userland/tests/efault.c b/litebox_runner_linux_userland/tests/efault.c
+index f028b1f..6a8d149 100644
+--- a/litebox_runner_linux_userland/tests/efault.c
++++ b/litebox_runner_linux_userland/tests/efault.c
+@@ -4,6 +4,7 @@
+ #include <unistd.h>
+ #include <errno.h>
+ #include <stdio.h>
++#include <stdlib.h>
+ 
+ int main() {
+     int r = write(STDOUT_FILENO, (const void *)0x10000, 1);
+diff --git a/litebox_runner_linux_userland/tests/run.rs b/litebox_runner_linux_userland/tests/run.rs
+index 70bcdcc..c0cbef5 100644
+--- a/litebox_runner_linux_userland/tests/run.rs
++++ b/litebox_runner_linux_userland/tests/run.rs
+@@ -409,6 +409,12 @@ fn python_runner(unique_name: &str) -> Runner {
+                                 std::str::from_utf8(output.stderr.as_slice()).unwrap_or("");
+                             eprintln!("Warning: cp finished with errors (non-critical):\n{stderr}");
+                         }
++                        // The source may be read-only (e.g. the Nix store), and `cp -p`
++                        // preserves that; make the copy writable so we can stage into it.
++                        std::process::Command::new("chmod")
++                            .args(["-R", "u+w", python_lib_dst.to_str().unwrap()])
++                            .status()
++                            .expect("Failed to make python3 lib writable");
+                         std::fs::write(&stage_marker, b"").unwrap();
+                     }
+ 
+diff --git a/litebox_runner_linux_userland/tests/signal.c b/litebox_runner_linux_userland/tests/signal.c
+index 2d07eb9..a1f9bf1 100644
+--- a/litebox_runner_linux_userland/tests/signal.c
++++ b/litebox_runner_linux_userland/tests/signal.c
+@@ -12,6 +12,7 @@
+ #include <stdint.h>
+ 
+ static volatile void *recover_ip = NULL;
++static volatile int never_true = 0;
+ 
+ static void segv_handler(int sig, siginfo_t *info, void *ucontext) {
+     ucontext_t *ctx = (ucontext_t *)ucontext;
+@@ -51,6 +52,10 @@ int main(void) {
+     /* Capture label address for recovery */
+     void *after_fault_label = &&after_fault;
+     recover_ip = after_fault_label;
++    /* Without a computed goto, the label's address is unspecified once
++       optimizations are enabled (GCC may hoist it above this point). */
++    if (never_true)
++        goto *after_fault_label;
+ 
+     printf("About to trigger SIGSEGV...\n");
+ 
+diff --git a/litebox_syscall_rewriter/tests/snapshot_tests.rs b/litebox_syscall_rewriter/tests/snapshot_tests.rs
+index 1efe0be..3279c24 100644
+--- a/litebox_syscall_rewriter/tests/snapshot_tests.rs
++++ b/litebox_syscall_rewriter/tests/snapshot_tests.rs
+@@ -19,7 +19,8 @@ fn objdump(binary: &[u8]) -> String {
+ 
+     String::from_utf8_lossy(&output.stdout)
+         .lines()
+-        .filter(|l| !l.contains("/tmp/"))
++        // The header names the temporary file, which differs between runs
++        .filter(|l| !l.contains(temp_file.path().to_str().unwrap()))
+         .map(|line| normalize_objdump_line(line, trampoline_range.as_ref()))
+         .collect::<Vec<_>>()
+         .join("\n")

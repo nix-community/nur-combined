@@ -1,0 +1,29 @@
+diff --git a/litebox_platform_linux_userland/src/lib.rs b/litebox_platform_linux_userland/src/lib.rs
+index ad9d61a..5356302 100644
+--- a/litebox_platform_linux_userland/src/lib.rs
++++ b/litebox_platform_linux_userland/src/lib.rs
+@@ -336,9 +336,14 @@ impl LinuxUserland {
+         let Ok(fd) = fd else {
+             return alloc::vec::Vec::new();
+         };
+-        let mut buf = [0u8; 8192];
++        // The size of the maps file depends on the number and path lengths of mapped files (e.g.,
++        // long Nix store paths), so grow the buffer as needed rather than using a fixed size.
++        let mut buf = alloc::vec![0u8; 8192];
+         let mut total_read = 0;
+-        while total_read < buf.len() {
++        loop {
++            if total_read == buf.len() {
++                buf.resize(buf.len() * 2, 0);
++            }
+             let n = unsafe {
+                 syscalls::syscall3(
+                     syscalls::Sysno::read,
+@@ -353,7 +358,6 @@ impl LinuxUserland {
+             }
+             total_read += n;
+         }
+-        assert!(total_read < buf.len(), "buffer too small");
+         unsafe { syscalls::syscall1(syscalls::Sysno::close, fd) }.expect("close failed");
+ 
+         let mut reserved_pages = alloc::vec::Vec::new();
