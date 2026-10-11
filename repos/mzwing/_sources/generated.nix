@@ -96,10 +96,10 @@
   };
   cnb-cli = {
     pname = "cnb-cli";
-    version = "1.17.9";
+    version = "1.17.23";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.9.tgz";
-      sha256 = "sha256-VYnU5QGZvjz7UMZpbfXNgISta4V8ugTK9XIAK/ZLn6w=";
+      url = "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.23.tgz";
+      sha256 = "sha256-SvI6egkxdMz9EHb0KN911hLsqBZf84eLr+SnnyHrvnw=";
     };
   };
   codegraph = {
@@ -276,13 +276,13 @@
   };
   sing-box-alpha = {
     pname = "sing-box-alpha";
-    version = "v1.15.0-alpha.11";
+    version = "v1.15.0-alpha.12";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "sing-box";
-      rev = "v1.15.0-alpha.11";
+      rev = "v1.15.0-alpha.12";
       fetchSubmodules = false;
-      sha256 = "sha256-SETjm9kMoo4M+EgrSXA36sLDQvHyPXRbPXyhDDds5mM=";
+      sha256 = "sha256-Xu2lsqcGdKdRTEcWwIX6EFuEd87ImnWGI4Vp10aO37Y=";
     };
   };
   sing-box-beta = {
@@ -309,13 +309,13 @@
   };
   subs-check-pro = {
     pname = "subs-check-pro";
-    version = "v3.5.0";
+    version = "v3.5.1";
     src = fetchFromGitHub {
       owner = "sinspired";
       repo = "subs-check-pro";
-      rev = "v3.5.0";
+      rev = "v3.5.1";
       fetchSubmodules = false;
-      sha256 = "sha256-acwSDIPPTXgQp+td7e4fb2vEe31gQB/OHgRBbTRiTJ0=";
+      sha256 = "sha256-aOVlXb2/pOhf/RU3dE4P8nh1YMiW4gfiAhiiCj/5gMQ=";
     };
   };
   tree-sitter-nix = {

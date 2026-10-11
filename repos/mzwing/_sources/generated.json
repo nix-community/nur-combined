@@ -176,11 +176,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-VYnU5QGZvjz7UMZpbfXNgISta4V8ugTK9XIAK/ZLn6w=",
+            "sha256": "sha256-SvI6egkxdMz9EHb0KN911hLsqBZf84eLr+SnnyHrvnw=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.9.tgz"
+            "url": "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.23.tgz"
         },
-        "version": "1.17.9"
+        "version": "1.17.23"
     },
     "codegraph": {
         "cargoLock": null,
@@ -510,12 +510,12 @@
             "name": null,
             "owner": "SagerNet",
             "repo": "sing-box",
-            "rev": "v1.15.0-alpha.11",
-            "sha256": "sha256-SETjm9kMoo4M+EgrSXA36sLDQvHyPXRbPXyhDDds5mM=",
+            "rev": "v1.15.0-alpha.12",
+            "sha256": "sha256-Xu2lsqcGdKdRTEcWwIX6EFuEd87ImnWGI4Vp10aO37Y=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.15.0-alpha.11"
+        "version": "v1.15.0-alpha.12"
     },
     "sing-box-beta": {
         "cargoLock": null,
@@ -573,12 +573,12 @@
             "name": null,
             "owner": "sinspired",
             "repo": "subs-check-pro",
-            "rev": "v3.5.0",
-            "sha256": "sha256-acwSDIPPTXgQp+td7e4fb2vEe31gQB/OHgRBbTRiTJ0=",
+            "rev": "v3.5.1",
+            "sha256": "sha256-aOVlXb2/pOhf/RU3dE4P8nh1YMiW4gfiAhiiCj/5gMQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.5.0"
+        "version": "v3.5.1"
     },
     "tree-sitter-nix": {
         "cargoLock": null,
