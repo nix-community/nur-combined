@@ -87,16 +87,16 @@
   };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
-    version = "93482a814fd5e11eefed195ae251f58c30f2058b";
+    version = "0f460c6dd0dbeee017b62d165a0ca36a494a48ee";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "clash-nyanpasu";
-      rev = "93482a814fd5e11eefed195ae251f58c30f2058b";
+      rev = "0f460c6dd0dbeee017b62d165a0ca36a494a48ee";
       fetchSubmodules = false;
-      sha256 = "sha256-KbC924NikTE15I4fYv6AfJ84o2npAJJ0Wk1U+YvLEYE=";
+      sha256 = "sha256-8MGeV0gxUd80Z9zSE1W2xwSj18WsIa4s2VLxTmJR0Ng=";
     };
     cargoLock."backend/Cargo.lock" = {
-      lockFile = ./. + "/sha256-KbC924NikTE15I4fYv6AfJ84o2npAJJ0Wk1U+YvLEYE=/backend/Cargo.lock";
+      lockFile = ./. + "/sha256-8MGeV0gxUd80Z9zSE1W2xwSj18WsIa4s2VLxTmJR0Ng=/backend/Cargo.lock";
       outputHashes = {
         "auto-launch-0.5.0" = "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=";
         "runas-1.2.0" = "sha256-cTYTFtmdmCztL2JhgnOxwKhd+VfUmm5DB3gkNy92g04=";
@@ -108,7 +108,7 @@
         "processkit-2.2.5" = "sha256-aLH0vrplsy8uTBzm5ult//Ix4DGE/Qg5TQyCBlUCCJo=";
       };
     };
-    date = "2026-10-10";
+    date = "2026-10-11";
   };
   clash-nyanpasu-stable = {
     pname = "clash-nyanpasu-stable";
@@ -233,21 +233,21 @@
   };
   gaze = {
     pname = "gaze";
-    version = "6939f9812b37d33d310d9ac95fa2a7c473ebca86";
+    version = "b584f4700fcebc758f5c1869a9fcc51dc29001e2";
     src = fetchFromGitHub {
       owner = "GunduLabs";
       repo = "gaze";
-      rev = "6939f9812b37d33d310d9ac95fa2a7c473ebca86";
+      rev = "b584f4700fcebc758f5c1869a9fcc51dc29001e2";
       fetchSubmodules = false;
-      sha256 = "sha256-ApjNEc2sWgv1+0oeWWY4JdqrH8irQZ712nK4dT7O0HU=";
+      sha256 = "sha256-Zh/IZ2KToCwLm+tloptV5I8PCv5SYIP6//OeLT6FLMA=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-ApjNEc2sWgv1+0oeWWY4JdqrH8irQZ712nK4dT7O0HU=/Cargo.lock";
+      lockFile = ./. + "/sha256-Zh_IZ2KToCwLm+tloptV5I8PCv5SYIP6__OeLT6FLMA=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-10-09";
+    date = "2026-10-10";
   };
   gaze-stable = {
     pname = "gaze-stable";
@@ -412,15 +412,15 @@
   };
   meta-rules-dat = {
     pname = "meta-rules-dat";
-    version = "fa4922ac71ae2ac2ae1c1f5b61447b42095fd665";
+    version = "53d5c20435ec5574916707f878847c9840db19a6";
     src = fetchFromGitHub {
       owner = "MetaCubeX";
       repo = "meta-rules-dat";
-      rev = "fa4922ac71ae2ac2ae1c1f5b61447b42095fd665";
+      rev = "53d5c20435ec5574916707f878847c9840db19a6";
       fetchSubmodules = false;
-      sha256 = "sha256-PP6OX78hByMw/K5kTGSBwGVNOA/fnZYuqXSOyvDsNB4=";
+      sha256 = "sha256-lf3uVxpPvKRPOf0W249o4cWXfF9D0wkFjPMLLsafNlA=";
     };
-    date = "2026-10-10";
+    date = "2026-10-11";
   };
   metacubex-geo = {
     pname = "metacubex-geo";
@@ -693,27 +693,27 @@
   };
   v2ray-rules-dat = {
     pname = "v2ray-rules-dat";
-    version = "c96da7c33ebda41768d4ab0350d0418e377dbca3";
+    version = "eeca1892e9ae986005bf5ead6a6df3d3cd9950d1";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "v2ray-rules-dat";
-      rev = "c96da7c33ebda41768d4ab0350d0418e377dbca3";
+      rev = "eeca1892e9ae986005bf5ead6a6df3d3cd9950d1";
       fetchSubmodules = false;
-      sha256 = "sha256-ArFRdyiUJBzyCpYUSUQavdKJvv/DiqaO59gn9j9USMk=";
+      sha256 = "sha256-AiNLoJV6mhq0UlhFpXe5w0ly+Q+idAlMSh7gAnYwF2I=";
     };
-    date = "2026-10-09";
+    date = "2026-10-10";
   };
   wetype-ime-linux = {
     pname = "wetype-ime-linux";
-    version = "a338e460875a76834125935679f979c3fa42ea27";
+    version = "dd1110288cc682fcc990e3458e56f52bcaa732f5";
     src = fetchFromGitHub {
       owner = "yu1745";
       repo = "wetype-ime-linux";
-      rev = "a338e460875a76834125935679f979c3fa42ea27";
+      rev = "dd1110288cc682fcc990e3458e56f52bcaa732f5";
       fetchSubmodules = false;
-      sha256 = "sha256-mUvJhWzavIvtlt/V/MIulQdHqh5AJ7qj367J1G5dHsg=";
+      sha256 = "sha256-Nsi43aHPnioaIqkQWjD4PKWAYJtQuo7CXzFhhdttAUg=";
     };
-    date = "2026-10-09";
+    date = "2026-10-10";
   };
   wetype-ime-linux-stable = {
     pname = "wetype-ime-linux-stable";
