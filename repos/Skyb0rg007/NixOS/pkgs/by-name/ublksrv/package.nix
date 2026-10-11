@@ -8,7 +8,7 @@
   autoreconfHook,
   validatePkgConfig,
   udevCheckHook,
-  # versionCheckHook,
+  versionCheckHook,
   coreutils,
   libnfs,
   libiscsi,
@@ -18,13 +18,14 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "ublksrv";
-  version = "1.8";
+  version = "1.8-unstable-2026-09-24";
 
   src = fetchFromGitHub {
     owner = "ublk-org";
     repo = "ublksrv";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-nCC75UqOkKQWYh+NiH+Bm3CLLS7xnWUxfxEXla51DCk=";
+    # tag = "v${finalAttrs.version}";
+    rev = "e36fae3f0995c4940b9007eb10d020beaba6a7e2";
+    hash = "sha256-hg4ioxUqO+6Z2JxEXewUMg4x0a7jdxTOWXpQP9QiwRc=";
   };
 
   nativeBuildInputs = [
@@ -64,7 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeInstallCheckInputs = [
     validatePkgConfig
     udevCheckHook
-    # versionCheckHook # requires ublk_drv module loaded
+    versionCheckHook
   ];
   doInstallCheck = true;
 
