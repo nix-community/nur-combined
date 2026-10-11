@@ -4,6 +4,7 @@ Personal Nix packages and NixOS modules using the caller's `pkgs`.
 
 | Package | NixOS module | Documentation |
 | --- | --- | --- |
+| `cf` | None | [Cloudflare CLI](pkgs/cf/README.md) |
 | `changedetection-io` | Use nixpkgs' module with this package | [changedetection.io](pkgs/changedetection-io/README.md) |
 | `fluxdown-server` | `nixosModules.fluxdown` | [FluxDown Server](pkgs/fluxdown-server/README.md) |
 | `mnamer-rs` | None | [mnamer Rust rewrite](pkgs/mnamer-rs/README.md) |
