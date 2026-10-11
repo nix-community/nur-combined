@@ -2,8 +2,10 @@
 
 ## Style and scope
 
-- Prefer concise code, guard clauses and existing workflows. Preserve correctness
-  and security; do not split functions merely to reduce complexity metrics.
+- Prefer concise code, early errors and existing workflows. Avoid speculative
+  fallbacks and redundant defensive checks; fail clearly on invalid assumptions.
+  Preserve security and data-integrity checks. Do not split functions merely to
+  reduce complexity metrics.
 - Keep documentation short: usage, maintenance and test commands. Investigate
   errors from their messages when they occur; omit speculative troubleshooting.
 - Write documentation in English; keep package notes in `pkgs/<name>/README.md`.
@@ -59,4 +61,6 @@ for authorized history rewrites.
 
 Use `pkg-name: old-ver -> new-ver` for version updates and English Conventional
 Commit titles for other changes. Keep titles under 72 characters. Put release
-notes in PRs, not READMEs.
+notes in PRs, not READMEs. Use `.github/package-update-pr.md` for package-update
+PR descriptions: a visible upstream diff URL, completed-check task list, explicit
+platform and CI log link when available. Include only checks that actually passed.

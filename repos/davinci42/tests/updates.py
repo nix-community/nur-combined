@@ -132,6 +132,77 @@ class UpdateTests(unittest.TestCase):
         self.assertEqual(detect.call_count, 2)
         self.assertIn("second", cast(str, report.call_args.args[0]))
 
+    def test_pr_uses_template_and_actual_source_refs(self) -> None:
+        before: dict[str, object] = {
+            "snapshot": False,
+            "upstream": "https://github.com/DIYgod/RSSHub",
+            "sourceRef": "v2026.10.10-8410.c3dfdf4",
+            "system": "x86_64-linux",
+        }
+        after = before | {"sourceRef": "v2026.10.11-8411.a7d4000"}
+        with (
+            patch.dict(
+                os.environ,
+                {
+                    "GITHUB_REPOSITORY": "DaVinci42/nur-packages",
+                    "UPDATE_BASE": "main",
+                    "GITHUB_SERVER_URL": "https://github.com",
+                    "GITHUB_RUN_ID": "38107696052",
+                },
+                clear=True,
+            ),
+            patch.object(
+                check_updates, "github", side_effect=["", "created"]
+            ) as github,
+            patch.object(maintain, "update_info", side_effect=[before, after]),
+            patch.object(maintain, "update", return_value=True),
+            patch.object(maintain, "version", return_value="2026.10.11-8411.a7d4000"),
+            patch.object(maintain, "run"),
+        ):
+            self.assertEqual(
+                check_updates.open_pr(
+                    maintain.ROOT,
+                    "rsshub",
+                    "2026.10.10-8410.c3dfdf4",
+                    "2026.10.11-8411.a7d4000",
+                    False,
+                ),
+                "created",
+            )
+        arguments = cast(list[str], github.call_args.args[1])
+        body = arguments[arguments.index("--body") + 1]
+        self.assertIn(
+            "/compare/v2026.10.10-8410.c3dfdf4...v2026.10.11-8411.a7d4000", body
+        )
+        self.assertIn("- [x] `just check rsshub` passed on `x86_64-linux`.", body)
+        self.assertIn("/actions/runs/38107696052", body)
+        self.assertNotIn("Not tested", body)
+        self.assertNotIn("{", body)
+
+    def test_snapshot_template_without_ci_and_repository_change(self) -> None:
+        before: dict[str, object] = {
+            "upstream": "https://github.com/SpotX-Official/SpotX-Bash",
+            "sourceRef": "a" * 40,
+            "system": "aarch64-darwin",
+        }
+        after = before | {"sourceRef": "b" * 40}
+        with patch.dict(os.environ, {}, clear=True):
+            body = check_updates.pr_body(
+                maintain.ROOT, "spotify-spotx", "a" * 40, "b" * 40, before, after
+            )
+        self.assertIn("/compare/" + "a" * 40 + "..." + "b" * 40, body)
+        self.assertIn("aarch64-darwin", body)
+        self.assertNotIn("CI logs", body)
+        with self.assertRaisesRegex(ValueError, "repository changed"):
+            _ = check_updates.pr_body(
+                maintain.ROOT,
+                "example",
+                "1",
+                "2",
+                before,
+                after | {"upstream": "different"},
+            )
+
     def test_workflow_keeps_daily_and_manual_checks(self) -> None:
         workflow = (maintain.ROOT / ".github/workflows/updates.yml").read_text()
         self.assertIn("cron: '0 0 * * *'", workflow)

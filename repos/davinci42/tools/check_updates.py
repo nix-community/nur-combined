@@ -5,6 +5,7 @@ import sys
 import tempfile
 from pathlib import Path
 from typing import cast
+from urllib.parse import quote
 from uuid import uuid4
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -56,6 +57,47 @@ def github(root: Path, arguments: list[str]) -> str:
     ).stdout.strip()
 
 
+def pr_body(
+    root: Path,
+    package: str,
+    current: str,
+    target: str,
+    before: dict[str, object],
+    after: dict[str, object],
+) -> str:
+    if not all(
+        isinstance(info.get(key), str) and info[key]
+        for info in (before, after)
+        for key in ("upstream", "sourceRef", "system")
+    ):
+        raise ValueError("Cannot determine upstream diff or validation platform")
+    if before["upstream"] != after["upstream"]:
+        raise ValueError("Upstream repository changed; review manually")
+    upstream = cast(str, after["upstream"])
+    old_ref = quote(cast(str, before["sourceRef"]), safe="")
+    new_ref = quote(cast(str, after["sourceRef"]), safe="")
+    template = (root / ".github/package-update-pr.md").read_text()
+    run_id = os.environ.get("GITHUB_RUN_ID")
+    ci_url = ""
+    if run_id:
+        ci_url = (
+            f"{os.environ['GITHUB_SERVER_URL']}/{os.environ['GITHUB_REPOSITORY']}"
+            + f"/actions/runs/{run_id}"
+        )
+    else:
+        template = template.replace("[CI logs]({ci_run_url})\n", "")
+    return template.format(
+        package=package,
+        old_version=current,
+        new_version=target,
+        compare_url=f"{upstream}/compare/{old_ref}...{new_ref}",
+        check_command=f"just check {package}",
+        system=after["system"],
+        checks_run="Package build, package checks, lint and `git diff --check`",
+        ci_run_url=ci_url,
+    ).strip()
+
+
 def open_pr(root: Path, package: str, current: str, target: str, force: bool) -> str:
     repository = os.environ["GITHUB_REPOSITORY"]
     base = os.environ["UPDATE_BASE"]
@@ -92,12 +134,21 @@ def open_pr(root: Path, package: str, current: str, target: str, force: bool) ->
             root, ["git", "worktree", "add", "--detach", str(worktree), "HEAD"]
         )
         try:
-            snapshot = maintain.update_info(worktree, package)["snapshot"]
+            before = maintain.update_info(worktree, package)
+            snapshot = before["snapshot"]
             if not maintain.update(worktree, package, None if snapshot else target):
                 return f"{package}: no changes"
             if maintain.version(worktree, package) != target:
                 raise ValueError("Upstream moved during update; retry the check")
             _ = maintain.run(worktree, ["git", "diff", "--check"])
+            body = pr_body(
+                root,
+                package,
+                current,
+                target,
+                before,
+                maintain.update_info(worktree, package),
+            )
             _ = maintain.run(worktree, ["git", "add", "--", f"pkgs/{package}"])
             _ = maintain.run(worktree, ["git", "commit", "-m", title])
             _ = maintain.run(
@@ -117,9 +168,7 @@ def open_pr(root: Path, package: str, current: str, target: str, force: bool) ->
                     "--title",
                     title,
                     "--body",
-                    f"Update {package} from {current} to {target}.\n\n"
-                    + f"Validated with `just check {package}`: package build, passthru tests and lint. "
-                    + "Only the current platform was build-tested; VM tests were not run.",
+                    body,
                 ],
             )
         finally:
