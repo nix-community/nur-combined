@@ -10,4 +10,5 @@
   gomerge = pkgs.callPackage ./pkgs/gomerge { };
   paintdotnet = pkgs.callPackage ./pkgs/paintdotnet { };
   proton-wineland = pkgs.callPackage ./pkgs/proton-wineland/package.nix { };
+  tide = pkgs.fishPlugins.callPackage ./pkgs/tide { };
 }
