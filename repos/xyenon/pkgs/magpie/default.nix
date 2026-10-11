@@ -2,6 +2,7 @@
   lib,
   stdenv,
   buildGoModule,
+  buildEnv,
   fetchFromGitHub,
   pkg-config,
   gtk3,
@@ -16,6 +17,10 @@
   versionCheckHook,
   nix-update-script,
   coreutils,
+  bash,
+  gawk,
+  gnugrep,
+  gnused,
   python3,
   bun,
   procps,
@@ -30,21 +35,33 @@
 let
   linuxGui = guiSupport && stdenv.hostPlatform.isLinux;
   darwinGui = guiSupport && stdenv.hostPlatform.isDarwin;
+  testTools = buildEnv {
+    name = "magpie-test-tools";
+    paths = [
+      bash
+      coreutils
+      gawk
+      gnugrep
+      gnused
+      python3
+    ];
+    pathsToLink = [ "/bin" ];
+  };
 in
 buildGoModule (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "magpie";
-  version = "0.1.1166";
+  version = "0.1.1178";
 
   src = fetchFromGitHub {
     owner = "yetone";
     repo = "magpie";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-5RSx0Oki0ngcKOypIC/rPnU5miEq8yykJjEIvSSPvRU=";
+    hash = "sha256-lFKcLWqy+lOFx+/aW7N87QMhDSXi8b6aUpGV2cAqU5E=";
   };
 
-  vendorHash = "sha256-dqFc8UTREaRFt3G3DS7IllBx8ysOlcA5JUqGaQ/XlcI=";
+  vendorHash = "sha256-RevP93sHMwgwQxSh4WzKkNIupNQhU/sP3b/g/lpMS+E=";
 
   postPatch =
     lib.optionalString linuxGui ''
@@ -89,23 +106,15 @@ buildGoModule (finalAttrs: {
 
   preCheck = ''
     export MAGPIE_BUN=${lib.getExe bun}
+    # Normalize executable fixtures and explicit system PATHs in new tests too.
+    GOFLAGS= PATCH_TESTS_SOURCE=${./patch-tests.go} go test ${./patch-tests.go} ${./patch-tests_test.go}
+    GOFLAGS= go run ${./patch-tests.go} ${testTools}/bin
     substituteInPlace main_test.go internal/plugin/main_test.go \
       --replace-fail 'testenv.Main(m)' 'testenv.Offline(); testenv.Main(m)'
-    substituteInPlace internal/gateway/automode_test.go \
-      --replace-fail '#!/usr/bin/env python3' '#!${lib.getExe python3}'
     # Allow the filesystem change-time clock to advance before the same-size rewrite.
     substituteInPlace internal/sessions/codex_archive_test.go \
       --replace-fail 'writeLines(t, archived, `{"x":2}`)' \
         'time.Sleep(20 * time.Millisecond); writeLines(t, archived, `{"x":2}`)'
-    substituteInPlace internal/agent/cliupdate_test.go internal/library/rtk_upgrade_test.go \
-      --replace-fail '/bin/cat' '${lib.getExe' coreutils "cat"}'
-    substituteInPlace internal/proc/path_other_test.go \
-      --replace-fail '\ncat ' '\n${lib.getExe' coreutils "cat"} '
-    substituteInPlace internal/library/rtk_test.go \
-      --replace-fail '/bin/mkdir' '${lib.getExe' coreutils "mkdir"}'
-    substituteInPlace internal/gui/providers_fetching_unix_test.go \
-      --replace-fail '"/usr/bin"' '"${lib.getBin coreutils}/bin"' \
-      --replace-fail '"/bin"' '"${lib.getBin coreutils}/bin"'
     # The source policy check must not scan dependencies added by buildGoModule.
     substituteInPlace internal/proc/proc_test.go \
       --replace-fail 'd.Name() == "node_modules"' 'd.Name() == "node_modules" || d.Name() == "vendor"'
@@ -115,6 +124,10 @@ buildGoModule (finalAttrs: {
       --replace-fail '"--session"' '"--config-file=${dbus}/share/dbus-1/session.conf"'
   ''
   + lib.optionalString stdenv.hostPlatform.isDarwin ''
+    # xcbuild's plutil lacks Apple's raw extraction format.
+    substituteInPlace internal/autostart/autostart_darwin_test.go \
+      --replace-fail 'exec.Command("plutil", "-extract", "AssociatedBundleIdentifiers.0", "raw", p)' \
+        'exec.Command("${lib.getExe python3}", "-c", `import plistlib, sys; print(plistlib.load(open(sys.argv[1], "rb"))["AssociatedBundleIdentifiers"][0])`, p)'
     # The AppleScript interpreter is not available in the Darwin build sandbox.
     # Keep the preceding assertions for script generation and cancellation.
     substituteInPlace internal/update/admin_test.go \
@@ -136,10 +149,6 @@ buildGoModule (finalAttrs: {
   ++ lib.optionals stdenv.hostPlatform.isDarwin [
     xcbuild
     darwin.adv_cmds
-  ];
-  checkFlags = [
-    # The WSL probe finds omp but reports an empty version in Linux sandbox builds.
-    "-skip=^TestWSLProbeFindsBunOmp$"
   ];
   checkPhase = ''
     runHook preCheck
