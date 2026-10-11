@@ -1,4 +1,4 @@
-{ lib, stdenvNoCC, fetchFromGitHub, enableWallpaper ? false, wallpaper ? null}:
+{ lib, stdenvNoCC, fetchFromGitHub }:
 
 stdenvNoCC.mkDerivation {
   pname = "echo-sddm";
@@ -19,13 +19,12 @@ stdenvNoCC.mkDerivation {
     cp -r Main.qml metadata.desktop theme.conf assets \
       $out/share/sddm/themes/echo/
 
-    ${lib.optionalString enableWallpaper ''
-      substituteInPlace $out/share/sddm/themes/echo/theme.conf \
-        --replace-fail "type=pure" "type=frosted"
-    ''}
-    ${lib.optionalString (wallpaper != null) ''
-      cp ${wallpaper} $out/share/sddm/themes/echo/assets/backgrounds/background.png
-    ''}
+    substituteInPlace $out/share/sddm/themes/echo/Main.qml \
+      --replace-fail 'property string realDistro: "Arch Linux"' \
+        'property string realDistro: config.distro || "Arch Linux"' \
+      --replace-fail 'if (dm) realDistro = dm[1]' \
+        'if (dm && !config.distro) realDistro = dm[1]'
+
     runHook postInstall
   '';
 

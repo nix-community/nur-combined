@@ -1,0 +1,35 @@
+--- a/src/i8dot.rs
++++ b/src/i8dot.rs
+@@ -251,8 +251,6 @@
+             b: <Self::Isa as Isa>::I8,
+             acc: <Self::Isa as Isa>::I32,
+         ) -> <Self::Isa as Isa>::I32 {
+-            use std::arch::x86_64::_mm512_dpbusd_epi32;
+-
+             #[target_feature(enable = "avx512vnni")]
+             #[inline]
+             unsafe fn dot(
+@@ -260,7 +258,22 @@
+                 b: <Avx512Isa as Isa>::I8,
+                 acc: <Avx512Isa as Isa>::I32,
+             ) -> <Avx512Isa as Isa>::I32 {
+-                _mm512_dpbusd_epi32(acc.0, a.0, b.0).into()
++                // Use inline asm rather than the `_mm512_dpbusd_epi32`
++                // intrinsic. Some rustc/LLVM combinations (e.g. nixpkgs rustc
++                // linked against an older LLVM) reject the intrinsic with an
++                // "intrinsic signature mismatch" error.
++                use std::arch::asm;
++                let mut result = acc.0;
++                unsafe {
++                    asm!(
++                        "vpdpbusd {result}, {a}, {b}",
++                        result = inout(zmm_reg) result,
++                        a = in(zmm_reg) a.0,
++                        b = in(zmm_reg) b.0,
++                        options(nostack)
++                    );
++                }
++                result.into()
+             }
+             // Safety: Constructor checks "avx512vnni" feature is supported.
+             unsafe { dot(a, b, acc) }

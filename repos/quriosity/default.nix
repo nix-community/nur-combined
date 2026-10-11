@@ -17,7 +17,20 @@
   tabby = pkgs.callPackage ./pkgs/apps/tabby {};
   hyper = pkgs.callPackage ./pkgs/apps/hyper {};
   opennow = pkgs.callPackage ./pkgs/apps/opennow {};
-  elio = pkgs.callPackage ./pkgs/apps/elio {};
+  # Artcraft Suite
+  artcraft-launcher = pkgs.callPackage ./pkgs/apps/artcraft-suite/artcraft-launcher {};
+  photocraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/photocraft {};
+  filmcraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/filmcraft {};
+  effectcraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/effectcraft {};
+  designcraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/designcraft {};
+  pdfcraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/pdfcraft {};
+  lightcraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/lightcraft {};
+  vectorcraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/vectorcraft {};
+  wordcraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/wordcraft {};
+  deckcraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/deckcraft {};
+  gridcraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/gridcraft {};
+  soundcraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/soundcraft {};
+  cadcraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/cadcraft {};
 
   # SDDM themes
   echo-sddm = pkgs.callPackage ./pkgs/sddm-themes/echo-sddm {};
