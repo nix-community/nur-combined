@@ -58,7 +58,8 @@ jobs:
         failures=0
         for dir in "${changed[@]}"; do
           pkg=$(basename "$dir")
-          version=$(grep 'version = ' "$dir/default.nix" | head -1 | sed 's/.*"\(.*\)".*/\1/')
+          # Read the new version from the stash: the worktree is back on main's (old) version here.
+          version=$(git show "stash@{0}:${dir}default.nix" | grep 'version = ' | head -1 | sed 's/.*"\(.*\)".*/\1/')
           branch="update/${pkg}-${version}"
           echo "::group::PR for $pkg -> $version"
           # Isolate each package: one failing update must not abort the rest.
