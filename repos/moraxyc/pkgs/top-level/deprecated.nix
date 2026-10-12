@@ -4,6 +4,7 @@ let
 
   deprecatedPkgs = {
     # Upstreamed
+    chatgpt = "upstreamed";
     cronet-go = "upstreamed";
     flapalerted = "upstreamed";
     ghostfolio = "upstreamed";
