@@ -3,10 +3,16 @@
   fetchFromGitHub,
   fontconfig,
   lib,
+  libGL,
+  libx11,
+  libxcursor,
+  libxi,
   libxkbcommon,
+  patchelf,
   pkg-config,
   rustPlatform,
   stdenv,
+  wayland,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -32,13 +38,19 @@ rustPlatform.buildRustPackage (finalAttrs: {
   doCheck = false;
 
   nativeBuildInputs = [
+    patchelf
     pkg-config
   ];
 
   buildInputs = [
     alsa-lib
     fontconfig
+    libGL
+    libx11
+    libxcursor
+    libxi
     libxkbcommon
+    wayland
   ];
 
   installPhase = ''
@@ -70,6 +82,17 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
     runHook postInstall
   '';
+  postFixup = ''
+    patchelf --add-rpath ${lib.makeLibraryPath [
+      libGL
+      libx11
+      libxcursor
+      libxi
+      libxkbcommon
+      wayland
+    ]} "$out/bin/ricercar"
+  '';
+
 
   meta = {
     description = "Bit-perfect music player and UPnP/OpenHome network receiver";
