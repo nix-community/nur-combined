@@ -444,10 +444,10 @@
     };
     "archivebox-exporter" = buildMozillaXpiAddon {
       pname = "archivebox-exporter";
-      version = "3.3.14";
+      version = "3.3.15";
       addonId = "archivebox@tjhorner.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5103793/archivebox_exporter-3.3.14.xpi";
-      sha256 = "7fa87c91280bd81835970b491b46478253e56b69a22bcab684d3e411273bcb73";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5110103/archivebox_exporter-3.3.15.xpi";
+      sha256 = "af4f9f494206bb946c85f1e84437812bc372633f8966e6d114650b0715e0273f";
       meta = with lib;
       {
         homepage = "https://extension.archivebox.io/";
@@ -845,10 +845,10 @@
     };
     "auto-tab-discard" = buildMozillaXpiAddon {
       pname = "auto-tab-discard";
-      version = "0.7.5";
+      version = "0.7.6";
       addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5090327/auto_tab_discard-0.7.5.xpi";
-      sha256 = "77e7a630e3ab378440c3924e57450db88bf262803608b1a47430f3cc8c5294f6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5107827/auto_tab_discard-0.7.6.xpi";
+      sha256 = "7dbabc72bd5b1ba98776b14ed2b8f20da3498f6e70fdc4d7f09fb2506bf556a7";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/tab-discard.html";
@@ -2478,10 +2478,10 @@
     };
     "control-panel-for-youtube" = buildMozillaXpiAddon {
       pname = "control-panel-for-youtube";
-      version = "1.36.0";
+      version = "1.37.1";
       addonId = "control-panel-for-youtube@jbscript.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5057046/control_panel_for_youtube-1.36.0.xpi";
-      sha256 = "9a0f89b499978639f9c830a0064223a1a445c4fbc60f7e77dfb9ec15463a6097";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5108826/control_panel_for_youtube-1.37.1.xpi";
+      sha256 = "5e4696834816d981a5efa594e6941988ca4669cca4b8e96a3a67d14462d371bd";
       meta = with lib;
       {
         homepage = "https://soitis.dev/control-panel-for-youtube";
@@ -5325,10 +5325,10 @@
     };
     "gumbo-twitch-companion" = buildMozillaXpiAddon {
       pname = "gumbo-twitch-companion";
-      version = "1.21.6";
+      version = "1.22.0";
       addonId = "{59a39734-1e66-452e-a7b8-cc79f72062f0}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4783480/gumbo_twitch_companion-1.21.6.xpi";
-      sha256 = "43cde56116be0f55323331977aa99e0c849d180b07762cea9dce56d79ac551d4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5108927/gumbo_twitch_companion-1.22.0.xpi";
+      sha256 = "661e82282143ca92c6754215d8fd0bd10de5ed15906e9b4cba1b18675143221d";
       meta = with lib;
       {
         homepage = "https://github.com/seldszar/gumbo";
@@ -8310,10 +8310,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.4.254";
+      version = "2.4.255";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5105858/lichess_tools_by_siderite-2.4.254.xpi";
-      sha256 = "6c363916076e0c7486db99413ceaf0e6a92e0ca332deef36ac0624051d0d7f96";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5108229/lichess_tools_by_siderite-2.4.255.xpi";
+      sha256 = "ac07cda1f2b8ca72f89834cae61963dcaff93938d00ea9b6dcfafb79a23454e7";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -10781,10 +10781,10 @@
     };
     "onetab" = buildMozillaXpiAddon {
       pname = "onetab";
-      version = "2.22";
+      version = "2.24";
       addonId = "extension@one-tab.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5107549/onetab-2.22.xpi";
-      sha256 = "273ab5db1fc9babbda374744f22b865ea6951ab04cacd3359d727fdb6c3e9090";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5108930/onetab-2.24.xpi";
+      sha256 = "eb003aa62146bbaa3b7b5cf9f27146933e3c2d81e8224659f54398d00a522d74";
       meta = with lib;
       {
         homepage = "https://www.one-tab.com";
@@ -12943,10 +12943,10 @@
     };
     "remove-youtube-s-suggestions" = buildMozillaXpiAddon {
       pname = "remove-youtube-s-suggestions";
-      version = "4.5.0";
+      version = "4.5.2";
       addonId = "{21f1ba12-47e1-4a9b-ad4e-3a0260bbeb26}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5107327/remove_youtube_s_suggestions-4.5.0.xpi";
-      sha256 = "3c7dad01d4b147490f3f64d2cdad3c1add6528f94abe9d125f7d4ad90a578e62";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5110463/remove_youtube_s_suggestions-4.5.2.xpi";
+      sha256 = "123629ab8d86791d7b0072062c3d2fbc1438e4b7505ea781989c10952e1580f6";
       meta = with lib;
       {
         homepage = "https://lawrencehook.com/rys/";
@@ -14187,14 +14187,14 @@
     };
     "stylebot-web" = buildMozillaXpiAddon {
       pname = "stylebot-web";
-      version = "3.1.3";
+      version = "4.0.0";
       addonId = "{52bda3fd-dc48-4b3d-a7b9-58af57879f1e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3979493/stylebot_web-3.1.3.xpi";
-      sha256 = "f3f606dff3b77e1ad7ab0b516d6ce7196af119604af240a5881af4dfe0e27f4e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5109679/stylebot_web-4.0.0.xpi";
+      sha256 = "f64681ae6f750816d4261ea4109995c718271a094a5a3976f7bd4a1bb2f5df50";
       meta = with lib;
       {
         homepage = "https://stylebot.dev/";
-        description = "Change the appearance of the web instantly";
+        description = "Don't like how a website looks? Change it.";
         license = licenses.mit;
         mozPermissions = [
           "tabs"
@@ -14202,10 +14202,10 @@
           "identity"
           "contextMenus"
           "unlimitedStorage"
-          "https://drive.google.com/*"
-          "https://www.googleapis.com/*"
-          "https://fonts.googleapis.com/*"
+          "alarms"
+          "idle"
           "<all_urls>"
+          "https://stylebot.dev/*"
         ];
         platforms = platforms.all;
       };
@@ -17745,10 +17745,10 @@
     };
     "youtube-subscription-groups" = buildMozillaXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.10.0";
+      version = "18.10.2";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5087018/youtube_subscription_groups-18.10.0.xpi";
-      sha256 = "56d19b932e102a5568ebfdaa8c6235b14440eaa64b44104d505bc43592af7f8f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5108695/youtube_subscription_groups-18.10.2.xpi";
+      sha256 = "36d5dd94c2e288623f45d5b3376e6dcf7a992cb6b567939fe9ab5b1d48477700";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
