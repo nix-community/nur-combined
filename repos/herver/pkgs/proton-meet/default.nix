@@ -9,12 +9,12 @@
 }:
 
 let
-  version = "1.0.13";
+  version = "1.0.14";
   pname = "proton-meet";
 
   src = fetchurl {
     url = "https://proton.me/download/meet/linux/${version}/ProtonMeet-desktop.deb";
-    hash = "sha256-7N29YM8S7FClI00gU18iLktLrTHAE489/2+dDTE0Ld4=";
+    hash = "sha256-7j90Yk7zddMVjEnZHuHPUwMsy3Cak3uuZU7EgBlh6QM=";
   };
 in
 stdenv.mkDerivation {
