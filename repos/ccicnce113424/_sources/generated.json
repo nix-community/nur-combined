@@ -640,7 +640,7 @@
     },
     "uosc-danmaku-git": {
         "cargoLock": null,
-        "date": "2026-10-05",
+        "date": "2026-10-11",
         "extract": null,
         "name": "uosc-danmaku-git",
         "passthru": null,
@@ -652,12 +652,12 @@
             "name": null,
             "owner": "Tony15246",
             "repo": "uosc_danmaku",
-            "rev": "3ca47092c216fc92f18590306d2192ca308a4729",
-            "sha256": "sha256-sOpUwhmgF5t2rvfE5TiidZM5QcTDM0I7poNj/HvFBsE=",
+            "rev": "e1a5b06f76295a27a2427f2d4114ba41da5d8488",
+            "sha256": "sha256-gv8434ujMk8WkkuPg2b0D662i4zIr7sMFKgq0oOgFi0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "3ca47092c216fc92f18590306d2192ca308a4729"
+        "version": "e1a5b06f76295a27a2427f2d4114ba41da5d8488"
     },
     "waywallen-bin": {
         "cargoLock": null,
