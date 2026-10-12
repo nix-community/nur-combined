@@ -16,6 +16,7 @@
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "litebox";
   version = "0.1.0";
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "microsoft";

@@ -15,6 +15,8 @@
 stdenv.mkDerivation (finalAttrs: {
   pname = "mmdebstrap";
   version = "1.5.7";
+  __structuredAttrs = true;
+  strictDeps = true;
 
   src = fetchFromForgejo {
     domain = "gitlab.mister-muffin.de";

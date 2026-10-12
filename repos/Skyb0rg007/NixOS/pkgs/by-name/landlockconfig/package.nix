@@ -20,6 +20,8 @@ rustPlatform.buildRustPackage (
   {
     pname = "landlockconfig";
     version = "0-unstable-2026-07-22";
+    __structuredAttrs = true;
+    strictDeps = true;
 
     src = fetchFromGitHub {
       owner = "landlock-lsm";

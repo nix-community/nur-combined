@@ -7,6 +7,8 @@
 stdenv.mkDerivation (finalAttrs: {
   pname = "ascsaver";
   version = "1.0.8.11";
+  __structuredAttrs = true;
+  strictDeps = true;
 
   src = fetchFromGitLab {
     owner = "mezantrop";

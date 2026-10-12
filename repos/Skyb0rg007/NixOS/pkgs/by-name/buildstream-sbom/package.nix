@@ -7,6 +7,7 @@
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "buildstream-sbom";
   version = "1.2";
+  __structuredAttrs = true;
   pyproject = true;
   strictDeps = true;
   __structuredAttributes = true;

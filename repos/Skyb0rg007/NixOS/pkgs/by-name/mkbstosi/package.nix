@@ -7,6 +7,7 @@
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "mkbstosi";
   version = "0-unstable-2026-01-03";
+  __structuredAttrs = true;
   pyproject = true;
 
   src = fetchFromGitLab {

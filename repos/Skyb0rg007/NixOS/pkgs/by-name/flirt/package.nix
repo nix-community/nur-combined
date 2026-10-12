@@ -9,6 +9,7 @@
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "flirt";
   version = "0-unstable-2026-10-07";
+  __structuredAttrs = true;
 
   src = fetchFromForgejo {
     domain = "codeberg.org";

@@ -31,6 +31,8 @@ in
 stdenv.mkDerivation {
   pname = "intel-compute-samples";
   version = "0.3.0-unstable-2025-09-10";
+  __structuredAttrs = true;
+  strictDeps = true;
 
   src = fetchFromGitHub {
     owner = "intel";
@@ -44,10 +46,10 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     cmake
     ninja
-    gtest
   ];
 
   buildInputs = [
+    gtest
     boost
     libpng
     opencl-headers

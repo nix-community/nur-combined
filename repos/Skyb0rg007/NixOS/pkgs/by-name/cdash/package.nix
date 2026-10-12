@@ -11,6 +11,7 @@
 (php.buildComposerProject2 (finalAttrs: {
   pname = "cdash";
   version = "5.4.0";
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "Kitware";

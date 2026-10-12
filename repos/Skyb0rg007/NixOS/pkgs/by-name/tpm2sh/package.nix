@@ -11,6 +11,7 @@
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "tpm2sh";
   version = "1.2.3";
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "jarkkojs";

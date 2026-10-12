@@ -17,6 +17,7 @@ in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "libturnstile";
   version = "0.8.1";
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "micromaomao";

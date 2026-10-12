@@ -6,6 +6,7 @@
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "island";
   version = "0-unstable-2026-05-22";
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "landlock-lsm";

@@ -14,6 +14,7 @@
 buildPythonPackage (finalAttrs: {
   pname = "cache-dit";
   version = "1.5.2";
+  __structuredAttrs = true;
   pyproject = true;
 
   src = fetchFromGitHub {

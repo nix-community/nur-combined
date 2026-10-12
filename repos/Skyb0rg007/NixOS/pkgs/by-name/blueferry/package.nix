@@ -14,6 +14,7 @@
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "blueferry";
   version = "0.7.7";
+  __structuredAttrs = true;
   pyproject = true;
 
   src = fetchFromGitHub {

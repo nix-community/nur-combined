@@ -33,6 +33,7 @@ in
 stdenv.mkDerivation (finalAttrs: {
   pname = "browsertrix-crawler";
   inherit version;
+  __structuredAttrs = true;
   src = fetchFromGitHub {
     owner = "webrecorder";
     repo = "browsertrix-crawler";

@@ -9,6 +9,7 @@
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "radicle-ci-ambient";
   version = "0.23.0";
+  __structuredAttrs = true;
 
   src = fetchFromRadicle {
     seed = "radicle.liw.fi";

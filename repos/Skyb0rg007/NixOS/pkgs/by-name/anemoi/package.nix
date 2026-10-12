@@ -8,6 +8,7 @@
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "anemoi";
   version = "1.0.5";
+  __structuredAttrs = true;
   pyproject = true;
 
   src = fetchFromGitHub {

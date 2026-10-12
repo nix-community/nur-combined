@@ -15,6 +15,7 @@
 buildGoModule (finalAttrs: {
   pname = "image-builder";
   version = "86.0.0";
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "osbuild";

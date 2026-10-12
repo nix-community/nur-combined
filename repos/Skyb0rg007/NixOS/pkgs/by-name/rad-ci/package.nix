@@ -9,6 +9,7 @@
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rad-ci";
   version = "0.11.0";
+  __structuredAttrs = true;
 
   src = fetchFromRadicle {
     seed = "radicle.liw.fi";

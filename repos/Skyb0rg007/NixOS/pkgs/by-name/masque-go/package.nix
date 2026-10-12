@@ -7,6 +7,7 @@
 buildGoModule (finalAttrs: {
   pname = "masque-go";
   version = "0.6.0";
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "quic-go";

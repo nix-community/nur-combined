@@ -9,6 +9,7 @@
 buildGoModule (finalAttrs: {
   pname = "grant";
   version = "0.6.8";
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "anchore";

@@ -10,6 +10,7 @@
 buildGo127Module (finalAttrs: {
   pname = "torchwood";
   version = "0.10.0";
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "FiloSottile";

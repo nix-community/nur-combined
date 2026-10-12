@@ -8,6 +8,7 @@
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "buildgrid";
   version = "0.8.14";
+  __structuredAttrs = true;
   pyproject = true;
 
   src = fetchFromGitLab {

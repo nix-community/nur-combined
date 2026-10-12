@@ -11,6 +11,8 @@
 stdenv.mkDerivation (finalAttrs: {
   pname = "dgit";
   version = "17.0";
+  __structuredAttrs = true;
+  strictDeps = true;
 
   src = fetchFromGitLab {
     domain = "salsa.debian.org";

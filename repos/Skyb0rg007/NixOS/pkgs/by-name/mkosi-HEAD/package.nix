@@ -65,6 +65,7 @@ in
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "mkosi-HEAD";
   version = "27.1-unstable-2026-10-09";
+  __structuredAttrs = true;
   pyproject = true;
 
   outputs = [

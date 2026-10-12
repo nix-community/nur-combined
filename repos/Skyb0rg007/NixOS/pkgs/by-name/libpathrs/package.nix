@@ -10,6 +10,7 @@
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "libpathrs";
   version = "0.2.6";
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "cyphar";

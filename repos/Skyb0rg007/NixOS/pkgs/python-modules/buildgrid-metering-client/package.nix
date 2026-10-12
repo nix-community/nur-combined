@@ -15,6 +15,7 @@
 buildPythonPackage (finalAttrs: {
   pname = "buildgrid-metering-client";
   version = "0.0.4";
+  __structuredAttrs = true;
   pyproject = true;
 
   src = fetchFromGitLab {

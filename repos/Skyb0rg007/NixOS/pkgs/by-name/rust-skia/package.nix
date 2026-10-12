@@ -29,6 +29,7 @@
 rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } (finalAttrs: {
   pname = "rust-skia";
   version = "0.153.3";
+  __structuredAttrs = true;
 
   src = fetchCrate {
     pname = "skia-bindings";

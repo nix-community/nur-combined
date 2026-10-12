@@ -11,6 +11,7 @@
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rublk";
   version = "0.2.15";
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "ublk-org";

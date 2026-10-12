@@ -14,6 +14,7 @@
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "debspawn";
   version = "0.6.5";
+  __structuredAttrs = true;
   pyproject = true;
   strictDeps = true;
 

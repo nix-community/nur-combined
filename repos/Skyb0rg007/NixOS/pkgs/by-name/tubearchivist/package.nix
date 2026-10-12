@@ -19,6 +19,8 @@ let
   frontend = buildNpmPackage {
     pname = "tubearchivist-frontend";
     inherit version;
+    __structuredAttrs = true;
+    strictDeps = true;
     buildInputs = [ nodejs ];
     src = "${source}/frontend";
     npmDepsHash = "sha256-eCz1b0peMe4rA6aROnN0zOE1fB6thMnDLH4hkbxORmA=";
@@ -57,6 +59,8 @@ in
 stdenv.mkDerivation {
   pname = "tubearchivist";
   inherit version;
+  __structuredAttrs = true;
+  strictDeps = true;
   src = source;
 
   nativeBuildInputs = [ makeWrapper ];

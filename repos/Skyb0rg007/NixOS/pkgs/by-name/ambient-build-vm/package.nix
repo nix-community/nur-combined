@@ -14,6 +14,8 @@ in
 stdenv.mkDerivation (finalAttrs: {
   pname = "ambient-build-vm";
   version = "0.1.0-unstable-2026-07-10";
+  __structuredAttrs = true;
+  strictDeps = true;
 
   src = fetchFromRadicle {
     seed = "radicle.liw.fi";

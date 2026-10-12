@@ -83,6 +83,7 @@ in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "mxc";
   version = "1.0.0";
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "microsoft";

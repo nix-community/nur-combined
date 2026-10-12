@@ -31,6 +31,8 @@ in
 stdenv.mkDerivation (finalAttrs: {
   pname = "credentialsd";
   version = "0.3.1";
+  __structuredAttrs = true;
+  strictDeps = true;
 
   src = fetchFromGitHub {
     owner = "linux-credentials";

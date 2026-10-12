@@ -13,6 +13,7 @@
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cascade";
   version = "0.1.0-beta7";
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "NLnetLabs";

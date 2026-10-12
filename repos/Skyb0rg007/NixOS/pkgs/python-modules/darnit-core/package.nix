@@ -18,6 +18,7 @@
 buildPythonPackage (finalAttrs: {
   pname = "darnit-core";
   version = "0.1.1";
+  __structuredAttrs = true;
   pyproject = true;
 
   src = fetchFromGitHub {

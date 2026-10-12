@@ -24,6 +24,7 @@ in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rust-keylime";
   version = "0.2.10";
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "keylime";

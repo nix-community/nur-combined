@@ -23,6 +23,7 @@
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "sequin";
   version = "0-unstable-2026-10-08";
+  __structuredAttrs = true;
 
   src = fetchFromGitLab {
     owner = "sequoia-pgp";

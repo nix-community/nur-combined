@@ -12,6 +12,7 @@
 python3.pkgs.buildPythonApplication rec {
   pname = "keylime";
   version = "7.14.3";
+  __structuredAttrs = true;
   pyproject = true;
 
   src = fetchFromGitHub {
@@ -67,7 +68,10 @@ python3.pkgs.buildPythonApplication rec {
     ];
 
   makeWrapperArgs = [
-    "--prefix PATH : ${lib.makeBinPath [ tpm2-tools ]}"
+    "--prefix"
+    "PATH"
+    ":"
+    (lib.makeBinPath [ tpm2-tools ])
   ];
 
   patchPhase = ''

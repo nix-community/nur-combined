@@ -7,6 +7,7 @@
 buildNpmPackage (finalAttrs: {
   pname = "bgd-browser";
   version = "0-unstable-2026-09-16";
+  __structuredAttrs = true;
 
   src = fetchFromGitLab {
     owner = "BuildGrid";

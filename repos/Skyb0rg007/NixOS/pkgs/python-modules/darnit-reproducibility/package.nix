@@ -8,6 +8,7 @@
 buildPythonPackage (finalAttrs: {
   pname = "darnit-reproducibility";
   inherit (darnit-core) version src;
+  __structuredAttrs = true;
   pyproject = true;
 
   sourceRoot = "${finalAttrs.src.name}/packages/darnit-reproducibility";

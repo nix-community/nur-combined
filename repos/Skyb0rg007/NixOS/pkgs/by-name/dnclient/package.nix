@@ -6,6 +6,8 @@
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "dnclient";
   version = "0.9.7";
+  __structuredAttrs = true;
+  strictDeps = true;
 
   src = fetchurl {
     url = "https://dl.defined.net/stable/binaries/dnclient/v${finalAttrs.version}/linux/amd64/dnclient";

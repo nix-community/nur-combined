@@ -12,6 +12,7 @@
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "subplot";
   version = "0.14.0";
+  __structuredAttrs = true;
 
   src = fetchFromRadicle {
     seed = "radicle.subplot.tech";

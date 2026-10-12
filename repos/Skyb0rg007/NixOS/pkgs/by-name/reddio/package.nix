@@ -8,6 +8,8 @@
 stdenv.mkDerivation (finalAttrs: {
   pname = "reddio";
   version = "0.52";
+  __structuredAttrs = true;
+  strictDeps = true;
 
   src = fetchFromGitLab {
     owner = "aaronNG";

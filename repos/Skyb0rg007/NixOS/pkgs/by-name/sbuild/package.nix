@@ -21,6 +21,8 @@
 stdenv.mkDerivation (finalAttrs: {
   pname = "sbuild";
   version = "0.91.10";
+  __structuredAttrs = true;
+  strictDeps = true;
 
   src = fetchFromGitLab {
     domain = "salsa.debian.org";

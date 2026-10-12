@@ -8,6 +8,7 @@
 python3.pkgs.buildPythonPackage (finalAttrs: {
   pname = "vmdb2";
   version = "0.41";
+  __structuredAttrs = true;
   pyproject = true;
 
   build-system = with python3.pkgs; [ setuptools ];

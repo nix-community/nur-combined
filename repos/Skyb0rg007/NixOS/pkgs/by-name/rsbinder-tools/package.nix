@@ -8,6 +8,7 @@
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rsbinder-tools";
   version = "0.12.0";
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "hiking90";

@@ -10,6 +10,8 @@
 stdenv.mkDerivation (finalAttrs: {
   pname = "run0-wrappers";
   version = "0.5.0";
+  __structuredAttrs = true;
+  strictDeps = true;
   src = fetchFromGitHub {
     owner = "thkukuk";
     repo = "run0-wrappers";

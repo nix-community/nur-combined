@@ -10,6 +10,7 @@
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "landstrip";
   version = "0.19.13";
+  __structuredAttrs = true;
   src = fetchFromGitHub {
     owner = "landstrip";
     repo = "landstrip";

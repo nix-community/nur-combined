@@ -9,6 +9,7 @@
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "porkbun-ddns";
   version = "2.0.0";
+  __structuredAttrs = true;
   pyproject = true;
 
   src = fetchFromGitHub {

@@ -8,6 +8,7 @@
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "brush";
   version = "0.4.0-unstable-2026-10-12";
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "reubeno";

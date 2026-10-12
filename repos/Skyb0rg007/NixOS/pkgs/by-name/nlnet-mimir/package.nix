@@ -8,6 +8,7 @@
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "nlnet-mimir";
   version = "0-unstable-2026-01-06";
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "NLnetLabs";

@@ -10,6 +10,7 @@
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cascade-hsm-bridge";
   version = "0.1.0-beta1";
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "NLnetLabs";
