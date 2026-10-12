@@ -1,0 +1,70 @@
+name: Update ps5upload
+
+on:
+  schedule:
+    - cron: '0 */12 * * *'
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: cachix/install-nix-action@v31
+
+      - name: Check for new release
+        id: check
+        run: |
+          set -euo pipefail
+
+          FILE=pkgs/ps5upload/default.nix
+          CURRENT=$(sed -n 's/^  version = "\(.*\)";/\1/p' "$FILE")
+          LATEST=$(curl -sL https://api.github.com/repos/phantomptr/ps5upload/releases/latest \
+            | sed -n 's/.*"tag_name": *"v\?\([^"]*\)".*/\1/p')
+
+          echo "current=$CURRENT latest=$LATEST"
+
+          if [ -n "$LATEST" ] && [ "$CURRENT" != "$LATEST" ]; then
+            for pair in "x64:X86_HASH" "arm64:ARM_HASH"; do
+              arch=${pair%%:*}
+              var=${pair#*:}
+              url="https://github.com/phantomptr/ps5upload/releases/download/v${LATEST}/PS5Upload-${LATEST}-linux-${arch}.zip"
+              curl -sL -o "/tmp/ps5upload-${arch}.zip" "$url"
+              # the archive must still ship an AppImage named as the derivation expects
+              unzip -l "/tmp/ps5upload-${arch}.zip" | grep -q 'PS5Upload.AppImage' \
+                || { echo "::error::${arch} archive layout changed"; exit 1; }
+              echo "${var}=$(nix hash file --type sha256 --sri "/tmp/ps5upload-${arch}.zip")" >> "$GITHUB_ENV"
+            done
+
+            sed -i "s@^  version = \"${CURRENT}\";@  version = \"${LATEST}\";@" "$FILE"
+            sed -i "s@\(x86_64 = \)\"sha256-[^\"]*\"@\1\"${X86_HASH}\"@" "$FILE"
+            sed -i "s@\(aarch64 = \)\"sha256-[^\"]*\"@\1\"${ARM_HASH}\"@" "$FILE"
+
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "version=$LATEST" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Verify build
+        if: steps.check.outputs.changed == 'true'
+        run: nix build --no-link .#ps5upload
+
+      - name: Create PR
+        id: pr
+        if: steps.check.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.PAT }}
+          commit-message: "ps5upload: ${{ steps.check.outputs.version }} update"
+          title: "ps5upload: update to ${{ steps.check.outputs.version }}"
+          body: "Automated update to [${{ steps.check.outputs.version }}](https://github.com/phantomptr/ps5upload/releases/tag/v${{ steps.check.outputs.version }})."
+          branch: "auto/update-ps5upload"
+          delete-branch: true
+
+      - name: Auto merge PR
+        if: steps.pr.outputs.pull-request-number != ''
+        env:
+          GH_TOKEN: ${{ secrets.PAT }}
+        run: |
+          gh pr merge --squash --delete-branch "${{ steps.pr.outputs.pull-request-number }}"
