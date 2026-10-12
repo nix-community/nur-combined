@@ -11,8 +11,8 @@ nurLib.mkAgentPlugins (finalAttrs: {
   src = fetchFromGitHub {
     owner = "dotnet";
     repo = "skills";
-    rev = "19bb55d785cd88ce47a1b43f9a21d0192c412dac";
-    sha256 = "sha256-IDyeaZho5+uzuXWAnIQk5L8O7BM4EvGnzFfx3GjzLQ8=";
+    rev = "9864ca798f9448ef954ad1f05baf0dfca6501d51";
+    sha256 = "sha256-Dg8+YGmbMY7nfT/FnFCyjDkh33nlRpS/jBtjA8YQOUM=";
   };
 
   marketplace = ./marketplace.json;
