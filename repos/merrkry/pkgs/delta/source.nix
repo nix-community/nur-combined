@@ -1,11 +1,11 @@
 { fetchFromGitHub }:
 
 rec {
-  version = "0.19.1";
+  version = "0.19.2";
   src = fetchFromGitHub {
     owner = "zed-industries";
     repo = "delta-nix";
     tag = "v${version}";
-    hash = "sha256-eLNULrR3uU1lt7UEVgd3FDrgMvw5WkeTIL2D6QQRs5o=";
+    hash = "sha256-QLomEmH5+1flz42ONMI8yFc4fNuKITGRj0RSkxPsxyE=";
   };
 }
