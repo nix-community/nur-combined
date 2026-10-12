@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import re
 import tempfile
 import urllib.request
@@ -44,11 +45,16 @@ def list_release_asset_manifests() -> list[Path]:
 def latest_github_release_tag(owner: str, repo: str) -> str | None:
     url = f"https://api.github.com/repos/{owner}/{repo}/releases/latest"
     logger.info("fetching latest GitHub release for %s/%s", owner, repo)
+    headers = {"Accept": "application/vnd.github+json"}
+    token = os.environ.get("GH_TOKEN") or os.environ.get("GITHUB_TOKEN")
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+    request = urllib.request.Request(url, headers=headers)
     try:
-        with urllib.request.urlopen(url, timeout=30) as response:
+        with urllib.request.urlopen(request, timeout=30) as response:
             data = json.loads(response.read().decode())
     except OSError as error:
-        logger.info("failed to fetch latest GitHub release for %s/%s: %s", owner, repo, error)
+        logger.warning("failed to fetch latest GitHub release for %s/%s: %s", owner, repo, error)
         return None
     return data.get("tag_name") or None
 
