@@ -64,7 +64,7 @@ let
 in
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "mkosi-HEAD";
-  version = "27.1-unstable-2026-10-06";
+  version = "27.1-unstable-2026-10-09";
   pyproject = true;
 
   outputs = [
@@ -75,8 +75,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   src = fetchFromGitHub {
     owner = "systemd";
     repo = "mkosi";
-    rev = "54b2897425a967167d56def2dba768ce3b0ead80";
-    hash = "sha256-5n8kiLSWqaxYsFdItEn7diHgXRmo+c6Y5v5zQ9LFLow=";
+    rev = "66939e9d428ca4f8e9fbc2a46f55a1f131c951f4";
+    hash = "sha256-xBxoAaiyN/zG9PaL1CQI5A2CDi9YZQP+y4cUy2gq0G4=";
   };
 
   patches = [

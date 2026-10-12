@@ -10,16 +10,16 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "tpm2sh";
-  version = "1.2.0";
+  version = "1.2.3";
 
   src = fetchFromGitHub {
     owner = "jarkkojs";
     repo = "tpm2-library";
     tag = finalAttrs.version;
-    hash = "sha256-vare2saQIICQdAM7jm/CeAnWnqmdFN81CCmv+xKyn8M=";
+    hash = "sha256-En+6p9ytcUInigzZ9sjhxhUDGN/nxO+9GZl8iBoP+jI=";
   };
 
-  cargoHash = "sha256-Dp5h5sep/z3328nnfHkhpugodp0iPWEgSendRgbimVE=";
+  cargoHash = "sha256-kGE+nz6gtwzdGfGi6I68HOxA6Qnd0u86MiEtASm+JlY=";
 
   nativeBuildInputs = [
     pkg-config
