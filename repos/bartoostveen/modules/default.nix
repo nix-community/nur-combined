@@ -3,6 +3,7 @@
   alertmanager-matrix = ./alertmanager-matrix.nix;
   git-pages = ./git-pages.nix;
   maubot-exporter = ./maubot-exporter.nix;
+  meshcoretomqtt = ./meshcoretomqtt.nix;
   mistserver = ./mistserver.nix;
   ssacli = ./ssacli.nix;
   timedout-registry = ./timedout-registry.nix;
