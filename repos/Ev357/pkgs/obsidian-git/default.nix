@@ -3,7 +3,7 @@
   fetchFromGitHub,
   nodejs,
   pnpmConfigHook,
-  pnpm,
+  pnpm_12,
   fetchPnpmDeps,
   lib,
 }:
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     nodejs
     pnpmConfigHook
-    pnpm
+    pnpm_12
   ];
 
   buildPhase =
