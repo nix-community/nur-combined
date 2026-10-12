@@ -1,0 +1,105 @@
+{
+  lib,
+  stdenv,
+  rustPlatform,
+  nix-update-script,
+  fetchFromForgejo,
+  fetchPnpmDeps,
+  pnpm_11,
+  pnpmConfigHook,
+  nodejs_26,
+  wasm-bindgen-cli_0_2_129,
+  llvmPackages,
+  binaryen,
+}:
+
+let
+  pnpm = pnpm_11;
+  nodejs = nodejs_26;
+  wasm-bindgen-cli = wasm-bindgen-cli_0_2_129;
+in
+stdenv.mkDerivation (finalAttrs: {
+  pname = "sable-next-unwrapped";
+  version = "2.0.2";
+
+  __structuredAttrs = true;
+  strictDeps = true;
+
+  src = fetchFromForgejo {
+    domain = "git.sable.moe";
+    owner = "SableClient";
+    repo = "sable-next";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-28CjKnc8zSY5xRa3zAEnPn7cSJXxq18j2TfK/j6t/fc=";
+  };
+
+  cargoDeps = rustPlatform.fetchCargoVendor {
+    inherit (finalAttrs) src;
+    hash = "sha256-ltPZ28JXg7NxCuv258aeWX5OvWx4DM4qX/Dysw2Y7JQ=";
+  };
+
+  postPatch = ''
+    substituteInPlace package.json \
+      --replace-fail "mise exec --" ""
+  '';
+
+  nativeBuildInputs = [
+    pnpm
+    pnpmConfigHook
+    nodejs
+    wasm-bindgen-cli
+
+    # because the build script of sable-next probes the rustc version for some reason
+    rustPlatform.rust.rustc
+    rustPlatform.rust.cargo
+
+    rustPlatform.cargoSetupHook
+    rustPlatform.bindgenHook
+    llvmPackages.bintools
+
+    binaryen
+  ];
+
+  pnpmDeps = fetchPnpmDeps {
+    inherit (finalAttrs) pname version src;
+    inherit pnpm;
+    fetcherVersion = 4;
+    hash = "sha256-3kZWOasVMNk/2njTnNY7zrBTlmyW5w+9jXiEJgx9NNc=";
+  };
+
+  env = {
+    VITE_BUILD_HASH = finalAttrs.src.rev;
+    SABLE_BUILD_FLAVOR = "stable";
+
+    # TODO: Requires internet, fetches noise suppression bundle that may get fetched manually in the future
+    SABLE_SKIP_DEEPFILTERNET = true;
+  };
+
+  buildPhase = ''
+    runHook preBuild
+
+    pnpm -- config set nodeOptions "--max-old-space-size=4096"
+    pnpm build
+
+    runHook postBuild
+  '';
+
+  installPhase = ''
+    runHook preInstall
+
+    cp -r dist $out
+
+    runHook postInstall
+  '';
+
+  passthru.updateScript = nix-update-script { };
+
+  meta = {
+    description = "Sable rewrite in Rust and Svelte. An almost stable Matrix client";
+    homepage = "https://git.sable.moe/SableClient/sable-next";
+    changelog = "https://git.sable.moe/SableClient/sable-next/src/tag/${finalAttrs.src.tag}/CHANGELOG.md";
+    license = lib.licenses.agpl3Only;
+    maintainers = with lib.maintainers; [ bartoostveen ];
+    platforms = lib.platforms.all;
+  };
+})
