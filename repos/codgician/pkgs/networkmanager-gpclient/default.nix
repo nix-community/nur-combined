@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  nix-update-script,
   cmake,
   pkg-config,
   makeWrapper,
@@ -48,13 +49,13 @@ let
 in
 stdenv.mkDerivation {
   pname = "networkmanager-gpclient";
-  version = "1.4.2-unstable-2026-09-30";
+  version = "1.5.0-unstable-2026-10-03";
 
   src = fetchFromGitHub {
     owner = "WMP";
     repo = "GlobalProtect-SAML-NetworkManager";
-    rev = "7302987f1bf5626df8aebe533adf3ea47dd25b5d";
-    hash = "sha256-jg/ohuagCECF2zq+zAGBnCj+nCtdd4R1RZVWW12O1qg=";
+    rev = "8758f6a5b933a6c9d5f104b88df03778ee83089f";
+    hash = "sha256-tMqvLiOlZ1QEwPGpQ5ZE9xK3t/PlfSrpvZFOR/werXE=";
   };
 
   nativeBuildInputs = [
@@ -174,6 +175,17 @@ stdenv.mkDerivation {
   '';
 
   passthru = {
+    # Track main so unreleased NetworkManager integration fixes are included.
+    updateScript = nix-update-script {
+      extraArgs = [
+        "--version"
+        "branch=main"
+        # Upstream also publishes pr-N releases; keep a numeric version prefix.
+        "--version-regex"
+        "v?([0-9]+[.][0-9]+[.][0-9]+-unstable-.*)"
+      ];
+    };
+
     networkManagerPlugin = "VPN/nm-gpclient-service.name";
     plasmaPlugin = "${pluginDir}/plasmanetworkmanagement_gpclientui.so";
     routingHook = "libexec/gpclient/90-gpclient-routing";
