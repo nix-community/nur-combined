@@ -6,13 +6,13 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-github-heatmap-revive";
-  version = "0-unstable-2026-09-07";
+  version = "0-unstable-2026-10-11";
 
   src = fetchFromGitHub {
     owner = "JDKamalakar";
     repo = "DMS-GitHub_HeatMap";
-    rev = "2d61d19eb078563029d50c15be02c2be24050c40";
-    hash = "sha256-oreRDf5KPDDj8tT8Bi16C5UIC6YMUukPjrXDwz5fw1M=";
+    rev = "7dc9351300edbc5a7cf8f48187123efc9ea9a1ef";
+    hash = "sha256-i62d0eLcX3GRKPg1Wtf77qhyyznUu8yTuPPA/JSXYLg=";
   };
 
   dontBuild = true;
