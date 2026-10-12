@@ -9,22 +9,22 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    x86_64-linux = "10w732iz8hbfswqvh1gazwvx9fgfnf9cc1hsg3j2lb9d5dhclq06";
-    aarch64-linux = "174ikhhzbicwfdfv5ny5199xx5k0631hrnsgn2zp9adrk4lmy3qw";
-    x86_64-darwin = "0qb82jf6znaxiacbczl8h9vzpbashih9awpdjbg3scaphy7i011b";
-    aarch64-darwin = "0js05sm8zk2yy7wy5a5vilmimmdq8vf46l9pg7afx3i1mkcx3jg8";
+    x86_64-linux = "0l0p6jblhfsvh6h7kgpd0a6v167mhfxcn3wm0d2975zkn8l9lzvd";
+    aarch64-linux = "1x62hl7vbphraqcilnb6vkbmm33l9i3hbr8rjxkbg0rpfq9m59x9";
+    x86_64-darwin = "0javcbm8ybpch77hymhh7zx83wx39r5wr8zpl26n625f9gwxyfxy";
+    aarch64-darwin = "10fz70q83g0ciq09dpwsxfaq5ly2qiz2wdkvfba1hys3jmw3f8xf";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/goreleaser/nfpm/releases/download/v2.47.0/nfpm_2.47.0_Linux_x86_64.tar.gz";
-    aarch64-linux = "https://github.com/goreleaser/nfpm/releases/download/v2.47.0/nfpm_2.47.0_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/goreleaser/nfpm/releases/download/v2.47.0/nfpm_2.47.0_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/goreleaser/nfpm/releases/download/v2.47.0/nfpm_2.47.0_Darwin_arm64.tar.gz";
+    x86_64-linux = "https://github.com/goreleaser/nfpm/releases/download/v2.48.0/nfpm_2.48.0_Linux_x86_64.tar.gz";
+    aarch64-linux = "https://github.com/goreleaser/nfpm/releases/download/v2.48.0/nfpm_2.48.0_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/goreleaser/nfpm/releases/download/v2.48.0/nfpm_2.48.0_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/goreleaser/nfpm/releases/download/v2.48.0/nfpm_2.48.0_Darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "nfpm";
-  version = "2.47.0";
+  version = "2.48.0";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
@@ -35,10 +35,12 @@ stdenvNoCC.mkDerivation {
   nativeBuildInputs = [ installShellFiles ];
 
   installPhase = ''
+    runHook preInstall
     mkdir -p $out/bin
     cp -vr ./nfpm $out/bin/nfpm
     installManPage ./manpages/nfpm.1.gz
     installShellCompletion ./completions/*
+    runHook postInstall
   '';
 
   meta = {
