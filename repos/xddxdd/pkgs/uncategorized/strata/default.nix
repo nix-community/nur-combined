@@ -3,7 +3,7 @@
   autoAddDriverRunpath,
   cmake,
   cudaArchitectures ? "75;80;86;89;120",
-  cudaPackages_13,
+  cudaPackages,
   fetchFromGitHub,
   makeWrapper,
   ninja,
@@ -36,7 +36,7 @@ let
       "${placeholder "out"}/share/strata" "$dest"
   '';
 in
-cudaPackages_13.backendStdenv.mkDerivation (finalAttrs: {
+cudaPackages.backendStdenv.mkDerivation (finalAttrs: {
   pname = "strata";
   inherit version;
   src = fetchFromGitHub {
@@ -54,16 +54,16 @@ cudaPackages_13.backendStdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     cmake
     ninja
-    cudaPackages_13.cuda_nvcc
+    cudaPackages.cuda_nvcc
     pythonEnv
     autoAddDriverRunpath
     makeWrapper
   ];
 
   buildInputs = [
-    cudaPackages_13.cccl
-    cudaPackages_13.cuda_cudart
-    cudaPackages_13.libcublas
+    cudaPackages.cccl
+    cudaPackages.cuda_cudart
+    cudaPackages.libcublas
   ];
 
   cmakeFlags = [
@@ -114,7 +114,7 @@ cudaPackages_13.backendStdenv.mkDerivation (finalAttrs: {
         "vision": "gpu",
         "vision_archs": [int(a) for a in "${cudaArchitectures}".split(";")],
         "vision_src": setup.source_hash(setup.VISION_SOURCES),
-        "cuda": 13,
+        "cuda": ${lib.versions.major cudaPackages.cuda_nvcc.version},
         "src": setup.source_hash(setup.ENGINE_SOURCES),
     }
     with open("engine/BUILD.json", "w", encoding="utf-8") as f:
