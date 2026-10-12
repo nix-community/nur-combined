@@ -19,8 +19,8 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "miflow13";
     repo = "mochi-desktop";
-    rev = "8ac1478e064673657c4206e2a20d6024bb026291";
-    hash = "sha256-Y8tfUE7nlpoCujOa6GpTrid9ymFUw4jtdepsFyN4vIk=";
+    rev = "471342631206c40d56bbba016578926e16ca8d0b";
+    hash = "sha256-SFNUbeHEB19lbA4+Ym7aadLUH7sLP9yZ4dSjG61YISU=";
   };
 
   patches = [
