@@ -2,12 +2,11 @@
   lib,
   buildNpmPackage,
   fetchFromGitHub,
-  fetchpatch2,
 }:
 
 buildNpmPackage (finalAttrs: {
   pname = "tintinweb-pi-subagents";
-  version = "0.19.0";
+  version = "0.20.0";
 
   __structuredAttrs = true;
 
@@ -15,24 +14,13 @@ buildNpmPackage (finalAttrs: {
     owner = "tintinweb";
     repo = "pi-subagents";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-1K6U5+2qLgOV7lUWbvqUne/Pf7oMRDf40GXLl8gv6Bk=";
+    hash = "sha256-laZA6KtoiH2igepXve+OnpKeGAfzs+/aZxn7zeaBefA=";
   };
 
-  patches = [
-    # https://github.com/tintinweb/pi-subagents/pull/359
-    (fetchpatch2 {
-      url = "https://github.com/Arteiimis/pi-subagents/commit/dd12bee7726bc82bd7de87f31ea21042efddce8b.patch?full_index=1";
-      hash = "sha256-714HuUY12HXf29+pjPYMxtkLKKbhL2lICLohhs71jlA=";
-    })
-
-    ./package-lock.patch
-  ];
-
   npmDepsFetcherVersion = 2;
-  npmDepsHash = "sha256-dQrup+Iu7MJ/JVgovBTE7V4Pjx96SWtMbIyLsH/FkkQ=";
+  npmDepsHash = "sha256-gbg2RGTS22VtKnNe+ElmNSSu6vw4sAPEOQves7eMIvU=";
 
   npmInstallFlags = [ "--omit=dev" ];
-  npmPruneFlags = [ "--legacy-peer-deps" ];
 
   dontNpmBuild = true;
 

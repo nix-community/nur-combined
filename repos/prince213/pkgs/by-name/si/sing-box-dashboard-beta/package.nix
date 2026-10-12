@@ -4,11 +4,11 @@
 
 sing-box-dashboard.overrideAttrs (previousAttrs: {
   pname = previousAttrs.pname + "-beta";
-  version = "0-unstable-2026-09-28";
+  version = "0-unstable-2026-10-11";
 
   src = previousAttrs.src.override {
-    rev = "f231354bc786dfcffcf09f6ec771bc5683050194";
-    hash = "sha256-+ZjEH3GecYEMmUPawWa6KzUkaHp9utLMCDLEphs1Hmk=";
+    rev = "3e4bf08e5bf5b9417cf9c36e5a2d5abcb21bdd34";
+    hash = "sha256-4pW32PWuN0pPAJ/zj07Y3mtvXZB9c/HuRGvEod7m40g=";
   };
 
   pnpmDeps = previousAttrs.pnpmDeps.override {

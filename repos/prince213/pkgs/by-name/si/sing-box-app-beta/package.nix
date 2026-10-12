@@ -5,6 +5,7 @@
   fetchPnpmDeps,
   fetchurl,
   makeDesktopItem,
+  rustPlatform,
   sing-box-beta,
   sing-box-dashboard-beta,
   stdenvNoCC,
@@ -63,8 +64,10 @@ else
       fetchFromGitHub
       fetchPnpmDeps
       makeDesktopItem
+      rustPlatform
       sing-box-beta
       sing-box-dashboard-beta
+      stdenvNoCC
       buf
       copyDesktopItems
       makeBinaryWrapper

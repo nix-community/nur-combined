@@ -7,6 +7,8 @@
   fetchFromGitHub,
   fetchPnpmDeps,
   makeDesktopItem,
+  rustPlatform,
+  stdenvNoCC,
   sing-box-beta,
   sing-box-dashboard-beta,
 
@@ -49,8 +51,8 @@ buildNpmPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "SagerNet";
     repo = "sing-box-for-desktop";
-    rev = "e994290524a93cad0a85f4971927082790e6243c";
-    hash = "sha256-wWG8UQz1BL7zXsitznax4xuqoS9OZ3zKxQEBw46vvyI=";
+    rev = "c1aa443e62e345221f1a581b58865afc5e6dd4dd";
+    hash = "sha256-oZzOXok46k5XYMFVyyr66kZFySXSVuWHXHLAYM6iRcI=";
   };
 
   postPatch = ''
@@ -69,6 +71,10 @@ buildNpmPackage (finalAttrs: {
       --replace-fail \
         'findBoxDirectory(): string {' \
         'findBoxDirectory(): string { return "${sing-box.src}";'
+
+    # https://github.com/electron/electron/issues/31121
+    substituteInPlace src/main/{repair,resources,trayMenu}.ts \
+      --replace-fail process.resourcesPath "\"$out/opt/sing-box-app/resources\""
   '';
 
   npmDeps = null;
@@ -76,7 +82,7 @@ buildNpmPackage (finalAttrs: {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-bW2FEQchZjJKin42Huv7cUc+G3oQGnn5kkk7UTeMlbY=";
+    hash = "sha256-m46qCgo5u5l1J3D4iLbJBJ0ruk/dRvNLBKTzyE6NHZo=";
   };
 
   nativeBuildInputs = [
@@ -97,6 +103,8 @@ buildNpmPackage (finalAttrs: {
 
     mkdir -p bin
     ln -s ${lib.getExe boxdd} bin/sing-box-daemon
+    install -Dm755 ${finalAttrs.passthru.waylandMenu}/lib/libwayland_menu.so \
+      bin/linux/${stdenvNoCC.hostPlatform.node.arch}/wayland_menu.node
 
     cp -r ${electron.dist} electron-dist
     chmod -R u+w electron-dist
@@ -135,6 +143,7 @@ buildNpmPackage (finalAttrs: {
     mkdir -p $out/bin
     makeWrapper ${lib.getExe electron} $out/bin/sing-box-app \
       --inherit-argv0 \
+      --set-default ELECTRON_FORCE_IS_PACKAGED 1 \
       --add-flag $out/opt/sing-box-app/resources/app.asar
 
     for i in 512x512 1024x1024; do
@@ -147,6 +156,14 @@ buildNpmPackage (finalAttrs: {
 
     runHook postInstall
   '';
+
+  passthru.waylandMenu = rustPlatform.buildRustPackage {
+    pname = "${finalAttrs.pname}-wayland-menu";
+    inherit (finalAttrs) version src;
+    __structuredAttrs = true;
+    sourceRoot = "${finalAttrs.src.name}/native/wayland-menu";
+    cargoHash = "sha256-9nD8v9IjSPyWXL4cGodqGNwYg5SVt2NGf2E8dwh6Nc8=";
+  };
 
   meta = meta // {
     branch = "dev";
