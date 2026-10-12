@@ -1,5 +1,6 @@
 {
   lib,
+  callPackage,
   stdenv,
   rustPlatform,
   nix-update-script,
@@ -17,6 +18,7 @@ let
   pnpm = pnpm_11;
   nodejs = nodejs_26;
   wasm-bindgen-cli = wasm-bindgen-cli_0_2_129;
+  deepfilternet = callPackage ./deepfilternet.nix { };
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "sable-next-unwrapped";
@@ -41,6 +43,8 @@ stdenv.mkDerivation (finalAttrs: {
   postPatch = ''
     substituteInPlace package.json \
       --replace-fail "mise exec --" ""
+
+    cp -r ${finalAttrs.deepfilternet} static/deepfilternet3
   '';
 
   nativeBuildInputs = [
@@ -70,9 +74,6 @@ stdenv.mkDerivation (finalAttrs: {
   env = {
     VITE_BUILD_HASH = finalAttrs.src.rev;
     SABLE_BUILD_FLAVOR = "stable";
-
-    # TODO: Requires internet, fetches noise suppression bundle that may get fetched manually in the future
-    SABLE_SKIP_DEEPFILTERNET = true;
   };
 
   buildPhase = ''
@@ -91,6 +92,8 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  inherit deepfilternet;
 
   passthru.updateScript = nix-update-script { };
 
