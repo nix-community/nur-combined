@@ -27,6 +27,7 @@ buildNpmPackage (finalAttrs: {
     npm run generate:validators --workspace=@getpaseo/protocol
   '';
 
+
   installPhase = ''
     runHook preInstall
 

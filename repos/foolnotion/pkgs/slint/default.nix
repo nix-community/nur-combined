@@ -20,18 +20,18 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "slint";
-  version = "1.17.1";
+  version = "1.18.1";
 
   src = fetchFromGitHub {
     owner = "slint-ui";
     repo = "slint";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-eK4endEQ6jlpfpe9gn96Rvl08SLhwoRCr64SRQcxS8A=";
+    hash = "sha256-lopHTWO3LdX6j/YAZE1f6YsKdpaYhKveCBxNnTpasrs=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) pname version src;
-    hash = "sha256-kVLTb5uCxmBkF+ZgBeFPazT1hOOehqWWX5Sr/hUeWOY=";
+    hash = "sha256-j0J+lLlmfQrC/Vku9xHXaTlAQZAzan9E3mkr8piWkMA=";
   };
 
   cmakeDir = "../api/cpp";
@@ -66,6 +66,8 @@ stdenv.mkDerivation (finalAttrs: {
     "-DSLINT_FEATURE_BACKEND_QT=OFF"
     "-DSLINT_FEATURE_INTERPRETER=OFF"
     "-DSLINT_FEATURE_LIVE_PREVIEW=OFF"
+    "-DSLINT_FEATURE_MCP=ON"
+    "-DSLINT_FEATURE_SYSTEM_TESTING=ON"
   ];
 
   # Corrosion forwards GNU Make's jobserver flags to Cargo. Slint's bundled

@@ -234,4 +234,6 @@ rec {
   };
 
   unordered_dense = pkgs.callPackage ./pkgs/unordered_dense { };
+  obsbot-camera-control = pkgs.callPackage ./pkgs/obsbot-camera-control { };
 }
+  ricercar = pkgs.callPackage ./pkgs/ricercar { };
