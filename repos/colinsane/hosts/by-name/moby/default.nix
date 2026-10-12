@@ -1,4 +1,4 @@
-# Pinephone
+# Linux mobile phone
 #
 # wikis, resources, ...:
 # - Linux Phone Apps: <https://linuxphoneapps.org/>
@@ -19,6 +19,10 @@
   # Pocophone WLAN generates a new mac each boot. might be the "Use per-connection randomized MAC" Android setting?
   # Assign a static one for easier DHCP lease management, then.
   networking.networkmanager.wifi.macAddress = "02:f0:87:f0:87:02";
+
+  # XXX(2026-10-11): ModemManager crash loops and drains battery. disable auto-launch until i fix
+  systemd.services.ModemManager.wantedBy = lib.mkForce [];
+  # systemd.services.ModemManager.aliases = lib.mkForce [];
 
   # sane.hal.pine64-pinephone-pro.enable = true;
   sane.hal.xiaomi-pocophone.enable = true;

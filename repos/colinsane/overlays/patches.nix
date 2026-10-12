@@ -1,4 +1,10 @@
 final: prev: {
+  bind = prev.bind.overrideAttrs {
+    # XXX(2026-10-11): isc_rwlock_benchmark fails for extremely high core count (512).
+    # `nix-build -A bind --cores 32` still causes it to use 512 cores.
+    doCheck = false;
+  };
+
   # XXX(2026-03-02): libvulkan_nouveau.so crashes on load, on flowy.
   # N.B.: solvable instead with `environment.sessionVariables.VK_LOADER_DRIVERS_DISABLE="*nouveau*";`
   # mesa = prev.mesa.override {

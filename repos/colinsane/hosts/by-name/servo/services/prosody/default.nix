@@ -159,16 +159,16 @@ in
 
   services.prosody = {
     enable = true;
-    package = pkgs.prosody.override {
-      # XXX(2023/10/15): build without lua-unbound support.
-      # this forces Prosody to fall back to the default Lua DNS resolver, which seems more reliable.
-      # fixes errors like "unbound.queryXYZUV: Resolver error: out of memory"
-      # related: <https://issues.prosody.im/1737#comment-11>
-      lua.withPackages = selector: pkgs.lua.withPackages (p:
-        selector (p // { luaunbound = null; })
-      );
-      # withCommunityModules = [ "turncredentials" ];
-    };
+    # package = pkgs.prosody.override {
+    #   # XXX(2023/10/15): build without lua-unbound support.
+    #   # this forces Prosody to fall back to the default Lua DNS resolver, which seems more reliable.
+    #   # fixes errors like "unbound.queryXYZUV: Resolver error: out of memory"
+    #   # related: <https://issues.prosody.im/1737#comment-11>
+    #   lua.withPackages = selector: pkgs.lua.withPackages (p:
+    #     selector (p // { luaunbound = null; })
+    #   );
+    #   # withCommunityModules = [ "turncredentials" ];
+    # };
     admins = [ "colin@uninsane.org" ];
     # allowRegistration = false;  # defaults to false
 

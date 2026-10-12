@@ -130,6 +130,7 @@ super.lib.composeManyExtensions [
     #   glibc  #< don't inherit this here: causes mass rebuild
     # ;
 
+    # XXX(2026-10-11): this APPEARS to be no longer necessary, empirically. i did not check why.
     # XXX(2026-02-02): a base musl system lacks /dev/input and wifi.
     # this is likely because systemd can't modprobe the appropriate modules.
     # > systemd-modules-load: Failed to initialize libkmod context: Not supported
@@ -149,32 +150,32 @@ super.lib.composeManyExtensions [
     #
     # related/alternatives:
     # - <https://github.com/NixOS/nixpkgs/pull/475746>
-    _pkgsSystemd = prev._pkgsSystemd or (import pkgs.path {
-      overlays = [
-        (final': prev': {
-          _pkgsSystemd = prev';  #< prevents infinite recursion; avoid re-defining _pkgsSystemd if we're already inside it.
-          musl = prev'.musl.overrideAttrs (upstream: {
-            patches = (upstream.patches or []) ++ [
-              (prev.fetchpatch {
-                # <https://inbox.vuxu.org/musl/20251017-dlopen-use-rpath-of-caller-dso-v1-1-46c69eda1473@iscas.ac.cn/>
-                # 2026-02-02: allegedly, fixes systemd/kmod, particularly:
-                # > $ /nix/store/xxx-systemd-258.2/lib/systemd/systemd-modules-load
-                # > Failed to initialize libkmod context: Not supported
-                # see also:
-                # - <https://github.com/NixOS/nixpkgs/pull/475746>
-                name = "ldso: Use rpath of dso of caller in dlopen";
-                url = "https://inbox.vuxu.org/musl/20251017-dlopen-use-rpath-of-caller-dso-v1-1-46c69eda1473@iscas.ac.cn/raw";
-                hash = "sha256-ltg6Vt2EO8VDb/rMZlniPQNz2Kv4TXFOV+4xfnhJ1+Q=";
-              })
-            ];
-          });
-        })
-      ] ++ overlays;
-      localSystem = stdenv.buildPlatform;
-      crossSystem = stdenv.hostPlatform;
-    });
+    # _pkgsSystemd = prev._pkgsSystemd or (import pkgs.path {
+    #   overlays = [
+    #     (final': prev': {
+    #       _pkgsSystemd = prev';  #< prevents infinite recursion; avoid re-defining _pkgsSystemd if we're already inside it.
+    #       musl = prev'.musl.overrideAttrs (upstream: {
+    #         patches = (upstream.patches or []) ++ [
+    #           (prev.fetchpatch {
+    #             # <https://inbox.vuxu.org/musl/20251017-dlopen-use-rpath-of-caller-dso-v1-1-46c69eda1473@iscas.ac.cn/>
+    #             # 2026-02-02: allegedly, fixes systemd/kmod, particularly:
+    #             # > $ /nix/store/xxx-systemd-258.2/lib/systemd/systemd-modules-load
+    #             # > Failed to initialize libkmod context: Not supported
+    #             # see also:
+    #             # - <https://github.com/NixOS/nixpkgs/pull/475746>
+    #             name = "ldso: Use rpath of dso of caller in dlopen";
+    #             url = "https://inbox.vuxu.org/musl/20251017-dlopen-use-rpath-of-caller-dso-v1-1-46c69eda1473@iscas.ac.cn/raw";
+    #             hash = "sha256-ltg6Vt2EO8VDb/rMZlniPQNz2Kv4TXFOV+4xfnhJ1+Q=";
+    #           })
+    #         ];
+    #       });
+    #     })
+    #   ] ++ overlays;
+    #   localSystem = stdenv.buildPlatform;
+    #   crossSystem = stdenv.hostPlatform;
+    # });
 
-    inherit (final._pkgsSystemd) systemd;
+    # inherit (final._pkgsSystemd) systemd;
     # _pkgsSystemd = prev.extend (final': prev': {
     #   # _pkgsSystemd = final';  #< prevents infinite recursion; avoid re-defining _pkgsSystemd if we're already inside it.
     #   # _pkgsSystemd = null;

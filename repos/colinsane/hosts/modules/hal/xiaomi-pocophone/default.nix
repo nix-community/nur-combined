@@ -94,7 +94,7 @@ in
     environment.systemPackages = [ pkgs.qrtr ];
     # boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux-postmarketos-qcom-sdm845;
     # boot.kernelPackages = pkgs.linuxPackagesFor pkgs.vanilla-mobile-nixos.pkgs.linuxKernels.linux_sdm845;
-    boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux-xiaomi-pocophone-sane;
+    boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux-xiaomi-pocophone-sane-min;
     boot.extraModulePackages = [ config.boot.kernelPackages.pocophone-wcd934x ];
 
     # options imported from vanilla-mobile-nixos

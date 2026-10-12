@@ -48,6 +48,7 @@ let
     "linux-postmarketos-pinephonepro"
     "linux-postmarketos-qcom-sdm845"
     "linux-xiaomi-pocophone-sane"
+    "linux-xiaomi-pocophone-sane-min"
     # TODO(2026-05-18): mpvScripts.sane_cast takes sane-cast as callarg; that doesn't exist when packages are placed in a `sane` scope!
     "mpvScripts"
     "pkgsSpliced"  #< error: path ... did not exist in the store during evaluation

@@ -126,6 +126,10 @@ defaultPref("reader.color_scheme", "custom");
 defaultPref("reader.custom_colors.background", "#fff1e5");  //< mimic ft.com colors
 defaultPref("reader.custom_colors.foreground", "#241f31");
 
+// never offer to save credit cards or passwords
+lockPref("extensions.formautofill.creditCards.enabled", false);
+lockPref("signon.rememberSignons", false);
+
 // TODO: don't hardcode `colin`
 defaultPref("browser.download.lastDir", "/home/colin/tmp");
 // defaultPref("browser.download.autohideButton", false);  //< optional, to always show DL button
@@ -138,6 +142,9 @@ defaultPref("network.protocol-handler.external.matrix", true); // for Nheko matr
 defaultPref("network.protocol-handler.external.slack", true); // for official Slack desktop app
 defaultPref("network.protocol-handler.external.zoommtg", true); // for official zoom desktop app
 defaultPref("network.protocol-handler.warn-external-default", false); // experimental; will this get it to launch Fractal for matrix: URIs without prompting?
+// Firefox 157+ (bug 299116) ignores the above `external.<scheme>` prefs unless the navigation has user activation,
+// which extension-initiated navigations (e.g. firefox-xdg-open context menu) lack => prompts "Allow this site to open the xdg-open link?"
+defaultPref("network.protocol-handler.prompt-without-user-activation", false);
 
 // statically configure bookmarks.
 // notably, these bookmarks have "shortcut url" fields:
