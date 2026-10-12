@@ -1,21 +1,28 @@
 {
   stdenv,
+  fetchFromGitHub,
+  nodejs,
+  pnpmConfigHook,
+  pnpm,
+  fetchPnpmDeps,
   lib,
-  pkgs,
-  ...
 }:
 stdenv.mkDerivation rec {
   pname = "obsidian-git";
   version = "2.41.1";
 
-  src = pkgs.fetchFromGitHub {
+  src = fetchFromGitHub {
     owner = "Vinzent03";
     repo = "obsidian-git";
     rev = version;
     sha256 = "sha256-Jdz+EOsifwogOxxilV2cLpYkvIkuDGYgzWA8KMkgkSI=";
   };
 
-  nativeBuildInputs = with pkgs; [
+  patches = [
+    ./supported-architectures.patch
+  ];
+
+  nativeBuildInputs = [
     nodejs
     pnpmConfigHook
     pnpm
@@ -42,10 +49,10 @@ stdenv.mkDerivation rec {
     ELECTRON_SKIP_BINARY_DOWNLOAD = 1;
   };
 
-  pnpmDeps = pkgs.fetchPnpmDeps {
+  pnpmDeps = fetchPnpmDeps {
     fetcherVersion = 4;
-    inherit pname version src;
-    hash = "sha256-EEw3t6b4sYPVSHrkvavnABg+EmdxkJXtwNX1JuESRb4=";
+    inherit pname version src patches;
+    hash = "sha256-1WgxMoBsgqQjTZMNiAH6MeqcKLMf5llS+xIHECmpdq0=";
   };
 
   meta = {
