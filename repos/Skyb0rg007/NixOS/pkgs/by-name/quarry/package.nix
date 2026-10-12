@@ -38,9 +38,27 @@ buildGoModule (finalAttrs: {
   checkFlags =
     let
       skippedTests = [
-        # need user xattrs, which the sandbox build directory may not support
+        # need xattrs, which the sandbox build directory may not support
+        # (flistxattr returns ENOTSUP on GitHub runners)
+        "TestDeleteBlob_IfETagMatches"
+        "TestDeleteBlob_RequiresPolicy"
+        "TestPutBlob_Clobber"
+        "TestPutBlob_IfETagMatches"
+        "TestPutBlob_NoClobberByDefault"
         "TestPutBlob_WithAttributes"
+        "TestPutGetBlob_RoundTrip"
+        "TestRepository_GetBlob_DummyOption"
+        "TestRepository_GetLatestRoot_IterationError"
+        "TestRepository_GetLatestRoot_PicksHighestVersion"
+        "TestRepository_GetLatestRoot_VersionGap"
+        "TestRepository_GetLatestRoot_WrongRole"
+        "TestRepository_GetLatestTimestamp"
+        "TestRepository_GetLatestTimestamp_InvalidJSON"
+        "TestRepository_GetLatestTimestamp_WrongRole"
+        "TestRepository_PutGetVersionedFile_RoundTrip"
+        "TestRepository_PutVersionedFile_LandsAtExpectedFilename"
         "TestRepository_PutVersionedFile_PutOption_WithAttribute"
+        "TestXattrs_GetEmpty"
 
         # need /etc/machine-id, which doesn't exist in the sandbox
         "TestParseConfig_Expand_Bundled"
@@ -60,7 +78,9 @@ buildGoModule (finalAttrs: {
     ln -s quarry $out/bin/quarry-sysupdate
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version=branch" ];
+  };
 
   meta = {
     description = "TUF-based software distribution toolchain";
