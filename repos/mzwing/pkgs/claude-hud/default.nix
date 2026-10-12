@@ -15,7 +15,7 @@ in
     nodejs = nodejs_24;
 
     # Refreshed by update-hashes.
-    npmDepsHash = "sha256-XnIkXeNCnesbrVL18bRFA2CTgctNvsp6ikeVXTJV2c8=";
+    npmDepsHash = "sha256-Lk7MT8GdpqofAQZckZFOgEYbRoAnpmTSp1yi+5e7SB8=";
 
     nativeBuildInputs = [makeWrapper];
 

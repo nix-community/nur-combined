@@ -30,13 +30,13 @@
   };
   bakamusic = {
     pname = "bakamusic";
-    version = "v1.9.4";
+    version = "v1.9.5";
     src = fetchFromGitHub {
       owner = "Zencok";
       repo = "BakaMusic";
-      rev = "v1.9.4";
+      rev = "v1.9.5";
       fetchSubmodules = false;
-      sha256 = "sha256-ixHCEhZp76MlM95rzyT+Z95aMRA+dADgdqongxlp008=";
+      sha256 = "sha256-eeM8cvqBcMVX7bGExa7DD9x46IzXvPdFQE9CDyAotow=";
     };
   };
   claude-code-wakatime = {
@@ -52,13 +52,13 @@
   };
   claude-hud = {
     pname = "claude-hud";
-    version = "v0.10.0";
+    version = "v0.11.1";
     src = fetchFromGitHub {
       owner = "jarrodwatts";
       repo = "claude-hud";
-      rev = "v0.10.0";
+      rev = "v0.11.1";
       fetchSubmodules = false;
-      sha256 = "sha256-VqE3r5CN5l0OgzAzPdhZptoW+uYJg6mLHv+qz8r8GR0=";
+      sha256 = "sha256-sgIS2/BSNgll/lZuYKXgz330v0WnD4amAtGAFFFv9Bk=";
     };
   };
   cliproxyapiplus = {
@@ -96,10 +96,10 @@
   };
   cnb-cli = {
     pname = "cnb-cli";
-    version = "1.17.23";
+    version = "1.17.29";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.23.tgz";
-      sha256 = "sha256-SvI6egkxdMz9EHb0KN911hLsqBZf84eLr+SnnyHrvnw=";
+      url = "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.29.tgz";
+      sha256 = "sha256-JpWcHKhqeJWBks5A/TAu3ubkZaCz4yTGbjCysG9kClQ=";
     };
   };
   codegraph = {
@@ -208,13 +208,13 @@
   };
   magic-context = {
     pname = "magic-context";
-    version = "v0.47.0";
+    version = "v0.48.0";
     src = fetchFromGitHub {
       owner = "cortexkit";
       repo = "magic-context";
-      rev = "v0.47.0";
+      rev = "v0.48.0";
       fetchSubmodules = false;
-      sha256 = "sha256-7RpBpCAuSKhKC+3rswQW1OB6Rv8zjU5dLNOKTIF0Deo=";
+      sha256 = "sha256-IK9aS2FoWeFCDUQTX3o95V6U8T6nfiC6J9+CnSu3qnE=";
     };
   };
   manboster = {
@@ -320,15 +320,15 @@
   };
   tree-sitter-nix = {
     pname = "tree-sitter-nix";
-    version = "f9765b709987418e7526cca8b9dcf73429ddf169";
+    version = "32c3ce98afdafc2ec9aedf0280a678750f76254c";
     src = fetchFromGitHub {
       owner = "nix-community";
       repo = "tree-sitter-nix";
-      rev = "f9765b709987418e7526cca8b9dcf73429ddf169";
+      rev = "32c3ce98afdafc2ec9aedf0280a678750f76254c";
       fetchSubmodules = false;
-      sha256 = "sha256-5bP1KCksWjK05VoyfTOwkfOCijEe0f3+6Xn2oxSevIQ=";
+      sha256 = "sha256-dYEMpf6vZEFcKCIEHYKsLisxm1kC/GRgDbsgEVo2q94=";
     };
-    date = "2026-10-10";
+    date = "2026-10-12";
   };
   typenix = {
     pname = "typenix";

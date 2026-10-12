@@ -55,12 +55,12 @@
             "name": null,
             "owner": "Zencok",
             "repo": "BakaMusic",
-            "rev": "v1.9.4",
-            "sha256": "sha256-ixHCEhZp76MlM95rzyT+Z95aMRA+dADgdqongxlp008=",
+            "rev": "v1.9.5",
+            "sha256": "sha256-eeM8cvqBcMVX7bGExa7DD9x46IzXvPdFQE9CDyAotow=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.9.4"
+        "version": "v1.9.5"
     },
     "claude-code-wakatime": {
         "cargoLock": null,
@@ -97,12 +97,12 @@
             "name": null,
             "owner": "jarrodwatts",
             "repo": "claude-hud",
-            "rev": "v0.10.0",
-            "sha256": "sha256-VqE3r5CN5l0OgzAzPdhZptoW+uYJg6mLHv+qz8r8GR0=",
+            "rev": "v0.11.1",
+            "sha256": "sha256-sgIS2/BSNgll/lZuYKXgz330v0WnD4amAtGAFFFv9Bk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.10.0"
+        "version": "v0.11.1"
     },
     "cliproxyapiplus": {
         "cargoLock": null,
@@ -176,11 +176,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-SvI6egkxdMz9EHb0KN911hLsqBZf84eLr+SnnyHrvnw=",
+            "sha256": "sha256-JpWcHKhqeJWBks5A/TAu3ubkZaCz4yTGbjCysG9kClQ=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.23.tgz"
+            "url": "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.29.tgz"
         },
-        "version": "1.17.23"
+        "version": "1.17.29"
     },
     "codegraph": {
         "cargoLock": null,
@@ -384,12 +384,12 @@
             "name": null,
             "owner": "cortexkit",
             "repo": "magic-context",
-            "rev": "v0.47.0",
-            "sha256": "sha256-7RpBpCAuSKhKC+3rswQW1OB6Rv8zjU5dLNOKTIF0Deo=",
+            "rev": "v0.48.0",
+            "sha256": "sha256-IK9aS2FoWeFCDUQTX3o95V6U8T6nfiC6J9+CnSu3qnE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.47.0"
+        "version": "v0.48.0"
     },
     "manboster": {
         "cargoLock": null,
@@ -582,7 +582,7 @@
     },
     "tree-sitter-nix": {
         "cargoLock": null,
-        "date": "2026-10-10",
+        "date": "2026-10-12",
         "extract": null,
         "name": "tree-sitter-nix",
         "passthru": null,
@@ -594,12 +594,12 @@
             "name": null,
             "owner": "nix-community",
             "repo": "tree-sitter-nix",
-            "rev": "f9765b709987418e7526cca8b9dcf73429ddf169",
-            "sha256": "sha256-5bP1KCksWjK05VoyfTOwkfOCijEe0f3+6Xn2oxSevIQ=",
+            "rev": "32c3ce98afdafc2ec9aedf0280a678750f76254c",
+            "sha256": "sha256-dYEMpf6vZEFcKCIEHYKsLisxm1kC/GRgDbsgEVo2q94=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f9765b709987418e7526cca8b9dcf73429ddf169"
+        "version": "32c3ce98afdafc2ec9aedf0280a678750f76254c"
     },
     "typenix": {
         "cargoLock": null,
