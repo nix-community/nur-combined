@@ -3,18 +3,17 @@ queue_rules:
     merge_method: rebase
     queue_conditions:
       - check-success=All
-    merge_conditions: []
+    merge_conditions:
+      - check-success=All
     batch_size:
       min: 1
       max: 8
-    batch_max_wait_time: "1 minute"
 
 pull_request_rules:
-  - name: Queue when labeled and all CI jobs pass
+  - name: Queue when labeled
     conditions:
       - and:
           - label=dependencies
-          - check-success=All
           - base=main
     actions:
       queue:
