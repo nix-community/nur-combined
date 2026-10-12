@@ -4,8 +4,8 @@ Read this before updating `pctx`, `pctx.py`, or either fixed build input. The pa
 
 ```text
 pkgs/pctx/
-├── default.nix    # Rust CLI: pctx 0.7.1
-├── python.nix     # Python SDK: pctx-client 0.4.1
+├── default.nix    # Rust CLI: pctx 0.7.7
+├── python.nix     # Python SDK: pctx-client 0.4.5
 ├── uv-build.nix   # Private source-built PEP 517 backend: uv-build 0.9.30
 └── AGENTS.md      # This guide
 ```

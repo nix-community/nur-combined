@@ -4,7 +4,7 @@
 # continuous branch between Electron milestones; the release tag is the stable
 # reference).
 # Upstream moved from NW.js to Electron (conf/config.json: electron 36.6.0,
-# node 22.16.0, devtools 2.02.2608070); this derivation mirrors the Electron
+# node 22.16.0, devtools 2.02.2608080); this derivation mirrors the Electron
 # pipeline: 7z-extract resources from the Windows installer, asar unpack,
 # rebuild native modules with node-gyp (electron headers for electron-side
 # modules, node headers for node-side ones), asar pack with upstream's unpack
@@ -74,7 +74,7 @@ let
   nodeVersion = "22.16.0";
   electronVersion = "36.6.0";
   compilerVersion = "0.2.0";
-  devtoolsVersion = "2.02.2608070";
+  devtoolsVersion = "2.02.2608080";
 
   # node 运行时不再打进 electron/：上游 bin/node 现在以 ELECTRON_RUN_AS_NODE
   # 复用 electron 二进制（CHANGELOG 2.02.2608070-2 "refactor: 移除node依赖"）。
@@ -98,7 +98,7 @@ let
       "https://devtools.wxqcloud.qq.com.cn/WechatWebDev/release/be1ec64cf6184b0fa64091919793f068/wechat_devtools_${devtoolsVersion}_win32_x64.exe"
       "https://dldir1.qq.com/WechatWebDev/release/be1ec64cf6184b0fa64091919793f068/wechat_devtools_${devtoolsVersion}_win32_x64.exe"
     ];
-    hash = "sha256-pQLerS5PttywteFX4fK5rADBCiDxlAkXESofhIHtXtk=";
+    hash = "sha256-ijJV/nYmh5tHLcUUXhsp15f4bQpr2dd1CX8rpfm7dGc=";
   };
   ripgrepTarball = fetchurl {
     url = "https://github.com/microsoft/ripgrep-prebuilt/releases/download/v15.0.0/ripgrep-v15.0.0-x86_64-unknown-linux-musl.tar.gz";
@@ -146,13 +146,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "wechat-web-devtools-linux";
-  version = "0-unstable-04f6006";
+  version = "0-unstable-b6bfb59";
 
   src = fetchFromGitHub {
     owner = "msojocs";
     repo = "wechat-web-devtools-linux";
-    rev = "04f60067523d844d7cd63dd23067652cb2e51c19";
-    hash = "sha256-9IMlbfqAsy/2ZrIFbviIuv5bBGMPxhlJqM6y9ESytk8=";
+    rev = "b6bfb5993bba79c7701c825fad720df915cf99e6";
+    hash = "sha256-z9U5T/QMYH9cdubEism3hIa8B1qJgGSqcbf9fefehMA=";
   };
 
   nativeBuildInputs = [
@@ -358,6 +358,15 @@ stdenv.mkDerivation (finalAttrs: {
     cat "$TMPDIR/bootstrap.js" > resources/app/js/electron/backend/bootstrap.js
     cat "$src/res/scripts/config.js" resources/app/js/common/miniprogram-builder/modules/corecompiler/original/workerThread/config.js > "$TMPDIR/config.js"
     cat "$TMPDIR/config.js" > resources/app/js/common/miniprogram-builder/modules/corecompiler/original/workerThread/config.js
+
+    # fix-data-path.sh 内联（数据目录统一为 <userData>/app；prepend electron_main.js，
+    # 目标是 package.json main 的固定路径，2.02.2608080-2 新增）
+    test -f resources/app/js/electron/main.js || {
+      echo "resources/app/js/electron/main.js missing in devtools ${devtoolsVersion}" >&2
+      exit 1
+    }
+    cat "$src/res/scripts/electron_main.js" resources/app/js/electron/main.js > "$TMPDIR/main.js"
+    cat "$TMPDIR/main.js" > resources/app/js/electron/main.js
 
     # fix-webview-touch-focus.js（模拟器需点击两次；版本相关模块校验后追加补丁）
     node "$src/tools/fix-webview-touch-focus.js" resources/app
