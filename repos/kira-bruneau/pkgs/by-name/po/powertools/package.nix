@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  fetchFromGitea,
+  fetchgit,
   rustPlatform,
   fetchPnpmDeps,
   cargo,
@@ -19,10 +19,8 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "powertools";
   version = "2.0.3";
 
-  src = fetchFromGitea {
-    domain = "git.ngni.us";
-    owner = "NG-SD-Plugins";
-    repo = "PowerTools";
+  src = fetchgit {
+    url = "https://git.ngram.ca/NG-SD-Plugins/PowerTools.git";
     tag = "v${finalAttrs.version}";
     hash = "sha256-xBqEZzV/Y9xnmWPW6KQbn7HVlbtzRKGQNGdRAGcOsLI=";
   };
@@ -50,7 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (finalAttrs) pname version src;
     patches = [ ./update-lock.patch ];
     fetcherVersion = 4;
-    hash = "sha256-Wzv7a+g0qzvH/7nRtO7KDsXJQJblQubUG5/LLb+Bo+U=";
+    hash = "sha256-ndz+96TpA/5rFUbXucJ6Gxkj74HVW32iKLm3ud9KZEk=";
   };
 
   dontUseCmakeConfigure = true;
