@@ -12,46 +12,8 @@
     services.flatpak
   ];
 
-  boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linuxKernel.kernels.linux_6_12;
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   nix-mineral.settings.kernel.binfmt-misc = true;
-
-  specialisation."debug-linux-bisect".configuration =
-    let
-      testKernel = pkgs.linuxKernel.kernels.linux_6_18.override {
-        argsOverride = {
-          version = "6.18.44";
-          modDirVersion = "6.18.44";
-          # The current Nixpkgs config does not exactly match this historical
-          # source snapshot. Ignore options unavailable at this commit.
-          ignoreConfigErrors = true;
-          src = pkgs.fetchurl {
-            url = "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.18.44.tar.xz";
-            hash = "sha256-D3LZOPBoKOgskEBRdP5XIofbe/4Ini/EZXKpmn8kDUM=";
-          };
-        };
-      };
-    in
-    {
-      # Test keeping the bridge node while omitting properties that need
-      # a subordinate bus. This replaces the earlier skip-node guard.
-      boot.kernelPackages = lib.mkForce (pkgs.linuxPackagesFor testKernel);
-      boot.kernelPatches = [
-        {
-          name = "pci-of-optional-bus-properties";
-          patch = ./kernel-debug/pci-of-optional-bus-properties.patch;
-        }
-      ];
-      boot.kernelParams = lib.mkAfter [
-        "ignore_loglevel"
-        "loglevel=8"
-        "oops=continue"
-        "panic=0"
-        "panic_on_warn=0"
-      ];
-
-      system.nixos.tags = [ "pci-of-keep-node-6.18.44" ];
-    };
 
   services.xserver.xkb.layout = "latam";
 
