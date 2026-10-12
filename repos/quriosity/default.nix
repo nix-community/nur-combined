@@ -17,6 +17,7 @@
   tabby = pkgs.callPackage ./pkgs/apps/tabby {};
   hyper = pkgs.callPackage ./pkgs/apps/hyper {};
   opennow = pkgs.callPackage ./pkgs/apps/opennow {};
+  openide = pkgs.callPackage ./pkgs/apps/openide {};
   # Artcraft Suite
   artcraft-launcher = pkgs.callPackage ./pkgs/apps/artcraft-suite/artcraft-launcher {};
   photocraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/photocraft {};
