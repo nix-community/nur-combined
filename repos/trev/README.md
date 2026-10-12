@@ -10,12 +10,22 @@ Extra [packages](#packages), [bundlers](#bundlers), [images](#images) and [libs]
 
 Packages are [cached](#cache) and kept up-to-date automatically. Available here or the [Nix User Repository](https://nur.nix-community.org/repos/trev/).
 
-### [bumper](https://github.com/spotdemo4/bumper)
+### [bumper](https://trev.zip/llc/bumper)
 
 Version bumper for projects using git and semantic versioning
 
 ```elm
 nix run github:spotdemo4/trevpkgs#bumper
+```
+
+### [burrito](https://github.com/burrito-elixir/burrito)
+
+Wrap your application in a BEAM Burrito; used by [mkGleamBurrito](#mkgleamburrito)
+
+```nix
+nativeBuildInputs = with pkgs.beamPackages; [
+  burrito
+];
 ```
 
 ### [catppuccin-gtk](https://github.com/Fausto-Korpsvart/Catppuccin-GTK-Theme)
@@ -51,6 +61,30 @@ programs.zen-browser.profiles.default = {
 };
 ```
 
+### [chrome-devtools-mcp](https://github.com/ChromeDevTools/chrome-devtools-mcp)
+
+Chrome DevTools for coding agents
+
+```elm
+nix run github:spotdemo4/trevpkgs#chrome-devtools-mcp
+```
+
+### [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI)
+
+Proxy server providing OpenAI-compatible APIs for CLI models
+
+```elm
+nix run github:spotdemo4/trevpkgs#cliproxyapi
+```
+
+### [codex-commit](https://trev.zip/llc/codex-commit)
+
+Commit message generator using codex
+
+```elm
+nix run github:spotdemo4/trevpkgs#codex-commit
+```
+
 ### [duckdb](https://github.com/duckdb/duckdb)
 
 Embeddable SQL OLAP Database Management System
@@ -74,15 +108,23 @@ pkgs.trev.duckdb.override {
 
 Out-of-tree extensions are built as loadable extensions against the default duckdb, so enabling them does not rebuild duckdb; the `duckdb` binary finds them through `DUCKDB_NIX_EXTENSION_DIRECTORIES`, which programs linking `libduckdb` can set to `duckdb.extensionDirectory`. `spatial`, `vss` and `odbc_scanner` are not autoloaded and need `LOAD`. Static builds (`pkgsStatic`) compile every extension into the binary, except `odbc_scanner` which is unsupported.
 
-### [ffmpeg-quality-metrics](https://github.com/slhck/ffmpeg-quality-metrics)
+### [fetch-hash](https://github.com/spotdemo4/trevpkgs/blob/main/packages/fetch-hash)
 
-Calculates video quality metrics with FFmpeg (SSIM, PSNR, VMAF, VIF)
+Fetch the hashes of remote files
 
 ```elm
-nix run github:spotdemo4/trevpkgs#ffmpeg-quality-metrics
+nix run github:spotdemo4/trevpkgs#fetch-hash
 ```
 
-### [flake-release](https://github.com/spotdemo4/flake-release)
+### [fix-hash](https://github.com/spotdemo4/nix-fix-hash)
+
+Nix hash fixer
+
+```elm
+nix run github:spotdemo4/trevpkgs#fix-hash
+```
+
+### [flake-release](https://trev.zip/llc/flake-release)
 
 Flake package releaser
 
@@ -106,7 +148,7 @@ A tool to audit Erlang & Elixir dependencies
 nix run github:spotdemo4/trevpkgs#go-over
 ```
 
-### [helium](https://github.com/imputnet/helium)
+### [helium](https://github.com/imputnet/helium-linux)
 
 Private, fast, and honest web browser
 
@@ -122,22 +164,50 @@ Intel graphics system firmware update library
 nix run github:spotdemo4/trevpkgs#igsc
 ```
 
+### [kagimcp](https://github.com/kagisearch/kagimcp)
+
+Model Context Protocol (MCP) server for Kagi Search
+
+```elm
+nix run github:spotdemo4/trevpkgs#kagimcp
+```
+
+### [kotlin-lsp](https://github.com/Kotlin/kotlin-lsp)
+
+Kotlin Language Server
+
+```elm
+nix run github:spotdemo4/trevpkgs#kotlin-lsp
+```
+
+### [libvmaf-latest](https://github.com/Netflix/vmaf)
+
+Perceptual video quality assessment based on multi-method fusion (VMAF); latest version
+
+```nix
+buildInputs = with pkgs.trev; [
+  libvmaf-latest
+];
+```
+
+### [libwtf](https://github.com/andrewmd5/libwtf)
+
+C WebTransport over HTTP/3 library built on MsQuic
+
+```nix
+buildInputs = with pkgs.trev; [
+  libwtf
+];
+```
+
 ### [modal](https://pypi.org/project/modal)
 
 Provides convenient, on-demand access to serverless cloud compute from Python scripts on your local computer
 
 ```nix
-buildInputs = with pkgs.python314Packages; [
+buildInputs = with pkgs.python3Packages; [
   modal
 ];
-```
-
-### [fix-hash](https://github.com/spotdemo4/nix-fix-hash)
-
-Nix hash fixer
-
-```elm
-nix run github:spotdemo4/trevpkgs#fix-hash
 ```
 
 ### [nix-scan](https://github.com/spotdemo4/nix-scan)
@@ -162,6 +232,16 @@ Static code analysis engine to find security issues in code
 
 ```elm
 nix run github:spotdemo4/trevpkgs#opengrep
+```
+
+### [paper-mono](https://github.com/paper-design/paper-mono)
+
+Beautiful monospace font for design and code by Paper
+
+```nix
+fonts.packages = with pkgs.trev; [
+  paper-mono
+];
 ```
 
 ### [protoc-gen-connect-openapi](https://github.com/sudorandom/protoc-gen-connect-openapi)
@@ -194,13 +274,14 @@ nix run github:spotdemo4/trevpkgs#qsvenc
 
 Cross-platform dependency update tool, with patches for nix
 
-- patched with [renovate#40282](https://github.com/renovatebot/renovate/pull/40282) to fix flake updates
+- patched with [renovate#45258](https://github.com/renovatebot/renovate/pull/45258) to support flake input updates
+- patched to update the `rev` and `ref` attributes of flake inputs
 
 ```elm
 nix run github:spotdemo4/trevpkgs#renovate
 ```
 
-### [shellhook](https://github.com/spotdemo4/trevpkgs/blob/main/pkgs/shellhook/shellhook.sh)
+### [shellhook](https://trev.zip/llc/shellHook)
 
 Shell hook for nix development shells
 
@@ -212,14 +293,44 @@ devShells.x86_64-linux.default = pkgs.mkShell {
 };
 ```
 
+### [trev-mono](https://trev.zip/llc/trev-mono)
+
+[Paper Mono](#paper-mono), patched for coding
+
+```nix
+fonts.packages = with pkgs.trev; [
+  trev-mono
+];
+```
+
 ### [uv-build-latest](https://pypi.org/project/uv-build)
 
 Build backend for uv; latest version
 
 ```nix
-build-system = with pkgs.python314Packages; [
+build-system = with pkgs.python3Packages; [
   setuptools
   uv-build-latest
+];
+```
+
+### [xdg-desktop-portal-hyprland](https://github.com/hyprwm/xdg-desktop-portal-hyprland)
+
+xdg-desktop-portal backend for Hyprland, with RemoteDesktop support
+
+- patched with [xdg-desktop-portal-hyprland#428](https://github.com/hyprwm/xdg-desktop-portal-hyprland/pull/428) and its keyboard fixes
+
+```nix
+programs.hyprland.portalPackage = pkgs.trev.xdg-desktop-portal-hyprland;
+```
+
+### [xdg-desktop-portal-luminous](https://github.com/waycrate/xdg-desktop-portal-luminous)
+
+xdg-desktop-portal backend for wlroots based compositors, providing screenshot and screencast
+
+```nix
+xdg.portal.extraPortals = with pkgs.trev; [
+  xdg-desktop-portal-luminous
 ];
 ```
 
@@ -275,6 +386,14 @@ An alternative to [`ralismark/nix-appimage`](https://github.com/ralismark/nix-ap
 
 ```elm
 nix bundle --bundler github:spotdemo4/trevpkgs#appimage
+```
+
+### deno-\<system\>
+
+Compiles a JavaScript package into a standalone binary for the given system with `deno compile`. Available for `x86_64-linux`, `aarch64-linux`, `x86_64-darwin`, `aarch64-darwin` and `x86_64-windows`
+
+```elm
+nix bundle --bundler github:spotdemo4/trevpkgs#deno-x86_64-linux
 ```
 
 ## Libs
@@ -375,7 +494,7 @@ Directories can be filtered with `files`, `filter`, `ignore` and `include`. The 
 `filter`'s `file` attributes are inherited from [fileset.fileFilter](https://nixos.org/manual/nixpkgs/stable/#function-library-lib.fileset.fileFilter)
 
 ```nix
-checks = pkgs.lib.mkChecks {
+checks = pkgs.mkChecks {
   rust = {
     src = self.packages.${system}.default;
     packages = with pkgs; [
@@ -507,6 +626,40 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
 });
 ```
 
+### mkGleamBurrito
+
+Wraps a [gleam](https://gleam.run/) project into a single self-contained executable with [burrito](https://github.com/burrito-elixir/burrito). `src` can be a source directory or a gleam package built with `gleamFetchDeps` & `gleamErlangHook`. `target` (`linux`, `macos` or `windows`) and `targetCpu` (`x86_64` or `aarch64`) default to the host system.
+
+```nix
+pkgs.mkGleamBurrito {
+  src = self.packages.${system}.default;
+};
+```
+
+### denoCompile
+
+Compiles a JavaScript package into a standalone binary with `deno compile`. The entrypoint defaults to `main` in `package.json`, then `build/index.js`. Permissions can be denied with `allow-read`, `allow-write`, `allow-net`, `allow-env` and `allow-run`.
+
+```nix
+pkgs.denoCompile {
+  package = self.packages.${system}.default;
+  target = "aarch64-apple-darwin";
+  allow-run = false;
+};
+```
+
+### getForgejoFlake
+
+Fetches a flake from a [Forgejo](https://forgejo.org/) instance by `url`, `rev` and `hash`
+
+```nix
+(pkgs.getForgejoFlake {
+  url = "https://trev.zip/llc/bumper";
+  rev = "...";
+  hash = "sha256-...";
+}).packages.${system}.default
+```
+
 ## Overlays
 
 - [packages](#packages)
@@ -523,9 +676,11 @@ import nixpkgs {
 }
 ```
 
+Python packages are added to every python package set (e.g. `pkgs.python3Packages.modal`), BEAM packages to `pkgs.beamPackages` and images to `pkgs.image`.
+
 ### trev
 
-An overlay that adds all of the overlays but with the prefix `trev` (e.g. `pkgs.trev.bumper`)
+An overlay that adds all of the overlays but with the prefix `trev` (e.g. `pkgs.trev.bumper`). Also available as `trev.overlays.default`.
 
 ```nix
 import nixpkgs {
@@ -572,17 +727,16 @@ A flake for developing rust projects
   };
 
   inputs = {
-    systems.url = "github:nix-systems/default";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     trevpkgs = {
       url = "github:spotdemo4/trevpkgs";
-      inputs.systems.follows = "systems";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs =
     {
+      self,
       trevpkgs,
       ...
     }:
@@ -730,10 +884,10 @@ Every package in this repo is built and cached each update. To pull from the cac
 ```nix
 {
   nix.settings = {
-    trusted-substituters = [
+    extra-substituters = [
       "https://nix.trev.zip"
     ];
-    trusted-public-keys = [
+    extra-trusted-public-keys = [
       "trev:I39N/EsnHkvfmsbx8RUW+ia5dOzojTQNCTzKYij1chU="
     ];
   };
