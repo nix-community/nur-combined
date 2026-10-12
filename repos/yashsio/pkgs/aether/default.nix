@@ -8,13 +8,13 @@
 
 stdenv.mkDerivation {
   pname = "aether";
-  version = "0.1.2";
+  version = "0.4.1";
 
   src = fetchFromGitHub {
     owner = "yashsio";
     repo = "aether";
-    rev = "2d13a4d84c294c2012b13fa4ceaf004037c9fa3e";
-    hash = "sha256-V1QSA7/84+s3azo8KhbJIjc2jjfqiTOXMuN9tz+lgPo=";
+    rev = "46ae72a8d1c57eac3eb907504b8d2e14f6fa7c9a";
+    hash = "sha256-vCole8LVbK4CmTxsH2j5y8jvFDl8IjSxCIAv42gwDJo=";
   };
 
   nativeBuildInputs = [
