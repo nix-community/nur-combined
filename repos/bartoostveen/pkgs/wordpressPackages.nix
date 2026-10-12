@@ -41,9 +41,9 @@ makeScope newScope (
       };
       contact-form-7 = self.callPackage self.mkWpPlugin {
         pname = "wp-contact-form-7";
-        version = "6.2.1";
+        version = "6.2.2";
         id = "contact-form-7";
-        hash = "sha256-3LNHR5Afn32PmPRMBHMR8m9xEUvMj0GsafLR5BezOFI=";
+        hash = "sha256-Ov2q/hkoS4oWVradMXU4GP0UPmZ0mighmfUo+9yWtRI=";
       };
       indexnow = self.callPackage self.mkWpPlugin {
         pname = "indexnow";
@@ -61,9 +61,9 @@ makeScope newScope (
       gutenberg = self.callPackage ../pkgs/gutenberg/package.nix { };
       gutenberg-carousel = self.callPackage self.mkWpPlugin {
         pname = "wp-gutenberg-carousel";
-        version = "2.1.5";
+        version = "2.1.6";
         id = "carousel-block";
-        hash = "sha256-uy9f1RgpI92bEKCvmmQxecBzkhvrJUvzD21TrlhzqoE=";
+        hash = "sha256-ShNEhWD9mE4i1R1EcLy6BqTFlvYQ3xHhU3g5JS7eLy8=";
       };
       modify-profile-fields = self.callPackage self.mkWpPlugin {
         pname = "wp-modify-profile-fields";

@@ -72,7 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    description = "The official mistserver source repository - www.mistserver.com";
+    description = "MistServer is an open source, public domain, full-featured, next-generation streaming media toolkit for OTT (internet streaming), designed to be ideal for developers and system integrators";
     homepage = "https://github.com/DDVTECH/mistserver";
     changelog = "https://github.com/DDVTECH/mistserver/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.unlicense;
