@@ -212,6 +212,8 @@ rec {
 
   velaterm = pkgs.callPackage ./pkgs/velaterm { };
   paseo = pkgs.callPackage ./pkgs/paseo { };
+  ricercar = pkgs.callPackage ./pkgs/ricercar { };
+
 
   xad = pkgs.callPackage ./pkgs/xad { };
 
@@ -236,4 +238,3 @@ rec {
   unordered_dense = pkgs.callPackage ./pkgs/unordered_dense { };
   obsbot-camera-control = pkgs.callPackage ./pkgs/obsbot-camera-control { };
 }
-  ricercar = pkgs.callPackage ./pkgs/ricercar { };
