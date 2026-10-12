@@ -405,6 +405,10 @@
    "module": "sha256-sDh/gRgDrxUU8aojhbRgw7gTxvQ861bPreavqiBpedg=",
    "pom": "sha256-/RpljtvteICsPgoNvSCuGkbJh+QK9UTjprEQglu+/PU="
   },
+  "org/jetbrains/kotlin#kotlin-stdlib-common/2.4.10": {
+   "module": "sha256-Xa9+3NbWMF0LASG+WXqdUElrq/0pkL32sI/XACWpTdE=",
+   "pom": "sha256-AG6dbnsq+nfK5w4W2Ak1yeaqv1r/WUOClXrgcV8tNoc="
+  },
   "org/jetbrains/kotlin#kotlin-stdlib-jdk7/1.8.21": {
    "pom": "sha256-m7EH1dXjkwvFl38AekPNILfSTZGxweUo6m7g8kjxTTY="
   },
@@ -423,6 +427,11 @@
    "jar": "sha256-zLFP+D+ryxFFi3mNvJgkdIzN/+7HnJq6eJ5u0c2oaxw=",
    "module": "sha256-wkpH3L2Sldd29EO+Qdd6wkUwlgHtBTcR3uKwJUvgLbY=",
    "pom": "sha256-gZT/eanuJKf6P3SmsXnAShhZ3ouYek8JgwVuWUUXId4="
+  },
+  "org/jetbrains/kotlin#kotlin-stdlib/2.4.10": {
+   "jar": "sha256-TsApO8N1FCOyA/HYSTJRxXxC5z62N3prhWDQl0/wpt8=",
+   "module": "sha256-HASpjxIAyHBdAV3wiXchFYnuy8h88cTG0oqSaC/oRG4=",
+   "pom": "sha256-n4HyXpa5GRUzkt7VO9MyFudmJJCc/QgKPtsnjUT8NPA="
   },
   "org/jetbrains/kotlin#kotlin-tooling-core/2.4.0": {
    "jar": "sha256-WeowU3LjordBd2Tc/s9kUGag2bF5KrQK/RXBzIU1tYo=",
@@ -1009,6 +1018,9 @@
    "module": "sha256-PS/V3z5VZdnA4cA8XdIjYizyiRVXIIYjJKME1SL3gEc=",
    "pom": "sha256-YSpPsvay2ouT3ew6D21esxF2NhE+/aOt3/tV1iUJnv8="
   },
+  "org/jetbrains/compose/desktop#desktop-jvm-linux-x64/1.7.0": {
+   "pom": "sha256-2/9VPqXxybksnQwdoeEr983HeciyDY+m/CotdzXJpnY="
+  },
   "org/jetbrains/compose/desktop#desktop-jvm-macos-arm64/1.7.0": {
    "pom": "sha256-WIlrEnKu7QOcgli6rohipcNQqRgL5uaabEz8p9JOoa4="
   },
@@ -1380,6 +1392,11 @@
    "module": "sha256-eJRlqAo7YbMcJwBZ9nF42iYEXcLd85sBtFQ6YCrc9wY=",
    "pom": "sha256-IIUKKt51yo8Ax5gblNZZ8oqyah4nuGZuS4oxAu59I40="
   },
+  "org/jetbrains/kotlinx#kotlinx-coroutines-swing/1.11.0": {
+   "jar": "sha256-f2WP6VK1YXYRH6rYrCdSaJBGCJFdbHk3T6DID7KI+2A=",
+   "module": "sha256-I4V4NJwX/DTVylTRIi8v6VR+Yb6FgnRQ93kAFoeCcdo=",
+   "pom": "sha256-Xg1OSIf8gLFAcOMd62DIxY4lYRFvNro5rEuSAZP74Nk="
+  },
   "org/jetbrains/kotlinx#kotlinx-datetime-jvm/0.6.0": {
    "jar": "sha256-UXpx4u8wCvizdcXW7UmUHHKXyN7s5r2yuxoop/S8S1g=",
    "module": "sha256-XVqon+HjFnZaBPVN+khB9nOEn3xC7lES2m0NVPrUXCw=",
@@ -1466,6 +1483,10 @@
    "module": "sha256-f33wBUM932BPUqq9avsh65YJMZfLS90Hk8SEydPEtnU=",
    "pom": "sha256-x3AMmcg94CtGVBo9fktps4h0m3wPV9zrRU0UPyzYens="
   },
+  "org/jetbrains/skiko#skiko-awt-runtime-linux-x64/0.8.15": {
+   "jar": "sha256-L72ZRbh+1QE5HTE+jK396wDXXKsyhiIgzOs4Uuv/3Hc=",
+   "pom": "sha256-Nfg93UsA2fZYuezotPCaYkwrwPbGNGgtxS6a5FyNHQQ="
+  },
   "org/jetbrains/skiko#skiko-awt-runtime-macos-arm64/0.8.15": {
    "jar": "sha256-FoepnFtMLNiavGVlVmidzgGkaBKSqTzu9KnEl+nhQNk=",
    "pom": "sha256-e4KThaZFcZwANJjph1MCGfssKV7TwosVbio3nQxf/NQ="
@@ -1546,13 +1567,6 @@
   "xml-apis#xml-apis/1.4.01": {
    "jar": "sha256-qECWgXZkVoS7Aa7TduBnqzlhSIX57uRKvjWl8g6+f60=",
    "pom": "sha256-Cagv8VCshr+jEUXgpq/YmgLkUEeF9doRLk+uFCUCDpI="
-  },
-  "org/jetbrains/compose/desktop#desktop-jvm-linux-x64/1.7.0": {
-   "pom": "sha256-2/9VPqXxybksnQwdoeEr983HeciyDY+m/CotdzXJpnY="
-  },
-  "org/jetbrains/skiko#skiko-awt-runtime-linux-x64/0.8.15": {
-   "jar": "sha256-L72ZRbh+1QE5HTE+jK396wDXXKsyhiIgzOs4Uuv/3Hc=",
-   "pom": "sha256-Nfg93UsA2fZYuezotPCaYkwrwPbGNGgtxS6a5FyNHQQ="
   }
  }
 }

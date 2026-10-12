@@ -10,11 +10,34 @@ inline fun <reified VM : ViewModel> hiltViewModel(): VM {
     return _createViewModelInstance(VM::class.java) as VM
 }
 
+private var _globalMusicDatabase: Any? = null
+private var _dbInitialized = false
+
+fun getGlobalMusicDatabase(): Any? {
+    if (!_dbInitialized) {
+        try {
+            val clazz = Class.forName("moe.rukamori.archivetune.db.InternalDatabase")
+            val companion = clazz.getField("Companion").get(null)
+            val method = companion.javaClass.methods.first { m ->
+                m.name == "newInstance" && m.parameterCount == 1
+            }
+            _globalMusicDatabase = method.invoke(companion, android.content.DummyContext())
+        } catch (e: java.lang.reflect.InvocationTargetException) {
+            throw e.targetException ?: e
+        }
+        _dbInitialized = true
+    }
+    return _globalMusicDatabase
+}
+
 fun _createViewModelInstance(clazz: Class<*>): Any? {
     if (clazz.name == "android.content.Context") {
         return android.content.DummyContext()
     }
-    
+    if (clazz.name == "moe.rukamori.archivetune.db.MusicDatabase") {
+        return getGlobalMusicDatabase()
+    }
+
     when {
         clazz == Int::class.java -> return 0
         clazz == Boolean::class.java -> return false

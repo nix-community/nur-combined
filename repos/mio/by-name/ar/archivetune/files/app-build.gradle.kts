@@ -69,6 +69,7 @@ dependencies {
     implementation("androidx.room:room-runtime:2.8.4")
     ksp("androidx.room:room-compiler:2.8.4")
     implementation("androidx.sqlite:sqlite-bundled:2.5.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.11.0")
 
     // Plain-JVM libraries the app uses directly. These used to be hand-stubbed in
     // android-stubs; using the real artifacts instead removes a whole class of
