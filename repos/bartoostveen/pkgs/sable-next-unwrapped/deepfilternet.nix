@@ -44,5 +44,8 @@ stdenv.mkDerivation {
       asl20
     ];
     maintainers = with lib.maintainers; [ bartoostveen ];
+    sourceProvenance = with lib.sourceTypes; [
+      binaryBytecode
+    ];
   };
 }

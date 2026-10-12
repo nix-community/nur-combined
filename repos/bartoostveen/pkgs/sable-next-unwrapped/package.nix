@@ -44,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace package.json \
       --replace-fail "mise exec --" ""
 
-    cp -r ${finalAttrs.deepfilternet} static/deepfilternet3
+    cp --no-preserve all -r ${finalAttrs.deepfilternet} static/deepfilternet3
   '';
 
   nativeBuildInputs = [
