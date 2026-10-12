@@ -14,13 +14,13 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "doona-web";
-  version = "0.1.0-beta.19";
+  version = "0.1.0-beta.20";
 
   src = fetchFromGitHub {
     owner = "Zakkaus";
     repo = "doona";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-54jDpKe8hArwtXEUf39Q/dtCAFs+/1/Uc0B8g9b9obI=";
+    hash = "sha256-5R0XDXkmhBQozavjPpdHyzJwqUMqMVEXd1/QtKWoe84=";
   };
 
   __structuredAttrs = true;
