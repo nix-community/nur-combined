@@ -19,5 +19,6 @@
   # flakeModules = { }; # flake-parts modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  dfcore = pkgs.callPackage ./pkgs/dfcore { };
   dfdisk = pkgs.callPackage ./pkgs/dfdisk { };
 }
