@@ -57,6 +57,6 @@ in
     meta =
       noLigatures.meta
       // {
-        description = "Ioskeley Mono Custom Term Nerd Font without ligatures, with crossbar seven and threefold at";
+        description = "Ioskeley Mono Custom Term Nerd Font without ligatures, tuned for rounder brackets, a lower caret and tighter operator centring";
       };
   }
