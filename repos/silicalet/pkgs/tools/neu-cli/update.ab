@@ -1,0 +1,3 @@
+main {
+    $ nix-update neu-cli --flake --build --format --version=branch $?
+}

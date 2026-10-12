@@ -15,6 +15,7 @@ main (args) {
         "meatshell-bin",
         "modeltrace",
         "neomacs-bin",
+        "neu-cli",
         "nyaterm-bin",
         "nyaterm-gpui-bin",
         "oh-dsh-bin",

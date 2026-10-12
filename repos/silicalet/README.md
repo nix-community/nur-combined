@@ -9,6 +9,26 @@ Package expressions live under `pkgs/apps`, `pkgs/tools`, and `pkgs/lang`.
 Those directories are only for organization: exported attribute names, update
 commands, and NUR consumers stay flat.
 
+## NEU CLI
+
+`neu-cli` builds [neu-cli](https://github.com/silicalet/neu-cli) from source and
+installs the `neu` command for Northeastern University campus services:
+
+```console
+nix run .#neu-cli -- --help
+nix run .#neu-cli -- webvpn ipgw.neu.edu.cn
+```
+
+The package runs the upstream Haskell tests during the build and includes
+`xdg-open` for `webvpn --open`.
+It uses unmodified upstream source with a package-local `http-types 0.12.6`
+dependency, matching the upstream Cabal build.
+Commands that access campus services require the
+appropriate network access and, where applicable, your own account.
+Upstream has no release tags, so the package pins a commit and its updater
+follows the default branch. It is included in the default update set;
+update it with `nix run .#update -- neu-cli`.
+
 ## Quark Drive CLIs
 
 Run either client:
