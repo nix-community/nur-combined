@@ -8,13 +8,13 @@
 
 buildDotnetModule (finalAttrs: {
   pname = "NugetMcpServer";
-  version = "1.1.9";
+  version = "1.1.10";
 
   src = fetchFromGitHub {
     owner = "DimonSmart";
     repo = "NugetMcpServer";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-DAUVjET1LsxriYNByD2M9IUwSh3/wGNAgQCOuTo5WwA=";
+    hash = "sha256-4mJOosCEu5H+2DEVNeEKwJjLO1pZFFll6gsR/m49n0c=";
   };
 
   dotnet-sdk = dotnetCorePackages.sdk_10_0;
