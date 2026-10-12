@@ -21,11 +21,9 @@ TESTS_SKIPPED=0
 # Test packages
 PACKAGES=(
     "cybergrub2077"
-    "optiscaler-client"
     "nmssaveeditor"
     "rimsort-appimage"
     "scopebuddy"
-    "vs-launcher"
     "wowup-cf"
 )
 
@@ -125,30 +123,6 @@ test_uses_flake() {
     return 0
 }
 
-# Test 5: Check if optiscaler-client generates deps.json
-test_optiscaler_deps() {
-    local pkg="optiscaler-client"
-    local deps_file="$REPO_ROOT/pkgs/$pkg/deps.json"
-
-    if [[ ! -f "$deps_file" ]]; then
-        test_skip "$pkg: deps.json not found (run update.sh first)" || return 0
-        return 0
-    fi
-
-    if command -v jq &> /dev/null; then
-        if ! jq empty "$deps_file" 2>/dev/null; then
-            test_fail "$pkg: deps.json is not valid JSON" || return 0
-            return 0
-        fi
-    else
-        test_skip "$pkg: jq not available, skipping JSON validation" || return 0
-        return 0
-    fi
-
-    test_pass "$pkg: deps.json is valid JSON" || return 0
-    return 0
-}
-
 # Test 6: Check if package directory exists
 test_package_dir_exists() {
     local pkg="$1"
@@ -185,10 +159,6 @@ main() {
         test_has_update_mechanism "$pkg"
         test_uses_flake "$pkg"
 
-        # Special test for optiscaler-client
-        if [[ "$pkg" == "optiscaler-client" ]]; then
-            test_optiscaler_deps
-        fi
         echo
     done
 

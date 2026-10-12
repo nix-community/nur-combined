@@ -27,7 +27,6 @@ bats tests/update-scripts.bats
 3. **Script structure** - Scripts have proper shebang and `set -euo pipefail`
 4. **nix-update usage** - Scripts use `nix-update` for updates
 5. **Flake support** - Scripts use `--flake` flag for flake-based packages
-6. **optiscaler-client deps** - `deps.json` is valid JSON (if exists)
 
 ## Adding tests for new packages
 
@@ -36,10 +35,8 @@ Edit `tests/run-tests.sh` and add the package name to the `PACKAGES` array:
 ```bash
 PACKAGES=(
     "cybergrub2077"
-    "optiscaler-client"
     "rimsort-appimage"
     "scopebuddy"
-    "vs-launcher"
     "wowup-cf"
     "new-package"  # Add here
 )

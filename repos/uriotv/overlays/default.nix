@@ -5,14 +5,10 @@
   default = final: prev: {
     cybergrub2077 = final.callPackage ../pkgs/cybergrub2077 { };
     nmssaveeditor = final.callPackage ../pkgs/nmssaveeditor { };
-    optipatcher-install = final.callPackage ../pkgs/optipatcher-install { };
-    optiscaler-client = final.callPackage ../pkgs/optiscaler-client { };
-    optiscaler-install = final.callPackage ../pkgs/optiscaler-install { };
     pig = final.callPackage ../pkgs/pig { };
     rimsort-appimage = final.callPackage ../pkgs/rimsort-appimage { };
     rimsort = final.rimsort-appimage;
     scopebuddy = final.callPackage ../pkgs/scopebuddy { };
-    vs-launcher = final.callPackage ../pkgs/vs-launcher { };
     wowup-cf = final.callPackage ../pkgs/wowup-cf { };
   };
 }
