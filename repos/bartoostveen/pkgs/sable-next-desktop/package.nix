@@ -31,7 +31,7 @@
   conf ? { },
 }:
 
-rustPlatform.buildRustPackage {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "sable-next-desktop";
   inherit (sable-next.unwrapped)
     version
@@ -61,9 +61,20 @@ rustPlatform.buildRustPackage {
         | ${lib.getExe' moreutils "sponge"} src-tauri/tauri.conf.json
     '';
 
-  postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
+  postInstall = ''
+    mv $out/bin/app $out/bin/sable
+  ''
+  + lib.optionalString stdenv.hostPlatform.isDarwin ''
     mkdir -p "$out/bin"
-    makeWrapper "$out/Applications/SableNext.app/Contents/MacOS/SableNext" "$out/bin/sable-next"
+    makeWrapper "$out/Applications/SableNext.app/Contents/MacOS/SableNext" "$out/bin/sable"
+  ''
+  + lib.optionalString stdenv.hostPlatform.isLinux ''
+    desktop-file-edit \
+      --set-key="Exec" --set-value="$out/bin/sable" \
+      --set-key="StartupWMClass" --set-value="sable" \
+      --set-comment "${finalAttrs.meta.description}" \
+      --set-key="Categories" --set-value="Network;InstantMessaging;" \
+      "$out/share/applications/Sable v2.desktop"
   '';
 
   nativeBuildInputs = [
@@ -484,6 +495,6 @@ rustPlatform.buildRustPackage {
       maintainers
       ;
 
-    mainProgram = "sable-next";
+    mainProgram = "sable";
   };
-}
+})
