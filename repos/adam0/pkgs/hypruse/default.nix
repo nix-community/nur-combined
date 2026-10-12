@@ -31,7 +31,7 @@
 in
   buildPythonApplication {
     pname = "hypruse";
-    version = "0.12.0";
+    version = "0.12.1";
     pyproject = true;
 
     src = fetchFromGitHub {
