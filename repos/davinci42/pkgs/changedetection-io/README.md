@@ -35,7 +35,21 @@ nix-shell --run 'just check changedetection-io'
 ```
 
 Checks cover the build, runtime dependencies, installed imports, package wiring
-and lint. Upstream unit tests are not run.
+and lint. Installed-package checks exercise JSON serialization and selection,
+XPath, LLM settings validation, greenlet/gevent, Engine.IO backends, timestamp
+formatting and rejection of external XML parameter entities. Upstream unit tests
+are not run.
+
+The package uses the caller's Python dependencies and relaxes reviewed version
+pins where the application still uses compatible APIs. The additional relaxations
+for elementpath, greenlet, jsonpath-ng, orjson, pydantic and python-engineio retain
+the previously working dependency versions and are covered by the installed
+checks. They do not promise every feature of the newer dependency releases.
+
+The lxml minimum is not relaxed: versions below 6.1.3 lack an external parameter
+entity security fix. The package supplies 6.1.3 when needed and rewires its runtime
+consumers to use the same lxml. A caller providing 6.1.3 or newer keeps its version.
+Review this fallback and the compatibility checks when updating dependencies.
 
 `requirements.txt` and `setup.py` are compared against the reviewed source pinned
 in `tests/pkgs/changedetection-io.nix`. Any change prints a diff and fails the

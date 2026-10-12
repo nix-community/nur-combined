@@ -32,6 +32,10 @@
       "default": "true",
       "kind": "Bool"
     },
+    "bt_enable_utp": {
+      "default": "true",
+      "kind": "Bool"
+    },
     "bt_enabled": {
       "default": "true",
       "kind": "Bool"
@@ -177,7 +181,7 @@
     "default_segments": {
       "default": "0",
       "kind": "Integer",
-      "max": 64,
+      "max": 512,
       "min": 0
     },
     "domain_conn_caps": {
@@ -331,10 +335,10 @@
       "kind": "Text"
     }
   },
-  "protocolVersion": 9,
+  "protocolVersion": 10,
   "sourceHashes": {
-    "native/protocol/src/daemon_config.rs": "7a3c1a37cc12322eadcb2300ca2f1d967c0f3576794a9af2fe571f86ff8c7ff5",
-    "native/protocol/src/rpc.rs": "8d873e7924aa1e57f16fa349bf5e5a4417c56501fe0ef6d3b8fa74561221a8e3"
+    "native/protocol/src/daemon_config.rs": "9a47cadaea68e69eaae540e125e6468ff7e2a57979b07037a32f6407ca9a680f",
+    "native/protocol/src/rpc.rs": "e76a7aa6250fd58684b668f2d0548cc8846548da2c76ee7176defba5f4f26eb4"
   },
-  "version": "0.5.5"
+  "version": "0.5.6"
 }

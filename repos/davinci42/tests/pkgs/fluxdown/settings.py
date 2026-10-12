@@ -117,6 +117,8 @@ class SettingsTests(unittest.TestCase):
             {"upload_limit_bytes": -1},
             {"upload_limit_bytes": True},
             {"max_concurrent_tasks": 1025},
+            {"default_segments": 513},
+            {"bt_enable_utp": "false"},
             {"bt_enable_upnp": "false"},
             {"bt_enabled": "false"},
             {"file_exists_behavior": "unknown"},
@@ -173,6 +175,21 @@ class SettingsTests(unittest.TestCase):
         ]:
             with self.assertRaises(ValueError):
                 _ = generator.parse_fields(prefix + entry + "];")
+
+    def test_parser_integer_constants(self):
+        prefix = (
+            "pub const MAX_TASK_SEGMENTS: i32 = 512;\n"
+            "pub const DAEMON_CONFIG_FIELDS: &[DaemonConfigField] = &["
+        )
+        entry = (
+            'field("default_segments", DaemonConfigKind::Integer '
+            '{ min: 0, max: MAX_TASK_SEGMENTS as i64 }, "0"),];'
+        )
+        self.assertEqual(generator.parse_fields(prefix + entry)["default_segments"]["max"], 512)
+        with self.assertRaisesRegex(ValueError, "Unknown upstream integer constant"):
+            _ = generator.parse_fields(prefix + entry.replace("MAX_TASK_SEGMENTS", "UNKNOWN"))
+        with self.assertRaises(ValueError):
+            _ = generator.parse_fields(prefix + entry.replace("MAX_TASK_SEGMENTS as i64", "512 + 1"))
 
     def test_rpc_events_and_error_redaction(self):
         class Connection:
@@ -356,6 +373,8 @@ class SettingsTests(unittest.TestCase):
                                 "upload_limit_bytes": "1048576",
                                 "max_concurrent_tasks": "3",
                                 "bt_enable_upnp": "false",
+                                "bt_enable_utp": "false",
+                                "default_segments": "512",
                                 "bt_enabled": "false",
                                 "file_exists_behavior": "ask",
                                 "auto_resume_on_start": "true",
@@ -404,6 +423,8 @@ class SettingsTests(unittest.TestCase):
                             )
                             for name, expected in {
                                 "bt_enabled": "false",
+                                "bt_enable_utp": "false",
+                                "default_segments": "512",
                                 "file_exists_behavior": "ask",
                             }.items():
                                 self.assertEqual(

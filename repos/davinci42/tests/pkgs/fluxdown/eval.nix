@@ -65,6 +65,8 @@ let
       settings = allDefaults // {
         upload_limit_bytes = 1048576;
         bt_enabled = false;
+        bt_enable_utp = false;
+        default_segments = 512;
         file_exists_behavior = "ask";
       };
       settingsFile = "/run/secrets/fluxdown-settings.json";
@@ -93,6 +95,10 @@ let
         }).services.fluxdown.settings
         true;
     btDisabled = configured.services.fluxdown.settings.bt_enabled == false;
+    utpDisabled = configured.services.fluxdown.settings.bt_enable_utp == false;
+    maximumSegments = configured.services.fluxdown.settings.default_segments == 512;
+    rejectExcessSegments = invalidSetting "default_segments" 513;
+    rejectStringUtp = invalidSetting "bt_enable_utp" "false";
     askOnFileConflict = configured.services.fluxdown.settings.file_exists_behavior == "ask";
     omittedSettingsUnmanaged = lib.all (value: value == null) (
       builtins.attrValues enabled.services.fluxdown.settings

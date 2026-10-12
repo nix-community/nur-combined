@@ -42,6 +42,11 @@ Removing a setting does not reset its saved value. `auto_resume_on_start = true`
 resumes all paused tasks. Put secret settings in `settingsFile`, a runtime JSON
 file readable by `fluxdown`, outside the Nix store.
 
+`default_segments` accepts 0 (automatic) through 512. Values above 64 can trigger
+remote server rate limits; values above 256 carry greater risk. Set
+`bt_enable_utp = false` to use TCP-only BitTorrent transport instead of the upstream
+TCP/uTP default. Cloud notification reporting requires explicit opt-in in the UI.
+
 ## Maintenance and tests
 
 ```sh

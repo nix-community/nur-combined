@@ -5,28 +5,58 @@
   callPackage,
   python3Packages,
 }:
-
-python3Packages.buildPythonApplication (finalAttrs: {
+let
+  pythonPackages = python3Packages // {
+    lxml =
+      if lib.versionAtLeast python3Packages.lxml.version "6.1.3" then
+        python3Packages.lxml
+      else
+        python3Packages.lxml.overridePythonAttrs {
+          version = "6.1.3";
+          src = fetchFromGitHub {
+            owner = "lxml";
+            repo = "lxml";
+            tag = "lxml-6.1.3";
+            hash = "sha256-ye0qwrcfMINdVCg8EvcoQ+NAnWvF3JSJfjJ2Zupnmc8=";
+          };
+        };
+    lxml-html-clean = python3Packages.lxml-html-clean.override { inherit (pythonPackages) lxml; };
+    html-text = python3Packages.html-text.override { inherit (pythonPackages) lxml lxml-html-clean; };
+    extruct = python3Packages.extruct.override { inherit (pythonPackages) lxml html-text; };
+    feedgen = python3Packages.feedgen.override { inherit (pythonPackages) lxml; };
+    inscriptis = python3Packages.inscriptis.override { inherit (pythonPackages) lxml; };
+    blobfile = python3Packages.blobfile.override { inherit (pythonPackages) lxml; };
+    tiktoken = python3Packages.tiktoken.override { inherit (pythonPackages) blobfile; };
+    litellm = python3Packages.litellm.override { inherit (pythonPackages) tiktoken; };
+  };
+in
+pythonPackages.buildPythonApplication (finalAttrs: {
   pname = "changedetection-io";
-  version = "0.60.8";
+  version = "0.60.9";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "dgtlmoon";
     repo = "changedetection.io";
     tag = finalAttrs.version;
-    hash = "sha256-gbZEnSBRuLUexuNWNka6K/NY3mwy6Dujx3y/y+7fqaA=";
+    hash = "sha256-E7ujQNMG1Qs6NAocAOYP8My8PDfFrI1ejoEIJfvC5VQ=";
   };
 
-  build-system = [ python3Packages.setuptools ];
+  build-system = [ pythonPackages.setuptools ];
 
   pythonRelaxDeps = [
     "apprise"
     "beautifulsoup4"
     "chardet"
     "cryptography"
+    "elementpath"
     "flask_wtf"
+    "greenlet"
+    "jsonpath-ng"
+    "orjson"
+    "pydantic"
     "pyppeteer-ng"
+    "python-engineio"
     "selenium"
     "werkzeug"
   ];
@@ -40,7 +70,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
   ];
 
   dependencies =
-    with python3Packages;
+    with pythonPackages;
     [
       apprise
       arrow

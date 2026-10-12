@@ -13,6 +13,12 @@ SOURCES = ["native/protocol/src/daemon_config.rs", "native/protocol/src/rpc.rs"]
 
 def parse_fields(source: str) -> dict[str, dict[str, object]]:
     source = re.sub(r"//[^\n]*", "", source)
+    integers = {
+        match.group(1): int(match.group(2).replace("_", ""))
+        for match in re.finditer(
+            r"pub const (\w+): [iu](?:8|16|32|64|128|size) = (-?[\d_]+);", source
+        )
+    }
     enums = {
         name: cast(list[str], json.loads("[" + values + "]"))
         for name, values in (
@@ -49,12 +55,19 @@ def parse_fields(source: str) -> dict[str, dict[str, object]]:
             for part in constraints.strip("{} ").split(","):
                 if part.strip():
                     name, value = part.strip().split(":", 1)
-                    value = value.strip().replace("_", "")
-                    field[name] = (
-                        9223372036854775807
-                        if value == "i64::MAX"
-                        else cast(int | float, json.loads(value))
-                    )
+                    value = value.strip()
+                    constant = re.fullmatch(r"(\w+) as i64", value)
+                    if constant:
+                        key_name = constant.group(1)
+                        if key_name not in integers:
+                            raise ValueError("Unknown upstream integer constant: " + key_name)
+                        field[name] = integers[key_name]
+                    else:
+                        field[name] = (
+                            9223372036854775807
+                            if value == "i64::MAX"
+                            else cast(int | float, json.loads(value.replace("_", "")))
+                        )
         elif kind == "Enum":
             field["values"] = enums[constraints.strip("() ")]
         fields[key] = field
