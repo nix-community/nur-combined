@@ -1,4 +1,6 @@
-{ pkgs ? import <nixpkgs> {} }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 let
   robotnixSrc = builtins.fetchTarball {
     url = "https://github.com/nix-community/robotnix/archive/b731f1aa2bfd26763714495a12ad50f6a9bd12ca.tar.gz";
