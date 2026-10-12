@@ -16,7 +16,7 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "ignis";
-  version = "0.8.16";
+  version = "0.8.17";
 
   __structuredAttrs = true;
 
@@ -24,10 +24,10 @@ buildNpmPackage (finalAttrs: {
     owner = "Nystik-gh";
     repo = "ignis";
     tag = "v${finalAttrs.version}+obsidian.${finalAttrs.passthru.obsidianAssets.version}";
-    hash = "sha256-EIyggqGw/mM6BRHrDEI+2r132IPlGlWk0Rpkakeqvfo=";
+    hash = "sha256-C0jud2YjXxsBumMEupONZ6Bq+/O2iGWiAwgqIP9pwa0=";
   };
 
-  npmDepsHash = "sha256-xSb08lGmoh+nIX/W45VYSy6lvbhmXZreAk1Lb4FBUK8=";
+  npmDepsHash = "sha256-VjmXDLulQH6KnLkqamlNoYuG2UAkSCjihHx/SuhzmYs=";
 
   nativeBuildInputs = [ makeBinaryWrapper ];
 
@@ -55,11 +55,11 @@ buildNpmPackage (finalAttrs: {
   passthru = {
     obsidianAssets = stdenvNoCC.mkDerivation (finalAttrs: {
       pname = "obsidian-assets";
-      version = "1.13.7";
+      version = "1.14.4";
 
       src = fetchurl {
         url = "https://github.com/obsidianmd/obsidian-releases/releases/download/v${finalAttrs.version}/obsidian-${finalAttrs.version}.asar.gz";
-        hash = "sha256-aSU+OaoLmA48+W6eiopL7Wtkge9wIc12L2eHJmLY0lo=";
+        hash = "sha256-0e1CjDY5aHdPDzkG5n2KU6BY7OC2zdkksHhll3sq2iE=";
       };
 
       nativeBuildInputs = [
