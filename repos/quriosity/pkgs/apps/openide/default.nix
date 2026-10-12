@@ -151,6 +151,7 @@ stdenv.mkDerivation {
 
     makeWrapper $out/opt/openide/bin/openide $out/bin/openide \
       --prefix PATH : ${lib.makeBinPath [ coreutils git gnugrep which ]} \
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ fontconfig freetype ]} \
       --set-default LOCALE_ARCHIVE ${glibcLocales}/lib/locale/locale-archive
 
     install -Dm444 $out/opt/openide/bin/openide.svg \
