@@ -13,15 +13,6 @@ diff --git a/src/NvFetcher.hs b/src/NvFetcher.hs
 index 8b40af1..b822816 100644
 --- a/src/NvFetcher.hs
 +++ b/src/NvFetcher.hs
-@@ -54,7 +54,7 @@ where
- import Control.Monad.Extra (forM_, unless, when, whenJust, whenM)
- import qualified Data.Aeson as A
- import qualified Data.Aeson.Encode.Pretty as A
--import qualified Data.Aeson.Types as A
-+
- import qualified Data.ByteString.Lazy.Char8 as LBS
- import Data.Default
- import Data.List (partition, (\\))
 @@ -234,6 +234,7 @@ srouces body =
      {
        fetchgit,
