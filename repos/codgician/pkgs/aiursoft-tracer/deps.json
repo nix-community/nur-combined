@@ -76,8 +76,8 @@
   },
   {
     "pname": "Aiursoft.DbTools.MySql",
-    "version": "10.0.32",
-    "hash": "sha256-oO6XFzhwi+dTIPnsLxUe5EKMFJfSu70ekj7+46below="
+    "version": "10.0.33",
+    "hash": "sha256-Xy3YXCs/mrmPl6uihSOTCZFWJumlYc1iT7mgzDVMnx4="
   },
   {
     "pname": "Aiursoft.DbTools.Sqlite",
@@ -88,11 +88,6 @@
     "pname": "Aiursoft.DbTools.Switchable",
     "version": "10.0.25",
     "hash": "sha256-9sVwok0KSMgRgI3kGBx1O0mJ7o5YOXPGUUZzT/TRW90="
-  },
-  {
-    "pname": "Aiursoft.EntityFrameworkCore.MySql",
-    "version": "10.0.1-servicing.1",
-    "hash": "sha256-pcaKdR9ecWz6QbKS4nRfRZccaxsDkmN1wyteObCBg/Q="
   },
   {
     "pname": "Aiursoft.Scanner",
@@ -550,6 +545,11 @@
     "hash": "sha256-KZGPtOXe6Hv8RrkcsgoLKTRyaCScIpQEa2NhNB3iOXw="
   },
   {
+    "pname": "Microting.EntityFrameworkCore.MySql",
+    "version": "10.0.12",
+    "hash": "sha256-FOaxfV8LMkb61vzh6ftjvgkGW+8ZfRMo+bJQiyTV+l0="
+  },
+  {
     "pname": "Mono.TextTemplating",
     "version": "3.0.0",
     "hash": "sha256-VlgGDvgNZb7MeBbIZ4DE2Nn/j2aD9k6XqNHnASUSDr0="
@@ -571,8 +571,8 @@
   },
   {
     "pname": "MySqlConnector",
-    "version": "2.4.0",
-    "hash": "sha256-vymVoL1G3Ia+mR7L3wcHwvvqL+2Xd9qJxsWBuJ7xiVs="
+    "version": "2.6.2",
+    "hash": "sha256-PYdY0p0rGaXvqfeM+snK6CSocKr4ji463EC8483ax0g="
   },
   {
     "pname": "Net.Codecrete.QrCodeGenerator",
