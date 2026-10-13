@@ -23,13 +23,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "sasl-xoauth2";
-  version = "0.27";
+  version = "0.28";
 
   src = fetchFromGitHub {
     owner = "tarickb";
     repo = "sasl-xoauth2";
     tag = "release-${finalAttrs.version}";
-    hash = "sha256-GUdt39DNtYZl4qsnhnWufXOgu5Mg1+HCJap8IfFyldk=";
+    hash = "sha256-u8bbaLHw/m7wWpzKmpSFMYHRCeigAiJ2EOUMaKsN1BQ=";
   };
 
   # Let sasl-xoauth2 find configuration files in /etc
