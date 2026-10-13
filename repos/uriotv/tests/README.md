@@ -10,6 +10,13 @@ This directory contains tests for the update scripts.
 ./tests/run-tests.sh
 ```
 
+The bash runner also executes `tests/update-workflow.py` (Python 3 standard
+library only). These offline regression tests use temporary package fixtures;
+they do not contact upstream, invoke Nix, or modify repository packages. They
+verify that failed updates restore the package directory, successful updates
+before and after a failure are retained, and summaries report failures without
+blocking PR creation. Invalid package selections remain hard errors.
+
 ### BATS tests (more comprehensive)
 
 ```bash

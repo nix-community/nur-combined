@@ -43,6 +43,7 @@ jobs:
   tests:
     needs: test-gate
     strategy:
+      fail-fast: false
       matrix:
         # Set this to notify the global nur package registry that changes are
         # available.
@@ -97,7 +98,7 @@ jobs:
           -I "nixpkgs=$(nix-instantiate --find-file nixpkgs)" \
           -I "$PWD"
     - name: Build nix packages
-      run: nix-build ci.nix -A cacheOutputs
+      run: nix-build ci.nix -A cacheOutputs --keep-going
     - name: Trigger NUR update
       # Don't replace <YOUR_REPO_NAME> here!
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}

@@ -162,6 +162,9 @@ main() {
         echo
     done
 
+    # Offline workflow regression tests must never contact upstream or run Nix.
+    python3 "$SCRIPT_DIR/update-workflow.py"
+
     echo "======================================"
     echo "Test Summary"
     echo "======================================"
