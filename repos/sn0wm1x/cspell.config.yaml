@@ -26,6 +26,7 @@ words:
   - libayatana
   - libgcc
   - libsoup
+  - libxkbcommon
   - mholt
   - moeru
   - naiveproxy
@@ -36,8 +37,10 @@ words:
   - patchelf
   - pkgs
   - pname
+  - PROTOC
   - quic
   - stdenv
+  - tesseract
   - webdav
   - webkitgtk
   - wmtheme

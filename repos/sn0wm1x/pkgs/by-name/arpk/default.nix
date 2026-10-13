@@ -1,9 +1,11 @@
 {
   fetchFromGitHub,
+  fetchPnpmDeps,
   lib,
   makeWrapper,
-  nodejs_22,
-  pnpm,
+  nodejs_24,
+  pnpm_11,
+  pnpmConfigHook,
   stdenvNoCC,
   testers,
 }:
@@ -19,15 +21,17 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [
-    nodejs_22
+    nodejs_24
     makeWrapper
-    pnpm.configHook
+    pnpm_11
+    pnpmConfigHook
   ];
 
-  pnpmDeps = pnpm.fetchDeps {
+  pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
-    fetcherVersion = 2;
-    hash = "sha256-e4fnnvDBPUpGFFBiVf5hpqK8VOtE4e1l2aYUg+xrlYs=";
+    pnpm = pnpm_11;
+    fetcherVersion = 4;
+    hash = "sha256-C+ZlgmmRpWR26GkWlz8ju3x4IyUJn/SPwCgX+hK3a8w=";
   };
 
   buildPhase = ''
@@ -44,7 +48,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     mkdir -p $out/{bin,lib/node_modules/arpk}
     cp -r {dist,node_modules} $out/lib/node_modules/arpk
 
-    makeWrapper ${lib.getExe nodejs_22} $out/bin/arpk --add-flags $out/lib/node_modules/arpk/dist/index.js
+    makeWrapper ${lib.getExe nodejs_24} $out/bin/arpk --add-flags $out/lib/node_modules/arpk/dist/index.js
 
     runHook postInstall
   '';
@@ -58,6 +62,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     license = lib.licenses.mit;
     mainProgram = "arpk";
     maintainers = with lib.maintainers; [ kwaa ];
-    platforms = nodejs_22.meta.platforms;
+    platforms = nodejs_24.meta.platforms;
   };
 })
