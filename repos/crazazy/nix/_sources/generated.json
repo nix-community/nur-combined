@@ -1,20 +1,20 @@
 {
     "cakeml": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "cakeml",
         "passthru": null,
         "pinned": false,
         "src": {
-            "sha256": "sha256-r3YGq4/8eeeVa5Xe6pNab2IuF7oNqLKn9TrJHi6/0Tk=",
+            "sha256": "sha256-JuzRkmroN4oprNIdUrvsejU8quAghaxNH4C3r0NXzfE=",
             "type": "tarball",
-            "url": "https://github.com/CakeML/cakeml/releases/download/v2882/cake-x64-64.tar.gz"
+            "url": "https://github.com/CakeML/cakeml/releases/download/v3479/cake-x64-64.tar.gz"
         },
-        "version": "v2882"
+        "version": "v3479"
     },
     "enso": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "enso",
@@ -22,14 +22,14 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Cq4YuYT2V6+58AoOfm7n4UYk4yZUlfnWSuJLeWVuUhw=",
+            "sha256": "sha256-P1Mal/BRl2EalCsnrrCKYFB8CzptfLOghAEtLvu68xc=",
             "type": "url",
-            "url": "https://github.com/enso-org/enso/releases/download/2025.2.3/enso-linux-x86_64-2025.2.3.AppImage"
+            "url": "https://github.com/enso-org/enso/releases/download/2025.3.4/enso-linux-x86_64-2025.3.4.AppImage"
         },
-        "version": "2025.2.3"
+        "version": "2025.3.4"
     },
     "guile-config": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "guile-config",
@@ -43,7 +43,7 @@
         "version": "0.5.0"
     },
     "guile-hall": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "guile-hall",
@@ -57,21 +57,21 @@
         "version": "0.4.1"
     },
     "seamonkey": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "seamonkey",
         "passthru": null,
         "pinned": false,
         "src": {
-            "sha256": "sha256-+h1iul2uxBPSjADtWLZKDxwNoRpQf0zLPBlQuGdjNGw=",
+            "sha256": "sha256-vwTlnf4Qnyq/vPb6AgOKdFHdzh9Tb4H1NL5Zm0wPWkc=",
             "type": "tarball",
-            "url": "https://archive.seamonkey-project.org/releases/2.53.21/linux-x86_64/en-US/seamonkey-2.53.21.en-US.linux-x86_64.tar.bz2"
+            "url": "https://archive.seamonkey-project.org/releases/2.53.24/linux-x86_64/en-US/seamonkey-2.53.24.en-US.linux-x86_64.tar.bz2"
         },
-        "version": "2.53.21"
+        "version": "2.53.24"
     },
     "trufflesqueak": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "trufflesqueak",
@@ -79,14 +79,14 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-pBdoqrJx1lqoSAUshp7SeqIubP5L81ZwJSGgr0tQ5eA=",
+            "sha256": "sha256-2LuJs5rvhLzPSCWrjcdYUuA/9nCXtbvRQ3cbA1RlyUE=",
             "type": "url",
-            "url": "https://github.com/hpi-swa/trufflesqueak/releases/download/24.2.2/trufflesqueak-24.2.2-linux-amd64.tar.gz"
+            "url": "https://github.com/hpi-swa/trufflesqueak/releases/download/25.0.1/trufflesqueak-25.0.1-linux-amd64.tar.gz"
         },
-        "version": "24.2.2"
+        "version": "25.0.1"
     },
     "trufflesqueak-image": {
-        "cargoLocks": null,
+        "cargoLock": null,
         "date": null,
         "extract": null,
         "name": "trufflesqueak-image",
@@ -94,23 +94,15 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-c9dZ6cduH9SaokhENhgdyvmd2VyI+qQyXHTZHTgdSQs=",
+            "sha256": "sha256-cd/IfAFb6oIoERQFqW6/F0oggu2ldK/P1UupQ3WHRdg=",
             "type": "url",
-            "url": "https://github.com/hpi-swa/trufflesqueak/releases/download/24.2.2/TruffleSqueakImage-24.2.2.zip"
+            "url": "https://github.com/hpi-swa/trufflesqueak/releases/download/25.0.1/TruffleSqueakImage-25.0.1.zip"
         },
-        "version": "24.2.2"
+        "version": "25.0.1"
     },
     "wasmfxtime": {
-        "cargoLocks": {
-            "./Cargo.lock": [
-                "./wasmfxtime-21540296f1c262188636fe0fb373cd2a9600d764/./Cargo.lock",
-                {
-                    "wasm-encoder-0.223.0": "sha256-Wy/a8U2VEpfNgKMA1lwKOlC5fezX5voW+U5HkL0cH4k=",
-                    "wit-bindgen-0.37.0": "sha256-HDYhoNqwcUuPga3O6ndGhiYHitQKRvNXxvnjAhgfdtc="
-                }
-            ]
-        },
-        "date": "2025-01-20",
+        "cargoLock": null,
+        "date": "2026-10-13",
         "extract": null,
         "name": "wasmfxtime",
         "passthru": null,
@@ -122,11 +114,11 @@
             "name": null,
             "owner": "wasmfx",
             "repo": "wasmfxtime",
-            "rev": "21540296f1c262188636fe0fb373cd2a9600d764",
-            "sha256": "sha256-z31h3YOuTJ+t0d6nnTvQvJU4/JO7w4I6p4h63I2vZ1k=",
+            "rev": "13ff1ce45671a517bd47e6df7b248e0ff3cc1d0f",
+            "sha256": "sha256-yY2bj58bU+3PEhoaJmP8pgjGiH8GOW/eAmsjHKDP9NQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "21540296f1c262188636fe0fb373cd2a9600d764"
+        "version": "13ff1ce45671a517bd47e6df7b248e0ff3cc1d0f"
     }
 }
