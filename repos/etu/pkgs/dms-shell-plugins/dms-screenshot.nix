@@ -6,13 +6,13 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-screenshot";
-  version = "0-unstable-2026-09-07";
+  version = "1.7.0-unstable-2026-10-12";
 
   src = fetchFromGitHub {
     owner = "JDKamalakar";
     repo = "DMS-Screenshot";
-    rev = "d31161eaa4420ba3f54631956bf13bc35e3d46d5";
-    hash = "sha256-/p85hztmwZlTqkzmhFiBdqmAcbY/u+yblgXp4CnPd1g=";
+    rev = "9336067259bcd7d9ef601086ef500dec3a5009d0";
+    hash = "sha256-6p3cTFIO/jnkYNkIns5byMf5jOCAEG5JKN+MXV6ztfg=";
   };
 
   dontBuild = true;
