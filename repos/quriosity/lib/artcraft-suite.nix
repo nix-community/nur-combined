@@ -16,6 +16,7 @@ let
     "gridcraft"
     "cadcraft"
     "soundcraft"
+    "figcraft"
   ];
 
   # ThemeChoice (crates/ui-egui/src/theme.rs): System | Dark | Light.

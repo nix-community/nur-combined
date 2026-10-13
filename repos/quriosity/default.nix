@@ -32,6 +32,7 @@
   gridcraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/gridcraft {};
   soundcraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/soundcraft {};
   cadcraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/cadcraft {};
+  figcraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/figcraft {};
 
   # SDDM themes
   echo-sddm = pkgs.callPackage ./pkgs/sddm-themes/echo-sddm {};
