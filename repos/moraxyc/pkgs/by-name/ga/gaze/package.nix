@@ -51,10 +51,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   buildPhase = ''
     cargoBuildFlags=(
-      --package gaze
+      --package gazed
     )
     cargoBuildFeatures=(
-      ${lib.optionalString withOpenVINO "gaze/openvino"}
+      ${lib.optionalString withOpenVINO "gazed/openvino"}
     )
     cargoBuildHook
 
