@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import base64
 import logging
 import re
 import subprocess
@@ -176,6 +177,15 @@ def package_owned_roots(file_path: Path) -> list[Path]:
     return roots
 
 
+def package_hash_files(file_path: Path) -> list[Path]:
+    """Nix files of a package that can declare hashes for its dependencies."""
+    files = {file_path}
+    for root in package_owned_roots(file_path):
+        if root.is_dir():
+            files.update(path for path in root.rglob("*.nix") if path.is_file())
+    return sorted(path for path in files if path.suffix == ".nix")
+
+
 def package_update_disabled(file_path: Path) -> bool:
     return bool(re.search(r"\bupdateScript\s*=\s*null\s*;", file_path.read_text()))
 
@@ -277,58 +287,110 @@ def _run_nix_update(ref: PackageRef, version_mode: str, *, timeout: str | None) 
     run(command, timeout=timeout)
 
 
-def _refresh_dependency_hashes(ref: PackageRef, *, timeout: str | None) -> None:
-    replacements = [
-        (
-            r'dependencyHash = "sha256-[^"]+";',
-            "dependencyHash = lib.fakeHash;",
-            r"dependencyHash = lib\.fakeHash;",
-            'dependencyHash = "{hash}";',
-        ),
-        (
-            r'(fetchYarnDeps\s*\{[^}]*?hash\s*=\s*)"sha256-[^"]+";',
-            r"\1lib.fakeHash;",
-            r"(fetchYarnDeps\s*\{[^}]*?hash\s*=\s*)lib\.fakeHash;",
-            '{prefix}"{hash}";',
-        ),
-    ]
+# Declarations of a dependency's own fixed-output hash, never the source pin.
+_DECLARED_HASH_RE = re.compile(
+    r"(?:(?:dependencyHash|vendorHash|cargoHash|npmDepsHash)\s*=\s*"
+    r"|fetchYarnDeps\s*\{[^}]*?hash\s*=\s*)"
+    r'"(?P<hash>sha256-[A-Za-z0-9+/=]+)"'
+)
+_MISMATCH_RE = re.compile(
+    r"specified:\s*(sha256-[A-Za-z0-9+/=]+)\s*\n\s*got:\s*(sha256-[A-Za-z0-9+/=]+)"
+)
 
-    for pattern, replacement, fake_pattern, final_template in replacements:
-        text, count = re.subn(
-            pattern,
-            replacement,
-            ref.file_path.read_text(),
-            count=1,
-            flags=re.DOTALL,
-        )
-        if not count:
-            continue
-        ref.file_path.write_text(text)
-        refreshed = ref.file_path.read_text()
-        got_hash = _last_got_hash(ref, timeout=timeout)
-        updated, count = re.subn(
-            fake_pattern,
-            lambda found, final_template=final_template, got_hash=got_hash: final_template.format(
-                prefix=found.group(1) if found.groups() else "", hash=got_hash
-            ),
-            refreshed,
-            count=1,
-            flags=re.DOTALL,
-        )
+
+def _fake_hash(index: int) -> str:
+    """A valid sha256 that no derivation produces, distinct for every declaration."""
+    return "sha256-" + base64.b64encode(index.to_bytes(32, "big")).decode()
+
+
+def _fake_declared_hashes(paths: list[Path], fakes: dict[str, str]) -> None:
+    """Replace every declared dependency hash with a fake one, forcing a derivation.
+
+    A fixed-output derivation the store already holds is reused instead of derived, which
+    hides the stale tree of an earlier source revision, so each declaration has to be
+    forced through a build before its hash can be trusted.
+    """
+    index = 0
+
+    def replace(match: re.Match[str]) -> str:
+        nonlocal index
+        declared = match.group("hash")
+        fake = _fake_hash(index)
+        index += 1
+        fakes[fake] = declared
+        return match.group(0).replace(f'"{declared}"', f'"{fake}"')
+
+    for path in paths:
+        text, count = _DECLARED_HASH_RE.subn(replace, path.read_text())
         if count:
-            ref.file_path.write_text(updated)
+            path.write_text(text)
 
 
-def _last_got_hash(ref: PackageRef, *, timeout: str | None) -> str:
-    result = _build_with_fake_hash(ref, timeout=timeout)
-    match = re.search(
-        r"^\s*got:\s*(sha256-[A-Za-z0-9+/=]+)$",
-        result.stderr + result.stdout,
-        re.MULTILINE,
-    )
-    if not match:
+def _write_reported_hashes(
+    result: subprocess.CompletedProcess[str], paths: list[Path], fakes: dict[str, str]
+) -> bool:
+    """Write the hash nix derived for every faked declaration it reported."""
+    written = False
+    for declared, derived in _MISMATCH_RE.findall(result.stderr + result.stdout):
+        if declared not in fakes:
+            continue
+        for path in paths:
+            text = path.read_text()
+            if f'"{declared}"' not in text:
+                continue
+            path.write_text(text.replace(f'"{declared}"', f'"{derived}"'))
+            if fakes.pop(declared, None) != derived:
+                written = True
+            break
+    return written
+
+
+def _restore_unresolved_hashes(paths: list[Path], fakes: dict[str, str]) -> None:
+    """Put the declared hash back wherever no build derived its fake."""
+    for path in paths:
+        text = path.read_text()
+        restored = text
+        for fake, declared in fakes.items():
+            if f'"{fake}"' not in restored:
+                continue
+            logger.info("no build derived the dependency hash %s of %s, keeping it", declared, path)
+            restored = restored.replace(f'"{fake}"', f'"{declared}"')
+        if restored != text:
+            path.write_text(restored)
+
+
+def _refresh_dependency_hashes(ref: PackageRef, *, timeout: str | None) -> bool:
+    """Rewrite the dependency hashes that a changed source invalidates.
+
+    Returns whether any declaration changed. Nix reports a hash mismatch only while
+    deriving, so every declared dependency hash is faked first to force a derivation
+    instead of accepting a stale tree from the store. Nix reports one failing derivation
+    per build, so reported hashes are written back until the package builds from the
+    source under test. A declaration that no build derives, such as one for a package
+    member the current system does not build, keeps the hash it had.
+    """
+    paths = [
+        path
+        for path in package_hash_files(ref.file_path)
+        if _DECLARED_HASH_RE.search(path.read_text())
+    ]
+    if not paths:
+        return False
+
+    fakes: dict[str, str] = {}
+    try:
+        _fake_declared_hashes(paths, fakes)
+        rewritten = False
+        for _attempt in range(len(fakes) + 1):
+            result = _build_with_fake_hash(ref, timeout=timeout)
+            if result.returncode == 0:
+                return rewritten
+            if not _write_reported_hashes(result, paths, fakes):
+                raise CommandError(["refresh-dependency-hash", ref.attr_path], result)
+            rewritten = True
         raise CommandError(["refresh-dependency-hash", ref.attr_path], result)
-    return match.group(1)
+    finally:
+        _restore_unresolved_hashes(paths, fakes)
 
 
 def _build_with_fake_hash(

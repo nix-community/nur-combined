@@ -15,6 +15,7 @@ class TangledManifestTests(unittest.TestCase):
             manifest.write_text(json.dumps(manifest_data))
             with (
                 patch("updater.manifest.ROOT", root),
+                patch("updater.manifest.version_is_older", return_value=False),
                 patch(
                     "updater.manifest._latest_tangled_release",
                     return_value=("2.0.6", "a" * 40, published_assets),
