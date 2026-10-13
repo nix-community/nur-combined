@@ -261,6 +261,11 @@ infra:
     SECRET_VAR:
       from: vault
       ref: <vault-key>
+  state_encryption:         # optional: encrypt state + plan files (see below)
+    passphrase:             # must be from: vault (min. 16 characters)
+      from: vault
+      ref: <vault-key>
+    migrate: false          # true: read existing plaintext states once (default: false)
 
 vault:
   <key>:
@@ -321,6 +326,20 @@ pipeline:                   # named pipelines (dogma deploy <env> [pipeline])
     type: custom            # requires command; {env} {version} {pipeline} substituted
     command: ./scripts/publish.sh {env} {version}
 ```
+
+## State encryption
+
+With `infra.state_encryption`, dogma adds a generated `TF_ENCRYPTION` to the infra credentials. That variable configures OpenTofu state encryption (OpenTofu ≥ 1.7): a `pbkdf2` key provider over the passphrase and an `aes_gcm` method, applied to state and plan files. Every tofu invocation of dogma receives it: `infra init|apply|destroy`, `output` and the infra outputs read by `deploy`/`env`. `credentials` and `infra auth` export it too. The generated configuration sets `enforced = true`, so tofu refuses to read or write unencrypted data. Losing the passphrase makes the states unreadable.
+
+Enabling it on existing plaintext states:
+
+1. Set `migrate: true`. This adds an `unencrypted` fallback and drops `enforced`, which forbids the fallback.
+2. `dogma infra apply <env> <unit>` for every unit and env. Even a run without changes writes the state back encrypted.
+3. Remove `migrate`. Inside `dogma infra auth <env>`, a successful `tofu -chdir=infra/<unit> state list` per unit confirms the state is encrypted: without the fallback, tofu fails on a plaintext state ("encountered unencrypted payload").
+
+Older versions of the state objects stay in plaintext in a versioned bucket. Deleting them is a separate manual step.
+
+`terraform` (`cli: terraform`) does not support state encryption.
 
 ## Vault backends
 
