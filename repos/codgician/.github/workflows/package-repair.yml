@@ -188,6 +188,7 @@ jobs:
           name: bot-repair-${{ fromJSON(inputs.target).package }}-${{ fromJSON(inputs.target).attempt }}
           path: ${{ runner.temp }}/repair
       - name: Verify current head and apply repair
+        id: apply
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
           REPOSITORY: ${{ github.repository }}
@@ -220,13 +221,28 @@ jobs:
             exit 1
           fi
           git diff --cached --check
+          echo "tree=$(git write-tree)" >> "$GITHUB_OUTPUT"
       - name: Read repaired pull request metadata
         id: metadata
         run: |
           echo "title=$(cat "$RUNNER_TEMP/repair/title")" >> "$GITHUB_OUTPUT"
           echo "commit-message=$(cat "$RUNNER_TEMP/repair/commit-message")" >> "$GITHUB_OUTPUT"
-      - name: Publish signed repair
+      - name: Commit signed repair onto existing pull request
+        id: pr_commit
+        if: fromJSON(inputs.target).number != ''
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
+        env:
+          COMMIT_MESSAGE: ${{ steps.metadata.outputs.commit-message }}
+          TITLE: ${{ steps.metadata.outputs.title }}
+          BODY_PATH: ${{ runner.temp }}/repair/body.md
+        with:
+          github-token: ${{ steps.app-token.outputs.token }}
+          script: |
+            const publish = require(`${process.env.GITHUB_WORKSPACE}/.github/scripts/publish_repair_commit.cjs`);
+            await publish({ github, context, core });
+      - name: Publish signed repair pull request
         id: pull_request
+        if: fromJSON(inputs.target).number == ''
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
         with:
           token: ${{ steps.app-token.outputs.token }}
@@ -241,6 +257,7 @@ jobs:
           title: ${{ steps.metadata.outputs.title }}
           body-path: ${{ runner.temp }}/repair/body.md
       - name: Require verified repair commits
+        if: fromJSON(inputs.target).number == ''
         env:
           VERIFIED: ${{ steps.pull_request.outputs.pull-request-commits-verified }}
         run: |
@@ -248,10 +265,28 @@ jobs:
             echo "Repair commits were not verified" >&2
             exit 1
           fi
+      - name: Require published repair to extend the validated revision
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          REPOSITORY: ${{ github.repository }}
+          PUBLISHED_HEAD: ${{ steps.pr_commit.outputs.pull-request-head-sha || steps.pull_request.outputs.pull-request-head-sha }}
+          EXPECTED_TREE: ${{ steps.apply.outputs.tree }}
+        run: |
+          published=$(gh api "repos/$REPOSITORY/git/commits/$PUBLISHED_HEAD" \
+            --jq '[.tree.sha, (.parents | map(.sha) | join(" "))] | @tsv')
+          IFS=$'\t' read -r tree parents <<< "$published"
+          if [[ "$parents" != "$EXPECTED_HEAD" ]]; then
+            echo "Published repair $PUBLISHED_HEAD has parents '$parents', not the repaired revision $EXPECTED_HEAD" >&2
+            exit 1
+          fi
+          if [[ "$tree" != "$EXPECTED_TREE" ]]; then
+            echo "Published repair tree $tree differs from validated candidate tree $EXPECTED_TREE" >&2
+            exit 1
+          fi
       - name: Mark pull request as AI-assisted
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         env:
-          PR_NUMBER: ${{ steps.pull_request.outputs.pull-request-number }}
+          PR_NUMBER: ${{ steps.pr_commit.outputs.pull-request-number || steps.pull_request.outputs.pull-request-number }}
         with:
           github-token: ${{ steps.app-token.outputs.token }}
           script: |
