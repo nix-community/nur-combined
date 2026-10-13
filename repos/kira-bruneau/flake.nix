@@ -6,10 +6,7 @@
 
     flake-linter = {
       url = "gitlab:kira-bruneau/flake-linter";
-      inputs = {
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
