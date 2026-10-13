@@ -6,23 +6,23 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "6.1.6",
+  "version": "6.1.7",
   "platforms": {
     "aarch64-darwin": {
       "file": "TinyWiiBackupManager-v{version}-macos-universal.dmg",
-      "hash": "sha256-aFE45J+3xmI16H3bNwGo1GyJR0VZ9IH40lAVaF/uoE4="
+      "hash": "sha256-S+KwwaJVAXlA3hl87o012QYIN7ghcLVYj/XjfFa5/54="
     },
     "x86_64-darwin": {
       "file": "TinyWiiBackupManager-v{version}-macos-universal.dmg",
-      "hash": "sha256-aFE45J+3xmI16H3bNwGo1GyJR0VZ9IH40lAVaF/uoE4="
+      "hash": "sha256-S+KwwaJVAXlA3hl87o012QYIN7ghcLVYj/XjfFa5/54="
     },
     "x86_64-linux": {
       "file": "TinyWiiBackupManager-v{version}-linux-x86_64.AppImage",
-      "hash": "sha256-YPP3ZVCnGXjlOJx34XJzyFOzcYyJNjWQr9eqZtXM6tA="
+      "hash": "sha256-ib5vq6SMTdjXjfgCyJ++7TtY+aCH1h3TK/hYq+k8iZQ="
     },
     "aarch64-linux": {
       "file": "TinyWiiBackupManager-v{version}-linux-aarch64.AppImage",
-      "hash": "sha256-NLFvm7jPqzy2yan30G1HRmGiJ2s/GvJURouBh0esY6E="
+      "hash": "sha256-OZjq5OB6+xtjXj3WuGgrFkc7o0wfnH68p6Qq5q71+cM="
     }
   }
 }

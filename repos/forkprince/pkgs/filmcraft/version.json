@@ -6,23 +6,23 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "0.6.0",
+  "version": "0.7.2",
   "platforms": {
     "aarch64-darwin": {
       "file": "filmcraft-{version}-macos-universal.dmg",
-      "hash": "sha256-Po2SoILJiqNHfAAxPQeEwY9oHpTtkaSUcS1NizYpfjs="
+      "hash": "sha256-349ux/fH0idUnCBXnGW59rJjXM2ZRBC7cMjQNpprn7c="
     },
     "x86_64-darwin": {
       "file": "filmcraft-{version}-macos-universal.dmg",
-      "hash": "sha256-Po2SoILJiqNHfAAxPQeEwY9oHpTtkaSUcS1NizYpfjs="
+      "hash": "sha256-349ux/fH0idUnCBXnGW59rJjXM2ZRBC7cMjQNpprn7c="
     },
     "x86_64-linux": {
       "file": "filmcraft-{version}-linux-x86_64.AppImage",
-      "hash": "sha256-wLWl0PDnEXaqgGyJX4ylE/LVBbcP74W4dLviPJEjK8c="
+      "hash": "sha256-q/kg2Y0BWGDh9brcbPBQfY+BFvXDKPf38kJfBoqzrug="
     },
     "aarch64-linux": {
       "file": "filmcraft-{version}-linux-aarch64.AppImage",
-      "hash": "sha256-1plN0+JcVQURnrJ2PrNLWQpzaskNyuxgi3eqxNMwWzc="
+      "hash": "sha256-0nZ7s2rjUEZa0HMX+ScCm1qJ+7FASZ2mSTY74MZtyEk="
     }
   }
 }
