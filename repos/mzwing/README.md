@@ -58,6 +58,7 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 
 | Modules | Documentation |
 | --- | --- |
+| `cliproxyapi` | [Usage](docs/modules/cliproxyapi.md) |
 | `cliproxyapiplus` | [Usage](docs/modules/cliproxyapiplus.md) |
 
 ## License
