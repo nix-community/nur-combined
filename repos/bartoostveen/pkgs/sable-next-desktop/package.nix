@@ -28,6 +28,7 @@
   libayatana-appindicator,
   gst_all_1,
   libGL,
+  desktop-file-utils,
   conf ? { },
 }:
 
@@ -84,6 +85,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ++ lib.optionals stdenv.hostPlatform.isLinux [
     pkg-config
     wrapGAppsHook3
+    desktop-file-utils
   ]
   ++ lib.optionals stdenv.hostPlatform.isDarwin [
     makeBinaryWrapper
