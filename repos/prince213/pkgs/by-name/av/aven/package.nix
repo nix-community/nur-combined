@@ -2,8 +2,10 @@
   lib,
   fetchFromGitHub,
   rustPlatform,
+  stdenv,
 
   # nativeBuildInputs
+  installShellFiles,
   pkg-config,
 
   # buildInputs
@@ -28,7 +30,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-Q4mfZxSmzXchatzOJpk6VJhcymk5ZPNb4lmt7Icb0m8=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [
+    installShellFiles
+    pkg-config
+  ];
 
   buildInputs = [ zstd ];
 
@@ -37,6 +42,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   doCheck = false;
+
+  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+    installShellCompletion --cmd aven \
+      --bash <($out/bin/aven completions bash) \
+      --fish <($out/bin/aven completions fish) \
+      --zsh <($out/bin/aven completions zsh)
+  '';
 
   doInstallCheck = true;
   nativeInstallCheckInputs = [ versionCheckHook ];
