@@ -21,6 +21,9 @@
     "slug": "filter-manager"
   },
   {
+    "slug": "gmail-conversation-view"
+  },
+  {
     "slug": "grammar-and-spell-checker",
     "license": {
       "tag": "custom",

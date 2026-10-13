@@ -134,6 +134,33 @@
         platforms = platforms.all;
       };
     };
+    "gmail-conversation-view" = buildMozillaXpiAddon {
+      pname = "gmail-conversation-view";
+      version = "4.3.16";
+      addonId = "gconversation@xulforum.org";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1052873/thunderbird_conversations-4.3.16-tb.xpi?src=";
+      sha256 = "24556ff9d464a3816eaababdaf010d837bba3a6d08c386d522f6c8166cdca6ee";
+      meta = with lib;
+      {
+        homepage = "https://github.com/thunderbird-conversations/thunderbird-conversations/wiki";
+        description = "This addon provides a conversation view for Thunderbird, grouping messages together and allowing you to reply \"inline\" thus providing a more efficient workflow.";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "accountsRead"
+          "addressBooks"
+          "messagesRead"
+          "messagesModifyPermanent"
+          "messagesMove"
+          "messagesDelete"
+          "messagesUpdate"
+          "messagesTags"
+          "messagesTagsList"
+          "storage"
+          "tabs"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "grammar-and-spell-checker" = buildMozillaXpiAddon {
       pname = "grammar-and-spell-checker";
       version = "8.11.2";

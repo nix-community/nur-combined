@@ -444,10 +444,10 @@
     };
     "archivebox-exporter" = buildMozillaXpiAddon {
       pname = "archivebox-exporter";
-      version = "3.3.15";
+      version = "3.3.18";
       addonId = "archivebox@tjhorner.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5110103/archivebox_exporter-3.3.15.xpi";
-      sha256 = "af4f9f494206bb946c85f1e84437812bc372633f8966e6d114650b0715e0273f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5115885/archivebox_exporter-3.3.18.xpi";
+      sha256 = "d20b606190d98ae53e66eb18dca0f138edd20bdecf50d9bfab9d5afaceea17ee";
       meta = with lib;
       {
         homepage = "https://extension.archivebox.io/";
@@ -1928,6 +1928,26 @@
         platforms = platforms.all;
       };
     };
+    "chessvision-ai" = buildMozillaXpiAddon {
+      pname = "chessvision-ai";
+      version = "3.8.2";
+      addonId = "{ac1b5818-9b18-470f-91d8-c3a446e9cf87}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4756755/chessvision_ai_for_firefox-3.8.2.xpi";
+      sha256 = "5b83fabb1a7a3570eca2dd6ac26aa28a137fa68601b6a035ab8a2b3015b095ba";
+      meta = with lib;
+      {
+        homepage = "https://chessvision.ai/";
+        description = "Analyze chess positions from any website, book, and video in Firefox";
+        mozPermissions = [
+          "activeTab"
+          "storage"
+          "scripting"
+          "*://chessvision.ai/*"
+          "*://*.chessvision.ai/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "chrome-mask" = buildMozillaXpiAddon {
       pname = "chrome-mask";
       version = "10.1.0";
@@ -2193,10 +2213,10 @@
     };
     "click-and-read" = buildMozillaXpiAddon {
       pname = "click-and-read";
-      version = "4.5.4";
+      version = "4.7.0";
       addonId = "inist.users@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4980831/click_and_read-4.5.4.xpi";
-      sha256 = "9ef0848cec2c14778072f2bf5f36ff5a88e940ac8124824be02abaea1387b12f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5116537/click_and_read-4.7.0.xpi";
+      sha256 = "aec9f3256f4d990c5254cfb7dd6f3c2d89c9fb4e8010aa751c2e0db802213639";
       meta = with lib;
       {
         homepage = "https://clickandread.inist.fr/";
@@ -2679,6 +2699,27 @@
           "clipboardWrite"
           "activeTab"
           "<all_urls>"
+        ];
+        platforms = platforms.all;
+      };
+    };
+    "copy-plaintext" = buildMozillaXpiAddon {
+      pname = "copy-plaintext";
+      version = "1.15";
+      addonId = "copyplaintext@eros.man";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4143512/copy_plaintext-1.15.xpi";
+      sha256 = "1863531625d18b1fc6bd5ddabf2ac3229fa6dcb18a34f97b37223172ae530df7";
+      meta = with lib;
+      {
+        description = "Copy Plain Text without any formatting";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "activeTab"
+          "clipboardRead"
+          "clipboardWrite"
+          "menus"
+          "notifications"
+          "storage"
         ];
         platforms = platforms.all;
       };
@@ -6740,6 +6781,21 @@
         platforms = platforms.all;
       };
     };
+    "image-block" = buildMozillaXpiAddon {
+      pname = "image-block";
+      version = "5.1resigned1";
+      addonId = "imageblock@hemantvats.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4270226/image_block-5.1resigned1.xpi";
+      sha256 = "98e67aa565a22a9fecba5c3a185d221bf81f41c69b813797a8c6ed5a4ed3c17a";
+      meta = with lib;
+      {
+        homepage = "http://hemantvats.com/image-block/";
+        description = "Image Block adds a toggle button that conditionally blocks/allows loading of images on webpages. Blocking images results in faster browsing, especially helpful on handheld devices or slower connections.";
+        license = licenses.lgpl21;
+        mozPermissions = [ "webRequest" "webRequestBlocking" "<all_urls>" ];
+        platforms = platforms.all;
+      };
+    };
     "image-max-url" = buildMozillaXpiAddon {
       pname = "image-max-url";
       version = "2026.6.0";
@@ -7466,10 +7522,10 @@
     };
     "kiss-translator" = buildMozillaXpiAddon {
       pname = "kiss-translator";
-      version = "2.1.0";
+      version = "2.1.1";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5055909/kiss_translator-2.1.0.xpi";
-      sha256 = "b53dec607c90fb7be378fff707e8541bc5e56eed38c5d3c34f8d2f4963053794";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5117268/kiss_translator-2.1.1.xpi";
+      sha256 = "09ea3b98f13713facbc4737a5c32a6540cccb4dac5fc356c85808f1f8c365630";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
@@ -13756,10 +13812,10 @@
     };
     "single-file" = buildMozillaXpiAddon {
       pname = "single-file";
-      version = "1.29.0";
+      version = "1.31.0";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5106051/single_file-1.29.0.xpi";
-      sha256 = "0ef6303f8473776522a16e62ad70d0e466f5c962f9b63072aa04c8943f4b877f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5117223/single_file-1.31.0.xpi";
+      sha256 = "3def86e74174c25f44cb434144393233820d4b18c34c8af6adb4916f95072c6a";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";
@@ -17448,10 +17504,10 @@
     };
     "yang" = buildMozillaXpiAddon {
       pname = "yang";
-      version = "2.1.1";
+      version = "2.1.2";
       addonId = "{0a3250b1-58e0-48cb-9383-428f5adc3dc1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5062641/yang_addon-2.1.1.xpi";
-      sha256 = "bcc31bfa49ef37ae4383b390cd43e8fdbf2320ab60e5035ca88cf603763cfb0c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5116521/yang_addon-2.1.2.xpi";
+      sha256 = "21d6961c9712a4b2c03c665decc41be9f7952653cbdde3da0cee82a3287eb9ad";
       meta = with lib;
       {
         homepage = "https://github.com/dmlls/yang";

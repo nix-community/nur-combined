@@ -284,6 +284,17 @@
     "slug": "chatgptbox"
   },
   {
+    "slug": "chessvision-ai-for-firefox",
+    "pname": "chessvision-ai",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
+  },
+  {
     "slug": "chrome-mask"
   },
   {
@@ -382,6 +393,9 @@
   },
   {
     "slug": "copy-n-paste"
+  },
+  {
+    "slug": "copy-plaintext"
   },
   {
     "slug": "copy-selected-links"
@@ -943,6 +957,9 @@
   },
   {
     "slug": "iina-open-in-mpv"
+  },
+  {
+    "slug": "image-block"
   },
   {
     "slug": "image-max-url",
