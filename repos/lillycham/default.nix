@@ -12,6 +12,7 @@ in
   modules = { };
   overlays = { };
 
+  akyuu = pkgs.callPackage ./pkgs/akyuu { };
   dq = pkgs.callPackage ./pkgs/dq { };
   hydrus-tagger = pkgs.callPackage ./pkgs/hydrus-tagger { };
   nibble = pkgs.callPackage ./pkgs/nibble { inherit nibble-mlx-server; };
