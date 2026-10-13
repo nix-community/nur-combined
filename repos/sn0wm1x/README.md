@@ -20,6 +20,8 @@
 
 ## Usage
 
+[`caddy-sn0wm1x`](./pkgs/by-name/caddy-sn0wm1x/README.md): Caddy with plugins selected by sn0wm1x.
+
 ###### nix run
 
 ```bash

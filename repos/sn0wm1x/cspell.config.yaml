@@ -5,6 +5,8 @@ dictionaries: []
 words:
   - appindicator
   - arpk
+  - bbrv
+  - buildenv
   - cachix
   - dont
   - dpkg
@@ -12,12 +14,19 @@ words:
   - fetchurl
   - fetchzip
   - gltf
+  - GOCACHE
+  - GOFLAGS
+  - GOPATH
+  - GOSUMDB
+  - GOTOOLCHAIN
   - hatsu
   - importantimport
+  - klzgrad
   - kwaa
   - libayatana
   - libgcc
   - libsoup
+  - mholt
   - moeru
   - naiveproxy
   - nixos
@@ -27,8 +36,11 @@ words:
   - patchelf
   - pkgs
   - pname
+  - quic
   - stdenv
+  - webdav
   - webkitgtk
   - wmtheme
+  - xcaddy
 ignoreWords: []
 import: []

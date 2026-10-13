@@ -1,0 +1,38 @@
+{
+  "forwardproxyRevision": "c096d6a00cb28e019cc1995b04bdc6a9311d8024",
+  "patchHash": "sha256-6rfFMqmxvbR989QsgPupsThwH5sUMYHvsRkpxm/Z3zA=",
+  "hash": "sha256-B+rle9f2+wfVyYIku/wAB19uLwH9/FAzoWHE+WqfuQM=",
+  "plugins": {
+    "forwardproxy": {
+      "repo": "klzgrad/forwardproxy",
+      "module": "github.com/caddyserver/forwardproxy",
+      "replacement": "github.com/klzgrad/forwardproxy",
+      "version": "v0.0.0-20261006113151-c096d6a00cb2"
+    },
+    "cloudflare": {
+      "repo": "caddy-dns/cloudflare",
+      "module": "github.com/caddy-dns/cloudflare",
+      "version": "v0.2.4"
+    },
+    "docker-proxy": {
+      "repo": "lucaslorentz/caddy-docker-proxy",
+      "module": "github.com/lucaslorentz/caddy-docker-proxy/v2",
+      "version": "v2.13.1"
+    },
+    "layer4": {
+      "repo": "mholt/caddy-l4",
+      "module": "github.com/mholt/caddy-l4",
+      "version": "v0.1.2"
+    },
+    "dynamicdns": {
+      "repo": "mholt/caddy-dynamicdns",
+      "module": "github.com/mholt/caddy-dynamicdns",
+      "version": "v0.0.0-20260805195708-67d107a42c02"
+    },
+    "webdav": {
+      "repo": "mholt/caddy-webdav",
+      "module": "github.com/mholt/caddy-webdav",
+      "version": "v0.0.0-20260127042217-fa2f366b0d75"
+    }
+  }
+}

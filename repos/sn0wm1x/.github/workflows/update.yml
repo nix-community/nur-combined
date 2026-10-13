@@ -1,0 +1,206 @@
+name: Update packages
+
+on:
+  schedule:
+    - cron: "23 3 * * *"
+  workflow_dispatch:
+    inputs:
+      packages:
+        description: "Packages to update (space-separated; empty for all updateScript packages)"
+        type: string
+        default: ""
+
+permissions:
+  contents: read
+  pull-requests: read
+
+# Prevent scheduled and manual runs from creating competing package PRs.
+concurrency:
+  group: update-packages
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+      has-updates: ${{ steps.matrix.outputs.has-updates }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          persist-credentials: false
+      - uses: cachix/install-nix-action@v31
+      - name: Discover packages with updateScript
+        id: matrix
+        env:
+          PACKAGES: ${{ inputs.packages }}
+        run: |
+          # shellcheck disable=SC2016 # Nix interpolation, not shell expansion.
+          available="$(nix eval --json .#packages.x86_64-linux --apply '
+            packages: builtins.filter
+              (name: packages.${name} ? updateScript)
+              (builtins.attrNames packages)
+          ')"
+          selected="$(jq -cn --argjson available "$available" --arg requested "$PACKAGES" '
+            ($requested | [scan("\\S+")] | unique) as $requested
+            | if ($requested | length) == 0 then $available
+              else [$available[] | select(. as $name | $requested | index($name))]
+              end
+          ')"
+          matrix="$(jq -c '{include: map({package: .})}' <<< "$selected")"
+          printf 'matrix=%s\n' "$matrix" >> "$GITHUB_OUTPUT"
+          printf 'has-updates=%s\n' "$(jq 'length > 0' <<< "$selected")" >> "$GITHUB_OUTPUT"
+          printf 'Packages with updateScript: %s\n' "$selected"
+
+  update:
+    needs: discover
+    if: needs.discover.outputs.has-updates == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.discover.outputs.matrix) }}
+    env:
+      PACKAGE: ${{ matrix.package }}
+      BASE_BRANCH: ${{ github.event.repository.default_branch }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ github.token }}
+      - name: Get App identity
+        id: app-identity
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-contents: read
+          permission-pull-requests: read
+      - name: Prepare package branch
+        id: branch
+        env:
+          GH_TOKEN: ${{ steps.app-identity.outputs.token }}
+          BOT_SLUG: ${{ steps.app-identity.outputs.app-slug }}
+        run: |
+          [[ "$PACKAGE" =~ ^[a-z0-9][a-z0-9+-]*$ ]]
+          branch="update/$PACKAGE"
+          bot_name="${BOT_SLUG}[bot]"
+          bot_id="$(gh api "users/$bot_name" --jq .id)"
+          git config user.name "$bot_name"
+          git config user.email "$bot_id+$bot_name@users.noreply.github.com"
+          pr="$(gh pr list --repo "$GITHUB_REPOSITORY" --state open \
+            --head "$branch" --base "$BASE_BRANCH" --limit 100 \
+            --json number,isCrossRepository --jq '
+              map(select(.isCrossRepository == false))
+              | if length > 1 then error("Multiple package update PRs")
+                else .[0].number // empty end
+            ')"
+          git fetch --no-tags origin "+refs/heads/$BASE_BRANCH:refs/remotes/origin/$BASE_BRANCH"
+          git checkout --detach "origin/$BASE_BRANCH"
+          nix eval --raw ".#$PACKAGE.version" > "$RUNNER_TEMP/old-version"
+          remote="$(git ls-remote --heads origin "refs/heads/$branch")"
+          remote_sha="${remote%%$'\t'*}"
+          if [[ -n "$pr" ]]; then
+            git fetch --no-tags origin "+refs/heads/$branch:refs/remotes/origin/$branch"
+            remote_sha="$(git rev-parse "origin/$branch")"
+            git checkout -B "$branch" "origin/$branch"
+            # Preserve manual fixes and existing commits; never reset an open PR.
+            if ! git merge --no-edit "origin/$BASE_BRANCH"; then
+              git merge --abort
+              echo '::error::Merge conflict in existing update branch; resolve it in the PR'
+              exit 1
+            fi
+          else
+            git checkout -B "$branch" "origin/$BASE_BRANCH"
+          fi
+          printf 'branch=%s\npr=%s\nremote-sha=%s\n' "$branch" "$pr" "$remote_sha" >> "$GITHUB_OUTPUT"
+      - name: Run updateScript and verify build
+        id: update
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          REMOTE_SHA: ${{ steps.branch.outputs.remote-sha }}
+          PR_NUMBER: ${{ steps.branch.outputs.pr }}
+        run: |
+          # nix-update's updateScript runner imports <nixpkgs>; use the locked input.
+          nixpkgs_path="$(nix eval --raw --impure --expr \
+            '(builtins.getFlake ("path:" + toString ./.)).inputs.nixpkgs.outPath')"
+          export NIX_PATH="nixpkgs=$nixpkgs_path"
+          nix shell --inputs-from . nixpkgs#nix-update -c \
+            nix-update --flake --use-update-script --build "$PACKAGE"
+          # A package PR may only contain that package's changes.
+          changed="$(git diff --name-only HEAD; git ls-files --others --exclude-standard; \
+            git diff --name-only "origin/$BASE_BRANCH...HEAD")"
+          while IFS= read -r file; do
+            if [[ -n "$file" && "$file" != "pkgs/by-name/$PACKAGE/"* ]]; then
+              echo "::error::Updater changed a file outside its package: $file"
+              exit 1
+            fi
+          done <<< "$changed"
+          old_version="$(cat "$RUNNER_TEMP/old-version")"
+          new_version="$(nix eval --raw ".#$PACKAGE.version")"
+          if [[ "$old_version" != "$new_version" ]]; then
+            title="$PACKAGE: $old_version -> $new_version"
+          else
+            title="$PACKAGE: update dependencies"
+          fi
+          printf '%s' "$title" > "$RUNNER_TEMP/pr-title"
+          git add -- "pkgs/by-name/$PACKAGE"
+          if ! git diff --cached --quiet; then
+            git commit -m "$title"
+          fi
+          publish=false
+          if ! git diff --quiet "origin/$BASE_BRANCH...HEAD"; then
+            if [[ -z "$PR_NUMBER" || "$(git rev-parse HEAD)" != "$REMOTE_SHA" ]]; then
+              publish=true
+            fi
+          fi
+          printf 'publish=%s\n' "$publish" >> "$GITHUB_OUTPUT"
+      # Mint after the potentially long build; installation tokens last one hour.
+      - name: Create App token
+        if: steps.update.outputs.publish == 'true'
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+      - name: Push branch and create or update PR
+        if: steps.update.outputs.publish == 'true'
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          BRANCH: ${{ steps.branch.outputs.branch }}
+          PR_NUMBER: ${{ steps.branch.outputs.pr }}
+          REMOTE_SHA: ${{ steps.branch.outputs.remote-sha }}
+        run: |
+          current_pr="$(gh pr list --repo "$GITHUB_REPOSITORY" --state open \
+            --head "$BRANCH" --base "$BASE_BRANCH" --json number,isCrossRepository \
+            --jq 'map(select(.isCrossRepository == false)) | .[0].number // empty')"
+          [[ "$current_pr" == "$PR_NUMBER" ]] || { echo '::error::PR state changed; rerun'; exit 1; }
+          remote="$(git ls-remote --heads origin "refs/heads/$BRANCH")"
+          [[ "${remote%%$'\t'*}" == "$REMOTE_SHA" ]] || { echo '::error::Branch changed; rerun'; exit 1; }
+          gh auth setup-git
+          if [[ -n "$PR_NUMBER" ]]; then
+            git push origin "HEAD:refs/heads/$BRANCH"
+          else
+            # Reuse the name after a closed/merged PR, without overwriting new work.
+            git push --force-with-lease="refs/heads/$BRANCH:$REMOTE_SHA" origin "HEAD:refs/heads/$BRANCH"
+          fi
+          title="$(cat "$RUNNER_TEMP/pr-title")"
+          # shellcheck disable=SC2016 # Markdown backticks are literal text.
+          printf 'Automated update for `%s`, verified by its updateScript and a package build.\n\nWorkflow: %s/%s/actions/runs/%s\n' \
+            "$PACKAGE" "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" > "$RUNNER_TEMP/pr-body.md"
+          if [[ -n "$PR_NUMBER" ]]; then
+            gh pr edit "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" \
+              --title "$title" --body-file "$RUNNER_TEMP/pr-body.md"
+          else
+            gh pr create --repo "$GITHUB_REPOSITORY" --base "$BASE_BRANCH" --head "$BRANCH" \
+              --title "$title" --body-file "$RUNNER_TEMP/pr-body.md"
+          fi
