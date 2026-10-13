@@ -3,6 +3,12 @@
   fetchFromGitHub,
   rustPlatform,
 
+  # nativeBuildInputs
+  pkg-config,
+
+  # buildInputs
+  zstd,
+
   # nativeInstallCheckInputs
   versionCheckHook,
 }:
@@ -21,6 +27,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoHash = "sha256-Q4mfZxSmzXchatzOJpk6VJhcymk5ZPNb4lmt7Icb0m8=";
+
+  nativeBuildInputs = [ pkg-config ];
+
+  buildInputs = [ zstd ];
+
+  env = {
+    ZSTD_SYS_USE_PKG_CONFIG = 1;
+  };
 
   doCheck = false;
 
