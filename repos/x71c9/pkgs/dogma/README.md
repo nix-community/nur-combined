@@ -167,13 +167,30 @@ Runs: normalize → validate → `tofu init` → `tofu apply`. Credentials injec
 ```bash
 dogma infra apply dev hetzner
 dogma infra apply dev hetzner --migrate-state
+dogma infra apply dev hetzner -- -target=module.server   # extra tofu args after --
 ```
 
 ---
 
 ### `dogma infra destroy <env> <unit>`
 
-Same as `apply` but runs `tofu destroy`.
+Same as `apply` but runs `tofu destroy` (extra tofu args after `--` too).
+
+---
+
+### `dogma infra run <env> <unit> <tofu args…>`
+
+Runs: normalize → validate → `tofu init` → `tofu <args…>` in the unit directory, with the credentials injected (including `TF_ENCRYPTION`, see [State encryption](#state-encryption)). The env's tfvars file reaches the command through `TF_CLI_ARGS=-var-file=…`, which tofu inserts right after the subcommand. Commands that reject variables (`fmt`, `version`, `login`, `logout`, `metadata`) get no tfvars. Exit status of tofu is reported as the error.
+
+`apply`, `destroy` and `init` are refused: their dogma wrappers also commit the dirty tree, move the `infra-applied` tag, cache outputs and configure the backend.
+
+```bash
+dogma infra run dev hetzner plan
+dogma infra run dev hetzner state list
+dogma infra run dev hetzner state show module.server.hcloud_server.this
+dogma infra run dev hetzner import hcloud_firewall.web 123456
+dogma infra run dev hetzner force-unlock <lock-id>
+```
 
 ---
 
@@ -335,7 +352,7 @@ Enabling it on existing plaintext states:
 
 1. Set `migrate: true`. This adds an `unencrypted` fallback and drops `enforced`, which forbids the fallback.
 2. `dogma infra apply <env> <unit>` for every unit and env. Even a run without changes writes the state back encrypted.
-3. Remove `migrate`. Inside `dogma infra auth <env>`, a successful `tofu -chdir=infra/<unit> state list` per unit confirms the state is encrypted: without the fallback, tofu fails on a plaintext state ("encountered unencrypted payload").
+3. Remove `migrate`. A successful `dogma infra run <env> <unit> state list` per unit confirms the state is encrypted: without the fallback, tofu fails on a plaintext state ("encountered unencrypted payload").
 
 Older versions of the state objects stay in plaintext in a versioned bucket. Deleting them is a separate manual step.
 
