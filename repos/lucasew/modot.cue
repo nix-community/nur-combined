@@ -213,7 +213,6 @@ modules: {
 	
 	"script-directory": {input: "self:modules/script-directory", enable: true}
 	mise: {input: "self:modules/mise", enable: true}
-	hermes: {input: "self:modules/hermes", enable: true}
 	nix: {input: "self:modules/nix", enable: true}
 	gammastep: {input: "self:modules/gammastep", enable: true}
 	herdr: {input: "self:modules/herdr", enable: true}
@@ -464,6 +463,7 @@ modules: {
 	"personal-decsync":         #is_computer || #is_phone
 	"personal-zettel-org":      #is_computer || #is_phone
 	"personal-memes":           #is_computer || #is_phone || #is_grokbot
+	"personal-savegames":           #is_whiterun
 }
 
 backup: {
