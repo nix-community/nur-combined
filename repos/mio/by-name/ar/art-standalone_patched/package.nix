@@ -108,7 +108,10 @@ in
 art-standalone.overrideAttrs (old: {
   pname = "art-standalone-patched";
 
-  env.NIX_CFLAGS_COMPILE = optionalString stdenv.hostPlatform.isDarwin "-D_ALLBSD_SOURCE -DSIGRTMIN=32 -DSIGRTMAX=64 -DART_USE_RELATIVE_REFS=1";
+  # Upstream sets -Wno-error so ART host unused-parameter warnings stay warnings.
+  env.NIX_CFLAGS_COMPILE =
+    (old.env.NIX_CFLAGS_COMPILE or "-Wno-error")
+    + optionalString stdenv.hostPlatform.isDarwin " -D_ALLBSD_SOURCE -DSIGRTMIN=32 -DSIGRTMAX=64 -DART_USE_RELATIVE_REFS=1";
 
   patches =
     filter (p: baseNameOf (toString p) != "remove-wolfssljni.patch") (old.patches or [ ])
