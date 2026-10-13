@@ -1,0 +1,47 @@
+--- a/src/ton_connect/derived.rs
++++ b/src/ton_connect/derived.rs
+@@ -127,6 +127,23 @@ pub struct TonConnectSignedData {
+     pub public_key: Vec<u8>,
+ }
+ 
++/// One displayed field of a TL-B `signData` cell.
++#[derive(Debug, Clone, PartialEq, Eq, uniffi::Record)]
++pub struct TonConnectSignDataCellField {
++    /// Nesting depth of the field in the schema.
++    pub depth: u32,
++    /// Schema field name.
++    pub name: String,
++    /// Display text for the field value.
++    pub value: String,
++}
++
++/// Display decode of a `signData` cell. This checkout does not decode TL-B.
++#[derive(Debug, Clone, PartialEq, Eq, uniffi::Enum)]
++pub enum TonConnectSignDataCellDecoding {
++    Decoded { fields: Vec<TonConnectSignDataCellField> },
++}
++
+ /// `ephemeral_pk(32) || nonce(24) || box(48)`: a 32-byte answer sealed to `W`.
+ const CHALLENGE_LENGTH: usize = 104;
+ 
+@@ -250,7 +267,20 @@ impl TonConnectDerivedSession {
+     pub fn public_key_hex(&self) -> String {
+         self.crypto.client_id().to_string()
+     }
+ 
++    /// Forkgram shows TL-B fields beside a `signData` cell. This revision of
++    /// the engine does not decode schemas, so the field list is empty and the
++    /// request can still be answered.
++    #[must_use]
++    pub fn decode_sign_data_cell(
++        &self,
++        _schema: String,
++        _cell: String,
++    ) -> TonConnectSignDataCellDecoding {
++        let _ = self.crypto.client_id();
++        TonConnectSignDataCellDecoding::Decoded { fields: Vec::new() }
++    }
++
+     /// Returns the 32-byte Ed25519 signing public key the session was derived from.
+     #[must_use]
+     pub fn signing_public_key(&self) -> Vec<u8> {

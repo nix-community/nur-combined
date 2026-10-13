@@ -42,13 +42,13 @@ let
     exec ${bazel_env}/bin/bazel-env -c '"$0" "$@"' ${bazel_9_bin} "$@"
   '';
 
-  version = "0.1.2026100708";
+  version = "0.1.2026101209";
 
   src = fetchFromGitHub {
     owner = "clice-io";
     repo = "clice";
     tag = "v${version}";
-    hash = "sha256-8bjL/sB4WHrum1H8IDdL+P4msCzTBn92Ts2OuGhvV78=";
+    hash = "sha256-QON4Kg8XX5BMQZpRxEfFp7lLqSH9oxlTXBOko5vV16Y=";
   };
 
   deps = stdenv.mkDerivation {
@@ -86,7 +86,7 @@ let
     installPhase = "true";
 
     outputHashMode = "recursive";
-    outputHash = "sha256-9n/hk0U4lUBAwQ+BDYXFjPnV4zysk/Kzc7Qj6emk/4k=";
+    outputHash = "sha256-RvOMal9eVdCWgLu9fAR00YE0uUjX7PGcvwHfxiL0XMk=";
   };
 
 in

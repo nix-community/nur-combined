@@ -5,6 +5,7 @@
   zbar,
   pango,
   tlottie,
+  wallet-engine,
 }:
 
 telegram-desktop.override {
@@ -12,20 +13,21 @@ telegram-desktop.override {
   unwrapped = telegram-desktop.unwrapped.overrideAttrs (
     finalAttrs: previousAttrs: {
       pname = "forkgram-desktop-unwrapped";
-      version = "7.2.10";
+      version = "7.3.1";
 
       src = fetchFromGitHub {
         owner = "forkgram";
         repo = "tdesktop";
         rev = "v${finalAttrs.version}";
         fetchSubmodules = true;
-        hash = "sha256-r9DATa06/BqHVRjIkkne/0RNluGN6Jzu/Q5rXiPpLBE=";
+        hash = "sha256-b16XVqZZwS9MY40c7mQBTj13gl6AxFD0GygiMPzQQFE=";
       };
 
       buildInputs = previousAttrs.buildInputs ++ [
         zbar
         pango
         tlottie
+        wallet-engine
       ];
 
       postPatch = (previousAttrs.postPatch or "") + ''

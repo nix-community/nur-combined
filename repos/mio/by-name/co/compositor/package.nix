@@ -13,13 +13,13 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "compositor";
-  version = "1.4.5";
+  version = "1.5.1";
 
   src = fetchFromGitHub {
     owner = "robbietilton";
     repo = "Compositor";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-VwGIy0eam0UfBCj+d58mzHYYaXLD07sb41eLLrOX2c4=";
+    hash = "sha256-KrfuM7mdJk523Tk3W41edvlbIUtV3hVj08RMSoDaqqM=";
   };
 
   passthru.spmDeps = stdenvNoCC.mkDerivation {

@@ -9,22 +9,20 @@
   glib,
   webkitgtk_6_0,
   libadwaita,
-  stdenv,
-  darwin,
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "penguin-mail";
-  version = "1.0.5";
+  version = "1.0.7";
 
   src = fetchFromGitHub {
     owner = "c9dev";
     repo = "penguin-mail";
     rev = "v${version}";
-    hash = "sha256-2vFUXHUS2BpDmCqKkA1mO0rmS8OZtTyn1Jfm/IJJihc=";
+    hash = "sha256-AHu9CRRouoLA9Gd/kRf6Wg7/KwG+PhOT3MD4F2N9QXQ=";
   };
 
-  cargoHash = "sha256-IXQSrN0mIBnUZcny6huA89q2sHPDHWkknj1bXR/UXrI=";
+  cargoHash = "sha256-ZuowxHI22IfLeKzy6rIZNxl+6edQNaCi4iEj95uif/A=";
 
   nativeBuildInputs = [
     pkg-config
@@ -37,10 +35,6 @@ rustPlatform.buildRustPackage rec {
     glib
     webkitgtk_6_0
     libadwaita
-  ]
-  ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-    darwin.apple_sdk.frameworks.SystemConfiguration
   ];
 
   doCheck = false;

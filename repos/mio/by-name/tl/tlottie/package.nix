@@ -40,21 +40,26 @@ rustPlatform.buildRustPackage {
 
     shopt -s nullglob
     found=
+    libext=${if stdenv.hostPlatform.isDarwin then "dylib" else "so"}
     for f in \
-      target/${stdenv.hostPlatform.rust.rustcTarget}/release/libtlottie.so \
-      target/release/libtlottie.so \
-      target/${stdenv.hostPlatform.rust.cargoShortTarget}/release/libtlottie.so; do
-      install -Dm755 "$f" "$out/lib/libtlottie.so"
-      found=1
-      break
+      target/${stdenv.hostPlatform.rust.rustcTarget}/release/libtlottie.$libext \
+      target/release/libtlottie.$libext \
+      target/${stdenv.hostPlatform.rust.cargoShortTarget}/release/libtlottie.$libext; do
+      if [ -f "$f" ]; then
+        install -Dm755 "$f" "$out/lib/libtlottie.$libext"
+        found=1
+        break
+      fi
     done
     for f in \
       target/${stdenv.hostPlatform.rust.rustcTarget}/release/libtlottie.a \
       target/release/libtlottie.a \
       target/${stdenv.hostPlatform.rust.cargoShortTarget}/release/libtlottie.a; do
-      install -Dm644 "$f" "$out/lib/libtlottie.a"
-      found=1
-      break
+      if [ -f "$f" ]; then
+        install -Dm644 "$f" "$out/lib/libtlottie.a"
+        found=1
+        break
+      fi
     done
     shopt -u nullglob
 

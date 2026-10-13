@@ -14,14 +14,14 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "futo-notes";
-  version = "1.8.0";
+  version = "1.8.1";
 
   src = fetchFromGitLab {
     domain = "gitlab.futo.org";
     owner = "futo-notes";
     repo = "futo-notes";
     rev = "v${version}";
-    hash = "sha256-oEwVoPNkdEV6qhGvvASyNe4IlW0UfhG3PH6EgmgTxak=";
+    hash = "sha256-HrxRVtttWrtJftjjL6Mi7iTtnT20MPfpDRERRNJ+0Ac=";
   };
 
   pnpmDeps = pnpm_10.fetchDeps {
