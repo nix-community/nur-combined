@@ -1,6 +1,6 @@
 # Packages
 
-Generated from 62 packages.
+Generated from 72 packages.
 
 ## `ambient-build-vm`
 
@@ -42,6 +42,14 @@ Generated from 62 packages.
 - **Homepage:** [https://dldc.lib.uchicago.edu/open/attachment-converter/](https://dldc.lib.uchicago.edu/open/attachment-converter/)
 - **License:** GPL-3.0-or-later
 
+## `bgd-browser`
+
+- **Package name:** bgd-browser
+- **Version:** 0-unstable-2026-09-16
+- **Description:** Web-based UI for browsing a BuildGrid deployment
+- **Homepage:** [https://buildgrid.build](https://buildgrid.build)
+- **License:** Apache-2.0
+
 ## `blueferry`
 
 - **Package name:** blueferry
@@ -53,7 +61,7 @@ Generated from 62 packages.
 ## `brush`
 
 - **Package name:** brush
-- **Version:** 0.4.0-unstable-2026-10-07
+- **Version:** 0.4.0-unstable-2026-10-12
 - **Description:** Bash/POSIX-compatible shell implemented in Rust
 - **Homepage:** [https://github.com/reubeno/brush](https://github.com/reubeno/brush)
 - **License:** MIT
@@ -97,6 +105,14 @@ Generated from 62 packages.
 - **Description:** Linux Credential Manager API
 - **Homepage:** [https://github.com/linux-credentials/credentialsd](https://github.com/linux-credentials/credentialsd)
 - **License:** LGPL-3.0-only
+
+## `darnit`
+
+- **Package name:** darnit
+- **Version:** 0.1.1
+- **Description:** Pluggable compliance audit framework
+- **Homepage:** [https://github.com/darnitdevorg/darnit](https://github.com/darnitdevorg/darnit)
+- **License:** Apache-2.0
 
 ## `debspawn`
 
@@ -153,6 +169,14 @@ Generated from 62 packages.
 - **Homepage:** [https://github.com/anchore/grant](https://github.com/anchore/grant)
 - **License:** Apache-2.0
 
+## `guac`
+
+- **Package name:** guac
+- **Version:** 1.1.0
+- **Description:** Aggregator for software security metadata
+- **Homepage:** [https://guac.sh/](https://guac.sh/)
+- **License:** Apache-2.0
+
 ## `image-builder`
 
 - **Package name:** image-builder
@@ -204,10 +228,18 @@ Generated from 62 packages.
 ## `landstrip`
 
 - **Package name:** landstrip
-- **Version:** 0.19.7
+- **Version:** 0.19.13
 - **Description:** Run tools in OS-level sandboxes
 - **Homepage:** [https://github.com/landstrip/landstrip](https://github.com/landstrip/landstrip)
 - **License:** LGPL-3.0-or-later
+
+## `libpathrs`
+
+- **Package name:** libpathrs
+- **Version:** 0.2.6
+- **Description:** Safe path resolution within untrusted directories
+- **Homepage:** [https://github.com/cyphar/libpathrs](https://github.com/cyphar/libpathrs)
+- **License:** MPL-2.0 OR LGPL-3.0-or-later
 
 ## `libturnstile`
 
@@ -215,6 +247,14 @@ Generated from 62 packages.
 - **Version:** 0.8.1
 - **Description:** Seccomp-unotify access tracer
 - **Homepage:** [https://github.com/micromaomao/libturnstile](https://github.com/micromaomao/libturnstile)
+- **License:** MIT
+
+## `litebox`
+
+- **Package name:** litebox
+- **Version:** 0.1.0
+- **Description:** Security-focused library OS
+- **Homepage:** [https://github.com/microsoft/litebox](https://github.com/microsoft/litebox)
 - **License:** MIT
 
 ## `masque-go`
@@ -236,7 +276,7 @@ Generated from 62 packages.
 ## `mkosi-HEAD`
 
 - **Package name:** mkosi-HEAD
-- **Version:** 27.1-unstable-2026-10-06
+- **Version:** 27.1-unstable-2026-10-09
 - **Description:** Build legacy-free OS images, built from git master
 - **Homepage:** [https://github.com/systemd/mkosi](https://github.com/systemd/mkosi)
 - **License:** LGPL-2.1-only
@@ -304,6 +344,45 @@ Generated from 62 packages.
 - **Homepage:** [https://github.com/vipshop/cache-dit](https://github.com/vipshop/cache-dit)
 - **License:** Apache-2.0
 
+## `python3Packages.darnit-baseline`
+
+- **Package name:** darnit-baseline
+- **Version:** 0.1.1
+- **Description:** OpenSSF Baseline compliance checks for darnit
+- **Homepage:** [https://github.com/darnitdevorg/darnit](https://github.com/darnitdevorg/darnit)
+- **License:** Apache-2.0
+
+## `python3Packages.darnit-core`
+
+- **Package name:** darnit-core
+- **Version:** 0.1.1
+- **Description:** Generic compliance audit framework with plugin architecture
+- **Homepage:** [https://github.com/darnitdevorg/darnit](https://github.com/darnitdevorg/darnit)
+- **License:** Apache-2.0
+
+## `python3Packages.darnit-gittuf`
+
+- **Package name:** darnit-gittuf
+- **Version:** 0.1.1
+- **Description:** Gittuf policy checks plugin for darnit
+- **Homepage:** [https://github.com/darnitdevorg/darnit](https://github.com/darnitdevorg/darnit)
+- **License:** Apache-2.0
+
+## `python3Packages.darnit-reproducibility`
+
+- **Package name:** darnit-reproducibility
+- **Version:** 0.1.1
+- **Description:** Scientific reproducibility checks plugin for darnit
+- **Homepage:** [https://github.com/darnitdevorg/darnit](https://github.com/darnitdevorg/darnit)
+- **License:** Apache-2.0
+
+## `quarry`
+
+- **Package name:** quarry
+- **Version:** 0-unstable-2026-10-09
+- **Description:** TUF-based software distribution toolchain
+- **License:** Apache-2.0
+
 ## `rad-ci`
 
 - **Package name:** rad-ci
@@ -331,7 +410,7 @@ Generated from 62 packages.
 ## `rsbinder-tools`
 
 - **Package name:** rsbinder-tools
-- **Version:** 0.11.0
+- **Version:** 0.12.0
 - **Description:** CLI tools for Binder IPC on Linux
 - **Homepage:** [https://github.com/hiking90/rsbinder](https://github.com/hiking90/rsbinder)
 - **License:** Apache-2.0
@@ -443,7 +522,7 @@ Generated from 62 packages.
 ## `tpm2sh`
 
 - **Package name:** tpm2sh
-- **Version:** 1.2.0
+- **Version:** 1.2.3
 - **Description:** CLI for accessing TPM 2.0 chips on Linux.
 - **Homepage:** [https://github.com/jarkkojs/tpm2-library](https://github.com/jarkkojs/tpm2-library)
 - **License:** GPL-3.0-or-later
@@ -451,7 +530,7 @@ Generated from 62 packages.
 ## `ublksrv`
 
 - **Package name:** ublksrv
-- **Version:** 1.8
+- **Version:** 1.8-unstable-2026-09-24
 - **Description:** userspace block device driver
 - **Homepage:** [https://github.com/ublk-org/ublksrv](https://github.com/ublk-org/ublksrv)
 - **License:** (MIT OR GPL-2.0-only) AND (MIT OR LGPL-2.1-only) AND GPL-2.0-only
