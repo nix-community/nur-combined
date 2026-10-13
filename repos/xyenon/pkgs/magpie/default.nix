@@ -52,13 +52,13 @@ buildGoModule (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "magpie";
-  version = "0.1.1209";
+  version = "0.1.1219";
 
   src = fetchFromGitHub {
     owner = "yetone";
     repo = "magpie";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-zxsMOCPgZULm0z23vca9v2ziLpyPMGBP6J6f2m6Gf0w=";
+    hash = "sha256-h6nYZg2sqSMcT9eoNi5t0hYvrwGE+/GCLqhQ2h/BFGY=";
   };
 
   vendorHash = "sha256-RevP93sHMwgwQxSh4WzKkNIupNQhU/sP3b/g/lpMS+E=";
@@ -74,8 +74,13 @@ buildGoModule (finalAttrs: {
     + lib.optionalString darwinGui ''
       # Keep the bundle executable native: an exec wrapper breaks Launch Services tracking.
       substituteInPlace main.go \
+        --replace-fail 'import "github.com/yetone/magpie/internal/cli"' 'import (
+          "os"
+          "github.com/yetone/magpie/internal/cli"
+        )' \
         --replace-fail 'func main() {' 'func main() {
-          os.Setenv("MAGPIE_BUN", "${lib.getExe bun}")'
+          os.Setenv("MAGPIE_BUN", "${lib.getExe bun}")
+        '
       # Keep native window tests behind their shared entry point in the build sandbox.
       pattern='func runAppKit($T *testing.T, $$$PARAMS) ($$$RESULTS) {
         $T.Helper()
@@ -109,7 +114,7 @@ buildGoModule (finalAttrs: {
     # Normalize executable fixtures and explicit system PATHs in new tests too.
     GOFLAGS= PATCH_TESTS_SOURCE=${./patch-tests.go} go test ${./patch-tests.go} ${./patch-tests_test.go}
     GOFLAGS= go run ${./patch-tests.go} ${testTools}/bin
-    substituteInPlace main_test.go internal/plugin/main_test.go \
+    substituteInPlace internal/cli/main_test.go internal/plugin/main_test.go \
       --replace-fail 'testenv.Main(m)' 'testenv.Offline(); testenv.Main(m)'
     # Allow the filesystem change-time clock to advance before the same-size rewrite.
     substituteInPlace internal/sessions/codex_archive_test.go \
