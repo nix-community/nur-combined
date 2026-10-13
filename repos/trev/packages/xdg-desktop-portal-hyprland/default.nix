@@ -32,15 +32,16 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "xdg-desktop-portal-hyprland";
-  version = "1.4.1-unstable-2026-10-12";
+  version = "1.4.1-unstable-2026-10-13";
 
-  # RemoteDesktop support on top of upstream: #428, its keyboard fixes, screen
-  # casts in remote desktop sessions, and the portal's own input methods from #402
+  # upstream with the RemoteDesktop and Clipboard portals: #428, its keyboard
+  # fixes, screen casts in remote desktop sessions, and the portal's own input
+  # methods from #402
   src = fetchFromGitHub {
     owner = "spotdemo4";
     repo = "xdg-desktop-portal-hyprland";
-    rev = "7af02c6f8943382bcef3f2610dfdf14de901bd91";
-    hash = "sha256-Z6qIl+ZVgEgUzZ1lv0Ck0/dzUjNTsNiA9ukl5LF8bP0=";
+    rev = "544e4b880b6019da7eb367f9d58302be5ab22f20";
+    hash = "sha256-N0Fiu4dH35fMc6koCUVg6iBGYAuDaRkaosQBokzukg0=";
   };
 
   depsBuildBuild = [
@@ -81,6 +82,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   cmakeBuildType = if debug then "Debug" else "RelWithDebInfo";
 
+  doCheck = true;
+
   dontStrip = debug;
 
   postInstall = ''
@@ -94,7 +97,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script {
     extraArgs = [
       "--commit"
-      "--version=branch=feature/remote-desktop"
+      "--version=branch=master"
       # the fork's tags are upstream's, prefixed with v
       "--version-regex=v(.*)"
       finalAttrs.pname
@@ -102,9 +105,9 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "xdg-desktop-portal backend for Hyprland, with RemoteDesktop support";
+    description = "xdg-desktop-portal backend for Hyprland, with RemoteDesktop and Clipboard support";
     homepage = "https://github.com/spotdemo4/xdg-desktop-portal-hyprland";
-    changelog = "https://github.com/spotdemo4/xdg-desktop-portal-hyprland/commits/feature/remote-desktop";
+    changelog = "https://github.com/spotdemo4/xdg-desktop-portal-hyprland/commits/master";
     mainProgram = "hyprland-share-picker";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.linux;

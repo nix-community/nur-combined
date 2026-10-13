@@ -316,9 +316,9 @@ build-system = with pkgs.python3Packages; [
 
 ### [xdg-desktop-portal-hyprland](https://github.com/hyprwm/xdg-desktop-portal-hyprland)
 
-xdg-desktop-portal backend for Hyprland, with RemoteDesktop support
+xdg-desktop-portal backend for Hyprland, with RemoteDesktop and Clipboard support
 
-- patched with [xdg-desktop-portal-hyprland#428](https://github.com/hyprwm/xdg-desktop-portal-hyprland/pull/428) and its keyboard fixes
+- built from [a fork](https://github.com/spotdemo4/xdg-desktop-portal-hyprland) with [xdg-desktop-portal-hyprland#428](https://github.com/hyprwm/xdg-desktop-portal-hyprland/pull/428), its keyboard fixes, and the Clipboard portal
 
 ```nix
 programs.hyprland.portalPackage = pkgs.trev.xdg-desktop-portal-hyprland;
