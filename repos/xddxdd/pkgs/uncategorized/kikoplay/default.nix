@@ -29,12 +29,12 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "kikoplay";
-  version = "2.1.0";
+  version = "2.2.0";
   src = fetchFromGitHub {
     owner = "KikoPlayProject";
     repo = "KikoPlay";
     tag = finalAttrs.version;
-    hash = "sha256-iNBnH9GLKh3IXdhgnwrinoZqnIQgugtDcTAESldnAug=";
+    hash = "sha256-uxlVt6lfnAopdnMJR+1irmlOvyL9gKIIQn5Zixi3n0Q=";
   };
   __structuredAttrs = true;
   strictDeps = true;
