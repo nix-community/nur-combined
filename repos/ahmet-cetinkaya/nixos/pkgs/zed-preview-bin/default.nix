@@ -19,7 +19,7 @@
   zlib,
 }: let
   pname = "zed-preview-bin";
-  version = "1.24.1-pre";
+  version = "1.24.2-pre";
   runtimeLibs = [
     alsa-lib
     fontconfig
@@ -40,13 +40,13 @@
     then
       fetchurl {
         url = "https://github.com/zed-industries/zed/releases/download/v${version}/zed-linux-x86_64.tar.gz";
-        sha256 = "f551231e810ab55dccc9fd17f2e5bcccb9669910b6889416051c40583949727a";
+        sha256 = "b759aa4a8e8b5f352b9a3a2b990fdeca40fa112426042fea629354f14db8350e";
       }
     else if stdenvNoCC.hostPlatform.system == "aarch64-linux"
     then
       fetchurl {
         url = "https://github.com/zed-industries/zed/releases/download/v${version}/zed-linux-aarch64.tar.gz";
-        sha256 = "0ffc7650b0f3f7a316adb48c90b4488f529062b81572025461d8cafee61150fc";
+        sha256 = "a14d551975db2c75249bf68d13f3e5433fb95ea1d69833b1e53194d6e99da408";
       }
     else throw "Unsupported system for ${pname}: ${stdenvNoCC.hostPlatform.system}";
 in
