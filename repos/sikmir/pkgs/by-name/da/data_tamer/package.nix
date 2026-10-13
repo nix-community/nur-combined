@@ -24,6 +24,9 @@ stdenv.mkDerivation (finalAttrs: {
   postPatch = ''
     sed -i '14i #include <cstdint>' 3rdparty/mcap/include/mcap/reader.hpp
     sed -i '9i #include <cstdint>' 3rdparty/mcap/include/mcap/types.hpp
+    substituteInPlace 3rdparty/mcap/include/mcap/internal.hpp \
+      --replace-fail "uint16_t(data[0]) | (uint16_t(data[1]) << 8)" \
+                     "static_cast<uint16_t>(uint16_t(data[0]) | (uint16_t(data[1]) << 8))"
   '';
 
   nativeBuildInputs = [ cmake ];

@@ -8,7 +8,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "routeconverter";
-  version = "3.6";
+  version = "3.7";
 
   __structuredAttrs = true;
 
@@ -17,14 +17,14 @@ stdenv.mkDerivation (finalAttrs: {
       owner = "cpesch";
       repo = "RouteConverter";
       tag = finalAttrs.version;
-      hash = "sha256-QMeR9XmAAHf05fKnUF/S/0S8G9g0HjcF+iC9QGZfOBc=";
+      hash = "sha256-F6mjh+Y5EZ/z1V2bmJ18z3NUJR/R9Bs6zic094pxg2Y=";
       name = "RouteConverterLinux.jar";
     })
     (fetchfromgh {
       owner = "cpesch";
       repo = "RouteConverter";
       tag = finalAttrs.version;
-      hash = "sha256-CwEfGEG/Vbmn4hiTNGgOrj1LuxLd6J/vvMB8TytpYTE=";
+      hash = "sha256-+UgaRu4lnUqN2+jdoEci3/YNpRuBjTzIWyYMMx0Zw7E=";
       name = "RouteConverterCmdLine.jar";
     })
   ];
