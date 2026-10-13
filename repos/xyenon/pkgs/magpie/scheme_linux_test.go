@@ -1,3 +1,5 @@
+// Nix installs the scheme desktop entry with the package, so upstream's runtime
+// registration assertions are replaced with coverage of legacy-entry cleanup.
 package gui
 
 import (

@@ -1,3 +1,5 @@
+// Autostart must use the public Nix launcher to receive its GTK/Bun environment.
+// These tests cover store-path migration while preserving user choices and custom entries.
 package autostart
 
 import (

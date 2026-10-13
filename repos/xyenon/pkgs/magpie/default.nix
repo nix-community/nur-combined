@@ -12,7 +12,6 @@
   makeDesktopItem,
   copyDesktopItems,
   imagemagick,
-  ast-grep,
   gotools,
   versionCheckHook,
   nix-update-script,
@@ -35,6 +34,7 @@
 let
   linuxGui = guiSupport && stdenv.hostPlatform.isLinux;
   darwinGui = guiSupport && stdenv.hostPlatform.isDarwin;
+  patchArgs = "-platform ${stdenv.hostPlatform.parsed.kernel.name} -arch ${stdenv.hostPlatform.go.GOARCH} -gui=${lib.boolToString guiSupport} -launcher $out/bin/magpie -bun ${lib.getExe bun}";
   testTools = buildEnv {
     name = "magpie-test-tools";
     paths = [
@@ -63,38 +63,12 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-RevP93sHMwgwQxSh4WzKkNIupNQhU/sP3b/g/lpMS+E=";
 
-  postPatch =
-    lib.optionalString linuxGui ''
-      bash ${./linux-launcher.sh} "$out/bin/magpie"
-      cp ${./scheme_linux_test.go} internal/gui/nix_scheme_linux_test.go
-      cp ${./launcher_linux_test.go} internal/autostart/nix_launcher_linux_test.go
-      substituteInPlace internal/autostart/nix_launcher_linux_test.go \
-        --replace-fail '@magpie@' "$out/bin/magpie"
-    ''
-    + lib.optionalString darwinGui ''
-      # Keep the bundle executable native: an exec wrapper breaks Launch Services tracking.
-      substituteInPlace main.go \
-        --replace-fail 'import "github.com/yetone/magpie/internal/cli"' 'import (
-          "os"
-          "github.com/yetone/magpie/internal/cli"
-        )' \
-        --replace-fail 'func main() {' 'func main() {
-          os.Setenv("MAGPIE_BUN", "${lib.getExe bun}")
-        '
-      # Keep native window tests behind their shared entry point in the build sandbox.
-      pattern='func runAppKit($T *testing.T, $$$PARAMS) ($$$RESULTS) {
-        $T.Helper()
-        $$$BODY
-      }'
-      ast-grep run --lang go --pattern "$pattern" --globs '*_test.go' \
-        --files-with-matches internal/gui
-      ast-grep run --lang go --pattern "$pattern" --globs '*_test.go' \
-        --rewrite 'func runAppKit($T *testing.T, $$$PARAMS) ($$$RESULTS) {
-          $T.Helper()
-          $T.Skip("Native AppKit/WebKit windows require a graphical session unavailable to Nix build users")
-          $$$BODY
-        }' --update-all internal/gui
-    '';
+  # Apply runtime policies before compiling the installed application.
+  postPatch = ''
+    export GOCACHE=$TMPDIR/go-cache
+    export GOPATH=$TMPDIR/go
+    GOFLAGS= GOPROXY=off GOSUMDB=off go run ${./patch.go} -phase runtime ${patchArgs}
+  '';
 
   subPackages = [ "." ];
   tags =
@@ -109,38 +83,12 @@ buildGoModule (finalAttrs: {
     "-X main.version=v${finalAttrs.version}"
   ];
 
+  # Apply test-only adaptations after compilation to keep them out of the installed binary.
   preCheck = ''
     export MAGPIE_BUN=${lib.getExe bun}
-    # Normalize executable fixtures and explicit system PATHs in new tests too.
-    GOFLAGS= PATCH_TESTS_SOURCE=${./patch-tests.go} go test ${./patch-tests.go} ${./patch-tests_test.go}
-    GOFLAGS= go run ${./patch-tests.go} ${testTools}/bin
-    substituteInPlace internal/cli/main_test.go internal/plugin/main_test.go \
-      --replace-fail 'testenv.Main(m)' 'testenv.Offline(); testenv.Main(m)'
-    # Allow the filesystem change-time clock to advance before the same-size rewrite.
-    substituteInPlace internal/sessions/codex_archive_test.go \
-      --replace-fail 'writeLines(t, archived, `{"x":2}`)' \
-        'time.Sleep(20 * time.Millisecond); writeLines(t, archived, `{"x":2}`)'
-    # The source policy check must not scan dependencies added by buildGoModule.
-    substituteInPlace internal/proc/proc_test.go \
-      --replace-fail 'd.Name() == "node_modules"' 'd.Name() == "node_modules" || d.Name() == "vendor"'
-  ''
-  + lib.optionalString stdenv.hostPlatform.isLinux ''
-    substituteInPlace internal/agent/zed_credential_secret_test.go \
-      --replace-fail '"--session"' '"--config-file=${dbus}/share/dbus-1/session.conf"'
-  ''
-  + lib.optionalString stdenv.hostPlatform.isDarwin ''
-    # xcbuild's plutil lacks Apple's raw extraction format.
-    substituteInPlace internal/autostart/autostart_darwin_test.go \
-      --replace-fail 'exec.Command("plutil", "-extract", "AssociatedBundleIdentifiers.0", "raw", p)' \
-        'exec.Command("${lib.getExe python3}", "-c", `import plistlib, sys; print(plistlib.load(open(sys.argv[1], "rb"))["AssociatedBundleIdentifiers"][0])`, p)'
-    # The AppleScript interpreter is not available in the Darwin build sandbox.
-    # Keep the preceding assertions for script generation and cancellation.
-    substituteInPlace internal/update/admin_test.go \
-      --replace-fail '// AppleScript unescapes it back to the script' \
-        'if _, err := exec.LookPath("osascript"); err != nil {
-          t.Skip("AppleScript interpreter is unavailable in the build sandbox")
-        }
-        // AppleScript unescapes it back to the script'
+    GOFLAGS= go run ${./patch.go} -phase check ${patchArgs} \
+      -tools ${testTools}/bin -templates ${./.} \
+      ${lib.optionalString stdenv.hostPlatform.isLinux "-dbus ${dbus}/share/dbus-1/session.conf"}
   '';
   nativeCheckInputs = [
     python3
@@ -164,16 +112,14 @@ buildGoModule (finalAttrs: {
 
   nativeBuildInputs = [
     makeWrapper
+    gotools
   ]
   ++ lib.optionals linuxGui [
     pkg-config
     wrapGAppsHook3
     copyDesktopItems
     imagemagick
-    ast-grep
-    gotools
-  ]
-  ++ lib.optional darwinGui ast-grep;
+  ];
   buildInputs = lib.optionals linuxGui [
     gtk3
     webkitgtk_4_1
