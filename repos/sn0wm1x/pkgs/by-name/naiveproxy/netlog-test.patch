@@ -1,0 +1,9 @@
+--- a/tests/ssl_cert_file.py
++++ b/tests/ssl_cert_file.py
+@@ -80,2 +80,6 @@ def netlog_events(netlog):
+             continue
++        # Chromium's NDJSON format wraps each event in an "event" record.
++        # Retain support for the older format with bare event dictionaries.
++        if isinstance(event, dict) and event.get('type') == 'event':
++            event = event['event']
+         if isinstance(event, dict) and 'type' in event:
