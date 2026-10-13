@@ -3,7 +3,7 @@
 @@ -109,7 +109,31 @@
  #define ip       x16
  #define ip2      x17
- 
+
 +#if defined(ART_USE_RELATIVE_REFS) && ART_USE_RELATIVE_REFS
  /*
 + * Base of the heap reference window (see runtime_globals.h kReferenceBase).
@@ -42,7 +42,7 @@
 +    bl      _art_get_reference_base
 +    mov     xREFBASE, x0
 +#endif
- 
+
      /* Starting ibase */
      ldr     xIBASE, [xSELF, #THREAD_CURRENT_IBASE_OFFSET]
 --- a/art/runtime/interpreter/mterp/arm64/object.S	2026-10-09 21:41:11.473362296 +1100

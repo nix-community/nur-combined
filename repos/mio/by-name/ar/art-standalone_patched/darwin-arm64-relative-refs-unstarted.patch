@@ -1,0 +1,110 @@
+--- a/art/runtime/interpreter/unstarted_runtime.cc	2026-10-11 17:49:40.281067691 +1100
++++ b/art/runtime/interpreter/unstarted_runtime.cc	2026-10-11 17:49:44.738686895 +1100
+@@ -172,6 +172,16 @@
+   }
+ }
+
++// An interpreter argument slot holds a compressed reference.  Recover the object pointer, adding
++// the reference base for relative-reference builds (see DARWIN-ARM64.md).
++static mirror::Object* UnstartedArgObject(uint32_t ref) {
++#if ART_USE_RELATIVE_REFS
++  return reinterpret_cast<mirror::Object*>(g_reference_base + static_cast<uintptr_t>(ref));
++#else
++  return reinterpret_cast32<mirror::Object*>(ref);
++#endif
++}
++
+ static ObjPtr<mirror::String> GetClassName(Thread* self,
+                                            ShadowFrame* shadow_frame,
+                                            size_t arg_offset)
+@@ -1710,7 +1720,7 @@
+     JValue* result) {
+   int32_t length = args[1];
+   DCHECK_GE(length, 0);
+-  ObjPtr<mirror::Object> element_class = reinterpret_cast32<mirror::Object*>(args[0])->AsClass();
++  ObjPtr<mirror::Object> element_class = UnstartedArgObject(args[0])->AsClass();
+   if (element_class == nullptr) {
+     AbortTransactionOrFail(self, "VMRuntime.newUnpaddedArray with null element_class.");
+     return;
+@@ -1813,7 +1823,7 @@
+                                                    mirror::Object* receiver,
+                                                    uint32_t* args,
+                                                    JValue* result) {
+-  ObjPtr<mirror::Object> rhs = reinterpret_cast32<mirror::Object*>(args[0]);
++  ObjPtr<mirror::Object> rhs = UnstartedArgObject(args[0]);
+   if (rhs == nullptr) {
+     AbortTransactionOrFail(self, "String.compareTo with null object.");
+     return;
+@@ -1831,8 +1841,8 @@
+     Thread* self, ArtMethod* method ATTRIBUTE_UNUSED, mirror::Object* receiver ATTRIBUTE_UNUSED,
+     uint32_t* args, JValue* result) {
+   StackHandleScope<2> hs(self);
+-  auto h_class(hs.NewHandle(reinterpret_cast<mirror::Class*>(args[0])->AsClass()));
+-  auto h_dimensions(hs.NewHandle(reinterpret_cast<mirror::IntArray*>(args[1])->AsIntArray()));
++  auto h_class(hs.NewHandle(UnstartedArgObject(args[0])->AsClass()));
++  auto h_dimensions(hs.NewHandle(UnstartedArgObject(args[1])->AsIntArray()));
+   result->SetL(mirror::Array::CreateMultiArray(self, h_class, h_dimensions));
+ }
+
+@@ -1844,7 +1854,7 @@
+     ThrowNegativeArraySizeException(length);
+     return;
+   }
+-  ObjPtr<mirror::Class> element_class = reinterpret_cast<mirror::Class*>(args[0])->AsClass();
++  ObjPtr<mirror::Class> element_class = UnstartedArgObject(args[0])->AsClass();
+   Runtime* runtime = Runtime::Current();
+   ClassLinker* class_linker = runtime->GetClassLinker();
+   ObjPtr<mirror::Class> array_class = class_linker->FindArrayClass(self, element_class);
+@@ -1881,7 +1891,7 @@
+     mirror::Object* receiver ATTRIBUTE_UNUSED,
+     uint32_t* args,
+     JValue* result) {
+-  ObjPtr<mirror::Object> obj = reinterpret_cast32<mirror::Object*>(args[0]);
++  ObjPtr<mirror::Object> obj = UnstartedArgObject(args[0]);
+   if (obj == nullptr) {
+     AbortTransactionOrFail(self, "Unsafe.compareAndSwapInt with null object.");
+     return;
+@@ -1911,7 +1921,7 @@
+                                                         mirror::Object* receiver ATTRIBUTE_UNUSED,
+                                                         uint32_t* args,
+                                                         JValue* result) {
+-  ObjPtr<mirror::Object> obj = reinterpret_cast32<mirror::Object*>(args[0]);
++  ObjPtr<mirror::Object> obj = UnstartedArgObject(args[0]);
+   if (obj == nullptr) {
+     AbortTransactionOrFail(self, "Unsafe.compareAndSwapIntVolatile with null object.");
+     return;
+@@ -1926,7 +1936,7 @@
+                                                    mirror::Object* receiver ATTRIBUTE_UNUSED,
+                                                    uint32_t* args,
+                                                    JValue* result ATTRIBUTE_UNUSED) {
+-  ObjPtr<mirror::Object> obj = reinterpret_cast32<mirror::Object*>(args[0]);
++  ObjPtr<mirror::Object> obj = UnstartedArgObject(args[0]);
+   if (obj == nullptr) {
+     AbortTransactionOrFail(self, "Unsafe.putObject with null object.");
+     return;
+@@ -1933,6 +1943,6 @@
+   }
+   jlong offset = (static_cast<uint64_t>(args[2]) << 32) | args[1];
+-  ObjPtr<mirror::Object> newValue = reinterpret_cast32<mirror::Object*>(args[3]);
++  ObjPtr<mirror::Object> newValue = UnstartedArgObject(args[3]);
+   if (Runtime::Current()->IsActiveTransaction()) {
+     obj->SetFieldObject<true>(MemberOffset(offset), newValue);
+   } else {
+@@ -1946,7 +1956,7 @@
+     mirror::Object* receiver ATTRIBUTE_UNUSED,
+     uint32_t* args,
+     JValue* result) {
+-  ObjPtr<mirror::Object> component = reinterpret_cast32<mirror::Object*>(args[0]);
++  ObjPtr<mirror::Object> component = UnstartedArgObject(args[0]);
+   if (component == nullptr) {
+     AbortTransactionOrFail(self, "Unsafe.getArrayBaseOffsetForComponentType with null component.");
+     return;
+@@ -1961,7 +1971,7 @@
+     mirror::Object* receiver ATTRIBUTE_UNUSED,
+     uint32_t* args,
+     JValue* result) {
+-  ObjPtr<mirror::Object> component = reinterpret_cast32<mirror::Object*>(args[0]);
++  ObjPtr<mirror::Object> component = UnstartedArgObject(args[0]);
+   if (component == nullptr) {
+     AbortTransactionOrFail(self, "Unsafe.getArrayIndexScaleForComponentType with null component.");
+     return;

@@ -1,0 +1,34 @@
+--- a/art/openjdkjvm/OpenjdkJvm.cc	2026-10-13 09:47:52.490768592 +1100
++++ b/art/openjdkjvm/OpenjdkJvm.cc	2026-10-13 09:48:02.053912294 +1100
+@@ -36,6 +36,7 @@
+ #include <limits.h>
+ #include <stdio.h>
+ #include <sys/ioctl.h>
++#include <poll.h>
+ #include <sys/socket.h>
+ #include <sys/time.h>
+ #include <unistd.h>
+@@ -100,6 +101,23 @@
+ /* posix read() */
+ JNIEXPORT jint JVM_Read(jint fd, char* buf, jint nbytes) {
+     return TEMP_FAILURE_RETRY(read(fd, buf, nbytes));
++}
++
++/* OpenJDK's socket code calls this via the NET_Timeout alias; returns 0 on timeout, > 0 when the
++ * fd is readable, < 0 on error. */
++JNIEXPORT jint JNICALL JVM_Timeout(int fd, long timeout) {
++    struct pollfd pfd;
++    pfd.fd = fd;
++    pfd.events = POLLIN;
++    pfd.revents = 0;
++    int rv = TEMP_FAILURE_RETRY(poll(&pfd, 1, static_cast<int>(timeout)));
++    if (rv == 0) {
++        return 0;
++    }
++    if (rv < 0) {
++        return -1;
++    }
++    return 1;
+ }
+
+ /* posix write(); is used to write messages to stderr */

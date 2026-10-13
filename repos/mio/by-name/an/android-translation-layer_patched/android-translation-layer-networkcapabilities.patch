@@ -5,13 +5,13 @@ Subject: [PATCH] report a connected network so Coil can fetch images
 Coil 3 on API 23+ uses getNetworkCapabilities(). ATL returned null,
 so Coil treated the device as offline and never loaded YouTube avatars.
 
---- a/src/api-impl/android/net/NetworkInfo.java	2026-10-04 20:18:35.329610983 +1100
-+++ a/src/api-impl/android/net/NetworkInfo.java	2026-10-04 20:18:35.329610983 +1100
+--- a/src/api-impl/android/net/NetworkInfo.java	2026-10-12 20:26:41.146485470 +1100
++++ b/src/api-impl/android/net/NetworkInfo.java	2026-10-12 20:26:45.773703021 +1100
 @@ -31,7 +31,7 @@
  	}
  
  	public boolean isConnectedOrConnecting() {
--		return false;
+-		return state == State.CONNECTED;
 +		return state == State.CONNECTED || state == State.CONNECTING;
  	}
  
@@ -25,8 +25,8 @@ so Coil treated the device as offline and never loaded YouTube avatars.
  	}
  
  	public DetailedState getDetailedState() {
---- a/src/api-impl/android/net/ConnectivityManager.java	2026-10-04 20:18:26.487653522 +1100
-+++ a/src/api-impl/android/net/ConnectivityManager.java	2026-10-04 20:18:26.487653522 +1100
+--- a/src/api-impl/android/net/ConnectivityManager.java	2026-10-12 20:26:41.152921485 +1100
++++ b/src/api-impl/android/net/ConnectivityManager.java	2026-10-12 20:27:07.911199447 +1100
 @@ -9,6 +9,8 @@
  	public class NetworkCallback {
  		public void onAvailable(Network network) {}

@@ -15,15 +15,6 @@ Prevent segfaults by returning early if gtk_widget_get_native() returns NULL bef
  	gtk_native_get_surface_transform(GTK_NATIVE(window), &off_x, &off_y);
  	ret = gtk_widget_compute_point(window, widget, &GRAPHENE_POINT_INIT(*x - off_x, *y - off_y), &p);
  	assert(ret);
-@@ -796,6 +798,8 @@
- 	double off_y;
- 	gboolean ret;
- 	GtkWidget *window = GTK_WIDGET(gtk_widget_get_native(widget));
-+	if (!window)
-+		return false;
- 	gtk_native_get_surface_transform(GTK_NATIVE(window), &off_x, &off_y);
- 	ret = gtk_widget_compute_point(widget, window, &point_in, &point_out);
- 	if (!ret)
 --- a/src/libandroid/native_window.c
 +++ b/src/libandroid/native_window.c
 @@ -277,6 +277,9 @@

@@ -1,0 +1,54 @@
+--- a/art/libartbase/base/globals.h	2026-10-13 12:02:50.773266231 +1100
++++ b/art/libartbase/base/globals.h	2026-10-13 12:03:07.882211316 +1100
+@@ -36,7 +36,11 @@
+
+ // System page size. We check this against sysconf(_SC_PAGE_SIZE) at runtime, but use a simple
+ // compile-time constant so the compiler can generate better code.
++#if defined(__APPLE__) && defined(__aarch64__)
++static constexpr int kPageSize = 16384;
++#else
+ static constexpr int kPageSize = 4096;
++#endif
+
+ // Clion, clang analyzer, etc can falsely believe that "if (kIsDebugBuild)" always
+ // returns the same value. By wrapping into a call to another constexpr function, we force it
+--- a/art/runtime/monitor_pool.h	2026-10-13 12:02:50.775921937 +1100
++++ b/art/runtime/monitor_pool.h	2026-10-13 12:03:07.886275604 +1100
+@@ -200,7 +200,7 @@
+   // should be large enough that we don't run out. We run out of address bits if it's > 512.
+   // Currently we set it a bit smaller, to save half a page per process.  We make it tiny in
+   // debug builds to catch growth errors. The only value we really expect to tune.
+-  static constexpr size_t kInitialChunkStorage = kIsDebugBuild ? 1U : 256U;
++  static constexpr size_t kInitialChunkStorage = kIsDebugBuild ? 1U : (kPageSize == 16384 ? 64U : 256U);
+   static_assert(IsPowerOfTwo(kInitialChunkStorage), "kInitialChunkStorage must be power of 2");
+   // The number of lists, each containing pointers to storage chunks.
+   static constexpr size_t kMaxChunkLists = 8;  //  Dictated by 3 bit index. Don't increase above 8.
+--- a/art/libartbase/arch/instruction_set.h	2026-10-13 12:05:00.636643557 +1100
++++ b/art/libartbase/arch/instruction_set.h	2026-10-13 12:06:55.313159099 +1100
+@@ -22,6 +22,8 @@
+ #include <cstdint>
+
+ #include "base/enums.h"
++#include "base/bit_utils.h"
++#include "base/globals.h"
+ #include "base/macros.h"
+
+ namespace art {
+@@ -235,12 +237,12 @@
+ #error "Missing defines for stack overflow gap"
+ #endif
+
+-static constexpr size_t kArmStackOverflowReservedBytes    = ART_STACK_OVERFLOW_GAP_arm;
+-static constexpr size_t kArm64StackOverflowReservedBytes  = ART_STACK_OVERFLOW_GAP_arm64;
+-static constexpr size_t kMipsStackOverflowReservedBytes   = ART_STACK_OVERFLOW_GAP_mips;
+-static constexpr size_t kMips64StackOverflowReservedBytes = ART_STACK_OVERFLOW_GAP_mips64;
+-static constexpr size_t kX86StackOverflowReservedBytes    = ART_STACK_OVERFLOW_GAP_x86;
+-static constexpr size_t kX86_64StackOverflowReservedBytes = ART_STACK_OVERFLOW_GAP_x86_64;
++static constexpr size_t kArmStackOverflowReservedBytes    = RoundUp(ART_STACK_OVERFLOW_GAP_arm, static_cast<size_t>(kPageSize));
++static constexpr size_t kArm64StackOverflowReservedBytes  = RoundUp(ART_STACK_OVERFLOW_GAP_arm64, static_cast<size_t>(kPageSize));
++static constexpr size_t kMipsStackOverflowReservedBytes   = RoundUp(ART_STACK_OVERFLOW_GAP_mips, static_cast<size_t>(kPageSize));
++static constexpr size_t kMips64StackOverflowReservedBytes = RoundUp(ART_STACK_OVERFLOW_GAP_mips64, static_cast<size_t>(kPageSize));
++static constexpr size_t kX86StackOverflowReservedBytes    = RoundUp(ART_STACK_OVERFLOW_GAP_x86, static_cast<size_t>(kPageSize));
++static constexpr size_t kX86_64StackOverflowReservedBytes = RoundUp(ART_STACK_OVERFLOW_GAP_x86_64, static_cast<size_t>(kPageSize));
+
+ NO_RETURN void GetStackOverflowReservedBytesFailure(const char* error_msg);

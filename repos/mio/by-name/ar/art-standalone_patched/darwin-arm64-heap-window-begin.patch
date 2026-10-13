@@ -1,0 +1,38 @@
+--- a/art/runtime/gc/heap.cc	2026-10-13 10:13:16.687381876 +1100
++++ b/art/runtime/gc/heap.cc	2026-10-13 10:13:32.404430152 +1100
+@@ -394,7 +394,12 @@
+     if (foreground_collector_type_ == kCollectorTypeCC) {
+       // Need to use a low address so that we can allocate a contiguous 2 * Xmx space
+       // when there's no image (dex2oat for target).
++#if ART_USE_RELATIVE_REFS
++      // The heap must sit in the reference window (references are offsets from g_reference_base).
++      request_begin = reinterpret_cast<uint8_t*>(g_reference_base);
++#else
+       request_begin = kPreferredAllocSpaceBegin;
++#endif
+     }
+     // Gross hack to make dex2oat deterministic.
+     if (foreground_collector_type_ == kCollectorTypeMS && Runtime::Current()->IsAotCompiler()) {
+@@ -401,6 +406,10 @@
+       // Currently only enabled for MS collector since that is what the deterministic dex2oat uses.
+       // b/26849108
++#if ART_USE_RELATIVE_REFS
++      request_begin = reinterpret_cast<uint8_t*>(g_reference_base);
++#else
+       request_begin = reinterpret_cast<uint8_t*>(kAllocSpaceBeginForDeterministicAoT);
++#endif
+     }
+   }
+
+@@ -442,7 +451,11 @@
+     CHECK(non_moving_space_mem_map.IsValid()) << error_str;
+     DCHECK(!heap_reservation.IsValid());
+     // Try to reserve virtual memory at a lower address if we have a separate non moving space.
++#if ART_USE_RELATIVE_REFS
++    request_begin = reinterpret_cast<uint8_t*>(g_reference_base) + non_moving_space_capacity;
++#else
+     request_begin = kPreferredAllocSpaceBegin + non_moving_space_capacity;
++#endif
+   }
+   // Attempt to create 2 mem maps at or after the requested begin.
+   if (foreground_collector_type_ != kCollectorTypeCC) {

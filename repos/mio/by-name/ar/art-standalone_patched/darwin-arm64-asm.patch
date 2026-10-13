@@ -2,7 +2,7 @@
 +++ b/art/runtime/arch/arm64/asm_support_arm64.S	2026-08-29 00:30:01
 @@ -41,18 +41,14 @@
  #endif
- 
+
  .macro ENTRY name
 -    .type \name, #function
 -    .hidden \name  // Hide this as a global symbol, so we do not incur plt calls.
@@ -14,26 +14,26 @@
 +    .globl _\name
 +    _\name = \name
  .endm
- 
+
  .macro END name
 -    .cfi_endproc
 -    .size \name, .-\name
  .endm
- 
+
  .macro UNIMPLEMENTED name
 --- a/art/runtime/arch/arm64/context_arm64.cc	1970-01-01 10:00:01
 +++ b/art/runtime/arch/arm64/context_arm64.cc	2026-08-29 00:30:01
 @@ -33,7 +33,7 @@
  namespace art {
  namespace arm64 {
- 
+
 -static constexpr uint64_t gZero = 0;
 +static constexpr uintptr_t gZero = 0;
- 
+
  void Arm64Context::Reset() {
    std::fill_n(gprs_, arraysize(gprs_), nullptr);
 @@ -59,7 +59,7 @@
- 
+
    // FP registers come second, from the highest down to the lowest.
    for (uint32_t fp_reg : HighToLowBits(frame_info.FpSpillMask())) {
 -    fprs_[fp_reg] = CalleeSaveAddress(frame, spill_pos, frame_info.FrameSizeInBytes());
@@ -49,7 +49,7 @@
 +  DCHECK_NE(fprs_[reg], reinterpret_cast<const uint64_t*>(&gZero));  // Can't overwrite this static value since they are never reset.
    *fprs_[reg] = value;
  }
- 
+
  void Arm64Context::SmashCallerSaves() {
    // This needs to be 0 because we want a null/zero return value.
 -  gprs_[X0] = const_cast<uint64_t*>(&gZero);
@@ -83,11 +83,11 @@
 -  .cfi_adjust_cfa_offset 16
    stp   x0, x1,   [sp, #-16]!
 -  .cfi_adjust_cfa_offset 16
- 
+
 -  bl  artFindNativeMethod
 +  bl  _artFindNativeMethod
    mov  x17, x0    // store result in scratch reg.
- 
+
    // load spill regs.
    ldp   x0, x1,   [sp], #16
 -  .cfi_adjust_cfa_offset -16
@@ -109,71 +109,71 @@
 -  .cfi_adjust_cfa_offset -16
 -  .cfi_restore x29
 -  .cfi_restore x30
- 
+
    cbz   x17, 1f   // is method code null ?
    br    x17       // if non-null, tail call to method's code.
 --- a/art/runtime/arch/arm64/quick_entrypoints_arm64.S	1970-01-01 10:00:01
 +++ b/art/runtime/arch/arm64/quick_entrypoints_arm64.S	2026-08-29 00:30:01
 @@ -22,60 +22,42 @@
- 
+
  .macro INCREASE_FRAME frame_adjustment
      sub sp, sp, #(\frame_adjustment)
 -    .cfi_adjust_cfa_offset (\frame_adjustment)
  .endm
- 
+
  .macro DECREASE_FRAME frame_adjustment
      add sp, sp, #(\frame_adjustment)
 -    .cfi_adjust_cfa_offset -(\frame_adjustment)
  .endm
- 
+
  .macro SAVE_REG reg, offset
      str \reg, [sp, #(\offset)]
 -    .cfi_rel_offset \reg, (\offset)
  .endm
- 
+
  .macro RESTORE_REG reg, offset
      ldr \reg, [sp, #(\offset)]
 -    .cfi_restore \reg
  .endm
- 
+
  .macro SAVE_REG_INCREASE_FRAME reg, frame_adjustment
      str \reg, [sp, #-(\frame_adjustment)]!
 -    .cfi_adjust_cfa_offset (\frame_adjustment)
 -    .cfi_rel_offset \reg, 0
  .endm
- 
+
  .macro RESTORE_REG_DECREASE_FRAME reg, frame_adjustment
      ldr \reg, [sp], #(\frame_adjustment)
 -    .cfi_restore \reg
 -    .cfi_adjust_cfa_offset -(\frame_adjustment)
  .endm
- 
+
  .macro SAVE_TWO_REGS reg1, reg2, offset
      stp \reg1, \reg2, [sp, #(\offset)]
 -    .cfi_rel_offset \reg1, (\offset)
 -    .cfi_rel_offset \reg2, (\offset) + 8
  .endm
- 
+
  .macro RESTORE_TWO_REGS reg1, reg2, offset
      ldp \reg1, \reg2, [sp, #(\offset)]
 -    .cfi_restore \reg1
 -    .cfi_restore \reg2
  .endm
- 
+
  .macro SAVE_TWO_REGS_INCREASE_FRAME reg1, reg2, frame_adjustment
      stp \reg1, \reg2, [sp, #-(\frame_adjustment)]!
 -    .cfi_adjust_cfa_offset (\frame_adjustment)
 -    .cfi_rel_offset \reg1, 0
 -    .cfi_rel_offset \reg2, 8
  .endm
- 
+
  .macro RESTORE_TWO_REGS_DECREASE_FRAME reg1, reg2, frame_adjustment
      ldp \reg1, \reg2, [sp], #(\frame_adjustment)
 -    .cfi_restore \reg1
 -    .cfi_restore \reg2
 -    .cfi_adjust_cfa_offset -(\frame_adjustment)
  .endm
- 
+
      /*
 @@ -85,8 +67,8 @@
  .macro SETUP_SAVE_ALL_CALLEE_SAVES_FRAME
@@ -184,7 +184,7 @@
 +    adrp xIP0, __ZN3art7Runtime9instance_E@GOTPAGE
 +    ldr xIP0, [xIP0, __ZN3art7Runtime9instance_E@GOTPAGEOFF]
      ldr xIP0, [xIP0]
- 
+
      // ArtMethod* xIP0 = Runtime::instance_->callee_save_methods_[kSaveAllCalleeSaves];
 @@ -128,8 +110,8 @@
  .macro SETUP_SAVE_REFS_ONLY_FRAME
@@ -195,14 +195,14 @@
 +    adrp xIP0, __ZN3art7Runtime9instance_E@GOTPAGE
 +    ldr xIP0, [xIP0, __ZN3art7Runtime9instance_E@GOTPAGEOFF]
      ldr xIP0, [xIP0]
- 
+
      // ArtMethod* xIP0 = Runtime::instance_->callee_save_methods_[kSaveRefOnly];
 @@ -155,7 +137,6 @@
      // barriers, as it is overwritten by REFRESH_MARKING_REGISTER
      // later; but it's not worth handling this special case.
      stp xIP0, x20, [sp]
 -    .cfi_rel_offset x20, 8
- 
+
      // Place sp in Thread::Current()->top_quick_frame.
      mov xIP0, sp
 @@ -227,8 +208,8 @@
@@ -214,28 +214,28 @@
 +    adrp xIP0, __ZN3art7Runtime9instance_E@GOTPAGE
 +    ldr xIP0, [xIP0, __ZN3art7Runtime9instance_E@GOTPAGEOFF]
      ldr xIP0, [xIP0]
- 
+
      // ArtMethod* xIP0 = Runtime::instance_->callee_save_methods_[kSaveRefAndArgs];
 @@ -326,8 +307,8 @@
      SAVE_TWO_REGS x27, x28, 480
- 
+
      // art::Runtime* xIP0 = art::Runtime::instance_;
 -    adrp xIP0, :got:_ZN3art7Runtime9instance_E
 -    ldr xIP0, [xIP0, #:got_lo12:_ZN3art7Runtime9instance_E]
 +    adrp xIP0, __ZN3art7Runtime9instance_E@GOTPAGE
 +    ldr xIP0, [xIP0, __ZN3art7Runtime9instance_E@GOTPAGEOFF]
      ldr xIP0, [xIP0]
- 
+
      // ArtMethod* xIP0 = Runtime::instance_->callee_save_methods_[kSaveEverything];
 @@ -425,7 +406,7 @@
      mov x0, xSELF
- 
+
      // Point of no return.
 -    bl artDeliverPendingExceptionFromCode  // artDeliverPendingExceptionFromCode(Thread*)
 +    bl _artDeliverPendingExceptionFromCode  // artDeliverPendingExceptionFromCode(Thread*)
      brk 0  // Unreached
  .endm
- 
+
 @@ -467,7 +448,7 @@
  ENTRY \c_name
      SETUP_SAVE_ALL_CALLEE_SAVES_FRAME // save all registers as basis for long jump context
@@ -288,9 +288,9 @@
 +    bl  _artThrowNullPointerExceptionFromSignal  // (arg, Thread*).
      brk 0
  END art_quick_throw_null_pointer_exception_from_signal
- 
+
 @@ -581,7 +560,7 @@
- 
+
      mov    x2, xSELF                      // pass Thread::Current
      mov    x3, sp
 -    bl     \cxx_name                      // (method_idx, this, Thread*, SP)
@@ -300,18 +300,18 @@
      REFRESH_MARKING_REGISTER
 @@ -611,7 +590,6 @@
      SAVE_TWO_REGS xFP, xLR, 32
- 
+
      mov xFP, sp                            // Use xFP for frame pointer, as it's callee-saved.
 -    .cfi_def_cfa_register xFP
- 
+
      add x10, x2, #(__SIZEOF_POINTER__ + 0xf) // Reserve space for ArtMethod*, arguments and
      and x10, x10, # ~0xf                   // round up for 16-byte stack alignment.
 @@ -653,7 +631,6 @@
- 
+
      // Pop the ArtMethod* (null), arguments and alignment padding from the stack.
      mov sp, xFP
 -    .cfi_def_cfa_register sp
- 
+
      // Restore saved registers including value address and shorty address.
      RESTORE_TWO_REGS x19, x20, 16
 @@ -806,7 +783,7 @@
@@ -324,7 +324,7 @@
      add \counter, \counter, 12
      b \return
 @@ -814,43 +791,43 @@
- 
+
  // Store ints.
  .LstoreW2:
 -    LOADREG x8 4 w2 .LfillRegisters
@@ -339,7 +339,7 @@
 +    LOADREG x8, 4, w5, .LfillRegisters
 +    LOADREG x8, 4, w6, .LfillRegisters
 +    LOADREG x8, 4, w7, .LfillRegisters
- 
+
  // Store longs.
  .LstoreX2:
 -    LOADREG x8 8 x2 .LfillRegisters
@@ -354,7 +354,7 @@
 +    LOADREG x8, 8, x5, .LfillRegisters
 +    LOADREG x8, 8, x6, .LfillRegisters
 +    LOADREG x8, 8, x7, .LfillRegisters
- 
+
  // Store singles.
  .LstoreS0:
 -    LOADREG x15 4 s0 .LfillRegisters
@@ -373,7 +373,7 @@
 +    LOADREG x15, 4, s5, .LfillRegisters
 +    LOADREG x15, 4, s6, .LfillRegisters
 +    LOADREG x15, 4, s7, .LfillRegisters
- 
+
  // Store doubles.
  .LstoreD0:
 -    LOADREG x15 8 d0 .LfillRegisters
@@ -392,11 +392,11 @@
 +    LOADREG x15, 8, d5, .LfillRegisters
 +    LOADREG x15, 8, d6, .LfillRegisters
 +    LOADREG x15, 8, d7, .LfillRegisters
- 
- 
+
+
  .LcallFunction:
 @@ -937,45 +914,45 @@
- 
+
  // Store ints.
  .LstoreW1_2:
 -    LOADREG x8 4 w1 .LfillRegisters2
@@ -413,7 +413,7 @@
 +    LOADREG x8, 4, w5, .LfillRegisters2
 +    LOADREG x8, 4, w6, .LfillRegisters2
 +    LOADREG x8, 4, w7, .LfillRegisters2
- 
+
  // Store longs.
  .LstoreX1_2:
 -    LOADREG x8 8 x1 .LfillRegisters2
@@ -430,7 +430,7 @@
 +    LOADREG x8, 8, x5, .LfillRegisters2
 +    LOADREG x8, 8, x6, .LfillRegisters2
 +    LOADREG x8, 8, x7, .LfillRegisters2
- 
+
  // Store singles.
  .LstoreS0_2:
 -    LOADREG x15 4 s0 .LfillRegisters2
@@ -449,7 +449,7 @@
 +    LOADREG x15, 4, s5, .LfillRegisters2
 +    LOADREG x15, 4, s6, .LfillRegisters2
 +    LOADREG x15, 4, s7, .LfillRegisters2
- 
+
  // Store doubles.
  .LstoreD0_2:
 -    LOADREG x15 8 d0 .LfillRegisters2
@@ -468,8 +468,8 @@
 +    LOADREG x15, 8, d5, .LfillRegisters2
 +    LOADREG x15, 8, d6, .LfillRegisters2
 +    LOADREG x15, 8, d7, .LfillRegisters2
- 
- 
+
+
  .LcallFunction2:
 @@ -1014,7 +991,6 @@
      str xzr, [sp]                         // Store null for ArtMethod* slot
@@ -477,18 +477,18 @@
      bl .Losr_entry
 -    .cfi_remember_state
      DECREASE_FRAME 16
- 
+
      // Restore saved registers including value address and shorty address.
 @@ -1056,11 +1032,8 @@
      ret
- 
+
  .Losr_entry:
 -    .cfi_restore_state                     // Reset unwind info so following code unwinds.
 -    .cfi_def_cfa_offset (SAVE_SIZE+16)     // workaround for clang bug: 31975598
- 
+
      mov x9, sp                             // Save stack pointer.
 -    .cfi_def_cfa_register x9
- 
+
      // Update stack pointer for the callee
      sub sp, sp, x1
 @@ -1186,7 +1159,7 @@
@@ -511,23 +511,23 @@
      RETURN_IF_W0_IS_ZERO_OR_DELIVER
 @@ -1264,7 +1237,7 @@
      SAVE_REG xLR, 24
- 
+
      // Call runtime code
 -    bl artInstanceOfFromCode
 +    bl _artInstanceOfFromCode
- 
+
      // Restore LR.
      RESTORE_REG xLR, 24
 @@ -1273,11 +1246,8 @@
      cbz x0, .Lthrow_class_cast_exception
- 
+
      // Restore and return
 -    .cfi_remember_state
      RESTORE_TWO_REGS_DECREASE_FRAME x0, x1, 32
      ret
 -    .cfi_restore_state                // Reset unwind info so following code unwinds.
 -    .cfi_def_cfa_offset 32            // workaround for clang bug: 31975598
- 
+
  .Lthrow_class_cast_exception:
      // Restore
 @@ -1286,7 +1256,7 @@
@@ -538,7 +538,7 @@
 +    bl _artThrowClassCastExceptionForObject     // (Object*, Class*, Thread*)
      brk 0                             // We should not return here...
  END art_quick_check_instance_of
- 
+
 @@ -1294,7 +1264,6 @@
  .macro POP_REG_NE xReg, offset, xExclude
      .ifnc \xReg, \xExclude
@@ -546,7 +546,7 @@
 -        .cfi_restore \xReg
      .endif
  .endm
- 
+
 @@ -1310,8 +1279,6 @@
              ldp \xReg1, \xReg2, [sp, #\offset]  // restore xReg1 and xReg2
          .endif
@@ -554,7 +554,7 @@
 -    .cfi_restore \xReg1
 -    .cfi_restore \xReg2
  .endm
- 
+
      /*
 @@ -1343,7 +1310,7 @@
          mov x1, \xObj               // pass xObj
@@ -571,15 +571,15 @@
      mov x1, x4              // Heap reference, 32b, "uncompress" = do nothing, already zero-extended
 -    bl artIsAssignableFromCode
 +    bl _artIsAssignableFromCode
- 
+
      // Check for exception
      cbz x0, .Lthrow_array_store_exception
- 
+
      // Restore
 -    .cfi_remember_state
      RESTORE_TWO_REGS x2, xLR, 16
      RESTORE_TWO_REGS_DECREASE_FRAME x0, x1, 32
- 
+
 @@ -1417,8 +1383,6 @@
      lsr x0, x0, #CARD_TABLE_CARD_SHIFT
      strb w3, [x3, x0]
@@ -597,7 +597,7 @@
 +    bl _artThrowArrayStoreException  // (Object*, Object*, Thread*).
      brk 0                           // Unreached.
  END art_quick_aput_obj
- 
+
 @@ -1436,7 +1400,7 @@
  ENTRY \name
      SETUP_SAVE_REFS_ONLY_FRAME        // save callee saves in case of GC
@@ -687,7 +687,7 @@
      REFRESH_MARKING_REGISTER
      RETURN_IF_RESULT_IS_NON_ZERO_OR_DELIVER
 @@ -1749,7 +1710,7 @@
- 
+
  // If isInitialized=1 then the compiler assumes the object's class has already been initialized.
  // If isInitialized=0 the compiler can only assume it's been at least resolved.
 -.macro ALLOC_OBJECT_TLAB_FAST_PATH_RESOLVED slowPathLabel isInitialized
@@ -741,13 +741,13 @@
      cbnz    x2, .Lexception_in_proxy    // success if no exception is pending
      RESTORE_SAVE_REFS_AND_ARGS_FRAME    // Restore frame
 @@ -2058,7 +2019,7 @@
- 
+
      mov x0, xIP1                            // Pass method index.
      ldr x1, [sp, #(8 * 8 + 8 * 8 + 8 + 8)]  // Pass referrer.
 -    bl artLookupResolvedMethod              // (uint32_t method_index, ArtMethod* referrer)
 +    bl _artLookupResolvedMethod              // (uint32_t method_index, ArtMethod* referrer)
      mov x14, x0   // Move the interface method to x14 where the loop above expects it.
- 
+
      // Restore FPR args.
 @@ -2083,7 +2044,7 @@
      SETUP_SAVE_REFS_AND_ARGS_FRAME
@@ -759,37 +759,37 @@
      mov xIP0, x0            // Remember returned code pointer in xIP0.
      ldr x0, [sp, #0]        // artQuickResolutionTrampoline puts called method in *SP.
 @@ -2155,7 +2116,6 @@
- 
+
      // Save SP , so we can have static CFI info.
      mov x28, sp
 -    .cfi_def_cfa_register x28
- 
+
      // This looks the same, but is different: this will be updated to point to the bottom
      // of the frame when the handle scope is inserted.
 @@ -2171,7 +2131,7 @@
- 
+
      mov x0, xSELF   // Thread*
      mov x1, xFP
 -    bl artQuickGenericJniTrampoline  // (Thread*, sp)
 +    bl _artQuickGenericJniTrampoline  // (Thread*, sp)
- 
+
      // The C call will have registered the complete save-frame on success.
      // The result of the call is:
 @@ -2212,7 +2172,7 @@
      mov x0, xSELF   // Thread register.
      fmov x2, d0     // d0 will contain floating point result, but needs to go into x2
- 
+
 -    bl artQuickGenericJniEndTrampoline
 +    bl _artQuickGenericJniEndTrampoline
- 
+
      // Pending exceptions possible.
      ldr x2, [xSELF, THREAD_EXCEPTION_OFFSET]
 @@ -2220,7 +2180,6 @@
- 
+
      // Tear down the alloca.
      mov sp, x28
 -    .cfi_def_cfa_register sp
- 
+
      // Tear down the callee-save frame.
      RESTORE_SAVE_REFS_AND_ARGS_FRAME
 @@ -2234,7 +2193,6 @@
@@ -801,21 +801,21 @@
      DELIVER_PENDING_EXCEPTION
  END art_quick_generic_jni_trampoline
 @@ -2254,7 +2212,7 @@
- 
+
      // uint64_t artQuickToInterpreterBridge(mirror::ArtMethod* method, Thread* self,
      //                                      mirror::ArtMethod** sp)
 -    bl   artQuickToInterpreterBridge
 +    bl   _artQuickToInterpreterBridge
- 
+
      RESTORE_SAVE_REFS_AND_ARGS_FRAME       // TODO: no need to restore arguments in this case.
      REFRESH_MARKING_REGISTER
 @@ -2281,7 +2239,7 @@
- 
+
      mov   x2, xSELF
      mov   x3, sp  // Pass SP
 -    bl    artInstrumentationMethodEntryFromCode  // (Method*, Object*, Thread*, SP)
 +    bl    _artInstrumentationMethodEntryFromCode  // (Method*, Object*, Thread*, SP)
- 
+
      mov   xIP0, x0            // x0 = result of call.
      mov   x0, x20             // Reload method reference.
 @@ -2305,7 +2263,7 @@
@@ -824,7 +824,7 @@
      mov   x0, xSELF           // Pass Thread.
 -    bl   artInstrumentationMethodExitFromCode    // (Thread*, SP, gpr_res*, fpr_res*)
 +    bl   _artInstrumentationMethodExitFromCode    // (Thread*, SP, gpr_res*, fpr_res*)
- 
+
      cbz   x0, .Ldo_deliver_instrumentation_exception
                                // Handle error
 @@ -2323,7 +2281,7 @@
@@ -834,7 +834,7 @@
 -    b     art_quick_deoptimize
 +    b     _art_quick_deoptimize
  END art_quick_instrumentation_exit
- 
+
      /*
 @@ -2334,7 +2292,7 @@
  ENTRY art_quick_deoptimize
@@ -844,7 +844,7 @@
 +    bl     _artDeoptimize      // (Thread*)
      brk 0
  END art_quick_deoptimize
- 
+
 @@ -2346,7 +2304,7 @@
  ENTRY art_quick_deoptimize_from_compiled_code
      SETUP_SAVE_EVERYTHING_FRAME
@@ -853,7 +853,7 @@
 +    bl     _artDeoptimizeFromCompiledCode  // (DeoptimizationKind, Thread*)
      brk 0
  END art_quick_deoptimize_from_compiled_code
- 
+
 @@ -2538,7 +2496,7 @@
      .ifnc \wreg, w0
        mov   w0, \wreg                   // Pass arg1 - obj from `wreg`
@@ -870,16 +870,16 @@
 -    b     art_quick_read_barrier_mark_introspection
 +    b     _art_quick_read_barrier_mark_introspection
  .endm
- 
+
  .macro MOV_WIP0_TO_WREG_AND_BL_LR reg
 @@ -2712,7 +2670,7 @@
      stp   d30, d31, [sp, #320]
- 
+
      mov   x0, xIP0
 -    bl    artReadBarrierMark          // artReadBarrierMark(obj)
 +    bl    _artReadBarrierMark          // artReadBarrierMark(obj)
      mov   xIP0, x0
- 
+
      // Restore core regs, except x0 and x1 as the return register switch case
 @@ -2837,14 +2795,14 @@
      // array switch cases. Should we go a little bit over the limit, we can
@@ -975,7 +975,7 @@
 +    bl      _$func                       // w0<- code-unit branch offset
      sxtw    xINST, w0
      b       MterpCommonTakenBranchNoFlags
- 
+
 @@ -145,7 +145,7 @@
       */
      /* op vAA */
@@ -992,10 +992,10 @@
 -    bl      MterpSuspendCheck           // (self)
 +    bl      _MterpSuspendCheck           // (self)
      b       .L${opcode}_return
- 
+
  %def op_return_object():
 @@ -163,7 +163,7 @@
- 
+
  %def op_return_void():
      .extern MterpThreadFenceForConstructor
 -    bl      MterpThreadFenceForConstructor
@@ -1010,7 +1010,7 @@
 -    bl      MterpSuspendCheck           // (self)
 +    bl      _MterpSuspendCheck           // (self)
      b       .L${opcode}_return
- 
+
  %def op_return_void_no_barrier():
 @@ -184,7 +184,7 @@
      mov     x0, #0
@@ -1019,7 +1019,7 @@
 -    bl      MterpSuspendCheck           // (self)
 +    bl      _MterpSuspendCheck           // (self)
      b       .L${opcode}_return
- 
+
  %def op_return_wide():
 @@ -194,7 +194,7 @@
      /* return-wide vAA */
@@ -1037,7 +1037,7 @@
 -    bl      MterpSuspendCheck           // (self)
 +    bl      _MterpSuspendCheck           // (self)
      b       .L${opcode}_return
- 
+
  %def op_sparse_switch():
 --- a/art/runtime/interpreter/mterp/arm64/floating_point.S	1970-01-01 10:00:01
 +++ b/art/runtime/interpreter/mterp/arm64/floating_point.S	2026-08-29 00:30:01
@@ -1060,12 +1060,12 @@
      FETCH_ADVANCE_INST 1                // advance rPC, load rINST
      GET_INST_OPCODE ip                  // extract opcode from rINST
 @@ -290,7 +290,7 @@
- 
+
  %def op_rem_float():
  /* EABI doesn't define a float remainder function, but libm does */
 -%  fbinop(instr="bl      fmodf")
 +%  fbinop(instr="bl      _fmodf")
- 
+
  %def op_rem_float_2addr():
      /* rem vA, vB */
 @@ -298,7 +298,7 @@
@@ -1106,7 +1106,7 @@
 -    .cfi_rel_offset \reg1, (\offset)
 -    .cfi_rel_offset \reg2, (\offset) + 8
  .endm
- 
+
  /*
 @@ -330,8 +328,6 @@
   */
@@ -1115,7 +1115,7 @@
 -    .cfi_restore \reg1
 -    .cfi_restore \reg2
  .endm
- 
+
  /*
 @@ -339,9 +335,6 @@
   */
@@ -1125,7 +1125,7 @@
 -    .cfi_rel_offset \reg1, 0
 -    .cfi_rel_offset \reg2, 8
  .endm
- 
+
  /*
 @@ -349,25 +342,20 @@
   */
@@ -1135,7 +1135,7 @@
 -    .cfi_restore \reg2
 -    .cfi_adjust_cfa_offset -(\frame_adjustment)
  .endm
- 
+
  /*
   * function support macros.
   */
@@ -1149,11 +1149,11 @@
 +    .globl _\name
 +    _\name = \name
  .endm
- 
+
  .macro END name
 -    .size \name, .-\name
  .endm
- 
+
  // Macro to unpoison (negate) the reference for heap poisoning.
 @@ -406,7 +394,6 @@
   *
@@ -1170,7 +1170,7 @@
 -    bl      MterpSetUpHotnessCountdown
 +    bl      _MterpSetUpHotnessCountdown
      mov     wPROFILE, w0                // Starting hotness countdown to xPROFILE
- 
+
      /* start executing the instruction at rPC */
 @@ -454,7 +441,7 @@
      mov    x0, xSELF
@@ -1178,16 +1178,16 @@
      mov    x2, xPC
 -    b      MterpCheckBefore     // (self, shadow_frame, dex_pc_ptr) Note: tail call.
 +    b      _MterpCheckBefore     // (self, shadow_frame, dex_pc_ptr) Note: tail call.
- 
+
  %def opcode_pre():
  %  add_helper(dchecks_before_helper, "mterp_dchecks_before_helper")
 @@ -463,7 +450,6 @@
      #endif
- 
+
  %def footer():
 -    .cfi_endproc
      END MterpHelpers
- 
+
  %def fallback():
 @@ -489,7 +475,7 @@
  #if MTERP_LOGGING
@@ -1197,7 +1197,7 @@
 +    bl _MterpLogDivideByZeroException
  #endif
      b MterpCommonFallback
- 
+
 @@ -498,7 +484,7 @@
  #if MTERP_LOGGING
      mov  x0, xSELF
@@ -1206,7 +1206,7 @@
 +    bl _MterpLogArrayIndexException
  #endif
      b MterpCommonFallback
- 
+
 @@ -507,7 +493,7 @@
  #if MTERP_LOGGING
      mov  x0, xSELF
@@ -1215,7 +1215,7 @@
 +    bl _MterpLogNegativeArraySizeException
  #endif
      b MterpCommonFallback
- 
+
 @@ -516,7 +502,7 @@
  #if MTERP_LOGGING
      mov  x0, xSELF
@@ -1224,7 +1224,7 @@
 +    bl _MterpLogNoSuchMethodException
  #endif
      b MterpCommonFallback
- 
+
 @@ -525,7 +511,7 @@
  #if MTERP_LOGGING
      mov  x0, xSELF
@@ -1233,7 +1233,7 @@
 +    bl _MterpLogNullObjectException
  #endif
      b MterpCommonFallback
- 
+
 @@ -534,7 +520,7 @@
  #if MTERP_LOGGING
      mov  x0, xSELF
@@ -1242,7 +1242,7 @@
 +    bl _MterpLogExceptionThrownException
  #endif
      b MterpCommonFallback
- 
+
 @@ -544,7 +530,7 @@
      mov  x0, xSELF
      add  x1, xFP, #OFF_FP_SHADOWFRAME
@@ -1251,7 +1251,7 @@
 +    bl _MterpLogSuspendFallback
  #endif
      b MterpCommonFallback
- 
+
 @@ -565,7 +551,7 @@
  MterpException:
      mov     x0, xSELF
@@ -1278,7 +1278,7 @@
 +    bl      _MterpMaybeDoOnStackReplacement  // (self, shadow_frame, offset)
      cbnz    x0, MterpOnStackReplacement
      b       .L_resume_backward_branch
- 
+
 @@ -653,7 +639,7 @@
      add     x1, xFP, #OFF_FP_SHADOWFRAME
      mov     x2, xINST
@@ -1287,7 +1287,7 @@
 +    bl      _MterpMaybeDoOnStackReplacement  // (self, shadow_frame, offset)
      cbnz    x0, MterpOnStackReplacement
      b       .L_resume_forward_branch
- 
+
 @@ -662,7 +648,7 @@
      strh    wPROFILE, [x1, #SHADOWFRAME_HOTNESS_COUNTDOWN_OFFSET]
      ldr     x0, [xFP, #OFF_FP_METHOD]
@@ -1296,7 +1296,7 @@
 +    bl      _MterpAddHotnessBatch        // (method, shadow_frame, self)
      mov     wPROFILE, w0                // restore new hotness countdown to wPROFILE
      b       .L_no_count_backwards
- 
+
 @@ -675,7 +661,7 @@
      add     x1, xFP, #OFF_FP_SHADOWFRAME
      mov     x2, #2
@@ -1346,7 +1346,7 @@
      ret
 -    .cfi_restore_state                              // Reset unwind info so following code unwinds.
 -    .cfi_def_cfa_offset 80                          // workaround for clang bug: 31975598
- 
+
  MterpProfileActive:
      mov     xINST, x0                               // stash return value
 @@ -768,7 +751,7 @@
@@ -1359,19 +1359,19 @@
      RESTORE_TWO_REGS                fp, lr, 64
      RESTORE_TWO_REGS                xPC, xFP, 48
 @@ -780,17 +763,17 @@
- 
+
  %def instruction_end():
- 
+
 -    .type artMterpAsmInstructionEnd, #object
 -    .hidden artMterpAsmInstructionEnd
 -    .global artMterpAsmInstructionEnd
  artMterpAsmInstructionEnd:
 +    .globl _artMterpAsmInstructionEnd
 +    _artMterpAsmInstructionEnd = artMterpAsmInstructionEnd
- 
+
 +
  %def instruction_start():
- 
+
 -    .type artMterpAsmInstructionStart, #object
 -    .hidden artMterpAsmInstructionStart
 -    .global artMterpAsmInstructionStart
@@ -1380,7 +1380,7 @@
 +    _artMterpAsmInstructionStart = artMterpAsmInstructionStart
 +
      .text
- 
+
  %def opcode_start():
 --- a/art/runtime/interpreter/mterp/arm64/object.S	1970-01-01 10:00:01
 +++ b/art/runtime/interpreter/mterp/arm64/object.S	2026-08-29 00:30:01

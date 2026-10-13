@@ -1,0 +1,39 @@
+--- a/art/runtime/fault_handler.cc	2026-10-12 21:34:30.700246897 +1100
++++ b/art/runtime/fault_handler.cc	2026-10-12 21:38:14.152961092 +1100
+@@ -17,6 +17,8 @@
+ #include "fault_handler.h"
+
+ #include <string.h>
++#include <dlfcn.h>
++#include <stdio.h>
+ #include <sys/mman.h>
+ #include <sys/ucontext.h>
+
+@@ -45,6 +47,28 @@
+
+ // Signal handler called on SIGSEGV.
+ static bool art_fault_handler(int sig, siginfo_t* info, void* context) {
++#if defined(__APPLE__) && defined(__aarch64__)
++  {
++    // Temporary diagnostic: record the crash PC and its symbol (ART's own dumper cannot read the
++    // Darwin ucontext here).  Remove once the Darwin port is stable.
++    ucontext_t* uc = reinterpret_cast<ucontext_t*>(context);
++    uintptr_t pc =
++        static_cast<uintptr_t>(__darwin_arm_thread_state64_get_pc(uc->uc_mcontext->__ss));
++    uintptr_t lr =
++        static_cast<uintptr_t>(__darwin_arm_thread_state64_get_lr(uc->uc_mcontext->__ss));
++    FILE* f = fopen("/tmp/artfault2.txt", "a");
++    if (f != nullptr) {
++      Dl_info di;
++      const char* sname = "?";
++      if (dladdr(reinterpret_cast<void*>(pc), &di) != 0 && di.dli_sname != nullptr) {
++        sname = di.dli_sname;
++      }
++      fprintf(f, "sig=%d addr=%p pc=0x%lx lr=0x%lx sym=%s\n",
++              sig, info->si_addr, (unsigned long)pc, (unsigned long)lr, sname);
++      fclose(f);
++    }
++  }
++#endif
+   return fault_manager.HandleFault(sig, info, context);
+ }

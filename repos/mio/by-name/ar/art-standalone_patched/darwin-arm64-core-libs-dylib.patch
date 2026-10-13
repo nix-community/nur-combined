@@ -1,0 +1,43 @@
+--- a/art/runtime/runtime.cc	2026-10-12 21:49:23.542451353 +1100
++++ b/art/runtime/runtime.cc	2026-10-12 21:49:33.001811798 +1100
+@@ -1838,8 +1838,14 @@
+   {
+     std::string error_msg;
+     std::string error_msg2;
++#if defined(__APPLE__)
++    // On Darwin the core libraries are dylibs, not .so.
++    constexpr const char* kLibJavacore = "libjavacore.dylib";
++#else
++    constexpr const char* kLibJavacore = "libjavacore.so";
++#endif
+     if (!java_vm_->LoadNativeLibrary(
+-          env, "libjavacore.so", nullptr, WellKnownClasses::java_lang_Object, &error_msg)) {
++          env, kLibJavacore, nullptr, WellKnownClasses::java_lang_Object, &error_msg)) {
+       // if the above didn't work, try loading from the install path
+       Dl_info libart_so_dl_info;
+       // art_sigsegv_fault chosen arbitrarily, what matters is that it's a symbol exported by by libart.so
+@@ -1851,7 +1857,7 @@
+         *strrchr(libart_so_full_path, '/') = '\0'; // now we should have something like /usr/lib64/art
+         std::string bootclasspath_prefix = (std::string)libart_so_full_path + "/../java/dex/art/";
+         free(libart_so_full_path);
+-        if (!java_vm_->LoadNativeLibrary(env, bootclasspath_prefix+"natives/libjavacore.so", nullptr, WellKnownClasses::java_lang_Object, &error_msg2)) {
++        if (!java_vm_->LoadNativeLibrary(env, bootclasspath_prefix+"natives/"+kLibJavacore, nullptr, WellKnownClasses::java_lang_Object, &error_msg2)) {
+           LOG(FATAL) << "LoadNativeLibrary failed for \"libjavacore.so\": " << error_msg << "\n"
+                         "also failed to load from install path: " << error_msg2;
+         }
+@@ -1862,6 +1868,10 @@
+     }
+   }
+   {
++#if defined(__APPLE__)
++    constexpr const char* kOpenJdkLibrary = kIsDebugBuild ? "libopenjdkd.dylib"
++                                                          : "libopenjdk.dylib";
++#else
+     constexpr const char* kOpenJdkLibrary = kIsDebugBuild
+                                                 ? "libopenjdkd.so"
+                                                 : "libopenjdk.so";
+@@ -1868,3 +1878,4 @@
++#endif
+     std::string error_msg;
+     std::string error_msg2;
+     if (!java_vm_->LoadNativeLibrary(

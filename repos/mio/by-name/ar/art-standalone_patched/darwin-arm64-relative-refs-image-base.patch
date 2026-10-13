@@ -1,26 +1,24 @@
 --- a/art/runtime/gc/space/image_space.cc	2026-10-11 10:53:56.505809300 +1100
 +++ b/art/runtime/gc/space/image_space.cc	2026-10-11 11:30:45.032748552 +1100
-@@ -101,9 +101,27 @@
+@@ -101,9 +101,25 @@
  }
- 
+
  static int32_t ChooseRelocationOffsetDelta() {
 -  return ChooseRelocationOffsetDelta(ART_BASE_ADDRESS_MIN_DELTA, ART_BASE_ADDRESS_MAX_DELTA);
-+  int32_t delta = ChooseRelocationOffsetDelta(ART_BASE_ADDRESS_MIN_DELTA, ART_BASE_ADDRESS_MAX_DELTA);
++  // References are offsets from g_reference_base (kReferenceBase), so the image must be built and
++  // loaded exactly at the window base: no ASLR delta is allowed.
 +#if ART_USE_RELATIVE_REFS
-+  // References are offsets from g_reference_base, so a negative delta would place the image below
-+  // the window base and corrupt them (and the low_4gb check would reject the reservation).
-+  if (delta < 0) {
-+    delta = 0;
-+  }
++  return 0;
++#else
++  return ChooseRelocationOffsetDelta(ART_BASE_ADDRESS_MIN_DELTA, ART_BASE_ADDRESS_MAX_DELTA);
 +#endif
-+  return delta;
  }
- 
+
 +// The base address of the host boot image.  With relative references the image must live inside
-+// the runtime-chosen reference window (g_reference_base), not the fixed ART_BASE_ADDRESS.
++// the reference window (kReferenceBase), not the fixed ART_BASE_ADDRESS.
 +static uintptr_t ArtBaseAddress() {
 +#if ART_USE_RELATIVE_REFS
-+  return g_reference_base;
++  return kReferenceBase;
 +#else
 +  return ART_BASE_ADDRESS;
 +#endif
@@ -30,7 +28,7 @@
                            InstructionSet image_isa,
                            std::string* error_msg) {
 @@ -164,8 +182,9 @@
- 
+
    int32_t base_offset = ChooseRelocationOffsetDelta();
    LOG(INFO) << "Using an offset of 0x" << std::hex << base_offset << " from default "
 -            << "art base address of 0x" << std::hex << ART_BASE_ADDRESS;
@@ -38,7 +36,7 @@
 +            << "art base address of 0x" << std::hex << ArtBaseAddress();
 +  arg_vector.push_back(StringPrintf("--base=0x%zx",
 +                                    static_cast<size_t>(ArtBaseAddress() + base_offset)));
- 
+
    if (!kIsTargetBuild) {
      arg_vector.push_back("--host");
 @@ -1872,10 +1891,10 @@

@@ -103,10 +103,28 @@
           --replace-warn "'-lasound'" "" \
           --replace-warn "'-Wl,-z,lazy'," ""
       '';
-    postInstall = (old.postInstall or "") + ''
-      mkdir -p $out/etc/security
-      ln -s ${cacert.unbundled}/etc/ssl/certs $out/etc/security/cacerts
-    '';
+    postInstall =
+      (old.postInstall or "")
+      + ''
+        mkdir -p $out/etc/security
+        ln -s ${cacert.unbundled}/etc/ssl/certs $out/etc/security/cacerts
+      ''
+      + lib.optionalString stdenv.hostPlatform.isDarwin ''
+        # The loader looks for the boot image at $out/framework/boot.art, but ART cannot
+        # write it there at runtime (the store is read-only), so pre-build it here.
+        mkdir -p $out/framework
+        boot_jars=()
+        for j in ${art-standalone_patched}/lib/java/dex/art/*-hostdex.jar; do
+          boot_jars+=(--dex-file="$j" --dex-location="$j")
+        done
+        ${art-standalone_patched}/bin/dex2oat \
+          --image=$out/framework/boot.art \
+          "''${boot_jars[@]}" \
+          --oat-file=$out/framework/boot.oat \
+          --instruction-set=arm64 \
+          --instruction-set-features=-a53,crc,-lse,fp16,dotprod \
+          --base=0x300000000 --host
+      '';
     preFixup = (old.preFixup or "") + ''
       mkdir -p $out/lib/gdk-pixbuf-2.0/2.10.0
       GDK_PIXBUF_MODULEDIR=${gdk-pixbuf}/lib/gdk-pixbuf-2.0/2.10.0/loaders ${gdk-pixbuf.dev}/bin/gdk-pixbuf-query-loaders > $out/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache

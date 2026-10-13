@@ -1,0 +1,21 @@
+--- a/art/runtime/thread_pool.cc	2026-10-12 20:31:09.168661301 +1100
++++ b/art/runtime/thread_pool.cc	2026-10-12 20:31:22.897751319 +1100
+@@ -22,6 +22,7 @@
+ #include <sys/time.h>
+
+ #include <pthread.h>
++#include <unistd.h>
+
+ #include <android-base/logging.h>
+ #include <android-base/stringprintf.h>
+@@ -46,6 +47,10 @@
+       name_(name) {
+   // Add an inaccessible page to catch stack overflow.
+   stack_size += kPageSize;
++  // macOS's pthread_attr_setstack() rejects a size that is not a multiple of the host page size
++  // (16 KiB on Apple Silicon), which is larger than ART's kPageSize.
++  const size_t host_page_size = static_cast<size_t>(sysconf(_SC_PAGE_SIZE));
++  stack_size = RoundUp(stack_size, host_page_size);
+   std::string error_msg;
+   stack_ = MemMap::MapAnonymous(name.c_str(),
+                                 stack_size,

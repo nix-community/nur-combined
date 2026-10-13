@@ -11,17 +11,17 @@
 +#endif
    }
  }
- 
+
 --- a/art/runtime/entrypoints/quick/quick_default_init_entrypoints.h	2026-10-10 23:41:13.209158393 +1100
 +++ b/art/runtime/entrypoints/quick/quick_default_init_entrypoints.h	2026-10-10 23:41:13.253544798 +1100
 @@ -31,7 +31,9 @@
    jpoints->pDlsymLookup = art_jni_dlsym_lookup_stub;
- 
+
    // Alloc
 +#if !defined(__APPLE__) || !defined(__LP64__)
    ResetQuickAllocEntryPoints(qpoints, /* is_marking= */ true);
 +#endif
- 
+
    // Resolution and initialization
    qpoints->pInitializeStaticStorage = art_quick_initialize_static_storage;
 --- a/art/runtime/entrypoints/quick/quick_alloc_entrypoints.cc	2026-10-11 11:30:55.037942109 +1100
@@ -41,5 +41,5 @@
 -  UNIMPLEMENTED(FATAL);
 -  UNREACHABLE();
  }
- 
+
  }  // namespace art

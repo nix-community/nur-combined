@@ -1,0 +1,18 @@
+--- a/art/runtime/interpreter/mterp/arm64/other.S	2026-10-12 21:44:10.263140530 +1100
++++ b/art/runtime/interpreter/mterp/arm64/other.S	2026-10-12 21:44:19.656621039 +1100
+@@ -142,6 +142,7 @@
+     EXPORT_PC
+     lsr      w2, wINST, #8               // w2<- AA
+     GET_VREG w0, w2                      // w0<- vAA (object)
++    ADD_REF_BASE x0
+     mov      x1, xSELF                   // w1<- self
+     bl       artLockObjectFromCode
+     cbnz     w0, MterpException
+@@ -163,6 +164,7 @@
+     EXPORT_PC
+     lsr      w2, wINST, #8              // w2<- AA
+     GET_VREG w0, w2                     // w0<- vAA (object)
++    ADD_REF_BASE x0
+     mov      x1, xSELF                  // w0<- self
+     bl       artUnlockObjectFromCode    // w0<- success for unlock(self, obj)
+     cbnz     w0, MterpException

@@ -308,8 +308,8 @@ and running ART (a long build), so converging them needs a build loop.
   window (e.g. `[0x300000000, 0x400000000)`), and produces `boot.oat` +
   `boot.vdex`. The `msync` hang is gone.
 
-**Remaining**: `dex2oat` still segfaults during class loading, after writing
-`boot.oat`/`boot.vdex` but before `boot.art` (details below). Fixed along the way:
+**Fixed**: `dex2oat` now runs to completion — `rc=0`, writing `boot.art`,
+`boot.oat` and `boot.vdex`. Along the way:
 
 - the image base now follows the runtime window — `ArtBaseAddress()` returns
   `g_reference_base` (`darwin-arm64-relative-refs-image-base.patch`) instead of
@@ -318,7 +318,13 @@ and running ART (a long build), so converging them needs a build loop.
   `LIBART_IMG_HOST_BASE_ADDRESS`, is superseded and was removed);
 - the GC card table, which was hard-sized to cover `[4 KB, 4 GB)`
   (`darwin-arm64-relative-refs-heap.patch`) — with a heap at 12 GiB every
-  `CardFromAddr` was out of bounds.
+  `CardFromAddr` was out of bounds;
+- the interpreter's `UnstartedRuntime` JNI shims read an object argument slot
+  with `reinterpret_cast32<mirror::Object*>(args[n])`, treating a compressed
+  reference as an absolute low-4-GiB pointer; with relative refs the slot is an
+  *offset*, so this dereferenced `0x3da68`.
+  `darwin-arm64-relative-refs-unstarted.patch` adds an `UnstartedArgObject()`
+  accessor that adds `g_reference_base`, used at all 11 such sites.
 
 ### Known open issue: base reconciliation across processes
 
@@ -423,11 +429,15 @@ Fatal signal 11 (SIGSEGV), code 2 (SEGV_ACCERR) fault addr 0x3da68   # < 4 GiB, 
 ... Loaded class [Ljava/lang/Integer;
 ```
 
-A fault address that low (inside the arm64 `__PAGEZERO`) points at a reference
-**offset** being used as an address — i.e. an unpatched raw-reference site. The
-interpreter (mterp) and the arm64 codegen are patched, but a C++/verifier site or
-the darwin fault handler may not be. That is the next thing to chase; `lldb` is
-unavailable in this sandbox, so it needs targeted logging.
+A fault address that low (inside the arm64 `__PAGEZERO`) was a reference
+**offset** used as an address. The culprit was
+`interpreter::UnstartedRuntime::Jni` →
+`UnstartedJNIUnsafeGetArrayBaseOffsetForComponentType`, whose
+`reinterpret_cast32<mirror::Object*>(args[0])` treated the interpreter's
+compressed argument slot as an absolute pointer. Localized with a temporary
+`dladdr`-based diagnostic in `runtime_common.cc`'s crash dumper (`lldb` and core
+dumps are unavailable here) and fixed by
+`darwin-arm64-relative-refs-unstarted.patch`.
 
 ## Plan
 

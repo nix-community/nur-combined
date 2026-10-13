@@ -1,0 +1,23 @@
+--- a/libnativehelper/Android.mk	2026-10-13 09:41:52.846880333 +1100
++++ b/libnativehelper/Android.mk	2026-10-13 09:41:56.032860155 +1100
+@@ -31,9 +31,7 @@
+ LOCAL_SRC_FILES := \
+     $(local_src_files) \
+     JniInvocation.cpp
+-ifeq ($(HOST_OS),linux)
+ LOCAL_SRC_FILES += AsynchronousCloseMonitor.cpp
+-endif
+ LOCAL_CFLAGS :=  -fvisibility=protected
+ LOCAL_C_INCLUDES := libcore/include
+ LOCAL_SHARED_LIBRARIES := liblog
+--- a/libnativehelper/AsynchronousCloseMonitor.cpp	2026-10-13 09:41:52.848594481 +1100
++++ b/libnativehelper/AsynchronousCloseMonitor.cpp	2026-10-13 09:41:56.081448601 +1100
+@@ -16,7 +16,7 @@
+
+ #define LOG_TAG "AsynchronousCloseMonitor"
+
+-#include "AsynchronousCloseMonitor.h"
++#include "nativehelper/AsynchronousCloseMonitor.h"
+ #include "cutils/log.h"
+
+ #include <errno.h>

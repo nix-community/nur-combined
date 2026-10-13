@@ -48,20 +48,31 @@ let
     ./darwin-fault-handler-arm64.patch
     ./darwin-build-system.patch
     ./darwin-system.patch
+    ./darwin-arm64-nativehelper-asyncclose.patch
+    ./darwin-arm64-openjdk-jvm-timeout.patch
+    ./darwin-arm64-oat-skip-dlopen.patch
     ./darwin-libcore-host.patch
+    ./darwin-arm64-libcore-strerror.patch
     ./darwin-art-runtime.patch
+    ./darwin-arm64-core-libs-dylib.patch
     ./darwin-arm64-asm.patch
     ./darwin-misc.patch
     # Skip CHECK_EQ(sysconf(_SC_PAGE_SIZE), kPageSize) on Apple Silicon where
     # the host page size is 16 KB but ART's kPageSize is compiled as 4 KB.
     ./darwin-page-size.patch
+    ./darwin-arm64-page-size-16k.patch
     # Arm64 Darwin: store heap references relative to a base above the low 4 GiB,
     # which arm64 macOS reserves.  See DARWIN-ARM64.md.
     ./darwin-arm64-relative-refs.patch
     ./darwin-arm64-relative-refs-mterp.patch
+    ./darwin-arm64-relative-refs-mterp-other.patch
     ./darwin-arm64-relative-refs-alloc.patch
     ./darwin-arm64-relative-refs-heap.patch
+    ./darwin-arm64-heap-window-begin.patch
     ./darwin-arm64-relative-refs-image-base.patch
+    ./darwin-arm64-relative-refs-unstarted.patch
+    ./darwin-arm64-thread-pool-stack.patch
+    ./fh-diagnostic.patch
     # 16 KiB page-size: the heap does mprotect/madvise at page granularity, which macOS rejects at
     # ART's 4 KiB kPageSize.  See DARWIN-ARM64.md.
     ./darwin-arm64-page-size-mprotect.patch

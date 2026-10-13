@@ -1,0 +1,18 @@
+--- a/art/runtime/oat_file.cc	2026-10-13 12:15:00.140274997 +1100
++++ b/art/runtime/oat_file.cc	2026-10-13 12:15:05.638028858 +1100
+@@ -1602,6 +1602,7 @@
+     return nullptr;
+   }
+
++#if !defined(__APPLE__)
+   // Try dlopen first, as it is required for native debuggability. This will fail fast if dlopen is
+   // disabled.
+   OatFile* with_dlopen = OatFileBase::OpenOatFile<DlOpenOatFile>(zip_fd,
+@@ -1620,6 +1621,7 @@
+   if (kPrintDlOpenErrorMessage) {
+     LOG(ERROR) << "Failed to dlopen: " << oat_filename << " with error " << *error_msg;
+   }
++#endif
+   // If we aren't trying to execute, we just use our own ElfFile loader for a couple reasons:
+   //
+   // On target, dlopen may fail when compiling due to selinux restrictions on installd.

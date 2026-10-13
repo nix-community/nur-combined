@@ -1,9 +1,9 @@
 --- a/art/runtime/runtime_globals.h	2026-10-09 21:31:01.933140610 +1100
 +++ b/art/runtime/runtime_globals.h	2026-10-11 11:31:10.968666462 +1100
-@@ -85,6 +85,24 @@
+@@ -85,6 +85,25 @@
  // Size of a heap reference.
  static constexpr size_t kHeapReferenceSize = sizeof(uint32_t);
- 
+
 +// Whether heap references are encoded relative to a base address instead of as
 +// truncated absolute addresses.  Opt in with -DART_USE_RELATIVE_REFS on hosts
 +// whose address space has no usable low 4 GiB (e.g. aarch64 macOS, whose kernel
@@ -16,14 +16,15 @@
 +#endif
 +
 +#if ART_USE_RELATIVE_REFS
-+// Base of the heap-reference window (4 GiB aligned).  Chosen at runtime by
-+// art::ReserveReferenceWindow() so the window lands in actually-free memory
-+// (macOS reserves/occupies much of the address space).
++// Base of the heap-reference window (4 GiB aligned).  A fixed constant so that every process
++// that builds or loads the boot image agrees on the base (the image stores offsets from it).
++// 0x300000000 (12 GiB) is used: above the macOS shared cache and observed free in practice.
++static constexpr uintptr_t kReferenceBase = 0x300000000ULL;
 +extern "C" uintptr_t g_reference_base;
 +#endif
 +
  }  // namespace art
- 
+
  #endif  // ART_RUNTIME_RUNTIME_GLOBALS_H_
 --- a/art/runtime/mirror/object_reference.h	2026-10-09 21:31:01.935865626 +1100
 +++ b/art/runtime/mirror/object_reference.h	2026-10-11 11:31:11.046926643 +1100
@@ -38,7 +39,7 @@
 +#endif
      return static_cast<uint32_t>(kPoisonReferences ? -as_bits : as_bits);
    }
- 
+
 @@ -44,7 +49,13 @@
    // Uncompress an encoded reference from its bit representation.
    static MirrorType* Decompress(uint32_t ref) {
@@ -51,5 +52,5 @@
      return reinterpret_cast<MirrorType*>(as_bits);
 +#endif
    }
- 
+
    // Convert an ObjPtr to a compressed reference.

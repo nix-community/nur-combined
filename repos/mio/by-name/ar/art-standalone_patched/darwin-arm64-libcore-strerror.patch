@@ -1,0 +1,11 @@
+--- a/libcore/ojluni/src/main/native/jni_util_md.c	2026-10-13 09:53:29.390713942 +1100
++++ b/libcore/ojluni/src/main/native/jni_util_md.c	2026-10-13 09:53:29.400993447 +1100
+@@ -40,7 +40,7 @@
+     (*env)->ReleaseStringUTFChars(env, jstr, chars);
+ }
+
+-#if defined(LINUX) && (defined(_GNU_SOURCE) || \
++#if defined(LINUX) && !defined(__APPLE__) && (defined(_GNU_SOURCE) || \
+          (defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE < 200112L \
+              && defined(_XOPEN_SOURCE) && _XOPEN_SOURCE < 600))
+ extern int __xpg_strerror_r(int, char *, size_t);

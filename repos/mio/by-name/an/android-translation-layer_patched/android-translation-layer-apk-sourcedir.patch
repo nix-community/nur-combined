@@ -6,14 +6,12 @@ Ensure Context.getPackageCodePath() returns the correct base APK path instead of
 
 --- a/src/api-impl/android/atl/ATLLoadedApp.java
 +++ b/src/api-impl/android/atl/ATLLoadedApp.java
-@@ -120,6 +120,9 @@
- 		if (play_services.contains(pkg.packageName)) {
+@@ -126,6 +126,8 @@
  			ATLSigHelper.addGMSSignatures(pkg);
  		}
-+		// Set sourceDir so Context.getPackageCodePath() returns the real APK path
-+		pkg.applicationInfo.sourceDir = mainApk;
+ 		pkg.applicationInfo.sourceDir = mainApk;
++		// Set publicSourceDir so Context.getPackageCodePath() returns the real APK path
 +		pkg.applicationInfo.publicSourceDir = mainApk;
  		return new ATLLoadedApp(resources, classLoader, pkg);
  	}
- 
 

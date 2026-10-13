@@ -3,13 +3,13 @@
 @@ -96,6 +96,46 @@
  // The regular start of memory allocations. The first 64KB is protected by SELinux.
  static constexpr uintptr_t LOW_MEM_START = 64 * KB;
- 
+
 +#if ART_USE_RELATIVE_REFS
 +// With relative heap references the allocator hands out memory from a 4 GiB
 +// window whose base is chosen at RUNTIME so it lands in actually-free memory
 +// (macOS reserves/occupies much of the address space, so no fixed 4 GiB base is
 +// safe).  Must match runtime_globals.h g_reference_base.
-+extern "C" uintptr_t g_reference_base = 0;
++extern "C" uintptr_t g_reference_base = 0x300000000ULL;  // must match runtime_globals.h kReferenceBase
 +extern "C" uintptr_t art_get_reference_base() { return g_reference_base; }
 +
 +void ReserveReferenceWindow() {
@@ -74,7 +74,7 @@
      }
 @@ -1028,7 +1076,15 @@
    bool first_run = true;
- 
+
    std::lock_guard<std::mutex> mu(*mem_maps_lock_);
 -  for (uintptr_t ptr = next_mem_pos_; ptr < 4 * GB; ptr += kPageSize) {
 +#if ART_USE_RELATIVE_REFS
@@ -91,7 +91,7 @@
      auto it = gMaps->upper_bound(reinterpret_cast<void*>(ptr));
 @@ -1053,7 +1109,8 @@
      }
- 
+
      // Try to see if we get lucky with this address since none of the ART maps overlap.
 -    actual = TryMemMapLow4GB(reinterpret_cast<void*>(ptr), length, prot, flags, fd, offset);
 +    actual = TryMemMapLow4GB(reinterpret_cast<void*>(ptr), length, prot, flags, fd, offset,
@@ -101,7 +101,7 @@
        return actual;
 @@ -1060,6 +1117,6 @@
      }
- 
+
 -    if (4U * GB - ptr < length) {
 +    if (LowMemEnd() - ptr < length) {
        // Not enough memory until 4GB.
@@ -115,7 +115,7 @@
        } else {
 @@ -1088,7 +1145,8 @@
      next_mem_pos_ = tail_ptr;  // update early, as we break out when we found and mapped a region
- 
+
      if (safe == true) {
 -      actual = TryMemMapLow4GB(reinterpret_cast<void*>(ptr), length, prot, flags, fd, offset);
 +      actual = TryMemMapLow4GB(reinterpret_cast<void*>(ptr), length, prot, flags, fd, offset,
@@ -152,5 +152,5 @@
 +                               off_t offset,
 +                               bool use_fixed);
  #endif
- 
+
    static void TargetMMapInit();
