@@ -7,12 +7,12 @@
 }:
 stdenv.mkDerivation rec {
   pname = "naiveproxy";
-  version = "140.0.7339.123-1";
+  version = "154.0.8037.49-4";
   preferLocalBuild = true;
 
   src = fetchurl {
     url = "https://github.com/klzgrad/naiveproxy/releases/download/v${version}/naiveproxy-v${version}-linux-x64.tar.xz";
-    hash = "sha256-MqrBW3/v+t27/1DHNBzBzCOjW5I6d/F0w+ugcLh3wK0=";
+    hash = "sha256-nXZWILkPfGDrQMfGiy+CU3dXzFKoaT3uegD4uosT39A=";
   };
 
   nativeBuildInputs = [ autoPatchelfHook ];
