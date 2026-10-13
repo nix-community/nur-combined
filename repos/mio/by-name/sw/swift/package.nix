@@ -5,7 +5,7 @@ let
     hash = "sha256-JmLCtK98no7ZbCMGq8kMjie2hUWBuI8rEBpm/pT6PTQ=";
   };
   nixpkgs-swift = import src {
-    system = pkgs.system;
+    system = pkgs.stdenv.hostPlatform.system;
     config = pkgs.config;
   };
 in
