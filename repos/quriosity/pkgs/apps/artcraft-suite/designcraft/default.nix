@@ -35,16 +35,16 @@ in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "designcraft";
-  version = "0.6.0";
+  version = "0.7.1";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "designcraft";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-DcLwrFQKOk+Ip2waFfUZ97VwnkBssmU7CrxRTYz+Xuk=";
+    hash = "sha256-9pCZ8SRT9EqIkz4i/EAGM0FJJSn/YzxC4zZhgwRx31E=";
   };
 
-  cargoHash = "sha256-mHsJXvsj+osNJOe1sTV9fJwEDj9t7Cm8eYC8JbLw90M=";
+  cargoHash = "sha256-d6hxHQk6weAlDp6BRHLsPc96eKnjLpJ7dHUjh2rM/o0=";
   cargoBuildFlags = [ "--package" "designcraft" "--package" "designcraft-cli" ];
   cargoTestFlags = [ "--package" "designcraft" "--package" "designcraft-cli" ];
 

@@ -35,16 +35,16 @@ in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "lightcraft";
-  version = "0.6.0";
+  version = "0.7.1";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "lightcraft";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-hPRTJQql7TzmqZgkmDU1W3/IQMLQD/XzHNi6Lyv4XE0=";
+    hash = "sha256-QJROx0tqJsehBJyknfzGLlvSPERax170ErB0PWdzOFI=";
   };
 
-  cargoHash = "sha256-UyQP8+z8gd5g0uoeGK6C8O0uw318vJ1l/IZ7ShTdcek=";
+  cargoHash = "sha256-1H7xJkjtS/yv4ead3735UUL4myjXqRRdMwTgyisc7hw=";
   cargoBuildFlags = [ "--package" "lightcraft" "--package" "lightcraft-cli" ];
   cargoTestFlags = [ "--package" "lightcraft" "--package" "lightcraft-cli" ];
 
