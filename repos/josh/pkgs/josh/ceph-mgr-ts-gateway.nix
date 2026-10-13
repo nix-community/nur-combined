@@ -7,16 +7,16 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "ceph-mgr-ts-gateway";
-  version = "0.2.4";
+  version = "0.2.5";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "ceph-mgr-ts-gateway";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-EWXbR8lJB7JZdLaSzoxcfIN2JjCm/UkKz5hA+yqZIlE=";
+    hash = "sha256-0LqaRYRWEe3ODjUDjltvUK2T82saYFqmSnmDLhoTIm8=";
   };
 
-  vendorHash = "sha256-o/dPtpCvgcqIOfymODVWJiNfTVcjjD9lmQH56gx611E=";
+  vendorHash = "sha256-qd2jc5Tyw56/o1t8H2Bi3vqTRvjOUcSbOyUtt3Rz8bk=";
 
   env.CGO_ENABLED = 0;
   ldflags = [
