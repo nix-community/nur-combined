@@ -5,7 +5,8 @@
 # Dependencies are vendored with importCargoLock from Cargo.lock (read from
 # `src`, or `cargoLock.lockFile`/`cargoLock.lockFileContents`), so `cargoHash`
 # isn't needed and is ignored. Both derivations use the vendor directory from
-# the store, as cargo fingerprints registry crates by their path.
+# the store, as cargo fingerprints registry crates by their path. Its path is
+# remapped in the compiled crates, so that panic locations don't keep it alive.
 {
   lib,
   runCommandLocal,
@@ -154,6 +155,9 @@ lib.extendMkDerivation {
         }
       );
 
+      # must be identical in both derivations, cargo fingerprints the flags
+      RUSTFLAGS = [ "--remap-path-prefix=${vendor}=/cargo-vendor" ] ++ lib.toList (args.RUSTFLAGS or [ ]);
+
       cargoArtifacts = rustPlatform.buildRustPackage (
         removeAttrs args depsExcludedArgs
         // {
@@ -162,7 +166,7 @@ lib.extendMkDerivation {
 
           src = dummySrc;
 
-          inherit cargoVendorDir;
+          inherit cargoVendorDir RUSTFLAGS;
           cargoDepsHook = linkVendor vendor;
 
           nativeBuildInputs = nativeBuildInputs ++ [ zstd ];
@@ -185,8 +189,10 @@ lib.extendMkDerivation {
     {
       cargoArtifacts = args.cargoArtifacts or cargoArtifacts;
 
-      inherit cargoVendorDir;
+      inherit cargoVendorDir RUSTFLAGS;
       cargoDepsHook = linkVendor vendor + args.cargoDepsHook or "";
+
+      disallowedReferences = args.disallowedReferences or [ ] ++ [ vendor ];
 
       nativeBuildInputs = nativeBuildInputs ++ [ zstd ];
 

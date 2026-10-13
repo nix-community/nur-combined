@@ -7,7 +7,9 @@ cfg_if::cfg_if! {
 }
 
 fn main() {
-    println!("{}", greeting());
+    // keeps a panic location from a dependency in the binary, an argument panics
+    let mut greetings: smallvec::SmallVec<[&str; 1]> = smallvec::smallvec![greeting()];
+    println!("{}", greetings.remove(std::env::args().count() - 1));
 }
 
 #[cfg(test)]
