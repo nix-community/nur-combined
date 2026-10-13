@@ -130,10 +130,10 @@ def _update_tangled_tag_artifacts(
     expected_assets = [f"{name}.zip" for name in data.get("hashes", {})]
     current = data.get("version", "")
 
-    if not did or not repo or not expected_assets:
+    if not did or not repo:
         return UpdateResult(name, "skipped", "incomplete Tangled artifact manifest")
 
-    release = _latest_tangled_release(did, repo)
+    release = _latest_tangled_release(did, repo, require_artifacts=bool(expected_assets))
     if not release:
         return UpdateResult(
             name, "failed", f"failed to determine latest Tangled release for {did}/{repo}"
@@ -160,9 +160,10 @@ def _update_tangled_tag_artifacts(
 
     updated = dict(data)
     updated["version"] = latest
-    updated["tagHash"] = tag_hash
     updated["sourceHash"] = source_hash
-    updated["hashes"] = hashes
+    if "hashes" in data:
+        updated["tagHash"] = tag_hash
+        updated["hashes"] = hashes
     _atomic_write_json(manifest, updated)
     return UpdateResult(
         name,
@@ -172,7 +173,9 @@ def _update_tangled_tag_artifacts(
     )
 
 
-def _latest_tangled_release(did: str, repo: str) -> tuple[str, str, list[str]] | None:
+def _latest_tangled_release(
+    did: str, repo: str, *, require_artifacts: bool = True
+) -> tuple[str, str, list[str]] | None:
     url = f"https://tangled.org/{did}/{repo}/tags"
     logger.info("fetching latest Tangled release for %s/%s", did, repo)
     try:
@@ -194,7 +197,7 @@ def _latest_tangled_release(did: str, repo: str) -> tuple[str, str, list[str]] |
     artifact_pattern = rf'href="{base_path}/tags/([0-9a-f]{{40}})/download/([^"/]+)"'
     artifacts = re.findall(artifact_pattern, release_html)
     if not artifacts:
-        return None
+        return None if require_artifacts else (tag.group(1), "", [])
     tag_hash = artifacts[0][0]
     names = [asset for artifact_hash, asset in artifacts if artifact_hash == tag_hash]
     return tag.group(1), tag_hash, names

@@ -1,9 +1,12 @@
+<!-- rumdl-disable MD033 MD041 -->
+
 <div align="center">
   <img src="./assets/nix-logo.png" alt="Nix logo" width="112" />
 
   # adam0's NUR repository
 
-  Personal Nix packages, modules, and plugin builds that I want available outside my main config.
+  Personal Nix packages, modules, and plugin builds that I want available
+  outside my main config.
 
   [![Checks](https://img.shields.io/github/actions/workflow/status/adam01110/nur/checks.yml?branch=main&style=flat-square&label=Checks&labelColor=504945&color=cc241d)](https://github.com/adam01110/nur/actions/workflows/checks.yml)
   [![Build](https://img.shields.io/github/actions/workflow/status/adam01110/nur/build.yml?branch=main&style=flat-square&label=Build&labelColor=504945&color=cc241d)](https://github.com/adam01110/nur/actions/workflows/build.yml)
@@ -16,7 +19,9 @@
   [Usage](#usage) - [Maintenance](#maintenance) - [Layout](#layout)
 </div>
 
-This is my small NUR repo for packages that either are not in nixpkgs, need changes faster than nixpkgs would get them, or are useful enough to share outside my own config.
+This is my small NUR repo for packages that either are not in nixpkgs, need
+changes faster than nixpkgs would get them, or are useful enough to share
+outside my own config.
 
 ## Usage
 
@@ -46,11 +51,14 @@ in {
 }
 ```
 
-Bibata exposes 40 XCursor themes and their 40 Hyprcursor variants:
+Bibata exposes 40 combined XCursor/scalable SVG themes and their 40 Hyprcursor
+variants. Both formats build directly from the SVG sources; Hyprcursor does not
+depend on the XCursor package:
 
 ```nix
 bibata.<modern|modern-right|original|original-right>.cursors.<palette>
-bibata.<modern|modern-right|original|original-right>.cursors.<palette>.hyprcursor
+bibata.<modern|modern-right|original|original-
+right>.cursors.<palette>.hyprcursor
 ```
 
 Available palettes are `classic`, `gruvbox-dark`, `gruvbox-light`, `rosepine`,
@@ -64,10 +72,13 @@ import inputs.adam0-nur { inherit pkgs; }
 
 ## Maintenance
 
-This repo is intentionally automated because I do not want package bumps to become fulltime job.
+This repo is intentionally automated because I do not want package bumps to
+become fulltime job.
 
-- `build.yml` evaluates and builds cacheable outputs against unstable and stable nixpkgs channels.
-- `update-packages.yml` runs `python3 -m updater` and opens a signed pull request when package versions move.
+- `build.yml` evaluates and builds cacheable outputs against unstable and stable
+  nixpkgs channels.
+- `update-packages.yml` runs `python3 -m updater` and opens a signed pull
+  request when package versions move.
 - `update-flake-lock.yml` refreshes `flake.lock` weekly.
 - `treefmt-nix` keeps formatting consistent with the rest of my Nix repos.
 

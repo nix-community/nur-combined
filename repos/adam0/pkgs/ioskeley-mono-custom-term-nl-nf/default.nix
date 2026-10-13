@@ -51,12 +51,28 @@
     spacedFamilyName = "Ioskeley Mono Custom Term";
   };
 in
-  noLigatures.overrideAttrs {
+  stdenvNoCC.mkDerivation {
     pname = "ioskeley-mono-custom-term-nl-nf";
+    inherit (noLigatures) version;
+    src = noLigatures;
+    dontUnpack = true;
+    dontBuild = true;
+    nativeBuildInputs = [(python3.withPackages (ps: [ps.fonttools]))];
+    installPhase = ''
+      runHook preInstall
+      python ${./connect-meter.py} "$src" "$out"
+      runHook postInstall
+    '';
+    doInstallCheck = true;
+    installCheckPhase = ''
+      runHook preInstallCheck
+      python ${./connect-meter.py} --check "$src" "$out"
+      runHook postInstallCheck
+    '';
     passthru = {inherit buildPlan;};
     meta =
       noLigatures.meta
       // {
-        description = "Ioskeley Mono Custom Term Nerd Font without ligatures, tuned for rounder brackets, a lower caret and tighter operator centring";
+        description = "Ioskeley Mono Custom Term Nerd Font without ligatures, tuned for rounder brackets, a lower caret, tighter operator centring and continuous meter squares";
       };
   }
