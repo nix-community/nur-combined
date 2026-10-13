@@ -464,7 +464,7 @@ in
     lsmnt = "findmnt --real";
     n = "numbat";
     np = "nix-shell --packages";
-    rebase = "git rebase --autostash --autosquash --interactive";
+    rebase = "git rebase --autostash --autosquash --interactive --rebase-merges";
     s = "git status";
     sc = "systemctl";
     stash = "git stash save --include-untracked";

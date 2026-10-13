@@ -60,6 +60,8 @@ _direnv_use_bwrap() {
     '/lib'
     '/lib64'
     '/nix' # TODO: Narrow?
+    '/sys/dev/char'
+    '/sys/devices'
     '/usr/bin'
     "$HOME/.config/bat"
     "$HOME/.config/direnv"
@@ -111,13 +113,16 @@ _direnv_use_bwrap() {
   local forward_env=(
     'DBUS_SESSION_BUS_ADDRESS'
     'DISPLAY'
+    'GDMSESSION'
     'HOME'
     'PATH'
     'TERM'
     'TERMINFO'
     'WAYLAND_DISPLAY'
     'XAUTHORITY'
+    'XDG_CURRENT_DESKTOP'
     'XDG_RUNTIME_DIR'
+    'XDG_SESSION_TYPE'
   )
   if [[ -n "$DIRENV_USE_BWRAP_FORWARD_ENV" ]]; then
     for n in "${(z)DIRENV_USE_BWRAP_FORWARD_ENV}"; forward_env+=("$n")
