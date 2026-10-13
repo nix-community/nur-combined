@@ -91,7 +91,7 @@ jobs:
           fetch_depth: 0
 
       - name: Run pi
-        uses: trev-zip/pi-action@244876efc015a8deb664e2388142d3c12a1ae82d # v0.4.0
+        uses: trev-zip/pi-action@47f9fe9cf0b0c44ac3f4aa50434085a7b32a1762 # v0.5.0
         with:
           base-url: ${{ secrets.PI_ACTION_BASE_URL }}
           api-key: ${{ secrets.PI_ACTION_API_KEY }}
