@@ -141,7 +141,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>magpie</code></strong> — Manage models, providers, and accounts for AI coding agents in one place</summary>
 
-- **Version:** `0.1.1220`
+- **Version:** `0.1.1226`
 - **License:** MIT
 - **Homepage:** [https://github.com/yetone/magpie](https://github.com/yetone/magpie)
 - **Build:** `nix build github:XYenon/nur-packages#magpie`
@@ -337,7 +337,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>yaziPlugins.clipboard</code></strong> — Clipboard sync plugin for Yazi that copies yanked file paths to the system clipboard</summary>
 
-- **Version:** `0-unstable-2026-09-25`
+- **Version:** `0-unstable-2026-10-13`
 - **License:** AGPL-3.0-or-later
 - **Homepage:** [https://github.com/XYenon/clipboard.yazi](https://github.com/XYenon/clipboard.yazi)
 - **Build:** `nix build github:XYenon/nur-packages#yaziPlugins.clipboard`

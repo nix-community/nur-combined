@@ -671,11 +671,11 @@ func patchChecks(files []*sourceFile, o options) error {
 				})
 			}
 			// Nix build users have no graphical macOS session; skip the shared window
-			// entry point while allowing ordinary GUI logic tests to run.
-			if dir == "internal/gui" && o.gui && o.platform == "darwin" && fn.Name.Name == "runAppKit" && !strings.Contains(f.text(fn.Body), "Native AppKit/WebKit windows require") {
+			// entry points while allowing ordinary GUI logic tests to run.
+			if dir == "internal/gui" && o.gui && o.platform == "darwin" && (fn.Name.Name == "runAppKit" || fn.Name.Name == "runAppKitSDK") && !strings.Contains(f.text(fn.Body), "Native AppKit/WebKit windows require") {
 				name := f.testReceiver(fn.Type.Params)
 				if name == "" {
-					return fmt.Errorf("%s: runAppKit no longer exposes a testing parameter", f.path)
+					return fmt.Errorf("%s: %s no longer exposes a testing parameter", f.path, fn.Name.Name)
 				}
 				f.insert(fn.Body.Lbrace+1, "\n"+name+".Skip(\"Native AppKit/WebKit windows require a graphical session unavailable to Nix build users\");\n")
 			}
