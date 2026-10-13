@@ -27,6 +27,7 @@ in
   git-touchfish-commit = callPackage ./pkgs/git-touchfish-commit { };
   nextppp = callPackage ./pkgs/nextppp { };
   openppp2 = callPackage ./pkgs/openppp2 { };
+  reader-server-rs = callPackage ./pkgs/reader-server-rs { };
   selector4nix = callPackage ./pkgs/selector4nix { };
   system76-scheduler-niri = callPackage ./pkgs/system76-scheduler-niri { };
   urldecoder = callPackage ./pkgs/urldecoder { };

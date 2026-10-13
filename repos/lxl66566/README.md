@@ -67,6 +67,7 @@ Only tested on x86_64-linux. Packages may work on aarch64 systems, but I'm not s
 | [git-touchfish-commit](https://github.com/lxl66566/git-touchfish-commit) | null, musl | make your commit time safe |
 | [nextppp](https://github.com/lxl66566/nextppp) | null, musl | proxy to bypass GFW |
 | [openppp2](https://github.com/liulilittle/openppp2) | null, tc | Next-generation security network access technology, providing high-performance Virtual Ethernet tunneling service. |
+| [reader-server-rs](https://github.com/lxl66566/reader-server-rs) | null, musl | A self-hosted reading server for txt/epub books with multi-user progress sync |
 | [selector4nix](https://github.com/StarryReverie/selector4nix) | null, musl | Nix substituter proxy with parallel cache queries and latency-aware selection |
 | [system76-scheduler-niri](https://github.com/lxl66566/system76-scheduler-niri) | null, musl | Niri integration for system76-scheduler |
 | [urldecoder](https://github.com/lxl66566/urldecoder) | null, musl | Batch find and decode URLs in your text/files. very fast. |
@@ -214,6 +215,25 @@ not support attrSet config, since I don't use _fungi_ now... (currently using ea
 ```
 
 </details>
+
+### reader-server-rs
+
+reference to [lxl66566/reader-server-rs](https://github.com/lxl66566/reader-server-rs) for all config options.
+
+The server reads `config.json` from its working directory; the module generates it from `settings` into `/var/lib/reader-server-rs`. State (db, books, logs) defaults to that directory. The JWT secret must be non-empty: pass it via `secretFile` (loaded at service start, recommended) or set `settings.jwt.secret` directly (world-readable in the nix store).
+
+```nix
+{
+  services.reader-server-rs = {
+    enable = true;
+    secretFile = "/run/secrets/reader-server-jwt";
+    settings = {
+      server.port = 3000;
+      rate_limit.trust_proxy_headers = true; # only behind a reverse proxy
+    };
+  };
+}
+```
 
 ## development
 
