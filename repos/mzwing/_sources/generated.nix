@@ -52,13 +52,13 @@
   };
   claude-hud = {
     pname = "claude-hud";
-    version = "v0.11.1";
+    version = "v0.11.2";
     src = fetchFromGitHub {
       owner = "jarrodwatts";
       repo = "claude-hud";
-      rev = "v0.11.1";
+      rev = "v0.11.2";
       fetchSubmodules = false;
-      sha256 = "sha256-sgIS2/BSNgll/lZuYKXgz330v0WnD4amAtGAFFFv9Bk=";
+      sha256 = "sha256-WSO/oqRs1d6vcPptRVmOgddMCrd6H+Z8sZ7ZMFgvras=";
     };
   };
   cliproxyapiplus = {
@@ -96,10 +96,10 @@
   };
   cnb-cli = {
     pname = "cnb-cli";
-    version = "1.17.29";
+    version = "1.17.38";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.29.tgz";
-      sha256 = "sha256-JpWcHKhqeJWBks5A/TAu3ubkZaCz4yTGbjCysG9kClQ=";
+      url = "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.38.tgz";
+      sha256 = "sha256-BnIbGq+7X8bj6RtAdtz8vvrU0LAxrWI/fxWTg+JqXbY=";
     };
   };
   codegraph = {
@@ -208,13 +208,13 @@
   };
   magic-context = {
     pname = "magic-context";
-    version = "v0.48.0";
+    version = "v0.49.0";
     src = fetchFromGitHub {
       owner = "cortexkit";
       repo = "magic-context";
-      rev = "v0.48.0";
+      rev = "v0.49.0";
       fetchSubmodules = false;
-      sha256 = "sha256-IK9aS2FoWeFCDUQTX3o95V6U8T6nfiC6J9+CnSu3qnE=";
+      sha256 = "sha256-UZAjEBMN1QXjtbNVfevdVv4B3jHa/5ADKJs16GIMxIM=";
     };
   };
   manboster = {

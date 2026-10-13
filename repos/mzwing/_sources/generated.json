@@ -97,12 +97,12 @@
             "name": null,
             "owner": "jarrodwatts",
             "repo": "claude-hud",
-            "rev": "v0.11.1",
-            "sha256": "sha256-sgIS2/BSNgll/lZuYKXgz330v0WnD4amAtGAFFFv9Bk=",
+            "rev": "v0.11.2",
+            "sha256": "sha256-WSO/oqRs1d6vcPptRVmOgddMCrd6H+Z8sZ7ZMFgvras=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.11.1"
+        "version": "v0.11.2"
     },
     "cliproxyapiplus": {
         "cargoLock": null,
@@ -176,11 +176,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-JpWcHKhqeJWBks5A/TAu3ubkZaCz4yTGbjCysG9kClQ=",
+            "sha256": "sha256-BnIbGq+7X8bj6RtAdtz8vvrU0LAxrWI/fxWTg+JqXbY=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.29.tgz"
+            "url": "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.38.tgz"
         },
-        "version": "1.17.29"
+        "version": "1.17.38"
     },
     "codegraph": {
         "cargoLock": null,
@@ -384,12 +384,12 @@
             "name": null,
             "owner": "cortexkit",
             "repo": "magic-context",
-            "rev": "v0.48.0",
-            "sha256": "sha256-IK9aS2FoWeFCDUQTX3o95V6U8T6nfiC6J9+CnSu3qnE=",
+            "rev": "v0.49.0",
+            "sha256": "sha256-UZAjEBMN1QXjtbNVfevdVv4B3jHa/5ADKJs16GIMxIM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.48.0"
+        "version": "v0.49.0"
     },
     "manboster": {
         "cargoLock": null,
