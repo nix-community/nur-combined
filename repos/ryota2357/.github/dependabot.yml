@@ -4,7 +4,9 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+      timezone: "Asia/Tokyo"
   - package-ecosystem: "nix"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
+      timezone: "Asia/Tokyo"
