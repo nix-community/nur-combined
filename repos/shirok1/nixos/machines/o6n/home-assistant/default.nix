@@ -29,6 +29,7 @@
       "esphome"
       "homekit"
       "homekit_controller"
+      "midea"
       "mqtt"
       "mqtt_eventstream"
       "mqtt_json"
@@ -79,7 +80,9 @@
     };
     customComponents = with pkgs.home-assistant-custom-components; [
       pkgs.shirok1.hasscc-tianqi
+      pkgs.shirok1.hass-lumi-curtain
       pkgs.shirok1.hass-xiaomi-weather
+      pkgs.shirok1.hass-haier-yunos-tv
       pkgs.shirok1.hass-zhejiang-typhoon
       (pkgs.shirok1.tasmota-irhvac.overrideAttrs (oldAttrs: {
         src = pkgs.fetchFromGitHub {
@@ -94,11 +97,13 @@
         src = pkgs.fetchFromGitHub {
           owner = "XiaoMi";
           repo = "ha_xiaomi_home";
-          rev = "pull/1658/head";
-          hash = "sha256-DSPNI/o9P2fu7UgbVvEtv7Uj77p5g5xCgAlFTolh/0o=";
+          rev = "v0.5.0";
+          hash = "sha256-m6Az3HN/MfhCrB+QZfDtoBW+lnmPYQsrlAGrF72q7fU=";
         };
       }))
       pkgs.shirok1.zuyan9-ha-cuk-ble
+      pkgs.shirok1.bemfa-behome
+      pkgs.shirok1.bemfa-cloud-ha
     ];
   };
   sops.secrets."snmp/auth_key" = { };

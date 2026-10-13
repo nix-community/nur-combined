@@ -5,7 +5,7 @@
     acceptTerms = true;
     defaults = {
       email = "admin@shiroki.tech";
-      extraLegoFlags = [ "--dns.propagation-wait=10s" ];
+      extraLegoFlags = [ "--dns.propagation.wait=10s" ];
     };
     certs = {
       "berry.shiroki.tech" = {
@@ -22,6 +22,8 @@
   sops.secrets."acme/cloudflare" = {
     restartUnits = [ "acme-order-renew-berry.shiroki.tech.service" ];
   };
+  systemd.services."acme-order-renew-berry.shiroki.tech".environment.LEGO_DISABLE_CNAME_SUPPORT =
+    "true";
 
   services.nginx = {
     enable = true;

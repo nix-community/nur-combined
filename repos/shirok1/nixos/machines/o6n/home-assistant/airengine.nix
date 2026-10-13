@@ -1,7 +1,7 @@
 { ... }:
 
 {
-  services.home-assistant.config.sensor =
+  services.home-assistant.config.homeassistant.packages.airengine.sensor =
     let
       snmpAP = {
         platform = "snmp";

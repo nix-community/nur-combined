@@ -1,7 +1,7 @@
 { ... }:
 
 {
-  services.home-assistant.config = {
+  services.home-assistant.config.homeassistant.packages.ir = {
     script = {
       ir_fan_on_off.alias = "落地扇开关 IR";
       ir_fan_on_off.sequence = {
@@ -151,69 +151,6 @@
             turn_off.action = "script.ir_tv_on_off";
           }
         ];
-      }
-    ];
-    climate = [
-      {
-        platform = "tasmota_irhvac";
-        name = "美的空调";
-        unique_id = "7798482a-d424-4824-a3ec-7a31e8d3d26f";
-
-        command_topic = "cmnd/tasmota_5E6E7B/IRHVAC";
-        state_topic = "stat/tasmota_5E6E7B/RESULT";
-        availability_topic = "tele/tasmota_5E6E7B/LWT";
-
-        temperature_sensor = "sensor.wo_shi_daikin_air_sensor_temperature_sensor";
-        humidity_sensor = "sensor.wo_shi_daikin_air_sensor_humidity_sensor";
-
-        vendor = "COOLIX";
-        mqtt_delay = 0.0;
-
-        min_temp = 16;
-        max_temp = 30;
-        target_temp = 26;
-        initial_operation_mode = "off";
-        away_temp = 24;
-        precision = 1; # 0.5 fail to send
-
-        supported_modes = [
-          "off"
-          "auto"
-          "cool"
-          "dry"
-          "heat"
-          "fan_only"
-        ];
-
-        supported_fan_speeds = [
-          "auto" # Auto
-          "min" # 20%
-          "low" # 40%
-          "medium" # 60%
-          "high" # 80%
-          "max" # 100%
-        ];
-
-        supported_swing_list = [
-          "off"
-          "vertical"
-          "horizontal"
-          "both"
-        ];
-
-        set_swingv = {
-          "if".condition = "template";
-          "if".value_template = "{{ swingv != 'off' }}";
-          "then".action = "script.ir_ac_swing_v_on";
-          "else".action = "script.ir_ac_swing_v_off";
-        };
-
-        set_swingh = {
-          "if".condition = "template";
-          "if".value_template = "{{ swingh != 'off' }}";
-          "then".action = "script.ir_ac_swing_v_on";
-          "else".action = "script.ir_ac_swing_h_off";
-        };
       }
     ];
   };
