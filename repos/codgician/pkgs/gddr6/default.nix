@@ -31,6 +31,9 @@ stdenv.mkDerivation (_: {
   meta = {
     description = "Linux​ based GDDR6/GDDR6X VRAM temperature reader for NVIDIA RTX 3000/4000 series GPUs.";
     homepage = "https://github.com/olealgoritme/gddr6";
+    sourceProvenance = with lib.sourceTypes; [ fromSource ];
+    platforms = lib.platforms.linux;
+    mainProgram = "gddr6";
     maintainers = with lib.maintainers; [ codgician ];
   };
 })
