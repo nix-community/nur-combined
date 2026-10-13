@@ -43,7 +43,7 @@ def packages(root: Path) -> list[str]:
                     "--impure",
                     "--json",
                     "--expr",
-                    'let packages = import ./. {}; in builtins.attrNames (builtins.removeAttrs packages ["nixosModules"])',
+                    'let packages = import ./. {}; in builtins.attrNames (builtins.removeAttrs packages ["nixosModules" "darwinModules"])',
                 ],
                 capture=True,
             )

@@ -12,6 +12,15 @@ from tools import maintain
 
 
 class MaintenanceTests(unittest.TestCase):
+    def test_packages_excludes_module_exports(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            _ = (root / "default.nix").write_text(
+                '{ ... }: { example = {}; nixosModules = throw "not a package"; '
+                + 'darwinModules = throw "not a package"; }'
+            )
+            self.assertEqual(maintain.packages(root), ["example"])
+
     def test_update_command_comes_from_package(self) -> None:
         command = ["nix-update", "-f", ".", "--version=branch=main", "example.source"]
         with patch.object(

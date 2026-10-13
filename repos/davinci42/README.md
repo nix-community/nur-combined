@@ -1,6 +1,6 @@
 # NUR packages
 
-Personal Nix packages and NixOS modules using the caller's `pkgs`.
+Personal Nix packages, NixOS modules and nix-darwin modules using the caller's `pkgs`.
 `default.nix` exports packages and module paths.
 
 | Package | NixOS module | Documentation |
@@ -11,6 +11,10 @@ Personal Nix packages and NixOS modules using the caller's `pkgs`.
 | `mnamer-rs` | None | [mnamer Rust rewrite](pkgs/mnamer-rs/README.md) |
 | `rsshub` | Use nixpkgs' module with this package | [RSSHub](pkgs/rsshub/README.md) |
 | `spotify-spotx` | None | [Spotify with SpotX](pkgs/spotify-spotx/README.md) |
+
+| Package | nix-darwin module | Documentation |
+| --- | --- | --- |
+| `nh` (from nixpkgs) | `darwinModules.nh` | [nh configuration and cleanup](modules/nh-darwin/README.md) |
 
 ## Maintenance and tests
 

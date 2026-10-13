@@ -21,6 +21,9 @@ check package:
 check-all:
     python3 tools/maintain.py check-all
 
+check-nh-darwin darwin:
+    nix-instantiate --eval --strict tests/nh-darwin.nix --argstr darwin "$1"
+
 check-updates *args:
     python3 tools/check_updates.py "$@"
 

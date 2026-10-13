@@ -9,4 +9,5 @@
   rsshub = pkgs.callPackage ./pkgs/rsshub { };
   spotify-spotx = pkgs.callPackage ./pkgs/spotify-spotx { };
   nixosModules.fluxdown = ./modules/fluxdown.nix;
+  darwinModules.nh = ./modules/nh-darwin;
 }
