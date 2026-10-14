@@ -2,9 +2,10 @@
   pkgs ? import <nixpkgs> { },
 }:
 let
+  # Latest commit from https://github.com/nix-community/robotnix/pull/390
   robotnixSrc = builtins.fetchTarball {
-    url = "https://github.com/nix-community/robotnix/archive/b731f1aa2bfd26763714495a12ad50f6a9bd12ca.tar.gz";
-    sha256 = "1dv9gxlx05y1xrdlr7axmra08frjz19jmf3spciz470n4g0ljp5v";
+    url = "https://github.com/nix-community/robotnix/archive/0e5d81d47974b70a8716c0ae3f8dca20ebada38f.tar.gz";
+    sha256 = "sha256-SvXKvEIAhs2fSenivvMGySWMBe0JAaV+Arb31iecMqI=";
   };
   robotnixPkgs = import "${robotnixSrc}/pkgs" { system = pkgs.stdenv.hostPlatform.system; };
   robotnix = import robotnixSrc {
