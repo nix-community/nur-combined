@@ -234,25 +234,125 @@ let
       # The LXC configuration uses the rebranded seccomp filename.
       mv data/configs/waydroid.seccomp data/configs/miodroid.seccomp
       mv data/configs/waydroid-binder.rc data/configs/miodroid-binder.rc
-      # In rootless containers, ueventd crashes due to lack of global permissions.
-      # If it crashes 4 times, Android init triggers a fatal reboot.
-      # Stop it cleanly before wait_for_coldboot_done hangs or it triggers the loop limit.
-      #
-      # That wait blocks on the ro.cold_boot_done property, which ueventd is what
-      # normally sets (init/util.h: kColdBootDoneProp = "ro.cold_boot_done";
-      # init.cpp: wait_for_coldboot_done_action -> prop_waiter_state.StartWaiting(
-      # kColdBootDoneProp, "true"), with no timeout; ueventd.cpp: SetProperty(
-      # kColdBootDoneProp, "true") when coldboot finishes).  So with ueventd
-      # stopped, init stalls in early-init for the whole boot -- observed: no
-      # servicemanager, no zygote, no sys.boot_completed ever.  Set it ourselves
-      # from this early-init action, which init runs long before that wait.
-      # (ro.boottime.init.cold_boot_done is only the telemetry init writes after
-      # the wait, so setting that one, as this used to, does nothing.)
-      echo -e "    stop ueventd\n    setprop ro.cold_boot_done true" >> data/configs/miodroid-binder.rc
+      # In rootless containers, ueventd crashes due to lack of global permissions and
+      # bpfloader fails without initial-namespace CAP_BPF. Both are overridden in
+      # miodroid-binder.rc with oneshot stubs so they do not trigger fatal reboots.
 
       find . \( -name "*.py" -o -name "*.sh" -o -name "Makefile" \) -exec sed -i \
         -e 's|waydroid-binder|miodroid-binder|g' \
         {} +
+
+      # If the host has no /dev/binder (e.g. rootless container with its own private binderfs),
+      # skip starting host-side binder services (user_manager, clipboard, notifications) so they
+      # don't spin in a busy-loop failing to open /dev/binder.
+      python3 -c '
+path = "tools/actions/session_manager.py"
+with open(path) as f:
+    c = f.read()
+target = """    services.user_manager.start(args, session, unlocked_cb)
+    services.clipboard_manager.start(args)
+    services.notification_manager.start(args, session)"""
+repl = """    if os.path.exists("/dev/" + getattr(args, "BINDER_DRIVER", "binder")):
+        services.user_manager.start(args, session, unlocked_cb)
+        services.clipboard_manager.start(args)
+        services.notification_manager.start(args, session)
+    else:
+        logging.warning("Binder device not present on host; skipping binder-dependent desktop integration")
+        if unlocked_cb:
+            unlocked_cb()"""
+assert target in c, "target block not found in session_manager.py"
+with open(path, "w") as f:
+    f.write(c.replace(target, repl))
+
+path = "tools/actions/container_manager.py"
+with open(path) as f:
+    c = f.read()
+target = "    services.hardware_manager.start(args)"
+repl = """    if os.path.exists("/dev/" + getattr(args, "BINDER_DRIVER", "binder")):
+        services.hardware_manager.start(args)"""
+assert target in c, "target block not found in container_manager.py"
+with open(path, "w") as f:
+    f.write(c.replace(target, repl))
+
+path = "tools/services/hardware_manager.py"
+with open(path) as f:
+    c = f.read()
+target = """    def service_thread():
+        while not stopping:
+            IHardware.add_service(
+                args, enableNFC, enableBluetooth, suspend, reboot, upgrade, shutdownRequest)"""
+repl = """    def service_thread():
+        while not stopping:
+            IHardware.add_service(
+                args, enableNFC, enableBluetooth, suspend, reboot, upgrade, shutdownRequest)
+            time.sleep(1)"""
+assert target in c, "target block not found in hardware_manager.py"
+with open(path, "w") as f:
+    f.write(c.replace(target, repl))
+
+path = "tools/actions/session_manager.py"
+with open(path) as f:
+    c = f.read()
+wl_target = "    if not os.path.exists(wayland_socket_path):"
+wl_repl = """    if os.path.exists(wayland_socket_path):
+        try:
+            os.chmod(wayland_socket_path, 0o777)
+        except OSError:
+            pass
+    if not os.path.exists(wayland_socket_path):"""
+assert wl_target in c, "wl_target not found in session_manager.py"
+c = c.replace(wl_target, wl_repl, 1)
+
+pulse_target = "    miodroid_data = session[\"miodroid_data\"]"
+pulse_repl = """    pulse_socket = os.path.join(session.get("pulse_runtime_path", ""), "native")
+    if os.path.exists(pulse_socket):
+        try:
+            os.chmod(pulse_socket, 0o777)
+        except OSError:
+            pass
+    miodroid_data = session["miodroid_data"]"""
+assert pulse_target in c, "pulse_target not found in session_manager.py"
+c = c.replace(pulse_target, pulse_repl, 1)
+with open(path, "w") as f:
+    f.write(c)
+
+path = "tools/helpers/lxc.py"
+with open(path) as f:
+    c = f.read()
+lxc_target = """    # Make sure XDG_RUNTIME_DIR exists
+    if not make_entry("tmpfs", tools.config.defaults["container_xdg_runtime_dir"], options="create=dir 0 0"):
+        raise OSError("Failed to create XDG_RUNTIME_DIR mount point")
+
+    wayland_host_socket = os.path.realpath(os.path.join(session["xdg_runtime_dir"], session["wayland_display"]))
+    wayland_container_socket = os.path.realpath(os.path.join(tools.config.defaults["container_xdg_runtime_dir"], tools.config.defaults["container_wayland_display"]))
+    if not make_entry(wayland_host_socket, wayland_container_socket[1:]):
+        raise OSError("Failed to bind Wayland socket")
+
+    # Make sure PULSE_RUNTIME_DIR exists
+    pulse_host_socket = os.path.join(session["pulse_runtime_path"], "native")
+    pulse_container_socket = os.path.join(tools.config.defaults["container_pulse_runtime_path"], "native")
+    make_entry(pulse_host_socket, pulse_container_socket[1:])"""
+lxc_repl = """    # Make sure XDG_RUNTIME_DIR exists
+    if not make_entry("tmpfs", tools.config.defaults["container_xdg_runtime_dir"].lstrip("/"), "tmpfs", "mode=0777,create=dir 0 0"):
+        raise OSError("Failed to create XDG_RUNTIME_DIR mount point")
+
+    wayland_host_socket = os.path.realpath(os.path.join(session["xdg_runtime_dir"], session["wayland_display"]))
+    wayland_container_socket = os.path.realpath(os.path.join(tools.config.defaults["container_xdg_runtime_dir"], tools.config.defaults["container_wayland_display"]))
+    if not make_entry(wayland_host_socket, wayland_container_socket[1:], options="bind,create=file 0 0"):
+        raise OSError("Failed to bind Wayland socket")
+
+    # Make sure PULSE_RUNTIME_DIR exists
+    pulse_host_socket = os.path.join(session["pulse_runtime_path"], "native")
+    pulse_container_socket = os.path.join(tools.config.defaults["container_pulse_runtime_path"], "native")
+    if os.path.exists(pulse_host_socket):
+        make_entry("tmpfs", tools.config.defaults["container_pulse_runtime_path"].lstrip("/"), "tmpfs", "mode=0777,create=dir 0 0")
+        make_entry(pulse_host_socket, pulse_container_socket[1:], options="bind,create=file,optional 0 0")"""
+assert lxc_target in c, "lxc_target not found in lxc.py"
+c = c.replace(lxc_target, lxc_repl, 1)
+with open(path, "w") as f:
+    f.write(c)
+'
+
 
       # ── Multi-instance names (patch 0005) ─────────────────────────────────
       #

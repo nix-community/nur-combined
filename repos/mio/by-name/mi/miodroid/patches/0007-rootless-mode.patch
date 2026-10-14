@@ -9,7 +9,7 @@ data/configs/waydroid-binder.rc.
 diff --git a/data/configs/waydroid-binder.rc b/data/configs/waydroid-binder.rc
 --- a/data/configs/waydroid-binder.rc	1970-01-01 10:00:00.000000000 +1000
 +++ b/data/configs/waydroid-binder.rc	2026-10-06 16:18:35.472754666 +1100
-@@ -0,0 +1,18 @@
+@@ -0,0 +1,91 @@
 +# Waydroid: bring up the binder devices inside the container.
 +#
 +# A user namespace may mount binderfs, so nothing on the host has to provide
@@ -25,9 +25,82 @@ diff --git a/data/configs/waydroid-binder.rc b/data/configs/waydroid-binder.rc
 +on early-init
 +    mkdir /dev/binderfs 0755 root root
 +    exec - root root -- /system/bin/mount -t binder binder /dev/binderfs
++    chmod 0755 /dev/binderfs
++    chmod 0666 /dev/binderfs/binder
++    chmod 0666 /dev/binderfs/vndbinder
++    chmod 0666 /dev/binderfs/hwbinder
++    chmod 0666 /dev/binderfs/binder-control
 +    symlink /dev/binderfs/binder /dev/binder
 +    symlink /dev/binderfs/vndbinder /dev/vndbinder
 +    symlink /dev/binderfs/hwbinder /dev/hwbinder
++    chmod 0666 /dev/binder
++    chmod 0666 /dev/vndbinder
++    chmod 0666 /dev/hwbinder
++    chmod 0666 /dev/random
++    chmod 0666 /dev/urandom
++    setprop ro.cold_boot_done true
++    setprop bpf.progs_loaded 1
++
++service ueventd /system/bin/true
++    override
++    class core
++    oneshot
++
++service bpfloader /system/bin/true
++    override
++    oneshot
++
++service zygote /system/bin/app_process64 -Xzygote /system/bin --zygote --start-system-server --socket-name=zygote
++    override
++    class main
++    user root
++    group root readproc reserved_disk
++    socket zygote stream 660 root system
++    socket usap_pool_primary stream 660 root system
++    onrestart exec_background - system system -- /system/bin/vdc volume abort_fuse
++    onrestart write /sys/power/state on
++    onrestart write /sys/power/wake_lock zygote_kwl
++    onrestart restart audioserver
++    onrestart restart cameraserver
++    onrestart restart media
++    onrestart restart --only-if-running media.tuner
++    onrestart restart netd
++    onrestart restart wificond
++    task_profiles ProcessCapacityHigh MaxPerformance
++    critical window=${zygote.critical_window.minute:-off} target=zygote-fatal
++
++service zygote_secondary /system/bin/app_process32 -Xzygote /system/bin --zygote --socket-name=zygote_secondary
++    override
++    class main
++    user root
++    group root readproc reserved_disk
++    socket zygote_secondary stream 660 root system
++    socket usap_pool_secondary stream 660 root system
++    onrestart restart zygote
++    task_profiles ProcessCapacityHigh MaxPerformance
++
++service cameraserver /system/bin/cameraserver
++    override
++    class main
++    user cameraserver
++    group audio camera input drmrpc inet media mediadrm net_bt net_bt_admin net_bw_acct
++    ioprio rt 4
++    task_profiles CameraServiceCapacity MaxPerformance
++    onrestart class_restart cameraWatchdog
++    interface aidl android.frameworks.cameraservice.service.ICameraService/default
++
++service vendor.audio-hal /vendor/bin/hw/android.hardware.audio.service
++    override
++    class hal
++    user audioserver
++    group audio camera drmrpc inet media mediadrm net_bt net_bt_admin net_bw_acct wakelock
++    capabilities BLOCK_SUSPEND
++    ioprio rt 4
++    task_profiles ProcessCapacityHigh HighPerformance
++    onrestart restart audioserver
++
++on load_bpf_programs
++    setprop bpf.progs_loaded 1
 diff --git a/tools/actions/container_manager.py b/tools/actions/container_manager.py
 --- a/tools/actions/container_manager.py	2026-10-06 16:12:48.705823882 +1100
 +++ b/tools/actions/container_manager.py	2026-10-06 16:12:53.133804391 +1100
@@ -179,17 +252,19 @@ diff --git a/tools/helpers/instance.py b/tools/helpers/instance.py
 diff --git a/tools/helpers/lxc.py b/tools/helpers/lxc.py
 --- a/tools/helpers/lxc.py	2026-10-06 16:12:48.702823896 +1100
 +++ b/tools/helpers/lxc.py	2026-10-06 16:18:41.737739195 +1100
-@@ -50,6 +50,14 @@
+@@ -50,6 +50,16 @@
      make_entry("/dev/full")
      make_entry("/dev/ashmem")
      make_entry("/dev/fuse")
 +    if os.environ.get("WAYDROID_ROOTLESS"):
++        make_entry("/dev/random")
++        make_entry("/dev/urandom")
 +        make_entry("/dev/kmsg", "dev/kmsg", options="bind,create=file 0 0")
 +        make_entry("tmpfs", "dev/socket", "tmpfs", "mode=0755,create=dir 0 0", False)
 +        # Let the container mount its own binderfs: a user namespace is allowed
 +        # to, and that is what keeps rootless mode free of host device nodes.
 +        make_entry(tools.config.tools_src + "/data/configs/waydroid-binder.rc",
-+                   "vendor/etc/init/zz-waydroid-binder.rc",
++                   "system/etc/init/zz-waydroid-binder.rc",
 +                   options="bind,create=file 0 0")
      make_entry("/dev/ion")
      make_entry("/dev/tty")

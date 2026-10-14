@@ -235,6 +235,25 @@ in
       };
 
       programs.fuse.enable = true;
+
+      security.pam.loginLimits = [
+        {
+          domain = "*";
+          item = "nice";
+          type = "-";
+          value = "-20";
+        }
+        {
+          domain = "*";
+          item = "rtprio";
+          type = "-";
+          value = "40";
+        }
+      ];
+      systemd.settings.Manager.DefaultLimitNICE = "-20";
+      systemd.user.settings.Manager.DefaultLimitNICE = "-20";
+      systemd.settings.Manager.DefaultLimitRTPRIO = "40";
+      systemd.user.settings.Manager.DefaultLimitRTPRIO = "40";
     };
 
     testScript = ''
@@ -243,7 +262,7 @@ in
       # Android's init logs to /dev/kmsg and the rootless container is given the
       # host's node (mknod is refused inside a user namespace), so let the
       # container's root write there.
-      machine.succeed("chmod 0666 /dev/kmsg")
+      machine.succeed("chmod 0666 /dev/kmsg /dev/dri/* /dev/fb* /dev/sw_sync 2>/dev/null || true")
       machine.succeed("python3 -m http.server 8000 --directory /etc/miodroid-test >/tmp/miodroid-http.log 2>&1 &")
       machine.succeed("sleep 2")
       machine.succeed("loginctl enable-linger alice")
@@ -299,7 +318,9 @@ in
       export MIODROID_ROOTLESS=1
       export MIODROID_WORK=/home/alice/.local/share/miodroid
       export XDG_RUNTIME_DIR=/run/user/1000
+      export WAYLAND_DISPLAY=wayland-0
       export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+      prlimit --pid=$$ --rtprio=40:40 --nice=-20:-20 2>/dev/null || true
 
       mkdir -p /run/user/1000/pulse
       # Start a real Wayland compositor for Waydroid to connect to,
@@ -322,11 +343,23 @@ in
       PYEOF
       pulseserver=$!
 
+      for i in $(seq 1 50); do
+          if test -S /run/user/1000/wayland-0 && test -S /run/user/1000/pulse/native; then
+              break
+          fi
+          sleep 0.1
+      done
+      chmod 0777 /run/user/1000 /run/user/1000/wayland-0* /run/user/1000/pulse /run/user/1000/pulse/* 2>/dev/null || true
+
       # `session start` stays in the foreground for as long as the session
       # lives, so run it in the background and watch the container instead.
       # The container has to stay up, not just reach RUNNING once.
       miodroid --details-to-stdout session start > /tmp/miodroid-session.log 2>&1 &
       session=$!
+
+      attach() {
+          lxc-attach -s 'MOUNT|PID|IPC|UTSNAME|USER' -P /home/alice/.local/share/miodroid/lxc -n miodroid -- "$@"
+      }
 
       running=0
       for i in $(seq 1 180); do
@@ -354,17 +387,15 @@ in
           # the sleep, so 900 runs past this step's 1200s timeout and the failure
           # diagnostics below never get to print.  The rootful test reaches
           # boot_completed in ~65s, so this is still generous.
-          for i in $(seq 1 420); do
-              if lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- \
-                      /system/bin/getprop sys.boot_completed 2>/dev/null |
+          for i in $(seq 1 240); do
+              if attach /system/bin/getprop sys.boot_completed 2>/dev/null |
                       grep -q '^1'; then
                   echo android-booted
                   # boot_completed=1 already implies that Android's
                   # servicemanager opened /dev/binder, so this only makes the
                   # reason for a failure obvious: the container must have
                   # mounted its own binderfs, with no host device nodes.
-                  if ! lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- \
-                          /system/bin/ls -L /dev/binder /dev/vndbinder /dev/hwbinder; then
+                  if ! attach /system/bin/ls -L /dev/binder /dev/vndbinder /dev/hwbinder; then
                       echo "container is missing its binder devices"
                       kill -9 $session $wlserver $pulseserver 2>/dev/null || true
                       exit 1
@@ -384,12 +415,9 @@ in
               # what carries a crashing service's message.
               case "$i" in 20|45|90)
                   echo "=== MIDBOOT DIAGNOSTICS at i=$i ==="
-                  lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- \
-                      /system/bin/ls -lL /dev/binder /dev/vndbinder /dev/hwbinder /dev/binderfs 2>&1 | head -14 || true
-                  lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- \
-                      /system/bin/logcat -d -v brief 2>&1 | grep -iE "abort|fatal|binder|zygote|servicemanager|apex" | tail -40 || true
-                  lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- \
-                      /system/bin/logcat -d -b crash -v brief 2>&1 | tail -30 || true
+                  attach /system/bin/ls -lL /dev/binder /dev/vndbinder /dev/hwbinder /dev/binderfs 2>&1 | head -14 || true
+                  attach /system/bin/logcat -d -v brief 2>&1 | grep -iE "abort|fatal|binder|zygote|servicemanager|apex" | tail -40 || true
+                  attach /system/bin/logcat -d -b crash -v brief 2>&1 | tail -30 || true
                   coredumpctl --no-pager --no-legend list 2>&1 | tail -8 || true
                   ;;
               esac
@@ -399,15 +427,15 @@ in
       fi
 
       echo "=== SESSION LOG ===" ; cat /tmp/miodroid-session.log || true
-      echo "=== LOGCAT ===" ; lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- /system/bin/logcat -d | tail -n 300 || true
+      echo "=== LOGCAT ===" ; attach /system/bin/logcat -d | tail -n 300 || true
       echo "=== KMSG (container init) ===" ; dmesg | tail -n 80 || true
       echo "=== JOURNALCTL ===" ; journalctl --user -n 100 -xe || true
       # The container's own Android crashes surface through the VM's
       # systemd-coredump (the container shares the PID namespace), so this is
       # where an aborting service's message and backtrace are.
       echo "=== CORE BACKTRACE (last abort) ===" ; coredumpctl --no-pager info 2>&1 | head -70 || true
-      echo "=== CONTAINER BINDER STATE ===" ; lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- /system/bin/ls -lL /dev/binder /dev/vndbinder /dev/hwbinder /dev/binderfs 2>&1 | head -20 || true
-      echo "=== CONTAINER LOG, filtered ===" ; lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- /system/bin/logcat -d -v brief 2>&1 | grep -iE "abort|fatal|binder|zygote|servicemanager|apex" | tail -60 || true
+      echo "=== CONTAINER BINDER STATE ===" ; attach /system/bin/ls -lL /dev/binder /dev/vndbinder /dev/hwbinder /dev/binderfs 2>&1 | head -20 || true
+      echo "=== CONTAINER LOG, filtered ===" ; attach /system/bin/logcat -d -v brief 2>&1 | grep -iE "abort|fatal|binder|zygote|servicemanager|apex" | tail -60 || true
       kill -9 $session $wlserver $pulseserver 2>/dev/null || true
       # Reaching this point means Android never reported boot_completed, so the
       # container is not a working Miodroid; fail with that reason.  (These
@@ -417,7 +445,8 @@ in
       exit 1
       EOFSCRIPT
       chmod 0755 /tmp/test-session.sh""")
-      status, _ = machine.execute("su - alice -c '/tmp/test-session.sh'", timeout=1200)
+      status, out = machine.execute("su - alice -c '/tmp/test-session.sh'", timeout=1200)
+      print(f"=== TEST-SESSION OUTPUT (exit code {status}) ===\n{out}")
       # Root-side, post-mortem evidence.  Android's init logs to the shared
       # kernel log, so a crashing service's LOG(FATAL) message is here even
       # though the container has exited -- and lxc-attach cannot be used in
