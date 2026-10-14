@@ -6,7 +6,7 @@
 }:
 stdenvNoCC.mkDerivation (final: {
   pname = "comfyui-manager";
-  version = "4.3-unstable-2026-10-11";
+  version = "4.3";
 
   src = fetchFromGitHub {
     owner = "Comfy-Org";
