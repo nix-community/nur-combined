@@ -20,16 +20,6 @@
     "hash": "sha256-EXvojddPu+9JKgOG9NSQgUTfWq1RpOYw7adxDPKDJ6o="
   },
   {
-    "pname": "MassTransit",
-    "version": "8.5.7",
-    "hash": "sha256-H+6iSdp9mktoqwqyPh+UEVcvoET/uOjFmaxACN9lIGI="
-  },
-  {
-    "pname": "MassTransit.Abstractions",
-    "version": "8.5.7",
-    "hash": "sha256-Jo8vRAh6YY64eu8O8SzRSTw8OjE07Ilk1nUj4jrMWsc="
-  },
-  {
     "pname": "Microsoft.AspNetCore.Authentication.JwtBearer",
     "version": "10.0.1",
     "hash": "sha256-x30FL5t31tGtbgTTHZlIEIky+J2Slba5YuLqytt56l4="

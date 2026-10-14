@@ -16,8 +16,8 @@
 }:
 
 let
-  version = "0.4.7";
-  hash = "sha256-sQPNZT07kzQlOAfFK4XOuJNOtccm2u7tt+xkp5nr4dc=";
+  version = "0.4.8";
+  hash = "sha256-T/Dx2NnVHmfjF1oBZOCAwoolfcmfYxTler/FuoZvm2c=";
 
   effectiveStdenv = if cudaSupport then cudaPackages.backendStdenv else stdenv;
 in
@@ -62,7 +62,7 @@ effectiveStdenv.mkDerivation (finalAttrs: {
     ]
   );
 
-  npmDepsHash = "sha256-2Q7XhaLAArmviOLdQsNbYTfdyDE5pW9lR26cRHEVl9k=";
+  npmDepsHash = "sha256-a17M+L3nLdRnN6WMB6imPFmwqG2g8uv+gwN0XTAUrf8=";
   npmDeps = fetchNpmDeps {
     name = "${finalAttrs.pname}-${finalAttrs.version}-npm-deps";
     inherit (finalAttrs) src patches;
