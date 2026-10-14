@@ -20,22 +20,22 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "globalprotect-openconnect";
-  version = "2.6.5";
+  version = "3.0.5";
 
   src = fetchFromGitHub {
     owner = "yuezk";
     repo = "GlobalProtect-openconnect";
     rev = "v${version}";
-    hash = "sha256-WCCSd20qkDtJ88ru+ufFZrNQZSKkCzYo5fZpbB7Sn7o=";
+    hash = "sha256-QQPi7ex/VwVhyBrgRaJugJog7x3WbatDgD7gdNkmxr0=";
     fetchSubmodules = true;
   };
 
-  cargoHash = "sha256-6+x5SRQHIchtkdYZAZl+b28hMCaiQHrp9i3tMsN3DhE=";
+  cargoHash = "sha256-bMLbvofHnGOcydcLJVZJt54sAXLPayNu8hl2zETx8uI=";
 
   pnpmDeps = pnpm_10.fetchDeps {
     inherit pname version src;
     sourceRoot = "${src.name}/apps/gpgui-helper";
-    hash = "sha256-zqsLkfst34fIcDAohqfwMt5yqfOXUUV51fuXoQE/ds0=";
+    hash = "sha256-fBvVmux6fcDx1le9mpo6jCS9o8SpzPrufffu1YK31QM=";
     fetcherVersion = 4;
   };
 
@@ -65,7 +65,7 @@ rustPlatform.buildRustPackage rec {
     description = "A GlobalProtect VPN client (GUI) for Linux, based on OpenConnect";
     homepage = "https://github.com/yuezk/GlobalProtect-openconnect";
     license = lib.licenses.gpl3Only;
-    mainProgram = "gpgui";
+    mainProgram = "gpgui-helper";
     platforms = lib.platforms.linux;
   };
 }

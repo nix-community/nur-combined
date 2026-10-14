@@ -13,16 +13,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "penguin-mail";
-  version = "1.0.7";
+  version = "1.0.8";
 
   src = fetchFromGitHub {
     owner = "c9dev";
     repo = "penguin-mail";
     rev = "v${version}";
-    hash = "sha256-AHu9CRRouoLA9Gd/kRf6Wg7/KwG+PhOT3MD4F2N9QXQ=";
+    hash = "sha256-QUAa+Ye7bczB2MGJraNpaK/h5fc94+IqwK91K/3ch7E=";
   };
 
-  cargoHash = "sha256-ZuowxHI22IfLeKzy6rIZNxl+6edQNaCi4iEj95uif/A=";
+  cargoHash = "sha256-0Hgg8ijcxA5OwnApW+pww1C+2haKsfpnesS5auJmTX0=";
 
   nativeBuildInputs = [
     pkg-config
