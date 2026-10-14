@@ -15,6 +15,7 @@
 | **`wowup-cf`** | World of Warcraft addon manager with CurseForge support (AppImage) | **Auto** (Weekly) |
 | **`scopebuddy`** | ScopeBuddy application | **Auto** (Weekly) |
 | **`cybergrub2077`** | Cyberpunk 2077 inspired GRUB theme | **Auto** (Weekly) |
+| **`rea-agents`** | Bare REA CLI and MCP server | **Auto** (Weekly) |
 
 ## Usage
 
@@ -44,6 +45,34 @@ Add to your `flake.nix`:
 
 Flake overlay: `urio-nur.overlays.default`
 
+### REA with Home Manager
+
+Import the module and enable REA. Ghidra is optional; when enabled it is added
+to the user's Home Manager profile (so `ghidra` is on `PATH`) and its paths are
+configured for REA:
+
+```nix
+{
+  imports = [ urio-nur.homeModules.rea ];
+  programs.rea = {
+    enable = true;
+    ghidra.enable = true;
+    freeTools.enable = true; # all supported free REA tools except Ghidra
+    # Example: leave one out while keeping the rest of the bundle:
+    # freeTools.chromium.enable = false;
+    # ghidra.package = pkgs.ghidra; # default
+  };
+}
+```
+
+`urio-nur.packages.<system>.rea-agents` is the bare CLI/MCP package and does not
+pull Ghidra or optional tools into its closure. `programs.rea.freeTools` also has
+individual switches for Chromium, Android tools, Apktool, JADX, ILSpy, Binwalk,
+Unblob, mitmproxy, Wakaru, pwntools, pwndbg, and `prlimit`. The full free-tools
+bundle currently targets x86_64-linux; `ghidra` remains a separate option. The
+pinned REA 6.4.0 release does not yet wire Rizin or GNU objdump into REA, so the
+module does not expose misleading install-only switches for them. See
+[`pkgs/rea-agents/README.md`](pkgs/rea-agents/README.md) for details.
 
 ## Updates
 

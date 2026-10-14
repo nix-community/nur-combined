@@ -9,8 +9,8 @@
   ghidra,
   jdk21,
   callPackage,
-  withGhidra ? true,
-  withFullTools ? stdenv.hostPlatform.system == "x86_64-linux",
+  withGhidra ? false,
+  withFullTools ? false,
 }:
 
 let
@@ -59,8 +59,8 @@ buildNpmPackage (finalAttrs: {
   ++ lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ stdenv.cc.cc.lib ];
 
-  # The default package can decompile native binaries out of the box. Keep
-  # explicit caller settings usable for another Ghidra installation or provider.
+  # Keep the base CLI independent of Ghidra. Callers can opt into a wrapped
+  # package, while the Home Manager module configures Ghidra separately.
   postFixup = lib.optionalString withGhidra ''
     for command in rea rea-agents; do
       wrapProgram "$out/bin/$command" \
@@ -109,7 +109,7 @@ buildNpmPackage (finalAttrs: {
   };
 
   meta = with lib; {
-    description = "Reverse-engineering tools and MCP server for coding agents";
+    description = "Reverse-engineering CLI and MCP server for coding agents";
     homepage = "https://rea.tools/";
     changelog = "https://github.com/morluto/rea/releases/tag/rea-agents-${finalAttrs.version}";
     license = licenses.mit;

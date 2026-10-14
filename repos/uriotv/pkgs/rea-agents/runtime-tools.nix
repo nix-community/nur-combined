@@ -153,6 +153,7 @@ in
     jadxMcpJar
     wakaru
     pwndbg
+    unblobRuntime
     nativeAot
     ;
   packages = [

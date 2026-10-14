@@ -39,6 +39,7 @@
       flake = {
         overlays = import ./overlays;
         homeModules = {
+          rea = import ./modules/home-manager/rea.nix;
         };
         nixosModules = {
           default =
