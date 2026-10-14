@@ -1,7 +1,87 @@
+diff --git a/packages/agent/src/agent-loop.ts b/packages/agent/src/agent-loop.ts
+index f406aba..5f47725 100644
+--- a/packages/agent/src/agent-loop.ts
++++ b/packages/agent/src/agent-loop.ts
+@@ -429,6 +429,8 @@ async function streamAssistantResponse(
+ 			case "toolcall_start":
+ 			case "toolcall_delta":
+ 			case "toolcall_end":
++			case "server_tool_start":
++			case "server_tool_end":
+ 				if (partialMessage) {
+ 					partialMessage = event.partial;
+ 					context.messages[context.messages.length - 1] = partialMessage;
+diff --git a/packages/agent/test/agent-loop.test.ts b/packages/agent/test/agent-loop.test.ts
+index 4a9386a..691e34d 100644
+--- a/packages/agent/test/agent-loop.test.ts
++++ b/packages/agent/test/agent-loop.test.ts
+@@ -2232,3 +2232,61 @@ describe("runToolCall", () => {
+ 		expect(seen).toEqual([undefined, { value: "replaced" }, { value: "both" }, { value: "original" }]);
+ 	});
+ });
++
++describe("server_tool stream event forwarding", () => {
++	it("#given server_tool stream events #when the loop consumes them #then forwards each as message_update", async () => {
++		const events: AgentEvent[] = [];
++		const partial = createAssistantMessage([], "toolUse");
++		const doneMessage: AssistantMessage = { ...partial, stopReason: "stop", usage: createUsage() };
++		await runAgentLoop(
++			[createUserMessage("q")],
++			{ messages: [], tools: [] },
++			{ model: createModel(), convertToLlm: identityConverter },
++			(event) => {
++				events.push(event);
++			},
++			undefined,
++			() => {
++				const stream = createAssistantMessageEventStream();
++				queueMicrotask(() => {
++					stream.push({ type: "start", partial });
++					stream.push({
++						type: "server_tool_start",
++						index: 1,
++						block: { type: "server_tool_use", id: "srv_A", name: "web_search" },
++						partial,
++					});
++					stream.push({
++						type: "server_tool_end",
++						index: 1,
++						block: { type: "server_tool_use", id: "srv_A", name: "web_search", input: { query: "q" } },
++						partial,
++					});
++					stream.push({
++						type: "server_tool_end",
++						index: 2,
++						block: { type: "web_search_tool_result", tool_use_id: "srv_A", content: [] },
++						partial,
++					});
++					stream.push({ type: "done", reason: "stop", message: doneMessage });
++				});
++				return stream;
++			},
++		);
++
++		const updates = events.filter((event) => event.type === "message_update");
++		expect(updates.map((event) => event.assistantMessageEvent?.type)).toEqual([
++			"server_tool_start",
++			"server_tool_end",
++			"server_tool_end",
++		]);
++		// The forwarded events carry the raw wire block for display consumers.
++		const first = updates[0];
++		if (first?.type !== "message_update") throw new Error("unreachable");
++		expect(first.assistantMessageEvent).toMatchObject({
++			type: "server_tool_start",
++			index: 1,
++			block: { type: "server_tool_use", id: "srv_A" },
++		});
++	});
++});
 diff --git a/packages/ai/src/api/anthropic-messages.ts b/packages/ai/src/api/anthropic-messages.ts
+index 29e13db..6e7903c 100644
 --- a/packages/ai/src/api/anthropic-messages.ts
 +++ b/packages/ai/src/api/anthropic-messages.ts
-@@ -659,6 +659,12 @@
+@@ -692,6 +692,12 @@ export const stream: StreamFunction<"anthropic-messages", AnthropicOptions> = (
  
  			type Block = (ThinkingContent | TextContent | (ToolCall & { partialJson: string })) & { index: number };
  			const blocks = output.content as Block[];
@@ -14,7 +94,7 @@ diff --git a/packages/ai/src/api/anthropic-messages.ts b/packages/ai/src/api/ant
  
  			for await (const event of iterateAnthropicEvents(response, options?.signal)) {
  				await options?.onProviderStreamEvent?.(event, model);
-@@ -693,6 +699,16 @@
+@@ -726,6 +732,16 @@ export const stream: StreamFunction<"anthropic-messages", AnthropicOptions> = (
  						}
  						continue;
  					}
@@ -31,7 +111,23 @@ diff --git a/packages/ai/src/api/anthropic-messages.ts b/packages/ai/src/api/ant
  					if (event.content_block.type === "text") {
  						const block: Block = {
  							type: "text",
-@@ -747,6 +763,10 @@
+@@ -766,6 +782,15 @@ export const stream: StreamFunction<"anthropic-messages", AnthropicOptions> = (
+ 						};
+ 						output.content.push(block);
+ 						stream.push({ type: "toolcall_start", contentIndex: output.content.length - 1, partial: output });
++					} else if (event.content_block.type === "server_tool_use") {
++						// Wire-only block: announce it so consumers can surface the inline
++						// search while the message streams (no internal block is created).
++						stream.push({
++							type: "server_tool_start",
++							index: event.index,
++							block: { ...wireBlock },
++							partial: output,
++						});
+ 					}
+ 				} else if (event.type === "content_block_delta") {
+ 					if (event.delta.type === "text_delta") {
+@@ -780,6 +805,10 @@ export const stream: StreamFunction<"anthropic-messages", AnthropicOptions> = (
  								partial: output,
  							});
  						}
@@ -42,7 +138,7 @@ diff --git a/packages/ai/src/api/anthropic-messages.ts b/packages/ai/src/api/ant
  					} else if (event.delta.type === "thinking_delta") {
  						const index = blocks.findIndex((b) => b.index === event.index);
  						const block = blocks[index];
-@@ -759,6 +779,10 @@
+@@ -792,6 +821,10 @@ export const stream: StreamFunction<"anthropic-messages", AnthropicOptions> = (
  								partial: output,
  							});
  						}
@@ -53,7 +149,7 @@ diff --git a/packages/ai/src/api/anthropic-messages.ts b/packages/ai/src/api/ant
  					} else if (event.delta.type === "input_json_delta") {
  						const index = blocks.findIndex((b) => b.index === event.index);
  						const block = blocks[index];
-@@ -772,6 +796,10 @@
+@@ -805,6 +838,10 @@ export const stream: StreamFunction<"anthropic-messages", AnthropicOptions> = (
  								partial: output,
  							});
  						}
@@ -64,7 +160,7 @@ diff --git a/packages/ai/src/api/anthropic-messages.ts b/packages/ai/src/api/ant
  					} else if (event.delta.type === "signature_delta") {
  						const index = blocks.findIndex((b) => b.index === event.index);
  						const block = blocks[index];
-@@ -779,10 +807,30 @@
+@@ -812,10 +849,45 @@ export const stream: StreamFunction<"anthropic-messages", AnthropicOptions> = (
  							block.thinkingSignature = block.thinkingSignature || "";
  							block.thinkingSignature += event.delta.signature;
  						}
@@ -87,6 +183,21 @@ diff --git a/packages/ai/src/api/anthropic-messages.ts b/packages/ai/src/api/ant
 +					if (wire) {
 +						if (wire.block.type === "server_tool_use" && wire.jsonBuf !== undefined) {
 +							wire.block.input = parseStreamingJson(wire.jsonBuf);
++							stream.push({
++								type: "server_tool_end",
++								index: event.index,
++								block: { ...wire.block },
++								partial: output,
++							});
++						}
++						if (wire.block.type === "web_search_tool_result") {
++							// Result blocks arrive complete; announce them for mid-stream display.
++							stream.push({
++								type: "server_tool_end",
++								index: event.index,
++								block: { ...wire.block },
++								partial: output,
++							});
 +						}
 +						if (wire.block.type === "tool_use" && block && block.type === "toolCall") {
 +							wire.block.input = block.arguments;
@@ -95,7 +206,7 @@ diff --git a/packages/ai/src/api/anthropic-messages.ts b/packages/ai/src/api/ant
  					if (block) {
  						delete (block as any).index;
  						if (block.type === "text") {
-@@ -857,6 +905,18 @@
+@@ -890,6 +962,18 @@ export const stream: StreamFunction<"anthropic-messages", AnthropicOptions> = (
  					calculateCost(usageModel, output.usage);
  				}
  			}
@@ -114,15 +225,15 @@ diff --git a/packages/ai/src/api/anthropic-messages.ts b/packages/ai/src/api/ant
  
  			if (options?.signal?.aborted) {
  				throw new Error("Request was aborted");
-@@ -1150,6 +1210,7 @@
- 			? (tools) =>
- 					convertTools(tools, isOAuthToken, compat.supportsEagerToolInputStreaming, compat.supportsStrictTools)
- 			: undefined,
+@@ -1201,6 +1285,7 @@ function buildParams(
+ 		compat.allowEmptySignature,
+ 		model.compat?.supportsMidConvoEffort === true ? model.provider : undefined,
+ 		nativeToolChanges ? convertToolDefinitions : undefined,
 +		model.provider,
  	);
  	const activeEffort = options?.effort ?? "high";
  	const betaFeatures = getBetaFeatures(model, context, isOAuthToken, nativeToolChanges, options);
-@@ -1313,6 +1374,7 @@
+@@ -1349,6 +1434,7 @@ function convertMessages(
  	managedProvider?: string,
  	/** Converts tool definitions for native `tool_addition` blocks; undefined when tool changes are not native. */
  	convertToolDefinitions?: (tools: Tool[]) => BetaTool[],
@@ -130,7 +241,7 @@ diff --git a/packages/ai/src/api/anthropic-messages.ts b/packages/ai/src/api/ant
  ): ConvertedAnthropicMessages {
  	const params: MessageParam[] = [];
  	const assistantLevels = new Map<number, AnthropicEffort>();
-@@ -1445,6 +1507,12 @@
+@@ -1481,6 +1567,12 @@ function convertMessages(
  					});
  				}
  			}
@@ -144,19 +255,300 @@ diff --git a/packages/ai/src/api/anthropic-messages.ts b/packages/ai/src/api/ant
  			const messageIndex = params.length;
  			params.push({
 diff --git a/packages/ai/src/types.ts b/packages/ai/src/types.ts
+index 6a9a1e5..a0f6fb7 100644
 --- a/packages/ai/src/types.ts
 +++ b/packages/ai/src/types.ts
-@@ -568,6 +568,13 @@
+@@ -580,6 +580,13 @@ export interface AssistantMessage {
+ 	deferred?: DeferredHandle;
  	errorMessage?: string;
  	rawStopReason?: string;
- 	/**
++	/**
 +	 * Verbatim provider-native content blocks captured from the Anthropic Messages
 +	 * stream for content with no internal representation (server tool
 +	 * use/results, text citations). Replayed as-is when the same provider
 +	 * resends the message; other providers fall back to the internal conversion.
 +	 */
 +	anthropicWireContent?: unknown[];
-+	/**
+ 	/**
  	 * Provider indication of whether the model explicitly ended its turn.
  	 * Preserved for debugging and does not currently affect agent control flow.
- 	 */
+@@ -809,6 +816,17 @@ export type AssistantMessageEvent =
+ 	| { type: "toolcall_start"; contentIndex: number; partial: AssistantMessage }
+ 	| { type: "toolcall_delta"; contentIndex: number; delta: string; partial: AssistantMessage }
+ 	| { type: "toolcall_end"; contentIndex: number; toolCall: ToolCall; partial: AssistantMessage }
++	/**
++	 * Provider-native server-tool block started (anthropic server tools with no
++	 * internal representation, e.g. the server-side web search tool). `index` is
++	 * the provider content array index (not an index into `partial.content`);
++	 * `block` is the raw wire block as received. Emitted alongside the
++	 * `anthropicWireContent` capture so consumers can surface inline server-tool
++	 * activity while the message is still streaming.
++	 */
++	| { type: "server_tool_start"; index: number; block: Record<string, unknown>; partial: AssistantMessage }
++	/** Provider-native server-tool block completed; `block` is final. */
++	| { type: "server_tool_end"; index: number; block: Record<string, unknown>; partial: AssistantMessage }
+ 	| {
+ 			type: "done";
+ 			reason: Extract<StopReason, "stop" | "length" | "toolUse" | "deferred">;
+diff --git a/packages/ai/src/utils/assistant-message-frame.ts b/packages/ai/src/utils/assistant-message-frame.ts
+index 65e23ed..7f03061 100644
+--- a/packages/ai/src/utils/assistant-message-frame.ts
++++ b/packages/ai/src/utils/assistant-message-frame.ts
+@@ -97,7 +97,7 @@ function assertContentIndex(contentIndex: number): void {
+ 	}
+ }
+ 
+-function eventBlock(event: Exclude<AssistantMessageEvent, { type: "start" | "done" | "error" }>) {
++function eventBlock(event: Extract<AssistantMessageEvent, { contentIndex: number }>) {
+ 	assertContentIndex(event.contentIndex);
+ 	const block = event.partial.content[event.contentIndex];
+ 	if (!block) {
+diff --git a/packages/ai/test/anthropic-server-tool-stream-events.test.ts b/packages/ai/test/anthropic-server-tool-stream-events.test.ts
+new file mode 100644
+index 0000000..c20cf90
+--- /dev/null
++++ b/packages/ai/test/anthropic-server-tool-stream-events.test.ts
+@@ -0,0 +1,167 @@
++import type Anthropic from "@anthropic-ai/sdk";
++import { describe, expect, it } from "vitest";
++import { stream as streamAnthropic } from "../src/api/anthropic-messages.ts";
++import { getModel, normalizeContext } from "../src/compat.ts";
++
++function createSseResponse(events: Array<{ event: string; data: string }>): Response {
++	const body = events.map(({ event, data }) => `event: ${event}\ndata: ${data}\n`).join("\n");
++	return new Response(body, {
++		status: 200,
++		headers: { "content-type": "text/event-stream" },
++	});
++}
++
++function createFakeAnthropicClient(response: Response): Anthropic {
++	return {
++		beta: {
++			messages: {
++				create: () => ({
++					asResponse: async () => response,
++				}),
++			},
++		},
++	} as unknown as Anthropic;
++}
++
++const serverToolSseEvents = [
++	{
++		event: "message_start",
++		data: JSON.stringify({
++			type: "message_start",
++			message: { id: "msg_server_tool", usage: { input_tokens: 12, output_tokens: 0 } },
++		}),
++	},
++	{
++		event: "content_block_start",
++		data: JSON.stringify({ type: "content_block_start", index: 0, content_block: { type: "text", text: "" } }),
++	},
++	{
++		event: "content_block_delta",
++		data: JSON.stringify({
++			type: "content_block_delta",
++			index: 0,
++			delta: { type: "text_delta", text: "Search results for query: q" },
++		}),
++	},
++	{ event: "content_block_stop", data: JSON.stringify({ type: "content_block_stop", index: 0 }) },
++	{
++		event: "content_block_start",
++		data: JSON.stringify({
++			type: "content_block_start",
++			index: 1,
++			content_block: { type: "server_tool_use", id: "tool_A", name: "web_search", input: {} },
++		}),
++	},
++	{
++		event: "content_block_delta",
++		data: JSON.stringify({
++			type: "content_block_delta",
++			index: 1,
++			delta: { type: "input_json_delta", partial_json: '{"query":"q"}' },
++		}),
++	},
++	{ event: "content_block_stop", data: JSON.stringify({ type: "content_block_stop", index: 1 }) },
++	{
++		event: "content_block_start",
++		data: JSON.stringify({
++			type: "content_block_start",
++			index: 2,
++			content_block: {
++				type: "web_search_tool_result",
++				tool_use_id: "srvtoolu_B",
++				content: [{ type: "web_search_result", title: "t", url: "https://example.com" }],
++			},
++		}),
++	},
++	{ event: "content_block_stop", data: JSON.stringify({ type: "content_block_stop", index: 2 }) },
++	{
++		event: "content_block_start",
++		data: JSON.stringify({
++			type: "content_block_start",
++			index: 3,
++			content_block: { type: "tool_use", id: "tool_C", name: "bash", input: { command: "date" } },
++		}),
++	},
++	{ event: "content_block_stop", data: JSON.stringify({ type: "content_block_stop", index: 3 }) },
++	{
++		event: "message_delta",
++		data: JSON.stringify({
++			type: "message_delta",
++			delta: { stop_reason: "tool_use" },
++			usage: { input_tokens: 12, output_tokens: 5 },
++		}),
++	},
++	{ event: "message_stop", data: JSON.stringify({ type: "message_stop" }) },
++];
++
++describe("anthropic server tool stream events", () => {
++	it("#given a stream with server_tool_use and web_search_tool_result #when streaming #then emits server_tool events in wire order with final blocks", async () => {
++		const model = getModel("anthropic", "claude-haiku-4-5");
++		const response = streamAnthropic(
++			model,
++			normalizeContext({ messages: [{ role: "user", content: "q", timestamp: 1 }] }),
++			{ client: createFakeAnthropicClient(createSseResponse(serverToolSseEvents)) },
++		);
++
++		const types: string[] = [];
++		const serverToolEvents: Array<{ type: string; index: number; block: Record<string, unknown> }> = [];
++		for await (const event of response) {
++			types.push(event.type);
++			if (event.type === "server_tool_start" || event.type === "server_tool_end") {
++				serverToolEvents.push({ type: event.type, index: event.index, block: event.block });
++			}
++		}
++
++		// Wire order: text block, then the server-tool use, its result, then the
++		// regular tool_use. The server-tool events must interleave in that order.
++		expect(types.filter((type) => type.startsWith("server_tool"))).toEqual([
++			"server_tool_start",
++			"server_tool_end",
++			"server_tool_end",
++		]);
++		expect(serverToolEvents[0]).toEqual({
++			type: "server_tool_start",
++			index: 1,
++			block: { type: "server_tool_use", id: "tool_A", name: "web_search", input: {} },
++		});
++		expect(serverToolEvents[1]?.type).toBe("server_tool_end");
++		expect(serverToolEvents[1]?.block).toMatchObject({
++			type: "server_tool_use",
++			id: "tool_A",
++			input: { query: "q" },
++		});
++		expect(serverToolEvents[2]?.type).toBe("server_tool_end");
++		expect(serverToolEvents[2]?.block).toMatchObject({
++			type: "web_search_tool_result",
++			tool_use_id: "srvtoolu_B",
++			content: [{ type: "web_search_result", title: "t", url: "https://example.com" }],
++		});
++		// The regular tool call still terminates the turn after the search; the
++		// stream then ends with the done event.
++		expect(types[types.length - 2]).toBe("toolcall_end");
++		expect(types[types.length - 1]).toBe("done");
++	});
++
++	it("#given the same stream #when the message finishes #then anthropicWireContent stays attached for verbatim replay", async () => {
++		const model = getModel("anthropic", "claude-haiku-4-5");
++		const result = await streamAnthropic(
++			model,
++			normalizeContext({ messages: [{ role: "user", content: "q", timestamp: 1 }] }),
++			{ client: createFakeAnthropicClient(createSseResponse(serverToolSseEvents)) },
++		).result();
++
++		const wire = result.anthropicWireContent as Array<Record<string, unknown>> | undefined;
++		expect(Array.isArray(wire)).toBe(true);
++		expect(wire?.map((block) => block["type"])).toEqual([
++			"text",
++			"server_tool_use",
++			"web_search_tool_result",
++			"tool_use",
++		]);
++		expect(wire?.[1]).toMatchObject({ id: "tool_A", input: { query: "q" } });
++		// Internal representation stays untouched: the search never becomes a
++		// content block, so the agent loop only sees text and the trailing tool call.
++		expect(result.content.map((block) => block.type)).toEqual(["text", "toolCall"]);
++		expect(result.stopReason).toBe("toolUse");
++	});
++});
+diff --git a/packages/coding-agent/src/config.ts b/packages/coding-agent/src/config.ts
+index 61dd63f..ad0e03f 100644
+--- a/packages/coding-agent/src/config.ts
++++ b/packages/coding-agent/src/config.ts
+@@ -6,6 +6,7 @@ import { fileURLToPath } from "url";
+ import { spawnProcessSync } from "./utils/child-process.ts";
+ import { normalizePath } from "./utils/paths.ts";
+ import { stripBom } from "./utils/text.ts";
++import "./patch-capabilities.js";
+ 
+ // =============================================================================
+ // Package Detection
+diff --git a/packages/coding-agent/src/patch-capabilities.ts b/packages/coding-agent/src/patch-capabilities.ts
+new file mode 100644
+index 0000000..1e5e62d
+--- /dev/null
++++ b/packages/coding-agent/src/patch-capabilities.ts
+@@ -0,0 +1,37 @@
++/**
++ * Capability marker for patched pi builds (e.g. distribution packages that
++ * carry source patches upstream does not accept, see nur pi-agent-patched).
++ *
++ * The module is imported for its side effect: at startup it publishes a
++ * `__PI_PATCH_CAPABILITIES__` global that extensions can probe at runtime to
++ * detect patched behavior and degrade gracefully on stock pi. Each patch set
++ * bumps `version` (date-based) and lists its capabilities as boolean flags;
++ * capability names are stable identifiers consumers branch on, not versions.
++ *
++ * Stock pi never defines the global, so absence of the marker is the
++ * "unpatched" signal and consumers must fall back to stock behavior.
++ */
++
++export interface PiPatchCapabilities {
++	/** Date-based version of the applied patch set, bumped on every change. */
++	version: number;
++	/** Boolean capability flags; consumers branch on presence and value. */
++	capabilities: Readonly<Record<string, boolean>>;
++}
++
++/** Capabilities provided by the current patch set. Bump `version` on changes. */
++export const PI_PATCH_CAPABILITIES: PiPatchCapabilities = {
++	version: 20261014,
++	capabilities: {
++		// anthropic-messages adapter emits server_tool_start/server_tool_end
++		// stream events and the agent loop forwards them as message_update.
++		server_tool_stream_events: true,
++	},
++};
++
++declare global {
++	// eslint-disable-next-line no-var -- var is required for globalThis merging
++	var __PI_PATCH_CAPABILITIES__: PiPatchCapabilities | undefined;
++}
++
++globalThis.__PI_PATCH_CAPABILITIES__ = PI_PATCH_CAPABILITIES;
+diff --git a/packages/coding-agent/test/patch-capabilities.test.ts b/packages/coding-agent/test/patch-capabilities.test.ts
+new file mode 100644
+index 0000000..d320690
+--- /dev/null
++++ b/packages/coding-agent/test/patch-capabilities.test.ts
+@@ -0,0 +1,15 @@
++import { describe, expect, it } from "vitest";
++import { PI_PATCH_CAPABILITIES } from "../src/patch-capabilities.ts";
++
++describe("patch capabilities marker", () => {
++	it("#given the module is imported #when probing globalThis #then the marker is published", () => {
++		const marker = globalThis.__PI_PATCH_CAPABILITIES__;
++		expect(marker).toBeDefined();
++		expect(marker?.version).toBeGreaterThan(0);
++		expect(marker?.capabilities["server_tool_stream_events"]).toBe(true);
++	});
++
++	it("#given the constant #when compared to the global #then both reference the same capabilities", () => {
++		expect(globalThis.__PI_PATCH_CAPABILITIES__).toBe(PI_PATCH_CAPABILITIES);
++	});
++});
