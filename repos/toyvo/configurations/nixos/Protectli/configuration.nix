@@ -510,7 +510,7 @@ in
   disko.devices = {
     disk.main = {
       type = "disk";
-      device = "/dev/nvme0n1";
+      device = "/dev/sda";
       content = {
         type = "gpt";
         partitions = {
@@ -538,17 +538,6 @@ in
                 "NIXOS"
               ];
               subvolumes = {
-                "@" = {
-                  mountpoint = "/";
-                };
-                "@home" = {
-                  mountOptions = [ "compress=zstd" ];
-                  mountpoint = "/home";
-                };
-                "@var" = {
-                  mountOptions = [ "compress=zstd" ];
-                  mountpoint = "/var";
-                };
                 "@nix" = {
                   mountOptions = [
                     "compress=zstd"
@@ -556,77 +545,66 @@ in
                   ];
                   mountpoint = "/nix";
                 };
-                # "@persistent" = {
-                #   mountOptions = [
-                #     "compress=zstd"
-                #     "noatime"
-                #   ];
-                #   mountpoint = "/persistent";
-                # };
+                "@persistent" = {
+                  mountOptions = [
+                    "compress=zstd"
+                    "noatime"
+                  ];
+                  mountpoint = "/persistent";
+                };
               };
             };
           };
         };
       };
     };
-    # nodev."/" = {
-    #   fsType = "tmpfs";
-    #   mountOptions = [
-    #     "size=2G"
-    #     "mode=755"
-    #   ];
-    # };
+    nodev."/" = {
+      fsType = "tmpfs";
+      mountOptions = [
+        "size=2G"
+        "mode=755"
+      ];
+    };
   };
-  # ============================================================================
-  # EPHEMERAL SETUP (Optional — requires reinstallation)
-  # ============================================================================
-  # To switch the Protectli to an impermanent (tmpfs-on-root) setup:
-  #
-  # 1. In disko configuration above enable keep only the nix and preservation subvolumes
-  # 2. uncomment preservation options below
-  # 3. On the Protectli, run from a NixOS installer:
-  #      nix run nixpkgs#disko -- --mode destroy,format,mount --flake .#Protectli
-  #      nixos-install --flake .#Protectli
-  # 4. Reboot.
-  # ============================================================================
-  #   preservation.enable = true;
-  #   preservation.preserveAt."/persistent" = {
-  #     directories = [
-  #       # System state
-  #       "/var/lib/nixos"
-  #       "/var/lib/systemd"
-  #       "/var/log"
-  #
-  #       # DHCP leases (kea)
-  #       "/var/lib/kea"
-  #
-  #       # SSH host keys
-  #       "/etc/ssh"
-  #
-  #       # sops-nix age key
-  #       "/var/lib/sops-nix"
-  #     ];
-  #
-  #     files = [
-  #       # Machine ID (for systemd, DHCP, etc.)
-  #       "/etc/machine-id"
-  #     ];
-  #
-  #     users.toyvo = {
-  #       directories = [
-  #         ".ssh"
-  #       ];
-  #       files = [
-  #         ".bash_history"
-  #       ];
-  #     };
-  #   };
-  #
-  #   # Ensure preserved directories are created with correct permissions
-  #   systemd.tmpfiles.rules = [
-  #     "d /persistent/etc/ssh 0755 root root -"
-  #     "d /persistent/var/lib/kea 0755 kea kea -"
-  #     "d /persistent/var/log 0755 root root -"
-  #     "d /persistent/var/lib/sops-nix 0755 root root -"
-  #   ];
+  preservation.enable = true;
+  preservation.preserveAt."/persistent" = {
+    directories = [
+      # System state
+      "/var/lib/nixos"
+      "/var/lib/systemd"
+      "/var/log"
+
+      # DHCP leases (kea)
+      "/var/lib/kea"
+
+      # SSH host keys
+      "/etc/ssh"
+    ];
+
+    files = [
+      # Machine ID (for systemd, DHCP, etc.)
+      "/etc/machine-id"
+      # sops-nix age key
+      "/var/sops/age/keys.txt"
+    ];
+
+    users.toyvo = {
+      directories = [
+        ".ssh"
+      ];
+      files = [
+        # sops-nix age key
+        ".config/sops/age/keys.txt"
+      ];
+    };
+  };
+
+  # Ensure preserved directories are created with correct permissions
+  systemd.tmpfiles.rules = [
+    "d /persistent/etc/ssh 0755 root root -"
+    "d /persistent/var/lib/kea 0755 kea kea -"
+    "d /persistent/var/log 0755 root root -"
+    "d /persistent/var/sops/age 0755 root root -"
+    "d /persistent/home/toyvo/.config/sops/age 0755 toyvo toyvo -"
+  ];
 }
