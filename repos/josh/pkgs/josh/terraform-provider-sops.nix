@@ -9,9 +9,9 @@ let
   pkg = terraform-providers.mkProvider {
     owner = "josh";
     repo = "terraform-provider-sops";
-    rev = "v0.2.1";
-    hash = "sha256-yIDrIttnVYlVlw7kAuDU4Wpf83FowXkQ2IYRm1oVGpo=";
-    vendorHash = "sha256-B25EObBlDCTtGdXxcUPbV9Xzywt/bOYM3xQlyFHN6ZY=";
+    rev = "v0.2.2";
+    hash = "sha256-LX5zAm9znVp7aSyE9+0xOy9I7HvGdCxm+D3DgGOP3UQ=";
+    vendorHash = "sha256-I0MuIc/9fOWvPx7tL+oueTBwLGLvxufo3j/Lt7Mobrw=";
     provider-source-address = "registry.terraform.io/josh/sops";
     homepage = "https://github.com/josh/terraform-provider-sops";
     spdx = "MIT";
