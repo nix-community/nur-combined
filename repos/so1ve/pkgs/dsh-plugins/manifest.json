@@ -9,13 +9,13 @@
     "version": "0.69.1",
     "url": "https://registry.npmjs.org/dsh-context/-/dsh-context-0.69.1.tgz",
     "integrity": "sha512-DolHfuqxJCwcKiXawstVlSyc3ew6OZq+nGhp8n+9OT9+wbNg9m2H+vA79ex36Tx6fxmJNuVlaErtViLykyuI3A==",
-    "npmDepsHash": "sha256-I/VhALEeC63E77VsZnmZaDD54styInV/gy8bdXLUM4A="
+    "npmDepsHash": "sha256-H1n+ZzyRdv+jGnocUrFCQEogHdR9wgP3Rk6q48RQfJ0="
   },
   "github:YuJunZhiXue/dsh-purge": {
     "version": "1.1.71",
-    "rev": "e2372009309536b135c384a6419a1d820e1554ed",
-    "url": "https://codeload.github.com/YuJunZhiXue/dsh-purge/tar.gz/e2372009309536b135c384a6419a1d820e1554ed",
-    "hash": "sha256-CSmh7n8sm29CPrei3M0XMLJGpfCjiBTeIkTwUg1hAI8="
+    "rev": "6c1d638d1bdcc45ede50fc30249c753d58122a51",
+    "url": "https://codeload.github.com/YuJunZhiXue/dsh-purge/tar.gz/6c1d638d1bdcc45ede50fc30249c753d58122a51",
+    "hash": "sha256-Qqt3keNQ8rGcK8HYYV1scg4dpHqwg3ITL2oPLhf6DPg="
   },
   "npm:@anionex/dsh-turn-rewind": {
     "version": "0.3.9",
