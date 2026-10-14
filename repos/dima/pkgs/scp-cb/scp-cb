@@ -21,6 +21,10 @@ MATERIALS_LINK=$(readlink $MATERIALS)
 SAVES="$LIB/Saves"
 SAVES_LINK=$(readlink "$SAVES")
 
+MAPS="$LIB/Map Creator/Maps"
+MAPS_BAK="$LIB/Map Creator/Maps.bak"
+MAPS_LINK=$(readlink "$MAPS")
+
 if [ ! -f $OPTIONS_LINK ]; then
 	mkdir -p $(dirname $OPTIONS_LINK)
 	cp $OPTIONS_BAK $OPTIONS_LINK
@@ -50,6 +54,12 @@ fi
 chmod 644 $MATERIALS_LINK
 
 mkdir -p $SAVES_LINK
+
+if [ ! -d "$MAPS_LINK" ]; then
+	mkdir -p "$MAPS_LINK"
+	cp -r "$MAPS_BAK/." "$MAPS_LINK/."
+	chmod 644 "$MAPS_LINK"/*
+fi
 
 cd $LIB
 

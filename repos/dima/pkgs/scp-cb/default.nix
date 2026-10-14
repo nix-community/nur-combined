@@ -2,6 +2,7 @@
 	pkgs,
 	dataRoot,
 	savesDirectory ? "${dataRoot}/Saves",
+	mapsDirectory ? "${dataRoot}/Maps",
 }:
 
 pkgs.stdenv.mkDerivation {
@@ -49,23 +50,7 @@ pkgs.stdenv.mkDerivation {
 		rm $out/lib/scp-cb/options.ini.bak
 
 		cp $out/lib/scp-cb/options.ini $out/lib/scp-cb/options.ini.bak
-		initool set $out/lib/scp-cb/options.ini.bak "launcher" "launcher enabled" "false" > $out/lib/scp-cb/options.ini
-		rm $out/lib/scp-cb/options.ini.bak
-
-		cp $out/lib/scp-cb/options.ini $out/lib/scp-cb/options.ini.bak
 		initool set $out/lib/scp-cb/options.ini.bak "options" "play startup video" "false" > $out/lib/scp-cb/options.ini
-		rm $out/lib/scp-cb/options.ini.bak
-
-		cp $out/lib/scp-cb/options.ini $out/lib/scp-cb/options.ini.bak
-		initool set $out/lib/scp-cb/options.ini.bak "options" "fullscreen" "true" > $out/lib/scp-cb/options.ini
-		rm $out/lib/scp-cb/options.ini.bak
-
-		cp $out/lib/scp-cb/options.ini $out/lib/scp-cb/options.ini.bak
-		initool set $out/lib/scp-cb/options.ini.bak "options" "width" "3840" > $out/lib/scp-cb/options.ini
-		rm $out/lib/scp-cb/options.ini.bak
-
-		cp $out/lib/scp-cb/options.ini $out/lib/scp-cb/options.ini.bak
-		initool set $out/lib/scp-cb/options.ini.bak "options" "height" "2160" > $out/lib/scp-cb/options.ini
 		rm $out/lib/scp-cb/options.ini.bak
 	'';
 
@@ -95,6 +80,9 @@ pkgs.stdenv.mkDerivation {
 
 		rm -r $out/lib/scp-cb/Saves
 		ln -s ${savesDirectory} $out/lib/scp-cb/Saves
+
+		mv $out/lib/scp-cb/Map\ Creator/Maps $out/lib/scp-cb/Map\ Creator/Maps.bak
+		ln -s ${mapsDirectory} $out/lib/scp-cb/Map\ Creator/Maps
 
 		runHook postInstall
 	'';
