@@ -86,6 +86,37 @@ class DependencyHashRefreshTests(unittest.TestCase):
                 run.call_args.args[0], ["nix-build", "-A", "albedo-git", "--no-out-link"]
             )
 
+    def test_unchanged_reported_hash_still_advances_the_refresh(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            entry = root / "default.nix"
+            entry.write_text('cargoHash = "sha256-current";\n')
+            reports = [
+                _completed(1, stderr=_mismatch(_fake_hash(0), "sha256-current")),
+                _completed(0),
+            ]
+            with patch("updater.package_backend.run", side_effect=reports) as run:
+                self.assertFalse(_refresh_dependency_hashes(_package_ref(root), timeout="1m"))
+            self.assertEqual(run.call_count, 2)
+            self.assertEqual(entry.read_text(), 'cargoHash = "sha256-current";\n')
+
+    def test_unchanged_hash_does_not_block_other_dependency_hashes(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            entry = root / "default.nix"
+            entry.write_text('vendorHash = "sha256-current";\ncargoHash = "sha256-old";\n')
+            reports = [
+                _completed(1, stderr=_mismatch(_fake_hash(0), "sha256-current")),
+                _completed(1, stderr=_mismatch(_fake_hash(1), "sha256-new")),
+                _completed(0),
+            ]
+            with patch("updater.package_backend.run", side_effect=reports) as run:
+                self.assertTrue(_refresh_dependency_hashes(_package_ref(root), timeout="1m"))
+            self.assertEqual(run.call_count, 3)
+            self.assertEqual(
+                entry.read_text(), 'vendorHash = "sha256-current";\ncargoHash = "sha256-new";\n'
+            )
+
     def test_every_reported_dependency_hash_is_refreshed(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

@@ -339,8 +339,8 @@ def _write_reported_hashes(
             if f'"{declared}"' not in text:
                 continue
             path.write_text(text.replace(f'"{declared}"', f'"{derived}"'))
-            if fakes.pop(declared, None) != derived:
-                written = True
+            fakes.pop(declared)
+            written = True
             break
     return written
 
@@ -377,17 +377,17 @@ def _refresh_dependency_hashes(ref: PackageRef, *, timeout: str | None) -> bool:
     if not paths:
         return False
 
+    originals = {path: path.read_text() for path in paths}
     fakes: dict[str, str] = {}
     try:
         _fake_declared_hashes(paths, fakes)
-        rewritten = False
         for _attempt in range(len(fakes) + 1):
             result = _build_with_fake_hash(ref, timeout=timeout)
             if result.returncode == 0:
-                return rewritten
+                _restore_unresolved_hashes(paths, fakes)
+                return any(path.read_text() != originals[path] for path in paths)
             if not _write_reported_hashes(result, paths, fakes):
                 raise CommandError(["refresh-dependency-hash", ref.attr_path], result)
-            rewritten = True
         raise CommandError(["refresh-dependency-hash", ref.attr_path], result)
     finally:
         _restore_unresolved_hashes(paths, fakes)
