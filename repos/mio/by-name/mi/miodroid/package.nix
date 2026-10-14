@@ -74,359 +74,359 @@ let
     patchFlags = [ "-p1" ];
 
     postPatch = ''
-      # ── Rebrand waydroid → miodroid (was patches 0001-0003) ───────────────
-      #
-      # Use sed across the whole tree to avoid per-file failures.
-      # Order matters: rename more-specific strings first.
+            # ── Rebrand waydroid → miodroid (was patches 0001-0003) ───────────────
+            #
+            # Use sed across the whole tree to avoid per-file failures.
+            # Order matters: rename more-specific strings first.
 
-      # Rebrand patch 0005 after applying it, without touching Android props.
-      substituteInPlace tools/helpers/instance.py \
-        --replace-fail 'from tools.helpers.arguments import arguments' \
-          ""
-      sed -i '1i import os' tools/helpers/instance.py
-      sed -i '/import tools.helpers.dbus/d' tools/helpers/__init__.py
-      sed -i '/helpers.dbus.setup_policy(args)/d' tools/actions/initializer.py
-      substituteInPlace tools/helpers/instance.py \
-        --replace-fail 'INSTANCE_NAME = arguments("").instance' \
-          'INSTANCE_NAME = os.environ.get("MIODROID_INSTANCE", "")'
-      sed -i 's/id\.waydro/id.miodro/g' \
-        tools/helpers/instance.py tools/helpers/ipc.py \
-        tools/actions/session_manager.py
-      sed -i 's/waydroid/miodroid/g' tools/helpers/instance.py
-      substituteInPlace tools/helpers/instance.py \
-        --replace-fail \
-          'return f"/var/lib/miodroid{get_suffix()}"' \
-          'return os.environ.get("MIODROID_WORK", f"/var/lib/miodroid{get_suffix()}")'
-      substituteInPlace tools/config/__init__.py \
-        --replace-fail \
-          'defaults["images_path"] = defaults["work"] + "/images"' \
-          'defaults["images_path"] = defaults["work"] + "/images"'
-      sed -i 's|/waydroid{instance_suffix}|/miodroid{instance_suffix}|' \
-        tools/config/__init__.py
+            # Rebrand patch 0005 after applying it, without touching Android props.
+            substituteInPlace tools/helpers/instance.py \
+              --replace-fail 'from tools.helpers.arguments import arguments' \
+                ""
+            sed -i '1i import os' tools/helpers/instance.py
+            sed -i '/import tools.helpers.dbus/d' tools/helpers/__init__.py
+            sed -i '/helpers.dbus.setup_policy(args)/d' tools/actions/initializer.py
+            substituteInPlace tools/helpers/instance.py \
+              --replace-fail 'INSTANCE_NAME = arguments("").instance' \
+                'INSTANCE_NAME = os.environ.get("MIODROID_INSTANCE", "")'
+            sed -i 's/id\.waydro/id.miodro/g' \
+              tools/helpers/instance.py tools/helpers/ipc.py \
+              tools/actions/session_manager.py
+            sed -i 's/waydroid/miodroid/g' tools/helpers/instance.py
+            substituteInPlace tools/helpers/instance.py \
+              --replace-fail \
+                'return f"/var/lib/miodroid{get_suffix()}"' \
+                'return os.environ.get("MIODROID_WORK", f"/var/lib/miodroid{get_suffix()}")'
+            substituteInPlace tools/config/__init__.py \
+              --replace-fail \
+                'defaults["images_path"] = defaults["work"] + "/images"' \
+                'defaults["images_path"] = defaults["work"] + "/images"'
+            sed -i 's|/waydroid{instance_suffix}|/miodroid{instance_suffix}|' \
+              tools/config/__init__.py
 
-      # cfg["waydroid"] section key in Python  →  cfg["miodroid"]
-      find . -name "*.py" -exec sed -i \
-        -e 's/cfg\["waydroid"\]/cfg["miodroid"]/g' \
-        -e "s/cfg\['waydroid'\]/cfg['miodroid']/g" \
-        {} +
-      find data/configs -type f -exec sed -i \
-        -e 's|/var/lib/waydroid|/var/lib/miodroid|g' \
-        -e 's|/lxc/waydroid|/lxc/miodroid|g' \
-        -e 's|waydroid\.seccomp|miodroid.seccomp|g' \
-        -e 's|waydroid0|miodroid0|g' \
-        -e 's|waydroid|miodroid|g' \
-        {} +
+            # cfg["waydroid"] section key in Python  →  cfg["miodroid"]
+            find . -name "*.py" -exec sed -i \
+              -e 's/cfg\["waydroid"\]/cfg["miodroid"]/g' \
+              -e "s/cfg\['waydroid'\]/cfg['miodroid']/g" \
+              {} +
+            find data/configs -type f -exec sed -i \
+              -e 's|/var/lib/waydroid|/var/lib/miodroid|g' \
+              -e 's|/lxc/waydroid|/lxc/miodroid|g' \
+              -e 's|waydroid\.seccomp|miodroid.seccomp|g' \
+              -e 's|waydroid0|miodroid0|g' \
+              -e 's|waydroid|miodroid|g' \
+              {} +
 
-      # D-Bus name (id.waydro → id.miodro)
-      find . \( -name "*.conf" -o -name "*.service" -o -name "*.policy" -o -name "*.py" \) \
-        -exec sed -i 's/id\.waydro\.Container/id.miodro.Container/g' {} +
+            # D-Bus name (id.waydro → id.miodro)
+            find . \( -name "*.conf" -o -name "*.service" -o -name "*.policy" -o -name "*.py" \) \
+              -exec sed -i 's/id\.waydro\.Container/id.miodro.Container/g' {} +
 
-      # systemd / D-Bus exec paths
-      find . \( -name "*.service" -o -name "*.conf" \) \
-        -exec sed -i \
-          -e 's|/usr/bin/waydroid|/usr/bin/miodroid|g' \
-          -e 's/waydroid-container\.service/miodroid-container.service/g' \
-        {} +
+            # systemd / D-Bus exec paths
+            find . \( -name "*.service" -o -name "*.conf" \) \
+              -exec sed -i \
+                -e 's|/usr/bin/waydroid|/usr/bin/miodroid|g' \
+                -e 's/waydroid-container\.service/miodroid-container.service/g' \
+              {} +
 
-      # Internal work-dir paths and filenames
-      find . \( -name "*.py" -o -name "*.sh" -o -name "Makefile" \) \
-        -exec sed -i \
-          -e 's|/var/lib/waydroid|/var/lib/miodroid|g' \
-          -e 's|/etc/waydroid-extra|/etc/miodroid-extra|g' \
-          -e 's|/usr/share/waydroid-extra|/usr/share/miodroid-extra|g' \
-          -e 's|/lxc/waydroid|/lxc/miodroid|g' \
-          -e 's|+ "/waydroid"|+ "/miodroid"|g' \
-          -e 's|/waydroid\.cfg|/miodroid.cfg|g' \
-          -e 's|/waydroid\.log|/miodroid.log|g' \
-          -e 's|waydroid_base\.prop|miodroid_base.prop|g' \
-          -e 's|waydroid\.seccomp|miodroid.seccomp|g' \
-          -e 's|"lxc-waydroid"|"lxc-miodroid"|g' \
-          -e 's|"-n", "waydroid"|"-n", "miodroid"|g' \
-          -e 's|waydroid0|miodroid0|g' \
-          -e 's|waydroid_|miodroid_|g' \
-          -e 's|"waydroid\.cfg"|"miodroid.cfg"|g' \
-          -e 's|waydroid-bugreport|miodroid-bugreport|g' \
-          -e 's|glob("waydroid\.|glob("miodroid.|g' \
-          -e "s|glob('waydroid\\.|glob('miodroid.|g" \
-        {} +
+            # Internal work-dir paths and filenames
+            find . \( -name "*.py" -o -name "*.sh" -o -name "Makefile" \) \
+              -exec sed -i \
+                -e 's|/var/lib/waydroid|/var/lib/miodroid|g' \
+                -e 's|/etc/waydroid-extra|/etc/miodroid-extra|g' \
+                -e 's|/usr/share/waydroid-extra|/usr/share/miodroid-extra|g' \
+                -e 's|/lxc/waydroid|/lxc/miodroid|g' \
+                -e 's|+ "/waydroid"|+ "/miodroid"|g' \
+                -e 's|/waydroid\.cfg|/miodroid.cfg|g' \
+                -e 's|/waydroid\.log|/miodroid.log|g' \
+                -e 's|waydroid_base\.prop|miodroid_base.prop|g' \
+                -e 's|waydroid\.seccomp|miodroid.seccomp|g' \
+                -e 's|"lxc-waydroid"|"lxc-miodroid"|g' \
+                -e 's|"-n", "waydroid"|"-n", "miodroid"|g' \
+                -e 's|waydroid0|miodroid0|g' \
+                -e 's|waydroid_|miodroid_|g' \
+                -e 's|"waydroid\.cfg"|"miodroid.cfg"|g' \
+                -e 's|waydroid-bugreport|miodroid-bugreport|g' \
+                -e 's|glob("waydroid\.|glob("miodroid.|g' \
+                -e "s|glob('waydroid\\.|glob('miodroid.|g" \
+              {} +
 
-      # Desktop category shared by the entries below, the menu that groups
-      # them and every per-app entry tools/services/user_manager.py writes.
-      find . \( -name "*.py" -o -name "*.menu" -o -name "*.desktop" \) \
-        -exec sed -i 's/X-WayDroid-App/X-Miodroid-App/g' {} +
+            # Desktop category shared by the entries below, the menu that groups
+            # them and every per-app entry tools/services/user_manager.py writes.
+            find . \( -name "*.py" -o -name "*.menu" -o -name "*.desktop" \) \
+              -exec sed -i 's/X-WayDroid-App/X-Miodroid-App/g' {} +
 
-      # CLI/user-facing text in Python
-      find . -name "*.py" -exec sed -i \
-        -e 's/prog="waydroid"/prog="miodroid"/g' \
-        -e 's/run "waydroid/run "miodroid/g' \
-        -e 's/Waydroid is not initialized/Miodroid is not initialized/g' \
-        -e 's/WayDroid container is/Miodroid container is/g' \
-        -e "s/\"Run waydroid/\"Run miodroid/g" \
-        -e 's/set_icon_name("waydroid")/set_icon_name("miodroid")/g' \
-        -e 's/f"waydroid app /f"miodroid app /g' \
-        -e 's/f"waydroid\.{/f"miodroid.{/g' \
-        -e 's/f"waydroid\.{appInfo/f"miodroid.{appInfo/g' \
-        {} +
+            # CLI/user-facing text in Python
+            find . -name "*.py" -exec sed -i \
+              -e 's/prog="waydroid"/prog="miodroid"/g' \
+              -e 's/run "waydroid/run "miodroid/g' \
+              -e 's/Waydroid is not initialized/Miodroid is not initialized/g' \
+              -e 's/WayDroid container is/Miodroid container is/g' \
+              -e "s/\"Run waydroid/\"Run miodroid/g" \
+              -e 's/set_icon_name("waydroid")/set_icon_name("miodroid")/g' \
+              -e 's/f"waydroid app /f"miodroid app /g' \
+              -e 's/f"waydroid\.{/f"miodroid.{/g' \
+              -e 's/f"waydroid\.{appInfo/f"miodroid.{appInfo/g' \
+              {} +
 
-      # Version string bump
-      sed -i 's/version = "${version}"/version = "${version}+miodroid1"/' \
-        tools/config/__init__.py
+            # Version string bump
+            sed -i 's/version = "${version}"/version = "${version}+miodroid1"/' \
+              tools/config/__init__.py
 
-      # Config INI section header  [waydroid] → [miodroid]  (in load.py only)
-      sed -i \
-        -e 's/"waydroid" not in cfg/"miodroid" not in cfg/g' \
-        -e 's/cfg\["waydroid"\] = {}/cfg["miodroid"] = {}/g' \
-        tools/config/load.py
+            # Config INI section header  [waydroid] → [miodroid]  (in load.py only)
+            sed -i \
+              -e 's/"waydroid" not in cfg/"miodroid" not in cfg/g' \
+              -e 's/cfg\["waydroid"\] = {}/cfg["miodroid"] = {}/g' \
+              tools/config/load.py
 
-      # OTA servers use the upstream waydroid_<arch> path as a protocol
-      # identifier; it is not a local name and must remain unchanged.
-      substituteInPlace tools/actions/initializer.py \
-        --replace-fail '"/miodroid_"' '"/waydroid_"'
-      substituteInPlace tools/actions/container_manager.py \
-        --replace-fail 'tools.config.defaults["lxc"] + "/waydroid/config"' \
-        'tools.config.defaults["lxc"] + "/miodroid/config"'
+            # OTA servers use the upstream waydroid_<arch> path as a protocol
+            # identifier; it is not a local name and must remain unchanged.
+            substituteInPlace tools/actions/initializer.py \
+              --replace-fail '"/miodroid_"' '"/waydroid_"'
+            substituteInPlace tools/actions/container_manager.py \
+              --replace-fail 'tools.config.defaults["lxc"] + "/waydroid/config"' \
+              'tools.config.defaults["lxc"] + "/miodroid/config"'
 
-      # Rename D-Bus files
-      mv dbus/id.waydro.Container.conf    dbus/id.miodro.Container.conf
-      mv dbus/id.waydro.Container.service dbus/id.miodro.Container.service
-      [ -f dbus/id.waydro.Container.policy ] && \
-        mv dbus/id.waydro.Container.policy dbus/id.miodro.Container.policy || true
+            # Rename D-Bus files
+            mv dbus/id.waydro.Container.conf    dbus/id.miodro.Container.conf
+            mv dbus/id.waydro.Container.service dbus/id.miodro.Container.service
+            [ -f dbus/id.waydro.Container.policy ] && \
+              mv dbus/id.waydro.Container.policy dbus/id.miodro.Container.policy || true
 
-      # Rename and update systemd service
-      mv systemd/waydroid-container.service systemd/miodroid-container.service
-      sed -i 's/Description=Waydroid Container/Description=Miodroid Container/' \
-        systemd/miodroid-container.service
+            # Rename and update systemd service
+            mv systemd/waydroid-container.service systemd/miodroid-container.service
+            sed -i 's/Description=Waydroid Container/Description=Miodroid Container/' \
+              systemd/miodroid-container.service
 
-      # Also add dma_heap for Android 13.  Keep the default check=True: LXC
-      # aborts the whole container on a mount entry whose source is missing, so
-      # an unconditional entry breaks every host that has no dma-heap device
-      # (the entry is simply left out there instead).
-      sed -i 's|make_entry("/dev/ion")|make_entry("/dev/ion")\n    make_entry("/dev/dma_heap", "dev/dma_heap")|' tools/helpers/lxc.py
+            # Also add dma_heap for Android 13.  Keep the default check=True: LXC
+            # aborts the whole container on a mount entry whose source is missing, so
+            # an unconditional entry breaks every host that has no dma-heap device
+            # (the entry is simply left out there instead).
+            sed -i 's|make_entry("/dev/ion")|make_entry("/dev/ion")\n    make_entry("/dev/dma_heap", "dev/dma_heap")|' tools/helpers/lxc.py
 
-      # The Waydroid images pre-create the container mount points, so upstream
-      # mounts tmpfs over them without creating anything.  A stock Android image
-      # (our Robotnix LineageOS build included) has no /mnt_extra, /var or /run
-      # at all, and LXC refuses to start the container when a mount target does
-      # not exist.  Create the mount points instead of depending on the image.
-      substituteInPlace tools/helpers/lxc.py \
-        --replace-fail '"mnt_extra", "tmpfs", "nodev 0 0"' '"mnt_extra", "tmpfs", "nodev,create=dir 0 0"' \
-        --replace-fail '"tmp", "tmpfs", "nodev 0 0"' '"tmp", "tmpfs", "nodev,create=dir 0 0"' \
-        --replace-fail '"var", "tmpfs", "nodev 0 0"' '"var", "tmpfs", "nodev,create=dir 0 0"' \
-        --replace-fail '"run", "tmpfs", "nodev 0 0"' '"run", "tmpfs", "nodev,create=dir 0 0"'
+            # The Waydroid images pre-create the container mount points, so upstream
+            # mounts tmpfs over them without creating anything.  A stock Android image
+            # (our Robotnix LineageOS build included) has no /mnt_extra, /var or /run
+            # at all, and LXC refuses to start the container when a mount target does
+            # not exist.  Create the mount points instead of depending on the image.
+            substituteInPlace tools/helpers/lxc.py \
+              --replace-fail '"mnt_extra", "tmpfs", "nodev 0 0"' '"mnt_extra", "tmpfs", "nodev,create=dir 0 0"' \
+              --replace-fail '"tmp", "tmpfs", "nodev 0 0"' '"tmp", "tmpfs", "nodev,create=dir 0 0"' \
+              --replace-fail '"var", "tmpfs", "nodev 0 0"' '"var", "tmpfs", "nodev,create=dir 0 0"' \
+              --replace-fail '"run", "tmpfs", "nodev 0 0"' '"run", "tmpfs", "nodev,create=dir 0 0"'
 
-      # Rename Makefile: lib dir, binary symlink, icon, dbus files, apparmor, service
-      sed -i \
-        -e 's|lib/waydroid|lib/miodroid|g' \
-        -e 's|WAYDROID_DIR|MIODROID_DIR|g' \
-        -e 's|\$(INSTALL_BIN_DIR)/waydroid$|\$(INSTALL_BIN_DIR)/miodroid|' \
-        -e 's|apps/waydroid\.png|apps/miodroid.png|g' \
-        -e 's|id\.waydro\.Container|id.miodro.Container|g' \
-        -e 's|waydroid-container\.service|miodroid-container.service|g' \
-        -e 's|lxc-waydroid|lxc-miodroid|g' \
-        Makefile
+            # Rename Makefile: lib dir, binary symlink, icon, dbus files, apparmor, service
+            sed -i \
+              -e 's|lib/waydroid|lib/miodroid|g' \
+              -e 's|WAYDROID_DIR|MIODROID_DIR|g' \
+              -e 's|\$(INSTALL_BIN_DIR)/waydroid$|\$(INSTALL_BIN_DIR)/miodroid|' \
+              -e 's|apps/waydroid\.png|apps/miodroid.png|g' \
+              -e 's|id\.waydro\.Container|id.miodro.Container|g' \
+              -e 's|waydroid-container\.service|miodroid-container.service|g' \
+              -e 's|lxc-waydroid|lxc-miodroid|g' \
+              Makefile
 
-      # AppArmor profile rename
-      mv data/configs/apparmor_profiles/lxc-waydroid \
-         data/configs/apparmor_profiles/lxc-miodroid
-      sed -i 's/lxc-waydroid/lxc-miodroid/g' \
-        data/configs/apparmor_profiles/lxc-miodroid || true
+            # AppArmor profile rename
+            mv data/configs/apparmor_profiles/lxc-waydroid \
+               data/configs/apparmor_profiles/lxc-miodroid
+            sed -i 's/lxc-waydroid/lxc-miodroid/g' \
+              data/configs/apparmor_profiles/lxc-miodroid || true
 
-      # The LXC configuration uses the rebranded seccomp filename.
-      mv data/configs/waydroid.seccomp data/configs/miodroid.seccomp
-      mv data/configs/waydroid-binder.rc data/configs/miodroid-binder.rc
-      # In rootless containers, ueventd crashes due to lack of global permissions and
-      # bpfloader fails without initial-namespace CAP_BPF. Both are overridden in
-      # miodroid-binder.rc with oneshot stubs so they do not trigger fatal reboots.
+            # The LXC configuration uses the rebranded seccomp filename.
+            mv data/configs/waydroid.seccomp data/configs/miodroid.seccomp
+            mv data/configs/waydroid-binder.rc data/configs/miodroid-binder.rc
+            # In rootless containers, ueventd crashes due to lack of global permissions and
+            # bpfloader fails without initial-namespace CAP_BPF. Both are overridden in
+            # miodroid-binder.rc with oneshot stubs so they do not trigger fatal reboots.
 
-      find . \( -name "*.py" -o -name "*.sh" -o -name "Makefile" \) -exec sed -i \
-        -e 's|waydroid-binder|miodroid-binder|g' \
-        {} +
+            find . \( -name "*.py" -o -name "*.sh" -o -name "Makefile" \) -exec sed -i \
+              -e 's|waydroid-binder|miodroid-binder|g' \
+              {} +
 
-      # If the host has no /dev/binder (e.g. rootless container with its own private binderfs),
-      # skip starting host-side binder services (user_manager, clipboard, notifications) so they
-      # don't spin in a busy-loop failing to open /dev/binder.
-      python3 -c '
-path = "tools/actions/session_manager.py"
-with open(path) as f:
-    c = f.read()
-target = """    services.user_manager.start(args, session, unlocked_cb)
-    services.clipboard_manager.start(args)
-    services.notification_manager.start(args, session)"""
-repl = """    if os.path.exists("/dev/" + getattr(args, "BINDER_DRIVER", "binder")):
-        services.user_manager.start(args, session, unlocked_cb)
-        services.clipboard_manager.start(args)
-        services.notification_manager.start(args, session)
-    else:
-        logging.warning("Binder device not present on host; skipping binder-dependent desktop integration")
-        if unlocked_cb:
-            unlocked_cb()"""
-assert target in c, "target block not found in session_manager.py"
-with open(path, "w") as f:
-    f.write(c.replace(target, repl))
+            # If the host has no /dev/binder (e.g. rootless container with its own private binderfs),
+            # skip starting host-side binder services (user_manager, clipboard, notifications) so they
+            # don't spin in a busy-loop failing to open /dev/binder.
+            python3 -c '
+      path = "tools/actions/session_manager.py"
+      with open(path) as f:
+          c = f.read()
+      target = """    services.user_manager.start(args, session, unlocked_cb)
+          services.clipboard_manager.start(args)
+          services.notification_manager.start(args, session)"""
+      repl = """    if os.path.exists("/dev/" + getattr(args, "BINDER_DRIVER", "binder")):
+              services.user_manager.start(args, session, unlocked_cb)
+              services.clipboard_manager.start(args)
+              services.notification_manager.start(args, session)
+          else:
+              logging.warning("Binder device not present on host; skipping binder-dependent desktop integration")
+              if unlocked_cb:
+                  unlocked_cb()"""
+      assert target in c, "target block not found in session_manager.py"
+      with open(path, "w") as f:
+          f.write(c.replace(target, repl))
 
-path = "tools/actions/container_manager.py"
-with open(path) as f:
-    c = f.read()
-target = "    services.hardware_manager.start(args)"
-repl = """    if os.path.exists("/dev/" + getattr(args, "BINDER_DRIVER", "binder")):
-        services.hardware_manager.start(args)"""
-assert target in c, "target block not found in container_manager.py"
-with open(path, "w") as f:
-    f.write(c.replace(target, repl))
+      path = "tools/actions/container_manager.py"
+      with open(path) as f:
+          c = f.read()
+      target = "    services.hardware_manager.start(args)"
+      repl = """    if os.path.exists("/dev/" + getattr(args, "BINDER_DRIVER", "binder")):
+              services.hardware_manager.start(args)"""
+      assert target in c, "target block not found in container_manager.py"
+      with open(path, "w") as f:
+          f.write(c.replace(target, repl))
 
-path = "tools/services/hardware_manager.py"
-with open(path) as f:
-    c = f.read()
-target = """    def service_thread():
-        while not stopping:
-            IHardware.add_service(
-                args, enableNFC, enableBluetooth, suspend, reboot, upgrade, shutdownRequest)"""
-repl = """    def service_thread():
-        while not stopping:
-            IHardware.add_service(
-                args, enableNFC, enableBluetooth, suspend, reboot, upgrade, shutdownRequest)
-            time.sleep(1)"""
-assert target in c, "target block not found in hardware_manager.py"
-with open(path, "w") as f:
-    f.write(c.replace(target, repl))
+      path = "tools/services/hardware_manager.py"
+      with open(path) as f:
+          c = f.read()
+      target = """    def service_thread():
+              while not stopping:
+                  IHardware.add_service(
+                      args, enableNFC, enableBluetooth, suspend, reboot, upgrade, shutdownRequest)"""
+      repl = """    def service_thread():
+              while not stopping:
+                  IHardware.add_service(
+                      args, enableNFC, enableBluetooth, suspend, reboot, upgrade, shutdownRequest)
+                  time.sleep(1)"""
+      assert target in c, "target block not found in hardware_manager.py"
+      with open(path, "w") as f:
+          f.write(c.replace(target, repl))
 
-path = "tools/actions/session_manager.py"
-with open(path) as f:
-    c = f.read()
-wl_target = "    if not os.path.exists(wayland_socket_path):"
-wl_repl = """    if os.path.exists(wayland_socket_path):
-        try:
-            os.chmod(wayland_socket_path, 0o777)
-        except OSError:
-            pass
-    if not os.path.exists(wayland_socket_path):"""
-assert wl_target in c, "wl_target not found in session_manager.py"
-c = c.replace(wl_target, wl_repl, 1)
+      path = "tools/actions/session_manager.py"
+      with open(path) as f:
+          c = f.read()
+      wl_target = "    if not os.path.exists(wayland_socket_path):"
+      wl_repl = """    if os.path.exists(wayland_socket_path):
+              try:
+                  os.chmod(wayland_socket_path, 0o777)
+              except OSError:
+                  pass
+          if not os.path.exists(wayland_socket_path):"""
+      assert wl_target in c, "wl_target not found in session_manager.py"
+      c = c.replace(wl_target, wl_repl, 1)
 
-pulse_target = "    miodroid_data = session[\"miodroid_data\"]"
-pulse_repl = """    pulse_socket = os.path.join(session.get("pulse_runtime_path", ""), "native")
-    if os.path.exists(pulse_socket):
-        try:
-            os.chmod(pulse_socket, 0o777)
-        except OSError:
-            pass
-    miodroid_data = session["miodroid_data"]"""
-assert pulse_target in c, "pulse_target not found in session_manager.py"
-c = c.replace(pulse_target, pulse_repl, 1)
-with open(path, "w") as f:
-    f.write(c)
+      pulse_target = "    miodroid_data = session[\"miodroid_data\"]"
+      pulse_repl = """    pulse_socket = os.path.join(session.get("pulse_runtime_path", ""), "native")
+          if os.path.exists(pulse_socket):
+              try:
+                  os.chmod(pulse_socket, 0o777)
+              except OSError:
+                  pass
+          miodroid_data = session["miodroid_data"]"""
+      assert pulse_target in c, "pulse_target not found in session_manager.py"
+      c = c.replace(pulse_target, pulse_repl, 1)
+      with open(path, "w") as f:
+          f.write(c)
 
-path = "tools/helpers/lxc.py"
-with open(path) as f:
-    c = f.read()
-lxc_target = """    # Make sure XDG_RUNTIME_DIR exists
-    if not make_entry("tmpfs", tools.config.defaults["container_xdg_runtime_dir"], options="create=dir 0 0"):
-        raise OSError("Failed to create XDG_RUNTIME_DIR mount point")
+      path = "tools/helpers/lxc.py"
+      with open(path) as f:
+          c = f.read()
+      lxc_target = """    # Make sure XDG_RUNTIME_DIR exists
+          if not make_entry("tmpfs", tools.config.defaults["container_xdg_runtime_dir"], options="create=dir 0 0"):
+              raise OSError("Failed to create XDG_RUNTIME_DIR mount point")
 
-    wayland_host_socket = os.path.realpath(os.path.join(session["xdg_runtime_dir"], session["wayland_display"]))
-    wayland_container_socket = os.path.realpath(os.path.join(tools.config.defaults["container_xdg_runtime_dir"], tools.config.defaults["container_wayland_display"]))
-    if not make_entry(wayland_host_socket, wayland_container_socket[1:]):
-        raise OSError("Failed to bind Wayland socket")
+          wayland_host_socket = os.path.realpath(os.path.join(session["xdg_runtime_dir"], session["wayland_display"]))
+          wayland_container_socket = os.path.realpath(os.path.join(tools.config.defaults["container_xdg_runtime_dir"], tools.config.defaults["container_wayland_display"]))
+          if not make_entry(wayland_host_socket, wayland_container_socket[1:]):
+              raise OSError("Failed to bind Wayland socket")
 
-    # Make sure PULSE_RUNTIME_DIR exists
-    pulse_host_socket = os.path.join(session["pulse_runtime_path"], "native")
-    pulse_container_socket = os.path.join(tools.config.defaults["container_pulse_runtime_path"], "native")
-    make_entry(pulse_host_socket, pulse_container_socket[1:])"""
-lxc_repl = """    # Make sure XDG_RUNTIME_DIR exists
-    if not make_entry("tmpfs", tools.config.defaults["container_xdg_runtime_dir"].lstrip("/"), "tmpfs", "mode=0777,create=dir 0 0"):
-        raise OSError("Failed to create XDG_RUNTIME_DIR mount point")
+          # Make sure PULSE_RUNTIME_DIR exists
+          pulse_host_socket = os.path.join(session["pulse_runtime_path"], "native")
+          pulse_container_socket = os.path.join(tools.config.defaults["container_pulse_runtime_path"], "native")
+          make_entry(pulse_host_socket, pulse_container_socket[1:])"""
+      lxc_repl = """    # Make sure XDG_RUNTIME_DIR exists
+          if not make_entry("tmpfs", tools.config.defaults["container_xdg_runtime_dir"].lstrip("/"), "tmpfs", "mode=0777,create=dir 0 0"):
+              raise OSError("Failed to create XDG_RUNTIME_DIR mount point")
 
-    wayland_host_socket = os.path.realpath(os.path.join(session["xdg_runtime_dir"], session["wayland_display"]))
-    wayland_container_socket = os.path.realpath(os.path.join(tools.config.defaults["container_xdg_runtime_dir"], tools.config.defaults["container_wayland_display"]))
-    if not make_entry(wayland_host_socket, wayland_container_socket[1:], options="bind,create=file 0 0"):
-        raise OSError("Failed to bind Wayland socket")
+          wayland_host_socket = os.path.realpath(os.path.join(session["xdg_runtime_dir"], session["wayland_display"]))
+          wayland_container_socket = os.path.realpath(os.path.join(tools.config.defaults["container_xdg_runtime_dir"], tools.config.defaults["container_wayland_display"]))
+          if not make_entry(wayland_host_socket, wayland_container_socket[1:], options="bind,create=file 0 0"):
+              raise OSError("Failed to bind Wayland socket")
 
-    # Make sure PULSE_RUNTIME_DIR exists
-    pulse_host_socket = os.path.join(session["pulse_runtime_path"], "native")
-    pulse_container_socket = os.path.join(tools.config.defaults["container_pulse_runtime_path"], "native")
-    if os.path.exists(pulse_host_socket):
-        make_entry("tmpfs", tools.config.defaults["container_pulse_runtime_path"].lstrip("/"), "tmpfs", "mode=0777,create=dir 0 0")
-        make_entry(pulse_host_socket, pulse_container_socket[1:], options="bind,create=file,optional 0 0")"""
-assert lxc_target in c, "lxc_target not found in lxc.py"
-c = c.replace(lxc_target, lxc_repl, 1)
-with open(path, "w") as f:
-    f.write(c)
-'
+          # Make sure PULSE_RUNTIME_DIR exists
+          pulse_host_socket = os.path.join(session["pulse_runtime_path"], "native")
+          pulse_container_socket = os.path.join(tools.config.defaults["container_pulse_runtime_path"], "native")
+          if os.path.exists(pulse_host_socket):
+              make_entry("tmpfs", tools.config.defaults["container_pulse_runtime_path"].lstrip("/"), "tmpfs", "mode=0777,create=dir 0 0")
+              make_entry(pulse_host_socket, pulse_container_socket[1:], options="bind,create=file,optional 0 0")"""
+      assert lxc_target in c, "lxc_target not found in lxc.py"
+      c = c.replace(lxc_target, lxc_repl, 1)
+      with open(path, "w") as f:
+          f.write(c)
+      '
 
 
-      # ── Multi-instance names (patch 0005) ─────────────────────────────────
-      #
-      # 0005 builds the per-instance interface and runtime directory from
-      # "waydroid-", which none of the rules above catch.  The interface name
-      # must be exactly what instance.get_inet_name() writes into the LXC
-      # config, otherwise waydroid-net.sh takes its "bailing out" path and a
-      # named instance never gets a bridge, NAT or DHCP.  The runtime
-      # directory is shared with upstream Waydroid otherwise, which defeats
-      # the point of the fork.
-      sed -i \
-        -e 's|iface_name="waydroid-''${WAYDROID_INSTANCE}"|iface_name="miodroid0-''${MIODROID_INSTANCE}"|' \
-        -e 's|/run/waydroid-|/run/miodroid-|g' \
-        -e 's|waydroid-net|miodroid-net|g' \
-        data/scripts/waydroid-net.sh
-      mv data/scripts/waydroid-net.sh data/scripts/miodroid-net.sh
-      find . \( -name "*.py" -o -name "Makefile" \) -exec sed -i \
-        -e 's|/data/scripts/waydroid-net.sh|/data/scripts/miodroid-net.sh|g' \
-        -e 's|data/scripts/waydroid-net.sh|data/scripts/miodroid-net.sh|g' \
-        {} +
-        
-      # ── Environment Variables ─────────────────────────────────────────────
-      find . -type f -exec sed -i \
-        -e 's/WAYDROID_ROOTLESS/MIODROID_ROOTLESS/g' \
-        -e 's/WAYDROID_WORK/MIODROID_WORK/g' \
-        -e 's/WAYDROID_INSTANCE/MIODROID_INSTANCE/g' \
-        -e 's/WAYDROID_NO_IMAGE_GROWTH/MIODROID_NO_IMAGE_GROWTH/g' \
-        {} +
+            # ── Multi-instance names (patch 0005) ─────────────────────────────────
+            #
+            # 0005 builds the per-instance interface and runtime directory from
+            # "waydroid-", which none of the rules above catch.  The interface name
+            # must be exactly what instance.get_inet_name() writes into the LXC
+            # config, otherwise waydroid-net.sh takes its "bailing out" path and a
+            # named instance never gets a bridge, NAT or DHCP.  The runtime
+            # directory is shared with upstream Waydroid otherwise, which defeats
+            # the point of the fork.
+            sed -i \
+              -e 's|iface_name="waydroid-''${WAYDROID_INSTANCE}"|iface_name="miodroid0-''${MIODROID_INSTANCE}"|' \
+              -e 's|/run/waydroid-|/run/miodroid-|g' \
+              -e 's|waydroid-net|miodroid-net|g' \
+              data/scripts/waydroid-net.sh
+            mv data/scripts/waydroid-net.sh data/scripts/miodroid-net.sh
+            find . \( -name "*.py" -o -name "Makefile" \) -exec sed -i \
+              -e 's|/data/scripts/waydroid-net.sh|/data/scripts/miodroid-net.sh|g' \
+              -e 's|data/scripts/waydroid-net.sh|data/scripts/miodroid-net.sh|g' \
+              {} +
+              
+            # ── Environment Variables ─────────────────────────────────────────────
+            find . -type f -exec sed -i \
+              -e 's/WAYDROID_ROOTLESS/MIODROID_ROOTLESS/g' \
+              -e 's/WAYDROID_WORK/MIODROID_WORK/g' \
+              -e 's/WAYDROID_INSTANCE/MIODROID_INSTANCE/g' \
+              -e 's/WAYDROID_NO_IMAGE_GROWTH/MIODROID_NO_IMAGE_GROWTH/g' \
+              {} +
 
-      # Fix cgroup permissions for Android 13 (LineageOS 20) by changing cgroup:ro to cgroup:mixed or rw
-      sed -i 's|cgroup:ro sys:ro proc|cgroup:mixed sys:ro proc|g' data/configs/config_base
+            # Fix cgroup permissions for Android 13 (LineageOS 20) by changing cgroup:ro to cgroup:mixed or rw
+            sed -i 's|cgroup:ro sys:ro proc|cgroup:mixed sys:ro proc|g' data/configs/config_base
 
-      # Both sides of the interface name contract: fail the build instead of
-      # shipping a renamed script whose named instances are silently offline.
-      grep -q 'f"miodroid0{get_suffix_dash()}"' tools/helpers/instance.py
-      grep -q 'iface_name="miodroid0-''${MIODROID_INSTANCE}"' data/scripts/miodroid-net.sh
+            # Both sides of the interface name contract: fail the build instead of
+            # shipping a renamed script whose named instances are silently offline.
+            grep -q 'f"miodroid0{get_suffix_dash()}"' tools/helpers/instance.py
+            grep -q 'iface_name="miodroid0-''${MIODROID_INSTANCE}"' data/scripts/miodroid-net.sh
 
-      # ── Desktop entries, menu and metainfo ────────────────────────────────
-      #
-      # These keep upstream's file names, Exec= and Icon=, so they collide
-      # with an installed upstream Waydroid in every XDG data directory and
-      # would start a "waydroid" binary that this package does not provide.
-      # The icon itself is already installed as miodroid.png.
-      for entry in \
-        Waydroid.desktop \
-        waydroid.app.install.desktop \
-        waydroid.market.desktop \
-        waydroid.directory \
-        waydroid.menu \
-        "id.waydro.waydroid.metainfo.xml"; do
-        sed -i \
-          -e 's/Waydroid/Miodroid/g' \
-          -e 's/^Exec=waydroid/Exec=miodroid/' \
-          -e 's/^Icon=waydroid$/Icon=miodroid/' \
-          -e 's|waydroid\.|miodroid.|g' \
-          -e 's|id\.waydro\.waydroid|id.miodro.miodroid|g' \
-          data/"$entry"
-      done
-      mv data/Waydroid.desktop                  data/Miodroid.desktop
-      mv data/waydroid.app.install.desktop      data/miodroid.app.install.desktop
-      mv data/waydroid.market.desktop           data/miodroid.market.desktop
-      mv data/waydroid.directory                data/miodroid.directory
-      mv data/waydroid.menu                     data/miodroid.menu
-      mv data/id.waydro.waydroid.metainfo.xml   data/id.miodro.miodroid.metainfo.xml
+            # ── Desktop entries, menu and metainfo ────────────────────────────────
+            #
+            # These keep upstream's file names, Exec= and Icon=, so they collide
+            # with an installed upstream Waydroid in every XDG data directory and
+            # would start a "waydroid" binary that this package does not provide.
+            # The icon itself is already installed as miodroid.png.
+            for entry in \
+              Waydroid.desktop \
+              waydroid.app.install.desktop \
+              waydroid.market.desktop \
+              waydroid.directory \
+              waydroid.menu \
+              "id.waydro.waydroid.metainfo.xml"; do
+              sed -i \
+                -e 's/Waydroid/Miodroid/g' \
+                -e 's/^Exec=waydroid/Exec=miodroid/' \
+                -e 's/^Icon=waydroid$/Icon=miodroid/' \
+                -e 's|waydroid\.|miodroid.|g' \
+                -e 's|id\.waydro\.waydroid|id.miodro.miodroid|g' \
+                data/"$entry"
+            done
+            mv data/Waydroid.desktop                  data/Miodroid.desktop
+            mv data/waydroid.app.install.desktop      data/miodroid.app.install.desktop
+            mv data/waydroid.market.desktop           data/miodroid.market.desktop
+            mv data/waydroid.directory                data/miodroid.directory
+            mv data/waydroid.menu                     data/miodroid.menu
+            mv data/id.waydro.waydroid.metainfo.xml   data/id.miodro.miodroid.metainfo.xml
 
-      # "patch" leaves these behind when it has to apply a hunk with fuzz.
-      # They are dead weight in the package and a sign that a patch drifted.
-      find . -name "*.orig" -delete
+            # "patch" leaves these behind when it has to apply a hunk with fuzz.
+            # They are dead weight in the package and a sign that a patch drifted.
+            find . -name "*.orig" -delete
 
-      # ── Patch 0007: rootless mode ──────────────────────────────────────────
-      #
-      # Applied here rather than in the series above: the rootless changes
-      # edit the rebranded code (miodroid paths, the multi-instance
-      # helpers) and add tools/helpers/rootless.py.
+            # ── Patch 0007: rootless mode ──────────────────────────────────────────
+            #
+            # Applied here rather than in the series above: the rootless changes
+            # edit the rebranded code (miodroid paths, the multi-instance
+            # helpers) and add tools/helpers/rootless.py.
 
     '';
 
