@@ -3,8 +3,6 @@
   stdenv,
   fetchFromGitHub,
 
-  cmake,
-  ninja,
   unstableGitUpdater,
 
   quickjs,
@@ -21,10 +19,14 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-mjnkbx/6DT0MXdeqA/2/CaMQy/iAUjIaGJT1Oi+JEqg=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-  ];
+  dontConfigure = true;
+  dontBuild = true;
+
+  installPhase = ''
+    runHook preInstall
+    install -Dm644 quickjspp.hpp $out/include/quickjspp.hpp
+    runHook postInstall
+  '';
 
   propagatedBuildInputs = [ quickjs ];
 
@@ -35,7 +37,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/ftk/quickjspp";
     license = lib.licenses.cc0;
     maintainers = with lib.maintainers; [ moraxyc ];
-    mainProgram = "quickjspp";
     platforms = lib.platforms.linux;
   };
 })
