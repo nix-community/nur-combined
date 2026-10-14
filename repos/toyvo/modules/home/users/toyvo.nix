@@ -256,9 +256,11 @@ in
         yubikey_usbc_ed25519_sk.mode = "0600";
         opencode_api_key = { };
         openrouter_api_key = { };
+        hf_token = { };
       };
       templates = {
         "shell-secrets.env".content = ''
+          HF_TOKEN=${config.sops.placeholder.hf_token}
           OPENCODE_API_KEY=${config.sops.placeholder.opencode_api_key}
           OPENROUTER_API_KEY=${config.sops.placeholder.openrouter_api_key}
           ZED_OPEN_AI_COMPATIBLE_EDIT_PREDICTION_API_KEY=${config.sops.placeholder.opencode_api_key}

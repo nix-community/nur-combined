@@ -211,6 +211,10 @@
                 mountOptions = [ "compress=zstd" ];
                 mountpoint = "/home";
               };
+              "@var" = {
+                mountOptions = [ "compress=zstd" ];
+                mountpoint = "/var";
+              };
               "@nix" = {
                 mountOptions = [
                   "compress=zstd"
