@@ -1,0 +1,106 @@
+--- a/art/runtime/class_loader_utils.h	2026-10-14 14:06:17.690968706 +1100
++++ b/art/runtime/class_loader_utils.h	2026-10-14 14:06:55.121710660 +1100
+@@ -92,7 +92,7 @@
+           // Should never happen, fail.
+           break;
+         }
+-        RetType ret_value;
++        RetType ret_value = defaultReturn;
+         if (!fn(element, &ret_value)) {
+           return ret_value;
+         }
+@@ -137,7 +137,7 @@
+       for (int32_t j = kDexFileIndexStart; j < long_array_size; ++j) {
+         const DexFile* cp_dex_file = reinterpret_cast<const DexFile*>(static_cast<uintptr_t>(
+             long_array->GetWithoutChecks(j)));
+-        RetType ret_value;
++        RetType ret_value = defaultReturn;
+         if (!fn(cp_dex_file, /* out */ &ret_value)) {
+           *ret = ret_value;
+           return false;
+@@ -158,12 +158,7 @@
+     REQUIRES_SHARED(Locks::mutator_lock_) {
+   auto helper = [&fn](const art::DexFile* dex_file, void** ret)
+       REQUIRES_SHARED(Locks::mutator_lock_) {
+-#ifdef __clang_analyzer__
+     *ret = nullptr;
+-#else
+-    UNUSED(ret);
+-#endif
+-
+     return fn(dex_file);
+   };
+   VisitClassLoaderDexFiles<decltype(helper), void*>(soa,
+--- a/art/runtime/class_linker.cc	2026-10-14 14:06:17.695091593 +1100
++++ b/art/runtime/class_linker.cc	2026-10-14 14:07:30.283534011 +1100
+@@ -2850,7 +2850,9 @@
+                            *pair.second);
+     }
+     if (result == nullptr) {
+-      CHECK(self->IsExceptionPending()) << descriptor;
++      if (!self->IsExceptionPending()) {
++        self->ThrowNewException("Ljava/lang/NoClassDefFoundError;", descriptor);
++      }
+       FilterDexFileCaughtExceptions(self, this);
+     }
+   }
+@@ -2867,8 +2869,9 @@
+          IsDelegateLastClassLoader(soa, class_loader))
+       << "Unexpected class loader for descriptor " << descriptor;
+ 
+-  ObjPtr<mirror::Class> ret;
+-  auto define_class = [&](const DexFile* cp_dex_file) REQUIRES_SHARED(Locks::mutator_lock_) {
++  auto define_class = [&](const DexFile* cp_dex_file, ObjPtr<mirror::Class>* out_klass)
++      REQUIRES_SHARED(Locks::mutator_lock_) {
++    *out_klass = nullptr;
+     const dex::ClassDef* dex_class_def = OatDexFile::FindClassDef(*cp_dex_file, descriptor, hash);
+     if (dex_class_def != nullptr) {
+       ObjPtr<mirror::Class> klass = DefineClass(soa.Self(),
+@@ -2878,13 +2881,12 @@
+                                                 *cp_dex_file,
+                                                 *dex_class_def);
+       if (klass == nullptr) {
+-        CHECK(soa.Self()->IsExceptionPending()) << descriptor;
++        if (!soa.Self()->IsExceptionPending()) {
++          soa.Self()->ThrowNewException("Ljava/lang/NoClassDefFoundError;", descriptor);
++        }
+         FilterDexFileCaughtExceptions(soa.Self(), this);
+-        // TODO: Is it really right to break here, and not check the other dex files?
+-      } else {
+-        DCHECK(!soa.Self()->IsExceptionPending());
+       }
+-      ret = klass;
++      *out_klass = klass;
+       return false;  // Found a Class (or error == nullptr), stop visit.
+     }
+     return true;  // Continue with the next DexFile.
+@@ -2891,7 +2893,7 @@
+   };
+ 
+-  VisitClassLoaderDexFiles(soa, class_loader, define_class);
+-  return ret;
++  return VisitClassLoaderDexFiles<decltype(define_class), ObjPtr<mirror::Class>>(
++      soa, class_loader, define_class, /* defaultReturn= */ nullptr);
+ }
+ 
+ ObjPtr<mirror::Class> ClassLinker::FindClass(Thread* self,
+@@ -3219,6 +3221,9 @@
+     if (!klass->IsErroneous()) {
+       mirror::Class::SetStatus(klass, ClassStatus::kErrorUnresolved, self);
+     }
++    if (!self->IsExceptionPending()) {
++      self->ThrowNewException("Ljava/lang/NoClassDefFoundError;", descriptor);
++    }
+     return nullptr;
+   }
+   CHECK(klass->IsLoaded());
+@@ -3237,6 +3242,9 @@
+     // Linking failed.
+     if (!klass->IsErroneous()) {
+       mirror::Class::SetStatus(klass, ClassStatus::kErrorUnresolved, self);
++    }
++    if (!self->IsExceptionPending()) {
++      self->ThrowNewException("Ljava/lang/NoClassDefFoundError;", descriptor);
+     }
+     return nullptr;
+   }

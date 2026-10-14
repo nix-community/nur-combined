@@ -1,0 +1,113 @@
+--- a/art/runtime/gc/space/image_space.cc	2026-10-13 14:59:04
++++ b/art/runtime/gc/space/image_space.cc	2026-10-13 14:59:04
+@@ -1552,7 +1552,13 @@
+     template <typename T>
+     ALWAYS_INLINE T* operator()(T* src) const {
+       DCHECK(src != nullptr);
++#if ART_USE_RELATIVE_REFS
++      // Heap pointers do not fit in uint32_t above the macOS page-zero. Adding the
++      // delta in 64 bits keeps the bitmap and the patched objects inside the window.
++      return reinterpret_cast<T*>(reinterpret_cast<uintptr_t>(src) + diff_);
++#else
+       return reinterpret_cast32<T*>(reinterpret_cast32<uint32_t>(src) + diff_);
++#endif
+     }
+ 
+    private:
+@@ -1726,6 +1732,13 @@
+     const ImageHeader& first_space_header = first_space->GetImageHeader();
+     uint32_t diff =
+         static_cast<uint32_t>(first_space->Begin() - first_space_header.GetImageBegin());
++#if ART_USE_RELATIVE_REFS
++    // The image is already linked at the reference-window base. Relocating by a
++    // truncated 32-bit delta would turn real pointers into low offsets.
++    if (first_space->Begin() == first_space_header.GetImageBegin()) {
++      return;
++    }
++#endif
+     if (!relocate_) {
+       DCHECK_EQ(diff, 0u);
+       return;
+--- a/art/runtime/image-inl.h	2026-10-13 14:59:03
++++ b/art/runtime/image-inl.h	2026-10-13 14:59:04
+@@ -41,7 +41,8 @@
+   // rather than image_roots_ because it won't move (asserted below)
+   // and it's a const member.
+   mirror::ObjectArray<mirror::Object>* image_roots =
+-      reinterpret_cast<mirror::ObjectArray<mirror::Object>*>(image_roots_);
++      reinterpret_cast<mirror::ObjectArray<mirror::Object>*>(
++          image_roots_ == 0u ? static_cast<uintptr_t>(0) : DecodeImageAddress(image_roots_));
+   mirror::ObjectArray<mirror::Object>* result =
+       ReadBarrier::BarrierForRoot<mirror::ObjectArray<mirror::Object>, kReadBarrierOption>(
+           &image_roots);
+--- a/art/runtime/image.cc	2026-10-13 14:59:03
++++ b/art/runtime/image.cc	2026-10-13 14:59:04
+@@ -126,7 +126,11 @@
+ 
+ ArtMethod* ImageHeader::GetImageMethod(ImageMethod index) const {
+   CHECK_LT(static_cast<size_t>(index), kImageMethodsCount);
+-  return reinterpret_cast<ArtMethod*>(image_methods_[index]);
++  const uint64_t bits = image_methods_[index];
++  if (bits == 0) {
++    return nullptr;
++  }
++  return reinterpret_cast<ArtMethod*>(DecodeImageAddress(bits));
+ }
+ 
+ std::ostream& operator<<(std::ostream& os, const ImageSection& section) {
+--- a/art/runtime/image.h	2026-10-13 14:59:02
++++ b/art/runtime/image.h	2026-10-13 14:59:04
+@@ -150,8 +150,28 @@
+     return component_count_;
+   }
+ 
++  // Stored image addresses are the low 32 bits of an absolute pointer.  With
++  // relative refs the high bits are g_reference_base (4 GiB aligned), so add
++  // them back.  image_begin_ of 0 is the window base itself, not a null pointer.
++  static uintptr_t DecodeImageAddress(uint32_t low) {
++#if ART_USE_RELATIVE_REFS
++    return g_reference_base + static_cast<uintptr_t>(low);
++#else
++    return static_cast<uintptr_t>(low);
++#endif
++  }
++
++  static uintptr_t DecodeImageAddress(uint64_t bits) {
++#if ART_USE_RELATIVE_REFS
++    if (static_cast<uint64_t>(static_cast<uint32_t>(bits)) == bits) {
++      return g_reference_base + static_cast<uintptr_t>(static_cast<uint32_t>(bits));
++    }
++#endif
++    return static_cast<uintptr_t>(bits);
++  }
++
+   uint8_t* GetImageBegin() const {
+-    return reinterpret_cast<uint8_t*>(image_begin_);
++    return reinterpret_cast<uint8_t*>(DecodeImageAddress(image_begin_));
+   }
+ 
+   size_t GetImageSize() const {
+@@ -177,19 +197,19 @@
+   // The location that the oat file was expected to be when the image was created. The actual
+   // oat file may be at a different location for application images.
+   uint8_t* GetOatFileBegin() const {
+-    return reinterpret_cast<uint8_t*>(oat_file_begin_);
++    return reinterpret_cast<uint8_t*>(DecodeImageAddress(oat_file_begin_));
+   }
+ 
+   uint8_t* GetOatDataBegin() const {
+-    return reinterpret_cast<uint8_t*>(oat_data_begin_);
++    return reinterpret_cast<uint8_t*>(DecodeImageAddress(oat_data_begin_));
+   }
+ 
+   uint8_t* GetOatDataEnd() const {
+-    return reinterpret_cast<uint8_t*>(oat_data_end_);
++    return reinterpret_cast<uint8_t*>(DecodeImageAddress(oat_data_end_));
+   }
+ 
+   uint8_t* GetOatFileEnd() const {
+-    return reinterpret_cast<uint8_t*>(oat_file_end_);
++    return reinterpret_cast<uint8_t*>(DecodeImageAddress(oat_file_end_));
+   }
+ 
+   PointerSize GetPointerSize() const;

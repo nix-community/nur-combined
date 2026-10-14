@@ -1,0 +1,302 @@
+--- a/art/compiler/optimizing/intrinsics_arm64.cc	2026-10-14 17:29:45.068933521 +1100
++++ b/art/compiler/optimizing/intrinsics_arm64.cc	2026-10-14 17:29:45.077205314 +1100
+@@ -57,6 +57,11 @@
+ using helpers::InputRegisterAt;
+ using helpers::OutputRegister;
+ 
++#if defined(ART_USE_RELATIVE_REFS)
++// Defined in code_generator_arm64.cc. Widens a compressed heap ref in place.
++void MakeReferenceAbsolute(vixl::aarch64::MacroAssembler* masm, vixl::aarch64::Register reg);
++#endif
++
+ namespace {
+ 
+ ALWAYS_INLINE inline MemOperand AbsoluteHeapOperandFrom(Location location, size_t offset = 0) {
+@@ -742,6 +747,9 @@
+   Location trg_loc = locations->Out();
+   Register trg = RegisterFrom(trg_loc, type);
+ 
++#if defined(ART_USE_RELATIVE_REFS)
++  MakeReferenceAbsolute(codegen->GetVIXLAssembler(), base);
++#endif
+   if (type == DataType::Type::kReference && kEmitCompilerReadBarrier && kUseBakerReadBarrier) {
+     // UnsafeGetObject/UnsafeGetObjectVolatile with Baker's read barrier case.
+     Register temp = WRegisterFrom(locations->GetTemp(0));
+@@ -748,6 +756,10 @@
+     MacroAssembler* masm = codegen->GetVIXLAssembler();
+     // Piggy-back on the field load path using introspection for the Baker read barrier.
++#if defined(ART_USE_RELATIVE_REFS)
++    __ Add(temp.X(), base.X(), offset);
++#else
+     __ Add(temp, base, offset.W());  // Offset should not exceed 32 bits.
++#endif
+     codegen->GenerateFieldLoadWithBakerReadBarrier(invoke,
+                                                    trg_loc,
+                                                    base,
+@@ -878,6 +890,9 @@
+ 
+   Register base = WRegisterFrom(locations->InAt(1));    // Object pointer.
+   Register offset = XRegisterFrom(locations->InAt(2));  // Long offset.
++#if defined(ART_USE_RELATIVE_REFS)
++  MakeReferenceAbsolute(masm, base);
++#endif
+   Register value = RegisterFrom(locations->InAt(3), type);
+   Register source = value;
+   MemOperand mem_op(base.X(), offset);
+@@ -1041,6 +1056,9 @@
+     Register tmp = temps.AcquireSameSizeAs(value);
+ 
+     // Recalculate the `tmp_ptr` clobbered above.
++#if defined(ART_USE_RELATIVE_REFS)
++    MakeReferenceAbsolute(masm, base);
++#endif
+     __ Add(tmp_ptr, base.X(), Operand(offset));
+ 
+     // do {
+@@ -1073,6 +1091,9 @@
+   Register out = WRegisterFrom(locations->Out());                 // Boolean result.
+   Register base = WRegisterFrom(locations->InAt(1));              // Object pointer.
+   Register offset = XRegisterFrom(locations->InAt(2));            // Long offset.
++#if defined(ART_USE_RELATIVE_REFS)
++  MakeReferenceAbsolute(masm, base);
++#endif
+   Register expected = RegisterFrom(locations->InAt(3), type);     // Expected.
+   Register value = RegisterFrom(locations->InAt(4), type);        // Value.
+ 
+@@ -1192,6 +1213,10 @@
+   Register arg = InputRegisterAt(invoke, 1);
+   DCHECK(str.IsW());
+   DCHECK(arg.IsW());
++#if defined(ART_USE_RELATIVE_REFS)
++  MakeReferenceAbsolute(masm, str);
++  MakeReferenceAbsolute(masm, arg);
++#endif
+   Register out = OutputRegister(invoke);
+ 
+   Register temp0 = WRegisterFrom(locations->GetTemp(0));
+@@ -1338,8 +1363,14 @@
+     // `temp1` will hold the compressed data pointer, `temp2` the uncompressed data pointer.
+     // Note that flags have been set by the `str` compression flag extraction to `temp3`
+     // before branching to the `different_compression` label.
++#if defined(ART_USE_RELATIVE_REFS)
++    // A W select would clear the high half of an absolute string pointer.
++    __ Csel(temp1.X(), str.X(), arg.X(), eq);  // Pointer to the compressed string.
++    __ Csel(temp2.X(), str.X(), arg.X(), ne);  // Pointer to the uncompressed string.
++#else
+     __ Csel(temp1, str, arg, eq);   // Pointer to the compressed string.
+     __ Csel(temp2, str, arg, ne);   // Pointer to the uncompressed string.
++#endif
+ 
+     // We want to free up the temp3, currently holding `str` compression flag, for comparison.
+     // So, we move it to the bottom bit of the iteration count `temp0` which we then need to treat
+@@ -1348,8 +1379,13 @@
+     __ Lsl(temp0, temp0, 1u);
+ 
+     // Adjust temp1 and temp2 from string pointers to data pointers.
++#if defined(ART_USE_RELATIVE_REFS)
++    __ Add(temp1.X(), temp1.X(), Operand(value_offset));
++    __ Add(temp2.X(), temp2.X(), Operand(value_offset));
++#else
+     __ Add(temp1, temp1, Operand(value_offset));
+     __ Add(temp2, temp2, Operand(value_offset));
++#endif
+ 
+     // Complete the move of the compression flag.
+     __ Sub(temp0, temp0, Operand(temp3));
+@@ -1431,6 +1467,11 @@
+   Register str = WRegisterFrom(locations->InAt(0));
+   Register arg = WRegisterFrom(locations->InAt(1));
+   Register out = XRegisterFrom(locations->Out());
++#if defined(ART_USE_RELATIVE_REFS)
++  // Count and value loads below use the X view. A compressed ref faults in the low 4 GiB.
++  MakeReferenceAbsolute(masm, str);
++  MakeReferenceAbsolute(masm, arg);
++#endif
+ 
+   UseScratchRegisterScope scratch_scope(masm);
+   Register temp = scratch_scope.AcquireW();
+@@ -1950,6 +1991,10 @@
+   Register srcEnd = XRegisterFrom(locations->InAt(2));
+   Register dstObj = XRegisterFrom(locations->InAt(3));
+   Register dstBegin = XRegisterFrom(locations->InAt(4));
++#if defined(ART_USE_RELATIVE_REFS)
++  MakeReferenceAbsolute(masm, srcObj);
++  MakeReferenceAbsolute(masm, dstObj);
++#endif
+ 
+   Register src_ptr = XRegisterFrom(locations->GetTemp(0));
+   Register num_chr = XRegisterFrom(locations->GetTemp(1));
+@@ -2178,6 +2223,10 @@
+   Register dst = XRegisterFrom(locations->InAt(2));
+   Location dst_pos = locations->InAt(3);
+   Location length = locations->InAt(4);
++#if defined(ART_USE_RELATIVE_REFS)
++  MakeReferenceAbsolute(masm, src);
++  MakeReferenceAbsolute(masm, dst);
++#endif
+ 
+   SlowPathCodeARM64* slow_path =
+       new (codegen_->GetScopedAllocator()) IntrinsicSlowPathARM64(invoke);
+@@ -2356,6 +2405,10 @@
+   Location temp1_loc = LocationFrom(temp1);
+   Register temp2 = WRegisterFrom(locations->GetTemp(1));
+   Location temp2_loc = LocationFrom(temp2);
++#if defined(ART_USE_RELATIVE_REFS)
++  MakeReferenceAbsolute(masm, src);
++  MakeReferenceAbsolute(masm, dest);
++#endif
+ 
+   SlowPathCodeARM64* intrinsic_slow_path =
+       new (codegen_->GetScopedAllocator()) IntrinsicSlowPathARM64(invoke);
+@@ -2467,6 +2520,9 @@
+                                                           /* needs_null_check= */ false,
+                                                           /* use_load_acquire= */ false);
+           // Bail out if the source is not a non primitive array.
++#if defined(ART_USE_RELATIVE_REFS)
++          MakeReferenceAbsolute(masm, temp1);
++#endif
+           // /* HeapReference<Class> */ temp1 = temp1->component_type_
+           codegen_->GenerateFieldLoadWithBakerReadBarrier(invoke,
+                                                           temp1_loc,
+@@ -2478,6 +2534,9 @@
+           __ Cbz(temp1, intrinsic_slow_path->GetEntryLabel());
+           // If heap poisoning is enabled, `temp1` has been unpoisoned
+           // by the the previous call to GenerateFieldLoadWithBakerReadBarrier.
++#if defined(ART_USE_RELATIVE_REFS)
++          MakeReferenceAbsolute(masm, temp1);
++#endif
+           // /* uint16_t */ temp1 = static_cast<uint16>(temp1->primitive_type_);
+           __ Ldrh(temp1, HeapOperand(temp1, primitive_offset));
+           static_assert(Primitive::kPrimNot == 0, "Expected 0 for kPrimNot");
+@@ -2501,6 +2560,9 @@
+           // method produces a call to a ReadBarrierMarkRegX entry point,
+           // which saves all potentially live registers, including
+           // temporaries such a `temp1`.
++#if defined(ART_USE_RELATIVE_REFS)
++          MakeReferenceAbsolute(masm, temp1);
++#endif
+           // /* HeapReference<Class> */ temp2 = temp1->component_type_
+           codegen_->GenerateFieldLoadWithBakerReadBarrier(invoke,
+                                                           temp2_loc,
+@@ -2512,6 +2574,9 @@
+           __ Cbz(temp2, intrinsic_slow_path->GetEntryLabel());
+           // If heap poisoning is enabled, `temp2` has been unpoisoned
+           // by the the previous call to GenerateFieldLoadWithBakerReadBarrier.
++#if defined(ART_USE_RELATIVE_REFS)
++          MakeReferenceAbsolute(masm, temp2);
++#endif
+           // /* uint16_t */ temp2 = static_cast<uint16>(temp2->primitive_type_);
+           __ Ldrh(temp2, HeapOperand(temp2, primitive_offset));
+           static_assert(Primitive::kPrimNot == 0, "Expected 0 for kPrimNot");
+@@ -2534,6 +2599,9 @@
+         if (optimizations.GetDestinationIsTypedObjectArray()) {
+           vixl::aarch64::Label do_copy;
+           __ B(&do_copy, eq);
++#if defined(ART_USE_RELATIVE_REFS)
++          MakeReferenceAbsolute(masm, temp1);
++#endif
+           // /* HeapReference<Class> */ temp1 = temp1->component_type_
+           codegen_->GenerateFieldLoadWithBakerReadBarrier(invoke,
+                                                           temp1_loc,
+@@ -2547,6 +2615,9 @@
+           // heap reference load, as `temp1` is only used in a
+           // comparison with null below, and this reference is not
+           // kept afterwards.
++#if defined(ART_USE_RELATIVE_REFS)
++          MakeReferenceAbsolute(masm, temp1);
++#endif
+           __ Ldr(temp1, HeapOperand(temp1, super_offset));
+           __ Cbnz(temp1, intrinsic_slow_path->GetEntryLabel());
+           __ Bind(&do_copy);
+@@ -2572,6 +2643,9 @@
+ 
+         if (!optimizations.GetDestinationIsNonPrimitiveArray()) {
+           // Bail out if the destination is not a non primitive array.
++#if defined(ART_USE_RELATIVE_REFS)
++          MakeReferenceAbsolute(masm, temp1);
++#endif
+           // /* HeapReference<Class> */ temp3 = temp1->component_type_
+           __ Ldr(temp3, HeapOperand(temp1, component_offset));
+           __ Cbz(temp3, intrinsic_slow_path->GetEntryLabel());
+@@ -2578,4 +2652,7 @@
+           codegen_->GetAssembler()->MaybeUnpoisonHeapReference(temp3);
++#if defined(ART_USE_RELATIVE_REFS)
++          MakeReferenceAbsolute(masm, temp3);
++#endif
+           // /* uint16_t */ temp3 = static_cast<uint16>(temp3->primitive_type_);
+           __ Ldrh(temp3, HeapOperand(temp3, primitive_offset));
+           static_assert(Primitive::kPrimNot == 0, "Expected 0 for kPrimNot");
+@@ -2584,6 +2661,9 @@
+ 
+         if (!optimizations.GetSourceIsNonPrimitiveArray()) {
+           // Bail out if the source is not a non primitive array.
++#if defined(ART_USE_RELATIVE_REFS)
++          MakeReferenceAbsolute(masm, temp2);
++#endif
+           // /* HeapReference<Class> */ temp3 = temp2->component_type_
+           __ Ldr(temp3, HeapOperand(temp2, component_offset));
+           __ Cbz(temp3, intrinsic_slow_path->GetEntryLabel());
+@@ -2590,4 +2670,7 @@
+           codegen_->GetAssembler()->MaybeUnpoisonHeapReference(temp3);
++#if defined(ART_USE_RELATIVE_REFS)
++          MakeReferenceAbsolute(masm, temp3);
++#endif
+           // /* uint16_t */ temp3 = static_cast<uint16>(temp3->primitive_type_);
+           __ Ldrh(temp3, HeapOperand(temp3, primitive_offset));
+           static_assert(Primitive::kPrimNot == 0, "Expected 0 for kPrimNot");
+@@ -2602,6 +2685,9 @@
+           if (!did_unpoison) {
+             codegen_->GetAssembler()->MaybeUnpoisonHeapReference(temp1);
+           }
++#if defined(ART_USE_RELATIVE_REFS)
++          MakeReferenceAbsolute(masm, temp1);
++#endif
+           // /* HeapReference<Class> */ temp1 = temp1->component_type_
+           __ Ldr(temp1, HeapOperand(temp1, component_offset));
+           codegen_->GetAssembler()->MaybeUnpoisonHeapReference(temp1);
+@@ -2608,3 +2694,6 @@
++#if defined(ART_USE_RELATIVE_REFS)
++          MakeReferenceAbsolute(masm, temp1);
++#endif
+           // /* HeapReference<Class> */ temp1 = temp1->super_class_
+           __ Ldr(temp1, HeapOperand(temp1, super_offset));
+           // No need to unpoison the result, we're comparing against null.
+@@ -2626,6 +2715,9 @@
+                                                         temp3_loc,
+                                                         /* needs_null_check= */ false,
+                                                         /* use_load_acquire= */ false);
++#if defined(ART_USE_RELATIVE_REFS)
++        MakeReferenceAbsolute(masm, temp1);
++#endif
+         // /* HeapReference<Class> */ temp2 = temp1->component_type_
+         codegen_->GenerateFieldLoadWithBakerReadBarrier(invoke,
+                                                         temp2_loc,
+@@ -2641,6 +2733,9 @@
+         // /* HeapReference<Class> */ temp1 = src->klass_
+         __ Ldr(temp1, HeapOperand(src.W(), class_offset));
+         codegen_->GetAssembler()->MaybeUnpoisonHeapReference(temp1);
++#if defined(ART_USE_RELATIVE_REFS)
++        MakeReferenceAbsolute(masm, temp1);
++#endif
+         // /* HeapReference<Class> */ temp2 = temp1->component_type_
+         __ Ldr(temp2, HeapOperand(temp1, component_offset));
+         __ Cbz(temp2, intrinsic_slow_path->GetEntryLabel());
+@@ -2647,5 +2742,8 @@
+         codegen_->GetAssembler()->MaybeUnpoisonHeapReference(temp2);
+       }
++#if defined(ART_USE_RELATIVE_REFS)
++      MakeReferenceAbsolute(masm, temp2);
++#endif
+       // /* uint16_t */ temp2 = static_cast<uint16>(temp2->primitive_type_);
+       __ Ldrh(temp2, HeapOperand(temp2, primitive_offset));
+       static_assert(Primitive::kPrimNot == 0, "Expected 0 for kPrimNot");
+@@ -3106,6 +3204,9 @@
+       mirror::Array::DataOffset(Primitive::kPrimByte).Uint32Value();
+   Register ptr = XRegisterFrom(locations->GetTemp(0));
+   Register array = XRegisterFrom(locations->InAt(1));
++#if defined(ART_USE_RELATIVE_REFS)
++  MakeReferenceAbsolute(masm, array);
++#endif
+   Location offset = locations->InAt(2);
+   if (offset.IsConstant()) {
+     int32_t offset_value = offset.GetConstant()->AsIntConstant()->GetValue();

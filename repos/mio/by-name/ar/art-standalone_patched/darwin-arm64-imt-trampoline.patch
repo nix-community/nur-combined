@@ -1,0 +1,124 @@
+--- a/art/runtime/arch/arm64/quick_entrypoints_arm64.S
++++ b/art/runtime/arch/arm64/quick_entrypoints_arm64.S
+@@ -1129,6 +1129,14 @@ ENTRY art_quick_lock_object
+ ENTRY art_quick_lock_object
+     ldr    w1, [xSELF, #THREAD_ID_OFFSET]
+     cbz    w0, art_quick_lock_object_no_inline
+                                       // Exclusive load/store has no immediate anymore.
++#if defined(__APPLE__)
++    ldr    x13, [xSELF]
++    ldr    x13, [x13]
++    cmp    x0, x13
++    b.hs   .Llock_object_abs
++    add    x0, x0, x13
++.Llock_object_abs:
++#endif
+     add    x4, x0, #MIRROR_OBJECT_LOCK_WORD_OFFSET
+ .Lretry_lock:
+@@ -1175,6 +1183,14 @@ ENTRY art_quick_unlock_object
+ ENTRY art_quick_unlock_object
+     ldr    w1, [xSELF, #THREAD_ID_OFFSET]
+     cbz    x0, art_quick_unlock_object_no_inline
+                                       // Exclusive load/store has no immediate anymore.
++#if defined(__APPLE__)
++    ldr    x13, [xSELF]
++    ldr    x13, [x13]
++    cmp    x0, x13
++    b.hs   .Lunlock_object_abs
++    add    x0, x0, x13
++.Lunlock_object_abs:
++#endif
+     add    x4, x0, #MIRROR_OBJECT_LOCK_WORD_OFFSET
+ .Lretry_unlock:
+@@ -1257,5 +1273,20 @@ ENTRY art_quick_check_instance_of
+ ENTRY art_quick_check_instance_of
++#if defined(__APPLE__)
++    ldr    x13, [xSELF]
++    ldr    x13, [x13]
++    cbz    x0, .Lcheck_cast_obj_abs
++    cmp    x0, x13
++    b.hs   .Lcheck_cast_obj_abs
++    add    x0, x0, x13
++.Lcheck_cast_obj_abs:
++#endif
+     // Type check using the bit string passes null as the target class. In that case just throw.
+     cbz x1, .Lthrow_class_cast_exception_for_bitstring_check
++#if defined(__APPLE__)
++    cmp    x1, x13
++    b.hs   .Lcheck_cast_cls_abs
++    add    x1, x1, x13
++.Lcheck_cast_cls_abs:
++#endif
+ 
+     // Store arguments and link register
+@@ -1361,5 +1393,14 @@ ENTRY art_quick_check_instance_of
+ #else
+     ldr \wDest, [\xObj, #\offset]   // Heap reference = 32b. This also zero-extends to \xDest.
+     UNPOISON_HEAP_REF \wDest
++#if defined(__APPLE__)
++    cbz    \xDest, .Lrb_abs\@
++    ldr    x13, [xSELF]
++    ldr    x13, [x13]
++    cmp    \xDest, x13
++    b.hs   .Lrb_abs\@
++    add    \xDest, \xDest, x13
++.Lrb_abs\@:
++#endif
+ #endif  // USE_READ_BARRIER
+ .endm
+@@ -1370,3 +1410,18 @@ ENTRY art_quick_aput_obj
+ ENTRY art_quick_aput_obj
++#if defined(__APPLE__)
++    ldr    x13, [xSELF]
++    ldr    x13, [x13]
++    cbz    x0, .Laput_arr_abs
++    cmp    x0, x13
++    b.hs   .Laput_arr_abs
++    add    x0, x0, x13
++.Laput_arr_abs:
++#endif
+     cbz x2, .Ldo_aput_null
++#if defined(__APPLE__)
++    cmp    x2, x13
++    b.hs   .Laput_val_abs
++    add    x2, x2, x13
++.Laput_val_abs:
++#endif
+     READ_BARRIER x3, w3, x0, x3, w3, MIRROR_OBJECT_CLASS_OFFSET, 0  // Heap reference = 32b
+@@ -1384,5 +1436,6 @@ ENTRY art_quick_aput_obj
+     str w2, [x3, x1, lsl #2]                             // Heap reference = 32b
+     ldr x3, [xSELF, #THREAD_CARD_TABLE_OFFSET]
+-    lsr x0, x0, #CARD_TABLE_CARD_SHIFT
++    // Low 32 bits are the compressed offset; the base is 4 GiB aligned.
++    lsr w0, w0, #CARD_TABLE_CARD_SHIFT
+     strb w3, [x3, x0]
+     ret
+@@ -2001,9 +2001,28 @@ ENTRY art_quick_imt_conflict_trampoline
+ #endif
+     ldp wIP0, w15, [xIP0, #ART_METHOD_DECLARING_CLASS_OFFSET]
+     // If the method is obsolete, just go through the dex cache miss slow path.
+     tbnz x15, #ACC_OBSOLETE_METHOD_SHIFT, .Limt_conflict_trampoline_dex_cache_miss
++#if defined(__APPLE__)
++    // declaring class is a compressed ref. xSELF->reference_base_ptr_ is offset 0.
++    cbz xIP0, .Limt_class_abs
++    ldr x13, [xSELF]
++    ldr x13, [x13]
++    cmp xIP0, x13
++    b.hs .Limt_class_abs
++    add xIP0, xIP0, x13
++.Limt_class_abs:
++#endif
+     ldr wIP0, [xIP0, #MIRROR_CLASS_DEX_CACHE_OFFSET]  // Load the DexCache (without read barrier).
+     UNPOISON_HEAP_REF wIP0
++#if defined(__APPLE__)
++    cbz xIP0, .Limt_dex_abs
++    ldr x13, [xSELF]
++    ldr x13, [x13]
++    cmp xIP0, x13
++    b.hs .Limt_dex_abs
++    add xIP0, xIP0, x13
++.Limt_dex_abs:
++#endif
+     ubfx x15, xIP1, #0, #METHOD_DEX_CACHE_HASH_BITS  // Calculate DexCache method slot index.
+     ldr xIP0, [xIP0, #MIRROR_DEX_CACHE_RESOLVED_METHODS_OFFSET]  // Load the resolved methods.
+     add xIP0, xIP0, x15, lsl #(POINTER_SIZE_SHIFT + 1)  // Load DexCache method slot address.

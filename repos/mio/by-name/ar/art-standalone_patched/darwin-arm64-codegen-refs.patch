@@ -1,0 +1,422 @@
+--- a/art/runtime/thread.h
++++ b/art/runtime/thread.h
+@@ -1284,6 +1284,12 @@ class Thread {
+   static constexpr ThreadOffset<pointer_size> InterpreterCacheOffset() {
+     return ThreadOffset<pointer_size>(OFFSETOF_MEMBER(Thread, interpreter_cache_));
+   }
++
++  // Pointer to g_reference_base. Oat code cannot address that global directly.
++  template<PointerSize pointer_size>
++  static constexpr ThreadOffset<pointer_size> ReferenceBasePtrOffset() {
++    return ThreadOffset<pointer_size>(OFFSETOF_MEMBER(Thread, reference_base_ptr_));
++  }
+ 
+   static constexpr int InterpreterCacheSizeLog2() {
+     return WhichPowerOf2(InterpreterCache::kSize);
+@@ -1471,4 +1477,7 @@ class Thread {
+   /***********************************************************************************************/
+ 
++  // First field so the offset fits in a single LDR (compiled code loads it with no spare scratch).
++  uintptr_t* reference_base_ptr_ = nullptr;
++
+   struct PACKED(4) tls_32bit_sized_values {
+     // We have no control over the size of 'bool', but want our boolean fields
+--- a/art/runtime/thread.cc
++++ b/art/runtime/thread.cc
+@@ -2282,10 +2282,13 @@
+                                       thread_jobject.get());
+ }
+ 
++extern "C" uintptr_t g_reference_base;
++
+ Thread::Thread(bool daemon)
+     : tls32_(daemon),
+       wait_monitor_(nullptr),
+       is_runtime_thread_(false) {
++  reference_base_ptr_ = &g_reference_base;
+   wait_mutex_ = new Mutex("a thread wait mutex", LockLevel::kThreadWaitLock);
+   wait_cond_ = new ConditionVariable("a thread wait condition variable", *wait_mutex_);
+   tlsPtr_.instrumentation_stack = new std::deque<instrumentation::InstrumentationStackFrame>;
+--- a/art/compiler/optimizing/code_generator_arm64.cc
++++ b/art/compiler/optimizing/code_generator_arm64.cc
+@@ -1493,6 +1493,37 @@
+   }
+ }
+ 
++#if defined(ART_USE_RELATIVE_REFS)
++// reg holds either a compressed heap ref (high 32 bits clear) or an absolute
++// pointer in the reference window (boot-image ADRP). Null stays null.
++// A 4 GiB-aligned base means the low 32 bits of an absolute pointer are the
++// compressed ref, so a later 32-bit store still writes the right slot.
++// Shared with code_generator_vector_arm64.cc.
++void MakeReferenceAbsolute(vixl::aarch64::MacroAssembler* masm,
++                                  vixl::aarch64::Register reg) {
++  // ip0/ip1 are the only scratches, and callers often already hold both.
++  // Spill them, compute in ip0, then put the result back in reg.
++  masm->Stp(ip0, ip1, MemOperand(sp, -16, PreIndex));
++  masm->Mov(ip0, reg.X());
++  vixl::aarch64::Label done;
++  masm->Cbz(ip0.W(), &done);
++  masm->Ldr(ip1, MemOperand(tr, Thread::ReferenceBasePtrOffset<kArm64PointerSize>().Int32Value()));
++  masm->Ldr(ip1, MemOperand(ip1));
++  masm->Cmp(ip0, ip1);
++  masm->B(&done, hs);
++  masm->Add(ip0, ip0, ip1);
++  masm->Bind(&done);
++  if (reg.GetCode() == ip0.GetCode()) {
++    masm->Str(ip0, MemOperand(sp));
++  } else if (reg.GetCode() == ip1.GetCode()) {
++    masm->Str(ip0, MemOperand(sp, 8));
++  } else {
++    masm->Mov(reg.X(), ip0);
++  }
++  masm->Ldp(ip0, ip1, MemOperand(sp, 16, PostIndex));
++}
++#endif
++
+ void CodeGeneratorARM64::LoadAcquire(HInstruction* instruction,
+                                      CPURegister dst,
+                                      const MemOperand& src,
+@@ -1549,6 +1580,11 @@
+             MaybeRecordImplicitNullCheck(instruction);
+           }
+         }
++#if defined(ART_USE_RELATIVE_REFS)
++        if (type == DataType::Type::kReference) {
++          MakeReferenceAbsolute(masm, Register(dst));
++        }
++#endif
+         break;
+       case DataType::Type::kFloat32:
+       case DataType::Type::kFloat64: {
+@@ -1716,10 +1752,19 @@
+   constexpr uint32_t shifted_initialized_value =
+       enum_cast<uint32_t>(ClassStatus::kInitialized) << (status_lsb_position % kBitsPerByte);
+ 
++#if defined(ART_USE_RELATIVE_REFS)
++  // A 32-bit ADD clears the high half of a boot-image ADRP pointer and the
++  // following load faults at the compressed address.
++  MakeReferenceAbsolute(GetVIXLAssembler(), class_reg);
++  Register addr = temps.AcquireX();
++  __ Add(addr, class_reg.X(), status_byte_offset);
++  __ Ldarb(temp, MemOperand(addr));
++#else
+   // Even if the initialized flag is set, we need to ensure consistent memory ordering.
+   // TODO(vixl): Let the MacroAssembler handle MemOperand.
+   __ Add(temp, class_reg, status_byte_offset);
+   __ Ldarb(temp, HeapOperand(temp));
++#endif
+   __ Cmp(temp, shifted_initialized_value);
+   __ B(lo, slow_path->GetEntryLabel());
+   __ Bind(slow_path->GetExitLabel());
+@@ -1873,6 +1918,9 @@
+   DataType::Type load_type = instruction->GetType();
+   MemOperand field = HeapOperand(InputRegisterAt(instruction, 0), field_info.GetFieldOffset());
+ 
++#if defined(ART_USE_RELATIVE_REFS)
++  MakeReferenceAbsolute(GetVIXLAssembler(), InputRegisterAt(instruction, 0));
++#endif
+   if (kEmitCompilerReadBarrier && kUseBakerReadBarrier &&
+       load_type == DataType::Type::kReference) {
+     // Object FieldGet with Baker's read barrier case.
+@@ -1890,6 +1938,9 @@
+         maybe_temp,
+         /* needs_null_check= */ true,
+         field_info.IsVolatile());
++#if defined(ART_USE_RELATIVE_REFS)
++    MakeReferenceAbsolute(GetVIXLAssembler(), RegisterFrom(out, DataType::Type::kReference));
++#endif
+   } else {
+     // General case.
+     if (field_info.IsVolatile()) {
+@@ -1909,6 +1960,9 @@
+       // Baker's using a slow path (and also unpoison the loaded
+       // reference, if heap poisoning is enabled).
+       codegen_->MaybeGenerateReadBarrierSlow(instruction, out, out, base_loc, offset);
++#if defined(ART_USE_RELATIVE_REFS)
++      MakeReferenceAbsolute(GetVIXLAssembler(), RegisterFrom(out, DataType::Type::kReference));
++#endif
+     }
+   }
+ }
+@@ -1932,6 +1986,9 @@
+   DCHECK(instruction->IsInstanceFieldSet() || instruction->IsStaticFieldSet());
+ 
+   Register obj = InputRegisterAt(instruction, 0);
++#if defined(ART_USE_RELATIVE_REFS)
++  MakeReferenceAbsolute(GetVIXLAssembler(), obj);
++#endif
+   CPURegister value = InputCPURegisterOrZeroRegAt(instruction, 1);
+   CPURegister source = value;
+   Offset offset = field_info.GetFieldOffset();
+@@ -2344,6 +2401,9 @@
+ void InstructionCodeGeneratorARM64::VisitArrayGet(HArrayGet* instruction) {
+   DataType::Type type = instruction->GetType();
+   Register obj = InputRegisterAt(instruction, 0);
++#if defined(ART_USE_RELATIVE_REFS)
++  MakeReferenceAbsolute(GetVIXLAssembler(), obj);
++#endif
+   LocationSummary* locations = instruction->GetLocations();
+   Location index = locations->InAt(1);
+   Location out = locations->Out();
+@@ -2434,7 +2494,12 @@
+         }
+         temp = obj;
+       } else {
++#if defined(ART_USE_RELATIVE_REFS)
++        // A 32-bit ADD clears the high half of the absolute array pointer.
++        __ Add(temp.X(), obj.X(), offset);
++#else
+         __ Add(temp, obj, offset);
++#endif
+       }
+       if (maybe_compressed_char_at) {
+         vixl::aarch64::Label uncompressed_load, done;
+@@ -2469,6 +2534,9 @@
+       } else {
+         codegen_->MaybeGenerateReadBarrierSlow(instruction, out, out, obj_loc, offset, index);
+       }
++#if defined(ART_USE_RELATIVE_REFS)
++      MakeReferenceAbsolute(GetVIXLAssembler(), RegisterFrom(out, DataType::Type::kReference));
++#endif
+     }
+   }
+ }
+@@ -2482,6 +2550,9 @@
+ void InstructionCodeGeneratorARM64::VisitArrayLength(HArrayLength* instruction) {
+   uint32_t offset = CodeGenerator::GetArrayLengthOffset(instruction);
+   vixl::aarch64::Register out = OutputRegister(instruction);
++#if defined(ART_USE_RELATIVE_REFS)
++  MakeReferenceAbsolute(GetVIXLAssembler(), InputRegisterAt(instruction, 0));
++#endif
+   {
+     // Ensure that between load and MaybeRecordImplicitNullCheck there are no pools emitted.
+     EmissionCheckScope guard(GetVIXLAssembler(), kMaxMacroInstructionSizeInBytes);
+@@ -2522,6 +2593,9 @@
+       CodeGenerator::StoreNeedsWriteBarrier(value_type, instruction->GetValue());
+ 
+   Register array = InputRegisterAt(instruction, 0);
++#if defined(ART_USE_RELATIVE_REFS)
++  MakeReferenceAbsolute(GetVIXLAssembler(), array);
++#endif
+   CPURegister value = InputCPURegisterOrZeroRegAt(instruction, 2);
+   CPURegister source = value;
+   Location index = locations->InAt(1);
+@@ -2547,7 +2621,11 @@
+         }
+         temp = array;
+       } else {
++#if defined(ART_USE_RELATIVE_REFS)
++        __ Add(temp.X(), array.X(), offset);
++#else
+         __ Add(temp, array, offset);
++#endif
+       }
+       destination = HeapOperand(temp,
+                                 XRegisterFrom(index),
+@@ -2590,7 +2668,11 @@
+           vixl::aarch64::Label non_zero;
+           __ Cbnz(Register(value), &non_zero);
+           if (!index.IsConstant()) {
++#if defined(ART_USE_RELATIVE_REFS)
++            __ Add(temp.X(), array.X(), offset);
++#else
+             __ Add(temp, array, offset);
++#endif
+           }
+           {
+             // Ensure that between store and MaybeRecordImplicitNullCheck there are no pools
+@@ -2621,9 +2703,15 @@
+         }
+         GetAssembler()->MaybeUnpoisonHeapReference(temp);
+ 
++#if defined(ART_USE_RELATIVE_REFS)
++        MakeReferenceAbsolute(GetVIXLAssembler(), temp);
++#endif
+         // /* HeapReference<Class> */ temp = temp->component_type_
+         __ Ldr(temp, HeapOperand(temp, component_offset));
+         // /* HeapReference<Class> */ temp2 = value->klass_
++#if defined(ART_USE_RELATIVE_REFS)
++        MakeReferenceAbsolute(GetVIXLAssembler(), Register(value));
++#endif
+         __ Ldr(temp2, HeapOperand(Register(value), class_offset));
+         // If heap poisoning is enabled, no need to unpoison `temp`
+         // nor `temp2`, as we are comparing two poisoned references.
+@@ -2637,6 +2725,9 @@
+           // not been unpoisoned yet; unpoison it now.
+           GetAssembler()->MaybeUnpoisonHeapReference(temp);
+ 
++#if defined(ART_USE_RELATIVE_REFS)
++          MakeReferenceAbsolute(GetVIXLAssembler(), temp);
++#endif
+           // /* HeapReference<Class> */ temp = temp->super_class_
+           __ Ldr(temp, HeapOperand(temp, super_offset));
+           // If heap poisoning is enabled, no need to unpoison
+@@ -2657,7 +2748,11 @@
+       }
+ 
+       if (!index.IsConstant()) {
++#if defined(ART_USE_RELATIVE_REFS)
++        __ Add(temp.X(), array.X(), offset);
++#else
+         __ Add(temp, array, offset);
++#endif
+       } else {
+         // We no longer need the `temp` here so release it as the store below may
+         // need a scratch register (if the constant index makes the offset too large)
+@@ -3982,6 +4077,9 @@
+   // Ensure that between load and MaybeRecordImplicitNullCheck there are no pools emitted.
+   if (receiver.IsStackSlot()) {
+     __ Ldr(temp.W(), StackOperandFrom(receiver));
++#if defined(ART_USE_RELATIVE_REFS)
++    MakeReferenceAbsolute(GetVIXLAssembler(), temp);
++#endif
+     {
+       EmissionCheckScope guard(GetVIXLAssembler(), kMaxMacroInstructionSizeInBytes);
+       // /* HeapReference<Class> */ temp = temp->klass_
+@@ -3989,6 +4087,9 @@
+       codegen_->MaybeRecordImplicitNullCheck(invoke);
+     }
+   } else {
++#if defined(ART_USE_RELATIVE_REFS)
++    MakeReferenceAbsolute(GetVIXLAssembler(), RegisterFrom(receiver, DataType::Type::kReference));
++#endif
+     EmissionCheckScope guard(GetVIXLAssembler(), kMaxMacroInstructionSizeInBytes);
+     // /* HeapReference<Class> */ temp = receiver->klass_
+     __ Ldr(temp.W(), HeapOperandFrom(receiver, class_offset));
+@@ -4003,6 +4104,9 @@
+   // intact/accessible until the end of the marking phase (the
+   // concurrent copying collector may not in the future).
+   GetAssembler()->MaybeUnpoisonHeapReference(temp.W());
++#if defined(ART_USE_RELATIVE_REFS)
++  MakeReferenceAbsolute(GetVIXLAssembler(), temp);
++#endif
+   __ Ldr(temp,
+       MemOperand(temp, mirror::Class::ImtPtrOffset(kArm64PointerSize).Uint32Value()));
+   uint32_t method_offset = static_cast<uint32_t>(ImTable::OffsetOfElement(
+@@ -4168,6 +4272,9 @@
+ 
+   DCHECK(receiver.IsRegister());
+ 
++#if defined(ART_USE_RELATIVE_REFS)
++  MakeReferenceAbsolute(GetVIXLAssembler(), receiver);
++#endif
+   {
+     // Ensure that between load and MaybeRecordImplicitNullCheck there are no pools emitted.
+     EmissionCheckScope guard(GetVIXLAssembler(), kMaxMacroInstructionSizeInBytes);
+@@ -4182,6 +4289,9 @@
+   // intact/accessible until the end of the marking phase (the
+   // concurrent copying collector may not in the future).
+   GetAssembler()->MaybeUnpoisonHeapReference(temp.W());
++#if defined(ART_USE_RELATIVE_REFS)
++  MakeReferenceAbsolute(GetVIXLAssembler(), temp);
++#endif
+   // temp = temp->GetMethodAt(method_offset);
+   __ Ldr(temp, MemOperand(temp, method_offset));
+   // lr = temp->GetEntryPoint();
+@@ -4660,6 +4770,9 @@
+       vixl::aarch64::Label* ldr_label =
+           codegen_->NewBootImageRelRoPatch(boot_image_offset, adrp_label);
+       codegen_->EmitLdrOffsetPlaceholder(ldr_label, out.W(), out.X());
++#if defined(ART_USE_RELATIVE_REFS)
++      MakeReferenceAbsolute(GetVIXLAssembler(), out);
++#endif
+       break;
+     }
+     case HLoadClass::LoadKind::kBssEntry: {
+@@ -4687,6 +4800,9 @@
+       uint32_t address = reinterpret_cast32<uint32_t>(cls->GetClass().Get());
+       DCHECK_NE(address, 0u);
+       __ Ldr(out.W(), codegen_->DeduplicateBootImageAddressLiteral(address));
++#if defined(ART_USE_RELATIVE_REFS)
++      MakeReferenceAbsolute(GetVIXLAssembler(), out);
++#endif
+       break;
+     }
+     case HLoadClass::LoadKind::kJitTableAddress: {
+@@ -4756,7 +4872,12 @@
+ }
+ 
+ void InstructionCodeGeneratorARM64::VisitLoadException(HLoadException* instruction) {
++#if defined(ART_USE_RELATIVE_REFS)
++  Register out = OutputRegister(instruction);
++  __ Ldr(out.X(), GetExceptionTlsAddress());
++#else
+   __ Ldr(OutputRegister(instruction), GetExceptionTlsAddress());
++#endif
+ }
+ 
+ void LocationsBuilderARM64::VisitClearException(HClearException* clear) {
+@@ -4764,7 +4885,11 @@
+ }
+ 
+ void InstructionCodeGeneratorARM64::VisitClearException(HClearException* clear ATTRIBUTE_UNUSED) {
++#if defined(ART_USE_RELATIVE_REFS)
++  __ Str(xzr, GetExceptionTlsAddress());
++#else
+   __ Str(wzr, GetExceptionTlsAddress());
++#endif
+ }
+ 
+ HLoadString::LoadKind CodeGeneratorARM64::GetSupportedLoadStringKind(
+@@ -5066,6 +5191,10 @@
+   if (CanMoveNullCheckToUser(instruction)) {
+     return;
+   }
++#if defined(ART_USE_RELATIVE_REFS)
++  MakeReferenceAbsolute(GetVIXLAssembler(),
++                        RegisterFrom(instruction->GetLocations()->InAt(0), DataType::Type::kReference));
++#endif
+   {
+     // Ensure that between load and RecordPcInfo there are no pools emitted.
+     EmissionCheckScope guard(GetVIXLAssembler(), kMaxMacroInstructionSizeInBytes);
+@@ -5704,6 +5833,9 @@
+     ReadBarrierOption read_barrier_option) {
+   DataType::Type type = DataType::Type::kReference;
+   Register out_reg = RegisterFrom(out, type);
++#if defined(ART_USE_RELATIVE_REFS)
++  MakeReferenceAbsolute(GetVIXLAssembler(), out_reg);
++#endif
+   if (read_barrier_option == kWithReadBarrier) {
+     CHECK(kEmitCompilerReadBarrier);
+     if (kUseBakerReadBarrier) {
+@@ -5733,6 +5865,9 @@
+     __ Ldr(out_reg, HeapOperand(out_reg, offset));
+     GetAssembler()->MaybeUnpoisonHeapReference(out_reg);
+   }
++#if defined(ART_USE_RELATIVE_REFS)
++  MakeReferenceAbsolute(GetVIXLAssembler(), out_reg);
++#endif
+ }
+ 
+ void InstructionCodeGeneratorARM64::GenerateReferenceLoadTwoRegisters(
+@@ -5745,6 +5880,9 @@
+   DataType::Type type = DataType::Type::kReference;
+   Register out_reg = RegisterFrom(out, type);
+   Register obj_reg = RegisterFrom(obj, type);
++#if defined(ART_USE_RELATIVE_REFS)
++  MakeReferenceAbsolute(GetVIXLAssembler(), obj_reg);
++#endif
+   if (read_barrier_option == kWithReadBarrier) {
+     CHECK(kEmitCompilerReadBarrier);
+     if (kUseBakerReadBarrier) {
+@@ -5769,6 +5907,9 @@
+     __ Ldr(out_reg, HeapOperand(obj_reg, offset));
+     GetAssembler()->MaybeUnpoisonHeapReference(out_reg);
+   }
++#if defined(ART_USE_RELATIVE_REFS)
++  MakeReferenceAbsolute(GetVIXLAssembler(), out_reg);
++#endif
+ }
+ 
+ void CodeGeneratorARM64::GenerateGcRootFieldLoad(
+@@ -5841,6 +5982,9 @@
+     // Note that GC roots are not affected by heap poisoning, thus we
+     // do not have to unpoison `root_reg` here.
+   }
++#if defined(ART_USE_RELATIVE_REFS)
++  MakeReferenceAbsolute(GetVIXLAssembler(), root_reg);
++#endif
+   MaybeGenerateMarkingRegisterCheck(/* code= */ __LINE__);
+ }
+ 

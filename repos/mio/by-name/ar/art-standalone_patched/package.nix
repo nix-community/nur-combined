@@ -56,6 +56,13 @@ let
     ./darwin-art-runtime.patch
     ./darwin-arm64-core-libs-dylib.patch
     ./darwin-arm64-asm.patch
+    # Boot image alloc calls pass a compressed class. Turn it into a pointer and
+    # install the alloc stubs, which the Apple build actually links.
+    ./darwin-arm64-alloc-entrypoints.patch
+    # Quick stubs load compressed heap refs and then dereference them.
+    ./darwin-arm64-imt-trampoline.patch
+    # Thin lock whose owner thread is gone: clear it instead of spinning.
+    ./darwin-arm64-abandoned-lock.patch
     ./darwin-misc.patch
     # Skip CHECK_EQ(sysconf(_SC_PAGE_SIZE), kPageSize) on Apple Silicon where
     # the host page size is 16 KB but ART's kPageSize is compiled as 4 KB.
@@ -70,6 +77,8 @@ let
     ./darwin-arm64-relative-refs-heap.patch
     ./darwin-arm64-heap-window-begin.patch
     ./darwin-arm64-relative-refs-image-base.patch
+    # Image header addresses are the low 32 bits of pointers in the reference window.
+    ./darwin-arm64-image-address.patch
     ./darwin-arm64-relative-refs-unstarted.patch
     ./darwin-arm64-thread-pool-stack.patch
     ./fh-diagnostic.patch
@@ -78,6 +87,22 @@ let
     ./darwin-arm64-page-size-mprotect.patch
     # Upstream stubs the quick alloc entrypoints for Apple; skip the two calls to it.
     ./darwin-arm64-quick-entrypoints.patch
+    # Compiled refs are offsets from g_reference_base. Materialize a pointer
+    # before dereferencing, and keep boot-image ADRP addresses 64-bit.
+    ./darwin-arm64-codegen-refs.patch
+    # Vector array loads add the index with a 32-bit add, which drops the high
+    # half of the array pointer (System.arraycopy's byte copy loop).
+    ./darwin-arm64-vector-refs.patch
+    # String.equals and Unsafe get/put load through a compressed ref.
+    ./darwin-arm64-intrinsic-refs.patch
+    # Apple Silicon W^X: MAP_JIT for the code cache, and copy oat RX segments
+    # because the kernel rejects file-backed PROT_EXEC.
+    ./darwin-arm64-wx-exec.patch
+    # Avoid undefined behavior in VisitClassLoaderDexFiles and ensure class definition
+    # failures throw an exception instead of aborting dex2oat.
+    ./darwin-arm64-class-linker.patch
+    # Diagnostic dump for ucontext and stack trace, plus null-safe catch block search.
+    ./darwin-arm64-catch-dump.patch
   ];
 
   darwinPostPatch = ''

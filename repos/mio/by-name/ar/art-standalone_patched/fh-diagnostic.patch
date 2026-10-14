@@ -1,5 +1,5 @@
---- a/art/runtime/fault_handler.cc	2026-10-12 21:34:30.700246897 +1100
-+++ b/art/runtime/fault_handler.cc	2026-10-12 21:38:14.152961092 +1100
+--- a/art/runtime/fault_handler.cc
++++ b/art/runtime/fault_handler.cc
 @@ -17,6 +17,8 @@
  #include "fault_handler.h"
 
@@ -9,14 +9,11 @@
  #include <sys/mman.h>
  #include <sys/ucontext.h>
 
-@@ -45,6 +47,28 @@
-
+@@ -45,6 +47,51 @@
  // Signal handler called on SIGSEGV.
  static bool art_fault_handler(int sig, siginfo_t* info, void* context) {
 +#if defined(__APPLE__) && defined(__aarch64__)
 +  {
-+    // Temporary diagnostic: record the crash PC and its symbol (ART's own dumper cannot read the
-+    // Darwin ucontext here).  Remove once the Darwin port is stable.
 +    ucontext_t* uc = reinterpret_cast<ucontext_t*>(context);
 +    uintptr_t pc =
 +        static_cast<uintptr_t>(__darwin_arm_thread_state64_get_pc(uc->uc_mcontext->__ss));
@@ -31,6 +28,31 @@
 +      }
 +      fprintf(f, "sig=%d addr=%p pc=0x%lx lr=0x%lx sym=%s\n",
 +              sig, info->si_addr, (unsigned long)pc, (unsigned long)lr, sname);
++      for (int i = 0; i < 29; ++i) {
++        fprintf(f, "x%d=0x%llx ", i, (unsigned long long)uc->uc_mcontext->__ss.__x[i]);
++        if (i % 4 == 3) fprintf(f, "\n");
++      }
++      fprintf(f, "\nfp=0x%llx lr=0x%llx sp=0x%llx pc=0x%llx\n",
++              (unsigned long long)uc->uc_mcontext->__ss.__fp,
++              (unsigned long long)uc->uc_mcontext->__ss.__lr,
++              (unsigned long long)uc->uc_mcontext->__ss.__sp,
++              (unsigned long long)uc->uc_mcontext->__ss.__pc);
++      uintptr_t cur_fp = static_cast<uintptr_t>(uc->uc_mcontext->__ss.__fp);
++      int frame_idx = 0;
++      while (cur_fp != 0 && cur_fp % sizeof(void*) == 0 && frame_idx < 32) {
++        uintptr_t* frame_ptr = reinterpret_cast<uintptr_t*>(cur_fp);
++        uintptr_t next_fp = frame_ptr[0];
++        uintptr_t frame_lr = frame_ptr[1];
++        Dl_info fdi;
++        const char* fsym = "?";
++        if (dladdr(reinterpret_cast<void*>(frame_lr), &fdi) != 0 && fdi.dli_sname != nullptr) {
++          fsym = fdi.dli_sname;
++        }
++        fprintf(f, "  #%02d pc 0x%lx %s\n", frame_idx++, (unsigned long)frame_lr, fsym);
++        if (next_fp <= cur_fp || next_fp >= cur_fp + 0x1000000) break;
++        cur_fp = next_fp;
++      }
++      fflush(f);
 +      fclose(f);
 +    }
 +  }

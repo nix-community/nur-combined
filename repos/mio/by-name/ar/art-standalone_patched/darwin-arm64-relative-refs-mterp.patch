@@ -1,6 +1,6 @@
 --- a/art/runtime/interpreter/mterp/arm64/main.S	2026-10-09 21:41:11.446258631 +1100
 +++ b/art/runtime/interpreter/mterp/arm64/main.S	2026-10-10 22:50:19.207796642 +1100
-@@ -109,7 +109,31 @@
+@@ -109,7 +109,35 @@
  #define ip       x16
  #define ip2      x17
 
@@ -21,7 +21,11 @@
 + */
 +#if defined(ART_USE_RELATIVE_REFS) && ART_USE_RELATIVE_REFS
 +.macro ADD_REF_BASE reg
++    cbz     \reg, .Lskip_ref_base\@
++    cmp     \reg, xREFBASE
++    b.hs    .Lskip_ref_base\@
 +    add     \reg, \reg, xREFBASE
++.Lskip_ref_base\@:
 +.endm
 +#else
 +.macro ADD_REF_BASE reg
@@ -153,3 +157,13 @@
      bl      _MterpFillArrayData          // (obj, payload)
      cbz     w0, MterpPossibleException      // exception?
      FETCH_ADVANCE_INST 3                // advance rPC, load rINST
+--- a/art/runtime/interpreter/mterp/arm64/control_flow.S	2026-10-09 21:41:11.446258631 +1100
++++ b/art/runtime/interpreter/mterp/arm64/control_flow.S	2026-10-10 22:50:19.207796642 +1100
+@@ -218,6 +218,7 @@
+     EXPORT_PC
+     lsr      w2, wINST, #8               // r2<- AA
+     GET_VREG w1, w2                      // r1<- vAA (exception object)
+     cbz      w1, common_errNullObject
++    ADD_REF_BASE x1
+     str      x1, [xSELF, #THREAD_EXCEPTION_OFFSET]  // thread->exception<- obj
+     b        MterpException

@@ -8,7 +8,7 @@
 +// the reference base for relative-reference builds (see DARWIN-ARM64.md).
 +static mirror::Object* UnstartedArgObject(uint32_t ref) {
 +#if ART_USE_RELATIVE_REFS
-+  return reinterpret_cast<mirror::Object*>(g_reference_base + static_cast<uintptr_t>(ref));
++  return (ref == 0) ? nullptr : reinterpret_cast<mirror::Object*>(g_reference_base + static_cast<uintptr_t>(ref));
 +#else
 +  return reinterpret_cast32<mirror::Object*>(ref);
 +#endif

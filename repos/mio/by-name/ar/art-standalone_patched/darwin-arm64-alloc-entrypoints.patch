@@ -1,0 +1,58 @@
+--- a/art/runtime/arch/arm64/quick_entrypoints_arm64.S	2026-10-13 15:17:30
++++ b/art/runtime/arch/arm64/quick_entrypoints_arm64.S	2026-10-13 15:17:29
+@@ -1431,9 +1431,31 @@
+ END art_quick_aput_obj
+ 
+ // Macro to facilitate adding new allocation entrypoints.
++
++// Compiled boot code passes a heap reference in x0. On arm64 macOS that value is
++// an offset from g_reference_base, not a pointer. Add the base when needed.
++.macro DECOMPRESS_X0
++#if defined(__APPLE__)
++    cbz    x0, .Ldec_done\@
++    stp    x1, x30, [sp, #-16]!
++    mov    x1, x0
++    bl     _art_get_reference_base
++    cmp    x1, x0
++    b.hs   .Ldec_keep\@
++    add    x0, x1, x0
++    b      .Ldec_restore\@
++.Ldec_keep\@:
++    mov    x0, x1
++.Ldec_restore\@:
++    ldp    x1, x30, [sp], #16
++.Ldec_done\@:
++#endif
++.endm
++
+ .macro ONE_ARG_DOWNCALL name, entrypoint, return
+     .extern \entrypoint
+ ENTRY \name
++    DECOMPRESS_X0
+     SETUP_SAVE_REFS_ONLY_FRAME        // save callee saves in case of GC
+     mov    x1, xSELF                  // pass Thread::Current
+     bl     _\entrypoint                // (uint32_t type_idx, Method* method, Thread*)
+@@ -1447,6 +1469,7 @@
+ .macro TWO_ARG_DOWNCALL name, entrypoint, return
+     .extern \entrypoint
+ ENTRY \name
++    DECOMPRESS_X0
+     SETUP_SAVE_REFS_ONLY_FRAME        // save callee saves in case of GC
+     mov    x2, xSELF                  // pass Thread::Current
+     bl     _\entrypoint                // (uint32_t type_idx, Method* method, Thread*)
+@@ -1634,6 +1657,7 @@
+ // If isInitialized=0 the compiler can only assume it's been at least resolved.
+ .macro ART_QUICK_ALLOC_OBJECT_ROSALLOC c_name, cxx_name, isInitialized
+ ENTRY \c_name
++    DECOMPRESS_X0
+     // Fast path rosalloc allocation.
+     // x0: type, xSELF(x19): Thread::Current
+     // x1-x7: free.
+@@ -1794,6 +1818,7 @@
+ // The common code for art_quick_alloc_object_*region_tlab
+ .macro GENERATE_ALLOC_OBJECT_RESOLVED_TLAB name, entrypoint, isInitialized
+ ENTRY \name
++    DECOMPRESS_X0
+     // Fast path region tlab allocation.
+     // x0: type, xSELF(x19): Thread::Current
+     // x1-x7: free.

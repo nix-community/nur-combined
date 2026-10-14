@@ -1,0 +1,17 @@
+--- a/art/runtime/monitor.cc
++++ b/art/runtime/monitor.cc
+@@ -1060,6 +1060,14 @@ void Monitor::InflateThinLocked(Thread* self, Handle<mirror::Object> obj, LockW
+       }
+       bool resumed = thread_list->Resume(owner, SuspendReason::kInternal);
+       DCHECK(resumed);
++#if defined(__APPLE__)
++    } else {
++      // The owner is not registered. Leaving the thin lock in place makes
++      // MonitorEnter retry inflation forever. Drop it so the caller can
++      // acquire the monitor.
++      obj->CasLockWord(lock_word, LockWord::Default(), CASMode::kWeak,
++                       std::memory_order_relaxed);
++#endif
+     }
+     self->SetMonitorEnterObject(nullptr);
+   }

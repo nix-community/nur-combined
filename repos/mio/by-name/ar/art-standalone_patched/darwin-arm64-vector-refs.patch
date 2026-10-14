@@ -1,0 +1,46 @@
+--- a/art/compiler/optimizing/code_generator_vector_arm64.cc
++++ b/art/compiler/optimizing/code_generator_vector_arm64.cc
+@@ -37,6 +37,10 @@ using helpers::WRegisterFrom;
+ using helpers::XRegisterFrom;
+ 
+ #define __ GetVIXLAssembler()->
++#if defined(ART_USE_RELATIVE_REFS)
++// Defined in code_generator_arm64.cc. Widens a compressed heap ref in place.
++void MakeReferenceAbsolute(vixl::aarch64::MacroAssembler* masm, vixl::aarch64::Register reg);
++#endif
+ 
+ // Build-time switch for Armv8.4-a dot product instructions.
+ // TODO: Enable dot product when there is a device to test it on.
+@@ -1403,6 +1408,10 @@ MemOperand InstructionCodeGeneratorARM64::VecAddress(
+     /*out*/ Register* scratch) {
+   LocationSummary* locations = instruction->GetLocations();
+   Register base = InputRegisterAt(instruction, 0);
++#if defined(ART_USE_RELATIVE_REFS)
++  // base is a 32-bit heap ref. A W add below would clear an absolute pointer.
++  MakeReferenceAbsolute(GetVIXLAssembler(), base);
++#endif
+ 
+   if (instruction->InputAt(1)->IsIntermediateAddressIndex()) {
+     DCHECK(!is_string_char_at);
+@@ -1423,7 +1432,11 @@ MemOperand InstructionCodeGeneratorARM64::VecAddress(
+     return HeapOperand(base, offset);
+   } else {
+     *scratch = temps_scope->AcquireSameSizeAs(base);
++#if defined(ART_USE_RELATIVE_REFS)
++    __ Add(scratch->X(), base.X(), Operand(WRegisterFrom(index), UXTW, shift));
++#else
+     __ Add(*scratch, base, Operand(WRegisterFrom(index), LSL, shift));
++#endif
+     return HeapOperand(*scratch, offset);
+   }
+ }
+@@ -1451,6 +1464,9 @@ void InstructionCodeGeneratorARM64::VisitVecLoad(HVecLoad* instruction) {
+                       "Expecting 0=compressed, 1=uncompressed");
+         uint32_t count_offset = mirror::String::CountOffset().Uint32Value();
+         Register length = temps.AcquireW();
++#if defined(ART_USE_RELATIVE_REFS)
++        MakeReferenceAbsolute(GetVIXLAssembler(), InputRegisterAt(instruction, 0));
++#endif
+         __ Ldr(length, HeapOperand(InputRegisterAt(instruction, 0), count_offset));
+         __ Tbnz(length.W(), 0, &uncompressed_load);
+         temps.Release(length);  // no longer needed

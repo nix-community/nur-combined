@@ -1,0 +1,317 @@
+diff -ru /tmp/artsrc/art/libartbase/base/mem_map.cc /tmp/artsrc-new/art/libartbase/base/mem_map.cc
+--- a/art/libartbase/base/mem_map.cc
++++ b/art/libartbase/base/mem_map.cc
+@@ -389,6 +389,57 @@
+                 reuse);
+ }
+ 
++MemMap MemMap::MapAnonymousJit(const char* name,
++                               uint8_t* hint,
++                               size_t byte_count,
++                               std::string* error_msg) {
++#if defined(__APPLE__) && defined(__aarch64__)
++#ifndef MAP_JIT
++#define MAP_JIT 0x0800
++#endif
++  if (byte_count == 0) {
++    *error_msg = "Empty JIT MemMap requested.";
++    return Invalid();
++  }
++  const size_t page_aligned_byte_count = RoundUp(byte_count, kPageSize);
++  const int prot = PROT_READ | PROT_WRITE | PROT_EXEC;
++  const int flags = MAP_PRIVATE | MAP_ANONYMOUS | MAP_JIT;
++  void* actual = MAP_FAILED;
++  int saved_errno = EINVAL;
++  // MAP_FIXED|MAP_JIT is rejected. A hint at a page we just unmapped is honored;
++  // retry in case another thread wins the address.
++  for (int attempt = 0; attempt < 8; ++attempt) {
++    actual = mmap(hint, page_aligned_byte_count, prot, flags, -1, 0);
++    if (actual == hint) {
++      break;
++    }
++    saved_errno = errno;
++    if (actual != MAP_FAILED) {
++      munmap(actual, page_aligned_byte_count);
++    }
++    actual = MAP_FAILED;
++  }
++  if (actual != hint) {
++    *error_msg = StringPrintf("mmap(%p, %zd, MAP_JIT) failed: %s",
++                              hint,
++                              page_aligned_byte_count,
++                              strerror(saved_errno));
++    return Invalid();
++  }
++  return MemMap(name,
++                reinterpret_cast<uint8_t*>(actual),
++                byte_count,
++                actual,
++                page_aligned_byte_count,
++                prot,
++                /*reuse=*/ false);
++#else
++  UNUSED(name, hint, byte_count);
++  *error_msg = "MapAnonymousJit is only implemented for Apple Silicon";
++  return Invalid();
++#endif
++}
++
+ MemMap MemMap::MapDummy(const char* name, uint8_t* addr, size_t byte_count) {
+   if (byte_count == 0) {
+     return Invalid();
+diff -ru /tmp/artsrc/art/libartbase/base/mem_map.h /tmp/artsrc-new/art/libartbase/base/mem_map.h
+--- a/art/libartbase/base/mem_map.h
++++ b/art/libartbase/base/mem_map.h
+@@ -168,6 +168,14 @@
+                         error_msg);
+   }
+ 
++  // Anonymous MAP_JIT mapping for Apple Silicon. `hint` must be a just-freed
++  // address; MAP_JIT cannot be combined with MAP_FIXED, but a hint there is
++  // honored. The result is placed exactly at `hint` or the mapping is invalid.
++  static MemMap MapAnonymousJit(const char* name,
++                                uint8_t* hint,
++                                size_t byte_count,
++                                /*out*/std::string* error_msg);
++
+   // Create placeholder for a region allocated by direct call to mmap.
+   // This is useful when we do not have control over the code calling mmap,
+   // but when we still want to keep track of it in the list.
+diff -ru /tmp/artsrc/art/runtime/elf_file.cc /tmp/artsrc-new/art/runtime/elf_file.cc
+--- a/art/runtime/elf_file.cc
++++ b/art/runtime/elf_file.cc
+@@ -1230,8 +1230,60 @@
+       return false;
+     }
+     if (program_header->p_filesz != 0u) {
+-      MemMap segment =
+-          MemMap::MapFileAtAddress(p_vaddr,
++      MemMap segment = MemMap::Invalid();
++#if defined(__APPLE__)
++      // macOS returns EPERM for file-backed PROT_EXEC. Copy the segment into
++      // anonymous memory and switch that to RX, which the kernel allows.
++      const bool copy_exec =
++          (prot & PROT_EXEC) != 0 &&
++          (program_header->p_offset % kPageSize) == 0 &&
++          (reinterpret_cast<uintptr_t>(p_vaddr) % kPageSize) == 0;
++      if (copy_exec) {
++        segment = MemMap::MapAnonymous(file->GetPath().c_str(),
++                                       p_vaddr,
++                                       program_header->p_filesz,
++                                       PROT_READ | PROT_WRITE,
++                                       /* low_4gb= */ false,
++                                       /* reuse= */ true,
++                                       /* reservation= */ nullptr,
++                                       error_msg);
++        if (!segment.IsValid()) {
++          *error_msg = StringPrintf("Failed to map ELF file segment %d from %s: %s",
++                                    i, file->GetPath().c_str(), error_msg->c_str());
++          return false;
++        }
++        size_t remaining = program_header->p_filesz;
++        uint8_t* dst = segment.Begin();
++        off_t off = static_cast<off_t>(program_header->p_offset);
++        while (remaining != 0u) {
++          ssize_t nread = pread(file->Fd(), dst, remaining, off);
++          if (nread < 0) {
++            if (errno == EINTR) {
++              continue;
++            }
++            *error_msg = StringPrintf("Failed to read ELF file segment %d from %s: %s",
++                                      i, file->GetPath().c_str(), strerror(errno));
++            return false;
++          }
++          if (nread == 0) {
++            *error_msg = StringPrintf("Short read of ELF file segment %d from %s",
++                                      i, file->GetPath().c_str());
++            return false;
++          }
++          dst += nread;
++          off += nread;
++          remaining -= static_cast<size_t>(nread);
++        }
++        if (!segment.Protect(prot)) {
++          *error_msg = StringPrintf("Failed to protect ELF file segment %d from %s",
++                                    i, file->GetPath().c_str());
++          return false;
++        }
++        FlushCpuCaches(segment.Begin(), segment.Begin() + program_header->p_filesz);
++      } else
++#endif
++      {
++        segment = MemMap::MapFileAtAddress(p_vaddr,
+                                    program_header->p_filesz,
+                                    prot,
+                                    flags,
+@@ -1242,6 +1294,7 @@
+                                    /* reuse= */ true,  // implies MAP_FIXED
+                                    /* reservation= */ nullptr,
+                                    error_msg);
++      }
+       if (!segment.IsValid()) {
+         *error_msg = StringPrintf("Failed to map ELF file segment %d from %s: %s",
+                                   i, file->GetPath().c_str(), error_msg->c_str());
+diff -ru /tmp/artsrc/art/runtime/jit/jit.cc /tmp/artsrc-new/art/runtime/jit/jit.cc
+--- a/art/runtime/jit/jit.cc
++++ b/art/runtime/jit/jit.cc
+@@ -223,11 +223,33 @@
+ }
+ 
+ bool Jit::LoadCompilerLibrary(std::string* error_msg) {
+-  jit_library_handle_ = dlopen(
+-      kIsDebugBuild ? "libartd-compiler.so" : "libart-compiler.so", RTLD_NOW);
++#if defined(__APPLE__)
++  const char* const compiler_lib =
++      kIsDebugBuild ? "libartd-compiler.dylib" : "libart-compiler.dylib";
++#else
++  const char* const compiler_lib =
++      kIsDebugBuild ? "libartd-compiler.so" : "libart-compiler.so";
++#endif
++  jit_library_handle_ = nullptr;
++#if defined(__APPLE__)
++  // A bare dlopen does not search the directory libart was loaded from.
++  void* art_sym = dlsym(RTLD_DEFAULT, "JNI_CreateJavaVM");
++  Dl_info info;
++  if (art_sym != nullptr && dladdr(art_sym, &info) != 0 && info.dli_fname != nullptr) {
++    std::string full(info.dli_fname);
++    const size_t slash = full.find_last_of('/');
++    if (slash != std::string::npos) {
++      full.replace(slash + 1, std::string::npos, compiler_lib);
++      jit_library_handle_ = dlopen(full.c_str(), RTLD_NOW);
++    }
++  }
++#endif
+   if (jit_library_handle_ == nullptr) {
++    jit_library_handle_ = dlopen(compiler_lib, RTLD_NOW);
++  }
++  if (jit_library_handle_ == nullptr) {
+     std::ostringstream oss;
+-    oss << "JIT could not load libart-compiler.so: " << dlerror();
++    oss << "JIT could not load " << compiler_lib << ": " << dlerror();
+     *error_msg = oss.str();
+     return false;
+   }
+diff -ru /tmp/artsrc/art/runtime/jit/jit_code_cache.cc /tmp/artsrc-new/art/runtime/jit/jit_code_cache.cc
+--- a/art/runtime/jit/jit_code_cache.cc
++++ b/art/runtime/jit/jit_code_cache.cc
+@@ -19,6 +19,9 @@
+ #include <sstream>
+ 
+ #include <android-base/logging.h>
++#if defined(__APPLE__)
++#include <pthread.h>
++#endif
+ #include <android-base/unique_fd.h>
+ 
+ #include "arch/context.h"
+@@ -304,16 +307,36 @@
+   MemMap non_exec_pages;
+   if (exec_capacity > 0) {
+     uint8_t* const divider = data_pages.Begin() + data_capacity;
+-    // Set initial permission for executable view to catch any SELinux permission problems early
+-    // (for processes that cannot map WX pages). Otherwise, this region does not need to be
+-    // executable as there is no code in the cache yet.
+-    exec_pages = data_pages.RemapAtEnd(divider,
+-                                       exec_cache_name.c_str(),
+-                                       kProtRX,
+-                                       base_flags | MAP_FIXED,
+-                                       mem_fd.get(),
+-                                       (mem_fd.get() >= 0) ? data_capacity : 0,
+-                                       &error_str);
++#if defined(__APPLE__) && defined(__aarch64__)
++    if (mem_fd.get() < 0) {
++      // Single-view JIT would mprotect the code cache to RWX, which Apple Silicon
++      // rejects. MAP_JIT plus pthread_jit_write_protect_np toggles write access on
++      // the compiling thread only, so other threads can keep executing.
++      if (!IsAlignedParam(data_capacity, kPageSize) ||
++          !IsAlignedParam(reinterpret_cast<uintptr_t>(divider), kPageSize) ||
++          !IsAlignedParam(exec_capacity, kPageSize)) {
++        *error_msg = "JIT code cache is not aligned to the host page size";
++        return false;
++      }
++      data_pages.SetSize(data_capacity);
++      exec_pages = MemMap::MapAnonymousJit(exec_cache_name.c_str(),
++                                           divider,
++                                           exec_capacity,
++                                           &error_str);
++    } else
++#endif
++    {
++      // Set initial permission for executable view to catch any SELinux permission problems early
++      // (for processes that cannot map WX pages). Otherwise, this region does not need to be
++      // executable as there is no code in the cache yet.
++      exec_pages = data_pages.RemapAtEnd(divider,
++                                         exec_cache_name.c_str(),
++                                         kProtRX,
++                                         base_flags | MAP_FIXED,
++                                         mem_fd.get(),
++                                         (mem_fd.get() >= 0) ? data_capacity : 0,
++                                         &error_str);
++    }
+     if (!exec_pages.IsValid()) {
+       std::ostringstream oss;
+       oss << "Failed to create read execute code cache: " << error_str << " size=" << capacity;
+@@ -465,15 +488,28 @@
+     code_heap = &exec_pages_;
+   }
+   if (code_heap != nullptr) {
+-    // Make all pages reserved for the code heap writable. The mspace allocator, that manages the
+-    // heap, will take and initialize pages in create_mspace_with_base().
+-    CheckedCall(mprotect, "create code heap", code_heap->Begin(), code_heap->Size(), kProtRW);
+-    exec_mspace_ = create_mspace_with_base(code_heap->Begin(), exec_end_, false /*locked*/);
+-    CHECK(exec_mspace_ != nullptr) << "create_mspace_with_base (exec) failed";
+-    SetFootprintLimit(initial_capacity_);
+-    // Protect pages containing heap metadata. Updates to the code heap toggle write permission to
+-    // perform the update and there are no other times write access is required.
+-    CheckedCall(mprotect, "protect code heap", code_heap->Begin(), code_heap->Size(), kProtR);
++#if defined(__APPLE__) && defined(__aarch64__)
++    if (!HasDualCodeMapping()) {
++      // MAP_JIT pages reject mprotect. The process starts each thread with JIT
++      // write protection on, so open it before the allocator writes metadata.
++      pthread_jit_write_protect_np(0);
++      exec_mspace_ = create_mspace_with_base(code_heap->Begin(), exec_end_, false /*locked*/);
++      CHECK(exec_mspace_ != nullptr) << "create_mspace_with_base (exec) failed";
++      SetFootprintLimit(initial_capacity_);
++      pthread_jit_write_protect_np(1);
++    } else
++#endif
++    {
++      // Make all pages reserved for the code heap writable. The mspace allocator, that manages the
++      // heap, will take and initialize pages in create_mspace_with_base().
++      CheckedCall(mprotect, "create code heap", code_heap->Begin(), code_heap->Size(), kProtRW);
++      exec_mspace_ = create_mspace_with_base(code_heap->Begin(), exec_end_, false /*locked*/);
++      CHECK(exec_mspace_ != nullptr) << "create_mspace_with_base (exec) failed";
++      SetFootprintLimit(initial_capacity_);
++      // Protect pages containing heap metadata. Updates to the code heap toggle write permission to
++      // perform the update and there are no other times write access is required.
++      CheckedCall(mprotect, "protect code heap", code_heap->Begin(), code_heap->Size(), kProtR);
++    }
+   } else {
+     exec_mspace_ = nullptr;
+     SetFootprintLimit(initial_capacity_);
+@@ -573,6 +609,12 @@
+   explicit ScopedCodeCacheWrite(const JitCodeCache* const code_cache)
+       : ScopedTrace("ScopedCodeCacheWrite"),
+         code_cache_(code_cache) {
++#if defined(__APPLE__) && defined(__aarch64__)
++    if (!code_cache_->HasDualCodeMapping()) {
++      pthread_jit_write_protect_np(0);
++      return;
++    }
++#endif
+     ScopedTrace trace("mprotect all");
+     const MemMap* const updatable_pages = code_cache_->GetUpdatableCodeMapping();
+     if (updatable_pages != nullptr) {
+@@ -582,6 +624,12 @@
+   }
+ 
+   ~ScopedCodeCacheWrite() {
++#if defined(__APPLE__) && defined(__aarch64__)
++    if (!code_cache_->HasDualCodeMapping()) {
++      pthread_jit_write_protect_np(1);
++      return;
++    }
++#endif
+     ScopedTrace trace("mprotect code");
+     const MemMap* const updatable_pages = code_cache_->GetUpdatableCodeMapping();
+     if (updatable_pages != nullptr) {
