@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
 
   meta = {
-    description = "Utility to trace symlinks recursively";
+    description = "Simple utility to trace symlinks recursively";
     homepage = "https://github.com/merrkry/symseek";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ merrkry ];

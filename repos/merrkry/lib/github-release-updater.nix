@@ -18,6 +18,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
   src = lib.fileset.toSource {
     root = ../.;
     fileset = lib.fileset.unions [
+      ../LICENSE
       ../pyproject.toml
       (lib.fileset.fileFilter (file: file.hasExt "py") ../updaters)
       (lib.fileset.fileFilter (file: file.hasExt "py") ../tests)
@@ -41,7 +42,9 @@ python3Packages.buildPythonApplication (finalAttrs: {
   pythonImportsCheck = [ "updaters" ];
 
   meta = {
-    description = "Select GitHub release versions for nix-update";
+    description = "GitHub release version selector for nix-update";
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ merrkry ];
     mainProgram = finalAttrs.pname;
   };
 })

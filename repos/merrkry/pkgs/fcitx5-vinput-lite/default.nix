@@ -17,6 +17,7 @@
   nlohmann_json,
   python3,
   libopus,
+  versionCheckHook,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -28,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "xifan2333";
     repo = "fcitx5-vinput";
-    rev = "refs/tags/v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-Tl/wjOVBHgBxzP8xpCMwJ5ARvcLLglurxjWhdLEsVk0=";
   };
 
@@ -58,6 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-DVINPUT_ENABLE_LOCAL_ASR=OFF"
     "-DVINPUT_RUNTIME_MODE=system"
     "-DVINPUT_FETCH_CLI11=OFF"
+    "-DVINPUT_FETCH_NLOHMANN_JSON=OFF"
     "-DBUILD_TESTING=ON"
     "-DCMAKE_BUILD_TYPE=Release"
   ];
@@ -72,11 +74,15 @@ stdenv.mkDerivation (finalAttrs: {
     done
   '';
 
+  doInstallCheck = true;
+  nativeInstallCheckInputs = [ versionCheckHook ];
+
   meta = {
-    description = "Voice input addon for Fcitx5, built without local ASR";
+    description = "Voice input for Fcitx5 with cloud ASR and LLM rewriting";
     homepage = "https://github.com/xifan2333/fcitx5-vinput";
     changelog = "https://github.com/xifan2333/fcitx5-vinput/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
+    maintainers = with lib.maintainers; [ merrkry ];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

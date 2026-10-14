@@ -28,7 +28,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   meta = {
-    description = "A libadwaita style theme for Kvantum, based on Colloid-kde";
+    description = "Libadwaita style theme for Kvantum, based on Colloid-kde";
     homepage = "https://github.com/GabePoel/KvLibadwaita";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ merrkry ];

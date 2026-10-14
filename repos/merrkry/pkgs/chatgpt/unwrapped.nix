@@ -16,6 +16,7 @@
   cairo,
   cups,
   dbus,
+  desktop-file-utils,
   expat,
   gdk-pixbuf,
   glib,
@@ -174,10 +175,14 @@ stdenv.mkDerivation (finalAttrs: {
 
   doInstallCheck = true;
   nativeInstallCheckInputs = [
+    desktop-file-utils
     versionCheckHook
     writableTmpDirAsHomeHook
   ];
   versionCheckKeepEnvironment = [ "HOME" ];
+  postInstallCheck = ''
+    desktop-file-validate "$out/share/applications/"*.desktop
+  '';
 
   passthru = source // {
     components = {
@@ -195,7 +200,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "Desktop application for ChatGPT and Codex";
+    description = "Desktop application for AI chat and coding agents";
     homepage = "https://developers.openai.com/codex/app";
     changelog = "https://learn.chatgpt.com/docs/changelog";
     license = lib.licenses.unfree;

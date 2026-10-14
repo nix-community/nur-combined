@@ -4,7 +4,11 @@
   fetchFromGitHub,
   stdenv,
   cacert,
+  coreutils,
   installShellFiles,
+  gitMinimal,
+  versionCheckHook,
+  writableTmpDirAsHomeHook,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -24,63 +28,67 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   strictDeps = true;
   nativeBuildInputs = [ installShellFiles ];
+  nativeCheckInputs = [
+    gitMinimal
+    writableTmpDirAsHomeHook
+  ];
 
   cargoBuildFlags = [
     "-p"
     "kache"
   ];
+  # Use upstream's default test profile instead of release LTO for test binaries.
+  checkType = "debug";
   cargoTestFlags = [
     "-p"
     "kache"
-    # Match upstream's Nix package, which excludes the integration test suite.
-    "--bin"
-    "kache"
+    "--no-fail-fast"
+    # Nested Cargo builds expect target/debug, without Nix's inherited target.
+    "--config"
+    ''target.${stdenv.hostPlatform.rust.rustcTarget}.runner = "${coreutils}/bin/env -u CARGO_BUILD_TARGET"''
   ];
-
-  # probe::tests::family_probe_cache_dir_expands_tilde failed under parallel tests
-  # in 0.26.3: it reads HOME before locking shared process state, so another test
-  # can change HOME between that read and tilde expansion.
-  dontUseCargoParallelTests = true;
-
-  # These tests need macOS services or nested sandboxes unavailable to Nix builds.
-  checkFlags = lib.optionals stdenv.hostPlatform.isDarwin [
-    "--skip=store::tests::test_exclude_from_indexing_sets_tmutil_xattr"
-    "--skip=fallback::macos::tests::policy_distinguishes_denied_and_allowed_output"
-    "--skip=sandbox_preflight_bypasses_denied_server_but_keeps_allowed_server"
-  ];
-  __darwinAllowLocalNetworking = true;
 
   preCheck = ''
+    # cargo-auditable's workspace wrapper makes kache bypass the fixture builds.
+    export PATH="${lib.makeBinPath [ rustPlatform.rust.cargo ]}:$PATH"
+    # Keep vendoring available to fixtures, without overriding their rustflags.
+    # cargoSetupHook appends the target sections after the source configuration.
+    if [[ -f "$NIX_BUILD_TOP/.cargo/config.toml" ]]; then
+      sed -i '/^[[:space:]]*\[target\./,$d' "$NIX_BUILD_TOP/.cargo/config.toml"
+    fi
     ulimit -n 4096 2>/dev/null || true
   '';
 
   env = {
     RUSTC_WRAPPER = "";
+    KACHE_TEST_SHELL = stdenv.shell;
+    # Reuse Cargo's test binary; this build already disables RUSTC_WRAPPER.
+    KACHE_TEST_USE_CARGO_BIN_EXE = "1";
     # HTTP client construction in the tests requires a certificate bundle.
     SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
   };
 
-  postInstall = ''
-    mkdir -p $out/lib/kache
-    for name in cc c++ gcc g++ clang clang++; do
-      ln -s $out/bin/kache $out/lib/kache/$name
-    done
-    ln -s lib/kache $out/shims
-  ''
-  + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+    # Let upstream maintain the compiler names and the shim directory marker.
+    $out/bin/kache init --shims "$out/lib/kache" --canonical-only
+    ln -s lib/kache "$out/shims"
+
     installShellCompletion --cmd kache \
       --bash <($out/bin/kache completions bash) \
       --fish <($out/bin/kache completions fish) \
       --zsh <($out/bin/kache completions zsh)
   '';
 
+  doInstallCheck = true;
+  nativeInstallCheckInputs = [ versionCheckHook ];
+
   meta = {
-    description = "Content-addressed build cache for Rust, C/C++ and CUDA";
+    description = "Zero-copy, content-addressed build cache for Rust, C/C++ and more";
     homepage = "https://github.com/kunobi-ninja/kache";
     changelog = "https://github.com/kunobi-ninja/kache/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ merrkry ];
     mainProgram = "kache";
-    platforms = lib.platforms.unix;
+    platforms = lib.platforms.linux;
   };
 })

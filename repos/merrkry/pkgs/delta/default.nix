@@ -22,31 +22,34 @@ let
     nixpkgs = { inherit lib; };
   };
 in
-outputs.packages.${pkgs.stdenv.hostPlatform.system}.delta.overrideAttrs (old: {
-  __structuredAttrs = true;
-  strictDeps = true;
+outputs.packages.${pkgs.stdenv.hostPlatform.system}.delta.overrideAttrs (
+  finalAttrs: old: {
+    __structuredAttrs = true;
+    strictDeps = true;
 
-  passthru = (old.passthru or { }) // {
-    packagingSource = source.src;
-    updateScript = [
-      (lib.getExe githubReleaseUpdater)
-      "--owner"
-      "zed-industries"
-      "--repo"
-      "delta-nix"
-      "--attribute"
-      "delta"
-      "--tag-pattern"
-      "v(\\d+\\.\\d+\\.\\d+)"
-      "--"
-      "--file=pkgs/delta/update.nix"
-      "--override-filename=pkgs/delta/source.nix"
-    ];
-  };
+    passthru = (old.passthru or { }) // {
+      packagingSource = source.src;
+      updateScript = [
+        (lib.getExe githubReleaseUpdater)
+        "--owner"
+        "zed-industries"
+        "--repo"
+        "delta-nix"
+        "--attribute"
+        "delta"
+        "--tag-pattern"
+        "v(\\d+\\.\\d+\\.\\d+)"
+        "--"
+        "--file=pkgs/delta/update.nix"
+        "--override-filename=pkgs/delta/source.nix"
+      ];
+    };
 
-  meta = old.meta // {
-    changelog = "https://github.com/zed-industries/delta-nix/releases/tag/v${source.version}";
-    maintainers = with lib.maintainers; [ merrkry ];
-    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
-  };
-})
+    meta = old.meta // {
+      description = "AI coding assistant";
+      changelog = "https://github.com/zed-industries/delta-nix/releases/tag/v${finalAttrs.version}";
+      maintainers = with lib.maintainers; [ merrkry ];
+      sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+    };
+  }
+)

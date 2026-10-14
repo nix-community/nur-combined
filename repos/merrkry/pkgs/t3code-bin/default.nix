@@ -4,6 +4,8 @@
   codex,
   lib,
   channel,
+  versionCheckHook,
+  writableTmpDirAsHomeHook,
   githubReleaseUpdater ? callPackage ../../lib/github-release-updater.nix { },
   providerPackages ? [ codex ],
   commandLineArgs ? "",
@@ -44,10 +46,19 @@ let
     ];
   };
 
-  package = cli.overrideAttrs (old: {
+in
+cli.overrideAttrs (
+  finalAttrs: old: {
+    doInstallCheck = true;
+    nativeInstallCheckInputs = (old.nativeInstallCheckInputs or [ ]) ++ [
+      versionCheckHook
+      writableTmpDirAsHomeHook
+    ];
+    versionCheckKeepEnvironment = [ "HOME" ];
+
     passthru = old.passthru // {
       inherit cli desktop mkT3code;
-      tests = callPackages ./tests.nix { t3code = package; };
+      tests = callPackages ./tests.nix { t3code = finalAttrs.finalPackage; };
       updateScript = [
         (lib.getExe githubReleaseUpdater)
         "--owner"
@@ -62,6 +73,5 @@ let
         "--subpackage=desktop"
       ];
     };
-  });
-in
-package
+  }
+)

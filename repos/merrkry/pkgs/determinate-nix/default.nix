@@ -92,7 +92,7 @@ components.nix-everything.overrideAttrs (
     };
 
     meta = old.meta // {
-      description = "Determinate Nix package manager";
+      description = "Nix package manager for teams of any size";
       homepage = "https://github.com/DeterminateSystems/nix-src";
       changelog = "https://github.com/DeterminateSystems/nix-src/releases/tag/v${finalAttrs.version}";
       platforms = [

@@ -127,6 +127,16 @@ stdenv.mkDerivation (finalAttrs: {
       "''${gappsWrapperArgs[@]}"
   '';
 
+  doInstallCheck = true;
+  nativeInstallCheckInputs = [ desktop-file-utils ];
+  installCheckPhase = ''
+    runHook preInstallCheck
+
+    desktop-file-validate "$out/share/applications/t3code.desktop"
+
+    runHook postInstallCheck
+  '';
+
   passthru = source;
 
   meta = {
