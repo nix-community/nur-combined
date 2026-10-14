@@ -212,8 +212,8 @@ rec {
 
   velaterm = pkgs.callPackage ./pkgs/velaterm { };
   paseo = pkgs.callPackage ./pkgs/paseo { };
+  fooyin = pkgs.callPackage ./pkgs/fooyin { };
   ricercar = pkgs.callPackage ./pkgs/ricercar { };
-
 
   xad = pkgs.callPackage ./pkgs/xad { };
 

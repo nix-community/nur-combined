@@ -72,7 +72,7 @@ stdenv.mkDerivation {
       Lc0 is a UCI-compliant chess engine designed to play chess via neural
       network, specifically those of the LeelaChessZero project.
     '';
-    homepage = https://lczero.org/;
+    homepage = "https://lczero.org/";
     license = licenses.gpl3;
     maintainers = with maintainers; [ synthetica ];
     platforms = platforms.linux;

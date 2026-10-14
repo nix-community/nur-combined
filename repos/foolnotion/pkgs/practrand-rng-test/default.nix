@@ -29,7 +29,7 @@ clangStdenv.mkDerivation {
   meta = with lib; {
     description = "C++ library of pseudo-random number generators and statistical tests for RNGs.";
     license = licenses.publicDomain;
-    homepage = http://pracrand.sourceforge.net/;
+    homepage = "http://pracrand.sourceforge.net/";
     maintainers = [ maintainers.idontgetoutmuch ];
   };
 }
