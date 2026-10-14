@@ -172,13 +172,12 @@ let
     in
     stdenv.mkDerivation (
       {
-        buildInputs = [
+        nativeBuildInputs = [
           php
           composer
-        ]
-        ++ buildInputs;
+        ];
 
-        inherit unpackPhase buildPhase;
+        inherit buildInputs unpackPhase buildPhase;
 
         installPhase = ''
           ${

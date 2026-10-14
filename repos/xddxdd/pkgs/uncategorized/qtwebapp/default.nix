@@ -30,6 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     qt6.qmake
+    qt6.qt5compat
     qt6.wrapQtAppsHook
   ];
 

@@ -96,23 +96,9 @@ diff -ru ela-old/ElaWidgetTools/CMakeLists.txt ela-new/ElaWidgetTools/CMakeLists
 -    FILES ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake ${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake DESTINATION ${PROJECT_NAME}/lib/cmake
 +    FILES ${PROJECT_BINARY_DIR}/${PROJECT_NAME}Config.cmake ${PROJECT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake DESTINATION lib/cmake
  )
-diff -ru ela-old/ElaWidgetToolsExample/CMakeLists.txt ela-new/ElaWidgetToolsExample/CMakeLists.txt
---- a/ElaWidgetToolsExample/CMakeLists.txt	2026-09-19 01:42:36.007006241 -0700
-+++ b/ElaWidgetToolsExample/CMakeLists.txt	2026-09-19 01:42:36.260452223 -0700
-@@ -41,9 +41,9 @@
-     )
- endif ()
- 
--set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${PROJECT_NAME})
--set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${PROJECT_NAME})
--set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/${PROJECT_NAME})
-+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
- 
- target_include_directories(${PROJECT_NAME} PUBLIC
-     ExamplePage
-@@ -73,13 +73,6 @@
+--- a/ElaWidgetToolsExample/CMakeLists.txt
++++ b/ElaWidgetToolsExample/CMakeLists.txt
+@@ -69,13 +69,6 @@
  
  include(GNUInstallDirs)
  install(TARGETS ${PROJECT_NAME}
@@ -124,5 +110,5 @@ diff -ru ela-old/ElaWidgetToolsExample/CMakeLists.txt ela-new/ElaWidgetToolsExam
 -    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}
 -    RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/${PROJECT_NAME}
  )
- #if (MSVC)
- #    install(
+ 
+ find_program(WINDEPLOYQT_EXECUTABLE windeployqt HINTS "${QT_SDK_DIR}/bin")

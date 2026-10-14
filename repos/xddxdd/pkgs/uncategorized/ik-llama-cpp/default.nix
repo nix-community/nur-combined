@@ -69,6 +69,7 @@ effectiveStdenv.mkDerivation (finalAttrs: {
   ]
   ++ lib.optionals cudaSupport [
     (lib.cmakeFeature "CMAKE_CUDA_ARCHITECTURES" cudaPackages.flags.cmakeCudaArchitecturesString)
+    (lib.cmakeFeature "CMAKE_SHARED_LINKER_FLAGS" "-Wl,-T,${./cuda-fatbin.ld}")
   ];
 
   passthru.updateScript = unstableGitUpdater {

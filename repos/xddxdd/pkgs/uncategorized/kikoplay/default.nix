@@ -43,6 +43,9 @@ stdenv.mkDerivation (finalAttrs: {
     makeWrapper
     pkg-config
     qt6.qmake
+    qt6.qtsvg
+    qt6.qtwebengine
+    qt6.qtwebsockets
     qt6.wrapQtAppsHook
   ];
 
@@ -55,6 +58,7 @@ stdenv.mkDerivation (finalAttrs: {
     qt6.qtbase
     qt6.qtdeclarative
     qt6.qtpositioning
+    qt6.qtsvg
     qt6.qtwayland
     qt6.qtwebengine
     qt6.qtwebsockets

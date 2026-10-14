@@ -49,9 +49,9 @@
  }
 --- a/ElaWidgetTools/Development/ElaCheckBoxStyle.cpp	2026-08-22 10:52:35.924536947 -0700
 +++ b/ElaWidgetTools/Development/ElaCheckBoxStyle.cpp	2026-08-22 10:54:53.637592337 -0700
-@@ -82,7 +82,7 @@
+@@ -81,7 +81,7 @@
                  QFont iconFont = QFont("ElaAwesome");
-                 iconFont.setPixelSize(_pCheckIndicatorWidth * 0.75);
+                 iconFont.setPixelSize(checkRect.height() * 0.75);
                  painter->setFont(iconFont);
 -                painter->drawText(checkRect, Qt::AlignCenter, QChar(ElaIconType::Check));
 +                painter->drawText(checkRect, Qt::AlignCenter, QChar(static_cast<char16_t>(ElaIconType::Check)));
@@ -60,7 +60,7 @@
              else if (bopt->state.testFlag(QStyle::State_NoChange))
 --- a/ElaWidgetTools/Development/ElaComboBoxStyle.cpp	2026-08-22 10:52:35.924640986 -0700
 +++ b/ElaWidgetTools/Development/ElaComboBoxStyle.cpp	2026-08-22 10:54:53.637357396 -0700
-@@ -181,7 +181,7 @@
+@@ -186,7 +186,7 @@
                  painter->translate(expandIconRect.x() + (qreal)expandIconRect.width() / 2, expandIconRect.y() + (qreal)expandIconRect.height() / 2);
                  painter->rotate(_pExpandIconRotate);
                  painter->translate(-expandIconRect.x() - (qreal)expandIconRect.width() / 2, -expandIconRect.y() - (qreal)expandIconRect.height() / 2);
@@ -155,24 +155,24 @@
      }
 --- a/ElaWidgetTools/Development/ElaRibbonBarModel.cpp	2026-08-22 10:52:35.925253204 -0700
 +++ b/ElaWidgetTools/Development/ElaRibbonBarModel.cpp	2026-08-22 10:54:53.635578562 -0700
-@@ -26,7 +26,7 @@
+@@ -27,7 +27,7 @@
+ QAction* ElaRibbonBarModel::addRibbonAction(const QString& actionName, ElaIconType::IconName icon)
  {
      auto action = new QAction(actionName, this);
-     beginResetModel();
 -    action->setProperty("ElaRibbonIcon", QChar(icon));
 +    action->setProperty("ElaRibbonIcon", QChar(static_cast<char16_t>(icon)));
+     const int insertIndex = _ribbonDataList[0].ribbonDataList.count();
+     beginInsertRows(QModelIndex(), insertIndex, insertIndex);
      _ribbonDataList[0].ribbonDataList.append(action);
-     endResetModel();
-     return action;
-@@ -72,7 +72,7 @@
+@@ -84,7 +84,7 @@
  {
      auto action = new QAction(actionName, this);
      action->setProperty("ElaRibbonGroupName", groupName);
 -    action->setProperty("ElaRibbonIcon", QChar(icon));
 +    action->setProperty("ElaRibbonIcon", QChar(static_cast<char16_t>(icon)));
-     // 查找指定Group
-     beginResetModel();
-     bool isFindGroup = false;
+     ElaRibbonGroupData* targetGroup = nullptr;
+     int insertIndex = 0;
+     for (auto& groupData: _ribbonDataList)
 --- a/ElaWidgetTools/Development/ElaRollerPickerContainer.cpp	2026-08-22 10:52:35.925288697 -0700
 +++ b/ElaWidgetTools/Development/ElaRollerPickerContainer.cpp	2026-08-22 10:54:53.635466346 -0700
 @@ -166,9 +166,9 @@
@@ -264,7 +264,7 @@
 --- a/ElaWidgetTools/Development/ElaTreeViewStyle.cpp	2026-08-22 10:52:35.925537154 -0700
 +++ b/ElaWidgetTools/Development/ElaTreeViewStyle.cpp	2026-08-22 10:54:53.634610800 -0700
 @@ -77,7 +77,7 @@
-                 iconFont.setPixelSize(eApp->getFontPixelSize() + 4);
+                 iconFont.setPixelSize(eApp->getFontPixelSize() + 1);
                  painter->setFont(iconFont);
                  painter->setPen(ElaThemeColor(_themeMode, BasicText));
 -                painter->drawText(indicatorRect, Qt::AlignVCenter | Qt::AlignRight, vopt->state.testFlag(QStyle::State_Open) ? QChar(ElaIconType::AngleDown) : QChar(ElaIconType::AngleRight));
@@ -486,7 +486,7 @@
  }
 --- a/ElaWidgetTools/ElaText.cpp	2026-08-22 10:52:35.926672733 -0700
 +++ b/ElaWidgetTools/ElaText.cpp	2026-08-22 10:54:53.629906144 -0700
-@@ -170,7 +170,7 @@
+@@ -184,7 +184,7 @@
          iconFont.setPixelSize(this->font().pixelSize());
          painter.setFont(iconFont);
          painter.setPen(ElaThemeColor(d->_themeMode, BasicText));
@@ -528,7 +528,7 @@
  
 --- a/ElaWidgetTools/private/ElaMessageBarPrivate.cpp	2026-08-22 10:52:35.928995199 -0700
 +++ b/ElaWidgetTools/private/ElaMessageBarPrivate.cpp	2026-08-22 10:54:53.633774209 -0700
-@@ -341,7 +341,7 @@
+@@ -357,7 +357,7 @@
      QFont iconFont = QFont("ElaAwesome");
      iconFont.setPixelSize(eApp->getFontPixelSize() - 1);
      painter->setFont(iconFont);
@@ -537,7 +537,7 @@
      // 时间进度条绘制
      QPainterPath clipPath;
      clipPath.addRoundedRect(foregroundRect, _borderRadius, _borderRadius);
-@@ -423,7 +423,7 @@
+@@ -439,7 +439,7 @@
      QFont iconFont = QFont("ElaAwesome");
      iconFont.setPixelSize(eApp->getFontPixelSize());
      painter->setFont(iconFont);

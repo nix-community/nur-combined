@@ -55,6 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     cmake
     pkg-config
+    qsp-wx
   ];
   buildInputs = [
     qsp-lib

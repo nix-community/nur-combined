@@ -9,7 +9,7 @@
 
 - 本仓库的提交信息格式为 `包名: 描述`，例如 `qemu: add QEMU with qemu-vmvga and nvkvm-pv overlays`、`ik-llama-cpp: add`、`AGENTS.md: document …`
 - 一次改动涉及多个包时用逗号列出，例如 `ncmm, uni-api: fix package updates after upstream changes`
-- 自动化提交用 `auto: update packages`；整仓库性修复可用描述性标题，如 `Fix Hydra build failures (eval <id>)`
+- 自动化提交用 `auto: update packages`；整仓库性修复可用描述性标题，如 `Fix package evaluation errors`
 - 描述用简短的陈述/祈使句，不加结尾句号
 
 ## Nix 包定义规范
@@ -21,6 +21,7 @@
 ### 最佳实践
 
 - **CUDA 构建元数据必须跟随所选工具链**：CUDA 主版本应从所选 `cudaPackages.cuda_nvcc.version` 用 `lib.versions.major` 派生，不要硬编码。
+- **大型 CUDA fatbinary 可导致 x86_64 主机链接重定位溢出**：把多架构 CUDA 与主机代码链接进同一共享库时，超过 2 GiB 的 `.nv_fatbin` 可能被默认链接脚本放在主机代码与数据之间，触发 `R_X86_64_REX_GOTPCRELX` 或 PLT 的 PC-relative offset overflow。可用附加链接脚本将该节 `INSERT AFTER .bss`，仅在 CUDA 变体传入共享库链接参数；不要以减少支持的 GPU 架构掩盖问题。用完整构建和已安装 ELF 的节地址验证布局，再运行实际 CLI。参考 `pkgs/uncategorized/ik-llama-cpp/cuda-fatbin.ld`。
 - **上游源码为 CRLF 行尾时先转 LF 再打补丁**：上游仓库的文本文件可能带 CRLF 行尾（如 FlashBrowser 的 index.js），直接对原文件生成的补丁会整文件重写（diff 把每行都视为修改）。正确做法：补丁一律以 LF 内容生成，并在派生的 `prePatch` 中用 `sed -i 's/\r$//' <文件>` 把上游源码转为 LF——转换必须放在 `prePatch`，因为 patchPhase 在 prePatch 之后、postPatch 之前执行。本仓库内所有文件（补丁、脚本等）一律保持 LF 行尾
 - **预臭氧（pre-ozone）Electron（< 12）在 Wayland 会话下必须强制 GDK_BACKEND=x11**：nixpkgs 的 gtk3 含 Wayland 后端，`WAYLAND_DISPLAY` 存在时 GTK 优先走 Wayland，旧版 Electron（Chromium 无 ozone）初始化显示失败报 `Gtk-WARNING **: cannot open display`。在包装器的 makeWrapper 里加 `--set GDK_BACKEND x11`（用 `--set` 而非 `--set-default`：用户会话可能全局设了 `GDK_BACKEND=wayland`，而旧 Electron 根本无 Wayland 支持，保留用户值只会失败）。配套注意旧 Electron 的 rpath：新版 Electron 把大部分 X 库静态打包进二进制，旧版（如 Electron 9）动态链接 `libXcursor`/`libXi`/`libXrender`/`libXtst`，且新版 nixpkgs 已把 `libgbm` 从 `mesa` 拆出为独立包，`electronLibPath` 需按版本条件补齐，否则报 `error while loading shared libraries`
 - **打包 llama.cpp 旧布局 fork（如 ik-llama-cpp）时的指令集与版本检查限制**：llama.cpp 的运行时调度机制（`GGML_CPU_ALL_VARIANTS` + `GGML_BACKEND_DL`，靠 `ggml/src/ggml-cpu/` 下的分拆实现）在 fork 点之前或被上游删去时不可用，分支的 `ggml.c` 中 SIMD 路径全是编译期 `#if defined(__AVX2__)` 门控，单个 `add_library(ggml)` 只能选一套 `-m` 标志——只能暴露 `avxSupport/avx2Support/avx512Support` 等布尔参数按 ISA 出多个变体。注意 GCC 的 `-mavx2` **不**隐含 `-mfma`/`-mf16c`（实测 `gcc -mavx2 -dM` 无 `__FMA__`/`__F16C__`），而 IQK 热路径在 `defined(__AVX2__) && defined(__FMA__)` 上分支，所以 avx2/avx512 变体必须同时打开 GGML_FMA/GGML_F16C。另外 GCC 16 新增的 `-Wtemplate-body` 诊断会把分支内上游 IQK FA 模板（`iqk/fa/iqk_fa_templates.h`）里的 `__m512`→`__m256` 隐式转换变成硬错误，avx512 变体在 GCC 16 下无法构建，只能等上游修复后重加。此类 fork 的构建信息从 `.git` 读取，fetchFromGitHub tarball 打出的二进制只会打印 `version: 0 (unknown)`，versionCheckHook 无法比对版本，只能去掉
@@ -126,6 +127,7 @@
 - **writeShellApplication / writeTextFile 的属性放 `derivationArgs`**：这两个 builder 的参数签名是strict的，直接传 `__structuredAttrs` 会报 unexpected argument，须写 `derivationArgs.__structuredAttrs = true;`。
 - **override 链上挂 flag 用 `.overrideAttrs`，不要塞进 `.override { }`**：参数签名严格的 builder（kernel builder、writeShellApplication 等）会把多余参数直接拒掉。
 - **不要写顶层推导属性当环境变量后再在 phase 里以 `$VAR` 读**：该写法只在非 structuredAttrs 下成立；structuredAttrs 下 `$VAR` 为空。
+- **构建时执行的工具必须放 `nativeBuildInputs`**：开启 `strictDeps` 后，仅在 `buildInputs` 中声明 Python、PHP/Composer 或 wxWidgets 不会把其解释器、`composer`、`wx-config` 加进构建 PATH。需要目标库时保留 `buildInputs`，同时把提供构建工具的包加入 `nativeBuildInputs`。Qt 的 qmake 模块路径钩子注册在 `envBuildHostHooks`，因此 `.pro` 中要求的 Qt 模块也必须加入 `nativeBuildInputs` 才能被 qmake 发现，不能只声明目标链接依赖；直接链接的模块仍需放 `buildInputs`。
 - **基于 symlinkJoin 的包装包必须关掉 `__structuredAttrs`**：nixpkgs 的 symlinkJoin（mpv wrapper 等）用 `passAsFile` 传递 `paths`，structuredAttrs 下该文件内容非预期，`lndir` 不产生任何链接，`postBuild` 对 `$out` 的操作随之失败。对这类包装设 `__structuredAttrs = false;`（`strictDeps = true;` 可保留）后再 override 其他属性。
 
 ### 构建阶段钩子
@@ -226,7 +228,7 @@ appimageTools.wrapType2 {
 - **禁止使用 api.github.com**（匿名限流 60 req/h，CI 里必挂）：版本探测一律用 atom feed 或 git 协议。tag/release 列表用 `https://github.com/<owner>/<repo>/{tags,releases}.atom`：tag 名从 `releases/tag/<tag>` 的 link href 或 `<id>tag:github.com,2008:Repository/<id>/<tag></id>` 解析。注意 atom feed 只含最近约 10 条，且 tags.atom 只列出附有 release 说明的 tag（无 release 的仓库如 zhoreeq/coredns-meshname，feed 为空）；需要完整 tag 列表时改用 `git ls-remote --tags <url>`（行尾 `^{}` 为 peeled 引用需过滤）。跟踪 HEAD 用 commits.atom 的 `<id>[^<]*/\K[0-9a-f]{40}`。releases feed 是最新在前，取 `tags[0]`；不要用字典序 sort 取“最新”（会把 0.9.0 排在 0.15.0 后）
 - **nix-prefetch-url / nix-prefetch-git 已全部替换为 `nix store prefetch-file --json [--unpack] <url>`**：输出 JSON 的 `.hash` 为 SRI 格式（fetchurl/fetchFromGitHub 的 sha256 参数均接受 SRI，可与既有 base32 条目混存）。GitHub archive tarball 加 `--unpack` 的哈希与 fetchFromGitHub 一致，可替代 nix-prefetch-git；需要完整 git 克隆语义时才用 `nix-prefetch-git`
 - **tarball prefetch 哈希对 `fetchSubmodules = true` 的源永远不匹配**：GitHub tarball 不含 git 子模块，`nix store prefetch-file --unpack` 算出的哈希只覆盖 worktree；而 `fetchFromGitHub { fetchSubmodules = true; }` 的 FOD 哈希包含子模块内容。更新脚本若用 tarball 哈希写这类条目，构建必挂。实例（2026-09-12）：nginx 的 `nginx-auth-jwt 0.15.0`/`nginx-oidc 0.8.0` 在 tag 升级时被写入 tarball 哈希（旧 tag 时代哈希是当初打包时用正确方法算的，脚本对"tag 未变"的条目从不重算哈希，故潜伏到下次 tag 变更才爆炸）；qsp 的 update.sh 更是用 `nix store prefetch-file --json`（连 `--unpack` 都没有，等于 tarball **文件**哈希）计算 qsp-wx（fetchSubmodules=true）哈希，所幸 rev 未变过才未爆雷。**也不能改用 `nix flake prefetch 'git+...?submodules=1'`**：其 narHash 与 fetchFromGitHub 的 FOD 哈希在部分仓库一致（kjdev/nginx-oidc、nginx-auth-jwt 实测一致）但并非普适（wxWidgets@5d63efc9 实测不一致），一致性无保证。唯一可靠方法是**用包自身相同的 fetcher 计算哈希**（nix-update 内部同款）：以 dummy 哈希 `sha256-AAAA...` 构建该 fetchFromGitHub FOD，从报错 `got:` 行取真实哈希，最后 `nix build .#<pkg>.src` 收尾验证。已落地：nginx 的 update-standalone.sh 对 fetchSubmodules 条目**每次运行都重算哈希**（自愈既有错哈希）、qsp 的 update.sh 改用 FOD-echo；openssl-oqs-provider 弃用 unstableGitUpdater，改用自带 update.sh（commits.atom 取 rev/日期 + ls-remote 取 tag + prefetch-file 算哈希 + `nix build .#$ATTR.src` 验证，version 仅在 rev 变化时更新，规避上条的 tempHash 卡死）
-- **更新脚本只在版本变化时写哈希 = 既有哈希永远不被校验**：上游内容漂移（如旧 tag 上新增 `.gitmodules`、re-tag）或脚本自身写错哈希都不会被更新流程发现，只有等 Hydra 构建失败才暴露。写哈希的脚本必须在写入后（或每次运行时对易错条目）做一次真实构建验证，把哈希错误挡在提交之前，而不是依赖 CI 构建兜底
+- **更新脚本只在版本变化时写哈希 = 既有哈希永远不被校验**：上游内容漂移（如旧 tag 上新增 `.gitmodules`、re-tag）或脚本自身写错哈希都不会被更新流程发现，只有等构建失败才暴露。写哈希的脚本必须在写入后（或每次运行时对易错条目）做一次真实构建验证，把哈希错误挡在提交之前，而不是依赖 CI 构建兜底
 - **跟踪上游 HEAD 的包依赖另一依赖的 git HEAD 时，buildInputs 必须用对应的 unstable 包而非 release 版**（openssl-oqs-provider 实例，2026-09-19）：oqs-provider HEAD 升级了 SNOVA/MAYO/MQOM round-3 参数集，引用的 `OQS_SIG_alg_snova_SNOVA_I_K` 等符号只存在于 liboqs git HEAD，而仓库内默认 `liboqs` 是 0.16.0 release，编译报 `undeclared identifier`。修复是把 buildInputs 从 `liboqs` 换成 `liboqs-unstable`（同一包集内 callPackage 可见）。nginx 对 openssl-oqs-provider 的消费只是读取其源码生成 oqs_lookup.c（ALGORITHMS.md 正则），与 liboqs 无关，切换安全。排查方法：从包源码 `grep -rhoE 'OQS_(SIG|KEM|SIG_STFL)_alg_[A-Za-z0-9_]+'` 收集全部符号，逐个在依赖 HEAD 的头文件（`src/kem/kem.h`、`src/sig/sig.h` 等）里核对
 - **不要用 `bash xxx.py` 运行 python 更新脚本**：shebang 会被绕过，python 源码会被当 shell 逐行执行，`import json` 会命中 ImageMagick 的 `import` 命令在当前目录生成截图文件。验证时直接 `./xxx.py` 执行（shell 脚本同理，见上文 nix-update 条目）
 - **nix-update 可自动识别的 fetchurl 源**：除了 GitHub releases，`registry.npmjs.org` 的 npm tarball URL 也能被 nix-update 自动探测最新版本（含 scoped 包），可直接用 `nix-update-script { }`
@@ -324,39 +326,3 @@ appimageTools.wrapType2 {
   NEW_HASH=$(prefetch-npm-deps "$SCRIPT_DIR/package-lock.json")
   sed -i "s|npmDepsHash = \"sha256-[^"]*\";|npmDepsHash = \"$NEW_HASH\";|" "$SCRIPT_DIR/default.nix"
   ```
-
-## Hydra 构建失败修复
-
-当被要求修复 Hydra 构建失败时，按以下流程执行：
-
-1. 访问 <https://hydra.lantian.pub/jobset/lantian/nur-packages>，进入最近一次构建（latest build）
-2. 从该构建的 job 列表中找出所有失败的包
-3. 逐个修复失败的包
-
-不要凭猜测或历史构建判断失败项，一律以该 jobset 的最新构建为准。
-
-### 必须同时检查评估错误
-
-「Hydra 构建失败」包含两类失败，二者都要修：
-
-- **评估错误（eval errors）**：求值阶段就失败的 job（如引用了已删除/改名的 nixpkgs 属性、`throw` 等），它们在 job 列表里根本不出现或只显示为空，只会出现在 jobset 的 Errors 标签页。**这类错误不会出现在构建失败列表里，容易漏修**。
-- **构建失败（build failures）**：求值成功但构建失败的 job（`Failed` / `Dependency failed`）。
-
-取完整失败清单的方法：
-
-- 评估错误：取 <https://hydra.lantian.pub/jobset/lantian/nur-packages> 页面里最新的 eval id（`latest-eval`），再打开 `https://hydra.lantian.pub/eval/<id>/errors?full=1`。
-- 构建失败：`https://hydra.lantian.pub/eval/<id>/builds`（`Accept: application/json`）返回该 eval 的全部 build，`buildstatus` 非 0 的即失败（1=Failed，2=Dependency failed）。jobset 页面默认的 Jobs 标签页只列 canonical 名，`uncategorized-` 等别名 job 会被漏掉。
-- 依赖失败要顺着 `it-tools: Dependency failed` 之类的行找到真正失败的依赖 build 日志（`https://hydra.lantian.pub/build/<id>/nixlog/<n>` 会重定向到出错依赖的 drv 日志）。
-
-### 已知易错点：fetchPnpmDeps 哈希在 GitHub Actions 上不可复现
-
-it-tools 的 `pnpmDeps` 哈希会被 auto-update 反复改错（`ba9c1129` 手工修正后 `6362f6d4` 又改回错误值）。已定位为 **GHA runner 环境导致的 pnpm store 生成竞态**，不是 nixpkgs 版本差异：
-
-- 从 GHA auto-update run 日志（`gh run view <id> --repo xddxdd/nur-packages --log`）确认该 run 用 `NIX_PATH=nixpkgs=channel:nixos-unstable`，而 `channels.nixos.org/nixos-unstable/git-revision` 当时和现在都是 `a7868a7…`，即与 flake.lock 钉住的 nixpkgs 完全相同。
-- 用 channel a7868a7（默认 config）和 flake（带 allowUnfree 等 config）分别求值 `it-tools.pnpmDeps.drvPath`，得到同一个 drv `42x3kyifb9ds…`。同一个 drv、同一个 pnpm 11.27.0 / node 24.21.0 / sqlite 3.53.3，GHA 算出 `sha256-qfoBr6…`，兰天构建机算出 `sha256-Qn2DCJ…`。
-- 即纯粹是构建环境/时序差异（nixpkgs issue #422889、#484013），GHA 产物在 hash mismatch 后即被丢弃，不在任何 store/cache 里，无法事后 diff。
-
-**实测只影响 `fetcherVersion = 4`（pnpm 11）：**
-
-- it-tools 用 `pnpm_11` + `fetcherVersion = 4`，GHA 与兰天哈希不一致，已实测复现。改用 `pnpm_10` + `fetcherVersion = 3` 不可行：it-tools 的 lockfile（pnpm 11 生成）在 `patchedDependencies:` 里存的是 pnpm 11 的补丁哈希，pnpm 10.34.5 校验时报 `ERR_PNPM_LOCKFILE_CONFIG_MISMATCH`。因此 it-tools 保持 `nix-update-script { extraArgs = [ "--src-only" ]; }`，auto-update 只更新 version/src，**不写 GHA 上算出的 pnpmDeps 哈希**；版本升级后哈希变旧、Hydra 报 FOD hash mismatch，需在可信构建机上手工刷新。
-- axonhub 用 `pnpm_10` + `fetcherVersion = 3`，不受影响：GHA 算出的 `sha256-Juge/qz…` 与本地/远程构建机一致（pnpm 10.34.5 已含 10.29.0 的 `initStore` 修复）。历史上 axonhub 出现过的 vendorHash 被污染是 `passthru.pnpmDeps` 缺失导致的字段错位（见 commit `0aa06b4a`，由 `75b86aff` 修复），与哈希不可复现无关。因此 axonhub 保持普通 `nix-update-script { extraArgs = [ "--version" "unstable" ]; }`。

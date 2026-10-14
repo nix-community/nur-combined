@@ -82,12 +82,12 @@ stdenv.mkDerivation (finalAttrs: {
     autoreconfHook
     intltool
     pkg-config
+    python
   ];
   buildInputs = [
     dbus-glib
     gtk2
     libnotify
-    python
   ];
 
   patches = [ ./fix-build.patch ];
