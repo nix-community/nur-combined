@@ -1,7 +1,107 @@
+diff --git a/src/generator/config/subexport.h b/src/generator/config/subexport.h
+--- a/src/generator/config/subexport.h
++++ b/src/generator/config/subexport.h
+@@ -50,9 +50,5 @@
+     qjs::Runtime *js_runtime = nullptr;
+     qjs::Context *js_context = nullptr;
+ 
+-    ~extra_settings()
+-    {
+-        delete js_context;
+-        delete js_runtime;
+-    }
++    ~extra_settings();
+ #endif // NO_JS_RUNTIME
+diff --git a/src/generator/config/subexport.cpp b/src/generator/config/subexport.cpp
+--- a/src/generator/config/subexport.cpp
++++ b/src/generator/config/subexport.cpp
+@@ -24,4 +24,19 @@
+ #include nodemanip.h
+ #include ruleconvert.h
+ 
++#ifndef NO_JS_RUNTIME
++extra_settings::~extra_settings()
++{
++    if(js_context)
++    {
++        script_context_cleanup(*js_context);
++        delete js_context;
++        js_context = nullptr;
++    }
++    if(js_runtime)
++    {
++        script_runtime_cleanup(*js_runtime);
++        delete js_runtime;
++        js_runtime = nullptr;
++    }
++}
++#endif // NO_JS_RUNTIME
++
+ extern string_array ss_ciphers, ssr_ciphers;
+diff --git a/src/script/cron.cpp b/src/script/cron.cpp
+--- a/src/script/cron.cpp
++++ b/src/script/cron.cpp
+@@ -1,4 +1,5 @@
+ #include <string>
++#include <memory>
+ #include <iostream>
+ #include <libcron/Cron.h>
+ 
+@@ -39,13 +40,24 @@
+     for(const CronTaskConfig &x : global.cronTasks)
+     {
+         cron.add_schedule(x.Name, x.CronExp, [=](auto &)
+         {
+-            qjs::Runtime runtime;
+-            qjs::Context context(runtime);
++            auto runtime = std::make_unique<qjs::Runtime>();
++            script_runtime_init(*runtime);
++            auto context = std::make_unique<qjs::Context>(*runtime);
++            defer(
++                if(context)
++                {
++                    script_context_cleanup(*context);
++                    context.reset();
++                }
++                if(runtime)
++                {
++                    script_runtime_cleanup(*runtime);
++                    runtime.reset();
++                }
++            )
+             try
+             {
+-                script_runtime_init(runtime);
+-                script_context_init(context);
+-                defer(script_cleanup(context);)
++                script_context_init(*context);
+                 std::string proxy = parseProxy(global.proxyConfig);
+                 std::string script = fetchFile(x.Path, proxy, global.cacheConfig);
+                 if(script.empty())
+@@ -58,11 +70,11 @@
+                 if(x.Timeout > 0)
+                 {
+                     info.begin_time = time(NULL);
+                     info.timeout = x.Timeout;
+                     info.name = x.Name;
+-                    JS_SetInterruptHandler(JS_GetRuntime(context.ctx), timeout_checker, &info);
++                    JS_SetInterruptHandler(JS_GetRuntime(context->ctx), timeout_checker, &info);
+                 }
+-                context.eval(script);
++                context->eval(script);
+             }
+             catch (qjs::exception)
+             {
+-                script_print_stack(context);
++                script_print_stack(*context);
+             }
+         });
+     }
+ }
 diff --git a/src/script/script_quickjs.h b/src/script/script_quickjs.h
 --- a/src/script/script_quickjs.h
 +++ b/src/script/script_quickjs.h
-@@ -7,8 +7,10 @@
+@@ -7,8 +7,11 @@
  #ifndef NO_JS_RUNTIME
  
  #include <quickjspp.hpp>
@@ -10,21 +110,29 @@ diff --git a/src/script/script_quickjs.h b/src/script/script_quickjs.h
  void script_runtime_init(qjs::Runtime &runtime);
  int script_context_init(qjs::Context &context);
  int script_cleanup(qjs::Context &context);
++void script_context_cleanup(qjs::Context &context);
 +void script_runtime_cleanup(qjs::Runtime &runtime);
  void script_print_stack(qjs::Context &context);
-@@ -208,18 +209,24 @@
+@@ -208,18 +211,27 @@
  template <typename Fn>
  void script_safe_runner(qjs::Runtime *runtime, qjs::Context *context, Fn runnable, bool clean_context = false)
  {
 -    qjs::Runtime *internal_runtime = runtime;
 -    qjs::Context *internal_context = context;
 -    defer(if(clean_context) {delete internal_context; delete internal_runtime;} )
-+    // The cleanup guard runs before Context and Runtime destructors.
 +    std::unique_ptr<qjs::Runtime> owned_runtime;
 +    std::unique_ptr<qjs::Context> owned_context;
 +    defer(
++        if(owned_context)
++        {
++            script_context_cleanup(*owned_context);
++            owned_context.reset();
++        }
 +        if(owned_runtime)
++        {
 +            script_runtime_cleanup(*owned_runtime);
++            owned_runtime.reset();
++        }
 +    )
      if(clean_context)
      {
@@ -57,42 +165,84 @@ diff --git a/src/script/script_quickjs.cpp b/src/script/script_quickjs.cpp
  
 +void script_runtime_cleanup(qjs::Runtime &runtime)
 +{
-+    // Free the standard library handlers before destroying the context/runtime.
-+    js_std_free_handlers(runtime.rt);
++    if(JS_GetRuntimeOpaque(runtime.rt))
++        js_std_free_handlers(runtime.rt);
 +}
 +
  int ShowMsgbox(const std::string &title, const std::string &content, uint16_t type = 0)
  {
  #ifdef _WIN32
-diff --git a/src/generator/config/subexport.h b/src/generator/config/subexport.h
---- a/src/generator/config/subexport.h
-+++ b/src/generator/config/subexport.h
-@@ -50,9 +50,5 @@
-     qjs::Runtime *js_runtime = nullptr;
-     qjs::Context *js_context = nullptr;
+@@ -428,14 +434,28 @@
+ uint32_t currentTime()
+ {
+     return time(nullptr);
+ }
  
--    ~extra_settings()
--    {
--        delete js_context;
--        delete js_runtime;
--    }
-+    ~extra_settings();
- #endif // NO_JS_RUNTIME
-diff --git a/src/generator/config/subexport.cpp b/src/generator/config/subexport.cpp
---- a/src/generator/config/subexport.cpp
-+++ b/src/generator/config/subexport.cpp
-@@ -24,4 +24,14 @@
- #include "nodemanip.h"
- #include "ruleconvert.h"
- 
-+#ifndef NO_JS_RUNTIME
-+extra_settings::~extra_settings()
++static void eval_module(JSContext *ctx, const std::string &code, const char *filename)
 +{
-+    if(js_runtime)
-+        script_runtime_cleanup(*js_runtime);
-+    delete js_context;
-+    delete js_runtime;
++    JSValue val = JS_Eval(ctx, code.c_str(), code.size(), filename, JS_EVAL_TYPE_MODULE | JS_EVAL_FLAG_COMPILE_ONLY);
++    if (!JS_IsException(val)) {
++        js_module_set_import_meta(ctx, val, 1, 1);
++        val = JS_EvalFunction(ctx, val);
++    }
++    val = js_std_await(ctx, val);
++    if (JS_IsException(val)) {
++        throw qjs::exception{ctx};
++    }
++    JS_FreeValue(ctx, val);
 +}
-+#endif // NO_JS_RUNTIME
 +
- extern string_array ss_ciphers, ssr_ciphers;
+ int script_context_init(qjs::Context &context)
+ {
+     try
+     {
+         js_init_module_os(context.ctx, os);
+         js_init_module_std(context.ctx, std);
+         js_std_add_helpers(context.ctx, 0, nullptr);
+-        context.eval(qjs_require_module, "<require>", JS_EVAL_TYPE_MODULE);
++        eval_module(context.ctx, qjs_require_module, "<require>");
+         auto &module = context.addModule("interUtils");
+         module.class_<qjs_fetch_Headers>("Headers")
+@@ -514,7 +534,7 @@
+             .add<&ShowMsgbox>("msgbox")
+             .add<&qjs_getUrlArg>("getUrlArg")
+             .add<&fileGet>("fileGet")
+             .add<&fileWrite>("fileWrite");
+-        context.eval(R"(
++        eval_module(context.ctx, R"(
+         import * as interUtils from 'interUtils'
+         globalThis.Request = interUtils.Request
+         globalThis.Response = interUtils.Response
+         globalThis.Headers = interUtils.Headers
+         globalThis.Proxy = interUtils.Proxy
+         import * as std from 'std'
+         import * as os from 'os'
+         globalThis.std = std
+         globalThis.os = os
+         import { require } from '<require>'
+         globalThis.require = require
+-        )", "<import>", JS_EVAL_TYPE_MODULE);
++        )", "<import>");
+         return 0;
+     }
+     catch(qjs::exception&)
+@@ -536,8 +556,13 @@
+-int script_cleanup(qjs::Context &context)
+-{
+-    js_std_loop(context.ctx);
+-    js_std_free_handlers(JS_GetRuntime(context.ctx));
+-    return 0;
+-}
++void script_context_cleanup(qjs::Context &context)
++{
++    js_std_loop(context.ctx);
++}
++
++int script_cleanup(qjs::Context &context)
++{
++    script_context_cleanup(context);
++    return 0;
++}
+ 
+ void script_print_stack(qjs::Context &context)
+ {
