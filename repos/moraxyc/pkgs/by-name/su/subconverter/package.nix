@@ -1,7 +1,6 @@
 {
   lib,
   stdenv,
-  fetchFromGitHub,
 
   cmake,
   pkg-config,
@@ -23,6 +22,8 @@
 
 stdenv.mkDerivation (finalAttrs: {
   inherit (source) pname version src;
+
+  patches = [ ./quickjs.patch ];
 
   postPatch = ''
     substituteInPlace src/main.cpp \
