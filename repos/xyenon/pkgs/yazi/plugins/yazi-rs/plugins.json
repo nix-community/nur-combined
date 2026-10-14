@@ -56,9 +56,6 @@
   "vcs-files": {
     "description": "Show Git file changes in Yazi"
   },
-  "vfs-demo": {
-    "description": "Plugin that demonstrates the new [custom VFS provider](https://github.com/sxyazi/yazi/pull/4118) (nightly only)"
-  },
   "visual-pivot": {
     "description": "Vim-like `o` for Yazi visual selections"
   },

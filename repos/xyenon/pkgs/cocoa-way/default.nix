@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "J-x-Z";
     repo = "cocoa-way";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-KyokIvF/0qg+2rWsUvD6lwbaMzeR721dRFmzzqS881Y=";
+    hash = "sha256-dUHI5X9S0RVAReenzNWT+zaVyCRgtqWAAOqsH0Tun60=";
   };
 
   cargoHash = "sha256-jCtkQ+2C1+OquDiUOjpDM6lOnb+t0DJ3HPHye9HFefI=";
