@@ -176,11 +176,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-76MR3UHiXxYBz0wLajUrlPPKKS1IQ/ajb1hBOooA+vo=",
+            "sha256": "sha256-o3X34ealAp15lmaggJ11bbg0a+erf6obD+jqYbgcA5M=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.42.tgz"
+            "url": "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.43.tgz"
         },
-        "version": "1.17.42"
+        "version": "1.17.43"
     },
     "codegraph": {
         "cargoLock": null,
@@ -399,12 +399,12 @@
             "name": null,
             "owner": "cortexkit",
             "repo": "magic-context",
-            "rev": "v0.49.0",
-            "sha256": "sha256-UZAjEBMN1QXjtbNVfevdVv4B3jHa/5ADKJs16GIMxIM=",
+            "rev": "v0.49.1",
+            "sha256": "sha256-14tCUPbBJXq6uVWyiyDLg/xWfOasSEf2TphiWvP5RNw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.49.0"
+        "version": "v0.49.1"
     },
     "manboster": {
         "cargoLock": null,
