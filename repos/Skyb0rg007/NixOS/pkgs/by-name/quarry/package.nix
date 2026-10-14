@@ -8,14 +8,14 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "quarry";
-  version = "0-unstable-2026-10-09";
+  version = "0-unstable-2026-10-14";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "amutable-systems";
     repo = "quarry";
-    rev = "db9063d3d869dd601501079ef55afcfda5ccb049";
-    hash = "sha256-mB+cNU9zO9f9jnth31VNbY+fOBiDoxmMwr5KXRkYAqc=";
+    rev = "a4bad9f677a9cf75593b4c960de678538e3c831f";
+    hash = "sha256-IDCelXrtif51QmNyErk5ifsszRuXCsN9PU/eC279yD8=";
   };
 
   vendorHash = "sha256-CRdbFU3S2vc2cSuSGthr1ypMRf2CTqhNtp7GH4YjLpA=";
