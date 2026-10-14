@@ -266,7 +266,7 @@ jobs:
           buildFailures-
     - name: Run Upterm
       if: "${{ !cancelled() && matrix.runner == 'ubuntu-latest' && matrix.nixpkgs == 'nixpkgs-unstable' && matrix.subset == 'base' && github.event.inputs.upterm == 'true' }}"
-      uses: owenthereal/action-upterm@7df5fa550d6dc458335f4b2685452a0e42d0ba7e # v2.4.0
+      uses: owenthereal/action-upterm@175d33786004a53b1538bcf157402b7197ce5029 # v2.6.0
       with:
         limit-access-to-actor: true
         limit-access-to-users: Rhys-T
@@ -312,7 +312,7 @@ jobs:
         '
     - name: Upload build logs
       if: 'always()'
-      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
       with:
         name: Rhys-T-nur-packages-build-logs-${{ matrix.runner }}${{ matrix.qemuSystem && format('+qemu-{0}', matrix.qemuSystem) || '' }}-${{ matrix.nixpkgs }}-${{ matrix.subset }}
         path: |
@@ -351,7 +351,7 @@ jobs:
         GITHUB_TOKEN: ${{ github.token }}
     - name: Upload build failures for subset
       if: ${{ !cancelled() && steps.build.outcome == 'failure' && !matrix.flaky }}
-      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+      uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
       with:
         name: buildFailures-${{ matrix.cacheName }}
         path: /tmp/buildFailures/*.drv.json
@@ -381,7 +381,7 @@ jobs:
       - tests
     steps:
       - name: Merge build failure cache
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           pattern: buildFailures-*
           path: /tmp/buildFailures
