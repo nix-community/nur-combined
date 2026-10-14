@@ -27,11 +27,11 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "socklink";
-  version = "0.3.1";
+  version = "0.3.3";
 
   src = fetchurl {
     url = "https://github.com/mshroyer/socklink/releases/download/v${finalAttrs.version}/socklink.sh";
-    hash = "sha256-8M4TK7X7IcSmtDLtXpctAmfBDYQe2G6KSwx4iryHb/0=";
+    hash = "sha256-p0UfTb4x2ESZUGoCD8KJgpB0i+z5RoN6NUTfMb/7vas=";
   };
 
   dontUnpack = true;
