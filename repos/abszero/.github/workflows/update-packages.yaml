@@ -45,7 +45,7 @@ jobs:
       - run: $update comfyui-lora-manager
         continue-on-error: true
 
-      - run: $update --version=branch=main comfyui-manager # TODO: drop git after next release
+      - run: $update comfyui-manager
         continue-on-error: true
 
       - run: $update --version=branch=main comfyui-prompt-manager
@@ -55,6 +55,9 @@ jobs:
         continue-on-error: true
 
       - run: $update --version=branch=main framework_rgbafan
+        continue-on-error: true
+
+      - run: $update --version=branch=main lsp-ai-chendesheng
         continue-on-error: true
 
       - run: $update --version=branch=main noita_save_manager

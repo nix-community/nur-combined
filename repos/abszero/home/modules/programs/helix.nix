@@ -158,6 +158,17 @@ in
 
     languages = {
       language = [
+        {
+          name = "astro";
+          language-servers = [
+            # "oxfmt"
+            "tsgolint"
+            "biome"
+            "tailwindcss-language-server"
+            "astro-ls"
+            "gpt"
+          ];
+        }
         # {
         #   name = "bash";
         #   language-servers = [
@@ -168,8 +179,8 @@ in
         {
           name = "clojure";
           language-servers = [
-            "clojure-lsp"
             "tailwindcss-language-server"
+            "clojure-lsp"
             "gpt"
           ];
         }
@@ -191,25 +202,60 @@ in
           ];
         }
         {
-          name = "javascript";
+          name = "html";
           language-servers = [
-            "typescript-language-server"
-            "tailwindcss-language-server"
+            "oxfmt"
+            "biome"
             "gpt"
           ];
         }
-        # {
-        #   name = "json";
-        #   language-servers = [
-        #     "vscode-json-language-server"
-        #     "gpt"
-        #   ];
-        # }
+        {
+          name = "javascript";
+          language-servers = [
+            "oxfmt"
+            "tsgolint"
+            "biome"
+            "vscode-eslint-language-server"
+            "tailwindcss-language-server"
+            "typescript-language-server"
+            "gpt"
+          ];
+        }
+        {
+          name = "json";
+          language-servers = [
+            "oxfmt"
+            "biome"
+            "gpt"
+          ];
+        }
+        {
+          name = "jsonc";
+          language-servers = [
+            "oxfmt"
+            "biome"
+            "gpt"
+          ];
+        }
+        {
+          name = "jsx";
+          language-servers = [
+            "oxfmt"
+            "tsgolint"
+            "biome"
+            "vscode-eslint-language-server"
+            "tailwindcss-language-server"
+            "typescript-language-server"
+            "gpt"
+          ];
+        }
         {
           name = "html";
           language-servers = [
-            "vscode-html-language-server"
+            "oxfmt"
+            "biome"
             "tailwindcss-language-server"
+            "vscode-html-language-server"
             "gpt"
           ];
         }
@@ -249,6 +295,17 @@ in
         #     "gpt"
         #   ];
         # }
+        {
+          name = "svelte";
+          language-servers = [
+            "oxfmt"
+            "tsgolint"
+            "biome"
+            "tailwindcss-language-server"
+            "svelteserver"
+            "gpt"
+          ];
+        }
         # {
         #   name = "toml";
         #   language-servers = [
@@ -259,16 +316,36 @@ in
         {
           name = "typescript";
           language-servers = [
-            "typescript-language-server"
+            "oxfmt"
+            "tsgolint"
+            "biome"
+            "vscode-eslint-language-server"
             "tailwindcss-language-server"
+            "typescript-language-server"
+            "gpt"
+          ];
+        }
+        {
+          name = "tsx";
+          language-servers = [
+            "oxfmt"
+            "tsgolint"
+            "biome"
+            "vscode-eslint-language-server"
+            "tailwindcss-language-server"
+            "typescript-language-server"
             "gpt"
           ];
         }
         {
           name = "vue";
           language-servers = [
-            "vue-language-server"
+            "oxfmt"
+            "tsgolint"
+            "biome"
+            "vscode-eslint-language-server"
             "tailwindcss-language-server"
+            "vue-language-server"
             "gpt"
           ];
         }
@@ -282,6 +359,38 @@ in
       ];
 
       language-server = {
+        oxfmt = {
+          command = "oxfmt";
+          args = [ "--lsp" ];
+        };
+        tsgolint = {
+          command = "oxlint";
+          args = [ "--lsp" ];
+          options = {
+            typeAware = true;
+            # typeCheck = true;
+          };
+        };
+        biome = {
+          command = "biome";
+          args = [ "lsp-proxy" ];
+          options = {
+            vcs = {
+              enabled = true;
+              clientKind = "git";
+              useIgnoreFile = true;
+            };
+            javascript = {
+              experimentalEmbeddedSnippetsEnabled = true;
+              resolver.experimentalPnpmCatalogs = true;
+            };
+            html = {
+              experimentalFullSupportEnabled = true;
+              formatter.enabled = true;
+            };
+          };
+        };
+        vscode-eslint-language-server.command = "vscode-eslint-language-server";
         tailwindcss-language-server = {
           command = "tailwindcss-language-server";
           args = [ "--stdio" ];
