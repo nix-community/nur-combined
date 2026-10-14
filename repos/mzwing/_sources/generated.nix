@@ -41,13 +41,13 @@
   };
   claude-code-wakatime = {
     pname = "claude-code-wakatime";
-    version = "v3.1.6";
+    version = "v4.1.1";
     src = fetchFromGitHub {
       owner = "wakatime";
       repo = "claude-code-wakatime";
-      rev = "v3.1.6";
+      rev = "v4.1.1";
       fetchSubmodules = false;
-      sha256 = "sha256-dXnDCe3jqBu20bEd7q4qjhfZOFFhytesStNEKnGoHpM=";
+      sha256 = "sha256-vDG5JhomqC9yF7fDwxoWLZ2olxaKgmI3YH6wmd4L9vQ=";
     };
   };
   claude-hud = {
@@ -96,10 +96,10 @@
   };
   cnb-cli = {
     pname = "cnb-cli";
-    version = "1.17.39";
+    version = "1.17.42";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.39.tgz";
-      sha256 = "sha256-q40NhY175B3FzJGMEw7fJyDTh2YLbJkmZ51KryyoW74=";
+      url = "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.42.tgz";
+      sha256 = "sha256-76MR3UHiXxYBz0wLajUrlPPKKS1IQ/ajb1hBOooA+vo=";
     };
   };
   codegraph = {

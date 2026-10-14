@@ -76,12 +76,12 @@
             "name": null,
             "owner": "wakatime",
             "repo": "claude-code-wakatime",
-            "rev": "v3.1.6",
-            "sha256": "sha256-dXnDCe3jqBu20bEd7q4qjhfZOFFhytesStNEKnGoHpM=",
+            "rev": "v4.1.1",
+            "sha256": "sha256-vDG5JhomqC9yF7fDwxoWLZ2olxaKgmI3YH6wmd4L9vQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.1.6"
+        "version": "v4.1.1"
     },
     "claude-hud": {
         "cargoLock": null,
@@ -176,11 +176,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-q40NhY175B3FzJGMEw7fJyDTh2YLbJkmZ51KryyoW74=",
+            "sha256": "sha256-76MR3UHiXxYBz0wLajUrlPPKKS1IQ/ajb1hBOooA+vo=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.39.tgz"
+            "url": "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.42.tgz"
         },
-        "version": "1.17.39"
+        "version": "1.17.42"
     },
     "codegraph": {
         "cargoLock": null,
