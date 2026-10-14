@@ -4,7 +4,58 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from updater.manifest import _latest_tangled_release, update_release_asset_manifest
+from updater.manifest import (
+    _latest_tangled_release,
+    list_release_asset_manifests,
+    manifest_has_release_asset_updater,
+    package_has_manifest_updater,
+    update_release_asset_manifest,
+)
+
+
+class ManifestDiscoveryTests(unittest.TestCase):
+    def test_ignores_non_manifest_json(self):
+        values = [
+            [],
+            ["entry"],
+            None,
+            "text",
+            1,
+            True,
+            {},
+            {"updater": None},
+            {"updater": []},
+            {"updater": "text"},
+            {"updater": {"type": []}},
+            {"updater": {"type": {}}},
+            {"updater": {"type": "unsupported"}},
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "data.json"
+            for value in values:
+                with self.subTest(value=value):
+                    path.write_text(json.dumps(value))
+                    self.assertFalse(manifest_has_release_asset_updater(path))
+            path.write_text("invalid json")
+            self.assertFalse(manifest_has_release_asset_updater(path))
+            path.unlink()
+            self.assertFalse(manifest_has_release_asset_updater(path))
+
+    def test_discovery_preserves_supported_manifests(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            package = root / "pkgs" / "example"
+            package.mkdir(parents=True)
+            (package / "a-data.json").write_text('["entry"]')
+            expected = []
+            for kind in ("github-release-assets", "tangled-tag-artifacts"):
+                path = package / f"{kind}.json"
+                path.write_text(json.dumps({"updater": {"type": kind}}))
+                expected.append(path)
+                self.assertTrue(manifest_has_release_asset_updater(path))
+            with patch("updater.manifest.ROOT", root):
+                self.assertEqual(list_release_asset_manifests(), sorted(expected))
+            self.assertEqual(package_has_manifest_updater(package / "default.nix"), min(expected))
 
 
 class TangledManifestTests(unittest.TestCase):

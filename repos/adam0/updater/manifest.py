@@ -24,7 +24,13 @@ def manifest_has_release_asset_updater(path: Path) -> bool:
         data = json.loads(path.read_text())
     except (OSError, json.JSONDecodeError):
         return False
-    return data.get("updater", {}).get("type") in SUPPORTED_UPDATERS
+    if not isinstance(data, dict):
+        return False
+    updater = data.get("updater")
+    if not isinstance(updater, dict):
+        return False
+    updater_type = updater.get("type")
+    return isinstance(updater_type, str) and updater_type in SUPPORTED_UPDATERS
 
 
 def package_has_manifest_updater(file_path: Path) -> Path | None:
