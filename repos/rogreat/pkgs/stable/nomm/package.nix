@@ -16,14 +16,14 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "nomm";
-  version = "0.13.4";
+  version = "0.14.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "NOMM-Team";
     repo = "nomm-app";
     tag = finalAttrs.version;
-    hash = "sha256-brKRlqODQzSYHmRs0TK0FEsg2eUM4jWDaeUIFsl4WUA=";
+    hash = "sha256-USK2d90Xxuo44UHuAhAnv0bjNeyWHgsApHNSCQSgevA=";
   };
 
   build-system = with python3Packages; [
