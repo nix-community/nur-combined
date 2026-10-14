@@ -37,16 +37,16 @@ in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "soundcraft";
-  version = "0.6.1";
+  version = "0.7.0";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "soundcraft";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-VC9DzuzajyGr82cEKPpgc0rezU9lJdaGNKd+foazRU8=";
+    hash = "sha256-5jtnIqtpPF68JQfIGIjXHrW//4Xwkzs7OOXGKZ6hfxg=";
   };
 
-  cargoHash = "sha256-qaY9GeH26onJoYfJC1bCBu3q3Xmc5JV2SsK8xSqbLzE=";
+  cargoHash = "sha256-E6TBJJMjLX2D5DvzSdy5HPxhSq2IG+rz2VtD2wkN+dQ=";
   cargoBuildFlags = [ "--package" "soundcraft" "--package" "soundcraft-cli" ];
   cargoTestFlags = [ "--package" "soundcraft" "--package" "soundcraft-cli" ];
 

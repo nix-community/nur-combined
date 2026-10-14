@@ -35,16 +35,16 @@ in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "figcraft";
-  version = "0.5.1";
+  version = "0.6.0";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "figcraft";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-fA92f+eJ9KI5HklXzRsPF6XWTNCVYmbonHyY4HBm5L4=";
+    hash = "sha256-+tZk3xkpazqOn8oCwOLmFCIDtwfIxrpVgfZkq3xDvTM=";
   };
 
-  cargoHash = "sha256-cIhEz2gHrWVsQLn9wnPY7GjcfsudOb+UZOqDT4XNm9w=";
+  cargoHash = "sha256-wCI0BFw5JyMGKkPahNP2yRdrCrWpnX241YeYgRYnNyA=";
   cargoBuildFlags = [ "--package" "figcraft" "--package" "figcraft-cli" ];
   cargoTestFlags = [ "--package" "figcraft" "--package" "figcraft-cli" ];
 

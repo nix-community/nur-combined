@@ -14,6 +14,7 @@
   olauncher = pkgs.callPackage ./pkgs/apps/olauncher {};
   leshade = pkgs.callPackage ./pkgs/apps/leshade {};
   zen-browser = pkgs.callPackage ./pkgs/apps/zen-browser {};
+  zen-twilight = pkgs.callPackage ./pkgs/apps/zen-browser/twilight.nix {};
   tabby = pkgs.callPackage ./pkgs/apps/tabby {};
   hyper = pkgs.callPackage ./pkgs/apps/hyper {};
   opennow = pkgs.callPackage ./pkgs/apps/opennow {};
