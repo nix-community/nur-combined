@@ -118,12 +118,12 @@
             "name": null,
             "owner": "kaitranntt",
             "repo": "CLIProxyAPIPlus",
-            "rev": "v7.3.12-1",
-            "sha256": "sha256-ux5WhKCApQDcxcnDsKGoBNy5dnTHinNxC8Jdh5rU0JI=",
+            "rev": "v7.3.12-3",
+            "sha256": "sha256-/kP9lO9Zi/7sfYjWiJho8F1p4rSOZH8K1b6RgxOZiqE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v7.3.12-1"
+        "version": "v7.3.12-3"
     },
     "cloudflarespeedtest": {
         "cargoLock": null,
@@ -176,11 +176,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-BnIbGq+7X8bj6RtAdtz8vvrU0LAxrWI/fxWTg+JqXbY=",
+            "sha256": "sha256-q40NhY175B3FzJGMEw7fJyDTh2YLbJkmZ51KryyoW74=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.38.tgz"
+            "url": "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.39.tgz"
         },
-        "version": "1.17.38"
+        "version": "1.17.39"
     },
     "codegraph": {
         "cargoLock": null,

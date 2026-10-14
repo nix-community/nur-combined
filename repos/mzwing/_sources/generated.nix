@@ -63,13 +63,13 @@
   };
   cliproxyapiplus = {
     pname = "cliproxyapiplus";
-    version = "v7.3.12-1";
+    version = "v7.3.12-3";
     src = fetchFromGitHub {
       owner = "kaitranntt";
       repo = "CLIProxyAPIPlus";
-      rev = "v7.3.12-1";
+      rev = "v7.3.12-3";
       fetchSubmodules = false;
-      sha256 = "sha256-ux5WhKCApQDcxcnDsKGoBNy5dnTHinNxC8Jdh5rU0JI=";
+      sha256 = "sha256-/kP9lO9Zi/7sfYjWiJho8F1p4rSOZH8K1b6RgxOZiqE=";
     };
   };
   cloudflarespeedtest = {
@@ -96,10 +96,10 @@
   };
   cnb-cli = {
     pname = "cnb-cli";
-    version = "1.17.38";
+    version = "1.17.39";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.38.tgz";
-      sha256 = "sha256-BnIbGq+7X8bj6RtAdtz8vvrU0LAxrWI/fxWTg+JqXbY=";
+      url = "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.39.tgz";
+      sha256 = "sha256-q40NhY175B3FzJGMEw7fJyDTh2YLbJkmZ51KryyoW74=";
     };
   };
   codegraph = {
