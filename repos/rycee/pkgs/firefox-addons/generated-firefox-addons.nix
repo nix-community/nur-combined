@@ -1938,6 +1938,12 @@
       {
         homepage = "https://chessvision.ai/";
         description = "Analyze chess positions from any website, book, and video in Firefox";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+        };
         mozPermissions = [
           "activeTab"
           "storage"
@@ -13812,10 +13818,10 @@
     };
     "single-file" = buildMozillaXpiAddon {
       pname = "single-file";
-      version = "1.31.0";
+      version = "1.31.1";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5117223/single_file-1.31.0.xpi";
-      sha256 = "3def86e74174c25f44cb434144393233820d4b18c34c8af6adb4916f95072c6a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5118715/single_file-1.31.1.xpi";
+      sha256 = "053cfc1bff997ff603524d8bf8e1b723fe70a4f02374bc5a6d94b1c3f99416f0";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";

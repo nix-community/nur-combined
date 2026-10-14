@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "bypass-paywalls-clean";
-  version = "4.4.6.6";
+  version = "4.4.7.2";
   addonId = "magnolia@12.34";
-  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.6.6.xpi";
-  sha256 = "c610461834f130d01b2bc158b83c2eabe6e48077ba1475349e0af91323cd1d7a";
+  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.7.2.xpi";
+  sha256 = "ca3d938a9def4f2feb0ddd26f122b7701e22da45871a183e2b2ca0219669db3e";
   meta = with lib; {
     homepage = "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean";
     description = "Bypass Paywalls of (custom) news sites";
@@ -78,7 +78,6 @@ buildFirefoxXpiAddon {
       "*://*.bazonline.ch/*"
       "*://*.bbc.com/*"
       "*://*.bd.nl/*"
-      "*://*.beleggersbelangen.nl/*"
       "*://*.belfasttelegraph.co.uk/*"
       "*://*.bendigoadvertiser.com.au/*"
       "*://*.benzinga.com/*"
@@ -237,6 +236,7 @@ buildFirefoxXpiAddon {
       "*://*.eastwest.eu/*"
       "*://*.echo-online.de/*"
       "*://*.economictimes.com/*"
+      "*://*.economist.com/*"
       "*://*.ed.nl/*"
       "*://*.editorialedomani.it/*"
       "*://*.elcomercio.es/*"
@@ -288,13 +288,11 @@ buildFirefoxXpiAddon {
       "*://*.farodevigo.es/*"
       "*://*.fastcompany.com/*"
       "*://*.faz.net/*"
-      "*://*.femmesdaujourdhui.be/*"
       "*://*.fieldandstream.com/*"
       "*://*.financialexpress.com/*"
       "*://*.financialpost.com/*"
       "*://*.firstthings.com/*"
       "*://*.fiskeribladet.no/*"
-      "*://*.flair.be/*"
       "*://*.flair.nl/*"
       "*://*.flugrevue.de/*"
       "*://*.fmrmagazine.com/*"
@@ -425,14 +423,12 @@ buildFirefoxXpiAddon {
       "*://*.kathimerini.gr/*"
       "*://*.kentucky.com/*"
       "*://*.kn-online.de/*"
-      "*://*.knack.be/*"
       "*://*.knoxnews.com/*"
       "*://*.kompas.id/*"
       "*://*.komputerswiat.pl/*"
       "*://*.krautreporter.de/*"
       "*://*.ksta.de/*"
       "*://*.kurier.at/*"
-      "*://*.kw.be/*"
       "*://*.kystens.no/*"
       "*://*.la-croix.com/*"
       "*://*.labusinessjournal.com/*"
@@ -498,9 +494,7 @@ buildFirefoxXpiAddon {
       "*://*.letelegramme.fr/*"
       "*://*.letemps.ch/*"
       "*://*.levante-emv.com/*"
-      "*://*.levif.be/*"
       "*://*.lexpress.fr/*"
-      "*://*.libelle.be/*"
       "*://*.libelle.nl/*"
       "*://*.liberation-champagne.fr/*"
       "*://*.liberation.fr/*"
@@ -510,6 +504,7 @@ buildFirefoxXpiAddon {
       "*://*.literaryreview.co.uk/*"
       "*://*.livelaw.in/*"
       "*://*.livemint.com/*"
+      "*://*.livescience.com/*"
       "*://*.ln-online.de/*"
       "*://*.lne.es/*"
       "*://*.loebclassics.com/*"
