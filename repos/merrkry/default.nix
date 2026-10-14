@@ -27,10 +27,8 @@ packages
   # Packages requiring IFD belong in impure.
   impure = { };
 
-  # Cache the complete upstream trees used to import packaging during evaluation.
-  repo-sources = pkgs.lib.recurseIntoAttrs (
-    pkgs.lib.mapAttrs (_: package: package.packagingSource) (
-      pkgs.lib.filterAttrs (_: package: package ? packagingSource) packages
-    )
+  # Keep packaging sources out of the NUR package index; build-jobs enables recursion.
+  repo-sources = pkgs.lib.mapAttrs (_: package: package.packagingSource) (
+    pkgs.lib.filterAttrs (_: package: package ? packagingSource) packages
   );
 }

@@ -9,4 +9,10 @@ let
 
   buildablePackages = lib.filterAttrs (_: nurLib.isBuildable) packages;
 in
-lib.recurseIntoAttrs (buildablePackages // { inherit (repository) repo-sources; })
+lib.recurseIntoAttrs (
+  buildablePackages
+  // {
+    # Include packaging sources in build jobs so CI can cache them.
+    repo-sources = lib.recurseIntoAttrs repository.repo-sources;
+  }
+)
