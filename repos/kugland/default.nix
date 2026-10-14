@@ -13,6 +13,7 @@ rec {
   neocities-deploy = pkgs.callPackage ./pkgs/neocities-deploy { };
   pd-else = pkgs.callPackage ./pkgs/pd-else { inherit puredata; };
   pd-midifile = pkgs.callPackage ./pkgs/pd-midifile { inherit puredata; };
+  pd-vstplugin = pkgs.callPackage ./pkgs/pd-vstplugin { inherit puredata; };
   puredata = pkgs.callPackage ./pkgs/puredata { };
   puredata-with-plugins =
     plugins: pkgs.callPackage ./pkgs/puredata/wrapper.nix { inherit plugins puredata; };
