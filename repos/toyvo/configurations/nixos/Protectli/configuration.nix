@@ -612,6 +612,7 @@ in
     users.toyvo = {
       directories = [
         ".ssh"
+        "nixcfg"
       ];
       files = [
         # sops-nix age key (private key, must not be world-readable)
@@ -630,5 +631,6 @@ in
     "d /persistent/var/log 0755 root root -"
     "d /persistent/var/sops/age 0755 root root -"
     "d /persistent/home/toyvo/.config/sops/age 0755 toyvo toyvo -"
+    "d /persistent/home/toyvo/nixcfg 0755 toyvo toyvo -"
   ];
 }
