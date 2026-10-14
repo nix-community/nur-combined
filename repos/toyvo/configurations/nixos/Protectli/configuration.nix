@@ -576,16 +576,37 @@ in
 
       # DHCP leases (kea)
       "/var/lib/kea"
-
-      # SSH host keys
-      "/etc/ssh"
     ];
 
     files = [
       # Machine ID (for systemd, DHCP, etc.)
-      "/etc/machine-id"
-      # sops-nix age key
-      "/var/sops/age/keys.txt"
+      {
+        file = "/etc/machine-id";
+        inInitrd = true;
+      }
+      # sops-nix age key (private key, must not be world-readable)
+      {
+        file = "/var/sops/age/keys.txt";
+        mode = "0600";
+      }
+      # SSH host keys as files (not the whole /etc/ssh dir,
+      # which would hide NixOS-generated sshd_config)
+      {
+        file = "/etc/ssh/ssh_host_ed25519_key";
+        mode = "0600";
+      }
+      {
+        file = "/etc/ssh/ssh_host_ed25519_key.pub";
+        mode = "0644";
+      }
+      {
+        file = "/etc/ssh/ssh_host_rsa_key";
+        mode = "0600";
+      }
+      {
+        file = "/etc/ssh/ssh_host_rsa_key.pub";
+        mode = "0644";
+      }
     ];
 
     users.toyvo = {
@@ -593,8 +614,11 @@ in
         ".ssh"
       ];
       files = [
-        # sops-nix age key
-        ".config/sops/age/keys.txt"
+        # sops-nix age key (private key, must not be world-readable)
+        {
+          file = ".config/sops/age/keys.txt";
+          mode = "0600";
+        }
       ];
     };
   };
