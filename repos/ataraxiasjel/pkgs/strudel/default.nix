@@ -28,15 +28,15 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     domain = "codeberg.org";
     owner = "uzu";
     repo = "strudel";
-    rev = "d5dc506dc419e69c974a179efa048be53fffd944";
-    hash = "sha256-4wojtORcyVt6EAECYrLpDZUpFEoARGerm/yFxcD0af4=";
+    rev = "a3302cf16746d2f6f7c706be47f1ca85db497aa5";
+    hash = "sha256-atDL1D3SkkkVrJBRlON4vB+VoQQs62/RPUL2Cj7VHJM=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-0RBB2294wedVuNHqlFnYPJf4n0MU49yW+z665WJP/x4=";
+    hash = "sha256-jZW5iWClF5OmmodVBNFw+StQTdXmz0DGeBOFEAjz9OQ=";
   };
 
   nativeBuildInputs = [
