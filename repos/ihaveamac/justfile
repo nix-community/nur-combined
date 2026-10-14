@@ -25,5 +25,6 @@ update:
 	nix-update vacuumtube
 	nix-update retro-aim-server
 	nix-update wheelwizard
+	python3 update-mediawiki.py
 
 	nix-shell build-readme.nix

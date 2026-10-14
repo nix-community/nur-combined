@@ -39,7 +39,6 @@ rec {
   _3dslink = callPackage ./pkgs/3dslink/package.nix { };
   discordwikibot = callPackage ./pkgs/discordwikibot/package.nix { };
   sd-format-linux = callPackage ./pkgs/sd-format-linux/package.nix { };
-  #unxip = callPackage ./pkgs/unxip/package.nix { };
   corgi3ds = libsForQt5.callPackage ./pkgs/corgi3ds/package.nix { };
   ftpd = callPackage ./pkgs/ftpd/package.nix { };
   darctool = callPackage ./pkgs/darctool/package.nix { };
@@ -98,30 +97,30 @@ rec {
   kwin-move-window = callPackage ./pkgs/kwin-move-window/package.nix { };
 
   mediawiki_1_43 = callPackage ./pkgs/mediawiki/package.nix {
-    version = "1.43.9";
-    hash = "sha256-RZX4z9OfHEtSeOxDg2xnIFhuY5UYqnah20tVMqOVXuY=";
+    version = "1.43.11";
+    hash = "sha256-hqW44vt8oQIo1myLJlmgppKVjlxSD9Ajx4vXE6aBQvA=";
   };
   mediawiki_1_43_core = callPackage ./pkgs/mediawiki/package.nix {
-    version = "1.43.9";
-    hash = "sha256-etCk/QYgYCoYQLhmFktYMtxw2BRs2ARivP0b8Br90TE=";
+    version = "1.43.11";
+    hash = "sha256-KTQVW5lDJ1IGoa15nTjAlKFrlY6IsgzhKfhWQoYRV7g=";
     core = true;
   };
   mediawiki_1_45 = callPackage ./pkgs/mediawiki/package.nix {
-    version = "1.45.4";
-    hash = "sha256-y3yCRGjrWlEacvCOYpHQncivEuCg/9wlMu4/drsMrXw=";
+    version = "1.45.6";
+    hash = "sha256-1xIGNMsD3mkQxW9H8GSuYFdVma7VKXlNtUOjj2AQip4=";
   };
   mediawiki_1_45_core = callPackage ./pkgs/mediawiki/package.nix {
-    version = "1.45.4";
-    hash = "sha256-XHcr6fw+EOWO+6INIzWkwm0t2+8oJBuEBGReOZNlsnY=";
+    version = "1.45.6";
+    hash = "sha256-v5XZYi7+3l2S9DiDOTZJSF45EEweaJPubyGKXf/3jpY=";
     core = true;
   };
   mediawiki_1_46 = callPackage ./pkgs/mediawiki/package.nix {
-    version = "1.46.0";
-    hash = "sha256-rDleT/07Y7hqJC79Z5JXUD5GNEW6n5ibUU2dOzQsRWo=";
+    version = "1.46.2";
+    hash = "sha256-j3+Tf4u8Gs1M7xxTYqlfJI3NJCAg8liHmOsvc6wuabo=";
   };
   mediawiki_1_46_core = callPackage ./pkgs/mediawiki/package.nix {
-    version = "1.46.0";
-    hash = "sha256-NMhihaXOABeQJFvAM/gWM1sJRZtjwOcOV9i6u+ASHiU=";
+    version = "1.46.2";
+    hash = "sha256-IyvGDY3lLmMxFDFtS8QQpjDJrsOL5/jhwrwCV+xr9EE=";
     core = true;
   };
 
@@ -158,6 +157,7 @@ rec {
     { }
   else
     rec {
+      wlmaker = callPackage ./pkgs/wlmaker/package.nix { };
       aeroshell-libplasma = qt6.callPackage ./pkgs/aeroshell-libplasma/package.nix { };
       aeroshell-kwin-components = qt6.callPackage ./pkgs/aeroshell-kwin-components/package.nix {
         inherit aeroshell-libplasma;
