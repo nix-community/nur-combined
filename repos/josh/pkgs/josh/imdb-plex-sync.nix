@@ -7,7 +7,7 @@
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "imdb-plex-sync";
-  version = "0.4.0";
+  version = "0.4.1";
 
   pyproject = true;
   __structuredAttrs = true;
@@ -16,7 +16,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     owner = "josh";
     repo = "imdb-plex-sync";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-8dynEU8IrRHIV1FCrKV58dCDtif1s+RoOFqjHebKwew=";
+    hash = "sha256-z7NpeVnwxTABvedAkaah4MXZ19J30cx6WbiS5/gG6is=";
   };
 
   build-system = with python3Packages; [
@@ -27,6 +27,9 @@ python3Packages.buildPythonApplication (finalAttrs: {
     click
     pyarrow
   ];
+
+  # TODO: Drop once nixpkgs ships pyarrow 26
+  pythonRelaxDeps = [ "pyarrow" ];
 
   pythonImportsCheck = [ "imdb_plex_sync" ];
 

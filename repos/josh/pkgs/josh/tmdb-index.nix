@@ -8,7 +8,7 @@
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "tmdb-index";
-  version = "1.1.1";
+  version = "1.2.0";
 
   pyproject = true;
   __structuredAttrs = true;
@@ -17,7 +17,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     owner = "josh";
     repo = "tmdb-index";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-xtj+xX5iFT3If3d4npx5lADBQ9Pnj+8L1VkgrUk+3Rg=";
+    hash = "sha256-hFqBItcpBS9B6/rtaqn0krxkeikUJL1FHd6yKZWp6Ys=";
   };
 
   build-system = with python3Packages; [
@@ -29,6 +29,9 @@ python3Packages.buildPythonApplication (finalAttrs: {
     nur.repos.josh.polars
     tqdm
   ];
+
+  # TODO: Drop once nixpkgs ships polars 2
+  pythonRelaxDeps = [ "polars" ];
 
   pythonImportsCheck = [ "tmdb_index" ];
 
