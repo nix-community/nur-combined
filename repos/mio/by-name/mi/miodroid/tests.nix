@@ -172,8 +172,15 @@ in
       chmod 0755 /tmp/miodroid-session-test.sh""")
       machine.succeed("dbus-run-session -- /tmp/miodroid-session-test.sh", timeout=1200)
       machine.wait_for_unit("miodroid-container.service")
-      machine.succeed("test -f /var/lib/miodroid/images/system.img")
-      machine.succeed("test -f /var/lib/miodroid/images/vendor.img")
+      # A pre-installed imagePackage lands in /etc/miodroid-extra/images, and
+      # init records wherever it took them from as images_path -- so resolve
+      # that instead of assuming the OTA download location.
+      images_path = machine.succeed(
+          "sed -n 's/^images_path = //p' /var/lib/miodroid/miodroid.cfg"
+      ).strip()
+      assert images_path, "miodroid.cfg has no images_path"
+      machine.succeed(f"test -f {images_path}/system.img")
+      machine.succeed(f"test -f {images_path}/vendor.img")
       machine.succeed("test -f /var/lib/miodroid/lxc/miodroid/config")
       machine.succeed("test -f /var/lib/miodroid/lxc/miodroid/miodroid.seccomp")
     '';
@@ -188,10 +195,16 @@ in
       virtualisation.miodroid-rootless = {
         enable = true;
         package = package;
+        # imagePackage is left at its default: the Robotnix waydroid_x86_64
+        # build this repo produces, which is the image the rootless path is
+        # meant to run.
       };
 
       virtualisation.memorySize = 4096;
-      virtualisation.diskSize = 8192;
+      # The rootless "grow" strategy copies each image into the work directory
+      # and adds 1 GiB to the copy, on top of the downloaded images themselves,
+      # so the default 8 GiB is not enough for a real Android image pair.
+      virtualisation.diskSize = 16384;
       boot.kernelPackages = binderKernel;
       boot.extraModprobeConfig = "options binder_linux devices=binder,vndbinder,hwbinder";
       environment.etc."miodroid-test".source = testFiles;
@@ -240,16 +253,24 @@ in
       machine.succeed("""cat > /tmp/miodroid-rootless-test.sh <<'EOF'
       #!/bin/sh
       set -eu
-      if ! miodroid init; then
+      if ! miodroid init -c http://127.0.0.1:8000/system \
+          -v http://127.0.0.1:8000/vendor -r lineage -s VANILLA; then
           if test -f /tmp/tools.log; then cat /tmp/tools.log; fi
           exit 1
       fi
       miodroid prop set ro.hardware.gralloc default
       miodroid prop set ro.hardware.egl swiftshader
-      if test ! -f "$MIODROID_WORK/images/system.img"; then
-          cat "$MIODROID_WORK/miodroid.cfg"
-          cat "$MIODROID_WORK/miodroid.log"
-          find "$MIODROID_WORK" -maxdepth 3 -type f -print
+      # The module pre-installs our Robotnix system.img/vendor.img in
+      # /etc/miodroid-extra/images, which init records as images_path instead
+      # of downloading an OTA into <work>/images. Assert the directory init
+      # settled on really holds both images rather than the work directory.
+      images_path=$(sed -n 's/^images_path = //p' "$MIODROID_WORK/miodroid.cfg")
+      if test ! -f "$images_path/system.img" ||
+          test ! -f "$images_path/vendor.img"; then
+          echo "init did not resolve usable images (images_path=$images_path)"
+          cat "$MIODROID_WORK/miodroid.cfg" || true
+          cat "$MIODROID_WORK/miodroid.log" || true
+          find "$MIODROID_WORK" -maxdepth 3 -type f -print || true
           exit 1
       fi
       echo rootless-init-complete
@@ -285,7 +306,11 @@ in
       # and a fake PulseAudio socket.
       XDG_RUNTIME_DIR=/run/user/1000 weston --backend=headless-backend.so --socket=wayland-0 --idle-time=0 >/tmp/weston.log 2>&1 &
       wlserver=$!
-      python3 << 'PYEOF' &
+      # The listener has to outlive the session start, so it stays in the
+      # background: keep its output out of the test driver's pipe as well,
+      # otherwise the driver waits for this process instead of the script when
+      # the script fails early.
+      python3 << 'PYEOF' > /tmp/miodroid-pulse.log 2>&1 &
       import os, socket, time
       for path in ["/run/user/1000/pulse/native"]:
           if os.path.exists(path):
@@ -325,7 +350,11 @@ in
       # rootless mode is whether Android itself boots with its own binderfs,
       # its idmapped root and the user's images.
       if test $running -ge 10; then
-          for i in $(seq 1 120); do
+          # 420 iterations, not 900: each iteration costs an lxc-attach on top of
+          # the sleep, so 900 runs past this step's 1200s timeout and the failure
+          # diagnostics below never get to print.  The rootful test reaches
+          # boot_completed in ~65s, so this is still generous.
+          for i in $(seq 1 420); do
               if lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- \
                       /system/bin/getprop sys.boot_completed 2>/dev/null |
                       grep -q '^1'; then
@@ -337,33 +366,70 @@ in
                   if ! lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- \
                           /system/bin/ls -L /dev/binder /dev/vndbinder /dev/hwbinder; then
                       echo "container is missing its binder devices"
-                      kill -9 $session $wlserver 2>/dev/null || true
+                      kill -9 $session $wlserver $pulseserver 2>/dev/null || true
                       exit 1
                   fi
-                  kill -9 $session $wlserver 2>/dev/null || true
+                  kill -9 $session $wlserver $pulseserver 2>/dev/null || true
                   exit 0
               fi
               if ! test -d /proc/$session; then
                   echo "session exited while Android was booting"
                   break
               fi
+              # Probe early and repeatedly, while the container is still up:
+              # once init's fatal-reboot abort kills PID 1, LXC tears the
+              # container down and lxc-attach fails with "Failed to get init
+              # pid".  At i=90 it was already gone.  dmesg is unreadable as
+              # this user (dmesg_restrict), so the container's own logcat is
+              # what carries a crashing service's message.
+              case "$i" in 20|45|90)
+                  echo "=== MIDBOOT DIAGNOSTICS at i=$i ==="
+                  lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- \
+                      /system/bin/ls -lL /dev/binder /dev/vndbinder /dev/hwbinder /dev/binderfs 2>&1 | head -14 || true
+                  lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- \
+                      /system/bin/logcat -d -v brief 2>&1 | grep -iE "abort|fatal|binder|zygote|servicemanager|apex" | tail -40 || true
+                  lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- \
+                      /system/bin/logcat -d -b crash -v brief 2>&1 | tail -30 || true
+                  coredumpctl --no-pager --no-legend list 2>&1 | tail -8 || true
+                  ;;
+              esac
               sleep 1
           done
           echo "Android never reported sys.boot_completed=1"
       fi
 
       echo "=== SESSION LOG ===" ; cat /tmp/miodroid-session.log || true
-      echo "=== LOGCAT ===" ; lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- /system/bin/logcat -d || true
+      echo "=== LOGCAT ===" ; lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- /system/bin/logcat -d | tail -n 300 || true
       echo "=== KMSG (container init) ===" ; dmesg | tail -n 80 || true
       echo "=== JOURNALCTL ===" ; journalctl --user -n 100 -xe || true
-      kill -9 $session $wlserver 2>/dev/null || true
-      if test "$booted" = 0; then
-          echo "Failed to boot rootless container!"
-          exit 1
-      fi
+      # The container's own Android crashes surface through the VM's
+      # systemd-coredump (the container shares the PID namespace), so this is
+      # where an aborting service's message and backtrace are.
+      echo "=== CORE BACKTRACE (last abort) ===" ; coredumpctl --no-pager info 2>&1 | head -70 || true
+      echo "=== CONTAINER BINDER STATE ===" ; lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- /system/bin/ls -lL /dev/binder /dev/vndbinder /dev/hwbinder /dev/binderfs 2>&1 | head -20 || true
+      echo "=== CONTAINER LOG, filtered ===" ; lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- /system/bin/logcat -d -v brief 2>&1 | grep -iE "abort|fatal|binder|zygote|servicemanager|apex" | tail -60 || true
+      kill -9 $session $wlserver $pulseserver 2>/dev/null || true
+      # Reaching this point means Android never reported boot_completed, so the
+      # container is not a working Miodroid; fail with that reason.  (These
+      # diagnostics only reach the test log through the VM console: read the
+      # full log with `nix log <vm-test-run drv>` and search for "init:".)
+      echo "Failed to boot rootless container!"
+      exit 1
       EOFSCRIPT
       chmod 0755 /tmp/test-session.sh""")
-      machine.succeed("su - alice -c '/tmp/test-session.sh'", timeout=1200)
+      status, _ = machine.execute("su - alice -c '/tmp/test-session.sh'", timeout=1200)
+      # Root-side, post-mortem evidence.  Android's init logs to the shared
+      # kernel log, so a crashing service's LOG(FATAL) message is here even
+      # though the container has exited -- and lxc-attach cannot be used in
+      # rootless mode at all (cgroup_attach_create_leaf: Permission denied, so
+      # even "Failed to attach to container"), which is also why the in-script
+      # getprop boot check above can never succeed.
+      machine.succeed(
+          "(journalctl -k --no-pager || dmesg) | "
+          "grep -iE 'init: |binder|servicemanager|abort|fatal|zygote|denied' | tail -120 || true"
+      )
+      machine.succeed("coredumpctl --no-pager --no-legend list || true")
+      assert status == 0, "miodroid rootless session failed (kernel log above)"
     '';
   };
 }

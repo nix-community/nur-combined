@@ -197,8 +197,22 @@ let
       sed -i 's/Description=Waydroid Container/Description=Miodroid Container/' \
         systemd/miodroid-container.service
 
-      # Also add dma_heap for Android 13
-      sed -i 's|make_entry("/dev/ion")|make_entry("/dev/ion")\n    make_entry("/dev/dma_heap", "dev/dma_heap", check=False)|' tools/helpers/lxc.py
+      # Also add dma_heap for Android 13.  Keep the default check=True: LXC
+      # aborts the whole container on a mount entry whose source is missing, so
+      # an unconditional entry breaks every host that has no dma-heap device
+      # (the entry is simply left out there instead).
+      sed -i 's|make_entry("/dev/ion")|make_entry("/dev/ion")\n    make_entry("/dev/dma_heap", "dev/dma_heap")|' tools/helpers/lxc.py
+
+      # The Waydroid images pre-create the container mount points, so upstream
+      # mounts tmpfs over them without creating anything.  A stock Android image
+      # (our Robotnix LineageOS build included) has no /mnt_extra, /var or /run
+      # at all, and LXC refuses to start the container when a mount target does
+      # not exist.  Create the mount points instead of depending on the image.
+      substituteInPlace tools/helpers/lxc.py \
+        --replace-fail '"mnt_extra", "tmpfs", "nodev 0 0"' '"mnt_extra", "tmpfs", "nodev,create=dir 0 0"' \
+        --replace-fail '"tmp", "tmpfs", "nodev 0 0"' '"tmp", "tmpfs", "nodev,create=dir 0 0"' \
+        --replace-fail '"var", "tmpfs", "nodev 0 0"' '"var", "tmpfs", "nodev,create=dir 0 0"' \
+        --replace-fail '"run", "tmpfs", "nodev 0 0"' '"run", "tmpfs", "nodev,create=dir 0 0"'
 
       # Rename Makefile: lib dir, binary symlink, icon, dbus files, apparmor, service
       sed -i \
@@ -223,8 +237,18 @@ let
       # In rootless containers, ueventd crashes due to lack of global permissions.
       # If it crashes 4 times, Android init triggers a fatal reboot.
       # Stop it cleanly before wait_for_coldboot_done hangs or it triggers the loop limit.
-      # And set the cold boot property so init doesn't hang forever waiting for it.
-      echo -e "    stop ueventd\n    setprop ro.boottime.init.cold_boot_done 1" >> data/configs/miodroid-binder.rc
+      #
+      # That wait blocks on the ro.cold_boot_done property, which ueventd is what
+      # normally sets (init/util.h: kColdBootDoneProp = "ro.cold_boot_done";
+      # init.cpp: wait_for_coldboot_done_action -> prop_waiter_state.StartWaiting(
+      # kColdBootDoneProp, "true"), with no timeout; ueventd.cpp: SetProperty(
+      # kColdBootDoneProp, "true") when coldboot finishes).  So with ueventd
+      # stopped, init stalls in early-init for the whole boot -- observed: no
+      # servicemanager, no zygote, no sys.boot_completed ever.  Set it ourselves
+      # from this early-init action, which init runs long before that wait.
+      # (ro.boottime.init.cold_boot_done is only the telemetry init writes after
+      # the wait, so setting that one, as this used to, does nothing.)
+      echo -e "    stop ueventd\n    setprop ro.cold_boot_done true" >> data/configs/miodroid-binder.rc
 
       find . \( -name "*.py" -o -name "*.sh" -o -name "Makefile" \) -exec sed -i \
         -e 's|waydroid-binder|miodroid-binder|g' \
