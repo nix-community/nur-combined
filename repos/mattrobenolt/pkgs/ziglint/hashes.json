@@ -1,8 +1,8 @@
 {
   "hashes": {
-    "aarch64-linux": "sha256-6T9lUgzLpopkPrlEAljCKTdn9SvEF+z2SvhLwN8VmKU=",
-    "aarch64-macos": "sha256-yELhO0fdJlivmIBENqjFTOwi1sSj3Y5qogA+YNUyhUk=",
-    "x86_64-linux": "sha256-dqxMAdxtFcGuMuilc7mo9G/Ewx88QCvPUnB9Wtxundg="
+    "aarch64-linux": "sha256-R4oJC9MyMXkRshXSqP4/oFUB+tLhhe5HuB4nQUvokeI=",
+    "aarch64-macos": "sha256-9TQsQk3y4KJE1wytJVxw5AAzsF06dZ1iQXyNW9TD6LA=",
+    "x86_64-linux": "sha256-QE2r5EWDtBX9GF+XYd1yWYzayQvuo40WMLYwXdyu5r4="
   },
-  "version": "0.6.1"
+  "version": "0.6.2"
 }
