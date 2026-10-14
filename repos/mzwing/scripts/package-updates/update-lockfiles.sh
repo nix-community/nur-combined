@@ -153,4 +153,25 @@ while IFS= read -r lockfile; do
   fi
 done < <(find pkgs -name pubspec.lock.json)
 
-warn_unhandled "regenerated (not a crate2nix/gomod2nix/pub package or no matching flake package)"
+# Regenerate committed npm locks for changed npm tarballs, which carry none of their own.
+while IFS= read -r lockfile; do
+  attr="$(basename "$(dirname "$lockfile")")"
+  if forcing; then
+    is_forced "$attr" || continue
+  fi
+  if ! is_forced "$attr" && ! source_changed "$attr"; then
+    continue
+  fi
+  echo "Regenerating $lockfile"
+  mark_handled "$attr"
+  src=$(nix build --no-link --print-out-paths --impure --expr "($sources_expr).\"$attr\".src")
+
+  tmp=$(mktemp -d)
+  tar -xzf "$src" -C "$tmp"
+  # Resolving a lock must never run the package's own install scripts.
+  npm install --package-lock-only --ignore-scripts --no-audit --no-fund --cache "$tmp/cache" --prefix "$tmp/package"
+  cp "$tmp/package/package-lock.json" "$lockfile"
+  rm -rf "$tmp"
+done < <(find pkgs -name package-lock.json)
+
+warn_unhandled "regenerated (not a crate2nix/gomod2nix/pub/npm package or no matching flake package)"

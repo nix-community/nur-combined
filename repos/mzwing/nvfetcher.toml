@@ -89,6 +89,11 @@ fetch.github = "Chevey339/kelivo"
 src.github_tag = "Chevey339/kelivo"
 src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
 
+[lmfpd]
+fetch.url = "https://registry.npmjs.org/lmfpd/-/lmfpd-$ver.tgz"
+src.webpage = "https://registry.npmjs.org/lmfpd/latest"
+src.regex = '"version":"([^"]+)"'
+
 # The regex excludes the dashboard's own `dashboard-v*` tag series.
 [magic-context]
 fetch.github = "cortexkit/magic-context"

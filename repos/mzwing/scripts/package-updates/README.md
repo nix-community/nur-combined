@@ -3,7 +3,7 @@
 The update workflow (`.github/workflows/update.yml`) runs four stages, in this order:
 
 1. **`update-sources`** — nvfetcher refreshes `_sources/generated.json` (upstream versions and source hashes).
-2. **`update-lockfiles`** — regenerates crate2nix `Cargo.nix`, gomod2nix `gomod2nix.toml` and pub `pubspec.lock.json` files for packages whose source changed.
+2. **`update-lockfiles`** — regenerates crate2nix `Cargo.nix`, gomod2nix `gomod2nix.toml`, pub `pubspec.lock.json` and npm `package-lock.json` files for packages whose source changed.
 3. **`update-pins`** — refreshes package *pins*: data whose URL and hash must change together, declared by packages as `passthru.pins`.
 4. **`update-hashes`** — nix-update recomputes vendored dependency hashes (`vendorHash`, `pnpmDepsHash`, ...) when a package source, package definition, or shared hash input changed.
 
@@ -15,7 +15,7 @@ For push-triggered runs, the workflow passes the pre-push revision as `UPDATE_BA
 
 - **Static URL, only the hash changes** (dependency FODs recomputed from a lockfile): `update-hashes` / nix-update. Convention: a `*Hash = "sha256-..."` attribute in `pkgs/<name>/default.nix`. Use `nix run .#update-hashes -- <name>` to force a package after external hash drift.
 - **URL and hash must change together** (a version/commit/feature tuple embedded in the URL): `update-pins`, via the package's own `passthru.pins`. The pin data lives in a `pins.json` next to the package's `default.nix` and is imported with `lib.importJSON`, so plain evaluation stays offline.
-- **Upstream ships no lockfile at all** (Flutter projects commonly gitignore `pubspec.lock`): `update-lockfiles` resolves one with `flutter pub get` and commits it as `pubspec.lock.json` next to the package's `default.nix`. The package names the SDK to resolve against through `passthru.pubLockFlutter`, keeping the Flutter version in one place and the runner package-agnostic. A placeholder lock carries an empty `packages` map and an `sdks.dart` constraint (pub2nix derives the Dart language version from it): it evaluates, so the repository keeps evaluating before the first resolution lands. Resolution only runs when the source changed, and the SDK closure is dropped from the store right afterwards — `gc-store` roots every package's build closure, so a multi-gigabyte SDK left behind would ride the shared store cache from then on.
+- **Upstream ships no lockfile at all** (Flutter projects commonly gitignore `pubspec.lock`, and npm never packs `package-lock.json` into a tarball): `update-lockfiles` resolves one and commits it next to the package's `default.nix`, Flutter's with `flutter pub get` as `pubspec.lock.json`, an npm tarball's with `npm install --package-lock-only --ignore-scripts` as `package-lock.json`, which the package copies in `postPatch`. A Flutter package names the SDK to resolve against through `passthru.pubLockFlutter`, keeping the Flutter version in one place and the runner package-agnostic. A placeholder pub lock carries an empty `packages` map and an `sdks.dart` constraint (pub2nix derives the Dart language version from it): it evaluates, so the repository keeps evaluating before the first resolution lands. Resolution only runs when the source changed, and a Flutter SDK closure is dropped from the store right afterwards — `gc-store` roots every package's build closure, so a multi-gigabyte SDK left behind would ride the shared store cache from then on.
 
 ## The `passthru.pins` contract
 

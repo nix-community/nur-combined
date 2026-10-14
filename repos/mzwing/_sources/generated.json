@@ -370,6 +370,21 @@
         },
         "version": "v1.3.1"
     },
+    "lmfpd": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "lmfpd",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-jcA4s0D7Jkf/NXz6quS9S/L7c91JD0fQpD6lt9Z7uPI=",
+            "type": "url",
+            "url": "https://registry.npmjs.org/lmfpd/-/lmfpd-0.0.1791910275841.tgz"
+        },
+        "version": "0.0.1791910275841"
+    },
     "magic-context": {
         "cargoLock": null,
         "date": null,

@@ -8,8 +8,11 @@
       pkgs.findutils
       pkgs.git
       pkgs.gnugrep
+      pkgs.gnutar
+      pkgs.gzip
       pkgs.jq
       pkgs.nix
+      pkgs.nodejs
       pkgs.crate2nix
       pkgs.cargo
       pkgs.yq-go
@@ -24,6 +27,6 @@ in {
   update-lockfiles = {
     type = "app";
     program = "${script}/bin/update-lockfiles";
-    meta.description = "Regenerate crate2nix Cargo.nix, gomod2nix.toml and pubspec.lock.json lockfiles for changed sources";
+    meta.description = "Regenerate crate2nix Cargo.nix, gomod2nix.toml, pubspec.lock.json and npm package-lock.json lockfiles for changed sources";
   };
 }

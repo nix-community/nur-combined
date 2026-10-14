@@ -206,6 +206,14 @@
       sha256 = "sha256-ls4Et+daPEX28nKKcxtPuK1fXGw0x9FwDeMZXSp1MKc=";
     };
   };
+  lmfpd = {
+    pname = "lmfpd";
+    version = "0.0.1791910275841";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/lmfpd/-/lmfpd-0.0.1791910275841.tgz";
+      sha256 = "sha256-jcA4s0D7Jkf/NXz6quS9S/L7c91JD0fQpD6lt9Z7uPI=";
+    };
+  };
   magic-context = {
     pname = "magic-context";
     version = "v0.49.0";
