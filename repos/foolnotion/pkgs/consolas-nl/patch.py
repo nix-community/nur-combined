@@ -1,45 +1,26 @@
 #!/usr/bin/env python3
-"""
-Patch Consolas → Consolas NL (No-hints).
-
-Steps applied to each variant:
-  1. Strip all TrueType hints (cvt/fpgm/prep tables, per-glyph programs,
-     hdmx/LTSH/VDMX metrics tables, head hint flags)
-  2. Set gasp to symmetric smoothing only (no grid-fitting) for all sizes
-  3. Fix vertical metrics: enable USE_TYPO_METRICS, normalise all three
-     metric sets (typo / win / hhea) to the correct Windows values
-  4. Remove embedded bitmap tables (EBLC / EBDT / EBSC)
-  5. Import missing glyphs (Arrows, Math Operators, Misc Technical, Box
-     Drawing, Block Elements, Geometric Shapes) from DejaVu Sans Mono,
-     rescaled to fit the target cell geometry — Consolas lacks all of these,
-     so without this step they fall back to a font with a different advance
-     width, breaking alignment in diagrams and editors
-  6. Rename font family to "Consolas NL" throughout the name table
-
-Output files are written to ./output/.
-"""
+"""Patch Consolas into Consolas NL with terminal-safe fallback glyphs."""
 
 from pathlib import Path
+
 from fontTools.ttLib import TTFont
 
 VARIANTS = {
-    "consola.ttf":  "ConsolasNL-Regular.ttf",
+    "consola.ttf": "ConsolasNL-Regular.ttf",
     "consolab.ttf": "ConsolasNL-Bold.ttf",
     "consolai.ttf": "ConsolasNL-Italic.ttf",
     "consolaz.ttf": "ConsolasNL-BoldItalic.ttf",
 }
 
-# Authoritative vertical metric values for Consolas.
-# Source: OS/2 winAscent / winDescent from the original font, which
-# produce the correct visual centering on Windows.
-ASCENDER  =  1884
+# Authoritative vertical metric values for Consolas.  These are its original
+# OS/2 winAscent and winDescent values, which center it correctly on Windows.
+ASCENDER = 1884
 DESCENDER = -514
-LINE_GAP  =  0
+LINE_GAP = 0
 
-
-# ── 1. Hint stripping ──────────────────────────────────────────────────────────
 
 def strip_hints(font: TTFont) -> None:
+    """Remove TrueType hints and enable symmetric antialiasing."""
     from fontTools.ttLib.tables.ttProgram import Program
 
     for table in ("cvt ", "fpgm", "prep", "hdmx", "LTSH", "VDMX", "cvar"):
@@ -55,43 +36,38 @@ def strip_hints(font: TTFont) -> None:
             if hasattr(glyph, "program") and glyph.program is not None:
                 glyph.program = empty
 
-    # Update gasp: symmetric smoothing for all ppem, no grid-fitting.
     # 0x000A = DOGRAY (0x0002) | SYMMETRIC_SMOOTHING (0x0008)
     if "gasp" in font:
         font["gasp"].gaspRange = {0xFFFF: 0x000A}
     else:
         from fontTools.ttLib.tables import G_A_S_P_
+
         gasp = G_A_S_P_.table_G_A_S_P_()
         gasp.version = 1
         gasp.gaspRange = {0xFFFF: 0x000A}
         font["gasp"] = gasp
 
-    # Clear head flags: bits 2 (instructions depend on point size),
-    # 3 (force integer ppem), 4 (instructions alter advance widths).
+    # Clear flags for point-size-dependent instructions, integer ppem, and
+    # instructions that alter advance widths.
     font["head"].flags &= ~0x001C
 
 
-# ── 2. Vertical metrics ────────────────────────────────────────────────────────
-
 def fix_metrics(font: TTFont) -> None:
-    os2  = font["OS/2"]
+    """Use Consolas' original Windows line box in every renderer."""
+    os2 = font["OS/2"]
     hhea = font["hhea"]
 
-    # Enable USE_TYPO_METRICS so all renderers agree on the line box.
-    os2.fsSelection |= 0x80
-
-    os2.sTypoAscender  = ASCENDER
+    os2.fsSelection |= 0x80  # USE_TYPO_METRICS
+    os2.sTypoAscender = ASCENDER
     os2.sTypoDescender = DESCENDER
-    os2.sTypoLineGap   = LINE_GAP
-    os2.usWinAscent  = ASCENDER
-    os2.usWinDescent = -DESCENDER  # unsigned in the spec
+    os2.sTypoLineGap = LINE_GAP
+    os2.usWinAscent = ASCENDER
+    os2.usWinDescent = -DESCENDER
 
-    hhea.ascent   = ASCENDER
-    hhea.descent  = DESCENDER
-    hhea.lineGap  = LINE_GAP
+    hhea.ascent = ASCENDER
+    hhea.descent = DESCENDER
+    hhea.lineGap = LINE_GAP
 
-
-# ── 3. Bitmap removal ──────────────────────────────────────────────────────────
 
 def remove_bitmaps(font: TTFont) -> None:
     for table in ("EBLC", "EBDT", "EBSC"):
@@ -99,113 +75,124 @@ def remove_bitmaps(font: TTFont) -> None:
             del font[table]
 
 
-# ── 4. Box-drawing import ─────────────────────────────────────────────────────
-#
-# Consolas does not include box-drawing or block-element characters; VS Code
-# falls back to the system font for them, and that font's advance width does
-# not match Consolas NL's cell width, causing misalignment.
-#
-# Fix: copy all 128 Box Drawing (U+2500–U+257F) and 32 Block Element
-# (U+2580–U+259F) glyphs from DejaVu Sans Mono and rescale them to fit
-# Consolas NL's exact cell geometry.
-#
-# Affine transform mapping source cell → target cell:
-#   x′ = x · (tgt_aw / src_aw)
-#   y′ = y · (tgt_h / src_h)  +  (DESCENDER − src_descender · tgt_h/src_h)
-# Maps src_descender→DESCENDER and src_ascender→ASCENDER, so every feature
-# (midpoints, proportions, connections) is preserved within the cell.
+# Glyphs imported from dedicated monospaced donors when absent from Consolas.
+# JuliaMono supplies scientific and mathematical Unicode; DejaVu Sans Mono
+# remains the source for terminal diagrams and Nerd Font icon glyphs.
+_MATH_IMPORT_RANGES = [
+    (0x0300, 0x036F),    # Combining Diacritical Marks
+    (0x2070, 0x209F),    # Superscripts and Subscripts
+    (0x2100, 0x214F),    # Letterlike Symbols
+    (0x2190, 0x21FF),    # Arrows
+    (0x2200, 0x22FF),    # Mathematical Operators
+    (0x2300, 0x23FF),    # Miscellaneous Technical
+    (0x2700, 0x2BFF),    # Dingbats, supplemental arrows and operators
+    (0x1D400, 0x1D7FF),  # Mathematical Alphanumeric Symbols
+]
 
-# All ranges that Consolas lacks.
-_IMPORT_RANGES = [
-    (0x2190, 0x21FF),  # Arrows              (→ ↓ ← ↑ ⇒ …)
-    (0x2200, 0x22FF),  # Math Operators      (∀ ∈ ≤ …)
-    (0x2300, 0x23FF),  # Misc Technical      (⌘ ⌥ …)
-    (0x2500, 0x257F),  # Box Drawing         (─ │ ┌ …)
-    (0x2580, 0x259F),  # Block Elements      (█ ▌ …)
-    (0x25A0, 0x25FF),  # Geometric Shapes    (■ ▲ ► ▼ ◄ …)
-    (0x2600, 0x26FF),  # Misc Symbols        (☀ ✓ ✗ ⚡ …)
-    (0xE000, 0xF8FF),  # BMP Private Use     (Powerline, NF icons, Font Awesome …)
+_TERMINAL_IMPORT_RANGES = [
+    (0x2500, 0x257F),  # Box Drawing
+    (0x2580, 0x259F),  # Block Elements
+    (0x25A0, 0x26FF),  # Geometric and miscellaneous symbols
+    (0xE000, 0xF8FF),  # BMP Private Use (Powerline and Nerd Font icons)
 ]
 
 
-def import_box_drawing(font: TTFont, source_path: str) -> None:
-    """Import and rescale box-drawing glyphs from source_path into font."""
-    from fontTools.pens.ttGlyphPen import TTGlyphPen
-    from fontTools.pens.transformPen import TransformPen
+def target_advance_width(codepoint: int, cell_width: int) -> int:
+    """Combining marks must not consume a terminal cell."""
+    return 0 if 0x0300 <= codepoint <= 0x036F else cell_width
 
-    src      = TTFont(source_path)
+
+def import_terminal_glyphs(font: TTFont, source_path: str, ranges: list[tuple[int, int]]) -> None:
+    """Import, flatten, and rescale missing glyphs from a TrueType donor."""
+    from fontTools.pens.recordingPen import DecomposingRecordingPen
+    from fontTools.pens.transformPen import TransformPen
+    from fontTools.pens.ttGlyphPen import TTGlyphPen
+
+    src = TTFont(source_path)
     src_cmap = src.getBestCmap() or {}
+    src_glyph_set = src.getGlyphSet()
     src_glyf = src["glyf"]
     src_hmtx = src["hmtx"].metrics
-    src_os2  = src["OS/2"]
+    src_os2 = src["OS/2"]
+    if not any(table.format == 12 for table in font["cmap"].tables):
+        from fontTools.ttLib.tables._c_m_a_p import CmapSubtable
 
-    ref_src = src_cmap.get(0x2500)
+        unicode_cmap = CmapSubtable.newSubtable(12)
+        unicode_cmap.platformID = 3
+        unicode_cmap.platEncID = 10
+        unicode_cmap.language = 0
+        unicode_cmap.cmap = {}
+        font["cmap"].tables.append(unicode_cmap)
+
+    ref_src = src_cmap.get(0x41) or next(iter(src_hmtx))
     if not ref_src:
-        print("  [box drawing] source has no U+2500, skipping import")
+        print("  [import] donor has no reference glyph; skipping")
         return
-    src_aw  = src_hmtx[ref_src][0]
+
+    src_aw = src_hmtx[ref_src][0]
     src_asc = src_os2.sTypoAscender
     src_dsc = src_os2.sTypoDescender
-    src_h   = src_asc - src_dsc
+    src_h = src_asc - src_dsc
 
     tgt_cmap = font.getBestCmap() or {}
     tgt_hmtx = font["hmtx"].metrics
-    ref_tgt  = tgt_cmap.get(0x41) or next(iter(tgt_hmtx))
-    tgt_aw   = tgt_hmtx[ref_tgt][0]
-    tgt_h    = ASCENDER - DESCENDER
+    ref_tgt = tgt_cmap.get(0x41) or next(iter(tgt_hmtx))
+    tgt_aw = tgt_hmtx[ref_tgt][0]
+    tgt_h = ASCENDER - DESCENDER
 
-    sx  = tgt_aw / src_aw
-    sy  = tgt_h  / src_h
+    sx = tgt_aw / src_aw
+    sy = tgt_h / src_h
     dy0 = DESCENDER - src_dsc * sy
 
-    tgt_glyf  = font["glyf"]
-    new_names: list = []
+    tgt_glyf = font["glyf"]
+    new_names: list[str] = []
 
-    for lo, hi in _IMPORT_RANGES:
-        for cp in range(lo, hi + 1):
-            src_name = src_cmap.get(cp)
-            if not src_name or cp in tgt_cmap:
+    for lo, hi in ranges:
+        for codepoint in range(lo, hi + 1):
+            src_name = src_cmap.get(codepoint)
+            if not src_name or codepoint in tgt_cmap:
                 continue
 
             src_glyph = src_glyf[src_name]
-
             if src_glyph.isComposite():
-                pen_inner = TTGlyphPen(None)
+                recording_pen = DecomposingRecordingPen(src_glyph_set)
                 try:
-                    src_glyph.draw(pen_inner, src_glyf)
-                    src_glyph = pen_inner.glyph()
+                    src_glyph_set[src_name].draw(recording_pen)
+                    flattening_pen = TTGlyphPen(None)
+                    recording_pen.replay(flattening_pen)
+                    src_glyph = flattening_pen.glyph()
                 except Exception as exc:
-                    print("  [import] skip U+%04X: %s" % (cp, exc))
+                    print("  [import] skip U+%04X: %s" % (codepoint, exc))
                     continue
 
             if not hasattr(src_glyph, "numberOfContours") or src_glyph.numberOfContours <= 0:
                 continue
 
-            pen   = TTGlyphPen(None)
-            t_pen = TransformPen(pen, (sx, 0, 0, sy, 0, dy0))
-            src_glyph.draw(t_pen, src_glyf)
+            pen = TTGlyphPen(None)
+            transform_pen = TransformPen(pen, (sx, 0, 0, sy, 0, dy0))
+            src_glyph.draw(transform_pen, src_glyf)
             new_glyph = pen.glyph()
 
-            tgt_name = "uni%04X" % cp
-            tgt_glyf[tgt_name] = new_glyph
+            glyph_name = "uni%04X" % codepoint
+            tgt_glyf[glyph_name] = new_glyph
             new_glyph.recalcBounds(tgt_glyf)
-            tgt_hmtx[tgt_name] = (tgt_aw, new_glyph.xMin)
-            new_names.append(tgt_name)
+            tgt_hmtx[glyph_name] = (
+                target_advance_width(codepoint, tgt_aw),
+                new_glyph.xMin,
+            )
+            new_names.append(glyph_name)
 
             for table in font["cmap"].tables:
-                if table.format in (4, 12):
-                    table.cmap[cp] = tgt_name
+                if table.format == 12 or (table.format == 4 and codepoint <= 0xFFFF):
+                    table.cmap[codepoint] = glyph_name
 
     if new_names:
-        # glyf.__setitem__ already appended each name to the shared
-        # font.glyphOrder / glyf.glyphOrder list object (see _g_l_y_f.py:104).
-        # Calling font.setGlyphOrder() would double-add them; just bust the cache.
+        # glyf.__setitem__ appends glyph names to the shared glyph order.  Do
+        # not call setGlyphOrder(), which would append them a second time.
         if hasattr(font, "_reverseGlyphOrderDict"):
             del font._reverseGlyphOrderDict
         print("  [import] %d glyphs added from %s" % (len(new_names), source_path))
 
-
-# ── 5. Family rename ───────────────────────────────────────────────────────────
 
 def rename_family(font: TTFont) -> None:
     name_table = font["name"]
@@ -215,28 +202,26 @@ def rename_family(font: TTFont) -> None:
         except Exception:
             continue
 
-        if record.nameID in (1, 16):          # Family / Preferred Family
+        if record.nameID in (1, 16):
             updated = "Consolas NL"
-        elif record.nameID == 4:              # Full name
+        elif record.nameID == 4:
             updated = current.replace("Consolas", "Consolas NL")
-        elif record.nameID == 6:              # PostScript name
+        elif record.nameID == 6:
             updated = current.replace("Consolas", "ConsolasNL")
         else:
             continue
 
-        if record.platformID in (0, 3):        # Unicode / Windows: UTF-16 BE
+        if record.platformID in (0, 3):
             record.string = updated.encode("utf-16-be")
-        elif record.platformID == 1:          # Mac: MacRoman
+        elif record.platformID == 1:
             try:
                 record.string = updated.encode("mac_roman")
             except UnicodeEncodeError:
                 record.string = updated.encode("utf-8")
 
 
-# ── Diagnostic helper ──────────────────────────────────────────────────────────
-
 def print_metrics(font: TTFont, label: str) -> None:
-    os2  = font["OS/2"]
+    os2 = font["OS/2"]
     hhea = font["hhea"]
     print(f"  [{label}]")
     print(f"    typo : asc={os2.sTypoAscender:+d}  desc={os2.sTypoDescender:+d}  gap={os2.sTypoLineGap}")
@@ -245,49 +230,50 @@ def print_metrics(font: TTFont, label: str) -> None:
     print(f"    USE_TYPO_METRICS: {bool(os2.fsSelection & 0x80)}")
 
 
-# ── Main ───────────────────────────────────────────────────────────────────────
-
-def process(src: Path, dst: Path, box_source: Path | None = None) -> None:
-    print(f"\n{'─'*60}")
-    print(f"  {src.name} → {dst.name}")
-    print(f"{'─'*60}")
+def process(
+    src: Path,
+    dst: Path,
+    math_source: Path | None = None,
+    terminal_source: Path | None = None,
+) -> None:
+    print(f"\n{'-' * 60}")
+    print(f"  {src.name} -> {dst.name}")
+    print("-" * 60)
 
     font = TTFont(src)
     print_metrics(font, "before")
-
     strip_hints(font)
     fix_metrics(font)
     remove_bitmaps(font)
-    if box_source:
-        import_box_drawing(font, str(box_source))
+    if math_source:
+        import_terminal_glyphs(font, str(math_source), _MATH_IMPORT_RANGES)
+    if terminal_source:
+        import_terminal_glyphs(font, str(terminal_source), _TERMINAL_IMPORT_RANGES)
     rename_family(font)
-
     print_metrics(font, "after")
     font.save(dst)
-    print(f"  saved → {dst}")
+    print(f"  saved -> {dst}")
 
 
 def main() -> None:
     import sys
 
-    if len(sys.argv) in (3, 4):
-        # Single-file mode: patch.py <src.ttf> <dst.ttf> [<box-source.ttf>]
-        box_src = Path(sys.argv[3]) if len(sys.argv) == 4 else None
-        process(Path(sys.argv[1]), Path(sys.argv[2]), box_src)
-    else:
-        # Batch mode: process all four variants from the working directory
-        work_dir = Path(__file__).parent
-        out_dir  = work_dir / "output"
-        out_dir.mkdir(exist_ok=True)
+    if len(sys.argv) in (3, 4, 5):
+        math_source = Path(sys.argv[3]) if len(sys.argv) >= 4 else None
+        terminal_source = Path(sys.argv[4]) if len(sys.argv) == 5 else None
+        process(Path(sys.argv[1]), Path(sys.argv[2]), math_source, terminal_source)
+        return
 
-        for src_name, dst_name in VARIANTS.items():
-            src = work_dir / src_name
-            if not src.exists():
-                print(f"  WARNING: {src} not found, skipping")
-                continue
-            process(src, out_dir / dst_name)
-
-        print(f"\nAll done. Fonts written to {out_dir}")
+    work_dir = Path(__file__).parent
+    out_dir = work_dir / "output"
+    out_dir.mkdir(exist_ok=True)
+    for src_name, dst_name in VARIANTS.items():
+        src = work_dir / src_name
+        if not src.exists():
+            print(f"  WARNING: {src} not found, skipping")
+            continue
+        process(src, out_dir / dst_name)
+    print(f"\nAll done. Fonts written to {out_dir}")
 
 
 if __name__ == "__main__":
