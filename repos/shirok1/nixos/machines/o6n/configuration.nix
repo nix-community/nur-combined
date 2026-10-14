@@ -13,6 +13,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./dae.nix
     ./home-assistant/default.nix
     ./ingress.nix
     ./networking.nix
@@ -288,26 +289,6 @@
     extraSetFlags = [
       "--accept-dns=false"
     ];
-  };
-
-  services.daed = {
-    enable = true;
-    package = pkgs.daed;
-    listen = "0.0.0.0:2023";
-    openFirewall = {
-      enable = true;
-      port = 2023;
-    };
-    assetsPaths =
-      let
-        combined = pkgs.rules.combined."elysias123/geosite";
-      in
-      [
-        # "${pkgs.v2ray-geoip}/share/v2ray/geoip.dat"
-        # "${pkgs.v2ray-domain-list-community}/share/v2ray/geosite.dat"
-        "${combined}/share/v2ray/geoip.dat"
-        "${combined}/share/v2ray/geosite.dat"
-      ];
   };
 
   services.nixseparatedebuginfod2.enable = true;

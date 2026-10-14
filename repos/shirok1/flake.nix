@@ -108,7 +108,6 @@
                         };
                       }
 
-                      inputs.daeuniverse.nixosModules.dae
                       inputs.daeuniverse.nixosModules.daed
 
                       catppuccin.nixosModules.catppuccin
@@ -177,16 +176,27 @@
                   callPackage = pkgs.lib.callPackageWith (pkgs // regularPackages);
                   directory = ./pkgs;
                 };
-                kmodPackagesLatest = pkgs.lib.filesystem.packagesFromDirectoryRecursive {
-                  callPackage = pkgs.linuxPackages_latest.callPackage;
-                  directory = ./_pkgs;
-                };
-                kmodPackagesLTS = pkgs.lib.filesystem.packagesFromDirectoryRecursive {
-                  callPackage = pkgs.linuxPackages.callPackage;
-                  directory = ./_pkgs;
-                };
+                kmodPackages =
+                  if pkgs.stdenv.hostPlatform.isLinux then
+                    let
+                      mkPackages =
+                        suffix: kernelPackages:
+                        with pkgs.lib;
+                        mapAttrs' (name: nameValuePair "${name}_${suffix}") (
+                          filesystem.packagesFromDirectoryRecursive {
+                            callPackage = kernelPackages.callPackage;
+                            directory = ./_pkgs;
+                          }
+                        );
+                    in
+                    pkgs.lib.mergeAttrsList [
+                      (mkPackages "latest" pkgs.linuxPackages_latest)
+                      (mkPackages "lts" pkgs.linuxPackages)
+                    ]
+                  else
+                    { };
               in
-              regularPackages // kmodPackagesLatest // kmodPackagesLTS;
+              regularPackages // kmodPackages;
           };
       }
     );
