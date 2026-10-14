@@ -46,6 +46,7 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 | Modules | Documentation |
 | --- | --- |
 | `cliproxyapiplus` | [Usage](docs/modules/cliproxyapiplus.md) |
+| `magpie` | [Usage](docs/modules/magpie.md) |
 
 ## Home Manager modules
 
@@ -60,6 +61,7 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 | --- | --- |
 | `cliproxyapi` | [Usage](docs/modules/cliproxyapi.md) |
 | `cliproxyapiplus` | [Usage](docs/modules/cliproxyapiplus.md) |
+| `magpie` | [Usage](docs/modules/magpie.md) |
 
 ## License
 

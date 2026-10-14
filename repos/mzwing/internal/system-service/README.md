@@ -1,6 +1,6 @@
 # Internal system-service abstraction
 
-This library renders a normalized, single-process system service specification into either a NixOS systemd service or a nix-darwin LaunchDaemon. It is intended for repository modules that would otherwise repeat package installation, dedicated account creation, process configuration, and lifecycle mapping.
+This library renders a normalized, single-process system service specification into either a NixOS systemd service or a nix-darwin LaunchDaemon or LaunchAgent. It is intended for repository modules that would otherwise repeat package installation, dedicated account creation, process configuration, and lifecycle mapping.
 
 It deliberately does not define user-facing module options or know about a specific program.
 
@@ -55,6 +55,7 @@ spec = serviceLib.mkSpec {
   };
 
   darwin = {
+    agent = false; # true renders a LaunchAgent in place of a LaunchDaemon.
     standardOutPath = null;
     standardErrorPath = null;
     serviceConfig = {};
@@ -72,7 +73,7 @@ Both renderers return module configuration fragments suitable for `lib.mkMerge`.
 
 The NixOS account defaults to `account.logicalName`. The nix-darwin account defaults to the same name prefixed with `_`. These can be overridden with `account.nixos.userName`, `account.nixos.groupName`, `account.darwin.userName`, and `account.darwin.groupName`.
 
-Set `account.manage = false` to run as an existing account without declaring it. Set `account = null` to omit `User` and `Group` entirely.
+Set `account.manage = false` to run as an existing account without declaring it. Set `account = null` to omit `User` and `Group` entirely. A nix-darwin LaunchAgent runs as whoever logs in, so `darwin.agent = true` requires `account = null`.
 
 Additional account declarations can be supplied through each platform's `userConfig` and `groupConfig` attributes.
 

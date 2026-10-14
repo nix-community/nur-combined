@@ -95,8 +95,16 @@ in
           assertion = account == null || !account.manage || validGid;
           message = "system-service ${spec.name} managed nix-darwin account requires a GID of at least 502";
         }
+        {
+          assertion = !spec.darwin.agent || account == null;
+          message = "system-service ${spec.name} nix-darwin agent runs as the logged-in user and takes no account";
+        }
       ];
     }
     accountConfig
-    {launchd.daemons.${spec.name} = serviceConfig;}
+    (
+      if spec.darwin.agent
+      then {launchd.user.agents.${spec.name} = serviceConfig;}
+      else {launchd.daemons.${spec.name} = serviceConfig;}
+    )
   ]

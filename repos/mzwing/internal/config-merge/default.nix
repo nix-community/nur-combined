@@ -4,12 +4,15 @@
     name,
     format,
   }: let
+    libraries = {
+      json = [];
+      toml = [pkgs.python3Packages.tomli-w];
+      yaml = [pkgs.python3Packages.pyyaml];
+    };
+
     merger =
       pkgs.writers.writePython3 "${name}-merge" {
-        libraries =
-          if format == "yaml"
-          then [pkgs.python3Packages.pyyaml]
-          else [pkgs.python3Packages.tomli-w];
+        libraries = libraries.${format};
         flakeIgnore = [
           "E501"
           "W503"

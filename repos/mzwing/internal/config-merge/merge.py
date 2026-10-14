@@ -74,6 +74,18 @@ def load_mapping(
                 f"could not read {description} {path}: {error}"
             ) from error
 
+    if fmt == "json":
+        try:
+            with path.open("r", encoding="utf-8") as file:
+                value = json.load(file)
+        except (OSError, UnicodeError, json.JSONDecodeError) as error:
+            raise ConfigError(
+                f"could not read {description} {path}: {error}"
+            ) from error
+        if not isinstance(value, dict):
+            raise ConfigError(f"{description} must contain a JSON object: {path}")
+        return value
+
     import yaml
 
     try:
@@ -99,6 +111,9 @@ def dump_mapping(config: dict[str, Any], fmt: str) -> bytes:
             raise ConfigError(
                 f"could not serialize merged configuration: {error}"
             ) from error
+
+    if fmt == "json":
+        return (json.dumps(config, indent=2, ensure_ascii=False) + "\n").encode()
 
     import yaml
 
@@ -339,7 +354,7 @@ def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Merge schema-agnostic Nix module settings into a runtime config file"
     )
-    parser.add_argument("--format", choices=("yaml", "toml"), required=True)
+    parser.add_argument("--format", choices=("json", "yaml", "toml"), required=True)
     parser.add_argument("config", type=Path, help="Writable runtime config file")
     parser.add_argument("settings", type=Path, help="Declarative settings")
     parser.add_argument("state", type=Path, help="Managed-path state file")

@@ -44,6 +44,7 @@
       extraConfig = {};
     };
     darwin = {
+      agent = false;
       standardOutPath = null;
       standardErrorPath = null;
       serviceConfig = {};
