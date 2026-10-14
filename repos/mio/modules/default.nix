@@ -18,8 +18,6 @@ rec {
         miodroid
         local-ai
         toshy
-        # toshy-hm is a Home Manager module (home.file / systemd.user).
-        # Import modules.toshy-hm from Home Manager, not from NixOS.
       ];
     }
   );
@@ -30,6 +28,4 @@ rec {
   miodroid = ./miodroid.nix;
   local-ai = ../by-name/lo/local-ai/module.nix;
   toshy = ../by-name/to/toshy/nixos-module.nix;
-  toshy-hm = ../by-name/to/toshy/hm-module.nix;
-  miodroid-rootless = ./miodroid-hm.nix;
 }

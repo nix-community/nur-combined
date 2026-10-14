@@ -15,15 +15,17 @@ To use modules: (Note that system isn't defined by default in some contexts. You
   ];
 ```
 
-Toshy: NixOS module `modules.toshy` (udev, uinput, `input` group — required for the keymapper unless you already provide those) plus Home Manager module `modules.toshy-hm` (runtime + user files + systemd user services). Do not import `toshy-hm` into a NixOS `imports` list.
+Toshy: NixOS module `nixosModules.toshy` (udev, uinput, `input` group — required for the keymapper unless you already provide those) plus Home Manager module `homeModules.toshy` (runtime + user files + systemd user services).
 
 ```nix
 # NixOS
-imports = [ inputs.mio.legacyPackages.${system}.modules.toshy ];
+imports = [ inputs.mio.nixosModules.toshy ];
+# or inputs.mio.legacyPackages.${system}.modules.toshy
 services.toshy = { enable = true; users = [ "yourname" ]; };
 
 # Home Manager
-imports = [ inputs.mio.legacyPackages.${system}.modules.toshy-hm ];
+imports = [ inputs.mio.homeModules.toshy ];
+# or inputs.mio.legacyPackages.${system}.homeModules.toshy
 services.toshy.enable = true;
 ```
 

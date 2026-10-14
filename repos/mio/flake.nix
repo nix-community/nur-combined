@@ -28,6 +28,9 @@
       packages = forAllSystems (
         system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system}
       );
+      nixosModules = import ./modules;
+      homeModules = import ./home-modules;
+      homeManagerModules = self.homeModules;
       cached = forAllSystems (system: self.legacyPackages.${system}.cached-set);
       # The miodroid NixOS VM tests are the only real gate on that fork: they
       # boot Android in a container in both rootful and rootless mode and wait

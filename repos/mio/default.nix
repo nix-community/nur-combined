@@ -18,6 +18,8 @@ with (import ./private.nix { inherit pkgs; });
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
+  nixosModules = import ./modules;
+  homeModules = import ./home-modules; # Home Manager modules
   overlays = import ./overlays; # nixpkgs overlays
 }
 // import ./packages.nix { inherit pkgs no-ifd; }

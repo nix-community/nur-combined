@@ -107,46 +107,46 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable (
-    lib.warn wipWarning {
-      home.packages = [ cfg.package ];
+  config = lib.mkIf cfg.enable {
+    warnings = [ wipWarning ];
 
-      systemd.user.services.miodroid-container = {
-        Unit = {
-          Description = "Experimental Rootless Miodroid Container";
-          After = [ "graphical-session.target" ];
-          PartOf = [ "graphical-session.target" ];
-        };
-        Service = {
-          ExecStartPre =
-            lib.optional (
-              cfg.hostHelperService != null
-            ) "${pkgs.systemd}/bin/systemctl --system is-active --quiet ${cfg.hostHelperService}"
-            ++ lib.optional (cfg.imagePackage != null) (toString installImages);
-          ExecStart = "${cfg.package}/bin/miodroid container start";
-          Environment = env;
-          Restart = "on-failure";
-        };
-        Install.WantedBy = [ "graphical-session.target" ];
-      };
+    home.packages = [ cfg.package ];
 
-      systemd.user.services.miodroid-session = lib.mkIf cfg.session.enable {
-        Unit = {
-          Description = "Experimental Rootless Miodroid Session";
-          Requires = [ "miodroid-container.service" ];
-          After = [
-            "miodroid-container.service"
-            "graphical-session.target"
-          ];
-          PartOf = [ "graphical-session.target" ];
-        };
-        Service = {
-          ExecStart = "${cfg.package}/bin/miodroid session start";
-          Environment = env;
-          Restart = "on-failure";
-        };
-        Install.WantedBy = [ "graphical-session.target" ];
+    systemd.user.services.miodroid-container = {
+      Unit = {
+        Description = "Experimental Rootless Miodroid Container";
+        After = [ "graphical-session.target" ];
+        PartOf = [ "graphical-session.target" ];
       };
-    }
-  );
+      Service = {
+        ExecStartPre =
+          lib.optional (
+            cfg.hostHelperService != null
+          ) "${pkgs.systemd}/bin/systemctl --system is-active --quiet ${cfg.hostHelperService}"
+          ++ lib.optional (cfg.imagePackage != null) (toString installImages);
+        ExecStart = "${cfg.package}/bin/miodroid container start";
+        Environment = env;
+        Restart = "on-failure";
+      };
+      Install.WantedBy = [ "graphical-session.target" ];
+    };
+
+    systemd.user.services.miodroid-session = lib.mkIf cfg.session.enable {
+      Unit = {
+        Description = "Experimental Rootless Miodroid Session";
+        Requires = [ "miodroid-container.service" ];
+        After = [
+          "miodroid-container.service"
+          "graphical-session.target"
+        ];
+        PartOf = [ "graphical-session.target" ];
+      };
+      Service = {
+        ExecStart = "${cfg.package}/bin/miodroid session start";
+        Environment = env;
+        Restart = "on-failure";
+      };
+      Install.WantedBy = [ "graphical-session.target" ];
+    };
+  };
 }
