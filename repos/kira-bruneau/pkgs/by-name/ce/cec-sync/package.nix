@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     wayland
   ];
 
-  env.C_INCLUDE_PATH = "${libcec}/include/libcec";
+  env.C_INCLUDE_PATH = "${libcec.dev}/include/libcec";
 
   # No tests
   doCheck = false;
