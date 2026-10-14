@@ -29,6 +29,53 @@
         },
         "version": "5.1.0"
     },
+    "daed-next-core": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-1QWAAVM0Aq461gru_Xd_E9pxNoo29LLRBrlkjW2dQ7A=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": "2026-10-14",
+        "extract": null,
+        "name": "daed-next-core",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "ksong008",
+            "repo": "DaeNext",
+            "rev": "fe020b996ecc047fc653be02d52ce6a15a208026",
+            "sha256": "sha256-1QWAAVM0Aq461gru/Xd/E9pxNoo29LLRBrlkjW2dQ7A=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "fe020b996ecc047fc653be02d52ce6a15a208026"
+    },
+    "daed-next-web": {
+        "cargoLock": null,
+        "date": "2026-10-10",
+        "extract": null,
+        "name": "daed-next-web",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "ksong008",
+            "repo": "DaedNext",
+            "rev": "dc4af0e4d9e855e0d6ba6d719a2cc70f0be64327",
+            "sha256": "sha256-xKt93addeBZEypPW3wZOiRsR5GUsHUeddmmQzKcKluQ=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "dc4af0e4d9e855e0d6ba6d719a2cc70f0be64327"
+    },
     "dorion-git": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [

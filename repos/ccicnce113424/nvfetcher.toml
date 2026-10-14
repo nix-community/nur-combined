@@ -8,6 +8,15 @@ fetch.url = "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v$v
 src.github = "algerkong/AlgerMusicPlayer"
 src.prefix = "v"
 
+[daed-next-core]
+cargo_lock = ["Cargo.lock"]
+fetch.github = "ksong008/DaeNext"
+src.git = "https://github.com/ksong008/DaeNext"
+
+[daed-next-web]
+fetch.github = "ksong008/DaedNext"
+src.git = "https://github.com/ksong008/DaedNext"
+
 [dorion-git]
 cargo_lock = ["src-tauri/Cargo.lock"]
 fetch.github = "SpikeHD/Dorion"

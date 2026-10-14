@@ -22,6 +22,36 @@
       sha256 = "sha256-nYMDNSpyyCHRKIBhP++sA7FmodSHBUwRSPEM8yLFaF0=";
     };
   };
+  daed-next-core = {
+    pname = "daed-next-core";
+    version = "fe020b996ecc047fc653be02d52ce6a15a208026";
+    src = fetchFromGitHub {
+      owner = "ksong008";
+      repo = "DaeNext";
+      rev = "fe020b996ecc047fc653be02d52ce6a15a208026";
+      fetchSubmodules = false;
+      sha256 = "sha256-1QWAAVM0Aq461gru/Xd/E9pxNoo29LLRBrlkjW2dQ7A=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-1QWAAVM0Aq461gru_Xd_E9pxNoo29LLRBrlkjW2dQ7A=/Cargo.lock";
+      outputHashes = {
+        
+      };
+    };
+    date = "2026-10-14";
+  };
+  daed-next-web = {
+    pname = "daed-next-web";
+    version = "dc4af0e4d9e855e0d6ba6d719a2cc70f0be64327";
+    src = fetchFromGitHub {
+      owner = "ksong008";
+      repo = "DaedNext";
+      rev = "dc4af0e4d9e855e0d6ba6d719a2cc70f0be64327";
+      fetchSubmodules = false;
+      sha256 = "sha256-xKt93addeBZEypPW3wZOiRsR5GUsHUeddmmQzKcKluQ=";
+    };
+    date = "2026-10-10";
+  };
   dorion-git = {
     pname = "dorion-git";
     version = "9f75ff43ba971c7327a0ff91a2e0cb21ec553ab8";

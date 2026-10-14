@@ -6,6 +6,8 @@
       imports = [ ./daed.nix ];
     };
 
+    daed-next = ./daed-next.nix;
+
     honk-core = ./honk-core.nix;
     # keep-sorted end
   };

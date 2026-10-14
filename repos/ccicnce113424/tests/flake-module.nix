@@ -16,6 +16,14 @@
           defaults.services.daed.package = self'.packages.daed;
         };
 
+        daed-next = pkgs.testers.runNixOSTest {
+          imports = [ ./daed-next.nix ];
+          extraBaseModules = {
+            imports = [ self.nixosModules.daed-next ];
+          };
+          defaults.services.daed-next.package = self'.packages.daed-next-git;
+        };
+
         honk-core = pkgs.testers.runNixOSTest {
           imports = [ ./honk-core.nix ];
           extraBaseModules = {
