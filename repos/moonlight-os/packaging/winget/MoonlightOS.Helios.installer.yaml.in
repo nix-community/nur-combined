@@ -19,6 +19,5 @@ Installers:
     AppsAndFeaturesEntries:
       - DisplayName: Helios
         Publisher: Moonlight OS
-        DisplayVersion: @VERSION@
 ManifestType: installer
 ManifestVersion: 1.10.0

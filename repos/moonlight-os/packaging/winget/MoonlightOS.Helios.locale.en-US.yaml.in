@@ -10,6 +10,7 @@ PackageName: Helios
 PackageUrl: https://github.com/moonlight-os/helios
 License: GPL-3.0-only
 LicenseUrl: https://github.com/moonlight-os/helios/blob/v@VERSION@/LICENSE
+PrivacyUrl: https://mlos-telemetry.mopigames.dev/privacy.html
 ShortDescription: Game stream host for Selene and Moonlight OS.
 Description: Helios is a low-latency game streaming host with native integration for Selene and Moonlight OS.
 Moniker: helios
