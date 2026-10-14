@@ -16,20 +16,20 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "cf";
-  version = "1.0.0-beta.14";
+  version = "1.0.0-beta.16";
 
   src = fetchFromGitHub {
     owner = "cloudflare";
     repo = "cf";
     tag = "cf@${finalAttrs.version}";
-    hash = "sha256-67yR5Ti9aJERyG7/scm96/ILXSHWETwyixh2R5O3sJk=";
+    hash = "sha256-qpLkA4mR2unBUSPvCi9g1VXbS/GvnsQdt+IFx9PG6mk=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     pnpm = pnpm_12;
     fetcherVersion = 4;
-    hash = "sha256-itWCAcidsJBirtPN7w2Iy7JaAewAqYM7N8DD58QqRL8=";
+    hash = "sha256-uIRWNHRxicW0+gsgWAWXWDOuel+BmTgj+AR+fyruxwY=";
   };
 
   nativeBuildInputs = [
