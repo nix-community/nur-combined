@@ -503,7 +503,7 @@
     "rayburst-beta": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-naumNFU_vlGLg6X6iTnga2PitWQv6bG83mJwVIPAyAQ=/src-tauri/Cargo.lock",
+                "sha256-k5D6BVAxlIeuB5aCijlfB1QaScOFwCyvnrzsp4zoXfc=/src-tauri/Cargo.lock",
                 {}
             ]
         },
@@ -519,12 +519,12 @@
             "name": null,
             "owner": "AnInsomniacy",
             "repo": "rayburst",
-            "rev": "v4.1.0-beta.1",
-            "sha256": "sha256-naumNFU/vlGLg6X6iTnga2PitWQv6bG83mJwVIPAyAQ=",
+            "rev": "v4.1.0-beta.2",
+            "sha256": "sha256-k5D6BVAxlIeuB5aCijlfB1QaScOFwCyvnrzsp4zoXfc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.1.0-beta.1"
+        "version": "v4.1.0-beta.2"
     },
     "splayer-kde-bar-lyc": {
         "cargoLock": null,
@@ -552,11 +552,11 @@
     "splayer-next-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-j5Qkz_96C+56v7dvHd8ZGS01pypf7A_1wfHMnekhckA=/Cargo.lock",
+                "sha256-fAWmkPj3JCTR9eyMu5EdfbfaEuUrxLX5J+HfL4ANwzU=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-10-11",
+        "date": "2026-10-14",
         "extract": null,
         "name": "splayer-next-dev",
         "passthru": null,
@@ -568,12 +568,12 @@
             "name": null,
             "owner": "SPlayer-Dev",
             "repo": "SPlayer-Next",
-            "rev": "57e0fc00748248adbff9a65ee30ed238305804d1",
-            "sha256": "sha256-j5Qkz/96C+56v7dvHd8ZGS01pypf7A/1wfHMnekhckA=",
+            "rev": "24e89262489bae03256bc55babadd8a331a2776c",
+            "sha256": "sha256-fAWmkPj3JCTR9eyMu5EdfbfaEuUrxLX5J+HfL4ANwzU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "57e0fc00748248adbff9a65ee30ed238305804d1"
+        "version": "24e89262489bae03256bc55babadd8a331a2776c"
     },
     "svt-av1-essential": {
         "cargoLock": null,
