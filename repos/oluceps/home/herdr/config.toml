@@ -22,3 +22,6 @@ agent_panel_sort = "priority"
 kitty_graphics = true
 # Save recent pane screen history across full server restarts.
 pane_history = true
+
+[remote]
+manage_ssh_config = true

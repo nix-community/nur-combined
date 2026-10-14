@@ -8,18 +8,18 @@
 {
   GeoLite2-ASN = {
     pname = "GeoLite2-ASN";
-    version = "2026.10.04";
+    version = "2026.10.10";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.10.04/GeoLite2-ASN.mmdb";
-      sha256 = "sha256-C5CHT548B3MbZGepBUHuiqCxXKIwMVg8Hub7WAmToGI=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.10.10/GeoLite2-ASN.mmdb";
+      sha256 = "sha256-yd6hKJMabtdpcGd1hExC6Yg44HkNvQO1jJLlqkzvpXo=";
     };
   };
   GeoLite2-City = {
     pname = "GeoLite2-City";
-    version = "2026.10.04";
+    version = "2026.10.10";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.10.04/GeoLite2-City.mmdb";
-      sha256 = "sha256-/+2ydRyuFv3YhoFKbISAYzyRXsE2wVgspcn8WGH3gao=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.10.10/GeoLite2-City.mmdb";
+      sha256 = "sha256-VsJPkSBYsUvkEIW2gi+ML5lPliQptWPDs0vMhCIPPLk=";
     };
   };
   alist = {
@@ -35,13 +35,13 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v8.0.21";
+    version = "v8.0.24";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      rev = "v8.0.21";
+      rev = "v8.0.24";
       fetchSubmodules = false;
-      sha256 = "sha256-dzdZG/akasV0f/YQ7DqqiEJ2I/DB/m167Qt+CxxY8Ow=";
+      sha256 = "sha256-YqyywNAgA7/CAadZuESPIqDMhqxw0pj9RDNPCK4uq0I=";
     };
   };
   dnsproxy = {

@@ -60,6 +60,7 @@
           smartmontools
           # attic
           ntfy-sh
+          herdr
           helix
           srm
           tmux

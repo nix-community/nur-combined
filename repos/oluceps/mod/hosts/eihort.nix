@@ -36,7 +36,7 @@
             garage
             vxlan-mesh
             yggdrasil
-            # scrutiny
+            scrutiny
             secureboot
             earlyoom
             # dae

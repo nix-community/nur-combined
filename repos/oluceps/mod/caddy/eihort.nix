@@ -158,7 +158,7 @@
                         handle = [
                           {
                             handler = "reverse_proxy";
-                            upstreams = [ { dial = "[fdcc::3]:8090"; } ];
+                            upstreams = [ { dial = "127.0.0.1:8090"; } ];
                           }
                         ];
                         match = [ { host = [ "scrutiny.nyaw.xyz" ]; } ];

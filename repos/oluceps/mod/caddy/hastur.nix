@@ -52,6 +52,15 @@
                       ];
                       match = [ { host = [ "sync.nyaw.xyz" ]; } ];
                     }
+                    {
+                      handle = [
+                        {
+                          handler = "reverse_proxy";
+                          upstreams = [ { dial = "localhost:8317"; } ];
+                        }
+                      ];
+                      match = [ { host = [ "proxyapi.nyaw.xyz" ]; } ];
+                    }
                   ];
                   tls_connection_policies = [
                     {

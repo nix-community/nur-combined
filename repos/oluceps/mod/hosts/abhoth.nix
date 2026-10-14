@@ -145,6 +145,38 @@
         };
       };
 
+      # ----- into sept vm
+      systemd.sockets.sept-ssh = {
+        description = "Babel SSH forwarding socket";
+        wantedBy = [ "sockets.target" ];
+
+        listenStreams = [ "[::]:52020" ];
+
+        socketConfig = {
+          Accept = false;
+          BindIPv6Only = "both";
+          FreeBind = true;
+        };
+      };
+
+      systemd.services.sept-ssh = {
+        description = "Forward SSH through Babel";
+
+        serviceConfig = {
+          Type = "notify";
+          # systemd-socket-proxyd expects the IPv6 host without brackets.
+          ExecStart = "${config.systemd.package}/lib/systemd/systemd-socket-proxyd fdcc::3:2223";
+
+          DynamicUser = true;
+          NoNewPrivileges = true;
+          ProtectSystem = "strict";
+          ProtectHome = true;
+        };
+      };
+      networking.firewall.allowedTCPPorts = [ 52020 ];
+
+      #----------
+
       services = {
         alloy.enable = true;
         yggdrasil.settings.AllowedPublicKeys = [

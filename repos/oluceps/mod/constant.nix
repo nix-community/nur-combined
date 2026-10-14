@@ -48,7 +48,7 @@ let
           "cache"
           "git"
         ];
-        srvOnHastur = [ ];
+        srvOnHastur = [ "proxyapi.nyaw.xyz" ];
 
         getAddrFromCIDR = i: lib.elemAt (lib.splitString "/" i) 0;
 
