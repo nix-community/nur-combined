@@ -21,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
   version = "0.0.13";
   src = fetchzip {
     url = "https://github.com/mod-audio/mod-desktop/releases/download/${finalAttrs.version}/mod-desktop-${finalAttrs.version}-linux-x86_64.tar.xz";
-    sha256 = "sha256-OLHj3aX8tF/ibYvEKC0OCFHeHdNqpEvYtimXFT+y80k=";
+    sha256 = "sha256-3CzTN3F2JERZXqH/Nw5cVEVdraqFGGj+57/4Ru0Jk4I=";
   };
 
   nativeBuildInputs = [
