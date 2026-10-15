@@ -43,7 +43,7 @@ let
     in
     flattened
     // {
-      ocamlPackages = pkgs.ocaml-ng.ocamlPackages_5_4.overrideScope (
+      ocamlPackages = (pkgs.ocaml-ng.ocamlPackages_5_4.overrideScope (
         oself: osuper: {
           grace = osuper.grace.overrideAttrs (old: {
             version = "0.4.1";
@@ -57,11 +57,14 @@ let
             doCheck = false;
           });
         }
-      );
+      )) // {
+        recurseForDerivations = false;
+      };
     }
   );
+  exportedByName = builtins.removeAttrs byName [ "ocamlPackages" ];
 in
-byName
+exportedByName
 // (with byName; rec {
 
   wireguird = goV3OverrideAttrs (pkgs.callPackage ./pkgs/wireguird { });
