@@ -10,13 +10,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "yaasm";
-  version = "0-unstable-2026-09-05";
+  version = "0-unstable-2026-10-15";
 
   src = fetchFromGitHub {
     owner = "merrkry";
     repo = "yaasm";
-    rev = "9ff8e98a04373b92c235c03356ced1f87806c2c9";
-    hash = "sha256-TxWW7/vyeYT3H6Bghb72usQRYjUGQTjEFZEhIt08I0A=";
+    rev = "e5823dc0a923c5063beca573f09cc6570c393554";
+    hash = "sha256-m5yaM4phR4bRTk83hLwUZ+0SYWdt28IeyM3T0xk2hus=";
   };
 
   cargoHash = "sha256-WDPpCFU5186p1UEdjdnshdVJ4vdHbf7sRYbT9R5i9lY=";
