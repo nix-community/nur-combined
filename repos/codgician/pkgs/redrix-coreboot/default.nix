@@ -27,21 +27,23 @@ let
   edk2 = fetchFromGitHub {
     owner = "MrChromebox";
     repo = "edk2";
-    tag = "26.09";
+    rev = "9c0cb3a58343786240c38b2d115c200351d2882b";
     fetchSubmodules = true;
-    hash = "sha256-PxhUKfKMh+4YkaXiwcleaJV+y/FFcP0ANqyXYSfvAmo=";
+    hash = "sha256-W5UouvneKdR64aL2GlRAKWDuUB80IAv45bi7x+vx0oU=";
   };
+  edk2Selector = "origin/uefipayload_2608";
+  edk2Pin = edk2.rev or edk2.tag;
 in
 gcc14Stdenv.mkDerivation (finalAttrs: {
   pname = "redrix-coreboot";
-  version = "26.06-unstable.1255-g96b021b2b853";
+  version = "26.09-unstable.337-g5f24bcf77f00";
 
   src = fetchFromGitHub {
     owner = "codgician";
     repo = "coreboot";
-    rev = "96b021b2b853a329fdaf6884924a74763a7c22e9";
+    rev = "5f24bcf77f00b080dfbcf740fa05adafadb411a5";
     fetchSubmodules = true;
-    hash = "sha256-0mFLyt3z0q0xKkb1RWPATYT/PEld3JiB/O510pyNmIc=";
+    hash = "sha256-mhTwlD8zRoXJux1dQtpw3cNRyJvlefbi4QMW7V5s8ow=";
   };
 
   nativeBuildInputs = [
@@ -103,7 +105,7 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
       --set-str EC_GOOGLE_CHROMEEC_FIRMWARE_FILE redrix-ec.RW.flat
     make "''${makeFlagsArray[@]}" olddefconfig
     # A source update selecting a new payload release requires updating its pin.
-    grep -qx 'CONFIG_EDK2_TAG_OR_REV="${edk2.tag}"' .config
+    grep -qx 'CONFIG_EDK2_TAG_OR_REV="${edk2Selector}"' .config
     runHook postConfigure
   '';
 
@@ -134,7 +136,8 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
     printf '%s\n' '${finalAttrs.src.rev}' > "$firmwareDir/source-revision"
     printf '%s\n' "$version" > "$firmwareDir/package-version"
     printf '%s\n' "$firmwareIdentity" > "$firmwareDir/firmware-version"
-    printf '%s\n' '${edk2.tag}' > "$firmwareDir/edk2-version"
+    printf '%s\n' '${edk2Selector}' > "$firmwareDir/edk2-version"
+    printf '%s\n' '${edk2Pin}' > "$firmwareDir/edk2-source-revision"
     cp ${redrix-ec}/share/firmware/redrix-ec/source-revision "$firmwareDir/ec-source-revision"
     cp ${redrix-ec}/share/firmware/redrix-ec/firmware-version "$firmwareDir/ec-firmware-version"
     (cd "$firmwareDir"; sha256sum coreboot.rom UEFIPAYLOAD.fd > SHA256SUMS)

@@ -39,10 +39,12 @@ nix develop -c .github/scripts/run_updater.sh redrix-coreboot
 
 The shell updater uses `nix-update` to follow `codgician/coreboot:my`, including
 all submodules through `fetchFromGitHub`. It resolves the package version from
-that exact commit and upstream release tags, then reads that source's selected
-EDK2 release and updates the payload tag and hash using `nix-update`. If any
-step fails, it restores the original pins and version. The build also checks that the pinned
-EDK2 release matches the resolved coreboot configuration.
+that exact commit and upstream release tags, then reads the EDK2 tag or branch
+selected by that source. Tags are pinned by tag; branch references are resolved
+to an immutable commit before `nix-update` refreshes the payload hash and
+submodules. If any step fails, it restores the original pins and version. The
+build also checks that the pinned EDK2 release matches the resolved coreboot
+configuration.
 
 All build inputs are pinned; the firmware build does not fetch moving branches
 or access the network. Compiler and other Nixpkgs dependencies advance through

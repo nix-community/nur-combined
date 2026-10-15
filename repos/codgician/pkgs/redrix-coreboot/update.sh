@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p git nix nix-update gnused gawk coreutils
+#!nix-shell -i bash -p git nix nix-update gnused gawk coreutils curl
 # shellcheck shell=bash
 
 set -euo pipefail
@@ -32,27 +32,50 @@ echo "Updated $package to $version"
 source=$(nix build --no-link --print-out-paths ".#$package.src")
 
 # Redrix normally inherits MrChromebox's default. Honor an explicit board pin
-# as well; read the immutable source selected above, never a moving branch.
-tag=$(sed -nE 's/^CONFIG_EDK2_TAG_OR_REV="([^"]+)"$/\1/p' \
+# as well; read the selected reference from the immutable coreboot source.
+selector=$(sed -nE 's/^CONFIG_EDK2_TAG_OR_REV="([^"]+)"$/\1/p' \
   "$source/configs/adl/config.redrix.uefi")
-if [[ -z "$tag" ]]; then
-  tag=$(sed -nE '/^config EDK2_TAG_OR_REV$/,/^config /{
+if [[ -z "$selector" ]]; then
+  selector=$(sed -nE '/^config EDK2_TAG_OR_REV$/,/^config /{
     s/^[[:space:]]*default "([^"]+)" if EDK2_REPO_MRCHROMEBOX$/\1/p
   }' "$source/payloads/external/edk2/Kconfig")
 fi
 
-# This fetcher tracks release tags. Stop for review if upstream changes to a
-# branch or a Kconfig expression instead of silently selecting another release.
-if [[ ! "$tag" =~ ^[[:alnum:]][[:alnum:]._-]*$ ]]; then
-  echo "Cannot determine a single EDK2 release tag from coreboot: $tag" >&2
+# Tags can remain readable fetcher pins. Coreboot also accepts branch names
+# prefixed by origin; resolve those through GitHub and pin the immutable commit
+# because fetchFromGitHub cannot safely fetch a moving branch reference.
+if [[ "$selector" =~ ^origin/([[:alnum:]_.-]+(/[[:alnum:]_.-]+)*)$ ]]; then
+  branch=${BASH_REMATCH[1]}
+  pin=$(curl -fsSL "https://api.github.com/repos/MrChromebox/edk2/branches/$branch" \
+    | sed -nE 's/^[[:space:]]*"sha":[[:space:]]*"([[:xdigit:]]{40})",?$/\1/p' \
+    | head -n1)
+  if [[ ! "$pin" =~ ^[[:xdigit:]]{40}$ ]]; then
+    echo "Cannot resolve EDK2 branch $branch to a commit" >&2
+    exit 1
+  fi
+  kind=rev
+elif [[ "$selector" =~ ^[[:xdigit:]]{40}$ ]]; then
+  pin=$selector
+  kind=rev
+elif [[ "$selector" =~ ^[[:alnum:]][[:alnum:]._-]*$ ]]; then
+  pin=$selector
+  kind=tag
+else
+  echo "Cannot determine a single EDK2 tag or branch from coreboot: $selector" >&2
   exit 1
 fi
 
-old_tag=$(nix eval --raw ".#$package.edk2.tag")
-if [[ "$tag" != "$old_tag" ]]; then
-  sed -i -E "/edk2 = fetchFromGitHub/,/^  };/s/tag = \"[^\"]+\";/tag = \"$tag\";/" "$path"
+old_pin=$(sed -nE "/edk2 = fetchFromGitHub/,/^  };/s/^[[:space:]]*(tag|rev) = \"([^\"]+)\";/\2/p" "$path")
+old_kind=$(sed -nE "/edk2 = fetchFromGitHub/,/^  };/s/^[[:space:]]*(tag|rev) = \"[^\"]+\";/\1/p" "$path")
+if [[ "$pin" != "$old_pin" || "$kind" != "$old_kind" ]]; then
+  sed -i -E "/edk2 = fetchFromGitHub/,/^  };/s/^[[:space:]]*(tag|rev) = \"[^\"]+\";/    $kind = \"$pin\";/" "$path"
   nix-update --flake --version=skip --no-src --custom-dep edk2 "$package"
-  echo "Updated EDK2: $old_tag -> $tag"
+  echo "Updated EDK2 $kind: $old_pin -> $pin"
 else
-  echo "EDK2 is up to date at $tag"
+  echo "EDK2 is up to date at $pin ($kind)"
+fi
+old_selector=$(sed -nE 's/^  edk2Selector = "([^"]+)";$/\1/p' "$path")
+if [[ "$selector" != "$old_selector" ]]; then
+  sed -i -E "s|^  edk2Selector = \"[^\"]+\";|  edk2Selector = \"$selector\";|" "$path"
+  echo "Updated EDK2 configuration reference: $old_selector -> $selector"
 fi
