@@ -8,7 +8,7 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "dfcore";
-  version = "0.1.0";
+  version = "0.2.0";
 
   __structuredAttrs = true;
 
@@ -16,10 +16,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "tylerstyle";
     repo = "dfcore";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-mzwV620LnaWlUM9PawWg3pg04U6FrvAfk9VGyjFC0Ek=";
+    hash = "sha256-CUcFeUqfEKERS9RU9Y039uP/1MAeMXiKRkIWgfiClLU=";
   };
 
-  cargoHash = "sha256-Guwa4LeVfToS+uyw8t+qCqUQfM+qn5Vz9IgSZSyHSXo=";
+  cargoHash = "sha256-Fkh9CUtXSy2maHsV5QFwPaV7a9+EQNEihgX62Mgcf2o=";
 
   nativeBuildInputs = [ makeWrapper ];
 
