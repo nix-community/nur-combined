@@ -18,10 +18,11 @@ mst-mkt's Nix user repository.
 
 ## Packages
 
-| Name                                                                     | Description                                                                      | License         | Platforms                                   |
-| ------------------------------------------------------------------------ | -------------------------------------------------------------------------------- | --------------- | ------------------------------------------- |
-| [calldiff](https://github.com/tanishqkancharla/calldiff)                 | Diffs of function call stacks across git commits, built on Tree-sitter           | MIT             | x86_64-linux, aarch64-linux, aarch64-darwin |
-| [esa-cli](https://github.com/esaio/esa-cli)                              | Official CLI for esa.io                                                          | MIT             | x86_64-linux, aarch64-linux, aarch64-darwin |
-| [gengo](https://github.com/spenserblack/gengo)                           | Linguist-inspired language classifier with multiple file source handlers         | MIT, Apache-2.0 | x86_64-linux, aarch64-linux, aarch64-darwin |
-| [git-hunk](https://github.com/nexxeln/git-hunk)                          | Non-interactive hunk staging for AI agents                                       | Apache-2.0      | x86_64-linux, aarch64-linux, aarch64-darwin |
-| [proton-drive-cli](https://github.com/ProtonDriveApps/sdk/tree/main/cli) | Command-line interface for Proton Drive                                          | MIT             | x86_64-linux, aarch64-linux, aarch64-darwin |
+| Name                                                                     | Description                                                                         | License         | Platforms                                   |
+| ------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- | --------------- | ------------------------------------------- |
+| [calldiff](https://github.com/tanishqkancharla/calldiff)                 | Diffs of function call stacks across git commits, built on Tree-sitter              | MIT             | x86_64-linux, aarch64-linux, aarch64-darwin |
+| [esa-cli](https://github.com/esaio/esa-cli)                              | Official CLI for esa.io                                                             | MIT             | x86_64-linux, aarch64-linux, aarch64-darwin |
+| [gengo](https://github.com/spenserblack/gengo)                           | Linguist-inspired language classifier with multiple file source handlers            | MIT, Apache-2.0 | x86_64-linux, aarch64-linux, aarch64-darwin |
+| [gh-actions-lock](https://github.com/github/gh-actions-lock)             | gh CLI extension that generates and verifies the GitHub Actions dependency lockfile | MIT             | x86_64-linux, aarch64-linux, aarch64-darwin |
+| [git-hunk](https://github.com/nexxeln/git-hunk)                          | Non-interactive hunk staging for AI agents                                          | Apache-2.0      | x86_64-linux, aarch64-linux, aarch64-darwin |
+| [proton-drive-cli](https://github.com/ProtonDriveApps/sdk/tree/main/cli) | Command-line interface for Proton Drive                                             | MIT             | x86_64-linux, aarch64-linux, aarch64-darwin |
