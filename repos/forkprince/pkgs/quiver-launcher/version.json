@@ -6,23 +6,23 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "3.5.0",
+  "version": "3.5.1",
   "platforms": {
     "aarch64-darwin": {
       "file": "QuiverLauncher-osx-arm64-Portable.zip",
-      "hash": "sha256-0gG20CQeoNyCrn1LrAbyWpvELjfRtxaCwl3DzaABg90="
+      "hash": "sha256-vgkctSZAIzNgWgsZ2n2vI905en5Y61oHPNdeNcSazTU="
     },
     "x86_64-darwin": {
       "file": "QuiverLauncher-osx-x64-Portable.zip",
-      "hash": "sha256-pW+J5stctDbAm9u1LP5XNhJptz10dMW2XPjiP0tGO6M="
+      "hash": "sha256-P+r7flSpIETMxtqzp+m/wVg5P65VXyl0R3QfSXWVlQk="
     },
     "aarch64-linux": {
       "file": "QuiverLauncher-linux-arm64.AppImage",
-      "hash": "sha256-JSQ/KgvrEp8J1REbAmlaFovw5C5fA0r2pStdFyh4j9w="
+      "hash": "sha256-0dhNLcOOaJmdxl16U88JAFv3218X6FtYXB0+Fwgi+xg="
     },
     "x86_64-linux": {
       "file": "QuiverLauncher-linux-x64.AppImage",
-      "hash": "sha256-jf5KobDajoXfIpzxd7ZU1Z6qh5ZdEh2awGK1TSobw9A="
+      "hash": "sha256-qM1TmLba6SS87Ans4XgcA8v9cymGdUdvJvwcBy08Yps="
     }
   }
 }

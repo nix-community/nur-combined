@@ -6,15 +6,15 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "2.22.3",
+  "version": "2.22.4",
   "platforms": {
     "aarch64-darwin": {
       "file": "Heroic-{version}-macOS-arm64.zip",
-      "hash": "sha256-PGj+C+ZPszdmQ0klvfA/m+Vqt2qiBnAgmRL6nun2TQQ="
+      "hash": "sha256-gpr8bykZiR6F2+UEqNqzMaCoxd2wJtDA/OXFyoE7D1A="
     },
     "x86_64-darwin": {
       "file": "Heroic-{version}-macOS-x64.zip",
-      "hash": "sha256-GG3eqzkgDNJeaCHyqEUP8p44gNP9nK1PbFywDubozcE="
+      "hash": "sha256-BBklOkiQHqhYyxuFwfg2U+77pCVb1dMVN9iVJ0CyPQ4="
     }
   }
 }

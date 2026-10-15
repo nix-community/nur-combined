@@ -6,23 +6,23 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "0.7.1",
+  "version": "0.8.0",
   "platforms": {
     "aarch64-darwin": {
       "file": "designcraft-{version}-macos-universal.dmg",
-      "hash": "sha256-yFILj6cC4ZQ2wGJpeS5oo8oJpinG1ctZGTNV7z6J7FI="
+      "hash": "sha256-ELEDWvJNvx12AiPp2TLeqPkjWmM5Xg/BtPph1jFojPc="
     },
     "x86_64-darwin": {
       "file": "designcraft-{version}-macos-universal.dmg",
-      "hash": "sha256-yFILj6cC4ZQ2wGJpeS5oo8oJpinG1ctZGTNV7z6J7FI="
+      "hash": "sha256-ELEDWvJNvx12AiPp2TLeqPkjWmM5Xg/BtPph1jFojPc="
     },
     "x86_64-linux": {
       "file": "designcraft-{version}-linux-x86_64.AppImage",
-      "hash": "sha256-T7tdLSwvHWf7fhMeVKhUUxDEiSWMpaLVUJp6LF0/pZs="
+      "hash": "sha256-iNV3EPVsn7fY4z4EYGHv+DkReXG0AqQQPEszK1yjtd8="
     },
     "aarch64-linux": {
       "file": "designcraft-{version}-linux-aarch64.AppImage",
-      "hash": "sha256-aqI5rvIKhW7YHxa5duXDoiB2/2QH7eSg2uNfthbjts4="
+      "hash": "sha256-b//15t+tMUWefzyXvhEO0hwGnLYCA4cN56UnRtTnCm0="
     }
   }
 }

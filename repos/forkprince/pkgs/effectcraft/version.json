@@ -6,23 +6,23 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "0.9.2",
+  "version": "0.10.0",
   "platforms": {
     "aarch64-darwin": {
       "file": "effectcraft-{version}-macos-universal.dmg",
-      "hash": "sha256-q8ArC3r9pjgC29Svje2cDDXxivewnogAKtzJhvZ29v4="
+      "hash": "sha256-2Ev6xj5WaBW0EzCc+S09tIzBo9LyC5SXQtRXNb21l+g="
     },
     "x86_64-darwin": {
       "file": "effectcraft-{version}-macos-universal.dmg",
-      "hash": "sha256-q8ArC3r9pjgC29Svje2cDDXxivewnogAKtzJhvZ29v4="
+      "hash": "sha256-2Ev6xj5WaBW0EzCc+S09tIzBo9LyC5SXQtRXNb21l+g="
     },
     "x86_64-linux": {
       "file": "effectcraft-{version}-linux-x86_64.AppImage",
-      "hash": "sha256-9e8cKtMgUepsE7E8FwpzvW8tCoOaT/cYlbFqkNOjrjc="
+      "hash": "sha256-0OQBb25ZFb+EdGX8+kBToWB+CvoWs1/tFWp4x16ItlA="
     },
     "aarch64-linux": {
       "file": "effectcraft-{version}-linux-aarch64.AppImage",
-      "hash": "sha256-EwYxt3dDTw2EvriLLXqJkJpFCnC7VO2YvstAbQjS0bo="
+      "hash": "sha256-a8LBThWmpLabMuhSt+arc6trjJ9HoDT9apRrI6avcl0="
     }
   }
 }

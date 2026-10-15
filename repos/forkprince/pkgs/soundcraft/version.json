@@ -6,23 +6,23 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "0.6.1",
+  "version": "0.7.0",
   "platforms": {
     "aarch64-darwin": {
       "file": "soundcraft-{version}-macos-universal.dmg",
-      "hash": "sha256-lPAUcI4Bc8E2MLuPpBYxJNO7t69XHg8D2fmzAn+Q0Oc="
+      "hash": "sha256-o2LrWkKEJiAQ92qOp8g46Iw9pxp5asJgBgTbDXZgpGQ="
     },
     "x86_64-darwin": {
       "file": "soundcraft-{version}-macos-universal.dmg",
-      "hash": "sha256-lPAUcI4Bc8E2MLuPpBYxJNO7t69XHg8D2fmzAn+Q0Oc="
+      "hash": "sha256-o2LrWkKEJiAQ92qOp8g46Iw9pxp5asJgBgTbDXZgpGQ="
     },
     "x86_64-linux": {
       "file": "soundcraft-{version}-linux-x86_64.AppImage",
-      "hash": "sha256-aMZY8uctdKMnf0jfPOE+TbnG6v1/FCX2Pi3IXYZ5EgA="
+      "hash": "sha256-gPL+zRMrmpw6wjkWZLCgIUFpyMwOJ76RejcEVTqRTYE="
     },
     "aarch64-linux": {
       "file": "soundcraft-{version}-linux-aarch64.AppImage",
-      "hash": "sha256-7IDRu9ZtTAECJysUYjaOkqBQTk2ZRmJV5GR3+1+QeFI="
+      "hash": "sha256-Seo4Vy+Cac9VJ9j6e8A8uLoePTbHooK9Ym/EjzcbNkY="
     }
   }
 }
