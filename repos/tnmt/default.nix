@@ -24,7 +24,6 @@
   # flakeModules = { }; # flake-parts modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  chatgpt = pkgs.callPackage ./pkgs/chatgpt { };
   oneaws = pkgs.callPackage ./pkgs/oneaws { };
   kagiana = pkgs.callPackage ./pkgs/kagiana { };
   ccpocket-bridge = pkgs.callPackage ./pkgs/ccpocket-bridge { };
