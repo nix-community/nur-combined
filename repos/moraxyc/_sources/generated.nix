@@ -87,16 +87,16 @@
   };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
-    version = "7c07aa6d6bd02479b8ce7de8b5a1f300fa65309b";
+    version = "aa8206fc4e4aa1e706c348a0dcc2ec99fc610057";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "clash-nyanpasu";
-      rev = "7c07aa6d6bd02479b8ce7de8b5a1f300fa65309b";
+      rev = "aa8206fc4e4aa1e706c348a0dcc2ec99fc610057";
       fetchSubmodules = false;
-      sha256 = "sha256-KW2ZTxUPIhLMSj/yBEsAfBXXscH3UwB9nZ3S4dLdzcY=";
+      sha256 = "sha256-LN2usWwrP8vb3Os2x6poEESshBVBTgcKJ78ZUiqjan4=";
     };
     cargoLock."backend/Cargo.lock" = {
-      lockFile = ./. + "/sha256-KW2ZTxUPIhLMSj_yBEsAfBXXscH3UwB9nZ3S4dLdzcY=/backend/Cargo.lock";
+      lockFile = ./. + "/sha256-LN2usWwrP8vb3Os2x6poEESshBVBTgcKJ78ZUiqjan4=/backend/Cargo.lock";
       outputHashes = {
         "auto-launch-0.5.0" = "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=";
         "runas-1.2.0" = "sha256-cTYTFtmdmCztL2JhgnOxwKhd+VfUmm5DB3gkNy92g04=";
@@ -573,6 +573,26 @@
   nyanpasu-service-stable = {
     pname = "nyanpasu-service-stable";
     version = "v1.4.5";
+    src = fetchurl {
+      url = "file:///dev/null";
+      sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
+    };
+  };
+  opencode-go-cliproxyapi = {
+    pname = "opencode-go-cliproxyapi";
+    version = "a4369b9b1cf18a4111a0167e3b50e5d69054fe45";
+    src = fetchFromGitHub {
+      owner = "massiveits";
+      repo = "opencode-go-cliproxyapi";
+      rev = "a4369b9b1cf18a4111a0167e3b50e5d69054fe45";
+      fetchSubmodules = false;
+      sha256 = "sha256-dtjZ5j/fUSPg1Ro7IuNBJzogQg7PQgoWS2WXKUz4u3Q=";
+    };
+    date = "2026-10-05";
+  };
+  opencode-go-cliproxyapi-stable = {
+    pname = "opencode-go-cliproxyapi-stable";
+    version = "0.0.0";
     src = fetchurl {
       url = "file:///dev/null";
       sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";

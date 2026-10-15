@@ -214,6 +214,14 @@ cargo_lock = ['Cargo.lock']
 src.github = "libnyanpasu/nyanpasu-service"
 fetch.url = "file:///dev/null"
 
+[opencode-go-cliproxyapi]
+src.git = "https://github.com/massiveits/opencode-go-cliproxyapi"
+fetch.github = "massiveits/opencode-go-cliproxyapi"
+
+[opencode-go-cliproxyapi-stable]
+src.manual = "0.0.0"
+fetch.url = "file:///dev/null"
+
 [opencode-telegram-bot]
 src.github = "grinev/opencode-telegram-bot"
 fetch.github = "grinev/opencode-telegram-bot"
@@ -275,5 +283,5 @@ cargo_lock = ['Cargo.lock']
 src.github = "moraxyc/whois42d-ng"
 fetch.url = "file:///dev/null"
 
-# keep-sorted end
 
+# keep-sorted end
