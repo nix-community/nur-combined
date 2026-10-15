@@ -155,6 +155,10 @@ stdenv.mkDerivation (finalAttrs: {
         substituteInPlace core/src/main/kotlin/moe/rukamori/archivetune/innertube/NetworkGatekeeper.kt \
           --replace-fail "AtomicBoolean(true)" "AtomicBoolean(false)"
 
+        # Safe guard Looper.getMainLooper() in DataStore.kt
+        substituteInPlace app/src/main/kotlin/moe/rukamori/archivetune/utils/DataStore.kt \
+          --replace-fail "Looper.getMainLooper().thread" "Looper.getMainLooper()?.thread"
+
         ls -la android-stubs
         # Simplify BotGuardTokenGenerator patches
         python3 << 'PYTHON_EOF'

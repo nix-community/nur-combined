@@ -209,8 +209,21 @@ fun <T> allocateDummy(clazz: Class<T>): T {
     }
 }
 
-val LocalDatabase = staticCompositionLocalOf<MusicDatabase> { InternalDatabase.newInstance(android.content.DummyContext()) }
-val LocalPlayerConnection = staticCompositionLocalOf<PlayerConnection?> { null }
+private var _globalPlayerConnection: PlayerConnection? = null
+fun getGlobalPlayerConnection(): PlayerConnection {
+    if (_globalPlayerConnection == null) {
+        val context = android.content.DummyContext()
+        val service = moe.rukamori.archivetune.playback.MusicService()
+        val binder = moe.rukamori.archivetune.playback.MusicService.MusicBinder(service)
+        val db = androidx.hilt.navigation.compose.getGlobalMusicDatabase() as MusicDatabase
+        val scope = kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.SupervisorJob() + kotlinx.coroutines.Dispatchers.Default)
+        _globalPlayerConnection = PlayerConnection(context, binder, db, scope)
+    }
+    return _globalPlayerConnection!!
+}
+
+val LocalDatabase = staticCompositionLocalOf<MusicDatabase> { androidx.hilt.navigation.compose.getGlobalMusicDatabase() as MusicDatabase }
+val LocalPlayerConnection = staticCompositionLocalOf<PlayerConnection?> { getGlobalPlayerConnection() }
 val LocalPlayerAwareWindowInsets = compositionLocalOf<WindowInsets> { WindowInsets(0, 0, 0, 0) }
 val LocalDownloadUtil = staticCompositionLocalOf<DownloadUtil> { allocateDummy(DownloadUtil::class.java) }
 val LocalSyncUtils = staticCompositionLocalOf<SyncUtils> { allocateDummy(SyncUtils::class.java) }

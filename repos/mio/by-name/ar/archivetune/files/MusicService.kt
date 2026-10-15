@@ -3,12 +3,21 @@ package moe.rukamori.archivetune.playback
 import android.content.ContentResolver
 import android.content.Context
 import android.os.Binder
+import androidx.media3.common.PlaybackParameters
 import androidx.media3.common.Player
+import androidx.media3.common.Timeline
+import androidx.media3.common.Tracks
 import java.io.File
+import java.lang.reflect.Proxy
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import moe.rukamori.archivetune.canvas.CanvasPlaybackUseCase
 import moe.rukamori.archivetune.models.ActiveOutputDevice
 import moe.rukamori.archivetune.models.MediaMetadata
+import moe.rukamori.archivetune.models.PlayerOutputDevice
+import moe.rukamori.archivetune.together.TogetherSessionState
 
 /*
  * Upstream's MusicService is an Android MediaSessionService hosting playback, bound
@@ -17,8 +26,7 @@ import moe.rukamori.archivetune.models.MediaMetadata
  * MediaSession, and no QS/widget surface.
  *
  * The port keeps the type surface the rest of the app resolves against (browse-tree
- * ids, the binder, and the service state the view models observe), but the service
- * itself is inert: every state accessor throws and every command is a no-op.
+ * ids, the binder, and the service state the view models observe).
  */
 class MusicService {
     class MusicBinder internal constructor(val service: MusicService) : Binder()
@@ -32,31 +40,77 @@ class MusicService {
         val currentMetadata: MediaMetadata?
     }
 
-    val player: DesktopPlayer get() = TODO("desktop port has no MediaSessionService player")
-    val localPlayer: DesktopPlayer get() = TODO("desktop port has no local playback player")
+    private val dummyPlayer: DesktopPlayer = Proxy.newProxyInstance(
+        DesktopPlayer::class.java.classLoader,
+        arrayOf(DesktopPlayer::class.java)
+    ) { _, method, _ ->
+        when (method.name) {
+            "getCurrentMetadata" -> null
+            "getPlaybackState" -> Player.STATE_IDLE
+            "isPlaying" -> false
+            "getPlaybackParameters" -> PlaybackParameters.DEFAULT
+            "getCurrentTimeline" -> Timeline.EMPTY
+            "getMediaItemCount" -> 0
+            "getCurrentMediaItemIndex" -> -1
+            "getShuffleModeEnabled" -> false
+            "getRepeatMode" -> Player.REPEAT_MODE_OFF
+            "getCurrentPosition" -> 0L
+            "getDuration" -> 0L
+            "getCurrentTracks" -> Tracks.EMPTY
+            else -> {
+                val ret = method.returnType
+                when {
+                    ret == Boolean::class.java || ret == java.lang.Boolean.TYPE -> false
+                    ret == Int::class.java || ret == java.lang.Integer.TYPE -> 0
+                    ret == Long::class.java || ret == java.lang.Long.TYPE -> 0L
+                    ret == Float::class.java || ret == java.lang.Float.TYPE -> 0f
+                    ret == Double::class.java || ret == java.lang.Double.TYPE -> 0.0
+                    ret == String::class.java -> ""
+                    else -> null
+                }
+            }
+        }
+    } as DesktopPlayer
 
-    val currentMediaMetadata: kotlinx.coroutines.flow.MutableStateFlow<MediaMetadata?> get() = TODO()
-    val sleepTimer: SleepTimer get() = TODO()
-    val activeAudioDevice: StateFlow<ActiveOutputDevice> get() = TODO()
-    val eqCapabilities: StateFlow<EqCapabilities?> get() = TODO()
-    val togetherSessionState: kotlinx.coroutines.flow.StateFlow<
-        moe.rukamori.archivetune.together.TogetherSessionState,
-        > get() = TODO()
-    val canvasPlaybackUseCase: CanvasPlaybackUseCase get() = TODO()
+    val player: DesktopPlayer get() = dummyPlayer
+    val localPlayer: DesktopPlayer get() = dummyPlayer
+
+    val currentMediaMetadata = MutableStateFlow<MediaMetadata?>(null)
+    val sleepTimer by lazy { SleepTimer(CoroutineScope(Dispatchers.Default), dummyPlayer, this) }
+    val activeAudioDevice: StateFlow<ActiveOutputDevice> =
+        MutableStateFlow(ActiveOutputDevice(PlayerOutputDevice.Unknown, PlayerOutputDevice.Unknown.defaultName))
+    val eqCapabilities: StateFlow<EqCapabilities?> = MutableStateFlow(null)
+    val togetherSessionState: StateFlow<TogetherSessionState> = MutableStateFlow(TogetherSessionState.Idle)
+    val canvasPlaybackUseCase: CanvasPlaybackUseCase by lazy {
+        androidx.hilt.navigation.compose._createViewModelInstance(CanvasPlaybackUseCase::class.java) as CanvasPlaybackUseCase
+    }
+
+    private val dummyCache: androidx.media3.datasource.cache.Cache = Proxy.newProxyInstance(
+        androidx.media3.datasource.cache.Cache::class.java.classLoader,
+        arrayOf(androidx.media3.datasource.cache.Cache::class.java)
+    ) { _, method, _ ->
+        val ret = method.returnType
+        when {
+            ret == Long::class.java || ret == java.lang.Long.TYPE -> 0L
+            ret == Boolean::class.java || ret == java.lang.Boolean.TYPE -> false
+            ret == Int::class.java || ret == java.lang.Integer.TYPE -> 0
+            ret == java.util.NavigableSet::class.java || ret == java.util.Set::class.java -> java.util.TreeSet<Any>()
+            else -> null
+        }
+    } as androidx.media3.datasource.cache.Cache
 
     /* Exposed to the storage/cache settings screens. */
-    val playerCache: androidx.media3.datasource.cache.Cache get() = TODO()
+    val playerCache: androidx.media3.datasource.cache.Cache get() = dummyCache
+    val downloadCache: androidx.media3.datasource.cache.Cache get() = dummyCache
 
-    val downloadCache: androidx.media3.datasource.cache.Cache get() = TODO()
-
-    val infiniteQueueLoading: StateFlow<Boolean> get() = TODO()
-    val queueRestoreCompleted: StateFlow<Boolean> get() = TODO()
-    val waitingForNetworkConnection: StateFlow<Boolean> get() = TODO()
+    val infiniteQueueLoading: StateFlow<Boolean> = MutableStateFlow(false)
+    val queueRestoreCompleted: StateFlow<Boolean> = MutableStateFlow(true)
+    val waitingForNetworkConnection: StateFlow<Boolean> = MutableStateFlow(false)
 
     val queueTitle: String? get() = null
 
-    val applicationContext: Context get() = TODO()
-    val contentResolver: ContentResolver get() = TODO()
+    val applicationContext: Context get() = android.content.DummyContext()
+    val contentResolver: ContentResolver get() = ContentResolver()
     val cacheDir: File get() = File("/tmp")
 
     fun getString(resId: Int): String = ""

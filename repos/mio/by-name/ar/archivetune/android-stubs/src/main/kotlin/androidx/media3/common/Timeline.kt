@@ -1,6 +1,10 @@
 package androidx.media3.common
 
 open class Timeline {
+    companion object {
+        @JvmField
+        val EMPTY: Timeline = object : Timeline() {}
+    }
     open class Window {
         val firstPeriodIndex: Int = 0
         val lastPeriodIndex: Int = 0

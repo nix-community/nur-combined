@@ -37,6 +37,13 @@ fun _createViewModelInstance(clazz: Class<*>): Any? {
     if (clazz.name == "moe.rukamori.archivetune.db.MusicDatabase") {
         return getGlobalMusicDatabase()
     }
+    if (clazz.name == "moe.rukamori.archivetune.playback.PlayerConnection") {
+        try {
+            val c = Class.forName("moe.rukamori.archivetune.CompositionLocalsKt")
+            val m = c.getMethod("getGlobalPlayerConnection")
+            return m.invoke(null)
+        } catch (e: Throwable) {}
+    }
 
     when {
         clazz == Int::class.java -> return 0
@@ -77,15 +84,38 @@ fun _createViewModelInstance(clazz: Class<*>): Any? {
             val args = constructor.parameterTypes.map { _createViewModelInstance(it) }
             return constructor.newInstance(*args.toTypedArray())
         }
-    } catch (e: Exception) {
+    } catch (e: Throwable) {
         try {
             val unsafeClass = Class.forName("sun.misc.Unsafe")
             val f = unsafeClass.getDeclaredField("theUnsafe")
             f.isAccessible = true
             val unsafe = f.get(null)
             val allocateInstance = unsafeClass.getMethod("allocateInstance", Class::class.java)
-            return allocateInstance.invoke(unsafe, clazz)
-        } catch (ue: Exception) {
+            val instance = allocateInstance.invoke(unsafe, clazz)
+            if (instance != null) {
+                var currentClass: Class<*>? = clazz
+                while (currentClass != null && currentClass != Any::class.java) {
+                    for (field in currentClass.declaredFields) {
+                        try {
+                            field.isAccessible = true
+                            if (field.get(instance) == null) {
+                                if (android.content.Context::class.java.isAssignableFrom(field.type)) {
+                                    field.set(instance, android.content.DummyContext())
+                                } else if (field.type.name == "moe.rukamori.archivetune.db.MusicDatabase") {
+                                    field.set(instance, getGlobalMusicDatabase())
+                                } else if (field.type.name == "moe.rukamori.archivetune.playback.PlayerConnection") {
+                                    val c = Class.forName("moe.rukamori.archivetune.CompositionLocalsKt")
+                                    val m = c.getMethod("getGlobalPlayerConnection")
+                                    field.set(instance, m.invoke(null))
+                                }
+                            }
+                        } catch (fe: Throwable) {}
+                    }
+                    currentClass = currentClass.superclass
+                }
+            }
+            return instance
+        } catch (ue: Throwable) {
             ue.printStackTrace()
         }
     }
