@@ -15,7 +15,7 @@ jobs:
         cachixName:
           - suhr
         nixPath:
-          - nixpkgs=channel:nixos-unstable
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository

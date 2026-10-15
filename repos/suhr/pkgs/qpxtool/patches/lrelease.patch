@@ -1,0 +1,29 @@
+diff --git a/configure b/configure
+index 3f0964c..7b52872 100755
+--- a/configure
++++ b/configure
+@@ -22,6 +22,7 @@ __enable_png=yes
+ __enable_gui=yes
+ __wt_internal=yes
+ __qmake=""
++__lrelease=""
+ __plugins_liteon_noprobe=no
+ 
+ __binsuff=""
+@@ -317,7 +318,7 @@ qt_check_qmake()
+ 			__lrelease="$qt_bindir/lrelease"
+ 		elif test -x "$qt_libexecdir/lrelease" ; then
+ 			__lrelease="$qt_libexecdir/lrelease"
+-		else
++		elif test "$__lrelease" == "" ; then
+ 			printf "\n\tError: lrelease not found in Qt6 directories!"
+ 			printf "\n\tChecked: $qt_bindir/lrelease and $qt_libexecdir/lrelease"
+ 			printf "\n\tOn Debian/Ubuntu, install it with: sudo apt install qt6-tools-dev-tools\n"
+@@ -868,6 +869,7 @@ for arg in $* ; do
+ 		--mandir=*)  mandir=`echo $arg | cut -d '=' -f 2-` ;;
+ 
+ 		--qmake=*) __qmake=`echo $arg | cut -d '=' -f 2-` ;;
++		--lrelease=*) __lrelease=`echo $arg | cut -d '=' -f 2-` ;;
+ 		--disable-png) __enable_png="no" ;;
+ 		--disable-gui) __enable_gui="no" ;;
+ 		--enable-debug) __enable_debug="yes" ;QDEBUG="CONFIG+=debug" ;;
