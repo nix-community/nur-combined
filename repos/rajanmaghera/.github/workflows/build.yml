@@ -35,9 +35,9 @@ jobs:
         cachixName:
           - rajan
         nixPath:
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-26.05.tar.gz
+          - nixpkgs-unstable
+          - nixos-unstable
+          - nixos-26.05
         os:
           - ubuntu-latest
           - macos-latest
@@ -48,7 +48,7 @@ jobs:
     - name: Install nix
       uses: cachix/install-nix-action@v31
       with:
-        nix_path: "${{ matrix.nixPath }}"
+        nix_path: "nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/${{ matrix.nixPath }}.tar.gz"
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
