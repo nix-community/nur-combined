@@ -3,6 +3,7 @@
   stdenv,
   fetchFromGitHub,
   fetchPypi,
+  fetchurl,
   buildNpmPackage,
   makeWrapper,
   autoPatchelfHook,
@@ -19,7 +20,6 @@
   jdk21_headless,
   mitmproxy,
   rizin,
-  sigrok-cli,
   unblob,
   util-linux,
   wabt,
@@ -66,6 +66,29 @@ let
     ps.pyelftools
     ps.unicorn
   ]);
+
+  # src/signals/SigrokRecordingProvider.ts admits exactly `sigrok-cli 0.7.2`
+  # whose `--version` also reports libsigrokdecode; nixpkgs ships 0.8.0, which
+  # the provider rejects outright. Take the package from the last nixpkgs
+  # revision that carried 0.7.2 (with libsigrokdecode 0.5.3, also gone):
+  # substituting the pinned tarball keeps this to one FOD fetch at evaluation
+  # and a cached download at build time, and the older glibc/glib ride along
+  # inside an independent executable with no ABI contact with the rest.
+  sigrokCli =
+    (import (builtins.fetchTarball {
+      url = "https://github.com/NixOS/nixpkgs/archive/160b762eda6d139ac10ae081f8f78d640dd523eb.tar.gz";
+      sha256 = "sha256-AqgkGHRrI6h/8FWuVbnkfFmXr4Bqsr4fV23aISqj/xg=";
+    }) { system = stdenv.hostPlatform.system; }).sigrok-cli;
+
+  # node_modules/frida is a source package: its install script runs
+  # prebuild-install (or make) to place the N-API binding, which npmFlags
+  # "--ignore-scripts" skips. Ship the upstream release artifact for the
+  # frida version the lockfile pins instead; a lockfile bump must bump this.
+  fridaVersion = "17.23.2";
+  fridaBinding = fetchurl {
+    url = "https://github.com/frida/frida/releases/download/${fridaVersion}/frida-v${fridaVersion}-napi-v8-linux-x64.tar.gz";
+    hash = "sha256-n6j2aM6R6wNxPoVk3k+PveIyIz7pHXKcFnc/3hHbrpU=";
+  };
 in
 buildNpmPackage rec {
   pname = "rea-agents";
@@ -111,10 +134,37 @@ buildNpmPackage rec {
             ;;
         esac
       done
+
+    # frida resolves its binding as module_root/build/frida_binding.node
+    # (node_modules/frida/build/src/frida.js via `bindings`), so the artifact
+    # dropped here is exactly what the runtime looks for. Installing it before
+    # fixupPhase lets autoPatchelfHook give it a glibc RUNPATH like the
+    # prebuilt @lydell/node-pty binding.
+    fridaDir="$packageDir/node_modules/frida"
+    if [ ! -f "$fridaDir/package.json" ]; then
+      echo "the locked dependency tree no longer contains frida; drop fridaBinding and the frida installCheck" >&2
+      exit 1
+    fi
+    lockedFridaVersion=$(${nodejs_24}/bin/node -p "require('$fridaDir/package.json').version")
+    if [ "$lockedFridaVersion" != "${fridaVersion}" ]; then
+      echo "locked frida is $lockedFridaVersion but fridaBinding pins ${fridaVersion}; update pkgs/rea-agents" >&2
+      exit 1
+    fi
+    chmod -R u+w "$fridaDir"
+    mkdir -p "$TMPDIR/frida-binding"
+    tar xf ${fridaBinding} -C "$TMPDIR/frida-binding"
+    install -m755 "$TMPDIR/frida-binding/build/frida_binding.node" \
+      "$fridaDir/build/frida_binding.node"
   '';
 
   # npmInstallHook's $out/bin entries exec `node scripts/rea.mjs` directly,
   # so the env defaults must wrap the bin files, not the .mjs entrypoint.
+  # Everything REA reads for itself is REA_-prefixed. The last two are the
+  # ambient names the Ghidra provider and the jadx Java probe read verbatim
+  # (src/ghidra/GhidraJavaLaunch.ts, src/android/JadxConfiguration.ts); REA
+  # ships no REA_-prefixed alias for either, so renaming them would disable the
+  # Ghidra and jadx providers rather than tidy the environment. `--set-default`
+  # keeps them overridable for callers with their own Ghidra/JDK.
   postFixup = ''
     for bin in $out/bin/rea $out/bin/rea-agents; do
       wrapProgram "$bin" \
@@ -131,9 +181,10 @@ buildNpmPackage rec {
         --set-default REA_JAVASCRIPT_PRLIMIT_COMMAND ${lib.getExe' util-linux "prlimit"} \
         --set-default REA_MITMDUMP_COMMAND ${lib.getExe' mitmproxy "mitmdump"} \
         --set-default REA_OBJDUMP_COMMAND ${lib.getExe' binutils "objdump"} \
+        --set-default REA_PWNDBG_GDB ${lib.getExe gdb} \
         --set-default REA_PWNTOOLS_PYTHON ${reaPythonEnv}/bin/python \
         --set-default REA_RIZIN_COMMAND ${lib.getExe rizin} \
-        --set-default REA_SIGROK_COMMAND ${lib.getExe' sigrok-cli "sigrok-cli"} \
+        --set-default REA_SIGROK_COMMAND ${lib.getExe' sigrokCli "sigrok-cli"} \
         --set-default REA_SIGROK_PRLIMIT_COMMAND ${lib.getExe' util-linux "prlimit"} \
         --set-default REA_TSHARK_COMMAND ${lib.getExe' wireshark-cli "tshark"} \
         --set-default REA_TSHARK_PRLIMIT_COMMAND ${lib.getExe' util-linux "prlimit"} \
@@ -214,6 +265,24 @@ buildNpmPackage rec {
     # The pinned sibling tool must run (no REA-side version gate).
     ${wakaru}/bin/wakaru --version >/dev/null
     echo "wakaru: ok"
+
+    # src/signals/SigrokRecordingProvider.ts admits exactly this banner plus
+    # libsigrokdecode; both conditions are what the wrapper's REA_SIGROK_COMMAND
+    # must satisfy, and nixpkgs' own sigrok-cli fails them.
+    sigrokVersion=$(${sigrokCli}/bin/sigrok-cli --version)
+    printf '%s\n' "$sigrokVersion" | grep -qx 'sigrok-cli 0\.7\.2' \
+      || { echo "sigrok-cli is not the exact 0.7.2 REA requires — update pkgs/rea-agents" >&2; exit 1; }
+    printf '%s\n' "$sigrokVersion" | grep -q 'libsigrokdecode' \
+      || { echo "sigrok-cli 0.7.2 was built without libsigrokdecode — update pkgs/rea-agents" >&2; exit 1; }
+    echo "sigrok-cli: ok"
+
+    # Loading frida's binding is what every REA frida tool does first
+    # (node_modules/frida/build/src/frida.js resolves build/frida_binding.node);
+    # it catches a missing artifact and an unpatched loader path alike.
+    ${nodejs_24}/bin/node --input-type=module -e "
+    await import('file://$out/lib/node_modules/rea-agents/node_modules/frida/build/src/frida.js');
+    " || { echo "frida failed to load its N-API binding — update pkgs/rea-agents" >&2; exit 1; }
+    echo "frida binding: ok"
 
     runHook postInstallCheck
   '';
