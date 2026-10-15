@@ -304,6 +304,8 @@ eachSystemOp (
                       else
                         packages.runCommand "${name}-skipped"
                           {
+                            # Lets the checks schema skip building the stub
+                            passthru.skipped = true;
                             meta.description = "Skipped: ${name} is not available on ${system}";
                           }
                           ''

@@ -86,7 +86,11 @@ in
     '';
 
   mkFlake-checks-unavailable =
+    let
+      inventory = (self.schemas.checks.inventory checksFixture.checks).children.x86_64-linux.children;
+    in
     assert checks.unavailable.name == "unavailable-skipped";
+    assert !inventory.unavailable.isFlakeCheck;
     pkgs.runCommand "mkFlake-checks-unavailable" { } ''
       test -e ${checks.unavailable}
       touch $out
