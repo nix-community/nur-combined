@@ -209,7 +209,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
       asl20
       mit
     ];
-    maintainers = with lib.maintainers; [ kleinbem mio ];
+    maintainers = with lib.maintainers; [
+      kleinbem
+      mio
+    ];
     mainProgram = "mesh-llm";
     inherit (mesh-llm-native-runtime.meta) platforms;
   };
