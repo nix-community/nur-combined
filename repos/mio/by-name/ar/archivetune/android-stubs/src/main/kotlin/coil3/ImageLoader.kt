@@ -4,6 +4,7 @@ import coil3.disk.DiskCache
 import coil3.request.CachePolicy
 import coil3.request.ImageRequest
 import coil3.request.ImageResult
+import coil3.request.SuccessResult
 import android.content.Context
 
 fun ImageLoader(context: Any?): ImageLoader = ImageLoader.Builder(context).build()
@@ -17,7 +18,7 @@ open class ComponentRegistry {
 }
 
 open class ImageLoader {
-    open suspend fun execute(request: ImageRequest): ImageResult = throw NotImplementedError()
+    open suspend fun execute(request: ImageRequest): ImageResult = SuccessResult(Image(), request)
 
     /* Upstream reads these off an ImageLoader instance (cache maintenance screen). */
     open val diskCache: DiskCache? = null

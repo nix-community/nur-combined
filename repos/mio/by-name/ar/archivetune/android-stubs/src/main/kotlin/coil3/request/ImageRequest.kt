@@ -9,20 +9,21 @@ import coil3.size.Size
  * LocalPlatformContext.imageLoader), which the JVM publication does not ship. The
  * port keeps the builder chain the app calls, loosely typed.
  */
-class ImageRequest private constructor() {
+class ImageRequest(val data: Any? = null) {
     /* Upstream reads these off a request in its OkHttp interceptor. */
-    val data: Any? = null
-
     val networkCachePolicy: CachePolicy = CachePolicy()
 
     val memoryCachePolicy: CachePolicy = CachePolicy()
 
     val diskCachePolicy: CachePolicy = CachePolicy()
 
-    fun newBuilder(): Builder = Builder()
+    fun newBuilder(): Builder = Builder(data)
 
-    class Builder(val data: Any? = null) {
-        fun data(data: Any?): Builder = this
+    class Builder(var data: Any? = null) {
+        fun data(data: Any?): Builder {
+            this.data = data
+            return this
+        }
 
         fun size(size: Size): Builder = this
         fun size(size: Int): Builder = this
@@ -57,7 +58,7 @@ class ImageRequest private constructor() {
 
         fun transformations(vararg transformations: Any): Builder = this
 
-        fun build(): ImageRequest = ImageRequest()
+        fun build(): ImageRequest = ImageRequest(data)
 
         companion object {
             fun from(context: Any): Builder = Builder()
