@@ -26,6 +26,9 @@ let
   sr-vulkan-with-models = pkgs.callPackage ./pkgs/sr-vulkan.nix {
     inherit sr-vulkan-models;
   };
+
+  wakaru = pkgs.callPackage ./pkgs/wakaru.nix { };
+  jadx-headless-mcp = pkgs.callPackage ./pkgs/jadx-headless-mcp { };
 in
 {
   # The `lib`, `modules`, and `overlays` names are special
@@ -70,6 +73,8 @@ in
   truenas-mcp = pkgs.callPackage ./pkgs/truenas-mcp.nix { };
   banguminet = pkgs.callPackage ./pkgs/banguminet { };
   pctx = pkgs.callPackage ./pkgs/pctx { };
-  wakaru = pkgs.callPackage ./pkgs/wakaru.nix { };
-  jadx-headless-mcp = pkgs.callPackage ./pkgs/jadx-headless-mcp { };
+  inherit wakaru jadx-headless-mcp;
+  rea-agents = pkgs.callPackage ./pkgs/rea-agents {
+    inherit wakaru jadx-headless-mcp;
+  };
 }
