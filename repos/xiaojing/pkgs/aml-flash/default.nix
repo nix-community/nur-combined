@@ -20,7 +20,7 @@ stdenv.mkDerivation {
     owner = "Stane1983";
     repo = "aml-linux-usb-burn";
     rev = "d2283c7d4955249f60525e0e8fb674f86f8788f7";
-    hash = lib.fakeHash;
+    hash = "sha256-O/ePyEGebw/RpYCxi4rRHj+qyjWQOiuMdY63sLgftH4=";
   };
 
   nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
