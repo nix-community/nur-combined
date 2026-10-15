@@ -1,11 +1,11 @@
 {
-  emacs30-pgtk,
+  emacs-pgtk,
   fetchpatch,
   stdenv,
   ...
 }:
 if stdenv.hostPlatform.isDarwin then
-  (emacs30-pgtk.overrideAttrs (old: {
+  (emacs-pgtk.overrideAttrs (old: {
     pname = old.pname + "-homebrew-patches";
     withXwidgets = true;
     withNativecomp = true;
@@ -34,4 +34,4 @@ if stdenv.hostPlatform.isDarwin then
     ];
   }))
 else
-  emacs30-pgtk
+  emacs-pgtk
