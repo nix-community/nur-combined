@@ -17,10 +17,6 @@ verify that failed updates restore the package directory, successful updates
 before and after a failure are retained, and summaries report failures without
 blocking PR creation. Invalid package selections remain hard errors.
 
-The Nix CI matrix also evaluates `tests/rea-home-module.nix` against each
-nixpkgs channel. It checks the bare default, Ghidra integration, the complete
-free-tools bundle, and independent per-tool selection.
-
 ### BATS tests (more comprehensive)
 
 ```bash

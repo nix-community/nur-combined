@@ -28,6 +28,5 @@
 
   # Tools
   pig = pkgs.callPackage ./pkgs/pig { };
-  rea-agents = pkgs.callPackage ./pkgs/rea-agents { };
   scopebuddy = pkgs.callPackage ./pkgs/scopebuddy { };
 }

@@ -22,7 +22,6 @@ TESTS_SKIPPED=0
 PACKAGES=(
     "cybergrub2077"
     "nmssaveeditor"
-    "rea-agents"
     "rimsort-appimage"
     "scopebuddy"
     "wowup-cf"
