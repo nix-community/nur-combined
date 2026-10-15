@@ -1,62 +1,65 @@
-# Amlogic USB 烧录工具（Amlogic USB Burning Tool 的 Linux 命令行版）
-# 用于给 S905/S912 等 Amlogic 芯片的盒子/开发板刷机
 { lib
 , stdenv
 , fetchFromGitHub
 , autoPatchelfHook
+, makeWrapper
 , libusb-compat-0_1
+, coreutils
+, gawk
+, gnused
+, gnugrep
+, findutils
+, bc
 }:
 
 stdenv.mkDerivation {
-  pname = "aml-flash";
-  version = "unstable-2023-08-29";
+  pname = "aml-linux-usb-burn";
+  version = "4.7.1-unstable-2018-05-30";
 
   src = fetchFromGitHub {
     owner = "Stane1983";
     repo = "aml-linux-usb-burn";
-    rev = "257b808ba8550db023875b139db2eca9d11d55a4";
-    hash = "sha256-pYr1wLHVDc1oEkRT+D625guyM1oTvXw65Am1FIpgH5Y=";
+    rev = "d2283c7d4955249f60525e0e8fb674f86f8788f7";
+    hash = lib.fakeHash;
   };
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [ autoPatchelfHook makeWrapper ];
+
+  # tools/update: 64 位动态链接，只需要 libusb-0.1.so.4 + libc
+  # tools/aml_image_v2_packer: 32 位【静态链接】，不需要也不能 patchelf，autoPatchelfHook 会自动跳过
   buildInputs = [ libusb-compat-0_1 ];
 
   dontConfigure = true;
   dontBuild = true;
+  dontStrip = true;
 
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin $out/libexec/aml-flash
-    cp -r tools $out/libexec/aml-flash/tools
-    install -Dm755 aml-flash $out/libexec/aml-flash/aml-flash
+    mkdir -p $out/share/aml-flash $out/bin $out/lib/udev/rules.d
+    cp -r aml-flash tools $out/share/aml-flash/
+    chmod +x $out/share/aml-flash/aml-flash \
+             $out/share/aml-flash/tools/update \
+             $out/share/aml-flash/tools/aml_image_v2_packer
 
-    # 脚本通过 "$(dirname $0)/tools/..." 定位辅助二进制。
-    # 由于脚本会被符号链接到 $out/bin，dirname $0 会解析错位置，
-    # 这里直接把工具路径硬编码为 store 路径。
-    substituteInPlace $out/libexec/aml-flash/aml-flash \
-      --replace 'TOOL_PATH="$(cd $(dirname $0); pwd)"' \
-                 'TOOL_PATH="'"$out"'/libexec/aml-flash"'
+    # 脚本用 dirname $0 定位 tools/（不跟随符号链接），
+    # 所以 wrapper 必须指向 share 里的真实脚本，而不是 symlink
+    makeWrapper $out/share/aml-flash/aml-flash $out/bin/aml-flash \
+      --prefix PATH : ${lib.makeBinPath [ coreutils gawk gnused gnugrep findutils bc ]}
 
-    ln -s $out/libexec/aml-flash/aml-flash $out/bin/aml-flash
+    cat > $out/lib/udev/rules.d/70-amlogic-usb-burn.rules <<'EOF'
+    SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTR{idVendor}=="1b8e", ATTR{idProduct}=="c003", MODE="0666", TAG+="uaccess"
+    EOF
 
     runHook postInstall
   '';
 
-  postInstall = ''
-    mkdir -p $out/lib/udev/rules.d
-    cat > $out/lib/udev/rules.d/70-amlogic-usb.rules <<'EOF'
-SUBSYSTEM=="usb", ENV{DEVTYPE}=="usb_device", ATTR{idVendor}=="1b8e", ATTR{idProduct}=="c003", MODE:="0666", SYMLINK+="worldcup"
-EOF
-  '';
-
   meta = {
-    description = "Linux command-line version of the Amlogic USB Burning Tool, for flashing Amlogic SoC boards (S905/S905X/S912/A113/T962/...) over USB";
+    description = "Linux version of the Amlogic USB Burning Tool";
     homepage = "https://github.com/Stane1983/aml-linux-usb-burn";
     license = lib.licenses.unfree;
-    sourceProvenance = with lib.sourceTypes; [ fromSource binaryNativeCode ];
+    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     platforms = [ "x86_64-linux" ];
     mainProgram = "aml-flash";
-    maintainers = [ ];
   };
 }

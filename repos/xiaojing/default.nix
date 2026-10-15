@@ -21,6 +21,4 @@
 
   aml-flash = pkgs.callPackage ./pkgs/aml-flash { };
   wechat = pkgs.callPackage ./pkgs/wechat {};
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
 }
