@@ -10,7 +10,11 @@
   pkgs ? import <nixpkgs> { },
 }:
 let
-  ieda-unstable = pkgs.callPackage ./pkgs/ieda { };
+  # iEDA's vendored abseil-cpp (lts_20230125) does not compile with GCC 16,
+  # which is the default compiler on current nixpkgs-unstable.
+  # Pin the GCC 15 stdenv that nixpkgs-unstable shipped when this iEDA
+  # version was packaged (2025-12).
+  ieda-unstable = pkgs.callPackage ./pkgs/ieda { stdenv = pkgs.gcc15Stdenv; };
 in
 {
   # The `lib`, `modules`, and `overlays` names are special
