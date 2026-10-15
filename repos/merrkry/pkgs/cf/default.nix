@@ -19,20 +19,20 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "cf";
-  version = "1.0.0-beta.16";
+  version = "1.0.0-beta.17";
 
   src = fetchFromGitHub {
     owner = "cloudflare";
     repo = "cf";
     tag = "cf@${finalAttrs.version}";
-    hash = "sha256-qpLkA4mR2unBUSPvCi9g1VXbS/GvnsQdt+IFx9PG6mk=";
+    hash = "sha256-swiopuaB4VP4FYzIUIa0EIJ51P7/iXKrFzKBtMUHPng=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     pnpm = pnpm_12;
     fetcherVersion = 4;
-    hash = "sha256-NdjMAECy0/L/CEHHULi1qfZ0BduIJbu6HsL5UW9TCqw=";
+    hash = "sha256-XM2GbfdqmjQ2ShnpdybvmHfXja9k32BLY0VJUQuBTuE=";
   };
 
   strictDeps = true;
