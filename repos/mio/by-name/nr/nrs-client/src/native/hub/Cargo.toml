@@ -1,0 +1,29 @@
+[package]
+# Do not change the name of this crate.
+name = "hub"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+# `lib` is required for non-library targets,
+# such as tests and benchmarks.
+# `cdylib` is for Linux, Android, Windows, and web.
+# `staticlib` is for iOS and macOS.
+crate-type = ["lib", "cdylib", "staticlib"]
+
+[lints.clippy]
+unwrap_used = "deny"
+expect_used = "deny"
+wildcard_imports = "deny"
+
+[dependencies]
+rinf = "8.11.0"
+serde = { version = "1.0.219", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1.45.0", features = ["rt", "macros", "time", "sync"] }
+async-trait = "0.1.87"
+messages = "0.3.1"
+reqwest = { version = "0.12", default-features = false, features = ["json", "socks", "rustls-tls", "cookies"] }
+chrono = { version = "0.4", features = ["serde"] }
+anyhow = "1.0"
+
