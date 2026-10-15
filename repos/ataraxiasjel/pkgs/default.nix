@@ -43,7 +43,8 @@ let
     sing-box-lx-full = final.callPackage ./sing-box/lx.nix { withCGO = true; };
     sing-box-stable = final.callPackage ./sing-box/stable.nix { };
     sing-box-stable-full = final.callPackage ./sing-box/stable.nix { withCGO = true; };
-    stalker-gamma-cli = final.callPackage ./stalker-gamma-cli { };
+    stalker-gamma-cli = (final.callPackage ./stalker-gamma-cli { }).cli;
+    stalker-gamma-server = (final.callPackage ./stalker-gamma-cli { }).server;
     strudel = final.callPackage ./strudel { };
     strudel-with-server = final.strudel.override { withServer = true; };
     suwayomi-server = final.callPackage ./suwayomi-server { };
