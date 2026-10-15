@@ -13,8 +13,8 @@ rustPlatform.buildRustPackage {
   src = fetchFromGitHub {
     owner = "manic-systems";
     repo = "cade";
-    rev = "8f6968724afe45f33ac8ba09f9c0262e5ebb31f8";
-    hash = "sha256-/TOFSsj1bScy1zHEtx0l0J/dzu1pw2RDAC5Fcj4AFZY=";
+    rev = "250ef2c417ae78ca54decba9305bea3ed9686ca0";
+    hash = "sha256-Fe5OWyg7F7iGDWBW0N8N246Echby6P3/9xF4283t3Z4=";
   };
 
   cargoHash = "sha256-LHjJ5DkvFlIDWebJj8uIkrYKVCzxT/f9mswAz391DEs=";
