@@ -6,16 +6,16 @@ open class Timeline {
         val EMPTY: Timeline = object : Timeline() {}
     }
     open class Window {
-        val firstPeriodIndex: Int = 0
-        val lastPeriodIndex: Int = 0
-        val uid: Any = Any()
-        val isLive: Boolean = false
-        val isDynamic: Boolean = false
-        val isSeekable: Boolean = true
-        val durationMs: Long = 0L
-        val defaultPositionMs: Long = 0L
-        val currentPositionMs: Long = 0L
-        val mediaItem: MediaItem = MediaItem.Builder().build()
+        var firstPeriodIndex: Int = 0
+        var lastPeriodIndex: Int = 0
+        var uid: Any = Any()
+        var isLive: Boolean = false
+        var isDynamic: Boolean = false
+        var isSeekable: Boolean = true
+        var durationMs: Long = 0L
+        var defaultPositionMs: Long = 0L
+        var currentPositionMs: Long = 0L
+        var mediaItem: MediaItem = MediaItem.Builder().build()
     }
     
     open class Period {
