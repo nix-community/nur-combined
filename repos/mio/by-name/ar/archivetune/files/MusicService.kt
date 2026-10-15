@@ -2,7 +2,6 @@ package moe.rukamori.archivetune.playback
 
 import android.content.ContentResolver
 import android.content.Context
-import android.os.Binder
 import androidx.media3.common.PlaybackParameters
 import androidx.media3.common.Player
 import androidx.media3.common.Timeline
@@ -29,7 +28,7 @@ import moe.rukamori.archivetune.together.TogetherSessionState
  * ids, the binder, and the service state the view models observe).
  */
 class MusicService {
-    class MusicBinder internal constructor(val service: MusicService) : Binder()
+    class MusicBinder internal constructor(val service: MusicService)
 
     /*
      * Upstream reads `player.currentMetadata` as the app's own MediaMetadata model (media3's
