@@ -159,6 +159,10 @@ lib.overrideDerivation
 
         export DEVELOPER_DIR="$FAKE_DEV_DIR"
         export PATH="$(pwd)/custom_bin:$PATH"
+
+        export SSL_CERT_FILE="${cacert}/etc/ssl/certs/ca-bundle.crt"
+        export GIT_SSL_CAINFO="${cacert}/etc/ssl/certs/ca-bundle.crt"
+
         unset LD
 
         flutter build macos -v --release

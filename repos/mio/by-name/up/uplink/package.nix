@@ -33,7 +33,7 @@ lib.overrideDerivation
 
       targetFlutterPlatform = if stdenv.hostPlatform.isDarwin then "macos" else "linux";
 
-      autoPubspecLock = ./pubspec.lock;
+      pubspecLock = lib.importJSON ./pubspec.lock.json;
 
       cargoDeps = rustPlatform.importCargoLock {
         lockFile = ./Cargo.lock;
@@ -209,6 +209,9 @@ lib.overrideDerivation
 
         export DEVELOPER_DIR="$FAKE_DEV_DIR"
         export PATH="$(pwd)/custom_bin:$PATH"
+
+        export SSL_CERT_FILE="${cacert}/etc/ssl/certs/ca-bundle.crt"
+        export GIT_SSL_CAINFO="${cacert}/etc/ssl/certs/ca-bundle.crt"
 
         # Nixpkgs sets LD=ld, which causes xcodebuild to invoke ld directly
         # but still pass -Xlinker flags meant for clang. Unset it to use default.

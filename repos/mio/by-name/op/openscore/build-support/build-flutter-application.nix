@@ -99,7 +99,11 @@ lib.extendMkDerivation {
 
           export HOME="$NIX_BUILD_TOP"
           flutter config $flutterFlags --no-analytics &>/dev/null # mute first-run
-          flutter config $flutterFlags --enable-linux-desktop >/dev/null
+          if [ "${targetFlutterPlatform}" = "macos" ]; then
+            flutter config $flutterFlags --enable-macos-desktop >/dev/null
+          else
+            flutter config $flutterFlags --enable-linux-desktop >/dev/null
+          fi
         '';
 
         pubGetScript =
