@@ -1,13 +1,19 @@
 package androidx.compose.material3.carousel
 
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.shape.GenericShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Rect
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -30,27 +36,69 @@ val CarouselState.currentItem: Int
 
 @OptIn(ExperimentalMaterial3Api::class)
 val CarouselState.itemCount: Int
-    get() = itemCountState.value.invoke()
+    get() = try {
+        itemCountState.value.invoke()
+    } catch (_: Throwable) {
+        0
+    }
+
+@OptIn(ExperimentalMaterial3Api::class)
+private val desktopCarouselItemInfo: CarouselItemInfo by lazy {
+    java.lang.reflect.Proxy.newProxyInstance(
+        CarouselItemInfo::class.java.classLoader,
+        arrayOf(CarouselItemInfo::class.java),
+    ) { proxy, method, args ->
+        when (method.name) {
+            "getSize" -> 1000f
+            "getMinSize" -> 0f
+            "getMaxSize" -> 10000f
+            "getMaskRect" -> Rect(0f, 0f, 10000f, 10000f)
+            "toString" -> "DesktopCarouselItemInfo"
+            "hashCode" -> 42
+            "equals" -> args?.getOrNull(0) === proxy
+            else -> null
+        }
+    } as CarouselItemInfo
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 private val desktopCarouselItemScope: CarouselItemScope by lazy {
-    try {
-        val infoClass = Class.forName("androidx.compose.material3.carousel.CarouselItemInfoImpl")
-        val scopeClass = Class.forName("androidx.compose.material3.carousel.CarouselItemScopeImpl")
-        val info = infoClass.getDeclaredConstructor().newInstance()
-        val ctor = scopeClass.declaredConstructors.first()
-        ctor.isAccessible = true
-        ctor.newInstance(info) as CarouselItemScope
-    } catch (_: Throwable) {
-        java.lang.reflect.Proxy.newProxyInstance(
-            CarouselItemScope::class.java.classLoader,
-            arrayOf(CarouselItemScope::class.java),
-        ) { _, method, args ->
-            if (method.name.startsWith("maskClip") && args != null && args.isNotEmpty()) {
-                args[0]
-            } else null
-        } as CarouselItemScope
-    }
+    java.lang.reflect.Proxy.newProxyInstance(
+        CarouselItemScope::class.java.classLoader,
+        arrayOf(CarouselItemScope::class.java),
+    ) { proxy, method, args ->
+        when {
+            method.name.startsWith("getCarouselItemInfo") -> desktopCarouselItemInfo
+            method.name.startsWith("maskClip") && args != null && args.size >= 2 -> {
+                val modifier = args[0] as? Modifier ?: Modifier
+                val shape = args[1] as? Shape
+                if (shape != null) {
+                    modifier.clip(shape)
+                } else {
+                    modifier
+                }
+            }
+            method.name.startsWith("maskBorder") && args != null && args.size >= 3 -> {
+                val modifier = args[0] as? Modifier ?: Modifier
+                val border = args[1] as? BorderStroke
+                val shape = args[2] as? Shape
+                if (border != null && shape != null) {
+                    modifier.border(border, shape)
+                } else {
+                    modifier
+                }
+            }
+            method.name.startsWith("rememberMaskShape") -> {
+                GenericShape { size, _ ->
+                    addRect(Rect(0f, 0f, size.width, size.height))
+                }
+            }
+            method.name == "toString" -> "DesktopCarouselItemScope"
+            method.name == "hashCode" -> 42
+            method.name == "equals" -> args?.getOrNull(0) === proxy
+            else -> null
+        }
+    } as CarouselItemScope
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -63,7 +111,7 @@ fun HorizontalCenteredHeroCarousel(
     contentPadding: PaddingValues = PaddingValues(0.dp),
     content: @Composable CarouselItemScope.(Int) -> Unit,
 ) {
-    val count = state.itemCountState.value.invoke()
+    val count = state.itemCount
     LazyRow(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(itemSpacing),

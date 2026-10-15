@@ -391,7 +391,7 @@
 +                    }
 +                } else if state.active_touch_id == Some(id) && !state.is_scrolling {
 +                    state.mouse_location = Some(position);
-+                    
++
 +                    let mut start_scroll = false;
 +                    if state.touchscreen_drag_scrolls {
 +                        if let Some(initial) = state.touch_initial_location {
@@ -406,7 +406,7 @@
 +                    if start_scroll {
 +                        state.is_scrolling = true;
 +                        state.last_scroll_center = Some(position);
-+                        
++
 +                        // Cancel the pending click before scrolling.
 +                        let need_up = state.touch_mouse_down_sent;
 +                        state.touch_mouse_down_sent = false;
