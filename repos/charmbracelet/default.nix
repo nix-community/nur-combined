@@ -18,6 +18,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   charm = pkgs.callPackage ./pkgs/charm { };
+  charmtone = pkgs.callPackage ./pkgs/charmtone { };
   confettysh = pkgs.callPackage ./pkgs/confettysh { };
   crush = pkgs.callPackage ./pkgs/crush { };
   freeze = pkgs.callPackage ./pkgs/freeze { };
