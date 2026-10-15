@@ -144,12 +144,12 @@
   };
   pyromark = {
     pname = "pyromark";
-    version = "v0.9.14";
+    version = "v0.10.0";
     src = fetchFromGitHub {
       owner = "monosans";
       repo = "pyromark";
-      tag = "v0.9.14";
-      hash = "sha256-uqb+2E7CYXOZ78/A8RdVzBmbBRC00LUPTUkaErYlyaY=";
+      tag = "v0.10.0";
+      hash = "sha256-s0fsfWJ4DaCsobSR/mdOPZdGdV4stuPqhYbICMiY+88=";
     };
   };
   sublinkpro-linux-amd64 = {

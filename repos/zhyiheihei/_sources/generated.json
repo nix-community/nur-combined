@@ -287,12 +287,12 @@
             "name": null,
             "owner": "monosans",
             "repo": "pyromark",
-            "rev": "v0.9.14",
-            "sha256": "sha256-uqb+2E7CYXOZ78/A8RdVzBmbBRC00LUPTUkaErYlyaY=",
+            "rev": "v0.10.0",
+            "sha256": "sha256-s0fsfWJ4DaCsobSR/mdOPZdGdV4stuPqhYbICMiY+88=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.9.14"
+        "version": "v0.10.0"
     },
     "sublinkpro-linux-amd64": {
         "cargoLock": null,
