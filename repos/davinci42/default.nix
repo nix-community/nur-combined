@@ -2,6 +2,7 @@
   pkgs ? import <nixpkgs> { },
 }:
 {
+  basic-memory = pkgs.callPackage ./pkgs/basic-memory { };
   cf = pkgs.callPackage ./pkgs/cf { };
   changedetection-io = pkgs.callPackage ./pkgs/changedetection-io { };
   fluxdown-server = pkgs.callPackage ./pkgs/fluxdown-server { };

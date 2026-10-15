@@ -1,0 +1,27 @@
+{
+  "fastmcp": {
+    "version": "4.0.0b1",
+    "url": "https://files.pythonhosted.org/packages/2c/66/41b503ef852eff83f3f0c04f46cd1fc738c5374fd509384fc6b96e45918f/fastmcp-4.0.0b1-py3-none-any.whl",
+    "hash": "d66eb7b0763ffff2ae0fc573778ea25604dcb7e59769e5afaf9851a806eb1129"
+  },
+  "fastmcp-slim": {
+    "version": "4.0.0b1",
+    "url": "https://files.pythonhosted.org/packages/90/5d/fbe192d2ab50bb31b284fd0eb6c72d4347df7a57d836bee4f1973ffd1d7d/fastmcp_slim-4.0.0b1-py3-none-any.whl",
+    "hash": "dd907a3db5a2f479ca958c30157e227b4f7b340a56d333eb91de95719254597a"
+  },
+  "litellm": {
+    "version": "1.91.3",
+    "url": "https://files.pythonhosted.org/packages/d6/3c/157c54c924f9e6025797545a0cd915a98e98ad8d3f9011502a575781d4b5/litellm-1.91.3-py3-none-any.whl",
+    "hash": "5be4df2bdf5459f46a6224a75046f365dc979995a37a81f5aa3ce29f92f534cf"
+  },
+  "mcp": {
+    "version": "2.0.0",
+    "url": "https://files.pythonhosted.org/packages/67/72/7d7897418912c1d12e87556630dfb7bf0eac71160e9bef8b447960804ee3/mcp-2.0.0-py3-none-any.whl",
+    "hash": "1cb4c75d2d2c7b8c1d756355e5d82a39f2822cc7f13e22a2051d7ca3592349d6"
+  },
+  "mcp-types": {
+    "version": "2.0.0",
+    "url": "https://files.pythonhosted.org/packages/f5/4c/c78d78c3d52b0ac594ad7cc8ef5972adfe070e3597a8a4c6ce0cd39196ea/mcp_types-2.0.0-py3-none-any.whl",
+    "hash": "6b2de797ca2797f568b79529e1b25948e34de511bcc0bd82fef1039a6d1b8eb0"
+  }
+}

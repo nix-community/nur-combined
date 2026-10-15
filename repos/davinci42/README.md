@@ -5,6 +5,7 @@ Personal Nix packages, NixOS modules and nix-darwin modules using the caller's `
 
 | Package | NixOS module | Documentation |
 | --- | --- | --- |
+| `basic-memory` | None | [Markdown memory and MCP server](pkgs/basic-memory/README.md) |
 | `cf` | None | [Cloudflare CLI](pkgs/cf/README.md) |
 | `changedetection-io` | Use nixpkgs' module with this package | [changedetection.io](pkgs/changedetection-io/README.md) |
 | `fluxdown-server` | `nixosModules.fluxdown` | [FluxDown Server](pkgs/fluxdown-server/README.md) |
