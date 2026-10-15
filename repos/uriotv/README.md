@@ -14,6 +14,7 @@
 | **`rimsort-appimage`** | Open source mod manager for RimWorld (AppImage) | **Auto** (Weekly) |
 | **`wowup-cf`** | World of Warcraft addon manager with CurseForge support (AppImage) | **Auto** (Weekly) |
 | **`scopebuddy`** | ScopeBuddy application | **Auto** (Weekly) |
+| **`bbport`** | Native Linux port of Bloodborne (needs your own game dump) | **Auto** (Weekly) |
 | **`cybergrub2077`** | Cyberpunk 2077 inspired GRUB theme | **Auto** (Weekly) |
 
 ## Usage
