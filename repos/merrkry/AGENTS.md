@@ -1,5 +1,9 @@
 # Merrkry's NUR Repository
 
+## Updates
+
+Use `mise run update -- <package> [<package> ...]` to update packages.
+
 ## Packaging
 
 Aim for low maintenance: prefer packaging that keeps working across automatic updates without manual changes.
@@ -8,7 +12,7 @@ Follow nixpkgs' packaging conventions, including its manual for the relevant pac
 
 - Reuse the upstream build process as much as possible. Don't disable the entire upstream test suite.
 - Set `meta.description` from the upstream GitHub "About" text. If there is none, summarize the introduction in the README. Follow nixpkgs' conventions: a short noun phrase, e.g. `CLI for XXX`, without a leading article, the package name, or trailing punctuation.
-- Make sure the repository CI can update the package. In order of preference: the repository's default handling, `passthru.updateScript` with `nix-update` and extra arguments, a custom update script.
+- Keep packages compatible with the updater. In order of preference: the repository's default handling, `passthru.updateScript` with `nix-update` and extra arguments, a custom update script.
 - When supported by the build system, enable `strictDeps` and `__structuredAttrs`, and define the derivation with `finalAttrs`.
 - Keep this directory usable as a standalone NUR repository, independent of the rest of the parent folder, if working in a monorepo.
 - Primarily focus on `x86_64-linux`. No verifications for other platforms needed. When packaging requries extra effort for other platforms, e.g. platform-specific workarounds, maintaining hashes for and caching large binaries, drop the support for them.

@@ -1,0 +1,4 @@
+[tasks.update]
+description = "Update NUR packages and validate changes; print JSON results"
+dir = "{{config_root}}"
+run = "nix shell --impure --expr 'with import <nixpkgs> { }; [ nix-update python3 ]' --command python3 update.py"
