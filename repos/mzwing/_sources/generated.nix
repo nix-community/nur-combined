@@ -96,10 +96,10 @@
   };
   cnb-cli = {
     pname = "cnb-cli";
-    version = "1.17.43";
+    version = "1.17.45";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.43.tgz";
-      sha256 = "sha256-o3X34ealAp15lmaggJ11bbg0a+erf6obD+jqYbgcA5M=";
+      url = "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.17.45.tgz";
+      sha256 = "sha256-8/cJAXM36apC9+m6xgBnFkU8M2OWQkQI+kMeTgjQ650=";
     };
   };
   codegraph = {
@@ -216,13 +216,13 @@
   };
   magic-context = {
     pname = "magic-context";
-    version = "v0.49.1";
+    version = "v0.49.3";
     src = fetchFromGitHub {
       owner = "cortexkit";
       repo = "magic-context";
-      rev = "v0.49.1";
+      rev = "v0.49.3";
       fetchSubmodules = false;
-      sha256 = "sha256-14tCUPbBJXq6uVWyiyDLg/xWfOasSEf2TphiWvP5RNw=";
+      sha256 = "sha256-SnfrtGyrX9G+IJK8WPNjzmWngTlNKx8+WCqOarBAmuA=";
     };
   };
   manboster = {
