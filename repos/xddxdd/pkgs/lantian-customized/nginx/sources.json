@@ -31,10 +31,10 @@
     "rev": "3c10d42f8c3f78b6310906eab5c8e066ee753330"
   },
   "nginx-module-vts": {
-    "hash": "sha256-4uYnxUBdUdlDW3feGHK8urM7Ss3ORkx8ZVYZN0FHwAc=",
+    "hash": "sha256-ohFmxgNVyL0Nsa8wTuWqRKRrIwmf/qXVIS0JmWdbvRI=",
     "owner": "vozlt",
     "repo": "nginx-module-vts",
-    "rev": "52fe11e44c47a49b052be89e36dfa17d81bf52a5"
+    "rev": "fa36a4680d7e3fe2ec3c38d3961fd177d7a0d366"
   },
   "nginx-oidc": {
     "fetchSubmodules": true,

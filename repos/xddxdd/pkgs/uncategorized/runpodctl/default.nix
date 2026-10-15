@@ -7,16 +7,16 @@
 
 buildGo127Module (finalAttrs: {
   pname = "runpodctl";
-  version = "2.15.0";
+  version = "3.0.1";
   src = fetchFromGitHub {
     owner = "runpod";
     repo = "runpodctl";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Di9jIFc3MMQytGqQdR6tUx5Q9aukSErp5AKK+0mgBoM=";
+    hash = "sha256-YXtdlX+HbPEp0LuZqYHxns6WpPydrS/Qsf7SjZ9kSqo=";
   };
   __structuredAttrs = true;
   strictDeps = true;
-  vendorHash = "sha256-9z8VB/vZmJ5IdROwJPQPKzBsi03Va8NC1TNi36FEMsI=";
+  vendorHash = "sha256-Csrq2LotNk+kdcz3wjWL2aMIY1PRdLUKrtAChHFk09E=";
 
   postFixup = ''
     rm -f $out/bin/docs
