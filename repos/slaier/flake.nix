@@ -25,6 +25,9 @@
       url = "github:slaier/bluetooth-player";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    agents-nix.url = "github:sudosubin/agents.nix";
+    agents-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -105,6 +108,7 @@
               nixpkgs.overlays = overlayList ++ [
                 bluetooth-player.overlays."${config.nixpkgs.hostPlatform.system}".default
                 niri.overlays.niri
+                agents-nix.overlays.default
               ];
 
               home-manager = {

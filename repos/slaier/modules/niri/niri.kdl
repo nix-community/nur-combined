@@ -4,11 +4,8 @@ hotkey-overlay {
 
 input {
     keyboard {
-        repeat-delay 300
+        repeat-delay 200
         repeat-rate 30
-        xkb {
-            options "ctrl:nocaps"
-        }
     }
 }
 
@@ -25,7 +22,7 @@ gestures {
 
 spawn-at-startup "bash" "-c" "swaybg -i $XDG_DATA_HOME/backgrounds/nixos/nix-wallpaper-dracula.png"
 spawn-at-startup "niriswitcher"
-spawn-at-startup "qbittorrent"
+spawn-at-startup "bash" "-c" "${XDG_CONFIG_HOME:-$HOME/.config}/niri/qbittorrent-ipv6.sh"
 
 window-rule {
     match app-id=r#"^scrcpy-mask$"#

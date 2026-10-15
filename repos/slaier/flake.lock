@@ -1,5 +1,25 @@
 {
   "nodes": {
+    "agents-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1791987827,
+        "narHash": "sha256-tmpuMHIAOze1JGjI/G47srJLnSE8WnvZ2W5hVdt89yM=",
+        "owner": "sudosubin",
+        "repo": "agents.nix",
+        "rev": "61b2e0bf586aab79f4aa76340ba81ffcbf75a935",
+        "type": "github"
+      },
+      "original": {
+        "owner": "sudosubin",
+        "repo": "agents.nix",
+        "type": "github"
+      }
+    },
     "bluetooth-player": {
       "inputs": {
         "flake-utils": "flake-utils",
@@ -265,6 +285,7 @@
     },
     "root": {
       "inputs": {
+        "agents-nix": "agents-nix",
         "bluetooth-player": "bluetooth-player",
         "darkmatter-grub-theme": "darkmatter-grub-theme",
         "home-manager": "home-manager",

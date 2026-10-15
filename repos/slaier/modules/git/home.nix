@@ -45,6 +45,17 @@
 
   programs.diff-so-fancy.enable = true;
 
+  programs.git.hooks.post-commit = pkgs.writeShellScript "post-commit" ''
+    [ -n "$GIT_DATE_FIXUP" ] && exit 0
+    git rev-parse --verify --quiet HEAD^ >/dev/null || exit 0
+    lo=$(git show -s --format=%ct 'HEAD^')
+    hi=$(date +%s)
+    [ "$lo" -ge "$hi" ] && exit 0
+    d=$(${pkgs.coreutils}/bin/shuf -i "$lo-$hi" -n 1)
+    export GIT_DATE_FIXUP=1
+    GIT_COMMITTER_DATE="@$d +0800" git commit --amend --no-edit --date="@$d +0800"
+  '';
+
   programs.gh = {
     enable = true;
     gitCredentialHelper.enable = false;

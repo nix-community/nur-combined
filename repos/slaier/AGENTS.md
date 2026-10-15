@@ -23,6 +23,10 @@ Compact guidance for OpenCode sessions in this NixOS flake repo. Covers only the
 - Directories prefixed with `_` (e.g. `_archive`) are skipped.
 - A `package.nix` is auto-wrapped as an overlay under `pkgs.<parent-dir-name>` (guarded by `assert !(lib.hasAttr name prev)`). A module's NixOS/Home config can reuse it directly as `pkgs.<name>`; name collisions with existing `pkgs` attrs are forbidden. A directory can mix names (e.g. `modules/pipewire` has `default.nix` alongside `pw-duck/package.nix`).
 
+## Dotfiles / ~/.config
+
+- Edit the owning module under `modules/`, never the deployed files under `~/.config` or `~/.local`: those are read-only nix store symlinks. To find the source, grep for the deployed path in `modules/**/home.nix`. opencode's config lives in `modules/ai/opencode/` (skills in `modules/ai/opencode/skills/<name>/SKILL.md`, agents/commands similarly). Changes apply after the next `just` activation. Do NOT replace a symlink with a real file, and do NOT `cp -L` it into place.
+
 ## Secrets
 
 - Encrypted with sops-nix. Add/replace via `sops secrets/secrets.yaml`; reference in config with `sops.secrets.<name>` (see `modules/sops/default.nix`).

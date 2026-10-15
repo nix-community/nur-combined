@@ -8,6 +8,7 @@ in
   home.packages = [ pkgs.swaybg ];
   xdg.dataFile."${bg}".source = bgPath;
   xdg.configFile."niri/config.kdl".source = ./niri.kdl;
+  xdg.configFile."niri/qbittorrent-ipv6.sh".source = ./qbittorrent-ipv6.sh;
   xdg.mimeApps = {
     enable = true;
     defaultApplications."inode/directory" = "org.gnome.Nautilus.desktop";
