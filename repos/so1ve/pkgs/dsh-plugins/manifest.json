@@ -6,10 +6,10 @@
     "npmDepsHash": "sha256-FSHuMmbDRueVAErcQ84SFdq+l29Ym/Fug7D684KRA/4="
   },
   "npm:dsh-context": {
-    "version": "0.69.1",
-    "url": "https://registry.npmjs.org/dsh-context/-/dsh-context-0.69.1.tgz",
-    "integrity": "sha512-DolHfuqxJCwcKiXawstVlSyc3ew6OZq+nGhp8n+9OT9+wbNg9m2H+vA79ex36Tx6fxmJNuVlaErtViLykyuI3A==",
-    "npmDepsHash": "sha256-H1n+ZzyRdv+jGnocUrFCQEogHdR9wgP3Rk6q48RQfJ0="
+    "version": "0.70.0",
+    "url": "https://registry.npmjs.org/dsh-context/-/dsh-context-0.70.0.tgz",
+    "integrity": "sha512-MSSSI3KUdzl1NdaYoHTi49FCQbeilNTEtnbLHLkcyemQOxZDSQci0GYjHS9WbDEBCw/IQ7nDW3uTc25LH1da1A==",
+    "npmDepsHash": "sha256-kIqmzWPBdam6jyq1jyn4tnTSVMWBKQJAldKrwVogc+k="
   },
   "github:YuJunZhiXue/dsh-purge": {
     "version": "1.1.71",
