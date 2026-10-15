@@ -64,7 +64,6 @@ dependencies {
     implementation(project(":canvas"))
     implementation(project(":lastfm"))
     implementation(project(":shazamkit"))
-    implementation("org.robolectric:android-all:14-robolectric-10818077")
 
     implementation("androidx.room:room-runtime:2.8.4")
     ksp("androidx.room:room-compiler:2.8.4")

@@ -1,11 +1,11 @@
 package androidx.media3.exoplayer.offline
 
 open class DownloadService(
-    val foregroundNotificationId: Int,
-    val foregroundNotificationUpdateInterval: Long,
-    val channelId: String?,
-    val channelNameResourceId: Int,
-    val channelDescriptionResourceId: Int
+    val foregroundNotificationId: Int = 0,
+    val foregroundNotificationUpdateInterval: Long = 0,
+    val channelId: String? = null,
+    val channelNameResourceId: Int = 0,
+    val channelDescriptionResourceId: Int = 0
 ) : android.app.Service() {
     /* Subclasses provide these; the port's DownloadService must expose them as overridable. */
     open fun getDownloadManager(): androidx.media3.exoplayer.offline.DownloadManager =

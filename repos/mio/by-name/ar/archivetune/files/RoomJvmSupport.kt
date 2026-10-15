@@ -2,7 +2,7 @@
 //
 // Room's KSP code generator picks its "Android" code shape when `android.content.Context` is
 // resolvable on the processing classpath (which it is here, because :app depends on
-// org.robolectric:android-all). That shape calls two helpers that only exist in the *Android*
+// :android-stubs). That shape calls two helpers that only exist in the *Android*
 // runtime artifact (androidx.room:room-runtime-android), not in the JVM one
 // (androidx.room:room-runtime-jvm):
 //

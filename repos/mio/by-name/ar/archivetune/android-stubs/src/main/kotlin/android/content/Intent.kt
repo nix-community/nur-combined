@@ -64,5 +64,13 @@ open class Intent {
         const val FLAG_ACTIVITY_CLEAR_TOP = 0x04000000
         const val FLAG_GRANT_READ_URI_PERMISSION = 0x00000001
         const val FLAG_GRANT_WRITE_URI_PERMISSION = 0x00000002
+        const val FLAG_IMMUTABLE = 0x04000000
+        const val FLAG_UPDATE_CURRENT = 0x08000000
+        const val ACTION_BATTERY_CHANGED = "android.intent.action.BATTERY_CHANGED"
+        const val ACTION_SCREEN_OFF = "android.intent.action.SCREEN_OFF"
+        const val ACTION_TIMEZONE_CHANGED = "android.intent.action.TIMEZONE_CHANGED"
+        const val ACTION_TIME_CHANGED = "android.intent.action.TIME_SET"
+        const val ACTION_TIME_TICK = "android.intent.action.TIME_TICK"
+        const val ACTION_SEND_MULTIPLE = "android.intent.action.SEND_MULTIPLE"
     }
 }

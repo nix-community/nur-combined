@@ -23,6 +23,5 @@ dependencies {
     // media3's BitmapLoader and the kotlinx-coroutines guava adapter are typed in
     // terms of ListenableFuture, so the real Guava is needed to compile them.
     implementation("com.google.guava:guava:33.6.0-jre")
-    compileOnly("org.robolectric:android-all:14-robolectric-10818077")
     api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.11.0")
 }

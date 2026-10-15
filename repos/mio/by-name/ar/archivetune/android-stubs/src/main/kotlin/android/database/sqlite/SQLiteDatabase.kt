@@ -13,4 +13,4 @@ open class SQLiteDatabase {
     }
 }
 
-interface DatabaseErrorHandler
+typealias DatabaseErrorHandler = android.database.DatabaseErrorHandler

@@ -120,6 +120,9 @@ stdenv.mkDerivation (finalAttrs: {
         # manager that the (kept) debug settings screen still renders.
         install -m644 ${./files/AodPlayerScreen.kt} app/src/main/kotlin/moe/rukamori/archivetune/ui/player/AodPlayerScreen.kt
         install -m644 ${./files/DiscordPresenceManager.kt} app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/DiscordPresenceManager.kt
+        install -m644 ${./files/ComposeToImage.kt} app/src/main/kotlin/moe/rukamori/archivetune/utils/ComposeToImage.kt
+        install -m644 ${./files/ExoDownloadService.kt} app/src/main/kotlin/moe/rukamori/archivetune/playback/ExoDownloadService.kt
+        install -m644 ${./files/UpdateNotificationManager.kt} app/src/main/kotlin/moe/rukamori/archivetune/utils/UpdateNotificationManager.kt
 
         # Copy our desktop UI components
         patch -p1 < ${./desktop-ui.patch}
@@ -155,9 +158,10 @@ stdenv.mkDerivation (finalAttrs: {
         substituteInPlace core/src/main/kotlin/moe/rukamori/archivetune/innertube/NetworkGatekeeper.kt \
           --replace-fail "AtomicBoolean(true)" "AtomicBoolean(false)"
 
-        # Safe guard Looper.getMainLooper() in DataStore.kt
+        # Replace Looper.getMainLooper() main thread check in DataStore.kt with native AWT EventQueue.isDispatchThread()
         substituteInPlace app/src/main/kotlin/moe/rukamori/archivetune/utils/DataStore.kt \
-          --replace-fail "Looper.getMainLooper().thread" "Looper.getMainLooper()?.thread"
+          --replace-fail "import android.os.Looper" "import java.awt.EventQueue" \
+          --replace-fail "Looper.getMainLooper().thread == Thread.currentThread()" "EventQueue.isDispatchThread()"
 
         ls -la android-stubs
         # Simplify BotGuardTokenGenerator patches

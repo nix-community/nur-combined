@@ -22,6 +22,9 @@ open class View(val context: Context) {
     open var isEnabled: Boolean = true
     open fun setOnLongClickListener(listener: Any?) {}
     open val isAttachedToWindow: Boolean = true
+    open var layoutParams: ViewGroup.LayoutParams? = null
+    open val parent: ViewParent? get() = null
+
 
     open fun getWindowVisibleDisplayFrame(outRect: android.graphics.Rect) {}
     open fun getRootWindowInsets(): Any? = null

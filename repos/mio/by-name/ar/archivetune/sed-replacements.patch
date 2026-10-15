@@ -1,17 +1,3 @@
-diff -urN archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/playback/ExoDownloadService.kt archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/playback/ExoDownloadService.kt
---- archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/playback/ExoDownloadService.kt	2026-10-06 21:50:55.167808861 +1100
-+++ archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/playback/ExoDownloadService.kt	2026-10-06 21:50:55.263808693 +1100
-@@ -43,8 +43,8 @@
-         startId: Int,
-     ): Int {
-         if (intent?.action == REMOVE_ALL_PENDING_DOWNLOADS) {
--            downloadManager.currentDownloads.forEach { download ->
--                downloadManager.removeDownload(download.request.id)
-+            getDownloadManager().currentDownloads.forEach { download ->
-+                getDownloadManager().removeDownload(download.request.id)
-             }
-         }
-         return super.onStartCommand(intent, flags, startId)
 diff -urN archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/ui/component/Preference.kt archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/ui/component/Preference.kt
 --- archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/ui/component/Preference.kt	2026-10-06 21:50:55.132808922 +1100
 +++ archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/ui/component/Preference.kt	2026-10-06 21:50:55.275808673 +1100
@@ -134,45 +120,6 @@ diff -urN archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/ui/sc
              ),
      ) {
          val context = LocalContext.current
-diff -urN archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/utils/ComposeToImage.kt archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/utils/ComposeToImage.kt
---- archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/utils/ComposeToImage.kt	2026-10-06 21:50:55.160808873 +1100
-+++ archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/utils/ComposeToImage.kt	2026-10-06 21:50:55.284808657 +1100
-@@ -343,7 +343,7 @@
-                 TextPaint().apply {
-                     color = mainTextColor
-                     textSize = baseSize * 0.038f
--                    typeface = Typeface.DEFAULT_BOLD
-+                    setTypeface(Typeface.DEFAULT_BOLD)
-                     isAntiAlias = true
-                     letterSpacing = -0.02f
-                 }
-@@ -351,7 +351,7 @@
-                 TextPaint().apply {
-                     color = secondaryTxtColor
-                     textSize = baseSize * 0.028f
--                    typeface = Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)
-+                    setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL))
-                     isAntiAlias = true
-                 }
- 
-@@ -411,7 +411,7 @@
-             val lyricsPaint =
-                 TextPaint().apply {
-                     color = mainTextColor
--                    typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
-+                    setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD))
-                     isAntiAlias = true
-                     letterSpacing = -0.01f
-                 }
-@@ -712,7 +712,7 @@
-             TextPaint().apply {
-                 color = textColor
-                 textSize = baseSize * 0.028f
--                typeface = Typeface.create("sans-serif-medium", Typeface.NORMAL)
-+                setTypeface(Typeface.create("sans-serif-medium", Typeface.NORMAL))
-                 isAntiAlias = true
-                 letterSpacing = 0.02f
-             }
 diff -urN archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/utils/PlaylistCoverInterceptor.kt archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/utils/PlaylistCoverInterceptor.kt
 --- archivetune-src-pre/app/src/main/kotlin/moe/rukamori/archivetune/utils/PlaylistCoverInterceptor.kt	2026-10-06 21:50:55.165808865 +1100
 +++ archivetune-src/app/src/main/kotlin/moe/rukamori/archivetune/utils/PlaylistCoverInterceptor.kt	2026-10-06 21:50:55.259808700 +1100

@@ -27,6 +27,8 @@ DROP_DIRS = [
     'localmedia',
     'cast',
     'discord',
+    'aod',
+    'widget',
 ]
 
 # Individual files belonging to those subsystems (their screens and view models).
@@ -37,6 +39,7 @@ DROP_FILES = [
     'ui/screens/settings/AodCustomizedScreen.kt',
     'ui/player/AodClockWidget.kt',
     'ui/player/AodTouchLockOverlay.kt',
+    'ui/component/TvNavigationRail.kt',
     'utils/DiscordRPC.kt',
     'ui/screens/library/LocalSongScreen.kt',
     'viewmodels/AndroidAutoSettingsViewModel.kt',

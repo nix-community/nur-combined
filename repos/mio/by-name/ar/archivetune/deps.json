@@ -1527,10 +1527,6 @@
    "module": "sha256-qwTAtNZSgW4kCi1UKPWSnBBzm0+yZrhPp8yGyHysU8E=",
    "pom": "sha256-0gBMjqvOgIKdi79XCivecahJho0pdAhenrVYtotFimI="
   },
-  "org/robolectric#android-all/14-robolectric-10818077": {
-   "jar": "sha256-a+IhjGpT/jxXvCLr3HI+3LcnCopvGHVFcIqlwO2BOXc=",
-   "pom": "sha256-Tv4dcvUsPPA5PG03PrL8fU6OBntKlXgCIDcxrTSonH8="
-  },
   "org/slf4j#slf4j-api/2.0.18": {
    "jar": "sha256-RFCP0VdlAGiMeQsZCs3Rb+xPjHmj4LkAr9cFA88FX1U=",
    "pom": "sha256-bCx/LAJ3TMK3thn70t94c82tKXGJJuRHVLh/cNHrQ8s="

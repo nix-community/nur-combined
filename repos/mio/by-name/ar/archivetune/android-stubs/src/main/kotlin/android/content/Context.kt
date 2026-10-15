@@ -24,9 +24,33 @@ open class Context {
     open fun openRawResource(id: Int): java.io.InputStream =
         java.io.ByteArrayInputStream(ByteArray(0))
     open fun getString(resId: Int): String = androidx.compose.ui.res.StringResources.stringMap[resId] ?: ""
-    open fun getString(resId: Int, vararg formatArgs: Any?): String = try { String.format(androidx.compose.ui.res.StringResources.stringMap[resId] ?: "", *formatArgs) } catch (e: Exception) { "" }
-    open fun getSystemService(name: String): Any? = null
-    open fun <T> getSystemService(serviceClass: Class<T>): T? = null
+    open fun getString(resId: Int, vararg formatArgs: Any?): String =
+        try {
+            val str = androidx.compose.ui.res.StringResources.stringMap[resId] ?: ""
+            String.format(str, *formatArgs)
+        } catch (e: Exception) {
+            ""
+        }
+    open fun getSystemService(name: String): Any? = when (name) {
+        AUDIO_SERVICE -> android.media.AudioManager()
+        CONNECTIVITY_SERVICE -> android.net.ConnectivityManager()
+        ACTIVITY_SERVICE -> android.app.ActivityManager()
+        CLIPBOARD_SERVICE -> ClipboardManager()
+        POWER_SERVICE -> android.os.PowerManager()
+        NOTIFICATION_SERVICE -> android.app.NotificationManager()
+        else -> null
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    open fun <T> getSystemService(serviceClass: Class<T>): T? = when (serviceClass.name) {
+        "android.media.AudioManager" -> android.media.AudioManager() as T
+        "android.net.ConnectivityManager" -> android.net.ConnectivityManager() as T
+        "android.app.ActivityManager" -> android.app.ActivityManager() as T
+        "android.content.ClipboardManager" -> ClipboardManager() as T
+        "android.os.PowerManager" -> android.os.PowerManager() as T
+        "android.app.NotificationManager" -> android.app.NotificationManager() as T
+        else -> null
+    }
     
     open fun startService(intent: Intent): Any? = null
     open fun stopService(intent: Intent): Boolean = false
@@ -80,11 +104,26 @@ open class Context {
     companion object {
         const val MODE_PRIVATE = 0
         const val MODE_APPEND = 32768
+        const val BIND_AUTO_CREATE = 1
+        const val RECEIVER_NOT_EXPORTED = 4
         const val AUDIO_SERVICE = "audio"
         const val CONNECTIVITY_SERVICE = "connectivity"
         const val ACTIVITY_SERVICE = "activity"
         const val CLIPBOARD_SERVICE = "clipboard"
+        const val POWER_SERVICE = "power"
+        const val NOTIFICATION_SERVICE = "notification"
+        const val BATTERY_SERVICE = "batterymanager"
+        const val MEDIA_PROJECTION_SERVICE = "media_projection"
+        const val SENSOR_SERVICE = "sensor"
     }
 }
 
-class DummyContext : Context()
+class DummyContext : Context() {
+    override val filesDir: java.io.File get() = java.io.File(System.getProperty("java.io.tmpdir", "/tmp"))
+    override val cacheDir: java.io.File get() = java.io.File(System.getProperty("java.io.tmpdir", "/tmp"))
+    override val packageName: String get() = "moe.rukamori.archivetune"
+    override val contentResolver: ContentResolver get() = ContentResolver()
+    override val applicationContext: Context get() = this
+    override fun getDatabasePath(name: String): java.io.File = java.io.File(System.getProperty("java.io.tmpdir", "/tmp"), name)
+    override fun openFileOutput(name: String, mode: Int): java.io.FileOutputStream = java.io.FileOutputStream(java.io.File(filesDir, name))
+}

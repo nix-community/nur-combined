@@ -78,13 +78,21 @@ fun _createViewModelInstance(clazz: Class<*>): Any? {
 
     // Try to construct it
     try {
-        val constructor = clazz.constructors.firstOrNull() ?: clazz.declaredConstructors.firstOrNull()
+        val constructor = clazz.declaredConstructors.firstOrNull { c ->
+            c.annotations.any { it.annotationClass.java.name == "javax.inject.Inject" }
+        } ?: clazz.constructors.firstOrNull { !it.isSynthetic }
+          ?: clazz.declaredConstructors.firstOrNull { !it.isSynthetic }
+          ?: clazz.constructors.firstOrNull()
+          ?: clazz.declaredConstructors.firstOrNull()
+
         if (constructor != null) {
             constructor.isAccessible = true
             val args = constructor.parameterTypes.map { _createViewModelInstance(it) }
             return constructor.newInstance(*args.toTypedArray())
         }
     } catch (e: Throwable) {
+        println("Failed to construct ${clazz.name}: $e")
+        e.printStackTrace()
         try {
             val unsafeClass = Class.forName("sun.misc.Unsafe")
             val f = unsafeClass.getDeclaredField("theUnsafe")
