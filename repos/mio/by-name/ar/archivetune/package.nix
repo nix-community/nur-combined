@@ -168,6 +168,16 @@ stdenv.mkDerivation (finalAttrs: {
           --replace-fail "import androidx.compose.material3.carousel.HorizontalCenteredHeroCarousel" \
                          "import androidx.compose.material3.carousel.*"
 
+        # Prevent ExploreScreen from returning early when backStackEntry is null
+        substituteInPlace app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/ExploreScreen.kt \
+          --replace-fail "val scrollToTop by backStackEntry" "val scrollToTop = backStackEntry" \
+          --replace-fail "?.collectAsState() ?: return" "?.collectAsState()?.value ?: false"
+
+        # Pass preloadItem to YouTubeQueue.playlist in HomeScreenComponents.kt
+        substituteInPlace app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/HomeScreenComponents.kt \
+          --replace-fail "playerConnection.playQueue(YouTubeQueue.playlist(songEndpoint))" \
+                         "playerConnection.playQueue(YouTubeQueue.playlist(songEndpoint, song.toMediaMetadata()))"
+
         ls -la android-stubs
         # Simplify BotGuardTokenGenerator patches
         python3 << 'PYTHON_EOF'

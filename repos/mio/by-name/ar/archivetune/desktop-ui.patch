@@ -1,6 +1,6 @@
 --- a/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt	1970-01-01 10:00:00
 +++ b/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt	2026-09-24 18:32:47
-@@ -0,0 +1,106 @@
+@@ -0,0 +1,150 @@
 +package moe.rukamori.archivetune
 +
 +import androidx.compose.foundation.isSystemInDarkTheme
@@ -19,17 +19,21 @@
 +import androidx.compose.ui.Modifier
 +import androidx.compose.ui.window.Window
 +import androidx.compose.ui.window.application
++import androidx.navigation.compose.NavHost
++import androidx.navigation.compose.composable
++import androidx.navigation.compose.currentBackStackEntryAsState
++import androidx.navigation.compose.rememberNavController
 +import moe.rukamori.archivetune.constants.DarkModeKey
 +import moe.rukamori.archivetune.constants.PureBlackKey
 +import moe.rukamori.archivetune.ui.player.MiniPlayer
-+import moe.rukamori.archivetune.ui.screens.HomeScreen
 +import moe.rukamori.archivetune.ui.screens.ExploreScreen
-+import moe.rukamori.archivetune.ui.screens.library.LibraryScreen
++import moe.rukamori.archivetune.ui.screens.Screens
++import moe.rukamori.archivetune.ui.screens.navigationBuilder
 +import moe.rukamori.archivetune.ui.screens.settings.DarkMode
-+import moe.rukamori.archivetune.ui.screens.settings.SettingsScreen
 +import moe.rukamori.archivetune.ui.theme.ArchiveTuneTheme
 +import moe.rukamori.archivetune.utils.rememberEnumPreference
 +import moe.rukamori.archivetune.utils.rememberPreference
++import moe.rukamori.archivetune.viewmodels.HomeViewModel
 +
 +fun main() = application {
 +    Window(
@@ -44,9 +48,31 @@
 +        }
 +        val pureBlack = pureBlackEnabled && useDarkTheme
 +
-+        var selectedItem by remember { mutableStateOf(0) }
++        val navController = rememberNavController()
++        val currentBackStackEntry by navController.currentBackStackEntryAsState()
++        val currentRoute = currentBackStackEntry?.destination?.route ?: Screens.Home.route
++
 +        val items = listOf("Home", "Explore", "Library", "Settings")
 +        val icons = listOf(Icons.Filled.Home, Icons.Filled.Search, Icons.Filled.List, Icons.Filled.Settings)
++        val tabRoutes = listOf(Screens.Home.route, "explore", Screens.Library.route, "settings")
++
++        val selectedItem = when {
++            currentRoute == "explore" -> 1
++            currentRoute == Screens.Library.route ||
++                currentRoute.startsWith("album/") ||
++                currentRoute.startsWith("artist/") ||
++                currentRoute.startsWith("playlist/") ||
++                currentRoute.startsWith("auto_playlist/") ||
++                currentRoute == "local_songs" ||
++                currentRoute == "history" ||
++                currentRoute == "stats" -> 2
++            currentRoute == "settings" || currentRoute.startsWith("settings/") -> 3
++            else -> 0
++        }
++
++        val homeScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
++        val libraryScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
++        val homeViewModel: HomeViewModel = androidx.hilt.navigation.compose.hiltViewModel()
 +
 +        CompositionLocalProvider(
 +            LocalPlayerConnection provides getGlobalPlayerConnection(),
@@ -55,6 +81,7 @@
 +            LocalDownloadUtil provides getGlobalDownloadUtil(),
 +            LocalSyncUtils provides getGlobalSyncUtils(),
 +            moe.rukamori.archivetune.ui.component.LocalMenuState provides moe.rukamori.archivetune.ui.component.MenuState(),
++            moe.rukamori.archivetune.ui.component.LocalBottomSheetPageState provides moe.rukamori.archivetune.ui.component.BottomSheetPageState(),
 +        ) {
 +            ArchiveTuneTheme(
 +                darkTheme = useDarkTheme,
@@ -87,19 +114,36 @@
 +                                        icon = { Icon(icons[index], contentDescription = item) },
 +                                        label = { Text(item) },
 +                                        selected = selectedItem == index,
-+                                        onClick = { selectedItem = index }
++                                        onClick = {
++                                            val targetRoute = tabRoutes[index]
++                                            navController.navigate(targetRoute) {
++                                                popUpTo(Screens.Home.route) {
++                                                    saveState = true
++                                                }
++                                                launchSingleTop = true
++                                                restoreState = true
++                                            }
++                                        }
 +                                    )
 +                                }
 +                            }
 +                        }
 +                    }
 +                ) { innerPadding ->
-+                    Box(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
-+                        when (selectedItem) {
-+                            0 -> HomeScreen(androidx.navigation.NavController(), androidx.hilt.navigation.compose.hiltViewModel())
-+                            1 -> ExploreScreen(androidx.navigation.NavController())
-+                            2 -> LibraryScreen(androidx.navigation.NavController(), androidx.compose.material3.TopAppBarDefaults.enterAlwaysScrollBehavior())
-+                            3 -> SettingsScreen(androidx.navigation.NavController(), "", {})
++                    NavHost(
++                        navController = navController,
++                        startDestination = Screens.Home.route,
++                        modifier = Modifier.padding(innerPadding).fillMaxSize()
++                    ) {
++                        navigationBuilder(
++                            navController = navController,
++                            scrollBehavior = homeScrollBehavior,
++                            homeViewModel = homeViewModel,
++                            latestVersionName = { "" },
++                            libraryScrollBehavior = libraryScrollBehavior,
++                        )
++                        composable("explore") {
++                            ExploreScreen(navController)
 +                        }
 +                    }
 +                }

@@ -27,14 +27,20 @@ fun NavGraphBuilder.composable(
     popExitTransition:
         (androidx.compose.animation.AnimatedContentTransitionScope<NavBackStackEntry>.() -> Any?)? = null,
     content: @Composable (NavBackStackEntry) -> Unit,
-) {}
+) {
+    routes.add(androidx.navigation.RouteNode(route, arguments, content))
+}
 
 fun NavGraphBuilder.dialog(
     route: String,
     arguments: List<NamedNavArgument> = emptyList(),
     content: @Composable (NavBackStackEntry) -> Unit
-) {}
+) {
+    routes.add(androidx.navigation.RouteNode(route, arguments, content))
+}
 
 @Composable
 fun NavController.currentBackStackEntryAsState(): State<NavBackStackEntry?> =
-    remember { mutableStateOf(null) }
+    remember(this) {
+        androidx.compose.runtime.derivedStateOf { currentBackStackEntry }
+    }

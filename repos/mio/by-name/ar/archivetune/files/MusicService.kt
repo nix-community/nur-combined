@@ -539,11 +539,28 @@ class MusicService {
             }
         }
 
-        // Fast-path: immediately set preload item if present
+        // Fast-path: immediately set preload item or fallback from queue endpoint if present
         val preload = queue.preloadItem
-        if (preload != null) {
-            currentMediaMetadata.value = preload
-            desktopPlayerImpl.setMediaItems(listOf(preload.toMediaItem()), 0, 0L)
+        val videoId = try {
+            val epField = queue.javaClass.getDeclaredField("endpoint").apply { isAccessible = true }.get(queue)
+            epField?.javaClass?.getMethod("getVideoId")?.invoke(epField) as? String
+        } catch (_: Throwable) {
+            null
+        }
+
+        val initialMeta = preload ?: if (videoId != null) {
+            MediaMetadata(
+                id = videoId,
+                title = "Playing...",
+                artists = emptyList(),
+                duration = 0,
+                thumbnailUrl = "https://i.ytimg.com/vi/$videoId/hqdefault.jpg"
+            )
+        } else null
+
+        if (initialMeta != null) {
+            currentMediaMetadata.value = initialMeta
+            desktopPlayerImpl.setMediaItems(listOf(initialMeta.toMediaItem()), 0, 0L)
             if (playWhenReady) {
                 desktopPlayerImpl.play()
             }
@@ -559,7 +576,7 @@ class MusicService {
                         val index = initialStatus.mediaItemIndex.coerceIn(items.indices)
                         desktopPlayerImpl.setMediaItems(items, index, initialStatus.position)
                         val currentItem = items.getOrNull(index)
-                        val meta = currentItem?.metadata ?: preload
+                        val meta = currentItem?.metadata ?: initialMeta
                         if (meta != null) {
                             currentMediaMetadata.value = meta
                         }
@@ -569,7 +586,7 @@ class MusicService {
                     }
                 }
             } catch (e: Throwable) {
-                // If network fetch fails, preload item remains in player
+                e.printStackTrace()
             }
         }
     }
