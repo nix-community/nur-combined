@@ -1,8 +1,8 @@
 cfg_if::cfg_if! {
     if #[cfg(unix)] {
-        fn greeting() -> &'static str { "hello from unix" }
+        const fn greeting() -> &'static str { "hello from unix" }
     } else {
-        fn greeting() -> &'static str { "hello from elsewhere" }
+        const fn greeting() -> &'static str { "hello from elsewhere" }
     }
 }
 

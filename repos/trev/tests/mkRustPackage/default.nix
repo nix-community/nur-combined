@@ -60,6 +60,16 @@ let
   withCargoDeps = mkFixture {
     cargoDeps = null;
   };
+
+  # the dependencies are built with the same check phase, against the stubs
+  withClippy = mkFixture {
+    nativeCheckInputs = [ testPkgs.clippy ];
+    checkPhase = ''
+      runHook preCheck
+      cargo clippy --offline --all-targets -- -D warnings
+      runHook postCheck
+    '';
+  };
 in
 # the dependencies don't change with the version or the workspace's sources
 assert fixture.cargoArtifacts.outPath == bumped.cargoArtifacts.outPath;
@@ -69,6 +79,7 @@ assert !(builtins.tryEval withCargoDeps.drvPath).success;
   mkRustPackage-build = testPkgs.runCommand "mkRustPackage-build" { } ''
     test "$(${fixture}/bin/fixture)" = "hello from unix"
     test "$(${bumped}/bin/fixture)" = "hello from bumped unix"
+    test "$(${withClippy}/bin/fixture)" = "hello from unix"
 
     # the vendor directory is remapped in the dependencies' panic locations
     panic=$(${fixture}/bin/fixture panic 2>&1 || true)

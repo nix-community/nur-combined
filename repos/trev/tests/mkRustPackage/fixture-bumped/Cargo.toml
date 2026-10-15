@@ -6,3 +6,6 @@ edition = "2021"
 [dependencies]
 cfg-if = "1"
 smallvec = "1"
+
+[lints.clippy]
+nursery = { level = "warn", priority = -1 }

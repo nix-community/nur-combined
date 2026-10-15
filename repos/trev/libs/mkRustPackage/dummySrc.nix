@@ -6,6 +6,9 @@
 # The versions of local crates are set to 0.0.0 in both the manifests and the
 # lockfile, so bumping the version doesn't change the result either. The
 # normalized lockfile is available as `lockFileContents`.
+#
+# Lint configuration is removed from the manifests and the stubs allow every
+# lint, so check commands like `cargo clippy -- -D warnings` pass on them.
 {
   lib,
   runCommandLocal,
@@ -182,14 +185,15 @@ let
       normalizeVersion =
         table: table // lib.optionalAttrs (lib.isString (table.version or null)) { version = "0.0.0"; };
     in
-    normalizeDeps toml
+    # lints only apply to local crates, so removing them doesn't affect the dependencies
+    removeAttrs (normalizeDeps toml) [ "lints" ]
     // lib.optionalAttrs (toml ? target) { target = lib.mapAttrs (_: normalizeDeps) toml.target; }
     // lib.optionalAttrs (toml ? package && !lib.elem rel patched) {
       package = normalizeVersion toml.package;
     }
     // lib.optionalAttrs (toml ? workspace) {
       workspace =
-        toml.workspace
+        removeAttrs toml.workspace [ "lints" ]
         // lib.optionalAttrs (toml.workspace ? package) {
           package = normalizeVersion toml.workspace.package;
         }
@@ -268,12 +272,16 @@ let
         );
 
       stubs = content: paths: lib.genAttrs (map (path: joinPath rel (normalize path)) paths) (_: content);
+
+      # lints can still be enabled on the command line, and `fn main() {}` trips
+      # clippy::missing_const_for_fn
+      allowLints = "#![allow(warnings, clippy::all, clippy::cargo, clippy::nursery, clippy::pedantic, clippy::restriction)]\n";
     in
     {
       ${joinPath rel "Cargo.toml"} = toTOML (normalizeManifest rel toml);
     }
-    // stubs "fn main() {}\n" mains
-    // stubs "" libs;
+    // stubs "${allowLints}fn main() {}\n" mains
+    // stubs allowLints libs;
 
   # cargo config and lockfile, which affect how dependencies are built
   extraFiles =
