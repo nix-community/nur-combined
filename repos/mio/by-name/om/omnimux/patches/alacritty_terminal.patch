@@ -1,0 +1,14 @@
+--- a/src/term/mod.rs
++++ b/src/term/mod.rs
+@@ -998,7 +998,11 @@ impl<T: EventListener> Term<T> {
+             if wide && point.column < self.last_column() {
+                 self.grid[point.line][point.column + 1].flags.remove(Flags::WIDE_CHAR_SPACER);
+             } else if point.column > 0 {
++                #[cfg(not(target_os = "linux"))]
+                 self.grid[point.line][point.column - 1].clear_wide();
++
++                #[cfg(target_os = "linux")]
++                self.grid[point.line][point.column - 1].flags.remove(Flags::WIDE_CHAR);
+             }
+ 
+             // Remove leading spacers.

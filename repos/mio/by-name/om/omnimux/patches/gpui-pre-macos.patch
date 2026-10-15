@@ -1,0 +1,77 @@
+--- a/src/text_system.rs	
++++ b/src/text_system.rs	
+@@ -263,10 +263,44 @@
+                     };
+                     let font = core_graphics::font::CGFont::from_data_provider(data_provider)
+                         .map_err(|()| anyhow!("Could not load an embedded font."))?;
++                    unsafe {
++                        unsafe extern "C" {
++                            fn CTFontManagerRegisterGraphicsFont(
++                                font: *mut std::ffi::c_void,
++                                error: *mut *mut std::ffi::c_void,
++                            ) -> bool;
++                        }
++                        use foreign_types::ForeignType;
++                        CTFontManagerRegisterGraphicsFont(
++                            font.as_ptr() as *mut _,
++                            std::ptr::null_mut(),
++                        );
++                    }
+                     let font = font_kit::loaders::core_text::Font::from_core_graphics_font(font);
+                     Ok(Handle::from_native(&font))
+                 }
+-                Cow::Owned(bytes) => Ok(Handle::from_memory(Arc::new(bytes), 0)),
++                Cow::Owned(bytes) => {
++                    let arc = Arc::new(bytes);
++                    let handle = Handle::from_memory(arc.clone(), 0);
++                    if let Ok(font) = font_kit::font::Font::from_bytes(arc, 0) {
++                        let native = font.native_font();
++                        let cg = native.copy_to_CGFont();
++                        unsafe {
++                            unsafe extern "C" {
++                                fn CTFontManagerRegisterGraphicsFont(
++                                    font: *mut std::ffi::c_void,
++                                    error: *mut *mut std::ffi::c_void,
++                                ) -> bool;
++                            }
++                            use foreign_types::ForeignType;
++                            CTFontManagerRegisterGraphicsFont(
++                                cg.as_ptr() as *mut _,
++                                std::ptr::null_mut(),
++                            );
++                        }
++                    }
++                    Ok(handle)
++                }
+             })
+             .collect::<Result<Vec<_>>>()?;
+         self.memory_source.add_fonts(fonts.into_iter())?;
+@@ -291,6 +325,10 @@
+             let mut font = font.load()?;
+ 
+             apply_features_and_fallbacks(&mut font, features, fallbacks)?;
++            let is_nerd_font_symbols = font
++                .family_name()
++                .replace(" ", "")
++                .contains("SymbolsNerdFont");
+             // This block contains a precautionary fix to guard against loading fonts
+             // that might cause panics due to `.unwrap()`s up the chain.
+             {
+@@ -306,7 +344,7 @@
+                 // the Storybook (on macOS).
+                 let is_segoe_fluent_icons = font.full_name() == "Segoe Fluent Icons";
+ 
+-                if !has_m_glyph && !is_segoe_fluent_icons {
++                if !has_m_glyph && !is_segoe_fluent_icons && !is_nerd_font_symbols {
+                     // I spent far too long trying to track down why a font missing the 'm'
+                     // character wasn't loading. This log statement will hopefully save
+                     // someone else from suffering the same fate.
+@@ -339,7 +377,7 @@
+                         .get(kCTFontSlantTrait)
+                         .downcast::<CFNumber>()
+                         .is_some())
+-            } {
++            } && !is_nerd_font_symbols {
+                 log::error!(
+                     "Failed to read traits for font {:?} (PostScript name {:?})",
+                     font.full_name(),

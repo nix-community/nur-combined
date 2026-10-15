@@ -1,6 +1,8 @@
-# Vendored `gpui-terminal` — upstream baseline & local patches
+# Vendored dependencies — upstream baselines & fetch+patch
 
-Omnimux depends on this tree via a **path** dependency (`gpui-terminal = { path = "vendor/gpui-terminal" }` in `src/Cargo.toml`), not crates.io, so we can patch behavior for tmux/SSH tabs.
+Omnimux uses a clean **fetch + patch** approach in `package.nix`: upstream baselines are fetched via `fetchFromGitHub` and `fetchzip`, local patch files in `patches/` are applied via `applyPatches`, and the resulting trees are placed into `vendor/` during `postUnpack`.
+
+Cargo dependencies in `src/Cargo.toml` point to `vendor/gpui-terminal` and patch crates.io backends via `[patch.crates-io]` to `vendor/gpui-pre-*`.
 
 App-level behavior (appearance sync, Settings, packaging) lives in Omnimux’s [`README.md`](../../../README.md), not here.
 
@@ -85,9 +87,9 @@ Rough chronological / thematic summary of edits under this vendor tree:
 
 ## Refresh / rebase tips
 
-1. Diff this tree against upstream commit `45c63e57…` (or a newer tag) before merging upstream.
-2. Prefer small, documented patches; keep this file updated when vendor behavior changes.
-3. After updating vendor sources, `git add` them before `nix build` (flake eval ignores untracked files).
+1. Diff any updated vendor tree against upstream baseline commit `45c63e57…` to update `patches/gpui-terminal.patch`.
+2. Prefer small, documented patches; keep this file updated when patch behavior changes.
+3. After updating patch files, `git add` them before `nix build` (flake eval ignores untracked files).
 
 
 ---
@@ -183,16 +185,13 @@ Default theme still ships a `drag_border` JSON key while schema expects `drag.bo
 serde ignores the typo and falls back to `primary` — acceptable, not worth re-vendoring
 the whole crate for.
 
-## Refreshing the vendored platform crates
+## Refreshing the platform patches
 
 The `gpui-pre` version is chosen by whatever `gpui-component` pins with
 `gpui = "=0.3.x"`, **not** by the newest release on crates.io. To bump:
 
-1. Download the matching `gpui-pre-linux`, `gpui-pre-wgpu` and `gpui-pre-macos` from
-   `https://static.crates.io/crates/<crate>/<crate>-<version>.crate`.
-2. Drop `Cargo.lock` and `Cargo.toml.orig` (tree hygiene, as for the other vendors),
-   then re-apply the patches listed above. Regenerate them by diffing the old vendor
-   tree against the old release: `diff -u <crate>-<old>/src/... <vendor>/src/...`.
+1. Update the crate version and fetchzip hashes in `package.nix`.
+2. Rebase the patches in `patches/gpui-pre-linux.patch`, `patches/gpui-pre-wgpu.patch`, `patches/gpui-pre-macos.patch`.
 3. Expect manual rebases in `gpui-pre-linux` `wayland/client.rs` and `x11/client.rs`:
    the XDP appearance / button-layout handlers track upstream refactors such as the
    0.3.6 move of `common` into `Rc<RefCell<LinuxCommon>>`. Drop the client borrow
@@ -200,7 +199,6 @@ The `gpui-pre` version is chosen by whatever `gpui-component` pins with
    `set_button_layout`, otherwise appearance observers panic with `RefCell already
    borrowed`.
 4. `gpui-pre-macos` cannot be compiled on Linux — review that patch by eye.
-5. `git add` the whole vendor tree (flake eval ignores untracked files), then run
-   `cargo check --all-targets` and `nix build .#omnimux`.
+5. `git add` the updated patch files and `package.nix` before `nix build .#omnimux`.
 
 ---

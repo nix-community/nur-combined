@@ -1,0 +1,154 @@
+--- a/Cargo.toml	
++++ b/Cargo.toml	
+@@ -139,6 +139,9 @@
+ features = ["hardcoded-data"]
+ default-features = false
+ 
++[dependencies.unicode-script]
++version = "0.5.7"
++
+ [dependencies.unicode-segmentation]
+ version = "1.10"
+ 
+--- a/src/cosmic_text_system.rs	
++++ b/src/cosmic_text_system.rs	
+@@ -1,9 +1,11 @@
+ use anyhow::{Context as _, Ok, Result};
+ use collections::HashMap;
+ use cosmic_text::{
+-    Attrs, AttrsList, Ellipsize, Family, Font as CosmicTextFont,
+-    FontFeatures as CosmicFontFeatures, FontSystem, ShapeBuffer, ShapeLine, Stretch, Style, Weight,
++    Attrs, AttrsList, Ellipsize, Fallback, Family, Font as CosmicTextFont,
++    FontFeatures as CosmicFontFeatures, FontSystem, PlatformFallback, ShapeBuffer, ShapeLine,
++    Stretch, Style, Weight, fontdb,
+ };
++use unicode_script::Script;
+ use gpui::{
+     Bounds, DevicePixels, FallbackFontClass, Font, FontFallbacks, FontFeatures, FontId,
+     FontMetrics, FontRun, GlyphId, IsZero as _, LineLayout, MissingGlyph, MissingGlyphSink, Pixels,
+@@ -21,6 +23,104 @@
+ };
+ use unicode_segmentation::UnicodeSegmentation;
+ 
++/// cosmic-text's Unix fallback list omits Symbols Nerd Font, so Starship / powerline /
++/// Font Awesome private-use glyphs shape as blanks when the primary monospace lacks them.
++/// Omnimux bundles those fonts via `add_fonts`; include them in the fallback chain.
++#[derive(Debug, Default)]
++struct TerminalSymbolFallback;
++
++impl Fallback for TerminalSymbolFallback {
++    fn common_fallback(&self) -> &'static [&'static str] {
++        &[
++            // Bundled CBDT Noto Color Emoji first: Starship bold runs make cosmic-text
++            // skip weight-mismatched emoji during named fallback and scan "other"
++            // fonts, where google-fonts Compat Test / Noto Emoji / Unifont otherwise
++            // steal 🐍 and paint yellow tofu.
++            "Noto Color Emoji",
++            "Symbols Nerd Font Mono",
++            "Symbols Nerd Font",
++            // Keep these after color emoji — they claim many emoji codepoints with
++            // empty or mono outlines.
++            "Noto Sans",
++            "DejaVu Sans",
++            "FreeSans",
++            "Noto Sans Mono",
++            "DejaVu Sans Mono",
++            "FreeMono",
++            "Noto Sans Symbols",
++            "Noto Sans Symbols2",
++        ]
++    }
++
++    fn forbidden_fallback(&self) -> &'static [&'static str] {
++        // Belt-and-suspenders with `remove_competing_emoji_faces`: never pick these
++        // even if a face somehow remains in fontdb after add_fonts.
++        &[
++            "Noto Emoji",
++            "Noto Color Emoji Compat Test",
++            "Segoe UI Emoji",
++            "Segoe UI Symbol",
++            "Unifont",
++            "Unifont Upper",
++            "Unifont-JP",
++            "Unifont-T",
++            "Unifont CSUR",
++        ]
++    }
++
++    fn script_fallback(&self, script: Script, locale: &str) -> &'static [&'static str] {
++        Fallback::script_fallback(&PlatformFallback, script, locale)
++    }
++}
++
++fn new_font_system_with_terminal_fallbacks() -> FontSystem {
++    let locale = std::env::var("LC_ALL")
++        .or_else(|_| std::env::var("LANG"))
++        .unwrap_or_else(|_| "en-US".to_string());
++    let mut db = fontdb::Database::new();
++    db.load_system_fonts();
++    // Drop system color/mono emoji claimants. Swash cannot paint COLRv1 Noto Color
++    // Emoji; google-fonts also ships a broken "Compat Test" face and outline
++    // "Noto Emoji" that cosmic-text prefers for bold Starship runs (🐍 → yellow
++    // tofu). Omnimux `add_fonts` a CBDT NotoColorEmoji.ttf that actually paints.
++    remove_competing_emoji_faces(&mut db);
++    // Match cosmic_text::FontSystem::new_with_fonts defaults.
++    db.set_monospace_family("Noto Sans Mono");
++    db.set_sans_serif_family("Open Sans");
++    db.set_serif_family("DejaVu Serif");
++    FontSystem::new_with_locale_and_db_and_fallback(locale, db, TerminalSymbolFallback)
++}
++
++fn remove_competing_emoji_faces(db: &mut fontdb::Database) {
++    let ids: Vec<_> = db
++        .faces()
++        .filter(|face| {
++            let ps = face.post_script_name.as_str();
++            if ps == "NotoColorEmoji"
++                || ps.contains("NotoColorEmojiCompat")
++                || ps.starts_with("NotoEmoji")
++                || ps == "SegoeUIEmoji"
++                || ps == "SegoeUISymbol"
++                || ps.starts_with("Unifont")
++            {
++                return true;
++            }
++            face.families.iter().any(|(name, _)| {
++                name == "Noto Color Emoji"
++                    || name == "Noto Color Emoji Compat Test"
++                    || name == "Noto Emoji"
++                    || name == "Segoe UI Emoji"
++                    || name == "Segoe UI Symbol"
++                    || name.starts_with("Unifont")
++            })
++        })
++        .map(|face| face.id)
++        .collect();
++    for id in ids {
++        db.remove_face(id);
++    }
++}
++
+ pub struct CosmicTextSystem(RwLock<CosmicTextSystemState>);
+ 
+ #[derive(Debug, Clone, PartialEq, Eq, Hash)]
+@@ -129,7 +229,7 @@
+     }
+ 
+     pub fn new(system_font_fallback: &str) -> Self {
+-        let font_system = FontSystem::new();
++        let font_system = new_font_system_with_terminal_fallbacks();
+ 
+         Self(RwLock::new(CosmicTextSystemState {
+             font_system,
+@@ -416,6 +516,11 @@
+             let allowed_bad_font_names = [
+                 "SegoeFluentIcons", // NOTE: Segoe fluent icons postscript name is inconsistent
+                 "Segoe Fluent Icons",
++                "SymbolsNFM",
++                "SymbolsNF",
++                "SymbolsNerdFontMono-Regular",
++                "SymbolsNerdFont-Regular",
++                "NotoColorEmoji",
+             ];
+ 
+             if font.as_swash().charmap().map('m') == 0

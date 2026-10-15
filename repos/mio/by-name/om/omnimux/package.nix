@@ -18,8 +18,63 @@
   hack-font,
   tmux,
   libiconv,
+  fetchFromGitHub,
+  fetchzip,
+  applyPatches,
 }:
 
+let
+  patchedAlacrittyTerminal = applyPatches {
+    name = "alacritty_terminal-0.26.0-patched";
+    src = fetchzip {
+      url = "https://static.crates.io/crates/alacritty_terminal/alacritty_terminal-0.26.0.crate";
+      hash = "sha256-L1u/wBu+kzDpnAtGnpPyL8nUx4wQELdOzInlYwml9rw=";
+      extension = "tar.gz";
+    };
+    patches = [ ./patches/alacritty_terminal.patch ];
+  };
+
+  patchedGpuiPreLinux = applyPatches {
+    name = "gpui-pre-linux-0.3.8-patched";
+    src = fetchzip {
+      url = "https://static.crates.io/crates/gpui-pre-linux/gpui-pre-linux-0.3.8.crate";
+      hash = "sha256-TtGSoMKrW1JbTn6cmgwOLCX8cXXxr6meIkta0phI2vk=";
+      extension = "tar.gz";
+    };
+    patches = [ ./patches/gpui-pre-linux.patch ];
+  };
+
+  patchedGpuiPreWgpu = applyPatches {
+    name = "gpui-pre-wgpu-0.3.8-patched";
+    src = fetchzip {
+      url = "https://static.crates.io/crates/gpui-pre-wgpu/gpui-pre-wgpu-0.3.8.crate";
+      hash = "sha256-/ZwKGDOTUtMO8zYy0ypYQ9mZnSjAYKyFSoWSJr1o5FM=";
+      extension = "tar.gz";
+    };
+    patches = [ ./patches/gpui-pre-wgpu.patch ];
+  };
+
+  patchedGpuiPreMacos = applyPatches {
+    name = "gpui-pre-macos-0.3.8-patched";
+    src = fetchzip {
+      url = "https://static.crates.io/crates/gpui-pre-macos/gpui-pre-macos-0.3.8.crate";
+      hash = "sha256-ws9zEtgGWK73nhHW/e11Oa+seY2omqgnBLmje3fplZ4=";
+      extension = "tar.gz";
+    };
+    patches = [ ./patches/gpui-pre-macos.patch ];
+  };
+
+  patchedGpuiTerminal = applyPatches {
+    name = "gpui-terminal-patched";
+    src = fetchFromGitHub {
+      owner = "zortax";
+      repo = "gpui-terminal";
+      rev = "45c63e57181d27c260124a81c7e4b68a6b6e57b0";
+      hash = "sha256-CTGjQWr1qZSzfgYvULuJ33n9SmWZaynvno9pZ570uaY=";
+    };
+    patches = [ ./patches/gpui-terminal.patch ];
+  };
+in
 rustPlatform.buildRustPackage {
   pname = "omnimux";
   version = "0.1.0";
@@ -30,6 +85,20 @@ rustPlatform.buildRustPackage {
     lockFile = ./src/Cargo.lock;
     allowBuiltinFetchGit = true;
   };
+
+  postUnpack = ''
+    mkdir -p $sourceRoot/vendor
+    cp -r ${patchedGpuiTerminal} $sourceRoot/vendor/gpui-terminal
+    chmod -R u+w $sourceRoot/vendor/gpui-terminal
+    cp -r ${patchedAlacrittyTerminal} $sourceRoot/vendor/alacritty_terminal
+    chmod -R u+w $sourceRoot/vendor/alacritty_terminal
+    cp -r ${patchedGpuiPreLinux} $sourceRoot/vendor/gpui-pre-linux
+    chmod -R u+w $sourceRoot/vendor/gpui-pre-linux
+    cp -r ${patchedGpuiPreWgpu} $sourceRoot/vendor/gpui-pre-wgpu
+    chmod -R u+w $sourceRoot/vendor/gpui-pre-wgpu
+    cp -r ${patchedGpuiPreMacos} $sourceRoot/vendor/gpui-pre-macos
+    chmod -R u+w $sourceRoot/vendor/gpui-pre-macos
+  '';
 
   nativeBuildInputs = [
     pkg-config

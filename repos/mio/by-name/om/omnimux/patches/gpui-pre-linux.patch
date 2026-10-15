@@ -1,0 +1,654 @@
+--- a/src/linux/wayland/client.rs	
++++ b/src/linux/wayland/client.rs	
+@@ -38,7 +38,7 @@
+     Connection, Dispatch, Proxy, QueueHandle, delegate_noop,
+     protocol::{
+         wl_buffer, wl_compositor, wl_keyboard, wl_pointer, wl_registry, wl_seat, wl_shm,
+-        wl_shm_pool, wl_surface,
++        wl_shm_pool, wl_surface, wl_touch,
+     },
+ };
+ use wayland_protocols::wp::pointer_gestures::zv1::client::{
+@@ -118,6 +118,9 @@
+ const UNKNOWN_KEYBOARD_LAYOUT_NAME: SharedString = SharedString::new_static("unknown");
+ const XDG_ACTIVATION_TOKEN_ENV_VAR: &str = "XDG_ACTIVATION_TOKEN";
+ 
++/// Ignore sub-pixel jitter when mapping two-finger touch pans to scroll events.
++const TOUCH_SCROLL_SENSITIVITY: f32 = 0.5;
++
+ #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+ struct ImeCursorRectangle {
+     x: i32,
+@@ -358,6 +361,7 @@
+     pinch_gesture: Option<zwp_pointer_gesture_pinch_v1::ZwpPointerGesturePinchV1>,
+     pinch_scale: f32,
+     wl_keyboard: Option<wl_keyboard::WlKeyboard>,
++    wl_touch: Option<wl_touch::WlTouch>,
+     cursor_shape_device: Option<wp_cursor_shape_device_v1::WpCursorShapeDeviceV1>,
+     data_device: Option<wl_data_device::WlDataDevice>,
+     primary_selection: Option<zwp_primary_selection_device_v1::ZwpPrimarySelectionDeviceV1>,
+@@ -391,6 +395,25 @@
+     enter_token: Option<()>,
+     button_pressed: Option<MouseButton>,
+     mouse_focused_window: Option<WaylandWindowStatePtr>,
++    /// Window that received the current pointer MouseDown. Kept across
++    /// `wl_pointer::Leave` so the matching Button release is not dropped.
++    pointer_button_window: Option<WaylandWindowStatePtr>,
++    // Touch tracking (wl_touch → mouse / scroll emulation)
++    active_touch_id: Option<i32>,
++    touch_location: Option<Point<Pixels>>,
++    touch_initial_location: Option<Point<Pixels>>,
++    second_touch_id: Option<i32>,
++    second_touch_location: Option<Point<Pixels>>,
++    last_scroll_center: Option<Point<Pixels>>,
++    is_scrolling: bool,
++    touchscreen_drag_scrolls: bool,
++    /// Window that received the current touch MouseDown. Kept separate from
++    /// `mouse_focused_window` so a pointer Leave cannot orphan the matching Up.
++    touch_window: Option<WaylandWindowStatePtr>,
++    /// True after we emitted MouseDown for the primary touch and before Up.
++    /// Prevents double-Up and stuck-press when Up/Cancel is lost or scroll
++    /// cancelled the click.
++    touch_mouse_down_sent: bool,
+     keyboard_focused_window: Option<WaylandWindowStatePtr>,
+     loop_handle: LoopHandle<'static, ()>,
+     cursor_style: Option<CursorStyle>,
+@@ -1025,6 +1048,7 @@
+             wl_seat: seat,
+             wl_pointer: None,
+             wl_keyboard: None,
++            wl_touch: None,
+             pinch_gesture: None,
+             pinch_scale: 1.0,
+             cursor_shape_device: None,
+@@ -1079,6 +1103,19 @@
+             horizontal_modifier: -1.0,
+             button_pressed: None,
+             mouse_focused_window: None,
++            pointer_button_window: None,
++            active_touch_id: None,
++            touch_location: None,
++            touch_initial_location: None,
++            second_touch_id: None,
++            second_touch_location: None,
++            last_scroll_center: None,
++            is_scrolling: false,
++            touchscreen_drag_scrolls: std::env::var("GPUI_TOUCHSCREEN_DRAG_SCROLLS")
++                .map(|v| v != "0")
++                .unwrap_or(true),
++            touch_window: None,
++            touch_mouse_down_sent: false,
+             keyboard_focused_window: None,
+             loop_handle: handle.clone(),
+             enter_token: None,
+@@ -1116,11 +1153,16 @@
+                 move |event, _, _| match event {
+                     XDPEvent::WindowAppearance(appearance) => {
+                         if let Some(client) = client.0.upgrade() {
+-                            let mut client = client.borrow_mut();
+-
+-                            client.common.borrow_mut().appearance = appearance;
+-
+-                            for window in client.windows.values_mut() {
++                            // Collect windows and drop the client borrow before
++                            // set_appearance → appearance observers. Observers may
++                            // call Platform::window_appearance → with_common, which
++                            // would otherwise panic: RefCell already borrowed.
++                            let windows = {
++                                let c = client.borrow_mut();
++                                c.common.borrow_mut().appearance = appearance;
++                                c.windows.values().cloned().collect::<Vec<_>>()
++                            };
++                            for mut window in windows {
+                                 window.set_appearance(appearance);
+                             }
+                         }
+@@ -1130,10 +1172,12 @@
+                             let layout = WindowButtonLayout::parse(&layout_str)
+                                 .log_err()
+                                 .unwrap_or_else(WindowButtonLayout::linux_default);
+-                            let mut client = client.borrow_mut();
+-                            client.common.borrow_mut().button_layout = layout;
+-
+-                            for window in client.windows.values_mut() {
++                            let windows = {
++                                let c = client.borrow_mut();
++                                c.common.borrow_mut().button_layout = layout;
++                                c.windows.values().cloned().collect::<Vec<_>>()
++                            };
++                            for window in windows {
+                                 window.set_button_layout();
+                             }
+                         }
+@@ -1566,6 +1610,9 @@
+                     if let Some(wl_keyboard) = state.wl_keyboard.take() {
+                         wl_keyboard.release();
+                     }
++                    if let Some(wl_touch) = state.wl_touch.take() {
++                        wl_touch.release();
++                    }
+                     state.wl_seat.release();
+                     state.wl_seat = registry.bind::<wl_seat::WlSeat, _, _>(name, version, qh, ());
+                 }
+@@ -1949,6 +1996,13 @@
+ 
+                 state.wl_pointer = Some(pointer);
+             }
++            if capabilities.contains(wl_seat::Capability::Touch) {
++                let touch = seat.get_touch(qh, ());
++                if let Some(wl_touch) = &state.wl_touch {
++                    wl_touch.release();
++                }
++                state.wl_touch = Some(touch);
++            }
+         }
+     }
+ }
+@@ -2316,7 +2370,11 @@
+                 let position = point(px(surface_x as f32), px(surface_y as f32));
+                 state.serial_tracker.update(SerialKind::MouseEnter, serial);
+                 state.mouse_location = Some(position);
+-                state.button_pressed = None;
++                // Do not clear an in-flight press that survived Leave — the user
++                // may still be holding the button (drag outside then back in).
++                if state.pointer_button_window.is_none() {
++                    state.button_pressed = None;
++                }
+ 
+                 if let Some(window) = get_window(&mut state, &surface.id()) {
+                     state.mouse_focused_window = Some(window.clone());
+@@ -2353,13 +2411,17 @@
+             wl_pointer::Event::Leave { .. } => {
+                 if let Some(focused_window) = state.mouse_focused_window.clone() {
+                     let input = PlatformInput::MouseExited(MouseExitEvent {
+-                        position: state.mouse_location.unwrap(),
++                        position: state.mouse_location.unwrap_or_default(),
+                         pressed_button: state.button_pressed,
+                         modifiers: state.modifiers,
+                     });
+                     state.mouse_focused_window = None;
+-                    state.mouse_location = None;
+-                    state.button_pressed = None;
++                    // Keep location + button_pressed while a press is captured so
++                    // the eventual Button release can still deliver MouseUp.
++                    if state.pointer_button_window.is_none() {
++                        state.mouse_location = None;
++                        state.button_pressed = None;
++                    }
+                     state.cursor_hidden_window = None;
+ 
+                     drop(state);
+@@ -2433,7 +2495,7 @@
+                 }
+                 let button = linux_button_to_gpui(button);
+                 let Some(button) = button else { return };
+-                if state.mouse_focused_window.is_none() {
++                if state.mouse_focused_window.is_none() && state.pointer_button_window.is_none() {
+                     return;
+                 }
+                 match button_state {
+@@ -2477,6 +2539,7 @@
+                         state.click.last_location = state.mouse_location.unwrap();
+ 
+                         state.button_pressed = Some(button);
++                        state.pointer_button_window = state.mouse_focused_window.clone();
+ 
+                         if let Some(window) = state.mouse_focused_window.clone() {
+                             let input = PlatformInput::MouseDown(MouseDownEvent {
+@@ -2492,13 +2555,26 @@
+                     }
+                     wl_pointer::ButtonState::Released => {
+                         state.button_pressed = None;
++                        let position = state.mouse_location.unwrap_or_default();
++                        let click_count = state.click.current_count;
++                        let modifiers = state.modifiers;
++                        // Prefer the current hover target; fall back to the window
++                        // that got MouseDown so Leave cannot orphan the Up.
++                        let window = state
++                            .mouse_focused_window
++                            .clone()
++                            .or_else(|| state.pointer_button_window.take());
++                        state.pointer_button_window = None;
++                        if state.mouse_focused_window.is_none() {
++                            state.mouse_location = None;
++                        }
+ 
+-                        if let Some(window) = state.mouse_focused_window.clone() {
++                        if let Some(window) = window {
+                             let input = PlatformInput::MouseUp(MouseUpEvent {
+                                 button,
+-                                position: state.mouse_location.unwrap(),
+-                                modifiers: state.modifiers,
+-                                click_count: state.click.current_count,
++                                position,
++                                modifiers,
++                                click_count,
+                             });
+                             drop(state);
+                             window.handle_input(input);
+@@ -3104,6 +3180,358 @@
+     }
+ }
+ 
++impl Dispatch<wl_touch::WlTouch, ()> for WaylandClientStatePtr {
++    fn event(
++        this: &mut Self,
++        _wl_touch: &wl_touch::WlTouch,
++        event: wl_touch::Event,
++        _: &(),
++        _: &Connection,
++        _: &QueueHandle<Self>,
++    ) {
++        let client = this.get_client();
++        let mut state = client.borrow_mut();
++
++        match event {
++            wl_touch::Event::Down {
++                serial,
++                surface,
++                id,
++                x,
++                y,
++                ..
++            } => {
++                state.serial_tracker.update(SerialKind::Touch, serial);
++                let position = point(px(x as f32), px(y as f32));
++
++                if state.active_touch_id.is_none() {
++                    // First finger → left-button mouse click/drag.
++                    state.active_touch_id = Some(id);
++                    state.touch_location = Some(position);
++                    state.touch_initial_location = Some(position);
++
++                    if let Some(window) = get_window(&mut state, &surface.id()) {
++                        // Remember which window owns this touch so Up/Motion work
++                        // even when the pointer never entered the surface, and so
++                        // pointer Leave cannot drop the matching MouseUp.
++                        state.mouse_focused_window = Some(window.clone());
++                        state.touch_window = Some(window.clone());
++                        state.mouse_location = Some(position);
++                        state.button_pressed = Some(MouseButton::Left);
++
++                        // Same multi-click tracking as wl_pointer Button Pressed,
++                        // so title-bar double-tap can maximize (click_count == 2).
++                        let click_elapsed = state.click.last_click.elapsed();
++                        if click_elapsed < DOUBLE_CLICK_INTERVAL
++                            && state
++                                .click
++                                .last_mouse_button
++                                .is_some_and(|prev| prev == MouseButton::Left)
++                            && is_within_click_distance(state.click.last_location, position)
++                        {
++                            state.click.current_count += 1;
++                        } else {
++                            state.click.current_count = 1;
++                        }
++                        state.click.last_click = Instant::now();
++                        state.click.last_mouse_button = Some(MouseButton::Left);
++                        state.click.last_location = position;
++                        let click_count = state.click.current_count;
++
++                        state.touch_mouse_down_sent = true;
++                        let input = PlatformInput::MouseDown(MouseDownEvent {
++                            button: MouseButton::Left,
++                            position,
++                            modifiers: state.modifiers,
++                            click_count,
++                            first_mouse: false,
++                        });
++                        drop(state);
++                        window.handle_input(input);
++                    }
++                } else if state.second_touch_id.is_none() && !state.is_scrolling {
++                    // Second finger → two-finger scroll mode.
++                    state.second_touch_id = Some(id);
++                    state.second_touch_location = Some(position);
++                    state.is_scrolling = true;
++
++                    if let Some(first_pos) = state.touch_location {
++                        let center = point(
++                            px((f32::from(first_pos.x) + f32::from(position.x)) / 2.0),
++                            px((f32::from(first_pos.y) + f32::from(position.y)) / 2.0),
++                        );
++                        state.last_scroll_center = Some(center);
++                        state.mouse_location = Some(center);
++
++                        // Cancel the pending click before scrolling.
++                        let need_up = state.touch_mouse_down_sent;
++                        state.touch_mouse_down_sent = false;
++                        state.button_pressed = None;
++                        if need_up {
++                            if let Some(window) = state
++                                .touch_window
++                                .clone()
++                                .or_else(|| state.mouse_focused_window.clone())
++                            {
++                                let click_count = state.click.current_count;
++                                let input = PlatformInput::MouseUp(MouseUpEvent {
++                                    button: MouseButton::Left,
++                                    position: center,
++                                    modifiers: state.modifiers,
++                                    click_count,
++                                });
++                                drop(state);
++                                window.handle_input(input);
++                            }
++                        }
++                    }
++                }
++            }
++            wl_touch::Event::Motion { id, x, y, .. } => {
++                let position = point(px(x as f32), px(y as f32));
++
++                if state.active_touch_id == Some(id) {
++                    state.touch_location = Some(position);
++                } else if state.second_touch_id == Some(id) {
++                    state.second_touch_location = Some(position);
++                }
++
++                if state.is_scrolling
++                    && state.active_touch_id.is_some()
++                {
++                    let current_center = if let (Some(first_pos), Some(second_pos)) =
++                        (state.touch_location, state.second_touch_location)
++                    {
++                        point(
++                            px((f32::from(first_pos.x) + f32::from(second_pos.x)) / 2.0),
++                            px((f32::from(first_pos.y) + f32::from(second_pos.y)) / 2.0),
++                        )
++                    } else if let Some(first_pos) = state.touch_location {
++                        first_pos
++                    } else {
++                        return;
++                    };
++
++                    state.mouse_location = Some(current_center);
++
++                    if let Some(last_center) = state.last_scroll_center {
++                        let scroll_delta = point(
++                            px(f32::from(current_center.x) - f32::from(last_center.x)),
++                            px(f32::from(current_center.y) - f32::from(last_center.y)),
++                        );
++                        state.last_scroll_center = Some(current_center);
++
++                        if f32::from(scroll_delta.x).abs() > TOUCH_SCROLL_SENSITIVITY
++                            || f32::from(scroll_delta.y).abs() > TOUCH_SCROLL_SENSITIVITY
++                        {
++                            if let Some(window) = state.mouse_focused_window.clone() {
++                                let input = PlatformInput::ScrollWheel(ScrollWheelEvent {
++                                    position: current_center,
++                                    delta: ScrollDelta::Pixels(point(
++                                        px(f32::from(scroll_delta.x)),
++                                        px(f32::from(scroll_delta.y)),
++                                    )),
++                                    modifiers: state.modifiers,
++                                    touch_phase: TouchPhase::Moved,
++                                });
++                                drop(state);
++                                window.handle_input(input);
++                            }
++                        }
++                    }
++                } else if state.active_touch_id == Some(id) && !state.is_scrolling {
++                    state.mouse_location = Some(position);
++                    
++                    let mut start_scroll = false;
++                    if state.touchscreen_drag_scrolls {
++                        if let Some(initial) = state.touch_initial_location {
++                            let dx = f32::from(position.x) - f32::from(initial.x);
++                            let dy = f32::from(position.y) - f32::from(initial.y);
++                            if dx.abs() > 8.0 || dy.abs() > 8.0 {
++                                start_scroll = true;
++                            }
++                        }
++                    }
++
++                    if start_scroll {
++                        state.is_scrolling = true;
++                        state.last_scroll_center = Some(position);
++                        
++                        // Cancel the pending click before scrolling.
++                        let need_up = state.touch_mouse_down_sent;
++                        state.touch_mouse_down_sent = false;
++                        state.button_pressed = None;
++                        if need_up {
++                            if let Some(window) = state
++                                .touch_window
++                                .clone()
++                                .or_else(|| state.mouse_focused_window.clone())
++                            {
++                                let click_count = state.click.current_count;
++                                let input = PlatformInput::MouseUp(MouseUpEvent {
++                                    button: MouseButton::Left,
++                                    position,
++                                    modifiers: state.modifiers,
++                                    click_count,
++                                });
++                                drop(state);
++                                window.handle_input(input);
++                            }
++                        }
++                        return;
++                    }
++
++                    if let Some(window) = state
++                        .touch_window
++                        .clone()
++                        .or_else(|| state.mouse_focused_window.clone())
++                    {
++                        let input = PlatformInput::MouseMove(MouseMoveEvent {
++                            position,
++                            pressed_button: state.button_pressed,
++                            modifiers: state.modifiers,
++                        });
++                        drop(state);
++                        window.handle_input(input);
++                    }
++                }
++            }
++            wl_touch::Event::Up { id, .. } => {
++                if state.active_touch_id == Some(id) {
++                    if state.is_scrolling && state.second_touch_id.is_some() {
++                        // Promote second finger to primary; end scroll gesture.
++                        // Click was already cancelled when scroll started — do not
++                        // re-assert button_pressed (that left a stuck drag).
++                        state.active_touch_id = state.second_touch_id.take();
++                        state.touch_location = state.second_touch_location.take();
++                        state.is_scrolling = false;
++                        state.last_scroll_center = None;
++                        state.button_pressed = None;
++
++                        if let Some(window) = state
++                            .touch_window
++                            .clone()
++                            .or_else(|| state.mouse_focused_window.clone())
++                        {
++                            let position = state.touch_location.unwrap_or_default();
++                            let input = PlatformInput::ScrollWheel(ScrollWheelEvent {
++                                position,
++                                delta: ScrollDelta::Pixels(point(px(0.0), px(0.0))),
++                                modifiers: state.modifiers,
++                                touch_phase: TouchPhase::Ended,
++                            });
++                            state.mouse_location = Some(position);
++                            drop(state);
++                            window.handle_input(input);
++                        }
++                    } else {
++                        let need_up = state.touch_mouse_down_sent;
++                        let position = state.touch_location.unwrap_or_default();
++                        let click_count = state.click.current_count;
++                        let modifiers = state.modifiers;
++                        let window = state
++                            .touch_window
++                            .take()
++                            .or_else(|| state.mouse_focused_window.clone());
++
++                        state.active_touch_id = None;
++                        state.touch_location = None;
++                        state.button_pressed = None;
++                        state.touch_mouse_down_sent = false;
++                        state.mouse_location = Some(position);
++
++                        if need_up {
++                            if let Some(window) = window {
++                                let input = PlatformInput::MouseUp(MouseUpEvent {
++                                    button: MouseButton::Left,
++                                    position,
++                                    modifiers,
++                                    click_count,
++                                });
++                                drop(state);
++                                window.handle_input(input);
++                            }
++                        }
++                    }
++                } else if state.second_touch_id == Some(id) {
++                    // End two-finger scroll; primary finger may still be down but
++                    // the click was already cancelled — leave button released.
++                    state.second_touch_id = None;
++                    state.second_touch_location = None;
++                    state.is_scrolling = false;
++                    state.last_scroll_center = None;
++                    state.button_pressed = None;
++
++                    if let Some(window) = state
++                        .touch_window
++                        .clone()
++                        .or_else(|| state.mouse_focused_window.clone())
++                    {
++                        let position = state.touch_location.unwrap_or_default();
++                        let input = PlatformInput::ScrollWheel(ScrollWheelEvent {
++                            position,
++                            delta: ScrollDelta::Pixels(point(px(0.0), px(0.0))),
++                            modifiers: state.modifiers,
++                            touch_phase: TouchPhase::Ended,
++                        });
++                        state.mouse_location = Some(position);
++                        drop(state);
++                        window.handle_input(input);
++                    }
++                }
++            }
++            wl_touch::Event::Cancel => {
++                let was_scrolling = state.is_scrolling;
++                let need_up = state.touch_mouse_down_sent;
++                let position = state
++                    .touch_location
++                    .or(state.mouse_location)
++                    .unwrap_or_default();
++                let click_count = state.click.current_count;
++                let modifiers = state.modifiers;
++                let window = state
++                    .touch_window
++                    .take()
++                    .or_else(|| state.mouse_focused_window.clone());
++
++                state.active_touch_id = None;
++                state.touch_location = None;
++                state.second_touch_id = None;
++                state.second_touch_location = None;
++                state.is_scrolling = false;
++                state.last_scroll_center = None;
++                state.button_pressed = None;
++                state.touch_mouse_down_sent = false;
++
++                if let Some(window) = window {
++                    if was_scrolling {
++                        let input = PlatformInput::ScrollWheel(ScrollWheelEvent {
++                            position,
++                            delta: ScrollDelta::Pixels(point(px(0.0), px(0.0))),
++                            modifiers,
++                            touch_phase: TouchPhase::Ended,
++                        });
++                        drop(state);
++                        window.handle_input(input);
++                    } else if need_up {
++                        // Always synthesize MouseUp on cancel — MouseExited alone
++                        // does not clear app-level press state (tmux drag, etc.).
++                        let input = PlatformInput::MouseUp(MouseUpEvent {
++                            button: MouseButton::Left,
++                            position,
++                            modifiers,
++                            click_count,
++                        });
++                        drop(state);
++                        window.handle_input(input);
++                    }
++                }
++            }
++            _ => {}
++        }
++    }
++}
++
+ #[cfg(test)]
+ mod tests {
+     use std::cell::Cell;
+--- a/src/linux/wayland/serial.rs	
++++ b/src/linux/wayland/serial.rs	
+@@ -7,6 +7,7 @@
+     MouseEnter,
+     MousePress,
+     KeyPress,
++    Touch,
+ }
+ 
+ #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+--- a/src/linux/wayland/window.rs	
++++ b/src/linux/wayland/window.rs	
+@@ -2051,6 +2051,9 @@
+ 
+     fn start_window_resize(&self, edge: gpui::ResizeEdge) {
+         let state = self.borrow();
++        if state.maximized {
++            return;
++        }
+         if let Some(toplevel) = state.surface_state.toplevel() {
+             toplevel.resize(
+                 &state.globals.seat,
+--- a/src/linux/x11/client.rs	
++++ b/src/linux/x11/client.rs	
+@@ -608,18 +608,36 @@
+                     };
+                     match event {
+                         XDPEvent::WindowAppearance(appearance) => {
+-                            client.with_common(|common| common.appearance = appearance);
+-                            for window in client.0.borrow_mut().windows.values_mut() {
+-                                window.window.set_appearance(appearance);
++                            let windows = {
++                                client.with_common(|common| common.appearance = appearance);
++                                client
++                                    .0
++                                    .borrow()
++                                    .windows
++                                    .values()
++                                    .map(|w| w.window.clone())
++                                    .collect::<Vec<_>>()
++                            };
++                            for mut window in windows {
++                                window.set_appearance(appearance);
+                             }
+                         }
+                         XDPEvent::ButtonLayout(layout_str) => {
+                             let layout = WindowButtonLayout::parse(&layout_str)
+                                 .log_err()
+                                 .unwrap_or_else(WindowButtonLayout::linux_default);
+-                            client.with_common(|common| common.button_layout = layout);
+-                            for window in client.0.borrow_mut().windows.values_mut() {
+-                                window.window.set_button_layout();
++                            let windows = {
++                                client.with_common(|common| common.button_layout = layout);
++                                client
++                                    .0
++                                    .borrow()
++                                    .windows
++                                    .values()
++                                    .map(|w| w.window.clone())
++                                    .collect::<Vec<_>>()
++                            };
++                            for window in windows {
++                                window.set_button_layout();
+                             }
+                         }
+                         XDPEvent::CursorTheme(_) | XDPEvent::CursorSize(_) => {
