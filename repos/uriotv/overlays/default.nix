@@ -3,6 +3,7 @@
   # Note: vintagestory is NOT included - it requires version and hash arguments
   # Use the NixOS module or manual override instead
   default = final: prev: {
+    bbport = final.callPackage ../pkgs/bbport { };
     cybergrub2077 = final.callPackage ../pkgs/cybergrub2077 { };
     nmssaveeditor = final.callPackage ../pkgs/nmssaveeditor { };
     pig = final.callPackage ../pkgs/pig { };
