@@ -10,8 +10,6 @@
   applicationName ? "Firefox",
   branding ? null,
   distributionId ? "org.nixos",
-  requireSigning ? null,
-  allowAddonSideload ? null,
   withWasiSysroot ? true,
   src,
   unpackPhase ? null,
@@ -117,107 +115,72 @@ in
   rsync, # used when preparing .app directory
 
   # optional dependencies
-  alsaSupport ? null,
-  withALSA ? if alsaSupport != null then alsaSupport else stdenv.hostPlatform.isLinux,
+  withALSA ? stdenv.hostPlatform.isLinux,
   alsa-lib,
-  ffmpegSupport ? null,
-  withFFmpeg ? if ffmpegSupport != null then ffmpegSupport else true,
-  gssSupport ? null,
-  withGSSAPI ? if gssSupport != null then gssSupport else true,
+  withFFmpeg ? true,
+  withGSSAPI ? true,
   libkrb5,
-  jackSupport ? null,
-  withJACK ? if jackSupport != null then jackSupport else stdenv.hostPlatform.isLinux,
+  withJACK ? stdenv.hostPlatform.isLinux,
   libjack2,
-  jemallocSupport ? null,
-  withJemalloc ? if jemallocSupport != null then jemallocSupport else !stdenv.hostPlatform.isMusl,
+  withJemalloc ? !stdenv.hostPlatform.isMusl,
   jemalloc,
-  waylandSupport ? null,
-  withWayland ? if waylandSupport != null then waylandSupport else !stdenv.hostPlatform.isDarwin,
-  webrtcSupport ? null,
-  enableWebRTC ? if webrtcSupport != null then webrtcSupport else true,
-  pipewireSupport ? null,
-  withPipewire ? if pipewireSupport != null then pipewireSupport else (withWayland && enableWebRTC),
-  pulseaudioSupport ? null,
-  withPulseaudio ?
-    if pulseaudioSupport != null then pulseaudioSupport else stdenv.hostPlatform.isLinux,
+  withPipewire ? withWayland && enableWebRTC,
+  withPulseaudio ? stdenv.hostPlatform.isLinux,
   libpulseaudio,
-  sndioSupport ? null,
-  withSndio ? if sndioSupport != null then sndioSupport else stdenv.hostPlatform.isLinux,
+  withSndio ? stdenv.hostPlatform.isLinux,
   sndio,
+  withWayland ? !stdenv.hostPlatform.isDarwin,
   libxkbcommon,
   libdrm,
 
   # Build configuration
 
   ## Addon signing/sideloading
-  enableAddonSigning ? if requireSigning != null then requireSigning else true,
-  enableAddonSideload ? if allowAddonSideload != null then allowAddonSideload else false,
+  enableAddonSigning ? true,
+  enableAddonSideload ? false,
 
   ## Optimizations
-  elfhackSupport ? null,
   enableElfhack ?
-    if elfhackSupport != null then
-      elfhackSupport
-    else
-      (isElfhackPlatform stdenv && !(stdenv.hostPlatform.isMusl && stdenv.hostPlatform.isAarch64)),
-  ltoSupport ? null,
-  enableLTO ?
-    if ltoSupport != null then
-      ltoSupport
-    else
-      (
-        (stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isDarwin)
-        && stdenv.hostPlatform.is64bit
-        && !stdenv.hostPlatform.isRiscV
-      ),
-  pgoSupport ? null,
-  enablePGO ?
-    if pgoSupport != null then
-      pgoSupport
-    else
-      (
-        stdenv.hostPlatform.isLinux
-        && stdenv.hostPlatform == stdenv.buildPlatform
-        # PGO merges profile data with a 32-bit llvm-profdata, which runs out of
-        # address space on the huge libxul profile, so disable it on 32-bit.
-        && stdenv.hostPlatform.is64bit
-      ),
+    isElfhackPlatform stdenv && !(stdenv.hostPlatform.isMusl && stdenv.hostPlatform.isAarch64),
+  enableLTO ? (
+    (stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isDarwin)
+    && stdenv.hostPlatform.is64bit
+    && !stdenv.hostPlatform.isRiscV
+  ),
+  enablePGO ? (
+    stdenv.hostPlatform.isLinux
+    && stdenv.hostPlatform == stdenv.buildPlatform
+    # PGO merges profile data with a 32-bit llvm-profdata, which runs out of
+    # address space on the huge libxul profile, so disable it on 32-bit.
+    && stdenv.hostPlatform.is64bit
+  ),
   xvfb-run,
 
   ## Debugging
-  debugBuild ? null,
-  enableDebug ? if debugBuild != null then debugBuild else false,
+  enableDebug ? false,
 
   ## On 32bit platforms, we disable adding "-g" for easier linking.
   enableDebugSymbols ? !stdenv.hostPlatform.is32bit,
 
   ## Privacy knobs
-  privacySupport ? false,
-  enableDataReporting ? !privacySupport,
-  geolocationSupport ? null,
-  enableLocation ? if geolocationSupport != null then geolocationSupport else !privacySupport,
+  enableDataReporting ? true,
+  enableLocation ? true,
+  enableWebRTC ? true,
   enableNeckoWiFi ? enableLocation,
 
   ## Crash reporting
   ## https://crash-stats.mozilla.org/search/?distribution_id=%3Dnixos
-  crashreporterSupport ? null,
   enableCrashReporter ?
-    if crashreporterSupport != null then
-      crashreporterSupport
-    else
-      (
-        enableDataReporting
-        && !stdenv.hostPlatform.isLoongArch64
-        && !stdenv.hostPlatform.isRiscV
-        && !stdenv.hostPlatform.isMusl
-      ),
+    enableDataReporting
+    && !stdenv.hostPlatform.isLoongArch64
+    && !stdenv.hostPlatform.isRiscV
+    && !stdenv.hostPlatform.isMusl,
   curl,
 
   ## DRM / Encrypted Media Extensions
   # Build time toggle to control whether the DRM nagbar will appear
   # (browser.eme.ui.enabled), when sites require it to playback media.
-  drmSupport ? null,
-  enableEMENagbar ? if drmSupport != null then drmSupport else true,
+  enableEMENagbar ? true,
 
   # As stated by Sylvestre Ledru (@sylvestre) on Nov 22, 2017 at
   # https://github.com/NixOS/nixpkgs/issues/31843#issuecomment-346372756 we
@@ -778,15 +741,6 @@ buildStdenv.mkDerivation {
       withPipewire
       withSndio
       ;
-    # Compatibility aliases
-    requireSigning = enableAddonSigning;
-    allowAddonSideload = enableAddonSideload;
-    alsaSupport = withALSA;
-    ffmpegSupport = withFFmpeg;
-    gssSupport = withGSSAPI;
-    jackSupport = withJACK;
-    pipewireSupport = withPipewire;
-    sndioSupport = withSndio;
     version = packageVersion;
   }
   // extraPassthru;

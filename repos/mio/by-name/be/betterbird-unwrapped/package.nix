@@ -65,7 +65,6 @@ in
     distributionId = if stdenv.hostPlatform.isDarwin then "eu.betterbird" else "org.nixos";
     application = "comm/mail";
     branding = "comm/mail/branding/betterbird";
-    requireSigning = false;
     inherit (thunderbird-unwrapped) extraPatches;
 
     src = fetchhg {
@@ -177,10 +176,11 @@ in
     };
   }).override
     {
-      crashreporterSupport = false; # not supported
-      geolocationSupport = false;
-      webrtcSupport = false;
+      enableAddonSigning = false;
+      enableCrashReporter = false; # not supported
+      enableLocation = false;
+      enableWebRTC = false;
 
-      pgoSupport = false; # console.warn: feeds: "downloadFee d: network connection unavailable"
+      enablePGO = false; # console.warn: feeds: "downloadFee d: network connection unavailable"
     }
 )

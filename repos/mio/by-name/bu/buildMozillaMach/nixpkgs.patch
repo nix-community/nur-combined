@@ -1,6 +1,6 @@
 --- a/pkgs/build-support/build-mozilla-mach/default.nix
 +++ b/pkgs/build-support/build-mozilla-mach/default.nix
-@@ -5,9 +5,14 @@
+@@ -5,9 +5,12 @@
    meta,
    updateScript ? null,
    binaryName ? "firefox",
@@ -9,154 +9,11 @@
    applicationName ? "Firefox",
    branding ? null,
 +  distributionId ? "org.nixos",
-+  requireSigning ? null,
-+  allowAddonSideload ? null,
 +  withWasiSysroot ? true,
    src,
    unpackPhase ? null,
    extraPatches ? [ ],
-@@ -112,72 +117,107 @@
-   rsync, # used when preparing .app directory
- 
-   # optional dependencies
--  withALSA ? stdenv.hostPlatform.isLinux,
-+  alsaSupport ? null,
-+  withALSA ? if alsaSupport != null then alsaSupport else stdenv.hostPlatform.isLinux,
-   alsa-lib,
--  withFFmpeg ? true,
--  withGSSAPI ? true,
-+  ffmpegSupport ? null,
-+  withFFmpeg ? if ffmpegSupport != null then ffmpegSupport else true,
-+  gssSupport ? null,
-+  withGSSAPI ? if gssSupport != null then gssSupport else true,
-   libkrb5,
--  withJACK ? stdenv.hostPlatform.isLinux,
-+  jackSupport ? null,
-+  withJACK ? if jackSupport != null then jackSupport else stdenv.hostPlatform.isLinux,
-   libjack2,
--  withJemalloc ? !stdenv.hostPlatform.isMusl,
-+  jemallocSupport ? null,
-+  withJemalloc ? if jemallocSupport != null then jemallocSupport else !stdenv.hostPlatform.isMusl,
-   jemalloc,
--  withPipewire ? withWayland && enableWebRTC,
--  withPulseaudio ? stdenv.hostPlatform.isLinux,
-+  waylandSupport ? null,
-+  withWayland ? if waylandSupport != null then waylandSupport else !stdenv.hostPlatform.isDarwin,
-+  webrtcSupport ? null,
-+  enableWebRTC ? if webrtcSupport != null then webrtcSupport else true,
-+  pipewireSupport ? null,
-+  withPipewire ? if pipewireSupport != null then pipewireSupport else (withWayland && enableWebRTC),
-+  pulseaudioSupport ? null,
-+  withPulseaudio ?
-+    if pulseaudioSupport != null then pulseaudioSupport else stdenv.hostPlatform.isLinux,
-   libpulseaudio,
--  withSndio ? stdenv.hostPlatform.isLinux,
-+  sndioSupport ? null,
-+  withSndio ? if sndioSupport != null then sndioSupport else stdenv.hostPlatform.isLinux,
-   sndio,
--  withWayland ? !stdenv.hostPlatform.isDarwin,
-   libxkbcommon,
-   libdrm,
- 
-   # Build configuration
- 
-   ## Addon signing/sideloading
--  enableAddonSigning ? true,
--  enableAddonSideload ? false,
-+  enableAddonSigning ? if requireSigning != null then requireSigning else true,
-+  enableAddonSideload ? if allowAddonSideload != null then allowAddonSideload else false,
- 
-   ## Optimizations
-+  elfhackSupport ? null,
-   enableElfhack ?
--    isElfhackPlatform stdenv && !(stdenv.hostPlatform.isMusl && stdenv.hostPlatform.isAarch64),
--  enableLTO ? (
--    (stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isDarwin)
--    && stdenv.hostPlatform.is64bit
--    && !stdenv.hostPlatform.isRiscV
--  ),
--  enablePGO ? (
--    stdenv.hostPlatform.isLinux
--    && stdenv.hostPlatform == stdenv.buildPlatform
--    # PGO merges profile data with a 32-bit llvm-profdata, which runs out of
--    # address space on the huge libxul profile, so disable it on 32-bit.
--    && stdenv.hostPlatform.is64bit
--  ),
-+    if elfhackSupport != null then
-+      elfhackSupport
-+    else
-+      (isElfhackPlatform stdenv && !(stdenv.hostPlatform.isMusl && stdenv.hostPlatform.isAarch64)),
-+  ltoSupport ? null,
-+  enableLTO ?
-+    if ltoSupport != null then
-+      ltoSupport
-+    else
-+      (
-+        (stdenv.hostPlatform.isLinux || stdenv.hostPlatform.isDarwin)
-+        && stdenv.hostPlatform.is64bit
-+        && !stdenv.hostPlatform.isRiscV
-+      ),
-+  pgoSupport ? null,
-+  enablePGO ?
-+    if pgoSupport != null then
-+      pgoSupport
-+    else
-+      (
-+        stdenv.hostPlatform.isLinux
-+        && stdenv.hostPlatform == stdenv.buildPlatform
-+        # PGO merges profile data with a 32-bit llvm-profdata, which runs out of
-+        # address space on the huge libxul profile, so disable it on 32-bit.
-+        && stdenv.hostPlatform.is64bit
-+      ),
-   xvfb-run,
- 
-   ## Debugging
--  enableDebug ? false,
-+  debugBuild ? null,
-+  enableDebug ? if debugBuild != null then debugBuild else false,
- 
-   ## On 32bit platforms, we disable adding "-g" for easier linking.
-   enableDebugSymbols ? !stdenv.hostPlatform.is32bit,
- 
-   ## Privacy knobs
--  enableDataReporting ? true,
--  enableLocation ? true,
--  enableWebRTC ? true,
-+  privacySupport ? false,
-+  enableDataReporting ? !privacySupport,
-+  geolocationSupport ? null,
-+  enableLocation ? if geolocationSupport != null then geolocationSupport else !privacySupport,
-   enableNeckoWiFi ? enableLocation,
- 
-   ## Crash reporting
-   ## https://crash-stats.mozilla.org/search/?distribution_id=%3Dnixos
-+  crashreporterSupport ? null,
-   enableCrashReporter ?
--    enableDataReporting
--    && !stdenv.hostPlatform.isLoongArch64
--    && !stdenv.hostPlatform.isRiscV
--    && !stdenv.hostPlatform.isMusl,
-+    if crashreporterSupport != null then
-+      crashreporterSupport
-+    else
-+      (
-+        enableDataReporting
-+        && !stdenv.hostPlatform.isLoongArch64
-+        && !stdenv.hostPlatform.isRiscV
-+        && !stdenv.hostPlatform.isMusl
-+      ),
-   curl,
- 
-   ## DRM / Encrypted Media Extensions
-   # Build time toggle to control whether the DRM nagbar will appear
-   # (browser.eme.ui.enabled), when sites require it to playback media.
--  enableEMENagbar ? true,
-+  drmSupport ? null,
-+  enableEMENagbar ? if drmSupport != null then drmSupport else true,
- 
-   # As stated by Sylvestre Ledru (@sylvestre) on Nov 22, 2017 at
-   # https://github.com/NixOS/nixpkgs/issues/31843#issuecomment-346372756 we
-@@ -244,18 +284,25 @@
+@@ -244,18 +247,25 @@
    distributionIni =
      let
        platform = if stdenv.hostPlatform.isDarwin then "Nix on MacOS" else "NixOS";
@@ -184,7 +41,7 @@
            "app.distributor.channel" = "nixpkgs";
          };
        }
-@@ -472,13 +519,15 @@
+@@ -472,13 +482,15 @@
      "--enable-application=${application}"
      "--enable-default-toolkit=${toolkit}"
      "--with-app-name=${binaryName}"
@@ -202,7 +59,7 @@
    # LTO is done using clang and lld.
    ++ lib.optionals enableLTO [
      "--enable-lto=cross,full" # Cross-Language LTO
-@@ -646,7 +695,7 @@
+@@ -646,7 +658,7 @@
      # Firefox relies on nonstandard behavior of the glibc dynamic linker. It re-uses
      # previously loaded libraries even though they are not in the rpath of the newly loaded binary.
      # On musl we have to explicitly set the rpath to include these libraries.
@@ -211,7 +68,7 @@
    };
  
    # tests were disabled in configureFlags
-@@ -670,16 +719,16 @@
+@@ -670,16 +682,16 @@
    postInstall =
      lib.optionalString stdenv.hostPlatform.isDarwin ''
        mkdir -p $out/Applications
@@ -231,7 +88,7 @@
      ''
      + ''
        # Install distribution customizations
-@@ -690,7 +739,7 @@
+@@ -690,7 +702,7 @@
      '';
  
    postFixup = lib.optionalString (enableCrashReporter && buildStdenv.hostPlatform.isLinux) ''
@@ -240,7 +97,7 @@
    '';
  
    # Some basic testing
-@@ -703,7 +752,7 @@
+@@ -703,7 +715,7 @@
        bindir=$out/bin
      ''
      + ''
@@ -249,7 +106,7 @@
      '';
  
    passthru = {
-@@ -711,6 +760,9 @@
+@@ -711,6 +723,9 @@
        application
        applicationName
        binaryName
@@ -259,19 +116,3 @@
        enableAddonSideload
        enableAddonSigning
        extraPatches
-@@ -726,6 +778,15 @@
-       withPipewire
-       withSndio
-       ;
-+    # Compatibility aliases
-+    requireSigning = enableAddonSigning;
-+    allowAddonSideload = enableAddonSideload;
-+    alsaSupport = withALSA;
-+    ffmpegSupport = withFFmpeg;
-+    gssSupport = withGSSAPI;
-+    jackSupport = withJACK;
-+    pipewireSupport = withPipewire;
-+    sndioSupport = withSndio;
-     version = packageVersion;
-   }
-   // extraPassthru;

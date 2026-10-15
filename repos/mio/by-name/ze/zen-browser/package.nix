@@ -170,8 +170,6 @@ in
     applicationName = "Zen";
     binaryName = "zen";
     branding = "browser/branding/release";
-    requireSigning = false;
-    allowAddonSideload = true;
 
     src = patchedSrc;
 
@@ -202,7 +200,9 @@ in
     };
   }).override
     {
-      crashreporterSupport = false;
+      enableAddonSigning = false;
+      enableAddonSideload = true;
+      enableCrashReporter = false;
       enableOfficialBranding = false;
     }
 ).overrideAttrs

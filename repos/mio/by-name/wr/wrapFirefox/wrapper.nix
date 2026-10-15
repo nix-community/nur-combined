@@ -91,20 +91,18 @@ let
     }:
 
     let
-      withFFmpeg = browser.withFFmpeg or browser.ffmpegSupport or false;
+      withFFmpeg = browser.withFFmpeg or false;
       # Firefox dlopens libavcodec by hardcoded soname, so each ffmpeg major needs
       # explicit browser support; keep versioned pins here (never the ffmpeg alias)
       # and add a tier when a release gains the next ABI.
       # libavcodec 62: 146 (bug 1962139), uplifted to ESR 140.10.2 (bug 2036244).
       # libavcodec 63: 154 (bug 2057577), uplifted to ESR 153.1 (bug 2057577).
       ffmpegPackage = if lib.versionAtLeast browser.version "153.1" then ffmpeg_9 else ffmpeg_8;
-      withGSSAPI = browser.withGSSAPI or browser.gssSupport or false;
-      withALSA = browser.withALSA or browser.alsaSupport or false;
-      withPipewire = browser.withPipewire or browser.pipewireSupport or false;
-      withSndio = browser.withSndio or browser.sndioSupport or false;
-      withJACK = browser.withJACK or browser.jackSupport or false;
-      enableAddonSigning = browser.enableAddonSigning or browser.requireSigning or true;
-      enableAddonSideload = browser.enableAddonSideload or browser.allowAddonSideload or false;
+      withGSSAPI = browser.withGSSAPI or false;
+      withALSA = browser.withALSA or false;
+      withPipewire = browser.withPipewire or false;
+      withSndio = browser.withSndio or false;
+      withJACK = browser.withJACK or false;
       # PCSC-Lite daemon (services.pcscd) also must be enabled for firefox to access smartcards
       withPCSC = cfg.smartcardSupport or false;
 
@@ -613,7 +611,6 @@ let
 
       disallowedRequisites = [ stdenv.cc ];
       meta = browser.meta // {
-        inherit (browser.meta) description;
         mainProgram = launcherName;
         hydraPlatforms = [ ];
         priority = (browser.meta.priority or lib.meta.defaultPriority) - 1; # prefer wrapper over the package
