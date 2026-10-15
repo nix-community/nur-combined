@@ -104,13 +104,22 @@ builtins.mapAttrs (
         # extraAttrs still holds the package itself as src
         removeAttrs extraAttrs [ "src" ]
         // {
-          inherit name checkPhase;
-          nativeCheckInputs = (prev.nativeCheckInputs or [ ]) ++ nativeCheckInputs;
+          inherit name;
+          # nixpkgs forces doCheck off and drops check inputs when the build platform can't run the package (cross),
+          # so promote the check inputs to build inputs and run the check from the build phase instead
+          buildInputs = (prev.buildInputs or [ ]) ++ (prev.checkInputs or [ ]);
+          nativeBuildInputs =
+            (prev.nativeBuildInputs or [ ]) ++ (prev.nativeCheckInputs or [ ]) ++ nativeCheckInputs;
           env = (prev.env or { }) // (extraAttrs.env or { });
           # keep the build hooks (mkRustPackage restores target/ in preBuild), skip the build itself
           dontBuild = false;
-          buildPhase = "runHook preBuild; runHook postBuild";
-          doCheck = true;
+          buildPhase = ''
+            runHook preBuild
+            runHook postBuild
+
+            ${checkPhase}
+          '';
+          doCheck = false;
           dontInstall = false;
           installPhase = ''
             for output in $(getAllOutputNames); do
