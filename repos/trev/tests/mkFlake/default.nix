@@ -41,6 +41,18 @@ let
     }
   );
   packages = fixture.packages.x86_64-linux;
+
+  checksFixture = self.libs.mkFlake (
+    _system: fixturePkgs: {
+      checks = {
+        forced = throw "check was forced while listing check names";
+        unavailable = fixturePkgs.runCommand "unavailable" {
+          meta.platforms = fixturePkgs.lib.platforms.darwin;
+        } "touch $out";
+      };
+    }
+  );
+  checks = checksFixture.checks.x86_64-linux;
   nativeDarwinPackages = fixture.packages.aarch64-darwin;
   target = "arm64-apple-darwin";
 
@@ -63,6 +75,23 @@ let
       '';
 in
 {
+  mkFlake-checks-lazy =
+    assert
+      builtins.attrNames checks == [
+        "forced"
+        "unavailable"
+      ];
+    pkgs.runCommand "mkFlake-checks-lazy" { } ''
+      touch $out
+    '';
+
+  mkFlake-checks-unavailable =
+    assert checks.unavailable.name == "unavailable-skipped";
+    pkgs.runCommand "mkFlake-checks-unavailable" { } ''
+      test -e ${checks.unavailable}
+      touch $out
+    '';
+
   mkFlake-darwin-structure =
     assert builtins.hasAttr target packages.hello;
     pkgs.runCommand "mkFlake-darwin-structure" { } ''

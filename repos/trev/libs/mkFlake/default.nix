@@ -294,8 +294,23 @@ eachSystemOp (
               (!lib.isDerivation flake.${key} || lib.meta.availableOn packages.stdenv.hostPlatform flake.${key})
               {
                 ${system} =
+                  # Replace unavailable checks with a stub instead of filtering them out,
+                  # so listing check names doesn't force every check
                   if key == "checks" then
-                    lib.filterAttrs (_: check: lib.meta.availableOn packages.stdenv.hostPlatform check) flake.${key}
+                    builtins.mapAttrs (
+                      name: check:
+                      if lib.meta.availableOn packages.stdenv.hostPlatform check then
+                        check
+                      else
+                        packages.runCommand "${name}-skipped"
+                          {
+                            meta.description = "Skipped: ${name} is not available on ${system}";
+                          }
+                          ''
+                            echo "${name} is not available on ${system}, skipping"
+                            touch $out
+                          ''
+                    ) flake.${key}
                   else
                     flake.${key};
               };
