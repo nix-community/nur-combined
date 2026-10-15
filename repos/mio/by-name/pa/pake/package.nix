@@ -135,16 +135,16 @@ stdenv.mkDerivation (finalAttrs: {
     prePnpmInstall = ''
       sed -i '/^overrides:/,+2d' pnpm-lock.yaml
       cat << 'EOF' > pnpm-workspace.yaml
-packages:
-  - '.'
-supportedArchitectures:
-  os:
-    - linux
-    - darwin
-  cpu:
-    - x64
-    - arm64
-EOF
+      packages:
+        - '.'
+      supportedArchitectures:
+        os:
+          - linux
+          - darwin
+        cpu:
+          - x64
+          - arm64
+      EOF
     '';
     hash = "sha256-GnDie7LXlmjRhTuCNuXW/B49L5CHz9FajEJdM2otLxM=";
   };
