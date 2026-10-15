@@ -4,18 +4,17 @@
   pkgs,
   fetchurl,
   cid,
-  datalog,
   ocaml-index,
   ocamlPackages,
 }:
 
 ocamlPackages.buildDunePackage rec {
   pname = "forester";
-  version = "39b920d624233c1aa39402cad69ad17c3895581d";
+  version = "d1b3651b9352251dd1e7f4e77c1465343f9b0735";
 
   src = fetchurl {
     url = "https://git.sr.ht/~jonsterling/ocaml-forester/archive/${version}.tar.gz";
-    hash = "sha256-V4ORZtm0OxaoEF5CT6oNQtLctmtsrWRilBSHGOacaPc=";
+    hash = "sha256-B0TxfIs6AGI8IY29zOiP1xPZxIMqexO/XJQ3TAoJgs0=";
   };
 
   strictDeps = true;
@@ -39,7 +38,6 @@ ocamlPackages.buildDunePackage rec {
     cid
     cmdliner
     cohttp-eio
-    datalog
     dune-build-info
     dune-site
     eio_main
@@ -51,13 +49,13 @@ ocamlPackages.buildDunePackage rec {
     ocaml-index
     ocamlgraph
     ppx_deriving
-    ppx_repr
+    ppx_deriving_yojson
     ppx_yojson_conv
     progress
     ptime
     pure-html
-    repr
     routes
+    saturn
     spelll
     toml
     uri
