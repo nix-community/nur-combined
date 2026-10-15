@@ -8,12 +8,16 @@
   ocamlPackages,
 }:
 
-ocamlPackages.buildDunePackage rec {
+let
+  version = "6.0.0-unstable-2026-10-03";
+  commit = "d1b3651b9352251dd1e7f4e77c1465343f9b0735";
+in
+ocamlPackages.buildDunePackage {
   pname = "forester";
-  version = "d1b3651b9352251dd1e7f4e77c1465343f9b0735";
+  inherit version;
 
   src = fetchurl {
-    url = "https://git.sr.ht/~jonsterling/ocaml-forester/archive/${version}.tar.gz";
+    url = "https://git.sr.ht/~jonsterling/ocaml-forester/archive/${commit}.tar.gz";
     hash = "sha256-B0TxfIs6AGI8IY29zOiP1xPZxIMqexO/XJQ3TAoJgs0=";
   };
 
@@ -71,7 +75,7 @@ ocamlPackages.buildDunePackage rec {
   meta = {
     description = "Tool for tending mathematical forests";
     homepage = "https://sr.ht/~jonsterling/forester/";
-    changelog = "https://git.sr.ht/~jonsterling/ocaml-forester/log/${version}";
+    changelog = "https://git.sr.ht/~jonsterling/ocaml-forester/log/${commit}";
     license = lib.licenses.gpl3Plus;
     maintainers = [ ];
     mainProgram = "forester";
