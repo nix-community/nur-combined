@@ -74,17 +74,17 @@
   };
   "mholt/caddy-l4" = {
     pname = "mholt/caddy-l4";
-    version = "65c1d329a1663d33e767307c38540762f299309d";
+    version = "4e5ab72a8f9af6b6fc02de4067b04ce7bc05198a";
     src = fetchFromGitHub {
       owner = "mholt";
       repo = "caddy-l4";
-      rev = "65c1d329a1663d33e767307c38540762f299309d";
+      rev = "4e5ab72a8f9af6b6fc02de4067b04ce7bc05198a";
       fetchSubmodules = false;
-      sha256 = "sha256-WjBzj/AbiYji6bdNrkIZaE4LUguGHRHTA7mBVosH/A8=";
+      sha256 = "sha256-HOhZdXOUsMJHyltEBTczjV2R/dILvEf9FuqvSfqgBNU=";
     };
     isCaddyPlugin = "true";
     moduleName = "github.com/mholt/caddy-l4";
-    date = "20261014154252";
+    date = "20261015074907";
   };
   "mholt/caddy-webdav" = {
     pname = "mholt/caddy-webdav";
