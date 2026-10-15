@@ -25,25 +25,25 @@ assert withFullTools -> withGhidra;
 assert withFullTools -> stdenv.hostPlatform.system == "x86_64-linux";
 buildNpmPackage (finalAttrs: {
   pname = "rea-agents";
-  version = "6.4.0";
+  version = "6.5.0";
 
   # The npm tarball ships the compiled dist/ tree, so no TypeScript toolchain
   # is needed. It omits the lockfile, which is taken from the matching tag.
   src = fetchurl {
     url = "https://registry.npmjs.org/rea-agents/-/rea-agents-${finalAttrs.version}.tgz";
-    sha256 = "sha256-WesWBLjbdfUi1Kl1w2zmtKKtRl5DutFl+aj3KDkdubg=";
+    sha256 = "sha256-UxcXoG6SymUaq1JpEZD5FvrARCcsAfh14ixeKTIY5pk=";
   };
 
   packageLock = fetchurl {
     url = "https://raw.githubusercontent.com/morluto/rea/rea-agents-${finalAttrs.version}/package-lock.json";
-    sha256 = "sha256-tlXiEYl71yAy72kmG+hxDlA3se3neBBsj+9zAwetAFk=";
+    sha256 = "sha256-BIIIU3LFY8mbMlGfUTOesoCtwr2D79umqO/XzUpJ6fA=";
   };
 
   postPatch = ''
     cp ${finalAttrs.packageLock} package-lock.json
   '';
 
-  npmDepsHash = "sha256-XuiMtaM/MPDkhjiHCr9dGC7WlsRBmsWepuNHRxAs3Nw=";
+  npmDepsHash = "sha256-EQKhS1S7Hsfjbo5GikMeAFc2HFtALsDcw6XnJATUryw=";
 
   nodejs = nodejs_24;
 
