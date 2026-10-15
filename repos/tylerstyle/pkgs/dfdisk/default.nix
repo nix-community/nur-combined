@@ -1,15 +1,17 @@
 {
   lib,
+  stdenv,
   rustPlatform,
   fetchFromGitHub,
   runCommand,
   makeWrapper,
-  pkg-config,
   libewf,
-  smartmontools,
   ddrescue,
+  smartmontools,
   util-linux,
   systemd,
+  hdparm,
+  nvme-cli,
 }:
 
 let
@@ -30,6 +32,17 @@ let
     rev = "ffce902b0119830f70211ec3efc3512c8bf7f365";
     hash = "sha256-mzwV620LnaWlUM9PawWg3pg04U6FrvAfk9VGyjFC0Ek=";
   };
+
+  # The tools dfdisk runs (package.nix passthru.runtimeTools); none is linked
+  runtimeTools = [
+    libewf
+    ddrescue
+    smartmontools
+    util-linux
+    systemd
+    hdparm
+    nvme-cli
+  ];
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "dfdisk";
@@ -48,30 +61,30 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-sVHI2WehQXMK/0/AaK4902eBcuf199SbarY5cHQl4E8=";
 
-  nativeBuildInputs = [
-    pkg-config
-    makeWrapper
-  ];
+  # build.rs cannot run git in the sandbox. dfdiskSrc is fetched by tag (its
+  # rev is "refs/tags/v..."), so the release workflow writes the tag's commit
+  # here; the dfcore revision is the pinned one
+  env = {
+    DFDISK_GIT_REV = "9a64c3b670838cab7d81f7c953e9efa26b096375";
+    DFCORE_GIT_REV = dfcoreSrc.rev;
+  };
 
-  buildInputs = [
+  nativeBuildInputs = [ makeWrapper ];
+
+  # The tool tests run against the real libewf and ddrescue (and a C compiler
+  # for the fake-device shim) instead of skipping
+  nativeCheckInputs = [
     libewf
-    smartmontools
     ddrescue
-    util-linux
-    systemd
+    stdenv.cc
   ];
+  preCheck = ''
+    export DFDISK_REQUIRE_TOOLS=1
+  '';
 
   postInstall = ''
     wrapProgram $out/bin/dfdisk \
-      --prefix PATH : ${
-        lib.makeBinPath [
-          libewf
-          smartmontools
-          ddrescue
-          util-linux
-          systemd
-        ]
-      }
+      --prefix PATH : ${lib.makeBinPath runtimeTools}
   '';
 
   meta = {
