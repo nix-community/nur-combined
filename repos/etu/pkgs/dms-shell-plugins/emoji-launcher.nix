@@ -6,13 +6,13 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-emoji-launcher";
-  version = "0-unstable-2026-07-04";
+  version = "0-unstable-2026-10-15";
 
   src = fetchFromGitHub {
     owner = "devnullvoid";
     repo = "dms-emoji-launcher";
-    rev = "8ff394e3ddfcb2fd755ed2e7b4c6f01f3e26e596";
-    hash = "sha256-fmIddCvACwO8wbAtLBMtDnEXXQJjb7+o2s4jW3f8VIU=";
+    rev = "35ea4d653417840b9045c77a9adb0188a4900086";
+    hash = "sha256-c81Jh/0sxAsLbIyy86Ikqr7uU3zzanMUsM9sWHccBMg=";
   };
 
   dontBuild = true;
