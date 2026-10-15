@@ -26,6 +26,8 @@
   rars_1_5 = pkgs.callPackage ./pkgs/rars { version = "1.5"; };
   rars_1_6 = pkgs.callPackage ./pkgs/rars { version = "1.6"; };
 
+  emacs30-homebrew-plus = pkgs.callPackage ./pkgs/emacs { };
+
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
