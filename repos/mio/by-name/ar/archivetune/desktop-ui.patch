@@ -1,9 +1,9 @@
-diff -urN ../empty_dir/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt ArchiveTune-original/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt
 --- a/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt	1970-01-01 10:00:00
 +++ b/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt	2026-09-24 18:32:47
-@@ -0,0 +1,64 @@
+@@ -0,0 +1,84 @@
 +package moe.rukamori.archivetune
 +
++import androidx.compose.foundation.isSystemInDarkTheme
 +import androidx.compose.foundation.layout.Box
 +import androidx.compose.foundation.layout.Row
 +import androidx.compose.foundation.layout.fillMaxSize
@@ -18,16 +18,30 @@ diff -urN ../empty_dir/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.
 +import androidx.compose.ui.Modifier
 +import androidx.compose.ui.window.Window
 +import androidx.compose.ui.window.application
++import moe.rukamori.archivetune.constants.DarkModeKey
++import moe.rukamori.archivetune.constants.PureBlackKey
 +import moe.rukamori.archivetune.ui.screens.HomeScreen
 +import moe.rukamori.archivetune.ui.screens.ExploreScreen
 +import moe.rukamori.archivetune.ui.screens.library.LibraryScreen
++import moe.rukamori.archivetune.ui.screens.settings.DarkMode
 +import moe.rukamori.archivetune.ui.screens.settings.SettingsScreen
++import moe.rukamori.archivetune.ui.theme.ArchiveTuneTheme
++import moe.rukamori.archivetune.utils.rememberEnumPreference
++import moe.rukamori.archivetune.utils.rememberPreference
 +
 +fun main() = application {
 +    Window(
 +        onCloseRequest = ::exitApplication,
 +        title = "ArchiveTune Desktop"
 +    ) {
++        val darkTheme by rememberEnumPreference(DarkModeKey, defaultValue = DarkMode.AUTO)
++        val pureBlackEnabled by rememberPreference(PureBlackKey, defaultValue = false)
++        val isSystemInDarkTheme = isSystemInDarkTheme()
++        val useDarkTheme = remember(darkTheme, isSystemInDarkTheme) {
++            if (darkTheme == DarkMode.AUTO) isSystemInDarkTheme else darkTheme == DarkMode.ON
++        }
++        val pureBlack = pureBlackEnabled && useDarkTheme
++
 +        var selectedItem by remember { mutableStateOf(0) }
 +        val items = listOf("Home", "Explore", "Library", "Settings")
 +        val icons = listOf(Icons.Filled.Home, Icons.Filled.Search, Icons.Filled.List, Icons.Filled.Settings)
@@ -36,30 +50,35 @@ diff -urN ../empty_dir/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.
 +            LocalPlayerConnection provides getGlobalPlayerConnection(),
 +            LocalDatabase provides (androidx.hilt.navigation.compose.getGlobalMusicDatabase() as moe.rukamori.archivetune.db.MusicDatabase),
 +            LocalPlayerAwareWindowInsets provides androidx.compose.foundation.layout.WindowInsets(0, 0, 0, 0),
-+            LocalDownloadUtil provides allocateDummy(moe.rukamori.archivetune.playback.DownloadUtil::class.java),
-+            LocalSyncUtils provides allocateDummy(moe.rukamori.archivetune.utils.SyncUtils::class.java),
++            LocalDownloadUtil provides getGlobalDownloadUtil(),
++            LocalSyncUtils provides getGlobalSyncUtils(),
 +            moe.rukamori.archivetune.ui.component.LocalMenuState provides moe.rukamori.archivetune.ui.component.MenuState(),
 +        ) {
-+            Scaffold(
-+                bottomBar = {
-+                    NavigationBar {
-+                        items.forEachIndexed { index, item ->
-+                            NavigationBarItem(
-+                                icon = { Icon(icons[index], contentDescription = item) },
-+                                label = { Text(item) },
-+                                selected = selectedItem == index,
-+                                onClick = { selectedItem = index }
-+                            )
++            ArchiveTuneTheme(
++                darkTheme = useDarkTheme,
++                pureBlack = pureBlack,
++            ) {
++                Scaffold(
++                    bottomBar = {
++                        NavigationBar {
++                            items.forEachIndexed { index, item ->
++                                NavigationBarItem(
++                                    icon = { Icon(icons[index], contentDescription = item) },
++                                    label = { Text(item) },
++                                    selected = selectedItem == index,
++                                    onClick = { selectedItem = index }
++                                )
++                            }
 +                        }
 +                    }
-+                }
-+            ) { innerPadding ->
-+                Box(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
-+                    when (selectedItem) {
-+                        0 -> HomeScreen(androidx.navigation.NavController(), androidx.hilt.navigation.compose.hiltViewModel())
-+                        1 -> ExploreScreen(androidx.navigation.NavController())
-+                        2 -> LibraryScreen(androidx.navigation.NavController(), androidx.compose.material3.TopAppBarDefaults.enterAlwaysScrollBehavior())
-+                        3 -> SettingsScreen(androidx.navigation.NavController(), "", {})
++                ) { innerPadding ->
++                    Box(modifier = Modifier.padding(innerPadding).fillMaxSize()) {
++                        when (selectedItem) {
++                            0 -> HomeScreen(androidx.navigation.NavController(), androidx.hilt.navigation.compose.hiltViewModel())
++                            1 -> ExploreScreen(androidx.navigation.NavController())
++                            2 -> LibraryScreen(androidx.navigation.NavController(), androidx.compose.material3.TopAppBarDefaults.enterAlwaysScrollBehavior())
++                            3 -> SettingsScreen(androidx.navigation.NavController(), "", {})
++                        }
 +                    }
 +                }
 +            }

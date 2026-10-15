@@ -15,9 +15,9 @@ import kotlinx.coroutines.flow.map
  * ever cached or downloaded on the desktop build.
  */
 class DownloadUtil {
-    val downloadCache: Cache = TODO("desktop port has no download cache")
+    val downloadCache: Cache = object : Cache {}
 
-    val playerCache: Cache = TODO("desktop port has no player cache")
+    val playerCache: Cache = object : Cache {}
 
     val downloadManager: DownloadManager = DownloadManager()
 

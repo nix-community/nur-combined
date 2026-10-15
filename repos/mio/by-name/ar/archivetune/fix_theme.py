@@ -179,8 +179,8 @@ fun <T> allocateDummy(clazz: Class<T>): T {
         val unsafe = f.get(null)
         val instance = unsafeClass.getMethod("allocateInstance", Class::class.java).invoke(unsafe, clazz) as T
         for (field in clazz.declaredFields) {
+            field.isAccessible = true
             if (field.name.startsWith("\$\$delegate_") || field.name.startsWith("delegate")) {
-                field.isAccessible = true
                 if (field.type.isInterface) {
                     val proxy = java.lang.reflect.Proxy.newProxyInstance(
                         clazz.classLoader,
@@ -200,6 +200,15 @@ fun <T> allocateDummy(clazz: Class<T>): T {
                         }
                     }
                     field.set(instance, proxy)
+                }
+            } else {
+                val t = field.type
+                if (field.get(instance) == null) {
+                    if (t.name == "kotlinx.coroutines.flow.StateFlow") {
+                        field.set(instance, kotlinx.coroutines.flow.MutableStateFlow(emptyMap<Any, Any>()))
+                    } else if (t.name == "kotlinx.coroutines.flow.Flow") {
+                        field.set(instance, kotlinx.coroutines.flow.emptyFlow<Any>())
+                    }
                 }
             }
         }
@@ -222,11 +231,33 @@ fun getGlobalPlayerConnection(): PlayerConnection {
     return _globalPlayerConnection!!
 }
 
+private var _globalDownloadUtil: DownloadUtil? = null
+fun getGlobalDownloadUtil(): DownloadUtil {
+    if (_globalDownloadUtil == null) {
+        _globalDownloadUtil = DownloadUtil()
+    }
+    return _globalDownloadUtil!!
+}
+
+private var _globalSyncUtils: SyncUtils? = null
+fun getGlobalSyncUtils(): SyncUtils {
+    if (_globalSyncUtils == null) {
+        val context = android.content.DummyContext()
+        val db = androidx.hilt.navigation.compose.getGlobalMusicDatabase() as MusicDatabase
+        _globalSyncUtils = try {
+            SyncUtils(db, context)
+        } catch (_: Throwable) {
+            allocateDummy(SyncUtils::class.java)
+        }
+    }
+    return _globalSyncUtils!!
+}
+
 val LocalDatabase = staticCompositionLocalOf<MusicDatabase> { androidx.hilt.navigation.compose.getGlobalMusicDatabase() as MusicDatabase }
 val LocalPlayerConnection = staticCompositionLocalOf<PlayerConnection?> { getGlobalPlayerConnection() }
 val LocalPlayerAwareWindowInsets = compositionLocalOf<WindowInsets> { WindowInsets(0, 0, 0, 0) }
-val LocalDownloadUtil = staticCompositionLocalOf<DownloadUtil> { allocateDummy(DownloadUtil::class.java) }
-val LocalSyncUtils = staticCompositionLocalOf<SyncUtils> { allocateDummy(SyncUtils::class.java) }
+val LocalDownloadUtil = staticCompositionLocalOf<DownloadUtil> { getGlobalDownloadUtil() }
+val LocalSyncUtils = staticCompositionLocalOf<SyncUtils> { getGlobalSyncUtils() }
 """)
 
 # Material3-expressive members that upstream Android's material3 has as *members* of
