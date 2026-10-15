@@ -14,8 +14,16 @@ pub struct ConnectCallRequest {
     pub call_notes: String,
     pub proxy_url: Option<String>,
     pub australian_state: String,
+    pub password: Option<String>,
+    pub user_token: Option<String>,
 }
 
+#[derive(Deserialize, DartSignal)]
+pub struct LoginRequest {
+    pub username: String,
+    pub password: String,
+    pub proxy_url: Option<String>,
+}
 
 #[derive(Deserialize, DartSignal)]
 pub struct SendRelayMessageRequest {
@@ -85,4 +93,15 @@ pub struct TranscriptExportedSignal {
     pub filename: String,
     pub content: String,
     pub message: String,
+}
+
+#[derive(Serialize, RustSignal)]
+pub struct AuthStatusSignal {
+    pub is_authenticated: bool,
+    pub username: String,
+    pub user_token: String,
+    pub first_name: String,
+    pub last_name: String,
+    pub nrs_id: String,
+    pub error_message: Option<String>,
 }

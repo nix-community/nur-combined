@@ -24,6 +24,12 @@ class _NrsClientAppState extends State<NrsClientApp> {
   String? _activeCallRecipient;
   bool _isCallActive = false;
 
+  bool _isAuthenticated = false;
+  String? _userToken;
+  String _registeredPhone = '';
+  String _registeredName = '';
+  String _nrsId = '';
+
   @override
   void initState() {
     super.initState();
@@ -41,7 +47,15 @@ class _NrsClientAppState extends State<NrsClientApp> {
     super.dispose();
   }
 
-  void _startCall(String recipient, String callerName, String callerPhone, String notes, String state) {
+  void _startCall(
+    String recipient,
+    String callerName,
+    String callerPhone,
+    String notes,
+    String state, {
+    String? password,
+    String? token,
+  }) {
     setState(() {
       _activeCallRecipient = recipient;
       _isCallActive = true;
@@ -54,6 +68,8 @@ class _NrsClientAppState extends State<NrsClientApp> {
       callNotes: notes,
       proxyUrl: _proxyUrl.isEmpty ? null : _proxyUrl,
       australianState: state,
+      password: password,
+      userToken: token ?? _userToken,
     ).sendSignalToRust();
   }
 
@@ -67,6 +83,26 @@ class _NrsClientAppState extends State<NrsClientApp> {
   void _updateSettings(String proxyUrl) {
     setState(() {
       _proxyUrl = proxyUrl;
+    });
+  }
+
+  void _handleLoginSuccess(String phone, String token, String name, String nrsId) {
+    setState(() {
+      _isAuthenticated = true;
+      _userToken = token;
+      _registeredPhone = phone;
+      _registeredName = name;
+      _nrsId = nrsId;
+    });
+  }
+
+  void _handleLogout() {
+    setState(() {
+      _isAuthenticated = false;
+      _userToken = null;
+      _registeredPhone = '';
+      _registeredName = '';
+      _nrsId = '';
     });
   }
 
@@ -99,6 +135,13 @@ class _NrsClientAppState extends State<NrsClientApp> {
               proxyUrl: _proxyUrl,
               onUpdateSettings: _updateSettings,
               onStartCall: _startCall,
+              initialIsAuthenticated: _isAuthenticated,
+              initialUserToken: _userToken,
+              initialPhone: _registeredPhone,
+              initialName: _registeredName,
+              initialNrsId: _nrsId,
+              onLoginSuccess: _handleLoginSuccess,
+              onLogout: _handleLogout,
             ),
     );
   }

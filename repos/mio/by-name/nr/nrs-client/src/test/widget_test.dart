@@ -9,7 +9,7 @@ void main() {
         home: DialScreen(
           proxyUrl: '',
           onUpdateSettings: (proxy) {},
-          onStartCall: (recipient, name, phone, notes, state) {},
+          onStartCall: (recipient, name, phone, notes, state, {password, token}) {},
         ),
       ),
     );
@@ -18,5 +18,7 @@ void main() {
     expect(find.text('Emergency: Triple Zero (000)'), findsOneWidget);
     expect(find.text('Start NRS Internet Relay Call'), findsOneWidget);
     expect(find.text('State / Territory'), findsOneWidget);
+    expect(find.text('NRS Account Login'), findsOneWidget);
+    expect(find.text('Log In to NRS'), findsOneWidget);
   });
 }

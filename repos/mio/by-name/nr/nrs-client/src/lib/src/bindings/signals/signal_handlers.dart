@@ -37,4 +37,13 @@ final assignRustSignal = <String, void Function(Uint8List, Uint8List)>{
     _transcriptExportedSignalStreamController.add(rustSignal);
     TranscriptExportedSignal.latestRustSignal = rustSignal;
   },
+  'AuthStatusSignal': (Uint8List messageBytes, Uint8List binary) {
+    final message = AuthStatusSignal.bincodeDeserialize(messageBytes);
+    final rustSignal = RustSignalPack(
+      message,
+      binary,
+    );
+    _authStatusSignalStreamController.add(rustSignal);
+    AuthStatusSignal.latestRustSignal = rustSignal;
+  },
 };

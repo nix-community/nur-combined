@@ -20,6 +20,8 @@ part 'connect_call_request.dart';
 part 'disconnect_call_request.dart';
 part 'export_transcript_request.dart';
 part 'geo_status_signal.dart';
+part 'login_request.dart';
+part 'auth_status_signal.dart';
 part 'quick_action_request.dart';
 part 'relay_message_signal.dart';
 part 'send_relay_message_request.dart';

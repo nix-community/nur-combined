@@ -11,6 +11,8 @@ class ConnectCallRequest {
     required this.callNotes,
     this.proxyUrl,
     required this.australianState,
+    this.password,
+    this.userToken,
   });
 
   static ConnectCallRequest deserialize(BinaryDeserializer deserializer) {
@@ -22,6 +24,8 @@ class ConnectCallRequest {
       callNotes: deserializer.deserializeString(),
       proxyUrl: TraitHelpers.deserializeOptionStr(deserializer),
       australianState: deserializer.deserializeString(),
+      password: TraitHelpers.deserializeOptionStr(deserializer),
+      userToken: TraitHelpers.deserializeOptionStr(deserializer),
     );
     deserializer.decreaseContainerDepth();
     return instance;
@@ -42,6 +46,8 @@ class ConnectCallRequest {
   final String callNotes;
   final String? proxyUrl;
   final String australianState;
+  final String? password;
+  final String? userToken;
 
   ConnectCallRequest copyWith({
     String? callerName,
@@ -50,6 +56,8 @@ class ConnectCallRequest {
     String? callNotes,
     String? Function()? proxyUrl,
     String? australianState,
+    String? Function()? password,
+    String? Function()? userToken,
   }) {
     return ConnectCallRequest(
       callerName: callerName ?? this.callerName,
@@ -58,6 +66,8 @@ class ConnectCallRequest {
       callNotes: callNotes ?? this.callNotes,
       proxyUrl: proxyUrl == null ? this.proxyUrl : proxyUrl(),
       australianState: australianState ?? this.australianState,
+      password: password == null ? this.password : password(),
+      userToken: userToken == null ? this.userToken : userToken(),
     );
   }
 
@@ -69,6 +79,8 @@ class ConnectCallRequest {
     serializer.serializeString(callNotes);
     TraitHelpers.serializeOptionStr(proxyUrl, serializer);
     serializer.serializeString(australianState);
+    TraitHelpers.serializeOptionStr(password, serializer);
+    TraitHelpers.serializeOptionStr(userToken, serializer);
     serializer.decreaseContainerDepth();
   }
 
