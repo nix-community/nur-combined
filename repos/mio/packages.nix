@@ -226,6 +226,9 @@ exportedByName
   apple-music-pake = pkgs.callPackage ./pkgs/apple-music-pake/package.nix {
     inherit makePakeApp;
   };
+  google-maps-pake = pkgs.callPackage ./pkgs/google-maps-pake/package.nix {
+    inherit makePakeApp;
+  };
   apple-music-desktop = pkgs.callPackage ./pkgs/apple-music-desktop/package.nix {
     electron = electron_castlabs_38;
   };

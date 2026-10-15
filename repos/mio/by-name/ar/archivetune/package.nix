@@ -163,6 +163,11 @@ stdenv.mkDerivation (finalAttrs: {
           --replace-fail "import android.os.Looper" "import java.awt.EventQueue" \
           --replace-fail "Looper.getMainLooper().thread == Thread.currentThread()" "EventQueue.isDispatchThread()"
 
+        # Import all carousel extensions in NewsScreen.kt (such as currentItem)
+        substituteInPlace app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/NewsScreen.kt \
+          --replace-fail "import androidx.compose.material3.carousel.HorizontalCenteredHeroCarousel" \
+                         "import androidx.compose.material3.carousel.*"
+
         ls -la android-stubs
         # Simplify BotGuardTokenGenerator patches
         python3 << 'PYTHON_EOF'
