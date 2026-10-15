@@ -38,4 +38,4 @@ svl_auto_sudo
 
 set -x
 chown --recursive archived:archived -- "$@"
-chmod --recursive a-w -- "$@"
+chmod --recursive a-wt -- "$@"

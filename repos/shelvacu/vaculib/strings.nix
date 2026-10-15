@@ -204,8 +204,9 @@ rec {
           20
           99
         ];
+        a = lib.sortOn (x: x) ints;
+        b = lib.sortOn numToComparableString ints;
       in
-      (lib.sort ints) == (lib.sortBy numToComparableString ints);
-    foo = false;
+      assert a == b; true;
   };
 }

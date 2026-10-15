@@ -37,17 +37,39 @@ let
       throw "${escapeNixPath path}: bad val type ${builtins.typeOf val}";
   allGood =
     path: val: builtins.addErrorContext "while evaluating ${escapeNixPath path}" (allGoodImpl path val);
+
+  recurseAllTests =
+    path: val:
+    if builtins.length path > 10 then
+      throw ''"stack overflow": ${escapeNixPath path}''
+    else if builtins.isAttrs val && !(val ? _type) then
+      lib.pipe val [
+        (builtins.mapAttrs (k: v:
+          let
+            subPath = path ++ [ k ];
+          in
+          if k == "_tests" then
+            allGood subPath v
+          else
+            recurseAllTests subPath v
+        ))
+        builtins.attrValues
+        allId
+      ]
+    else
+      true;
 in
 {
-  allTestsGood = lib.pipe vaculib._unmerged [
-    (builtins.mapAttrs (
-      name: vaculibModule:
-      if vaculibModule ? "_tests" then
-        allGood [ "vaculib" "_unmerged" name "_tests" ] vaculibModule._tests
-      else
-        true
-    ))
-    builtins.attrValues
-    allId
-  ];
+  allTestsGood = recurseAllTests [ "vaculib" "_unmerged" ] (vaculib._unmerged // { _tests = true; });
+  # allTestsGood = lib.pipe vaculib._unmerged [
+  #   (builtins.mapAttrs (
+  #     name: vaculibModule:
+  #     if vaculibModule ? "_tests" then
+  #       allGood [ "vaculib" "_unmerged" name "_tests" ] vaculibModule._tests
+  #     else
+  #       true
+  #   ))
+  #   builtins.attrValues
+  #   allId
+  # ];
 }

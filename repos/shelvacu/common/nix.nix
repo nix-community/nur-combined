@@ -2,7 +2,8 @@
   config,
   lib,
   pkgs,
-  vacuModuleType,
+  vacuData,
+  _class,
   ...
 }:
 let
@@ -10,10 +11,10 @@ let
   cfg = config.vacu.nix;
   enabledCaches = builtins.filter (c: c.enable) (builtins.attrValues cfg.caches);
   substituterUrls = map (c: c.url) enabledCaches;
-  trustedKeys = builtins.concatMap (c: c.keys) enabledCaches;
+  trustedKeys = builtins.concatMap (c: c.key) enabledCaches;
 
   nixPackage =
-    if vacuModuleType == "nixos" || vacuModuleType == "nix-on-droid" then
+    if _class == "nixos" || _class == "nixOnDroid" then
       config.nix.package.out
     else
       pkgs.nix.out;
@@ -43,12 +44,12 @@ in
 {
   imports =
     [ ]
-    ++ lib.optional (vacuModuleType == "nixos" || vacuModuleType == "nix-on-droid") {
+    ++ lib.optional (_class == "nixos" || _class == "nixOnDroid") {
       nix.extraOptions = ''
         include ${confFile}
       '';
     }
-    ++ lib.optional (vacuModuleType == "nixos") {
+    ++ lib.optional (_class == "nixos") {
       nix.settings = {
         substituters = lib.mkForce [ ];
         extra-substituters = lib.mkForce [ ];
@@ -56,7 +57,7 @@ in
         extra-trusted-public-keys = lib.mkForce [ ];
       };
     }
-    ++ lib.optional (vacuModuleType == "nix-on-droid") {
+    ++ lib.optional (_class == "nixOnDroid") {
       nix = {
         substituters = lib.mkForce [ ];
         trustedPublicKeys = lib.mkForce [ ];
@@ -64,8 +65,8 @@ in
     };
   options.vacu.nix = {
     caches = mkOption {
-      type = types.attrsOf (types.submodule cacheModule);
-      default = { };
+      type = vacuData.options.data.nix.caches.type;
+      default = vacuData.nix.caches;
     };
 
     settings = mkOption {

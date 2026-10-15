@@ -5,6 +5,7 @@
   vaculib,
   vacuModuleType,
   vacuModules,
+  vacuRoot,
   ...
 }:
 let
@@ -17,7 +18,7 @@ let
   ];
 in
 if !builtins.elem vacuModuleType expectedModuleTypes then
-  builtins.throw "error: unrecognized vacuModuleType ${builtins.toString vacuModuleType}"
+  throw "error: unrecognized vacuModuleType ${toString vacuModuleType}"
 else
   {
     imports = [
@@ -25,6 +26,7 @@ else
       vacuModules.systemKind
       vacuModules.expose
       vacuModules.environmentVariables
+      /${vacuRoot}/common-nopkgs
     ]
     ++ vaculib.directoryGrabberList ./.;
     options.vacu = {
@@ -44,26 +46,6 @@ else
       };
     };
     config.vacu = {
-      nix.caches = {
-        vacu = {
-          url = "https://nixcache.shelvacu.com/";
-          keys = [ "nixcache.shelvacu.com:73u5ZGBpPRoVZfgNJQKYYBt9K9Io/jPwgUfuOLsJbsM=" ];
-        };
-        nix-community = {
-          url = "https://nix-community.cachix.org/";
-          keys = [ "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=" ];
-          enable = false;
-        };
-        nix-on-droid = {
-          url = "https://nix-on-droid.cachix.org/";
-          keys = [ "nix-on-droid.cachix.org-1:56snoMJTXmDRC1Ei24CmKoUqvHJ9XCp+nidK7qkMQrU=" ];
-          enable = false;
-        };
-        nixos = {
-          url = "https://cache.nixos.org/";
-          keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
-        };
-      };
       vnopnCA = ''
         -----BEGIN CERTIFICATE-----
         MIIBnjCCAUWgAwIBAgIBBTAKBggqhkjOPQQDAjAgMQswCQYDVQQGEwJVUzERMA8G

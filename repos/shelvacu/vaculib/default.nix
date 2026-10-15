@@ -12,18 +12,21 @@ let
     if (builtins.isAttrs a) && (builtins.isAttrs b) then
       mergeAttrs a b
     else
-      lib.throw "duplicate attr ${name}";
+      throw "duplicate attr ${name}";
   mergeAttrs =
-    a: b:
+    a': b':
+    let
+      a = removeUnderscoreAttrs a';
+      b = removeUnderscoreAttrs b';
+    in
     builtins.mapAttrs (
-      name: val: if (a ? name) && (b ? name) then mergeVals name a.${name} b.${name} else val
+      name: val: if (a ? ${name}) && (b ? ${name}) then mergeVals name a.${name} b.${name} else val
     ) (a // b);
   removeUnderscoreAttrs = lib.filterAttrs (k: _: (builtins.substring 0 1 k) != "_");
   attrSetsToMerge = lib.pipe functionSets [
     removeUnderscoreAttrs
-    (lib.mapAttrsToList (_: v: removeUnderscoreAttrs v))
-    (l: l ++ lib.singleton { _unmerged = functionSets; })
+    builtins.attrValues
   ];
   vaculib = lib.foldr mergeAttrs { } attrSetsToMerge;
 in
-vaculib
+vaculib // { _unmerged = functionSets; }

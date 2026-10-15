@@ -1,0 +1,4 @@
+{ vaculib, ... }:
+{
+  imports = vaculib.directoryGrabberList ./.;
+}

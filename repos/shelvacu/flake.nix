@@ -154,8 +154,23 @@
           };
         in
         inner.config.vacu.withAsserts inner;
+      vacuDataEval = 
+        let
+          inner = lib.evalModules {
+            modules = [
+              /${vacuRoot}/data
+              /${vacuRoot}/common-nopkgs
+            ];
+            specialArgs = {
+              inherit vaculib vacuData;
+            };
+            class = "vacuData";
+          };
+        in
+        inner.config.vacu.withAsserts inner;
+      vacuData = vacuDataEval.config.data // vacuDataEval;
       vacuCommonArgs = vacuCommonArgsPre // {
-        inherit dnsEval;
+        inherit dnsEval vacuData;
       };
       commonArgs = vacuCommonArgs // {
         inherit lib;
@@ -312,6 +327,7 @@
                 lib
                 vaculib
                 vacuRoot
+                vacuData
                 ;
             };
           }
@@ -359,7 +375,7 @@
           };
     in
     lib.attrsets.unionOfDisjoint flakePartsEval.config.flake {
-      inherit flakePartsEval;
+      inherit flakePartsEval vacuData;
       vacuOverlays = overlays;
     };
 }
