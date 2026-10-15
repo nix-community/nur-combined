@@ -33,7 +33,7 @@ This repository currently exports **27 packages**, **1 library helper**, and pla
 | `context-mode` | MCP server for context window optimization — sandboxed code execution, FTS5 knowledge base |
 | `pctx` | Source-built Code Mode execution CLI; its Python SDK is available as `pctx.passthru.py` |
 | `truenas-mcp` | An MCP server for TrueNAS that enables AI models to interact with the TrueNAS API using natural language queries |
-| `jadx-headless-mcp` | Headless MCP server for Android APK static analysis, built directly on jadx-core |
+| `jadx-headless-mcp` | Headless MCP server for Android APK static analysis, built directly on jadx-core; its fat jar is available as `jadx-headless-mcp.passthru.jar` |
 | `wakaru` | JavaScript decompiler that unpacks bundles and restores readable syntax |
 #### Desktop customization and utilities
 

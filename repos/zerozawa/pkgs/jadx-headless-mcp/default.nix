@@ -5,6 +5,7 @@
   gradle_9,
   jdk17_headless,
   makeBinaryWrapper,
+  callPackage,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "jadx-headless-mcp";
@@ -38,7 +39,9 @@ stdenv.mkDerivation (finalAttrs: {
 
   # The `application` plugin's installDist output carries upstream's
   # applicationDefaultJvmArgs (-Xms128M, MaxRAMPercentage, slf4j->stderr).
-  gradleBuildTask = "installDist";
+  # shadowJar is built in the same pass so `passthru.jar` can hand out the
+  # portable fat jar that upstream's plugin path downloads at first start.
+  gradleBuildTask = "installDist shadowJar";
 
   doCheck = false;
 
@@ -48,6 +51,9 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p $out/share/jadx-headless-mcp
     cp -r build/install/jadx-headless-mcp/. $out/share/jadx-headless-mcp/
 
+    mkdir -p $out/share/java
+    cp build/libs/*-all.jar $out/share/java/
+
     mkdir -p $out/bin
     makeBinaryWrapper $out/share/jadx-headless-mcp/bin/jadx-headless-mcp \
       $out/bin/jadx-headless-mcp \
@@ -55,6 +61,12 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  # The fat jadx-headless-mcp-<version>-all.jar (for `java -jar` MCP client
+  # entries) is installed here and re-exported as a child package, mirroring
+  # `pctx.passthru.py`:
+  #   nix build .#jadx-headless-mcp.jar --print-out-paths
+  passthru.jar = callPackage ./jar.nix { jadx-headless-mcp = finalAttrs.finalPackage; };
 
   meta = with lib; {
     description = "Headless MCP server for Android APK static analysis, built directly on jadx-core. No JADX GUI required, no Python adapter, no plugin to install — just one JVM process speaking MCP over stdio.";

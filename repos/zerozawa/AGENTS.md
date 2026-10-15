@@ -77,7 +77,7 @@ This repo is not limited to one packaging style. Examples worth following:
 - `rustPlatform.buildRustPackage`
   - Examples: `pkgs/pctx/default.nix` — read `pkgs/pctx/AGENTS.md` before updating its fixed V8 and Swagger UI inputs — and `pkgs/wakaru.nix`
 - `stdenv.mkDerivation` + `gradle.fetchDeps`
-  - Example: `pkgs/jadx-headless-mcp/default.nix` — Gradle 9.8.0 (`gradle_9`) dependency lockfile in `deps.json`, regenerated via `mitmCache.updateScript`
+  - Example: `pkgs/jadx-headless-mcp/` — Gradle 9.8.0 (`gradle_9`) dependency lockfile in `deps.json`, regenerated via `mitmCache.updateScript`; `jar.nix` exposes the fat jar as `passthru.jar`
 
 ## Repo-Specific Packaging Notes
 
@@ -135,6 +135,10 @@ nix build .#mcp-cli
 # Build the PCTX CLI and its passthru Python SDK
 nix build .#pctx
 nix build .#pctx.py
+
+# Build jadx-headless-mcp and get the absolute path of its fat jar
+nix build .#jadx-headless-mcp
+nix build .#jadx-headless-mcp.jar --print-out-paths
 
 # Build what CI caches
 nix-build ci.nix -A cacheOutputs

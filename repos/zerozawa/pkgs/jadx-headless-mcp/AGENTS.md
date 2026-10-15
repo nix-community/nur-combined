@@ -7,7 +7,8 @@ through `gradle_9.fetchDeps` / `mitmCache`).
 ## Source of truth
 
 - `default.nix` — the derivation: Gradle 9.8.0 (`gradle_9`), JDK 17 toolchain,
-  `installDist`, wrapped launcher.
+  `installDist` + `shadowJar`, wrapped launcher, `passthru.jar`.
+- `jar.nix` — `passthru.jar`: the fat jar as a package of its own.
 - `deps.json` — Gradle dependency lockfile; regenerate on every version bump.
 
 ## Why these choices
@@ -22,10 +23,19 @@ through `gradle_9.fetchDeps` / `mitmCache`).
   closure) still ships every module including `java.desktop`/`java.xml` plus
   `javac`/`jar`, but drops the X11/GTK stack — the full `jdk17` would add ~260 MiB
   (782 MiB closure) for a server that never opens a window.
-- **`installDist`, not `shadowJar`**: the `application` plugin's launcher already
-  carries upstream's `applicationDefaultJvmArgs` (heap limits, slf4j to stderr).
-  The fat jar is only needed by the Claude Code plugin path, which downloads it
-  at first start — never use that path here.
+- **`installDist` plus `shadowJar`**: the `application` plugin's launcher carries
+  upstream's `applicationDefaultJvmArgs` (heap limits, slf4j to stderr), and the
+  fat jar built in the same Gradle pass is what `passthru.jar` re-exports
+  (mirroring `pctx.passthru.py`). Upstream's own Claude Code plugin instead
+  downloads that jar at first start — never use that path here.
+- **`passthru.jar`** (`jar.nix`): a `stdenvNoCC` derivation whose output is a
+  symlink to the jar inside this package's output, so
+
+  ```bash
+  java -jar "$(nix build .#jadx-headless-mcp.jar --print-out-paths)"
+  ```
+
+  gives an absolute path with no build cost and no duplicate bytes in the store.
 - **The wrapper sets `JAVA_HOME`** to the same JDK 17 rather than relying on
   `java` being on `PATH`.
 
