@@ -3033,10 +3033,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "159.0.20261012.90602";
+      version = "159.0.20261014.90526";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5112865/dansk_da_language_pack-159.0.20261012.90602.xpi";
-      sha256 = "e895ee6e58a15152f931711c20dba0b35bf4a5ce4bf54850559e90613e378419";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5120991/dansk_da_language_pack-159.0.20261014.90526.xpi";
+      sha256 = "7c3b5ea4d5cb6b7e47de567b77baf7e82c46df85dfd773b3a05b3e4c3a769b79";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3249,10 +3249,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "159.0.20261012.90602";
+      version = "159.0.20261014.90526";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5112866/deutsch_de_language_pack-159.0.20261012.90602.xpi";
-      sha256 = "9e249b8b160507f2d7c9ab26f7ef500de4e74a83d2cf050b274b48b05372e850";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5120992/deutsch_de_language_pack-159.0.20261014.90526.xpi";
+      sha256 = "605fce1e2acaeeb340cd956241d0c0c597286025fc1de44cc1183abc683d3012";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4751,10 +4751,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "159.0.20261012.90602";
+      version = "159.0.20261014.90526";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5112813/francais_language_pack-159.0.20261012.90602.xpi";
-      sha256 = "bb2a8622f78cd064d7a4835d88d5f30fba412fe150776726450cd6f894407bee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5120945/francais_language_pack-159.0.20261014.90526.xpi";
+      sha256 = "1830c6d7c6c43f02d1a919547033b5e7b22bd59925ce4b05790cd6f75ebb2460";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4788,10 +4788,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "159.0.20261012.90602";
+      version = "159.0.20261014.90526";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5112744/gaidhlig_language_pack-159.0.20261012.90602.xpi";
-      sha256 = "245f72f81039d8c3e19f3d0a7c026a53c94fc9035d5d4e113be874ae49883988";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5120947/gaidhlig_language_pack-159.0.20261014.90526.xpi";
+      sha256 = "79bcbf1cc3c5ed73130189b8c0fe4e5a63898a06366060d7b05e0d92866c7769";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -4894,10 +4894,10 @@
     };
     "ghostery" = buildMozillaXpiAddon {
       pname = "ghostery";
-      version = "10.6.7";
+      version = "10.6.8";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5095624/ghostery-10.6.7.xpi";
-      sha256 = "a1e301ecce9cec32480ed7bd01dc41fa9d470d8778a043235943c8631cd4d38c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5122014/ghostery-10.6.8.xpi";
+      sha256 = "93d7f72d07aa812e44953a8d597006a1f977b4df2ddf3117359e26abd3ea94e8";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -8385,10 +8385,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.4.255";
+      version = "2.5.0";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5108229/lichess_tools_by_siderite-2.4.255.xpi";
-      sha256 = "ac07cda1f2b8ca72f89834cae61963dcaff93938d00ea9b6dcfafb79a23454e7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5119680/lichess_tools_by_siderite-2.5.0.xpi";
+      sha256 = "0d541a4d2e7d6862b8bb6926e21a68f6cbe0ace1b92e65f89dd9a549b8f2bc59";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -13301,10 +13301,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "159.0.20261012.90602";
+      version = "159.0.20261014.90526";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5112831/scots_language_pack-159.0.20261012.90602.xpi";
-      sha256 = "454e4fc4b6cc6c6e52f11bd53af79c82c648b5e7f4de430fc363268b5f802a9f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5121065/scots_language_pack-159.0.20261014.90526.xpi";
+      sha256 = "efa13a52a8f14ce4e3e94b67ba47a5a44b2ef1771a73808b7f1d5d1c48c45e72";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -14262,10 +14262,10 @@
     };
     "stylebot-web" = buildMozillaXpiAddon {
       pname = "stylebot-web";
-      version = "4.0.2";
+      version = "4.0.3";
       addonId = "{52bda3fd-dc48-4b3d-a7b9-58af57879f1e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5114899/stylebot_web-4.0.2.xpi";
-      sha256 = "461c699de133baf8b2f77b4d50dc33a38d16eb6702c66bf8da16946d7cb339c9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5121128/stylebot_web-4.0.3.xpi";
+      sha256 = "34dac7312674b0f85da7b5baaed7dbad5da79c2c3b71906b15545b1a66cfe0ff";
       meta = with lib;
       {
         homepage = "https://stylebot.dev/";
@@ -14328,10 +14328,10 @@
     };
     "super-agent" = buildMozillaXpiAddon {
       pname = "super-agent";
-      version = "4.6.8";
+      version = "4.6.11";
       addonId = "{a9cc4ef5-1149-47a9-8b94-490f324fe157}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5077119/super_agent-4.6.8.xpi";
-      sha256 = "8ba8f60a5f081d424bdcfe9fdb9bdcf136b7480c5bd70a0bd714bc00ea9de1bb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5123347/super_agent-4.6.11.xpi";
+      sha256 = "d74e17f0ebb363d1f100400344d420a455bb0740c09d457b6b342a037b19e19b";
       meta = with lib;
       {
         description = "Super Agent automatically fills out website's cookie consent forms for you based on your preferences. Super Agent will save you a lot of clicks and let you take control of your privacy in a very easy way.";
