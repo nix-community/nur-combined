@@ -13,14 +13,21 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "compositor";
-  version = "1.5.1";
+  version = "1.5.3";
 
   src = fetchFromGitHub {
     owner = "robbietilton";
     repo = "Compositor";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-KrfuM7mdJk523Tk3W41edvlbIUtV3hVj08RMSoDaqqM=";
+    hash = "sha256-4R22ZVrlT2buFbrKkaNGb16v79gpNbefSSN2rN/Y0xE=";
   };
+
+  postPatch = ''
+    substituteInPlace Compositor/Document/CameraRawShadows.swift \
+      --replace-fail \
+        'return (0..<count).map { i in (lower?[i] ?? 0) * (1 - t) + (upper?[i] ?? 0) * t }' \
+        'return (0..<count).map { i -> Float in let l: Float = lower?[i] ?? 0; let u: Float = upper?[i] ?? 0; return l * (1 - t) + u * t }'
+  '';
 
   passthru.spmDeps = stdenvNoCC.mkDerivation {
     pname = "${finalAttrs.pname}-spm-deps";
