@@ -31,7 +31,10 @@ fun getGlobalMusicDatabase(): Any? {
 }
 
 fun _createViewModelInstance(clazz: Class<*>): Any? {
-    if (clazz.name == "android.content.Context") {
+    if (android.content.Context::class.java.isAssignableFrom(clazz)) {
+        if (clazz.name == "android.app.Application") {
+            return android.app.Application()
+        }
         return android.content.DummyContext()
     }
     if (clazz.name == "moe.rukamori.archivetune.db.MusicDatabase") {

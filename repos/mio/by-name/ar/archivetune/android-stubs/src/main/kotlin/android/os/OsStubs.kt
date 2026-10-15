@@ -1,20 +1,33 @@
 package android.os
 
-open class Looper private constructor(val thread: Thread) {
+open class Looper private constructor(private val explicitThread: Thread? = null) {
+    open val thread: Thread
+        get() = explicitThread ?: Thread.getAllStackTraces().keys.firstOrNull { it.name == "main" || it.name.startsWith("AWT-EventQueue") } ?: Thread.currentThread()
+
     companion object {
-        private val mainLooperInstance = Looper(Thread.currentThread())
+        private val mainLooperInstance = Looper()
+        private val threadLocalLooper = ThreadLocal<Looper>()
 
         @JvmStatic
         fun getMainLooper(): Looper = mainLooperInstance
 
         @JvmStatic
-        fun myLooper(): Looper? = if (Thread.currentThread() == mainLooperInstance.thread) mainLooperInstance else null
+        fun myLooper(): Looper? {
+            if (java.awt.EventQueue.isDispatchThread() || Thread.currentThread() == getMainLooper().thread) {
+                return mainLooperInstance
+            }
+            return threadLocalLooper.get()
+        }
 
         @JvmStatic
         fun prepareMainLooper() {}
 
         @JvmStatic
-        fun prepare() {}
+        fun prepare() {
+            if (threadLocalLooper.get() == null) {
+                threadLocalLooper.set(Looper(Thread.currentThread()))
+            }
+        }
 
         @JvmStatic
         fun loop() {}
@@ -42,8 +55,13 @@ open class Handler(val looper: Looper = Looper.getMainLooper()) {
 
     open fun removeCallbacks(r: Runnable) {}
     open fun removeCallbacksAndMessages(token: Any?) {}
-    open fun sendMessage(msg: Message): Boolean = true
-    open fun obtainMessage(what: Int, obj: Any?): Message = Message().apply { this.what = what; this.obj = obj }
+    open fun sendMessage(msg: Message): Boolean {
+        msg.callback?.let { post(it) }
+        return true
+    }
+    open fun obtainMessage(): Message = Message().apply { this.target = this@Handler }
+    open fun obtainMessage(what: Int): Message = Message().apply { this.target = this@Handler; this.what = what }
+    open fun obtainMessage(what: Int, obj: Any?): Message = Message().apply { this.target = this@Handler; this.what = what; this.obj = obj }
 }
 
 class Message {
@@ -51,7 +69,11 @@ class Message {
     var arg1: Int = 0
     var arg2: Int = 0
     var obj: Any? = null
-    fun sendToTarget() {}
+    var target: Handler? = null
+    var callback: Runnable? = null
+    fun sendToTarget() {
+        target?.sendMessage(this)
+    }
 }
 
 object Process {
