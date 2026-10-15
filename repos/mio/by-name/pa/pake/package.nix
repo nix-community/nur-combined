@@ -134,8 +134,19 @@ stdenv.mkDerivation (finalAttrs: {
     fetcherVersion = 4;
     prePnpmInstall = ''
       sed -i '/^overrides:/,+2d' pnpm-lock.yaml
+      cat << 'EOF' > pnpm-workspace.yaml
+packages:
+  - '.'
+supportedArchitectures:
+  os:
+    - linux
+    - darwin
+  cpu:
+    - x64
+    - arm64
+EOF
     '';
-    hash = "sha256-GLcy1EcNRFopLwSUGeNoZeFCztyTZXfZkD7jqHe0Tlw=";
+    hash = "sha256-GnDie7LXlmjRhTuCNuXW/B49L5CHz9FajEJdM2otLxM=";
   };
 
   env = {
@@ -158,13 +169,6 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildPhase = ''
     runHook preBuild
-
-    export npm_config_nodedir=${nodejs_22}
-    pnpm install --offline --frozen-lockfile
-
-    # pnpmConfigHook renames packageManager for install; restore for cli build.
-    substituteInPlace package.json \
-      --replace-warn '"_packageManager"' '"packageManager"'
 
     pnpm run cli:build
 

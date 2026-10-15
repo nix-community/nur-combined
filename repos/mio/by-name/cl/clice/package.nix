@@ -2,12 +2,10 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchurl,
-  buildFHSEnv,
-  writeShellScriptBin,
+  bazel_9,
   python3,
   nodejs,
-  removeReferencesTo,
+  patchelf,
   gitUpdater,
 }:
 
@@ -20,38 +18,6 @@
 #    via Bazel's vendor mode and pinned via VENDOR.bazel.
 # 2. The main build runs completely offline with `--vendor_dir` pointing to `deps`,
 #    preventing any network access during compilation.
-let
-  bazel_9_bin = fetchurl {
-    url = "https://github.com/bazelbuild/bazel/releases/download/9.2.0/bazel-9.2.0-linux-x86_64";
-    hash = "sha256-g5Ex099AioWOG32vTs9nGo0oTLmH5e0q/CmbuI0Cg+A=";
-    executable = true;
-  };
-
-  # Wrap bazel inside an FHS environment so it can execute without patchelf corruption
-  bazel_env = buildFHSEnv {
-    name = "bazel-env";
-    targetPkgs =
-      pkgs: with pkgs; [
-        gcc
-        zlib
-        python3
-      ];
-    extraBwrapArgs = [
-      "--tmpfs"
-      "/var"
-      "--bind"
-      "/tmp"
-      "/var/tmp"
-    ];
-    runScript = "bash";
-  };
-
-  bazel_9 = writeShellScriptBin "bazel" ''
-    mkdir -p /tmp/xclang-thinlto
-    exec ${bazel_env}/bin/bazel-env -c '"$0" "$@"' ${bazel_9_bin} "$@"
-  '';
-
-in
 stdenv.mkDerivation (finalAttrs: {
   pname = "clice";
   version = "0.1.2026101507";
@@ -70,7 +36,6 @@ stdenv.mkDerivation (finalAttrs: {
     nativeBuildInputs = [
       bazel_9
       python3
-      removeReferencesTo
     ];
 
     dontCheckForBrokenSymlinks = true;
@@ -80,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
 
       export HOME=$TMPDIR
       export BAZEL_DO_NOT_DETECT_CPP_TOOLCHAIN=1
-      # First pass: Fetch all external repositories from the network
+      # Fetch all external repositories from the network
       bazel vendor -c opt --config=RelWithDebInfo //... --vendor_dir=$out
 
       # Pin all vendored repositories so that rewriting the registry URL doesn't invalidate them
@@ -109,6 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
     bazel_9
     python3
     nodejs
+    patchelf
   ];
 
   strictDeps = true;
@@ -123,13 +89,28 @@ stdenv.mkDerivation (finalAttrs: {
     sed -i -e "s|https://bazel.clice.io/|file://${finalAttrs.deps}/_registries/bazel.clice.io|g" bazel/clice.bazelrc || true
     sed -i -e "s|https://bcr.bazel.build/|file://${finalAttrs.deps}/_registries/bcr.bazel.build|g" bazel/clice.bazelrc || true
 
+    # ThinLTO cache directory must be in a writable location inside the sandbox
+    mkdir -p $TMPDIR/xclang-thinlto
+    sed -i -e "s|/var/tmp/xclang-thinlto|$TMPDIR/xclang-thinlto|g" bazel/clice.bazelrc
+
     # Copy vendor directory using standard copy (no hardlinks) so it works across filesystems.
     # Bazel attempts to delete .marker files for pinned repositories, which crashes
     # if the vendor directory is a read-only Nix store path.
     cp -R ${finalAttrs.deps} $TMPDIR/vendor
     chmod -R u+w $TMPDIR/vendor
 
-    bazel build -c opt --config=RelWithDebInfo //... --vendor_dir=$TMPDIR/vendor
+    # Replace /var/tmp/xclang-thinlto in vendored repo files (e.g. thinlto_cache BUILD.bazel)
+    find $TMPDIR/vendor -type f -exec sed -i -e "s|/var/tmp/xclang-thinlto|$TMPDIR/xclang-thinlto|g" {} + 2>/dev/null || true
+
+    # Patch interpreter on prebuilt ELF binaries inside vendored toolchains
+    dynamic_linker="$(cat $NIX_CC/nix-support/dynamic-linker)"
+    for bin in $TMPDIR/vendor/xclang*x86_64*/bin/* $TMPDIR/vendor/rules_python*x86_64*/bin/python3*; do
+      if [ -f "$bin" ] && [ ! -L "$bin" ]; then
+        patchelf --set-interpreter "$dynamic_linker" "$bin" 2>/dev/null || true
+      fi
+    done
+
+    bazel build -c opt --config=RelWithDebInfo //:bin/clice --vendor_dir=$TMPDIR/vendor
 
     runHook postBuild
   '';
@@ -138,12 +119,20 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preInstall
 
     mkdir -p "$out/bin"
-    find "$TMPDIR" -type f -name "clice" -executable -exec cp -L {} "$out/bin/clice" \;
+    if [ -f build/RelWithDebInfo/bin/clice ]; then
+      install -Dm755 build/RelWithDebInfo/bin/clice "$out/bin/clice"
+    else
+      find "$TMPDIR" -type f -name "clice" -executable -exec cp -L {} "$out/bin/clice" \;
+    fi
 
     # Ensure it was copied
     if [ ! -f "$out/bin/clice" ]; then
       echo "Failed to find clice binary!"
       exit 1
+    fi
+
+    if [ -d build/RelWithDebInfo/lib ]; then
+      cp -r build/RelWithDebInfo/lib "$out/lib"
     fi
 
     runHook postInstall

@@ -222,7 +222,12 @@ stdenv.mkDerivation (finalAttrs: {
 
           out_app=("$out/Applications/"*.app)
           mkdir -p "$out/bin"
-          ln -s "''${out_app[0]}/Contents/MacOS/${executableName}" "$out/bin/${pname}"
+          macos_bin=("$out/Applications/"*.app/Contents/MacOS/*)
+          if [ ''${#macos_bin[@]} -eq 0 ] || [ ! -e "''${macos_bin[0]}" ]; then
+            echo "No executable found in .app bundle" >&2
+            exit 1
+          fi
+          ln -s "''${macos_bin[0]}" "$out/bin/${pname}"
         ''
     }
 
