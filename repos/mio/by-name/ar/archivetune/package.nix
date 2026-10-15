@@ -27,6 +27,7 @@
   libxtst,
   makeDesktopItem,
   makeWrapper,
+  mpv,
   nix-update-script,
   zlib,
 }:
@@ -64,9 +65,8 @@ let
     rev = "f9e316fb7ec10d14487004db07e3b37d7afdfef3";
     hash = "sha256-r+3g/fPG963NtYqWQ5VGmqglGMnkeegeZCV6GajCICE=";
   };
-in
-stdenv.mkDerivation (finalAttrs: {
-  pname = "archivetune";
+  unwrapped = stdenv.mkDerivation (finalAttrs: {
+    pname = "archivetune-unwrapped";
   version = "15.1.0";
 
   strictDeps = true;
@@ -252,6 +252,11 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   __darwinAllowLocalNetworking = true;
+  sandboxProfile = lib.optionalString stdenv.hostPlatform.isDarwin ''
+    (allow file-read* (literal "/usr/bin/codesign"))
+    (allow process-exec (literal "/usr/bin/codesign"))
+    (allow process-fork)
+  '';
 
   preBuild = ''
     export HOME=$(mktemp -d)
@@ -343,4 +348,32 @@ stdenv.mkDerivation (finalAttrs: {
       binaryBytecode # gradle mitm cache
     ];
   };
-})
+});
+in
+stdenv.mkDerivation {
+  pname = "archivetune";
+  inherit (unwrapped) version meta;
+
+  nativeBuildInputs = [ makeWrapper ];
+
+  dontUnpack = true;
+  dontBuild = true;
+
+  installPhase = ''
+    mkdir -p $out
+    cp -a ${unwrapped}/* $out/
+    chmod -R u+w $out
+
+    wrapProgram $out/bin/archivetune \
+      --prefix PATH : "${lib.makeBinPath [ mpv ]}"
+
+    if [ -d $out/Applications/ArchiveTune.app ]; then
+      wrapProgram $out/Applications/ArchiveTune.app/Contents/MacOS/ArchiveTune \
+        --prefix PATH : "${lib.makeBinPath [ mpv ]}"
+    fi
+  '';
+
+  passthru = (unwrapped.passthru or { }) // {
+    inherit unwrapped;
+  };
+}

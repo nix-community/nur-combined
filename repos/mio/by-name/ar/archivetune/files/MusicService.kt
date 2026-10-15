@@ -2,6 +2,7 @@ package moe.rukamori.archivetune.playback
 
 import android.content.ContentResolver
 import android.content.Context
+import android.net.ConnectivityManager
 import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
 import androidx.media3.common.Commands
@@ -13,8 +14,15 @@ import androidx.media3.common.Timeline
 import androidx.media3.common.Tracks
 import androidx.media3.common.TrackSelectionParameters
 import androidx.media3.common.VideoSize
+import java.awt.EventQueue
+import java.io.BufferedReader
+import java.io.BufferedWriter
 import java.io.File
 import java.lang.reflect.Proxy
+import java.net.UnixDomainSocketAddress
+import java.nio.channels.Channels
+import java.nio.channels.SocketChannel
+import java.nio.charset.StandardCharsets
 import java.util.concurrent.CopyOnWriteArrayList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -22,7 +30,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 import moe.rukamori.archivetune.canvas.CanvasPlaybackUseCase
+import moe.rukamori.archivetune.constants.AudioQuality
 import moe.rukamori.archivetune.extensions.metadata
 import moe.rukamori.archivetune.extensions.toMediaItem
 import moe.rukamori.archivetune.models.ActiveOutputDevice
@@ -30,13 +40,16 @@ import moe.rukamori.archivetune.models.MediaMetadata
 import moe.rukamori.archivetune.models.PlayerOutputDevice
 import moe.rukamori.archivetune.playback.queues.Queue
 import moe.rukamori.archivetune.together.TogetherSessionState
+import moe.rukamori.archivetune.utils.YTPlayerUtils
+import timber.log.Timber
 
 /*
  * Upstream's MusicService is an Android MediaSessionService hosting playback, bound
  * by MediaLibrarySessionCallback and updated by MusicServiceWidgetUpdater.
  *
  * For Compose Multiplatform Desktop, DesktopPlayerImpl provides full reactive
- * playback state, playlist queueing, media item transition, and play/pause controls.
+ * playback state, playlist queueing, media item transition, and real audio decoding
+ * and playback via an integrated mpv IPC player backend.
  */
 class MusicService {
     class MusicBinder internal constructor(val service: MusicService)
@@ -82,6 +95,263 @@ class MusicService {
         }
     }
 
+    class DesktopMpvPlayer(
+        private val onPlaybackStateChanged: (isPlaying: Boolean) -> Unit,
+        private val onPositionChanged: (posMs: Long) -> Unit,
+        private val onDurationChanged: (durMs: Long) -> Unit,
+        private val onTrackEnded: () -> Unit,
+    ) {
+        companion object {
+            fun findMpvExecutable(): String? {
+                val propPath = System.getProperty("archivetune.mpv.path") ?: System.getenv("ARCHIVETUNE_MPV_PATH")
+                if (!propPath.isNullOrBlank() && File(propPath).canExecute()) {
+                    return propPath
+                }
+                val pathEnv = System.getenv("PATH") ?: ""
+                for (dir in pathEnv.split(File.pathSeparator)) {
+                    val f = File(dir, "mpv")
+                    if (f.canExecute()) return f.absolutePath
+                }
+                val fallbacks = listOf(
+                    "/run/current-system/sw/bin/mpv",
+                    "/nix/var/nix/profiles/default/bin/mpv",
+                    "/opt/homebrew/bin/mpv",
+                    "/usr/local/bin/mpv",
+                    "/usr/bin/mpv"
+                )
+                for (p in fallbacks) {
+                    val f = File(p)
+                    if (f.canExecute()) return f.absolutePath
+                }
+                return null
+            }
+        }
+
+        private var process: Process? = null
+        private var socketChannel: SocketChannel? = null
+        private var writer: BufferedWriter? = null
+        private var readerThread: Thread? = null
+        private var socketFile: File? = null
+
+        @Volatile
+        var currentPositionMs: Long = 0L
+            private set
+
+        @Volatile
+        var durationMs: Long = 0L
+            private set
+
+        @Volatile
+        var isPlaying: Boolean = false
+            private set
+
+        @Volatile
+        var isConnected: Boolean = false
+            private set
+
+        private val lock = Any()
+
+        private fun ensureStarted() {
+            synchronized(lock) {
+                if (process != null && process!!.isAlive && isConnected) return
+
+                val mpv = findMpvExecutable()
+                if (mpv == null) {
+                    Timber.tag("DesktopMpvPlayer").w("mpv executable not found on system")
+                    return
+                }
+
+                try {
+                    val tmpDir = File(System.getProperty("java.io.tmpdir", "/tmp"))
+                    val sock = File(tmpDir, "archivetune-mpv-${ProcessHandle.current().pid()}-${System.nanoTime()}.sock")
+                    if (sock.exists()) sock.delete()
+                    socketFile = sock
+
+                    val pb = ProcessBuilder(
+                        mpv,
+                        "--idle=yes",
+                        "--no-video",
+                        "--no-terminal",
+                        "--input-ipc-server=${sock.absolutePath}"
+                    )
+                    pb.redirectErrorStream(true)
+                    val proc = pb.start()
+                    process = proc
+
+                    var connected = false
+                    val deadline = System.currentTimeMillis() + 3000L
+                    while (System.currentTimeMillis() < deadline) {
+                        if (sock.exists()) {
+                            try {
+                                val channel = SocketChannel.open(UnixDomainSocketAddress.of(sock.toPath()))
+                                socketChannel = channel
+                                writer = BufferedWriter(Channels.newWriter(channel, StandardCharsets.UTF_8))
+                                connected = true
+                                break
+                            } catch (_: Throwable) {
+                                Thread.sleep(50)
+                            }
+                        } else {
+                            Thread.sleep(50)
+                        }
+                    }
+
+                    if (!connected) {
+                        proc.destroy()
+                        return
+                    }
+
+                    isConnected = true
+
+                    val reader = BufferedReader(Channels.newReader(socketChannel!!, StandardCharsets.UTF_8))
+                    readerThread = Thread({
+                        try {
+                            var line: String? = reader.readLine()
+                            while (line != null) {
+                                handleIpcMessage(line)
+                                line = reader.readLine()
+                            }
+                        } catch (_: Throwable) {
+                        } finally {
+                            isConnected = false
+                        }
+                    }, "mpv-ipc-reader").apply {
+                        isDaemon = true
+                        start()
+                    }
+
+                    sendRaw("{\"command\": [\"observe_property\", 1, \"time-pos\"]}\n")
+                    sendRaw("{\"command\": [\"observe_property\", 2, \"pause\"]}\n")
+                    sendRaw("{\"command\": [\"observe_property\", 3, \"duration\"]}\n")
+                    sendRaw("{\"command\": [\"observe_property\", 4, \"idle-active\"]}\n")
+
+                    Runtime.getRuntime().addShutdownHook(Thread {
+                        release()
+                    })
+                } catch (t: Throwable) {
+                    Timber.tag("DesktopMpvPlayer").e(t, "Failed to start mpv player process")
+                }
+            }
+        }
+
+        private fun sendRaw(msg: String) {
+            synchronized(lock) {
+                try {
+                    writer?.write(msg)
+                    writer?.flush()
+                } catch (t: Throwable) {
+                    Timber.tag("DesktopMpvPlayer").w(t, "Failed to send command to mpv IPC")
+                }
+            }
+        }
+
+        fun load(url: String, startPosMs: Long, playWhenReady: Boolean) {
+            ensureStarted()
+            val escaped = url.replace("\\", "\\\\").replace("\"", "\\\"")
+            sendRaw("{\"command\": [\"loadfile\", \"$escaped\", \"replace\"]}\n")
+            if (startPosMs > 0) {
+                val secs = startPosMs / 1000.0
+                sendRaw("{\"command\": [\"seek\", $secs, \"absolute\"]}\n")
+            }
+            sendRaw("{\"command\": [\"set_property\", \"pause\", ${!playWhenReady}]}\n")
+            if (playWhenReady) {
+                isPlaying = true
+                onPlaybackStateChanged(true)
+            }
+        }
+
+        fun play() {
+            ensureStarted()
+            sendRaw("{\"command\": [\"set_property\", \"pause\", false]}\n")
+            isPlaying = true
+            onPlaybackStateChanged(true)
+        }
+
+        fun pause() {
+            sendRaw("{\"command\": [\"set_property\", \"pause\", true]}\n")
+            isPlaying = false
+            onPlaybackStateChanged(false)
+        }
+
+        fun seekTo(posMs: Long) {
+            ensureStarted()
+            val secs = posMs / 1000.0
+            sendRaw("{\"command\": [\"seek\", $secs, \"absolute\"]}\n")
+            currentPositionMs = posMs
+            onPositionChanged(posMs)
+        }
+
+        fun setVolume(vol: Float) {
+            val pct = (vol.coerceIn(0f, 1f) * 100).toInt()
+            sendRaw("{\"command\": [\"set_property\", \"volume\", $pct]}\n")
+        }
+
+        fun stop() {
+            sendRaw("{\"command\": [\"stop\"]}\n")
+            isPlaying = false
+            currentPositionMs = 0L
+            onPlaybackStateChanged(false)
+        }
+
+        fun release() {
+            synchronized(lock) {
+                try {
+                    sendRaw("{\"command\": [\"quit\"]}\n")
+                    socketChannel?.close()
+                    process?.destroy()
+                    socketFile?.delete()
+                } catch (_: Throwable) {
+                }
+            }
+        }
+
+        private fun handleIpcMessage(json: String) {
+            if (json.contains("\"event\":\"property-change\"")) {
+                if (json.contains("\"name\":\"time-pos\"")) {
+                    val data = extractDouble(json, "data")
+                    if (data != null && data >= 0) {
+                        val posMs = (data * 1000).toLong()
+                        currentPositionMs = posMs
+                        onPositionChanged(posMs)
+                    }
+                } else if (json.contains("\"name\":\"pause\"")) {
+                    val paused = extractBoolean(json, "data")
+                    if (paused != null) {
+                        val playing = !paused
+                        if (isPlaying != playing) {
+                            isPlaying = playing
+                            onPlaybackStateChanged(playing)
+                        }
+                    }
+                } else if (json.contains("\"name\":\"duration\"")) {
+                    val data = extractDouble(json, "data")
+                    if (data != null && data > 0) {
+                        val durMs = (data * 1000).toLong()
+                        durationMs = durMs
+                        onDurationChanged(durMs)
+                    }
+                }
+            } else if (json.contains("\"event\":\"end-file\"")) {
+                if (json.contains("\"reason\":\"eof\"")) {
+                    onTrackEnded()
+                }
+            } else if (json.contains("\"event\":\"playback-restart\"")) {
+                isPlaying = true
+                onPlaybackStateChanged(true)
+            }
+        }
+
+        private fun extractDouble(json: String, key: String): Double? {
+            val match = Regex("\"$key\"\\s*:\\s*([0-9.]+)").find(json)
+            return match?.groupValues?.get(1)?.toDoubleOrNull()
+        }
+
+        private fun extractBoolean(json: String, key: String): Boolean? {
+            val match = Regex("\"$key\"\\s*:\\s*(true|false)").find(json)
+            return match?.groupValues?.get(1)?.toBooleanStrictOrNull()
+        }
+    }
+
     class DesktopPlayerImpl(private val service: MusicService) : DesktopPlayer {
         val listeners = CopyOnWriteArrayList<Player.Listener>()
         val mediaItems = mutableListOf<MediaItem>()
@@ -97,13 +367,93 @@ class MusicService {
         override val currentMetadata: MediaMetadata?
             get() = currentMediaItem?.metadata ?: service.currentMediaMetadata.value
 
+        private fun runOnMain(block: () -> Unit) {
+            if (EventQueue.isDispatchThread()) {
+                block()
+            } else {
+                EventQueue.invokeLater(block)
+            }
+        }
+
+        private val mpvPlayer = DesktopMpvPlayer(
+            onPlaybackStateChanged = { playing ->
+                runOnMain {
+                    if (_isPlaying != playing) {
+                        _isPlaying = playing
+                        if (playing) {
+                            playbackState = Player.STATE_READY
+                            playStartTime = System.currentTimeMillis() - pausedPosition
+                        }
+                        listeners.forEach {
+                            it.onPlaybackStateChanged(playbackState)
+                            it.onIsPlayingChanged(playing)
+                        }
+                    }
+                }
+            },
+            onPositionChanged = { posMs ->
+                pausedPosition = posMs
+                playStartTime = System.currentTimeMillis()
+            },
+            onDurationChanged = { _ ->
+            },
+            onTrackEnded = {
+                runOnMain {
+                    if (repeatMode == Player.REPEAT_MODE_ONE) {
+                        seekTo(currentMediaItemIndex, 0L)
+                    } else if (hasNextMediaItem()) {
+                        seekToNext()
+                    } else if (repeatMode == Player.REPEAT_MODE_ALL && mediaItems.isNotEmpty()) {
+                        seekTo(0, 0L)
+                    } else {
+                        stop()
+                    }
+                }
+            }
+        )
+
+        private var currentPlayingId: String? = null
+
+        private fun loadTrack(mediaId: String, startPositionMs: Long, playWhenReady: Boolean) {
+            if (mediaId.isBlank()) return
+            currentPlayingId = mediaId
+
+            CoroutineScope(Dispatchers.IO).launch {
+                var finalUrl = if (mediaId.startsWith("http://") || mediaId.startsWith("https://") || mediaId.startsWith("file://") || mediaId.startsWith("/")) {
+                    mediaId
+                } else {
+                    "https://www.youtube.com/watch?v=$mediaId"
+                }
+
+                if (finalUrl.startsWith("https://www.youtube.com/watch?v=")) {
+                    try {
+                        withTimeoutOrNull(2500L) {
+                            val resp = YTPlayerUtils.playerResponseForPlayback(
+                                videoId = mediaId,
+                                audioQuality = AudioQuality.AUTO,
+                                connectivityManager = ConnectivityManager()
+                            )
+                            val streamUrl = resp.getOrNull()?.streamUrl
+                            if (!streamUrl.isNullOrBlank()) {
+                                finalUrl = streamUrl
+                            }
+                        }
+                    } catch (_: Throwable) {
+                    }
+                }
+
+                mpvPlayer.load(finalUrl, startPositionMs, playWhenReady)
+            }
+        }
+
         override var playWhenReady: Boolean = false
             set(value) {
                 field = value
                 if (value && playbackState == Player.STATE_READY) {
                     if (!_isPlaying) {
                         _isPlaying = true
-                        playStartTime = System.currentTimeMillis()
+                        playStartTime = System.currentTimeMillis() - pausedPosition
+                        mpvPlayer.play()
                         listeners.forEach {
                             it.onIsPlayingChanged(true)
                             it.onPlayWhenReadyChanged(true, Player.PLAY_WHEN_READY_CHANGE_REASON_USER_REQUEST)
@@ -112,6 +462,7 @@ class MusicService {
                 } else if (!value && _isPlaying) {
                     pausedPosition = currentPosition
                     _isPlaying = false
+                    mpvPlayer.pause()
                     listeners.forEach {
                         it.onIsPlayingChanged(false)
                         it.onPlayWhenReadyChanged(false, Player.PLAY_WHEN_READY_CHANGE_REASON_USER_REQUEST)
@@ -132,6 +483,8 @@ class MusicService {
 
         override val currentPosition: Long
             get() {
+                val mpvPos = mpvPlayer.currentPositionMs
+                if (mpvPos > 0) return mpvPos
                 if (!_isPlaying) return pausedPosition
                 val elapsed = System.currentTimeMillis() - playStartTime
                 val pos = pausedPosition + elapsed
@@ -144,6 +497,8 @@ class MusicService {
 
         override val duration: Long
             get() {
+                val mpvDur = mpvPlayer.durationMs
+                if (mpvDur > 0) return mpvDur
                 val dur = currentMetadata?.duration
                 if (dur != null && dur > 0) return dur.toLong() * 1000L
                 return 180000L
@@ -175,6 +530,7 @@ class MusicService {
         override var volume: Float = 1.0f
             set(value) {
                 field = value
+                mpvPlayer.setVolume(value)
                 listeners.forEach { it.onVolumeChanged(value) }
             }
 
@@ -220,7 +576,8 @@ class MusicService {
             playWhenReady = true
             if (!_isPlaying) {
                 _isPlaying = true
-                playStartTime = System.currentTimeMillis()
+                playStartTime = System.currentTimeMillis() - pausedPosition
+                mpvPlayer.play()
                 listeners.forEach {
                     it.onPlaybackStateChanged(playbackState)
                     it.onIsPlayingChanged(true)
@@ -233,6 +590,7 @@ class MusicService {
                 pausedPosition = currentPosition
                 _isPlaying = false
                 playWhenReady = false
+                mpvPlayer.pause()
                 listeners.forEach { it.onIsPlayingChanged(false) }
             }
         }
@@ -252,11 +610,14 @@ class MusicService {
         override fun stop() {
             pause()
             playbackState = Player.STATE_IDLE
+            currentPlayingId = null
+            mpvPlayer.stop()
             listeners.forEach { it.onPlaybackStateChanged(playbackState) }
         }
 
         override fun release() {
             stop()
+            mpvPlayer.release()
             listeners.clear()
         }
 
@@ -284,9 +645,13 @@ class MusicService {
                     service.currentMediaMetadata.value = meta
                 }
                 if (itemChanged) {
+                    val targetId = meta?.id ?: item?.mediaId ?: ""
+                    loadTrack(targetId, positionMs, playWhenReady)
                     listeners.forEach {
                         it.onMediaItemTransition(item, Player.MEDIA_ITEM_TRANSITION_REASON_SEEK)
                     }
+                } else {
+                    mpvPlayer.seekTo(positionMs)
                 }
                 listeners.forEach {
                     it.onPositionDiscontinuity(
@@ -333,6 +698,7 @@ class MusicService {
         }
 
         override fun setMediaItems(mediaItems: List<MediaItem>, startIndex: Int, startPositionMs: Long) {
+            val previousId = currentMediaItem?.metadata?.id ?: currentMediaItem?.mediaId
             this.mediaItems.clear()
             this.mediaItems.addAll(mediaItems)
             _timeline = DesktopTimeline(this.mediaItems)
@@ -349,6 +715,11 @@ class MusicService {
                 it.onTimelineChanged(_timeline, Player.TIMELINE_CHANGE_REASON_PLAYLIST_CHANGED)
                 it.onMediaItemTransition(item, Player.MEDIA_ITEM_TRANSITION_REASON_PLAYLIST_CHANGED)
                 it.onPlaybackStateChanged(playbackState)
+            }
+
+            val newId = meta?.id ?: item?.mediaId
+            if (newId != null && (newId != previousId || newId != currentPlayingId)) {
+                loadTrack(newId, startPositionMs, playWhenReady)
             }
         }
 
@@ -377,6 +748,10 @@ class MusicService {
                 }
                 listeners.forEach {
                     it.onMediaItemTransition(item, Player.MEDIA_ITEM_TRANSITION_REASON_PLAYLIST_CHANGED)
+                }
+                val newId = meta?.id ?: item?.mediaId
+                if (newId != null && newId != currentPlayingId) {
+                    loadTrack(newId, 0L, playWhenReady)
                 }
             }
             listeners.forEach {
@@ -408,6 +783,8 @@ class MusicService {
             _timeline = Timeline.EMPTY
             currentMediaItemIndex = -1
             pausedPosition = 0L
+            currentPlayingId = null
+            mpvPlayer.stop()
             listeners.forEach {
                 it.onTimelineChanged(_timeline, Player.TIMELINE_CHANGE_REASON_PLAYLIST_CHANGED)
                 it.onMediaItemTransition(null, Player.MEDIA_ITEM_TRANSITION_REASON_PLAYLIST_CHANGED)
@@ -527,6 +904,7 @@ class MusicService {
         if (queue is moe.rukamori.archivetune.playback.queues.ListQueue) {
             if (queue.items.isNotEmpty()) {
                 val idx = queue.startIndex.coerceIn(queue.items.indices)
+                desktopPlayerImpl.playWhenReady = playWhenReady
                 desktopPlayerImpl.setMediaItems(queue.items, idx, queue.position)
                 val meta = queue.items.getOrNull(idx)?.metadata
                 if (meta != null) {
@@ -560,6 +938,7 @@ class MusicService {
 
         if (initialMeta != null) {
             currentMediaMetadata.value = initialMeta
+            desktopPlayerImpl.playWhenReady = playWhenReady
             desktopPlayerImpl.setMediaItems(listOf(initialMeta.toMediaItem()), 0, 0L)
             if (playWhenReady) {
                 desktopPlayerImpl.play()
