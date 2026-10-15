@@ -27,17 +27,17 @@
         platforms = platforms.all;
       };
     };
-    "libredirect" = buildFirefoxXpiAddon {
-      pname = "libredirect";
-      version = "3.4.0";
-      addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4916828/libredirect-3.4.0.xpi";
-      sha256 = "c0fa9a5c2302eb734b1b614284371061330cf2e7b3519ee96c53e8be58ae298f";
+    "old-reddit-redirect" = buildFirefoxXpiAddon {
+      pname = "old-reddit-redirect";
+      version = "3.0.3";
+      addonId = "{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4989791/old_reddit_redirect-3.0.3.xpi";
+      sha256 = "0419a6e97a7644f34478529e67fd3d9c138fe64ab7d7e84442c6c5f962ae5f76";
       meta = with lib;
       {
-        homepage = "https://libredirect.manerakai.com/";
-        description = "Redirects YouTube, Twitter, TikTok... requests to alternative privacy friendly frontends.";
-        license = licenses.gpl3;
+        homepage = "https://github.com/tom-james-watson/old-reddit-redirect";
+        description = "Ensure Reddit always loads the old design";
+        license = licenses.mit;
         platforms = platforms.all;
       };
     };
