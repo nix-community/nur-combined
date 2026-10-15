@@ -3,6 +3,7 @@
   stdenvNoCC,
   fetchFromGitLab,
   zip,
+  gitUpdater,
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
@@ -15,8 +16,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     domain = "invent.kde.org";
     owner = "plasma";
     repo = "plasma-browser-integration";
-    rev = "v6.7.91";
-    hash = "sha256-mYFcupnNp9zExanj3sTFsUZzpsJzPMCUxQqIt5aJtmU=";
+    rev = "v6.8.0";
+    hash = "sha256-Dm/80XXtn8NO7dtfRKu73ofa2VWxiGkXxcxHVfK2LW0=";
   };
 
   nativeBuildInputs = [ zip ];
@@ -40,6 +41,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru = {
     inherit (finalAttrs) extid;
+    updateScript = gitUpdater {
+      rev-prefix = "v";
+    };
   };
 
   meta = {

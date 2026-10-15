@@ -3,6 +3,8 @@
   stdenv,
   stdenvNoCC,
   writeShellScriptBin,
+  writeShellApplication,
+  nix-update-script,
   fetchFromGitHub,
   fetchurl,
   nodejs_22,
@@ -100,13 +102,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "pake";
-  version = "3.17.3";
+  version = "3.17.5";
 
   src = fetchFromGitHub {
     owner = "tw93";
     repo = "Pake";
     rev = "V${finalAttrs.version}";
-    hash = "sha256-1Tvn9eaio6rkxBfcTBB1JY/zMxxeX+y6Xt9z6Bbqovo=";
+    hash = "sha256-WEieXzGhVSiKsqb52/IUeLOEYoR6UfkBQyMahT8WQ+U=";
   };
 
   patches = [
@@ -133,7 +135,7 @@ stdenv.mkDerivation (finalAttrs: {
     prePnpmInstall = ''
       sed -i '/^overrides:/,+2d' pnpm-lock.yaml
     '';
-    hash = "sha256-DoUU9AJdAL0w4ZyZAMB/mLvDSGhU8GNeRxOTFf7fQcQ=";
+    hash = "sha256-GLcy1EcNRFopLwSUGeNoZeFCztyTZXfZkD7jqHe0Tlw=";
   };
 
   env = {
@@ -247,7 +249,21 @@ stdenv.mkDerivation (finalAttrs: {
       pname = "pake";
       inherit (finalAttrs) version src;
       cargoRoot = "src-tauri";
-      hash = "sha256-QTlu1ycR46ATWQWQ8+/9u07haZuZMcCKudw4QEit8pY=";
+      hash = "sha256-pl4D6LisQq9fbezMyXBj/GFyK7PDzFnaikNrf77RXvc=";
+    };
+    updateScript = writeShellApplication {
+      name = "update-pake";
+      text = ''
+        export UPDATE_NIX_ATTR_PATH="pake"
+        exec ${
+          lib.escapeShellArgs (nix-update-script {
+            extraArgs = [
+              "--version-regex"
+              "^V(.*)$"
+            ];
+          })
+        } "$@"
+      '';
     };
   };
 

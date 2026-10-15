@@ -74,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "rukamori";
     repo = "ArchiveTune";
-    rev = "2f48b8159ecca45ae39394e2eb0d0b946e6b06f9";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-xzhpLlX+X+Mx+VAgKbkTIB2ntAFfMhqrQCE1diZTFng=";
   };
 
