@@ -14,6 +14,7 @@ with pkgs;
   fsrcnnx-x2-16-0-4-1 = callPackage ./pkgs/mpv-shaders/fsrcnnx { variant = "16-0-4-1"; };
   krig-bilateral = callPackage ./pkgs/mpv-shaders/krig-bilateral { };
   ls-colors = callPackage ./pkgs/ls-colors { };
+  scanverdict = callPackage ./pkgs/scanverdict { };
   ssim-downscaler = callPackage ./pkgs/mpv-shaders/ssim-downscaler { };
   ssim-super-res = callPackage ./pkgs/mpv-shaders/ssim-super-res { };
   thelounge-theme-zenburn = callPackage ./pkgs/thelounge-theme-zenburn { };
