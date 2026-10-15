@@ -73,19 +73,6 @@
     displayManager.cosmic-greeter.enable = lib.mkForce false;
     kanata.enable = lib.mkForce false;
   };
-  fileSystems."/mnt/POOL" = {
-    device = "/dev/disk/by-label/POOL";
-    fsType = "btrfs";
-    options = [
-      "nofail"
-      "noatime"
-      "lazytime"
-      "compress-force=zstd"
-      "space_cache=v2"
-      "autodefrag"
-      "ssd_spread"
-    ];
-  };
   jovian = {
     devices.steamdeck.enable = true;
     steam.enable = true;
@@ -161,6 +148,7 @@
           pool = {
             size = "100%";
             content = {
+              device = "/dev/disk/by-label/POOL";
               type = "btrfs";
               extraArgs = [
                 "-f"
@@ -169,8 +157,14 @@
               ];
               mountpoint = "/mnt/POOL";
               mountOptions = [
+                "autodefrag"
+                "compress-force=zstd"
                 "compress=zstd"
+                "lazytime"
                 "noatime"
+                "nofail"
+                "space_cache=v2"
+                "ssd_spread"
               ];
             };
           };
