@@ -9,6 +9,10 @@
 buildGoModule {
   inherit (source) pname version src;
 
+  patches = [
+    ./opencode-go-catalog-excluded-models.patch
+  ];
+
   # nix-update auto
   vendorHash = "sha256-/0miMpbgZpGCTDBC6YOihrPLLcAMuBgP4+eNLxGpAn4=";
   env.CGO_ENABLED = "1";

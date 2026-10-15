@@ -1,0 +1,50 @@
+diff --git a/internal/config/config.go b/internal/config/config.go
+--- a/internal/config/config.go
++++ b/internal/config/config.go
+@@ -34,5 +34,6 @@
+ type Catalog struct {
+ 	RefreshInterval       time.Duration
+ 	StaleWhileUnavailable bool
++	ExcludedModels        []string
+ }
+ 
+@@ -88,5 +89,6 @@
+ type rawCatalog struct {
+-	RefreshInterval       *string `yaml:"refresh-interval"`
+-	StaleWhileUnavailable *bool   `yaml:"stale-while-unavailable"`
++	RefreshInterval       *string  `yaml:"refresh-interval"`
++	StaleWhileUnavailable *bool    `yaml:"stale-while-unavailable"`
++	ExcludedModels        []string `yaml:"excluded-models"`
+ }
+ 
+@@ -137,5 +139,6 @@
+ 		Catalog: Catalog{
+ 			RefreshInterval:       refreshInterval,
+ 			StaleWhileUnavailable: orDefault(raw.Catalog.StaleWhileUnavailable, true),
++			ExcludedModels:        raw.Catalog.ExcludedModels,
+ 		},
+ 		Protocols: Protocols{
+diff --git a/internal/catalog/catalog.go b/internal/catalog/catalog.go
+--- a/internal/catalog/catalog.go
++++ b/internal/catalog/catalog.go
+@@ -15,5 +15,6 @@
+ 	"fmt"
+ 	"net/http"
+ 	"net/url"
++	"path"
+ 	"strings"
+ 	"sync"
+@@ -255,7 +256,13 @@
+ 	seen := make(map[string]bool, len(entries))
++modelLoop:
+ 	for _, e := range entries {
+ 		if e.ID == "" {
+ 			unsup = append(unsup, UnsupportedModel{Reason: "missing id"})
+ 			continue
+ 		}
++		for _, pattern := range m.cfg.Catalog.ExcludedModels {
++			if matched, _ := path.Match(strings.ToLower(pattern), strings.ToLower(e.ID)); matched {
++				continue modelLoop
++			}
++		}
+ 		if seen[e.ID] {
