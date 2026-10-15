@@ -508,7 +508,7 @@ in
       };
   };
   disko.devices = {
-    disk.main = {
+    disk.sda = {
       type = "disk";
       device = "/dev/sda";
       content = {

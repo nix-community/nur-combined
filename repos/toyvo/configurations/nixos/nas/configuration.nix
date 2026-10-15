@@ -478,10 +478,6 @@ in
 
   networking.firewall.interfaces."ve-nextcloud".allowedTCPPorts = [ 1025 ];
 
-  fileSystems."/mnt/POOL" = {
-    device = "/dev/disk/by-label/POOL";
-    fsType = "btrfs";
-  };
   users.users.toyvo.extraGroups = [ "libvirtd" ];
   home-manager.users.toyvo.programs.beets.settings.directory = "/mnt/POOL/Public/Music";
   programs.dconf.enable = true;
@@ -705,58 +701,96 @@ in
     ];
   };
   zramSwap.enable = true;
-  disko.devices.disk.nvme0n1 = {
-    type = "disk";
-    device = "/dev/nvme0n1";
-    content = {
-      type = "gpt";
-      partitions = {
-        ESP = {
-          name = "ESP";
-          size = "500M";
-          type = "EF00";
-          content = {
-            type = "filesystem";
-            format = "vfat";
-            mountpoint = "/boot";
-            extraArgs = [
-              "-n"
-              "BOOT"
-            ];
+  disko.devices = {
+    disk.nvme0n1 = {
+      type = "disk";
+      device = "/dev/nvme0n1";
+      content = {
+        type = "gpt";
+        partitions = {
+          ESP = {
+            name = "ESP";
+            size = "500M";
+            type = "EF00";
+            content = {
+              type = "filesystem";
+              format = "vfat";
+              mountpoint = "/boot";
+              extraArgs = [
+                "-n"
+                "BOOT"
+              ];
+            };
           };
-        };
-        root = {
-          size = "100%";
-          content = {
-            type = "btrfs";
-            extraArgs = [
-              "-f"
-              "-L"
-              "NIXOS"
-            ];
-            subvolumes = {
-              "@" = {
-                mountpoint = "/";
-              };
-              "@home" = {
-                mountOptions = [ "compress=zstd" ];
-                mountpoint = "/home";
-              };
-              "@var" = {
-                mountOptions = [ "compress=zstd" ];
-                mountpoint = "/var";
-              };
-              "@nix" = {
-                mountOptions = [
-                  "compress=zstd"
-                  "noatime"
-                ];
-                mountpoint = "/nix";
+          root = {
+            size = "100%";
+            content = {
+              type = "btrfs";
+              extraArgs = [
+                "-f"
+                "-L"
+                "NIXOS"
+              ];
+              subvolumes = {
+                "@" = {
+                  mountpoint = "/";
+                };
+                "@home" = {
+                  mountOptions = [ "compress=zstd" ];
+                  mountpoint = "/home";
+                };
+                "@var" = {
+                  mountOptions = [ "compress=zstd" ];
+                  mountpoint = "/var";
+                };
+                "@nix" = {
+                  mountOptions = [
+                    "compress=zstd"
+                    "noatime"
+                  ];
+                  mountpoint = "/nix";
+                };
               };
             };
           };
         };
       };
+    };
+    disk.sda = {
+      type = "disk";
+      device = "/dev/sda";
+      content = {
+        type = "gpt";
+        partitions = {
+          pool = {
+            size = "100%";
+            content = {
+              device = "/dev/disk/by-label/POOL";
+              type = "btrfs";
+              extraArgs = [
+                "-d"
+                "raid1"
+                "-m"
+                "raid1"
+                "/dev/sda"
+                "/dev/sdb"
+                "-f"
+                "-L"
+                "POOL"
+              ];
+              mountpoint = "/mnt/POOL";
+              mountOptions = [
+                "compress=zstd"
+                "noatime"
+              ];
+            };
+          };
+        };
+      };
+    };
+    disk.sdb = {
+      type = "disk";
+      device = "/dev/sdb";
     };
   };
 }
