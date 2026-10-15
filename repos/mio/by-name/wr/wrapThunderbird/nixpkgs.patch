@@ -1,0 +1,10 @@
+--- a/pkgs/applications/networking/mailreaders/thunderbird/wrapper.nix
++++ b/pkgs/applications/networking/mailreaders/thunderbird/wrapper.nix
+@@ -10,6 +10,7 @@
+ (wrapFirefox browser (
+   {
+     libName = "thunderbird";
++    isMail = true;
+   }
+   // args
+ ))
