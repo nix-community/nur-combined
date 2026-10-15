@@ -21,7 +21,7 @@ let
     owner = "tylerstyle";
     repo = "dfdisk";
     tag = "v${version}";
-    hash = "sha256-0IU8v8QjNf4SmCFN4JSR3mWwTFCuByG7KF7SuzLC6FY=";
+    hash = "sha256-5gCYQOi6DHQIhdJfYG4KnQFBrhxIVvNE449jpuRckD0=";
   };
 
   # dfdisk depends on dfcore via `path = "../dfcore"`; pin the revision
@@ -65,7 +65,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   # rev is "refs/tags/v..."), so the release workflow writes the tag's commit
   # here; the dfcore revision is the pinned one
   env = {
-    DFDISK_GIT_REV = "311ebb0f9f4c8978a56a8670c1f0368869ed490d";
+    DFDISK_GIT_REV = "bf6987309b2fe8aab6dbdca3f4e6612be6533470";
     DFCORE_GIT_REV = dfcoreSrc.rev;
   };
 
