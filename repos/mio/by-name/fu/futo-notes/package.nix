@@ -1,8 +1,9 @@
 {
   lib,
   stdenv,
-  pkgs,
   fetchFromGitLab,
+  fetchPnpmDeps,
+  pnpmConfigHook,
   rustPlatform,
   cargo-tauri,
   nodejs_22,
@@ -10,27 +11,34 @@
   pkg-config,
   openssl,
   makeWrapper,
+  glib,
+  gtk3,
+  webkitgtk_4_1,
+  wrapGAppsHook3,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "futo-notes";
-  version = "1.8.1";
+  version = "1.9.0";
+
+  strictDeps = true;
 
   src = fetchFromGitLab {
     domain = "gitlab.futo.org";
     owner = "futo-notes";
     repo = "futo-notes";
-    rev = "v${version}";
-    hash = "sha256-HrxRVtttWrtJftjjL6Mi7iTtnT20MPfpDRERRNJ+0Ac=";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-pMTtOihbZKh2589fG4ybT5jUoz2NhUSAgMeP0J4vTpo=";
   };
 
-  pnpmDeps = pnpm_10.fetchDeps {
-    inherit pname version src;
-    hash = "sha256-nwCFTfcN87l/538wUKVBxsC3tIygYBnreZ8cHfibL0E=";
+  pnpmDeps = fetchPnpmDeps {
+    inherit (finalAttrs) pname version src;
+    pnpm = pnpm_10;
     fetcherVersion = 4;
+    hash = "sha256-ZU6NR0kmp4Vjid4S+MCzUuHR6qxbYOHXlFOS71itkpU=";
   };
 
-  cargoHash = "sha256-A/pJG1K1cg/f4HrnCmM7rcjfOMDYHX6Nd+HWKqf2Phw=";
+  cargoHash = "sha256-bXLbmwRxS8DU2AfBASrgFpUxs7cTJQ6tkCcfvaHpXlw=";
 
   # The Cargo workspace root is in the repo root; we build the tauri app.
   buildAndTestSubdir = "apps/tauri/src-tauri";
@@ -39,20 +47,21 @@ rustPlatform.buildRustPackage rec {
     pkg-config
     cargo-tauri.hook
     nodejs_22
-    pnpm_10.configHook
+    pnpmConfigHook
+    pnpm_10
     makeWrapper
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [
-    pkgs.wrapGAppsHook3
+    wrapGAppsHook3
   ];
 
   buildInputs = [
     openssl
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [
-    pkgs.glib
-    pkgs.gtk3
-    pkgs.webkitgtk_4_1
+    glib
+    gtk3
+    webkitgtk_4_1
   ];
 
   # cargo-tauri.hook always passes --bundles; Darwin only accepts app/dmg/ios.
@@ -64,7 +73,7 @@ rustPlatform.buildRustPackage rec {
     runHook preBuild
     export CARGO_TARGET_DIR="$PWD/target"
     printf '\nbuild.target-dir = "%s"\n' "$CARGO_TARGET_DIR" >> config.toml
-    pushd ${buildAndTestSubdir}
+    pushd ${finalAttrs.buildAndTestSubdir}
     cargo tauri build --no-bundle --target ${stdenv.hostPlatform.rust.rustcTarget} -- \
       -j "$NIX_BUILD_CORES" --target ${stdenv.hostPlatform.rust.rustcTarget} --offline --profile "''${cargoBuildType:-release}"
     popd
@@ -101,7 +110,7 @@ rustPlatform.buildRustPackage rec {
       <key>CFBundlePackageType</key>
       <string>APPL</string>
       <key>CFBundleShortVersionString</key>
-      <string>${version}</string>
+      <string>${finalAttrs.version}</string>
       <key>LSMinimumSystemVersion</key>
       <string>14.0</string>
       <key>NSHighResolutionCapable</key>
@@ -115,11 +124,15 @@ rustPlatform.buildRustPackage rec {
     runHook postInstall
   '';
 
+  postInstall = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
+    ln -s futo-notes-tauri $out/bin/futo-notes
+  '';
+
   meta = {
-    description = "FUTO Notes";
+    description = "Voice-first, private note taking application";
     homepage = "https://gitlab.futo.org/futo-notes/futo-notes";
-    license = lib.licenses.unfree; # Change me
+    license = lib.licenses.unfree;
     mainProgram = "futo-notes";
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
-}
+})
