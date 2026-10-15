@@ -192,22 +192,27 @@ eachSystemOp (
     }
     // (f system packages);
 
-    crossPlatforms =
-      if system == "aarch64-darwin" then
-        lib.filter (platform: platform.system != system) platforms
-      else
-        platforms;
-
     crosses = map (
       platform:
-      let
-        packages = mkCrossPackages system platform;
-      in
-      {
-        inherit packages platform;
-        flake = f system packages;
-      }
-    ) crossPlatforms;
+      # Reuse the native package set for the local platform. Compare by config, since
+      # lib.systems.equals also compares cross-only attributes like xcodePlatform, which
+      # would make nixpkgs cross-compile darwin to itself.
+      if
+        platform.config == packages.stdenv.hostPlatform.config
+        && platform.isStatic == packages.stdenv.hostPlatform.isStatic
+      then
+        {
+          inherit packages platform flake;
+        }
+      else
+        let
+          packages = mkCrossPackages system platform;
+        in
+        {
+          inherit packages platform;
+          flake = f system packages;
+        }
+    ) platforms;
   in
 
   builtins.foldl' (

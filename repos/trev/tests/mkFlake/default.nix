@@ -103,7 +103,7 @@ in
     '';
 
   mkFlake-darwin-native-structure =
-    assert !(builtins.hasAttr target nativeDarwinPackages.hello);
+    assert nativeDarwinPackages.hello.${target}.drvPath == fixture.nixpkgs.aarch64-darwin.hello.drvPath;
     pkgs.runCommand "mkFlake-darwin-native-structure" { } ''
       touch $out
     '';
