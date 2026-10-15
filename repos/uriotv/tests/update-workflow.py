@@ -1,13 +1,149 @@
 #!/usr/bin/env python3
 """Offline regression tests for the package update workflow."""
 
+import json
 import os
 from pathlib import Path
 import subprocess
 import tempfile
 import unittest
 
-RUNNER = Path(__file__).resolve().parents[1] / "scripts/update-packages.sh"
+REPO_ROOT = Path(__file__).resolve().parents[1]
+RUNNER = REPO_ROOT / "scripts/update-packages.sh"
+RIMSORT_RELEASE_SELECTOR = REPO_ROOT / "pkgs/rimsort-appimage/latest-stable-version.py"
+RIMSORT_UPDATE_SCRIPT = REPO_ROOT / "pkgs/rimsort-appimage/update.sh"
+
+
+class RimSortReleaseSelectionTests(unittest.TestCase):
+    def select_version(self, releases):
+        return subprocess.run(
+            ["python3", str(RIMSORT_RELEASE_SELECTOR)],
+            input=json.dumps(releases),
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+
+    def test_ignores_edge_and_selects_newest_stable_with_appimage(self):
+        releases = [
+            {
+                "tag_name": "Edge",
+                "prerelease": True,
+                "assets": [{"name": "RimSort-v1.16.0-edge1-x86_64.AppImage"}],
+            },
+            {
+                "tag_name": "v1.15.1",
+                "prerelease": False,
+                "assets": [{"name": "RimSort-v1.15.1-Ubuntu-24.04_x86_64.tar.gz"}],
+            },
+            {
+                "tag_name": "v1.15.0",
+                "prerelease": False,
+                "assets": [{"name": "RimSort-v1.15.0-x86_64.AppImage"}],
+            },
+        ]
+
+        result = self.select_version(releases)
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(result.stdout.strip(), "1.15.0")
+
+    def test_selects_newer_stable_once_its_appimage_exists(self):
+        releases = [
+            {
+                "tag_name": "v1.16.0",
+                "prerelease": False,
+                "assets": [{"name": "RimSort-v1.16.0-x86_64.AppImage"}],
+            },
+            {
+                "tag_name": "v1.15.0",
+                "prerelease": False,
+                "assets": [{"name": "RimSort-v1.15.0-x86_64.AppImage"}],
+            },
+        ]
+
+        result = self.select_version(releases)
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(result.stdout.strip(), "1.16.0")
+
+    def test_fails_if_no_stable_release_has_appimage(self):
+        result = self.select_version([
+            {"tag_name": "Edge", "prerelease": True, "assets": []},
+            {"tag_name": "v1.15.1", "prerelease": False, "assets": []},
+        ])
+
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("No stable RimSort release", result.stderr)
+
+
+class RimSortUpdaterTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+        self.bin = self.root / "bin"
+        self.bin.mkdir()
+        self.fixture = self.root / "releases.json"
+        self.args_file = self.root / "nix-update-args"
+
+        curl_stub = self.bin / "curl"
+        curl_stub.write_text("#!/usr/bin/env bash\ncat \"$RELEASES_FIXTURE\"\n")
+        curl_stub.chmod(0o755)
+
+        nix_update_stub = self.bin / "nix-update"
+        nix_update_stub.write_text(
+            "#!/usr/bin/env bash\nprintf '%s\\n' \"$@\" > \"$NIX_UPDATE_ARGS_FILE\"\n"
+        )
+        nix_update_stub.chmod(0o755)
+
+    def run_updater(self, releases):
+        self.fixture.write_text(json.dumps(releases))
+        return subprocess.run(
+            ["bash", str(RIMSORT_UPDATE_SCRIPT)],
+            cwd=REPO_ROOT,
+            env={
+                **os.environ,
+                "PATH": f"{self.bin}{os.pathsep}{os.environ['PATH']}",
+                "RELEASES_FIXTURE": str(self.fixture),
+                "NIX_UPDATE_ARGS_FILE": str(self.args_file),
+            },
+            text=True,
+            capture_output=True,
+            check=False,
+        )
+
+    def test_update_script_passes_only_stable_asset_version_to_nix_update(self):
+        result = self.run_updater([
+            {
+                "tag_name": "Edge",
+                "prerelease": True,
+                "assets": [{"name": "RimSort-v1.16.0-edge1-x86_64.AppImage"}],
+            },
+            {
+                "tag_name": "v1.15.0",
+                "prerelease": False,
+                "assets": [{"name": "RimSort-v1.15.0-x86_64.AppImage"}],
+            },
+        ])
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(
+            self.args_file.read_text().splitlines(),
+            ["--flake", "--version=1.15.0", "rimsort-appimage"],
+        )
+
+    def test_update_script_does_not_call_nix_update_without_a_matching_asset(self):
+        result = self.run_updater([
+            {
+                "tag_name": "v1.15.1",
+                "prerelease": False,
+                "assets": [{"name": "RimSort-v1.15.1-Ubuntu-24.04_x86_64.tar.gz"}],
+            },
+        ])
+
+        self.assertNotEqual(result.returncode, 0)
+        self.assertFalse(self.args_file.exists())
 
 
 class UpdateWorkflowTests(unittest.TestCase):
