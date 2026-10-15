@@ -267,10 +267,23 @@ stdenv.mkDerivation {
     (makeDesktopItem {
       name = "io.github.bbport.Launcher";
       desktopName = "Bloodborne";
+      genericName = "Bloodborne launcher";
       comment = "Native Bloodborne port launcher";
       exec = "bbport";
       icon = "applications-games";
       categories = [ "Game" ];
+      keywords = [
+        "bbport"
+        "Bloodborne"
+        "PS4"
+      ];
+      # The launcher's GTK application id, so its window groups with this entry.
+      startupWMClass = "io.github.bbport.Launcher";
+      actions.play = {
+        name = "Play without the launcher";
+        # The game with the saved settings, no launcher window.
+        exec = "bbport --play";
+      };
     })
   ];
 
