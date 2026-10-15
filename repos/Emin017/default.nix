@@ -19,6 +19,7 @@ in
   overlays = import ./overlays; # nixpkgs overlays
 
   gtkwave4 = pkgs.callPackage ./pkgs/gtkwave4 { };
+  magpie = pkgs.callPackage ./pkgs/magpie { };
   xfel = pkgs.callPackage ./pkgs/xfel { };
   lceda-pro = pkgs.callPackage ./pkgs/lceda-pro { };
   git-commit-generator = pkgs.callPackage ./pkgs/git-commit-generator { };
