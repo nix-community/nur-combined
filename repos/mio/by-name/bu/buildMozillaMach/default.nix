@@ -9,6 +9,7 @@
   application ? "browser",
   applicationName ? "Firefox",
   branding ? null,
+  distributionId ? "org.nixos",
   requireSigning ? true,
   allowAddonSideload ? false,
   withWasiSysroot ? true,
@@ -257,18 +258,25 @@ let
   distributionIni =
     let
       platform = if stdenv.hostPlatform.isDarwin then "Nix on MacOS" else "NixOS";
+      distId =
+        if distributionId == "org.nixos" then
+          "nixos"
+        else if distributionId != null then
+          distributionId
+        else
+          "nixos";
     in
     pkgs.writeText "distribution.ini" (
       lib.generators.toINI { } {
         # Some light branding indicating this build uses our distro preferences
         Global = {
-          id = "nixos";
+          id = distId;
           version = "1.0";
           about = "${applicationName} for ${platform}";
         };
         Preferences = {
           # These values are exposed through telemetry
-          "app.distributor" = "nixos";
+          "app.distributor" = distId;
           "app.distributor.channel" = "nixpkgs";
         };
       }
@@ -485,7 +493,9 @@ buildStdenv.mkDerivation {
     "--enable-application=${application}"
     "--enable-default-toolkit=${toolkit}"
     "--with-app-name=${binaryName}"
-    "--with-distribution-id=org.nixos"
+  ]
+  ++ lib.optional (distributionId != null) "--with-distribution-id=${distributionId}"
+  ++ [
     "--with-libclang-path=${lib.getLib llvmPackagesBuildBuild.libclang}/lib"
     # for firefox, host is buildPlatform, target is hostPlatform
     "--host=${buildStdenv.buildPlatform.config}"
@@ -723,6 +733,7 @@ buildStdenv.mkDerivation {
     inherit alsaSupport;
     inherit binaryName;
     inherit finalBinaryName;
+    inherit distributionId;
     inherit requireSigning allowAddonSideload;
     inherit jackSupport;
     inherit pipewireSupport;

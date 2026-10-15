@@ -62,6 +62,7 @@ in
     applicationName = "Betterbird";
     binaryName = "thunderbird";
     finalBinaryName = "betterbird";
+    distributionId = if stdenv.hostPlatform.isDarwin then "eu.betterbird" else "org.nixos";
     application = "comm/mail";
     branding = "comm/mail/branding/betterbird";
     requireSigning = false;
