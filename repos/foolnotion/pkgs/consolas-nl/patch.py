@@ -114,6 +114,12 @@ def import_terminal_glyphs(font: TTFont, source_path: str, ranges: list[tuple[in
     src_glyf = src["glyf"]
     src_hmtx = src["hmtx"].metrics
     src_os2 = src["OS/2"]
+
+    # getBestCmap() will prefer this Windows UCS-4 table once it exists.
+    # Seed it with every existing Unicode mapping; otherwise renderers that
+    # choose it can only resolve subsequently imported glyphs.
+    tgt_cmap = font.getBestCmap() or {}
+
     if not any(table.format == 12 for table in font["cmap"].tables):
         from fontTools.ttLib.tables._c_m_a_p import CmapSubtable
 
@@ -121,7 +127,7 @@ def import_terminal_glyphs(font: TTFont, source_path: str, ranges: list[tuple[in
         unicode_cmap.platformID = 3
         unicode_cmap.platEncID = 10
         unicode_cmap.language = 0
-        unicode_cmap.cmap = {}
+        unicode_cmap.cmap = tgt_cmap.copy()
         font["cmap"].tables.append(unicode_cmap)
 
     ref_src = src_cmap.get(0x41) or next(iter(src_hmtx))
