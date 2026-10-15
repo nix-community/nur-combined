@@ -466,6 +466,9 @@ stdenv.mkDerivation (finalAttrs: {
     license = with licenses; [ mit ];
     platforms = with platforms; (intersectLists x86_64 linux);
     mainProgram = "wechat-web-devtools-linux";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [
+      fromSource
+      binaryNativeCode
+    ];
   };
 })

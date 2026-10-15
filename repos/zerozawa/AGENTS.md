@@ -24,7 +24,7 @@ nur/
 ├── default.nix              # main export surface
 ├── flake.nix                # flake outputs and cache config
 ├── ci.nix                   # CI package/output filtering
-├── pkgs/                    # 25 exported package definitions
+├── pkgs/                    # 27 exported package definitions
 ├── lib/                     # library helpers (currently fetchPixiv)
 ├── modules/                 # placeholder NixOS modules namespace
 ├── overlays/                # placeholder overlays namespace
@@ -52,12 +52,12 @@ Do not document modules or overlays as active features unless they have been imp
 
 ## Package Inventory Summary
 
-The repo currently exports 25 packages from `default.nix`, grouped roughly as:
+The repo currently exports 27 packages from `default.nix`, grouped roughly as:
 
 - SR Vulkan ecosystem: `sr-vulkan` and four model packages
 - Desktop readers and clients: `JMComic-qt`, `picacg-qt`, `LoveIwara`
 - Media and streaming tools: `StartLive`, `bilibili_live_tui`, `lightnovel-crawler`, `mihomo-smart`
-- MCP and developer tools: `agentic-contract`, `context-mode`, `mcp-cli`, `pctx`, `truenas-mcp`, `wechat-web-devtools-linux`
+- MCP and developer tools: `agentic-contract`, `context-mode`, `jadx-headless-mcp`, `mcp-cli`, `pctx`, `truenas-mcp`, `wakaru`, `wechat-web-devtools-linux`
 - Themes and utilities: `grub-theme-yorha`, `sddm-eucalyptus-drop`, `waybar-vd`, `zsh-url-highlighter`, `mikusays`, `fortune-mod-*`
 
 Always derive exact package names from `default.nix`, not from README snippets or memory files.
@@ -75,7 +75,9 @@ This repo is not limited to one packaging style. Examples worth following:
 - `buildDotnetModule`
   - Example: `pkgs/banguminet/default.nix` — read `pkgs/banguminet/AGENTS.md` for deps.json regeneration
 - `rustPlatform.buildRustPackage`
-  - Example: `pkgs/pctx/default.nix` — read `pkgs/pctx/AGENTS.md` before updating its fixed V8 and Swagger UI inputs
+  - Examples: `pkgs/pctx/default.nix` — read `pkgs/pctx/AGENTS.md` before updating its fixed V8 and Swagger UI inputs — and `pkgs/wakaru.nix`
+- `stdenv.mkDerivation` + `gradle.fetchDeps`
+  - Example: `pkgs/jadx-headless-mcp/default.nix` — Gradle 9.8.0 (`gradle_9`) dependency lockfile in `deps.json`, regenerated via `mitmCache.updateScript`
 
 ## Repo-Specific Packaging Notes
 

@@ -98,6 +98,29 @@ This repo also contains packages that:
 - use `bun install --frozen-lockfile`
 - compile a final CLI binary with `bun build --compile`
 
+### Gradle / JVM packages
+
+Example: `pkgs/jadx-headless-mcp/default.nix`
+
+```nix
+stdenv.mkDerivation (finalAttrs: {
+  nativeBuildInputs = [ gradle_9 jdk17 makeBinaryWrapper ];
+  mitmCache = gradle_9.fetchDeps {
+    pkg = finalAttrs.finalPackage; # required outside nixpkgs
+    data = ./deps.json;
+  };
+  gradleBuildTask = "installDist";
+})
+```
+
+- The Gradle dependency tree lives in a committed `deps.json` lockfile; regenerate it
+  with `<attr>.mitmCache.updateScript` on every bump.
+- Match the Gradle major/minor to the project's wrapper (`gradle_9` = 9.8.0); the
+  nixpkgs default `gradle` may be too old for modern plugin versions.
+- A `jvmToolchain(...)` declaration needs
+  `-Dorg.gradle.java.installations.paths=${jdk17.home}` — the build runs `--offline`.
+- Wrap the `installDist` launcher with `--set JAVA_HOME` instead of trusting `PATH`.
+
 ### Generic derivations
 
 Examples:
@@ -129,6 +152,8 @@ some-package = pkgs.callPackage ./pkgs/some-package.nix { };
 - `LoveIwara`: source-built Flutter GUI with offline pub dependencies, system SQLite, libmpv runtime wrapping, and upstream desktop integration
 - `sr-vulkan`: model composition through `sr-vulkan-models`
 - `truenas-mcp`: `buildGoModule` MCP server with a single main binary
+- `pctx` / `wakaru`: Rust workspace crates pinned to release tags, narrowed with `cargoBuildFlags = [ "-p" <bin-crate> ]`
+- `jadx-headless-mcp`: Kotlin/Gradle source build with a `deps.json` lockfile and a wrapped `installDist` launcher
 - `fetchPixiv`: helper-style library export using `fetchurl` fallback URLs
 
 ## Hash techniques

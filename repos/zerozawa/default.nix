@@ -70,4 +70,6 @@ in
   truenas-mcp = pkgs.callPackage ./pkgs/truenas-mcp.nix { };
   banguminet = pkgs.callPackage ./pkgs/banguminet { };
   pctx = pkgs.callPackage ./pkgs/pctx { };
+  wakaru = pkgs.callPackage ./pkgs/wakaru.nix { };
+  jadx-headless-mcp = pkgs.callPackage ./pkgs/jadx-headless-mcp { };
 }

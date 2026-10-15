@@ -81,6 +81,10 @@ buildDotnetModule rec {
     license = licenses.mit;
     mainProgram = "banguminet";
     platforms = dotnetCorePackages.sdk_10_0.meta.platforms or platforms.linux;
-    sourceProvenance = with sourceTypes; [ fromSource ];
+    sourceProvenance = with sourceTypes; [
+      fromSource
+      binaryBytecode
+      binaryNativeCode
+    ];
   };
 }

@@ -26,11 +26,11 @@ let
 
   jmcomic = python313Packages.buildPythonPackage rec {
     pname = "jmcomic";
-    version = "2.7.7";
+    version = "2.7.9";
     pyproject = true;
     src = fetchPypi {
       inherit pname version;
-      hash = "sha256-tSlPJYnNAbjxSq6w+Ks0x8gWCox/UfUNrvuTVdq8N1E=";
+      hash = "sha256-JlxdFasOqBVU36UOf/57WgNKcTcURQOnlTFM9tqLPhQ=";
     };
     build-system = with python313Packages; [ setuptools ];
     dependencies = with python313Packages; [

@@ -33,7 +33,8 @@ nix-prefetch-github <owner> <repo> --rev v<version>
 
 ## Repo-specific reminders
 
-- Rust packages may need `Cargo.lock` handling (`waybar-vd`).
+- Rust packages may need `Cargo.lock` handling (`waybar-vd`); workspace packages built with `cargoBuildFlags` need a `cargoHash` reveal (`pctx`, `wakaru`).
+- Gradle packages keep a `deps.json` dependency lockfile that must be regenerated on every bump: `nix-build --no-out-link -A jadx-headless-mcp.mitmCache.updateScript` and run the printed script.
 - Flutter packages may need pub-lock refresh and native-asset validation (`LoveIwara`).
 - Python GUI apps may need wrapper/runtime checks (`JMComic-qt`, `picacg-qt`).
 - npm dependency trees (offline `npm ci` rebuilds) may need lockfile refresh (`wechat-web-devtools-linux` rebuilds native npm modules from `pkgs/wechat-web-devtools-linux/npm/`).

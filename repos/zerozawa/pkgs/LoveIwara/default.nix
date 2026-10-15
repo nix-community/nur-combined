@@ -126,5 +126,11 @@ flutter347.buildFlutterApplication (finalAttrs: {
     license = lib.licenses.mit;
     mainProgram = "i_iwara";
     platforms = lib.platforms.linux;
+    # Bundles the prebuilt Flutter engine (libflutter_linux_gtk.so) plus plugin
+    # and AOT snapshot .so files; same classification as nixpkgs' bluebubbles.
+    sourceProvenance = with lib.sourceTypes; [
+      fromSource
+      binaryNativeCode
+    ];
   };
 })

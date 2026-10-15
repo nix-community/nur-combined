@@ -200,6 +200,9 @@ python3Packages.buildPythonApplication rec {
     license = licenses.gpl3Only;
     platforms = platforms.linux;
     mainProgram = "startlive";
-    sourceProvenance = with sourceTypes; [ fromSource ];
+    sourceProvenance = with sourceTypes; [
+      fromSource
+      binaryNativeCode
+    ];
   };
 }

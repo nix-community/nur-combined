@@ -48,6 +48,6 @@ python313Packages.buildPythonPackage rec {
     homepage = "https://github.com/tonquer/waifu2x-vulkan";
     license = licenses.mit;
     platforms = [ "x86_64-linux" ];
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
   };
 }
