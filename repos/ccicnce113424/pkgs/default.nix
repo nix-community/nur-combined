@@ -160,6 +160,11 @@ lib.makeScope pkgs.newScope (
       version = unstableVersion sources "1.7";
     };
 
+    pipewire-bluez5-lhdc-jd-git = self.callPackage ./pipewire-bluez5-lhdc-jd-git rec {
+      sources = fetchedSrc.pipewire-bluez5-lhdc-jd-git;
+      version = unstableVersion sources "1.7";
+    };
+
     pixes = self.callPackage ./pixes rec {
       sources = fetchedSrc.pixes;
 

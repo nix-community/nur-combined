@@ -500,6 +500,26 @@
         },
         "version": "cc07aebe51efac87a396675792d48400cae4b9b5"
     },
+    "pipewire-bluez5-lhdc-jd-git": {
+        "cargoLock": null,
+        "date": "2026-06-18",
+        "extract": null,
+        "name": "pipewire-bluez5-lhdc-jd-git",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "cdc325a86d9df0202b1d43f7ecc51f29a42ba22e",
+            "sha256": "sha256-Cun/BCq0W1Wxs9FcC17tt7zmYKis3mIsZn/E6+aZVyQ=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/josephdove/pipewire-lhdc.git"
+        },
+        "version": "cdc325a86d9df0202b1d43f7ecc51f29a42ba22e"
+    },
     "pixes": {
         "cargoLock": null,
         "date": null,

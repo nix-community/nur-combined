@@ -315,6 +315,20 @@
     };
     date = "2026-10-16";
   };
+  pipewire-bluez5-lhdc-jd-git = {
+    pname = "pipewire-bluez5-lhdc-jd-git";
+    version = "cdc325a86d9df0202b1d43f7ecc51f29a42ba22e";
+    src = fetchgit {
+      url = "https://github.com/josephdove/pipewire-lhdc.git";
+      rev = "cdc325a86d9df0202b1d43f7ecc51f29a42ba22e";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-Cun/BCq0W1Wxs9FcC17tt7zmYKis3mIsZn/E6+aZVyQ=";
+    };
+    date = "2026-06-18";
+  };
   pixes = {
     pname = "pixes";
     version = "v1.2.3";

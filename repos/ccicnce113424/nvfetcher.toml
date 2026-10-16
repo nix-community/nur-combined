@@ -103,6 +103,10 @@ src.github = "bggRGjQaUbCoE/PiliPlus"
 fetch.git = "https://gitlab.freedesktop.org/pipewire/pipewire.git"
 src.git = "https://gitlab.freedesktop.org/pipewire/pipewire.git"
 
+[pipewire-bluez5-lhdc-jd-git]
+fetch.git = "https://github.com/josephdove/pipewire-lhdc.git"
+src.git = "https://github.com/josephdove/pipewire-lhdc.git"
+
 [pixes]
 extract = ["pubspec.lock"]
 fetch.github = "pixes-app/pixes"
