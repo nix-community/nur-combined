@@ -1,10 +1,10 @@
 {
   fetchFromGitHub,
   lib,
-  luaPackages,
+  lua52Packages,
   nix-update-script,
 }:
-luaPackages.buildLuarocksPackage {
+lua52Packages.buildLuarocksPackage {
   pname = "astal-lua";
   version = "0-unstable-2026-08-14";
   src = fetchFromGitHub {
@@ -16,7 +16,7 @@ luaPackages.buildLuarocksPackage {
 
   rockspecVersion = "*";
 
-  propagatedBuildInputs = with luaPackages; [
+  propagatedBuildInputs = with lua52Packages; [
     argparse
     (callPackage ./lgi.nix { })
   ];

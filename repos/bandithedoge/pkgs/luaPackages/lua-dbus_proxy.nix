@@ -1,10 +1,10 @@
 {
   fetchFromGitHub,
   lib,
-  luaPackages,
+  lua52Packages,
   nix-update-script,
 }:
-luaPackages.buildLuarocksPackage {
+lua52Packages.buildLuarocksPackage {
   pname = "lua-dbus_proxy";
   version = "0.10.4-unstable-2025-11-15";
   src = fetchFromGitHub {
@@ -14,7 +14,7 @@ luaPackages.buildLuarocksPackage {
     hash = "sha256-H44JBe2n4QZcQRyQTcYY/DtuG7XQgolPrdPgUU6SJTs=";
   };
 
-  propagatedBuildInputs = [ (luaPackages.callPackage ./lgi.nix { }) ];
+  propagatedBuildInputs = [ (lua52Packages.callPackage ./lgi.nix { }) ];
   knownRockspec = "rockspec/dbus_proxy-devel-1.rockspec";
 
   postPatch = ''

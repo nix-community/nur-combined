@@ -1,14 +1,14 @@
 {
   fetchFromGitHub,
   lib,
-  luaPackages,
+  lua55Packages,
   nix-update-script,
 
   cairo,
   gobject-introspection,
   pkg-config,
 }:
-luaPackages.buildLuarocksPackage {
+lua55Packages.buildLuarocksPackage {
   pname = "lgi";
   version = "0.9.2-unstable-2026-07-28";
   src = fetchFromGitHub {

@@ -1,10 +1,10 @@
 {
   fetchFromGitHub,
   lib,
-  luaPackages,
+  lua52Packages,
   nix-update-script,
 }:
-luaPackages.buildLuarocksPackage {
+lua52Packages.buildLuarocksPackage {
   pname = "bling";
   version = "0-unstable-2024-12-18";
   src = fetchFromGitHub {

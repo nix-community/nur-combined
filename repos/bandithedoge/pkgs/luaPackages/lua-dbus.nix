@@ -1,10 +1,10 @@
 {
   fetchFromGitHub,
   lib,
-  luaPackages,
+  lua52Packages,
   nix-update-script,
 }:
-luaPackages.buildLuarocksPackage {
+lua52Packages.buildLuarocksPackage {
   pname = "lua-dbus";
   version = "scm-0-unstable-2015-04-22";
   src = fetchFromGitHub {
@@ -16,7 +16,7 @@ luaPackages.buildLuarocksPackage {
 
   knownRockspec = "lua-dbus-scm-0.rockspec";
 
-  propagatedBuildInputs = with luaPackages; [ ldbus ];
+  propagatedBuildInputs = with lua52Packages; [ ldbus ];
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

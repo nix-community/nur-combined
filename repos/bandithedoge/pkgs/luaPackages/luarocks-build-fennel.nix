@@ -1,10 +1,10 @@
 {
   fetchFromSourcehut,
   lib,
-  luaPackages,
+  lua52Packages,
   nix-update-script,
 }:
-luaPackages.buildLuarocksPackage {
+lua52Packages.buildLuarocksPackage {
   pname = "luarocks-build-fennel";
   version = "0.1.1-unstable-2024-03-18";
   src = fetchFromSourcehut {
@@ -16,7 +16,7 @@ luaPackages.buildLuarocksPackage {
 
   knownRockspec = "rockspecs/luarocks-build-fennel-scm-1.rockspec";
 
-  propagatedBuildInputs = with luaPackages; [
+  propagatedBuildInputs = with lua52Packages; [
     fennel
   ];
 

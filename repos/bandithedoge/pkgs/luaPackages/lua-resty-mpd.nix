@@ -1,14 +1,14 @@
 {
   fetchzip,
   lib,
-  luaPackages,
+  lua52Packages,
   writeScript,
   breakpointHook,
 }:
 let
   version = "5.2.3";
 in
-luaPackages.buildLuarocksPackage {
+lua52Packages.buildLuarocksPackage {
   pname = "lua-resty-mpd";
   inherit version;
   src = fetchzip {
