@@ -1,6 +1,7 @@
 package androidx.hilt.navigation.compose
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.lifecycle.ViewModel
 import java.lang.reflect.Proxy
 import java.lang.reflect.Modifier
@@ -8,7 +9,10 @@ import java.lang.reflect.Modifier
 @Composable
 inline fun <reified VM : ViewModel> hiltViewModel(): VM {
     val backStackEntry = androidx.navigation.compose.LocalCurrentBackStackEntry.current
-    return _createViewModelInstance(VM::class.java, backStackEntry?.savedStateHandle) as VM
+    val savedStateHandle = backStackEntry?.savedStateHandle
+    return remember(backStackEntry, VM::class.java) {
+        _createViewModelInstance(VM::class.java, savedStateHandle) as VM
+    }
 }
 
 private var _globalMusicDatabase: Any? = null
@@ -32,6 +36,7 @@ fun getGlobalMusicDatabase(): Any? {
 }
 
 fun _createViewModelInstance(clazz: Class<*>, savedStateHandle: androidx.lifecycle.SavedStateHandle? = null): Any? {
+    println("[HiltViewModel] creating instance of ${clazz.name} (savedStateHandle keys: ${savedStateHandle?.keys()})")
     if (android.content.Context::class.java.isAssignableFrom(clazz)) {
         if (clazz.name == "android.app.Application") {
             return android.app.Application()

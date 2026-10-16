@@ -11,13 +11,18 @@ open class SavedStateHandle(initialState: Map<String, Any?> = emptyMap()) {
     operator fun <T> get(key: String): T? {
         val v = values[key]
         if (v != null) return v as? T
-        return when (key) {
+        val fallback = when (key) {
             "playlistId", "albumId", "artistId", "browseId", "id", "top", "playlist", "newsId" -> ("" as T)
             else -> null
         }
+        if (fallback != null) {
+            println("[SavedStateHandle] key '$key' missing in values, returning fallback: '$fallback' (known keys: ${values.keys})")
+        }
+        return fallback
     }
 
     operator fun <T> set(key: String, value: T?) {
+        println("[SavedStateHandle] set '$key' = '$value'")
         values[key] = value
         flows[key]?.value = value
     }

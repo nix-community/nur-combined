@@ -86,6 +86,7 @@ let
         rm -rf core
         cp -r ${coreSrc} core
         chmod -R +w core
+        patch -p1 < ${./core-playlist.patch}
 
         # Drop the Android-only entrypoints. android-stubs provides the global mocks
         # that used to live in MainActivity.kt, and DesktopMain.kt is our new entrypoint.

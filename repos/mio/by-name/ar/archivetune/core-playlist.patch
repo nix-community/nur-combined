@@ -1,0 +1,74 @@
+--- a/core/src/main/kotlin/moe/rukamori/archivetune/innertube/YouTube.kt
++++ b/core/src/main/kotlin/moe/rukamori/archivetune/innertube/YouTube.kt
+@@ -847,28 +847,67 @@
+     suspend fun playlist(playlistId: String): Result<PlaylistPage> =
+         runCatching {
+-            val response =
++            val cleanId = if (playlistId.startsWith("VL")) playlistId.removePrefix("VL") else playlistId
++            val finalBrowseId = "VL$cleanId"
++            println("[YouTube.playlist] called with playlistId='$playlistId', finalBrowseId='$finalBrowseId'")
++            var response =
+                 innerTube
+                     .browse(
+                         client = WEB_REMIX,
+-                        browseId = "VL$playlistId",
++                        browseId = finalBrowseId,
+                         setLogin = true,
+                     ).body<BrowseResponse>()
+-            val primarySection =
++            var primarySection =
+                 response.contents
+                     ?.twoColumnBrowseResultsRenderer
+                     ?.tabs
+                     ?.firstOrNull()
+                     ?.tabRenderer
+                     ?.content
+                     ?.sectionListRenderer
+-            val allFirstColumnContents = primarySection?.contents.orEmpty()
+-            val base =
++                    ?: response.contents
++                        ?.singleColumnBrowseResultsRenderer
++                        ?.tabs
++                        ?.firstOrNull()
++                        ?.tabRenderer
++                        ?.content
++                        ?.sectionListRenderer
++                    ?: response.contents
++                        ?.sectionListRenderer
++            var allFirstColumnContents = primarySection?.contents.orEmpty()
++            var base =
+                 allFirstColumnContents.firstOrNull {
+                     it.musicResponsiveHeaderRenderer != null || it.musicEditablePlaylistDetailHeaderRenderer != null
+                 }
+-            val header =
++            var header =
+                 base?.musicResponsiveHeaderRenderer
+                     ?: base?.musicEditablePlaylistDetailHeaderRenderer?.header?.musicResponsiveHeaderRenderer
++                    ?: response.header?.musicEditablePlaylistDetailHeaderRenderer?.header?.musicResponsiveHeaderRenderer
++
++            if (header == null && cleanId.isNotBlank() && cleanId != finalBrowseId) {
++                println("[YouTube.playlist] no header with '$finalBrowseId', trying '$cleanId' directly...")
++                val altResponse = runCatching {
++                    innerTube.browse(client = WEB_REMIX, browseId = cleanId, setLogin = true).body<BrowseResponse>()
++                }.getOrNull()
++                if (altResponse != null) {
++                    val altPrimary = altResponse.contents?.twoColumnBrowseResultsRenderer?.tabs?.firstOrNull()?.tabRenderer?.content?.sectionListRenderer
++                        ?: altResponse.contents?.singleColumnBrowseResultsRenderer?.tabs?.firstOrNull()?.tabRenderer?.content?.sectionListRenderer
++                        ?: altResponse.contents?.sectionListRenderer
++                    val altFirstCol = altPrimary?.contents.orEmpty()
++                    val altBase = altFirstCol.firstOrNull { it.musicResponsiveHeaderRenderer != null || it.musicEditablePlaylistDetailHeaderRenderer != null }
++                    val altHeader = altBase?.musicResponsiveHeaderRenderer
++                        ?: altBase?.musicEditablePlaylistDetailHeaderRenderer?.header?.musicResponsiveHeaderRenderer
++                        ?: altResponse.header?.musicEditablePlaylistDetailHeaderRenderer?.header?.musicResponsiveHeaderRenderer
++                    if (altHeader != null) {
++                        println("[YouTube.playlist] found header with cleanId '$cleanId'!")
++                        response = altResponse
++                        primarySection = altPrimary
++                        allFirstColumnContents = altFirstCol
++                        base = altBase
++                        header = altHeader
++                    }
++                }
++            }
++
+             if (header == null) throw IllegalStateException("PLAYLIST_PRIVATE")

@@ -48,6 +48,7 @@ fun matchRoute(pattern: String, actualRoute: String, entry: NavBackStackEntry): 
         entry.arguments?.putString(k, v)
         entry.savedStateHandle[k] = v
     }
+    println("[NavHost] matchRoute SUCCESS: pattern='$pattern', actualRoute='$actualRoute', params=$matchedParams")
     return true
 }
 

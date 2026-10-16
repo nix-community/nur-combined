@@ -53,6 +53,7 @@ open class NavController {
     }
 
     open fun navigate(route: String, builder: NavOptionsBuilder.() -> Unit) {
+        println("[NavController] navigate: route='$route'")
         val options = NavOptionsBuilder().apply(builder)
         if (options.popUpToRoute != null) {
             popBackStack(options.popUpToRoute!!, options.popUpToInclusive)
