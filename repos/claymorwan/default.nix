@@ -19,11 +19,12 @@ rec {
   # flakeModules = { }; # flake-parts modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  deltapatcher = pkgs.callPackage ./pkgs/deltapatcher { };
   fabric-cli = pkgs.callPackage ./pkgs/fabric-cli { };
-  shimelinux = pkgs.callPackage ./pkgs/shimelinux { };
-  utmt-cli = pkgs.callPackage ./pkgs/utmt-cli { };
   pvpn = pkgs.callPackage ./pkgs/pvpn { };
+  shimelinux = pkgs.callPackage ./pkgs/shimelinux { };
   twintaillauncher = pkgs.callPackage ./pkgs/twintaillauncher/twintaillauncher { inherit twintaillauncher-unwrapped; };
   twintaillauncher-unwrapped = pkgs.callPackage ./pkgs/twintaillauncher/twintaillauncher-unwrapped { };
+  utmt-cli = pkgs.callPackage ./pkgs/utmt-cli { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
 }
