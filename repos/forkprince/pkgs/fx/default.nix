@@ -1,6 +1,6 @@
 {
   fetchFromGitHub,
-  zig_0_16,
+  zig_0_17,
   stdenv,
   lib,
 }:
@@ -16,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [
-    zig_0_16
+    zig_0_17
   ];
 
   buildPhase = ''
