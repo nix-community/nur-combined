@@ -3,12 +3,19 @@ package androidx.lifecycle
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
-open class SavedStateHandle {
-    private val values = mutableMapOf<String, Any?>()
+open class SavedStateHandle(initialState: Map<String, Any?> = emptyMap()) {
+    private val values = mutableMapOf<String, Any?>().apply { putAll(initialState) }
     private val flows = mutableMapOf<String, MutableStateFlow<Any?>>()
 
     @Suppress("UNCHECKED_CAST")
-    operator fun <T> get(key: String): T? = values[key] as? T
+    operator fun <T> get(key: String): T? {
+        val v = values[key]
+        if (v != null) return v as? T
+        return when (key) {
+            "playlistId", "albumId", "artistId", "browseId", "id", "top", "playlist", "newsId" -> ("" as T)
+            else -> null
+        }
+    }
 
     operator fun <T> set(key: String, value: T?) {
         values[key] = value

@@ -8,6 +8,8 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 
+val LocalCurrentBackStackEntry = compositionLocalOf<NavBackStackEntry?> { null }
+
 @Composable
 fun rememberNavController(): NavHostController = remember { NavHostController() }
 
@@ -44,6 +46,7 @@ fun matchRoute(pattern: String, actualRoute: String, entry: NavBackStackEntry): 
 
     matchedParams.forEach { (k, v) ->
         entry.arguments?.putString(k, v)
+        entry.savedStateHandle[k] = v
     }
     return true
 }
@@ -81,8 +84,12 @@ fun NavHost(
                 matchRoute(node.routePattern, currentRoute, entry)
             }
             if (matchedNode != null) {
-                key(entry) {
-                    matchedNode.content(entry)
+                CompositionLocalProvider(
+                    LocalCurrentBackStackEntry provides entry
+                ) {
+                    key(entry) {
+                        matchedNode.content(entry)
+                    }
                 }
             }
         }

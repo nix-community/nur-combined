@@ -7,7 +7,8 @@ import java.lang.reflect.Modifier
 
 @Composable
 inline fun <reified VM : ViewModel> hiltViewModel(): VM {
-    return _createViewModelInstance(VM::class.java) as VM
+    val backStackEntry = androidx.navigation.compose.LocalCurrentBackStackEntry.current
+    return _createViewModelInstance(VM::class.java, backStackEntry?.savedStateHandle) as VM
 }
 
 private var _globalMusicDatabase: Any? = null
@@ -30,12 +31,15 @@ fun getGlobalMusicDatabase(): Any? {
     return _globalMusicDatabase
 }
 
-fun _createViewModelInstance(clazz: Class<*>): Any? {
+fun _createViewModelInstance(clazz: Class<*>, savedStateHandle: androidx.lifecycle.SavedStateHandle? = null): Any? {
     if (android.content.Context::class.java.isAssignableFrom(clazz)) {
         if (clazz.name == "android.app.Application") {
             return android.app.Application()
         }
         return android.content.DummyContext()
+    }
+    if (clazz.name == "androidx.lifecycle.SavedStateHandle") {
+        return savedStateHandle ?: androidx.lifecycle.SavedStateHandle()
     }
     if (clazz.name == "moe.rukamori.archivetune.db.MusicDatabase") {
         return getGlobalMusicDatabase()
@@ -69,7 +73,7 @@ fun _createViewModelInstance(clazz: Class<*>): Any? {
                 ret == String::class.java -> ""
                 ret.name == "kotlinx.coroutines.flow.Flow" -> kotlinx.coroutines.flow.emptyFlow<Any>()
                 ret.name == "kotlinx.coroutines.flow.StateFlow" -> kotlinx.coroutines.flow.MutableStateFlow<Any?>(null)
-                else -> _createViewModelInstance(ret)
+                else -> _createViewModelInstance(ret, savedStateHandle)
             }
         }
     }
@@ -90,7 +94,7 @@ fun _createViewModelInstance(clazz: Class<*>): Any? {
 
         if (constructor != null) {
             constructor.isAccessible = true
-            val args = constructor.parameterTypes.map { _createViewModelInstance(it) }
+            val args = constructor.parameterTypes.map { _createViewModelInstance(it, savedStateHandle) }
             return constructor.newInstance(*args.toTypedArray())
         }
     } catch (e: Throwable) {
@@ -112,12 +116,16 @@ fun _createViewModelInstance(clazz: Class<*>): Any? {
                             if (field.get(instance) == null) {
                                 if (android.content.Context::class.java.isAssignableFrom(field.type)) {
                                     field.set(instance, android.content.DummyContext())
+                                } else if (field.type.name == "androidx.lifecycle.SavedStateHandle") {
+                                    field.set(instance, savedStateHandle ?: androidx.lifecycle.SavedStateHandle())
                                 } else if (field.type.name == "moe.rukamori.archivetune.db.MusicDatabase") {
                                     field.set(instance, getGlobalMusicDatabase())
                                 } else if (field.type.name == "moe.rukamori.archivetune.playback.PlayerConnection") {
                                     val c = Class.forName("moe.rukamori.archivetune.CompositionLocalsKt")
                                     val m = c.getMethod("getGlobalPlayerConnection")
                                     field.set(instance, m.invoke(null))
+                                } else if (field.type.name == "kotlinx.coroutines.flow.StateFlow" || field.type.name == "kotlinx.coroutines.flow.MutableStateFlow") {
+                                    field.set(instance, kotlinx.coroutines.flow.MutableStateFlow<Any?>(null))
                                 }
                             }
                         } catch (fe: Throwable) {}

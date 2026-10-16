@@ -94,23 +94,27 @@ open class NavController {
 
     private fun createBackStackEntry(route: String): NavBackStackEntry {
         val bundle = android.os.Bundle()
+        val handle = androidx.lifecycle.SavedStateHandle()
         if (route.contains("?")) {
             val parts = route.split("?", limit = 2)
             val query = parts[1]
             query.split("&").forEach { param ->
                 val kv = param.split("=", limit = 2)
                 if (kv.size == 2) {
-                    try {
-                        bundle.putString(kv[0], java.net.URLDecoder.decode(kv[1], "UTF-8"))
+                    val decoded = try {
+                        java.net.URLDecoder.decode(kv[1], "UTF-8")
                     } catch (_: Throwable) {
-                        bundle.putString(kv[0], kv[1])
+                        kv[1]
                     }
+                    bundle.putString(kv[0], decoded)
+                    handle[kv[0]] = decoded
                 }
             }
         }
         return NavBackStackEntry(
             destination = NavDestination(route),
-            arguments = bundle
+            arguments = bundle,
+            savedStateHandle = handle
         )
     }
 }
