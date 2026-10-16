@@ -11,6 +11,7 @@ Personal Nix packages, NixOS modules and nix-darwin modules using the caller's `
 | `fluxdown-server` | `nixosModules.fluxdown` | [FluxDown Server](pkgs/fluxdown-server/README.md) |
 | `mnamer-rs` | None | [mnamer Rust rewrite](pkgs/mnamer-rs/README.md) |
 | `rsshub` | Use nixpkgs' module with this package | [RSSHub](pkgs/rsshub/README.md) |
+| `sfl` | `nixosModules.sfl` | [sing-box for Linux](pkgs/sfl/README.md) |
 | `spotify-spotx` | None | [Spotify with SpotX](pkgs/spotify-spotx/README.md) |
 
 | Package | nix-darwin module | Documentation |

@@ -8,7 +8,11 @@
   fluxdown-server = pkgs.callPackage ./pkgs/fluxdown-server { };
   mnamer-rs = pkgs.callPackage ./pkgs/mnamer-rs { };
   rsshub = pkgs.callPackage ./pkgs/rsshub { };
+  sfl = pkgs.callPackage ./pkgs/sfl { };
   spotify-spotx = pkgs.callPackage ./pkgs/spotify-spotx { };
-  nixosModules.fluxdown = ./modules/fluxdown.nix;
+  nixosModules = {
+    fluxdown = ./modules/fluxdown.nix;
+    sfl = ./modules/sfl.nix;
+  };
   darwinModules.nh = ./modules/nh-darwin;
 }
