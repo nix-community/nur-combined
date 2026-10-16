@@ -225,10 +225,10 @@
     };
     "owl-for-exchange" = buildMozillaXpiAddon {
       pname = "owl-for-exchange";
-      version = "1.5.7";
+      version = "1.5.8.1";
       addonId = "owl@beonex.com";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1052486/eule_fur_exchange-1.5.7-tb.xpi?src=";
-      sha256 = "d64aa56210da0a5744ddb34c74c6d7eb53ad468840b86e5190d460e816312695";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1053635/eule_fur_exchange-1.5.8.1-tb.xpi?src=";
+      sha256 = "8c7452c9733e8d90afbcdc048b93417fe190618f8a40b4094fd5ecd16268a24d";
       meta = with lib;
       {
         homepage = "https://www.beonex.com/owl/";
