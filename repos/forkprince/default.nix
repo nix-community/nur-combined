@@ -130,6 +130,7 @@
   wordcraft = lib.callPackage ./pkgs/wordcraft {};
   pdfcraft = lib.callPackage ./pkgs/pdfcraft {};
   cadcraft = lib.callPackage ./pkgs/cadcraft {};
+  figcraft = lib.callPackage ./pkgs/figcraft {};
 
   yaagl = lib.callPackage ./pkgs/yaagl {};
   yaagl-os = lib.callPackage ./pkgs/yaagl {region = "os";};

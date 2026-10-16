@@ -1,0 +1,28 @@
+{
+  "name": "figcraft",
+  "source": {
+    "type": "github-release",
+    "repo": "storytold/figcraft",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "0.6.0",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "figcraft-{version}-macos-universal.dmg",
+      "hash": "sha256-JjhfI6lRkEWAgcIO+sDB2GVGuJnMvavHNk85bcrMfMQ="
+    },
+    "x86_64-darwin": {
+      "file": "figcraft-{version}-macos-universal.dmg",
+      "hash": "sha256-JjhfI6lRkEWAgcIO+sDB2GVGuJnMvavHNk85bcrMfMQ="
+    },
+    "x86_64-linux": {
+      "file": "figcraft-{version}-linux-x86_64.AppImage",
+      "hash": "sha256-YA8RXdxtnnXwcgwNnFRJwVsz/eJ24IDwE7tEntHaRVM="
+    },
+    "aarch64-linux": {
+      "file": "figcraft-{version}-linux-aarch64.AppImage",
+      "hash": "sha256-jU9sL8yxKM7n2Fw+6FsM+tPWzxLGgeRMvXP/2M1Qvig="
+    }
+  }
+}
