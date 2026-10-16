@@ -28,90 +28,90 @@
   };
   claude-code-bin-amd64-darwin = {
     pname = "claude-code-bin-amd64-darwin";
-    version = "2.1.300";
+    version = "2.1.301";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.300/darwin-x64/claude";
-      sha256 = "sha256-WCT8NoY+cLvQcEkbuTWeIX0/F7OMRWl8CFsxo6ZzVrM=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.301/darwin-x64/claude";
+      sha256 = "sha256-NDlCe/zpYv3c9VfFoFjKkU+mPgb+6JT44So/EOBNGHE=";
     };
   };
   claude-code-bin-amd64-linux = {
     pname = "claude-code-bin-amd64-linux";
-    version = "2.1.300";
+    version = "2.1.301";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.300/linux-x64/claude";
-      sha256 = "sha256-Z03roLupruR59FA8Q4tJMDtv3TBLmkcbFJd6rsUhVFM=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.301/linux-x64/claude";
+      sha256 = "sha256-vBqtmYLHtZx9iJ/5JZXWHPRuCm6uB0y1UdkyqYm80iI=";
     };
   };
   claude-code-bin-arm64-darwin = {
     pname = "claude-code-bin-arm64-darwin";
-    version = "2.1.300";
+    version = "2.1.301";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.300/darwin-arm64/claude";
-      sha256 = "sha256-R1UXyqYR4zGKLymPoHEofsmJVVON94xY9wnswB5a4tM=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.301/darwin-arm64/claude";
+      sha256 = "sha256-HwTGnhwk5NCnFqhjrwqtj8ZNSaSZM0wpcB8HNwAna5k=";
     };
   };
   claude-code-bin-arm64-linux = {
     pname = "claude-code-bin-arm64-linux";
-    version = "2.1.300";
+    version = "2.1.301";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.300/linux-arm64/claude";
-      sha256 = "sha256-riKVri2hVpNr9YMasBlxzpJNDJoK8XTijZb/+o1foKY=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.301/linux-arm64/claude";
+      sha256 = "sha256-HhGQNqgC01m6X5iGQo4DFYboeW96hY1ajuF5rHuGBPA=";
     };
   };
   codex = {
     pname = "codex";
-    version = "rust-v0.162.1";
+    version = "rust-v0.163.0";
     src = fetchFromGitHub {
       owner = "openai";
       repo = "codex";
-      rev = "rust-v0.162.1";
+      rev = "rust-v0.163.0";
       fetchSubmodules = false;
-      sha256 = "sha256-vYVQoXQdaK0bejUzcpf9uVrzNWWWAct9AsO/t261FAs=";
+      sha256 = "sha256-Fa9dfiGJy+uqSF4A0EM6AQQhhjQdu+jfhKzqXid9PNA=";
     };
     cargoLock."codex-rs/Cargo.lock" = {
-      lockFile = ./. + "/sha256-vYVQoXQdaK0bejUzcpf9uVrzNWWWAct9AsO_t261FAs=/codex-rs/Cargo.lock";
+      lockFile = ./. + "/sha256-Fa9dfiGJy+uqSF4A0EM6AQQhhjQdu+jfhKzqXid9PNA=/codex-rs/Cargo.lock";
       outputHashes = {
         "nucleo-0.5.0" = "sha256-Hm4SxtTSBrcWpXrtSqeO0TACbUxq3gizg1zD/6Yw/sI=";
         "runfiles-0.1.0" = "sha256-uJpVLcQh8wWZA3GPv9D8Nt43EOirajfDJ7eq/FB+tek=";
         "appcontainer_common-0.8.0" = "sha256-XUkT2R+RYk9WIqgKnmIAagNW4xOTyp4bWHmQL1iznHw=";
         "tungstenite-0.27.0" = "sha256-VVHhk7l9J/sEmG3q/UuV/sQ3f+fGsmq5vumSy8vbMvw=";
+        "rmcp-3.5.1" = "sha256-RbGuEuNyBUF2WeqKwkBAwCYnjb7DZJP8ZI8sIuR4D88=";
         "h3-0.0.8" = "sha256-fgE0AMj5d4iattTC/yQwnACV8uEu+KR7wD29xfEm8M0=";
         "crossterm-0.29.0" = "sha256-7ZzFZ6c6uU27ZxCGOPK82Aia4CzTnJwksAfbpTMPikY=";
         "tokio-tungstenite-0.28.0" = "sha256-V1xmnrfRWOcZZogelZEA4vvyMj2awCfHVA5/glQ6KAI=";
-        "rmcp-3.3.0" = "sha256-+VPObwPVKUy28cAd23RuorPAB9owaMTK0MDxuWHZdWQ=";
       };
     };
   };
   codex-bin-amd64-darwin = {
     pname = "codex-bin-amd64-darwin";
-    version = "0.162.1";
+    version = "0.163.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.162.1-darwin-x64.tgz";
-      sha256 = "sha256-5PU9adOZ8Qhus1vDpHeGy9A90fksheghcljjbxRw9ew=";
+      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.163.0-darwin-x64.tgz";
+      sha256 = "sha256-dCZ9e3oYpQKfvvyFsAOixWp7O77hQYFiII2rW2ur8No=";
     };
   };
   codex-bin-amd64-linux = {
     pname = "codex-bin-amd64-linux";
-    version = "0.162.1";
+    version = "0.163.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.162.1-linux-x64.tgz";
-      sha256 = "sha256-dBdxFni0ZO7nBmQSbjnoi7PITCko2g5x8UtW4E/1wJ8=";
+      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.163.0-linux-x64.tgz";
+      sha256 = "sha256-MO/Jdzi5dZQNeLWam+oRX6NAQLcygH1U7DWua3Uo3pQ=";
     };
   };
   codex-bin-arm64-darwin = {
     pname = "codex-bin-arm64-darwin";
-    version = "0.162.1";
+    version = "0.163.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.162.1-darwin-arm64.tgz";
-      sha256 = "sha256-/gNwAnoFI3rcAVK0gq2FAjIfb5r/G6yjv6VliJI7qa0=";
+      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.163.0-darwin-arm64.tgz";
+      sha256 = "sha256-EZP/TOcjh6XWw0ggtUqdxX0AfGepWOistHFZJPrNPDE=";
     };
   };
   codex-bin-arm64-linux = {
     pname = "codex-bin-arm64-linux";
-    version = "0.162.1";
+    version = "0.163.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.162.1-linux-arm64.tgz";
-      sha256 = "sha256-o1UFHQwpbtUOQuVazqv3TwF/L5biI/x+4hmeqKYMrUs=";
+      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.163.0-linux-arm64.tgz";
+      sha256 = "sha256-3G58TW3nHCOg9g0F4ld/9+72FbdvImMNWK04S4R2NSI=";
     };
   };
   create-tauri-app = {
@@ -259,82 +259,82 @@
   };
   oh-my-pi-bin-amd64-darwin = {
     pname = "oh-my-pi-bin-amd64-darwin";
-    version = "v18.11.0";
+    version = "v18.11.1";
     src = fetchurl {
-      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.11.0/omp-darwin-x64";
-      sha256 = "sha256-Ig7hdKWtCfVG8whr6xy7mye4B7m4Ec8N3fXoy4M94Jg=";
+      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.11.1/omp-darwin-x64";
+      sha256 = "sha256-Ts2RtgqHtwJbaR2HssHwLMFwsF8C0kc4BkkbHXxPB0g=";
     };
   };
   oh-my-pi-bin-amd64-linux = {
     pname = "oh-my-pi-bin-amd64-linux";
-    version = "v18.11.0";
+    version = "v18.11.1";
     src = fetchurl {
-      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.11.0/omp-linux-x64";
-      sha256 = "sha256-wjpYrYqS9Oc4qhLckE87ChrHA1uVO5v105txoiYXn28=";
+      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.11.1/omp-linux-x64";
+      sha256 = "sha256-vx6GqTWx6iYWalKAAB7M6hIF5sIe/htYU/D9Nox1SXQ=";
     };
   };
   oh-my-pi-bin-arm64-darwin = {
     pname = "oh-my-pi-bin-arm64-darwin";
-    version = "v18.11.0";
+    version = "v18.11.1";
     src = fetchurl {
-      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.11.0/omp-darwin-arm64";
-      sha256 = "sha256-hf5qua7FWnlNlghgIRNklfdhPWscjysIwFhA1oIzcWo=";
+      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.11.1/omp-darwin-arm64";
+      sha256 = "sha256-vesWJrmdwp2EQUbqeUDTZ+YbEDK3fhx3iAEl83nKLdo=";
     };
   };
   oh-my-pi-bin-arm64-linux = {
     pname = "oh-my-pi-bin-arm64-linux";
-    version = "v18.11.0";
+    version = "v18.11.1";
     src = fetchurl {
-      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.11.0/omp-linux-arm64";
-      sha256 = "sha256-KZ4LY8SC148A8rrnUACBWtaJDLYZLLyfZsjZjpznC4A=";
+      url = "https://github.com/can1357/oh-my-pi/releases/download/v18.11.1/omp-linux-arm64";
+      sha256 = "sha256-tujhOlTV+js3QDOzV3jZ4NmLs1CtgNA8GDmDUg6fLbE=";
     };
   };
   pi-agent = {
     pname = "pi-agent";
-    version = "1.2.0";
+    version = "1.3.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@earendil-works/pi-coding-agent/-/pi-coding-agent-1.2.0.tgz";
-      sha256 = "sha256-Hf7TCPRqaa7Aa/ncIHAN3G/iNwsYmPATNLeJg5dUHmY=";
+      url = "https://registry.npmjs.org/@earendil-works/pi-coding-agent/-/pi-coding-agent-1.3.0.tgz";
+      sha256 = "sha256-rieF6HC4GoyOHURRCle17gv8npdGeawvqq2kqr7j08A=";
     };
   };
   pi-agent-bin-amd64-darwin = {
     pname = "pi-agent-bin-amd64-darwin";
-    version = "v1.2.0";
+    version = "v1.3.0";
     src = fetchurl {
-      url = "https://github.com/earendil-works/pi/releases/download/v1.2.0/pi-darwin-x64.tar.gz";
-      sha256 = "sha256-4Hn/AWrngnnPvWwbT//gchYvSnu4ea1hsE4uQ7zFNFU=";
+      url = "https://github.com/earendil-works/pi/releases/download/v1.3.0/pi-darwin-x64.tar.gz";
+      sha256 = "sha256-n/Vi4uQ59Qlxsfa9m2KzCUZgDZ6bqk6hljXPYwpVMGY=";
     };
   };
   pi-agent-bin-amd64-linux = {
     pname = "pi-agent-bin-amd64-linux";
-    version = "v1.2.0";
+    version = "v1.3.0";
     src = fetchurl {
-      url = "https://github.com/earendil-works/pi/releases/download/v1.2.0/pi-linux-x64.tar.gz";
-      sha256 = "sha256-APw2z/3rzupaSCMNpizz+0YxePj+GFdmZS+WACokaEc=";
+      url = "https://github.com/earendil-works/pi/releases/download/v1.3.0/pi-linux-x64.tar.gz";
+      sha256 = "sha256-JPW+Motm1No2h2KWmJUBl09Dq4Q0+7V8NcUjo+pQXe0=";
     };
   };
   pi-agent-bin-arm64-darwin = {
     pname = "pi-agent-bin-arm64-darwin";
-    version = "v1.2.0";
+    version = "v1.3.0";
     src = fetchurl {
-      url = "https://github.com/earendil-works/pi/releases/download/v1.2.0/pi-darwin-arm64.tar.gz";
-      sha256 = "sha256-q933aItLZ4HZET9jzVeOPAHc24fnH2bn7ByexsdheNE=";
+      url = "https://github.com/earendil-works/pi/releases/download/v1.3.0/pi-darwin-arm64.tar.gz";
+      sha256 = "sha256-H5rmHN6uBN1oyvGh6KuOybKSBi9syzJS4KnL6TtbFvE=";
     };
   };
   pi-agent-bin-arm64-linux = {
     pname = "pi-agent-bin-arm64-linux";
-    version = "v1.2.0";
+    version = "v1.3.0";
     src = fetchurl {
-      url = "https://github.com/earendil-works/pi/releases/download/v1.2.0/pi-linux-arm64.tar.gz";
-      sha256 = "sha256-2Fl+46IFBZLTjmf2tgmrVROd7tfoIAINkQ2E8Xu3q9Y=";
+      url = "https://github.com/earendil-works/pi/releases/download/v1.3.0/pi-linux-arm64.tar.gz";
+      sha256 = "sha256-f9LqFPyjkOv59HQ4uq7wfEs9E9t8yORZgxEYORt+pls=";
     };
   };
   pi-agent-git = {
     pname = "pi-agent-git";
-    version = "1.2.0";
+    version = "1.3.0";
     src = fetchurl {
-      url = "https://github.com/earendil-works/pi/releases/download/v1.2.0/pi-1.2.0-source.tar.gz";
-      sha256 = "sha256-zPoIxK4qtPdEvMe1/grUeWC209/95l5IC84hW4NiTb0=";
+      url = "https://github.com/earendil-works/pi/releases/download/v1.3.0/pi-1.3.0-source.tar.gz";
+      sha256 = "sha256-d2GuWctthMHhYtPWOPgYFsZtP3WGLpQUMuoteo479A8=";
     };
   };
   vagrant-vmware-utility = {
