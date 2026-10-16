@@ -9,7 +9,7 @@
 
 python3Packages.buildPythonApplication {
   pname = "meshcoretomqtt";
-  version = "0-unstable-2026-07-16";
+  version = "0-unstable-2026-10-13";
 
   format = "other";
   __structuredAttrs = true;
@@ -17,8 +17,8 @@ python3Packages.buildPythonApplication {
   src = fetchFromGitHub {
     owner = "Cisien";
     repo = "meshcoretomqtt";
-    rev = "0cb527f3bb580aa02653aa3e8122ac4cf1929a09";
-    hash = "sha256-jeXqA24sYTuDhPJHl05PuKD9TvhMi/Bju9zVXCv4d7M=";
+    rev = "9b4e022e298020ef3359b36d8c364931de058af5";
+    hash = "sha256-3h8CAHvM1VB5DYm2y5afpjwlOnJqzKBiIBYLQ5z2CoM=";
   };
 
   build-system = [
