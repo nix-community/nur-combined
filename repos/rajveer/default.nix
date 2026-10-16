@@ -1,13 +1,14 @@
 {
-  pkgs ? import <nixpkgs> { },
+	pkgs ? import <nixpkgs> { },
 }:
 let
-  mkPackage = package: pkgs.callPackage ./pkgs/nixbox/package.nix { inherit package; };
+	mkPackage = package: pkgs.callPackage ./pkgs/nixbox/package.nix { inherit package; };
 in
 {
-  nixbox = mkPackage "nixbox";
-  nixbox-cli = mkPackage "nixbox-cli";
+	nixbox-tui = mkPackage "nixbox-tui";
+	nixbox-cli = mkPackage "nixbox-cli";
 }
 // pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
-  nixbox-gui = mkPackage "nixbox-gui";
+	nixbox = mkPackage "nixbox";
+	nixbox-gui = mkPackage "nixbox";
 }

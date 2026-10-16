@@ -38,7 +38,7 @@ jobs:
         run: bash scripts/check-evaluation.sh
       - name: Build and test the new release
         if: steps.changes.outputs.changed == 'true'
-        run: nix-build default.nix -A nixbox -A nixbox-cli -A nixbox-gui --no-out-link
+        run: nix-build default.nix -A nixbox -A nixbox-tui -A nixbox-cli --no-out-link
       - name: Commit the validated release
         if: steps.changes.outputs.changed == 'true'
         run: |

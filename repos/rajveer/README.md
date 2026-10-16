@@ -4,11 +4,12 @@ Nix packaging for [NixBox](https://github.com/SINGH-RAJVEER/nixbox), pinned to t
 
 | Package | Interface | Platforms |
 | --- | --- | --- |
-| `nixbox` | Terminal UI and commands | x86_64 Linux, aarch64 Linux, aarch64 macOS |
-| `nixbox-cli` | Commands without the terminal UI | x86_64 Linux, aarch64 Linux, aarch64 macOS |
-| `nixbox-gui` | Native desktop GUI | Linux |
+| `nixbox` | Native desktop GUI | Linux |
+| `nixbox-tui` | Terminal UI | x86_64 Linux, aarch64 Linux, aarch64 macOS |
+| `nixbox-cli` | Commands, including `nixbox`, `nb`, and `nixbox-cli` | x86_64 Linux, aarch64 Linux, aarch64 macOS |
+| `nixbox-gui` | Alias for the `nixbox` GUI package | Linux |
 
-The registered NUR namespace is intended to be `rajveer`. Until the registration PR is merged, use this repository as a flake input directly.
+The registered NUR namespace is `rajveer`.
 
 ## Install through NUR
 
@@ -23,9 +24,9 @@ Include `nur.modules.nixos.default` in the modules passed to `nixosSystem`, then
 
 ```nix
 environment.systemPackages = [
-  pkgs.nur.repos.rajveer.nixbox
-  pkgs.nur.repos.rajveer.nixbox-cli
-  pkgs.nur.repos.rajveer.nixbox-gui
+	pkgs.nur.repos.rajveer.nixbox
+	pkgs.nur.repos.rajveer.nixbox-tui
+	pkgs.nur.repos.rajveer.nixbox-cli
 ];
 ```
 
@@ -37,10 +38,15 @@ Update a pinned NUR input with `nix flake update nur`, then rebuild your configu
 
 ```sh
 nix run github:SINGH-RAJVEER/nur-packages#nixbox
-nix profile install github:SINGH-RAJVEER/nur-packages#nixbox-gui
+nix profile add github:SINGH-RAJVEER/nur-packages#nixbox-tui
+nix profile add github:SINGH-RAJVEER/nur-packages#nixbox-cli
 ```
 
-The flake exports all package variants, `packages.<system>.default` as the TUI, and `overlays.default`. NUR uses `default.nix` with its supplied Nixpkgs package set; it does not depend on this flake's Nixpkgs pin.
+The flake exports all package variants, `packages.<system>.default` as the GUI on Linux and the TUI on macOS, and `overlays.default`. Each interface is installed separately. The GUI installs `nixbox-gui`, the TUI installs `nixbox-tui`, and only the CLI provides terminal commands. NUR uses `default.nix` with its supplied Nixpkgs package set; it does not depend on this flake's Nixpkgs pin.
+
+The GUI loads the system's Vulkan driver. On NixOS, importing through NUR or applying this overlay with your system's Nixpkgs keeps its graphics libraries compatible with that driver. A standalone flake built with an older Nixpkgs can fail with `No GPU adapters found` when a newer system driver requires a newer glibc. Refresh the Nixpkgs input, or pass `--override-input nixpkgs github:NixOS/nixpkgs/nixos-unstable` to `nix run` when using a newer unstable system.
+
+Build and test compilation default to at most two jobs per package. Override this with `pkgs.nur.repos.rajveer.nixbox.override { buildJobs = 4; }`, or the equivalent override on the TUI/CLI package. This limits NixBox's compilation concurrency; it does not cap other derivations or impose a memory limit.
 
 ## Release updates
 
@@ -58,7 +64,7 @@ With Nixpkgs unstable available through `NIX_PATH`:
 
 ```sh
 bash scripts/check-evaluation.sh
-nix-build default.nix -A nixbox -A nixbox-cli -A nixbox-gui --no-out-link
+nix-build default.nix -A nixbox -A nixbox-tui -A nixbox-cli --no-out-link
 python scripts/update-nixbox.py --dry-run
 ```
 

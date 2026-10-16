@@ -19,7 +19,7 @@ jobs:
       - name: Check restricted evaluation
         run: bash scripts/check-evaluation.sh
       - name: Build and test all packages
-        run: nix-build default.nix -A nixbox -A nixbox-cli -A nixbox-gui --no-out-link
+        run: nix-build default.nix -A nixbox -A nixbox-tui -A nixbox-cli --no-out-link
       - name: Notify NUR
         if: github.event_name != 'pull_request'
         run: curl --fail --show-error --retry 3 -X POST 'https://nur-update.nix-community.org/update?repo=rajveer'
