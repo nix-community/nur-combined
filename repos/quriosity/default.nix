@@ -38,6 +38,10 @@
   # Compatibility tools
   proton-ge = pkgs.callPackage ./pkgs/compat-tools/ge-proton {};
   dwproton = pkgs.callPackage ./pkgs/compat-tools/dwproton {};
+  proton-wineland = pkgs.callPackage ./pkgs/compat-tools/proton-wineland {};
+  proton-wineland-v3 = pkgs.callPackage ./pkgs/compat-tools/proton-wineland { variant = "x86_64-v3"; };
+  proton-cachyos = pkgs.callPackage ./pkgs/compat-tools/proton-cachyos {};
+  proton-cachyos-v3 = pkgs.callPackage ./pkgs/compat-tools/proton-cachyos { variant = "x86_64-v3"; };
 
   # SDDM themes
   echo-sddm = pkgs.callPackage ./pkgs/sddm-themes/echo-sddm {};
