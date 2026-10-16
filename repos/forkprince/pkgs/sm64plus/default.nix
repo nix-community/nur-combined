@@ -6,13 +6,14 @@
   imagemagick,
   sm64baserom,
   pkg-config,
+  libxrandr,
   python3,
   libusb1,
   hexdump,
   stdenv,
+  libx11,
   libGL,
   SDL2,
-  xorg,
   lib,
 }: let
   version = "0-unstable-2026-03-11";
@@ -45,9 +46,9 @@ in
     ];
 
     buildInputs = [
-      xorg.libXrandr
-      xorg.libX11
+      libxrandr
       libusb1
+      libx11
       libGL
       SDL2
     ];
