@@ -3,11 +3,11 @@
 { fetchurl, stdenv }:
 
 let
-  version = "8.2.8.260818002";
+  version = "8.3.1.261008001";
   sources = {
     "x86_64-linux" = {
-      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_8.2.8.260818002_amd64.deb";
-      hash = "sha256-iNrWB7u3pykYOZORydU67fz6Om2rAffQZZ5iwcoyZ48=";
+      url = "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_8.3.1.261008001_amd64.deb";
+      hash = "sha256-NatoDe0QSrzcU6Z/z8/ytWR5mX8W6Kv+EcQfv1j1gl4=";
     };
   };
   source =
