@@ -1,8 +1,7 @@
-diff --git a/auto/modules b/auto/modules
-index 648d3b54e..555ae3ff0 100644
---- a/auto/modules
-+++ b/auto/modules
-@@ -433,6 +433,18 @@ if [ $HTTP = YES ]; then
+diff -ruN tree_prev/auto/modules tree/auto/modules
+--- a/auto/modules	2026-10-15 23:57:34.584659190 -0700
++++ b/auto/modules	2026-10-15 23:57:34.663991815 -0700
+@@ -450,6 +450,18 @@
          . auto/module
      fi
  
@@ -21,11 +20,10 @@ index 648d3b54e..555ae3ff0 100644
      if [ $HTTP_V2 = YES ]; then
          have=NGX_HTTP_V2 . auto/have
  
-diff --git a/auto/options b/auto/options
-index 6e1963162..d6e8d60bc 100644
---- a/auto/options
-+++ b/auto/options
-@@ -60,6 +60,7 @@ HTTP_CACHE=YES
+diff -ruN tree_prev/auto/options tree/auto/options
+--- a/auto/options	2026-10-15 23:57:34.584710685 -0700
++++ b/auto/options	2026-10-15 23:57:34.665886829 -0700
+@@ -62,6 +62,7 @@
  HTTP_CHARSET=YES
  HTTP_GZIP=YES
  HTTP_PLAIN=NO
@@ -33,7 +31,7 @@ index 6e1963162..d6e8d60bc 100644
  HTTP_SSL=NO
  HTTP_V2=NO
  HTTP_V3=NO
-@@ -237,6 +238,7 @@ $0: warning: the \"--with-ipv6\" option is deprecated"
+@@ -246,6 +247,7 @@
          --http-scgi-temp-path=*)         NGX_HTTP_SCGI_TEMP_PATH="$value" ;;
  
          --with-http_plain_module)        HTTP_PLAIN=YES             ;;
@@ -41,7 +39,7 @@ index 6e1963162..d6e8d60bc 100644
          --with-http_ssl_module)          HTTP_SSL=YES               ;;
          --with-http_v2_module)           HTTP_V2=YES                ;;
          --with-http_v3_module)           HTTP_V3=YES                ;;
-@@ -459,6 +461,7 @@ cat << END
+@@ -483,6 +485,7 @@
    --without-quic_bpf_module          disable ngx_quic_bpf_module
  
    --with-http_plain_module           enable ngx_http_plain_module
@@ -49,11 +47,10 @@ index 6e1963162..d6e8d60bc 100644
    --with-http_ssl_module             enable ngx_http_ssl_module
    --with-http_v2_module              enable ngx_http_v2_module
    --with-http_v3_module              enable ngx_http_v3_module
-diff --git a/src/http/ngx_http.c b/src/http/ngx_http.c
-index 9aaa3e03f..ff5788f12 100644
---- a/src/http/ngx_http.c
-+++ b/src/http/ngx_http.c
-@@ -1238,6 +1238,9 @@ ngx_http_add_addresses(ngx_conf_t *cf, ngx_http_core_srv_conf_t *cscf,
+diff -ruN tree_prev/src/http/ngx_http.c tree/src/http/ngx_http.c
+--- a/src/http/ngx_http.c	2026-10-15 23:57:34.628984317 -0700
++++ b/src/http/ngx_http.c	2026-10-15 23:57:34.666725411 -0700
+@@ -1297,6 +1297,9 @@
  #if (NGX_HTTP_PLAIN)
      ngx_uint_t             plain;
  #endif
@@ -63,7 +60,7 @@ index 9aaa3e03f..ff5788f12 100644
  #if (NGX_HTTP_SSL)
      ngx_uint_t             ssl;
  #endif
-@@ -1281,6 +1284,9 @@ ngx_http_add_addresses(ngx_conf_t *cf, ngx_http_core_srv_conf_t *cscf,
+@@ -1340,6 +1343,9 @@
  #if (NGX_HTTP_PLAIN)
          plain = lsopt->plain || addr[i].opt.plain;
  #endif
@@ -73,7 +70,7 @@ index 9aaa3e03f..ff5788f12 100644
  #if (NGX_HTTP_SSL)
          ssl = lsopt->ssl || addr[i].opt.ssl;
          protocols |= lsopt->ssl << 1;
-@@ -1378,6 +1384,9 @@ ngx_http_add_addresses(ngx_conf_t *cf, ngx_http_core_srv_conf_t *cscf,
+@@ -1437,6 +1443,9 @@
  #if (NGX_HTTP_PLAIN)
          addr[i].opt.plain = plain;
  #endif
@@ -83,7 +80,7 @@ index 9aaa3e03f..ff5788f12 100644
  #if (NGX_HTTP_SSL)
          addr[i].opt.ssl = ssl;
  #endif
-@@ -1924,6 +1933,9 @@ ngx_http_add_addrs(ngx_conf_t *cf, ngx_http_port_t *hport,
+@@ -1984,6 +1993,9 @@
  #if (NGX_HTTP_PLAIN)
          addrs[i].conf.plain = addr[i].opt.plain;
  #endif
@@ -93,7 +90,7 @@ index 9aaa3e03f..ff5788f12 100644
  #if (NGX_HTTP_SSL)
          addrs[i].conf.ssl = addr[i].opt.ssl;
  #endif
-@@ -1995,6 +2007,9 @@ ngx_http_add_addrs6(ngx_conf_t *cf, ngx_http_port_t *hport,
+@@ -2055,6 +2067,9 @@
  #if (NGX_HTTP_PLAIN)
          addrs6[i].conf.plain = addr[i].opt.plain;
  #endif
@@ -103,11 +100,10 @@ index 9aaa3e03f..ff5788f12 100644
  #if (NGX_HTTP_SSL)
          addrs6[i].conf.ssl = addr[i].opt.ssl;
  #endif
-diff --git a/src/http/ngx_http_core_module.c b/src/http/ngx_http_core_module.c
-index 645da2a43..8c4b9b1bf 100644
---- a/src/http/ngx_http_core_module.c
-+++ b/src/http/ngx_http_core_module.c
-@@ -4178,6 +4178,18 @@ ngx_http_core_listen(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
+diff -ruN tree_prev/src/http/ngx_http_core_module.c tree/src/http/ngx_http_core_module.c
+--- a/src/http/ngx_http_core_module.c	2026-10-15 23:57:34.629064331 -0700
++++ b/src/http/ngx_http_core_module.c	2026-10-15 23:57:34.668886861 -0700
+@@ -4334,6 +4334,18 @@
  #endif
          }
  
@@ -126,7 +122,7 @@ index 645da2a43..8c4b9b1bf 100644
          if (ngx_strcmp(value[n].data, "ssl") == 0) {
  #if (NGX_HTTP_SSL)
              lsopt.ssl = 1;
-@@ -4365,6 +4377,12 @@ ngx_http_core_listen(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
+@@ -4527,6 +4539,12 @@
          }
      }
  
@@ -139,11 +135,10 @@ index 645da2a43..8c4b9b1bf 100644
      for (n = 0; n < u.naddrs; n++) {
  
          for (i = 0; i < n; i++) {
-diff --git a/src/http/ngx_http_core_module.h b/src/http/ngx_http_core_module.h
-index d4f5463e3..4da71559f 100644
---- a/src/http/ngx_http_core_module.h
-+++ b/src/http/ngx_http_core_module.h
-@@ -79,6 +79,9 @@ typedef struct {
+diff -ruN tree_prev/src/http/ngx_http_core_module.h tree/src/http/ngx_http_core_module.h
+--- a/src/http/ngx_http_core_module.h	2026-10-15 23:57:34.629211395 -0700
++++ b/src/http/ngx_http_core_module.h	2026-10-15 23:57:34.669849209 -0700
+@@ -79,6 +79,9 @@
  #if (NGX_HTTP_PLAIN)
      unsigned                   plain:1;
  #endif
@@ -153,23 +148,22 @@ index d4f5463e3..4da71559f 100644
  #if (NGX_HAVE_INET6)
      unsigned                   ipv6only:1;
  #endif
-@@ -245,6 +248,9 @@ struct ngx_http_addr_conf_s {
-     unsigned                   quic:1;
+@@ -252,6 +255,9 @@
  #if (NGX_HTTP_PLAIN)
      unsigned                   plain:1;
-+#endif
+ #endif
 +#if (NGX_HTTP_GEMINI)
 +    unsigned                   gemini:1;
- #endif
++#endif
      unsigned                   proxy_protocol:1;
  };
-diff --git a/src/http/ngx_http_header_filter_module.c b/src/http/ngx_http_header_filter_module.c
-index 76f6e9629..cf6a2254c 100644
---- a/src/http/ngx_http_header_filter_module.c
-+++ b/src/http/ngx_http_header_filter_module.c
-@@ -14,6 +14,10 @@
- static ngx_int_t ngx_http_header_filter_init(ngx_conf_t *cf);
+ 
+diff -ruN tree_prev/src/http/ngx_http_header_filter_module.c tree/src/http/ngx_http_header_filter_module.c
+--- a/src/http/ngx_http_header_filter_module.c	2026-10-15 23:57:34.609965940 -0700
++++ b/src/http/ngx_http_header_filter_module.c	2026-10-15 23:57:34.669993455 -0700
+@@ -15,6 +15,10 @@
  static ngx_int_t ngx_http_header_filter(ngx_http_request_t *r);
+ static ngx_int_t ngx_http_early_hints_filter(ngx_http_request_t *r);
  
 +#if (NGX_HTTP_GEMINI)
 +static ngx_int_t ngx_http_gemini_header_filter(ngx_http_request_t *r);
@@ -178,7 +172,7 @@ index 76f6e9629..cf6a2254c 100644
  
  static ngx_http_module_t  ngx_http_header_filter_module_ctx = {
      NULL,                                  /* preconfiguration */
-@@ -153,6 +157,122 @@ ngx_http_header_out_t  ngx_http_headers_out[] = {
+@@ -157,6 +161,122 @@
  };
  
  
@@ -301,7 +295,7 @@ index 76f6e9629..cf6a2254c 100644
  static ngx_int_t
  ngx_http_header_filter(ngx_http_request_t *r)
  {
-@@ -179,6 +299,12 @@ ngx_http_header_filter(ngx_http_request_t *r)
+@@ -183,6 +303,12 @@
          return NGX_OK;
      }
  
@@ -314,11 +308,10 @@ index 76f6e9629..cf6a2254c 100644
      if (r->http_version < NGX_HTTP_VERSION_10) {
          return NGX_OK;
      }
-diff --git a/src/http/ngx_http_parse.c b/src/http/ngx_http_parse.c
-index c420b65a8..bf6e9f7f5 100644
---- a/src/http/ngx_http_parse.c
-+++ b/src/http/ngx_http_parse.c
-@@ -158,6 +158,21 @@ ngx_http_parse_request_line(ngx_http_request_t *r, ngx_buf_t *b)
+diff -ruN tree_prev/src/http/ngx_http_parse.c tree/src/http/ngx_http_parse.c
+--- a/src/http/ngx_http_parse.c	2026-10-15 23:57:34.629247779 -0700
++++ b/src/http/ngx_http_parse.c	2026-10-15 23:57:34.672886904 -0700
+@@ -164,6 +164,21 @@
              }
  #endif
  
@@ -340,7 +333,7 @@ index c420b65a8..bf6e9f7f5 100644
              if (ch == CR || ch == LF) {
                  break;
              }
-@@ -362,6 +377,18 @@ ngx_http_parse_request_line(ngx_http_request_t *r, ngx_buf_t *b)
+@@ -377,6 +392,18 @@
  
          case sw_host_start:
  
@@ -359,11 +352,10 @@ index c420b65a8..bf6e9f7f5 100644
              r->host_start = p;
  
              if (ch == '[') {
-diff --git a/src/http/ngx_http_request.c b/src/http/ngx_http_request.c
-index a008c6513..bd1c61277 100644
---- a/src/http/ngx_http_request.c
-+++ b/src/http/ngx_http_request.c
-@@ -683,6 +683,10 @@ ngx_http_alloc_request(ngx_connection_t *c)
+diff -ruN tree_prev/src/http/ngx_http_request.c tree/src/http/ngx_http_request.c
+--- a/src/http/ngx_http_request.c	2026-10-15 23:57:34.632475763 -0700
++++ b/src/http/ngx_http_request.c	2026-10-15 23:57:34.673837024 -0700
+@@ -694,6 +694,10 @@
      r->plain_request = hc->addr_conf->plain;
  #endif
  
@@ -374,18 +366,10 @@ index a008c6513..bd1c61277 100644
      return r;
  }
  
-@@ -1170,6 +1174,22 @@ ngx_http_process_request_line(ngx_event_t *rev)
-             }
- #endif
+@@ -1195,6 +1199,22 @@
  
-+#if (NGX_HTTP_GEMINI)
-+            if (r->gemini_request) {
-+                r->method_name.len = 3;
-+                r->method_name.data = (u_char *) "GET";
-+                r->http_version = NGX_HTTP_VERSION_GEMINI;
-+
-+                if (ngx_http_process_request_uri(r) != NGX_OK) {
-+                    break;
+                 if (ngx_http_process_request_uri(r) != NGX_OK) {
+                     break;
 +                }
 +
 +                ngx_http_process_request(r);
@@ -394,13 +378,20 @@ index a008c6513..bd1c61277 100644
 +            }
 +#endif
 +
-             r->method_name.len = r->method_end - r->request_start + 1;
-             r->method_name.data = r->request_line.data;
++#if (NGX_HTTP_GEMINI)
++            if (r->gemini_request) {
++                r->method_name.len = 3;
++                r->method_name.data = (u_char *) "GET";
++                r->http_version = NGX_HTTP_VERSION_GEMINI;
++
++                if (ngx_http_process_request_uri(r) != NGX_OK) {
++                    break;
+                 }
  
-diff --git a/src/http/ngx_http_request.h b/src/http/ngx_http_request.h
-index d5db49473..a4cae9461 100644
---- a/src/http/ngx_http_request.h
-+++ b/src/http/ngx_http_request.h
+                 ngx_http_process_request(r);
+diff -ruN tree_prev/src/http/ngx_http_request.h tree/src/http/ngx_http_request.h
+--- a/src/http/ngx_http_request.h	2026-10-15 23:57:34.632600779 -0700
++++ b/src/http/ngx_http_request.h	2026-10-15 23:57:34.676886947 -0700
 @@ -20,6 +20,7 @@
  #define NGX_HTTP_LINGERING_BUFFER_SIZE     4096
  
@@ -409,7 +400,7 @@ index d5db49473..a4cae9461 100644
  #define NGX_HTTP_VERSION_9                 9
  #define NGX_HTTP_VERSION_10                1000
  #define NGX_HTTP_VERSION_11                1001
-@@ -573,6 +574,10 @@ struct ngx_http_request_s {
+@@ -582,6 +583,10 @@
      unsigned                          plain_request:1;
  #endif
  

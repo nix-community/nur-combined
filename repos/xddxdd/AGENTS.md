@@ -76,6 +76,12 @@
   - **qemu-vmvga 的 3D 加速要三件事同时成立**：(a) 设备在运行期 `dlopen("libdxvk_d3d9.so.0")`/`libdxvk_d3d11.so.0`，这两个库没有任何 DT_NEEDED 引用它们，linker 因此不会把其目录写进 rpath，需在 `postFixup` 里对 `$out/bin/qemu-system-*` 与 `.qemu-system-*-wrapped` 逐个 `patchelf --add-rpath ${lib.getLib dxvk}/lib`；(b) 设备初始化 DXVK 前会把自己合成的 headless SDL2 装进 loader 的 namespace（伪造 SONAME `libSDL2-2.0.so.0`），一旦发现真 SDL2 已加载就放弃 3D，所以宿主 QEMU 不能自己链接 SDL2（`qemu.override { sdlSupport = false; }`）；(c) nixpkgs 的 dxvk 被 patch 成按**绝对路径** `dlopen` 它依赖的 SDL2，正好绕过 (b) 的伪造 SONAME，必须在 dxvk 派生里把该替换改回裸 soname（`substituteInPlace src/wsi/sdl2/wsi_platform_sdl2.cpp --replace-fail '${lib.getLib SDL2}/lib/libSDL2-2.0.so.0' 'libSDL2-2.0.so.0'`）。三者缺一的症状各不相同：缺 (b)/(c) 是带 `-device vmvga` 启动即 SIGSEGV（gdb 栈顶落在 sdl2-compat/SDL3 的 `SDL_Vulkan_GetInstanceExtensions_REAL`）；缺 (a) 是 `failed to load libdxvk_d3d9.so.0` 后静默退回软件渲染。验证手法：`-device vmvga,debug=on -display none -S` 下 DXVK 日志出现 `Extension providers: Platform WSI` 且启用的实例扩展含 `VK_EXT_headless_surface`（证明用的是设备自带的 headless WSI 而不是真 SDL2），并能枚举到真实 GPU；再由 `-monitor stdio` 发 `quit` 确认退出码为 0（rpath/SDL2 有问题时这一步会 SIGSEGV）。
   - **继承 nixpkgs 的 `meta.platforms` 可能让包直接从 README 里消失**：nixpkgs 给 qemu 设的是新式 platform pattern（`lib.systems.inspect.patternLogicalAnd ...`）而不是字符串列表，而本仓库 README 生成器用 `lib.elem system p.meta.platforms` 判断平台，匹配不上就不列出该包。此类包必须显式覆盖 `meta.platforms`（如 `lib.platforms.linux`）。
 
+## nginx 模块包（pkgs/nginx-modules/）
+
+- **nginx 第三方模块用 mkNginxPlugin 打包，仿照 nixpkgs nginxModules**：自定义 nginx 模块放在 `pkgs/nginx-modules/<模块名>/default.nix`（目录名即包名，由顶层 loadPackages 自动加载），包定义调用 nixpkgs 的 `mkNginxPlugin (finalAttrs: { ... })`，主体只需 `pname`/`version`/`src`（fetchFromGitHub + 可选 `fetchSubmodules = true`）与 `buildInputs`；rev 跟踪包用 `unstableGitUpdater { url = ...; hardcodeZeroVersion = true; }`（版本 `0-unstable-<日期>`），tag 版本包用 mkNginxPlugin 默认的 `nix-update-script`。`lantianCustomized.nginx` 通过函数参数直接引用这些包（Nix 标识符允许连字符，`ja4-nginx-module` 可作为参数名由 callPackage 自动注入）。
+- **mkNginxPlugin 模块的 dynamic 标志在 passthru 里**：nixpkgs 部分模块（vts、brotli）声明 `passthru.dynamic = true`，nginx generic 按 `mod.dynamic or false` 决定 STATIC `--add-module` 还是 DYNAMIC。想在静态/动态间切换不能用直接添加顶层 `dynamic` 属性的 `overrideAttrs`（不生效，因为读取的是 passthru）——要用 `pkg.overrideAttrs (_: { passthru = (pkg.passthru or { }) // { dynamic = false; }; })`；`.override` 不行（会被 mkNginxPlugin functor 的严格参数列表拒收）。另外 nixpkgs `nginx` generic 会自动套用 `nix-etag-1.15.4.patch`、`nix-skip-check-logs-path.patch`、`@nixStoreDir@` 替换和 libxml2 include 修正，包装 nginx 时不要重复提供这些补丁/替换，否则重复应用报错。
+- **mkNginxPlugin 模块本身是纯源码 FOD**：它 `dontConfigure/dontBuild/dontFixup`，仅把打过补丁的源码拷到 $out；真正的编译发生在传给 nginx 构建时。模块的 `patches`（如 stream-echo 的补丁）在 FOD 的 patchPhase 应用，所以模块包自身也要能独立 `nix build` 成功。模块 meta 会带 `hydraPlatforms = [ ]`，不单独入 Hydra，仅作为依赖被 nginx 构建拉起。
+
 ## 内核模块包
 
 - **模仿现有内核模块包结构，不覆盖 buildPhase**：`pkgs/kernel-modules/` 下的包参照 acpi-ec 的写法——`nativeBuildInputs = kernel.moduleBuildDependencies`、`env.KSRC` 指向 `kernel.dev`、`makeFlags = kernel.commonMakeFlags or kernel.makeFlags`、在 `preBuild` 里用 `makeFlagsArray+=("-C" "${...}" "M=$(pwd)")` 追加参数、`installTargets = [ "modules_install" ]`。不要自写 buildPhase；多个目标用 `buildFlags = [ "targetA" "targetB" ]` 传入（当前 stdenv 已移除 `buildTargets` 属性，不再被默认 buildPhase 消费）。
@@ -187,7 +193,7 @@ appimageTools.wrapType2 {
 
 ### 多源包的 sources.json 模式
 
-消费多个上游源的包（如 fr24feed、dbip-lite、qemu-user-static、qq、lantianCustomized.nginx）不要把版本/哈希字面量写死在 default.nix 里，而是：
+消费多个上游源的包（如 fr24feed、dbip-lite、qemu-user-static、qq）不要把版本/哈希字面量写死在 default.nix 里，而是：
 
 1. 在包目录下维护 `sources.json`，每个条目含 `version`/`url`/`hash`（nginx 的 GitHub 模块条目为 `owner`/`repo`/`rev|tag`/`hash`/可选 `fetchSubmodules`）
 2. default.nix 通过 `builtins.fromJSON (builtins.readFile ./sources.json)` 读取并构造 fetcher
@@ -264,7 +270,7 @@ appimageTools.wrapType2 {
 ## 源码管理
 
 - 源码不再由集中式工具（nvfetcher）管理；每个包在自身目录内联 fetcher 并声明 `passthru.updateScript`
-- 多源包使用 `sources.json` + `importJSON`/`fromJSON`（如 fr24feed、qemu-user-static、lantianCustomized.nginx），由包内 `update.sh` 整体重写
+- 多源包使用 `sources.json` + `importJSON`/`fromJSON`（如 fr24feed、qemu-user-static），由包内 `update.sh` 整体重写
 - 顶层 `update` 命令流程：`nix flake update` → 执行 `pkgs/**/update-standalone.*` → `./tools/update-package --all` → 重新生成 README。单个包更新失败（update-standalone 脚本或 update-package 内的个别包）不会中断流程，README 仍会在最后重新生成；命令退出码保留失败状态供 CI 报警
 
 ## 构建包

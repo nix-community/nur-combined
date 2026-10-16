@@ -1,8 +1,7 @@
-diff --git a/src/http/ngx_http_variables.c b/src/http/ngx_http_variables.c
-index 4f0bd0e4b..74beccbf2 100644
---- a/src/http/ngx_http_variables.c
-+++ b/src/http/ngx_http_variables.c
-@@ -53,6 +53,8 @@ static ngx_int_t ngx_http_variable_host(ngx_http_request_t *r,
+diff -ruN tree_prev/src/http/ngx_http_variables.c tree/src/http/ngx_http_variables.c
+--- a/src/http/ngx_http_variables.c	2026-10-15 23:57:35.266017086 -0700
++++ b/src/http/ngx_http_variables.c	2026-10-15 23:57:35.307851759 -0700
+@@ -53,6 +53,8 @@
      ngx_http_variable_value_t *v, uintptr_t data);
  static ngx_int_t ngx_http_variable_binary_remote_addr(ngx_http_request_t *r,
      ngx_http_variable_value_t *v, uintptr_t data);
@@ -11,7 +10,7 @@ index 4f0bd0e4b..74beccbf2 100644
  static ngx_int_t ngx_http_variable_remote_addr(ngx_http_request_t *r,
      ngx_http_variable_value_t *v, uintptr_t data);
  static ngx_int_t ngx_http_variable_remote_port(ngx_http_request_t *r,
-@@ -196,6 +198,9 @@ static ngx_http_variable_t  ngx_http_core_variables[] = {
+@@ -200,6 +202,9 @@
      { ngx_string("binary_remote_addr"), NULL,
        ngx_http_variable_binary_remote_addr, 0, 0, 0 },
  
@@ -21,10 +20,19 @@ index 4f0bd0e4b..74beccbf2 100644
      { ngx_string("remote_addr"), NULL, ngx_http_variable_remote_addr, 0, 0, 0 },
  
      { ngx_string("remote_port"), NULL, ngx_http_variable_remote_port, 0, 0, 0 },
-@@ -1296,6 +1301,58 @@ ngx_http_variable_binary_remote_addr(ngx_http_request_t *r,
- }
- 
- 
+@@ -1297,6 +1302,58 @@
+         v->valid = 1;
+         v->no_cacheable = 0;
+         v->not_found = 0;
++        v->data = (u_char *) &sin->sin_addr;
++
++        break;
++    }
++
++    return NGX_OK;
++}
++
++
 +static ngx_int_t
 +ngx_http_variable_binary_remote_network(ngx_http_request_t *r,
 +    ngx_http_variable_value_t *v, uintptr_t data)
@@ -68,15 +76,6 @@ index 4f0bd0e4b..74beccbf2 100644
 +        v->valid = 1;
 +        v->no_cacheable = 0;
 +        v->not_found = 0;
-+        v->data = (u_char *) &sin->sin_addr;
-+
-+        break;
-+    }
-+
-+    return NGX_OK;
-+}
-+
-+
- static ngx_int_t
- ngx_http_variable_remote_addr(ngx_http_request_t *r,
-     ngx_http_variable_value_t *v, uintptr_t data)
+         v->data = (u_char *) &sin->sin_addr;
+ 
+         break;

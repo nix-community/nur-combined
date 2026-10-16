@@ -1,8 +1,7 @@
-diff --git a/src/event/ngx_event_openssl.c b/src/event/ngx_event_openssl.c
-index 05255d7..a680feb 100644
---- a/src/event/ngx_event_openssl.c
-+++ b/src/event/ngx_event_openssl.c
-@@ -1855,6 +1855,20 @@ ngx_ssl_create_connection(ngx_ssl_t *ssl, ngx_connection_t *c, ngx_uint_t flags)
+diff -ruN tree_prev/src/event/ngx_event_openssl.c tree/src/event/ngx_event_openssl.c
+--- a/src/event/ngx_event_openssl.c	2026-10-15 23:57:35.587683305 -0700
++++ b/src/event/ngx_event_openssl.c	2026-10-15 23:57:35.602896842 -0700
+@@ -2157,6 +2157,20 @@
  
      c->ssl = sc;
  
@@ -23,7 +22,7 @@ index 05255d7..a680feb 100644
      return NGX_OK;
  }
  
-@@ -1897,6 +1911,282 @@ ngx_ssl_set_session(ngx_connection_t *c, ngx_ssl_session_t *session)
+@@ -2199,6 +2213,282 @@
      return NGX_OK;
  }
  
@@ -306,7 +305,7 @@ index 05255d7..a680feb 100644
  
  ngx_int_t
  ngx_ssl_handshake(ngx_connection_t *c)
-@@ -1917,6 +2207,9 @@ ngx_ssl_handshake(ngx_connection_t *c)
+@@ -2219,6 +2509,9 @@
  
      ngx_ssl_clear_error(c->log);
  
@@ -316,7 +315,7 @@ index 05255d7..a680feb 100644
      n = SSL_do_handshake(c->ssl->connection);
  
      ngx_log_debug1(NGX_LOG_DEBUG_EVENT, c->log, 0, "SSL_do_handshake: %d", n);
-@@ -1977,6 +2270,11 @@ ngx_ssl_handshake(ngx_connection_t *c)
+@@ -2279,6 +2572,11 @@
              return NGX_AGAIN;
          }
  
@@ -328,7 +327,7 @@ index 05255d7..a680feb 100644
          c->ssl->handshaked = 1;
  
          return NGX_OK;
-@@ -2150,6 +2448,11 @@ ngx_ssl_try_early_data(ngx_connection_t *c)
+@@ -2424,6 +2722,11 @@
              return NGX_AGAIN;
          }
  
@@ -340,11 +339,10 @@ index 05255d7..a680feb 100644
          c->ssl->handshaked = 1;
  
          return NGX_OK;
-diff --git a/src/event/ngx_event_openssl.h b/src/event/ngx_event_openssl.h
-index aa00e06..559903b 100644
---- a/src/event/ngx_event_openssl.h
-+++ b/src/event/ngx_event_openssl.h
-@@ -147,6 +147,30 @@ struct ngx_ssl_connection_s {
+diff -ruN tree_prev/src/event/ngx_event_openssl.h tree/src/event/ngx_event_openssl.h
+--- a/src/event/ngx_event_openssl.h	2026-10-15 23:57:35.583578296 -0700
++++ b/src/event/ngx_event_openssl.h	2026-10-15 23:57:35.603919101 -0700
+@@ -150,6 +150,30 @@
      unsigned                    early_preread:1;
      unsigned                    write_blocked:1;
      unsigned                    sni_accepted:1;
@@ -375,7 +373,7 @@ index aa00e06..559903b 100644
  };
  
  
-@@ -400,4 +424,9 @@ extern int  ngx_ssl_client_hello_arg_index;
+@@ -416,4 +440,9 @@
  extern u_char  ngx_ssl_session_buffer[NGX_SSL_MAX_SESSION_SIZE];
  
  
@@ -385,11 +383,10 @@ index aa00e06..559903b 100644
 +ngx_int_t ngx_ssl_parse_client_hello_extensions(ngx_connection_t *c);
 +
  #endif /* _NGX_EVENT_OPENSSL_H_INCLUDED_ */
-diff --git a/src/event/quic/ngx_event_quic_ssl.c b/src/event/quic/ngx_event_quic_ssl.c
-index adc22b6..ac27324 100644
---- a/src/event/quic/ngx_event_quic_ssl.c
-+++ b/src/event/quic/ngx_event_quic_ssl.c
-@@ -691,6 +691,9 @@ ngx_quic_handshake(ngx_connection_t *c)
+diff -ruN tree_prev/src/event/quic/ngx_event_quic_ssl.c tree/src/event/quic/ngx_event_quic_ssl.c
+--- a/src/event/quic/ngx_event_quic_ssl.c	2026-10-15 23:57:35.584034162 -0700
++++ b/src/event/quic/ngx_event_quic_ssl.c	2026-10-15 23:57:35.604075684 -0700
+@@ -702,6 +702,9 @@
  
      ssl_conn = c->ssl->connection;
  
@@ -399,7 +396,7 @@ index adc22b6..ac27324 100644
      n = SSL_do_handshake(ssl_conn);
  
      ngx_log_debug1(NGX_LOG_DEBUG_EVENT, c->log, 0, "SSL_do_handshake: %d", n);
-@@ -749,6 +752,11 @@ ngx_quic_handshake(ngx_connection_t *c)
+@@ -753,6 +756,11 @@
  
      c->ssl->handshaked = 1;
  
@@ -411,7 +408,7 @@ index adc22b6..ac27324 100644
      frame = ngx_quic_alloc_frame(c);
      if (frame == NULL) {
          return NGX_ERROR;
-@@ -832,6 +840,74 @@ ngx_quic_crypto_provide(ngx_connection_t *c, ngx_uint_t level)
+@@ -836,6 +844,74 @@
      for (cl = out; cl; cl = cl->next) {
          b = cl->buf;
  
@@ -486,11 +483,10 @@ index adc22b6..ac27324 100644
          if (!SSL_provide_quic_data(c->ssl->connection, ssl_level, b->pos,
                                     b->last - b->pos))
          {
-diff --git a/src/http/modules/ngx_http_ssl_module.c b/src/http/modules/ngx_http_ssl_module.c
-index 3778758..4be19e2 100644
---- a/src/http/modules/ngx_http_ssl_module.c
-+++ b/src/http/modules/ngx_http_ssl_module.c
-@@ -447,6 +447,18 @@ ngx_http_ssl_alpn_select(ngx_ssl_conn_t *ssl_conn, const unsigned char **out,
+diff -ruN tree_prev/src/http/modules/ngx_http_ssl_module.c tree/src/http/modules/ngx_http_ssl_module.c
+--- a/src/http/modules/ngx_http_ssl_module.c	2026-10-15 23:57:35.561090938 -0700
++++ b/src/http/modules/ngx_http_ssl_module.c	2026-10-15 23:57:35.605532968 -0700
+@@ -470,6 +470,18 @@
      ngx_connection_t        *c;
  
      c = ngx_ssl_get_connection(ssl_conn);

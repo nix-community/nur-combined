@@ -1,8 +1,7 @@
-diff --git a/src/http/modules/ngx_http_proxy_module.c b/src/http/modules/ngx_http_proxy_module.c
-index 64190f1..dbba290 100644
---- a/src/http/modules/ngx_http_proxy_module.c
-+++ b/src/http/modules/ngx_http_proxy_module.c
-@@ -283,6 +283,8 @@ static ngx_conf_post_t  ngx_http_proxy_ssl_conf_command_post =
+diff -ruN tree_prev/src/http/modules/ngx_http_proxy_module.c tree/src/http/modules/ngx_http_proxy_module.c
+--- a/src/http/modules/ngx_http_proxy_module.c	2026-10-15 23:57:34.046091325 -0700
++++ b/src/http/modules/ngx_http_proxy_module.c	2026-10-15 23:57:34.315727905 -0700
+@@ -193,6 +193,8 @@
  
  
  static ngx_conf_enum_t  ngx_http_proxy_http_version[] = {
@@ -10,8 +9,8 @@ index 64190f1..dbba290 100644
 +    { ngx_string("0.9"), NGX_HTTP_VERSION_9 },
      { ngx_string("1.0"), NGX_HTTP_VERSION_10 },
      { ngx_string("1.1"), NGX_HTTP_VERSION_11 },
-     { ngx_null_string, 0 }
-@@ -1408,8 +1410,10 @@ ngx_http_proxy_create_request(ngx_http_request_t *r)
+ #if (NGX_HTTP_V2)
+@@ -1382,8 +1384,10 @@
  
      /* the request line */
  
@@ -24,7 +23,7 @@ index 64190f1..dbba290 100644
  
      u->uri.data = b->last;
  
-@@ -1424,7 +1428,7 @@ ngx_http_proxy_create_request(ngx_http_request_t *r)
+@@ -1398,7 +1402,7 @@
              b->last = ngx_copy(b->last, ctx->vars.uri.data, ctx->vars.uri.len);
          }
  
@@ -33,7 +32,7 @@ index 64190f1..dbba290 100644
              ngx_escape_uri(b->last, r->uri.data + loc_len,
                             r->uri.len - loc_len, NGX_ESCAPE_URI);
              b->last += r->uri.len - loc_len + escape;
-@@ -1440,68 +1444,80 @@ ngx_http_proxy_create_request(ngx_http_request_t *r)
+@@ -1414,15 +1418,20 @@
          }
      }
  
@@ -46,8 +45,7 @@ index 64190f1..dbba290 100644
  
      if (plcf->http_version == NGX_HTTP_VERSION_11) {
          b->last = ngx_cpymem(b->last, ngx_http_proxy_version_11,
--                             sizeof(ngx_http_proxy_version_11) - 1);
-+                            sizeof(ngx_http_proxy_version_11) - 1);
+                              sizeof(ngx_http_proxy_version_11) - 1);
  
 -    } else {
 +    } else if (plcf->http_version == NGX_HTTP_VERSION_10) {
@@ -56,10 +54,16 @@ index 64190f1..dbba290 100644
 +                            sizeof(ngx_http_proxy_version) - 1);
      }
  
+     if (host.len) {
+@@ -1431,74 +1440,81 @@
+         *b->last++ = CR; *b->last++ = LF;
+     }
+ 
 -    ngx_memzero(&e, sizeof(ngx_http_script_engine_t));
 -
 -    e.ip = headers->values->elts;
 -    e.pos = b->last;
+-    e.end = b->last + headers_len;
 -    e.request = r;
 -    e.flushed = 1;
 +    if (plcf->http_version != NGX_HTTP_VERSION_PLAIN
@@ -70,6 +74,7 @@ index 64190f1..dbba290 100644
 -    le.ip = headers->lengths->elts;
 +        e.ip = headers->values->elts;
 +        e.pos = b->last;
++        e.end = b->last + headers_len;
 +        e.request = r;
 +        e.flushed = 1;
  
@@ -96,13 +101,20 @@ index 64190f1..dbba290 100644
 +                lcode = *(ngx_http_script_len_code_pt *) le.ip;
              }
 -            e.ip += sizeof(uintptr_t);
+-
+-            e.skip = 0;
+-
+-            continue;
+-        }
 +            le.ip += sizeof(uintptr_t);
  
--            e.skip = 0;
+-        code = *(ngx_http_script_code_pt *) e.ip;
+-        code((ngx_http_script_engine_t *) &e);
 +            if (val_len == 0) {
 +                e.skip = 1;
  
--            continue;
+-        if (e.status) {
+-            return NGX_ERROR;
 -        }
 +                while (*(uintptr_t *) e.ip) {
 +                    code = *(ngx_http_script_code_pt *) e.ip;
@@ -110,8 +122,9 @@ index 64190f1..dbba290 100644
 +                }
 +                e.ip += sizeof(uintptr_t);
  
--        code = *(ngx_http_script_code_pt *) e.ip;
--        code((ngx_http_script_engine_t *) &e);
+-        if (ngx_http_script_check_length(&e, 2) != NGX_OK) {
+-            return NGX_ERROR;
+-        }
 +                e.skip = 0;
  
 -        *e.pos++ = ':'; *e.pos++ = ' ';
@@ -121,6 +134,21 @@ index 64190f1..dbba290 100644
 -        while (*(uintptr_t *) e.ip) {
              code = *(ngx_http_script_code_pt *) e.ip;
              code((ngx_http_script_engine_t *) &e);
+-        }
+-        e.ip += sizeof(uintptr_t);
+ 
+-        if (e.status) {
+-            return NGX_ERROR;
+-        }
++            if (e.status) {
++                return NGX_ERROR;
++            }
+ 
+-        if (ngx_http_script_check_length(&e, 2) != NGX_OK) {
+-            return NGX_ERROR;
++            if (ngx_http_script_check_length(&e, 2) != NGX_OK) {
++                return NGX_ERROR;
++            }
 +
 +            *e.pos++ = ':'; *e.pos++ = ' ';
 +
@@ -130,9 +158,16 @@ index 64190f1..dbba290 100644
 +            }
 +            e.ip += sizeof(uintptr_t);
 +
++            if (e.status) {
++                return NGX_ERROR;
++            }
++
++            if (ngx_http_script_check_length(&e, 2) != NGX_OK) {
++                return NGX_ERROR;
++            }
++
 +            *e.pos++ = CR; *e.pos++ = LF;
          }
--        e.ip += sizeof(uintptr_t);
  
 -        *e.pos++ = CR; *e.pos++ = LF;
 +        b->last = e.pos;
@@ -149,7 +184,7 @@ index 64190f1..dbba290 100644
          part = &r->headers_in.headers.part;
          header = part->elts;
  
-@@ -1542,7 +1558,7 @@ ngx_http_proxy_create_request(ngx_http_request_t *r)
+@@ -1539,7 +1555,7 @@
      /* add "\r\n" at the header end */
      *b->last++ = CR; *b->last++ = LF;
  
@@ -157,8 +192,8 @@ index 64190f1..dbba290 100644
 +    if (plcf->http_version != NGX_HTTP_VERSION_PLAIN && plcf->body_values) {
          e.ip = plcf->body_values->elts;
          e.pos = b->last;
-         e.skip = 0;
-@@ -1829,16 +1845,15 @@ ngx_http_proxy_process_status_line(ngx_http_request_t *r)
+         e.end = b->last + body_len;
+@@ -1832,16 +1848,15 @@
  
  #endif
  
@@ -178,10 +213,9 @@ index 64190f1..dbba290 100644
          u->state->status = NGX_HTTP_OK;
          u->headers_in.connection_close = 1;
  
-diff --git a/src/http/ngx_http_request.h b/src/http/ngx_http_request.h
-index 52b274a..86327a2 100644
---- a/src/http/ngx_http_request.h
-+++ b/src/http/ngx_http_request.h
+diff -ruN tree_prev/src/http/ngx_http_request.h tree/src/http/ngx_http_request.h
+--- a/src/http/ngx_http_request.h	2026-10-15 23:57:34.049991879 -0700
++++ b/src/http/ngx_http_request.h	2026-10-15 23:57:34.087724926 -0700
 @@ -19,7 +19,7 @@
  #define NGX_HTTP_DISCARD_BUFFER_SIZE       4096
  #define NGX_HTTP_LINGERING_BUFFER_SIZE     4096

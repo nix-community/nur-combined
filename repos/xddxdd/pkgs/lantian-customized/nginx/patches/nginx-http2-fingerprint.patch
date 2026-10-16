@@ -1,20 +1,6 @@
-HTTP/2 fingerprinting extracted from https://github.com/Xetera/nginx-http2-fingerprint
-(commit b44c3803b5b34431dc3c61078f30d8be5bcab3e9, based on nginx 1.21.2).
-Ported to OpenResty 1.31.1.1's bundled nginx-1.31.1: only the fingerprint
-collection points (SETTINGS / PRIORITY / WINDOW_UPDATE frames, pseudo-header
-names in ngx_http_v2.c) and the $http2_fingerprint variable in
-ngx_http_v2_module.c were kept; the upstream fork's other changes (request
-body rework reverts, ssl_ciphers reordering) are unrelated to nginx 1.21.2
-and were dropped. Differences from the original fork: fp allocation moved
-before the c->buffer early-handler loop in ngx_http_v2_init (the buffer loop
-invokes state handlers before the old insertion point, which would deref
-fp == NULL on connections with a pre-read preface), and priority frames
-record h2c->state.sid directly (state_priority no longer holds a stream).
-Applied with patch -p1 inside bundle/nginx-1.*.
-
-diff -ru a/src/http/v2/ngx_http_v2.c b/src/http/v2/ngx_http_v2.c
---- a/src/http/v2/ngx_http_v2.c	2026-05-24 21:27:09.000000000 -0700
-+++ b/src/http/v2/ngx_http_v2.c	2026-09-04 20:48:15.114526700 -0700
+diff -ruN tree_prev/src/http/v2/ngx_http_v2.c tree/src/http/v2/ngx_http_v2.c
+--- a/src/http/v2/ngx_http_v2.c	2026-10-15 23:57:35.857759352 -0700
++++ b/src/http/v2/ngx_http_v2.c	2026-10-15 23:57:35.905922633 -0700
 @@ -272,6 +272,20 @@
          return;
      }
@@ -48,7 +34,7 @@ diff -ru a/src/http/v2/ngx_http_v2.c b/src/http/v2/ngx_http_v2.c
              return ngx_http_v2_state_header_complete(h2c, pos, end);
          }
  
-@@ -2058,6 +2077,18 @@
+@@ -2062,6 +2081,18 @@
  
      ngx_http_v2_set_dependency(h2c, node, depend, excl);
  
@@ -67,7 +53,7 @@ diff -ru a/src/http/v2/ngx_http_v2.c b/src/http/v2/ngx_http_v2.c
      return ngx_http_v2_state_complete(h2c, pos, end);
  }
  
-@@ -2209,6 +2240,10 @@
+@@ -2212,6 +2243,10 @@
          ngx_log_debug2(NGX_LOG_DEBUG_HTTP, h2c->connection->log, 0,
                         "http2 setting %ui:%ui", id, value);
  
@@ -78,7 +64,7 @@ diff -ru a/src/http/v2/ngx_http_v2.c b/src/http/v2/ngx_http_v2.c
          switch (id) {
  
          case NGX_HTTP_V2_INIT_WINDOW_SIZE_SETTING:
-@@ -2517,6 +2552,7 @@
+@@ -2524,6 +2559,7 @@
          }
      }
  
@@ -86,10 +72,10 @@ diff -ru a/src/http/v2/ngx_http_v2.c b/src/http/v2/ngx_http_v2.c
      return ngx_http_v2_state_complete(h2c, pos, end);
  }
  
-diff -ru a/src/http/v2/ngx_http_v2.h b/src/http/v2/ngx_http_v2.h
---- a/src/http/v2/ngx_http_v2.h	2026-05-24 21:27:09.000000000 -0700
-+++ b/src/http/v2/ngx_http_v2.h	2026-09-04 20:48:15.113712725 -0700
-@@ -121,7 +121,33 @@
+diff -ruN tree_prev/src/http/v2/ngx_http_v2.h tree/src/http/v2/ngx_http_v2.h
+--- a/src/http/v2/ngx_http_v2.h	2026-10-15 23:57:35.857593112 -0700
++++ b/src/http/v2/ngx_http_v2.h	2026-10-15 23:57:35.908574538 -0700
+@@ -122,7 +122,33 @@
  } ngx_http_v2_hpack_t;
  
  
@@ -123,7 +109,7 @@ diff -ru a/src/http/v2/ngx_http_v2.h b/src/http/v2/ngx_http_v2.h
      ngx_connection_t                *connection;
      ngx_http_connection_t           *http_connection;
  
-@@ -293,6 +319,19 @@
+@@ -294,6 +320,19 @@
  }
  
  
@@ -143,9 +129,9 @@ diff -ru a/src/http/v2/ngx_http_v2.h b/src/http/v2/ngx_http_v2.h
  void ngx_http_v2_init(ngx_event_t *rev);
  
  ngx_int_t ngx_http_v2_read_request_body(ngx_http_request_t *r);
-diff -ru a/src/http/v2/ngx_http_v2_module.c b/src/http/v2/ngx_http_v2_module.c
---- a/src/http/v2/ngx_http_v2_module.c	2026-05-24 21:27:09.000000000 -0700
-+++ b/src/http/v2/ngx_http_v2_module.c	2026-09-04 20:48:23.358678068 -0700
+diff -ruN tree_prev/src/http/v2/ngx_http_v2_module.c tree/src/http/v2/ngx_http_v2_module.c
+--- a/src/http/v2/ngx_http_v2_module.c	2026-10-15 23:57:35.857649094 -0700
++++ b/src/http/v2/ngx_http_v2_module.c	2026-10-15 23:57:36.097156408 -0700
 @@ -13,6 +13,9 @@
  
  static ngx_int_t ngx_http_v2_add_variables(ngx_conf_t *cf);
@@ -168,7 +154,7 @@ diff -ru a/src/http/v2/ngx_http_v2_module.c b/src/http/v2/ngx_http_v2_module.c
  };
  
  
-@@ -241,6 +245,185 @@
+@@ -241,6 +245,183 @@
  }
  
  
@@ -184,7 +170,6 @@ diff -ru a/src/http/v2/ngx_http_v2_module.c b/src/http/v2/ngx_http_v2_module.c
 +    ngx_list_part_t* setting_start = &fp->settings->part;
 +    ngx_list_part_t* prio_start = &fp->priorities->part;
 +
-+    size_t setting_count = 0;
 +    size_t priority_count = 0;
 +    size_t header_count = 0;
 +
@@ -194,7 +179,6 @@ diff -ru a/src/http/v2/ngx_http_v2_module.c b/src/http/v2/ngx_http_v2_module.c
 +    // the amount of semicolons and colons in between kv pairs - 1 at the end
 +    size_t len = 0;
 +    while (part) {
-+        setting_count++;
 +        setting = part->elts;
 +        len += num_of_digits(setting->name)
 +            + 1

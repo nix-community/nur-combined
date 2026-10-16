@@ -1,8 +1,7 @@
-diff --git a/auto/modules b/auto/modules
-index 38b3aba..f81bbba 100644
---- a/auto/modules
-+++ b/auto/modules
-@@ -1312,6 +1312,7 @@ if [ $USE_OPENSSL = YES ]; then
+diff -ruN tree_prev/auto/modules tree/auto/modules
+--- a/auto/modules	2026-10-15 23:57:34.928459843 -0700
++++ b/auto/modules	2026-10-15 23:57:34.998664249 -0700
+@@ -1425,6 +1425,7 @@
      ngx_module_deps=src/event/ngx_event_openssl.h
      ngx_module_srcs="src/event/ngx_event_openssl.c
                       src/event/ngx_event_openssl_cache.c
@@ -10,11 +9,10 @@ index 38b3aba..f81bbba 100644
                       src/event/ngx_event_openssl_stapling.c"
      ngx_module_libs=
      ngx_module_link=YES
-diff --git a/src/event/ngx_event_openssl.c b/src/event/ngx_event_openssl.c
-index 05255d7..44f53c9 100644
---- a/src/event/ngx_event_openssl.c
-+++ b/src/event/ngx_event_openssl.c
-@@ -84,6 +84,9 @@ static void *ngx_openssl_create_conf(ngx_cycle_t *cycle);
+diff -ruN tree_prev/src/event/ngx_event_openssl.c tree/src/event/ngx_event_openssl.c
+--- a/src/event/ngx_event_openssl.c	2026-10-15 23:57:34.976962232 -0700
++++ b/src/event/ngx_event_openssl.c	2026-10-15 23:57:35.001890420 -0700
+@@ -95,6 +95,9 @@
  static char *ngx_openssl_engine(ngx_conf_t *cf, ngx_command_t *cmd, void *conf);
  static void ngx_openssl_exit(ngx_cycle_t *cycle);
  
@@ -24,7 +22,7 @@ index 05255d7..44f53c9 100644
  
  static ngx_command_t  ngx_openssl_commands[] = {
  
-@@ -5336,6 +5339,12 @@ ngx_ssl_get_curve(ngx_connection_t *c, ngx_pool_t *pool, ngx_str_t *s)
+@@ -5534,6 +5537,12 @@
      nid = SSL_get_negotiated_group(c->ssl->connection);
  
      if (nid != NID_undef) {
@@ -37,7 +35,7 @@ index 05255d7..44f53c9 100644
  
          if ((nid & TLSEXT_nid_unknown) == 0) {
              s->len = ngx_strlen(OBJ_nid2sn(nid));
-@@ -5396,6 +5405,11 @@ ngx_ssl_get_curves(ngx_connection_t *c, ngx_pool_t *pool, ngx_str_t *s)
+@@ -5594,6 +5603,11 @@
      for (i = 0; i < n; i++) {
          nid = curves[i];
  
@@ -49,7 +47,7 @@ index 05255d7..44f53c9 100644
          if (nid & TLSEXT_nid_unknown) {
              name = SSL_group_to_name(c->ssl->connection, nid);
  
-@@ -5418,6 +5432,11 @@ ngx_ssl_get_curves(ngx_connection_t *c, ngx_pool_t *pool, ngx_str_t *s)
+@@ -5616,6 +5630,11 @@
      for (i = 0; i < n; i++) {
          nid = curves[i];
  

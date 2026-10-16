@@ -1,0 +1,5 @@
+{
+  loadPackages,
+  ...
+}:
+loadPackages ./. { }

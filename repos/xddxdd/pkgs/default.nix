@@ -35,6 +35,7 @@ let
 
   flatGroups = {
     kernel-modules = ./kernel-modules;
+    nginx-modules = ./nginx-modules;
     python3Packages = ./python-packages;
     uncategorized = ./uncategorized;
   };

@@ -1,8 +1,7 @@
-diff --git a/auto/modules b/auto/modules
-index 300d07c..46a7877 100644
---- a/auto/modules
-+++ b/auto/modules
-@@ -421,6 +421,18 @@ if [ $HTTP = YES ]; then
+diff -ruN tree_prev/auto/modules tree/auto/modules
+--- a/auto/modules	2026-10-15 23:57:33.338966043 -0700
++++ b/auto/modules	2026-10-15 23:57:33.413911444 -0700
+@@ -438,6 +438,18 @@
  
      ngx_module_type=HTTP
  
@@ -21,11 +20,10 @@ index 300d07c..46a7877 100644
      if [ $HTTP_V2 = YES ]; then
          have=NGX_HTTP_V2 . auto/have
  
-diff --git a/auto/options b/auto/options
-index e6e0cd3..eb66522 100644
---- a/auto/options
-+++ b/auto/options
-@@ -59,6 +59,7 @@ NGX_HTTP_SCGI_TEMP_PATH=
+diff -ruN tree_prev/auto/options tree/auto/options
+--- a/auto/options	2026-10-15 23:57:33.334613157 -0700
++++ b/auto/options	2026-10-15 23:57:33.414106902 -0700
+@@ -61,6 +61,7 @@
  HTTP_CACHE=YES
  HTTP_CHARSET=YES
  HTTP_GZIP=YES
@@ -33,7 +31,7 @@ index e6e0cd3..eb66522 100644
  HTTP_SSL=NO
  HTTP_V2=NO
  HTTP_V3=NO
-@@ -234,6 +235,7 @@ $0: warning: the \"--with-ipv6\" option is deprecated"
+@@ -244,6 +245,7 @@
          --http-uwsgi-temp-path=*)        NGX_HTTP_UWSGI_TEMP_PATH="$value" ;;
          --http-scgi-temp-path=*)         NGX_HTTP_SCGI_TEMP_PATH="$value" ;;
  
@@ -41,7 +39,7 @@ index e6e0cd3..eb66522 100644
          --with-http_ssl_module)          HTTP_SSL=YES               ;;
          --with-http_v2_module)           HTTP_V2=YES                ;;
          --with-http_v3_module)           HTTP_V3=YES                ;;
-@@ -455,6 +457,7 @@ cat << END
+@@ -480,6 +482,7 @@
  
    --without-quic_bpf_module          disable ngx_quic_bpf_module
  
@@ -49,11 +47,10 @@ index e6e0cd3..eb66522 100644
    --with-http_ssl_module             enable ngx_http_ssl_module
    --with-http_v2_module              enable ngx_http_v2_module
    --with-http_v3_module              enable ngx_http_v3_module
-diff --git a/src/http/ngx_http.c b/src/http/ngx_http.c
-index d835f89..9aaa3e0 100644
---- a/src/http/ngx_http.c
-+++ b/src/http/ngx_http.c
-@@ -1235,6 +1235,9 @@ ngx_http_add_addresses(ngx_conf_t *cf, ngx_http_core_srv_conf_t *cscf,
+diff -ruN tree_prev/src/http/ngx_http.c tree/src/http/ngx_http.c
+--- a/src/http/ngx_http.c	2026-10-15 23:57:33.362821554 -0700
++++ b/src/http/ngx_http.c	2026-10-15 23:57:33.415873471 -0700
+@@ -1294,6 +1294,9 @@
      ngx_uint_t             i, default_server, proxy_protocol,
                             protocols, protocols_prev;
      ngx_http_conf_addr_t  *addr;
@@ -63,7 +60,7 @@ index d835f89..9aaa3e0 100644
  #if (NGX_HTTP_SSL)
      ngx_uint_t             ssl;
  #endif
-@@ -1275,6 +1278,9 @@ ngx_http_add_addresses(ngx_conf_t *cf, ngx_http_core_srv_conf_t *cscf,
+@@ -1334,6 +1337,9 @@
          protocols = lsopt->proxy_protocol;
          protocols_prev = addr[i].opt.proxy_protocol;
  
@@ -73,7 +70,7 @@ index d835f89..9aaa3e0 100644
  #if (NGX_HTTP_SSL)
          ssl = lsopt->ssl || addr[i].opt.ssl;
          protocols |= lsopt->ssl << 1;
-@@ -1369,6 +1375,9 @@ ngx_http_add_addresses(ngx_conf_t *cf, ngx_http_core_srv_conf_t *cscf,
+@@ -1428,6 +1434,9 @@
  
          addr[i].opt.default_server = default_server;
          addr[i].opt.proxy_protocol = proxy_protocol;
@@ -83,7 +80,7 @@ index d835f89..9aaa3e0 100644
  #if (NGX_HTTP_SSL)
          addr[i].opt.ssl = ssl;
  #endif
-@@ -1912,6 +1921,9 @@ ngx_http_add_addrs(ngx_conf_t *cf, ngx_http_port_t *hport,
+@@ -1972,6 +1981,9 @@
          sin = (struct sockaddr_in *) addr[i].opt.sockaddr;
          addrs[i].addr = sin->sin_addr.s_addr;
          addrs[i].conf.default_server = addr[i].default_server;
@@ -93,7 +90,7 @@ index d835f89..9aaa3e0 100644
  #if (NGX_HTTP_SSL)
          addrs[i].conf.ssl = addr[i].opt.ssl;
  #endif
-@@ -1980,6 +1992,9 @@ ngx_http_add_addrs6(ngx_conf_t *cf, ngx_http_port_t *hport,
+@@ -2040,6 +2052,9 @@
          sin6 = (struct sockaddr_in6 *) addr[i].opt.sockaddr;
          addrs6[i].addr6 = sin6->sin6_addr;
          addrs6[i].conf.default_server = addr[i].default_server;
@@ -103,11 +100,10 @@ index d835f89..9aaa3e0 100644
  #if (NGX_HTTP_SSL)
          addrs6[i].conf.ssl = addr[i].opt.ssl;
  #endif
-diff --git a/src/http/ngx_http_core_module.c b/src/http/ngx_http_core_module.c
-index 7845f8f..63c93fb 100644
---- a/src/http/ngx_http_core_module.c
-+++ b/src/http/ngx_http_core_module.c
-@@ -4170,6 +4170,18 @@ ngx_http_core_listen(ngx_conf_t *cf, ngx_command_t *cmd, void *conf)
+diff -ruN tree_prev/src/http/ngx_http_core_module.c tree/src/http/ngx_http_core_module.c
+--- a/src/http/ngx_http_core_module.c	2026-10-15 23:57:33.366016779 -0700
++++ b/src/http/ngx_http_core_module.c	2026-10-15 23:57:33.418873503 -0700
+@@ -4322,6 +4322,18 @@
              continue;
          }
  
@@ -126,11 +122,10 @@ index 7845f8f..63c93fb 100644
          if (ngx_strcmp(value[n].data, "ssl") == 0) {
  #if (NGX_HTTP_SSL)
              lsopt.ssl = 1;
-diff --git a/src/http/ngx_http_core_module.h b/src/http/ngx_http_core_module.h
-index 765e7ff..d4f5463 100644
---- a/src/http/ngx_http_core_module.h
-+++ b/src/http/ngx_http_core_module.h
-@@ -76,6 +76,9 @@ typedef struct {
+diff -ruN tree_prev/src/http/ngx_http_core_module.h tree/src/http/ngx_http_core_module.h
+--- a/src/http/ngx_http_core_module.h	2026-10-15 23:57:33.362689494 -0700
++++ b/src/http/ngx_http_core_module.h	2026-10-15 23:57:33.419795502 -0700
+@@ -76,6 +76,9 @@
      unsigned                   ssl:1;
      unsigned                   http2:1;
      unsigned                   quic:1;
@@ -140,7 +135,7 @@ index 765e7ff..d4f5463 100644
  #if (NGX_HAVE_INET6)
      unsigned                   ipv6only:1;
  #endif
-@@ -240,6 +243,9 @@ struct ngx_http_addr_conf_s {
+@@ -246,6 +249,9 @@
      unsigned                   ssl:1;
      unsigned                   http2:1;
      unsigned                   quic:1;
@@ -150,11 +145,10 @@ index 765e7ff..d4f5463 100644
      unsigned                   proxy_protocol:1;
  };
  
-diff --git a/src/http/ngx_http_parse.c b/src/http/ngx_http_parse.c
-index d4f2dae..d05ff3c 100644
---- a/src/http/ngx_http_parse.c
-+++ b/src/http/ngx_http_parse.c
-@@ -143,6 +143,21 @@ ngx_http_parse_request_line(ngx_http_request_t *r, ngx_buf_t *b)
+diff -ruN tree_prev/src/http/ngx_http_parse.c tree/src/http/ngx_http_parse.c
+--- a/src/http/ngx_http_parse.c	2026-10-15 23:57:33.382701525 -0700
++++ b/src/http/ngx_http_parse.c	2026-10-15 23:57:33.419981457 -0700
+@@ -149,6 +149,21 @@
          case sw_start:
              r->request_start = p;
  
@@ -176,7 +170,7 @@ index d4f2dae..d05ff3c 100644
              if (ch == CR || ch == LF) {
                  break;
              }
-@@ -487,6 +502,13 @@ ngx_http_parse_request_line(ngx_http_request_t *r, ngx_buf_t *b)
+@@ -529,6 +544,13 @@
  
              switch (ch) {
              case ' ':
@@ -190,7 +184,7 @@ index d4f2dae..d05ff3c 100644
                  r->uri_end = p;
                  state = sw_http_09;
                  break;
-@@ -560,6 +582,12 @@ ngx_http_parse_request_line(ngx_http_request_t *r, ngx_buf_t *b)
+@@ -602,6 +624,12 @@
                  r->uri_ext = p + 1;
                  break;
              case ' ':
@@ -203,7 +197,7 @@ index d4f2dae..d05ff3c 100644
                  r->uri_end = p;
                  state = sw_http_09;
                  break;
-@@ -610,6 +638,12 @@ ngx_http_parse_request_line(ngx_http_request_t *r, ngx_buf_t *b)
+@@ -652,6 +680,12 @@
  
              switch (ch) {
              case ' ':
@@ -216,7 +210,7 @@ index d4f2dae..d05ff3c 100644
                  r->uri_end = p;
                  state = sw_http_09;
                  break;
-@@ -804,6 +838,17 @@ done:
+@@ -856,6 +890,17 @@
          r->request_end = p;
      }
  
@@ -234,11 +228,10 @@ index d4f2dae..d05ff3c 100644
      r->http_version = r->http_major * 1000 + r->http_minor;
      r->state = sw_start;
  
-diff --git a/src/http/ngx_http_request.c b/src/http/ngx_http_request.c
-index bd2be5e..5093cfa 100644
---- a/src/http/ngx_http_request.c
-+++ b/src/http/ngx_http_request.c
-@@ -420,6 +420,16 @@ ngx_http_wait_request_handler(ngx_event_t *rev)
+diff -ruN tree_prev/src/http/ngx_http_request.c tree/src/http/ngx_http_request.c
+--- a/src/http/ngx_http_request.c	2026-10-15 23:57:33.365450045 -0700
++++ b/src/http/ngx_http_request.c	2026-10-15 23:57:33.421873535 -0700
+@@ -431,6 +431,16 @@
          b->end = b->last + size;
      }
  
@@ -255,7 +248,7 @@ index bd2be5e..5093cfa 100644
      size = b->end - b->last;
  
      n = c->recv(c, b->last, size);
-@@ -468,6 +478,13 @@ ngx_http_wait_request_handler(ngx_event_t *rev)
+@@ -479,6 +489,13 @@
      if (hc->proxy_protocol) {
          hc->proxy_protocol = 0;
  
@@ -269,7 +262,7 @@ index bd2be5e..5093cfa 100644
          p = ngx_proxy_protocol_read(c, b->pos, b->last);
  
          if (p == NULL) {
-@@ -477,6 +494,14 @@ ngx_http_wait_request_handler(ngx_event_t *rev)
+@@ -488,6 +505,14 @@
  
          b->pos = p;
  
@@ -284,7 +277,7 @@ index bd2be5e..5093cfa 100644
          if (b->pos == b->last) {
              c->log->action = "waiting for request";
              b->pos = b->start;
-@@ -654,6 +679,10 @@ ngx_http_alloc_request(ngx_connection_t *c)
+@@ -665,6 +690,10 @@
  
      r->log_handler = ngx_http_log_error_handler;
  
@@ -295,7 +288,7 @@ index bd2be5e..5093cfa 100644
      return r;
  }
  
-@@ -1126,6 +1155,21 @@ ngx_http_process_request_line(ngx_event_t *rev)
+@@ -1159,6 +1188,21 @@
              ngx_log_debug1(NGX_LOG_DEBUG_HTTP, c->log, 0,
                             "http request line: \"%V\"", &r->request_line);
  
@@ -317,11 +310,10 @@ index bd2be5e..5093cfa 100644
              r->method_name.len = r->method_end - r->request_start + 1;
              r->method_name.data = r->request_line.data;
  
-diff --git a/src/http/ngx_http_request.h b/src/http/ngx_http_request.h
-index cc3b7c0..cbbc49c 100644
---- a/src/http/ngx_http_request.h
-+++ b/src/http/ngx_http_request.h
-@@ -568,6 +568,10 @@ struct ngx_http_request_s {
+diff -ruN tree_prev/src/http/ngx_http_request.h tree/src/http/ngx_http_request.h
+--- a/src/http/ngx_http_request.h	2026-10-15 23:57:33.382790099 -0700
++++ b/src/http/ngx_http_request.h	2026-10-15 23:57:33.422953811 -0700
+@@ -578,6 +578,10 @@
      unsigned                          background:1;
      unsigned                          health_check:1;
  
