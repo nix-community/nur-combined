@@ -14,15 +14,15 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "honk-core";
-  version = "2026.10.12.native-api.1";
+  version = "2026.10.15.native-api.1";
 
   src = fetchFromGitHub {
     owner = "Glassyiris";
     repo = "honk";
     tag = "debug.${finalAttrs.version}";
-    hash = "sha256-cO6Sx5akV8CwlZqf1UTAvVvx36FVHfrdGi86ED2q3jM=";
+    hash = "sha256-G6m83TGNwqIbF82tSz3zG1Smam/wyz0xsV/Ij2ZCPls=";
   };
-  cargoHash = "sha256-NaQ28zDXBKiW6hx2AzrsJUlZVKiOdd+dq6sOeNGYJcM=";
+  cargoHash = "sha256-pBc83Bun9MLfczr/pieSB9jaVk6yhwrIUDvBEiIoE30=";
 
   # crates/honk-ebpf is excluded from the workspace and pins its own toolchain
   # in crates/honk-ebpf/rust-toolchain.toml, so it has its own Cargo.lock and
