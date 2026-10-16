@@ -42,21 +42,21 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Install nix
-        uses: cachix/install-nix-action@8aa03977d8d733052d78f4e008a241fd1dbf36b3 # v31
+        uses: cachix/install-nix-action@448cde739abec1eaf0646249e3d25bb8d9bc7702 # v31
         with:
           nix_path: "${{ matrix.nixPath }}"
           extra_nix_config: |
             experimental-features = nix-command flakes
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            access-tokens = github.com=${{ github.token }}
 
       - name: Show nixpkgs version
         run: nix eval --raw --file '<nixpkgs>' lib.version
 
       - name: Setup cachix
-        uses: cachix/cachix-action@5f2d7c5294214f71b873db4b969586b980625e71 # v17
+        uses: cachix/cachix-action@38b082610b782e7e93e209c35fd730d399dee866 # v17
         with:
           name: "${{ github.repository_owner }}"
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
@@ -80,6 +80,6 @@ jobs:
 
       - name: Trigger NUR update
         run: >
-          curl --request POST
+          curl --request POST --silent
           --url-query 'repo=${{ github.repository_owner }}'
           https://nur-update.nix-community.org/update

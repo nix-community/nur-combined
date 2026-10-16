@@ -30,7 +30,7 @@
   outputAttrsOf = p:
     lib.genAttrs' p.outputs (o:
       lib.nameValuePair
-      "${lib.getName p}-${o}"
+      "${lib.getName p}.${o}"
       p.${o});
 
   concatMapMergeAttrs = f: list: lib.mergeAttrsList (map f list);
