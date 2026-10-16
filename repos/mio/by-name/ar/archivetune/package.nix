@@ -363,13 +363,21 @@ stdenv.mkDerivation {
     mkdir -p $out
     cp -a ${unwrapped}/* $out/
     chmod -R u+w $out
+    rm -f $out/bin/archivetune
 
-    wrapProgram $out/bin/archivetune \
-      --prefix PATH : "${lib.makeBinPath [ mpv ]}"
-
+    mkdir -p $out/bin
     if [ -d $out/Applications/ArchiveTune.app ]; then
+      makeWrapper $out/Applications/ArchiveTune.app/Contents/MacOS/ArchiveTune $out/bin/archivetune \
+        --prefix PATH : "${lib.makeBinPath [ mpv ]}" \
+        --set ARCHIVETUNE_MPV_PATH "${mpv}/bin/mpv"
       wrapProgram $out/Applications/ArchiveTune.app/Contents/MacOS/ArchiveTune \
-        --prefix PATH : "${lib.makeBinPath [ mpv ]}"
+        --prefix PATH : "${lib.makeBinPath [ mpv ]}" \
+        --set ARCHIVETUNE_MPV_PATH "${mpv}/bin/mpv"
+    else
+      makeWrapper $out/lib/archivetune/bin/ArchiveTune $out/bin/archivetune \
+        --prefix PATH : "${lib.makeBinPath [ mpv ]}" \
+        --set ARCHIVETUNE_MPV_PATH "${mpv}/bin/mpv" \
+        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath runtimeLibs}"
     fi
   '';
 

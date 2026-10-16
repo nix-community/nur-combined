@@ -103,6 +103,10 @@ class MusicService {
     ) {
         companion object {
             fun findMpvExecutable(): String? {
+                val hardcoded = "@MPV_PATH@"
+                if (hardcoded.isNotBlank() && !hardcoded.startsWith("@") && File(hardcoded).canExecute()) {
+                    return hardcoded
+                }
                 val propPath = System.getProperty("archivetune.mpv.path") ?: System.getenv("ARCHIVETUNE_MPV_PATH")
                 if (!propPath.isNullOrBlank() && File(propPath).canExecute()) {
                     return propPath
@@ -156,17 +160,18 @@ class MusicService {
                 if (process != null && process!!.isAlive && isConnected) return
 
                 val mpv = findMpvExecutable()
+                System.err.println("[ArchiveTune/Audio] Using mpv executable: $mpv")
                 if (mpv == null) {
-                    Timber.tag("DesktopMpvPlayer").w("mpv executable not found on system")
+                    System.err.println("[ArchiveTune/Audio] ERROR: mpv executable not found on system")
                     return
                 }
 
                 try {
-                    val tmpDir = File(System.getProperty("java.io.tmpdir", "/tmp"))
-                    val sock = File(tmpDir, "archivetune-mpv-${ProcessHandle.current().pid()}-${System.nanoTime()}.sock")
+                    val sock = File("/tmp", "archivetune-mpv-${ProcessHandle.current().pid()}.sock")
                     if (sock.exists()) sock.delete()
                     socketFile = sock
 
+                    System.err.println("[ArchiveTune/Audio] Spawning mpv at $mpv with socket ${sock.absolutePath}")
                     val pb = ProcessBuilder(
                         mpv,
                         "--idle=yes",
@@ -178,8 +183,22 @@ class MusicService {
                     val proc = pb.start()
                     process = proc
 
+                    Thread({
+                        try {
+                            proc.inputStream.bufferedReader().useLines { lines ->
+                                lines.forEach { line ->
+                                    System.err.println("[ArchiveTune/mpv] $line")
+                                }
+                            }
+                        } catch (_: Throwable) {}
+                    }, "mpv-logger").apply {
+                        isDaemon = true
+                        start()
+                    }
+
                     var connected = false
-                    val deadline = System.currentTimeMillis() + 3000L
+                    val startConnect = System.currentTimeMillis()
+                    val deadline = startConnect + 5000L
                     while (System.currentTimeMillis() < deadline) {
                         if (sock.exists()) {
                             try {
@@ -197,10 +216,13 @@ class MusicService {
                     }
 
                     if (!connected) {
+                        System.err.println("[ArchiveTune/Audio] ERROR: Timed out waiting for mpv IPC socket: ${sock.absolutePath}")
                         proc.destroy()
                         return
                     }
 
+                    val elapsed = System.currentTimeMillis() - startConnect
+                    System.err.println("[ArchiveTune/Audio] Connected to mpv IPC socket in ${elapsed}ms")
                     isConnected = true
 
                     val reader = BufferedReader(Channels.newReader(socketChannel!!, StandardCharsets.UTF_8))
@@ -229,7 +251,8 @@ class MusicService {
                         release()
                     })
                 } catch (t: Throwable) {
-                    Timber.tag("DesktopMpvPlayer").e(t, "Failed to start mpv player process")
+                    System.err.println("[ArchiveTune/Audio] ERROR starting mpv: ${t.message}")
+                    t.printStackTrace(System.err)
                 }
             }
         }
@@ -240,13 +263,14 @@ class MusicService {
                     writer?.write(msg)
                     writer?.flush()
                 } catch (t: Throwable) {
-                    Timber.tag("DesktopMpvPlayer").w(t, "Failed to send command to mpv IPC")
+                    System.err.println("[ArchiveTune/Audio] ERROR sending raw command to mpv: ${t.message}")
                 }
             }
         }
 
         fun load(url: String, startPosMs: Long, playWhenReady: Boolean) {
             ensureStarted()
+            System.err.println("[ArchiveTune/Audio] mpv.load: url=$url, startPosMs=$startPosMs, playWhenReady=$playWhenReady, isConnected=$isConnected")
             val escaped = url.replace("\\", "\\\\").replace("\"", "\\\"")
             sendRaw("{\"command\": [\"loadfile\", \"$escaped\", \"replace\"]}\n")
             if (startPosMs > 0) {
@@ -306,6 +330,9 @@ class MusicService {
         }
 
         private fun handleIpcMessage(json: String) {
+            if (!json.contains("time-pos")) {
+                System.err.println("[ArchiveTune/IPC] $json")
+            }
             if (json.contains("\"event\":\"property-change\"")) {
                 if (json.contains("\"name\":\"time-pos\"")) {
                     val data = extractDouble(json, "data")
@@ -417,6 +444,7 @@ class MusicService {
         private fun loadTrack(mediaId: String, startPositionMs: Long, playWhenReady: Boolean) {
             if (mediaId.isBlank()) return
             currentPlayingId = mediaId
+            System.err.println("[ArchiveTune/Audio] loadTrack: mediaId=$mediaId, startPositionMs=$startPositionMs, playWhenReady=$playWhenReady")
 
             CoroutineScope(Dispatchers.IO).launch {
                 var finalUrl = if (mediaId.startsWith("http://") || mediaId.startsWith("https://") || mediaId.startsWith("file://") || mediaId.startsWith("/")) {
@@ -435,13 +463,16 @@ class MusicService {
                             )
                             val streamUrl = resp.getOrNull()?.streamUrl
                             if (!streamUrl.isNullOrBlank()) {
+                                System.err.println("[ArchiveTune/Audio] Resolved direct stream URL from Innertube: $streamUrl")
                                 finalUrl = streamUrl
                             }
                         }
-                    } catch (_: Throwable) {
+                    } catch (t: Throwable) {
+                        System.err.println("[ArchiveTune/Audio] Stream resolution warning: ${t.message}")
                     }
                 }
 
+                System.err.println("[ArchiveTune/Audio] Passing URL to mpv: $finalUrl")
                 mpvPlayer.load(finalUrl, startPositionMs, playWhenReady)
             }
         }
