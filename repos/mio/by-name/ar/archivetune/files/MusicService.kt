@@ -439,9 +439,16 @@ class MusicService {
             }
         )
 
+        private fun checkQueueContinuation() {
+            if (mediaItems.isNotEmpty() && currentMediaItemIndex >= mediaItems.size - 3) {
+                service.loadMoreQueueItems()
+            }
+        }
+
         private var currentPlayingId: String? = null
 
         private fun loadTrack(mediaId: String, startPositionMs: Long, playWhenReady: Boolean) {
+            checkQueueContinuation()
             val cleanId = mediaId.trim().removePrefix("song/")
             if (cleanId.isBlank()) {
                 System.err.println("[ArchiveTune/Audio] loadTrack called with blank mediaId, ignoring")
@@ -947,12 +954,38 @@ class MusicService {
 
     fun getString(resId: Int): String = ""
 
+    private var currentQueue: Queue? = null
+    private var isLoadingMoreQueue = false
+
+    fun loadMoreQueueItems() {
+        val q = currentQueue ?: return
+        if (!q.hasNextPage() || isLoadingMoreQueue) return
+        isLoadingMoreQueue = true
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                System.err.println("[ArchiveTune/Audio] Loading queue.nextPage()...")
+                val newItems = q.nextPage()
+                System.err.println("[ArchiveTune/Audio] queue.nextPage() returned ${newItems.size} items")
+                if (newItems.isNotEmpty()) {
+                    withContext(Dispatchers.Default) {
+                        desktopPlayerImpl.addMediaItems(newItems)
+                    }
+                }
+            } catch (t: Throwable) {
+                System.err.println("[ArchiveTune/Audio] Error in queue.nextPage(): ${t.message}")
+            } finally {
+                isLoadingMoreQueue = false
+            }
+        }
+    }
+
     // Playback / queue commands
     fun playQueue(vararg args: Any?) {
         val queue = args.firstOrNull() as? Queue ?: run {
             System.err.println("[ArchiveTune/Audio] playQueue called without Queue argument: ${args.toList()}")
             return
         }
+        currentQueue = queue
         val playWhenReady = args.getOrNull(1) as? Boolean ?: true
         desktopPlayerImpl.playWhenReady = playWhenReady
 
@@ -1060,13 +1093,35 @@ class MusicService {
         currentMediaMetadata.value = null
     }
 
-    fun startRadioSeamlessly(vararg args: Any?) {}
+    fun startRadioSeamlessly(vararg args: Any?) {
+        val meta = currentMediaMetadata.value ?: return
+        playQueue(moe.rukamori.archivetune.playback.queues.YouTubeQueue.radio(meta))
+    }
 
     fun onInfiniteQueueEnabled() {}
 
     fun onInfiniteQueueDisabled() {}
 
-    fun toggleLike() {}
+    fun toggleLike() {
+        val meta = currentMediaMetadata.value ?: return
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val db = androidx.hilt.navigation.compose.getGlobalMusicDatabase() as? moe.rukamori.archivetune.db.MusicDatabase ?: return@launch
+                val existing = db.getSongById(meta.id)
+                if (existing != null) {
+                    db.update(existing.song.toggleLike())
+                } else {
+                    db.insert(meta)
+                    val inserted = db.getSongById(meta.id)
+                    if (inserted != null) {
+                        db.update(inserted.song.toggleLike())
+                    }
+                }
+            } catch (e: Throwable) {
+                System.err.println("[ArchiveTune/Audio] toggleLike error: ${e.message}")
+            }
+        }
+    }
 
     fun refreshActiveDevice() {}
 

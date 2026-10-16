@@ -1,6 +1,7 @@
 package androidx.compose.material3
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 
 /*
  * compose 1.7's material3 has SliderState and Slider(state = ...) but not this factory, so
@@ -16,4 +17,11 @@ fun rememberSliderState(
     steps: Int = 0,
     onValueChangeFinished: (() -> Unit)? = null,
     enabled: Boolean = true,
-): SliderState = TODO("desktop port has no slider state")
+): SliderState = remember(steps, valueRange) {
+    SliderState(
+        value = value,
+        steps = steps,
+        onValueChangeFinished = onValueChangeFinished,
+        valueRange = valueRange,
+    )
+}

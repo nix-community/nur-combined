@@ -58,7 +58,19 @@ abstract class InternalDatabase : RoomDatabase() {
         const val DB_NAME = "song.db"
 
         fun newInstance(context: Context): MusicDatabase {
-            val dbFile = File(System.getProperty("user.dir"), ".archivetune.db")
+            val dataHome = System.getenv("XDG_DATA_HOME")?.takeIf { it.isNotBlank() }
+                ?: (System.getProperty("user.home") + File.separator + ".local" + File.separator + "share")
+            val appDataDir = File(dataHome, "archivetune").apply { mkdirs() }
+            val dbFile = File(appDataDir, "song.db")
+
+            // Backward compatibility: migrate legacy .archivetune.db from user.dir if present
+            val legacyDb = File(System.getProperty("user.dir"), ".archivetune.db")
+            if (legacyDb.exists() && !dbFile.exists()) {
+                try {
+                    legacyDb.copyTo(dbFile, overwrite = false)
+                } catch (_: Throwable) {}
+            }
+
             // Room's KMP runtime keeps blocking DAO functions working on the JVM through the
             // androidx.room.util shims in RoomJvmSupport.kt, which need a query coroutine context.
             val db = Room.databaseBuilder<InternalDatabase>(

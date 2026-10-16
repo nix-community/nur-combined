@@ -1,11 +1,16 @@
 package coil3.compose
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.drawscope.DrawScope
 
-/*
- * coil3.compose's painter factory; upstream calls
- * rememberAsyncImagePainter(model = ..., contentScale = ...) and renders the result.
- */
+private class EmptyAsyncImagePainter : AsyncImagePainter() {
+    override val painterState = androidx.compose.runtime.mutableStateOf<Any>(AsyncImagePainter.State.Empty())
+    override val intrinsicSize: Size get() = Size.Unspecified
+    override fun DrawScope.onDraw() {}
+}
+
 @Composable
 fun rememberAsyncImagePainter(
     model: Any?,
@@ -17,4 +22,4 @@ fun rememberAsyncImagePainter(
     alignment: Any = Any(),
     onState: ((AsyncImagePainter.State) -> Unit)? = null,
     filterQuality: Any = Any(),
-): AsyncImagePainter = TODO("desktop port has no image painter")
+): AsyncImagePainter = remember { EmptyAsyncImagePainter() }
