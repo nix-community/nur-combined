@@ -11,6 +11,7 @@
 //
 // Check patches:
 //   - Use Nix interpreters and tools in fixture scripts and explicit system PATHs.
+//   - Preserve JSON newline escapes in Claude prompt log expectations under Bash.
 //   - Settle plugin work before removing temporary directories in plugin-using test packages.
 //   - Advance parent-directory timestamps after fixture writes and Zed fixture symlinks.
 //   - Calibrate successful davsync fixture saves against the wall clock, preserving explicit mtimes.
@@ -750,6 +751,14 @@ func patchChecks(files []*sourceFile, o options) error {
 				call, ok := n.(*ast.CallExpr)
 				if !ok {
 					return true
+				}
+				// Bash's echo preserves JSON backslashes, so log assertions must expect
+				// serialized newlines rather than the decoded prompt's line breaks.
+				if dir == "internal/gateway" && f.call(call, "strings", "Contains") && len(call.Args) == 2 {
+					want := firstString(call.Args[1])
+					if strings.HasPrefix(want, `"cache_control":`) && strings.Contains(want, "\n") {
+						f.replace(call.Args[1], strconv.Quote(strings.ReplaceAll(want, "\n", `\n`)))
+					}
 				}
 				program := f.commandName(call)
 				// The sandbox lacks the system installation layout expected by --session.
