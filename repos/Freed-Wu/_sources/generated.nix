@@ -121,10 +121,10 @@
   };
   tree-sitter-tmux = {
     pname = "tree-sitter-tmux";
-    version = "0.1.4";
+    version = "0.1.5";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/t/tree_sitter_tmux/tree_sitter_tmux-0.1.4.tar.gz";
-      sha256 = "sha256-ezfB7xlIOBTNV32bUoiSocOPQZW+b2b25OxsM0+yMow=";
+      url = "https://pypi.org/packages/source/t/tree_sitter_tmux/tree_sitter_tmux-0.1.5.tar.gz";
+      sha256 = "sha256-U7CcRwSG0dekA5oxmj3F2Nw6A5xCsBkcaNGCJNZy4z4=";
     };
   };
   tree-sitter-zathurarc = {
