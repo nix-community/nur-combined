@@ -96,16 +96,54 @@ pkgs.runCommand "sfl-packaging-check"
     ${package}/bin/sing-box-daemon version > daemon-version.txt
     grep -Fq "sing-box-daemon version ${package.version}" daemon-version.txt
 
-    python3 - "${package}/bin/sing-box-daemon" <<'PY'
+    python3 - "${package}/bin/sing-box-daemon" "${package}/opt/sing-box/resources" <<'PY'
     import os
     import socket
+    import struct
     import subprocess
     import sys
     import tempfile
     import time
+    import zlib
     from pathlib import Path
 
     daemon = sys.argv[1]
+    resources = Path(sys.argv[2])
+
+    for name, expected_size in (
+        ("tray.png", (16, 16)),
+        ("tray@2x.png", (32, 32)),
+        ("trayStopped.png", (16, 16)),
+        ("trayStopped@2x.png", (32, 32)),
+    ):
+        data = (resources / name).read_bytes()
+        assert data.startswith(b"\x89PNG\r\n\x1a\n"), f"invalid PNG header in {name}"
+        pos = 8
+        width = height = bit_depth = color_type = 0
+        idat = bytearray()
+        while pos < len(data):
+            length, chunk_type = struct.unpack(">I4s", data[pos : pos + 8])
+            chunk = data[pos + 8 : pos + 8 + length]
+            if chunk_type == b"IHDR":
+                width, height, bit_depth, color_type = struct.unpack(">IIBB", chunk[:10])
+            elif chunk_type == b"IDAT":
+                idat.extend(chunk)
+            pos += 12 + length
+        assert (width, height) == expected_size, f"unexpected size {(width, height)} for {name}"
+        assert (bit_depth, color_type) == (8, 6), f"unexpected format {(bit_depth, color_type)} for {name}"
+        raw = zlib.decompress(bytes(idat))
+        stride = width * 4
+        visible_white = 0
+        for y in range(height):
+            row = raw[y * (stride + 1) : (y + 1) * (stride + 1)]
+            assert row[0] == 0, f"expected filter 0 in {name}"
+            for x in range(width):
+                r, g, b, a = row[1 + x * 4 : 1 + (x + 1) * 4]
+                if a > 0:
+                    assert (r, g, b) == (255, 255, 255), f"non-white pixel {(r, g, b, a)} in {name}"
+                    visible_white += 1
+        assert visible_white > 0, f"no visible pixels in {name}"
+
     with tempfile.TemporaryDirectory(prefix="sfl-test-") as tmp:
         root = Path(tmp)
         worker_sock = root / "worker.sock"

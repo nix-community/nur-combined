@@ -3,8 +3,9 @@
 [Upstream](https://github.com/SagerNet/sing-box-for-desktop) Linux desktop client
 and daemon from [sing-box releases](https://github.com/SagerNet/sing-box/releases)
 for `x86_64-linux` and `aarch64-linux`. Exposes `sfl` (the Electron client) and
-`sing-box-daemon` without colliding with nixpkgs' CLI `sing-box` binary. Licensed
-under GPL-3.0-or-later.
+`sing-box-daemon` without colliding with nixpkgs' CLI `sing-box` binary, and
+replaces the 3D Linux tray icons with white monochrome icons derived from the
+bundled template assets. Licensed under GPL-3.0-or-later.
 
 ## Usage
 
