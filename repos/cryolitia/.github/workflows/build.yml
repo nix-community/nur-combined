@@ -62,7 +62,7 @@ jobs:
         name: cryolitia
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-        extraPullNames: nix-community, cuda-maintainers
+        extraPullNames: nix-community
 
     - name: Build x86_64 nix packages
       if: ${{ matrix.os == 'ubuntu-latest' }}
