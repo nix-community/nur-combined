@@ -1,24 +1,41 @@
-# The npm tarball is upstream's release build: one bun bundle beside its reference bank, with only ink, react and terminal-link left external.
-# Upstream publishes no lockfile, so update-lockfiles resolves the one beside this file.
+# The npm package is upstream's release build: one bun bundle beside its reference bank, with only ink, react and terminal-link left external.
 {
   lib,
   buildNpmPackage,
+  makeWrapper,
   nodejs_24,
   source,
 }:
 buildNpmPackage {
-  inherit (source) pname version src;
+  pname = "lmfpd";
+  inherit (source) version npmDepsHash;
+
+  # source.ts generates a private manifest depending on the published package, and its lock.
+  src = lib.fileset.toSource {
+    root = ./.;
+    fileset = lib.fileset.unions [
+      ./package.json
+      ./package-lock.json
+    ];
+  };
 
   nodejs = nodejs_24;
 
-  postPatch = ''
-    cp ${./package-lock.json} package-lock.json
-  '';
-
-  # Refreshed by update-hashes.
-  npmDepsHash = "sha256-BQlXQ3N219PgEJl8d3o+eBDOb8o72UE849hlBbXPbzc=";
+  nativeBuildInputs = [makeWrapper];
 
   dontNpmBuild = true;
+
+  # Packing the private manifest would ship nothing, so install the resolved tree itself.
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out/lib
+    cp -r node_modules $out/lib/node_modules
+    makeWrapper ${lib.getExe nodejs_24} $out/bin/fpd \
+      --add-flags $out/lib/node_modules/lmfpd/bin/fpd.js
+
+    runHook postInstall
+  '';
 
   doInstallCheck = true;
   installCheckPhase = ''

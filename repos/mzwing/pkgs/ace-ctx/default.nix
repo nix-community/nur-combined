@@ -6,8 +6,8 @@
   makeWrapper,
   xdg-utils,
 }: let
-  inherit (source) pname src;
-  version = lib.removePrefix "v" source.version;
+  pname = "ace-ctx";
+  inherit (source) src version;
 
   # Use the committed crate2nix graph; builds only need nixpkgs' buildRustCrate.
   cargoNix = import ./Cargo.nix {

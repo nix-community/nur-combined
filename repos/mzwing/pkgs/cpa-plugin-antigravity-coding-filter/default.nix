@@ -5,7 +5,7 @@
   stdenv,
 }: let
   pluginId = "antigravity-coding-filter";
-  version = lib.removePrefix "v" source.version;
+  inherit (source) version;
 
   # The host derives the plugin id and version from the file name.
   pluginFile = "${pluginId}-v${version}.${
@@ -15,8 +15,9 @@
   }";
 in
   buildGoApplication rec {
-    inherit (source) pname src;
+    pname = "cpa-plugin-antigravity-coding-filter";
     inherit version;
+    inherit (source) src;
 
     modules = ./gomod2nix.toml;
 
@@ -78,7 +79,7 @@ in
     meta = {
       description = "CLIProxyAPI v7 dynamic plugin for blocking or rewriting non-Antigravity coding software signals";
       homepage = "https://github.com/jellyfish-p/cpa-plugin-antigravity-coding-filter";
-      changelog = "https://github.com/jellyfish-p/cpa-plugin-antigravity-coding-filter/releases/tag/${source.version}";
+      changelog = "https://github.com/jellyfish-p/cpa-plugin-antigravity-coding-filter/releases/tag/${source.rev}";
       license = lib.licenses.mit;
       maintainers = [
         {

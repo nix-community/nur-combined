@@ -1,11 +1,12 @@
 {
   lib,
   buildGoApplication,
+  callPackage,
   source,
-  tree-sitter-nix,
 }:
 buildGoApplication {
-  inherit (source) pname src;
+  pname = "typenix";
+  inherit (source) src;
   version = "0-unstable-${source.date}";
 
   modules = ./gomod2nix.toml;
@@ -20,9 +21,9 @@ buildGoApplication {
     "-w"
   ];
 
-  # Use the packaged tree-sitter-nix source.
+  # Use the tree-sitter-nix revision upstream's flake locks.
   preBuild = ''
-    ln -sfn ${tree-sitter-nix.src}/src internal/nixparser/treesitter_nix/upstream
+    ln -sfn ${(callPackage ./tree-sitter-nix.nix {}).src}/src internal/nixparser/treesitter_nix/upstream
   '';
 
   postInstall = ''

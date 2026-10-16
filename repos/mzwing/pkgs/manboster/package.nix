@@ -1,13 +1,13 @@
-# Shared builder for every manboster release channel; each pkgs/manboster*/default.nix
-# supplies its own nvfetcher source and gomod2nix lockfile.
+# Shared builder for every manboster release channel; each pkgs/manboster*/default.nix supplies its own source and gomod2nix lockfile.
 {
   lib,
   buildGoApplication,
   libffi,
   stdenv,
+  pname,
   source,
   modules,
-  version,
+  version ? source.version,
   # `dev` moved the ldflag vars out of `internal/config`.
   releasePkg ? "internal/config",
   # File holding `const Version`, or null to keep upstream's literal.
@@ -27,8 +27,8 @@
   libffiPath = "${lib.getLib libffi}/lib/libffi${stdenv.hostPlatform.extensions.sharedLibrary}";
 in
   buildGoApplication {
-    inherit (source) pname src;
-    inherit version modules;
+    inherit pname version modules;
+    inherit (source) src;
 
     subPackages = [
       "cmd/manboster"
@@ -52,7 +52,7 @@ in
     ldflags = [
       "-s"
       "-w"
-      "${ldflagPrefix}.BuildCommit=${source.src.rev}"
+      "${ldflagPrefix}.BuildCommit=${source.rev}"
       "${ldflagPrefix}.CurrentChannel=${channel}"
       # `jupiterrider/ffi` dlopens libffi from a package init, so a bare soname would resolve only by luck.
       # It looks the name up in a package-level var rather than a const, which is what lets `-X` reach it.
@@ -68,7 +68,7 @@ in
         README.zh_CN.md \
         CHANGELOG.md \
         SECURITY.md \
-        -t $out/share/doc/${source.pname}
+        -t $out/share/doc/${pname}
     '';
 
     doInstallCheck = true;
@@ -86,8 +86,8 @@ in
 
         echo "$manbosterVersion" | grep -F 'Manboster version '
         echo "$manbodevVersion" | grep -F 'Manbodev version '
-        echo "$manbosterVersion" | grep -F '${channel}, commit ${source.src.rev}'
-        echo "$manbodevVersion" | grep -F '${channel}, commit ${source.src.rev}'
+        echo "$manbosterVersion" | grep -F '${channel}, commit ${source.rev}'
+        echo "$manbodevVersion" | grep -F '${channel}, commit ${source.rev}'
       ''
       + lib.optionalString (versionFile != null) ''
 
@@ -99,8 +99,8 @@ in
         $out/bin/manboster --help >/dev/null
         $out/bin/manbodev --help >/dev/null
 
-        test -f $out/share/doc/${source.pname}/LICENSE
-        test -f $out/share/doc/${source.pname}/README.md
+        test -f $out/share/doc/${pname}/LICENSE
+        test -f $out/share/doc/${pname}/README.md
 
         runHook postInstallCheck
       '';
@@ -110,8 +110,8 @@ in
       homepage = "https://github.com/manboster/manboster";
       changelog =
         if channel == "canary"
-        then "https://github.com/manboster/manboster/commits/${source.src.rev}"
-        else "https://github.com/manboster/manboster/releases/tag/${source.version}";
+        then "https://github.com/manboster/manboster/commits/${source.rev}"
+        else "https://github.com/manboster/manboster/releases/tag/${source.rev}";
       license = lib.licenses.asl20;
       mainProgram = "manboster";
       maintainers = [

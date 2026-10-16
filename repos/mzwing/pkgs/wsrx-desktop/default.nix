@@ -1,10 +1,11 @@
 {
   lib,
   pkgs,
-  source,
 }: let
-  inherit (source) pname src;
-  version = lib.removePrefix "v" source.version;
+  # The desktop app ships in wsrx's workspace, so it builds from wsrx's source and crate graph.
+  source = pkgs.callPackage ../wsrx/source.nix {};
+  pname = "wsrx-desktop";
+  inherit (source) src version;
 
   # Linux link-time and runtime desktop libraries for the GPUI/wgpu renderer.
   linuxDesktopLibraries = with pkgs; [
@@ -29,7 +30,7 @@
   ];
 
   # Use the committed crate2nix graph; builds only need nixpkgs' buildRustCrate.
-  cargoNix = import ./Cargo.nix {
+  cargoNix = import ../wsrx/Cargo.nix {
     inherit pkgs;
     # Match Cargo's 16 release codegen units to keep CI builds within the job limit.
     buildRustCrateForPkgs = pkgs: pkgs.buildRustCrate.override {defaultCodegenUnits = 16;};

@@ -4,7 +4,8 @@
   source,
 }:
 fishPlugins.buildFishPlugin {
-  inherit (source) pname src;
+  pname = "replay-fish";
+  inherit (source) src;
   # Version the tracked HEAD commit as unstable.
   version = "0-unstable-${source.date}";
 

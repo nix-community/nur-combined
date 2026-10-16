@@ -1,31 +1,32 @@
-# Wire package arguments from sources, `pkgs` and sibling packages; callPackage supplies the rest.
+# Wire package arguments from generated sources, `pkgs` and sibling packages; callPackage supplies the rest.
 {lib}: let
-  # Package directories.
+  # Package directories; one whose source.ts has no generated source.nix yet joins once the update workflow generates it.
   packageDirs = dir: let
     entries = builtins.readDir dir;
   in
     builtins.filter (
-      name:
+      name: let
+        path = dir + "/${name}";
+      in
         entries.${name}
         == "directory"
-        && builtins.pathExists (dir + "/${name}/default.nix")
+        && builtins.pathExists (path + "/default.nix")
+        && (builtins.pathExists (path + "/source.ts") -> builtins.pathExists (path + "/source.nix"))
     ) (builtins.attrNames entries);
 
   packages = {
     pkgs,
     dir,
-    sources,
-    extraArgs ? {},
   }: let
     # Arguments this repository supplies; anything else falls through to callPackage.
     autoArgsFor = name: let
       file = dir + "/${name}/default.nix";
       argFor = arg:
-        if arg == "source" && sources ? ${name}
+        if arg == "source"
         then [
           {
             name = arg;
-            value = sources.${name};
+            value = pkgs.callPackage (dir + "/${name}/source.nix") {};
           }
         ]
         else if arg == "pkgs"
@@ -42,13 +43,6 @@
             value = result.${arg};
           }
         ]
-        else if sources ? ${arg}
-        then [
-          {
-            name = arg;
-            value = sources.${arg};
-          }
-        ]
         else [];
     in
       builtins.listToAttrs (
@@ -57,9 +51,7 @@
 
     result = builtins.listToAttrs (map (name: {
       inherit name;
-      value = pkgs.callPackage (dir + "/${name}/default.nix") (
-        autoArgsFor name // extraArgs.${name} or {}
-      );
+      value = pkgs.callPackage (dir + "/${name}/default.nix") (autoArgsFor name);
     }) (packageDirs dir));
   in
     result;

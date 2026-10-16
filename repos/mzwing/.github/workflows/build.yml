@@ -6,8 +6,6 @@ on:
       - main
     paths-ignore:
       - 'pkgs/**'
-      - '_sources/**'
-      - 'nvfetcher.toml'
       - 'README.md'
       - '.github/workflows/update.yml'
       - '.github/workflows/tests.yml'

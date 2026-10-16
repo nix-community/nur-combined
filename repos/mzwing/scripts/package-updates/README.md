@@ -1,55 +1,25 @@
 # Package update pipeline
 
-The update workflow (`.github/workflows/update.yml`) runs four stages, in this order:
+The update workflow (`.github/workflows/update.yml`) runs `scripts/ci/update-packages.sh`, which runs two stages in this order:
 
-1. **`update-sources`** — nvfetcher refreshes `_sources/generated.json` (upstream versions and source hashes).
-2. **`update-lockfiles`** — regenerates crate2nix `Cargo.nix`, gomod2nix `gomod2nix.toml`, pub `pubspec.lock.json` and npm `package-lock.json` files for packages whose source changed.
-3. **`update-pins`** — refreshes package *pins*: data whose URL and hash must change together, declared by packages as `passthru.pins`.
-4. **`update-hashes`** — nix-update recomputes vendored dependency hashes (`vendorHash`, `pnpmDepsHash`, ...) when a package source, package definition, or shared hash input changed.
+1. **`update-sources`** — [nix-repin](https://github.com/so1ve/nix-repin) runs every `pkgs/<name>/source.ts` and writes what it returns beside it: a `source.nix` with the pinned version and source, plus any lockfile, pin file or dependency hash the definition derives from that source.
+2. **`update-hashes`** — nix-update recomputes the vendored dependency hashes only a build reveals (`pnpmDepsHash`, `bunDepsHash`, ...) when a package or a shared hash input changed.
 
-Pins run after lockfiles because pin data can be derived from the regenerated lockfiles, and before hash refreshes so nix-update sees settled pins. NPM lockfile repair is part of the repository's `fetchNpmDeps` wrapper, so it runs inside the dependency FOD before nix-update observes and writes the resulting hash; it does not need a separate pipeline stage.
+A definition built on a GitHub archive or `npm.pkg` is skipped entirely, lock and pin generation included, when its revision or version matches the existing `source.nix`; delete that file to regenerate everything at the same revision. Everything a definition returns is generated, so change the `source.ts` instead.
 
-For push-triggered runs, the workflow passes the pre-push revision as `UPDATE_BASE_REV`, allowing package changes already committed at `HEAD` to trigger a refresh. Working-tree source, lockfile, pin, and flake input changes are detected directly. Changes to `default.nix`, `flake.nix`, `flake.lock`, or `internal/npm-lockfile-fix.nix` refresh every hash-bearing package because they can change dependency outputs without changing an nvfetcher source.
+For push-triggered runs, the workflow passes the pre-push revision as `UPDATE_BASE_REV`, allowing package changes already committed at `HEAD` to trigger a hash refresh. Working-tree changes, including everything `update-sources` just wrote, are detected directly. Changes to `default.nix`, `flake.nix`, `flake.lock`, or `internal/npm-lockfile-fix.nix` refresh every hash-bearing package because they can change dependency outputs without changing a package's source.
 
 ## Which mechanism owns what
 
-- **Static URL, only the hash changes** (dependency FODs recomputed from a lockfile): `update-hashes` / nix-update. Convention: a `*Hash = "sha256-..."` attribute in `pkgs/<name>/default.nix`. Use `nix run .#update-hashes -- <name>` to force a package after external hash drift.
-- **URL and hash must change together** (a version/commit/feature tuple embedded in the URL): `update-pins`, via the package's own `passthru.pins`. The pin data lives in a `pins.json` next to the package's `default.nix` and is imported with `lib.importJSON`, so plain evaluation stays offline.
-- **Upstream ships no lockfile at all** (Flutter projects commonly gitignore `pubspec.lock`, and npm never packs `package-lock.json` into a tarball): `update-lockfiles` resolves one and commits it next to the package's `default.nix`, Flutter's with `flutter pub get` as `pubspec.lock.json`, an npm tarball's with `npm install --package-lock-only --ignore-scripts` as `package-lock.json`, which the package copies in `postPatch`. A Flutter package names the SDK to resolve against through `passthru.pubLockFlutter`, keeping the Flutter version in one place and the runner package-agnostic. A placeholder pub lock carries an empty `packages` map and an `sdks.dart` constraint (pub2nix derives the Dart language version from it): it evaluates, so the repository keeps evaluating before the first resolution lands. Resolution only runs when the source changed, and a Flutter SDK closure is dropped from the store right afterwards — `gc-store` roots every package's build closure, so a multi-gigabyte SDK left behind would ride the shared store cache from then on.
+- **Anything derived from upstream metadata or the source tree** (versions, archives, lockfiles, pins, and an `npmDepsHash` computable from a complete lockfile): the package's `source.ts`, composed from nix-repin's providers and the `crate2nix` and `gomod2nix` providers in `internal/sources.ts`. nix-repin only lets a definition start `nix`, `nix-prefetch-git`, `npm` and `prefetch-npm-deps`, so those two build their tool from the nixpkgs that `flake.lock` pins and run it through `nix shell`.
+- **Hashes only a build reveals** (bun and pnpm dependency FODs, and npm lockfiles that `internal/npm-lockfile-fix.nix` repairs inside the FOD): `update-hashes`. Convention: a `*Hash = "sha256-..."` attribute in `pkgs/<name>/default.nix`. Use `nix run .#update-hashes -- <name>` to force a package after external hash drift.
 
-## The `passthru.pins` contract
+Resolving a pub lock realises a multi-gigabyte Flutter SDK, so `scripts/ci/update-packages.sh` drops the SDK each `pubspec.lock` provider names right afterwards — `gc-store` roots every package's build closure, so an SDK left behind would ride the shared store cache from then on.
 
-A package with coupled URL+hash data declares *what* to pin; the runner owns *how*:
+## Adding a package
 
-```nix
-passthru.pins = {
-  # Prints the pin identity — everything except the hashes — as JSON on stdout, or fails.
-  resolve = pkgs.writeShellApplication {
-    name = "<name>-resolve-pins";
-    runtimeInputs = [ pkgs.curl pkgs.jq /* ... */ ];
-    text = builtins.readFile ./resolve-pins.sh;
-  };
-
-  # Where each prefetched SRI hash lands in pins.json, and the URL it comes from.
-  # `{a.b}` interpolates a dotted path from the resolved identity.
-  hashes."koffi.hash" = "https://example.invalid/{koffi.commit}.tar.gz";
-};
-```
-
-The runner (`nix run .#update-pins`) discovers every package in the current system's flake package set that declares `pins`, then for each one:
-
-1. builds `resolve` and runs it with the package's `_sources/generated.json` entry in `PIN_SOURCE`, rejecting output that is not a JSON object;
-2. compares the identity against `pkgs/<name>/pins.json` with the declared hash paths spliced back in; when they match and every hash is already filled in, it stops without touching the network or the worktree;
-3. expands each `hashes` URL template — a missing or non-string dotted path aborts the run — and prefetches it with `nix store prefetch-file`, rejecting an empty hash;
-4. writes canonical (`jq -S`) JSON atomically, and only when the content actually changed.
-
-Consequences of that split:
-
-- A resolver never reads or writes `pins.json`, never sees `--force`, and needs no knowledge of the repository layout. It is a pure function from the upstream source entry to an identity.
-- Skip-if-unchanged, forcing, prefetching, hash validation and the atomic canonical write exist once, in the runner.
-- `nix run .#update-pins -- <name>` runs only the named packages and forces them: re-download and re-hash even when the identity is unchanged. This is the escape hatch for upstream asset drift or fetcher behavior changes. Unknown names are an error, not a no-op.
-- Resolvers fail loudly: an unexpected tag, a changed upstream manifest shape, or an unresolvable ref aborts the run instead of keeping a potentially wrong pin.
+Commit `pkgs/<name>/source.ts` together with its `default.nix`. `packageDirs` in `internal/discover.nix` keeps a package whose `source.ts` has no `source.nix` yet out of the package set, and the next update run generates its source and lockfiles; from then on `discover.nix` passes the generated `source.nix` to the package as `source`.
 
 ## Failure handling
 
-A failing resolver aborts the workflow before `update-hashes` runs, so a half-updated pin can never be committed. Diagnose locally with `nix run .#update-pins -- <name>`; the resolvers are ordinary scripts and their error messages name the exact check that failed.
+`update-sources` exits on the first definition that fails, before `update-hashes` runs, so the workflow commits nothing from that run. Reproduce on Linux with `nix run .#update-sources -- <name>`; nix-repin builds for Linux only.

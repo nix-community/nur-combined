@@ -7,8 +7,7 @@
   makeWrapper,
   source,
 }: let
-  inherit (source) src;
-  version = lib.removePrefix "v" source.version;
+  inherit (source) src version;
 
   # Build the native tree-sitter kernel from the committed crate2nix graph.
   kernel = let
@@ -43,7 +42,7 @@ in
 
     nodejs = nodejs_22;
 
-    npmDepsHash = "sha256-J8viY38M/loCoJmpxEOIApN6cpf6sU2aa80knVNRSvI=";
+    inherit (source) npmDepsHash;
 
     nativeBuildInputs = [makeWrapper];
 
@@ -89,7 +88,7 @@ in
     meta = {
       description = "Pre-indexed code knowledge graph, auto syncs on code changes — fewer tokens, fewer tool calls, 100% local";
       homepage = "https://github.com/colbymchenry/codegraph";
-      changelog = "https://github.com/colbymchenry/codegraph/releases/tag/${source.version}";
+      changelog = "https://github.com/colbymchenry/codegraph/releases/tag/${source.rev}";
       license = lib.licenses.mit;
       mainProgram = "codegraph";
       maintainers = [

@@ -7,8 +7,8 @@
   xdg-utils,
 }:
 buildGoApplication rec {
-  inherit (source) pname src;
-  version = lib.removePrefix "v" source.version;
+  pname = "cliproxyapiplus";
+  inherit (source) src version;
 
   modules = ./gomod2nix.toml;
 

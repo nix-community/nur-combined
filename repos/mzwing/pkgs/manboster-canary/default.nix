@@ -4,6 +4,7 @@
   source,
 }:
 callPackage ../manboster/package.nix {
+  pname = "manboster-canary";
   inherit source;
   modules = ./gomod2nix.toml;
   version = "0-unstable-${source.date}";

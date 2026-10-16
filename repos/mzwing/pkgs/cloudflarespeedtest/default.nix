@@ -4,8 +4,8 @@
   source,
 }:
 buildGoApplication {
-  inherit (source) pname src;
-  version = lib.removePrefix "v" source.version;
+  pname = "cloudflarespeedtest";
+  inherit (source) src version;
 
   modules = ./gomod2nix.toml;
 
@@ -19,7 +19,7 @@ buildGoApplication {
     "-s"
     "-w"
     # Upstream stamps the tag verbatim, leading "v" included.
-    "-X main.version=${source.version}"
+    "-X main.version=${source.rev}"
   ];
 
   postInstall = ''
@@ -37,7 +37,7 @@ buildGoApplication {
     runHook preInstallCheck
 
     # `-v` fetches api.xiu2.xyz with a 10s timeout; `-h` prints the same stamped version offline, to stdout, and exits 0.
-    $out/bin/CloudflareSpeedTest -h | grep -F 'CloudflareSpeedTest ${source.version}'
+    $out/bin/CloudflareSpeedTest -h | grep -F 'CloudflareSpeedTest ${source.rev}'
     $out/bin/cfst -h >/dev/null
 
     test -f $out/share/cloudflarespeedtest/ip.txt
@@ -50,7 +50,7 @@ buildGoApplication {
   meta = {
     description = "Test Cloudflare CDN latency and speed to find the fastest IP; also supports other CDNs and websites";
     homepage = "https://github.com/XIU2/CloudflareSpeedTest";
-    changelog = "https://github.com/XIU2/CloudflareSpeedTest/releases/tag/${source.version}";
+    changelog = "https://github.com/XIU2/CloudflareSpeedTest/releases/tag/${source.rev}";
     license = lib.licenses.gpl3Only;
     mainProgram = "CloudflareSpeedTest";
     maintainers = [

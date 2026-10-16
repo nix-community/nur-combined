@@ -6,7 +6,8 @@
   source,
 }:
 stdenvNoCC.mkDerivation {
-  inherit (source) pname version src;
+  pname = "cnb-cli";
+  inherit (source) version src;
 
   buildInputs = [nodejs_24];
 

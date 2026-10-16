@@ -6,16 +6,14 @@
   nodejs_24,
   source,
 }: let
-  version = lib.removePrefix "v" source.version;
+  inherit (source) version;
 in
   buildNpmPackage {
-    inherit (source) pname src;
+    pname = "claude-hud";
     inherit version;
+    inherit (source) src npmDepsHash;
 
     nodejs = nodejs_24;
-
-    # Refreshed by update-hashes.
-    npmDepsHash = "sha256-tUtq7BuxiJ7LxIn/R8TRjkZGGLKXLmT+En2ufKn1Q8s=";
 
     nativeBuildInputs = [makeWrapper];
 
@@ -75,7 +73,7 @@ in
     meta = {
       description = "Real-time statusline HUD for Claude Code";
       homepage = "https://github.com/jarrodwatts/claude-hud";
-      changelog = "https://github.com/jarrodwatts/claude-hud/releases/tag/${source.version}";
+      changelog = "https://github.com/jarrodwatts/claude-hud/releases/tag/${source.rev}";
       license = lib.licenses.mit;
       mainProgram = "claude-hud";
       maintainers = [

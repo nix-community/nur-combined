@@ -15,8 +15,8 @@
   sqlite,
   writeScript,
 }: let
-  inherit (source) pname src;
-  version = lib.removePrefix "v" source.version;
+  pname = "kelivo";
+  inherit (source) src version;
 
   # `audioplayers` dlopens decoders from the plugin search path, not from DT_NEEDED.
   gstPlugins = with gst_all_1; [
@@ -25,16 +25,6 @@
     gst-plugins-good
     gst-plugins-bad
   ];
-
-  # The same narrowing `buildFlutterApplication` applies internally, named here so
-  # resolving the lock reuses the build's SDK closure instead of realizing a second
-  # one that also carries the unused Android and Web engine artifacts.
-  flutterForPub = flutter347.override {
-    supportedTargetFlutterPlatforms = [
-      "universal"
-      "linux"
-    ];
-  };
 
   # nixpkgs makes libsqlcipher an unconditional runtime dependency of pub `sqlite3` >=3.5.0 but only carries its hash for 3.5.0 on x86_64-linux, so every other version and system throws at evaluation time.
   # kelivo drives drift against plain sqlite3 and never looks sqlcipher up, so drop it rather than pin hashes that the lockfile update workflow invalidates on each bump.
@@ -52,7 +42,7 @@ in
   flutter347.buildFlutterApplication {
     inherit pname src version;
 
-    # Upstream gitignores pubspec.lock; update-lockfiles resolves and commits this.
+    # Upstream gitignores pubspec.lock; source.ts resolves it with this same flutter347.
     pubspecLock = lib.importJSON ./pubspec.lock.json;
 
     customSourceBuilders.sqlite3 = sqlite3SourceBuilder;
@@ -109,9 +99,6 @@ in
       install -Dm644 assets/app_icon.png \
         $out/share/icons/hicolor/1024x1024/apps/kelivo.png
     '';
-
-    # update-lockfiles resolves pubspec.lock with this; the version lives here only.
-    passthru.pubLockFlutter = flutterForPub;
 
     doInstallCheck = true;
     installCheckPhase = ''

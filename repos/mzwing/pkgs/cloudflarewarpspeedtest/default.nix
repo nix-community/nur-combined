@@ -4,8 +4,8 @@
   source,
 }:
 buildGoApplication {
-  inherit (source) pname src;
-  version = lib.removePrefix "v" source.version;
+  pname = "cloudflarewarpspeedtest";
+  inherit (source) src version;
 
   modules = ./gomod2nix.toml;
 
@@ -19,7 +19,7 @@ buildGoApplication {
     "-s"
     "-w"
     # Upstream stamps the tag verbatim, leading "v" included.
-    "-X main.Version=${source.version}"
+    "-X main.Version=${source.rev}"
   ];
 
   # goCheckHook's getGoDirs honours subPackages, which would narrow the run to the root package, the one package without tests.
@@ -34,7 +34,7 @@ buildGoApplication {
     runHook preInstallCheck
 
     # `-h` exits 2 and prints no version; `-v` prints the stamped one to stdout and exits 0 without touching the network.
-    $out/bin/CloudflareWarpSpeedTest -v | grep -F '${source.version}'
+    $out/bin/CloudflareWarpSpeedTest -v | grep -F '${source.rev}'
 
     test -f $out/share/doc/cloudflarewarpspeedtest/LICENSE
 
@@ -44,7 +44,7 @@ buildGoApplication {
   meta = {
     description = "Test latency and packet loss of Cloudflare WARP IPs and ports to find the fastest endpoints";
     homepage = "https://github.com/puzige/CloudflareWarpSpeedTest";
-    changelog = "https://github.com/puzige/CloudflareWarpSpeedTest/releases/tag/${source.version}";
+    changelog = "https://github.com/puzige/CloudflareWarpSpeedTest/releases/tag/${source.rev}";
     license = lib.licenses.gpl3Only;
     mainProgram = "CloudflareWarpSpeedTest";
     maintainers = [

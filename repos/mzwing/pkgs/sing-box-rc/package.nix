@@ -1,18 +1,17 @@
-# Shared builder for every sing-box pre-release channel; each pkgs/sing-box-*/default.nix
-# supplies its own nvfetcher source and gomod2nix lockfile.
+# Shared builder for every sing-box pre-release channel; each pkgs/sing-box-*/default.nix supplies its own source and gomod2nix lockfile.
 {
   lib,
   buildGoApplication,
   buildPackages,
   coreutils,
   installShellFiles,
+  pname,
   source,
   modules,
-  version,
 }:
 buildGoApplication {
-  inherit (source) pname src;
-  inherit version modules;
+  inherit pname modules;
+  inherit (source) src version;
 
   subPackages = ["cmd/sing-box"];
 
@@ -45,7 +44,7 @@ buildGoApplication {
   ldflags = [
     "-s"
     "-w"
-    "-X=github.com/sagernet/sing-box/constant.Version=${version}"
+    "-X=github.com/sagernet/sing-box/constant.Version=${source.version}"
     # release/LDFLAGS; 1.14 renamed the knob from `internal/godebug.defaultGODEBUG`.
     "-X=runtime.godebugDefault=multipathtcp=0,tlssha1=1,tlsunsafeekm=1"
     "-checklinkname=0"
@@ -69,7 +68,7 @@ buildGoApplication {
     install -Dm444 release/config/sing-box.rules $out/share/polkit-1/rules.d/sing-box.rules
     install -Dm444 release/config/sing-box-split-dns.xml $out/share/dbus-1/system.d/sing-box-split-dns.conf
 
-    install -Dm644 LICENSE README.md -t $out/share/doc/${source.pname}
+    install -Dm644 LICENSE README.md -t $out/share/doc/${pname}
   '';
 
   doInstallCheck = true;
@@ -79,15 +78,15 @@ buildGoApplication {
     singBoxVersion="$($out/bin/sing-box version)"
     echo "$singBoxVersion"
 
-    echo "$singBoxVersion" | grep -F 'sing-box version ${version}'
+    echo "$singBoxVersion" | grep -F 'sing-box version ${source.version}'
     # Both lines fail if the prebuilt cronet archive did not link.
     echo "$singBoxVersion" | grep -F 'with_naive_outbound'
     echo "$singBoxVersion" | grep -F 'CGO: enabled'
 
     $out/bin/sing-box --help >/dev/null
 
-    test -f $out/share/doc/${source.pname}/LICENSE
-    test -f $out/share/doc/${source.pname}/README.md
+    test -f $out/share/doc/${pname}/LICENSE
+    test -f $out/share/doc/${pname}/README.md
 
     runHook postInstallCheck
   '';
@@ -95,7 +94,7 @@ buildGoApplication {
   meta = {
     description = "Universal proxy platform";
     homepage = "https://sing-box.sagernet.org";
-    changelog = "https://github.com/SagerNet/sing-box/releases/tag/${source.version}";
+    changelog = "https://github.com/SagerNet/sing-box/releases/tag/${source.rev}";
     license = lib.licenses.gpl3Plus;
     mainProgram = "sing-box";
     maintainers = [

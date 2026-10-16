@@ -1,19 +1,74 @@
 {
   "nodes": {
+    "deno2nix": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1771449470,
+        "narHash": "sha256-ZGKHKRB7K5aUIyJenXwOcX21F2yTXLa19q3YXQM3E48=",
+        "owner": "aMOPel",
+        "repo": "deno2nix",
+        "rev": "adb4dcea663cd61c19e01c8c36dd73db4af358a5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aMOPel",
+        "ref": "custom-made-fetcher",
+        "repo": "deno2nix",
+        "type": "github"
+      }
+    },
     "devenv": {
       "locked": {
         "dir": "src/modules",
-        "lastModified": 1792071910,
-        "narHash": "sha256-DUCfod12b6e/r9FCjE3+x7mJlVEmIpC10BZKGz+Nrsw=",
+        "lastModified": 1792164733,
+        "narHash": "sha256-ECKkG5ldtOnpoCa4rhldJ7BXSR7Owp5NsiFCB7u9+uY=",
         "owner": "cachix",
         "repo": "devenv",
-        "rev": "1566050ec14ce238983376e118af9fb220454d39",
+        "rev": "0b7e9055a96160091bc1b8dcea6e6771fcfd1a62",
         "type": "github"
       },
       "original": {
         "dir": "src/modules",
         "owner": "cachix",
         "repo": "devenv",
+        "type": "github"
+      }
+    },
+    "gomod2nix": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1789480480,
+        "narHash": "sha256-VBlBE2kv8GZVv9ER9R854iwKunnUccR0MLeidjaYysw=",
+        "owner": "mzwing",
+        "repo": "gomod2nix",
+        "rev": "6d77e78cd95ad43dc8c6317c43791e6f6b88651d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mzwing",
+        "repo": "gomod2nix",
+        "type": "github"
+      }
+    },
+    "nix-repin": {
+      "inputs": {
+        "deno2nix": "deno2nix",
+        "nixpkgs": [
+          "nur-packages",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792092888,
+        "narHash": "sha256-XqwAHSeVWVYax7YFPLC5CKbbMw2SjHNjSJsrVDqkdHA=",
+        "owner": "so1ve",
+        "repo": "nix-repin",
+        "rev": "435ec625004f8049c2535333b747baf53a9a9a4c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "so1ve",
+        "repo": "nix-repin",
         "type": "github"
       }
     },
@@ -71,14 +126,16 @@
     },
     "nur-packages": {
       "inputs": {
+        "gomod2nix": "gomod2nix",
+        "nix-repin": "nix-repin",
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1792071829,
-        "narHash": "sha256-vMHhHjRzEw08PjVPlcgrdez3Q/Dk3rEOaMX8ZGe7h/o=",
+        "lastModified": 1792174357,
+        "narHash": "sha256-Cp7RXhBwstDRyzLeUtBIEtuhPq1BercIhSAaCatp0ZI=",
         "owner": "mzwing",
         "repo": "nur-packages",
-        "rev": "bbc36d3fec9d27819ba1747cb6d000ce1973404a",
+        "rev": "923d8c54ff6f5991cebddc7c50f750744a89f989",
         "type": "github"
       },
       "original": {

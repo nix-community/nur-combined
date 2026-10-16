@@ -4,8 +4,8 @@
   source,
 }:
 buildGoApplication rec {
-  inherit (source) pname src;
-  version = lib.removePrefix "v" source.version;
+  pname = "subs-check-pro";
+  inherit (source) src version;
 
   modules = ./gomod2nix.toml;
 
@@ -22,7 +22,7 @@ buildGoApplication rec {
     "-w"
     "-X main.Version=${version}"
     # Upstream stamps a short commit here and prints "<version>-<commit>" on startup.
-    # nvfetcher pins by tag, so there is no commit to stamp.
+    # The source is pinned by tag, so there is no commit to stamp.
     "-X main.CurrentCommit=nix"
   ];
 

@@ -1,12 +1,15 @@
 {
   lib,
   buildNpmPackage,
+  callPackage,
   runCommand,
   python3,
   vsce,
-  source,
   typenix,
 }: let
+  # The extension lives in typenix's tree, whose source also pins its npm dependency hash.
+  source = callPackage ../typenix/source.nix {};
+
   # Remove the vsce development dependency and its native keytar dependency.
   extensionSrc =
     runCommand "typenix-extension-src" {
@@ -32,7 +35,7 @@ in
 
     src = extensionSrc;
 
-    npmDepsHash = "sha256-s4D+JxR6GCyL+LunCG5IZOncfOlahW1VfC/zKafhYQk=";
+    inherit (source) npmDepsHash;
 
     nativeBuildInputs = [vsce];
 

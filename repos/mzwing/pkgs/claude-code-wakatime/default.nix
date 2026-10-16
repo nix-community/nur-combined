@@ -7,16 +7,14 @@
   wakatime-cli,
   source,
 }: let
-  version = lib.removePrefix "v" source.version;
+  inherit (source) version;
 in
   buildNpmPackage {
-    inherit (source) pname src;
+    pname = "claude-code-wakatime";
     inherit version;
+    inherit (source) src npmDepsHash;
 
     nodejs = nodejs_24;
-
-    # Refreshed by update-hashes.
-    npmDepsHash = "sha256-XTZaxrMfPv9C+4HMvRmPg4mM7Y/XR/jPltsEqco4/Fo=";
 
     nativeBuildInputs = [makeWrapper];
 
@@ -68,7 +66,7 @@ in
     meta = {
       description = "WakaTime plugin for Claude Code";
       homepage = "https://github.com/wakatime/claude-code-wakatime";
-      changelog = "https://github.com/wakatime/claude-code-wakatime/releases/tag/${source.version}";
+      changelog = "https://github.com/wakatime/claude-code-wakatime/releases/tag/${source.rev}";
       license = lib.licenses.bsd3;
       mainProgram = "claude-code-wakatime";
       maintainers = [

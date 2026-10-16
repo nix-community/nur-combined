@@ -4,8 +4,8 @@
   source,
 }:
 buildGoApplication rec {
-  inherit (source) pname src;
-  version = lib.removePrefix "v" source.version;
+  pname = "gryph";
+  inherit (source) src version;
 
   modules = ./gomod2nix.toml;
 
@@ -17,8 +17,8 @@ buildGoApplication rec {
   ldflags = [
     "-s"
     "-w"
-    "-X github.com/safedep/gryph/internal/version.Version=${source.version}"
-    "-X github.com/safedep/gryph/internal/version.Commit=${source.version}"
+    "-X github.com/safedep/gryph/internal/version.Version=${source.rev}"
+    "-X github.com/safedep/gryph/internal/version.Commit=${source.rev}"
   ];
 
   doCheck = true;
@@ -37,9 +37,9 @@ buildGoApplication rec {
   installCheckPhase = ''
     runHook preInstallCheck
 
-    $out/bin/gryph --version | grep -F '${source.version}'
+    $out/bin/gryph --version | grep -F '${source.rev}'
     $out/bin/gryph --help >/dev/null
-    $out/bin/gryph version | grep -F 'gryph ${source.version}'
+    $out/bin/gryph version | grep -F 'gryph ${source.rev}'
 
     test -f $out/share/doc/gryph/LICENSE
     test -f $out/share/doc/gryph/README.md
@@ -54,7 +54,7 @@ buildGoApplication rec {
   meta = {
     description = "Security layer for AI coding agents";
     homepage = "https://github.com/safedep/gryph";
-    changelog = "https://github.com/safedep/gryph/releases/tag/${source.version}";
+    changelog = "https://github.com/safedep/gryph/releases/tag/${source.rev}";
     license = lib.licenses.asl20;
     mainProgram = "gryph";
     maintainers = [

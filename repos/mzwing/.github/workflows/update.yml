@@ -6,7 +6,6 @@ on:
       - main
     paths:
       - 'pkgs/**'
-      - 'nvfetcher.toml'
       - 'default.nix'
       - 'flake.nix'
       - 'flake.lock'
@@ -55,21 +54,13 @@ jobs:
         gc-max-store-size-linux: 4G
         purge-last-accessed: 0
 
-    - name: Restore nvfetcher database
-      uses: actions/cache@v6
-      with:
-        path: ~/.local/share/nvfetcher
-        key: nvfetcher-${{ github.sha }}
-        restore-keys: |
-          nvfetcher-
-
     - name: Update devenv inputs
       run: devenv update
 
     - name: Update flake inputs
       run: nix flake update
 
-    - name: Update sources, lockfiles, pins and dependency hashes
+    - name: Update sources and dependency hashes
       shell: bash
       env:
         # Avoid anonymous GitHub API limits on shared runners.
@@ -92,7 +83,7 @@ jobs:
     - name: Commit and push changes
       uses: mzwing/nix-actions/git/commit-and-push@master
       with:
-        paths: devenv.lock flake.lock _sources pkgs
+        paths: devenv.lock flake.lock pkgs
         message: 'chore: update packages'
         trigger-workflow: build.yml
         github-token: ${{ github.token }}
@@ -103,14 +94,3 @@ jobs:
       uses: mzwing/nix-actions/nix/gc-store@master
       with:
         gcroots-name: nur-ci-update-closure
-
-    # Keep the newest existing nvfetcher cache before the post-job save.
-    - name: Purge old nvfetcher caches
-      if: always()
-      env:
-        GH_TOKEN: ${{ github.token }}
-      run: |
-        set -euo pipefail
-        gh cache list --limit 100 --json id,key,createdAt |
-          jq -r '[.[] | select(.key | startswith("nvfetcher-"))] | sort_by(.createdAt) | .[:-1][] | .id' |
-          xargs -r -n 1 gh cache delete

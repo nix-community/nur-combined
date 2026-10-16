@@ -3,8 +3,8 @@
   pkgs,
   source,
 }: let
-  inherit (source) pname src;
-  version = lib.removePrefix "v" source.version;
+  pname = "haru";
+  inherit (source) src version;
 
   # Use the committed crate2nix graph; builds only need nixpkgs' buildRustCrate.
   cargoNix = import ./Cargo.nix {

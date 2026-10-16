@@ -1,17 +1,19 @@
 # Format tracked Nix sources except generated files.
-nix_sources := "git ls-files '*.nix' ':!:_sources/generated.nix' ':!:pkgs/*/Cargo.nix'"
+nix_sources := "git ls-files '*.nix' ':!:pkgs/*/source.nix' ':!:pkgs/typenix/tree-sitter-nix.nix' ':!:pkgs/*/Cargo.nix'"
 
+ts_sources := "git ls-files '*.ts'"
 shell_sources := "git ls-files '*.sh'"
 python_sources := "git ls-files '*.py'"
 
 default: lint
 
 # CI lint checks; flake evaluation needs a warm store.
-lint: lint-nix lint-nix-types lint-actions lint-shell lint-python
+lint: lint-nix lint-nix-types lint-ts lint-actions lint-shell lint-python
 
 # Format in place.
 fmt:
     {{ nix_sources }} | xargs alejandra
+    {{ ts_sources }} | xargs deno fmt
     {{ shell_sources }} | xargs shfmt --write
     {{ python_sources }} | xargs ruff format
     {{ python_sources }} | xargs ruff check --fix
@@ -21,6 +23,11 @@ lint-nix:
 
 lint-nix-types:
     typenix --noEmit
+
+lint-ts:
+    {{ ts_sources }} | xargs deno fmt --check
+    {{ ts_sources }} | xargs deno lint
+    {{ ts_sources }} | xargs deno check
 
 lint-actions:
     actionlint

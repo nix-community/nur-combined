@@ -23,15 +23,12 @@
   patchelf,
   zip,
   writeText,
-  writeShellApplication,
-  curl,
-  jq,
   xdg-utils,
   xprop,
   xwininfo,
 }: let
-  inherit (source) pname src;
-  version = lib.removePrefix "v" source.version;
+  pname = "bakamusic";
+  inherit (source) src version;
 
   pins = lib.importJSON ./pins.json;
 
@@ -338,25 +335,6 @@ in
 
       runHook postInstallCheck
     '';
-
-    passthru.pins = {
-      # Prints the pin identity as JSON; update-pins fills in the hashes below.
-      resolve = writeShellApplication {
-        name = "bakamusic-resolve-pins";
-        runtimeInputs = [
-          curl
-          jq
-        ];
-        text = builtins.readFile ./resolve-pins.sh;
-      };
-
-      # Where each prefetched hash lands, and the URL it is computed from.
-      # `{a.b}` interpolates a dotted path from the resolved identity.
-      hashes = {
-        "koffi.hash" = "https://codeberg.org/Koromix/rygel/archive/{koffi.commit}.tar.gz";
-        "mpvRuntime.librempeg.hash" = "https://github.com/librempeg/librempeg/archive/{mpvRuntime.librempeg.commit}.tar.gz";
-      };
-    };
 
     meta = {
       description = "Plugin-based, customizable, ad-free music player";

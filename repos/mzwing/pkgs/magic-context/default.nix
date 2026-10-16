@@ -7,7 +7,7 @@
   nodejs_24,
   source,
 }: let
-  version = lib.removePrefix "v" source.version;
+  inherit (source) version;
 
   # Refreshed by update-hashes via passthru.updateCustomDeps.
   bunDepsHash = "sha256-TdiHTwmZ+BBmCzWN0bZ4ZIhz7sdWW86tygdGuO0Q2T8=";
@@ -17,8 +17,9 @@
   pkgDir = "$out/lib/node_modules/@cortexkit/magic-context";
 in
   stdenvNoCC.mkDerivation {
-    inherit (source) pname src;
+    pname = "magic-context";
     inherit version;
+    inherit (source) src;
 
     nativeBuildInputs = [bun makeWrapper];
 
@@ -76,7 +77,7 @@ in
     meta = {
       description = "Unbounded context. Memory that manages itself. One session, for life. The hippocampus for coding agents, part of CortexKit";
       homepage = "https://github.com/cortexkit/magic-context";
-      changelog = "https://github.com/cortexkit/magic-context/releases/tag/${source.version}";
+      changelog = "https://github.com/cortexkit/magic-context/releases/tag/${source.rev}";
       license = lib.licenses.mit;
       mainProgram = "magic-context";
       maintainers = [

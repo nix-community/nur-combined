@@ -10,8 +10,8 @@
   lsof,
   xdg-utils,
 }: let
-  inherit (source) pname src;
-  version = lib.removePrefix "v" source.version;
+  pname = "autocli";
+  inherit (source) src version;
 
   cargoNixPath = ./Cargo.nix;
 

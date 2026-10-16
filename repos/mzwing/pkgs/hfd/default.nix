@@ -14,7 +14,8 @@
   wget,
 }:
 stdenvNoCC.mkDerivation {
-  inherit (source) pname src;
+  pname = "hfd";
+  inherit (source) src;
   # Use an unstable version because fetchgit omits revision metadata.
   version = "0-unstable-${source.date}";
 

@@ -1,4 +1,4 @@
-# Refresh static-URL dependency hashes; update-pins handles coupled URLs and hashes.
+# Refresh the dependency hashes only a build reveals; nix-repin computes the rest with each package's source.
 {pkgs}: let
   script = pkgs.writeShellApplication {
     name = "update-hashes";
@@ -11,9 +11,7 @@
       pkgs.nix-update
     ];
     runtimeEnv.SYSTEM = pkgs.stdenv.hostPlatform.system;
-    # Prepend the shared helpers rather than sourcing them at runtime: a path inside
-    # the flake source is not reliably materialised when the worktree is dirty.
-    text = builtins.readFile ./lib/update-utils.sh + builtins.readFile ./update-hashes.sh;
+    text = builtins.readFile ./update-hashes.sh;
   };
 in {
   update-hashes = {
