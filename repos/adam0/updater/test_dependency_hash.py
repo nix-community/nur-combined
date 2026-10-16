@@ -10,6 +10,7 @@ from .models import PackageRef, PackageState
 from .package_backend import (
     _fake_hash,
     _refresh_dependency_hashes,
+    _refresh_source_files,
     package_hash_files,
     update_package,
 )
@@ -200,6 +201,88 @@ class DependencyHashRefreshTests(unittest.TestCase):
                 _refresh_dependency_hashes(_package_ref(root), timeout="1m")
 
             self.assertEqual(client.read_text(), 'vendorHash = "sha256-old";\n')
+
+
+class SourceFileRefreshTests(unittest.TestCase):
+    def test_vendored_manifest_follows_the_verified_source(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            package = root / "package"
+            source = root / "source"
+            package.mkdir()
+            source.mkdir()
+            (package / "manifest.toml").write_text("old")
+            (source / "manifest.toml").write_text("new")
+            state = PackageState(
+                "1", "stable", src_path=str(source), source_files=("manifest.toml",)
+            )
+            _refresh_source_files(_package_ref(package), state)
+            self.assertEqual((package / "manifest.toml").read_text(), "new")
+
+    def test_paths_outside_package_are_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            for name in ("../outside", "/tmp/outside", "."):
+                with self.subTest(name=name), self.assertRaises(ValueError):
+                    _refresh_source_files(
+                        _package_ref(root),
+                        PackageState("1", "stable", src_path=str(root), source_files=(name,)),
+                    )
+
+    def test_symlink_escape_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            package = root / "package"
+            package.mkdir()
+            (root / "manifest.toml").write_text("outside")
+            (package / "manifest.toml").symlink_to(root / "manifest.toml")
+            with self.assertRaises(ValueError):
+                _refresh_source_files(
+                    _package_ref(package),
+                    PackageState(
+                        "1", "stable", src_path=str(root), source_files=("manifest.toml",)
+                    ),
+                )
+            self.assertEqual((root / "manifest.toml").read_text(), "outside")
+
+    def test_failed_copy_rolls_back_prior_source_files(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "source"
+            source.mkdir()
+            entry = root / "default.nix"
+            entry.write_text("old source")
+            manifest = root / "manifest.toml"
+            manifest.write_text("old manifest")
+            (source / "manifest.toml").write_text("new manifest")
+            before = PackageState("1", "stable", src_rev="old")
+            after = PackageState(
+                "2",
+                "stable",
+                src_rev="new",
+                src_path=str(source),
+                source_files=("manifest.toml", "missing.toml"),
+            )
+            with (
+                patch("updater.transactions.ROOT", root),
+                patch("updater.transactions.git_changed_files", return_value=set()),
+                patch("updater.package_backend.read_state", side_effect=[before, after]),
+                patch(
+                    "updater.package_backend._run_nix_update",
+                    side_effect=lambda *a, **k: entry.write_text("new source"),
+                ),
+                patch(
+                    "updater.package_backend._update_source_with_verification", return_value=None
+                ),
+                patch("updater.package_backend.latest_release_prefix_for_url", return_value=None),
+                patch("updater.validation.version_is_older", return_value=False),
+                patch("updater.package_backend._refresh_dependency_hashes") as refresh,
+            ):
+                result = update_package(_package_ref(root))
+            self.assertEqual(result.status, "failed")
+            self.assertEqual(entry.read_text(), "old source")
+            self.assertEqual(manifest.read_text(), "old manifest")
+            refresh.assert_not_called()
 
 
 class UpdatePackageHashRefreshTests(unittest.TestCase):

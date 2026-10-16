@@ -102,6 +102,8 @@ pkgs:
     srcRev = if builtins.isAttrs src && src ? rev then src.rev else null;
     srcHash = if builtins.isAttrs src && src ? outputHash then src.outputHash else null;
     dependencyHash = if builtins.isAttrs pkg && pkg ? dependencyHash then pkg.dependencyHash else null;
+    srcPath = if pkg ? updateSourceFiles then toString src else null;
+    sourceFiles = pkg.updateSourceFiles or [];
   }}
 ''',
     )
@@ -114,6 +116,8 @@ pkgs:
         src_rev=data.get("srcRev"),
         src_hash=data.get("srcHash"),
         dependency_hash=data.get("dependencyHash"),
+        src_path=data.get("srcPath"),
+        source_files=tuple(data.get("sourceFiles") or []),
     )
 
 

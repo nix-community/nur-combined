@@ -67,6 +67,7 @@ in
     '';
 
     passthru = {
+      updateSourceFiles = ["manifest.toml"];
       daemon = server;
       inherit
         # keep-sorted start

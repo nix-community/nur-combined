@@ -82,6 +82,11 @@ def update_package(
 
         if validation.dependency_hash_refresh_allowed:
             try:
+                _refresh_source_files(ref, after)
+            except (OSError, ValueError) as error:
+                transaction.restore()
+                return UpdateResult(ref.attr_path, "failed", f"source file refresh failed: {error}")
+            try:
                 _refresh_dependency_hashes(ref, timeout=timeout)
             except CommandError as error:
                 transaction.restore()
@@ -111,6 +116,27 @@ def update_package(
                 sorted(owned_changed),
             )
         return UpdateResult(ref.attr_path, "updated", validation.reason, sorted(owned_changed))
+
+
+def _refresh_source_files(ref: PackageRef, state: PackageState) -> None:
+    """Copy declared vendored files from the verified source into the package."""
+    if not state.source_files:
+        return
+    if not state.src_path or ref.file_path.name != "default.nix":
+        raise ValueError("updateSourceFiles requires a source and a directory package")
+    source = Path(state.src_path).resolve()
+    package = ref.file_path.parent.resolve()
+    for name in state.source_files:
+        relative = Path(name)
+        if relative.is_absolute() or ".." in relative.parts or relative == Path("."):
+            raise ValueError(f"invalid source file path: {name}")
+        upstream = (source / relative).resolve()
+        vendored = (package / relative).resolve()
+        if not upstream.is_relative_to(source) or not vendored.is_relative_to(package):
+            raise ValueError(f"source file escapes its root: {name}")
+        if not vendored.is_file():
+            raise ValueError(f"vendored source file must already exist: {name}")
+        vendored.write_bytes(upstream.read_bytes())
 
 
 def _update_source_with_verification(

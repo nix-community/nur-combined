@@ -26,6 +26,8 @@ class PackageState:
     src_rev: str | None = None
     src_hash: str | None = None
     dependency_hash: str | None = None
+    src_path: str | None = None
+    source_files: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)

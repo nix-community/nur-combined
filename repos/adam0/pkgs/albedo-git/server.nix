@@ -5,6 +5,7 @@
   chrome-headless-shell,
   coreutils,
   fetchFromGitHub,
+  fetchgit,
   fetchurl,
   gleam,
   lib,
@@ -91,26 +92,35 @@
   # Copy from the pinned source so restricted NUR evaluation needs no IFD.
   manifest = fromTOML (readFile ./manifest.toml);
 
-  hexPackages =
+  gitHashes.barrel_mcp.dependencyHash = "sha256-uXSOjtElwT4ZBeLv8IrIaAKr9se1GdsZ5pcEQlXX7AE=";
+
+  packages =
     map (p: {
-      inherit
-        (p)
-        # keep-sorted start
-        name
-        version
-        # keep-sorted end
-        ;
-      archive = fetchurl {
-        url = "https://repo.hex.pm/tarballs/${p.name}-${p.version}.tar";
-        sha256 = toLower p.outer_checksum;
-      };
+      inherit (p) name version source;
+      archive =
+        if p.source == "hex"
+        then
+          fetchurl {
+            url = "https://repo.hex.pm/tarballs/${p.name}-${p.version}.tar";
+            sha256 = toLower p.outer_checksum;
+          }
+        else if p.source == "git"
+        then
+          fetchgit {
+            url = p.repo;
+            rev = p.commit;
+            hash = gitHashes.${p.name}.dependencyHash;
+          }
+        else throw "Unsupported Gleam package source: ${p.source}";
     })
     manifest.packages;
 
   packageIndex = toFile "packages.toml" (
     "[packages]\n"
-    + concatMapStrings (p: "${p.name} = \"${p.version}\"\n") hexPackages
+    + concatMapStrings (p: "${p.name} = \"${p.version}\"\n") packages
     + "\n[git]\n"
+    + concatMapStrings (p: "[git.${p.name}]\ncommit = \"${p.commit}\"\n")
+    (builtins.filter (p: p.source == "git") manifest.packages)
   );
 in
   stdenv.mkDerivation {
@@ -147,10 +157,18 @@ in
 
       ${concatMapStringsSep "\n" (p: ''
           mkdir -p build/packages/${p.name} "$TMPDIR/hex-${p.name}"
-          tar -xf ${p.archive} -C "$TMPDIR/hex-${p.name}"
-          tar -xzf "$TMPDIR/hex-${p.name}/contents.tar.gz" -C build/packages/${p.name}
+          ${
+            if p.source == "hex"
+            then ''
+              tar -xf ${p.archive} -C "$TMPDIR/hex-${p.name}"
+              tar -xzf "$TMPDIR/hex-${p.name}/contents.tar.gz" -C build/packages/${p.name}
+            ''
+            else ''
+              cp -R ${p.archive}/. build/packages/${p.name}/
+            ''
+          }
         '')
-        hexPackages}
+        packages}
       cp ${packageIndex} build/packages/packages.toml
       chmod -R u+w build/packages
 
