@@ -9,12 +9,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "qsp-lib";
-  version = "5.9.5-unstable-2026-10-15";
+  version = "5.9.5-unstable-2026-10-16";
   src = fetchFromGitHub {
     owner = "QSPFoundation";
     repo = "qsp";
-    rev = "46b0660707fc8701389f45e21c51fdb629af7e14";
-    hash = "sha256-AdqWsthFDhmL1+AQu4L7YytzVSiWdczvD1ny7t+7h1U=";
+    rev = "54f19bd1dffa16b2b69bb12dda362697c5c5baef";
+    hash = "sha256-GoTSoFX0iRuLn9mBaPOhnKr4sWU7BpvZ2SMEuwthN28=";
   };
   __structuredAttrs = true;
   strictDeps = true;
