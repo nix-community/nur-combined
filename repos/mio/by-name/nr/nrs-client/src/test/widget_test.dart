@@ -76,6 +76,57 @@ void main() {
     expect(find.text('Region'), findsOneWidget);
   });
 
+  testWidgets('AU call without login shows NRS Login Required dialog', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        home: DialScreen(
+          proxyUrl: '',
+          initialCountry: 'AU',
+          onUpdateSettings: (proxy, country) {},
+          onStartCall: (recipient, name, phone, notes, state, {password, token, country}) {},
+        ),
+      ),
+    );
+
+    // Enter a number to call
+    await tester.enterText(find.widgetWithText(TextField, 'Phone Number'), '0298765432');
+    await tester.ensureVisible(find.text('Start NRS Internet Relay Call'));
+    await tester.tap(find.text('Start NRS Internet Relay Call'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('NRS Login Required'), findsOneWidget);
+  });
+
+  testWidgets('NZ call without login allows guest calling', (WidgetTester tester) async {
+    String? calledRecipient;
+    String? calledCountry;
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: DialScreen(
+          proxyUrl: '',
+          initialCountry: 'NZ',
+          onUpdateSettings: (proxy, country) {},
+          onStartCall: (recipient, name, phone, notes, state, {password, token, country}) {
+            calledRecipient = recipient;
+            calledCountry = country;
+          },
+        ),
+      ),
+    );
+
+    // Enter a number to call
+    await tester.enterText(find.widgetWithText(TextField, 'Phone Number'), '0211234567');
+    await tester.ensureVisible(find.text('Start NZ Relay Text Call'));
+    await tester.tap(find.text('Start NZ Relay Text Call'));
+    await tester.pumpAndSettle();
+
+    // Login required dialog should NOT appear for NZ
+    expect(find.text('NRS Login Required'), findsNothing);
+    expect(calledRecipient, '0211234567');
+    expect(calledCountry, 'NZ');
+  });
+
   test('detectInitialCountry returns valid country code', () {
     final country = DialScreen.detectInitialCountry();
     expect(country == 'AU' || country == 'NZ', isTrue);

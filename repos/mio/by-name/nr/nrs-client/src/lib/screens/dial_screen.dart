@@ -175,7 +175,7 @@ class _DialScreenState extends State<DialScreen> {
     try {
       CheckGeoStatusRequest(
         proxyUrl: widget.proxyUrl.isEmpty ? null : widget.proxyUrl,
-        country: _selectedCountry,
+        country: null,
       ).sendSignalToRust();
     } catch (_) {
       // In test environments or when native rinf library is not loaded, ignore
@@ -202,6 +202,12 @@ class _DialScreenState extends State<DialScreen> {
       _selectedState = newCountry == 'NZ' ? 'Auckland' : 'NSW';
       _loginError = null;
     });
+    try {
+      CheckGeoStatusRequest(
+        proxyUrl: widget.proxyUrl.isEmpty ? null : widget.proxyUrl,
+        country: newCountry,
+      ).sendSignalToRust();
+    } catch (_) {}
   }
 
   void _performLogin() {
@@ -323,28 +329,23 @@ class _DialScreenState extends State<DialScreen> {
       return;
     }
 
-    // Standard call requires login or credentials
-    if (!_isAuthenticated && (_userToken == null || _userToken!.isEmpty)) {
+    // Australian Government regulations (since April 2021) strictly require NRS login for standard calls.
+    // In New Zealand (NZ Relay), unregistered / guest calls are permitted.
+    if (!isNz && !_isAuthenticated && (_userToken == null || _userToken!.isEmpty)) {
       final phone = _phoneController.text.trim();
       final pwd = _passwordController.text;
 
       if (phone.isEmpty || pwd.isEmpty) {
-        final emNum = isNz ? '111' : '000';
-        final svcName = isNz ? 'NZ Relay' : 'NRS';
         showDialog(
           context: context,
           builder: (ctx) => AlertDialog(
             icon: const Icon(Icons.lock_clock, color: Colors.amber, size: 40),
-            title: Text('$svcName Login Required'),
-            content: Text(
-              isNz
-                  ? 'NZ Relay / TRS accounts allow registered users to make standard text relay calls.\n\n'
-                    'Please enter your registered phone number / TRS User ID and password in the Account section above, '
-                    'or call $emNum if this is an emergency.'
-                  : 'Australian Government regulations (since April 2021) require all users to be logged in '
-                    'with their registered NRS account to make standard calls.\n\n'
-                    'Please enter your registered phone number and password in the Account section above, '
-                    'or call $emNum if this is an emergency.',
+            title: const Text('NRS Login Required'),
+            content: const Text(
+              'Australian Government regulations (since April 2021) require all users to be logged in '
+              'with their registered NRS account to make standard calls.\n\n'
+              'Please enter your registered phone number and password in the Account section above, '
+              'or call Triple Zero (000) if this is an emergency.',
             ),
             actions: [
               TextButton(
@@ -358,10 +359,14 @@ class _DialScreenState extends State<DialScreen> {
       }
     }
 
+    final callerNumber = _phoneController.text.trim().isNotEmpty
+        ? _phoneController.text.trim()
+        : (isNz ? '0' : '000');
+
     widget.onStartCall(
       number,
       _displayName.isNotEmpty ? _displayName : _nameController.text.trim(),
-      _phoneController.text.trim(),
+      callerNumber,
       _notesController.text.trim(),
       _selectedState,
       password: _passwordController.text.isNotEmpty ? _passwordController.text : null,
