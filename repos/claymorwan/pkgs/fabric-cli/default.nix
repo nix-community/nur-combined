@@ -2,6 +2,7 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+  nix-update-script,
 }:
 
 buildGoModule (finallAttrs: {
@@ -27,6 +28,8 @@ buildGoModule (finallAttrs: {
   postInstall = ''
     mv $out/bin/src $out/bin/fabric-cli
   '';
+
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {
     description = "An alternative super-charged CLI for Fabric";
