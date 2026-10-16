@@ -29,11 +29,13 @@ jobs:
 
       - name: Install nix
         uses: DeterminateSystems/nix-installer-action@3138316df39ed29be04236d7ffc686fa525866aa # v23
+        with:
+          github-token: "${{ steps.app-token.outputs.token }}"
 
       - name: Update flake.lock
         uses: DeterminateSystems/update-flake-lock@da03c0f078bc4b2c37ee4f7e072d34bf8f188bb3 # v29
         with:
-          github-token: "${{ steps.app-token.outputs.token }}"
+          token: "${{ steps.app-token.outputs.token }}"
           commit-msg: "build(deps): update flake.lock"
           pr-title: "Update `flake.lock`"
           pr-assignees: "${{ github.repository_owner }}"
