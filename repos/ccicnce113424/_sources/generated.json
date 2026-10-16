@@ -492,13 +492,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "cc07aebe51efac87a396675792d48400cae4b9b5",
-            "sha256": "sha256-97JYYbaA/zwc2DZZt1WkJysTiP7yh4X8TWcCKIlYMww=",
+            "rev": "e86cffd0e42c9a9db3fed56c6493a1030892680f",
+            "sha256": "sha256-drDq2eOi2easSvpHmo/9oRrwncVLtjdCmRG2UwV33SQ=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://gitlab.freedesktop.org/pipewire/pipewire.git"
         },
-        "version": "cc07aebe51efac87a396675792d48400cae4b9b5"
+        "version": "e86cffd0e42c9a9db3fed56c6493a1030892680f"
     },
     "pipewire-bluez5-lhdc-jd-git": {
         "cargoLock": null,
