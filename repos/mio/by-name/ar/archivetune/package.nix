@@ -28,6 +28,7 @@
   makeDesktopItem,
   makeWrapper,
   mpv,
+  yt-dlp,
   nix-update-script,
   zlib,
 }:
@@ -373,7 +374,7 @@ stdenv.mkDerivation {
       fi
 
       makeWrapper $out/Applications/ArchiveTune.app/Contents/MacOS/ArchiveTune $out/bin/archivetune \
-        --prefix PATH : "${lib.makeBinPath [ mpv ]}" \
+        --prefix PATH : "${lib.makeBinPath [ mpv yt-dlp ]}" \
         --set ARCHIVETUNE_MPV_PATH "${mpv}/bin/mpv"
     else
       if [ -f $out/lib/archivetune/lib/app/ArchiveTune.cfg ]; then
@@ -381,7 +382,7 @@ stdenv.mkDerivation {
       fi
 
       makeWrapper $out/lib/archivetune/bin/ArchiveTune $out/bin/archivetune \
-        --prefix PATH : "${lib.makeBinPath [ mpv ]}" \
+        --prefix PATH : "${lib.makeBinPath [ mpv yt-dlp ]}" \
         --set ARCHIVETUNE_MPV_PATH "${mpv}/bin/mpv" \
         --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath runtimeLibs}"
     fi

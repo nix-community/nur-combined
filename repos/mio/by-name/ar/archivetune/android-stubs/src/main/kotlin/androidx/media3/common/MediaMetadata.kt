@@ -1,28 +1,28 @@
 package androidx.media3.common
 
-open class MediaMetadata {
-    open val id: String? = null
-    open val mediaId: String? = null
-    open val title: CharSequence? = null
-    open val artist: CharSequence? = null
-    open val album: CharSequence? = null
-    open val albumArtist: CharSequence? = null
-    open val albumTitle: CharSequence? = null
-    open val displayTitle: CharSequence? = null
-    open val subtitle: CharSequence? = null
-    open val description: CharSequence? = null
-    open val artworkUri: android.net.Uri? = null
-    open val thumbnailUrl: CharSequence? = null
-    open val duration: Long? = null
-    open val trackNumber: Int? = null
-    open val totalTrackCount: Int? = null
-    open val folderType: Int? = null
-    open val isBrowsable: Boolean = false
-    open val isPlayable: Boolean = false
-    open val isAdvertisement: Boolean = false
-    open val extras: android.os.Bundle? = null
-    open val mediaType: Int? = null
-
+open class MediaMetadata(
+    open val id: String? = null,
+    open val mediaId: String? = null,
+    open val title: CharSequence? = null,
+    open val artist: CharSequence? = null,
+    open val album: CharSequence? = null,
+    open val albumArtist: CharSequence? = null,
+    open val albumTitle: CharSequence? = null,
+    open val displayTitle: CharSequence? = null,
+    open val subtitle: CharSequence? = null,
+    open val description: CharSequence? = null,
+    open val artworkUri: android.net.Uri? = null,
+    open val thumbnailUrl: CharSequence? = null,
+    open val duration: Long? = null,
+    open val trackNumber: Int? = null,
+    open val totalTrackCount: Int? = null,
+    open val folderType: Int? = null,
+    open val isBrowsable: Boolean = false,
+    open val isPlayable: Boolean = false,
+    open val isAdvertisement: Boolean = false,
+    open val extras: android.os.Bundle? = null,
+    open val mediaType: Int? = null,
+) {
     companion object {
         const val MEDIA_TYPE_MIXED = 0
         const val MEDIA_TYPE_MUSIC = 1
@@ -63,28 +63,96 @@ open class MediaMetadata {
     }
 
     class Builder {
-        fun setId(id: String?): Builder = this
-        fun setMediaId(mediaId: String?): Builder = this
-        fun setTitle(title: CharSequence?): Builder = this
-        fun setArtist(artist: CharSequence?): Builder = this
-        fun setAlbumTitle(title: CharSequence?): Builder = this
-        fun setAlbumArtist(artist: CharSequence?): Builder = this
-        fun setDisplayTitle(title: CharSequence?): Builder = this
-        fun setSubtitle(subtitle: CharSequence?): Builder = this
-        fun setDescription(description: CharSequence?): Builder = this
-        fun setArtworkUri(uri: android.net.Uri?): Builder = this
+        private var id: String? = null
+        private var mediaId: String? = null
+        private var title: CharSequence? = null
+        private var artist: CharSequence? = null
+        private var album: CharSequence? = null
+        private var albumArtist: CharSequence? = null
+        private var albumTitle: CharSequence? = null
+        private var displayTitle: CharSequence? = null
+        private var subtitle: CharSequence? = null
+        private var description: CharSequence? = null
+        private var artworkUri: android.net.Uri? = null
+        private var thumbnailUrl: CharSequence? = null
+        private var duration: Long? = null
+        private var trackNumber: Int? = null
+        private var totalTrackCount: Int? = null
+        private var folderType: Int? = null
+        private var isBrowsable: Boolean = false
+        private var isPlayable: Boolean = false
+        private var isAdvertisement: Boolean = false
+        private var extras: android.os.Bundle? = null
+        private var mediaType: Int? = null
+
+        fun setId(id: String?): Builder = apply { this.id = id }
+        fun setMediaId(mediaId: String?): Builder = apply { this.mediaId = mediaId }
+        fun setTitle(title: CharSequence?): Builder = apply { this.title = title }
+        fun setArtist(artist: CharSequence?): Builder = apply { this.artist = artist }
+        fun setAlbumTitle(title: CharSequence?): Builder = apply { this.albumTitle = title }
+        fun setAlbumArtist(artist: CharSequence?): Builder = apply { this.albumArtist = artist }
+        fun setDisplayTitle(title: CharSequence?): Builder = apply { this.displayTitle = title }
+        fun setSubtitle(subtitle: CharSequence?): Builder = apply { this.subtitle = subtitle }
+        fun setDescription(description: CharSequence?): Builder = apply { this.description = description }
+        fun setArtworkUri(uri: android.net.Uri?): Builder = apply { this.artworkUri = uri }
         fun setArtworkData(data: ByteArray?, pictureType: Int = 0): Builder = this
-        fun setTrackNumber(trackNumber: Int?): Builder = this
+        fun setTrackNumber(trackNumber: Int?): Builder = apply { this.trackNumber = trackNumber }
         fun setReleaseYear(releaseYear: Int?): Builder = this
         fun setDiscNumber(discNumber: Int?): Builder = this
         fun setTotalDiscCount(totalDiscCount: Int?): Builder = this
-        fun setTotalTrackCount(totalTrackCount: Int?): Builder = this
-        fun setFolderType(folderType: Int?): Builder = this
-        fun setIsBrowsable(isBrowsable: Boolean): Builder = this
-        fun setIsPlayable(isPlayable: Boolean): Builder = this
-        fun setMediaType(mediaType: Int?): Builder = this
-        fun setExtras(extras: android.os.Bundle?): Builder = this
-        fun populate(metadata: MediaMetadata?): Builder = this
-        fun build(): MediaMetadata = MediaMetadata()
+        fun setTotalTrackCount(totalTrackCount: Int?): Builder = apply { this.totalTrackCount = totalTrackCount }
+        fun setFolderType(folderType: Int?): Builder = apply { this.folderType = folderType }
+        fun setIsBrowsable(isBrowsable: Boolean): Builder = apply { this.isBrowsable = isBrowsable }
+        fun setIsPlayable(isPlayable: Boolean): Builder = apply { this.isPlayable = isPlayable }
+        fun setMediaType(mediaType: Int?): Builder = apply { this.mediaType = mediaType }
+        fun setExtras(extras: android.os.Bundle?): Builder = apply { this.extras = extras }
+        fun populate(metadata: MediaMetadata?): Builder = apply {
+            if (metadata != null) {
+                this.id = metadata.id
+                this.mediaId = metadata.mediaId
+                this.title = metadata.title
+                this.artist = metadata.artist
+                this.album = metadata.album
+                this.albumArtist = metadata.albumArtist
+                this.albumTitle = metadata.albumTitle
+                this.displayTitle = metadata.displayTitle
+                this.subtitle = metadata.subtitle
+                this.description = metadata.description
+                this.artworkUri = metadata.artworkUri
+                this.thumbnailUrl = metadata.thumbnailUrl
+                this.duration = metadata.duration
+                this.trackNumber = metadata.trackNumber
+                this.totalTrackCount = metadata.totalTrackCount
+                this.folderType = metadata.folderType
+                this.isBrowsable = metadata.isBrowsable
+                this.isPlayable = metadata.isPlayable
+                this.isAdvertisement = metadata.isAdvertisement
+                this.extras = metadata.extras
+                this.mediaType = metadata.mediaType
+            }
+        }
+        fun build(): MediaMetadata = MediaMetadata(
+            id = id,
+            mediaId = mediaId,
+            title = title,
+            artist = artist,
+            album = album,
+            albumArtist = albumArtist,
+            albumTitle = albumTitle,
+            displayTitle = displayTitle,
+            subtitle = subtitle,
+            description = description,
+            artworkUri = artworkUri,
+            thumbnailUrl = thumbnailUrl,
+            duration = duration,
+            trackNumber = trackNumber,
+            totalTrackCount = totalTrackCount,
+            folderType = folderType,
+            isBrowsable = isBrowsable,
+            isPlayable = isPlayable,
+            isAdvertisement = isAdvertisement,
+            extras = extras,
+            mediaType = mediaType,
+        )
     }
 }

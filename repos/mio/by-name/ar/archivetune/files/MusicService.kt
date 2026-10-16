@@ -442,22 +442,26 @@ class MusicService {
         private var currentPlayingId: String? = null
 
         private fun loadTrack(mediaId: String, startPositionMs: Long, playWhenReady: Boolean) {
-            if (mediaId.isBlank()) return
-            currentPlayingId = mediaId
-            System.err.println("[ArchiveTune/Audio] loadTrack: mediaId=$mediaId, startPositionMs=$startPositionMs, playWhenReady=$playWhenReady")
+            val cleanId = mediaId.trim().removePrefix("song/")
+            if (cleanId.isBlank()) {
+                System.err.println("[ArchiveTune/Audio] loadTrack called with blank mediaId, ignoring")
+                return
+            }
+            currentPlayingId = cleanId
+            System.err.println("[ArchiveTune/Audio] loadTrack: mediaId=$cleanId, startPositionMs=$startPositionMs, playWhenReady=$playWhenReady")
 
             CoroutineScope(Dispatchers.IO).launch {
-                var finalUrl = if (mediaId.startsWith("http://") || mediaId.startsWith("https://") || mediaId.startsWith("file://") || mediaId.startsWith("/")) {
-                    mediaId
+                var finalUrl = if (cleanId.startsWith("http://") || cleanId.startsWith("https://") || cleanId.startsWith("file://") || cleanId.startsWith("/")) {
+                    cleanId
                 } else {
-                    "https://www.youtube.com/watch?v=$mediaId"
+                    "https://www.youtube.com/watch?v=$cleanId"
                 }
 
                 if (finalUrl.startsWith("https://www.youtube.com/watch?v=")) {
                     try {
-                        withTimeoutOrNull(2500L) {
+                        withTimeoutOrNull(8000L) {
                             val resp = YTPlayerUtils.playerResponseForPlayback(
-                                videoId = mediaId,
+                                videoId = cleanId,
                                 audioQuality = AudioQuality.AUTO,
                                 connectivityManager = ConnectivityManager()
                             )
@@ -465,6 +469,9 @@ class MusicService {
                             if (!streamUrl.isNullOrBlank()) {
                                 System.err.println("[ArchiveTune/Audio] Resolved direct stream URL from Innertube: $streamUrl")
                                 finalUrl = streamUrl
+                            } else {
+                                val err = resp.exceptionOrNull()
+                                System.err.println("[ArchiveTune/Audio] Innertube streamUrl was null/blank (err=$err), falling back to $finalUrl")
                             }
                         }
                     } catch (t: Throwable) {
@@ -729,7 +736,7 @@ class MusicService {
         }
 
         override fun setMediaItems(mediaItems: List<MediaItem>, startIndex: Int, startPositionMs: Long) {
-            val previousId = currentMediaItem?.metadata?.id ?: currentMediaItem?.mediaId
+            val previousId = currentMediaItem?.metadata?.id?.takeIf { it.isNotBlank() } ?: currentMediaItem?.mediaId?.takeIf { it.isNotBlank() }
             this.mediaItems.clear()
             this.mediaItems.addAll(mediaItems)
             _timeline = DesktopTimeline(this.mediaItems)
@@ -741,6 +748,15 @@ class MusicService {
             val meta = item?.metadata
             if (meta != null) {
                 service.currentMediaMetadata.value = meta
+            } else if (item != null && item.mediaId.isNotBlank()) {
+                val fallbackMeta = MediaMetadata(
+                    id = item.mediaId,
+                    title = item.mediaMetadata.title?.toString() ?: "Unknown",
+                    artists = listOfNotNull(item.mediaMetadata.artist?.toString()?.let { moe.rukamori.archivetune.models.MediaMetadata.Artist(id = null, name = it) }),
+                    duration = (item.mediaMetadata.duration ?: 0L).toInt() / 1000,
+                    thumbnailUrl = item.mediaMetadata.artworkUri?.toString() ?: "https://i.ytimg.com/vi/${item.mediaId}/hqdefault.jpg"
+                )
+                service.currentMediaMetadata.value = fallbackMeta
             }
             listeners.forEach {
                 it.onTimelineChanged(_timeline, Player.TIMELINE_CHANGE_REASON_PLAYLIST_CHANGED)
@@ -748,7 +764,12 @@ class MusicService {
                 it.onPlaybackStateChanged(playbackState)
             }
 
-            val newId = meta?.id ?: item?.mediaId
+            val newId = meta?.id?.takeIf { it.isNotBlank() }
+                ?: item?.mediaId?.takeIf { it.isNotBlank() }
+                ?: service.currentMediaMetadata.value?.id?.takeIf { it.isNotBlank() }
+
+            System.err.println("[ArchiveTune/Audio] setMediaItems: count=${mediaItems.size}, startIndex=$startIndex, currentMediaItemIndex=$currentMediaItemIndex, newId=$newId, previousId=$previousId, currentPlayingId=$currentPlayingId")
+
             if (newId != null && (newId != previousId || newId != currentPlayingId)) {
                 loadTrack(newId, startPositionMs, playWhenReady)
             }
@@ -928,14 +949,17 @@ class MusicService {
 
     // Playback / queue commands
     fun playQueue(vararg args: Any?) {
-        val queue = args.firstOrNull() as? Queue ?: return
+        val queue = args.firstOrNull() as? Queue ?: run {
+            System.err.println("[ArchiveTune/Audio] playQueue called without Queue argument: ${args.toList()}")
+            return
+        }
         val playWhenReady = args.getOrNull(1) as? Boolean ?: true
+        desktopPlayerImpl.playWhenReady = playWhenReady
 
         // Fast-path: if queue is ListQueue and has items
         if (queue is moe.rukamori.archivetune.playback.queues.ListQueue) {
             if (queue.items.isNotEmpty()) {
                 val idx = queue.startIndex.coerceIn(queue.items.indices)
-                desktopPlayerImpl.playWhenReady = playWhenReady
                 desktopPlayerImpl.setMediaItems(queue.items, idx, queue.position)
                 val meta = queue.items.getOrNull(idx)?.metadata
                 if (meta != null) {
@@ -957,7 +981,7 @@ class MusicService {
             null
         }
 
-        val initialMeta = preload ?: if (videoId != null) {
+        val initialMeta = preload ?: if (!videoId.isNullOrBlank()) {
             MediaMetadata(
                 id = videoId,
                 title = "Playing...",
@@ -967,9 +991,10 @@ class MusicService {
             )
         } else null
 
+        System.err.println("[ArchiveTune/Audio] playQueue: queue=${queue.javaClass.simpleName}, preload=${preload?.id}, videoId=$videoId, initialMeta=${initialMeta?.id}, playWhenReady=$playWhenReady")
+
         if (initialMeta != null) {
             currentMediaMetadata.value = initialMeta
-            desktopPlayerImpl.playWhenReady = playWhenReady
             desktopPlayerImpl.setMediaItems(listOf(initialMeta.toMediaItem()), 0, 0L)
             if (playWhenReady) {
                 desktopPlayerImpl.play()
@@ -979,11 +1004,14 @@ class MusicService {
         // Asynchronously load full queue status
         CoroutineScope(Dispatchers.IO).launch {
             try {
+                System.err.println("[ArchiveTune/Audio] Loading queue.getInitialStatus()...")
                 val initialStatus = queue.getInitialStatus()
                 val items = initialStatus.items
+                System.err.println("[ArchiveTune/Audio] Queue loaded: itemsCount=${items.size}, mediaItemIndex=${initialStatus.mediaItemIndex}")
                 if (items.isNotEmpty()) {
                     withContext(Dispatchers.Default) {
                         val index = initialStatus.mediaItemIndex.coerceIn(items.indices)
+                        desktopPlayerImpl.playWhenReady = playWhenReady
                         desktopPlayerImpl.setMediaItems(items, index, initialStatus.position)
                         val currentItem = items.getOrNull(index)
                         val meta = currentItem?.metadata ?: initialMeta
@@ -996,6 +1024,7 @@ class MusicService {
                     }
                 }
             } catch (e: Throwable) {
+                System.err.println("[ArchiveTune/Audio] Error in queue.getInitialStatus(): ${e.message}")
                 e.printStackTrace()
             }
         }
