@@ -11,6 +11,8 @@
   liburing,
   openssl-oqs-provider,
   python3,
+  # extra args to make nixpkgs happy
+  modules ? [ ],
 }:
 
 let
@@ -74,7 +76,7 @@ in
     ];
 
     passthru = old.passthru // {
-      inherit oqs-lookup;
+      inherit modules oqs-lookup;
     };
 
     meta = old.meta // {
