@@ -227,19 +227,8 @@ jobs:
           signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
           authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
 
-      - name: Check evaluation
-        run: |
-          nix-env -f . -qa \* --meta --xml \
-            --allowed-uris https://static.rust-lang.org \
-            --option restrict-eval true \
-            --option allow-import-from-derivation true \
-            --drv-path --show-trace \
-            -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
-            -I $PWD
-
-      - name: Build Packages
-        id: build
-        continue-on-error: true
+      - name: Compute skipped packages
+        id: skips
         env:
           PLATFORM: ${{ matrix.platform }}
           CHANNEL: ${{ matrix.channel }}
@@ -253,13 +242,29 @@ jobs:
               if [ -z "$tokens" ] || printf '%s\n' "$tokens" | grep -qxF -e all -e "$PLATFORM" -e "$CHANNEL" -e "$PLATFORM/$CHANNEL"; then
                 grep -E "^[[:space:]]*[a-zA-Z0-9_-]+[[:space:]]*=[[:space:]]*lib\.callPackage[[:space:]]+\./pkgs/$pkg([[:space:]]|\$)" default.nix 2>/dev/null | sed -E 's/^[[:space:]]*([a-zA-Z0-9_-]+).*/\1/' || true
               fi
-            done | sort -u | jq -R -s 'split("\n") | map(select(length > 0))' 2>/dev/null || echo '[]')
+            done | sort -u | jq -R -s -c 'split("\n") | map(select(length > 0))' 2>/dev/null || echo '[]')
           fi
+          echo "attrs=$skip_attrs" >> "$GITHUB_OUTPUT"
 
+      - name: Check evaluation
+        run: |
+          nix-env -f . -qa \* --meta --xml \
+            --argstr skipPkgs '${{ steps.skips.outputs.attrs }}' \
+            --allowed-uris https://static.rust-lang.org \
+            --option restrict-eval true \
+            --option allow-import-from-derivation true \
+            --drv-path --show-trace \
+            -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+            -I $PWD
+
+      - name: Build Packages
+        id: build
+        continue-on-error: true
+        run: |
           nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix \
             -A cacheOutputs \
             --arg pkgs "import <nixpkgs> {}" \
-            --argstr skipPkgs "$skip_attrs" \
+            --argstr skipPkgs '${{ steps.skips.outputs.attrs }}' \
             -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
             2>&1 | tee build.log
           exit_code=${PIPESTATUS[0]}

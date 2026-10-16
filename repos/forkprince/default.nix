@@ -1,4 +1,11 @@
-{pkgs ? import <nixpkgs> {}}: rec {
+{
+  pkgs ? import <nixpkgs> {},
+  skipPkgs ? "[]",
+}:
+let
+  skipList = builtins.fromJSON skipPkgs;
+in
+removeAttrs rec {
   modules = import ./modules;
   overlays = import ./overlays;
   lib = import ./lib {inherit pkgs;};
@@ -163,4 +170,4 @@
   compositor-meta = lib.callPackage ./pkgs/compositor-meta {
     inherit compositor xuan;
   };
-}
+} skipList
