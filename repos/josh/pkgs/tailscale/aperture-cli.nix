@@ -9,16 +9,16 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "aperture-cli";
-  version = "0.0.13";
+  version = "0.1.0";
 
   src = fetchFromGitHub {
     owner = "tailscale";
     repo = "aperture-cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-1KfTq75OWXCwYOA5tzkZ4LxS9zdaup6gabcl1p1a3z0=";
+    hash = "sha256-RxXEHd73j+Cef9GZk3pKjv7T3a60lGSi4vreKDW3JUU=";
   };
 
-  vendorHash = "sha256-iM4z1fVNm9vSyyNcGf/rPCHJph6laiSos2AWwJJtOfU=";
+  vendorHash = "sha256-OEBKpEwaQ9ehSHDlkZjRoP2gRQByJK9Ikpe2nhIKzAg=";
 
   env.CGO_ENABLED = 0;
   ldflags = [
