@@ -13,6 +13,7 @@ class ConnectCallRequest {
     required this.australianState,
     this.password,
     this.userToken,
+    this.country,
   });
 
   static ConnectCallRequest deserialize(BinaryDeserializer deserializer) {
@@ -26,6 +27,7 @@ class ConnectCallRequest {
       australianState: deserializer.deserializeString(),
       password: TraitHelpers.deserializeOptionStr(deserializer),
       userToken: TraitHelpers.deserializeOptionStr(deserializer),
+      country: TraitHelpers.deserializeOptionStr(deserializer),
     );
     deserializer.decreaseContainerDepth();
     return instance;
@@ -48,6 +50,7 @@ class ConnectCallRequest {
   final String australianState;
   final String? password;
   final String? userToken;
+  final String? country;
 
   ConnectCallRequest copyWith({
     String? callerName,
@@ -58,6 +61,7 @@ class ConnectCallRequest {
     String? australianState,
     String? Function()? password,
     String? Function()? userToken,
+    String? Function()? country,
   }) {
     return ConnectCallRequest(
       callerName: callerName ?? this.callerName,
@@ -68,6 +72,7 @@ class ConnectCallRequest {
       australianState: australianState ?? this.australianState,
       password: password == null ? this.password : password(),
       userToken: userToken == null ? this.userToken : userToken(),
+      country: country == null ? this.country : country(),
     );
   }
 
@@ -81,6 +86,7 @@ class ConnectCallRequest {
     serializer.serializeString(australianState);
     TraitHelpers.serializeOptionStr(password, serializer);
     TraitHelpers.serializeOptionStr(userToken, serializer);
+    TraitHelpers.serializeOptionStr(country, serializer);
     serializer.decreaseContainerDepth();
   }
 
@@ -101,7 +107,8 @@ class ConnectCallRequest {
       && recipientPhone == other.recipientPhone
       && callNotes == other.callNotes
       && proxyUrl == other.proxyUrl
-      && australianState == other.australianState;
+      && australianState == other.australianState
+      && country == other.country;
   }
 
   @override
@@ -112,6 +119,7 @@ class ConnectCallRequest {
         callNotes,
         proxyUrl,
         australianState,
+        country,
       );
 
   @override
@@ -125,7 +133,8 @@ class ConnectCallRequest {
         'recipientPhone: $recipientPhone, '
         'callNotes: $callNotes, '
         'proxyUrl: $proxyUrl, '
-        'australianState: $australianState'
+        'australianState: $australianState, '
+        'country: $country'
         ')';
       return true;
     }());

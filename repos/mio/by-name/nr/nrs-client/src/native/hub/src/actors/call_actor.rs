@@ -12,7 +12,8 @@ use tokio::sync::Mutex;
 use tokio::{spawn, time::sleep};
 
 const CLIENT_KEY: &str = "123@TAPAC$$DevInt";
-const OMNI_SHELL_BASE: &str = "https://omnicustomwebsyd.concentrix.com/NRS/NRSOMNIShell/Prod/omniChatService.asmx";
+const AU_OMNI_SHELL_BASE: &str = "https://omnicustomwebsyd.concentrix.com/NRS/NRSOMNIShell/Prod/omniChatService.asmx";
+const NZ_OMNI_SHELL_BASE: &str = "https://omnicustomwebauc.concentrix.com/NZRelay/omnishell/prod/omniChatService.asmx";
 
 #[derive(Clone)]
 struct StoredMessage {
@@ -26,6 +27,7 @@ struct ConcentrixSession {
     session_id: String,
     chat_room_id: String,
     campaign_key: String,
+    omni_shell_base: String,
     page_histo: u64,
 }
 
@@ -35,6 +37,7 @@ pub struct CallActor {
     messages: Arc<Mutex<Vec<StoredMessage>>>,
     http_client: Arc<Mutex<Option<reqwest::Client>>>,
     session: Arc<Mutex<Option<ConcentrixSession>>>,
+    current_country: Arc<Mutex<String>>,
 }
 
 impl CallActor {
@@ -44,6 +47,7 @@ impl CallActor {
         let messages = Arc::new(Mutex::new(Vec::new()));
         let http_client = Arc::new(Mutex::new(None));
         let session = Arc::new(Mutex::new(None));
+        let current_country = Arc::new(Mutex::new("AU".to_string()));
 
         let actor = Arc::new(Self {
             active_call: active_call.clone(),
@@ -51,6 +55,7 @@ impl CallActor {
             messages: messages.clone(),
             http_client: http_client.clone(),
             session: session.clone(),
+            current_country: current_country.clone(),
         });
 
         // 1. Listen for Connect Call requests
@@ -156,12 +161,28 @@ impl CallActor {
             *s = None;
         }
 
-        let is_emergency = req.recipient_phone == "000" || req.recipient_phone == "112" || req.recipient_phone == "911";
+        let is_nz = req.country.as_deref().map(|c| c.eq_ignore_ascii_case("NZ")).unwrap_or(false);
+        {
+            let mut c = self.current_country.lock().await;
+            *c = if is_nz { "NZ".to_string() } else { "AU".to_string() };
+        }
+
+        let is_emergency = if is_nz {
+            req.recipient_phone == "111" || req.recipient_phone == "112" || req.recipient_phone == "911"
+        } else {
+            req.recipient_phone == "000" || req.recipient_phone == "112" || req.recipient_phone == "911"
+        };
 
         CallStateSignal {
             state: "connecting".to_string(),
             status_message: if is_emergency {
-                "Initiating Priority Emergency Connection to Triple Zero (000)...".to_string()
+                if is_nz {
+                    "Initiating Priority Emergency Connection to 111...".to_string()
+                } else {
+                    "Initiating Priority Emergency Connection to Triple Zero (000)...".to_string()
+                }
+            } else if is_nz {
+                "Connecting to New Zealand Relay Service (NZ Relay)...".to_string()
             } else {
                 "Connecting to Australian National Relay Service...".to_string()
             },
@@ -204,24 +225,63 @@ impl CallActor {
             });
         }
 
-        // Run live Concentrix / DOCA NRS session
+        // Run live Concentrix session (AU NRS or NZ Relay)
         spawn(async move {
             actor_for_session.run_live_nrs_session(req).await;
         });
     }
 
     async fn run_live_nrs_session(&self, req: ConnectCallRequest) {
-        let is_emergency = req.recipient_phone == "000" || req.recipient_phone == "112" || req.recipient_phone == "911";
+        let is_nz = req.country.as_deref().map(|c| c.eq_ignore_ascii_case("NZ")).unwrap_or(false);
+        let is_emergency = if is_nz {
+            req.recipient_phone == "111" || req.recipient_phone == "112" || req.recipient_phone == "911"
+        } else {
+            req.recipient_phone == "000" || req.recipient_phone == "112" || req.recipient_phone == "911"
+        };
 
         // Step 1: Resolve Authentication Token
         let user_token = if is_emergency {
             String::new()
+        } else if is_nz {
+            if let Some(ref token) = req.user_token {
+                if !token.trim().is_empty() {
+                    token.trim().to_string()
+                } else if let Some(ref pwd) = req.password {
+                    self.record_and_emit_message("system", "Authenticating with NZ Relay Credentials...").await;
+                    match AuthActor::authenticate(&req.caller_phone, pwd, req.proxy_url.as_deref(), Some("NZ")).await {
+                        Ok((tok, first_name, _, _)) => {
+                            self.record_and_emit_message("system", &format!("Authentication successful for {}.", first_name)).await;
+                            tok
+                        }
+                        Err(err) => {
+                            self.handle_error(&format!("Authentication failed: {}", err), &req.recipient_phone).await;
+                            return;
+                        }
+                    }
+                } else {
+                    String::new()
+                }
+            } else if let Some(ref pwd) = req.password {
+                self.record_and_emit_message("system", "Authenticating with NZ Relay Credentials...").await;
+                match AuthActor::authenticate(&req.caller_phone, pwd, req.proxy_url.as_deref(), Some("NZ")).await {
+                    Ok((tok, first_name, _, _)) => {
+                        self.record_and_emit_message("system", &format!("Authentication successful for {}.", first_name)).await;
+                        tok
+                    }
+                    Err(err) => {
+                        self.handle_error(&format!("Authentication failed: {}", err), &req.recipient_phone).await;
+                        return;
+                    }
+                }
+            } else {
+                String::new()
+            }
         } else if let Some(ref token) = req.user_token {
             if !token.trim().is_empty() {
                 token.trim().to_string()
             } else if let Some(ref pwd) = req.password {
                 self.record_and_emit_message("system", "Authenticating with NRS User Credentials...").await;
-                match AuthActor::authenticate(&req.caller_phone, pwd, req.proxy_url.as_deref()).await {
+                match AuthActor::authenticate(&req.caller_phone, pwd, req.proxy_url.as_deref(), Some("AU")).await {
                     Ok((tok, first_name, _, _)) => {
                         self.record_and_emit_message("system", &format!("Authentication successful for {}.", first_name)).await;
                         tok
@@ -241,7 +301,7 @@ impl CallActor {
             }
         } else if let Some(ref pwd) = req.password {
             self.record_and_emit_message("system", "Authenticating with NRS User Credentials...").await;
-            match AuthActor::authenticate(&req.caller_phone, pwd, req.proxy_url.as_deref()).await {
+            match AuthActor::authenticate(&req.caller_phone, pwd, req.proxy_url.as_deref(), Some("AU")).await {
                 Ok((tok, first_name, _, _)) => {
                     self.record_and_emit_message("system", &format!("Authentication successful for {}.", first_name)).await;
                     tok
@@ -286,19 +346,32 @@ impl CallActor {
             *guard = Some(client.clone());
         }
 
-        let campaign = if is_emergency {
+        let omni_shell_base = if is_nz {
+            NZ_OMNI_SHELL_BASE
+        } else {
+            AU_OMNI_SHELL_BASE
+        };
+
+        let campaign = if is_nz {
+            "Text Relay"
+        } else if is_emergency {
             "P_NRS_Emergency_InternetChat_Make_a_call_Chat"
         } else {
             "P_NRS_Internet_MakeACall_Chat"
         };
 
-        self.record_and_emit_message("system", "Checking Australian gateway connection & IP routing...").await;
+        if is_nz {
+            self.record_and_emit_message("system", "Checking New Zealand gateway connection & IP routing...").await;
+        } else {
+            self.record_and_emit_message("system", "Checking Australian gateway connection & IP routing...").await;
+        }
 
         // Step 3: Check GeoIP and get detected IP
         let now_ms = chrono::Local::now().timestamp_millis();
+        let app_name = if is_nz { "TRS" } else { "NRS" };
         let my_ip_payload = serde_json::json!({
             "deviceData": {
-                "appName": "NRS",
+                "appName": app_name,
                 "appVersion": "1.0",
                 "browserVersion": "128.0",
                 "browser": "Firefox",
@@ -311,13 +384,22 @@ impl CallActor {
         });
 
         let mut caller_ip = "127.0.0.1".to_string();
-        if let Ok(ip_resp) = client
-            .post("https://nrschat.nrscall.gov.au/nrsapi/services/rest/user/getMyIp")
+        let my_ip_url = if is_nz {
+            "https://www.nzrelay.co.nz/trsapi/services/rest/user/getMyIp"
+        } else {
+            "https://nrschat.nrscall.gov.au/nrsapi/services/rest/user/getMyIp"
+        };
+
+        let mut ip_req = client
+            .post(my_ip_url)
             .header("Content-Type", "application/json")
-            .json(&my_ip_payload)
-            .send()
-            .await
-        {
+            .header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:128.0) Gecko/20100101 Firefox/128.0");
+
+        if is_nz {
+            ip_req = ip_req.header("Authorization", "Basic dHJzYXBpOlRyNUwxdjNAMjAyMQ==");
+        }
+
+        if let Ok(ip_resp) = ip_req.json(&my_ip_payload).send().await {
             if let Ok(ip_val) = ip_resp.json::<serde_json::Value>().await {
                 if let Some(ip) = ip_val.get("ipAddress").and_then(|i| i.as_str()) {
                     caller_ip = ip.to_string();
@@ -328,10 +410,17 @@ impl CallActor {
         self.record_and_emit_message("system", &format!("Detected Caller IP: {}", caller_ip)).await;
 
         // Step 4: Contact Concentrix session setup (Datafatching)
-        let setup_url = format!(
-            "https://omnicustomwebsyd.concentrix.com/NRS/NRSCHATUI/PROD/Datafatching/Datafatching?NRSUserId={}&Campaign={}&OPNumber={}&NRSNumber={}&IPAddress={}&State={}",
-            user_token, campaign, req.recipient_phone, req.caller_phone, caller_ip, req.australian_state
-        );
+        let setup_url = if is_nz {
+            format!(
+                "https://omnicustomwebauc.concentrix.com/NZRelay/chatui/prod/Datafatching/Datafatching?TRSUserId={}&Campaign=Text%20Relay&OPNumber={}&TRSNumber={}&IPAddress={}&InitialMessage={}",
+                user_token, req.recipient_phone, req.caller_phone, caller_ip, Self::url_encode(&req.call_notes)
+            )
+        } else {
+            format!(
+                "https://omnicustomwebsyd.concentrix.com/NRS/NRSCHATUI/PROD/Datafatching/Datafatching?NRSUserId={}&Campaign={}&OPNumber={}&NRSNumber={}&IPAddress={}&State={}",
+                user_token, campaign, req.recipient_phone, req.caller_phone, caller_ip, req.australian_state
+            )
+        };
 
         let datafatching_res = client
             .get(&setup_url)
@@ -345,7 +434,7 @@ impl CallActor {
         }
 
         // Step 5: Obtain Session ID from OmniShell
-        let session_id_url = format!("{}/GetSessionId", OMNI_SHELL_BASE);
+        let session_id_url = format!("{}/GetSessionId", omni_shell_base);
         let session_resp = match client.get(&session_id_url).send().await {
             Ok(r) => r,
             Err(e) => {
@@ -382,10 +471,17 @@ impl CallActor {
         self.record_and_emit_message("system", &format!("Session allocated (ID: {}). Contacting Relay Officer queue...", session_id)).await;
 
         // Step 6: Initiate Chat
-        let initiate_url = format!(
-            "{}/InitiateChat?ClientKey={}&CampaignKey={}&GMTOffset=0&OperatingSystem=mac&Language=en&txtNRSNumber={}&txtOPNumber={}&txtCampaignName={}&txtIPAddress={}&txtEmailID=&sessionid={}&txtState={}",
-            OMNI_SHELL_BASE, CLIENT_KEY, campaign, req.caller_phone, req.recipient_phone, campaign, caller_ip, session_id, req.australian_state
-        );
+        let initiate_url = if is_nz {
+            format!(
+                "{}/InitiateChat?ClientKey={}&CampaignKey={}&GMTOffset=0&OperatingSystem=mac&Language=en&txtInboundNumber={}&txtOPNumber={}&txtCampaignName={}&txtIPAddress={}&txtEmailID=&SessionId={}",
+                omni_shell_base, CLIENT_KEY, campaign, req.caller_phone, req.recipient_phone, campaign, caller_ip, session_id
+            )
+        } else {
+            format!(
+                "{}/InitiateChat?ClientKey={}&CampaignKey={}&GMTOffset=0&OperatingSystem=mac&Language=en&txtNRSNumber={}&txtOPNumber={}&txtCampaignName={}&txtIPAddress={}&txtEmailID=&sessionid={}&txtState={}",
+                omni_shell_base, CLIENT_KEY, campaign, req.caller_phone, req.recipient_phone, campaign, caller_ip, session_id, req.australian_state
+            )
+        };
 
         let mut chat_room_id = String::new();
         let mut agent_name = "Relay Officer".to_string();
@@ -459,6 +555,7 @@ impl CallActor {
                 session_id: session_id.clone(),
                 chat_room_id: chat_room_id.clone(),
                 campaign_key: campaign.to_string(),
+                omni_shell_base: omni_shell_base.to_string(),
                 page_histo,
             });
         }
@@ -473,11 +570,19 @@ impl CallActor {
         }
         .send_signal_to_dart();
 
-        self.record_and_emit_message(
-            "officer_system",
-            &format!("National Relay Service session active. Connected to {}. Calling {}. GA", agent_name, req.recipient_phone),
-        )
-        .await;
+        if is_nz {
+            self.record_and_emit_message(
+                "officer_system",
+                &format!("New Zealand Relay Service session active. Connected to {}. Calling {}. GA", agent_name, req.recipient_phone),
+            )
+            .await;
+        } else {
+            self.record_and_emit_message(
+                "officer_system",
+                &format!("National Relay Service session active. Connected to {}. Calling {}. GA", agent_name, req.recipient_phone),
+            )
+            .await;
+        }
 
         if !req.call_notes.trim().is_empty() {
             let note = format!("Call Note: {}", req.call_notes.trim());
@@ -506,7 +611,7 @@ impl CallActor {
                 if let Some(mut sess) = current_session {
                     let poll_url = format!(
                         "{}/GetNewMessages?SessionId={}&ChatRoomId={}&ClientKey={}&CampaignKey={}&pagehisto={}",
-                        OMNI_SHELL_BASE, sess.session_id, sess.chat_room_id, CLIENT_KEY, sess.campaign_key, sess.page_histo
+                        sess.omni_shell_base, sess.session_id, sess.chat_room_id, CLIENT_KEY, sess.campaign_key, sess.page_histo
                     );
 
                     if let Ok(resp) = client_poll.get(&poll_url).send().await {
@@ -591,7 +696,7 @@ fn url_encode(input: &str) -> String {
             let encoded_msg = Self::url_encode(message);
             let send_url = format!(
                 "{}/SendMessage?SessionId={}&ChatRoomId={}&Message={}&ClientKey={}&CampaignKey={}&pagehisto={}",
-                OMNI_SHELL_BASE, sess.session_id, sess.chat_room_id, encoded_msg, CLIENT_KEY, sess.campaign_key, sess.page_histo
+                sess.omni_shell_base, sess.session_id, sess.chat_room_id, encoded_msg, CLIENT_KEY, sess.campaign_key, sess.page_histo
             );
             let _ = client.get(&send_url).send().await;
         }
@@ -661,6 +766,9 @@ fn url_encode(input: &str) -> String {
             "EMERGENCY_000" => {
                 self.record_and_emit_message("system", "PRIORITY EMERGENCY 000 RELAY ACTIVE").await;
             }
+            "EMERGENCY_111" => {
+                self.record_and_emit_message("system", "PRIORITY EMERGENCY 111 RELAY ACTIVE").await;
+            }
             _ => {}
         }
     }
@@ -693,7 +801,7 @@ fn url_encode(input: &str) -> String {
         };
 
         if let (Some(sess), Some(client)) = (current_session, client_opt) {
-            let end_url = format!("{}/EndChat?SessionId={}", OMNI_SHELL_BASE, sess.session_id);
+            let end_url = format!("{}/EndChat?SessionId={}", sess.omni_shell_base, sess.session_id);
             spawn(async move {
                 let _ = client.get(&end_url).send().await;
             });
@@ -715,10 +823,27 @@ fn url_encode(input: &str) -> String {
     async fn handle_export(&self, format: String) {
         let msgs = self.messages.lock().await;
         let date_str = Local::now().format("%Y%m%d_%H%M%S").to_string();
+        let is_nz = {
+            let guard = self.current_country.lock().await;
+            guard.eq_ignore_ascii_case("NZ")
+        };
+
+        let service_name = if is_nz {
+            "NZ Relay (Text Relay)"
+        } else {
+            "Internet Relay"
+        };
+
+        let file_prefix = if is_nz {
+            "nzrelay_transcript"
+        } else {
+            "nrs_transcript"
+        };
 
         if format == "json" {
             let json_val = serde_json::json!({
-                "nrs_service": "Internet Relay",
+                "relay_service": service_name,
+                "country": if is_nz { "NZ" } else { "AU" },
                 "export_date": Local::now().to_rfc3339(),
                 "duration_seconds": self.call_duration.load(Ordering::SeqCst),
                 "messages": msgs.iter().map(|m| {
@@ -733,7 +858,7 @@ fn url_encode(input: &str) -> String {
             let content = serde_json::to_string_pretty(&json_val).unwrap_or_default();
             TranscriptExportedSignal {
                 success: true,
-                filename: format!("nrs_transcript_{}.json", date_str),
+                filename: format!("{}_{}.json", file_prefix, date_str),
                 content,
                 message: "Transcript exported as JSON".to_string(),
             }
@@ -741,7 +866,11 @@ fn url_encode(input: &str) -> String {
         } else {
             let mut out = String::new();
             out.push_str("==============================================\n");
-            out.push_str("NATIONAL RELAY SERVICE - INTERNET RELAY CHAT\n");
+            if is_nz {
+                out.push_str("NEW ZEALAND RELAY (NZ RELAY) - TEXT RELAY CHAT\n");
+            } else {
+                out.push_str("NATIONAL RELAY SERVICE - INTERNET RELAY CHAT\n");
+            }
             out.push_str(&format!("Transcript Date: {}\n", Local::now().to_rfc2822()));
             out.push_str(&format!("Total Duration: {}s\n", self.call_duration.load(Ordering::SeqCst)));
             out.push_str("==============================================\n\n");
@@ -752,7 +881,7 @@ fn url_encode(input: &str) -> String {
 
             TranscriptExportedSignal {
                 success: true,
-                filename: format!("nrs_transcript_{}.txt", date_str),
+                filename: format!("{}_{}.txt", file_prefix, date_str),
                 content: out,
                 message: "Transcript exported as TXT".to_string(),
             }
@@ -769,6 +898,7 @@ impl Clone for CallActor {
             messages: self.messages.clone(),
             http_client: self.http_client.clone(),
             session: self.session.clone(),
+            current_country: self.current_country.clone(),
         }
     }
 }

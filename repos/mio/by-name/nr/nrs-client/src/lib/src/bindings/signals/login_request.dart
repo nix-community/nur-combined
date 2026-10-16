@@ -7,6 +7,7 @@ class LoginRequest {
     required this.username,
     required this.password,
     this.proxyUrl,
+    this.country,
   });
 
   static LoginRequest deserialize(BinaryDeserializer deserializer) {
@@ -15,6 +16,7 @@ class LoginRequest {
       username: deserializer.deserializeString(),
       password: deserializer.deserializeString(),
       proxyUrl: TraitHelpers.deserializeOptionStr(deserializer),
+      country: TraitHelpers.deserializeOptionStr(deserializer),
     );
     deserializer.decreaseContainerDepth();
     return instance;
@@ -32,12 +34,14 @@ class LoginRequest {
   final String username;
   final String password;
   final String? proxyUrl;
+  final String? country;
 
   void serialize(BinarySerializer serializer) {
     serializer.increaseContainerDepth();
     serializer.serializeString(username);
     serializer.serializeString(password);
     TraitHelpers.serializeOptionStr(proxyUrl, serializer);
+    TraitHelpers.serializeOptionStr(country, serializer);
     serializer.decreaseContainerDepth();
   }
 

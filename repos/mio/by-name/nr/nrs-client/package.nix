@@ -92,7 +92,7 @@ lib.overrideDerivation
       extraWrapProgramArgs = lib.optionalString stdenv.hostPlatform.isLinux "--prefix LD_LIBRARY_PATH : $out/app/nrs-client/lib";
 
       meta = {
-        description = "Client for the Australian National Relay Service (NRS) Internet Relay built with Flutter and Rinf";
+        description = "Client for the Australian National Relay Service (NRS) and New Zealand Relay (NZ Relay) built with Flutter and Rinf";
         homepage = "https://nrschat.nrscall.gov.au/nrs/internetrelay";
         license = lib.licenses.mit;
         platforms = lib.platforms.linux ++ lib.platforms.darwin;

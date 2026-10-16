@@ -30,6 +30,8 @@ class _NrsClientAppState extends State<NrsClientApp> {
   String _registeredName = '';
   String _nrsId = '';
 
+  String _activeCountry = 'AU';
+
   @override
   void initState() {
     super.initState();
@@ -55,9 +57,12 @@ class _NrsClientAppState extends State<NrsClientApp> {
     String state, {
     String? password,
     String? token,
+    String? country,
   }) {
+    final selectedCountry = country ?? 'AU';
     setState(() {
       _activeCallRecipient = recipient;
+      _activeCountry = selectedCountry;
       _isCallActive = true;
     });
 
@@ -70,6 +75,7 @@ class _NrsClientAppState extends State<NrsClientApp> {
       australianState: state,
       password: password,
       userToken: token ?? _userToken,
+      country: selectedCountry,
     ).sendSignalToRust();
   }
 
@@ -80,9 +86,10 @@ class _NrsClientAppState extends State<NrsClientApp> {
     });
   }
 
-  void _updateSettings(String proxyUrl) {
+  void _updateSettings(String proxyUrl, String country) {
     setState(() {
       _proxyUrl = proxyUrl;
+      _activeCountry = country;
     });
   }
 
@@ -109,7 +116,7 @@ class _NrsClientAppState extends State<NrsClientApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'NRS Internet Relay',
+      title: 'Relay Client (NRS & NZ Relay)',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
@@ -129,6 +136,7 @@ class _NrsClientAppState extends State<NrsClientApp> {
       home: _isCallActive && _activeCallRecipient != null
           ? ChatScreen(
               recipientNumber: _activeCallRecipient!,
+              country: _activeCountry,
               onCallFinished: _returnToDialer,
             )
           : DialScreen(

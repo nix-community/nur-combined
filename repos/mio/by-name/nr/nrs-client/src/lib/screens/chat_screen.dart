@@ -21,11 +21,13 @@ class RelayChatMessage {
 
 class ChatScreen extends StatefulWidget {
   final String recipientNumber;
+  final String country;
   final VoidCallback onCallFinished;
 
   const ChatScreen({
     super.key,
     required this.recipientNumber,
+    this.country = 'AU',
     required this.onCallFinished,
   });
 
@@ -229,8 +231,26 @@ class _ChatScreenState extends State<ChatScreen> {
                   widget.recipientNumber,
                   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
+                const SizedBox(width: 8),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: widget.country == 'NZ'
+                        ? Colors.indigo.withValues(alpha: 0.15)
+                        : Colors.teal.withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Text(
+                    widget.country == 'NZ' ? '🇳🇿 NZ Relay' : '🇦🇺 NRS',
+                    style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.bold,
+                      color: widget.country == 'NZ' ? Colors.indigo : Colors.teal,
+                    ),
+                  ),
+                ),
                 if (_roBadge.isNotEmpty) ...[
-                  const SizedBox(width: 8),
+                  const SizedBox(width: 6),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                     decoration: BoxDecoration(
@@ -385,9 +405,11 @@ class _ChatScreenState extends State<ChatScreen> {
                           style: TextStyle(fontSize: 12),
                         ),
                         const Spacer(),
-                        const Text(
-                          'Relay Convention: Type "GA" when done talking',
-                          style: TextStyle(fontSize: 11, color: Colors.grey),
+                        Text(
+                          widget.country == 'NZ'
+                              ? 'NZ Relay: Type "GA" when done talking'
+                              : 'Relay Convention: Type "GA" when done talking',
+                          style: const TextStyle(fontSize: 11, color: Colors.grey),
                         ),
                       ],
                     ),

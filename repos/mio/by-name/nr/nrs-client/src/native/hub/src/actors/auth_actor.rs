@@ -43,14 +43,27 @@ impl AuthActor {
         username: &str,
         password: &str,
         proxy_url: Option<&str>,
+        country: Option<&str>,
     ) -> Result<(String, String, String, String), String> {
-        let clean_user: String = username.chars().filter(|c| c.is_ascii_digit()).collect();
-        if clean_user.is_empty() {
-            return Err("Please enter a valid phone number".to_string());
-        }
+        let is_nz = country.map(|c| c.eq_ignore_ascii_case("NZ")).unwrap_or(false);
+
         if password.trim().is_empty() {
             return Err("Password cannot be empty".to_string());
         }
+
+        let clean_user = if is_nz {
+            let u = username.trim().to_string();
+            if u.is_empty() {
+                return Err("Please enter a valid email address or username".to_string());
+            }
+            u
+        } else {
+            let u: String = username.chars().filter(|c| c.is_ascii_digit()).collect();
+            if u.is_empty() {
+                return Err("Please enter a valid phone number".to_string());
+            }
+            u
+        };
 
         let mut client_builder = reqwest::Client::builder()
             .timeout(Duration::from_secs(15))
@@ -69,28 +82,55 @@ impl AuthActor {
             .map_err(|e| format!("Failed to create HTTP client: {}", e))?;
 
         let timestamp = chrono::Local::now().timestamp_millis();
-        let enc_password = format!("{{ENC}}{}", base64_encode(password.as_bytes()));
 
-        let payload = serde_json::json!({
-            "userName": clean_user,
-            "password": enc_password,
-            "loginType": "4",
-            "duplicateRequest": "false",
-            "requestIdentificationNumber": timestamp,
-            "deviceData": {
-                "appName": "NRS",
-                "appVersion": "1.0",
-                "browserVersion": "128.0",
-                "browser": "Firefox",
-                "osType": "Mac",
-                "osVersion": "15.0"
-            }
-        });
+        let (login_url, payload, use_basic_auth) = if is_nz {
+            let enc_password = base64_encode(password.as_bytes());
+            let pl = serde_json::json!({
+                "userName": clean_user,
+                "password": enc_password,
+                "requestGateway": "2",
+                "duplicateRequest": "false",
+                "requestIdentificationNumber": timestamp,
+                "deviceData": {
+                    "appName": "TRS",
+                    "appVersion": "1.0",
+                    "browserVersion": "128.0",
+                    "browser": "Firefox",
+                    "osType": "Mac",
+                    "osVersion": "15.0"
+                }
+            });
+            ("https://www.nzrelay.co.nz/trsapi/services/rest/user/login", pl, true)
+        } else {
+            let enc_password = format!("{{ENC}}{}", base64_encode(password.as_bytes()));
+            let pl = serde_json::json!({
+                "userName": clean_user,
+                "password": enc_password,
+                "loginType": "4",
+                "duplicateRequest": "false",
+                "requestIdentificationNumber": timestamp,
+                "deviceData": {
+                    "appName": "NRS",
+                    "appVersion": "1.0",
+                    "browserVersion": "128.0",
+                    "browser": "Firefox",
+                    "osType": "Mac",
+                    "osVersion": "15.0"
+                }
+            });
+            ("https://nrschat.nrscall.gov.au/nrsapi/services/rest/user/login", pl, false)
+        };
 
-        let resp = client
-            .post("https://nrschat.nrscall.gov.au/nrsapi/services/rest/user/login")
+        let mut req_builder = client
+            .post(login_url)
             .header("Content-Type", "application/json")
-            .header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:128.0) Gecko/20100101 Firefox/128.0")
+            .header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:128.0) Gecko/20100101 Firefox/128.0");
+
+        if use_basic_auth {
+            req_builder = req_builder.header("Authorization", "Basic dHJzYXBpOlRyNUwxdjNAMjAyMQ==");
+        }
+
+        let resp = req_builder
             .json(&payload)
             .send()
             .await
@@ -102,7 +142,7 @@ impl AuthActor {
             .map_err(|e| format!("Failed to read response body: {}", e))?;
 
         let val: serde_json::Value = serde_json::from_str(&text)
-            .map_err(|e| format!("Invalid JSON response from NRS gateway: {}", e))?;
+            .map_err(|e| format!("Invalid JSON response from gateway: {}", e))?;
 
         let status = val.get("status").and_then(|s| s.as_i64()).unwrap_or(-1);
         if status == 0 {
@@ -110,10 +150,15 @@ impl AuthActor {
                 let token = bean.get("id").and_then(|s| s.as_str()).unwrap_or("").to_string();
                 let first_name = bean.get("firstName").and_then(|s| s.as_str()).unwrap_or("").to_string();
                 let last_name = bean.get("lastName").and_then(|s| s.as_str()).unwrap_or("").to_string();
-                let nrs_id = bean.get("nrsId").and_then(|s| s.as_str()).unwrap_or("").to_string();
+                let nrs_id = bean.get("nrsId")
+                    .or_else(|| bean.get("preferredNumber"))
+                    .or_else(|| bean.get("did"))
+                    .and_then(|s| s.as_str())
+                    .unwrap_or("")
+                    .to_string();
                 return Ok((token, first_name, last_name, nrs_id));
             }
-            Err("NRS gateway responded with success but no userContractBean".to_string())
+            Err("Gateway responded with success but no userContractBean".to_string())
         } else {
             let mut err_msg = "Incorrect username or password".to_string();
             if let Some(arr) = val.get("keyValuePairs").and_then(|k| k.as_array()) {
@@ -133,8 +178,13 @@ impl AuthActor {
     }
 
     async fn handle_login(req: LoginRequest) {
-        let clean_user: String = req.username.chars().filter(|c| c.is_ascii_digit()).collect();
-        match Self::authenticate(&req.username, &req.password, req.proxy_url.as_deref()).await {
+        let is_nz = req.country.as_deref().map(|c| c.eq_ignore_ascii_case("NZ")).unwrap_or(false);
+        let clean_user = if is_nz {
+            req.username.trim().to_string()
+        } else {
+            req.username.chars().filter(|c| c.is_ascii_digit()).collect()
+        };
+        match Self::authenticate(&req.username, &req.password, req.proxy_url.as_deref(), req.country.as_deref()).await {
             Ok((token, first_name, last_name, nrs_id)) => {
                 AuthStatusSignal {
                     is_authenticated: true,

@@ -6,12 +6,14 @@ part of 'signals.dart';
 class CheckGeoStatusRequest {
   const CheckGeoStatusRequest({
     this.proxyUrl,
+    this.country,
   });
 
   static CheckGeoStatusRequest deserialize(BinaryDeserializer deserializer) {
     deserializer.increaseContainerDepth();
     final instance = CheckGeoStatusRequest(
       proxyUrl: TraitHelpers.deserializeOptionStr(deserializer),
+      country: TraitHelpers.deserializeOptionStr(deserializer),
     );
     deserializer.decreaseContainerDepth();
     return instance;
@@ -27,18 +29,22 @@ class CheckGeoStatusRequest {
   }
 
   final String? proxyUrl;
+  final String? country;
 
   CheckGeoStatusRequest copyWith({
     String? Function()? proxyUrl,
+    String? Function()? country,
   }) {
     return CheckGeoStatusRequest(
       proxyUrl: proxyUrl == null ? this.proxyUrl : proxyUrl(),
+      country: country == null ? this.country : country(),
     );
   }
 
   void serialize(BinarySerializer serializer) {
     serializer.increaseContainerDepth();
     TraitHelpers.serializeOptionStr(proxyUrl, serializer);
+    TraitHelpers.serializeOptionStr(country, serializer);
     serializer.decreaseContainerDepth();
   }
 
@@ -54,11 +60,12 @@ class CheckGeoStatusRequest {
     if (other.runtimeType != runtimeType) return false;
 
     return other is CheckGeoStatusRequest
-      && proxyUrl == other.proxyUrl;
+      && proxyUrl == other.proxyUrl
+      && country == other.country;
   }
 
   @override
-  int get hashCode => proxyUrl.hashCode;
+  int get hashCode => Object.hash(proxyUrl, country);
 
   @override
   String toString() {
@@ -66,7 +73,8 @@ class CheckGeoStatusRequest {
 
     assert(() {
       fullString = '$runtimeType('
-        'proxyUrl: $proxyUrl'
+        'proxyUrl: $proxyUrl, '
+        'country: $country'
         ')';
       return true;
     }());

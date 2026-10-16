@@ -4,11 +4,13 @@ import '../src/bindings/signals/signals.dart';
 
 class SettingsDialog extends StatefulWidget {
   final String initialProxyUrl;
-  final Function(String proxyUrl) onSave;
+  final String initialCountry;
+  final Function(String proxyUrl, String country) onSave;
 
   const SettingsDialog({
     super.key,
     required this.initialProxyUrl,
+    this.initialCountry = 'AU',
     required this.onSave,
   });
 
@@ -18,9 +20,10 @@ class SettingsDialog extends StatefulWidget {
 
 class _SettingsDialogState extends State<SettingsDialog> {
   late final TextEditingController _proxyController;
+  late String _selectedCountry;
   StreamSubscription? _geoSub;
   String _geoStatus = 'untested';
-  String _geoDetails = 'Click "Test Connection" to check NRS reachability';
+  String _geoDetails = 'Click "Test Connection" to check relay gateway reachability';
   String _detectedIp = '';
   String _country = '';
   bool _isTesting = false;
@@ -29,6 +32,7 @@ class _SettingsDialogState extends State<SettingsDialog> {
   void initState() {
     super.initState();
     _proxyController = TextEditingController(text: widget.initialProxyUrl);
+    _selectedCountry = widget.initialCountry;
 
     _geoSub = GeoStatusSignal.rustSignalStream.listen((pack) {
       if (!mounted) return;
@@ -54,11 +58,12 @@ class _SettingsDialogState extends State<SettingsDialog> {
     setState(() {
       _isTesting = true;
       _geoStatus = 'testing';
-      _geoDetails = 'Contacting NRS gateway and checking IP...';
+      _geoDetails = 'Contacting ${_selectedCountry == "NZ" ? "NZ Relay" : "NRS"} gateway and checking IP...';
     });
     final proxy = _proxyController.text.trim();
     CheckGeoStatusRequest(
       proxyUrl: proxy.isEmpty ? null : proxy,
+      country: _selectedCountry,
     ).sendSignalToRust();
   }
 
@@ -66,6 +71,8 @@ class _SettingsDialogState extends State<SettingsDialog> {
     switch (_geoStatus) {
       case 'direct_au':
       case 'proxy_au':
+      case 'direct_nz':
+      case 'proxy_nz':
         return Colors.green;
       case 'geo_blocked':
         return Colors.orange;
@@ -78,12 +85,14 @@ class _SettingsDialogState extends State<SettingsDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final isNz = _selectedCountry == 'NZ';
+
     return AlertDialog(
       title: const Row(
         children: [
           Icon(Icons.tune, color: Colors.teal),
           SizedBox(width: 8),
-          Text('NRS Connection & Proxy'),
+          Text('Relay Connection & Proxy'),
         ],
       ),
       content: SingleChildScrollView(
@@ -92,22 +101,52 @@ class _SettingsDialogState extends State<SettingsDialog> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'National Relay Service Gateway:',
+              'Relay Service Region:',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            const Text(
-              'https://nrschat.nrscall.gov.au/nrs/internetrelay',
-              style: TextStyle(fontSize: 12, color: Colors.grey),
+            const SizedBox(height: 6),
+            SegmentedButton<String>(
+              segments: const [
+                ButtonSegment<String>(
+                  value: 'AU',
+                  label: Text('Australia (NRS)'),
+                  icon: Text('🇦🇺'),
+                ),
+                ButtonSegment<String>(
+                  value: 'NZ',
+                  label: Text('New Zealand (NZ Relay)'),
+                  icon: Text('🇳🇿'),
+                ),
+              ],
+              selected: {_selectedCountry},
+              onSelectionChanged: (set) {
+                setState(() {
+                  _selectedCountry = set.first;
+                });
+              },
+            ),
+            const SizedBox(height: 14),
+            Text(
+              isNz ? 'NZ Relay Gateway (Auckland):' : 'NRS Gateway (Sydney):',
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text(
+              isNz
+                  ? 'https://www.nzrelay.co.nz\nhttps://omnicustomwebauc.concentrix.com'
+                  : 'https://nrschat.nrscall.gov.au/nrs/internetrelay',
+              style: const TextStyle(fontSize: 12, color: Colors.grey),
             ),
             const SizedBox(height: 16),
             TextField(
               controller: _proxyController,
-              decoration: const InputDecoration(
-                labelText: 'Australian SOCKS5 / HTTP Proxy (Optional)',
+              decoration: InputDecoration(
+                labelText: isNz ? 'SOCKS5 / HTTP Proxy (Optional)' : 'Australian SOCKS5 / HTTP Proxy (Optional)',
                 hintText: 'e.g., socks5://127.0.0.1:1080',
-                helperText: 'Required if connecting from outside Australia',
-                border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.vpn_lock),
+                helperText: isNz
+                    ? 'Optional proxy for NZ Relay connection'
+                    : 'Required if connecting to NRS from outside Australia',
+                border: const OutlineInputBorder(),
+                prefixIcon: const Icon(Icons.vpn_lock),
               ),
             ),
             const SizedBox(height: 16),
@@ -184,7 +223,7 @@ class _SettingsDialogState extends State<SettingsDialog> {
         ),
         FilledButton(
           onPressed: () {
-            widget.onSave(_proxyController.text.trim());
+            widget.onSave(_proxyController.text.trim(), _selectedCountry);
             Navigator.of(context).pop();
           },
           child: const Text('Save Settings'),

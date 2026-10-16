@@ -16,6 +16,7 @@ pub struct ConnectCallRequest {
     pub australian_state: String,
     pub password: Option<String>,
     pub user_token: Option<String>,
+    pub country: Option<String>,
 }
 
 #[derive(Deserialize, DartSignal)]
@@ -23,6 +24,7 @@ pub struct LoginRequest {
     pub username: String,
     pub password: String,
     pub proxy_url: Option<String>,
+    pub country: Option<String>,
 }
 
 #[derive(Deserialize, DartSignal)]
@@ -33,7 +35,7 @@ pub struct SendRelayMessageRequest {
 
 #[derive(Deserialize, DartSignal)]
 pub struct QuickActionRequest {
-    /// Action codes: "GA", "GA_TO_SK", "SK", "SKSK", "HOLD", "RESUME", "REPEAT", "SPELL", "EMERGENCY_000"
+    /// Action codes: "GA", "GA_TO_SK", "SK", "SKSK", "HOLD", "RESUME", "REPEAT", "SPELL", "EMERGENCY_000", "EMERGENCY_111"
     pub action_type: String,
 }
 
@@ -45,6 +47,7 @@ pub struct DisconnectCallRequest {
 #[derive(Deserialize, DartSignal)]
 pub struct CheckGeoStatusRequest {
     pub proxy_url: Option<String>,
+    pub country: Option<String>,
 }
 
 #[derive(Deserialize, DartSignal)]

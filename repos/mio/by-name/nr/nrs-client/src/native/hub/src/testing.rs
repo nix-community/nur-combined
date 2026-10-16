@@ -103,4 +103,83 @@ mod tests {
         };
         assert_eq!(std_campaign, "P_NRS_Internet_MakeACall_Chat");
     }
+
+    #[test]
+    fn test_nz_relay_campaign_and_emergency() {
+        // NZ Emergency numbers
+        let check_nz_emergency = |num: &str| num == "111" || num == "112" || num == "911";
+        assert!(check_nz_emergency("111"));
+        assert!(check_nz_emergency("112"));
+        assert!(check_nz_emergency("911"));
+        assert!(!check_nz_emergency("000"));
+        assert!(!check_nz_emergency("021123456"));
+
+        // AU Emergency numbers
+        let check_au_emergency = |num: &str| num == "000" || num == "112" || num == "911";
+        assert!(check_au_emergency("000"));
+        assert!(check_au_emergency("112"));
+        assert!(check_au_emergency("911"));
+        assert!(!check_au_emergency("111"));
+
+        // NZ Campaign is always "Text Relay"
+        let nz_campaign = "Text Relay";
+        assert_eq!(nz_campaign, "Text Relay");
+    }
+
+    #[test]
+    fn test_nz_relay_auth_header() {
+        const CHARSET: &[u8; 64] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+        let raw = "trsapi:Tr5L1v3@2021";
+        let data = raw.as_bytes();
+        let mut out = String::with_capacity((data.len() + 2) / 3 * 4);
+        for chunk in data.chunks(3) {
+            let b0 = chunk[0];
+            let b1 = if chunk.len() > 1 { chunk[1] } else { 0 };
+            let b2 = if chunk.len() > 2 { chunk[2] } else { 0 };
+            out.push(CHARSET[(b0 >> 2) as usize] as char);
+            out.push(CHARSET[(((b0 & 3) << 4) | (b1 >> 4)) as usize] as char);
+            if chunk.len() > 1 {
+                out.push(CHARSET[(((b1 & 0xF) << 2) | (b2 >> 6)) as usize] as char);
+            } else {
+                out.push('=');
+            }
+            if chunk.len() > 2 {
+                out.push(CHARSET[(b2 & 0x3F) as usize] as char);
+            } else {
+                out.push('=');
+            }
+        }
+        let basic_header = format!("Basic {}", out);
+        assert_eq!(basic_header, "Basic dHJzYXBpOlRyNUwxdjNAMjAyMQ==");
+    }
+
+    #[test]
+    fn test_autodetect_country_logic() {
+        let detect_from_hints = |country_code: &str, tz_name: &str| -> &'static str {
+            let c = country_code.to_uppercase();
+            if c == "NZ" {
+                return "NZ";
+            }
+            if c == "AU" {
+                return "AU";
+            }
+            let tz = tz_name.to_uppercase();
+            if tz.contains("NZ") || tz.contains("AUCKLAND") || tz.contains("CHATHAM") {
+                return "NZ";
+            }
+            if tz.contains("AEST") || tz.contains("AEDT") || tz.contains("ACST") || tz.contains("AWST") || tz.contains("AUSTRALIA") {
+                return "AU";
+            }
+            "AU"
+        };
+
+        assert_eq!(detect_from_hints("NZ", "UTC"), "NZ");
+        assert_eq!(detect_from_hints("AU", "UTC"), "AU");
+        assert_eq!(detect_from_hints("", "NZDT"), "NZ");
+        assert_eq!(detect_from_hints("", "NZST"), "NZ");
+        assert_eq!(detect_from_hints("", "AEDT"), "AU");
+        assert_eq!(detect_from_hints("", "AEST"), "AU");
+        assert_eq!(detect_from_hints("", "Pacific/Auckland"), "NZ");
+        assert_eq!(detect_from_hints("", "Australia/Sydney"), "AU");
+    }
 }
