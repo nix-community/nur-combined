@@ -54,16 +54,16 @@
   };
   dorion-git = {
     pname = "dorion-git";
-    version = "9e17f3cb3c1047e74d619727a44cf115603e8235";
+    version = "90433a1acddbe85da357f37054f87ed57f5b426b";
     src = fetchFromGitHub {
       owner = "SpikeHD";
       repo = "Dorion";
-      rev = "9e17f3cb3c1047e74d619727a44cf115603e8235";
+      rev = "90433a1acddbe85da357f37054f87ed57f5b426b";
       fetchSubmodules = false;
-      sha256 = "sha256-9Hs5PZkmGAwtE08WbkeDXkZ916LUZEyBn13Mm6eN/X0=";
+      sha256 = "sha256-6X32myAzAE8yROFTxKUjImeUiWFU3y4Rdi1Q6NKxDvI=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-9Hs5PZkmGAwtE08WbkeDXkZ916LUZEyBn13Mm6eN_X0=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-6X32myAzAE8yROFTxKUjImeUiWFU3y4Rdi1Q6NKxDvI=/src-tauri/Cargo.lock";
       outputHashes = {
         "simple-websockets-0.1.6" = "sha256-iySzwntHw5Wf5HwKMBYL8mrMl7kjGZrZonL7/zrkeCo=";
         "livesplit-hotkey-0.8.0" = "sha256-iYAzlkYMEN2v4IhsnljWpUZkJO5CN1vcqz5thAJvbXc=";
