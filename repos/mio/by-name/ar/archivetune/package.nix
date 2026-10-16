@@ -367,13 +367,18 @@ stdenv.mkDerivation {
 
     mkdir -p $out/bin
     if [ -d $out/Applications/ArchiveTune.app ]; then
+      if [ -f $out/Applications/ArchiveTune.app/Contents/app/ArchiveTune.cfg ]; then
+        echo "java-options=-Darchivetune.mpv.path=${mpv}/bin/mpv" >> $out/Applications/ArchiveTune.app/Contents/app/ArchiveTune.cfg
+      fi
+
       makeWrapper $out/Applications/ArchiveTune.app/Contents/MacOS/ArchiveTune $out/bin/archivetune \
         --prefix PATH : "${lib.makeBinPath [ mpv ]}" \
         --set ARCHIVETUNE_MPV_PATH "${mpv}/bin/mpv"
-      wrapProgram $out/Applications/ArchiveTune.app/Contents/MacOS/ArchiveTune \
-        --prefix PATH : "${lib.makeBinPath [ mpv ]}" \
-        --set ARCHIVETUNE_MPV_PATH "${mpv}/bin/mpv"
     else
+      if [ -f $out/lib/archivetune/lib/app/ArchiveTune.cfg ]; then
+        echo "java-options=-Darchivetune.mpv.path=${mpv}/bin/mpv" >> $out/lib/archivetune/lib/app/ArchiveTune.cfg
+      fi
+
       makeWrapper $out/lib/archivetune/bin/ArchiveTune $out/bin/archivetune \
         --prefix PATH : "${lib.makeBinPath [ mpv ]}" \
         --set ARCHIVETUNE_MPV_PATH "${mpv}/bin/mpv" \
