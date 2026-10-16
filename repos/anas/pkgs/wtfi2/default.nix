@@ -4,7 +4,7 @@
 }:
 let
   pname = "wtfi2";
-  version = "0.6.0";
+  version = "0.7.0";
   owner = "kanywst";
 in
 rustPlatform.buildRustPackage rec {
@@ -14,10 +14,10 @@ rustPlatform.buildRustPackage rec {
     inherit owner;
     repo = "${pname}";
     rev = "v${version}";
-    hash = "sha256-jNAx77pRhzoYHbB//2FS1EhR5v47Ueh8JDXKC+AHVIg=";
+    hash = "sha256-vkshSHAOKwKs1CVCyiXI4VbQ8Q6DYmmGPaqE9PU7ofo=";
   };
 
-  cargoHash = "sha256-1IBlpygfsVvkQpp4/Gi5M/Cb8gHakhEwaBgVvdXEQ3U=";
+  cargoHash = "sha256-7uXeKkJZpj8GdMQfl9nePmW59wjti9YytaUoaeKjN0s=";
 
   # There is no tests
   doCheck = false;
