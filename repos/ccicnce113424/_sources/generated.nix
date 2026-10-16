@@ -301,6 +301,20 @@
       "pubspec.lock" = ./. + "/sha256-PrXUQdEZUMNkTzaS7gGgQTrRWcF+4a0tFSpWqLwaubI=/pubspec.lock";
     };
   };
+  pipewire-bluez5-lhdc-git = {
+    pname = "pipewire-bluez5-lhdc-git";
+    version = "76eb1f70498023126ca1f5f598786beb8e0384c9";
+    src = fetchgit {
+      url = "https://gitlab.freedesktop.org/pipewire/pipewire.git";
+      rev = "76eb1f70498023126ca1f5f598786beb8e0384c9";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-fA9OCZs2Ot3VzOS8DK8ZYao2CcqkQxV+bVbWkpBEC+I=";
+    };
+    date = "2026-10-15";
+  };
   pixes = {
     pname = "pixes";
     version = "v1.2.3";

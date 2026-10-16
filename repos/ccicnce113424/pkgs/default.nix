@@ -107,6 +107,8 @@ lib.makeScope pkgs.newScope (
       version = stableVersion sources;
     };
 
+    liblhdcv5 = self.callPackage ./liblhdcv5/package.nix { };
+
     linux-enable-ir-emitter = self.callPackage ./linux-enable-ir-emitter rec {
       sources = fetchedSrc.linux-enable-ir-emitter;
       version = sources.version;
@@ -151,6 +153,11 @@ lib.makeScope pkgs.newScope (
       srcInfo = lib.importJSON ./piliplus/src-info.json;
       pubspecLock = lib.importJSON ./piliplus/pubspec.lock.json;
       gitHashes = lib.importJSON ./piliplus/git-hashes.json;
+    };
+
+    pipewire-bluez5-lhdc-git = self.callPackage ./pipewire-bluez5-lhdc-git rec {
+      sources = fetchedSrc.pipewire-bluez5-lhdc-git;
+      version = unstableVersion sources "1.7";
     };
 
     pixes = self.callPackage ./pixes rec {

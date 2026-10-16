@@ -99,6 +99,10 @@ extract = ["pubspec.lock"]
 fetch.github = "bggRGjQaUbCoE/PiliPlus"
 src.github = "bggRGjQaUbCoE/PiliPlus"
 
+[pipewire-bluez5-lhdc-git]
+fetch.git = "https://gitlab.freedesktop.org/pipewire/pipewire.git"
+src.git = "https://gitlab.freedesktop.org/pipewire/pipewire.git"
+
 [pixes]
 extract = ["pubspec.lock"]
 fetch.github = "pixes-app/pixes"
