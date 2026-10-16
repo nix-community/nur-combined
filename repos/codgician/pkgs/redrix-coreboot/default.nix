@@ -27,23 +27,23 @@ let
   edk2 = fetchFromGitHub {
     owner = "MrChromebox";
     repo = "edk2";
-    rev = "9c0cb3a58343786240c38b2d115c200351d2882b";
+    rev = "f7cbaab0d5a224d15a144c049fc83f8d730b45fb";
     fetchSubmodules = true;
-    hash = "sha256-W5UouvneKdR64aL2GlRAKWDuUB80IAv45bi7x+vx0oU=";
+    hash = "sha256-bTyQ4X0UIDcrHYaa7eZiXY9xVFki4r0S+LYcvvzTnSg=";
   };
   edk2Selector = "origin/uefipayload_2608";
   edk2Pin = edk2.rev or edk2.tag;
 in
 gcc14Stdenv.mkDerivation (finalAttrs: {
   pname = "redrix-coreboot";
-  version = "26.09-unstable.337-g5f24bcf77f00";
+  version = "26.09-unstable.374-g5565dece6634";
 
   src = fetchFromGitHub {
     owner = "codgician";
     repo = "coreboot";
-    rev = "5f24bcf77f00b080dfbcf740fa05adafadb411a5";
+    rev = "5565dece66349f17fe774d9eb81c53b3a2316e43";
     fetchSubmodules = true;
-    hash = "sha256-mhTwlD8zRoXJux1dQtpw3cNRyJvlefbi4QMW7V5s8ow=";
+    hash = "sha256-LEXp39BlRNLvyqiktebxS7cBw5BDOtqmQQNThYHWBv4=";
   };
 
   nativeBuildInputs = [
