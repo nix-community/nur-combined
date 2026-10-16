@@ -27,14 +27,14 @@ let
 in
 {
   stable = mkSources {
-    version = "0.0.45";
-    cliHash = "sha256-EFBa50vGpDz6sP3gvwag4NaGL3QDBZG+mUpkDUig1r0=";
-    desktopHash = "sha256-q3sKhtHqZXzMFitgt3LGH3C8fIueJZtGk51Tuzj6oCo=";
+    version = "0.1.0";
+    cliHash = "sha256-93A/8buPYkNYAFizzPLAKrti66S5keJrux2iL0tW2bE=";
+    desktopHash = "sha256-442cX7UTsezgpwi5BtM4O1tH7RmVdbOaMeQauINOt0Q=";
   };
 
   nightly = mkSources {
-    version = "0.0.46-nightly.20261013.3080";
-    cliHash = "sha256-099oL/2voB7PGhJos4C13dKEIb75QEZ0puhu2F9FT4E=";
-    desktopHash = "sha256-GOhRzvoerNl/VtCCqn9NGKP584hTQr8bYhl9gKOduwQ=";
+    version = "0.0.46-nightly.20261015.3176";
+    cliHash = "sha256-2IyzlQwtM46vfnXiLJvXwxoQqnSLJuJr76exwb0uEak=";
+    desktopHash = "sha256-FVtah+pPR5rSaUzaAUGjX+MYzaAEfhAaUBX/sOO4TI8=";
   };
 }
