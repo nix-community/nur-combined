@@ -13,7 +13,7 @@ rec {
     };
     flake-compat.url = "https://git.lix.systems/lix-project/flake-compat/archive/main.tar.gz";
     nvfetcher = {
-      url = "github:berberman/nvfetcher/0.8.0";
+      url = "github:berberman/nvfetcher/0.8.1";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-compat.follows = "";
     };
