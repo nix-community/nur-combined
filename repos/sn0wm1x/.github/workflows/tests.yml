@@ -1,0 +1,105 @@
+name: Test changed packages
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  PACKAGE_TESTS_EXPR: |
+    let
+      package = builtins.getEnv "PACKAGE";
+      flake = builtins.getFlake (toString ./.);
+      lib = flake.inputs.nixpkgs.lib;
+      pkg = flake.packages.${builtins.currentSystem}.${package};
+    in
+    lib.collect lib.isDerivation (pkg.tests or { })
+
+concurrency:
+  group: test-packages-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+      has-tests: ${{ steps.matrix.outputs.has-tests }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ github.token }}
+      - name: Discover tests for changed packages
+        id: matrix
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          import subprocess
+
+          changed = subprocess.check_output([
+              "git", "diff", "--name-only", "--no-renames", "-z",
+              f"{os.environ['BASE_SHA']}...{os.environ['HEAD_SHA']}",
+              "--", "pkgs/by-name/",
+          ])
+          packages = sorted({
+              os.fsdecode(path).split("/")[2]
+              for path in changed.split(b"\0") if path
+          })
+          include = []
+          for package in packages:
+              if not (Path("pkgs/by-name") / package / "default.nix").is_file():
+                  print(f"Skipping removed package: {package}")
+                  continue
+              has_tests = json.loads(subprocess.check_output([
+                  "nix", "eval", "--impure", "--json",
+                  "--expr", os.environ["PACKAGE_TESTS_EXPR"],
+                  "--apply", "tests: tests != []",
+              ], env={**os.environ, "PACKAGE": package}))
+              if has_tests:
+                  include.append({"package": package})
+              else:
+                  print(f"No tests declared: {package}")
+          matrix = json.dumps({"include": include}, separators=(",", ":"))
+          with open(os.environ["GITHUB_OUTPUT"], "a") as output:
+              output.write(f"matrix={matrix}\n")
+              output.write(f"has-tests={str(bool(include)).lower()}\n")
+          print(f"Packages with tests: {matrix}")
+          PY
+
+  test:
+    needs: discover
+    if: needs.discover.outputs.has-tests == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.discover.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ github.token }}
+      - uses: cachix/cachix-action@v17
+        with:
+          name: sn0wm1x
+          skipPush: true
+      - name: Run package tests
+        env:
+          PACKAGE: ${{ matrix.package }}
+        run: |
+          nix build --impure --no-link --print-build-logs --keep-going \
+            --expr "$PACKAGE_TESTS_EXPR"

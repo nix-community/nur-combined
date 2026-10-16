@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Update plugin pins and the upstream patch, then verify the complete build."""
+"""Update plugin pins and source hashes."""
 
 import argparse
 import json
@@ -114,13 +114,10 @@ def update(root, *, hash_only=False):
         versions["hash"] = prefetch_hash(target + ".src")
         write_versions(path, versions)
         print(f"Source hash: {versions['hash']}", flush=True)
-        # Patch application, module resolution and independent integration tests must
-        # all succeed before keeping the proposed pins, including hash-only updates.
-        subprocess.run(["nix", "build", "--no-link", target, target + ".tests.integration"], check=True)
     except BaseException:
         path.write_bytes(original)
         raise
-    print("Updated and verified caddy-sn0wm1x", flush=True)
+    print("Updated caddy-sn0wm1x pins and source hashes", flush=True)
 
 
 def main():
@@ -130,7 +127,7 @@ def main():
     signal.signal(signal.SIGTERM, interrupted)
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=Path.cwd())
-    parser.add_argument("--hash-only", action="store_true", help="Keep plugin pins; refresh hash and verify build")
+    parser.add_argument("--hash-only", action="store_true", help="Keep plugin pins; refresh source hashes")
     args = parser.parse_args()
     update(args.root.resolve(), hash_only=args.hash_only)
 

@@ -121,7 +121,7 @@ jobs:
             git checkout -B "$branch" "origin/$BASE_BRANCH"
           fi
           printf 'branch=%s\npr=%s\nremote-sha=%s\n' "$branch" "$pr" "$remote_sha" >> "$GITHUB_OUTPUT"
-      - name: Run updateScript and verify build
+      - name: Run updateScript
         id: update
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -133,7 +133,7 @@ jobs:
             '(builtins.getFlake ("path:" + toString ./.)).inputs.nixpkgs.outPath')"
           export NIX_PATH="nixpkgs=$nixpkgs_path"
           nix shell --inputs-from . nixpkgs#nix-update -c \
-            nix-update --flake --use-update-script --build "$PACKAGE"
+            nix-update --flake --use-update-script "$PACKAGE"
           # A package PR may only contain that package's changes.
           changed="$(git diff --name-only HEAD; git ls-files --others --exclude-standard; \
             git diff --name-only "origin/$BASE_BRANCH...HEAD")"
@@ -162,7 +162,7 @@ jobs:
             fi
           fi
           printf 'publish=%s\n' "$publish" >> "$GITHUB_OUTPUT"
-      # Mint after the potentially long build; installation tokens last one hour.
+      # Mint after the updater finishes; installation tokens last one hour.
       - name: Create App token
         if: steps.update.outputs.publish == 'true'
         id: app-token
@@ -195,7 +195,7 @@ jobs:
           fi
           title="$(cat "$RUNNER_TEMP/pr-title")"
           # shellcheck disable=SC2016 # Markdown backticks are literal text.
-          printf 'Automated update for `%s`, verified by its updateScript and a package build.\n\nWorkflow: %s/%s/actions/runs/%s\n' \
+          printf 'Automated update for `%s`.\n\nWorkflow: %s/%s/actions/runs/%s\n' \
             "$PACKAGE" "$GITHUB_SERVER_URL" "$GITHUB_REPOSITORY" "$GITHUB_RUN_ID" > "$RUNNER_TEMP/pr-body.md"
           if [[ -n "$PR_NUMBER" ]]; then
             gh pr edit "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" \
