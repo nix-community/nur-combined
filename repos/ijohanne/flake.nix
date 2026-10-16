@@ -35,7 +35,6 @@
     # Other packages
     hrafnsyn = {
       url = "github:ijohanne/hrafnsyn";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     multicast-relay = { url = "github:alsmith/multicast-relay/2c0e4c743127066388de2c5fd6a7eed676d9b523"; flake = false; };
     nixpkgs-firefox-addons = { url = "github:ijohanne/nixpkgs-firefox-addons/215fb67222ad97261efd7a8bef65a2154586b335"; flake = false; };
