@@ -16,33 +16,33 @@
   },
   {
     "pname": "Aiursoft.AiurObserver.WebSocket",
-    "version": "10.0.13",
-    "hash": "sha256-E1DIDFj8hrOIg082+kI+lWDv7Tv/SiizD/sRCZ6zT5c="
+    "version": "10.0.14",
+    "hash": "sha256-XNNz8+gkEqiihFbzsEynoZ8LO1nhE7t4HECF49qwrSA="
   },
   {
     "pname": "Aiursoft.AiurObserver.WebSocket.Server",
-    "version": "10.0.13",
-    "hash": "sha256-08JwudgQuwg1XJyWpQkFd4QNCqMY/8DBQgrU30cFyqg="
+    "version": "10.0.14",
+    "hash": "sha256-i2NH4VqF7rz9GCrJ4jjQz6q9zTaVFNRbJH4dl/LfJW4="
   },
   {
     "pname": "Aiursoft.Canon",
-    "version": "10.0.14",
-    "hash": "sha256-otntAHfEwtYHLgd6ykFaTzYwjqA9VnGGMEUUnRQvwiE="
+    "version": "10.0.15",
+    "hash": "sha256-3WXpWO1N4gZL7gsSP9ngzBBjbrsCxB+/JUcVLvIIqqY="
   },
   {
     "pname": "Aiursoft.Canon.BackgroundJobs",
-    "version": "10.0.14",
-    "hash": "sha256-R/YesbIuQ91qk5NhrzJB/J4huafOeoHYmAMsawKqbwc="
+    "version": "10.0.15",
+    "hash": "sha256-QfBWNi/YBda5RD9dQw/ejMCdrleXg/ShGGzNmXYs8ZY="
   },
   {
     "pname": "Aiursoft.Canon.ScheduledTasks",
-    "version": "10.0.14",
-    "hash": "sha256-iFVaPpky+akfQkeuRGLdAHcHwVFrgOf/LHTKgo1qzK0="
+    "version": "10.0.15",
+    "hash": "sha256-SNh5tOTRXaf2iyVZFoB/J5cfuEwQYdMPqWtP7xST0n4="
   },
   {
     "pname": "Aiursoft.Canon.ServiceTaskQueue",
-    "version": "10.0.15",
-    "hash": "sha256-DRjTa49AnNUdtyHc1iDxA4XreOSNMdbeL9GyhBhpx7k="
+    "version": "10.0.16",
+    "hash": "sha256-2fbG1BapcQDQiFTzvZXhadPeUNU5s2nCfw6I+G8253Y="
   },
   {
     "pname": "Aiursoft.ClickhouseLoggerProvider",
@@ -76,8 +76,8 @@
   },
   {
     "pname": "Aiursoft.DbTools.MySql",
-    "version": "10.0.34",
-    "hash": "sha256-Mgr0Kfy9ZZiC+XmqkXyTWZnsrHg5RzXfSwitw2MQIkk="
+    "version": "10.0.35",
+    "hash": "sha256-CAQy1IQJ3zxzs+bSF8oP5VpSqElc3nrYoexBAS//n0M="
   },
   {
     "pname": "Aiursoft.DbTools.Sqlite",
@@ -278,11 +278,6 @@
     "pname": "Microsoft.EntityFrameworkCore.Relational",
     "version": "10.0.0",
     "hash": "sha256-vOP2CE5YA551BlpbOuIy6RuAiAEPEpCVS1cEE33/zN4="
-  },
-  {
-    "pname": "Microsoft.EntityFrameworkCore.Relational",
-    "version": "10.0.12",
-    "hash": "sha256-mTqJgn7ceg0204YefpZa9PNFcX8CFUhB/D807gh8V5I="
   },
   {
     "pname": "Microsoft.EntityFrameworkCore.Relational",
@@ -556,8 +551,8 @@
   },
   {
     "pname": "Microting.EntityFrameworkCore.MySql",
-    "version": "10.0.12",
-    "hash": "sha256-FOaxfV8LMkb61vzh6ftjvgkGW+8ZfRMo+bJQiyTV+l0="
+    "version": "10.0.13",
+    "hash": "sha256-fjSKz9Hoy0kAXQXWsng7+dApv1DNxIPiQ6joXP7tLPo="
   },
   {
     "pname": "Mono.TextTemplating",
