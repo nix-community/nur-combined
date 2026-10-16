@@ -1,0 +1,23 @@
+{ fetchurl, stdenv }:
+
+let
+  version = "5.1.0";
+  sources = {
+    "x86_64-linux" = {
+      url = "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v5.1.0/AlgerMusicPlayer-5.1.0-linux-x86_64.AppImage";
+      hash = "sha256-nYMDNSpyyCHRKIBhP++sA7FmodSHBUwRSPEM8yLFaF0=";
+    };
+  };
+  source =
+    sources.${stdenv.hostPlatform.system}
+      or (throw ("unsupported system " + stdenv.hostPlatform.system));
+  src = fetchurl (
+    source
+    // {
+      curlOptsList = [ "--compressed" ];
+    }
+  );
+in
+{
+  inherit version src;
+}

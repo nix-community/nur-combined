@@ -4,6 +4,7 @@
 
 {
   ab-download-manager = pkgs.callPackage ./pkgs/ab-download-manager { };
+  alger-music-player = pkgs.callPackage ./pkgs/alger-music-player { };
   baidunetdisk = pkgs.callPackage ./pkgs/baidunetdisk { };
   baidupcs-go = pkgs.callPackage ./pkgs/baidupcs-go { };
   bluez-5_86 = pkgs.callPackage ./pkgs/bluez-5_86 { };
@@ -24,6 +25,7 @@
   yanhekt-autoslides = pkgs.callPackage ./pkgs/yanhekt-autoslides { };
   winboat-unstable = pkgs.callPackage ./pkgs/winboat-unstable { };
   xwayland-satellite = pkgs.callPackage ./pkgs/xwayland-satellite { };
+  yesplaymusic = pkgs.callPackage ./pkgs/yesplaymusic { };
 
   homeModules = import ./home-modules;
   nixosModules = import ./nixos-modules;
