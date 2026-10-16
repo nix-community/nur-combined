@@ -1,173 +1,174 @@
 {
   pkgs ? import <nixpkgs> {},
   skipPkgs ? "[]",
-}:
-let
+}: let
   skipList = builtins.fromJSON skipPkgs;
 in
-removeAttrs rec {
-  modules = import ./modules;
-  overlays = import ./overlays;
-  lib = import ./lib {inherit pkgs;};
+  removeAttrs rec {
+    modules = import ./modules;
+    overlays = import ./overlays;
+    lib = import ./lib {inherit pkgs;};
 
-  hyprcursor-bibata = lib.callPackage ./pkgs/hyprcursor-bibata {};
-  twintaillauncher = lib.callPackage ./pkgs/twintaillauncher {};
-  kryoto-desktop = lib.callPackage ./pkgs/kryoto-desktop {};
-  hyprpanel = lib.callPackage ./pkgs/hyprpanel {};
-  rhythia = lib.callPackage ./pkgs/rhythia {};
-  syslock = lib.callPackage ./pkgs/syslock {};
-  sysbar = lib.callPackage ./pkgs/sysbar {};
-  xuan = lib.callPackage ./pkgs/xuan {};
+    hyprcursor-bibata = lib.callPackage ./pkgs/hyprcursor-bibata {};
+    twintaillauncher = lib.callPackage ./pkgs/twintaillauncher {};
+    kryoto-desktop = lib.callPackage ./pkgs/kryoto-desktop {};
+    hyprpanel = lib.callPackage ./pkgs/hyprpanel {};
+    rhythia = lib.callPackage ./pkgs/rhythia {};
+    syslock = lib.callPackage ./pkgs/syslock {};
+    sysbar = lib.callPackage ./pkgs/sysbar {};
+    xuan = lib.callPackage ./pkgs/xuan {};
 
-  tinywiibackupmanager = lib.callPackage ./pkgs/tinywiibackupmanager {};
-  note-block-studio = lib.callPackage ./pkgs/note-block-studio {};
-  re-lunatic-player = lib.callPackage ./pkgs/re-lunatic-player {};
-  punktfunk-client = lib.callPackage ./pkgs/punktfunk-client {};
-  quiver-launcher = lib.callPackage ./pkgs/quiver-launcher {};
-  nintoolbox-gui = lib.callPackage ./pkgs/nintoolbox-gui {};
-  beeper-nightly = lib.callPackage ./pkgs/beeper-nightly {};
-  app-librescore = lib.callPackage ./pkgs/app-librescore {};
-  wiiudownloader = lib.callPackage ./pkgs/wiiudownloader {};
-  ab-download-manager = lib.callPackage ./pkgs/abdm {};
-  osu-tachyon = lib.callPackage ./pkgs/osu-tachyon {};
-  nintoolbox = lib.callPackage ./pkgs/nintoolbox {};
-  oak-editor = lib.callPackage ./pkgs/oak-editor {};
-  helixnotes = lib.callPackage ./pkgs/helixnotes {};
-  moonplayer = lib.callPackage ./pkgs/moonplayer {};
-  noisetorch = lib.callPackage ./pkgs/noisetorch {};
-  streamnook = lib.callPackage ./pkgs/streamnook {};
-  altersend = lib.callPackage ./pkgs/altersend {};
-  genoffice = lib.callPackage ./pkgs/genoffice {};
-  equicord = lib.callPackage ./pkgs/equicord {};
-  orbolay = lib.callPackage ./pkgs/orbolay {};
-  wg-nord = lib.callPackage ./pkgs/wg-nord {};
-  sonixd = lib.callPackage ./pkgs/sonixd {};
-  hytale = lib.callPackage ./pkgs/hytale {};
-  whisky = lib.callPackage ./pkgs/whisky {};
-  armsx2 = lib.callPackage ./pkgs/armsx2 {};
-  mcman = lib.callPackage ./pkgs/mcman {};
-  nuvio = lib.callPackage ./pkgs/nuvio {};
-  sfw = lib.callPackage ./pkgs/sfw {};
-  orb = lib.callPackage ./pkgs/orb {};
-  fx = lib.callPackage ./pkgs/fx {};
+    tinywiibackupmanager = lib.callPackage ./pkgs/tinywiibackupmanager {};
+    note-block-studio = lib.callPackage ./pkgs/note-block-studio {};
+    re-lunatic-player = lib.callPackage ./pkgs/re-lunatic-player {};
+    punktfunk-client = lib.callPackage ./pkgs/punktfunk-client {};
+    quiver-launcher = lib.callPackage ./pkgs/quiver-launcher {};
+    nintoolbox-gui = lib.callPackage ./pkgs/nintoolbox-gui {};
+    beeper-nightly = lib.callPackage ./pkgs/beeper-nightly {};
+    app-librescore = lib.callPackage ./pkgs/app-librescore {};
+    wiiudownloader = lib.callPackage ./pkgs/wiiudownloader {};
+    ab-download-manager = lib.callPackage ./pkgs/abdm {};
+    osu-tachyon = lib.callPackage ./pkgs/osu-tachyon {};
+    nintoolbox = lib.callPackage ./pkgs/nintoolbox {};
+    oak-editor = lib.callPackage ./pkgs/oak-editor {};
+    helixnotes = lib.callPackage ./pkgs/helixnotes {};
+    moonplayer = lib.callPackage ./pkgs/moonplayer {};
+    noisetorch = lib.callPackage ./pkgs/noisetorch {};
+    streamnook = lib.callPackage ./pkgs/streamnook {};
+    altersend = lib.callPackage ./pkgs/altersend {};
+    genoffice = lib.callPackage ./pkgs/genoffice {};
+    equicord = lib.callPackage ./pkgs/equicord {};
+    sm64plus = lib.callPackage ./pkgs/sm64plus {};
+    orbolay = lib.callPackage ./pkgs/orbolay {};
+    wg-nord = lib.callPackage ./pkgs/wg-nord {};
+    sonixd = lib.callPackage ./pkgs/sonixd {};
+    hytale = lib.callPackage ./pkgs/hytale {};
+    whisky = lib.callPackage ./pkgs/whisky {};
+    armsx2 = lib.callPackage ./pkgs/armsx2 {};
+    mcman = lib.callPackage ./pkgs/mcman {};
+    nuvio = lib.callPackage ./pkgs/nuvio {};
+    sfw = lib.callPackage ./pkgs/sfw {};
+    orb = lib.callPackage ./pkgs/orb {};
+    fx = lib.callPackage ./pkgs/fx {};
 
-  keka-external-helper = lib.callPackage ./pkgs/keka-external-helper {};
-  bluebubbles-server = lib.callPackage ./pkgs/bluebubbles-server {};
-  folder-preview-pro = lib.callPackage ./pkgs/folder-preview-pro {};
-  mcpelauncher-swift = lib.callPackage ./pkgs/mcpelauncher-swift {};
-  openemu-silicon = lib.callPackage ./pkgs/openemu-silicon {};
-  creality-print = lib.callPackage ./pkgs/creality-print {};
-  flux-markdown = lib.callPackage ./pkgs/flux-markdown {};
-  vmware-fusion = lib.callPackage ./pkgs/vmware-fusion {};
-  passepartout = lib.callPackage ./pkgs/passepartout {};
-  diffusionbee = lib.callPackage ./pkgs/diffusionbee {};
-  redream-dev = lib.callPackage ./pkgs/redream-dev {};
-  betteraudio = lib.callPackage ./pkgs/betteraudio {};
-  linearmouse = lib.callPackage ./pkgs/linearmouse {};
-  pearcleaner = lib.callPackage ./pkgs/pearcleaner {};
-  supercharge = lib.callPackage ./pkgs/supercharge {};
-  removemacai = lib.callPackage ./pkgs/removemacai {};
-  compositor = lib.callPackage ./pkgs/compositor {};
-  cot-editor = lib.callPackage ./pkgs/cot-editor {};
-  screendrop = lib.callPackage ./pkgs/screendrop {};
-  beswitched = lib.callPackage ./pkgs/beswitched {};
-  macpacker = lib.callPackage ./pkgs/macpacker {};
-  vorssaint = lib.callPackage ./pkgs/vorssaint {};
-  playcover = lib.callPackage ./pkgs/playcover {};
-  dropshare = lib.callPackage ./pkgs/dropshare {};
-  convierto = lib.callPackage ./pkgs/convierto {};
-  crossover = lib.callPackage ./pkgs/crossover {};
-  dockdoor = lib.callPackage ./pkgs/dockdoor {};
-  hyperkey = lib.callPackage ./pkgs/hyperkey {};
-  finetune = lib.callPackage ./pkgs/finetune {};
-  opendisk = lib.callPackage ./pkgs/opendisk {};
-  highball = lib.callPackage ./pkgs/highball {};
-  openemu = lib.callPackage ./pkgs/openemu {};
-  openmtp = lib.callPackage ./pkgs/openmtp {};
-  puremac = lib.callPackage ./pkgs/puremac {};
-  macusb = lib.callPackage ./pkgs/macusb {};
-  roblox = lib.callPackage ./pkgs/roblox {};
-  figura = lib.callPackage ./pkgs/figura {};
-  achico = lib.callPackage ./pkgs/achico {};
-  macsai = lib.callPackage ./pkgs/macsai {};
-  astris = lib.callPackage ./pkgs/astris {};
-  orca = lib.callPackage ./pkgs/orca {};
-  muxy = lib.callPackage ./pkgs/muxy {};
-  blip = lib.callPackage ./pkgs/blip {};
-  clop = lib.callPackage ./pkgs/clop {};
+    keka-external-helper = lib.callPackage ./pkgs/keka-external-helper {};
+    bluebubbles-server = lib.callPackage ./pkgs/bluebubbles-server {};
+    folder-preview-pro = lib.callPackage ./pkgs/folder-preview-pro {};
+    mcpelauncher-swift = lib.callPackage ./pkgs/mcpelauncher-swift {};
+    openemu-silicon = lib.callPackage ./pkgs/openemu-silicon {};
+    creality-print = lib.callPackage ./pkgs/creality-print {};
+    flux-markdown = lib.callPackage ./pkgs/flux-markdown {};
+    vmware-fusion = lib.callPackage ./pkgs/vmware-fusion {};
+    passepartout = lib.callPackage ./pkgs/passepartout {};
+    diffusionbee = lib.callPackage ./pkgs/diffusionbee {};
+    redream-dev = lib.callPackage ./pkgs/redream-dev {};
+    betteraudio = lib.callPackage ./pkgs/betteraudio {};
+    linearmouse = lib.callPackage ./pkgs/linearmouse {};
+    pearcleaner = lib.callPackage ./pkgs/pearcleaner {};
+    supercharge = lib.callPackage ./pkgs/supercharge {};
+    removemacai = lib.callPackage ./pkgs/removemacai {};
+    compositor = lib.callPackage ./pkgs/compositor {};
+    cot-editor = lib.callPackage ./pkgs/cot-editor {};
+    screendrop = lib.callPackage ./pkgs/screendrop {};
+    beswitched = lib.callPackage ./pkgs/beswitched {};
+    macpacker = lib.callPackage ./pkgs/macpacker {};
+    vorssaint = lib.callPackage ./pkgs/vorssaint {};
+    playcover = lib.callPackage ./pkgs/playcover {};
+    dropshare = lib.callPackage ./pkgs/dropshare {};
+    convierto = lib.callPackage ./pkgs/convierto {};
+    crossover = lib.callPackage ./pkgs/crossover {};
+    dockdoor = lib.callPackage ./pkgs/dockdoor {};
+    hyperkey = lib.callPackage ./pkgs/hyperkey {};
+    finetune = lib.callPackage ./pkgs/finetune {};
+    opendisk = lib.callPackage ./pkgs/opendisk {};
+    highball = lib.callPackage ./pkgs/highball {};
+    openemu = lib.callPackage ./pkgs/openemu {};
+    openmtp = lib.callPackage ./pkgs/openmtp {};
+    puremac = lib.callPackage ./pkgs/puremac {};
+    macusb = lib.callPackage ./pkgs/macusb {};
+    roblox = lib.callPackage ./pkgs/roblox {};
+    figura = lib.callPackage ./pkgs/figura {};
+    achico = lib.callPackage ./pkgs/achico {};
+    macsai = lib.callPackage ./pkgs/macsai {};
+    astris = lib.callPackage ./pkgs/astris {};
+    orca = lib.callPackage ./pkgs/orca {};
+    muxy = lib.callPackage ./pkgs/muxy {};
+    blip = lib.callPackage ./pkgs/blip {};
+    clop = lib.callPackage ./pkgs/clop {};
 
-  github-desktop = lib.callPackage ./pkgs/github-desktop {};
-  sublime-text = lib.callPackage ./pkgs/sublime-text {};
-  pixelflasher = lib.callPackage ./pkgs/pixelflasher {};
-  orca-slicer = lib.callPackage ./pkgs/orca-slicer {};
-  zed-editor = lib.callPackage ./pkgs/zed-editor {};
-  obs-studio = lib.callPackage ./pkgs/obs-studio {};
-  retroarch = lib.callPackage ./pkgs/retroarch {};
-  overlayed = lib.callPackage ./pkgs/overlayed {};
-  parabolic = lib.callPackage ./pkgs/parabolic {};
-  tiny-rdm = lib.callPackage ./pkgs/tiny-rdm {};
-  openrct2 = lib.callPackage ./pkgs/openrct2 {};
-  rustdesk = lib.callPackage ./pkgs/rustdesk {};
-  tenacity = lib.callPackage ./pkgs/tenacity {};
-  ghostty = lib.callPackage ./pkgs/ghostty {};
-  equibop = lib.callPackage ./pkgs/equibop {};
-  vscode = lib.callPackage ./pkgs/vscode {};
-  heroic = lib.callPackage ./pkgs/heroic {};
-  peazip = lib.callPackage ./pkgs/peazip {};
-  pcsx2 = lib.callPackage ./pkgs/pcsx2 {};
-  micro = lib.callPackage ./pkgs/micro {};
-  steam = lib.callPackage ./pkgs/steam {};
-  rpcs3 = lib.callPackage ./pkgs/rpcs3 {};
-  gimp = lib.callPackage ./pkgs/gimp {};
+    github-desktop = lib.callPackage ./pkgs/github-desktop {};
+    sublime-text = lib.callPackage ./pkgs/sublime-text {};
+    pixelflasher = lib.callPackage ./pkgs/pixelflasher {};
+    orca-slicer = lib.callPackage ./pkgs/orca-slicer {};
+    zed-editor = lib.callPackage ./pkgs/zed-editor {};
+    obs-studio = lib.callPackage ./pkgs/obs-studio {};
+    retroarch = lib.callPackage ./pkgs/retroarch {};
+    overlayed = lib.callPackage ./pkgs/overlayed {};
+    parabolic = lib.callPackage ./pkgs/parabolic {};
+    tiny-rdm = lib.callPackage ./pkgs/tiny-rdm {};
+    openrct2 = lib.callPackage ./pkgs/openrct2 {};
+    rustdesk = lib.callPackage ./pkgs/rustdesk {};
+    tenacity = lib.callPackage ./pkgs/tenacity {};
+    ghostty = lib.callPackage ./pkgs/ghostty {};
+    equibop = lib.callPackage ./pkgs/equibop {};
+    vscode = lib.callPackage ./pkgs/vscode {};
+    heroic = lib.callPackage ./pkgs/heroic {};
+    peazip = lib.callPackage ./pkgs/peazip {};
+    pcsx2 = lib.callPackage ./pkgs/pcsx2 {};
+    micro = lib.callPackage ./pkgs/micro {};
+    steam = lib.callPackage ./pkgs/steam {};
+    rpcs3 = lib.callPackage ./pkgs/rpcs3 {};
+    gimp = lib.callPackage ./pkgs/gimp {};
 
-  fluxer-canary-bin = lib.callPackage ./pkgs/fluxer-canary-bin {};
-  fluxer-stable-bin = lib.callPackage ./pkgs/fluxer-stable-bin {};
-  helium-nightly = lib.callPackage ./pkgs/helium-nightly {};
-  waterfox-bin = lib.callPackage ./pkgs/waterfox-bin {};
+    fluxer-canary-bin = lib.callPackage ./pkgs/fluxer-canary-bin {};
+    fluxer-stable-bin = lib.callPackage ./pkgs/fluxer-stable-bin {};
+    helium-nightly = lib.callPackage ./pkgs/helium-nightly {};
+    waterfox-bin = lib.callPackage ./pkgs/waterfox-bin {};
 
-  vectorcraft = lib.callPackage ./pkgs/vectorcraft {};
-  effectcraft = lib.callPackage ./pkgs/effectcraft {};
-  designcraft = lib.callPackage ./pkgs/designcraft {};
-  photocraft = lib.callPackage ./pkgs/photocraft {};
-  soundcraft = lib.callPackage ./pkgs/soundcraft {};
-  lightcraft = lib.callPackage ./pkgs/lightcraft {};
-  filmcraft = lib.callPackage ./pkgs/filmcraft {};
-  deckcraft = lib.callPackage ./pkgs/deckcraft {};
-  gridcraft = lib.callPackage ./pkgs/gridcraft {};
-  wordcraft = lib.callPackage ./pkgs/wordcraft {};
-  pdfcraft = lib.callPackage ./pkgs/pdfcraft {};
-  cadcraft = lib.callPackage ./pkgs/cadcraft {};
-  figcraft = lib.callPackage ./pkgs/figcraft {};
+    vectorcraft = lib.callPackage ./pkgs/vectorcraft {};
+    effectcraft = lib.callPackage ./pkgs/effectcraft {};
+    designcraft = lib.callPackage ./pkgs/designcraft {};
+    photocraft = lib.callPackage ./pkgs/photocraft {};
+    soundcraft = lib.callPackage ./pkgs/soundcraft {};
+    lightcraft = lib.callPackage ./pkgs/lightcraft {};
+    filmcraft = lib.callPackage ./pkgs/filmcraft {};
+    deckcraft = lib.callPackage ./pkgs/deckcraft {};
+    gridcraft = lib.callPackage ./pkgs/gridcraft {};
+    wordcraft = lib.callPackage ./pkgs/wordcraft {};
+    pdfcraft = lib.callPackage ./pkgs/pdfcraft {};
+    cadcraft = lib.callPackage ./pkgs/cadcraft {};
+    figcraft = lib.callPackage ./pkgs/figcraft {};
 
-  yaagl = lib.callPackage ./pkgs/yaagl {};
-  yaagl-os = lib.callPackage ./pkgs/yaagl {region = "os";};
-  yaagl-zzz = lib.callPackage ./pkgs/yaagl {game = "zzz";};
-  yaagl-zzz-os = lib.callPackage ./pkgs/yaagl {
-    game = "zzz";
-    region = "os";
-  };
-  yaagl-hsr = lib.callPackage ./pkgs/yaagl {game = "hsr";};
-  yaagl-hsr-os = lib.callPackage ./pkgs/yaagl {
-    game = "hsr";
-    region = "os";
-  };
+    yaagl = lib.callPackage ./pkgs/yaagl {};
+    yaagl-os = lib.callPackage ./pkgs/yaagl {region = "os";};
+    yaagl-zzz = lib.callPackage ./pkgs/yaagl {game = "zzz";};
+    yaagl-zzz-os = lib.callPackage ./pkgs/yaagl {
+      game = "zzz";
+      region = "os";
+    };
+    yaagl-hsr = lib.callPackage ./pkgs/yaagl {game = "hsr";};
+    yaagl-hsr-os = lib.callPackage ./pkgs/yaagl {
+      game = "hsr";
+      region = "os";
+    };
 
-  proton-ge-rtsp-bin = lib.callPackage ./pkgs/proton-ge-rtsp-bin {};
-  proton-sarek-bin = lib.callPackage ./pkgs/proton-sarek-bin {};
-  proton-em-bin = lib.callPackage ./pkgs/proton-em-bin {};
+    proton-ge-rtsp-bin = lib.callPackage ./pkgs/proton-ge-rtsp-bin {};
+    proton-sarek-bin = lib.callPackage ./pkgs/proton-sarek-bin {};
+    proton-em-bin = lib.callPackage ./pkgs/proton-em-bin {};
 
-  luxtorpeda-bin = lib.callPackage ./pkgs/luxtorpeda-bin {};
-  boxtron-bin = lib.callPackage ./pkgs/boxtron-bin {};
+    luxtorpeda-bin = lib.callPackage ./pkgs/luxtorpeda-bin {};
+    boxtron-bin = lib.callPackage ./pkgs/boxtron-bin {};
 
-  proton-cachyos-arm-bin = lib.callPackage ./pkgs/proton-cachyos-bin {type = "arm";};
-  proton-cachyos-v1-bin = lib.callPackage ./pkgs/proton-cachyos-bin {type = "v1";};
-  proton-cachyos-v3-bin = lib.callPackage ./pkgs/proton-cachyos-bin {type = "v3";};
+    proton-cachyos-arm-bin = lib.callPackage ./pkgs/proton-cachyos-bin {type = "arm";};
+    proton-cachyos-v1-bin = lib.callPackage ./pkgs/proton-cachyos-bin {type = "v1";};
+    proton-cachyos-v3-bin = lib.callPackage ./pkgs/proton-cachyos-bin {type = "v3";};
 
-  openemu-meta = lib.callPackage ./pkgs/openemu-meta {
-    inherit openemu openemu-silicon;
-  };
+    openemu-meta = lib.callPackage ./pkgs/openemu-meta {
+      inherit openemu openemu-silicon;
+    };
 
-  compositor-meta = lib.callPackage ./pkgs/compositor-meta {
-    inherit compositor xuan;
-  };
-} skipList
+    compositor-meta = lib.callPackage ./pkgs/compositor-meta {
+      inherit compositor xuan;
+    };
+  }
+  skipList

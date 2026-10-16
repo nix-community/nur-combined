@@ -54,51 +54,52 @@ in
     appimageTools.wrapType2 {
       inherit pname version src meta;
 
-      extraPkgs = pkgs: with pkgs; [
-        stdenv.cc.cc.lib
-        libjpeg_turbo
-        libxkbcommon
-        fontconfig
-        util-linux
-        libseccomp
-        libselinux
-        libsecret
-        harfbuzz
-        freetype
-        libepoxy
-        elfutils
-        keyutils
-        wayland
-        enchant
-        libxml2
-        libxslt
-        libwebp
-        openssl
-        systemd
-        libGLU
-        libffi
-        libx11
-        libpng
-        libdrm
-        hyphen
-        pixman
-        libcap
-        libpsl
-        cairo
-        pango
-        expat
-        libGL
-        pcre2
-        libva
-        zstd
-        mesa
-        gtk3
-        krb5
-        pcre
-        icu
-        lz4
-        xz
-      ];
+      extraPkgs = pkgs:
+        with pkgs; [
+          stdenv.cc.cc.lib
+          libjpeg_turbo
+          libxkbcommon
+          fontconfig
+          util-linux
+          libseccomp
+          libselinux
+          libsecret
+          harfbuzz
+          freetype
+          libepoxy
+          elfutils
+          keyutils
+          wayland
+          enchant
+          libxml2
+          libxslt
+          libwebp
+          openssl
+          systemd
+          libGLU
+          libffi
+          libx11
+          libpng
+          libdrm
+          hyphen
+          pixman
+          libcap
+          libpsl
+          cairo
+          pango
+          expat
+          libGL
+          pcre2
+          libva
+          zstd
+          mesa
+          gtk3
+          krb5
+          pcre
+          icu
+          lz4
+          xz
+        ];
 
       extraInstallCommands = ''
         install -Dm444 ${desktopItem}/share/applications/*.desktop \
