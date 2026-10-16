@@ -21,6 +21,8 @@
   niri = pkgs.callPackage ./pkgs/niri { };
   peazip-rar = pkgs.callPackage ./pkgs/peazip-rar { };
   r-maple-mono-nf-cn = pkgs.callPackage ./pkgs/r-maple-mono-nf-cn { };
+  rime-lmdg = pkgs.callPackage ./pkgs/rime-lmdg { };
+  rime-wanxiang = pkgs.callPackage ./pkgs/rime-wanxiang { };
   sunloginclient = pkgs.callPackage ./pkgs/sunloginclient { };
   yanhekt-autoslides = pkgs.callPackage ./pkgs/yanhekt-autoslides { };
   winboat-unstable = pkgs.callPackage ./pkgs/winboat-unstable { };
