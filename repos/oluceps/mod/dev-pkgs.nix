@@ -47,6 +47,8 @@
               minisign
               ent
               rage
+              sequoia-sq
+              sequoia-sqv
               age-plugin-yubikey
               cryptsetup
               tpm2-tss
@@ -256,6 +258,7 @@
               just
               typst
               cosmic-term
+              thc-hydra
               hyperfine
               acpi
               distrobox

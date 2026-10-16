@@ -582,12 +582,19 @@ in
     lib.mkMerge [
       common
       {
+        vaultix.secrets.wg-azasos-warp = {
+          owner = "systemd-network";
+          group = "root";
+          mode = "400";
+        };
         networking = {
           hosts = config.data.hosts.${config.networking.hostName} // {
             "localhost" = [ "alert.nyaw.xyz" ];
           };
           hostName = "azasos";
+          firewall.allowedUDPPorts = [ 46292 ];
         };
+
         systemd.network = {
           enable = true;
           wait-online = {
@@ -597,6 +604,47 @@ in
           links."10-eth0" = {
             matchConfig.MACAddress = "bc:24:11:21:c7:2c";
             linkConfig.Name = "eth0";
+          };
+          netdevs."20-warp" = {
+            netdevConfig = {
+              Name = "warp";
+              Kind = "wireguard";
+              MTUBytes = 1280;
+            };
+            wireguardConfig = {
+              PrivateKeyFile = config.vaultix.secrets.wg-azasos-warp.path;
+              # Keep the source port that passes the handshake on this network.
+              ListenPort = 46292;
+            };
+            wireguardPeers = [
+              {
+                PublicKey = "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=";
+                # Use IPv6 for the outer tunnel on this IPv6-only host.
+                # UDP 2408 gets no replies on this host. Use the WARP fallback port.
+                Endpoint = "[2606:4700:d0::a29f:c001]:1701";
+                AllowedIPs = [ "0.0.0.0/0" ];
+                PersistentKeepalive = 25;
+              }
+            ];
+          };
+          networks."20-warp" = {
+            matchConfig.Name = "warp";
+            address = [ "172.16.0.2/32" ];
+            networkConfig = {
+              DHCP = "no";
+              LinkLocalAddressing = "no";
+              IPv6AcceptRA = false;
+              # Preserve native IPv6 routing and the existing DNS configuration.
+              DNSDefaultRoute = false;
+            };
+            routes = [
+              {
+                Destination = "0.0.0.0/0";
+                Metric = 1024;
+                PreferredSource = "172.16.0.2";
+              }
+            ];
+            linkConfig.RequiredForOnline = false;
           };
           networks."8-eth0" = {
             matchConfig.Name = "eth0";

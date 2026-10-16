@@ -3,6 +3,7 @@
   flake.modules.nixos."caddy/yidhra" =
     {
       pkgs,
+      config,
       ...
     }:
     {
@@ -89,6 +90,15 @@
                   }
                 ];
                 match = [ { host = [ "api.atuin.nyaw.xyz" ]; } ];
+              }
+              {
+                handle = [
+                  {
+                    handler = "reverse_proxy";
+                    upstreams = [ { dial = "localhost:${toString config.services.autopeer.port}"; } ];
+                  }
+                ];
+                match = [ { host = [ "sgp-1.dn42.nyaw.xyz" ]; } ];
               }
               (import ../../caddy/nyaw-xyz-zone-apex.nix)
             ];

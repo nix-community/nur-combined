@@ -32,6 +32,7 @@
             sudo
             empheral-root-full
             gui
+            oo7-session
             base
             dev
             plugIn
@@ -59,6 +60,10 @@
         ];
 
       identity.user = "riro";
+      services.oo7-session = {
+        defaultKeyring = "Default_Keyring";
+        requiredKeyrings = [ "login" ];
+      };
       incus.bridgeAddr = "fdcc:1::1/64";
       # xray.configFile = config.vaultix.secrets.xray-cli.path;
 

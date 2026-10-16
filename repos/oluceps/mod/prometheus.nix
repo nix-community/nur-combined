@@ -8,6 +8,21 @@
     }:
     let
       targets = map (n: "${n}.nyaw.xyz") (builtins.attrNames config.data.node);
+      autopeer_challenge_url = "https://dn42.nyaw.xyz/api/challenges";
+      autopeer_nodes = [
+        {
+          name = "abhoth";
+          domain = "jp-tyo-1.dn42.nyaw.xyz";
+        }
+        {
+          name = "nodens";
+          domain = "jp-tyo-2.dn42.nyaw.xyz";
+        }
+        {
+          name = "yidhra";
+          domain = "sgp-1.dn42.nyaw.xyz";
+        }
+      ];
       gen_relabel_configs = replacement: [
         {
           source_labels = [ "__address__" ];
@@ -308,6 +323,40 @@
               }
 
               {
+                job_name = "dn42-autopeer-challenge";
+                scheme = "http";
+                metrics_path = "/probe";
+                scrape_interval = "10m";
+                scrape_timeout = "15s";
+                static_configs = map (node: {
+                  targets = [ autopeer_challenge_url ];
+                  labels = {
+                    node = node.name;
+                    backend = node.domain;
+                    monitor = config.networking.hostName;
+                    probe_module = "autopeer_challenge_${node.name}";
+                  };
+                }) autopeer_nodes;
+                relabel_configs =
+                  gen_relabel_configs (
+                    with config.services.prometheus.exporters.blackbox; "${listenAddress}:${toString port}"
+                  )
+                  ++ [
+                    {
+                      source_labels = [ "probe_module" ];
+                      target_label = "__param_module";
+                    }
+                    {
+                      source_labels = [ "backend" ];
+                      target_label = "instance";
+                    }
+                    {
+                      action = "labeldrop";
+                      regex = "probe_module";
+                    }
+                  ];
+              }
+              {
                 job_name = "tcp";
                 scheme = "http";
                 metrics_path = "/probe";
@@ -486,6 +535,24 @@
               ];
             }
             {
+              name = "autopeer_health";
+              rules = [
+                {
+                  alert = "AutopeerChallengeFailed";
+                  expr = ''
+                    last_over_time(probe_success{job="dn42-autopeer-challenge"}[15m]) == 0
+                    or last_over_time(up{job="dn42-autopeer-challenge"}[15m]) == 0
+                  '';
+                  for = "20m";
+                  labels.severity = "critical";
+                  annotations = {
+                    summary = "Autopeer challenge probe failed on {{ $labels.node }}";
+                    description = "Probe source: {{ $labels.monitor }}. Target: {{ $labels.backend }}. Check the exporter, Worker routing, TLS, and database connectivity.";
+                  };
+                }
+              ];
+            }
+            {
               name = "pier_health";
               rules = [
                 {
@@ -528,7 +595,36 @@
                   prober = "tcp";
                   timeout = "5s";
                 };
-              };
+              }
+              // builtins.listToAttrs (
+                map (node: {
+                  name = "autopeer_challenge_${node.name}";
+                  value = {
+                    prober = "http";
+                    timeout = "10s";
+                    http = {
+                      method = "POST";
+                      body = builtins.toJSON { asn = 4242420291; };
+                      headers = {
+                        "Content-Type" = "application/json";
+                        "X-Backend-Target" = node.domain;
+                      };
+                      valid_status_codes = [ 201 ];
+                      follow_redirects = false;
+                      fail_if_body_not_matches_regexp = [
+                        ''"nonce"[[:space:]]*:[[:space:]]*"[^"]+"''
+                        ''"expires_at"[[:space:]]*:[[:space:]]*[1-9][0-9]*''
+                      ];
+                      fail_if_header_not_matches = [
+                        {
+                          header = "Content-Type";
+                          regexp = "(?i)^application/json([[:space:]]*;.*)?$";
+                        }
+                      ];
+                    };
+                  };
+                }) autopeer_nodes
+              );
             };
           };
         };

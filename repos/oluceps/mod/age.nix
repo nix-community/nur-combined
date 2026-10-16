@@ -157,11 +157,6 @@ in
             mode = "400";
           };
 
-          wgy-warp = {
-            owner = "systemd-network";
-            group = "root";
-            mode = "400";
-          };
           subs = {
             mode = "740";
             owner = config.identity.user;

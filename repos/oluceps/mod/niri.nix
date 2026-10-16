@@ -51,7 +51,9 @@
         ln -sf /etc/ly/config.ini /var/lib/ly/config.ini
       '';
       systemd.services.display-manager.script = lib.mkForce "exec /run/current-system/sw/bin/ly --config /var/lib/ly";
-      xdg.portal.config.niri."org.freedesktop.impl.portal.Secret" = lib.mkForce "gnome-keyring";
+      xdg.portal.config.niri."org.freedesktop.impl.portal.Secret" = lib.mkForce (
+        if config.services.oo7.enable then "oo7-portal" else "gnome-keyring"
+      );
       # services.gnome.gcr-ssh-agent.enable = true;
       environment.systemPackages = [
         # pkgs.show-current-ws

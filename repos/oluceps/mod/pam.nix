@@ -15,7 +15,7 @@
         };
         services = {
           sudo.u2fAuth = true;
-          login.u2fAuth = false;
+          login.u2fAuth = true;
           noctalia.u2fAuth = true;
           greetd.u2fAuth = false;
         };

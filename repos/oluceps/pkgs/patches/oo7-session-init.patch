@@ -1,0 +1,59 @@
+--- a/src/service/mod.rs
++++ b/src/service/mod.rs
+@@ -395,7 +395,7 @@
+         let connection = zbus::connection::Builder::session()?
+             .allow_name_replacements(true)
+             .replace_existing_names(request_replacement)
+-            .name(oo7::dbus::api::Service::DESTINATION.as_deref().unwrap())?
++            .name("org.freedesktop.secrets.oo7.Initializing")?
+             .serve_at(
+                 oo7::dbus::api::Service::PATH.as_deref().unwrap(),
+                 service.clone(),
+@@ -406,9 +406,28 @@
+         // Discover existing keyrings
+         let discovered_keyrings = service.discover_keyrings(secret).await?;
+ 
++        if discovered_keyrings.iter().any(|(_, _, keyring)| matches!(keyring, Keyring::Locked(_)))
++            || !discovered_keyrings.iter().any(|(_, alias, _)| alias == "default")
++        {
++            return Err(Error::IO(std::io::Error::other(
++                "A keyring is locked or the default collection is missing",
++            )));
++        }
++
+         service
+-            .initialize(connection, discovered_keyrings, true)
++            .initialize(connection.clone(), discovered_keyrings, false)
+             .await?;
++
++        // Publish the service only after its collections are ready.
++        let reply = connection
++            .request_name_with_flags(
++                oo7::dbus::api::Service::DESTINATION.as_deref().unwrap(),
++                zbus::fdo::RequestNameFlags::DoNotQueue.into(),
++            )
++            .await?;
++        if reply != zbus::fdo::RequestNameReply::PrimaryOwner {
++            return Err(Error::Zbus(zbus::Error::NameTaken));
++        }
+ 
+         // Start PAM listener
+         tracing::info!("Starting PAM listener");
+@@ -500,7 +519,7 @@
+                         // Try to load the keyring
+                         match self.load_keyring(&path, name, secret.as_ref()).await {
+                             Ok((label, alias, keyring)) => discovered.push((label, alias, keyring)),
+-                            Err(e) => tracing::warn!("Failed to load keyring {:?}: {}", path, e),
++                            Err(e) => return Err(e),
+                         }
+                     }
+                 }
+@@ -525,7 +544,7 @@
+                         // Try to load the keyring
+                         match self.load_keyring(&path, name, secret.as_ref()).await {
+                             Ok((label, alias, keyring)) => discovered.push((label, alias, keyring)),
+-                            Err(e) => tracing::warn!("Failed to load keyring {:?}: {}", path, e),
++                            Err(e) => return Err(e),
+                         }
+                     }
+                 }
