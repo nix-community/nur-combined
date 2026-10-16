@@ -5,5 +5,15 @@ package androidx.compose.ui.graphics
  * compiles against Compose Desktop, which does not - so every `bitmap.asImageBitmap()` call in
  * upstream fails with a receiver mismatch. Same FQN as the Android extension, so nothing clashes.
  */
-fun android.graphics.Bitmap.asImageBitmap(): ImageBitmap =
-    ImageBitmap(width.coerceAtLeast(1), height.coerceAtLeast(1))
+fun android.graphics.Bitmap.asImageBitmap(): ImageBitmap {
+    imageBitmap?.let { return it }
+    val img = bufferedImage
+    if (img != null) {
+        try {
+            val converted = img.toComposeImageBitmap()
+            imageBitmap = converted
+            return converted
+        } catch (_: Throwable) {}
+    }
+    return ImageBitmap(width.coerceAtLeast(1), height.coerceAtLeast(1))
+}

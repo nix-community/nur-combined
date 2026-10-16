@@ -5,7 +5,10 @@ import coil3.request.CachePolicy
 import coil3.request.ImageRequest
 import coil3.request.ImageResult
 import coil3.request.SuccessResult
+import coil3.request.ErrorResult
 import android.content.Context
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 fun ImageLoader(context: Any?): ImageLoader = ImageLoader.Builder(context).build()
 
@@ -18,7 +21,19 @@ open class ComponentRegistry {
 }
 
 open class ImageLoader {
-    open suspend fun execute(request: ImageRequest): ImageResult = SuccessResult(Image(), request)
+    open suspend fun execute(request: ImageRequest): ImageResult = withContext(Dispatchers.IO) {
+        val data = request.data
+        try {
+            val loaded = DesktopImageLoader.load(data)
+            if (loaded != null) {
+                SuccessResult(Image(imageBitmap = loaded.imageBitmap, bitmap = loaded.bitmap), request)
+            } else {
+                ErrorResult(Image(), request, RuntimeException("Could not load image: $data"))
+            }
+        } catch (e: Throwable) {
+            ErrorResult(Image(), request, e)
+        }
+    }
 
     /* Upstream reads these off an ImageLoader instance (cache maintenance screen). */
     open val diskCache: DiskCache? = null

@@ -14,4 +14,17 @@ fun AsyncImage(
     alignment: Any = Any(),
     alpha: Float = 1f,
     colorFilter: Any? = null,
-) {}
+) {
+    coil3.compose.AsyncImage(
+        model = model,
+        contentDescription = contentDescription,
+        modifier = modifier,
+        contentScale = contentScale,
+        placeholder = placeholder,
+        error = error,
+        fallback = fallback,
+        alignment = alignment,
+        alpha = alpha,
+        colorFilter = colorFilter,
+    )
+}
