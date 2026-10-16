@@ -545,10 +545,10 @@ func (f *sourceFile) testReceiver(node ast.Node) string {
 }
 
 // cleanupPackage restricts plugin-settling TempDir replacements to the internal
-// agent, gateway, gui and provider packages, excluding external test packages.
+// agent, cli, gateway, gui and provider packages, excluding external test packages.
 func cleanupPackage(f *sourceFile) bool {
 	switch name := f.file.Name.Name; name {
-	case "agent", "gateway", "gui", "provider":
+	case "agent", "cli", "gateway", "gui", "provider":
 		return filepath.ToSlash(filepath.Dir(f.path)) == "internal/"+name
 	default:
 		return false
@@ -738,7 +738,7 @@ func patchChecks(files []*sourceFile, o options) error {
 			}
 			// buildGoModule adds vendor sources that are absent from the upstream checkout.
 			// Magpie's source-policy rules apply to its own code, not those dependencies.
-			if dir == "internal/proc" && f.hasCall(fn.Body, "path/filepath", "WalkDir") && !strings.Contains(f.text(fn.Body), `"vendor"`) {
+			if (dir == "internal/proc" || dir == "internal/sqlitedb") && f.hasCall(fn.Body, "path/filepath", "WalkDir") && !strings.Contains(f.text(fn.Body), `"vendor"`) {
 				ast.Inspect(fn.Body, func(n ast.Node) bool {
 					if binary, ok := n.(*ast.BinaryExpr); ok && binary.Op == token.EQL && firstString(binary.Y) == "node_modules" {
 						f.replace(binary, "("+f.text(binary)+" || "+f.text(binary.X)+" == \"vendor\")")
