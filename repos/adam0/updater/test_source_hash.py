@@ -70,7 +70,6 @@ class VerifySourceHashTests(unittest.TestCase):
                 run.call_args.args[0],
                 [
                     "nix-build",
-                    "-f",
                     "default.nix",
                     "-A",
                     "bibata.modern.cursors.gruvbox-dark.src",

@@ -238,7 +238,12 @@ class UpdatePackageHashRefreshTests(unittest.TestCase):
 
     def test_failed_refresh_rejects_the_update(self) -> None:
         failure = CommandError(["nix", "build"], _completed(1, stderr="error: no hash reported"))
-        status, reason, entry = self.update(lambda *args, **kwargs: (_ for _ in ()).throw(failure))
+        with self.assertLogs("updater.package_backend", level="WARNING") as logs:
+            status, reason, entry = self.update(
+                lambda *args, **kwargs: (_ for _ in ()).throw(failure)
+            )
+
+        self.assertIn("error: no hash reported", "\n".join(logs.output))
 
         self.assertEqual(status, "failed")
         self.assertIn("dependencyHash refresh failed", reason)

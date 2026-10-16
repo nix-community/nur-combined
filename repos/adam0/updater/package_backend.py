@@ -85,7 +85,7 @@ def update_package(
                 _refresh_dependency_hashes(ref, timeout=timeout)
             except CommandError as error:
                 transaction.restore()
-                logger.info(
+                logger.warning(
                     "dependencyHash refresh failed for %s:\n%s", ref.attr_path, error.details
                 )
                 return UpdateResult(
@@ -154,7 +154,7 @@ def _verify_source_hash(ref: PackageRef, *, timeout: str | None) -> str | None:
     if ref.source_kind == "flake":
         command = ["nix", "build", "--no-link", f".#{ref.attr_path}.src"]
     else:
-        command = ["nix-build", "-f", "default.nix", "-A", f"{ref.attr_path}.src", "--no-out-link"]
+        command = ["nix-build", "default.nix", "-A", f"{ref.attr_path}.src", "--no-out-link"]
     result = run(command, check=False, timeout=timeout)
     return None if result.returncode == 0 else _source_failure_line(result)
 
