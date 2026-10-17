@@ -11,6 +11,8 @@ in
   options.services.sfl = {
     enable = lib.mkEnableOption "sing-box for Linux (SFL) desktop client and daemon";
 
+    autostart.enable = lib.mkEnableOption "SFL at login for all users of XDG-compatible graphical sessions";
+
     insecureMode = lib.mkOption {
       type = lib.types.nullOr lib.types.bool;
       default = null;
@@ -34,6 +36,17 @@ in
     security.polkit.enable = true;
 
     environment.systemPackages = [ cfg.package ];
+    environment.etc."xdg/autostart/sing-box.desktop" = lib.mkIf cfg.autostart.enable {
+      text = ''
+        [Desktop Entry]
+        Type=Application
+        Name=sing-box
+        Exec=${lib.getExe cfg.package} --start-at-login
+        Icon=sing-box
+        Terminal=false
+        StartupNotify=false
+      '';
+    };
 
     systemd.packages = [ cfg.package ];
 

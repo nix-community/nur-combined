@@ -33,6 +33,14 @@ Set `false` to restore restrictions. The default `null` leaves the saved upstrea
 setting unmanaged; removing the option does not reset a previously enabled mode.
 Polkit authentication and daemon ownership checks remain enabled.
 
+`services.sfl.autostart.enable = true;` installs a system-wide XDG autostart
+entry for all users of compatible graphical sessions. It launches the configured
+`services.sfl.package` with `--start-at-login`; the default is disabled.
+Remove any `~/.config/autostart/sing-box.desktop` first, because a user entry
+with the same name overrides the system entry. Keep SFL's own login-startup
+setting disabled to avoid recreating a user override. This does not enable a
+graphical session or start an existing session's client during activation.
+
 ## Maintenance and tests
 
 ```sh

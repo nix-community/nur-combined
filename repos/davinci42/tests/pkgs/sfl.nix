@@ -17,9 +17,17 @@ let
     }).config;
   disabled = evaluate { };
   enabled = evaluate { services.sfl.enable = true; };
+  autostart = evaluate {
+    services.sfl = {
+      enable = true;
+      autostart.enable = true;
+    };
+  };
+  disabledAutostart = evaluate { services.sfl.autostart.enable = true; };
   custom = evaluate {
     services.sfl = {
       enable = true;
+      autostart.enable = true;
       package = pkgs.hello;
     };
   };
@@ -52,6 +60,20 @@ let
       !disabled.services.sfl.enable && !(builtins.elem package disabled.systemd.packages);
     packageDefault = disabled.services.sfl.package.pname == "sfl";
     enabledPolkit = enabled.security.polkit.enable;
+    autostartDisabledByDefault =
+      !enabled.services.sfl.autostart.enable
+      && !(enabled.environment.etc ? "xdg/autostart/sing-box.desktop");
+    autostartRequiresService = !(disabledAutostart.environment.etc ? "xdg/autostart/sing-box.desktop");
+    autostartDesktopEntry =
+      let
+        entry = autostart.environment.etc."xdg/autostart/sing-box.desktop".text;
+      in
+      lib.hasInfix "Type=Application" entry
+      && lib.hasInfix (builtins.unsafeDiscardStringContext "Exec=${lib.getExe package} --start-at-login") entry
+      && lib.hasInfix "Terminal=false" entry;
+    autostartCustomPackage =
+      lib.hasInfix (builtins.unsafeDiscardStringContext "Exec=${lib.getExe pkgs.hello} --start-at-login")
+        custom.environment.etc."xdg/autostart/sing-box.desktop".text;
     securityUnmanaged =
       enabled.services.sfl.insecureMode == null
       && enabled.systemd.services.sing-box-daemon.preStart == "";
