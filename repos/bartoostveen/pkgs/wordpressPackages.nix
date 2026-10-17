@@ -85,9 +85,9 @@ makeScope newScope (
       };
       wp-user-avatars = self.callPackage self.mkWpPlugin {
         pname = "wp-user-avatars";
-        version = "2.1.0";
+        version = "2.2.0";
         id = "wp-user-avatars";
-        hash = "sha256-JmMOLm7EhMKlsfgx875ocgst3Zsp74Ztfv11rBPrbh0=";
+        hash = "sha256-3zduwtfkFJIsbm/wR+R+rM+/hGOYbDSs4k1RwDXb6d0=";
       };
     };
 
