@@ -53,6 +53,18 @@ let
     }
   );
   checks = checksFixture.checks.x86_64-linux;
+
+  devShellsFixture = self.libs.mkFlake (
+    _system: fixturePkgs: {
+      devShells = {
+        available = fixturePkgs.mkShell { };
+        unavailable = fixturePkgs.mkShell {
+          meta.platforms = fixturePkgs.lib.platforms.darwin;
+        };
+      };
+    }
+  );
+  devShells = devShellsFixture.devShells.x86_64-linux;
   nativeDarwinPackages = fixture.packages.aarch64-darwin;
   target = "arm64-apple-darwin";
 
@@ -93,6 +105,12 @@ in
     assert !inventory.unavailable.isFlakeCheck;
     pkgs.runCommand "mkFlake-checks-unavailable" { } ''
       test -e ${checks.unavailable}
+      touch $out
+    '';
+
+  mkFlake-devShells-unavailable =
+    assert builtins.attrNames devShells == [ "available" ];
+    pkgs.runCommand "mkFlake-devShells-unavailable" { } ''
       touch $out
     '';
 

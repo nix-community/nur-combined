@@ -213,6 +213,26 @@ eachSystemOp (
           flake = f system packages;
         }
     ) platforms;
+
+    # Drops outputs that fail to evaluate or are not available on this system
+    filterAvailable =
+      key:
+      lib.filterAttrs (
+        name: package:
+        let
+          res = builtins.tryEval package;
+        in
+        if res.success then
+          let
+            available = builtins.tryEval (lib.meta.availableOn packages.stdenv.hostPlatform package);
+          in
+          if available.success then
+            available.value
+          else
+            builtins.warn "Failed to evaluate availability of ${key}.${name} for system ${system}" false
+        else
+          builtins.warn "Failed to evaluate ${key}.${name} for system ${system}" false
+      ) flake.${key};
   in
 
   builtins.foldl' (
@@ -230,61 +250,41 @@ eachSystemOp (
       attrs
       // {
         ${key} = (attrs.${key} or { }) // {
-          ${system} =
-            builtins.mapAttrs
-              (
-                name: package:
-                package.overrideAttrs (
-                  _: prev: {
-                    passthru =
-                      (prev.passthru or { })
-                      // builtins.listToAttrs (
-                        builtins.filter (pv: pv.value != null) (
-                          map (cross: {
-                            name = cross.platform.config;
-                            value =
-                              let
-                                crossPackage = builtins.tryEval cross.flake.${key}.${name};
-                                available =
-                                  if crossPackage.success then
-                                    builtins.tryEval (lib.meta.availableOn cross.platform crossPackage.value)
-                                  else
-                                    {
-                                      success = true;
-                                      value = false;
-                                    };
-                              in
-                              if available.success then
-                                if available.value then
-                                  tryEval (darwinCross.fixPackage cross.packages (fixWindows (fixStatic crossPackage.value)))
-                                else
-                                  null
+          ${system} = builtins.mapAttrs (
+            name: package:
+            package.overrideAttrs (
+              _: prev: {
+                passthru =
+                  (prev.passthru or { })
+                  // builtins.listToAttrs (
+                    builtins.filter (pv: pv.value != null) (
+                      map (cross: {
+                        name = cross.platform.config;
+                        value =
+                          let
+                            crossPackage = builtins.tryEval cross.flake.${key}.${name};
+                            available =
+                              if crossPackage.success then
+                                builtins.tryEval (lib.meta.availableOn cross.platform crossPackage.value)
                               else
-                                builtins.warn "Failed to evaluate availability of ${key}.${name} for ${cross.platform.config}" null;
-                          }) crosses
-                        )
-                      );
-                  }
-                )
-              )
-              (
-                lib.filterAttrs (
-                  name: package:
-                  let
-                    res = builtins.tryEval package;
-                  in
-                  if res.success then
-                    let
-                      available = builtins.tryEval (lib.meta.availableOn packages.stdenv.hostPlatform package);
-                    in
-                    if available.success then
-                      available.value
-                    else
-                      builtins.warn "Failed to evaluate availability of ${key}.${name} for system ${system}" false
-                  else
-                    builtins.warn "Failed to evaluate ${key}.${name} for system ${system}" false
-                ) flake.${key}
-              );
+                                {
+                                  success = true;
+                                  value = false;
+                                };
+                          in
+                          if available.success then
+                            if available.value then
+                              tryEval (darwinCross.fixPackage cross.packages (fixWindows (fixStatic crossPackage.value)))
+                            else
+                              null
+                          else
+                            builtins.warn "Failed to evaluate availability of ${key}.${name} for ${cross.platform.config}" null;
+                      }) crosses
+                    )
+                  );
+              }
+            )
+          ) (filterAvailable key);
         };
       }
 
@@ -318,6 +318,8 @@ eachSystemOp (
                             touch $out
                           ''
                     ) flake.${key}
+                  else if key == "devShells" then
+                    filterAvailable key
                   else
                     flake.${key};
               };
