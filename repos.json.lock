@@ -2354,6 +2354,11 @@
             "sha256": "1ccg903m8km0p50ql0li0cwnxpvan4w4565w09kn2brb1az1zlp1",
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
         },
+        "shelvacu": {
+            "rev": "ff1e675f4bd5959d4ad9274cef14d79ae0e15b34",
+            "sha256": "05yn57cg3wc2vvrs0nc24kml54cmv9cwqv1m4wgiiif5vci7lra8",
+            "url": "https://git.uninsane.org/shelvacu/nix-stuff"
+        },
         "shirok1": {
             "rev": "ac4eeea3e492c74c618981d09363e3974b602c9d",
             "sha256": "1bqmam5rmlz27d4frh52pz6kxzfq19vrbp1xxy6ndywzkzm7qvdk",
@@ -2782,8 +2787,8 @@
             "url": "https://github.com/x71c9/nur-packages"
         },
         "xddxdd": {
-            "rev": "dc54a4a2437af3dcd42714d416275b11160f0b94",
-            "sha256": "0s6r4azrnklssn9lsax5ka3cfmdm44rz9czynwlwsrlq9mvwnm1i",
+            "rev": "ed708b12b80f8cf22274cdfcf246419bf739d54e",
+            "sha256": "0k5xx5b96da3hbc6jb1hzrw76ih1zk35gjqy9rn6g0qz7bkqb09q",
             "url": "https://github.com/xddxdd/nur-packages"
         },
         "xe": {
