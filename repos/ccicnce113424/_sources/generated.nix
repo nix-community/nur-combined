@@ -24,21 +24,21 @@
   };
   daed-next-core = {
     pname = "daed-next-core";
-    version = "7b7198c48a4d2abf1eab86248f954288caedca13";
+    version = "341d67da7db6ce414be5cbea41d0e08637616854";
     src = fetchFromGitHub {
       owner = "ksong008";
       repo = "DaeNext";
-      rev = "7b7198c48a4d2abf1eab86248f954288caedca13";
+      rev = "341d67da7db6ce414be5cbea41d0e08637616854";
       fetchSubmodules = false;
-      sha256 = "sha256-RRlPZbi/MmuMmGyBHkH/ovHWK4LYB8g3DfJksO/ftcw=";
+      sha256 = "sha256-8paDkd7PwhvBW2t3DvU9XCfWhQFSklCxSOxH1aQIRug=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-RRlPZbi_MmuMmGyBHkH_ovHWK4LYB8g3DfJksO_ftcw=/Cargo.lock";
+      lockFile = ./. + "/sha256-8paDkd7PwhvBW2t3DvU9XCfWhQFSklCxSOxH1aQIRug=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-10-16";
+    date = "2026-10-17";
   };
   daed-next-web = {
     pname = "daed-next-web";
@@ -402,16 +402,16 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "2f42a315f80d70b55613f76baa5a37953e32287a";
+    version = "68834a4fdc11f1d9eb692922e4ef77508d7e61d2";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "2f42a315f80d70b55613f76baa5a37953e32287a";
+      rev = "68834a4fdc11f1d9eb692922e4ef77508d7e61d2";
       fetchSubmodules = false;
-      sha256 = "sha256-yfnwTvwE9pGb/NNBCDRbSVWFCIPSMoMIrZv0RgRUwGU=";
+      sha256 = "sha256-5wOn6FW6O+58BX1kW+qwaZiDZVGlcPbEIeTNvFJF3lk=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-yfnwTvwE9pGb_NNBCDRbSVWFCIPSMoMIrZv0RgRUwGU=/Cargo.lock";
+      lockFile = ./. + "/sha256-5wOn6FW6O+58BX1kW+qwaZiDZVGlcPbEIeTNvFJF3lk=/Cargo.lock";
       outputHashes = {
         
       };
