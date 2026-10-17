@@ -6,13 +6,9 @@ Personal Nix packages, NixOS modules and nix-darwin modules using the caller's `
 | Package | NixOS module | Documentation |
 | --- | --- | --- |
 | `basic-memory` | None | [Markdown memory and MCP server](pkgs/basic-memory/README.md) |
-| `cf` | None | [Cloudflare CLI](pkgs/cf/README.md) |
-| `changedetection-io` | Use nixpkgs' module with this package | [changedetection.io](pkgs/changedetection-io/README.md) |
 | `fluxdown-server` | `nixosModules.fluxdown` | [FluxDown Server](pkgs/fluxdown-server/README.md) |
 | `mnamer-rs` | None | [mnamer Rust rewrite](pkgs/mnamer-rs/README.md) |
 | `rsshub` | Use nixpkgs' module with this package | [RSSHub](pkgs/rsshub/README.md) |
-| `sfl` | `nixosModules.sfl` | [sing-box for Linux](pkgs/sfl/README.md) |
-| `spotify-spotx` | None | [Spotify with SpotX](pkgs/spotify-spotx/README.md) |
 
 | Package | nix-darwin module | Documentation |
 | --- | --- | --- |
@@ -26,9 +22,9 @@ Run from the repository root with `<nixpkgs>` and `nix-command` enabled.
 ```sh
 nix-shell
 just --list
-just build changedetection-io
-just update changedetection-io
-just check changedetection-io
+just build rsshub
+just update rsshub
+just check rsshub
 just contract fluxdown-server
 NIXPKGS_ALLOW_UNFREE=1 just check-all
 NIXPKGS_ALLOW_UNFREE=1 just check-updates
@@ -39,7 +35,6 @@ just lint
 - `just update <package> [version]` refreshes hashes and validates in a temporary
   copy before writing back. Review FluxDown contract changes before accepting
   them with `just update-reviewed fluxdown-server <version>`.
-- `just update-spotx` updates `spotify-spotx`; Spotify follows the caller's nixpkgs.
 - `just check <package>` builds the package and its `passthru.tests`, then lints.
   `just check-all` also runs updater tests. Builds cover the current platform only;
   VM tests are opt-in.

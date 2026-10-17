@@ -9,9 +9,6 @@ update package version="":
 update-reviewed package version:
     python3 tools/maintain.py update "$1" --version "$2" --accept-contract
 
-update-spotx:
-    NIXPKGS_ALLOW_UNFREE=1 python3 tools/maintain.py update spotify-spotx
-
 build package:
     nix build -f . "$1" --no-link
 

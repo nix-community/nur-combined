@@ -181,14 +181,14 @@ class UpdateTests(unittest.TestCase):
 
     def test_snapshot_template_without_ci_and_repository_change(self) -> None:
         before: dict[str, object] = {
-            "upstream": "https://github.com/SpotX-Official/SpotX-Bash",
+            "upstream": "https://github.com/example/project",
             "sourceRef": "a" * 40,
             "system": "aarch64-darwin",
         }
         after = before | {"sourceRef": "b" * 40}
         with patch.dict(os.environ, {}, clear=True):
             body = check_updates.pr_body(
-                maintain.ROOT, "spotify-spotx", "a" * 40, "b" * 40, before, after
+                maintain.ROOT, "example", "a" * 40, "b" * 40, before, after
             )
         self.assertIn("/compare/" + "a" * 40 + "..." + "b" * 40, body)
         self.assertIn("aarch64-darwin", body)
