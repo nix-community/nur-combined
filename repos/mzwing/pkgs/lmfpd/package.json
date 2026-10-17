@@ -1,8 +1,8 @@
 {
   "name": "nix-repin-package",
   "private": true,
-  "version": "0.0.1791910275841",
+  "version": "0.0.1792242250521",
   "dependencies": {
-    "lmfpd": "0.0.1791910275841"
+    "lmfpd": "0.0.1792242250521"
   }
 }
