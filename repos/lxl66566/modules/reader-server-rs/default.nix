@@ -13,26 +13,56 @@ let
   settingsFormat = pkgs.formats.json { };
   # the app reads ./config.json from its working directory
   stateDir = "/var/lib/reader-server-rs";
-  configFile = settingsFormat.generate "reader-server-rs.json" cfg.settings;
 
-  # relative paths in the config resolve against the working directory (stateDir);
-  # normalize to absolute to know which extra paths need write access
+  # Declared options default to null on purpose: null leaves are stripped
+  # before writing config.json, so unset options fall back to the app's own
+  # defaults (container-level serde(default) in config.rs) — the app stays
+  # the single source of truth. Declared options exist for type checking
+  # and docs only. (Options without any default would break eval: the
+  # freeform merge forces every declared option.)
+  # 剔除 null 字段；清空后的空段（如 "log": {}）也一并移除
+  stripNulls =
+    v:
+    if v == null then
+      null
+    else if lib.isAttrs v && !lib.isDerivation v then
+      let
+        cleaned = lib.filterAttrs (_: v': v' != null) (lib.mapAttrs (_: stripNulls) v);
+      in
+      if cleaned == { } then null else cleaned
+    else
+      v;
+
+  # 顶层全空时 stripNulls 返回 null，写出来会是 JSON null 而非 {}，这里兜底
+  configFile =
+    let
+      stripped = stripNulls cfg.settings;
+    in
+    settingsFormat.generate "reader-server-rs.json" (if stripped == null then { } else stripped);
+
+  # unset leaves are null (declared default); the app default is a relative
+  # path inside the state directory: already writable via StateDirectory
   absPath = p: if lib.hasPrefix "/" (toString p) then toString p else "${stateDir}/${toString p}";
 
-  bookDir = absPath cfg.settings.storage.book_dir;
-  logDir = absPath cfg.settings.log.dir;
+  bookDir = lib.mapNullable absPath cfg.settings.storage.book_dir;
+  logDir = lib.mapNullable absPath cfg.settings.log.dir;
 
-  # "sqlite:///abs/path.db" -> "/abs/path.db"; "sqlite:reader.db" -> stateDir/reader.db
+  # "sqlite:///abs/path.db" -> "/abs/path.db"; "sqlite:reader.db" -> stateDir/reader.db;
+  # unset or non-sqlite (e.g. postgres) -> null
   dbFile =
     let
       url = cfg.settings.db.url;
+      has = p: url != null && lib.hasPrefix p url;
     in
-    if lib.hasPrefix "sqlite:///" url then
+    if has "sqlite:///" then
       lib.removePrefix "sqlite://" url
-    else if lib.hasPrefix "sqlite:" url then
+    else if has "sqlite:" then
       absPath (lib.removePrefix "sqlite:" url)
     else
       null;
+
+  # null (unset) counts as missing, same as ""
+  jwtSecret = cfg.settings.jwt.secret;
 
   # paths outside the state directory need to be granted write access explicitly
   extraWritePaths = lib.unique (
@@ -69,123 +99,150 @@ in
         options = {
           server = {
             host = lib.mkOption {
-              type = lib.types.str;
+              type = lib.types.nullOr lib.types.str;
+              default = null;
               description = "Address to bind.";
-              default = "0.0.0.0";
             };
             port = lib.mkOption {
-              type = lib.types.port;
+              type = lib.types.nullOr lib.types.port;
+              default = null;
               description = "Port to bind.";
-              default = 3000;
             };
           };
 
           db = {
             url = lib.mkOption {
-              type = lib.types.str;
+              type = lib.types.nullOr lib.types.str;
+              default = null;
               description = ''
                 Database url. `sqlite:reader.db` is relative to the state
                 directory (`${stateDir}`); use `sqlite:///abs/path.db` for an
                 absolute path.
               '';
-              default = "sqlite:reader.db";
             };
             max_connections = lib.mkOption {
-              type = lib.types.ints.positive;
+              type = lib.types.nullOr lib.types.ints.positive;
+              default = null;
               description = "Maximum database connections.";
-              default = 10;
             };
           };
 
           storage = {
             book_dir = lib.mkOption {
-              type = lib.types.str;
+              type = lib.types.nullOr lib.types.str;
+              default = null;
               description = "Directory books are uploaded to (relative to the state directory).";
-              default = "books";
             };
             max_file_size = lib.mkOption {
-              type = lib.types.ints.positive;
+              type = lib.types.nullOr lib.types.ints.positive;
+              default = null;
               description = "Upload size limit per file, in bytes.";
-              default = 52428800;
             };
           };
 
           jwt = {
             secret = lib.mkOption {
-              type = lib.types.str;
+              type = lib.types.nullOr lib.types.str;
+              default = null;
               description = ''
-                JWT signing secret. Must be non-empty; the app refuses to start
-                otherwise. `secretFile` is preferred since this value ends up in
-                the nix store.
+                JWT signing secret. `secretFile` is preferred since this value
+                ends up in the nix store. If neither is set, the app generates
+                a random secret per boot — and `preStart` recreates config.json
+                on every boot, so all tokens would be invalidated on restart;
+                set one of the two explicitly.
               '';
-              default = "";
             };
             expiration = lib.mkOption {
-              type = lib.types.ints.positive;
+              type = lib.types.nullOr lib.types.ints.positive;
+              default = null;
               description = "User token expiration in seconds (max 365 days).";
-              default = 2592000;
             };
             admin_expiration = lib.mkOption {
-              type = lib.types.ints.positive;
+              type = lib.types.nullOr lib.types.ints.positive;
+              default = null;
               description = "Admin token expiration in seconds (max 365 days).";
-              default = 604800;
             };
           };
 
           log = {
             dir = lib.mkOption {
-              type = lib.types.str;
+              type = lib.types.nullOr lib.types.str;
+              default = null;
               description = "Log directory (relative to the state directory).";
-              default = "logs";
             };
             rotation = lib.mkOption {
-              type = lib.types.enum [
-                "hourly"
-                "daily"
-                "never"
-              ];
+              type = lib.types.nullOr (
+                lib.types.enum [
+                  "hourly"
+                  "daily"
+                  "never"
+                ]
+              );
+              default = null;
               description = ''Log rotation; "never" logs to stderr only.'';
-              default = "daily";
+            };
+            level = lib.mkOption {
+              type = lib.types.nullOr (
+                lib.types.enum [
+                  "trace"
+                  "debug"
+                  "info"
+                  "warn"
+                  "error"
+                ]
+              );
+              default = null;
+              description = ''
+                Log level of the server itself; axum/tower-http log at warn.
+                Set RUST_LOG via `systemd.services.reader-server-rs.environment`
+                for full `EnvFilter` control (overrides this).
+              '';
             };
           };
 
           rate_limit = {
             per_second = lib.mkOption {
-              type = lib.types.ints.positive;
+              type = lib.types.nullOr lib.types.ints.positive;
+              default = null;
               description = "Requests allowed per client IP per second (max 1000000).";
-              default = 20;
             };
             burst_size = lib.mkOption {
-              type = lib.types.ints.positive;
+              type = lib.types.nullOr lib.types.ints.positive;
+              default = null;
               description = "Token bucket burst capacity per client IP.";
-              default = 70;
             };
             trust_proxy_headers = lib.mkOption {
-              type = lib.types.bool;
+              type = lib.types.nullOr lib.types.bool;
+              default = null;
               description = ''
                 Trust X-Forwarded-For / X-Real-IP / Forwarded for rate limiting.
                 Only enable behind a reverse proxy that overwrites these
                 headers.
               '';
-              default = false;
             };
           };
         };
       };
-      description = "reader-server-rs configuration, written to config.json. See https://github.com/lxl66566/reader-server-rs for all options.";
+      description = ''
+        reader-server-rs configuration, written to config.json. See
+        https://github.com/lxl66566/reader-server-rs for all options.
+        Unset options fall back to the app's built-in defaults.
+      '';
       example = {
         server.port = 3000;
         storage.book_dir = "books";
+        log.level = "debug";
         rate_limit.trust_proxy_headers = true;
       };
     };
   };
 
   config = lib.mkIf cfg.enable {
-    # the app bails out on an empty secret, so catch it at eval time
     assertions = [
       {
-        assertion = cfg.secretFile != null || cfg.settings.jwt.secret != "";
+        # an empty secret makes the app generate a fresh random one per boot,
+        # invalidating all tokens on every restart — catch it at eval time
+        assertion = cfg.secretFile != null || !(jwtSecret == null || jwtSecret == "");
         message = "services.reader-server-rs: set `secretFile` or a non-empty `settings.jwt.secret`.";
       }
     ];
