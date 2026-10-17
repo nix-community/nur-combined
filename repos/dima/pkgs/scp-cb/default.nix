@@ -3,6 +3,7 @@
 	dataRoot,
 	savesDirectory ? "${dataRoot}/Saves",
 	mapsDirectory ? "${dataRoot}/Maps",
+	configuration ? "${dataRoot}/options.ini",
 }:
 
 pkgs.stdenv.mkDerivation {
@@ -67,7 +68,7 @@ pkgs.stdenv.mkDerivation {
 			--prefix PATH : ${wine}/bin
 
 		mv $out/lib/scp-cb/options.ini $out/lib/scp-cb/options.ini.bak
-		ln -s ${dataRoot}/options.ini $out/lib/scp-cb/options.ini
+		ln -s ${configuration} $out/lib/scp-cb/options.ini
 
 		mv $out/lib/scp-cb/Loadingscreens/loadingscreens.ini $out/lib/scp-cb/Loadingscreens/loadingscreens.ini.bak
 		ln -s ${dataRoot}/loadingscreens.ini $out/lib/scp-cb/Loadingscreens/loadingscreens.ini
