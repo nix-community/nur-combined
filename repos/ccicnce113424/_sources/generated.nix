@@ -217,10 +217,10 @@
   };
   lxgw-wenkai-gb = {
     pname = "lxgw-wenkai-gb";
-    version = "v1.522";
+    version = "v1.530";
     src = fetchurl {
-      url = "https://github.com/lxgw/LxgwWenkaiGB/releases/download/v1.522/lxgw-wenkai-gb-v1.522.tar.gz";
-      sha256 = "sha256-arcHfwuy5GK3FwikzJi7Qo0Cn/+6ShxLCoHin8RTpww=";
+      url = "https://github.com/lxgw/LxgwWenkaiGB/releases/download/v1.530/lxgw-wenkai-gb-v1.530.tar.gz";
+      sha256 = "sha256-QsEefftGIYZkxAUI0/v+IYV4KZKv82Br9zk+OTzHrRY=";
     };
   };
   lyrica = {
