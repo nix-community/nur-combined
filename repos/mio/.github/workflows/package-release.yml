@@ -1,0 +1,420 @@
+name: Package Non-Nix Common Platform Releases
+
+on:
+  schedule:
+    # Run daily at 02:00 UTC
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: package-release
+  cancel-in-progress: false
+
+jobs:
+  build-linux:
+    name: Linux (${{ matrix.arch }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            arch: x86_64
+            target: x86_64-unknown-linux-gnu
+            flutter_platform: x64
+          - runner: ubuntu-24.04-arm
+            arch: aarch64
+            target: aarch64-unknown-linux-gnu
+            flutter_platform: arm64
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Maximize build space
+        if: matrix.runner == 'ubuntu-24.04'
+        uses: mio-19/maximize-build-space@fc881a613ad2a34aca9c9624518214ebc21dfc0c # v10
+        with:
+          root-reserve-mb: 512
+          swap-size-mb: 8192
+          remove-dotnet: 'true'
+          remove-android: 'true'
+          remove-haskell: 'true'
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libasound2-dev libudev-dev pkg-config \
+            libx11-dev libxcursor-dev libxi-dev libxrandr-dev \
+            libwayland-dev libxkbcommon-dev libxcb-render0-dev \
+            libxcb-shape0-dev libxcb-xfixes0-dev libfontconfig1-dev \
+            libfreetype6-dev libgl1-mesa-dev clang cmake ninja-build libgtk-3-dev
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+
+      - name: Install wasm-tools
+        run: cargo install wasm-tools --locked
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Rust Cache
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: |
+            by-name/om/omnimux/src
+            by-name/ha/hanga
+            by-name/up/uplink
+            by-name/nr/nrs-client/src/native/hub
+
+      - name: Prepare staging directory
+        run: mkdir -p staging
+
+      # ─── Omnimux ─────────────────────────────────────────────────────────────
+      - name: Build & Package Omnimux
+        run: |
+          python3 scripts/prepare-omnimux-vendor.py
+          cd by-name/om/omnimux/src
+          cargo build --release
+          cd ../../../..
+
+          mkdir -p dist-omnimux
+          cp by-name/om/omnimux/src/target/release/omnimux dist-omnimux/
+          cp by-name/om/omnimux/omnimux.desktop dist-omnimux/
+          cp by-name/om/omnimux/omnimux.svg dist-omnimux/
+          tar -czvf staging/omnimux-linux-${{ matrix.arch }}.tar.gz -C dist-omnimux .
+
+      # ─── Hanga ───────────────────────────────────────────────────────────────
+      - name: Build & Package Hanga
+        run: |
+          python3 scripts/build-hanga-mods.py by-name/ha/hanga/dist
+          cd by-name/ha/hanga
+          cargo build --release -p hanga
+          cargo install --locked --git https://github.com/johanhelsing/matchbox.git --tag v0.14.0 matchbox_server --root dist-signal
+          cp target/release/hanga dist/
+          cp dist-signal/bin/matchbox_server dist/hanga-signal
+          tar -czvf ../../../staging/hanga-linux-${{ matrix.arch }}.tar.gz -C dist .
+          cd ../../..
+
+      # ─── Uplink ──────────────────────────────────────────────────────────────
+      - name: Build & Package Uplink
+        run: |
+          cd by-name/up/uplink
+          cargo build --release -p uplink_cli
+          flutter pub get
+          flutter build linux --release
+
+          mkdir -p dist-uplink
+          cp -r build/linux/${{ matrix.flutter_platform }}/release/bundle/* dist-uplink/
+          cp target/release/uplink_cli dist-uplink/
+          tar -czvf ../../../staging/uplink-linux-${{ matrix.arch }}.tar.gz -C dist-uplink .
+          cd ../../..
+
+      # ─── NRS Client ──────────────────────────────────────────────────────────
+      - name: Build & Package NRS Client
+        run: |
+          cd by-name/nr/nrs-client/src
+          flutter pub get
+          flutter build linux --release
+
+          mkdir -p dist-nrs
+          cp -r build/linux/${{ matrix.flutter_platform }}/release/bundle/* dist-nrs/
+          tar -czvf ../../../../staging/nrs-client-linux-${{ matrix.arch }}.tar.gz -C dist-nrs .
+          cd ../../../..
+
+      - name: Upload Linux Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-${{ matrix.arch }}-artifacts
+          path: staging/*
+          retention-days: 1
+
+  build-macos:
+    name: macOS (${{ matrix.arch }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-14
+            arch: aarch64
+          - runner: macos-13
+            arch: x86_64
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+
+      - name: Install wasm-tools
+        run: cargo install wasm-tools --locked
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Rust Cache
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: |
+            by-name/om/omnimux/src
+            by-name/ha/hanga
+            by-name/up/uplink
+            by-name/nr/nrs-client/src/native/hub
+
+      - name: Prepare staging directory
+        run: mkdir -p staging
+
+      # ─── Omnimux ─────────────────────────────────────────────────────────────
+      - name: Build & Package Omnimux
+        run: |
+          python3 scripts/prepare-omnimux-vendor.py
+          cd by-name/om/omnimux/src
+          cargo build --release --features gpui-platform/runtime_shaders
+          cd ../../../..
+
+          APP="Omnimux.app"
+          mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
+          cp by-name/om/omnimux/src/target/release/omnimux "$APP/Contents/MacOS/"
+          cat << 'EOF' > "$APP/Contents/Info.plist"
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+              <key>CFBundleExecutable</key>
+              <string>omnimux</string>
+              <key>CFBundleIdentifier</key>
+              <string>com.mio.omnimux</string>
+              <key>CFBundleName</key>
+              <string>Omnimux</string>
+              <key>CFBundlePackageType</key>
+              <string>APPL</string>
+              <key>CFBundleShortVersionString</key>
+              <string>0.1.0</string>
+              <key>LSMinimumSystemVersion</key>
+              <string>10.15</string>
+          </dict>
+          </plist>
+          EOF
+          zip -r staging/omnimux-macos-${{ matrix.arch }}.zip "$APP"
+
+      # ─── Hanga ───────────────────────────────────────────────────────────────
+      - name: Build & Package Hanga
+        run: |
+          python3 scripts/build-hanga-mods.py by-name/ha/hanga/dist
+          cd by-name/ha/hanga
+          cargo build --release -p hanga
+          cargo install --locked --git https://github.com/johanhelsing/matchbox.git --tag v0.14.0 matchbox_server --root dist-signal
+          cp target/release/hanga dist/
+          cp dist-signal/bin/matchbox_server dist/hanga-signal
+          tar -czvf ../../../staging/hanga-macos-${{ matrix.arch }}.tar.gz -C dist .
+          cd ../../..
+
+      # ─── Uplink ──────────────────────────────────────────────────────────────
+      - name: Build & Package Uplink
+        run: |
+          cd by-name/up/uplink
+          cargo build --release -p uplink_cli
+          flutter pub get
+          flutter build macos --release
+
+          mkdir -p dist-uplink
+          cp -r build/macos/Build/Products/Release/uplink.app dist-uplink/
+          cp target/release/uplink_cli dist-uplink/
+          cd dist-uplink
+          zip -r ../../../../staging/uplink-macos-${{ matrix.arch }}.zip .
+          cd ../../../..
+
+      # ─── NRS Client ──────────────────────────────────────────────────────────
+      - name: Build & Package NRS Client
+        run: |
+          cd by-name/nr/nrs-client/src
+          flutter pub get
+          flutter build macos --release
+
+          mkdir -p dist-nrs
+          cp -r build/macos/Build/Products/Release/nrs_client.app dist-nrs/
+          cd dist-nrs
+          zip -r ../../../../../staging/nrs-client-macos-${{ matrix.arch }}.zip .
+          cd ../../../../..
+
+      - name: Upload macOS Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-${{ matrix.arch }}-artifacts
+          path: staging/*
+          retention-days: 1
+
+  build-windows:
+    name: Windows (x86_64 & aarch64)
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-pc-windows-msvc, aarch64-pc-windows-msvc, wasm32-unknown-unknown
+
+      - name: Install wasm-tools
+        run: cargo install wasm-tools --locked
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+
+      - name: Rust Cache
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: |
+            by-name/om/omnimux/src
+            by-name/ha/hanga
+            by-name/up/uplink
+            by-name/nr/nrs-client/src/native/hub
+
+      - name: Prepare staging directory
+        run: New-Item -ItemType Directory -Force -Path staging
+
+      # ─── Omnimux ─────────────────────────────────────────────────────────────
+      - name: Build & Package Omnimux
+        run: |
+          python scripts/prepare-omnimux-vendor.py
+          cd by-name/om/omnimux/src
+          cargo build --release --target x86_64-pc-windows-msvc
+          cd ../../../..
+
+          New-Item -ItemType Directory -Force -Path dist-omnimux
+          Copy-Item by-name/om/omnimux/src/target/x86_64-pc-windows-msvc/release/omnimux.exe dist-omnimux/
+          Compress-Archive -Path dist-omnimux/* -DestinationPath staging/omnimux-windows-x86_64.zip
+
+      # ─── Hanga ───────────────────────────────────────────────────────────────
+      - name: Build & Package Hanga
+        run: |
+          python scripts/build-hanga-mods.py by-name/ha/hanga/dist
+          cd by-name/ha/hanga
+
+          # Build host x86_64
+          cargo build --release --target x86_64-pc-windows-msvc -p hanga
+          # Cross-compile host aarch64
+          cargo build --release --target aarch64-pc-windows-msvc -p hanga
+
+          # Build matchbox_server
+          cargo install --locked --git https://github.com/johanhelsing/matchbox.git --tag v0.14.0 matchbox_server --root dist-signal-x64
+          cargo install --target aarch64-pc-windows-msvc --locked --git https://github.com/johanhelsing/matchbox.git --tag v0.14.0 matchbox_server --root dist-signal-arm64
+
+          # Package x86_64
+          New-Item -ItemType Directory -Force -Path dist-x64
+          Copy-Item -Recurse dist/* dist-x64/
+          Copy-Item target/x86_64-pc-windows-msvc/release/hanga.exe dist-x64/
+          Copy-Item dist-signal-x64/bin/matchbox_server.exe dist-x64/hanga-signal.exe
+          Compress-Archive -Path dist-x64/* -DestinationPath ../../../staging/hanga-windows-x86_64.zip
+
+          # Package aarch64
+          New-Item -ItemType Directory -Force -Path dist-arm64
+          Copy-Item -Recurse dist/* dist-arm64/
+          Copy-Item target/aarch64-pc-windows-msvc/release/hanga.exe dist-arm64/
+          Copy-Item dist-signal-arm64/bin/matchbox_server.exe dist-arm64/hanga-signal.exe
+          Compress-Archive -Path dist-arm64/* -DestinationPath ../../../staging/hanga-windows-aarch64.zip
+
+          cd ../../..
+
+      # ─── Uplink ──────────────────────────────────────────────────────────────
+      - name: Build & Package Uplink
+        run: |
+          cd by-name/up/uplink
+          # Build CLI for x86_64 and aarch64
+          cargo build --release --target x86_64-pc-windows-msvc -p uplink_cli
+          cargo build --release --target aarch64-pc-windows-msvc -p uplink_cli
+
+          # Build Flutter app for x86_64
+          flutter pub get
+          flutter build windows --release
+
+          # Package x86_64 bundle
+          New-Item -ItemType Directory -Force -Path dist-uplink-x64
+          Copy-Item -Recurse build/windows/x64/runner/Release/* dist-uplink-x64/
+          Copy-Item target/x86_64-pc-windows-msvc/release/uplink_cli.exe dist-uplink-x64/
+          Compress-Archive -Path dist-uplink-x64/* -DestinationPath ../../../staging/uplink-windows-x86_64.zip
+
+          # Package aarch64 CLI
+          New-Item -ItemType Directory -Force -Path dist-uplink-arm64
+          Copy-Item target/aarch64-pc-windows-msvc/release/uplink_cli.exe dist-uplink-arm64/
+          Compress-Archive -Path dist-uplink-arm64/* -DestinationPath ../../../staging/uplink-windows-aarch64.zip
+
+          cd ../../..
+
+      # ─── NRS Client ──────────────────────────────────────────────────────────
+      - name: Build & Package NRS Client
+        run: |
+          cd by-name/nr/nrs-client/src
+          if (!(Test-Path "windows")) {
+            flutter create --platforms=windows .
+          }
+          flutter pub get
+          flutter build windows --release
+
+          New-Item -ItemType Directory -Force -Path dist-nrs
+          Copy-Item -Recurse build/windows/x64/runner/Release/* dist-nrs/
+          Compress-Archive -Path dist-nrs/* -DestinationPath ../../../../staging/nrs-client-windows-x86_64.zip
+          cd ../../../..
+
+      - name: Upload Windows Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-artifacts
+          path: staging/*
+          retention-days: 1
+
+  publish-release:
+    name: Publish Release to GitHub
+    runs-on: ubuntu-latest
+    needs: [build-linux, build-macos, build-windows]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-artifacts/
+          merge-multiple: true
+
+      - name: Generate Checksums
+        run: |
+          cd release-artifacts
+          sha256sum * > SHA256SUMS.txt
+          echo "### Release Checksums" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          cat SHA256SUMS.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      - name: Set Release Date
+        id: date
+        run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+      - name: Publish Nightly Release
+        uses: softprops/action-gh-release@c95fe1489396fe8a9ec87453c663f53724e23043 # v2.2.1
+        with:
+          tag_name: nightly
+          name: "Daily Release (${{ steps.date.outputs.date }})"
+          prerelease: true
+          files: release-artifacts/*
