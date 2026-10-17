@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Generate GitHub token
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         id: app-token
         with:
           client-id: ${{ secrets.DEPS_BOT_CLIENT_ID }}
@@ -52,7 +52,7 @@ jobs:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Install nix
-        uses: DeterminateSystems/determinate-nix-action@d0c908e6cbe9f89f36ed8205a3ab6f092636916a # v3.23.1
+        uses: DeterminateSystems/determinate-nix-action@e847f25223456b3058e12f7fc9d777b6a6f25060 # v3.23.2
         with:
           extra-conf: |
             experimental-features = nix-command flakes
