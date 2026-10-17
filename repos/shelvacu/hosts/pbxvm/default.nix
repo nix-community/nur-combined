@@ -248,7 +248,7 @@ in
       default = { };
       type = types.attrsOf (
         types.submodule (
-          { name, ... }: {
+          { name, config, ... }: {
             options = {
               label = mkOption {
                 type = types.str;
@@ -272,7 +272,8 @@ in
               };
               port = mkOption {
                 type = types.port;
-                default = 5060;
+                default = if config.encrypt then 5061 else 5060;
+                defaultText = "if config.encrypt then 5061 else 5060";
                 description = "Provider's SIP port. Some do not use 5060.";
               };
               encrypt = mkOption {
@@ -376,7 +377,6 @@ in
         label = "Telnyx";
         user = "usertelnyx97122";
         domain = "sip.telnyx.com";
-        port = 5061;
         encrypt = true;
         # US signalling pair from <https://sip.telnyx.com/>; update if the
         # connection moves region.
