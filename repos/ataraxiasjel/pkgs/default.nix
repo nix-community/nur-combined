@@ -34,6 +34,7 @@ let
     prts-cursor = final.callPackage ./prts-cursor { };
     realrtcw = final.callPackage ./realrtcw { };
     reshade-shaders = final.callPackage ./reshade-shaders { };
+    rimstack = final.callPackage ./rimstack { };
     seadrive-fuse = final.callPackage ./seadrive-fuse { };
     sing-box-beta = final.callPackage ./sing-box/beta.nix { };
     sing-box-beta-full = final.callPackage ./sing-box/beta.nix { withCGO = true; };
