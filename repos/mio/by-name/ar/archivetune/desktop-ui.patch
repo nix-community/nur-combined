@@ -1,6 +1,6 @@
 --- a/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt	1970-01-01 10:00:00
 +++ b/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt	2026-09-24 18:32:47
-@@ -0,0 +1,371 @@
+@@ -0,0 +1,393 @@
 +package moe.rukamori.archivetune
 +
 +import androidx.compose.foundation.isSystemInDarkTheme
@@ -29,6 +29,7 @@
 +import androidx.compose.ui.focus.FocusRequester
 +import androidx.compose.ui.focus.focusRequester
 +import androidx.compose.ui.graphics.Color
++import androidx.compose.ui.graphics.graphicsLayer
 +import androidx.compose.ui.input.key.Key
 +import androidx.compose.ui.input.key.KeyEventType
 +import androidx.compose.ui.input.key.key
@@ -259,6 +260,27 @@
 +                                navController = navController,
 +                                pureBlack = pureBlack,
 +                            )
++
++                            if (playerBottomSheetState.progress > 0.05f && !isSearchActive) {
++                                val returnAlpha = ((playerBottomSheetState.progress - 0.05f) / 0.95f).coerceIn(0f, 1f)
++                                FilledTonalIconButton(
++                                    onClick = { playerBottomSheetState.collapseSoft() },
++                                    modifier = Modifier
++                                        .align(Alignment.TopStart)
++                                        .padding(top = 16.dp, start = 16.dp)
++                                        .graphicsLayer { alpha = returnAlpha }
++                                        .zIndex(20f),
++                                    colors = IconButtonDefaults.filledTonalIconButtonColors(
++                                        containerColor = (if (pureBlack) Color(0xFF1E1E1E) else MaterialTheme.colorScheme.surfaceContainerHigh).copy(alpha = 0.85f),
++                                        contentColor = MaterialTheme.colorScheme.onSurface,
++                                    ),
++                                ) {
++                                    Icon(
++                                        imageVector = Icons.Filled.ArrowBack,
++                                        contentDescription = "Return to main screen",
++                                    )
++                                }
++                            }
 +                        }
 +
 +                        val navSlideDistance = navBarHeight

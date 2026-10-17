@@ -126,6 +126,7 @@ let
             install -m644 ${./files/ExoDownloadService.kt} app/src/main/kotlin/moe/rukamori/archivetune/playback/ExoDownloadService.kt
             install -m644 ${./files/UpdateNotificationManager.kt} app/src/main/kotlin/moe/rukamori/archivetune/utils/UpdateNotificationManager.kt
             install -m644 ${./files/Updater.kt} app/src/main/kotlin/moe/rukamori/archivetune/utils/Updater.kt
+            install -m644 ${./files/DesktopLoginScreen.kt} app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/LoginScreen.kt
 
             # Copy our desktop UI components
             patch -p1 < ${./desktop-ui.patch}
