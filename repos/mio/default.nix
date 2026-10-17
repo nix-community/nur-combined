@@ -134,6 +134,7 @@ with (import ./private.nix { inherit pkgs; });
           pkgs.symlinkJoin {
             name = "pkgscachecommon";
             paths = with self; [
+              chatbox
               nurl_patched
               aria2
               aria2-wrapped

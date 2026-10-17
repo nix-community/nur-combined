@@ -146,7 +146,7 @@ stdenv.mkDerivation (finalAttrs: {
           - arm64
       EOF
     '';
-    hash = "sha256-GnDie7LXlmjRhTuCNuXW/B49L5CHz9FajEJdM2otLxM=";
+    hash = "sha256-gOYE17usovB6FEDa+y7Kyof7LTnus7dEH3pIEWGHVxU=";
   };
 
   env = {
