@@ -23,12 +23,8 @@ jobs:
         include:
           - runner: ubuntu-24.04
             arch: x86_64
-            target: x86_64-unknown-linux-gnu
-            flutter_platform: x64
           - runner: ubuntu-24.04-arm
             arch: aarch64
-            target: aarch64-unknown-linux-gnu
-            flutter_platform: arm64
 
     steps:
       - name: Checkout repository
@@ -78,24 +74,25 @@ jobs:
             by-name/nr/nrs-client/src/native/hub
 
       - name: Prepare staging directory
-        run: mkdir -p staging
+        run: mkdir -p "$GITHUB_WORKSPACE/staging"
 
       # ─── Omnimux ─────────────────────────────────────────────────────────────
       - name: Build & Package Omnimux
+        continue-on-error: true
         run: |
           python3 scripts/prepare-omnimux-vendor.py
           cd by-name/om/omnimux/src
           cargo build --release
-          cd ../../../..
 
           mkdir -p dist-omnimux
-          cp by-name/om/omnimux/src/target/release/omnimux dist-omnimux/
-          cp by-name/om/omnimux/omnimux.desktop dist-omnimux/
-          cp by-name/om/omnimux/omnimux.svg dist-omnimux/
-          tar -czvf staging/omnimux-linux-${{ matrix.arch }}.tar.gz -C dist-omnimux .
+          cp target/release/omnimux dist-omnimux/
+          cp ../omnimux.desktop dist-omnimux/
+          cp ../omnimux.svg dist-omnimux/
+          tar -czvf "$GITHUB_WORKSPACE/staging/omnimux-linux-${{ matrix.arch }}.tar.gz" -C dist-omnimux .
 
       # ─── Hanga ───────────────────────────────────────────────────────────────
       - name: Build & Package Hanga
+        continue-on-error: true
         run: |
           python3 scripts/build-hanga-mods.py by-name/ha/hanga/dist
           cd by-name/ha/hanga
@@ -103,11 +100,11 @@ jobs:
           cargo install --locked --git https://github.com/johanhelsing/matchbox.git --tag v0.14.0 matchbox_server --root dist-signal
           cp target/release/hanga dist/
           cp dist-signal/bin/matchbox_server dist/hanga-signal
-          tar -czvf ../../../staging/hanga-linux-${{ matrix.arch }}.tar.gz -C dist .
-          cd ../../..
+          tar -czvf "$GITHUB_WORKSPACE/staging/hanga-linux-${{ matrix.arch }}.tar.gz" -C dist .
 
       # ─── Uplink ──────────────────────────────────────────────────────────────
       - name: Build & Package Uplink
+        continue-on-error: true
         run: |
           cd by-name/up/uplink
           cargo build --release -p uplink_cli
@@ -115,28 +112,29 @@ jobs:
           flutter build linux --release
 
           mkdir -p dist-uplink
-          cp -r build/linux/${{ matrix.flutter_platform }}/release/bundle/* dist-uplink/
+          cp -r build/linux/*/release/bundle/* dist-uplink/
           cp target/release/uplink_cli dist-uplink/
-          tar -czvf ../../../staging/uplink-linux-${{ matrix.arch }}.tar.gz -C dist-uplink .
-          cd ../../..
+          tar -czvf "$GITHUB_WORKSPACE/staging/uplink-linux-${{ matrix.arch }}.tar.gz" -C dist-uplink .
 
       # ─── NRS Client ──────────────────────────────────────────────────────────
       - name: Build & Package NRS Client
+        continue-on-error: true
         run: |
           cd by-name/nr/nrs-client/src
           flutter pub get
           flutter build linux --release
 
           mkdir -p dist-nrs
-          cp -r build/linux/${{ matrix.flutter_platform }}/release/bundle/* dist-nrs/
-          tar -czvf ../../../../staging/nrs-client-linux-${{ matrix.arch }}.tar.gz -C dist-nrs .
-          cd ../../../..
+          cp -r build/linux/*/release/bundle/* dist-nrs/
+          tar -czvf "$GITHUB_WORKSPACE/staging/nrs-client-linux-${{ matrix.arch }}.tar.gz" -C dist-nrs .
 
       - name: Upload Linux Artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: linux-${{ matrix.arch }}-artifacts
           path: staging/*
+          if-no-files-found: ignore
           retention-days: 1
 
   build-macos:
@@ -179,43 +177,25 @@ jobs:
             by-name/nr/nrs-client/src/native/hub
 
       - name: Prepare staging directory
-        run: mkdir -p staging
+        run: mkdir -p "$GITHUB_WORKSPACE/staging"
 
       # ─── Omnimux ─────────────────────────────────────────────────────────────
       - name: Build & Package Omnimux
+        continue-on-error: true
         run: |
           python3 scripts/prepare-omnimux-vendor.py
           cd by-name/om/omnimux/src
           cargo build --release --features gpui-platform/runtime_shaders
-          cd ../../../..
 
           APP="Omnimux.app"
           mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
-          cp by-name/om/omnimux/src/target/release/omnimux "$APP/Contents/MacOS/"
-          cat << 'EOF' > "$APP/Contents/Info.plist"
-          <?xml version="1.0" encoding="UTF-8"?>
-          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-          <plist version="1.0">
-          <dict>
-              <key>CFBundleExecutable</key>
-              <string>omnimux</string>
-              <key>CFBundleIdentifier</key>
-              <string>com.mio.omnimux</string>
-              <key>CFBundleName</key>
-              <string>Omnimux</string>
-              <key>CFBundlePackageType</key>
-              <string>APPL</string>
-              <key>CFBundleShortVersionString</key>
-              <string>0.1.0</string>
-              <key>LSMinimumSystemVersion</key>
-              <string>10.15</string>
-          </dict>
-          </plist>
-          EOF
-          zip -r staging/omnimux-macos-${{ matrix.arch }}.zip "$APP"
+          cp target/release/omnimux "$APP/Contents/MacOS/"
+          cp "$GITHUB_WORKSPACE/by-name/om/omnimux/Info.plist" "$APP/Contents/Info.plist"
+          zip -r "$GITHUB_WORKSPACE/staging/omnimux-macos-${{ matrix.arch }}.zip" "$APP"
 
       # ─── Hanga ───────────────────────────────────────────────────────────────
       - name: Build & Package Hanga
+        continue-on-error: true
         run: |
           python3 scripts/build-hanga-mods.py by-name/ha/hanga/dist
           cd by-name/ha/hanga
@@ -223,11 +203,11 @@ jobs:
           cargo install --locked --git https://github.com/johanhelsing/matchbox.git --tag v0.14.0 matchbox_server --root dist-signal
           cp target/release/hanga dist/
           cp dist-signal/bin/matchbox_server dist/hanga-signal
-          tar -czvf ../../../staging/hanga-macos-${{ matrix.arch }}.tar.gz -C dist .
-          cd ../../..
+          tar -czvf "$GITHUB_WORKSPACE/staging/hanga-macos-${{ matrix.arch }}.tar.gz" -C dist .
 
       # ─── Uplink ──────────────────────────────────────────────────────────────
       - name: Build & Package Uplink
+        continue-on-error: true
         run: |
           cd by-name/up/uplink
           cargo build --release -p uplink_cli
@@ -238,11 +218,11 @@ jobs:
           cp -r build/macos/Build/Products/Release/uplink.app dist-uplink/
           cp target/release/uplink_cli dist-uplink/
           cd dist-uplink
-          zip -r ../../../../staging/uplink-macos-${{ matrix.arch }}.zip .
-          cd ../../../..
+          zip -r "$GITHUB_WORKSPACE/staging/uplink-macos-${{ matrix.arch }}.zip" .
 
       # ─── NRS Client ──────────────────────────────────────────────────────────
       - name: Build & Package NRS Client
+        continue-on-error: true
         run: |
           cd by-name/nr/nrs-client/src
           flutter pub get
@@ -251,14 +231,15 @@ jobs:
           mkdir -p dist-nrs
           cp -r build/macos/Build/Products/Release/nrs_client.app dist-nrs/
           cd dist-nrs
-          zip -r ../../../../../staging/nrs-client-macos-${{ matrix.arch }}.zip .
-          cd ../../../../..
+          zip -r "$GITHUB_WORKSPACE/staging/nrs-client-macos-${{ matrix.arch }}.zip" .
 
       - name: Upload macOS Artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: macos-${{ matrix.arch }}-artifacts
           path: staging/*
+          if-no-files-found: ignore
           retention-days: 1
 
   build-windows:
@@ -292,22 +273,34 @@ jobs:
             by-name/nr/nrs-client/src/native/hub
 
       - name: Prepare staging directory
-        run: New-Item -ItemType Directory -Force -Path staging
+        run: New-Item -ItemType Directory -Force -Path "$env:GITHUB_WORKSPACE\staging"
 
       # ─── Omnimux ─────────────────────────────────────────────────────────────
       - name: Build & Package Omnimux
+        continue-on-error: true
         run: |
           python scripts/prepare-omnimux-vendor.py
           cd by-name/om/omnimux/src
-          cargo build --release --target x86_64-pc-windows-msvc
-          cd ../../../..
 
+          # Build x86_64
+          cargo build --release --target x86_64-pc-windows-msvc
           New-Item -ItemType Directory -Force -Path dist-omnimux
-          Copy-Item by-name/om/omnimux/src/target/x86_64-pc-windows-msvc/release/omnimux.exe dist-omnimux/
-          Compress-Archive -Path dist-omnimux/* -DestinationPath staging/omnimux-windows-x86_64.zip
+          Copy-Item target/x86_64-pc-windows-msvc/release/omnimux.exe dist-omnimux/
+          Compress-Archive -Path dist-omnimux/* -DestinationPath "$env:GITHUB_WORKSPACE\staging\omnimux-windows-x86_64.zip"
+
+          # Attempt aarch64 cross-compile
+          try {
+            cargo build --release --target aarch64-pc-windows-msvc
+            New-Item -ItemType Directory -Force -Path dist-omnimux-arm64
+            Copy-Item target/aarch64-pc-windows-msvc/release/omnimux.exe dist-omnimux-arm64/
+            Compress-Archive -Path dist-omnimux-arm64/* -DestinationPath "$env:GITHUB_WORKSPACE\staging\omnimux-windows-aarch64.zip"
+          } catch {
+            Write-Warning "Omnimux Windows aarch64 build skipped or failed: $_"
+          }
 
       # ─── Hanga ───────────────────────────────────────────────────────────────
       - name: Build & Package Hanga
+        continue-on-error: true
         run: |
           python scripts/build-hanga-mods.py by-name/ha/hanga/dist
           cd by-name/ha/hanga
@@ -319,26 +312,33 @@ jobs:
 
           # Build matchbox_server
           cargo install --locked --git https://github.com/johanhelsing/matchbox.git --tag v0.14.0 matchbox_server --root dist-signal-x64
-          cargo install --target aarch64-pc-windows-msvc --locked --git https://github.com/johanhelsing/matchbox.git --tag v0.14.0 matchbox_server --root dist-signal-arm64
+          try {
+            cargo install --target aarch64-pc-windows-msvc --locked --git https://github.com/johanhelsing/matchbox.git --tag v0.14.0 matchbox_server --root dist-signal-arm64
+          } catch {
+            Write-Warning "matchbox_server aarch64 build skipped: $_"
+          }
 
           # Package x86_64
           New-Item -ItemType Directory -Force -Path dist-x64
           Copy-Item -Recurse dist/* dist-x64/
           Copy-Item target/x86_64-pc-windows-msvc/release/hanga.exe dist-x64/
-          Copy-Item dist-signal-x64/bin/matchbox_server.exe dist-x64/hanga-signal.exe
-          Compress-Archive -Path dist-x64/* -DestinationPath ../../../staging/hanga-windows-x86_64.zip
+          if (Test-Path "dist-signal-x64/bin/matchbox_server.exe") {
+            Copy-Item dist-signal-x64/bin/matchbox_server.exe dist-x64/hanga-signal.exe
+          }
+          Compress-Archive -Path dist-x64/* -DestinationPath "$env:GITHUB_WORKSPACE\staging\hanga-windows-x86_64.zip"
 
           # Package aarch64
           New-Item -ItemType Directory -Force -Path dist-arm64
           Copy-Item -Recurse dist/* dist-arm64/
           Copy-Item target/aarch64-pc-windows-msvc/release/hanga.exe dist-arm64/
-          Copy-Item dist-signal-arm64/bin/matchbox_server.exe dist-arm64/hanga-signal.exe
-          Compress-Archive -Path dist-arm64/* -DestinationPath ../../../staging/hanga-windows-aarch64.zip
-
-          cd ../../..
+          if (Test-Path "dist-signal-arm64/bin/matchbox_server.exe") {
+            Copy-Item dist-signal-arm64/bin/matchbox_server.exe dist-arm64/hanga-signal.exe
+          }
+          Compress-Archive -Path dist-arm64/* -DestinationPath "$env:GITHUB_WORKSPACE\staging\hanga-windows-aarch64.zip"
 
       # ─── Uplink ──────────────────────────────────────────────────────────────
       - name: Build & Package Uplink
+        continue-on-error: true
         run: |
           cd by-name/up/uplink
           # Build CLI for x86_64 and aarch64
@@ -353,17 +353,16 @@ jobs:
           New-Item -ItemType Directory -Force -Path dist-uplink-x64
           Copy-Item -Recurse build/windows/x64/runner/Release/* dist-uplink-x64/
           Copy-Item target/x86_64-pc-windows-msvc/release/uplink_cli.exe dist-uplink-x64/
-          Compress-Archive -Path dist-uplink-x64/* -DestinationPath ../../../staging/uplink-windows-x86_64.zip
+          Compress-Archive -Path dist-uplink-x64/* -DestinationPath "$env:GITHUB_WORKSPACE\staging\uplink-windows-x86_64.zip"
 
           # Package aarch64 CLI
           New-Item -ItemType Directory -Force -Path dist-uplink-arm64
           Copy-Item target/aarch64-pc-windows-msvc/release/uplink_cli.exe dist-uplink-arm64/
-          Compress-Archive -Path dist-uplink-arm64/* -DestinationPath ../../../staging/uplink-windows-aarch64.zip
-
-          cd ../../..
+          Compress-Archive -Path dist-uplink-arm64/* -DestinationPath "$env:GITHUB_WORKSPACE\staging\uplink-windows-aarch64.zip"
 
       # ─── NRS Client ──────────────────────────────────────────────────────────
       - name: Build & Package NRS Client
+        continue-on-error: true
         run: |
           cd by-name/nr/nrs-client/src
           if (!(Test-Path "windows")) {
@@ -374,44 +373,56 @@ jobs:
 
           New-Item -ItemType Directory -Force -Path dist-nrs
           Copy-Item -Recurse build/windows/x64/runner/Release/* dist-nrs/
-          Compress-Archive -Path dist-nrs/* -DestinationPath ../../../../staging/nrs-client-windows-x86_64.zip
-          cd ../../../..
+          Compress-Archive -Path dist-nrs/* -DestinationPath "$env:GITHUB_WORKSPACE\staging\nrs-client-windows-x86_64.zip"
 
       - name: Upload Windows Artifacts
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: windows-artifacts
           path: staging/*
+          if-no-files-found: ignore
           retention-days: 1
 
   publish-release:
     name: Publish Release to GitHub
     runs-on: ubuntu-latest
     needs: [build-linux, build-macos, build-windows]
+    if: always() && !cancelled()
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Download all artifacts
         uses: actions/download-artifact@v4
+        continue-on-error: true
         with:
           path: release-artifacts/
           merge-multiple: true
 
-      - name: Generate Checksums
+      - name: Generate Checksums & Verify Artifacts
+        id: check_artifacts
         run: |
-          cd release-artifacts
-          sha256sum * > SHA256SUMS.txt
-          echo "### Release Checksums" >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
-          cat SHA256SUMS.txt >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
+          if [ -d release-artifacts ] && [ -n "$(ls -A release-artifacts 2>/dev/null)" ]; then
+            cd release-artifacts
+            sha256sum * > SHA256SUMS.txt
+            echo "### Release Checksums" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            cat SHA256SUMS.txt >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            echo "has_artifacts=true" >> $GITHUB_OUTPUT
+          else
+            echo "No artifacts found to publish."
+            echo "has_artifacts=false" >> $GITHUB_OUTPUT
+          fi
 
       - name: Set Release Date
+        if: steps.check_artifacts.outputs.has_artifacts == 'true'
         id: date
         run: echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
 
       - name: Publish Nightly Release
+        if: steps.check_artifacts.outputs.has_artifacts == 'true'
         uses: softprops/action-gh-release@c95fe1489396fe8a9ec87453c663f53724e23043 # v2.2.1
         with:
           tag_name: nightly

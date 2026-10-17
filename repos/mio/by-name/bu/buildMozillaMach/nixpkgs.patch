@@ -13,17 +13,11 @@
    src,
    unpackPhase ? null,
    extraPatches ? [ ],
-@@ -244,18 +247,25 @@
+@@ -244,18 +247,19 @@
    distributionIni =
      let
        platform = if stdenv.hostPlatform.isDarwin then "Nix on MacOS" else "NixOS";
-+      distId =
-+        if distributionId == "org.nixos" then
-+          "nixos"
-+        else if distributionId != null then
-+          distributionId
-+        else
-+          "nixos";
++      distId = if distributionId != null then lib.last (lib.splitString "." distributionId) else "nixos";
      in
      pkgs.writeText "distribution.ini" (
        lib.generators.toINI { } {
@@ -41,7 +35,7 @@
            "app.distributor.channel" = "nixpkgs";
          };
        }
-@@ -472,13 +482,15 @@
+@@ -472,13 +476,15 @@
      "--enable-application=${application}"
      "--enable-default-toolkit=${toolkit}"
      "--with-app-name=${binaryName}"
@@ -59,54 +53,54 @@
    # LTO is done using clang and lld.
    ++ lib.optionals enableLTO [
      "--enable-lto=cross,full" # Cross-Language LTO
-@@ -646,7 +658,7 @@
+@@ -646,7 +652,7 @@
      # Firefox relies on nonstandard behavior of the glibc dynamic linker. It re-uses
      # previously loaded libraries even though they are not in the rpath of the newly loaded binary.
      # On musl we have to explicitly set the rpath to include these libraries.
 -    LDFLAGS = "-Wl,-rpath,${placeholder "out"}/lib/${binaryName}";
 +    LDFLAGS = "-Wl,-rpath,${placeholder "out"}/lib/${finalBinaryName}";
    };
- 
+
    # tests were disabled in configureFlags
-@@ -670,16 +682,16 @@
+@@ -670,16 +676,16 @@
    postInstall =
      lib.optionalString stdenv.hostPlatform.isDarwin ''
        mkdir -p $out/Applications
 -      cp -r dist/${binaryName}/*.app "$out/Applications/${applicationName}.app"
 +      cp -r dist/${finalBinaryName}/*.app "$out/Applications/${applicationName}.app"
- 
+
        resourceDir="$out/Applications/${applicationName}.app/Contents/Resources"
- 
+
      ''
      + lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
        # Remove SDK cruft. FIXME: move to a separate output?
 -      rm -rf $out/share/idl $out/include $out/lib/${binaryName}-devel-*
 +      rm -rf $out/share/idl $out/include $out/lib/${finalBinaryName}-devel-*
- 
+
 -      resourceDir=$out/lib/${binaryName}
 +      resourceDir=$out/lib/${finalBinaryName}
      ''
      + ''
        # Install distribution customizations
-@@ -690,7 +702,7 @@
+@@ -690,7 +696,7 @@
      '';
- 
+
    postFixup = lib.optionalString (enableCrashReporter && buildStdenv.hostPlatform.isLinux) ''
 -    patchelf --add-rpath "${lib.makeLibraryPath [ curl ]}" $out/lib/${binaryName}/crashreporter
 +    patchelf --add-rpath "${lib.makeLibraryPath [ curl ]}" $out/lib/${finalBinaryName}/crashreporter
    '';
- 
+
    # Some basic testing
-@@ -703,7 +715,7 @@
+@@ -703,7 +709,7 @@
        bindir=$out/bin
      ''
      + ''
 -      "$bindir/${binaryName}" --version
 +      "$bindir/${finalBinaryName}" --version
      '';
- 
+
    passthru = {
-@@ -711,6 +723,9 @@
+@@ -711,6 +717,9 @@
        application
        applicationName
        binaryName

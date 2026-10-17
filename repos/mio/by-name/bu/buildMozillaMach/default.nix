@@ -247,13 +247,7 @@ let
   distributionIni =
     let
       platform = if stdenv.hostPlatform.isDarwin then "Nix on MacOS" else "NixOS";
-      distId =
-        if distributionId == "org.nixos" then
-          "nixos"
-        else if distributionId != null then
-          distributionId
-        else
-          "nixos";
+      distId = if distributionId != null then lib.last (lib.splitString "." distributionId) else "nixos";
     in
     pkgs.writeText "distribution.ini" (
       lib.generators.toINI { } {
