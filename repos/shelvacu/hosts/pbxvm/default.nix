@@ -186,6 +186,15 @@ in
         providers reply to whatever source port the REGISTER came from.
       '';
     };
+    pjsipTlsPort = mkOption {
+      type = types.port;
+      default = 5063;
+      description = ''
+        Port chan_pjsip's TLS transport binds, for trunks with `encrypt`. Not
+        opened in the firewall: TLS trunks only ever connect out, and inbound
+        calls come back down that connection.
+      '';
+    };
     rtpPortRange = mkOption {
       type = types.attrsOf types.port;
       default = {
@@ -266,6 +275,20 @@ in
                 default = 5060;
                 description = "Provider's SIP port. Some do not use 5060.";
               };
+              encrypt = mkOption {
+                type = types.bool;
+                default = false;
+                description = ''
+                  Register and call over TLS, with SDES-SRTP media. All or
+                  nothing: SDES carries the media keys in the SDP, so SRTP over
+                  plain UDP signalling would protect nothing. Point `port` at
+                  the provider's TLS port too.
+
+                  With this on, a call the provider offers without SRTP is
+                  rejected, so the provider's side has to be switched over at
+                  the same time.
+                '';
+              };
               secretKey = mkOption {
                 type = types.str;
                 default = "${name}/password";
@@ -343,10 +366,18 @@ in
     ];
 
     vacu.pbx.trunks = {
+      signalwire = {
+        label = "SignalWire";
+        user = "pbxvm";
+        domain = "shelvacu-d4076df7dc88.sip.signalwire.com";
+        encrypt = true;
+      };
       telnyx = {
         label = "Telnyx";
         user = "usertelnyx97122";
         domain = "sip.telnyx.com";
+        port = 5061;
+        encrypt = true;
         # US signalling pair from <https://sip.telnyx.com/>; update if the
         # connection moves region.
         signalingIps = [

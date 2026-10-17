@@ -20,7 +20,7 @@ let
   # own; see sip.conf below.
   secondaryLines = builtins.tail cfg.lines;
 
-  # Only the upstream trunks are left on chan_pjsip, all dialled over UDP.
+  anyEncrypted = lib.any (t: t.encrypt) (lib.attrValues trunks);
 
   # One endpoint/aor/registration(/identify) set per trunk. `line=yes` on the
   # registration is what makes inbound calls work from behind prophecy's SNAT:
@@ -30,7 +30,9 @@ let
     lib.mapAttrsToList (
       name: t:
       let
-        uri = "sip:${t.domain}:${toString t.port}";
+        uriParams = lib.optionalString t.encrypt ";transport=tls";
+        uri = "sip:${t.domain}:${toString t.port}${uriParams}";
+        transport = if t.encrypt then "transport-tls" else "transport-udp";
       in
       ''
         ;=====================================================================
@@ -39,7 +41,7 @@ let
 
         [${name}]
         type=endpoint
-        transport=transport-udp
+        transport=${transport}
         context=from-${name}
         aors=${name}
         outbound_auth=${name}-auth
@@ -54,6 +56,7 @@ let
         from_user=${t.user}
         from_domain=${t.domain}
         send_rpid=yes
+        ${lib.optionalString t.encrypt "media_encryption=sdes"}
 
         [${name}]
         type=aor
@@ -66,10 +69,10 @@ let
 
         [${name}]
         type=registration
-        transport=transport-udp
+        transport=${transport}
         outbound_auth=${name}-auth
         server_uri=${uri}
-        client_uri=sip:${t.user}@${t.domain}:${toString t.port}
+        client_uri=sip:${t.user}@${t.domain}:${toString t.port}${uriParams}
         contact_user=${t.user}
         retry_interval=60
         forbidden_retry_interval=600
@@ -286,6 +289,18 @@ in
         protocol=udp
         bind=0.0.0.0:${toString cfg.pjsipPort}
         ${natSettings}
+        ${lib.optionalString anyEncrypted ''
+
+          [transport-tls]
+          type=transport
+          protocol=tls
+          bind=0.0.0.0:${toString cfg.pjsipTlsPort}
+          ca_list_file=${config.security.pki.caBundle}
+          verify_server=yes
+          ; The default is TLSv1.0 only, which Telnyx refuses.
+          method=tlsv1_3
+          ${natSettings}
+        ''}
 
         ${trunkSections}
 

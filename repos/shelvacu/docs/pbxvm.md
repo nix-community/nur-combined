@@ -25,8 +25,9 @@ Telnyx SIP trunk.
   Telnyx trunk stays a `chan_pjsip` endpoint. The two stacks are independent and
   cannot share a bind, so chan_sip keeps 5060 (which is what the phone is told
   and what it falls back to) and chan_pjsip moves to 5062. Only outbound
-  registration uses the latter, so the number is arbitrary — Telnyx replies to
-  whatever source port the REGISTER came from.
+  registration uses the latter, so the number is arbitrary — providers reply to
+  whatever source port the REGISTER came from. Trunks with `encrypt` use a
+  separate TLS transport on 5063 instead.
 
   The patched build is `packages/asterisk-usecallmanager`. It pins one exact
   Asterisk release, because the patch is cut against one and will not apply to
@@ -45,6 +46,12 @@ Telnyx SIP trunk.
   same flow the REGISTER opened, which is what survives the SNAT. Each AOR's
   `qualify_frequency=30` doubles as the keepalive that stops conntrack dropping
   that mapping.
+- **Telnyx is encrypted, JMP.chat can't be.** `vacu.pbx.trunks.<name>.encrypt`
+  moves a trunk to SIP over TLS (server cert verified against the system CA
+  bundle) and SDES-SRTP media. Telnyx supports both. JMP's SIP account is a
+  direct connection to Bandwidth over plain UDP, with no TLS or SRTP on offer,
+  so that trunk is cleartext signalling and media. Its only authentication is
+  digest on the requests we send.
 - **Two trunks, two line buttons.** `vacu.pbx.trunks` generates a pjsip
   endpoint/aor/registration set and a `from-<name>` inbound context per
   provider, so adding a third is a few lines.
@@ -167,7 +174,9 @@ git add common/hosts.nix secrets/hosts/pbxvm.yaml   # flakes only see tracked fi
 ```
 
 - `telnyx.password` — the password of the Telnyx **credential connection** whose
-  username is `usertelnyx97122`.
+  username is `usertelnyx97122`. That connection must also have TLS transport
+  and SRTP enabled for inbound calls in the Telnyx portal: asterisk rejects an
+  unencrypted offer on this trunk, and Telnyx rejects an answer without one.
 - `jmpchat.password` — the JMP.chat / Bandwidth password for `c4986875698`.
 - `phone.1001.password` — invent one. It only has to match between asterisk and
   the XML, and this repo puts it in both. Every line button shares it: they are
