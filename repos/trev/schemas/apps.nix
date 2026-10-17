@@ -14,7 +14,7 @@ let
           "meta"
         ] == { };
     what = "App";
-    shortDescription = app.meta.script or "";
+    shortDescription = app.meta.description or "";
   };
 in
 {
