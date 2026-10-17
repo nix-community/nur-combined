@@ -10,13 +10,13 @@
 
 buildPythonPackage rec {
   pname = "pytest-embedded";
-  version = "1.18.2";
+  version = "2.9.3";
   pyproject = true;
 
   src = fetchPypi {
     pname = "pytest_embedded";
     inherit version;
-    hash = "sha256-qz2kEqZW0GJb4W+c3b6z9Bap6MXmmz5Z2uHu4jPfwBU=";
+    hash = "sha256-9JkzplMksLJEzDqC+x6SbuOgErQN+tplUIudvHxFERk=";
   };
 
   build-system = [
@@ -35,7 +35,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Pytest plugin that designed for embedded testing";
-    homepage = "https://pypi.org/project/pytest-embedded/";
+    homepage = "https://github.com/espressif/pytest-embedded";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ nagy ];
   };

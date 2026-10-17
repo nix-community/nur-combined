@@ -61,7 +61,7 @@ in
       ])
     )
     pkgs.age
-    self.passage-with-otp
+    (pkgs.passage.withExtensions(subpkgs: [ subpkgs.pass-otp ] ))
     pkgs.ssh-to-age
     (pkgs.zbar.override {
       withXorg = false;

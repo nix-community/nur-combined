@@ -6,7 +6,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ds4";
-  version = "0-unstable-2026-09-02";
+  version = "0-unstable-2026-10-07";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -14,8 +14,8 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "antirez";
     repo = "ds4";
-    rev = "b0a147a7fba6d1a104d047d5a140e9bb4bfc13cd";
-    hash = "sha256-sHpV49J+3EPHAKFO/aKolTZ16uCfaiX+WKgsDKNLNTU=";
+    rev = "fc80bd695da76ee14bcb86820bf900a5cdfda806";
+    hash = "sha256-0e9pONUeb93KDlPbAzUjK7pLgyqGhg0mWkKnvc1Ty5k=";
   };
 
   enableParallelBuilding = true;

@@ -8,17 +8,17 @@
 python3.pkgs.buildPythonApplication rec {
 
   pname = "llm-ttok";
-  version = "0.3";
+  version = "1.0";
   format = "pyproject";
 
   src = fetchPypi {
     pname = "ttok";
     inherit version;
-    hash = "sha256-BHSgCldHYNsiTSSur6UOG56t9qV056bBMkZYvZuCSbg=";
+    hash = "sha256-tB6fYkFOFSmoSXH/zR+Gi+GwAeP64SQpZooebMEpCm4=";
   };
 
   build-system = [
-    python3.pkgs.setuptools
+    python3.pkgs.uv-build
   ];
 
   dependencies = [

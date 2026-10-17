@@ -6,14 +6,14 @@
 
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "freecad-mcp";
-  version = "0.1.25";
+  version = "0.1.27";
 
   pyproject = true;
 
   src = fetchPypi {
     pname = "freecad_mcp";
     inherit (finalAttrs) version;
-    hash = "sha256-KLe7IstDw7G7ZyvvQJOGMQMIqDZoUauL31CraHyLUSM=";
+    hash = "sha256-TiK2APVqpwNUsZqbv6BobUydi1z7VycDhINBe5ci7BA=";
   };
 
   build-system = [

@@ -7,7 +7,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "cpp-httplib";
-  version = "0.58.0";
+  version = "0.61.0";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -16,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "yhirose";
     repo = "cpp-httplib";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-FMWqkFolKr+piiu2kekFQlrddEWyunoyXYDWKn26jaw=";
+    hash = "sha256-g1FM0nH+BjPO63u29gJAuFQR+9HFYonFgiVpJAGWCGw=";
   };
 
   nativeBuildInputs = [ cmake ];
