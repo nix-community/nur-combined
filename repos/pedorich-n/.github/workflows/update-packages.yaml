@@ -11,14 +11,14 @@ jobs:
     steps:
       - name: Get Github App info
         id: app_auth
-        uses: pedorich-n/github-workflows/.github/actions/app-token@8dae1302115fad2af5d92f4e0368f727b17cd8ce # main
+        uses: pedorich-n/github-workflows/.github/actions/app-token@bb33d0ebcd13cf82f4eac46e13b5d169fd8240e9 # main
         with:
           client_id: ${{ vars.APP_CLIENT_ID }}
           private_key: ${{ secrets.APP_PRIVATE_KEY }}
           owner: ${{ github.repository_owner }}
 
       - name: Setup job
-        uses: pedorich-n/github-workflows/.github/actions/setup-nix-job@8dae1302115fad2af5d92f4e0368f727b17cd8ce # main
+        uses: pedorich-n/github-workflows/.github/actions/setup-nix-job@bb33d0ebcd13cf82f4eac46e13b5d169fd8240e9 # main
         with:
           git_https_token: ${{ steps.app_auth.outputs.token }}
 
@@ -39,7 +39,7 @@ jobs:
 
       - name: Run nix-update
         id: nix_update
-        uses: pedorich-n/github-workflows/.github/actions/nix-update@8dae1302115fad2af5d92f4e0368f727b17cd8ce # main
+        uses: pedorich-n/github-workflows/.github/actions/nix-update@bb33d0ebcd13cf82f4eac46e13b5d169fd8240e9 # main
         with:
           args: "--use-update-script --flake"
           packages: ${{ steps.get_packages.outputs.packages }}
