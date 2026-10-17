@@ -108,7 +108,19 @@ fun LoginScreen(
                     )
                     Button(
                         onClick = {
-                            uriHandler.openUri(startUrl?.takeIf { it.isNotBlank() } ?: "https://music.youtube.com")
+                            val targetUrl = startUrl?.takeIf { it.isNotBlank() } ?: "https://music.youtube.com"
+                            try {
+                                uriHandler.openUri(targetUrl)
+                            } catch (_: Throwable) {
+                                try {
+                                    val os = System.getProperty("os.name")?.lowercase().orEmpty()
+                                    if (os.contains("mac")) {
+                                        ProcessBuilder("open", targetUrl).start()
+                                    } else {
+                                        ProcessBuilder("xdg-open", targetUrl).start()
+                                    }
+                                } catch (_: Throwable) {}
+                            }
                         },
                         modifier = Modifier.padding(top = 4.dp),
                     ) {

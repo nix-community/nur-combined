@@ -1,6 +1,15 @@
 package androidx.compose.material3
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -9,58 +18,89 @@ import androidx.compose.ui.unit.dp
 fun SplitButtonLayout(
     leadingButton: @Composable () -> Unit,
     trailingButton: @Composable () -> Unit,
-    modifier: Any = Any(),
-    spacing: Any = Any()
+    modifier: Modifier = Modifier,
+    spacing: Dp = 2.dp
 ) {
-    leadingButton()
-    trailingButton()
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(spacing),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        leadingButton()
+        trailingButton()
+    }
 }
 
 object SplitButtonDefaults {
-    val MediumContainerHeight: Dp = 0.dp
+    val MediumContainerHeight: Dp = 40.dp
+    val TrailingIconSize: Dp = 20.dp
+    val LeadingIconSize: Dp = 20.dp
 
-    val TrailingIconSize: Dp = 0.dp
-
-    val LeadingIconSize: Dp = 0.dp
-    
     @ExperimentalMaterial3ExpressiveApi
     @Composable
     fun TonalLeadingButton(
         onClick: () -> Unit,
-        modifier: Any = Any(),
+        modifier: Modifier = Modifier,
         enabled: Boolean = true,
-        colors: Any = Any(),
-        interactionSource: Any = Any(),
-        content: @Composable () -> Unit
+        colors: ButtonColors = ButtonDefaults.filledTonalButtonColors(),
+        interactionSource: MutableInteractionSource? = null,
+        content: @Composable RowScope.() -> Unit
     ) {
-        content()
+        FilledTonalButton(
+            onClick = onClick,
+            modifier = modifier,
+            enabled = enabled,
+            colors = colors,
+            shape = RoundedCornerShape(topStart = 20.dp, bottomStart = 20.dp, topEnd = 4.dp, bottomEnd = 4.dp),
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+            interactionSource = interactionSource ?: remember { MutableInteractionSource() },
+            content = content
+        )
     }
-    
+
     @ExperimentalMaterial3ExpressiveApi
     @Composable
     fun TonalTrailingButton(
         checked: Boolean,
         onCheckedChange: (Boolean) -> Unit,
-        modifier: Any = Any(),
+        modifier: Modifier = Modifier,
         enabled: Boolean = true,
-        colors: Any = Any(),
-        interactionSource: Any = Any(),
-        content: @Composable () -> Unit
+        colors: ButtonColors = ButtonDefaults.filledTonalButtonColors(),
+        interactionSource: MutableInteractionSource? = null,
+        content: @Composable RowScope.() -> Unit
     ) {
-        content()
+        FilledTonalButton(
+            onClick = { onCheckedChange(!checked) },
+            modifier = modifier,
+            enabled = enabled,
+            colors = colors,
+            shape = RoundedCornerShape(topStart = 4.dp, bottomStart = 4.dp, topEnd = 20.dp, bottomEnd = 20.dp),
+            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
+            interactionSource = interactionSource ?: remember { MutableInteractionSource() },
+            content = content
+        )
     }
 
     @ExperimentalMaterial3ExpressiveApi
     @Composable
     fun ElevatedLeadingButton(
         onClick: () -> Unit,
-        modifier: Any = Any(),
+        modifier: Modifier = Modifier,
         enabled: Boolean = true,
-        colors: Any = Any(),
-        interactionSource: Any = Any(),
-        content: @Composable () -> Unit
+        colors: ButtonColors = ButtonDefaults.elevatedButtonColors(),
+        interactionSource: MutableInteractionSource? = null,
+        content: @Composable RowScope.() -> Unit
     ) {
-        content()
+        ElevatedButton(
+            onClick = onClick,
+            modifier = modifier,
+            enabled = enabled,
+            colors = colors,
+            shape = RoundedCornerShape(topStart = 20.dp, bottomStart = 20.dp, topEnd = 4.dp, bottomEnd = 4.dp),
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+            interactionSource = interactionSource ?: remember { MutableInteractionSource() },
+            content = content
+        )
     }
 
     @ExperimentalMaterial3ExpressiveApi
@@ -68,26 +108,44 @@ object SplitButtonDefaults {
     fun ElevatedTrailingButton(
         checked: Boolean,
         onCheckedChange: (Boolean) -> Unit,
-        modifier: Any = Any(),
+        modifier: Modifier = Modifier,
         enabled: Boolean = true,
-        colors: Any = Any(),
-        interactionSource: Any = Any(),
-        content: @Composable () -> Unit
+        colors: ButtonColors = ButtonDefaults.elevatedButtonColors(),
+        interactionSource: MutableInteractionSource? = null,
+        content: @Composable RowScope.() -> Unit
     ) {
-        content()
+        ElevatedButton(
+            onClick = { onCheckedChange(!checked) },
+            modifier = modifier,
+            enabled = enabled,
+            colors = colors,
+            shape = RoundedCornerShape(topStart = 4.dp, bottomStart = 4.dp, topEnd = 20.dp, bottomEnd = 20.dp),
+            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
+            interactionSource = interactionSource ?: remember { MutableInteractionSource() },
+            content = content
+        )
     }
 
     @ExperimentalMaterial3ExpressiveApi
     @Composable
     fun FilledLeadingButton(
         onClick: () -> Unit,
-        modifier: Any = Any(),
+        modifier: Modifier = Modifier,
         enabled: Boolean = true,
-        colors: Any = Any(),
-        interactionSource: Any = Any(),
-        content: @Composable () -> Unit
+        colors: ButtonColors = ButtonDefaults.buttonColors(),
+        interactionSource: MutableInteractionSource? = null,
+        content: @Composable RowScope.() -> Unit
     ) {
-        content()
+        Button(
+            onClick = onClick,
+            modifier = modifier,
+            enabled = enabled,
+            colors = colors,
+            shape = RoundedCornerShape(topStart = 20.dp, bottomStart = 20.dp, topEnd = 4.dp, bottomEnd = 4.dp),
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+            interactionSource = interactionSource ?: remember { MutableInteractionSource() },
+            content = content
+        )
     }
 
     @ExperimentalMaterial3ExpressiveApi
@@ -95,12 +153,66 @@ object SplitButtonDefaults {
     fun FilledTrailingButton(
         checked: Boolean,
         onCheckedChange: (Boolean) -> Unit,
-        modifier: Any = Any(),
+        modifier: Modifier = Modifier,
         enabled: Boolean = true,
-        colors: Any = Any(),
-        interactionSource: Any = Any(),
-        content: @Composable () -> Unit
+        colors: ButtonColors = ButtonDefaults.buttonColors(),
+        interactionSource: MutableInteractionSource? = null,
+        content: @Composable RowScope.() -> Unit
     ) {
-        content()
+        Button(
+            onClick = { onCheckedChange(!checked) },
+            modifier = modifier,
+            enabled = enabled,
+            colors = colors,
+            shape = RoundedCornerShape(topStart = 4.dp, bottomStart = 4.dp, topEnd = 20.dp, bottomEnd = 20.dp),
+            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
+            interactionSource = interactionSource ?: remember { MutableInteractionSource() },
+            content = content
+        )
+    }
+
+    @ExperimentalMaterial3ExpressiveApi
+    @Composable
+    fun OutlinedLeadingButton(
+        onClick: () -> Unit,
+        modifier: Modifier = Modifier,
+        enabled: Boolean = true,
+        colors: ButtonColors = ButtonDefaults.outlinedButtonColors(),
+        interactionSource: MutableInteractionSource? = null,
+        content: @Composable RowScope.() -> Unit
+    ) {
+        OutlinedButton(
+            onClick = onClick,
+            modifier = modifier,
+            enabled = enabled,
+            colors = colors,
+            shape = RoundedCornerShape(topStart = 20.dp, bottomStart = 20.dp, topEnd = 4.dp, bottomEnd = 4.dp),
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+            interactionSource = interactionSource ?: remember { MutableInteractionSource() },
+            content = content
+        )
+    }
+
+    @ExperimentalMaterial3ExpressiveApi
+    @Composable
+    fun OutlinedTrailingButton(
+        checked: Boolean,
+        onCheckedChange: (Boolean) -> Unit,
+        modifier: Modifier = Modifier,
+        enabled: Boolean = true,
+        colors: ButtonColors = ButtonDefaults.outlinedButtonColors(),
+        interactionSource: MutableInteractionSource? = null,
+        content: @Composable RowScope.() -> Unit
+    ) {
+        OutlinedButton(
+            onClick = { onCheckedChange(!checked) },
+            modifier = modifier,
+            enabled = enabled,
+            colors = colors,
+            shape = RoundedCornerShape(topStart = 4.dp, bottomStart = 4.dp, topEnd = 20.dp, bottomEnd = 20.dp),
+            contentPadding = PaddingValues(horizontal = 8.dp, vertical = 8.dp),
+            interactionSource = interactionSource ?: remember { MutableInteractionSource() },
+            content = content
+        )
     }
 }

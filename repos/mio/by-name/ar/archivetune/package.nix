@@ -130,8 +130,7 @@ let
             install -m644 ${./files/Updater.kt} app/src/main/kotlin/moe/rukamori/archivetune/utils/Updater.kt
             install -m644 ${./files/DesktopLoginScreen.kt} app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/LoginScreen.kt
 
-            # Copy our desktop UI components
-            patch -p1 < ${./desktop-ui.patch}
+            install -m644 ${./files/DesktopMain.kt} app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt
 
             # Fix shapes parameter in TextButton/SegmentedButton (avoid mangling MaterialTheme.shapes.xxx)
             find app/src/main/kotlin -type f -name "*.kt" -exec sed -i "s/@DrawableRes//g" {} +
