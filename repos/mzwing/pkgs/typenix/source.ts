@@ -17,18 +17,9 @@ export default defineSource(
     const { owner, repo, rev, narHash } = lock.nodes["tree-sitter-nix"].locked;
 
     return {
-      "tree-sitter-nix.nix": nix.renderSource(
-        ["fetchzip"],
+      "tree-sitter-nix.nix": nix.renderArchive(
+        { url: github.archiveUrl(`${owner}/${repo}`, rev), hash: narHash },
         { rev },
-        `  src = fetchzip {
-    url = ${
-          nix.string(
-            `https://codeload.github.com/${owner}/${repo}/tar.gz/${rev}`,
-          )
-        };
-    hash = ${nix.string(narHash)};
-    extension = "tar.gz";
-  };`,
       ),
     };
   }),

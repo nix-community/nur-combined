@@ -1,15 +1,4 @@
-import { defineSource, github, nix, provider } from "nix-repin";
-
-async function codeberg(path: string) {
-  const response = await fetch(`https://codeberg.org/${path}`);
-  if (!response.ok) {
-    throw new Error(
-      `bakamusic: codeberg.org/${path} returned ${response.status}`,
-    );
-  }
-
-  return await response.json();
-}
+import { codeberg, defineSource, github, nix, provider } from "nix-repin";
 
 export default defineSource(
   github.tag({
@@ -38,22 +27,21 @@ export default defineSource(
     );
     const koffiVersion: string = lock.packages["node_modules/koffi"].version;
     // rygel tags each koffi release koffi/<version>.
-    const koffiRef = encodeURIComponent(`koffi/${koffiVersion}`);
-    const [{ sha: koffiCommit }, { version: taggedVersion }] = await Promise
+    const koffiTag = `koffi/${koffiVersion}`;
+    const [{ rev: koffiCommit }, { version: taggedVersion }] = await Promise
       .all([
-        codeberg(`api/v1/repos/Koromix/rygel/git/commits/${koffiRef}`),
-        codeberg(`Koromix/rygel/raw/tag/${koffiRef}/src/koffi/package.json`),
+        codeberg.resolveRef("Koromix/rygel", koffiTag),
+        codeberg.readFile("Koromix/rygel", koffiTag, "src/koffi/package.json")
+          .then(JSON.parse),
       ]);
     if (taggedVersion !== koffiVersion) {
       throw new Error(
-        `bakamusic: rygel tag koffi/${koffiVersion} carries koffi ${taggedVersion}`,
+        `bakamusic: rygel tag ${koffiTag} carries koffi ${taggedVersion}`,
       );
     }
 
     const [koffi, librempeg] = await Promise.all([
-      nix.prefetch(
-        `https://codeberg.org/Koromix/rygel/archive/${koffiCommit}.tar.gz`,
-      ),
+      codeberg.prefetchArchive("Koromix/rygel", koffiCommit, { unpack: false }),
       nix.prefetch(
         `https://github.com/librempeg/librempeg/archive/${mpv.sourceCommits.librempeg}.tar.gz`,
       ),

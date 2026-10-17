@@ -1,5 +1,11 @@
 import * as path from "@std/path";
-import { nix, provider, runCommand, type SourceDefinition } from "nix-repin";
+import {
+  copyTree,
+  nix,
+  provider,
+  runCommand,
+  type SourceDefinition,
+} from "nix-repin";
 
 // Read flake.lock directly; getFlake would copy the whole worktree into the store.
 async function build(
@@ -25,22 +31,6 @@ in
   const [result] = JSON.parse(output) as { outputs: Record<string, string> }[];
 
   return result.outputs.out;
-}
-
-async function copyTree(from: string, to: string): Promise<void> {
-  for await (const entry of Deno.readDir(from)) {
-    const source = path.join(from, entry.name);
-    const target = path.join(to, entry.name);
-    if (entry.isSymlink) {
-      await Deno.symlink(await Deno.readLink(source), target);
-    } else if (entry.isDirectory) {
-      await Deno.mkdir(target);
-      await copyTree(source, target);
-    } else {
-      await Deno.copyFile(source, target);
-      await Deno.chmod(target, (await Deno.stat(target)).mode! | 0o200);
-    }
-  }
 }
 
 /** Generate Cargo.nix from an archive source, optionally for a manifest below its root. */
