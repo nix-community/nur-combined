@@ -1,6 +1,6 @@
 --- a/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt	1970-01-01 10:00:00
 +++ b/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt	2026-09-24 18:32:47
-@@ -0,0 +1,339 @@
+@@ -0,0 +1,369 @@
 +package moe.rukamori.archivetune
 +
 +import androidx.compose.foundation.isSystemInDarkTheme
@@ -64,8 +64,37 @@
 +import moe.rukamori.archivetune.utils.rememberEnumPreference
 +import moe.rukamori.archivetune.utils.rememberPreference
 +import moe.rukamori.archivetune.viewmodels.HomeViewModel
++import androidx.datastore.preferences.DesktopPreferenceStore
++import moe.rukamori.archivetune.constants.*
++import moe.rukamori.archivetune.innertube.YouTube
++import moe.rukamori.archivetune.innertube.models.YouTubeLocale
++import moe.rukamori.archivetune.paxsenix.PaxsenixLyrics
++import java.util.Locale
 +
-+fun main() = application {
++fun main() {
++    PaxsenixLyrics.setUserAgent("ArchiveTune", BuildConfig.VERSION_NAME)
++
++    val defLocale = Locale.getDefault()
++    val languageTag = defLocale.toLanguageTag().replace("-Hant", "")
++    val defaultGl = defLocale.country.takeIf { it in CountryCodeToName } ?: "US"
++    val defaultHl = defLocale.language.takeIf { it in LanguageCodeToName }
++        ?: languageTag.takeIf { it in LanguageCodeToName }
++        ?: "en"
++
++    val prefs = DesktopPreferenceStore.currentPreferences
++    val savedGl = prefs[ContentCountryKey]?.takeIf { it != SYSTEM_DEFAULT }
++    val savedHl = prefs[ContentLanguageKey]?.takeIf { it != SYSTEM_DEFAULT }
++
++    YouTube.locale = YouTubeLocale(
++        gl = savedGl ?: defaultGl,
++        hl = savedHl ?: defaultHl,
++    )
++
++    if (prefs[UseLoginForBrowse] != false) {
++        YouTube.useLoginForBrowse = true
++    }
++
++    application {
 +    Window(
 +        onCloseRequest = ::exitApplication,
 +        title = "ArchiveTune Desktop"
@@ -339,4 +368,5 @@
 +            }
 +        }
 +    }
++}
 +}

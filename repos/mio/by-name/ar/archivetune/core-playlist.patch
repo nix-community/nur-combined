@@ -1,6 +1,40 @@
---- a/core/src/main/kotlin/moe/rukamori/archivetune/innertube/YouTube.kt
-+++ b/core/src/main/kotlin/moe/rukamori/archivetune/innertube/YouTube.kt
-@@ -847,28 +847,67 @@
+diff -ruN a/src/main/kotlin/moe/rukamori/archivetune/innertube/InnerTube.kt b/src/main/kotlin/moe/rukamori/archivetune/innertube/InnerTube.kt
+--- a/core/src/main/kotlin/moe/rukamori/archivetune/innertube/InnerTube.kt	2026-10-17 12:29:38.486116531 +1100
++++ b/core/src/main/kotlin/moe/rukamori/archivetune/innertube/InnerTube.kt	2026-10-17 12:29:53.572118100 +1100
+@@ -55,8 +55,8 @@
+ 
+     var locale =
+         YouTubeLocale(
+-            gl = Locale.getDefault().country,
+-            hl = Locale.getDefault().toLanguageTag(),
++            gl = Locale.getDefault().country.takeIf { it.isNotBlank() && it.length == 2 } ?: "US",
++            hl = Locale.getDefault().language.takeIf { it.isNotBlank() } ?: "en",
+         )
+     private val queueLocale = YouTubeLocale(gl = "US", hl = "en")
+ 
+diff -ruN a/src/main/kotlin/moe/rukamori/archivetune/innertube/models/YouTubeClient.kt b/src/main/kotlin/moe/rukamori/archivetune/innertube/models/YouTubeClient.kt
+--- a/core/src/main/kotlin/moe/rukamori/archivetune/innertube/models/YouTubeClient.kt	2026-10-17 12:29:38.485116531 +1100
++++ b/core/src/main/kotlin/moe/rukamori/archivetune/innertube/models/YouTubeClient.kt	2026-10-17 12:29:53.572118100 +1100
+@@ -48,8 +48,12 @@
+                 deviceMake = deviceMake,
+                 deviceModel = deviceModel,
+                 androidSdkVersion = androidSdkVersion,
+-                gl = locale.gl,
+-                hl = locale.hl,
++                gl = locale.gl.takeIf { it.isNotBlank() } ?: "US",
++                hl = if (locale.hl.contains("-") && locale.hl !in listOf("en-GB", "en-NG", "en-US", "en-AU", "en-IN", "zh-CN", "zh-TW", "pt-BR", "es-419")) {
++                    locale.hl.substringBefore("-").takeIf { it.isNotBlank() } ?: "en"
++                } else {
++                    locale.hl.takeIf { it.isNotBlank() } ?: "en"
++                },
+                 visitorData = visitorData,
+             ),
+         user =
+diff -ruN a/src/main/kotlin/moe/rukamori/archivetune/innertube/YouTube.kt b/src/main/kotlin/moe/rukamori/archivetune/innertube/YouTube.kt
+--- a/core/src/main/kotlin/moe/rukamori/archivetune/innertube/YouTube.kt	2026-10-17 12:29:38.486116531 +1100
++++ b/core/src/main/kotlin/moe/rukamori/archivetune/innertube/YouTube.kt	2026-10-17 12:29:53.571118100 +1100
+@@ -846,14 +846,17 @@
+ 
      suspend fun playlist(playlistId: String): Result<PlaylistPage> =
          runCatching {
 -            val response =
@@ -20,7 +54,7 @@
                  response.contents
                      ?.twoColumnBrowseResultsRenderer
                      ?.tabs
-                     ?.firstOrNull()
+@@ -861,14 +864,49 @@
                      ?.tabRenderer
                      ?.content
                      ?.sectionListRenderer
@@ -70,5 +104,6 @@
 +                    }
 +                }
 +            }
-+
              if (header == null) throw IllegalStateException("PLAYLIST_PRIVATE")
+ 
+             val title =
