@@ -241,6 +241,7 @@ Clallam
 cleartext
 Clenshaw
 CLI
+clickjacking
 clicky
 Clippy
 ClojureScript
@@ -330,6 +331,7 @@ deadnamed
 deadnames
 deadnaming
 dearmor
+debatably
 debconf
 debiasing
 deboss
