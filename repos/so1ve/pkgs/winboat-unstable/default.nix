@@ -3,7 +3,7 @@
   callPackage,
   copyDesktopItems,
   docker-compose,
-  electron_43,
+  electron,
   freerdp,
   lib,
   makeDesktopItem,
@@ -22,7 +22,6 @@
 }:
 
 let
-  electron = electron_43;
   appVersion = "0.9.0";
   version = "${appVersion}-unstable-${source.date}";
 in

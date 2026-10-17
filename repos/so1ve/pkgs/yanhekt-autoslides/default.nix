@@ -3,7 +3,7 @@
   buildNpmPackage,
   callPackage,
   copyDesktopItems,
-  electron_41,
+  electron,
   ffmpeg,
   lib,
   makeDesktopItem,
@@ -15,9 +15,6 @@
   zip,
 }:
 
-let
-  electron = electron_41;
-in
 buildNpmPackage (finalAttrs: {
   pname = "yanhekt-autoslides";
   inherit (source) npmDepsHash src version;

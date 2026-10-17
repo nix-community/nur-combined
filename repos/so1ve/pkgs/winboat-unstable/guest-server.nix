@@ -1,12 +1,12 @@
 {
-  buildGo125Module,
+  buildGoModule,
   lib,
   source,
   version,
   zip,
 }:
 
-buildGo125Module {
+buildGoModule {
   pname = "winboat-guest-server";
   inherit version;
   inherit (source) src;
