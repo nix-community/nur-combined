@@ -18,13 +18,13 @@
   nix-update-script,
 }:
 let
-  version = "1.37.1";
+  version = "1.38.0";
 
   src = fetchFromGitHub {
     owner = "FaithBeam";
     repo = "stalker-gamma-cli";
     rev = version;
-    sha256 = "sha256-5io4RE3yVNqGcq/oQXcG/8AQilxUqYapaDaKyKnlTj8=";
+    sha256 = "sha256-YxJ2A2uQr2fszj5LdUQ9XTdEsxdbUsw7oMMdG8+jmSA=";
   };
 in
 {
