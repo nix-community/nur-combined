@@ -1,12 +1,12 @@
 {
   lib,
   fetchFromGitHub,
-  python312Packages,
+  python3Packages,
   s2sphere,
   unstableGitUpdater,
 }:
 
-python312Packages.buildPythonApplication {
+python3Packages.buildPythonApplication {
   pname = "gpxtrackposter";
   version = "0-unstable-2024-06-02";
   pyproject = true;
@@ -39,9 +39,9 @@ python312Packages.buildPythonApplication {
       --subst-var out
   '';
 
-  build-system = with python312Packages; [ setuptools ];
+  build-system = with python3Packages; [ setuptools ];
 
-  dependencies = with python312Packages; [
+  dependencies = with python3Packages; [
     appdirs
     colour
     geopy
@@ -58,7 +58,7 @@ python312Packages.buildPythonApplication {
 
   pythonRelaxDeps = [ "stravalib" ];
 
-  nativeCheckInputs = with python312Packages; [
+  nativeCheckInputs = with python3Packages; [
     pytestCheckHook
     (pytest-mock.overrideAttrs (old: rec {
       pname = "pytest-mock";

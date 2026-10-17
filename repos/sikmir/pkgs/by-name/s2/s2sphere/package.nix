@@ -1,10 +1,10 @@
 {
   lib,
   fetchFromGitHub,
-  python312Packages,
+  python3Packages,
 }:
 
-python312Packages.buildPythonPackage {
+python3Packages.buildPythonPackage {
   pname = "s2sphere";
   version = "0.2.5";
   pyproject = true;
@@ -16,9 +16,9 @@ python312Packages.buildPythonPackage {
     hash = "sha256-6hNIuyLTcGcXpLflw2ajCOjel0IaZSFRlPFi81Z5LUo=";
   };
 
-  build-system = with python312Packages; [ setuptools ];
+  patches = [ ./future.patch ];
 
-  dependencies = with python312Packages; [ future ];
+  build-system = with python3Packages; [ setuptools ];
 
   doCheck = false;
 

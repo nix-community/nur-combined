@@ -33,7 +33,7 @@ buildGo127Module (finalAttrs: {
 
   meta = {
     description = "Fancy TUI for SNMP";
-    homepage = "https://github.com/umputun/snmpdigger";
+    homepage = "https://github.com/kawaiipantsu/snmpdigger";
     maintainers = with lib.maintainers; [ sikmir ];
     license = lib.licenses.mit;
     mainProgram = "snmpdigger";

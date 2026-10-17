@@ -1,0 +1,27 @@
+diff --git i/s2sphere/sphere.py w/s2sphere/sphere.py
+index eb80971..3f3b48e 100644
+--- i/s2sphere/sphere.py
++++ w/s2sphere/sphere.py
+@@ -1,8 +1,5 @@
+ from __future__ import print_function, unicode_literals, division
+ 
+-from future.builtins import int
+-from future.builtins import range
+-
+ import bisect
+ import decimal
+ import functools
+diff --git i/setup.py w/setup.py
+index ca94fd9..970343c 100644
+--- i/setup.py
++++ w/setup.py
+@@ -18,9 +18,6 @@ setup(
+     author_email='sven@sidewalklabs.com',
+     url='http://s2sphere.readthedocs.io',
+     packages=['s2sphere'],
+-    install_requires=[
+-        'future>=0.15',
+-    ],
+     extras_require={
+         'tests': [
+             'flake8>=2.5.4',

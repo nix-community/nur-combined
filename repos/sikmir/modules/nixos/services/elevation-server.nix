@@ -68,7 +68,7 @@ in
         serviceConfig = {
           DynamicUser = true;
           LogsDirectory = "elevation-server";
-          ExecStart = "${getBin cfg.package}/bin/elevation_server -dem ${cfg.demTiles} -host ${cfg.address} -port ${toString cfg.port} -threads ${toString cfg.threads}";
+          ExecStart = "${getExe cfg.package} -dem ${cfg.demTiles} -host ${cfg.address} -port ${toString cfg.port} -threads ${toString cfg.threads}";
           Restart = "always";
         };
       };
