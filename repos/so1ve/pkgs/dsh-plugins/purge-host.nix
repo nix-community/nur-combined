@@ -1,7 +1,6 @@
 {
-  callPackage,
+  deepseek-harness,
   fetchzip,
-  deepseek-harness ? callPackage ../deepseek-harness { },
 }:
 
 let

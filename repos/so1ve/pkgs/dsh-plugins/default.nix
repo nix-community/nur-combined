@@ -1,11 +1,10 @@
 {
   lib,
   buildNpmPackage,
-  callPackage,
+  deepseek-harness,
   fetchzip,
   nodejs_24,
   stdenvNoCC,
-  deepseek-harness ? callPackage ../deepseek-harness { },
 }:
 
 let

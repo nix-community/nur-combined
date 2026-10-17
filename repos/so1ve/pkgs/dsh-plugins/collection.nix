@@ -1,12 +1,13 @@
 {
   callPackage,
+  deepseek-harness,
   lib,
   runCommand,
   writeText,
 }:
 
 let
-  host = callPackage ./purge-host.nix { };
+  host = callPackage ./purge-host.nix { inherit deepseek-harness; };
   plugins = lib.filterAttrs (_: lib.isDerivation) (callPackage ./. { deepseek-harness = host; });
   names = lib.remove "github:YuJunZhiXue/dsh-purge" (builtins.attrNames plugins) ++ [
     "github:YuJunZhiXue/dsh-purge"

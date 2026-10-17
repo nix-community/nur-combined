@@ -2,6 +2,9 @@
   pkgs ? import <nixpkgs> { },
 }:
 
+let
+  deepseek-harness = pkgs.callPackage ./pkgs/deepseek-harness { };
+in
 {
   ab-download-manager = pkgs.callPackage ./pkgs/ab-download-manager { };
   alger-music-player = pkgs.callPackage ./pkgs/alger-music-player { };
@@ -9,9 +12,9 @@
   baidupcs-go = pkgs.callPackage ./pkgs/baidupcs-go { };
   bluez-5_86 = pkgs.callPackage ./pkgs/bluez-5_86 { };
   cargo-pretty = pkgs.callPackage ./pkgs/cargo-pretty { };
-  deepseek-harness = pkgs.callPackage ./pkgs/deepseek-harness { };
+  inherit deepseek-harness;
   dingtalk = pkgs.callPackage ./pkgs/dingtalk { };
-  dsh-plugins = pkgs.callPackage ./pkgs/dsh-plugins { };
+  dsh-plugins = pkgs.callPackage ./pkgs/dsh-plugins { inherit deepseek-harness; };
   firefoxpwa-xwayland = pkgs.callPackage ./pkgs/firefoxpwa-xwayland { };
   flutter-rust-bridge-codegen = pkgs.callPackage ./pkgs/flutter-rust-bridge-codegen { };
   gradle-language-server = pkgs.callPackage ./pkgs/gradle-language-server { };

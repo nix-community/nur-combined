@@ -74,7 +74,9 @@
                 deepseek-harness = repository.deepseek-harness;
               };
 
-              dsh-plugins = pkgs.callPackage ./pkgs/dsh-plugins/collection.nix { };
+              dsh-plugins = pkgs.callPackage ./pkgs/dsh-plugins/collection.nix {
+                deepseek-harness = repository.deepseek-harness;
+              };
             }
           )
       );
