@@ -14,10 +14,29 @@ let
   sourceUrl = source.url or (builtins.head (source.urls or [ "" ]));
   githubSource = builtins.match "https://(raw.githubusercontent.com|github.com)/([^/]+/[^/]+)/.*" sourceUrl;
   releaseSource = builtins.match "https://github.com/[^/]+/[^/]+/releases/download/([^/]+)/.*" sourceUrl;
+  sources = map (
+    system:
+    let
+      platformSource =
+        (pkgs.lib.attrByPath (pkgs.lib.splitString "." attrPath) { } (
+          import root {
+            pkgs = import pkgs.path {
+              localSystem = system;
+              config = { };
+              overlays = [ ];
+            };
+          }
+        )).src or { };
+    in
+    {
+      url = platformSource.url or (builtins.head (platformSource.urls or [ "" ]));
+      hash = platformSource.outputHash or "";
+    }
+  ) (target.meta.platforms or [ ]);
 in
 {
   command = map toString (pkgs.lib.toList (script.command or script));
-  inherit attrPath snapshot;
+  inherit attrPath snapshot sources;
   supportedFeatures = script.supportedFeatures or [ ];
   env = {
     UPDATE_NIX_NAME = target.name;

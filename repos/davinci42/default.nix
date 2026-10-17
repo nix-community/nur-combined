@@ -7,6 +7,7 @@
   changedetection-io = pkgs.callPackage ./pkgs/changedetection-io { };
   fluxdown-server = pkgs.callPackage ./pkgs/fluxdown-server { };
   mnamer-rs = pkgs.callPackage ./pkgs/mnamer-rs { };
+  pebrel = pkgs.callPackage ./pkgs/pebrel { };
   rsshub = pkgs.callPackage ./pkgs/rsshub { };
   sfl = pkgs.callPackage ./pkgs/sfl { };
   spotify-spotx = pkgs.callPackage ./pkgs/spotify-spotx { };

@@ -10,6 +10,7 @@ Personal Nix packages, NixOS modules and nix-darwin modules using the caller's `
 | `changedetection-io` | Use nixpkgs' module with this package | [changedetection.io](pkgs/changedetection-io/README.md) |
 | `fluxdown-server` | `nixosModules.fluxdown` | [FluxDown Server](pkgs/fluxdown-server/README.md) |
 | `mnamer-rs` | None | [mnamer Rust rewrite](pkgs/mnamer-rs/README.md) |
+| `pebrel` | None | [Pebrel terminal and SSH workspace](pkgs/pebrel/README.md) |
 | `rsshub` | Use nixpkgs' module with this package | [RSSHub](pkgs/rsshub/README.md) |
 | `sfl` | `nixosModules.sfl` | [sing-box for Linux](pkgs/sfl/README.md) |
 | `spotify-spotx` | None | [Spotify with SpotX](pkgs/spotify-spotx/README.md) |

@@ -154,6 +154,35 @@ class MaintenanceTests(unittest.TestCase):
             check.assert_not_called()
             self.assertEqual(maintain.snapshot(root), before)
 
+    def test_refresh_sources_updates_distinct_platform_hashes(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            target = root / "pkgs/example/default.nix"
+            target.parent.mkdir(parents=True)
+            _ = target.write_text('linux = "old-linux"; darwin = "old-darwin";')
+            sources = [
+                {"url": "https://example.invalid/linux.tar.gz", "hash": "old-linux"},
+                {"url": "https://example.invalid/darwin.dmg", "hash": "old-darwin"},
+            ]
+            with (
+                patch.object(
+                    maintain, "update_info", return_value={"sources": sources}
+                ),
+                patch.object(
+                    maintain,
+                    "run",
+                    side_effect=[
+                        json.dumps({"hash": "old-linux"}),
+                        json.dumps({"hash": "new-darwin"}),
+                    ],
+                ) as run,
+            ):
+                maintain.refresh_sources(root, "example")
+            self.assertEqual(run.call_count, 2)
+            self.assertEqual(
+                target.read_text(), 'linux = "old-linux"; darwin = "new-darwin";'
+            )
+
     def test_real_packages_export_update_scripts_and_tests(self) -> None:
         for package in maintain.packages(maintain.ROOT):
             command = maintain.update_command(maintain.ROOT, package)
