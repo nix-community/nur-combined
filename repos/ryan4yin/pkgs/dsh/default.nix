@@ -58,6 +58,31 @@ let
     exports.default = { requireBuiltin, isAllowedInternalId, getBindingInfo };
   '';
 
+  # Several upstream plugins spawn Workers with an explicit `execArgv: []`
+  # (experimental-inspector, plugin-market, session-persistence-jsonl,
+  # libreoffice-kit), which drops the `--expose-internals` the shim above
+  # depends on. Re-add the flag once through the public Worker API instead of
+  # patching each vendored plugin bundle; the preload runs before any ESM
+  # module captures `node:worker_threads`.
+  workerExecArgvFix = writeText "dsh-worker-exec-argv.cjs" ''
+    "use strict";
+    const workerThreads = require("node:worker_threads");
+    const BaseWorker = workerThreads.Worker;
+    workerThreads.Worker = new Proxy(BaseWorker, {
+      construct(target, args, newTarget) {
+        const [filename, options] = args;
+        if (
+          options &&
+          Array.isArray(options.execArgv) &&
+          !options.execArgv.includes("--expose-internals")
+        ) {
+          args = [filename, { ...options, execArgv: [...options.execArgv, "--expose-internals"] }];
+        }
+        return Reflect.construct(target, args, newTarget);
+      },
+    });
+  '';
+
   # The npm tarball ships no lockfile. Ours is generated without
   # devDependencies (they reference unpublished workspace packages), so
   # drop them from the manifest too.
@@ -105,6 +130,8 @@ buildNpmPackage {
     makeWrapper ${lib.getExe nodejs} $out/bin/dsh \
       --argv0 dsh \
       --add-flags "--expose-internals" \
+      --add-flags "--require" \
+      --add-flags "${workerExecArgvFix}" \
       --add-flags "$out/lib/node_modules/@deepseek-ai/dsh/lib/bin.js" \
       --prefix PATH : ${
         lib.makeBinPath (
