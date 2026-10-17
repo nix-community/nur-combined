@@ -20,7 +20,7 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "twintaillauncher-unwrapped";
-  version = "2.5.1";
+  version = "2.5.2";
   structuredAttrs = true;
 
   src = fetchFromGitHub {
