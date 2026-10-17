@@ -5,6 +5,7 @@
   copyDesktopItems,
   electron,
   ffmpeg,
+  imagemagick,
   lib,
   makeDesktopItem,
   makeWrapper,
@@ -31,6 +32,7 @@ buildNpmPackage (finalAttrs: {
   nativeBuildInputs = [
     autoPatchelfHook
     copyDesktopItems
+    imagemagick
     makeWrapper
     zip
   ];
@@ -102,9 +104,9 @@ buildNpmPackage (finalAttrs: {
       --set ELECTRON_FORCE_IS_PACKAGED 1 \
       --inherit-argv0
 
-    install -Dm444 \
-      resources/img/icon.png \
-      "$out/share/icons/hicolor/1024x1024/apps/autoslides.png"
+    install -d "$out/share/icons/hicolor/512x512/apps"
+    magick resources/img/icon.png -resize 512x512 \
+      "$out/share/icons/hicolor/512x512/apps/autoslides.png"
 
     runHook postInstall
   '';

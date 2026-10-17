@@ -1,6 +1,7 @@
 {
   appimageTools,
   callPackage,
+  imagemagick,
   lib,
   makeWrapper,
   source ? callPackage ./source.nix { },
@@ -17,7 +18,10 @@ in
 appimageTools.wrapType2 {
   inherit pname version src;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [
+    imagemagick
+    makeWrapper
+  ];
 
   extraInstallCommands = ''
     wrapProgram $out/bin/${pname} --add-flags --no-sandbox
@@ -27,9 +31,11 @@ appimageTools.wrapType2 {
     substituteInPlace $out/share/applications/algermusicplayer.desktop \
       --replace-fail 'Exec=AppRun --no-sandbox' 'Exec=${pname}'
 
-    install -Dm444 \
+    install -d $out/share/icons/hicolor/512x512/apps
+    magick \
       ${appimageContents}/usr/share/icons/hicolor/1084x1084/apps/algermusicplayer.png \
-      $out/share/icons/hicolor/1084x1084/apps/algermusicplayer.png
+      -resize 512x512 \
+      $out/share/icons/hicolor/512x512/apps/algermusicplayer.png
   '';
 
   meta = {
