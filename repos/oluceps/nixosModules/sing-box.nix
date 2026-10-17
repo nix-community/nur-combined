@@ -65,6 +65,9 @@ in
 
     services.dbus.packages = [ cfg.package ];
 
+    systemd.network.networks."tun0".networkConfig = {
+      DNSSEC = false;
+    };
     systemd.services.sing-box = {
       # unitConfig.Conflicts = [ "dnsproxy.service" ];
       wantedBy = [ "multi-user.target" ];
