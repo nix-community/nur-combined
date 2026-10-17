@@ -72,6 +72,11 @@ let
     src = bumpedSrc;
   };
 
+  # go names the binary after the module path
+  renamed = mkFixture {
+    meta.mainProgram = "renamed";
+  };
+
   withoutChecks = mkFixture {
     doCheck = false;
   };
@@ -104,6 +109,7 @@ in
 assert fixture.goCache.outPath == bumped.goCache.outPath;
 assert fixture.goModules.outPath == bumped.goModules.outPath;
 assert fixture.outPath != bumped.outPath;
+assert fixture.goCache.outPath == renamed.goCache.outPath;
 assert fixture.goCache.buildTestDeps;
 assert !withoutChecks.goCache.buildTestDeps;
 assert !(builtins.tryEval proxyVendor.drvPath).success;
@@ -114,6 +120,8 @@ assert nodeps.passthru.goCache == null;
   mkGoModule-build = testPkgs.runCommand "mkGoModule-build" { } ''
     test "$(${fixture}/bin/fixture)" = "hello from dep"
     test "$(${bumped}/bin/fixture)" = "hello from dep"
+    test "$(${renamed}/bin/renamed)" = "hello from dep"
+    test ! -e ${renamed}/bin/fixture
     test "$(${nodeps}/bin/nodeps)" = "hello without deps"
     touch $out
   '';

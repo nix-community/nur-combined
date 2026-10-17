@@ -9,9 +9,14 @@
 # With `vendorHash = null` (no dependencies, or a vendor directory in the
 # source) there's nothing to build separately, so `goCache` is null and this is
 # a plain buildGoModule.
+#
+# Go names binaries after their package's directory (or module path), so when
+# `meta.mainProgram` is set and the package installs a single binary, it's
+# renamed to match.
 {
   buildGoModule,
   lib,
+  stdenv,
   zstd,
 }:
 
@@ -238,6 +243,25 @@ lib.extendMkDerivation {
         fi
       ''
       + args.postConfigure or "";
+
+      # before the package's own postInstall, so it sees the final name
+      postInstall =
+        lib.optionalString (finalAttrs.meta.mainProgram or null != null) ''
+          (
+            shopt -s nullglob
+            mainProgram=${lib.escapeShellArg finalAttrs.meta.mainProgram}${stdenv.hostPlatform.extensions.executable}
+            binaries=("$out"/bin/*)
+            if [ ! -e "$out/bin/$mainProgram" ]; then
+              if [ "''${#binaries[@]}" -eq 1 ]; then
+                echo "Renaming $(basename "''${binaries[0]}") to $mainProgram"
+                mv "''${binaries[0]}" "$out/bin/$mainProgram"
+              else
+                echo "Not renaming binaries to $mainProgram, $out/bin has ''${#binaries[@]} entries"
+              fi
+            fi
+          )
+        ''
+        + args.postInstall or "";
 
       passthru = {
         inherit goCache;

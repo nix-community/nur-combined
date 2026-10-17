@@ -574,12 +574,15 @@ Wraps [`buildGoModule`](https://nixos.org/manual/nixpkgs/stable/#sec-language-go
 
 Dependencies of tests are cached for the build directory used on Linux, on Darwin they're rebuilt in the check phase.
 
+Go names binaries after their package's directory, so when `meta.mainProgram` is set and a single binary is installed, it's renamed to `meta.mainProgram`.
+
 ```nix
 pkgs.mkGoModule (finalAttrs: {
   pname = "go-pkg";
   version = "1.0.0";
   src = ./.;
   vendorHash = "sha256-...";
+  meta.mainProgram = "go-pkg";
 });
 ```
 
