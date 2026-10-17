@@ -1149,10 +1149,10 @@
     };
     "beyond-20" = buildMozillaXpiAddon {
       pname = "beyond-20";
-      version = "2.20.1";
+      version = "2.21.0";
       addonId = "beyond20@kakaroto.homelinux.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4840908/beyond_20-2.20.1.xpi";
-      sha256 = "d561b185e6ba465a3cd35074229f4b30dfcbd984cc3ab58c0ee9558712e3a99c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5035984/beyond_20-2.21.0.xpi";
+      sha256 = "00867048ab3021073fef6a1ccb1f8bc8c2d4de2ffd236fb9516b3fc9359a094a";
       meta = with lib;
       {
         homepage = "https://beyond20.here-for-more.info";
@@ -1285,10 +1285,10 @@
     };
     "bilisponsorblock" = buildMozillaXpiAddon {
       pname = "bilisponsorblock";
-      version = "0.16.0";
+      version = "0.17.0";
       addonId = "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5086418/bilisponsorblock-0.16.0.xpi";
-      sha256 = "f379cdaaaba9253bc2497e5ed16ba095e5b2f157af1c8cc9489f96048da0984d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5129607/bilisponsorblock-0.17.0.xpi";
+      sha256 = "127dbbc557374f40ac471ef035d232290ee957ffc531bec1d1a7ed9d5771a503";
       meta = with lib;
       {
         homepage = "https://www.bsbsb.top";
@@ -2218,10 +2218,10 @@
     };
     "click-and-read" = buildMozillaXpiAddon {
       pname = "click-and-read";
-      version = "4.7.0";
+      version = "4.7.2";
       addonId = "inist.users@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5116537/click_and_read-4.7.0.xpi";
-      sha256 = "aec9f3256f4d990c5254cfb7dd6f3c2d89c9fb4e8010aa751c2e0db802213639";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5129450/click_and_read-4.7.2.xpi";
+      sha256 = "71d36ff6b7d6aa0ce4946da0f70a792f1e2b5894f1e715bfc916534e38c64b54";
       meta = with lib;
       {
         homepage = "https://clickandread.inist.fr/";
@@ -3032,10 +3032,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "159.0.20261014.90526";
+      version = "159.0.20261016.90327";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5120991/dansk_da_language_pack-159.0.20261014.90526.xpi";
-      sha256 = "7c3b5ea4d5cb6b7e47de567b77baf7e82c46df85dfd773b3a05b3e4c3a769b79";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5128881/dansk_da_language_pack-159.0.20261016.90327.xpi";
+      sha256 = "2cca68ababe41084abb690a73ed2a2fc44d23a39814808858219a499a05df3fe";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3248,10 +3248,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "159.0.20261014.90526";
+      version = "159.0.20261016.90327";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5120992/deutsch_de_language_pack-159.0.20261014.90526.xpi";
-      sha256 = "605fce1e2acaeeb340cd956241d0c0c597286025fc1de44cc1183abc683d3012";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5128882/deutsch_de_language_pack-159.0.20261016.90327.xpi";
+      sha256 = "01aaf581a455c7ef5e0cb10a40b7b5aa10dfb0c129bd8bd46105eaed8e9c5f41";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3284,10 +3284,10 @@
     };
     "dictionaries" = buildMozillaXpiAddon {
       pname = "dictionaries";
-      version = "8.1.4";
+      version = "9.0.0";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5106766/dictionaries-8.1.4.xpi";
-      sha256 = "8eaf647877fbe880a63d9677626dc47bee907d93dd95d189a986914c8e6caeeb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5130192/dictionaries-9.0.0.xpi";
+      sha256 = "b35ef0ddf90df27423cb4279ccdf220d56a3dfe435091dcb99b3bb87c9cc6ef3";
       meta = with lib;
       {
         homepage = "https://dictionariez.pnl.dev";
@@ -4750,10 +4750,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "159.0.20261014.90526";
+      version = "159.0.20261016.90327";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5120945/francais_language_pack-159.0.20261014.90526.xpi";
-      sha256 = "1830c6d7c6c43f02d1a919547033b5e7b22bd59925ce4b05790cd6f75ebb2460";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5128925/francais_language_pack-159.0.20261016.90327.xpi";
+      sha256 = "f29112cd9aba83bac0ed693649bde19911d2c3f401a36e3876ea83a8b7192def";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4787,10 +4787,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "159.0.20261014.90526";
+      version = "159.0.20261016.90327";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5120947/gaidhlig_language_pack-159.0.20261014.90526.xpi";
-      sha256 = "79bcbf1cc3c5ed73130189b8c0fe4e5a63898a06366060d7b05e0d92866c7769";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5128933/gaidhlig_language_pack-159.0.20261016.90327.xpi";
+      sha256 = "429642ea40307d3ef05350897d4981ddb88acbfd698695038aa6b53038a211ae";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -6179,10 +6179,10 @@
     };
     "javascript-restrictor" = buildMozillaXpiAddon {
       pname = "javascript-restrictor";
-      version = "0.24.4";
+      version = "0.24.6";
       addonId = "jsr@javascriptrestrictor";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4922138/javascript_restrictor-0.24.4.xpi";
-      sha256 = "7a637190d0625b7e1add9b940836dbb2c0b79506b9c25612aaa4f0ae7454388c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5129118/javascript_restrictor-0.24.6.xpi";
+      sha256 = "da9a20eb6f944971c1b3d034a1afb9e1a7484895b455b6552e288461bddbc957";
       meta = with lib;
       {
         homepage = "https://jshelter.org";
@@ -6417,10 +6417,10 @@
     };
     "keepassxc-browser" = buildMozillaXpiAddon {
       pname = "keepassxc-browser";
-      version = "1.10.3";
+      version = "1.10.4.1";
       addonId = "keepassxc-browser@keepassxc.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4831838/keepassxc_browser-1.10.3.xpi";
-      sha256 = "4df9c54e0a293aa2e37e9bcf97ec307a35a00e78cebaa9a68edba552c07c4568";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5078406/keepassxc_browser-1.10.4.1.xpi";
+      sha256 = "ae41157a3f017b0773abba2097d5b0056241631d0a38ad36d68d0b24b1a409c1";
       meta = with lib;
       {
         homepage = "https://keepassxc.org/";
@@ -8964,10 +8964,10 @@
     };
     "monochromate" = buildMozillaXpiAddon {
       pname = "monochromate";
-      version = "1.5.3";
+      version = "1.5.4.0";
       addonId = "{cdf4f419-70fa-491b-abcb-14bc1ad3d36f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4852753/monochromate-1.5.3.xpi";
-      sha256 = "cf1073985492ccdfd3518601cecb6e2786c2c81ac2c2f357666be82c2015ef8e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5130535/monochromate-1.5.4.0.xpi";
+      sha256 = "6d043701c5a36c3acad707ca20c6e62feb1c05d4b47a5cb73d760f8f290570af";
       meta = with lib;
       {
         homepage = "https://monochromate.lirena.in/";
@@ -10075,10 +10075,10 @@
     };
     "passbolt" = buildMozillaXpiAddon {
       pname = "passbolt";
-      version = "5.15.1";
+      version = "5.16.0";
       addonId = "passbolt@passbolt.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4982393/passbolt-5.15.1.xpi";
-      sha256 = "126188fb278721638a451e6a821afdb13c61b5eb7caafb3f687baf2a891f1fa6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5036787/passbolt-5.16.0.xpi";
+      sha256 = "01977c7ac709a93e41c75e9cec60b3b23df6144655ee3877db0b6436030cb2f2";
       meta = with lib;
       {
         homepage = "https://www.passbolt.com";
@@ -10940,10 +10940,10 @@
     };
     "private-grammar-checker-harper" = buildMozillaXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "2.12.0";
+      version = "2.13.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5079480/private_grammar_checker_harper-2.12.0.xpi";
-      sha256 = "a6c18163a279f49aec46077ebef0e4c584d8e011fe1ef54f3a9e5a88af1e9555";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5129427/private_grammar_checker_harper-2.13.0.xpi";
+      sha256 = "0632946eabecc5fa6b512f3fc0663cd178ff28833ef5274dae59e4193bdff078";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -12264,10 +12264,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "159.0.20261014.90526";
+      version = "159.0.20261016.90327";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5121065/scots_language_pack-159.0.20261014.90526.xpi";
-      sha256 = "efa13a52a8f14ce4e3e94b67ba47a5a44b2ef1771a73808b7f1d5d1c48c45e72";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5128862/scots_language_pack-159.0.20261016.90327.xpi";
+      sha256 = "3899084470036f20eb6ba319614005cc81c3dc9b05cff9547e8fe6d87aa3efea";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -13225,10 +13225,10 @@
     };
     "stylebot-web" = buildMozillaXpiAddon {
       pname = "stylebot-web";
-      version = "4.0.3";
+      version = "4.0.4";
       addonId = "{52bda3fd-dc48-4b3d-a7b9-58af57879f1e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5121128/stylebot_web-4.0.3.xpi";
-      sha256 = "34dac7312674b0f85da7b5baaed7dbad5da79c2c3b71906b15545b1a66cfe0ff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5129153/stylebot_web-4.0.4.xpi";
+      sha256 = "82f9c05aaec6586d821f066ad608f5c61fce229531eec44276863ada863fcada";
       meta = with lib;
       {
         homepage = "https://stylebot.dev/";
