@@ -2,6 +2,7 @@
   config,
   lib,
   vaculib,
+  pkgs,
   ...
 }:
 let
@@ -32,9 +33,9 @@ in
       };
     };
   };
-
   services.matrix-continuwuity = {
     enable = true;
+    package = pkgs.matrix-continuwuity_latest;
     settings.global = {
       unix_socket_path = socketPath;
       unix_socket_perms = 666; # this is so cursed
