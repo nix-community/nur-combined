@@ -134,6 +134,8 @@ let
       '';
     });
 
+    opentoonz = callPackage ./opentoonz { };
+
     # https://github.com/NixOS/nixpkgs/pull/507156
     patreon-downloader = callPackage ./patreon-downloader { };
 
