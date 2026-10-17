@@ -109,6 +109,18 @@ buildNpmPackage (finalAttrs: {
     runHook postInstall
   '';
 
+  # FIXME:
+  # patchelf can relocate libvips' .init without updating DT_INIT (NixOS/patchelf#639).
+  # Patch the other ELF files, then restore libvips; Sharp's addon supplies its C++ runtime.
+  dontAutoPatchelf = true;
+  postFixup = ''
+    autoPatchelf "$out"
+
+    for libvips in "$out"/share/yanhekt-autoslides/resources/@img/sharp-libvips-linux-*; do
+      cp node_modules/@img/"''${libvips##*/}"/lib/libvips-cpp.so.* "$libvips/lib/"
+    done
+  '';
+
   desktopItems = [
     (makeDesktopItem {
       name = "autoslides";
