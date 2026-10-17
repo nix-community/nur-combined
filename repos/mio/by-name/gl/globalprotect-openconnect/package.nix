@@ -20,17 +20,17 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "globalprotect-openconnect";
-  version = "3.0.5";
+  version = "3.0.6";
 
   src = fetchFromGitHub {
     owner = "yuezk";
     repo = "GlobalProtect-openconnect";
     rev = "v${version}";
-    hash = "sha256-QQPi7ex/VwVhyBrgRaJugJog7x3WbatDgD7gdNkmxr0=";
+    hash = "sha256-jY3svslvgRAtTpp6QKkagrUEjNAouRacjkHZIayJFzY=";
     fetchSubmodules = true;
   };
 
-  cargoHash = "sha256-bMLbvofHnGOcydcLJVZJt54sAXLPayNu8hl2zETx8uI=";
+  cargoHash = "sha256-QdUYvIvIrPFxlVJvuadZJFDEGN/8ZPOv0XrwK/hZvBs=";
 
   pnpmDeps = pnpm_10.fetchDeps {
     inherit pname version src;

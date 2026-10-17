@@ -20,13 +20,13 @@
 #    preventing any network access during compilation.
 stdenv.mkDerivation (finalAttrs: {
   pname = "clice";
-  version = "0.1.2026101607";
+  version = "0.1.2026101706";
 
   src = fetchFromGitHub {
     owner = "clice-io";
     repo = "clice";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-X7PAygS4evc3mwXtznXs78goBgcDI8JsXyLq2ilmXbA=";
+    hash = "sha256-ZA1aHrg9gszaMhsCYYsbn4+YUGbSFRf66Hs+H4nLNq0=";
   };
 
   deps = stdenv.mkDerivation {
@@ -45,6 +45,8 @@ stdenv.mkDerivation (finalAttrs: {
 
       export HOME=$TMPDIR
       export BAZEL_DO_NOT_DETECT_CPP_TOOLCHAIN=1
+      mkdir -p $TMPDIR/xclang-thinlto
+      sed -i -e "s|/var/tmp/xclang-thinlto|$TMPDIR/xclang-thinlto|g" bazel/clice.bazelrc || true
       # Fetch all external repositories from the network
       bazel vendor -c opt --config=RelWithDebInfo //... --vendor_dir=$out
 
@@ -59,6 +61,11 @@ stdenv.mkDerivation (finalAttrs: {
         fi
       done
 
+      # Remove any store references in vendored files (e.g. marker files containing tool paths)
+      grep -rl "/nix/store" "$out" | while read -r f; do
+        sed -i -E 's|/nix/store/[a-z0-9]{32}-[^/]+|/dummy|g' "$f"
+      done
+
       runHook postBuild
     '';
 
@@ -67,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
     installPhase = "true";
 
     outputHashMode = "recursive";
-    outputHash = "sha256-RvOMal9eVdCWgLu9fAR00YE0uUjX7PGcvwHfxiL0XMk=";
+    outputHash = "sha256-plQ/G9ckpiVbci3gCv1qF+JcnpZE+Cdg5WOpytme4q0=";
   };
 
   nativeBuildInputs = [

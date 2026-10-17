@@ -6,13 +6,13 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "multi-account-containers";
-  version = "8.3.8";
+  version = "8.4.0";
 
   src = fetchFromGitHub {
     owner = "mozilla";
     repo = "multi-account-containers";
     tag = finalAttrs.version;
-    hash = "sha256-4pi1mVERuM2RQ31qWchJXUwZ/8nEeMVFbL3FYWLhwqI=";
+    hash = "sha256-kuSoW3MkBiQRQX74l1nmFz1Db04ticJbQtBxsSSaQ50=";
   };
 
   dontBuild = true;
