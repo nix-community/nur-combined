@@ -1,4 +1,4 @@
-From 0ac564d53ee8f713d460f5cc7dd51164c769828d Mon Sep 17 00:00:00 2001
+From dc888942610b855de6130b4db1da6f1c45013ffe Mon Sep 17 00:00:00 2001
 From: Bart Oostveen <bart@bartoostveen.nl>
 Date: Sun, 5 Jul 2026 21:27:35 +0200
 Subject: [PATCH 4/5] fix(build): do not run npm ci

@@ -9,7 +9,7 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "gutenberg";
-  version = "24.1.0";
+  version = "24.2.0";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -18,7 +18,7 @@ buildNpmPackage (finalAttrs: {
     owner = "WordPress";
     repo = "gutenberg";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-xH6zPuzWCD1bglK3kDnVnc5UCiwxwhHndniPgsyjvLQ=";
+    hash = "sha256-KPO1g22jvHABJZmcKrtnl4r9v2+soKVcm7HdbwofYg4=";
   };
 
   patches = [
@@ -34,13 +34,16 @@ buildNpmPackage (finalAttrs: {
   ];
 
   npmBuildScript = "build:plugin-zip";
-  npmDepsHash = "sha256-zQOMvTdYE60dX32tE8JcHf7KdfjviSqOfSVccRiSga4=";
+  npmRebuildFlags = [ "--dangerously-allow-all-scripts" ];
+
+  npmDepsHash = "sha256-MkK0HyTsM9yM/H5kh8EHsqTfJvQEM4wKl2RY3zBn6gY=";
+  npmDepsFetcherVersion = 2;
 
   env.NO_CHECKS = "true"; # avoids git clean
 
   preBuild = ''
     patchelf \
-      /build/source/node_modules/sass-embedded-*/dart-sass/src/dart \
+      /build/source/node_modules/.store/sass-embedded-*/node_modules/sass-embedded-*/dart-sass/src/dart \
       --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker)
   '';
 

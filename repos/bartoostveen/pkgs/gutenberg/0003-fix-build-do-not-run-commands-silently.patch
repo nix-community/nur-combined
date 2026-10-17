@@ -1,4 +1,4 @@
-From 928ea41e3950ff59f207c572f0212850c9bf5147 Mon Sep 17 00:00:00 2001
+From e414f424b54769a88c68ecb5f880604aaa1b243e Mon Sep 17 00:00:00 2001
 From: Bart Oostveen <bart@bartoostveen.nl>
 Date: Mon, 6 Jul 2026 23:25:15 +0200
 Subject: [PATCH 3/5] fix(build): do not run commands silently
@@ -8,7 +8,7 @@ Subject: [PATCH 3/5] fix(build): do not run commands silently
  1 file changed, 43 insertions(+), 103 deletions(-)
 
 diff --git a/tools/build-scripts/build.mjs b/tools/build-scripts/build.mjs
-index 7d1f4f9d564..003113fcdd9 100644
+index 7d1f4f9d564..2123bcca2b8 100644
 --- a/tools/build-scripts/build.mjs
 +++ b/tools/build-scripts/build.mjs
 @@ -1,72 +1,37 @@
@@ -156,7 +156,7 @@ index 7d1f4f9d564..003113fcdd9 100644
 +			[
 +				path.join(
 +					ROOT_DIR,
-+					'node_modules/@wordpress/build/lib/build.mjs'
++					'packages/wp-build/lib/build.mjs'
 +				),
 +				...process.argv.slice( 2 ),
 +			],
