@@ -18,12 +18,12 @@
 }:
 
 let
-  version = "1.23.1b";
-  firefoxVersion = "157.0.1";
+  version = "1.23.3b";
+  firefoxVersion = "158.0";
 
   firefoxSrc = fetchurl {
     url = "mirror://mozilla/firefox/releases/${firefoxVersion}/source/firefox-${firefoxVersion}.source.tar.xz";
-    hash = "sha256-SDvt7pBZ3yR55FMcRDsQc8brrtNXC9oMFk61Yu4kHEw=";
+    hash = "sha256-/Hf3gB11gKYAr2g8w2fiYesex0ZH6EqRtKHjwd1aors=";
   };
 
   # Surfer's async-icns shells out to macOS iconutil/sips. Provide nixpkgs-style
@@ -89,7 +89,7 @@ let
       owner = "zen-browser";
       repo = "desktop";
       tag = version;
-      hash = "sha256-Wz/rsUf14fLsQzuhP4pMbQ1xKo81iLD0XJTgmn6TUBM=";
+      hash = "sha256-pLvyuw33bnRoGMvCoEQ0IaJW8rJFcBhXxRcbOpziMZ4=";
       fetchSubmodules = true;
     };
 
@@ -98,7 +98,7 @@ let
       tar --extract --file=${firefoxSrc} --directory=source/engine --strip-components=1
     '';
 
-    npmDepsHash = "sha256-/+VUkSkvMEC0a7M5Cc4CGks1zffSXY0iIFM9FyB2kng=";
+    npmDepsHash = "sha256-kBquKwMPQD/h50dFW4eST9shJq+xoOVX3uja2Mk8D5c=";
     makeCacheWritable = true;
 
     # NOTE: this is used for the ffprefs step.
@@ -204,6 +204,7 @@ in
       enableAddonSideload = true;
       enableCrashReporter = false;
       enableOfficialBranding = false;
+      enableLTO = !stdenv.hostPlatform.isDarwin;
     }
 ).overrideAttrs
   (old: {
