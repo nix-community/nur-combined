@@ -15,6 +15,8 @@
   freetype,
   glib,
   gtk3,
+  imagemagick,
+  libicns,
   libGL,
   libx11,
   libxcursor,
@@ -194,6 +196,15 @@ let
       python3 ${./files/patch_botguard.py}
             # We also have migration-patches if the user wants to apply them manually
             cp -r ${./migration-patches} patches/
+
+      # Generate macOS icns icon
+      mkdir -p app/build/iconset
+      for s in 16 32 48 128 256 512 1024; do
+        magick app/src/main/res/mipmap-xxxhdpi/ic_launcher.png -resize ''${s}x''${s} app/build/iconset/icon_''${s}.png
+      done
+      png2icns app/ArchiveTune.icns app/build/iconset/icon_*.png
+      rm -rf app/build/iconset
+
             chmod -R +w .
     '';
 
@@ -221,6 +232,8 @@ let
     '';
 
     nativeBuildInputs = [
+      imagemagick
+      libicns
       python3
       gradle
       jdk
@@ -271,6 +284,11 @@ let
         rm -rf $out/Applications/ArchiveTune.app/Contents/runtime
         jdk_mac=$(ls -d ${jdk.home}/Library/Java/JavaVirtualMachines/*.jdk)
         ln -s "$jdk_mac" $out/Applications/ArchiveTune.app/Contents/runtime
+
+        cp -f app/ArchiveTune.icns $out/Applications/ArchiveTune.app/Contents/Resources/ArchiveTune.icns
+        if [ -x /usr/bin/codesign ]; then
+          /usr/bin/codesign -f -s - $out/Applications/ArchiveTune.app || true
+        fi
         
         mkdir -p $out/bin
         makeWrapper $out/Applications/ArchiveTune.app/Contents/MacOS/ArchiveTune $out/bin/archivetune
@@ -282,8 +300,11 @@ let
         rm -rf $out/lib/archivetune/lib/runtime
         ln -s ${jdk.home} $out/lib/archivetune/lib/runtime
 
-        install -Dm644 app/src/main/res/mipmap-xxxhdpi/ic_launcher.png \
-          $out/share/icons/hicolor/512x512/apps/archivetune.png 2>/dev/null || true
+        for s in 16 32 48 64 128 256 512; do
+          mkdir -p "$out/share/icons/hicolor/''${s}x''${s}/apps"
+          magick app/src/main/res/mipmap-xxxhdpi/ic_launcher.png -resize ''${s}x''${s} \
+            "$out/share/icons/hicolor/''${s}x''${s}/apps/archivetune.png"
+        done
       fi
 
       runHook postInstall
@@ -322,7 +343,7 @@ let
     };
 
     meta = {
-      description = "Cute music player with local file and YouTube Music support (Linux desktop via Compose Multiplatform)";
+      description = "Cute music player with local file and YouTube Music support (Desktop via Compose Multiplatform)";
       homepage = "https://github.com/rukamori/ArchiveTune";
       license = lib.licenses.gpl3Plus;
       maintainers = with lib.maintainers; [ mio ];
@@ -349,6 +370,12 @@ stdenv.mkDerivation {
   dontUnpack = true;
   dontBuild = true;
 
+  sandboxProfile = lib.optionalString stdenv.hostPlatform.isDarwin ''
+    (allow file-read* (literal "/usr/bin/codesign"))
+    (allow process-exec (literal "/usr/bin/codesign"))
+    (allow process-fork)
+  '';
+
   installPhase = ''
     mkdir -p $out
     cp -a ${unwrapped}/* $out/
@@ -359,6 +386,7 @@ stdenv.mkDerivation {
     if [ -d $out/Applications/ArchiveTune.app ]; then
       if [ -f $out/Applications/ArchiveTune.app/Contents/app/ArchiveTune.cfg ]; then
         echo "java-options=-Darchivetune.mpv.path=${mpv}/bin/mpv" >> $out/Applications/ArchiveTune.app/Contents/app/ArchiveTune.cfg
+        echo "java-options=-Xdock:icon=$out/Applications/ArchiveTune.app/Contents/Resources/ArchiveTune.icns" >> $out/Applications/ArchiveTune.app/Contents/app/ArchiveTune.cfg
       fi
 
       makeWrapper $out/Applications/ArchiveTune.app/Contents/MacOS/ArchiveTune $out/bin/archivetune \
@@ -383,6 +411,12 @@ stdenv.mkDerivation {
         }" \
         --set ARCHIVETUNE_MPV_PATH "${mpv}/bin/mpv" \
         --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath runtimeLibs}"
+    fi
+  '';
+
+  postFixup = ''
+    if [ -d $out/Applications/ArchiveTune.app ] && [ -x /usr/bin/codesign ]; then
+      /usr/bin/codesign -f -s - $out/Applications/ArchiveTune.app || true
     fi
   '';
 

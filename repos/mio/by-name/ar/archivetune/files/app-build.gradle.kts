@@ -32,6 +32,9 @@ compose.desktop {
         mainClass = "moe.rukamori.archivetune.DesktopMainKt"
         nativeDistributions {
             packageName = "ArchiveTune"
+            macOS {
+                iconFile.set(project.file("ArchiveTune.icns"))
+            }
         }
         buildTypes.release.proguard {
             isEnabled.set(false)
