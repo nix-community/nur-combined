@@ -2,8 +2,9 @@
 set -euo pipefail
 
 BIN_DIR="$HOME/.local/share/tailscale-bin"
-STATE="$HOME/.local/state/tailscale/tailscaled.state"
-SOCK=/run/tailscale/tailscaled.sock
+STATE_DIR="${LEDGER_PROXY_STATE_DIR:-$HOME/.secrets/tailscale}"
+STATE="$STATE_DIR/tailscaled.state"
+SOCK="$STATE_DIR/tailscaled.sock"
 LOG=/tmp/tailscaled.log
 SOCKS_HOST=127.0.0.1
 SOCKS_PORT=1055
@@ -59,9 +60,8 @@ for b in tailscale tailscaled; do
 done
 
 if ! pgrep -x tailscaled >/dev/null 2>&1; then
-  mkdir -p "$(dirname "$STATE")"; chmod 700 "$(dirname "$STATE")"
-  sudo -n mkdir -p "$(dirname "$SOCK")"
-  setsid -f sudo -n "$TSD" --tun=userspace-networking \
+  mkdir -p "$STATE_DIR"; chmod 700 "$STATE_DIR"
+  setsid -f "$TSD" --tun=userspace-networking \
     --socks5-server="localhost:$SOCKS_PORT" \
     --state="$STATE" --socket="$SOCK" >>"$LOG" 2>&1 </dev/null 9>&-
 fi
@@ -83,9 +83,10 @@ if [[ "$st" != "Running+exit" ]]; then
     up_timeout=$((deadline - SECONDS > 5 ? deadline - SECONDS : 5))s
   fi
   ts_up() {
-    local cmd=(sudo -n "$TS" --socket="$SOCK" up --reset --timeout="$up_timeout"
-      --hostname="$HOSTNAME_TS" --accept-dns=false
-      --exit-node="$EXIT_NODE" --exit-node-allow-lan-access=false)
+    local cmd=("$TS" --socket="$SOCK" up --reset --timeout="$up_timeout"
+      --hostname="$HOSTNAME_TS" --accept-dns=false)
+    # Exit node by hostname only resolves after login, so it is set afterwards.
+    [[ "$st" != "NeedsLogin" ]] && cmd+=(--exit-node="$EXIT_NODE" --exit-node-allow-lan-access=false)
     if [[ "$st" == "NeedsLogin" ]]; then
       "${cmd[@]}" 2>&1 | tee /tmp/ledger-proxy-up.out >&2
     else
@@ -100,6 +101,13 @@ if [[ "$st" != "Running+exit" ]]; then
     sleep 1
   done
   [[ "$st" == "NeedsLogin" ]] && deadline=$((SECONDS + TIMEOUT))
+fi
+
+if [[ "$(ts_state)" == "Running" ]]; then
+  until "$TS" --socket="$SOCK" set --exit-node="$EXIT_NODE" --exit-node-allow-lan-access=false 2>/tmp/ledger-proxy-up.out; do
+    (( SECONDS < deadline )) || { cat /tmp/ledger-proxy-up.out >&2; log "não consegui definir o exit node"; exit 1; }
+    sleep 1
+  done
 fi
 
 until [[ "$(ts_state)" == "Running+exit" ]] && socks_ok; do
