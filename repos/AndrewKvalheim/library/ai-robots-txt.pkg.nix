@@ -9,7 +9,7 @@ let
 in
 stdenvNoCC.mkDerivation (ai-robots-txt: {
   pname = "ai-robots-txt";
-  version = "2.0";
+  version = "2.1";
   meta = {
     description = "List of AI agents and robots to block";
     homepage = "https://github.com/ai-robots-txt/ai.robots.txt";
@@ -22,7 +22,7 @@ stdenvNoCC.mkDerivation (ai-robots-txt: {
     owner = "ai-robots-txt";
     repo = "ai.robots.txt";
     rev = "refs/tags/v${ai-robots-txt.version}";
-    hash = "sha256-Mg5QMHwxAV2RlUZplCnSAGgjC/VIq+djGZa4YWShgS0=";
+    hash = "sha256-ZKYoXYkOf4qLwL8qSZx1HL/mEfBYTPU91hNWYkDzyu0=";
   };
 
   installPhase = ''
