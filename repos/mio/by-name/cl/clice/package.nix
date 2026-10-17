@@ -20,13 +20,13 @@
 #    preventing any network access during compilation.
 stdenv.mkDerivation (finalAttrs: {
   pname = "clice";
-  version = "0.1.2026101507";
+  version = "0.1.2026101607";
 
   src = fetchFromGitHub {
     owner = "clice-io";
     repo = "clice";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Ztg9zE5aIvcu2laWIgmvfm02FBMS+wjK01RzQeW2khM=";
+    hash = "sha256-X7PAygS4evc3mwXtznXs78goBgcDI8JsXyLq2ilmXbA=";
   };
 
   deps = stdenv.mkDerivation {
