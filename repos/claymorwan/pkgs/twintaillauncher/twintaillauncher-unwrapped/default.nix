@@ -36,7 +36,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-yJFTycwYSiOJ51WJn/IzrxLDJU1p71w6UAV5atTaqeY=";
+    hash = "sha256-lpqberANUFYlPKn83WeK2H5owlODjxEKxgU8aw1q6to=";
   };
 
   # Set our Tauri source directory
