@@ -118,6 +118,7 @@ stdenv.mkDerivation (finalAttrs: {
   dontBuild = true;
   dontStrip = true;
   dontWrapGApps = true;
+  dontAutoPatchelf = true;
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -248,6 +249,14 @@ stdenv.mkDerivation (finalAttrs: {
           xrdb
         ]
       }"
+  '';
+
+  postFixup = ''
+    daemon="$out/opt/sing-box/resources/daemon/sing-box-daemon"
+    mv "$daemon" "$TMPDIR/sing-box-daemon"
+    autoPatchelf -- "$out"
+    mv "$TMPDIR/sing-box-daemon" "$daemon"
+    patchelf --set-interpreter "$(cat "$NIX_CC/nix-support/dynamic-linker")" "$daemon"
   '';
 
   passthru = {

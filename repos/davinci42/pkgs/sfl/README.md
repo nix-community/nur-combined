@@ -46,6 +46,9 @@ and `aarch64-linux` (`aarch64`) `SFL-<version>-<arch>.pkg.tar.zst` archives, and
 verifies their SHA-256 digests against the GitHub release asset metadata. Review
 upstream `electron-builder.yml`, `build/sing-box-daemon.service`,
 `build/io.nekohasekai.sfl.policy`, and `experimental/boxdd` when updating.
+Patch only the daemon's ELF interpreter; adding an RPATH with patchelf relocates
+its dynamic section into a read-only mapping and crashes glibc at startup.
+The Electron client and libraries still use autoPatchelf.
 
 Checks verify NixOS module evaluation, binary linking, desktop/metainfo/systemd/polkit
 file installation, `sing-box-daemon version`, and isolated `sing-box-daemon`
