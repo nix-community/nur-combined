@@ -15,6 +15,9 @@
   nix-update-script,
   versionCheckHook,
   writableTmpDirAsHomeHook,
+  # Only disables session OpenTelemetry upload.
+  # Session Log API uploads follow the user's session-log-deepseek.enabled setting.
+  disableTelemetry ? true,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -152,6 +155,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     makeWrapper ${lib.getExe nodejs_24} "$out/bin/dsh" \
       --argv0 dsh \
+      ${lib.optionalString disableTelemetry "--set DSH_TELEMETRY_DISABLED 1"} \
       --prefix PATH : ${
         lib.makeBinPath [
           bubblewrap
