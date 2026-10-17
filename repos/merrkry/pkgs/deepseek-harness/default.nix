@@ -49,6 +49,9 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-C9Aw9AS4r7zubaEuT6mLXQ+AhhMVlTxPZRKTpzRUkcU=";
   };
 
+  # Keep account diagnostics off ACP and SDK protocol stdout.
+  patches = [ ./account-logs-stderr.patch ];
+
   nativeBuildInputs = [
     nodejs_24
     pnpm_11
