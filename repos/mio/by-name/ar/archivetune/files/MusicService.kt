@@ -167,7 +167,7 @@ class MusicService {
                 }
 
                 try {
-                    val sock = File("/tmp", "archivetune-mpv-${ProcessHandle.current().pid()}.sock")
+                    val sock = File(android.content.DesktopStoragePaths.runtimeDir, "archivetune-mpv-${ProcessHandle.current().pid()}.sock")
                     if (sock.exists()) sock.delete()
                     socketFile = sock
 
@@ -950,9 +950,11 @@ class MusicService {
 
     val applicationContext: Context get() = android.content.DummyContext()
     val contentResolver: ContentResolver get() = ContentResolver()
-    val cacheDir: File get() = File("/tmp")
+    val cacheDir: File get() = applicationContext.cacheDir
+    val filesDir: File get() = applicationContext.filesDir
 
-    fun getString(resId: Int): String = ""
+    fun getString(resId: Int): String = applicationContext.getString(resId)
+    fun getString(resId: Int, vararg formatArgs: Any?): String = applicationContext.getString(resId, *formatArgs)
 
     private var currentQueue: Queue? = null
     private var isLoadingMoreQueue = false

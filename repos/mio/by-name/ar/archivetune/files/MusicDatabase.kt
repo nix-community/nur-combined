@@ -58,10 +58,7 @@ abstract class InternalDatabase : RoomDatabase() {
         const val DB_NAME = "song.db"
 
         fun newInstance(context: Context): MusicDatabase {
-            val dataHome = System.getenv("XDG_DATA_HOME")?.takeIf { it.isNotBlank() }
-                ?: (System.getProperty("user.home") + File.separator + ".local" + File.separator + "share")
-            val appDataDir = File(dataHome, "archivetune").apply { mkdirs() }
-            val dbFile = File(appDataDir, "song.db")
+            val dbFile = context.getDatabasePath(DB_NAME).apply { parentFile?.mkdirs() }
 
             // Backward compatibility: migrate legacy .archivetune.db from user.dir if present
             val legacyDb = File(System.getProperty("user.dir"), ".archivetune.db")

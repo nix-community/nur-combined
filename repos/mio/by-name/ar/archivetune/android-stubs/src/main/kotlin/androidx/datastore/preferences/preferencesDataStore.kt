@@ -14,10 +14,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 
 object DesktopPreferenceStore {
     private val configFile: File by lazy {
-        val configHome = System.getenv("XDG_CONFIG_HOME")?.takeIf { it.isNotBlank() }
-            ?: (System.getProperty("user.home") + File.separator + ".config")
-        val dir = File(configHome, "archivetune").apply { mkdirs() }
-        File(dir, "preferences.properties")
+        File(android.content.DesktopStoragePaths.configDir, "preferences.properties")
     }
 
     val currentPreferences: MutablePreferences = MutablePreferences()

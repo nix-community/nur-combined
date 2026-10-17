@@ -5,14 +5,69 @@ import android.content.res.Resources
 import android.database.DatabaseErrorHandler
 import android.database.sqlite.SQLiteDatabase
 import androidx.compose.runtime.Stable
+import java.io.File
+
+object DesktopStoragePaths {
+    private val isMac: Boolean by lazy {
+        val os = System.getProperty("os.name", "").lowercase()
+        os.contains("mac") || os.contains("darwin")
+    }
+
+    private val userHome: String by lazy {
+        System.getProperty("user.home", ".")
+    }
+
+    val configDir: File by lazy {
+        val dir = if (isMac) {
+            File(userHome, "Library/Application Support/archivetune")
+        } else {
+            val xdgConfig = System.getenv("XDG_CONFIG_HOME")?.takeIf { it.isNotBlank() }
+                ?: (userHome + File.separator + ".config")
+            File(xdgConfig, "archivetune")
+        }
+        dir.apply { mkdirs() }
+    }
+
+    val dataDir: File by lazy {
+        val dir = if (isMac) {
+            File(userHome, "Library/Application Support/archivetune")
+        } else {
+            val xdgData = System.getenv("XDG_DATA_HOME")?.takeIf { it.isNotBlank() }
+                ?: (userHome + File.separator + ".local" + File.separator + "share")
+            File(xdgData, "archivetune")
+        }
+        dir.apply { mkdirs() }
+    }
+
+    val cacheDir: File by lazy {
+        val dir = if (isMac) {
+            File(userHome, "Library/Caches/archivetune")
+        } else {
+            val xdgCache = System.getenv("XDG_CACHE_HOME")?.takeIf { it.isNotBlank() }
+                ?: (userHome + File.separator + ".cache")
+            File(xdgCache, "archivetune")
+        }
+        dir.apply { mkdirs() }
+    }
+
+    val runtimeDir: File by lazy {
+        val xdgRuntime = System.getenv("XDG_RUNTIME_DIR")?.takeIf { it.isNotBlank() }
+        val dir = if (xdgRuntime != null && File(xdgRuntime).exists() && File(xdgRuntime).isDirectory) {
+            File(xdgRuntime)
+        } else {
+            File(System.getProperty("java.io.tmpdir", "/tmp"))
+        }
+        dir
+    }
+}
 
 @Stable
 open class Context {
     open val contentResolver: ContentResolver = ContentResolver()
     open val packageName: String = "moe.rukamori.archivetune"
-    open val filesDir: java.io.File = java.io.File("/tmp")
-    open val cacheDir: java.io.File = java.io.File("/tmp")
-    open val externalCacheDir: java.io.File? = null
+    open val filesDir: File get() = DesktopStoragePaths.dataDir
+    open val cacheDir: File get() = DesktopStoragePaths.cacheDir
+    open val externalCacheDir: File? get() = DesktopStoragePaths.cacheDir
     open val resources: Resources = Resources()
     open val assets: android.content.res.AssetManager = android.content.res.AssetManager()
     open val mainLooper: Any? = null
@@ -59,17 +114,18 @@ open class Context {
     open fun registerReceiver(receiver: Any?, filter: Any): Intent? = null
     open fun unregisterReceiver(receiver: Any?) {}
     
-    open fun getDatabasePath(name: String): java.io.File = java.io.File("/tmp/$name")
+    open fun getDatabasePath(name: String): File = File(DesktopStoragePaths.dataDir, name)
     open fun checkSelfPermission(permission: String): Int = 0
     open fun checkPermission(permission: String, pid: Int, uid: Int): Int = 0
 
-    open fun getExternalFilesDirs(type: String?): Array<java.io.File?> = emptyArray()
+    open fun getExternalFilesDirs(type: String?): Array<File?> = arrayOf(getExternalFilesDir(type))
 
-    open fun getExternalFilesDir(type: String?): java.io.File? = null
+    open fun getExternalFilesDir(type: String?): File? =
+        if (type != null) File(DesktopStoragePaths.dataDir, type).apply { mkdirs() } else DesktopStoragePaths.dataDir
 
-    open fun getExternalCacheDirs(): Array<java.io.File?> = emptyArray()
+    open fun getExternalCacheDirs(): Array<File?> = arrayOf(cacheDir)
 
-    open fun deleteDatabase(name: String): Boolean = false
+    open fun deleteDatabase(name: String): Boolean = getDatabasePath(name).delete()
 
     open fun bindService(intent: Intent, conn: Any, flags: Int): Boolean = false
     open fun unbindService(conn: Any) {}
@@ -97,7 +153,8 @@ open class Context {
 
             override fun unregisterOnSharedPreferenceChangeListener(listener: Any) {}
         }
-    open fun openFileOutput(name: String, mode: Int): java.io.FileOutputStream = java.io.FileOutputStream("/tmp/$name")
+    open fun openFileOutput(name: String, mode: Int): java.io.FileOutputStream =
+        java.io.FileOutputStream(File(DesktopStoragePaths.dataDir, name), (mode and MODE_APPEND) != 0)
     open fun openOrCreateDatabase(name: String, mode: Int, factory: SQLiteDatabase.CursorFactory?): SQLiteDatabase = SQLiteDatabase()
     open fun openOrCreateDatabase(name: String, mode: Int, factory: SQLiteDatabase.CursorFactory?, errorHandler: DatabaseErrorHandler?): SQLiteDatabase = SQLiteDatabase()
 
@@ -119,11 +176,12 @@ open class Context {
 }
 
 class DummyContext : Context() {
-    override val filesDir: java.io.File get() = java.io.File(System.getProperty("java.io.tmpdir", "/tmp"))
-    override val cacheDir: java.io.File get() = java.io.File(System.getProperty("java.io.tmpdir", "/tmp"))
+    override val filesDir: File get() = DesktopStoragePaths.dataDir
+    override val cacheDir: File get() = DesktopStoragePaths.cacheDir
     override val packageName: String get() = "moe.rukamori.archivetune"
     override val contentResolver: ContentResolver get() = ContentResolver()
     override val applicationContext: Context get() = this
-    override fun getDatabasePath(name: String): java.io.File = java.io.File(System.getProperty("java.io.tmpdir", "/tmp"), name)
-    override fun openFileOutput(name: String, mode: Int): java.io.FileOutputStream = java.io.FileOutputStream(java.io.File(filesDir, name))
+    override fun getDatabasePath(name: String): File = File(DesktopStoragePaths.dataDir, name)
+    override fun openFileOutput(name: String, mode: Int): java.io.FileOutputStream =
+        java.io.FileOutputStream(File(DesktopStoragePaths.dataDir, name), (mode and MODE_APPEND) != 0)
 }

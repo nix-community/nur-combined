@@ -37,7 +37,8 @@ interface Cache {
 
     fun startReadWriteNonBlocking(key: String, position: Long, length: Long): CacheSpan? = null
 
-    fun startFile(key: String, position: Long, maxLength: Long): File = File("/tmp")
+    fun startFile(key: String, position: Long, maxLength: Long): File =
+        File(android.content.DesktopStoragePaths.cacheDir, key)
 
     fun commitFile(file: File, length: Long) {}
 

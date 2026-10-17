@@ -1,6 +1,6 @@
 --- a/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt	1970-01-01 10:00:00
 +++ b/app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt	2026-09-24 18:32:47
-@@ -0,0 +1,369 @@
+@@ -0,0 +1,371 @@
 +package moe.rukamori.archivetune
 +
 +import androidx.compose.foundation.isSystemInDarkTheme
@@ -39,6 +39,7 @@
 +import androidx.compose.ui.unit.dp
 +import androidx.compose.ui.window.Window
 +import androidx.compose.ui.window.application
++import androidx.compose.ui.window.rememberWindowState
 +import androidx.compose.ui.zIndex
 +import androidx.navigation.compose.NavHost
 +import androidx.navigation.compose.composable
@@ -97,7 +98,8 @@
 +    application {
 +    Window(
 +        onCloseRequest = ::exitApplication,
-+        title = "ArchiveTune Desktop"
++        title = "ArchiveTune Desktop",
++        state = rememberWindowState(width = 1200.dp, height = 800.dp)
 +    ) {
 +        val darkTheme by rememberEnumPreference(DarkModeKey, defaultValue = DarkMode.AUTO)
 +        val pureBlackEnabled by rememberPreference(PureBlackKey, defaultValue = false)
