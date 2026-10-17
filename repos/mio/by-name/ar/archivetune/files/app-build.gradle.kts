@@ -51,6 +51,7 @@ sourceSets {
         // The FOSS flavour also carries a cast/ implementation, which narrow.py drops as an
         // Android-only subsystem; without this the dropped cast types get compiled again.
         kotlin.exclude("**/cast/**")
+        resources.srcDir("src/main/res")
     }
 }
 

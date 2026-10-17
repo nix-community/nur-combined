@@ -10,7 +10,7 @@ object BuildConfig {
     const val RELEASE_GITHUB_REPO = "ArchiveTune"
     const val DISTRIBUTION = "github"
     const val DEVICE = "desktop"
-    const val UPDATER_AVAILABLE = true
+    const val UPDATER_AVAILABLE = false
     const val VERSION_NAME = "15.1.0"
     const val VERSION_CODE = 1
     const val DEBUG = false
