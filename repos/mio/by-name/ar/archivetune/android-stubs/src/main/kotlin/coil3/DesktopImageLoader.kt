@@ -35,8 +35,7 @@ object DesktopImageLoader {
         )
 
     private val diskCacheDir by lazy {
-        val home = System.getProperty("user.home", ".")
-        val dir = File(home, ".cache/archivetune/images")
+        val dir = File(android.content.DesktopStoragePaths.cacheDir, "images")
         if (!dir.exists()) {
             dir.mkdirs()
         }
