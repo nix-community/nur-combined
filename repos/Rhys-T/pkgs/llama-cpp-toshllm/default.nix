@@ -3,7 +3,7 @@
     toshllm-hash = "sha256-vfVjWG3PCK9MVc4XUkhwc17drGHwNeDCqwi7ldad/qI=";
     llama-cpp-rev = "d81235049384534c167caea52b85a694f6103d14";
     llama-cpp-hash = "sha256-l6l6JIlIVTaVC6xh5M4fRHFtXsweQuugtkNTWHcZZF4=";
-    llama-cpp-npmDepsHash = "sha256-a17M+L3nLdRnN6WMB6imPFmwqG2g8uv+gwN0XTAUrf8=";
+    llama-cpp-npmDepsHash = "sha256-SIMCIuZ7+l7n2D/6OUY59sdM28Mm05fHGGQn6DujXBo=";
     
     toshllmSrc = fetchFromGitHub {
         owner = "engeldlgado";
@@ -30,6 +30,9 @@
             hash = llama-cpp-hash;
         };
         npmDepsHash = llama-cpp-npmDepsHash;
+        npmDeps = old.npmDeps.overrideAttrs {
+            inherit (finalAttrs) prePatch toshllmSrc;
+        };
         inherit toshllmSrc;
         prePatch = (old.prePatch or "") + ''
             patches+=" $(find "$toshllmSrc/patches/llama" -name '*.patch' -print | \
