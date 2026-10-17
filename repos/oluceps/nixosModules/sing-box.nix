@@ -65,8 +65,27 @@ in
 
     services.dbus.packages = [ cfg.package ];
 
-    systemd.network.networks."tun0".networkConfig = {
-      DNSSEC = false;
+    systemd.network = {
+      config.networkConfig = {
+        ManageForeignRoutingPolicyRules = false;
+        ManageForeignRoutes = false;
+        ManageForeignNextHops = false;
+      };
+      networks."tun0" = {
+        matchConfig.Name = "tun0";
+        linkConfig.RequiredForOnline = false;
+        networkConfig = {
+          DHCP = "no";
+          IPv6AcceptRA = false;
+          LinkLocalAddressing = "no";
+          KeepConfiguration = "yes";
+          # depends on singbox tun ip config
+          DNS = [ "172.19.0.2" ] ++ lib.optional config.networking.enableIPv6 "fdfe:dcba:9876::2";
+          Domains = [ "~." ];
+          DNSDefaultRoute = true;
+          DNSSEC = false;
+        };
+      };
     };
     systemd.services.sing-box = {
       # unitConfig.Conflicts = [ "dnsproxy.service" ];
