@@ -12,13 +12,6 @@
     python3Packages = python-final;
   };
 
-  shellScripts = self.callPackage ./pkgs/shell-scripts { };
-
-  inherit (self.shellScripts)
-    audio-switch
-    round-corners
-    ;
-
   dev-manager-desktop = self.callPackage ./pkgs/webos/dev-manager-desktop { };
 
   frobby = self.callPackage ./pkgs/math/frobby { };
