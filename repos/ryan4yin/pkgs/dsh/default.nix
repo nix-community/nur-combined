@@ -33,8 +33,8 @@ let
   # pinned in its own package.json, so ship that exact version instead of
   # the (newer) nixpkgs pnpm. Bump together with the dsh version.
   pnpmPinned = pkgs.callPackage (pkgs.path + "/pkgs/development/tools/pnpm/generic.nix") {
-    version = "11.7.0";
-    hash = "sha256-3q+n7JihIYtqBHKJuS++I5XB4i00lbtxFlMBMhjuFe4=";
+    version = "11.28.5";
+    hash = "sha256-HvTkR6aHE2VgZPPxdMD0RxmWCgQ6P+IpkWnQjPHb+O4=";
   };
 
   # The prebuilt node-addon-require-builtin probes V8 getter machine code and
