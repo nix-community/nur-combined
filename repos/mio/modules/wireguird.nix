@@ -17,6 +17,9 @@ let
 
   wireguard-tools = pkgs.wireguard-tools.overrideAttrs (old: {
     patches = (old.patches or [ ]) ++ [ wgQuickCapabilityPatch ];
+    nativeBuildInputs = (lib.remove pkgs.makeWrapper (old.nativeBuildInputs or [ ])) ++ [
+      pkgs.makeBinaryWrapper
+    ];
   });
 
   package = cfg.package.override { inherit wireguard-tools; };
@@ -37,12 +40,18 @@ let
   # with openresolv enabled it is pkgs.openresolv.
   dnsBackendEnabled = config.services.resolved.enable || config.networking.resolvconf.enable;
 
+  # NixOS security.wrappers requires targets to be ELF executables (ensure-wrapper-integrity).
+  # makeBinaryWrapper creates an ELF wrapper rather than a shell script.
   wgQuickSource =
     if dnsBackendEnabled then
-      pkgs.writeShellScript "wg-quick-wireguird" ''
-        export PATH=${lib.getBin config.networking.resolvconf.package}/bin''${PATH:+:$PATH}
-        exec ${wireguard-tools}/bin/wg-quick "$@"
-      ''
+      pkgs.runCommand "wg-quick-wireguird"
+        {
+          nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
+        }
+        ''
+          makeBinaryWrapper ${wireguard-tools}/bin/wg-quick $out \
+            --prefix PATH : ${lib.getBin config.networking.resolvconf.package}/bin
+        ''
     else
       "${wireguard-tools}/bin/wg-quick";
 
