@@ -11,12 +11,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "radare2-mcp";
-  version = "1.8.8";
+  version = "1.9.0";
   src = fetchFromGitHub {
     owner = "radareorg";
     repo = "radare2-mcp";
     rev = finalAttrs.version;
-    hash = "sha256-ttx+lklMiXxFmSVAVAgPPuI3iMTLQGDacyakY3aVF4Q=";
+    hash = "sha256-NMqp03awFNjNa2DdZCj6/TrnK5e/fjquyL/hC51JCyU=";
   };
 
   nativeBuildInputs = [

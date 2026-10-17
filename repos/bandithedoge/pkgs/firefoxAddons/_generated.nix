@@ -505,10 +505,10 @@
     };
     "harper" = buildMozillaXpiAddon {
       pname = "harper";
-      version = "2.12.0";
+      version = "2.13.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5079480/private_grammar_checker_harper-2.12.0.xpi";
-      sha256 = "a6c18163a279f49aec46077ebef0e4c584d8e011fe1ef54f3a9e5a88af1e9555";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5129427/private_grammar_checker_harper-2.13.0.xpi";
+      sha256 = "0632946eabecc5fa6b512f3fc0663cd178ff28833ef5274dae59e4193bdff078";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -616,10 +616,10 @@
     };
     "nexusmods-advance" = buildMozillaXpiAddon {
       pname = "nexusmods-advance";
-      version = "0.27.3";
+      version = "0.27.4";
       addonId = "NexusModsAdvance@Caiota";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5107531/nexusmods_advance-0.27.3.xpi";
-      sha256 = "aaf225dcb3c4c734c4d7a6169eee2361de0fb505ea0cebbf3b7ae0de767ce965";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5131178/nexusmods_advance-0.27.4.xpi";
+      sha256 = "c36ff24d51efeda15ebd1a8b49167944a6d15d5593a7e98e9911ac93e3af3ddb";
       meta = with lib;
       {
         description = "Enhance your browsing experience on the NexusMods site and manage your mods directly through the browser!";
@@ -1168,10 +1168,10 @@
     };
     "refined-github" = buildMozillaXpiAddon {
       pname = "refined-github";
-      version = "26.10";
+      version = "26.10.15";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5075070/refined_github-26.10.xpi";
-      sha256 = "ee4784797ac6af961e8bdea62767357a753dbfefbad51a25a04746d6156ea192";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5125706/refined_github-26.10.15.xpi";
+      sha256 = "1031326e687461df90180abc923ad1206949aa94e91811730b59a9855ba19c1c";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";

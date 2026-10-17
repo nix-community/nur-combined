@@ -14,7 +14,9 @@ lua52Packages.buildLuarocksPackage {
     hash = "sha256-H44JBe2n4QZcQRyQTcYY/DtuG7XQgolPrdPgUU6SJTs=";
   };
 
-  propagatedBuildInputs = [ (lua52Packages.callPackage ./lgi.nix { }) ];
+  propagatedBuildInputs = [
+    (lua52Packages.callPackage ./lgi.nix { lua55Packages = lua52Packages; })
+  ];
   knownRockspec = "rockspec/dbus_proxy-devel-1.rockspec";
 
   postPatch = ''

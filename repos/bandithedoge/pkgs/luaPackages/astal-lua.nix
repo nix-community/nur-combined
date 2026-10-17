@@ -18,7 +18,7 @@ lua52Packages.buildLuarocksPackage {
 
   propagatedBuildInputs = with lua52Packages; [
     argparse
-    (callPackage ./lgi.nix { })
+    (callPackage ./lgi.nix { lua55Packages = lua52Packages; })
   ];
 
   passthru = {
