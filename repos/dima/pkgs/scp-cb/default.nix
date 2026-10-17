@@ -96,5 +96,6 @@ pkgs.stdenv.mkDerivation {
 		homepage = "https://github.com/Regalis11/scpcb";
 		license = licenses.unfree;
 		mainProgram = "scp-cb";
+		sourceProvenance = sourceTypes.binaryNativeCode;
 	};
 }
