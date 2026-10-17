@@ -12,3 +12,6 @@
 
 @cachix target:
   nix run nixpkgs#cachix -- push loneros $(nix path-info .#{{ target }})
+
+@enable-workflows repo="lonerOrz/nixpkgs-review-gha":
+    .github/script/enable-workflows.sh {{ repo }}
