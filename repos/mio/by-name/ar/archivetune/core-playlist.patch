@@ -33,7 +33,22 @@ diff -ruN a/src/main/kotlin/moe/rukamori/archivetune/innertube/models/YouTubeCli
 diff -ruN a/src/main/kotlin/moe/rukamori/archivetune/innertube/YouTube.kt b/src/main/kotlin/moe/rukamori/archivetune/innertube/YouTube.kt
 --- a/core/src/main/kotlin/moe/rukamori/archivetune/innertube/YouTube.kt	2026-10-17 12:29:38.486116531 +1100
 +++ b/core/src/main/kotlin/moe/rukamori/archivetune/innertube/YouTube.kt	2026-10-17 12:29:53.571118100 +1100
-@@ -846,14 +846,17 @@
+@@ -291,5 +291,6 @@
+     suspend fun searchSummary(query: String): Result<SearchSummaryPage> =
+         runCatching {
++            if (query.isBlank()) return@runCatching SearchSummaryPage(emptyList())
+             val response = innerTube.search(WEB_REMIX, query).body<SearchResponse>()
+             val contents =
+                 response.contents
+@@ -343,6 +344,7 @@
+         useAccountContext: Boolean = true,
+     ): Result<SearchResult> =
+         runCatching {
++            if (query.isBlank()) return@runCatching SearchResult(emptyList())
+             val response =
+                 innerTube
+                     .search(
+@@ -846,14 +848,17 @@
  
      suspend fun playlist(playlistId: String): Result<PlaylistPage> =
          runCatching {

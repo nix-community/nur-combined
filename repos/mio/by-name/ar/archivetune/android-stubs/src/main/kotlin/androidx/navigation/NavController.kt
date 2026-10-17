@@ -37,6 +37,14 @@ class PopUpToBuilder {
 }
 
 open class NavController {
+    companion object {
+        var globalInstance: NavController? = null
+    }
+
+    init {
+        globalInstance = this
+    }
+
     /* Upstream reaches the ambient Context through the controller. */
     val context: android.content.Context get() = android.content.DummyContext()
 

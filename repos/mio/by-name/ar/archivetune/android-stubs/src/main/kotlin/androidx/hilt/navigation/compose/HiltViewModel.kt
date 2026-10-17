@@ -9,6 +9,7 @@ import java.lang.reflect.Modifier
 @Composable
 inline fun <reified VM : ViewModel> hiltViewModel(): VM {
     val backStackEntry = androidx.navigation.compose.LocalCurrentBackStackEntry.current
+        ?: androidx.navigation.NavController.globalInstance?.currentBackStackEntry
     val savedStateHandle = backStackEntry?.savedStateHandle
     return remember(backStackEntry, VM::class.java) {
         _createViewModelInstance(VM::class.java, savedStateHandle) as VM
