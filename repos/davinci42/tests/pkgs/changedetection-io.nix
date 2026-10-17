@@ -60,8 +60,10 @@ pkgs.runCommand "changedetection-io-dependency-check"
     from pydantic import ValidationError
 
     from changedetectionio import html_tools
+    from changedetectionio.favicon_utils import get_favicon_mime_type
     from changedetectionio.jinja2_custom import unixtime
     from changedetectionio.model.LLMSettings import LLMSettings
+    from changedetectionio.processors.magic import guess_stream_type
     from changedetectionio.processors.restock_diff import Restock
     from jsonpath_ng.ext import parse
 
@@ -70,6 +72,11 @@ pkgs.runCommand "changedetection-io-dependency-check"
     assert [match.value for match in parse("$.prices[*]").find(payload)] == payload["prices"]
     assert Restock().parse_currency("39,99") == 39.99
     assert "Example" in html_tools.xpath_filter("//title/text()", "<html><title>Example</title></html>")
+    assert guess_stream_type(http_content_header="text/html", content="%PDF-1.5\n").is_pdf
+    with tempfile.NamedTemporaryFile(suffix=".bin") as favicon:
+        favicon.write(b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR")
+        favicon.flush()
+        assert get_favicon_mime_type(favicon.name) == "image/png"
     settings = LLMSettings.model_validate({"enabled": False})
     assert settings.model_dump()["enabled"] is False
     try:

@@ -42,9 +42,10 @@ are not run.
 
 The package uses the caller's Python dependencies and relaxes reviewed version
 pins where the application still uses compatible APIs. The additional relaxations
-for elementpath, greenlet, jsonpath-ng, orjson, pydantic and python-engineio retain
-the previously working dependency versions and are covered by the installed
-checks. They do not promise every feature of the newer dependency releases.
+for elementpath, greenlet, jsonpath-ng, orjson, puremagic, pydantic and
+python-engineio retain the previously working dependency versions and are covered
+by the installed checks. They do not promise every feature of the newer
+dependency releases.
 
 The lxml minimum is not relaxed: versions below 6.1.3 lack an external parameter
 entity security fix. The package supplies 6.1.3 when needed and rewires its runtime

@@ -54,6 +54,7 @@ pythonPackages.buildPythonApplication (finalAttrs: {
     "greenlet"
     "jsonpath-ng"
     "orjson"
+    "puremagic"
     "pydantic"
     "pyppeteer-ng"
     "python-engineio"

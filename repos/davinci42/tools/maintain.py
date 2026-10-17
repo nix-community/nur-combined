@@ -130,34 +130,6 @@ def execute_update(
         capture=True,
     )
     _ = run(root, command, env=env)
-    if not detect and Path(command[0]).name == "nix-update":
-        refresh_sources(root, package)
-
-
-def refresh_sources(root: Path, package: str) -> None:
-    target = root / "pkgs" / package / "default.nix"
-    sources = cast(
-        list[dict[str, str]], update_info(root, package).get("sources", [])
-    )
-    if len({source["hash"] for source in sources if source["hash"]}) <= 1:
-        return
-    content = target.read_text()
-    for source in sources:
-        fetched = cast(
-            dict[str, str],
-            json.loads(
-                run(
-                    root,
-                    ["nix", "store", "prefetch-file", "--json", source["url"]],
-                    capture=True,
-                )
-            ),
-        )["hash"]
-        if source["hash"] != fetched:
-            if content.count(source["hash"]) != 1:
-                raise ValueError("Cannot uniquely locate source hash")
-            content = content.replace(source["hash"], fetched)
-    _ = target.write_text(content)
 
 
 def version(root: Path, package: str) -> str:
