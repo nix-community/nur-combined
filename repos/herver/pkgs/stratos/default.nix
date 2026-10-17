@@ -10,18 +10,18 @@
 }:
 
 let
-  version = "2.21.2";
+  version = "2.22.0";
   pname = "stratos";
 
   # sha512 published by upstream in latest-linux.yml / latest-linux-arm64.yml
   sources = {
     x86_64-linux = {
       arch = "x86_64";
-      hash = "sha512-rICrC38vqAG29JkgxLsPQodIlDzeCAX5WX42N+BQDDQzbB0n+lfn3ZhRhOshm2a9U7N5+/sVEsAYp3cH6pCqfA==";
+      hash = "sha512-xUEhdNmceQTRCKsKyVGQPMmspzLpt7z5YtzssmuwhlC0JFHRfADZD7ANSSyN/lyvom3SOb79rtz1V4qGSsFQ5Q==";
     };
     aarch64-linux = {
       arch = "arm64";
-      hash = "sha512-OO7uN3sYkZGB3fllovZl4S333e+UaISVKNezn6vYMtSi/5VQ/Q0s1rS0L7b0b9bdfq08NQxSlaFwaWrl7PBX7A==";
+      hash = "sha512-P8Rgj+/9fYIWjUHTF/EpLDxrLGZhCS/XA2tmjTg/uM6/XyHS8gObqLFPLOwrythUX+9YmVJDFSM3/CX9TRdXBA==";
     };
   };
 
@@ -116,9 +116,9 @@ stdenv.mkDerivation {
       chrome_crashpad_handler Stratos $out/lib/stratos/
     cp -r usr/share/icons $out/share/
 
-    cp Stratos.desktop $out/share/applications/stratos.desktop
+    cp stratos.desktop $out/share/applications/stratos.desktop
     substituteInPlace $out/share/applications/stratos.desktop \
-      --replace-fail 'Exec=AppRun --no-sandbox %U' 'Exec=stratos %U'
+      --replace-fail 'Exec=AppRun %U' 'Exec=stratos %U'
 
     makeWrapper $out/lib/stratos/Stratos $out/bin/stratos \
       --set SSL_CERT_FILE "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" \
