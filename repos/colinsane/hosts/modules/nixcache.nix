@@ -32,8 +32,8 @@ in
         type = types.bool;
       };
     in {
-      nixos = subOpt true;
-      cachix = subOpt true;
+      nixos = subOpt false;
+      cachix = subOpt false;
     };
     sane.nixcache.remote-builders.desko = mkOption {
       default = true;
@@ -50,39 +50,57 @@ in
     # to explicitly build from a specific cache (in case others are down):
     # - `nixos-rebuild ... --option substituters https://cache.nixos.org`
     # - `nix build ... --substituters ""`
-    nix.settings.substituters = lib.mkIf cfg.enable (lib.flatten [
-      (lib.optional cfg.substituters.nixos  "https://cache.nixos.org/")
-      (lib.optional cfg.substituters.cachix "https://nix-community.cachix.org")
-    ]);
+    nix.settings.substituters = lib.mkIf cfg.enable (lib.mkForce (
+      # XXX mkForce so as to not inherit nixpkgs' defaults here
+      lib.optionals cfg.substituters.nixos [
+        "https://cache.nixos.org/"
+      ] ++ lib.optionals cfg.substituters.cachix [
+        "https://nix-community.cachix.org"
+      ]
+    ));
     # always trust our keys (so one can explicitly use a substituter even if it's not the default).
     # note that these are also used to sign paths before deploying over SSH; not just nix-serve.
-    nix.settings.trusted-public-keys = lib.mkIf cfg.enable-trusted-keys [
-      "nixcache.uninsane.org:r3WILM6+QrkmsLgqVQcEdibFD7Q/4gyzD9dGT33GP70="
-      "desko:Q7mjjqoBMgNQ5P0e63sLur65A+D4f3Sv4QiycDIKxiI="
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    ];
+    nix.settings.trusted-public-keys = lib.mkIf cfg.enable-trusted-keys (lib.mkForce (
+      [
+        "nixcache.uninsane.org:r3WILM6+QrkmsLgqVQcEdibFD7Q/4gyzD9dGT33GP70="
+        "desko:Q7mjjqoBMgNQ5P0e63sLur65A+D4f3Sv4QiycDIKxiI="
+      ] ++ lib.optionals cfg.substituters.nixos [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      ] ++ lib.optionals cfg.substituters.cachix [
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ]
+    ));
 
     nix.buildMachines = [
       (lib.mkIf cfg.remote-builders.desko {
-        hostName = "desko";
+        hostName = "desko-hn";
         system = "x86_64-linux";
         protocol = "ssh-ng";
-        maxJobs = 4; # constrained by ram, for things like webkitgtk, etc.
-        speedFactor = 8;
+        maxJobs = 32; # constrained by ram, for things like webkitgtk, etc.
+        speedFactor = 16;
+        supportedFeatures = [ "big-parallel" ];
+        mandatoryFeatures = [ ];
+        sshUser = "nixremote";
+        sshKey = config.sops.secrets."nixremote_ssh_key".path;
+      })
+      (lib.mkIf cfg.remote-builders.desko {
+        hostName = "desko";  #< non-wireguard, so as to not depend on servo liveness
+        system = "x86_64-linux";
+        protocol = "ssh-ng";
+        maxJobs = 32; # constrained by ram, for things like webkitgtk, etc.
+        speedFactor = 16;
         supportedFeatures = [ "big-parallel" ];
         mandatoryFeatures = [ ];
         sshUser = "nixremote";
         sshKey = config.sops.secrets."nixremote_ssh_key".path;
       })
       (lib.mkIf cfg.remote-builders.servo {
-        hostName = "servo";
+        hostName = "servo-hn";
         system = "x86_64-linux";
         protocol = "ssh-ng";
-        maxJobs = 3; # constrained by ram, for things like webkitgtk, etc.
-        speedFactor = 2;
-        supportedFeatures = [
-          # "big-parallel"  # it can't reliably build webkitgtk
-        ];
+        maxJobs = 8; # constrained by ram, for things like webkitgtk, etc.
+        speedFactor = 4;
+        supportedFeatures = [ "big-parallel" ];
         mandatoryFeatures = [ ];
         sshUser = "nixremote";
         sshKey = config.sops.secrets."nixremote_ssh_key".path;

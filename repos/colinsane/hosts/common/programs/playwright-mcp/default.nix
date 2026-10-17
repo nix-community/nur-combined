@@ -10,8 +10,8 @@
         postInstall = (prevAttrs.postInstall or "") + ''
           substituteInPlace $out/lib/node_modules/playwright-core/lib/coreBundle.js \
             --replace-fail \
-              '_computeRelativeTo(fileName) {' \
-              '_computeRelativeTo(fileName) { return fileName;'
+              'const rel = import_path46.default.relative(this._clientWorkspace, fileName);' \
+              'const rel = import_path46.default.resolve(fileName);'
         '';
       });
     };

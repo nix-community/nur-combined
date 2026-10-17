@@ -764,9 +764,9 @@
     "name": "Qwen 3.8 27B Uncensored",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.000125,
-      "completion": 1.2,
+      "completion": 2.5,
       "currency": "USD",
-      "prompt": 0.15,
+      "prompt": 0.75,
       "unit": "per_million_tokens"
     },
     "context_length": 1010000,
@@ -1071,9 +1071,9 @@
     "name": "Qwen 3.8 27B Uncensored Thinking",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.000125,
-      "completion": 1.2,
+      "completion": 2.5,
       "currency": "USD",
-      "prompt": 0.15,
+      "prompt": 0.75,
       "unit": "per_million_tokens"
     },
     "context_length": 1010000,
@@ -2670,10 +2670,10 @@
     "id": "claw-high",
     "name": "Claw High",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00013,
-      "completion": 2.2,
+      "cacheReadInputPer1kTokens": 0.0002,
+      "completion": 1.1,
       "currency": "USD",
-      "prompt": 0.7,
+      "prompt": 0.6,
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
@@ -2691,10 +2691,10 @@
     "id": "claw-medium",
     "name": "Claw Medium",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00013,
-      "completion": 2.2,
+      "cacheReadInputPer1kTokens": 0.0002,
+      "completion": 1.1,
       "currency": "USD",
-      "prompt": 0.7,
+      "prompt": 0.6,
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
@@ -2712,10 +2712,10 @@
     "id": "claw-low",
     "name": "Claw Low",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00013,
-      "completion": 2.2,
+      "cacheReadInputPer1kTokens": 0.0002,
+      "completion": 1.1,
       "currency": "USD",
-      "prompt": 0.7,
+      "prompt": 0.6,
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
@@ -2733,10 +2733,10 @@
     "id": "hermes-high",
     "name": "Hermes High",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00013,
-      "completion": 2.2,
+      "cacheReadInputPer1kTokens": 0.0002,
+      "completion": 1.1,
       "currency": "USD",
-      "prompt": 0.7,
+      "prompt": 0.6,
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
@@ -2754,10 +2754,10 @@
     "id": "hermes-medium",
     "name": "Hermes Medium",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00013,
-      "completion": 2.2,
+      "cacheReadInputPer1kTokens": 0.0002,
+      "completion": 1.1,
       "currency": "USD",
-      "prompt": 0.7,
+      "prompt": 0.6,
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
@@ -2775,10 +2775,10 @@
     "id": "hermes-low",
     "name": "Hermes Low",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00013,
-      "completion": 2.2,
+      "cacheReadInputPer1kTokens": 0.0002,
+      "completion": 1.1,
       "currency": "USD",
-      "prompt": 0.7,
+      "prompt": 0.6,
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
@@ -7319,10 +7319,10 @@
     "id": "z-ai/glm-latest",
     "name": "GLM Latest",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00013,
-      "completion": 2.2,
+      "cacheReadInputPer1kTokens": 0.0002,
+      "completion": 1.1,
       "currency": "USD",
-      "prompt": 0.7,
+      "prompt": 0.6,
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
@@ -7403,10 +7403,10 @@
     "id": "z-ai/glm-5.3",
     "name": "GLM 5.3",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00013,
-      "completion": 2.2,
+      "cacheReadInputPer1kTokens": 0.0002,
+      "completion": 1.1,
       "currency": "USD",
-      "prompt": 0.7,
+      "prompt": 0.6,
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
@@ -7424,10 +7424,10 @@
     "id": "z-ai/glm-5.3:thinking",
     "name": "GLM 5.3 Thinking",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00013,
-      "completion": 2.2,
+      "cacheReadInputPer1kTokens": 0.0002,
+      "completion": 1.1,
       "currency": "USD",
-      "prompt": 0.7,
+      "prompt": 0.6,
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
@@ -13175,10 +13175,10 @@
     "id": "qwen/qwen3-coder-next",
     "name": "Qwen3 Coder Next",
     "pricing": {
-      "cacheReadInputPer1kTokens": null,
-      "completion": 1.5,
+      "cacheReadInputPer1kTokens": 7.9764e-05,
+      "completion": 0.80293,
       "currency": "USD",
-      "prompt": 0.2,
+      "prompt": 0.250251,
       "unit": "per_million_tokens"
     },
     "context_length": 262144,

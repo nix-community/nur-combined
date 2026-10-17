@@ -1,7 +1,8 @@
 # tracking:
 # - all cross compilation PRs: <https://github.com/NixOS/nixpkgs/labels/6.topic%3A%20cross-compilation>
 # - potential idiom to fix cross cargo-inside-meson: <https://github.com/NixOS/nixpkgs/pull/434878>
-
+#
+# package overrides throughout this file are (with exception) sorted alphabetically by attrname
 final: prev:
 let
   inherit (prev) lib;

@@ -1,0 +1,87 @@
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../../../integrations/nix-shell --arg f 'ps: [ ps.bash ps.git ]'
+set -euo pipefail
+
+usage() {
+  echo "git-cherry-pick [-i] REVISION_RANGE [REVISION_RANGE...]"
+  echo "  cherry-picks from any range 'git log' accepts"
+  echo
+  echo "flags:"
+  echo "  -i : interactively select which commits within the range to apply;"
+  echo "       like 'git rebase -i'"
+}
+
+interactive=
+revs=()
+todoFile=
+parseArgs() {
+  while [ "$#" -ne 0 ]; do
+    local arg=$1
+    shift
+    case $arg in
+      (-h|--help)
+        usage
+        exit 0
+        ;;
+      (-i)
+        interactive=1
+        ;;
+      (--edit-todo)
+        # internal: invoked by `git rebase` as GIT_SEQUENCE_EDITOR
+        todoFile="$1"
+        shift
+        ;;
+      (*)
+        revs+=("$arg")
+        ;;
+    esac
+  done
+}
+
+parseArgs "$@"
+
+if [ -n "$todoFile" ]; then
+  # prepend our picks to git's todo file (dropping its "noop"), then hand off to the user's editor
+  mapfile -t gitTodo < "$todoFile"
+  {
+    printf '%s\n' "$GIT_CHERRY_PICK_INTERACTIVE_TODO"
+    for line in "${gitTodo[@]}"; do
+      if [ "$line" != noop ]; then
+        printf '%s\n' "$line"
+      fi
+    done
+  } > "$todoFile"
+  eval "$GIT_CHERRY_PICK_INTERACTIVE_EDITOR \"\$todoFile\""
+  exit
+fi
+
+if [ -z "$interactive" ]; then
+  # N.B.: stock `git cherry-pick` would treat `-i` as `--regexp-ignore-case`
+  exec git cherry-pick "${revs[@]}"
+fi
+
+if [ "${#revs[@]}" -eq 0 ]; then
+  usage
+  exit 1
+fi
+
+# like `git cherry-pick`: walk history (oldest first) only if some rev is negative (A..B, ^A, B^!),
+# else take exactly the named commits, in the order given.
+logArgs=(--no-walk=unsorted)
+mapfile -t parsedRevs < <(git rev-parse --revs-only "${revs[@]}")
+for rev in "${parsedRevs[@]}"; do
+  if [[ "$rev" == ^* ]]; then
+    logArgs=(--reverse)
+  fi
+done
+
+todo=$(git log "${logArgs[@]}" --no-merges --format='pick %h %s' "${revs[@]}" --)
+if [ -z "$todo" ]; then
+  echo "git-cherry-pick: no commits in ${revs[*]}" >&2
+  exit 1
+fi
+
+GIT_CHERRY_PICK_INTERACTIVE_TODO="$todo" \
+GIT_CHERRY_PICK_INTERACTIVE_EDITOR="$(git var GIT_SEQUENCE_EDITOR)" \
+GIT_SEQUENCE_EDITOR="$(printf '%q' "$0") --edit-todo" \
+  exec git rebase -i HEAD

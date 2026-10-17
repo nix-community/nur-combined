@@ -1,4 +1,5 @@
 ## BUGS
+- gPodder can't download youtube videos
 - alacritty Ctrl+N frequently fails to `cd` to the previous directory
 - `rmDbusServices` may break sandboxing
   - e.g. if the package ships a systemd unit which references $out, then make-sandboxed won't properly update that unit.
@@ -21,6 +22,10 @@
   - repro by `systemctl stop sftpgo` on servo, then watching `mnt-.servo_ftp.{mount,timer}` on desko
 - `ovpns` (and presumably `doof`) net namespaces aren't firewalled
   - not great because things like `bitmagnet` expose unprotected admin APIs by default!
+- strengthen my networking against MTU mismatches
+  - wireguard tunnels should use path-based MTU discovery?
+  - wireguard tunnels should detect failed heartbeats and restart (with delay)
+    - that should fix my stale VLAN stuff with the ISP
 
 ## REFACTORING:
 - hoist `updateTargets`/etc out of `default.nix`
@@ -56,14 +61,17 @@
 - linux: upstream PinePhonePro device trees
   - especially the rt5640 profiles, and in a way which doesn't require alsa-ucm (see my notes in pkgs.pine64-alsa-ucm)
 - nwg-panel: configurable media controls
-- nwg-panel / playerctl hang fix (i think nwg-panel is what should be patched here)
 
 #### easy/granular nixpkgs improvements
 - set `strictDeps = true` on every package (one-by-one): <https://github.com/NixOS/nixpkgs/issues/178468>
 
 
 ## IMPROVEMENTS:
+- `scripts/deploy` should infer the machine from `--deriv`
+- `scripts/deploy` should support multipl `--deriv` options specified in series
+- `scripts/deploy` should allow `--parallel` build/eval
 - adopt `treefmt` for this repo (formats nix, markdown, etc)
+  - plus `git diff --check`?
 - nix: auto-gc roots _based on age_
   - <https://github.com/linyinfeng/angrr>
   - or: add a `post-build-hook` (`man nix.conf`) to add *every* built derivation as a gc root (or profile);
@@ -82,7 +90,6 @@
 - associate `http(s)://*.pdf` with my pdf handler
   - can't do that because lots of applications don't handle URIs
   - could workaround using a wrapper that downloads the file and then passes it to the program
-- geary: replace with envelope
 - gnome calls: implement dialpad for SIP accounts (DTMF): <https://gitlab.gnome.org/GNOME/calls/-/issues/715>
 - port diff activationScript to dix
   - <https://github.com/faukah/dix>
@@ -91,6 +98,7 @@
 - enable `optnix` as a better `man configuration.nix`
   - <https://git.sr.ht/~watersucks/optnix>
 - use `pkgsStatic` or `pkgsCross.musl64` where applicable, for much improved perf?
+- port `moby` to `pkgsCross.aarch64-multiplatform.pkgsMusl`
 
 ### security/resilience
 - /mnt/desko/home, etc, shouldn't include secrets (~/private)

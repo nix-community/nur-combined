@@ -7,12 +7,12 @@
   pkgs,
 }:
 let
-  version = "0-unstable-2026-10-05";
+  version = "0-unstable-2026-10-10";
   src = fetchFromGitHub {
     owner = "vanilla-mobile-nixos";
     repo = "vanilla-mobile-nixos";
-    rev = "def1eb0059eb1f714438a3572ddcd53464874584";
-    hash = "sha256-AEo2cFCVr85mWR7V17HC2R5WKueneds5Cjk43iDaIuA=";
+    rev = "12249725ad040fcd5a260b194be5625022f3892e";
+    hash = "sha256-GWaB/PkfMAn1ztBwMM1Zc6CJiNwcsGrHrqzRqRxdM5g=";
   };
   flake = flake-inputs.import-flake {
     inherit src;

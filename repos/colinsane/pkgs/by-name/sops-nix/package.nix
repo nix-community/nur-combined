@@ -5,12 +5,12 @@
   nix-update-script,
 }:
 let
-  version = "assets-unstable-2026-10-04";
+  version = "assets-unstable-2026-10-11";
   src = applyPatches {
     src = fetchFromGitHub {
       owner = "Mic92";
       repo = "sops-nix";
-      rev = "dcd241ba97088c22569d1573286e1b9daad340c0";
+      rev = "ee48786c6f9160d2c1a084aac841f68195b8420c";
       hash = "sha256-4GuMPW90JSxXWDPUB9M+1m7fYbe3H0apOd86/zBQ2Kw=";
     };
     # XXX(2026-09-16): nixpkgs dropped buildGo125Module; package builds fine with 1.26 instead.
@@ -28,6 +28,7 @@ in src.overrideAttrs (base: {
   # the main output of this derivation is `pkgs.sops-nix.nixosModules.sops`.
   pname = "sops-nix";
   src = src;
+  postPatch = null;
   version = version;
 
   passthru = base.passthru // {

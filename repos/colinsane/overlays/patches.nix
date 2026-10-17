@@ -1,9 +1,75 @@
-final: prev: {
+# this file contains patches relevant to all build configurations, i.e. they fix issues common across:
+# - native x86_64-linux-gnu compilation  (pkgs.${pkg})
+# - native x86_64-linux-musl compilation (pkgsMusl.${pkg})
+# - cross compilation (pkgsCross.aarch64-multiplatform.${pkg})
+# - etc
+#
+# to patch issues _specific_ to one particular build configurations, consult one of these files instead:
+# - overlays/gnu.nix
+# - overlays/musl.nix
+# - overlays/cross.nix
+# - overlays/static.nix  (i.e. pkgsStatic.${pkg})
+#
+# before editing any of these files, first check if the fix already exists as an open PR against nixpkgs.
+# if so, invoke `scripts/vendor-patch ${PR_URL_OR_COMMIT_HASH}` instead:
+# this downloads the patch to pkgs/by-name/nixpkgs-bootstrap/patches, where it will take effect automatically.
+#
+# package overrides throughout this file are sorted alphabetically by attrname.
+final: prev: let
+  inherit (final) lib;
+in {
   bind = prev.bind.overrideAttrs {
     # XXX(2026-10-11): isc_rwlock_benchmark fails for extremely high core count (512).
     # `nix-build -A bind --cores 32` still causes it to use 512 cores.
     doCheck = false;
   };
+
+  # XXX(2026-10-02): gcc15 -> gcc16 upgrade detects more warnings than before; default -Werror flag breaks the build.
+  # clightning = prev.clightning.overrideAttrs (prevAttrs: {
+  #   env = prevAttrs.env // {
+  #     NIX_CFLAGS_COMPILE = (prevAttrs.env.NIX_CFLAGS_COMPILE or "") + " -Wno-error=discarded-qualifiers";
+  #   };
+  # });
+
+  # XXX(2026-10-16): `nix-build -A haskell.compiler.ghc910` fails on high-core count machines.
+  # the musl and gnu forms both fail, for different reasons; reducing core count solves both.
+  # gnu fails early:
+  # > Running phase: buildPhase
+  # > hadrianFlags: --flavour=release+split_sections --bignum=gmp --docs=no-sphinx-pdfs --hash-unit-ids -j512
+  # > /nix/store/rplwbx3hgs4wzc9hcs6r3cgp9r048fgl-stdenv-linux/setup: line 1775:  4318 Segmentation fault         (core dumped) hadrian "${hadrianFlags[@]}" binary-dist-dir
+  # musl fails:
+  # ghc-musl> Running phase: buildPhase
+  # ghc-musl> hadrianFlags: --flavour=release+split_sections --bignum=gmp --docs=no-sphinx --hash-unit-ids -j512
+  # ghc-musl> hadrian: out of memory
+  # error: builder for '/nix/store/c2bng26g9wqb5prqvi4r8wxqj4liwkkl-ghc-musl-9.10.3.drv' failed with exit code 251;
+  haskell = prev.haskell // {
+    packageOverrides = lib.composeManyExtensions [
+      prev.haskell.packageOverrides
+      (_: hsuper: {
+        # XXX(2026-10-17): fixes hang during checkPhase.
+        fast-logger = final.haskell.lib.overrideCabal hsuper.fast-logger (old: {
+          # one of the tests ("logOrdering"?) scales quadratically w.r.t. core count; hangs altogether (?) at 512 CPUs.
+          # this change from the default -N (all CPUs) to -N2 keeps concurrency w/o scaling by CPU count (allegedly; per GPT 6.1-sol)
+          testFlags = (old.testFlags or []) ++ [ "+RTS" "-N2" "-RTS" ];
+        });
+      })
+    ];
+    compiler = prev.haskell.compiler // {
+      ghc9103 = prev.haskell.compiler.ghc9103.overrideAttrs {
+        # NIX_BUILD_CORES = "8";
+        NIX_BUILD_CORES = "128";
+      };
+      ghc910 = prev.haskell.compiler.ghc910.overrideAttrs {
+        # NIX_BUILD_CORES = "8";
+        NIX_BUILD_CORES = "128";
+      };
+    };
+  };
+
+  # XXX(2026-09-23): `python3Packages.pysaml2` fails build, takes down matrix-syanpse alongside it.
+  matrix-synapse-unwrapped = prev.matrix-synapse-unwrapped.overridePythonAttrs (prevAttrs: {
+    nativeCheckInputs = prev.lib.subtractLists prevAttrs.optional-dependencies.saml2 prevAttrs.nativeCheckInputs;
+  });
 
   # XXX(2026-03-02): libvulkan_nouveau.so crashes on load, on flowy.
   # N.B.: solvable instead with `environment.sessionVariables.VK_LOADER_DRIVERS_DISABLE="*nouveau*";`
@@ -40,20 +106,32 @@ final: prev: {
   #   });
   # });
 
-  # XXX(2026-09-23): `python3Packages.pysaml2` fails build, takes down matrix-syanpse alongside it.
-  matrix-synapse-unwrapped = prev.matrix-synapse-unwrapped.overridePythonAttrs (prevAttrs: {
-    nativeCheckInputs = prev.lib.subtractLists prevAttrs.optional-dependencies.saml2 prevAttrs.nativeCheckInputs;
-  });
-
-  # XXX(2026-10-02): gcc15 -> gcc16 upgrade detects more warnings than before; default -Werror flag breaks the build.
-  clightning = prev.clightning.overrideAttrs (prevAttrs: {
+  pleroma = prev.pleroma.overrideAttrs (prevAttrs: let
+    # XXX(2026-10-16): checkPhase by default takes nearly 2 hours on desko, only to (sometimes?) fail with
+    # > Failed 30 tests. Skipped 4 (3, 1) tests. Passed 629 tests.
+    # N.B.: overridden for pleroma *specifically* only because the root rebar3 package is deeply hidden
+    # (beam.packages.erlang27.rebar3? and overriding that seems not to affect its neighboring rebar3CompileHook).
+    rebar3 = prev.rebar3.overrideAttrs (prevAttrs: {
+      # Common Test spends excessive time starting a scheduler per visible CPU on large builders.
+      ERL_FLAGS = (prevAttrs.ERL_FLAGS or "") + " +S 16:16";
+      # doCheck = false;
+    });
+  in {
     env = prevAttrs.env // {
-      NIX_CFLAGS_COMPILE = (prevAttrs.env.NIX_CFLAGS_COMPILE or "") + " -Wno-error=discarded-qualifiers";
+      MIX_REBAR3 = lib.getExe rebar3;
     };
   });
 
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (pyself: pysuper: {
+      narwhals = pysuper.narwhals.overridePythonAttrs (prevAttrs: {
+        # XXX(2026-10-17): either hangs, or segfaults, during checkPhase, for high core count. i don't remember which.
+        dontUsePytestXdist = true;
+        preCheck = (prevAttrs.preCheck or "") + ''
+          appendToVar pytestFlags "--numprocesses=$((NIX_BUILD_CORES > 8 ? 8 : NIX_BUILD_CORES))"
+        '';
+      });
+
       # 2026-10-03: still required
       torchaudio = pysuper.torchaudio.overridePythonAttrs {
         # XXX(2026-07-25): hangs around test/torchaudio_unittest/functional/torchscript_consistency_cuda_test.py
@@ -62,8 +140,8 @@ final: prev: {
     })
   ];
 
-  slurp = if final.lib.versionAtLeast prev.slurp.version "1.5.1" then
-    final.lib.warnOnInstantiate "new slurp screenshotter may fail: test before committing" prev.slurp
+  slurp = if lib.versionAtLeast prev.slurp.version "1.5.1" then
+    lib.warnOnInstantiate "new slurp screenshotter may fail: test before committing" prev.slurp
   else
     prev.slurp
   ;
@@ -88,5 +166,13 @@ final: prev: {
       # 2026-04-22: from checkraisefold to fix <https://github.com/flatpak/xdg-dbus-proxy/issues/67>
       # ./patches/xdg-dbus-proxy/monotonic-serial.patch
     ];
+  });
+
+  zoekt = prev.zoekt.overrideAttrs (prevAttrs: {
+    # XXX(2026-10-13): TestServer_parallelism assumes 4 * GOMAXPROCS < 2048.
+    # Limit test parallelism so it also passes on builders with >= 512 CPUs.
+    preCheck = (prevAttrs.preCheck or "") + ''
+      export GOMAXPROCS=16
+    '';
   });
 }

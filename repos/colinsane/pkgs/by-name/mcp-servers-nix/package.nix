@@ -12,8 +12,8 @@ let
   src = fetchFromGitHub {
     owner = "natsukium";
     repo = "mcp-servers-nix";
-    rev = "e83025295abcb387d9e632cc6d405460d9b31e41";
-    hash = "sha256-9WXOn/l1HeeZ8iiOuecRXrUnyMwJzuWQRDqzV2C6Z68=";
+    rev = "1e69e55cd3416427f54df7216f771d68162a32cb";
+    hash = "sha256-vUKpZao/sExKmV2m3mkdyMaWVJ5X07GBc+edkfJHP+U=";
   };
   flake = flake-inputs.import-flake {
     inherit src;

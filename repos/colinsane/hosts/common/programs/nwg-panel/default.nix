@@ -11,21 +11,6 @@ let
     type = lib.types.bool;
     inherit default description;
   };
-  playerctl = pkgs.playerctl.overrideAttrs (upstream: {
-    patches = (upstream.patches or []) ++ [
-      (pkgs.fetchpatch {
-        # playerctl, when used as a library, doesn't expect its user to `unref` it inside a glib signal.
-        # nwg-panel does this though, and then segfaults.
-        # playerctl project looks dead as of 2024/06/19, no hope for upstreaming this.
-        # - <https://github.com/altdesktop/playerctl/>
-        # TODO: consider removing this if nwg-panel code is changed to not trigger this.
-        # - <https://github.com/nwg-piotr/nwg-panel/issues/233>
-        name = "dbus_name_owner_changed_callback: acquire a ref on the manager before using it";
-        url = "https://git.uninsane.org/colin/playerctl/commit/bbcbbe4e03da93523b431ffee5b64e10b17b4f9f.patch";
-        hash = "sha256-l/w+ozga8blAB2wtEd1SPBE6wpHNXWk7NrOL7x10oUI=";
-      })
-    ];
-  });
 in
 {
   sane.programs.torch-toggle = {
@@ -108,12 +93,17 @@ in
       };
     };
 
-    packageUnwrapped = (pkgs.nwg-panel.override {
-      inherit playerctl;
-    }).overrideAttrs (base: {
+    packageUnwrapped = pkgs.nwg-panel.overrideAttrs (base: {
       # patches = (base.patches or []) ++ lib.optionals (!cfg.config.mediaPrevNext) [
       #   ./playerctl-no-prev-next.diff
       # ];
+      src = lib.warnIf (lib.versionOlder "0.12.1" base.version) "nwg-panel outdated: remove patch?" base.src.overrideAttrs {
+        # fetch src from 2026-10-15, which fixes playerctl crash w/o requiring a patched playerctl
+        # https://github.com/nwg-piotr/nwg-panel/pull/460
+        # merged upstream, 2026-10-10
+        rev = "27ede8e0a4e4a8ddb19120a0b4cf18edecd7e81e";
+        hash = "sha256-fthwVSRoHWOg1+dkc1txlF5Wo2kPKoeCChUlqOy1azc=";
+      };
       patches = (base.patches or []) ++ [
         (pkgs.fetchpatch {
           # upstreaming: <https://github.com/nwg-piotr/nwg-panel/pull/309>
@@ -121,11 +111,12 @@ in
           name = "playerctl: add settings to control which elements are displayed";
           hash = "sha256-OofS46wAI3EDE3JbYs/Nn+Vkw9TP1mwSFvk+vBERg2s=";
         })
-        (pkgs.fetchpatch {
-          url = "https://git.uninsane.org/colin/nwg-panel/commit/17bdd5dc01da630781ed6ca93854f419558347bf.patch";
-          name = "notifications: subscribe to swaync-client, don't poll";
-          hash = "sha256-mjuIt+q67kJPtSa9H9C40SJ0a3jWSTSRPhhlZLVc164=";
-        })
+        # fixed upstream in <https://github.com/nwg-piotr/nwg-panel/pull/447>
+        # (pkgs.fetchpatch {
+        #   url = "https://git.uninsane.org/colin/nwg-panel/commit/17bdd5dc01da630781ed6ca93854f419558347bf.patch";
+        #   name = "notifications: subscribe to swaync-client, don't poll";
+        #   hash = "sha256-mjuIt+q67kJPtSa9H9C40SJ0a3jWSTSRPhhlZLVc164=";
+        # })
       ];
 
       # - disable the drop-down chevron by the controls.

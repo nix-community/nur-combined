@@ -6,6 +6,13 @@
   symlinkJoin,
 }:
 let
+  git-cherry-pick = static-nix-shell.mkBash {
+    pname = "git-cherry-pick";
+    srcRoot = ./.;
+    pkgs = {
+      inherit git;
+    };
+  };
   git-pr = static-nix-shell.mkBash {
     pname = "git-pr";
     srcRoot = ./.;
@@ -35,6 +42,7 @@ in
 symlinkJoin {
   name = "git-sane";
   paths = [
+    git-cherry-pick
     git-pr
     git-pshow
     git-work

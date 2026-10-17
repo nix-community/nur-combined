@@ -258,23 +258,46 @@ in
         fi
       }
 
-      # HACK to support `git work NEW_DIR`, `git pr FOO`, ...: in order for this to `cd` into NEW_DIR,
-      # it has to run as a shell function -- not a subprocess.
-      # TODO: this should live in the `git-sane` package itself.
+      # this achieves two things:
+      # 1. allow select git subcommands to execute within the shell, instead of as a subprocess (`git work ...`, `git pr ...`).
+      # 2. give higher precedence to git extensions than git builtins (e.g. `git cherry-pick` will prefer a `git-cherry-pick` binary over the builtin).
       function git() {
         emulate -L zsh
         setopt err_return nounset pipefail
-        if [[ "$1" == "pr" ]]; then
+        if [ "$#" -ne 0 ] && command -v "git-$1" > /dev/null; then
+          local subcommand=$1
           shift
-          local dir=$(command git pr "$@")
-          cd "$dir"
-        elif [[ "$1" == "work" ]]; then
-          shift
-          local dir=$(command git work "$@")
-          cd "$dir"
+          # allow extensions to override builtin git behavior (e.g. git-sane's `git-cherry-pick` extension)
+          "git-$subcommand" "$@"
         else
+          # default git resolution
           command git "$@"
         fi
+      }
+      # HACK: expand `git cp=cherry-pick` alias here instead of inside git
+      # because git's alias expansion would route that to the builtin `cherry-pick`, not my git-sane `git-cherry-pick`.
+      function git-cp() {
+        emulate -L zsh
+        setopt err_return nounset pipefail
+        git cherry-pick "$@"
+      }
+
+      # HACK to support `git work NEW_DIR`, `git pr FOO`, ...: in order for this to `cd` into NEW_DIR,
+      # it has to run as a shell function -- not a subprocess.
+      # TODO: this should live in the `git-sane` package itself.
+      function git-pr() {
+        emulate -L zsh
+        setopt err_return nounset pipefail
+        local dir
+        dir=$(command git pr "$@")
+        cd "$dir"
+      }
+      function git-work() {
+        emulate -L zsh
+        setopt err_return nounset pipefail
+        local dir
+        dir=$(command git work "$@")
+        cd "$dir"
       }
     '';
 

@@ -27,6 +27,8 @@
 # 3. `overrideAttrs (prevAttrs: { patches = (prevAttrs.patches or []) ++ [(fetchAports { ...})]; })`.
 # 4. fetchCports; fetchVoid; fetch${distro}  (create the fetcher if it doesn't exist yet).
 # 5. `postPatch = (prevAttrs.postPatch or "") + ''...'';` ONLY as a last resort.
+#
+# package overrides throughout this file are (with exception) sorted alphabetically by attrname
 final: super:
 let
   inherit (final)
@@ -130,7 +132,7 @@ super.lib.composeManyExtensions [
     #   glibc  #< don't inherit this here: causes mass rebuild
     # ;
 
-    # XXX(2026-10-11): this APPEARS to be no longer necessary, empirically. i did not check why.
+    # 2026-10-16: still required
     # XXX(2026-02-02): a base musl system lacks /dev/input and wifi.
     # this is likely because systemd can't modprobe the appropriate modules.
     # > systemd-modules-load: Failed to initialize libkmod context: Not supported
@@ -146,36 +148,43 @@ super.lib.composeManyExtensions [
     # on success: "Module 'ctr' is built in"
     # on failure: "Failed to initialize libkmod context: Not supported"
     #
+    # the other failure mode without this patch is that nixos deploy fails:
+    # ```
+    # $ sudo SYSTEMD_LOG_LEVEL=debug /nix/store/f82nxr3vb5rglh4h5niynddgfwqj4vd2-systemd-261.3/bin/bootctl --esp-path=/boot --variables=no install
+    # Shared library 'libblkid.so.1' is not available: Error loading shared library libblkid.so.1: No such file or directory
+    # (exit 1)
+    # ```
+    #
     # TODO: scope this down / simplify
     #
     # related/alternatives:
     # - <https://github.com/NixOS/nixpkgs/pull/475746>
-    # _pkgsSystemd = prev._pkgsSystemd or (import pkgs.path {
-    #   overlays = [
-    #     (final': prev': {
-    #       _pkgsSystemd = prev';  #< prevents infinite recursion; avoid re-defining _pkgsSystemd if we're already inside it.
-    #       musl = prev'.musl.overrideAttrs (upstream: {
-    #         patches = (upstream.patches or []) ++ [
-    #           (prev.fetchpatch {
-    #             # <https://inbox.vuxu.org/musl/20251017-dlopen-use-rpath-of-caller-dso-v1-1-46c69eda1473@iscas.ac.cn/>
-    #             # 2026-02-02: allegedly, fixes systemd/kmod, particularly:
-    #             # > $ /nix/store/xxx-systemd-258.2/lib/systemd/systemd-modules-load
-    #             # > Failed to initialize libkmod context: Not supported
-    #             # see also:
-    #             # - <https://github.com/NixOS/nixpkgs/pull/475746>
-    #             name = "ldso: Use rpath of dso of caller in dlopen";
-    #             url = "https://inbox.vuxu.org/musl/20251017-dlopen-use-rpath-of-caller-dso-v1-1-46c69eda1473@iscas.ac.cn/raw";
-    #             hash = "sha256-ltg6Vt2EO8VDb/rMZlniPQNz2Kv4TXFOV+4xfnhJ1+Q=";
-    #           })
-    #         ];
-    #       });
-    #     })
-    #   ] ++ overlays;
-    #   localSystem = stdenv.buildPlatform;
-    #   crossSystem = stdenv.hostPlatform;
-    # });
+    _pkgsSystemd = prev._pkgsSystemd or (import pkgs.path {
+      overlays = [
+        (final': prev': {
+          _pkgsSystemd = prev';  #< prevents infinite recursion; avoid re-defining _pkgsSystemd if we're already inside it.
+          musl = prev'.musl.overrideAttrs (upstream: {
+            patches = (upstream.patches or []) ++ [
+              (prev.fetchpatch {
+                # <https://inbox.vuxu.org/musl/20251017-dlopen-use-rpath-of-caller-dso-v1-1-46c69eda1473@iscas.ac.cn/>
+                # 2026-02-02: allegedly, fixes systemd/kmod, particularly:
+                # > $ /nix/store/xxx-systemd-258.2/lib/systemd/systemd-modules-load
+                # > Failed to initialize libkmod context: Not supported
+                # see also:
+                # - <https://github.com/NixOS/nixpkgs/pull/475746>
+                name = "ldso: Use rpath of dso of caller in dlopen";
+                url = "https://inbox.vuxu.org/musl/20251017-dlopen-use-rpath-of-caller-dso-v1-1-46c69eda1473@iscas.ac.cn/raw";
+                hash = "sha256-ltg6Vt2EO8VDb/rMZlniPQNz2Kv4TXFOV+4xfnhJ1+Q=";
+              })
+            ];
+          });
+        })
+      ] ++ overlays;
+      localSystem = stdenv.buildPlatform;
+      crossSystem = stdenv.hostPlatform;
+    });
 
-    # inherit (final._pkgsSystemd) systemd;
+    inherit (final._pkgsSystemd) systemd;
     # _pkgsSystemd = prev.extend (final': prev': {
     #   # _pkgsSystemd = final';  #< prevents infinite recursion; avoid re-defining _pkgsSystemd if we're already inside it.
     #   # _pkgsSystemd = null;
@@ -348,18 +357,6 @@ super.lib.composeManyExtensions [
     # });
 
     # 2026-10-03: still required
-    # knot-dns tests fail because musl doesn't find its tzdata in the nix build sandbox
-    # > not ok 47 - time_print isoZ result '1970-01-01T12:13:20+00:00' == '1970-01-01T13:13:20+01:00'
-    # > not ok 49 - time_print isoZ_ex result '1970-01-01T12:13:20.012+00:00
-    knot-dns = prev.knot-dns.overrideAttrs (prevAttrs: {
-      # doCheck = false;
-      postPatch = (prevAttrs.postPatch or "") + ''
-        substituteInPlace tests/contrib/test_time.c \
-          --replace-fail 'putenv("TZ=Europe/Prague");' 'putenv("TZ=UTC-1");'
-      '';
-    });
-
-    # 2026-10-03: still required
     ffmpeg_7 = prev.ffmpeg_7.overrideAttrs {
       # 2026-02-03: two tests fail: tests/data/hls-list.append.m3u8, tests/data/hls-list.m3u8
       # Alpine disables check because "tests/data/hls-lists.append.m3u8 [sic] fails".
@@ -396,21 +393,6 @@ super.lib.composeManyExtensions [
           hash = "sha256-vwOxK3xmwssUNrExPMotaS+y23ZM1QvYXEk/izfpS6w=";
         })
       ];
-      doCheck = false;
-    });
-
-    # 2026-10-03: still required
-    # 2026-01-28: disable malcontent to unblock flatpak: it's some "parental controls" thing?
-    # flatpak -> malcontent -> accountsservice (broken).
-    flatpak = prev.flatpak.override {
-      withMalcontent = false;
-    };
-
-    # 2026-10-03: still required
-    # sqlite build hangs on musl during TCL extension compilation (tclsqlite-ex.c).
-    # disable TCL support and checks to unblock the build.
-    sqlite = prev.sqlite.overrideAttrs (upstream: {
-      configureFlags = (upstream.configureFlags or []) ++ [ "--disable-tcl" ];
       doCheck = false;
     });
 
@@ -741,15 +723,16 @@ super.lib.composeManyExtensions [
       ];
     });
 
-    tor-browser-from-src = prev.tor-browser-from-src.overrideAttrs (upstream: {
-      patches = (upstream.patches or []) ++ [
-        (fetchAports {
-          # 2026-07-28: fixes "/nix/store/hsvrmvp1i7k326fpvdrg99gmka863fwi-musl-1.2.5-dev/include/sys/prctl.h:88:8: error: redefinition of 'prctl_mm_map'"
-          path = "community/firefox/musl-no-linux-prctl.patch";
-          hash = "sha256-Mwyvdqc//WvSn7HqbkCILipl2C9Qo0T3ZQWbYPtGK8A=";
-        })
-      ];
-    });
+    # 2026-10-03: still required
+    # 2026-01-28: disable malcontent to unblock flatpak: it's some "parental controls" thing?
+    # flatpak -> malcontent -> accountsservice (broken).
+    flatpak = prev.flatpak.override {
+      withMalcontent = false;
+    };
+
+    # glibcLocales is null on musl, but some packages still refer to it.
+    # is this sensible? should rather patch those out...
+    # glibcLocales = pkgsCross.gnu64.glibcLocales;
 
     # 2026-10-03: still required
     gmime3 = prev.gmime3.overrideAttrs {
@@ -831,6 +814,18 @@ super.lib.composeManyExtensions [
     };
 
     # 2026-10-03: still required
+    # knot-dns tests fail because musl doesn't find its tzdata in the nix build sandbox
+    # > not ok 47 - time_print isoZ result '1970-01-01T12:13:20+00:00' == '1970-01-01T13:13:20+01:00'
+    # > not ok 49 - time_print isoZ_ex result '1970-01-01T12:13:20.012+00:00
+    knot-dns = prev.knot-dns.overrideAttrs (prevAttrs: {
+      # doCheck = false;
+      postPatch = (prevAttrs.postPatch or "") + ''
+        substituteInPlace tests/contrib/test_time.c \
+          --replace-fail 'putenv("TZ=Europe/Prague");' 'putenv("TZ=UTC-1");'
+      '';
+    });
+
+    # 2026-10-03: still required
     # 2026-01-25: fails building a test, so disable that test. probably not suitable for upstream.
     ldb = prev.ldb.overrideAttrs (upstream: {
       patches = (upstream.patches or []) ++ [
@@ -867,11 +862,6 @@ super.lib.composeManyExtensions [
       doCheck = false;
     };
 
-    # 2026-10-02: pseudotcp and gstreamer tests fail
-    libnice = prev.libnice.overrideAttrs {
-      doCheck = false;
-    };
-
     # 2026-10-03: still required
     # 2026-01-29: fails tests
     # > # Begin functests/test_walkone.sh
@@ -903,6 +893,11 @@ super.lib.composeManyExtensions [
 
       doCheck = false;
     });
+
+    # 2026-10-02: pseudotcp and gstreamer tests fail
+    libnice = prev.libnice.overrideAttrs {
+      doCheck = false;
+    };
 
     lixPackageSets = prev.lixPackageSets.extend (_: lixPrev: {
       lix_2_95 = lixPrev.lix_2_95.overrideScope (_: compsPrev: {
@@ -945,17 +940,6 @@ super.lib.composeManyExtensions [
     });
 
     # 2026-10-03: still required
-    wireplumber = prev.wireplumber.overrideAttrs (upstream: {
-      mesonFlags = (upstream.mesonFlags or []) ++ [ "-Ddoc=disabled" ];
-    });
-
-    # 2026-10-03: still required
-    # 2026-07-28: tor package tests fail on musl (test-memwipe exits with status 139/segfault)
-    tor = prev.tor.overrideAttrs (upstream: {
-      doCheck = false;
-    });
-
-    # 2026-10-03: still required
     mesa-demos = prev.mesa-demos.overrideAttrs (upstream: {
       # fixes:
       # > ../src/vulkan/wsi/wayland.c:217:13: error: ‘enter’ undeclared here (not in a function)
@@ -966,6 +950,14 @@ super.lib.composeManyExtensions [
           hash = "sha256-GWRGFOFGeKJXnSS27OMZYlEq53Q9Vx4bOmCo8RNvUJY=";
         })
       ];
+    });
+
+    # 2026-10-16: NetBSD 11.0 removed trailing whitespace that getent.patch still contains.
+    # TODO: send to upstream nixpkgs
+    netbsd = prev.netbsd.overrideScope (_: netbsdPrev: {
+      getent = netbsdPrev.getent.overrideAttrs (prevAttrs: {
+        patchFlags = (prevAttrs.patchFlags or [ "-p1" ]) ++ [ "--ignore-whitespace" ];
+      });
     });
 
     # 2026-10-03: still required
@@ -1266,26 +1258,6 @@ super.lib.composeManyExtensions [
         #   ];
         # });
 
-        # 2026-10-03: still required
-        ml-dtypes = pysuper.ml-dtypes.overridePythonAttrs (prevAttrs: {
-          # musl's libm returns different NaN and infinity components for complex
-          # functions than glibc, so these upstream comparisons are not portable.
-          disabledTestPaths = (prevAttrs.disabledTestPaths or []) ++ [
-            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arcsin-complex32]"
-            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arcsin-bcomplex32]"
-            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arccos-complex32]"
-            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arccos-bcomplex32]"
-            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arctan-complex32]"
-            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arctan-bcomplex32]"
-            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arcsinh-complex32]"
-            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arcsinh-bcomplex32]"
-            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arccosh-complex32]"
-            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arccosh-bcomplex32]"
-            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arctanh-complex32]"
-            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arctanh-bcomplex32]"
-          ];
-        });
-
         # 2026-08-31: still required
         crawl4ai = (pysuper.crawl4ai.override {
           alphashape = null;
@@ -1307,10 +1279,26 @@ super.lib.composeManyExtensions [
         });
 
         # 2026-10-03: still required
+        # 2026-07-27: curl-cffi tests hang/fail on musl. Disable all tests to ensure build completes.
+        curl-cffi = pysuper.curl-cffi.overridePythonAttrs (prevAttrs: {
+          doCheck = false;
+        });
+
+        # 2026-10-03: still required
         cyclopts = pysuper.cyclopts.override {
           # XXX(2026-06-22): nativeCheckInputs; optional dep.
           fish = null;
         };
+
+        # 2026-10-16: SIGINT does not interrupt lock acquisition on musl, so
+        # both test_interrupt variants hang waiting for the scheduler's queue.
+        # https://github.com/python/cpython/issues/78185
+        # Alpine also deselects this test in community/py3-dask/APKBUILD.
+        dask = pysuper.dask.overrideAttrs (prevAttrs: {
+          disabledTestPaths = (prevAttrs.disabledTestPaths or []) ++ [
+            "dask/tests/test_threaded.py::test_interrupt"
+          ];
+        });
 
         # 2026-10-03: still required
         # XXX(2026-06-22): timezone tests fail
@@ -1339,6 +1327,51 @@ super.lib.composeManyExtensions [
         });
 
         # 2026-10-03: still required
+        ml-dtypes = pysuper.ml-dtypes.overridePythonAttrs (prevAttrs: {
+          # musl's libm returns different NaN and infinity components for complex
+          # functions than glibc, so these upstream comparisons are not portable.
+          disabledTestPaths = (prevAttrs.disabledTestPaths or []) ++ [
+            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arcsin-complex32]"
+            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arcsin-bcomplex32]"
+            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arccos-complex32]"
+            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arccos-bcomplex32]"
+            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arctan-complex32]"
+            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arctan-bcomplex32]"
+            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arcsinh-complex32]"
+            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arcsinh-bcomplex32]"
+            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arccosh-complex32]"
+            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arccosh-bcomplex32]"
+            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arctanh-complex32]"
+            "ml_dtypes/tests/custom_complex_test.py::test_unary_ufuncs[arctanh-bcomplex32]"
+          ];
+        });
+
+        # XXX(2026-10-12): for unknown reasons, the build stalls when invoked with 512 cores -- but only on musl.
+        # polars = pysuper.polars.overrideAttrs (prevAttrs: {
+        #   enableParallelBuilding = false;
+        #   # CARGO_BUILD_JOBS = 8;
+        #   # maturinBuildFlags = (prevAttrs.maturinBuildFlags or []) ++ [
+        #   #   "--jobs=1"
+        #   # ];
+        #   preBuild = ''
+        #     pyproject-build --no-isolation --outdir dist/ --wheel py-polars
+        #     export CARGO_BUILD_JOBS=8
+        #   '';
+        #   # preBuild = (prevAttrs.preBuild or "") + ''
+        #   #   export CARGO_BUILD_JOBS=8
+        #   # '';
+        #   # env = prevAttrs.env // {
+        #   #   CARGO_BUILD_JOBS = 8;
+        #   # };
+        # });
+        #
+        # 2026-10-13: ThinLTO spends over an hour optimizing the musl runtime.
+        # Keep release optimization, but avoid the pathological LTO build time.
+        polars = pysuper.polars.overrideAttrs {
+          CARGO_PROFILE_RELEASE_LTO = "false";
+        };
+
+        # 2026-10-03: still required
         # 2026-08-30: nixpkgs' ctypes patch assumes glibc's libc.so.6 name.
         psycopg = pysuper.psycopg.overridePythonAttrs (upstream: {
           postPatch = upstream.postPatch + ''
@@ -1355,12 +1388,6 @@ super.lib.composeManyExtensions [
             pyself.psutil
           ];
           # optionalDependencies = [];
-        });
-
-        # 2026-10-03: still required
-        # 2026-07-27: curl-cffi tests hang/fail on musl. Disable all tests to ensure build completes.
-        curl-cffi = pysuper.curl-cffi.overridePythonAttrs (prevAttrs: {
-          doCheck = false;
         });
 
         # 2026-08-31: still required
@@ -1514,10 +1541,6 @@ super.lib.composeManyExtensions [
     # };
     slack = final._pkgsGnu.slack;
 
-    # glibcLocales is null on musl, but some packages still refer to it.
-    # is this sensible? should rather patch those out...
-    # glibcLocales = pkgsCross.gnu64.glibcLocales;
-
     # 2026-10-03: still required
     # XXX(2026-01-21): fortify failures only on musl:
     # > In file included from /nix/store/a7ijnxh5xvipgfx2j4wn7p6ff2an966p-fortify-headers-1.1alpine3/include/strings.h:23,
@@ -1575,16 +1598,40 @@ super.lib.composeManyExtensions [
     };
 
     # 2026-10-03: still required
+    # sqlite build hangs on musl during TCL extension compilation (tclsqlite-ex.c).
+    # disable TCL support and checks to unblock the build.
+    sqlite = prev.sqlite.overrideAttrs (upstream: {
+      configureFlags = (upstream.configureFlags or []) ++ [ "--disable-tcl" ];
+      doCheck = false;
+    });
+
+    # 2026-10-03: still required
     # 2026-01-29: fish fails checkPhase on musl, but swaync doesn't seem to actually need it?
     swaynotificationcenter = prev.swaynotificationcenter.override {
       fish = null;
     };
+
+    # 2026-10-03: still required
+    # 2026-07-28: tor package tests fail on musl (test-memwipe exits with status 139/segfault)
+    tor = prev.tor.overrideAttrs (upstream: {
+      doCheck = false;
+    });
 
     # 2026-04-30: still required
     # nixpkgs actually just wraps tor's prebuilt releases.
     # neither alpine, arch, void, appear to build tor from source.
     # guix might be the *only* distro that _appears_ to do a from-source build.
     # tor-browser = final._pkgsGnu.tor-browser;
+
+    tor-browser-from-src = prev.tor-browser-from-src.overrideAttrs (upstream: {
+      patches = (upstream.patches or []) ++ [
+        (fetchAports {
+          # 2026-07-28: fixes "/nix/store/hsvrmvp1i7k326fpvdrg99gmka863fwi-musl-1.2.5-dev/include/sys/prctl.h:88:8: error: redefinition of 'prctl_mm_map'"
+          path = "community/firefox/musl-no-linux-prctl.patch";
+          hash = "sha256-Mwyvdqc//WvSn7HqbkCILipl2C9Qo0T3ZQWbYPtGK8A=";
+        })
+      ];
+    });
 
     # 2026-10-03: still required
     # 2026-06-19: fixes "could not find libSDL3.so" during installCheckPhase.
@@ -1605,6 +1652,11 @@ super.lib.composeManyExtensions [
           hash = "sha256-HgT04rxtu+Zr+F6xXoc7qIyUXGenGNo72VHDCEGJhXo=";
         })
       ];
+    });
+
+    # 2026-10-03: still required
+    wireplumber = prev.wireplumber.overrideAttrs (upstream: {
+      mesonFlags = (upstream.mesonFlags or []) ++ [ "-Ddoc=disabled" ];
     });
 
     # 2026-10-03: still required
@@ -1696,6 +1748,13 @@ super.lib.composeManyExtensions [
       });
     };
 
+    potrace = prev.potrace.overrideAttrs (prevAttrs: {
+      env = (prevAttrs.env or {}) // {
+        # XXX(2026-05-25): it bundles getopt.c, i'm actually not sure why building to an older C spec fixes it.
+        NIX_CFLAGS_COMPILE = (lib.optionalString ((prevAttrs.env.NIX_CFLAGS_COMPILE or "") != "") "${prevAttrs.env.NIX_CFLAGS_COMPILE} ") + "-std=gnu17";
+      };
+    });
+
     sshpass = prev.sshpass.overrideAttrs (prevAttrs: {
       configureFlags = (prevAttrs.configureFlags or []) ++ [ "ac_cv_func_malloc_0_nonnull=yes" ];
     });
@@ -1704,13 +1763,6 @@ super.lib.composeManyExtensions [
       preBuild = (prevAttrs.preBuild or "") + ''
         export BINDGEN_EXTRA_CLANG_ARGS="$BINDGEN_EXTRA_CLANG_ARGS --target=${stdenv.hostPlatform.config}"
       '';
-    });
-
-    potrace = prev.potrace.overrideAttrs (prevAttrs: {
-      env = (prevAttrs.env or {}) // {
-        # XXX(2026-05-25): it bundles getopt.c, i'm actually not sure why building to an older C spec fixes it.
-        NIX_CFLAGS_COMPILE = (lib.optionalString ((prevAttrs.env.NIX_CFLAGS_COMPILE or "") != "") "${prevAttrs.env.NIX_CFLAGS_COMPILE} ") + "-std=gnu17";
-      };
     });
   })
 
