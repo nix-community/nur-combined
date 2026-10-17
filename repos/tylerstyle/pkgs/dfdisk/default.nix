@@ -15,13 +15,13 @@
 }:
 
 let
-  version = "0.2.0";
+  version = "0.2.1";
 
   dfdiskSrc = fetchFromGitHub {
     owner = "tylerstyle";
     repo = "dfdisk";
     tag = "v${version}";
-    hash = "sha256-5gCYQOi6DHQIhdJfYG4KnQFBrhxIVvNE449jpuRckD0=";
+    hash = "sha256-/37FjjcqRoHQX0/dbhB+64bumCLqnxq35m15fOuiRGs=";
   };
 
   # dfdisk depends on dfcore via `path = "../dfcore"`; pin the revision
@@ -59,13 +59,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
   sourceRoot = "${finalAttrs.src.name}/dfdisk";
 
-  cargoHash = "sha256-Q3ZD8Cp+8NggHQVpKiDLryXGULB4jr6up7hPGyid1m4=";
+  cargoHash = "sha256-UoEK3Hdw+RtoAiC0GJSa5kkukWovLAJ+iYovn6xKGP8=";
 
   # build.rs cannot run git in the sandbox. dfdiskSrc is fetched by tag (its
   # rev is "refs/tags/v..."), so the release workflow writes the tag's commit
   # here; the dfcore revision is the pinned one
   env = {
-    DFDISK_GIT_REV = "bf6987309b2fe8aab6dbdca3f4e6612be6533470";
+    DFDISK_GIT_REV = "c7f29fe61f33fc70a72cd9dd2754ff9485948bee";
     DFCORE_GIT_REV = dfcoreSrc.rev;
   };
 
