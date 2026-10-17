@@ -1,22 +1,22 @@
 {
-  buildGoModule,
+  buildGo127Module, # TODO: rollback to buildGoModule once it's using Go >=1.27
   buildNpmPackage,
   fetchFromGitHub,
   nix-update-script,
   lib,
 }:
-buildGoModule (finalAttrs: {
+buildGo127Module (finalAttrs: {
   pname = "safebucket";
-  version = "0.7.5";
+  version = "0.8.0";
 
   src = fetchFromGitHub {
     owner = "safebucket";
     repo = "safebucket";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-ktFAIQYncrWACsoMMSuCmOwTL5+s47XyDqGb7+Gh7Hk=";
+    hash = "sha256-aBOPPXedChviNnmXq+o7Cuc88IuHhLdiVvZLtOPllFA=";
   };
 
-  vendorHash = "sha256-3qK7bNlhpOCcEl1qCG63ZkU/GgEN+/q8qPBi8MoRU6w=";
+  vendorHash = "sha256-+fJq6b+ByFfaXXYGYcqA8FyUvGtP2TweU4nBGjTyKZc=";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -51,7 +51,7 @@ buildGoModule (finalAttrs: {
 
       sourceRoot = "${finalAttrs.src.name}/web";
 
-      npmDepsHash = "sha256-bv+AiReYPCxpNVYASLjZzdO04W2FXoOqhKsECrYwRV0=";
+      npmDepsHash = "sha256-F0pu3mQpGARBnx/OJm7R8FgOLg/w2fel+xjTrXwn8z4=";
 
       installPhase = ''
         runHook preInstall
