@@ -20,17 +20,17 @@ rustPlatform.buildRustPackage rec {
 
   cargoLock.lockFile = ./Cargo.lock;
 
-  nativeBuildInputs = [makeWrapper];
+  nativeBuildInputs = [ makeWrapper ];
 
   postInstall = ''
     wrapProgram $out/bin/nix-reaper \
       --prefix PATH : ${
-      lib.makeBinPath [
-        nix
-        systemd
-        coreutils
-      ]
-    }
+        lib.makeBinPath [
+          nix
+          systemd
+          coreutils
+        ]
+      }
   '';
 
   meta = with lib; {

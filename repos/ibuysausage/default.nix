@@ -22,4 +22,5 @@
   crdl = pkgs.callPackage ./pkgs/crdl { };
   waifufetch = pkgs.callPackage ./pkgs/waifufetch { };
   nix-reaper = pkgs.callPackage ./pkgs/nix-reaper { };
+  surf = pkgs.callPackage ./pkgs/surf { };
 }
