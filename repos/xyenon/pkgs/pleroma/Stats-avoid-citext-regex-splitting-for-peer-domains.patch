@@ -1,0 +1,23 @@
+Subject: [PATCH] Stats: avoid citext regex splitting for peer domains
+
+User nicknames are citext, whose split_part overload uses a case-insensitive
+regular expression. Peer domains only need splitting on a literal '@'.
+Cast to text and use string_to_array instead, preserving NULL for a missing
+second component and avoiding the regex work on every remote user.
+
+---
+ lib/pleroma/stats.ex | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/pleroma/stats.ex b/lib/pleroma/stats.ex
+--- a/lib/pleroma/stats.ex
++++ b/lib/pleroma/stats.ex
+@@ -67,7 +67,7 @@ defmodule Pleroma.Stats do
+     peers =
+       from(
+         u in User,
+-        select: fragment("distinct split_part(?, '@', 2)", u.nickname),
++        select: fragment("distinct (pg_catalog.string_to_array(?::text, '@'))[2]", u.nickname),
+         where: u.local != ^true
+       )
+       |> Repo.all()

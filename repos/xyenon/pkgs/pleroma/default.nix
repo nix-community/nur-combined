@@ -31,6 +31,7 @@ beamPackages.mixRelease rec {
     ./Revert-Config-Restrict-permissions-of-OTP-config.patch
     ./Search-Add-pgroonga.patch
     ./Set-fetch-emoji-timeout-to-120s.patch
+    ./Stats-avoid-citext-regex-splitting-for-peer-domains.patch
   ];
 
   nativeBuildInputs = [
