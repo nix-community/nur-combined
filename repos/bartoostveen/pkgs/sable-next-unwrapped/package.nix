@@ -12,6 +12,7 @@
   wasm-bindgen-cli_0_2_129,
   llvmPackages,
   binaryen,
+  withDeepfilternet ? true,
 }:
 
 let
@@ -40,7 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-7ITF2zHoIvZe87jAqSdkIS29EwLLFPHpML2Ri0ahq+8=";
   };
 
-  postPatch = ''
+  postPatch = lib.optionalString withDeepfilternet ''
     cp --no-preserve all -r ${finalAttrs.deepfilternet} static/deepfilternet3
   '';
 
@@ -71,6 +72,9 @@ stdenv.mkDerivation (finalAttrs: {
   env = {
     VITE_BUILD_HASH = finalAttrs.src.rev;
     SABLE_BUILD_FLAVOR = "stable";
+  }
+  // lib.optionalAttrs (!withDeepfilternet) {
+    SABLE_SKIP_DEEPFILTERNET = true;
   };
 
   buildPhase = ''
