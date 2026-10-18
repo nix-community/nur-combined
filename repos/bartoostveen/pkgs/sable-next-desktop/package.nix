@@ -95,7 +95,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     atk
     cairo
     dbus
-    desktop-file-utils
     gdk-pixbuf
     glib
     gtk3
@@ -539,7 +538,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : "${lib.makeBinPath [ xdg-utils ]}"
+      --prefix PATH : "${
+        lib.makeBinPath [
+          desktop-file-utils
+          xdg-utils
+        ]
+      }"
       --prefix LD_LIBRARY_PATH : "${
         lib.makeLibraryPath [
           libayatana-appindicator
