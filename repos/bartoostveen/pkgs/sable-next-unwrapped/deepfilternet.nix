@@ -30,7 +30,7 @@ stdenv.mkDerivation {
   ];
 
   installPhase = ''
-    node scripts/fetch-deepfilternet.mjs
+    node scripts/build/fetch-deepfilternet.mjs
     mv static/deepfilternet3 $out
   '';
 
