@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
   fetchPypi,
-  fetchurl,
   makeDesktopItem,
   copyDesktopItems,
   makeWrapper,
@@ -13,15 +12,14 @@
   ...
 }:
 let
-  pyqtdarktheme-fork = python3Packages.buildPythonPackage {
+  pyqtdarktheme-fork = python3Packages.buildPythonPackage rec {
     pname = "pyqtdarktheme-fork";
-    version = "2.3.4-unstable-2024-05-16";
+    version = "2.3.6";
 
-    src = fetchFromGitHub {
-      owner = "Radekyspec";
-      repo = "PyQtDarkTheme";
-      rev = "c72da81aa0d26e49f2fc6406fc5c6a57150238f6";
-      hash = "sha256-3xomKhgP9a2jbPk/EDfI+3xFp10ugKCFCuAnSL45U0c=";
+    src = fetchPypi {
+      pname = "pyqtdarktheme_fork";
+      inherit version;
+      hash = "sha256-mrKHoDOkdCdnvLZpj7YCR77veWfXTrlJ96s27oZv8dc=";
     };
 
     format = "pyproject";
@@ -56,36 +54,26 @@ let
 
     doCheck = false;
   };
-
-  velopack = python3Packages.buildPythonPackage rec {
-    pname = "velopack";
-    version = "1.2.0";
-    src = fetchurl {
-      url = "https://files.pythonhosted.org/packages/d7/42/ef12667e6a66ac9716c02c7dda80a246e614a5e5554ac22915b9bc024e59/velopack-1.2.0-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl";
-      hash = "sha256-T8BVawTHpDIZkjDLIH6Hu4KH4BUqX0z9cfq8TjSIQVI=";
-    };
-    format = "wheel";
-    doCheck = false;
-  };
 in
 python3Packages.buildPythonApplication rec {
   pname = "StartLive";
-  # 上游 1.2.0 tag 缺 src/core/exceptions/TitleStatusError.py（启动即 ImportError），
-  # Release-v1.2.1 (84d9d383) 才补上，因此 pin commit 而非 tag。
-  version = "1.2.1";
+  # 1.3.0 restructured the tree into the `startlive` package with a
+  # setuptools entry point (`startlive = "StartLive:cli"`).
+  version = "1.3.0";
 
   src = fetchFromGitHub {
     owner = "Radekyspec";
     repo = pname;
-    rev = "84d9d383cfd15311b83b93d0dac398f98668f11b";
-    hash = "sha256-0Uw1pyuFYpYNxWyJEX9NiV+ASgaE+AY77as4rMt+5+s=";
+    rev = version;
+    hash = "sha256-ZZa/r9iNSCNudPqx6IKhdICqRPwHlbzKABXkd6pxfrg=";
   };
 
-  format = "other";
+  format = "pyproject";
 
   nativeBuildInputs = [
     copyDesktopItems
     makeWrapper
+    python3Packages.setuptools
   ];
 
   buildInputs = [
@@ -104,65 +92,33 @@ python3Packages.buildPythonApplication rec {
         dependencies = dependencies ++ (with optional-dependencies; socks);
       }
     ))
+    brotli
     obsws-python
     keyring
     cryptography
     darkdetect
     semver
     pyqtdarktheme-fork
-    velopack
+    protobuf
   ];
 
-  dontBuild = true;
-  dontConfigure = true;
   dontWrapQtApps = true;
 
-  installPhase = ''
-    runHook preInstall
+  # Upstream requirements pin the exact versions bundled in its release
+  # artifacts (PySide6 ~=6.12, cryptography ~=49, protobuf <7); nixpkgs ships
+  # newer compatible releases (PySide6 6.11, cryptography 50, protobuf 7).
+  # The runtime smoke test covers the actual API surface.
+  dontCheckRuntimeDeps = true;
 
-    # 创建应用目录
-    mkdir -p $out/share/startlive
-
-    # 复制所有 Python 源代码和资源文件
-    cp -r ./* $out/share/startlive/
-
-    # 创建启动脚本
-    mkdir -p $out/bin
-    cat > $out/bin/startlive <<EOF
-    #!${python3Packages.python.interpreter}
-    import sys
-    import os
-
-    # 设置安装目录
-    install_dir = "$out/share/startlive"
-    sys.path.insert(0, install_dir)
-    os.chdir(install_dir)
-
-    # 设置 __file__ 为实际的 StartLive.py 路径,以便应用能正确定位资源
-    __file__ = os.path.join(install_dir, "StartLive.py")
-
-    # 启动主程序
-    exec(compile(open(__file__).read(), __file__, 'exec'))
-    EOF
-    chmod +x $out/bin/startlive
-
-    # Wrap with Qt environment for PySide6 platform plugins
+  postInstall = ''
     wrapProgram $out/bin/startlive \
       --set QT_PLUGIN_PATH "${qt6.qtbase}/lib/qt-6/plugins" \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath buildInputs}"
 
-    # 安装图标
-    mkdir -p $out/share/pixmaps
-    ln -s $out/share/startlive/docs/images/icon_left.png $out/share/pixmaps/startlive.png
-
-    # 安装文档
-    mkdir -p $out/share/doc/startlive
-    ln -s $out/share/startlive/docs $out/share/doc/startlive/docs
-
-    # 安装许可证
-    ln -s $out/share/startlive/LICENSE $out/share/doc/startlive/LICENSE
-
-    runHook postInstall
+    install -Dm644 docs/images/icon_left.png $out/share/pixmaps/startlive.png
+    install -Dm644 docs/README_zh.md $out/share/doc/startlive/README_zh.md
+    install -Dm644 LICENSE $out/share/doc/startlive/LICENSE
+    install -Dm644 LICENSE-ARTWORK $out/share/doc/startlive/LICENSE-ARTWORK
   '';
 
   desktopItems = [

@@ -19,6 +19,7 @@
   ilspycmd,
   jdk21_headless,
   mitmproxy,
+  procps,
   rizin,
   unblob,
   util-linux,
@@ -92,20 +93,20 @@ let
 in
 buildNpmPackage rec {
   pname = "rea-agents";
-  version = "6.5.0";
+  version = "6.7.0";
 
   # Build the pinned upstream source tag; leave its package manifest and lockfile pristine.
   src = fetchFromGitHub {
     owner = "morluto";
     repo = "rea";
     rev = "refs/tags/rea-agents-${version}";
-    hash = "sha256-fPe+tqkSRR5K+zSVWb6kjI6/HbQSJ8DHjLJwSWu8NzI=";
+    hash = "sha256-GKgXQZdzsmr2bEffi+UaffY5TseJ7dSQvWwF1kuz2og=";
   };
 
   # Skip dependency lifecycle scripts: frida's installer attempts a toolchain
   # network download, and no locked Linux x86_64 dependency needs these scripts.
   npmFlags = [ "--ignore-scripts" ];
-  npmDepsHash = "sha256-EQKhS1S7Hsfjbo5GikMeAFc2HFtALsDcw6XnJATUryw=";
+  npmDepsHash = "sha256-BWMsF0ja+AyQg3w7BKVjzbI372HOKd2bFpFwbCAB5cA=";
 
   env = {
     HUSKY = "0";
@@ -117,6 +118,7 @@ buildNpmPackage rec {
   nativeBuildInputs = [
     autoPatchelfHook
     makeWrapper
+    procps
   ];
 
   # libstdc++/libgcc_s for the prebuilt @lydell/node-pty-linux-x64 pty.node.
@@ -168,6 +170,7 @@ buildNpmPackage rec {
   postFixup = ''
     for bin in $out/bin/rea $out/bin/rea-agents; do
       wrapProgram "$bin" \
+        --prefix PATH : ${lib.makeBinPath [ procps ]} \
         --set-default REA_ADB_PATH ${lib.getExe' android-tools "adb"} \
         --set-default REA_APKTOOL_COMMAND ${lib.getExe apktool} \
         --set-default REA_BINWALK_COMMAND ${lib.getExe binwalk} \
