@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, vacuData, ... }:
 let
   cfg = config.vacu.network;
   bridge = cfg.lan_bridge;
@@ -6,7 +6,7 @@ let
   lan_route = {
     Gateway = cfg.ips.t2dRouter;
     GatewayOnLink = true;
-    MTUBytes = 1492;
+    MTUBytes = vacuData.mtu.t2dWan;
   };
 in
 {

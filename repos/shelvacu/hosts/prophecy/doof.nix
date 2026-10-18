@@ -1,4 +1,4 @@
-{ lib, config, ... }:
+{ lib, config, vacuData, ... }:
 let
   inherit (lib) mkOption types;
   cfg = config.vacu.network;
@@ -49,16 +49,7 @@ in
       netdevConfig = {
         Kind = "wireguard";
         Name = doof_if;
-        MTUBytes =
-          let
-            wireguardOverhead = 
-              20 # outer IPv4 header
-              + 8 # udp header
-              + 32 # wireguard header + auth
-              ;
-            wanMtu = 1492;
-          in
-          wanMtu - wireguardOverhead;
+        MTUBytes = vacuData.mtu.wgDoof;
       };
       wireguardConfig = {
         # FirewallMark = "0xd00f";

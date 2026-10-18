@@ -2,6 +2,7 @@
   modulesPath,
   lib,
   config,
+  vacuData,
   ...
 }:
 {
@@ -96,7 +97,7 @@
         {
           Gateway = config.vacuvmGuest.gateway;
           GatewayOnLink = true;
-          MTUBytes = 1432;
+          MTUBytes = vacuData.mtu.wgDoof;
         }
       ]
       ++ lib.optionals (config.vacuvmGuest.ipv6 != null) [
@@ -107,7 +108,7 @@
         {
           Gateway = config.vacuvmGuest.ipv6Gateway;
           GatewayOnLink = true;
-          MTUBytes = 1432;
+          MTUBytes = vacuData.mtu.wgDoof;
         }
       ];
     };
