@@ -4,7 +4,7 @@ hotkey-overlay {
 
 input {
     keyboard {
-        repeat-delay 200
+        repeat-delay 250
         repeat-rate 30
     }
 }

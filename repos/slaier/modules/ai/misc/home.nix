@@ -5,10 +5,6 @@
   ...
 }:
 {
-  home.packages = with pkgs; [
-    geminicommit
-  ];
-
   sops.secrets = {
     tavily = { };
     github = { };

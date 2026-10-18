@@ -1,0 +1,12 @@
+# File: translate.pb.toml
+
+description = "Translate text"
+
+system_prompt = '''
+    Translate the text into {{target_lang}}. Note that you should only output the translated result without any additional explanation.
+'''
+
+template = ""
+
+[options]
+target_lang = { type = "string", default = "zh" }

@@ -2,13 +2,16 @@
 {
   sops.secrets.gemini_api_key = { };
   sops.secrets.opencode_api_key = { };
+  home.packages = with pkgs; [ nur.repos.natsukium.playwright-cli ];
   programs.opencode = {
     enable = true;
     skills.find-flake-input = ./skills/find-flake-input;
     skills.grilling = pkgs.agent-skills.github.mattpocock.skills.grilling;
     skills.i-have-adhd = pkgs.agent-skills.github.ayghri.i-have-adhd.i-have-adhd;
+    skills.playwright-cli = pkgs.agent-skills.github.microsoft.playwright-cli.playwright-cli;
     skills.ponytail = pkgs.agent-skills.github.dietrichgebert.ponytail.ponytail;
     skills.ponytail-review = pkgs.agent-skills.github.dietrichgebert.ponytail.ponytail-review;
+    skills.ponytail-simplify = ./skills/ponytail-simplify;
     skills.skill-creator = ./skills/skill-creator;
     extraPackages = with pkgs; [ rtk ];
     settings = {
