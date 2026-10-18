@@ -27,7 +27,12 @@ else
         if [ "''${1:-}" = "plugin" ]; then
           exec ${lib.getExe dsh} "$@"
         fi
-        exec ${lib.getExe dsh} --patch ${patch} "$@"
+        if [ "''${1:-}" = "" ] || [ "''${1#-}" != "''${1}" ]; then
+          exec ${lib.getExe dsh} --patch ${patch} "$@"
+        fi
+        booted_profile=$1
+        shift
+        exec ${lib.getExe dsh} "$booted_profile" --patch ${patch} "$@"
       '';
     };
   in
