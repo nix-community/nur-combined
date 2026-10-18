@@ -76,5 +76,19 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.agpl3Only;
     maintainers = with lib.maintainers; [ bartoostveen ];
     platforms = lib.platforms.all;
+    knownVulnerabilities = [
+      ''
+        Sable is not maintained upstream anymore. Sable (v1) got superseded by Sable Next (v2).
+        Sable Next is almost a drop-in replacement.
+
+        - `sable-desktop`   got replaced by `sable-next-desktop`
+        - `sable-unwrapped` got replaced by `sable-next-unwrapped`
+        - `sable`           got replaced by `sable-next`
+
+        Consider switching to these packages instead. At the time of writing (2026-10-18),
+        there are no known security vulnerabilities, but given the nature of the JavaScript
+        ecosystem, this package not being maintained anymore should be urgent enough to switch.
+      ''
+    ];
   };
 })
