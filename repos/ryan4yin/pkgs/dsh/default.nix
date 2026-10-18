@@ -98,75 +98,81 @@ let
     mv $out/package.json.tmp $out/package.json
     cp ${./package-lock.json} $out/package-lock.json
   '';
-in
-buildNpmPackage {
-  pname = "dsh";
-  inherit version;
-  src = srcWithLock;
+  dsh = buildNpmPackage {
+    pname = "dsh";
+    inherit version;
+    src = srcWithLock;
 
-  npmDepsFetcherVersion = 2;
-  npmDepsHash = versionData.npmDepsHash;
+    npmDepsFetcherVersion = 2;
+    npmDepsHash = versionData.npmDepsHash;
 
-  dontNpmBuild = true;
+    dontNpmBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [ makeWrapper ];
 
-  postInstall = ''
-    # Replace the native require-builtin probe with the --expose-internals
-    # fallback (see requireBuiltinShim above). The grep guard fails the build
-    # if upstream ever changes the addon entry shape.
-    addonEntry=$out/lib/node_modules/@deepseek-ai/dsh/node_modules/node-addon-require-builtin/lib/index.js
-    grep -q createEntryApi "$addonEntry"
-    install -m644 ${requireBuiltinShim} "$addonEntry"
+    postInstall = ''
+      # Replace the native require-builtin probe with the --expose-internals
+      # fallback (see requireBuiltinShim above). The grep guard fails the build
+      # if upstream ever changes the addon entry shape.
+      addonEntry=$out/lib/node_modules/@deepseek-ai/dsh/node_modules/node-addon-require-builtin/lib/index.js
+      grep -q createEntryApi "$addonEntry"
+      install -m644 ${requireBuiltinShim} "$addonEntry"
 
-    # /bin/bash does not exist on NixOS: the persistent-bash terminal's
-    # DEFAULT_BASH_SHELL literal. The non-interactive `bash` tool resolves
-    # `bash` through PATH instead, which the wrapper below provides.
-    substituteInPlace \
-      $out/lib/node_modules/@deepseek-ai/dsh/node_modules/@deepseek-ai/dsh-terminal-bash/lib/index.js \
-      --replace-fail '"/bin/bash"' '"${lib.getExe bashInteractive}"'
+      # /bin/bash does not exist on NixOS: the persistent-bash terminal's
+      # DEFAULT_BASH_SHELL literal. The non-interactive `bash` tool resolves
+      # `bash` through PATH instead, which the wrapper below provides.
+      substituteInPlace \
+        $out/lib/node_modules/@deepseek-ai/dsh/node_modules/@deepseek-ai/dsh-terminal-bash/lib/index.js \
+        --replace-fail '"/bin/bash"' '"${lib.getExe bashInteractive}"'
 
-    rm $out/bin/dsh
-    makeWrapper ${lib.getExe nodejs} $out/bin/dsh \
-      --argv0 dsh \
-      --add-flags "--expose-internals" \
-      --add-flags "--require" \
-      --add-flags "${workerExecArgvFix}" \
-      --add-flags "$out/lib/node_modules/@deepseek-ai/dsh/lib/bin.js" \
-      --prefix PATH : ${
-        lib.makeBinPath (
-          [
-            bashInteractive # the non-interactive `bash` tool
-            pnpmPinned # dsh plugin / profile installs
-          ]
-          ++ lib.optionals stdenv.hostPlatform.isLinux [ bubblewrap ]
-        )
-      }
-  '';
+      rm $out/bin/dsh
+      makeWrapper ${lib.getExe nodejs} $out/bin/dsh \
+        --argv0 dsh \
+        --add-flags "--expose-internals" \
+        --add-flags "--require" \
+        --add-flags "${workerExecArgvFix}" \
+        --add-flags "$out/lib/node_modules/@deepseek-ai/dsh/lib/bin.js" \
+        --prefix PATH : ${
+          lib.makeBinPath (
+            [
+              bashInteractive # the non-interactive `bash` tool
+              pnpmPinned # dsh plugin / profile installs
+            ]
+            ++ lib.optionals stdenv.hostPlatform.isLinux [ bubblewrap ]
+          )
+        }
+    '';
 
-  doInstallCheck = true;
-  nativeInstallCheckInputs = [
-    versionCheckHook
-    versionCheckHomeHook
-  ];
-  versionCheckProgramArg = "--version";
-
-  passthru.updateScript = mkUpdateScript {
-    name = "dsh";
-    extraRuntimeInputs = [ nodejs ];
-  };
-
-  meta = {
-    description = "Open-source agent harness developed by DeepSeek AI";
-    homepage = "https://github.com/deepseek-ai/deepseek-harness";
-    changelog = "https://github.com/deepseek-ai/deepseek-harness/releases";
-    downloadPage = "https://www.npmjs.com/package/@deepseek-ai/dsh";
-    license = lib.licenses.mit;
-    sourceProvenance = with lib.sourceTypes; [
-      binaryBytecode
-      fromSource
+    doInstallCheck = true;
+    nativeInstallCheckInputs = [
+      versionCheckHook
+      versionCheckHomeHook
     ];
-    mainProgram = "dsh";
-    platforms = lib.platforms.all;
+    versionCheckProgramArg = "--version";
+
+    passthru.updateScript = mkUpdateScript {
+      name = "dsh";
+      extraRuntimeInputs = [ nodejs ];
+    };
+
+    meta = {
+      description = "Open-source agent harness developed by DeepSeek AI";
+      homepage = "https://github.com/deepseek-ai/deepseek-harness";
+      changelog = "https://github.com/deepseek-ai/deepseek-harness/releases";
+      downloadPage = "https://www.npmjs.com/package/@deepseek-ai/dsh";
+      license = lib.licenses.mit;
+      sourceProvenance = with lib.sourceTypes; [
+        binaryBytecode
+        fromSource
+      ];
+      mainProgram = "dsh";
+      platforms = lib.platforms.all;
+    };
   };
-}
+
+in
+dsh.overrideAttrs (old: {
+  passthru = (old.passthru or { }) // {
+    withPlugins = plugins: pkgs.callPackage ./with-plugins.nix { inherit dsh plugins; };
+  };
+})
