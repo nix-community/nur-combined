@@ -26,7 +26,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/lib $out/node_modules/@deepseek-ai
+    mkdir -p $out/lib $out/node_modules
     cp -r lib/. $out/lib/
     cp package.json $out/package.json
     cp ${./cordis.patch.yml} $out/cordis.patch.yml
