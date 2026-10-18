@@ -48,7 +48,9 @@ Telnyx SIP trunk.
   that mapping.
 - **Telnyx is encrypted, JMP.chat can't be.** `vacu.pbx.trunks.<name>.encrypt`
   moves a trunk to SIP over TLS (server cert verified against the system CA
-  bundle) and SDES-SRTP media. Telnyx supports both. JMP's SIP account is a
+  bundle) and SDES-SRTP media. Telnyx supports both. SignalWire's cert only
+  has `*.sip.signalwire.com`, and stock pjsip rejects wildcards (RFC 5922
+  §7.2), so the bundled pjproject is patched to accept them. JMP's SIP account is a
   direct connection to Bandwidth over plain UDP, with no TLS or SRTP on offer,
   so that trunk is cleartext signalling and media. Its only authentication is
   digest on the requests we send.

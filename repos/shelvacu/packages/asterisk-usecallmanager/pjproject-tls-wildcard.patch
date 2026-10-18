@@ -1,0 +1,26 @@
+--- a/pjsip/src/pjsip/sip_transport_tls.c
++++ b/pjsip/src/pjsip/sip_transport_tls.c
+@@ -1956,6 +1956,23 @@
+ 
+             switch (serv_cert->subj_alt_name.entry[i].type) {
+             case PJ_SSL_CERT_NAME_DNS:
++                matched = !pj_stricmp(remote_name, cert_name);
++                /* RFC 6125 6.4.3 wildcard, left-most label only. */
++                if (!matched && cert_name->slen > 2 &&
++                    cert_name->ptr[0] == '*' && cert_name->ptr[1] == '.')
++                {
++                    char *dot = pj_strchr(remote_name, '.');
++                    pj_str_t suffix, cert_suffix;
++
++                    if (dot && dot != remote_name->ptr) {
++                        pj_strset(&suffix, dot, remote_name->slen -
++                                                (dot - remote_name->ptr));
++                        pj_strset(&cert_suffix, cert_name->ptr + 1,
++                                  cert_name->slen - 1);
++                        matched = !pj_stricmp(&suffix, &cert_suffix);
++                    }
++                }
++                break;
+             case PJ_SSL_CERT_NAME_IP:
+                 matched = !pj_stricmp(remote_name, cert_name);
+                 break;

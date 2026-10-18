@@ -41,5 +41,10 @@ lib.throwIf (asterisk.version != version)
       # Appended, so it lands after nixpkgs' own runtime-vardirs and opus
       # patches. Verified to apply cleanly in that order.
       patches = (old.patches or [ ]) ++ [ patch ];
+      # pjsip refuses wildcard certs (RFC 5922 7.2), which SignalWire uses.
+      # Asterisk applies these to its bundled pjproject at build time.
+      postPatch = (old.postPatch or "") + ''
+        cp ${./pjproject-tls-wildcard.patch} third-party/pjproject/patches/0100-tls-wildcard.patch
+      '';
     })
   )
