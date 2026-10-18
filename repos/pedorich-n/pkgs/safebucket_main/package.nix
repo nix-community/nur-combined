@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   ...
 }:
 let
@@ -16,7 +17,7 @@ safebucket.overrideAttrs (
       sha256 = "sha256-aBOPPXedChviNnmXq+o7Cuc88IuHhLdiVvZLtOPllFA=";
     };
 
-    vendorHash = "sha256-F0pu3mQpGARBnx/OJm7R8FgOLg/w2fel+xjTrXwn8z4=";
+    vendorHash = "sha256-+fJq6b+ByFfaXXYGYcqA8FyUvGtP2TweU4nBGjTyKZc=";
 
     passthru = prev.passthru // {
       updateScript = pkgs.nix-update-script {
@@ -30,7 +31,7 @@ safebucket.overrideAttrs (
 
       frontend = prev.passthru.frontend.overrideAttrs (
         feFinal: fePrev: {
-          npmDepsHash = "sha256-x4dgdMXEHhvB+2di+uHY/S/HMx4p901z9AnKvjfY3Rs=";
+          npmDepsHash = "sha256-F0pu3mQpGARBnx/OJm7R8FgOLg/w2fel+xjTrXwn8z4=";
           npmDeps = pkgs.fetchNpmDeps {
             inherit (final) src;
             sourceRoot = "${feFinal.src.name}/web";
