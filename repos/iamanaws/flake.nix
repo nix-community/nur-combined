@@ -102,6 +102,7 @@
     in
     {
       formatter = forAllSystems (pkgs: pkgs.nixfmt-tree);
+      checks = forAllSystems (pkgs: import ./checks { inherit pkgs inputs hostRegistry; });
       packages = forAllSystems (
         pkgs:
         let

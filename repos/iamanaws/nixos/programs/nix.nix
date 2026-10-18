@@ -5,7 +5,10 @@
 }:
 
 {
-  imports = [ ../../lib/nix-caches.nix ];
+  imports = [
+    ../../lib/nix-caches.nix
+    ../../lib/nix-store-policy.nix
+  ];
 
   nix = {
     settings = {
@@ -43,12 +46,6 @@
       persistent = true;
       randomizedDelaySec = "45min";
     };
-
-    # Run GC when there is less than 100MiB left.
-    extraOptions = ''
-      min-free = ${toString (100 * 1024 * 1024)}
-      max-free = ${toString (1024 * 1024 * 1024)}
-    '';
   };
 
   environment.variables = {

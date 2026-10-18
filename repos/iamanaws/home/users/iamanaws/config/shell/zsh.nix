@@ -16,7 +16,6 @@
 
   programs.zsh = {
     enable = true;
-    completionInit = "autoload -Uz compinit";
     defaultKeymap = "emacs";
     dotDir = "${config.home.homeDirectory}/.config/zsh";
     history = {
@@ -79,10 +78,20 @@
         zshConfig
       ];
 
-    profileExtra = "\n
-      eval \"$(/opt/homebrew/bin/brew shellenv)\"\n\n
-      # Added by Toolbox App\n
-      export PATH=\"$PATH:/Users/angel/Library/Application Support/JetBrains/Toolbox/scripts\"\n
-    ";
+    profileExtra =
+      let
+        toolboxScripts = lib.escapeShellArg "${config.home.homeDirectory}/Library/Application Support/JetBrains/Toolbox/scripts";
+      in
+      lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
+        if [[ -x /opt/homebrew/bin/brew ]]; then
+          eval "$(/opt/homebrew/bin/brew shellenv)"
+        elif [[ -x /usr/local/bin/brew ]]; then
+          eval "$(/usr/local/bin/brew shellenv)"
+        fi
+
+        if [[ -d ${toolboxScripts} ]]; then
+          path+=(${toolboxScripts})
+        fi
+      '';
   };
 }
