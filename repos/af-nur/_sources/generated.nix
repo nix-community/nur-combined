@@ -58,10 +58,10 @@
   };
   astrobox = {
     pname = "astrobox";
-    version = "2.1.0";
+    version = "2.2.0";
     src = fetchurl {
-      url = "https://github.com/AstralSightStudios/AstroBox-NG/releases/download/v2.1.0/AstroBox_2.1.0_amd64.deb";
-      sha256 = "sha256-INLK7GaiguIKkEcYQeCVSo0W+0ViujjOcvY2tEP7/MQ=";
+      url = "https://github.com/AstralSightStudios/AstroBox-NG/releases/download/v2.2.0/AstroBox-2.2.0_amd64.deb";
+      sha256 = "sha256-0x/xCIGjM6Kc+gVxOXWL3n+UXSOUqnDCjMq+qd9Df+w=";
     };
   };
   chatgpt-aarch64 = {
