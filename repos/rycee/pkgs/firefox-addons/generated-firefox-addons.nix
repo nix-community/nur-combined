@@ -444,10 +444,10 @@
     };
     "archivebox-exporter" = buildMozillaXpiAddon {
       pname = "archivebox-exporter";
-      version = "3.3.18";
+      version = "3.3.20";
       addonId = "archivebox@tjhorner.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5115885/archivebox_exporter-3.3.18.xpi";
-      sha256 = "d20b606190d98ae53e66eb18dca0f138edd20bdecf50d9bfab9d5afaceea17ee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5134305/archivebox_exporter-3.3.20.xpi";
+      sha256 = "a22cac9c62e51e51436d92e120dc21e8fcde8ad26adbabc8553879a915e522b2";
       meta = with lib;
       {
         homepage = "https://extension.archivebox.io/";
@@ -1562,10 +1562,10 @@
     };
     "browserpass" = buildMozillaXpiAddon {
       pname = "browserpass";
-      version = "3.12.0";
+      version = "3.13.0";
       addonId = "browserpass@maximbaz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4830437/browserpass_ce-3.12.0.xpi";
-      sha256 = "22c5b7167ce4f29422a7621c2c01f252f6fc29582684bdcd553db4adefca1e63";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5132603/browserpass_ce-3.13.0.xpi";
+      sha256 = "aeb5416553b4c880cff0a7a93717d40d32786b32b9fafefb11528bd5c501f979";
       meta = with lib;
       {
         homepage = "https://github.com/browserpass/browserpass-extension";
@@ -2516,10 +2516,10 @@
     };
     "control-panel-for-youtube" = buildMozillaXpiAddon {
       pname = "control-panel-for-youtube";
-      version = "1.37.2";
+      version = "1.38.0";
       addonId = "control-panel-for-youtube@jbscript.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5115116/control_panel_for_youtube-1.37.2.xpi";
-      sha256 = "7507f17fadbdd6a3511ed6ce235b0ce6e6eb34829bd02ce312ade4b01647db0b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5131419/control_panel_for_youtube-1.38.0.xpi";
+      sha256 = "9201de3d8ae9e362beaecc1e0765d826d783602e569c7674a873c204a00b71c9";
       meta = with lib;
       {
         homepage = "https://soitis.dev/control-panel-for-youtube";
@@ -3698,10 +3698,10 @@
     };
     "downthemall" = buildMozillaXpiAddon {
       pname = "downthemall";
-      version = "4.15.1";
+      version = "4.16.1";
       addonId = "{DDC359D1-844A-42a7-9AA1-88A850A938A8}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4825019/downthemall-4.15.1.xpi";
-      sha256 = "a6f53822b708b4cb595195f25818fb0eeb690e1244ca2d7fc0d0b645c4dc5de9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5133532/downthemall-4.16.1.xpi";
+      sha256 = "c5249ec3e5441b5a7c6515762d612c720d2b835e517cdc93dd2a00b257f2f456";
       meta = with lib;
       {
         homepage = "https://www.downthemall.org/";
@@ -9022,10 +9022,10 @@
     };
     "mtab" = buildMozillaXpiAddon {
       pname = "mtab";
-      version = "1.13.2";
+      version = "1.13.3";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5053977/mtab-1.13.2.xpi";
-      sha256 = "b1a6a46188d7562270844a8bcf06919718fe4f49ac9f199e5fcba824c6585b96";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5133916/mtab-1.13.3.xpi";
+      sha256 = "1981149e3341a59f51dd39cee92cec09c309353b6350d74ac7489dc900019e45";
       meta = with lib;
       {
         homepage = "https://mtab.maxhu.dev";
@@ -12380,16 +12380,21 @@
     };
     "search-engines-helper" = buildMozillaXpiAddon {
       pname = "search-engines-helper";
-      version = "3.5.0";
+      version = "3.5.1";
       addonId = "{65a2d764-7358-455b-930d-5afa86fb5ed0}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4162613/search_engines_helper-3.5.0.xpi";
-      sha256 = "f03822b7589cc2fbf6124e2dc1f48c52ec3674189936111e5336ed9e0b0622c8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5133757/search_engines_helper-3.5.1.xpi";
+      sha256 = "3ced43acca569dc80e00dba83ebaa25310503c66c7a42ee5cdd65b8bf1b324bd";
       meta = with lib;
       {
         homepage = "https://github.com/soufianesakhi/firefox-search-engines-helper";
         description = "Add a custom search engine and export/import all the search urls and icon urls for all search engines added to Firefox.";
         license = licenses.mit;
-        mozPermissions = [ "contextMenus" "activeTab" "notifications" ];
+        mozPermissions = [
+          "contextMenus"
+          "activeTab"
+          "notifications"
+          "search"
+        ];
         platforms = platforms.all;
       };
     };
@@ -12781,10 +12786,10 @@
     };
     "single-file" = buildMozillaXpiAddon {
       pname = "single-file";
-      version = "1.31.1";
+      version = "1.31.2";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5118715/single_file-1.31.1.xpi";
-      sha256 = "053cfc1bff997ff603524d8bf8e1b723fe70a4f02374bc5a6d94b1c3f99416f0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5133971/single_file-1.31.2.xpi";
+      sha256 = "c5b7d74033564ce5467080cf51db72484ce24d9d14e57eac38196594b242384d";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";
@@ -13225,10 +13230,10 @@
     };
     "stylebot-web" = buildMozillaXpiAddon {
       pname = "stylebot-web";
-      version = "4.0.4";
+      version = "4.0.5";
       addonId = "{52bda3fd-dc48-4b3d-a7b9-58af57879f1e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5129153/stylebot_web-4.0.4.xpi";
-      sha256 = "82f9c05aaec6586d821f066ad608f5c61fce229531eec44276863ada863fcada";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5133372/stylebot_web-4.0.5.xpi";
+      sha256 = "b70759d661f11128dcbe8a78b82d5b13dea464c50bde9125a2ea2b5c4b74d96a";
       meta = with lib;
       {
         homepage = "https://stylebot.dev/";
@@ -13237,11 +13242,11 @@
         mozPermissions = [
           "tabs"
           "storage"
-          "identity"
           "contextMenus"
           "unlimitedStorage"
           "alarms"
           "idle"
+          "identity"
           "<all_urls>"
           "https://stylebot.dev/*"
         ];
@@ -13917,10 +13922,10 @@
     };
     "time-zone-converter-savvy-time" = buildMozillaXpiAddon {
       pname = "time-zone-converter-savvy-time";
-      version = "1.11.3";
+      version = "1.11.4";
       addonId = "yuriy@savvytime.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5099600/time_zone_converter_savvy_time-1.11.3.xpi";
-      sha256 = "d24582020ba4e85dc7f5645432e37dc87d6735d9acf5c0b90067a600b42d29f6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5132222/time_zone_converter_savvy_time-1.11.4.xpi";
+      sha256 = "cb967457b0208aa2a7d2d2159876095ee2d7853ce28a9b189d5a1ce7af7b2777";
       meta = with lib;
       {
         homepage = "https://savvytime.com/converter";
@@ -16768,10 +16773,10 @@
     };
     "youtube-subscription-groups" = buildMozillaXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.10.2";
+      version = "18.10.3";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5108695/youtube_subscription_groups-18.10.2.xpi";
-      sha256 = "36d5dd94c2e288623f45d5b3376e6dcf7a992cb6b567939fe9ab5b1d48477700";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5132863/youtube_subscription_groups-18.10.3.xpi";
+      sha256 = "d0c9bd169db359fa5b85542076d9da481df3dfd609da00c3ff49956c3a2899d9";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
