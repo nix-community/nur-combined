@@ -61,6 +61,8 @@ mkT3code {
       )
     }
   '';
-  extraInstallCommands = "";
+  extraInstallCommands = ''
+    ln -s ${unwrapped}/share "$out/share"
+  '';
   passthru = { };
 }

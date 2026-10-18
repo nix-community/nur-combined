@@ -2,6 +2,7 @@
   lib,
   stdenv,
   autoPatchelfHook,
+  installShellFiles,
   libsecret,
   source,
   pname,
@@ -16,7 +17,10 @@ stdenv.mkDerivation (finalAttrs: {
   strictDeps = true;
   dontBuild = true;
   dontStrip = true;
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    installShellFiles
+  ];
   buildInputs = [ stdenv.cc.cc.lib ];
 
   # Native keyring modules load libsecret at runtime.
@@ -34,6 +38,21 @@ stdenv.mkDerivation (finalAttrs: {
     ln -s ../libexec/t3code/t3 "$out/bin/t3"
 
     runHook postInstall
+  '';
+
+  preFixup = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+    # The SEA executable must be patched before it can generate completions.
+    postFixupHooks+=(installCompletions)
+    installCompletions() (
+      export HOME="$(mktemp -d)"
+      export T3CODE_HOME="$HOME/.t3"
+      export T3CODE_TELEMETRY_ENABLED=false
+
+      for shell in bash fish zsh; do
+        "$out/bin/t3" --completions "$shell" > "$TMPDIR/t3.$shell"
+        installShellCompletion --cmd t3 --"$shell" "$TMPDIR/t3.$shell"
+      done
+    )
   '';
 
   passthru = source;
