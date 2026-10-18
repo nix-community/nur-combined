@@ -176,7 +176,7 @@ fetch.url = "https://github.com/ldoubil/astral/releases/download/v$ver/astral-li
 [astrobox]
 src.github = "AstralSightStudios/AstroBox-NG"
 src.prefix = "v"
-fetch.url = "https://github.com/AstralSightStudios/AstroBox-NG/releases/download/v$ver/AstroBox_$ver_amd64.deb"
+fetch.url = "https://github.com/AstralSightStudios/AstroBox-NG/releases/download/v$ver/AstroBox-$ver_amd64.deb"
 
 [pixivbiu-bin-x86_64]
 src.github = "txperl/PixivBiu"
