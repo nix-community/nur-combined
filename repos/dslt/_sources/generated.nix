@@ -66,34 +66,34 @@
   };
   chatgpt-aarch64 = {
     pname = "chatgpt-aarch64";
-    version = "26.930.31730";
+    version = "26.1013.40934";
     src = fetchurl {
-      url = "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_26.930.31730_arm64.deb";
-      sha256 = "sha256-3ZgAhel0b62L1FtINUiF0uo6mtCYieDw1iMvHYGbJrI=";
+      url = "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_26.1013.40934_arm64.deb";
+      sha256 = "sha256-mrLLuvM86+qh4G61yreBKJNvknoNl78A5AaU5fMcYps=";
     };
   };
   chatgpt-x86_64 = {
     pname = "chatgpt-x86_64";
-    version = "26.930.31730";
+    version = "26.1013.40934";
     src = fetchurl {
-      url = "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_26.930.31730_amd64.deb";
-      sha256 = "sha256-4BdNjQpfQUEUVFjIFPPC2GPdZ+lCuGh4Wh9drJy6PhY=";
+      url = "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_26.1013.40934_amd64.deb";
+      sha256 = "sha256-PKWef5pmQbni+5rWgGg3hLWrgCb/dBj7ISoOvl3zodc=";
     };
   };
   classin-aarch64 = {
     pname = "classin-aarch64";
-    version = "6.0.9.1758";
+    version = "6.0.9.1898";
     src = fetchurl {
-      url = "https://www.eeo.cn/download/client/classin_6.0.9.1758_arm64.deb";
-      sha256 = "sha256-HtivK9HWaEdlPlo5xqHzKlNH0Bp6Q5/URKR2GHuDP4o=";
+      url = "https://www.eeo.cn/download/client/classin_6.0.9.1898_arm64.deb";
+      sha256 = "sha256-RiptOhQpRzM1Q0mlhMwMPv+Y+/6uVlVzWt8CGL+S09E=";
     };
   };
   classin-x86_64 = {
     pname = "classin-x86_64";
-    version = "6.0.9.1757";
+    version = "6.0.9.1897";
     src = fetchurl {
-      url = "https://www.eeo.cn/download/client/classin_6.0.9.1757_amd64.deb";
-      sha256 = "sha256-QzHmNjcpKexdLNxF2najKKDPgrNwedCs/mxKQ+nQ7yg=";
+      url = "https://www.eeo.cn/download/client/classin_6.0.9.1897_amd64.deb";
+      sha256 = "sha256-DjL7INKVJUlvuHyBKOVPGLIPLbf//5O3CxHdOtgKRP0=";
     };
   };
   hhsh = {
@@ -142,32 +142,32 @@
   };
   pixivbiu = {
     pname = "pixivbiu";
-    version = "v3.1.4";
+    version = "v3.1.5";
     src = fetchFromGitHub {
       owner = "txperl";
       repo = "PixivBiu";
-      rev = "v3.1.4";
+      rev = "v3.1.5";
       fetchSubmodules = false;
-      sha256 = "sha256-B1Ldib8Lerw3XFS6cTSN9ZyIw7GwGdt1v+xwQXpxirw=";
+      sha256 = "sha256-cFTsC2nnII7nAAp2Ny8piVFnajxSzmruG/cvk29vmI0=";
     };
     extract = {
-      "frontend/bun.lock" = ./. + "/sha256-B1Ldib8Lerw3XFS6cTSN9ZyIw7GwGdt1v+xwQXpxirw=/frontend/bun.lock";
+      "frontend/bun.lock" = ./. + "/sha256-cFTsC2nnII7nAAp2Ny8piVFnajxSzmruG_cvk29vmI0=/frontend/bun.lock";
     };
   };
   pixivbiu-bin-aarch64 = {
     pname = "pixivbiu-bin-aarch64";
-    version = "3.1.4";
+    version = "3.1.5";
     src = fetchurl {
-      url = "https://github.com/txperl/PixivBiu/releases/download/v3.1.4/PixivBiu_3.1.4_linux_arm64.tar.gz";
-      sha256 = "sha256-zZpfWUp0P2XavdRK37qr5IiDJ/tYx74hemCMfTzcEWA=";
+      url = "https://github.com/txperl/PixivBiu/releases/download/v3.1.5/PixivBiu_3.1.5_linux_arm64.tar.gz";
+      sha256 = "sha256-J13RpyH/eOt53pnSoo0shBFWxO2mqmbdUOkOyiyMMEM=";
     };
   };
   pixivbiu-bin-x86_64 = {
     pname = "pixivbiu-bin-x86_64";
-    version = "3.1.4";
+    version = "3.1.5";
     src = fetchurl {
-      url = "https://github.com/txperl/PixivBiu/releases/download/v3.1.4/PixivBiu_3.1.4_linux_amd64.tar.gz";
-      sha256 = "sha256-7D7FZDeoXDZrEBfCK14+vDBScTAhCkwyEhPZx95vtR4=";
+      url = "https://github.com/txperl/PixivBiu/releases/download/v3.1.5/PixivBiu_3.1.5_linux_amd64.tar.gz";
+      sha256 = "sha256-I1Kt1yzyKCbDWGAAa6VNaG67jr0tqgwv5PbjlvdXgow=";
     };
   };
   qq-aarch64 = {
@@ -180,22 +180,22 @@
   };
   qq-wayland-fix = {
     pname = "qq-wayland-fix";
-    version = "9b4c35596905f1c786c1fa6b4265d07de32ba948";
+    version = "c86286f5c78cd86ed9d9a280b43e91c8f5670af4";
     src = fetchFromGitHub {
       owner = "SHORiN-KiWATA";
       repo = "linuxqq-wayland-fix";
-      rev = "9b4c35596905f1c786c1fa6b4265d07de32ba948";
+      rev = "c86286f5c78cd86ed9d9a280b43e91c8f5670af4";
       fetchSubmodules = false;
-      sha256 = "sha256-+H0b3fDi+3CGd2hlFA1YE+wWO0XMtJPNBMht/bh1O3c=";
+      sha256 = "sha256-D/gu8ZZz8hmpvybrYdPNNmOFHsNCaZiMQe5X8gPPQXI=";
     };
-    date = "2026-10-03";
+    date = "2026-10-11";
   };
   qq-wayland-fix-bin-x86_64 = {
     pname = "qq-wayland-fix-bin-x86_64";
-    version = "0.2.13";
+    version = "0.2.21";
     src = fetchurl {
-      url = "https://github.com/SHORiN-KiWATA/linuxqq-wayland-fix/releases/download/v0.2.13/linuxqq-wayland-fix_0.2.13-1.debian12_amd64.deb";
-      sha256 = "sha256-ZjkVUJwkU/6HLLpANKjxk7qOvrBACKdDk7FFUdnHkZU=";
+      url = "https://github.com/SHORiN-KiWATA/linuxqq-wayland-fix/releases/download/v0.2.21/linuxqq-wayland-fix_0.2.21-1.debian12_amd64.deb";
+      sha256 = "sha256-A5YjcrZumUpORt54orNt15f3jT7mNnxLDvGxpKCACek=";
     };
   };
   qq-x86_64 = {
@@ -208,25 +208,25 @@
   };
   rikkahub-desktop = {
     pname = "rikkahub-desktop";
-    version = "v2.0.0-preview-v4";
+    version = "v2.0.0-preview-v5";
     src = fetchFromGitHub {
       owner = "yuh-G";
       repo = "rikkahub-desktop";
-      rev = "v2.0.0-preview-v4";
+      rev = "v2.0.0-preview-v5";
       fetchSubmodules = false;
-      sha256 = "sha256-eA5bXKFdFqikB1ZTHz6XFUxfZnHIN67GSzT2TnlE0gI=";
+      sha256 = "sha256-A+Fxv6pUZZSq6bljxDtxN/A+wCD2DZKnRDrYYdY8A60=";
     };
     extract = {
-      "pc-server/bun.lock" = ./. + "/sha256-eA5bXKFdFqikB1ZTHz6XFUxfZnHIN67GSzT2TnlE0gI=/pc-server/bun.lock";
-      "web-ui/bun.lock" = ./. + "/sha256-eA5bXKFdFqikB1ZTHz6XFUxfZnHIN67GSzT2TnlE0gI=/web-ui/bun.lock";
+      "pc-server/bun.lock" = ./. + "/sha256-A+Fxv6pUZZSq6bljxDtxN_A+wCD2DZKnRDrYYdY8A60=/pc-server/bun.lock";
+      "web-ui/bun.lock" = ./. + "/sha256-A+Fxv6pUZZSq6bljxDtxN_A+wCD2DZKnRDrYYdY8A60=/web-ui/bun.lock";
     };
   };
   rikkahub-desktop-bin = {
     pname = "rikkahub-desktop-bin";
-    version = "2.0.0-preview-v4";
+    version = "2.0.0-preview-v5";
     src = fetchurl {
-      url = "https://github.com/yuh-G/rikkahub-desktop/releases/download/v2.0.0-preview-v4/Rikkahub_2.0.0-preview-v4_linux_x64.tar.gz";
-      sha256 = "sha256-EsIlPsIDzuJ78Qfa03cShNU9nO6UwizRl1b4wjZ9XqA=";
+      url = "https://github.com/yuh-G/rikkahub-desktop/releases/download/v2.0.0-preview-v5/Rikkahub_2.0.0-preview-v5_linux_x64.tar.gz";
+      sha256 = "sha256-KWwNGJ/+ZjAZhQZQsQyhomTuunU+A8nFbuGoCSKEAXM=";
     };
   };
   xwaylandvideobridge = {

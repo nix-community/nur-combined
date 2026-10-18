@@ -105,11 +105,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-3ZgAhel0b62L1FtINUiF0uo6mtCYieDw1iMvHYGbJrI=",
+            "sha256": "sha256-mrLLuvM86+qh4G61yreBKJNvknoNl78A5AaU5fMcYps=",
             "type": "url",
-            "url": "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_26.930.31730_arm64.deb"
+            "url": "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_26.1013.40934_arm64.deb"
         },
-        "version": "26.930.31730"
+        "version": "26.1013.40934"
     },
     "chatgpt-x86_64": {
         "cargoLock": null,
@@ -120,11 +120,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-4BdNjQpfQUEUVFjIFPPC2GPdZ+lCuGh4Wh9drJy6PhY=",
+            "sha256": "sha256-PKWef5pmQbni+5rWgGg3hLWrgCb/dBj7ISoOvl3zodc=",
             "type": "url",
-            "url": "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_26.930.31730_amd64.deb"
+            "url": "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_26.1013.40934_amd64.deb"
         },
-        "version": "26.930.31730"
+        "version": "26.1013.40934"
     },
     "classin-aarch64": {
         "cargoLock": null,
@@ -135,11 +135,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-HtivK9HWaEdlPlo5xqHzKlNH0Bp6Q5/URKR2GHuDP4o=",
+            "sha256": "sha256-RiptOhQpRzM1Q0mlhMwMPv+Y+/6uVlVzWt8CGL+S09E=",
             "type": "url",
-            "url": "https://www.eeo.cn/download/client/classin_6.0.9.1758_arm64.deb"
+            "url": "https://www.eeo.cn/download/client/classin_6.0.9.1898_arm64.deb"
         },
-        "version": "6.0.9.1758"
+        "version": "6.0.9.1898"
     },
     "classin-x86_64": {
         "cargoLock": null,
@@ -150,11 +150,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-QzHmNjcpKexdLNxF2najKKDPgrNwedCs/mxKQ+nQ7yg=",
+            "sha256": "sha256-DjL7INKVJUlvuHyBKOVPGLIPLbf//5O3CxHdOtgKRP0=",
             "type": "url",
-            "url": "https://www.eeo.cn/download/client/classin_6.0.9.1757_amd64.deb"
+            "url": "https://www.eeo.cn/download/client/classin_6.0.9.1897_amd64.deb"
         },
-        "version": "6.0.9.1757"
+        "version": "6.0.9.1897"
     },
     "hhsh": {
         "cargoLock": null,
@@ -230,7 +230,7 @@
         "cargoLock": null,
         "date": null,
         "extract": {
-            "frontend/bun.lock": "sha256-B1Ldib8Lerw3XFS6cTSN9ZyIw7GwGdt1v+xwQXpxirw=/frontend/bun.lock"
+            "frontend/bun.lock": "sha256-cFTsC2nnII7nAAp2Ny8piVFnajxSzmruG_cvk29vmI0=/frontend/bun.lock"
         },
         "name": "pixivbiu",
         "passthru": null,
@@ -242,12 +242,12 @@
             "name": null,
             "owner": "txperl",
             "repo": "PixivBiu",
-            "rev": "v3.1.4",
-            "sha256": "sha256-B1Ldib8Lerw3XFS6cTSN9ZyIw7GwGdt1v+xwQXpxirw=",
+            "rev": "v3.1.5",
+            "sha256": "sha256-cFTsC2nnII7nAAp2Ny8piVFnajxSzmruG/cvk29vmI0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.1.4"
+        "version": "v3.1.5"
     },
     "pixivbiu-bin-aarch64": {
         "cargoLock": null,
@@ -258,11 +258,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-zZpfWUp0P2XavdRK37qr5IiDJ/tYx74hemCMfTzcEWA=",
+            "sha256": "sha256-J13RpyH/eOt53pnSoo0shBFWxO2mqmbdUOkOyiyMMEM=",
             "type": "url",
-            "url": "https://github.com/txperl/PixivBiu/releases/download/v3.1.4/PixivBiu_3.1.4_linux_arm64.tar.gz"
+            "url": "https://github.com/txperl/PixivBiu/releases/download/v3.1.5/PixivBiu_3.1.5_linux_arm64.tar.gz"
         },
-        "version": "3.1.4"
+        "version": "3.1.5"
     },
     "pixivbiu-bin-x86_64": {
         "cargoLock": null,
@@ -273,11 +273,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-7D7FZDeoXDZrEBfCK14+vDBScTAhCkwyEhPZx95vtR4=",
+            "sha256": "sha256-I1Kt1yzyKCbDWGAAa6VNaG67jr0tqgwv5PbjlvdXgow=",
             "type": "url",
-            "url": "https://github.com/txperl/PixivBiu/releases/download/v3.1.4/PixivBiu_3.1.4_linux_amd64.tar.gz"
+            "url": "https://github.com/txperl/PixivBiu/releases/download/v3.1.5/PixivBiu_3.1.5_linux_amd64.tar.gz"
         },
-        "version": "3.1.4"
+        "version": "3.1.5"
     },
     "qq-aarch64": {
         "cargoLock": null,
@@ -296,7 +296,7 @@
     },
     "qq-wayland-fix": {
         "cargoLock": null,
-        "date": "2026-10-03",
+        "date": "2026-10-11",
         "extract": null,
         "name": "qq-wayland-fix",
         "passthru": null,
@@ -308,12 +308,12 @@
             "name": null,
             "owner": "SHORiN-KiWATA",
             "repo": "linuxqq-wayland-fix",
-            "rev": "9b4c35596905f1c786c1fa6b4265d07de32ba948",
-            "sha256": "sha256-+H0b3fDi+3CGd2hlFA1YE+wWO0XMtJPNBMht/bh1O3c=",
+            "rev": "c86286f5c78cd86ed9d9a280b43e91c8f5670af4",
+            "sha256": "sha256-D/gu8ZZz8hmpvybrYdPNNmOFHsNCaZiMQe5X8gPPQXI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "9b4c35596905f1c786c1fa6b4265d07de32ba948"
+        "version": "c86286f5c78cd86ed9d9a280b43e91c8f5670af4"
     },
     "qq-wayland-fix-bin-x86_64": {
         "cargoLock": null,
@@ -324,11 +324,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ZjkVUJwkU/6HLLpANKjxk7qOvrBACKdDk7FFUdnHkZU=",
+            "sha256": "sha256-A5YjcrZumUpORt54orNt15f3jT7mNnxLDvGxpKCACek=",
             "type": "url",
-            "url": "https://github.com/SHORiN-KiWATA/linuxqq-wayland-fix/releases/download/v0.2.13/linuxqq-wayland-fix_0.2.13-1.debian12_amd64.deb"
+            "url": "https://github.com/SHORiN-KiWATA/linuxqq-wayland-fix/releases/download/v0.2.21/linuxqq-wayland-fix_0.2.21-1.debian12_amd64.deb"
         },
-        "version": "0.2.13"
+        "version": "0.2.21"
     },
     "qq-x86_64": {
         "cargoLock": null,
@@ -349,8 +349,8 @@
         "cargoLock": null,
         "date": null,
         "extract": {
-            "pc-server/bun.lock": "sha256-eA5bXKFdFqikB1ZTHz6XFUxfZnHIN67GSzT2TnlE0gI=/pc-server/bun.lock",
-            "web-ui/bun.lock": "sha256-eA5bXKFdFqikB1ZTHz6XFUxfZnHIN67GSzT2TnlE0gI=/web-ui/bun.lock"
+            "pc-server/bun.lock": "sha256-A+Fxv6pUZZSq6bljxDtxN_A+wCD2DZKnRDrYYdY8A60=/pc-server/bun.lock",
+            "web-ui/bun.lock": "sha256-A+Fxv6pUZZSq6bljxDtxN_A+wCD2DZKnRDrYYdY8A60=/web-ui/bun.lock"
         },
         "name": "rikkahub-desktop",
         "passthru": null,
@@ -362,12 +362,12 @@
             "name": null,
             "owner": "yuh-G",
             "repo": "rikkahub-desktop",
-            "rev": "v2.0.0-preview-v4",
-            "sha256": "sha256-eA5bXKFdFqikB1ZTHz6XFUxfZnHIN67GSzT2TnlE0gI=",
+            "rev": "v2.0.0-preview-v5",
+            "sha256": "sha256-A+Fxv6pUZZSq6bljxDtxN/A+wCD2DZKnRDrYYdY8A60=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.0.0-preview-v4"
+        "version": "v2.0.0-preview-v5"
     },
     "rikkahub-desktop-bin": {
         "cargoLock": null,
@@ -378,11 +378,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-EsIlPsIDzuJ78Qfa03cShNU9nO6UwizRl1b4wjZ9XqA=",
+            "sha256": "sha256-KWwNGJ/+ZjAZhQZQsQyhomTuunU+A8nFbuGoCSKEAXM=",
             "type": "url",
-            "url": "https://github.com/yuh-G/rikkahub-desktop/releases/download/v2.0.0-preview-v4/Rikkahub_2.0.0-preview-v4_linux_x64.tar.gz"
+            "url": "https://github.com/yuh-G/rikkahub-desktop/releases/download/v2.0.0-preview-v5/Rikkahub_2.0.0-preview-v5_linux_x64.tar.gz"
         },
-        "version": "2.0.0-preview-v4"
+        "version": "2.0.0-preview-v5"
     },
     "xwaylandvideobridge": {
         "cargoLock": null,
