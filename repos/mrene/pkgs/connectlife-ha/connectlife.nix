@@ -9,14 +9,14 @@
 
 buildPythonPackage rec {
   pname = "connectlife";
-  version = "0.7.2";
+  version = "0.13.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "oyvindwe";
     repo = "connectlife";
     rev = "v${version}";
-    hash = "sha256-3B4PRb20giRDqLT/KA8Bo++bRNKhVTWoQHwvDkA3vIA=";
+    hash = "sha256-WZx4nnU0sUUwIXuCtXRgf6iMVPacubHcPvEGmy64LCA=";
   };
 
   build-system = [

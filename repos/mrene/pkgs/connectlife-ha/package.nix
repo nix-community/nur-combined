@@ -7,7 +7,7 @@
 
 let
   pname = "connectlife-ha";
-  version = "0.37.0";
+  version = "0.52.0";
   owner = "oyvindwe";
   domain = "connectlife";
 
@@ -15,7 +15,7 @@ let
     owner = "oyvindwe";
     repo = "connectlife-ha";
     rev = "v${version}";
-    hash = "sha256-GSlh0oSB+ZKWScQVkBZZoAGcZcIXQIiU0JvXpPzQWrc=";
+    hash = "sha256-AAOoRrUxvYSOLi3ZO4bUU+ptyE6v5kejc3j82HTGTKU=";
   };
 
   connectlife = home-assistant.python3Packages.callPackage ./connectlife.nix { };
