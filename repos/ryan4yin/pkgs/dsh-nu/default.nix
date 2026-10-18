@@ -57,7 +57,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "Nushell-only shell executor, dialect guard, and teaching layer for dsh";
+    description = "Nushell-only shell executor, syntax preflight, and teaching layer for dsh";
     homepage = "https://github.com/ryan4yin/dsh-nu";
     changelog = "https://github.com/ryan4yin/dsh-nu/releases";
     license = lib.licenses.mit;
