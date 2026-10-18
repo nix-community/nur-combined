@@ -173,10 +173,10 @@ in
             description = "Requests taking longer than this duration will be logged as slow responses";
           };
           server = {
-            caddy = mkOption {
+            proxy = mkOption {
               type = str;
               default = "-";
-              description = "Configuration path or control address for Caddy integration. Set to '-' to disable";
+              description = "Configuration path or control address for proxy (currently only Caddy) integration. Set to '-' to disable";
             };
             metrics = mkOption {
               type = str;
@@ -229,7 +229,7 @@ in
       log-format = mkDefault "text";
       observability.slow-response-threshold = mkDefault "500ms";
       server = {
-        caddy = mkDefault "-";
+        proxy = mkDefault "-";
         metrics = mkDefault "-";
         pages = mkDefault "tcp/localhost:3000";
       };
