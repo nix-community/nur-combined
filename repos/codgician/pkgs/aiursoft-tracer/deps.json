@@ -175,11 +175,6 @@
     "hash": "sha256-234uXz9PDHuWXjhsR0UZXOR3E3jfd/zjwrbTlC5UnEs="
   },
   {
-    "pname": "Microsoft.AspNetCore.Identity.UI",
-    "version": "10.0.13",
-    "hash": "sha256-htFd7Ey7qjta9lwsWeWmdj6kUJ3AVMvZlXXuUE7L3to="
-  },
-  {
     "pname": "Microsoft.AspNetCore.JsonPatch",
     "version": "10.0.13",
     "hash": "sha256-8NGCu/6bEQ6FTzdy1Fim4vfdAsIe/DTOStaVEDyrR/M="
@@ -378,11 +373,6 @@
     "pname": "Microsoft.Extensions.FileProviders.Abstractions",
     "version": "10.0.13",
     "hash": "sha256-O3eEZlNe3kARAs2O5eRmtEpEb6QWOFoUH0TMrnbgwO4="
-  },
-  {
-    "pname": "Microsoft.Extensions.FileProviders.Embedded",
-    "version": "10.0.13",
-    "hash": "sha256-ovH9eFmZXccbIY7ZHe1S93v7Hy0pi6xKnmktB4o3CHQ="
   },
   {
     "pname": "Microsoft.Extensions.FileProviders.Physical",
