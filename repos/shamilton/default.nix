@@ -49,6 +49,7 @@ pkgs.lib.traceValFn (x:
   chunkdrive = with pkgs.rustPlatform; pkgs.callPackage ./pkgs/chunkdrive {
     inherit buildRustPackage;
   };
+  clipin = pkgs.callPackage ./pkgs/clipin { };
   # cdc-cognitoform-result-generator = pkgs.callPackage ./pkgs/CdC-cognitoform-result-generator { };
   # chart-cli = pkgs.haskellPackages.callPackage ./pkgs/chart-cli { };
   # commix = pkgs.callPackage ./pkgs/commix { };
@@ -68,6 +69,7 @@ pkgs.lib.traceValFn (x:
   go-sdl2 = pkgs.callPackage ./pkgs/go-sdl2 { inherit (mylib.gomod2nix) buildGoApplication; };
   # graph-cli = pkgs.callPackage ./pkgs/graph-cli { };
   haste-client = pkgs.callPackage ./pkgs/haste-client { };
+  hydrastreamer = pkgs.callPackage ./pkgs/hydrastreamer { };
   indexedproperty = pkgs.callPackage ./pkgs/indexedproperty { };
   instanttee = with pkgs.rustPlatform; pkgs.callPackage ./pkgs/InstantTee {
     inherit buildRustPackage;
@@ -162,6 +164,9 @@ pkgs.lib.traceValFn (x:
   } else {  }));
   smtprelay = pkgs.callPackage ./pkgs/smtprelay { inherit (pkgs) buildGoModule; };
   # spectacle-clipboard = pkgs.libsForQt5.callPackage ./pkgs/spectacle-clipboard { };
+  spicelib = pkgs.callPackage ./pkgs/spicelib {
+    inherit (self) clipin;
+  };
   splat = pkgs.callPackage ./pkgs/splat { };
   sync-database = pkgs.callPackage ./pkgs/sync-database {
     inherit (self) merge-keepass;

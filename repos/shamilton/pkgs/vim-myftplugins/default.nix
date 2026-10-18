@@ -2,18 +2,20 @@
 , buildVimPlugin
 , fetchFromGitHub
 , coreutils
+, nix-gitignore
 }:
 buildVimPlugin {
 
   pname = "vim-myftplugins";
   version = "unstable";
 
-  src = fetchFromGitHub {
-    owner = "SCOTT-HAMILTON";
-    repo = "vimconfig";
-    rev = "56c2deba6eb830a9cc26b6c123732bb0afe7db89";
-    sha256 = "1zyf3wf9v537al477p1n4bcvxpvphlynd08l7m5pgjl4g31mgzsv";
-  };
+  src = nix-gitignore.gitignoreSource [] /home/scott/GIT/vimconfig;
+  # src = fetchFromGitHub {
+  #   owner = "SCOTT-HAMILTON";
+  #   repo = "vimconfig";
+  #   rev = "56c2deba6eb830a9cc26b6c123732bb0afe7db89";
+  #   sha256 = "1zyf3wf9v537al477p1n4bcvxpvphlynd08l7m5pgjl4g31mgzsv";
+  # };
 
   buildInputs = [ coreutils ];
 

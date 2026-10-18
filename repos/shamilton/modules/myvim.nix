@@ -27,7 +27,7 @@ in
         extraConfig = builtins.readFile "${MyVimConfig}/vimrc";
         plugins = [
           pkgs.vimPlugins.vim-abolish
-          pkgs.vimPlugins.commentary
+          pkgs.vimPlugins.vim-commentary
           pkgs.vimPlugins.vim-colorschemes
           pkgs.vimPlugins.vim-qml
           kotlin-vim
@@ -422,9 +422,9 @@ in
         ++ [
           pkgs.vimPlugins.vim-nix
           pkgs.vimPlugins.vim-colorschemes
-          pkgs.vimPlugins.commentary
+          pkgs.vimPlugins.vim-commentary
           pkgs.vimPlugins.neovim-fuzzy
-          pkgs.vimPlugins.polyglot
+          pkgs.vimPlugins.vim-polyglot
           pkgs.vimPlugins.molten-nvim
           pkgs.vimPlugins.typst-vim
           pkgs.vimPlugins.nvim-nio

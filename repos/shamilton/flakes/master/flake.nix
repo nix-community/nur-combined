@@ -1,7 +1,7 @@
 {
   description = "My personal NUR repository";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/26.05";
     gomod2nix.url = "github:nix-community/gomod2nix/v1.7.0";
   };
   outputs = { self, nixpkgs, gomod2nix }:
