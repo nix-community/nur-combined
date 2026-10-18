@@ -8,14 +8,14 @@
   runCommand,
 }:
 swiftPackages.stdenv.mkDerivation (finalAttrs: {
-  pname = "macos-reminders-server";
+  pname = "apple-reminders-server";
   version = "0-unstable-2026-10-18";
 
   src = fetchFromGitHub {
     owner = "josh";
-    repo = "macos-reminders-server";
-    rev = "de17445c9d96b71b4daa7fd2d3e2fd4bc099cfa7";
-    hash = "sha256-NAENGurEtSmQ3BdIgj5HF8EWFexjP5ioBca9u6EQ3as=";
+    repo = "apple-reminders-server";
+    rev = "4fbebd6f6b2491be8ef7d8fa19bda2ff4f78b456";
+    hash = "sha256-3g6IhO5BxTPqOnK/iW4fcYrRtf/iZfxQSdE/8dsoQBI=";
   };
 
   nativeBuildInputs = [
@@ -30,7 +30,7 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
 
   installPhase = ''
     runHook preInstall
-    install -Dm755 .build/release/reminders-swift $out/bin/reminders-swift
+    install -Dm755 .build/release/apple-reminders-server $out/bin/apple-reminders-server
     runHook postInstall
   '';
 
@@ -38,22 +38,22 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
 
   passthru.tests = {
     help =
-      runCommand "test-macos-reminders-server-help"
+      runCommand "test-apple-reminders-server-help"
         {
           __structuredAttrs = true;
           nativeBuildInputs = [ finalAttrs.finalPackage ];
         }
         ''
-          reminders-swift --help
+          apple-reminders-server --help
           touch $out
         '';
   };
 
   meta = {
-    description = "macOS Reminders server with GraphQL, MCP, and metrics";
-    homepage = "https://github.com/josh/macos-reminders-server";
+    description = "Apple Reminders server with GraphQL, MCP, and metrics";
+    homepage = "https://github.com/josh/apple-reminders-server";
     license = lib.licenses.mit;
-    mainProgram = "reminders-swift";
+    mainProgram = "apple-reminders-server";
     platforms = lib.platforms.darwin;
     broken = lib.strings.versionOlder swift.version "6.2";
   };
