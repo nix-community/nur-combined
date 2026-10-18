@@ -19,7 +19,7 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "proton-cachyos";
-  version = "11.0-20261005";
+  version = "11.0-20261014";
 
   inherit (finalAttrs.passthru.variants.${variant}) src toolName;
 
@@ -58,21 +58,21 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         toolName = "proton-cachyos-${finalAttrs.version}-slr-x86_64";
         src = fetchzip {
           url = "https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-${finalAttrs.version}-slr/proton-cachyos-${finalAttrs.version}-slr-x86_64.tar.xz";
-          hash = "sha256-qcNHgFPIG6c3q53dyeZ18fZu+cBXzs5npyxgj/WIhkg=";
+          hash = "sha256-L0CzBfelMJP2jj4VNEQY/ZswJo16TN6nNf9qKVryCRU=";
         };
       };
       "x86_64-v3" = {
         toolName = "proton-cachyos-${finalAttrs.version}-slr-x86_64_v3";
         src = fetchzip {
           url = "https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-${finalAttrs.version}-slr/proton-cachyos-${finalAttrs.version}-slr-x86_64_v3.tar.xz";
-          hash = "sha256-LlAnK4fAyLrWF+Z0L9Ft4kwfoSB+g+0o9XNvKlOSZXg=";
+          hash = "sha256-fHi/LfyvPj2qm8ma6JH+wEJiJO1Htwp6zkbdRSg6Xic=";
         };
       };
       "aarch64" = {
         toolName = "proton-cachyos-${finalAttrs.version}-slr-arm64";
         src = fetchzip {
           url = "https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-${finalAttrs.version}-slr/proton-cachyos-${finalAttrs.version}-slr-arm64.tar.xz";
-          hash = "sha256-5ZtkbnPeSvIf8vbHlbKOe2yIkhSzxtr45lpWY0zQbDc=";
+          hash = "sha256-fYsKzT7d1wV3gqY08KPrpEdzB1wNdXvq/hNrzs9UHhA=";
         };
       };
     };
