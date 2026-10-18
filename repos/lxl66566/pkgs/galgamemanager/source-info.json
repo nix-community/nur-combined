@@ -1,0 +1,13 @@
+{
+  "owner": "lxl66566",
+  "version": "v1.4.0",
+  "hashes": {
+    "x86_64-linux": {
+      "gnu": {
+        "targetSystem": "x86_64-unknown-linux-gnu",
+        "template": "https://github.com/__owner__/GalgameManager/releases/download/__version__/GalgameManager___bare_version___amd64.deb",
+        "sha256": "53895be98b09625369bfb5f9723af7c03413d67af97ae100713fff8b4a2d5110"
+      }
+    }
+  }
+}

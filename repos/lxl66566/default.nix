@@ -22,6 +22,7 @@ in
   audio-loudness-batch-normalize = callPackage ./pkgs/audio-loudness-batch-normalize { };
   fail2ban-rs = callPackage ./pkgs/fail2ban-rs { };
   fungi = callPackage ./pkgs/fungi { };
+  galgamemanager = callPackage ./pkgs/galgamemanager { };
   git-simple-encrypt = callPackage ./pkgs/git-simple-encrypt { };
   git-sync-backup = callPackage ./pkgs/git-sync-backup { };
   git-touchfish-commit = callPackage ./pkgs/git-touchfish-commit { };

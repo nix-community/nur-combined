@@ -62,6 +62,7 @@ Only tested on x86_64-linux. Packages may work on aarch64 systems, but I'm not s
 | [audio-loudness-batch-normalize](https://github.com/lxl66566/audio-loudness-batch-normalize) | null, musl | Easy to use audio loudness batch normalization tool based on EBU R128, written in Rust |
 | [fail2ban-rs](https://github.com/aejimmi/fail2ban-rs) | null | A pure-Rust fail2ban replacement. Single static binary, fast two-phase matching, nftables/iptables/ipset firewall backends. |
 | [fungi](https://github.com/enbop/fungi) | null | p2p tool cross platform |
+| [galgamemanager](https://github.com/lxl66566/GalgameManager) | null | Galgame manager with playtime statistics, config and save sync (Tauri, wraps the release deb with GTK/WebKitGTK runtime deps) |
 | [git-simple-encrypt](https://github.com/lxl66566/git-simple-encrypt) | null, musl | Encrypt/decrypt files in git repo using one password |
 | [git-sync-backup](https://github.com/lxl66566/git-sync-backup) | null, musl | Synchronize and backup files/folders using Git, cross-device & configurable |
 | [git-touchfish-commit](https://github.com/lxl66566/git-touchfish-commit) | null, musl | make your commit time safe |
@@ -232,6 +233,14 @@ The server reads `config.json` from its working directory; the module generates 
       rate_limit.trust_proxy_headers = true; # only behind a reverse proxy
     };
   };
+}
+```
+
+### galgamemanager
+
+```nix
+{
+  programs.galgamemanager.enable = true;
 }
 ```
 
