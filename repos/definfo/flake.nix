@@ -23,6 +23,35 @@
       flake-parts,
       ...
     }:
+    let
+      inherit (nixpkgs) lib;
+
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "aarch64-darwin"
+      ];
+
+      # `ci.nix` decides which packages CI builds and caches, but it returns
+      # flat lists and ignores whether a package can be built on the current
+      # system. Reshape its selection into `name -> derivation` attrsets, which
+      # is what nix-fast-build in .github/workflows/build.yml consumes.
+      ciFor =
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          ci = import ./ci.nix { inherit pkgs; };
+          available = builtins.filter (lib.meta.availableOn pkgs.stdenv.hostPlatform);
+          byName = p: {
+            name = p.pname or p.name;
+            value = p;
+          };
+        in
+        {
+          build = lib.listToAttrs (map byName (available ci.buildPkgs));
+          cache = lib.listToAttrs (map byName (available ci.cachePkgs));
+        };
+    in
     # See https://flake.parts/module-arguments for module arguments
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
@@ -30,11 +59,7 @@
         inputs.pre-commit-hooks.flakeModule
       ];
 
-      systems = [
-        "x86_64-linux"
-        "aarch64-linux"
-        "aarch64-darwin"
-      ];
+      inherit systems;
 
       perSystem =
         {
@@ -61,6 +86,7 @@
               actionlint.enable = true;
               deadnix.enable = true;
               nixfmt.enable = true;
+              oxfmt.enable = true;
               shellcheck = {
                 enable = true;
                 package = pkgs.shellcheck-minimal;
@@ -77,7 +103,7 @@
           pre-commit.settings.configPath = ".pre-commit-config.flake.yaml";
           pre-commit.settings.hooks = {
             commitizen.enable = true;
-            eclint.enable = true;
+            oxlint.enable = true;
             markdownlint.enable = true;
             treefmt.enable = true;
           };
@@ -93,5 +119,8 @@
             ];
           };
         };
+
+      # The packages CI builds, as selected by `ci.nix`: see `ciFor` above.
+      flake.ci = lib.genAttrs systems ciFor;
     };
 }

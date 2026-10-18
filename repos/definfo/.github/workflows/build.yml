@@ -1,8 +1,9 @@
 name: "Build & Push to Cachix"
 on:
+  workflow_dispatch:
   push:
     branches:
-    - master
+      - master
   schedule:
     # build every Monday at 2:30
     - cron: "30 2 * * 1"
@@ -12,16 +13,16 @@ permissions: {}
 jobs:
   tests:
     strategy:
+      fail-fast: false
       matrix:
         nurRepo:
           - definfo
-        include:
-          - os: macos-latest
-          - os: ubuntu-latest
+        os:
+          - macos-latest
+          - ubuntu-latest
     runs-on: ${{ matrix.os }}
     permissions:
-      contents: write
-      pull-requests: write
+      contents: read
     env:
       CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
     steps:
@@ -33,12 +34,15 @@ jobs:
         uses: nixbuild/nix-quick-install-action@2c9db80fb984ceb1bcaa77cdda3fdf8cfba92035 # v34
       - name: Build nix packages
         run: |
-          nix run nixpkgs#nix-fast-build -- \
-            --skip-cached \
-            --no-nom \
-            --cachix-cache '${{ matrix.nurRepo }}' \
-            --flake ".#legacyPackages.$(nix eval --raw --impure --expr builtins.currentSystem)"
+          # `ci.<system>` is ci.nix's selection of packages, reshaped by flake.nix
+          # into something nix-fast-build can iterate over: unfree, broken and
+          # unbuildable-on-this-system packages are not touched at all.
+          nix shell --inputs-from . nixpkgs#nix-fast-build -c \
+            nix-fast-build \
+              --skip-cached \
+              --no-nom \
+              --cachix-cache '${{ matrix.nurRepo }}' \
+              --flake ".#ci.$(nix eval --raw --impure --expr builtins.currentSystem).cache"
       - name: Trigger NUR update
-        # Don't replace <YOUR_REPO_NAME> here!
-        if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
+        if: github.repository == 'definfo/nur-packages'
         run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"

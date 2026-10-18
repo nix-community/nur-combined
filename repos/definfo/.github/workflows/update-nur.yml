@@ -24,10 +24,58 @@ jobs:
           nix_conf: |
             extra-substituters = https://definfo.cachix.org
             extra-trusted-public-keys = definfo.cachix.org-1:3xEHcK5UZeKih42Oiuo7ypfw4i0ghc9pO9DZf3M8iaY=
-      - name: Update package version
-        uses: definfo/nix-update-action@94f7c65342dd5fe1bfea392d46f3e51b01beb34a # v1.1.1
+      - name: Install nix-update
+        run: |
+          nix profile install --inputs-from . nixpkgs#nix-update nixpkgs#jq
+          echo "$HOME/.nix-profile/bin" >> "$GITHUB_PATH"
+          # `nix-update --use-update-script` evaluates <nixpkgs> while running the
+          # update script; use the revision from flake.lock, not the registry.
+          echo "NIX_PATH=nixpkgs=$(nix eval --raw --impure --expr '(builtins.getFlake (toString ./.)).inputs.nixpkgs.outPath')" >> "$GITHUB_ENV"
+      - name: Update packages
+        env:
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+        run: |
+          set -euo pipefail
+
+          system="$(nix eval --raw --impure --expr builtins.currentSystem)"
+
+          # `nix-update` can only discover new versions for packages that carry a
+          # `passthru.updateScript` (either written by hand or added by the Python
+          # builders). The rest is bumped by hand and skipped here.
+          nix eval --json ".#packages.${system}" \
+            --apply 'set: builtins.mapAttrs (_: pkg: (pkg.passthru.updateScript or null) != null) set' \
+            > "$RUNNER_TEMP/packages.json"
+
+          mapfile -t updatable < <(jq -r 'to_entries[] | select(.value) | .key' "$RUNNER_TEMP/packages.json")
+          mapfile -t manual < <(jq -r 'to_entries[] | select(.value | not) | .key' "$RUNNER_TEMP/packages.json")
+
+          {
+            echo "### Updated by \`nix-update\`"
+            echo
+            printf -- '- %s\n' "${updatable[@]}"
+            echo
+            echo "### Bumped by hand (no \`passthru.updateScript\`)"
+            echo
+            printf -- '- %s\n' "${manual[@]}"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          for package in "${updatable[@]}"; do
+            echo "::group::nix-update $package"
+            nix-update --flake --commit --use-update-script "$package" \
+              || echo "::warning::could not update $package"
+            echo "::endgroup::"
+          done
+      - name: Create or update pull request
+        uses: peter-evans/create-pull-request@84ae59a2cdc2258d6fa0732dd66352dddae2a412 # v7.0.9
         with:
-          blacklist: "nsub" # nsub: archived
-          pr-labels: |
+          branch: chore/nix_update_actions
+          delete-branch: true
+          title: "Packages: update"
+          body: |
+            Automated changes by [nix-update](https://github.com/Mic92/nix-update).
+          labels: |
             auto merge
             package-update

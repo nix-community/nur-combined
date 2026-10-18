@@ -6,7 +6,7 @@
 
 [![Update flake.lock](https://github.com/definfo/nur-packages/actions/workflows/update-flake-lock.yml/badge.svg)](https://github.com/definfo/nur-packages/actions/workflows/update-flake-lock.yml)
 
-[![Update package metadata](https://github.com/definfo/nur-packages/actions/workflows/update-packages.yml/badge.svg)](https://github.com/definfo/nur-packages/actions/workflows/update-packages.yml)
+[![Update package metadata](https://github.com/definfo/nur-packages/actions/workflows/update-nur.yml/badge.svg)](https://github.com/definfo/nur-packages/actions/workflows/update-nur.yml)
 
 ## Quick Start
 

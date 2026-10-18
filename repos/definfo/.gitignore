@@ -5,3 +5,5 @@ result-*
 
 .pre-commit-config.flake.yaml
 
+*.run
+

@@ -20,5 +20,6 @@
   dnsmasq-china-list_smartdns = pkgs.callPackage ./pkgs/dnsmasq-china-list_smartdns { };
   nsub = pkgs.callPackage ./pkgs/nsub { };
   sarasa-term-sc-nerd = pkgs.callPackage ./pkgs/sarasa-term-sc-nerd { };
+  sash = pkgs.callPackage ./pkgs/sash { };
   waylrc = pkgs.callPackage ./pkgs/waylrc { };
 }
