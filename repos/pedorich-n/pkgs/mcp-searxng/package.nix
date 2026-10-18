@@ -6,16 +6,16 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "mcp-searxng";
-  version = "2.1.0";
+  version = "2.6.0";
 
   src = fetchFromGitHub {
     owner = "ihor-sokoliuk";
     repo = "mcp-searxng";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-Zq6oKXxmo+jaiSCGOsEB76y4xTEqU+WC1eQVFzsazXQ=";
+    hash = "sha256-dbxJSSzwuJtwTSQN9JmGayISi4KKFly70rXk/U9/Fts=";
   };
 
-  npmDepsHash = "sha256-YIH/5RIdF/iSnUT+rWFUCKiwn3oPr1GJsgYvriJt0co=";
+  npmDepsHash = "sha256-+df6oLBlw8fE6baGs2G5Vmn2lQvyfLhg/2s9axuVNwo=";
 
   strictDeps = true;
 

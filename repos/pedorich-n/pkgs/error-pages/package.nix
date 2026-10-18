@@ -11,13 +11,13 @@ let
 in
 buildGoModuleAtLeast127 (finalAttrs: {
   pname = "error-pages";
-  version = "4.2.5";
+  version = "4.2.6";
 
   src = fetchFromGitHub {
     owner = "tarampampam";
     repo = "error-pages";
     rev = "v${finalAttrs.version}";
-    sha256 = "sha256-drG5PBDlnENFUuE8h6rEjPZuI6N/mt0M3mHLx/EVIdg=";
+    sha256 = "sha256-y/IOzBErXG5WM0cXb2xi2oCnzXzeGmXEg7aBYIRtEwc=";
   };
 
   vendorHash = null;
