@@ -8,6 +8,7 @@
 
 {
   pkgs ? import <nixpkgs> { },
+  nushell ? pkgs.nushell,
 }:
 
 let
@@ -16,7 +17,7 @@ let
 
   dsh = pkgs.callPackage ./pkgs/dsh { inherit mkUpdateScript; };
 
-  dsh-nushell-only = pkgs.callPackage ./pkgs/dsh-nushell-only { inherit dsh mkUpdateScript; };
+  dsh-nu = pkgs.callPackage ./pkgs/dsh-nu { inherit dsh mkUpdateScript nushell; };
 in
 {
   # The `lib`, `modules`, and `overlay` names are special
@@ -25,7 +26,7 @@ in
   overlays = import ./overlays; # nixpkgs overlays
 
   computer-use-linux = pkgs.callPackage ./pkgs/computer-use-linux { inherit mkUpdateScript; };
-  inherit dsh dsh-nushell-only;
+  inherit dsh dsh-nu;
   cua-driver = pkgs.callPackage ./pkgs/cua-driver { inherit mkUpdateScript; };
   rime-data-flypy = pkgs.callPackage ./pkgs/rime-data-flypy { };
 }
