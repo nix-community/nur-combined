@@ -7,9 +7,9 @@ let
   pkg = terraform-providers.mkProvider {
     owner = "langri-sha";
     repo = "terraform-provider-aperture";
-    rev = "v0.3.1";
-    hash = "sha256-E3D+IPkvcQYpXFSbRP+z7a3C74KYX0lS2ysfwjTqfAE=";
-    vendorHash = "sha256-AGzDsGom3f39FrXENbgPMiNJ3ghd9VO5MqT14T1qqj0=";
+    rev = "v0.4.0";
+    hash = "sha256-QwvjSBV2QEYWPsnIdscfR+KS+Hqq+j+2CIVLKyxOwMU=";
+    vendorHash = "sha256-37xC3ivdMv5PSQMd7Nza3G4hx9G9GV8hafNvMxUb8KA=";
     provider-source-address = "registry.terraform.io/langri-sha/aperture";
     homepage = "https://github.com/langri-sha/terraform-provider-aperture";
     spdx = "Apache-2.0";
