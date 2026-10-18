@@ -28,10 +28,10 @@ let
   configBaseName = "honk";
   configDir = "/etc/${configBaseName}";
   configFragmentDir = "${configDir}/config.d";
-  # The entry config honk is started with (`-c`) and the writable file beside
-  # it that holds the routing block.
-  entryConfigPath = "${configDir}/entry.dae";
-  localConfigPath = "${configDir}/config.dae";
+  # The entry config honk is started with (`-c`). systemd-tmpfiles seeds it
+  # once; afterwards it belongs to whoever edits it by hand or through the web
+  # UI.
+  configPath = "${configDir}/config.dae";
 
   # honk resolves symlinks when it loads an `include` and refuses the whole
   # configuration unless every included file ends up inside the entry config's
@@ -40,17 +40,19 @@ let
   # `environment.etc` entry whose mode is not "symlink" is copied on every
   # activation. They are copies of Nix-owned files, hence read-only, like the
   # store paths they come from.
-  fragmentName = file: builtins.unsafeDiscardStringContext (baseNameOf file);
-
-  declaredFragments = lib.genAttrs' cfg.configFiles (
-    file:
-    lib.nameValuePair "${configBaseName}/config.d/${fragmentName file}" {
-      mode = "0400";
-      source = file;
+  # The startup-only settings and the native API, one file each; the entry
+  # config imports them.
+  globalConfig = pkgs.writeText "10-global.dae" ''
+    global {
+        data_dir: '${cfg.dataDir}'
+        tproxy_port: ${toString cfg.tproxyPort}
+        wan_interface: ${cfg.wanInterface}
+        ${lib.optionalString (cfg.lanInterface != "") "    lan_interface: ${cfg.lanInterface}"}
+        nfqueue_enable: ${lib.boolToString cfg.nfqueue}
     }
-  );
+  '';
 
-  doonaConfig = ''
+  doonaConfig = pkgs.writeText "20-doona.dae" ''
     experimental {
         native_api {
             enabled: true
@@ -62,26 +64,38 @@ let
     }
   '';
 
-  # The entry config honk is started with (`-c`): the startup-only settings
-  # and includes, copied from the store on every activation. Its native_api
-  # block and `global.nfqueue_enable` keep the web UI from rewriting it;
-  # runtime changes belong in {file}`/etc/honk/config.dae` or the fragments.
-  entryConfig = pkgs.writeText "entry.dae" (
-    ''
-      global {
-          data_dir: '${cfg.dataDir}'
-          tproxy_port: ${toString cfg.tproxyPort}
-          wan_interface: ${cfg.wanInterface}
-          ${lib.optionalString (cfg.lanInterface != "") "    lan_interface: ${cfg.lanInterface}"}
-          nfqueue_enable: ${lib.boolToString cfg.nfqueue}
-      }
-      include {
-          '${localConfigPath}'
-          '${configFragmentDir}/*.dae'
-      }
-    ''
-    + lib.optionalString cfg.doona.enable doonaConfig
-  );
+  generatedFragments = {
+    "10-global.dae" = {
+      source = globalConfig;
+    };
+  }
+  // lib.optionalAttrs cfg.doona.enable {
+    "20-doona.dae" = {
+      source = doonaConfig;
+    };
+  };
+
+  allFragments = generatedFragments // cfg.configFiles;
+
+  declaredFragments = lib.mapAttrs' (
+    name: fragment:
+    lib.nameValuePair "${configBaseName}/config.d/${name}" (
+      { mode = "0440"; } // lib.filterAttrs (_: value: value != null) fragment
+    )
+  ) allFragments;
+
+  # The seed of the entry config: the blocks the web UI edits and the import
+  # that loads config.d/.
+  entrySeed = pkgs.writeText "config.dae" ''
+    # honk's entry config: the web UI writes its global and routing rules here.
+    #
+    # Do not change the import: it loads the Nix-managed files in config.d/.
+    global { }
+    routing { }
+    include {
+        'config.d/*.dae'
+    }
+  '';
 
   TxChecksumIpGenericWorkaround = pkgs.writeShellScript "disable-tx-checksum-ip-generic" ''
     iface=$(${lib.getExe' pkgs.iproute2 "ip"} route | ${lib.getExe' pkgs.gawk "awk"} '/default/ {print $5}')
@@ -136,17 +150,36 @@ in
     };
 
     configFiles = mkOption {
-      type = with lib.types; listOf path;
-      default = [ ];
-      example = literalExpression "[ ./honk/routing.dae ]";
+      type = types.attrsOf (
+        types.submodule {
+          options = {
+            source = mkOption {
+              type = types.nullOr types.path;
+              default = null;
+              description = "Path of the fragment, used instead of {option}`text`.";
+            };
+            text = mkOption {
+              type = types.nullOr types.lines;
+              default = null;
+              description = "Contents of the fragment, used when no {option}`source` is set.";
+            };
+          };
+        }
+      );
+      default = { };
+      example = literalExpression ''
+        {
+          "30-routing.dae".source = ./honk/routing.dae;
+          "40-check.dae".text = "global { check_interval: 10s }";
+        }
+      '';
       description = ''
-        Extra honk configuration fragments. Each file is copied to
-        {file}`/etc/honk/config.d/<file name>` on every activation, so edits
-        made at runtime (including through the web UI) are overwritten; the
-        generated entry config includes every `*.dae` file of that directory,
-        so the file name must end in `.dae`. Keep the top-level `routing` block
-        in {file}`/etc/honk/config.dae`: doona's rule templates rewrite exactly
-        one file.
+        Extra honk configuration fragments, keyed by the file name they get in
+        {file}`/etc/honk/config.d/`. The entry config imports every `*.dae` file
+        of that directory in name order, so a key another fragment also sets
+        wins if it sorts later. Fragments are copied on every activation:
+        runtime edits belong in {file}`/etc/honk/config.dae`, and a file dropped
+        into that directory by hand is imported too, but unmanaged.
       '';
     };
 
@@ -238,10 +271,25 @@ in
 
     assertions = [
       {
-        assertion = lib.all (file: lib.hasSuffix ".dae" (fragmentName file)) cfg.configFiles;
+        assertion =
+          lib.all (name: lib.hasSuffix ".dae" name) (builtins.attrNames cfg.configFiles)
+          && lib.all (name: !(builtins.hasAttr name generatedFragments)) (builtins.attrNames cfg.configFiles);
         message = ''
-          services.honk-core.configFiles: the generated entry config only
-          includes files named '*.dae'.
+          services.honk-core.configFiles: names must end in '.dae' and must not
+          collide with the generated fragments ('10-global.dae', '20-doona.dae').
+        '';
+      }
+      {
+        assertion = lib.all (
+          name:
+          let
+            file = cfg.configFiles.${name};
+          in
+          file.source == null || file.text == null
+        ) (builtins.attrNames cfg.configFiles);
+        message = ''
+          services.honk-core.configFiles: set either 'source' or 'text' for each
+          fragment, not both.
         '';
       }
     ];
@@ -256,12 +304,7 @@ in
       allowedUDPPorts = lib.optional cfg.openFirewall cfg.tproxyPort;
     };
 
-    environment.etc = declaredFragments // {
-      "${configBaseName}/entry.dae" = {
-        mode = "0400";
-        source = entryConfig;
-      };
-    };
+    environment.etc = declaredFragments;
 
     # /run/netns holds honk's compat bind-mount of the daens namespace; the
     # state directory holds the SQLite state db and runtime assets.
@@ -273,9 +316,9 @@ in
       # inside, that decides whether somebody can replace them.
       "d ${configDir} 0700 root root - -"
       "d ${configFragmentDir} 0700 root root - -"
-      # Created once and never overwritten: seeded with the empty `global` and
-      # `routing` blocks doona's editors write into.
-      "f ${localConfigPath} 0600 root root - global { } routing { }"
+      # Created once and never overwritten: the entry config belongs to
+      # whoever edits it by hand or through the web UI.
+      "C ${configPath} 0600 root root - ${entrySeed}"
     ];
 
     # The upstream unit is installed into the package as honk-core.service;
@@ -284,10 +327,15 @@ in
 
     systemd.services.honk-core = {
       wantedBy = [ "multi-user.target" ];
-      # The entry carries the startup-only settings; changes to a fragment are
-      # picked up by honk's reload.
-      restartTriggers = [ entryConfig ];
-      reloadTriggers = cfg.configFiles;
+      # The fragments carry the startup-only settings; changes to them need a
+      # restart, while the entry config and the fragments are both reloaded by
+      # honk's reload.
+      restartTriggers = lib.mapAttrsToList (
+        name: _: config.environment.etc."${configBaseName}/config.d/${name}".source
+      ) generatedFragments;
+      reloadTriggers = lib.mapAttrsToList (
+        name: _: config.environment.etc."${configBaseName}/config.d/${name}".source
+      ) allFragments;
       serviceConfig = {
         # A drop-in replaces Exec* only after an empty assignment clears the
         # unit's /usr/bin entries.
@@ -299,7 +347,7 @@ in
             "--data-dir"
             cfg.dataDir
             "-c"
-            entryConfigPath
+            configPath
           ])
         ];
         ExecReload = [

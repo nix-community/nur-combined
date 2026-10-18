@@ -35,6 +35,9 @@
           # honk only hijacks the interfaces it is told about; `eth1` is the
           # one carrying this host's traffic.
           wanInterface = "eth1";
+
+          # A user fragment lands in config.d/ like the generated ones.
+          configFiles."30-user.dae".text = "# user fragment";
         };
       };
   };
@@ -47,7 +50,7 @@
 
     # The nfqueue switch (on by default) loads the netlink family.
     machine.succeed("test -d /sys/module/nfnetlink_queue")
-    machine.succeed("grep -q 'nfqueue_enable: true' /etc/honk/entry.dae")
+    machine.succeed("grep -q 'nfqueue_enable: true' /etc/honk/config.d/10-global.dae")
 
     # The web UI is served by honk's native API.
     machine.succeed(
@@ -55,16 +58,17 @@
         " | grep -q '<title>doona</title>'"
     )
 
-    # honk resolves symlinks when it loads an `include` and then refuses any
-    # file outside the entry config's directory, so /etc/honk must be a tree
-    # of real files (an `environment.etc` mode other than "symlink").
-    machine.succeed("test -f /etc/honk/entry.dae && ! test -L /etc/honk/entry.dae")
-
-    # The entry carries the startup-only settings; the editable global and
-    # routing blocks live in the writable /etc/honk/config.dae.
-    machine.succeed("grep -q 'native_api' /etc/honk/entry.dae")
-    machine.fail("grep -q 'routing' /etc/honk/entry.dae")
-    machine.succeed("grep -qF 'global { } routing { }' /etc/honk/config.dae")
+    # The entry config is a real file seeded once by tmpfiles: the blocks the
+    # web UI edits and the import that loads config.d/.
+    machine.succeed("test -f /etc/honk/config.dae && ! test -L /etc/honk/config.dae")
+    machine.succeed("grep -qF 'global { }' /etc/honk/config.dae")
+    machine.succeed("grep -qF 'routing { }' /etc/honk/config.dae")
+    machine.succeed("grep -qF \"'config.d/*.dae'\" /etc/honk/config.dae")
+    # The Nix-managed settings live beside it, inside the import; a fragment
+    # declared in configFiles is placed and imported the same way (an invalid
+    # file there would keep honk from starting).
+    machine.succeed("grep -q 'native_api' /etc/honk/config.d/20-doona.dae")
+    machine.succeed("grep -q 'user fragment' /etc/honk/config.d/30-user.dae")
 
     # Traffic to the server goes through honk and is routed to `direct`.
     machine.succeed("curl --fail --max-time 10 http://server/")
@@ -77,53 +81,58 @@
         " -d '{\"username\":\"admin\",\"password\":\"honk-test-password\"}'"
         " http://127.0.0.1:9527/api/v1/auth/setup | jq -r .token > /tmp/token"
     )
-
-    # The entry cannot be rewritten through the web: doona never offers a file
-    # with listener settings for editing, and honk refuses any write that
-    # would change its native_api block.
-    machine.succeed(
-        "curl -sS -H \"Authorization: Bearer $(cat /tmp/token)\""
-        " http://127.0.0.1:9527/api/v1/config"
-        " | jq -r '.sources[] | select(.kind == \"main\")"
-        " | [.id, .content_sha256] | @tsv' > /tmp/entry-source"
-    )
-    machine.fail(
-        "curl -sS --fail -X PUT -H \"Authorization: Bearer $(cat /tmp/token)\""
-        " -H 'Content-Type: application/json'"
-        " -H \"If-Match: \\\"$(cut -f2 /tmp/entry-source)\\\"\""
-        " -d '{\"content\":\"global { } experimental { native_api { enabled: false } }\"}'"
-        " http://127.0.0.1:9527/api/v1/config/sources/$(cut -f1 /tmp/entry-source)"
-    )
-    machine.succeed(
-        "curl -sS -H \"Authorization: Bearer $(cat /tmp/token)\""
-        " http://127.0.0.1:9527/api/v1/config"
-        " | jq -e '.sources[] | select(.path == \"config.dae\" and .writable == true)'"
-    )
-
-    # Replace that source's contents the way doona's simple rule page does.
     machine.succeed(
         "curl -sS -H \"Authorization: Bearer $(cat /tmp/token)\""
         " http://127.0.0.1:9527/api/v1/config"
         " | jq -r '.sources[] | select(.path == \"config.dae\")"
         " | [.id, .content_sha256] | @tsv' > /tmp/config-source"
     )
+
+    # The entry config is the writable source the web UI writes: a global
+    # setting and a routing rule, with the import kept.
+    machine.succeed(
+        "curl -sS -H \"Authorization: Bearer $(cat /tmp/token)\""
+        " http://127.0.0.1:9527/api/v1/config"
+        " | jq -e '.sources[] | select(.path == \"config.dae\" and .writable == true)'"
+    )
+    machine.succeed(
+        "jq -n --arg content \"global { max_concurrent_dials: 8 } routing { dport(80) -> block } include { 'config.d/*.dae' }\""
+        " '{content: $content}' > /tmp/body.json"
+    )
     machine.succeed(
         "curl -sS --fail -X PUT -H \"Authorization: Bearer $(cat /tmp/token)\""
         " -H 'Content-Type: application/json'"
         " -H \"If-Match: \\\"$(cut -f2 /tmp/config-source)\\\"\""
-        " -d '{\"content\":\"global { } routing { dport(80) -> block }\"}'"
+        " --data @/tmp/body.json"
         " http://127.0.0.1:9527/api/v1/config/sources/$(cut -f1 /tmp/config-source)"
     )
+    machine.succeed("grep -q 'max_concurrent_dials: 8' /etc/honk/config.dae")
     machine.succeed("grep -q 'dport(80) -> block' /etc/honk/config.dae")
 
-    # Creating a fragment under config.d/ works as well.
+    # Nodes and subscriptions the API manages are appended to the entry config
+    # (honk writes its main source), so they survive activation.
     machine.succeed(
-        "curl -sS -X POST -H \"Authorization: Bearer $(cat /tmp/token)\""
+        "curl -sS --fail -X POST -H \"Authorization: Bearer $(cat /tmp/token)\""
         " -H 'Content-Type: application/json'"
-        " -d '{\"path\":\"config.d/99-custom.dae\",\"content\":\"# custom fragment\"}'"
-        " http://127.0.0.1:9527/api/v1/config/sources | jq -e .status"
+        " -d '{\"name\":\"test-sub\",\"kind\":\"subscription\",\"url\":\"http://server/\"}'"
+        " http://127.0.0.1:9527/api/v1/providers"
     )
-    machine.succeed("grep -q 'custom fragment' /etc/honk/config.d/99-custom.dae")
+    machine.succeed("grep -q 'test-sub' /etc/honk/config.dae")
+
+    # A write that changes the native_api block stays refused.
+    machine.succeed(
+        "curl -sS -H \"Authorization: Bearer $(cat /tmp/token)\""
+        " http://127.0.0.1:9527/api/v1/config"
+        " | jq -r '.sources[] | select(.path == \"config.d/20-doona.dae\")"
+        " | [.id, .content_sha256] | @tsv' > /tmp/doona-source"
+    )
+    machine.fail(
+        "curl -sS --fail -X PUT -H \"Authorization: Bearer $(cat /tmp/token)\""
+        " -H 'Content-Type: application/json'"
+        " -H \"If-Match: \\\"$(cut -f2 /tmp/doona-source)\\\"\""
+        " -d '{\"content\":\"experimental { native_api { enabled: false } }\"}'"
+        " http://127.0.0.1:9527/api/v1/config/sources/$(cut -f1 /tmp/doona-source)"
+    )
 
     # The rule is live: port 80 is blocked now...
     machine.fail("curl --fail --max-time 5 http://server/")
