@@ -1,13 +1,9 @@
 {
   description = "My personal NUR repository";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
-  # NUR's nixpkgs packages Nushell 0.112.2. dsh-nu is tested with 0.115.1, so
-  # take Nushell from the nixpkgs revision that packages that version.
-  inputs.nixpkgs-nu.url = "github:NixOS/nixpkgs/55ba7f49ef2962b42cbd126522b7df5f95037679";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-nu,
   }: let
     systems = [
       "x86_64-linux"
@@ -25,7 +21,6 @@
     legacyPackages = forAllSystems (system:
       import ./default.nix {
         pkgs = import nixpkgs {inherit system;};
-        nushell = nixpkgs-nu.legacyPackages.${system}.nushell;
       });
     packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
   };
