@@ -8,15 +8,15 @@
 
 mkNginxPlugin (finalAttrs: {
   pname = "zstd-nginx-module";
-  version = "0-unstable-2026-09-25";
+  version = "0-unstable-2026-10-18";
   __structuredAttrs = true;
   strictDeps = true;
 
   src = fetchFromGitHub {
     owner = "HanadaLee";
     repo = "ngx_http_zstd_module";
-    rev = "d35686b29b9fb6a65db6091c365775b45ca93200";
-    hash = "sha256-hY+WKddcyilMsUj8MMCUrQG2PDSN2HriEvpRMDUvF1Q=";
+    rev = "1c0d3f96708c86afeebd7d9778504f77c7893227";
+    hash = "sha256-h5iEd2cuDsm3ymcjlJkiQkZimpGiEO+o9kBHG2OQKsU=";
   };
 
   buildInputs = [ zstd ];
