@@ -5,16 +5,16 @@
 }:
 pkgs.buildNpmPackage rec {
   pname = "cmdr";
-  version = "0.5.13";
+  version = "0.7.0";
 
   src = pkgs.fetchFromGitHub {
     owner = "jsmorabito";
     repo = "obsidian-commander";
     rev = version;
-    sha256 = "sha256-1J50sbWvNV26aFYaPikvDiDAJDVFx4w9E6yQbWiIGoo=";
+    sha256 = "sha256-SrD82N+6mGOzuLKVz8A6FzvgNtXiErk0vjcEA5l9Z84=";
   };
 
-  npmDepsHash = "sha256-UI99YXBlFb5A1PVbr1iru7WXoiVHWvPJXPkmsq5pb74=";
+  npmDepsHash = "sha256-hjWnr2SmYKcT/ZxnO7Wn1wgiG4L1jeJFzC7rAjD2n90=";
   forceGitDeps = true;
   makeCacheWritable = true;
   npmFlags = ["--legacy-peer-deps"];
