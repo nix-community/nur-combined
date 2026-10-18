@@ -6,23 +6,23 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "0.6.0",
+  "version": "0.7.0",
   "platforms": {
     "aarch64-darwin": {
       "file": "figcraft-{version}-macos-universal.dmg",
-      "hash": "sha256-JjhfI6lRkEWAgcIO+sDB2GVGuJnMvavHNk85bcrMfMQ="
+      "hash": "sha256-FhKD7VdPB47ioiScPQfgWbyI5IgcLgghe1ffHu1gIl0="
     },
     "x86_64-darwin": {
       "file": "figcraft-{version}-macos-universal.dmg",
-      "hash": "sha256-JjhfI6lRkEWAgcIO+sDB2GVGuJnMvavHNk85bcrMfMQ="
+      "hash": "sha256-FhKD7VdPB47ioiScPQfgWbyI5IgcLgghe1ffHu1gIl0="
     },
     "x86_64-linux": {
       "file": "figcraft-{version}-linux-x86_64.AppImage",
-      "hash": "sha256-YA8RXdxtnnXwcgwNnFRJwVsz/eJ24IDwE7tEntHaRVM="
+      "hash": "sha256-M+JvmVLm9m6QclbFZhmo9168KmH8PHj8M5ba4hC9PIU="
     },
     "aarch64-linux": {
       "file": "figcraft-{version}-linux-aarch64.AppImage",
-      "hash": "sha256-jU9sL8yxKM7n2Fw+6FsM+tPWzxLGgeRMvXP/2M1Qvig="
+      "hash": "sha256-pKlIG8N5gLVCJn+HvQZkDStBmQSYK15l68CDDjgsy6Q="
     }
   }
 }

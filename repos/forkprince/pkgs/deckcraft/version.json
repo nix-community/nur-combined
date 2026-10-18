@@ -6,23 +6,23 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "0.7.0",
+  "version": "0.8.0",
   "platforms": {
     "aarch64-darwin": {
       "file": "deckcraft-{version}-macos-universal.dmg",
-      "hash": "sha256-lZGxRkHQicHONsf1ckfpLwSI6Qpw0Ee7b6CaEsNFO9k="
+      "hash": "sha256-ge4xWMu1UJUfr4mIi/fw6ilvwjNZOuz8P0HH2dzohUI="
     },
     "x86_64-darwin": {
       "file": "deckcraft-{version}-macos-universal.dmg",
-      "hash": "sha256-lZGxRkHQicHONsf1ckfpLwSI6Qpw0Ee7b6CaEsNFO9k="
+      "hash": "sha256-ge4xWMu1UJUfr4mIi/fw6ilvwjNZOuz8P0HH2dzohUI="
     },
     "x86_64-linux": {
       "file": "deckcraft-{version}-linux-x86_64.AppImage",
-      "hash": "sha256-U1r9Hn9tOJ7P549KcCtaNnGSF8TOxVauXX8P13WuVYQ="
+      "hash": "sha256-XCTgw9UscQIZ+2uJfL8uhW4PbdTcebeizvwdLVUTTtA="
     },
     "aarch64-linux": {
       "file": "deckcraft-{version}-linux-aarch64.AppImage",
-      "hash": "sha256-bpCGBnwzcvU2HJ6vsnNd0k682uu0FZz91xUf8lCeQ1Q="
+      "hash": "sha256-o/9JjKrDu+inIpfe1j2UzY94MVoP+vMLavdxfOLfn9I="
     }
   }
 }

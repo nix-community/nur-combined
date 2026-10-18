@@ -5,19 +5,19 @@
     "repo": "NuvioMedia/NuvioDesktop",
     "skip_prerelease": true
   },
-  "version": "0.1.30-alpha",
+  "version": "0.1.31-alpha",
   "platforms": {
     "aarch64-darwin": {
       "file": "Nuvio-macOS-arm64-{version}.dmg",
-      "hash": "sha256-EfRp1++7quymWu49L16ZD57R+LSh0M5SlyL8bqeES7k="
+      "hash": "sha256-OAyYt4NzoBpnAfgbyMdlqS+jOrX7i/TXOV31Wl8rTnw="
     },
     "x86_64-darwin": {
       "file": "Nuvio-macOS-x86_64-{version}.dmg",
-      "hash": "sha256-Q4jn2cQ/fH0AxNQTiWJL5fnc/lr5Rga7D90LnSDZSb4="
+      "hash": "sha256-LzWQ7XgK6xAj/keQq+UY9HGCLp0lDu4Lw77XPGnuA+w="
     },
     "x86_64-linux": {
       "file": "Nuvio-Linux-x86_64-{version}.AppImage",
-      "hash": "sha256-OqmwkxhBjdpXdUnfsujVhdfuilguigHczHh8DiiqI7U="
+      "hash": "sha256-8J4nCBg7jgoLbcKLFQDePPtpayMnOPsiYeOCfcKPD7I="
     }
   }
 }

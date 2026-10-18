@@ -6,23 +6,23 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "0.7.0",
+  "version": "0.8.0",
   "platforms": {
     "aarch64-darwin": {
       "file": "cadcraft-{version}-macos-universal.dmg",
-      "hash": "sha256-ouN2F6pnXJVeHul9HvucPhzk3K7HBccIPWlc3T7yNrc="
+      "hash": "sha256-UYyPON+FESrje2J3jWtLTT6F2/kiysVzfUdl1Qi3fuE="
     },
     "x86_64-darwin": {
       "file": "cadcraft-{version}-macos-universal.dmg",
-      "hash": "sha256-ouN2F6pnXJVeHul9HvucPhzk3K7HBccIPWlc3T7yNrc="
+      "hash": "sha256-UYyPON+FESrje2J3jWtLTT6F2/kiysVzfUdl1Qi3fuE="
     },
     "x86_64-linux": {
       "file": "cadcraft-{version}-linux-x86_64.AppImage",
-      "hash": "sha256-sqooB8iG4brnsAZPR2iKYu1v4foF8Fs1LjYs3GmPC3c="
+      "hash": "sha256-JPd+NyvwcjP3JnJFi8aRNdVLyfa7Y3ntc3hwp8EVK9I="
     },
     "aarch64-linux": {
       "file": "cadcraft-{version}-linux-aarch64.AppImage",
-      "hash": "sha256-jHRb/0KslPeE0ijwOo8dcz8Cmwnydx1pBzaQUy0ISF4="
+      "hash": "sha256-oZgrRhGwu7gLjpxTYCORiQ1jglmuo8IDlKGXyssM9lQ="
     }
   }
 }
