@@ -7,10 +7,10 @@
 }:
 
 let
-  rev = "37d12e3eea75b804e55b83e2351fd1df9510c2b5";
+  rev = "70124afa7670f66a777e361f9ceb379de6a2ab41";
   version = "0.1.0.dev+${rev}";
 
-  hash        = "sha256-4Os95+SoprT+Y4RAvwCpPV69GNaroeqQ29R25cLYF30=";
+  hash        = "sha256-LSmavsgR2C+paiRjZS9t/5mSLGxmWKbWjYLCxDzbq20=";
   npmDepsHash = "sha256-8iqKWnBg32p7r+m6+n7h7rI5UB1Jyl9OZ2ulhxWmPmQ=";
 
   src = fetchFromGitHub {
