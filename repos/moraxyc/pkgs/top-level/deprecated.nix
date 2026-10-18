@@ -16,6 +16,9 @@ let
     # Unmaintained
     exloli-next = "unmaintained";
     mautrix-telegramgo = "unmaintained";
+
+    # discontinued
+    wetype = "discontinued";
   }
   // lib.mapAttrs (_n: _v: "discontinued") (lib.filesystem.readDir ../discontinued);
 
