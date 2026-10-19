@@ -1,0 +1,10 @@
+{
+  "$schema": "https://opencode.ai/tui.json",
+  "theme": "matugen",
+  "cursor": {
+    "style": "line"
+  },
+  "attention": {
+    "enabled": true
+  }
+}

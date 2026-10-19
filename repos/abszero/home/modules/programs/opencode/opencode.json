@@ -1,0 +1,38 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "lsp": true,
+  "provider": {
+    "llama.cpp": {
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://nixos-fwdesktop:11434/v1"
+      },
+      "models": {
+        "qwen3.8-27b": {
+          "name": "Qwen 3.8 27B",
+          "reasoning": true,
+          "attachment": true,
+          "tool_call": true
+        },
+        "qwen3.8-27b-instruct": {
+          "name": "Qwen 3.8 27B Instruct",
+          "reasoning": false,
+          "attachment": true,
+          "tool_call": true
+        },
+        "gemma-4-12b": {
+          "name": "Gemma 4 12B",
+          "reasoning": true,
+          "attachment": true,
+          "tool_call": true
+        },
+        "gemma-4-12b-instruct": {
+          "name": "Gemma 4 12B Instruct",
+          "reasoning": false,
+          "attachment": true,
+          "tool_call": true
+        }
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 { lib, ... }:
 
 let
-  inherit (lib) singleton;
+  inherit (lib) types mkOption singleton;
 
   mainModule = { pkgs, ... }: {
     abszero = {
@@ -36,11 +36,26 @@ let
       name = "aris-cursors";
       package = pkgs.aris-cursors;
     };
+
+    programs.opencode.web.enable = true;
+  };
+
+  configModule = {
+    modules = singleton {
+      config.programs.helix.languages.language-server.ai.config.models = {
+        "qwen3.8-27b".chat_endpoint = "http://nixos-fwdesktop:11434/v1/chat/completions";
+        "gemma-4-12b-instruct".chat_endpoint = "http://nixos-fwdesktop:11434/v1/chat/completions";
+      };
+    };
   };
 in
 
 {
-  abszero.homeConfigurations."weathercold@nixos-fwdesktop" = {
+  options.abszero.homeConfigurations = mkOption {
+    type = with types; attrsOf (submodule configModule);
+  };
+
+  config.abszero.homeConfigurations."weathercold@nixos-fwdesktop" = {
     system = "x86_64-linux";
     modules = [
       mainModule

@@ -24,7 +24,6 @@ in
         llama-cpp.enable = true;
         sillytavern.enable = true;
       };
-      programs.crush.enable = true;
     };
   };
 }

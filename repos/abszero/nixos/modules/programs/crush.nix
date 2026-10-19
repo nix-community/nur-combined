@@ -1,3 +1,4 @@
+# Deprecated as of 2026-10-11
 { config, lib, ... }:
 
 let

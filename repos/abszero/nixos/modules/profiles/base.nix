@@ -58,8 +58,9 @@ in
         use-xdg-base-directories = true
         keep-outputs = true
         keep-derivations = true
-        connect-timeout = 10
+        connect-timeout = 3
         stalled-download-timeout = 30
+        filetransfer-retry-attempts = 3
       '';
     };
 

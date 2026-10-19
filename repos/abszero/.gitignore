@@ -3,8 +3,10 @@ outputs
 result*
 temp
 
-/.direnv
+/.direnv/
 
+/.env
+/.envrc
 /.gitsecret/keys/random_seed
 /home/modules/accounts/email/email.json
 /nixos/flake-modules/configurations/fracture-ray/proxy.json

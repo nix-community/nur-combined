@@ -24,6 +24,7 @@ in
         helix.enable = true;
         jujutsu.enable = true;
         nushell.enable = true;
+        opencode.enable = true;
         thunderbird.enable = true;
         yazi.enable = true;
         zoxide.enable = true;

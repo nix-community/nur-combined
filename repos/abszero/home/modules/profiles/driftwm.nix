@@ -27,7 +27,6 @@ in
             XF86MonBrightnessDown = "exec sudo brillo -qu 200000 -U 5";
             XF86MonBrightnessUp = "exec sudo brillo -qu 200000 -A 5";
             Print = "exec noctalia msg screenshot-fullscreen";
-            "shift+Print" = "exec noctalia msg screenshot-region";
 
             "mod+ctrl+t" = "exec ghostty";
             "mod+ctrl+slash" = "exec noctalia msg panel-toggle launcher";
@@ -42,7 +41,6 @@ in
       kdePackages.breeze
       brillo
       ddcutil # For controlling brightness with noctalia
-      satty
       smile
     ];
 

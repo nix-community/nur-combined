@@ -6,7 +6,7 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf singleton;
   cfg = config.abszero.programs.helix;
 in
 
@@ -17,6 +17,8 @@ in
     enable = true;
     package = pkgs.steelix;
     defaultEditor = true;
+
+    extraPackages = with pkgs; [ lsp-ai-chendesheng ];
 
     settings = {
       editor = {
@@ -166,22 +168,22 @@ in
             "biome"
             "tailwindcss-language-server"
             "astro-ls"
-            "gpt"
+            "ai"
           ];
         }
-        # {
-        #   name = "bash";
-        #   language-servers = [
-        #     "bash-language-server"
-        #     "gpt"
-        #   ];
-        # }
+        {
+          name = "bash";
+          language-servers = [
+            "bash-language-server"
+            "ai"
+          ];
+        }
         {
           name = "clojure";
           language-servers = [
             "tailwindcss-language-server"
             "clojure-lsp"
-            "gpt"
+            "ai"
           ];
         }
         {
@@ -189,7 +191,7 @@ in
           language-servers = [
             "tailwindcss-language-server"
             "vscode-css-language-server"
-            "gpt"
+            "ai"
           ];
         }
         {
@@ -206,7 +208,7 @@ in
           language-servers = [
             "oxfmt"
             "biome"
-            "gpt"
+            "ai"
           ];
         }
         {
@@ -218,7 +220,7 @@ in
             "vscode-eslint-language-server"
             "tailwindcss-language-server"
             "typescript-language-server"
-            "gpt"
+            "ai"
           ];
         }
         {
@@ -226,7 +228,7 @@ in
           language-servers = [
             "oxfmt"
             "biome"
-            "gpt"
+            "ai"
           ];
         }
         {
@@ -234,7 +236,7 @@ in
           language-servers = [
             "oxfmt"
             "biome"
-            "gpt"
+            "ai"
           ];
         }
         {
@@ -246,7 +248,7 @@ in
             "vscode-eslint-language-server"
             "tailwindcss-language-server"
             "typescript-language-server"
-            "gpt"
+            "ai"
           ];
         }
         {
@@ -256,45 +258,45 @@ in
             "biome"
             "tailwindcss-language-server"
             "vscode-html-language-server"
-            "gpt"
+            "ai"
           ];
         }
-        # {
-        #   name = "markdown";
-        #   language-servers = [
-        #     "markdown-oxide"
-        #     "gpt"
-        #   ];
-        # }
-        # {
-        #   name = "nix";
-        #   language-servers = [
-        #     "nixd"
-        #     "gpt"
-        #   ];
-        # }
-        # {
-        #   name = "nu";
-        #   language-servers = [
-        #     "nu"
-        #     "gpt"
-        #   ];
-        # }
-        # {
-        #   name = "python";
-        #   language-servers = [
-        #     "ty"
-        #     "ruff"
-        #     "gpt"
-        #   ];
-        # }
-        # {
-        #   name = "qml";
-        #   language-servers = [
-        #     "qmlls"
-        #     "gpt"
-        #   ];
-        # }
+        {
+          name = "markdown";
+          language-servers = [
+            "markdown-oxide"
+            "ai"
+          ];
+        }
+        {
+          name = "nix";
+          language-servers = [
+            "nixd"
+            "ai"
+          ];
+        }
+        {
+          name = "nu";
+          language-servers = [
+            "nu"
+            "ai"
+          ];
+        }
+        {
+          name = "python";
+          language-servers = [
+            "ty"
+            "ruff"
+            "ai"
+          ];
+        }
+        {
+          name = "qml";
+          language-servers = [
+            "qmlls"
+            "ai"
+          ];
+        }
         {
           name = "svelte";
           language-servers = [
@@ -303,16 +305,16 @@ in
             "biome"
             "tailwindcss-language-server"
             "svelteserver"
-            "gpt"
+            "ai"
           ];
         }
-        # {
-        #   name = "toml";
-        #   language-servers = [
-        #     "tombi"
-        #     "gpt"
-        #   ];
-        # }
+        {
+          name = "toml";
+          language-servers = [
+            "tombi"
+            "ai"
+          ];
+        }
         {
           name = "typescript";
           language-servers = [
@@ -322,7 +324,7 @@ in
             "vscode-eslint-language-server"
             "tailwindcss-language-server"
             "typescript-language-server"
-            "gpt"
+            "ai"
           ];
         }
         {
@@ -334,7 +336,7 @@ in
             "vscode-eslint-language-server"
             "tailwindcss-language-server"
             "typescript-language-server"
-            "gpt"
+            "ai"
           ];
         }
         {
@@ -346,16 +348,16 @@ in
             "vscode-eslint-language-server"
             "tailwindcss-language-server"
             "vue-language-server"
-            "gpt"
+            "ai"
           ];
         }
-        # {
-        #   name = "yaml";
-        #   language-servers = [
-        #     "yaml-language-server"
-        #     "gpt"
-        #   ];
-        # }
+        {
+          name = "yaml";
+          language-servers = [
+            "yaml-language-server"
+            "ai"
+          ];
+        }
       ];
 
       language-server = {
@@ -363,6 +365,7 @@ in
           command = "oxfmt";
           args = [ "--lsp" ];
         };
+
         tsgolint = {
           command = "oxlint";
           args = [ "--lsp" ];
@@ -371,6 +374,7 @@ in
             # typeCheck = true;
           };
         };
+
         biome = {
           command = "biome";
           args = [ "lsp-proxy" ];
@@ -390,21 +394,14 @@ in
             };
           };
         };
+
         vscode-eslint-language-server.command = "vscode-eslint-language-server";
+
         tailwindcss-language-server = {
           command = "tailwindcss-language-server";
           args = [ "--stdio" ];
         };
-        # gpt = {
-        #   command = "bash";
-        #   # Use copilot by default
-        #   # API key is provided in weathercold/_base.nix
-        #   args = [
-        #     "-c"
-        #     "helix-gpt --handler \${HANDLER:-copilot}"
-        #   ];
-        #   environment.COPILOT_MODEL = "claude-opus-4.5";
-        # };
+
         nixd.config = {
           nixpkgs.expr = "import (builtins.getFlake (toString ./.)).inputs.nixpkgs { }";
           options = {
@@ -412,6 +409,104 @@ in
             home-manager.expr = ''(builtins.getFlake (toString ./.)).homeConfigurations."weathercold@nixos-fwdesktop".options'';
             flake-parts.expr = "(builtins.getFlake (toString ./.)).debug.options";
             flake-parts2.expr = "(builtins.getFlake (toString ./.)).currentSystem.options";
+          };
+        };
+
+        ai = {
+          command = "lsp-ai";
+          args = [ "--stdio" ];
+          config = {
+            memory.file_store = { };
+
+            models = {
+              "qwen3.8-27b" = {
+                type = "open_ai";
+                model = "qwen3.8-27b";
+                # Endpoint configured in flake modules
+                auth_token = "";
+                max_requests_per_second = 1;
+              };
+              "gemma-4-12b-instruct" = {
+                type = "open_ai";
+                model = "gemma-4-12b-instruct";
+                auth_token = "";
+                max_requests_per_second = 1;
+              };
+            };
+
+            completion = {
+              model = "gemma-4-12b-instruct";
+              parameters = {
+                max_context = 12000;
+                max_tokens = 2000;
+                messages = [
+                  {
+                    role = "system";
+                    content = "You are an expert code assistant who writes beautiful, concise and idiomatic code. Given the code that the user is writing, complete with your code or comment at cursor location `<CURSOR>`. Output ONLY your completion.";
+                  }
+                  {
+                    role = "user";
+                    content = "{CODE}";
+                  }
+                ];
+              };
+            };
+
+            chat = singleton {
+              action_display_name = "Chat";
+              trigger = "!C";
+              model = "qwen3.8-27b";
+              parameters = {
+                max_context = 18000;
+                max_tokens = 8000;
+                messages = singleton {
+                  role = "system";
+                  content = ''
+                    You are an expert code assistant. Answer accurately the user's question given the code context:
+
+                    ```
+                    {CONTEXT}
+                    ```
+                  '';
+                };
+              };
+            };
+
+            diagnostic_actions = {
+              model = "qwen3.8-27b";
+              parameters = {
+                max_context = 18000;
+                max_tokens = 8000;
+              };
+              explanation_severity = 3; # Info
+            };
+
+            refactor_actions = {
+              model = "qwen3.8-27b";
+              parameters = {
+                max_context = 18000;
+                max_tokens = 8000;
+              };
+            };
+
+            actions = singleton {
+              action_display_name = "Complete";
+              model = "qwen3.8-27b";
+              parameters = {
+                max_context = 18000;
+                max_tokens = 8000;
+                messages = [
+                  {
+                    role = "system";
+                    content = "You are an expert code assistant who writes beautiful, concise and idiomatic code. Given the code that the user is writing, complete with your code or comment at cursor location `<CURSOR>`. Output ONLY your completion.";
+                  }
+                  {
+                    role = "user";
+                    content = "{CODE}";
+                  }
+                ];
+              };
+            };
           };
         };
       };
