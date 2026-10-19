@@ -2409,6 +2409,11 @@
             "sha256": "1ryyc11hj9szq9zwl913vd3waiyfass792c0s6c0shpxdmp45rk2",
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
         },
+        "shelvacu": {
+            "rev": "b9dc092e4f19136f7a2771cee62ed97d124a904a",
+            "sha256": "1dh51kwsr6w9a2k58smjysqgr9k091hzd957i3ikff32x2jd6gi5",
+            "url": "https://git.uninsane.org/shelvacu/nix-stuff"
+        },
         "shirok1": {
             "rev": "ac4eeea3e492c74c618981d09363e3974b602c9d",
             "sha256": "1bqmam5rmlz27d4frh52pz6kxzfq19vrbp1xxy6ndywzkzm7qvdk",
@@ -2712,8 +2717,8 @@
             "url": "https://github.com/unstable-code/nur-packages"
         },
         "uriotv": {
-            "rev": "42b2ceea8b57c80a50789c068c1b8b15e1552318",
-            "sha256": "120ckdnjg3l6qyx7vhx6czvr7sgzisywrdkrdg7zci93q2rr8d5w",
+            "rev": "f7143c37cc8950fc2cb7cb8386fc1ec8ba0aaac8",
+            "sha256": "01q06568601qfa5ll53m9rcihd9rsvq0qb11xy3rsjj7l481wp84",
             "url": "https://github.com/urioTV/urio-nur"
         },
         "utybo": {
