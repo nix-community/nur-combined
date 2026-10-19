@@ -1,0 +1,15 @@
+{
+  "source": {
+    "type": "unversioned-url"
+  },
+  "version": "0.6.0.12",
+  "url": "https://cdn.ego.app/setup/macos/{arch}/egolite-Y7MbxKIuhzFB.dmg",
+  "arch": {
+    "aarch64-darwin": "arm64",
+    "x86_64-darwin": "x64"
+  },
+  "hash": {
+    "aarch64-darwin": "sha256-zmgoXmJo7Zub9Y6WdxYKRJqV8h1VnaQQtCzxh8uDCtg=",
+    "x86_64-darwin": "sha256-RzoJh52vshgscuKGeCm5u02pjNzJD5m6CnFDkcFFIvo="
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "source": {
+    "type": "github",
+    "repo": "obsproject/obs-studio"
+  },
+  "version": "32.2.2",
+  "url": "https://github.com/obsproject/obs-studio/releases/download/{version}/OBS-Studio-{version}-macOS-{arch}.dmg",
+  "arch": {
+    "aarch64-darwin": "Apple",
+    "x86_64-darwin": "Intel"
+  },
+  "hash": {
+    "aarch64-darwin": "sha256-kg1vJnA9LfbkCFvTwcvtMEiDJQhBNsem6eNwIfvWqvc=",
+    "x86_64-darwin": "sha256-+Niv49/9yG76BpjAL/DJl4ZrrD5iCN2vVtNxCLqs8Zc="
+  }
+}

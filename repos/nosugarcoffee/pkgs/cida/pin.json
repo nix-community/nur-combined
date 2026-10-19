@@ -1,0 +1,15 @@
+{
+  "source": {
+    "type": "github",
+    "repo": "Xuanwo/cida",
+    "asset": "^Cida-{version}-(?P<build>[0-9]+)[.]dmg$"
+  },
+  "version": "1.5.1",
+  "vars": {
+    "build": "211"
+  },
+  "url": "https://github.com/Xuanwo/cida/releases/download/v{version}/Cida-{version}-{build}.dmg",
+  "hash": {
+    "aarch64-darwin": "sha256-y4goaPUfh8KgRW+MtV+IO+s+hcGkQKpUe6p/3bBH6P4="
+  }
+}

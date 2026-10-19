@@ -1,0 +1,86 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Catches nixpkgs-unstable drift and vendors pulling old release assets
+    # even on weeks with no commits here.
+    - cron: "17 4 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+env:
+  CACHIX_NAME: nosugarcoffee
+
+jobs:
+  # Platform-independent, so it runs once. Every check runs even after an
+  # earlier one fails, so a red run reports everything wrong at once.
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: cachix/install-nix-action@v31
+      - name: Lint and test
+        run: |
+          # shellcheck disable=SC2016 # the bash -c body expands inside nix shell
+          nix shell --inputs-from . \
+            nixpkgs#statix nixpkgs#deadnix nixpkgs#nixfmt nixpkgs#ruff nixpkgs#python3 \
+            --command bash -c '
+              status=0
+              run() {
+                title=$1
+                shift
+                echo "::group::$title"
+                "$@" || status=1
+                echo "::endgroup::"
+              }
+              run unittest python3 -m unittest discover -s tests -t tests -v
+              run statix   statix check .
+              run deadnix  deadnix --fail .
+              run nixfmt   nixfmt --check $(git ls-files "*.nix")
+              run ruff     ruff check $(git ls-files "*.py")
+              exit $status
+            '
+      - name: Evaluate every system
+        run: nix flake check --all-systems --no-build
+
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+            system: aarch64-darwin
+          - os: ubuntu-latest
+            system: x86_64-linux
+          - os: ubuntu-24.04-arm
+            system: aarch64-linux
+    runs-on: ${{ matrix.os }}
+    env:
+      CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: cachix/install-nix-action@v31
+      # Pull from and push to the public cache; skipped until the token
+      # secret exists, so forks and a fresh repo still build.
+      - if: env.CACHIX_AUTH_TOKEN != ''
+        uses: cachix/cachix-action@v16
+        with:
+          name: ${{ env.CACHIX_NAME }}
+          authToken: ${{ env.CACHIX_AUTH_TOKEN }}
+      - name: Build every package for ${{ matrix.system }}
+        run: |
+          set -euo pipefail
+          attrs=$(nix eval --raw '.#packages.${{ matrix.system }}' \
+            --apply 'ps: builtins.concatStringsSep " " (map (n: ".#" + n) (builtins.attrNames ps))')
+          if [ -z "$attrs" ]; then
+            echo "no packages for ${{ matrix.system }}"
+            exit 0
+          fi
+          # shellcheck disable=SC2086 # one flake ref per word
+          nix build --keep-going --print-build-logs $attrs

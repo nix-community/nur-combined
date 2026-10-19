@@ -1,0 +1,97 @@
+name: Update
+
+on:
+  schedule:
+    # 4x daily, like numtide/llm-agents.nix: most of these apps are released
+    # from US time zones, so 18:00/21:00 UTC catch the day's drops and
+    # 00:00/04:00 UTC sweep up the rest.
+    - cron: "0 0,4,18,21 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+concurrency:
+  group: update
+  cancel-in-progress: false
+
+env:
+  CACHIX_NAME: nosugarcoffee
+
+jobs:
+  update:
+    # macOS: almost every package is a macOS app, and a bump is only merged
+    # after it builds.
+    runs-on: macos-latest
+    env:
+      CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: cachix/install-nix-action@v31
+      - if: env.CACHIX_AUTH_TOKEN != ''
+        uses: cachix/cachix-action@v16
+        with:
+          name: ${{ env.CACHIX_NAME }}
+          authToken: ${{ env.CACHIX_AUTH_TOKEN }}
+
+      # Writes every pin it could bump even when another one fails, so one
+      # broken upstream doesn't hold the rest back; the run still ends red.
+      - id: bump
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/release_pins.py
+
+      - id: build
+        if: steps.bump.outputs.changed == 'true'
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+          available=$(nix eval --raw .#packages.aarch64-darwin \
+            --apply 'ps: builtins.concatStringsSep " " (builtins.attrNames ps)')
+          attrs=""
+          for name in $(git diff --name-only -- pkgs | cut -d/ -f2 | sort -u); do
+            case " $available " in
+              *" $name "*) attrs="$attrs .#$name" ;;
+            esac
+          done
+          if [ -n "$attrs" ]; then
+            # shellcheck disable=SC2086 # one flake ref per word
+            nix build --keep-going --print-build-logs $attrs
+          fi
+
+      - id: pr
+        if: steps.bump.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v8
+        with:
+          branch: update/pins
+          delete-branch: true
+          title: "chore(pkgs): bump release pins"
+          commit-message: |
+            chore(pkgs): bump release pins
+
+            ${{ steps.bump.outputs.summary }}
+          body: |
+            ${{ steps.bump.outputs.summary }}
+
+            Build on aarch64-darwin: **${{ steps.build.outcome }}**
+          labels: automation
+
+      # Merged here rather than by CI on the PR: a PR opened with the
+      # workflow token doesn't trigger other workflows, and this job has
+      # just built the bumped packages. A failed build leaves the PR open.
+      - if: steps.pr.outputs.pull-request-number && steps.build.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr merge ${{ steps.pr.outputs.pull-request-number }} --squash --delete-branch
+          # The merge push doesn't trigger CI either (workflow token), but a
+          # dispatch does: it builds the other systems and fills the cache.
+          gh workflow run ci.yml --ref main
+
+      - if: steps.bump.outcome == 'failure' || steps.build.outcome == 'failure'
+        run: |
+          echo "::error::bump: ${{ steps.bump.outcome }}, build: ${{ steps.build.outcome }} (see the logs above)"
+          exit 1

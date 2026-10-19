@@ -1,0 +1,11 @@
+{
+  "source": {
+    "type": "github",
+    "repo": "pulsar-edit/pulsar"
+  },
+  "version": "1.132.1",
+  "url": "https://github.com/pulsar-edit/pulsar/releases/download/v{version}/Silicon.Mac.Pulsar-{version}-arm64-mac.zip",
+  "hash": {
+    "aarch64-darwin": "sha256-y7WjrOD2Kn67zgqwFH7MhHMPnLTihEvqdrTSVvU58tY="
+  }
+}

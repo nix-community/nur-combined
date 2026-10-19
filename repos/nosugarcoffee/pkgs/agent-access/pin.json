@@ -1,0 +1,18 @@
+{
+  "source": {
+    "type": "github",
+    "repo": "bitwarden/agent-access"
+  },
+  "version": "0.11.0",
+  "url": "https://github.com/bitwarden/agent-access/releases/download/v{version}/{arch}.tar.gz",
+  "arch": {
+    "aarch64-darwin": "aac-macos-aarch64",
+    "x86_64-darwin": "aac-macos-x86_64",
+    "x86_64-linux": "aac-linux-x86_64"
+  },
+  "hash": {
+    "aarch64-darwin": "sha256-XSCSPku5ZJ713yeY2aoOlbShhAzmY9MJFTQXehGCMcE=",
+    "x86_64-darwin": "sha256-E701NaYyhaSL/McAe4AQIj7vqO8dGtc6Se9cv3KQaTg=",
+    "x86_64-linux": "sha256-oFs1vMLLnIe8MsL/r4Oh6PKawyWQ5gliH5LouU2G42g="
+  }
+}
