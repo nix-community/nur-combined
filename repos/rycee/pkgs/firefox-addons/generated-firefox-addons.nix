@@ -7348,10 +7348,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.5.0";
+      version = "2.5.1";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5119680/lichess_tools_by_siderite-2.5.0.xpi";
-      sha256 = "0d541a4d2e7d6862b8bb6926e21a68f6cbe0ace1b92e65f89dd9a549b8f2bc59";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5136884/lichess_tools_by_siderite-2.5.1.xpi";
+      sha256 = "b1bf954d7a982241af62ed6176f7a8ec953d489c0a142b0e4215d76951f51b39";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -11401,10 +11401,10 @@
     };
     "read-aloud" = buildMozillaXpiAddon {
       pname = "read-aloud";
-      version = "1.81.1";
+      version = "1.82.0";
       addonId = "{ddc62400-f22d-4dd3-8b4a-05837de53c2e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4687318/read_aloud-1.81.1.xpi";
-      sha256 = "00e6bada98814108faa3ce108203b5052db8eb714a274721a4b532f70fa15458";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5137478/read_aloud-1.82.0.xpi";
+      sha256 = "4a080a2265877e21fae2f697ae2aadf115c3783c0e6b30f374d5457bb5c5a530";
       meta = with lib;
       {
         description = "Read out loud the current web-page article with one click. Supports 40+ languages.";
@@ -11417,6 +11417,7 @@
           "https://translate.google.com/"
           "https://piper.ttstool.com/"
           "https://supertonic.ttstool.com/"
+          "https://nghitts.ttstool.com/*"
         ];
         platforms = platforms.all;
       };
@@ -12786,10 +12787,10 @@
     };
     "single-file" = buildMozillaXpiAddon {
       pname = "single-file";
-      version = "1.31.2";
+      version = "1.31.3";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5133971/single_file-1.31.2.xpi";
-      sha256 = "c5b7d74033564ce5467080cf51db72484ce24d9d14e57eac38196594b242384d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5135297/single_file-1.31.3.xpi";
+      sha256 = "359323fb88097202a307df2f3255f4938af27b18040d9b89b4d3da88fbdc2cf8";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";
@@ -16773,10 +16774,10 @@
     };
     "youtube-subscription-groups" = buildMozillaXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.10.3";
+      version = "18.10.5";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5132863/youtube_subscription_groups-18.10.3.xpi";
-      sha256 = "d0c9bd169db359fa5b85542076d9da481df3dfd609da00c3ff49956c3a2899d9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5136982/youtube_subscription_groups-18.10.5.xpi";
+      sha256 = "c6dc7c2e8abf3f64e19537f1032006a9a41e6325efbec62a30e9841bf9a47b1b";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
