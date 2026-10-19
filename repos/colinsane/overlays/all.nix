@@ -12,6 +12,7 @@ let
       })
       (builtins.attrNames (builtins.readDir ./preferences))
     );
+  _32bit = import ./32bit.nix;
   cross = import ./cross.nix;
   gnu = import ./gnu.nix;
   musl = import ./musl.nix;
@@ -21,6 +22,7 @@ let
   pkgs-debug = import ./pkgs-debug.nix;
 in
 let
+  is32bit = pkgs: pkgs.stdenv.hostPlatform.is32bit;
   isCross = pkgs: !(pkgs.lib.systems.equals pkgs.stdenv.hostPlatform pkgs.stdenv.buildPlatform);
   isGnu = pkgs: pkgs.stdenv.hostPlatform.isGnu;
   isMusl = pkgs: pkgs.stdenv.hostPlatform.isMusl;
@@ -41,6 +43,7 @@ in
     preferences.reduce-closure
   ]
   ++ [
+    (optional is32bit _32bit)
     (optional isCross cross)
     (optional isGnu gnu)
     (optional isMusl musl)

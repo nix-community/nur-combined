@@ -357,6 +357,7 @@ in
 
     security.pam.package = suidlessPam;
 
-    system.tools.nixos-generate-config.enable = false;
+    system.disableInstallerTools = lib.mkDefault true;
+    # system.tools.nixos-generate-config.enable = false;
   };
 }

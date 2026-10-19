@@ -730,6 +730,15 @@ super.lib.composeManyExtensions [
       withMalcontent = false;
     };
 
+    glslang = prev.glslang.overrideAttrs (prevAttrs: {
+      env = (prevAttrs.env or {}) // {
+        # 2026-10-18: the multithreaded CLI test overflows musl's default thread stack.
+        # Match Void/Chimera: musl sizes pthread stacks from PT_GNU_STACK.
+        # <https://github.com/void-linux/void-packages/blob/8b9d0769d792d0eb98c46cac65af1310264e1f46/srcpkgs/glslang/template>
+        NIX_LDFLAGS = (prevAttrs.env.NIX_LDFLAGS or "") + " -z stack-size=2097152";
+      };
+    });
+
     # glibcLocales is null on musl, but some packages still refer to it.
     # is this sensible? should rather patch those out...
     # glibcLocales = pkgsCross.gnu64.glibcLocales;
@@ -746,7 +755,7 @@ super.lib.composeManyExtensions [
     # Google does not appear to distribute musl .debs, nor does any musl-based distro have a google-chrome package.
     google-chrome = final._pkgsGnu.google-chrome;
 
-    # 2026-10-03: still required
+    # 2026-10-17: still required
     gparted = prev.gparted.override {
       # 2026-01-29: `gpart` (binary which is placed on runtime PATH) does not build for musl.
       # > In file included from gpart.h:23,
@@ -760,7 +769,7 @@ super.lib.composeManyExtensions [
     };
 
     gst_all_1 = prev.gst_all_1.overrideScope (_final': prev': {
-      # 2026-08-31: still required
+      # 2026-10-17: still required
       # XXX(2026-01-28): ffv1 tests timeout. it's some new codec, just disable it.
       # <https://github.com/FFmpeg/FFV1>
       #
@@ -803,6 +812,27 @@ super.lib.composeManyExtensions [
       };
     });
 
+    haskell = prev.haskell // {
+      compiler = prev.haskell.compiler // {
+      # XXX(2026-10-18): fixes segfault in postFixup
+      # <https://github.com/NixOS/patchelf/pull/672>
+        ghc984Binary = prev.haskell.compiler.ghc984Binary.overrideAttrs (prevAttrs: {
+          nativeBuildInputs = [
+            (final.buildPackages.patchelf.overrideAttrs (old: {
+              # the patch adds tests to tests/Makefile.am -> needs reconf
+              nativeBuildInputs = (old.nativeBuildInputs or []) ++ [ final.buildPackages.autoreconfHook ];
+              patches = (old.patches or []) ++ [
+                (fetchpatch {
+                  url = "https://github.com/NixOS/patchelf/commit/59acc3d98b4961cfddf02090d9426ac735603218.patch";
+                  hash = "sha256-MgJft8jCQ8TsOtXyTtuZuAVw1y5PFkqDapdLSTUAUeY=";
+                })
+              ];
+            }))
+          ] ++ (prevAttrs.nativeBuildInputs or []);
+        });
+      };
+    };
+
     # 2026-08-31: still required
     # 2026-01-27: fails hyprland -> hyprcursor -> tomlplusplus (locale tests fail)
     # only `nwg-panel` uses hyprland; `null`ing it seems to Just Work.
@@ -813,7 +843,7 @@ super.lib.composeManyExtensions [
       doCheck = false;
     };
 
-    # 2026-10-03: still required
+    # 2026-10-17: still required
     # knot-dns tests fail because musl doesn't find its tzdata in the nix build sandbox
     # > not ok 47 - time_print isoZ result '1970-01-01T12:13:20+00:00' == '1970-01-01T13:13:20+01:00'
     # > not ok 49 - time_print isoZ_ex result '1970-01-01T12:13:20.012+00:00
@@ -825,7 +855,7 @@ super.lib.composeManyExtensions [
       '';
     });
 
-    # 2026-10-03: still required
+    # 2026-10-17: still required
     # 2026-01-25: fails building a test, so disable that test. probably not suitable for upstream.
     ldb = prev.ldb.overrideAttrs (upstream: {
       patches = (upstream.patches or []) ++ [
@@ -854,7 +884,7 @@ super.lib.composeManyExtensions [
     #   # ];
     # });
 
-    # 2026-10-03: still required
+    # 2026-10-17: still required
     # XXX(2026-01-29): one of the tests fail; alpine builds without tests claiming
     # "probably fpmath=sse related failures"
     # > [  FAILED  ] LineTest.CoincidingIntersect
@@ -899,6 +929,7 @@ super.lib.composeManyExtensions [
       doCheck = false;
     };
 
+    # 2026-10-17: still required
     lixPackageSets = prev.lixPackageSets.extend (_: lixPrev: {
       lix_2_95 = lixPrev.lix_2_95.overrideScope (_: compsPrev: {
         lix = compsPrev.lix.overrideAttrs (prevAttrs: {
@@ -1163,6 +1194,7 @@ super.lib.composeManyExtensions [
       # ];
     });
 
+    # 2026-10-17: still required
     # 2026-10-02: musl lacks close_range(), and nix relies on glibc transitively including <sys/syscall.h> for the fallback:
     # > ../unix/file-descriptor.cc:82:20: error: ‘SYS_close_range’ was not declared in this scope
     # upstream issue: <https://github.com/NixOS/nix/issues/11931>
@@ -1390,7 +1422,12 @@ super.lib.composeManyExtensions [
           # optionalDependencies = [];
         });
 
-        # 2026-08-31: still required
+        shtab = pysuper.shtab.override {
+          # XXX(2026-10-18): nativeCheckInputs; optional dep.
+          fish = null;
+        };
+
+        # 2026-10-17: still required
         swagger-spec-validator = pysuper.swagger-spec-validator.overridePythonAttrs {
           # asserts on strerror strings?
           doCheck = false;
@@ -1418,6 +1455,14 @@ super.lib.composeManyExtensions [
             # nixpkgs patched _inotify.py, but not _posixifaces.py -- also used by tests
             substituteInPlace src/twisted/internet/test/_posixifaces.py --replace-fail \
                 "find_library(\"c\") or \"\"" "'${stdenv.cc.libc}/lib/libc.so'"
+          '';
+        });
+
+        typer = pysuper.typer.overrideAttrs (prevAttrs: {
+          # XXX(2026-10-19): not sure why this is musl-specific?
+          preCheck = (prevAttrs.preCheck or "") + ''
+            # Long pytest-xdist tmp paths wrap the filename/error in test_file_error.
+            export COLUMNS=200
           '';
         });
       })
@@ -1541,7 +1586,7 @@ super.lib.composeManyExtensions [
     # };
     slack = final._pkgsGnu.slack;
 
-    # 2026-10-03: still required
+    # 2026-10-17: still required
     # XXX(2026-01-21): fortify failures only on musl:
     # > In file included from /nix/store/a7ijnxh5xvipgfx2j4wn7p6ff2an966p-fortify-headers-1.1alpine3/include/strings.h:23,
     # >                  from /nix/store/ci8sxhmyzz9pgqidk2z9zh6ycgcr72bd-musl-1.2.5-dev/include/string.h:59,
@@ -1600,10 +1645,10 @@ super.lib.composeManyExtensions [
     # 2026-10-03: still required
     # sqlite build hangs on musl during TCL extension compilation (tclsqlite-ex.c).
     # disable TCL support and checks to unblock the build.
-    sqlite = prev.sqlite.overrideAttrs (upstream: {
-      configureFlags = (upstream.configureFlags or []) ++ [ "--disable-tcl" ];
-      doCheck = false;
-    });
+    # sqlite = prev.sqlite.overrideAttrs (upstream: {
+    #   configureFlags = (upstream.configureFlags or []) ++ [ "--disable-tcl" ];
+    #   doCheck = false;
+    # });
 
     # 2026-10-03: still required
     # 2026-01-29: fish fails checkPhase on musl, but swaync doesn't seem to actually need it?
@@ -1655,9 +1700,9 @@ super.lib.composeManyExtensions [
     });
 
     # 2026-10-03: still required
-    wireplumber = prev.wireplumber.overrideAttrs (upstream: {
-      mesonFlags = (upstream.mesonFlags or []) ++ [ "-Ddoc=disabled" ];
-    });
+    # wireplumber = prev.wireplumber.overrideAttrs (upstream: {
+    #   mesonFlags = (upstream.mesonFlags or []) ++ [ "-Ddoc=disabled" ];
+    # });
 
     # 2026-10-03: still required
     # 2026-01-28: fix build failure on both nixpkgs master, and on 0.52.0.
@@ -1764,6 +1809,10 @@ super.lib.composeManyExtensions [
         export BINDGEN_EXTRA_CLANG_ARGS="$BINDGEN_EXTRA_CLANG_ARGS --target=${stdenv.hostPlatform.config}"
       '';
     });
+
+    # XXX(2026-10-16): unifont only needs perl at build time; this can maybe be upstreamed?
+    # fixes: `nix-build -A pkgsMusl.pkgsCross.aarch64-multiplatform-musl.unifont`
+    unifont = prev.unifont.override { perl = final.buildPackages.perl; };
   })
 
   (_: prev: prev.lib.optionalAttrs prev.stdenv.buildPlatform.isGnu {

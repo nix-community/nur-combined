@@ -15,9 +15,109 @@
 # this downloads the patch to pkgs/by-name/nixpkgs-bootstrap/patches, where it will take effect automatically.
 #
 # package overrides throughout this file are sorted alphabetically by attrname.
-final: prev: let
+final: super:
+let
   inherit (final) lib;
-in {
+in
+super.lib.composeManyExtensions [
+# (_: prev: {
+#   pkgsi686Linux = final.pkgsCross.gnu32;
+# })
+#
+# (_: prev: super.lib.optionalAttrs (
+#   prev.stdenv.buildPlatform.system == "x86_64-linux"
+#   && prev.stdenv.hostPlatform.system == "x86_64-linux"
+# ) {
+#   pkgsi686Linux = let
+#     # Bootstrap the VM runtime by cross compilation so it does not depend on
+#     # the native i686 packages which it will build.
+#     vmTools = final.pkgsCross.gnu32.vmTools.override {
+#       kernel = final.pkgsCross.gnu32.linux.override {
+#         structuredExtraConfig = {
+#           TCP_AO = lib.mkForce lib.kernel.unset;
+#           HIGHMEM4G = lib.mkForce lib.kernel.yes;
+#           X86_PAE = lib.mkForce lib.kernel.yes;
+#         };
+#       };
+#       # vmTools otherwise mounts /tmp as tmpfs even with a disk-backed root.
+#       writeScript = name: text: final.buildPackages.writeScript name (lib.replaceStrings
+#         [ ''mount -t tmpfs -o "mode=1777" none /fs/tmp'' ]
+#         [ ''chmod 1777 /fs/tmp'' ]
+#         text);
+#       virtiofsd = final.buildPackages.virtiofsd;
+#       customQemu = "${final.buildPackages.qemu}/bin/qemu-system-i386 -machine accel=kvm:tcg -cpu max";
+#     };
+#     # Some stdenv adapters apply mkDerivationFromStdenv more than once.
+#     wrap = drv: if drv ? origBuilder then drv else (lib.overrideDerivation (vmTools.runInLinuxVM drv) (vm: {
+#       # runInLinuxVM replaces env with QEMU_OPTS; retain package exports too.
+#       env = (drv.env or {}) // vm.env;
+#       # Schedule the launcher on the host, not on an external i686 builder.
+#       system = prev.stdenv.buildPlatform.system;
+#       # runInLinuxVM normally requires KVM; allow its TCG fallback here too.
+#       requiredSystemFeatures = drv.requiredSystemFeatures or [];
+#     })) // {
+#       # Keep package overrides inside the VM rather than reverting to the native builder.
+#       overrideAttrs = f: wrap (drv.overrideAttrs f);
+#     };
+#     wrapStdenv = config: stdenv: stdenv.override (old: let
+#       mkDerivation = old.mkDerivationFromStdenv or (stdenv:
+#         (import "${prev.path}/pkgs/stdenv/generic/make-derivation.nix" lib config stdenv).mkDerivation
+#       );
+#     in {
+#       mkDerivationFromStdenv = stdenv: args: wrap (
+#         (mkDerivation stdenv args).overrideAttrs (attrs: {
+#           memSize = attrs.memSize or 8192;
+#           # Toolchain builds and tests can fill a tmpfs root long before
+#           # running out of address space. Give each guest a sparse ext4 disk.
+#           mountDisk = "/dev/vda";
+#           preVM = ''
+#             diskImage="$PWD/root.img"
+#             ${final.buildPackages.coreutils}/bin/truncate -s 32G "$diskImage"
+#             ${final.buildPackages.e2fsprogs}/bin/mkfs.ext4 -q -F "$diskImage"
+#           '' + (attrs.preVM or "") + ''
+#             NIX_BUILD_CORES=2
+#             echo 'export NIX_BUILD_CORES=2' >> xchg/saved-env
+#           '';
+#         })
+#       );
+#     });
+#   in import prev.path {
+#     localSystem = "i686-linux";
+#     inherit (prev) config overlays;
+#     # Wrap bootstrap stages too: running i686 tools directly on a 64-bit
+#     # btrfs host can overflow their inode/stat interfaces.
+#     stdenvStages = args: map (stage: previous: let
+#       result = stage previous;
+#     in result // lib.optionalAttrs (!(result.__raw or false) && result ? stdenv) {
+#       stdenv = wrapStdenv args.config result.stdenv;
+#     }) (import "${prev.path}/pkgs/stdenv" args);
+#   };
+# })
+#
+(_: prev: let
+  maxVersion = 99;
+  versions = super.lib.range 1 maxVersion;
+  nodejsName = v: "nodejs-slim_${toString v}";
+  nodejsOverrides = builtins.foldl' (acc: name: acc // {
+    "${name}" = super."${name}".overrideAttrs (prevAttrs: {
+      # XXX(2026-10-17): nodejs fails build at high core count
+      # measurements:
+      # - 256 cores: peak memory 220 GB above baseline, but then fails tests:
+      #   > nodejs-slim> Failed tests:
+      #   > nodejs-slim> out/Release/node --max_old_space_size=32 --expose_gc /build/node-v24.21.0/test/pummel/test-vm-memleak.js
+      #   > nodejs-slim> out/Release/node --expose-gc /build/node-v24.21.0/test/sequential/test-gc-http-client-onerror.js
+      # - 128 cores: peak memory ~150 GB above baseline (IIRC)
+      preBuild = (prevAttrs.preBuild or "") + ''
+        if (( NIX_BUILD_CORES > 128 )); then
+          export NIX_BUILD_CORES=128
+        fi
+      '';
+    });
+  }) {} (map nodejsName versions);
+in
+  nodejsOverrides
+)
+(_: prev: {
   bind = prev.bind.overrideAttrs {
     # XXX(2026-10-11): isc_rwlock_benchmark fails for extremely high core count (512).
     # `nix-build -A bind --cores 32` still causes it to use 512 cores.
@@ -54,6 +154,14 @@ in {
         });
       })
     ];
+    # compiler = lib.mapAttrs (pname: drv: if lib.hasPrefix "ghc9" pname then
+    #   drv.overrideAttrs {
+    #     NIX_BUILD_CORES = "8";
+    #     # NIX_BUILD_CORES = "128";
+    #   }
+    # else
+    #   drv
+    # ) prev.haskell.compiler;
     compiler = prev.haskell.compiler // {
       ghc9103 = prev.haskell.compiler.ghc9103.overrideAttrs {
         # NIX_BUILD_CORES = "8";
@@ -63,9 +171,26 @@ in {
         # NIX_BUILD_CORES = "8";
         NIX_BUILD_CORES = "128";
       };
+      # ghc984Binary = prev.haskell.compiler.ghc984Binary.overrideAttrs {
+      #   # NIX_BUILD_CORES = "8";
+      #   NIX_BUILD_CORES = "128";
+      # };
     };
   };
 
+  ispc = prev.ispc.overrideAttrs (prevAttrs: {
+    patches = (prevAttrs.patches or []) ++ [
+      (final.fetchpatch {
+        # XXX(2026-10-18): fixes a hang in checkPhase
+        # https://github.com/ispc/ispc/pull/3913
+        name = "Fix-a-result-collection-race-that-can-hide-functional-test-failures";
+        url = "https://github.com/ispc/ispc/commit/3cec0a7d793942ffc043a8064929d322072554c8.diff";
+        hash = "sha256-keaWYCR9WKF5fYUqCZw6Tz8vMLAHUFQIgDapDQsY99Q=";
+      })
+    ];
+  });
+
+  # 2026-10-16: still required
   # XXX(2026-09-23): `python3Packages.pysaml2` fails build, takes down matrix-syanpse alongside it.
   matrix-synapse-unwrapped = prev.matrix-synapse-unwrapped.overridePythonAttrs (prevAttrs: {
     nativeCheckInputs = prev.lib.subtractLists prevAttrs.optional-dependencies.saml2 prevAttrs.nativeCheckInputs;
@@ -124,6 +249,15 @@ in {
 
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (pyself: pysuper: {
+      dask = pysuper.dask.overridePythonAttrs (prevAttrs: {
+        # XXX(2026-10-18): hundreds of pytest workers each create their own Dask pools,
+        # exhausting resources on high-core-count builders.
+        dontUsePytestXdist = true;
+        preCheck = (prevAttrs.preCheck or "") + ''
+          appendToVar pytestFlags "--numprocesses=$((NIX_BUILD_CORES > 8 ? 8 : NIX_BUILD_CORES))"
+        '';
+      });
+
       narwhals = pysuper.narwhals.overridePythonAttrs (prevAttrs: {
         # XXX(2026-10-17): either hangs, or segfaults, during checkPhase, for high core count. i don't remember which.
         dontUsePytestXdist = true;
@@ -157,14 +291,10 @@ in {
 
   xdg-dbus-proxy = prev.xdg-dbus-proxy.overrideAttrs (prevAttrs: {
     patches = prevAttrs.patches or [] ++ [
-      (final.fetchurl {
-        name = "Remap-message-serials-to-monotonically-increasing-value";
-        # https://github.com/flatpak/xdg-dbus-proxy/pull/81
-        url = "https://github.com/flatpak/xdg-dbus-proxy/pull/81/commits/300c7c612eb961c233a4d076836804ed5a298c16.patch?full_index=1";
-        hash = "sha256-7PK+x7lnJxwTn04MYTEnj0iae2ChE4yAi9+gMOusxrs=";
-      })
       # 2026-04-22: from checkraisefold to fix <https://github.com/flatpak/xdg-dbus-proxy/issues/67>
-      # ./patches/xdg-dbus-proxy/monotonic-serial.patch
+      # out for PR: <https://github.com/flatpak/xdg-dbus-proxy/pull/81>
+      # but carried locally as the PR version does not cleanly apply to 0.1.9/later
+      ./patches/xdg-dbus-proxy/monotonic-serial.patch
     ];
   });
 
@@ -175,4 +305,5 @@ in {
       export GOMAXPROCS=16
     '';
   });
-}
+})
+] final super

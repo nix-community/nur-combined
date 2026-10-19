@@ -131,6 +131,12 @@ in
           --replace-fail 'import cv2,'  'import'
       '';
 
+      # XXX(2026-10-18): upstream `makeWrapperArgs` expression appears to assume makeShellWrapper and fails;
+      # recreate the intent here until they fix it.
+      preFixup = (upstream.preFixup or "") + ''
+        makeWrapperArgs=("''${gappsWrapperArgs[@]}")
+      '';
+
       passthru = (upstream.passthru or {}) // {
         inherit defaultDb;
       };

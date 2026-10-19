@@ -10,13 +10,14 @@ let
   wxwidgets_3_2 = pkgs.wxwidgets_3_2.override {
     withWebKit = false;
   };
-  basePkg = pkgs.audacity;
+  # basePkg = pkgs.audacity;  #< nixpkgs maintainenance taken over by LLM slop + apple: breaks frequently.
+  basePkg = pkgs.audacity_3;
   # basePkg = pkgs.tenacity;  #< uncomment if the audacity build breaks
   appId = basePkg.pname;
 in
 {
   sane.programs.audacity = {
-    packageUnwrapped = pkgs.audacity.override {
+    packageUnwrapped = basePkg.override {
       inherit wxwidgets_3_2;
     };
 

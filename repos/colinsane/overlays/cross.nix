@@ -200,7 +200,7 @@ in with final; {
   #    };
   # });
 
-  # 2026-10-01: still needed
+  # 2026-10-17: still needed
   gcc16 = wrapCC (prev.gcc16.cc.overrideAttrs (prevAttrs: {
     # nixpkgs has a in-tree patch to fix the cross gccNG; it applies cleanly => grab it.
     # see: pkgs/development/compilers/gcc/ng/16/libgomp/uid-buffer-size.patch
@@ -329,6 +329,7 @@ in with final; {
   #   callPackage = self.newScope { inherit (self) qtCompatVersion qtModule srcs; inherit stdenv; };
   # });
 
+  # 2026-10-17: still required
   lixPackageSets = prev.lixPackageSets.extend (_: lixPrev: {
     lix_2_95 = lixPrev.lix_2_95.overrideScope (_: compsPrev: {
       lix = compsPrev.lix.overrideAttrs (prevAttrs: {
@@ -380,11 +381,11 @@ in with final; {
   });
 
   # 2026-10-02: still required
-  orc = prev.orc.overrideAttrs (upstream: {
-    nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
-      buildPackages.mesonEmulatorHook
-    ];
-  });
+  # orc = prev.orc.overrideAttrs (upstream: {
+  #   nativeBuildInputs = (upstream.nativeBuildInputs or []) ++ [
+  #     buildPackages.mesonEmulatorHook
+  #   ];
+  # });
 
   # 2026-10-01: still required
   # mesa = prev.mesa.overrideAttrs (prevAttrs: {

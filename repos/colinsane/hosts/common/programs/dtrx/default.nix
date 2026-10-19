@@ -1,26 +1,13 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   sane.programs.dtrx = {
-    packageUnwrapped = (pkgs.dtrx.override {
-      # `binutils` is the nix wrapper, which reads nix-related env vars
-      # before passing on to e.g. `ld`.
-      # dtrx probably only needs `ar` at runtime, not even `ld`.
-      # this is a "correctness" (and closure) fix, not a build or even runtime fix (probably)
-      # binutils = pkgs.binutils-unwrapped;
-      # build without rpm support, since `rpm` package doesn't cross-compile.
-      # rpm = null;
-      # arjSupport = true;
-      # unrarSupport = true;
-      # unzipSupport = true;
-    }).overrideAttrs (upstream: {
-      patches = (upstream.patches or []) ++ [
-        (pkgs.fetchpatch {
-          # out for PR: <https://github.com/dtrx-py/dtrx/pull/73>
-          name = "support .a archive format";
-          url = "https://github.com/uninsane/dtrx/commit/9210f853d96b3b0d2a800e3c3e14bb3399b2475b.patch?full_index=1";
-          hash = "sha256-yEycG6zVUt3SLbFO9jKDbNw8GvfcQ0S3MLYn9baEQDY=";
-        })
-      ];
+    packageUnwrapped = pkgs.dtrx.overridePythonAttrs (prevAttrs: {
+      src = lib.warnIf (lib.versionOlder "8.7.1" prevAttrs.version) "new dtrx release: drop override?" prevAttrs.src.overrideAttrs {
+        # 2026-09-27: includes my fix to support .a archive formats
+        # <https://github.com/dtrx-py/dtrx/pull/73>
+        rev = "e2ba967eec65ec9e1c2892efc2f5116b61d4a5fe";
+        hash = "sha256-EXaiQqdPw39z43luMkJmm6GbpyERGsOZFx7WoNHyawU=";
+      };
     });
     sandbox.whitelistPwd = true;
     sandbox.autodetectCliPaths = "existing";  #< for the archive

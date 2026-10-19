@@ -1,0 +1,107 @@
+From 825ab00534dc83e0247e70bdf35284187dfff20e Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Sun, 18 Oct 2026 21:23:33 +0000
+Subject: [PATCH] writers: use build binaries in `check` to fix cross
+ compilation
+
+fixes:
+```
+$ nix-build --expr '((import ./. {}).pkgsCross.aarch64-multiplatform.nixos {
+    services.btrfs.autoScrub.enable = true;
+  }).config.systemd.units."btrfs-scrub@.service".unit'
+```
+
+which would previously fail like:
+```
+building '/nix/store/95nbdjsasnira5mdhkz1wk3c8cggflzc-pythoncheck.sh.drv'...
+pythoncheck.sh> /build/.attr-0l2nkwhif96f51f4amnlf414lhl4rv9vh8iffyp431v6s28gsr90: line 26: /nix/store/ysn4605h6j75l3c9nd4wd4wn5fpbh2in-dash-aarch64-unknown-linux-gnu-0.5.13.5/bin/dash: cannot execute binary file: Exec format error
+error: builder for '/nix/store/95nbdjsasnira5mdhkz1wk3c8cggflzc-pythoncheck.sh.drv' failed with exit code 126;
+       last 1 log lines:
+       > /build/.attr-0l2nkwhif96f51f4amnlf414lhl4rv9vh8iffyp431v6s28gsr90: line 26: /nix/store/ysn4605h6j75l3c9nd4wd4wn5fpbh2in-dash-aarch64-unknown-linux-gnu-0.5.13.5/bin/dash: cannot execute binary file: Exec format error
+       For full logs, run:
+            nix log /nix/store/95nbdjsasnira5mdhkz1wk3c8cggflzc-pythoncheck.sh.drv
+error: 1 dependencies of derivation '/nix/store/j2qs14w9vmvjfnxjm07kfpva9ykphjig-unit-btrfs-scrub-.service.drv' failed to build
+```
+
+or a more detached repro:
+```
+$ nix-build -E "(import ./. {}).pkgsCross.aarch64-multiplatform.writers.writePython3 ''hello'' {} ''
+    print('hello world')
+  ''"
+```
+---
+ pkgs/build-support/writers/scripts.nix | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
+
+diff --git a/pkgs/build-support/writers/scripts.nix b/pkgs/build-support/writers/scripts.nix
+index ac9c23ae77b7..6361ee04024b 100644
+--- a/pkgs/build-support/writers/scripts.nix
++++ b/pkgs/build-support/writers/scripts.nix
+@@ -409,13 +409,13 @@ rec {
+         argsOrScript
+         // {
+           interpreter = "${lib.getExe pkgs.dash}";
+-          check = argsOrScript.check or "${lib.getExe pkgs.dash} -n";
++          check = argsOrScript.check or "${lib.getExe buildPackages.dash} -n";
+         }
+       ) name
+     else
+       makeScriptWriter {
+         interpreter = "${lib.getExe pkgs.dash}";
+-        check = "${lib.getExe pkgs.dash} -n";
++        check = "${lib.getExe buildPackages.dash} -n";
+       } name argsOrScript;
+ 
+   /**
+@@ -490,13 +490,13 @@ rec {
+         argsOrScript
+         // {
+           interpreter = "${lib.getExe pkgs.fish} --no-config";
+-          check = "${lib.getExe pkgs.fish} --no-config --no-execute"; # syntax check only
++          check = "${lib.getExe buildPackages.fish} --no-config --no-execute"; # syntax check only
+         }
+       ) name
+     else
+       makeScriptWriter {
+         interpreter = "${lib.getExe pkgs.fish} --no-config";
+-        check = "${lib.getExe pkgs.fish} --no-config --no-execute"; # syntax check only
++        check = "${lib.getExe buildPackages.fish} --no-config --no-execute"; # syntax check only
+       } name argsOrScript;
+ 
+   /**
+@@ -606,7 +606,7 @@ rec {
+     {
+       makeWrapperArgs ? [ ],
+       babashka ? pkgs.babashka-unwrapped,
+-      check ? "${lib.getExe pkgs.clj-kondo} --lint",
++      check ? "${lib.getExe buildPackages.clj-kondo} --lint",
+       ...
+     }@args:
+     makeScriptWriter (
+@@ -947,7 +947,7 @@ rec {
+         interpreter =
+           if libraries == [ ] then "${ruby}/bin/ruby" else "${(ruby.withPackages (ps: libraries))}/bin/ruby";
+         # Rubocop doesn't seem to like running in this fashion.
+-        #check = (writeDash "rubocop.sh" ''
++        #check = (buildPackages.writers.writeDash "rubocop.sh" ''
+         #  exec ${lib.getExe buildRubyPackages.rubocop} "$1"
+         #'');
+       }
+@@ -992,7 +992,7 @@ rec {
+         # else (lua.withPackages (ps: libraries)).interpreter
+         # This should support packages! I just cant figure out why some dependency collision happens whenever I try to run this.
+         check = (
+-          writeDash "luacheck.sh" ''
++          buildPackages.writers.writeDash "luacheck.sh" ''
+             exec ${buildLuaPackages.luacheck}/bin/luacheck "$1"
+           ''
+         );
+@@ -1214,7 +1214,7 @@ rec {
+           else
+             (python.withPackages (toFunction libraries)).interpreter;
+         check = optionalString (python.isPy3k && doCheck) (
+-          writeDash "pythoncheck.sh" ''
++          buildPackages.writers.writeDash "pythoncheck.sh" ''
+             exec ${buildPythonPackages.flake8}/bin/flake8 --show-source ${ignoreAttribute} "$1"
+           ''
+         );
