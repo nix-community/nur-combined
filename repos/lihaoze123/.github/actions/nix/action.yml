@@ -1,0 +1,31 @@
+name: Configure Nix caches
+description: Install Nix, use public build caches, and optionally authenticate to private Attic.
+inputs:
+  attic-token:
+    description: Optional private cache read token; never supplied to pull requests.
+    default: ''
+runs:
+  using: composite
+  steps:
+    - uses: cachix/install-nix-action@v31
+      with:
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ github.token }}
+          extra-substituters = https://niri-computer-use.cachix.org https://codex-desktop-linux.cachix.org
+          extra-trusted-public-keys = niri-computer-use.cachix.org-1:K5LGfljid+PkRn02OLbwsmngqBCoLkbDi9hRMCnsOTg= codex-desktop-linux.cachix.org-1:nX/xy6AdK9hQE24A8ALGjkCKj2ObFmcnemiL5Cid4nk=
+    - name: Authenticate private cache reads
+      if: inputs.attic-token != ''
+      shell: bash
+      env:
+        ATTIC_TOKEN: ${{ inputs.attic-token }}
+      run: |
+        umask 077
+        printf 'machine cache.chumeng.xyz login attic password %s\n' "$ATTIC_TOKEN" > "$RUNNER_TEMP/attic-netrc"
+        sudo install -Dm600 "$RUNNER_TEMP/attic-netrc" /etc/nix/attic-netrc
+        {
+          echo 'netrc-file = /etc/nix/attic-netrc'
+          echo 'extra-substituters = https://cache.chumeng.xyz/nur?priority=20'
+          echo 'extra-trusted-public-keys = nur:dJh05Op2+iv3GCHoaF2+1FfQtqcUZzf/4v/ZTaLHomY='
+        } | sudo tee -a /etc/nix/nix.conf > /dev/null
+        sudo systemctl restart nix-daemon

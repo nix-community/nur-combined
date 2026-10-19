@@ -1,0 +1,177 @@
+name: "Build and populate cache"
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+  schedule:
+    # Check cache coverage daily; audit runtime closures every Monday.
+    - cron:  '17 3 * * *'
+  workflow_dispatch:
+    inputs:
+      audit:
+        description: Download and verify all runtime closures in an empty store
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  tests:
+    strategy:
+      matrix:
+        nixPath:
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-26.05.tar.gz
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v7
+    - name: Install nix
+      uses: cachix/install-nix-action@v31
+      with:
+        nix_path: "${{ matrix.nixPath }}"
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - name: Show nixpkgs version
+      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+    - name: Setup cachix
+      uses: cachix/cachix-action@v17
+      # Optional: set CACHIX_NAME and a signing key/token to enable uploads.
+      if: ${{ vars.CACHIX_NAME != '' }}
+      with:
+        name: ${{ vars.CACHIX_NAME }}
+        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+    - name: Check evaluation
+      run: |
+        nix-env -f . -qa \* --meta --xml \
+          --allowed-uris https://static.rust-lang.org \
+          --option restrict-eval true \
+          --option allow-import-from-derivation true \
+          --drv-path --show-trace \
+          -I "nixpkgs=$(nix-instantiate --find-file nixpkgs)" \
+          -I "$PWD"
+    - name: Trigger NUR update
+      # Enable NUR_REGISTERED after this repository enters the public index.
+      if: ${{ github.event_name == 'push' && vars.NUR_REGISTERED == 'true' }}
+      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=lihaoze123"
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v7
+    - uses: ./.github/actions/nix
+    - name: Check workflows, scripts and regression tests
+      run: |
+        nix shell --inputs-from . nixpkgs#actionlint nixpkgs#shellcheck nixpkgs#python3 -c bash -euo pipefail -c '
+          actionlint
+          shellcheck scripts/*.sh
+          python3 tests/ci/test-cache-ci.py
+          nix eval --impure --json --file tests/ci/test-package-discovery.nix
+        '
+
+  eval:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.plan.outputs.matrix }}
+      has-errors: ${{ steps.plan.outputs.has-errors }}
+      audit: ${{ steps.audit.outputs.enabled }}
+    steps:
+    - uses: actions/checkout@v7
+    - uses: ./.github/actions/nix
+      with:
+        attic-token: ${{ github.event_name != 'pull_request' && secrets.ATTIC_TOKEN || '' }}
+    - name: Evaluate packages and plan private-cache misses
+      id: plan
+      env:
+        ATTIC_TOKEN: ${{ github.event_name != 'pull_request' && secrets.ATTIC_TOKEN || '' }}
+      run: |
+        nix shell --inputs-from . nixpkgs#nix-eval-jobs nixpkgs#python3 -c bash scripts/ci-evaluate.sh
+    - name: Select weekly audit
+      id: audit
+      run: |
+        if [[ $(date -u +%u) == 1 ]]; then
+          echo 'enabled=true' >> "$GITHUB_OUTPUT"
+        fi
+    - uses: actions/upload-artifact@v7
+      with:
+        name: cache-plan
+        path: |
+          ci-plan.json
+          ci-paths
+          ci-evaluation.jsonl
+
+  build:
+    needs: eval
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix: ${{ fromJSON(needs.eval.outputs.matrix) }}
+    name: build (${{ matrix.attr }})
+    runs-on: ubuntu-latest
+    steps:
+    - name: No package build jobs
+      if: matrix.skip
+      run: echo 'No package builds were scheduled; see the evaluation plan.'
+    - uses: actions/checkout@v7
+      if: ${{ !matrix.skip }}
+    - uses: ./.github/actions/nix
+      if: ${{ !matrix.skip }}
+      with:
+        attic-token: ${{ github.event_name != 'pull_request' && secrets.ATTIC_TOKEN || '' }}
+    - name: Build all outputs of the package
+      if: ${{ !matrix.skip }}
+      env:
+        PACKAGE_ATTR: ${{ matrix.attr }}
+        EXPECTED_OUTPUTS: ${{ toJSON(matrix.outPaths) }}
+      run: |
+        nix build ".#ciMetadata.x86_64-linux.buildJobPackages.\"$PACKAGE_ATTR\"^*" \
+          --no-link --json --print-build-logs > "$RUNNER_TEMP/nur-build.json"
+        jq -r '.[].outputs[]' "$RUNNER_TEMP/nur-build.json" | sort -u > "$RUNNER_TEMP/nur-paths"
+        diff -u <(jq -r '.[]' <<< "$EXPECTED_OUTPUTS" | sort -u) "$RUNNER_TEMP/nur-paths"
+    - name: Publish and verify private cache metadata
+      if: ${{ !matrix.skip && github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') }}
+      env:
+        ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
+      run: |
+        nix shell --inputs-from . nixpkgs#attic-client nixpkgs#python3 -c bash scripts/cache-attic.sh "$RUNNER_TEMP/nur-paths"
+    - uses: actions/upload-artifact@v7
+      if: ${{ !matrix.skip && always() }}
+      with:
+        name: outputs-${{ matrix.attr }}
+        path: |
+          ${{ runner.temp }}/nur-build.json
+          ${{ runner.temp }}/nur-paths
+
+  audit:
+    needs: [eval, build]
+    if: ${{ (github.event_name == 'schedule' && needs.eval.outputs.audit == 'true') || (github.event_name == 'workflow_dispatch' && inputs.audit && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')) }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v7
+    - uses: ./.github/actions/nix
+      with:
+        attic-token: ${{ secrets.ATTIC_TOKEN }}
+    - uses: actions/download-artifact@v8
+      with:
+        name: cache-plan
+    - name: Download and verify runtime closures in an empty store
+      env:
+        ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
+      run: bash scripts/cache-audit.sh ci-paths
+
+  result:
+    needs: [tests, lint, eval, build, audit]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+    - name: Report evaluation, build and cache failures
+      env:
+        RESULTS: ${{ toJSON(needs) }}
+        EVALUATION_ERRORS: ${{ needs.eval.outputs.has-errors }}
+      run: |
+        jq -e 'to_entries | all(.[]; if .key == "audit" then (.value.result == "success" or .value.result == "skipped") else .value.result == "success" end)' <<< "$RESULTS"
+        test "$EVALUATION_ERRORS" = false

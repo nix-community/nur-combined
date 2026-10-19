@@ -1,0 +1,40 @@
+--- a/src/addon/input/vinput_keyevent.cpp
++++ b/src/addon/input/vinput_keyevent.cpp
+@@ -219,6 +219,15 @@
+     role = HotkeyRole::Menu;
+   }
+ 
++  // Qt sends synthetic release/press pairs while a key is held. Neither edge
++  // is a physical hotkey transition: processing it can stop a Hold recording,
++  // toggle a Tap recording, or open the menu before the user releases the key.
++  // Read Repeat from origKey(), since normalize() removes that flag.
++  if (role != HotkeyRole::None && keyEvent.origKey().states().test(fcitx::KeyState::Repeat)) {
++    keyEvent.filterAndAccept();
++    return;
++  }
++
+   // 4. Non-hotkey (regular keys)
+   if (role == HotkeyRole::None) {
+     if (!keyEvent.isRelease()) {
+@@ -251,6 +260,21 @@
+ 
+   // 5. Press Phase
+   if (!keyEvent.isRelease()) {
++    // Legacy Qt/Fcitx4 clients may omit Repeat on synthetic release/press pairs.
++    // While a Hold release is still debouncing, another press continues the
++    // same hold instead of treating trigger_released as a Tap toggle. Do this
++    // before trigger debounce, so rapid repeats can always cancel the stop.
++    if (session_ && session_->stop_on_release && session_->trigger == matched_key &&
++        (session_->phase == Session::Phase::Recording ||
++         session_->phase == Session::Phase::PendingStart)) {
++      cancelPendingStop();
++      session_->trigger_released = false;
++      held_key_sym_ = event_key.sym();
++      held_role_ = role;
++      keyEvent.filterAndAccept();
++      return;
++    }
++
+     auto now = std::chrono::steady_clock::now();
+ 
+     if (role == HotkeyRole::Trigger || role == HotkeyRole::Command) {

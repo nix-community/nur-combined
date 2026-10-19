@@ -1,0 +1,16 @@
+--- a/cloud/实时云桥接.py
++++ b/cloud/实时云桥接.py
+@@ -240,7 +240,12 @@
+         return safe
+     def query_cloud(task,raw):
+         with (p.STATE/'identity.lock').open('a+') as lock:
+-            fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
++            deadline=time.monotonic()+.3
++            while True:
++                try:fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB);break
++                except BlockingIOError:
++                    if time.monotonic()>=deadline:raise
++                    time.sleep(.01)
+             client=p.Probe(json.loads((p.STATE/'identity.json').read_text()));client.timeout=1.2
+             response=client.request('/api_v2',raw,2,service_command=4329)
+         rows=candidates(response)

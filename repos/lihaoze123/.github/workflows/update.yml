@@ -1,0 +1,62 @@
+name: Propose package updates
+on:
+  schedule:
+    - cron: '43 2 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  targets:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.targets.outputs.matrix }}
+    steps:
+    - uses: actions/checkout@v7
+    - name: List independent update groups
+      id: targets
+      run: echo "matrix=$(python3 scripts/update-package.py --list)" >> "$GITHUB_OUTPUT"
+
+  update:
+    needs: targets
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      actions: write
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix: ${{ fromJSON(needs.targets.outputs.matrix) }}
+    concurrency:
+      group: update-${{ matrix.name }}
+      cancel-in-progress: false
+    name: update (${{ matrix.name }})
+    steps:
+    - uses: actions/checkout@v7
+    - uses: ./.github/actions/nix
+      with:
+        attic-token: ${{ secrets.ATTIC_TOKEN }}
+    - name: Update one package or coupled input group
+      env:
+        GH_TOKEN: ${{ github.token }}
+        UPDATE_TARGET: ${{ matrix.name }}
+      run: |
+        nix shell --inputs-from . nixpkgs#python3 nixpkgs#nix-update nixpkgs#nixpkgs-fmt \
+          nixpkgs#nodejs nixpkgs#prefetch-npm-deps -c python3 scripts/update-package.py "$UPDATE_TARGET"
+    - name: Create or refresh update PR
+      id: pr
+      uses: peter-evans/create-pull-request@v8
+      with:
+        branch: update/${{ matrix.name }}
+        title: 'chore(update): 更新 ${{ matrix.name }}'
+        commit-message: 'chore(update): 更新 ${{ matrix.name }}'
+        body: |
+          自动检查此包或配套组件组的上游更新。优先稳定发行版；没有稳定版的源码项目跟踪分支提交。
+          包级 CI 验证通过后由维护者合并；合并后自动上传私有 Attic。不会自动合并。
+    - name: Explicitly trigger CI for the update branch
+      if: steps.pr.outputs.pull-request-operation == 'created' || steps.pr.outputs.pull-request-operation == 'updated'
+      env:
+        GH_TOKEN: ${{ github.token }}
+        UPDATE_BRANCH: update/${{ matrix.name }}
+      # workflow_dispatch works with GITHUB_TOKEN without an additional PAT.
+      run: gh workflow run build.yml --ref "$UPDATE_BRANCH"
