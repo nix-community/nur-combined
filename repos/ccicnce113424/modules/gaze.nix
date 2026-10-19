@@ -252,14 +252,13 @@ in
           # those numbers between releases, so offset from the rule Gaze has to
           # precede instead of using a constant.
           precedeOrder =
-            if unixOrder == null && fprintdOrder == null then
-              10000
-            else if unixOrder == null then
-              fprintdOrder
-            else if fprintdOrder == null then
-              unixOrder
-            else
-              lib.min unixOrder fprintdOrder;
+            let
+              anchors = lib.filter (anchor: anchor != null) [
+                unixOrder
+                fprintdOrder
+              ];
+            in
+            if anchors == [ ] then 10000 else lib.foldl' lib.min (lib.head anchors) anchors;
 
           gazeOrder = if config.gaze.order != null then config.gaze.order else precedeOrder - 10;
 
@@ -335,16 +334,18 @@ in
             # The nixpkgs KWallet hooks cover the password path: the auth hook
             # stores the password typed at the prompt and the session hook starts
             # the wallet. The gaze rules below cover the face path.
-            kwallet.enable = lib.mkIf kwalletLogin true;
+            kwallet.enable = lib.mkIf kwalletLogin (lib.mkDefault true);
 
             rules.auth.gaze = lib.mkIf config.gaze.enable {
-              order = gazeOrder;
+              order = lib.mkDefault gazeOrder;
               # A face match skips the next rule and lands on the KWallet rule,
               # which saves the credential, before authentication ends. Anything
               # else jumps over both of those and reaches the original stack, so
               # the password stays available.
-              control = if kwalletLogin then "[success=1 default=ignore]" else config.gaze.control;
-              modulePath = pamModule;
+              control = lib.mkDefault (
+                if kwalletLogin then "[success=1 default=ignore]" else config.gaze.control
+              );
+              modulePath = lib.mkDefault pamModule;
               args =
                 lib.optional config.gaze.simultaneous "simultaneous" ++ lib.optional kwalletLogin "kde-login";
             };
@@ -382,25 +383,24 @@ in
 
   config = lib.mkIf cfg.enable (
     lib.mkMerge [
-      {
-        assertions = lib.optionals cfg.kde.unlockKwallet (
-          [
-            {
-              assertion = cfg.kde.loginScreen;
-              message = "services.gaze.kde.unlockKwallet requires services.gaze.kde.loginScreen.";
-            }
-          ]
-          ++ lib.optional cfg.kde.loginScreen (
-            let
-              gaze = config.security.pam.services.login.gaze;
-            in
-            {
-              assertion = !gaze.enable || (!gaze.simultaneous && !gaze.retry && gaze.control == "sufficient");
-              message = "services.gaze.kde.unlockKwallet requires sequential, sufficient Gaze authentication without retry for the login service.";
-            }
-          )
-        );
+      (lib.mkIf cfg.kde.unlockKwallet {
+        assertions = [
+          {
+            assertion = cfg.kde.loginScreen;
+            message = "services.gaze.kde.unlockKwallet requires services.gaze.kde.loginScreen.";
+          }
+          {
+            assertion =
+              let
+                gaze = config.security.pam.services.login.gaze;
+              in
+              !gaze.enable || (!gaze.simultaneous && !gaze.retry && gaze.control == "sufficient");
+            message = "services.gaze.kde.unlockKwallet requires sequential, sufficient Gaze authentication without retry for the login service.";
+          }
+        ];
+      })
 
+      {
         environment.systemPackages = [ cfg.package ];
 
         # Ships the com.gundulabs.Gaze system bus policy.
@@ -421,9 +421,7 @@ in
           startLimitBurst = 5;
           environment = {
             XDG_CACHE_HOME = "/var/cache/gaze";
-          }
-          // lib.optionalAttrs (cfg.tpm.tcti != null) {
-            TPM2TOOLS_TCTI = cfg.tpm.tcti;
+            TPM2TOOLS_TCTI = lib.mkIf (cfg.tpm.tcti != null) cfg.tpm.tcti;
           };
           serviceConfig = {
             ExecStart = "${lib.getBin cfg.package}/bin/gazed";
@@ -509,31 +507,28 @@ in
         # The daemon reads the GDM face-login switch out of the gdm profile.
         systemd.services.gazed.path = [ pkgs.dconf ];
         programs.dconf.enable = true;
-        programs.dconf.profiles = {
-          gdm.databases = [
-            {
-              settings = {
-                "org/gnome/shell".enabled-extensions = [
-                  cfg.gnome.extensionPackage.passthru.extensionUuid
-                ];
-                "org/gnome/shell".disable-user-extensions = false;
-                "org/gnome/shell/extensions/gaze".enable-face-authentication = cfg.gnome.gdmFaceLogin;
-              };
-            }
-          ];
-        }
-        // lib.optionalAttrs cfg.gnome.enableForUsers {
-          user.databases = [
-            {
-              settings = {
-                "org/gnome/shell".enabled-extensions = [
-                  cfg.gnome.extensionPackage.passthru.extensionUuid
-                ];
-                "org/gnome/shell/extensions/gaze".enable-face-authentication = true;
-              };
-            }
-          ];
-        };
+        programs.dconf.profiles.gdm.databases = [
+          {
+            settings = {
+              "org/gnome/shell".enabled-extensions = [
+                cfg.gnome.extensionPackage.passthru.extensionUuid
+              ];
+              "org/gnome/shell".disable-user-extensions = false;
+              "org/gnome/shell/extensions/gaze".enable-face-authentication = cfg.gnome.gdmFaceLogin;
+            };
+          }
+        ];
+
+        programs.dconf.profiles.user.databases = lib.mkIf cfg.gnome.enableForUsers [
+          {
+            settings = {
+              "org/gnome/shell".enabled-extensions = [
+                cfg.gnome.extensionPackage.passthru.extensionUuid
+              ];
+              "org/gnome/shell/extensions/gaze".enable-face-authentication = true;
+            };
+          }
+        ];
 
         # Face-only service the extension runs at the login screen; the password
         # stays available through `gdm-password`, which GDM runs in parallel.
@@ -612,7 +607,7 @@ in
       # nothing. The daemon also requires sealed templates (above) and liveness
       # (on by default).
       (lib.mkIf cfg.kde.unlockKwallet {
-        services.gaze.settings.storage.unlock_kwallet = true;
+        services.gaze.settings.storage.unlock_kwallet = lib.mkDefault true;
       })
 
       (lib.mkIf cfg.kde.loginScreen {
