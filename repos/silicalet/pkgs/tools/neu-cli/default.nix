@@ -10,7 +10,7 @@
 }:
 
 let
-  version = "0.1.0.0-unstable-2026-10-12";
+  version = "0-unstable-2026-10-12";
 
   src = fetchFromGitHub {
     owner = "silicalet";
