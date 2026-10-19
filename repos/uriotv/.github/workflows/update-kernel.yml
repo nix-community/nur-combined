@@ -1,0 +1,50 @@
+name: Update CachyOS kernel
+
+on:
+  schedule:
+    - cron: '23 4 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: update-cachyos-kernel
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+      - name: Update source and matching compiler pin atomically
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 pkgs/linux-cachyos-bore-x86_64-v3/update.py
+      - name: Open update pull request
+        id: pr
+        uses: peter-evans/create-pull-request@v8
+        with:
+          # A PAT is needed to trigger CI on this bot-created PR.
+          token: ${{ secrets.PAT_FOR_UPDATES || secrets.GITHUB_TOKEN }}
+          branch: auto-update-cachyos-kernel
+          delete-branch: true
+          add-paths: pkgs/linux-cachyos-bore-x86_64-v3/upstream/
+          commit-message: 'chore: update CachyOS BORE v3 kernel pin'
+          title: 'chore: Update CachyOS BORE v3 kernel'
+          body: |
+            Updates the pinned upstream source and its matching nixpkgs together.
+            Only latest BORE x86_64-v3 without LTO is built.
+            Auto-merge must wait for the required test-gate, including the kernel build.
+      - name: Enable auto-merge after CI
+        if: steps.pr.outputs.pull-request-number != ''
+        env:
+          GH_TOKEN: ${{ secrets.PAT_FOR_UPDATES || secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ steps.pr.outputs.pull-request-number }}
+        run: gh pr merge "$PR_NUMBER" --squash --auto --delete-branch

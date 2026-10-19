@@ -26,6 +26,13 @@ jobs:
       - name: Run update script tests
         run: ./tests/run-tests.sh
 
+  kernel:
+    uses: ./.github/workflows/kernel.yml
+    permissions:
+      contents: read
+    secrets:
+      CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
   # This is a required branch-protection check. Keep it dependent on every CI
   # test job so auto-merge cannot bypass a failed package build.
   test-gate:
@@ -33,11 +40,12 @@ jobs:
     needs:
       - test-update-scripts
       - tests
+      - kernel
     if: always()
     steps:
       - name: Check test results
         run: |
-          if [ "${{ needs.test-update-scripts.result }}" != "success" ] || [ "${{ needs.tests.result }}" != "success" ]; then
+          if [ "${{ needs.test-update-scripts.result }}" != "success" ] || [ "${{ needs.tests.result }}" != "success" ] || [ "${{ needs.kernel.result }}" != "success" ]; then
             echo "::error::CI checks failed; merge is blocked."
             exit 1
           fi

@@ -1,0 +1,214 @@
+{
+  lib,
+  callPackage,
+  buildLinux,
+  stdenv,
+  kernelPatches,
+  applyPatches,
+  impureUseNativeOptimizations,
+  ...
+}:
+lib.makeOverridable (
+  {
+    pname,
+    version,
+    src,
+    cachyosConfigFile,
+    cachyosPatchesSrc,
+    zfsVariant ? "latest",
+
+    # Set to one of "none", "thin" or "full", anything other than "none" uses Clang
+    # to build the kernel with the selected LTO option
+    lto ? "none",
+
+    # Patches to be applied in patchedSrc phase. This is different from buildLinux's kernelPatches.
+    prePatch ? "",
+    patches ? [ ],
+    postPatch ? "",
+
+    # CachyOS fine tuning settings, see ./cachySettings.nix for corresponding options
+    # Default value sourced from https://github.com/CachyOS/linux-cachyos/blob/master/linux-cachyos/PKGBUILD
+    # Set to null or false to disable
+    cpusched ? "eevdf",
+    kcfi ? false,
+    hzTicks ? "1000",
+    performanceGovernor ? false,
+    tickrate ? "full",
+    preemptType ? "full",
+    ccHarder ? true,
+    bbr3 ? false,
+    hugepage ? "always",
+    processorOpt ? "x86_64-v1",
+
+    # CachyOS additional patch settings
+    hardened ? false,
+    rt ? false,
+    acpiCall ? false,
+    handheld ? false,
+
+    # AutoFDO settings
+    # AutoFDO hasn't been fully tested. Please report issue if you encounter any.
+    #
+    # false - Disable AutoFDO
+    # true - Enable AutoFDO for profiling performance patterns only
+    # ./path/to/autofdo/profile: Enable AutoFDO with specified profile
+    autofdo ? false,
+
+    # Build as much components as possible as kernel modules, including disabled ones.
+    # This can enable unexpected modules, such as nova_core.
+    # https://github.com/xddxdd/nix-cachyos-kernel/issues/13
+    #
+    # Disabling this causes boot issues for me. Reenabling.
+    autoModules ? true,
+
+    # See nixpkgs/pkgs/os-specific/linux/kernel/generic.nix for additional options.
+    # Additional args are passed to buildLinux.
+    ...
+  }@args:
+
+  # AutoFDO requires Clang compiler
+  assert autofdo != false -> lto != "none";
+  # rt/rt-bore cpusched requires realtime patchset
+  assert cpusched == "rt" || cpusched == "rt-bore" -> rt;
+
+  let
+    helpers = callPackage ../helpers.nix { };
+    inherit (helpers) stdenvLLVM ltoMakeflags;
+
+    # For use in moddirversion
+    fullVersion = lib.versions.pad 3 version;
+
+    cachyosPatches = builtins.map (p: "${cachyosPatchesSrc}/${p}") (
+      (lib.optional (cpusched == "bore" || cpusched == "rt-bore") "sched/0001-bore-cachy.patch")
+      ++ (lib.optional (cpusched == "bmq") "sched/0001-prjc-cachy.patch")
+      ++ (lib.optional hardened "misc/0001-hardened.patch")
+      ++ (lib.optional rt "misc/0001-rt-i915.patch")
+      ++ (lib.optional acpiCall "misc/0001-acpi-call.patch")
+      ++ (lib.optional handheld "misc/0001-handheld.patch")
+    );
+
+    # buildLinux doesn't accept postPatch, so adding config file early here
+    patchedSrc = applyPatches {
+      name = "linux-src-patched";
+      inherit src;
+      patches = [
+        kernelPatches.bridge_stp_helper.patch
+        kernelPatches.request_key_helper.patch
+      ]
+      ++ cachyosPatches
+      ++ patches;
+
+      inherit prePatch;
+      postPatch = ''
+        install -Dm644 ${cachyosConfigFile} arch/x86/configs/cachyos_defconfig
+      ''
+      + postPatch;
+    };
+
+    defaultLocalVersion = if lto == "none" then "-cachyos" else "-cachyos-lto";
+
+    cachySettings = callPackage ./cachySettings.nix { };
+    structuredExtraConfig =
+      # Apply basic kernel options
+      (with lib.kernel; {
+        NR_CPUS = lib.mkForce (option (freeform "8192"));
+        LOCALVERSION = freeform defaultLocalVersion;
+
+        # Follow NixOS default config to not break etc overlay
+        OVERLAY_FS = module;
+        OVERLAY_FS_REDIRECT_DIR = no;
+        OVERLAY_FS_REDIRECT_ALWAYS_FOLLOW = yes;
+        OVERLAY_FS_INDEX = no;
+        OVERLAY_FS_XINO_AUTO = no;
+        OVERLAY_FS_METACOPY = no;
+        OVERLAY_FS_DEBUG = no;
+
+        # Fix HID_HAPTIC linking error
+        HID = yes;
+      })
+
+      # Apply CachyOS specific settings
+      // (lib.mapAttrs (_: lib.mkForce) (
+        cachySettings.common
+        // (cachySettings.lto."${lto}")
+        // (lib.optionalAttrs (cpusched != null) cachySettings.cpusched."${cpusched}")
+        // (lib.optionalAttrs kcfi cachySettings.kcfi)
+        // (lib.optionalAttrs (hzTicks != null) cachySettings.hzTicks."${hzTicks}")
+        // (lib.optionalAttrs performanceGovernor cachySettings.performanceGovernor)
+        // (lib.optionalAttrs (tickrate != null) cachySettings.tickrate."${tickrate}")
+        // (lib.optionalAttrs (preemptType != null) cachySettings.preemptType."${preemptType}")
+        // (lib.optionalAttrs ccHarder cachySettings.ccHarder)
+        // (lib.optionalAttrs bbr3 cachySettings.bbr3)
+        // (lib.optionalAttrs (hugepage != null) cachySettings.hugepage."${hugepage}")
+        // (lib.optionalAttrs (processorOpt != null) cachySettings.processorOpt.${processorOpt})
+        // (lib.optionalAttrs (autofdo != false) {
+          AUTOFDO_CLANG = lib.kernel.yes;
+        })
+        // (lib.optionalAttrs (hardened != false) {
+          # required because hardened kernels use the latent entropy gcc plugin
+          # which the rust bindgen currently doesn't support. They're waiting on
+          # this patch to be merged:
+          # https://lore.kernel.org/all/20251221081659.1742800-1-stijn@linux-ipv6.be/
+          # from what I can see, this still hasn't been merged into 7.0, so may
+          # be a bit
+          RUST = lib.kernel.no;
+        })
+      ))
+
+      # Apply user custom settings
+      // (args.structuredExtraConfig or { });
+  in
+  buildLinux (
+    (lib.removeAttrs args [
+      "pname"
+      "version"
+      "src"
+      "cachyosConfigFile"
+      "cachyosPatchesSrc"
+      "lto"
+      "prePatch"
+      "patches"
+      "postPatch"
+    ])
+    // {
+      inherit pname version;
+      src = patchedSrc;
+
+      stdenv =
+        # Apply native optimization on top of stdenv if requested
+        (if processorOpt == "native" then impureUseNativeOptimizations else lib.id)
+          # Select stdenv/stdenvLLVM based on requested compiler
+          (args.stdenv or (if lto == "none" then stdenv else stdenvLLVM));
+
+      extraMakeFlags =
+        (lib.optionals (lto != "none") ltoMakeflags)
+        ++ lib.optionals (builtins.isPath autofdo) [
+          "CLANG_AUTOFDO_PROFILE=${autofdo}"
+        ]
+        ++ (args.extraMakeFlags or [ ]);
+
+      defconfig = args.defconfig or "cachyos_defconfig";
+
+      modDirVersion = args.modDirVersion or "${fullVersion}${defaultLocalVersion}";
+
+      # CachyOS's options has some unused options for older kernel versions
+      ignoreConfigErrors = args.ignoreConfigErrors or true;
+
+      inherit structuredExtraConfig autoModules;
+
+      extraMeta = {
+        description =
+          "Linux CachyOS Kernel"
+          + lib.optionalString (lto == "thin") " with Clang+ThinLTO"
+          + lib.optionalString (lto == "full") " with Clang+FullLTO";
+        broken = !stdenv.hostPlatform.isx86_64;
+      }
+      // (args.extraMeta or { });
+
+      extraPassthru = {
+        inherit cachyosConfigFile cachyosPatches zfsVariant;
+      }
+      // (args.extraPassthru or { });
+    }
+  )
+)

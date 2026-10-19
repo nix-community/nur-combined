@@ -17,6 +17,25 @@ verify that failed updates restore the package directory, successful updates
 before and after a failure are retained, and summaries report failures without
 blocking PR creation. Invalid package selections remain hard errors.
 
+### CachyOS kernel
+
+The bash runner also executes `kernel-workflow.py`: offline tests for atomic
+source/compiler snapshot updates, failure rollback, complete-output publication
+and the required gate's success/failure/cancelled/skipped handling.
+
+The separate kernel CI evaluates both the isolated module behavior and a real
+NixOS configuration (including BORE/v3/no-LTO settings and identical kernel drv):
+
+```console
+nix eval --impure --json --expr 'import ./tests/cachyos-module.nix {}'
+nix eval --impure --json --file tests/cachyos-integration.nix
+```
+
+These evaluations do not compile or boot the kernel. `kernel.yml` performs the
+full compilation, all-output publication and remote narinfo verification on
+main. PRs compile without write credentials. The first full CI build is also a
+runner-capacity measurement; do not treat local evaluation as build success.
+
 ### BATS tests (more comprehensive)
 
 ```bash
