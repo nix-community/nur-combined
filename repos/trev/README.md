@@ -77,14 +77,6 @@ Proxy server providing OpenAI-compatible APIs for CLI models
 nix run github:spotdemo4/trevpkgs#cliproxyapi
 ```
 
-### [codex-commit](https://trev.zip/llc/codex-commit)
-
-Commit message generator using codex
-
-```elm
-nix run github:spotdemo4/trevpkgs#codex-commit
-```
-
 ### [duckdb](https://github.com/duckdb/duckdb)
 
 Embeddable SQL OLAP Database Management System

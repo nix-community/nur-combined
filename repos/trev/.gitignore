@@ -1,6 +1,12 @@
 /.env
 /.envrc
 
+# agents
+.agents/
+.claude/
+.codex/
+.cache/
+
 # nix
 result*
 /.direnv/

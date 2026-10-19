@@ -13,7 +13,6 @@ in
   catppuccin-zen-browser = pkgs.callPackage ./catppuccin-zen-browser { };
   chrome-devtools-mcp = pkgs.callPackage ./chrome-devtools-mcp { };
   cliproxyapi = pkgs.callPackage ./cliproxyapi { };
-  codex-commit = pkgs.callPackage ./codex-commit { };
   duckdb = pkgs.callPackage ./duckdb { };
   fetch-hash = pkgs.callPackage ./fetch-hash { };
   fix-hash = pkgs.callPackage ./fix-hash { };
