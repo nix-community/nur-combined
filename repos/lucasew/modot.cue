@@ -242,24 +242,25 @@ modules: {
 		input: "self:modules/base16"
 		enable: true
 		config: {
-			// From: modot utils palette generate assets/wallpapers/bliss.jpg --driver materialyou --polarity light
+			// Gruvbox Material Light, Soft
+			// https://github.com/tinted-theming/schemes/blob/spec-0.11/base16/gruvbox-material-light-soft.yaml
 			dark_mode: false
-			base00: "f9f9f9"
-			base01: "dadada"
-			base02: "eeeeee"
-			base03: "e8e8e8"
-			base04: "e2e2e2"
-			base05: "1b1b1b"
-			base06: "474747"
-			base07: "303030"
-			base08: "ba1a1a"
-			base09: "596248"
-			base0A: "396661"
-			base0B: "4a670b"
-			base0C: "caef87"
-			base0D: "dde6c6"
-			base0E: "bcece5"
-			base0F: "ffdad6"
+			base00: "f2e5bc"
+			base01: "ebdbb2"
+			base02: "c9b99a"
+			base03: "a89984"
+			base04: "665c54"
+			base05: "654735"
+			base06: "3c3836"
+			base07: "282828"
+			base08: "c14a4a"
+			base09: "c35e0a"
+			base0A: "b47109"
+			base0B: "6c782e"
+			base0C: "4c7a5d"
+			base0D: "45707a"
+			base0E: "945e80"
+			base0F: "e78a4e"
 		}
 	}
 
