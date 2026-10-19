@@ -14,7 +14,7 @@ assert lib.asserts.assertOneOf "Font variance" variance [
 ];
 
 let
-  version = "2.3.1";
+  version = "4.0.0";
 
   source = {
     hinted = fetchurl {
