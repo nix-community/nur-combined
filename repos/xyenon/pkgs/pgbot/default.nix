@@ -16,10 +16,10 @@ buildGoLatestModule (finalAttrs: {
     owner = "pgrundev";
     repo = "pgbot";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-QJWJTSS92g7Ay2r5yckbRX5/JOUIBDTKGXpEzerZyKI=";
+    hash = "sha256-nZmjgdDNQXhti8S7f3hbqgCUTazx8E+SIj5H/etwuSA=";
   };
 
-  vendorHash = "sha256-iN6SE0ehjVVXkw8hHsUrCNXPV1Xchw6gxt92kVCQTV4=";
+  vendorHash = "sha256-k9B4GXk5QJOag6hK/zApybCyLZO4Z8HeW8ec7edRBKo=";
 
   subPackages = [ "cmd/pgbot" ];
   env.CGO_ENABLED = "0";
