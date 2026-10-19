@@ -3,7 +3,6 @@
 }:
 let
   packages = rec {
-    bookerly = pkgs.callPackage ./pkgs/bookerly.nix { };
     cf = pkgs.callPackage ./pkgs/cf { };
     codex-bin = pkgs.callPackage ./pkgs/codex-bin { };
     delta = pkgs.callPackage ./pkgs/delta { };
