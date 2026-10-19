@@ -18,8 +18,7 @@
 }:
 
 buildNpmPackage (finalAttrs: {
-  inherit (source) pname src;
-  version = (lib.importJSON source.extract."package.json").version;
+  inherit (source) pname src version;
 
   npmDeps = importNpmLock {
     npmRoot = source.src;
