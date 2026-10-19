@@ -12,22 +12,7 @@ let
   pam = config.security.pam;
 
   settingsFormat = pkgs.formats.toml { };
-
-  # Everything the daemon's own defaults already say is left out of the file,
-  # except where the configuration the package ships disagrees with them: that
-  # file opts into TPM-sealed templates, while the daemon defaults to plaintext.
-  baselineSettings = {
-    storage.encrypt_templates = true;
-  };
-  # The runtime half of the KWallet handoff: wiring PAM alone releases nothing.
-  # The daemon also requires sealed templates (the baseline above) and liveness
-  # (on by default). Settings win over both of these.
-  impliedSettings = lib.optionalAttrs cfg.kde.unlockKwallet {
-    storage.unlock_kwallet = true;
-  };
-  configFile = settingsFormat.generate "gaze-config.toml" (
-    lib.recursiveUpdate baselineSettings (lib.recursiveUpdate impliedSettings cfg.settings)
-  );
+  configFile = settingsFormat.generate "gaze-config.toml" cfg.settings;
 
   pamModule = "${cfg.package}/lib/security/pam_gaze.so";
   pamPackage = pam.package;
@@ -115,12 +100,14 @@ in
       description = ''
         Runtime options for {file}`/etc/gaze/config.toml`, documented at
         <https://gaze.gundulabs.com/guide/configuration>. Anything left out
-        keeps the daemon's built-in default, except `storage.encrypt_templates`:
-        the configuration the package ships opts into TPM-sealed templates, so
-        the module keeps that single value. Set it to `false` to store templates
-        in plain text; the daemon then also refuses the keyring unlock options.
-        Enabling {option}`services.gaze.kde.unlockKwallet` also sets
-        `storage.unlock_kwallet` in the generated file, unless it is given here.
+        keeps the daemon's built-in default.
+
+        The module defaults `storage.encrypt_templates` to true, because that is
+        what the configuration the package ships opts into while the daemon
+        itself defaults to plain text. Set it to `false` to accept plain-text
+        templates; the daemon then also refuses the keyring unlock options.
+        Enabling {option}`services.gaze.kde.unlockKwallet` enables
+        `storage.unlock_kwallet` here.
       '';
     };
 
@@ -235,12 +222,12 @@ in
       unlockKwallet = lib.mkEnableOption ''
         KWallet credential handoff after a KDE face login. Requires
         {option}`services.gaze.kde.loginScreen` and sequential PAM
-        authentication. The module also writes the runtime opt-in
-        (`storage.unlock_kwallet`) into the generated configuration, and the
-        daemon only honours it with sealed templates and liveness on. Like every
-        setting this only seeds a configuration file that does not exist yet, and
-        it does not enroll a credential, so {command}`gaze keyring --kwallet` is
-        still needed once
+        authentication. Enabling it sets the runtime opt-in
+        (`storage.unlock_kwallet`) in {option}`services.gaze.settings`, since the
+        daemon only releases the credential with that, sealed templates, and
+        liveness on. Like every setting it only seeds a configuration file that
+        does not exist yet, and it does not enroll a credential, so
+        {command}`gaze keyring --kwallet` is still needed once
       '';
     };
   };
@@ -612,6 +599,21 @@ in
           security.pam.services.kde.gaze.enable = lib.mkDefault false;
         }
       ))
+
+      # The configuration the package ships opts into TPM-sealed templates while
+      # the daemon defaults to plaintext, so keep the package's choice. Set
+      # `storage.encrypt_templates` to false for plaintext templates; the daemon
+      # then also refuses the keyring unlock options.
+      {
+        services.gaze.settings.storage.encrypt_templates = lib.mkDefault true;
+      }
+
+      # The runtime half of the KWallet handoff: wiring PAM alone releases
+      # nothing. The daemon also requires sealed templates (above) and liveness
+      # (on by default).
+      (lib.mkIf cfg.kde.unlockKwallet {
+        services.gaze.settings.storage.unlock_kwallet = true;
+      })
 
       (lib.mkIf cfg.kde.loginScreen {
         # The Plasma Login Manager and SDDM only `substack login`, so this one
