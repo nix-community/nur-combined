@@ -154,6 +154,15 @@ in
           url = "https://api.githubcopilot.com/mcp";
           headers.Authorization = "!echo Bearer $(cat ${config.sops.secrets.github_toyvo_pat.path})";
         };
+        mcpServers.rea = {
+          type = "stdio";
+          command = "npx";
+          args = [
+            "-y"
+            "rea-agents@6.5.0"
+            "mcp"
+          ];
+        };
       };
       # TODO: undo
       rio.enable = cfg.gui.enable && pkgs.stdenv.hostPlatform.isLinux;

@@ -607,12 +607,10 @@ in
         "TECHNITIUM_BLOCKLISTS_FILE=${blocklistUrlsFile}"
         "TECHNITIUM_FORWARDERS_FILE=${forwardersFile}"
       ];
-      ExecStart = lib.getExe (
-        pkgs.writeScriptBin "configure-technitium" ''
-          #!${pkgs.python3}/bin/python3
-          ${builtins.readFile ./configure-technitium.py}
-        ''
-      );
+      # configure-technitium.ts is run directly by bun from the store
+      # (rather than inlined via builtins.readFile) so its `${...}`
+      # template literals don't need Nix `''${...}` escaping.
+      ExecStart = "${lib.getExe pkgs.bun} ${./configure-technitium.ts}";
     };
   };
   security.acme =

@@ -18,6 +18,7 @@
         (import ../os).default
       ];
     };
+  android = ./android.nix;
   bash = ./bash.nix;
   homebrew = ./homebrew.nix;
   keyboard = ./keyboard.nix;

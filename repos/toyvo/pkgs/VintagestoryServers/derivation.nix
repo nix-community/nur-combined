@@ -103,7 +103,7 @@ stdenv.mkDerivation {
   '';
 
   passthru = {
-    updateScript = ./update.py;
+    updateScript = ./update.ts;
   };
 
   meta = with lib; {

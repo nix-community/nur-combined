@@ -1,4 +1,20 @@
 {
+  "1.22.7": {
+    "hash": "sha256-p9SlIGBFkKlt6BLubGuvRATUPYbPHsT7rBs6WAtSyEc=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.22.7.tar.gz"
+  },
+  "1.22.6": {
+    "hash": "sha256-r8jr3JKSvBSZZIKUaGM7vaYh+0hhIt9A06FEJT90ook=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.22.6.tar.gz"
+  },
+  "1.22.5": {
+    "hash": "sha256-t0gKgTjzzW/IxdhdGkZ77AhK9odys1WZspIP+ctTjoU=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.22.5.tar.gz"
+  },
+  "1.22.4": {
+    "hash": "sha256-xvg/CNFiRH58epZSH5oY07OHupInJqO3syTlYoo4Yh8=",
+    "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.22.4.tar.gz"
+  },
   "1.22.3": {
     "hash": "sha256-6uOin1gMqeQzTi+aoSy9vKSNoZ7SUMyNZ5NH9S6a53I=",
     "url": "https://cdn.vintagestory.at/gamefiles/stable/vs_server_linux-x64_1.22.3.tar.gz"

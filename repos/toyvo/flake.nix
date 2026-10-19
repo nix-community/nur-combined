@@ -346,6 +346,8 @@
             packages = lib.filterAttrs (_: v: lib.isDerivation v) self'.legacyPackages;
             overlayAttrs.toyvo = self'.legacyPackages;
             devshells.default = {
+              # Bun runs the per-package `update.ts` scripts (`bun ./update.ts`).
+              packages = [ pkgs.bun ];
               commands = [
                 {
                   package = self'.packages.setup-sops;

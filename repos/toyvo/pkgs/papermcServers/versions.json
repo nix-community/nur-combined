@@ -195,9 +195,9 @@
     "url": "https://fill-data.papermc.io/v1/objects/158703f75a26f842ea656b3dc6d75bf3d1ec176b97a2c36384d0b80b3871af53/paper-1.21.10-130.jar"
   },
   "1.21.11": {
-    "hash": "sha256-bAmVQPzNJ+EHUNGtyzgvFVL7WqKBauryzB77I93Z498=",
-    "version": "1.21.11-131",
-    "url": "https://fill-data.papermc.io/v1/objects/6c099540fccd27e10750d1adcb382f1552fb5aa2816aeaf2cc1efb23ddd9e3df/paper-1.21.11-131.jar"
+    "hash": "sha256-X/70Ze7rXyo8I6JEGdl8Ua/X27SSP/Qt+aP1i7ocz7o=",
+    "version": "1.21.11-132",
+    "url": "https://fill-data.papermc.io/v1/objects/5ffef465eeeb5f2a3c23a24419d97c51afd7dbb4923ff42df9a3f58bba1ccfba/paper-1.21.11-132.jar"
   },
   "26.1.1": {
     "hash": "sha256-Q9CO1Sx69On3J2kSJQGlwV+Zx6zgxCij7vBA/T9v28U=",
@@ -205,8 +205,18 @@
     "url": "https://fill-data.papermc.io/v1/objects/43d08ed52c7af4e9f72769122501a5c15f99c7ace0c428a3eef040fd3f6fdbc5/paper-26.1.1-29.jar"
   },
   "26.1.2": {
-    "hash": "sha256-gLFbuCdrpir6Q810ZEFYvcg/Hclpjfb5AoFKqVfXvxs=",
-    "version": "26.1.2-59",
-    "url": "https://fill-data.papermc.io/v1/objects/80b15bb8276ba62afa43cd74644158bdc83f1dc9698df6f902814aa957d7bf1b/paper-26.1.2-59.jar"
+    "hash": "sha256-HXCx2rnPSm3mFSCaU286RaIYYkAlPEKCE84hiKuV5fc=",
+    "version": "26.1.2-74",
+    "url": "https://fill-data.papermc.io/v1/objects/1d70b1dab9cf4a6de615209a536f3a45a2186240253c428213ce2188ab95e5f7/paper-26.1.2-74.jar"
+  },
+  "26.2": {
+    "hash": "sha256-PM4KSSK695vY4Sde5f+fBz8kZ1dw4JsNS+lELVE+ems=",
+    "version": "26.2-134",
+    "url": "https://fill-data.papermc.io/v1/objects/3cce0a4922baf79bd8e1275ee5ff9f073f24675770e09b0d4be9442d513e7a6b/paper-26.2-134.jar"
+  },
+  "26.3": {
+    "hash": "sha256-oKWPUy8IBU6pLrkW0+227TyGQp13F1MXME9umVzOmWg=",
+    "version": "26.3-205",
+    "url": "https://fill-data.papermc.io/v1/objects/a0a58f532f08054ea92eb916d3edb6ed3c86429d77175317304f6e995cce9968/paper-26.3-205.jar"
   }
 }

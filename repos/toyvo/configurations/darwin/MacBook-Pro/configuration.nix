@@ -11,6 +11,7 @@
 {
   imports = [
     inputs.nixcfg.modules.darwin.default
+    inputs.nixcfg.modules.darwin.android
     inputs.home-manager.darwinModules.default
     inputs.mac-app-util.darwinModules.default
     inputs.nix-index-database.darwinModules.nix-index
@@ -36,6 +37,7 @@
     nix.enable = true;
     security.enable = true;
     home-manager.enable = true;
+    darwin.android.enable = true;
     darwin.touchid.enable = true;
     darwin.homebrew.enable = true;
     darwin.keyboard.enable = true;

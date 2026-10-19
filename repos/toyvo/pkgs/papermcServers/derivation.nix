@@ -41,7 +41,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   allowSubstitutes = false;
 
   passthru = {
-    updateScript = ./update.py;
+    updateScript = ./update.ts;
   };
 
   meta = {

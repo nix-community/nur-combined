@@ -32,6 +32,9 @@ env:
 jobs:
   update:
     runs-on: native
+    # Backstop so a hung updater or flake input can't pin the runner
+    # forever (updaters also carry their own fetch/download timeouts).
+    timeout-minutes: 30
     outputs:
       branch: ${{ steps.update.outputs.branch }}
       pr_number: ${{ steps.update.outputs.pr_number }}
@@ -55,6 +58,16 @@ jobs:
           # conflicts even though nothing about this workflow's own commits
           # changed.
           git checkout -B "$BRANCH"
+
+          # Refresh pinned package versions before the lock: every updater
+          # is cache-first (versions.json) and they run sequentially, so a
+          # no-change run is a handful of small metadata requests and zero
+          # artifact downloads. Fails the job (no PR) if any updater errors.
+          # NOTE: do NOT export GITHUB_TOKEN here. This workflow's token is
+          # a Forgejo job token, not valid for api.github.com, and sending
+          # it would turn anonymous-friendly calls into 401s. Two
+          # unauthenticated requests a day is far under GitHub's 60/hr.
+          nix develop --command bun ./scripts/update-all.ts
 
           nix flake update
           nix fmt
@@ -80,6 +93,10 @@ jobs:
             exit 0
           fi
 
+          if ! git diff --quiet -- 'pkgs/*/versions.json'; then
+            git add 'pkgs/*/versions.json'
+            git commit -m "chore: update package versions"
+          fi
           if ! git diff --quiet -- flake.lock; then
             git add flake.lock
             git commit -m "chore: update flake.lock"
@@ -99,11 +116,18 @@ jobs:
             if git log --format='%s' "origin/main..$BRANCH" | grep -q flake.lock; then
               TITLE="chore: update flake.lock"
             fi
+            if git log --format='%s' "origin/main..$BRANCH" | grep -q "package versions"; then
+              if [ "$TITLE" = "chore: update flake.lock" ]; then
+                TITLE="chore: update flake.lock and package versions"
+              else
+                TITLE="chore: update package versions"
+              fi
+            fi
             PR_NUMBER=$(jq -n \
               --arg title "$TITLE" \
               --arg head "$BRANCH" \
               --arg base "main" \
-              --arg body "Automated flake.lock update and formatting fixes." \
+              --arg body "Automated flake.lock update, package version refresh (scripts/update-all.ts), and formatting fixes." \
               '{title: $title, head: $head, base: $base, body: $body}' \
               | curl -sf -X POST \
                 -H "Authorization: token $GH_TOKEN" \

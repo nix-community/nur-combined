@@ -1,29 +1,31 @@
 {
   lib,
-  python3Packages,
-  pkgs,
+  bun,
+  iproute2,
+  writeShellApplication,
   ...
 }:
 
-python3Packages.buildPythonApplication rec {
-  pname = "network-inventory";
-  version = "0.1.0";
-  pyproject = true;
-  build-system = [ python3Packages.setuptools ];
-
-  src = ./.;
-
-  propagatedBuildInputs = with python3Packages; [
-    prometheus-client
-    requests
+writeShellApplication {
+  name = "network-inventory";
+  runtimeInputs = [
+    bun
+    iproute2
   ];
-
+  text = ''
+    exec bun ${./inventory.ts}
+  '';
+}
+// {
   meta = {
     description = "Network device inventory collector for Prometheus";
     homepage = "https://github.com/ToyVo/nixcfg";
     license = lib.licenses.mit;
     mainProgram = "network-inventory";
-    platforms = lib.platformsOf (propagatedBuildInputs ++ [ pkgs.gts ]);
+    platforms = lib.platformsOf [
+      bun
+      iproute2
+    ];
     maintainers = with lib.maintainers; [ toyvo ];
   };
 }

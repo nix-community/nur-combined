@@ -1,10 +1,10 @@
 {
   "stable": {
-    "version": "0.11.3",
-    "hash": "sha256-yfAME5ZIrZme4qW0lT8EDKy5h1wZkWdJDdg/HR1zqXc="
+    "version": "0.11.19",
+    "hash": "sha256-uNCxn6p5cSAf74p9eUEhcuaYTcA62BIez5UsP+b1xlk="
   },
   "beta": {
-    "version": "0.11.11-beta.107",
-    "hash": "sha256-S3MruEUqA2pqHuf4yrS+G70xW3Mx4sj3pRM3nwsYbq8="
+    "version": "0.12.0-beta.122",
+    "hash": "sha256-SC5IiSYq0BRZvhd9e62GWBtdtbVlvSHZgXmcFg0BiLE="
   }
 }

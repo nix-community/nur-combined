@@ -1,11 +1,11 @@
 {
-  "version": "10.2.0",
+  "version": "10.26.0",
   "aarch64-darwin": {
-    "file": "ghostex-10.2.0-arm64.dmg",
-    "hash": "sha256-1wIftba+XNMRIYd0ZKvolek2j0sWNa9v9VD+Orwre/M="
+    "file": "ghostex-10.26.0-arm64.dmg",
+    "hash": "sha256-ywvijgJkIbmxiTH0+csRzx7OWIYWUUf5n4tKgNURLQo="
   },
   "x86_64-linux": {
-    "file": "ghostex-10.2.0-linux-x64.tar.zst",
-    "hash": "sha256-0awLjbf1aap/VBAXMm8AfhwQZS6rCgC4JWWZ9mfd2B8="
+    "file": "ghostex-10.26.0-linux-x64.tar.zst",
+    "hash": "sha256-hkArOkmURsXpuyVWTmAhxy2QkuEmQgkd+FAs1GKbQoQ="
   }
 }
