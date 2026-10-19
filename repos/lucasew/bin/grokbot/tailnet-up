@@ -14,9 +14,9 @@ TIMEOUT=${LEDGER_PROXY_TIMEOUT:-30}
 TS="$BIN_DIR/tailscale"
 TSD="$BIN_DIR/tailscaled"
 
-log() { echo "ledger-proxy-up: $*" >&2; }
+log() { echo "tailnet-up: $*" >&2; }
 
-exec 9>/tmp/ledger-proxy-up.lock
+exec 9>/tmp/tailnet-up.lock
 flock -w 120 9 || { log "não consegui o lock"; exit 1; }
 
 socks_ok() { (exec 3<>"/dev/tcp/$SOCKS_HOST/$SOCKS_PORT") 2>/dev/null; }
@@ -88,14 +88,14 @@ if [[ "$st" != "Running+exit" ]]; then
     # Exit node by hostname only resolves after login, so it is set afterwards.
     [[ "$st" != "NeedsLogin" ]] && cmd+=(--exit-node="$EXIT_NODE" --exit-node-allow-lan-access=false)
     if [[ "$st" == "NeedsLogin" ]]; then
-      "${cmd[@]}" 2>&1 | tee /tmp/ledger-proxy-up.out >&2
+      "${cmd[@]}" 2>&1 | tee /tmp/tailnet-up.out >&2
     else
-      "${cmd[@]}" >/tmp/ledger-proxy-up.out 2>&1
+      "${cmd[@]}" >/tmp/tailnet-up.out 2>&1
     fi
   }
   until ts_up; do
-    if (( SECONDS >= deadline )) || ! grep -q 'starting up' /tmp/ledger-proxy-up.out; then
-      cat /tmp/ledger-proxy-up.out >&2
+    if (( SECONDS >= deadline )) || ! grep -q 'starting up' /tmp/tailnet-up.out; then
+      cat /tmp/tailnet-up.out >&2
       log "tailscale up falhou"; exit 1
     fi
     sleep 1
@@ -104,8 +104,8 @@ if [[ "$st" != "Running+exit" ]]; then
 fi
 
 if [[ "$(ts_state)" == "Running" ]]; then
-  until "$TS" --socket="$SOCK" set --exit-node="$EXIT_NODE" --exit-node-allow-lan-access=false 2>/tmp/ledger-proxy-up.out; do
-    (( SECONDS < deadline )) || { cat /tmp/ledger-proxy-up.out >&2; log "não consegui definir o exit node"; exit 1; }
+  until "$TS" --socket="$SOCK" set --exit-node="$EXIT_NODE" --exit-node-allow-lan-access=false 2>/tmp/tailnet-up.out; do
+    (( SECONDS < deadline )) || { cat /tmp/tailnet-up.out >&2; log "não consegui definir o exit node"; exit 1; }
     sleep 1
   done
 fi
