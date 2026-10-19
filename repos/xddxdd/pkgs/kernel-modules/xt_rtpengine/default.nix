@@ -7,12 +7,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "xt_rtpengine";
-  version = "0-unstable-2026-10-18";
+  version = "0-unstable-2026-10-19";
   src = fetchFromGitHub {
     owner = "sipwise";
     repo = "rtpengine";
-    rev = "3865f8960d7835db75001326fd003bd1ef30e554";
-    hash = "sha256-PAwf8o7JtjWG5divxgEga3gbbpdPAbL9XxiaaH+l9eA=";
+    rev = "f9c5769de3cf480d0d6a6fcd0ae6e25f5310df8c";
+    hash = "sha256-gevYrhzrPAHTURD0qJQXw6oqvJSjjX+b2579H2D9Wr0=";
   };
   __structuredAttrs = true;
   strictDeps = true;
