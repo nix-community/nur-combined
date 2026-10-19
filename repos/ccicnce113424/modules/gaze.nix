@@ -12,9 +12,16 @@ let
   pam = config.security.pam;
 
   settingsFormat = pkgs.formats.toml { };
-  # Every field of the runtime configuration has a default and the daemon
-  # tolerates a missing file, so only what `settings` sets is ever written.
-  configFile = settingsFormat.generate "gaze-config.toml" cfg.settings;
+
+  # Everything the daemon's own defaults already say is left out of the file,
+  # except where the configuration the package ships disagrees with them: that
+  # file opts into TPM-sealed templates, while the daemon defaults to plaintext.
+  baselineSettings = {
+    storage.encrypt_templates = true;
+  };
+  configFile = settingsFormat.generate "gaze-config.toml" (
+    lib.recursiveUpdate baselineSettings cfg.settings
+  );
 
   pamModule = "${cfg.package}/lib/security/pam_gaze.so";
   pamPackage = pam.package;
@@ -102,7 +109,10 @@ in
       description = ''
         Runtime options for {file}`/etc/gaze/config.toml`, documented at
         <https://gaze.gundulabs.com/guide/configuration>. Anything left out
-        keeps the daemon's built-in default.
+        keeps the daemon's built-in default, except `storage.encrypt_templates`:
+        the configuration the package ships opts into TPM-sealed templates, so
+        the module keeps that single value. Set it to `false` to store templates
+        in plain text; the daemon then also refuses the keyring unlock options.
       '';
     };
 
@@ -480,10 +490,10 @@ in
       }
 
       {
-        systemd.tmpfiles.rules = lib.mkIf cfg.mutableConfig (
-          [ "d /etc/gaze 0755 root root -" ]
-          ++ lib.optional (cfg.settings != { }) "C /etc/gaze/config.toml 0644 root root - ${configFile}"
-        );
+        systemd.tmpfiles.rules = lib.mkIf cfg.mutableConfig [
+          "d /etc/gaze 0755 root root -"
+          "C /etc/gaze/config.toml 0644 root root - ${configFile}"
+        ];
 
         environment.etc."gaze/config.toml" = lib.mkIf (!cfg.mutableConfig) {
           source = configFile;
