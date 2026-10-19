@@ -367,13 +367,13 @@
   };
   loyalsoldier-geoip = {
     pname = "loyalsoldier-geoip";
-    version = "328b0e8b59ff402a1e83e36b2e10cc9dd4c2378d";
+    version = "bf01519a9e21f366266bd48c6afae430ec8febfe";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "geoip";
-      rev = "328b0e8b59ff402a1e83e36b2e10cc9dd4c2378d";
+      rev = "bf01519a9e21f366266bd48c6afae430ec8febfe";
       fetchSubmodules = false;
-      sha256 = "sha256-AEx4Q2So60VnJ4lvcbA7DFcVWtToTAgiqo17qbxb1cA=";
+      sha256 = "sha256-LNlKWcLxxOL4mJHFOaI3QNx1xLnLA5qHVYoyQ26Qhi0=";
     };
     date = "2026-10-19";
   };
@@ -581,13 +581,13 @@
   };
   opencode-go-cliproxyapi = {
     pname = "opencode-go-cliproxyapi";
-    version = "375b905100597bb3fdb8219f2de622e6bcdf5945";
+    version = "3ecb6c87eabcfc0eb1ac580037b1574bd177671a";
     src = fetchFromGitHub {
       owner = "massiveits";
       repo = "opencode-go-cliproxyapi";
-      rev = "375b905100597bb3fdb8219f2de622e6bcdf5945";
+      rev = "3ecb6c87eabcfc0eb1ac580037b1574bd177671a";
       fetchSubmodules = false;
-      sha256 = "sha256-WUCooyey7PV1UxJt9rgknolfXYqGD1+rWL6PhR/OdR0=";
+      sha256 = "sha256-TTUocJu89rKbK8DEFsEXn/9GbYEQI6ciZUs/H6Nk7fU=";
     };
     date = "2026-10-18";
   };
@@ -748,6 +748,26 @@
     src = fetchurl {
       url = "file:///dev/null";
       sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
+    };
+  };
+  yaqmc = {
+    pname = "yaqmc";
+    version = "d365fe58b0b4cf6ac3bad7f1c84afbf33668aee6";
+    src = fetchFromGitHub {
+      owner = "YAQMC";
+      repo = "YAQMC";
+      rev = "d365fe58b0b4cf6ac3bad7f1c84afbf33668aee6";
+      fetchSubmodules = false;
+      sha256 = "sha256-B6EWi+qxKWWQBTdvzxbSIruZ991q8EvyWl99QXio92g=";
+    };
+    extract = {
+      "package-lock.json" = ./. + "/sha256-B6EWi+qxKWWQBTdvzxbSIruZ991q8EvyWl99QXio92g=/package-lock.json";
+      "package.json" = ./. + "/sha256-B6EWi+qxKWWQBTdvzxbSIruZ991q8EvyWl99QXio92g=/package.json";
+    };cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-B6EWi+qxKWWQBTdvzxbSIruZ991q8EvyWl99QXio92g=/Cargo.lock";
+      outputHashes = {
+        "qqmusic-api-0.1.0" = "sha256-lVrGK+QZE3oEAn+HC+9kYppsG/eWj3cylsF2XxbExkQ=";
+      };
     };
   };
 }

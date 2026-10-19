@@ -1,0 +1,54 @@
+diff --git a/apps/desktop/main/index.ts b/apps/desktop/main/index.ts
+--- a/apps/desktop/main/index.ts
++++ b/apps/desktop/main/index.ts
+@@ -65,7 +65,7 @@
+ import { linuxGraphicsDiagnostics, linuxGraphicsSwitches } from './linux-graphics';
+ import { mergeChromiumFeatureList, windowsOcclusionSwitches } from './windows/windows-occlusion';
+ import { OVERLAY_VISUAL_DOCUMENT_GUARD } from './windows/surface-visual-document';
+-import { createElectronUpdaterPort, noopUpdaterPort } from './services/electron-updater-port';
++import { noopUpdaterPort } from './services/electron-updater-port';
+ import { createUpdater, type UpdaterHandle } from './services/updater';
+ import { APP_SCHEME, appIndexUrl, serveAppUrl } from './protocol';
+ import { applyAppWindowGuards, applySessionSecurity, VITE_DEV_ORIGIN } from './security';
+@@ -212,12 +212,12 @@
+ const harnessRoot = __YAQMC_QA_BUILD__ ? path.join(desktopRoot, 'harness') : '';
+ const viteDist = path.join(repoRoot, 'dist');
+ const methodAclPath = app.isPackaged
+-  ? path.join(process.resourcesPath, 'contract', 'methods.json')
++  ? path.join((process.env.YAQMC_NIX_RESOURCES ?? process.resourcesPath), 'contract', 'methods.json')
+   : path.join(repoRoot, 'packages/yaqmc-client/fixtures/methods.json');
+ const preloadPath = path.join(here, '../preload/main.cjs');
+ const lyricsPreloadPath = path.join(here, '../preload/lyrics-surface.cjs');
+ const unlockPreloadPath = path.join(here, '../preload/unlock-overlay.cjs');
+-const resourcesDir = path.join(desktopRoot, 'resources');
++const resourcesDir = process.env.YAQMC_NIX_RESOURCES ?? path.join(desktopRoot, 'resources');
+ const nativeWayland = isNativeWaylandSession();
+ 
+ function liveDisplayBackend(): string {
+@@ -524,7 +524,7 @@
+   port:
+     __YAQMC_QA_BUILD__ && smoke
+       ? noopUpdaterPort()
+-      : createElectronUpdaterPort(updaterReleaseChannel()),
++      : noopUpdaterPort(),
+   emit: (channel, payload) => {
+     writeHostLog(`updater ${payload.state}`);
+     fanoutEvent(channel, payload);
+@@ -538,7 +538,7 @@
+   if (!app.isPackaged) {
+     return undefined;
+   }
+-  const candidate = path.join(process.resourcesPath, 'renderer');
++  const candidate = path.join((process.env.YAQMC_NIX_RESOURCES ?? process.resourcesPath), 'renderer');
+   if (existsSync(path.join(candidate, 'index.html'))) {
+     return candidate;
+   }
+@@ -1093,7 +1093,7 @@
+   const launch = resolveCoreLaunch({
+     env: process.env,
+     stagedDir: path.join(desktopRoot, 'resources', 'core'),
+-    resourcesPath: process.resourcesPath,
++    resourcesPath: (process.env.YAQMC_NIX_RESOURCES ?? process.resourcesPath),
+     cargoTargetDir: process.env.CARGO_TARGET_DIR,
+     repoRoot,
+     packaged: app.isPackaged,

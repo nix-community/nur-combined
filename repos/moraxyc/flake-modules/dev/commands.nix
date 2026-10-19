@@ -10,6 +10,12 @@ _: {
     let
       updater = pkgs.writeShellScriptBin "update-packages" ''
         set -euo pipefail
+        export PATH=${
+          lib.makeBinPath [
+            pkgs.coreutils
+            pkgs.gh
+          ]
+        }:$PATH
 
         KEY_FLAG=""
         [ -f "secrets.toml" ] && KEY_FLAG="$KEY_FLAG -k secrets.toml"

@@ -627,12 +627,12 @@
             "name": null,
             "owner": "Loyalsoldier",
             "repo": "geoip",
-            "rev": "328b0e8b59ff402a1e83e36b2e10cc9dd4c2378d",
-            "sha256": "sha256-AEx4Q2So60VnJ4lvcbA7DFcVWtToTAgiqo17qbxb1cA=",
+            "rev": "bf01519a9e21f366266bd48c6afae430ec8febfe",
+            "sha256": "sha256-LNlKWcLxxOL4mJHFOaI3QNx1xLnLA5qHVYoyQ26Qhi0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "328b0e8b59ff402a1e83e36b2e10cc9dd4c2378d"
+        "version": "bf01519a9e21f366266bd48c6afae430ec8febfe"
     },
     "manpage-zh": {
         "cargoLock": null,
@@ -1001,12 +1001,12 @@
             "name": null,
             "owner": "massiveits",
             "repo": "opencode-go-cliproxyapi",
-            "rev": "375b905100597bb3fdb8219f2de622e6bcdf5945",
-            "sha256": "sha256-WUCooyey7PV1UxJt9rgknolfXYqGD1+rWL6PhR/OdR0=",
+            "rev": "3ecb6c87eabcfc0eb1ac580037b1574bd177671a",
+            "sha256": "sha256-TTUocJu89rKbK8DEFsEXn/9GbYEQI6ciZUs/H6Nk7fU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "375b905100597bb3fdb8219f2de622e6bcdf5945"
+        "version": "3ecb6c87eabcfc0eb1ac580037b1574bd177671a"
     },
     "opencode-go-cliproxyapi-stable": {
         "cargoLock": null,
@@ -1278,5 +1278,36 @@
             "url": "file:///dev/null"
         },
         "version": "v2.1.1"
+    },
+    "yaqmc": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-B6EWi+qxKWWQBTdvzxbSIruZ991q8EvyWl99QXio92g=/Cargo.lock",
+                {
+                    "qqmusic-api-0.1.0": "sha256-lVrGK+QZE3oEAn+HC+9kYppsG/eWj3cylsF2XxbExkQ="
+                }
+            ]
+        },
+        "date": null,
+        "extract": {
+            "package-lock.json": "sha256-B6EWi+qxKWWQBTdvzxbSIruZ991q8EvyWl99QXio92g=/package-lock.json",
+            "package.json": "sha256-B6EWi+qxKWWQBTdvzxbSIruZ991q8EvyWl99QXio92g=/package.json"
+        },
+        "name": "yaqmc",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "YAQMC",
+            "repo": "YAQMC",
+            "rev": "d365fe58b0b4cf6ac3bad7f1c84afbf33668aee6",
+            "sha256": "sha256-B6EWi+qxKWWQBTdvzxbSIruZ991q8EvyWl99QXio92g=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "d365fe58b0b4cf6ac3bad7f1c84afbf33668aee6"
     }
 }
