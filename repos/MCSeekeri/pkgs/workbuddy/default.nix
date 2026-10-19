@@ -47,11 +47,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "workbuddy";
-  version = "5.5.6.38337834";
+  version = "5.6.2.40046327";
 
   src = fetchurl {
-    url = "https://download.codebuddy.cn/workbuddy/saas/linux-x64-deb/WorkBuddy-linux-x64-deb-${finalAttrs.version}-5f969292.deb";
-    hash = "sha256-LvG8ohfSnZwrqYjIIHmqbqAHfp8f+ILGq13XmYvd9yE=";
+    url = "https://download.codebuddy.cn/workbuddy/saas/linux-x64-deb/WorkBuddy-linux-x64-deb-${finalAttrs.version}-c7b525f3.deb";
+    hash = "sha256-EhSa2MDNdI/VBi2PYseCfWiNgJVCetqZsa6ecBmJdSM=";
   };
 
   nativeBuildInputs = [

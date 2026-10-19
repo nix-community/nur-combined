@@ -11,12 +11,12 @@
   stdenvNoCC,
 }:
 let
-  version = "0.2.13";
+  version = "0.2.14";
   src = fetchFromGitHub {
     owner = "Wei-Shaw";
     repo = "sub2api";
     rev = "v${version}";
-    hash = "sha256-AHRrhnvHIyg0r7tmf/wYIMxQHH4u6F+EgzBp/XBBGXc=";
+    hash = "sha256-AplXrTYL4ZScBZJ8gJuqlHZRBFJKhWkrFy0le346rRY=";
   };
 
   pnpmWorkspaceOverrides = ''
@@ -33,7 +33,7 @@ let
     fetcherVersion = 4;
     sourceRoot = "source/frontend";
     postPatch = pnpmWorkspaceOverrides;
-    hash = "sha256-lKyZZiF1TQJrwXZzj45cX5PsPp3/x/4/SIvskg8w4uk=";
+    hash = "sha256-6nnpFvbOQnX+2PhozQqs2XQExeAjEsrrQBRca2rBSJM=";
   };
 
   frontend = stdenvNoCC.mkDerivation {
