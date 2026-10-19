@@ -6,26 +6,37 @@
   rustc,
   installShellFiles,
   versionCheckHook,
+  openssl,
+  pkg-config,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "landstrip";
-  version = "0.19.15";
+  version = "0.19.19";
   __structuredAttrs = true;
   src = fetchFromGitHub {
     owner = "landstrip";
     repo = "landstrip";
     tag = finalAttrs.version;
-    hash = "sha256-MbFQdUpe7Y4uDMn08fMjaiIbbMqInodvixVXxMb9Ls4=";
+    hash = "sha256-nW94Q9Z5yWg9ye8v7s9RM03nxDUNwbsjCTVXc/7LI7k=";
   };
   sourceRoot = "${finalAttrs.src.name}/packages/landstrip";
 
-  cargoHash = "sha256-XBL1jbo5EMei0K9FZcbUIXI8yP+fuqPblVd0uSsMx1A=";
+  cargoHash = "sha256-OEfTI1piyYu2H0Z79e92bfggxM6TU6mfNBsyVeiBOvc=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [
+    pkg-config
+    installShellFiles
+  ];
+  buildInputs = [
+    openssl
+  ];
   nativeInstallCheckInputs = [ versionCheckHook ];
 
   doCheck = false; # Requires permissions
   doInstallCheck = true;
+
+  # Don't vendor OpenSSL
+  env.OPENSSL_NO_VENDOR = "1";
 
   postInstall = ''
     installManPage ./man/man1/landstrip.1
