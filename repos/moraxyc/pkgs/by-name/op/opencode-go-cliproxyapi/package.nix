@@ -14,7 +14,7 @@ buildGoModule {
   ];
 
   # nix-update auto
-  vendorHash = "sha256-/0miMpbgZpGCTDBC6YOihrPLLcAMuBgP4+eNLxGpAn4=";
+  vendorHash = "sha256-N/gri6Xm/1UNZyaLCPLUAuWswJ/DeVdpnFWnF7pKPUo=";
   env.CGO_ENABLED = "1";
 
   buildPhase = ''
