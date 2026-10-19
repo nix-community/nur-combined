@@ -182,6 +182,9 @@ export function latestBySemver(versions: string[]): string {
 /**
  * Headers for the GitHub releases API. Honors `GITHUB_TOKEN` when set to
  * raise the rate limit, matching the tinycast/ghostex updaters.
+ *
+ * Detects and discards Forgejo tokens which are invalid for api.github.com
+ * to prevent 401 Unauthorized errors.
  */
 export function githubHeaders(userAgent: string): Record<string, string> {
   const headers: Record<string, string> = {
@@ -190,6 +193,16 @@ export function githubHeaders(userAgent: string): Record<string, string> {
     "X-GitHub-Api-Version": "2022-11-28",
   };
   const token = process.env.GITHUB_TOKEN;
-  if (token) headers.Authorization = `Bearer ${token}`;
+  if (token) {
+    // Forgejo tokens are invalid for api.github.com and cause 401s.
+    // GitHub tokens start with ghp_, gho_, ghu_, ghs_, or github_pat_.
+    // Forgejo tokens typically don't match these patterns.
+    const isLikelyGitHubToken = /^(ghp_|gho_|ghu_|ghs_|github_pat_)/.test(token);
+    if (isLikelyGitHubToken) {
+      headers.Authorization = `Bearer ${token}`;
+    }
+    // If it's not a recognizable GitHub token pattern, we skip it
+    // to avoid sending invalid credentials that cause 401s.
+  }
   return headers;
 }

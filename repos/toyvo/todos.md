@@ -18,6 +18,7 @@ Outstanding work and follow-up items for this repository.
 - [ ] Homepage widget (`type: gitea`) with an API key stored in sops as `HOMEPAGE_VAR_FORGEJO_API_KEY`
 - [ ] Consider sharding the ~3h `checks.<system>.all` monolith build (matrix over package groups, higher `-j`, or nix-fast-build) so scheduled CI is less exposed to any single interruption
 - [ ] pi MCP parity: opencode also configures `slack` and `chrome-devtools` MCP servers; add them to `programs.pi-coding-agent.mcpServers` (shared `nixos`, per-profile `github-*`, and work `atlassian` are done)
+- [x] Fix CI update failures caused by Forgejo GITHUB_TOKEN being incorrectly used for api.github.com requests (fixed in scripts/update-lib.ts)
 
 ## Neovim
 
