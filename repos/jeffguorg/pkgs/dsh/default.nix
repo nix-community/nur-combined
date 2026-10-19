@@ -40,7 +40,7 @@ buildNpmPackage rec {
     '';
   };
 
-  npmDepsHash = "sha256-ny8ZO8eYDxWZZcPjHyWKxAcged6s4oVDHV9gh4EW+3c=";
+  npmDepsHash = "sha256-v7Mlk8oNit7x3o2mCB2VM+Oa5B9CX950HUDSFRxXULY=";
 
   nativeBuildInputs = [
     makeBinaryWrapper
