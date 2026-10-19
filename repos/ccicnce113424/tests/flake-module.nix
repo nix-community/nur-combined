@@ -24,6 +24,18 @@
           defaults.services.daed-next.package = self'.packages.daed-next-git;
         };
 
+        gaze = pkgs.testers.runNixOSTest {
+          imports = [ ./gaze.nix ];
+          extraBaseModules = {
+            imports = [ self.nixosModules.gaze ];
+          };
+          defaults = {
+            services.gaze.package = self'.packages.gaze;
+            services.gaze.gnome.extensionPackage = self'.packages.gaze-gnome-extension;
+            services.gaze.gui.package = self'.packages.gaze-gui;
+          };
+        };
+
         honk-core = pkgs.testers.runNixOSTest {
           imports = [ ./honk-core.nix ];
           extraBaseModules = {

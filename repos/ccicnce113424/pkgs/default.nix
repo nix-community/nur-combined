@@ -79,6 +79,14 @@ lib.makeScope pkgs.newScope (
         }
       );
 
+    gaze = self.callPackage ./gaze/package.nix { };
+
+    gaze-cinnamon-extension = self.callPackage ./gaze-cinnamon-extension/package.nix { };
+
+    gaze-gnome-extension = self.callPackage ./gaze-gnome-extension/package.nix { };
+
+    gaze-gui = self.callPackage ./gaze-gui/package.nix { };
+
     honk-core = self.callPackage ./honk-core/package.nix { };
 
     jj-lsp = self.callPackage ./jj-lsp rec {

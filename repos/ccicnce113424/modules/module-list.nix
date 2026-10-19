@@ -7,6 +7,8 @@
 
         daed-next = ./daed-next.nix;
 
+        gaze = ./gaze.nix;
+
         honk-core = ./honk-core.nix;
 
         pipewire-bluez5-lhdc = ./pipewire-bluez5-lhdc.nix;
