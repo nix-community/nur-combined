@@ -251,8 +251,8 @@
             "url": "https://github.com/abemedia/nur-packages"
         },
         "abszero": {
-            "rev": "7855b7f3e232e62c6c825c922570e5c3e2f763d9",
-            "sha256": "1xwnkzbqq8fd8izkzlfqkajacd9bq52pvsazja2dsbsrjbk0dxbj",
+            "rev": "26c6b27e6dd35d51ca9bf5849c2391f12d63bc58",
+            "sha256": "1d6fchq9wfpc055crwp5d1in9jiwy5wk34b3673n0i6s39n5ir4a",
             "url": "https://github.com/Weathercold/nixfiles"
         },
         "aciceri": {
@@ -2353,6 +2353,11 @@
             "rev": "a744f648fc4ed8a8b461f0847e9f800077919881",
             "sha256": "1ryyc11hj9szq9zwl913vd3waiyfass792c0s6c0shpxdmp45rk2",
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
+        },
+        "shelvacu": {
+            "rev": "b1fc3e30009697b1165e3dee21246ef5fc6dd4b0",
+            "sha256": "0hy2sy8sghmalg36z1wbb67hzvacb2z71sy0rx5j1dlcznbc6706",
+            "url": "https://git.uninsane.org/shelvacu/nix-stuff"
         },
         "shirok1": {
             "rev": "ac4eeea3e492c74c618981d09363e3974b602c9d",
