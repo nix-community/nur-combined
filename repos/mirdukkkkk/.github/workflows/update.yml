@@ -1,0 +1,49 @@
+name: "Update sources"
+on:
+  schedule:
+    - cron: '17 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  # needed to start the build workflow: pushes made with GITHUB_TOKEN
+  # do not trigger other workflows on their own
+  actions: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v7
+    - name: Install nix
+      uses: cachix/install-nix-action@v31
+      with:
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - name: Setup git user
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+    - name: Update flake.lock
+      run: |
+        nix flake update
+        git add flake.lock
+        git diff --cached --quiet || git commit -m "build(deps): update flake"
+    - name: Update firefox addons
+      working-directory: pkgs/firefox-addons
+      run: |
+        nix run github:nix-community/NUR#legacyPackages.x86_64-linux.repos.rycee.mozilla-addons-to-nix -- addons.json generated.nix
+        git add generated.nix
+        git diff --cached --quiet || git commit -m "chore(firefox-addons): update"
+    - name: Check evaluation
+      run: nix flake check --no-build
+    - name: Push and start build
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        if [ "$(git rev-list --count origin/main..HEAD)" -gt 0 ]; then
+          git push
+          gh workflow run build.yml --ref main
+        fi

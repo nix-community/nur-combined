@@ -1,0 +1,18 @@
+version: 2
+updates:
+  # flake.lock is not listed here: .github/workflows/update.yml already bumps
+  # it daily, so a nix ecosystem entry would only open duplicate PRs.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "ci"
+      include: "scope"
+    groups:
+      # Every action bump in one weekly PR. Unlike npm deps there's no
+      # update-types filter: almost all action releases are majors, and a
+      # broken one shows up in that same PR's CI run anyway.
+      actions:
+        patterns:
+          - "*"
