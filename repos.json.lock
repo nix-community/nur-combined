@@ -662,11 +662,6 @@
             "sha256": "1875xymyd5b7x4yrqfdvq0bv3n49qq596d3zw18svjgpz9la31il",
             "url": "https://github.com/codgician/nur-packages"
         },
-        "colinsane": {
-            "rev": "0e9ff6134b9f3fe84e997e6674ebaad1abf0bdc5",
-            "sha256": "1pwpgbzbp64zvkp2dvn35qbizk8mlabv96yfzn0v3h5p8swyskgh",
-            "url": "https://git.uninsane.org/colin/nix-files"
-        },
         "colorman": {
             "rev": "26215976a192e9f0e1366f414e801963951bfad1",
             "sha256": "0ppw5swkg0awp2vh439fp0msa4sf2p49fq9zrc47h93y90s2vihg",
@@ -2662,8 +2657,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "8568abd973f5e107187c1351fdeddfc2ead84ffc",
-            "sha256": "0vspwihig1h81vaymh48mlhyg0xjavm2p5rxb1c96m33zzc7md2a",
+            "rev": "a6878e45b0566814e57fff790de92c30d551ea45",
+            "sha256": "1gicxhq70hb5nnjnqs3pgrq1fnkv4l85bsfv4qzx1rscab4gz5fw",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
