@@ -35,6 +35,7 @@ in
 
     postPatch = ''
       substituteInPlace CMakeLists.txt \
+        --replace-fail "-Werror -Wall" "-Wall -Wno-error=array-bounds" \
         --replace-warn "\''${UDEV_DIR}/rules.d" "lib/udev/rules.d" \
         --replace-warn "\''${UDEV_DIR}/hwdb.d" "lib/udev/hwdb.d" \
         --replace-warn "\''${SYSTEMD_SYSTEM_UNIT_DIR}" "lib/systemd/system"

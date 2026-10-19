@@ -55,6 +55,11 @@ in
       default = false;
       description = "Whether to use the custom patched Yoga Book kernel. Disabling this will use the default NixOS kernel.";
     };
+    useOutOfTreeKernelModules = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Whether to build and install the out-of-tree Yoga Book kernel modules. Disable when the kernel already provides them.";
+    };
     keyboardLayout = lib.mkOption {
       type = lib.types.enum [ "pc104" "pc105" "jp106" ];
       default = "pc105";
@@ -83,7 +88,7 @@ in
       (pkgs.linuxPackagesFor yogabook-linux.yogabook-config);
 
     # Extra kernel modules compiled out-of-tree for the standard NixOS kernel
-    boot.extraModulePackages = lib.mkIf (!cfg.useCustomKernel) [
+    boot.extraModulePackages = lib.mkIf (!cfg.useCustomKernel && cfg.useOutOfTreeKernelModules) [
       (yogabook-linux.yogabook-modules {
         inherit (config.boot.kernelPackages) kernel kernelModuleMakeFlags;
         inherit (cfg) enableHapticCalibration;
