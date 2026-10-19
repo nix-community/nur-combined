@@ -90,11 +90,11 @@ let
     # honk's entry config: the web UI writes its global and routing rules here.
     #
     # Do not change the import: it loads the Nix-managed files in config.d/.
-    global { }
-    routing { }
     include {
         'config.d/*.dae'
     }
+    global { }
+    routing { }
   '';
 
   TxChecksumIpGenericWorkaround = pkgs.writeShellScript "disable-tx-checksum-ip-generic" ''
