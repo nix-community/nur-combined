@@ -48,12 +48,12 @@ Telnyx SIP trunk.
   that mapping.
 - **Telnyx is encrypted, JMP.chat can't be.** `vacu.pbx.trunks.<name>.encrypt`
   moves a trunk to SIP over TLS (server cert verified against the system CA
-  bundle) and SDES-SRTP media. Telnyx supports both. SignalWire's cert only
-  has `*.sip.signalwire.com`, and stock pjsip rejects wildcards (RFC 5922
-  §7.2), so the bundled pjproject is patched to accept them. JMP's SIP account is a
-  direct connection to Bandwidth over plain UDP, with no TLS or SRTP on offer,
-  so that trunk is cleartext signalling and media. Its only authentication is
-  digest on the requests we send.
+  bundle) and SDES-SRTP media. Telnyx supports both. SignalWire's cert only has
+  `*.sip.signalwire.com`, and stock pjsip rejects wildcards (RFC 5922 §7.2), so
+  the bundled pjproject is patched to accept them. JMP's SIP account is a direct
+  connection to Bandwidth over plain UDP, with no TLS or SRTP on offer, so that
+  trunk is cleartext signalling and media. Its only authentication is digest on
+  the requests we send.
 - **Two trunks, two line buttons.** `vacu.pbx.trunks` generates a pjsip
   endpoint/aor/registration set and a `from-<name>` inbound context per
   provider, so adding a third is a few lines.
@@ -135,8 +135,10 @@ Telnyx SIP trunk.
 | `hosts/pbxvm/tftp.nix`              | atftpd, `SEP<MAC>.cnf.xml`, `dialplan.xml`                      |
 | `hosts/pbxvm/http.nix`              | the same files over HTTP, which is what the phone prefers       |
 | `hosts/pbxvm/secrets-guard.nix`     | Refuses to start either service when sops has not rendered      |
+| `hosts/pbxvm/phone-services.nix`    | XML services for the Contacts and Messages buttons, AMI         |
+| `packages/cisco-phone-services/`    | usecallmanager's sample services app + our contacts blueprint   |
 | `hosts/prophecy/vms.nix`            | The VM itself (tag 6)                                           |
-| `secrets/hosts/pbxvm.yaml`          | Telnyx password + the line's SIP password                       |
+| `secrets/hosts/pbxvm.yaml`          | Trunk passwords, the line's SIP password, contacts              |
 
 Both passwords are sops-rendered at runtime (`sops.templates`) rather than baked
 into the store — including the one inside `SEP<MAC>.cnf.xml`, which sops writes
@@ -180,6 +182,8 @@ git add common/hosts.nix secrets/hosts/pbxvm.yaml   # flakes only see tracked fi
   and SRTP enabled for inbound calls in the Telnyx portal: asterisk rejects an
   unencrypted offer on this trunk, and Telnyx rejects an answer without one.
 - `jmpchat.password` — the JMP.chat / Bandwidth password for `c4986875698`.
+- `contacts` — the phone's address book. See "Contacts" below; it can be empty,
+  but the key has to exist or sops-nix fails for every secret.
 - `phone.1001.password` — invent one. It only has to match between asterisk and
   the XML, and this repo puts it in both. Every line button shares it: they are
   the same handset on the same trusted LAN, and one secret is one thing to
@@ -494,11 +498,55 @@ connection's default caller ID. Set it to an E.164 number you own to override.
   <https://sip.telnyx.com/>. If the connection moves region, or Telnyx
   renumbers, update it (inbound would still work via `line=yes`, but the
   `identify` would stop matching).
-- No voicemail, no second handset, no CDR storage. All are additions to
+- No second handset, no CDR storage. All are additions to
   `hosts/pbxvm/asterisk.nix` rather than rework.
 - `<loadInformation>` is absent from the XML unless `vacu.pbx.firmwareLoad` is
   set, so by default the phone keeps whatever firmware it has. See below for an
   upgrade.
+
+## Voicemail, DND and contacts
+
+**Voicemail.** One mailbox, `1001@default`, shared by every line, so the message
+lamp lights whichever trunk the caller came in on. An inbound call rings for 30
+s and then goes to voicemail (the busy greeting if the phone answered busy).
+Messages live under `/var/spool/asterisk/voicemail`.
+
+The **Messages** button opens usecallmanager's visual voicemail
+(`<messagesURL>`): list, play, delete, move, call back. Play and "Call
+Voicemail" dial `messages…` extensions from the selected line, which the
+`phone-features` context handles; that is included in every `from-phone-*`
+context. Its greetings menu needs `VoicemailGreeting()`, which arrived in
+Asterisk 22.11, so here it drops into `VoiceMailMain` instead: press **0** for
+the greetings options.
+
+The services app reaches voicemail through AMI over asterisk's HTTP server on
+`127.0.0.1:8088`. The AMI password is generated on first boot into
+`/var/lib/pbx-ami` by `pbx-ami-secret.service`; it never leaves the VM.
+
+**DND.** The 8851's enterprise firmware has no DND softkey (that is 7900 only),
+so it is a line key (`featureID` 130) after the trunk buttons. The phone tells
+asterisk when it is toggled, chan_sip stores it in AstDB (`SIP/DoNotDisturb`),
+and `ring-phone` sends calls straight to voicemail while it is on. Check with
+`asterisk -rx 'sip show peer 1001' | grep -i dnd`.
+
+**Contacts.** The **Contacts** button's directory, and the caller-ID name on
+inbound calls, both come from the `contacts` sops secret, read fresh on every
+request so editing it needs only a redeploy, no restart. One contact per line,
+number first, no spaces in the number:
+
+```
+# comments and blank lines are fine
++15555550123 Alice Smith
+5555550124   Bob (work)
+```
+
+Numbers are normalised to E.164 (10 digits get `+1`), both here and on the
+caller ID asterisk looks up, so either form matches. A contact's name replaces
+whatever name the trunk sent.
+
+Both XML services listen on port 6972 with no authentication; anyone on the LAN
+can read contacts and delete voicemail, the same trust the TFTP config already
+relies on.
 
 ## Upgrading the phone's firmware
 

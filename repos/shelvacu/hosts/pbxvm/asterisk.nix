@@ -105,6 +105,8 @@ let
   '';
 in
 {
+  # I am of the (seemingly unusal) opinion that deploying a config should deploy a config. also since im the only user, interrupting calls isn't too bad
+  systemd.services.asterisk.restartIfChanged = lib.mkForce true;
   services.asterisk = {
     enable = true;
 
@@ -227,6 +229,10 @@ in
           directmedia=no
           ; 'qualify' is deprecated in this chan_sip; 'yes' means the 2000ms default.
           maxqualify=yes
+          ; Every line shares the one mailbox, so the lamp means the same thing
+          ; whichever button is lit.
+          mailbox=${ext}@default
+          vmexten=messages
           ${lib.optionalString (l.index == "1" && secondaryLines != [ ]) ''
             register=${lib.concatMapStringsSep "," (s: s.extension) secondaryLines}
           ''}
@@ -273,6 +279,21 @@ in
         [cisco-prt-report](cisco-service-control)
         content=action=prt-report
         content=RegisterCallId={''${SIP_PEER(''${PEERNAME},register_callid)}}
+      '';
+
+      "voicemail.conf" = ''
+        [general]
+        format=wav
+        attach=no
+        maxmsg=100
+        maxsecs=300
+        minsecs=2
+        maxlogins=3
+
+        [default]
+        ; Only ever reached through VoiceMailMain(,s) from the phone itself,
+        ; which skips the PIN, so the PIN guards nothing.
+        ${ext} => ${ext},${cfg.phoneLabel}
       '';
 
       "pjsip.conf" = ''
@@ -327,9 +348,31 @@ in
         ;---------------------------------------------------------------------
         ${lib.concatMapStringsSep "\n" (l: ''
           [from-phone-${l.trunk}]
+          include => phone-features
           exten => _[*+0-9].,1,Set(TRUNK=${l.trunk})
            same => n,Goto(from-phone,''${EXTEN},1)
         '') cfg.lines}
+
+        ;---------------------------------------------------------------------
+        ; What the phone's XML services dial, from whichever line is selected.
+        ; See https://usecallmanager.nz/dialplan-extensions.html#messages
+        ;---------------------------------------------------------------------
+        [phone-features]
+        exten => messages,1,Set(CONNECTEDLINE(all)="Messages" <>)
+         same => n,Answer()
+         same => n,Wait(0.5)
+         same => n,VoiceMailMain(''${SIP_PEER(''${CHANNEL(peername)},mailbox)},s)
+         same => n,Hangup(normal_clearing)
+        ; Play button on a message: messages-<id>-<caller>.
+        exten => _messages-.,1,Set(MESSAGE=''${CUT(EXTEN,-,2-3)})
+         same => n,Set(CISCO_CALLBACK_NUMBER=messages)
+         same => n,Set(CONNECTEDLINE(all)="Message from ''${CUT(EXTEN,-,4)}" <>)
+         same => n,VoicemailPlayMsg(''${SIP_PEER(''${CHANNEL(peername)},mailbox)},''${MESSAGE})
+         same => n,Hangup(normal_clearing)
+        ; The greetings menu wants VoicemailGreeting(), which is newer than
+        ; this asterisk. VoiceMailMain's 0 menu does the same job by voice.
+        exten => _greeti[n]g-.,1,Goto(messages,1)
+        exten => _recgreeti[n]g-.,1,Goto(messages,1)
 
         ;---------------------------------------------------------------------
         ; Everything the phone dials, once its line has chosen a trunk
@@ -391,9 +434,27 @@ in
         ${lib.concatMapStringsSep "\n" (l: ''
           [from-${l.trunk}]
           exten => _[+0-9].,1,NoOp(inbound ''${EXTEN} from ${l.trunk})
-           same => n,Dial(SIP/${l.extension},30)
-           same => n,Hangup()
+           same => n,Goto(ring-phone,${l.extension},1)
         '') cfg.lines}
+
+        [ring-phone]
+        ; A contact's name wins over whatever the trunk sent.
+        exten => _X.,1,Set(CURLOPT(httptimeout)=2)
+         same => n,Set(CONTACT=''${CURL(http://127.0.0.1:${toString cfg.servicesPort}/lookup?number=''${URIENCODE(''${CALLERID(num)})})})
+         same => n,ExecIf($["''${CONTACT}" != ""]?Set(CALLERID(name)=''${CONTACT}))
+         ; DND is set from the phone's DND key and lives on the primary line.
+         same => n,GotoIf($["''${SIP_PEER(${ext},donotdisturb)}" = "yes"]?unavail)
+         same => n,Dial(SIP/''${EXTEN},30)
+         ; Dial also returns when the phone hangs up an answered call.
+         same => n,ExecIf($["''${DIALSTATUS}" = "ANSWER"]?Hangup())
+         same => n,GotoIf($["''${DIALSTATUS}" = "BUSY"]?busy)
+         same => n(unavail),Set(GREETING=u)
+         same => n,Goto(vm)
+         same => n(busy),Set(GREETING=b)
+         same => n(vm),Answer()
+         same => n,Wait(0.5)
+         same => n,VoiceMail(${ext}@default,''${GREETING})
+         same => n,Hangup()
       '';
     };
   };

@@ -66,7 +66,6 @@ in
   options.vacu.nix = {
     caches = mkOption {
       type = vacuData.options.data.nix.caches.type;
-      default = vacuData.nix.caches;
     };
 
     settings = mkOption {
@@ -110,6 +109,7 @@ in
       default = "";
     };
   };
+  config.vacu.nix.caches = vacuData.nix.caches;
   config.vacu.nix.settings = {
     substituters = lib.mkForce substituterUrls;
     extra-substituters = lib.mkForce [ ];

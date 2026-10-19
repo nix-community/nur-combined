@@ -9,6 +9,7 @@ let
   ext = cfg.extension;
   ip = config.vacuvmGuest.ip;
   configName = "SEP${cfg.phoneMac}.cnf.xml";
+  servicesUrl = "http://${ip}:${toString cfg.servicesPort}";
 
   # Cisco's own timezone spelling, not an IANA name. Keep in step with
   # common/nixos.nix's time.timeZone.
@@ -445,9 +446,10 @@ in
             <semiAttendedTransfer>true</semiAttendedTransfer>
             <anonymousCallBlock>0</anonymousCallBlock>
             <callerIdBlocking>0</callerIdBlocking>
-            <!-- Cisco call-completion is one of the proprietary extensions
-                 stock asterisk does not speak. -->
-            <remoteCcEnable>false</remoteCcEnable>
+            <!-- usecallmanager says remote call control must be on. The DND
+                 key and its sync with asterisk depend on it. -->
+            <remoteCcEnable>true</remoteCcEnable>
+            <dndControl>0</dndControl>
             <uriDialingDisplayPreference>1</uriDialingDisplayPreference>
           </sipCallFeatures>
           <sipStack>
@@ -504,13 +506,19 @@ in
                 <sharedLine>false</sharedLine>
                 <messageWaitingLampPolicy>3</messageWaitingLampPolicy>
                 <messageWaitingAMWI>0</messageWaitingAMWI>
-                <messagesNumber></messagesNumber>
+                <!-- Only used if messagesURL below is unreachable. -->
+                <messagesNumber>messages</messagesNumber>
                 <ringSettingIdle>4</ringSettingIdle>
                 <ringSettingActive>5</ringSettingActive>
                 <maxNumCalls>4</maxNumCalls>
                 <busyTrigger>2</busyTrigger>
               </line>
             '') cfg.lines}
+            <!-- The 8851 has no DND softkey; it has to be a line key. -->
+            <line button="${toString (builtins.length cfg.lines + 1)}">
+              <featureID>130</featureID>
+              <featureLabel>DND</featureLabel>
+            </line>
           </sipLines>
           <dialTemplate>dialplan.xml</dialTemplate>
         </sipProfile>
@@ -548,10 +556,10 @@ in
           cfg.firmwareLoad != null
         ) "<loadInformation>${cfg.firmwareLoad}</loadInformation>"}
         <authenticationURL></authenticationURL>
-        <directoryURL></directoryURL>
+        <directoryURL>${servicesUrl}/directory</directoryURL>
         <idleURL></idleURL>
         <informationURL></informationURL>
-        <messagesURL></messagesURL>
+        <messagesURL>${servicesUrl}/messages?name=SEP${cfg.phoneMac}</messagesURL>
         <proxyServerURL></proxyServerURL>
         <servicesURL></servicesURL>
       </device>

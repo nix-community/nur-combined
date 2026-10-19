@@ -56,14 +56,6 @@
     remotePlay.openFirewall = true;
   };
 
-  services.printing = {
-    enable = true;
-    drivers = [ pkgs.cups-dymo ];
-    # extraConf = ''
-    #   LogLevel debug
-    # '';
-  };
-
   vacu.packages = ''
     _2ship2harkinian
     android-studio

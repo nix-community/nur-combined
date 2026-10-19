@@ -20,15 +20,17 @@ in
       mode = vaculib.accessModeStr { user = "all"; };
     }
   ];
-  systemd.services.minecraft-server-vanilla-perf = {
-    unitConfig = {
-      StartLimitBurst = lib.mkForce "";
-      StartLimitIntervalSec = lib.mkForce 0;
+  systemd.services = lib.mkIf cfg.enable {
+    minecraft-server-vanilla-perf = {
+      unitConfig = {
+        StartLimitBurst = lib.mkForce "";
+        StartLimitIntervalSec = lib.mkForce 0;
+      };
+      serviceConfig.Restart = lib.mkForce "no";
     };
-    serviceConfig.Restart = lib.mkForce "no";
   };
   services.minecraft-servers = {
-    enable = true;
+    enable = false;
     eula = true;
     openFirewall = true;
 
