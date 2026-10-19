@@ -16,7 +16,6 @@
 | **`scopebuddy`** | ScopeBuddy application | **Auto** (Weekly) |
 | **`bbport`** | Native Linux port of Bloodborne (needs your own game dump) | **Auto** (Weekly) |
 | **`cybergrub2077`** | Cyberpunk 2077 inspired GRUB theme | **Auto** (Weekly) |
-| **`linux-cachyos-bore-x86_64-v3`** | Latest stable CachyOS BORE kernel, v3, no LTO | **Auto** (Daily, gated kernel build) |
 
 ## Usage
 
@@ -37,7 +36,7 @@ Add to your `flake.nix`:
       system = "x86_64-linux";
       modules = [
         ./configuration.nix
-        urio-nur.nixosModules.default # Imports module options; features remain opt-in
+        urio-nur.nixosModules.default # Imports all modules
       ];
     };
   };
@@ -45,24 +44,6 @@ Add to your `flake.nix`:
 ```
 
 Flake overlay: `urio-nur.overlays.default`
-
-## CachyOS kernel
-
-The opt-in `urio-nur.nixosModules.cachyos` module installs the pinned BORE v3
-kernel with `boot.cachyos.enable = true` and an explicit
-`boot.cachyos.cpuSupportsV3 = true` acknowledgement. Enable the Cachix cache in
-an earlier generation first. See the [kernel guide](pkgs/linux-cachyos-bore-x86_64-v3/README.md)
-for the complete two-stage installation, CPU requirements, CI/publication,
-licensing and free-tier limitations. No LTS or LTO variants are built.
-
-All CI Nix builds run on [nixbuild.net](https://nixbuild.net) (repository secret
-`NIXBUILD_TOKEN`, no fallback to GitHub runners); results are published to
-`uriotv.cachix.org` from `main` only.
-
-Local publication is available with `nix run .#build-and-cache-kernel`.
-For credentials, this repo includes sops-nix and an optional
-`nixosModules.kernel-publisher` module; follow [the SOPS setup guide](secrets/README.md)
-to provide recipients and an encrypted token. No credentials are shipped.
 
 ## Updates
 

@@ -31,8 +31,3 @@
   pig = pkgs.callPackage ./pkgs/pig { };
   scopebuddy = pkgs.callPackage ./pkgs/scopebuddy { };
 }
-// pkgs.lib.optionalAttrs (pkgs.stdenv.hostPlatform.system == "x86_64-linux") {
-  # Direct NUR import uses the caller's nixpkgs. Prefer the pinned flake export
-  # or NixOS module below for guaranteed agreement with the Cachix build.
-  linux-cachyos-bore-x86_64-v3 = pkgs.callPackage ./pkgs/linux-cachyos-bore-x86_64-v3 { };
-}

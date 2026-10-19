@@ -165,9 +165,6 @@ main() {
 
     # Offline workflow regression tests must never contact upstream or run Nix.
     python3 "$SCRIPT_DIR/update-workflow.py"
-    python3 -B "$SCRIPT_DIR/kernel-workflow.py"
-    python3 -B "$SCRIPT_DIR/local-kernel-build.py"
-    python3 -B "$SCRIPT_DIR/repo-secrets.py"
 
     echo "======================================"
     echo "Test Summary"

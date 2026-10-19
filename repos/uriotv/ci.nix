@@ -13,9 +13,7 @@
 
 with builtins;
 let
-  # Kernels use their own pinned nixpkgs and resource-bounded CI job.
-  isReserved = n: n == "lib" || n == "overlays" || n == "modules"
-    || n == "linux-cachyos-bore-x86_64-v3";
+  isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   isBuildable = p: let
     licenseFromMeta = p.meta.license or [];

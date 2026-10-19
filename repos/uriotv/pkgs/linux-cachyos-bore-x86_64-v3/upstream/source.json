@@ -1,9 +1,0 @@
-{
-  "rev": "b70cedc6abfe9a01b9ec2451a5c737e59cf19e3e",
-  "hash": "sha256-zuX1x4dhijG9pr74yySgkMwDeKY63jgLIsKlqHj78O4=",
-  "version": "7.2.11",
-  "nixpkgs": {
-    "rev": "713b2077af0de16b3a02fc1760d233cf55e7dc4e",
-    "narHash": "sha256-LW33+dSrpSw4Xpz3cDKqNARm84z0+bRNsv+7m6exF84="
-  }
-}
