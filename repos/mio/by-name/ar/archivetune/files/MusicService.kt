@@ -68,7 +68,9 @@ class MusicService {
                 window.mediaItem = item
                 window.firstPeriodIndex = windowIndex
                 window.lastPeriodIndex = windowIndex
-                val dur = (item.metadata?.duration?.toLong()?.times(1000L)) ?: 0L
+                val dur = (item.metadata?.duration?.toLong()?.times(1000L))
+                    ?: (item.mediaMetadata.duration?.takeIf { it > 0 })
+                    ?: 0L
                 window.durationMs = if (dur > 0) dur else 180000L
             }
             return window

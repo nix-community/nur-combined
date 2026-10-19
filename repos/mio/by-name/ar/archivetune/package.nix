@@ -84,117 +84,113 @@ let
     patches = [ ];
 
     postPatch = ''
+      # Wire the pinned :core submodule source into place.
+      rm -rf core
+      cp -r ${coreSrc} core
+      chmod -R +w core
+      patch -p1 < ${./core-playlist.patch}
 
-            # Wire the pinned :core submodule source into place.
-            rm -rf core
-            cp -r ${coreSrc} core
-            chmod -R +w core
-            patch -p1 < ${./core-playlist.patch}
+      # Drop the Android-only entrypoints. android-stubs provides the global mocks
+      # that used to live in MainActivity.kt, and DesktopMain.kt is our new entrypoint.
+      rm -f app/src/main/kotlin/moe/rukamori/archivetune/MainActivity.kt
+      rm -f app/src/main/kotlin/moe/rukamori/archivetune/DebugActivity.kt
+      rm -f app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt
+      rm -rf app/src/main/kotlin/moe/rukamori/archivetune/widget
+      rm -rf app/src/main/kotlin/moe/rukamori/archivetune/aod
 
-            # Drop the Android-only entrypoints. android-stubs provides the global mocks
-            # that used to live in MainActivity.kt, and DesktopMain.kt is our new entrypoint.
-            rm -f app/src/main/kotlin/moe/rukamori/archivetune/MainActivity.kt
-            rm -f app/src/main/kotlin/moe/rukamori/archivetune/DebugActivity.kt
-            rm -f app/src/main/kotlin/moe/rukamori/archivetune/RestoreBackupFileActivity.kt
-            rm -rf app/src/main/kotlin/moe/rukamori/archivetune/widget
-            rm -rf app/src/main/kotlin/moe/rukamori/archivetune/aod
+      # Files the port replaces wholesale. These are kept as real files rather than
+      # as full-file patches: upstream rewrites them constantly (adding flavours,
+      # SDK levels, dependencies...), and a full-file patch breaks on every touch
+      # while contributing nothing, since the replacement is intentional.
+      install -m644 ${./files/app-build.gradle.kts} app/build.gradle.kts
+      install -m644 ${./files/settings.gradle.kts} settings.gradle.kts
+      install -m644 ${./files/AodShapeUtils.kt} app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/AodShapeUtils.kt
+      install -m644 ${./files/ShowMediaInfo.kt} app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/ShowMediaInfo.kt
+      install -m644 ${./files/AppUpdateInstaller.kt} app/src/main/kotlin/moe/rukamori/archivetune/utils/AppUpdateInstaller.kt
+      # Android-only playback service layer. MusicService is a MediaSessionService and
+      # the widgets are Glance-based; neither exists on the JVM desktop, so the port
+      # keeps only the type surface the rest of the app resolves against.
+      install -m644 ${./files/MusicService.kt} app/src/main/kotlin/moe/rukamori/archivetune/playback/MusicService.kt
+      install -m644 ${./files/MediaLibrarySessionCallback.kt} app/src/main/kotlin/moe/rukamori/archivetune/playback/MediaLibrarySessionCallback.kt
+      install -m644 ${./files/MusicServiceWidgetUpdater.kt} app/src/main/kotlin/moe/rukamori/archivetune/playback/MusicServiceWidgetUpdater.kt
+      install -m644 ${./files/DownloadUtil.kt} app/src/main/kotlin/moe/rukamori/archivetune/playback/DownloadUtil.kt
+      # Stand-in for the :morideobfuscator Android library (own repo, not fetched):
+      # real model/data types plus an inert resolver.
+      mkdir -p app/src/main/kotlin/moe/rukamori/archivetune/morideobfuscator/youtubei
+      install -m644 ${./files/YoutubeiModels.kt} app/src/main/kotlin/moe/rukamori/archivetune/morideobfuscator/youtubei/YoutubeiModels.kt
+      install -m644 ${./files/YoutubeiResolver.kt} app/src/main/kotlin/moe/rukamori/archivetune/morideobfuscator/youtubei/YoutubeiResolver.kt
+      # Inert stand-ins for the dropped AOD player surface and the Discord presence
+      # manager that the (kept) debug settings screen still renders.
+      install -m644 ${./files/AodPlayerScreen.kt} app/src/main/kotlin/moe/rukamori/archivetune/ui/player/AodPlayerScreen.kt
+      install -m644 ${./files/DiscordPresenceManager.kt} app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/DiscordPresenceManager.kt
+      install -m644 ${./files/ComposeToImage.kt} app/src/main/kotlin/moe/rukamori/archivetune/utils/ComposeToImage.kt
+      install -m644 ${./files/ExoDownloadService.kt} app/src/main/kotlin/moe/rukamori/archivetune/playback/ExoDownloadService.kt
+      install -m644 ${./files/UpdateNotificationManager.kt} app/src/main/kotlin/moe/rukamori/archivetune/utils/UpdateNotificationManager.kt
+      install -m644 ${./files/Updater.kt} app/src/main/kotlin/moe/rukamori/archivetune/utils/Updater.kt
+      install -m644 ${./files/DesktopLoginScreen.kt} app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/LoginScreen.kt
 
-            # Files the port replaces wholesale. These are kept as real files rather than
-            # as full-file patches: upstream rewrites them constantly (adding flavours,
-            # SDK levels, dependencies...), and a full-file patch breaks on every touch
-            # while contributing nothing, since the replacement is intentional.
-            install -m644 ${./files/app-build.gradle.kts} app/build.gradle.kts
-            install -m644 ${./files/settings.gradle.kts} settings.gradle.kts
-            install -m644 ${./files/AodShapeUtils.kt} app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/AodShapeUtils.kt
-            install -m644 ${./files/ShowMediaInfo.kt} app/src/main/kotlin/moe/rukamori/archivetune/ui/utils/ShowMediaInfo.kt
-            install -m644 ${./files/AppUpdateInstaller.kt} app/src/main/kotlin/moe/rukamori/archivetune/utils/AppUpdateInstaller.kt
-            # Android-only playback service layer. MusicService is a MediaSessionService and
-            # the widgets are Glance-based; neither exists on the JVM desktop, so the port
-            # keeps only the type surface the rest of the app resolves against.
-            install -m644 ${./files/MusicService.kt} app/src/main/kotlin/moe/rukamori/archivetune/playback/MusicService.kt
-            install -m644 ${./files/MediaLibrarySessionCallback.kt} app/src/main/kotlin/moe/rukamori/archivetune/playback/MediaLibrarySessionCallback.kt
-            install -m644 ${./files/MusicServiceWidgetUpdater.kt} app/src/main/kotlin/moe/rukamori/archivetune/playback/MusicServiceWidgetUpdater.kt
-            install -m644 ${./files/DownloadUtil.kt} app/src/main/kotlin/moe/rukamori/archivetune/playback/DownloadUtil.kt
-            # Stand-in for the :morideobfuscator Android library (own repo, not fetched):
-            # real model/data types plus an inert resolver.
-            mkdir -p app/src/main/kotlin/moe/rukamori/archivetune/morideobfuscator/youtubei
-            install -m644 ${./files/YoutubeiModels.kt} app/src/main/kotlin/moe/rukamori/archivetune/morideobfuscator/youtubei/YoutubeiModels.kt
-            install -m644 ${./files/YoutubeiResolver.kt} app/src/main/kotlin/moe/rukamori/archivetune/morideobfuscator/youtubei/YoutubeiResolver.kt
-            # Inert stand-ins for the dropped AOD player surface and the Discord presence
-            # manager that the (kept) debug settings screen still renders.
-            install -m644 ${./files/AodPlayerScreen.kt} app/src/main/kotlin/moe/rukamori/archivetune/ui/player/AodPlayerScreen.kt
-            install -m644 ${./files/DiscordPresenceManager.kt} app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/settings/DiscordPresenceManager.kt
-            install -m644 ${./files/ComposeToImage.kt} app/src/main/kotlin/moe/rukamori/archivetune/utils/ComposeToImage.kt
-            install -m644 ${./files/ExoDownloadService.kt} app/src/main/kotlin/moe/rukamori/archivetune/playback/ExoDownloadService.kt
-            install -m644 ${./files/UpdateNotificationManager.kt} app/src/main/kotlin/moe/rukamori/archivetune/utils/UpdateNotificationManager.kt
-            install -m644 ${./files/Updater.kt} app/src/main/kotlin/moe/rukamori/archivetune/utils/Updater.kt
-            install -m644 ${./files/DesktopLoginScreen.kt} app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/LoginScreen.kt
+      install -m644 ${./files/DesktopMain.kt} app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt
 
-            install -m644 ${./files/DesktopMain.kt} app/src/main/kotlin/moe/rukamori/archivetune/DesktopMain.kt
+      # Fix shapes parameter in TextButton/SegmentedButton (avoid mangling MaterialTheme.shapes.xxx)
+      find app/src/main/kotlin -type f -name "*.kt" -exec sed -i "s/@DrawableRes//g" {} +
+      find app/src/main/kotlin -type f -name "*.kt" -exec sed -i "s/shapes = ButtonDefaults.shapes()/shape = ButtonDefaults.textShape/g" {} +
+      find app/src/main/kotlin -type f -name "*.kt" -exec sed -i "s/shapes = SegmentedButtonDefaults/shape = SegmentedButtonDefaults/g" {} +
+      find app/src/main/kotlin -type f -name "*.kt" -exec sed -i "s/shapes = IconButtonDefaults/shape = IconButtonDefaults/g" {} +
+      find app/src/main/kotlin -type f -name "*.kt" -exec sed -i "s/shapes = expressiveShapes/shapes = expressiveShapes/g" {} +
+      # Remaining small source patches
+      patch -p1 < ${./root-build.patch}
+      patch -p1 < ${./app-kotlin.patch}
+      patch -p1 < ${./app-source.patch}
+      # Drop the Android-only subsystems (see narrow.py), then shim the rest.
+      python3 ${./narrow.py}
+      python3 ${./fix_theme.py}
+      patch -p1 < ${./challenge.patch}
+      patch -p1 < ${./sed-replacements.patch}
 
-            # Fix shapes parameter in TextButton/SegmentedButton (avoid mangling MaterialTheme.shapes.xxx)
-            find app/src/main/kotlin -type f -name "*.kt" -exec sed -i "s/@DrawableRes//g" {} +
-            find app/src/main/kotlin -type f -name "*.kt" -exec sed -i "s/shapes = ButtonDefaults.shapes()/shape = ButtonDefaults.textShape/g" {} +
-            find app/src/main/kotlin -type f -name "*.kt" -exec sed -i "s/shapes = SegmentedButtonDefaults/shape = SegmentedButtonDefaults/g" {} +
-            find app/src/main/kotlin -type f -name "*.kt" -exec sed -i "s/shapes = IconButtonDefaults/shape = IconButtonDefaults/g" {} +
-            find app/src/main/kotlin -type f -name "*.kt" -exec sed -i "s/shapes = expressiveShapes/shapes = expressiveShapes/g" {} +
-            # Remaining small source patches
-            patch -p1 < ${./root-build.patch}
-            patch -p1 < ${./app-kotlin.patch}
-            patch -p1 < ${./app-source.patch}
-            # Drop the Android-only subsystems (see narrow.py), then shim the rest.
-            python3 ${./narrow.py}
-            python3 ${./fix_theme.py}
-            patch -p1 < ${./challenge.patch}
-        patch -p1 < ${./sed-replacements.patch}
+      cp ${./files/MusicDatabase.kt} app/src/main/kotlin/moe/rukamori/archivetune/db/MusicDatabase.kt
+      cp ${./files/DatabaseDao.kt} app/src/main/kotlin/moe/rukamori/archivetune/db/DatabaseDao.kt
+      # JVM implementations of the two Android-only Room helpers the KSP code generator emits
+      # (see the file header). Placed in Room's own package so the generated DAO links.
+      mkdir -p app/src/main/kotlin/androidx/room/util
+      cp ${./files/RoomJvmSupport.kt} app/src/main/kotlin/androidx/room/util/RoomJvmSupport.kt
 
-            cp ${./files/MusicDatabase.kt} app/src/main/kotlin/moe/rukamori/archivetune/db/MusicDatabase.kt
-            cp ${./files/DatabaseDao.kt} app/src/main/kotlin/moe/rukamori/archivetune/db/DatabaseDao.kt
-            # JVM implementations of the two Android-only Room helpers the KSP code generator emits
-            # (see the file header). Placed in Room's own package so the generated DAO links.
-            mkdir -p app/src/main/kotlin/androidx/room/util
-            cp ${./files/RoomJvmSupport.kt} app/src/main/kotlin/androidx/room/util/RoomJvmSupport.kt
+      # Copy android stubs
+      cp -r ${./android-stubs} android-stubs
+      chmod -R +w .
 
-            # Copy android stubs
-            cp -r  ${./android-stubs} android-stubs
-            chmod -R +w .
-
-            # Populate android-stubs resources with upstream drawables
-            mkdir -p android-stubs/src/main/resources/drawable
-            cp -r app/src/main/res/drawable/* android-stubs/src/main/resources/drawable/
+      # Populate android-stubs resources with upstream drawables
+      mkdir -p android-stubs/src/main/resources/drawable
+      cp -r app/src/main/res/drawable/* android-stubs/src/main/resources/drawable/
 
       # Sanitize all XML vector drawables in both app and android-stubs for Compose Desktop
       python3 ${./files/sanitize_drawables.py}
 
-            # Bypass NetworkGatekeeper unofficial build block
-            substituteInPlace core/src/main/kotlin/moe/rukamori/archivetune/innertube/NetworkGatekeeper.kt \
-              --replace-fail "AtomicBoolean(true)" "AtomicBoolean(false)"
+      # Bypass NetworkGatekeeper unofficial build block
+      substituteInPlace core/src/main/kotlin/moe/rukamori/archivetune/innertube/NetworkGatekeeper.kt \
+        --replace-fail "AtomicBoolean(true)" "AtomicBoolean(false)"
 
-            # Replace Looper.getMainLooper() main thread check in DataStore.kt with native AWT EventQueue.isDispatchThread()
-            substituteInPlace app/src/main/kotlin/moe/rukamori/archivetune/utils/DataStore.kt \
-              --replace-fail "import android.os.Looper" "import java.awt.EventQueue" \
-              --replace-fail "Looper.getMainLooper().thread == Thread.currentThread()" "EventQueue.isDispatchThread()"
+      # Replace Looper.getMainLooper() main thread check in DataStore.kt with native AWT EventQueue.isDispatchThread()
+      substituteInPlace app/src/main/kotlin/moe/rukamori/archivetune/utils/DataStore.kt \
+        --replace-fail "import android.os.Looper" "import java.awt.EventQueue" \
+        --replace-fail "Looper.getMainLooper().thread == Thread.currentThread()" "EventQueue.isDispatchThread()"
 
-            # Import all carousel extensions in NewsScreen.kt (such as currentItem)
-            substituteInPlace app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/NewsScreen.kt \
-              --replace-fail "import androidx.compose.material3.carousel.HorizontalCenteredHeroCarousel" \
-                             "import androidx.compose.material3.carousel.*"
+      # Import all carousel extensions in NewsScreen.kt (such as currentItem)
+      substituteInPlace app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/NewsScreen.kt \
+        --replace-fail "import androidx.compose.material3.carousel.HorizontalCenteredHeroCarousel" \
+                       "import androidx.compose.material3.carousel.*"
 
-            # Prevent ExploreScreen from returning early when backStackEntry is null
-            substituteInPlace app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/ExploreScreen.kt \
-              --replace-fail "val scrollToTop by backStackEntry" "val scrollToTop = backStackEntry" \
-              --replace-fail "?.collectAsState() ?: return" "?.collectAsState()?.value ?: false"
+      # Prevent ExploreScreen from returning early when backStackEntry is null
+      substituteInPlace app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/ExploreScreen.kt \
+        --replace-fail "val scrollToTop by backStackEntry" "val scrollToTop = backStackEntry" \
+        --replace-fail "?.collectAsState() ?: return" "?.collectAsState()?.value ?: false"
 
-            # Pass preloadItem to YouTubeQueue.playlist in HomeScreenComponents.kt
-            substituteInPlace app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/HomeScreenComponents.kt \
-              --replace-fail "playerConnection.playQueue(YouTubeQueue.playlist(songEndpoint))" \
-                             "playerConnection.playQueue(YouTubeQueue.playlist(songEndpoint, song.toMediaMetadata()))"
+      # Pass preloadItem to YouTubeQueue.playlist in HomeScreenComponents.kt
+      substituteInPlace app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/HomeScreenComponents.kt \
+        --replace-fail "playerConnection.playQueue(YouTubeQueue.playlist(songEndpoint))" \
+                       "playerConnection.playQueue(YouTubeQueue.playlist(songEndpoint, song.toMediaMetadata()))"
 
-            ls -la android-stubs
       # Simplify BotGuardTokenGenerator patches
       python3 ${./files/patch_botguard.py}
-            # We also have migration-patches if the user wants to apply them manually
-            cp -r ${./migration-patches} patches/
 
       # Generate macOS icns icon
       mkdir -p app/build/iconset
@@ -204,7 +200,7 @@ let
       png2icns app/ArchiveTune.icns app/build/iconset/icon_*.png
       rm -rf app/build/iconset
 
-            chmod -R +w .
+      chmod -R +w .
     '';
 
     env.JAVA_HOME = jdk;

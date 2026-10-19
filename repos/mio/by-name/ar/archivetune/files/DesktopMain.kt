@@ -29,6 +29,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.isCtrlPressed
+import androidx.compose.ui.input.key.isMetaPressed
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.input.key.type
@@ -95,67 +97,80 @@ fun main() {
     }
 
     application {
-    Window(
-        onCloseRequest = ::exitApplication,
-        title = "ArchiveTune Desktop",
-        icon = painterResource("mipmap-xxxhdpi/ic_launcher.png"),
-        state = rememberWindowState(width = 1200.dp, height = 800.dp)
-    ) {
-        val darkTheme by rememberEnumPreference(DarkModeKey, defaultValue = DarkMode.AUTO)
-        val pureBlackEnabled by rememberPreference(PureBlackKey, defaultValue = false)
-        val isSystemInDarkTheme = isSystemInDarkTheme()
-        val useDarkTheme = remember(darkTheme, isSystemInDarkTheme) {
-            if (darkTheme == DarkMode.AUTO) isSystemInDarkTheme else darkTheme == DarkMode.ON
-        }
-        val pureBlack = pureBlackEnabled && useDarkTheme
-
-        val navController = rememberNavController()
-        val currentBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentRoute = currentBackStackEntry?.destination?.route ?: Screens.Home.route
-
-        val items = listOf("Home", "Search", "Explore", "Library", "History", "Settings")
-        val icons: List<@Composable () -> Unit> = listOf(
-            { Icon(Icons.Filled.Home, contentDescription = "Home") },
-            { Icon(Icons.Filled.Search, contentDescription = "Search") },
-            { Icon(Icons.Filled.Star, contentDescription = "Explore") },
-            { Icon(Icons.Filled.List, contentDescription = "Library") },
-            { Icon(painterResource(R.drawable.history), contentDescription = "History") },
-            { Icon(Icons.Filled.Settings, contentDescription = "Settings") },
-        )
-        val tabRoutes = listOf(Screens.Home.route, Screens.Search.route, "explore", Screens.Library.route, "history", "settings")
-
-        val selectedItem = when {
-            currentRoute == Screens.Search.route || currentRoute.startsWith("search/") -> 1
-            currentRoute == "explore" || currentRoute == Screens.MoodAndGenres.route -> 2
-            currentRoute == Screens.Library.route ||
-                currentRoute.startsWith("album/") ||
-                currentRoute.startsWith("artist/") ||
-                currentRoute.startsWith("playlist/") ||
-                currentRoute.startsWith("auto_playlist/") ||
-                currentRoute.startsWith("local_playlist/") ||
-                currentRoute.startsWith("online_playlist/") ||
-                currentRoute.startsWith("spotify_playlist/") ||
-                currentRoute == "local_songs" ||
-                currentRoute == "stats" -> 3
-            currentRoute == "history" -> 4
-            currentRoute == "settings" || currentRoute.startsWith("settings/") -> 5
-            else -> 0
-        }
-
-        val homeScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-        val libraryScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-        val homeViewModel: HomeViewModel = androidx.hilt.navigation.compose.hiltViewModel()
-
-        val menuState = remember { MenuState() }
-        val bottomSheetPageState = remember { BottomSheetPageState() }
         val playerConnection = getGlobalPlayerConnection()
-
         val mediaMetadata by playerConnection?.mediaMetadata?.collectAsState() ?: remember { mutableStateOf(null) }
         val isPlayerActive = playerConnection != null && mediaMetadata != null
 
-        val navBarHeight = 80.dp
-        val miniPlayerHeight = 70.dp
-        val collapsedHeight = navBarHeight + miniPlayerHeight
+        val windowTitle = remember(mediaMetadata) {
+            val meta = mediaMetadata
+            if (meta != null) {
+                val artist = meta.artists.joinToString(", ") { it.name }.takeIf { it.isNotBlank() }
+                if (artist != null) "${meta.title} • $artist — ArchiveTune" else "${meta.title} — ArchiveTune"
+            } else {
+                "ArchiveTune"
+            }
+        }
+
+        var isSearchActive by remember { mutableStateOf(false) }
+
+        Window(
+            onCloseRequest = ::exitApplication,
+            title = windowTitle,
+            icon = painterResource("mipmap-xxxhdpi/ic_launcher.png"),
+            state = rememberWindowState(width = 1200.dp, height = 800.dp)
+        ) {
+            val darkTheme by rememberEnumPreference(DarkModeKey, defaultValue = DarkMode.AUTO)
+            val pureBlackEnabled by rememberPreference(PureBlackKey, defaultValue = false)
+            val isSystemInDarkTheme = isSystemInDarkTheme()
+            val useDarkTheme = remember(darkTheme, isSystemInDarkTheme) {
+                if (darkTheme == DarkMode.AUTO) isSystemInDarkTheme else darkTheme == DarkMode.ON
+            }
+            val pureBlack = pureBlackEnabled && useDarkTheme
+
+            val navController = rememberNavController()
+            val currentBackStackEntry by navController.currentBackStackEntryAsState()
+            val currentRoute = currentBackStackEntry?.destination?.route ?: Screens.Home.route
+
+            val items = listOf("Home", "Search", "Explore", "Library", "History", "Settings")
+            val icons: List<@Composable () -> Unit> = listOf(
+                { Icon(Icons.Filled.Home, contentDescription = "Home") },
+                { Icon(Icons.Filled.Search, contentDescription = "Search") },
+                { Icon(Icons.Filled.Star, contentDescription = "Explore") },
+                { Icon(Icons.Filled.List, contentDescription = "Library") },
+                { Icon(painterResource(R.drawable.history), contentDescription = "History") },
+                { Icon(Icons.Filled.Settings, contentDescription = "Settings") },
+            )
+            val tabRoutes = listOf(Screens.Home.route, Screens.Search.route, "explore", Screens.Library.route, "history", "settings")
+
+            val selectedItem = when {
+                currentRoute == Screens.Search.route || currentRoute.startsWith("search/") || isSearchActive -> 1
+                currentRoute == "explore" || currentRoute == Screens.MoodAndGenres.route || currentRoute == "new_release" || currentRoute == "charts_screen" -> 2
+                currentRoute == Screens.Library.route ||
+                    currentRoute.startsWith("album/") ||
+                    currentRoute.startsWith("artist/") ||
+                    currentRoute.startsWith("playlist/") ||
+                    currentRoute.startsWith("auto_playlist/") ||
+                    currentRoute.startsWith("local_playlist/") ||
+                    currentRoute.startsWith("online_playlist/") ||
+                    currentRoute.startsWith("spotify_playlist/") ||
+                    currentRoute == "local_songs" ||
+                    currentRoute == "stats" -> 3
+                currentRoute == "history" -> 4
+                currentRoute == "settings" || currentRoute.startsWith("settings/") || currentRoute == "account" || currentRoute.startsWith("login") -> 5
+                currentRoute == Screens.Home.route || currentRoute == "news" || currentRoute.startsWith("view_news") || currentRoute.startsWith("year_in_music") -> 0
+                else -> -1
+            }
+
+            val homeScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+            val libraryScrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+            val homeViewModel: HomeViewModel = androidx.hilt.navigation.compose.hiltViewModel()
+
+            val menuState = remember { MenuState() }
+            val bottomSheetPageState = remember { BottomSheetPageState() }
+
+            val navBarHeight = 80.dp
+            val miniPlayerHeight = 70.dp
+            val collapsedHeight = navBarHeight + miniPlayerHeight
 
         BoxWithConstraints(
             modifier = Modifier.fillMaxSize()
@@ -174,7 +189,6 @@ fun main() {
                 }
             }
 
-            var isSearchActive by remember { mutableStateOf(false) }
             var searchQuery by remember { mutableStateOf("") }
             val searchFocusRequester = remember { FocusRequester() }
 
@@ -211,26 +225,58 @@ fun main() {
                         modifier = Modifier
                             .fillMaxSize()
                             .onKeyEvent { keyEvent ->
-                                if (keyEvent.type == KeyEventType.KeyDown && keyEvent.key == Key.Escape) {
-                                    if (androidx.activity.compose.BackDispatcher.handleBack()) {
+                                if (keyEvent.type == KeyEventType.KeyDown) {
+                                    if ((keyEvent.isCtrlPressed || keyEvent.isMetaPressed) && (keyEvent.key == Key.F || keyEvent.key == Key.K)) {
+                                        isSearchActive = true
                                         true
-                                    } else if (isSearchActive) {
-                                        isSearchActive = false
-                                        true
-                                    } else if (bottomSheetPageState.isVisible) {
-                                        bottomSheetPageState.dismiss()
-                                        true
-                                    } else if (menuState.isVisible) {
-                                        menuState.dismiss()
-                                        true
-                                    } else if (playerBottomSheetState.isExpanded) {
-                                        playerBottomSheetState.collapseSoft()
-                                        true
-                                    } else if (navController.previousBackStackEntry != null) {
-                                        navController.popBackStack()
-                                        true
-                                    } else {
-                                        false
+                                    } else when (keyEvent.key) {
+                                        Key.Escape -> {
+                                            if (androidx.activity.compose.BackDispatcher.handleBack()) {
+                                                true
+                                            } else if (isSearchActive) {
+                                                isSearchActive = false
+                                                true
+                                            } else if (bottomSheetPageState.isVisible) {
+                                                bottomSheetPageState.dismiss()
+                                                true
+                                            } else if (menuState.isVisible) {
+                                                menuState.dismiss()
+                                                true
+                                            } else if (playerBottomSheetState.isExpanded) {
+                                                playerBottomSheetState.collapseSoft()
+                                                true
+                                            } else if (navController.previousBackStackEntry != null) {
+                                                navController.popBackStack()
+                                                true
+                                            } else {
+                                                false
+                                            }
+                                        }
+                                        Key.MediaPlayPause -> {
+                                            playerConnection?.player?.togglePlayPause()
+                                            true
+                                        }
+                                        Key.MediaPlay -> {
+                                            playerConnection?.player?.play()
+                                            true
+                                        }
+                                        Key.MediaPause -> {
+                                            playerConnection?.player?.pause()
+                                            true
+                                        }
+                                        Key.MediaNext, Key.MediaSkipForward -> {
+                                            playerConnection?.player?.seekToNext()
+                                            true
+                                        }
+                                        Key.MediaPrevious, Key.MediaSkipBackward -> {
+                                            playerConnection?.player?.seekToPrevious()
+                                            true
+                                        }
+                                        Key.MediaStop -> {
+                                            playerConnection?.player?.stop()
+                                            true
+                                        }
+                                        else -> false
                                     }
                                 } else {
                                     false
@@ -265,6 +311,7 @@ fun main() {
                                 val returnAlpha = ((playerBottomSheetState.progress - 0.05f) / 0.95f).coerceIn(0f, 1f)
                                 FilledTonalIconButton(
                                     onClick = { playerBottomSheetState.collapseSoft() },
+                                    enabled = playerBottomSheetState.progress >= 0.5f,
                                     modifier = Modifier
                                         .align(Alignment.TopStart)
                                         .padding(top = 16.dp, start = 16.dp)
@@ -330,7 +377,19 @@ fun main() {
                                         OutlinedTextField(
                                             value = searchQuery,
                                             onValueChange = { searchQuery = it },
-                                            modifier = Modifier.weight(1f).padding(horizontal = 8.dp).focusRequester(searchFocusRequester),
+                                            modifier = Modifier
+                                                .weight(1f)
+                                                .padding(horizontal = 8.dp)
+                                                .focusRequester(searchFocusRequester)
+                                                .onKeyEvent { keyEvent ->
+                                                    if (keyEvent.type == KeyEventType.KeyDown && (keyEvent.key == Key.Enter || keyEvent.key == Key.NumPadEnter)) {
+                                                        if (searchQuery.isNotBlank()) {
+                                                            isSearchActive = false
+                                                            navController.navigate(onlineSearchResultRoute(searchQuery))
+                                                            true
+                                                        } else false
+                                                    } else false
+                                                },
                                             placeholder = { Text("Search songs, albums, artists...") },
                                             singleLine = true,
                                             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),

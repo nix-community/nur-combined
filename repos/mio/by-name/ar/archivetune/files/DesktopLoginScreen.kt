@@ -176,7 +176,11 @@ fun LoginScreen(
                         Button(
                             onClick = {
                                 if (tokenInput.isNotBlank()) {
-                                    viewModel.onCookiesCaptured(tokenInput.trim())
+                                    val clean = tokenInput.trim()
+                                        .removePrefix("Cookie:")
+                                        .removePrefix("cookie:")
+                                        .trim()
+                                    viewModel.onCookiesCaptured(clean)
                                 }
                             },
                             enabled = tokenInput.isNotBlank() && screenState !is LoginScreenState.Loading,
