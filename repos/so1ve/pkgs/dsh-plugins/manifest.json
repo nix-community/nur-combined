@@ -1,9 +1,9 @@
 {
   "npm:dsh-chat-import": {
-    "version": "0.25.2",
-    "url": "https://registry.npmjs.org/dsh-chat-import/-/dsh-chat-import-0.25.2.tgz",
-    "integrity": "sha512-HebQGH1ef0xoYPDrNdPZfwkjL/BMXfUX9lNcpKRhWqsIlFP1Coy4mDJ/qqtSuvc1wUFJ+aR1BLp0gJb7Ch/4Ig==",
-    "npmDepsHash": "sha256-FSHuMmbDRueVAErcQ84SFdq+l29Ym/Fug7D684KRA/4="
+    "version": "0.26.1",
+    "url": "https://registry.npmjs.org/dsh-chat-import/-/dsh-chat-import-0.26.1.tgz",
+    "integrity": "sha512-g82hA/pcwAkZn/7bJo/6yGgfJ7gWbC0ljiyNGccEDspq1SWxuzsufPP963jCB8S0GHh9X0XgeW26SVDfhz6Hdg==",
+    "npmDepsHash": "sha256-rtYxaX/YH+QOMUmtxL8FrBMkFssxdrt+RZCQaqNcG+E="
   },
   "npm:dsh-context": {
     "version": "0.73.0",
