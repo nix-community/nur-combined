@@ -108,22 +108,22 @@
   };
   nexus-media = {
     pname = "nexus-media";
-    version = "v4.26.1";
+    version = "v4.27.2";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media";
-      tag = "v4.26.1";
-      hash = "sha256-oSCoAib72MwBefnEdLd3gWxGSm6Wptnx8wmhZV7vocM=";
+      tag = "v4.27.2";
+      hash = "sha256-o8xp4LKcweZWTQx79vaBIoy1h6FLdZeX3vr3VFeVSzs=";
     };
   };
   nexus-media-web = {
     pname = "nexus-media-web";
-    version = "v4.26.1";
+    version = "v4.27.1";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media-web";
-      tag = "v4.26.1";
-      hash = "sha256-8EQnCHelvxlF3nb55NCHWoDlGwSnxYeG3yJFmjfxm2w=";
+      tag = "v4.27.1";
+      hash = "sha256-FgisqB7a4nhHVnafTvwUOochQWpUI71UPlhu4fNs+dI=";
     };
   };
   pinyin2hanzi = {
@@ -154,18 +154,18 @@
   };
   sublinkpro-linux-amd64 = {
     pname = "sublinkpro-linux-amd64";
-    version = "1.2.20";
+    version = "1.2.21";
     src = fetchurl {
-      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.20/sublinkPro-linux-amd64";
-      hash = "sha256-bWiTSRKn104S4aO1v4/+xkxRvt96dpUy+jVX9k+/Buk=";
+      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.21/sublinkPro-linux-amd64";
+      hash = "sha256-1vvkgQkwBah3qwv53NRQcJPrf+1mGvJoRFm+gERr7nY=";
     };
   };
   sublinkpro-linux-arm64 = {
     pname = "sublinkpro-linux-arm64";
-    version = "1.2.20";
+    version = "1.2.21";
     src = fetchurl {
-      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.20/sublinkPro-linux-arm64";
-      hash = "sha256-Ki4MHLg5ZrA8PdM5e31osb5HT0mz3y9ONswZos9ZR8A=";
+      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.21/sublinkPro-linux-arm64";
+      hash = "sha256-0do2u18S5yMQZQy8qRhxeIbbJVJVN3SP4Dj1TTZMqSo=";
     };
   };
   sun-panel = {

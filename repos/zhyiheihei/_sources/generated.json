@@ -215,12 +215,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media",
-            "rev": "v4.26.1",
-            "sha256": "sha256-oSCoAib72MwBefnEdLd3gWxGSm6Wptnx8wmhZV7vocM=",
+            "rev": "v4.27.2",
+            "sha256": "sha256-o8xp4LKcweZWTQx79vaBIoy1h6FLdZeX3vr3VFeVSzs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.26.1"
+        "version": "v4.27.2"
     },
     "nexus-media-web": {
         "cargoLock": null,
@@ -236,12 +236,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media-web",
-            "rev": "v4.26.1",
-            "sha256": "sha256-8EQnCHelvxlF3nb55NCHWoDlGwSnxYeG3yJFmjfxm2w=",
+            "rev": "v4.27.1",
+            "sha256": "sha256-FgisqB7a4nhHVnafTvwUOochQWpUI71UPlhu4fNs+dI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v4.26.1"
+        "version": "v4.27.1"
     },
     "pinyin2hanzi": {
         "cargoLock": null,
@@ -303,11 +303,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-bWiTSRKn104S4aO1v4/+xkxRvt96dpUy+jVX9k+/Buk=",
+            "sha256": "sha256-1vvkgQkwBah3qwv53NRQcJPrf+1mGvJoRFm+gERr7nY=",
             "type": "url",
-            "url": "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.20/sublinkPro-linux-amd64"
+            "url": "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.21/sublinkPro-linux-amd64"
         },
-        "version": "1.2.20"
+        "version": "1.2.21"
     },
     "sublinkpro-linux-arm64": {
         "cargoLock": null,
@@ -318,11 +318,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Ki4MHLg5ZrA8PdM5e31osb5HT0mz3y9ONswZos9ZR8A=",
+            "sha256": "sha256-0do2u18S5yMQZQy8qRhxeIbbJVJVN3SP4Dj1TTZMqSo=",
             "type": "url",
-            "url": "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.20/sublinkPro-linux-arm64"
+            "url": "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.21/sublinkPro-linux-arm64"
         },
-        "version": "1.2.20"
+        "version": "1.2.21"
     },
     "sun-panel": {
         "cargoLock": null,
