@@ -1,63 +1,63 @@
 [
   {
     "pname": "Aiursoft.AiurObserver",
-    "version": "10.0.6",
-    "hash": "sha256-I0MaZoCh97gFiv+rylUFtQObPdiBbvZ5bC1gbEVsIsA="
+    "version": "10.0.7",
+    "hash": "sha256-AVZjXvlUQdDUerhyophErL10MzOxXSJo73f/92swF/E="
   },
   {
     "pname": "Aiursoft.AiurObserver.Abstractions",
-    "version": "10.0.6",
-    "hash": "sha256-LR2Swv3HeajKNfT0004nD/cNFQWdB1JpeMHbvs4bJU0="
+    "version": "10.0.7",
+    "hash": "sha256-GEsXatywHI6z5S7b8isEUJRBAdcT9DJDOB4QMtrQz90="
   },
   {
     "pname": "Aiursoft.AiurObserver.Extensions",
-    "version": "10.0.6",
-    "hash": "sha256-S1IWzZraBc6fzD7T55ANqMQWWUmYucGyWbrOtoIO0mA="
+    "version": "10.0.7",
+    "hash": "sha256-MMBbfFpl5aCEEfGc8EYw40YNesBwLSVMOpVWYStnUXc="
   },
   {
     "pname": "Aiursoft.AiurObserver.WebSocket",
-    "version": "10.0.14",
-    "hash": "sha256-XNNz8+gkEqiihFbzsEynoZ8LO1nhE7t4HECF49qwrSA="
+    "version": "10.0.15",
+    "hash": "sha256-z3aqhYFPRFThNcPwssJw8O20TL6NPUqQipz/N06m8qA="
   },
   {
     "pname": "Aiursoft.AiurObserver.WebSocket.Server",
-    "version": "10.0.14",
-    "hash": "sha256-i2NH4VqF7rz9GCrJ4jjQz6q9zTaVFNRbJH4dl/LfJW4="
+    "version": "10.0.15",
+    "hash": "sha256-PS/7cUihHYSe3UvrWLo6Fm14oFCXDr4I/txZJwiC1Mk="
   },
   {
     "pname": "Aiursoft.Canon",
-    "version": "10.0.15",
-    "hash": "sha256-3WXpWO1N4gZL7gsSP9ngzBBjbrsCxB+/JUcVLvIIqqY="
+    "version": "10.0.17",
+    "hash": "sha256-kjFc8DtIK8/m0ShvZeXudmEoTw7sm/usymKpeK8WrFE="
   },
   {
     "pname": "Aiursoft.Canon.BackgroundJobs",
-    "version": "10.0.15",
-    "hash": "sha256-QfBWNi/YBda5RD9dQw/ejMCdrleXg/ShGGzNmXYs8ZY="
+    "version": "10.0.17",
+    "hash": "sha256-J+NPbbDPD0EDiznSQOQxYtbGxUciB/hPZAUqcvkZby8="
   },
   {
     "pname": "Aiursoft.Canon.ScheduledTasks",
-    "version": "10.0.15",
-    "hash": "sha256-SNh5tOTRXaf2iyVZFoB/J5cfuEwQYdMPqWtP7xST0n4="
+    "version": "10.0.17",
+    "hash": "sha256-fouewFTWyFHw0Bia6b/3wcWlXuS9uKs4FS742sW9xIU="
   },
   {
     "pname": "Aiursoft.Canon.ServiceTaskQueue",
-    "version": "10.0.16",
-    "hash": "sha256-2fbG1BapcQDQiFTzvZXhadPeUNU5s2nCfw6I+G8253Y="
+    "version": "10.0.18",
+    "hash": "sha256-DIUSBh5ha7sZCe6AVDuM+geMAxsjVQ1d48AjZoEbyEA="
   },
   {
     "pname": "Aiursoft.ClickhouseLoggerProvider",
-    "version": "10.0.26",
-    "hash": "sha256-YDS8CmjFT6vd1uy8SmB4uSn4SQMvanhs0tyAxFUTtvI="
+    "version": "10.0.27",
+    "hash": "sha256-04sPS7RwLcES/qs5itC4Zqd0kv9HMEyz1nno3sgyJEw="
   },
   {
     "pname": "Aiursoft.ClickhouseSdk",
-    "version": "10.0.26",
-    "hash": "sha256-XsdWTlQuX7CD7r0D/yll9bWiyn1ulrnbM+mhGxu9MQ8="
+    "version": "10.0.27",
+    "hash": "sha256-YoRZXDVKuAH+FCTO7lytpvTxHoD29hcWfVc1TvzwHIU="
   },
   {
     "pname": "Aiursoft.ClickhouseSdk.Abstractions",
-    "version": "10.0.25",
-    "hash": "sha256-Y9kx0jZdERUXpzVoWYknIBig99nnD6pAnd6Cahn0NqI="
+    "version": "10.0.26",
+    "hash": "sha256-6925FR8lFftsGBmeSMPOT1UAqxnx4CKM2bTzTnFvrHw="
   },
   {
     "pname": "Aiursoft.CSTools",
@@ -66,33 +66,33 @@
   },
   {
     "pname": "Aiursoft.DbTools",
-    "version": "10.0.26",
-    "hash": "sha256-jGV1Jv+1QoZm1Gpxgol1UzJO45S2zS/U+Lro8O37234="
+    "version": "10.0.27",
+    "hash": "sha256-j9RvEiJpXGBAt0ohe7onDbaAq5mB4exjHD5qm5ZJtrs="
   },
   {
     "pname": "Aiursoft.DbTools.InMemory",
-    "version": "10.0.26",
-    "hash": "sha256-hQRGpHrg5byB086duJPzf7XviIgHkJlHaOo9mjx5664="
+    "version": "10.0.27",
+    "hash": "sha256-/JeZvvb5W3UMGh3A6nciXEwnN44NOv+699c+2MwYAC4="
   },
   {
     "pname": "Aiursoft.DbTools.MySql",
-    "version": "10.0.35",
-    "hash": "sha256-CAQy1IQJ3zxzs+bSF8oP5VpSqElc3nrYoexBAS//n0M="
+    "version": "10.0.36",
+    "hash": "sha256-jjNOnpSdIYEMQVyW55bm5VdP6mDYc2OsVXuJw0sO/B4="
   },
   {
     "pname": "Aiursoft.DbTools.Sqlite",
-    "version": "10.0.37",
-    "hash": "sha256-wlmxiWb/jdUMd3S/QKJ1hOxYbmy+//RvoCgEVHpaEQM="
+    "version": "10.0.38",
+    "hash": "sha256-iRncAxaB7tNsKz7SymUnLR9lt5EerpaW+4XDiZIL2mI="
   },
   {
     "pname": "Aiursoft.DbTools.Switchable",
-    "version": "10.0.26",
-    "hash": "sha256-EXNGjK/c1w9CCDG8rHfKvovBy4zCWRO9CnYp/6AOtQs="
+    "version": "10.0.27",
+    "hash": "sha256-YJhpUP6Z1TAI51OMviFhPg6aq2hEmEKr7egqAa5Ji9U="
   },
   {
     "pname": "Aiursoft.Scanner",
-    "version": "10.0.13",
-    "hash": "sha256-W/6bI9EOoLpqg+SNU6ej5azWcsg3+xOyyYRcTY14dhQ="
+    "version": "10.0.14",
+    "hash": "sha256-yZPpIyFhQH+rx1c0rX8vtncx7dvbLZAVmTlobleTkfk="
   },
   {
     "pname": "Aiursoft.Scanner.Abstractions",
@@ -100,19 +100,24 @@
     "hash": "sha256-T3LQiBDqSYo0AzKKL/DgTqmhZZFcBNEMaKLX8cyVGSI="
   },
   {
+    "pname": "Aiursoft.Scanner.Abstractions",
+    "version": "10.0.1",
+    "hash": "sha256-RWmioyEUa/ooqjbvOlvqy7kTnhv6aq+cAU9j4qIzboc="
+  },
+  {
     "pname": "Aiursoft.UiStack",
-    "version": "10.0.26",
-    "hash": "sha256-yu5bwraN6gJVlvHyp2D7P6NtBVjvR3bh6VZ9aUfGwL4="
+    "version": "10.0.29",
+    "hash": "sha256-s3aGY9kWFosUBGrWSPy1a8/03OPwYJfm+joxyqSD9Bo="
   },
   {
     "pname": "Aiursoft.WebTools",
-    "version": "10.0.16",
-    "hash": "sha256-9LoaZ8QNRasRAeglPpZxAWU8R2XWrehMTHKLbAyH6QM="
+    "version": "10.0.17",
+    "hash": "sha256-TnJiRlWO9mGWmLd1Hki8SMecIbxo2lyUzgX6N5F3HJE="
   },
   {
     "pname": "Aiursoft.WebTools.Abstractions",
-    "version": "10.0.2",
-    "hash": "sha256-eNvwUgJLYjEi4dtPKDiECumbaPMTkL8nrcnOFs7IlKU="
+    "version": "10.0.3",
+    "hash": "sha256-7P8KOH9cnl/wtS/osyF/j9HWqphinIQ+0Ms96QYO/RM="
   },
   {
     "pname": "AsyncKeyedLock",
