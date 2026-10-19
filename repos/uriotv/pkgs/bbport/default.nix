@@ -54,7 +54,7 @@
 }:
 
 let
-  version = "0.6-pre1";
+  version = "0.6";
 
   # FSR 4 v07 INT8 assets (MIT, built from AMD's FidelityFX SDK by Q2RTX), the same commit
   # tools/fetch_fsr4_assets.sh downloads from; bundled so FSR 4 works without network access.
@@ -104,7 +104,7 @@ let
     repo = "bloodborne_pc";
     tag = version;
     fetchSubmodules = true;
-    hash = "sha256-eBvEBovJY77eef66QToZ/q2qyo2vnMK455jpN4LBPHc=";
+    hash = "sha256-yyhLJhWbBgV6ftaOECkPOJSInI3pqj16bglmf4KPDRE=";
   };
 
   runtimePath = lib.makeBinPath [
