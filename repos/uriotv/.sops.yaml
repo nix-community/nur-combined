@@ -1,0 +1,9 @@
+# Existing public recipient from nix-config; no private keys belong here.
+# Add a separate desktop recipient if its sops-nix uses a different key.
+keys:
+  - &admin age1ru42q2zrya053ntkv0z5m0la7udssjnzuqtplx0qqs9pl2dcs9es5kdpxg
+creation_rules:
+  - path_regex: ^secrets/cachix\.yaml$
+    key_groups:
+      - age:
+          - *admin

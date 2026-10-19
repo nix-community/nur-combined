@@ -5,6 +5,8 @@ on:
     secrets:
       CACHIX_AUTH_TOKEN:
         required: false
+      NIXBUILD_TOKEN:
+        required: false
   workflow_dispatch:
 
 permissions:
@@ -13,36 +15,32 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-24.04
-    timeout-minutes: 350
+    # Compilation happens on nixbuild.net; this bounds a stuck remote build.
+    timeout-minutes: 240
     steps:
       - uses: actions/checkout@v7
-      - name: Free space for the kernel build
+      - name: Free space for the copied-back kernel outputs
         run: |
-          # Standard runners have limited free space; use only this disposable VM.
+          # Outputs are copied back for Cachix; use only this disposable VM.
           sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/local/share/boost
           df -h /
-      - uses: cachix/install-nix-action@v31
+      - uses: ./.github/actions/setup-nix-nixbuild
         with:
-          extra_nix_config: |
-            experimental-features = nix-command flakes
-            max-jobs = 1
-            cores = 4
-            sandbox = true
-      - uses: cachix/cachix-action@v17
-        with:
-          name: uriotv
-          # PR builds have no write credentials. Publication is explicit below.
-          skipPush: true
+          nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
+          # Without history nixbuild.net would start this build with 2 CPUs.
+          nixbuild_settings: |
+            min-cpu = 16
       - name: Evaluate module and selected kernel
         run: |
           nix eval --impure --json --expr 'import ./tests/cachyos-module.nix { pkgs = (import ./pkgs/linux-cachyos-bore-x86_64-v3/pinned.nix {}).pkgs; }'
           nix eval --impure --json --file tests/cachyos-integration.nix
+          nix eval --impure --json --file tests/publisher-secrets.nix
           nix eval --no-write-lock-file --json .#packages.x86_64-linux.linux-cachyos-bore-x86_64-v3.version
       - name: Build kernel and development output
         run: |
           set -euo pipefail
           # ^* includes all outputs (not just the boot image): external modules need dev.
-          /usr/bin/time -v nix build --no-write-lock-file --no-link --json \
+          /usr/bin/time -v nix build --print-build-logs --no-write-lock-file --no-link --json \
             '.#packages.x86_64-linux.linux-cachyos-bore-x86_64-v3^*' \
             '.#packages.x86_64-linux.linux-cachyos-bore-x86_64-v3.src' \
             '.#packages.x86_64-linux.linux-cachyos-bore-x86_64-v3.urioUpstreamSource' \
@@ -54,7 +52,7 @@ jobs:
           done < "$RUNNER_TEMP/kernel-paths"
           {
             echo '## CachyOS BORE x86_64-v3 (non-LTO)'
-            echo 'Built outputs; full timing and disk usage are in the job log:'
+            echo 'Built on nixbuild.net; outputs:'
             echo '```'
             cat "$RUNNER_TEMP/kernel-paths"
             echo '```'

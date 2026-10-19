@@ -55,6 +55,15 @@ an earlier generation first. See the [kernel guide](pkgs/linux-cachyos-bore-x86_
 for the complete two-stage installation, CPU requirements, CI/publication,
 licensing and free-tier limitations. No LTS or LTO variants are built.
 
+All CI Nix builds run on [nixbuild.net](https://nixbuild.net) (repository secret
+`NIXBUILD_TOKEN`, no fallback to GitHub runners); results are published to
+`uriotv.cachix.org` from `main` only.
+
+Local publication is available with `nix run .#build-and-cache-kernel`.
+For credentials, this repo includes sops-nix and an optional
+`nixosModules.kernel-publisher` module; follow [the SOPS setup guide](secrets/README.md)
+to provide recipients and an encrypted token. No credentials are shipped.
+
 ## Updates
 
 - Packages are automatically updated weekly via GitHub Actions.

@@ -32,6 +32,7 @@ jobs:
       contents: read
     secrets:
       CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+      NIXBUILD_TOKEN: ${{ secrets.NIXBUILD_TOKEN }}
 
   # This is a required branch-protection check. Keep it dependent on every CI
   # test job so auto-merge cannot bypass a failed package build.
@@ -80,23 +81,16 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v7
-    - name: Install nix
-      uses: cachix/install-nix-action@v31
+    # Every build goes to nixbuild.net; uriotv.cachix.org is read-only here.
+    - name: Set up Nix with nixbuild.net
+      uses: ./.github/actions/setup-nix-nixbuild
       with:
+        nixbuild_token: ${{ secrets.NIXBUILD_TOKEN }}
         nix_path: "${{ matrix.nixPath }}"
         extra_nix_config: |
-          experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-    - name: Setup cachix
-      uses: cachix/cachix-action@v17
-      # Don't replace <YOUR_CACHIX_NAME> here!
-      if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
-      with:
-        name: ${{ matrix.cachixName }}
-        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - name: Check evaluation
       run: |
         nix-env -f . -qa \* --meta --xml \
@@ -107,7 +101,21 @@ jobs:
           -I "nixpkgs=$(nix-instantiate --find-file nixpkgs)" \
           -I "$PWD"
     - name: Build nix packages
-      run: nix-build ci.nix -A cacheOutputs --keep-going
+      run: |
+        set -euo pipefail
+        nix-build ci.nix -A cacheOutputs --keep-going --no-out-link \
+          | sort -u > "$RUNNER_TEMP/package-paths"
+        cat "$RUNNER_TEMP/package-paths"
+    - name: Publish packages to Cachix
+      if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+      env:
+        CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+      run: |
+        set -euo pipefail
+        test -n "$CACHIX_AUTH_TOKEN" || { echo '::error::Missing CACHIX_AUTH_TOKEN'; exit 1; }
+        if [ -s "$RUNNER_TEMP/package-paths" ]; then
+          cachix push ${{ matrix.cachixName }} < "$RUNNER_TEMP/package-paths"
+        fi
     - name: Trigger NUR update
       # Don't replace <YOUR_REPO_NAME> here!
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}

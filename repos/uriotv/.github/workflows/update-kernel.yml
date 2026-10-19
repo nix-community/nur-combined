@@ -19,6 +19,8 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v7
+      # Only `nix store prefetch-file` (a download, not a build) runs here, so no
+      # nixbuild.net builder is needed; the PR's CI builds the kernel there.
       - uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: |

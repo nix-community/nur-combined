@@ -31,6 +31,11 @@ nix eval --impure --json --expr 'import ./tests/cachyos-module.nix {}'
 nix eval --impure --json --file tests/cachyos-integration.nix
 ```
 
+The bash runner additionally executes `local-kernel-build.py` with stubbed Nix,
+Cachix and network commands. It checks build-only mode, token-file publication,
+all-output selection, credential isolation, invalid arguments and remote
+verification failures without compiling anything or making network calls.
+
 These evaluations do not compile or boot the kernel. `kernel.yml` performs the
 full compilation, all-output publication and remote narinfo verification on
 main. PRs compile without write credentials. The first full CI build is also a
