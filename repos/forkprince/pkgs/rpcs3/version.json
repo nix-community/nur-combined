@@ -1,6 +1,6 @@
 {
   "name": "RPCS3",
-  "version": "0.0.43-20334",
+  "version": "0.0.43-20344",
   "source": {
     "type": "github-release",
     "skip_prerelease": true,
@@ -9,17 +9,17 @@
   "platforms": {
     "aarch64-darwin": {
       "repo": "RPCS3/rpcs3-binaries-mac-arm64",
-      "file": "rpcs3-v0.0.43-20334-1b336f41_macos_aarch64.7z",
+      "file": "rpcs3-v0.0.43-20344-58317c93_macos_aarch64.7z",
       "query": "[0].assets[0].name",
-      "hash": "sha256-CNGq4e0PJbRzbFNrjehubpHvF0+Wr6A9aIT45O5y6js=",
-      "version": "build-1b336f41fa61d4b09737666c531016e11043d390"
+      "hash": "sha256-pAFSlUmPLsttlTOC7UJ20OEjZfHPM2o5EJ0cFSEWm0U=",
+      "version": "build-58317c9350983d71f18df2b0a346433161d6b13c"
     },
     "x86_64-darwin": {
       "repo": "RPCS3/rpcs3-binaries-mac",
-      "file": "rpcs3-v0.0.43-20333-2348d8c3_macos.7z",
+      "file": "rpcs3-v0.0.43-20338-f4531e64_macos.7z",
       "query": "[0].assets[0].name",
-      "hash": "sha256-wDlvHbxafcG2FQtRgJFM+HMgokAVh5uhscH6MNaqj8g=",
-      "version": "build-2348d8c37cb60314d7b1b1dc116d7cc8868fcd28"
+      "hash": "sha256-bBb2rk8F2QGeGLL3tTIpb7W66M/KxG4Zl+ltaMetCRM=",
+      "version": "build-f4531e644c43363eb217ae2a396cddd57cacc514"
     }
   }
 }
