@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
   pnpmDeps = fetchPnpmDeps {
     fetcherVersion = 4;
     inherit pname version src patches;
-    hash = "sha256-KAVsSmc7Xr24cvwgBJrnwihUOIrD1Pa5rilRHq1M6j4=";
+    hash = "sha256-lFWp4h+6C/goDXEhKKvLQpfHH8rXv6foqXLI4GCUFkc=";
   };
 
   meta = {
@@ -60,5 +60,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Vinzent03/obsidian-git";
     changelog = "https://github.com/Vinzent03/obsidian-git/releases/tag/${version}";
     license = lib.licenses.mit;
+    broken = true;
   };
 }
