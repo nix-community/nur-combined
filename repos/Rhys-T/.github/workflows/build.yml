@@ -215,7 +215,7 @@ jobs:
         nix registry pin myNixpkgs "github:NixOS/nixpkgs/${{ matrix.nixpkgs }}"
         echo -E 'NIX_PATH=nixpkgs=flake:myNixpkgs' >> "$GITHUB_ENV"
     - name: Show nixpkgs version
-      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+      run: nix-instantiate --eval -E '(import <nixpkgs/lib>).version'
     - name: Update nix and poke the store
       run: |
         set -ex
