@@ -19,8 +19,14 @@ let
   baselineSettings = {
     storage.encrypt_templates = true;
   };
+  # The runtime half of the KWallet handoff: wiring PAM alone releases nothing.
+  # The daemon also requires sealed templates (the baseline above) and liveness
+  # (on by default). Settings win over both of these.
+  impliedSettings = lib.optionalAttrs cfg.kde.unlockKwallet {
+    storage.unlock_kwallet = true;
+  };
   configFile = settingsFormat.generate "gaze-config.toml" (
-    lib.recursiveUpdate baselineSettings cfg.settings
+    lib.recursiveUpdate baselineSettings (lib.recursiveUpdate impliedSettings cfg.settings)
   );
 
   pamModule = "${cfg.package}/lib/security/pam_gaze.so";
@@ -113,6 +119,8 @@ in
         the configuration the package ships opts into TPM-sealed templates, so
         the module keeps that single value. Set it to `false` to store templates
         in plain text; the daemon then also refuses the keyring unlock options.
+        Enabling {option}`services.gaze.kde.unlockKwallet` also sets
+        `storage.unlock_kwallet` in the generated file, unless it is given here.
       '';
     };
 
@@ -226,10 +234,13 @@ in
 
       unlockKwallet = lib.mkEnableOption ''
         KWallet credential handoff after a KDE face login. Requires
-        {option}`services.gaze.kde.loginScreen`, sequential PAM authentication,
-        and both the runtime opt-in and a wallet credential enrolled with
-        {command}`gaze keyring --kwallet`. This only wires PAM; it neither
-        enrolls a credential nor changes the runtime configuration
+        {option}`services.gaze.kde.loginScreen` and sequential PAM
+        authentication. The module also writes the runtime opt-in
+        (`storage.unlock_kwallet`) into the generated configuration, and the
+        daemon only honours it with sealed templates and liveness on. Like every
+        setting this only seeds a configuration file that does not exist yet, and
+        it does not enroll a credential, so {command}`gaze keyring --kwallet` is
+        still needed once
       '';
     };
   };

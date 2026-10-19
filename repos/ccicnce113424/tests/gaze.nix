@@ -48,6 +48,12 @@
     machine.succeed("test \"$(stat -c %a /var/lib/gaze)\" = 700")
     machine.succeed("test -d /var/cache/gaze")
 
+    # `kde.unlockKwallet` also carries its runtime opt-in into the seeded
+    # configuration, next to the sealed-template prerequisite.
+    config = machine.succeed("cat /etc/gaze/config.toml")
+    assert "unlock_kwallet = true" in config
+    assert "encrypt_templates = true" in config
+
     # The daemon prepares its model cache on first start and this VM has no
     # network, so the run below stops at the download. It still proves that the
     # binary, the ONNX Runtime it dlopens, and its configuration are in place.
