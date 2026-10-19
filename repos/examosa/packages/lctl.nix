@@ -34,8 +34,8 @@ stdenvNoCC.mkDerivation {
     installBin lctl
 
     installShellCompletion \
-      $src/completions/lctl.{ba,fi}sh \
-      --zsh $src/completions/_lctl
+      completions/lctl.{ba,fi}sh \
+      --zsh completions/_lctl
 
     runHook postInstall
   '';
