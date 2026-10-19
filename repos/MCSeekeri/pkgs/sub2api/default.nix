@@ -33,7 +33,7 @@ let
     fetcherVersion = 4;
     sourceRoot = "source/frontend";
     postPatch = pnpmWorkspaceOverrides;
-    hash = "sha256-6nnpFvbOQnX+2PhozQqs2XQExeAjEsrrQBRca2rBSJM=";
+    hash = "sha256-exO9LJLGiWD5RDiCxzrUbyAt5BvTAOqzwLbb5ZTIO5E=";
   };
 
   frontend = stdenvNoCC.mkDerivation {
