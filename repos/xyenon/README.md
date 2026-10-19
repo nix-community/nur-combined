@@ -101,7 +101,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>libkazv</code></strong> — Sans-io C++ (gnu++17) matrix client library</summary>
 
-- **Version:** `1.0.0-unstable-2026-10-03`
+- **Version:** `1.0.0-unstable-2026-10-19`
 - **License:** AGPL-3.0-or-later
 - **Homepage:** [https://lily-is.land/kazv/libkazv](https://lily-is.land/kazv/libkazv)
 - **Build:** `nix build github:XYenon/nur-packages#libkazv`
@@ -141,7 +141,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>magpie</code></strong> — Manage models, providers, and accounts for AI coding agents in one place</summary>
 
-- **Version:** `0.1.1292`
+- **Version:** `0.1.1294`
 - **License:** MIT
 - **Homepage:** [https://github.com/yetone/magpie](https://github.com/yetone/magpie)
 - **Build:** `nix build github:XYenon/nur-packages#magpie`
