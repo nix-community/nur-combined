@@ -24,21 +24,21 @@
   };
   daed-next-core = {
     pname = "daed-next-core";
-    version = "341d67da7db6ce414be5cbea41d0e08637616854";
+    version = "b42d9b20f3856574bcd8f82fc0b43dbcbdf0054b";
     src = fetchFromGitHub {
       owner = "ksong008";
       repo = "DaeNext";
-      rev = "341d67da7db6ce414be5cbea41d0e08637616854";
+      rev = "b42d9b20f3856574bcd8f82fc0b43dbcbdf0054b";
       fetchSubmodules = false;
-      sha256 = "sha256-8paDkd7PwhvBW2t3DvU9XCfWhQFSklCxSOxH1aQIRug=";
+      sha256 = "sha256-fAUQmvOWObi8xkRP3szGsLcrISJgw0GXssEPIcdvbzg=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-8paDkd7PwhvBW2t3DvU9XCfWhQFSklCxSOxH1aQIRug=/Cargo.lock";
+      lockFile = ./. + "/sha256-fAUQmvOWObi8xkRP3szGsLcrISJgw0GXssEPIcdvbzg=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-10-17";
+    date = "2026-10-18";
   };
   daed-next-web = {
     pname = "daed-next-web";
@@ -54,16 +54,16 @@
   };
   dorion-git = {
     pname = "dorion-git";
-    version = "53370347b150ff477bd1ac2f00cd46d50157c7da";
+    version = "9b664d7785ecfcd7be40c52c8be8255978100274";
     src = fetchFromGitHub {
       owner = "SpikeHD";
       repo = "Dorion";
-      rev = "53370347b150ff477bd1ac2f00cd46d50157c7da";
+      rev = "9b664d7785ecfcd7be40c52c8be8255978100274";
       fetchSubmodules = false;
-      sha256 = "sha256-HvhUbP6sDryisgU3gINVbOml+AMPG69a4n2ndK5CYBU=";
+      sha256 = "sha256-TwHqno17pOx2COMZfp2D2f8OdAJ9uRdCF38hsyumeaw=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-HvhUbP6sDryisgU3gINVbOml+AMPG69a4n2ndK5CYBU=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-TwHqno17pOx2COMZfp2D2f8OdAJ9uRdCF38hsyumeaw=/src-tauri/Cargo.lock";
       outputHashes = {
         "simple-websockets-0.1.6" = "sha256-iySzwntHw5Wf5HwKMBYL8mrMl7kjGZrZonL7/zrkeCo=";
         "livesplit-hotkey-0.8.0" = "sha256-iYAzlkYMEN2v4IhsnljWpUZkJO5CN1vcqz5thAJvbXc=";

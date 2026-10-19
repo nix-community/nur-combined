@@ -32,11 +32,11 @@
     "daed-next-core": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-8paDkd7PwhvBW2t3DvU9XCfWhQFSklCxSOxH1aQIRug=/Cargo.lock",
+                "sha256-fAUQmvOWObi8xkRP3szGsLcrISJgw0GXssEPIcdvbzg=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-10-17",
+        "date": "2026-10-18",
         "extract": null,
         "name": "daed-next-core",
         "passthru": null,
@@ -48,12 +48,12 @@
             "name": null,
             "owner": "ksong008",
             "repo": "DaeNext",
-            "rev": "341d67da7db6ce414be5cbea41d0e08637616854",
-            "sha256": "sha256-8paDkd7PwhvBW2t3DvU9XCfWhQFSklCxSOxH1aQIRug=",
+            "rev": "b42d9b20f3856574bcd8f82fc0b43dbcbdf0054b",
+            "sha256": "sha256-fAUQmvOWObi8xkRP3szGsLcrISJgw0GXssEPIcdvbzg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "341d67da7db6ce414be5cbea41d0e08637616854"
+        "version": "b42d9b20f3856574bcd8f82fc0b43dbcbdf0054b"
     },
     "daed-next-web": {
         "cargoLock": null,
@@ -79,7 +79,7 @@
     "dorion-git": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-HvhUbP6sDryisgU3gINVbOml+AMPG69a4n2ndK5CYBU=/src-tauri/Cargo.lock",
+                "sha256-TwHqno17pOx2COMZfp2D2f8OdAJ9uRdCF38hsyumeaw=/src-tauri/Cargo.lock",
                 {
                     "livesplit-hotkey-0.8.0": "sha256-iYAzlkYMEN2v4IhsnljWpUZkJO5CN1vcqz5thAJvbXc=",
                     "rsrpc-0.29.0": "sha256-7zS833bmy6JUjk4PqCENz6ikoTOtelcymXMi2pxD3V0=",
@@ -101,12 +101,12 @@
             "name": null,
             "owner": "SpikeHD",
             "repo": "Dorion",
-            "rev": "53370347b150ff477bd1ac2f00cd46d50157c7da",
-            "sha256": "sha256-HvhUbP6sDryisgU3gINVbOml+AMPG69a4n2ndK5CYBU=",
+            "rev": "9b664d7785ecfcd7be40c52c8be8255978100274",
+            "sha256": "sha256-TwHqno17pOx2COMZfp2D2f8OdAJ9uRdCF38hsyumeaw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "53370347b150ff477bd1ac2f00cd46d50157c7da"
+        "version": "9b664d7785ecfcd7be40c52c8be8255978100274"
     },
     "dxvk-gplall": {
         "cargoLock": null,
