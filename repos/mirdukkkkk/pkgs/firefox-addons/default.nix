@@ -47,3 +47,6 @@ import ./generated.nix {
     stdenv
     ;
 }
+// {
+  media-harvest = import ./media-harvest.nix { inherit buildMozillaXpiAddon lib; };
+}

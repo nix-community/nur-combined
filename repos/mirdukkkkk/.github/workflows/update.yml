@@ -37,6 +37,17 @@ jobs:
         nix run github:nix-community/NUR#legacyPackages.x86_64-linux.repos.rycee.mozilla-addons-to-nix -- addons.json generated.nix
         git add generated.nix
         git diff --cached --quiet || git commit -m "chore(firefox-addons): update"
+    - name: Update media-harvest
+      working-directory: pkgs/firefox-addons
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        version=$(gh release view --repo EltonChou/TwitterMediaHarvest --json tagName --jq '.tagName | ltrimstr("v")')
+        url="https://github.com/EltonChou/TwitterMediaHarvest/releases/download/v$version/mediaharvest@mediaharvest.app-v$version.xpi"
+        sha256=$(curl -fsSL "$url" | sha256sum | cut -d' ' -f1)
+        jq -n --arg version "$version" --arg sha256 "$sha256" '{$version, $sha256}' > media-harvest.json
+        git add media-harvest.json
+        git diff --cached --quiet || git commit -m "chore(firefox-addons): update media-harvest to $version"
     - name: Check evaluation
       run: nix flake check --no-build
     - name: Push and start build

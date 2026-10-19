@@ -18,12 +18,19 @@
 | --- | --- |
 | `molten` | Protobuf-based stream format and renderer for collaborative pixel canvases ([pixelate-it/molten](https://github.com/pixelate-it/molten)) |
 | `firefox-addons.indicatetls` | Shows the negotiated TLS version in the address bar |
+| `firefox-addons.media-harvest` | Downloads images and videos from X/Twitter in original quality ([EltonChou/TwitterMediaHarvest](https://github.com/EltonChou/TwitterMediaHarvest)) |
 | `firefox-addons.preact-devtools` | Preact developer tools |
 | `firefox-addons.resourceoverride` | Override website resources with your own |
 
 The add-on list lives in [`pkgs/firefox-addons/addons.json`](./pkgs/firefox-addons/addons.json);
 `generated.nix` is produced from it by
 [mozilla-addons-to-nix](https://git.sr.ht/~rycee/mozilla-addons-to-nix).
+
+`media-harvest` is not listed on AMO, so it is fetched from the signed `.xpi` in its
+GitHub releases instead; its version and hash live in
+[`pkgs/firefox-addons/media-harvest.json`](./pkgs/firefox-addons/media-harvest.json)
+and are bumped by the same daily workflow. The add-on also updates itself from its
+own server; set `extensions.update.enabled = false` in Firefox to let Nix pin it.
 
 ## Usage
 
