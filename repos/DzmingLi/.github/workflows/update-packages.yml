@@ -52,7 +52,10 @@ jobs:
 
           run_update_script() {
             local attr="$1"
-            mapfile -t update_script < <(nix eval --json ".#${attr}.passthru.updateScript" | jq -r '.[]')
+            local update_script_json
+            update_script_json="$(nix eval --json ".#${attr}.passthru.updateScript")"
+            local -a update_script
+            mapfile -t update_script < <(jq -r '.[]' <<< "$update_script_json")
             local cmd="${update_script[0]}"
             if [[ ! -x "$cmd" ]]; then
               cmd="$(command -v "$(basename "$cmd")")"
@@ -60,7 +63,6 @@ jobs:
             "$cmd" "${update_script[@]:1}" --flake "$attr" --commit
           }
 
-          run_update_script baidupcs-go
           run_update_script quarkpantool
           run_update_script blueprint-mcp
           run_update_script zju-connect
