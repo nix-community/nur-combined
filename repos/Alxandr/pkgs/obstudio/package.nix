@@ -11,18 +11,18 @@
 }:
 
 let
-  version = "0.1.1";
+  version = "0.1.2";
   src = fetchFromGitHub {
     owner = "signalfx";
     repo = "obstudio";
     tag = "v${version}";
-    hash = "sha256-Ml0m/ePAwpIXcCSQq35KZcNT9P3moAAZ9KwL7wMDkMA=";
+    hash = "sha256-dfsFV7FcfHzLFV/s71eccDG8e+HNfYNoK/s8ogurEds=";
   };
   client = buildNpmPackage {
     pname = "obstudio-client";
     inherit version src;
     sourceRoot = "source/observer/client";
-    npmDepsHash = "sha256-aFxv3rOWpCLdepUvvd73210fmEVFKa6vSN3t+oYGvmc=";
+    npmDepsHash = "sha256-rtr/NbNzBXD9ZVKK6wXrQfH++GBC8BZPXx55ny/YjeE=";
     npmBuildFlags = [
       "--"
       "--outdir"
