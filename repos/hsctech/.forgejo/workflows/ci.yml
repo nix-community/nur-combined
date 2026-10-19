@@ -1,0 +1,39 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  eval-and-build:
+    runs-on: docker
+    steps:
+      - name: Clone the repository
+        run: |
+          git clone --no-checkout "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}" nur-packages
+          cd nur-packages
+          git checkout "${GITHUB_SHA}"
+
+      # Requires nix and a nixpkgs in NIX_PATH on the runner (same resolution
+      # NUR's own evaluator uses).
+      - name: Evaluation check
+        run: |
+          cd nur-packages
+          nix-env -f . -qa \* --meta \
+            --allowed-uris https://static.rust-lang.org \
+            --option restrict-eval true \
+            --option allow-import-from-derivation true \
+            --drv-path --show-trace \
+            -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+            -I ./ \
+            --json | jq -r 'values | .[].name'
+
+      - name: Build blobl_lsp
+        run: |
+          cd nur-packages
+          nix-build -A blobl_lsp \
+            -I nixpkgs=$(nix-instantiate --find-file nixpkgs)
