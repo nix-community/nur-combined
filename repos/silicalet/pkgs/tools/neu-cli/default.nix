@@ -10,6 +10,15 @@
 }:
 
 let
+  version = "0.1.0.0-unstable-2026-10-12";
+
+  src = fetchFromGitHub {
+    owner = "silicalet";
+    repo = "neu-cli";
+    rev = "031e32abd83bd39cb5721fe90634d61ab4159932";
+    hash = "sha256-iUxlcj61BXEDjfsKpR+0wtB6h1O+m7mcDYsNriqhdoQ=";
+  };
+
   # Match upstream's Cabal dependency: 0.12.6 re-exports hSetCookie.
   # Override the entire local scope so HTTP libraries share the same types.
   neuHaskellPackages = haskellPackages.override {
@@ -33,19 +42,12 @@ let
     };
   };
 in
-haskell.lib.justStaticExecutables (
+(haskell.lib.justStaticExecutables (
   (neuHaskellPackages.callPackage (
     { mkDerivation }:
     mkDerivation {
       pname = "neu-cli";
-      version = "0.1.0.0-unstable-2026-10-12";
-
-      src = fetchFromGitHub {
-        owner = "silicalet";
-        repo = "neu-cli";
-        rev = "031e32abd83bd39cb5721fe90634d61ab4159932";
-        hash = "sha256-iUxlcj61BXEDjfsKpR+0wtB6h1O+m7mcDYsNriqhdoQ=";
-      };
+      inherit version src;
 
       isLibrary = true;
       isExecutable = true;
@@ -115,4 +117,11 @@ haskell.lib.justStaticExecutables (
       platforms = lib.platforms.unix;
     }
   ) { })
-)
+)).overrideAttrs
+  (old: {
+    # Haskell generic-builder otherwise places both attributes in nixpkgs.
+    inherit src;
+    passthru = old.passthru // {
+      inherit version;
+    };
+  })

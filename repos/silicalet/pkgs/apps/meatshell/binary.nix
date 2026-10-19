@@ -61,6 +61,7 @@ let
     libxkbcommon
     libxrender
     stdenv.cc.cc.lib
+    udev
     wayland
   ];
   commonMeta = {
