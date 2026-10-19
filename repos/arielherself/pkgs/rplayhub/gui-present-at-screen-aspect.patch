@@ -1,0 +1,110 @@
+diff --git a/client-c/rplay-gui.cpp b/client-c/rplay-gui.cpp
+index 065496a..dda3e10 100644
+--- a/client-c/rplay-gui.cpp
++++ b/client-c/rplay-gui.cpp
+@@ -596,7 +596,22 @@ static bool          g_view_screen   = false; /* Gated by "View Screen" pill but
+ static SDL_Texture  *g_vtex          = nullptr;
+ static int           g_vtex_w        = 0;
+ static int           g_vtex_h        = 0;
++static int           g_frame_w       = 0; /* the full decoded frame, before the active-rect crop */
++static int           g_frame_h       = 0;
+ static int           g_rotation      = 0; /* 0..3 quadrants */
++
++/* The size the picture is presented at: the device's screen. The encoder's reduced tiers
++ * (1088x1920, 720x1280) squeeze the whole screen into the active rect anamorphically, so
++ * g_vtex's own size has the wrong aspect for them and stretches the picture sideways. */
++static void present_size(int &w, int &h)
++{
++    w = g_bound_screen_w; h = g_bound_screen_h;
++    if ((w <= 0 || h <= 0) && !g_bound_product_type.empty()) {
++        if (const auto *m = lookup_device_model(g_bound_product_type)) { w = m->screen_w; h = m->screen_h; }
++    }
++    if (w <= 0 || h <= 0) { w = g_frame_w; h = g_frame_h; }
++    if (w <= 0 || h <= 0) { w = g_vtex_w; h = g_vtex_h; }
++}
+ static bool          g_recording     = false;
+ static std::string   g_recording_path;
+ static bool          g_drag_active   = false;
+@@ -1440,8 +1455,10 @@ static void toggle_popout_window()
+         return;
+     }
+     int w = 380, h = 820;
+-    if (g_vtex_w > 0 && g_vtex_h > 0) {
+-        float aspect = (float)g_vtex_w / (float)g_vtex_h;
++    int pw = 0, ph = 0;
++    present_size(pw, ph);
++    if (pw > 0 && ph > 0) {
++        float aspect = (float)pw / (float)ph;
+         w = (int)std::lround(370.0f * g_scale);
+         h = rplayhub::DisplayWindow::bareHeightForWidth(w, aspect);
+     }
+@@ -2094,6 +2111,8 @@ static void upload_latest_video_frame()
+             model_h = m->screen_h;
+         }
+     }
++    g_frame_w = f->width;
++    g_frame_h = f->height;
+     int crop_w = f->width, crop_h = f->height;
+     if (g_active_w > 0 && g_active_h > 0 && g_active_w <= f->width && g_active_h <= f->height) {
+         crop_w = g_active_w;
+@@ -2128,8 +2147,7 @@ static void upload_latest_video_frame()
+     if (g_popout_win && !g_popout_win->closeRequested()) {
+         g_popout_frame.width = crop_w;
+         g_popout_frame.height = crop_h;
+-        g_popout_frame.displayWidth = crop_w;
+-        g_popout_frame.displayHeight = crop_h;
++        present_size(g_popout_frame.displayWidth, g_popout_frame.displayHeight);
+         g_popout_frame.displayOrientation = g_rotation;
+         g_popout_frame.displayOrientationCorrection = g_rotation;
+         g_popout_frame.format = rplayhub::FrameFormat::I420;
+@@ -2268,8 +2286,10 @@ static void render_live_mirror(ImVec2 origin, ImVec2 size)
+     const float s = g_scale;
+     ImDrawList *dl = ImGui::GetWindowDrawList();
+ 
+-    int disp_w = (g_rotation & 1) ? g_vtex_h : g_vtex_w;
+-    int disp_h = (g_rotation & 1) ? g_vtex_w : g_vtex_h;
++    int pw = 0, ph = 0;
++    present_size(pw, ph);
++    int disp_w = (g_rotation & 1) ? ph : pw;
++    int disp_h = (g_rotation & 1) ? pw : ph;
+     float aspect = (disp_w > 0 && disp_h > 0) ? ((float)disp_w / (float)disp_h) : (9.0f / 19.5f);
+ 
+     const float bezel  = 10.0f * s;
+@@ -2382,8 +2402,9 @@ static void render_twin_stage(ImVec2 origin, ImVec2 size)
+         g_twin.setFold(false, 180.0f, false);
+     }
+ 
+-    int dw = g_vtex_w > 0 ? g_vtex_w : 1170;
+-    int dh = g_vtex_h > 0 ? g_vtex_h : 2532;
++    int dw = 0, dh = 0;
++    present_size(dw, dh);
++    if (dw <= 0 || dh <= 0) { dw = 1170; dh = 2532; }
+     g_twin.render(dl, origin, size, (ImTextureID)(intptr_t)g_vtex, (ImTextureID)(intptr_t)g_back_texture,
+                   dw, dh, g_rotation, s, 0, g_ren, 0);
+ 
+@@ -3677,8 +3698,10 @@ int main(int argc, char **argv)
+         static float pop_fx0 = 0.0f, pop_fy0 = 0.0f;
+         static uint64_t pop_t0 = 0;
+         g_popout_session.on_touch = [](int x, int y, int action, int32_t) {
+-            float dw = (float)std::max(1, g_vtex_w);
+-            float dh = (float)std::max(1, g_vtex_h);
++            int pw = 0, ph = 0;
++            present_size(pw, ph);
++            float dw = (float)std::max(1, pw);
++            float dh = (float)std::max(1, ph);
+             float fx = std::clamp(x / dw, 0.0f, 1.0f);
+             float fy = std::clamp(y / dh, 0.0f, 1.0f);
+             if (action == rplayhub::MotionAction::DOWN) {
+@@ -3692,8 +3715,10 @@ int main(int argc, char **argv)
+         };
+         g_popout_session.on_scroll = [](int x, int y, float, float wy, int32_t) {
+             if (std::fabs(wy) < 0.05f) return;
+-            float fx = std::clamp((float)x / (float)std::max(1, g_vtex_w), 0.0f, 1.0f);
+-            float fy = std::clamp((float)y / (float)std::max(1, g_vtex_h), 0.0f, 1.0f);
++            int pw = 0, ph = 0;
++            present_size(pw, ph);
++            float fx = std::clamp((float)x / (float)std::max(1, pw), 0.0f, 1.0f);
++            float fy = std::clamp((float)y / (float)std::max(1, ph), 0.0f, 1.0f);
+             float fy1 = std::clamp(fy + (wy > 0.0f ? 0.22f : -0.22f), 0.05f, 0.95f);
+             api_async("swipe", {{"fx0", fx}, {"fy0", fy}, {"fx1", fx}, {"fy1", fy1}, {"duration_ms", 180}});
+         };

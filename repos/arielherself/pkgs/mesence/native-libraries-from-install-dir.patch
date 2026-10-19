@@ -1,0 +1,30 @@
+diff --git a/UI/Program.cs b/UI/Program.cs
+index b183edb2..d0b699a1 100644
+--- a/UI/Program.cs
++++ b/UI/Program.cs
+@@ -104,7 +104,7 @@ namespace Mesen
+ 						libraryName = libraryName + ".dylib";
+ 					}
+ 				}
+-				return NativeLibrary.Load(Path.Combine(ConfigManager.HomeFolder, libraryName));
++				return NativeLibrary.Load(Path.Combine(AppContext.BaseDirectory, libraryName));
+ 			}
+ 			return IntPtr.Zero;
+ 		}
+diff --git a/UI/UI.csproj b/UI/UI.csproj
+index 654e7908..5aa54e68 100644
+--- a/UI/UI.csproj
++++ b/UI/UI.csproj
+@@ -670,12 +670,6 @@
+ 	</PropertyGroup>
+ 	<ItemGroup>
+ 		<DependencyFiles Include="$(ProjectDir)Dependencies/**/*" />
+-		
+-		<!-- Only include the core DLL into the zip file for "release" builds (when OptimizeUi is true) -->
+-		<DependencyFiles Condition="'$(OptimizeUi)'=='true'" Include="$(OutDir)MesenCore.$(DllExtension)" />
+-
+-		<NugetDependencyFiles Include="$(OutDir)libHarfBuzzSharp.$(DllExtension)" />
+-		<NugetDependencyFiles Include="$(OutDir)libSkiaSharp.$(DllExtension)" />
+ 	</ItemGroup>
+ 
+ 	<Target Name="ZipDependencies" BeforeTargets="PreBuildEvent" AfterTargets="Restore" Inputs="@(DependencyFiles);@(NugetDependencyFiles);$(OutDir)NugetTimestamp.txt" Outputs="$(ProjectDir)Dependencies.zip">
