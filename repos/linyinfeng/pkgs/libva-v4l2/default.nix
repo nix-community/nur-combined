@@ -12,6 +12,9 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   inherit (sources.libva-v4l2) pname version src;
+  # Upstream calls close(2) in picture.cc without including <unistd.h>; newer
+  # libva headers no longer pull it in transitively.
+  patches = [ ./add-unistd-include.patch ];
   postPatch = ''
     sed -i "s/run_command(\['git', 'rev-parse', '--short', 'HEAD'\], check: true).stdout().strip()/'${finalAttrs.version}'/" meson.build
     cat meson.build

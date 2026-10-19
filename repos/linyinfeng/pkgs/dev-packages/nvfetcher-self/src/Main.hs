@@ -188,7 +188,7 @@ mediawikiAuthManagerOAuth =
       `sourceGitHub` ("mohe2015", "AuthManagerOAuth")
       `fetchUrl` url
   where
-    url (Version v) = "https://github.com/mohe2015/AuthManagerOAuth/releases/download/" <> v <> "/AuthManagerOAuth.zip"
+    url (Version v) = "https://github.com/mohe2015/AuthManagerOAuth/releases/download/" <> v <> "/AuthManagerOAuth-" <> v <> ".zip"
 
 otf2psf :: PackageSet ()
 otf2psf =

@@ -180,10 +180,10 @@
   };
   mediawiki-auth-manager-oauth = {
     pname = "mediawiki-auth-manager-oauth";
-    version = "v0.3.3";
+    version = "v0.3.4";
     src = fetchurl {
-      url = "https://github.com/mohe2015/AuthManagerOAuth/releases/download/v0.3.3/AuthManagerOAuth.zip";
-      sha256 = "sha256-smLFY4EQrjbKBNiy2hpY6oB2bdOPwlmhMuHUuXqS2sE=";
+      url = "https://github.com/mohe2015/AuthManagerOAuth/releases/download/v0.3.4/AuthManagerOAuth-v0.3.4.zip";
+      sha256 = "sha256-3mFQ2W6vDWTS0X0V6Dnb9+yEBFn9g2JnXuGY4YBSzN0=";
     };
   };
   moe-koe-music = {

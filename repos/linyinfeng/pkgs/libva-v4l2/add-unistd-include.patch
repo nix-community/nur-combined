@@ -1,0 +1,12 @@
+diff --git a/src/picture.cc b/src/picture.cc
+index f35febe..cd6785d 100644
+--- a/src/picture.cc
++++ b/src/picture.cc
+@@ -35,6 +35,7 @@
+ extern "C" {
+ #include <linux/videodev2.h>
+ #include <sys/ioctl.h>
++#include <unistd.h>
+ 
+ #include <va/va.h>
+ }
