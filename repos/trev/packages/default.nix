@@ -7,6 +7,7 @@ let
   libs = import ../libs { inherit system pkgs; };
 in
 {
+  benchstat = pkgs.callPackage ./benchstat { };
   bumper = pkgs.callPackage ./bumper { };
   bwrap-apprun = pkgs.pkgsStatic.callPackage ./bwrap-apprun { };
   catppuccin-gtk = pkgs.callPackage ./catppuccin-gtk { };
