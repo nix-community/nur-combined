@@ -14,6 +14,7 @@
 | **`rimsort-appimage`** | Open source mod manager for RimWorld (AppImage) | **Auto** (Weekly) |
 | **`wowup-cf`** | World of Warcraft addon manager with CurseForge support (AppImage) | **Auto** (Weekly) |
 | **`scopebuddy`** | ScopeBuddy application | **Auto** (Weekly) |
+| **`storyforge`** | Story Forge desktop application, built independently of the upstream flake | Manual |
 | **`bbport`** | Native Linux port of Bloodborne (needs your own game dump) | **Auto** (Weekly) |
 | **`cybergrub2077`** | Cyberpunk 2077 inspired GRUB theme | **Auto** (Weekly) |
 
@@ -44,6 +45,17 @@ Add to your `flake.nix`:
 ```
 
 Flake overlay: `urio-nur.overlays.default`
+
+### Story Forge
+
+Use `urio-nur.packages.${pkgs.system}.storyforge` in your package list, or
+`pkgs.storyforge` after enabling the overlay. No StoryForge flake input is required.
+
+Build locally with:
+
+```bash
+nix build .#storyforge
+```
 
 ## Updates
 

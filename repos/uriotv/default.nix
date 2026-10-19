@@ -25,6 +25,7 @@
   # Applications
   nmssaveeditor = pkgs.callPackage ./pkgs/nmssaveeditor { };
   rimsort-appimage = pkgs.callPackage ./pkgs/rimsort-appimage { };
+  storyforge = pkgs.callPackage ./pkgs/storyforge { };
   wowup-cf = pkgs.callPackage ./pkgs/wowup-cf { };
 
   # Tools

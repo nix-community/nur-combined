@@ -10,6 +10,7 @@
     rimsort-appimage = final.callPackage ../pkgs/rimsort-appimage { };
     rimsort = final.rimsort-appimage;
     scopebuddy = final.callPackage ../pkgs/scopebuddy { };
+    storyforge = final.callPackage ../pkgs/storyforge { };
     wowup-cf = final.callPackage ../pkgs/wowup-cf { };
   };
 }
