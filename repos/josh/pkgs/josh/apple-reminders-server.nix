@@ -14,8 +14,8 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "josh";
     repo = "apple-reminders-server";
-    rev = "29a719cfd57efde70363f3ca57404c94f832d9fd";
-    hash = "sha256-83GbO08+srhaAILFmOwrrOEPOQYb/u/Kj1Z9vCAl2+o=";
+    rev = "4f21ab1af172fc3bb86a76e2fc580fa55667d7c3";
+    hash = "sha256-DXG6sBGuF3eVL+ljVPTA19kQy4v3nxEng20oZX71X6s=";
   };
 
   nativeBuildInputs = [

@@ -12,8 +12,8 @@ buildGoModule {
   src = fetchFromGitHub {
     owner = "josh";
     repo = "nix-rados-cache";
-    rev = "469c89139ed93f5725b4e04755470d95451088aa";
-    hash = "sha256-/VxBwKYjWTUPL5/RLdm4QUNyuPyshIz6KORNHP6Hdwo=";
+    rev = "320c9adf1826cb2414be954702e00087aab9f36b";
+    hash = "sha256-LJicE4zTtr7pPqNDx5Ya14ildAKTFoE0Y1tN0JZuWgQ=";
   };
 
   vendorHash = "sha256-9ECa9ji0VZb2/8YVaZxpNgnDUP6/ZajCof5BmIKPPbA=";
