@@ -242,23 +242,24 @@ modules: {
 		input: "self:modules/base16"
 		enable: true
 		config: {
-			// From: modot utils palette generate assets/wallpapers/bliss.jpg --driver materialyou --polarity dark
-			base00: "131313"
-			base01: "131313"
-			base02: "1f1f1f"
-			base03: "2a2a2a"
-			base04: "474747"
-			base05: "e2e2e2"
-			base06: "c6c6c6"
-			base07: "e2e2e2"
-			base08: "ffb4ab"
-			base09: "c0cbac"
-			base0A: "a0d0cb"
-			base0B: "a9d472"
-			base0C: "304f00"
-			base0D: "404a33"
-			base0E: "1f4e4b"
-			base0F: "93000a"
+			// From: modot utils palette generate assets/wallpapers/bliss.jpg --driver materialyou --polarity light
+			dark_mode: false
+			base00: "f9f9f9"
+			base01: "dadada"
+			base02: "eeeeee"
+			base03: "e8e8e8"
+			base04: "e2e2e2"
+			base05: "1b1b1b"
+			base06: "474747"
+			base07: "303030"
+			base08: "ba1a1a"
+			base09: "596248"
+			base0A: "396661"
+			base0B: "4a670b"
+			base0C: "caef87"
+			base0D: "dde6c6"
+			base0E: "bcece5"
+			base0F: "ffdad6"
 		}
 	}
 
@@ -273,6 +274,8 @@ modules: {
 	"base16-tmux":    {input: "self:modules/base16-tmux", enable: true}
 	"base16-opencode": {input: "self:modules/base16-opencode", enable: true}
 	"base16-swaylock": {input: "self:modules/base16-swaylock", enable: true}
+	"base16-herdr":    {input: "self:modules/base16-herdr", enable: true}
+	"base16-grok":     {input: "self:modules/base16-grok", enable: true}
 }
 
 // Webapps

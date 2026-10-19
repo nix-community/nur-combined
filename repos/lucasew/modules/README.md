@@ -94,5 +94,5 @@ Defined in `modules/base16/module.cue` (`dark_mode` plus hex slots). Values are 
 
 - `base16` - palette + a few driver weights
 - `base16-shell`, `base16-sway`, `base16-swaylock`, `base16-helix`, `base16-vscode`
-- `base16-gtk`, `base16-rofi`, `base16-dunst`, `base16-tmux`, `base16-opencode`
+- `base16-gtk`, `base16-rofi`, `base16-dunst`, `base16-tmux`, `base16-opencode`, `base16-herdr`, `base16-grok`
 - also non-theme: `fontconfig`, `mise`, `script-directory`, `webapp`
