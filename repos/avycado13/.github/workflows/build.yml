@@ -1,93 +1,122 @@
-name: "Build and populate cache"
+name: build and eval
+
 on:
-  pull_request:
   push:
-    branches:
-      - main
-      - master
-  schedule:
-    # rebuild everyday at 5:34
-    # TIP: Choose a random time here so not all repositories are build at once:
-    # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
-    - cron:  '34 5 * * *'
+    branches: [main]
+  pull_request:
   workflow_dispatch:
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  update-flake-lock:
-    permissions:
-      contents: write
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: DeterminateSystems/nix-installer-action@v12
-      - name: Update flake.lock
-        run: nix flake update
-      - name: Commit flake.lock
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add flake.lock
-          git diff --cached --quiet || git commit -m "chore(flake.lock): update"
-          git push
-  tests:
+  eval:
+    runs-on: ${{ matrix.runner }}
     strategy:
+      fail-fast: false
       matrix:
-        # Set this to notify the global nur package registry that changes are
-        # available.
-        #
-        # The repo name as used in
-        # https://github.com/nix-community/NUR/blob/master/repos.json
-        nurRepo:
-          - avycado13
-        # Set this to cache your build results in cachix for faster builds
-        # in CI and for everyone who uses your cache.
-        #
-        # Format: Your cachix cache host name without the ".cachix.org" suffix.
-        # Example: mycache (for mycache.cachix.org)
-        #
-        # For this to work, you also need to set the CACHIX_SIGNING_KEY or
-        # CACHIX_AUTH_TOKEN secret in your repository secrets settings in
-        # Github found at
-        # https://github.com/<your_githubname>/nur-packages/settings/secrets
-        cachixName:
-          - avycado13
-        nixPath:
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.11.tar.gz
-    runs-on: ubuntu-latest
+        include:
+          - runner: ubuntu-latest
+            system: x86_64-linux
+          - runner: ubuntu-24.04-arm
+            system: aarch64-linux
+          - runner: macos-latest
+            system: aarch64-darwin
+    env:
+      EVAL_SYSTEM: ${{ matrix.system }}
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v6
-    - name: Install nix
-      uses: cachix/install-nix-action@v31
-      with:
-        nix_path: "${{ matrix.nixPath }}"
-        extra_nix_config: |
-          experimental-features = nix-command flakes
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-    - name: Show nixpkgs version
-      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-    - uses: DeterminateSystems/magic-nix-cache-action@main
-    - name: Setup cachix
-      uses: cachix/cachix-action@v16
-      # Don't replace <YOUR_CACHIX_NAME> here!
-      if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
-      with:
-        name: ${{ matrix.cachixName }}
-        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - name: Check evaluation
-      run: |
-        nix-env -f . -qa \* --meta --xml \
-          --allowed-uris https://static.rust-lang.org \
-          --option restrict-eval true \
-          --option allow-import-from-derivation true \
-          --drv-path --show-trace \
-          -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
-          -I $PWD
-    - name: Build nix packages
-      run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
-    - name: Trigger NUR update
-      # Don't replace <YOUR_REPO_NAME> here!
-      if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
-      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v19
+      # Evaluation can build dependencies via import-from-derivation (IFD).
+      # Each runner must only force configurations for its native platform.
+      - name: Evaluate native NixOS configurations
+        if: runner.os == 'Linux'
+        run: |
+          nix eval \
+            --accept-flake-config \
+            --json \
+            .#nixosConfigurations \
+            --apply '
+              hosts:
+                builtins.mapAttrs
+                  (_: host: host.config.system.build.toplevel.drvPath)
+                  (builtins.listToAttrs (builtins.concatMap
+                    (name:
+                      let host = hosts.${name};
+                      in if host.pkgs.stdenv.hostPlatform.system == "'"$EVAL_SYSTEM"'"
+                      then [{ inherit name; value = host; }]
+                      else [])
+                    (builtins.attrNames hosts)))
+            '
+
+      - name: Evaluate Darwin configurations
+        if: runner.os == 'macOS'
+        run: |
+          nix eval \
+            --accept-flake-config \
+            --json \
+            .#darwinConfigurations \
+            --apply '
+              builtins.mapAttrs
+                (_: host: host.system.drvPath)
+            '
+
+      - name: Check flake
+        run: |
+          nix flake check \
+            --accept-flake-config \
+            --no-build \
+            --show-trace
+
+  builds:
+    runs-on: ${{ matrix.runner }}
+    # needs: eval
+    # timeout-minutes: 30
+
+    permissions:
+      contents: read
+      id-token: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-latest
+            system: x86_64-linux
+          - runner: macos-latest
+            system: aarch64-darwin
+          - runner: ubuntu-24.04-arm
+            system: aarch64-linux
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v19
+      - name: Add Magic nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@v4
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          audience: ${{ secrets.TS_AUDIENCE }}
+          tags: tag:ci
+          ping: 100.72.166.0
+      - uses: Mic92/niks3-action@v1
+        with:
+          server-url: https://cache.avyay.in
+      - name: "Install omnix"
+        run: |
+           nix profile add nixpkgs#omnix
+      - name: Run om ci
+        run: |
+            om ci run \
+              --extra-access-tokens ${{ secrets.GITHUB_TOKEN }} -d \
+              -- --accept-flake-config

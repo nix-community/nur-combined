@@ -28,7 +28,12 @@ python3.pkgs.buildPythonApplication {
 
   postFixup = ''
     wrapProgram $out/bin/brew2nur \
-      --prefix PATH : ${lib.makeBinPath [ nix nix-prefetch ]}
+      --prefix PATH : ${
+        lib.makeBinPath [
+          nix
+          nix-prefetch
+        ]
+      }
   '';
 
   meta = with lib; {

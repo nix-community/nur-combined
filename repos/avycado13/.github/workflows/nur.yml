@@ -1,0 +1,73 @@
+name: NUR packages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'pkgs/**'
+      - 'scripts/**'
+      - 'default.nix'
+      - 'overlay.nix'
+      - 'overlays/**'
+      - 'ci.nix'
+      - '.github/workflows/nur.yml'
+  pull_request:
+    paths:
+      - 'pkgs/**'
+      - 'scripts/**'
+      - 'default.nix'
+      - 'overlay.nix'
+      - 'overlays/**'
+      - 'ci.nix'
+      - '.github/workflows/nur.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write # niks3-action authenticates uploads via OIDC
+
+jobs:
+  packages:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-latest
+            nixpkgs: nixpkgs-unstable
+          - runner: ubuntu-latest
+            nixpkgs: nixos-unstable
+          - runner: macos-latest
+            nixpkgs: nixpkgs-unstable
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/${{ matrix.nixpkgs }}.tar.gz
+          extra_nix_config: |
+            extra-substituters = https://cache.avyay.in
+            extra-trusted-public-keys = cache.avyay.in-1:YcPQvyY/tBqD86RfhMNckRkFIK/SU3hxmfBOxRMOECk=
+      - uses: tailscale/github-action@v4
+        if: github.event_name != 'pull_request'
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          audience: ${{ secrets.TS_AUDIENCE }}
+          tags: tag:ci
+          ping: 100.72.166.0
+      - uses: Mic92/niks3-action@v1
+        if: github.event_name != 'pull_request'
+        with:
+          server-url: https://cache.avyay.in
+      - name: Evaluate NUR package set
+        run: |
+          nix-env -f . -qa '*' --meta --xml --drv-path --show-trace
+      - name: Build cacheable packages
+        run: nix-build ci.nix -A cacheOutputs --show-trace --no-out-link
+
+  notify-nur:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger NUR update
+        run: curl --fail --show-error --silent --retry 3 -X POST 'https://nur-update.nix-community.org/update?repo=avycado13'

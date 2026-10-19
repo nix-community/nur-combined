@@ -1,0 +1,33 @@
+{
+    "nix.enableLanguageServer": true, // Enable LSP.
+    "nix.serverPath": "nil", // The path to the LSP server executable.
+  
+    // Uncomment these to tweak settings.
+    "nix.serverSettings": {
+      "nil": {
+        "formatting": { "command": ["treefmt"] }
+      },
+    // check https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md for all nixd config
+    "nixd": {
+      "formatting": {
+        "command": ["treefmt"],
+      },
+      "options": {
+        // By default, this entry will be read from `import <nixpkgs> { }`.
+        // You can write arbitrary Nix expressions here, to produce valid "options" declaration result.
+        // Tip: for flake-based configuration, utilize `builtins.getFlake`
+        "nixos": {
+          "expr": "(builtins.getFlake \"Users/avy/nix\").nixosConfigurations.<name>.options",
+        },
+        "home-manager": {
+          "expr": "(builtins.getFlake \"Users/avy/nix\").homeConfigurations.<name>.options",
+        },
+        // Tip: use ${workspaceFolder} variable to define path
+        "nix-darwin": {
+          "expr": "(builtins.getFlake \"${workspaceFolder}\").darwinConfigurations.<name>.options",
+        },
+      },
+    }
+    },
+    "editor.defaultFormatter": "jnoortheen.nix-ide",
+  }

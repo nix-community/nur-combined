@@ -1,6 +1,10 @@
-result
-result-*
-
-.direnv/
 .DS_Store
-.ds_store
+machines/.DS_Store
+modules/.DS_Store
+.direnv
+old.json
+result
+result/
+data/
+.worktrees
+result*

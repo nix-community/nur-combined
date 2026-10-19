@@ -1,0 +1,67 @@
+name: update-flake-lock
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '47 6 * * 1'
+
+jobs:
+  update-flake-lock:
+    permissions:
+      contents: write
+      id-token: write
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v19
+      - name: Add Magic nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
+      - name: Connect to Tailscale
+        uses: tailscale/github-action@v4
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          audience: ${{ secrets.TS_AUDIENCE }}
+          tags: tag:ci
+          ping: 100.72.166.0
+
+      - name: Configure niks3 cache
+        run: |
+          echo "extra-substituters = https://cache.avyay.in" | sudo tee -a /etc/nix/nix.conf
+          echo "extra-trusted-public-keys = ${{ secrets.NIKS3_CACHE_PUBLIC_KEY }}" | sudo tee -a /etc/nix/nix.conf
+      - name: Update flake.lock
+        run: nix flake update
+      - name: Commit flake.lock
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add flake.lock
+          git diff --cached --quiet || git commit -m "chore(flake.lock): update"
+          git push
+      - name: Push realized outputs to cache
+        shell: bash
+        env:
+          NIKS3_SERVER_URL: https://cache.avyay.in
+        run: |
+          set -euo pipefail
+
+          token_file="$(mktemp)"
+          trap 'rm -f "$token_file"' EXIT
+          printf '%s' "${{ secrets.NIKS3_API_TOKEN }}" > "$token_file"
+          export NIKS3_AUTH_TOKEN_FILE="$token_file"
+
+          mapfile -t paths < <(nix-store --gc --print-live)
+
+          for attempt in {1..10}; do
+            echo "Cache upload attempt ${attempt}/10"
+            if nix run nixpkgs#niks3 -- push "${paths[@]}"; then
+              echo "Cache upload succeeded"
+              exit 0
+            fi
+            if [ "$attempt" -lt 5 ]; then
+              sleep_time=$((2 ** attempt))
+              echo "Upload failed, retrying in ${sleep_time}s..."
+              sleep "$sleep_time"
+            fi
+          done
+          echo "Cache upload failed after 5 attempts"
+          exit 1

@@ -1,24 +1,12 @@
-# This file describes your repository contents.
-# It should return a set of nix derivations
-# and optionally the special attributes `lib`, `modules` and `overlays`.
-# It should NOT import <nixpkgs>. Instead, you should take pkgs as an argument.
-# Having pkgs default to <nixpkgs> is fine though, and it lets you use short
-# commands such as:
-#     nix-build -A mypackage
-
+# NUR entry point: nix-env -f . -qa '*', or nix-build -A gitcredits.
 {
   pkgs ? import <nixpkgs> { },
 }:
-
 {
-  # The `lib`, `modules`, and `overlays` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
-  modules = import ./modules; # NixOS modules
-  overlays = import ./overlays; # nixpkgs overlays
+  overlays = import ./overlays;
 
+  fx = pkgs.callPackage ./pkgs/fx { };
   gitcredits = pkgs.callPackage ./pkgs/gitcredits { };
   brew2nur = pkgs.callPackage ./pkgs/brew2nur { };
   anylinuxfs-gui = pkgs.callPackage ./pkgs/anylinuxfs-gui { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
 }

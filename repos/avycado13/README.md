@@ -1,37 +1,79 @@
-# nur-packages-template
+# nix
 
-**A template for [NUR](https://github.com/nix-community/NUR) repositories**
+avy's (avycado13) Nix configuration — a flake-based setup for managing macOS and NixOS systems with home-manager, homelab services, and encrypted secrets.
 
-## Setup
+## Systems
 
-1. Click on [Use this template](https://github.com/nix-community/nur-packages-template/generate) to start a repo based on this template. (Do _not_ fork it.)
-2. Add your packages to the [pkgs](./pkgs) directory and to
-   [default.nix](./default.nix)
-   * Remember to mark the broken packages as `broken = true;` in the `meta`
-     attribute, or travis (and consequently caching) will fail!
-   * Library functions, modules and overlays go in the respective directories
-3. Choose your CI: Depending on your preference you can use github actions (recommended) or [Travis ci](https://travis-ci.com).
-   - Github actions: Change your NUR repo name and optionally add a cachix name in [.github/workflows/build.yml](./.github/workflows/build.yml) and change the cron timer
-     to a random value as described in the file
-   - Travis ci: Change your NUR repo name and optionally your cachix repo name in 
-   [.travis.yml](./.travis.yml). Than enable travis in your repo. You can add a cron job in the repository settings on travis to keep your cachix cache fresh
-5. Change your travis and cachix names on the README template section and delete
-   the rest
-6. [Add yourself to NUR](https://github.com/nix-community/NUR#how-to-add-your-own-repository)
+| Host | Platform | Description |
+|------|----------|-------------|
+| `Avys-Mac` | `aarch64-darwin` | macOS (nix-darwin) |
+| `pi0` | `aarch64-linux` | Raspberry Pi Zero 2W (currently commented out in flake.nix) |
+| `pi1` | `aarch64-linux` | Raspberry Pi 3, runs the homelab |
+| `apollo1` | `aarch64-linux` | Allwinner A64 SBC |
+| `apollo13` | `aarch64-linux` | Allwinner A64 SBC (Pine64+) |
+| `oracle` | `x86_64-linux` | Oracle Cloud VM |
+| `eclipse` | `x86_64-linux` | NixOS server |
+| `gce` | `x86_64-linux` | Google Compute Engine VM |
 
-## README template
+## Structure
 
-# nur-packages
+```
+flake.nix            # Flake definition
+flakeHelpers.nix     # mkDarwin / mkNixos helpers
+machines/
+  darwin/            # macOS configurations
+  nixos/             # NixOS configurations (pi0, pi1, apollo1, apollo13, oracle, eclipse, gce)
+users/avy/           # User config & dotfiles (home-manager)
+homelab/
+  services/          # miniflux, auth, glance, niks3, retrom, cloudrun, scrutiny,
+                      # restic, isponsorblocktv, lard, calibre-web, asterisk, irc, navidrome
+  motd/               # Message of the day
+  fail2ban-cloudflare/ # bans offenders at the Cloudflare edge
+modules/             # Reusable modules (ddns, email, binary cache, remote build)
+pkgs/                # NUR package definitions
+scripts/brew2nur.py  # Homebrew-to-Nix package generator
+secrets/             # sops-nix encrypted secrets (secrets.yaml, services.yaml)
+```
 
-**My personal [NUR](https://github.com/nix-community/NUR) repository**
+## Usage
 
-<!-- Remove this if you don't use github actions -->
-![Build and populate cache](https://github.com/avycado13/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
+Enter the dev shell:
 
-<!--
-Uncomment this if you use travis:
+```bash
+nix develop
+```
 
-[![Build Status](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages.svg?branch=master)](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages)
--->
-[![Cachix Cache](https://img.shields.io/badge/cachix-avycado13-blue.svg)](https://avycado13.cachix.org)
+### Deploy
 
+```bash
+just deploy <host>     # Deploy to a NixOS host
+just dry-run <host>    # Dry-run a NixOS deployment
+just darwin-deploy     # Rebuild macOS config locally
+just update            # nix flake update
+just check             # nix flake check
+```
+
+### NUR packages
+
+This repository also serves as the `avycado13` [NUR](https://github.com/nix-community/NUR) repository. Packages live in `pkgs/` and are exported from `default.nix`; `overlay.nix` is a standalone nixpkgs overlay (also exposed as `overlays.default` in the flake). The overlay is enabled in the host configurations.
+
+```bash
+nix-env -f . -qa '*'                  # List NUR packages (requires <nixpkgs>)
+nix-build -A gitcredits              # Build a package with legacy Nix
+nix build .#gitcredits               # Build using the flake
+nix-build ci.nix -A cacheOutputs     # Build supported, free, cacheable packages
+```
+
+`.github/workflows/nur.yml` builds the NUR packages and notifies the NUR registry on successful pushes to `main`. To complete the migration, update `avycado13` in [NUR's repos.json](https://github.com/nix-community/NUR/blob/master/repos.json) to point at `avycado13/nix` instead of `avycado13/nur-packages`.
+
+### Formatting
+
+```bash
+treefmt
+```
+
+Uses `nixfmt`, `deadnix`, and `shellcheck`.
+
+## Secrets
+
+Managed with [sops-nix](https://github.com/Mic92/sops-nix). Encrypted YAML files (`secrets.yaml`, `services.yaml`) live in `secrets/`; recipients are defined in `.sops.yaml`. Never commit plaintext secrets.

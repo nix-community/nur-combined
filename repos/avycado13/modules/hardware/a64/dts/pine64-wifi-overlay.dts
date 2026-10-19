@@ -1,0 +1,14 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+    compatible = "pine64,pine64-plus", "allwinner,sun50i-a64";
+
+    fragment@0 {
+        target = <&mmc1>;
+
+        __overlay__ {
+            status = "okay";
+        };
+    };
+};

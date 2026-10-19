@@ -79,12 +79,12 @@ def fetch_json(url: str) -> dict:
 def fetch_from_tap(tap: str, name: str, is_cask: bool = False) -> Optional[dict]:
     """
     Fetch formula/cask from a custom tap using brew command.
-    
+
     Args:
         tap: Tap name (e.g., 'owner/tap-name' or 'owner/homebrew-tap-name')
         name: Package name
         is_cask: Whether this is a cask
-    
+
     Returns:
         Dictionary with package info or None if not found
     """
@@ -92,7 +92,7 @@ def fetch_from_tap(tap: str, name: str, is_cask: bool = False) -> Optional[dict]
         # Use brew --json to get package info from tap
         pkg_ref = f"{tap}/{name}"
         cmd = ["brew", "info", pkg_ref, "--json=v2"]
-        
+
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
         if result.returncode == 0:
             data = json.loads(result.stdout)
@@ -108,7 +108,7 @@ def fetch_from_tap(tap: str, name: str, is_cask: bool = False) -> Optional[dict]
         print(f"Error fetching from tap {tap}: {e}", file=sys.stderr)
     except FileNotFoundError:
         print("Error: 'brew' command not found. Install Homebrew first.", file=sys.stderr)
-    
+
     return None
 
 
@@ -452,7 +452,7 @@ def main():
         else:
             url = HOMEBREW_FORMULA_API.format(brew_name)
             data = fetch_json(url)
-    
+
     if is_cask:
         nix_content = generate_cask_nix(data, do_prefetch)
         pkg_name = data["token"]
