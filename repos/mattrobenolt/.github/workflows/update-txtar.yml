@@ -25,6 +25,8 @@ jobs:
         uses: DeterminateSystems/magic-nix-cache-action@908b263ff629f4cc17666315b7fd3ec127c6244d # v14
 
       - name: Run txtar update script
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           nix develop -c just update-txtar
 
