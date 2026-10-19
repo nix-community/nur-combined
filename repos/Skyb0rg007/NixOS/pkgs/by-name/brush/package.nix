@@ -3,21 +3,22 @@
   rustPlatform,
   fetchFromGitHub,
   nix-update-script,
+  rustc,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "brush";
-  version = "0.4.0-unstable-2026-10-14";
+  version = "0.4.0-unstable-2026-10-19";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "reubeno";
     repo = "brush";
-    rev = "facce1118ce76fb496790e62e69422914ebd7ca4";
-    hash = "sha256-e3ZVZiWil5tHHIUilB/S1X3By53APyxJgKdXI0fyuS0=";
+    rev = "ea0781d3e7e02496fb4ebf32653baf51bb227f73";
+    hash = "sha256-JcwVmG0X2Rq669AwKvjhbLGzu7QWd2NvK7kxmBr0IRo=";
   };
 
-  cargoHash = "sha256-6HLsbxc3iCDPjcKHphuwxh6gawZBIhZ4SIWnLkP4Fd4=";
+  cargoHash = "sha256-dBvLFCo8mcimUnbdzFjckEkdxEXyBvelap2FYKyp5F0=";
 
   postPatch = ''
     rm brush-shell/tests/compat_tests.rs
@@ -38,5 +39,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.skyesoss ];
     mainProgram = "brush";
+    inherit (rustc.meta) platforms;
+    hydraPlatforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
   };
 })

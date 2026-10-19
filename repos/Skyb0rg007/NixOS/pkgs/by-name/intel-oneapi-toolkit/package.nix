@@ -255,11 +255,13 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Intel oneAPI Toolkit";
     homepage = "https://www.intel.com/content/www/us/en/developer/tools/oneapi/oneapi-toolkit.html";
-    license = with lib.licenses; [
-      intel-eula
-      issl
-      asl20
-    ];
+    license =
+      with lib.licenses;
+      AND [
+        intel-eula
+        issl
+        asl20
+      ];
     maintainers = with lib.maintainers; [
       skyesoss
     ];

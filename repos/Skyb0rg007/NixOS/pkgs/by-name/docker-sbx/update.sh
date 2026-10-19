@@ -1,19 +1,30 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash gh gnugrep gnused
+#!nix-shell -i bash -p bash curl jq gnugrep gnused nix
 # shellcheck shell=bash
+#
+# Run from the NixOS/ directory (scripts/nix-update.sh does this). The script
+# itself is copied into the Nix store, so package.nix can't be found relative
+# to "$0".
 
 set -euo pipefail
 
-dir="$(CDPATH="" cd "$(dirname "$0")" && pwd)"
-pkg="$dir/package.nix"
+pkg="pkgs/by-name/docker-sbx/package.nix"
 if ! [ -e "$pkg" ]; then
-  echo "Unable to find package.nix"
+  echo "Unable to find $pkg; run this from the NixOS/ directory" >&2
   exit 1
 fi
 
 old_vsn="$(grep --only-matching --perl-regexp 'version = "\K[^"]+' "$pkg")"
 
-new_vsn="$(gh api repos/docker/sbx-releases/releases --jq '.[0].tag_name' | \
+# Unauthenticated requests are fine for one call; use a token if one is set.
+declare -a curlArgs=(--fail --silent --show-error --location)
+token="${GITHUB_TOKEN:-${GH_TOKEN:-}}"
+if [ -n "$token" ]; then
+  curlArgs+=(--header "Authorization: Bearer $token")
+fi
+
+new_vsn="$(curl "${curlArgs[@]}" https://api.github.com/repos/docker/sbx-releases/releases | \
+  jq -r '.[0].tag_name' | \
   grep --only-matching --perl-regexp '\d+\.\d+\.\d+(-rc\d+)?')"
 
 if [ "$old_vsn" = "$new_vsn" ]; then

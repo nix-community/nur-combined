@@ -13,15 +13,15 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "ambient-build-vm";
-  version = "0.1.0-unstable-2026-07-10";
+  version = "0-unstable-2026-08-23";
   __structuredAttrs = true;
   strictDeps = true;
 
   src = fetchFromRadicle {
     seed = "radicle.liw.fi";
     repo = "z24yNhQC3JAyE3nbj8PP9SGUk5SgU";
-    rev = "de6fa5addf8591fdbc36c15338e4b4c5ee4be78a";
-    hash = "sha256-oFH+87CnxnkAqkUHYRGPe+nyqQVCkPON3+qgLzZmDWo=";
+    rev = "897911e28c4112c7ce7d90c1939ae9568a2ef876";
+    hash = "sha256-2JTIvBRnGms4P5JLTR36XDY2aI083PA0FtZRfIDfznI=";
   };
 
   dontConfigure = true;
@@ -50,7 +50,9 @@ stdenv.mkDerivation (finalAttrs: {
       ambient.service base.vmdb playbook.yml
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version=branch" ];
+  };
 
   meta = {
     description = "Build VM images for Ambient CI";

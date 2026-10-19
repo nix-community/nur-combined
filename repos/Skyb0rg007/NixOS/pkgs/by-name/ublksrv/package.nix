@@ -86,17 +86,19 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/ublk-org/ublksrv";
     mainProgram = "ublk";
     platforms = lib.platforms.linux;
-    license = with lib.licenses; [
-      (OR [
-        mit
+    license =
+      with lib.licenses;
+      AND [
+        (OR [
+          mit
+          gpl2Only
+        ])
+        (OR [
+          mit
+          lgpl21Only
+        ])
         gpl2Only
-      ])
-      (OR [
-        mit
-        lgpl21Only
-      ])
-      gpl2Only
-    ];
+      ];
     pkgConfigModules = [ "ublksrv" ];
     maintainers = [ lib.maintainers.skyesoss ];
   };

@@ -108,10 +108,12 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } (finalAttrs: {
   meta = {
     description = "Skia static libraries and Rust bindings built for the skia-bindings crate";
     homepage = "https://github.com/rust-skia/rust-skia";
-    license = with lib.licenses; [
-      mit
-      bsd3
-    ];
+    license =
+      with lib.licenses;
+      AND [
+        mit
+        bsd3
+      ];
     platforms = lib.platforms.linux;
     maintainers = [ lib.maintainers.skyesoss ];
   };

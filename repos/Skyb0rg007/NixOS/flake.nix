@@ -91,6 +91,7 @@
         system:
         import ./default.nix {
           pkgs = pkgsFor.${system};
+          nix-update = nix-update.packages.${system}.nix-update;
         }
       );
       packages = forAllSystems (

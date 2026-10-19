@@ -1,10 +1,19 @@
 {
   pkgs ? import <nixpkgs> { config.allowUnfree = true; },
   lib ? pkgs.lib,
+  nix-update ? pkgs.nix-update,
   ...
 }:
 let
   ourLib = import ./lib.nix { inherit lib; };
+
+  # Same interface as nixpkgs' nix-update-script, but using `nix-update` above.
+  nix-update-script =
+    {
+      attrPath ? null,
+      extraArgs ? [ ],
+    }:
+    [ "${nix-update}/bin/nix-update" ] ++ extraArgs ++ lib.optionals (attrPath != null) [ attrPath ];
 
   nixosModules = import ./modules/nixos;
   nixosTests = import ./tests/all-tests.nix {
@@ -88,6 +97,7 @@ let
             python314
             python315
             nixosTests
+            nix-update-script
             # ocamlPackages
             ;
           python3Packages = python3PackagesFull;

@@ -11,7 +11,7 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ambient-ci";
-  version = "0.21.0";
+  version = "0.21.1";
   __structuredAttrs = true;
 
   src = fetchFromRadicle {
@@ -19,10 +19,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     repo = "zwPaQSTBX8hktn22F6tHAZSFH2Fh"; # ambient-ci
     node = "z6MkgEMYod7Hxfy9qCvDv5hYHkZ4ciWmLFgfvm3Wn1b2w2FV"; # liw
     tag = "v${finalAttrs.version}";
-    hash = "sha256-MemkU3X1uKJYMlqfRyy2OL/VENKgh3v+KHFzH2F/5WM=";
+    hash = "sha256-EbfXXqNcWTHlzf1FeqCdGl2UWtH3NvHyerzCqG5Veg4=";
   };
 
-  cargoHash = "sha256-TYFhkJZAyn/SQxFYUPXsCUMZ///Keqb/AnO+WGof2Pw=";
+  cargoHash = "sha256-guLg9AwxEYrGK1iNqHcQJMINcm3BEx8F5EOQpbnP2q8=";
 
   nativeBuildInputs = [ installShellFiles ];
   nativeCheckInputs = [ libisoburn ];

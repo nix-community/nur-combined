@@ -23,7 +23,9 @@ buildNpmPackage (finalAttrs: {
     cp -r dist $out/lib/node_modules/bgd-browser/
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version=branch" ];
+  };
 
   meta = {
     description = "Web-based UI for browsing a BuildGrid deployment";

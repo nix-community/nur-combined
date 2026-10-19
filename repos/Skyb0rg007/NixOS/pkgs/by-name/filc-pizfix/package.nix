@@ -9,6 +9,8 @@
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "filc-pizfix";
   version = "0.683";
+  __structuredAttrs = true;
+  strictDeps = true;
 
   src = fetchurl {
     url = "https://github.com/pizlonator/fil-c/releases/download/v${finalAttrs.version}/filc-${finalAttrs.version}-linux-x86_64.tar.xz";
@@ -51,15 +53,17 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     sourceProvenance = [
       lib.sourceTypes.binaryNativeCode
     ];
-    license = with lib.licenses; [
-      # compiler
-      (WITH asl20 llvm-exception)
-      # libpas
-      (AND [
-        bsd2 # the library
-        bsd3 # setproctitle
-      ])
-    ];
+    license =
+      with lib.licenses;
+      AND [
+        # compiler
+        (WITH asl20 llvm-exception)
+        # libpas
+        (AND [
+          bsd2 # the library
+          bsd3 # setproctitle
+        ])
+      ];
     mainProgram = "filcc";
   };
 

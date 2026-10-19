@@ -8,13 +8,19 @@
 # default the version is taken from sequin's Cargo.lock rather than crates.io.
 # Updates the crate src/cargoHash, the rust-skia/skia fork tag, and
 # externals.json (regenerated from that fork's DEPS file).
+#
+# Run from the NixOS/ directory (scripts/nix-update.sh does this): nix-update
+# evaluates the package set in NixOS/default.nix, and the script itself is
+# copied into the Nix store, so package.nix can't be found relative to "$0".
 
 set -euo pipefail
 
-dir="$(CDPATH="" cd "$(dirname "$0")" && pwd)"
+dir="pkgs/by-name/rust-skia"
 pkg="$dir/package.nix"
-# nix-update evaluates the package set in NixOS/default.nix
-cd "$dir/../../.."
+if ! [ -e "$pkg" ]; then
+  echo "Unable to find $pkg; run this from the NixOS/ directory" >&2
+  exit 1
+fi
 
 # Externals needed on Linux for the features we might build.
 wanted=(expat harfbuzz icu libjpeg-turbo libpng libwebp vulkanmemoryallocator wuffs zlib)
