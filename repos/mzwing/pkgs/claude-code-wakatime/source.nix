@@ -3,12 +3,12 @@
 { fetchzip }:
 
 let
-  version = "4.1.1";
-  rev = "v4.1.1";
-  npmDepsHash = "sha256-XTZaxrMfPv9C+4HMvRmPg4mM7Y/XR/jPltsEqco4/Fo=";
+  version = "4.1.2";
+  rev = "v4.1.2";
+  npmDepsHash = "sha256-TzZCOImFQE485ad1ytZtdhe163FnFekoFjiR86BnCyw=";
   src = fetchzip {
-    url = "https://codeload.github.com/wakatime/claude-code-wakatime/tar.gz/v4.1.1";
-    hash = "sha256-vDG5JhomqC9yF7fDwxoWLZ2olxaKgmI3YH6wmd4L9vQ=";
+    url = "https://codeload.github.com/wakatime/claude-code-wakatime/tar.gz/v4.1.2";
+    hash = "sha256-3vm7c9J2qfMhLHT9ptqcG25D6qu0wrhA164Un8N1rbM=";
     extension = "tar.gz";
   };
 in
