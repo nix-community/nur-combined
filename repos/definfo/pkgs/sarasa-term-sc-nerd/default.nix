@@ -52,7 +52,9 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version-regex=v(.*)" ]; };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version-regex=^v(?!4[.]0[.]0$)(.*)$" ];
+  };
 
   meta = with lib; {
     description = "Nerd font based on Sarasa Term SC";
