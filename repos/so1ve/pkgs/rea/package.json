@@ -1,0 +1,8 @@
+{
+  "name": "nix-repin-package",
+  "private": true,
+  "version": "6.7.0",
+  "dependencies": {
+    "rea-agents": "6.7.0"
+  }
+}

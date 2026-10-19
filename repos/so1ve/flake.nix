@@ -44,6 +44,7 @@
           settings.formatter.nixfmt.excludes = [
             "pkgs/*/source.nix"
             "pkgs/*/cargo-lock.nix"
+            "pkgs/rea/frida.nix"
           ];
         };
       repositoryFor =

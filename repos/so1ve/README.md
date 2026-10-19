@@ -26,6 +26,7 @@ Ray's personal [NUR](https://github.com/nix-community/NUR) repository
 | `kotlin-lsp` | [Usage](pkgs/kotlin-lsp/README.md) |
 | `peazip-rar` | [Usage](pkgs/peazip-rar/README.md) |
 | `r-maple-mono-nf-cn` | [Usage](pkgs/r-maple-mono-nf-cn/README.md) |
+| `rea` | [Usage](pkgs/rea/README.md) |
 | `rime-lmdg` | [Upstream](https://github.com/amzxyz/rime-wanxiang-data) |
 | `rime-wanxiang` | [Upstream](https://github.com/amzxyz/rime-wanxiang) |
 | `sunloginclient` | [Usage](pkgs/sunloginclient/README.md) |

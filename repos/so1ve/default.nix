@@ -24,6 +24,7 @@ in
   niri = pkgs.callPackage ./pkgs/niri { };
   peazip-rar = pkgs.callPackage ./pkgs/peazip-rar { };
   r-maple-mono-nf-cn = pkgs.callPackage ./pkgs/r-maple-mono-nf-cn { };
+  rea = pkgs.callPackage ./pkgs/rea { };
   rime-lmdg = pkgs.callPackage ./pkgs/rime-lmdg { };
   rime-wanxiang = pkgs.callPackage ./pkgs/rime-wanxiang { };
   sunloginclient = pkgs.callPackage ./pkgs/sunloginclient { };
