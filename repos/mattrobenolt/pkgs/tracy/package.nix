@@ -94,6 +94,15 @@ stdenv.mkDerivation {
     hash = "sha256-D4aQ5kSfWH9qEUaithR0W/E5pN5on0n9YoBHeMggMSE=";
   };
 
+  # GCC 16 stopped pulling in <cstdint> transitively, so UINT64_C is no
+  # longer defined. Upstream added the include in v0.14.0; the header is
+  # otherwise identical in this release.
+  postPatch = ''
+        substituteInPlace server/tracy_robin_hood.h \
+          --replace-fail '#include <algorithm>' '#include <algorithm>
+    #include <cstdint>'
+  '';
+
   postUnpack = lib.strings.concatLines (
     lib.lists.forEach cpmSrcs (
       s:
