@@ -60,6 +60,11 @@ update-prismacat:
 update-qmd:
     @just update qmd
 
+[doc("Update skills-ref package")]
+[group("updates")]
+update-skills-ref:
+    @just update skills-ref
+
 [doc("Update txtar package")]
 [group("updates")]
 update-txtar:
@@ -82,4 +87,4 @@ update-zed:
 
 [doc("Update all packages")]
 [group("updates")]
-update-all: update-benchstat update-go update-hunk update-inbox update-prismacat update-qmd update-txtar update-zigdoc update-ziglint update-zed
+update-all: update-benchstat update-go update-hunk update-inbox update-prismacat update-qmd update-skills-ref update-txtar update-zigdoc update-ziglint update-zed

@@ -1,0 +1,79 @@
+name: Update skills-ref
+
+on:
+  schedule:
+    # Run daily at 3:20 AM UTC
+    - cron: '20 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0 zizmor: ignore[artipacked] git-auto-commit needs persisted credentials
+        with:
+          persist-credentials: true
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
+
+      - name: Setup Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@908b263ff629f4cc17666315b7fd3ec127c6244d # v14
+
+      - name: Run skills-ref update script
+        run: |
+          nix develop -c just update-skills-ref
+
+      - name: Check for changes
+        id: verify-diff
+        run: |
+          git diff --quiet pkgs/skills-ref/ || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Validate flake
+        if: steps.verify-diff.outputs.changed == 'true'
+        run: |
+          echo "🔍 Running flake checks..."
+          nix flake check --no-build
+          echo "✓ Flake checks passed"
+
+      - name: Build and test skills-ref package
+        if: steps.verify-diff.outputs.changed == 'true'
+        run: |
+          echo "🏗️ Building skills-ref..."
+          nix build .#skills-ref --no-link
+          echo "✓ skills-ref builds successfully"
+
+          echo "🧪 Testing skills-ref binary..."
+          nix run .#skills-ref -- --help
+          echo "✓ skills-ref works"
+
+      - name: Commit and push changes
+        if: steps.verify-diff.outputs.changed == 'true'
+        uses: stefanzweifel/git-auto-commit-action@4a55954c782fc1ea30b9056cd3e7a2b40ca8887d # v7.2.0
+        with:
+          commit_message: 'chore: update skills-ref version'
+          file_pattern: 'pkgs/skills-ref/*'
+          commit_user_name: github-actions[bot]
+          commit_user_email: github-actions[bot]@users.noreply.github.com
+          commit_author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>
+
+      - name: Summary
+        if: steps.verify-diff.outputs.changed == 'true'
+        run: |
+          echo "### 🎉 skills-ref version updated and validated!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Validation:**" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Flake checks passed" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ Package builds successfully" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ skills-ref binary tested" >> $GITHUB_STEP_SUMMARY
+
+      - name: No changes
+        if: steps.verify-diff.outputs.changed != 'true'
+        run: |
+          echo "### ℹ️ No updates available" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "skills-ref is already up to date." >> $GITHUB_STEP_SUMMARY

@@ -28,6 +28,7 @@ See [`pkgs/go-bin/README.md`](./pkgs/go-bin/README.md) for implementation detail
 - `inbox` - A fast, beautiful, and distraction-free Gmail client for your terminal (pre-built binary)
 - [`prismacat`](https://github.com/mattrobenolt/prismacat) - Themeable truecolor `cat` with Prism syntax highlighting (pre-built binary)
 - [`qmd`](https://github.com/tobi/qmd) - On-device search engine for Markdown and knowledge bases
+- [`skills-ref`](https://github.com/agentskills/agentskills/tree/main/skills-ref) - Reference CLI for validating and reading Agent Skills
 - [`txtar`](https://github.com/mattrobenolt/txtar) - Go-style txtar archive tool (pre-built binary)
 - `zed` / `zed-preview` - Linux Zed editor packages for stable and preview releases
 - `zigdoc` - Generate documentation from Zig source code
@@ -115,6 +116,7 @@ Add this repo as a flake input and apply the overlay:
           pkgs.inbox
           pkgs.prismacat
           pkgs.qmd
+          pkgs.skills-ref
           pkgs.txtar
         ];
       };
@@ -133,6 +135,7 @@ just update hunk
 just update inbox
 just update prismacat
 just update qmd
+just update skills-ref
 just update txtar
 just update-all
 
@@ -143,6 +146,7 @@ just build hunk
 just build inbox
 just build prismacat
 just build qmd
+just build skills-ref
 just build txtar
 
 # Run packages
@@ -151,6 +155,7 @@ nix run .#hunk -- --help
 nix run .#inbox -- --help
 nix run .#prismacat -- --help
 nix run .#qmd -- --version
+nix run .#skills-ref -- --help
 nix run .#txtar -- -c -f /tmp/readme.txtar README.md
 ```
 

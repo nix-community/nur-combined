@@ -74,6 +74,10 @@ jobs:
           nix build .#qmd --no-link
           echo "✓ qmd builds"
 
+          # Build skills-ref package
+          nix build .#skills-ref --no-link
+          echo "✓ skills-ref builds"
+
           # Build txtar package
           nix build .#txtar --no-link
           echo "✓ txtar builds"
@@ -101,6 +105,7 @@ jobs:
           nix run .#inbox -- --help
           nix run .#prismacat -- --help
           nix run .#qmd -- --version
+          nix run .#skills-ref -- --help
           nix run .#txtar -- -c -f /tmp/txtar-test.txtar README.md
           nix run .#zigdoc -- --help || echo "✓ zigdoc exists (may require input)"
           nix run .#ziglint -- --version

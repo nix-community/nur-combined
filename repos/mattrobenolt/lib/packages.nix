@@ -58,6 +58,7 @@ let
       inbox = prev.callPackage ../pkgs/inbox/package.nix { };
       prismacat = prev.callPackage ../pkgs/prismacat/package.nix { };
       qmd = prev.callPackage ../pkgs/qmd/package.nix { };
+      skills-ref = prev.callPackage ../pkgs/skills-ref/package.nix { };
       txtar = prev.callPackage ../pkgs/txtar/package.nix { };
       zigdoc = prev.callPackage ../pkgs/zigdoc/package.nix { };
       ziglint = prev.callPackage ../pkgs/ziglint/package.nix { };
@@ -87,6 +88,7 @@ in
         inbox
         prismacat
         qmd
+        skills-ref
         txtar
         zigdoc
         ziglint
