@@ -32,7 +32,20 @@
         procps
         wget
       ];
-      environment.etc."mxc-src".source = mxc.src;
+      # The package's patches only cover src/, so apply the test-script fixes
+      # the scripts need here.
+      environment.etc."mxc-src".source = pkgs.applyPatches {
+        name = "mxc-src";
+        inherit (mxc) src;
+        patches = [
+          # run_bwrap_dns_test.sh pins nsswitch.conf in its namespace, but
+          # NixOS's glibc asks nscd first, which answers from the host.
+          (pkgs.fetchpatch {
+            url = "https://github.com/Skyb0rg007/mxc/commit/8b0a582f955261b3270dc20e7c9ac993ff1ea14b.patch";
+            hash = "sha256-z2mw1L0umXCeLtSRt+sjH+WNSca2GsyVGDu7w0I9XUg=";
+          })
+        ];
+      };
       # The unwrapped executable: run_bwrap_version_gate_test.sh controls which
       # bwrap is on PATH, which the wrapper's PATH prefix would override.
       environment.etc."mxc-libexec".source = "${mxc}/libexec/mxc";
@@ -41,15 +54,17 @@
       environment.etc."mxc-default-path".text = mxc.defaultSandboxPath;
 
       # Several configs run /bin/bash and /bin/sleep by absolute path, and the
-      # firewall configs set an FHS-only PATH for their probes.
+      # firewall and DNS configs set an FHS-only PATH for their probes.
       systemd.tmpfiles.rules = [
         "L+ /bin/bash - - - - ${pkgs.bash}/bin/bash"
         "L+ /bin/sleep - - - - ${pkgs.coreutils}/bin/sleep"
       ]
       ++ map (exe: "L+ /usr/bin/${baseNameOf exe} - - - - ${exe}") [
+        "${pkgs.coreutils}/bin/cat"
         "${pkgs.coreutils}/bin/cut"
         "${pkgs.coreutils}/bin/readlink"
         "${pkgs.coreutils}/bin/timeout"
+        "${pkgs.getent}/bin/getent"
         "${pkgs.gnugrep}/bin/grep"
         "${pkgs.iptables}/bin/iptables"
       ];

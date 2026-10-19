@@ -133,7 +133,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://crawler.docs.browsertrix.com";
     downloadPage = "https://github.com/webrecorder/browsertrix-crawler";
     # unfree due to google-chrome dependency
-    license = [
+    license = lib.licenses.AND [
       lib.licenses.agpl3Plus
       lib.licenses.unfree
     ];

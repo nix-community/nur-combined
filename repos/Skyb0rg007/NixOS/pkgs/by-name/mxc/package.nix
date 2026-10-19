@@ -7,6 +7,7 @@
   bubblewrap,
   stdenv,
   fetchFromGitHub,
+  fetchpatch,
   makeWrapper,
   coreutils,
   bash,
@@ -18,6 +19,7 @@
   nixosTests,
   withHyperlight ? true,
   withMicrovm ? true,
+  nix-update-script,
 }:
 let
   linuxPackages = [
@@ -82,14 +84,14 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "mxc";
-  version = "1.0.0";
+  version = "1.0.1";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "microsoft";
     repo = "mxc";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-OlDaHOzygPigbBeP1TSrtY96x/Z+jmUsJv4AZ4hGqSg=";
+    hash = "sha256-uqsF4b0GLvNJbtiUZ2Cq779rt7DFsB76I9TSQSq5bAg=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/src";
@@ -99,10 +101,22 @@ rustPlatform.buildRustPackage (finalAttrs: {
     # std::process::Command keeps the mask across exec. The LXC backend clears
     # it for its children, but the bubblewrap backend does not, so sandboxed
     # workloads cannot be stopped by timeout(1), kill or Ctrl-C.
-    ./bwrap-unblock-fatal-signals.patch
+    (fetchpatch {
+      url = "https://github.com/Skyb0rg007/mxc/commit/1575647bd662a4bf831806ffadf26ce5517cff5c.patch";
+      relative = "src";
+      hash = "sha256-1gCweOVuBZK1F3PraNbBc/BO5WzPZxgjTG4qTKLRlGI=";
+    })
+    # The bubblewrap baseline binds /run/systemd/resolve whole, which includes
+    # systemd-resolved's varlink socket, so sandboxes resolve names through the
+    # host even when their network policy allows no DNS.
+    (fetchpatch {
+      url = "https://github.com/Skyb0rg007/mxc/commit/c074a5e3ec204f7e9b9588c61692a8e57f542624.patch";
+      relative = "src";
+      hash = "sha256-/Kr4iopgLdi8RfboG9Y35Q8pgsvCodQ8GBLEN2EKixs=";
+    })
   ];
 
-  cargoHash = "sha256-OlWpqsGRlzcIp/QV2Uqso5K1qARaDbWD+Tk5UjFwnlk=";
+  cargoHash = "sha256-zYRySwLZa8R8Wf3oelQSJdGDd6A+VblHU3wUQx9wwqk=";
 
   env = {
     RUST_BACKTRACE = "1";
@@ -142,8 +156,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   # The microVM suite writes its perf results to the repo root, above sourceRoot.
+  # The resolver-hint test creates its scratch directory under $HOME.
   preCheck = ''
     chmod u+w ..
+    export HOME=$(mktemp -d)
   '';
 
   # The bubblewrap backend's BASELINE_RO_BIND_PATHS assumes an FHS layout: it
@@ -249,6 +265,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
         touch $out
       '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Sandboxed code execution system for running untrusted code";

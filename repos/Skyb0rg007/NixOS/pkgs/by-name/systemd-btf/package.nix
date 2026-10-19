@@ -16,4 +16,9 @@ nixpkgs.systemd.overrideAttrs (prevAttrs: {
   mesonFlags = (prevAttrs.mesonFlags or [ ]) ++ [
     (lib.mesonOption "vmlinux-h" "provided")
   ];
+
+  meta = prevAttrs.meta // {
+    # Use linuxPackages.systemd once NixOS/nixpkgs#569853 lands
+    broken = nixpkgs.linuxPackages ? systemd;
+  };
 })
