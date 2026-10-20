@@ -17,10 +17,16 @@
 | Attribute | Description |
 | --- | --- |
 | `molten` | Protobuf-based stream format and renderer for collaborative pixel canvases ([pixelate-it/molten](https://github.com/pixelate-it/molten)) |
+| `firefox-addons.cookie-editor` | View, edit and export cookies |
+| `firefox-addons.flagfox` | Shows the server's country flag in the address bar (unfree) |
 | `firefox-addons.indicatetls` | Shows the negotiated TLS version in the address bar |
 | `firefox-addons.media-harvest` | Downloads images and videos from X/Twitter in original quality ([EltonChou/TwitterMediaHarvest](https://github.com/EltonChou/TwitterMediaHarvest)) |
+| `firefox-addons.plasma-integration` | KDE Plasma browser integration (needs `plasma-browser-integration` as the native host) |
 | `firefox-addons.preact-devtools` | Preact developer tools |
+| `firefox-addons.reduxdevtools` | Redux developer tools |
 | `firefox-addons.resourceoverride` | Override website resources with your own |
+| `firefox-addons.sponsorblock` | Skips sponsor segments in YouTube videos |
+| `firefox-addons.ublock-origin` | Content blocker |
 
 The add-on list lives in [`pkgs/firefox-addons/addons.json`](./pkgs/firefox-addons/addons.json);
 `generated.nix` is produced from it by

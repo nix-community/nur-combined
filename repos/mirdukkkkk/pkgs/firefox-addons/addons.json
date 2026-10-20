@@ -1,5 +1,11 @@
 [
+  { "slug": "cookie-editor" },
+  { "slug": "flagfox" },
   { "slug": "indicatetls" },
+  { "slug": "plasma-integration" },
   { "slug": "preact-devtools" },
-  { "slug": "resourceoverride" }
+  { "slug": "reduxdevtools" },
+  { "slug": "resourceoverride" },
+  { "slug": "sponsorblock" },
+  { "slug": "ublock-origin" }
 ]
