@@ -43,6 +43,19 @@ in
     #   command = lib.getExe stablePkgs.mcp-nixos;
     # };
 
+    programs.pi-coding-agent.settings.packages = [
+      "git:github.com/obra/superpowers"
+    ];
+
+    programs.pi-coding-agent.extraPackages = with pkgs; [
+      fd
+      ripgrep
+    ];
+
+    programs.pi-coding-agent.context = ''
+      Always use ripgrep (`rg`) instead of `grep` and `fd` instead of `find` when searching file contents or locating files. Only fall back to `grep`/`find` when absolutely necessary (e.g. `rg`/`fd` are unavailable or unable to express the required query).
+    '';
+
     home.file = {
       "${cfg.configDir}/auth.json" = lib.mkIf (cfg.auth != { }) {
         source = jsonFormat.generate "pi-coding-agent-auth.json" cfg.auth;
