@@ -8,5 +8,4 @@
   nixosModules = {
     fluxdown = ./modules/fluxdown.nix;
   };
-  darwinModules.nh = ./modules/nh-darwin;
 }

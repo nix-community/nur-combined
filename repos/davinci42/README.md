@@ -1,6 +1,6 @@
 # NUR packages
 
-Personal Nix packages, NixOS modules and nix-darwin modules using the caller's `pkgs`.
+Personal Nix packages and NixOS modules using the caller's `pkgs`.
 `default.nix` exports packages and module paths.
 
 | Package | NixOS module | Documentation |
@@ -8,10 +8,6 @@ Personal Nix packages, NixOS modules and nix-darwin modules using the caller's `
 | `basic-memory` | None | [Markdown memory and MCP server](pkgs/basic-memory/README.md) |
 | `fluxdown-server` | `nixosModules.fluxdown` | [FluxDown Server](pkgs/fluxdown-server/README.md) |
 | `mnamer-rs` | None | [mnamer Rust rewrite](pkgs/mnamer-rs/README.md) |
-
-| Package | nix-darwin module | Documentation |
-| --- | --- | --- |
-| `nh` (from nixpkgs) | `darwinModules.nh` | [nh configuration and cleanup](modules/nh-darwin/README.md) |
 
 ## Maintenance and tests
 
