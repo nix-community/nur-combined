@@ -90,6 +90,11 @@ let
     url = "https://github.com/frida/frida/releases/download/${fridaVersion}/frida-v${fridaVersion}-napi-v8-linux-x64.tar.gz";
     hash = "sha256-n6j2aM6R6wNxPoVk3k+PveIyIz7pHXKcFnc/3hHbrpU=";
   };
+
+  # Commit behind jadx-headless-mcp's v<version> tag. REA records it as the
+  # jadx source revision in Evidence once the audited constants are re-pinned to
+  # the packaged JAR; bump it together with pkgs/jadx-headless-mcp.
+  jadxRevision = "2b2a560e8035169f75e3c4f1695e773f9c0eebd0";
 in
 buildNpmPackage rec {
   pname = "rea-agents";
@@ -102,6 +107,25 @@ buildNpmPackage rec {
     rev = "refs/tags/rea-agents-${version}";
     hash = "sha256-GKgXQZdzsmr2bEffi+UaffY5TseJ7dSQvWwF1kuz2og=";
   };
+
+  # REPO PATCH: re-pin REA's audited jadx-headless-mcp release to the version
+  # this repository packages (see jadxRevision).
+  postPatch = ''
+    jadxJar=$(echo ${jadx-headless-mcp}/share/java/*-all.jar)
+    jadxSha=$(sha256sum "$jadxJar" | cut -d' ' -f1)
+
+    # REA pins the audited jadx-headless-mcp release and refuses any engine that
+    # reports a different version (src/android/JadxSession.ts). This repository
+    # builds that JAR from source, so its digest can never equal upstream's
+    # release artifact; point the audited constants at the packaged version and
+    # at the digest of the JAR that REA_JADX_MCP_JAR actually launches. REA then
+    # keeps its strict check and records the real source revision in Evidence.
+    substituteInPlace src/android/JadxRelease.ts \
+      --replace-fail 'version: "0.7.1"' 'version: "${jadx-headless-mcp.version}"' \
+      --replace-fail 'revision: "5844800a486d2248fa949b74c9896285f5b54de2"' 'revision: "${jadxRevision}"' \
+      --replace-fail 'sha256: "6e5eacf500b64292bfb73c49797c1958f6ee44646e43e868039ae7feb573ff75"' "sha256: \"$jadxSha\"" \
+      --replace-fail 'releases/download/v0.7.1/jadx-headless-mcp-0.7.1-all.jar' 'releases/download/v${jadx-headless-mcp.version}/jadx-headless-mcp-${jadx-headless-mcp.version}-all.jar'
+  '';
 
   # Skip dependency lifecycle scripts: frida's installer attempts a toolchain
   # network download, and no locked Linux x86_64 dependency needs these scripts.

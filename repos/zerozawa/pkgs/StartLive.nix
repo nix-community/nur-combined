@@ -59,14 +59,20 @@ python3Packages.buildPythonApplication rec {
   pname = "StartLive";
   # 1.3.0 restructured the tree into the `startlive` package with a
   # setuptools entry point (`startlive = "StartLive:cli"`).
-  version = "1.3.0";
+  version = "1.4.0";
 
   src = fetchFromGitHub {
     owner = "Radekyspec";
     repo = pname;
     rev = version;
-    hash = "sha256-ZZa/r9iNSCNudPqx6IKhdICqRPwHlbzKABXkd6pxfrg=";
+    hash = "sha256-SIasMdxQVU7z0V/jUNEhfSEgli0zD9oL9ug6XAUKBag=";
   };
+
+  # Since 1.4.0 the tag carries a `0.0.0.dev0` placeholder and CI stamps the
+  # real version at build time; setuptools reads it from this module.
+  postPatch = ''
+    echo '__version__ = "${version}"' > startlive/core/constant/_version.py
+  '';
 
   format = "pyproject";
 

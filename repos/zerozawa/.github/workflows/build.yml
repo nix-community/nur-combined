@@ -71,8 +71,14 @@ jobs:
       # store paths match exactly what flake users build locally.
       # nix-fast-build pushes each finished build to cachix via its own
       # `nix shell nixpkgs#cachix` daemon; no cachix-action needed.
+      # nix-eval-jobs is provided explicitly: recent nixpkgs builds of
+      # nix-fast-build dropped the wrapper PATH entry for it, so relying on
+      # nix-fast-build's own closure fails with "No such file or directory:
+      # 'nix-eval-jobs'".
       - name: Build nix packages
-        run: nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --max-jobs 1 --flake .#ciJobs.x86_64-linux --cachix-cache zerozawa
+        run: |
+          nix shell nixpkgs#nix-fast-build nixpkgs#nix-eval-jobs -c \
+            nix-fast-build --no-nom --skip-cached --max-jobs 1 --flake .#ciJobs.x86_64-linux --cachix-cache zerozawa
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
           CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}

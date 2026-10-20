@@ -147,7 +147,8 @@ nix build .#mcp-cli
 # Build what CI caches
 nix-build ci.nix -A cacheOutputs
 # Same package set via the flake (what GitHub Actions actually runs)
-nix run nixpkgs#nix-fast-build -- --skip-cached --flake .#ciJobs.x86_64-linux
+nix shell nixpkgs#nix-fast-build nixpkgs#nix-eval-jobs -c \
+  nix-fast-build --skip-cached --flake .#ciJobs.x86_64-linux
 
 # Inspect flake outputs
 nix flake show

@@ -9,13 +9,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "jadx-headless-mcp";
-  version = "0.7.1";
+  version = "0.8.0";
 
   src = fetchFromGitHub {
     owner = "1013503897";
     repo = "jadx-headless-mcp";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-mCi6lt4HGqDSTtdcGEP0AoOYU9KHfdbSg7yXJn4a378=";
+    hash = "sha256-3hW8jRcVUNEuKPbviVmc1XjshhEMUrOLW19viCdXg20=";
   };
 
   nativeBuildInputs = [

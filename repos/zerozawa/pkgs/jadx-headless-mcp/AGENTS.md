@@ -13,8 +13,9 @@ through `gradle_9.fetchDeps` / `mitmCache`).
 
 ## Why these choices
 
-- **`gradle_9`, not `gradle`**: upstream's wrapper pins `gradle-9.8.0`; nixpkgs
-  `gradle` is 8.x and cannot configure the Kotlin 2.4.20 / shadow 9.6.1 plugins.
+- **`gradle_9`, not `gradle`**: upstream 0.8.0's wrapper pins `gradle-9.8.1`;
+  nixpkgs `gradle` is 8.x and nixpkgs `gradle_9` is 9.8.0, which still
+  configures the Kotlin 2.4.21 / shadow 9.6.1 plugins.
 - **`-Dorg.gradle.java.installations.paths=${jdk17_headless.home}`**: `build.gradle.kts`
   declares `kotlin { jvmToolchain(17) }` and the Gradle setup hook builds with
   `--offline`, so the toolchain has to resolve to the Nix JDK
@@ -40,6 +41,18 @@ through `gradle_9.fetchDeps` / `mitmCache`).
   `java` being on `PATH`.
 
 ## Updating to a new upstream tag
+
+0. **Re-pin REA's audited constants.** REA compiles and runs
+   `bridge/android/ReaJadxBridge.java` against this JAR and refuses every
+   operation when `rea_jvm_status.engine_reported_version` differs from the
+   `JADX_RELEASE.version` in its `src/android/JadxRelease.ts`. This repo builds
+   the JAR from source, so `pkgs/rea-agents/default.nix`'s `postPatch` rewrites
+   that constant to the packaged version, sets the sha256 to the digest of the
+   built JAR (computed in the build), and records the tag commit from
+   `jadxRevision` there — bump `jadxRevision` with every jadx move. Without that
+   bump the build still succeeds and `rea doctor --provider jadx` still reports
+   healthy (it only validates the JAR structure), but every Android operation
+   fails at runtime with `Expected engine <pinned>; JAR reported <actual>.`
 
 1. Bump `version` (and the `src` hash) to the new `v*` tag; confirm the tag
    matches `version = "..."` in upstream `build.gradle.kts`.
