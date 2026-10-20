@@ -6,7 +6,7 @@ _: {
       } ''
         cp -r --no-preserve=mode ${../.} source
         cd source
-        python3 -m unittest updater.test_dependency_hash updater.test_github_release updater.test_manifest updater.test_source_hash updater.test_tangled
+        python3 -m unittest updater.test_dependency_hash updater.test_github_release updater.test_manifest updater.test_source_hash updater.test_tangled updater.test_validation
         touch $out
       '';
   };

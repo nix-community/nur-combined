@@ -29,16 +29,16 @@
     # keep-sorted end
   ];
 in
-  buildPythonApplication {
+  buildPythonApplication rec {
     pname = "hypruse";
-    version = "0.12.1";
+    version = "0.13.0";
     pyproject = true;
 
     src = fetchFromGitHub {
       owner = "IlyasKhallouki";
       repo = "hypruse";
-      rev = "1fa80b026454a527c4acfb49b32017ad999f9335";
-      hash = "sha256-Q25kQpI5BLeAm9D6C7pr0PEu/zEY77aC/jp0hzMjQXo=";
+      tag = "v${version}";
+      hash = "sha256-xzUYZlbMin3ISIgWj34+6FJsx+o4jXHcxHXHeZ7T7g0=";
     };
 
     build-system = [hatchling];

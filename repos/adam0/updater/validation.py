@@ -53,6 +53,13 @@ def validate_transition(
         if before.version != after.version and not source_changed:
             return ValidationResult(False, "rejected branch version change without source change")
 
+    if (
+        before.version != after.version
+        and not source_changed
+        and (before.src_rev or before.src_url)
+    ):
+        return ValidationResult(False, "rejected version change without source change")
+
     return ValidationResult(
         True,
         "accepted source/package transition" if source_changed else "accepted package transition",

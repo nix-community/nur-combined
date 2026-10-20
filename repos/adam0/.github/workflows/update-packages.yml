@@ -27,7 +27,7 @@ jobs:
       - name: Update packages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python3 -m updater
+        run: python3 -m updater --fail-on-invalid --verbose
       - name: Import gpg key
         uses: crazy-max/ghaction-import-gpg@v7
         with:
