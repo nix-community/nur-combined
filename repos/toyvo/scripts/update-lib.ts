@@ -197,7 +197,9 @@ export function githubHeaders(userAgent: string): Record<string, string> {
     // Forgejo tokens are invalid for api.github.com and cause 401s.
     // GitHub tokens start with ghp_, gho_, ghu_, ghs_, or github_pat_.
     // Forgejo tokens typically don't match these patterns.
-    const isLikelyGitHubToken = /^(ghp_|gho_|ghu_|ghs_|github_pat_)/.test(token);
+    const isLikelyGitHubToken = /^(ghp_|gho_|ghu_|ghs_|github_pat_)/.test(
+      token,
+    );
     if (isLikelyGitHubToken) {
       headers.Authorization = `Bearer ${token}`;
     }
