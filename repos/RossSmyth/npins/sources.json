@@ -1,12 +1,5 @@
 {
   "pins": {
-    "nixos-25.11": {
-      "type": "Channel",
-      "name": "nixos-25.11",
-      "artifact": "nixexprs.tar.xz",
-      "url": "https://releases.nixos.org/nixos/25.11/nixos-25.11.12484.b6018f87da91/nixexprs.tar.xz",
-      "hash": "sha256-IWpaImuKa1YVOmnuPyyzbG6/Q6ZgKaOsP4sXmfTbkdQ="
-    },
     "qmix": {
       "type": "Git",
       "repository": {
@@ -16,9 +9,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "257b01ef535a00f999a4d3b81c21ce06b9783ca3",
-      "url": "https://github.com/Tygo-van-den-Hurk/QMix/archive/257b01ef535a00f999a4d3b81c21ce06b9783ca3.tar.gz",
-      "hash": "sha256-3QtLhHpibp0jxeFRgQMVvWA66/DwQY3mk3Ag9JaE+1Y="
+      "revision": "918d7ef312129cd16687eb9383020ac2bc8f5da9",
+      "url": "https://github.com/Tygo-van-den-Hurk/QMix/archive/918d7ef312129cd16687eb9383020ac2bc8f5da9.tar.gz",
+      "hash": "sha256-iUJXKmgSYjmJsvbSajcl+ST4eM4e/92SnwNFxl88kwQ="
     },
     "renpy-nix": {
       "type": "Git",
@@ -29,9 +22,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "0e0c41aa111d5f92235ba08a84d8b7fe93d88cdf",
-      "url": "https://github.com/RossSmyth/renpy-nix/archive/0e0c41aa111d5f92235ba08a84d8b7fe93d88cdf.tar.gz",
-      "hash": "sha256-dEGICGlUlGvXdjIAGgWQLAxTP70C2eRAu6MNJpUfBxA="
+      "revision": "524bde57a893a96e79889aa02b01acc0ae1c345b",
+      "url": "https://github.com/RossSmyth/renpy-nix/archive/524bde57a893a96e79889aa02b01acc0ae1c345b.tar.gz",
+      "hash": "sha256-gvg6YLZRvQ+X0LArsKWURc09I/4zjALP5MVDtWKbG2w="
     },
     "rust-overlay": {
       "type": "Git",
@@ -42,9 +35,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "132a10336af9ae819bdf640c0dd1c789b12d7107",
-      "url": "https://github.com/oxalica/rust-overlay/archive/132a10336af9ae819bdf640c0dd1c789b12d7107.tar.gz",
-      "hash": "sha256-QdVaU2WSCKsxZ0sBDIRnaaukp6Z5IMUE0gDEDoSRJd0="
+      "revision": "550547cefc67e01a6fd11a09e4096a3c844ca840",
+      "url": "https://github.com/oxalica/rust-overlay/archive/550547cefc67e01a6fd11a09e4096a3c844ca840.tar.gz",
+      "hash": "sha256-SfVFE7TKuByeQRwhVbaVrvTV/lI41AYK9CYSfB+pIis="
     },
     "rust-overlay-2022": {
       "type": "GitRelease",
