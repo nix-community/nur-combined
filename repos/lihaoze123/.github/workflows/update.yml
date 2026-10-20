@@ -52,6 +52,7 @@ jobs:
         commit-message: 'chore(update): 更新 ${{ matrix.name }}'
         body: |
           自动检查此包或配套组件组的上游更新。优先稳定发行版；没有稳定版的源码项目跟踪分支提交。
+          固定 GitHub 源码只采用包含当前提交的版本；npm 较新预发布版不回退到旧稳定版。
           包级 CI 验证通过后由维护者合并；合并后自动上传私有 Attic。不会自动合并。
     - name: Explicitly trigger CI for the update branch
       if: steps.pr.outputs.pull-request-operation == 'created' || steps.pr.outputs.pull-request-operation == 'updated'

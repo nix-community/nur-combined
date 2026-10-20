@@ -49,10 +49,30 @@ def stable_ref(repo):
     return {"tag_name": tag}
 
 
-def source_revision(repo):
+def source_revision(repo, minimum_revision=None):
     release = stable_ref(repo)
-    ref = release["tag_name"] if release else fetch_json(f"https://api.github.com/repos/{repo}")["default_branch"]
-    commit = fetch_json(f"https://api.github.com/repos/{repo}/commits/{urllib.parse.quote(ref, safe='')}")
+    api = f"https://api.github.com/repos/{repo}"
+
+    def commit_at(ref):
+        return fetch_json(f"{api}/commits/{urllib.parse.quote(ref, safe='')}")
+
+    def preserves_current(commit):
+        if minimum_revision is None or commit["sha"] == minimum_revision:
+            return True
+        comparison = fetch_json(f"{api}/compare/{minimum_revision}...{commit['sha']}")
+        return comparison["status"] in ("ahead", "identical")
+
+    branch = None if release else fetch_json(api)["default_branch"]
+    commit = commit_at(release["tag_name"] if release else branch)
+    if not preserves_current(commit):
+        if release:
+            # An old stable tag must not discard fixes already in our source.
+            release = None
+            branch = fetch_json(api)["default_branch"]
+            commit = commit_at(branch)
+        if not preserves_current(commit):
+            # Also protect against a default-branch force push or rollback.
+            commit = commit_at(minimum_revision)
     return commit["sha"], release, commit["commit"]["committer"]["date"][:10]
 
 
@@ -64,9 +84,10 @@ def replace_once(text, pattern, replacement):
 
 
 def update_flake(target):
-    revision, _, _ = source_revision(target["repo"])
     path = Path("flake.nix")
     text = path.read_text()
+    current = re.search(rf'github:{re.escape(target["repo"])}/([0-9a-f]{{40}})(?=["?])', text)
+    revision, _, _ = source_revision(target["repo"], minimum_revision=current[1] if current else None)
     path.write_text(pin_flake_url(text, target["repo"], revision))
     run("nix", "flake", "update", target["input"])
     # Runtime package definitions use checked-in snapshots, not Flake outputs.
@@ -84,15 +105,19 @@ def pin_flake_url(text, repo, revision):
 
 
 def update_github_source(target, path, source_name):
-    revision, release, date = source_revision(target["repo"])
-    source = json.loads(run("nix", "flake", "prefetch", "--json", f"github:{target['repo']}/{revision}"))
     text = path.read_text()
-    owner, repo = target["repo"].split("/", 1)
     prefix = re.escape(source_name) + r' = fetchFromGitHub \{[\s\S]*?'
+    current = re.search(rf'{prefix}rev = "([^"]+)";', text)
+    if current is None:
+        raise ValueError(f"Missing pinned revision in {path}: {source_name}")
+    revision, release, date = source_revision(target["repo"], minimum_revision=current[1])
+    source = json.loads(run("nix", "flake", "prefetch", "--json", f"github:{target['repo']}/{revision}"))
+    owner, repo = target["repo"].split("/", 1)
     for field, value in [("owner", owner), ("repo", repo), ("rev", revision), ("hash", source["hash"])]:
         text = replace_once(text, rf'({prefix}{field} = ")[^"]+(";)', rf'\g<1>{value}\2')
-    version = release["tag_name"].removeprefix("v") if release else f"0-unstable-{date}"
-    text = replace_once(text, r'(^  version = ")[^"]+(";)', rf'\g<1>{version}\2')
+    if release or revision != current[1]:
+        version = release["tag_name"].removeprefix("v") if release else f"0-unstable-{date}"
+        text = replace_once(text, r'(^  version = ")[^"]+(";)', rf'\g<1>{version}\2')
     path.write_text(text)
 
 

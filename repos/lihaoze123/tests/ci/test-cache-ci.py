@@ -82,6 +82,56 @@ class MetadataTests(unittest.TestCase):
 
 
 class UpdateTests(unittest.TestCase):
+    def source_response(self, revision):
+        return {"sha": revision, "commit": {"committer": {"date": "2026-10-18T12:00:00Z"}}}
+
+    def test_old_stable_tag_falls_forward_to_default_branch(self):
+        release = {"tag_name": "v0.1.8"}
+        api = "https://api.github.com/repos/example/input"
+        responses = {
+            f"{api}/commits/v0.1.8": self.source_response("old-stable"),
+            f"{api}/compare/current...old-stable": {"status": "behind"},
+            api: {"default_branch": "main"},
+            f"{api}/commits/main": self.source_response("new-main"),
+            f"{api}/compare/current...new-main": {"status": "ahead"},
+        }
+        with patch.object(updater, "stable_ref", return_value=release), patch.object(updater, "fetch_json", side_effect=responses.__getitem__):
+            self.assertEqual(updater.source_revision("example/input", "current"), ("new-main", None, "2026-10-18"))
+
+    def test_stable_release_containing_current_source_is_preferred(self):
+        release = {"tag_name": "v0.2.0"}
+        api = "https://api.github.com/repos/example/input"
+        responses = {
+            f"{api}/commits/v0.2.0": self.source_response("new-stable"),
+            f"{api}/compare/current...new-stable": {"status": "ahead"},
+        }
+        with patch.object(updater, "stable_ref", return_value=release), patch.object(updater, "fetch_json", side_effect=responses.__getitem__):
+            self.assertEqual(updater.source_revision("example/input", "current"), ("new-stable", release, "2026-10-18"))
+
+    def test_default_branch_rollback_keeps_current_source(self):
+        api = "https://api.github.com/repos/example/input"
+        responses = {
+            api: {"default_branch": "main"},
+            f"{api}/commits/main": self.source_response("old-main"),
+            f"{api}/compare/current...old-main": {"status": "behind"},
+            f"{api}/commits/current": self.source_response("current"),
+        }
+        with patch.object(updater, "stable_ref", return_value=None), patch.object(updater, "fetch_json", side_effect=responses.__getitem__):
+            self.assertEqual(updater.source_revision("example/input", "current"), ("current", None, "2026-10-18"))
+
+    def test_diverged_release_and_branch_cannot_discard_current_source(self):
+        api = "https://api.github.com/repos/example/input"
+        responses = {
+            f"{api}/commits/v0.2.0": self.source_response("other-stable"),
+            f"{api}/compare/current...other-stable": {"status": "diverged"},
+            api: {"default_branch": "main"},
+            f"{api}/commits/main": self.source_response("other-main"),
+            f"{api}/compare/current...other-main": {"status": "diverged"},
+            f"{api}/commits/current": self.source_response("current"),
+        }
+        with patch.object(updater, "stable_ref", return_value={"tag_name": "v0.2.0"}), patch.object(updater, "fetch_json", side_effect=responses.__getitem__):
+            self.assertEqual(updater.source_revision("example/input", "current"), ("current", None, "2026-10-18"))
+
     def test_pinned_github_source_updates_revision_hash_and_version_together(self):
         with tempfile.TemporaryDirectory() as directory:
             recipe = Path(directory) / "default.nix"
@@ -95,8 +145,9 @@ class UpdateTests(unittest.TestCase):
   };
 in src
 ''')
-            with patch.object(updater, "source_revision", return_value=("release-commit", {"tag_name": "v2.4.2"}, "2026-10-14")), patch.object(updater, "run", return_value='{"hash":"release-hash"}'), patch.object(updater, "Path", return_value=recipe):
+            with patch.object(updater, "source_revision", return_value=("release-commit", {"tag_name": "v2.4.2"}, "2026-10-14")) as resolve, patch.object(updater, "run", return_value='{"hash":"release-hash"}'), patch.object(updater, "Path", return_value=recipe):
                 updater.update_github({"repo": "example/input", "attr": "input"})
+            resolve.assert_called_once_with("example/input", minimum_revision="old-commit")
             result = recipe.read_text()
             self.assertIn('version = "2.4.2";', result)
             self.assertIn('rev = "release-commit";', result)
@@ -121,6 +172,24 @@ in upstreamSrc
             self.assertIn('owner = "new-owner";', result)
             self.assertIn('repo = "new-repo";', result)
             self.assertIn('rev = "new-revision";', result)
+
+    def test_retaining_current_source_preserves_its_version(self):
+        with tempfile.TemporaryDirectory() as directory:
+            recipe = Path(directory) / "default.nix"
+            original = '''let
+  src = fetchFromGitHub {
+    owner = "example";
+    repo = "input";
+    rev = "current";
+    hash = "current-hash";
+  };
+  version = "2.4.2";
+in src
+'''
+            recipe.write_text(original)
+            with patch.object(updater, "source_revision", return_value=("current", None, "2026-10-18")), patch.object(updater, "run", return_value='{"hash":"current-hash"}'):
+                updater.update_github_source({"repo": "example/input"}, recipe, "src")
+            self.assertEqual(recipe.read_text(), original)
 
     def test_new_unpinned_and_existing_pinned_inputs_can_both_update(self):
         for url in ["github:example/suite", "github:example/suite/old", "github:example/suite?ref=main&dir=nix"]:
@@ -178,6 +247,15 @@ in upstreamSrc
             with patch.object(updater, "source_revision", return_value=("new", None, "2026-10-20")), patch.object(updater, "run"), patch.object(updater, "Path", return_value=path), patch.object(updater.subprocess, "run") as sync:
                 updater.update_flake({"input": "suite", "repo": "example/suite"})
             self.assertEqual(sync.call_args.args[0][1:], ["scripts/sync-project-inputs.py", "--if-supported", "suite"])
+
+    def test_flake_update_protects_the_existing_pinned_revision(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "flake.nix"
+            current = "a" * 40
+            path.write_text(f'inputs.suite.url = "github:example/suite/{current}?dir=nix";')
+            with patch.object(updater, "source_revision", return_value=("b" * 40, None, "2026-10-20")) as resolve, patch.object(updater, "run"), patch.object(updater, "Path", return_value=path), patch.object(updater.subprocess, "run"):
+                updater.update_flake({"input": "suite", "repo": "example/suite"})
+            resolve.assert_called_once_with("example/suite", minimum_revision=current)
 
     def test_stable_npm_version_is_preferred(self):
         metadata = {"versions": {"1.2.0": {}, "1.10.0": {}, "2.0.0-beta.1": {}}, "dist-tags": {"latest": "2.0.0-beta.1"}}
