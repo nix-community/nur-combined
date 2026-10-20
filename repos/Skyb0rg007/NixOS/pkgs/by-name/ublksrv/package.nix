@@ -18,7 +18,7 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "ublksrv";
-  version = "1.8-unstable-2026-09-24";
+  version = "1.9";
   __structuredAttrs = true;
   strictDeps = true;
 

@@ -1,11 +1,11 @@
 # Packages
 
-Generated from 72 packages.
+Generated from 73 packages.
 
 ## `ambient-build-vm`
 
 - **Package name:** ambient-build-vm
-- **Version:** 0.1.0-unstable-2026-07-10
+- **Version:** 0-unstable-2026-08-23
 - **Description:** Build VM images for Ambient CI
 - **Homepage:** [https://ambient.liw.fi/](https://ambient.liw.fi/)
 - **License:** AGPL-3.0-or-later
@@ -13,7 +13,7 @@ Generated from 72 packages.
 ## `ambient-ci`
 
 - **Package name:** ambient-ci
-- **Version:** 0.21.0
+- **Version:** 0.21.1
 - **Description:** Ambient continuous integration engine
 - **Homepage:** [https://ambient.liw.fi/](https://ambient.liw.fi/)
 - **License:** AGPL-3.0-or-later
@@ -61,7 +61,7 @@ Generated from 72 packages.
 ## `brush`
 
 - **Package name:** brush
-- **Version:** 0.4.0-unstable-2026-10-12
+- **Version:** 0.4.0-unstable-2026-10-20
 - **Description:** Bash/POSIX-compatible shell implemented in Rust
 - **Homepage:** [https://github.com/reubeno/brush](https://github.com/reubeno/brush)
 - **License:** MIT
@@ -69,7 +69,7 @@ Generated from 72 packages.
 ## `buildgrid`
 
 - **Package name:** buildgrid
-- **Version:** 0.8.14
+- **Version:** 0.9.0
 - **Description:** Python remote execution service
 - **Homepage:** [https://buildgrid.build](https://buildgrid.build)
 - **License:** Apache-2.0
@@ -140,7 +140,7 @@ Generated from 72 packages.
 ## `docker-sbx`
 
 - **Package name:** docker-sbx
-- **Version:** 0.48.0-rc4
+- **Version:** 0.49.1
 - **Description:** Safe environments for agents
 - **Homepage:** [https://docs.docker.com/reference/cli/sbx/](https://docs.docker.com/reference/cli/sbx/)
 - **License:** LicenseRef-nixos-unfree
@@ -180,7 +180,7 @@ Generated from 72 packages.
 ## `image-builder`
 
 - **Package name:** image-builder
-- **Version:** 86.0.0
+- **Version:** 87.0.0
 - **Description:** Tools to build and deploy disk-images
 - **Homepage:** [https://osbuild.org](https://osbuild.org)
 - **License:** Apache-2.0
@@ -228,7 +228,7 @@ Generated from 72 packages.
 ## `landstrip`
 
 - **Package name:** landstrip
-- **Version:** 0.19.13
+- **Version:** 0.19.20
 - **Description:** Run tools in OS-level sandboxes
 - **Homepage:** [https://github.com/landstrip/landstrip](https://github.com/landstrip/landstrip)
 - **License:** LGPL-3.0-or-later
@@ -276,7 +276,7 @@ Generated from 72 packages.
 ## `mkosi-HEAD`
 
 - **Package name:** mkosi-HEAD
-- **Version:** 27.1-unstable-2026-10-09
+- **Version:** 27.1-unstable-2026-10-19
 - **Description:** Build legacy-free OS images, built from git master
 - **Homepage:** [https://github.com/systemd/mkosi](https://github.com/systemd/mkosi)
 - **License:** LGPL-2.1-only
@@ -292,7 +292,7 @@ Generated from 72 packages.
 ## `mxc`
 
 - **Package name:** mxc
-- **Version:** 1.0.0
+- **Version:** 1.0.1
 - **Description:** Sandboxed code execution system for running untrusted code
 - **Homepage:** [https://github.com/microsoft/mxc](https://github.com/microsoft/mxc)
 - **License:** MIT
@@ -379,7 +379,7 @@ Generated from 72 packages.
 ## `quarry`
 
 - **Package name:** quarry
-- **Version:** 0-unstable-2026-10-09
+- **Version:** 0-unstable-2026-10-14
 - **Description:** TUF-based software distribution toolchain
 - **License:** Apache-2.0
 
@@ -389,6 +389,14 @@ Generated from 72 packages.
 - **Version:** 0.11.0
 - **Description:** Emulate a Radicle CI run locally
 - **Homepage:** [https://radicle-ci.liw.fi](https://radicle-ci.liw.fi)
+- **License:** MIT OR Apache-2.0
+
+## `rad-plan`
+
+- **Package name:** rad-plan
+- **Version:** 0.3.0
+- **Description:** Collaborative Object for Claude Code Plans
+- **Homepage:** [https://radicle.network/nodes/iris.radicle.network/rad%3Az4L8L9ctRYn2bcPuUT4GRz7sggG1v](https://radicle.network/nodes/iris.radicle.network/rad%3Az4L8L9ctRYn2bcPuUT4GRz7sggG1v)
 - **License:** MIT OR Apache-2.0
 
 ## `radicle-ci-ambient`
@@ -458,7 +466,7 @@ Generated from 72 packages.
 ## `sequin`
 
 - **Package name:** sequin
-- **Version:** 0-unstable-2026-10-08
+- **Version:** 0-unstable-2026-10-19
 - **Description:** Contact-centric PGP certificate manager built on Sequoia
 - **Homepage:** [https://gitlab.com/sequoia-pgp/sequin](https://gitlab.com/sequoia-pgp/sequin)
 - **License:** GPL-3.0-only
@@ -530,7 +538,7 @@ Generated from 72 packages.
 ## `ublksrv`
 
 - **Package name:** ublksrv
-- **Version:** 1.8-unstable-2026-09-24
+- **Version:** 1.9
 - **Description:** userspace block device driver
 - **Homepage:** [https://github.com/ublk-org/ublksrv](https://github.com/ublk-org/ublksrv)
 - **License:** (MIT OR GPL-2.0-only) AND (MIT OR LGPL-2.1-only) AND GPL-2.0-only
@@ -557,7 +565,7 @@ Generated from 72 packages.
 ## `cdash`
 
 - **Package name:** cdash
-- **Version:** 5.4.0
+- **Version:** 5.5.0
 - **Description:** CDash is a web-based software testing server
 - **Homepage:** [https://www.cdash.org](https://www.cdash.org)
 - **License:** BSD-3-Clause
