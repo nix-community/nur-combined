@@ -123,6 +123,16 @@ rec {
       # File a bug if you depend on any for non-debug work!
       debug = internal.debugCrate { inherit packageId; };
     };
+    "touchhle-ios-entry" = rec {
+      packageId = "touchhle-ios-entry";
+      build = internal.buildRustCrateWithFeatures {
+        packageId = "touchhle-ios-entry";
+      };
+
+      # Debug support which might change between releases.
+      # File a bug if you depend on any for non-debug work!
+      debug = internal.debugCrate { inherit packageId; };
+    };
   };
 
 
@@ -4896,8 +4906,10 @@ rec {
         ];
         features = {
           "default" = [ "static" ];
+          "dynamic-sdl" = [ "touchHLE_openal_soft_wrapper/static" "touchHLE_libxml2_wrapper/static" ];
           "static" = [ "sdl2/bundled" "sdl2/static-link" "touchHLE_openal_soft_wrapper/static" "touchHLE_libxml2_wrapper/static" ];
         };
+        resolvedDefaultFeatures = [ "dynamic-sdl" ];
       };
       "touchHLE_dynarmic_wrapper" = rec {
         crateName = "touchHLE_dynarmic_wrapper";
@@ -4977,6 +4989,7 @@ rec {
         ];
         features = {
         };
+        resolvedDefaultFeatures = [ "static" ];
       };
       "touchHLE_pvrt_decompress_wrapper" = rec {
         crateName = "touchHLE_pvrt_decompress_wrapper";
@@ -5027,6 +5040,22 @@ rec {
         libPath = "lib.rs";
         authors = [
           "touchHLE project contributors"
+        ];
+
+      };
+      "touchhle-ios-entry" = rec {
+        crateName = "touchhle-ios-entry";
+        version = "0.1.0";
+        edition = "2021";
+        src = lib.cleanSourceWith { filter = sourceFilter;  src = ./platform/ios/rust-entry; };
+        libName = "hyperhle_core";type = [ "cdylib" ];
+        dependencies = [
+          {
+            name = "touchHLE";
+            packageId = "touchHLE";
+            usesDefaultFeatures = false;
+            features = [ "dynamic-sdl" ];
+          }
         ];
 
       };

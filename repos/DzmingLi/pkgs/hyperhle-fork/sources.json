@@ -1,12 +1,12 @@
 {
-  "version": "1.0.119",
-  "rev": "dc5189b3376375c5af536d973d8efed6cf473954",
-  "hash": "sha256-X1sXBnm9NAjpsAap0UX4n1h5UIMURkEgGgapTL700HA=",
+  "version": "1.2.0",
+  "rev": "b6e3edd9ed0427dabf132271ea1cf446363767ef",
+  "hash": "sha256-7RhiI1/eu1UOuSC6dxyzbOcHw2xvIsQrfNyP4rlxnRA=",
   "components": {
-    "touchHLE_dynarmic_wrapper": "sha256-GtbX29sDTkUBM1WCzdI2v68haV1mO/f4c+PFaGBNb7I=",
+    "touchHLE_dynarmic_wrapper": "sha256-S+ls6FO8ZnTT51RyThfcH6BwgKriMA0MkIlpnPz+IaI=",
     "touchHLE_gl_bindings": "sha256-oDsEbLxqs//YYt9E11r+ATDq438RGiJVdd7qM9YzSoQ=",
-    "touchHLE_libxml2_wrapper": "sha256-Su5iSXpFuJKzW54V51j84810NzgzJdMWuK6KPR9woH8=",
-    "touchHLE_openal_soft_wrapper": "sha256-aXPgb2/mj6v8SZyaPhv5QB52TjGvHcx7NGFU/9j0xeM=",
+    "touchHLE_libxml2_wrapper": "sha256-SsEwvoIZ/sOPX8rxBC1D9VxcJ4si2Em9koRiKp1+QHo=",
+    "touchHLE_openal_soft_wrapper": "sha256-MRqnEJMypzv2f7mfuGGWhZxkVL9U97ik5zLhGp4ElBE=",
     "touchHLE_pvrt_decompress_wrapper": "sha256-YNvJyHQZ3UWY+C105gurph0vs6uBq3Yh0WafY2V5zqg=",
     "touchHLE_stb_image_wrapper": "sha256-8Cb2DztWqXc1CPvTutBaFmFWV/biLDy7LLoNZ+swkX4=",
     "touchHLE_version": "sha256-oodvjBOYKhNWQyKppqvDUBrZjqKeljpRi5iVlmVHWCU=",
