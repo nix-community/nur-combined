@@ -129,11 +129,8 @@ in
       serviceConfig = {
         Type = "simple";
         WorkingDirectory = "/etc/touch_keyboard";
-        # The touchscreen is registered right after initrd coldplug starts, so its add event can be missed.
-        ExecStartPre = [
-          "${config.boot.initrd.systemd.package}/bin/udevadm trigger --action=add --subsystem-match=input"
-          "${config.boot.initrd.systemd.package}/bin/udevadm wait --timeout=10 /dev/touch_keyboard"
-        ];
+        # initrd udev misses the touchscreen add event, so create the symlink from sysfs directly.
+        ExecStartPre = "/bin/bash -c 'for e in /sys/class/input/event*; do [ \"$(cat \"$e/device/name\" 2>/dev/null)\" = \"Goodix Capacitive TouchScreen\" ] || continue; ln -sf \"input/$(basename \"$e\")\" /dev/touch_keyboard; done; test -e /dev/touch_keyboard'";
         ExecStart = "${touch-keyboard}/bin/touch_keyboard_handler -m 1.0 -D 6";
         Restart = "on-failure";
         RestartSec = "2s";
