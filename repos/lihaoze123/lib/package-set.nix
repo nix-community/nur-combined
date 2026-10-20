@@ -2,9 +2,13 @@
 
 let
   inherit (pkgs) lib;
-  directories = lib.filterAttrs
-    (name: type: type == "directory" && builtins.pathExists (packageRoot + "/${name}/default.nix"))
-    (builtins.readDir packageRoot);
+  entries = builtins.readDir packageRoot;
+  # NUR reads module metadata with pkgs = null. Discover names without forcing
+  # the caller's package set; derivations remain lazy until a package is used.
+  names = builtins.filter
+    (name: entries.${name} == "directory" && builtins.pathExists (packageRoot + "/${name}/default.nix"))
+    (builtins.attrNames entries);
+  directories = builtins.listToAttrs (map (name: { inherit name; value = null; }) names);
   scope = lib.makeScope pkgs.newScope (self: lib.mapAttrs
     (name: _:
       let
@@ -29,4 +33,4 @@ let
       })
     directories);
 in
-lib.getAttrs (builtins.attrNames directories) scope
+builtins.listToAttrs (map (name: { inherit name; value = scope.${name}; }) names)

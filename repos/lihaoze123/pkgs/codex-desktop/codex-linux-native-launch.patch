@@ -1,0 +1,192 @@
+--- a/linux-features/computer-use-linux/native-client.mjs
++++ b/linux-features/computer-use-linux/native-client.mjs
+@@ -50,14 +50,29 @@
+   };
+   const browserState = cua.getState?.bind(cua);
+   cua.listApps = async (options = {}) => emit(await call('list_apps'), options);
++  cua.listWindows = async (options = {}) => {
++    const windows = (await call('list_apps')).map(window => ({
++      id: Number(window.id.slice('linux-window:'.length)),
++      app: window.displayName,
++      ...(window.title ? { title: window.title } : {}),
++    }));
++    return emit(windows, options);
++  };
++  cua.computer = { ...cua.computer,
++    launch_app: async ({ app }) => { await call('launch_app', app); } };
+   const linuxState = async (options = {}) => {
+     const state = browserState ? await browserState({ emit: false }) : { browsers: [] };
+-    return emit({ ...state, apps: await cua.listApps({ emit: false }) }, options);
++    const { errors: nativeErrors, ...stateWithoutErrors } = state;
++    const errors = state.errors?.filter(error => !String(error).startsWith('Native apps:'));
++    return emit({ ...stateWithoutErrors, apps: await cua.listApps({ emit: false }), ...(errors?.length ? { errors } : {}) }, options);
+   };
+   cua.getState = linuxState;
+   cua.initialize = linuxState;
+   cua.getApp = async (app) => {
+-    if (typeof app !== 'string' || !app.trim()) throw new Error('getApp requires a non-empty app id');
++    if (app && typeof app === 'object' && Number.isSafeInteger(app.windowId) && app.windowId > 0) {
++      app = `linux-window:${app.windowId}`;
++    }
++    if (typeof app !== 'string' || !app.trim()) throw new Error('getApp requires { windowId } or a non-empty app id');
+     const unsupported = async () => { throw new Error('This native Linux Computer Use operation is not supported'); };
+     const state = options => call('get_app_state', app, { include_screenshot: false, ...axBackendOptions(options) });
+     let previousAccessibilityState;
+@@ -121,7 +136,12 @@
+       click: (location, options = {}) => call('click', app, { ...point(location), button: options.mouseButton ?? 'left', click_count: options.clickCount ?? 1, relative: true }),
+       pressKey: key => call('press_key', app, { key }),
+       typeText: text => call('type_text', app, { text }),
+-      scroll: (location, direction, pages = 1) => call('scroll', app, { ...point(location), direction, pages, relative: true }),
++      toggleMaximize: () => call('toggle_maximize', app),
++      scroll: (location, direction, distance = 1) => call('scroll', app, {
++        ...point(location), direction,
++        pages: typeof distance === 'object' ? Math.max(1, Math.round(distance.pixels / 500)) : distance,
++        relative: true,
++      }),
+       drag: (from, to) => {
+         const start = point(from);
+         const end = point(to);
+@@ -137,8 +157,14 @@
+       },
+       selectText: unsupported, setValue: unsupported, performSecondaryAction: unsupported,
+     };
+-    emit('Linux native app APIs: getAXState({disableDiffing?,compact?,maxNodes?,maxDepth?}), getScreenshot({maxWidth?,maxHeight?,maxBytes?,scale?,format?,quality?}), getAXStateAndScreenshot() with both option sets, click([x,y], {mouseButton?,clickCount?}), drag([startX,startY], [endX,endY]), pressKey(key), typeText(text), scroll([x,y], direction, pages?), paste(text). AX state is compact and unchanged compact projections are suppressed by default; pass disableDiffing:true for a fresh compact tree or compact:false for full backend node metadata. Screenshot APIs bring the selected window forward and emit images themselves; getAXState() remains passive. Click/drag/scroll coordinates are window-relative in the reported screenshot coordinate_width/coordinate_height space; screenshots may be downscaled. Accessibility bounds are screen coordinates and must not be passed directly to click, drag, or scroll; display scaling can differ. Native window_context is retained for geometry inspection. Element-index actions, rich paste, selectText, setValue, and secondary actions are unsupported. Input uses the Linux backend and may require OS permissions.');
+-    await target.getAXState();
++    emit('Linux native app APIs: getAXState({disableDiffing?,compact?,maxNodes?,maxDepth?}), getScreenshot({maxWidth?,maxHeight?,maxBytes?,scale?,format?,quality?}), getAXStateAndScreenshot() with both option sets, click([x,y], {mouseButton?,clickCount?}), drag([startX,startY], [endX,endY]), pressKey(key), typeText(text), scroll([x,y], direction, pages?), paste(text), toggleMaximize(). AX state is compact and unchanged compact projections are suppressed by default; pass disableDiffing:true for a fresh compact tree or compact:false for full backend node metadata. Screenshot APIs bring the selected window forward and emit images themselves; getAXState() remains passive. Click/drag/scroll coordinates are window-relative in the reported screenshot coordinate_width/coordinate_height space; screenshots may be downscaled. Accessibility bounds are screen coordinates and must not be passed directly to click, drag, or scroll; display scaling can differ. Native window_context is retained for geometry inspection. toggleMaximize targets the bound niri window by id and toggles maximization to monitor edges. Element-index actions, rich paste, selectText, setValue, and secondary actions are unsupported. Input uses the Linux backend and may require OS permissions.');
++    try { await target.getAXState(); }
++    catch (error) {
++      if (app.startsWith('linux-window:') || !/No window matched/i.test(error.message)) throw error;
++      const launched = await call('launch_app', app);
++      app = launched.id;
++      await target.getAXState();
++    }
+     return target;
+   };
+   return cua;
+--- a/linux-features/computer-use-linux/native-protocol.mjs
++++ b/linux-features/computer-use-linux/native-protocol.mjs
+@@ -2,6 +2,8 @@
+ 
+ const parameters = {
+   list_apps: [],
++  launch_app: [],
++  toggle_maximize: [],
+   get_app_state: ['include_screenshot', 'max_nodes', 'max_depth', 'max_width', 'max_height', 'max_bytes', 'scale', 'format', 'quality'],
+   screenshot: ['max_width', 'max_height', 'max_bytes', 'scale', 'format', 'quality'],
+   click: ['x', 'y', 'button', 'click_count', 'relative'],
+@@ -33,7 +35,7 @@
+   if (!Object.hasOwn(parameters, method)) throw new Error('This native Linux Computer Use operation is not supported');
+   if (!params || typeof params !== 'object' || Array.isArray(params) || Object.keys(params).some(key => !parameters[method].includes(key))) throw new Error('Unsupported native operation parameter');
+   validateParameters(params);
+-  if (method === 'screenshot' && app === undefined) throw new Error('A non-empty native app id is required');
++  if (['screenshot', 'launch_app', 'toggle_maximize'].includes(method) && app === undefined) throw new Error('A non-empty native app id is required');
+   if (app !== undefined) {
+     if (typeof app !== 'string' || !app.trim()) throw new Error('A non-empty native app id is required');
+     if (app.startsWith('linux-window:')) {
+--- a/linux-features/computer-use-linux/native-backend-service.mjs
++++ b/linux-features/computer-use-linux/native-backend-service.mjs
+@@ -1,8 +1,73 @@
+ import { spawn } from 'node:child_process';
++import { readFileSync, readdirSync, realpathSync } from 'node:fs';
++import { basename, join } from 'node:path';
+ import { createInterface } from 'node:readline';
+ import { fileURLToPath } from 'node:url';
+ import { nativeTarget, validateNativeRequest } from './native-protocol.mjs';
+ 
++// Only desktop entries advertised by the current session can be launched.
++// Never interpret an app id as a command, path, URL, or shell fragment.
++export function resolveDesktopEntry(app, environment = process.env) {
++  if (typeof app !== 'string' || !/^[\p{L}\p{N}_. -]+$/u.test(app) || app.startsWith('.') || app.includes('..')) {
++    throw new Error('Launch requires an installed desktop app id or display name');
++  }
++  const filename = app.endsWith('.desktop') ? app : `${app}.desktop`;
++  const dirs = [
++    join(environment.XDG_DATA_HOME || join(environment.HOME || '/nonexistent', '.local/share'), 'applications'),
++    ...(environment.XDG_DATA_DIRS || '/usr/local/share:/usr/share').split(':').filter(Boolean).map(dir => join(dir, 'applications')),
++    '/run/current-system/sw/share/applications',
++    ...(environment.USER ? [join('/etc/profiles/per-user', environment.USER, 'share/applications')] : []),
++  ];
++  const matches = new Map();
++  for (const dir of dirs) {
++    let entries;
++    try { entries = readdirSync(dir).filter(name => name.endsWith('.desktop')); } catch { continue; }
++    for (const name of entries) {
++      const file = join(dir, name);
++      let contents;
++      try { contents = readFileSync(file, 'utf8'); } catch { continue; }
++      const desktop = contents.split(/^\[Desktop Entry\]\s*$/m)[1]?.split(/^\[/m)[0];
++      if (!desktop || !/^Type=Application\s*$/m.test(desktop) || !/^Exec=.+$/m.test(desktop) ||
++          /^Hidden=true\s*$/m.test(desktop) || /^NoDisplay=true\s*$/m.test(desktop)) continue;
++      if (name === filename) return file;
++      const displayName = desktop.match(/^Name=(.+)$/m)?.[1];
++      if (displayName?.toLocaleLowerCase() === app.toLocaleLowerCase()) matches.set(realpathSync(file), file);
++    }
++  }
++  if (matches.size === 1) return matches.values().next().value;
++  if (matches.size > 1) throw new Error(`Multiple desktop applications are named ${app}; use a desktop app id`);
++  throw new Error(`No installed desktop application matched ${app}`);
++}
++
++function niriEnvironment() {
++  const environment = { ...process.env };
++  const runtime = environment.XDG_RUNTIME_DIR || `/run/user/${process.getuid()}`;
++  const sockets = readdirSync(runtime).filter(name => /^niri\.wayland-[\w-]+\.\d+\.sock$/.test(name));
++  if (sockets.length !== 1) throw new Error('Cannot uniquely identify the current niri session');
++  environment.XDG_RUNTIME_DIR = runtime;
++  environment.NIRI_SOCKET = join(runtime, sockets[0]);
++  environment.WAYLAND_DISPLAY = sockets[0].slice('niri.'.length).replace(/\.\d+\.sock$/, '');
++  environment.DBUS_SESSION_BUS_ADDRESS ||= `unix:path=${join(runtime, 'bus')}`;
++  return environment;
++}
++
++function runNativeCommand(command, args) {
++  return new Promise((resolve, reject) => {
++    const child = spawn(command, args, {
++      stdio: ['ignore', 'ignore', 'pipe'], env: niriEnvironment(), detached: command === 'gio',
++    });
++    let diagnostic = '';
++    child.stderr.on('data', chunk => { diagnostic = (diagnostic + chunk.toString()).slice(-2048); });
++    const timer = setTimeout(() => { child.kill(); reject(new Error(`${command} timed out`)); }, 10_000);
++    child.once('error', error => { clearTimeout(timer); reject(error); });
++    child.once('exit', (code, signal) => {
++      clearTimeout(timer);
++      if (code === 0) resolve();
++      else reject(new Error(`${command} failed (${signal ?? code}): ${diagnostic.trim()}`));
++    });
++  });
++}
++
+ function parseBackendJson(text) {
+   return JSON.parse(text, (key, value, context) =>
+     key === 'window_id' && typeof value === 'number' && !Number.isSafeInteger(value)
+@@ -69,6 +134,30 @@
+   async function handleRpc(input) {
+     const { method, app, params } = validateNativeRequest(input);
+     const target = nativeTarget(app);
++    if (method === 'launch_app') {
++      const file = resolveDesktopEntry(app);
++      const desktopId = basename(file, '.desktop').toLocaleLowerCase();
++      const existing = await handleRpc({ method: 'list_apps' });
++      const running = existing.find(window => window.displayName?.toLocaleLowerCase() === desktopId);
++      if (running) return running;
++      const before = new Set(existing.map(window => window.id));
++      await runNativeCommand('gio', ['launch', file]);
++      for (let attempt = 0; attempt < 60; attempt++) {
++        const windows = await handleRpc({ method: 'list_apps' });
++        const created = windows.find(window => !before.has(window.id) && window.displayName?.toLocaleLowerCase() === desktopId) ??
++          windows.find(window => !before.has(window.id));
++        if (created) return created;
++        await new Promise(resolve => setTimeout(resolve, 150));
++      }
++      throw new Error(`Application started, but no new desktop window appeared for ${app}`);
++    }
++    if (method === 'toggle_maximize') {
++      const state = await handleRpc({ method: 'get_app_state', app, params: { include_screenshot: false } });
++      const id = state.window_context?.window_id;
++      if (id === undefined || !/^\d+$/.test(String(id))) throw new Error('No niri window id for maximize');
++      await runNativeCommand('niri', ['msg', 'action', 'maximize-window-to-edges', '--id', String(id)]);
++      return { ok: true, window_id: String(id) };
++    }
+     await start();
+     const result = await request('tools/call', { name: method === 'list_apps' ? 'list_windows' : method, arguments: { ...params, ...target } });
+     const message = result?.content?.filter(item => item.type === 'text').map(item => item.text).join('\n');

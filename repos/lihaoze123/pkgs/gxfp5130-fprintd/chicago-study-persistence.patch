@@ -1,0 +1,139 @@
+--- a/src/device.c
++++ b/src/device.c
+@@ -113,6 +113,7 @@
+   /* Required to restart the operation on a retry failure. */
+   FpPrint   *verify_data;
+   GPtrArray *identify_data;
++  GHashTable *verify_print_snapshots;
+   int        enroll_data;
+ 
+   /* whether we're running an identify, or a verify */
+@@ -248,6 +249,7 @@
+ 
+   g_clear_handle_id (&priv->verify_stop_wait_timeout_id, g_source_remove);
+   g_hash_table_destroy (priv->clients);
++  g_hash_table_destroy (priv->verify_print_snapshots);
+   session_data_set_new (priv, NULL, NULL);
+   g_clear_object (&priv->auth);
+   g_clear_object (&priv->dev);
+@@ -457,6 +459,8 @@
+                                          g_str_equal,
+                                          g_free,
+                                          _unwatch_name);
++  priv->verify_print_snapshots = g_hash_table_new_full (g_direct_hash, g_direct_equal,
++                                                       g_object_unref, (GDestroyNotify) g_bytes_unref);
+ 
+   g_signal_connect (device, "g-authorize-method",
+                     G_CALLBACK (action_authorization_handler),
+@@ -1520,6 +1524,66 @@
+ }
+ 
+ static void
++snapshot_verify_print (FprintDevice *rdev,
++                       FpPrint      *print)
++{
++  FprintDevicePrivate *priv = fprint_device_get_instance_private (rdev);
++  g_autoptr(GError) error = NULL;
++  g_autofree guchar *serialized = NULL;
++  gsize size;
++
++  if (!fp_print_serialize (print, &serialized, &size, &error))
++    {
++      g_warning ("Failed to snapshot print before verification: %s",
++                 error->message);
++      return;
++    }
++
++  g_hash_table_replace (priv->verify_print_snapshots,
++                        g_object_ref (print),
++                        g_bytes_new_take (g_steal_pointer (&serialized), size));
++}
++
++static void
++save_changed_verify_print (FprintDevice *rdev,
++                           FpPrint      *print)
++{
++  FprintDevicePrivate *priv = fprint_device_get_instance_private (rdev);
++  GBytes *before;
++  g_autoptr(GBytes) after = NULL;
++  g_autoptr(GError) error = NULL;
++  g_autofree guchar *serialized = NULL;
++  gsize size;
++  int r;
++
++  before = g_hash_table_lookup (priv->verify_print_snapshots, print);
++  if (!before)
++    return;
++  if (!fp_print_serialize (print, &serialized, &size, &error))
++    {
++      g_warning ("Failed to serialize updated print after verification: %s",
++                 error->message);
++      return;
++    }
++  after = g_bytes_new_take (g_steal_pointer (&serialized), size);
++  if (g_bytes_equal (before, after))
++    return;
++
++  r = store.print_data_save (print);
++  if (r != 0)
++    {
++      g_warning ("Failed to save print updated during verification: %d", r);
++      return;
++    }
++
++  g_debug ("Saved print updated during successful verification");
++  g_hash_table_replace (priv->verify_print_snapshots,
++                        g_object_ref (print),
++                        g_steal_pointer (&after));
++}
++
++
++static void
+ match_cb (FpDevice *device,
+           FpPrint  *match,
+           FpPrint  *print,
+@@ -1535,6 +1599,9 @@
+ 
+   cancelled = g_cancellable_is_cancelled (priv->current_cancellable);
+   matched = match != NULL && cancelled == FALSE;
++
++  if (matched)
++    save_changed_verify_print (rdev, match);
+ 
+   report_verify_status (rdev, matched, error);
+ }
+@@ -1568,6 +1635,7 @@
+   else
+     {
+       g_clear_object (&priv->verify_data);
++      g_hash_table_remove_all (priv->verify_print_snapshots);
+ 
+       if (error)
+         {
+@@ -1613,6 +1681,7 @@
+   else
+     {
+       g_clear_pointer (&priv->identify_data, g_ptr_array_unref);
++      g_hash_table_remove_all (priv->verify_print_snapshots);
+ 
+       if (error)
+         {
+@@ -1697,6 +1766,9 @@
+       g_debug ("start identification device %d", priv->id);
+       priv->current_cancellable = g_cancellable_new ();
+       priv->identify_data = g_ptr_array_ref (gallery);
++      g_hash_table_remove_all (priv->verify_print_snapshots);
++      for (guint i = 0; i < gallery->len; i++)
++        snapshot_verify_print (rdev, g_ptr_array_index (gallery, i));
+       fp_device_identify (priv->dev, gallery, priv->current_cancellable,
+                           match_cb, rdev, NULL,
+                           (GAsyncReadyCallback) identify_cb, rdev);
+@@ -1732,6 +1804,8 @@
+       priv->current_action = ACTION_VERIFY;
+       priv->current_cancellable = g_cancellable_new ();
+       priv->verify_data = g_object_ref (print);
++      g_hash_table_remove_all (priv->verify_print_snapshots);
++      snapshot_verify_print (rdev, print);
+       fp_device_verify (priv->dev, print, priv->current_cancellable,
+                         match_cb, rdev, NULL,
+                         (GAsyncReadyCallback) verify_cb, rdev);

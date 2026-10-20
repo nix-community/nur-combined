@@ -1,0 +1,285 @@
+--- a/computer-use-linux/src/server.rs
++++ b/computer-use-linux/src/server.rs
+@@ -1346,9 +1346,73 @@
+             open_world_hint = true
+         )
+     )]
+-    async fn drag(&self, Parameters(params): Parameters<DragParams>) -> Json<ActionOutput> {
+-        let received = Some(serde_json::json!(params));
++    async fn drag(&self, Parameters(mut params): Parameters<DragParams>) -> Json<ActionOutput> {
++        let received = Some(serde_json::json!(params.clone()));
+         let mut input_guard = Arc::clone(&self.input_operation_lock).lock_owned().await;
++        let mut portal_target_points = None;
++        let window_target = params.window_target();
++        if params.relative == Some(true) && window_target.is_none() {
++            return Json(ActionOutput {
++                ok: false,
++                implemented: true,
++                action: "drag".to_string(),
++                message: "Relative coordinate drags require a window target.".to_string(),
++                received,
++            });
++        }
++        if let Some(target) = window_target {
++            let focus = match self.focus_target_for_input(&target).await {
++                Ok(focus) => focus,
++                Err(message) => {
++                    return Json(ActionOutput {
++                        ok: false,
++                        implemented: true,
++                        action: "drag".to_string(),
++                        message,
++                        received,
++                    });
++                }
++            };
++            tokio::time::sleep(Duration::from_millis(120)).await;
++            if params.relative == Some(true) {
++                let Some(focus) = focus.as_ref() else {
++                    return Json(ActionOutput {
++                        ok: false,
++                        implemented: true,
++                        action: "drag".to_string(),
++                        message: "Relative coordinate drags require verified target-window focus."
++                            .to_string(),
++                        received,
++                    });
++                };
++                let coordinate_map = match self.focused_window_coordinate_map(focus).await {
++                    Ok(mapping) => mapping,
++                    Err(message) => {
++                        return Json(ActionOutput {
++                            ok: false,
++                            implemented: true,
++                            action: "drag".to_string(),
++                            message,
++                            received,
++                        });
++                    }
++                };
++                if let Err(message) =
++                    apply_window_relative_drag_coordinates(&mut params, coordinate_map.capture_rect)
++                {
++                    return Json(ActionOutput {
++                        ok: false,
++                        implemented: true,
++                        action: "drag".to_string(),
++                        message,
++                        received,
++                    });
++                }
++                portal_target_points = coordinate_map
++                    .portal_point(params.start_x, params.start_y)
++                    .zip(coordinate_map.portal_point(params.end_x, params.end_y));
++            }
++        }
+         // Preferred backend: the uinput absolute pointer (accurate landing).
+         if self.ensure_abs_pointer().await {
+             let abs_pointer = Arc::clone(&self.abs_pointer);
+@@ -1405,17 +1469,10 @@
+         }
+         if let Some(session) = self.cached_portal_pointer_session() {
+             let _ = self.capture_space_rect().await;
+-            let Some((start_x, start_y)) =
++            let Some(((start_x, start_y), (end_x, end_y))) = portal_target_points.or_else(|| {
+                 self.logical_portal_point(&session, params.start_x, params.start_y)
+-            else {
+-                self.clear_portal_pointer_session(&session);
+-                return Json(pointer_action_result(portal_coordinate_error(
+-                    "drag", received,
+-                )));
+-            };
+-            let Some((end_x, end_y)) =
+-                self.logical_portal_point(&session, params.end_x, params.end_y)
+-            else {
++                    .zip(self.logical_portal_point(&session, params.end_x, params.end_y))
++            }) else {
+                 self.clear_portal_pointer_session(&session);
+                 return Json(pointer_action_result(portal_coordinate_error(
+                     "drag", received,
+@@ -1451,16 +1508,12 @@
+             let _ = self.capture_space_rect().await;
+             match self.ensure_portal_pointer_session().await {
+                 Ok(Some(session)) => {
+-                    let Some((start_x, start_y)) =
+-                        self.logical_portal_point(&session, params.start_x, params.start_y)
+-                    else {
+-                        self.clear_portal_pointer_session(&session);
+-                        return Json(pointer_action_result(portal_coordinate_error(
+-                            "drag", received,
+-                        )));
+-                    };
+-                    let Some((end_x, end_y)) =
+-                        self.logical_portal_point(&session, params.end_x, params.end_y)
++                    let Some(((start_x, start_y), (end_x, end_y))) =
++                        portal_target_points.or_else(|| {
++                            self.logical_portal_point(&session, params.start_x, params.start_y).zip(
++                                self.logical_portal_point(&session, params.end_x, params.end_y),
++                            )
++                        })
+                     else {
+                         self.clear_portal_pointer_session(&session);
+                         return Json(pointer_action_result(portal_coordinate_error(
+@@ -2451,6 +2504,40 @@
+     start_y: i32,
+     end_x: i32,
+     end_y: i32,
++    #[serde(default)]
++    window_id: Option<u64>,
++    #[serde(default)]
++    app_id: Option<String>,
++    #[serde(default)]
++    wm_class: Option<String>,
++    #[serde(default, rename = "title")]
++    window_title: Option<String>,
++    /// Interpret both points relative to the targeted window's screenshot.
++    #[serde(default)]
++    relative: Option<bool>,
++}
++
++impl DragParams {
++    fn window_target(&self) -> Option<WindowTarget> {
++        if self.window_id.is_none()
++            && self.app_id.is_none()
++            && self.wm_class.is_none()
++            && self.window_title.is_none()
++        {
++            return None;
++        }
++        Some(WindowTarget {
++            window_id: self.window_id,
++            pid: None,
++            tty: None,
++            terminal_pid: None,
++            terminal_command: None,
++            terminal_cwd: None,
++            app_id: self.app_id.clone(),
++            wm_class: self.wm_class.clone(),
++            title: self.window_title.clone(),
++        })
++    }
+ }
+ 
+ #[derive(Debug, Clone, Deserialize, Serialize, JsonSchema)]
+@@ -4117,6 +4204,34 @@
+     Ok(())
+ }
+ 
++fn apply_window_relative_drag_coordinates(
++    params: &mut DragParams,
++    capture_rect: (i32, i32, u32, u32),
++) -> std::result::Result<(), String> {
++    let (origin_x, origin_y, width, height) = capture_rect;
++    if width == 0 || height == 0 {
++        return Err(
++            "Relative coordinate drags require non-empty target-window bounds.".to_string(),
++        );
++    }
++    let translate = |x: i32, y: i32| -> std::result::Result<(i32, i32), String> {
++        if x < 0 || y < 0 || x as u32 >= width || y as u32 >= height {
++            return Err("Relative drag coordinates must be inside target-window bounds.".to_string());
++        }
++        Ok((
++            origin_x
++                .checked_add(x)
++                .ok_or_else(|| "Relative drag x coordinate overflowed.".to_string())?,
++            origin_y
++                .checked_add(y)
++                .ok_or_else(|| "Relative drag y coordinate overflowed.".to_string())?,
++        ))
++    };
++    (params.start_x, params.start_y) = translate(params.start_x, params.start_y)?;
++    (params.end_x, params.end_y) = translate(params.end_x, params.end_y)?;
++    Ok(())
++}
++
+ /// Point a window-targeted scroll at the centre of the resolved window when
+ /// the caller supplied no coordinates. Without this the wheel events land on
+ /// whatever is under the current pointer position.
+@@ -5953,6 +6068,49 @@
+         }
+     }
+ 
++    #[test]
++    fn relative_drag_coordinates_use_capture_space_rect() {
++        let mut params = DragParams {
++            start_x: 7,
++            start_y: 9,
++            end_x: 107,
++            end_y: 209,
++            window_id: Some(42),
++            app_id: None,
++            wm_class: None,
++            window_title: None,
++            relative: Some(true),
++        };
++
++        apply_window_relative_drag_coordinates(&mut params, (133, 267, 1067, 800)).unwrap();
++
++        assert_eq!((params.start_x, params.start_y), (140, 276));
++        assert_eq!((params.end_x, params.end_y), (240, 476));
++    }
++
++    #[test]
++    fn relative_drag_coordinates_must_keep_both_points_inside_bounds() {
++        for (start, end) in [((-1, 9), (107, 209)), ((7, 9), (800, 209))] {
++            let mut params = DragParams {
++                start_x: start.0,
++                start_y: start.1,
++                end_x: end.0,
++                end_y: end.1,
++                window_id: Some(42),
++                app_id: None,
++                wm_class: None,
++                window_title: None,
++                relative: Some(true),
++            };
++
++            let error =
++                apply_window_relative_drag_coordinates(&mut params, (100, 200, 800, 600))
++                    .unwrap_err();
++
++            assert!(error.contains("inside target-window bounds"));
++        }
++    }
++
+     #[test]
+     fn accessibility_filter_candidates_prefer_title_and_skip_synthetic_app_id() {
+         let window = window_info(
+--- a/linux-features/computer-use-linux/native-protocol.mjs
++++ b/linux-features/computer-use-linux/native-protocol.mjs
+@@ -6,6 +6,7 @@
+   screenshot: ['max_width', 'max_height', 'max_bytes', 'scale', 'format', 'quality'],
+   click: ['x', 'y', 'button', 'click_count', 'relative'],
+   scroll: ['x', 'y', 'direction', 'pages', 'relative'],
++  drag: ['start_x', 'start_y', 'end_x', 'end_y', 'relative'],
+   press_key: ['key'],
+   type_text: ['text'],
+ };
+--- a/linux-features/computer-use-linux/native-client.mjs
++++ b/linux-features/computer-use-linux/native-client.mjs
+@@ -120,13 +120,22 @@
+       pressKey: key => call('press_key', app, { key }),
+       typeText: text => call('type_text', app, { text }),
+       scroll: (location, direction, pages = 1) => call('scroll', app, { ...point(location), direction, pages, relative: true }),
++      drag: (from, to) => {
++        const start = point(from);
++        const end = point(to);
++        return call('drag', app, {
++          start_x: start.x, start_y: start.y,
++          end_x: end.x, end_y: end.y,
++          relative: true,
++        });
++      },
+       paste: async (text, options = {}) => {
+         if (options.format && options.format !== 'text') return unsupported();
+         return call('type_text', app, { text });
+       },
+-      drag: unsupported, selectText: unsupported, setValue: unsupported, performSecondaryAction: unsupported,
++      selectText: unsupported, setValue: unsupported, performSecondaryAction: unsupported,
+     };
+-    emit('Linux native app APIs: getAXState({disableDiffing?,compact?,maxNodes?,maxDepth?}), getScreenshot({maxWidth?,maxHeight?,maxBytes?,scale?,format?,quality?}), getAXStateAndScreenshot() with both option sets, click([x,y], {mouseButton?,clickCount?}), pressKey(key), typeText(text), scroll([x,y], direction, pages?), paste(text). AX state is compact and unchanged compact projections are suppressed by default; pass disableDiffing:true for a fresh compact tree or compact:false for full backend node metadata. Screenshot APIs bring the selected window forward and emit images themselves; getAXState() remains passive. Click/scroll coordinates are window-relative in the reported screenshot coordinate_width/coordinate_height space; screenshots may be downscaled. Accessibility bounds are screen coordinates and must not be passed directly to click/scroll; display scaling can differ. Native window_context is retained for geometry inspection. Element-index actions, drag, rich paste, selectText, setValue, and secondary actions are unsupported. Input uses the Linux backend and may require OS permissions.');
++    emit('Linux native app APIs: getAXState({disableDiffing?,compact?,maxNodes?,maxDepth?}), getScreenshot({maxWidth?,maxHeight?,maxBytes?,scale?,format?,quality?}), getAXStateAndScreenshot() with both option sets, click([x,y], {mouseButton?,clickCount?}), drag([startX,startY], [endX,endY]), pressKey(key), typeText(text), scroll([x,y], direction, pages?), paste(text). AX state is compact and unchanged compact projections are suppressed by default; pass disableDiffing:true for a fresh compact tree or compact:false for full backend node metadata. Screenshot APIs bring the selected window forward and emit images themselves; getAXState() remains passive. Click/drag/scroll coordinates are window-relative in the reported screenshot coordinate_width/coordinate_height space; screenshots may be downscaled. Accessibility bounds are screen coordinates and must not be passed directly to click, drag, or scroll; display scaling can differ. Native window_context is retained for geometry inspection. Element-index actions, rich paste, selectText, setValue, and secondary actions are unsupported. Input uses the Linux backend and may require OS permissions.');
+     await target.getAXState();
+     return target;
+   };

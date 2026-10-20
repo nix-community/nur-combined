@@ -1,0 +1,107 @@
+{
+  "version": "2.1.2",
+  "source": {
+    "revision": "fa188992ef2cc800f9e65b9395139f85ef945c45",
+    "url": "https://github.com/gadicc/watchbound/archive/fa188992ef2cc800f9e65b9395139f85ef945c45.tar.gz",
+    "sha256": "7b0b6dbde1cbd7543ac183d46927b708093f7d3fb21f5d3753946f820896d36b"
+  },
+  "runtime": {
+    "electron": "42.3.0",
+    "node": "24.14.0",
+    "nodeRange": ">=18.15.0"
+  },
+  "packages": {
+    "wrapper": {
+      "name": "watchbound",
+      "license": "MIT",
+      "url": "https://registry.npmjs.org/watchbound/-/watchbound-2.1.2.tgz",
+      "integrity": "sha512-1tk1bBZ+djRXVu6K31anpNCN0CUMe5Oft/ey955IHrPSFwtV3L66gi6mjwzyVz43+9p51RpUJSu7eP+F6kwE2A==",
+      "shasum": "6f762ffbf8376b66e4b054479c107d651a579a31",
+      "sha256": "f297d6753d847170433216c73b9787e322d0849d2c0582e3e557a0f332a20ba1",
+      "archiveEnvironment": "CODEX_WATCHBOUND_ARCHIVE",
+      "files": {
+        "LICENSE.txt": "fa95ce16057358473c9c2fd682b37cda63c6190588663ca70f8e56e624de06cb",
+        "README.md": "afd1a679e88d5d601598bce75621ae4e05711f9e2f5a834d3225d13e4b3beb48",
+        "automatic-reconciliation.js": "3841fc95f72ae44f528da94fba92165d1eae3e07dc661642875725284233d937",
+        "capabilities.js": "52e8093f4ae869c74a8e8eeff0008cd2c1281f8b0ceef1a7f348a5274868a560",
+        "errors.js": "5affc7fc40aba435772ef394be77103ebdcce1ba0b526b1ec4994b0cdd1c5fa6",
+        "index.d.ts": "24389a6b71b81172ca0f91b8178654174f27fd22284e46179f8b553f17c471b5",
+        "index.js": "603a76dc10ac001cec30a1f810ea8f6e016ced51eae0d7d70bcd7c709bf22b03",
+        "native-establishment.js": "b211e6a0646cc1403d9e746ee757be084bb80ae8a29450affe2264527ac51cfa",
+        "observed-state.js": "5d7d0289420a60124819d33598b68f9596754573ac9db88ff42bd1864fe15a3f",
+        "package.json": "f02e8975d8710c805dd0181621481acb87545121f62c18a1dd1b161733005876",
+        "path-delivery.js": "290a1108a6557f67acadccd1bbd0694408d6ba42fef5f80c96180482e7d57b9d"
+      }
+    },
+    "loader": {
+      "name": "@gadicc/watchbound-node",
+      "license": "MIT",
+      "url": "https://registry.npmjs.org/@gadicc/watchbound-node/-/watchbound-node-2.1.2.tgz",
+      "integrity": "sha512-h66Xgk2tNowLj1HfRn87whqsuzg4FJulusSrv3NsdIKE/89tONc2wGqHc2DDkn8j90C7XWYmRtZm0cIA0fok6Q==",
+      "shasum": "fecc1eeb7d5e2c27cde414bc1c3533d091973c00",
+      "sha256": "e12c138118990425892e606184f9cd9f96cd32c841254078747240c5942ba770",
+      "archiveEnvironment": "CODEX_WATCHBOUND_NODE_ARCHIVE",
+      "files": {
+        "LICENSE.txt": "fa95ce16057358473c9c2fd682b37cda63c6190588663ca70f8e56e624de06cb",
+        "README.md": "afd1a679e88d5d601598bce75621ae4e05711f9e2f5a834d3225d13e4b3beb48",
+        "index.d.ts": "ff8aa793ef249ade0ca0744df1fe20d4ec32f762f0c3121d1070cc1640e6e106",
+        "index.js": "fc2c5c40a79452034022cd09ec1bf25fb81c3c9b97de19bb45668534a5c05e62",
+        "load-native.cjs": "981bcd17c519f073ee474d29d37c14c9eeb53c6447765b3cf173f1b81ee8314d",
+        "native-matrix.json": "d1ba83358e166e04e0655479315160bac416096b4c0821301c54f03922ced646",
+        "package.json": "20eb36b7ad735390c7ceeb9057c2fd8cded7acf6530b52d3dfd26037cedf70e4"
+      }
+    },
+    "targets": {
+      "x64": {
+        "name": "@gadicc/watchbound-node-linux-x64-gnu",
+        "license": "MIT",
+        "url": "https://registry.npmjs.org/@gadicc/watchbound-node-linux-x64-gnu/-/watchbound-node-linux-x64-gnu-2.1.2.tgz",
+        "integrity": "sha512-UuEIg6OrHcksCl/yR3JsX6SneEYvxDpT8n68AKPEWajLclj9+aSgCWHi6t2ihh+yC1a5qQbGYNkuUpjSkZh7Dg==",
+        "shasum": "80c76f8269df698fc146b6721428925da1c386cc",
+        "sha256": "2b4aff140baf6a512dab3fa0f14c12dfb1f785d60b3d2ba28e4144e7d275eded",
+        "archiveEnvironment": "CODEX_WATCHBOUND_NODE_X64_ARCHIVE",
+        "files": {
+          "LICENSE.txt": "fa95ce16057358473c9c2fd682b37cda63c6190588663ca70f8e56e624de06cb",
+          "README.md": "afd1a679e88d5d601598bce75621ae4e05711f9e2f5a834d3225d13e4b3beb48",
+          "package.json": "9b9ba9b2fb0bd2da0aac16d738ca989f5a0183e7145dec2f60f48904d969abe6",
+          "watchbound.linux-x64-gnu.node": "1f4713bb126bc8652d83e66d25219e0c0f3c354b3e0efeafcc2ec5e8b0bbec45"
+        },
+        "nativeBinding": {
+          "path": "watchbound.linux-x64-gnu.node",
+          "architecture": "x64",
+          "target": "linux-x64-gnu",
+          "targetTriple": "x86_64-unknown-linux-gnu",
+          "libc": "glibc",
+          "elfClass": 64,
+          "elfMachine": 62,
+          "sha256": "1f4713bb126bc8652d83e66d25219e0c0f3c354b3e0efeafcc2ec5e8b0bbec45"
+        }
+      },
+      "arm64": {
+        "name": "@gadicc/watchbound-node-linux-arm64-gnu",
+        "license": "MIT",
+        "url": "https://registry.npmjs.org/@gadicc/watchbound-node-linux-arm64-gnu/-/watchbound-node-linux-arm64-gnu-2.1.2.tgz",
+        "integrity": "sha512-Eo/jJL+I1UKnxIeSZP1Vk6QIve4Oy9Ik2wcpfq+ifRQfxlyjClSm7KCt94tyYmDzpZUUGq92CjM+/DxiEhJZiA==",
+        "shasum": "a86224b5709f74ddb7aa8d57f5765aa865b3edf4",
+        "sha256": "8a016583cd3ad16bf627e314f72e515ab80c1e1415af7a1b65fdea0b1856d9e3",
+        "archiveEnvironment": "CODEX_WATCHBOUND_NODE_ARM64_ARCHIVE",
+        "files": {
+          "LICENSE.txt": "fa95ce16057358473c9c2fd682b37cda63c6190588663ca70f8e56e624de06cb",
+          "README.md": "afd1a679e88d5d601598bce75621ae4e05711f9e2f5a834d3225d13e4b3beb48",
+          "package.json": "e66c6f59107ad682070f866dd02a6e16f151e68d411d6cc1220f42da30c2fa69",
+          "watchbound.linux-arm64-gnu.node": "8929d81485731438afd66b732f4581f20cdf33bca5e36fb200ef7b2b67be74d2"
+        },
+        "nativeBinding": {
+          "path": "watchbound.linux-arm64-gnu.node",
+          "architecture": "arm64",
+          "target": "linux-arm64-gnu",
+          "targetTriple": "aarch64-unknown-linux-gnu",
+          "libc": "glibc",
+          "elfClass": 64,
+          "elfMachine": 183,
+          "sha256": "8929d81485731438afd66b732f4581f20cdf33bca5e36fb200ef7b2b67be74d2"
+        }
+      }
+    }
+  }
+}

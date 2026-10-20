@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 import re
 import subprocess
+import sys
 import tarfile
 import tempfile
 import urllib.error
@@ -68,6 +69,8 @@ def update_flake(target):
     text = path.read_text()
     path.write_text(pin_flake_url(text, target["repo"], revision))
     run("nix", "flake", "update", target["input"])
+    # Runtime package definitions use checked-in snapshots, not Flake outputs.
+    subprocess.run([sys.executable, "scripts/sync-project-inputs.py", "--if-supported", target["input"]], check=True)
 
 
 def pin_flake_url(text, repo, revision):
@@ -172,8 +175,9 @@ def discover_targets(root=Path(".")):
         name = recipe.parent.name
         metadata_file = recipe.parent / "update.json"
         metadata = json.loads(metadata_file.read_text()) if metadata_file.exists() else {}
-        group = metadata.pop("group", name)
-        if group != name:
+        update_group = metadata.pop("group", None)
+        group = update_group or name
+        if update_group is not None:
             aliases.append((name, group))
             continue
         if group in targets:
@@ -196,7 +200,7 @@ def main():
         return
     if args.target not in targets:
         parser.error("Specify a target from --list")
-    before = {path: path.read_bytes() for path in [Path("flake.nix"), *Path("pkgs").rglob("*.nix")]}
+    before = {path: path.read_bytes() for path in [Path("flake.nix"), *Path("pkgs").rglob("*.nix"), *Path("nixos-modules").rglob("*.nix")]}
     target = targets[args.target]
     handlers = {"flake": update_flake, "vtype": update_vtype, "honk": update_honk, "cloudflare": update_cloudflare, "package": update_package}
     if target["kind"] == "lock":

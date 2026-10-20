@@ -2,7 +2,7 @@
 
 python3.pkgs.buildPythonApplication {
   pname = "oseasy-helper";
-  version = "0.1.0-unstable-2026-10-15";
+  version = "0-unstable-2026-10-15";
   pyproject = true;
 
   src = fetchFromGitHub {

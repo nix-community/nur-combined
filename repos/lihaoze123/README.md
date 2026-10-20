@@ -21,8 +21,8 @@ lihaoze123 的独立 NUR 软件包仓库。软件包配方集中维护，安装�
 | `dms-xhup` | DMS 小鹤音形插件 |
 | `edunet` | 校园网 ePortal CLI |
 | `oseasy-helper` | 噢易课堂广播视频与文件接收 CLI；官方学生端管理功能仅支持 Windows |
-| `codex-desktop`、`codex-computer-use`、`codex-computer-use-niri`、`niri-patched` | niri 上的 Codex Computer Use，保留已有缓存所用的版本与依赖 |
-| `gxfp5130-fprintd`、`gxfp5130-libfprint`、`gxfp5130-tools` | GXFP5130 ChicagoHS 指纹支持 |
+| `codex-desktop`、`codex-computer-use`、`codex-computer-use-niri`、`niri-patched` | niri 上的 Codex Computer Use，固定桌面、后端、niri 和补丁版本 |
+| `gxfp5130-fprintd`、`gxfp5130-libfprint`、`gxfp5130-tools`、`gxfp5130-kernel` | GXFP5130 ChicagoHS 指纹支持 |
 
 目前 Flake 输出支持 `x86_64-linux`。`vscode` 包含非自由软件；Flake 入口已允许，
 通过传统 NUR 入口使用时由调用者设置 `config.allowUnfree`。
@@ -88,9 +88,11 @@ CI 对三个渠道执行传统 NUR 求值检查；私有缓存目标由
 验证签名和内容；不会在验证 store 中编译缺失产物。也可手动运行构建工作流并打开
 `audit`。PR 只构建验证，只有 main/master 的非 PR 工作流可以上传。
 
-主机应直接消费 NUR 自己锁定的依赖，**不要让 NUR 的 nixpkgs 跟随主机 nixpkgs**；
-否则主机更新可能改变产物路径，无法命中 NUR CI 构建的缓存。上游项目已有的独立
-依赖锁定继续保留。私有缓存命中要求精确的 store path，包名和版本相同还不够。
+传统 NUR 和 overlay 使用调用方提供的 `pkgs`，Flake 使用本仓库锁定的 nixpkgs。
+私有缓存命中要求源码、nixpkgs 和包参数一致；包名、版本相同还不够。
+通过主机 overlay 消费时，主机 nixpkgs 的更新可能改变产物路径。
+本次将四个上游项目迁入标准入口后，原有 10 个标准包的路径不变，迁入的 9 个包
+需要重新构建并上传；另新增可直接使用的 `gxfp5130-kernel` 包。
 
 GitHub Secret `ATTIC_TOKEN` 只允许读取、上传 `nur` 缓存，无管理或删除权限。
 `scripts/cache-attic.sh` 使用临时 token 文件上传闭包，结束后清理；公开缓存公钥
@@ -99,35 +101,43 @@ GitHub Secret `ATTIC_TOKEN` 只允许读取、上传 `nur` 缓存，无管理或
 ## NUR、Flake 和 overlay
 
 `default.nix` 符合传统 NUR 接口，维护本地配方及缓存工具，所有依赖取自调用者的 `pkgs`。
-已有独立 Flake 的四个项目通过 `flake.nix` 的 `packages`/`legacyPackages` 聚合，
-并在 Flake 中提供对应 NixOS 模块；它们保持上游自己的配方和依赖锁，不加入
-传统 NUR 的查询集合，以避免查询阶段的远程源码 IFD。
+全部 20 个包由 `lib/package-set.nix` 自动发现，传统 NUR、Flake 和 overlay
+共用同一份配方。源码版本与哈希固定在包目录的 JSON 文件中；构建时下载源码，
+查询时只读取仓库内的配方、补丁、Cargo 锁文件和特性清单，不需要远程源码 IFD。
+Codex Desktop 的 Linux 运行时配方保留上游许可证，来源及固定版本见
+`pkgs/codex-desktop/LICENSE.upstream` 和 `sources.json`。
 
 ```nix
 import ./default.nix { inherit pkgs; }
 ```
 
-NixOS 或 Home Manager 可通过 Flake 输入使用：
+通过官方 NUR 输入使用：
 
 ```nix
-inputs.nur-packages.url = "github:lihaoze123/nur-packages";
+inputs.nur.url = "github:nix-community/NUR";
+inputs.nur.inputs.nixpkgs.follows = "nixpkgs";
 
-# 在模块内
+# 在 NixOS 模块内，Home Manager 使用同一 pkgs 时也可直接引用
+nixpkgs.overlays = [ inputs.nur.overlays.default ];
 environment.systemPackages = [
-  inputs.nur-packages.packages.${pkgs.stdenv.hostPlatform.system}.dbx
+  pkgs.nur.repos.lihaoze123.dbx
 ];
+
+# 标准模块元数据不依赖 pkgs，可以直接导入
+imports = [ inputs.nur.repos.lihaoze123.modules.nixos.edunet ];
 ```
 
 Overlay 将软件包放在 `pkgs.nur-lihaoze123` 中，不覆盖 nixpkgs 同名包。
 
-这是可直接使用的 NUR 格式仓库。进入 NUR 公共索引需要另向
-[nix-community/NUR](https://github.com/nix-community/NUR#how-to-add-your-own-repository)
-提交仓库登记；登记前也可以直接使用上述 Flake 安装命令。
+本仓库已通过 [NUR #1247](https://github.com/nix-community/NUR/pull/1247) 登记。
+新包推送并通过官方求值、索引更新后，会出现在
+[NUR 搜索页](https://nur.nix-community.org/repos/lihaoze123/)，无需逐包提交登记 PR。
+客户端运行 `nix flake update nur` 获取新的官方索引。
 
 ## 模板结构
 
 - `default.nix`、`lib/package-set.nix`：自动发现 `pkgs/<包名>/default.nix`，保留模板预留的入口。
-- `flake.nix`：聚合已有项目、生成按系统的软件包集合，并提供上游模块。
+- `flake.nix`：从标准包集生成按系统的输出，复用本地 NixOS 模块，并固定维护用的上游输入。
 - `ci.nix`：模板提供的构建与缓存输出筛选。
 - `ci-private.nix`：私有缓存的全包构建集合、全部输出及更新脚本。
 - `lib/`、`nixos-modules/`、`overlays/` 和 `overlay.nix`：模板的扩展入口。
@@ -142,8 +152,11 @@ nixpkgs 沿用迁移前的锁定版本；overlay 使用独立命名空间，避�
 更新包时修改版本、源码修订和哈希，再对该包求值、构建及检查。
 `flake.lock` 固定 nixpkgs，保持运行依赖可复现；需要更新时执行 `nix flake update nixpkgs`。
 新增本地包只需添加 `pkgs/<包名>/default.nix`，无需再修改包名清单；包注册、
-CI 目标和默认更新脚本自动生成。Flake 聚合项目仍通过输入和 `lib/flake-projects.nix`
-公开相应包，更新任务直接从 `flake.lock` 的根输入发现，不维护另一份输入名清单。
+CI 目标和默认更新脚本自动生成。四个项目的 Flake 输入仅供维护时固定、获取上游源码；
+更新任务从 `flake.lock` 的根输入发现，更新后调用 `scripts/sync-project-inputs.py`
+同步配方、模块、源码哈希、补丁及求值元数据。相关包通过 `update.json` 的 `group`
+复用项目更新任务，包括包名与输入名相同的情况；不会重复生成独立包更新任务。
+上游目录或配方结构发生变化时，同步脚本会报错，需人工检查适配后再合并更新 PR。
 
 每周一 02:43 UTC 按独立包或配套组件组生成更新 PR，不自动合并。优先稳定发行版
 及稳定标签，没有稳定版的源码项目跟踪分支；仅提供预编译文件的项目使用可用的发布渠道。

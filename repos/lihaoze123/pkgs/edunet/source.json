@@ -1,0 +1,13 @@
+{
+  "owner": "lihaoze123",
+  "repo": "hhu-edunet-cli",
+  "rev": "cd4b7d4d12be160fc8c1aee777adf60267b759a7",
+  "hash": "sha256-jzw/crkrUTXj8mmubrjLP81QNgvivSBd8jvH+JAUruo=",
+  "lastModified": 1789352637,
+  "version": "0.1.0",
+  "typer": {
+    "version": "0.27.2",
+    "url": "https://files.pythonhosted.org/packages/dc/bf/205d0004930ede8f542fb58f601526fccf4ae7626075ca1e6c4de5d3d652/typer-0.27.2-py3-none-any.whl",
+    "hash": "sha256:b3a5fc4342d5fc8fda8fc3010b1cf117e9249aab7fae800c2eff62fd3842d97d"
+  }
+}

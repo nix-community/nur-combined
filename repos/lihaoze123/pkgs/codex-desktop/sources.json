@@ -1,0 +1,39 @@
+{
+  "project": {
+    "owner": "lihaoze123",
+    "repo": "niri-computer-use",
+    "rev": "daf6e9301200235f9b8af153a22cd321786ad9b2",
+    "hash": "sha256-CcMmYub4KCQx3ddPGTw+vewY0iWJxG8F284HVn6Bpi4=",
+    "lastModified": 1791953589
+  },
+  "desktop": {
+    "owner": "ilysenko",
+    "repo": "codex-desktop-linux",
+    "rev": "839dbb50fbd2ad041089981441a82f2460dac455",
+    "hash": "sha256-i5En3yRYX2UuqJqSVqOT5h+2Q9knqwmQx25oggpMrNg=",
+    "lastModified": 1791636176
+  },
+  "backend": {
+    "owner": "ilysenko",
+    "repo": "codex-desktop-linux",
+    "rev": "9fb575b70b5ecdff51a0c534a5cbd231288e1058",
+    "hash": "sha256-D7eMV+9sYfANE41vIEb/ASWup8udX7sC4jwg1rV2vN0=",
+    "lastModified": 1790123554
+  },
+  "niri": {
+    "owner": "niri-wm",
+    "repo": "niri",
+    "rev": "4263c9a17f80fc8019bd474f85b1cc1dcbac785c",
+    "hash": "sha256-btWAVpdpl/43Jms3c+xaNF4EOS0pvTMkVE3jPdzLrhU=",
+    "lastModified": 1791889142
+  },
+  "backendVersion": "0.4.9-linux-alpha1",
+  "backendPatches": [
+    "codex-niri-window-screenshot.patch",
+    "codex-niri-window-coordinates.patch",
+    "codex-linux-native-drag.patch",
+    "codex-linux-drag-interpolation.patch",
+    "codex-niri-scroll-unicode.patch",
+    "codex-niri-agent-input.patch"
+  ]
+}

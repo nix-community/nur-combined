@@ -3,10 +3,10 @@
 # Matching honk/native-api + embedded doona build from the same release.
 stdenvNoCC.mkDerivation {
   pname = "honk-core";
-  version = "debug.2026.10.12.native-api.1";
+  version = "0.1.0-beta.20";
   src = fetchurl {
     url = "https://github.com/Zakkaus/doona/releases/download/v0.1.0-beta.20/honk-core-debug-x86_64-unknown-linux-musl.tar.gz";
-    sha256 = "304f0d8f6eccb0915f0653f0dfe9c4a98cec297f628d0edd21daf0738b58b60f";
+    hash = "sha256-ME8Nj27MsJFfBlPw3+nEqYzsKX9ijQ7dIdrwc4tYtg8=";
   };
   dontConfigure = true;
   dontBuild = true;

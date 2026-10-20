@@ -1,0 +1,161 @@
+--- a/computer-use-linux/src/server.rs
++++ b/computer-use-linux/src/server.rs
+@@ -1201,6 +1201,37 @@
+             Some((x, y)) => self.off_screen_note_for_point(x, y).await,
+             None => None,
+         };
++        // ydotool's --absolute move is implemented with relative motion, so
++        // it misses its target on niri's mixed-scale displays. Put the cursor
++        // at the exact capture-space point with the same uinput device as
++        // click/drag, then send only wheel events through ydotool.
++        if self.is_niri_session() && target_point.is_some() && self.ensure_abs_pointer().await {
++            let (x, y) = target_point.expect("checked above");
++            let (dx, dy) = match direction {
++                ScrollDirection::Up => (0, units),
++                ScrollDirection::Down => (0, -units),
++                ScrollDirection::Left => (units, 0),
++                ScrollDirection::Right => (-units, 0),
++            };
++            let pointer = Arc::clone(&self.abs_pointer);
++            let wheel_args = wheel_mousemove_args(dx, dy);
++            let (guard, result) = run_cancellation_safe_input(input_guard, async move {
++                tokio::task::spawn_blocking(move || {
++                    let mut pointer = pointer.lock().map_err(|error| error.to_string())?;
++                    pointer.as_mut().ok_or("absolute pointer unavailable".to_string())?
++                        .move_to(x, y).map_err(|error| format!("{error:#}"))
++                })
++                .await
++                .map_err(|error| error.to_string())??;
++                sleep(Duration::from_millis(35)).await;
++                run_ydotool(&wheel_args).await.map(|output| vec![output])
++            }).await;
++            let _guard = guard;
++            return Json(with_notes(
++                pointer_action_result(action_result("scroll", result, received)),
++                off_screen_note,
++            ));
++        }
+         if let Some(session) = self.cached_portal_pointer_session() {
+             let mapped_target = match (portal_target_point, target_point) {
+                 (Some(point), _) => Some(Some(point)),
+@@ -1763,6 +1794,45 @@
+                 });
+             }
+         };
++        // ydotool type maps Unicode bytes to keycodes and can report success
++        // while inserting unrelated ASCII. niri supports virtual keyboards;
++        // wtype generates the keymap needed for literal non-ASCII input.
++        if self.is_niri_session() && !params.text.is_ascii() {
++            let text = params.text.clone();
++            let target_window = match focus.as_ref() {
++                Some(focused) => Some(focused.requested_window.clone()),
++                None => focused_window().await.ok().flatten(),
++            };
++            let Some(target_window) = target_window else {
++                return Json(action_result_with_focus(
++                    "type_text",
++                    Err("Cannot identify the focused niri window for non-ASCII input; no input was sent".to_string()),
++                    received,
++                    focus,
++                ));
++            };
++            let browser_unicode_hex = chromium_browser_window(&target_window);
++            let (guard, result) = run_cancellation_safe_input(input_guard, async move {
++                if browser_unicode_hex {
++                    run_chromium_unicode_hex_text(&text).await
++                } else {
++                    run_wtype_text(&text).await.map(|output| vec![output])
++                }
++            }).await;
++            let _guard = guard;
++            let mut output = action_result_with_focus("type_text", result, received, focus.clone());
++            if output.ok {
++                output.message = if browser_unicode_hex {
++                    "Action sent through Chromium Unicode hex input.".to_string()
++                } else {
++                    "Action sent through niri virtual keyboard (wtype).".to_string()
++                };
++                if focus.is_some() {
++                    output = with_notes(output, self.input_landing_notes(focus.as_ref(), true).await);
++                }
++            }
++            return Json(output);
++        }
+         if self.should_prefer_kde_clipboard_text_backend() {
+             match self.ensure_portal_keyboard_session().await {
+                 Ok(Some(session)) => {
+@@ -2651,6 +2721,10 @@
+         session_is_wayland(session_type.as_deref(), wayland_display.as_deref())
+     }
+ 
++    fn is_niri_session(&self) -> bool {
++        self.is_wayland_session() && env::var_os("NIRI_SOCKET").is_some()
++    }
++
+     // The Wayland remote-desktop portal is now a *fallback* for input: when a
+     // compatible ydotool CLI and working `ydotoold` socket are present we prefer
+     // ydotool, because it injects input without a permission prompt. GNOME
+@@ -4859,6 +4933,63 @@
+     }
+ }
+ 
++async fn run_wtype_text(text: &str) -> std::result::Result<Output, String> {
++    let executable = option_env!("COMPUTER_USE_WTYPE_EXECUTABLE").unwrap_or("wtype");
++    let mut command = TokioCommand::new(executable);
++    // niri drops the first event while attaching a fresh virtual keyboard.
++    // A modifier tap primes it without inserting text or touching the clipboard.
++    command.args(["-P", "Shift_L", "-p", "Shift_L", "-s", "50", "--", text]);
++    let output = crate::command_runner::output_with_timeout(
++        command, "run wtype", ydotool_type_timeout(text),
++    ).await.map_err(|error| format!("{error:#}"))?;
++    if output.status.success() {
++        Ok(output)
++    } else {
++        Err(format!("wtype failed: {}", String::from_utf8_lossy(&output.stderr)))
++    }
++}
++
++fn chromium_browser_window(window: &WindowInfo) -> bool {
++    [window.app_id.as_deref(), window.wm_class.as_deref()]
++        .into_iter()
++        .flatten()
++        .any(|identity| {
++            matches!(
++                identity.to_ascii_lowercase().as_str(),
++                "microsoft-edge" | "microsoft-edge-stable" | "google-chrome" |
++                "google-chrome-stable" | "chromium" | "chromium-browser" |
++                "brave-browser" | "vivaldi-stable"
++            )
++        })
++}
++
++async fn run_chromium_unicode_hex_text(text: &str) -> std::result::Result<Vec<Output>, String> {
++    let mut outputs = Vec::new();
++    let mut ascii = String::new();
++    for character in text.chars() {
++        if character.is_ascii() {
++            ascii.push(character);
++            continue;
++        }
++        if !ascii.is_empty() {
++            outputs.push(run_ydotool_type_text(&ascii).await?);
++            ascii.clear();
++        }
++        let begin = key_sequence("Ctrl+Shift+U").expect("supported Unicode hex chord");
++        outputs.push(run_ydotool(&ydotool_key_args(begin, true)).await?);
++        sleep(Duration::from_millis(35)).await;
++        outputs.push(run_ydotool_type_text(&format!("{:x}", character as u32)).await?);
++        sleep(Duration::from_millis(35)).await;
++        let commit = key_sequence("Space").expect("supported Unicode hex commit key");
++        outputs.push(run_ydotool(&ydotool_key_args(commit, false)).await?);
++        sleep(Duration::from_millis(35)).await;
++    }
++    if !ascii.is_empty() {
++        outputs.push(run_ydotool_type_text(&ascii).await?);
++    }
++    Ok(outputs)
++}
++
+ fn ydotool_type_timeout(text: &str) -> Duration {
+     let text_seconds = (text.chars().count() as u64).div_ceil(YDOTOOL_TYPE_CHARS_PER_SECOND);
+     Duration::from_secs(INPUT_COMMAND_TIMEOUT.as_secs().saturating_add(text_seconds))

@@ -1,0 +1,93 @@
+--- a/computer-use-linux/src/screenshot.rs
++++ b/computer-use-linux/src/screenshot.rs
+@@ -177,6 +177,44 @@
+     }
+ }
+ 
++// Niri deliberately omits global coordinates for tiled windows. Capture the
++// exact window through compositor IPC instead of guessing a desktop crop.
++pub async fn capture_niri_window_raw(window_id: u64) -> Result<RawScreenshotCapture> {
++    use std::os::unix::fs::DirBuilderExt;
++    let mut nonce = [0u8; 16];
++    getrandom::fill(&mut nonce).map_err(|e| anyhow!("screenshot nonce: {e}"))?;
++    let name = nonce.iter().map(|b| format!("{b:02x}")).collect::<String>();
++    let directory = std::env::temp_dir().join(format!("codex-niri-{name}"));
++    fs::DirBuilder::new().mode(0o700).create(&directory)?;
++    let path = directory.join("window.png");
++    let result = async {
++        let mut command = Command::new("niri");
++        command.args(["msg", "action", "screenshot-window", "--id", &window_id.to_string(),
++            "--write-to-disk", "true", "--show-pointer", "false", "--path"]);
++        command.arg(&path);
++        let output = crate::command_runner::output(command, "capture Niri window").await?;
++        if !output.status.success() {
++            bail!("Niri window capture failed: {}", String::from_utf8_lossy(&output.stderr));
++        }
++        // IPC acknowledges before the compositor finishes encoding/writing PNG.
++        let deadline = tokio::time::Instant::now() + Duration::from_secs(5);
++        loop {
++            if let Ok(capture) = read_png_as_capture_inner(&path, "niri-window") {
++                if image::load_from_memory_with_format(&capture.bytes, image::ImageFormat::Png).is_ok() {
++                    return Ok(capture);
++                }
++            }
++            if tokio::time::Instant::now() >= deadline {
++                bail!("Niri did not write a complete window screenshot within 5 seconds");
++            }
++            tokio::time::sleep(Duration::from_millis(25)).await;
++        }
++    }.await;
++    let _ = fs::remove_file(&path);
++    let _ = fs::remove_dir(&directory);
++    result
++}
++
+ pub async fn capture_screenshot_raw() -> Result<RawScreenshotCapture> {
+     hydrate_session_bus_env();
+ 
+--- a/computer-use-linux/src/server.rs
++++ b/computer-use-linux/src/server.rs
+@@ -322,6 +322,11 @@
+             .await;
+         let (screenshot, screenshot_error) = if include_screenshot {
+             let result: Result<ScreenshotCapture> = async {
++                if let Some(window) = window_context.as_ref().filter(|w| w.backend == "niri") {
++                    ensure_readonly_screenshot_target_is_visible(window)?;
++                    let raw = crate::screenshot::capture_niri_window_raw(window.window_id).await?;
++                    return prepare_screenshot_payload(raw, screenshot_options);
++                }
+                 let raw = capture_screenshot_raw().await?;
+                 self.cache_desktop_size(raw.width, raw.height);
+                 if let Some(window) = window_context.as_ref() {
+@@ -470,20 +475,27 @@
+             .as_ref()
+             .and_then(|window| window.title.clone());
+ 
+-        let raw_capture = capture_screenshot_raw()
+-            .await
++        let native_window = crop_window.filter(|window| window.backend == "niri");
++        let raw_capture = if let Some(window) = native_window {
++            crate::screenshot::capture_niri_window_raw(window.window_id).await
++        } else {
++            capture_screenshot_raw().await
++        }
+             .map_err(|e| ErrorData::internal_error(format!("screenshot failed: {e}"), None))?;
+-        self.cache_desktop_size(raw_capture.width, raw_capture.height);
++        if native_window.is_none() {
++            self.cache_desktop_size(raw_capture.width, raw_capture.height);
++        }
+ 
+         // Warn when the target window extends past the visible desktop: the
+         // portal only captures on-screen pixels, so the crop silently loses the
+         // off-screen region while coordinate metadata still claims full size.
+-        let off_screen_note = match crop_window.and_then(|window| window.bounds.as_ref()) {
++        let off_screen_note = match crop_window.filter(|_| native_window.is_none()).and_then(|window| window.bounds.as_ref()) {
+             Some(bounds) => self.off_screen_note_for_bounds(bounds).await,
+             None => None,
+         };
+ 
+         let (capture, cropped) = match crop_window {
++            Some(_) if native_window.is_some() => (raw_capture, true),
+             Some(window) => {
+                 let (x, y, width, height) = self
+                     .window_crop_rect_for_capture(window, &raw_capture)

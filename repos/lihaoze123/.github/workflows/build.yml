@@ -54,11 +54,6 @@ jobs:
           --drv-path --show-trace \
           -I "nixpkgs=$(nix-instantiate --find-file nixpkgs)" \
           -I "$PWD"
-    - name: Trigger NUR update
-      # Enable NUR_REGISTERED after this repository enters the public index.
-      if: ${{ github.event_name == 'push' && vars.NUR_REGISTERED == 'true' }}
-      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=lihaoze123"
-
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -70,8 +65,21 @@ jobs:
           actionlint
           shellcheck scripts/*.sh
           python3 tests/ci/test-cache-ci.py
-          nix eval --impure --json --file tests/ci/test-package-discovery.nix
+          nix eval --impure --json --option allow-import-from-derivation false --file tests/ci/test-package-discovery.nix
         '
+
+  notify-nur:
+    needs: [tests, lint]
+    # Notify once after all evaluation channels pass, without waiting for builds.
+    if: ${{ github.event_name == 'push' && vars.NUR_REGISTERED == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Trigger NUR update
+      # NUR rejects notifications within five minutes of its last workflow.
+      run: |
+        curl --fail-with-body --show-error --silent \
+          --retry 8 --retry-delay 60 --retry-max-time 600 \
+          -X POST "https://nur-update.nix-community.org/update?repo=lihaoze123"
 
   eval:
     runs-on: ubuntu-latest

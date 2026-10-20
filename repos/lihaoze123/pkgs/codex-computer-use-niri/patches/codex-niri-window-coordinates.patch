@@ -1,0 +1,180 @@
+--- a/computer-use-linux/src/windowing/backends/niri.rs
++++ b/computer-use-linux/src/windowing/backends/niri.rs
+@@ -4,6 +4,7 @@
+ use crate::windowing::types::{WindowBounds, WindowInfo};
+ use anyhow::{bail, Context, Result};
+ use serde::Deserialize;
++use std::collections::HashMap;
+ use std::process::Command as StdCommand;
+ use tokio::process::Command;
+ 
+@@ -60,7 +61,17 @@
+         );
+     }
+ 
+-    parse_niri_windows(&String::from_utf8_lossy(&output.stdout))
++    let mut windows = parse_niri_windows(&String::from_utf8_lossy(&output.stdout))?;
++    if hydrate_window_origins(&mut windows).await.is_err() {
++        // Local workspace positions are unsafe without their output origins.
++        for window in &mut windows {
++            if let Some(bounds) = &mut window.bounds {
++                bounds.x = None;
++                bounds.y = None;
++            }
++        }
++    }
++    Ok(windows)
+ }
+ 
+ pub(crate) fn parse_niri_windows(json: &str) -> Result<Vec<WindowInfo>> {
+@@ -75,6 +86,64 @@
+     Ok(windows)
+ }
+ 
++async fn hydrate_window_origins(windows: &mut [WindowInfo]) -> Result<()> {
++    let workspaces = niri_output_async(&["msg", "--json", "workspaces"])
++        .await
++        .context("failed to query Niri workspaces")?;
++    if !workspaces.status.success() {
++        bail!("niri workspaces query failed: {}", command_failure_detail(&workspaces));
++    }
++    let workspaces: Vec<NiriWorkspace> = serde_json::from_slice(&workspaces.stdout)
++        .context("failed to parse Niri workspaces")?;
++    let workspace_outputs = workspaces
++        .into_iter()
++        .filter_map(|workspace| {
++            let id = i32::try_from(workspace.id).ok()?;
++            Some((id, workspace.output?))
++        })
++        .collect::<HashMap<_, _>>();
++
++    let outputs = query_outputs().await?;
++    for window in windows {
++        let Some(workspace) = window.workspace else { continue };
++        let Some(output_name) = workspace_outputs.get(&workspace) else { continue };
++        let Some(output) = outputs.get(output_name) else { continue };
++        let Some(logical) = output.logical.as_ref() else { continue };
++        let Some(bounds) = window.bounds.as_mut() else { continue };
++        if let (Some(x), Some(y)) = (bounds.x, bounds.y) {
++            bounds.x = x.checked_add(logical.x);
++            bounds.y = y.checked_add(logical.y);
++        }
++    }
++    Ok(())
++}
++
++pub async fn monitor_layout() -> Result<Vec<(i32, i32, i32, i32)>> {
++    let monitors = query_outputs()
++        .await?
++        .into_values()
++        .filter_map(|output| {
++            let logical = output.logical?;
++            (logical.width > 0 && logical.height > 0)
++                .then_some((logical.x, logical.y, logical.width, logical.height))
++        })
++        .collect::<Vec<_>>();
++    if monitors.is_empty() {
++        bail!("Niri returned no usable logical outputs");
++    }
++    Ok(monitors)
++}
++
++async fn query_outputs() -> Result<HashMap<String, NiriOutput>> {
++    let output = niri_output_async(&["msg", "--json", "outputs"])
++        .await
++        .context("failed to query Niri outputs")?;
++    if !output.status.success() {
++        bail!("niri outputs query failed: {}", command_failure_detail(&output));
++    }
++    serde_json::from_slice(&output.stdout).context("failed to parse Niri outputs")
++}
++
+ pub async fn activate_window(window_id: u64) -> Result<()> {
+     let args = niri_focus_args(window_id);
+     let output = niri_output_async(&args.iter().map(String::as_str).collect::<Vec<_>>())
+@@ -132,6 +201,33 @@
+ #[derive(Debug, Deserialize)]
+ struct NiriWindowLayout {
+     window_size: Option<[i64; 2]>,
++    tile_pos_in_workspace_view: Option<[f64; 2]>,
++    #[serde(default)]
++    window_offset_in_tile: [f64; 2],
++}
++
++#[derive(Debug, Deserialize)]
++struct NiriWorkspace {
++    id: u64,
++    output: Option<String>,
++}
++
++#[derive(Debug, Deserialize)]
++struct NiriOutput {
++    logical: Option<NiriLogicalOutput>,
++}
++
++#[derive(Debug, Deserialize)]
++struct NiriLogicalOutput {
++    x: i32,
++    y: i32,
++    width: i32,
++    height: i32,
++}
++
++fn finite_i32(value: f64) -> Option<i32> {
++    (value.is_finite() && value >= i32::MIN as f64 && value <= i32::MAX as f64)
++        .then_some(value.round() as i32)
+ }
+ 
+ impl From<NiriWindow> for WindowInfo {
+@@ -144,8 +240,15 @@
+             let width = u32::try_from(width).ok().filter(|value| *value > 0)?;
+             let height = u32::try_from(height).ok().filter(|value| *value > 0)?;
++            let position = layout.tile_pos_in_workspace_view.and_then(|[x, y]| {
++                let [offset_x, offset_y] = layout.window_offset_in_tile;
++                Some((
++                    finite_i32(x + offset_x)?,
++                    finite_i32(y + offset_y)?,
++                ))
++            });
+             Some(WindowBounds {
+-                x: None,
+-                y: None,
++                x: position.map(|position| position.0),
++                y: position.map(|position| position.1),
+                 width,
+                 height,
+             })
+--- a/computer-use-linux/src/server.rs
++++ b/computer-use-linux/src/server.rs
+@@ -20,7 +20,7 @@
+     focus_window_target, focused_window, list_windows, resolve_window_target,
+     window_permission_hint, WindowFocusResult, WindowInfo, WindowTarget,
+     GNOME_SHELL_EXTENSION_BACKEND, GNOME_SHELL_INTROSPECT_BACKEND, KWIN_BACKEND,
+-};
++    NIRI_BACKEND };
+ use crate::ydotool;
+ use anyhow::Result;
+ use rmcp::{
+@@ -2854,5 +2854,13 @@
+                     })?,
+             ])
++        } else if window.backend == NIRI_BACKEND {
++            Some(
++                crate::windowing::backends::niri::monitor_layout()
++                    .await
++                    .map_err(|error| anyhow::anyhow!(
++                        "Niri targeted input requires logical output geometry: {error:#}"
++                    ))?,
++            )
+         } else {
+             None
+         };
+@@ -2905,4 +2913,7 @@
+         if !matches!(
+             window.backend.as_str(),
+-            GNOME_SHELL_EXTENSION_BACKEND | GNOME_SHELL_INTROSPECT_BACKEND | KWIN_BACKEND
++            GNOME_SHELL_EXTENSION_BACKEND
++                | GNOME_SHELL_INTROSPECT_BACKEND
++                | KWIN_BACKEND
++                | NIRI_BACKEND
+         ) {

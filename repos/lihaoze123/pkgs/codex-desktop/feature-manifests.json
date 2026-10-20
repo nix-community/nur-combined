@@ -1,0 +1,779 @@
+{
+  "compatibility": {
+    "aliases": {
+      "zed-opener": "open-target-discovery"
+    },
+    "retired": [
+      "codex-wrapper-updater",
+      "conversation-delete",
+      "conversation-mode",
+      "deferred-update-build",
+      "example-feature",
+      "open-target-discovery",
+      "ssh-command-wrapper",
+      "x11-ewmh-computer-use"
+    ]
+  },
+  "manifests": [
+    {
+      "id": "account-switcher",
+      "title": "Account Switcher",
+      "description": "Remember encrypted ChatGPT logins and switch accounts from the profile menu without restarting the desktop app.",
+      "defaultEnabled": false,
+      "conflicts": [
+        "shared-app-server-socket"
+      ],
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      },
+      "packageDependencies": {
+        "deb": [
+          "libsecret-tools"
+        ],
+        "rpm": [
+          "libsecret"
+        ],
+        "pacman": [
+          "libsecret"
+        ]
+      }
+    },
+    {
+      "id": "agent-workspace",
+      "title": "Agent Workspaces",
+      "description": "Adds an opt-in Linux settings page and Electron bridge for agent-workspace-linux hidden desktop environments.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      },
+      "resources": [
+        {
+          "source": "skills/agent-workspace-linux/SKILL.md",
+          "target": ".codex-linux/features/agent-workspace/skills/agent-workspace-linux/SKILL.md",
+          "mode": "0644"
+        }
+      ],
+      "runtimeHooks": {
+        "prelaunch": {
+          "source": "install-skill.sh",
+          "name": "install-skill.sh",
+          "mode": "0755"
+        }
+      }
+    },
+    {
+      "id": "api-key-model-visibility",
+      "title": "API Key Model Visibility",
+      "description": "Opt-in desktop model picker support for non-hidden models reported by API-key authenticated OpenAI-compatible providers.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      }
+    },
+    {
+      "id": "api-key-service-tier",
+      "title": "API Key Service Tier",
+      "description": "Opt-in Fast/service-tier UI and request support for API-key authenticated OpenAI-compatible providers.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      }
+    },
+    {
+      "id": "appshots",
+      "title": "Linux AppShots",
+      "description": "Opt-in AppShots composer integration that captures and crops a selected Linux window without core AppShots backend changes.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      },
+      "resources": [
+        {
+          "source": "bin/bare-modifier-monitor",
+          "target": "resources/native/bare-modifier-monitor",
+          "mode": "0755"
+        }
+      ],
+      "runtimeHooks": {
+        "electronArgs": {
+          "source": "electron-args",
+          "name": "electron-args",
+          "mode": "0644"
+        }
+      }
+    },
+    {
+      "id": "authenticated-proxy",
+      "title": "Authenticated HTTP Proxy",
+      "description": "Opt-in launcher and main-process support for HTTP proxies that require username/password authentication.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      },
+      "runtimeHooks": {
+        "launcher": {
+          "source": "launcher-hook.sh",
+          "name": "authenticated-proxy.sh",
+          "mode": "0755"
+        }
+      }
+    },
+    {
+      "id": "authored-message-visibility",
+      "title": "Keep Authored Messages Visible",
+      "description": "Keep assistant and user messages visible when completed tool activity collapses.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      }
+    },
+    {
+      "id": "automation-extensions",
+      "title": "Automation Extensions",
+      "description": "Optional multi-time scheduling and eager automation_update tool exposure.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      }
+    },
+    {
+      "id": "browser-proxy",
+      "title": "Browser Runtime Proxy",
+      "description": "Passes explicit standard proxy environment variables from the Codex app-server to Browser Use node_repl helpers.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "stageHook": "./stage.sh",
+        "cleanupHook": "./cleanup.sh"
+      }
+    },
+    {
+      "id": "chronicle-skysight",
+      "title": "Chronicle / Skysight Activity Memory",
+      "description": "Opt-in Linux activity memory with Chronicle controls and a standalone Skysight MCP server.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js",
+        "stageHook": "./stage.sh",
+        "cleanupHook": "./cleanup.sh"
+      }
+    },
+    {
+      "id": "codex-micro",
+      "title": "Codex Micro hardware support",
+      "description": "Enables the upstream Work Louder Codex Micro service on Linux and adds narrow USB-C/Bluetooth hotplug and hidraw policy while reusing the official node-hid binding.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      },
+      "resources": [
+        {
+          "source": "resources/70-codex-micro.rules",
+          "target": ".codex-linux/features/codex-micro/70-codex-micro.rules",
+          "mode": "0644"
+        }
+      ],
+      "packageResources": [
+        {
+          "source": "resources/70-codex-micro.rules",
+          "target": "usr/lib/udev/rules.d/70-codex-micro.rules",
+          "mode": "0644",
+          "formats": [
+            "deb",
+            "rpm",
+            "pacman"
+          ]
+        }
+      ],
+      "packageDependencies": {
+        "deb": [
+          "libudev1",
+          "libusb-1.0-0"
+        ],
+        "rpm": [
+          "libudev.so.1%{codex_elf_suffix}",
+          "libusb-1.0.so.0%{codex_elf_suffix}"
+        ],
+        "pacman": [
+          "libusb",
+          "systemd-libs"
+        ]
+      }
+    },
+    {
+      "id": "community-profile-isolation",
+      "title": "Community Profile Isolation",
+      "description": "Pins ChatGPT Community to its own Codex state, Electron profile, CLI, and child-command environment for every launch path, including absolute updater relaunches.",
+      "defaultEnabled": false,
+      "conflicts": [
+        "shared-app-server-socket"
+      ],
+      "runtimeHooks": {
+        "env": {
+          "source": "env.sh",
+          "name": "community-profile-isolation.env",
+          "mode": "0644"
+        },
+        "launcher": {
+          "source": "launcher-hook.sh",
+          "name": "community-profile-isolation.sh",
+          "mode": "0755"
+        }
+      },
+      "resources": [
+        {
+          "source": "codex-cli-wrapper.sh",
+          "target": ".codex-linux/features/community-profile-isolation/codex-cli-wrapper.sh",
+          "mode": "0755"
+        }
+      ]
+    },
+    {
+      "id": "computer-use-linux",
+      "title": "Linux Computer Use",
+      "description": "Optional Linux desktop-control UI and native MCP backend integration.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js",
+        "stageHook": "./stage.sh"
+      },
+      "resources": [
+        {
+          "source": "host-service.mjs",
+          "target": ".codex-linux/features/computer-use-linux/host-service.mjs",
+          "mode": "0644"
+        }
+      ],
+      "runtimeHooks": {
+        "launcher": {
+          "source": "host-service-hook.sh",
+          "name": "host-service.sh",
+          "mode": "0755"
+        },
+        "afterExit": {
+          "source": "host-service-hook.sh",
+          "name": "host-service-cleanup.sh",
+          "mode": "0755"
+        }
+      }
+    },
+    {
+      "id": "copilot-reasoning-effort",
+      "title": "Copilot Reasoning Effort Defaults",
+      "description": "Opt-in patch that lets Copilot-auth sessions persist and select reasoning effort defaults on Linux.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      }
+    },
+    {
+      "id": "directory-only-working-tree-watch",
+      "title": "Directory-Only Working-Tree Watch",
+      "description": "Uses Watchbound for bounded Linux working-tree watching while retaining Codex Git-ignore and logical-path policy.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      }
+    },
+    {
+      "id": "filesystem-root-follow-ups",
+      "title": "Filesystem Root Follow-ups",
+      "description": "Allow follow-up messages in existing local tasks whose working directory is /.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      }
+    },
+    {
+      "id": "flatpak-chrome-native-messaging",
+      "title": "Flatpak Chrome Native Messaging",
+      "description": "Bridges the official Chrome extension host into the Flatpak Google Chrome sandbox without adding sandbox overrides.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      },
+      "resources": [
+        {
+          "source": "bridge.mjs",
+          "target": ".codex-linux/features/flatpak-chrome-native-messaging/bridge.mjs",
+          "mode": "0644"
+        }
+      ],
+      "runtimeHooks": {
+        "prelaunch": {
+          "source": "runtime.sh",
+          "name": "start.sh",
+          "mode": "0755"
+        },
+        "launcher": {
+          "source": "runtime.sh",
+          "name": "environment.sh",
+          "mode": "0755"
+        },
+        "afterExit": {
+          "source": "runtime.sh",
+          "name": "stop.sh",
+          "mode": "0755"
+        }
+      }
+    },
+    {
+      "id": "frameless-titlebar",
+      "title": "Frameless Titlebar",
+      "description": "Hide Linux titlebar overlay controls and native menu chrome for compositor-managed window decorations.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      }
+    },
+    {
+      "id": "global-dictation",
+      "title": "Global Dictation",
+      "description": "Opt-in global dictation hotkeys for Linux using X11 and XDG desktop portal backends.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js",
+        "stageHook": "./stage.sh"
+      },
+      "resources": [
+        {
+          "source": "bin/global-dictation-release-monitor",
+          "target": "resources/native/global-dictation-release-monitor",
+          "mode": "0755"
+        }
+      ]
+    },
+    {
+      "id": "global-dictation-gnome",
+      "title": "GNOME Global Dictation Companion",
+      "description": "Opt-in, helper-authenticated GNOME Shell Ctrl+V companion for Global Dictation; requires manual extension activation.",
+      "defaultEnabled": false,
+      "requires": [
+        "global-dictation"
+      ],
+      "resources": [
+        {
+          "source": "extension",
+          "target": ".codex-linux/features/global-dictation-gnome/extension",
+          "mode": "0644"
+        }
+      ],
+      "runtimeHooks": {
+        "prelaunch": {
+          "source": "install-extension.sh",
+          "name": "install-extension.sh",
+          "mode": "0755"
+        }
+      }
+    },
+    {
+      "id": "linux-performance-workarounds",
+      "title": "Linux Performance Workarounds",
+      "description": "Optional measured renderer workarounds for affected Linux systems.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      }
+    },
+    {
+      "id": "mcp-helper-reaper",
+      "title": "MCP Helper Reaper",
+      "description": "Reaps orphaned MCP helpers after their Codex owner exits without touching live sessions.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "stageHook": "./stage.sh",
+        "cleanupHook": "./cleanup.sh"
+      }
+    },
+    {
+      "id": "model-picker-default-presets",
+      "title": "Model Picker Default Presets",
+      "description": "Opt-in ChatGPT Default model-picker presets configured as ordered model and effort pairs.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      },
+      "presets": [],
+      "officialBundleAuditScenarios": [
+        {
+          "name": "configured-presets",
+          "settings": {
+            "presets": [
+              {
+                "model": "gpt-6-astra",
+                "effort": "medium",
+                "default": true
+              },
+              {
+                "model": "gpt-5.6-sol",
+                "effort": "high"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "nix-store-bundled-marketplace-permissions",
+      "title": "Nix bundled marketplace staging permissions",
+      "description": "Nix-only repair for read-only bundled marketplace staging copies.",
+      "defaultEnabled": false,
+      "internal": true,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      }
+    },
+    {
+      "id": "node-repl-reaper",
+      "title": "Browser Use node_repl Reaper",
+      "description": "Reaps Browser Use node_repl helper processes leaked by the upstream codex app-server: on launch, periodically while the app runs, and on exit.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "stageHook": "./stage.sh"
+      }
+    },
+    {
+      "id": "omarchy-theme",
+      "title": "Omarchy Theme",
+      "description": "Loads user CSS generated from the active Omarchy theme into ChatGPT Community.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      },
+      "resources": [
+        {
+          "source": "codex-desktop.css.tpl",
+          "target": ".codex-linux/features/omarchy-theme/codex-desktop.css.tpl",
+          "mode": "0644"
+        }
+      ],
+      "runtimeHooks": {
+        "prelaunch": {
+          "source": "install-template.sh",
+          "name": "install-template.sh",
+          "mode": "0755"
+        },
+        "launcher": {
+          "source": "stylesheet-env.sh",
+          "name": "stylesheet-env.sh",
+          "mode": "0755"
+        }
+      }
+    },
+    {
+      "id": "persistent-status-panel",
+      "title": "Persistent Status Panel",
+      "description": "Keep the Codex /status panel open across thread switches and app restarts until explicitly closed.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      }
+    },
+    {
+      "id": "pet-overlay",
+      "title": "Pet Overlay",
+      "description": "Optional Linux avatar overlay placement and compositor hints.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      },
+      "runtimeHooks": {
+        "launcher": {
+          "source": "launcher-hook.sh",
+          "name": "gpu-compositing-default.sh",
+          "mode": "0755"
+        }
+      },
+      "petOverlay": {
+        "gravity": "bottom-right",
+        "margin": 24,
+        "allWorkspaces": true,
+        "alwaysOnTop": true,
+        "skipTaskbar": true,
+        "lockPosition": false,
+        "mode": "interactive",
+        "hyprland": true,
+        "kwin": true,
+        "niri": true
+      }
+    },
+    {
+      "id": "preferred-editor-file-links",
+      "title": "Open source links in the preferred editor",
+      "description": "Open source and text file references in the selected editor with a plain click.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      }
+    },
+    {
+      "id": "project-group-last-updated-sort",
+      "title": "Project Group Last Updated Sorting",
+      "description": "Makes Last updated reorder project groups as well as their tasks in the Projects sidebar.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      }
+    },
+    {
+      "id": "project-task-sort",
+      "title": "Project Task Created Sorting",
+      "description": "Restores Created sorting for populated local tasks in the alternate Projects sidebar.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      }
+    },
+    {
+      "id": "read-aloud",
+      "name": "Read aloud",
+      "description": "Opt-in Linux read-aloud button for assistant responses.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js",
+        "stageHook": "./stage.sh"
+      }
+    },
+    {
+      "id": "read-aloud-mcp",
+      "title": "Read Aloud MCP",
+      "description": "Disabled-by-default MCP plugin that lets the agent read text aloud through the Linux Read Aloud voice backend.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patches.js",
+        "stageHook": "./stage.sh"
+      }
+    },
+    {
+      "id": "record-and-replay",
+      "title": "Record & Replay",
+      "description": "Opt-in Linux demo-to-skill recording workflow powered by codex-record-replay-linux.",
+      "defaultEnabled": false,
+      "requires": [
+        "chronicle-skysight"
+      ],
+      "entrypoints": {
+        "patchDescriptors": "./patch.js",
+        "stageHook": "./stage.sh",
+        "cleanupHook": "./cleanup.sh"
+      }
+    },
+    {
+      "id": "remote-control-ui",
+      "title": "Remote Control UI",
+      "description": "Adds opt-in Linux visibility patches for remote control and related settings surfaces.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      }
+    },
+    {
+      "id": "remote-mobile-control",
+      "title": "Experimental Remote Mobile Control",
+      "description": "Opt-in Linux adaptation for experimental Remote host and outbound-control flows.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js",
+        "stageHook": "./stage.sh"
+      }
+    },
+    {
+      "id": "shallow-repository-watches",
+      "title": "Shallow Linux Repository Watches",
+      "description": "Prevents transient repository previews from recursively walking working trees and Git metadata on Electron's main thread.",
+      "defaultEnabled": false,
+      "conflicts": [
+        "directory-only-working-tree-watch"
+      ],
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      }
+    },
+    {
+      "id": "shared-app-server-socket",
+      "title": "Shared App-Server Socket",
+      "description": "Opt-in protocol-transparent Unix socket shared by ChatGPT Community and one or more ordinary app-server clients.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      },
+      "resources": [
+        {
+          "source": "socket-path.js",
+          "target": ".codex-linux/features/shared-app-server-socket/socket-path.js",
+          "mode": "0644"
+        },
+        {
+          "source": "orphan-reaper.js",
+          "target": ".codex-linux/features/shared-app-server-socket/orphan-reaper.js",
+          "mode": "0644"
+        },
+        {
+          "source": "attached-cli.sh",
+          "target": ".codex-linux/features/shared-app-server-socket/attached-cli.sh",
+          "mode": "0755"
+        }
+      ],
+      "runtimeHooks": {
+        "launcher": {
+          "source": "socket-env.sh",
+          "name": "socket-env.sh",
+          "mode": "0755"
+        },
+        "afterExit": {
+          "source": "socket-env.sh",
+          "name": "socket-cleanup.sh",
+          "mode": "0755"
+        }
+      },
+      "packageDependencies": {
+        "deb": [
+          "nodejs"
+        ],
+        "rpm": [
+          "nodejs"
+        ],
+        "pacman": [
+          "nodejs"
+        ]
+      }
+    },
+    {
+      "id": "start-minimized-to-tray",
+      "title": "Start Minimized to Tray",
+      "description": "Add opt-in General settings to start hidden in the existing Linux system tray, with a login-autostart-only option.",
+      "defaultEnabled": false,
+      "runtimeHooks": {
+        "launcher": {
+          "source": "launcher-hook.sh",
+          "name": "login.sh",
+          "mode": "0755"
+        }
+      },
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      }
+    },
+    {
+      "id": "thorium-chrome-plugin",
+      "title": "Thorium Chrome Plugin Support",
+      "description": "Adds disabled-by-default Thorium support to the bundled Chrome plugin on Linux.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js",
+        "stageHook": "./stage.sh"
+      }
+    },
+    {
+      "id": "tray-usage",
+      "title": "Tray Usage",
+      "description": "Show the current Codex usage remaining in the Linux system-tray menu.",
+      "defaultEnabled": false,
+      "entrypoints": {
+        "patchDescriptors": "./patch.js"
+      }
+    },
+    {
+      "id": "ui-tweaks",
+      "title": "UI Tweaks",
+      "description": "Optional UI customization patches for ChatGPT Community.",
+      "defaultEnabled": false,
+      "gentoo": {
+        "supported": true,
+        "dependencies": {
+          "RDEPEND": [
+            "sys-apps/util-linux"
+          ]
+        }
+      },
+      "entrypoints": {
+        "patchDescriptors": "./patch.js",
+        "stageHook": "./stage.sh"
+      },
+      "runtimeHooks": {
+        "prelaunch": {
+          "source": "sync-desktop-icon.sh",
+          "name": "dock-icon-cleanup.sh",
+          "mode": "0755"
+        }
+      },
+      "officialBundleAuditScenarios": [
+        {
+          "name": "custom-font-input",
+          "settings": {
+            "tweaks": {
+              "appearance": {
+                "customFontInput": {
+                  "enabled": true
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "extended-ui-font-size",
+          "settings": {
+            "tweaks": {
+              "appearance": {
+                "uiFontSize": {
+                  "enabled": true
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "selected-text-more-details",
+          "settings": {
+            "tweaks": {
+              "selection": {
+                "moreDetails": {
+                  "enabled": true
+                }
+              }
+            }
+          }
+        }
+      ],
+      "tweaks": {
+        "appearance": {
+          "customFontInput": {
+            "enabled": false
+          },
+          "dockIcon": {
+            "enabled": false
+          },
+          "uiFontSize": {
+            "enabled": false,
+            "max": 24
+          }
+        },
+        "home": {
+          "suggestedPrompts": {
+            "enabled": false
+          }
+        },
+        "modelPicker": {
+          "showModelsByDefault": {
+            "enabled": false
+          }
+        },
+        "reasoning": {
+          "keepEffortLabelsEnglish": {
+            "enabled": true
+          }
+        },
+        "selection": {
+          "moreDetails": {
+            "enabled": false
+          }
+        },
+        "sidebar": {
+          "projectName": {
+            "enabled": true,
+            "style": "font-weight: 700 !important;"
+          }
+        }
+      }
+    }
+  ]
+}

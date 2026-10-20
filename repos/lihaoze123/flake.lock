@@ -54,17 +54,17 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1791953386,
-        "narHash": "sha256-iJy4oG0fdf6BaoPGgJFjhbzUr6w9QPYxpDIO+bZwJoc=",
+        "lastModified": 1791953589,
+        "narHash": "sha256-CcMmYub4KCQx3ddPGTw+vewY0iWJxG8F284HVn6Bpi4=",
         "owner": "lihaoze123",
         "repo": "niri-computer-use",
-        "rev": "0683aa6b0f16812abc0bc11f7e5a9d3a578522ef",
+        "rev": "daf6e9301200235f9b8af153a22cd321786ad9b2",
         "type": "github"
       },
       "original": {
         "owner": "lihaoze123",
         "repo": "niri-computer-use",
-        "rev": "0683aa6b0f16812abc0bc11f7e5a9d3a578522ef",
+        "rev": "daf6e9301200235f9b8af153a22cd321786ad9b2",
         "type": "github"
       }
     },
@@ -235,11 +235,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1791260994,
-        "narHash": "sha256-MFBjw66d4h06MvpW6lIl7RwarLteD0sk859CncGwb1Q=",
-        "rev": "151fa4e8ddfdd8dd25d945ad94ed54a13de9f6e4",
+        "lastModified": 1792094642,
+        "narHash": "sha256-LPFRbrCWWyNsdQLO3SX1B/5UMkFK0hfe7bZR6lENvpc=",
+        "rev": "fe13242281a67641c0102cdb1087f0ebe586c7df",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1086391.151fa4e8ddfd/nixexprs.tar.zst"
+        "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1093333.fe13242281a6/nixexprs.tar.zst"
       },
       "original": {
         "type": "tarball",
