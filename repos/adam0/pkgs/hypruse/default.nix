@@ -8,6 +8,7 @@
   systemd,
   wtype,
   # keep-sorted end
+  libxkbcommon,
 }: let
   inherit (lib) makeBinPath;
   inherit
@@ -48,6 +49,8 @@ in
 
     # Test the installed wheel's skill rather than the checkout-only location.
     postPatch = ''
+      substituteInPlace src/hypruse/keymap.py tests/test_keymap.py \
+        --replace-fail 'ctypes.util.find_library("xkbcommon")' '"${lib.getLib libxkbcommon}/lib/libxkbcommon.so.0"'
       substituteInPlace tests/test_skill.py \
         --replace-fail 'ROOT / "skills" / "hypruse"' 'Path(skill.__file__).resolve().parent / "skill"'
     '';

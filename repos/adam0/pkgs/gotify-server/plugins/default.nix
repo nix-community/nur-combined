@@ -2,7 +2,6 @@
   # keep-sorted start
   buildGoModule,
   callPackage,
-  fetchurl,
   go,
   gotify-server,
   lib,
@@ -26,12 +25,7 @@
 
   root = ./.;
 
-  serverRev = gotify-server.passthru.rev;
-
-  serverGoMod = fetchurl {
-    url = "https://raw.githubusercontent.com/gotify/server/${serverRev}/go.mod";
-    sha256 = "1ivdda4v694h89g84za33xznzy8540vam54apkmq1m2ddv53rj76";
-  };
+  serverGoMod = "${gotify-server.src}/go.mod";
 
   mkGotifyPlugin = args @ {
     # keep-sorted start
