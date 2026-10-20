@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation rec {
   pname = "qc71_slimbook_laptop";
-  version = "0-unstable-2025-08-10";
+  version = "1.3.1-unstable-2026-10-08";
 
   src = fetchFromGitHub {
     owner = "Slimbook-Team";
     repo = "qc71_laptop";
-    rev = "f7f4760bae3731123033e240fffc531a5ec7bb88";
-    hash = "sha256-7jppmku6iur4eoC4WRFI7psA22igOkzeF9LgmvJd2iM=";
+    rev = "dfa11f6cc6093103d89ab029381a5fb6c886301e";
+    hash = "sha256-9UCE/m8c4iCUAe1ftHXdg8uTwDowU82CWensSJ1o5yA=";
   };
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch=slimbook" ];
+    extraArgs = [ "--version=branch=generic_slimbook" ];
   };
 
   meta = with lib; {
