@@ -21,13 +21,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "type2-runtime";
-  version = "20251108-unstable-2026-09-28";
+  version = "20251108-unstable-2026-10-19";
 
   src = fetchFromGitHub {
     owner = "AppImage";
     repo = "type2-runtime";
-    rev = "8f39b89e2ac31e1640b3d3f7e9a5108e6ce805fa";
-    hash = "sha256-+ffBk9lnMnVz4uq+FAYk0h/uMzkTVwfoPuMbT0twoFQ=";
+    rev = "fedfad51acc2860b2916a1eef32ba4a500ff31ef";
+    hash = "sha256-OSwpZKe+r67kXGaSlYsIYRljmjnsxd7fHul62GwMUrA=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/src/runtime";
