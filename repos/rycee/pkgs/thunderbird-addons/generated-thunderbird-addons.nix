@@ -335,10 +335,10 @@
     };
     "tb-langpack-de" = buildMozillaXpiAddon {
       pname = "tb-langpack-de";
-      version = "159.0.20261013.231314";
+      version = "159.0.20261016.212253";
       addonId = "langpack-de@thunderbird.mozilla.org";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1053559/deutsch_de_language_pack-159.0.20261013.231314-tb.xpi?src=";
-      sha256 = "3ab978248ecdc4a59932e29ab9df5b1313b599c3d94965791434127bb2132e08";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1053748/deutsch_de_language_pack-159.0.20261016.212253-tb.xpi?src=";
+      sha256 = "ebe8dfa986a7c4612a584b10833e423fdd804702770d27df3cde0e644525e509";
       meta = with lib;
       {
         description = "Deutsch (de) Language Pack";
