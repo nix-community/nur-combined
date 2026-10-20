@@ -51,7 +51,6 @@ let
       "pkgs/by-name/mo/mozlz4a"
       "pkgs/by-name/ne/newsflash"
       "pkgs/by-name/po/poke"
-      "pkgs/by-name/po/pokemmo-installer"
       "pkgs/by-name/pr/protontricks"
       "pkgs/by-name/ta/tantivy-go"
       "pkgs/by-name/te/texlab"
