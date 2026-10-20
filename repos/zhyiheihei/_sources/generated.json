@@ -389,12 +389,12 @@
             "name": null,
             "owner": "sudoskys",
             "repo": "telegramify-markdown",
-            "rev": "pypi_1.4.0",
-            "sha256": "sha256-6u4FTLZo73jF50gXLJqCg84GONZgSNMC7pnHR3WxjNA=",
+            "rev": "v1.4.1",
+            "sha256": "sha256-6MJ4mEIcDm78vPz4t8CCpaa1+04XQQvKkKzT4qiv3+w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "pypi_1.4.0"
+        "version": "v1.4.1"
     },
     "torrentool": {
         "cargoLock": null,
@@ -497,11 +497,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-vLNsxbZLOJkSngylIJAejumW+BwHKI2GgIvpb1bWYBU=",
+            "sha256": "sha256-Mbp1Gc3dcy27YffB5S720mCB0bE1+pOVDbxdQAwmq7w=",
             "type": "url",
-            "url": "https://cdn-zcode.z.ai/zcode/electron/releases/3.15.3/linux-x64/ZCode-3.15.3-linux-x64.deb"
+            "url": "https://cdn-zcode.z.ai/zcode/electron/releases/3.16.2/linux-x64/ZCode-3.16.2-linux-x64.deb"
         },
-        "version": "3.15.3"
+        "version": "3.16.2"
     },
     "zhconv-rs": {
         "cargoLock": null,

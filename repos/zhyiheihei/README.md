@@ -51,7 +51,7 @@ Build artifacts are cached in the Attic binary cache:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (27 packages)</summary>
+<summary>Package set: (Uncategorized) (28 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -71,16 +71,17 @@ Build artifacts are cached in the Attic binary cache:
 | - [x] |  | `proces` | [proces](https://github.com/Ailln/proces) | 0.1.7 | Text preprocess utilities |
 | - [x] |  | `pypika-tortoise` | [pypika-tortoise](https://github.com/tortoise/pypika-tortoise) | 0.6.5 | SQL query builder fork streamlined for tortoise-orm |
 | - [x] |  | `pyromark` | [pyromark](https://github.com/monosans/pyromark) | 0.10.1 | Blazingly fast Markdown parser |
+| - [ ] | `x86_64-linux` | `qingjian` | [qingjian](https://qingjian.app) | 0.2.1 | Pinyin input method with translation hints for language learners |
 | - [x] |  | `sublinkpro` | [sublinkpro](https://github.com/ZeroDeng01/sublinkPro) | 1.2.21 | Modern proxy subscription management panel with smart tags, speed tests and relay chains |
 | - [x] |  | `sun-panel` | [sun-panel](https://github.com/hslr-s/sun-panel) | 1.8.1 | Server and NAS navigation panel, homepage, browser homepage |
 | - [x] |  | `tachidesk-server` | [tachidesk-server](https://github.com/Suwayomi/Suwayomi-Server) | 2.4.2366 | Self-hosted manga reader and aggregator server |
-| - [x] |  | `telegramify-markdown` | [telegramify-markdown](https://github.com/sudoskys/telegramify-markdown) | 1.4.0 | Convert Markdown to Telegram plain text and entities |
+| - [x] |  | `telegramify-markdown` | [telegramify-markdown](https://github.com/sudoskys/telegramify-markdown) | 1.4.1 | Convert Markdown to Telegram plain text and entities |
 | - [ ] |  | `torrentool` | [torrentool](https://github.com/idlesign/torrentool) | 1.2.0 | Tool to work with torrent files |
 | - [x] |  | `tortoise-orm` | [tortoise-orm](https://github.com/tortoise/tortoise-orm) | 0.25.3 | Easy async ORM for Python with relations in mind |
 | - [x] |  | `vaults3` | [vaults3](https://github.com/Kodiqa-Solutions/VaultS3) | 5.0.3 | Lightweight S3-compatible object storage with built-in web dashboard |
 | - [x] |  | `vertex` | [vertex](https://github.com/vertex-center/vertex) | 0.17.0 | Self-hosted lab manager for one-click container service installation |
 | - [ ] |  | `ws-scrcpy` | [ws-scrcpy](https://github.com/NetrisTV/ws-scrcpy) | 0-unstable-2026-09-30 | Control Android devices from your browser via scrcpy over WebSocket |
-| - [ ] | `x86_64-linux` | `zcode` | [zcode](https://zcode.z.ai) | 3.15.3 | Z.ai's official agentic development environment desktop app for GLM models |
+| - [ ] | `x86_64-linux` | `zcode` | [zcode](https://zcode.z.ai) | 3.16.2 | Z.ai's official agentic development environment desktop app for GLM models |
 | - [x] |  | `zhconv-rs` | [zhconv-rs](https://github.com/Gowee/zhconv-rs) | 0.4.2-1 | Fast Chinese variant conversion backed by Rust |
 </details>
 
@@ -97,14 +98,14 @@ Build artifacts are cached in the Attic binary cache:
 | - [ ] |  | `python3Packages.proces` | [proces](https://github.com/Ailln/proces) | 0.1.7 | Text preprocess utilities |
 | - [ ] |  | `python3Packages.pypika-tortoise` | [pypika-tortoise](https://github.com/tortoise/pypika-tortoise) | 0.6.5 | SQL query builder fork streamlined for tortoise-orm |
 | - [ ] |  | `python3Packages.pyromark` | [pyromark](https://github.com/monosans/pyromark) | 0.10.1 | Blazingly fast Markdown parser |
-| - [ ] |  | `python3Packages.telegramify-markdown` | [telegramify-markdown](https://github.com/sudoskys/telegramify-markdown) | 1.4.0 | Convert Markdown to Telegram plain text and entities |
+| - [ ] |  | `python3Packages.telegramify-markdown` | [telegramify-markdown](https://github.com/sudoskys/telegramify-markdown) | 1.4.1 | Convert Markdown to Telegram plain text and entities |
 | - [ ] |  | `python3Packages.torrentool` | [torrentool](https://github.com/idlesign/torrentool) | 1.2.0 | Tool to work with torrent files |
 | - [ ] |  | `python3Packages.tortoise-orm` | [tortoise-orm](https://github.com/tortoise/tortoise-orm) | 0.25.3 | Easy async ORM for Python with relations in mind |
 | - [ ] |  | `python3Packages.zhconv-rs` | [zhconv-rs](https://github.com/Gowee/zhconv-rs) | 0.4.2-1 | Fast Chinese variant conversion backed by Rust |
 </details>
 
 <details>
-<summary>Package set: uncategorized (16 packages)</summary>
+<summary>Package set: uncategorized (17 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -117,12 +118,13 @@ Build artifacts are cached in the Attic binary cache:
 | - [ ] |  | `uncategorized.navdash` | [navdash](https://github.com/zhyiheihei/navdash) | 0.7.1 | Personal service portal with native OIDC login and Nix-generated service cards |
 | - [ ] |  | `uncategorized.nexus-media` | [nexus-media](https://github.com/linyuan0213/nexus-media) | 4.27.2 | Media library manager with automated downloading, media organization and subscription workflows |
 | - [ ] |  | `uncategorized.nexus-media-web` | [nexus-media-web](https://github.com/linyuan0213/nexus-media-web) | 4.27.1 | Vue 3 web frontend for the Nexus Media media library manager |
+| - [ ] | `x86_64-linux` | `uncategorized.qingjian` | [qingjian](https://qingjian.app) | 0.2.1 | Pinyin input method with translation hints for language learners |
 | - [ ] |  | `uncategorized.sublinkpro` | [sublinkpro](https://github.com/ZeroDeng01/sublinkPro) | 1.2.21 | Modern proxy subscription management panel with smart tags, speed tests and relay chains |
 | - [ ] |  | `uncategorized.sun-panel` | [sun-panel](https://github.com/hslr-s/sun-panel) | 1.8.1 | Server and NAS navigation panel, homepage, browser homepage |
 | - [ ] |  | `uncategorized.tachidesk-server` | [tachidesk-server](https://github.com/Suwayomi/Suwayomi-Server) | 2.4.2366 | Self-hosted manga reader and aggregator server |
 | - [ ] |  | `uncategorized.vaults3` | [vaults3](https://github.com/Kodiqa-Solutions/VaultS3) | 5.0.3 | Lightweight S3-compatible object storage with built-in web dashboard |
 | - [ ] |  | `uncategorized.vertex` | [vertex](https://github.com/vertex-center/vertex) | 0.17.0 | Self-hosted lab manager for one-click container service installation |
 | - [ ] |  | `uncategorized.ws-scrcpy` | [ws-scrcpy](https://github.com/NetrisTV/ws-scrcpy) | 0-unstable-2026-09-30 | Control Android devices from your browser via scrcpy over WebSocket |
-| - [ ] | `x86_64-linux` | `uncategorized.zcode` | [zcode](https://zcode.z.ai) | 3.15.3 | Z.ai's official agentic development environment desktop app for GLM models |
+| - [ ] | `x86_64-linux` | `uncategorized.zcode` | [zcode](https://zcode.z.ai) | 3.16.2 | Z.ai's official agentic development environment desktop app for GLM models |
 </details>
 
