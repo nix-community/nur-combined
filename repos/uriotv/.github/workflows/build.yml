@@ -84,7 +84,7 @@ jobs:
         if: >-
           success() && github.ref == 'refs/heads/main' &&
           (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule')
-        run: curl --fail --retry 3 --show-error -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
+        run: bash scripts/notify-nur.sh '${{ matrix.nurRepo }}'
 
   test-gate:
     runs-on: ubuntu-latest

@@ -89,6 +89,9 @@ is preserved until a strictly newer, descendant release is available.
 - **Public cache:** only successful builds on `main` publish eligible outputs to
   `uriotv.cachix.org`, verify their narinfo `StorePath`, then notify NUR. PRs and
   the updater have no Cachix write token. Daily build check: 03:17 UTC.
+  NUR's global HTTP 429 throttle is explicitly reported as a deferred request,
+  not a successful notification or package failure; its periodic sync remains
+  the fallback. Other HTTP/transport failures still fail CI after bounded retries.
 - **Compute:** ordinary GitHub-hosted runners only. No kernel or remote builder.
 
 GitHub can delay scheduled workflows; the cron time is not a delivery guarantee.

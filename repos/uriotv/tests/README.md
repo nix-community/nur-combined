@@ -24,6 +24,10 @@ strict-Bash updater, then runs:
 - `storyforge-compatibility.py`: JSONC parser, source-bound plans, conditional
   compatibility adjustments and unchanged resolved dependency records.
 
+- `nur-notification.py`: mock HTTP 204/429/403/503, transient and transport
+  failures; only 429 becomes a visible deferred-request warning, not a hidden
+  failure or a falsely claimed accepted refresh. No network or retry waits.
+
 ## Nix evaluation (not compilation)
 
 ```console
