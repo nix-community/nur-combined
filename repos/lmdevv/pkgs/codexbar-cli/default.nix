@@ -5,10 +5,10 @@
 }:
 
 let
-  version = "0.77.0";
+  version = "0.78.0";
   sha256BySystem = {
-    "x86_64-linux" = "sha256-4esNB1aFe0uJQOHvB1Yn/JWC17Vd4GemII3BCEtmtDc=";
-    "aarch64-linux" = "sha256-wq30BNch6t6KEcg/W2wSCMHt5V9cBuZk9cWqojZ7Hcw=";
+    "x86_64-linux" = "sha256-DMXDb3V18mpoDHI6eiF7b5QtVdYvhIrwAEzytmYu1Xs=";
+    "aarch64-linux" = "sha256-SFbvkATLLApaklSlgvEm+CfBe05T4rBbT8SZRox0428=";
   };
   system = stdenvNoCC.hostPlatform.system;
   arch = if system == "aarch64-linux" then "aarch64" else "x86_64";
