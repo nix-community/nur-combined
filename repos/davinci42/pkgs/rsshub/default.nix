@@ -13,20 +13,20 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rsshub";
-  version = "2026.10.19-8445.09c896b";
+  version = "2026.10.19-8448.5b399b2";
 
   src = fetchFromGitHub {
     owner = "DIYgod";
     repo = "RSSHub";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-wLL9yCNfpv3MKf1lbSle536pm8v8Vm5KefKs4msSrpw=";
+    hash = "sha256-cEiLRwsFSqy7t/mZNUBGcYYuXP42weFPgNM8uWbtk4I=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     pnpm = pnpm_10;
     fetcherVersion = 3;
-    hash = "sha256-9u4I/luQUJe5cHp/nvTVpgqcU8lK7tWNLHMYvpsiiUM=";
+    hash = "sha256-3PQkWV2Sv/Wtd6yEH78JOYh2EyPMZLgqPt3tVeTve48=";
   };
 
   nativeBuildInputs = [
