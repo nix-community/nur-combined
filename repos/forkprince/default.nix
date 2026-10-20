@@ -3,8 +3,7 @@
   skipPkgs ? "[]",
 }: let
   skipList = builtins.fromJSON skipPkgs;
-in
-  removeAttrs rec {
+  attrs = rec {
     modules = import ./modules;
     overlays = import ./overlays;
     lib = import ./lib {inherit pkgs;};
@@ -170,5 +169,8 @@ in
     compositor-meta = lib.callPackage ./pkgs/compositor-meta {
       inherit compositor xuan;
     };
-  }
-  skipList
+  };
+in
+  if skipList == []
+  then attrs
+  else removeAttrs attrs skipList
