@@ -151,7 +151,25 @@ impl PartialEq for SassFunction {
 impl SassFunction {
     /// The `inspect()` / debug form, `get-function("name")` (dart-sass).
     pub(crate) fn inspect(&self) -> String {
-        format!("get-function(\"{}\")", self.name)
+        format!(
+            "get-function(\"{}\")",
+            declared_name(self.user.as_ref(), &self.name)
+        )
+    }
+}
+
+/// The name a callable value inspects as. A user-defined one is named by its
+/// declaration, as dart's `UserDefinedCallable.name` is: not by the spelling
+/// it was reached through, which a `@forward ... as p-*` prefix or an
+/// underscore (`f_a` for `f-a`) changes. dart stores a declared name with
+/// underscores as hyphens. A built-in keeps `name`.
+fn declared_name<'a>(
+    user: Option<&'a std::rc::Rc<dyn std::any::Any>>,
+    name: &'a str,
+) -> std::borrow::Cow<'a, str> {
+    match user.and_then(|u| u.downcast_ref::<crate::eval::UserCallable>()) {
+        Some(c) => std::borrow::Cow::Owned(c.def.name.replace('_', "-")),
+        None => std::borrow::Cow::Borrowed(name),
     }
 }
 
@@ -219,7 +237,7 @@ impl PartialEq for SassMixin {
 impl SassMixin {
     /// The `inspect()` / debug form, `get-mixin("name")` (dart-sass).
     pub(crate) fn inspect(&self) -> String {
-        format!("get-mixin(\"{}\")", self.name)
+        format!("get-mixin(\"{}\")", declared_name(self.user.as_ref(), &self.name))
     }
 }
 

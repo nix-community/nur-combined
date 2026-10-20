@@ -2692,6 +2692,46 @@ fn extend_across_media_contexts() {
     }
 }
 
+/// A user-defined function or mixin value inspects as its declared name,
+/// hyphenated, not as the spelling it was reached through (#283). Measured
+/// against dart-sass 1.105.1 on 2026-10-07.
+#[test]
+fn a_callable_value_is_named_by_its_declaration() {
+    let dir = std::env::temp_dir().join(format!("sasso_callable_name_{}", std::process::id()));
+    std::fs::create_dir_all(&dir).expect("mkdir");
+    for (name, text) in [
+        (
+            "lib",
+            "@function f-a($x) { @return $x * 2; }\n@mixin m_b { a: b; }\n",
+        ),
+        ("fwd", "@forward \"lib\" as p_*;\n"),
+        ("fwd2", "@forward \"fwd\" as q-*;\n"),
+    ] {
+        std::fs::write(dir.join(format!("_{name}.scss")), text).unwrap();
+    }
+    let imp = sasso::FsImporter::new(vec![dir.clone()]);
+    let run = |entry: &str| compile(entry, &Options::default().with_importer(&imp)).expect("compile");
+    assert_eq!(
+        run("@use \"sass:meta\";\n@use \"fwd\";\n@use \"fwd2\";\n\
+             x { a: meta.inspect(meta.module-functions(\"fwd\")); \
+             b: meta.inspect(meta.module-functions(\"fwd2\")); \
+             c: meta.inspect(meta.get-mixin(\"p-m-b\", $module: \"fwd\")); }\n"),
+        "x {\n  a: (\"p-f-a\": get-function(\"f-a\"));\n  b: (\"q-p-f-a\": get-function(\"f-a\"));\n  \
+         c: get-mixin(\"m-b\");\n}",
+    );
+    assert_eq!(
+        run(
+            "@use \"sass:meta\";\n@use \"fwd\" as *;\nx { a: meta.inspect(meta.get-function(\"p-f-a\")); }\n"
+        ),
+        "x {\n  a: get-function(\"f-a\");\n}",
+    );
+    assert_eq!(
+        css("@use \"sass:meta\";\n@function g_h($x) { @return $x; }\nx { a: meta.inspect(meta.get-function(\"g-h\")); }\n"),
+        "x {\n  a: get-function(\"g-h\");\n}\n",
+    );
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
 /// Every style rule is an `@extend` target, whether or not it emits anything
 /// (#286): dart registers a rule's selector before it knows the rule is empty.
 /// A keyframe stop is not a style rule. Measured against dart-sass 1.105.1 on

@@ -54,6 +54,22 @@ Conformance is tracked separately as a ratchet against the official
   as it registers, after the extension, keeps only the extension's line as
   its stack.
 
+- **A user-defined function or mixin value is named by its declaration**
+  (#283). `meta.inspect` and the "isn't a valid CSS value" error named a
+  function or mixin by the spelling it was reached through, where dart uses
+  the name it was declared with, hyphenated:
+
+  ```
+    @forward "lib" as p_*;      // lib: @function f-a($x) { … }
+    meta.inspect(meta.module-functions("fwd"))
+                     dart   ("p-f-a": get-function("f-a"))
+                     sasso  was: ("p-f-a": get-function("p_f-a"))
+  ```
+
+  The same held through `@use … as *`, two prefixed forwards, and an
+  underscore spelling (`meta.get-function("f_a")` for `f-a`, or a mixin
+  declared `m_b`). A built-in keeps its own name.
+
 - **A compile with no url gets its diagnostics, from npm** (#288, #74).
   `compileString` with no `url`, and the npm CLI's `--stdin`, which compiles
   through it, had diagnostics switched off in the core. So `@warn` printed

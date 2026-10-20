@@ -8326,6 +8326,53 @@ fn parity_module_callable_spellings() {
 }
 
 #[test]
+fn parity_callable_values_inspect_by_declared_name() {
+    // A user-defined function or mixin value is named by its declaration,
+    // hyphenated, however it was reached (#283): through a `@forward` prefix,
+    // two of them, `@use … as *`, or an underscore spelling. A built-in keeps
+    // its own name.
+    let lib = (
+        "_lib.scss",
+        "@function f-a($x) { @return $x * 2; }\n@mixin m_b { a: b; }\n",
+    );
+    let fwd = ("_fwd.scss", "@forward \"lib\" as p_*;\n");
+    let fwd2 = ("_fwd2.scss", "@forward \"fwd\" as q-*;\n");
+    let plain = ("_plain.scss", "@forward \"lib\";\n");
+    assert_module_parity(&[
+        lib,
+        fwd,
+        fwd2,
+        plain,
+        (
+            "input.scss",
+            "@use \"sass:meta\";\n@use \"fwd\";\n@use \"fwd2\";\n@use \"plain\";\n\
+             x { a: meta.inspect(meta.module-functions(\"fwd\")); \
+             b: meta.inspect(meta.get-function(\"p_f-a\", $module: \"fwd\")); \
+             c: meta.inspect(meta.module-functions(\"fwd2\")); \
+             d: meta.inspect(meta.module-mixins(\"fwd\")); \
+             e: meta.inspect(meta.get-mixin(\"p-m-b\", $module: \"fwd\")); \
+             f: meta.inspect(meta.get-function(\"f_a\", $module: \"plain\")); }\n",
+        ),
+    ]);
+    assert_module_parity(&[
+        lib,
+        fwd,
+        (
+            "input.scss",
+            "@use \"sass:meta\";\n@use \"fwd\" as *;\n\
+             x { a: meta.inspect(meta.get-function(\"p-f-a\")); b: meta.inspect(meta.get-mixin(\"p_m-b\")); }\n",
+        ),
+    ]);
+    assert_module_parity(&[(
+        "input.scss",
+        "@use \"sass:meta\";\n@use \"sass:math\";\n@function g_h($x) { @return $x; }\n@mixin n-o { a: b; }\n\
+         x { a: meta.inspect(meta.get-function(\"g-h\")); b: meta.inspect(meta.get-function(\"g_h\")); \
+         c: meta.inspect(meta.get-mixin(\"n_o\")); d: meta.inspect(meta.get-function(\"abs\", $module: \"math\")); \
+         e: meta.get-function(\"g-h\") == meta.get-function(\"g_h\"); }\n",
+    )]);
+}
+
+#[test]
 fn parity_use_and_forward_with_config() {
     // `with (...)` overrides a module's `!default` variables; a `@forward ...
     // with` default yields to a downstream `@use ... with` override.
