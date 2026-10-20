@@ -34,13 +34,16 @@ let
 
   packageData =
     { package, attrPath }:
+    let
+      updateScript = package.updateScript or null;
+    in
     {
       name = package.name;
       pname = lib.getName package;
       oldVersion = lib.getVersion package;
-      updateScript = map toString (lib.toList (package.updateScript.command or package.updateScript));
-      supportedFeatures = package.updateScript.supportedFeatures or [ ];
-      attrPath = package.updateScript.attrPath or attrPath;
+      updateScript = map toString (lib.toList (updateScript.command or updateScript));
+      supportedFeatures = updateScript.supportedFeatures or [ ];
+      attrPath = updateScript.attrPath or attrPath;
     };
 
   packagesJson = writeText "packages.json" (builtins.toJSON (map packageData (dedupe packages)));
