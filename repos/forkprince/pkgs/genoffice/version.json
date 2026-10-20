@@ -6,19 +6,19 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "0.11.829",
+  "version": "0.11.919",
   "platforms": {
     "x86_64-linux": {
       "file": "GenOffice-{version}.AppImage",
-      "hash": "sha256-qLfm3Dj7CT3SiSXV4tlnxYtv8n/0mgo791e96vKABJE="
+      "hash": "sha256-Imj58VS5BTl4cjS/l9gpjaGZxKOvOLoJkFTK3/dlCFA="
     },
     "x86_64-darwin": {
       "file": "GenOffice-{version}.dmg",
-      "hash": "sha256-Es3B2+WldKO7Us1WCA3zk5H+MUBnRDAn6F1HFvXCdaM="
+      "hash": "sha256-hveKXktfn9KCmcRBPY89E+s1Wai1BzbdHpPW8Rc083w="
     },
     "aarch64-darwin": {
       "file": "GenOffice-{version}-arm64.dmg",
-      "hash": "sha256-gO9CVnkLd+YNVvKnlawZHNK7wyjdZ3TDihW89pIUYT4="
+      "hash": "sha256-xbMpJ2Ff7/e/iJgsSVUZAdr1FFrdQpsLfbhqVYoK7PE="
     }
   }
 }
