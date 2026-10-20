@@ -11,7 +11,7 @@ import (
 func TestNixAutostartLauncher(t *testing.T) {
 	t.Setenv("XDG_CONFIG_HOME", t.TempDir())
 	t.Setenv("APPIMAGE", "")
-	if err := Refresh(); err != nil || Enabled() {
+	if err := Refresh(); err != nil || Enabled() != Off {
 		t.Fatalf("refresh enabled missing entry: %v", err)
 	}
 	if err := Set(true); err != nil {
@@ -45,7 +45,7 @@ func TestNixAutostartLauncher(t *testing.T) {
 	if err := Set(false); err != nil {
 		t.Fatal(err)
 	}
-	if err := Refresh(); err != nil || Enabled() {
+	if err := Refresh(); err != nil || Enabled() != Off {
 		t.Fatalf("refresh re-enabled removed entry: %v", err)
 	}
 }
