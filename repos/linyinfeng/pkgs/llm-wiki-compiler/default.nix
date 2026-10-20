@@ -7,16 +7,16 @@
 
 buildNpmPackage rec {
   pname = "llm-wiki-compiler";
-  version = "1.3.0";
+  version = "1.5.0";
 
   src = fetchFromGitHub {
     owner = "atomicstrata";
     repo = "llm-wiki-compiler";
     rev = "v${version}";
-    hash = "sha256-3SIn24GTye33X5/0/lmHJFiaCYWRlUdYtCmvPtkIZz4=";
+    hash = "sha256-GBeUXItsHrloL+Ke57T1mfvkmC/OqoE7knSU45vu6Qk=";
   };
 
-  npmDepsHash = "sha256-hXbR5CTnMCwFvucKc2mCtxBRQZA6n9os7hmEwmQ/Lpc=";
+  npmDepsHash = "sha256-GttgEmy7kfp2U++BO0mifNUHy+0EvWknxg9eUP/St7I=";
 
   npmBuildScript = "build";
 

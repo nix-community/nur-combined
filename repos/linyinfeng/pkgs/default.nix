@@ -45,7 +45,6 @@ lib.makeScope newScope (
     matrix-media-repo = callPackage ./matrix-media-repo { };
     matrix-qq = callPackage ./matrix-qq { };
     matrix-wechat = callPackage ./matrix-wechat { };
-    minio-latest = callPackage ./minio-latest { };
     moe-koe-music = callPackage ./moe-koe-music { };
     mstickereditor = callPackage ./mstickereditor { };
     niri-taskbar = callPackage ./niri-taskbar { };

@@ -97,11 +97,6 @@ let
       };
     }
     {
-      "minio-latest" = {
-        "minio" = "minio";
-      };
-    }
-    {
       "rcon-cli" = {
         "gorcon" = "gorcon";
       };

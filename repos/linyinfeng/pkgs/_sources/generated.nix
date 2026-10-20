@@ -8,27 +8,27 @@
 {
   aws-sigv4-proxy = {
     pname = "aws-sigv4-proxy";
-    version = "v1.13";
+    version = "v1.13.1";
     src = fetchFromGitHub {
       owner = "awslabs";
       repo = "aws-sigv4-proxy";
-      rev = "v1.13";
+      rev = "v1.13.1";
       fetchSubmodules = false;
-      sha256 = "sha256-RMLumWYHfxNxWt6UJzYvaAQX0PWltJrWcPZXrhrdymM=";
+      sha256 = "sha256-+O/9aP+QLwir56lXw1doZIaV24fqkhDg16FSMTFRzLQ=";
     };
   };
   baibot = {
     pname = "baibot";
-    version = "v1.27.1";
+    version = "v1.29.0";
     src = fetchFromGitHub {
       owner = "etkecc";
       repo = "baibot";
-      rev = "v1.27.1";
+      rev = "v1.29.0";
       fetchSubmodules = false;
-      sha256 = "sha256-UEDFHJhbMszEoeai7RFwFjJ2o8hCRVuLr6BAp96243A=";
+      sha256 = "sha256-oGYqD06BKZYgkDxTeP/JXG+YMxt+z1W2VHLcJYqw5e0=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-UEDFHJhbMszEoeai7RFwFjJ2o8hCRVuLr6BAp96243A=/Cargo.lock";
+      lockFile = ./. + "/sha256-oGYqD06BKZYgkDxTeP_JXG+YMxt+z1W2VHLcJYqw5e0=/Cargo.lock";
       outputHashes = {
         "anthropic-0.0.8" = "sha256-I7mpWrolVy1SkLa2ovy2TXAHFnVFABXnxaA8uKzRGuw=";
       };
@@ -50,13 +50,13 @@
   };
   cowrie = {
     pname = "cowrie";
-    version = "v3.0.15";
+    version = "v3.1.3";
     src = fetchFromGitHub {
       owner = "cowrie";
       repo = "cowrie";
-      rev = "v3.0.15";
+      rev = "v3.1.3";
       fetchSubmodules = false;
-      sha256 = "sha256-kmFq89AqG7ryjJ3fEO909lQxg/2TiPWmnwAMta2oEo8=";
+      sha256 = "sha256-UPOeWidBJ76or6adsXzM1MXCP+DD854JnOdRCw7OF4o=";
     };
   };
   dot-tar = {
@@ -81,13 +81,13 @@
   };
   dpt-rp1-py = {
     pname = "dpt-rp1-py";
-    version = "v0.1.19";
+    version = "v0.1.20";
     src = fetchFromGitHub {
       owner = "janten";
       repo = "dpt-rp1-py";
-      rev = "v0.1.19";
+      rev = "v0.1.20";
       fetchSubmodules = false;
-      sha256 = "sha256-cJ9dc8TRuduIka6T/MQsetDAjIhb+i2U9F8Qm9h29d8=";
+      sha256 = "sha256-d3SvKtoEq0+Ojs0jy8xWsiErFpKNVL0g8lfUTjYJww8=";
     };
   };
   gnome-shell-mobile-shell = {
@@ -120,13 +120,13 @@
   };
   linux-intel-lts = {
     pname = "linux-intel-lts";
-    version = "lts-v6.18.52-linux-260917T014108Z";
+    version = "lts-v6.18.54-linux-261009T084818Z";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "linux-intel-lts";
-      rev = "lts-v6.18.52-linux-260917T014108Z";
+      rev = "lts-v6.18.54-linux-261009T084818Z";
       fetchSubmodules = false;
-      sha256 = "sha256-/nZt8gxbDRZqpYHKxiEWwPMapXMenPZoJ5AxeN5U8eI=";
+      sha256 = "sha256-dGW7NtWAJcC7u3brDfziOxXGDjXCyAmMxyZNOpPHfHg=";
     };
   };
   linux-intel-mainline-tracking = {
@@ -188,10 +188,10 @@
   };
   moe-koe-music = {
     pname = "moe-koe-music";
-    version = "v1.7.0";
+    version = "v1.7.1";
     src = fetchurl {
-      url = "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.7.0/MoeKoe_Music_v1.7.0-x86_64.AppImage";
-      sha256 = "sha256-UYD2T8pqlqYNq5E2NCGrLhddah3h+U9872MBXALK6ek=";
+      url = "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.7.1/MoeKoe_Music_v1.7.1-x86_64.AppImage";
+      sha256 = "sha256-79u7IYQj+rRP7DpVG8+66mk1//h1PSOK5p7QbJKwhNA=";
     };
   };
   mstickereditor = {
@@ -373,17 +373,17 @@
   };
   rime-emoji = {
     pname = "rime-emoji";
-    version = "d1dbb424124fc50452a179300c7f287dbcc0db64";
+    version = "39d232996de79a95d7bf4b5e8533feed5326b075";
     src = fetchgit {
       url = "https://github.com/rime/rime-emoji.git";
-      rev = "d1dbb424124fc50452a179300c7f287dbcc0db64";
+      rev = "39d232996de79a95d7bf4b5e8533feed5326b075";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-QqHauKSfyi+heseUTQ+gztjkdoSGGfw/jRorFxSiXOo=";
+      sha256 = "sha256-fS9Or4/I8c0N7GFM5JH7p/ficU8+XXUIGnu3d5i9vAI=";
     };
-    date = "2026-03-24";
+    date = "2026-10-07";
   };
   rime-essay = {
     pname = "rime-essay";
@@ -401,17 +401,17 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "3aea6d3694fb3d94ec663641f021f788822897ad";
+    version = "da1fbe602e38f26db846fa10120ee64c2b0324c0";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "3aea6d3694fb3d94ec663641f021f788822897ad";
+      rev = "da1fbe602e38f26db846fa10120ee64c2b0324c0";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-qkRHk01UXrgherNi9eJPeKMyOE8yGkx4TF7oDxV+XYQ=";
+      sha256 = "sha256-IveGjHDllCPiRTItBl+fIlvNLnr3VRlnipnTY7e2jzM=";
     };
-    date = "2026-09-25";
+    date = "2026-10-05";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
@@ -558,13 +558,13 @@
   };
   secureboot_objects = {
     pname = "secureboot_objects";
-    version = "v1.7.0-signed";
+    version = "v1.7.1";
     src = fetchFromGitHub {
       owner = "microsoft";
       repo = "secureboot_objects";
-      rev = "v1.7.0-signed";
+      rev = "v1.7.1";
       fetchSubmodules = false;
-      sha256 = "sha256-GXi7RMGPH8X6S6qyjfn6yAYwDpJDmGwltNscjkMXLRQ=";
+      sha256 = "sha256-SAEDsDADO2pNRhK1Z/83kZ7R2smk0zSGIU9rCJuCdlw=";
     };
   };
   telegram-send = {
@@ -603,17 +603,17 @@
   };
   v86 = {
     pname = "v86";
-    version = "5f9a90f2be01243dd0ea4fe014cce12686cf3ced";
+    version = "cc37f35c43bf14865d74ad76879ecf9410f69eb1";
     src = fetchgit {
       url = "https://github.com/copy/v86.git";
-      rev = "5f9a90f2be01243dd0ea4fe014cce12686cf3ced";
+      rev = "cc37f35c43bf14865d74ad76879ecf9410f69eb1";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-ZYfvJ5Py7j7m95G2sKqP6iUw+t0XOzMVggRTLIti5v8=";
+      sha256 = "sha256-8gUk/7InPpLs3nEWIWLu/bq33IIt6sxxTjWtfRMV568=";
     };
-    date = "2026-09-20";
+    date = "2026-10-18";
   };
   vlmcsd = {
     pname = "vlmcsd";
