@@ -44,7 +44,10 @@ buildPythonPackage (final: {
   ];
 
   makeWrapperArgs = [
-    "--prefix PATH : ${nvtopPackages.full}/bin"
+    "--prefix"
+    "PATH"
+    ":"
+    "${nvtopPackages.full}/bin"
   ];
 
   passthru.updateScript = nix-update-script {

@@ -91,6 +91,7 @@ buildPythonApplication {
     "defusedxml"
     "exceptiongroup"
     "glom"
+    "peewee"
     "rich"
     "tomli"
     "wcmatch"

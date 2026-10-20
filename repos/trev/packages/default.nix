@@ -34,7 +34,7 @@ in
   type2-runtime = pkgs.pkgsStatic.callPackage ./type2-runtime { inherit (pkgs) nix-update-script; };
   xdg-desktop-portal-hyprland = pkgs.callPackage ./xdg-desktop-portal-hyprland { };
   xdg-desktop-portal-luminous = pkgs.callPackage ./xdg-desktop-portal-luminous { };
-  zig-protobuf = pkgs.callPackage ./zig-protobuf { };
+  zig-protobuf = pkgs.callPackage ./zig-protobuf { zig = pkgs.zig_0_16; };
 }
 // import ./beam.nix { inherit (pkgs) beamPackages; }
 // (
