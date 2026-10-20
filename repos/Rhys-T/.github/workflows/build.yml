@@ -155,7 +155,7 @@ jobs:
           "$result"
       - name: Get token for deleting cache
         if: ${{ steps.fetch.outputs.shouldDeleteCache == 'true' }}
-        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         id: app-token
         with:
           # required
@@ -266,7 +266,7 @@ jobs:
           buildFailures-
     - name: Run Upterm
       if: "${{ !cancelled() && matrix.runner == 'ubuntu-latest' && matrix.nixpkgs == 'nixpkgs-unstable' && matrix.subset == 'base' && github.event.inputs.upterm == 'true' }}"
-      uses: owenthereal/action-upterm@175d33786004a53b1538bcf157402b7197ce5029 # v2.6.0
+      uses: owenthereal/action-upterm@b9dfa526f890bbd5162d781f8d9c69b97731d73d # v2.7.0
       with:
         limit-access-to-actor: true
         limit-access-to-users: Rhys-T
