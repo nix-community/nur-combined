@@ -7,7 +7,7 @@
 
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "buildgrid";
-  version = "0.8.17";
+  version = "0.9.0";
   __structuredAttrs = true;
   pyproject = true;
 
@@ -15,11 +15,12 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
     owner = "BuildGrid";
     repo = "buildgrid";
     tag = finalAttrs.version;
-    hash = "sha256-YhWCm2xjuYdCwBei3pKGE0D+1xn24cgiqIWxqHyJN9w=";
+    hash = "sha256-vEIw1jP/SHnY16qyISGipiZaMNeaXg3c9sxcp9C1aPo=";
   };
 
   pythonRelaxDeps = [
     "pycurl" # 7.45.6 vs 7.46.0
+    "sqlalchemy" # 2.0.51 vs 2.1
   ];
   pythonRemoveDeps = [
     "lark-parser" # Nixpkgs calls this package 'lark'
@@ -45,6 +46,7 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
     lark
     mmh3
     protobuf
+    psycopg
     pycurl
     pydantic
     pyjwt
