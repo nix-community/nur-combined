@@ -6,7 +6,7 @@
   bun,
   pkgs,
   pkg-config,
-  perl,
+  python3,
   openssl,
   sqlite,
   wrapGAppsHook4,
@@ -17,16 +17,16 @@
 
 let
   bunSupport = import ./bun-support.nix { inherit pkgs; };
+  source = builtins.fromJSON (builtins.readFile ./source.json);
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "storyforge";
-  version = "2.0.8";
+  inherit (source) version;
 
   src = fetchFromGitHub {
     owner = "LovelessCodes";
     repo = "StoryForge";
-    rev = "89fd64ff2ca4c018260bc0538dc2d45aca12114a";
-    hash = "sha256-NA7O8oe8eJNMc2f+dr1vxfaklYrXPKE3G9f19psp4Mk=";
+    inherit (source) rev hash;
   };
 
   cargoRoot = "src-tauri";
@@ -37,7 +37,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     cargo-tauri.hook
     bunSupport.hook
     bun
-    perl
+    python3
     pkg-config
     wrapGAppsHook4
   ];
@@ -54,12 +54,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     bunNix = ./bun.nix;
   };
 
-  # Bun 1.3 in the pinned nixpkgs understands the same package records under
-  # lockfileVersion 1. Keep the locked resolutions; never regenerate in sandbox.
+  # A hash-bound, reviewed plan changes compatibility fields only. It never
+  # resolves dependencies and fails if upstream sources differ from the plan.
   postPatch = ''
-    substituteInPlace bun.lock --replace-fail '"lockfileVersion": 2' '"lockfileVersion": 1'
-    substituteInPlace package.json --replace-fail '"better-auth": "^1.7.7"' \
-      '"better-auth": "^1.7.6"'
+    python3 ${./compatibility.py} --source . --plan ${./compatibility.json}
   '';
 
   dontUseBunBuild = true;

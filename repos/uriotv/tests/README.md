@@ -18,6 +18,12 @@ strict-Bash updater, then runs:
   complete output matching, HTTP/upload failures and exact narinfo StorePath
   validation; required gate handling all 16 success/failure/skip/cancel pairs.
 
+- `storyforge-update.py`: mocked stable-release selection, snapshot preservation,
+  strict ancestry/retag checks, complete staged updates, dependency coverage,
+  generator/evaluation failures, rollback and read-only regeneration checks.
+- `storyforge-compatibility.py`: JSONC parser, source-bound plans, conditional
+  compatibility adjustments and unchanged resolved dependency records.
+
 ## Nix evaluation (not compilation)
 
 ```console

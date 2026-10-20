@@ -96,7 +96,9 @@ test_has_update_mechanism() {
     local pkg="$1"
     local script="$REPO_ROOT/pkgs/$pkg/update.sh"
 
-    if grep -q 'nix-update' "$script" || grep -q 'nix store prefetch-file' "$script"; then
+    if grep -q 'nix-update' "$script" || grep -q 'nix store prefetch-file' "$script" \
+        || { grep -qE '^[[:space:]]*exec python3 .*update\.py' "$script" \
+             && [[ -f "$REPO_ROOT/pkgs/$pkg/update.py" ]]; }; then
         test_pass "$pkg: declares an update mechanism" || return 0
         return 0
     fi
@@ -161,6 +163,8 @@ main() {
     # Offline workflow regression tests must never contact upstream or run Nix.
     python3 -B "$SCRIPT_DIR/update-workflow.py"
     python3 -B "$SCRIPT_DIR/ci-workflow.py"
+    python3 -B "$SCRIPT_DIR/storyforge-update.py"
+    python3 -B "$SCRIPT_DIR/storyforge-compatibility.py"
 
     echo "======================================"
     echo "Test Summary"

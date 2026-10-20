@@ -2,11 +2,11 @@
 { pkgs }:
 let
   inherit (pkgs) lib;
+  pin = builtins.fromJSON (builtins.readFile ./bun2nix-pin.json);
   source = pkgs.fetchFromGitHub {
     owner = "nix-community";
     repo = "bun2nix";
-    rev = "0456acb1b7394fc14c414b056aa889df5124943a";
-    hash = "sha256-8HmRrSjDKZNl9KC0fms3QMtDJlO/OssK4cZw7VrllcA=";
+    inherit (pin) rev hash;
   };
   # These pinned modules separate their option declarations from their values.
   # We use the values directly; no flake-parts evaluation or IFD is needed.
@@ -17,7 +17,7 @@ let
         inherit lib;
         flake-parts-lib.mkPerSystemOption = value: value;
         config = {
-          cargoTOML.package.version = "2.1.2";
+          cargoTOML.package.version = pin.version;
           bun2nixSource = source;
         };
       };

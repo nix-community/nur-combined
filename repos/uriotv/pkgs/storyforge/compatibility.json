@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "inputSha256": {
+    "bun.lock": "c901db29b5738f6dcf272faab5dbb349021cd20f030d648c098937d53a251e8c",
+    "package.json": "6babdeb1f3ff6ae414d7707375254f3795a9733a4fe3376f5957b6a292b5a8d8"
+  },
+  "lockfileVersion": {
+    "from": 2,
+    "to": 1
+  },
+  "betterAuth": {
+    "from": "^1.7.7",
+    "to": "^1.7.6"
+  }
+}

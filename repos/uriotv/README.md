@@ -61,9 +61,9 @@ Use `urio-nur.packages.${pkgs.system}.storyforge` in your package list, or
 nix build .#storyforge
 ```
 
-See [the package guide](pkgs/storyforge/README.md). Updates currently remain
-manual: StoryForge needs an executable `update.sh` before the standardized daily
-updater and its preflight tests can pass.
+See [the package guide](pkgs/storyforge/README.md). Daily updates follow stable
+releases and regenerate the Cargo/Bun artifacts together. The current snapshot
+is preserved until a strictly newer, descendant release is available.
 
 ## CI/CD contract
 

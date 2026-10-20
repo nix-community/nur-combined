@@ -82,7 +82,9 @@ Python and standard runner utilities available. It must:
 - never commit, push, install, activate a system or write secrets.
 
 Use a custom script for unusual upstreams (NMSSaveEditor, RimSort release assets,
-non-sortable bbport versions). Choose an explicit stable/prerelease policy.
+non-sortable bbport versions, StoryForge's coupled Cargo/Bun artifacts). A strict
+wrapper may use `exec python3 -B "$script_dir/update.py" "$@"` with a real sibling
+helper; preflight recognizes this delegation. Choose an explicit stable/prerelease policy.
 Do not claim an asset exists merely because a release/tag exists.
 
 The orchestrator preflights all packages, applies a 900-second timeout per

@@ -14,6 +14,12 @@ on:
   schedule:
     - cron: '17 3 * * *'
   workflow_dispatch:
+    inputs:
+      verify_storyforge_updater:
+        description: 'Regenerate StoryForge locks using the pinned generator (may build the tool)'
+        type: boolean
+        required: false
+        default: false
 
 jobs:
   test-update-scripts:
@@ -54,6 +60,9 @@ jobs:
           python3 -B tests/registry-eval.py
           nix eval --json --no-write-lock-file .#ci.x86_64-linux.policyTests
           nix eval --json --no-write-lock-file .#ci.x86_64-linux.manifest > "$CI_MANIFEST_PATH"
+      - name: Verify StoryForge dependency regeneration
+        if: github.event_name == 'workflow_dispatch' && inputs.verify_storyforge_updater
+        run: ./pkgs/storyforge/update.sh --verify-current
       - name: Build every eligible package output
         env:
           CI_MANIFEST_PATH: ${{ runner.temp }}/ci-manifest.json
