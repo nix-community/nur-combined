@@ -325,21 +325,21 @@
   };
   hmcl-dev-bin = {
     pname = "hmcl-dev-bin";
-    version = "3.17.0.361";
+    version = "3.17.0.362";
     src = fetchurl {
-      url = "https://github.com/HMCL-dev/HMCL/releases/download/v3.17.0.361/HMCL-3.17.0.361.jar";
-      sha256 = "sha256-27M7+Z7+4QTjQy0/X9M1J144w44Xstda4HxSFPjvXos=";
+      url = "https://github.com/HMCL-dev/HMCL/releases/download/v3.17.0.362/HMCL-3.17.0.362.jar";
+      sha256 = "sha256-nnx57IzscXwpgyPs3cq4ZNc8L+DTsbnopRhHpEyPug0=";
     };
   };
   hmcl-dev-src = {
     pname = "hmcl-dev-src";
-    version = "v3.17.0.361";
+    version = "v3.17.0.362";
     src = fetchFromGitHub {
       owner = "HMCL-dev";
       repo = "HMCL";
-      rev = "v3.17.0.361";
+      rev = "v3.17.0.362";
       fetchSubmodules = false;
-      sha256 = "sha256-JUz5Dfv8P0Bs7Ki7yzCE6lBb3uovrTjwOy5gBXe0/1g=";
+      sha256 = "sha256-ySYQT9ZoovZamMnYqXx+Sy/fULMtnm7SthFfPzoP/4Q=";
     };
   };
   hysteria-realm-server = {

@@ -26,6 +26,24 @@ args@{
       terracottaBundleJava = "${source-src.src}/HMCL/src/main/java/org/jackhuang/hmcl/terracotta/TerracottaBundle.java";
       macOSProviderJava = "${source-src.src}/HMCL/src/main/java/org/jackhuang/hmcl/terracotta/provider/MacOSProvider.java";
 
+      regionUtilsJava = "${source-src.src}/HMCL/src/main/java/org/jackhuang/hmcl/util/RegionUtils.java";
+      regionUtilsJavaPath = "HMCL/src/main/java/org/jackhuang/hmcl/util/RegionUtils.java";
+
+      prePatch = prevAttrs.prePatch + ''
+        install -Dm644 "$regionUtilsJava" "$regionUtilsJavaPath"
+      '';
+
+      patches = prevAttrs.patches ++ [
+        ./0003-nix-keep-downloads-enabled.patch
+      ];
+
+      preBuild = (prevAttrs.preBuild or "") + ''
+        mkdir -p out
+        javac -cp "$src" \
+          -sourcepath "${source-src.src}/HMCLCore/src/main/java" \
+          -implicit:none -d out "$regionUtilsJavaPath"
+      '';
+
       runtimeDeps = prevAttrs.runtimeDeps ++ [ sdl3 ];
     }
   )

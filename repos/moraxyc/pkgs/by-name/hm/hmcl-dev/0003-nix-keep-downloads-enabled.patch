@@ -1,0 +1,24 @@
+--- a/HMCL/src/main/java/org/jackhuang/hmcl/util/RegionUtils.java
++++ b/HMCL/src/main/java/org/jackhuang/hmcl/util/RegionUtils.java
+@@ -93,20 +93,3 @@
+     public static boolean isIsChinaMainlandNetwork() {
+-        if (!IS_CHINA_MAINLAND_MACHINE) {
+-            return false;
+-        }
+-
+-        Boolean value = isChinaMainlandNetwork;
+-        if (value != null)
+-            return value;
+-
+-        synchronized (RegionUtils.class) {
+-            value = isChinaMainlandNetwork;
+-
+-            if (value != null)
+-                return value;
+-
+-            boolean result = checkChinaMainlandNetwork();
+-            isChinaMainlandNetwork = result;
+-            return result;
+-        }
++        return false;
+     }
