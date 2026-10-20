@@ -8,42 +8,49 @@
 
   outputs =
     inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
+    let
+      # The pinned nixpkgs no longer supports Intel macOS.
       systems = [
         "x86_64-linux"
         "aarch64-linux"
-        "x86_64-darwin"
         "aarch64-darwin"
       ];
-
+      pkgsFor =
+        system:
+        import inputs.nixpkgs {
+          inherit system;
+          # Local/CI builds are permitted; redistribution is a separate decision.
+          config.allowUnfree = true;
+        };
+    in
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      inherit systems;
       perSystem =
         { system, ... }:
         let
-          pkgs = import inputs.nixpkgs {
-            inherit system;
-            config.allowUnfree = true;
-          };
+          pkgs = pkgsFor system;
+          ci = import ./ci.nix { inherit pkgs; };
         in
         {
           legacyPackages = import ./default.nix { inherit pkgs; };
-          packages = pkgs.lib.filterAttrs (_: v: pkgs.lib.isDerivation v) (
-            import ./default.nix { inherit pkgs; }
-          );
+          packages = pkgs.lib.filterAttrs (
+            _: p: pkgs.lib.meta.availableOn pkgs.stdenv.hostPlatform p
+          ) ci.packages;
+          checks = ci.buildPackages;
           devShells.default = pkgs.mkShell {
-            packages = [
-              pkgs.nix-update
-            ];
+            packages = [ pkgs.nix-update ];
           };
         };
-
       flake = {
+        ci = inputs.nixpkgs.lib.genAttrs systems (
+          system:
+          (import ./ci.nix { pkgs = pkgsFor system; })
+          // {
+            policyTests = import ./tests/package-policy.nix { lib = inputs.nixpkgs.lib; };
+          }
+        );
         overlays = import ./overlays;
-        nixosModules = {
-          default =
-            { ... }:
-            {
-            };
-        };
+        nixosModules.default = { ... }: { };
       };
     };
 }

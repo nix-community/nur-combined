@@ -1,52 +1,62 @@
 # Tests
 
-This directory contains tests for the update scripts.
+## Offline suite (no Nix builds, upstream requests or credentials)
 
-## Running tests
-
-### Simple bash tests (recommended for CI)
-
-```bash
+```console
 ./tests/run-tests.sh
 ```
 
-The bash runner also executes `tests/update-workflow.py` (Python 3 standard
-library only). These offline regression tests use temporary package fixtures;
-they do not contact upstream, invoke Nix, or modify repository packages. They
-verify that failed updates restore the package directory, successful updates
-before and after a failure are retained, and summaries report failures without
-blocking PR creation. Invalid package selections remain hard errors.
+The runner discovers every `pkgs/<name>/default.nix`, checks its executable
+strict-Bash updater, then runs:
 
-### BATS tests (more comprehensive)
+- `update-workflow.py`: RimSort release/asset selection, mocked nix-update,
+  package-directory rollback, partial failures, counters, missing-updater
+  preflight, empty discovery and ScopeBuddy's version-linked tag.
+- `ci-workflow.py`: stubbed Nix/Cachix/curl; build every package and output,
+  including non-cacheable ones; continue then fail on build errors; both Nix
+  JSON output formats; malformed manifests/outputs; publication restrictions,
+  complete output matching, HTTP/upload failures and exact narinfo StorePath
+  validation; required gate handling all 16 success/failure/skip/cancel pairs.
 
-```bash
-# Install bats first
-sudo apt-get install bats
+## Nix evaluation (not compilation)
 
-# Run tests
-bats tests/update-scripts.bats
+```console
+# Pure registry tests, no downloads; requires the Nix CLI.
+python3 -B tests/registry-eval.py
+
+# Uses the repository lock; Nix may fetch evaluation inputs.
+nix eval --json --no-write-lock-file .#ci.x86_64-linux.policyTests
+nix eval --json --no-write-lock-file .#ci.x86_64-linux.manifest
+nix flake check --no-build --no-write-lock-file
 ```
 
-## What is tested
+`registry-eval.py` verifies automatic registration of a newly added package,
+rejection of reserved/invalid names, exclusion of symlinks/nonpackages, and
+consistent NUR/overlay exports. `package-policy.nix` verifies license decisions,
+full output selection, unfree builds, redistributable nonfree uploads,
+`preferLocalBuild`, broken packages and unsupported platforms.
 
-1. **Package structure** - Each package has a `default.nix` file
-2. **Update script existence** - Each package has an executable `update.sh`
-3. **Script structure** - Scripts have proper shebang and `set -euo pipefail`
-4. **nix-update usage** - Scripts use `nix-update` for updates
-5. **Flake support** - Scripts use `--flake` flag for flake-based packages
+The build workflow runs these checks and then builds **all** supported package
+outputs on x86_64-linux. Evaluation success is not compilation or runtime success;
+GUI applications are not launched by CI. Cache verification proves public root
+narinfo presence and correct StorePath, not an independent cold-cache restore.
 
-## Adding tests for new packages
+## Optional BATS
 
-Edit `tests/run-tests.sh` and add the package name to the `PACKAGES` array:
-
-```bash
-PACKAGES=(
-    "cybergrub2077"
-    "rimsort-appimage"
-    "scopebuddy"
-    "wowup-cf"
-    "new-package"  # Add here
-)
+```console
+nix run nixpkgs#bats -- tests/update-scripts.bats
 ```
 
-For BATS tests, add new test cases in `tests/update-scripts.bats`.
+Default BATS execution is structural/offline. The idempotence test is deliberately
+opt-in because it downloads upstream sources and modifies packages:
+
+```console
+# Only in a disposable checkout, with nix-update available:
+RUN_LIVE_UPDATER_TESTS=1 bats tests/update-scripts.bats
+```
+
+## Adding coverage
+
+New directories are discovered automatically; do not add a hand-maintained list.
+Add policy edge cases in `package-policy.nix`, new updater fixtures in
+`update-workflow.py`, and helper/network failures in `ci-workflow.py`.

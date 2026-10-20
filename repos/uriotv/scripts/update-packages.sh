@@ -49,7 +49,12 @@ summary+=$'\n'"| Package | Status | Details |"
 summary+=$'\n'"| --- | --- | --- |"
 
 FAILED=0
+SUCCEEDED=0
 UPDATE_PACKAGE=${UPDATE_PACKAGE:-}
+UPDATE_TIMEOUT_SECONDS=${UPDATE_TIMEOUT_SECONDS:-900}
+[[ "$UPDATE_TIMEOUT_SECONDS" =~ ^[1-9][0-9]*$ ]] || {
+  echo '::error::UPDATE_TIMEOUT_SECONDS must be a positive integer'; exit 1;
+}
 PR_BODY_PATH=${PR_BODY_PATH:-/tmp/pr-body.md}
 : "${GITHUB_STEP_SUMMARY:?GITHUB_STEP_SUMMARY must be set}"
 : "${BUILD_LOG_URL:?BUILD_LOG_URL must be set}"
@@ -73,7 +78,8 @@ run_update() {
 
   local log_file="$backup_root/last_output.txt"
   local output
-  if output=$(./"$script" 2>&1); then
+  if output=$(timeout --kill-after=30s "${UPDATE_TIMEOUT_SECONDS}s" ./"$script" 2>&1); then
+    SUCCEEDED=$((SUCCEEDED + 1))
     echo "$output" > "$log_file"
     echo "✅ Success"
     truncate_log "$log_file" 15
@@ -106,15 +112,25 @@ if [ -n "$UPDATE_PACKAGE" ]; then
   fi
 
   script="pkgs/$UPDATE_PACKAGE/update.sh"
-  if [ ! -x "$script" ]; then
-    echo "::error::No executable update script found at $script"
+  if [ ! -f "pkgs/$UPDATE_PACKAGE/default.nix" ] || [ ! -x "$script" ]; then
+    echo "::error::No package with an executable update script found at $script"
     exit 1
   fi
 
   run_update "$script"
 else
-  # Update all packages
-  for script in pkgs/*/update.sh; do
+  # Same convention as pkgs/default.nix: immediate directories with default.nix.
+  # Preflight the entire registry: never silently ignore a new package whose
+  # updater was forgotten or whose executable bit was lost.
+  scripts=()
+  for directory in pkgs/*/; do
+    [[ ! -L "${directory%/}" && -f "${directory}default.nix" ]] || continue
+    script="${directory}update.sh"
+    [[ -x "$script" ]] || { echo "::error::Missing executable updater: $script"; exit 1; }
+    scripts+=("$script")
+  done
+  [[ ${#scripts[@]} -gt 0 ]] || { echo '::error::No packages discovered'; exit 1; }
+  for script in "${scripts[@]}"; do
     run_update "$script"
   done
 fi
@@ -137,6 +153,12 @@ fi
   echo ""
   echo "</details>"
 } > "$PR_BODY_PATH"
+
+# The workflow opens a PR for successful changes first, then marks an incomplete
+# update check as failed. Offline/local callers do not need GITHUB_OUTPUT.
+if [[ -n "${GITHUB_OUTPUT:-}" ]]; then
+  printf 'update_failures=%s\nsuccessful_updates=%s\n' "$FAILED" "$SUCCEEDED" >> "$GITHUB_OUTPUT"
+fi
 
 if [ "$FAILED" -ne 0 ]; then
   echo "::warning::$FAILED package update(s) failed; continuing with successful updates"

@@ -36,7 +36,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Cyberpunk 2077 inspired GRUB theme";
     homepage = "https://github.com/adnksharp/CyberGRUB-2077";
-    license = licenses.mit;
+    license = licenses.unlicense;
     platforms = platforms.linux;
   };
 }

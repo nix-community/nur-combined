@@ -9,15 +9,15 @@
   jq,
 }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "scopebuddy";
   version = "1.5.0";
 
   src = fetchFromGitHub {
     owner = "OpenGamingCollective";
     repo = "ScopeBuddy";
-    rev = "1.4.0";
-    hash = "sha256-1n1lZidbtDV9Lm8QKd1s35bOS6Uh8sI3KtBJZ+FwdxQ=";
+    tag = finalAttrs.version;
+    hash = "sha256-Z4KE6Qs5dcNdoEra1sx69I8EsxztAeVNGgO0ltYz7r0=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
@@ -59,4 +59,4 @@ stdenv.mkDerivation {
     platforms = platforms.linux;
     mainProgram = "scopebuddy";
   };
-}
+})

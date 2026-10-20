@@ -18,22 +18,17 @@ TESTS_PASSED=0
 TESTS_FAILED=0
 TESTS_SKIPPED=0
 
-# Test packages
-PACKAGES=(
-    "bbport"
-    "cybergrub2077"
-    "nmssaveeditor"
-    "rimsort-appimage"
-    "scopebuddy"
-    "wowup-cf"
-)
+# Same package registry convention as Nix and the daily updater. New package
+# directories are tested automatically; no hand-maintained package list.
+PACKAGES=()
+for directory in "$REPO_ROOT"/pkgs/*/; do
+    [[ ! -L "${directory%/}" && -f "${directory}default.nix" ]] || continue
+    PACKAGES+=("$(basename "$directory")")
+done
+[[ ${#PACKAGES[@]} -gt 0 ]] || { echo 'No packages discovered' >&2; exit 1; }
 
 log_info() {
     echo -e "${GREEN}[INFO]${NC} $*"
-}
-
-log_warn() {
-    echo -e "${YELLOW}[WARN]${NC} $*"
 }
 
 log_error() {
@@ -164,7 +159,8 @@ main() {
     done
 
     # Offline workflow regression tests must never contact upstream or run Nix.
-    python3 "$SCRIPT_DIR/update-workflow.py"
+    python3 -B "$SCRIPT_DIR/update-workflow.py"
+    python3 -B "$SCRIPT_DIR/ci-workflow.py"
 
     echo "======================================"
     echo "Test Summary"

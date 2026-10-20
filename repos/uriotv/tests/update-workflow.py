@@ -153,6 +153,7 @@ class UpdateWorkflowTests(unittest.TestCase):
         self.root = Path(self.temp.name)
         self.summary = self.root / "summary.md"
         self.body = self.root / "pr-body.md"
+        self.outputs = self.root / "outputs"
 
     def package(self, name, commands):
         directory = self.root / "pkgs" / name
@@ -173,6 +174,7 @@ class UpdateWorkflowTests(unittest.TestCase):
                 "GITHUB_STEP_SUMMARY": str(self.summary),
                 "PR_BODY_PATH": str(self.body),
                 "BUILD_LOG_URL": "https://example.org/build/123",
+                "GITHUB_OUTPUT": str(self.outputs),
             },
             text=True,
             capture_output=True,
@@ -234,6 +236,43 @@ class UpdateWorkflowTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertEqual((good / "default.nix").read_text(), "updated\n")
         self.assertNotIn("::warning", result.stdout)
+
+    def test_counts_allow_workflow_to_report_partial_failure_after_opening_pr(self):
+        self.package("good", "true")
+        self.package("bad", "exit 1")
+        result = self.run_updates()
+        self.assertEqual(result.returncode, 0)
+        self.assertEqual(self.outputs.read_text(), "update_failures=1\nsuccessful_updates=1\n")
+
+    def test_forgotten_updater_fails_preflight_before_changing_other_packages(self):
+        good = self.package("a-good", "echo updated > pkgs/a-good/default.nix")
+        missing = self.root / "pkgs" / "z-new"
+        missing.mkdir()
+        (missing / "default.nix").write_text("original\n")
+        result = self.run_updates()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("Missing executable updater", result.stdout)
+        self.assertEqual((good / "default.nix").read_text(), "original\n")
+
+    def test_nonpackage_directories_are_not_updated(self):
+        self.package("good", "true")
+        orphan = self.package("orphan", "exit 1")
+        (orphan / "default.nix").unlink()
+        result = self.run_updates()
+        self.assertEqual(result.returncode, 0)
+        self.assertNotIn("Updating orphan", result.stdout)
+        self.assertIn("update_failures=0", self.outputs.read_text())
+
+    def test_empty_registry_is_a_hard_error(self):
+        (self.root / "pkgs").mkdir()
+        result = self.run_updates()
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("No packages discovered", result.stdout)
+
+    def test_scopebuddy_tag_tracks_the_declared_version(self):
+        source = (REPO_ROOT / "pkgs/scopebuddy/default.nix").read_text()
+        self.assertIn("tag = finalAttrs.version;", source)
+        self.assertNotIn('rev = "1.4.0"', source)
 
     def test_invalid_or_missing_package_remains_a_hard_error(self):
         for name in ("../escape", "..", ".", "missing"):

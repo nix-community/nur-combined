@@ -44,12 +44,10 @@ fi
 jar_url="https://github.com/$upstream/raw/$revision/NMSSaveEditor.jar"
 jar_hash="$(nix store prefetch-file --json "$jar_url" | jq --raw-output --exit-status '.hash')"
 
-for hash in "$jar_hash"; do
-  if [[ ! "$hash" =~ ^sha256-[A-Za-z0-9+/=]+$ ]]; then
-    echo "Invalid NAR hash: $hash" >&2
-    exit 1
-  fi
-done
+if [[ ! "$jar_hash" =~ ^sha256-[A-Za-z0-9+/]{43}=$ ]]; then
+  echo "Invalid SHA-256 hash: $jar_hash" >&2
+  exit 1
+fi
 
 perl -0pi -e 's/(version = ")[^"]+(";)/${1}'"$version"'${2}/' "$nix_file"
 perl -0pi -e 's#(NMSSaveEditor/raw/)[0-9a-f]{40}(/NMSSaveEditor\.(?:jar|exe))#${1}'"$revision"'${2}#g' "$nix_file"

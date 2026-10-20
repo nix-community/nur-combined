@@ -1,5 +1,8 @@
 name: "Build and populate cache"
 
+permissions:
+  contents: read
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -7,100 +10,85 @@ concurrency:
 on:
   pull_request:
   push:
-    branches:
-      - main
-      - master
+    branches: [main, master]
   schedule:
-    # rebuild everyday at 2:51
-    # TIP: Choose a random time here so not all repositories are build at once:
-    # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
-    - cron:  '51 2 * * *'
+    - cron: '17 3 * * *'
   workflow_dispatch:
+
 jobs:
   test-update-scripts:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v7
-
-      - name: Run update script tests
-        run: ./tests/run-tests.sh
-
-  # This is a required branch-protection check. Keep it dependent on every CI
-  # test job so auto-merge cannot bypass a failed package build.
-  test-gate:
-    runs-on: ubuntu-latest
-    needs:
-      - test-update-scripts
-      - tests
-    if: always()
-    steps:
-      - name: Check test results
+      - uses: actions/checkout@v7
+      - name: Run offline workflow and update-script tests
         run: |
-          if [ "${{ needs.test-update-scripts.result }}" != "success" ] || [ "${{ needs.tests.result }}" != "success" ]; then
-            echo "::error::CI checks failed; merge is blocked."
-            exit 1
-          fi
-          echo "✓ All CI checks passed"
+          ./tests/run-tests.sh
 
   tests:
+    needs: test-update-scripts
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
     strategy:
       fail-fast: false
       matrix:
-        # Set this to notify the global nur package registry that changes are
-        # available.
-        #
-        # The repo name as used in
-        # https://github.com/nix-community/NUR/blob/master/repos.json
-        nurRepo:
-          - urio-nur
-        # Set this to cache your build results in cachix for faster builds
-        # in CI and for everyone who uses your cache.
-        #
-        # Format: Your cachix cache host name without the ".cachix.org" suffix.
-        # Example: mycache (for mycache.cachix.org)
-        #
-        # For this to work, you also need to set the CACHIX_SIGNING_KEY or
-        # CACHIX_AUTH_TOKEN secret in your repository secrets settings in
-        # Github found at
-        # https://github.com/<your_githubname>/nur-packages/settings/secrets
-        cachixName:
-          - uriotv
-        nixPath:
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
-    runs-on: ubuntu-latest
+        nurRepo: [urio-nur]
+        cachixName: [uriotv]
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v7
-    - name: Install nix
-      uses: cachix/install-nix-action@v31
-      with:
-        nix_path: "${{ matrix.nixPath }}"
-        extra_nix_config: |
-          experimental-features = nix-command flakes
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-    - name: Show nixpkgs version
-      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-    - name: Setup cachix
-      uses: cachix/cachix-action@v17
-      # Don't replace <YOUR_CACHIX_NAME> here!
-      if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
-      with:
-        name: ${{ matrix.cachixName }}
-        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - name: Check evaluation
-      run: |
-        nix-env -f . -qa \* --meta --xml \
-          --allowed-uris https://static.rust-lang.org \
-          --option restrict-eval true \
-          --option allow-import-from-derivation true \
-          --drv-path --show-trace \
-          -I "nixpkgs=$(nix-instantiate --find-file nixpkgs)" \
-          -I "$PWD"
-    - name: Build nix packages
-      run: nix-build ci.nix -A cacheOutputs --keep-going
-    - name: Trigger NUR update
-      # Don't replace <YOUR_REPO_NAME> here!
-      if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
-      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
+      - uses: actions/checkout@v7
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Configure read-only Cachix
+        uses: cachix/cachix-action@v17
+        with:
+          name: ${{ matrix.cachixName }}
+          skipPush: true
+      - name: Evaluate CI manifest
+        env:
+          CI_MANIFEST_PATH: ${{ runner.temp }}/ci-manifest.json
+        run: |
+          python3 -B tests/registry-eval.py
+          nix eval --json --no-write-lock-file .#ci.x86_64-linux.policyTests
+          nix eval --json --no-write-lock-file .#ci.x86_64-linux.manifest > "$CI_MANIFEST_PATH"
+      - name: Build every eligible package output
+        env:
+          CI_MANIFEST_PATH: ${{ runner.temp }}/ci-manifest.json
+          CI_BUILT_OUTPUTS_FILE: ${{ runner.temp }}/ci-built-outputs.txt
+        run: bash scripts/build-ci.sh
+      - name: Publish eligible outputs
+        if: >-
+          success() && github.ref == 'refs/heads/main' &&
+          (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule')
+        env:
+          CI_MANIFEST_PATH: ${{ runner.temp }}/ci-manifest.json
+          CI_BUILT_OUTPUTS_FILE: ${{ runner.temp }}/ci-built-outputs.txt
+          CI_PUBLISH_ONLY: 'true'
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          GITHUB_REF: ${{ github.ref }}
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        run: bash scripts/build-ci.sh
+      - name: Trigger NUR update
+        if: >-
+          success() && github.ref == 'refs/heads/main' &&
+          (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule')
+        run: curl --fail --retry 3 --show-error -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
+
+  test-gate:
+    runs-on: ubuntu-latest
+    needs: [test-update-scripts, tests]
+    if: always()
+    steps:
+      - name: Check test results
+        env:
+          UPDATE_RESULT: ${{ needs.test-update-scripts.result }}
+          TESTS_RESULT: ${{ needs.tests.result }}
+        run: |
+          if [ "$UPDATE_RESULT" != success ] || [ "$TESTS_RESULT" != success ]; then
+            echo '::error::CI checks failed; merge is blocked.'
+            exit 1
+          fi
+          echo 'All CI checks passed'

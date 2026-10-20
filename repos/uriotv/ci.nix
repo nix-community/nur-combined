@@ -1,56 +1,40 @@
-# This file provides all the buildable and cacheable packages and
-# package outputs in your package set. These are what gets built by CI,
-# so if you correctly mark packages as
-#
-# - broken (using `meta.broken`),
-# - unfree (using `meta.license.free`), and
-# - locally built (using `preferLocalBuild`)
-#
-# then your CI will be able to build and cache only those packages for
-# which this is possible.
-
-{ pkgs ? import <nixpkgs> { } }:
-
-with builtins;
+# One policy for all package exports: build everything supported; publish only
+# explicitly redistributable packages. preferLocalBuild is a scheduling hint,
+# not a build exclusion or a redistribution restriction.
+{
+  pkgs ? import <nixpkgs> { config.allowUnfree = true; },
+  packages ? import ./pkgs { inherit pkgs; },
+}:
 let
-  isReserved = n: n == "lib" || n == "overlays" || n == "modules";
-  isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
-  isBuildable = p: let
-    licenseFromMeta = p.meta.license or [];
-    licenseList = if builtins.isList licenseFromMeta then licenseFromMeta else [licenseFromMeta];
-  in !(p.meta.broken or false) && builtins.all (license: license.free or true) licenseList;
-  isCacheable = p: !(p.preferLocalBuild or false);
-  shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
-
-  nameValuePair = n: v: { name = n; value = v; };
-
-  concatMap = builtins.concatMap or (f: xs: concatLists (map f xs));
-
-  flattenPkgs = s:
-    let
-      f = p:
-        if shouldRecurseForDerivations p then flattenPkgs p
-        else if isDerivation p then [ p ]
-        else [ ];
-    in
-    concatMap f (attrValues s);
-
-  outputsOf = p: map (o: p.${o}) p.outputs;
-
-  nurAttrs = import ./default.nix { inherit pkgs; };
-
-  nurPkgs =
-    flattenPkgs
-      (listToAttrs
-        (map (n: nameValuePair n nurAttrs.${n})
-          (filter (n: !isReserved n)
-            (attrNames nurAttrs))));
-
+  policy = import ./lib/ci-policy.nix;
+  supported = p: pkgs.lib.meta.availableOn pkgs.stdenv.hostPlatform p;
+  buildable = p: supported p && !(p.meta.broken or false);
+  cacheable = p: buildable p && policy.redistributable (p.meta.license or [ ]);
+  outputsOf = p: map (name: p.${name}) p.outputs;
+  buildPackages = pkgs.lib.filterAttrs (_: buildable) packages;
+  cachePackages = pkgs.lib.filterAttrs (_: cacheable) packages;
 in
 rec {
-  buildPkgs = filter isBuildable nurPkgs;
-  cachePkgs = filter isCacheable buildPkgs;
-
-  buildOutputs = concatMap outputsOf buildPkgs;
-  cacheOutputs = concatMap outputsOf cachePkgs;
+  inherit packages buildPackages cachePackages;
+  # Legacy entry points remain available, but are no longer conflated in CI.
+  buildPkgs = builtins.attrValues buildPackages;
+  cachePkgs = builtins.attrValues cachePackages;
+  buildOutputs = builtins.concatMap outputsOf buildPkgs;
+  cacheOutputs = builtins.concatMap outputsOf cachePkgs;
+  manifest = pkgs.lib.mapAttrsToList (name: p: {
+    inherit name;
+    version = p.version or "unknown";
+    buildable = buildable p;
+    cacheable = cacheable p;
+    reason =
+      if !(supported p) then
+        "unsupported platform"
+      else if p.meta.broken or false then
+        "marked broken"
+      else if !policy.redistributable (p.meta.license or [ ]) then
+        "license does not explicitly permit redistribution"
+      else
+        "redistributable license";
+    outputs = if buildable p then map (o: toString o) (outputsOf p) else [ ];
+  }) packages;
 }

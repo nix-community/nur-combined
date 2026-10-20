@@ -15,20 +15,5 @@
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
-
-  # Games
-  bbport = pkgs.callPackage ./pkgs/bbport { };
-
-  # Themes
-  cybergrub2077 = pkgs.callPackage ./pkgs/cybergrub2077 { };
-
-  # Applications
-  nmssaveeditor = pkgs.callPackage ./pkgs/nmssaveeditor { };
-  rimsort-appimage = pkgs.callPackage ./pkgs/rimsort-appimage { };
-  storyforge = pkgs.callPackage ./pkgs/storyforge { };
-  wowup-cf = pkgs.callPackage ./pkgs/wowup-cf { };
-
-  # Tools
-  pig = pkgs.callPackage ./pkgs/pig { };
-  scopebuddy = pkgs.callPackage ./pkgs/scopebuddy { };
 }
+// import ./pkgs { inherit pkgs; }

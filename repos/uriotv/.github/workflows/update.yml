@@ -6,7 +6,6 @@ concurrency:
 
 on:
   schedule:
-    # Run every day at 3:00 AM
     - cron: '0 3 * * *'
   workflow_dispatch:
     inputs:
@@ -17,31 +16,32 @@ on:
 
 jobs:
   update:
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
     permissions:
-      contents: write
-      pull-requests: write
+      contents: read
     runs-on: ubuntu-latest
+    timeout-minutes: 120
     steps:
+      - name: Require update PR token
+        env:
+          PAT_FOR_UPDATES: ${{ secrets.PAT_FOR_UPDATES }}
+        run: |
+          if [ -z "$PAT_FOR_UPDATES" ]; then
+            echo '::error::PAT_FOR_UPDATES is required; GITHUB_TOKEN cannot trigger PR CI.'
+            exit 1
+          fi
       - name: Checkout repository
         uses: actions/checkout@v7
-
+        with:
+          persist-credentials: false
       - name: Install Nix
         uses: cachix/install-nix-action@v31
         with:
           extra_nix_config: |
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-
-      - name: Setup cachix
-        uses: cachix/cachix-action@v17
-        with:
-          name: uriotv
-          signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-
-      - name: Install nix-update
-        run: nix profile install nixpkgs#nix-update
-
+      - name: Install nix-update from the locked nixpkgs input
+        run: nix profile install --no-write-lock-file --inputs-from . nixpkgs#nix-update
       - name: Update packages
         id: update
         env:
@@ -49,35 +49,37 @@ jobs:
           UPDATE_PACKAGE: ${{ inputs.package }}
           BUILD_LOG_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: bash scripts/update-packages.sh
-
       - name: Check for changes
         id: changes
         run: |
-          if git diff --quiet; then
-            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+          if [ -n "$(git status --porcelain -- pkgs/)" ]; then
+            echo 'has_changes=true' >> "$GITHUB_OUTPUT"
           else
-            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            echo 'has_changes=false' >> "$GITHUB_OUTPUT"
           fi
-
       - name: Create Pull Request
         id: cpr
         if: steps.changes.outputs.has_changes == 'true'
         uses: peter-evans/create-pull-request@v8
         with:
-          token: ${{ secrets.PAT_FOR_UPDATES || secrets.GITHUB_TOKEN }}
-          commit-message: "chore: auto-update packages"
-          title: "chore: Auto-update packages"
+          token: ${{ secrets.PAT_FOR_UPDATES }}
+          add-paths: pkgs/
+          commit-message: 'chore: auto-update packages'
+          title: 'chore: Auto-update packages'
           body-path: /tmp/pr-body.md
           branch: auto-update-packages
           delete-branch: true
-
-      # create-pull-request switches the workspace back to the base branch
-      # before this step runs, so the PR number must come from the action's
-      # output — resolving it from the current git branch always fails.
       - name: Enable auto-merge
         if: steps.cpr.outputs.pull-request-number != ''
         env:
-          GH_TOKEN: ${{ secrets.PAT_FOR_UPDATES || secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PAT_FOR_UPDATES }}
           PR_NUMBER: ${{ steps.cpr.outputs.pull-request-number }}
+        run: gh pr merge "$PR_NUMBER" --squash --auto --delete-branch
+      - name: Fail when any package updater failed
+        if: always() && steps.update.outputs.update_failures != '' && steps.update.outputs.update_failures != '0'
+        env:
+          UPDATE_FAILURES: ${{ steps.update.outputs.update_failures }}
+          SUCCESSFUL_UPDATES: ${{ steps.update.outputs.successful_updates }}
         run: |
-          gh pr merge "$PR_NUMBER" --squash --auto --delete-branch
+          echo "::error::$UPDATE_FAILURES package updater(s) failed; successful updates: ${SUCCESSFUL_UPDATES:-unknown}."
+          exit 1
