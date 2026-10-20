@@ -34,7 +34,7 @@ jobs:
       CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
       RCLONE_CONFIG: ${{ secrets.RCLONE_CONFIG }}
 
-  # Needs every job green, not just the build: a red cache job means the generation never persisted, which is worth a look before NUR re-indexes.
+  # Needs the cache job green too, not just the build: a red cache job means the generation never persisted, which is worth a look before NUR re-indexes.
   nur-update:
     name: Trigger NUR update
     needs: build
