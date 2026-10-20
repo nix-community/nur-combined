@@ -17,6 +17,7 @@
 
 | Package            | Description                                           | Source                                                                | Updated    |
 | ------------------ | ----------------------------------------------------- | --------------------------------------------------------------------- | ---------- |
+| `cheatmd`          | Executable Markdown cheatsheets                       | [cheatmd-dev/cheatmd](https://github.com/cheatmd-dev/cheatmd)         | 2026-07-14 |
 | `operations`       | CyberChef-like data transformations from the terminal | [sectui/operations](https://github.com/sectui/operations)             | 2026-10-18 |
 | `subdomain-finder` | Passive subdomain enumeration from public sources     | [sectui/subdomain-finder](https://github.com/sectui/subdomain-finder) | 2026-10-18 |
 
