@@ -105,7 +105,7 @@ in {
 
   config = mkIf cfg.crOSMaps {
     fonts.packages = with pkgs; with customPkgs; [
-      (google-fonts.override { fonts = [ "Arimo" "Cousine" "Tinos" ]; })
+      ttf-croscore
       carlito
       caladea
     ];
