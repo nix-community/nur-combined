@@ -111,8 +111,8 @@
             "url": "https://github.com/Freed-Wu/nur-packages"
         },
         "Greep": {
-            "rev": "1ac8ad9fc4d2617f8cb9a2daf60693470adff918",
-            "sha256": "1vmc2qwfhi080zbx2gw0hrbbm9fwp6hq8xj9d0k8mw9b8f1zgq5n",
+            "rev": "6ca6049be49f01e1a49d3d1ef5e9a1c3e28ac95e",
+            "sha256": "1rhj81qvjpihl91ssk5ldsyh3xbgaz12x5mdxwi28cd4m5g72cvv",
             "url": "https://github.com/GreepTheSheep/nix-nurpkgs"
         },
         "GriefNorth": {
@@ -201,8 +201,8 @@
             "url": "https://github.com/Sittymin/NUR"
         },
         "Skyb0rg007": {
-            "rev": "6fac66b11aca5205c991573043eac44da98ae48f",
-            "sha256": "0gx5zsgkvmmmq8yzwcnihxc35hg3l7ckalsh0ynllc5nmqsa4s7x",
+            "rev": "38d94d30231731f21bf23daae26fb74fe8a05139",
+            "sha256": "04zxnj7cb7si2f7jfn6ph69j8s6v6516c9388cd58wjka2bab9vy",
             "url": "https://github.com/Skyb0rg007/packages"
         },
         "VZstless": {
@@ -1470,8 +1470,8 @@
             "url": "https://github.com/kinzoku-dev/nur-kinzoku"
         },
         "kira-bruneau": {
-            "rev": "5cbfb891d28ec252014675aa6ef79c4bce9c20d8",
-            "sha256": "0w93rs2sh9spaiw3binwf0j7vxs25kgjaig370x6pawab74l9f2p",
+            "rev": "35a32162e603a3c943a41cf4b93d4727f896302e",
+            "sha256": "0ssj64zv9ws1y0584p7g7r2124ff860hvs2i02j9ggsvhkin2a02",
             "url": "https://gitlab.com/kira-bruneau/nur-packages"
         },
         "kokakiwi": {
@@ -1557,8 +1557,8 @@
             "url": "https://github.com/lillycham/nur-packages"
         },
         "linyinfeng": {
-            "rev": "7af0f6868748b0563d62b174ca0da253d426bde9",
-            "sha256": "0lsc50wlzyfv774b66nq174nxkxv7glgr4mivhv28lkqf9my8mx0",
+            "rev": "5e5a0c1e05e19dc47d5bfc27abe4a3638ab0524e",
+            "sha256": "1wgls0ii5jrjl9300fz9dvxzjf0kn2ykxnf3vhnxg3bb4qnicnbn",
             "url": "https://github.com/linyinfeng/nur-packages"
         },
         "liyangau": {
@@ -2662,8 +2662,8 @@
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
-            "rev": "cfecd0b6d667248e6ab71eefb421ac8136782773",
-            "sha256": "0j2af1rc0sn9xgfpgbh4b2igfk7fng0160qn57l904k942j3nl0c",
+            "rev": "7b7d22a58f3fb84bea398cce8e1e5cd8546306c4",
+            "sha256": "0b08hphsacgyvzinkrfjhnimbc273wn21hzxqyznszdrnqj6j54k",
             "url": "https://github.com/spotdemo4/nur"
         },
         "trevorriles": {
