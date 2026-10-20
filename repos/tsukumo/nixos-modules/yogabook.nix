@@ -45,6 +45,7 @@ let
 
   # Kernel modules required for Yoga Book hardware
   yogabookKernelModules = [
+    "evdev"
     "lenovo-yogabook"
     "x86-android-tablets"
     "drv260x"
