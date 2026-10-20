@@ -34,4 +34,5 @@ in
 
       desktopName = "LibreScore";
       categories = ["AudioVideo" "Music"];
+      icon = "librescore";
     }

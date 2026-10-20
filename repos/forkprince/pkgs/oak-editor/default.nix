@@ -39,7 +39,7 @@ in
       exec = "oak-editor %U";
       icon = "oak-editor";
       terminal = false;
-      categories = ["AudioVideo" "VideoEditing" "AudioVideoEditing"];
+      categories = ["AudioVideo" "Video" "AudioVideoEditing"];
     };
   in
     appimageTools.wrapType2 {

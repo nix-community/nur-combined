@@ -32,10 +32,5 @@ in
 
       desktopName = "SoundCraft";
       categories = ["AudioVideo" "Audio" "AudioVideoEditing"];
-      extraInstallCommands = ''
-        chmod -R u+w $out/share/icons
-        for file in $(find $out/share/icons -name 'ai.storyteller.${pname}.*'); do
-          mv -f "$file" "$(dirname "$file")/${pname}.''${file##*.}"
-        done
-      '';
+      icon = "ai.storyteller.${pname}";
     }

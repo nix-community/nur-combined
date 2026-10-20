@@ -33,4 +33,5 @@ in
 
       desktopName = "ARMSX2";
       categories = ["Game" "Emulator"];
+      icon = "ARMSX2";
     }

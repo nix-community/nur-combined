@@ -13,10 +13,11 @@
       import ./default.nix {
         pkgs = import nixpkgs {inherit system;};
       });
-    packages = forAllSystems (system: removeAttrs self.legacyPackages.${system} [
-      "modules"
-      "overlays"
-      "lib"
-    ]);
+    packages = forAllSystems (system:
+      removeAttrs self.legacyPackages.${system} [
+        "modules"
+        "overlays"
+        "lib"
+      ]);
   };
 }
