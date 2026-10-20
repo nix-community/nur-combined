@@ -32,5 +32,7 @@ in
 
       desktopName = "WordCraft";
       categories = ["Office" "WordProcessor"];
+      desktopId = "ai.storyteller.${pname}";
+      startupWMClass = "ai.storyteller.${pname}";
       icon = "ai.storyteller.${pname}";
     }

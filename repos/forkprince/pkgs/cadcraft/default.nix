@@ -32,5 +32,7 @@ in
 
       desktopName = "CADCraft";
       categories = ["Graphics" "Engineering"];
+      desktopId = "ai.storyteller.${pname}";
+      startupWMClass = "ai.storyteller.${pname}";
       icon = "ai.storyteller.${pname}";
     }

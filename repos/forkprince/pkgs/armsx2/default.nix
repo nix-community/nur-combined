@@ -32,6 +32,8 @@ in
       inherit pname version src meta;
 
       desktopName = "ARMSX2";
+      desktopId = "net.armsx2.ARMSX2";
       categories = ["Game" "Emulator"];
       icon = "ARMSX2";
+      startupWMClass = "ARMSX2";
     }

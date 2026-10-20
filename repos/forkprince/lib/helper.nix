@@ -297,8 +297,10 @@
     meta ? {},
     desktopName ? pname,
     desktopComment ? meta.description or "",
+    desktopId ? pname,
     categories ? [],
     icon ? pname,
+    startupWMClass ? null,
     exec ? "${pname} %U",
     terminal ? false,
     extraDesktopItem ? {},
@@ -307,10 +309,11 @@
     contents = pkgs.appimageTools.extract {inherit pname version src;};
 
     desktopItem = pkgs.makeDesktopItem ({
-        name = pname;
+        name = desktopId;
         inherit desktopName exec terminal categories icon;
         comment = desktopComment;
       }
+      // lib.optionalAttrs (startupWMClass != null) {inherit startupWMClass;}
       // extraDesktopItem);
   in
     pkgs.appimageTools.wrapType2 {
@@ -318,7 +321,7 @@
 
       extraInstallCommands =
         ''
-          install -Dm444 ${desktopItem}/share/applications/*.desktop $out/share/applications/${pname}.desktop
+          install -Dm444 ${desktopItem}/share/applications/*.desktop $out/share/applications/${desktopId}.desktop
           for iconsDir in ${contents}/usr/share/icons ${contents}/share/icons; do
             if [ -d "$iconsDir" ]; then
               cp -r "$iconsDir" $out/share/

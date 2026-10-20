@@ -32,5 +32,7 @@ in
 
       desktopName = "SoundCraft";
       categories = ["AudioVideo" "Audio" "AudioVideoEditing"];
+      desktopId = "ai.storyteller.${pname}";
+      startupWMClass = "ai.storyteller.${pname}";
       icon = "ai.storyteller.${pname}";
     }

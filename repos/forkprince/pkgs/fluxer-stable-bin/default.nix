@@ -34,11 +34,12 @@ in
     contents = appimageTools.extract {inherit pname version src;};
 
     desktopItem = makeDesktopItem {
-      name = "fluxer";
+      name = "app.fluxer.FluxerDesktop";
       desktopName = "Fluxer";
       comment = "Fluxer desktop client";
       exec = "fluxer-stable-bin %U";
       icon = "fluxer";
+      startupWMClass = "app.fluxer.FluxerDesktop";
       terminal = false;
       categories = ["InstantMessaging"];
     };
@@ -52,7 +53,7 @@ in
 
       extraInstallCommands = ''
         install -Dm444 ${desktopItem}/share/applications/*.desktop \
-          $out/share/applications/fluxer.desktop
+          $out/share/applications/app.fluxer.FluxerDesktop.desktop
 
         if [ -d ${contents}/usr/share/icons ]; then
           cp -r ${contents}/usr/share/icons $out/share/ || true

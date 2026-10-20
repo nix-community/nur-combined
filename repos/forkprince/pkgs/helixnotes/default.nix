@@ -31,5 +31,7 @@ in
       inherit pname version src meta;
 
       desktopName = "HelixNotes";
+      desktopId = "HelixNotes";
       categories = ["Utility" "Office"];
+      startupWMClass = "helixnotes";
     }

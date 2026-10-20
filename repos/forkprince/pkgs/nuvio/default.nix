@@ -31,5 +31,7 @@ in
       inherit pname version src meta;
 
       desktopName = "Nuvio";
+      desktopId = "Nuvio";
       categories = ["AudioVideo" "Video"];
+      startupWMClass = "com-nuvio-app-MainKt";
     }

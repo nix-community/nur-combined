@@ -32,5 +32,7 @@ in
 
       desktopName = "DeckCraft";
       categories = ["Office" "Presentation"];
+      desktopId = "ai.storyteller.${pname}";
+      startupWMClass = "ai.storyteller.${pname}";
       icon = "ai.storyteller.${pname}";
     }

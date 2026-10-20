@@ -34,11 +34,12 @@ in
     contents = appimageTools.extract {inherit pname version src;};
 
     desktopItem = makeDesktopItem {
-      name = "fluxer-canary";
+      name = "app.fluxer.FluxerDesktopCanary";
       desktopName = "Fluxer Canary";
       comment = "Fluxer desktop client (canary)";
       exec = "fluxer-canary-bin %U";
       icon = "fluxer-canary";
+      startupWMClass = "app.fluxer.FluxerDesktopCanary";
       terminal = false;
       categories = ["InstantMessaging"];
     };
@@ -52,7 +53,7 @@ in
 
       extraInstallCommands = ''
         install -Dm444 ${desktopItem}/share/applications/*.desktop \
-          $out/share/applications/fluxer-canary.desktop
+          $out/share/applications/app.fluxer.FluxerDesktopCanary.desktop
 
         if [ -d ${contents}/usr/share/icons ]; then
           cp -r ${contents}/usr/share/icons $out/share/ || true

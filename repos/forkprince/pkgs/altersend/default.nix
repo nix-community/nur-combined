@@ -32,4 +32,5 @@ in
 
       desktopName = "AlterSend";
       categories = ["Network" "FileTransfer"];
+      startupWMClass = "AlterSend";
     }

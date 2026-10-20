@@ -33,6 +33,8 @@ in
       inherit pname version src meta;
 
       desktopName = "LibreScore";
+      desktopId = "librescore";
       categories = ["AudioVideo" "Music"];
       icon = "librescore";
+      startupWMClass = "librescore";
     }

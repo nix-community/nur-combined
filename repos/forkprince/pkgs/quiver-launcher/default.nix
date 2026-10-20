@@ -32,11 +32,12 @@ in
     contents = appimageTools.extract {inherit pname version src;};
 
     desktopItem = makeDesktopItem {
-      name = pname;
+      name = "QuiverLauncher";
       desktopName = "Quiver Launcher";
       comment = meta.description;
       exec = "${pname} %U";
-      icon = pname;
+      icon = "QuiverLauncher";
+      startupWMClass = "QuiverLauncher";
       terminal = false;
       categories = ["Game" "Utility"];
     };
@@ -48,11 +49,11 @@ in
 
       extraInstallCommands = ''
         install -Dm444 ${desktopItem}/share/applications/*.desktop \
-          $out/share/applications/${pname}.desktop
+          $out/share/applications/QuiverLauncher.desktop
 
         icon=$(find ${contents} -maxdepth 4 -name '*.png' | head -n1)
         if [ -n "$icon" ]; then
-          install -Dm444 "$icon" $out/share/icons/hicolor/512x512/apps/${pname}.png
+          install -Dm444 "$icon" $out/share/icons/hicolor/512x512/apps/QuiverLauncher.png
         fi
       '';
     }

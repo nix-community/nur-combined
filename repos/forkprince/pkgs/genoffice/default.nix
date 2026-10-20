@@ -32,4 +32,5 @@ in
 
       desktopName = "GenOffice";
       categories = ["Office"];
+      startupWMClass = "genoffice";
     }

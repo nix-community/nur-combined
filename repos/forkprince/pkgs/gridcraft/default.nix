@@ -32,5 +32,7 @@ in
 
       desktopName = "GridCraft";
       categories = ["Office" "Spreadsheet"];
+      desktopId = "ai.storyteller.${pname}";
+      startupWMClass = "ai.storyteller.${pname}";
       icon = "ai.storyteller.${pname}";
     }

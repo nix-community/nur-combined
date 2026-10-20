@@ -44,11 +44,11 @@ in
     contents = appimageTools.extract {inherit pname version src;};
 
     desktopItem = makeDesktopItem {
-      name = "note-block-studio";
+      name = "Minecraft_Note_Block_Studio";
       desktopName = "Note Block Studio";
       comment = meta.description;
       exec = "note-block-studio %U";
-      icon = "note-block-studio";
+      icon = "Minecraft_Note_Block_Studio";
       terminal = false;
       categories = ["Game"];
     };
@@ -58,10 +58,10 @@ in
 
       extraInstallCommands = ''
         install -Dm444 ${desktopItem}/share/applications/*.desktop \
-          $out/share/applications/note-block-studio.desktop
+          $out/share/applications/Minecraft_Note_Block_Studio.desktop
 
         install -Dm444 \
           ${contents}/usr/share/icons/hicolor/64x64/apps/Minecraft_Note_Block_Studio.png \
-          $out/share/icons/hicolor/64x64/apps/note-block-studio.png
+          $out/share/icons/hicolor/64x64/apps/Minecraft_Note_Block_Studio.png
       '';
     }

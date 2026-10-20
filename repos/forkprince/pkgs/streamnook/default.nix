@@ -41,11 +41,12 @@ in
     contents = appimageTools.extract {inherit pname version src;};
 
     desktopItem = makeDesktopItem {
-      name = "streamnook";
+      name = "StreamNook";
       desktopName = "StreamNook";
       comment = meta.description;
       exec = "streamnook %U";
       icon = "StreamNook";
+      startupWMClass = "StreamNook";
       terminal = false;
       categories = ["Video" "AudioVideo"];
       mimeTypes = ["x-scheme-handler/streamnook"];
@@ -103,7 +104,7 @@ in
 
       extraInstallCommands = ''
         install -Dm444 ${desktopItem}/share/applications/*.desktop \
-          $out/share/applications/streamnook.desktop
+          $out/share/applications/StreamNook.desktop
         if [ -d ${contents}/usr/share/icons ]; then
           cp -r ${contents}/usr/share/icons $out/share/
         fi

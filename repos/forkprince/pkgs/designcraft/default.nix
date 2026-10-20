@@ -32,5 +32,7 @@ in
 
       desktopName = "DesignCraft";
       categories = ["Graphics"];
+      desktopId = "ai.storyteller.${pname}";
+      startupWMClass = "ai.storyteller.${pname}";
       icon = "ai.storyteller.${pname}";
     }
