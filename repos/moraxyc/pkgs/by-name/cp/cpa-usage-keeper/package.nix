@@ -3,6 +3,7 @@
   stdenv,
   buildGoModule,
   callPackage,
+  gitMinimal,
   sources,
   source ? sources.cpa-usage-keeper,
 }:
@@ -28,6 +29,8 @@ buildGoModule (finalAttrs: {
   '';
 
   __darwinAllowLocalNetworking = true;
+
+  nativeCheckInputs = [ gitMinimal ];
 
   checkFlags =
     let
