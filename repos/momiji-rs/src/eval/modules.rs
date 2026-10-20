@@ -11,11 +11,127 @@ impl<'a> Evaluator<'a> {
     /// `parents` is the enclosing style-rule selector list; `@extend` outside a
     /// style rule (top level or directly inside `@at-root`/an at-rule) is an
     /// error.
+    /// The error for a media-context conflict, labelled as dart 1.105.1 draws
+    /// it (`MultiSpanSassException`): the extension and its `@media`, and the
+    /// extended selector and its `@media`, or for a merge both copies and
+    /// their `@media`. Without diagnostics, or without the primary span, it is
+    /// the plain positioned error.
+    fn media_conflict_error(&self, pos: Pos, message: &'static str, conflict: super::MediaConflict) -> Error {
+        let diag = |j: usize| self.extends.get(j).and_then(|pe| pe.diag.as_ref());
+        let mut secondaries: Vec<(super::SourceSpan, &str)> = Vec::new();
+        let (primary, label, frames) = match &conflict {
+            super::MediaConflict::Across {
+                extension,
+                extension_media,
+                at_extension,
+                selector,
+                selector_media,
+            } => {
+                let Some(ext) = diag(*extension) else {
+                    return Error::at(message, pos);
+                };
+                if let Some(m) = diag(*extension_media).and_then(|d| d.media) {
+                    secondaries.push((m, "extension @media"));
+                }
+                if let Some(m) = selector_media {
+                    secondaries.push((*m, "extended selector @media"));
+                }
+                if let Some(s) = selector {
+                    secondaries.push((*s, "extended selector"));
+                }
+                let frames = if *at_extension { ext.frames.clone() } else { None };
+                (ext, "extension", frames)
+            }
+            super::MediaConflict::Merge {
+                second,
+                first,
+                first_media,
+            } => {
+                let Some(ext) = diag(*second) else {
+                    return Error::at(message, pos);
+                };
+                if let Some(m) = ext.media {
+                    secondaries.push((m, "second extension @media"));
+                }
+                if let Some(d) = diag(*first) {
+                    secondaries.push((d.span, "first extension"));
+                }
+                if let Some(m) = diag(*first_media).and_then(|d| d.media) {
+                    secondaries.push((m, "first extension @media"));
+                }
+                (ext, "second extension", ext.frames.clone())
+            }
+        };
+        let file = |id: u32| self.file_diag.get((id as usize).checked_sub(1)?);
+        let Some((url, source)) = file(primary.span.file) else {
+            return Error::at(message, pos);
+        };
+        secondaries.retain(|(s, _)| file(s.file).is_some());
+        // On a line, dart draws the primary row first and the rest left to
+        // right; files keep the order they first appear in.
+        let mut files: Vec<u32> = vec![primary.span.file];
+        for (s, _) in &secondaries {
+            if !files.contains(&s.file) {
+                files.push(s.file);
+            }
+        }
+        secondaries.sort_by_key(|(s, _)| (files.iter().position(|&f| f == s.file), s.span.line, s.span.col));
+        let at = primary.span.span;
+        let primary_pos = Pos {
+            line: at.line,
+            col: at.col,
+        };
+        // Raised as a SELECTOR registered, the stack is that rule's, which
+        // nothing kept: dart's innermost line still names the extension's
+        // span, so draw that, in the root stylesheet.
+        let frames: Vec<super::DiagFrame> = match frames {
+            Some(f) => f.to_vec(),
+            None => vec![super::DiagFrame {
+                url: Rc::clone(url),
+                pos: primary_pos,
+                member: Rc::from("root stylesheet"),
+                length: at.length,
+                content: false,
+                source: Rc::clone(source),
+            }],
+        };
+        let names: Vec<(String, &Rc<str>)> = secondaries
+            .iter()
+            .filter_map(|(s, _)| file(s.file).map(|(u, src)| (self.frame_name(u), src)))
+            .collect();
+        let labelled: Vec<crate::diag::Secondary<'_>> = secondaries
+            .iter()
+            .zip(&names)
+            .map(|((s, label), (name, src))| crate::diag::Secondary {
+                url: name,
+                source: src,
+                span: s.span,
+                label,
+            })
+            .collect();
+        let mut rendered = format!("Error: {message}\n");
+        rendered.push_str(&crate::diag::render_labelled_snippet(
+            &self.frame_name(url),
+            source,
+            at,
+            label,
+            &labelled,
+            &[],
+            self.options.glyphs,
+        ));
+        rendered.push('\n');
+        rendered.push_str(&self.render_frame_block(&frames, 2));
+        let mut e = Error::at(message, primary_pos).with_length(at.length);
+        e.rendered = Some(rendered);
+        e
+    }
+
     pub(super) fn register_extend(
         &mut self,
         selector: &[TplPiece],
         optional: bool,
         pos: Pos,
+        length: usize,
         parents: &[String],
     ) -> Result<(), Error> {
         // dart checks `_styleRule` (null inside `@at-root` before any nested
@@ -43,6 +159,26 @@ impl<'a> Evaluator<'a> {
             return Err(Error::at(msg, pos));
         }
         let media = self.media_context();
+        // Every extension keeps its span (a merged extension can be named by a
+        // copy outside any `@media`); only one inside `@media` can raise the
+        // error, so only it keeps the stack.
+        let diag = if self.diag_enabled() {
+            let file = self.intern_current_file();
+            Some(super::ExtendDiag {
+                span: super::SourceSpan {
+                    file,
+                    span: crate::diag::Span {
+                        line: pos.line,
+                        col: pos.col,
+                        length,
+                    },
+                },
+                media: self.media_queries.last().and_then(|q| q.span),
+                frames: media.is_some().then(|| Rc::from(self.frames_for(pos))),
+            })
+        } else {
+            None
+        };
         for t in split_commas(&target).iter() {
             let t = t.trim_matches(is_css_whitespace);
             if t.is_empty() {
@@ -58,6 +194,7 @@ impl<'a> Evaluator<'a> {
                         extender_breaks: self.current_linebreaks.clone(),
                         optional,
                         media: media.clone(),
+                        diag: diag.clone(),
                         pos,
                     });
                 }
@@ -195,15 +332,39 @@ impl<'a> Evaluator<'a> {
             .map(TargetSite::site)
             .chain(self.empty_rules.iter().map(EmptyRule::site))
             .collect();
-        if let Some(e) = first_media_error(
+        let locate = |lines: &SrcLines, selectors: &[String], target: &crate::selector::Simple| {
+            let file = if lines.map_file != 0 {
+                lines.map_file
+            } else {
+                lines.file
+            };
+            let line = if lines.map_line != 0 {
+                lines.map_line
+            } else {
+                lines.start
+            };
+            let (_, source) = self.file_diag.get((file as usize).checked_sub(1)?)?;
+            let span = crate::selector::locate_compound(
+                source,
+                line as usize,
+                lines.start_col as usize + 1,
+                if lines.start != 0 { lines.start } else { line } as usize,
+                target,
+                selectors,
+            )?;
+            Some(super::SourceSpan { file, span })
+        };
+        if let Some((pos, message, conflict)) = first_media_error(
             &self.extends,
             &extensions,
             out,
             &sites,
             &closures,
             &self.media_context_aliases,
+            &self.media_node_spans,
+            &locate,
         ) {
-            return Err(e);
+            return Err(self.media_conflict_error(pos, message, conflict));
         }
         // The store-merge order context: reverse load edges + first-load
         // ranks (an origin's registrations are contiguous, so its smallest

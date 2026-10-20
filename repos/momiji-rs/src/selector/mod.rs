@@ -5165,6 +5165,232 @@ fn extend_component_compound(
     Some(options)
 }
 
+/// The compounds of a selector's text, as byte ranges, grouped by the
+/// complex selector each belongs to, and where the text ends: at its block's
+/// `{`, or the end. Strings, comments, escapes, `#{…}`, parentheses and
+/// brackets stay inside their compound. A comment separates like whitespace:
+/// the style-rule parser turns `// …` and `/* … */` into whitespace.
+fn scan_compounds(text: &str) -> (Vec<Vec<(usize, usize)>>, usize) {
+    let bytes = text.as_bytes();
+    let (mut depth, mut i, mut quote) = (0usize, 0usize, None::<u8>);
+    let mut complexes: Vec<Vec<(usize, usize)>> = vec![Vec::new()];
+    let mut open: Option<usize> = None;
+    let close = |open: &mut Option<usize>, complexes: &mut Vec<Vec<(usize, usize)>>, at: usize| {
+        if let Some(s) = open.take() {
+            complexes.last_mut().expect("never empty").push((s, at));
+        }
+    };
+    while i < bytes.len() {
+        let b = bytes[i];
+        if let Some(q) = quote {
+            if b == b'\\' {
+                i += 1;
+            } else if b == q {
+                quote = None;
+            }
+            i += 1;
+            continue;
+        }
+        if b == b'/' && bytes.get(i + 1) == Some(&b'*') {
+            close(&mut open, &mut complexes, i);
+            i = text[i + 2..].find("*/").map_or(bytes.len(), |e| i + 2 + e + 2);
+            continue;
+        }
+        if b == b'/' && bytes.get(i + 1) == Some(&b'/') {
+            close(&mut open, &mut complexes, i);
+            i = text[i..].find('\n').map_or(bytes.len(), |e| i + e);
+            continue;
+        }
+        match b {
+            b'"' | b'\'' => quote = Some(b),
+            // An escape is part of its compound, a hex one with the single
+            // whitespace that may end it (`\31 23` is one class).
+            b'\\' => {
+                open.get_or_insert(i);
+                let hex = bytes[i + 1..]
+                    .iter()
+                    .take(6)
+                    .take_while(|c| c.is_ascii_hexdigit())
+                    .count();
+                i += 1 + hex.max(1);
+                if hex > 0 && bytes.get(i).is_some_and(u8::is_ascii_whitespace) {
+                    i += 1;
+                }
+                continue;
+            }
+            b'#' if bytes.get(i + 1) == Some(&b'{') => {
+                open.get_or_insert(i);
+                depth += 1;
+                i += 2;
+                continue;
+            }
+            b'(' | b'[' => depth += 1,
+            b')' | b']' => depth = depth.saturating_sub(1),
+            b'}' if depth > 0 => depth -= 1,
+            b'{' | b';' | b'}' if depth == 0 => break,
+            b',' | b'>' | b'+' | b'~' if depth == 0 => {
+                close(&mut open, &mut complexes, i);
+                if b == b',' {
+                    complexes.push(Vec::new());
+                }
+                i += 1;
+                continue;
+            }
+            _ if depth == 0 && b.is_ascii_whitespace() => {
+                close(&mut open, &mut complexes, i);
+                i += 1;
+                continue;
+            }
+            _ => {}
+        }
+        open.get_or_insert(i);
+        i += 1;
+    }
+    let end = i.min(bytes.len());
+    close(&mut open, &mut complexes, end);
+    (complexes, end)
+}
+
+/// The span dart labels `extended selector`: in a style rule's SOURCE
+/// selector, the compound that produced the one holding `target`. It is the
+/// compound itself when that resolved compound is the target alone, and the
+/// whole complex selector around it otherwise: dart extends a lone simple in
+/// place but unifies a larger compound, under the complex's span. The
+/// selector starts at the 1-based `line` and `col` of `source` and ends by
+/// `end_line`, the rule's block line: an indented stylesheet has no `{`.
+///
+/// `resolved` is the rule's resolved selector list. Resolved complex `i` came
+/// from source complex `i % n` (parents x parts); see [`compound_origins`]
+/// for how its compounds map back to the ones written. A target in a
+/// compound that came from the parent selector belongs to the parent rule:
+/// `None`, so the parent, which dart meets first, is labelled instead. When
+/// the list does not line up with the source (interpolation that adds a
+/// comma, a `&` inside parentheses), the first plain compound holding the
+/// target stands in, or failing that the first one written with `&` or `#{…}`.
+pub(crate) fn locate_compound(
+    source: &str,
+    line: usize,
+    col: usize,
+    end_line: usize,
+    target: &Simple,
+    resolved: &[String],
+) -> Option<crate::diag::Span> {
+    let start = crate::diag::byte_offset_at(source, line, col)?;
+    let end = crate::diag::byte_offset_at(source, end_line.max(line) + 1, 1).unwrap_or(source.len());
+    let text = &source[start..end.max(start)];
+    let (parts, _) = scan_compounds(text);
+    let complex_of = |p: &[(usize, usize)]| (p[0].0, p[p.len() - 1].1);
+    let lined_up = !parts.is_empty() && !resolved.is_empty() && resolved.len() % parts.len() == 0;
+    let mut mapped = None;
+    if lined_up {
+        for (i, r) in resolved.iter().enumerate() {
+            let (rc, _) = scan_compounds(r);
+            let Some(rc) = rc.first().filter(|c| !c.is_empty()) else {
+                continue;
+            };
+            let Some(k) = rc
+                .iter()
+                .position(|&(s, e)| selector_contains_simple(&r[s..e], target))
+            else {
+                continue;
+            };
+            let part = &parts[i % parts.len()];
+            let Some(origins) = compound_origins(text, part, rc.len()) else {
+                break;
+            };
+            let own = origins[k]?;
+            let (s, e) = rc[k];
+            mapped = Some(if compound_is_only(&r[s..e], target) {
+                part[own]
+            } else {
+                complex_of(part)
+            });
+            break;
+        }
+    }
+    let hit = match mapped {
+        Some(hit) => hit,
+        None if lined_up && origins_line_up(text, &parts, resolved) => return None,
+        None => {
+            let dynamic = |c: &str| c.contains('&') || c.contains("#{");
+            let all = || parts.iter().flatten().copied();
+            let plain =
+                all().find(|&(s, e)| !dynamic(&text[s..e]) && selector_contains_simple(&text[s..e], target));
+            match plain {
+                Some((s, e)) if !compound_is_only(&text[s..e], target) => {
+                    let part = parts.iter().find(|p| p.contains(&(s, e)))?;
+                    complex_of(part)
+                }
+                Some(found) => found,
+                None => all().find(|&(s, e)| dynamic(&text[s..e]))?,
+            }
+        }
+    };
+    let at = start + hit.0;
+    let before = &source[..at];
+    let line = before.matches('\n').count() + 1;
+    let col = before.rsplit('\n').next().map_or(0, |l| l.chars().count()) + 1;
+    Some(crate::diag::Span {
+        line,
+        col,
+        length: hit.1 - hit.0,
+    })
+}
+
+/// Which compound of `part`, a complex selector as written, each of the
+/// `resolved` compounds of its resolution came from, or `None` for one the
+/// parent selector supplied. With no `&`, the parent's `k` compounds come
+/// first. Each compound written with `&` becomes `k` compounds, the parent's,
+/// with the last merged into what was written (`&-x` over `.p .q` is
+/// `.p .q-x`). So `k` is what makes the counts agree; `None` when nothing
+/// does, for a shape this cannot follow.
+fn compound_origins(text: &str, part: &[(usize, usize)], resolved: usize) -> Option<Vec<Option<usize>>> {
+    let amps = part.iter().filter(|&&(s, e)| text[s..e].contains('&')).count();
+    let plain = part.len() - amps;
+    let k = if amps == 0 {
+        resolved.checked_sub(plain)?
+    } else {
+        let rest = resolved.checked_sub(plain)?;
+        if rest % amps != 0 || rest == 0 {
+            return None;
+        }
+        rest / amps
+    };
+    let mut origins = Vec::with_capacity(resolved);
+    if amps == 0 {
+        origins.extend(std::iter::repeat(None).take(k));
+    }
+    for (j, &(s, e)) in part.iter().enumerate() {
+        let written = &text[s..e];
+        if written.contains('&') {
+            origins.extend(std::iter::repeat(None).take(k - 1));
+            // A bare `&` is the parent's last compound unchanged.
+            origins.push((written != "&").then_some(j));
+        } else {
+            origins.push(Some(j));
+        }
+    }
+    (origins.len() == resolved).then_some(origins)
+}
+
+/// Whether every resolved complex maps back onto the source (see
+/// [`compound_origins`]): then a target that maps to no written compound
+/// really came from the parent, rather than from a shape this cannot follow.
+fn origins_line_up(text: &str, parts: &[Vec<(usize, usize)>], resolved: &[String]) -> bool {
+    resolved.iter().enumerate().all(|(i, r)| {
+        let (rc, _) = scan_compounds(r);
+        let n = rc.first().map_or(0, Vec::len);
+        compound_origins(text, &parts[i % parts.len()], n).is_some()
+    })
+}
+
+/// Whether the compound `text` is `target` and nothing else.
+fn compound_is_only(text: &str, target: &Simple) -> bool {
+    parse_complex(text).is_some_and(|c| {
+        matches!(c.components.as_slice(), [only] if only.compound.simples.len() == 1 && only.compound.simples[0] == *target)
+    })
+}
+
 /// Whether any compound in `s` contains `target` as one of its simple
 /// selectors (used to satisfy `@extend` target lookup against rules whose
 /// bogus combinators omitted them from the CSS).

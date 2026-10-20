@@ -1,0 +1,9 @@
+Error: You may not @extend the same selector from within different media queries.
+  ╷
+1 │ @media screen {a {@extend b}} @media print {a {@extend b}} b {x: y}
+  │                                                ^^^^^^^^^ second extension
+  │        ━━━━━━ first extension @media
+  │                   ━━━━━━━━━ first extension
+  │                                      ━━━━━ second extension @media
+  ╵
+  extend-cross-media-merged-same-line.scss 1:48  root stylesheet

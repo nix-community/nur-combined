@@ -1,0 +1,9 @@
+Error: You may not @extend selectors across media queries.
+  ╷
+1 │ .p .q { &-x &-y {c: d} }
+  │         ━━━ extended selector
+2 │ @media screen { a { @extend .q-x } }
+  │                     ^^^^^^^^^^^^^ extension
+  │        ━━━━━━ extension @media
+  ╵
+  extend-cross-media-two-parent-suffixes.scss 2:21  root stylesheet

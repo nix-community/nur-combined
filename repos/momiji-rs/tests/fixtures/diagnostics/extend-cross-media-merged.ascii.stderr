@@ -1,0 +1,13 @@
+Error: You may not @extend the same selector from within different media queries.
+    ,
+1   | @media screen {
+    |        ====== first extension @media
+2   |   a {@extend b !optional}
+    |      =================== first extension
+... |
+5   | @media print {
+    |        ===== second extension @media
+6   |   a {@extend b !optional}
+    |      ^^^^^^^^^^^^^^^^^^^ second extension
+    '
+  extend-cross-media-merged.scss 6:6  root stylesheet

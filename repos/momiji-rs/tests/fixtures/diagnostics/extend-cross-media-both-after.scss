@@ -1,0 +1,7 @@
+@media print {
+  a {b: c}
+}
+
+@media screen {
+  d {@extend a}
+}

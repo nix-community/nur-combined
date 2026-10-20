@@ -1,0 +1,10 @@
+Error: You may not @extend selectors across media queries.
+    ,
+1   | .x, .z {
+    |     == extended selector
+... |
+4   | @media screen { a {@extend .z} }
+    |                    ^^^^^^^^^^ extension
+    |        ====== extension @media
+    '
+  extend-cross-media-parent-rule.scss 4:20  root stylesheet

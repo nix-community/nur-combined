@@ -1,0 +1,4 @@
+.x, .z {
+  & .y {c: d}
+}
+@media screen { a {@extend .z} }

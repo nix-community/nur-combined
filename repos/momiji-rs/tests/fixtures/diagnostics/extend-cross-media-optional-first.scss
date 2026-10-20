@@ -1,0 +1,5 @@
+a {@extend b !optional}
+@media screen {
+  a {@extend b}
+}
+b {x: y}

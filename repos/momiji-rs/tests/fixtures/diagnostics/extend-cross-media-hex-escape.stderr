@@ -1,0 +1,10 @@
+Error: You may not @extend selectors across media queries.
+  ╷
+1 │ @media print { .\31 23 {} }
+  │        ━━━━━ extended selector @media
+  │                ━━━━━━━ extended selector
+2 │ @media screen { a {@extend .\31 23} }
+  │                    ^^^^^^^^^^^^^^^ extension
+  │        ━━━━━━ extension @media
+  ╵
+  extend-cross-media-hex-escape.scss 2:20  root stylesheet

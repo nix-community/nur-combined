@@ -117,7 +117,7 @@ impl Parser {
             "keyframes" | "-webkit-keyframes" | "-moz-keyframes" | "-o-keyframes" | "-ms-keyframes" => {
                 self.parse_keyframes(name)
             }
-            "extend" => self.parse_extend(pos),
+            "extend" => self.parse_extend(pos, start_mark),
             // `@charset` takes exactly one quoted string. A non-string (or
             // missing) argument is dart's "Expected string."; anything after
             // the string is left for the next statement (so `@charset "a" "b"`
@@ -797,7 +797,7 @@ impl Parser {
     /// Parse `@extend <selector> [!optional];`. The selector is captured as a
     /// template (resolving `#{...}` at eval time); a trailing `!optional`
     /// suppresses the "didn't match" error.
-    fn parse_extend(&mut self, pos: Pos) -> Result<Stmt, Error> {
+    fn parse_extend(&mut self, pos: Pos, start_mark: Mark) -> Result<Stmt, Error> {
         self.skip_ws_inline();
         let selector = trim_prelude(self.parse_template_mode(&['!', ';', '}', '{'], CommentMode::Strip)?);
         let mut optional = false;
@@ -811,11 +811,13 @@ impl Parser {
             optional = true;
         }
         self.skip_ws_inline();
+        let length = self.sc.inline_byte_len_from(start_mark);
         self.sc.eat(';');
         Ok(Stmt::Extend {
             selector,
             optional,
             pos,
+            length,
         })
     }
 
@@ -1758,16 +1760,19 @@ impl Parser {
 
     fn parse_media_query_list(&mut self) -> Result<MediaQueryList, Error> {
         let mut queries = Vec::new();
+        let mut spans = Vec::new();
         loop {
             self.skip_media_ws();
+            let (pos, mark) = (self.sc.position(), self.sc.mark());
             queries.push(self.parse_media_query()?);
+            spans.push((pos, self.sc.trimmed_byte_len_from(mark)));
             self.skip_media_ws();
             if self.sc.eat(',') {
                 continue;
             }
             break;
         }
-        Ok(MediaQueryList { queries })
+        Ok(MediaQueryList { queries, spans })
     }
 
     /// Parse one media query (dart-sass `_mediaQuery`).

@@ -1,0 +1,9 @@
+Error: You may not @extend selectors across media queries.
+  ╷
+2 │ .#{$n} {c: d}
+  │ ━━━━━━ extended selector
+3 │ @media screen { a {@extend .x} }
+  │                    ^^^^^^^^^^ extension
+  │        ━━━━━━ extension @media
+  ╵
+  extend-cross-media-interpolated-selector.scss 3:20  root stylesheet

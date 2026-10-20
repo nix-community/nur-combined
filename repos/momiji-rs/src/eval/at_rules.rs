@@ -280,6 +280,15 @@ impl<'a> Evaluator<'a> {
         let prelude = serialize_media_queries(node_queries, self.compressed());
 
         self.note_media_context_alias(&prelude, &child_queries);
+        if let Some(span) = node_queries.last().and_then(|q| q.span) {
+            let entry = self
+                .media_node_spans
+                .entry(super::src_lines_key(&lines))
+                .or_default();
+            if !entry.iter().any(|(p, _)| *p == prelude) {
+                entry.push((prelude.clone(), span));
+            }
+        }
         let enclosing = !self.media_queries.is_empty();
         let saved = std::mem::replace(&mut self.media_queries, child_queries);
         let saved_hoist = std::mem::take(&mut self.media_hoist);
@@ -389,9 +398,45 @@ impl<'a> Evaluator<'a> {
         // actually contained interpolation needs the round-trip.
         if list.queries.iter().any(media_query_has_interp) {
             let text = serialize_media_queries(&out, self.compressed());
-            return css_media_parse_list(&text);
+            out = css_media_parse_list(&text)?;
         }
+        self.attach_query_spans(list, &mut out);
         Ok(out)
+    }
+
+    /// Give each resolved query the source span it was written at (see
+    /// [`ResolvedQuery::span`]). A re-parse that split or joined queries
+    /// leaves no one-to-one map, so every query then gets the whole list's
+    /// span: dart maps a query parsed out of interpolation back across the
+    /// interpolation it came from.
+    fn attach_query_spans(&mut self, list: &MediaQueryList, out: &mut [ResolvedQuery]) {
+        if !self.diag_enabled() || list.spans.is_empty() {
+            return;
+        }
+        let file = self.intern_current_file();
+        let span_at = |(pos, length): (crate::scanner::Pos, usize)| SourceSpan {
+            file,
+            span: crate::diag::Span {
+                line: pos.line,
+                col: pos.col,
+                length,
+            },
+        };
+        if out.len() == list.spans.len() {
+            for (q, &s) in out.iter_mut().zip(&list.spans) {
+                q.span = Some(span_at(s));
+            }
+            return;
+        }
+        let (first, last) = (list.spans[0], list.spans[list.spans.len() - 1]);
+        let at = |p: crate::scanner::Pos| crate::diag::byte_offset_at(&self.current_source, p.line, p.col);
+        let whole = at(last.0)
+            .zip(at(first.0))
+            .map_or(first.1, |(end, start)| end + last.1 - start);
+        let span = span_at((first.0, whole));
+        for q in out.iter_mut() {
+            q.span = Some(span);
+        }
     }
 
     fn resolve_media_query(&mut self, q: &MediaQuery) -> Result<ResolvedQuery, Error> {
@@ -408,6 +453,7 @@ impl<'a> Evaluator<'a> {
                 };
                 let conditions = self.resolve_conditions(conditions)?;
                 Ok(ResolvedQuery {
+                    span: None,
                     modifier,
                     mtype: Some(mtype),
                     conditions,
@@ -418,6 +464,7 @@ impl<'a> Evaluator<'a> {
                 conditions,
                 conjunction,
             } => Ok(ResolvedQuery {
+                span: None,
                 modifier: None,
                 mtype: None,
                 conditions: self.resolve_conditions(conditions)?,

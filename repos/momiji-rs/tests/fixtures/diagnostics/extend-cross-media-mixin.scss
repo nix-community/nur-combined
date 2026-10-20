@@ -1,0 +1,3 @@
+@mixin m { a {@extend .x} }
+.x {c: d}
+@media screen { @include m; }

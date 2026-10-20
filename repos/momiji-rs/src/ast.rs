@@ -264,6 +264,9 @@ pub(crate) enum Stmt {
         selector: Vec<TplPiece>,
         optional: bool,
         pos: Pos,
+        /// Byte length of `@extend <selector> [!optional]` and the blanks after
+        /// it on its line, before the `;` (dart's span).
+        length: usize,
     },
     /// `@warn <expr>;` — writes to stderr, emits no CSS. `pos` is the 1-based
     /// position of the `@warn` keyword (the innermost stack frame).
@@ -736,6 +739,9 @@ pub(crate) enum UnOp {
 /// A `@media` prelude: a comma-separated list of media queries.
 pub(crate) struct MediaQueryList {
     pub queries: Vec<MediaQuery>,
+    /// Each query's source span (start, byte length), parallel to `queries`:
+    /// the `extension @media` label of a cross-media `@extend` error.
+    pub spans: Vec<(crate::scanner::Pos, usize)>,
 }
 
 /// One media query: either a media-type form (`[not|only]? <type> [and

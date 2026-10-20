@@ -1,0 +1,3 @@
+$n: x;
+.#{$n} {c: d}
+@media screen { a {@extend .x} }

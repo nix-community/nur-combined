@@ -1,0 +1,3 @@
+$q: "screen";
+.x {c: d}
+@media #{$q} and (color) { a {@extend .x} }

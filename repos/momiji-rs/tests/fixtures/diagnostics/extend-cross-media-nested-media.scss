@@ -1,0 +1,6 @@
+.x {c: d}
+@media screen {
+  @media (min-width: 1px) {
+    a {@extend .x}
+  }
+}

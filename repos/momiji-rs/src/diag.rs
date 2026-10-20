@@ -855,6 +855,23 @@ fn elision_gutter(width: usize) -> String {
 
 /// The 1-based line range a span covers, both ends inclusive.
 #[must_use]
+/// The byte offset in `source` of the 1-based `line` and `col` (columns
+/// counted in characters, as positions are), or `None` past the text.
+pub(crate) fn byte_offset_at(source: &str, line: usize, col: usize) -> Option<usize> {
+    let mut offset = 0;
+    for (i, text) in source.split_inclusive('\n').enumerate() {
+        if i + 1 == line {
+            let within = text
+                .char_indices()
+                .nth(col.saturating_sub(1))
+                .map_or(text.len(), |(b, _)| b);
+            return Some(offset + within);
+        }
+        offset += text.len();
+    }
+    None
+}
+
 pub fn span_line_range(source: &str, span: Span) -> (usize, usize) {
     let lines = split_lines(source);
     let start_idx = span.line.saturating_sub(1).min(lines.len().saturating_sub(1));

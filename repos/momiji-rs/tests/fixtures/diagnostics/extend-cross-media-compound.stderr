@@ -1,0 +1,9 @@
+Error: You may not @extend selectors across media queries.
+  ╷
+1 │ .foo .x.y, .bar {c: d}
+  │ ━━━━━━━━━ extended selector
+2 │ @media screen { a {@extend .x} }
+  │                    ^^^^^^^^^^ extension
+  │        ━━━━━━ extension @media
+  ╵
+  extend-cross-media-compound.scss 2:20  root stylesheet

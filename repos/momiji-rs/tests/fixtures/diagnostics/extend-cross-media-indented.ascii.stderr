@@ -1,0 +1,12 @@
+Error: You may not @extend selectors across media queries.
+    ,
+2   |   &-x
+    |   === extended selector
+... |
+4   | @media screen
+    |        ====== extension @media
+... |
+6   |     @extend .p-x
+    |     ^^^^^^^^^^^^ extension
+    '
+  extend-cross-media-indented.sass 6:5  root stylesheet

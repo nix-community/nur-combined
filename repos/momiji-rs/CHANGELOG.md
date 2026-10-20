@@ -21,6 +21,39 @@ Conformance is tracked separately as a ratchet against the official
 
 ### Fixed
 
+- **An `@extend` across media queries draws dart 1.105.1's labelled error**
+  (#282). sasso printed the message and a position, with no snippet. It now
+  labels the same spans as dart: the extension, its `@media`, the extended
+  selector, and that selector's `@media` when it has one. A merge error labels
+  both copies and both `@media`:
+
+  ```
+  Error: You may not @extend selectors across media queries.
+      ,
+  1   | @media screen {
+      |        ====== extension @media
+  2   |   a {@extend b}
+      |      ^^^^^^^^^ extension
+  ... |
+  5   | b {c: d}
+      | = extended selector
+      '
+    input.scss 2:6  root stylesheet
+  ```
+
+  The labels follow dart's choices. An `@media` is named by the last query of
+  its context, and a nested one by its outer query. The extended selector is
+  the compound that holds the target in the rule's own source, or the whole
+  complex when the compound holds more than the target. When two rules
+  register at once, the label goes to the one that holds the target in its own
+  source, so a parent rule is named before its children. 8 sass-spec cases now
+  match dart's stderr: the 5 `directives/extend/error:cross_media` cases and
+  `libsass-closed-issues/issue_1923`, `issue_673` and `issue_712`. Two
+  differences remain. An escaped selector such as `.a\-b` is labelled with
+  its source length, where dart labels one character fewer. A selector raised
+  as it registers, after the extension, keeps only the extension's line as
+  its stack.
+
 - **A compile with no url gets its diagnostics, from npm** (#288, #74).
   `compileString` with no `url`, and the npm CLI's `--stdin`, which compiles
   through it, had diagnostics switched off in the core. So `@warn` printed

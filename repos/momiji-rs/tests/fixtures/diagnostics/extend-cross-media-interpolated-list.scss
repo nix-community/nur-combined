@@ -1,0 +1,5 @@
+$a: x;
+.p {
+  & .#{$a}, .z {c: d}
+}
+@media screen { a {@extend .z} }

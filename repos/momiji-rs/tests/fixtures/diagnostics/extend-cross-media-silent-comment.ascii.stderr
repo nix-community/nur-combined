@@ -1,0 +1,10 @@
+Error: You may not @extend selectors across media queries.
+    ,
+1   | .x// comment
+    | == extended selector
+... |
+3   | @media screen { a {@extend .x} }
+    |                    ^^^^^^^^^^ extension
+    |        ====== extension @media
+    '
+  extend-cross-media-silent-comment.scss 3:20  root stylesheet

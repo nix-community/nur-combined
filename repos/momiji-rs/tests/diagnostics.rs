@@ -40,6 +40,41 @@ const MATCHING: &[&str] = &[
     // caret, which spanned a single column for a starred member until #65.
     "error-color-removed-member",
     "error-color-removed-member-star",
+    // An `@extend` across media queries, as dart 1.105.1 labels it (#282):
+    // the extension and its `@media`, the extended selector and its
+    // `@media`, or both copies of a merged extension. Each fixture pins one
+    // rule: which query of a list or a merge names the `@media` (the last;
+    // the outer), which source text names the selector (the compound, or the
+    // complex around a larger compound, or the rule written with `&` or
+    // interpolation, or the parent rule that holds it), the stack the error
+    // is raised from, and the order of labels on one line.
+    "extend-cross-media-before",
+    "extend-cross-media-both-before",
+    "extend-cross-media-after",
+    "extend-cross-media-both-after",
+    "extend-cross-media-merged",
+    "extend-cross-media-merged-same-line",
+    "extend-cross-media-nested-media",
+    "extend-cross-media-query-list",
+    "extend-cross-media-interpolated-query",
+    "extend-cross-media-mixin",
+    "extend-cross-media-cross-file",
+    "extend-cross-media-compound",
+    "extend-cross-media-parent-suffix",
+    "extend-cross-media-interpolated-selector",
+    "extend-cross-media-parent-rule",
+    "extend-cross-media-empty-rule",
+    "extend-cross-media-same-line",
+    "extend-cross-media-hex-escape",
+    "extend-cross-media-optional-first",
+    "extend-cross-media-silent-comment",
+    "extend-cross-media-two-interpolations",
+    "extend-cross-media-interpolated-list",
+    "extend-cross-media-parent-suffix-beside",
+    "extend-cross-media-indented",
+    "extend-cross-media-parent-on-the-right",
+    "extend-cross-media-two-parent-suffixes",
+    "extend-cross-media-extension-spacing",
     // Compile errors with a positioned span (undefined variable).
     "compile-undefined-variable",
     "compile-undefined-variable-stack",
@@ -106,13 +141,15 @@ fn fixtures_dir() -> std::path::PathBuf {
 }
 
 /// Run sasso from inside the fixtures dir with the bare basename + --no-unicode,
-/// returning captured stderr verbatim.
+/// returning captured stderr verbatim. A fixture written in the indented
+/// syntax is `<name>.sass`.
 fn run_sasso_stderr(name: &str) -> String {
     let bin = env!("CARGO_BIN_EXE_sasso");
+    let indented = fixtures_dir().join(format!("{name}.sass")).exists();
     let out = Command::new(bin)
         .current_dir(fixtures_dir())
         .arg("--no-unicode")
-        .arg(format!("{name}.scss"))
+        .arg(format!("{name}.{}", if indented { "sass" } else { "scss" }))
         .output()
         .expect("run sasso");
     String::from_utf8_lossy(&out.stderr).into_owned()

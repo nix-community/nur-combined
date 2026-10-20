@@ -1,0 +1,2 @@
+.p .q { &-x &-y {c: d} }
+@media screen { a { @extend .q-x } }

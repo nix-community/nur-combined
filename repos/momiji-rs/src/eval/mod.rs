@@ -488,7 +488,7 @@ impl OutNode {
 
 /// A media query resolved to its final string components, ready to serialize
 /// and to merge with nested queries (dart-sass `CssMediaQuery`).
-#[derive(Clone, PartialEq, Eq)]
+#[derive(Clone)]
 struct ResolvedQuery {
     /// `not`/`only`, already lowercased; `None` for a condition-only query.
     modifier: Option<String>,
@@ -498,6 +498,54 @@ struct ResolvedQuery {
     conditions: Vec<String>,
     /// Whether the conditions are joined by `and` (true) or `or` (false).
     conjunction_and: bool,
+    /// Where the query was written, when diagnostics are on: the `@media`
+    /// label of a cross-media `@extend` error. A merged query keeps the
+    /// OUTER query's span, as dart's `CssMediaQuery.merge` does. Not part of
+    /// the query's identity.
+    span: Option<SourceSpan>,
+}
+
+impl PartialEq for ResolvedQuery {
+    fn eq(&self, other: &Self) -> bool {
+        self.modifier == other.modifier
+            && self.mtype == other.mtype
+            && self.conditions == other.conditions
+            && self.conjunction_and == other.conjunction_and
+    }
+}
+
+impl Eq for ResolvedQuery {}
+
+/// See [`Evaluator::media_node_spans`]: the prelude sits in the value, so a
+/// lookup allocates nothing.
+pub(super) type MediaNodeSpans = HashMap<[u32; 7], Vec<(String, SourceSpan)>>;
+
+/// Every field of a `SrcLines`, as a hashable key.
+pub(super) fn src_lines_key(l: &SrcLines) -> [u32; 7] {
+    [l.file, l.start, l.end, l.col, l.start_col, l.map_file, l.map_line]
+}
+
+/// A span in a source file, kept for a labelled diagnostic drawn after
+/// evaluation. The file is its interned id (see [`Evaluator::file_diag`]),
+/// not its name: display names are not unique across custom importers, and
+/// an id costs no allocation to keep.
+#[derive(Clone, Copy)]
+pub(super) struct SourceSpan {
+    file: u32,
+    span: crate::diag::Span,
+}
+
+/// What a cross-media `@extend` error draws for an extension (see
+/// [`PendingExtend::diag`]).
+#[derive(Clone)]
+pub(super) struct ExtendDiag {
+    /// `@extend <selector> [!optional]`.
+    span: SourceSpan,
+    /// The last query of the extension's media context, as dart labels it.
+    media: Option<SourceSpan>,
+    /// The stack as the extension registered, innermost first; kept only
+    /// inside `@media`, the only place the error can be raised from.
+    frames: Option<Rc<[DiagFrame]>>,
 }
 
 /// The result of merging two media queries (dart-sass `MediaQueryMergeResult`).
@@ -1175,6 +1223,15 @@ pub(crate) struct Evaluator<'a> {
     /// is spelled differently: only a query that joins its conditions with
     /// `or`. Lets the output-tree walk recover the context from a prelude.
     media_context_aliases: HashMap<String, String>,
+    /// The last query's span of each emitted `@media` node, keyed by the
+    /// node's `lines` and prelude: what labels a rule's `extended selector
+    /// @media`. Filled only with diagnostics on. A `@media` evaluated twice in
+    /// two textually equal contexts keeps the first entry.
+    media_node_spans: MediaNodeSpans,
+    /// Each interned file's display url and text, by file id - 1, with
+    /// diagnostics on: what draws a span the output tree points at (see
+    /// [`Self::intern_current_file`]).
+    file_diag: Vec<(Rc<str>, Rc<str>)>,
     /// Set while module loads run inside a module-loading `@import`: dart
     /// clones the whole import subtree's CSS at the import site (the same
     /// `_combineCss(clone: true)` as meta.load-css). All loads in the chain
@@ -1743,6 +1800,9 @@ struct PendingExtend {
     /// Source line-break flags parallel to `extenders` (an extend product
     /// inherits its extender's flag, dart's ComplexSelector.lineBreak).
     extender_breaks: Vec<bool>,
+    /// Set with diagnostics on. Every extension keeps its span: a merged
+    /// extension can be named by a copy outside any `@media`.
+    diag: Option<ExtendDiag>,
     optional: bool,
     /// The media context the `@extend` was written in ([`media_context_key`]
     /// of its enclosing `@media` queries; `None` outside any `@media`). dart
@@ -1778,6 +1838,11 @@ struct EmptyRule {
     selectors: Rc<Vec<String>>,
     media: Option<String>,
     extend_base: usize,
+    /// The rule's own position, as an emitted rule's `lines`.
+    lines: SrcLines,
+    /// The last query of the rule's media context (see
+    /// [`ResolvedQuery::span`]).
+    media_span: Option<SourceSpan>,
 }
 
 impl<'a> Evaluator<'a> {
@@ -1865,6 +1930,8 @@ impl<'a> Evaluator<'a> {
             placeholder_rules: Vec::new(),
             empty_rules: Vec::new(),
             media_context_aliases: HashMap::default(),
+            media_node_spans: HashMap::default(),
+            file_diag: Vec::new(),
             used_modules: Rc::default(),
             star_modules: Rc::default(),
             used_user_modules: Rc::default(),
@@ -1914,6 +1981,10 @@ impl<'a> Evaluator<'a> {
         let next = self.file_ids.len() as u32 + 1;
         let key = self.current_path().to_string();
         let id = *self.file_ids.entry(key).or_insert(next);
+        if id == next && self.diag_enabled() {
+            let url = self.frame_url();
+            self.file_diag.push((url, Rc::clone(&self.current_source)));
+        }
         self.current_url_stamp = id;
         id
     }
@@ -3545,7 +3616,8 @@ impl<'a> Evaluator<'a> {
                     selector,
                     optional,
                     pos,
-                } => self.register_extend(selector, *optional, *pos, parents)?,
+                    length,
+                } => self.register_extend(selector, *optional, *pos, *length, parents)?,
                 Stmt::Warn { value, pos } => self.emit_warn(value, *pos)?,
                 Stmt::Debug { value, pos } => self.emit_debug(value, *pos)?,
                 Stmt::Error { value, pos, length } => {
@@ -3554,6 +3626,24 @@ impl<'a> Evaluator<'a> {
             }
         }
         Ok(())
+    }
+
+    /// Record a rule whose own block never emitted (see [`EmptyRule`]).
+    /// Out of line on purpose: written inline, the record's position and
+    /// media span cost `eval_style_rule` 1.5% more instructions on a sheet of
+    /// nesting-only parents (selector_lists, Linux/x86_64), about 100 per empty
+    /// rule; called, 0.04%.
+    #[inline(never)]
+    fn note_empty_rule(&mut self, current: &Rc<Vec<String>>, extend_base: usize, lines: SrcLines) {
+        let rule = EmptyRule {
+            module: self.current_module.clone(),
+            selectors: Rc::clone(current),
+            media: self.media_context(),
+            extend_base,
+            lines,
+            media_span: self.media_queries.last().and_then(|q| q.span),
+        };
+        self.empty_rules.push(rule);
     }
 
     /// Evaluate a style rule: resolve its selector against `parents`, run its
@@ -3851,13 +3941,7 @@ impl<'a> Evaluator<'a> {
         // A rule whose own block never emitted is in no output tree, but dart
         // registered its selector all the same (a keyframe stop is not one).
         if flushed.is_none() && !self.in_keyframes {
-            let rule = EmptyRule {
-                module: self.current_module.clone(),
-                selectors: Rc::clone(&current),
-                media: self.media_context(),
-                extend_base,
-            };
-            self.empty_rules.push(rule);
+            self.note_empty_rule(&current, extend_base, rule_lines);
         }
         // The body's own trailing-invisible state gates THIS rule's group
         // end; then report this rule's contribution to the PARENT body
@@ -6936,25 +7020,106 @@ struct MediaGroup<'a> {
     reach: ExtendReach<'a>,
     /// `(registration index, media context)` of each copy, in order.
     copies: Vec<(usize, Option<&'a str>)>,
+    /// The extension as each copy left it, parallel to `copies` (and cut
+    /// short at a merge error): see [`ExtensionState`].
+    states: Vec<ExtensionState>,
+}
+
+/// What dart's stored extension is after a copy merged in: which copy's
+/// span names it, which copy's context it carries, and whether it is
+/// optional. `MergedExtension.merge` keeps the left span and the first
+/// context set, and is optional itself; an optional copy without a context
+/// changes nothing, and replaces an extension that is optional and
+/// context-free.
+#[derive(Clone, Copy)]
+struct ExtensionState {
+    span: usize,
+    media: Option<usize>,
+    optional: bool,
+}
+
+/// A media-context error, as [`first_media_error`] found it: registration
+/// indices into the pending extensions, and the target's spans.
+pub(super) enum MediaConflict {
+    /// "You may not @extend selectors across media queries."
+    Across {
+        /// The copy whose span names the extension, and the copy whose
+        /// context it carries.
+        extension: usize,
+        extension_media: usize,
+        /// Raised as the extension registered (its own stack), not as the
+        /// selector did.
+        at_extension: bool,
+        selector: Option<SourceSpan>,
+        selector_media: Option<SourceSpan>,
+    },
+    /// "You may not @extend the same selector from within different media
+    /// queries."
+    Merge {
+        second: usize,
+        first: usize,
+        first_media: usize,
+    },
 }
 
 impl MediaGroup<'_> {
-    /// The context of the extension applied to a selector registered when
-    /// `base` `@extend`s were (see [`OutNode::Rule`]'s `extend_base`), and
-    /// when dart applies it, on the clock of [`first_media_error`]. A
-    /// selector registered before the first copy is extended as that copy
-    /// registers, in its context. A later one is extended as it registers, by
-    /// the merged extension, whose context is the first one set so far: a
-    /// merged copy is never re-applied to a selector that already exists.
-    fn applied(&self, base: usize) -> (usize, Option<&str>) {
+    /// Replay the merges (see [`ExtensionState`]). The first two copies with
+    /// set, different contexts are dart's merge error: returns the copy that
+    /// raised it and the extension it met.
+    fn settle(&mut self, extends: &[PendingExtend]) -> Option<(usize, ExtensionState)> {
+        let (j0, m0) = self.copies[0];
+        let mut state = ExtensionState {
+            span: j0,
+            media: m0.map(|_| j0),
+            optional: extends[j0].optional,
+        };
+        self.states.push(state);
+        for &(j, media) in &self.copies[1..] {
+            let current = state.media.and_then(|c| extends[c].media.as_deref());
+            match (current, media) {
+                (Some(a), Some(b)) if a != b => return Some((j, state)),
+                _ if extends[j].optional && media.is_none() => {}
+                _ if state.optional && current.is_none() => {
+                    state = ExtensionState {
+                        span: j,
+                        media: media.map(|_| j),
+                        optional: extends[j].optional,
+                    };
+                }
+                _ => {
+                    state = ExtensionState {
+                        span: state.span,
+                        media: state.media.or(media.map(|_| j)),
+                        optional: true,
+                    };
+                }
+            }
+            self.states.push(state);
+        }
+        None
+    }
+
+    /// The extension applied to a selector registered when `base` `@extend`s
+    /// were (see [`OutNode::Rule`]'s `extend_base`), when dart applies it on
+    /// the clock of [`first_media_error`], and whether that is as the
+    /// extension registers. A selector registered before the first copy is
+    /// extended as that copy registers. A later one is extended as it
+    /// registers, by the extension as the copies before it left it: a merged
+    /// copy is never re-applied to a selector that already exists.
+    fn applied(&self, base: usize) -> (usize, ExtensionState, bool) {
         let first = self.copies[0].0;
         // `usize::MAX` is a rule eval did not register; date it to the start.
         let base = if base == usize::MAX { 0 } else { base };
         if base <= first {
-            (2 * first + 1, self.copies[0].1)
+            (2 * first + 1, self.states[0], true)
         } else {
-            let media = self.copies.iter().take_while(|c| c.0 < base).find_map(|c| c.1);
-            (2 * base, media)
+            let seen = self
+                .copies
+                .iter()
+                .take_while(|c| c.0 < base)
+                .count()
+                .min(self.states.len());
+            (2 * base, self.states[seen.max(1) - 1], false)
         }
     }
 
@@ -6964,6 +7129,27 @@ impl MediaGroup<'_> {
     }
 }
 
+/// A selector [`first_media_error`] tests: where the rule holding it is and
+/// what context it sits in.
+pub(super) struct Candidate<'c> {
+    context: Option<&'c str>,
+    extend_base: usize,
+    contains: ContainsTarget<'c>,
+    /// The rule's position, to find the compound dart labels; `None` when
+    /// unknown.
+    lines: Option<&'c SrcLines>,
+    /// Its resolved selector list, which tells which source compound made
+    /// the target (see `selector::locate_compound`).
+    selectors: &'c [String],
+    /// The last query of the rule's media context.
+    media_span: Option<SourceSpan>,
+}
+
+/// Finds the `extended selector` span of a rule: its position, its resolved
+/// selector list, the target (see `selector::locate_compound`).
+pub(super) type LocateCompound<'a> =
+    &'a dyn Fn(&SrcLines, &[String], &crate::selector::Simple) -> Option<SourceSpan>;
+
 /// The first media-context error dart raises while registering these
 /// extensions and selectors, if any. Both errors come from the extension
 /// store as things register, so the one reported is the earliest:
@@ -6971,15 +7157,19 @@ impl MediaGroup<'_> {
 /// * "You may not @extend selectors across media queries." when an extension
 ///   applies to a selector in a context other than its own
 ///   (`assertCompatibleMediaContext`). An extension outside any `@media`
-///   applies everywhere. It points at the extension's first copy.
+///   applies everywhere.
 /// * "You may not @extend the same selector from within different media
 ///   queries." when a copy merges into an extension whose context is set and
-///   differs from its own (`MergedExtension.merge`). It points at the copy.
+///   differs from its own (`MergedExtension.merge`).
 ///
 /// Time runs on the registration clock: copy `j` registers at `2j + 1`, and
-/// a selector registered after `b` extensions at `2b`. Only selectors an
-/// extension can reach count, by the rewrite's own rule, and a selector that
-/// emits nothing (an empty placeholder, a bogus one) still does.
+/// a selector registered after `b` extensions at `2b`. Among selectors at
+/// one time dart meets them in registration order, and a rule always
+/// registers before the rules nested in it; the one whose own selector holds
+/// the target (`locate` finds the compound) is that earlier one. Only
+/// selectors an extension can reach count, by the rewrite's own rule, and a
+/// selector that emits nothing (an empty rule, a bogus one) still does.
+#[allow(clippy::too_many_arguments)]
 fn first_media_error(
     extends: &[PendingExtend],
     extensions: &[crate::selector::Extension],
@@ -6987,7 +7177,9 @@ fn first_media_error(
     sites: &[SiteRef<'_>],
     closures: &HashMap<String, crate::fxhash::FxHashSet<String>>,
     aliases: &HashMap<String, String>,
-) -> Option<Error> {
+    media_node_spans: &MediaNodeSpans,
+    locate: LocateCompound<'_>,
+) -> Option<(Pos, &'static str, MediaConflict)> {
     let in_media: crate::fxhash::FxHashSet<&crate::selector::Simple> = extends
         .iter()
         .filter(|pe| pe.media.is_some())
@@ -7010,6 +7202,7 @@ fn first_media_error(
                     groups.push(MediaGroup {
                         reach: ExtendReach::new(&pe.origin, &pe.target, closures),
                         copies: Vec::new(),
+                        states: Vec::new(),
                     });
                     groups.len() - 1
                 });
@@ -7019,41 +7212,50 @@ fn first_media_error(
     groups.retain(|g| g.copies.iter().any(|c| c.1.is_some()));
     let needles = TargetNeedles::new(groups.iter().map(|g| g.reach.target));
 
-    let mut first: Option<(usize, Pos, &'static str)> = None;
-    let mut note = |time: usize, pos: Pos, msg: &'static str| {
-        if !matches!(first, Some((t, ..)) if t <= time) {
-            first = Some((time, pos, msg));
-        }
-    };
-    for g in &groups {
-        let mut context = g.copies[0].1;
-        for &(j, media) in &g.copies[1..] {
-            match (context, media) {
-                (Some(a), Some(b)) if a != b => {
-                    note(
-                        2 * j + 1,
-                        extends[j].pos,
-                        "You may not @extend the same selector from within different media queries.",
-                    );
-                    break;
-                }
-                (None, Some(_)) => context = media,
-                _ => {}
+    const ACROSS: &str = "You may not @extend selectors across media queries.";
+    const MERGE: &str = "You may not @extend the same selector from within different media queries.";
+    // (time, 0 when the selector's compound was found, the error).
+    let mut first: Option<(usize, u8, Pos, &'static str, MediaConflict)> = None;
+    let beats = |first: &Option<(usize, u8, Pos, &'static str, MediaConflict)>, time: usize, rank: u8| !matches!(first, Some((t, r, ..)) if (*t, *r) <= (time, rank));
+    for g in &mut groups {
+        if let Some((j, met)) = g.settle(extends) {
+            let time = 2 * j + 1;
+            if beats(&first, time, 0) {
+                let conflict = MediaConflict::Merge {
+                    second: j,
+                    first: met.span,
+                    first_media: met.media.unwrap_or(met.span),
+                };
+                first = Some((time, 0, extends[j].pos, MERGE, conflict));
             }
         }
     }
-    let mut across = |scope: &str, context: Option<&str>, base: usize, contains: ContainsTarget<'_>| {
+    let mut across = |visible: &dyn Fn(&ExtendReach<'_>) -> bool, c: &Candidate<'_>| {
         for g in &groups {
-            if !g.reach.sees(scope) {
+            if !visible(&g.reach) {
                 continue;
             }
-            let (time, media) = g.applied(base);
-            if media.is_some() && media != context && contains(g.reach.target) {
-                note(
-                    time,
-                    extends[g.copies[0].0].pos,
-                    "You may not @extend selectors across media queries.",
-                );
+            let (time, state, at_extension) = g.applied(c.extend_base);
+            let Some(media_copy) = state.media else {
+                continue;
+            };
+            if extends[media_copy].media.as_deref() == c.context || !(c.contains)(g.reach.target) {
+                continue;
+            }
+            if !beats(&first, time, 0) {
+                continue;
+            }
+            let selector = c.lines.and_then(|l| locate(l, c.selectors, g.reach.target));
+            let rank = u8::from(selector.is_none());
+            if beats(&first, time, rank) {
+                let conflict = MediaConflict::Across {
+                    extension: state.span,
+                    extension_media: media_copy,
+                    at_extension,
+                    selector,
+                    selector_media: c.media_span,
+                };
+                first = Some((time, rank, extends[state.span].pos, ACROSS, conflict));
             }
         }
     };
@@ -7066,10 +7268,26 @@ fn first_media_error(
         {
             continue;
         }
-        across(site.module, context, site.extend_base, &|t| site.contains(t));
+        let candidate = Candidate {
+            context,
+            extend_base: site.extend_base,
+            contains: &|t| site.contains(t),
+            lines: site.lines,
+            selectors: site.selectors,
+            media_span: site.media_span,
+        };
+        across(&|r| r.sees(site.module), &candidate);
     }
-    walk_media_targets(out, "", None, &groups, &needles, aliases, &mut across);
-    first.map(|(_, pos, msg)| Error::at(msg, pos))
+    let walk = MediaWalk {
+        groups: &groups,
+        needles: &needles,
+        aliases,
+        media_node_spans,
+    };
+    walk.nodes(out, "", None, None, &mut |scope, candidate| {
+        across(&|r| r.sees(scope), candidate)
+    });
+    first.map(|(_, _, pos, msg, conflict)| (pos, msg, conflict))
 }
 
 /// A textual pre-test for "this selector may contain one of the targets",
@@ -7114,6 +7332,9 @@ pub(super) struct SiteRef<'a> {
     selectors: &'a [String],
     media: Option<&'a str>,
     extend_base: usize,
+    /// The rule's position and media-context span, as [`Candidate`].
+    lines: Option<&'a SrcLines>,
+    media_span: Option<SourceSpan>,
 }
 
 impl<'a> SiteRef<'a> {
@@ -7137,6 +7358,8 @@ impl TargetSite {
             selectors: std::slice::from_ref(&self.selector),
             media: self.media.as_deref(),
             extend_base: self.extend_base,
+            lines: None,
+            media_span: None,
         }
     }
 }
@@ -7148,6 +7371,8 @@ impl EmptyRule {
             selectors: &self.selectors,
             media: self.media.as_deref(),
             extend_base: self.extend_base,
+            lines: Some(&self.lines),
+            media_span: self.media_span,
         }
     }
 }
@@ -7155,72 +7380,88 @@ impl EmptyRule {
 /// Whether a selector contains an extension's target.
 type ContainsTarget<'a> = &'a dyn Fn(&crate::selector::Simple) -> bool;
 
-/// [`walk_media_targets`]'s visitor: a rule's scope, media context,
-/// `extend_base` and target test.
-type VisitTarget<'a> = dyn FnMut(&str, Option<&str>, usize, ContainsTarget<'_>) + 'a;
+/// The output-tree half of [`first_media_error`].
+struct MediaWalk<'w> {
+    groups: &'w [MediaGroup<'w>],
+    needles: &'w TargetNeedles<'w>,
+    aliases: &'w HashMap<String, String>,
+    media_node_spans: &'w MediaNodeSpans,
+}
 
-/// Hand every style rule in `nodes` to `visit` with its module scope (as
-/// [`OutNode::ModuleScope`] switches it), its media context, its
-/// `extend_base` and a test of whether its selector contains a target. Only a
-/// real `@media` starts a context: an interpolated `@#{"media"}` is a generic
-/// at-rule, and `@keyframes` bodies hold keyframe stops, not style rules. A
-/// rule no group could conflict with is not parsed.
-fn walk_media_targets(
-    nodes: &[OutNode],
-    scope: &str,
-    context: Option<&str>,
-    groups: &[MediaGroup<'_>],
-    needles: &TargetNeedles<'_>,
-    aliases: &HashMap<String, String>,
-    visit: &mut VisitTarget<'_>,
-) {
-    for node in nodes {
-        match node {
-            OutNode::Rule {
-                selectors,
-                extend_base,
-                ..
-            } => {
-                if !groups
-                    .iter()
-                    .any(|g| g.reach.sees(scope) && g.may_conflict(context))
-                {
-                    continue;
+impl MediaWalk<'_> {
+    /// Hand every style rule in `nodes` to `visit` with its module scope (as
+    /// [`OutNode::ModuleScope`] switches it) and as a [`Candidate`]. Only a
+    /// real `@media` starts a context: an interpolated `@#{"media"}` is a
+    /// generic at-rule, and `@keyframes` bodies hold keyframe stops, not
+    /// style rules. A rule no group could conflict with is not parsed.
+    fn nodes(
+        &self,
+        nodes: &[OutNode],
+        scope: &str,
+        context: Option<&str>,
+        media_span: Option<SourceSpan>,
+        visit: &mut dyn FnMut(&str, &Candidate<'_>),
+    ) {
+        for node in nodes {
+            match node {
+                OutNode::Rule {
+                    selectors,
+                    extend_base,
+                    lines,
+                    ..
+                } => {
+                    if !self
+                        .groups
+                        .iter()
+                        .any(|g| g.reach.sees(scope) && g.may_conflict(context))
+                    {
+                        continue;
+                    }
+                    let strings = selectors.to_strings();
+                    if !strings.iter().any(|s| self.needles.may_contain(s)) {
+                        continue;
+                    }
+                    let parsed: Vec<crate::selector::Complex> = strings
+                        .iter()
+                        .filter_map(|s| crate::selector::parse_list(s))
+                        .flatten()
+                        .collect();
+                    let candidate = Candidate {
+                        context,
+                        extend_base: *extend_base,
+                        contains: &|t| crate::selector::list_contains_simple(&parsed, t),
+                        lines: Some(lines),
+                        selectors: &strings,
+                        media_span,
+                    };
+                    visit(scope, &candidate);
                 }
-                let strings = selectors.to_strings();
-                if !strings.iter().any(|s| needles.may_contain(s)) {
-                    continue;
+                OutNode::AtRule {
+                    name,
+                    prelude,
+                    body,
+                    kind,
+                    lines,
+                    ..
+                } => {
+                    if is_keyframes_name(name) {
+                        continue;
+                    }
+                    if kind.is_conditional() && name == "media" {
+                        let inner = Some(self.aliases.get(prelude).map_or(prelude.as_str(), String::as_str));
+                        let span = self
+                            .media_node_spans
+                            .get(&src_lines_key(lines))
+                            .and_then(|v| v.iter().find(|(p, _)| p == prelude))
+                            .map(|(_, s)| *s);
+                        self.nodes(body, scope, inner, span, visit);
+                    } else {
+                        self.nodes(body, scope, context, media_span, visit);
+                    }
                 }
-                let parsed: Vec<crate::selector::Complex> = strings
-                    .iter()
-                    .filter_map(|s| crate::selector::parse_list(s))
-                    .flatten()
-                    .collect();
-                visit(scope, context, *extend_base, &|t| {
-                    crate::selector::list_contains_simple(&parsed, t)
-                });
+                OutNode::ModuleScope { key, nodes } => self.nodes(nodes, key, context, media_span, visit),
+                _ => {}
             }
-            OutNode::AtRule {
-                name,
-                prelude,
-                body,
-                kind,
-                ..
-            } => {
-                if is_keyframes_name(name) {
-                    continue;
-                }
-                let inner = if kind.is_conditional() && name == "media" {
-                    Some(aliases.get(prelude).map_or(prelude.as_str(), String::as_str))
-                } else {
-                    context
-                };
-                walk_media_targets(body, scope, inner, groups, needles, aliases, visit);
-            }
-            OutNode::ModuleScope { key, nodes } => {
-                walk_media_targets(nodes, key, context, groups, needles, aliases, visit)
-            }
-            _ => {}
         }
     }
 }
@@ -9715,6 +9956,7 @@ fn css_media_parse_one(t: &str) -> Result<ResolvedQuery, Error> {
             conditions.push(take_paren(&mut i)?);
         }
         return Ok(ResolvedQuery {
+            span: None,
             modifier: None,
             mtype: None,
             conditions,
@@ -9726,6 +9968,7 @@ fn css_media_parse_one(t: &str) -> Result<ResolvedQuery, Error> {
     if id1.eq_ignore_ascii_case("not") && i < chars.len() && chars[i] == '(' {
         let cond = take_paren(&mut i)?;
         return Ok(ResolvedQuery {
+            span: None,
             modifier: None,
             mtype: None,
             conditions: vec![format!("not {cond}")],
@@ -9759,6 +10002,7 @@ fn css_media_parse_one(t: &str) -> Result<ResolvedQuery, Error> {
         conditions.push(take_paren(&mut i)?);
     }
     Ok(ResolvedQuery {
+        span: None,
         modifier,
         mtype: Some(mtype),
         conditions,
@@ -9859,6 +10103,7 @@ fn merge_media_query(this: &ResolvedQuery, other: &ResolvedQuery) -> MergeResult
             mtype: None,
             conditions,
             conjunction_and: true,
+            span: this.span,
         });
     }
 
@@ -9943,6 +10188,7 @@ fn merge_media_query(this: &ResolvedQuery, other: &ResolvedQuery) -> MergeResult
         mtype: final_type,
         conditions,
         conjunction_and: true,
+        span: this.span,
     })
 }
 

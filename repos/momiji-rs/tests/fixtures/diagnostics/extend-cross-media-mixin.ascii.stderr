@@ -1,0 +1,11 @@
+Error: You may not @extend selectors across media queries.
+  ,
+1 | @mixin m { a {@extend .x} }
+  |               ^^^^^^^^^^ extension
+2 | .x {c: d}
+  | == extended selector
+3 | @media screen { @include m; }
+  |        ====== extension @media
+  '
+  extend-cross-media-mixin.scss 1:15  m()
+  extend-cross-media-mixin.scss 3:17  root stylesheet
