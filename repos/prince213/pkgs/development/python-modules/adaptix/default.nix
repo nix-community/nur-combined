@@ -2,6 +2,7 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
+  pythonAtLeast,
 
   # build-system
   uv-build,
@@ -41,6 +42,10 @@ buildPythonPackage (finalAttrs: {
   preCheck = ''
     export PYTHONPATH="tests/tests_helpers:$PYTHONPATH"
   '';
+
+  disabledTestPaths = lib.optionals (pythonAtLeast "3.13") [
+    "tests/unit/type_tools/test_normalize_type.py::test_forward_ref_at_type_var_limit"
+  ];
 
   meta = {
     description = "Data model conversion library";

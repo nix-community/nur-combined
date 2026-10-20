@@ -5,8 +5,11 @@
   stdenv,
 
   # nativeBuildInputs
+  darwin,
   installShellFiles,
+  makeBinaryWrapper,
   pkg-config,
+  re-plistbuddy,
 
   # buildInputs
   zstd,
@@ -17,7 +20,7 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "aven";
-  version = "0.1.49";
+  version = "0.1.50";
 
   __structuredAttrs = true;
 
@@ -25,14 +28,19 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "raine";
     repo = "aven";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-EV2acTK6aAZ7/oSrB1YT1HY166NGziVtePlVoJ3nc6M=";
+    hash = "sha256-nv9b6Dnr2ukRfX6nPu67RYRwIMXoza/VePXhnfesT64=";
   };
 
-  cargoHash = "sha256-yN1Eav8dGmkJ9tPq6BL8ANrZcpZ+06hvOmz9c4JYnHg=";
+  cargoHash = "sha256-a1gJUIZRWTS08dl7+v8KP3igRpXwoWP07TSADXPWPW0=";
 
   nativeBuildInputs = [
     installShellFiles
     pkg-config
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    darwin.autoSignDarwinBinariesHook
+    makeBinaryWrapper
+    re-plistbuddy
   ];
 
   buildInputs = [ zstd ];
@@ -43,12 +51,26 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   doCheck = false;
 
-  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-    installShellCompletion --cmd aven \
-      --bash <($out/bin/aven completions bash) \
-      --fish <($out/bin/aven completions fish) \
-      --zsh <($out/bin/aven completions zsh)
-  '';
+  postInstall =
+    lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+      installShellCompletion --cmd aven \
+        --bash <($out/bin/aven completions bash) \
+        --fish <($out/bin/aven completions fish) \
+        --zsh <($out/bin/aven completions zsh)
+    ''
+    + lib.optionalString stdenv.hostPlatform.isDarwin ''
+      mkdir -p $out/Applications/Aven.app/Contents
+      cp macos/Info.plist $out/Applications/Aven.app/Contents/
+      plutil -insert CFBundleShortVersionString -string ${finalAttrs.version} $out/Applications/Aven.app/Contents/Info.plist
+      plutil -insert CFBundleVersion -string ${finalAttrs.version} $out/Applications/Aven.app/Contents/Info.plist
+
+      mkdir -p $out/Applications/Aven.app/Contents/MacOS
+      mv $out/bin/aven $out/Applications/Aven.app/Contents/MacOS/aven
+      makeWrapper $out/Applications/Aven.app/Contents/MacOS/aven $out/bin/aven
+
+      mkdir -p $out/Applications/Aven.app/Contents/Resources
+      cp macos/Resources/{Assets.car,Aven.icns} $out/Applications/Aven.app/Contents/Resources/
+    '';
 
   doInstallCheck = true;
   nativeInstallCheckInputs = [ versionCheckHook ];
@@ -61,5 +83,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ prince213 ];
     mainProgram = "aven";
+    mainDarwinApp = "Aven.app";
   };
 })
