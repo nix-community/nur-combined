@@ -1,7 +1,8 @@
-{ pkgs ? null }: (args: let
+{ pkgs ? null, system ? builtins.currentSystem }: (args: let
   pkgs = if (builtins.tryEval args.pkgs).success && args.pkgs != null
     then args.pkgs
     else import (import ./flake-compat.nix).inputs.nixpkgs {
+      inherit system;
       config = import ./nixpkgs-config.nix;
     };
 in with pkgs; rec {

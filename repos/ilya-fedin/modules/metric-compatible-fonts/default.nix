@@ -2,7 +2,7 @@
 
 with lib;
 let
-  customPkgs = import ../.. { inherit pkgs; };
+  customPkgs = import ../.. { system = pkgs.stdenv.hostPlatform.system; };
 
   cfg = config.fonts.fontconfig;
 
