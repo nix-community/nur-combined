@@ -45,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     changelog = "https://github.com/qingjian-team/qingjian/releases/tag/v${finalAttrs.version}";
-    description = "Qingjian pinyin input method with translation hints for language learners";
+    description = "Pinyin input method with translation hints for language learners";
     homepage = "https://qingjian.app";
     license = lib.licenses.gpl3Only;
     platforms = [ "x86_64-linux" ];
