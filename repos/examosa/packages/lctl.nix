@@ -1,7 +1,7 @@
 {
   lib,
   fetchFromGitHub,
-  bashNonInteractive,
+  bash,
   installShellFiles,
   stdenvNoCC,
 }:
@@ -19,7 +19,7 @@ stdenvNoCC.mkDerivation {
     hash = "sha256-2L4pBBYeJV2OhKaY2lRDEUpbZtql1M40Kn44neHCY6o=";
   };
 
-  buildInputs = [bashNonInteractive];
+  buildInputs = [bash];
 
   nativeBuildInputs = [installShellFiles];
 

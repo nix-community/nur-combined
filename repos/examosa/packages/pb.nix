@@ -1,7 +1,7 @@
 {
   lib,
   fetchFromGitHub,
-  bashNonInteractive,
+  bash,
   installShellFiles,
   nix-update-script,
   stdenvNoCC,
@@ -20,7 +20,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-cQ7U59PRhA/B255Yq9H/qM6SLfNtI+2iNhpeM3Y9gSQ=";
   };
 
-  buildInputs = [bashNonInteractive];
+  buildInputs = [bash];
 
   nativeBuildInputs = [installShellFiles];
 
