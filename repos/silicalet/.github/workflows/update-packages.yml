@@ -52,6 +52,11 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
+      # Keep nixpkgs fresh so package updates are not blocked by an outdated
+      # toolchain (e.g. go.mod requiring a newer Go than the pinned nixpkgs).
+      - name: Update nixpkgs input
+        run: nix flake update nixpkgs
+
       - name: Update regular and x86_64 binary packages
         run: nix run .#update -- --all
 
