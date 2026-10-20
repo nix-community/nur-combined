@@ -35,7 +35,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preInstall
 
     export XDG_DATA_HOME=$out/share
-    python3 install.sh --prefix $out
+    bash install.sh --prefix $out
 
     wrapProgram $out/bin/qingjian-linux-server \
       --set QINGJIAN_RESOURCES $out/share/qingjian/resources
