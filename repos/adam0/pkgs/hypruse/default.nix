@@ -56,7 +56,7 @@ in
     '';
 
     # Use hyprctl from the running compositor, not a separately pinned Hyprland.
-    makeWrapperArgs = ["--prefix PATH : ${runtimePath}"];
+    makeWrapperArgs = ["--prefix" "PATH" ":" runtimePath];
 
     meta = with lib; {
       # keep-sorted start
