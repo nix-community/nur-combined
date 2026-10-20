@@ -33,8 +33,8 @@ in
   };
 
   nightly = mkSources {
-    version = "0.1.1-nightly.20261018.3285";
-    cliHash = "sha256-IZ/E07er4QMRyecbE8YtgeJxebmfTt8gJwoyqASoRmA=";
-    desktopHash = "sha256-6tJjAtu3o2C/t42N75+MlU96Xsu3FQo5z4qCVoBUbSk=";
+    version = "0.1.1-nightly.20261018.3335";
+    cliHash = "sha256-cWCwYX98oBi3e6ScJDXTFiDQpjot0SQ4CjF7xxQP2gI=";
+    desktopHash = "sha256-TBKIdwcCDKwkScUEMzMZKfdcgyiPSXl+3bTHHqIYCE8=";
   };
 }
