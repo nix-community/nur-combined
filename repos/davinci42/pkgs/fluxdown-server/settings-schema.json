@@ -335,10 +335,10 @@
       "kind": "Text"
     }
   },
-  "protocolVersion": 12,
+  "protocolVersion": 14,
   "sourceHashes": {
     "native/protocol/src/daemon_config.rs": "9a47cadaea68e69eaae540e125e6468ff7e2a57979b07037a32f6407ca9a680f",
-    "native/protocol/src/rpc.rs": "5558e774e8f1e8041511f1cfa7ade6c227dea23810609de27a958ed7f6efda67"
+    "native/protocol/src/rpc.rs": "b36d6461cd6636b83b3c65f49573b10fa013738c0232193260a49ae35aab6e70"
   },
-  "version": "0.5.7"
+  "version": "0.5.9"
 }

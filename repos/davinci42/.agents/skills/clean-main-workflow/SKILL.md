@@ -36,8 +36,14 @@ work from that base, not a previously squash-merged branch. Load
 - Combine related unpublished follow-ups into one commit. Rewrite published
   commits only when explicitly authorized.
 - Review the full diff and commit count since the fetched base. Keep the PR body
-  short: purpose, actual validation and relevant compatibility notes. Put release
-  notes in the PR, not the package README.
+  short: purpose, completed changes, actual validation and relevant compatibility
+  notes. Use rendered Markdown task lists for completed work and validation:
+  `- [x]` for completed changes or passed checks, `- [ ]` for pending or unrun
+  items with an explicit status. Label failed checks as failed, not merely unchecked.
+  Do not wrap task lists in code fences; use code blocks only for code or output
+  that needs them. Keep summaries and links as normal Markdown.
+  Use `.github/package-update-pr.md` for package updates. Put release notes in the
+  PR, not the package README.
 - Push only the authorized topic branch and use explicit repository, base and
   head arguments when creating the PR. Do not enable auto-merge automatically.
 
