@@ -135,7 +135,7 @@ class UpdateTests(unittest.TestCase):
     def test_pr_uses_template_and_actual_source_refs(self) -> None:
         before: dict[str, object] = {
             "snapshot": False,
-            "upstream": "https://github.com/DIYgod/RSSHub",
+            "upstream": "https://github.com/example/project",
             "sourceRef": "v2026.10.10-8410.c3dfdf4",
             "system": "x86_64-linux",
         }
@@ -162,7 +162,7 @@ class UpdateTests(unittest.TestCase):
             self.assertEqual(
                 check_updates.open_pr(
                     maintain.ROOT,
-                    "rsshub",
+                    "example",
                     "2026.10.10-8410.c3dfdf4",
                     "2026.10.11-8411.a7d4000",
                     False,
@@ -174,7 +174,7 @@ class UpdateTests(unittest.TestCase):
         self.assertIn(
             "/compare/v2026.10.10-8410.c3dfdf4...v2026.10.11-8411.a7d4000", body
         )
-        self.assertIn("- [x] `just check rsshub` passed on `x86_64-linux`.", body)
+        self.assertIn("- [x] `just check example` passed on `x86_64-linux`.", body)
         self.assertIn("/actions/runs/38107696052", body)
         self.assertNotIn("Not tested", body)
         self.assertNotIn("{", body)

@@ -8,7 +8,6 @@ Personal Nix packages, NixOS modules and nix-darwin modules using the caller's `
 | `basic-memory` | None | [Markdown memory and MCP server](pkgs/basic-memory/README.md) |
 | `fluxdown-server` | `nixosModules.fluxdown` | [FluxDown Server](pkgs/fluxdown-server/README.md) |
 | `mnamer-rs` | None | [mnamer Rust rewrite](pkgs/mnamer-rs/README.md) |
-| `rsshub` | Use nixpkgs' module with this package | [RSSHub](pkgs/rsshub/README.md) |
 
 | Package | nix-darwin module | Documentation |
 | --- | --- | --- |
@@ -22,9 +21,9 @@ Run from the repository root with `<nixpkgs>` and `nix-command` enabled.
 ```sh
 nix-shell
 just --list
-just build rsshub
-just update rsshub
-just check rsshub
+just build basic-memory
+just update basic-memory
+just check basic-memory
 just contract fluxdown-server
 NIXPKGS_ALLOW_UNFREE=1 just check-all
 NIXPKGS_ALLOW_UNFREE=1 just check-updates
