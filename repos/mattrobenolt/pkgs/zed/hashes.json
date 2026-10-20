@@ -1,7 +1,7 @@
 {
-  "1.24.2": {
-    "aarch64-linux": "sha256-lqVIBqfihkUgeL38lLY8e/a4Mk/8sWxcYP8f2WdD6kU=",
-    "x86_64-linux": "sha256-Ago7Aqn0u14AFbrXzGRCYr9OoyzX729/RpGUbUOvD4k="
+  "1.24.3": {
+    "aarch64-linux": "sha256-weaB/lrtoAkPYrEZ0MJ53bPV4sh0Ct42cenqANBU3ZE=",
+    "x86_64-linux": "sha256-DpS5gmz3K++ekD5LQFsz52D+MXxzpunTHHZG8nobtg8="
   },
   "1.25.0-pre": {
     "aarch64-linux": "sha256-gpB5VG2XJs1Fi+voijeLQpcWJNwjjjRmMv0PLKBrNxE=",
