@@ -22,13 +22,14 @@ stdenv.mkDerivation rec {
 
   makeFlags = kernelModuleMakeFlags ++ [
     "VERSION=${version}"
-    "KVER=${kernel.modDirVersion}"
     "KDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
   ];
 
   installPhase = ''
     runHook preInstall
-    install -D qc71_laptop.ko -t $out/lib/modules/${kernel.modDirVersion}/extra
+    make -C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build \
+      M=$PWD modules_install INSTALL_MOD_PATH=$out INSTALL_MOD_DIR=extra DEPMOD=true \
+      ''${makeFlags[@]}
     runHook postInstall
   '';
 
