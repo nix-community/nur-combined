@@ -1,6 +1,12 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 let
+  delta-editor = pkgs.symlinkJoin {
+    name = "delta-editor";
+    paths = [ inputs.delta.packages.${pkgs.stdenv.hostPlatform.system}.delta ];
+    postBuild = ''mv "$out/bin/delta" "$out/bin/delta-editor"'';
+  };
+
   nix-tools = with pkgs; [
     nixfmt
     nix-index
@@ -34,7 +40,7 @@ let
 
     # coq
     # ghc
-    # idris2
+    idris2
 
     typescript
     #haskellPackages.cabal-install
@@ -95,8 +101,6 @@ let
     # ghex
     # ida-free
     megasync
-    filen-cli
-    filen-desktop
     feishu
     xournalpp
     remmina
@@ -108,6 +112,9 @@ let
     #mathematica
     #virtualbox
     zed-editor
+    delta-editor
+    obsidian
+    steam
   ];
 
   others = with pkgs; [
@@ -119,7 +126,7 @@ let
     zen-browser
     localsend
     # handbrake
-    splayer
+    splayer-next
     # waylyrics
     # jellyfin-media-player
     # wireshark
@@ -131,8 +138,9 @@ let
     wechat
     # antigravity
     llm-agents.codex
-    llm-agents.claude-code
+    #llm-agents.claude-code
     llm-agents.pi
+    my.workbuddy
     qq
     #ghostty
 

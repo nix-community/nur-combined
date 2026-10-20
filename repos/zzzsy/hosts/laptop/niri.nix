@@ -11,4 +11,5 @@
   systemd.user.services.niri-flake-polkit.enable = false;
   security.soteria.enable = true;
   services.gnome.evolution-data-server.enable = true;
+  mods.gnome-fix.enable = true;
 }

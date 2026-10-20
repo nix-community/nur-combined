@@ -18,7 +18,6 @@
   xdg.enable = true;
   xdg.portal = with pkgs; {
     enable = true;
-    config.niri."org.freedesktop.impl.portal.Secret" = lib.mkForce "oo7-portal";
     configPackages = [
       xdg-desktop-portal-gtk
       xdg-desktop-portal-gnome
@@ -33,6 +32,7 @@
   };
   programs.noctalia = {
     enable = true;
+    package = pkgs.noctalia-shell;
   };
   xdg.configFile."niri/config.kdl".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Documents/flakes/home/laptop/desktop/niri/niri.kdl";

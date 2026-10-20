@@ -2,7 +2,6 @@
   imports = [
     ./pkgs.nix
     ./desktop
-    ./firefox
     ./editor
     ./shell
     ./others

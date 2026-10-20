@@ -10,7 +10,9 @@ let
     {
       system ? "x86_64-linux",
       modules ? [ ],
-      overlays ? builtins.attrValues self.overlays,
+      overlays ? builtins.attrValues (removeAttrs self.overlays [ "default" ]) ++ [
+        self.overlays.default
+      ],
       nixosModules ? builtins.attrValues self.nixosModules,
       homeModules ? builtins.attrValues self.homeModules,
       withHome ? true,

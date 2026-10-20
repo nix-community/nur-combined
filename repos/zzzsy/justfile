@@ -20,8 +20,10 @@ fmt:
 
 switch host="laptop":
     #!/usr/bin/env bash
-    set -e
-    nix build --log-format internal-json -v -f default.nix nixosConfigurations.{{ host }}.config.system.build.toplevel |& nom --json
+    set -eo pipefail
+    nix build --option substituters https://mirrors.ustc.edu.cn/nix-channels/store \
+        --option download-attempts 3 --option max-connect-timeout 5 \
+        --log-format internal-json -v -f default.nix nixosConfigurations.{{ host }}.config.system.build.toplevel |& nom --json
     dix /run/current-system result
     read -p "Apply and switch? (y/N): " -n 1 -r confirm
     echo

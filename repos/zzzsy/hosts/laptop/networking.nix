@@ -1,5 +1,18 @@
 { config, pkgs, ... }:
 {
+  mods.sing-box = {
+    enable = true;
+    subscription = {
+      secret = "sub1";
+      interval = "4h";
+    };
+    ovpn = {
+      enable = true;
+      secret = "ovpn";
+    };
+    dashboard.port = 9090;
+  };
+
   vaultix.secrets.wg = { };
   networking = {
     useDHCP = false;
@@ -11,11 +24,6 @@
     networkmanager.plugins = with pkgs; [
       networkmanager-openvpn
     ];
-  };
-  services.dae = {
-    enable = true;
-    package = pkgs.my.dae;
-    configFile = "/home/zzzsy/.config/dae/config.dae";
   };
   networking.wg-quick.interfaces = {
     wg-vpn = {

@@ -17,6 +17,35 @@
         echo (prompt_pwd)
         echo " fish"
       '';
+      v = {
+        description = "Start a systemd-nspawn machine, optionally entering it";
+        body = ''
+          set -l enter_machine false
+          set -l machine
+
+          switch (count $argv)
+            case 1
+              set machine $argv[1]
+            case 2
+              if test "$argv[1]" != "-s"
+                echo "usage: v [-s] <machine>" >&2
+                return 2
+              end
+              set enter_machine true
+              set machine $argv[2]
+            case '*'
+              echo "usage: v [-s] <machine>" >&2
+              return 2
+          end
+
+          sudo ${pkgs.systemd}/bin/machinectl start -- $machine
+          or return $status
+
+          if $enter_machine
+            sudo ${pkgs.systemd}/bin/machinectl shell "zzzsy@$machine"
+          end
+        '';
+      };
     };
 
     shellAbbrs = {

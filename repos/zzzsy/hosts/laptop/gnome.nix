@@ -16,31 +16,6 @@
       enable = true;
       package = pkgs.valent;
     };
-    programs.gtklock = {
-      enable = true;
-      config = {
-        main = {
-          follow-focus = true;
-          start-hidden = true;
-        };
-        powerbar.show-labels = true;
-      };
-      style = ''
-        #playerctl-revealer {
-          padding-bottom: 100px
-        }
-        #powerbar-revealer {
-          padding-bottom: 10px
-        }
-        window{background-image:url("/home/zzzsy/.local/share/background");background-size:cover}
-        #playerctl-revealer{padding-bottom:100px}
-        #powerbar-revealer{padding-bottom:10px}
-      '';
-      modules = with pkgs; [
-        gtklock-playerctl-module
-        gtklock-powerbar-module
-      ];
-    };
 
     xdg.terminal-exec = {
       enable = true;

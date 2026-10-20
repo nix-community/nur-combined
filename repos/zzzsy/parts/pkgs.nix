@@ -13,7 +13,9 @@
     let
       sources = pkgs.callPackage ../pkgs/_sources/generated.nix { };
       allPkgs = lib.my.importPackages pkgs sources ../pkgs;
-      overlays = builtins.attrValues self.overlays;
+      overlays = builtins.attrValues (removeAttrs self.overlays [ "default" ]) ++ [
+        self.overlays.default
+      ];
     in
     {
       _module.args.pkgs = import inputs.nixpkgs {

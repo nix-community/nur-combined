@@ -4,6 +4,9 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
 
+    niri.url = "github:niri-wm/niri/main";
+    niri.inputs.nixpkgs.follows = "nixpkgs";
+
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     home-manager.url = "github:nix-community/home-manager";
@@ -12,16 +15,18 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     fast-nix-gc.url = "github:Mic92/fast-nix-gc";
-    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel";
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
     infuse.url = "git+https://github.com/zzzsyyy/infuse.nix.git";
     infuse.flake = false;
     noctalia.url = "github:noctalia-dev/noctalia-shell";
     noctalia.inputs.nixpkgs.follows = "nixpkgs";
     vaultix.url = "github:milieuim/vaultix";
-    dae.url = "github:daeuniverse/flake.nix";
     mark-shot.url = "github:jswysnemc/mark-shot";
     mark-shot.inputs.nixpkgs.follows = "nixpkgs";
     fcitx5-vinput.url = "github:xifan2333/fcitx5-vinput";
+    gaze.url = "github:GunduLabs/gaze";
+    delta.url = "github:zed-industries/delta-nix";
+    delta.inputs.nixpkgs.follows = "nixpkgs";
 
     nvfetcher.url = "github:berberman/nvfetcher";
     nvfetcher.inputs.nixpkgs.follows = "nixpkgs";
@@ -32,6 +37,7 @@
 
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     zen-browser.inputs.nixpkgs.follows = "nixpkgs";
+    zen-bonsai.url = "github:joegoldin/zen-bonsai-browser/dev";
 
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";

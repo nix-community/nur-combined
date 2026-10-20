@@ -1,4 +1,5 @@
 [
+  ./apps.nix
   ./dev.nix
   ./modules.nix
   ./system.nix

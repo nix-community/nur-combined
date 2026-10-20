@@ -1,6 +1,5 @@
 spawn-at-startup "noctalia"
 spawn-at-startup "fcitx5" "-d" "--replace"
-spawn-at-startup "clipse" "-listen"
 spawn-at-startup "niriusd"
 
 prefer-no-csd
@@ -17,9 +16,15 @@ output "eDP-1" {
     focus-at-startup
 }
 
+output "DP-1" {
+    position x=1536 y=0
+    scale 2.0
+    variable-refresh-rate
+}
+
 output "HDMI-A-1" {
     variable-refresh-rate
-    position x=1536 y=0
+    position x=3456 y=0
     mode "3840x2160@120.000"
     scale 2.0
 }
@@ -129,6 +134,19 @@ window-rule {
     open-floating true
 }
 
+window-rule {
+  match app-id=r#"top.imsyy.splayer_next"# title="SPlayer-Next - Desktop Lyric"
+  shadow{
+    off
+  }
+  focus-ring{
+    off
+  }
+  border{
+    off
+  }
+}
+
 /-window-rule {
     match app-id=r#"dev\.zed\.Zed"#
     block-out-from "screencast"
@@ -145,7 +163,7 @@ window-rule {
      border {
         off
     }
-    opacity 0.55
+    opacity 0.15
 }
 /-screenshot-notification{
   off
@@ -168,7 +186,8 @@ window-rule {
 
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
-
+    Mod+Shift+Space  { spawn "niri" "output" "eDP-1" "off"; }
+    Mod+Space {spawn "niri" "output" "eDP-1" "on";}
     Mod+Return repeat=false { spawn "kitty"; }
     Mod+K repeat=false hotkey-overlay-title="Quick Access Terminal" { spawn "kitten" "quick-access-terminal"; }
     Mod+E { spawn "nautilus" "-w"; }

@@ -4,19 +4,19 @@
   ...
 }:
 
-let
-  kernel = pkgs.cachyosKernels.linux-cachyos-rc.override {
-    lto = "thin";
-    processorOpt = "zen4";
-    bbr3 = true; # TCP congestion control
-    acpiCall = true;
-  };
-  kernelPackagesWithLTOFix =
-    let
-      helpers = pkgs.callPackage "${inputs.nix-cachyos-kernel.outPath}/helpers.nix" { };
-    in
-    helpers.kernelModuleLLVMOverride (pkgs.linuxKernel.packagesFor kernel);
-in
+# let
+#   kernel = pkgs.cachyosKernels.linux-cachyos-rc.override {
+#     lto = "thin";
+#     processorOpt = "zen4";
+#     bbr3 = true; # TCP congestion control
+#     acpiCall = true;
+#   };
+#   kernelPackagesWithLTOFix =
+#     let
+#       helpers = pkgs.callPackage "${inputs.nix-cachyos-kernel.outPath}/helpers.nix" { };
+#     in
+#     helpers.kernelModuleLLVMOverride (pkgs.linuxKernel.packagesFor kernel);
+# in
 
 {
   imports = [
@@ -49,9 +49,7 @@ in
       '';
       efi.canTouchEfiVariables = true;
     };
-    # kernelPackages = pkgs.linuxPackages_latest;
-    #kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-zen4;
-    kernelPackages = kernelPackagesWithLTOFix;
+    kernelPackages = pkgs.linuxPackages_latest;
 
     kernelParams = [
       "splash"
@@ -84,7 +82,7 @@ in
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.permittedInsecurePackages = [
-    "ventoy-gtk3-1.1.12"
+    "ventoy-gtk3-1.1.17"
     "wechat-4.1.0.13"
   ];
 
@@ -108,7 +106,7 @@ in
     rtkit.enable = true;
     sudo.enable = false;
     sudo-rs.enable = true;
-    sudo-rs.wheelNeedsPassword = false;
+    #sudo-rs.wheelNeedsPassword = false;
   };
 
   systemd.services.nix-daemon = {
