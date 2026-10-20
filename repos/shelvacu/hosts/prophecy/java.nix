@@ -62,6 +62,7 @@ in
           openssh.authorizedKeys.keys = [
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICq8ju6Hc+YoVJnr7+zN0ne2ydYQHkoDKCJE9K8aYRrX java@ghost" #javi framework laptop
             "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPI8z4PxR0H1riEhLwyBSfrbtb6mvTEhrEZkb5W+AJRd root@nixos" # homelab live ssh keys
+            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAe7l2+gcoeZ3rcuFoodlkfkW6++cmVwr5IRFMeD6H9r javi@homelab-nixos-btw"
           ];
         };
         groups.java.gid = userId;
