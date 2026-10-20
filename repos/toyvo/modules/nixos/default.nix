@@ -41,6 +41,7 @@
         ./services/minecraft.nix
         ./services/ollama.nix
         ./services/protonmail-bridge.nix
+        ./services/repo-maintainer.nix
         ./services/hermes-dashboard.nix
         ./services/hermes-webui.nix
         ./services/signal-cli.nix
@@ -83,6 +84,7 @@
   minecraft = ./services/minecraft.nix;
   ollama = ./services/ollama.nix;
   protonmail-bridge = ./services/protonmail-bridge.nix;
+  repo-maintainer = ./services/repo-maintainer.nix;
   hermes-dashboard = ./services/hermes-dashboard.nix;
   hermes-webui = ./services/hermes-webui.nix;
   signal-cli = ./services/signal-cli.nix;

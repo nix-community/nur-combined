@@ -70,6 +70,7 @@ let
     odysseus = callPackage ./pkgs/odysseus;
     pre-commit = callPackage ./pkgs/pre-commit;
     pre-push = callPackage ./pkgs/pre-push;
+    repo-maintainer = callPackage ./pkgs/repo-maintainer;
     setup-sops = callPackage ./pkgs/setup-sops;
     technitium-exporter = callPackage ./pkgs/technitium-exporter;
     toyvo-helix = callPackage ./pkgs/toyvo-helix;
