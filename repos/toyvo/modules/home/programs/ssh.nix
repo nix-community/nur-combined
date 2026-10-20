@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 let
@@ -9,27 +8,9 @@ let
 in
 {
   config = lib.mkIf cfg.enable {
+    services.ssh-agent.enable = true;
+
     programs = {
-      zsh.initContent = ''
-        ! (echo "$SSH_AUTH_SOCK" | ${lib.getExe pkgs.ripgrep} ssh-\[a-zA-Z0-9\]+\/agent\.\\d+$) >/dev/null && eval $(ssh-agent -s) >/dev/null
-      '';
-      bash.initExtra = ''
-        ! (echo "$SSH_AUTH_SOCK" | ${lib.getExe pkgs.ripgrep} ssh-\[a-zA-Z0-9\]+\/agent\.\\d+$) >/dev/null && eval $(ssh-agent -s) >/dev/null
-      '';
-      fish.interactiveShellInit = ''
-        ! echo "$SSH_AUTH_SOCK" | ${lib.getExe pkgs.ripgrep} ssh-\[a-zA-Z0-9\]+\/agent\.\\d+\$ >/dev/null; and eval $(ssh-agent -c) >/dev/null
-      '';
-      nushell.configFile.text = ''
-        if (echo $env.SSH_AUTH_SOCK | ${lib.getExe pkgs.ripgrep} ssh-[a-zA-Z0-9]+/agent\.\d+$) == "" {
-          ^ssh-agent -c
-              | lines
-              | first 2
-              | parse "setenv {name} {value};"
-              | transpose -r
-              | into record
-              | load-env
-        }
-      '';
       ssh = {
         enableDefaultConfig = false;
         # Router admin SSH moved off 22; port 22 on the router is git-over-SSH
