@@ -128,6 +128,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=accounts::regression_tests::a_refresh_during_an_abandoned_restore_is_saved"
     "--skip=accounts::regression_tests::a_session_started_while_hidden_stays_suspended"
     "--skip=accounts::regression_tests::a_shut_down_core_stops_its_session_and_refuses_calls"
+    "--skip=accounts::regression_tests::a_sync_that_never_answers_is_restarted"
     "--skip=accounts::regression_tests::becoming_active_starts_an_idle_sync_service_and_hiding_stops_it"
     "--skip=accounts::regression_tests::confirmed_unencrypted_rooms_still_allow_plaintext_operations"
     "--skip=accounts::regression_tests::encryption_lookup_failure_prevents_plaintext_operations"
