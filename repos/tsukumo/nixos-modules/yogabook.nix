@@ -34,6 +34,15 @@ let
     ln -sf layouts/YB1-X9x-${cfg.keyboardLayout}.csv $out/layout.csv
   '';
 
+  # initrd udev misses the touchscreen add event, so create the symlink from sysfs directly
+  touch-keyboard-initrd-symlink = pkgs.writeShellScript "touch-keyboard-initrd-symlink" ''
+    for e in /sys/class/input/event*; do
+      [ "$(cat "$e/device/name" 2>/dev/null)" = "Goodix Capacitive TouchScreen" ] || continue
+      ln -sf "input/$(basename "$e")" /dev/touch_keyboard
+    done
+    test -e /dev/touch_keyboard
+  '';
+
   # Kernel modules required for Yoga Book hardware
   yogabookKernelModules = [
     "lenovo-yogabook"
@@ -110,6 +119,7 @@ in
 
     boot.initrd.systemd.storePaths = [
       touch-keyboard
+      touch-keyboard-initrd-symlink
     ];
 
     # Copy layout config into initrd
@@ -130,7 +140,7 @@ in
         Type = "simple";
         WorkingDirectory = "/etc/touch_keyboard";
         # initrd udev misses the touchscreen add event, so create the symlink from sysfs directly.
-        ExecStartPre = "/bin/bash -c 'for e in /sys/class/input/event*; do [ \"$(cat \"$e/device/name\" 2>/dev/null)\" = \"Goodix Capacitive TouchScreen\" ] || continue; ln -sf \"input/$(basename \"$e\")\" /dev/touch_keyboard; done; test -e /dev/touch_keyboard'";
+        ExecStartPre = "${touch-keyboard-initrd-symlink}";
         ExecStart = "${touch-keyboard}/bin/touch_keyboard_handler -m 1.0 -D 6";
         Restart = "on-failure";
         RestartSec = "2s";
