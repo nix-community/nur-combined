@@ -5,6 +5,7 @@
 
 let
   testPkgs = pkgs.extend self.overlays.libs;
+  inherit (testPkgs) lib;
 
   # named like fetched sources, the dependency derivation uses the directory name
   src = builtins.path {
@@ -61,6 +62,40 @@ let
     cargoDeps = null;
   };
 
+  # paths and sources from lib.sources or lib.fileset are read through their
+  # path, which works in read-only evaluation. The result has to be the same as
+  # when reading their store path, including the filter, which also applies to
+  # the files in excluded directories
+  withPath = mkFixture { src = ./fixture; };
+  withStorePath = mkFixture { src = builtins.path { path = ./fixture; }; };
+
+  withFileset = mkFixture {
+    src = lib.fileset.toSource {
+      root = ./fixture;
+      fileset = lib.fileset.unions [
+        ./fixture/Cargo.toml
+        ./fixture/Cargo.lock
+        ./fixture/src
+      ];
+    };
+  };
+
+  withoutSrcDir = path: _: baseNameOf path != "src";
+  withFilter = mkFixture {
+    src = lib.cleanSourceWith {
+      name = "source";
+      src = ./fixture;
+      filter = withoutSrcDir;
+    };
+  };
+  withFilteredStorePath = mkFixture {
+    src = builtins.path {
+      name = "source";
+      path = ./fixture;
+      filter = withoutSrcDir;
+    };
+  };
+
   # the dependencies are built with the same check phase, against the stubs
   withClippy = mkFixture {
     nativeCheckInputs = [ testPkgs.clippy ];
@@ -75,6 +110,10 @@ in
 assert fixture.cargoArtifacts.outPath == bumped.cargoArtifacts.outPath;
 assert fixture.outPath != bumped.outPath;
 assert !(builtins.tryEval withCargoDeps.drvPath).success;
+assert withPath.cargoArtifacts.outPath == withStorePath.cargoArtifacts.outPath;
+assert withFileset.cargoArtifacts.outPath == fixture.cargoArtifacts.outPath;
+assert withFilter.cargoArtifacts.outPath == withFilteredStorePath.cargoArtifacts.outPath;
+assert withFilter.cargoArtifacts.outPath != fixture.cargoArtifacts.outPath;
 {
   mkRustPackage-build = testPkgs.runCommand "mkRustPackage-build" { } ''
     test "$(${fixture}/bin/fixture)" = "hello from unix"

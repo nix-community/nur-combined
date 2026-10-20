@@ -129,16 +129,16 @@ lib.extendMkDerivation {
         ]
       );
 
-      lockFileContents =
-        cargoLock.lockFileContents or (builtins.unsafeDiscardStringContext (
-          builtins.readFile (
-            cargoLock.lockFile or "${src}${lib.optionalString (cargoDir != "") "/${cargoDir}"}/Cargo.lock"
-          )
-        ));
-
       dummySrc = mkDummySrc {
-        inherit src cargoDir lockFileContents;
+        inherit src cargoDir;
         name = srcName;
+        lockFileContents =
+          cargoLock.lockFileContents or (
+            if cargoLock ? lockFile then
+              builtins.unsafeDiscardStringContext (builtins.readFile cargoLock.lockFile)
+            else
+              null
+          );
       };
 
       # vendored from the normalized lockfile, so it doesn't change with the version

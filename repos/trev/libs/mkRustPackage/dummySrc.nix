@@ -20,12 +20,48 @@
   name,
   # path of the workspace root relative to `src`
   cargoDir ? "",
-  # contents of the workspace's Cargo.lock
-  lockFileContents,
+  # contents of the workspace's Cargo.lock, read from `src` by default
+  lockFileContents ? null,
 }:
 
 let
-  srcPath = rel: "${src}${lib.optionalString (rel != "") "/${rel}"}";
+  # In read-only evaluation (e.g. `nix flake check --no-build`), a path's store
+  # path isn't created, so reading through "${src}" fails unless it's already in
+  # the store. Paths are read directly instead, and sources from lib.sources or
+  # lib.fileset from their original path, applying their filter.
+  source =
+    if lib.isPath src then
+      {
+        root = src;
+        filter = null;
+      }
+    else if lib.isAttrs src && src ? _isLibCleanSourceWith && lib.isPath src.origSrc then
+      {
+        root = src.origSrc;
+        inherit (src) filter;
+      }
+    else
+      {
+        root = "${src}";
+        filter = null;
+      };
+
+  srcPath = rel: if rel == "" then source.root else source.root + "/${rel}";
+
+  # whether the filter keeps `rel` and every directory containing it, like
+  # copying the source does
+  included =
+    rel:
+    let
+      segments = lib.splitString "/" rel;
+      keeps =
+        n:
+        let
+          path = srcPath (lib.concatStringsSep "/" (lib.take n segments));
+        in
+        source.filter (toString path) (builtins.readFileType path);
+    in
+    source.filter == null || rel == "" || lib.all keeps (lib.range 1 (lib.length segments));
 
   joinPath =
     a: b:
@@ -53,13 +89,30 @@ let
     in
     if resolved == null then null else lib.concatStringsSep "/" resolved;
 
-  exists = rel: builtins.pathExists (srcPath rel);
+  exists = rel: builtins.pathExists (srcPath rel) && included rel;
   isDir = rel: exists rel && builtins.readFileType (srcPath rel) == "directory";
-  listDir = rel: if isDir rel then builtins.readDir (srcPath rel) else { };
+  listDir =
+    rel:
+    let
+      keep =
+        entry: type: source.filter == null || source.filter (toString (srcPath (joinPath rel entry))) type;
+    in
+    if isDir rel then lib.filterAttrs keep (builtins.readDir (srcPath rel)) else { };
   readFile = rel: builtins.unsafeDiscardStringContext (builtins.readFile (srcPath rel));
 
   isCrate = rel: rel != null && exists (joinPath rel "Cargo.toml");
   manifest = rel: fromTOML (readFile (joinPath rel "Cargo.toml"));
+
+  lockFile =
+    let
+      rel = joinPath (normalize cargoDir) "Cargo.lock";
+    in
+    if lockFileContents != null then
+      lockFileContents
+    else
+      assert lib.assertMsg (exists rel)
+        "mkRustPackage: no Cargo.lock found at '${rel}' in ${toString (srcPath "")}";
+      readFile rel;
 
   # expands `*` and `?` in workspace member globs
   expandGlob =
@@ -146,9 +199,7 @@ let
         rel: lib.optional (!lib.elem rel patched && manifest rel ? package.name) (manifest rel).package.name
       ) crates;
     in
-    lib.filter (pkg: !(pkg ? source) && lib.elem pkg.name names) (
-      (fromTOML lockFileContents).package or [ ]
-    );
+    lib.filter (pkg: !(pkg ? source) && lib.elem pkg.name names) ((fromTOML lockFile).package or [ ]);
 
   # edits the lockfile as text to keep its formatting, so cargo doesn't rewrite it
   normalizedLock =
@@ -166,7 +217,7 @@ let
     in
     builtins.replaceStrings (map (pkg: "\"${pkg.name} ${pkg.version}\"") normalizedPackages)
       (map (pkg: "\"${pkg.name} 0.0.0\"") normalizedPackages)
-      (lib.concatStringsSep separator (map normalizeBlock (lib.splitString separator lockFileContents)));
+      (lib.concatStringsSep separator (map normalizeBlock (lib.splitString separator lockFile)));
 
   normalizeManifest =
     rel: toml:
@@ -306,7 +357,7 @@ let
 in
 
 assert lib.assertMsg (isCrate (normalize cargoDir))
-  "mkRustPackage: no Cargo.toml found at '${cargoDir}' in ${srcPath ""}, the source must be a directory";
+  "mkRustPackage: no Cargo.toml found at '${cargoDir}' in ${toString (srcPath "")}, the source must be a directory";
 
 runCommandLocal name
   {
