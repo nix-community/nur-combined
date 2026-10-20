@@ -82,6 +82,26 @@ class MetadataTests(unittest.TestCase):
 
 
 class UpdateTests(unittest.TestCase):
+    def test_pinned_github_source_updates_revision_hash_and_version_together(self):
+        with tempfile.TemporaryDirectory() as directory:
+            recipe = Path(directory) / "default.nix"
+            recipe.write_text('''{ }: let
+  version = "2.4.1";
+  src = fetchFromGitHub {
+    owner = "example";
+    repo = "input";
+    rev = "old-commit";
+    hash = "old-hash";
+  };
+in src
+''')
+            with patch.object(updater, "source_revision", return_value=("release-commit", {"tag_name": "v2.4.2"}, "2026-10-14")), patch.object(updater, "run", return_value='{"hash":"release-hash"}'), patch.object(updater, "Path", return_value=recipe):
+                updater.update_github({"repo": "example/input", "attr": "input"})
+            result = recipe.read_text()
+            self.assertIn('version = "2.4.2";', result)
+            self.assertIn('rev = "release-commit";', result)
+            self.assertIn('hash = "release-hash";', result)
+
     def test_upstream_owner_changes_with_the_source_revision(self):
         with tempfile.TemporaryDirectory() as directory:
             recipe = Path(directory) / "default.nix"
@@ -166,6 +186,22 @@ in upstreamSrc
     def test_binary_channel_without_stable_release_uses_latest(self):
         metadata = {"versions": {"1.0.0-beta.17": {}}, "dist-tags": {"latest": "1.0.0-beta.17"}}
         self.assertEqual(updater.npm_version(metadata), "1.0.0-beta.17")
+
+    def test_newer_npm_prerelease_is_not_downgraded_to_old_stable(self):
+        metadata = {"versions": {"0.15.0": {}, "1.0.0-beta.18": {}}, "dist-tags": {"latest": "1.0.0-beta.18"}}
+        self.assertEqual(updater.npm_version(metadata, "1.0.0-beta.17"), "1.0.0-beta.18")
+
+    def test_npm_dist_tag_rollback_keeps_the_installed_version(self):
+        metadata = {"versions": {"0.15.0": {}}, "dist-tags": {"latest": "1.0.0-beta.17"}}
+        self.assertEqual(updater.npm_version(metadata, "1.0.0-beta.18"), "1.0.0-beta.18")
+
+    def test_newer_stable_release_replaces_npm_prerelease(self):
+        metadata = {"versions": {"1.0.0": {}}, "dist-tags": {"latest": "1.1.0-beta.1"}}
+        self.assertEqual(updater.npm_version(metadata, "1.0.0-beta.18"), "1.0.0")
+
+    def test_semver_prerelease_numbers_use_numeric_order(self):
+        self.assertGreater(updater.semver_key("1.0.0-beta.10"), updater.semver_key("1.0.0-beta.9"))
+        self.assertGreater(updater.semver_key("1.0.0"), updater.semver_key("1.0.0-beta.10"))
 
     def test_source_update_does_not_change_other_dependency_hashes(self):
         text = 'src = fetchurl { hash = "old"; }; npmDepsHash = "keep";'

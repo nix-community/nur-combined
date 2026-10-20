@@ -3,7 +3,8 @@
 let
   # Older patchelf corrupts libvips' DT_INIT when extending its RUNPATH.
   # https://github.com/NixOS/patchelf/issues/639
-  patchelfForSharp = if lib.versionAtLeast patchelf.version "0.19" then patchelf else patchelf.overrideAttrs (_: {
+  patchelfForSharp = if lib.versionAtLeast patchelf.version "0.19" then patchelf else
+  patchelf.overrideAttrs (_: {
     version = "0.19.1";
     src = fetchurl {
       url = "https://github.com/NixOS/patchelf/releases/download/0.19.1/patchelf-0.19.1.tar.bz2";
@@ -13,12 +14,12 @@ let
 in
 buildNpmPackage rec {
   pname = "cloudflare-cli";
-  version = "1.0.0-beta.17";
+  version = "1.0.0-beta.18";
 
   # Use the published bundle, matching `npm install -g cf`.
   src = fetchurl {
     url = "https://registry.npmjs.org/cf/-/cf-${version}.tgz";
-    hash = "sha512-Lw7BF96BwJVY2f/93XuikgRNe+klVr+happT37JpmX6J0XiM+HXGiVt6ZmyWeUGNmBkCFVN5zWimiqq6GgdJrg==";
+    hash = "sha256-90HOzNeviKk4mOViPzYXg0EvNQ0wYdXrs0Y4cMjbzvY=";
   };
   sourceRoot = "package";
 
@@ -32,7 +33,7 @@ buildNpmPackage rec {
     '
     cp ${./package-lock.json} package-lock.json
   '';
-  npmDepsHash = "sha256-Na9DjRfuHNdvVxIdy/gzJIJBx1m7TixRRdTnxMYJnlo=";
+  npmDepsHash = "sha256-1zIPeRM2emlCmoGS2ABRQV6lmIqu6LMVrrFWurP0SR0=";
   dontNpmBuild = true;
   npmFlags = [ "--ignore-scripts" ];
 

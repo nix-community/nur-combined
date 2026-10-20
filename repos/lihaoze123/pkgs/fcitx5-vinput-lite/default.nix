@@ -24,13 +24,13 @@
 
 stdenv.mkDerivation {
   pname = "fcitx5-vinput-lite";
-  version = "2.4.1";
+  version = "2.4.2";
 
   src = fetchFromGitHub {
     owner = "xifan2333";
     repo = "fcitx5-vinput";
-    rev = "c46f0078de80e493f6ea3040e05c9e3308b76751";
-    hash = "sha256-zHUkfn1xzEo3ZutwGXyDFpjzj+HAr8KeBsxZr5tooa0=";
+    rev = "ac545c6c5ec1105f0c4ec8b54b21dd3a79a544a4";
+    hash = "sha256-jZxyxDEUYuGDh7c27yiGYn6BW0KzfgwX+HW9nXmvCoo=";
   };
 
   patches = lib.optional withKeyRepeatFix ./vinput-key-repeat.patch;

@@ -83,19 +83,25 @@ def pin_flake_url(text, repo, revision):
     return replace_once(text, pattern, replace)
 
 
-def update_vtype(target):
+def update_github_source(target, path, source_name):
     revision, release, date = source_revision(target["repo"])
     source = json.loads(run("nix", "flake", "prefetch", "--json", f"github:{target['repo']}/{revision}"))
-    path = Path("pkgs/vtype-linux/default.nix")
     text = path.read_text()
     owner, repo = target["repo"].split("/", 1)
-    text = replace_once(text, r'(upstreamSrc = fetchFromGitHub \{[\s\S]*?owner = ")[^"]+(";)', rf'\g<1>{owner}\2')
-    text = replace_once(text, r'(upstreamSrc = fetchFromGitHub \{[\s\S]*?repo = ")[^"]+(";)', rf'\g<1>{repo}\2')
-    text = replace_once(text, r'(upstreamSrc = fetchFromGitHub \{[\s\S]*?rev = ")[^"]+(";)', rf'\g<1>{revision}\2')
-    text = replace_once(text, r'(upstreamSrc = fetchFromGitHub \{[\s\S]*?hash = ")[^"]+(";)', rf'\g<1>{source["hash"]}\2')
+    prefix = re.escape(source_name) + r' = fetchFromGitHub \{[\s\S]*?'
+    for field, value in [("owner", owner), ("repo", repo), ("rev", revision), ("hash", source["hash"])]:
+        text = replace_once(text, rf'({prefix}{field} = ")[^"]+(";)', rf'\g<1>{value}\2')
     version = release["tag_name"].removeprefix("v") if release else f"0-unstable-{date}"
     text = replace_once(text, r'(^  version = ")[^"]+(";)', rf'\g<1>{version}\2')
     path.write_text(text)
+
+
+def update_vtype(target):
+    update_github_source(target, Path("pkgs/vtype-linux/default.nix"), "upstreamSrc")
+
+
+def update_github(target):
+    update_github_source(target, Path(f"pkgs/{target['attr']}/default.nix"), "src")
 
 
 def update_honk(target):
@@ -114,15 +120,30 @@ def update_honk(target):
     path.write_text(text)
 
 
-def npm_version(metadata):
+def semver_key(version):
+    match = re.fullmatch(r"(\d+)\.(\d+)\.(\d+)(?:-([0-9A-Za-z.-]+))?(?:\+[0-9A-Za-z.-]+)?", version)
+    if not match:
+        raise ValueError(f"Unsupported npm version: {version}")
+    prerelease = match[4]
+    identifiers = tuple((0, int(part)) if part.isdigit() else (1, part)
+                        for part in prerelease.split(".")) if prerelease else ()
+    return (*map(int, match.group(1, 2, 3)), prerelease is None, identifiers)
+
+
+def npm_version(metadata, current_version=None):
     stable = [version for version in metadata["versions"] if re.fullmatch(r"\d+\.\d+\.\d+", version)]
-    return max(stable, key=lambda version: tuple(map(int, version.split(".")))) if stable else metadata["dist-tags"]["latest"]
+    candidate = max(stable, key=semver_key) if stable else metadata["dist-tags"]["latest"]
+    if current_version is not None and semver_key(candidate) < semver_key(current_version):
+        # Keep a newer prerelease channel rather than reverting to an old
+        # stable release. Never follow a dist-tag backwards either.
+        return max([current_version, metadata["dist-tags"]["latest"]], key=semver_key)
+    return candidate
 
 
 def update_cloudflare(target):
     metadata = fetch_json(f"https://registry.npmjs.org/{target['registry']}")
-    version = npm_version(metadata)
     old_version = run("nix", "eval", "--raw", ".#packages.x86_64-linux.cloudflare-cli.version")
+    version = npm_version(metadata, current_version=old_version)
     if old_version == version:
         return
     source = json.loads(run("nix", "store", "prefetch-file", "--json", metadata["versions"][version]["dist"]["tarball"]))
@@ -202,7 +223,7 @@ def main():
         parser.error("Specify a target from --list")
     before = {path: path.read_bytes() for path in [Path("flake.nix"), *Path("pkgs").rglob("*.nix"), *Path("nixos-modules").rglob("*.nix")]}
     target = targets[args.target]
-    handlers = {"flake": update_flake, "vtype": update_vtype, "honk": update_honk, "cloudflare": update_cloudflare, "package": update_package}
+    handlers = {"flake": update_flake, "github": update_github, "vtype": update_vtype, "honk": update_honk, "cloudflare": update_cloudflare, "package": update_package}
     if target["kind"] == "lock":
         run("nix", "flake", "update", target["input"])
     else:
