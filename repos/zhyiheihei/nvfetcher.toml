@@ -54,6 +54,11 @@ src.pypi = "proces"
 fetch.github = "monosans/pyromark"
 src.github = "monosans/pyromark"
 
+[qingjian]
+fetch.url = "https://github.com/qingjian-team/qingjian/releases/download/v$ver/qingjian-$ver-linux-x86_64.tar.gz"
+src.github = "qingjian-team/qingjian"
+src.prefix = "v"
+
 [sublinkpro-linux-amd64]
 fetch.url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v$ver/sublinkPro-linux-amd64"
 src.github = "ZeroDeng01/sublinkPro"

@@ -152,6 +152,14 @@
       hash = "sha256-pl7f53lShOiCcEPXsWQNgFlKWuqzvTWzJkD6CYeT9uU=";
     };
   };
+  qingjian = {
+    pname = "qingjian";
+    version = "0.2.1";
+    src = fetchurl {
+      url = "https://github.com/qingjian-team/qingjian/releases/download/v0.2.1/qingjian-0.2.1-linux-x86_64.tar.gz";
+      hash = "sha256-UyS0mASQLJCcxz7g5AlxOxQSZ9RIKEDgCgBsGpZtIK0=";
+    };
+  };
   sublinkpro-linux-amd64 = {
     pname = "sublinkpro-linux-amd64";
     version = "1.2.21";

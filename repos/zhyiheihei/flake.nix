@@ -104,6 +104,10 @@
             # EPD 家庭食品存储看板（包在 pkgs/uncategorized/epd-food-server）。
             # 上层仓库 import 后设 lantian.food-dashboard.enable。
             food-dashboard = import ./nixos-modules/food-dashboard.nix self;
+
+            # 青简输入法（包在 pkgs/uncategorized/qingjian）。
+            # 上层仓库 import 后设 lantian.qingjian.enable。
+            qingjian = import ./nixos-modules/qingjian.nix self;
           };
 
           hydraJobs.packages.x86_64-linux = self.hydraPackages.x86_64-linux;

@@ -294,6 +294,21 @@
         },
         "version": "v0.10.1"
     },
+    "qingjian": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "qingjian",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-UyS0mASQLJCcxz7g5AlxOxQSZ9RIKEDgCgBsGpZtIK0=",
+            "type": "url",
+            "url": "https://github.com/qingjian-team/qingjian/releases/download/v0.2.1/qingjian-0.2.1-linux-x86_64.tar.gz"
+        },
+        "version": "0.2.1"
+    },
     "sublinkpro-linux-amd64": {
         "cargoLock": null,
         "date": null,
