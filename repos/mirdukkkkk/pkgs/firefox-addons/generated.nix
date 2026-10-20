@@ -25,12 +25,6 @@
       {
         homepage = "https://flagfox.wordpress.com/";
         description = "Displays a country flag depicting the location of the current website's server and provides a multitude of tools such as site safety checks, whois, translation, similar sites, validation, URL shortening, and more...";
-        license = {
-          shortName = "flagfox";
-          fullName = "Flagfox License";
-          url = "https://addons.mozilla.org/en-US/firefox/addon/flagfox/license/";
-          free = false;
-        };
         mozPermissions = [
           "storage"
           "clipboardRead"
