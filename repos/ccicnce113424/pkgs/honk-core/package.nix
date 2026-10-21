@@ -14,13 +14,13 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "honk-core";
-  version = "2026.10.15.native-api.1";
+  version = "2026.10.20.native-api.1";
 
   src = fetchFromGitHub {
     owner = "Glassyiris";
     repo = "honk";
     tag = "debug.${finalAttrs.version}";
-    hash = "sha256-G6m83TGNwqIbF82tSz3zG1Smam/wyz0xsV/Ij2ZCPls=";
+    hash = "sha256-3VF6KxCK/SEKk27bhN3Ull7O5siYgl+sfEjTs61U0ig=";
   };
   cargoHash = "sha256-pBc83Bun9MLfczr/pieSB9jaVk6yhwrIUDvBEiIoE30=";
 
@@ -57,6 +57,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
     # nightly and -Zbuild-std=core; nixpkgs' rustc already ships core for
     # bpfel-unknown-none, so the plain build above needs no build-std.
     env.RUSTC_BOOTSTRAP = "1";
+
+    # LLVM 21 (nixpkgs' rustc) spills an undefined register inside the
+    # inlined conn_lifecycle() on the CONN_STATE_MAP lookup-miss path; the
+    # 6.18 verifier rejects that store (`R4 !read_ok`). Keeping the lookup in
+    # its own BPF subprogram avoids the bad codegen. LLVM 22 (the upstream
+    # eBPF nightly) does not emit it; drop this when the eBPF build moves to
+    # LLVM >= 22.
+    patches = [ ./conn-lifecycle-inline-never.patch ];
 
     # LLVM's BTFDebug emits only a forward declaration for types referenced
     # solely as map-definition pointer parameters, so the BTF of the

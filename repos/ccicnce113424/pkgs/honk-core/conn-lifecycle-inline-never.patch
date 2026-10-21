@@ -1,0 +1,11 @@
+--- a/crates/honk-ebpf/src/flow.rs
++++ b/crates/honk-ebpf/src/flow.rs
+@@ -72,7 +72,7 @@
+     pub decision_token: u32,
+ }
+ 
+-#[inline(always)]
++#[inline(never)]
+ pub fn conn_lifecycle(key: &TuplesKey) -> Option<ConnLifecycle> {
+     let ptr = CONN_STATE_MAP.get_ptr_mut(key)?;
+     Some(unsafe {
