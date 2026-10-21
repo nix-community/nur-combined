@@ -37,6 +37,7 @@
   flyline = pkgs.callPackage ./pkgs/flyline { };
   o2 = pkgs.callPackage ./pkgs/o2 { };
   typepper = pkgs.callPackage ./pkgs/typepper { };
+  eprofiler-tui = pkgs.callPackage ./pkgs/eprofiler-tui { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
