@@ -1,6 +1,8 @@
 {
+  lib,
   golink,
   fetchFromGitHub,
+  go,
   nix-update-script,
 }:
 golink.overrideAttrs (
@@ -16,14 +18,16 @@ golink.overrideAttrs (
 
     vendorHash = "sha256-Hyb4HtnkYCRzVQGzEDCylv9fQwtEuWG8bbxnIjnYIps=";
 
-    passthru = previousAttrs.passthru // {
-      updateScript = nix-update-script {
-        extraArgs = [
-          "--version=branch"
-          "--override-filename"
-          "pkgs/tailscale/golink.nix"
-        ];
+    passthru =
+      builtins.removeAttrs previousAttrs.passthru [ "updateScript" ]
+      // lib.attrsets.optionalAttrs (lib.strings.versionAtLeast go.version "1.27.3") {
+        updateScript = nix-update-script {
+          extraArgs = [
+            "--version=branch"
+            "--override-filename"
+            "pkgs/tailscale/golink.nix"
+          ];
+        };
       };
-    };
   }
 )
