@@ -103,16 +103,15 @@ let
   '';
 
   # honk-tool resolves geosite.dat/geoip.dat through DAE_LOCATION_ASSET. Wrap
-  # the CLI so it points at the same asset set the service uses; the raw
-  # package stays in `tool.package`, and `--set-default` keeps an explicit
-  # override working. The package itself wraps in iproute2 for `diagnose`.
+  # the package's tool so it points at the same asset set the service uses;
+  # the package itself wraps in iproute2 for `diagnose`.
   honkTool =
     pkgs.runCommand "honk-tool-wrapped"
       {
         nativeBuildInputs = [ pkgs.makeWrapper ];
       }
       ''
-        makeWrapper ${lib.getExe cfg.tool.package} $out/bin/honk-tool \
+        makeWrapper ${lib.getExe' cfg.package "honk-tool"} $out/bin/honk-tool \
           --set-default DAE_LOCATION_ASSET ${lib.escapeShellArg (toString cfg.assetsPath)}
       '';
 in
@@ -161,11 +160,6 @@ in
         '';
       };
       openFirewall = mkEnableOption "opening the web UI and native API port in the firewall";
-    };
-
-    tool = {
-      enable = mkEnableOption "honk-tool, honk's command-line toolbox, in the system profile";
-      package = mkPackageOption pkgs "honk-tool" { };
     };
 
     configFiles = mkOption {
@@ -325,7 +319,7 @@ in
 
     environment.etc = declaredFragments;
 
-    environment.systemPackages = lib.optional cfg.tool.enable honkTool;
+    environment.systemPackages = lib.optional cfg.package.withTool honkTool;
 
     # /run/netns holds honk's compat bind-mount of the daens namespace; the
     # state directory holds the SQLite state db and runtime assets.
