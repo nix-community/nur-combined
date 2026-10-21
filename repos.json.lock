@@ -201,8 +201,8 @@
             "url": "https://github.com/Sittymin/NUR"
         },
         "Skyb0rg007": {
-            "rev": "204cd5f8d982d8b9f07bfee4a207405612ef96ba",
-            "sha256": "0jb3pdv7mfxx11ix13zgkdj9897dl10h52sjqwhy6r5lbx3f51qb",
+            "rev": "ac2c6a7a5695fbd8aaed28929af2d4bc9c4b4e0c",
+            "sha256": "1xway352dqdr2ywba1c43zwa5mhqxcmi97spm3ykzb98d5rjyrw4",
             "url": "https://github.com/Skyb0rg007/packages"
         },
         "VZstless": {
@@ -683,8 +683,8 @@
             "url": "https://codeberg.org/connoromalley/nur-packages"
         },
         "crazazy": {
-            "rev": "e255b75d56b83635964fc9cfd6925954068b5c2f",
-            "sha256": "1kil9yi932rcfxnd03r8v9vzk446n1qzm17qqsvkxn0prr2miv4b",
+            "rev": "559fb2a9a5c01a3f819da3631030a9606d5756d5",
+            "sha256": "052a69qzsidpv7wmmhjyshpxpd5k7fax220d0r3iyrclmiz34as9",
             "url": "https://github.com/crazazy/nixos-config"
         },
         "crazedprogrammer": {
@@ -2403,6 +2403,11 @@
             "rev": "a744f648fc4ed8a8b461f0847e9f800077919881",
             "sha256": "1ryyc11hj9szq9zwl913vd3waiyfass792c0s6c0shpxdmp45rk2",
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
+        },
+        "shelvacu": {
+            "rev": "e300532bba97b7b0051040c6fb9bc76c1daade21",
+            "sha256": "1rla23c5r4xhs76n3zb0pk68find9cvwbxjca8656ylayy3ppq53",
+            "url": "https://git.uninsane.org/shelvacu/nix-stuff"
         },
         "shirok1": {
             "rev": "ac4eeea3e492c74c618981d09363e3974b602c9d",
