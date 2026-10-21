@@ -2,7 +2,7 @@
   # keep-sorted start
   fetchurl,
   stdenv,
-  zig,
+  zig_0_16,
   # keep-sorted end
 }:
 stdenv.mkDerivation {
@@ -16,7 +16,8 @@ stdenv.mkDerivation {
 
   sourceRoot = "provide-usage-main";
 
-  nativeBuildInputs = [zig];
+  # Match the compiler version declared by build.zig.zon.
+  nativeBuildInputs = [zig_0_16];
 
   # The knot serves the archive with a query string, so the store path has no
   # extension for unpackPhase to sniff: one explicit tar it is.
