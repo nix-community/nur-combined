@@ -45,6 +45,16 @@ jobs:
             git commit -m "flake: update inputs"
           }
 
+      - name: Update 115 Life from official Linux announcements
+        env:
+          NIXPKGS_ALLOW_UNFREE: "1"
+        run: |
+          nix run --impure .#115life.updater
+          if not (git status --porcelain pkgs/115life/default.nix | str trim | is-empty) {
+            git add pkgs/115life/default.nix
+            git commit -m "115life: update"
+          }
+
       - name: Update packages via nix-update
         shell: bash
         run: |
