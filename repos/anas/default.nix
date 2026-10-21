@@ -36,6 +36,7 @@
   swpui = pkgs.callPackage ./pkgs/swpui { };
   flyline = pkgs.callPackage ./pkgs/flyline { };
   o2 = pkgs.callPackage ./pkgs/o2 { };
+  typepper = pkgs.callPackage ./pkgs/typepper { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Typepper
+Comment=A spicy little typing game for your terminal
+Exec=typepper
+Icon=typepper
+Terminal=true
+Type=Application
+Categories=Utility;Game;
