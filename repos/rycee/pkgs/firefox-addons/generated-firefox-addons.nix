@@ -2882,10 +2882,10 @@
     };
     "csgofloat" = buildMozillaXpiAddon {
       pname = "csgofloat";
-      version = "5.18.0";
+      version = "5.19.1";
       addonId = "{194d0dc6-7ada-41c6-88b8-95d7636fe43c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5067860/csgofloat-5.18.0.xpi";
-      sha256 = "481cb8c45a2dbf615c9cbf4131d410d79813e70d879416d8f2ad570b83e5b075";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5145136/csgofloat-5.19.1.xpi";
+      sha256 = "f86ee3ab061a8d5834ad7a0de6eee31a83c60eb9692a54e9297bf19d5eed1c61";
       meta = with lib;
       {
         homepage = "https://csgofloat.com";
@@ -3284,10 +3284,10 @@
     };
     "dictionaries" = buildMozillaXpiAddon {
       pname = "dictionaries";
-      version = "9.0.0";
+      version = "9.1.0";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5130192/dictionaries-9.0.0.xpi";
-      sha256 = "b35ef0ddf90df27423cb4279ccdf220d56a3dfe435091dcb99b3bb87c9cc6ef3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5145536/dictionaries-9.1.0.xpi";
+      sha256 = "36a89197c259e5375e25e3d0d6cdb57e10fd528816afde9e96ec5a6ec2c91d6d";
       meta = with lib;
       {
         homepage = "https://dictionariez.pnl.dev";
@@ -6037,10 +6037,10 @@
     };
     "instagram-video-control" = buildMozillaXpiAddon {
       pname = "instagram-video-control";
-      version = "1.9.3";
+      version = "1.9.4";
       addonId = "{a831defa-a6c9-4ca9-9593-9ccaf98462d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5003924/instagram_video_control-1.9.3.xpi";
-      sha256 = "96b66b5c7ed5cd4bbdf745141d13f3d7955d9e49afccc309eb651b97f4d5844a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5129669/instagram_video_control-1.9.4.xpi";
+      sha256 = "a3119a623bd02e51174d3513f6c0c22a08faa42a3695fd4a6c00ee82f60bd77c";
       meta = with lib;
       {
         homepage = "https://github.com/Arcus92/instagram-video-control/";
@@ -6179,10 +6179,10 @@
     };
     "javascript-restrictor" = buildMozillaXpiAddon {
       pname = "javascript-restrictor";
-      version = "0.24.6";
+      version = "0.24.7";
       addonId = "jsr@javascriptrestrictor";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5129118/javascript_restrictor-0.24.6.xpi";
-      sha256 = "da9a20eb6f944971c1b3d034a1afb9e1a7484895b455b6552e288461bddbc957";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5144507/javascript_restrictor-0.24.7.xpi";
+      sha256 = "9b57de3de34b35b67324d45276318913a4a748bc4f4f8f7899c6b759335e1946";
       meta = with lib;
       {
         homepage = "https://jshelter.org";
@@ -6289,10 +6289,10 @@
     };
     "kagi-search" = buildMozillaXpiAddon {
       pname = "kagi-search";
-      version = "0.7.6";
+      version = "0.7.7";
       addonId = "search@kagi.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4429158/kagi_search_for_firefox-0.7.6.xpi";
-      sha256 = "51cac0f2f57e3d7671d502df66a6019a8ed3a280e690249f09dcda0fb570990f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5130000/kagi_search_for_firefox-0.7.7.xpi";
+      sha256 = "e24cdc2ac8579a022a25850972d0e821138054dd9d9d15e8e04f064c553cd002";
       meta = with lib;
       {
         homepage = "https://kagi.com";
@@ -6448,10 +6448,10 @@
     };
     "keeper-password-manager" = buildMozillaXpiAddon {
       pname = "keeper-password-manager";
-      version = "18.1.1";
+      version = "18.2.0";
       addonId = "KeeperFFStoreExtension@KeeperSecurityInc";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4969396/keeper_password_manager-18.1.1.xpi";
-      sha256 = "777ea85260fb105a98d7b43359c385cac56f5b12e8ba0e8deebda32dfcbac8ab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5130911/keeper_password_manager-18.2.0.xpi";
+      sha256 = "69fdaa39dab22843d5ef87e3f37c82c642e1ae61af2050e4d23b0f23ffd401c3";
       meta = with lib;
       {
         homepage = "http://keepersecurity.com/";
@@ -6472,6 +6472,7 @@
           "webNavigation"
           "scripting"
           "declarativeNetRequestWithHostAccess"
+          "publicSuffix"
           "clipboardWrite"
           "http://*/*"
           "https://*/*"
@@ -7298,10 +7299,10 @@
     };
     "libkey-nomad" = buildMozillaXpiAddon {
       pname = "libkey-nomad";
-      version = "1.59.0";
+      version = "1.60.0";
       addonId = "{f282d54d-83cc-45f5-b3e5-65888de1682b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4944555/libkey_nomad-1.59.0.xpi";
-      sha256 = "5ff05b7b8322c39d7431071c8a728108fa62712f79b92f8cad8089c2ade54ee5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5052613/libkey_nomad-1.60.0.xpi";
+      sha256 = "b26f506c8c0e99830762856eb300b1eb0efff90c4c3ecf1c0ac28138abbf1b3c";
       meta = with lib;
       {
         homepage = "https://thirdiron.com/libkey-nomad/";
@@ -7315,7 +7316,6 @@
         mozPermissions = [
           "storage"
           "alarms"
-          "webRequest"
           "webNavigation"
           "http://*/*"
           "https://*/*"
@@ -8939,10 +8939,10 @@
     };
     "momentumdash" = buildMozillaXpiAddon {
       pname = "momentumdash";
-      version = "2.27.6";
+      version = "2.27.9";
       addonId = "momentum@momentumdash.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5018285/momentumdash-2.27.6.xpi";
-      sha256 = "8bff70da68a82e7d7531d10a6a35a598ff04818b1da335ec65668bdc8912199d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5142065/momentumdash-2.27.9.xpi";
+      sha256 = "05deed066bde27c971e97532060b677015ba9dbe8d63f7d9a91b4befc8456511";
       meta = with lib;
       {
         homepage = "https://momentumdash.com";
@@ -9656,10 +9656,10 @@
     };
     "okta-browser-plugin" = buildMozillaXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.48.0";
+      version = "6.49.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4996624/okta_browser_plugin-6.48.0.xpi";
-      sha256 = "e1fa6d96003c4af23a5bfdb67818ffe012e3297dd7a893a73b8db4e59a2321ae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5103729/okta_browser_plugin-6.49.0.xpi";
+      sha256 = "56d0ac99fa2428cd44459b0cb3cc8c576448aec7710279133353cf04c3c02ec1";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
@@ -10075,10 +10075,10 @@
     };
     "passbolt" = buildMozillaXpiAddon {
       pname = "passbolt";
-      version = "5.16.0";
+      version = "5.17.0";
       addonId = "passbolt@passbolt.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5036787/passbolt-5.16.0.xpi";
-      sha256 = "01977c7ac709a93e41c75e9cec60b3b23df6144655ee3877db0b6436030cb2f2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5143821/passbolt-5.17.0.xpi";
+      sha256 = "ffe0777ef12e7136406946dc802fbfc043b62d70d26132e12df025dfda300cae";
       meta = with lib;
       {
         homepage = "https://www.passbolt.com";
@@ -10374,10 +10374,10 @@
     };
     "print-friendly-pdf" = buildMozillaXpiAddon {
       pname = "print-friendly-pdf";
-      version = "7.2.11";
+      version = "7.3.3";
       addonId = "jid0-YQz0l1jthOIz179ehuitYAOdBEs@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5067755/print_friendly_pdf-7.2.11.xpi";
-      sha256 = "17aa3050438e0bfcfdf23a51998ac4a0b116947975817d2dd011c1ac5e2a9bb2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5138056/print_friendly_pdf-7.3.3.xpi";
+      sha256 = "c60fe1cdf1c6eb9236fe2f1c9854d1005a6362989397f92f09dcd5dabb8ff55f";
       meta = with lib;
       {
         homepage = "https://www.printfriendly.com/";
@@ -11920,10 +11920,10 @@
     };
     "reduxdevtools" = buildMozillaXpiAddon {
       pname = "reduxdevtools";
-      version = "3.2.10";
+      version = "3.2.12";
       addonId = "extension@redux.devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4467343/reduxdevtools-3.2.10.xpi";
-      sha256 = "ef2b10a2bc8b0d1a844d146e3eeaff407eaaa63cd0564db8eafd870c87a88956";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5141168/reduxdevtools-3.2.12.xpi";
+      sha256 = "0ea0b00c23ea302ea6145a29e8c28fd5c94145dfbeab18016744fe597da1045a";
       meta = with lib;
       {
         homepage = "https://github.com/reduxjs/redux-devtools";
@@ -13256,10 +13256,10 @@
     };
     "stylus" = buildMozillaXpiAddon {
       pname = "stylus";
-      version = "2.4.16";
+      version = "2.4.17";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5139589/styl_us-2.4.16.xpi";
-      sha256 = "90a6b44a23f3f59ff965a83df1d6453c59f58ade8f8fb84244032260dbf6c381";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5142667/styl_us-2.4.17.xpi";
+      sha256 = "6ea20f86a2015e3e7a639e2dbb13bc0d63461fdfdb80d7138c3f8e8924e4fb1c";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
@@ -13980,10 +13980,10 @@
     };
     "toggl-button-time-tracker" = buildMozillaXpiAddon {
       pname = "toggl-button-time-tracker";
-      version = "4.11.22";
+      version = "4.11.23";
       addonId = "toggl-button@toggl.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5020760/toggl_button_time_tracker-4.11.22.xpi";
-      sha256 = "930333c6af402a309a1df43b9858d8c9df37073d929d8b4a84e612a076ed49f7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5120281/toggl_button_time_tracker-4.11.23.xpi";
+      sha256 = "ccbcd10d13f5c39e811c22ee75274ce7f85ce41602a47cbc3620a8d451854a32";
       meta = with lib;
       {
         homepage = "https://toggl.com/track/";
@@ -14924,10 +14924,10 @@
     };
     "untrap-for-youtube" = buildMozillaXpiAddon {
       pname = "untrap-for-youtube";
-      version = "12.1";
+      version = "12.3";
       addonId = "{2662ff67-b302-4363-95f3-b050218bd72c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5034754/untrap_for_youtube-12.1.xpi";
-      sha256 = "a7f9a81719d2d54fd15c7e938e32dfbb698309c7a4a4e80ad48594f835d7b6b5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5091294/untrap_for_youtube-12.3.xpi";
+      sha256 = "d28e12b2e90680995e4fbc38dc4aae952cc106df19da770c59994211e9fee458";
       meta = with lib;
       {
         homepage = "http://untrap.app";
@@ -14967,10 +14967,10 @@
     };
     "uppity" = buildMozillaXpiAddon {
       pname = "uppity";
-      version = "2.3.1";
+      version = "2.3.2";
       addonId = "{16cbd87c-eb99-4f5c-9825-83cf13ab7ff8}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4802346/uppity-2.3.1.xpi";
-      sha256 = "7739ab54756f0f693bc0e84555c5b42a598fff9d9b295432666537fd5834a004";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5145920/uppity-2.3.2.xpi";
+      sha256 = "f28b9d219fdc4a2dfbcb68432376e45e4d6c322c1ca7178fea316f52755211e2";
       meta = with lib;
       {
         homepage = "https://github.com/arantius/uppity";
@@ -15031,10 +15031,10 @@
     };
     "v2ex-polish" = buildMozillaXpiAddon {
       pname = "v2ex-polish";
-      version = "2.4.47";
+      version = "2.5.0";
       addonId = "leokudev@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5020144/v2ex_polish-2.4.47.xpi";
-      sha256 = "595bb5d4c2ee77d603b50bcd46a2cc051e85c1fa6b0b936bb0b8fd1379062961";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5143251/v2ex_polish-2.5.0.xpi";
+      sha256 = "d216eebbd40197c9651cccf3baa5d4fd58d06d7243a8bb5a10e1a58857a42d9d";
       meta = with lib;
       {
         description = "专为 V2EX 用户设计，提供了丰富的扩展功能。";
