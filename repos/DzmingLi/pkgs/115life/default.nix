@@ -32,7 +32,6 @@
   webkitgtk_4_1,
   xdg-utils,
   zlib,
-  callPackage,
 }:
 
 let
@@ -134,8 +133,6 @@ stdenv.mkDerivation (finalAttrs: {
     test -x $out/lib/115life/Life115
     runHook postInstallCheck
   '';
-
-  passthru.updater = callPackage ./update.nix { };
 
   meta = {
     description = "115 Life cloud storage desktop client";
