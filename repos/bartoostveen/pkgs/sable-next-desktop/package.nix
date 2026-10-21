@@ -117,7 +117,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --set-key="StartupWMClass" --set-value="sable" \
       --set-comment "${finalAttrs.meta.description}" \
       --set-key="Categories" --set-value="Network;InstantMessaging;" \
-      "$out/share/applications/Sable v2.desktop"
+      "$out/share/applications/Sable.desktop"
   '';
 
   nativeCheckInputs = [
