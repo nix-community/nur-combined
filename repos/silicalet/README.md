@@ -51,6 +51,31 @@ into `/nix/store`, as in the CI container. All upstream Go tests remain enabled,
 with additional symlink-chain regressions; the x86_64 package is also built by
 the pull-request build workflow.
 
+## Qrypt
+
+`qrypt-bin` packages the official Linux x86_64 and ARM64 releases of
+[qrypt](https://github.com/yinzhenyu-su/qrypt), a cloud drive CLI and FUSE
+filesystem with optional rclone-compatible content and filename encryption.
+
+```console
+nix run .#qrypt-bin -- --help
+nix run .#qrypt-bin -- fs list --config ./qrypt.toml /
+nix run .#qrypt-bin -- mount --config ./qrypt.toml
+```
+
+Configure your own backends and credentials in `qrypt.toml` following the
+upstream documentation. One-shot `fs` operations do not need a FUSE mount.
+Mounting requires the host's `/dev/fuse` and a working FUSE setup. The package
+provides `fusermount3` and prefers NixOS's privileged helpers in
+`/run/wrappers/bin`. Upstream's explicit unmount helper uses conventional
+`/bin` or `/usr/bin` paths; on NixOS, use `fusermount3 -u <mount-point>` if
+automatic unmount fails.
+
+The build checks an encrypted local-backend upload/download round trip.
+Both architectures are included in CI and automatic updates. Update with
+`nix run .#update -- qrypt-bin` (or add `--arch aarch64-linux`). Manage installed
+versions through Nix rather than the upstream `upgrade`/`uninstall` commands.
+
 ## ModelTrace
 
 Run the local model-attribution web application:

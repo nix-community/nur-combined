@@ -19,6 +19,7 @@ main (args) {
         "nyaterm-bin",
         "nyaterm-gpui-bin",
         "oh-dsh-bin",
+        "qrypt-bin",
         "quarkpan",
         "quien",
         "seekey",

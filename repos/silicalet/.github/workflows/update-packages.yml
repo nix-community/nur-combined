@@ -64,7 +64,7 @@ jobs:
         run: >-
           nix run .#update --
           --arch aarch64-linux
-          meatshell-bin neomacs-bin nyaterm-bin nyaterm-gpui-bin
+          meatshell-bin neomacs-bin nyaterm-bin nyaterm-gpui-bin qrypt-bin
 
       - name: Commit and push updates
         id: commit
