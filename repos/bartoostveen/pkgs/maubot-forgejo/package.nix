@@ -7,7 +7,7 @@
 
 maubot.plugins.buildMaubotPlugin rec {
   pname = "vibb.me.forgebot";
-  version = "0.1.7";
+  version = "0.1.12";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -16,7 +16,7 @@ maubot.plugins.buildMaubotPlugin rec {
     owner = "palchrb";
     repo = "maubot_forgejo";
     tag = "v${version}";
-    hash = "sha256-IP985g6cPR3YRyrIaDikj3VAodIZjuYCYrJPiZGEDVw=";
+    hash = "sha256-E8ziYDWZZCkmeCAqUXffARKW7Mc43oqYrQcCq3kebTQ=";
     fetchSubmodules = true;
   };
 
