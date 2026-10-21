@@ -225,8 +225,8 @@ in
       # Import sensor HWDB rules
       ACTION=="add|change", SUBSYSTEM=="iio", KERNEL=="iio*", SUBSYSTEMS=="usb|i2c|platform", IMPORT{builtin}="hwdb 'sensor:modalias:$attr{modalias}:id:$id:$attr{[dmi/id]modalias}'"
 
-      # Trigger Pump Express handshake when charger is plugged in
-      SUBSYSTEM=="power_supply", ENV{POWER_SUPPLY_NAME}=="cht_wcove_pwrsrc", ENV{POWER_SUPPLY_ONLINE}=="1", ENV{POWER_SUPPLY_USB_TYPE}=="*DCP*", TAG+="systemd", ENV{SYSTEMD_WANTS}+="pe-handshake.service"
+      # Trigger Pump Express handshake when the charger goes online
+      SUBSYSTEM=="power_supply", KERNEL=="bq25890-charger-*", ENV{POWER_SUPPLY_ONLINE}=="1", TAG+="systemd", ENV{SYSTEMD_WANTS}+="pe-handshake.service"
 
       # Set input current limit for bq25890 charger when added or changed
       SUBSYSTEM=="power_supply", KERNEL=="bq25890-charger-*", ACTION=="add|change", RUN+="${pkgs.bash}/bin/bash -c 'echo ${toString cfg.chargeInputCurrentLimit} > /sys/class/power_supply/%k/input_current_limit'"
@@ -301,15 +301,25 @@ in
         serviceConfig = {
           Type = "oneshot";
           ExecStart = "${pkgs.writeShellScript "pe-handshake" ''
+            BQ=/sys/bus/i2c/devices/i2c-bq25892
+            if [ ! -e "$BQ" ]; then
+              echo "bq25892 not found"
+              exit 0
+            fi
+            BUS=$(basename "$(dirname "$(readlink -f "$BQ")")")
+            BUS=''${BUS#i2c-}
+            ADDR=0x6b
+            echo "Using i2c bus $BUS address $ADDR"
+
             # Enable PUMPX_EN (Reg 4 -> 0xc2)
             echo "Enabling PUMPX_EN..."
-            ${pkgs.i2c-tools}/bin/i2cset -f -y 7 0x6b 4 0xc2
+            ${pkgs.i2c-tools}/bin/i2cset -f -y "$BUS" "$ADDR" 4 0xc2
 
             prev_voltage_mv=0
             for i in {1..8}; do
               echo "--- Try $i ---"
               # Read current VBUS
-              vbus_raw=$(${pkgs.i2c-tools}/bin/i2cget -f -y 7 0x6b 17)
+              vbus_raw=$(${pkgs.i2c-tools}/bin/i2cget -f -y "$BUS" "$ADDR" 17)
               vbus_dec=$((vbus_raw & 0x7f))
               # 2.6V + 0.1V * vbus_dec
               voltage_mv=$((2600 + vbus_dec * 100))
@@ -329,12 +339,12 @@ in
               prev_voltage_mv=$voltage_mv
 
               echo "Sending PUMPX_UP pulse..."
-              ${pkgs.i2c-tools}/bin/i2cset -f -y 7 0x6b 9 0x46
+              ${pkgs.i2c-tools}/bin/i2cset -f -y "$BUS" "$ADDR" 9 0x46
 
               # Wait for it to clear
               echo "Waiting for pulse to complete..."
               for w in {1..40}; do
-                reg9=$(${pkgs.i2c-tools}/bin/i2cget -f -y 7 0x6b 9)
+                reg9=$(${pkgs.i2c-tools}/bin/i2cget -f -y "$BUS" "$ADDR" 9)
                 if [ $((reg9 & 0x02)) -eq 0 ]; then
                   echo "Pulse complete after $w iterations"
                   break
@@ -347,7 +357,7 @@ in
 
             # Disable PUMPX_EN (Reg 4 -> 0x42)
             echo "Disabling PUMPX_EN..."
-            ${pkgs.i2c-tools}/bin/i2cset -f -y 7 0x6b 4 0x42
+            ${pkgs.i2c-tools}/bin/i2cset -f -y "$BUS" "$ADDR" 4 0x42
           ''}";
         };
       };
