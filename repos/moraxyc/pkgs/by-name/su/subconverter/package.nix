@@ -28,6 +28,9 @@ stdenv.mkDerivation (finalAttrs: {
   postPatch = ''
     substituteInPlace src/main.cpp \
       --replace-fail 'setcd(prgpath);' '// setcd(prgpath); read-only nix store'
+    substituteInPlace src/handler/webget.cpp \
+      --replace-fail 'CURLOPT_SSL_VERIFYPEER, 0L' 'CURLOPT_SSL_VERIFYPEER, 1L' \
+      --replace-fail 'CURLOPT_SSL_VERIFYHOST, 0L' 'CURLOPT_SSL_VERIFYHOST, 2L'
   '';
 
   outputs = [
