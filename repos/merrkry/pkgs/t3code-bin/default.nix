@@ -56,6 +56,10 @@ cli.overrideAttrs (
     ];
     versionCheckKeepEnvironment = [ "HOME" ];
 
+    meta = old.meta // {
+      broken = channel == "nightly"; # unmaintained
+    };
+
     passthru = old.passthru // {
       inherit cli desktop mkT3code;
       tests = callPackages ./tests.nix { t3code = finalAttrs.finalPackage; };
