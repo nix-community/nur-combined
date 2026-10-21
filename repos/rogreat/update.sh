@@ -13,8 +13,8 @@ echo
 echo unstable
 for pkg in ./pkgs/unstable/*; do
 	attribute=$(basename "$pkg")
-	echo nix-update --version=unstable "$attribute"
-	nix-update --version=unstable "$attribute" &
+	echo nix-update --version=branch "$attribute"
+	nix-update --version=branch "$attribute" &
 done
 
 echo
