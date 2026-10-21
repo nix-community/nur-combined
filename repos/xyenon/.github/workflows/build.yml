@@ -87,7 +87,7 @@ jobs:
         # Work around ineffective --retries: https://github.com/Mic92/nix-fast-build/pull/431
         run: |
           for attempt in 1 2 3; do
-            if nix run github:NixOS/nixpkgs/319e4cebef10cbb636c6ea392137b52ad105336a#nix-fast-build -- --no-nom --skip-cached --file ci.nix -A cacheOutputAttrs; then
+            if nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --file ci.nix -A cacheOutputAttrs; then
               break
             else
               status=$?
@@ -118,7 +118,7 @@ jobs:
         # Work around ineffective --retries: https://github.com/Mic92/nix-fast-build/pull/431
         run: |
           for attempt in 1 2 3; do
-            if nix run github:NixOS/nixpkgs/319e4cebef10cbb636c6ea392137b52ad105336a#nix-fast-build -- --no-nom --skip-cached --flake ".#cacheOutputAttrs.$(nix eval --raw --impure --expr builtins.currentSystem)"; then
+            if nix run nixpkgs#nix-fast-build -- --no-nom --skip-cached --flake ".#cacheOutputAttrs.$(nix eval --raw --impure --expr builtins.currentSystem)"; then
               break
             else
               status=$?
