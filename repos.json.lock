@@ -1567,8 +1567,8 @@
             "url": "https://github.com/liyangau/nur-packages"
         },
         "lmdevv": {
-            "rev": "6c924afdf5d170e9d683f68338595c1a9128a80d",
-            "sha256": "16qggpwzdbfa11yj44k2i8sv84xk6p986dcs1bpb12dkyz8mvid7",
+            "rev": "1dd2f10fd63cc284fbba471e81b4dd2ee9c35635",
+            "sha256": "0g2vyvs2z5zs4cjr29i5gzxls14sfk753jxl6d1xj8ji7afw4r4y",
             "url": "https://github.com/lmdevv/nur-packages"
         },
         "lonerOrz": {
@@ -2403,6 +2403,11 @@
             "rev": "a744f648fc4ed8a8b461f0847e9f800077919881",
             "sha256": "1ryyc11hj9szq9zwl913vd3waiyfass792c0s6c0shpxdmp45rk2",
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
+        },
+        "shelvacu": {
+            "rev": "47a8b87f06db2b1ee0e76f3158333a02d01e5a9d",
+            "sha256": "1vrbm498gkggjd4vgg5rwyqjl2nz6qvw39jn8xznh1l0p1mq0clk",
+            "url": "https://git.uninsane.org/shelvacu/nix-stuff"
         },
         "shirok1": {
             "rev": "ac4eeea3e492c74c618981d09363e3974b602c9d",
