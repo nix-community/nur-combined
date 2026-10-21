@@ -92,7 +92,7 @@
   # Copy from the pinned source so restricted NUR evaluation needs no IFD.
   manifest = fromTOML (readFile ./manifest.toml);
 
-  gitHashes.barrel_mcp.dependencyHash = "sha256-uXSOjtElwT4ZBeLv8IrIaAKr9se1GdsZ5pcEQlXX7AE=";
+  gitHashes.barrel_mcp.dependencyHash = "sha256-ST03fWrxFciSqiREfoRHUDs5NqRTuF4Wfhduetsqe0w=";
 
   packages =
     map (p: {

@@ -7,7 +7,7 @@
 # You should check this file into your source control repository.
 
 packages = [
-  { name = "barrel_mcp", version = "4.3.0", build_tools = ["gleam"], requirements = ["erlang_h1", "h2", "hackney"], source = "git", repo = "https://tangled.org/okami.mom/barrel_mcp", commit = "94aac610a12c3e22619ba7d3d8ac4af37a0053b5" },
+  { name = "barrel_mcp", version = "4.3.0", build_tools = ["gleam"], requirements = ["erlang_h1", "h2", "hackney"], source = "git", repo = "https://tangled.org/okami.mom/barrel_mcp", commit = "d4e19276bd32aaeafeec1358b788711d35647520" },
   { name = "certifi", version = "2.17.0", build_tools = ["rebar3"], requirements = [], otp_app = "certifi", source = "hex", outer_checksum = "8122798A17F0293C80DAADA25D0F81C7F4D708C73FEF782C7C9B1950E26E4D21" },
   { name = "erlang_h1", version = "0.9.1", build_tools = ["rebar3"], requirements = [], otp_app = "h1", source = "hex", outer_checksum = "F6C7D1C0947CBE56AB7494E5E131CADAC626E7D5FA42396314B6CCE1380B0C73" },
   { name = "esqlite", version = "0.9.0", build_tools = ["rebar3"], requirements = [], otp_app = "esqlite", source = "hex", outer_checksum = "CCF72258A4EE152EC7AD92AA9A03552EB6CA1B06B65C93AD5B6E55C302E05855" },
@@ -37,7 +37,7 @@ packages = [
 ]
 
 [requirements]
-barrel_mcp = { git = "https://tangled.org/okami.mom/barrel_mcp", ref = "94aac610a12c3e22619ba7d3d8ac4af37a0053b5" }
+barrel_mcp = { git = "https://tangled.org/okami.mom/barrel_mcp", ref = "d4e19276bd32aaeafeec1358b788711d35647520" }
 gleam_crypto = { version = ">= 1.0.0 and < 2.0.0" }
 gleam_erlang = { version = ">= 1.3.0 and < 2.0.0" }
 gleam_http = { version = ">= 4.4.0 and < 5.0.0" }
