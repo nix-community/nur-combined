@@ -14,7 +14,7 @@ Telnyx SIP trunk.
 - **The phone talks SIP over TCP** (`<transportLayerProtocol>1</…>`). The
   enterprise firmware's UDP path retransmits aggressively against anything that
   isn't a real CUCM; TCP is the well-trodden combination with Asterisk. The
-  `1001` pjsip endpoint is pinned to `transport-tcp` to match.
+  `10701` pjsip endpoint is pinned to `transport-tcp` to match.
 - **Two channel drivers, one PBX.** The enterprise firmware expects a pile of
   Cisco-proprietary SIP for its softkeys — BLF, call park, DND sync,
   conferencing, directories — which stock Asterisk does not speak. The
@@ -60,7 +60,7 @@ Telnyx SIP trunk.
 
   Each trunk also gets a **line button on the handset**, and that is how you
   choose which way a call goes out. Each button is a chan_sip peer of its own —
-  1001 for Telnyx on button 1, 1002 for JMP.chat on button 2, counting up from
+  10701 for Telnyx on button 1, 10702 for JMP.chat on button 2, counting up from
   `vacu.pbx.extension` — so the button a call was placed on arrives at asterisk
   as _which peer sent the INVITE_. Each peer has its own `from-phone-<trunk>`
   context whose only job is to `Set(TRUNK=…)` before handing off to the shared
@@ -71,7 +71,7 @@ Telnyx SIP trunk.
   enterprise firmware sends **one REGISTER, for the primary line**, and holds
   **one device-wide digest credential**. So every `<line>` in the phone's config
   carries the _primary_ line's `authName`/`authPassword`. Give them one each and
-  the phone answers the primary line's own challenge as 1002, asterisk rejects
+  the phone answers the primary line's own challenge as 10702, asterisk rejects
   it with `Authorization username mismatch`, and the handset never gets past
   "Phone is registering".
 
@@ -135,6 +135,8 @@ Telnyx SIP trunk.
 | `hosts/pbxvm/tftp.nix`              | atftpd, `SEP<MAC>.cnf.xml`, `dialplan.xml`                      |
 | `hosts/pbxvm/http.nix`              | the same files over HTTP, which is what the phone prefers       |
 | `hosts/pbxvm/secrets-guard.nix`     | Refuses to start either service when sops has not rendered      |
+| `hosts/pbxvm/softphones.nix`        | Softphone options, ACME cert                                    |
+| `hosts/prophecy/pbx-forward.nix`    | DNAT of SIP-TLS + RTP to pbxvm, ACME challenge proxy            |
 | `hosts/pbxvm/phone-services.nix`    | XML services for the Contacts and Messages buttons, AMI         |
 | `packages/cisco-phone-services/`    | usecallmanager's sample services app + our contacts blueprint   |
 | `hosts/prophecy/vms.nix`            | The VM itself (tag 6)                                           |
@@ -182,9 +184,13 @@ git add common/hosts.nix secrets/hosts/pbxvm.yaml   # flakes only see tracked fi
   and SRTP enabled for inbound calls in the Telnyx portal: asterisk rejects an
   unencrypted offer on this trunk, and Telnyx rejects an answer without one.
 - `jmpchat.password` — the JMP.chat / Bandwidth password for `c4986875698`.
+- `softphone.pixel.password`, `softphone.fw.password` — one per
+  `vacu.pbx.softphones` entry; long and random, they face the internet.
+- `peer.emily.password` — one per `vacu.pbx.peers` entry, likewise; the peer
+  puts it in its own config.
 - `contacts` — the phone's address book. See "Contacts" below; it can be empty,
   but the key has to exist or sops-nix fails for every secret.
-- `phone.1001.password` — invent one. It only has to match between asterisk and
+- `phone.password` — invent one. It only has to match between asterisk and
   the XML, and this repo puts it in both. Every line button shares it: they are
   the same handset on the same trusted LAN, and one secret is one thing to
   rotate. So adding a trunk needs no new secret beyond its own password.
@@ -217,13 +223,13 @@ same and more.
 journalctl -fu darkhttpd                    # watch the phone fetch SEP….cnf.xml
 journalctl -fu atftpd                       # only if HTTP failed and it fell back
 asterisk -rx 'pjsip show registrations'     # telnyx and jmpchat → Registered
-asterisk -rx 'sip show peers'               # 1001 and 1002 → one row each, with
+asterisk -rx 'sip show peers'               # 10701 and 10702 → one row each, with
                                             # a host:port, i.e. both lines are up
 ```
 
-Both line peers must show a host:port. 1002 gets its one from 1001's
+Both line peers must show a host:port. 10702 gets its one from 10701's
 registration (`register=` in `sip.conf`), so it appears a moment after the phone
-registers and not before — if 1001 is unregistered, both look dead.
+registers and not before — if 10701 is unregistered, both look dead.
 
 Then dial **611** from the handset for an echo test — that proves RTP between
 phone and PBX without involving Telnyx or spending money. After that, dial a
@@ -239,13 +245,13 @@ It needs a password, so add one to the secrets file _before_ turning it on —
 otherwise sops cannot render the phone's config and atftpd refuses to start:
 
 ```bash
-./sops secrets/hosts/pbxvm.yaml     # add phone.1001.sshPassword
+./sops secrets/hosts/pbxvm.yaml     # add phone.sshPassword
 git add secrets/hosts/pbxvm.yaml
 ```
 
 then set `vacu.pbx.sshAccess = true;` and rebuild. The username is
 `vacu.pbx.sshUser` (default `cisco`). The phone re-reads its config on boot
-only, so push it with `sip notify cisco-restart 1001` or reboot the handset.
+only, so push it with `sip notify cisco-restart 10701` or reboot the handset.
 
 Logging in lands you in a restricted shell. On the 8800 series, username `debug`
 and password `debug` from there reaches the actual debugging shell.
@@ -260,8 +266,8 @@ failure-retry loop, not polling: a phone that got a usable config stops asking.)
 Three ways to make it re-read, cheapest first:
 
 ```bash
-asterisk -rx 'sip notify cisco-restart 1001'   # quick restart
-asterisk -rx 'sip notify cisco-reset 1001'     # full boot cycle
+asterisk -rx 'sip notify cisco-restart 10701'   # quick restart
+asterisk -rx 'sip notify cisco-reset 10701'     # full boot cycle
 ```
 
 That is CUCM's mechanism: a NOTIFY carrying `Event: service-control`, where
@@ -307,8 +313,8 @@ Two log-reading traps worth knowing:
 If the phone _is_ getting its config and still sits there, look for this:
 
 ```
-Authorization username mismatch for SIP peer '1001' response has '1002'
-SIP registration for peer '<sip:1001@10.78.77.6>' … failed because 'Username mismatch'
+Authorization username mismatch for SIP peer '10701' response has '10702'
+SIP registration for peer '<sip:10701@10.78.77.6>' … failed because 'Username mismatch'
 ```
 
 That is the one-credential-per-device behavior described above: the phone is
@@ -506,7 +512,7 @@ connection's default caller ID. Set it to an E.164 number you own to override.
 
 ## Voicemail, DND and contacts
 
-**Voicemail.** One mailbox, `1001@default`, shared by every line, so the message
+**Voicemail.** One mailbox, `10701@default`, shared by every line, so the message
 lamp lights whichever trunk the caller came in on. An inbound call rings for 30
 s and then goes to voicemail (the busy greeting if the phone answered busy).
 Messages live under `/var/spool/asterisk/voicemail`.
@@ -527,7 +533,7 @@ The services app reaches voicemail through AMI over asterisk's HTTP server on
 so it is a line key (`featureID` 130) after the trunk buttons. The phone tells
 asterisk when it is toggled, chan_sip stores it in AstDB (`SIP/DoNotDisturb`),
 and `ring-phone` sends calls straight to voicemail while it is on. Check with
-`asterisk -rx 'sip show peer 1001' | grep -i dnd`.
+`asterisk -rx 'sip show peer 10701' | grep -i dnd`.
 
 **Contacts.** The **Contacts** button's directory, and the caller-ID name on
 inbound calls, both come from the `contacts` sops secret, read fresh on every
@@ -547,6 +553,190 @@ whatever name the trunk sent.
 Both XML services listen on port 6972 with no authentication; anyone on the LAN
 can read contacts and delete voicemail, the same trust the TFTP config already
 relies on.
+
+## Softphones
+
+`vacu.pbx.softphones` adds SIP clients that register from anywhere: currently
+`pixel` (Android) as **10711** and `fw` as **10712**. Each is a chan_pjsip
+endpoint on its own TLS transport, on `pbx.shelvacu.com:5061`, with SDES-SRTP
+required. Prophecy DNATs 5061/tcp and the RTP range (10000–10999/udp) from its
+public address to pbxvm. The rule matches on destination, so it works from the
+LAN too.
+
+- **Inbound** rings the desk phone line and every softphone at once; first to
+  answer wins. DND on the desk phone sends calls to voicemail for all of them.
+- **Outbound** from a softphone uses `defaultTrunk`, or another trunk if you
+  dial its `dialPrefix`.
+- **Device to device / transfers.** `107XX` numbers are internal: 10701–10703 ring
+  the desk phone's lines, 10711/10712 the softphones. Every device can dial them,
+  which is all a transfer needs: on the 8851, **Transfer** then the extension;
+  in a softphone, its transfer button to `10712` etc. `*97` is voicemail for
+  devices without a Messages button. The desk phone's dial rules send `10XXX`
+  instantly; no NANP number starts `10`.
+- The softphones get the voicemail lamp too (unsolicited MWI).
+
+Client settings (Linphone on both):
+
+| Setting          | Value                                       |
+| ---------------- | ------------------------------------------- |
+| Username         | the extension (`10711`, `10712`)            |
+| Password         | `softphone.<name>.password` from sops       |
+| Domain / server  | `pbx.shelvacu.com:5061`                     |
+| Transport        | TLS                                         |
+| Media encryption | SRTP (SDES), mandatory                      |
+| ICE / STUN       | off; asterisk advertises its public address |
+
+Android kills idle apps, so give Linphone its "keep alive" service and exempt it
+from battery optimisation. There is no push gateway here.
+
+**Security.** This is an internet-facing SIP server. TLS only, no
+unauthenticated endpoint, `alwaysauthreject`, no fail2ban. Use long random
+passwords.
+
+**Certificate.** pbxvm gets `pbx.shelvacu.com` from Let's Encrypt over HTTP-01:
+prophecy's caddy proxies `/.well-known/acme-challenge/` to pbxvm:80, where lego
+answers. Renewal reloads asterisk, and pjsip restarts the TLS listener when the
+cert file changes.
+
+**Order of deployment:** the DNS record and prophecy first, then pbxvm (so the
+first ACME order can succeed), then `systemctl restart asterisk`. Until the cert
+is issued asterisk uses the module's self-signed placeholder, which clients will
+reject.
+
+## Peering
+
+`vacu.pbx.peers` links this PBX to other asterisks; currently `emily`, whose
+extensions are `103XX` (ours are `107XX`). A peer has no static IP, so it
+registers here: SIP over TLS to `pbx.shelvacu.com:5061`, the softphones'
+transport. It checks our Let's Encrypt cert; we check its digest password
+(`peer.<name>.password` in sops), and find its endpoint by the digest username,
+since its From header carries its callers' extensions. Our calls and messages
+go back down that connection, and the peer knows them by the registration's
+`line` tag. SDES-SRTP is required.
+
+- **Extensions.** `103XX` from any device here dials the peer; the desk
+  phone's dial rules send it instantly. The peer can dial our `107XX` devices.
+- **PSTN numbers.** Each side advertises the E.164 numbers it answers. A call to
+  a number the peer advertises goes over the peering; if the peer cannot take
+  it (`CHANUNAVAIL`/`CONGESTION`: unregistered, or it 404s) it falls back to the
+  trunk. Busy or no answer does not fall back. Ours are
+  `vacu.pbx.advertisedNumbers`; a peer's call to one rings line 1 like a trunk
+  call (contacts, DND, voicemail). Remove a number there and redeploy to take it
+  back off the peering; the peer needs to do nothing.
+- **What a peer can reach:** our device extensions and advertised numbers.
+  Nothing else: no trunks, no voicemail menu. Anything else is a 404.
+
+**Advertisement protocol.** Every 5 minutes (`pbx-advertise.timer`), each side
+sends the other an out-of-dialog SIP `MESSAGE` to user `advertise`, with the
+body `numbers=` followed by a comma-separated list of E.164 numbers, possibly
+empty. Each list replaces the previous one. The receiver keeps it in AstDB
+(`peer/<name>/numbers`, `peer/<name>/updated`) and ignores it once it is 20
+minutes old.
+
+```bash
+asterisk -rx 'pjsip show contacts'   # emily/sip:emily@… Avail
+asterisk -rx 'database show peer'    # what the peer last advertised, and when
+systemctl start pbx-advertise        # send ours now
+```
+
+### The peer's side
+
+What the peer needs, for a stock asterisk (tested against asterisk 22 with the
+config this repo generates). Replace `103XX`, the numbers and the password; the
+`from-shelvacu` extensions are wherever the peer's own devices and numbers are.
+
+`pjsip.conf`:
+
+```ini
+[transport-tls]
+type=transport
+protocol=tls
+bind=0.0.0.0:5061
+ca_list_file=/etc/ssl/certs/ca-certificates.crt
+verify_server=yes
+method=tlsv1_2
+
+[shelvacu-auth]
+type=auth
+auth_type=userpass
+username=emily
+password=<peer.emily.password>
+
+[shelvacu]
+type=registration
+transport=transport-tls
+outbound_auth=shelvacu-auth
+server_uri=sip:pbx.shelvacu.com:5061;transport=tls
+client_uri=sip:emily@pbx.shelvacu.com:5061;transport=tls
+contact_user=emily
+line=yes
+endpoint=shelvacu
+expiration=120
+retry_interval=60
+forbidden_retry_interval=600
+auth_rejection_permanent=no
+
+[shelvacu]
+type=aor
+contact=sip:pbx.shelvacu.com:5061;transport=tls
+
+[shelvacu]
+type=endpoint
+transport=transport-tls
+context=from-shelvacu
+message_context=shelvacu-message
+aors=shelvacu
+outbound_auth=shelvacu-auth
+disallow=all
+allow=opus,g722,ulaw,alaw
+media_encryption=sdes
+direct_media=no
+rtp_symmetric=yes
+dtmf_mode=rfc4733
+```
+
+`extensions.conf`:
+
+```ini
+[globals]
+ADVERTISED_NUMBERS=+12065550100,+12065550101
+
+; Only what shelvacu may reach.
+[from-shelvacu]
+exten => _103XX,1,Dial(PJSIP/${EXTEN},30)
+exten => +12065550100,1,Goto(<inbound handling>)
+
+[shelvacu-message]
+exten => advertise,1,GotoIf($["${MESSAGE(body):0:8}" != "numbers="]?bad)
+ same => n,Set(DB(peer/shelvacu/numbers)=${MESSAGE(body):8})
+ same => n,Set(DB(peer/shelvacu/updated)=${EPOCH})
+ same => n,Hangup()
+ same => n(bad),Log(WARNING,bad advertisement from shelvacu: ${MESSAGE(body)})
+ same => n,Hangup()
+
+[shelvacu-advertise]
+exten => s,1,Set(MESSAGE(body)=numbers=${ADVERTISED_NUMBERS})
+ same => n,MessageSend(pjsip:PJSIP/advertise@shelvacu,<sip:advertise@example.invalid>)
+ same => n,Hangup()
+
+; Include in the devices' outbound context, ahead of the PSTN.
+[to-shelvacu]
+exten => _107XX,1,Dial(PJSIP/${EXTEN}@shelvacu,60)
+ same => n,Hangup()
+exten => _+X.,1,Set(NUMBERS=${DB(peer/shelvacu/numbers)})
+ same => n,GotoIf($[${EPOCH} - 0${DB(peer/shelvacu/updated)} > 1200]?pstn)
+ same => n,GotoIf($[${FIELDNUM(NUMBERS,\,,${EXTEN})} = 0]?pstn)
+ same => n,Dial(PJSIP/${EXTEN}@shelvacu,60)
+ same => n,GotoIf($["${DIALSTATUS}" = "CHANUNAVAIL" | "${DIALSTATUS}" = "CONGESTION"]?pstn)
+ same => n,Hangup()
+ same => n(pstn),Goto(<PSTN outbound>,${EXTEN},1)
+```
+
+And every 5 minutes, from cron or a timer:
+
+```bash
+asterisk -rx 'channel originate Local/s@shelvacu-advertise application NoOp'
+```
 
 ## Upgrading the phone's firmware
 

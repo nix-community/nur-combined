@@ -45,6 +45,15 @@
       fsType = "virtiofs";
     };
 
+    fileSystems."/nixcache" = {
+      device = "nixcache";
+      fsType = "virtiofs";
+      options = [
+        "ro" # already readonly on host side, this just makes the error earlier
+        "nofail"
+      ];
+    };
+
     hardware.enableAllFirmware = false;
     hardware.enableRedistributableFirmware = false;
 

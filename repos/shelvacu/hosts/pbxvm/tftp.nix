@@ -7,6 +7,10 @@
 let
   cfg = config.vacu.pbx;
   ext = cfg.extension;
+  extensionPrefixes = [
+    cfg.extensionPrefix
+  ]
+  ++ map (p: p.extensionPrefix) (lib.attrValues cfg.peers);
   ip = config.vacuvmGuest.ip;
   configName = "SEP${cfg.phoneMac}.cnf.xml";
   servicesUrl = "http://${ip}:${toString cfg.servicesPort}";
@@ -120,7 +124,9 @@ let
     # character, so an unanchored 10-dot rule would also match the first ten keys
     # of an 011 dial string and, being the longer pattern, would win and place a
     # truncated international call.
-    LOCAL = ([("611", 0), ("911", 0), ("933", 0), ("1" + "." * 10, 0)]
+    # The extension prefixes; see [internal] in asterisk.nix.
+    EXTENSIONS = [(p + "..", 0) for p in "${toString extensionPrefixes}".split()]
+    LOCAL = ([("611", 0), ("911", 0), ("933", 0)] + EXTENSIONS + [("1" + "." * 10, 0)]
              + [(d + "." * 9, 0) for d in "23456789"])
     TRAILING = [("011*", 4), ("*", 5)]
 
@@ -349,7 +355,7 @@ in
   # sops template and not a store path — although note TFTP hands it to anyone
   # on the LAN who asks for the right filename, so the real protection is that
   # the LAN is trusted.
-  sops.secrets = lib.mkIf cfg.sshAccess { "phone/${ext}/sshPassword" = { }; };
+  sops.secrets = lib.mkIf cfg.sshAccess { "phone/sshPassword" = { }; };
 
   # Build-time well-formedness gate on the file above. The phone discards the
   # *whole* config when the XML does not parse and then provisions nothing, and
@@ -389,7 +395,7 @@ in
         <deviceProtocol>SIP</deviceProtocol>
         ${lib.optionalString cfg.sshAccess ''
           <sshUserId>${cfg.sshUser}</sshUserId>
-          <sshPassword>${config.sops.placeholder."phone/${ext}/sshPassword"}</sshPassword>
+          <sshPassword>${config.sops.placeholder."phone/sshPassword"}</sshPassword>
         ''}
         <devicePool>
           <dateTimeSetting>
@@ -498,7 +504,7 @@ in
                      secondary line peers are `register=` aliases and are told
                      to look for the primary's name in the digest username. -->
                 <authName>${ext}</authName>
-                <authPassword>${config.sops.placeholder."phone/${ext}/password"}</authPassword>
+                <authPassword>${config.sops.placeholder."phone/password"}</authPassword>
                 <autoAnswer>
                   <autoAnswerEnabled>0</autoAnswerEnabled>
                 </autoAnswer>
@@ -555,6 +561,12 @@ in
         ${lib.optionalString (
           cfg.firmwareLoad != null
         ) "<loadInformation>${cfg.firmwareLoad}</loadInformation>"}
+        <!-- Without this the phone uses only phoneServices, which is empty,
+             and ignores directoryURL and messagesURL below: the Contacts and
+             Messages buttons say "not available". 1 = only the URLs. -->
+        <phoneServices useHTTPS="false">
+          <provisioning>1</provisioning>
+        </phoneServices>
         <authenticationURL></authenticationURL>
         <directoryURL>${servicesUrl}/directory</directoryURL>
         <idleURL></idleURL>

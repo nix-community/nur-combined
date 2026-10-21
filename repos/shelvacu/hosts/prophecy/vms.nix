@@ -1,4 +1,11 @@
-{ vacuModules, ... }: {
+{ vacuModules, ... }:
+let
+  nixcache = {
+    source = "/propdata/nixcache";
+    readOnly = true;
+  };
+in
+{
   imports = [ vacuModules.qemu-vm ];
 
   # Routed (no bridge): each VM's tap gets the gateway IP and a /32 host route.
@@ -18,6 +25,7 @@
       maxMem = 128 * 1024;
       dimmSlots = 4;
       cpus = 4;
+      shares = { inherit nixcache; };
     };
 
     savm = {
@@ -26,11 +34,14 @@
       maxMem = 128 * 1024;
       dimmSlots = 4;
       cpus = 4;
-      shares.javadrive = {
-        source = "/propdata/trip/ffuts/stuff/java-scribbles-drives";
-        readOnly = true;
+      shares = {
+        javadrive = {
+          source = "/propdata/trip/ffuts/stuff/java-scribbles-drives";
+          readOnly = true;
+        };
+        bigdata.source = "/propdata/vm-bigdata/savm";
+        inherit nixcache;
       };
-      shares.bigdata.source = "/propdata/vm-bigdata/savm";
     };
 
     quasar2 = {
@@ -39,6 +50,7 @@
       maxMem = 16 * 1024;
       dimmSlots = 4;
       cpus = 2;
+      shares = { inherit nixcache; };
     };
 
     pbxvm = {
@@ -47,6 +59,7 @@
       maxMem = 4 * 1024;
       dimmSlots = 4;
       cpus = 2;
+      shares = { inherit nixcache; };
     };
 
     jv-shel = {
@@ -55,6 +68,7 @@
       maxMem = 16 * 1024;
       dimmSlots = 4;
       cpus = 2;
+      shares = { inherit nixcache; };
     };
   };
 }

@@ -69,6 +69,7 @@
     obs-studio
     jellyfin-media-player # depends on marked-insecure qtwebengine :weary:
     kdePackages.ktorrent
+    linphone
     exfat
     exfatprogs
     gparted

@@ -22,6 +22,76 @@ let
 
   anyEncrypted = lib.any (t: t.encrypt) (lib.attrValues trunks);
 
+  softphones = lib.attrValues cfg.softphones;
+  certDir = config.security.acme.certs.${cfg.publicHostname}.directory;
+
+  softphoneSections = lib.concatMapStringsSep "\n" (sp: ''
+    [${sp.extension}]
+    type=endpoint
+    transport=transport-tls-clients
+    context=from-softphone
+    aors=${sp.extension}
+    auth=${sp.extension}-auth
+    callerid=${sp.label} <${sp.extension}>
+    disallow=all
+    allow=opus
+    allow=g722
+    allow=ulaw
+    allow=alaw
+    direct_media=no
+    rtp_symmetric=yes
+    force_rport=yes
+    rewrite_contact=yes
+    media_encryption=sdes
+    dtmf_mode=rfc4733
+    ; Unsolicited MWI. (On the aor, the same option is for SUBSCRIBE.)
+    mailboxes=${ext}@default
+
+    [${sp.extension}]
+    type=aor
+    max_contacts=1
+    remove_existing=yes
+    ; Also keeps the client's NAT mapping and TLS connection alive.
+    qualify_frequency=30
+  '') softphones;
+
+  peers = lib.attrNames cfg.peers;
+
+  peerSections = lib.concatMapStringsSep "\n" (name: ''
+    [${name}]
+    type=endpoint
+    transport=transport-tls-clients
+    ; Requests from the peer carry its callers' extensions in From, so the
+    ; endpoint is found by the digest username instead.
+    identify_by=auth_username
+    context=from-peer-${name}
+    message_context=peer-message-${name}
+    aors=${name}
+    auth=${name}-auth
+    disallow=all
+    allow=opus
+    allow=g722
+    allow=ulaw
+    allow=alaw
+    direct_media=no
+    rtp_symmetric=yes
+    force_rport=yes
+    rewrite_contact=yes
+    media_encryption=sdes
+    dtmf_mode=rfc4733
+
+    [${name}]
+    type=aor
+    max_contacts=1
+    remove_existing=yes
+    qualify_frequency=30
+  '') peers;
+
+  # Ring the desk phone line the call is for, plus every softphone.
+  ringAll = lib.concatStringsSep "&" (
+    [ "SIP/\${EXTEN}" ] ++ map (sp: "PJSIP/${sp.extension}") softphones
+  );
+
   # One endpoint/aor/registration(/identify) set per trunk. `line=yes` on the
   # registration is what makes inbound calls work from behind prophecy's SNAT:
   # the provider sends the INVITE back down the flow the REGISTER opened, and
@@ -251,8 +321,8 @@ in
         ; what it checks before acting. This chan_sip wants the types inline
         ; here rather than in a sip_notify.conf, which it deprecates.
         ;
-        ;   asterisk -rx 'sip notify cisco-restart 1001'
-        ;   asterisk -rx 'sip notify cisco-reset 1001'
+        ;   asterisk -rx 'sip notify cisco-restart 10701'
+        ;   asterisk -rx 'sip notify cisco-reset 10701'
         [cisco-service-control](!)
         type=notify
         header=Event: service-control
@@ -323,7 +393,25 @@ in
           ${natSettings}
         ''}
 
+        ${lib.optionalString (softphones != [ ]) ''
+
+          ; Softphones, from anywhere on the internet: prophecy forwards this
+          ; port and the RTP range from its public address.
+          [transport-tls-clients]
+          type=transport
+          protocol=tls
+          bind=0.0.0.0:${toString cfg.softphoneTlsPort}
+          cert_file=${certDir}/fullchain.pem
+          priv_key_file=${certDir}/key.pem
+          method=tlsv1_2
+          ${natSettings}
+        ''}
+
         ${trunkSections}
+
+        ${softphoneSections}
+
+        ${peerSections}
 
         ;=====================================================================
         ; Credentials (rendered at runtime by sops-nix)
@@ -335,6 +423,7 @@ in
       "extensions.conf" = ''
         [globals]
         DEFAULT_TRUNK=${cfg.defaultTrunk}
+        ADVERTISED_NUMBERS=${lib.concatStringsSep "," cfg.advertisedNumbers}
         ${lib.concatStringsSep "\n" (
           lib.mapAttrsToList (name: t: "CALLERID_${name}=${toString t.outboundCallerId}") (
             lib.filterAttrs (_: t: t.outboundCallerId != null) trunks
@@ -348,10 +437,49 @@ in
         ;---------------------------------------------------------------------
         ${lib.concatMapStringsSep "\n" (l: ''
           [from-phone-${l.trunk}]
+          include => internal
           include => phone-features
+          include => out-${l.trunk}
+
+          [out-${l.trunk}]
           exten => _[*+0-9].,1,Set(TRUNK=${l.trunk})
            same => n,Goto(from-phone,''${EXTEN},1)
         '') cfg.lines}
+
+        ;---------------------------------------------------------------------
+        ; Device to device, and so also the target of a transfer. Every 10XXX
+        ; number is safe from colliding with a real one: no NANP area code
+        ; starts with 0.
+        ;---------------------------------------------------------------------
+        [internal]
+        include => devices
+        ${lib.concatStringsSep "\n" (
+          lib.mapAttrsToList (
+            name: p: "exten => _${p.extensionPrefix}XX,1,Dial(PJSIP/\${EXTEN}@${name},60)\n same => n,Hangup()"
+          ) cfg.peers
+        )}
+        ; Voicemail, for devices without a Messages button.
+        exten => *97,1,Answer()
+         same => n,Wait(0.5)
+         same => n,VoiceMailMain(${ext}@default,s)
+         same => n,Hangup()
+
+        ; What peers may reach.
+        [devices]
+        ${lib.concatMapStringsSep "\n" (
+          l: "exten => ${l.extension},1,Dial(SIP/${l.extension},30)\n same => n,Hangup()"
+        ) cfg.lines}
+        ${lib.concatMapStringsSep "\n" (
+          sp: "exten => ${sp.extension},1,Dial(PJSIP/${sp.extension},30)\n same => n,Hangup()"
+        ) softphones}
+
+        ;---------------------------------------------------------------------
+        ; Softphones have no line buttons, so they go out the default trunk,
+        ; or another trunk's dialPrefix.
+        ;---------------------------------------------------------------------
+        [from-softphone]
+        include => internal
+        include => out-${cfg.defaultTrunk}
 
         ;---------------------------------------------------------------------
         ; What the phone's XML services dial, from whichever line is selected.
@@ -422,6 +550,7 @@ in
         ;---------------------------------------------------------------------
         [pstn]
         exten => _[+0-9].,1,NoOp(outbound ''${EXTEN} via ''${TRUNK})
+         same => n,GosubIf($["''${EXTEN:0:1}" = "+"]?to-peers,''${EXTEN},1)
          same => n,ExecIf($["''${CALLERID_''${TRUNK}}" != ""]?Set(CALLERID(num)=''${CALLERID_''${TRUNK}}))
          same => n,Dial(PJSIP/''${EXTEN}@''${TRUNK},60)
          same => n,Hangup()
@@ -437,14 +566,59 @@ in
            same => n,Goto(ring-phone,${l.extension},1)
         '') cfg.lines}
 
+        ;---------------------------------------------------------------------
+        ; Peering. See "Peering" in docs/pbxvm.md.
+        ;---------------------------------------------------------------------
+        ; Returns if no peer took the call. Only a peer that could not take
+        ; it at all falls through to the PSTN, not one that said busy or rang
+        ; out.
+        [to-peers]
+        exten => _+X.,1,NoOp()
+        ${lib.concatMapStrings (name: ''
+          same => n,Set(NUMBERS=''${DB(peer/${name}/numbers)})
+          same => n,GotoIf($[''${EPOCH} - 0''${DB(peer/${name}/updated)} > 1200]?not-${name})
+          same => n,GotoIf($[''${FIELDNUM(NUMBERS,\,,''${EXTEN})} = 0]?not-${name})
+          same => n,Dial(PJSIP/''${EXTEN}@${name},60)
+          same => n,GotoIf($["''${DIALSTATUS}" = "CHANUNAVAIL" | "''${DIALSTATUS}" = "CONGESTION"]?not-${name})
+          same => n,Hangup()
+          same => n(not-${name}),NoOp()
+        '') peers}
+         same => n,Return()
+
+        ${lib.concatMapStrings (name: ''
+          [from-peer-${name}]
+          include => devices
+          ${lib.concatMapStrings (
+            n: "exten => ${n},1,Goto(ring-phone,${(builtins.head cfg.lines).extension},1)\n"
+          ) cfg.advertisedNumbers}
+
+          ; Body is `numbers=` and a comma-separated list, possibly empty.
+          [peer-message-${name}]
+          exten => advertise,1,GotoIf($["''${MESSAGE(body):0:8}" != "numbers="]?bad)
+           same => n,Set(DB(peer/${name}/numbers)=''${MESSAGE(body):8})
+           same => n,Set(DB(peer/${name}/updated)=''${EPOCH})
+           same => n,Hangup()
+           same => n(bad),Log(WARNING,bad advertisement from ${name}: ''${MESSAGE(body)})
+           same => n,Hangup()
+        '') peers}
+
+        ; Run by pbx-advertise.service.
+        [peer-advertise]
+        ${lib.concatMapStrings (name: ''
+          exten => ${name},1,Set(MESSAGE(body)=numbers=''${ADVERTISED_NUMBERS})
+           same => n,MessageSend(pjsip:PJSIP/advertise@${name},<sip:advertise@${cfg.publicHostname}>)
+           same => n,Hangup()
+        '') peers}
+
         [ring-phone]
         ; A contact's name wins over whatever the trunk sent.
         exten => _X.,1,Set(CURLOPT(httptimeout)=2)
          same => n,Set(CONTACT=''${CURL(http://127.0.0.1:${toString cfg.servicesPort}/lookup?number=''${URIENCODE(''${CALLERID(num)})})})
          same => n,ExecIf($["''${CONTACT}" != ""]?Set(CALLERID(name)=''${CONTACT}))
-         ; DND is set from the phone's DND key and lives on the primary line.
+         ; DND is set from the desk phone's DND key and lives on its primary
+         ; line. It silences every device, softphones included.
          same => n,GotoIf($["''${SIP_PEER(${ext},donotdisturb)}" = "yes"]?unavail)
-         same => n,Dial(SIP/''${EXTEN},30)
+         same => n,Dial(${ringAll},30)
          ; Dial also returns when the phone hangs up an answered call.
          same => n,ExecIf($["''${DIALSTATUS}" = "ANSWER"]?Hangup())
          same => n,GotoIf($["''${DIALSTATUS}" = "BUSY"]?busy)
@@ -465,25 +639,46 @@ in
   sops.templates."sip-secrets.conf" = {
     owner = "asterisk";
     content = ''
-      secret=${config.sops.placeholder."phone/${ext}/password"}
+      secret=${config.sops.placeholder."phone/password"}
     '';
   };
 
-  sops.secrets = lib.mapAttrs' (_: t: lib.nameValuePair t.secretKey { }) trunks // {
-    "phone/${ext}/password" = { };
-  };
+  sops.secrets =
+    lib.mapAttrs' (_: t: lib.nameValuePair t.secretKey { }) trunks
+    // lib.listToAttrs (map (sp: lib.nameValuePair sp.secretKey { }) softphones)
+    // lib.mapAttrs' (_: p: lib.nameValuePair p.secretKey { }) cfg.peers
+    // {
+      "phone/password" = { };
+    };
 
   sops.templates."pjsip-secrets.conf" = {
     owner = "asterisk";
-    content = lib.concatStringsSep "\n" (
-      lib.mapAttrsToList (name: t: ''
-        [${name}-auth]
+    content =
+      lib.concatStringsSep "\n" (
+        lib.mapAttrsToList (name: t: ''
+          [${name}-auth]
+          type=auth
+          auth_type=userpass
+          username=${t.user}
+          password=${config.sops.placeholder.${t.secretKey}}
+        '') trunks
+      )
+      + lib.concatMapStrings (sp: ''
+        [${sp.extension}-auth]
         type=auth
         auth_type=userpass
-        username=${t.user}
-        password=${config.sops.placeholder.${t.secretKey}}
-      '') trunks
-    );
+        username=${sp.extension}
+        password=${config.sops.placeholder.${sp.secretKey}}
+      '') softphones
+      + lib.concatStrings (
+        lib.mapAttrsToList (name: p: ''
+          [${name}-auth]
+          type=auth
+          auth_type=userpass
+          username=${name}
+          password=${config.sops.placeholder.${p.secretKey}}
+        '') cfg.peers
+      );
   };
 
   networking.firewall.allowedTCPPorts = [ cfg.sipPort ];

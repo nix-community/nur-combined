@@ -17,14 +17,25 @@ in
   ++ vaculib.directoryGrabberList ./.;
 
   options.vacu.pbx = {
+    extensionPrefix = mkOption {
+      type = types.strMatching "10[0-9]";
+      default = "107";
+      description = ''
+        Every extension here is this followed by two digits. Peers have
+        prefixes of their own, so extensions are unique across PBXes. Starting
+        with `10` keeps them clear of NANP numbers, so the desk phone's dial
+        rules can send them instantly.
+      '';
+    };
     extension = mkOption {
       type = types.strMatching "[0-9]+";
-      default = "1001";
+      default = "${cfg.extensionPrefix}01";
+      defaultText = "\${extensionPrefix}01";
       description = ''
         The SIP username the phone's *first* line registers as. Each further
         line button counts up from here — with two trunks and the default
-        `1001`, the phone registers as 1001 and 1002. Numeric because of that
-        counting.
+        `10701`, the phone registers as 10701 and 10702. Numeric because of
+        that counting.
       '';
     };
     lines = mkOption {
@@ -364,6 +375,12 @@ in
         assertion = cfg.trunks ? ${cfg.defaultTrunk};
         message = "vacu.pbx.defaultTrunk is ${cfg.defaultTrunk}, which is not one of vacu.pbx.trunks.";
       }
+      {
+        assertion = lib.all (e: builtins.match "${cfg.extensionPrefix}[0-9][0-9]" e != null) (
+          map (l: l.extension) cfg.lines ++ map (sp: sp.extension) (lib.attrValues cfg.softphones)
+        );
+        message = "vacu.pbx: every extension must be vacu.pbx.extensionPrefix (${cfg.extensionPrefix}) and two digits.";
+      }
     ];
 
     vacu.pbx.trunks = {
@@ -392,6 +409,23 @@ in
         port = 5008;
       };
     };
+
+    vacu.pbx.softphones = {
+      pixel = {
+        extension = "10711";
+        label = "Pixel";
+      };
+      fw = {
+        extension = "10712";
+        label = "fw";
+      };
+    };
+
+    vacu.pbx.peers.emily.extensionPrefix = "103";
+    vacu.pbx.advertisedNumbers = [
+      "+14253510339"
+      "+15074358228"
+    ];
 
     users.users.shelvacu = {
       isNormalUser = true;

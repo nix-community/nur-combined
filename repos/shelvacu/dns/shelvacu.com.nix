@@ -100,6 +100,7 @@ in
     ns3 = host cloudns.pns53.ipv4 cloudns.pns53.ipv6;
     ns4 = host cloudns.pns54.ipv4 cloudns.pns54.ipv6;
     powerhouse.CNAME = s "powerhouse.dyn.74358228.xyz.";
+    pbx.A = propA;
     prop.CNAME = s "prophecy";
     prophecy.A = propA;
     prophecy.subdomains."*".A = propA;
