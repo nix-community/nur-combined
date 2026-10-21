@@ -92,11 +92,20 @@ let
     };
     build-system = with python3Packages; [ poetry-core ];
     # 上游锁 chardet ^5.2，nixpkgs 只有 6.x；chardet 6 仍导出同签名的
-    # detect(bytes)，readability 用的就是这一处 API
-    pythonRelaxDeps = [ "chardet" ];
+    # detect(bytes)，readability 用的就是这一处 API。
+    # 上游又锁 cssselect <1.4，nixpkgs 已到 1.5；nixpkgs 自己的
+    # readability-lxml 也 relax 了同一项，且其测试套件在 1.5 下通过，
+    # 说明 1.4 的 API 边界只是保守声明
+    pythonRelaxDeps = [
+      "chardet"
+      "cssselect"
+    ];
     propagatedBuildInputs = with python3Packages; [
       beautifulsoup4
       lxml
+      # 上游声明的是 lxml[html_clean] 这个 extra：0.9 起 cleaners.py 无条件
+      # `from lxml_html_clean import Cleaner`，缺这个包连 import 都会失败
+      lxml-html-clean
       cssselect
       chardet
     ];
