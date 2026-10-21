@@ -45,6 +45,18 @@ jobs:
           ref: ${{ github.sha }}
           persist-credentials: false
 
+      - name: Provide tools from the locked nixpkgs
+        # The NixOS runner service has a minimal PATH (no awk, for example).
+        # Plain bash only here; later steps use these pinned tools.
+        run: |
+          set -euo pipefail
+          nix build --no-link --print-out-paths --no-write-lock-file --inputs-from . \
+            nixpkgs#coreutils nixpkgs#gawk nixpkgs#gnugrep nixpkgs#findutils \
+            nixpkgs#curl nixpkgs#cachix > "$RUNNER_TEMP/tool-paths"
+          while IFS= read -r path; do
+            [[ -d "$path/bin" ]] && echo "$path/bin" >> "$GITHUB_PATH"
+          done < "$RUNNER_TEMP/tool-paths"
+
       - name: Check builder resources
         run: |
           set -euo pipefail
