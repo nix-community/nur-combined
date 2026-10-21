@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   self = import ../. { inherit pkgs; };
@@ -24,6 +29,7 @@ in
 
     # might not be needed with modern deepseek
     PI_HARNESS_HASHLINES_TOOL_ENABLED = "0";
+    PI_HARNESS_STORMBREAKER_ENABLED = "0";
     # Never used
     PI_HARNESS_PLANMODE_ENABLED = "0";
 
