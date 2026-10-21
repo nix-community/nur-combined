@@ -12,6 +12,7 @@ on:
     branches: [main]
     paths:
       - 'pkgs/linux-cachyos-latest-x86_64-v3/**'
+      - 'pkgs/linux-cachyos-bore-x86_64-v3/**'
       - '.github/workflows/kernel.yml'
   workflow_dispatch:
     inputs:
@@ -30,18 +31,28 @@ permissions:
   contents: read
 
 concurrency:
-  group: kernel-cachyos-latest-x86_64-v3
+  group: kernel-cachyos-v3
   # Never cancel a half-finished build or push.
   cancel-in-progress: false
 
 env:
-  KERNEL_ATTR: linux-cachyos-latest-x86_64-v3
   # Build from source on this runner. Upstream and third-party kernel caches are
   # not substituters: cache.nixos.org (nixpkgs) and uriotv (our own) only.
   BUILD_SUBSTITUTERS: https://cache.nixos.org https://uriotv.cachix.org
 
 jobs:
   build-kernel:
+    name: Build ${{ matrix.kernel }}
+    strategy:
+      fail-fast: false
+      # One 8-thread compilation at a time on the shared builder.
+      max-parallel: 1
+      matrix:
+        kernel:
+          - linux-cachyos-latest-x86_64-v3
+          - linux-cachyos-bore-x86_64-v3
+    env:
+      KERNEL_ATTR: ${{ matrix.kernel }}
     # Stays disabled until the cachix-builder runner exists. Set the repository
     # variable KERNEL_BUILDER_ENABLED to 'true' only then; otherwise the job would
     # wait in the queue forever.

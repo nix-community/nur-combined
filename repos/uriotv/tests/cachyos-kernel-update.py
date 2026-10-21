@@ -27,13 +27,15 @@ upstream
 
 
 class KernelUpdaterTests(unittest.TestCase):
+    package_name = PACKAGE
+    version_name = "linux-cachyos"
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
-        self.package = self.root / "pkgs" / PACKAGE
+        self.package = self.root / "pkgs" / self.package_name
         self.package.mkdir(parents=True)
-        shutil.copy(ROOT / "pkgs" / PACKAGE / "update.py", self.package / "update.py")
+        shutil.copy(ROOT / "pkgs" / self.package_name / "update.py", self.package / "update.py")
         (self.package / "default.nix").write_text(DEFAULT_NIX)
         self.bin = self.root / "bin"
         self.bin.mkdir()
@@ -42,7 +44,7 @@ class KernelUpdaterTests(unittest.TestCase):
         self._stub("curl", '''url = sys.argv[-1]
 rev = url.split("/")[-3]
 version = os.environ["VERSION_" + rev[:1]]
-print(json.dumps({"linux-cachyos": {"version": version}, "linux-cachyos-lts": {"version": "6.18.1"}}))''')
+print(json.dumps({os.environ["VERSION_NAME"]: {"version": version}, "linux-cachyos-lts": {"version": "6.18.1"}}))''')
         self._stub("nix", '''if sys.argv[1:3] == ["store", "prefetch-file"]:
     print(json.dumps({"hash": os.environ["NEW_HASH"], "storePath": "/nix/store/x"}))
 else:
@@ -59,7 +61,8 @@ else:
                     eval_version=None):
         env = {**os.environ, "PATH": f"{self.bin}{os.pathsep}{os.environ['PATH']}",
                "LATEST_REV": latest, "VERSION_a": pinned_version, "VERSION_b": latest_version,
-               "NEW_HASH": NEW_HASH, "EVAL_VERSION": eval_version or latest_version}
+               "NEW_HASH": NEW_HASH, "EVAL_VERSION": eval_version or latest_version,
+               "VERSION_NAME": self.version_name}
         return subprocess.run(["python3", "-B", str(self.package / "update.py")],
                               env=env, text=True, capture_output=True)
 
@@ -104,6 +107,11 @@ else:
         result = self.run_updater(latest_version="7.2.12-rc1")
         self.assertNotEqual(result.returncode, 0)
         self.assertEqual(self.nix_text(), DEFAULT_NIX)
+
+
+class BoreUpdaterTests(KernelUpdaterTests):
+    package_name = "linux-cachyos-bore-x86_64-v3"
+    version_name = "linux-cachyos-bore"
 
 
 if __name__ == "__main__":

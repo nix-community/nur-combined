@@ -95,11 +95,12 @@ is preserved until a strictly newer, descendant release is available.
   not a successful notification or package failure; its periodic sync remains
   the fallback. Other HTTP/transport failures still fail CI after bounded retries.
 - **Compute:** GitHub-hosted runners (`ubuntu-latest`) build all packages in
-  `build.yml`, except `meta.ciBuild = false`. The CachyOS x86-64-v3 kernel
-  (`linux-cachyos-latest-x86_64-v3`) is built from source by `kernel.yml` on the
+  `build.yml`, except `meta.ciBuild = false`. Both CachyOS x86-64-v3 kernels
+  (`linux-cachyos-latest-x86_64-v3` and `linux-cachyos-bore-x86_64-v3`, non-LTO)
+  are built sequentially by `kernel.yml` on the
   self-hosted runner `[self-hosted, nixos, cachix-builder]` (labels: `nixos`,
   `cachix-builder`). It triggers only on push to `main` that changes
-  `pkgs/linux-cachyos-latest-x86_64-v3/` or `kernel.yml`, and on manual dispatch of
+  either kernel package directory or `kernel.yml`, and on manual dispatch of
   `main`; never on pull requests. If every output of the current pin is already
   in `uriotv`, the build is skipped (dispatch with `force = true` to rebuild). Publication to `uriotv` happens only on a manual
   dispatch with `publish = true`, after the closure licence review. It is not part
@@ -122,11 +123,17 @@ not replace it with `GITHUB_TOKEN`: PRs made with that token do not trigger this
 Dependabot updates action versions weekly; its PRs are not automatically merged
 by the package updater. There are no secrets required to build a PR.
 
-## CachyOS kernel (`linux-cachyos-latest-x86_64-v3`)
+## CachyOS kernels (upstream-compatible names)
 
-- **Source of truth:** `pkgs/linux-cachyos-latest-x86_64-v3/default.nix` pins the
+We export exactly two non-LTO, x86-64-v3 kernels, named just like upstream:
+
+- `linux-cachyos-latest-x86_64-v3`
+- `linux-cachyos-bore-x86_64-v3` (BORE scheduler)
+
+- **Source of truth:** each `pkgs/<kernel>/default.nix` pins the
   upstream `xddxdd/nix-cachyos-kernel` commit (`rev` and `hash`). The daily
-  `update.sh` moves that pin only when upstream's `linux-cachyos` version is newer;
+  `update.sh` moves that pin only when upstream's corresponding `linux-cachyos`
+  or `linux-cachyos-bore` version is newer;
   upstream's near-daily nixpkgs-only bumps are ignored, so a rebuild means a real
   kernel update. It never changes `flake.lock`.
 - **Build from scratch:** the kernel is built on our builder. Upstream and
@@ -141,6 +148,41 @@ by the package updater. There are no secrets required to build a PR.
   `packages.x86_64-linux`. Pin `urio-nur` in their `flake.lock` to a commit that
   contains this package, and build the kernel from that source. Changing the pin
   is a deliberate `nix flake update urio-nur`.
+
+### Using uriotv with xddxdd directly
+
+The public cache is not tied to our flake's attribute namespace. Our builds keep
+upstream's package names, derivations and output paths unchanged. You can use
+xddxdd's repository directly and add only our cache:
+
+```nix
+# flake.nix: this revision matches the initial latest and BORE v3 builds.
+inputs.nix-cachyos-kernel.url =
+  "github:xddxdd/nix-cachyos-kernel/893cfece885f2af90edc71fd0d8f95a83d72c7e2";
+# Do not override this input's nixpkgs (no follows).
+```
+
+```nix
+# NixOS module, with inputs available as a module argument:
+{ inputs, ... }: {
+  nix.settings.substituters = [ "https://uriotv.cachix.org" ];
+  nix.settings.trusted-public-keys = [
+    "uriotv.cachix.org-1:goitmxx1/DXbyeFNubk9Dmp9nvg4V188Wvu4CdrRsyI="
+  ];
+  boot.kernelPackages = inputs.nix-cachyos-kernel.legacyPackages.x86_64-linux
+    .linuxPackages-cachyos-bore-x86_64-v3;
+  # Or .linuxPackages-cachyos-latest-x86_64-v3 for the non-BORE kernel.
+}
+```
+
+A matching version string is not sufficient: the upstream revision, its locked
+nixpkgs and kernel configuration must match. This repository ignores upstream's
+nixpkgs-only updates until the next kernel release, so following upstream's latest
+`master` or `release` can miss our cache even with the same kernel version. Use
+the revision in the corresponding package's `default.nix`; each variant may have
+its own pin after updates. Overriding the kernel or using a different nixpkgs can
+also cause a cache miss. Missing outputs build locally; BORE is not available in
+uriotv until its first self-hosted build and reviewed publication complete.
 
 ## Adding a package
 
