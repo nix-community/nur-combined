@@ -13,12 +13,12 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "lsp-ai-chendesheng";
-  version = "0-unstable-2026-10-04";
+  version = "0-unstable-2026-10-21";
   src = fetchFromGitHub {
     owner = "chendesheng";
     repo = "lsp-ai";
-    rev = "af5eda03bfec9a7dc06d57b04b87256d1e901105";
-    hash = "sha256-kxj2rmd3eEWiGnWjeOYZVtIMkOdJZdHxFMoxUOj7nCU=";
+    rev = "b6a6c04222b54ddfe4efd85cc1b411f062af49e9";
+    hash = "sha256-nY533Z9lxyGaaA8pW7ueqBe3kUeU3Zm/ZCCCR61P2MY=";
   };
 
   checkFlags = [
