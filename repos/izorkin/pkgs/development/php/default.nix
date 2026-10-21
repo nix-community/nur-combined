@@ -517,7 +517,7 @@ in {
   };
 
   php82 = generic {
-    version = "8.2.29";
-    sha256 = "sha256-Z5tBUWer7oLjB/c8ztDB0VHEFkNF+gcnBbrLDOK9w1Q=";
+    version = "8.2.35";
+    sha256 = "sha256-oGunJOwyVuLm6nK6ZTlPRzov+P78CVWsNh/WE6lCwRQ=";
   };
 }
