@@ -2404,6 +2404,11 @@
             "sha256": "1ryyc11hj9szq9zwl913vd3waiyfass792c0s6c0shpxdmp45rk2",
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
         },
+        "shelvacu": {
+            "rev": "aaba643e3522c1ad3d694853878b12670ed0a40a",
+            "sha256": "1y4qi13wf1q35jc3fy1804pi1wp6r2k204883yn3v8lvjhy8szkj",
+            "url": "https://git.uninsane.org/shelvacu/nix-stuff"
+        },
         "shirok1": {
             "rev": "ac4eeea3e492c74c618981d09363e3974b602c9d",
             "sha256": "1bqmam5rmlz27d4frh52pz6kxzfq19vrbp1xxy6ndywzkzm7qvdk",
@@ -2662,8 +2667,8 @@
             "url": "https://github.com/trevorriles/nur-packages"
         },
         "tsukumo": {
-            "rev": "8ae769d1801146bfacc17c6ed5c52f3315cc0883",
-            "sha256": "1sg5bcfj1jxa1xi3n86hixy5l6dgxjb8wvxgcqcd953ff0kzvd33",
+            "rev": "9a4cfa6060cd1f29e2130333f136c619274b2bce",
+            "sha256": "1ab2mfb4ilsp3203dphqvyadxpayi9swzwvw0vsrqwfwrz74jbzr",
             "url": "https://github.com/Thukumo/NUR"
         },
         "tuckershea": {
