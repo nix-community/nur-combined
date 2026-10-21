@@ -40,7 +40,12 @@ lib.throwIf (asterisk.version != version)
       pname = "asterisk-usecallmanager";
       # Appended, so it lands after nixpkgs' own runtime-vardirs and opus
       # patches. Verified to apply cleanly in that order.
-      patches = (old.patches or [ ]) ++ [ patch ];
+      patches = (old.patches or [ ]) ++ [
+        patch
+        # register= aliases got a contact of `sip10702@host`, so the phone
+        # 400s every NOTIFY to them and secondary lines' MWI lamps never clear.
+        ./chan-sip-alias-contact.patch
+      ];
       # pjsip refuses wildcard certs (RFC 5922 7.2), which SignalWire uses.
       # Asterisk applies these to its bundled pjproject at build time.
       postPatch = (old.postPatch or "") + ''

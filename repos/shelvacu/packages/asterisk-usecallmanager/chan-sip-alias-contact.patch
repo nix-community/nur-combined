@@ -1,0 +1,11 @@
+--- a/channels/sip/peers.c
++++ b/channels/sip/peers.c
+@@ -1993,7 +1993,7 @@
+ 		alias->peer->allow_methods = peer->allow_methods;
+ 		alias->peer->supported_options = peer->supported_options;
+ 
+-		ast_string_field_build(alias->peer, contact, "%s%s@%s", scheme, alias->peer->name, domain);
++		ast_string_field_build(alias->peer, contact, "%s:%s@%s", scheme, alias->peer->name, domain);
+ 
+ 		ast_sockaddr_copy(&alias->peer->address, &peer->address);
+ 		sip_socket_copy(&alias->peer->socket, &peer->socket);
