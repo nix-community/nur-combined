@@ -1,13 +1,28 @@
 {
   lib,
   stdenv,
+  fetchurl,
+  autoreconfHook,
   autoPatchelfHook,
   installShellFiles,
   libsecret,
+  patchelf,
   source,
   pname,
 }:
 
+let
+  # Remove once the default patchelf includes https://github.com/NixOS/patchelf/pull/672.
+  patchelfForSea = patchelf.overrideAttrs (old: {
+    nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ autoreconfHook ];
+    patches = (old.patches or [ ]) ++ [
+      (fetchurl {
+        url = "https://github.com/NixOS/patchelf/commit/59acc3d98b4961cfddf02090d9426ac735603218.patch";
+        hash = "sha256-ONXiByBJKla9r9FzeOx7KgvCEmuySRYE74XGGpEXFKo=";
+      })
+    ];
+  });
+in
 stdenv.mkDerivation (finalAttrs: {
   __structuredAttrs = true;
 
@@ -18,6 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
   dontBuild = true;
   dontStrip = true;
   nativeBuildInputs = [
+    patchelfForSea
     autoPatchelfHook
     installShellFiles
   ];
