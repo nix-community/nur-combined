@@ -171,7 +171,13 @@ exportedByName
         rev = "076b5ccac40cf25ce24f6cd480a6c0eae3311ace";
         hash = "sha256-VMysCO9LlNX8aiqBZtsseF6224RY20AXJMq8xrjnaR4=";
       };
-      patches = [ ];
+      patches = [
+        # Fix build with Qt >= 6.12: qmlcachegen files must not be compiled in
+        # unity builds because Qt 6.12 added QQmlPrivate::AOTLookupValidation::Type
+        # which clashes with muse::extensions::Type when both end up in the same
+        # unity TU. See: https://github.com/NixOS/nixpkgs/pull/576411
+        ./patches/musescore-qt612-qmlcachegen.patch
+      ];
       preConfigure = "";
     })
   );
