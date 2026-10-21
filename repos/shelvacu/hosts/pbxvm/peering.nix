@@ -23,10 +23,14 @@ in
           { name, ... }:
           {
             options = {
-              extensionPrefix = mkOption {
+              prefix = mkOption {
                 type = types.strMatching "10[0-9]";
-                description = "The peer's extensions are this and two digits.";
+                description = "Reach peer's extensions by first dialing this";
                 example = "103";
+              };
+              extensionLength = mkOption {
+                type = types.ints.positive;
+                example = 2;
               };
               secretKey = mkOption {
                 type = types.str;
@@ -59,7 +63,7 @@ in
       {
         assertion =
           let
-            prefixes = [ cfg.extensionPrefix ] ++ map (p: p.extensionPrefix) (lib.attrValues cfg.peers);
+            prefixes = [ cfg.extensionPrefix ] ++ map (p: p.prefix) (lib.attrValues cfg.peers);
           in
           lib.length prefixes == lib.length (lib.unique prefixes);
         message = "vacu.pbx.peers: every extensionPrefix must be unique, and not ours.";

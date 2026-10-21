@@ -421,7 +421,10 @@ in
       };
     };
 
-    vacu.pbx.peers.emily.extensionPrefix = "103";
+    vacu.pbx.peers.emily = {
+      prefix = "103";
+      extensionLength = 3;
+    };
     vacu.pbx.advertisedNumbers = [
       "+14253510339"
       "+15074358228"

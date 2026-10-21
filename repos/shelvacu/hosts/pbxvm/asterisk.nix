@@ -455,7 +455,7 @@ in
         include => devices
         ${lib.concatStringsSep "\n" (
           lib.mapAttrsToList (
-            name: p: "exten => _${p.extensionPrefix}XX,1,Dial(PJSIP/\${EXTEN}@${name},60)\n same => n,Hangup()"
+            name: p: "exten => _${p.prefix}${lib.strings.replicate p.extensionLength "X"},1,Dial(PJSIP/\${EXTEN}@${name},60)\n same => n,Hangup()"
           ) cfg.peers
         )}
         ; Voicemail, for devices without a Messages button.

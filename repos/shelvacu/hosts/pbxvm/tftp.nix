@@ -7,10 +7,10 @@
 let
   cfg = config.vacu.pbx;
   ext = cfg.extension;
-  extensionPrefixes = [
-    cfg.extensionPrefix
+  extensionPatterns = [
+    "${cfg.extensionPrefix}.."
   ]
-  ++ map (p: p.extensionPrefix) (lib.attrValues cfg.peers);
+  ++ map (p: p.prefix + (lib.strings.replicate p.extensionLength ".")) (lib.attrValues cfg.peers);
   ip = config.vacuvmGuest.ip;
   configName = "SEP${cfg.phoneMac}.cnf.xml";
   servicesUrl = "http://${ip}:${toString cfg.servicesPort}";
@@ -125,7 +125,7 @@ let
     # of an 011 dial string and, being the longer pattern, would win and place a
     # truncated international call.
     # The extension prefixes; see [internal] in asterisk.nix.
-    EXTENSIONS = [(p + "..", 0) for p in "${toString extensionPrefixes}".split()]
+    EXTENSIONS = [(p, 0) for p in "${toString extensionPatterns}".split()]
     LOCAL = ([("611", 0), ("911", 0), ("933", 0)] + EXTENSIONS + [("1" + "." * 10, 0)]
              + [(d + "." * 9, 0) for d in "23456789"])
     TRAILING = [("011*", 4), ("*", 5)]
@@ -574,6 +574,8 @@ in
         <messagesURL>${servicesUrl}/messages?name=SEP${cfg.phoneMac}</messagesURL>
         <proxyServerURL></proxyServerURL>
         <servicesURL></servicesURL>
+        <g722CodecSupport>2</g722CodecSupport>
+        <advertiseG722Codec>1</advertiseG722Codec>
       </device>
     '';
   };
