@@ -125,8 +125,10 @@ by the package updater. There are no secrets required to build a PR.
 ## CachyOS kernel (`linux-cachyos-latest-x86_64-v3`)
 
 - **Source of truth:** `pkgs/linux-cachyos-latest-x86_64-v3/default.nix` pins the
-  upstream `xddxdd/nix-cachyos-kernel` commit (`rev` and `hash`). `update.sh`
-  moves only that pin. It never changes `flake.lock`.
+  upstream `xddxdd/nix-cachyos-kernel` commit (`rev` and `hash`). The daily
+  `update.sh` moves that pin only when upstream's `linux-cachyos` version is newer;
+  upstream's near-daily nixpkgs-only bumps are ignored, so a rebuild means a real
+  kernel update. It never changes `flake.lock`.
 - **Build from scratch:** the kernel is built on our builder. Upstream and
   third-party kernel caches are not substituters. Only `cache.nixos.org` (nixpkgs
   dependencies) and `uriotv` are used.

@@ -28,6 +28,10 @@ strict-Bash updater, then runs:
   failures; only 429 becomes a visible deferred-request warning, not a hidden
   failure or a falsely claimed accepted refresh. No network or retry waits.
 
+- `cachyos-kernel-update.py`: stubbed git/curl/nix; the kernel pin moves only
+  for a newer `linux-cachyos` version (upstream nixpkgs-only bumps and downgrades
+  are ignored), rev and hash move together, version mismatches fail.
+
 ## Nix evaluation (not compilation)
 
 ```console
