@@ -246,15 +246,15 @@
   };
   nix-auth = {
     pname = "nix-auth";
-    version = "95413a38dea1be822fdf649d9b34a276c9d040d0";
+    version = "2f897895c5044130ef1ec35b7b648897142a785d";
     src = fetchFromGitHub {
       owner = "numtide";
       repo = "nix-auth";
-      rev = "95413a38dea1be822fdf649d9b34a276c9d040d0";
+      rev = "2f897895c5044130ef1ec35b7b648897142a785d";
       fetchSubmodules = false;
-      sha256 = "sha256-+SW2uF18jEL3cPsyvmkzG7ObpDkkqrwO5Zbe31m17/I=";
+      sha256 = "sha256-OpF0wCemSh/7s4OYfnCjFn1AgNiEHLygh3j9jltuFkg=";
     };
-    date = "2026-10-18";
+    date = "2026-10-20";
   };
   ntfsprogs-plus = {
     pname = "ntfsprogs-plus";
@@ -473,10 +473,10 @@
   };
   waywallen-display-bin = {
     pname = "waywallen-display-bin";
-    version = "0.4.2";
+    version = "0.4.3";
     src = fetchurl {
-      url = "https://github.com/waywallen/waywallen-display/releases/download/v0.4.2/waywallen-kde-0.4.2-x86_64-embed.zip";
-      sha256 = "sha256-atexRwiyYG8Xo5mfTpbGNiuAigCwZX98z1X4E2cpgFA=";
+      url = "https://github.com/waywallen/waywallen-display/releases/download/v0.4.3/waywallen-kde-0.4.3-x86_64-embed.zip";
+      sha256 = "sha256-3Vu5k04sD7Dq0UlgVxzT+4S2bb3jJmzvgeSrfqjlHts=";
     };
   };
   zhuque = {
