@@ -208,6 +208,12 @@ class UpdateTests(unittest.TestCase):
         self.assertIn("cron: '0 0 * * *'", workflow)
         self.assertIn("workflow_dispatch:", workflow)
         self.assertIn("just check-updates --pr", workflow)
+        self.assertRegex(
+            workflow,
+            r"NIX_CONFIG:\s*>-\s+substituters\s*=\s+"
+            + r"https://mirror\.sjtu\.edu\.cn/nix-channels/store\s+"
+            + r"https://cache\.nixos\.org\s+https://nix-community\.cachix\.org\s",
+        )
         self.assertIn(
             "GITHUB_TOKEN: ${{ secrets.UPDATE_TOKEN || github.token }}", workflow
         )

@@ -17,7 +17,7 @@ in
 assert builtins.all (value: value) (builtins.attrValues checks);
 pkgs.runCommand "fluxdown-packaging-tests"
   {
-    nativeBuildInputs = [ (pkgs.python315.withPackages (packages: [ packages.websocket-client ])) ];
+    nativeBuildInputs = [ (pkgs.python3.withPackages (packages: [ packages.websocket-client ])) ];
     FLUXDOWN_TEST_PACKAGE = package;
   }
   ''
