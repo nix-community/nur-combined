@@ -2,6 +2,11 @@
   lib,
   appimageTools,
   fetchurl,
+  writeShellApplication,
+  nushell,
+  nix,
+  binutils,
+  squashfsTools,
 }:
 
 let
@@ -55,6 +60,17 @@ appimageTools.wrapAppImage {
     substituteInPlace $out/share/applications/wechat.desktop \
       --replace-fail 'Exec=AppRun %U' 'Exec=wechat %U'
   '';
+
+  passthru.updateScript = lib.getExe (writeShellApplication {
+    name = "update-wechat";
+    runtimeInputs = [
+      nushell
+      nix
+      binutils
+      squashfsTools
+    ];
+    text = ''exec nu ${./update.nu} "$@"'';
+  });
 
   meta = {
     description = "WeChat - Messaging and calling app";

@@ -9,7 +9,13 @@
   nix-update-script,
 }:
 let
-  inherit (python3Packages) buildPythonApplication setuptools requests tqdm inquirerpy;
+  inherit (python3Packages)
+    buildPythonApplication
+    setuptools
+    requests
+    tqdm
+    inquirerpy
+    ;
 
   pname = "waydroid-script";
   version = "0-unstable-2025-08-31";
@@ -60,7 +66,11 @@ buildPythonApplication rec {
     '';
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch" ];
+    attrPath = pname;
+    extraArgs = [
+      "--flake"
+      "--version=branch"
+    ];
   };
 
   meta = with lib; {

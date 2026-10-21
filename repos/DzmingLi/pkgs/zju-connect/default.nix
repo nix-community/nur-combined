@@ -39,7 +39,10 @@ buildGoModule (finalAttrs: {
     "-w"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    attrPath = "zju-connect";
+    extraArgs = [ "--flake" ];
+  };
 
   meta = {
     mainProgram = "zju-connect";

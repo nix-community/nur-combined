@@ -22,8 +22,17 @@
         };
       });
       overlays.default = import ./overlay.nix;
-      packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
+      packages = forAllSystems (system:
+        nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system}
+        // nixpkgs.lib.optionalAttrs (system == "x86_64-linux") {
+          update = let
+            pkgs = import nixpkgs { inherit system; config.allowUnfree = true; };
+          in pkgs.callPackage ./scripts/update.nix {
+            packages = import ./default.nix { inherit pkgs; };
+          };
+        });
       homeManagerModules = (import ./modules).home-manager;
       nixosModules = (import ./modules).nixos;
+      checks.x86_64-linux.update-transactions = self.packages.x86_64-linux.update.tests.transactions;
     };
 }

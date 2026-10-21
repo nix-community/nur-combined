@@ -32,6 +32,9 @@
   webkitgtk_4_1,
   xdg-utils,
   zlib,
+  writeShellApplication,
+  nushell,
+  nix,
 }:
 
 let
@@ -133,6 +136,16 @@ stdenv.mkDerivation (finalAttrs: {
     test -x $out/lib/115life/Life115
     runHook postInstallCheck
   '';
+
+  passthru.updateScript = lib.getExe (writeShellApplication {
+    name = "update-115life";
+    runtimeInputs = [
+      nushell
+      nix
+      dpkg
+    ];
+    text = ''exec nu ${./update.nu} "$@"'';
+  });
 
   meta = {
     description = "115 Life cloud storage desktop client";

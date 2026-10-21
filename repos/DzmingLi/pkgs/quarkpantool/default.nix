@@ -52,7 +52,10 @@ python3Packages.buildPythonApplication rec {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    attrPath = "quarkpantool";
+    extraArgs = [ "--flake" ];
+  };
 
   meta = with lib; {
     description = "一个批量转存、分享和下载夸克网盘文件的命令行工具";

@@ -11,6 +11,10 @@
   coreutils,
   z3,
   zlib,
+  writeShellApplication,
+  nushell,
+  nix,
+  nix-update,
 }:
 
 let
@@ -197,6 +201,15 @@ stdenvNoCC.mkDerivation {
 
   passthru = {
     inherit cstarClang unwrapped;
+    updateScript = lib.getExe (writeShellApplication {
+      name = "update-cstar-toolchain";
+      runtimeInputs = [
+        nushell
+        nix
+        nix-update
+      ];
+      text = ''exec nu ${./update.nu} "$@"'';
+    });
     updateInfo = {
       releasePage = "https://gitee.com/cstarlang/cstar_docs/releases";
       archive = "cstar_linux-x64.tar.xz";

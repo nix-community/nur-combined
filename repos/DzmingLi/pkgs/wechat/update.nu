@@ -22,8 +22,7 @@ def update-linux [] {
     if $r != null { $prefetched = $r; break }
   }
   if $prefetched == null {
-    print -e "[linux] all download URLs failed"
-    return
+    error make { msg: "[linux] all download URLs failed" }
   }
 
   let new_hash = (^nix-hash --to-sri --type sha256 $prefetched.hash32 | str trim)
@@ -32,13 +31,13 @@ def update-linux [] {
 
   # AppImage type 2 = ELF stub + squashfs.
   # offset = e_shoff + e_shentsize * e_shnum
-  let elf_info = (^nix shell nixpkgs#binutils -c readelf -h $appimage
+  let elf_info = (^readelf -h $appimage
     | parse -r '(?<key>Start of section headers|Size of section headers|Number of section headers):\s+(?<val>\d+)'
     | reduce -f {} {|row, acc| $acc | upsert $row.key ($row.val | into int) })
   let offset = ($elf_info | get "Start of section headers") + (($elf_info | get "Size of section headers") * ($elf_info | get "Number of section headers"))
 
   let workdir = (mktemp -d)
-  ^nix shell nixpkgs#squashfsTools -c unsquashfs -q -o $offset -d $"($workdir)/sq" $appimage wechat.desktop
+  ^unsquashfs -q -o $offset -d $"($workdir)/sq" $appimage wechat.desktop
   let new_ver = (open $"($workdir)/sq/wechat.desktop" --raw
     | parse -r '(?m)^X-AppImage-Version=(?<v>.+)$'
     | first

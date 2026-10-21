@@ -4,6 +4,9 @@
   racket,
   cacert,
   runCommand,
+  writeShellApplication,
+  nushell,
+  nix,
 }:
 
 let
@@ -65,6 +68,15 @@ runCommand "racket-langserver"
     pname = "racket-langserver";
     inherit (addon) version;
     nativeBuildInputs = [ racket ];
+
+    passthru.updateScript = lib.getExe (writeShellApplication {
+      name = "update-racket-langserver";
+      runtimeInputs = [
+        nushell
+        nix
+      ];
+      text = ''exec nu ${./update.nu} "$@"'';
+    });
 
     meta = {
       description = "Language Server Protocol implementation for Racket";
