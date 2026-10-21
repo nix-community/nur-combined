@@ -24,6 +24,7 @@ How to use it:
 - [Open the URL in the browser](#open-the-url-in-the-browser)
 - [Remove a bookmark](#remove-a-bookmark)
 - [Update a bookmark](#update-a-bookmark)
+- [Browser extension](#browser-extension-native-messaging-host)
 - [Shortcut](#shortcut)
 
 Install
@@ -173,6 +174,37 @@ tempesta update <local-path> <url>
 
 tempesta update search-engines/google "https://google.com"
 ```
+
+#### Browser extension (native messaging host)
+
+The [tempesta-browser-extension](https://github.com/x71c9/tempesta-browser-extension)
+for Firefox and Chromium-based browsers reads and writes the bookmark store
+through `tempesta`, which acts as a
+[native messaging host](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Native_messaging).
+
+Register the host for every installed browser:
+
+```bash
+tempesta native-host install
+```
+
+Or for a single browser (`firefox`, `chromium`, `chrome`, `brave`, `edge`,
+`vivaldi`, `opera`):
+
+```bash
+tempesta native-host install --browser firefox
+```
+
+The manifest points to the first `tempesta` found in `$PATH`; `--path <bin>`
+overrides it. `--print` writes the manifest to stdout instead of installing it,
+for declarative setups such as Nix/home-manager:
+
+```bash
+tempesta native-host install --browser chromium --print
+```
+
+The browser starts `tempesta` with its default configuration, or with the one
+in `TEMPESTA_CONFIG` when that variable is set in the browser environment.
 
 ## Shortcut
 

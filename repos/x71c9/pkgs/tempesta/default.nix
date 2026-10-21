@@ -2,13 +2,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "tempesta";
-  version = "0.2.0"; # without "v"
+  version = "0.3.0"; # without "v"
 
   src = fetchFromGitHub {
     owner = "x71c9";
     repo = "tempesta";
     rev = "v${version}";
-    hash = "sha256-xRmUbEElbN3+F0vyk5oTMGBVzWtQQ8cup/wqHJKACss=";
+    hash = "sha256-MG/u/OGvgudQfLsiGbQ54UKy7bYa8FO17SN5UPgnYUQ=";
   };
 
   cargoLock.lockFile = ./Cargo.lock;
