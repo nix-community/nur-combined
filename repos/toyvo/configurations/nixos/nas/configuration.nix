@@ -345,7 +345,6 @@ in
       natInterface = "eno1";
       stateDir = "/mnt/POOL/nextcloud";
       mediaDir = "/mnt/POOL";
-      nextcloudAdminPasswordFile = config.sops.secrets."nextcloud_admin_password".path;
       extraAppNames = [
         "bookmarks"
         "calendar"
@@ -579,7 +578,6 @@ in
   # Nextcloud admin password bind-mounted into the nextcloud container; mode 0444 so
   # the nextcloud user inside the container can read it without UID alignment on the host.
   sops.secrets."openwebui.env".mode = "0444";
-  sops.secrets."nextcloud_admin_password".mode = "0444";
   # Bridge generates a random per-account SMTP password on first login; store it here after setup.
   sops.secrets."protonmail-bridge-smtp-password".mode = "0444";
   sops.secrets."grafana-admin-password".mode = "0444";

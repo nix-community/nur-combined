@@ -42,11 +42,6 @@ in
       description = "Media directory; used for external storage bind mounts as alternative to the smb mounts";
     };
 
-    nextcloudAdminPasswordFile = lib.mkOption {
-      type = lib.types.path;
-      description = "Path to the Nextcloud admin password file on the host (decrypted by sops; bind-mounted read-only into the container)";
-    };
-
     package = lib.mkOption {
       type = lib.types.package;
       default = pkgs.nextcloud35;
@@ -135,11 +130,6 @@ in
       localAddress = cfg.localAddress;
 
       bindMounts = {
-        # Admin password decrypted by sops on the host, made available read-only inside
-        "/run/secrets/nextcloud_admin_password" = {
-          hostPath = cfg.nextcloudAdminPasswordFile;
-          isReadOnly = true;
-        };
         "/var/lib/nextcloud" = {
           hostPath = "${cfg.stateDir}/nextcloud";
           isReadOnly = false;
@@ -179,8 +169,6 @@ in
             hostName = "nextcloud.diekvoss.net";
             package = cfg.package;
             config = {
-              adminpassFile = "/run/secrets/nextcloud_admin_password";
-              adminuser = "toyvo";
               dbtype = "pgsql";
               dbhost = "/run/postgresql";
             };
