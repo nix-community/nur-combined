@@ -2,6 +2,7 @@
   lib,
   stdenv,
   rustPlatform,
+  rust,
   fetchFromGitHub,
   bpf-linker,
   llvmPackages_22,
@@ -10,7 +11,6 @@
   iproute2,
   makeWrapper,
   ninja,
-  appendOverlays,
   symlinkJoin,
   nix-update-script,
   versionCheckHook,
@@ -27,34 +27,18 @@ rustPlatform.buildRustPackage (
       hash = "sha256-IKscfitMHK9WLHTeLqtCIFLTx/5on3uj9q2N0qsBL34=";
     };
 
-    pkgsWithRustOverlay = appendOverlays [
-      (import (fetchTarball {
-        url = "https://github.com/oxalica/rust-overlay/archive/5424e1e6dda30b0626935d2a03a6526db4858d60.tar.gz";
-        sha256 = "sha256-arni7i+yH5ZnkvAN9UotvhMml5+fZyXcMHpiOvI3WFY=";
-      }))
-    ];
-    rustForBpf = (pkgsWithRustOverlay.rust-bin.nightly."2026-07-20".minimal).override {
-      extensions = [ "rust-src" ];
+    rustPrebuilt = rust.packages.prebuilt;
+    sysroot = symlinkJoin {
+      name = "rustc-bootstrap-with-libsrc";
+      paths = [ rustPrebuilt.rustc-unwrapped ];
+      postBuild = ''
+        mkdir -p $out/lib/rustlib/src/rust
+        ln -s ${rustPlatform.rustLibSrc} $out/lib/rustlib/src/rust/library
+      '';
     };
+    rustcWithLibSrc = rustPrebuilt.rustc.override { inherit sysroot; };
     bpf-linker-using-llvm = bpf-linker.override {
       llvmPackagesForLinker = llvmPackages_22;
-    };
-
-    crateCargoDeps = rustPlatform.fetchCargoVendor {
-      inherit version src;
-      pname = "honk-ebpf";
-      cargoRoot = "crates/honk-ebpf";
-      hash = "sha256-4amHt9G5oGTogEyBQysZsTZJjMkMW0p3urzFm1y5nWE=";
-    };
-    # `-Zbuild-std=core` builds core from the toolchain's rust-src; its
-    # workspace lock has registry dependencies the crate vendor lacks. Vendor
-    # them separately and merge, so the build stays offline.
-    stdCargoDeps = rustPlatform.fetchCargoVendor {
-      pname = "honk-ebpf-std";
-      version = "1.99.0-nightly-2026-07-20";
-      src = rustForBpf;
-      cargoRoot = "lib/rustlib/src/rust/library";
-      hash = "sha256-q/scbT50qB0Qhoqsoa6/QJOHIuN7GTS9B1bdHRJXfZ8=";
     };
 
     # crates/honk-ebpf is excluded from the workspace and pins its own toolchain
@@ -71,23 +55,28 @@ rustPlatform.buildRustPackage (
       noAuditTmpdir = true;
 
       cargoRoot = "crates/honk-ebpf";
-      cargoDeps = symlinkJoin {
-        name = "honk-ebpf-cargo-deps";
-        paths = [
-          crateCargoDeps
-          stdCargoDeps
-        ];
+      cargoDeps = rustPlatform.fetchCargoVendor {
+        inherit (finalAttrs) version src;
+        pname = "honk-ebpf";
+        cargoRoot = "crates/honk-ebpf";
+        hash = "sha256-4amHt9G5oGTogEyBQysZsTZJjMkMW0p3urzFm1y5nWE=";
       };
 
       nativeBuildInputs = [
         rustPlatform.cargoSetupHook
         bpf-linker-using-llvm
-        rustForBpf
+        rustcWithLibSrc
+        rustPrebuilt.cargo
       ];
 
-      # The upstream eBPF toolchain is the pinned nightly
-      # (crates/honk-ebpf/rust-toolchain.toml); rust-bin provides it, and the
-      # rust-src extension lets `-Zbuild-std` build core for bpfel-unknown-none.
+      env.RUSTC_BOOTSTRAP = "1";
+
+      preUnpack = ''
+        copyRustVendor() {
+          cp -a ${rustPlatform.rustVendorSrc}/. "$cargoDepsCopy/source-registry-0/"
+        }
+        postUnpackHooks+=(copyRustVendor)
+      '';
 
       buildPhase = ''
         runHook preBuild
