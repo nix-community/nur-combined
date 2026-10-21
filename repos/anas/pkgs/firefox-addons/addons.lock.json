@@ -1,7 +1,7 @@
 [
   {
     "addonId": "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}",
-    "hash": "sha256:77e7a630e3ab378440c3924e57450db88bf262803608b1a47430f3cc8c5294f6",
+    "hash": "sha256:cdd4d4467e7e091469f6edad0213461d90736f6e7fc8234666525cca763753c3",
     "homepage": "https://webextension.org/listing/tab-discard.html",
     "licenseId": 3338,
     "permissions": [
@@ -15,12 +15,12 @@
     ],
     "slug": "auto-tab-discard",
     "summary": "Increase browser speed and reduce memory load and when you have numerous open tabs.",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5090327/auto_tab_discard-0.7.5.xpi",
-    "version": "0.7.5"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5111461/auto_tab_discard-0.7.7.xpi",
+    "version": "0.7.7"
   },
   {
     "addonId": "{a8cf72f7-09b7-4cd4-9aaa-7a023bf09916}",
-    "hash": "sha256:e2791936eff6245621789ca3546abfedd6e92d44aaf66e644956294e794c0e55",
+    "hash": "sha256:c6510e899e35d2ab32451a216176a4a31299fc5c70a2840ef4554c76f3d57085",
     "homepage": "https://time-tracker-4-browser.app/en/",
     "licenseId": 22,
     "permissions": [
@@ -32,8 +32,8 @@
     ],
     "slug": "besttimetracker",
     "summary": "Track time, analyze your habits and block addictive sites",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5048157/besttimetracker-4.6.3.xpi",
-    "version": "4.6.3"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5132235/besttimetracker-4.6.5.xpi",
+    "version": "4.6.5"
   },
   {
     "addonId": "{74145f27-f039-47ce-a470-a662b129930a}",
@@ -254,7 +254,7 @@
   },
   {
     "addonId": "{5cce4ab5-3d47-41b9-af5e-8203eea05245}",
-    "hash": "sha256:283e844c870939df9dec4be8a840c5a9e3b2c42c0223a87dbf5cea34822d3a8b",
+    "hash": "sha256:8af1388ce0c9edf27fad3d2fac480591c03389fa7090029a718b63eee14f5d6c",
     "homepage": "https://soitis.dev/control-panel-for-twitter",
     "licenseId": 22,
     "permissions": [
@@ -266,8 +266,8 @@
     ],
     "slug": "control-panel-for-twitter",
     "summary": "Gives you more control over Twitter and adds missing features and UI improvements",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5086598/control_panel_for_twitter-4.24.4.xpi",
-    "version": "4.24.4"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5115146/control_panel_for_twitter-4.25.1.xpi",
+    "version": "4.25.1"
   },
   {
     "addonId": "crxviewer-firefox@robwu.nl",
@@ -388,7 +388,7 @@
   },
   {
     "addonId": "keepassxc-browser@keepassxc.org",
-    "hash": "sha256:4df9c54e0a293aa2e37e9bcf97ec307a35a00e78cebaa9a68edba552c07c4568",
+    "hash": "sha256:ae41157a3f017b0773abba2097d5b0056241631d0a38ad36d68d0b24b1a409c1",
     "homepage": "https://keepassxc.org/",
     "licenseId": 6,
     "permissions": [
@@ -410,8 +410,8 @@
     ],
     "slug": "keepassxc-browser",
     "summary": "Official browser plugin for the KeePassXC password manager (https://keepassxc.org).",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/4831838/keepassxc_browser-1.10.3.xpi",
-    "version": "1.10.3"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5078406/keepassxc_browser-1.10.4.1.xpi",
+    "version": "1.10.4.1"
   },
   {
     "addonId": "7esoorv3@alefvanoon.anonaddy.me",
@@ -1005,7 +1005,7 @@
   },
   {
     "addonId": "{531906d3-e22f-4a6c-a102-8057b88a1a63}",
-    "hash": "sha256:a935081a8b46a580b4ec1230f272569a280866570fbe1047031a4aed76886b67",
+    "hash": "sha256:f1b279ade586df54cdd9e61dc6d2bf9e73dbebe21c377bab2afd00e9553626e5",
     "homepage": "https://www.getsinglefile.com",
     "licenseId": 7714,
     "permissions": [
@@ -1018,8 +1018,8 @@
     ],
     "slug": "single-file",
     "summary": "Save an entire web page—including images and styling—as a single HTML file.",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5084732/single_file-1.28.1.xpi",
-    "version": "1.28.1"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5141757/single_file-1.31.5.xpi",
+    "version": "1.31.5"
   },
   {
     "addonId": "sponsorBlocker@ajay.app",
@@ -1041,7 +1041,7 @@
   },
   {
     "addonId": "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}",
-    "hash": "sha256:51d4efd6aa6484a749b97e36222f7bbe2ff699ed16b9a13adf40ecb6a0597081",
+    "hash": "sha256:6ea20f86a2015e3e7a639e2dbb13bc0d63461fdfdb80d7138c3f8e8924e4fb1c",
     "homepage": "https://add0n.com/stylus.html",
     "licenseId": 6,
     "permissions": [
@@ -1058,8 +1058,8 @@
     ],
     "slug": "styl-us",
     "summary": "Redesign your favorite websites with Stylus, an actively developed and community driven userstyles manager. Easily install custom themes from popular online repositories, or create, edit, and manage your own personalized CSS stylesheets.",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5044316/styl_us-2.4.14.xpi",
-    "version": "2.4.14"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5142667/styl_us-2.4.17.xpi",
+    "version": "2.4.17"
   },
   {
     "addonId": "Tab-Session-Manager@sienori",
