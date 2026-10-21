@@ -3,7 +3,6 @@
 }:
 let
   packages = rec {
-    cf = pkgs.callPackage ./pkgs/cf { };
     codex-bin = pkgs.callPackage ./pkgs/codex-bin { };
     delta = pkgs.callPackage ./pkgs/delta { };
     deepseek-harness = pkgs.callPackage ./pkgs/deepseek-harness { };
