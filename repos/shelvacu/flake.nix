@@ -2,9 +2,9 @@
   description = "Configs for shelvacu's nix things";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-26.05";
+    nixpkgs.url = "nixpkgs/nixos-26.05-small";
     nixpkgs-lib.url = "github:nix-community/nixpkgs.lib";
-    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "nixpkgs/nixos-unstable-small";
 
     # keep-sorted start block=yes
     colin = {
