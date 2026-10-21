@@ -61,7 +61,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>cocoa-way</code></strong> — Native macOS Wayland compositor for running Linux apps</summary>
 
-- **Version:** `2.1.0`
+- **Version:** `2.1.1`
 - **License:** GPL-3.0-only
 - **Homepage:** [https://github.com/J-x-Z/cocoa-way](https://github.com/J-x-Z/cocoa-way)
 - **Build:** `nix build github:XYenon/nur-packages#cocoa-way`
@@ -141,7 +141,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>magpie</code></strong> — Manage models, providers, and accounts for AI coding agents in one place</summary>
 
-- **Version:** `0.1.1296`
+- **Version:** `0.1.1306`
 - **License:** MIT
 - **Homepage:** [https://github.com/yetone/magpie](https://github.com/yetone/magpie)
 - **Build:** `nix build github:XYenon/nur-packages#magpie`

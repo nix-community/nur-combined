@@ -52,13 +52,13 @@ buildGoModule (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "magpie";
-  version = "0.1.1296";
+  version = "0.1.1306";
 
   src = fetchFromGitHub {
     owner = "yetone";
     repo = "magpie";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-mauCE69gf3nzW58sQfTtDVtPAjZ4X7qnkDVbAB6ANEQ=";
+    hash = "sha256-Dan0OLBd6IZb5vMq6b3pShbPGxxfRGTdSnMPwrccUjw=";
   };
 
   vendorHash = "sha256-pBk3sQZ9/1sVdz2ZteBGgQrI49fDfgsQ8ur7pzM477A=";
@@ -103,6 +103,8 @@ buildGoModule (finalAttrs: {
     xcbuild
     darwin.adv_cmds
   ];
+  # Darwin's pgrep is unavailable in the Nix build environment.
+  checkFlags = lib.optionals stdenv.hostPlatform.isDarwin [ "-skip=^TestRunningNeedsNoPs$" ];
   checkPhase = ''
     runHook preCheck
     export GOFLAGS=''${GOFLAGS//-trimpath/}
