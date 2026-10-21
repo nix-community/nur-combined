@@ -51,6 +51,7 @@ let
     "i2c-hid"
     "i2c-hid-acpi"
     "wacom"
+    "leds_cht_wcove"
     "drv260x"
     "hideep"
     "uinput"
