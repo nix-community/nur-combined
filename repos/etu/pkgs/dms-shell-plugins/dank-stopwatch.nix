@@ -6,13 +6,13 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-dank-stopwatch";
-  version = "0-unstable-2026-05-25";
+  version = "0-unstable-2026-10-20";
 
   src = fetchFromGitHub {
     owner = "NordicsSys";
     repo = "dankStopwatch";
-    rev = "76004b9f2f08da010a80096c5d48e6ef41390fdc";
-    hash = "sha256-PuE65aisBVp+J7t5UYlc2B7uf4Ci+ScNX9iyo08xIVg=";
+    rev = "97c0350fb28e2b89f2f3456ddfd98f2791ebfe81";
+    hash = "sha256-j1Zqn1Yc/U2bSQXhZOww33Ks14F3S66jriWsYqah+Ug=";
   };
 
   dontBuild = true;
