@@ -49,19 +49,6 @@
             inherit value;
           }
         );
-      nix-updatePkg =
-        system:
-        (nix-update.packages.${system}.nix-update.overrideAttrs (prevAttrs: {
-          makeWrapperArgs =
-            if lib.lists.hasPrefix [ "--prefix PATH" ] prevAttrs.makeWrapperArgs then
-              [
-                "--prefix"
-                "PATH"
-              ]
-              ++ lib.lists.drop 1 prevAttrs.makeWrapperArgs
-            else
-              prevAttrs.makeWrapperArgs;
-        }));
     in
     {
       lib = import ./lib.nix { inherit lib; };
@@ -91,7 +78,7 @@
             nativeBuildInputs = [
               pkgs.git
               pkgs.nix
-              (nix-updatePkg system)
+              nix-update.packages.${system}.nix-update
               pkgs.nix-fast-build
               pkgs.zizmor
             ];
@@ -104,7 +91,7 @@
         system:
         import ./default.nix {
           pkgs = pkgsFor.${system};
-          nix-update = nix-updatePkg system;
+          nix-update = nix-update.packages.${system}.nix-update;
         }
       );
       packages = forAllSystems (
