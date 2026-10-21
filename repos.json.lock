@@ -719,8 +719,8 @@
             "url": "https://github.com/cwyc/nur-packages"
         },
         "dagger": {
-            "rev": "21ee7262e0ccfffba6bd43c9044fb4c5c8db2d91",
-            "sha256": "0ycnjlqhybl0558vqk16ghyam78q5y6dhl1k9bnvk7scwi2w2ks1",
+            "rev": "8b9a96f1d7cd8afefb8c13c4f4a092aa5b58c7c1",
+            "sha256": "0d0ff2185n1c9a3v88bzcfxb9glib3k4z9hb4cwc29misc2lncsi",
             "url": "https://github.com/dagger/nix"
         },
         "dan4ik605743": {
@@ -2404,6 +2404,11 @@
             "sha256": "1ryyc11hj9szq9zwl913vd3waiyfass792c0s6c0shpxdmp45rk2",
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
         },
+        "shelvacu": {
+            "rev": "e11b53f93d44ef1e8561c87788e8cb10a57a6a56",
+            "sha256": "1kh8v2q5mnpxlyp6iahp5v61v0sv0rhk30jg95nas63dc3bh74bx",
+            "url": "https://git.uninsane.org/shelvacu/nix-stuff"
+        },
         "shirok1": {
             "rev": "ac4eeea3e492c74c618981d09363e3974b602c9d",
             "sha256": "1bqmam5rmlz27d4frh52pz6kxzfq19vrbp1xxy6ndywzkzm7qvdk",
@@ -2647,8 +2652,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "a7c66467d5da21d81409f4d8551faac915d473a6",
-            "sha256": "1ipxwiyisa9kzvz67y8qqwcxbc6qqdrlsxkgzd4sjd5r3a2i1pvc",
+            "rev": "5acc3a8cdc0b1a3fcdae25e17bdb65c4b79bfb01",
+            "sha256": "1hnb5pbhbygjczsbaylx57769hq1pk1xgmcqjb01w1dwyipm1iqh",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
