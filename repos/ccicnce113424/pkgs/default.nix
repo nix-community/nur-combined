@@ -89,6 +89,8 @@ lib.makeScope pkgs.newScope (
 
     honk-core = self.callPackage ./honk-core/package.nix { };
 
+    honk-tool = self.callPackage ./honk-tool/package.nix { };
+
     jj-lsp = self.callPackage ./jj-lsp rec {
       sources = fetchedSrc.jj-lsp;
       inherit (sources) version;

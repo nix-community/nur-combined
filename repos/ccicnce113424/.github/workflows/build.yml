@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
+      checks-matrix: ${{ steps.set-matrix.outputs.checks-matrix }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
@@ -25,11 +26,13 @@ jobs:
             accept-flake-config = true
 
       - id: set-matrix
-        name: Generate Nix Matrix
+        name: Generate Nix Matrices
         run: |
           set -Eeu
           matrix="$(nix eval --json '.#githubActions.build.matrix')"
           echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+          checks_matrix="$(nix eval --json '.#githubActions.check.matrix')"
+          echo "checks-matrix=$checks_matrix" >> "$GITHUB_OUTPUT"
 
   nix-build:
     name: ${{ matrix.name }} (${{ matrix.system }})
@@ -59,31 +62,52 @@ jobs:
         run: |
           nix build -L '.#${{ matrix.attr }}'
 
-  check-flake:
-    runs-on: ubuntu-latest
-    name: Check Flake
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v7
-
-      - name: Install Nix
-        uses: nixbuild/nix-quick-install-action@v35
-        with:
-          nix_conf: |
-            accept-flake-config = true
-
-      - name: Check Nix Flake
-        run: |
-          nix flake check -L
-
-  all:
-    name: All
+  all-builds:
+    name: All Builds
     needs:
       - nix-build
-      - check-flake
     runs-on: ubuntu-latest
     if: ${{ success() }}
     steps:
       - name: All matrix builds succeeded
         run: |
           echo "All matrix builds succeeded."
+
+  nix-check:
+    name: Check ${{ matrix.name }} (${{ matrix.system }})
+    needs: nix-matrix
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix: ${{fromJSON(needs.nix-matrix.outputs.checks-matrix)}}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            accept-flake-config = true
+
+      - name: Set up Cachix
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: cachix/cachix-action@v17
+        with:
+          name: ccicnce113424
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+      - name: Build
+        run: |
+          nix build -L '.#${{ matrix.attr }}'
+
+  all-checks:
+    name: All Checks
+    needs:
+      - nix-check
+    runs-on: ubuntu-latest
+    if: ${{ success() }}
+    steps:
+      - name: All checks succeeded
+        run: |
+          echo "All checks succeeded."

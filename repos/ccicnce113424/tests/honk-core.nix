@@ -31,6 +31,7 @@
 
         services.honk-core = {
           enable = true;
+          tool.enable = true;
 
           # honk only hijacks the interfaces it is told about; `eth1` is the
           # one carrying this host's traffic.
@@ -47,6 +48,21 @@
     server.wait_for_unit("nginx.service")
 
     machine.wait_for_open_port(9527)
+
+    # honk-tool comes from the module wrapper: DAE_LOCATION_ASSET points at
+    # the same asset set as the service, so the geo subcommands need no flags.
+    machine.succeed("honk-tool --version")
+    machine.succeed("honk-tool geosite list | grep -q '^GOOGLE '")
+    machine.succeed("honk-tool geoip list | grep -q '^CN '")
+
+    # The package wrapper puts iproute2 on honk-tool's PATH; diagnose runs
+    # `ip netns exec`, so an empty caller PATH must still reach `ip rule list`.
+    status, out = machine.execute(
+        "/run/current-system/sw/bin/env PATH=/nonexistent "
+        "/run/current-system/sw/bin/honk-tool diagnose --api=",
+        check_return=False,
+    )
+    assert "fwmark" in out, out
 
     # The nfqueue switch (on by default) loads the netlink family.
     machine.succeed("test -d /sys/module/nfnetlink_queue")

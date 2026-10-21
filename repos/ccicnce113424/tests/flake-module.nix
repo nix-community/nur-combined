@@ -44,6 +44,7 @@
           defaults = {
             services.honk-core.package = self'.packages.honk-core;
             services.honk-core.doona.package = self'.packages.doona-web;
+            services.honk-core.tool.package = self'.packages.honk-tool;
           };
         };
         # keep-sorted end

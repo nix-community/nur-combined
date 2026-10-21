@@ -26,7 +26,7 @@ flowchart LR
   scope --> out["packages / overlays.default / nixosModules"]
 ```
 
-CI update loop: `update-packages.yml` (daily) spreads every update unit (each package's `passthru.updateScript`, plus nvfetcher-only sources) across a job matrix → per-unit PRs labeled `dependencies` → the Mergify merge queue rebase-merges each one against the latest main once the `All` gate passes on the combined result. `flake.lock` is kept fresh by dependabot (`nix` ecosystem); manual runs go through `Update Packages` (with a `units` filter) and `update-flake-lock.yml`. Push to main also triggers NUR update + Cachix push.
+CI update loop: `update-packages.yml` (daily) spreads every update unit (each package's `passthru.updateScript`, plus nvfetcher-only sources) across a job matrix → per-unit PRs labeled `dependencies` → the Mergify merge queue rebase-merges each one against the latest main once the `All Builds` and `All Checks` gates pass on the combined result. `flake.lock` is kept fresh by dependabot (`nix` ecosystem); manual runs go through `Update Packages` (with a `units` filter) and `update-flake-lock.yml`. Push to main also triggers NUR update + Cachix push.
 
 ## Key Directories
 
@@ -126,5 +126,5 @@ daed = pkgs.testers.runNixOSTest {
 - Test file shape (`tests/daed.nix`): `{ lib, ... }: { name; meta.maintainers; nodes.<n> = { services.<name>.enable = true; ... }; testScript = '' ... ''; }` — Python driver DSL asserting service behavior (`wait_for_unit`, `wait_for_open_port`, `machine.succeed "curl ..."`), not versions/file lists.
 - Run: all = `nix flake check -L` (also evaluates the flake and runs the treefmt check); single = `nix build -L .#checks.x86_64-linux.<name>`. VM tests need KVM/QEMU.
 - New tests are for packages that ship a NixOS module: add `tests/<name>.nix` + keep-sorted entry above.
-- Coverage: only `daed` and `honk-core` have tests; everything else is verified solely by the CI build matrix (`nix build` of every non-broken package). CI gate job is `All` (`build.yml`).
+- Coverage: only `daed` and `honk-core` have tests; everything else is verified solely by the CI build matrix (`nix build` of every non-broken package). CI gate jobs are `All Builds` and `All Checks` (`build.yml`).
 - Caveat: `passthru.tests` in `pkgs/daed/package.nix` points at nixpkgs' `nixosTests.daed`, which does not exist in the pinned nixpkgs — the repo's `checks.daed` is the authoritative wiring.

@@ -2,9 +2,11 @@ queue_rules:
   - name: default
     merge_method: rebase
     queue_conditions:
-      - check-success=All
+      - check-success=All Builds
+      - check-success=All Checks
     merge_conditions:
-      - check-success=All
+      - check-success=All Builds
+      - check-success=All Checks
     batch_size:
       min: 1
       max: 8
