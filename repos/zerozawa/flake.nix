@@ -1,6 +1,6 @@
 {
   description = "zerozawa's NUR repository";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/master";
   nixConfig = {
     extra-substituters = [
       "https://zerozawa.cachix.org"

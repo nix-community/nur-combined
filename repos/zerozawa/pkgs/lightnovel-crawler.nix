@@ -8,6 +8,13 @@
   calibre,
 }:
 let
+  # calibre 只用来提供 ebook-convert。默认 speechSupport 会拖进 speechd 和
+  # piper-tts，而 piper-tts 又拉 onnxruntime / pyopenjtalk-plus：closure 巨大，
+  # 且这条链的测试很脆（nixpkgs master 上 calibre 的 test_speech_dispatcher
+  # 就因缺 speechd 的 python 绑定直接报错）。朗读功能我们用不到，关掉
+  calibre' = calibre.override {
+    speechSupport = false;
+  };
   # exejs — JS execution engine, replaces PyExecJS
   exejs = python3Packages.buildPythonPackage rec {
     pname = "exejs";
@@ -220,7 +227,7 @@ python3Packages.buildPythonApplication rec {
     # Wrap all entry points to inject Calibre PATH for ebook-convert
     for binary in $out/bin/lncrawl $out/bin/lightnovel-crawler $out/bin/lightnovel_crawler; do
       if [ -e "$binary" ]; then
-        wrapProgram "$binary" --prefix PATH : "${calibre}/bin"
+        wrapProgram "$binary" --prefix PATH : "${calibre'}/bin"
       fi
     done
   '';
