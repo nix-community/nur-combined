@@ -3,7 +3,7 @@
   inputs = {
     nixpkgs-protobuf320.url = "github:NixOS/nixpkgs/656b40c807e4c4965198a68d1f784492397fef6c";
     nixpkgs-protobuf293.url = "github:NixOS/nixpkgs/3a7baab73a629847afbcca8a52765c0b5fec49ae";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.zst";
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
