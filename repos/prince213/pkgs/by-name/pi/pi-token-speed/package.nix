@@ -6,7 +6,7 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "pi-token-speed";
-  version = "0.11.0";
+  version = "0.12.0";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -15,14 +15,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     owner = "gsanhueza";
     repo = "pi-token-speed";
     tag = finalAttrs.version;
-    hash = "sha256-o58k3OJQPVTQ5rSGvpk+bnCdFz6e28IE9lZY949nQa0=";
+    hash = "sha256-P6u5Og9SkEY6UQdx8IsV4xl4gBECUXHeofi6FxGDm/Q=";
   };
 
   installPhase = ''
     runHook preInstall
 
     mkdir $out
-    cp -r index.ts src package.json $out
+    cp -r src package.json $out
 
     runHook postInstall
   '';
