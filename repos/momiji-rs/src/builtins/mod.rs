@@ -839,7 +839,8 @@ pub(super) fn clamp01(v: f64) -> f64 {
 
 /// Preserve an unknown function call verbatim as an unquoted CSS string.
 /// Plain CSS has no keyword arguments, and a value with no CSS
-/// representation (an empty unbracketed list, a map) is rejected — while
+/// representation (an empty unbracketed list; a map or a first-class
+/// function, mixin or module, nested in a list too) is rejected — while
 /// `null` serializes to nothing and a bracketed empty list stays `[]`
 /// (dart-sass).
 fn plain_css_function(
@@ -860,13 +861,15 @@ fn plain_css_function(
             Value::List(l) if l.items.is_empty() && !l.bracketed => {
                 return Err(Error::at("() isn't a valid CSS value.", pos));
             }
-            Value::Map(_) => {
-                return Err(Error::at(
-                    format!("{} isn't a valid CSS value.", v.to_inspect_message()),
-                    pos,
-                ));
+            _ => {
+                if let Some(bad) = crate::eval::find_not_css(v) {
+                    return Err(Error::at(
+                        format!("{} isn't a valid CSS value.", bad.to_inspect_message()),
+                        pos,
+                    ));
+                }
+                parts.push(v.to_css(false));
             }
-            _ => parts.push(v.to_css(false)),
         }
     }
     Ok(Value::Str(SassStr {
@@ -1421,6 +1424,7 @@ static META_MEMBERS: Members = Members {
         f("module-mixins", None, &["module"], 1),
         f("get-function", None, &["name", "css", "module"], 1),
         f("get-mixin", None, &["name", "module"], 1),
+        f("get-module", None, &["module"], 1),
         f_kw("call", None, &["function", "args..."], 1),
     ],
     mixins: &["load-css", "apply"],
@@ -1439,8 +1443,20 @@ static META_MEMBERS: Members = Members {
 /// a namespace that is not a built-in; the caller has resolved the namespace
 /// by then.
 pub(crate) fn module_function_names(module: &str) -> Vec<&'static str> {
-    members_of(module).map_or_else(Vec::new, |m| m.functions.iter().map(|f| f.name).collect())
+    members_of(module).map_or_else(Vec::new, |m| {
+        m.functions
+            .iter()
+            .map(|f| f.name)
+            .filter(|n| !(module == "meta" && UNANNOUNCED_META.contains(n)))
+            .collect()
+    })
 }
+
+/// `sass:meta` members of dart-sass 1.105 that this build implements but
+/// does not list yet. CI's parity runs against the pinned dart (1.104.1),
+/// whose `meta.module-functions("meta")` has none of them; they join the list
+/// in the pin flip that completes #281 (#284).
+const UNANNOUNCED_META: &[&str] = &["get-module"];
 
 /// A built-in module's MIXIN members, in dart's order.
 pub(crate) fn module_mixin_names(module: &str) -> &'static [&'static str] {

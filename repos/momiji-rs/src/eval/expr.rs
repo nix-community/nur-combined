@@ -324,6 +324,12 @@ impl<'a> Evaluator<'a> {
                     // dart-sass rejects it ("Undefined operation \"-calc(…)\".").
                     UnOp::Neg => match v {
                         Value::Number(n) => Ok(Value::Number(n.copy_units(-n.value))),
+                        // A module has no negation either; dart writes the
+                        // operand in parentheses, however it was spelled.
+                        Value::Module(_) => Err(Error::unpositioned(format!(
+                            "Undefined operation \"-({})\".",
+                            v.to_css(false)
+                        ))),
                         Value::Calc(_) => Err(Error::unpositioned(format!(
                             "Undefined operation \"-{}\".",
                             v.to_css(false)
@@ -345,7 +351,8 @@ impl<'a> Evaluator<'a> {
                     // rejected the same way.
                     UnOp::Plus => match v {
                         Value::Number(_) => Ok(v),
-                        Value::Calc(_) => Err(Error::unpositioned(format!(
+                        // A module has no unary plus either.
+                        Value::Calc(_) | Value::Module(_) => Err(Error::unpositioned(format!(
                             "Undefined operation \"+{}\".",
                             v.to_css(false)
                         ))),
@@ -462,6 +469,11 @@ impl<'a> Evaluator<'a> {
                     // STRING, and dart builds one with the default style
                     // whatever the output style is.
                     let v = self.eval_expr(&a.value)?;
+                    // As on the direct plain-CSS call path, a value with no
+                    // CSS form is rejected rather than written into the call.
+                    if let Some(msg) = css_value_error_msg(&v) {
+                        return Err(Error::at(msg, *pos));
+                    }
                     parts.push(v.to_css(false));
                 }
                 Ok(Value::Str(SassStr {

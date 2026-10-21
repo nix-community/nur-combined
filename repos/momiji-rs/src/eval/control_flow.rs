@@ -727,7 +727,7 @@ impl<'a> Evaluator<'a> {
             }
             if !self.used_modules.contains_key(ns) {
                 return Err(
-                    Error::at(format!("There is no module with the namespace \"{ns}\"."), pos)
+                    Error::at(format!("There is no module with namespace \"{ns}\"."), pos)
                         .with_length(full_length),
                 );
             }

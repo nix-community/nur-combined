@@ -48,6 +48,54 @@ pub(crate) enum Value {
     // the inline struct is larger than Value's 64-byte budget. Mixins are never
     // emitted as CSS, so the indirection is off every hot path.
     Mixin(Box<SassMixin>),
+    /// A first-class module (`meta.get-module(...)`, dart-sass 1.105), which
+    /// the `sass:meta` functions take as their `$module`. Not a valid CSS
+    /// value; `inspect` renders it as `get-module("name")`.
+    Module(std::rc::Rc<SassModule>),
+}
+
+/// A first-class module reference.
+pub(crate) struct SassModule {
+    /// What `inspect` names it: the default namespace of the module's URL,
+    /// whatever namespace it was loaded under (`sass:math as m` inspects as
+    /// `get-module("math")`). `None` when that is no Sass identifier
+    /// (`@use "1"` inspects as `get-module()`).
+    pub name: Option<String>,
+    pub target: ModuleTarget,
+}
+
+/// The module a [`SassModule`] refers to.
+pub(crate) enum ModuleTarget {
+    /// A built-in `sass:*` module, by name.
+    Builtin(&'static str),
+    /// A user module, type-erased like a callable's definition to break the
+    /// `eval` -> `value` cycle.
+    User(std::rc::Rc<dyn std::any::Any>),
+}
+
+impl PartialEq for SassModule {
+    /// The same module, however it was reached: two namespaces bound to one
+    /// loaded module compare equal, as in dart.
+    fn eq(&self, other: &Self) -> bool {
+        match (&self.target, &other.target) {
+            (ModuleTarget::Builtin(a), ModuleTarget::Builtin(b)) => a == b,
+            (ModuleTarget::User(a), ModuleTarget::User(b)) => std::ptr::eq(
+                std::rc::Rc::as_ptr(a) as *const (),
+                std::rc::Rc::as_ptr(b) as *const (),
+            ),
+            _ => false,
+        }
+    }
+}
+
+impl SassModule {
+    /// The `inspect()` form, `get-module("name")` (dart-sass).
+    pub(crate) fn inspect(&self) -> String {
+        match &self.name {
+            Some(n) => format!("get-module(\"{n}\")"),
+            None => "get-module()".to_string(),
+        }
+    }
 }
 
 /// `Value` is moved/cloned constantly (every scope slot, every `Vec<Value>`
@@ -211,6 +259,12 @@ pub(crate) struct MixinOrigin {
     /// up by `diag_url`: display names are not unique across custom importers
     /// (two canonical URLs may share a last segment), the canonical URL is.
     pub source: Rc<str>,
+}
+
+impl std::fmt::Debug for SassModule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(&self.inspect())
+    }
 }
 
 impl std::fmt::Debug for SassMixin {
@@ -1131,6 +1185,7 @@ impl Value {
             // error and for `inspect`.
             Value::Function(func) => func.inspect(),
             Value::Mixin(m) => m.inspect(),
+            Value::Module(m) => m.inspect(),
         }
     }
 
@@ -1234,6 +1289,7 @@ impl Value {
             Value::Calc(_) => "calculation",
             Value::Function(_) => "function",
             Value::Mixin(_) => "mixin",
+            Value::Module(_) => "module",
         }
     }
 
@@ -1307,6 +1363,8 @@ impl Value {
             // Mixin references: built-ins by name, user mixins by the identity
             // of their captured definition (see `SassMixin`).
             (Value::Mixin(a), Value::Mixin(b)) => a == b,
+            // Modules: the same loaded module, however it was reached.
+            (Value::Module(a), Value::Module(b)) => a == b,
             _ => false,
         }
     }

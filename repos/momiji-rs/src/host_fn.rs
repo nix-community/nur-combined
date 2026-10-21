@@ -547,6 +547,10 @@ fn serialize_value(out: &mut Vec<u8>, v: &Value) -> Result<(), String> {
             out.push(TAG_MIXIN);
             put_u32(out, push_handle(v.clone()));
         }
+        // The host side has no module value yet (dart's JS `SassModule`, #281).
+        Value::Module(_) => {
+            return Err("sasso: module values are not supported as custom-function values yet".into());
+        }
     }
     Ok(())
 }

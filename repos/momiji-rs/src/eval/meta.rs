@@ -45,7 +45,80 @@ fn resolve_forwarded(
     None
 }
 
+/// The module a `$module` argument names (see [`Evaluator::module_ref`]).
+pub(super) enum ModuleRef {
+    User(Rc<Module>),
+    Builtin(&'static str),
+}
+
 impl<'a> Evaluator<'a> {
+    /// The module a `$module` argument names: a namespace this scope has
+    /// `@use`d, or a first-class module value (dart-sass 1.105, from
+    /// `meta.get-module` or `meta.load`).
+    pub(super) fn module_ref(&self, v: &Value, pos: Pos) -> Result<ModuleRef, Error> {
+        match v {
+            Value::Str(s) => self.module_by_namespace(&s.text, pos),
+            Value::Module(m) => Ok(match &m.target {
+                crate::value::ModuleTarget::Builtin(name) => ModuleRef::Builtin(name),
+                crate::value::ModuleTarget::User(user) => ModuleRef::User(
+                    Rc::clone(user)
+                        .downcast::<Module>()
+                        .expect("a user module value holds a Module"),
+                ),
+            }),
+            other => Err(Error::at(
+                format!(
+                    "$module: {} is neither a string nor a module reference.",
+                    other.to_inspect_message()
+                ),
+                pos,
+            )),
+        }
+    }
+
+    /// `meta.get-module($module)`: a first-class reference to the module this
+    /// scope `@use`d under namespace `$module`, or `$module` itself when it is
+    /// one already.
+    fn meta_get_module(
+        &self,
+        pos_args: &[Value],
+        named: &[(String, Value)],
+        pos: Pos,
+    ) -> Result<Value, Error> {
+        let v = pos_args
+            .first()
+            .or_else(|| named.iter().find(|(n, _)| n == "module").map(|(_, v)| v))
+            .ok_or_else(|| Error::at("Missing argument $module.", pos))?;
+        if let Value::Module(_) = v {
+            return Ok(v.clone());
+        }
+        let (name, target) = match self.module_ref(v, pos)? {
+            ModuleRef::Builtin(builtin) => (
+                Some(builtin.to_string()),
+                crate::value::ModuleTarget::Builtin(builtin),
+            ),
+            ModuleRef::User(module) => (
+                module.default_name.clone(),
+                crate::value::ModuleTarget::User(module as Rc<dyn std::any::Any>),
+            ),
+        };
+        Ok(Value::Module(Rc::new(crate::value::SassModule { name, target })))
+    }
+
+    /// The module this scope `@use`d under namespace `ns`.
+    fn module_by_namespace(&self, ns: &str, pos: Pos) -> Result<ModuleRef, Error> {
+        if let Some(m) = self.used_user_modules.get(ns) {
+            return Ok(ModuleRef::User(Rc::clone(m)));
+        }
+        if let Some(&builtin) = self.used_modules.get(ns) {
+            return Ok(ModuleRef::Builtin(builtin));
+        }
+        Err(Error::at(
+            format!("There is no module with namespace \"{ns}\"."),
+            pos,
+        ))
+    }
+
     /// Dispatch a namespaced call `ns.member(args)`. Resolves a user module
     /// first, then a built-in module bound to `ns`.
     pub(super) fn eval_module_call(
@@ -83,7 +156,7 @@ impl<'a> Evaluator<'a> {
             Some(m) => *m,
             None => {
                 return Err(
-                    Error::at(format!("There is no module with the namespace \"{ns}\"."), pos)
+                    Error::at(format!("There is no module with namespace \"{ns}\"."), pos)
                         .with_length(length),
                 );
             }
@@ -160,6 +233,7 @@ impl<'a> Evaluator<'a> {
             "content-exists" => Some(self.meta_content_exists(pos_args, pos)),
             "get-function" => Some(self.meta_get_function(pos_args, named, pos)),
             "get-mixin" => Some(self.meta_get_mixin(pos_args, named, pos)),
+            "get-module" => Some(self.meta_get_module(pos_args, named, pos)),
             "call" => Some(self.meta_call(pos_args, named, pos, length)),
             "module-variables" => Some(self.meta_module_members(pos_args, named, pos, MemberKind::Variable)),
             "module-functions" => Some(self.meta_module_members(pos_args, named, pos, MemberKind::Function)),
@@ -257,15 +331,9 @@ impl<'a> Evaluator<'a> {
         let css = matches!(arg(1), Some(v) if v.is_truthy());
         // A `$module` namespace resolves the function from that `@use`d module.
         if let Some(module_v) = arg(2) {
-            match module_v {
-                Value::Null => {}
-                Value::Str(s) => return self.get_function_from_module(&name, &s.text, pos),
-                other => {
-                    return Err(Error::at(
-                        format!("$module: {} is not a string.", other.to_inspect_message()),
-                        pos,
-                    ))
-                }
+            if !matches!(module_v, Value::Null) {
+                let module = self.module_ref(module_v, pos)?;
+                return self.get_function_from_module(&name, &module, pos);
             }
         }
         if css {
@@ -387,16 +455,8 @@ impl<'a> Evaluator<'a> {
         // A `$module` argument resolves the mixin from another module's scope.
         if let Some(module_val) = arg(1) {
             if !matches!(module_val, Value::Null) {
-                let module_name = match module_val {
-                    Value::Str(s) => s.text.clone(),
-                    other => {
-                        return Err(Error::at(
-                            format!("$module: {} is not a string.", other.to_inspect_message()),
-                            pos,
-                        ))
-                    }
-                };
-                return self.get_mixin_from_module(&name, &module_name, pos);
+                let module = self.module_ref(module_val, pos)?;
+                return self.get_mixin_from_module(&name, &module, pos);
             }
         }
         // A user `@mixin` of that name (dash/underscore-insensitive) wins.
@@ -464,8 +524,8 @@ impl<'a> Evaluator<'a> {
     /// `meta.get-function($name, $module: ns)`: capture a function reference from
     /// the module bound to `ns` — a user `@function` by identity, or a built-in
     /// member by name.
-    fn get_function_from_module(&self, name: &str, module_name: &str, pos: Pos) -> Result<Value, Error> {
-        if let Some(module) = self.used_user_modules.get(module_name) {
+    fn get_function_from_module(&self, name: &str, module_ref: &ModuleRef, pos: Pos) -> Result<Value, Error> {
+        if let ModuleRef::User(module) = module_ref {
             if is_private_member(name) {
                 // A private member is not in the module's public view, so the
                 // by-name lookup simply does not find it.
@@ -502,7 +562,7 @@ impl<'a> Evaluator<'a> {
                 pos,
             ));
         }
-        if let Some(builtin) = self.used_modules.get(module_name) {
+        if let ModuleRef::Builtin(builtin) = module_ref {
             if crate::builtins::module_has_member(builtin, name) {
                 // The reference keeps the MEMBER's name and remembers the
                 // module it came from, so invoking it dispatches through that
@@ -521,14 +581,11 @@ impl<'a> Evaluator<'a> {
                 pos,
             ));
         }
-        Err(Error::at(
-            format!("There is no module with the namespace \"{module_name}\"."),
-            pos,
-        ))
+        unreachable!("a module reference is a user or a built-in module")
     }
 
-    fn get_mixin_from_module(&self, name: &str, module_name: &str, pos: Pos) -> Result<Value, Error> {
-        if let Some(module) = self.used_user_modules.get(module_name) {
+    fn get_mixin_from_module(&self, name: &str, module_ref: &ModuleRef, pos: Pos) -> Result<Value, Error> {
+        if let ModuleRef::User(module) = module_ref {
             if is_private_member(name) {
                 return Err(Error::at(
                     format!("Mixin not found: {}", crate::value::serialize_quoted(name)),
@@ -556,7 +613,7 @@ impl<'a> Evaluator<'a> {
                 pos,
             ));
         }
-        if let Some(builtin) = self.used_modules.get(module_name) {
+        if let ModuleRef::Builtin(builtin) = module_ref {
             // The RESOLVED module, not the namespace it was bound to: `@use
             // "sass:meta" as m` makes `$module: "m"` the `meta` module.
             if is_builtin_mixin(builtin, name) {
@@ -574,10 +631,7 @@ impl<'a> Evaluator<'a> {
                 pos,
             ));
         }
-        Err(Error::at(
-            format!("There is no module with the namespace \"{module_name}\"."),
-            pos,
-        ))
+        unreachable!("a module reference is a user or a built-in module")
     }
 
     /// `meta.call($function, $args...)`: invoke a function reference (or, when
@@ -713,10 +767,23 @@ impl<'a> Evaluator<'a> {
         }
         // A plain-CSS reference is preserved verbatim as a CSS function call.
         if f.css {
-            let mut parts: Vec<String> = pos_args.iter().map(|v| v.to_css(false)).collect();
-            for (n, v) in &named {
-                parts.push(format!("${n}: {}", v.to_css(false)));
+            // Plain CSS has no keyword arguments, as on the direct call path.
+            if !named.is_empty() {
+                return Err(Error::at(
+                    "Plain CSS functions don't support keyword arguments.",
+                    pos,
+                ));
             }
+            // A map or a first-class value has no CSS form and is rejected
+            // rather than written into the call. An empty list is not: dart
+            // writes `foo()` for `meta.call(<css fn>, ())`.
+            for v in &pos_args {
+                if let Some(bad) = find_not_css(v) {
+                    let msg = format!("{} isn't a valid CSS value.", bad.to_inspect_message());
+                    return Err(Error::at(msg, pos));
+                }
+            }
+            let parts: Vec<String> = pos_args.iter().map(|v| v.to_css(false)).collect();
             return Ok(Value::Str(SassStr {
                 text: format!("{}({})", f.name, parts.join(", ")).into(),
                 quoted: false,
@@ -766,7 +833,7 @@ impl<'a> Evaluator<'a> {
         named: &[(String, Value)],
         pos: Pos,
         allow_module: bool,
-    ) -> Result<(String, Option<String>), Error> {
+    ) -> Result<(String, Option<ModuleRef>), Error> {
         let max = if allow_module { 2 } else { 1 };
         crate::builtins::check_arity(max, pos_args, named, pos)?;
         let name_v = pos_args
@@ -788,13 +855,7 @@ impl<'a> Evaluator<'a> {
                 .or_else(|| named.iter().find(|(n, _)| n == "module").map(|(_, v)| v));
             match m {
                 None | Some(Value::Null) => None,
-                Some(Value::Str(s)) => Some(s.text.to_string()),
-                Some(other) => {
-                    return Err(Error::at(
-                        format!("$module: {} is not a string.", other.to_inspect_message()),
-                        pos,
-                    ))
-                }
+                Some(other) => Some(self.module_ref(other, pos)?),
             }
         } else {
             None
@@ -804,8 +865,14 @@ impl<'a> Evaluator<'a> {
 
     /// Whether the module bound to namespace `ns` defines a member `name` of the
     /// given kind (function/mixin/variable). An unknown namespace is an error.
-    fn module_member_exists(&self, ns: &str, name: &str, kind: MemberKind, pos: Pos) -> Result<bool, Error> {
-        if let Some(m) = self.used_user_modules.get(ns) {
+    fn module_member_exists(
+        &self,
+        module: &ModuleRef,
+        name: &str,
+        kind: MemberKind,
+        pos: Pos,
+    ) -> Result<bool, Error> {
+        if let ModuleRef::User(m) = module {
             // A built-in the module re-exports brings its own members along.
             let forwarded = || resolve_forwarded_builtin(m, name);
             return Ok(match kind {
@@ -818,17 +885,14 @@ impl<'a> Evaluator<'a> {
                 }
             });
         }
-        if let Some(builtin) = self.used_modules.get(ns).copied() {
+        if let ModuleRef::Builtin(builtin) = *module {
             return Ok(match kind {
                 MemberKind::Function => crate::builtins::module_has_member(builtin, name),
                 MemberKind::Mixin => is_builtin_mixin(builtin, name),
                 MemberKind::Variable => crate::builtins::module_var(builtin, name, pos).is_ok(),
             });
         }
-        Err(Error::at(
-            format!("There is no module with the namespace \"{ns}\"."),
-            pos,
-        ))
+        unreachable!("a module reference is a user or a built-in module")
     }
 
     /// `meta.module-variables/-functions/-mixins($module)`: a map from each
@@ -869,23 +933,15 @@ impl<'a> Evaluator<'a> {
             .first()
             .or_else(|| named.iter().find(|(n, _)| n == "module").map(|(_, v)| v))
             .ok_or_else(|| Error::at("Missing argument $module.".to_string(), pos))?;
-        let ns = match v {
-            Value::Str(s) => s.text.to_string(),
-            other => {
-                return Err(Error::at(
-                    format!("$module: {} is not a string.", other.to_inspect_message()),
-                    pos,
-                ))
-            }
-        };
-        let Some(module) = self.used_user_modules.get(&ns).cloned() else {
-            // A built-in module: all seven are modelled member by member,
-            // from the one table in `builtins`. This used to say that only
-            // `sass:meta` was, that the others "have no variables", and that
-            // their callables are "dispatched, not enumerated" — none of the
-            // three survived #64: `sass:math` has seven variables, and every
-            // module's members are enumerable and callable as references.
-            if let Some(builtin) = self.used_modules.get(&ns) {
+        let module = match self.module_ref(v, pos)? {
+            ModuleRef::User(module) => module,
+            ModuleRef::Builtin(builtin) => {
+                // A built-in module: all seven are modelled member by member,
+                // from the one table in `builtins`. This used to say that only
+                // `sass:meta` was, that the others "have no variables", and that
+                // their callables are "dispatched, not enumerated" — none of the
+                // three survived #64: `sass:math` has seven variables, and every
+                // module's members are enumerable and callable as references.
                 // The enumerated references belong to the module, not to the
                 // namespace they were reached through.
                 let owner = crate::value::BuiltinModule::from_name(builtin);
@@ -938,12 +994,6 @@ impl<'a> Evaluator<'a> {
                     .collect::<Result<Vec<_>, Error>>()?;
                 return Ok(Value::Map(Map::new(entries)));
             }
-            // dart drops the article in the `module-*` functions ONLY: every
-            // other namespace error says "with the namespace".
-            return Err(Error::at(
-                format!("There is no module with namespace \"{ns}\"."),
-                pos,
-            ));
         };
         let mut names: Vec<String> = match kind {
             MemberKind::Variable => module.vars.borrow().keys().cloned().collect(),

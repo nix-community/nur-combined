@@ -478,7 +478,7 @@ impl<'a> Evaluator<'a> {
                     return Err(Error::unpositioned("Cannot modify built-in variable."));
                 }
                 return Err(Error::unpositioned(format!(
-                    "There is no module with the namespace \"{ns}\"."
+                    "There is no module with namespace \"{ns}\"."
                 )));
             }
         };

@@ -13,6 +13,28 @@ Conformance is tracked separately as a ratchet against the official
 
 ### Added
 
+- **First-class modules, part 1: `meta.get-module()` and module values**
+  (#281, dart-sass 1.105). `meta.get-module($module)` returns a reference to
+  a module this stylesheet `@use`d, by namespace. Every `sass:meta` function
+  that takes a `$module` (`function-exists`, `mixin-exists`,
+  `global-variable-exists`, `get-function`, `get-mixin`, `module-variables`,
+  `module-functions`, `module-mixins`) now takes a module value as well as a
+  namespace. A module value has `meta.type-of` `module` and inspects as
+  `get-module("math")`, named by its URL's default namespace whatever
+  namespace it was loaded under, and as `get-module()` when that is no Sass
+  identifier. Two references to the same loaded module are equal. Like a
+  function reference, a module value is not a valid CSS value. `+`, `-`, `/`
+  and a unary `+` on one are "Undefined operation", as in dart.
+
+  Two messages change to dart 1.105's wording. "There is no module with the
+  namespace" is now "There is no module with namespace". A `$module` that is
+  neither now says it "is neither a string nor a module reference."
+
+  Until the dart pin moves to 1.105 (#284), `meta.module-functions("meta")`
+  does not list `get-module` yet: CI's parity check runs against dart 1.104.1,
+  which has no such member. `meta.load()`, `meta.css()` and the JS API's
+  `SassModule` follow in later parts of #281.
+
 - **`Options::anonymous_diagnostics`** (`with_anonymous_diagnostics`): render
   diagnostics for a compile with no `url`, naming the entry `-` as dart-sass
   does for a source with no URL. Off by default, so a Rust or C caller's

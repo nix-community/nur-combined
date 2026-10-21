@@ -2692,6 +2692,167 @@ fn extend_across_media_contexts() {
     }
 }
 
+/// A first-class module (dart-sass 1.105, #281): `meta.get-module`, what it
+/// inspects as, what it equals, and every `sass:meta` function that takes it
+/// as `$module`. Measured against dart-sass 1.105.1 on 2026-10-20.
+#[test]
+fn a_module_value_names_its_module() {
+    let dir = std::env::temp_dir().join(format!("sasso_module_value_{}", std::process::id()));
+    std::fs::create_dir_all(&dir).expect("mkdir");
+    std::fs::write(
+        dir.join("_other.scss"),
+        "$v: 1;\n@function f() { @return 1; }\n@mixin m { a: b; }\n",
+    )
+    .unwrap();
+    std::fs::write(dir.join("_1.scss"), "").unwrap();
+    let imp = sasso::FsImporter::new(vec![dir.clone()]);
+    let run = |entry: &str| compile(entry, &Options::default().with_importer(&imp)).map_err(err_message);
+    let head = "@use \"sass:meta\";\n@use \"sass:math\" as m;\n@use \"other\" as o;\n@use \"other\";\n@use \"1\" as one;\n\
+                $mm: meta.get-module(m);\n";
+    assert_eq!(
+        run(&format!(
+            "{head}a {{\n\
+             b: meta.inspect($mm) meta.inspect(meta.get-module(o)) meta.inspect(meta.get-module(one));\n\
+             c: meta.type-of($mm) ($mm == meta.get-module($mm)) (meta.get-module(o) == meta.get-module(other)) ($mm == meta.get-module(o));\n\
+             d: meta.function-exists(\"f\", meta.get-module(o)) meta.mixin-exists(\"m\", meta.get-module(o)) \
+             meta.global-variable-exists(\"e\", meta.get-module(m));\n\
+             e: meta.inspect(meta.module-variables(meta.get-module(o)));\n\
+             f: meta.call(meta.get-function(\"f\", $module: meta.get-module(o)));\n\
+             g: meta.inspect(meta.get-mixin(\"m\", meta.get-module(o)));\n}}\n"
+        )),
+        Ok("a {\n  b: get-module(\"math\") get-module(\"other\") get-module();\n  c: module true true false;\n  \
+            d: true true true;\n  e: (\"v\": 1);\n  f: 1;\n  g: get-mixin(\"m\");\n}"
+            .to_string()),
+    );
+    for (expr, want) in [
+        (
+            "meta.get-module(null)",
+            "$module: null is neither a string nor a module reference.",
+        ),
+        (
+            "meta.get-module(\"color\")",
+            "There is no module with namespace \"color\".",
+        ),
+        (
+            "meta.function-exists(\"f\", 1)",
+            "$module: 1 is neither a string nor a module reference.",
+        ),
+        (
+            "meta.module-functions(nope)",
+            "There is no module with namespace \"nope\".",
+        ),
+        (
+            "meta.get-module(meta) + 1",
+            "Undefined operation \"get-module(\"meta\") + 1\".",
+        ),
+        // dart writes a negated module in parentheses, however it was spelled,
+        // and a leading slash as the unary operator it is.
+        (
+            "- meta.get-module(meta)",
+            "Undefined operation \"-(get-module(\"meta\"))\".",
+        ),
+        (
+            "/meta.get-module(meta)",
+            "Undefined operation \"/get-module(\"meta\")\".",
+        ),
+        (
+            "+meta.get-module(meta)",
+            "Undefined operation \"+get-module(\"meta\")\".",
+        ),
+        // A string on the left of `+` joins the module as a string, so it is
+        // the module's serialization that fails; anything else on either
+        // side, a function reference included, is "Undefined operation".
+        (
+            "\"a\" + meta.get-module(meta)",
+            "get-module(\"meta\") isn't a valid CSS value.",
+        ),
+        (
+            "a + meta.get-module(meta)",
+            "get-module(\"meta\") isn't a valid CSS value.",
+        ),
+        (
+            "meta.get-module(meta) + \"a\"",
+            "Undefined operation \"get-module(\"meta\") + \"a\"\".",
+        ),
+        (
+            "meta.get-function(\"abs\") + meta.get-module(meta)",
+            "Undefined operation \"get-function(\"abs\") + get-module(\"meta\")\".",
+        ),
+        // Nested in a list it is still no CSS value, in a declaration, an
+        // interpolation, a string join or `if()`; and the first such value
+        // in order is the one named, a function before a map.
+        (
+            "[meta.get-module(meta)]",
+            "get-module(\"meta\") isn't a valid CSS value.",
+        ),
+        (
+            "1 meta.get-module(meta)",
+            "get-module(\"meta\") isn't a valid CSS value.",
+        ),
+        (
+            "[meta.get-function(\"abs\")]",
+            "get-function(\"abs\") isn't a valid CSS value.",
+        ),
+        (
+            "\"#{meta.get-module(meta)}\"",
+            "get-module(\"meta\") isn't a valid CSS value.",
+        ),
+        (
+            "x#{[meta.get-module(meta)]}",
+            "get-module(\"meta\") isn't a valid CSS value.",
+        ),
+        (
+            "\"a\" + [meta.get-module(meta)]",
+            "get-module(\"meta\") isn't a valid CSS value.",
+        ),
+        (
+            "if(css(): meta.get-module(meta); else: 1)",
+            "get-module(\"meta\") isn't a valid CSS value.",
+        ),
+        (
+            "meta.get-function(\"abs\") (a: b)",
+            "get-function(\"abs\") isn't a valid CSS value.",
+        ),
+        // So in a plain CSS function's arguments, however the call is made.
+        (
+            "foo(meta.get-module(meta))",
+            "get-module(\"meta\") isn't a valid CSS value.",
+        ),
+        (
+            "foo(1, [meta.get-module(meta)])",
+            "get-module(\"meta\") isn't a valid CSS value.",
+        ),
+        (
+            "f#{1}(meta.get-module(meta))",
+            "get-module(\"meta\") isn't a valid CSS value.",
+        ),
+        ("f#{1}((a: b))", "(a: b) isn't a valid CSS value."),
+        (
+            "meta.call(meta.get-function(\"foo\", $css: true), meta.get-module(meta))",
+            "get-module(\"meta\") isn't a valid CSS value.",
+        ),
+        (
+            "meta.call(meta.get-function(\"foo\", $css: true), $a: 1)",
+            "Plain CSS functions don't support keyword arguments.",
+        ),
+    ] {
+        let got = run(&format!("@use \"sass:meta\";\na {{b: {expr}}}\n"));
+        assert_eq!(got, Err(format!("Error: {want}")), "{expr}");
+    }
+    // `-1` is no Sass identifier: no name to inspect as, and no default
+    // namespace for a bare `@use`.
+    std::fs::write(dir.join("_-1.scss"), "").unwrap();
+    assert_eq!(
+        run("@use \"sass:meta\";\n@use \"-1\" as x;\na {b: meta.inspect(meta.get-module(x))}\n"),
+        Ok("a {\n  b: get-module();\n}".to_string()),
+    );
+    assert_eq!(
+        run("@use \"-1\";\n"),
+        Err("Error: The default namespace \"-1\" is not a valid Sass identifier.".to_string()),
+    );
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
 /// A user-defined function or mixin value inspects as its declared name,
 /// hyphenated, not as the spelling it was reached through (#283). Measured
 /// against dart-sass 1.105.1 on 2026-10-07.

@@ -520,6 +520,17 @@ impl Eq for ResolvedQuery {}
 /// lookup allocates nothing.
 pub(super) type MediaNodeSpans = HashMap<[u32; 7], Vec<(String, SourceSpan)>>;
 
+/// "<value> isn't a valid CSS value." for a first-class function, mixin or
+/// module in a declaration (see `eval_decl`).
+#[cold]
+#[inline(never)]
+fn not_a_css_value(value: &Value, pos: Pos) -> Error {
+    Error::at(
+        format!("{} isn't a valid CSS value.", value.to_inspect_message()),
+        pos,
+    )
+}
+
 /// Every field of a `SrcLines`, as a hashable key.
 pub(super) fn src_lines_key(l: &SrcLines) -> [u32; 7] {
     [l.file, l.start, l.end, l.col, l.start_col, l.map_file, l.map_line]
@@ -1487,6 +1498,9 @@ struct Module {
     /// As `origins_canonical`, for `fn_origins` / `mixin_origins`.
     fn_origins_canonical: bool,
     mixin_origins_canonical: bool,
+    /// The name a first-class reference to this module inspects as: the
+    /// default namespace of its URL (see [`crate::value::SassModule::name`]).
+    default_name: Option<String>,
 }
 
 /// Whether every key of `map` is canonical (no `_`), cached in `cache` against
@@ -2532,7 +2546,8 @@ impl<'a> Evaluator<'a> {
             | Value::Slash(_, _)
             | Value::Calc(_)
             | Value::Function(_)
-            | Value::Mixin(_) => false,
+            | Value::Mixin(_)
+            | Value::Module(_) => false,
         }
     }
 
@@ -3992,29 +4007,11 @@ impl<'a> Evaluator<'a> {
         if matches!(value, Value::Null) {
             return Ok(None);
         }
-        // A map is not a valid CSS value (even when nested inside a list).
-        if let Some(m) = find_map(&value) {
-            return Err(Error::at(
-                format!(
-                    "{} isn't a valid CSS value.",
-                    Value::Map(m.clone()).to_inspect_message()
-                ),
-                d.pos,
-            ));
-        }
-        // A first-class function reference is likewise not a valid CSS value.
-        if let Value::Function(f) = &value {
-            return Err(Error::at(
-                format!("{} isn't a valid CSS value.", f.inspect()),
-                d.pos,
-            ));
-        }
-        // A first-class mixin reference is likewise not a valid CSS value.
-        if let Value::Mixin(m) = &value {
-            return Err(Error::at(
-                format!("{} isn't a valid CSS value.", m.inspect()),
-                d.pos,
-            ));
+        // A map, or a first-class function, mixin or module, is not a valid
+        // CSS value, nested inside a list too. The message is built out of
+        // line, where it costs `eval_decl` nothing.
+        if let Some(bad) = find_not_css(&value) {
+            return Err(not_a_css_value(bad, d.pos));
         }
         // An empty unbracketed list (`()`, or e.g. `list.join((), ())`) cannot
         // serialize as a CSS value; a bracketed `[]` is fine, as is any list
@@ -4112,14 +4109,8 @@ impl<'a> Evaluator<'a> {
         if let Some(value_expr) = &ps.value {
             let value = self.eval_expr(value_expr)?;
             if !matches!(value, Value::Null) {
-                if let Some(m) = find_map(&value) {
-                    return Err(Error::at(
-                        format!(
-                            "{} isn't a valid CSS value.",
-                            Value::Map(m.clone()).to_inspect_message()
-                        ),
-                        ps.pos,
-                    ));
+                if let Some(bad) = find_not_css(&value) {
+                    return Err(not_a_css_value(bad, ps.pos));
                 }
                 let vstr = self.declared_css(&value);
                 sink.push_item(OutItem::Decl {
@@ -5826,32 +5817,31 @@ fn is_supports_calc_function(name: &str) -> bool {
     )
 }
 
-/// Find a map anywhere in a value (including nested in a list), returning a
-/// reference to the first one. Used to reject maps in CSS output positions,
-/// where dart-sass errors with "(…) isn't a valid CSS value.".
-fn find_map(v: &Value) -> Option<&Map> {
+/// The first value with no CSS form in `v`, itself or an item of a list at
+/// any depth, in order: a map, or a first-class function, mixin or module.
+/// dart's serializer errors "<inspect> isn't a valid CSS value." on the
+/// first one it meets, so CSS output positions reject that one.
+pub(crate) fn find_not_css(v: &Value) -> Option<&Value> {
     match v {
-        Value::Map(m) => Some(m),
-        Value::List(l) => l.items.iter().find_map(find_map),
+        Value::Map(_) | Value::Function(_) | Value::Mixin(_) | Value::Module(_) => Some(v),
+        Value::List(l) => l.items.iter().find_map(find_not_css),
         _ => None,
     }
 }
 
 /// The dart-sass "isn't a valid CSS value." error message for a value that
 /// cannot be serialized to CSS, or `None` if it can. Mirrors the
-/// declaration-emit guard exactly: a MAP found anywhere (including nested in a
-/// list) is rejected with its own serialization, and a TOP-LEVEL empty
+/// declaration-emit guard exactly: a map or a first-class function, mixin or
+/// module found anywhere (including nested in a list) is rejected with its
+/// own serialization (see [`find_not_css`]), and a TOP-LEVEL empty
 /// unbracketed list (`()`) is rejected as `()`. A bracketed `[]`, and an empty
 /// list merely nested inside a non-empty list, both serialize fine. Reused at
 /// every other CSS-serialization site (unary `-`/`+`, the `+`/`-`/`/` string
 /// joins, and `#{…}` interpolation) so they reject the same shapes dart does
 /// instead of silently emitting bogus output.
 pub(super) fn css_value_error_msg(v: &Value) -> Option<String> {
-    if let Some(m) = find_map(v) {
-        return Some(format!(
-            "{} isn't a valid CSS value.",
-            Value::Map(m.clone()).to_inspect_message()
-        ));
+    if let Some(bad) = find_not_css(v) {
+        return Some(format!("{} isn't a valid CSS value.", bad.to_inspect_message()));
     }
     if let Value::List(l) = v {
         if l.items.is_empty() && !l.bracketed {
@@ -5861,8 +5851,8 @@ pub(super) fn css_value_error_msg(v: &Value) -> Option<String> {
     None
 }
 
-/// Serialize a value for interpolation, erroring (like dart-sass) if it is a
-/// map or empty list that cannot become CSS. Shared by every interpolation
+/// Serialize a value for interpolation, erroring (like dart-sass) if it is
+/// one that cannot become CSS (see [`css_value_error_msg`]). Shared by every interpolation
 /// context that turns a value into text (`@media`/`@supports` queries and
 /// feature decls). The error carries no span — these template sites have no
 /// per-piece source position — but matches dart's message and non-zero exit.
@@ -7724,6 +7714,66 @@ fn default_namespace(url: &str, pos: Pos) -> Result<String, Error> {
     Ok(stem.to_string())
 }
 
+/// The default namespace of a loaded module, from its canonical key, as
+/// dart's `defaultNamespace(module.url)` names a first-class reference to it
+/// (`get-module("other")`). dart reads the URL's last decoded path segment.
+/// A key here is a URL when the importer made one (`pkg:theme.scss`,
+/// `file:///c:/x/_a.scss`), and otherwise a native path, whose separators on
+/// Windows are `\`. `None` when the result is no Sass identifier.
+fn module_default_name(key: &str) -> Option<String> {
+    // A drive letter needs a separator after its colon: `x:theme.scss` is a
+    // URL with a one-letter scheme, `c:\\x` and `c:/x` are paths.
+    let b = key.as_bytes();
+    let windows_path =
+        (b.len() > 2 && b[0].is_ascii_alphabetic() && b[1] == b':' && matches!(b[2], b'/' | b'\\'))
+            || key.starts_with("\\\\");
+    let scheme = !windows_path
+        && key.split_once(':').is_some_and(|(s, _)| {
+            s.starts_with(|c: char| c.is_ascii_alphabetic())
+                && s.chars()
+                    .all(|c| c.is_ascii_alphanumeric() || matches!(c, '+' | '-' | '.'))
+        });
+    let segment = if scheme {
+        let path = key.split_once(':').map_or(key, |(_, rest)| rest);
+        let path = path.split(['?', '#']).next().unwrap_or(path);
+        percent_decode(path.rsplit('/').next().unwrap_or(path))
+    } else if windows_path {
+        key.rsplit(['/', '\\']).next().unwrap_or(key).to_string()
+    } else {
+        // A `\` is an ordinary file-name character outside Windows.
+        key.rsplit('/').next().unwrap_or(key).to_string()
+    };
+    let name = segment.strip_prefix('_').unwrap_or(&segment);
+    let name = name.split('.').next().unwrap_or(name);
+    is_valid_namespace(name).then(|| name.to_string())
+}
+
+/// `%XX` escapes decoded, as a URL path segment is read; anything that does
+/// not decode to UTF-8 is kept as written.
+fn percent_decode(s: &str) -> String {
+    let bytes = s.as_bytes();
+    let mut out = Vec::with_capacity(bytes.len());
+    let mut i = 0;
+    while i < bytes.len() {
+        let hex = |b: u8| (b as char).to_digit(16);
+        match (
+            bytes[i],
+            bytes.get(i + 1).and_then(|&b| hex(b)),
+            bytes.get(i + 2).and_then(|&b| hex(b)),
+        ) {
+            (b'%', Some(h), Some(l)) => {
+                out.push((h * 16 + l) as u8);
+                i += 3;
+            }
+            (b, ..) => {
+                out.push(b);
+                i += 1;
+            }
+        }
+    }
+    String::from_utf8(out).unwrap_or_else(|_| s.to_string())
+}
+
 /// Build a predicate deciding whether an upstream `$variable` (by bare name) is
 /// re-exported through a `@forward`'s `show`/`hide` clause.
 fn forward_var_visibility(
@@ -7796,9 +7846,17 @@ fn member_set(
 
 /// Whether `s` is a valid Sass identifier usable as a module namespace.
 fn is_valid_namespace(s: &str) -> bool {
+    let name_start = |c: char| c == '_' || c.is_ascii_alphabetic() || !c.is_ascii();
     let mut chars = s.chars();
     match chars.next() {
-        Some(c) if c == '_' || c == '-' || c.is_ascii_alphabetic() || !c.is_ascii() => {}
+        Some(c) if name_start(c) => {}
+        // A leading `-` needs a name start or a second `-` after it, as in
+        // dart's identifier grammar: `-a` and `--a` are names, `-` and `-1`
+        // are not.
+        Some('-') => match chars.clone().next() {
+            Some(c) if c == '-' || name_start(c) => {}
+            _ => return false,
+        },
         _ => return false,
     }
     chars.all(|c| c == '_' || c == '-' || c.is_ascii_alphanumeric() || !c.is_ascii())
@@ -10268,18 +10326,10 @@ fn serialize_if_value(v: &Value) -> Result<String, Error> {
         Value::List(l) if l.items.is_empty() && !l.bracketed => {
             Err(Error::unpositioned("() isn't a valid CSS value."))
         }
-        Value::Function(f) => Err(Error::unpositioned(format!(
-            "{} isn't a valid CSS value.",
-            f.inspect()
-        ))),
-        Value::Mixin(m) => Err(Error::unpositioned(format!(
-            "{} isn't a valid CSS value.",
-            m.inspect()
-        ))),
-        other => match find_map(other) {
-            Some(m) => Err(Error::unpositioned(format!(
+        other => match find_not_css(other) {
+            Some(bad) => Err(Error::unpositioned(format!(
                 "{} isn't a valid CSS value.",
-                Value::Map(m.clone()).to_inspect_message()
+                bad.to_inspect_message()
             ))),
             None => Ok(other.to_css(false)),
         },
@@ -10323,6 +10373,37 @@ enum DepProbePath {
     /// Its `[color-module-compat]` half, gated on which overload the argument
     /// took.
     ColorModuleCompat = 2,
+}
+
+#[cfg(test)]
+mod module_default_name_tests {
+    use super::module_default_name;
+
+    #[test]
+    fn names_a_module_by_its_last_path_segment() {
+        for (key, want) in [
+            ("/src/_other.scss", Some("other")),
+            ("/src/dir/deep.sass", Some("deep")),
+            ("c:\\project\\_other.scss", Some("other")),
+            ("\\\\server\\share\\_theme.scss", Some("theme")),
+            ("pkg:theme.scss", Some("theme")),
+            ("file:///c:/x/_a.scss", Some("a")),
+            ("https://example.com/p/_b.css?v=1#x", Some("b")),
+            ("pkg:%5Fspaced.scss", Some("spaced")),
+            ("/src/_1.scss", None),
+            ("pkg:", None),
+            // A one-letter scheme is not a drive.
+            ("x:theme.scss", Some("theme")),
+            ("c:/project/_other.scss", Some("other")),
+            // `-` and `-1` are no identifiers; `-a` and `--b` are.
+            ("/src/_-1.scss", None),
+            ("/src/_-.scss", None),
+            ("/src/_-a.scss", Some("-a")),
+            ("/src/_--b.scss", Some("--b")),
+        ] {
+            assert_eq!(module_default_name(key).as_deref(), want, "{key}");
+        }
+    }
 }
 
 #[cfg(test)]
