@@ -10,16 +10,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rimstack";
-  version = "1.0.1";
+  version = "1.0.2";
 
   src = fetchFromGitHub {
     owner = "TheForgotten69";
     repo = "RimStack";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-ZJc/67nHd05jFBRB0nXjs1+Blbu5mvWPhbemjLZyPUo=";
+    hash = "sha256-AH6j6Ff1cS8ZUQ+lMjlVj4QvHIFHu5uqF2ihnMUXSbc=";
   };
 
-  cargoHash = "sha256-FUvwUv/lCgaBhkj2iEvnX3VlQBVfOGrEXqNpnmD1h40=";
+  cargoHash = "sha256-vbC5zoiyjVoGSUml+dbPS7Fd50hek1yOW074nXAOB4k=";
 
   # qt-build-utils discovers Qt only through a single qmake, whose queries
   # point into the qtbase store path, so:

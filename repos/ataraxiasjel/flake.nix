@@ -4,11 +4,9 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
-    devenv.url = "github:cachix/devenv";
-    devenv.inputs.flake-parts.follows = "flake-parts";
-    devenv-root = {
-      url = "file+file:///dev/null";
-      flake = false;
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
   outputs =
@@ -21,13 +19,14 @@
         "aarch64-darwin"
       ];
       imports = [
-        inputs.devenv.flakeModule
+        inputs.git-hooks.flakeModule
       ];
       perSystem =
         {
           pkgs,
           lib,
           system,
+          config,
           ...
         }:
         {
@@ -53,41 +52,32 @@
               )
             ];
           };
-          # Get all packages from ci.nix, without devenv's shell plumbing
-          # (devenv-up/devenv-test): contributor-environment helpers, not
-          # distributable packages, and the *-test outputs require
-          # import-from-derivation, which the eval gate disables.
-          packages = lib.mkForce (
-            lib.filterAttrs (n: _: !(lib.hasPrefix "devenv-" n || lib.hasInfix "-devenv-" n))
-              (import ./ci.nix { inherit pkgs lib system; }).buildPkgs
-          );
+          # Get all packages from ci.nix.
+          packages = (import ./ci.nix { inherit pkgs lib system; }).buildPkgs;
           checks = (import ./ci.nix { inherit pkgs lib system; }).cachePkgs;
-          devenv.shells = rec {
-            dev = {
-              devenv.root =
-                let
-                  devenvRootFileContent = builtins.readFile inputs.devenv-root.outPath;
-                in
-                lib.mkIf (devenvRootFileContent != "") devenvRootFileContent;
-
-              packages = with pkgs; [
-                nix-update
-                nix-eval-jobs
-                nix-fast-build
-                jq
-              ];
-              # https://github.com/cachix/devenv/issues/528
-              containers = lib.mkForce { };
+          # Keep CI's checks == cachePkgs exactly (the module would otherwise
+          # add a checks.pre-commit entry, which nix-fast-build would build).
+          pre-commit.check.enable = false;
+          pre-commit.settings = {
+            # prek instead of python pre-commit, same as devenv 2.x
+            package = pkgs.prek;
+            hooks = {
+              actionlint.enable = true;
+              deadnix.enable = true;
+              flake-checker.enable = true;
+              nixfmt.enable = true;
+              ripsecrets.enable = true;
             };
-            default = lib.recursiveUpdate dev {
-              git-hooks.hooks = {
-                actionlint.enable = true;
-                deadnix.enable = true;
-                flake-checker.enable = true;
-                nixfmt.enable = true;
-                ripsecrets.enable = true;
-              };
-            };
+          };
+          devShells.default = pkgs.mkShell {
+            packages = with pkgs; [
+              nix-update
+              nix-eval-jobs
+              nix-fast-build
+              jq
+            ];
+            # Install the git hooks into the repo.
+            shellHook = config.pre-commit.shellHook;
           };
         };
       flake = {

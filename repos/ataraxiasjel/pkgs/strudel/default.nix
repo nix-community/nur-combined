@@ -19,7 +19,7 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "strudel";
-  version = "0-unstable-2026-10-16";
+  version = "0-unstable-2026-10-19";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -28,8 +28,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     domain = "codeberg.org";
     owner = "uzu";
     repo = "strudel";
-    rev = "61b6e96a4a94a47a0f9329fb8d6f24659c37419f";
-    hash = "sha256-2QotCxC1BhxUFZtQer0WN+WmVFzhvU2x+oRZu3rN8fA=";
+    rev = "e00b6f621655d30bc5f9a3aff0d36b11e2af3f52";
+    hash = "sha256-dbHqmiJZf3wVBiOIZ9C0KATDOXlpbJQjtuUDSt62IlI=";
   };
 
   pnpmDeps = fetchPnpmDeps {

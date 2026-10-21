@@ -21,12 +21,6 @@ jobs:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Setup magic nix cache
         uses: DeterminateSystems/flakehub-cache-action@main
-      - name: Setup cachix devenv repo
-        uses: cachix/cachix-action@v17
-        with:
-          name: devenv
-      - name: Install devenv
-        run: nix profile add nixpkgs#devenv
       - name: Install and setup direnv
         run: |
           curl -sfL https://direnv.net/install.sh | bash

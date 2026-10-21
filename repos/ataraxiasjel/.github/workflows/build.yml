@@ -50,12 +50,9 @@ jobs:
           name: "${{ matrix.cachixName }}"
           signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
-          extraPullNames: "devenv"
       - name: Override nixpkgs in flake to latest stable
         if: ${{ matrix.nixpkgs != 'nixos-unstable' }}
         run: nix flake lock --override-input nixpkgs "github:nixos/nixpkgs/${{ matrix.nixpkgs }}"
-      - name: Install devenv
-        run: nix profile add nixpkgs#devenv
       - name: Install and setup direnv
         run: |
           curl -sfL https://direnv.net/install.sh | bash
