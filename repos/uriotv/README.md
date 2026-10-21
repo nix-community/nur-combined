@@ -98,8 +98,10 @@ is preserved until a strictly newer, descendant release is available.
   `build.yml`, except `meta.ciBuild = false`. The CachyOS x86-64-v3 kernel
   (`linux-cachyos-latest-x86_64-v3`) is built from source by `kernel.yml` on the
   self-hosted runner `[self-hosted, nixos, cachix-builder]` (labels: `nixos`,
-  `cachix-builder`). It triggers only on push to `main` and on manual dispatch of
-  `main`; never on pull requests. Publication to `uriotv` happens only on a manual
+  `cachix-builder`). It triggers only on push to `main` that changes
+  `pkgs/linux-cachyos-latest-x86_64-v3/` or `kernel.yml`, and on manual dispatch of
+  `main`; never on pull requests. If every output of the current pin is already
+  in `uriotv`, the build is skipped (dispatch with `force = true` to rebuild). Publication to `uriotv` happens only on a manual
   dispatch with `publish = true`, after the closure licence review. It is not part
   of `test-gate`, so a kernel failure does not block merges. Its job is disabled
   unless the repository variable `KERNEL_BUILDER_ENABLED` is `true`.

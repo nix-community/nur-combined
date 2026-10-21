@@ -3,13 +3,25 @@ name: "Build CachyOS kernel (self-hosted)"
 # Only pushes to main and manual runs of main. No pull_request, pull_request_target
 # or issue_comment: the repository is public and this runner holds the write token
 # for uriotv (CACHIX_AUTH_TOKEN), which must never be reachable from untrusted code.
+#
+# The kernel derivation depends only on the upstream pin (rev/hash) in its package
+# directory, evaluated with upstream's own flake.lock. Other merges cannot change
+# it, so push runs are limited to that directory and this workflow.
 on:
   push:
     branches: [main]
+    paths:
+      - 'pkgs/linux-cachyos-latest-x86_64-v3/**'
+      - '.github/workflows/kernel.yml'
   workflow_dispatch:
     inputs:
       publish:
         description: 'Push outputs to uriotv after the licence review of the closure (default: build only)'
+        type: boolean
+        required: false
+        default: false
+      force:
+        description: 'Build even if every output of the current pin is already in uriotv'
         type: boolean
         required: false
         default: false
@@ -52,12 +64,41 @@ jobs:
           set -euo pipefail
           nix build --no-link --print-out-paths --no-write-lock-file --inputs-from . \
             nixpkgs#coreutils nixpkgs#gawk nixpkgs#gnugrep nixpkgs#findutils \
-            nixpkgs#curl nixpkgs#cachix > "$RUNNER_TEMP/tool-paths"
+            nixpkgs#curl nixpkgs#jq nixpkgs#cachix > "$RUNNER_TEMP/tool-paths"
           while IFS= read -r path; do
             [[ -d "$path/bin" ]] && echo "$path/bin" >> "$GITHUB_PATH"
           done < "$RUNNER_TEMP/tool-paths"
 
+      - name: Skip if the current pin is already published
+        id: published
+        env:
+          FORCE_BUILD: ${{ inputs.force }}
+        run: |
+          set -euo pipefail
+          # shellcheck disable=SC2016 # ${o} is Nix interpolation, not shell
+          nix eval --json --no-write-lock-file ".#packages.x86_64-linux.\"${KERNEL_ATTR}\"" \
+            --apply 'p: map (o: p.${o}.outPath) p.outputs' > "$RUNNER_TEMP/expected-outputs.json"
+          missing=0
+          for path in $(jq -r '.[]' "$RUNNER_TEMP/expected-outputs.json"); do
+            hash=${path#/nix/store/}
+            hash=${hash%%-*}
+            if curl --fail --silent --retry 3 --retry-all-errors \
+                 "https://uriotv.cachix.org/${hash}.narinfo" | grep -Fxq "StorePath: $path"; then
+              echo "In uriotv: $path"
+            else
+              echo "Missing in uriotv: $path"
+              missing=1
+            fi
+          done
+          if (( missing == 0 )) && [[ "${FORCE_BUILD:-false}" != true ]]; then
+            echo 'skip=true' >> "$GITHUB_OUTPUT"
+            echo '## Kernel pin already published to uriotv; build skipped' | tee -a "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'skip=false' >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Check builder resources
+        if: steps.published.outputs.skip != 'true'
         run: |
           set -euo pipefail
           mem_gib=$(awk '/MemTotal/ { printf "%d", $2 / 1048576 }' /proc/meminfo)
@@ -67,6 +108,7 @@ jobs:
           (( disk_gib >= 40 )) || { echo '::error::Less than 40 GiB free in /nix/store'; exit 1; }
 
       - name: Record derivation for consumer comparison
+        if: steps.published.outputs.skip != 'true'
         run: |
           set -euo pipefail
           drv=$(nix eval --raw --no-write-lock-file \
@@ -77,6 +119,7 @@ jobs:
           } | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: Refuse to build if the kernel would be substituted
+        if: steps.published.outputs.skip != 'true'
         run: |
           set -euo pipefail
           attr=".#packages.x86_64-linux.\"${KERNEL_ATTR}\"^*"
@@ -95,6 +138,7 @@ jobs:
           fi
 
       - name: Build kernel outputs from source
+        if: steps.published.outputs.skip != 'true'
         run: |
           set -euo pipefail
           nix build --no-link --no-write-lock-file --print-build-logs --print-out-paths \
@@ -104,6 +148,7 @@ jobs:
           cat "$RUNNER_TEMP/kernel-outputs"
 
       - name: Record runtime closure for licence review
+        if: steps.published.outputs.skip != 'true'
         run: |
           set -euo pipefail
           {
@@ -116,7 +161,9 @@ jobs:
       - name: Publish to uriotv and verify StorePath
         # Manual dispatch with publish=true only, after the closure was reviewed.
         # Only this step receives the write token.
-        if: github.event_name == 'workflow_dispatch' && inputs.publish
+        if: >-
+          steps.published.outputs.skip != 'true' &&
+          github.event_name == 'workflow_dispatch' && inputs.publish
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
         run: |
