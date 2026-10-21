@@ -11,7 +11,7 @@
 }:
 
 let
-  version = "0.2.1.4";
+  version = "0.2.2";
   llamaRev = "3cf03257f219afbe7334045ff7c6a06ac68c627d";
   llamaSrc = fetchFromGitHub {
     owner = "ggml-org";
@@ -43,7 +43,7 @@ cudaPackages.backendStdenv.mkDerivation (finalAttrs: {
     owner = "Niko1221";
     repo = "Strata";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-lLfTVwKrgJ+2/tH29G6XwR2MwMbOxS7UBgOIthZI7PU=";
+    hash = "sha256-rZqp6GjcaDzwL9FjBxCrh3DNfF8j9QT7S0kN7BVD+vg=";
   };
 
   __structuredAttrs = true;
