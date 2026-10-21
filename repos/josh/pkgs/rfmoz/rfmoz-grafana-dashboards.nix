@@ -8,13 +8,13 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "rfmoz-grafana-dashboards";
-  version = "0-unstable-2026-10-20";
+  version = "0-unstable-2026-10-21";
 
   src = fetchFromGitHub {
     owner = "rfmoz";
     repo = "grafana-dashboards";
-    rev = "81d982dcd579e5dd358758439d539bce2c21fe68";
-    hash = "sha256-A0WB4pkPxqdyYk5LcUM8c9to3RFFYAIXSGBbDFMdWi4=";
+    rev = "6599fbd7ce10924377a7b1d113281c7ae7c03043";
+    hash = "sha256-jz4tTdRpFnzAPtUukvUiIOYAQhaLcdz32wSPw+u/TKU=";
   };
 
   installPhase = ''
