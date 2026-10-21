@@ -287,12 +287,12 @@
             "name": null,
             "owner": "monosans",
             "repo": "pyromark",
-            "rev": "v0.10.1",
-            "sha256": "sha256-pl7f53lShOiCcEPXsWQNgFlKWuqzvTWzJkD6CYeT9uU=",
+            "rev": "v0.10.2",
+            "sha256": "sha256-kbItmYueWKGy3POpnszWUP4s0OwZa+B/ceUdyBmm0c8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.10.1"
+        "version": "v0.10.2"
     },
     "qingjian": {
         "cargoLock": null,

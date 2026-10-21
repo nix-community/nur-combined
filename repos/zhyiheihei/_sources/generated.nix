@@ -144,12 +144,12 @@
   };
   pyromark = {
     pname = "pyromark";
-    version = "v0.10.1";
+    version = "v0.10.2";
     src = fetchFromGitHub {
       owner = "monosans";
       repo = "pyromark";
-      tag = "v0.10.1";
-      hash = "sha256-pl7f53lShOiCcEPXsWQNgFlKWuqzvTWzJkD6CYeT9uU=";
+      tag = "v0.10.2";
+      hash = "sha256-kbItmYueWKGy3POpnszWUP4s0OwZa+B/ceUdyBmm0c8=";
     };
   };
   qingjian = {
