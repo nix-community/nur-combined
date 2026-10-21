@@ -178,14 +178,14 @@ let
 in
 python3.pkgs.buildPythonApplication rec {
   pname = "ghost-downloader-3";
-  version = "4.4.3";
+  version = "4.4.4";
   format = "other";
 
   src = fetchFromGitHub {
     owner = "XiaoYouChR";
     repo = "Ghost-Downloader-3";
     rev = "v${version}";
-    hash = "sha256-Jb7h4B+BrWLXAY2stiCY6CXZgLIZ67+hdyWe7hDJAAE=";
+    hash = "sha256-M2BD8VFhLXSrUq27hNDJwYcTUufYfK4QNIDIbHWCogo=";
   };
 
   nativeBuildInputs = [ qt6.wrapQtAppsHook ];
