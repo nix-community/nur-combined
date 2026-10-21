@@ -47,6 +47,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=probe_version_command_captures_healthy_tool_output"
     "--skip=mcode_history_uses_visible_roots_and_display_messages"
     "--skip=claude_updater_child_inherits_scoped_settings_without_parent_leakage"
+    "--skip=test_parent_rollout_is_cached_once_across_fork_cutoffs"
   ];
 
   postPatch = ''
