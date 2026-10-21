@@ -8,6 +8,7 @@
   ./services/networking/ddns-go.nix
   ./services/networking/gost.nix
   ./services/networking/mosdns.nix
+  ./services/networking/terracotta-headless.nix
   ./services/networking/udpxy.nix
   ./services/web-apps/airtrail.nix
   ./services/web-apps/alist.nix
