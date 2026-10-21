@@ -71,6 +71,8 @@ is preserved until a strictly newer, descendant release is available.
   overlay entry, supported-system flake package and CI entry. No duplicate lists.
 - **Full builds:** every supported, non-broken package and all its outputs are
   built, including unfree packages and those with `preferLocalBuild = true`.
+  Exception: packages with `meta.ciBuild = false` are built out of band (see
+  Compute below).
   Cached results may be substituted; CI does not force a costly rebuild.
 - **Separate publication:** metadata must explicitly allow redistribution
   (`license.redistributable`, or `license.free` when absent). Unknown/empty
@@ -92,7 +94,15 @@ is preserved until a strictly newer, descendant release is available.
   NUR's global HTTP 429 throttle is explicitly reported as a deferred request,
   not a successful notification or package failure; its periodic sync remains
   the fallback. Other HTTP/transport failures still fail CI after bounded retries.
-- **Compute:** ordinary GitHub-hosted runners only. No kernel or remote builder.
+- **Compute:** GitHub-hosted runners (`ubuntu-latest`) build all packages in
+  `build.yml`, except `meta.ciBuild = false`. The CachyOS x86-64-v3 kernel
+  (`linux-cachyos-latest-x86_64-v3`) is built from source by `kernel.yml` on the
+  self-hosted runner `[self-hosted, nixos, cachix-builder]` (labels: `nixos`,
+  `cachix-builder`). It triggers only on push to `main` and on manual dispatch of
+  `main`; never on pull requests. Publication to `uriotv` happens only on a manual
+  dispatch with `publish = true`, after the closure licence review. It is not part
+  of `test-gate`, so a kernel failure does not block merges. Its job is disabled
+  unless the repository variable `KERNEL_BUILDER_ENABLED` is `true`.
 
 GitHub can delay scheduled workflows; the cron time is not a delivery guarantee.
 Builds and the updater use the same `flake.lock` pin. The updater does not move
@@ -109,6 +119,24 @@ The update PAT needs repository contents and pull-request write permissions. Do
 not replace it with `GITHUB_TOKEN`: PRs made with that token do not trigger this CI.
 Dependabot updates action versions weekly; its PRs are not automatically merged
 by the package updater. There are no secrets required to build a PR.
+
+## CachyOS kernel (`linux-cachyos-latest-x86_64-v3`)
+
+- **Source of truth:** `pkgs/linux-cachyos-latest-x86_64-v3/default.nix` pins the
+  upstream `xddxdd/nix-cachyos-kernel` commit (`rev` and `hash`). `update.sh`
+  moves only that pin. It never changes `flake.lock`.
+- **Build from scratch:** the kernel is built on our builder. Upstream and
+  third-party kernel caches are not substituters. Only `cache.nixos.org` (nixpkgs
+  dependencies) and `uriotv` are used.
+- **Same derivation everywhere:** the kernel is evaluated with upstream's own
+  flake.lock, so its `drvPath` does not depend on the nixpkgs pinned by a consumer.
+  Overriding urio-nur's `nixpkgs` input does not change it. CI records the
+  `drvPath` in the `kernel.yml` job summary. Consumers can compare with:
+  `nix eval --raw github:urioTV/urio-nur#packages.x86_64-linux.linux-cachyos-latest-x86_64-v3.drvPath`
+- **Consumers** (laptop, desktop) take the package from the `urio-nur` overlay or
+  `packages.x86_64-linux`. Pin `urio-nur` in their `flake.lock` to a commit that
+  contains this package, and build the kernel from that source. Changing the pin
+  is a deliberate `nix flake update urio-nur`.
 
 ## Adding a package
 

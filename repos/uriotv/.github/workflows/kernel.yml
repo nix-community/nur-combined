@@ -1,0 +1,120 @@
+name: "Build CachyOS kernel (self-hosted)"
+
+# Only pushes to main and manual runs of main. No pull_request, pull_request_target
+# or issue_comment: the repository is public and this runner holds the write token
+# for uriotv (CACHIX_AUTH_TOKEN), which must never be reachable from untrusted code.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Push outputs to uriotv after the licence review of the closure (default: build only)'
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kernel-cachyos-latest-x86_64-v3
+  # Never cancel a half-finished build or push.
+  cancel-in-progress: false
+
+env:
+  KERNEL_ATTR: linux-cachyos-latest-x86_64-v3
+  # Build from source on this runner. Upstream and third-party kernel caches are
+  # not substituters: cache.nixos.org (nixpkgs) and uriotv (our own) only.
+  BUILD_SUBSTITUTERS: https://cache.nixos.org https://uriotv.cachix.org
+
+jobs:
+  build-kernel:
+    # Stays disabled until the cachix-builder runner exists. Set the repository
+    # variable KERNEL_BUILDER_ENABLED to 'true' only then; otherwise the job would
+    # wait in the queue forever.
+    if: github.ref == 'refs/heads/main' && vars.KERNEL_BUILDER_ENABLED == 'true'
+    runs-on: [self-hosted, nixos, cachix-builder]
+    # First build is from scratch on 8 threads (estimate: ~1 h, 6-10 GB peak RAM).
+    # 12 h leaves room for a slow first run without cutting the build off.
+    timeout-minutes: 720
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+
+      - name: Check builder resources
+        run: |
+          set -euo pipefail
+          mem_gib=$(awk '/MemTotal/ { printf "%d", $2 / 1048576 }' /proc/meminfo)
+          disk_gib=$(df -Pk /nix/store | awk 'NR == 2 { printf "%d", $4 / 1048576 }')
+          echo "RAM: ${mem_gib} GiB, free disk for /nix/store: ${disk_gib} GiB"
+          (( mem_gib >= 12 )) || { echo '::error::Less than 12 GiB RAM on the builder'; exit 1; }
+          (( disk_gib >= 40 )) || { echo '::error::Less than 40 GiB free in /nix/store'; exit 1; }
+
+      - name: Record derivation for consumer comparison
+        run: |
+          set -euo pipefail
+          drv=$(nix eval --raw --no-write-lock-file \
+            ".#packages.x86_64-linux.\"${KERNEL_ATTR}\".drvPath")
+          {
+            echo '## Kernel derivation'
+            echo "\`${drv}\`"
+          } | tee -a "$GITHUB_STEP_SUMMARY"
+
+      - name: Refuse to build if the kernel would be substituted
+        run: |
+          set -euo pipefail
+          attr=".#packages.x86_64-linux.\"${KERNEL_ATTR}\"^*"
+          nix build --dry-run --no-write-lock-file \
+            --option substituters "$BUILD_SUBSTITUTERS" "$attr" > "$RUNNER_TEMP/dry-run.txt" 2>&1
+          if grep -q "will be built:" "$RUNNER_TEMP/dry-run.txt" \
+             && grep -q "/[a-z0-9]\{32\}-${KERNEL_ATTR}-.*\.drv$" "$RUNNER_TEMP/dry-run.txt"; then
+            echo 'Kernel derivation must be built here; it is listed for building.'
+          elif out=$(nix eval --raw --no-write-lock-file ".#packages.x86_64-linux.\"${KERNEL_ATTR}\".outPath") \
+               && nix path-info "$out" > /dev/null 2>&1; then
+            echo "Kernel output already present in the local store: $out"
+          else
+            echo '::error::The kernel would be fetched from a substituter, not built. Check the builder nix.conf (substituters, trusted-users) and retry.'
+            cat "$RUNNER_TEMP/dry-run.txt"
+            exit 1
+          fi
+
+      - name: Build kernel outputs from source
+        run: |
+          set -euo pipefail
+          nix build --no-link --no-write-lock-file --print-build-logs --print-out-paths \
+            --option substituters "$BUILD_SUBSTITUTERS" \
+            --cores 8 --max-jobs 1 \
+            ".#packages.x86_64-linux.\"${KERNEL_ATTR}\"^*" > "$RUNNER_TEMP/kernel-outputs"
+          cat "$RUNNER_TEMP/kernel-outputs"
+
+      - name: Record runtime closure for licence review
+        run: |
+          set -euo pipefail
+          {
+            echo '## Kernel runtime closure (review licences before publication)'
+            echo '```'
+            xargs nix path-info -r < "$RUNNER_TEMP/kernel-outputs"
+            echo '```'
+          } | tee -a "$GITHUB_STEP_SUMMARY"
+
+      - name: Publish to uriotv and verify StorePath
+        # Manual dispatch with publish=true only, after the closure was reviewed.
+        # Only this step receives the write token.
+        if: github.event_name == 'workflow_dispatch' && inputs.publish
+        env:
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        run: |
+          set -euo pipefail
+          cachix push uriotv < "$RUNNER_TEMP/kernel-outputs"
+          while IFS= read -r path; do
+            hash=${path#/nix/store/}
+            hash=${hash%%-*}
+            curl --fail --silent --show-error --retry 5 --retry-all-errors \
+              "https://uriotv.cachix.org/${hash}.narinfo" > "$RUNNER_TEMP/output.narinfo"
+            grep -Fx "StorePath: $path" "$RUNNER_TEMP/output.narinfo"
+          done < "$RUNNER_TEMP/kernel-outputs"
+          echo 'Kernel outputs published and their StorePath verified.'

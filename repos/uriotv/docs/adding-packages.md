@@ -102,7 +102,9 @@ as a separate deliberate maintenance change and validate it before committing.
 `lib/ci-policy.nix` separates **building** from **redistribution**:
 
 - Every supported, non-broken package is built, even if unfree or
-  `preferLocalBuild = true`.
+  `preferLocalBuild = true`. Exception: `meta.ciBuild = false` (currently only the
+  CachyOS kernel) is built out of band by its own workflow, `kernel.yml`, on the
+  self-hosted builder; `build.yml` neither builds nor publishes it.
 - For each `meta.license` entry, an explicit `redistributable` boolean wins;
   otherwise `free == true` permits publication. Every entry must allow it.
 - Empty/missing metadata, unknown strings, nonfree/nonredistributable entries
