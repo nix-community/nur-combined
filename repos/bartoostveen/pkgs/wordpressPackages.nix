@@ -63,7 +63,7 @@ makeScope newScope (
         pname = "wp-gutenberg-carousel";
         version = "2.1.6";
         id = "carousel-block";
-        hash = "sha256-ShNEhWD9mE4i1R1EcLy6BqTFlvYQ3xHhU3g5JS7eLy8=";
+        hash = "sha256-rIaLGPvScOG/iCS2Ep54D7PEyKoE6I89rc5BpBRBofo=";
       };
       modify-profile-fields = self.callPackage self.mkWpPlugin {
         pname = "wp-modify-profile-fields";
