@@ -527,6 +527,7 @@ in
             </line>
           </sipLines>
           <dialTemplate>dialplan.xml</dialTemplate>
+          <preferredCodec>g722</preferredCodec>
         </sipProfile>
         <!-- 1 = TCP. The enterprise firmware's UDP stack retransmits
              aggressively against non-CUCM proxies; the matching asterisk
@@ -544,6 +545,7 @@ in
           <settingsAccess>1</settingsAccess>
           <disableSpeaker>false</disableSpeaker>
           <disableSpeakerAndHeadset>false</disableSpeakerAndHeadset>
+          <g722CodecSupport>2</g722CodecSupport>
         </vendorConfig>
         <userLocale>
           <name>English_United_States</name>
@@ -574,7 +576,6 @@ in
         <messagesURL>${servicesUrl}/messages?name=SEP${cfg.phoneMac}</messagesURL>
         <proxyServerURL></proxyServerURL>
         <servicesURL></servicesURL>
-        <g722CodecSupport>2</g722CodecSupport>
         <advertiseG722Codec>1</advertiseG722Codec>
       </device>
     '';
