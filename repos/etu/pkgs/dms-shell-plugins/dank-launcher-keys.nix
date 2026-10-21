@@ -6,13 +6,13 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-dank-launcher-keys";
-  version = "0-unstable-2026-10-05";
+  version = "0-unstable-2026-10-20";
 
   src = fetchFromGitHub {
     owner = "AvengeMedia";
     repo = "dms-plugins";
-    rev = "a8a508bc371e7c3f2c7862d8840b88cf5c63978f";
-    hash = "sha256-3nHfkGzmmq8JpN7bmO8Z5zIumvx8dzwS1GtQ6V0XgMg=";
+    rev = "b827c2296cd45a73bf9318f16a261c9edeec8339";
+    hash = "sha256-OYCjryGkZ9DlMSS0DlaKzA/qRxXI+cAbO3uee+9Y+Kg=";
   };
 
   sourceRoot = "source/DankLauncherKeys";
