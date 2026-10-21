@@ -40,9 +40,18 @@
             patches+=" $(find "$toshllmSrc/patches/llama" -name '*.patch' -print | \
                 awk -F/ '{print $NF"\t"$0}' | sort | cut -f2-) ${./package-lock.patch}"
         '';
-        cmakeFlags = builtins.filter (flag: !(lib.hasInfix "LLAMA_BUILD_NUMBER" flag || lib.hasInfix "LLAMA_BUILD_COMMIT" flag)) (old.cmakeFlags or []) ++ [
+        cmakeFlags = builtins.filter (flag: !(lib.any (x: lib.hasInfix x flag) [
+            "LLAMA_BUILD_NUMBER"
+            "LLAMA_BUILD_COMMIT"
+            "CMAKE_CXX_FLAGS"
+        ])) (old.cmakeFlags or []) ++ [
             (lib.cmakeFeature "LLAMA_BUILD_NUMBER" "0")
             (lib.cmakeFeature "LLAMA_BUILD_COMMIT" (builtins.substring 0 7 llama-cpp-rev))
+            (let
+                myCXXFlags = "-DTOSH_VERSION=${finalAttrs.version}";
+                oldCXXFlagsFlag = lib.findFirst (lib.hasInfix "CMAKE_CXX_FLAGS") null (old.cmakeFlags or []);
+                newCXXFlagsFlag = if oldCXXFlagsFlag != null then "${oldCXXFlagsFlag} ${myCXXFlags}" else lib.cmakeFeature "CMAKE_CXX_FLAGS" myCXXFlags;
+            in newCXXFlagsFlag)
             # Match ISA_FLAGS in `scripts/build-engines.sh`:
             (lib.cmakeBool "GGML_SSE42" avx2Support)
             (lib.cmakeBool "GGML_AVX" avx2Support)
