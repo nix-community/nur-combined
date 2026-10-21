@@ -4,11 +4,12 @@
   fetchFromForgejo,
   pkg-config,
   cacert,
+  nix-update-script,
 }:
 
-rustPlatform.buildRustPackage (_finalAttrs: {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "resolvematrix";
-  version = "1.3.0-unstable-2026-08-01";
+  version = "1.4.0";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -17,11 +18,11 @@ rustPlatform.buildRustPackage (_finalAttrs: {
     domain = "forgejo.ellis.link";
     owner = "continuwuation";
     repo = "resolvematrix";
-    rev = "8e4c4da55766f9cf86f6657041d71a8ffe688fea";
-    hash = "sha256-EFAhML11o7dKEPnPgcLVfeOM9FLCIBFixtzoE7a+16o=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-Q/qDz50RdwvMBb0tn5sXpeYLNTjGFiQtV1WoDj7n5GI=";
   };
 
-  cargoHash = "sha256-xjn/bHjsLEZ+3vbgCCWyxJiNzR1NerDFCGr8WgwzvFc=";
+  cargoHash = "sha256-+yvcoVBynJmDcgQCQiCkj9Y1Us0OWvfoMFEdi60tLLs=";
 
   nativeBuildInputs = [
     pkg-config
@@ -61,7 +62,7 @@ rustPlatform.buildRustPackage (_finalAttrs: {
     "--skip=server::tests::test_well_known_resolution::case_1_maunium"
   ];
 
-  # passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "A handy Matrix server resolution library and CLI";
