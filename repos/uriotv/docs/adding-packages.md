@@ -126,7 +126,7 @@ closures, so dependencies also must be redistributable. Never mislabel a package
 or dependency merely to make it upload. NMSSaveEditor currently stays unfree and
 is built for validation but never explicitly sent to the public cache.
 
-Publication is explicit and only from a successful `main` run, after offline
+Publication is automatic, but only from a successful `main` run, after offline
 tests and all package builds pass. The helper cross-checks built outputs against
 the manifest and verifies public narinfo `StorePath` values. PRs/updaters have no
 Cachix write token. Public cache misses can still lead consumers to build locally;

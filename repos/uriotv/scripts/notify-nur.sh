@@ -6,7 +6,12 @@ set -euo pipefail
 
 repo=${1:?Usage: notify-nur.sh REPOSITORY}
 [[ "$repo" =~ ^[A-Za-z0-9][A-Za-z0-9._-]*$ ]] || { echo '::error::Invalid NUR repository name'; exit 1; }
-if [[ "${GITHUB_REF:-}" != refs/heads/main || ! "${GITHUB_EVENT_NAME:-}" =~ ^(push|workflow_dispatch|schedule)$ ]]; then
+trusted_event=false
+if [[ "${GITHUB_EVENT_NAME:-}" =~ ^(push|workflow_dispatch|schedule)$ ]] ||
+   [[ "${GITHUB_EVENT_NAME:-}" == workflow_run && "${CI_TRUSTED_UPDATE_COMPLETION:-false}" == true ]]; then
+  trusted_event=true
+fi
+if [[ "${GITHUB_REF:-}" != refs/heads/main || "$trusted_event" != true ]]; then
   echo 'Read-only CI: no NUR notification for this event/ref'
   exit 0
 fi

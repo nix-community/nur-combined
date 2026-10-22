@@ -16,6 +16,16 @@ let
         inherit (fixture) source variant;
       };
       kernel = packages.${name};
+      setName = builtins.replaceStrings [ "linux-" ] [ "linuxPackages-" ] name;
+      packageSets = import ../lib/cachyos/package-sets.nix {
+        inherit pkgs;
+        kernels = packages;
+      };
+      nur = import ../. { inherit pkgs; };
+      overlay = (import ../overlays).default pkgs { };
+      # Real overlay fixpoint, as used by NixOS nixpkgs.overlays. A pkgs-only check
+      # cannot reproduce recursion through final.stdenv.
+      extended = pkgs.extend (import ../overlays).default;
       # Exercise the exact NixOS boot.kernelPackages apply/override path, not a
       # dummy override that ignores features/patches/randstructSeed.
       system = import (pkgs.path + "/nixos/lib/eval-config.nix") {
@@ -23,7 +33,7 @@ let
         modules = [
           {
             nixpkgs.pkgs = pkgs;
-            boot.kernelPackages = pkgs.linuxPackagesFor kernel;
+            boot.kernelPackages = packageSets.${setName};
           }
         ];
       };
@@ -41,6 +51,9 @@ let
     assert frozen.drvPath == fixture.drvPath;
     assert outputs frozen == fixture.paths;
     assert outputs (kernel.override { }) == outputs kernel;
+    assert nur.${setName}.kernel.drvPath == kernel.drvPath;
+    assert overlay.${setName}.kernel.drvPath == kernel.drvPath;
+    assert extended.${setName}.kernel.drvPath == kernel.drvPath;
     assert !(builtins.tryEval (kernel.override { lto = "thin"; }).drvPath).success;
     assert !(builtins.tryEval (kernel.override { processorOpt = "native"; }).drvPath).success;
     assert system.config.boot.kernelPackages.kernel.drvPath == kernel.drvPath;

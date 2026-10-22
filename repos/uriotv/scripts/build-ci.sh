@@ -9,7 +9,12 @@ outfile=${CI_BUILT_OUTPUTS_FILE:-${RUNNER_TEMP:-/tmp}/ci-built-outputs.txt}
 publish=${CI_PUBLISH_ONLY:-false}
 
 if [[ "$publish" == true ]]; then
-  if [[ "${GITHUB_REF:-}" != refs/heads/main || ! "${GITHUB_EVENT_NAME:-}" =~ ^(push|workflow_dispatch|schedule)$ ]]; then
+  trusted_event=false
+  if [[ "${GITHUB_EVENT_NAME:-}" =~ ^(push|workflow_dispatch|schedule)$ ]] ||
+     [[ "${GITHUB_EVENT_NAME:-}" == workflow_run && "${CI_TRUSTED_UPDATE_COMPLETION:-false}" == true ]]; then
+    trusted_event=true
+  fi
+  if [[ "${GITHUB_REF:-}" != refs/heads/main || "$trusted_event" != true ]]; then
     echo 'Read-only CI: no cache publication for this event/ref'
     exit 0
   fi

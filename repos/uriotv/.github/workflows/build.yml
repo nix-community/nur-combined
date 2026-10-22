@@ -11,8 +11,12 @@ on:
   pull_request:
   push:
     branches: [main, master]
-  schedule:
-    - cron: '17 3 * * *'
+  # One daily clock: the updater starts at 02:00 Europe/Warsaw. Audit/cache
+  # validation follows its successful completion, rather than a second cron.
+  workflow_run:
+    workflows: ['Update packages']
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
     inputs:
       verify_storyforge_updater:
@@ -21,8 +25,23 @@ on:
         required: false
         default: false
 
+env:
+  CI_TRUSTED_UPDATE_COMPLETION: >-
+    ${{ github.event_name == 'workflow_run' &&
+        github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.head_branch == 'main' &&
+        github.event.workflow_run.head_repository.full_name == github.repository &&
+        (github.event.workflow_run.event == 'schedule' || github.event.workflow_run.event == 'workflow_dispatch') }}
+
 jobs:
   test-update-scripts:
+    # Never grant a workflow_run from PR/untrusted code a publication path.
+    if: >-
+      github.event_name != 'workflow_run' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_branch == 'main' &&
+       github.event.workflow_run.head_repository.full_name == github.repository &&
+       (github.event.workflow_run.event == 'schedule' || github.event.workflow_run.event == 'workflow_dispatch'))
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -72,7 +91,8 @@ jobs:
       - name: Publish eligible outputs
         if: >-
           success() && github.ref == 'refs/heads/main' &&
-          (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule')
+          (github.event_name == 'push' || github.event_name == 'workflow_dispatch' ||
+           (github.event_name == 'workflow_run' && env.CI_TRUSTED_UPDATE_COMPLETION == 'true'))
         env:
           CI_MANIFEST_PATH: ${{ runner.temp }}/ci-manifest.json
           CI_BUILT_OUTPUTS_FILE: ${{ runner.temp }}/ci-built-outputs.txt
@@ -84,7 +104,8 @@ jobs:
       - name: Trigger NUR update
         if: >-
           success() && github.ref == 'refs/heads/main' &&
-          (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'schedule')
+          (github.event_name == 'push' || github.event_name == 'workflow_dispatch' ||
+           (github.event_name == 'workflow_run' && env.CI_TRUSTED_UPDATE_COMPLETION == 'true'))
         run: bash scripts/notify-nur.sh '${{ matrix.nurRepo }}'
 
   test-gate:

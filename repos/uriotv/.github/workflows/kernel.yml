@@ -14,14 +14,10 @@ on:
       - 'pkgs/linux-cachyos-latest-x86_64-v3/**'
       - 'pkgs/linux-cachyos-bore-x86_64-v3/**'
       - 'lib/cachyos/**'
+      - 'scripts/check-kernel-closure.py'
       - '.github/workflows/kernel.yml'
   workflow_dispatch:
     inputs:
-      publish:
-        description: 'Push outputs to uriotv after the licence review of the closure (default: build only)'
-        type: boolean
-        required: false
-        default: false
       force:
         description: 'Build even if every output of the current pin is already in uriotv'
         type: boolean
@@ -76,7 +72,7 @@ jobs:
           set -euo pipefail
           nix build --no-link --print-out-paths --no-write-lock-file --inputs-from . \
             nixpkgs#coreutils nixpkgs#gawk nixpkgs#gnugrep nixpkgs#findutils \
-            nixpkgs#curl nixpkgs#jq nixpkgs#cachix > "$RUNNER_TEMP/tool-paths"
+            nixpkgs#curl nixpkgs#jq nixpkgs#python3 nixpkgs#cachix > "$RUNNER_TEMP/tool-paths"
           while IFS= read -r path; do
             [[ -d "$path/bin" ]] && echo "$path/bin" >> "$GITHUB_PATH"
           done < "$RUNNER_TEMP/tool-paths"
@@ -159,23 +155,28 @@ jobs:
             ".#packages.x86_64-linux.\"${KERNEL_ATTR}\"^*" > "$RUNNER_TEMP/kernel-outputs"
           cat "$RUNNER_TEMP/kernel-outputs"
 
-      - name: Record runtime closure for licence review
+      - name: Verify redistribution rights for the complete built closure
         if: steps.published.outputs.skip != 'true'
         run: |
           set -euo pipefail
+          nix eval --json --no-write-lock-file \
+            ".#ci.x86_64-linux.kernelLicenseManifests.\"${KERNEL_ATTR}\"" \
+            > "$RUNNER_TEMP/kernel-license-manifest.json"
+          xargs nix path-info -r < "$RUNNER_TEMP/kernel-outputs" > "$RUNNER_TEMP/kernel-closure"
           {
-            echo '## Kernel runtime closure (review licences before publication)'
-            echo '```'
-            xargs nix path-info -r < "$RUNNER_TEMP/kernel-outputs"
-            echo '```'
+            echo '## Automatic closure redistribution check'
+            python3 -B scripts/check-kernel-closure.py \
+              "$RUNNER_TEMP/kernel-license-manifest.json" "$RUNNER_TEMP/kernel-closure" \
+              "$RUNNER_TEMP/kernel-outputs" "$RUNNER_TEMP/expected-outputs.json"
           } | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: Publish to uriotv and verify StorePath
-        # Manual dispatch with publish=true only, after the closure was reviewed.
-        # Only this step receives the write token.
+        # Automatic only after successful build AND fail-closed closure check.
+        # Only this main-only step receives the write token; never a PR job.
         if: >-
-          steps.published.outputs.skip != 'true' &&
-          github.event_name == 'workflow_dispatch' && inputs.publish
+          success() && steps.published.outputs.skip != 'true' &&
+          github.ref == 'refs/heads/main' &&
+          (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
         run: |

@@ -9,11 +9,14 @@
 {
   pkgs ? import <nixpkgs> { },
 }:
-
+let
+  kernels = import ./pkgs { inherit pkgs; };
+in
 {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 }
-// import ./pkgs { inherit pkgs; }
+// kernels
+// import ./lib/cachyos/package-sets.nix { inherit pkgs kernels; }

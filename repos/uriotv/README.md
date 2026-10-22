@@ -78,7 +78,9 @@ is preserved until a strictly newer, descendant release is available.
   (`license.redistributable`, or `license.free` when absent). Unknown/empty
   license metadata fails closed. `preferLocalBuild` is only a scheduling hint.
   See [the license policy](docs/adding-packages.md#licenses-and-public-cache).
-- **Daily updates:** 03:00 UTC (`update.yml`) checks every registered package.
+- **Daily updates:** 02:00 `Europe/Warsaw` (`update.yml`, IANA timezone, DST-safe)
+  checks every registered package. The package build/cache workflow (`build.yml`)
+  runs after a successful scheduled or manual update run, not on a second clock.
   Successful changes create/update one `auto-update-packages` PR and enable
   squash auto-merge. Missing updaters are errors, never silently skipped.
 - **Partial failures:** a failed updater is rolled back; successful updates can
@@ -90,7 +92,7 @@ is preserved until a strictly newer, descendant release is available.
   protection must require `test-update-scripts` and `test-gate` (strict mode).
 - **Public cache:** only successful builds on `main` publish eligible outputs to
   `uriotv.cachix.org`, verify their narinfo `StorePath`, then notify NUR. PRs and
-  the updater have no Cachix write token. Daily build check: 03:17 UTC.
+  the updater have no Cachix write token. Daily build check follows the updater.
   NUR's global HTTP 429 throttle is explicitly reported as a deferred request,
   not a successful notification or package failure; its periodic sync remains
   the fallback. Other HTTP/transport failures still fail CI after bounded retries.
@@ -103,8 +105,11 @@ is preserved until a strictly newer, descendant release is available.
   either kernel package directory, the shared `lib/cachyos/` recipe or `kernel.yml`,
   and on manual dispatch of
   `main`; never on pull requests. If every output of the current pin is already
-  in `uriotv`, the build is skipped (dispatch with `force = true` to rebuild). Publication to `uriotv` happens only on a manual
-  dispatch with `publish = true`, after the closure licence review. It is not part
+  in `uriotv`, the build is skipped (dispatch with `force = true` to rebuild).
+  After a successful build, a fail-closed licence gate checks the complete runtime
+  closure (`scripts/check-kernel-closure.py`), then the kernel is published to
+  `uriotv` automatically. Publication runs only for pushes/dispatches on `main`;
+  PR jobs never receive the write token. It is not part
   of `test-gate`, so a kernel failure does not block merges. Its job is disabled
   unless the repository variable `KERNEL_BUILDER_ENABLED` is `true`.
 

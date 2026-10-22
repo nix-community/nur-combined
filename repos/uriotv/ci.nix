@@ -21,6 +21,10 @@ rec {
   inherit packages buildPackages cachePackages;
   # Evaluation only: cache identity and real NixOS kernel override regression.
   kernelTests = import ./tests/cachyos-eval.nix { inherit pkgs packages; };
+  kernelLicenseManifests = pkgs.lib.genAttrs [
+    "linux-cachyos-latest-x86_64-v3"
+    "linux-cachyos-bore-x86_64-v3"
+  ] (name: import ./lib/cachyos/license-manifest.nix { kernel = packages.${name}; });
   # Legacy entry points remain available, but are no longer conflated in CI.
   buildPkgs = builtins.attrValues buildPackages;
   cachePkgs = builtins.attrValues cachePackages;
