@@ -52,6 +52,10 @@ jobs:
 
   tests:
     needs: test-update-scripts
+    # statuses: write is used only by the main-only publication status step below.
+    permissions:
+      contents: read
+      statuses: write
     runs-on: ubuntu-latest
     timeout-minutes: 120
     strategy:
@@ -97,6 +101,7 @@ jobs:
            (github.event_name == 'workflow_run' && env.CI_TRUSTED_UPDATE_COMPLETION == 'true'))
         run: nix profile install --no-write-lock-file --inputs-from . nixpkgs#attic-client
       - name: Publish eligible outputs
+        id: cachix
         if: >-
           success() && github.ref == 'refs/heads/main' &&
           (github.event_name == 'push' || github.event_name == 'workflow_dispatch' ||
@@ -113,6 +118,7 @@ jobs:
       - name: Push verified outputs to the private attic cache
         # Independent of cachix: runs even if the cachix step failed, as long as the
         # build succeeded and produced a verified list. Never fails the job.
+        id: attic
         continue-on-error: true
         if: >-
           always() && github.ref == 'refs/heads/main' &&
@@ -123,8 +129,8 @@ jobs:
         run: |
           set -euo pipefail
           if [[ ! -f "$RUNNER_TEMP/publish-paths.txt" ]]; then
-            echo 'attic push skipped: the build did not produce a verified publication list.'
-            exit 0
+            echo '::error::attic push impossible: the build did not produce a verified publication list.'
+            exit 1
           fi
           bash scripts/attic-push.sh "$RUNNER_TEMP/publish-paths.txt"
       - name: Trigger NUR update
@@ -133,6 +139,19 @@ jobs:
           (github.event_name == 'push' || github.event_name == 'workflow_dispatch' ||
            (github.event_name == 'workflow_run' && env.CI_TRUSTED_UPDATE_COMPLETION == 'true'))
         run: bash scripts/notify-nur.sh '${{ matrix.nurRepo }}'
+
+      - name: Record publication status for the cache branch
+        # Success only when uriotv and the private attic cache both received this run's
+        # verified outputs. The attic token must be configured; an absent token is a failure.
+        if: >-
+          always() && github.ref == 'refs/heads/main' &&
+          (github.event_name == 'push' || github.event_name == 'workflow_dispatch' ||
+           (github.event_name == 'workflow_run' && env.CI_TRUSTED_UPDATE_COMPLETION == 'true'))
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CACHIX_OUTCOME: ${{ steps.cachix.outcome }}
+          ATTIC_OUTCOME: ${{ secrets.ATTIC_TOKEN != '' && steps.attic.outcome || 'failure' }}
+        run: bash scripts/publication-status.sh cache/packages "$CACHIX_OUTCOME" "$ATTIC_OUTCOME"
 
   test-gate:
     runs-on: ubuntu-latest

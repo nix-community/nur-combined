@@ -1,0 +1,71 @@
+name: "Update flake.lock"
+
+# One weekly update of every flake input. The CachyOS kernels and all packages build
+# against this lock, so the change lands as one reviewed PR with squash auto-merge,
+# and the build and kernel workflows then republish the new state.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  schedule:
+    - cron: '0 3 * * 0'
+      timezone: 'Europe/Warsaw'
+  workflow_dispatch:
+
+jobs:
+  update-lock:
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Require update PR token
+        env:
+          PAT_FOR_UPDATES: ${{ secrets.PAT_FOR_UPDATES }}
+        run: |
+          if [ -z "$PAT_FOR_UPDATES" ]; then
+            echo '::error::PAT_FOR_UPDATES is required; GITHUB_TOKEN cannot trigger PR CI.'
+            exit 1
+          fi
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Update every flake input
+        run: nix flake update
+      - name: Check for changes
+        id: changes
+        run: |
+          if [ -n "$(git status --porcelain -- flake.lock)" ]; then
+            echo 'has_changes=true' >> "$GITHUB_OUTPUT"
+          else
+            echo 'has_changes=false' >> "$GITHUB_OUTPUT"
+          fi
+      - name: Create Pull Request
+        id: cpr
+        if: steps.changes.outputs.has_changes == 'true'
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.PAT_FOR_UPDATES }}
+          add-paths: flake.lock
+          commit-message: 'chore: update flake.lock'
+          title: 'chore: Update flake.lock'
+          body: |
+            Weekly update of every flake input. The CachyOS kernels and all packages
+            build against this lock; the kernel rebuild and cache publication run after merge.
+          branch: auto-update-flake-lock
+          delete-branch: true
+      - name: Enable auto-merge
+        if: steps.cpr.outputs.pull-request-number != ''
+        env:
+          GH_TOKEN: ${{ secrets.PAT_FOR_UPDATES }}
+          PR_NUMBER: ${{ steps.cpr.outputs.pull-request-number }}
+        run: gh pr merge "$PR_NUMBER" --squash --auto --delete-branch

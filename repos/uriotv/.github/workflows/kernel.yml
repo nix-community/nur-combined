@@ -4,18 +4,13 @@ name: "Build CachyOS kernel (self-hosted)"
 # or issue_comment: the repository is public and this runner holds the write token
 # for uriotv (CACHIX_AUTH_TOKEN), which must never be reachable from untrusted code.
 #
-# Kernel derivations depend on their source.json, our shared constructor and its
-# independent nixpkgs pin. Evaluate only these inputs on push; all already cached
-# outputs are skipped independently for each variant.
+# Every push to main is checked, not only kernel paths: the kernels are built with
+# the repository nixpkgs (flake.lock), so any lock change can change them. Outputs
+# already in uriotv are realised without compilation. Each run posts a publication
+# status per kernel; the cache branch is promoted only when all of them succeeded.
 on:
   push:
     branches: [main]
-    paths:
-      - 'pkgs/linux-cachyos-latest-x86_64-v3/**'
-      - 'pkgs/linux-cachyos-bore-x86_64-v3/**'
-      - 'lib/cachyos/**'
-      - 'scripts/check-kernel-closure.py'
-      - '.github/workflows/kernel.yml'
   # Daily path: after a successful scheduled or manual update run on main, check the
   # kernel again (realise or build) and push to both caches, even without a new pin.
   workflow_run:
@@ -66,6 +61,9 @@ jobs:
         github.event.workflow_run.conclusion == 'success' &&
         github.event.workflow_run.head_repository.full_name == github.repository &&
         (github.event.workflow_run.event == 'schedule' || github.event.workflow_run.event == 'workflow_dispatch')))
+    permissions:
+      contents: read
+      statuses: write
     runs-on: [self-hosted, nixos, cachix-builder]
     # First build is from scratch on 8 threads (estimate: ~1 h, 6-10 GB peak RAM).
     # 12 h leaves room for a slow first run without cutting the build off.
@@ -219,6 +217,7 @@ jobs:
           } | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: Publish to uriotv and verify StorePath
+        id: cachix
         # Automatic only after successful build AND fail-closed closure check.
         # Only this main-only step receives the write token; never a PR job.
         # Independent of attic and of whether the pin was already published: pushes
@@ -245,6 +244,7 @@ jobs:
         # Independent of cachix: runs once the build and licence check passed, even if
         # the cachix step failed. Never fails the job. Skipped with a warning when
         # ATTIC_TOKEN is empty.
+        id: attic
         continue-on-error: true
         if: >-
           always() && steps.closure.outcome == 'success' &&
@@ -253,3 +253,17 @@ jobs:
         env:
           ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
         run: bash scripts/attic-push.sh "$RUNNER_TEMP/kernel-outputs"
+
+      - name: Record publication status for the cache branch
+        # Success only when the closure passed the licence gate, uriotv was pushed and
+        # verified, and the private attic push succeeded with ATTIC_TOKEN configured.
+        # Runs for trusted main events only; a failed status keeps cache unchanged.
+        if: >-
+          always() && github.ref == 'refs/heads/main' &&
+          (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_run')
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CLOSURE_OUTCOME: ${{ steps.closure.outcome }}
+          CACHIX_OUTCOME: ${{ steps.cachix.outcome }}
+          ATTIC_OUTCOME: ${{ secrets.ATTIC_TOKEN != '' && steps.attic.outcome || 'failure' }}
+        run: bash scripts/publication-status.sh "cache/kernel/${KERNEL_ATTR}" "$CLOSURE_OUTCOME" "$CACHIX_OUTCOME" "$ATTIC_OUTCOME"

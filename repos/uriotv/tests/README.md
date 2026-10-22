@@ -51,8 +51,9 @@ consistent NUR/overlay exports. `package-policy.nix` verifies license decisions,
 full output selection, unfree builds, redistributable nonfree uploads,
 `preferLocalBuild`, broken packages and unsupported platforms.
 
-`cachyos-eval.nix` verifies both frozen 7.2.11 derivations and all six cached
-output paths, plus the actual NixOS kernel override pathway and patch handling.
+`cachyos-eval.nix` verifies both kernels against the repository nixpkgs, the actual
+NixOS kernel override pathway and patch handling. `publication-cache.py` tests the
+cache-branch gate (publication status and branch promotion) with a fake `gh`.
 This fetches evaluation inputs if necessary but never compiles kernels.
 
 The build workflow runs these checks and then builds eligible supported package

@@ -1,9 +1,8 @@
 # Licence evidence for exact store paths, never inferred from cache availability
 # or a package-name prefix. The publication gate checks the actual built closure
 # against these entries and fails closed on unknown or nonredistributable paths.
-{ kernel }:
+{ kernel, pkgs }:
 let
-  pkgs = import ./nixpkgs.nix;
   inherit (pkgs) lib;
   policy = import ../ci-policy.nix;
   dependencies =
@@ -24,7 +23,7 @@ let
       ]
     );
   # libc/libcurl runtime dependencies are not all exposed through buildInputs.
-  # Explicit candidates are evaluated from the same immutable kernel nixpkgs pin;
+  # Explicit candidates are evaluated from the same repository nixpkgs as the kernel;
   # their metadata is not permission to publish anything outside exact outputs.
   runtimeCandidates = map (name: pkgs.${name}) [
     "curl"

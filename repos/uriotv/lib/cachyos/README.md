@@ -11,48 +11,35 @@ only their own `source.json`. No evaluation or updater needs the xddxdd flake.
 - Kernel config: pinned commit/file in `CachyOS/linux-cachyos` (URL and SHA-256).
 - Patch tree: pinned `CachyOS/kernel-patches` commit, filtered by `patchVersion/`
   using nixpkgs `fetchgit` with `rootDir` (revision and tree SHA-256).
-- Toolchain and Nix kernel builder: `nixpkgs.json`, imported by `nixpkgs.nix`.
-  This pin is separate from the repository/consumer flake.lock. Moving it is a
-  deliberate maintenance operation that requires new builds and cache review.
+- Toolchain and Nix kernel builder: the repository nixpkgs from `flake.lock`, passed
+  in by `callPackage` as `pkgs`. A lock update changes the toolchain, so it rebuilds
+  both kernels; the weekly lock workflow makes this a single reviewed change.
 
 The package updater checks CachyOS directly and changes only the package's
 `source.json` for a strictly newer kernel version. Changing patches/config or the
 nixpkgs pin is not an automatic same-version kernel update. Keep archive,
 config, patch branch and hashes consistent; never just edit `version`.
 
-## Cache-compatible migration
+## Evaluation checks
 
-The initial 7.2.11 inputs and constructor reproduce these derivations:
-
-| Variant | Derivation store hash |
-| --- | --- |
-| latest v3 | `33c51nimafiap906qxj3rwkj0fvzf33i` |
-| BORE v3 | `r53x7r5ykgp7f75lgc27ka21hqill90z` |
-
-`tests/cachyos-cache-baseline.json` freezes their source records, nixpkgs pin,
-derivation and all output paths. `tests/cachyos-eval.nix` evaluates these fixtures
-without compiling and checks the actual exported packages through NixOS's
-`boot.kernelPackages` override path. Run:
+`tests/cachyos-eval.nix` evaluates both kernels without compiling and checks the
+exported packages through the overlay fixpoint and NixOS's `boot.kernelPackages`
+override path. Run:
 
 ```console
 nix eval --json --no-write-lock-file .#ci.x86_64-linux.kernelTests
 ```
 
-Keeping filenames/layout in this repo is not required for substitution; keeping
-the generated derivation is. In particular, preserve the fetcher parameters,
-`linux-src-patched` name, patch order, config install script, kernel `pname`,
-`modDirVersion`, configuration merge/force semantics, and toolchain. The frozen
-regression deliberately fails if the constructor/toolchain changes the old
-build recipe; review any such change rather than updating hashes blindly.
-Equal derivation/output paths allow existing cached NARs to be reused. This is
-not a claim that a fresh recompilation was tested for bit-for-bit reproducibility.
+The 7.2.11 derivations of the previous independent pin are no longer produced;
+the switch to `flake.lock` replaces them and their cached outputs are obsolete.
+Fetcher parameters, `linux-src-patched` name, patch order, config install script,
+`pname`, `modDirVersion` and the configuration merge are unchanged.
 
 Consumers should use our flake package or overlay and `linuxPackagesFor` with
 that kernel. No override of their main nixpkgs changes the kernel's private pin.
 Extra kernel patches/configuration may intentionally produce a different hash.
-Existing xddxdd users can use our cache for the matching initial revision; see
-the root README for an example. Future revisions are independently maintained,
-not automatically ABI/hash-identical to xddxdd's moving branches.
+These kernels are not hash-identical to xddxdd's. Users of xddxdd's cache do not
+get substitution from ours; see the root README.
 
 ## Provenance and licence
 

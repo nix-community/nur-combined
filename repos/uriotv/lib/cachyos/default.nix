@@ -7,10 +7,12 @@
   source,
   variant,
   pname,
+  # Supplied by callPackage from the repository's nixpkgs (flake.lock). Never removed
+  # from the buildLinux arguments below.
+  pkgs,
   ...
 }@args:
 let
-  pkgs = import ./nixpkgs.nix;
   inherit (pkgs) lib;
   bore = variant == "linux-cachyos-bore";
   version = source.version;
@@ -102,6 +104,7 @@ pkgs.buildLinux (
   (builtins.removeAttrs args [
     "source"
     "variant"
+    "pkgs"
   ])
   // {
     inherit pname version;

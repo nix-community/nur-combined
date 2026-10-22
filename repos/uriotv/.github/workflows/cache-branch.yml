@@ -1,0 +1,37 @@
+name: "Update cache branch"
+
+# Promotes the verified main commit to the `cache` branch. The decision is taken
+# from commit statuses written by the publishing jobs (build.yml, kernel.yml), not
+# from workflow conclusions: the private attic push is non-blocking for CI, so a
+# green run alone does not prove that every cache received the outputs.
+on:
+  workflow_run:
+    workflows: ['Build and populate cache', 'Build CachyOS kernel (self-hosted)']
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: cache-branch
+  cancel-in-progress: false
+
+jobs:
+  promote:
+    # workflow_run is trusted only for runs of this repository on main.
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.head_repository.full_name == github.repository &&
+       github.event.workflow_run.head_branch == 'main')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      statuses: read
+    steps:
+      - name: Promote the verified main commit to cache
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: bash scripts/promote-cache-branch.sh

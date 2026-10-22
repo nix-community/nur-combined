@@ -1,6 +1,6 @@
-# Non-LTO x86-64-v3 kernel, independently defined against pinned nixpkgs.
+# Non-LTO x86-64-v3 kernel, built with the repository nixpkgs (flake.lock).
 # callPackage owns override; forward NixOS kernel arguments to our constructor.
-{ lib, ... }@args:
+{ lib, pkgs, ... }@args:
 let
   kernel = import ../../lib/cachyos (
     {
