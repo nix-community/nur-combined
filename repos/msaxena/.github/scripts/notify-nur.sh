@@ -14,7 +14,14 @@ set -uo pipefail
 
 url="https://nur-update.nix-community.org/update?repo=msaxena"
 
-status=$(curl -sS -X POST -o /dev/null -w '%{http_code}' \
+# The body goes to a scratch file, not /dev/null: before each retry curl
+# truncates its output file, /dev/null can't be truncated, and curl then
+# aborts with exit 23 and no status code. That turned NUR's 429s into hard
+# failures (2026-10-22) instead of reaching the 429 branch below.
+body=$(mktemp)
+trap 'rm -f "$body"' EXIT
+
+status=$(curl -sS -X POST -o "$body" -w '%{http_code}' \
   --retry 5 --retry-max-time 180 "$url")
 curl_exit=$?
 
