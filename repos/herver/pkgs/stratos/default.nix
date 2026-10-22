@@ -10,18 +10,18 @@
 }:
 
 let
-  version = "2.23.0";
+  version = "2.24.0";
   pname = "stratos";
 
   # sha512 published by upstream in latest-linux.yml / latest-linux-arm64.yml
   sources = {
     x86_64-linux = {
       arch = "x86_64";
-      hash = "sha512-soEM0xW6OJiGBl9Nj/UwquUO65GdGMjePyL5dSy5O38tBGuarEEGJiPuu7CmVKAmFy1rWz1nA5vcOg0imzeg1w==";
+      hash = "sha512-SRY/C/6VvW93q4uNkPZUa/lwn4ifWticRbMgy9WsoosJ++E/t530jph1GlUnvT8JnA3MmnKoVl31Tqx7tQtshA==";
     };
     aarch64-linux = {
       arch = "arm64";
-      hash = "sha512-nxLbvi3epXnSYKOYf5jeGdfHq6a1oWkZhf6JyeZhN/dzch9dt+5q57dlzMFs9j4DKsrZah0/Pe8KhvLEDr6Pfw==";
+      hash = "sha512-y7rpwTp9Oek/HeSK8TnA4Es/XZ9zvlzyeXXDxo8UoMP6eO1scwKQ6f2kFItYFrAuIzyOAX/jD0qIooZZ/+9fgA==";
     };
   };
 
