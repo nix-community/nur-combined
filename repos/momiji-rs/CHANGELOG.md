@@ -43,6 +43,25 @@ Conformance is tracked separately as a ratchet against the official
 
 ### Fixed
 
+- **A module first loaded inside a `meta.load-css` copy is still emitted by a
+  later `@use`.** When a module's first load came from a stylesheet that
+  `meta.load-css` was copying, sasso marked it as emitted. Its CSS had gone
+  only into the copy, so a later `@use` of it emitted nothing:
+
+  ```
+    // _a.scss: @include meta.load-css("other");   _other.scss: @use "dep";
+    @use "a";
+    @use "dep";
+                     dart   .a, then the copy (.dep, .other), then .dep
+                     sasso  was: the final .dep missing
+  ```
+
+  A module's CSS now counts as emitted only once it reaches the main tree.
+  When a module first evaluated inside a copy reaches the main tree, it brings
+  along the dependencies it embedded, except one already emitted there, which
+  is not repeated. This is groundwork for `meta.load()` (#281), which loads a
+  module without emitting it at all.
+
 - **An `@extend` across media queries draws dart 1.105.1's labelled error**
   (#282). sasso printed the message and a position, with no snippet. It now
   labels the same spans as dart: the extension, its `@media`, the extended

@@ -798,6 +798,42 @@ impl<'a> Evaluator<'a> {
         }
     }
 
+    /// `nodes`, a module's CSS about to enter the main tree for the first time,
+    /// with each embedded dependency (the `ModuleScope` its own first
+    /// evaluation wrapped a first-loaded module in) resolved against that
+    /// tree: one already emitted there is dropped, any other is marked emitted
+    /// and kept, its own embedded dependencies likewise.
+    fn claim_embedded(&self, nodes: Vec<OutNode>) -> Vec<OutNode> {
+        let mut out = Vec::with_capacity(nodes.len());
+        // A dropped dependency takes the group separator after it along, or
+        // the module's own CSS would open on a second blank line.
+        let mut dropped = false;
+        for node in nodes {
+            if dropped && matches!(node, OutNode::Blank) {
+                continue;
+            }
+            dropped = false;
+            match node {
+                // A copy's key names no cached module, so it stays as is; a
+                // canonical URL may itself contain `#`.
+                OutNode::ModuleScope { key, nodes } => {
+                    let dep = self.module_cache.borrow().get(&key).cloned();
+                    match dep {
+                        Some(dep) if dep.emitted_main.get() => dropped = true,
+                        Some(dep) => {
+                            dep.emitted_main.set(true);
+                            let nodes = self.claim_embedded(nodes);
+                            out.push(OutNode::ModuleScope { key, nodes });
+                        }
+                        None => out.push(OutNode::ModuleScope { key, nodes }),
+                    }
+                }
+                other => out.push(other),
+            }
+        }
+        out
+    }
+
     /// Register a unique `meta.load-css` copy scope for `key` at the current
     /// call site: the caller gains a load edge to the copy (its extensions
     /// apply to it), and origins inside the base's subtree are linked during
@@ -1048,14 +1084,31 @@ impl<'a> Evaluator<'a> {
             } else if !existing.emitted_main.get() {
                 // First loaded inside an import/load-css clone: this plain
                 // load is the module's first appearance in the MAIN tree.
-                existing.emitted_main.set(true);
-                splice_nodes(
-                    sink,
-                    vec![OutNode::ModuleScope {
-                        key: key.clone(),
-                        nodes: reparent_nodes(existing.css.clone(), parents),
-                    }],
-                );
+                // Its own first evaluation embedded the dependencies it loaded
+                // first; one already in the main tree by now is dropped, the
+                // rest are claimed for it, so each lands there once.
+                let nodes = match self.outside_main.last_mut() {
+                    None => {
+                        existing.emitted_main.set(true);
+                        Some(self.claim_embedded(existing.css.clone()))
+                    }
+                    // Outside it, a module the CSS being built already embeds
+                    // is not embedded again: each repeat edge would clone its
+                    // whole tree once more, exponentially down a chain.
+                    Some(frame) => frame.insert(key.clone()).then(|| {
+                        frame.extend(existing.embedded.iter().cloned());
+                        existing.css.clone()
+                    }),
+                };
+                if let Some(nodes) = nodes {
+                    splice_nodes(
+                        sink,
+                        vec![OutNode::ModuleScope {
+                            key: key.clone(),
+                            nodes: reparent_nodes(nodes, parents),
+                        }],
+                    );
+                }
             }
             return Ok((existing, Vec::new()));
         }
@@ -1137,7 +1190,13 @@ impl<'a> Evaluator<'a> {
         // module (for per-import re-emission) before splicing into the
         // caller's sink.
         let mut css_buf: Vec<OutNode> = Vec::new();
-        let (mut module, consumed) = {
+        // A `meta.load-css` copy is not the main tree: a module first loaded
+        // while evaluating it is not emitted there yet.
+        let outside = is_load_css || !self.outside_main.is_empty();
+        if outside {
+            self.outside_main.push(crate::fxhash::FxHashSet::default());
+        }
+        let evaluated = {
             let mut buf_sink = Sink::Top(&mut css_buf);
             self.eval_module(
                 &key,
@@ -1149,9 +1208,16 @@ impl<'a> Evaluator<'a> {
                 pos,
                 &mut buf_sink,
                 is_css,
-            )?
+            )
         };
+        let embedded = if outside {
+            self.outside_main.pop().unwrap_or_default()
+        } else {
+            crate::fxhash::FxHashSet::default()
+        };
+        let (mut module, consumed) = evaluated?;
         module.css = css_buf.clone();
+        module.embedded = embedded;
         let module = Rc::new(module);
         self.module_cache
             .borrow_mut()
@@ -1177,7 +1243,13 @@ impl<'a> Evaluator<'a> {
                 }],
             );
         } else {
-            module.emitted_main.set(true);
+            match self.outside_main.last_mut() {
+                Some(frame) => {
+                    frame.insert(key.clone());
+                    frame.extend(module.embedded.iter().cloned());
+                }
+                None => module.emitted_main.set(true),
+            }
             splice_nodes(
                 sink,
                 vec![OutNode::ModuleScope {
@@ -1404,6 +1476,7 @@ impl<'a> Evaluator<'a> {
                 mixin_origins,
                 config_origin: std::cell::Cell::new(self.pending_config_id),
                 emitted_main: std::cell::Cell::new(false),
+                embedded: crate::fxhash::FxHashSet::default(),
                 css: Vec::new(),
                 // (0, true) is right for an empty table and wrong for nothing:
                 // the first lookup that finds a different count recomputes it.

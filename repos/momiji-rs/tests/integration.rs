@@ -2692,6 +2692,76 @@ fn extend_across_media_contexts() {
     }
 }
 
+/// A module first loaded while a `meta.load-css` copy is evaluated is not in
+/// the main tree yet: a later plain `@use` of it still emits it there, once,
+/// and a dependency it embedded that is already in the main tree is not
+/// emitted again. Measured against dart-sass 1.105.1 on 2026-10-21.
+#[test]
+fn a_module_first_loaded_in_a_load_css_copy_is_emitted_by_a_later_use() {
+    let dir = std::env::temp_dir().join(format!("sasso_emit_after_copy#1_{}", std::process::id()));
+    std::fs::create_dir_all(&dir).expect("mkdir");
+    for (name, text) in [
+        ("dep", ".dep {c: d}\n"),
+        ("other", "@use \"dep\";\n.other {e: f}\n"),
+        (
+            "a",
+            "@use \"sass:meta\";\n.a {g: h}\n@include meta.load-css(\"other\");\n",
+        ),
+        ("deep", ".deep {i: j}\n"),
+        ("dep2", "@use \"deep\";\n.dep2 {k: l}\n"),
+        ("other2", "@use \"dep2\";\n.other2 {m: n}\n"),
+        (
+            "a3",
+            "@use \"sass:meta\";\n@include meta.load-css(\"other2\");\n@include meta.load-css(\"other2\");\n",
+        ),
+    ] {
+        std::fs::write(dir.join(format!("_{name}.scss")), text).unwrap();
+    }
+    let imp = sasso::FsImporter::new(vec![dir.clone()]);
+    let run = |entry: &str| compile(entry, &Options::default().with_importer(&imp)).expect("compile");
+    let rule = |sel: &str, decl: &str| format!("{sel} {{\n  {decl};\n}}");
+    // `dep` was first loaded inside the copy: the root's `@use "dep"` emits it.
+    assert_eq!(
+        run("@use \"a\";\n@use \"dep\";\n"),
+        [
+            rule(".a", "g: h"),
+            rule(".dep", "c: d"),
+            rule(".other", "e: f"),
+            rule(".dep", "c: d")
+        ]
+        .join("\n\n"),
+    );
+    // Two levels deep, and two copies.
+    assert_eq!(
+        run("@use \"a3\";\n@use \"deep\";\n@use \"dep2\";\n"),
+        [
+            rule(".deep", "i: j"),
+            rule(".dep2", "k: l"),
+            rule(".other2", "m: n"),
+            rule(".deep", "i: j"),
+            rule(".dep2", "k: l"),
+            rule(".other2", "m: n"),
+            rule(".deep", "i: j"),
+            rule(".dep2", "k: l"),
+        ]
+        .join("\n\n"),
+    );
+    // `other` enters the main tree after `dep` did: its embedded `dep` is not
+    // emitted twice, and leaves no second blank line behind.
+    assert_eq!(
+        run("@use \"a\";\n@use \"dep\";\n@use \"other\";\n"),
+        [
+            rule(".a", "g: h"),
+            rule(".dep", "c: d"),
+            rule(".other", "e: f"),
+            rule(".dep", "c: d"),
+            rule(".other", "e: f"),
+        ]
+        .join("\n\n"),
+    );
+    let _ = std::fs::remove_dir_all(&dir);
+}
+
 /// A first-class module (dart-sass 1.105, #281): `meta.get-module`, what it
 /// inspects as, what it equals, and every `sass:meta` function that takes it
 /// as `$module`. Measured against dart-sass 1.105.1 on 2026-10-20.

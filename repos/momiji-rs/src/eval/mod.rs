@@ -1126,6 +1126,13 @@ pub(crate) struct Evaluator<'a> {
     /// load cycle (dart-sass "This file is already being loaded."); a path that
     /// has finished loading may be imported again (`@import` re-evaluates).
     loading: Vec<String>,
+    /// One frame per module being evaluated outside the main tree, innermost
+    /// last: a `meta.load-css` target, and each module first loaded while
+    /// one is evaluated. A module first loaded under a frame is not in the
+    /// main tree yet, so a later plain `@use` of it must still emit it (see
+    /// `Module::emitted_main`). A frame holds the modules its CSS embeds so
+    /// far, transitively (see `Module::embedded`).
+    outside_main: Vec<crate::fxhash::FxHashSet<String>>,
     /// Per-compile `@import` cache (dart-sass ImportCache analogue): keyed by
     /// (url, importing dir), holding (resolved key, syntax, parsed sheet).
     import_cache: HashMap<(String, Option<String>), CachedImport>,
@@ -1480,6 +1487,10 @@ struct Module {
     /// ordinary `@use`/`@forward` load). A module first loaded inside an
     /// `@import`/load-css clone has not — the next plain load emits it.
     emitted_main: std::cell::Cell<bool>,
+    /// For a module first evaluated outside the main tree, every module its
+    /// CSS embeds, transitively: a repeat load there embeds none of them
+    /// twice. Empty for any other module.
+    embedded: crate::fxhash::FxHashSet<String>,
     /// The module's emitted CSS, captured at first evaluation so an
     /// `@import`-reached module can re-emit it at each import site (dart
     /// clones the module's CSS tree per import).
@@ -1901,6 +1912,7 @@ impl<'a> Evaluator<'a> {
             css_buf: String::new(),
             options,
             loading: Vec::new(),
+            outside_main: Vec::new(),
             import_cache: HashMap::default(),
             current_url_stamp: 0,
             functions: vec![None],
@@ -10507,5 +10519,73 @@ mod tests {
             "}",
         );
         assert_eq!(css.trim_end(), expected);
+    }
+
+    /// A module first loaded while a `meta.load-css` copy is evaluated keeps
+    /// the dependencies it loaded embedded in its CSS, for a later `@use` to
+    /// claim them. A repeat edge there must not embed one twice: down a chain
+    /// whose every level uses its predecessor twice, each repeat would clone
+    /// the whole tree below it, doubling the CSS held per level while the
+    /// output stayed the same. Each level also uses the one below its
+    /// predecessor, which that predecessor already embeds: the record of what
+    /// a module embeds is transitive. Counted where it is held, in the cache.
+    #[test]
+    fn a_repeat_edge_outside_the_main_tree_embeds_its_tree_once() {
+        const LEVELS: usize = 12;
+        let dir = std::env::temp_dir().join(format!("sasso_repeat_edge_copy_{}", std::process::id()));
+        std::fs::create_dir_all(&dir).expect("mkdir");
+        std::fs::write(dir.join("_l0.scss"), ".l0 {a: 0}\n").unwrap();
+        for k in 1..=LEVELS {
+            let p = k - 1;
+            let grand = match k {
+                1 => String::new(),
+                _ => format!("@use \"l{}\" as c;\n", k - 2),
+            };
+            std::fs::write(
+                dir.join(format!("_l{k}.scss")),
+                format!("@use \"l{p}\" as a;\n@use \"l{p}\" as b;\n{grand}.l{k} {{a: {k}}}\n"),
+            )
+            .unwrap();
+        }
+        let imp = crate::FsImporter::new(vec![dir.clone()]);
+        let source = format!("@use \"sass:meta\";\n@include meta.load-css(\"l{LEVELS}\");\n");
+        let sheet = crate::parser::parse(&source).expect("parse");
+        let mut ev = Evaluator::new(EvalOptions {
+            style: OutputStyle::Expanded,
+            importer: Some(&imp),
+            functions: &[],
+            cwd: None,
+            source: "",
+            url: "",
+            anonymous_entry: false,
+            glyphs: crate::diag::GlyphSet::Ascii,
+            warn: None,
+            quiet_deps: None,
+            silenced_deprecations: &[],
+            plain_css: false,
+            source_map: false,
+        });
+        let mut out = Vec::new();
+        ev.eval_sheet(&sheet, &mut out).expect("compile");
+        let _ = std::fs::remove_dir_all(&dir);
+
+        fn scopes(nodes: &[OutNode]) -> usize {
+            nodes
+                .iter()
+                .map(|n| match n {
+                    OutNode::ModuleScope { nodes, .. } => 1 + scopes(nodes),
+                    _ => 0,
+                })
+                .sum()
+        }
+        let cache = ev.module_cache.borrow();
+        let top = cache
+            .iter()
+            .find(|(k, _)| k.ends_with(&format!("_l{LEVELS}.scss")))
+            .map(|(_, m)| m)
+            .expect("the chain's top module is cached");
+        // Each level embeds its predecessor once; once per edge held more
+        // than 2^LEVELS scopes.
+        assert_eq!(scopes(&top.css), LEVELS);
     }
 }
