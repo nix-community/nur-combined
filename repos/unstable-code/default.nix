@@ -18,6 +18,7 @@
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
   gitlab-runner-bin = pkgs.callPackage ./pkgs/gitlab-runner-bin { };
+  glab-bin = pkgs.callPackage ./pkgs/glab-bin { };
   upnote = pkgs.callPackage ./pkgs/upnote { };
   wshowlyrics = pkgs.callPackage ./pkgs/wshowlyrics { };
   wshowlyrics-unstable = pkgs.callPackage ./pkgs/wshowlyrics/unstable.nix { };
