@@ -1,5 +1,6 @@
 {
   lib,
+  fetchurl,
   materialgram,
   telegram-desktop,
 }:
@@ -13,11 +14,19 @@ let
       ./0003-Disable-invite-peeking-restrictions.patch
       ./0004-Disable-accounts-limit.patch
       ./0005-Option-to-disable-stories.patch
+      (fetchurl {
+        name = "CVE-2026-107181.patch";
+        url = "https://github.com/telegramdesktop/tdesktop/commit/db3405699f8fc3ae28a58d2348b7d13a43c0590a.patch";
+        hash = "sha256-E9KI3AwKpCPG/Gr8GMjA1BaSwNme7v2GzWXwb5P+FRg=";
+      })
     ];
 
     meta = old.meta // {
       description = "${old.meta.description} (Without anti-features)";
       maintainers = with lib.maintainers; [ xddxdd ];
+      knownVulnerabilities = builtins.filter (issue: !(lib.hasPrefix "CVE-2026-107181:" issue)) (
+        old.meta.knownVulnerabilities or [ ]
+      );
     };
   });
 in

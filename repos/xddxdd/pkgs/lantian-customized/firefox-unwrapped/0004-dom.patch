@@ -1458,7 +1458,7 @@ index 402eb887f5..1fc15d9049 100644
 +                                          ? cand->addr.u.addr6.sin6_port
 +                                          : cand->addr.u.addr4.sin_port);
 +            if (port_int > 0) {
-+              nr_str_port_to_transport_addr(stealth_ip, (UINT2)port_int, IPPROTO_UDP, &cand->addr);
++              nr_str_port_to_transport_addr(stealth_ip, NULL, (UINT2)port_int, IPPROTO_UDP, &cand->addr);
 +            }
 +          }
 +        }
@@ -1611,7 +1611,7 @@ index 0000000000..e2dc22052e
 +      host_cand->component_id = component->component_id;
 +      host_cand->component    = component;
 +      host_cand->stream       = component->stream;
-+      if ((r = nr_str_port_to_transport_addr(lan_ip, srflx_port, IPPROTO_UDP,
++      if ((r = nr_str_port_to_transport_addr(lan_ip, NULL, srflx_port, IPPROTO_UDP,
 +                                             &host_cand->addr)) == 0 &&
 +          (r = nr_transport_addr_copy(&host_cand->base, &host_cand->addr)) == 0) {
 +        host_cand->local_protocol = host_cand->base.protocol;
@@ -1665,13 +1665,13 @@ index 0000000000..e2dc22052e
 +    cand->stream = component->stream;
 +
 +    /* Base (raddr/rport in SDP) = matching LAN address, same port. */
-+    if ((r = nr_str_port_to_transport_addr(lan_ip, srflx_port, IPPROTO_UDP,
++    if ((r = nr_str_port_to_transport_addr(lan_ip, NULL, srflx_port, IPPROTO_UDP,
 +                                           &cand->base)))
 +      ABORT(r);
 +    cand->local_protocol = cand->base.protocol;
 +
 +    /* srflx address = fake residential IP, realistic ephemeral port. */
-+    if ((r = nr_str_port_to_transport_addr(srflx_ip_buf, srflx_port, IPPROTO_UDP,
++    if ((r = nr_str_port_to_transport_addr(srflx_ip_buf, NULL, srflx_port, IPPROTO_UDP,
 +                                           &cand->addr)))
 +      ABORT(r);
 +
@@ -3570,7 +3570,7 @@ index 814192d7b4..82402787f1 100644
 +    cand->component    = component;
 +    cand->stream       = component->stream;
 +
-+    if ((r = nr_str_port_to_transport_addr(public_ip_buf, srflx_port, IPPROTO_UDP,
++    if ((r = nr_str_port_to_transport_addr(public_ip_buf, NULL, srflx_port, IPPROTO_UDP,
 +                                           &cand->addr)))
 +        ABORT(r);
 +    if (base_addr) {
@@ -3580,7 +3580,7 @@ index 814192d7b4..82402787f1 100644
 +        /* No real local address available (Fission content process before
 +         * mStunAddrs IPC arrives). Synthesize a fake LAN base so the
 +         * candidate has a coherent raddr/rport. */
-+        if ((r = nr_str_port_to_transport_addr("192.168.1.1", srflx_port, IPPROTO_UDP,
++        if ((r = nr_str_port_to_transport_addr("192.168.1.1", NULL, srflx_port, IPPROTO_UDP,
 +                                               &cand->base)))
 +            ABORT(r);
 +    }
@@ -3943,72 +3943,6 @@ index c5aefb69c9..fce60c3434 100644
    bool isDefault;
    DebugOnly<nsresult> rv =
        nsSynthVoiceRegistry::GetInstance()->IsDefaultVoice(mUri, &isDefault);
-diff --git a/dom/quota/ActorsParent.cpp b/dom/quota/ActorsParent.cpp
-@@ -79,6 +79,7 @@
- #include "mozilla/ScopeExit.h"
- #include "mozilla/SpinEventLoopUntil.h"
- #include "mozilla/StaticPrefs_dom.h"
-+#include "mozilla/StaticPrefs_zoom.h"
- #include "mozilla/StaticPtr.h"
- #include "mozilla/StorageOriginAttributes.h"
- #include "mozilla/SystemPrincipal.h"
-@@ -8367,6 +8368,17 @@
-     const OriginMetadata& aOriginMetadata) {
-   AssertIsOnIOThread();
- 
-+  // Stealth: per-session storage quota override. When zoom.stealth.storage.quota_mb
-+  // is > 0, navigator.storage.estimate().quota returns exactly that value (in MB).
-+  // Default -1 = no override, vanilla Firefox behavior (disk-based group/origin
-+  // limit). Sampled by the Python Forge conditionally on gpu_class (workstation
-+  // users tend to have larger SSDs, integrated_old smaller). This masks the
-+  // real disk size — one of the cross-session fingerprint signals — while
-+  // staying in a realistic range.
-+  const int32_t stealthQuotaMb =
-+      StaticPrefs::zoom_stealth_storage_quota_mb();
-+  const bool stealthOverride = (stealthQuotaMb > 0);
-+
-   int64_t totalGroupUsage = 0;
- 
-   {
-@@ -8387,8 +8399,12 @@
-             if (originInfo && originInfo->LockedPersisted()) {
-               // This is exposed to content via navigator.storage.estimate() so
-               // clamp it to 0.
-+              const uint64_t limit =
-+                  stealthOverride
-+                      ? (uint64_t(stealthQuotaMb) * 1024 * 1024)
-+                      : static_cast<uint64_t>(mTemporaryStorageLimit);
-               return std::pair(QM_CLAMP_TO_ZERO(originInfo->LockedUsage()),
--                               mTemporaryStorageLimit);
-+                               limit);
-             }
-           }
- 
-@@ -8400,7 +8416,10 @@
-   }
- 
-   // Also exposed to content via navigator.storage.estimate().
--  return std::pair(QM_CLAMP_TO_ZERO(totalGroupUsage), GetGroupLimit());
-+  const uint64_t limit =
-+      stealthOverride ? (uint64_t(stealthQuotaMb) * 1024 * 1024)
-+                      : static_cast<uint64_t>(GetGroupLimit());
-+  return std::pair(QM_CLAMP_TO_ZERO(totalGroupUsage), limit);
- }
- 
- uint64_t QuotaManager::GetOriginUsage(
-diff --git a/dom/webidl/Window.webidl b/dom/webidl/Window.webidl
-index ae2d14e105..f78d3cafb3 100644
---- a/dom/webidl/Window.webidl
-+++ b/dom/webidl/Window.webidl
-@@ -394,6 +394,8 @@ dictionary SynthesizeMouseEventData : SynthesizeEventData {
-   short inputSource = 1;
-   // Modifiers pressed, using constants defined as MODIFIER_* in nsIDOMWindowUtils.
-   long modifiers = 0;
-+  // Juggler event identifier for tracking events across processes.
-+  unsigned long jugglerEventId = 0;
- };
- 
- // Mozilla-specific stuff
 diff --git a/dom/workers/WorkerNavigator.cpp b/dom/workers/WorkerNavigator.cpp
 index 519668019e..98ea6756d9 100644
 --- a/dom/workers/WorkerNavigator.cpp
@@ -4054,3 +3988,38 @@ index 0000000000..040cbc972b
 +}  // namespace webrtc
 +
 +#endif  // API_LOCATION_H_
+--- a/dom/quota/ActorsParent.cpp
++++ b/dom/quota/ActorsParent.cpp
+@@ -79,6 +79,7 @@
+ #include "mozilla/ScopeExit.h"
+ #include "mozilla/SpinEventLoopUntil.h"
+ #include "mozilla/StaticPrefs_dom.h"
++#include "mozilla/StaticPrefs_zoom.h"
+ #include "mozilla/StaticPtr.h"
+ #include "mozilla/StorageOriginAttributes.h"
+ #include "mozilla/SystemPrincipal.h"
+@@ -8442,8 +8443,11 @@
+   // instead. Both values are exposed to content via
+   // navigator.storage.estimate() so the usage is clamped to 0.
++  const int32_t stealthQuotaMb = StaticPrefs::zoom_stealth_storage_quota_mb();
++  const uint64_t limit =
++      stealthQuotaMb > 0 ? uint64_t(stealthQuotaMb) * 1024 * 1024
++                        : (persisted ? mTemporaryStorageLimit : GetGroupLimit());
+-  return std::pair(QM_CLAMP_TO_ZERO(originUsage),
+-                   persisted ? mTemporaryStorageLimit : GetGroupLimit());
++  return std::pair(QM_CLAMP_TO_ZERO(originUsage), limit);
+ }
+
+ std::pair<uint64_t, uint64_t> QuotaManager::GetGroupUsageAndLimitForEstimate(
+     const OriginMetadata& aOriginMetadata) {
+--- a/dom/webidl/Window.webidl
++++ b/dom/webidl/Window.webidl
+@@ -400,6 +400,8 @@
+   // reports while the native pointer is locked. Must be specified together.
+   long movementX;
+   long movementY;
++  // Juggler event identifier for tracking events across processes.
++  unsigned long jugglerEventId = 0;
+ };
+
+ // Mozilla-specific stuff

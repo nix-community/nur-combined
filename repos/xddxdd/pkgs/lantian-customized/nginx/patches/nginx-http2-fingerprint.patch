@@ -1,7 +1,6 @@
-diff -ruN tree_prev/src/http/v2/ngx_http_v2.c tree/src/http/v2/ngx_http_v2.c
---- a/src/http/v2/ngx_http_v2.c	2026-10-15 23:57:35.857759352 -0700
-+++ b/src/http/v2/ngx_http_v2.c	2026-10-15 23:57:35.905922633 -0700
-@@ -272,6 +272,20 @@
+--- a/src/http/v2/ngx_http_v2.c
++++ b/src/http/v2/ngx_http_v2.c
+@@ -271,6 +271,20 @@
          return;
      }
  
@@ -22,7 +21,7 @@ diff -ruN tree_prev/src/http/v2/ngx_http_v2.c tree/src/http/v2/ngx_http_v2.c
      if (ngx_http_v2_send_settings(h2c) == NGX_ERROR) {
          ngx_http_close_connection(c);
          return;
-@@ -1788,6 +1802,11 @@
+@@ -1782,6 +1796,11 @@
                             "http2 header: \":%V: %V\"",
                             &header->name, &header->value);
  
@@ -34,26 +33,42 @@ diff -ruN tree_prev/src/http/v2/ngx_http_v2.c tree/src/http/v2/ngx_http_v2.c
              return ngx_http_v2_state_header_complete(h2c, pos, end);
          }
  
-@@ -2062,6 +2081,18 @@
+@@ -1993,6 +2012,8 @@
+ ngx_http_v2_state_priority(ngx_http_v2_connection_t *h2c, u_char *pos,
+     u_char *end)
+ {
++    ngx_http_v2_fingerprint_priority_t  *fp_priority;
++
+     if (h2c->state.length != NGX_HTTP_V2_PRIORITY_SIZE) {
+         ngx_log_error(NGX_LOG_INFO, h2c->connection->log, 0,
+                       "client sent PRIORITY frame with incorrect length %uz",
+@@ -2008,6 +2029,25 @@
+         return ngx_http_v2_connection_error(h2c, NGX_HTTP_V2_PROTOCOL_ERROR);
+     }
  
-     ngx_http_v2_set_dependency(h2c, node, depend, excl);
- 
-+    // not sure if priority frames should be getting accumulated across
-+    // reuses of the same connection. Akamai's whitepaper had examples of
-+    // clients connecting with multiple priority frames which I think means
-+    // they collect priority frames over time
++    /* nginx ignores legacy priorities, but the fingerprint still records them. */
 +    if (!h2c->fp->fingerprinted) {
-+        ngx_http_v2_fingerprint_priority_t* fp_priority = ngx_list_push(h2c->fp->priorities);
++        if (end - pos < NGX_HTTP_V2_PRIORITY_SIZE) {
++            return ngx_http_v2_state_save(h2c, pos, end,
++                                         ngx_http_v2_state_priority);
++        }
++
++        fp_priority = ngx_list_push(h2c->fp->priorities);
++        if (fp_priority == NULL) {
++            return ngx_http_v2_connection_error(h2c,
++                                                NGX_HTTP_V2_INTERNAL_ERROR);
++        }
++
 +        fp_priority->stream_id = h2c->state.sid;
-+        fp_priority->exclusivity = excl;
-+        fp_priority->dependent_stream_id = depend;
-+        fp_priority->weight = weight;
++        fp_priority->exclusivity = pos[0] >> 7;
++        fp_priority->dependent_stream_id = ngx_http_v2_parse_sid(pos);
++        fp_priority->weight = pos[4] + 1;
 +    }
 +
-     return ngx_http_v2_state_complete(h2c, pos, end);
+     return ngx_http_v2_state_skip(h2c, pos, end);
  }
  
-@@ -2212,6 +2243,10 @@
+@@ -2272,6 +2312,10 @@
          ngx_log_debug2(NGX_LOG_DEBUG_HTTP, h2c->connection->log, 0,
                         "http2 setting %ui:%ui", id, value);
  
@@ -64,7 +79,7 @@ diff -ruN tree_prev/src/http/v2/ngx_http_v2.c tree/src/http/v2/ngx_http_v2.c
          switch (id) {
  
          case NGX_HTTP_V2_INIT_WINDOW_SIZE_SETTING:
-@@ -2524,6 +2559,7 @@
+@@ -2597,6 +2641,7 @@
          }
      }
  
@@ -72,10 +87,9 @@ diff -ruN tree_prev/src/http/v2/ngx_http_v2.c tree/src/http/v2/ngx_http_v2.c
      return ngx_http_v2_state_complete(h2c, pos, end);
  }
  
-diff -ruN tree_prev/src/http/v2/ngx_http_v2.h tree/src/http/v2/ngx_http_v2.h
---- a/src/http/v2/ngx_http_v2.h	2026-10-15 23:57:35.857593112 -0700
-+++ b/src/http/v2/ngx_http_v2.h	2026-10-15 23:57:35.908574538 -0700
-@@ -122,7 +122,33 @@
+--- a/src/http/v2/ngx_http_v2.h
++++ b/src/http/v2/ngx_http_v2.h
+@@ -121,7 +121,33 @@
  } ngx_http_v2_hpack_t;
  
  
@@ -109,7 +123,7 @@ diff -ruN tree_prev/src/http/v2/ngx_http_v2.h tree/src/http/v2/ngx_http_v2.h
      ngx_connection_t                *connection;
      ngx_http_connection_t           *http_connection;
  
-@@ -294,6 +320,19 @@
+@@ -310,6 +336,19 @@
  }
  
  
@@ -129,9 +143,8 @@ diff -ruN tree_prev/src/http/v2/ngx_http_v2.h tree/src/http/v2/ngx_http_v2.h
  void ngx_http_v2_init(ngx_event_t *rev);
  
  ngx_int_t ngx_http_v2_read_request_body(ngx_http_request_t *r);
-diff -ruN tree_prev/src/http/v2/ngx_http_v2_module.c tree/src/http/v2/ngx_http_v2_module.c
---- a/src/http/v2/ngx_http_v2_module.c	2026-10-15 23:57:35.857649094 -0700
-+++ b/src/http/v2/ngx_http_v2_module.c	2026-10-15 23:57:36.097156408 -0700
+--- a/src/http/v2/ngx_http_v2_module.c
++++ b/src/http/v2/ngx_http_v2_module.c
 @@ -13,6 +13,9 @@
  
  static ngx_int_t ngx_http_v2_add_variables(ngx_conf_t *cf);
