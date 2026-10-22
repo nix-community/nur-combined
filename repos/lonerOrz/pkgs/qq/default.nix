@@ -4,6 +4,9 @@
   cups,
   dpkg,
   fetchurl,
+  curl,
+  cacert,
+  jq,
   glib,
   libssh2,
   gtk3,
@@ -29,12 +32,34 @@
 }:
 
 let
-  sources = import ./sources.nix { inherit fetchurl; };
+  sources = import ./sources.nix { fetchurl = x: x; };
   source =
     sources.${stdenv.hostPlatform.system}
       or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
   pname = "qq";
-  inherit (source) version src;
+  inherit (source) version;
+
+  # The qq CDN sign-gates downloads: fetch time we mint a short-lived signed
+  # URL via ./sign-url.sh, then download. The file hash is of the bytes, so it
+  # is stable regardless of the signature.
+  src = stdenv.mkDerivation {
+    name = baseNameOf source.src.url;
+    nativeBuildInputs = [ curl cacert jq ];
+    outputHashAlgo = "sha256";
+    outputHash = lib.removePrefix "sha256-" source.src.hash;
+    outputHashMode = "flat";
+
+    URL = source.src.url;
+    CURL_CA_BUNDLE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
+    SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
+
+    buildCommand = ''
+      set -euo pipefail
+      SIGNED="$(bash ${./sign-url.sh} "$URL")"
+      if [ -z "$SIGNED" ]; then SIGNED="$URL"; fi
+      curl -fSL --retry 3 "$SIGNED" -o "$out"
+    '';
+  };
 
   passthru = {
     updateScript = ./update.sh;

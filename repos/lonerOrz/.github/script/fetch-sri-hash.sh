@@ -53,11 +53,17 @@ if [ "$GIT_MODE" = true ]; then
   fi
   SHA=$(nix-prefetch-git $PREFETCH_OPTS | jq -r .sha256)
   SRI="$(nix hash to-sri "sha256:$SHA")"
-elif [ "$UNPACK" = true ]; then
-  SHA="$(nix-prefetch-url --quiet --unpack --type sha256 "$URL")"
-  SRI="$(nix hash to-sri "sha256:$SHA")"
 else
-  SHA="$(nix-prefetch-url --quiet --type sha256 "$URL")"
+  # A URL with a query string (e.g. a signed download link) carries characters
+  # that are illegal in a Nix store path name. Pass --name with the bare
+  # filename so the store path stays valid; the query is still used for the
+  # actual download.
+  NAME="$(basename "${URL%%\?*}")"
+  PREFETCH_OPTS="--quiet --type sha256 --name $NAME"
+  if [ "$UNPACK" = true ]; then
+    PREFETCH_OPTS="$PREFETCH_OPTS --unpack"
+  fi
+  SHA="$(nix-prefetch-url $PREFETCH_OPTS "$URL")"
   SRI="$(nix hash to-sri "sha256:$SHA")"
 fi
 

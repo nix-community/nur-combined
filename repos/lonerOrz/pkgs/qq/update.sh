@@ -1,5 +1,5 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i python3 --pure --keep GITHUB_TOKEN -p python3 nix curl cacert
+#!nix-shell -i python3 --pure --keep GITHUB_TOKEN -p python3 nix curl cacert jq
 # ruff: noqa: EXE005
 
 import json
@@ -137,6 +137,7 @@ def probe_accessible_url(url: str) -> str:
         candidates.append(url.replace("/QQNTV2/", "/QQNT/"))
 
     for candidate in candidates:
+        probe_url = sign_url(candidate) or candidate
         res = subprocess.run(
             [
                 "curl",
@@ -151,7 +152,7 @@ def probe_accessible_url(url: str) -> str:
                 "Referer: https://im.qq.com/",
                 "-H",
                 "User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36",
-                candidate,
+                probe_url,
             ],
             check=False,
             stdout=subprocess.PIPE,
@@ -164,16 +165,36 @@ def probe_accessible_url(url: str) -> str:
     return url
 
 
+def sign_url(url: str) -> str:
+    """Mint a signed URL via ./sign-url.sh; returns '' on failure."""
+    helper = SCRIPT_DIR / "sign-url.sh"
+    if not helper.exists():
+        return ""
+    try:
+        res = subprocess.run(
+            ["bash", str(helper), url],
+            check=True,
+            stdout=subprocess.PIPE,
+            text=True,
+            timeout=30,
+        )
+        return res.stdout.strip()
+    except (subprocess.CalledProcessError, OSError):
+        return ""
+
+
 def fetch_sri_hash(url: str) -> str:
+    # The CDN sign-gates downloads; mint a signed URL first.
+    signed = sign_url(url) or url
     res = subprocess.run(
-        [str(SRI_SCRIPT), url],
+        [str(SRI_SCRIPT), signed],
         check=True,
         stdout=subprocess.PIPE,
         text=True,
     )
     sri_hash = res.stdout.strip()
     if not sri_hash.startswith("sha256-"):
-        raise ValueError(f"Invalid SRI hash format: '{sri_hash}' (URL: {url})")
+        raise ValueError(f"Invalid SRI hash format: '{sri_hash}' (URL: {signed})")
     return sri_hash
 
 
