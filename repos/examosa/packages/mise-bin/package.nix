@@ -1,4 +1,6 @@
 {
+  autoPatchelfHook,
+  glibc,
   lib,
   fetchGitHubReleaseAsset,
   installShellFiles,
@@ -42,14 +44,21 @@ in
     __structuredAttrs = true;
     strictDeps = true;
 
-    nativeBuildInputs = [
-      installShellFiles
-      writableTmpDirAsHomeHook
-    ];
+    nativeBuildInputs =
+      [
+        installShellFiles
+        writableTmpDirAsHomeHook
+      ]
+      ++ lib.optional hostPlatform.isLinux autoPatchelfHook;
 
-    dontPatch = true;
+    buildInputs = lib.optional hostPlatform.isLinux glibc;
+
     dontConfigure = true;
     dontBuild = true;
+
+    postPatch = lib.optionalString hostPlatform.isLinux ''
+      autoPatchelf bin/mise
+    '';
 
     installPhase = ''
       runHook preinstall
