@@ -246,15 +246,15 @@
   };
   nix-auth = {
     pname = "nix-auth";
-    version = "2f897895c5044130ef1ec35b7b648897142a785d";
+    version = "701fb8999d612207439858ec57e34ebbad38e5ca";
     src = fetchFromGitHub {
       owner = "numtide";
       repo = "nix-auth";
-      rev = "2f897895c5044130ef1ec35b7b648897142a785d";
+      rev = "701fb8999d612207439858ec57e34ebbad38e5ca";
       fetchSubmodules = false;
-      sha256 = "sha256-OpF0wCemSh/7s4OYfnCjFn1AgNiEHLygh3j9jltuFkg=";
+      sha256 = "sha256-utorCkojMDnnpru7w98b5pZ2r5kMxIGInVU5DSyFnBc=";
     };
-    date = "2026-10-20";
+    date = "2026-10-21";
   };
   ntfsprogs-plus = {
     pname = "ntfsprogs-plus";
