@@ -89,6 +89,8 @@ jobs:
           CI_BUILT_OUTPUTS_FILE: ${{ runner.temp }}/ci-built-outputs.txt
         run: bash scripts/build-ci.sh
       - name: Install attic client for private mirror
+        # Never fails the job: the private mirror must not gate cachix or test-gate.
+        continue-on-error: true
         if: >-
           success() && github.ref == 'refs/heads/main' &&
           (github.event_name == 'push' || github.event_name == 'workflow_dispatch' ||
@@ -105,9 +107,26 @@ jobs:
           CI_PUBLISH_ONLY: 'true'
           GITHUB_EVENT_NAME: ${{ github.event_name }}
           GITHUB_REF: ${{ github.ref }}
+          CI_PUBLISH_LIST_FILE: ${{ runner.temp }}/publish-paths.txt
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
         run: bash scripts/build-ci.sh
+      - name: Push verified outputs to the private attic cache
+        # Independent of cachix: runs even if the cachix step failed, as long as the
+        # build succeeded and produced a verified list. Never fails the job.
+        continue-on-error: true
+        if: >-
+          always() && github.ref == 'refs/heads/main' &&
+          (github.event_name == 'push' || github.event_name == 'workflow_dispatch' ||
+           (github.event_name == 'workflow_run' && env.CI_TRUSTED_UPDATE_COMPLETION == 'true'))
+        env:
+          ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [[ ! -f "$RUNNER_TEMP/publish-paths.txt" ]]; then
+            echo 'attic push skipped: the build did not produce a verified publication list.'
+            exit 0
+          fi
+          bash scripts/attic-push.sh "$RUNNER_TEMP/publish-paths.txt"
       - name: Trigger NUR update
         if: >-
           success() && github.ref == 'refs/heads/main' &&

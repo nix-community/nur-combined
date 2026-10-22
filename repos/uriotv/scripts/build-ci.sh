@@ -111,6 +111,12 @@ assert built == expected, "Incomplete or unexpected built outputs; refusing publ
 paths = {path for p in rows if p["cacheable"] for path in p["outputs"]}
 print("\n".join(sorted(paths)), end="\n" if paths else "")
 PY
+# Export the verified list for independent follow-up steps (private attic mirror).
+# Written before cachix runs, so a cachix failure does not hide what was verified.
+if [[ -n "${CI_PUBLISH_LIST_FILE:-}" ]]; then
+  cp "$work/cacheable" "$CI_PUBLISH_LIST_FILE"
+fi
+
 if [[ -s "$work/cacheable" ]]; then
   cachix push uriotv < "$work/cacheable"
   while IFS= read -r path; do
@@ -120,8 +126,5 @@ if [[ -s "$work/cacheable" ]]; then
       "https://uriotv.cachix.org/${hash}.narinfo" > "$work/output.narinfo"
     grep -Fx "StorePath: $path" "$work/output.narinfo"
   done < "$work/cacheable"
-  # Private mirror after cachix: same redistributable roots, skipped with a warning
-  # when ATTIC_TOKEN is not configured.
-  bash "$(dirname "${BASH_SOURCE[0]}")/attic-push.sh" "$work/cacheable"
 fi
 echo 'All redistributable roots published and their StorePath verified.'

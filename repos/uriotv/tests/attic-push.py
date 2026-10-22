@@ -88,5 +88,32 @@ class AtticPushTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
 
 
+class AtticIndependenceTests(unittest.TestCase):
+    """cachix and attic must fail independently; attic never gates the job."""
+
+    def test_build_script_does_not_call_attic_and_exports_verified_list(self):
+        body = (ROOT / "scripts/build-ci.sh").read_text()
+        self.assertNotIn("attic-push.sh", body)
+        self.assertIn("CI_PUBLISH_LIST_FILE", body)
+        export = body.index("CI_PUBLISH_LIST_FILE")
+        self.assertLess(export, body.index("cachix push uriotv"))
+
+    def test_build_workflow_attic_step_is_independent_and_non_blocking(self):
+        body = (ROOT / ".github/workflows/build.yml").read_text()
+        step = body.split("      - name: Push verified outputs to the private attic cache", 1)[1].split("      - name:", 1)[0]
+        self.assertIn("always()", step)
+        self.assertIn("continue-on-error: true", step)
+        self.assertIn("publish-paths.txt", step)
+        self.assertNotIn("success()", step)
+
+    def test_kernel_workflow_attic_step_follows_verified_closure_not_cachix(self):
+        body = (ROOT / ".github/workflows/kernel.yml").read_text()
+        step = body.split("      - name: Push kernel outputs to the private attic cache", 1)[1]
+        self.assertIn("continue-on-error: true", step.split("run:", 1)[0])
+        self.assertIn("always()", step.split("run:", 1)[0])
+        self.assertIn("steps.closure.outcome == 'success'", step.split("run:", 1)[0])
+        self.assertIn("id: closure", body)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

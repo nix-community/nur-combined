@@ -157,6 +157,7 @@ jobs:
           cat "$RUNNER_TEMP/kernel-outputs"
 
       - name: Verify redistribution rights for the complete built closure
+        id: closure
         if: steps.published.outputs.skip != 'true'
         run: |
           set -euo pipefail
@@ -193,10 +194,13 @@ jobs:
           echo 'Kernel outputs published and their StorePath verified.'
 
       - name: Push kernel outputs to the private attic cache
-        # Runs only after the cachix publication above succeeded, with the same
-        # main-only condition. Skipped with a warning when ATTIC_TOKEN is empty.
+        # Independent of cachix: runs once the build and licence check passed, even if
+        # the cachix step failed. Never fails the job. Skipped with a warning when
+        # ATTIC_TOKEN is empty.
+        continue-on-error: true
         if: >-
-          success() && steps.published.outputs.skip != 'true' &&
+          always() && steps.published.outputs.skip != 'true' &&
+          steps.closure.outcome == 'success' &&
           github.ref == 'refs/heads/main' &&
           (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
         env:
