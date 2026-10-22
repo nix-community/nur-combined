@@ -64,7 +64,6 @@ in
           utm
           # warp-terminal
           inputs.nixcfg.packages.${system}.tinycast-beta
-          inputs.nixcfg.packages.${system}.ghostex
         ];
     };
   };

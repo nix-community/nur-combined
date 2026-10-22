@@ -181,7 +181,7 @@ export function latestBySemver(versions: string[]): string {
 
 /**
  * Headers for the GitHub releases API. Honors `GITHUB_TOKEN` when set to
- * raise the rate limit, matching the tinycast/ghostex updaters.
+ * raise the rate limit, matching the tinycast updaters.
  *
  * Detects and discards Forgejo tokens which are invalid for api.github.com
  * to prevent 401 Unauthorized errors.

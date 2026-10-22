@@ -62,7 +62,6 @@ let
   purpurServers = safeSet ./pkgs/purpurServers;
   tinycastPackages = safeSet ./pkgs/tinycast;
   packages = {
-    ghostex = callPackage ./pkgs/ghostex;
     jellyfin-plugin-ldap-authentication = callPackage ./pkgs/jellyfin-plugin-ldap-authentication;
     libpcpnatpmp = callPackage ./pkgs/libpcpnatpmp;
     mcsmanager = callPackage ./pkgs/mcsmanager;

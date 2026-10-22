@@ -318,6 +318,18 @@ in
   nixcfg.containers = {
     open-webui = {
       enable = true;
+      # WORKAROUND, drop when upstream fixes open-webui: 0.12.3 sets
+      # makeWrapperArgs as one combined string, which the refactored
+      # wrapPythonProgramsIn hook forwards to makeWrapper as a single arg
+      # and dies on ("makeWrapper doesn't understand the arg --set ...").
+      # Split into separate args; same value, hook-compatible form.
+      package = pkgs.open-webui.overrideAttrs {
+        makeWrapperArgs = [
+          "--set"
+          "FRONTEND_BUILD_DIR"
+          "${pkgs.open-webui.passthru.frontend}/share/open-webui"
+        ];
+      };
       natInterface = "eno1";
       stateDir = "/mnt/POOL/open-webui";
       port = homelab.open-webui.services.open-webui.port;

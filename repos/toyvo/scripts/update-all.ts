@@ -31,7 +31,6 @@ const UPDATERS = [
   "pkgs/papermcServers/update.ts",
   "pkgs/VintagestoryServers/update.ts",
   "pkgs/tinycast/update.ts",
-  "pkgs/ghostex/update.ts",
 ];
 
 const failed: string[] = [];

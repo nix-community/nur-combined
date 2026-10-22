@@ -21,6 +21,7 @@ Outstanding work and follow-up items for this repository.
 - [x] Durable repo maintainer MVP (design: `docs/superpowers/specs/2026-10-20-durable-maintainer-design.md`, plan: `docs/superpowers/plans/2026-10-20-durable-maintainer-mvp.md`): `services.repo-maintainer` module + `repo-maintainer` package polling `toyvo/nixcfg` tasks, dispatching on infra-cancel, opening separate `fix/ci-*` PRs for eval breaks, approval-gated merge. Dry-run validated read-only against live Forgejo.
   - Manual before nas deploy: create Forgejo PAT (repo scope), add value as `repo-maintainer-forgejo-token` via `sops secrets.yaml` (activation fails without it); verify `forgejoLogDir` (`/mnt/POOL/forgejo/data/actions_log` default guess) holds `toyvo/nixcfg/<xx>/<id>.log[.zst]`.
   - Follow-up: wire `Harness.open` SQLite (`@earendil-works/pi-durable`) replacing `attempts.json`; model-driven fix writer (`planFixBranch`/`buildFixPrBody`/`prepareFixWorkdir` ready); pre-existing nas `forgejo-runner` option migration (`tokenFile`/`name`/`settings` removed upstream) is unrelated and still red in `nix flake check`.
+- [ ] Drop local open-webui `makeWrapperArgs` workaround in `configurations/nixos/nas/configuration.nix` once upstream nixpkgs splits the combined `--set FRONTEND_BUILD_DIR ...` string (breaks refactored `wrapPythonProgramsIn` hook: `makeWrapper doesn't understand the arg`)
 - [x] Fix CI update failures caused by Forgejo GITHUB_TOKEN being incorrectly used for api.github.com requests (fixed in scripts/update-lib.ts)
 
 ## Neovim
