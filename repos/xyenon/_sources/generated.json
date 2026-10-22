@@ -164,11 +164,11 @@
     "nh": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-3KoyzXczaFpQl2o2I6weYEXQbJ8A_AxFvzBdIIUDoB4=/Cargo.lock",
+                "sha256-UFtL7olZKKtYBnGVe5u+YcKnYbZyKxTEyHI_piG+YsE=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-10-10",
+        "date": "2026-10-22",
         "extract": null,
         "name": "nh",
         "passthru": null,
@@ -180,16 +180,16 @@
             "name": null,
             "owner": "XYenon",
             "repo": "nh",
-            "rev": "c39f48ebbe3c3c0385877835794bd82676bf60c9",
-            "sha256": "sha256-3KoyzXczaFpQl2o2I6weYEXQbJ8A/AxFvzBdIIUDoB4=",
+            "rev": "05872315fe2501d073e08e83fa27a582522b9cac",
+            "sha256": "sha256-UFtL7olZKKtYBnGVe5u+YcKnYbZyKxTEyHI/piG+YsE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c39f48ebbe3c3c0385877835794bd82676bf60c9"
+        "version": "05872315fe2501d073e08e83fa27a582522b9cac"
     },
     "nix-package-versions": {
         "cargoLock": null,
-        "date": "2026-09-23",
+        "date": "2026-10-22",
         "extract": null,
         "name": "nix-package-versions",
         "passthru": null,
@@ -201,12 +201,12 @@
             "name": null,
             "owner": "lazamar",
             "repo": "nix-package-versions",
-            "rev": "7b50db16b19a38b5a7b1716d9289d8f028e1d37f",
-            "sha256": "sha256-Zdq/rSdHYVmLQYuocAyDdYaPFZaWwq8NOASz+DVlM98=",
+            "rev": "f28923e0165fb54e1c432b0454f9356d5dca4bd2",
+            "sha256": "sha256-M2ncnGZrz4cRC5Zms+ElaKFeWvFEv8PFPCjAqbGz9sU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "7b50db16b19a38b5a7b1716d9289d8f028e1d37f"
+        "version": "f28923e0165fb54e1c432b0454f9356d5dca4bd2"
     },
     "rime-ice": {
         "cargoLock": null,

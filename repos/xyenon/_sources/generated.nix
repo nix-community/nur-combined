@@ -102,33 +102,33 @@
   };
   nh = {
     pname = "nh";
-    version = "c39f48ebbe3c3c0385877835794bd82676bf60c9";
+    version = "05872315fe2501d073e08e83fa27a582522b9cac";
     src = fetchFromGitHub {
       owner = "XYenon";
       repo = "nh";
-      rev = "c39f48ebbe3c3c0385877835794bd82676bf60c9";
+      rev = "05872315fe2501d073e08e83fa27a582522b9cac";
       fetchSubmodules = false;
-      sha256 = "sha256-3KoyzXczaFpQl2o2I6weYEXQbJ8A/AxFvzBdIIUDoB4=";
+      sha256 = "sha256-UFtL7olZKKtYBnGVe5u+YcKnYbZyKxTEyHI/piG+YsE=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-3KoyzXczaFpQl2o2I6weYEXQbJ8A_AxFvzBdIIUDoB4=/Cargo.lock";
+      lockFile = ./. + "/sha256-UFtL7olZKKtYBnGVe5u+YcKnYbZyKxTEyHI_piG+YsE=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-10-10";
+    date = "2026-10-22";
   };
   nix-package-versions = {
     pname = "nix-package-versions";
-    version = "7b50db16b19a38b5a7b1716d9289d8f028e1d37f";
+    version = "f28923e0165fb54e1c432b0454f9356d5dca4bd2";
     src = fetchFromGitHub {
       owner = "lazamar";
       repo = "nix-package-versions";
-      rev = "7b50db16b19a38b5a7b1716d9289d8f028e1d37f";
+      rev = "f28923e0165fb54e1c432b0454f9356d5dca4bd2";
       fetchSubmodules = false;
-      sha256 = "sha256-Zdq/rSdHYVmLQYuocAyDdYaPFZaWwq8NOASz+DVlM98=";
+      sha256 = "sha256-M2ncnGZrz4cRC5Zms+ElaKFeWvFEv8PFPCjAqbGz9sU=";
     };
-    date = "2026-09-23";
+    date = "2026-10-22";
   };
   rime-ice = {
     pname = "rime-ice";
