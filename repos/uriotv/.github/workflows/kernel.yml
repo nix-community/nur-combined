@@ -16,6 +16,12 @@ on:
       - 'lib/cachyos/**'
       - 'scripts/check-kernel-closure.py'
       - '.github/workflows/kernel.yml'
+  # Daily path: after a successful scheduled or manual update run on main, check the
+  # kernel again (realise or build) and push to both caches, even without a new pin.
+  workflow_run:
+    workflows: ['Update packages']
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
     inputs:
       force:
@@ -53,7 +59,13 @@ jobs:
     # Stays disabled until the cachix-builder runner exists. Set the repository
     # variable KERNEL_BUILDER_ENABLED to 'true' only then; otherwise the job would
     # wait in the queue forever.
-    if: github.ref == 'refs/heads/main' && vars.KERNEL_BUILDER_ENABLED == 'true'
+    # workflow_run is trusted only for successful scheduled/manual runs of this repository.
+    if: >-
+      github.ref == 'refs/heads/main' && vars.KERNEL_BUILDER_ENABLED == 'true' &&
+      (github.event_name != 'workflow_run' || (
+        github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.head_repository.full_name == github.repository &&
+        (github.event.workflow_run.event == 'schedule' || github.event.workflow_run.event == 'workflow_dispatch')))
     runs-on: [self-hosted, nixos, cachix-builder]
     # First build is from scratch on 8 threads (estimate: ~1 h, 6-10 GB peak RAM).
     # 12 h leaves room for a slow first run without cutting the build off.
@@ -146,7 +158,19 @@ jobs:
             exit 1
           fi
 
+      - name: Realise already-published kernel outputs (no compilation)
+        # When the pin is already in uriotv, fetch the outputs so both pushes can still
+        # run. --max-jobs 0 makes Nix fail instead of compiling if they cannot be fetched.
+        id: realise
+        if: steps.published.outputs.skip == 'true'
+        run: |
+          set -euo pipefail
+          nix build --no-link --no-write-lock-file --max-jobs 0 --print-out-paths \
+            ".#packages.x86_64-linux.\"${KERNEL_ATTR}\"^*" > "$RUNNER_TEMP/kernel-outputs"
+          cat "$RUNNER_TEMP/kernel-outputs"
+
       - name: Build kernel outputs from source
+        id: build
         if: steps.published.outputs.skip != 'true'
         run: |
           set -euo pipefail
@@ -158,7 +182,10 @@ jobs:
 
       - name: Verify redistribution rights for the complete built closure
         id: closure
-        if: steps.published.outputs.skip != 'true'
+        # Runs whenever the outputs exist locally: freshly built or realised.
+        if: >-
+          always() &&
+          (steps.build.outcome == 'success' || steps.realise.outcome == 'success')
         run: |
           set -euo pipefail
           nix eval --json --no-write-lock-file \
@@ -175,10 +202,12 @@ jobs:
       - name: Publish to uriotv and verify StorePath
         # Automatic only after successful build AND fail-closed closure check.
         # Only this main-only step receives the write token; never a PR job.
+        # Independent of attic and of whether the pin was already published: pushes
+        # every time the closure passed the licence gate.
         if: >-
-          success() && steps.published.outputs.skip != 'true' &&
+          always() && steps.closure.outcome == 'success' &&
           github.ref == 'refs/heads/main' &&
-          (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+          (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_run')
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
         run: |
@@ -199,10 +228,9 @@ jobs:
         # ATTIC_TOKEN is empty.
         continue-on-error: true
         if: >-
-          always() && steps.published.outputs.skip != 'true' &&
-          steps.closure.outcome == 'success' &&
+          always() && steps.closure.outcome == 'success' &&
           github.ref == 'refs/heads/main' &&
-          (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+          (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_run')
         env:
           ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
         run: bash scripts/attic-push.sh "$RUNNER_TEMP/kernel-outputs"
