@@ -3,11 +3,11 @@
 { fetchzip }:
 
 let
-  version = "7.3.12-3";
-  rev = "v7.3.12-3";
+  version = "7.3.12-4";
+  rev = "v7.3.12-4";
   src = fetchzip {
-    url = "https://codeload.github.com/kaitranntt/CLIProxyAPIPlus/tar.gz/v7.3.12-3";
-    hash = "sha256-/kP9lO9Zi/7sfYjWiJho8F1p4rSOZH8K1b6RgxOZiqE=";
+    url = "https://codeload.github.com/kaitranntt/CLIProxyAPIPlus/tar.gz/v7.3.12-4";
+    hash = "sha256-7K5VyHzP1d62N8UaBHRy2V7c5yqbTzffFuDi7eKRFbY=";
     extension = "tar.gz";
   };
 in

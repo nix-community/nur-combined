@@ -3,11 +3,11 @@
 { fetchzip }:
 
 let
-  version = "0.49.16";
-  rev = "v0.49.16";
+  version = "0.49.18";
+  rev = "v0.49.18";
   src = fetchzip {
-    url = "https://codeload.github.com/cortexkit/magic-context/tar.gz/v0.49.16";
-    hash = "sha256-Yz9/+Um6TE3HnItbMVfMkI4XsbGL5TGAyR/7KGSBqBI=";
+    url = "https://codeload.github.com/cortexkit/magic-context/tar.gz/v0.49.18";
+    hash = "sha256-aeVroIC2HYquyGk8sN+0SFU0+BZzYDb+ahvSPrSILjc=";
     extension = "tar.gz";
   };
 in
