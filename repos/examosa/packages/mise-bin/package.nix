@@ -5,6 +5,7 @@
   fetchGitHubReleaseAsset,
   installShellFiles,
   mise,
+  stdenv,
   stdenvNoCC,
   writableTmpDirAsHomeHook,
 }: let
@@ -51,7 +52,10 @@ in
       ]
       ++ lib.optional hostPlatform.isLinux autoPatchelfHook;
 
-    buildInputs = lib.optional hostPlatform.isLinux glibc;
+    buildInputs = lib.optionals hostPlatform.isLinux [
+      glibc
+      stdenv.cc.cc.libgcc
+    ];
 
     dontConfigure = true;
     dontBuild = true;
