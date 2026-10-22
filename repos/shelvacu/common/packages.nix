@@ -204,7 +204,7 @@ in
     # pkgs included everywhere
     ''
       # keep-sorted start
-      _7zip
+      _7zz-rar
       altcaps
       bat
       btw
