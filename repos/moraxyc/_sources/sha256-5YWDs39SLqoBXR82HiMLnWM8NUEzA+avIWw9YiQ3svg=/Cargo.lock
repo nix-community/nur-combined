@@ -561,7 +561,7 @@ checksum = "c8d4a3bb8b1e0c1050499d1815f5ab16d04f0959b233085fb31653fbfc9d98f9"
 
 [[package]]
 name = "clash-api"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "axum",
  "backon",
@@ -663,7 +663,7 @@ dependencies = [
  "hdrhistogram",
  "humantime",
  "hyper-util",
- "parking_lot",
+ "parking_lot 0.12.5",
  "prost",
  "prost-types",
  "serde",
@@ -884,9 +884,9 @@ dependencies = [
  "cfg-if",
  "crossbeam-utils",
  "hashbrown 0.14.5",
- "lock_api",
+ "lock_api 0.4.14",
  "once_cell",
- "parking_lot_core",
+ "parking_lot_core 0.9.12",
 ]
 
 [[package]]
@@ -972,7 +972,7 @@ dependencies = [
  "backtrace",
  "lazy_static",
  "mintex",
- "parking_lot",
+ "parking_lot 0.12.5",
  "rustc-hash 1.1.0",
  "serde",
  "serde_json",
@@ -1185,6 +1185,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0ce7134b9999ecaf8bcd65542e436736ef32ddca1b3e06094cb6ec5755203b80"
 
 [[package]]
+name = "fixedbitset"
+version = "0.5.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1d674e81391d1e1ab681a28d99df07927c6d4aa5b027d7da16ba32d1d21ecd99"
+
+[[package]]
 name = "flate2"
 version = "1.1.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1208,6 +1214,12 @@ name = "fnv"
 version = "1.0.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3f9eec918d3f24069decb9af1554cad7c880e2da24a9afd88aca000531ab82c1"
+
+[[package]]
+name = "foldhash"
+version = "0.1.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d9c4f5dac5e15c24eb999c26181a6ca40b39fe946cbe4c263c7209467bc83af2"
 
 [[package]]
 name = "foldhash"
@@ -1441,13 +1453,22 @@ dependencies = [
 
 [[package]]
 name = "hashbrown"
+version = "0.15.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9229cfe53dfd69f0609a49f65461bd93001ea1ef889cd5529dd176593f5338a1"
+dependencies = [
+ "foldhash 0.1.5",
+]
+
+[[package]]
+name = "hashbrown"
 version = "0.16.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "841d1cc9bed7f9236f321df977030373f4a4163ae1a7dbfe1a51a2c1a51d9100"
 dependencies = [
  "allocator-api2",
  "equivalent",
- "foldhash",
+ "foldhash 0.2.0",
 ]
 
 [[package]]
@@ -2019,9 +2040,9 @@ checksum = "830d08ce1d1d941e6b30645f1a0eb5643013d835ce3779a5fc208261dbe10f55"
 
 [[package]]
 name = "libc"
-version = "0.2.189"
+version = "0.2.191"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3eaf3ede3fee6db1a4c2ee091bf8a8b4dccdc6d17f656fb07896ee72867612f2"
+checksum = "65cd87c9a6d60536580b316ad985726104730a5151c99845f2490428ef91240a"
 
 [[package]]
 name = "libloading"
@@ -2065,6 +2086,15 @@ name = "lock_api"
 version = "0.4.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "224399e74b87b5f3557511d98dff8b14089b3dadafcab6bb93eab67d3aace965"
+dependencies = [
+ "scopeguard",
+]
+
+[[package]]
+name = "lock_api"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "65d91b22da179613dcf4d6ec8349563f52a363f6849e03b00dd0a185ec4a59af"
 dependencies = [
  "scopeguard",
 ]
@@ -2218,7 +2248,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-core-manager"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "camino",
  "chrono",
@@ -2230,7 +2260,7 @@ dependencies = [
  "nyanpasu-core-metadata",
  "nyanpasu-utils",
  "nyanpasu-windows-security",
- "parking_lot",
+ "parking_lot 0.12.5",
  "schemars",
  "serde",
  "serde_json",
@@ -2248,7 +2278,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-core-metadata"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "constcat",
  "enumset",
@@ -2261,7 +2291,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-ipc"
-version = "2.0.0"
+version = "2.0.1"
 dependencies = [
  "anyhow",
  "axum",
@@ -2291,7 +2321,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-jobs"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "futures-util",
  "jiff",
@@ -2314,7 +2344,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-logging"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "chrono",
  "file-id",
@@ -2332,7 +2362,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-serde"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "indexmap",
  "nyanpasu-serde-derive",
@@ -2342,7 +2372,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-serde-derive"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "proc-macro-crate",
  "proc-macro2",
@@ -2353,7 +2383,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-service"
-version = "2.0.0"
+version = "2.0.1"
 dependencies = [
  "nyanpasu-service-runtime",
  "nyanpasu-utils",
@@ -2365,7 +2395,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-service-runtime"
-version = "2.0.0"
+version = "2.0.1"
 dependencies = [
  "ansi-str",
  "anyhow",
@@ -2389,7 +2419,7 @@ dependencies = [
  "nyanpasu-utils",
  "nyanpasu-windows-security",
  "oneshot",
- "parking_lot",
+ "parking_lot 0.12.5",
  "rustc_version",
  "semver",
  "serde",
@@ -2434,7 +2464,7 @@ dependencies = [
  "memchr",
  "nix 0.31.3",
  "os_pipe",
- "parking_lot",
+ "parking_lot 0.13.0",
  "processkit",
  "reqwest",
  "reqwest-websocket",
@@ -2454,7 +2484,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-windows-security"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "anyhow",
  "tokio",
@@ -2582,8 +2612,18 @@ version = "0.12.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "93857453250e3077bd71ff98b6a65ea6621a19bb0f559a85248955ac12c45a1a"
 dependencies = [
- "lock_api",
- "parking_lot_core",
+ "lock_api 0.4.14",
+ "parking_lot_core 0.9.12",
+]
+
+[[package]]
+name = "parking_lot"
+version = "0.13.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a9cf937ca4e1d0b7578784559063422fc39ae7c5a00f02471f2614d5486fd226"
+dependencies = [
+ "lock_api 0.5.0",
+ "parking_lot_core 0.10.0",
 ]
 
 [[package]]
@@ -2595,8 +2635,22 @@ dependencies = [
  "backtrace",
  "cfg-if",
  "libc",
- "petgraph",
- "redox_syscall",
+ "petgraph 0.6.5",
+ "redox_syscall 0.5.18",
+ "smallvec",
+ "windows-link",
+]
+
+[[package]]
+name = "parking_lot_core"
+version = "0.10.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9cfff060068cc18aa7815010fcaf80c68c7fb9e85fc7f5c0f9bf142c21d19826"
+dependencies = [
+ "backtrace",
+ "libc",
+ "petgraph 0.8.3",
+ "redox_syscall 0.9.5",
  "smallvec",
  "windows-link",
 ]
@@ -2613,8 +2667,20 @@ version = "0.6.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b4c5cc86750666a3ed20bdaf5ca2a0344f9c67674cae0515bec2da16fbaa47db"
 dependencies = [
- "fixedbitset",
+ "fixedbitset 0.4.2",
  "indexmap",
+]
+
+[[package]]
+name = "petgraph"
+version = "0.8.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8701b58ea97060d5e5b155d383a69952a60943f0e6dfe30b04c287beb0b27455"
+dependencies = [
+ "fixedbitset 0.5.7",
+ "hashbrown 0.15.5",
+ "indexmap",
+ "serde",
 ]
 
 [[package]]
@@ -3030,6 +3096,15 @@ name = "redox_syscall"
 version = "0.5.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ed2bf2547551a7053d6fdfafda3f938979645c44812fbfcda098faae3f1a362d"
+dependencies = [
+ "bitflags 2.13.1",
+]
+
+[[package]]
+name = "redox_syscall"
+version = "0.9.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "580c875845b41ecb1564ad1ae4703044cef774145e3d7a94dc2b3fa7c97868fd"
 dependencies = [
  "bitflags 2.13.1",
 ]
@@ -4006,7 +4081,7 @@ dependencies = [
  "bytes",
  "libc",
  "mio",
- "parking_lot",
+ "parking_lot 0.12.5",
  "pin-project-lite",
  "signal-hook-registry",
  "socket2",
@@ -4257,7 +4332,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "050686193eb999b4bb3bc2acfa891a13da00f79734704c4b8b4ef1a10b368a3c"
 dependencies = [
  "crossbeam-channel",
- "parking_lot",
+ "parking_lot 0.12.5",
  "symlink",
  "thiserror 2.0.19",
  "time",
@@ -4325,7 +4400,7 @@ dependencies = [
  "matchers",
  "nu-ansi-term",
  "once_cell",
- "parking_lot",
+ "parking_lot 0.12.5",
  "regex-automata",
  "serde",
  "serde_json",
