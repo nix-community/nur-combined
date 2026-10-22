@@ -1,0 +1,10 @@
+{
+  "configHash": "sha256-PfMxEuM1f+tqiZu/wAby3tFSJtGy63QayYbVgbnKd3M=",
+  "configUrl": "https://raw.githubusercontent.com/CachyOS/linux-cachyos/08c3d8b0941096e855e3a478f49497cd3f708a21/linux-cachyos-bore/config",
+  "hash": "sha256-fiErY5CSSYoR2Vzc8ju/FmkBlIiLxydm0My7WfXphE0=",
+  "patchHash": "sha256-4kd1FxkJIosjENPZB8aI1/dXzaonbQxqHpUZJel9EqI=",
+  "patchRev": "6266b5f33f4e8caaa452174f0132c8c82f919267",
+  "patchVersion": "7.2",
+  "url": "https://github.com/CachyOS/linux/releases/download/cachyos-7.2.11-1/cachyos-7.2.11-1.tar.gz",
+  "version": "7.2.11"
+}

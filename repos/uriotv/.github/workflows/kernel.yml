@@ -4,15 +4,16 @@ name: "Build CachyOS kernel (self-hosted)"
 # or issue_comment: the repository is public and this runner holds the write token
 # for uriotv (CACHIX_AUTH_TOKEN), which must never be reachable from untrusted code.
 #
-# The kernel derivation depends only on the upstream pin (rev/hash) in its package
-# directory, evaluated with upstream's own flake.lock. Other merges cannot change
-# it, so push runs are limited to that directory and this workflow.
+# Kernel derivations depend on their source.json, our shared constructor and its
+# independent nixpkgs pin. Evaluate only these inputs on push; all already cached
+# outputs are skipped independently for each variant.
 on:
   push:
     branches: [main]
     paths:
       - 'pkgs/linux-cachyos-latest-x86_64-v3/**'
       - 'pkgs/linux-cachyos-bore-x86_64-v3/**'
+      - 'lib/cachyos/**'
       - '.github/workflows/kernel.yml'
   workflow_dispatch:
     inputs:

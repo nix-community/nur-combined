@@ -100,7 +100,8 @@ is preserved until a strictly newer, descendant release is available.
   are built sequentially by `kernel.yml` on the
   self-hosted runner `[self-hosted, nixos, cachix-builder]` (labels: `nixos`,
   `cachix-builder`). It triggers only on push to `main` that changes
-  either kernel package directory or `kernel.yml`, and on manual dispatch of
+  either kernel package directory, the shared `lib/cachyos/` recipe or `kernel.yml`,
+  and on manual dispatch of
   `main`; never on pull requests. If every output of the current pin is already
   in `uriotv`, the build is skipped (dispatch with `force = true` to rebuild). Publication to `uriotv` happens only on a manual
   dispatch with `publish = true`, after the closure licence review. It is not part
@@ -108,8 +109,9 @@ is preserved until a strictly newer, descendant release is available.
   unless the repository variable `KERNEL_BUILDER_ENABLED` is `true`.
 
 GitHub can delay scheduled workflows; the cron time is not a delivery guarantee.
-Builds and the updater use the same `flake.lock` pin. The updater does not move
-the lock automatically. Updating nixpkgs is a deliberate maintenance change.
+Ordinary builds and the updater tools use the repository's `flake.lock` pin;
+the kernels use their separate `lib/cachyos/nixpkgs.json` pin. The updater moves
+neither pin automatically. Updating nixpkgs is a deliberate maintenance change.
 
 Required repository Actions secrets:
 
@@ -130,17 +132,19 @@ We export exactly two non-LTO, x86-64-v3 kernels, named just like upstream:
 - `linux-cachyos-latest-x86_64-v3`
 - `linux-cachyos-bore-x86_64-v3` (BORE scheduler)
 
-- **Source of truth:** each `pkgs/<kernel>/default.nix` pins the
-  upstream `xddxdd/nix-cachyos-kernel` commit (`rev` and `hash`). The daily
-  `update.sh` moves that pin only when upstream's corresponding `linux-cachyos`
-  or `linux-cachyos-bore` version is newer;
-  upstream's near-daily nixpkgs-only bumps are ignored, so a rebuild means a real
-  kernel update. It never changes `flake.lock`.
+- **Independent definitions:** `lib/cachyos/default.nix` builds both kernels
+  directly with `buildLinux`. Each package's `source.json` pins the CachyOS
+  release archive, config and patch tree (URLs/revisions and hashes). No kernel
+  definition or flake is imported from xddxdd. The daily updater reads CachyOS
+  directly and changes only its package's `source.json`, only for a newer kernel
+  version. It never advances nixpkgs or changes `flake.lock`.
 - **Build from scratch:** the kernel is built on our builder. Upstream and
   third-party kernel caches are not substituters. Only `cache.nixos.org` (nixpkgs
   dependencies) and `uriotv` are used.
-- **Same derivation everywhere:** the kernel is evaluated with upstream's own
-  flake.lock, so its `drvPath` does not depend on the nixpkgs pinned by a consumer.
+- **Same derivation everywhere:** `lib/cachyos/nixpkgs.json` independently pins
+  the kernel toolchain to nixpkgs `02c087f3fe673c9e317f206a627cb6b910336dbe`.
+  This is deliberately separate from the repository and consumer nixpkgs, so
+  the kernel's `drvPath` does not depend on the nixpkgs pinned by a consumer.
   Overriding urio-nur's `nixpkgs` input does not change it. CI records the
   `drvPath` in the `kernel.yml` job summary. Consumers can compare with:
   `nix eval --raw github:urioTV/urio-nur#packages.x86_64-linux.linux-cachyos-latest-x86_64-v3.drvPath`
@@ -151,9 +155,12 @@ We export exactly two non-LTO, x86-64-v3 kernels, named just like upstream:
 
 ### Using uriotv with xddxdd directly
 
-The public cache is not tied to our flake's attribute namespace. Our builds keep
-upstream's package names, derivations and output paths unchanged. You can use
-xddxdd's repository directly and add only our cache:
+The public cache is not tied to our flake's attribute namespace. Our initial
+independent 7.2.11 definitions preserve the package names, derivations and all
+output paths of xddxdd revision `893cfece` exactly. The existing binaries remain
+usable without a rebuild; `ci.x86_64-linux.kernelTests` checks this baseline and
+real NixOS `boot.kernelPackages` overrides. See [recipe notes](lib/cachyos/README.md).
+You can also use that matching xddxdd revision directly and add only our cache:
 
 ```nix
 # flake.nix: this revision matches the initial latest and BORE v3 builds.
@@ -175,14 +182,13 @@ inputs.nix-cachyos-kernel.url =
 }
 ```
 
-A matching version string is not sufficient: the upstream revision, its locked
-nixpkgs and kernel configuration must match. This repository ignores upstream's
-nixpkgs-only updates until the next kernel release, so following upstream's latest
-`master` or `release` can miss our cache even with the same kernel version. Use
-the revision in the corresponding package's `default.nix`; each variant may have
-its own pin after updates. Overriding the kernel or using a different nixpkgs can
-also cause a cache miss. Missing outputs build locally; BORE is not available in
-uriotv until its first self-hosted build and reviewed publication complete.
+A matching version string is not sufficient: source/config/patch hashes,
+fetcher semantics, nixpkgs/toolchain and build configuration must match.
+Following xddxdd's latest `master` or `release` does not guarantee a cache hit,
+and future independently maintained versions may diverge. Overriding the kernel
+or using a different nixpkgs can also cause a cache miss. Compare `drvPath` and
+output paths before relying on substitution; missing outputs build locally.
+Both initial 7.2.11 variants are already published in uriotv.
 
 ## Adding a package
 

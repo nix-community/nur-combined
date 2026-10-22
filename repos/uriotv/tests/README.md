@@ -28,9 +28,9 @@ strict-Bash updater, then runs:
   failures; only 429 becomes a visible deferred-request warning, not a hidden
   failure or a falsely claimed accepted refresh. No network or retry waits.
 
-- `cachyos-kernel-update.py`: stubbed git/curl/nix; the kernel pin moves only
-  for a newer `linux-cachyos` version (upstream nixpkgs-only bumps and downgrades
-  are ignored), rev and hash move together, version mismatches fail.
+- `cachyos-kernel-update.py`: offline fixtures for direct CachyOS metadata,
+  numeric version-only updates, coupled source/config/patch hashes, malformed
+  metadata, package-directory isolation and rollback on evaluation errors.
 
 ## Nix evaluation (not compilation)
 
@@ -40,6 +40,7 @@ python3 -B tests/registry-eval.py
 
 # Uses the repository lock; Nix may fetch evaluation inputs.
 nix eval --json --no-write-lock-file .#ci.x86_64-linux.policyTests
+nix eval --json --no-write-lock-file .#ci.x86_64-linux.kernelTests
 nix eval --json --no-write-lock-file .#ci.x86_64-linux.manifest
 nix flake check --no-build --no-write-lock-file
 ```
@@ -50,8 +51,13 @@ consistent NUR/overlay exports. `package-policy.nix` verifies license decisions,
 full output selection, unfree builds, redistributable nonfree uploads,
 `preferLocalBuild`, broken packages and unsupported platforms.
 
-The build workflow runs these checks and then builds **all** supported package
-outputs on x86_64-linux. Evaluation success is not compilation or runtime success;
+`cachyos-eval.nix` verifies both frozen 7.2.11 derivations and all six cached
+output paths, plus the actual NixOS kernel override pathway and patch handling.
+This fetches evaluation inputs if necessary but never compiles kernels.
+
+The build workflow runs these checks and then builds eligible supported package
+outputs on x86_64-linux. `meta.ciBuild = false` kernels are compiled separately
+on the self-hosted builder, never in the GitHub-hosted build job. Evaluation success is not compilation or runtime success;
 GUI applications are not launched by CI. Cache verification proves public root
 narinfo presence and correct StorePath, not an independent cold-cache restore.
 

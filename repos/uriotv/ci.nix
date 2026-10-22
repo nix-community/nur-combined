@@ -19,6 +19,8 @@ let
 in
 rec {
   inherit packages buildPackages cachePackages;
+  # Evaluation only: cache identity and real NixOS kernel override regression.
+  kernelTests = import ./tests/cachyos-eval.nix { inherit pkgs packages; };
   # Legacy entry points remain available, but are no longer conflated in CI.
   buildPkgs = builtins.attrValues buildPackages;
   cachePkgs = builtins.attrValues cachePackages;
