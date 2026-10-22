@@ -70,7 +70,8 @@ let
         inherit value;
       }) (dependencies entry.value);
   };
-  # Newer nixpkgs represents dual licensing as compound AND/OR objects.
+  # Newer nixpkgs represents dual licensing as compound AND/OR objects and
+  # licence exceptions as WITH objects.
   # Conservatively require every branch to permit redistribution, even for OR.
   # Explicit permission/restriction flags still win; malformed nodes fail closed.
   normalize =
@@ -90,6 +91,18 @@ let
       && license.licenses != [ ]
     then
       lib.concatMap normalize license.licenses
+    # "<license> WITH <exception>" (e.g. Apache-2.0 WITH LLVM-exception): both parts
+    # must permit redistribution on their own.
+    else if
+      builtins.isAttrs license
+      && !(license ? redistributable)
+      && !(license ? free)
+      && (license.licenseType or null) == "exception"
+      && (license.operator or null) == "WITH"
+      && builtins.isAttrs (license.license or null)
+      && builtins.isAttrs (license.exception or null)
+    then
+      normalize license.license ++ normalize license.exception
     else
       [ license ];
   labels =
