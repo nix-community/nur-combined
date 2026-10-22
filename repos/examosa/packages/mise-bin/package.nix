@@ -1,6 +1,5 @@
 {
   autoPatchelfHook,
-  glibc,
   lib,
   fetchGitHubReleaseAsset,
   installShellFiles,
@@ -53,7 +52,6 @@ in
       ++ lib.optional hostPlatform.isLinux autoPatchelfHook;
 
     buildInputs = lib.optionals hostPlatform.isLinux [
-      glibc
       stdenv.cc.cc.libgcc
     ];
 
@@ -68,23 +66,22 @@ in
       runHook preinstall
 
       installBin bin/mise
+      installManPage man/man1/mise.1
 
       cp -R share $out
 
       install -Dm644 -t $out/share/doc/mise LICENSE README.md
 
-      mkdir completions
+      installShellCompletion --cmd mise \
+        --bash <($out/bin/mise completion bash) \
+        --fish <($out/bin/mise completion fish) \
+        --zsh <($out/bin/mise completion zsh)
 
-      for shell in {ba,fi,z}sh; do
-        $out/bin/mise completion $shell >completions/mise.$shell
-      done
-
-      mv completions/{mise.zsh,_mise}
+      mkdir -p $out/lib/mise
+      touch $out/lib/mise/.disable-self-update
 
       runHook postInstall
     '';
-
-    inherit (mise) postInstall;
 
     meta =
       mise.meta
