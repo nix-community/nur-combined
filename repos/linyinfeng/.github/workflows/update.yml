@@ -82,7 +82,6 @@ jobs:
             --head update \
             --assignee linyinfeng \
             --reviewer linyinfeng \
-            --label 'auto merge' \
             --label 'auto update' || \
         gh pr edit update \
             --body-file /tmp/body-file

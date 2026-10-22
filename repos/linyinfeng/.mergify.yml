@@ -1,13 +1,21 @@
-pull_request_rules:
-  - name: Automatic merge
-    conditions:
-      - or:
-        - "#approved-reviews-by>=1"
-        - "label=auto update"
-      - "label=auto merge"
-      - "check-success~=^tests"
+queue_rules:
+  - name: default
+    # No queue_conditions: a maintainer enters the queue on demand with
+    # Mergify's check box (or `@mergifyio queue`), and the automated update PR
+    # is queued by the pull request rule below.
+    merge_conditions:
+      # Only merge once CI has finished on the queued (possibly updated) branch:
+      # at least one success, nothing pending, nothing failed.
+      - "#check-success>=1"
       - "#check-pending=0"
       - "#check-failure=0"
+    merge_method: merge
+    update_method: merge
+
+pull_request_rules:
+  - name: Queue automated update PRs
+    conditions:
+      - "label=auto update"
     actions:
-      merge:
-        method: merge
+      queue:
+        name: default
