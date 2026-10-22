@@ -13,6 +13,7 @@
  * [IBKR Trader Workstation (TWS)](https://www.interactivebrokers.com/en/trading/download-tws.php)
  * [powerctl](https://git.sr.ht/~sircmpwn/powerctl)
  * [Proton Meet](https://proton.me/meet)
+ * [SkunkCrafts Updater](https://forums.x-plane.org/files/file/76635-skunkcrafts-updater/)
  * [Skyvex Stratos](https://skyvexsoftware.com/)
  * [Threema Desktop](https://threema.com/en/download/threema-private/desktop-beta)
  * [TrackAudio](https://github.com/pierr3/TrackAudio)

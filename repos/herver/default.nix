@@ -22,6 +22,8 @@
 
   stratos = pkgs.callPackage ./pkgs/stratos { };
 
+  skunkcrafts-updater = pkgs.callPackage ./pkgs/skunkcrafts-updater { };
+
   threema-desktop = pkgs.callPackage ./pkgs/threema-desktop { };
 
   trackaudio = pkgs.callPackage ./pkgs/trackaudio { };
