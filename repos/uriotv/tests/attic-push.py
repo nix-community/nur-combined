@@ -129,6 +129,9 @@ class AtticIndependenceTests(unittest.TestCase):
         self.assertIn("always()", cachix)
         self.assertIn("always()", attic)
         self.assertIn("--max-jobs 0", body)
+        # Proof that skipped-build outputs were substituted, not compiled.
+        self.assertIn("uriotv.cachix.org-1:", body)
+        self.assertIn("nix path-info --sigs", body)
         # Daily coverage: the kernel must also run after every scheduled update run.
         self.assertIn("workflows: ['Update packages']", body)
         self.assertIn("github.event.workflow_run.conclusion == 'success'", body)
