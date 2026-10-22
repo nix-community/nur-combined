@@ -8,13 +8,13 @@
 
 buildNpmPackage (final: {
   pname = "chrome-devtools-mcp";
-  version = "1.11.0";
+  version = "1.12.0";
 
   src = fetchFromGitHub {
     owner = "ChromeDevTools";
     repo = "chrome-devtools-mcp";
     rev = "chrome-devtools-mcp-v${final.version}";
-    hash = "sha256-Z/O/YSiLec+cvBkytjDJIPtFAdq1/AiB39CPtkolifg=";
+    hash = "sha256-3H858tro0VGawNrINf1FGtLRWsOISq2GK+eLTCqGUTg=";
     fetchSubmodules = true;
   };
 
@@ -39,7 +39,7 @@ buildNpmPackage (final: {
     mv package-lock.json.tmp package-lock.json
   '';
 
-  npmDepsHash = "sha256-CedK4xMCGLnryGL+dve2S1OYtetlr7/wg/pnpMBy5IQ=";
+  npmDepsHash = "sha256-CEYtrmCDO+EeKoScH8IO+jsJCrkvzJKqqeoT+yqD1FU=";
 
   postConfigure = ''
     npm run prepare
