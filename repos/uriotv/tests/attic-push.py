@@ -1,0 +1,92 @@
+#!/usr/bin/env python3
+"""Offline tests for the private attic mirror helper. Stubbed client; no network."""
+import os
+from pathlib import Path
+import subprocess
+import tempfile
+import unittest
+
+ROOT = Path(__file__).resolve().parents[1]
+HELPER = ROOT / "scripts/attic-push.sh"
+TOKEN = "test-token-not-a-secret"
+GOOD = ["/nix/store/" + "a" * 32 + "-kernel-out", "/nix/store/" + "b" * 32 + "-kernel-dev"]
+
+
+class AtticPushTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.root = Path(self.temp.name)
+        self.bin = self.root / "bin"
+        self.bin.mkdir()
+        self.calls = self.root / "calls"
+        self.paths = self.root / "paths"
+        self.paths.write_text("".join(p + "\n" for p in GOOD))
+        stub = self.bin / "attic"
+        stub.write_text(
+            "#!/usr/bin/env python3\n"
+            "import os, sys\n"
+            "with open(os.environ['CALLS'], 'a') as f:\n"
+            "    f.write(repr({'argv': sys.argv[1:], 'config': os.environ.get('XDG_CONFIG_HOME')}) + '\\n')\n"
+            "if sys.argv[1] == 'push' and os.environ.get('FAIL_PUSH'):\n"
+            "    sys.exit(3)\n"
+        )
+        stub.chmod(0o755)
+
+    def run_helper(self, paths=None, **env):
+        return subprocess.run(
+            ["bash", str(HELPER), str(paths or self.paths)], text=True, capture_output=True,
+            env={**os.environ, "PATH": f"{self.bin}:{os.environ['PATH']}",
+                 "CALLS": str(self.calls), "GITHUB_STEP_SUMMARY": str(self.root / "summary"),
+                 **env},
+        )
+
+    def recorded(self):
+        if not self.calls.exists():
+            return []
+        return [eval(line) for line in self.calls.read_text().splitlines()]
+
+    def test_missing_token_warns_and_never_calls_attic(self):
+        result = self.run_helper(ATTIC_TOKEN="")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("::warning::attic push skipped", result.stdout)
+        self.assertIn("skipped", (self.root / "summary").read_text())
+        self.assertEqual(self.recorded(), [])
+
+    def test_empty_path_list_is_a_noop(self):
+        empty = self.root / "empty"
+        empty.write_text("")
+        result = self.run_helper(paths=empty, ATTIC_TOKEN=TOKEN)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(self.recorded(), [])
+
+    def test_pushes_only_given_store_paths_with_isolated_config(self):
+        result = self.run_helper(ATTIC_TOKEN=TOKEN)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        login, push = self.recorded()
+        self.assertEqual(login["argv"], ["login", "urio", "https://attic.urio.dev", TOKEN])
+        self.assertEqual(push["argv"], ["push", "urio", *GOOD])
+        config = Path(push["config"])
+        self.assertFalse(config.exists(), "temporary attic config must be removed on exit")
+        self.assertNotIn(str(ROOT), str(config))
+
+    def test_token_never_appears_in_output(self):
+        result = self.run_helper(ATTIC_TOKEN=TOKEN)
+        self.assertNotIn(TOKEN, result.stdout)
+        self.assertNotIn(TOKEN, result.stderr)
+        self.assertNotIn(TOKEN, (self.root / "summary").read_text())
+
+    def test_non_store_paths_are_refused_before_any_client_call(self):
+        bad = self.root / "bad"
+        bad.write_text("/etc/passwd\n")
+        result = self.run_helper(paths=bad, ATTIC_TOKEN=TOKEN)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertEqual(self.recorded(), [])
+
+    def test_push_failure_is_reported_as_failure(self):
+        result = self.run_helper(ATTIC_TOKEN=TOKEN, FAIL_PUSH="1")
+        self.assertNotEqual(result.returncode, 0)
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)

@@ -123,6 +123,7 @@ Required repository secrets:
 |---|---|
 | `PAT_FOR_UPDATES` | Token that creates the update PR and enables auto-merge. It must trigger PR CI, so `GITHUB_TOKEN` cannot be used. |
 | `CACHIX_AUTH_TOKEN` | Write access to `uriotv`, used only in the publication steps on `main`. |
+| `ATTIC_TOKEN` | Optional. Push access to the private attic cache `urio` (`https://attic.urio.dev`), used only after the cachix publication on `main`. If unset, the attic step is skipped with a warning. |
 
 ## CachyOS kernels
 

@@ -168,6 +168,7 @@ main() {
     python3 -B "$SCRIPT_DIR/nur-notification.py"
     python3 -B "$SCRIPT_DIR/cachyos-kernel-update.py"
     python3 -B "$SCRIPT_DIR/kernel-publication.py"
+    python3 -B "$SCRIPT_DIR/attic-push.py"
 
     echo "======================================"
     echo "Test Summary"

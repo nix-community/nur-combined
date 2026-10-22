@@ -120,5 +120,8 @@ if [[ -s "$work/cacheable" ]]; then
       "https://uriotv.cachix.org/${hash}.narinfo" > "$work/output.narinfo"
     grep -Fx "StorePath: $path" "$work/output.narinfo"
   done < "$work/cacheable"
+  # Private mirror after cachix: same redistributable roots, skipped with a warning
+  # when ATTIC_TOKEN is not configured.
+  bash "$(dirname "${BASH_SOURCE[0]}")/attic-push.sh" "$work/cacheable"
 fi
 echo 'All redistributable roots published and their StorePath verified.'

@@ -88,6 +88,12 @@ jobs:
           CI_MANIFEST_PATH: ${{ runner.temp }}/ci-manifest.json
           CI_BUILT_OUTPUTS_FILE: ${{ runner.temp }}/ci-built-outputs.txt
         run: bash scripts/build-ci.sh
+      - name: Install attic client for private mirror
+        if: >-
+          success() && github.ref == 'refs/heads/main' &&
+          (github.event_name == 'push' || github.event_name == 'workflow_dispatch' ||
+           (github.event_name == 'workflow_run' && env.CI_TRUSTED_UPDATE_COMPLETION == 'true'))
+        run: nix profile install --no-write-lock-file --inputs-from . nixpkgs#attic-client
       - name: Publish eligible outputs
         if: >-
           success() && github.ref == 'refs/heads/main' &&
@@ -100,6 +106,7 @@ jobs:
           GITHUB_EVENT_NAME: ${{ github.event_name }}
           GITHUB_REF: ${{ github.ref }}
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
         run: bash scripts/build-ci.sh
       - name: Trigger NUR update
         if: >-
