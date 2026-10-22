@@ -671,6 +671,16 @@ func patchChecks(files []*sourceFile, o options) error {
 					return f.qualify("github.com/yetone/magpie/internal/testenv", "Offline") + "()"
 				})
 			}
+			// The fake WSL failure branch executes env on the build host, not in WSL.
+			// Keep the simulated WSL command and its assertions on their original paths.
+			if dir == "internal/library" && fn.Name.Name == "fakeWSLCheck" && o.tools != "" {
+				ast.Inspect(fn.Body, func(n ast.Node) bool {
+					if literal, ok := n.(*ast.BasicLit); ok && firstString(literal) == "/usr/bin/env" {
+						f.replace(literal, strconv.Quote(filepath.Join(o.tools, "env")))
+					}
+					return true
+				})
+			}
 			// Nix build users have no graphical macOS session; skip the shared window
 			// entry points while allowing ordinary GUI logic tests to run.
 			if dir == "internal/gui" && o.gui && o.platform == "darwin" && (fn.Name.Name == "runAppKit" || fn.Name.Name == "runAppKitSDK") && !strings.Contains(f.text(fn.Body), "Native AppKit/WebKit windows require") {
@@ -693,6 +703,16 @@ func patchChecks(files []*sourceFile, o options) error {
 						return ""
 					}
 					return "if " + f.qualify("os", "Getenv") + "(\"FLATPAK_ID\") == \"\" { " + name + ".Skip(\"Nix registration is covered by TestNixSchemeCleanup\") }"
+				})
+			}
+			// Non-WAL log inserts can keep both size and mtime within one filesystem tick.
+			// Advance the fixture clock without bypassing Codex's unchanged-log cache.
+			if dir == "internal/agent" && f.hasCall(fn.Body, "database/sql", "Open") && strings.Contains(f.text(fn.Body), "logs_2.sqlite") && !strings.Contains(f.text(fn.Body), "journal_mode=WAL") {
+				f.beforeCalls(fn.Body, func(call *ast.CallExpr) bool {
+					selector, ok := call.Fun.(*ast.SelectorExpr)
+					return ok && selector.Sel.Name == "Exec" && len(call.Args) > 0 && strings.HasPrefix(firstString(call.Args[0]), "INSERT INTO logs ")
+				}, func(_ *ast.BlockStmt) string {
+					return f.qualify("time", "Sleep") + "(20 * " + f.qualify("time", "Millisecond") + ")"
 				})
 			}
 			// Zed discovery caches its search directories; fixture symlink creation
