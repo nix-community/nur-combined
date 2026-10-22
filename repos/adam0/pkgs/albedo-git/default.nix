@@ -12,8 +12,8 @@
 
   src = fetchFromTangled {
     did = "did:plc:l7hhzcbqqvpcquau5waryzdu";
-    rev = "09cf44544ccc66a51000cbfa50ac407233691a6f";
-    hash = "sha256-ZuQTNNgUA8tMmKKzMYEGb49MvdQwCHUvwWG6GvKdRrY=";
+    rev = "270274392660a1c749936eacf025eef4e0be5422";
+    hash = "sha256-SsS6rjyckPkawmOPNYVLK9xQlc7WeHWyMuGyKuaWzRo=";
   };
 
   chrome-headless-shell = callPackage ./chrome-headless-shell.nix {};
