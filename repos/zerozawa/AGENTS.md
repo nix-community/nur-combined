@@ -103,7 +103,11 @@ paths match what flake users build locally. Results are pushed with
 `cachix watch-exec` in post-build-hook mode, which uploads only the paths built
 during the run (substituted `dependencies` are not re-uploaded). Cache
 substituters and trusted keys are declared once, in `flake.nix`'s `nixConfig`;
-CI passes `--option accept-flake-config true` instead of repeating them.
+CI sets `accept-flake-config = true` in the runner's `nix.conf` so every nix
+command in the job honours that block (a flake's `nixConfig` is otherwise
+ignored with an "untrusted flake configuration setting" warning, even for
+trusted users, unless it was accepted once and cached in
+`$XDG_DATA_HOME/nix/trusted-settings.json`).
 Scheduled and manually dispatched runs run `nix flake update` first and push the
 bumped `flake.lock` only after the build against it succeeds.
 
