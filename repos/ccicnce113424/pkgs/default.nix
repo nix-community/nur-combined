@@ -129,10 +129,7 @@ lib.makeScope pkgs.newScope (
       gitHashes = lib.importJSON ./loveiwara/git-hashes.json;
     };
 
-    lxgw-wenkai-gb = self.callPackage ./lxgw-wenkai-gb rec {
-      sources = fetchedSrc.lxgw-wenkai-gb;
-      version = stableVersion sources;
-    };
+    lxgw-wenkai-gb = self.callPackage ./lxgw-wenkai-gb/package.nix { };
 
     lyrica = self.callPackage ./lyrica {
       sources = fetchedSrc.lyrica;
@@ -326,10 +323,7 @@ lib.makeScope pkgs.newScope (
       inherit (sources) version;
     };
 
-    zhuque = self.callPackage ./zhuque rec {
-      sources = fetchedSrc.zhuque;
-      version = stableVersion sources;
-    };
+    zhuque = self.callPackage ./zhuque/package.nix { };
 
     # keep-sorted end
   }

@@ -215,14 +215,6 @@
       "pubspec.lock" = ./. + "/sha256-FB7HUpDNjVcwAx65hjOpZUT5hHDhnLEaeUTm8Xufwes=/pubspec.lock";
     };
   };
-  lxgw-wenkai-gb = {
-    pname = "lxgw-wenkai-gb";
-    version = "v1.530";
-    src = fetchurl {
-      url = "https://github.com/lxgw/LxgwWenkaiGB/releases/download/v1.530/lxgw-wenkai-gb-v1.530.tar.gz";
-      sha256 = "sha256-QsEefftGIYZkxAUI0/v+IYV4KZKv82Br9zk+OTzHrRY=";
-    };
-  };
   lyrica = {
     pname = "lyrica";
     version = "464089f575956cbac82e7605bf08f41c1936a279";
@@ -477,14 +469,6 @@
     src = fetchurl {
       url = "https://github.com/waywallen/waywallen-display/releases/download/v0.4.3/waywallen-kde-0.4.3-x86_64-embed.zip";
       sha256 = "sha256-3Vu5k04sD7Dq0UlgVxzT+4S2bb3jJmzvgeSrfqjlHts=";
-    };
-  };
-  zhuque = {
-    pname = "zhuque";
-    version = "v0.212";
-    src = fetchurl {
-      url = "https://github.com/TrionesType/zhuque/releases/download/v0.212/ZhuqueFangsong-v0.212.zip";
-      sha256 = "sha256-u4tmGnZD0ilqctnRBTCgCUlBnE5Sf7YXg/c8K6GowGI=";
     };
   };
 }

@@ -70,10 +70,6 @@ extract = ["pubspec.lock"]
 fetch.github = "FoxSensei001/LoveIwara"
 src.github = "FoxSensei001/LoveIwara"
 
-[lxgw-wenkai-gb]
-fetch.url = "https://github.com/lxgw/LxgwWenkaiGB/releases/download/$ver/lxgw-wenkai-gb-$ver.tar.gz"
-src.github = "lxgw/LxgwWenkaiGB"
-
 [lyrica]
 cargo_lock = ["Cargo.lock"]
 extract = ["Cargo.toml", "frontend/kde/metadata.json"]
@@ -161,7 +157,3 @@ src.prefix = "v"
 fetch.url = "https://github.com/waywallen/waywallen-display/releases/download/v$ver/waywallen-kde-$ver-x86_64-embed.zip"
 src.github = "waywallen/waywallen-display"
 src.prefix = "v"
-
-[zhuque]
-fetch.url = "https://github.com/TrionesType/zhuque/releases/download/$ver/ZhuqueFangsong-$ver.zip"
-src.github_tag = "TrionesType/zhuque"

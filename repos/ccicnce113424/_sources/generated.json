@@ -340,21 +340,6 @@
         },
         "version": "0.6.1"
     },
-    "lxgw-wenkai-gb": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "lxgw-wenkai-gb",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-QsEefftGIYZkxAUI0/v+IYV4KZKv82Br9zk+OTzHrRY=",
-            "type": "url",
-            "url": "https://github.com/lxgw/LxgwWenkaiGB/releases/download/v1.530/lxgw-wenkai-gb-v1.530.tar.gz"
-        },
-        "version": "v1.530"
-    },
     "lyrica": {
         "cargoLock": {
             "Cargo.lock": [
@@ -775,20 +760,5 @@
             "url": "https://github.com/waywallen/waywallen-display/releases/download/v0.4.3/waywallen-kde-0.4.3-x86_64-embed.zip"
         },
         "version": "0.4.3"
-    },
-    "zhuque": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "zhuque",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-u4tmGnZD0ilqctnRBTCgCUlBnE5Sf7YXg/c8K6GowGI=",
-            "type": "url",
-            "url": "https://github.com/TrionesType/zhuque/releases/download/v0.212/ZhuqueFangsong-v0.212.zip"
-        },
-        "version": "v0.212"
     }
 }
