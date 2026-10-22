@@ -43,8 +43,8 @@
 
   vacu.packages = ''
     _2ship2harkinian
-    jupiter-hw-support
-    steamdeck-firmware
-    steamdeck-bios-fwupd
+    jovianPackages.jupiter-hw-support
+    jovianPackages.steamdeck-firmware
+    jovianPackages.steamdeck-bios-fwupd
   '';
 }

@@ -10,6 +10,7 @@ let
   isStable = vaculib.versionCompare pkgs.lib.version "<" "26.11pre0";
   # new name => old name
   renames = {
+    ttf-bitstream-vera = "ttf_bitstream_vera";
     vazirmatn = "vazir-fonts";
   };
 in
@@ -504,8 +505,8 @@ lib.optionalAttrs (vacuModuleType == "nixos") {
     times-newer-roman
     tlwg
     tt2020
+    ttf-bitstream-vera
     ttf-indic
-    ttf_bitstream_vera
     twemoji-color-font
     twitter-color-emoji
     ubuntu-classic
