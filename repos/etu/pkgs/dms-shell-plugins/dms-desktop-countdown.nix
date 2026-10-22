@@ -6,13 +6,13 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "dms-dms-desktop-countdown";
-  version = "1.0.1-unstable-2026-05-31";
+  version = "1.0.2-unstable-2026-10-21";
 
   src = fetchFromGitHub {
     owner = "nfoert";
     repo = "dms-desktop-countdown";
-    rev = "cd0c9fb65aad4b8a72502369a60e2a6fbeacba4e";
-    hash = "sha256-/lKL+ABOlNLrJ4eWjRcgzq442Go4UenM1DUGPqV1Swk=";
+    rev = "d40c0b420f6ac32b30d1f7695dab904a654dcfcb";
+    hash = "sha256-EtntBrZWzN2FBEpokLI8ekQcdqPXcaTVh101op2XINc=";
   };
 
   dontBuild = true;
