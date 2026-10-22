@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Idempotently create a bare git repo on a remote reachable via ssh and
+# disable automatic gc/repack on it, so pushes never rewrite existing packs
+# (which bloats snapshot-based backups on the remote side).
+#
+# Usage: git-bare-remote <ssh-target>:<path>
+#   e.g. git-bare-remote user@host:repos/foo
+#
+# Env:
+#   GIT_BARE_REMOTE_SSH  ssh command to use (default: ssh)
+#
+# Each remote command is sent as a plain argv with no shell features, so it
+# also works on restricted remote shells.
+
+if [[ $# -ne 1 || "$1" != *:* ]]; then
+  echo "usage: $(basename "$0") <ssh-target>:<path>" >&2
+  exit 2
+fi
+
+target="${1%%:*}"
+path="${1#*:}"
+ssh_cmd="${GIT_BARE_REMOTE_SSH:-ssh}"
+
+if [[ -z "$target" || -z "$path" || "$path" =~ [[:space:]] ]]; then
+  echo "invalid target or path (no spaces allowed): $1" >&2
+  exit 2
+fi
+
+remote() {
+  # shellcheck disable=SC2086
+  $ssh_cmd "$target" "$@"
+}
+
+# git init on an existing repo just reinitializes it, keeping its contents
+remote git init --bare --quiet "$path"
+
+options=(
+  gc.auto=0
+  gc.autoPackLimit=0
+  gc.autoDetach=false
+  receive.autogc=false
+  maintenance.auto=false
+  maintenance.strategy=none
+)
+
+for opt in "${options[@]}"; do
+  remote git --git-dir="$path" config "${opt%%=*}" "${opt#*=}"
+done
+
+echo "configured $target:$path" >&2
+remote git --git-dir="$path" config --local --list
