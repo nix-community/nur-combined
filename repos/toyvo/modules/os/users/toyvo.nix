@@ -78,8 +78,8 @@ in
     system.activationScripts.fixToyVoACLs = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
       deps = [ "users" ];
       text = ''
-        ${pkgs.acl}/bin/setfacl -m u:hermes:rx ${homePath}/${cfg.toyvo.name} 2>/dev/null || true
-        ${pkgs.acl}/bin/setfacl -d -m u:hermes:rx ${homePath}/${cfg.toyvo.name} 2>/dev/null || true
+        ${pkgs.acl}/bin/setfacl -m u:agent:rx ${homePath}/${cfg.toyvo.name} 2>/dev/null || true
+        ${pkgs.acl}/bin/setfacl -d -m u:agent:rx ${homePath}/${cfg.toyvo.name} 2>/dev/null || true
       '';
     };
   };

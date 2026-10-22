@@ -6,6 +6,7 @@ Outstanding work and follow-up items for this repository.
 > expected to keep this file up to date — check off completed items, and add
 > deferred work or manual steps before finishing a task.
 
+- [ ] Finish hermes → agent generic identity rename (syncthing removal intentional — wiki moved to forgejo, agents use git): remaining `hermes` refs are mostly upstream API (`services.hermes-agent`, `inputs.hermes-agent`, `HERMES_*` env, `hermes-cli` toolset — keep). Still to fix: full `nas` eval breaks on `home-manager.users.agent.home.homeDirectory` conflict (`/mnt/POOL/agent` vs `/var/empty` from system user default) because upstream `hermes-agent` module still creates `users.users.hermes` (home now `/mnt/POOL/agent`) while new `users.users.agent` has home `/var/empty` — set `services.hermes-agent.user/group = "agent"` + `users.users.agent.home`, verify no duplicate users/overlapping subUidRanges; genericize `secretspec.toml` descriptions (`HERMES_MAX_ITERATIONS`, `OPENCODE_API_KEY`) and `nas/configuration.nix` comments
 - [ ] setup forwarding to binary cache/nas with nix.settings.post-build-hook
 - [ ] Jellyfin LDAP: `ldap.diekvoss.net` resolves to router (10.1.0.1) with nothing on 6636; Jellyfin `LDAP-Auth.xml` manually pointed at `10.200.0.16:6636`. Decide durable fix: Technitium split-horizon override for `ldap.diekvoss.net` -> `10.200.0.16`, router TCP proxy for 6636, or document direct-IP convention
 

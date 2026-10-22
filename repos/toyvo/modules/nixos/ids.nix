@@ -15,7 +15,7 @@ let
     "protonmail-bridge" = 358;
     jellyfin = 359;
     nextcloud = 360;
-    hermes = 361;
+    agent = 361;
     authentik = 362;
     toyvo = 1000;
     chloe = 1001;
@@ -33,7 +33,7 @@ let
     "protonmail-bridge" = 358;
     jellyfin = 359;
     nextcloud = 360;
-    hermes = 361;
+    agent = 361;
     authentik = 362;
     toyvo = 1000;
     chloe = 1001;

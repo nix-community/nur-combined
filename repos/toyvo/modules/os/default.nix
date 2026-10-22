@@ -15,7 +15,7 @@
         ./podman.nix
         ./security.nix
         ./users/chloe.nix
-        ./users/hermes.nix
+        ./users/agent.nix
         ./users/root.nix
         ./users/toyvo.nix
       ];
@@ -29,7 +29,7 @@
   podman = ./podman.nix;
   security = ./security.nix;
   chloe = ./users/chloe.nix;
-  hermes = ./users/hermes.nix;
+  agent = ./users/agent.nix;
   root = ./users/root.nix;
   toyvo = ./users/toyvo.nix;
 }

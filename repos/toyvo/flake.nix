@@ -20,10 +20,7 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     herdr.url = "github:herdrdev/herdr";
     hermes-agent.url = "github:NousResearch/hermes-agent";
-    hermes-webui = {
-      url = "github:nesquena/hermes-webui";
-      flake = false;
-    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixos-unstable";

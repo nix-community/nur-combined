@@ -39,10 +39,10 @@ in
         ;
     };
     sharedModules = [ ./home.nix ];
-    users.toyvo.programs.git.settings.safe.directory = "/mnt/POOL/hermes/*";
-    users.hermes = {
-      home.username = "hermes";
-      home.homeDirectory = "/mnt/POOL/hermes";
+    users.toyvo.programs.git.settings.safe.directory = "/mnt/POOL/agent/*";
+    users.agent = {
+      home.username = "agent";
+      home.homeDirectory = "/mnt/POOL/agent";
       nixcfg = {
         shells.enable = true;
         session.enable = true;
@@ -52,8 +52,8 @@ in
         git = {
           enable = true;
           settings = {
-            user.name = "Hermes Agent (${config.services.hermes-agent.settings.model.default} via ${config.services.hermes-agent.settings.model.provider}) for Collin Diekvoss";
-            user.email = "hermes@diekvoss.com";
+            user.name = "AI Agent (${config.services.hermes-agent.settings.model.default} via ${config.services.hermes-agent.settings.model.provider}) for Collin Diekvoss";
+            user.email = "agent@diekvoss.com";
             safe.directory = "/home/toyvo/*";
             core.editor = lib.mkForce "hx";
           };
@@ -109,9 +109,8 @@ in
         5432
         8080
         3000 # forgejo
-        8642 # hermes-agent API (reachable from open-webui container via veth)
+        8642 # hermes-agent API
         9119 # hermes-dashboard
-        8787 # hermes-webui
         7000 # odysseus
       ];
       allowedUDPPorts = [
@@ -147,12 +146,13 @@ in
     nix-ld.enable = true;
     gui.enable = true;
     dev.enable = true;
-    users.hermes.enable = true;
+    users.agent.enable = true;
   };
   userPresets.chloe.enable = true;
   userPresets.toyvo.enable = true;
-  users.users.hermes = {
-    uid = config.ids.uids.hermes;
+  users.users.agent = {
+    uid = config.ids.uids.agent;
+    home = "/mnt/POOL/agent";
     subUidRanges = [
       {
         startUid = 200000;
@@ -166,7 +166,7 @@ in
       }
     ];
   };
-  users.groups.hermes.gid = config.ids.gids.hermes;
+  users.groups.agent.gid = config.ids.gids.agent;
   services = {
     cockpit = {
       enable = true;
@@ -219,7 +219,7 @@ in
         # File contains just the runner secret; the module loads it via
         # systemd LoadCredential and templates it into the daemon config.
         secrets.server.connections.default.token_url = config.sops.secrets."forgejo-runner-token-nas".path;
-        labels = [
+        settings.runner.labels = [
           # Jobs run directly on the host so builds share the system nix store.
           "native:host"
           "nix-latest:docker://nixos/nix"
@@ -280,7 +280,7 @@ in
     syncthing = {
       enable = true;
       settings.folders."llm-wiki" = {
-        path = "/mnt/POOL/hermes/wiki";
+        path = "/mnt/POOL/agent/wiki";
         id = "llm-wiki";
         label = "LLM Wiki";
         devices = [ ]; # Add devices manually via web UI after pairing
@@ -316,30 +316,6 @@ in
     autoEnable = true;
   };
   nixcfg.containers = {
-    open-webui = {
-      enable = true;
-      # WORKAROUND, drop when upstream fixes open-webui: 0.12.3 sets
-      # makeWrapperArgs as one combined string, which the refactored
-      # wrapPythonProgramsIn hook forwards to makeWrapper as a single arg
-      # and dies on ("makeWrapper doesn't understand the arg --set ...").
-      # Split into separate args; same value, hook-compatible form.
-      package = pkgs.open-webui.overrideAttrs {
-        makeWrapperArgs = [
-          "--set"
-          "FRONTEND_BUILD_DIR"
-          "${pkgs.open-webui.passthru.frontend}/share/open-webui"
-        ];
-      };
-      natInterface = "eno1";
-      stateDir = "/mnt/POOL/open-webui";
-      port = homelab.open-webui.services.open-webui.port;
-      ollamaBaseUrl = "http://${homelab.MacMini-M1.ip}:${toString homelab.MacMini-M1.services.ollama.port}";
-      environmentFile = config.sops.secrets."openwebui.env".path;
-      environment = {
-        # Hermes agent OpenAI-compatible API (host IP from container's perspective)
-        OPENAI_API_BASE_URL = "http://${config.nixcfg.containers.open-webui.hostAddress}:8642/v1";
-      };
-    };
     immich = {
       enable = true;
       natInterface = "eno1";
@@ -501,10 +477,10 @@ in
     %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/nixos-container *
     %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/journalctl *
     %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/systemctl status *
-    hermes ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/nixos-container *
-    hermes ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/journalctl *
-    hermes ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/systemctl status *
-    hermes ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/nixos-rebuild *
+    agent ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/nixos-container *
+    agent ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/journalctl *
+    agent ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/systemctl status *
+    agent ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/nixos-rebuild *
   '';
 
   systemd.targets = {
@@ -526,11 +502,7 @@ in
   };
   services.hermes-dashboard = {
     enable = true;
-    stateDir = "/mnt/POOL/hermes";
-  };
-  services.hermes-webui = {
-    enable = true;
-    stateDir = "/mnt/POOL/hermes";
+    stateDir = "/mnt/POOL/agent";
   };
   services.hermes-agent = {
     enable = true;
@@ -545,11 +517,11 @@ in
       toolsets = [ "hermes-cli" ];
       display.personality = "kawaii";
     };
-    stateDir = "/mnt/POOL/hermes";
-    environmentFiles = [ config.sops.secrets."hermes.env".path ];
+    stateDir = "/mnt/POOL/agent";
+    environmentFiles = [ config.sops.secrets."agent.env".path ];
     environment = {
       API_SERVER_HOST = "0.0.0.0";
-      WIKI_PATH = "/mnt/POOL/hermes/wiki";
+      WIKI_PATH = "/mnt/POOL/agent/wiki";
     };
     addToSystemPackages = true;
   };
@@ -561,17 +533,14 @@ in
   # The upstream units hardcode PATH to only coreutils/findutils/gnugrep/gnused/systemd.
   # Appending a later Environment=PATH=... directive overrides the earlier one in systemd.
   systemd.services.hermes-agent.serviceConfig.Environment = [
-    "PATH=/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/etc/profiles/per-user/hermes/bin:/mnt/POOL/hermes/.nix-profile/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-  ];
-  systemd.services.hermes-webui.serviceConfig.Environment = [
-    "PATH=/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/etc/profiles/per-user/hermes/bin:/mnt/POOL/hermes/.nix-profile/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    "PATH=/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:/etc/profiles/per-user/agent/bin:/mnt/POOL/agent/.nix-profile/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
   ];
 
   # The runner's secret from the pre-created runner in the Forgejo UI (Site
   # Administration -> Actions -> Runners -> Create new runner). The template
   # wraps it into the TOKEN= env file used when rendering .runner credentials.
   sops.secrets."forgejo-runner-token-nas" = { };
-  sops.secrets."hermes.env".owner = "hermes";
+  sops.secrets."agent.env".owner = "agent";
   # Maintainer shares the existing opencode key (owner call) and needs a
   # Forgejo PAT with repo scope: create it in the Forgejo UI, then add the
   # value with `sops secrets.yaml` under `repo-maintainer-forgejo-token`.
@@ -584,12 +553,6 @@ in
   '';
   sops.secrets."signal-cli.env".owner = "signal-cli";
   sops.secrets."cache-priv-key.pem" = { };
-  # Grafana credentials are bind-mounted into the monitoring container where the grafana user
-  # reads them via $__file{}. mode 0444 allows any process (including container-side grafana) to
-  # read them without needing to match UIDs across the host/container boundary.
-  # Nextcloud admin password bind-mounted into the nextcloud container; mode 0444 so
-  # the nextcloud user inside the container can read it without UID alignment on the host.
-  sops.secrets."openwebui.env".mode = "0444";
   # Bridge generates a random per-account SMTP password on first login; store it here after setup.
   sops.secrets."protonmail-bridge-smtp-password".mode = "0444";
   sops.secrets."grafana-admin-password".mode = "0444";
@@ -609,21 +572,21 @@ in
   nix.settings.trusted-users = [
     "toyvo"
     "root"
-    "hermes"
+    "agent"
   ];
 
   # Set ACLs so container users can access external storage directories.
   # systemd-tmpfiles handles default ACLs (for new files); the apply-generated-acls
   # service recursively applies ACLs to existing files at boot.
   systemd.tmpfiles.generateRules = {
-    # Mutual home access: hermes, toyvo, and chloe can access each other's homes.
+    # Mutual home access: agent, toyvo, and chloe can access each other's homes.
     "/home/toyvo" = with config.ids.uids; [
-      hermes
+      agent
       toyvo
     ];
     "/home/chloe" = with config.ids.uids; [ chloe ];
-    "/mnt/POOL/hermes" = with config.ids.uids; [
-      hermes
+    "/mnt/POOL/agent" = with config.ids.uids; [
+      agent
       toyvo
     ];
 
@@ -635,13 +598,13 @@ in
     "/mnt/POOL/Collin" = with config.ids.uids; [
       nextcloud
       toyvo
-      hermes
+      agent
     ];
     "/mnt/POOL/Public" = with config.ids.uids; [
       bazarr
       chloe
       deluge
-      hermes
+      agent
       lidarr
       nextcloud
       prowlarr
@@ -657,7 +620,7 @@ in
     "/mnt/POOL/starr" = with config.ids.uids; [
       bazarr
       deluge
-      hermes
+      agent
       lidarr
       prowlarr
       qbittorrent
@@ -683,10 +646,6 @@ in
     ];
     "/mnt/POOL/nextcloud" = with config.ids.uids; [
       nextcloud
-      toyvo
-    ];
-    "/mnt/POOL/open-webui" = with config.ids.uids; [
-      open-webui
       toyvo
     ];
     "/mnt/POOL/authentik" = with config.ids.uids; [

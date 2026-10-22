@@ -1,20 +1,10 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
-let
-  cfg = config.services.syncthing;
-in
 {
-  config = lib.mkIf cfg.enable {
-    # Run syncthing as the hermes user so it has read/write access to the wiki
-    services.syncthing.user = lib.mkDefault "hermes";
-    services.syncthing.group = lib.mkDefault "hermes";
-    services.syncthing.dataDir = lib.mkDefault "/mnt/POOL/hermes/.syncthing";
-    services.syncthing.configDir = lib.mkDefault "${cfg.dataDir}/.config/syncthing";
-
+  config = lib.mkIf config.services.syncthing.enable {
     # Allow manual additions to persist across restarts
     services.syncthing.overrideFolders = lib.mkDefault false;
     services.syncthing.overrideDevices = lib.mkDefault false;

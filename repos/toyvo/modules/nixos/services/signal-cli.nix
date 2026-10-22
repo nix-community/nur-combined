@@ -31,7 +31,7 @@ in
 
     environmentFile = lib.mkOption {
       type = lib.types.path;
-      description = "Environment file supplying SIGNAL_ACCOUNT (e.g. the hermes.env sops secret)";
+      description = "Environment file supplying SIGNAL_ACCOUNT (e.g. the agent.env sops secret)";
     };
   };
 

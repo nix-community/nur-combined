@@ -12,4 +12,3 @@ node_modules
 requests.http
 result
 result-*
-secretspec.toml

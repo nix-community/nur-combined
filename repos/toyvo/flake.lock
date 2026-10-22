@@ -482,22 +482,6 @@
         "type": "github"
       }
     },
-    "hermes-webui": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1792582689,
-        "narHash": "sha256-a9FPp2uVMistnjbZvmIiIPyI/QWv1v+etbo4YrJgX2I=",
-        "owner": "nesquena",
-        "repo": "hermes-webui",
-        "rev": "a147c05e747ea5ab8ae4708efbacf17854d3c260",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nesquena",
-        "repo": "hermes-webui",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -1414,7 +1398,6 @@
         "flake-parts": "flake-parts",
         "herdr": "herdr",
         "hermes-agent": "hermes-agent",
-        "hermes-webui": "hermes-webui",
         "home-manager": "home-manager_2",
         "jovian": "jovian",
         "mac-app-util": "mac-app-util",

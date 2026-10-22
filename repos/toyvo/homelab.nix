@@ -122,14 +122,6 @@
         category = "Nas";
         icon = "sh-hermes";
       };
-      hermes_webui = {
-        port = 8787;
-        subdomain = "hermes-webui";
-        displayName = "Hermes WebUI";
-        description = "Browser Chat Interface";
-        category = "Nas";
-        icon = "sh-hermes";
-      };
       odysseus = {
         port = 7000;
         subdomain = "odysseus";
