@@ -279,7 +279,7 @@ def main():
             # tlottie: packaged for forkgram find_library; no need to track every upstream commit
             # video-speed-controller-firefox: abandoned firefox-port fork with no tags; ignore noisy fetch failures
             # wayback-machine-extension: pinned to master tip; release tags lag and would false-report
-            if pkg in ['polkit', 'minetest580', 'minetest591', 'irrlichtmt', 'ogre-1_11', 'electron_castlabs_38', 'audacity4', 'ocaml-index', 'electron_36-bin', 'supertuxkart-evolution', 'tlottie', 'video-speed-controller-firefox', 'wayback-machine-extension', 'omnimux'] or 'plugin' in pkg:
+            if pkg in ['polkit', 'minetest580', 'minetest591', 'irrlichtmt', 'ogre-1_11', 'electron_castlabs_38', 'ocaml-index', 'electron_36-bin', 'supertuxkart-evolution', 'tlottie', 'video-speed-controller-firefox', 'wayback-machine-extension', 'omnimux'] or 'plugin' in pkg:
                 continue
                 
             pkg_nix = os.path.join(pkg_path, 'package.nix')
