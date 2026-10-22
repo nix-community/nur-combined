@@ -1,0 +1,38 @@
+From 05c07458867b0090ba1852752d72fe3a7ded8f8c Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Thu, 22 Oct 2026 17:26:22 +0000
+Subject: [PATCH] minimal-bootstrap.coreutils-musl: use the freshly-built `rm`
+ instead of the previous stage's
+
+TODO: apply to all platforms and take the mass rebuild; scoped only to
+i686 right now to avoid that.
+
+fixes build errors in `pkgsi686Linux.minimal-bootstrap.coreutils-musl`
+such as:
+
+```
+rm: `/nix/store/mphk2pjsn78xz7y09rqh5djhdxi7qz5p-bootstrap-coreutils-musl-9.11/share/man' changed dev/ino
+```
+
+glibc uses 32-bit inodes unless compiled with `-D_FILE_OFFSET_BITS=64`.
+meanwhile the filesystem/kernel might hand out inodes which do not fit
+within 32 bits -- particularly if the build machine is x86_64 instead of
+plain i686.
+
+musl uses 64-bit inodes unconditionally, so using the musl `rm` here
+avoids the issue altogether.
+---
+ pkgs/os-specific/linux/minimal-bootstrap/coreutils/musl.nix | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pkgs/os-specific/linux/minimal-bootstrap/coreutils/musl.nix b/pkgs/os-specific/linux/minimal-bootstrap/coreutils/musl.nix
+index e0ece9d12347..22701b55809e 100644
+--- a/pkgs/os-specific/linux/minimal-bootstrap/coreutils/musl.nix
++++ b/pkgs/os-specific/linux/minimal-bootstrap/coreutils/musl.nix
+@@ -82,5 +82,5 @@ bash.runCommand "${pname}-${version}"
+     make -j $NIX_BUILD_CORES install MAKEINFO="true" SUBDIRS=.
+ 
+     # Remove documentation not needed in the bootstrap chain.
+-    rm -rf $out/share/info $out/share/man
++    ${lib.optionalString buildPlatform.isi686 "./src/"}rm -rf $out/share/info $out/share/man
+   ''

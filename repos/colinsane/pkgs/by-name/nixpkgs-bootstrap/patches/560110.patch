@@ -1,0 +1,42 @@
+From 46f45fd4b5cd1d4ca8dc223939f89b3c7ebbbbfb Mon Sep 17 00:00:00 2001
+From: Xu Colin <colinxu2020@gmail.com>
+Date: Sat, 5 Sep 2026 12:49:05 +0800
+Subject: [PATCH] python3Packages.mypy: 2.1.0 -> 2.3.1
+
+https://github.com/python/mypy/blob/refs/tags/v2.3.1/CHANGELOG.md
+
+Signed-off-by: Xu Colin <colinxu2020@gmail.com>
+---
+ pkgs/development/python-modules/mypy/default.nix | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/pkgs/development/python-modules/mypy/default.nix b/pkgs/development/python-modules/mypy/default.nix
+index 68587c7c345f05a0a0095d23f71eb208f6a3ecc9..29bb56efc2e33890f51f76d8657d38e17c9ad6c7 100644
+--- a/pkgs/development/python-modules/mypy/default.nix
++++ b/pkgs/development/python-modules/mypy/default.nix
+@@ -36,7 +36,7 @@
+ 
+ buildPythonPackage rec {
+   pname = "mypy";
+-  version = "2.1.0";
++  version = "2.3.1";
+   pyproject = true;
+ 
+   # relies on several CPython internals
+@@ -46,7 +46,7 @@ buildPythonPackage rec {
+     owner = "python";
+     repo = "mypy";
+     tag = "v${version}";
+-    hash = "sha256-sm/pxQGxH5XuPH7B8i3fpp30KaFU9aSp6BT67UcDPvU=";
++    hash = "sha256-EkZVBWlT8l3oIC9UuDEJua6dxFDIL0o9k/3FJJFqMB4=";
+   };
+ 
+   passthru.updateScript = gitUpdater {
+@@ -68,6 +68,7 @@ buildPythonPackage rec {
+   ];
+ 
+   dependencies = [
++    ast-serialize
+     librt
+     mypy-extensions
+     pathspec

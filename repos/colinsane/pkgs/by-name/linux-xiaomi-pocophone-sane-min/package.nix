@@ -36,22 +36,22 @@ in
     p."0010-drm-panel-ebbg-ft8719-Split-initialization-into-enab"
     p."0011-drm-panel-ebbg-ft8719-prepare_prev_first"
     # p."0012-SDM845-DOWNSTREAM-EDITME-cover-title-for-qcom-spmi-s"  #< empty
-    p."0013-dt-bindings-input-add-Qualcomm-SPMI-haptics-driver"
-    p."0014-input-add-Qualcomm-SPMI-haptics-driver"  #< TODO: package qcom-spmi-haptics as a standalone driver
-    p."0015-arm64-dts-qcom-pmi8998-Introduce-SPMI-haptics"  #< likely required for `0017-arm64-dts-qcom-sdm845-xiaomi-beryllium-Add-haptics-s` to apply
+    # p."0013-dt-bindings-input-add-Qualcomm-SPMI-haptics-driver"  #< FAILS APPLY (7.3)
+    # p."0014-input-add-Qualcomm-SPMI-haptics-driver"  #< TODO: package qcom-spmi-haptics as a standalone driver
+    # p."0015-arm64-dts-qcom-pmi8998-Introduce-SPMI-haptics"  #< likely required for `0017-arm64-dts-qcom-sdm845-xiaomi-beryllium-Add-haptics-s` to apply
     # p."0016-arm64-dts-qcom-sdm845-oneplus-Add-haptics-support"
-    p."0017-arm64-dts-qcom-sdm845-xiaomi-beryllium-Add-haptics-s"  #< required for `0024-arm64-dts-qcom-sdm845-xiaomi-beryllium-Enable-fuel-g` to apply
+    # p."0017-arm64-dts-qcom-sdm845-xiaomi-beryllium-Add-haptics-s"  #< required for `0024-arm64-dts-qcom-sdm845-xiaomi-beryllium-Enable-fuel-g` to apply
     # p."0018-arm64-dts-qcom-sdm845-shift-axolotl-Enable-pmi8998-h"
     # p."0019-Qualcomm-3rd-gen-fuel-gauge-support"  #< empty
     p."0020-dt-bindings-power-supply-Add-schema-for-Qualcomm-pmi"
     p."0021-power-supply-Add-driver-for-Qualcomm-PMI8998-fuel-ga"
     p."0022-arm64-dts-qcom-pmi8998-Add-fuel-gauge"
     # p."0023-arm64-dts-qcom-pm660-Add-fuel-gauge"
-    p."0024-arm64-dts-qcom-sdm845-xiaomi-beryllium-Enable-fuel-g"
+    # p."0024-arm64-dts-qcom-sdm845-xiaomi-beryllium-Enable-fuel-g"  #< TODO: vendor this
     # p."0025-arm64-dts-qcom-sdm845-shift-axolotl-Enable-fuel-gaug"
     # p."0026-arm64-dts-qcom-sdm660-xiaomi-lavender-Enable-support"
     # p."0027-arm64-dts-qcom-sdm670-google-sargo-Enable-fuel-gauge"  #< FAILS APPLY (7.2)
-    p."0028-stalled-wifi-ath10k-make-in-order-rx-amsdu-buffers-p"
+    # p."0028-stalled-wifi-ath10k-make-in-order-rx-amsdu-buffers-p"  #< FAILS APPLY (7.3)
     # p."0029-HACK-series-for-working-qdsp6"  #< empty
     p."0030-hack-ASoC-qdsp6-Add-shared-session-management-for-q6"
     p."0031-hack-ASoC-qdsp6-Add-driver-for-Q6-Multimode-Voice-Ma"
@@ -65,21 +65,21 @@ in
     p."0039-hack-ASoC-qdsp6-q6voice-dai-Add-VoiceMMode1-DAI"
     p."0040-hack-ASoC-qdsp6-q6voice-dai-Add-controls-for-SLIMBUS"
     p."0041-hack-ASoC-qcom-qdsp6-q6voice-dai-implement-all-slimb"
-    p."0042-hack-ASoC-dt-bindings-qcom-q6dsp-add-internal-mi2s-s"
-    p."0043-hack-ASoC-qdsp6-q6dsp-lpass-ports-add-internal-mi2s-"
-    p."0044-hack-ASoC-qdsp6-q6afe-add-internal-mi2s-support"
-    p."0045-hack-ASoC-qdsp6-q6afe-dai-add-internal-mi2s-support"
-    p."0046-hack-ASoC-qdsp6-q6routing-add-internal-mi2s-support"
-    p."0047-hack-ASoC-qdsp6-q6afe-pass-tdm-ctrl_sync_data_delay-"
-    p."0048-hack-ASoC-qdsp6-q6afe-dai-configure-tdm-data-delay-f"
-    p."0049-hack-ASoC-qdsp6-q6core-add-support-for-registering-t"
-    p."0050-hack-ASoC-qdsp6-q6cvp-add-commands-in-cvd-2.3"
-    p."0051-hack-ASoC-qdsp6-q6voice-add-cvd-2.3-initialization-s"
-    p."0052-hack-ASoC-qdsp6-q6cvp-add-topology-ID-parameters-to-"
-    p."0053-hack-ASoC-qdsp6-q6voice-pass-new-topology-property-t"
-    p."0054-hack-ASoC-qdsp6-q6voice-dai-add-ALSA-controls-for-th"
-    p."0055-hack-ASoC-qdsp6-q6voice-dai-add-internal-mi2s"
-    p."0056-hack-ASoC-qdsp6-q6voice-dai-add-tdm"
+    # p."0042-hack-ASoC-dt-bindings-qcom-q6dsp-add-internal-mi2s-s"  #< FAILS APPLY (7.3)
+    # p."0043-hack-ASoC-qdsp6-q6dsp-lpass-ports-add-internal-mi2s-"  #< FAILS APPLY (7.3)
+    # p."0044-hack-ASoC-qdsp6-q6afe-add-internal-mi2s-support"       #< FAILS APPLY (7.3)
+    # p."0045-hack-ASoC-qdsp6-q6afe-dai-add-internal-mi2s-support"   #< FAILS APPLY (7.3)
+    # p."0046-hack-ASoC-qdsp6-q6routing-add-internal-mi2s-support"   #< FAILS APPLY (7.3)
+    # p."0047-hack-ASoC-qdsp6-q6afe-pass-tdm-ctrl_sync_data_delay-"
+    # p."0048-hack-ASoC-qdsp6-q6afe-dai-configure-tdm-data-delay-f"
+    # p."0049-hack-ASoC-qdsp6-q6core-add-support-for-registering-t"
+    # p."0050-hack-ASoC-qdsp6-q6cvp-add-commands-in-cvd-2.3"
+    # p."0051-hack-ASoC-qdsp6-q6voice-add-cvd-2.3-initialization-s"
+    # p."0052-hack-ASoC-qdsp6-q6cvp-add-topology-ID-parameters-to-"
+    # p."0053-hack-ASoC-qdsp6-q6voice-pass-new-topology-property-t"
+    # p."0054-hack-ASoC-qdsp6-q6voice-dai-add-ALSA-controls-for-th"
+    # p."0055-hack-ASoC-qdsp6-q6voice-dai-add-internal-mi2s"
+    # p."0056-hack-ASoC-qdsp6-q6voice-dai-add-tdm"
     # p."0057-hack-ASoC-qcom-qdsp6-q6asm-dai-Keep-stream-marked-ru"  #< empty
     p."0058-hack-arm64-dts-qcom-sdm845-Add-q6voice-APR-service-d"
     p."0059-hack-arm64-dts-xiaomi-beryllium-common-Add-nodes-for"

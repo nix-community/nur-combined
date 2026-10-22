@@ -1,0 +1,24 @@
+From 30262f24afef268025bc0fa9724e77cd26cd64f1 Mon Sep 17 00:00:00 2001
+From: Ihar Hrachyshka <ihar.hrachyshka@gmail.com>
+Date: Sun, 18 Oct 2026 18:57:39 -0400
+Subject: [PATCH] python3Packages.typer: disable path-sensitive test
+
+---
+ pkgs/development/python-modules/typer/default.nix | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/pkgs/development/python-modules/typer/default.nix b/pkgs/development/python-modules/typer/default.nix
+index cc8c577597c0f8d7792d37abb2e6db453dcb91c3..48619931b9c978d99fe176568d0a94689d9fda16 100644
+--- a/pkgs/development/python-modules/typer/default.nix
++++ b/pkgs/development/python-modules/typer/default.nix
+@@ -70,6 +70,10 @@ buildPythonPackage rec {
+     export PYTHONPATH="$PWD:$PYTHONPATH"
+   '';
+ 
++  # Long Nix build paths can make Rich wrap the filename in the error message.
++  # https://github.com/fastapi/typer/discussions/1984
++  disabledTests = [ "test_file_error" ];
++
+   pythonImportsCheck = [ "typer" ];
+ 
+   meta = {

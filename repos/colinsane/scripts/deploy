@@ -309,6 +309,9 @@ proc deployOneHost (; nixcfg) {
 
     info "$attrName: building $drvPath"
     setvar myStorePath = $(destructive nix-store --realize "$drvPath" --add-root "./build/$attrName" @NIX_ARGS (translate_error=FAILED_BUILD))
+    # if multiple outputs, resolve to just one reasonable default.
+    # TODO: copy all the outputs
+    setvar myStorePath = $(echo "$myStorePath" | head -n1)
     # if using `nix-store --add-root`, then nix prints the gc root path, instead of the /nix/store path; resolve it
     setvar myStorePath = $(realpath "$myStorePath")
     info "$attrName: built $myStorePath"

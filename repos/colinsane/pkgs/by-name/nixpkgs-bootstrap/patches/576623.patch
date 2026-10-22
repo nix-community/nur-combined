@@ -1,0 +1,32 @@
+From d33ca15cedfe5a599a8c8df0fd8a681f1d3d811a Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Wed, 21 Oct 2026 00:30:13 +0000
+Subject: [PATCH] minimal-bootstrap.gcc: fix `fetchurl` hash
+
+the expression for this patch was originally borrowed from
+pkgs/development/compilers/gcc/ng/common/libgcc/default.nix
+which uses the same name/url/hash, but `fetchpatch` instead of
+`fetchurl`.
+
+unfortunately, while `fetchurl` does operate reasonably on this URL,
+it does not generate an identical output. this expression only ever
+worked because the machine(s) building this had already realized the
+`fetchpatch`-based FOD, and so never actually built the expression
+listed here.
+---
+ pkgs/os-specific/linux/minimal-bootstrap/gcc/common.nix | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pkgs/os-specific/linux/minimal-bootstrap/gcc/common.nix b/pkgs/os-specific/linux/minimal-bootstrap/gcc/common.nix
+index 6eaf611e1b402bf76ab2922e140e3c77bc78037f..d4ac9e2d131011ed4a70429eb08dedcd8886d987 100644
+--- a/pkgs/os-specific/linux/minimal-bootstrap/gcc/common.nix
++++ b/pkgs/os-specific/linux/minimal-bootstrap/gcc/common.nix
+@@ -16,7 +16,7 @@ let
+     (fetchurl {
+       name = "regular-libdir-includedir.patch";
+       url = "https://inbox.sourceware.org/gcc-patches/20250717174911.1536129-1-git@JohnEricson.me/raw";
+-      hash = "sha256-Cn7rvg1FI7H/26GzSe4pv5VW/gvwbwGqivAqEeawkwk=";
++      hash = "sha256-unPDAwW0F6ZSjSNLRiO3zcTHPKZKflK+2Yu8SYX1e8Q=";
+     })
+     ./configure-skip-target-libs-hooks.patch
+   ];

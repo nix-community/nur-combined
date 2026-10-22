@@ -134,6 +134,34 @@
     # settings.DIFFICULTY = 7;
     policy.extraBots = [
       {
+        name = "local-net";
+        remote_addresses = [
+          "10.0.0.0/8"
+          "192.168.0.0/16"
+          "fe80::/64"
+          "fc00::/7"
+        ];
+        action = "ALLOW";
+      }
+      {
+        name = "doofnet-is-cool";
+        remote_addresses = [
+          "205.201.63.0/24"
+          "2602:fce8:1::/48"
+        ];
+        action = "ALLOW";
+      }
+      {
+        name = "authenticated";
+        expression.any = [
+          # this check is bypassable, but figuring out how to exploit it is a pretty good proof of work
+          ''headers["Cookie"].contains("gitea_incredible=")''
+          # i'm not sure if this is bypassable, but see above
+          ''"Authorization" in headers''
+        ];
+        action = "ALLOW";
+      }
+      {
         name = "high-load";
         expression = "load_1m >= 16.0";
         action = "WEIGH";

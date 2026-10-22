@@ -258,6 +258,19 @@ in
         '';
       });
 
+      hypothesis = pysuper.hypothesis.overridePythonAttrs (prevAttrs: {
+        # XXX(2026-10-18): keep charmap tests on one xdist worker: they
+        # delete/rewrite a shared cache, racing in test_uses_cached_charmap.
+        pytestFlags = (prevAttrs.pytestFlags or []) ++ [ "--dist=loadfile" ];
+      });
+
+      mypy = pysuper.mypy.overridePythonAttrs (prevAttrs: {
+        # XXX(2026-10-22): PR #560110 includes this fix already; the old backport no longer applies.
+        patches = lib.filter (patch: !(lib.versionAtLeast prevAttrs.version "2.3.1"
+          && lib.hasSuffix "46acbe85c0e1703ebf2e6d4c699772edcdcf4652.patch" (toString patch)
+        )) (prevAttrs.patches or []);
+      });
+
       narwhals = pysuper.narwhals.overridePythonAttrs (prevAttrs: {
         # XXX(2026-10-17): either hangs, or segfaults, during checkPhase, for high core count. i don't remember which.
         dontUsePytestXdist = true;

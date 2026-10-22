@@ -10,7 +10,7 @@ Subject: [PATCH] HACK: fix
  2 files changed, 69 insertions(+), 8 deletions(-)
 
 diff --git a/pkgs/by-name/si/signal-desktop/package.nix b/pkgs/by-name/si/signal-desktop/package.nix
-index 8425fa03dbdd..d85c56a662b9 100644
+index 74a46bd55..120000d7a 100644
 --- a/pkgs/by-name/si/signal-desktop/package.nix
 +++ b/pkgs/by-name/si/signal-desktop/package.nix
 @@ -13,6 +13,7 @@
@@ -22,7 +22,7 @@ index 8425fa03dbdd..d85c56a662b9 100644
    fetchurl,
    jq,
 @@ -37,13 +38,20 @@ let
-   electron = electron_43;
+   electron = electron_44;
  
    libsignal-node = callPackage ./libsignal-node.nix { inherit nodejs; };
 +  libsignal-node-build = buildPackages.callPackage ./libsignal-node.nix { inherit nodejs; };
@@ -35,14 +35,14 @@ index 8425fa03dbdd..d85c56a662b9 100644
 +    inherit nodejs;
 +  };
  
-   webrtc = callPackage ./webrtc.nix { };
+   webrtc = callPackage ./webrtc.nix { ringrtcSrc = ringrtc.src; };
    ringrtc = callPackage ./ringrtc.nix { inherit webrtc; };
-+  webrtc-build = buildPackages.callPackage ./webrtc.nix { };
++  webrtc-build = buildPackages.callPackage ./webrtc.nix { ringrtcSrc = ringrtc-build.src; };
 +  ringrtc-build = buildPackages.callPackage ./ringrtc.nix { webrtc = webrtc-build; };
  
-   version = "8.21.0";
+   version = "8.31.0";
  
-@@ -220,22 +228,37 @@ stdenv.mkDerivation (finalAttrs: {
+@@ -228,7 +236,12 @@ stdenv.mkDerivation (finalAttrs: {
        die "ringrtc version mismatch"
      fi
  
@@ -56,11 +56,7 @@ index 8425fa03dbdd..d85c56a662b9 100644
        node_modules/@signalapp/ringrtc/build/libringrtc.node
  
      substituteInPlace package.json \
-       --replace-fail '"node_modules/@signalapp/ringrtc/build/''${platform}/*''${arch}*.node",' \
-                      '"node_modules/@signalapp/ringrtc/build/libringrtc.node",'
- 
-     substituteInPlace node_modules/@signalapp/ringrtc/dist/ringrtc/Native.js \
-       --replace-fail 'exports.default = require(`../../build/''${os.platform()}/libringrtc-''${process.arch}.node`);' \
+@@ -240,10 +253,20 @@ stdenv.mkDerivation (finalAttrs: {
                       'exports.default = require(`../../build/libringrtc.node`);'
  
      rm -r node_modules/@signalapp/libsignal-client/prebuilds
@@ -83,7 +79,7 @@ index 8425fa03dbdd..d85c56a662b9 100644
  
      # fs-xattr is required at runtime by preload.wrapper.js,
      # but with npmRebuild disabled its native binding is missing.
-@@ -266,9 +289,37 @@ stdenv.mkDerivation (finalAttrs: {
+@@ -274,9 +297,37 @@ stdenv.mkDerivation (finalAttrs: {
      cp -r ${sticker-creator} sticker-creator/dist
    '';
  
@@ -123,10 +119,10 @@ index 8425fa03dbdd..d85c56a662b9 100644
        ${
          if stdenv.hostPlatform.isDarwin then "--mac" else "--linux"
 diff --git a/pkgs/by-name/si/signal-desktop/webrtc.nix b/pkgs/by-name/si/signal-desktop/webrtc.nix
-index 4fb2a9066d3c..b3e51d6efccb 100644
+index 9812435d6..fac8aaffb 100644
 --- a/pkgs/by-name/si/signal-desktop/webrtc.nix
 +++ b/pkgs/by-name/si/signal-desktop/webrtc.nix
-@@ -87,10 +87,11 @@ stdenv.mkDerivation (finalAttrs: {
+@@ -88,10 +88,11 @@ stdenv.mkDerivation (finalAttrs: {
    ];
  
    env = {
@@ -142,7 +138,7 @@ index 4fb2a9066d3c..b3e51d6efccb 100644
      NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isLinux "-Wno-changes-meaning";
    };
  
-@@ -119,6 +120,15 @@ stdenv.mkDerivation (finalAttrs: {
+@@ -128,6 +129,15 @@ stdenv.mkDerivation (finalAttrs: {
      substituteInPlace build/toolchain/linux/BUILD.gn \
        --replace-fail 'toolprefix = "aarch64-linux-gnu-"' 'toolprefix = ""'
  

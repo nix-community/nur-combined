@@ -1457,14 +1457,6 @@ super.lib.composeManyExtensions [
                 "find_library(\"c\") or \"\"" "'${stdenv.cc.libc}/lib/libc.so'"
           '';
         });
-
-        typer = pysuper.typer.overrideAttrs (prevAttrs: {
-          # XXX(2026-10-19): not sure why this is musl-specific?
-          preCheck = (prevAttrs.preCheck or "") + ''
-            # Long pytest-xdist tmp paths wrap the filename/error in test_file_error.
-            export COLUMNS=200
-          '';
-        });
       })
     ];
 
