@@ -75,10 +75,10 @@ in
         source_env '.venv/bin/activate'
       }
 
-      use_bwrap() { local forward_env="''${1:-}"
+      use_bwrap() {
         if [[ ! -v DIRENV_USING_BWRAP ]]; then
           export DIRENV_USE_BWRAP="$PWD"
-          export DIRENV_USE_BWRAP_FORWARD_ENV="$forward_env"
+          export DIRENV_USE_BWRAP_ARGS="''${@@Q}"
           export DIRENV_USE_BWRAP_LAYOUT_DIR="$(direnv_layout_dir)"
           exit 0
         elif [[ "$DIRENV_USING_BWRAP" != "$PWD" ]]; then
@@ -413,7 +413,7 @@ in
       rd = "${getExe' diffutils "diff"} --recursive --unified \"$@\" | ${getExe delta.finalPackage}";
       rdw = "${getExe' diffutils "diff"} --ignore-all-space --ignore-blank-lines --recursive --unified \"$@\" | ${getExe delta.finalPackage}";
       rmdir-all = "${getExe' uutils-findutils "find"} \"$@\" -type 'd' -empty -delete";
-      ssh = ''if [[ -t '0' && "$TERM" == 'xterm-kitty' ]]; then kitty +kitten ssh "$@"; else ${getExe' openssh "ssh"} "$@"; fi'';
+      ssh = ''if [[ -t '0' && "$TERM" == 'xterm-kitty' && -v KITTY_PID ]]; then kitty +kitten ssh "$@"; else ${getExe' openssh "ssh"} "$@"; fi'';
       which-font = ''
         local c="$(printf '%x' "'$1")"
         _m() { printf '  %s: %s\n' "$1" "$(fc-match --format '%{family}, ' --sort "$1 :charset=$c" | sed 's/, $//')"; }

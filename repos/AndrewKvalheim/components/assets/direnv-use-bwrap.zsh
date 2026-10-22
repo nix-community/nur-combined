@@ -2,6 +2,13 @@
 
 _direnv_use_bwrap() {
   [[ "$DIRENV_USE_BWRAP" == "$PWD" ]] || return 0
+
+  set -- ${(Q)${(z)DIRENV_USE_BWRAP_ARGS}}
+  zparseopts -D -F -- \
+    -allow-env+:=allow_env \
+    -allow-gopass+:=allow_gopass \
+    -allow-ro+:=allow_ro
+
   local dir="$PWD" previous_dir="$OLDPWD"
   local dir_id="$(systemd-escape --path "$dir")"
 
@@ -17,7 +24,11 @@ _direnv_use_bwrap() {
   mkdir --parents "$cache_dir"
 
   local ssh_dir="$HOME/.ssh/isolated/$dir_id"
-  (umask 'go=rwx'; mkdir --parents "$ssh_dir")
+  (
+    umask 'go=rwx'
+    mkdir --parents "$ssh_dir"
+    [[ -f "$ssh_dir/config" ]] || echo 'PreferredAuthentications publickey' > "$ssh_dir/config"
+  )
 
   local -i etc_group; exec {etc_group}< <(getent group "$GID" 'nobody')
   local -i etc_passwd; exec {etc_passwd}< <(getent passwd "$UID" 'nobody')
@@ -100,6 +111,16 @@ _direnv_use_bwrap() {
       ro_paths+=("$XAUTHORITY")
     fi
   fi
+  if (( #allow_gopass > 0 )); then
+    store_path="$(gopass config 'mounts.path')"
+    ro_paths+=(
+      "$HOME/.config/gopass"
+      "$HOME/.gnupg/pubring.gpg"
+      "$store_path/.gpg-id"
+    )
+    for _ p in "${(@)allow_gopass}"; ro_paths+=("$store_path/$p.gpg")
+  fi
+  for _ p in "${(@)allow_ro}"; ro_paths+=("$p")
   for p in "${ro_paths[@]}"; bwrap_args+=(--ro-bind "$p" "$p")
   local ro_try_paths=(
     '/run/opengl-driver'
@@ -124,9 +145,7 @@ _direnv_use_bwrap() {
     'XDG_RUNTIME_DIR'
     'XDG_SESSION_TYPE'
   )
-  if [[ -n "$DIRENV_USE_BWRAP_FORWARD_ENV" ]]; then
-    for n in "${(z)DIRENV_USE_BWRAP_FORWARD_ENV}"; forward_env+=("$n")
-  fi
+  for _ n in "${(@)allow_env}"; forward_env+=("$n")
   for n in "${forward_env[@]}"; [[ -z "${(P)${n}}" ]] || bwrap_args+=(--setenv "$n" "${(P)${n}}")
 
   bwrap "${bwrap_args[@]}" "$SHELL"

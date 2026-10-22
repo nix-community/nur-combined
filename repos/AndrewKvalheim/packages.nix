@@ -15,6 +15,7 @@ specify {
   "3mf-thumbnailer" = any;
   add-words = any;
   affine-font = any;
+  age-gopass = any;
   ai-robots-txt = any;
   album-art = any;
   ansible-vault-pass-client = any;

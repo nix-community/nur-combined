@@ -47,6 +47,7 @@ rec {
     hash = {
       "2.11.7@1.26.8" = "sha256-vVufU6+PdcQMZ8B0uFi3YqN6iay6cpO5wJJaFA1yFfY=";
       "2.11.7@1.26.9" = "sha256-2OhUPnuOqvjDvyGNO8i4jTZu2EhMgSy3bzVVVfRlsIQ=";
+      "2.11.7@1.26.10" = "sha256-UNzLCpkhO67lV6pOqVGNn+rqGht1ySLyblIQDdNlc8Y=";
     }."${pkgs.caddy.version}@${pkgs.caddy.go.version}";
   };
   cc-icons-unicode = callPackage ./library/cc-icons-unicode.pkg.nix { };
