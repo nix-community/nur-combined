@@ -1748,8 +1748,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "d2df27555c61b6ba1360f6ec23be096031478e9c",
-            "sha256": "0gfi1c8ksia6iffc8rr71a647w47vry2zas9gx9rbi741j9c08lb",
+            "rev": "375ce4e41e14ebe1148f92c617e02df96f6ee213",
+            "sha256": "1lm4n7kpl50l5ym448cc3afvwm6ahcgwmdgzsl3218hg897gjwwp",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "mirdukkkkk": {
@@ -2403,6 +2403,11 @@
             "rev": "a744f648fc4ed8a8b461f0847e9f800077919881",
             "sha256": "1ryyc11hj9szq9zwl913vd3waiyfass792c0s6c0shpxdmp45rk2",
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
+        },
+        "shelvacu": {
+            "rev": "06ebe960789296eab6a832a94f2e3c98241a2e36",
+            "sha256": "1gx85wf0s8p5xllma11mc5j1rsfbax3nrzc00g2zr4mnvsm6ixmz",
+            "url": "https://git.uninsane.org/shelvacu/nix-stuff"
         },
         "shirok1": {
             "rev": "ac4eeea3e492c74c618981d09363e3974b602c9d",
