@@ -217,6 +217,10 @@ in
           zmx = true;
           identityFile = identity;
         };
+        "0xff" = {
+          hostname = "144.91.107.232";
+          user = "avy";
+        };
       };
       description = "SSH host configurations";
     };

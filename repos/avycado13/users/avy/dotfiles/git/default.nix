@@ -67,6 +67,8 @@
         };
 
         color.ui = "auto";
+        feature.manyfiles = true;
+        core.fsmonitor = true;
         init.defaultBranch = "main";
         push.autoSetupRemote = true;
         pull.rebase = false;
@@ -162,6 +164,9 @@
       '')
     ];
     programs.zsh.shellAliases = {
+      ghrpc = "${lib.getExe pkgs.gh} repo create";
+      ghrpv = "${lib.getExe pkgs.gh} repo view --web";
+      goops = "${lib.getExe pkgs.git} commit --amend --no-edit && ${lib.getExe pkgs.git} push --force-with-lease";
       # FIXME turn these on after testing forgit
       grt = ''cd "$(git rev-parse --show-toplevel || echo .)"'';
       ggpur = "ggu";

@@ -215,9 +215,6 @@ in
           '';
 
           fzmanix = "'${lib.getExe pkgs.manix}' | rg '^# ' | sed 's/^# \\(.*\\) (.*/\\1/;s/ (.*//;s/^# //' | fzf --preview=\"${lib.getExe pkgs.manix} '{}'\" | xargs manix";
-          ghrpc = "${lib.getExe pkgs.gh} repo create -c";
-          ghrpv = "${lib.getExe pkgs.gh} repo view --web";
-          goops = "${lib.getExe pkgs.git} commit --amend --no-edit && ${lib.getExe pkgs.git} push --force-with-lease";
           ipp = "${lib.getExe pkgs.curl} ipinfo.io/ip";
           jsenv = "${lib.getExe pkgs.ripgrep} -o --no-filename 'process\\.env\\.[A-Z0-9_]+' | sort -u | awk -F. '{print $3\"=\\\"\\\"\"}'";
           ls = "${lib.getExe pkgs.eza}";
