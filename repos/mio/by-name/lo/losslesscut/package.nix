@@ -15,19 +15,19 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "losslesscut";
-  version = "3.69.0";
+  version = "3.70.1";
 
   src = fetchFromGitHub {
     owner = "mifi";
     repo = "lossless-cut";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-VNG23I5o9FjoFbiF6FyOG/g72XrF4FloIyd08zIKQRU=";
+    hash = "sha256-GT1oXlgg0uUdf171NRSXM5uZjetj7bRr3LgZQ8eLXK4=";
   };
 
   patches = [
     ./undev.patch
-    ./yarn-4.14-support.patch
     ./stub-load-mifi.patch
+    ./no-bundled-ffmpeg.patch
   ];
 
   postPatch = ''
@@ -55,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
   missingHashes = ./missing-hashes.json;
   offlineCache = yarn-berry.fetchYarnBerryDeps {
     inherit (finalAttrs) src missingHashes patches;
-    hash = "sha256-Qa/m7diKJONy6BKc8InK5xqpUMqQXEMKT/sicBDPlco=";
+    hash = "sha256-VtmrYuRBvouzEDrp3CDIT1GWoHkU5dHp8Y93VwMk1oY=";
   };
 
   postConfigure = ''

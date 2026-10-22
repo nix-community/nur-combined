@@ -20,13 +20,13 @@
 #    preventing any network access during compilation.
 stdenv.mkDerivation (finalAttrs: {
   pname = "clice";
-  version = "0.1.2026101706";
+  version = "0.1.2026101907";
 
   src = fetchFromGitHub {
     owner = "clice-io";
     repo = "clice";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-ZA1aHrg9gszaMhsCYYsbn4+YUGbSFRf66Hs+H4nLNq0=";
+    hash = "sha256-d4CTdmqT4bqL6Od9VOVTCQ13nWXrbjYQ/2cnKZAJOY4=";
   };
 
   deps = stdenv.mkDerivation {
@@ -74,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
     installPhase = "true";
 
     outputHashMode = "recursive";
-    outputHash = "sha256-plQ/G9ckpiVbci3gCv1qF+JcnpZE+Cdg5WOpytme4q0=";
+    outputHash = "sha256-mvPKJ2xe9wb5SrNGxPuL7Qh2sPTXJanjouPhKA4e+pc=";
   };
 
   nativeBuildInputs = [

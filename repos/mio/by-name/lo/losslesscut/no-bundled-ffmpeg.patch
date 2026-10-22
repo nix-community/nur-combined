@@ -1,0 +1,12 @@
+--- a/script/afterPack.ts
++++ b/script/afterPack.ts
+@@ -6,6 +6,9 @@
+ import { Arch, type AfterPackContext } from 'electron-builder';
+ 
+ export default async function afterPack({ appOutDir, arch, electronPlatformName, packager }: AfterPackContext) {
++  // ffmpeg/ffprobe are provided by Nix at runtime (see package.nix installPhase).
++  return;
++
+   // We have no ffmpeg builds for Linux ARM (see script/downloadFfmpeg.ts)
+   if (electronPlatformName === 'linux' && arch !== Arch.x64) return;
+ 
