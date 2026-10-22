@@ -81,7 +81,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>kazv</code></strong> — Convergent qml/kirigami matrix client based on libkazv</summary>
 
-- **Version:** `0.7.0-unstable-2026-10-15`
+- **Version:** `0.7.0-unstable-2026-10-22`
 - **License:** AGPL-3.0-or-later
 - **Homepage:** [https://lily-is.land/kazv/kazv](https://lily-is.land/kazv/kazv)
 - **Build:** `nix build github:XYenon/nur-packages#kazv`
@@ -91,7 +91,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>lazyrsync</code></strong> — Terminal UI for rsync with profiles, dry-run preview, and live progress</summary>
 
-- **Version:** `0.3.0`
+- **Version:** `0.4.0`
 - **License:** MIT
 - **Homepage:** [https://github.com/westpoint-io/lazyrsync](https://github.com/westpoint-io/lazyrsync)
 - **Build:** `nix build github:XYenon/nur-packages#lazyrsync`
@@ -141,7 +141,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>magpie</code></strong> — Manage models, providers, and accounts for AI coding agents in one place</summary>
 
-- **Version:** `0.1.1319`
+- **Version:** `0.1.1323`
 - **License:** MIT
 - **Homepage:** [https://github.com/yetone/magpie](https://github.com/yetone/magpie)
 - **Build:** `nix build github:XYenon/nur-packages#magpie`

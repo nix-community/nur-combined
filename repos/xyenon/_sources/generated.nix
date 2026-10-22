@@ -120,13 +120,13 @@
   };
   nix-package-versions = {
     pname = "nix-package-versions";
-    version = "f28923e0165fb54e1c432b0454f9356d5dca4bd2";
+    version = "c1087c73d13a6e739aae6c197d07bd75b09b342b";
     src = fetchFromGitHub {
       owner = "lazamar";
       repo = "nix-package-versions";
-      rev = "f28923e0165fb54e1c432b0454f9356d5dca4bd2";
+      rev = "c1087c73d13a6e739aae6c197d07bd75b09b342b";
       fetchSubmodules = false;
-      sha256 = "sha256-M2ncnGZrz4cRC5Zms+ElaKFeWvFEv8PFPCjAqbGz9sU=";
+      sha256 = "sha256-BH+xJhbxShWaOJOLUd5GuAkf/Hr+0fnu9TH2CcE5CM8=";
     };
     date = "2026-10-22";
   };
