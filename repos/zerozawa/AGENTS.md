@@ -8,8 +8,8 @@ When updating code or documentation, treat these files as authoritative:
 
 - `default.nix` - exported packages plus reserved attrs `lib`, `modules`, `overlays`
 - `lib/default.nix` - exported library helpers (currently `fetchPixiv`)
-- `flake.nix` - flake outputs (`legacyPackages`, filtered `packages`, `ciJobs`)
-- `ci.nix` - CI build/cache filtering rules
+- `ci.nix` - CI build/cache selection rules; imported by `flake.nix`, not part of the NUR exports
+- `flake.nix` - flake outputs (`legacyPackages`, filtered `packages`, `ciPackages`, `ciJobs`)
 - `modules/default.nix` - current modules namespace (placeholder)
 - `overlays/default.nix` - current overlays namespace (placeholder)
 - `.agents/command/*.md` - repo-local omp command docs
@@ -23,7 +23,7 @@ When updating code or documentation, treat these files as authoritative:
 nur/
 ├── default.nix              # main export surface
 ├── flake.nix                # flake outputs and cache config
-├── ci.nix                   # CI package/output filtering
+├── ci.nix                   # CI selection rules imported by flake.nix
 ├── pkgs/                    # 28 exported package definitions
 ├── lib/                     # library helpers (currently fetchPixiv)
 ├── modules/                 # placeholder NixOS modules namespace
@@ -87,9 +87,9 @@ This repo is not limited to one packaging style. Examples worth following:
 - Add new library helpers to `lib/default.nix`.
 - Reserved attrs `lib`, `modules`, and `overlays` are not normal package targets.
 
-### CI behavior (`ci.nix` + `.github/workflows/build.yml`)
+### CI behavior (`ci.nix` + `flake.nix` + `.github/workflows/build.yml`)
 
-CI excludes reserved attrs and flattens derivations recursively when `recurseForDerivations = true`.
+`ci.nix` excludes reserved attrs and flattens derivations recursively when `recurseForDerivations = true`; `flake.nix` imports it for `ciPackages` / `ciJobs`.
 
 Filtering behavior:
 
@@ -97,18 +97,22 @@ Filtering behavior:
 - unfree licenses -> excluded from build/cache sets
 - `preferLocalBuild = true` -> buildable locally but excluded from cache set
 
-The GitHub Actions workflow builds `.#ciJobs.x86_64-linux` with `nix-fast-build`
+The GitHub Actions workflow builds `.#ciJobs.x86_64-linux` with plain `nix build`
 against the nixpkgs pinned in `flake.lock` (not a channel matrix), so cached
-paths match what flake users build locally. Scheduled and manually dispatched
-runs run `nix flake update` first and push the bumped `flake.lock` only after
-the build against it succeeds.
+paths match what flake users build locally. Results are pushed with
+`cachix watch-exec` in post-build-hook mode, which uploads only the paths built
+during the run (substituted `dependencies` are not re-uploaded). Cache
+substituters and trusted keys are declared once, in `flake.nix`'s `nixConfig`;
+CI passes `--option accept-flake-config true` instead of repeating them.
+Scheduled and manually dispatched runs run `nix flake update` first and push the
+bumped `flake.lock` only after the build against it succeeds.
 
 ### Flake behavior (`flake.nix`)
 
 - `legacyPackages.<system>` imports `default.nix`
 - `packages.<system>` filters derivations by platform compatibility
-- `ciJobs.<system>` exposes the `ci.nix` `cachePkgs` set keyed by package name for `nix-fast-build`
-- `nixpkgs` is pinned to `nixpkgs-unstable`
+- `ciPackages.<system>` is the flattened list of buildable, cacheable exports; `ciJobs.<system>` is the same set keyed by derivation name, and CI enumerates those names as `nix build` installables
+- `nixpkgs` tracks the `nixpkgs-unstable` channel; master pins are avoided because heavy runtime deps (chromium, flutter, calibre) are only Hydra-built for channel commits, so CI would compile them from source
 - the flake config also publishes Cachix substituters and trusted keys
 
 ### Current implementation quirks worth remembering
@@ -143,7 +147,8 @@ nix build .#jadx-headless-mcp
 nix build .#jadx-headless-mcp.jar --print-out-paths
 
 # Build what CI caches
-nix-build ci.nix -A cacheOutputs
+nix build --no-link $(nix eval --json .#ciPackages.x86_64-linux \
+  --apply 'ps: map (p: p.drvPath) ps' | jq -r '.[] | "\(.)^*"')
 
 # Inspect flake outputs
 nix flake show
@@ -162,7 +167,7 @@ nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
 - `.agents/command/update.md`
 - `.agents/command/update-all.md`
 
-These should stay aligned with real attr names from `default.nix` and real workflows from `ci.nix`, `flake.nix`, and package definitions.
+These should stay aligned with real attr names from `default.nix` and real workflows from `flake.nix` and package definitions.
 
 ### Skills
 
@@ -182,7 +187,7 @@ Update docs when any of the following changes:
 
 - package exports in `default.nix`
 - library exports in `lib/default.nix`
-- CI behavior in `ci.nix` or `.github/workflows/build.yml`
+- CI behavior in `flake.nix` or `.github/workflows/build.yml`
 - flake outputs or cache settings in `flake.nix`
 - local omp commands, skills, or config under `.agents/`
 

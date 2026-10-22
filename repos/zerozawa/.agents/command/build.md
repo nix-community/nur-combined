@@ -34,7 +34,7 @@ nix build .#<package-name>
 Build what CI caches:
 
 ```bash
-nix-build ci.nix -A cacheOutputs
+nix build .#ciJobs.x86_64-linux."<package-name>"
 ```
 
 ## Build checklist

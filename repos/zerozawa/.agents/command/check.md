@@ -17,10 +17,10 @@ Single exported package:
 nix-instantiate -A <package-name>
 ```
 
-CI output dry run:
+CI build set dry run:
 
 ```bash
-nix-instantiate ci.nix -A cacheOutputs --dry-run
+nix build --dry-run .#ciJobs.x86_64-linux."<package-name>"
 ```
 
 ## Build checks
@@ -42,12 +42,12 @@ nix flake check
 
 ## CI notes
 
-`ci.nix` excludes reserved attrs and filters packages by:
+`ci.nix` (imported by the flake as `ciPackages` / `ciJobs`) excludes reserved attrs and filters packages by:
 
 - `meta.broken`
 - license freedom
 - `preferLocalBuild`
 
-That means a package may exist in `default.nix` but still be excluded from `cacheOutputs`.
+That means a package may exist in `default.nix` but still be excluded from `ciPackages`/`ciJobs`.
 
-!`if [ -n "$ARGUMENTS" ]; then nix-instantiate -A "$ARGUMENTS"; else nix-instantiate ci.nix -A cacheOutputs --dry-run; fi`
+!`if [ -n "$ARGUMENTS" ]; then nix-instantiate -A "$ARGUMENTS"; else nix eval --json .#ciJobs.x86_64-linux --apply builtins.attrNames; fi`

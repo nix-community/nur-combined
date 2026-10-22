@@ -63,8 +63,10 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-            extra-substituters = https://zerozawa.cachix.org https://nix-community.cachix.org
-            extra-trusted-public-keys = zerozawa.cachix.org-1:9jPl+Xq6S4va32gPNJXTApDafDUwa5zjgFX65QfJ1CQ= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
+            # 只是信任设置，不涉及缓存地址：flake.nix 是缓存配置的唯一来源。
+            # cachix 的 post-build-hook 模式需要 runner 是 trusted user，
+            # 否则退化成 watch 整个 store（会把替换下来的依赖也传上去）
+            trusted-users = root runner
       - name: Show flake inputs
         run: nix flake metadata
       # Builds against the nixpkgs pinned in flake.lock, so the pushed
@@ -77,8 +79,19 @@ jobs:
       # 'nix-eval-jobs'".
       - name: Build nix packages
         run: |
-          nix shell nixpkgs#nix-fast-build nixpkgs#nix-eval-jobs -c \
-            nix-fast-build --no-nom --skip-cached --max-jobs 1 --flake .#ciJobs.x86_64-linux --cachix-cache zerozawa
+          # 要构建哪些包完全由 flake.nix 的 ciJobs 决定（ciPackages 按包名索引）。
+          # 不用 nix-fast-build：installable 是 flake 属性，nix 自己会应用
+          # flake.nix 的 nixConfig，缓存地址因此只在那声明一次；
+          # cachix watch-exec 走 post-build-hook，只推送本次真正构建的路径
+          targets=()
+          while IFS= read -r name; do
+            targets+=(".#ciJobs.x86_64-linux.\"$name\"")
+          done < <(nix eval --json .#ciJobs.x86_64-linux --apply builtins.attrNames | jq -r '.[]')
+          nix shell nixpkgs#cachix -c \
+            cachix watch-exec zerozawa -- \
+              nix build --no-link --max-jobs 1 --keep-going \
+                --option accept-flake-config true \
+                "${targets[@]}"
         env:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
           CACHIX_SIGNING_KEY: ${{ secrets.CACHIX_SIGNING_KEY }}

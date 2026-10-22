@@ -1,56 +1,38 @@
-# This file provides all the buildable and cacheable packages and
-# package outputs in your package set. These are what gets built by CI,
-# so if you correctly mark packages as
+# CI build/cache selection rules.
 #
-# - broken (using `meta.broken`),
-# - unfree (using `meta.license.free`), and
-# - locally built (using `preferLocalBuild`)
-#
-# then your CI will be able to build and cache only those packages for
-# which this is possible.
+# This file is NOT part of the NUR export surface (`default.nix` does not
+# reference it); `flake.nix` imports it to derive `ciPackages` / `ciJobs`.
 
-{ pkgs ? import <nixpkgs> { } }:
+{ lib, exports }:
 
-with builtins;
 let
-  isReserved = n: n == "lib" || n == "overlays" || n == "modules";
-  isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
-  isBuildable = p: let
-    licenseFromMeta = p.meta.license or [];
-    licenseList = if builtins.isList licenseFromMeta then licenseFromMeta else [licenseFromMeta];
-  in !(p.meta.broken or false) && builtins.all (license: license.free or true) licenseList;
-  isCacheable = p: !(p.preferLocalBuild or false);
-  shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
+  reservedAttrs = [
+    "lib"
+    "modules"
+    "overlays"
+  ];
 
-  nameValuePair = n: v: { name = n; value = v; };
+  isDerivation = p: lib.isAttrs p && (p.type or null) == "derivation";
 
-  concatMap = builtins.concatMap or (f: xs: concatLists (map f xs));
-
-  flattenPkgs = s:
+  isBuildable =
+    p:
     let
-      f = p:
-        if shouldRecurseForDerivations p then flattenPkgs p
-        else if isDerivation p then [ p ]
-        else [ ];
+      licenses = p.meta.license or [ ];
     in
-    concatMap f (attrValues s);
+    !(p.meta.broken or false) && lib.all (license: license.free or true) (lib.toList licenses);
 
-  outputsOf = p: map (o: p.${o}) p.outputs;
+  isCacheable = p: !(p.preferLocalBuild or false);
 
-  nurAttrs = import ./default.nix { inherit pkgs; };
+  flattenPkgs =
+    set:
+    lib.concatMap (
+      p:
+      if lib.isAttrs p && (p.recurseForDerivations or false) then
+        flattenPkgs p
+      else
+        lib.optional (isDerivation p) p
+    ) (lib.attrValues set);
 
-  nurPkgs =
-    flattenPkgs
-      (listToAttrs
-        (map (n: nameValuePair n nurAttrs.${n})
-          (filter (n: !isReserved n)
-            (attrNames nurAttrs))));
-
+  exportedAttrs = lib.filterAttrs (n: _: !(lib.elem n reservedAttrs)) exports;
 in
-rec {
-  buildPkgs = filter isBuildable nurPkgs;
-  cachePkgs = filter isCacheable buildPkgs;
-
-  buildOutputs = concatMap outputsOf buildPkgs;
-  cacheOutputs = concatMap outputsOf cachePkgs;
-}
+builtins.filter isCacheable (builtins.filter isBuildable (flattenPkgs exportedAttrs))

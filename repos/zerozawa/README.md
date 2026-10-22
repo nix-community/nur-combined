@@ -72,7 +72,7 @@ This repository currently exports **27 packages**, **1 library helper**, and pla
 
 - `default.nix` is the authoritative export surface for packages plus `lib`, `modules`, and `overlays`.
 - `lib/default.nix` is the authoritative export surface for library helpers.
-- `ci.nix` defines what CI evaluates, builds, and caches.
+- `ci.nix` defines what CI evaluates, builds, and caches. It is not a NUR export; `flake.nix` imports it to expose `ciPackages` / `ciJobs`.
 - `flake.nix` exposes `legacyPackages` and filtered `packages` for flake consumers.
 
 ## Usage
@@ -144,11 +144,13 @@ NIXPKGS_ALLOW_UNFREE=1 nix-build -A context-mode
 # Build through flake outputs
 nix build .#mcp-cli
 
-# Build what CI caches
-nix-build ci.nix -A cacheOutputs
+# Build what CI caches (the flake's ciPackages set)
+nix build --no-link $(nix eval --json .#ciPackages.x86_64-linux \
+  --apply 'ps: map (p: p.drvPath) ps' | jq -r '.[] | "\(.)^*"')
 # Same package set via the flake (what GitHub Actions actually runs)
-nix shell nixpkgs#nix-fast-build nixpkgs#nix-eval-jobs -c \
-  nix-fast-build --skip-cached --flake .#ciJobs.x86_64-linux
+nix build --no-link --option accept-flake-config true \
+  $(nix eval --json .#ciJobs.x86_64-linux --apply builtins.attrNames \
+    | jq -r '.[] | ".#ciJobs.x86_64-linux.\"\(.)\""')
 
 # Inspect flake outputs
 nix flake show
@@ -157,7 +159,8 @@ nix flake show
 ## CI and Cache Notes
 
 - GitHub Actions builds this repository on push, pull request, schedule, and manual dispatch.
-- CI builds the flake output `.#ciJobs.x86_64-linux` (same package set as `nix-build ci.nix -A cacheOutputs`) with `nix-fast-build` against the nixpkgs pinned in `flake.lock`, so cached paths match what flake users build locally.
+- CI builds the flake output `.#ciJobs.x86_64-linux` (the flattened `ciPackages` set) with plain `nix build` against the nixpkgs pinned in `flake.lock`, so cached paths match what flake users build locally. Pushes go through `cachix watch-exec` in post-build-hook mode, so only paths actually built in the run are uploaded.
+- Cache substituters and trusted keys live only in `flake.nix`'s `nixConfig`; CI does not repeat them.
 - Scheduled and manually dispatched runs bump `flake.lock` first and push the updated lock only after the build against it succeeds.
 - Binary cache is published to `https://zerozawa.cachix.org`.
 

@@ -16,7 +16,7 @@ description: Use this when writing or modifying Nix package definitions and rela
 - `default.nix` is the source of truth for exported packages.
 - `lib/default.nix` is the source of truth for library helpers and currently exports `fetchPixiv`.
 - `modules/default.nix` and `overlays/default.nix` are placeholders right now; do not document them as populated unless you add real entries.
-- CI behavior comes from `ci.nix`, not from guesswork.
+- CI behavior comes from `ci.nix` (imported by `flake.nix` as `ciPackages` / `ciJobs`), not from guesswork.
 
 ## Packaging styles actually used in this repo
 
