@@ -52,8 +52,10 @@ class GateTests(unittest.TestCase):
 
     def test_unknown_closure_path_blocks(self):
         self.closure.append(UNKNOWN)
-        with self.assertRaises(gate.GateError):
+        with self.assertRaises(gate.GateError) as raised:
             self.run_gate()
+        # The log must name the path, not only count it.
+        self.assertIn(UNKNOWN.removeprefix("/nix/store/"), str(raised.exception))
 
     def test_used_unfree_dependency_blocks(self):
         self.manifest["entries"][2]["redistributable"] = False

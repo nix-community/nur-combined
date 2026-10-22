@@ -84,7 +84,8 @@ def run(manifest_path, closure_path, built_path, expected_path):
     used = closure
     unknown = used - by_path.keys()
     if unknown:
-        raise GateError(f"closure contains {len(unknown)} path(s) without metadata")
+        names = ", ".join(sorted(path.removeprefix("/nix/store/") for path in unknown))
+        raise GateError(f"closure contains {len(unknown)} path(s) without metadata: {names}")
     blocked = []
     for path in sorted(used):
         entry = by_path[path]

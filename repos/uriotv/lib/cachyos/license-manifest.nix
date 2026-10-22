@@ -54,6 +54,9 @@ let
     "json_c"
     "isl"
     "linuxHeaders"
+    # Runtime references added by newer nixpkgs: python3 -> mailcap, gnutls -> dns-root-data.
+    "mailcap"
+    "dns-root-data"
   ];
   nodes = builtins.genericClosure {
     startSet = map (value: {

@@ -82,7 +82,7 @@ jobs:
           set -euo pipefail
           nix build --no-link --print-out-paths --no-write-lock-file --inputs-from . \
             nixpkgs#coreutils nixpkgs#gawk nixpkgs#gnugrep nixpkgs#findutils \
-            nixpkgs#curl nixpkgs#jq nixpkgs#python3 nixpkgs#cachix nixpkgs#attic-client \
+            nixpkgs#curl nixpkgs#jq nixpkgs#python3 nixpkgs#cachix nixpkgs#attic-client nixpkgs#gh \
             > "$RUNNER_TEMP/tool-paths"
           while IFS= read -r path; do
             [[ -d "$path/bin" ]] && echo "$path/bin" >> "$GITHUB_PATH"

@@ -30,6 +30,10 @@ jobs:
       contents: write
       statuses: read
     steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          persist-credentials: false
       - name: Promote the verified main commit to cache
         env:
           GH_TOKEN: ${{ github.token }}
