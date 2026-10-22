@@ -144,36 +144,36 @@
   };
   pyromark = {
     pname = "pyromark";
-    version = "v0.10.2";
+    version = "v0.10.3";
     src = fetchFromGitHub {
       owner = "monosans";
       repo = "pyromark";
-      tag = "v0.10.2";
-      hash = "sha256-kbItmYueWKGy3POpnszWUP4s0OwZa+B/ceUdyBmm0c8=";
+      tag = "v0.10.3";
+      hash = "sha256-MCCUi7olPSQ0atlJhz8hQXVa1Ot5NbkwnvuT3uLq9BM=";
     };
   };
   qingjian = {
     pname = "qingjian";
-    version = "0.2.1";
+    version = "0.3.1";
     src = fetchurl {
-      url = "https://github.com/qingjian-team/qingjian/releases/download/v0.2.1/qingjian-0.2.1-linux-x86_64.tar.gz";
-      hash = "sha256-UyS0mASQLJCcxz7g5AlxOxQSZ9RIKEDgCgBsGpZtIK0=";
+      url = "https://github.com/qingjian-team/qingjian/releases/download/v0.3.1/qingjian-0.3.1-linux-x86_64.tar.gz";
+      hash = "sha256-ZmqUAzAT/7GZsU/gJZUTOzm1TTvVrO6zLfW6dwDfETM=";
     };
   };
   sublinkpro-linux-amd64 = {
     pname = "sublinkpro-linux-amd64";
-    version = "1.2.21";
+    version = "1.2.22";
     src = fetchurl {
-      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.21/sublinkPro-linux-amd64";
-      hash = "sha256-1vvkgQkwBah3qwv53NRQcJPrf+1mGvJoRFm+gERr7nY=";
+      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.22/sublinkPro-linux-amd64";
+      hash = "sha256-j1WvJQKs8OS27Q1X7o9hxwqEfvsNtVyj1qWB9MWAhEY=";
     };
   };
   sublinkpro-linux-arm64 = {
     pname = "sublinkpro-linux-arm64";
-    version = "1.2.21";
+    version = "1.2.22";
     src = fetchurl {
-      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.21/sublinkPro-linux-arm64";
-      hash = "sha256-0do2u18S5yMQZQy8qRhxeIbbJVJVN3SP4Dj1TTZMqSo=";
+      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.22/sublinkPro-linux-arm64";
+      hash = "sha256-OeOdOq7mHXs6WWshAjHEMy7c4ij763xItZSY2ExRAZY=";
     };
   };
   sun-panel = {

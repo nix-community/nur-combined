@@ -70,9 +70,9 @@ Build artifacts are cached in the Attic binary cache:
 | - [x] |  | `pinyin2hanzi` | [Pinyin2Hanzi](https://github.com/someus/Pinyin2Hanzi) | 0.1.1 | Pinyin to Chinese character conversion engine |
 | - [x] |  | `proces` | [proces](https://github.com/Ailln/proces) | 0.1.7 | Text preprocess utilities |
 | - [x] |  | `pypika-tortoise` | [pypika-tortoise](https://github.com/tortoise/pypika-tortoise) | 0.6.5 | SQL query builder fork streamlined for tortoise-orm |
-| - [x] |  | `pyromark` | [pyromark](https://github.com/monosans/pyromark) | 0.10.2 | Blazingly fast Markdown parser |
-| - [ ] | `x86_64-linux` | `qingjian` | [qingjian](https://qingjian.app) | 0.2.1 | Pinyin input method with translation hints for language learners |
-| - [x] |  | `sublinkpro` | [sublinkpro](https://github.com/ZeroDeng01/sublinkPro) | 1.2.21 | Modern proxy subscription management panel with smart tags, speed tests and relay chains |
+| - [x] |  | `pyromark` | [pyromark](https://github.com/monosans/pyromark) | 0.10.3 | Blazingly fast Markdown parser |
+| - [ ] | `x86_64-linux` | `qingjian` | [qingjian](https://qingjian.app) | 0.3.1 | Pinyin input method with translation hints for language learners |
+| - [x] |  | `sublinkpro` | [sublinkpro](https://github.com/ZeroDeng01/sublinkPro) | 1.2.22 | Modern proxy subscription management panel with smart tags, speed tests and relay chains |
 | - [x] |  | `sun-panel` | [sun-panel](https://github.com/hslr-s/sun-panel) | 1.8.1 | Server and NAS navigation panel, homepage, browser homepage |
 | - [x] |  | `tachidesk-server` | [tachidesk-server](https://github.com/Suwayomi/Suwayomi-Server) | 2.4.2366 | Self-hosted manga reader and aggregator server |
 | - [x] |  | `telegramify-markdown` | [telegramify-markdown](https://github.com/sudoskys/telegramify-markdown) | 1.4.1 | Convert Markdown to Telegram plain text and entities |
@@ -97,7 +97,7 @@ Build artifacts are cached in the Attic binary cache:
 | - [ ] |  | `python3Packages.pinyin2hanzi` | [Pinyin2Hanzi](https://github.com/someus/Pinyin2Hanzi) | 0.1.1 | Pinyin to Chinese character conversion engine |
 | - [ ] |  | `python3Packages.proces` | [proces](https://github.com/Ailln/proces) | 0.1.7 | Text preprocess utilities |
 | - [ ] |  | `python3Packages.pypika-tortoise` | [pypika-tortoise](https://github.com/tortoise/pypika-tortoise) | 0.6.5 | SQL query builder fork streamlined for tortoise-orm |
-| - [ ] |  | `python3Packages.pyromark` | [pyromark](https://github.com/monosans/pyromark) | 0.10.2 | Blazingly fast Markdown parser |
+| - [ ] |  | `python3Packages.pyromark` | [pyromark](https://github.com/monosans/pyromark) | 0.10.3 | Blazingly fast Markdown parser |
 | - [ ] |  | `python3Packages.telegramify-markdown` | [telegramify-markdown](https://github.com/sudoskys/telegramify-markdown) | 1.4.1 | Convert Markdown to Telegram plain text and entities |
 | - [ ] |  | `python3Packages.torrentool` | [torrentool](https://github.com/idlesign/torrentool) | 1.2.0 | Tool to work with torrent files |
 | - [ ] |  | `python3Packages.tortoise-orm` | [tortoise-orm](https://github.com/tortoise/tortoise-orm) | 0.25.3 | Easy async ORM for Python with relations in mind |
@@ -118,8 +118,8 @@ Build artifacts are cached in the Attic binary cache:
 | - [ ] |  | `uncategorized.navdash` | [navdash](https://github.com/zhyiheihei/navdash) | 0.7.1 | Personal service portal with native OIDC login and Nix-generated service cards |
 | - [ ] |  | `uncategorized.nexus-media` | [nexus-media](https://github.com/linyuan0213/nexus-media) | 4.27.2 | Media library manager with automated downloading, media organization and subscription workflows |
 | - [ ] |  | `uncategorized.nexus-media-web` | [nexus-media-web](https://github.com/linyuan0213/nexus-media-web) | 4.27.1 | Vue 3 web frontend for the Nexus Media media library manager |
-| - [ ] | `x86_64-linux` | `uncategorized.qingjian` | [qingjian](https://qingjian.app) | 0.2.1 | Pinyin input method with translation hints for language learners |
-| - [ ] |  | `uncategorized.sublinkpro` | [sublinkpro](https://github.com/ZeroDeng01/sublinkPro) | 1.2.21 | Modern proxy subscription management panel with smart tags, speed tests and relay chains |
+| - [ ] | `x86_64-linux` | `uncategorized.qingjian` | [qingjian](https://qingjian.app) | 0.3.1 | Pinyin input method with translation hints for language learners |
+| - [ ] |  | `uncategorized.sublinkpro` | [sublinkpro](https://github.com/ZeroDeng01/sublinkPro) | 1.2.22 | Modern proxy subscription management panel with smart tags, speed tests and relay chains |
 | - [ ] |  | `uncategorized.sun-panel` | [sun-panel](https://github.com/hslr-s/sun-panel) | 1.8.1 | Server and NAS navigation panel, homepage, browser homepage |
 | - [ ] |  | `uncategorized.tachidesk-server` | [tachidesk-server](https://github.com/Suwayomi/Suwayomi-Server) | 2.4.2366 | Self-hosted manga reader and aggregator server |
 | - [ ] |  | `uncategorized.vaults3` | [vaults3](https://github.com/Kodiqa-Solutions/VaultS3) | 5.0.3 | Lightweight S3-compatible object storage with built-in web dashboard |
