@@ -1,7 +1,13 @@
 #!/usr/bin/env bash
 dir="$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")"
 [[ "${1:-}" == "-G" ]] || "$dir/tailnet-up" || { echo "rsyncnet-ssh: proxy indisponível" >&2; exit 255; }
-exec ssh -i "$HOME/.ssh/id_ed25519_rsyncnet" -o IdentitiesOnly=yes \
+# ssh do sistema pode sumir quando a máquina muda; cai pro openssh do mise.
+if command -v ssh >/dev/null 2>&1; then
+  ssh=(ssh)
+else
+  ssh=(mise exec conda:openssh -- ssh)
+fi
+exec "${ssh[@]}" -i "$HOME/.ssh/id_ed25519_rsyncnet" -o IdentitiesOnly=yes \
   -o "UserKnownHostsFile=$dir/known_hosts" \
   -o StrictHostKeyChecking=yes \
   -o "ProxyCommand=$dir/socks-connect %h %p" "$@"
