@@ -694,6 +694,11 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       fsindex = callPackage ./pkgs/development/python-modules/fsindex { };
 
+      patchright = callPackage ./pkgs/development/python-modules/patchright {
+        # FIXME scope
+        patchright-driver = (callPackage ./pkgs/development/web/patchright/driver.nix { }).patchright-core;
+      };
+
 
 
       # python3.pkgs.opencv4
@@ -1633,6 +1638,9 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   circle-so-scraper = python3Packages.callPackage ./pkgs/by-name/ci/circle-so-scraper/package.nix { };
 
   undither = callPackage ./pkgs/by-name/un/undither/package.nix { };
+
+  # playwright-driver = (callPackage ./pkgs/development/web/playwright/driver.nix { }).playwright-core;
+  patchright-driver = (callPackage ./pkgs/development/web/patchright/driver.nix { }).patchright-core;
 
 
 
