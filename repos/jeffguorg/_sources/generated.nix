@@ -28,55 +28,55 @@
   };
   claude-code-bin-amd64-darwin = {
     pname = "claude-code-bin-amd64-darwin";
-    version = "2.1.308";
+    version = "2.1.309";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.308/darwin-x64/claude";
-      sha256 = "sha256-mgvBQPX7BuY2ZiTXcDce8pDmcx0ehMTe9dr035RtG1k=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.309/darwin-x64/claude";
+      sha256 = "sha256-IA4Nd1rlXAQNs7uNuN4+Iu/N29fgq/9atQ3RD2hTQl0=";
     };
   };
   claude-code-bin-amd64-linux = {
     pname = "claude-code-bin-amd64-linux";
-    version = "2.1.308";
+    version = "2.1.309";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.308/linux-x64/claude";
-      sha256 = "sha256-NWcz8YX6mI5r86qaVVJp/dFnmCouKoDTyKeAN7uSrVg=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.309/linux-x64/claude";
+      sha256 = "sha256-TXBKiuy+A4r/owAPSYrhfBtPdTrdj6y4dkEgr/yZtlg=";
     };
   };
   claude-code-bin-arm64-darwin = {
     pname = "claude-code-bin-arm64-darwin";
-    version = "2.1.308";
+    version = "2.1.309";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.308/darwin-arm64/claude";
-      sha256 = "sha256-ypI8hqyEswV0qCMxoFtuBmwnR3qSbOr/5GqEWjPk3Tc=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.309/darwin-arm64/claude";
+      sha256 = "sha256-Xq3AAJzc28DQblgRDXsrr4jO1giLHDOmCiEhf+QQYZw=";
     };
   };
   claude-code-bin-arm64-linux = {
     pname = "claude-code-bin-arm64-linux";
-    version = "2.1.308";
+    version = "2.1.309";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.308/linux-arm64/claude";
-      sha256 = "sha256-/dIubLtzTVgPVmTEjfQpTu7IUCGP8H8Yb5rzBCY5buE=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.309/linux-arm64/claude";
+      sha256 = "sha256-l5bdJomTN/aHc5oLOac1O2OfBio0Nqe5Qfzxmht1eps=";
     };
   };
   codex = {
     pname = "codex";
-    version = "rust-v0.163.0";
+    version = "rust-v0.164.0";
     src = fetchFromGitHub {
       owner = "openai";
       repo = "codex";
-      rev = "rust-v0.163.0";
+      rev = "rust-v0.164.0";
       fetchSubmodules = false;
-      sha256 = "sha256-Fa9dfiGJy+uqSF4A0EM6AQQhhjQdu+jfhKzqXid9PNA=";
+      sha256 = "sha256-iib2+qQcGewC4Ga8cA80sInDJpzdSxDJP0y1DDOouI4=";
     };
     cargoLock."codex-rs/Cargo.lock" = {
-      lockFile = ./. + "/sha256-Fa9dfiGJy+uqSF4A0EM6AQQhhjQdu+jfhKzqXid9PNA=/codex-rs/Cargo.lock";
+      lockFile = ./. + "/sha256-iib2+qQcGewC4Ga8cA80sInDJpzdSxDJP0y1DDOouI4=/codex-rs/Cargo.lock";
       outputHashes = {
         "nucleo-0.5.0" = "sha256-Hm4SxtTSBrcWpXrtSqeO0TACbUxq3gizg1zD/6Yw/sI=";
         "runfiles-0.1.0" = "sha256-uJpVLcQh8wWZA3GPv9D8Nt43EOirajfDJ7eq/FB+tek=";
-        "appcontainer_common-0.8.0" = "sha256-XUkT2R+RYk9WIqgKnmIAagNW4xOTyp4bWHmQL1iznHw=";
         "tungstenite-0.27.0" = "sha256-VVHhk7l9J/sEmG3q/UuV/sQ3f+fGsmq5vumSy8vbMvw=";
-        "rmcp-3.5.1" = "sha256-RbGuEuNyBUF2WeqKwkBAwCYnjb7DZJP8ZI8sIuR4D88=";
+        "rmcp-3.5.1" = "sha256-yczrrD6SnXhblos5oU6fbyDc7vkRah9DsF41hcaKzi4=";
         "h3-0.0.8" = "sha256-fgE0AMj5d4iattTC/yQwnACV8uEu+KR7wD29xfEm8M0=";
+        "mxc-sdk-1.0.0" = "sha256-AI4l2yCbB/4UWweLFhEefEPqSt/ZB1V+Mk/svdAT8No=";
         "crossterm-0.29.0" = "sha256-7ZzFZ6c6uU27ZxCGOPK82Aia4CzTnJwksAfbpTMPikY=";
         "tokio-tungstenite-0.28.0" = "sha256-V1xmnrfRWOcZZogelZEA4vvyMj2awCfHVA5/glQ6KAI=";
       };
@@ -84,34 +84,34 @@
   };
   codex-bin-amd64-darwin = {
     pname = "codex-bin-amd64-darwin";
-    version = "0.163.0";
+    version = "0.164.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.163.0-darwin-x64.tgz";
-      sha256 = "sha256-dCZ9e3oYpQKfvvyFsAOixWp7O77hQYFiII2rW2ur8No=";
+      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.164.0-darwin-x64.tgz";
+      sha256 = "sha256-d7aTBP5L6Sz1KutvBJO/YO0BFH4hUYTXnXSouZYpPCk=";
     };
   };
   codex-bin-amd64-linux = {
     pname = "codex-bin-amd64-linux";
-    version = "0.163.0";
+    version = "0.164.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.163.0-linux-x64.tgz";
-      sha256 = "sha256-MO/Jdzi5dZQNeLWam+oRX6NAQLcygH1U7DWua3Uo3pQ=";
+      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.164.0-linux-x64.tgz";
+      sha256 = "sha256-YmWf79mo76IaSWQC/ePBHAJbvu5zWlgpaPj/0Uy195w=";
     };
   };
   codex-bin-arm64-darwin = {
     pname = "codex-bin-arm64-darwin";
-    version = "0.163.0";
+    version = "0.164.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.163.0-darwin-arm64.tgz";
-      sha256 = "sha256-EZP/TOcjh6XWw0ggtUqdxX0AfGepWOistHFZJPrNPDE=";
+      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.164.0-darwin-arm64.tgz";
+      sha256 = "sha256-m1o1vhl1zrMy6vJ0Ay83WwF6tkT/AWVzfq0DJ3+ud80=";
     };
   };
   codex-bin-arm64-linux = {
     pname = "codex-bin-arm64-linux";
-    version = "0.163.0";
+    version = "0.164.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.163.0-linux-arm64.tgz";
-      sha256 = "sha256-3G58TW3nHCOg9g0F4ld/9+72FbdvImMNWK04S4R2NSI=";
+      url = "https://registry.npmjs.org/@openai/codex/-/codex-0.164.0-linux-arm64.tgz";
+      sha256 = "sha256-BIpicxziiqAAUI78wDIwLlhIjKB5lw3K4G0o3zmuXOA=";
     };
   };
   create-tauri-app = {
@@ -208,10 +208,10 @@
   };
   kimi-code = {
     pname = "kimi-code";
-    version = "2.3.0";
+    version = "2.3.1";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@moonshot-ai/kimi-code/-/kimi-code-2.3.0.tgz";
-      sha256 = "sha256-zCICRxvW/pw3Qx0+bRwQIqpVmZ9mRvD+ZYrkXPpwh4U=";
+      url = "https://registry.npmjs.org/@moonshot-ai/kimi-code/-/kimi-code-2.3.1.tgz";
+      sha256 = "sha256-VawdsEUuZkb/UOP4ORa8u31IoVdiLR5REEl9UrJveec=";
     };
   };
   kwok = {
