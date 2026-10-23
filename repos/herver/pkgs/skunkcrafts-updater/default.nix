@@ -11,11 +11,11 @@
 let
   pname = "skunkcrafts-updater";
   # Upstream only publishes an unversioned "latest" AppImage URL
-  version = "4.2.6";
+  version = "4.2.7";
 
   src = fetchurl {
     url = "https://1228098873.rsc.cdn77.org/updater/SkunkcraftsUpdater-x86_64.AppImage";
-    hash = "sha256-aGrKlkbXnYU2XYfQajH5cFQyUHq17n7IzuT82yOvyJ0=";
+    hash = "sha256-EvvZ+YjM9g7ZGVXbh1qtS+l0lcsR/y/9DhaIIWvo954=";
   };
 
   appimageContents = appimageTools.extract {
