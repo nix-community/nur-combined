@@ -1,3 +1,14 @@
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)"
+      srcset="https://raw.githubusercontent.com/x71c9/dogma/HEAD/.github/logo-dark.svg">
+    <source media="(prefers-color-scheme: light)"
+      srcset="https://raw.githubusercontent.com/x71c9/dogma/HEAD/.github/logo-light.svg">
+    <img alt="Dogma logo" width="160"
+      src="https://raw.githubusercontent.com/x71c9/dogma/HEAD/.github/logo-light.svg">
+  </picture>
+</div>
+
 # dogma
 
 Dogma bridges secrets from vault backends and infrastructure outputs into sops-encrypted files, then deploys them to your machines. It also comes with a set of tools — pre-credentialed shells, environment variable exports, and more — to make the whole workflow seamless.
@@ -441,3 +452,8 @@ The binary runs on any Linux with no runtime deps. External tools are checked la
 | `sops` | `deploy --new` |
 | `nixos-rebuild` | `deploy` (nixos-rebuild strategy) |
 
+---
+
+### Credits
+
+Logo credits [https://www.jacopotripodi.com/](https://www.jacopotripodi.com/)
