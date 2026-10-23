@@ -42,6 +42,7 @@ rec {
   mergiraf = pkgs.callPackage ./pkgs/mergiraf { inherit (pkgs) rust-bin; };
   libjportaudio = pkgs.callPackage ./pkgs/libjportaudio { };
   beatoraja = pkgs.callPackage ./pkgs/beatoraja { inherit libjportaudio; };
+  zen-browser = pkgs.callPackage ./pkgs/zen-browser { };
 
   font-iosvmata = pkgs.callPackage ./pkgs/font-iosvmata { };
   font-pragmasevka = pkgs.callPackage ./pkgs/font-pragmasevka { };
