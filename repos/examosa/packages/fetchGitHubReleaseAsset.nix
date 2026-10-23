@@ -1,17 +1,24 @@
 {
   lib,
+  fetchurl,
   fetchzip,
 }: {
   owner,
   repo,
   tag,
   asset,
+  extract ? true,
   githubBase ? "github.com",
   ...
 } @ args: let
-  passthruAttrs = lib.removeAttrs args ["owner" "repo" "tag" "asset" "githubBase"];
+  fetcher =
+    if extract
+    then fetchzip
+    else fetchurl;
+
+  passthruAttrs = lib.removeAttrs args ["owner" "repo" "tag" "asset" "extract" "githubBase"];
 in
-  fetchzip (
+  fetcher (
     passthruAttrs
     // {url = "https://${githubBase}/${owner}/${repo}/releases/download/${tag}/${asset}";}
   )
