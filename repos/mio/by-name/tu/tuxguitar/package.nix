@@ -58,10 +58,10 @@ let
     which
   ];
   # FIXME: Makes hash stable across platforms and convert to a single hash.
-  # aarch64-darwin mvnHash not regenerated for 2.1.0 yet.
+  # aarch64-darwin mvnHash not regenerated for 2.1.1 yet.
   mvnHashByPlatform = {
-    "x86_64-linux" = "sha256-QQsiD57cn9DRm/1rSE4H9xKgpLZ5ku9kntqIoOMfoN4=";
-    "aarch64-linux" = "sha256-QQsiD57cn9DRm/1rSE4H9xKgpLZ5ku9kntqIoOMfoN4=";
+    "x86_64-linux" = "sha256-7sxE+yoCZj4QzDWVyUd/EKs5asEacfKyqOR46xZP+Bs=";
+    "aarch64-linux" = "sha256-7sxE+yoCZj4QzDWVyUd/EKs5asEacfKyqOR46xZP+Bs=";
     "aarch64-darwin" = lib.fakeHash;
   };
   wrapperArgs = [
@@ -79,7 +79,7 @@ let
     ":"
     (lib.concatStringsSep ":" classpath)
   ];
-  version = "2.1.0";
+  version = "2.1.1";
 in
 maven.buildMavenPackage {
   pname = "tuxguitar";
@@ -89,7 +89,7 @@ maven.buildMavenPackage {
     owner = "helge17";
     repo = "tuxguitar";
     tag = version;
-    hash = "sha256-JaR9gagVXgcf1bQ0v/9KO3SzqAXSpjJpCuCRQXs9Wzg=";
+    hash = "sha256-Rwj81MNb4S7CqSfNE9BG2/MotDFQpoYl5WBuoYJCkbE=";
   };
 
   patches = [

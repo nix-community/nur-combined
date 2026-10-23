@@ -485,12 +485,12 @@ let
       stdenv;
 
   pname = "local-ai";
-  version = "4.12.0";
+  version = "4.12.1";
   src = fetchFromGitHub {
     owner = "mudler";
     repo = "LocalAI";
     tag = "v${version}";
-    hash = "sha256-KoFgZbDwoLbTYkwGrQexOzAQgSCx/3gZKrzVfhsfohk=";
+    hash = "sha256-KPL6yODj7JWPRWCO2umaNr6s4MRYL1osgSixW6/PFMk=";
   };
 
   prepare-sources =
