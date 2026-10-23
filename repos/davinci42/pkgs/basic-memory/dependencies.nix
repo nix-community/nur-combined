@@ -25,6 +25,24 @@ let
       };
     };
   packages = {
+    fastapi =
+      (wheel "fastapi" (with python3Packages; [
+        annotated-doc
+        pydantic
+        starlette
+        typing-extensions
+        typing-inspection
+      ]) [ "fastapi" ] lib.licenses.mit).overridePythonAttrs
+        {
+          passthru.optional-dependencies = python3Packages.fastapi.optional-dependencies;
+        };
+    fastapi-redis-sdk = wheel "fastapi-redis-sdk" (with python3Packages; [
+      packages.fastapi
+      anyio
+      pydantic
+      pydantic-settings
+      redis
+    ]) [ "redis_fastapi" "redis_fastapi.cache" ] lib.licenses.mit;
     mcp-types = wheel "mcp-types" (with python3Packages; [
       pydantic
       typing-extensions

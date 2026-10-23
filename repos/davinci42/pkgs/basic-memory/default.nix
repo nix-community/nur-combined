@@ -14,14 +14,14 @@ let
 in
 pythonPackages.buildPythonApplication (finalAttrs: {
   pname = "basic-memory";
-  version = "0.23.2";
+  version = "0.24.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "basicmachines-co";
     repo = "basic-memory";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-etL0RHkSNFzT00p3yCBtH92XDaqwakDO8Eurf+dS3ug=";
+    hash = "sha256-yHtCT3WQlSvYIptRxwUiAQJrVWK4EJTuiaLd+0FR0mE=";
   };
 
   build-system = with pythonPackages; [
@@ -49,6 +49,7 @@ pythonPackages.buildPythonApplication (finalAttrs: {
       asyncpg
       dateparser
       fastapi
+      fastapi-redis-sdk
       fastembed
       fastmcp
       filelock
@@ -92,12 +93,13 @@ pythonPackages.buildPythonApplication (finalAttrs: {
     "basic_memory"
     "basic_memory.cli.main"
     "basic_memory.mcp.server"
+    "basic_memory.read_cache.routes"
+    "basic_memory.api.app"
   ];
   preCheck = ''
     export HOME="$TMPDIR"
     export BASIC_MEMORY_AUTO_UPDATE=false
     export BASIC_MEMORY_NO_PROMOS=1
-    export BASIC_MEMORY_SEMANTIC_SEARCH_ENABLED=false
   '';
 
   passthru = {

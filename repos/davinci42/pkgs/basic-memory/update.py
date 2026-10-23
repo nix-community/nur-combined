@@ -9,7 +9,7 @@ from typing import cast
 
 ROOT = Path(__file__).resolve().parents[2]
 FOLDER = Path(__file__).resolve().parent
-NAMES = {"fastmcp", "fastmcp-slim", "litellm", "mcp", "mcp-types"}
+NAMES = {"fastapi", "fastapi-redis-sdk", "fastmcp", "fastmcp-slim", "litellm", "mcp", "mcp-types"}
 
 
 def dependency_manifest(content: str) -> dict[str, dict[str, str]]:

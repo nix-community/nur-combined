@@ -15,7 +15,8 @@ pkgs.runCommand "basic-memory-packaging-check"
     export BASIC_MEMORY_AUTO_UPDATE=false
     export BASIC_MEMORY_NO_PROMOS=1
     export BASIC_MEMORY_FORCE_LOCAL=true
-    export BASIC_MEMORY_SEMANTIC_SEARCH_ENABLED=false
+    export BASIC_MEMORY_DEFAULT_SEARCH_TYPE=text
+    export HF_HUB_OFFLINE=1
     mkdir -p "$HOME" "$BASIC_MEMORY_HOME"
     basic-memory --version | grep -F '${package.version}'
     basic-memory mcp --help >/dev/null
@@ -57,7 +58,7 @@ pkgs.runCommand "basic-memory-packaging-check"
             assert not result.is_error, result
             assert "Persistent memory works" in str(result)
             result = await client.call_tool("search_notes", {
-                "query": "Packaging", "search_type": "text", "project": "main",
+                "query": "Packaging", "project": "main",
             })
             assert not result.is_error, result
             assert "Packaging Check" in str(result)

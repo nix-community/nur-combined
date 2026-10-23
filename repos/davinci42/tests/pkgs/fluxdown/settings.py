@@ -112,12 +112,21 @@ class SettingsTests(unittest.TestCase):
                 )
         self.assertEqual(helper.load_settings(values, None, SCHEMA).keys(), values.keys())
 
+    def test_completed_record_retention_bounds(self):
+        for days in (0, 3650):
+            self.assertEqual(
+                helper.load_settings({"completed_record_retention_days": days}, None, SCHEMA),
+                {"completed_record_retention_days": str(days)},
+            )
+
     def test_invalid_values(self):
         for settings in [
             {"upload_limit_bytes": -1},
             {"upload_limit_bytes": True},
             {"max_concurrent_tasks": 1025},
             {"default_segments": 513},
+            {"completed_record_retention_days": -1},
+            {"completed_record_retention_days": 3651},
             {"bt_enable_utp": "false"},
             {"bt_enable_upnp": "false"},
             {"bt_enabled": "false"},

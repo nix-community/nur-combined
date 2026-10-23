@@ -154,6 +154,12 @@
       "default": "false",
       "kind": "Bool"
     },
+    "completed_record_retention_days": {
+      "default": "0",
+      "kind": "Integer",
+      "max": 3650,
+      "min": 0
+    },
     "component.ffmpeg.path": {
       "default": "",
       "kind": "Text"
@@ -337,8 +343,8 @@
   },
   "protocolVersion": 17,
   "sourceHashes": {
-    "native/protocol/src/daemon_config.rs": "9a47cadaea68e69eaae540e125e6468ff7e2a57979b07037a32f6407ca9a680f",
+    "native/protocol/src/daemon_config.rs": "091332924fb7acfaa9b26a2dab1c291621abc431195991b25ecb359a68027db5",
     "native/protocol/src/rpc.rs": "a9f62948c37cc7d4eefad1cf5d02f250e9be000ee63068779f58d86e55f673d1"
   },
-  "version": "0.6.0"
+  "version": "0.6.1"
 }

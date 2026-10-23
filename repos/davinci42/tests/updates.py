@@ -1,8 +1,11 @@
+import json
 import os
+import runpy
 import subprocess
 import sys
 import tempfile
 import unittest
+from collections.abc import Callable
 from pathlib import Path
 from typing import cast
 from unittest.mock import patch
@@ -12,6 +15,28 @@ from tools import check_updates, maintain
 
 
 class UpdateTests(unittest.TestCase):
+    def test_basic_memory_manifest_tracks_pinned_api_dependencies(self) -> None:
+        folder = maintain.ROOT / "pkgs/basic-memory"
+        manifest = cast(dict[str, dict[str, str]], json.loads(
+            (folder / "dependencies.json").read_text()
+        ))
+        generate = cast(Callable[[str], dict[str, dict[str, str]]], runpy.run_path(
+            str(folder / "update.py")
+        )["dependency_manifest"])
+        content = "\n".join(
+            f'[[package]]\nname = "{name}"\nversion = "{entry["version"]}"\n'
+            + f'wheels = [{{ url = "{entry["url"]}", hash = "sha256:{entry["hash"]}" }}]\n'
+            for name, entry in manifest.items()
+        )
+        self.assertEqual(generate(content), manifest)
+        self.assertIn("fastapi", manifest)
+        self.assertIn("fastapi-redis-sdk", manifest)
+        for name in ("fastapi", "fastapi-redis-sdk"):
+            with self.assertRaisesRegex(ValueError, "Missing locked dependencies"):
+                _ = generate(content.replace(f'name = "{name}"', 'name = "excluded"'))
+        with self.assertRaisesRegex(ValueError, "Multiple locked versions"):
+            _ = generate(content + content)
+
     def test_detection_uses_package_script_without_hash_downloads(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
