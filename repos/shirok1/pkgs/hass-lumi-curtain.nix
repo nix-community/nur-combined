@@ -8,13 +8,13 @@
 buildHomeAssistantComponent (finalAttrs: {
   owner = "shirok1";
   domain = "lumi_curtain";
-  version = "0.2.1";
+  version = "0.3.0";
 
   src = fetchFromGitHub {
     owner = "shirok1";
     repo = "hass-lumi-curtain";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-JpbDG+wCqu15EvZ9PJjxdi3Xz8l+11e54xXjM9ZGFY0=";
+    hash = "sha256-4HgmgRG4rlv+Ojab0R4ahZw6Ak2YEfblkM+YHJmqLEQ=";
   };
 
   dependencies = with home-assistant.python3Packages; [
