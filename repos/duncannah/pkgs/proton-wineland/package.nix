@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   steamDisplayName = "Proton-Wineland";
 
   pname = "proton-wineland";
-  version = "11.0-20261015";
+  version = "11.0-20261022";
 
   inherit (finalAttrs.passthru.variants.${stdenvNoCC.hostPlatform.system}) src toolName;
 
@@ -53,7 +53,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       toolName = "${finalAttrs.pname}-${finalAttrs.version}-x86_64";
       src = fetchzip {
         url = "https://github.com/nanomatters/proton-cachyos/releases/download/wineland-${finalAttrs.version}/${finalAttrs.pname}-${finalAttrs.version}-x86_64.tar.xz";
-        hash = "sha256-cacwol74hOi8dEdkH4djbGrSOvP5ILJPxITgzueajus=";
+        hash = "sha256-M0QzJjMgUy3c2FOeQQBbL/ENO8o4vfC93ayq0obB05E=";
       };
     };
 
