@@ -13,6 +13,7 @@
   alsa-lib,
   fontconfig,
   glib,
+  glib-networking,
   gtk3,
   libglvnd,
   libice,
@@ -80,6 +81,7 @@ stdenv.mkDerivation (finalAttrs: {
     python3
   ];
   buildInputs = runtimeLibraries ++ [
+    glib-networking
     stdenv.cc.cc.lib
     libva
     zlib
