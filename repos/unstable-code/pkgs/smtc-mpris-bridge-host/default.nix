@@ -12,11 +12,11 @@ rustPlatform.buildRustPackage {
   src = fetchFromGitHub {
     owner = "wshowlyrics";
     repo = "smtc-mpris-bridge";
-    rev = "d4921df6f3440d47e6c08d0abbae1952b2313c47";
-    hash = "sha256-2RGhUx7MAtIh1Qefg68kZq7OYEz57KaYHoWDV5FfFdM=";
+    rev = "3b27747a821006ae01ee3b974183c81e858521de";
+    hash = "sha256-Y+WMgRivWW9zKdEt1xMVdFpfoKpNdvX5sfPnOaCt7/0=";
   };
 
-  cargoHash = "sha256-ba+zwsotAIXIgeUeznhGZ/aLOZ3EUOSIURIp1ycvJ6I=";
+  cargoHash = "sha256-5zq6RmgEzHoWJhmC3LONr7Jp4zBQYbaRNr863KpqBH4=";
 
   # workspace 에는 Windows 전용 guest 가 같이 있다. 호스트 데몬만 빌드·테스트한다.
   #   guest 의 windows crate 는 cfg(windows) 의존이라 빌드되지 않지만, vendoring 은 Cargo.lock 전체를
