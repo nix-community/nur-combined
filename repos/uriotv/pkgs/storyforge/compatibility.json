@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "inputSha256": {
     "bun.lock": "5243d512ced54d22915904c56b6374fc81e1fa72fde20c8a50a466e220825a17",
-    "package.json": "f866fea68158847dda2a2fa950ba009664e3afeb87b66237f4a4944d97bc4b19"
+    "package.json": "797001cd45011a008456f1267c581c506a4a82d3347ea6db3a8242a8a4a20691"
   },
   "lockfileVersion": {
     "from": 2,
