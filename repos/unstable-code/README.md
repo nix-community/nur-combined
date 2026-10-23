@@ -10,6 +10,7 @@
 |---------|-------------|
 | `gitlab-runner-bin` | GitLab Runner (upstream prebuilt static binary, tracks latest release) |
 | `glab-bin` | GitLab CLI (upstream prebuilt static binary, tracks latest release) |
+| `smtc-mpris-bridge-host` | Linux host side of smtc-mpris-bridge: Windows guest SMTC sessions as MPRIS players (git master) |
 | `upnote` | Cross-platform note-taking application (unfree, prebuilt .deb) |
 | `wshowlyrics` | Wayland Lyrics Overlay inspired by LyricsX (stable) |
 | `wshowlyrics-unstable` | Wayland Lyrics Overlay inspired by LyricsX (nightly) |

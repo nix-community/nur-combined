@@ -19,6 +19,7 @@
   # ...
   gitlab-runner-bin = pkgs.callPackage ./pkgs/gitlab-runner-bin { };
   glab-bin = pkgs.callPackage ./pkgs/glab-bin { };
+  smtc-mpris-bridge-host = pkgs.callPackage ./pkgs/smtc-mpris-bridge-host { };
   upnote = pkgs.callPackage ./pkgs/upnote { };
   wshowlyrics = pkgs.callPackage ./pkgs/wshowlyrics { };
   wshowlyrics-unstable = pkgs.callPackage ./pkgs/wshowlyrics/unstable.nix { };
