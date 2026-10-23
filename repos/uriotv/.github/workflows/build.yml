@@ -83,6 +83,7 @@ jobs:
           python3 -B tests/registry-eval.py
           nix eval --json --no-write-lock-file .#ci.x86_64-linux.policyTests
           nix eval --json --no-write-lock-file .#ci.x86_64-linux.kernelTests
+          nix eval --json --no-write-lock-file .#ci.x86_64-linux.overlayPinTests
           nix eval --json --no-write-lock-file .#ci.x86_64-linux.manifest > "$CI_MANIFEST_PATH"
       - name: Verify StoryForge dependency regeneration
         if: github.event_name == 'workflow_dispatch' && inputs.verify_storyforge_updater

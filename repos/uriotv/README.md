@@ -57,9 +57,16 @@ apply the overlay:
 }
 ```
 
-The overlay builds packages against your system's nixpkgs. Direct flake outputs
-(`urio-nur.packages.<system>.<name>`) use this repository's `flake.lock`. A different
-nixpkgs revision changes store paths, which can cause cache misses.
+The overlay builds ordinary packages against your system's nixpkgs. The two CachyOS
+kernels are the exception: the flake overlay takes them from this repository's
+`flake.lock`, so you get exactly the derivations CI publishes, whatever your nixpkgs
+is. Only their out-of-tree modules (`linuxPackagesFor`) use your nixpkgs. Direct
+flake outputs (`urio-nur.packages.<system>.<name>`) also use this repository's lock.
+
+Do not set `inputs.nixpkgs.follows` on the `urio-nur` input. It replaces this
+repository's nixpkgs with yours, which changes the kernel derivation and makes Nix
+compile the kernel locally. The NUR `default.nix` overlay has no lock of its own and
+always follows the consumer's nixpkgs.
 
 ### Enabling the cache
 
@@ -182,6 +189,9 @@ Use it as your flake input to get exactly that state and nothing unverified:
 # flake.nix
 inputs.urio-nur.url = "github:urioTV/urio-nur/cache";
 ```
+
+Use the flake overlay and no `inputs.nixpkgs.follows` on this input (see above);
+otherwise the kernel derivation is not the published one.
 
 The public cache `uriotv` serves every eligible package and both kernels at that
 commit. Packages that are not redistributable are never published, so they build

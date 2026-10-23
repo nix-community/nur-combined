@@ -47,9 +47,35 @@
           (import ./ci.nix { pkgs = pkgsFor system; })
           // {
             policyTests = import ./tests/package-policy.nix { lib = inputs.nixpkgs.lib; };
+            overlayPinTests = import ./tests/overlay-pin.nix {
+              pkgs = pkgsFor system;
+              overlay = inputs.self.overlays.default;
+              pinned = inputs.self.legacyPackages.${system};
+            };
           }
         );
-        overlays = import ./overlays;
+        # Flake overlay: everything as in ./overlays, but the CachyOS kernels come from
+        # this flake's own nixpkgs (flake.lock), i.e. the exact derivations CI builds
+        # and publishes. The consumer's nixpkgs therefore cannot change the kernel
+        # hash; only linuxPackagesFor (out-of-tree modules) uses the consumer's pkgs.
+        # Attribute names are static and the platform is read lazily, so NixOS
+        # evaluation of boot.kernelPackages does not recurse through final.stdenv.
+        overlays = import ./overlays // {
+          default =
+            final: prev:
+            let
+              pinned = inputs.self.legacyPackages.${final.stdenv.hostPlatform.system};
+              kernels = {
+                inherit (pinned) linux-cachyos-latest-x86_64-v3 linux-cachyos-bore-x86_64-v3;
+              };
+            in
+            (import ./overlays).default final prev
+            // kernels
+            // import ./lib/cachyos/package-sets.nix {
+              pkgs = final;
+              inherit kernels;
+            };
+        };
         nixosModules.default = { ... }: { };
       };
     };
