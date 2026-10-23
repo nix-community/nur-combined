@@ -1,0 +1,15 @@
+{
+  "name": "Zeiger",
+  "source": {
+    "type": "api",
+    "url": "https://blickeditor.com/api/zeiger/latest-version",
+    "version_path": ".version"
+  },
+  "version": "0.2.0",
+  "platforms": {
+    "aarch64-darwin": {
+      "url": "https://zeigerviewer.com/dl/Zeiger_{version}_macos_arm64_portable.zip",
+      "hash": "sha256-Pp/uR219U7Yjm96owqq4cjRQrUjxVFhdZK6afVGiNFE="
+    }
+  }
+}

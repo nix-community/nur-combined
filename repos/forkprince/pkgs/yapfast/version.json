@@ -1,0 +1,16 @@
+{
+  "name": "Yapfast",
+  "source": {
+    "type": "github-release",
+    "repo": "yapfast/yapfast",
+    "skip_prerelease": false,
+    "tag_prefix": "v"
+  },
+  "version": "0.2.0-nightly.20261022.3",
+  "platforms": {
+    "x86_64-linux": {
+      "file": "Yapfast-{version}-x86_64.AppImage",
+      "hash": "sha256-w8P8LVZ6JoPXtaD1aHl0uFN1asYjDWP/eEVGltsrQ7U="
+    }
+  }
+}

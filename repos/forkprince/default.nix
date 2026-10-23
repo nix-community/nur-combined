@@ -14,6 +14,7 @@
     hyprpanel = lib.callPackage ./pkgs/hyprpanel {};
     rhythia = lib.callPackage ./pkgs/rhythia {};
     syslock = lib.callPackage ./pkgs/syslock {};
+    yapfast = lib.callPackage ./pkgs/yapfast {};
     sysbar = lib.callPackage ./pkgs/sysbar {};
     xuan = lib.callPackage ./pkgs/xuan {};
 
@@ -90,6 +91,7 @@
     achico = lib.callPackage ./pkgs/achico {};
     macsai = lib.callPackage ./pkgs/macsai {};
     astris = lib.callPackage ./pkgs/astris {};
+    zeiger = lib.callPackage ./pkgs/zeiger {};
     orca = lib.callPackage ./pkgs/orca {};
     muxy = lib.callPackage ./pkgs/muxy {};
     blip = lib.callPackage ./pkgs/blip {};
