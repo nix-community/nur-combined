@@ -8,6 +8,7 @@
   gnugrep,
   gnused,
   makeWrapper,
+  shellcheck,
   wireplumber,
   writeShellScriptBin,
 }:
@@ -15,41 +16,27 @@
 let
   testWpctl = writeShellScriptBin "wpctl" ''
     case "$*" in
-      "get-volume @DEFAULT_AUDIO_SINK@"|"get-volume 42")
+      "get-volume @DEFAULT_AUDIO_SINK@")
         printf 'Volume: 0.50\n'
         ;;
-      "get-volume @DEFAULT_AUDIO_SOURCE@"|"get-volume 43")
+      "get-volume @DEFAULT_AUDIO_SOURCE@")
         printf 'Volume: 0.25 [MUTED]\n'
-        ;;
-      status)
-        printf '%s\n' \
-          'Audio' \
-          ' ├─ Sinks:' \
-          ' │  * 42. Speaker [vol: 0.50]' \
-          ' ├─ Sources:' \
-          ' │  * 43. Microphone [vol: 0.25]' \
-          'Video' \
-          'Settings'
         ;;
       *)
         exit 1
         ;;
     esac
   '';
-  testMenu = writeShellScriptBin "rofi" ''
-    cat > "$TEST_MENU_CAPTURE"
-    printf 'Exit\n'
-  '';
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "dmenu-wpctl";
-  version = "0.1.1";
+  version = "0.1.2";
 
   src = fetchFromGitHub {
     owner = "iamanaws";
     repo = "dmenu-wpctl";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-vPJXH2Lqnw/wJkOZCQ0u3o6O4tOjF0oEDV7TfQLzNwU=";
+    hash = "sha256-2YrbtzdpHxz1z0AslIxl4EdunyS4Gqu1n7F/Sb8m31I=";
   };
 
   postPatch = ''
@@ -60,8 +47,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   nativeCheckInputs = [
     gawk
     gnugrep
+    shellcheck
     testWpctl
-    testMenu
   ];
 
   doCheck = true;
@@ -69,12 +56,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   checkPhase = ''
     runHook preCheck
 
+    shellcheck -s bash dmenu-wpctl tests/audio.sh
+    bash tests/audio.sh
+
     status=$(MENU_PROGRAM=rofi ./dmenu-wpctl --status)
     test "$status" = "󰕾 50% 󰍭"
-
-    TEST_MENU_CAPTURE="$PWD/menu.txt" MENU_PROGRAM=rofi ./dmenu-wpctl --audio
-    menu=$(<menu.txt)
-    [[ "$menu" == *$'Output Devices:\n  [42] Speaker (50%)\n\nInput Devices:\n'* ]]
 
     runHook postCheck
   '';
