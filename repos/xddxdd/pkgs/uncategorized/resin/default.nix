@@ -43,7 +43,7 @@ buildGoModule.override { go = go_1_27; } (finalAttrs: {
   };
   __structuredAttrs = true;
   strictDeps = true;
-  vendorHash = "sha256-iLZRA3n3Rn5sGxDUNg9+C8XmGDVBLyn/ceZ84/NRyLg=";
+  vendorHash = "sha256-oaDPOve+Jt+teRUPSSUaRIGYfP7PQbJTjeNpcbOwNvY=";
 
   proxyVendor = true;
 
