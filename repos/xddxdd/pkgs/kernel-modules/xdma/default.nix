@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "xdma";
-  version = "0-unstable-2026-08-20";
+  version = "0-unstable-2026-10-22";
 
   src = fetchFromGitHub {
     owner = "Xilinx";
     repo = "dma_ip_drivers";
-    rev = "b8466090b4e812e191da9e9305ffb11cb7ace768";
-    hash = "sha256-az23GPWf3wfMhMK4dR89o1hZAHkCMCgdrmnGakxLwBo=";
+    rev = "a918c5196a09f95756af244a607d543d9dce5bfb";
+    hash = "sha256-cT9mtfXXuE6c37wpqHxfYLzwNmqhhbuThLRbSR/l3PY=";
   };
   __structuredAttrs = true;
   strictDeps = true;

@@ -8,16 +8,16 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "vuetorrent-backend";
-  version = "2.7.3";
+  version = "2.7.4";
   src = fetchFromGitHub {
     owner = "VueTorrent";
     repo = "vuetorrent-backend";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-/zsv18BmpjhJ1UrXCtnynzvULWI8YqzhcUWNaCo84Ls=";
+    hash = "sha256-dQOQabOHqfMF5RxY/SVp7095qE9XjTXN9J5cq9nPyHc=";
   };
   __structuredAttrs = true;
   strictDeps = true;
-  npmDepsHash = "sha256-TaXOQnyZizPA8/Rr5pBNMIQl5zIiPQJs54mFPT/18o8=";
+  npmDepsHash = "sha256-vIdjf+a/rpsSaXL9z3gKUbf5MNA4tev0bUjXIJnL08c=";
 
   dontNpmBuild = true;
 

@@ -18,12 +18,12 @@
 }:
 
 let
-  version = "0.3.50";
+  version = "0.3.51";
   src = fetchFromGitHub {
     owner = "router-for-me";
     repo = "EasyCLIProxyAPI";
     tag = "v${version}";
-    hash = "sha256-vulRHHEJJ3RcReoKSnGwGK+TnmtHvMth03M/7smJiOE=";
+    hash = "sha256-IRVvTsw7d1wOaqvHyh0Xj1Rpt/d1nal3ketOqtnNUKo=";
   };
 
   frontend = buildNpmPackage {
@@ -31,7 +31,7 @@ let
     inherit version src;
 
     nodejs = nodejs_24;
-    npmDepsHash = "sha256-0HueJJMBFuoUG5YDizvNH9BJAbksO2Fq/T8hQLfSL/w=";
+    npmDepsHash = "sha256-/f3V6c7wIGlUoHzDaKW3O6KMWZDBI1MWCW9Y7TP1TxY=";
 
     postPatch = ''
       cp ${./package-lock.json} package-lock.json

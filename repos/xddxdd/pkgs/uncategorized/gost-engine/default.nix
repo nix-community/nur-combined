@@ -8,13 +8,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "gost-engine";
-  version = "3.0.3";
+  version = "3.0.5";
   src = fetchFromGitHub {
     owner = "gost-engine";
     repo = "engine";
     tag = "v${finalAttrs.version}";
     fetchSubmodules = true;
-    hash = "sha256-52nt0TtPDpMjC0QCTrWYUhpHXZNCDrds0LrkQdDN1Mo=";
+    hash = "sha256-9RJMLWghYLJmk6TTsweKPOjEnM0GbgLZL4ErLIxO6a4=";
   };
   __structuredAttrs = true;
   strictDeps = true;

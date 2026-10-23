@@ -7,19 +7,19 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "linguaspark-server";
-  version = "0-unstable-2026-07-19";
+  version = "0-unstable-2026-10-22";
   src = fetchFromGitHub {
     owner = "LinguaSpark";
     repo = "server";
-    rev = "19276b4d131cb064c6d58bbf335111c33f9a3134";
+    rev = "5c72241382dead9b19996e806a601f7e89469314";
     fetchSubmodules = true;
-    hash = "sha256-gctAIemzCCk9zOWGlUFLGuRuzhVNttBojn/TJi8nIcQ=";
+    hash = "sha256-M06EBW0/dJQJC9IZmvg28GUDy8SJN+f5WoqlvFPTb7s=";
   };
   __structuredAttrs = true;
   strictDeps = true;
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) pname version src;
-    hash = "sha256-zmyBVEldNwNZvScs0PBRZtXXSk7vx6v/vC08bZl7bg0=";
+    hash = "sha256-8sxNQsUsss1v8H+xN9qYy1uXJcllHUQ6z1yL85+Er1c=";
   };
 
   env.RUSTFLAGS = lib.optionalString (buildArch != null) "-C target-cpu=${buildArch}";
