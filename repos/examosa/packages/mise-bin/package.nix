@@ -17,7 +17,7 @@
   hashes = {
     aarch64-darwin = "sha256-KBxs1/TccH9OCzQ+4bIeiS6OtmNaaoZ50I91gnHYXv4=";
     aarch64-linux = "sha256-v2ylyz5Ele0Qx+alXWHfsej6trQbCFG9dB4V6Bq5Ns4=";
-    x86_64-linux = "sha256-NEEt1oGEZkbEgyNWbbx5VUQjm5lx5HnFFwts9g+20OA=";
+    x86_64-linux = "sha256-o9tXCDMAsXzqMkwaZSR1ufjQJcPJAMm1WpKWA5oVUAk=";
   };
 
   fetchAsset = args:
