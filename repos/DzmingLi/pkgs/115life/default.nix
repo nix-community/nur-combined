@@ -113,11 +113,14 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  # The embedded WebKitGTK view needs an X11 window to join Avalonia's window.
+  # Override desktop-wide Wayland settings, which prevent the view from initializing.
   preFixup = ''
     makeWrapper ${lib.getExe dotnetRuntime} $out/bin/115life \
       --add-flags "$out/lib/115life/Life115.dll" \
       "''${gappsWrapperArgs[@]}" \
       --set DOTNET_SYSTEM_GLOBALIZATION_INVARIANT 0 \
+      --set GDK_BACKEND x11 \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath runtimeLibraries}:$out/lib/115life" \
       --prefix PATH : "${lib.makeBinPath [ xdg-utils ]}"
     # The app registers desktop entries and upload actions using this path.
