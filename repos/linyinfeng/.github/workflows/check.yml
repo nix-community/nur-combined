@@ -7,6 +7,10 @@ on:
     branches: [master]
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   nix-matrix:
     runs-on: ubuntu-latest
@@ -42,3 +46,16 @@ jobs:
           signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
       - name: Build flake check
         run: nix build --print-build-logs '.#${{ matrix.attr }}'
+
+  ci-gate:
+    name: ci-gate
+    needs: nix-build
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail unless every build in the matrix succeeded
+        run: |
+          if [ "${{ needs.nix-build.result }}" != "success" ]; then
+            echo "nix-build result: ${{ needs.nix-build.result }}"
+            exit 1
+          fi

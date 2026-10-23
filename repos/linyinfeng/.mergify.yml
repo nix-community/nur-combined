@@ -4,11 +4,16 @@ queue_rules:
     # Mergify's check box (or `@mergifyio queue`), and the automated update PR
     # is queued by the pull request rule below.
     merge_conditions:
-      # Only merge once CI has finished on the queued (possibly updated) branch:
-      # at least one success, nothing pending, nothing failed.
+      # `#check-pending=0` is deliberately not used: Mergify's own merge queue
+      # check run stays in progress for as long as the pull request is queued, so
+      # that condition never becomes true and the pull request is dequeued.
+      # The `ci-gate` and `tests-gate` jobs run after every job of their workflow
+      # and only succeed when all of them succeeded, so requiring them means CI
+      # finished, nothing is still pending and nothing failed.
       - "#check-success>=1"
-      - "#check-pending=0"
       - "#check-failure=0"
+      - "check-success=ci-gate"
+      - "check-success=tests-gate"
     merge_method: merge
     update_method: merge
 

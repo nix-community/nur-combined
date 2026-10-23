@@ -11,6 +11,11 @@ on:
     # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
     - cron:  '51 2 * * *'
   workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   tests:
     strategy:
@@ -97,3 +102,16 @@ jobs:
       # Don't replace <YOUR_REPO_NAME> here!
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
       run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
+
+  tests-gate:
+    name: tests-gate
+    needs: tests
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail unless every test build succeeded
+        run: |
+          if [ "${{ needs.tests.result }}" != "success" ]; then
+            echo "tests result: ${{ needs.tests.result }}"
+            exit 1
+          fi
