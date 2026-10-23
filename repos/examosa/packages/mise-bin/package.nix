@@ -76,6 +76,7 @@ in
 
     dontConfigure = true;
     dontBuild = true;
+    dontStrip = hostPlatform.isLinux;
 
     postPatch = lib.optionalString hostPlatform.isLinux ''
       autoPatchelf bin/mise
