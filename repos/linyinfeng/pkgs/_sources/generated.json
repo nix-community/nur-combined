@@ -247,11 +247,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-MrOY+cYnjE7TT0Ewd63SwvPIQDTUY68rnLmPEsTCxs0=",
+            "sha256": "sha256-rkgNWSlLajGBc+NYGljRo4XPOtRGemWQsFs3R+opKjo=",
             "type": "url",
-            "url": "https://github.com/lxgw/LxgwNeoZhiSong/releases/download/v1.067/LXGWNeoZhiSong.ttf"
+            "url": "https://github.com/lxgw/LxgwNeoZhiSong/releases/download/v1.068/LXGWNeoZhiSong.ttf"
         },
-        "version": "v1.067"
+        "version": "v1.068"
     },
     "lxgw-neozhisong-plus": {
         "cargoLock": null,
@@ -262,11 +262,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Y5WVxlABhy0NoW2srrfeO6OWxkw3twoW/rFTYJG7bB8=",
+            "sha256": "sha256-CKd65yM9hLEym3rEMJerfDzOS/yOabrXheq0Lvg0kRk=",
             "type": "url",
-            "url": "https://github.com/lxgw/LxgwNeoZhiSong/releases/download/v1.067/LXGWNeoZhiSongPlus.ttf"
+            "url": "https://github.com/lxgw/LxgwNeoZhiSong/releases/download/v1.068/LXGWNeoZhiSongPlus.ttf"
         },
-        "version": "v1.067"
+        "version": "v1.068"
     },
     "ly2video": {
         "cargoLock": null,

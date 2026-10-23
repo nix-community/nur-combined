@@ -153,18 +153,18 @@
   };
   lxgw-neozhisong = {
     pname = "lxgw-neozhisong";
-    version = "v1.067";
+    version = "v1.068";
     src = fetchurl {
-      url = "https://github.com/lxgw/LxgwNeoZhiSong/releases/download/v1.067/LXGWNeoZhiSong.ttf";
-      sha256 = "sha256-MrOY+cYnjE7TT0Ewd63SwvPIQDTUY68rnLmPEsTCxs0=";
+      url = "https://github.com/lxgw/LxgwNeoZhiSong/releases/download/v1.068/LXGWNeoZhiSong.ttf";
+      sha256 = "sha256-rkgNWSlLajGBc+NYGljRo4XPOtRGemWQsFs3R+opKjo=";
     };
   };
   lxgw-neozhisong-plus = {
     pname = "lxgw-neozhisong-plus";
-    version = "v1.067";
+    version = "v1.068";
     src = fetchurl {
-      url = "https://github.com/lxgw/LxgwNeoZhiSong/releases/download/v1.067/LXGWNeoZhiSongPlus.ttf";
-      sha256 = "sha256-Y5WVxlABhy0NoW2srrfeO6OWxkw3twoW/rFTYJG7bB8=";
+      url = "https://github.com/lxgw/LxgwNeoZhiSong/releases/download/v1.068/LXGWNeoZhiSongPlus.ttf";
+      sha256 = "sha256-CKd65yM9hLEym3rEMJerfDzOS/yOabrXheq0Lvg0kRk=";
     };
   };
   ly2video = {
