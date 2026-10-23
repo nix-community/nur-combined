@@ -1,3 +1,14 @@
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)"
+      srcset="https://raw.githubusercontent.com/x71c9/tempesta/HEAD/.github/logo-dark.svg">
+    <source media="(prefers-color-scheme: light)"
+      srcset="https://raw.githubusercontent.com/x71c9/tempesta/HEAD/.github/logo-light.svg">
+    <img alt="Tempesta logo" width="160"
+      src="https://raw.githubusercontent.com/x71c9/tempesta/HEAD/.github/logo-light.svg">
+  </picture>
+</div>
+
 # Tempesta
 
 The fastest and lightest bookmark manager CLI written in Rust.\
