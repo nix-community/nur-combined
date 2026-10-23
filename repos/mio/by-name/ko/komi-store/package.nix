@@ -3,7 +3,7 @@
   writeShellApplication,
   stdenv,
   fetchFromGitHub,
-  gradle_8,
+  gradle_9,
   jdk21,
   alsa-lib,
   autoPatchelfHook,
@@ -28,13 +28,14 @@
   makeDesktopItem,
   makeWrapper,
   nix-update-script,
+  python3,
   wrapGAppsHook3,
   zlib,
 }:
 
 let
   jdk = jdk21;
-  gradle = gradle_8.override { java = jdk; };
+  gradle = gradle_9.override { java = jdk; };
 
   # Compose native launcher + Skiko/JNA on Linux.
   runtimeLibs = lib.optionals stdenv.hostPlatform.isLinux [
@@ -77,15 +78,19 @@ stdenv.mkDerivation (finalAttrs: {
     ./compose-repo.patch
     # Isolated build-logic included build has no pluginManagement.
     ./build-logic-pluginmanagement.patch
-    ./disable-android-convention.patch
-    ./disable-android-composeapp.patch
   ];
+
+  postPatch = ''
+    # Strip Android targets/plugins (no Android SDK in nixpkgs); needs python3.
+    bash packaging/flatpak/disable-android-for-flatpak.sh
+  '';
 
   nativeBuildInputs = [
     copyDesktopItems
     gradle
     jdk
     makeWrapper
+    python3
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [
     autoPatchelfHook

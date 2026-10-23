@@ -19,7 +19,7 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "futo-notes";
-  version = "1.9.0";
+  version = "1.9.2-1";
 
   strictDeps = true;
 
@@ -27,18 +27,18 @@ rustPlatform.buildRustPackage (finalAttrs: {
     domain = "gitlab.futo.org";
     owner = "futo-notes";
     repo = "futo-notes";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-pMTtOihbZKh2589fG4ybT5jUoz2NhUSAgMeP0J4vTpo=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-/CbdWXyQBJH0K1BT3m9682eOMq3AYcSZCfVIXWAgtzc=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     pnpm = pnpm_10;
     fetcherVersion = 4;
-    hash = "sha256-ZU6NR0kmp4Vjid4S+MCzUuHR6qxbYOHXlFOS71itkpU=";
+    hash = "sha256-8iTy9/nhurKXXsz9y6QiL9yQINniJaBhzfaJBisfKl0=";
   };
 
-  cargoHash = "sha256-bXLbmwRxS8DU2AfBASrgFpUxs7cTJQ6tkCcfvaHpXlw=";
+  cargoHash = "sha256-LO690k1AESP7DfGyxWebop9WTSmqhQvvCmyyquqIc3s=";
 
   # The Cargo workspace root is in the repo root; we build the tauri app.
   buildAndTestSubdir = "apps/tauri/src-tauri";
@@ -131,6 +131,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   meta = {
     description = "Voice-first, private note taking application";
     homepage = "https://gitlab.futo.org/futo-notes/futo-notes";
+    changelog = "https://gitlab.futo.org/futo-notes/futo-notes/-/releases/v${finalAttrs.version}";
     license = lib.licenses.unfree;
     mainProgram = "futo-notes";
     platforms = lib.platforms.linux ++ lib.platforms.darwin;

@@ -20,13 +20,13 @@
 #    preventing any network access during compilation.
 stdenv.mkDerivation (finalAttrs: {
   pname = "clice";
-  version = "0.1.2026101907";
+  version = "0.1.2026102207";
 
   src = fetchFromGitHub {
     owner = "clice-io";
     repo = "clice";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-d4CTdmqT4bqL6Od9VOVTCQ13nWXrbjYQ/2cnKZAJOY4=";
+    hash = "sha256-CARmnqbb8CZEbrdn3b4W+qvCrcHilNthWTYd4/Lysyw=";
   };
 
   deps = stdenv.mkDerivation {
@@ -74,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
     installPhase = "true";
 
     outputHashMode = "recursive";
-    outputHash = "sha256-mvPKJ2xe9wb5SrNGxPuL7Qh2sPTXJanjouPhKA4e+pc=";
+    outputHash = "sha256-e3vcQqhvXmo0+FyDdI2eHOpaQXQya6RCGmtnqbTJQB4=";
   };
 
   nativeBuildInputs = [
@@ -155,6 +155,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Next-generation C++ language server built on LLVM/Clang";
     homepage = "https://github.com/clice-io/clice";
+    changelog = "https://github.com/clice-io/clice/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
     maintainers = [ ];
     mainProgram = "clice";

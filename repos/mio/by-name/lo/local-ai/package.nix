@@ -10,6 +10,8 @@
   protoc-gen-go-grpc,
   grpc,
   openssl,
+  libjpeg,
+  zlib,
   llama-cpp,
   # needed for audio-to-text
   ffmpeg,
@@ -114,10 +116,12 @@ let
           owner = "ggerganov";
           repo = "llama.cpp";
           # Pin from LocalAI backend/cpp/llama-cpp/Makefile (LLAMA_VERSION).
-          rev = "a868c3e3c56657f7e8a6231190dbbe90e7dd86c0";
-          hash = "sha256-eceL+KQdz/DWvNn3CR51+Zh/wgv9kp/klaGCBU4Q7VA=";
+          rev = "c0fd78626405c6d9b934efef0ec7291fcc20e3d6";
+          hash = "sha256-d4Us4QU73P0P9IqFMcPcYcb8BeIjznK8FxDvXoJvJL4=";
           fetchSubmodules = true;
         };
+        # Nixpkgs' llama-cpp patches target a different revision than this pin.
+        patches = [ ];
         npmDeps = null;
         npmConfigHook = null;
         preConfigure = "";
@@ -139,23 +143,8 @@ let
           done
           cp --no-preserve=mode \
             "$llamaCppBackend"/CMakeLists.txt \
-            "$llamaCppBackend"/grpc-server.cpp \
-            "$llamaCppBackend"/model_load_error.h \
-            "$llamaCppBackend"/model_load_error_test.cpp \
-            "$llamaCppBackend"/message_content.h \
-            "$llamaCppBackend"/message_content_test.cpp \
-            "$llamaCppBackend"/parallel_params.h \
-            "$llamaCppBackend"/parallel_params_test.cpp \
-            "$llamaCppBackend"/passthrough_options.h \
-            "$llamaCppBackend"/passthrough_options_test.cpp \
-            "$llamaCppBackend"/parent_watch.h \
-            "$llamaCppBackend"/parent_watch_test.cpp \
-            "$llamaCppBackend"/stream_peer.h \
-            "$llamaCppBackend"/stream_peer_test.cpp \
-            "$llamaCppBackend"/thread_params.h \
-            "$llamaCppBackend"/thread_params_test.cpp \
-            "$llamaCppBackend"/tts_request_options.h \
-            "$llamaCppBackend"/tts_request_options_test.cpp \
+            "$llamaCppBackend"/*.h \
+            "$llamaCppBackend"/*.cpp \
             tools/grpc-server/
           cp --no-preserve=mode vendor/nlohmann/json.hpp tools/grpc-server/
           cp --no-preserve=mode vendor/cpp-httplib/httplib.h tools/grpc-server/
@@ -181,13 +170,31 @@ let
           else
             hasNCpuFfnHelper=0
           fi
+          if grep -q "moe_cache_size" common/common.h; then
+            hasMoeCache=1
+          else
+            hasMoeCache=0
+          fi
+          if grep -q "llama_lazy_mode lazy_mode" common/common.h; then
+            hasLazyMode=1
+          else
+            hasLazyMode=0
+          fi
+          if grep -q "common_chat_session & out_session" tools/server/server-common.h; then
+            hasChatSession=1
+          else
+            hasChatSession=0
+          fi
           printf '%s\n' \
             '// Generated for LocalAI nix packaging. Do not edit.' \
             '#pragma once' \
             "#define LOCALAI_LEGACY_LOAD_MODE $legacyLoadMode" \
+            "#define LOCALAI_HAS_CHAT_SESSION $hasChatSession" \
             "#define LOCALAI_HAS_SERVER_METRICS $hasServerMetrics" \
             "#define LOCALAI_HAS_MTMD_INIT_OPT $hasMtmdInitOpt" \
             "#define LOCALAI_HAS_N_CPU_FFN_HELPER $hasNCpuFfnHelper" \
+            "#define LOCALAI_HAS_MOE_CACHE $hasMoeCache" \
+            "#define LOCALAI_HAS_LAZY_MODE $hasLazyMode" \
             > tools/grpc-server/llama_compat.h
 
           sed -i tools/grpc-server/CMakeLists.txt \
@@ -201,21 +208,27 @@ let
             echo "add_subdirectory(grpc-server)" >> tools/CMakeLists.txt
           fi
         '';
-        cmakeFlags = prev.cmakeFlags ++ [
+        # GGML_BACKEND_DIR requires GGML_BACKEND_DL, which this static build disables.
+        cmakeFlags = (lib.filter (f: !(lib.hasInfix "GGML_BACKEND_DIR" f)) prev.cmakeFlags) ++ [
           (lib.cmakeBool "BUILD_SHARED_LIBS" false)
           (lib.cmakeBool "GGML_BACKEND_DL" false)
           (lib.cmakeBool "GGML_CPU_ALL_VARIANTS" false)
+          (lib.cmakeBool "LLAMA_BUILD_TESTS" false)
           (lib.cmakeBool "GGML_AVX" enable_avx)
           (lib.cmakeBool "GGML_AVX2" enable_avx2)
           (lib.cmakeBool "GGML_AVX512" enable_avx512)
           (lib.cmakeBool "GGML_FMA" enable_fma)
           (lib.cmakeBool "GGML_F16C" enable_f16c)
         ];
+        # The llama.cpp test suite needs network access (test-download-model).
+        doCheck = false;
         buildInputs = prev.buildInputs ++ [
           protobuf # provides also abseil_cpp as propagated build input
           grpc
           openssl
           curl
+          libjpeg
+          zlib
         ];
         nativeBuildInputs =
           lib.filter (
@@ -444,7 +457,7 @@ let
       owner = "leejet";
       repo = "stable-diffusion.cpp";
       rev = "ea7f0c87cfe4c673263b4c201c596c7f1cbe2528";
-      hash = "sha256-6SbkmYj7h+uCz4oUChr6nh/N3Xvu6E/Yyf2sb6NZn5c=";
+      hash = "sha256-wFH3EZT+kntNFcr/JntfBsYKCeL0Iz1pAoFJ5ZX9/08=";
       fetchSubmodules = true;
     };
     installPhase = ''
@@ -472,12 +485,12 @@ let
       stdenv;
 
   pname = "local-ai";
-  version = "4.11.0";
+  version = "4.12.0";
   src = fetchFromGitHub {
     owner = "mudler";
     repo = "LocalAI";
     tag = "v${version}";
-    hash = "sha256-Udqs56KpL2P0gMz1ecTLuODrvCLVuB8F00SNfnVYIqg=";
+    hash = "sha256-KoFgZbDwoLbTYkwGrQexOzAQgSCx/3gZKrzVfhsfohk=";
   };
 
   prepare-sources =
@@ -503,7 +516,7 @@ let
 
     npmDeps = fetchNpmDeps {
       src = "${src}/core/http/react-ui";
-      hash = "sha256-pTFu5KVUu1tbbxxmT0xrCSffdLUpO8XRlz09Vqlxv5w=";
+      hash = "sha256-ik3pgYwQvpbgv8AOAHYwOuvqonJ8h4ntkUK/2PCDzkg=";
     };
 
     nativeBuildInputs = [
@@ -527,7 +540,7 @@ let
   self = buildGoModule.override { stdenv = effectiveStdenv; } {
     inherit pname version src;
 
-    vendorHash = "sha256-i85TDkXV/xONew/oRMEE8/sAXgWs0l7whlUvmKCpEXw=";
+    vendorHash = "sha256-z0vMfvou6Qok9azZQ/rPY5tAdD1oyqVJj6QaFh9X6vY=";
 
     env.NIX_CFLAGS_COMPILE = " -isystem ${opencv}/include/opencv4";
 
@@ -621,6 +634,11 @@ let
         --go-grpc_out=pkg/grpc/proto/ \
         --go-grpc_opt=paths=source_relative \
         backend/backend.proto
+      protoc \
+        -Ipkg/motion/proto \
+        --go_out=pkg/motion/proto \
+        --go_opt=paths=source_relative \
+        pkg/motion/proto/motion.proto
       go mod tidy -v
     '';
 
@@ -655,6 +673,11 @@ let
         --go-grpc_out=pkg/grpc/proto/ \
         --go-grpc_opt=paths=source_relative \
         backend/backend.proto
+      protoc \
+        -Ipkg/motion/proto \
+        --go_out=pkg/motion/proto \
+        --go_opt=paths=source_relative \
+        pkg/motion/proto/motion.proto
 
       CGO_LDFLAGS="$CGO_LDFLAGS" \
         go build -ldflags "$LD_FLAGS" -tags "$GO_TAGS" -o ${pname} ./cmd/local-ai
@@ -732,6 +755,7 @@ let
       description = "OpenAI alternative to run local LLMs, image and audio generation";
       mainProgram = "local-ai";
       homepage = "https://localai.io";
+      changelog = "https://github.com/mudler/LocalAI/releases/tag/v${version}";
       license = lib.licenses.mit;
       maintainers = with lib.maintainers; [
         onny

@@ -13,14 +13,14 @@ telegram-desktop.override {
   unwrapped = telegram-desktop.unwrapped.overrideAttrs (
     finalAttrs: previousAttrs: {
       pname = "forkgram-desktop-unwrapped";
-      version = "7.3.1";
+      version = "7.3.3";
 
       src = fetchFromGitHub {
         owner = "forkgram";
         repo = "tdesktop";
-        rev = "v${finalAttrs.version}";
+        tag = "v${finalAttrs.version}";
         fetchSubmodules = true;
-        hash = "sha256-b16XVqZZwS9MY40c7mQBTj13gl6AxFD0GygiMPzQQFE=";
+        hash = "sha256-TesT9OHMhWRHSVhAsso0ajOVmCVhBDqUJGW9XvOuNHY=";
       };
 
       buildInputs = previousAttrs.buildInputs ++ [
@@ -40,6 +40,7 @@ telegram-desktop.override {
       meta = previousAttrs.meta // {
         description = "Forkgram desktop messaging app";
         homepage = "https://github.com/forkgram/tdesktop";
+        changelog = "https://github.com/forkgram/tdesktop/releases/tag/v${finalAttrs.version}";
         mainProgram = "Forkgram";
       };
     }
