@@ -9,34 +9,34 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    i686-linux = "1n1cis1k75h3whz6rndwq9pz03gdyx59cz0zagcsm3kaj3smk2s7";
-    x86_64-linux = "0a6wk8wsh82dx9gnzxmv1dimjkppb9k1dh3aw7c3249hg1cgml7z";
-    armv7l-linux = "0bwkrjaimsnk8diigbzymq7bc4sqinvqwd79a17cxmf27lg2v7fm";
-    aarch64-linux = "0cnmhnm2355ppc43ng0722156bp440wj91zpmapsrmcz9315r23j";
-    x86_64-darwin = "1ficjigrdlgj37grgisb07qpym2n9ffzd8bynksq7rna5m95gn6b";
-    aarch64-darwin = "0x1lppwapf9cg6kbqm34hw68ppd5f6y2bsik05gjhlw443zsdacq";
+    i686-linux = "08crzn5fbm2vi4rx2i01bh513mafk6lrgcr112cg15sc1gc6jwkk";
+    x86_64-linux = "0sv3mw8ji62r98dbqfr1xn25y4j0a3nyivx711kr8d2wv6dy9wmw";
+    armv7l-linux = "1l58vk8dgmk72v6vngg56cmx0706v2ixrlgskhjw1nybxx1g0bjv";
+    aarch64-linux = "1ssk24knbbff9n1hzbm65pwjcq1gy8fckwlvbk8cmavp4p8gnw4z";
+    x86_64-darwin = "1r269a7gcp2x1d1cji2gvydnybdailiy9i4j6d96zzf167g78jhb";
+    aarch64-darwin = "1czpbarxxfdgc49kx5yprbkcj761i0d3lw8jwzz0ng7miny5jfjn";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/charmbracelet/soft-serve/releases/download/v0.12.3/soft-serve_0.12.3_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/charmbracelet/soft-serve/releases/download/v0.12.3/soft-serve_0.12.3_Linux_x86_64.tar.gz";
-    armv7l-linux = "https://github.com/charmbracelet/soft-serve/releases/download/v0.12.3/soft-serve_0.12.3_Linux_arm.tar.gz";
-    aarch64-linux = "https://github.com/charmbracelet/soft-serve/releases/download/v0.12.3/soft-serve_0.12.3_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/charmbracelet/soft-serve/releases/download/v0.12.3/soft-serve_0.12.3_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/charmbracelet/soft-serve/releases/download/v0.12.3/soft-serve_0.12.3_Darwin_arm64.tar.gz";
+    i686-linux = "https://github.com/charmbracelet/soft-serve/releases/download/v0.12.4/soft-serve_0.12.4_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/charmbracelet/soft-serve/releases/download/v0.12.4/soft-serve_0.12.4_Linux_x86_64.tar.gz";
+    armv7l-linux = "https://github.com/charmbracelet/soft-serve/releases/download/v0.12.4/soft-serve_0.12.4_Linux_arm.tar.gz";
+    aarch64-linux = "https://github.com/charmbracelet/soft-serve/releases/download/v0.12.4/soft-serve_0.12.4_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/charmbracelet/soft-serve/releases/download/v0.12.4/soft-serve_0.12.4_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/charmbracelet/soft-serve/releases/download/v0.12.4/soft-serve_0.12.4_Darwin_arm64.tar.gz";
   };
   sourceRootMap = {
-    i686-linux = "soft-serve_0.12.3_Linux_i386";
-    x86_64-linux = "soft-serve_0.12.3_Linux_x86_64";
-    armv7l-linux = "soft-serve_0.12.3_Linux_arm";
-    aarch64-linux = "soft-serve_0.12.3_Linux_arm64";
-    x86_64-darwin = "soft-serve_0.12.3_Darwin_x86_64";
-    aarch64-darwin = "soft-serve_0.12.3_Darwin_arm64";
+    i686-linux = "soft-serve_0.12.4_Linux_i386";
+    x86_64-linux = "soft-serve_0.12.4_Linux_x86_64";
+    armv7l-linux = "soft-serve_0.12.4_Linux_arm";
+    aarch64-linux = "soft-serve_0.12.4_Linux_arm64";
+    x86_64-darwin = "soft-serve_0.12.4_Darwin_x86_64";
+    aarch64-darwin = "soft-serve_0.12.4_Darwin_arm64";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "soft-serve";
-  version = "0.12.3";
+  version = "0.12.4";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
