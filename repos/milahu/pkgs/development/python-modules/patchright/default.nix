@@ -18,7 +18,7 @@ let
   # driver = playwright-driver;
   driver = patchright-driver;
 
-  hashByVersion = {
+  patchrightPythonSrcHashByVersion = {
     "1.61.0" = "sha256-2CiN1yxX0Bn+codnzb5DOVR4Dq4ZCICiUItXJjSP4n0=";
     "1.62.0" = "sha256-zgRk0bnzQy/xFJqoU98xmQEmBS2fq3QUOIaw14WXpFc=";
     # TODO add more hashes
@@ -52,10 +52,10 @@ playwright.overridePythonAttrs (oldAttrs: rec {
     repo = "patchright-python";
     # tag = "v${finalAttrs.version}";
     tag = "v${version}";
-    hash = hashByVersion.${version} or (
+    hash = patchrightPythonSrcHashByVersion.${version} or (
       builtins.trace ''
-        patchright: TODO add hash to hashByVersion:
-          hashByVersion = {
+        patchright-python: TODO add hash to patchrightPythonSrcHashByVersion:
+          patchrightPythonSrcHashByVersion = {
             "${version}" = "TODO_hash";
           };
       ''

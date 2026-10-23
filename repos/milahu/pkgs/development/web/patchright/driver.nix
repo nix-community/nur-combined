@@ -9,6 +9,7 @@
 
 {
   lib,
+  playwright,
   buildNpmPackage,
   fetchNpmDeps,
   stdenv,
@@ -28,10 +29,17 @@ let
   inherit (stdenv.hostPlatform) system;
 
   throwSystem = throw "Unsupported system: ${system}";
-  browsersJSON = (lib.importJSON ./browsers.json).browsers;
 
-  # playwright and patchright use the same versions
-  version = "1.64.1";
+  # version = "1.64.1";
+
+  inherit (playwright)
+    # playwright and patchright use the same versions
+    version
+    # these do not depend on playwright (or patchright)
+    components
+    browsers
+    browsersJSON
+  ;
 
   /*
   src = fetchFromGitHub {
@@ -51,33 +59,46 @@ let
   };
   */
 
-  playwrightSrc = fetchFromGitHub {
-    owner = "Microsoft";
-    repo = "playwright";
-    rev = "v${version}";
-    hash = "sha256-oWpJTU3Sob674bLfz0gfHK+vqOoYhK1wmYmVKhsPitM=";
+  playwrightSrc = playwright.src;
+
+  patchrightSrcHashByVersion = {
+    "1.61.0" = "sha256-N07CyFk1NAPQaokPWmEtRrR0Nfnfof/gzwfANusbt88=";
+    "1.61.1" = "sha256-XFzPljrzSd46ixd5GJ+MU+a8ZHqTFpK1gvisIH241Ek=";
+    "1.64.1" = "sha256-GK0+3eiA7LYkCQgc8iMH/BOOSRQIFUYIGWwHiGqpvNY=";
+    # TODO add more versions
   };
 
-  # patchright-src = fetchFromGitHub {
-  src = fetchFromGitHub {
+  patchrightNpmDepsHashByVersion = {
+    "1.61.0" = "sha256-qiNMrvhdKlTEcW9vclaVzXOWCEhhLMSeQe8p4ewNITc=";
+    "1.61.1" = "sha256-qiNMrvhdKlTEcW9vclaVzXOWCEhhLMSeQe8p4ewNITc=";
+    "1.64.1" = "sha256-qiNMrvhdKlTEcW9vclaVzXOWCEhhLMSeQe8p4ewNITc=";
+    # TODO add more versions
+  };
+
+  # FIXME error: attribute 'npmDepsHash' missing
+  # playwright-core should passthru playwright.npmDepsHash
+  playwrightNpmDepsHashByVersion = {
+    "1.61.1" = "sha256-DTRhYHRaPlthyRcD2azEIKMPaRwROLuLOdUC27Rk5zM=";
+    "1.64.1" = "sha256-a1MGKwKKHYEECsUa4kUlutMMJ8QSeTptBmUPSheIcUg=";
+    # TODO add more versions
+  };
+
+  patchrightSrc = fetchFromGitHub {
     owner = "Kaliiiiiiiiii-Vinyzu";
     repo = "patchright";
     # tag = "v${finalAttrs.version}";
     tag = "v${version}";
-    hash = "sha256-GK0+3eiA7LYkCQgc8iMH/BOOSRQIFUYIGWwHiGqpvNY=";
+    hash = patchrightSrcHashByVersion.${version} or (
+      builtins.trace ''
+        patchright: TODO add hash to patchrightSrcHashByVersion:
+          patchrightSrcHashByVersion = {
+            "${version}" = "TODO_hash";
+          };
+      ''
+      "" # empty hash
+    );
     fetchSubmodules = true; # patchright-nodejs
   };
-
-  /*
-  patchright-nodejs-src = fetchFromGitHub {
-    owner = "Kaliiiiiiiiii-Vinyzu";
-    repo = "patchright-nodejs";
-    # tag = "v${finalAttrs.version}";
-    # tag = "v${version}";
-    rev = "5d40f66fb35d61d9611d459266a87a3ad7637009";
-    hash = "";
-  };
-  */
 
   /*
   patchrightPostUnpack = ''
@@ -105,26 +126,29 @@ let
   '';
   */
 
+  /*
   # - name: Patch Playwright Driver
+  # npm run patch
   # https://github.com/Kaliiiiiiiiii-Vinyzu/patchright/blob/main/package.json
   # {
   #     "scripts": {
   #         "patch": "cd playwright && tsx ../patchright_driver_patch.ts",
   # patchrightPostPatch = ''
   patchrightPreBuild = ''
-    pushd playwright >/dev/null
+    # pushd playwright
     # echo "patchrightPostPatch: running patchright_driver_patch.ts"
     echo "patchrightPreBuild: running patchright_driver_patch.ts"
-    tsx ../patchright_driver_patch.ts
+    tsx patchright/patchright_driver_patch.ts
     # FIXME Error [ERR_MODULE_NOT_FOUND]: Cannot find package 'ts-morph' imported from /build/source/patchright_driver_patch.ts
-    popd >/dev/null
+    # popd
   '';
+  */
 
   patchright = buildNpmPackage rec {
     pname = "patchright";
-    inherit version src;
+    inherit version;
 
-    npmDeps = fetchNpmDeps {
+    patchrightNpmDeps = fetchNpmDeps {
       inherit
         # FIXME all `stdenv.mkDerivation` attributes should be inherited from buildNpmPackage to fetchNpmDeps
         # https://github.com/milahu/nixpkgs/issues/113
@@ -139,12 +163,23 @@ let
         nativeBuildInputs
       ;
       # name = "${name}-npm-deps";
-      name = "${pname}-${version}-npm-deps";
-      hash = npmDepsHash;
+      # name = "${pname}-${version}-npm-deps";
+      name = "${pname}-${version}-patchright-npm-deps";
+      hash = patchrightNpmDepsHash;
       # forceGitDeps = false;
       # forceEmptyCache = false;
       # nativeBuildInputs = [ ];
       # fetcherVersion = npmDepsFetcherVersion;
+
+      preBuild = ''
+        pushd $NIX_BUILD_TOP/${patchrightSourceRoot}
+
+        # debug
+        set -x
+        pwd
+        ls
+        stat package-lock.json
+      '';
     };
 
     playwrightNpmDeps = fetchNpmDeps {
@@ -162,29 +197,98 @@ let
         nativeBuildInputs
       ;
 
+      preBuild = ''
+        pushd $NIX_BUILD_TOP/${playwrightSourceRoot}
+
+        # debug
+        set -x
+        pwd
+        ls
+        stat package-lock.json
+      '';
+
+      /*
+      preBuild = ''
+        # debug
+        set -x
+        pwd
+        ls
+        stat package-lock.json || true
+      '';
+      */
+
       # no, this breaks postUnpack (and postPatch?)
       # sourceRoot = playwrightSourceRoot;
 
+      # old
+      /*
       preBuild = ''
         echo cd $NIX_BUILD_TOP/${playwrightSourceRoot}
         cd $NIX_BUILD_TOP/${playwrightSourceRoot}
       '';
+      */
 
       # name = "${name}-npm-deps";
       # name = "${pname}-${version}-npm-deps";
       name = "${pname}-${version}-playwright-npm-deps";
       hash = playwrightNpmDepsHash;
+      # hash = npmDepsHash;
       # forceGitDeps = false;
       # forceEmptyCache = false;
       # nativeBuildInputs = [ ];
       # fetcherVersion = npmDepsFetcherVersion;
     };
 
-    sourceRoot = "${src.name}"; # update.sh depends on sourceRoot presence
-    playwrightSourceRoot = "${src.name}/playwright";
+    # sourceRoot = "${src.name}"; # update.sh depends on sourceRoot presence
 
-    npmDepsHash = "sha256-qiNMrvhdKlTEcW9vclaVzXOWCEhhLMSeQe8p4ewNITc=";
-    playwrightNpmDepsHash = "sha256-a1MGKwKKHYEECsUa4kUlutMMJ8QSeTptBmUPSheIcUg=";
+    # fail?
+    # # the main source tree is playwrightSrc
+    # src = playwrightSrc;
+    # sourceRoot = playwrightSourceRoot;
+    # playwrightSourceRoot = "${src.name}";
+    # patchrightSourceRoot = "${src.name}/patchright";
+    # npmDeps = playwrightNpmDeps;
+    # npmDepsHash = playwrightNpmDepsHash;
+
+    # the main source tree is patchrightSrc
+    src = patchrightSrc;
+    sourceRoot = patchrightSourceRoot; # update.sh depends on sourceRoot presence
+    patchrightSourceRoot = "${src.name}";
+    playwrightSourceRoot = "${src.name}/playwright";
+    npmDeps = patchrightNpmDeps;
+    npmDepsHash = patchrightNpmDepsHash;
+
+    # npmDepsHash = patchrightNpmDepsHashByVersion.${version} or (
+    patchrightNpmDepsHash = patchrightNpmDepsHashByVersion.${version} or (
+      builtins.trace ''
+        patchright: TODO add hash to patchrightNpmDepsHashByVersion:
+          patchrightNpmDepsHashByVersion = {
+            "${version}" = "TODO_hash";
+          };
+      ''
+      "" # empty hash
+    );
+
+    # playwrightNpmDepsHash = "sha256-a1MGKwKKHYEECsUa4kUlutMMJ8QSeTptBmUPSheIcUg=";
+
+    # FIXME error: attribute 'npmDepsHash' missing
+    # playwright-core should passthru playwright.npmDepsHash
+    # nixpkgs: pkgs/development/web/playwright/driver.nix
+    # a: inherit (playwright) version src meta;
+    # b: inherit (playwright) version src meta npmDepsHash;
+    #
+    # playwrightNpmDepsHash = playwright.npmDepsHash;
+    #
+    # npmDepsHash = playwrightNpmDepsHashByVersion.${version} or (
+    playwrightNpmDepsHash = playwrightNpmDepsHashByVersion.${version} or (
+      builtins.trace ''
+        patchright: TODO add hash to playwrightNpmDepsHashByVersion:
+          playwrightNpmDepsHashByVersion = {
+            "${version}" = "TODO_hash";
+          };
+      ''
+      "" # empty hash
+    );
 
     nativeBuildInputs = [
       cacert
@@ -203,6 +307,8 @@ let
     #
     # postUnpack = patchrightPostUnpack;
     # prePatch = patchrightPrePatch;
+
+    # patchright.src is the main source tree
     postUnpack = ''
       # FIXME why is $playwrightSourceRoot empty
       # echo "patchright.postUnpack: copying playwright source to $playwrightSourceRoot"
@@ -211,20 +317,35 @@ let
       echo "patchright.postUnpack: copying playwright source to ${playwrightSourceRoot}"
       cp -r --no-preserve=owner,mode ${playwrightSrc} ${playwrightSourceRoot}
 
-      echo "patchright.postUnpack: adding patchright lockfile: package-lock.json"
+      echo "patchright.postUnpack: adding patchright lockfile: $sourceRoot/package-lock.json"
       cp ${./package-lock.json} $sourceRoot/package-lock.json
     '';
 
-    postPatch = ''
-      pushd playwright >/dev/null
-      sed -i '/\/\/ Update test runner./,/^\s*$/{d}' utils/build/build.js
-      # The dlopen library check uses ldconfig which doesn't work under Nix.
-      # These libraries are already provided via rpath by autoPatchelfHook and wrapProgram.
-      # substituteInPlace packages/patchright-core/src/server/registry/index.ts \
-      substituteInPlace packages/playwright-core/src/server/registry/index.ts \
-        --replace-fail "['libGLESv2.so.2', 'libx264.so']" "[]"
-      popd >/dev/null
+    # fail?
+    # the main source tree is playwrightSrc
+    /*
+    postUnpack = ''
+      echo "patchright.postUnpack: copying patchright source to ${patchrightSourceRoot}"
+      cp -r --no-preserve=owner,mode ${patchrightSrc} ${patchrightSourceRoot}
+
+      echo "patchright.postUnpack: adding patchright lockfile: ${patchrightSourceRoot}/package-lock.json"
+      cp ${./package-lock.json} ${patchrightSourceRoot}/package-lock.json
     '';
+    */
+
+    # old
+    /*
+    postPatch = ''
+      pushd playwright
+      ${playwright.postPatch}
+      popd
+    '';
+    */
+
+    # FIXME playwright-driver should passthru "playwright = buildNpmPackage { ... }"
+    # so we can use playwright.postPatch
+    # postPatch = playwright-driver.postPatch;
+    postPatch = "";
 
     # preBuild = patchrightPreBuild;
 
@@ -234,7 +355,7 @@ let
       if false; then
         # debug
         echo "npmDeps: ${npmDeps}"
-        echo "playwrightNpmDeps: ${playwrightNpmDeps}"
+        echo "patchrightNpmDeps: ${patchrightNpmDeps}"
         set -x
         pwd
         ls -l -A
@@ -244,22 +365,27 @@ let
         exit 1
       fi
 
-      pushd playwright >/dev/null
-
-      echo "Patching Playwright Driver"
-      tsx ../patchright_driver_patch.ts
-
-      echo "Generating Playwright Channels"
-      # Ignore the error exit code, as the script exits 1 when a file is modified.
-      node utils/generate_channels.js || true
-
-      echo "adding playwrightNpmDeps from ${playwrightNpmDeps}"
-      # ln -s ${playwrightNpmDeps} node_modules
-      ln -s ${playwrightNpmDeps}/_cacache _cacache
-
+      if false; then
+      # fail?
+      # the main source tree is playwrightSrc
+      echo "Installing Patchright Dependencies"
+      pushd $NIX_BUILD_TOP/${patchrightSourceRoot}
       # based on https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/node/build-npm-package/hooks/npm-config-hook.sh
       # TODO maybe use npmConfigHook or a nested buildNpmPackage to install node_modules
-      echo "Installing playwright dependencies"
+      npm_config_cache=${patchrightNpmDeps} \
+      npm_config_offline="true" \
+      npm_config_progress="false" \
+      npm ci --ignore-scripts # $npmInstallFlags "''${npmInstallFlagsArray[@]}" $npmFlags "''${npmFlagsArray[@]}"
+      patchShebangs node_modules
+      npm rebuild # $npmRebuildFlags "''${npmRebuildFlagsArray[@]}" $npmFlags "''${npmFlagsArray[@]}"
+      patchShebangs node_modules
+      popd
+      else
+      # the main source tree is patchrightSrc
+      echo "Installing Playwright Dependencies"
+      pushd $NIX_BUILD_TOP/${playwrightSourceRoot}
+      # based on https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/node/build-npm-package/hooks/npm-config-hook.sh
+      # TODO maybe use npmConfigHook or a nested buildNpmPackage to install node_modules
       npm_config_cache=${playwrightNpmDeps} \
       npm_config_offline="true" \
       npm_config_progress="false" \
@@ -267,14 +393,44 @@ let
       patchShebangs node_modules
       npm rebuild # $npmRebuildFlags "''${npmRebuildFlagsArray[@]}" $npmFlags "''${npmFlagsArray[@]}"
       patchShebangs node_modules
+      popd
+      fi
+
+      pushd $NIX_BUILD_TOP/${playwrightSourceRoot}
+
+      # TODO verify: does this use patchright/node_modules
+      # if not, we have to make patchright the main source tree
+
+      echo "Patching Playwright Driver"
+      tsx $NIX_BUILD_TOP/${patchrightSourceRoot}/patchright_driver_patch.ts
+
+      echo "Generating Playwright Channels"
+      # Ignore the error exit code, as the script exits 1 when a file is modified.
+      node utils/generate_channels.js || true
+
+
+
+      # /nix/store/7calrqq637bikad9jamsql3dhz3lx7f4-source/./pkgs/development/web/playwright/driver.nix
+      # postPatch
+      sed -i '/\/\/ Update test runner./,/^\s*$/{d}' utils/build/build.js
+      # The dlopen library check uses ldconfig which doesn't work under Nix.
+      # These libraries are already provided via rpath by autoPatchelfHook and wrapProgram.
+      substituteInPlace packages/playwright-core/src/server/registry/index.ts \
+        --replace-fail "['libGLESv2.so.2', 'libx264.so']" "[]"
+
+
 
       echo "Building Patchright Packages"
+      # FIXME playwright-core is not installed
+      # ==== Running npm ci --save=false --fund=false --audit=false in /build/source/tests/playwright-test/stable-test-runner
+      # npm error code ENOTCACHED
+      # npm error request to https://registry.npmjs.org/playwright-core/-/playwright-core-1.61.0-alpha-1781023400000.tgz failed
       npm run build
 
       echo "Rebranding Patchright Package"
-      npx tsx ../patchright-nodejs/patchright_rebranding.ts
+      npx tsx $NIX_BUILD_TOP/${patchrightSourceRoot}/patchright-nodejs/patchright_rebranding.ts
 
-      popd >/dev/null
+      popd
     '';
 
     installPhase = ''
@@ -282,7 +438,7 @@ let
 
       shopt -s extglob
 
-      pushd playwright >/dev/null
+      pushd playwright
 
       mkdir -p "$out/lib/node_modules/patchright"
       cp -r packages/patchright/!(bundles|src|node_modules|.*) "$out/lib/node_modules/patchright"
@@ -298,7 +454,7 @@ let
       # mkdir -p "$out/lib/node_modules/@patchright/test"
       # cp -r packages/patchright-test/* "$out/lib/node_modules/@patchright/test"
 
-      popd >/dev/null
+      popd
 
       runHook postInstall
     '';
@@ -341,10 +497,11 @@ let
         patchright-core = finalAttrs.finalPackage;
       };
       inherit components;
-      updateScript = ./update.sh;
+      # updateScript = ./update.sh;
     };
   });
 
+  /*
   patchright-test = stdenv.mkDerivation (finalAttrs: {
     pname = "patchright-test";
     inherit (patchright) version src;
@@ -371,66 +528,9 @@ let
       mainProgram = "patchright";
     };
   });
-
-  components = {
-    chromium = callPackage ./chromium.nix {
-      inherit system throwSystem;
-      inherit (browsersJSON.chromium) revision browserVersion;
-      fontconfig_file = makeFontsConf {
-        fontDirectories = [ ];
-      };
-    };
-    chromium-headless-shell = callPackage ./chromium-headless-shell.nix {
-      inherit system throwSystem;
-      inherit (browsersJSON."chromium-headless-shell") revision browserVersion;
-    };
-    firefox = callPackage ./firefox.nix {
-      inherit system throwSystem;
-      inherit (browsersJSON.firefox) revision;
-    };
-    webkit = callPackage ./webkit.nix {
-      inherit system throwSystem;
-      inherit (browsersJSON.webkit) revision;
-    };
-    ffmpeg = callPackage ./ffmpeg.nix {
-      inherit system throwSystem;
-      inherit (browsersJSON.ffmpeg) revision;
-    };
-  };
-
-  browsers = lib.makeOverridable (
-    {
-      withChromium ? true,
-      withFirefox ? true,
-      withWebkit ? true, # may require `export PATCHRIGHT_HOST_PLATFORM_OVERRIDE="ubuntu-24.04"`
-      withFfmpeg ? true,
-      withChromiumHeadlessShell ? true,
-      fontconfig_file ? makeFontsConf {
-        fontDirectories = [ ];
-      },
-    }:
-    let
-      browsers =
-        lib.optionals withChromium [ "chromium" ]
-        ++ lib.optionals withChromiumHeadlessShell [ "chromium-headless-shell" ]
-        ++ lib.optionals withFirefox [ "firefox" ]
-        ++ lib.optionals withWebkit [ "webkit" ]
-        ++ lib.optionals withFfmpeg [ "ffmpeg" ];
-    in
-    linkFarm "patchright-browsers" (
-      lib.listToAttrs (
-        map (
-          name:
-          let
-            value = browsersJSON.${name};
-          in
-          lib.nameValuePair "${lib.replaceStrings [ "-" ] [ "_" ] name}-${value.revision}" components.${name}
-        ) browsers
-      )
-    )
-  );
+  */
 in
 {
   patchright-core = patchright-core;
-  patchright-test = patchright-test;
+  # patchright-test = patchright-test;
 }
