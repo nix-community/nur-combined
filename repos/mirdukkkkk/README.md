@@ -16,6 +16,7 @@
 
 | Attribute | Description |
 | --- | --- |
+| `beefetch` | Neofetch clone written in Go with the ability to display 🐝 ([mirdukkkkk/beefetch](https://github.com/mirdukkkkk/beefetch)) |
 | `molten` | Protobuf-based stream format and renderer for collaborative pixel canvases ([pixelate-it/molten](https://github.com/pixelate-it/molten)) |
 | `firefox-addons.cookie-editor` | View, edit and export cookies |
 | `firefox-addons.flagfox` | Shows the server's country flag in the address bar (unfree) |

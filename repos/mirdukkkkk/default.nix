@@ -20,6 +20,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   firefox-addons = pkgs.lib.recurseIntoAttrs (pkgs.callPackage ./pkgs/firefox-addons { });
+  beefetch = pkgs.callPackage ./pkgs/beefetch { };
   molten = pkgs.callPackage ./pkgs/molten { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
