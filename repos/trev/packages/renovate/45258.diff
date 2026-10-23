@@ -2625,7 +2625,7 @@ index 848076d6849..a7144921f74 100644
 +  return { deps };
  }
 diff --git a/lib/modules/manager/nix/index.ts b/lib/modules/manager/nix/index.ts
-index 7b934aa347a..a6531398814 100644
+index 7b934aa347a..0ba1c8d4221 100644
 --- a/lib/modules/manager/nix/index.ts
 +++ b/lib/modules/manager/nix/index.ts
 @@ -3,7 +3,9 @@ import { GitRefsDatasource } from '../../datasource/git-refs/index.ts';
@@ -2638,7 +2638,12 @@ index 7b934aa347a..a6531398814 100644
  export const supportsLockFileMaintenance = true;
  export const lockFileNames = ['flake.lock'];
  export const lockFileMaintenanceIsDelegatedToPackageManager = true;
-@@ -16,5 +18,3 @@ export const defaultConfig = {
+@@ -12,9 +14,7 @@ export const url = 'https://nix.dev';
+ 
+ export const defaultConfig = {
+   managerFilePatterns: ['/(^|/)flake\\.nix$/'],
+-  commitMessageTopic: 'nix',
++  commitMessageTopic: '{{depName}}',
    commitMessageExtra: 'to {{newValue}}',
    enabled: false,
  };
@@ -3682,3 +3687,266 @@ index 00000000000..7c15063dafb
 +  logger.debug({ depName, oldUrl, newUrl }, 'Successfully updated Nix flake');
 +  return updatedContent;
 +}
+diff --git a/lib/workers/repository/update/branch/get-updated.spec.ts b/lib/workers/repository/update/branch/get-updated.spec.ts
+index c8fc8d9cdd9..91ab5660df4 100644
+--- a/lib/workers/repository/update/branch/get-updated.spec.ts
++++ b/lib/workers/repository/update/branch/get-updated.spec.ts
+@@ -1,4 +1,5 @@
+ import { isArray } from '@sindresorhus/is';
++import { codeBlock } from 'common-tags';
+ import { mockDeep } from 'vitest-mock-extended';
+ import { git, logger } from '~test/util.ts';
+ import { GitRefsDatasource } from '../../../../modules/datasource/git-refs/index.ts';
+@@ -9,6 +10,7 @@ import * as _gitSubmodules from '../../../../modules/manager/git-submodules/inde
+ import * as _gomod from '../../../../modules/manager/gomod/index.ts';
+ import * as _helmv3 from '../../../../modules/manager/helmv3/index.ts';
+ import * as _mise from '../../../../modules/manager/mise/index.ts';
++import * as nix from '../../../../modules/manager/nix/index.ts';
+ import * as _npm from '../../../../modules/manager/npm/index.ts';
+ import * as _pep621 from '../../../../modules/manager/pep621/index.ts';
+ import * as _pipCompile from '../../../../modules/manager/pip-compile/index.ts';
+@@ -101,6 +103,153 @@ describe('workers/repository/update/branch/get-updated', () => {
+       });
+     });
+ 
++    it.each`
++      reuseExistingBranch
++      ${false}
++      ${true}
++    `(
++      'regenerates flake.lock for a digest update with reuseExistingBranch=$reuseExistingBranch',
++      async ({ reuseExistingBranch }) => {
++        const fileContent = codeBlock`
++          {
++            inputs = {
++              nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-26.05";
++            };
++            outputs = _: { };
++          }
++        `;
++        git.getFile.mockReset().mockResolvedValue(fileContent);
++        const updateArtifacts = vi
++          .spyOn(nix, 'updateArtifacts')
++          .mockResolvedValueOnce([
++            {
++              file: {
++                type: 'addition',
++                path: 'flake.lock',
++                contents: 'updated lock',
++              },
++            },
++          ]);
++        config.reuseExistingBranch = reuseExistingBranch;
++        config.upgrades.push({
++          manager: 'nix',
++          packageFile: 'flake.nix',
++          depName: 'nixpkgs',
++          branchName: 'renovate/nixpkgs-digest',
++          updateType: 'digest',
++          currentValue: 'nixos-26.05',
++          newValue: 'nixos-26.05',
++          currentDigest: 'b3fe9581c9061c749abef42b6d4ee7b7c05c33fa',
++          newDigest: 'f3a73bcf5d1c5b75a66cf35a48957e30d41d647a',
++        });
++
++        const result = await getUpdatedPackageFiles(config);
++
++        expect(updateArtifacts).toHaveBeenCalledExactlyOnceWith(
++          expect.objectContaining({
++            packageFileName: 'flake.nix',
++            newPackageFileContent: fileContent,
++            updatedDeps: config.upgrades,
++          }),
++        );
++        expect(result.updatedArtifacts).toEqual([
++          { type: 'addition', path: 'flake.lock', contents: 'updated lock' },
++        ]);
++        expect(result.artifactErrors).toEqual([]);
++      },
++    );
++
++    it('does not regenerate artifacts for an unsupported Nix version declaration', async () => {
++      const fileContent = codeBlock`
++        {
++          inputs = {
++            otterwiki-source = {
++              flake = false;
++              url = "github:redimp/otterwiki?ref=v2.24.1";
++            };
++          };
++        }
++      `;
++      git.getFile.mockReset().mockResolvedValue(fileContent);
++      const updateArtifacts = vi.spyOn(nix, 'updateArtifacts');
++      config.upgrades.push({
++        manager: 'nix',
++        packageFile: 'flake.nix',
++        depName: 'otterwiki-source',
++        branchName: 'renovate/otterwiki-source-2.x',
++        updateType: 'minor',
++        currentValue: 'v2.24.1',
++        newValue: 'v2.26.0',
++      });
++
++      const result = await getUpdatedPackageFiles(config);
++
++      expect(updateArtifacts).not.toHaveBeenCalled();
++      expect(result.updatedPackageFiles).toEqual([]);
++      expect(result.updatedArtifacts).toEqual([]);
++    });
++
++    it('keeps an earlier Nix version update when a digest update follows it', async () => {
++      const fileContent = codeBlock`
++        {
++          inputs = {
++            otterwiki-source.url = "github:redimp/otterwiki?ref=v2.24.1";
++            nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-26.05";
++          };
++        }
++      `;
++      git.getFile.mockReset().mockResolvedValue(fileContent);
++      const updateArtifacts = vi
++        .spyOn(nix, 'updateArtifacts')
++        .mockResolvedValueOnce([
++          {
++            file: {
++              type: 'addition',
++              path: 'flake.lock',
++              contents: 'updated lock',
++            },
++          },
++        ]);
++      config.upgrades.push(
++        {
++          manager: 'nix',
++          packageFile: 'flake.nix',
++          depName: 'otterwiki-source',
++          branchName: 'renovate/nix',
++          updateType: 'minor',
++          currentValue: 'v2.24.1',
++          newValue: 'v2.26.0',
++        },
++        {
++          manager: 'nix',
++          packageFile: 'flake.nix',
++          depName: 'nixpkgs',
++          branchName: 'renovate/nix',
++          updateType: 'digest',
++          currentValue: 'nixos-26.05',
++          newValue: 'nixos-26.05',
++          currentDigest: 'b3fe9581c9061c749abef42b6d4ee7b7c05c33fa',
++          newDigest: 'f3a73bcf5d1c5b75a66cf35a48957e30d41d647a',
++        },
++      );
++
++      const result = await getUpdatedPackageFiles(config);
++
++      expect(updateArtifacts).toHaveBeenCalledExactlyOnceWith(
++        expect.objectContaining({
++          newPackageFileContent: fileContent.replace('v2.24.1', 'v2.26.0'),
++          updatedDeps: config.upgrades,
++        }),
++      );
++      expect(result.updatedPackageFiles).toEqual([
++        {
++          type: 'addition',
++          path: 'flake.nix',
++          contents: fileContent.replace('v2.24.1', 'v2.26.0'),
++        },
++      ]);
++    });
++
+     it('handles autoreplace branch no update', async () => {
+       config.upgrades.push({
+         packageFile: 'index.html',
+diff --git a/lib/workers/repository/update/branch/get-updated.ts b/lib/workers/repository/update/branch/get-updated.ts
+index 3a0fa93d314..401fcc0f929 100644
+--- a/lib/workers/repository/update/branch/get-updated.ts
++++ b/lib/workers/repository/update/branch/get-updated.ts
+@@ -399,6 +399,16 @@ export async function getUpdatedPackageFiles(
+         updatedFileContents[packageFile] = newContent;
+         delete nonUpdatedFileContents[packageFile];
+       }
++      // Nix digests may live only in flake.lock. Digest lookup does not set
++      // isLockfileUpdate, so explicitly regenerate artifacts for these updates.
++      if (
++        newContent === packageFileContent &&
++        upgrade.manager === 'nix' &&
++        upgrade.updateType === 'digest' &&
++        !updatedFileContents[packageFile]
++      ) {
++        nonUpdatedFileContents[packageFile] = newContent;
++      }
+     }
+   }
+   const updatedPackageFiles: FileAddition[] = Object.keys(
+diff --git a/lib/workers/repository/updates/generate.spec.ts b/lib/workers/repository/updates/generate.spec.ts
+index f8d488e1829..bb986913aac 100644
+--- a/lib/workers/repository/updates/generate.spec.ts
++++ b/lib/workers/repository/updates/generate.spec.ts
+@@ -3,6 +3,7 @@ import { logger } from '~test/util.ts';
+ import { getConfig } from '../../../config/defaults.ts';
+ import type { UpdateType } from '../../../config/types.ts';
+ import { NpmDatasource } from '../../../modules/datasource/npm/index.ts';
++import { defaultConfig as nixDefaultConfig } from '../../../modules/manager/nix/index.ts';
+ import { coerceArray } from '../../../util/array.ts';
+ import type { Timestamp } from '../../../util/timestamp.ts';
+ import type { BranchUpgradeConfig } from '../../types.ts';
+@@ -29,6 +30,57 @@ beforeEach(() => {
+ 
+ describe('workers/repository/updates/generate', () => {
+   describe('generateBranchConfig()', () => {
++    it('names Nix version updates after the flake input', () => {
++      const branch = [
++        {
++          ...requiredDefaultOptions,
++          ...nixDefaultConfig,
++          manager: 'nix',
++          depName: 'otterwiki-source',
++          currentValue: 'v2.24.1',
++          newValue: 'v2.26.0',
++          newVersion: 'v2.26.0',
++          isSingleVersion: true,
++          branchName: 'renovate/otterwiki-source-2.x',
++        },
++      ] satisfies BranchUpgradeConfig[];
++
++      const result = generateBranchConfig(branch);
++
++      expect(result.prTitle).toBe('Update otterwiki-source to v2.26.0');
++      expect(result.commitMessage).toBe('Update otterwiki-source to v2.26.0');
++      expect(result.branchName).toBe('renovate/otterwiki-source-2.x');
++    });
++
++    it('preserves the existing Nix digest update title', () => {
++      const {
++        commitMessageTopic: digestTopic,
++        commitMessageExtra: digestExtra,
++      } = getConfig().digest!;
++      const branch = [
++        {
++          ...requiredDefaultOptions,
++          ...nixDefaultConfig,
++          commitMessageTopic: digestTopic,
++          commitMessageExtra: digestExtra,
++          manager: 'nix',
++          depName: 'nixpkgs',
++          currentValue: 'nixos-26.05',
++          newValue: 'nixos-26.05',
++          currentDigest: 'b3fe9581c9061c749abef42b6d4ee7b7c05c33fa',
++          newDigest: 'f3a73bcf5d1c5b75a66cf35a48957e30d41d647a',
++          isDigest: true,
++          branchName: 'renovate/nixpkgs-digest',
++        },
++      ] satisfies BranchUpgradeConfig[];
++
++      const result = generateBranchConfig(branch);
++
++      expect(result.prTitle).toBe('Update nixpkgs digest to f3a73bc');
++      expect(result.commitMessage).toBe('Update nixpkgs digest to f3a73bc');
++      expect(result.branchName).toBe('renovate/nixpkgs-digest');
++    });
++
+     it('does not group single upgrade by default', () => {
+       const { groupSingleUpdates } = getConfig();
+       const branch = [
