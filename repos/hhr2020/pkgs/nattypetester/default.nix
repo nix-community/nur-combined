@@ -26,13 +26,13 @@
 
 buildDotnetModule (finalAttrs: {
   pname = "nattypetester";
-  version = "10.0.8";
+  version = "10.0.10";
 
   src = fetchFromGitHub {
     owner = "HMBSbige";
     repo = "NatTypeTester";
     tag = finalAttrs.version;
-    hash = "sha256-Q/70qkbmyjxf302OzQaZJj4q5LzpwE2uX790O5qK5k0=";
+    hash = "sha256-a7KQI0lojoKWQN6F4rD4yFHmURf19ifWhAkr0Yn2TFE=";
   };
 
   projectFile = "src/NatTypeTester.Desktop/NatTypeTester.Desktop.csproj";

@@ -7,7 +7,7 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "qbittorrent-dual-boot-py";
-  version = "0.1.2";
+  version = "0.1.3";
   pyproject = true;
   __structuredAttrs = true;
 
@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     owner = "HHR2020";
     repo = "qbittorrent-dual-boot-py";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-8kxj0bLqT4jO5Bo9T9oCY02uVe8Q5kj0jK9jqrU8pyc=";
+    hash = "sha256-uJDSqAIRIA3yn9WvuN1e5zU1WCZCE0+Ck+VA4q0YsLQ=";
   };
 
   build-system = [

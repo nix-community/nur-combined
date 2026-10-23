@@ -20,15 +20,15 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "zju-learning-assistant";
-  version = "0.3.14";
+  version = "0.3.16";
   src = fetchFromGitHub {
     owner = "PeiPei233";
     repo = "zju-learning-assistant";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-utq1HV/srnK9HxiS5iEUcWtUl/b0wdf4wus8jk2aszE=";
+    hash = "sha256-6Zc7OYAORNCZm/ugf5Dw3IFll4L+VAYZ3R3PCo/TVz8=";
   };
 
-  cargoHash = "sha256-wGTbLM0p2QjoGSG4sSN+aLOho86tTNgf0zYKNem/9ZE=";
+  cargoHash = "sha256-0jenKqNAOKJAzpFMxV4PWTId1766q5IdFSUSNYSA+u0=";
 
   npmDeps = fetchNpmDeps {
     name = "${finalAttrs.pname}-npm-deps-${finalAttrs.version}";
