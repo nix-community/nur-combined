@@ -6,6 +6,12 @@ in
 with lib;
 {
   options.device = {
+    enable = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Expose this host and its Home Manager configurations as flake outputs.";
+    };
+
     system = mkOption {
       type = types.str;
       default = "x86_64-linux";

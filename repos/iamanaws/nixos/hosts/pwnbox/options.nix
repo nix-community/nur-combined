@@ -1,7 +1,7 @@
 {
   device = {
     hostname = "pwnbox";
-    profile = "vm/virtualbox";
+    profile = "vm/qemu";
     users = [
       {
         name = "iamanaws";

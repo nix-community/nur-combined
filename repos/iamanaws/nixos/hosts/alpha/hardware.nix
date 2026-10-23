@@ -1,16 +1,21 @@
 {
+  config,
+  inputs,
+  flakeRoot,
   lib,
-  pkgs,
   modulesPath,
   ...
 }:
 
 {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+    # Also supports the Zero 2 W.
+    inputs.nixos-hardware.nixosModules.raspberry-pi-3
+    (flakeRoot + /secrets)
+  ];
 
   boot = {
-    kernelPackages = pkgs.linuxPackages_rpi02w;
-
     initrd.availableKernelModules = [
       "xhci_pci"
       "usbhid"
@@ -44,11 +49,6 @@
   hardware = {
     # needed for wlan0 to work (https://github.com/NixOS/nixpkgs/issues/115652)
     enableRedistributableFirmware = lib.mkForce false;
-    firmware = with pkgs; [
-      # This make sure wifi works
-      raspberrypiWirelessFirmware
-    ];
-
     i2c.enable = true;
     deviceTree.filter = "bcm2837-rpi-zero*.dtb";
     deviceTree.overlays = [
@@ -69,6 +69,24 @@
         '';
       }
     ];
+  };
+
+  networking = {
+    interfaces.wlan0.useDHCP = true;
+    wireless = {
+      enable = true;
+      interfaces = [ "wlan0" ];
+      userControlled = true;
+      allowAuxiliaryImperativeNetworks = true;
+      extraConfigFiles = [ config.sops.secrets.wireless.path ];
+    };
+  };
+
+  # The hardened NixOS service runs as wpa_supplicant, rather than root.
+  sops.secrets.wireless = {
+    group = "wpa_supplicant";
+    mode = "0440";
+    restartUnits = [ "wpa_supplicant-wlan0.service" ];
   };
 
   nixpkgs = {

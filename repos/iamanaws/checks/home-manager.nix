@@ -39,6 +39,7 @@ assert lib.all (
 assert homes ? "iamanaws@archimedes" && homes ? "iamanaws@goliath";
 assert homes ? "iamanaws@galileo" && homes ? "iamanaws@pwnbox";
 assert !(homes ? "iamanaws@alpha");
+assert !(homes ? "admin@charles") && !(homes ? "admin-darwin");
 assert !(homes ? "iamanaws-nixos") && !(homes ? "iamanaws-x86_64-linux");
 assert !(homes ? _type) && !(homes ? contents);
 assert

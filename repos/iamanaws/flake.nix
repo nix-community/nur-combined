@@ -105,6 +105,7 @@
     in
     {
       formatter = forAllSystems (pkgs: pkgs.nixfmt-tree);
+      apps = forAllSystems (pkgs: import ./apps { inherit pkgs inputs; });
       checks = forAllSystems (pkgs: import ./checks { inherit pkgs inputs hostRegistry; });
       packages = forAllSystems (
         pkgs:

@@ -35,6 +35,11 @@ in
 }
 // import ./integration.nix { inherit pkgs inputs hostRegistry; }
 // lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
+  virtual-machines =
+    assert import ./virtual-machines.nix { inherit inputs; };
+    pkgs.runCommand "virtual-machine-config-checks" { } ''
+      touch "$out"
+    '';
   user-secrets =
     let
       config = inputs.self.nixosConfigurations.daedalus.config;

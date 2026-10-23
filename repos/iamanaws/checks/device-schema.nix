@@ -56,6 +56,8 @@ assert (evaluate linux).stateVersion == "26.05";
 assert (evaluate darwin).stateVersion == 6;
 assert accepts { };
 assert (evaluate { }).system == "x86_64-linux";
+assert (evaluate { }).enable;
+assert !(hostRegistry.byBackend.darwin ? charles);
 assert (evaluate linux).profile == "server";
 assert (evaluate linux).compositors == [ ];
 assert

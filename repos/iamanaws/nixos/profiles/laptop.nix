@@ -22,38 +22,61 @@
   # Power Management settings
   powerManagement = {
     enable = true;
-    powertop.enable = true;
+    # TLP owns the tunables; PowerTOP remains installed for diagnostics.
+    powertop.enable = false;
   };
 
-  services.upower = {
-    enable = true;
-  };
+  services = {
+    upower.enable = true;
 
-  services.thermald.enable = true;
+    thermald.enable = true;
 
-  # https://linrunner.de/tlp/
-  services.tlp = {
-    enable = true;
-    settings = {
-      CPU_SCALING_GOVERNOR_ON_AC = "performance";
-      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+    # Fingerprint Reader
+    fprintd.enable = true;
 
-      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+    # https://linrunner.de/tlp/
+    tlp = {
+      enable = true;
+      settings = {
+        # AC/BAT/SAV settings map to TLP's performance/balanced/power-saver profiles.
+        # Restore the power-source profile when plugging or unplugging the charger.
+        TLP_AUTO_SWITCH = 1;
+        TLP_PROFILE_AC = "PRF";
+        TLP_PROFILE_BAT = "BAL";
 
-      CPU_MIN_PERF_ON_AC = 0;
-      CPU_MAX_PERF_ON_AC = 100;
-      CPU_MIN_PERF_ON_BAT = 0;
-      CPU_MAX_PERF_ON_BAT = 50;
+        # If hot on AC, set TLP_AUTO_SWITCH above to 0 and enable:
+        # TLP_PROFILE_DEFAULT = "BAL";
 
-      # Optional helps save long term battery health
-      START_CHARGE_THRESH_BAT0 = 40; # 40 and bellow it starts to charge
-      STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
+        # Intel HWP scales dynamically with powersave, including turbo when allowed.
+        CPU_SCALING_GOVERNOR_ON_AC = "powersave";
+        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+        CPU_SCALING_GOVERNOR_ON_SAV = "powersave";
 
-      # Enable if Laptop runs hot when on power, but not on battery
-      # Enable always run on battery mode
-      # TLP_DEFAULT_MODE = "BAT";
-      # TLP_PERSISTENT_DEFAULT = 1;
+        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+        CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_power";
+        CPU_ENERGY_PERF_POLICY_ON_SAV = "power";
+
+        CPU_MIN_PERF_ON_AC = 0;
+        CPU_MAX_PERF_ON_AC = 100;
+        CPU_MIN_PERF_ON_BAT = 0;
+        CPU_MAX_PERF_ON_BAT = 60;
+        CPU_MIN_PERF_ON_SAV = 0;
+        CPU_MAX_PERF_ON_SAV = 50;
+
+        CPU_BOOST_ON_AC = 1;
+        CPU_BOOST_ON_BAT = 1;
+        # Select with sudo tlp power-saver; return with sudo tlp balanced.
+        CPU_BOOST_ON_SAV = 0;
+
+        # TLP uses firmware profiles where the hardware supports them.
+        PLATFORM_PROFILE_ON_AC = "performance";
+        PLATFORM_PROFILE_ON_BAT = "balanced";
+        PLATFORM_PROFILE_ON_SAV = "low-power";
+
+        # Delay recharging until below 40%, then charge to 80%.
+        START_CHARGE_THRESH_BAT0 = 40;
+        STOP_CHARGE_THRESH_BAT0 = 80;
+      };
     };
   };
 
@@ -79,9 +102,6 @@
   };
 
   hardware.bluetooth.enable = true;
-
-  # Fingerprint Reader
-  services.fprintd.enable = true;
 
   environment.sessionVariables = {
     LIBVA_DRIVER_NAME = "iHD";

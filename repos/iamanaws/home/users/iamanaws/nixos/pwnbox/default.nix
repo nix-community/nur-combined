@@ -1,4 +1,6 @@
 {
+  lib,
+  pkgs,
   outputs,
   ...
 }:
@@ -21,7 +23,9 @@
     homeDirectory = "/home/iamanaws";
   };
 
-  home.packages = [ ];
+  home.packages = [ pkgs.pcmanfm ];
+
+  wayland.windowManager.hyprland.settings.codeEditor._var = lib.mkForce "code";
 
   home.sessionVariables = {
     EDITOR = "vim";

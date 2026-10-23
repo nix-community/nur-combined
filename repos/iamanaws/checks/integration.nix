@@ -6,10 +6,11 @@
 let
   inherit (pkgs) lib;
 
-  # Explicit rollout scope; legacy/test hosts and Charles's migration stay out.
+  # Evaluate maintained configurations without building their system closures.
   activeHosts = [
     hostRegistry.byBackend.nixos.archimedes
     hostRegistry.byBackend.nixos.goliath
+    hostRegistry.byBackend.nixos.pwnbox
     hostRegistry.byBackend.darwin.galileo
   ];
   nativeHosts = lib.filter (host: host.device.system == pkgs.stdenv.hostPlatform.system) activeHosts;

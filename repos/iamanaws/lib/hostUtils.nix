@@ -43,7 +43,10 @@ let
         };
 
       byBackend = lib.genAttrs backends (
-        backend: lib.genAttrs (dirNames (flakeRoot + "/${backend}/hosts")) (mkHost backend)
+        backend:
+        lib.filterAttrs (_: host: host.device.enable) (
+          lib.genAttrs (dirNames (flakeRoot + "/${backend}/hosts")) (mkHost backend)
+        )
       );
     in
     {

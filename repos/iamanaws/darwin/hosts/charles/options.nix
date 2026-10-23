@@ -1,5 +1,7 @@
 {
   device = {
+    # Retained for reference: the Intel macOS VM is currently retired.
+    enable = false;
     system = "x86_64-darwin";
     hostname = "charles";
     profile = "desktop";
