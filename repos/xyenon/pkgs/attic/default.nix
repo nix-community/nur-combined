@@ -17,11 +17,11 @@ in
     src = fetchFromGitHub {
       owner = "XYenon";
       repo = "attic";
-      rev = "eadcab9f8f318df14034d7c986e66cd8214131c4";
-      hash = "sha256-k4Lipy8plmFeMMPYqg9IH3vPuZXJ6jr/kuyDKvjvLBc=";
+      rev = "2cf5a731d22643c68a8e5ca083fc8d171830a99f";
+      hash = "sha256-KCMM3iWikLAkN1cHv/W5lgZlZTwAypN/qAvCRa0G+Uw=";
     };
 
-    cargoHash = "sha256-hoI/TszgyLQttthVHRZkLmAPQVgLKFMDg3oKk5rEsSU=";
+    cargoHash = "sha256-wDHi/CtPgTYNF/qdWgDe20tB57w+o9GPWSug+dY1MuE=";
     cargoDeps = rustPlatform.fetchCargoVendor {
       inherit (finalAttrs) pname src;
       hash = finalAttrs.cargoHash;
