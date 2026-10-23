@@ -19,12 +19,12 @@
 rustPlatform.buildRustPackage (
   finalAttrs:
   let
-    version = "2026.10.21.1";
+    version = "0.1.0-beta.1";
     src = fetchFromGitHub {
       owner = "daeuniverse";
       repo = "honk";
-      tag = "debug.${finalAttrs.version}";
-      hash = "sha256-IKscfitMHK9WLHTeLqtCIFLTx/5on3uj9q2N0qsBL34=";
+      tag = "v${finalAttrs.version}";
+      hash = "sha256-C4cRMldWKBFIlIFcAKNKtP65UwSxu101hoOpRls7H9M=";
     };
 
     rustPrebuilt = rust.packages.prebuilt;
@@ -59,7 +59,7 @@ rustPlatform.buildRustPackage (
         inherit (finalAttrs) version src;
         pname = "honk-ebpf";
         cargoRoot = "crates/honk-ebpf";
-        hash = "sha256-4amHt9G5oGTogEyBQysZsTZJjMkMW0p3urzFm1y5nWE=";
+        hash = "sha256-XGH0Z1VTyYYxk1UWY1+efyMWOOVCMz76OYbJE6kd5xA=";
       };
 
       nativeBuildInputs = [
@@ -112,7 +112,7 @@ rustPlatform.buildRustPackage (
     pname = "honk-core";
     inherit version src;
 
-    cargoHash = "sha256-pBc83Bun9MLfczr/pieSB9jaVk6yhwrIUDvBEiIoE30=";
+    cargoHash = "sha256-YnaA4ESK09Mz8dlp8D3tk/51sEhOQjHImSLFOA5iTZA=";
 
     __structuredAttrs = true;
     strictDeps = true;
@@ -157,7 +157,7 @@ rustPlatform.buildRustPackage (
     dontUseNinjaInstall = true;
 
     # honk-core's build.rs stamps HONK_VERSION from the release ref
-    env.GITHUB_REF = "refs/tags/debug.${finalAttrs.version}";
+    env.GITHUB_REF = "refs/tags/v${finalAttrs.version}";
 
     # Both -sys crates reach cmake through cmake-rs, which forwards this to `cmake -G`.
     env.CMAKE_GENERATOR = "Ninja";
@@ -200,8 +200,6 @@ rustPlatform.buildRustPackage (
         extraArgs = [
           "--use-github-releases"
           "--version=unstable"
-          "--version-regex"
-          "^debug\\.(.+)$"
           "--subpackage"
           "honk-ebpf"
         ];
