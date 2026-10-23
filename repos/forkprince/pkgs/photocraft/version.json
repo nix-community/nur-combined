@@ -6,23 +6,23 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "0.12.0",
+  "version": "0.14.0",
   "platforms": {
     "aarch64-darwin": {
       "file": "photocraft-{version}-macos-universal.dmg",
-      "hash": "sha256-W0OWlGA/Ecz5OUbvR0CRr63J+xiQrYAicj0WDU/MwI0="
+      "hash": "sha256-sbgfHUtDNXjmudK5gA4Y2OX7YOu8OJd5GNNSnRvbFAo="
     },
     "x86_64-darwin": {
       "file": "photocraft-{version}-macos-universal.dmg",
-      "hash": "sha256-W0OWlGA/Ecz5OUbvR0CRr63J+xiQrYAicj0WDU/MwI0="
+      "hash": "sha256-sbgfHUtDNXjmudK5gA4Y2OX7YOu8OJd5GNNSnRvbFAo="
     },
     "x86_64-linux": {
       "file": "photocraft-{version}-linux-x86_64.AppImage",
-      "hash": "sha256-2oITOa/Ok7cpkceQCij1iesGqIXgq1nqcC3eyaKArGY="
+      "hash": "sha256-YtMZWSFZ+OaQniUhURltI9m3okP8n5CV5a347LrJ8Dw="
     },
     "aarch64-linux": {
       "file": "photocraft-{version}-linux-aarch64.AppImage",
-      "hash": "sha256-FVLF1O2C0adNdmkzCuSQSSXi7uXGVGwFAS/+kyWaiTI="
+      "hash": "sha256-6GL7y4h3tWNdNXlqMV7b+bi9kKHOtSQ1fAgAxYzejxo="
     }
   }
 }

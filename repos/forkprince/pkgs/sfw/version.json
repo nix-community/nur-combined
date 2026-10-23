@@ -6,23 +6,23 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "1.15.4",
+  "version": "1.15.6",
   "platforms": {
     "aarch64-linux": {
       "file": "sfw-free-linux-arm64",
-      "hash": "sha256-yMgKpYKCnyT11jPyw/LM0LBwu+6AvzuVbl4qmIAYTiA="
+      "hash": "sha256-tPt+hibjKSo8Xaos/vPBVymXhJJ5pubeCQFm3MZA7ro="
     },
     "x86_64-linux": {
       "file": "sfw-free-linux-x86_64",
-      "hash": "sha256-z59VuDQ+Hvbm3MzbCbmccMBDCiLtfQB5KG7M3er3JnA="
+      "hash": "sha256-uVjVA+63k6RYZKXw/refuozNeOT1fR+UBPDeZTOW8eI="
     },
     "aarch64-darwin": {
       "file": "sfw-free-macos-arm64",
-      "hash": "sha256-G3Bep8OZcn7kGqk/Y+BGnSw3h8UOHdiELLj/XO7J65k="
+      "hash": "sha256-PRn1QkCeTAvWGBtXYdYX6Dwe1QYmPC4IPp40Ti+93iE="
     },
     "x86_64-darwin": {
       "file": "sfw-free-macos-x86_64",
-      "hash": "sha256-sZ+W8N0+vE7McRHbxDzCsJXze/dZJzwL2cDEeE6iRzE="
+      "hash": "sha256-exE/jFg2oguxuk/V88ftyslMKh+o3m8dU+co62la9cc="
     }
   }
 }
