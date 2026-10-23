@@ -3,9 +3,8 @@ import math
 import os
 import sys
 import tempfile
-from pathlib import Path
-
 import tomllib
+from pathlib import Path
 
 
 class Style(C.Structure):

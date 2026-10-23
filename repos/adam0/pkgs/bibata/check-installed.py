@@ -1,10 +1,9 @@
 import json
 import struct
 import sys
+import tomllib
 from collections import Counter
 from pathlib import Path
-
-import tomllib
 
 
 def check_theme(theme: Path, config_path: Path) -> None:

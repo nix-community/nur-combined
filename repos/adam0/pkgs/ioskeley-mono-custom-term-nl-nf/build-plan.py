@@ -1,8 +1,7 @@
 import json
 import sys
-from pathlib import Path
-
 import tomllib
+from pathlib import Path
 
 plans = tomllib.loads(Path(sys.argv[1]).read_text())["buildPlans"]
 plan = plans["IoskeleyMono"]
