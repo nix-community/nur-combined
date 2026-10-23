@@ -1,10 +1,10 @@
 {
   fetchFromGitHub,
   lib,
-  buildGoModule,
+  buildGo127Module,
   nix-update-script,
 }:
-buildGoModule (finalAttrs: {
+buildGo127Module (finalAttrs: {
   pname = "cliproxyapi";
   version = "8.0.41";
   src = fetchFromGitHub {
@@ -15,7 +15,7 @@ buildGoModule (finalAttrs: {
   };
   __structuredAttrs = true;
   strictDeps = true;
-  vendorHash = "sha256-ju7dRQIDvz/oHP5Y6y0hklEBNPzwrtWqSQ7cr51jwTY=";
+  vendorHash = "sha256-iIzT2vOFKgl1qhwYMjq6HPaw3FUiw+mlPMuohf3OgL4=";
 
   proxyVendor = true;
 

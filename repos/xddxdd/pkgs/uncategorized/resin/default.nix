@@ -1,8 +1,7 @@
 {
   fetchFromGitHub,
   lib,
-  go_1_27,
-  buildGoModule,
+  buildGo127Module,
   buildNpmPackage,
   nix-update-script,
 }:
@@ -31,8 +30,8 @@ let
     '';
   });
 in
-# upstream go.mod requires go >= 1.26.10; nixpkgs' default is 1.26.9
-buildGoModule.override { go = go_1_27; } (finalAttrs: {
+# upstream go.mod requires go >= 1.26.10; nixpkgs' default go is older
+buildGo127Module (finalAttrs: {
   pname = "resin";
   inherit version;
   src = fetchFromGitHub {
@@ -52,6 +51,10 @@ buildGoModule.override { go = go_1_27; } (finalAttrs: {
     "with_wireguard"
     "with_grpc"
     "with_utls"
+    # go 1.27 makes x/net/http2 a shim over the stdlib, removing the
+    # internal symbols sing-box 1.12 links to; keep the legacy in-package
+    # implementation (sing-box issue SagerNet/sing-box#4450)
+    "http2legacy"
   ];
 
   ldflags = [

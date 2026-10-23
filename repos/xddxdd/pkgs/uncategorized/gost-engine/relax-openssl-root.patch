@@ -1,0 +1,26 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -7,23 +7,12 @@
+ include(CheckCSourceRuns)
+ include(CheckCSourceCompiles)
+ 
+-if(NOT DEFINED OPENSSL_ROOT_DIR)
+-  message(FATAL_ERROR "OPENSSL_ROOT_DIR is required")
+-endif()
+-
+ find_package(OpenSSL 3.4 REQUIRED)
+ 
+ get_filename_component(GOST_OPENSSL_ROOT "${OPENSSL_ROOT_DIR}" REALPATH)
+ get_filename_component(GOST_OPENSSL_INCLUDE "${OPENSSL_INCLUDE_DIR}" REALPATH)
+ get_filename_component(GOST_OPENSSL_CRYPTO "${OPENSSL_CRYPTO_LIBRARY}" REALPATH)
+ get_filename_component(GOST_OPENSSL_SSL "${OPENSSL_SSL_LIBRARY}" REALPATH)
+-foreach(path IN ITEMS GOST_OPENSSL_INCLUDE GOST_OPENSSL_CRYPTO GOST_OPENSSL_SSL)
+-  string(FIND "${${path}}/" "${GOST_OPENSSL_ROOT}/" pos)
+-  if(NOT pos EQUAL 0)
+-    message(FATAL_ERROR "OpenSSL path escapes OPENSSL_ROOT_DIR: ${${path}}")
+-  endif()
+-endforeach()
+-
+ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+   message(STATUS "Setting build type to 'RelWithDebInfo' as none was specified.")
+   set(CMAKE_BUILD_TYPE "RelWithDebInfo" CACHE STRING "Choose the type of build." FORCE)

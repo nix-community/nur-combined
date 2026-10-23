@@ -9,7 +9,7 @@
 }:
 let
   pyenet = python3Packages.buildPythonPackage {
-    pname = "cockpy-pyenet";
+    pname = "enet";
     version = "0-unstable-2022-11-20";
     pyproject = true;
 

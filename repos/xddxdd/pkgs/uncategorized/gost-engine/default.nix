@@ -21,9 +21,14 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [ cmake ];
   buildInputs = [ openssl ];
 
+  patches = [ ./relax-openssl-root.patch ];
+
   cmakeFlags = [
     (lib.cmakeFeature "OPENSSL_ENGINES_DIR" "${placeholder "out"}/lib/ossl-engine")
     (lib.cmakeFeature "CMAKE_POLICY_VERSION_MINIMUM" "3.5")
+    (lib.cmakeFeature "OPENSSL_ROOT_DIR" "${lib.getDev openssl}")
+    (lib.cmakeFeature "OPENSSL_CRYPTO_LIBRARY" "${lib.getLib openssl}/lib/libcrypto.so")
+    (lib.cmakeFeature "OPENSSL_SSL_LIBRARY" "${lib.getLib openssl}/lib/libssl.so")
   ];
 
   passthru.updateScript = nix-update-script { };
