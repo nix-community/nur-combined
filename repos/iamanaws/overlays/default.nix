@@ -8,21 +8,38 @@ let
     # example = prev.example.overrideAttrs (oldAttrs: rec {
     # ...
     # });
-    # t3code = prev.t3code.override {
-    #   t3code-unwrapped = final.callPackage "${
-    #     final.applyPatches {
-    #       name = "t3code-0.1.2-source";
-    #       src = "${prev.path}/pkgs/by-name/t3/t3code";
-    #       patches = [
-    #         (final.fetchpatch2 {
-    #           url = "https://github.com/NixOS/nixpkgs/pull/570724.patch?full_index=1";
-    #           hash = "sha256-Wz4VKSIPzWTRpCj3mv6SXMaMCkSxsiknPLtrFqbeTko=";
-    #         })
-    #       ];
-    #       patchFlags = [ "-p5" ];
-    #     }
-    #   }/unwrapped.nix" { };
-    # };
+
+    # Qt 6.12's uic rejects the templated `AddressableItemList<>` class name in
+    # the .ui files; drop once https://github.com/rizinorg/cutter/pull/3670 lands
+    # in a nixpkgs cutter release (https://github.com/NixOS/nixpkgs/issues/576576).
+    cutter = prev.cutter.overrideAttrs (oldAttrs: {
+      patches = (oldAttrs.patches or [ ]) ++ [
+        (final.fetchpatch2 {
+          url = "https://github.com/rizinorg/cutter/commit/bfb65782c0b3e4df4e2f0e4f5284c51848bb8358.patch?full_index=1";
+          hash = "sha256-JiJdsleg+tJrRMMQA6EEGM354HCb+dQDeImfr/MYUpc=";
+        })
+      ];
+    });
+
+    t3code = prev.t3code.override {
+      t3code-unwrapped = final.callPackage "${
+        final.applyPatches {
+          name = "t3code-0.1.2-source";
+          src = "${prev.path}/pkgs/by-name/t3/t3code";
+          patches = [
+            (final.fetchpatch2 {
+              url = "https://github.com/NixOS/nixpkgs/pull/575686.patch?full_index=1";
+              hash = "sha256-qWaJUXb1y5C4gcp5E303HMTRMY8dQFuVcD3+l0NwSX0=";
+            })
+            (final.fetchpatch2 {
+              url = "https://github.com/NixOS/nixpkgs/pull/577858.patch?full_index=1";
+              hash = "sha256-1m4kpZa9BzsCyJkkZ9Ws80iQ9VAq6MsBE/n3xVYVzDA=";
+            })
+          ];
+          patchFlags = [ "-p5" ];
+        }
+      }/unwrapped.nix" { };
+    };
   };
 
   # This one brings our custom packages from the 'pkgs' directory and makes

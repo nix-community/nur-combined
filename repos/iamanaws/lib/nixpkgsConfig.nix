@@ -75,6 +75,6 @@ in
   allowAliases = true;
   checkMeta = true;
   permittedInsecurePackages = [
-    "beekeeper-studio-6.0.5" # Electron 39
+    "beekeeper-studio-6.1.4" # Electron 39
   ];
 }

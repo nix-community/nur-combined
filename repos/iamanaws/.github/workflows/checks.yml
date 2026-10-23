@@ -1,0 +1,52 @@
+name: Nix checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: ${{ matrix.system }}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            system: x86_64-linux
+          - runner: macos-15
+            system: aarch64-darwin
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          submodules: false
+
+      - uses: cachix/install-nix-action@v31
+        with:
+          github_access_token: ${{ github.token }}
+          enable_kvm: false
+
+      - name: Build checks and evaluate active configurations
+        env:
+          EXPECTED_SYSTEM: ${{ matrix.system }}
+        # Selecting checks directly avoids evaluating deferred legacy hosts.
+        run: |
+          test "$(nix eval --impure --raw --expr builtins.currentSystem)" = "$EXPECTED_SYSTEM"
+          nix build --no-link --print-build-logs --impure --expr '
+            let flake = builtins.getFlake (toString ./.);
+            in builtins.attrValues (builtins.getAttr builtins.currentSystem flake.checks)
+          '
