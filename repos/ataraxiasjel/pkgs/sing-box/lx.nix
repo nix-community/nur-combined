@@ -10,7 +10,7 @@
   withCGO ? false,
 }:
 let
-  version = "1.14.3-lx.22";
+  version = "1.14.3-lx.23";
 in
 import ./common.nix {
   inherit
@@ -32,7 +32,7 @@ import ./common.nix {
     owner = "Leadaxe";
     repo = "sing-box-lx";
     tag = "v${version}";
-    hash = "sha256-GPXwfEiuek9ePl9knLIGdaSzwbuWk7iExQnOwiVoDz8=";
+    hash = "sha256-3GsQl0+NQwu/Avbj5y8oXJSl1BMHxu4ovyCQ9AjTPMo=";
     # go.mod replaces 4 modules with local fork submodules
     # (wireguard-go/sing-tun/gvisor/utls), so the source must
     # include submodules, like the fork's own CI clone does.
