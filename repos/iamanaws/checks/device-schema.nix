@@ -9,12 +9,27 @@ let
       ];
     }).config.device;
   accepts = device: (builtins.tryEval (builtins.deepSeq (evaluate device) true)).success;
-  linux = {
-    system = "x86_64-linux";
-  };
+  linux = { };
   darwin = {
     system = "aarch64-darwin";
   };
+  normalizedUsers =
+    (evaluate (
+      linux
+      // {
+        users = [
+          "alice"
+          {
+            name = "bob";
+            homeManager.enable = false;
+          }
+          {
+            name = "carol";
+            homeManager.module = "nixos/pwnbox";
+          }
+        ];
+      }
+    )).users;
 in
 # Force the actual option types, including those lazy host builders may not read.
 assert lib.all (host: accepts host.device) hostRegistry.all;
@@ -39,4 +54,29 @@ assert accepts (darwin // { stateVersion = 7; });
 assert !(accepts (darwin // { stateVersion = "25.11"; }));
 assert (evaluate linux).stateVersion == "26.05";
 assert (evaluate darwin).stateVersion == 6;
+assert accepts { };
+assert (evaluate { }).system == "x86_64-linux";
+assert (evaluate linux).profile == "server";
+assert (evaluate linux).compositors == [ ];
+assert
+  builtins.head normalizedUsers == {
+    name = "alice";
+    groups = [ ];
+    packages = [ ];
+    sshKey = "";
+    homeManager = {
+      enable = true;
+      module = "auto";
+    };
+  };
+assert
+  (builtins.elemAt normalizedUsers 1).homeManager == {
+    enable = false;
+    module = "auto";
+  };
+assert
+  (builtins.elemAt normalizedUsers 2).homeManager == {
+    enable = true;
+    module = "nixos/pwnbox";
+  };
 true

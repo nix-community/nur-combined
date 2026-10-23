@@ -3,13 +3,12 @@
   lib,
   flakeRoot,
   nixosModules,
+  userKeys,
   ...
 }:
 
 let
   secrets = flakeRoot + /secrets/daedalus;
-  hostUtils = import (flakeRoot + /lib/hostUtils.nix) { inherit lib; };
-  userKeys = hostUtils.collectSshKeys { inherit flakeRoot; };
 in
 
 {

@@ -3,9 +3,6 @@
   ...
 }:
 
-let
-  flakeOverlays = if outputs ? overlays then outputs.overlays else import ../../../../overlays;
-in
 {
   imports = [
     ../../config/shell
@@ -34,8 +31,8 @@ in
 
   nixpkgs = {
     overlays = [
-      flakeOverlays.additions
-      flakeOverlays.modifications
+      outputs.overlays.additions
+      outputs.overlays.modifications
     ];
   };
 

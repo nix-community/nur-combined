@@ -22,6 +22,11 @@ in
     pkgs.runCommand "device-schema-checks" { } ''
       touch "$out"
     '';
+  host-builders =
+    assert import ./host-builders.nix { inherit lib; };
+    pkgs.runCommand "host-builder-checks" { } ''
+      touch "$out"
+    '';
   home-manager =
     assert import ./home-manager.nix { inherit inputs hostRegistry lib; };
     pkgs.runCommand "home-manager-output-checks" { } ''
@@ -30,7 +35,16 @@ in
 }
 // import ./integration.nix { inherit pkgs inputs hostRegistry; }
 // lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
-  dmenu-wpctl = pkgs.callPackage ../pkgs/dmenu-wpctl/package.nix { };
+  user-secrets =
+    let
+      config = inputs.self.nixosConfigurations.daedalus.config;
+    in
+    assert config.sops.secrets.passwd.neededForUsers;
+    assert config.users.users.iamanaws.hashedPasswordFile == config.sops.secrets.passwd.path;
+    assert lib.elem "setupSecretsForUsers" config.system.activationScripts.users.deps;
+    pkgs.runCommand "user-secret-order-checks" { } ''
+      touch "$out"
+    '';
   dunst-scripts =
     pkgs.runCommand "dunst-script-checks"
       {

@@ -4,14 +4,13 @@
   lib,
 }:
 let
-  utils = import ../lib/hostUtils.nix { inherit lib; };
-
   # Inspect arguments sent to Home Manager without evaluating every host's
   # packages. This also works on Linux for Darwin module selection.
   inspect =
     registry:
     import ../lib/mkHome.nix {
       inherit lib;
+      outputs = inputs.self;
       inherit (inputs) nixpkgs;
       hostRegistry = registry;
       inputs = inputs // {
@@ -21,14 +20,6 @@ let
 
   homes = inspect hostRegistry;
   root = "${inputs.self}/home/users";
-  disabled = utils.normalizeUser {
-    name = "iamanaws";
-    homeManager.enable = false;
-  };
-  partial = utils.normalizeUser {
-    name = "iamanaws";
-    homeManager.module = "nixos/pwnbox";
-  };
   duplicate = builtins.tryEval (
     builtins.attrNames (inspect {
       inherit (hostRegistry) backends;
@@ -39,17 +30,12 @@ let
     })
   );
 in
-assert
-  (utils.normalizeUser "iamanaws").homeManager == {
-    enable = true;
-    module = "auto";
-  };
-assert
-  disabled.homeManager == {
-    enable = false;
-    module = "auto";
-  };
-assert partial.homeManager.enable;
+assert lib.all (
+  host:
+  lib.all (user: homes."${user.name}@${host.name}".extraSpecialArgs.hostConfig == host.hostConfig) (
+    lib.filter (user: user.homeManager.enable) host.users
+  )
+) hostRegistry.all;
 assert homes ? "iamanaws@archimedes" && homes ? "iamanaws@goliath";
 assert homes ? "iamanaws@galileo" && homes ? "iamanaws@pwnbox";
 assert !(homes ? "iamanaws@alpha");

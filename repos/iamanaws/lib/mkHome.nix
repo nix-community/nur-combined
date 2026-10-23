@@ -1,7 +1,7 @@
 {
   hostRegistry,
   inputs,
-  outputs ? null,
+  outputs,
   nixpkgs,
   lib ? nixpkgs.lib,
 }:
@@ -28,19 +28,14 @@ let
     assignment:
     let
       inherit (assignment) host userSpec;
-      inherit (host) backend;
+      inherit (host) backend hostConfig;
       inherit (userSpec) name;
-      system =
-        host.device.system
-          or (throw "Host '${host.name}' (${backend}) is missing `device.system` in its options.nix");
+      system = host.device.system;
       modulePath = hostUtils.mkHmModulePath {
         inherit backend homeUsersRoot;
         knownBackends = hostRegistry.backends;
         user = name;
         hmModuleMode = userSpec.homeManager.module;
-      };
-      hostConfig = hostUtils.mkHostContext host.device // {
-        inherit (host) device;
       };
     in
     inputs.home-manager.lib.homeManagerConfiguration {
@@ -56,10 +51,9 @@ let
         }
       ];
       extraSpecialArgs = {
-        inherit inputs hostConfig;
+        inherit inputs outputs hostConfig;
         inherit flakeRoot;
-      }
-      // lib.optionalAttrs (outputs != null) { inherit outputs; };
+      };
     };
 
   canonical =

@@ -1,16 +1,16 @@
-{
-  lib,
-  hostConfig,
-  osConfig ? null,
-  ...
-}:
+{ lib, hostConfig, ... }:
 
-let
-  hasDisplayManager = osConfig != null && (osConfig.services.displayManager.enable or false);
-in
 {
   programs.bash = {
     enable = true;
+    # Start after the session environment is loaded; keep other TTYs for recovery.
+    profileExtra = lib.optionalString hostConfig.hyprland ''
+      if [[ $- == *i* && "''${XDG_SESSION_TYPE:-}" == tty ]] \
+        && [[ -z "''${DISPLAY:-}" && -z "''${WAYLAND_DISPLAY:-}" ]] \
+        && [[ "$(tty)" == /dev/tty1 ]]; then
+        exec start-hyprland
+      fi
+    '';
     shellAliases = {
       ls = lib.mkForce "ls -F --color=auto --show-control-chars";
       open = "xdg-open";
@@ -68,19 +68,6 @@ in
         fet.sh
       fi
       
-      ${
-            lib.optionalString
-              (hostConfig.hyprland && !hasDisplayManager)
-              ''
-                # Start Hyprland only on the primary TTY, leaving other TTYs
-                # available as recovery shells if the graphical session fails.
-                if [ "$XDG_VTNR" = "1" ] \
-                  && [ -z "$WAYLAND_DISPLAY" ] \
-                  && [ -z "$DISPLAY" ]; then
-                  exec start-hyprland
-                fi
-              ''
-          }
     ";
   };
 

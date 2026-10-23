@@ -84,7 +84,7 @@ with lib;
         };
       in
       mkOption {
-        type = types.listOf (types.either types.str userSpecType);
+        type = types.listOf (types.coercedTo types.str (name: { inherit name; }) userSpecType);
         default = [ ];
         description = ''
           Users to provision on the host.

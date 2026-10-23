@@ -114,7 +114,7 @@ lib.optionalAttrs (hostConfig.isGraphical && hostConfig.isLinux) {
         ];
         "application/json" = [ "cursor.desktop" ];
 
-        "inode/directory" = [ "thunar.desktop" ];
+        "inode/directory" = [ "pcmanfm.desktop" ];
 
         "image/*" = [ "imv.desktop" ];
         "image/gif" = [ "imv.desktop" ];

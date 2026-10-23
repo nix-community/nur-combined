@@ -2,8 +2,8 @@
 
 with lib;
 {
-  time.timeZone = mkDefault (config.device.timezone or "UTC");
+  time.timeZone = mkDefault config.device.timezone;
   environment.variables = {
-    LANG = mkDefault (config.device.locale or "en_US.UTF-8");
+    LANG = mkDefault config.device.locale;
   };
 }

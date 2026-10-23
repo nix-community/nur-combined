@@ -4,13 +4,12 @@
   pkgs,
   flakeRoot,
   nixosModules,
+  userKeys,
   ...
 }:
 
 let
   secrets = flakeRoot + /secrets;
-  hostUtils = import (flakeRoot + /lib/hostUtils.nix) { inherit lib; };
-  userKeys = hostUtils.collectSshKeys { inherit flakeRoot; };
 in
 
 {

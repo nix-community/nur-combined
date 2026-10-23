@@ -3,18 +3,6 @@ let
   # List only directories under a given path (stable + matches how flake.nix enumerates hosts).
   dirNames = dir: lib.attrNames (lib.filterAttrs (_: t: t == "directory") (builtins.readDir dir));
 
-  # Load `{ device = ...; }` from `<path>/options.nix` when present.
-  loadDeviceConfig =
-    path:
-    let
-      optionsPath = path + "/options.nix";
-    in
-    if builtins.pathExists optionsPath then (import optionsPath).device or { } else { };
-
-  # Load device configs for each host in a hosts directory (e.g. ./nixos/hosts).
-  loadHostDevices =
-    hostsDir: lib.genAttrs (dirNames hostsDir) (name: loadDeviceConfig (hostsDir + "/${name}"));
-
   # Discover `<backend>/hosts/<hostname>` trees and normalize their host data.
   # The directory layout and each host's options.nix remain the source of truth;
   # adding a backend-specific system builder is handled separately in flake.nix.
@@ -32,10 +20,16 @@ let
         backend: name:
         let
           path = flakeRoot + "/${backend}/hosts/${name}";
-          loadedDevice = loadDeviceConfig path;
-          device = loadedDevice // {
-            hostname = loadedDevice.hostname or name;
-          };
+          # Evaluate the same schema used by system modules before selecting
+          # imports, so standalone homes and system builders share its defaults.
+          device =
+            (lib.evalModules {
+              modules = [
+                ../nixos/modules/device-options.nix
+                (path + "/options.nix")
+                { device.hostname = lib.mkDefault name; }
+              ];
+            }).config.device;
         in
         {
           inherit
@@ -44,7 +38,8 @@ let
             name
             path
             ;
-          users = map normalizeUser (device.users or [ ]);
+          inherit (device) users;
+          hostConfig = mkHostContext device;
         };
 
       byBackend = lib.genAttrs backends (
@@ -117,63 +112,17 @@ let
     in
     merged;
 
-  # ---------------------------------------------------------------------------
-  # User normalization & home-manager module resolution (shared by builders)
-  # ---------------------------------------------------------------------------
-
-  # Normalize a user entry (string or attrset) into a canonical spec.
-  normalizeUser =
-    u:
-    if builtins.isString u then
-      {
-        name = u;
-        groups = [ ];
-        packages = [ ];
-        sshKey = "";
-        homeManager = {
-          enable = true;
-          module = "auto";
-        };
-      }
-    else
-      {
-        inherit (u) name;
-        groups = u.groups or u.extraGroups or [ ];
-        packages = u.packages or [ ];
-        sshKey = u.sshKey or "";
-        homeManager = {
-          enable = true;
-          module = "auto";
-        }
-        // (u.homeManager or { });
-      };
-
-  # Convert a user list into an attrset keyed by user name.
-  usersToAttrs =
-    users: lib.listToAttrs (map (u: lib.nameValuePair u.name u) (map normalizeUser users));
-
-  # Load normalized users for a given host (by name) from nixos/hosts/<host>/options.nix.
-  getHostUsers =
-    { flakeRoot, host }:
-    usersToAttrs ((loadDeviceConfig (flakeRoot + "/nixos/hosts/${host}")).users or [ ]);
-
-  # Collect all per-host per-user SSH keys:
-  # userKeys = hostUtils.collectSshKeys { inherit flakeRoot; };
-  # root.openssh.authorizedKeys.keys = with userKeys; [ archimedes.iamanaws goliath.iamanaws ];
+  # Collect SSH keys from the same normalized records consumed by the builders.
   collectSshKeys =
-    { flakeRoot }:
-    let
-      hostsDir = flakeRoot + "/nixos/hosts";
-      hosts = dirNames hostsDir;
-      mkHostKeys =
-        host:
-        lib.filterAttrs (_: k: k != "") (
-          lib.mapAttrs (_: u: u.sshKey) (getHostUsers {
-            inherit flakeRoot host;
-          })
-        );
-    in
-    lib.genAttrs hosts mkHostKeys;
+    hostRegistry:
+    lib.mapAttrs (
+      _: host:
+      lib.listToAttrs (
+        map (user: lib.nameValuePair user.name user.sshKey) (
+          lib.filter (user: user.sshKey != "") host.users
+        )
+      )
+    ) (hostRegistry.byBackend.nixos or { });
 
   # Resolve a home-manager module path for a user.
   #
@@ -223,24 +172,20 @@ let
     else
       throw "Invalid homeManager.module '${hmModuleMode}' for user '${user}'.";
 
-  # Build `outputsForHM` ensuring `overlays` is always present.
-  mkOutputsForHM =
-    { outputs, inputs }:
-    let
-      flakeOverlays = import (inputs.self + /overlays) { inherit (inputs) nur; };
-    in
-    outputs // { overlays = outputs.overlays or flakeOverlays; };
-
   mkHostContext =
     device:
     let
-      system = device.system or "";
-      compositors = device.compositors or [ ];
+      inherit (device) system compositors;
       isDarwin = lib.hasSuffix "darwin" system;
       isLinux = lib.hasSuffix "linux" system;
     in
     {
-      inherit compositors isDarwin isLinux;
+      inherit
+        device
+        compositors
+        isDarwin
+        isLinux
+        ;
       isGraphical = isDarwin || (isLinux && compositors != [ ]);
       hyprland = lib.elem "hyprland" compositors;
       gnome = lib.elem "gnome" compositors;
@@ -251,15 +196,9 @@ in
   inherit
     dirNames
     discoverHostRegistry
-    loadDeviceConfig
-    loadHostDevices
     mkModuleTree
-    normalizeUser
-    usersToAttrs
-    getHostUsers
     collectSshKeys
     mkHmModulePath
-    mkOutputsForHM
     mkHostContext
     ;
 }

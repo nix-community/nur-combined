@@ -1,6 +1,5 @@
 {
   device = {
-    system = "x86_64-linux";
     hostname = "pwnbox";
     profile = "vm/virtualbox";
     users = [

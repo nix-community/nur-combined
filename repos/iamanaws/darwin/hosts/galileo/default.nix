@@ -78,7 +78,7 @@ in
         # "/Applications//Nix Apps/Postman.app"
         # "/Applications/Nix Apps/Spotify.app"
         # "/Applications/ClickUp.app"
-        "${userHome}/Applications/Home Manager Apps/T3 Code (Alpha).app"
+        "${userHome}/Applications/Home Manager Apps/T3 Code (Beta).app"
       ];
       show-recents = false;
 

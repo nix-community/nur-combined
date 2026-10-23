@@ -1,7 +1,6 @@
 { inputs, outputs }:
 {
-  name,
-  path,
+  host,
   extraModules ? [ ],
   specialArgs ? { },
 }:
@@ -10,7 +9,12 @@ let
   hostUtils = import ./hostUtils.nix { inherit lib; };
   nixpkgsConfig = import ./nixpkgsConfig.nix { inherit lib; };
 
-  deviceConfig = hostUtils.loadDeviceConfig path;
+  inherit (host)
+    path
+    device
+    users
+    hostConfig
+    ;
   darwinModules = hostUtils.mkModuleTree (inputs.self + /darwin);
   rawNixosModules = hostUtils.mkModuleTree (inputs.self + /nixos);
   nixosModules =
@@ -19,13 +23,6 @@ let
       rawNixosModules.modules or { }
     );
   homeUsersRoot = inputs.self + "/home/users";
-  outputsForHM = hostUtils.mkOutputsForHM { inherit outputs inputs; };
-
-  userSpecs = map hostUtils.normalizeUser (deviceConfig.users or [ ]);
-  hostConfig = {
-    device = deviceConfig;
-  }
-  // hostUtils.mkHostContext deviceConfig;
 
   hmModuleFor =
     user: mode:
@@ -38,7 +35,7 @@ let
   # Canonical hostname: lowercase + dash-separated
   hostId =
     let
-      rawName = deviceConfig.hostname or name;
+      rawName = device.hostname;
     in
     lib.strings.toLower (lib.replaceStrings [ " " "_" "." ] [ "-" "-" "-" ] rawName);
 
@@ -67,21 +64,21 @@ let
         darwinModules.common.default
       ];
 
-      device = deviceConfig;
+      inherit device;
       nixpkgs.config = nixpkgsConfig;
-      nixpkgs.hostPlatform = lib.mkDefault (deviceConfig.system or "x86_64-darwin");
+      nixpkgs.hostPlatform = lib.mkDefault device.system;
 
       networking = {
         computerName = lib.mkDefault computerName;
         hostName = lib.mkDefault hostId;
       };
 
-      system.stateVersion = lib.mkDefault (deviceConfig.stateVersion or 6);
+      system.stateVersion = lib.mkDefault device.stateVersion;
 
       users.users = lib.mkMerge (
         map (u: {
           ${u.name}.home = lib.mkDefault "/Users/${u.name}";
-        }) userSpecs
+        }) users
       );
 
       home-manager = {
@@ -92,20 +89,14 @@ let
           }
         ];
         extraSpecialArgs = {
-          inherit inputs;
-          outputs = outputsForHM;
+          inherit inputs outputs;
           flakeRoot = inputs.self;
           inherit hostConfig;
         };
         users = lib.mkMerge (
-          lib.filter (x: x != { }) (
-            map (
-              u:
-              lib.optionalAttrs (u.homeManager.enable or true) {
-                ${u.name} = lib.mkDefault (import (hmModuleFor u.name (u.homeManager.module or "auto")));
-              }
-            ) userSpecs
-          )
+          map (u: {
+            ${u.name} = lib.mkDefault (import (hmModuleFor u.name u.homeManager.module));
+          }) (lib.filter (u: u.homeManager.enable) users)
         );
       };
     };
@@ -119,8 +110,12 @@ in
 inputs.nix-darwin.lib.darwinSystem {
   inherit modules;
   specialArgs = {
-    inherit inputs darwinModules homeUsersRoot;
-    outputs = outputsForHM;
+    inherit
+      inputs
+      outputs
+      darwinModules
+      homeUsersRoot
+      ;
     flakeRoot = inputs.self;
     darwinRoot = inputs.self + /darwin;
     homeRoot = inputs.self + /home;

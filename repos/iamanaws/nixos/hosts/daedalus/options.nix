@@ -1,6 +1,5 @@
 {
   device = {
-    system = "x86_64-linux";
     hostname = "daedalus";
     profile = "server";
     users = [

@@ -74,7 +74,10 @@
       hostUtils = import ./lib/hostUtils.nix { inherit lib; };
       hostRegistry = hostUtils.discoverHostRegistry inputs.self;
 
-      mkNixos = import ./lib/mkNixos.nix { inherit inputs outputs; };
+      mkNixos = import ./lib/mkNixos.nix {
+        inherit inputs outputs;
+        userKeys = hostUtils.collectSshKeys hostRegistry;
+      };
       mkDarwin = import ./lib/mkDarwin.nix { inherit inputs outputs; };
       mkHome = import ./lib/mkHome.nix {
         inherit
@@ -113,22 +116,10 @@
       overlays = import ./overlays { inherit (inputs) nur; };
 
       ### NixOS Configurations ###
-      nixosConfigurations = lib.mapAttrs (
-        hostName: host:
-        mkNixos {
-          name = hostName;
-          inherit (host) path;
-        }
-      ) (hostsFor "nixos");
+      nixosConfigurations = lib.mapAttrs (_: host: mkNixos { inherit host; }) (hostsFor "nixos");
 
       ### Darwin Configurations ###
-      darwinConfigurations = lib.mapAttrs (
-        hostName: host:
-        mkDarwin {
-          name = hostName;
-          inherit (host) path;
-        }
-      ) (hostsFor "darwin");
+      darwinConfigurations = lib.mapAttrs (_: host: mkDarwin { inherit host; }) (hostsFor "darwin");
 
       ### Home-Manager standalone configurations ###
       homeConfigurations = mkHome;

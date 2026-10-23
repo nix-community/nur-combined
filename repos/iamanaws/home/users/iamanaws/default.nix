@@ -10,10 +10,6 @@
 }:
 
 let
-  # `outputs` can vary depending on who instantiates home-manager (NixOS module vs standalone HM),
-  # so prefer `outputs.overlays` when present, otherwise import overlays from the flake tree.
-  flakeOverlays =
-    if outputs ? overlays then outputs.overlays else import ../../../overlays { inherit (inputs) nur; };
   llmAgentPkgs = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
 in
 {
@@ -36,8 +32,8 @@ in
   nixpkgs = {
     overlays = [
       # Add overlays your own flake exports (from overlays and pkgs dir):
-      flakeOverlays.additions
-      flakeOverlays.modifications
+      outputs.overlays.additions
+      outputs.overlays.modifications
 
       # You can also add overlays exported from other flakes:
       # neovim-nightly-overlay.overlays.default
@@ -60,13 +56,6 @@ in
       nixd
     ]
     ++ [ llmAgentPkgs.cursor-agent ];
-
-  programs.mcp = {
-    enable = config.programs.claude-code.enable || config.programs.codex.enable;
-    servers = {
-      cxf-docs.url = "https://docs.cxf.app/mcp";
-    };
-  };
 
   # Enable home-manager and git
   programs.home-manager.enable = true;
