@@ -3032,10 +3032,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "159.0.20261021.90508";
+      version = "160.0.20261022.150451";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5148326/dansk_da_language_pack-159.0.20261021.90508.xpi";
-      sha256 = "9195a9a1922a4b6bf5f26a55f9a106a379d079dcd77bb560196ce73edcc9cf67";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5153781/dansk_da_language_pack-160.0.20261022.150451.xpi";
+      sha256 = "fa2a062ca20a93c1d2fa3d09ea21271141d826e8b080269bde359d0923d71c6b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3150,10 +3150,10 @@
     };
     "dashlane" = buildMozillaXpiAddon {
       pname = "dashlane";
-      version = "6.2641.2";
+      version = "6.2643.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5092086/dashlane-6.2641.2.xpi";
-      sha256 = "f94781f178173e61502f9bc7c716f4d713e0194ebf9525dd98baff247fda221c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5152566/dashlane-6.2643.0.xpi";
+      sha256 = "7143a980f69ca5f4f10d39e9f232b3f92a96adde7fda283ed9592642954699c1";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -3248,10 +3248,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "159.0.20261021.90508";
+      version = "160.0.20261022.150451";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5148328/deutsch_de_language_pack-159.0.20261021.90508.xpi";
-      sha256 = "634926388546c0bcd07af5e471ac798d55e68e87e89eff45a91afb8edd1adc2c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5153780/deutsch_de_language_pack-160.0.20261022.150451.xpi";
+      sha256 = "182cbf536b43d073bb36443d5d846788bee6b58436fc23ccbbc320318819b505";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4750,10 +4750,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "159.0.20261021.90508";
+      version = "160.0.20261022.150451";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5148199/francais_language_pack-159.0.20261021.90508.xpi";
-      sha256 = "25651ccce1b562ced668d054688c0a3251f788a330f82a827c786d3be2b451f0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5153706/francais_language_pack-160.0.20261022.150451.xpi";
+      sha256 = "3088460c4dedb4ac5205a777390f72167e6712fd9bfd6d7fabc94141c883d282";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4787,10 +4787,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "159.0.20261021.90508";
+      version = "160.0.20261022.150451";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5148232/gaidhlig_language_pack-159.0.20261021.90508.xpi";
-      sha256 = "6faabebde96cd6d460ec6d46270139f4f32ce6b2a5437ce148aca26be2e4f145";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5153717/gaidhlig_language_pack-160.0.20261022.150451.xpi";
+      sha256 = "ffce27e98853be292439f08354e2352aeaff3c371a92f971d34f09093cd2c53f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -7348,10 +7348,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.5.2";
+      version = "2.5.3";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5147690/lichess_tools_by_siderite-2.5.2.xpi";
-      sha256 = "36027c92ad538eafc125e73f7a18ef8898c53dd06884d760200978ea1a4b4191";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5154258/lichess_tools_by_siderite-2.5.3.xpi";
+      sha256 = "e1fe3a835e5226dc2f5351ec1c1184f17c424b6bc4ce9483c51e9c1b0af568ad";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -8774,10 +8774,10 @@
     };
     "mergify" = buildMozillaXpiAddon {
       pname = "mergify";
-      version = "1.6.0";
+      version = "1.7.0";
       addonId = "d1b33d6a57c463f0daef4abfb625edddd1c2d5d9@mergify.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5124396/mergify-1.6.0.xpi";
-      sha256 = "fd2b98a36cc787a06644052cab3e6b47daac733aad001964656f3fafb43cbddc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5152555/mergify-1.7.0.xpi";
+      sha256 = "7819c0cf5bc5891d3c398f5077e039728b6f59395482fb9d911e57494438b714";
       meta = with lib;
       {
         description = "Mergify extension for GitHub";
@@ -9021,10 +9021,10 @@
     };
     "mtab" = buildMozillaXpiAddon {
       pname = "mtab";
-      version = "1.13.3";
+      version = "1.13.4";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5133916/mtab-1.13.3.xpi";
-      sha256 = "1981149e3341a59f51dd39cee92cec09c309353b6350d74ac7489dc900019e45";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5155253/mtab-1.13.4.xpi";
+      sha256 = "dbe713751e21b923aae29915ef0d7cd212d2731fea223b0f907a5f2959a9091b";
       meta = with lib;
       {
         homepage = "https://mtab.maxhu.dev";
@@ -10373,10 +10373,10 @@
     };
     "print-friendly-pdf" = buildMozillaXpiAddon {
       pname = "print-friendly-pdf";
-      version = "7.3.3";
+      version = "7.3.5";
       addonId = "jid0-YQz0l1jthOIz179ehuitYAOdBEs@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5138056/print_friendly_pdf-7.3.3.xpi";
-      sha256 = "c60fe1cdf1c6eb9236fe2f1c9854d1005a6362989397f92f09dcd5dabb8ff55f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5152947/print_friendly_pdf-7.3.5.xpi";
+      sha256 = "6327461dc81e7f7753cd137a8e69b757a03c333c248d8db8294d3c7fe6b851e0";
       meta = with lib;
       {
         homepage = "https://www.printfriendly.com/";
@@ -12264,10 +12264,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "159.0.20261021.90508";
+      version = "160.0.20261022.150451";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5148201/scots_language_pack-159.0.20261021.90508.xpi";
-      sha256 = "93caae0a422ab171b2e97e3478f43c89ee3ec561e0e47cab70c9b3aaf906c1eb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5153829/scots_language_pack-160.0.20261022.150451.xpi";
+      sha256 = "33c37c501aef2e225e10547d90a5e3a5b8a05eb4e150c5e015d88e39b6c6e8fe";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -12575,25 +12575,29 @@
     };
     "shortkeys" = buildMozillaXpiAddon {
       pname = "shortkeys";
-      version = "2.0.20";
+      version = "5.1.0";
       addonId = "Shortkeys@Shortkeys.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/715576/shortkeys-2.0.20.xpi";
-      sha256 = "9dff43872018461f2dc82b6519395e3159f35b3d6a262ae58a4944d822ecfb1a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5149482/shortkeys-5.1.0.xpi";
+      sha256 = "436a712123f6e6d0ceb48181a584abeda19e00237d0e56639923e6584ce08a06";
       meta = with lib;
       {
         homepage = "https://shortkeys.app";
         description = "Create custom keyboard shortcuts for your browser: 125+ built-in actions, macros, shortcut packs, command palette, cloud sync, and more.";
         license = licenses.mit;
         mozPermissions = [
-          "tabs"
-          "activeTab"
           "downloads"
-          "clipboardWrite"
           "storage"
+          "tabs"
+          "clipboardWrite"
+          "browsingData"
           "bookmarks"
+          "sessions"
+          "management"
+          "scripting"
+          "notifications"
+          "activeTab"
           "<all_urls>"
-          "http://*/*"
-          "https://*/*"
+          "file:///*"
         ];
         platforms = platforms.all;
       };
@@ -13922,16 +13926,16 @@
     };
     "time-zone-converter-savvy-time" = buildMozillaXpiAddon {
       pname = "time-zone-converter-savvy-time";
-      version = "1.11.4";
+      version = "1.11.5";
       addonId = "yuriy@savvytime.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5132222/time_zone_converter_savvy_time-1.11.4.xpi";
-      sha256 = "cb967457b0208aa2a7d2d2159876095ee2d7853ce28a9b189d5a1ce7af7b2777";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5153285/time_zone_converter_savvy_time-1.11.5.xpi";
+      sha256 = "a3b6790b614b395f3905ee99e714f05323bd7b8231e17a2f89a12619088bdd3a";
       meta = with lib;
       {
         homepage = "https://savvytime.com/converter";
-        description = "Compare world times, convert time zones, and plan meetings across 24,000+ cities and towns. Works offline.";
+        description = "World clock, time zone converter and meeting planner. Compare cities, find the best time to meet and convert EST, IST and UTC.";
         license = licenses.mpl20;
-        mozPermissions = [ "storage" ];
+        mozPermissions = [ "storage" "alarms" "contextMenus" ];
         platforms = platforms.all;
       };
     };
@@ -15030,10 +15034,10 @@
     };
     "v2ex-polish" = buildMozillaXpiAddon {
       pname = "v2ex-polish";
-      version = "2.5.1";
+      version = "2.5.2";
       addonId = "leokudev@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5150833/v2ex_polish-2.5.1.xpi";
-      sha256 = "eb9c6efc4b98b9da25403f65456ac0cc4286e78313c6879d533dc03c8c958107";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5151908/v2ex_polish-2.5.2.xpi";
+      sha256 = "0c2defeec8fe0ae00a868c6e5d5bb15741b9b620e665823b126e43970a4d0240";
       meta = with lib;
       {
         description = "专为 V2EX 用户设计，提供了丰富的扩展功能。";
@@ -16513,10 +16517,10 @@
     };
     "yomitan" = buildMozillaXpiAddon {
       pname = "yomitan";
-      version = "26.9.8.0";
+      version = "26.10.12.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5040552/yomitan-26.9.8.0.xpi";
-      sha256 = "629dcc47f8709287e6e1f99d5f8d7282b649b00855ef504b6d1b84b58ad831c9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5154894/yomitan-26.10.12.0.xpi";
+      sha256 = "2fd086c5b8f9bde51d778c6da057c9af73ab13afdf921b8a5de9fdd10b643ab0";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";

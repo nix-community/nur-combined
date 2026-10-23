@@ -99,10 +99,10 @@
     };
     "filtaquilla" = buildMozillaXpiAddon {
       pname = "filtaquilla";
-      version = "6.3.1";
+      version = "6.3.2";
       addonId = "filtaquilla@mesquilla.com";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1053233/filtaquilla-6.3.1-tb.xpi?src=";
-      sha256 = "5f3a185481dd40aa5305fdd8589dc249d830c50c868e9110bc0280d2272795e7";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1054016/filtaquilla-6.3.2-tb.xpi?src=";
+      sha256 = "6a2a9e2ef883b28ddaba17daf041d61ec7cd65e561ed28d5e099823ef2284a7f";
       meta = with lib;
       {
         homepage = "http://quickfilters.mozdev.org/filtaquilla.html";
