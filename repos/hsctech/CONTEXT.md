@@ -16,3 +16,12 @@ Glossary for this repository.
 - **blobl_lsp** — a language server for Bloblang (Bento's mapping language),
   packaged here from tagged releases of
   [codeberg.org/hsctech/blobl_lsp](https://codeberg.org/hsctech/blobl_lsp).
+- **blobl_sitter** — the tree-sitter grammar for Bloblang
+  ([codeberg.org/hsctech/blobl_sitter](https://codeberg.org/hsctech/blobl_sitter)),
+  packaged here as **tree-sitter-bloblang** from tagged releases.
+- **helix-blobl** — hsctech's Helix fork
+  ([codeberg.org/hsctech/helix](https://codeberg.org/hsctech/helix)), which
+  adds Bloblang grammar and language-server support. Pinned to a commit
+  (manual bumps); reuses nixpkgs' helix wrapper and grammar lockfile, with
+  blobl_sitter added as an extra locked grammar. The `helix-blobl` overlay
+  additionally overrides `pkgs.helix`.

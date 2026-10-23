@@ -32,8 +32,10 @@ jobs:
             -I ./ \
             --json | jq -r 'values | .[].name'
 
-      - name: Build blobl_lsp
+      - name: Build packages
         run: |
           cd nur-packages
-          nix-build -A blobl_lsp \
+          # helix-blobl is eval-only here: a full Rust build of helix on
+          # every push is too slow. The eval check above still covers it.
+          nix-build -A blobl_lsp -A tree-sitter-bloblang \
             -I nixpkgs=$(nix-instantiate --find-file nixpkgs)
