@@ -13,14 +13,57 @@ let
       ];
     }).config.virtualisation.vmVariant;
   standalone = inputs.self.homeConfigurations."iamanaws@pwnbox".config;
-  wifiService = alpha.systemd.services.wpa_supplicant-wlan0;
+  wifiService = alpha.systemd.services.NetworkManager-ensure-profiles;
   wifiSecret = alpha.sops.secrets.wireless;
+  wifiProfiles = alpha.networking.networkmanager.ensureProfiles.profiles;
+  recovery = wifiProfiles.alpha-recovery;
 in
-# The physical Pi's encrypted Wi-Fi config must reach its unprivileged service.
-assert inputs.nixpkgs.lib.hasInfix "-I ${wifiSecret.path}" wifiService.script;
-assert builtins.elem wifiSecret.path wifiService.serviceConfig.BindReadOnlyPaths;
-assert wifiSecret.group == wifiService.serviceConfig.Group;
-assert wifiSecret.mode == "0440";
+# The physical Pi's profiles receive credentials only at runtime.
+assert builtins.elem wifiSecret.path wifiService.serviceConfig.EnvironmentFile;
+assert wifiSecret.format == "dotenv" && wifiSecret.key == "";
+assert wifiSecret.owner == null || wifiSecret.owner == "root";
+assert wifiSecret.uid == 0 && wifiSecret.mode == "0400";
+assert builtins.elem "NetworkManager-ensure-profiles.service" wifiSecret.restartUnits;
+assert wifiService.serviceConfig.UMask == "0177";
+assert recovery.wifi.mode == "ap" && recovery.wifi.band == "bg";
+assert recovery.wifi-security.psk == "$RECOVERY_PSK";
+assert recovery.connection.autoconnect;
+assert recovery.ipv4.address1 == "10.42.0.1/24";
+assert alpha.networking.firewall.filterForward;
+assert alpha.networking.networkmanager.settings.main.firewall-backend == "none";
+assert builtins.all
+  (
+    name:
+    let
+      station = wifiProfiles.${name};
+    in
+    station.connection.autoconnect-priority > recovery.connection.autoconnect-priority
+    && station.connection.autoconnect-retries == 1
+    && !station.ipv4.may-fail
+  )
+  [
+    "wifi-1"
+    "wifi-2"
+    "wifi-3"
+    "wifi-4"
+  ];
+assert builtins.all
+  (
+    index:
+    let
+      primary = wifiProfiles."wifi-${toString index}";
+      fallback = wifiProfiles."wifi-${toString (index + 2)}";
+    in
+    fallback.wifi.ssid == primary.wifi.ssid
+    && fallback.wifi-security.psk == primary.wifi-security.psk
+    && primary.wifi-security.pmf == 2
+    && fallback.wifi-security.pmf == 1
+    && fallback.connection.autoconnect-priority < primary.connection.autoconnect-priority
+  )
+  [
+    1
+    2
+  ];
 
 # The ARM guest uses the real host's users/services, without Pi hardware or secrets.
 assert alphaVM.nixpkgs.hostPlatform.system == alpha.device.system;

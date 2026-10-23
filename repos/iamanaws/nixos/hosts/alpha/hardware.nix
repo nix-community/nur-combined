@@ -13,6 +13,7 @@
     # Also supports the Zero 2 W.
     inputs.nixos-hardware.nixosModules.raspberry-pi-3
     (flakeRoot + /secrets)
+    ./wifi.nix
   ];
 
   boot = {
@@ -71,23 +72,8 @@
     ];
   };
 
-  networking = {
-    interfaces.wlan0.useDHCP = true;
-    wireless = {
-      enable = true;
-      interfaces = [ "wlan0" ];
-      userControlled = true;
-      allowAuxiliaryImperativeNetworks = true;
-      extraConfigFiles = [ config.sops.secrets.wireless.path ];
-    };
-  };
-
-  # The hardened NixOS service runs as wpa_supplicant, rather than root.
-  sops.secrets.wireless = {
-    group = "wpa_supplicant";
-    mode = "0440";
-    restartUnits = [ "wpa_supplicant-wlan0.service" ];
-  };
+  networking.networkmanager.ensureProfiles.environmentFiles = [ config.sops.secrets.wireless.path ];
+  sops.secrets.wireless.restartUnits = [ "NetworkManager-ensure-profiles.service" ];
 
   nixpkgs = {
     hostPlatform = lib.mkDefault "aarch64-linux";

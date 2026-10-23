@@ -33,7 +33,7 @@ let
             })
             (final.fetchpatch2 {
               url = "https://github.com/NixOS/nixpkgs/pull/577858.patch?full_index=1";
-              hash = "sha256-1m4kpZa9BzsCyJkkZ9Ws80iQ9VAq6MsBE/n3xVYVzDA=";
+              hash = "sha256-A46zaK9vVE9nhxU1zFSGEAJdwgmixZr7p1+rW9fuQ7E=";
             })
           ];
           patchFlags = [ "-p5" ];

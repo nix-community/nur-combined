@@ -9,8 +9,9 @@
 
     secrets = {
       wireless = {
-        sopsFile = ./networks.conf;
-        format = "binary";
+        sopsFile = ./wireless.env;
+        format = "dotenv";
+        key = "";
       };
     };
   };

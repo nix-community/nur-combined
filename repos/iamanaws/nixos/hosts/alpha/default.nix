@@ -16,17 +16,6 @@
     vim
   ];
 
-  networking = {
-    # override core defaults
-    networkmanager.enable = lib.mkForce false;
-    # Open firewall ports for DNS
-    firewall.allowedUDPPorts = [
-      53
-      67
-      68
-    ];
-  };
-
   security.sudo = {
     enable = true;
     wheelNeedsPassword = false;
