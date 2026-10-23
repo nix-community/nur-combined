@@ -1,6 +1,7 @@
 { lib, hostConfig, ... }:
 let
-  workstation = lib.elem (hostConfig.device.profile or "core") [
+  profile = lib.head (lib.splitString "/" (hostConfig.device.profile or "core"));
+  workstation = lib.elem profile [
     "desktop"
     "laptop"
   ];

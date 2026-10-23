@@ -1,5 +1,8 @@
-{ lib, ... }:
+{ config, lib, ... }:
 
+let
+  isDarwin = lib.hasSuffix "-darwin" config.device.system;
+in
 with lib;
 {
   options.device = {
@@ -16,14 +19,15 @@ with lib;
     };
 
     profile = mkOption {
-      type = types.enum [
+      type = types.either (types.enum [
+        "core"
         "server"
         "laptop"
         "desktop"
         "vm"
-      ];
+      ]) types.str;
       default = "server";
-      description = "Profile of the machine (server, laptop, desktop, vm).";
+      description = "Profile of the machine";
     };
 
     users =
@@ -103,9 +107,9 @@ with lib;
     };
 
     stateVersion = mkOption {
-      type = types.str;
-      default = "26.05";
-      description = "System stateVersion for compatibility.";
+      type = if isDarwin then types.int else types.str;
+      default = if isDarwin then 6 else "26.05";
+      description = "System stateVersion for compatibility: an integer on Darwin, a release string on NixOS.";
     };
 
     timezone = mkOption {

@@ -7,6 +7,11 @@ let
   inherit (pkgs) lib;
 in
 {
+  device-schema =
+    assert import ./device-schema.nix { inherit lib hostRegistry; };
+    pkgs.runCommand "device-schema-checks" { } ''
+      touch "$out"
+    '';
   home-manager =
     assert import ./home-manager.nix { inherit inputs hostRegistry lib; };
     pkgs.runCommand "home-manager-output-checks" { } ''

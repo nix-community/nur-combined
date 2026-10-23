@@ -29,17 +29,29 @@ let
   profileModulePath =
     let
       profile = deviceConfig.profile or null;
+      invalidPath = lib.any (
+        part:
+        lib.elem part [
+          ""
+          "."
+          ".."
+        ]
+      ) (lib.splitString "/" profile);
       base = ../nixos/profiles;
       directDir = if profile == null then null else base + "/${profile}";
       directFile = if profile == null then null else base + "/${profile}.nix";
     in
     deviceConfig.profileModulePath or (
-      if profile != null && builtins.pathExists directFile then
+      if profile == null then
+        null
+      else if invalidPath then
+        throw "Host '${name}': profile must be a relative module name, optionally qualified with a variant."
+      else if builtins.pathExists directFile then
         directFile
-      else if profile != null && builtins.pathExists directDir then
+      else if builtins.pathExists (directDir + "/default.nix") then
         directDir
       else
-        null
+        throw "Host '${name}': no profile module found for '${profile}'. Expected ${toString directFile} or ${toString directDir}/default.nix."
     );
 
   userSpecs = map hostUtils.normalizeUser (deviceConfig.users or [ ]);
