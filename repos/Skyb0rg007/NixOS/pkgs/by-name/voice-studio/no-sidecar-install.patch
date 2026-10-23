@@ -1,0 +1,18 @@
+--- a/backend/services/sidecar_install.py
++++ b/backend/services/sidecar_install.py
+@@ -612,6 +612,15 @@
+ def host_support(spec: SidecarSpec) -> tuple[bool, str]:
+     """Whether *spec*'s install can work here. A probe that raises counts as
+     unsupported: offering a button that fails is worse than not offering it."""
++    # Nix: a one-click install builds a private venv and downloads PyTorch and
++    # the rest of the engine's dependencies at runtime. Dependencies come from
++    # the Nix build instead; a manual install pointed to by the engine's
++    # environment variable still works.
++    return False, (
++        f"VoiceStudio was installed with Nix, so {spec.display_name} cannot "
++        "be installed from the app. Add it to the Nix package, or point "
++        f"{spec.env_var} at a manual install ({spec.docs_path})."
++    )
+     try:
+         ok, why = spec.host_supported()
+     except Exception:  # noqa: BLE001
