@@ -2,7 +2,13 @@
 
 Reminds you to blink. At regular intervals, it closes your screen like an eyelid — two black bars sweep in from the top and bottom and meet in the middle, then open again — so you rest your eyes. A `fill` movement covers the whole screen at once instead of sweeping.
 
-https://github.com/user-attachments/assets/5b0d6ae7-d471-4bfc-916b-0549f1a7d788
+https://github.com/user-attachments/assets/7a6bac03-1e11-4abc-9f07-983a7cfbc963
+
+https://github.com/user-attachments/assets/7e22e591-1fbe-4ca1-9e5e-e41ee1ef960b
+
+https://github.com/user-attachments/assets/3917fc83-7be0-4c79-ab49-4c7f6c793b5c
+
+https://github.com/user-attachments/assets/dcbeb694-89b6-43fd-ba1b-dbab44d70101
 
 ## Usage
 
