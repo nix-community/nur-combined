@@ -7,6 +7,8 @@
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
     ./disko.nix
+    ./home.nix
+    ./homelab.nix
   ];
 
   hardware.facter.reportPath = ./facter.json;
@@ -53,6 +55,7 @@
       };
     };
   };
+  services.tailscale.enable = true;
 
   users.users.avy.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDGfR13myvqgdgcxqvpEOoftPCIIhIgx9/9gDFZ2+lT9 sakg.dev.14@gmail.com"

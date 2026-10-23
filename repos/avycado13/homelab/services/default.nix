@@ -84,7 +84,6 @@
     ./auth
     ./glance
     ./niks3
-    ./retrom
     ./cloudrun
     ./scrutiny
     ./restic
@@ -94,6 +93,7 @@
     ./asterisk
     ./irc
     ./navidrome
+    ./t3code
     ./slackbots/riddlebot.nix
   ];
 }

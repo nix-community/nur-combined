@@ -2,7 +2,7 @@
 {
   sops.defaultSopsFile = ../../secrets/secrets.yaml;
   sops.age = {
-    keyFile = "${config.users.users.avy.home}/.config/sops/age/keys.txt";
+    keyFile = "/var/lib/sops-nix/key.txt";
     generateKey = true;
     sshKeyPaths = [
       "/etc/ssh/ssh_host_ed25519_key"

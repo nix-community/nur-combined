@@ -155,7 +155,6 @@ in
         inputs.niks3.nixosModules.niks3
         inputs.niks3.nixosModules.niks3-auto-upload
         inputs.nix-cache-beacon.nixosModules.default
-        inputs.retrom.nixosModules.retrom
         {
           # home-manager.users.avy.home.stateVersion = "25.05";
         }

@@ -1,13 +1,14 @@
 keys:
   - &avy age13y7t2j7l2su00e5lqm5zslug8czd0hvjjqapgyjxaumwzz0yvfzsjpz084
   - &gpg 0x0F7A57CF72410272
-  - &aws arn:aws:kms:us-east-2:513483285585:key/mrk-3e9325e56b2444fea58e7aa1f7bf752b
   - &pi1 age16msd9s7x6v3fa0n4plz8802vgkadgtqku8qzuat0vqkrl5vnyfps77t4vm
   - &pi1-avy age1t2zq6xsa3al6sq3ctuuy3f9zvfzvh823k672cjqye9la0st8tufsqrw5jk
   - &apollo1 age1p0qtfzkuqghlmjwttnrcp7735agrtwwkfq5jnguszwar754h540swl5dyf
   - &apollo13 age1q7u28e2h8gxl98zav8d73l4dhpuqa2nud8el37hkq5nr8m90fd8sw6t2s0
   - &nest age1gk3umg599s8lwp6s9rxrncvk8xklasrkf84l6dks2tughe0xzalsweyqg5
   - &eclipse age17zac4dyudmtdrt0p4g4rewjksm3tlad9w0uy7azw96xtf7hk7fsqlmcnth
+  - &0xff age1lt86w8r39g03p940znphcske84f4kv8puh2977clqyf9faj59e5sxmceg7
+  - &0xff-avy age14952wdpweudz88zcw76nuufvu8tw5aku6lz3l3kfe7jnedanuv0qhlk7cl
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
     key_groups:
@@ -19,7 +20,7 @@ creation_rules:
           - *apollo13
           - *nest
           - *eclipse
+          - *0xff
+          - *0xff-avy
         pgp:
           - *gpg
-        aws:
-          - *aws
