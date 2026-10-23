@@ -197,18 +197,36 @@ jobs:
             ".#packages.x86_64-linux.\"${KERNEL_ATTR}\"^*" > "$RUNNER_TEMP/kernel-outputs"
           cat "$RUNNER_TEMP/kernel-outputs"
 
-      - name: Verify redistribution rights for the complete built closure
-        id: closure
-        # Runs whenever the outputs exist locally: freshly built or realised.
+      - name: Realise the kernel configuration
+        # NixOS reads the kernel .config when it builds a system (sysctl ASLR entropy),
+        # so consumers must be able to substitute it as well. It is a build input of the
+        # kernel, so realising it never compiles the kernel itself; at most it runs the
+        # short kconfig step if the path is neither local nor already in uriotv.
+        id: config
         if: >-
           always() &&
+          (steps.build.outcome == 'success' || steps.realise.outcome == 'success')
+        run: |
+          set -euo pipefail
+          nix build --no-link --no-write-lock-file --print-out-paths \
+            --option substituters "$BUILD_SUBSTITUTERS" \
+            ".#packages.x86_64-linux.\"${KERNEL_ATTR}\".configfile" > "$RUNNER_TEMP/kernel-config"
+          cat "$RUNNER_TEMP/kernel-outputs" "$RUNNER_TEMP/kernel-config" > "$RUNNER_TEMP/publish-paths"
+          cat "$RUNNER_TEMP/kernel-config"
+
+      - name: Verify redistribution rights for the complete built closure
+        id: closure
+        # Runs whenever the outputs exist locally: freshly built or realised. The checked
+        # closure covers everything published: kernel outputs and their configuration.
+        if: >-
+          always() && steps.config.outcome == 'success' &&
           (steps.build.outcome == 'success' || steps.realise.outcome == 'success')
         run: |
           set -euo pipefail
           nix eval --json --no-write-lock-file \
             ".#ci.x86_64-linux.kernelLicenseManifests.\"${KERNEL_ATTR}\"" \
             > "$RUNNER_TEMP/kernel-license-manifest.json"
-          xargs nix path-info -r < "$RUNNER_TEMP/kernel-outputs" > "$RUNNER_TEMP/kernel-closure"
+          xargs nix path-info -r < "$RUNNER_TEMP/publish-paths" > "$RUNNER_TEMP/kernel-closure"
           {
             echo '## Automatic closure redistribution check'
             python3 -B scripts/check-kernel-closure.py \
@@ -230,14 +248,14 @@ jobs:
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
         run: |
           set -euo pipefail
-          cachix push uriotv < "$RUNNER_TEMP/kernel-outputs"
+          cachix push uriotv < "$RUNNER_TEMP/publish-paths"
           while IFS= read -r path; do
             hash=${path#/nix/store/}
             hash=${hash%%-*}
             curl --fail --silent --show-error --retry 5 --retry-all-errors \
               "https://uriotv.cachix.org/${hash}.narinfo" > "$RUNNER_TEMP/output.narinfo"
             grep -Fx "StorePath: $path" "$RUNNER_TEMP/output.narinfo"
-          done < "$RUNNER_TEMP/kernel-outputs"
+          done < "$RUNNER_TEMP/publish-paths"
           echo 'Kernel outputs published and their StorePath verified.'
 
       - name: Push kernel outputs to the private attic cache
@@ -252,7 +270,7 @@ jobs:
           (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_run')
         env:
           ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
-        run: bash scripts/attic-push.sh "$RUNNER_TEMP/kernel-outputs"
+        run: bash scripts/attic-push.sh "$RUNNER_TEMP/publish-paths"
 
       - name: Record publication status for the cache branch
         # Success only when the closure passed the licence gate, uriotv was pushed and

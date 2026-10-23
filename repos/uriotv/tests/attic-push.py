@@ -138,6 +138,21 @@ class AtticIndependenceTests(unittest.TestCase):
         self.assertIn("github.event_name == 'workflow_run'", body)
         self.assertIn("id: realise", body)
 
+    def test_kernel_configuration_is_gated_and_published_with_the_outputs(self):
+        # NixOS needs the kernel .config to build a system; it must be substitutable.
+        body = (ROOT / ".github/workflows/kernel.yml").read_text()
+        config = body.split("      - name: Realise the kernel configuration", 1)[1].split("      - name:", 1)[0]
+        self.assertIn(".configfile", config)
+        self.assertIn('> "$RUNNER_TEMP/publish-paths"', config)
+        closure = body.split("        id: closure", 1)[1].split("      - name:", 1)[0]
+        self.assertIn("steps.config.outcome == 'success'", closure)
+        self.assertIn('nix path-info -r < "$RUNNER_TEMP/publish-paths"', closure)
+        cachix = body.split("      - name: Publish to uriotv and verify StorePath", 1)[1].split("      - name:", 1)[0]
+        self.assertIn('cachix push uriotv < "$RUNNER_TEMP/publish-paths"', cachix)
+        self.assertIn('done < "$RUNNER_TEMP/publish-paths"', cachix)
+        attic = body.split("      - name: Push kernel outputs to the private attic cache", 1)[1].split("      - name:", 1)[0]
+        self.assertIn('attic-push.sh "$RUNNER_TEMP/publish-paths"', attic)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
