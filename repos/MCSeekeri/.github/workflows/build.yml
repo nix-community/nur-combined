@@ -42,7 +42,7 @@ jobs:
           free -h 2>&1 | grep -v "Permission denied" || true; swapon --show 2>&1 | grep -v "Permission denied" || cat /proc/swaps 2>&1 | grep -v "Permission denied" || true; df -h 2>&1 | grep -v "Permission denied" | head -n 20 || true
       - uses: wimpysworld/nothing-but-nix@main
         with:
-          hatchet-protocol: "rampage"
+          hatchet-protocol: "cleave"
           witness-carnage: true
           root-safe-haven: "1024"
           mnt-safe-haven: "2048"
