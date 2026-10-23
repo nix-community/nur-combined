@@ -20,7 +20,7 @@ This repository contains subjective package selections that I personally use. Th
 
 - Communication software (QQ, WeChat, etc.)
 - Development tools (Qwen-code, etc.)
-- Multimedia applications (MPV Handler, Linux Wallpaper Engine, etc.)
+- Multimedia applications (MPV Handler, Linux Wallpaper Engine, WiliWili, etc.)
 - Various utilities and other applications
 
 For a complete list of available packages, please browse the [pkgs/](./pkgs) directory.
