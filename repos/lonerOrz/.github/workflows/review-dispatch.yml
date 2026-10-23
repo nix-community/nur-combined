@@ -8,7 +8,7 @@ permissions:
 
 jobs:
   detect-and-dispatch:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Install Nix
         uses: cachix/install-nix-action@v31
@@ -47,7 +47,13 @@ jobs:
         env:
           NIXPKGS_ALLOW_UNFREE: 1
 
-      # 3. Dispatch builds
+      # 3. Enable upstream build workflow before dispatch
+      - name: Enable upstream build workflow
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: gh workflow enable build-pr.yml --repo lonerOrz/nixpkgs-review-gha
+
+      # 4. Dispatch builds
       - name: Dispatch Builds
         run: |
           .github/script/dispatch.sh \

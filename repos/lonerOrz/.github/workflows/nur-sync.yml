@@ -13,7 +13,7 @@ on:
 
 jobs:
   check-sync:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     env:
       MY_NUR_REPO: "https://github.com/lonerOrz/loneros-nur.git"
       MAX_ATTEMPTS: 60 # 轮询次数
