@@ -41,10 +41,10 @@ buildPythonPackage {
   pythonImportsCheck = [ "pyghidra" ];
 
   meta = {
-    description = "";
+    description = "Native CPython for Ghidra";
     homepage = "https://github.com/NationalSecurityAgency/ghidra/blob/master/Ghidra/Features/PyGhidra/src/main/py/README.md";
-    license = lib.licenses.apsl20;
+    license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ ivyfanchiang ];
-    mainProgram = "pylingual";
+    mainProgram = "pyghidra";
   };
 }
