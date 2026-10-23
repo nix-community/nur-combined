@@ -36,6 +36,7 @@
   writeShellApplication,
   nushell,
   nix,
+  xvfb-run,
 }:
 
 let
@@ -79,6 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
     wrapGAppsHook3
     desktop-file-utils
     python3
+    xvfb-run
   ];
   buildInputs = runtimeLibraries ++ [
     glib-networking
@@ -117,15 +119,18 @@ stdenv.mkDerivation (finalAttrs: {
 
   # The embedded WebKitGTK view needs an X11 window to join Avalonia's window.
   # Override desktop-wide Wayland settings, which prevent the view from initializing.
+  # Upstream's APPIMAGE override also controls desktop, autostart and upload
+  # commands. Resolve those through PATH so they survive store path changes.
   preFixup = ''
     makeWrapper ${lib.getExe dotnetRuntime} $out/bin/115life \
       --add-flags "$out/lib/115life/Life115.dll" \
       "''${gappsWrapperArgs[@]}" \
       --set DOTNET_SYSTEM_GLOBALIZATION_INVARIANT 0 \
       --set GDK_BACKEND x11 \
+      --set APPIMAGE 115life \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath runtimeLibraries}:$out/lib/115life" \
       --prefix PATH : "${lib.makeBinPath [ xdg-utils ]}"
-    # The app registers desktop entries and upload actions using this path.
+    # Retain the vendor executable name for code that bypasses its path resolver.
     ln -s $out/bin/115life $out/lib/115life/Life115
   '';
 
@@ -139,6 +144,8 @@ stdenv.mkDerivation (finalAttrs: {
     test ! -e $out/lib/115life/System.Private.CoreLib.dll
     test -L $out/lib/115life/libe_sqlite3.so
     test -x $out/lib/115life/Life115
+    xvfb-run -a python3 ${./check-desktop.py} \
+      $out ${lib.getLib glib}/lib/libgio-2.0.so.0
     runHook postInstallCheck
   '';
 
