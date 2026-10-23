@@ -22,23 +22,43 @@ let
     });
 
     t3code = prev.t3code.override {
-      t3code-unwrapped = final.callPackage "${
-        final.applyPatches {
-          name = "t3code-0.1.2-source";
-          src = "${prev.path}/pkgs/by-name/t3/t3code";
-          patches = [
-            (final.fetchpatch2 {
-              url = "https://github.com/NixOS/nixpkgs/pull/575686.patch?full_index=1";
-              hash = "sha256-qWaJUXb1y5C4gcp5E303HMTRMY8dQFuVcD3+l0NwSX0=";
-            })
-            (final.fetchpatch2 {
-              url = "https://github.com/NixOS/nixpkgs/pull/577858.patch?full_index=1";
-              hash = "sha256-A46zaK9vVE9nhxU1zFSGEAJdwgmixZr7p1+rW9fuQ7E=";
-            })
-          ];
-          patchFlags = [ "-p5" ];
-        }
-      }/unwrapped.nix" { };
+      t3code-unwrapped =
+        final.callPackage
+          "${
+            final.applyPatches {
+              name = "t3code-0.1.2-source-v2";
+              src = "${prev.path}/pkgs/by-name/t3/t3code";
+              patches = [
+                (final.fetchpatch2 {
+                  url = "https://github.com/NixOS/nixpkgs/pull/575686.patch?full_index=1";
+                  hash = "sha256-qWaJUXb1y5C4gcp5E303HMTRMY8dQFuVcD3+l0NwSX0=";
+                })
+                (final.fetchpatch2 {
+                  url = "https://github.com/NixOS/nixpkgs/pull/577858.patch?full_index=1";
+                  hash = "sha256-A46zaK9vVE9nhxU1zFSGEAJdwgmixZr7p1+rW9fuQ7E=";
+                })
+              ];
+              patchFlags = [ "-p5" ];
+            }
+          }/unwrapped.nix"
+          {
+            # T3 Code's dependency archive uses pnpm fetcher v5.
+            inherit
+              (final.callPackage (final.applyPatches {
+                name = "pnpm-fetcher-v5";
+                src = "${prev.path}/pkgs/build-support/node/fetch-pnpm-deps";
+                patches = [
+                  (final.fetchpatch2 {
+                    url = "https://github.com/NixOS/nixpkgs/commit/6fb0b51cc75d291d542dbc133d6d4de7f60355aa.patch?full_index=1";
+                    includes = [ "pkgs/build-support/node/fetch-pnpm-deps/default.nix" ];
+                    hash = "sha256-pvwZyz2x/Ur77i3giC77i5pX7G9A2ObKSKxpHYbL0Lg=";
+                  })
+                ];
+                patchFlags = [ "-p5" ];
+              }) { })
+              fetchPnpmDeps
+              ;
+          };
     };
   };
 
