@@ -1,0 +1,114 @@
+diff -ruN a/cli/src/components/ad-banner.tsx b/cli/src/components/ad-banner.tsx
+--- a/cli/src/components/ad-banner.tsx
++++ b/cli/src/components/ad-banner.tsx
+@@ -181,6 +181,11 @@
+         : undefined,
+   })
+ 
++  // freebuff_patched: draw no creative. Every hook above has already run --
++  // the impression effect, the engagement mount and the truncation report --
++  // so the ad is still served, billed and reported exactly as before.
++  return null
++
+   const buttonProps = {
+     ref: engagement.ref,
+     onClick: (event?: unknown) => {
+@@ -445,6 +450,9 @@
+     reportHover(isHovered)
+   }, [isHovered, reportHover])
+ 
++  // freebuff_patched: hidden after the impression and engagement hooks above.
++  return null
++
+   if (layout.mode === 'card') {
+     // The narrow fallback keeps today's card AND today's click semantics: the
+     // whole card opens the landing page, and the dock's toggle is reached from
+@@ -620,6 +628,9 @@
+     enabled: panel.fits,
+   })
+ 
++  // freebuff_patched: the dock's creative is not drawn, so neither is its panel.
++  return null
++
+   if (!panel.fits) return null
+ 
+   const interiorWidth = Math.max(0, panel.width - 4)
+diff -ruN a/cli/src/components/display-ad-splash.tsx b/cli/src/components/display-ad-splash.tsx
+--- a/cli/src/components/display-ad-splash.tsx
++++ b/cli/src/components/display-ad-splash.tsx
+@@ -84,6 +84,9 @@
+   useCliDisplayAdImpression('cliSplash', mock?.id, shownMock)
+   // Inactive (flag on, or hidden today) the served hook holds and asks nothing.
+   useServedDisplayImpression(served)
++  // freebuff_patched: the impression hooks above still fire; nothing is drawn.
++  return null
++
+   const sponsor: DisplaySponsor | null = shownMock ? mock : served
+   if (!sponsor) return null
+   const colors = cliSponsorColors(sponsor.theme, theme)
+diff -ruN a/cli/src/components/display-ad-statusline.tsx b/cli/src/components/display-ad-statusline.tsx
+--- a/cli/src/components/display-ad-statusline.tsx
++++ b/cli/src/components/display-ad-statusline.tsx
+@@ -68,6 +68,9 @@
+   const shownMock = enabled && !hidden && Boolean(mock)
+   useCliDisplayAdImpression('cliStatusline', mock?.id, shownMock)
+   useServedDisplayImpression(served)
++  // freebuff_patched: the impression hooks above still fire; nothing is drawn.
++  return null
++
+   const sponsor: DisplaySponsor | null = shownMock ? mock : served
+   if (!sponsor) return null
+   return (
+diff -ruN a/cli/src/components/partner-ad-line.tsx b/cli/src/components/partner-ad-line.tsx
+--- a/cli/src/components/partner-ad-line.tsx
++++ b/cli/src/components/partner-ad-line.tsx
+@@ -66,6 +66,10 @@
+   report?: AdReport
+ }> = ({ ad, width, onClick, onHover, selected = false, report }) => {
+   const theme = useTheme()
++  // freebuff_patched: draw nothing. PartnerAdRow's impression effect still
++  // fires, so the fill is still reported as served and shown.
++  return null
++
+   const layout = getPartnerLineLayout(
+     ad,
+     width - (selected ? 2 : 0) - (report ? AD_REPORT_CONTROL_COLUMNS : 0),
+diff -ruN a/cli/src/hooks/use-partner-suggestion.tsx b/cli/src/hooks/use-partner-suggestion.tsx
+--- a/cli/src/hooks/use-partner-suggestion.tsx
++++ b/cli/src/hooks/use-partner-suggestion.tsx
+@@ -5,7 +5,11 @@
+   useRef,
+   useState,
+ } from 'react'
+-import { CLI_PARTNER_PLACEMENT_IDS, getPartnerAd } from '../ads/partner-ads'
++import {
++  CLI_PARTNER_PLACEMENT_IDS,
++  getPartnerAd,
++  recordPartnerImpression,
++} from '../ads/partner-ads'
+ import { PartnerAdRow } from '../components/partner-ad-line'
+ import {
+   suggestionWindow,
+@@ -34,6 +38,10 @@
+   const [ad, setAd] = useState<AdResponse | null>(null)
+   const activate = useRef<(() => void) | null>(null)
+   const menuItems = useMemo(() => {
++    // freebuff_patched: the partner row is not drawn, so it must not stay a
++    // selectable-but-blank menu position either. The impression is reported
++    // from the fetch effect below instead of from the row's mount.
++    return items
+     const reviewIndex = items.findIndex((item) => item.id === 'review')
+     if (!enabled || !ad || reviewIndex < 0) return items
+     const result = [...items]
+@@ -67,7 +75,10 @@
+     let cancelled = false
+     void fetchAd(CLI_PARTNER_PLACEMENT_IDS.slashReview)
+       .then((fill) => {
+-        if (!cancelled) setAd(fill)
++        if (cancelled) return
++        setAd(fill)
++        // freebuff_patched: the hidden row cannot report for itself.
++        if (fill) recordPartnerImpression(fill)
+       })
+       .catch(() => {})
+     return () => {
