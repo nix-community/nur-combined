@@ -4,12 +4,12 @@
     "type": "redirect",
     "version_regex": "releases\\/([^\\/]+)\\/"
   },
-  "version": "3.6.8-c5923f66",
+  "version": "3.6.9-e0ba6bb8",
   "platforms": {
     "aarch64-darwin": {
       "redirect_url": "https://central.github.com/deployments/desktop/desktop/latest/darwin-arm64",
-      "url": "https://desktop.githubusercontent.com/releases/3.6.8-c5923f66/GitHubDesktop-arm64.zip",
-      "hash": "sha256-T/YKmPmstxeNqJRF+22OV0gZT6zFCjarMFw09FzOsT4="
+      "url": "https://desktop.githubusercontent.com/releases/3.6.9-e0ba6bb8/GitHubDesktop-arm64.zip",
+      "hash": "sha256-7PJ5Mc48Lf03LvMZqYJK140slfCPdYSgSGQe9kJtl/g="
     },
     "x86_64-darwin": {
       "redirect_url": "https://central.github.com/deployments/desktop/desktop/latest/darwin",
