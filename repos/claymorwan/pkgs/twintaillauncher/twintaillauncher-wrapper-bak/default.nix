@@ -1,4 +1,4 @@
-# Might be a bit overkill of an FHS env BUT idk what those games exactly need so I'd rather not take risk
+# Keeping this just in case it could be useful
 {
   lib,
   buildFHSEnv,
