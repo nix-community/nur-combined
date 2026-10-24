@@ -13,6 +13,9 @@ in
   config = lib.mkIf cfg.enable {
     users.users.agent = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
       uid = config.ids.uids.agent;
+      group = "agent";
+      isSystemUser = true;
+      description = "AI agent service user";
       subUidRanges = [
         {
           startUid = 200000;

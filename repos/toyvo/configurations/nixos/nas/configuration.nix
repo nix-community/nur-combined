@@ -150,23 +150,7 @@ in
   };
   userPresets.chloe.enable = true;
   userPresets.toyvo.enable = true;
-  users.users.agent = {
-    uid = config.ids.uids.agent;
-    home = "/mnt/POOL/agent";
-    subUidRanges = [
-      {
-        startUid = 200000;
-        count = 65536;
-      }
-    ];
-    subGidRanges = [
-      {
-        startGid = 200000;
-        count = 65536;
-      }
-    ];
-  };
-  users.groups.agent.gid = config.ids.gids.agent;
+  users.users.agent.home = "/mnt/POOL/agent";
   services = {
     cockpit = {
       enable = true;
