@@ -65,7 +65,11 @@ buildGo126Module (finalAttrs: {
 
   passthru.tgmcp = let
     pythonPackages = python314Packages.overrideScope (_final: prev:
-      lib.optionalAttrs (python314Packages.py-key-value-aio.version == "0.3.0" && python314Packages.aws-sam-translator.disabled) {
+      {
+        # FastMCP 3.x requires the MCP 1.x SDK.
+        mcp = prev.mcp_1 or prev.mcp;
+      }
+      // lib.optionalAttrs (python314Packages.py-key-value-aio.version == "0.3.0" && python314Packages.aws-sam-translator.disabled) {
         py-key-value-aio = prev.py-key-value-aio.overridePythonAttrs (old: {
           # Version 0.3.0's DynamoDB tests require aws-sam-translator via aioboto3.
           nativeCheckInputs = lib.filter (dep:
