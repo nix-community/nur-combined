@@ -19,5 +19,6 @@
  * [TrackAudio](https://github.com/pierr3/TrackAudio)
 * [Tunnet](https://github.com/tunnetio/Tunnet) (`tunnet`: release binaries; `tunnet-unstable`: source build of a pinned `main` commit, selectable with `services.tunnet.useLatestCommit`)
  * [udpxy](https://github.com/pcherenkov/udpxy)
+ * [vacs](https://vacs.network) (built from source)
  * [vATIS](https://github.com/vatis-project/vatis)
  * [xPilot](https://xpilot.app)
