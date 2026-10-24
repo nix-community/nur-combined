@@ -95,6 +95,18 @@ stdenv.mkDerivation (
         --replace-fail "git submodule update --init --recursive --depth 1" ""
 
       patchShebangs tools/unix/*
+    ''
+    + lib.optionalString stdenv.hostPlatform.isDarwin ''
+      # dev_sandbox needs the Metal shader compiler (unavailable in the Nix sandbox)
+      # and is not part of the shipped app.
+      substituteInPlace CMakeLists.txt \
+        --replace-fail "  add_subdirectory(dev_sandbox)" ""
+    ''
+    + ''
+      # configure.sh builds skin_generator_tool with its own cmake invocation;
+      # make it use system dependencies like the main build.
+      substituteInPlace tools/unix/generate_symbols.sh \
+        --replace-fail 'CMAKE_EXTRA_ARGS=""' 'CMAKE_EXTRA_ARGS="-DWITH_SYSTEM_PROVIDED_3PARTY=ON -DCMAKE_C_COMPILER_AR=$(command -v "$AR") -DCMAKE_CXX_COMPILER_AR=$(command -v "$AR") -DCMAKE_C_COMPILER_RANLIB=$(command -v "$RANLIB") -DCMAKE_CXX_COMPILER_RANLIB=$(command -v "$RANLIB")"'
       substituteInPlace tools/python/{categories/json_to_txt.py,generate_desktop_ui_strings.py} \
         --replace-fail "/usr/bin/env python3" "${pythonEnv.interpreter}"
     '';
@@ -140,17 +152,27 @@ stdenv.mkDerivation (
       icu
     ];
 
-    preConfigure = ''
-      bash ./configure.sh --skip-map-download
-    ''
-    + lib.optionalString stdenv.hostPlatform.isDarwin ''
-      # /build/source is the Linux sandbox path. Darwin builds under $NIX_BUILD_TOP.
-      export NIX_CFLAGS_COMPILE="''${NIX_CFLAGS_COMPILE:+$NIX_CFLAGS_COMPILE }-I$PWD/3party/fast_double_parser/include"
-    '';
+    preConfigure =
+      lib.optionalString stdenv.hostPlatform.isDarwin ''
+        # /build/source is the Linux sandbox path. Darwin builds under $NIX_BUILD_TOP.
+        # Must be set before configure.sh, which builds skin_generator_tool.
+        export NIX_CFLAGS_COMPILE="''${NIX_CFLAGS_COMPILE:+$NIX_CFLAGS_COMPILE }-I$PWD/3party/fast_double_parser/include"
+      ''
+      + ''
+        bash ./configure.sh --skip-map-download
+      '';
 
     cmakeFlags = [
       (lib.cmakeBool "SKIP_TESTS" false)
       (lib.cmakeBool "WITH_SYSTEM_PROVIDED_3PARTY" true)
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      # With -flto, CMake looks for the compiler's LTO-aware ar/ranlib and
+      # leaves them as *-NOTFOUND with the Nix clang wrapper.
+      (lib.cmakeFeature "CMAKE_C_COMPILER_AR" "${stdenv.cc.bintools.targetPrefix}ar")
+      (lib.cmakeFeature "CMAKE_CXX_COMPILER_AR" "${stdenv.cc.bintools.targetPrefix}ar")
+      (lib.cmakeFeature "CMAKE_C_COMPILER_RANLIB" "${stdenv.cc.bintools.targetPrefix}ranlib")
+      (lib.cmakeFeature "CMAKE_CXX_COMPILER_RANLIB" "${stdenv.cc.bintools.targetPrefix}ranlib")
     ];
 
     env = {
