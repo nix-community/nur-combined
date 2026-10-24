@@ -30,30 +30,30 @@ CI update loop: `update-packages.yml` (daily) spreads every update unit (each pa
 
 ## Key Directories
 
-| Path        | Purpose                                                                                                                                      |
-| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `pkgs/`     | one directory per package; `pkgs/default.nix` aggregates; `pkgs/flake-module.nix` wires flake outputs                                        |
-| `modules/`  | NixOS service modules; `modules/module-list.nix` is the keep-sorted registry                                                                 |
-| `tests/`    | NixOS VM tests exposed as flake `checks`                                                                                                     |
-| `_sources/` | nvfetcher output — committed but **generated; never hand-edit**                                                                              |
-| `_scripts/` | updateScript runner (`run-update-scripts.sh` + `update-scripts.nix`) and `update-lib.sh`, shared bash helpers sourced by `pkgs/*/update*.sh` |
-| `.github/`  | build/update workflows, `mergify.yml`, `dependabot.yml`                                                                                      |
+| Path        | Purpose                                                                                                                                                                                      |
+| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pkgs/`     | one directory per package; `pkgs/default.nix` aggregates; `pkgs/flake-module.nix` wires flake outputs                                                                                        |
+| `modules/`  | NixOS service modules; `modules/module-list.nix` is the keep-sorted registry                                                                                                                 |
+| `tests/`    | NixOS VM tests exposed as flake `checks`                                                                                                                                                     |
+| `_sources/` | nvfetcher output — committed but **generated; never hand-edit**                                                                                                                              |
+| `_scripts/` | updateScript runner (`run-update-scripts.sh` + `update-scripts.nix`), `prune-sources.sh` (stale `_sources` cleanup), and `update-lib.sh`, shared bash helpers sourced by `pkgs/*/update*.sh` |
+| `.github/`  | build/update workflows, `mergify.yml`, `dependabot.yml`                                                                                                                                      |
 
 ## Development Commands
 
 Enter dev shell first: `nix develop`, or direnv (`.envrc` = `use flake`).
 
-| Command                                     | Purpose                                                                                                                 |
-| ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| `nix build -L '.#<attr>'`                   | build one package                                                                                                       |
-| `nix flake check -L`                        | full QA: eval + VM tests + treefmt check (what CI runs)                                                                 |
-| `nix build -L .#checks.x86_64-linux.<name>` | run one NixOS VM test                                                                                                   |
-| `just fmt` (= `nix fmt .`)                  | format + lint entire tree (treefmt)                                                                                     |
-| `just up`                                   | regenerate all `_sources/` from `nvfetcher.toml` (bulk / first run only)                                                |
-| `just upr '<regex>'`                        | targeted refresh of matching sources (`nvfetcher --keep-old -f <REGEX>`); preferred for routine updates                 |
-| `just fup`                                  | `nix flake update --commit-lock-file`                                                                                   |
-| `_scripts/run-update-scripts.sh [attr …]`   | refresh update units: nvfetcher sources + `passthru.updateScript` (via nixpkgs `update.py`); `--list` prints unit names |
-| `nix-build -A <pkg>` / `nix-shell`          | non-flake compat via `default.nix`/`shell.nix` (flake-compat)                                                           |
+| Command                                     | Purpose                                                                                                                                                        |
+| ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `nix build -L '.#<attr>'`                   | build one package                                                                                                                                              |
+| `nix flake check -L`                        | full QA: eval + VM tests + treefmt check (what CI runs)                                                                                                        |
+| `nix build -L .#checks.x86_64-linux.<name>` | run one NixOS VM test                                                                                                                                          |
+| `just fmt` (= `nix fmt .`)                  | format + lint entire tree (treefmt)                                                                                                                            |
+| `just up`                                   | regenerate all `_sources/` from `nvfetcher.toml` (bulk / first run only)                                                                                       |
+| `just upr '<regex>'`                        | targeted refresh of matching sources (`nvfetcher --keep-old -f <REGEX>`) then prune stale `_sources` artifacts; preferred for routine updates                  |
+| `just fup`                                  | `nix flake update --commit-lock-file`                                                                                                                          |
+| `_scripts/run-update-scripts.sh [attr …]`   | refresh update units: nvfetcher sources + `passthru.updateScript` (via nixpkgs `update.py`), then prune stale `_sources` artifacts; `--list` prints unit names |
+| `nix-build -A <pkg>` / `nix-shell`          | non-flake compat via `default.nix`/`shell.nix` (flake-compat)                                                                                                  |
 
 `just hello` is vestigial (bare `nix run`; no default output exists).
 
@@ -96,6 +96,7 @@ Enter dev shell first: `nix develop`, or direnv (`.envrc` = `use flake`).
 | `nvfetcher.toml`                                                | source-pinning config (34 sources)                                                                |
 | `_sources/generated.nix`                                        | generated source set — DO NOT EDIT                                                                |
 | `_scripts/run-update-scripts.sh`, `_scripts/update-scripts.nix` | updateScript runner (CI daily job) + `packages.json` generator                                    |
+| `_scripts/prune-sources.sh`                                     | removes `_sources/` artifacts that `generated.json` no longer references                          |
 | `_scripts/update-lib.sh`                                        | shared helpers for `pkgs/*/update*.sh`                                                            |
 | `treefmt.nix`                                                   | formatter/linter config (excludes `*_sources/*`)                                                  |
 | `github-actions.nix`                                            | CI build matrix over `self.packages` minus `meta.broken`                                          |

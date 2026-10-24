@@ -65,11 +65,14 @@ if [[ -s $plan_dir/sources.txt ]]; then
   filter=$(paste -sd'|' "$plan_dir/sources.txt")
   # A filtered run must not drop the extract files of unselected sources; a full run
   # (no selection) keeps today's `just up` semantics, including old-file cleanup.
+  # --keep-old also retains superseded artifacts of the selected source, so prune
+  # whatever generated.json stopped referencing afterwards.
   keep_old=()
   if [[ $# -gt 0 ]]; then
     keep_old=(--keep-old)
   fi
   nix run -L .#nvfetcher-bin -- "${keep_old[@]}" --filter "^($filter)$"
+  _scripts/prune-sources.sh
 fi
 
 if [[ $(python3 -c 'import json, sys; print(len(json.load(open(sys.argv[1]))))' "$plan_dir/records.json") != 0 ]]; then
