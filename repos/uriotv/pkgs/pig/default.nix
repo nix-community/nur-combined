@@ -6,13 +6,13 @@
 
 buildGo126Module rec {
   pname = "pig";
-  version = "0.5.2";
+  version = "0.5.3";
 
   src = fetchFromGitHub {
     owner = "MichaelKinsy";
     repo = "PiG";
     rev = "v${version}";
-    hash = "sha256-LRBMzFA3QR5k8XJseMVyJ2CfdIil/TR+ddrNuW3ihcM=";
+    hash = "sha256-XK27VNd799qUCsOUidYPo/leleMWtoan5gNuke9geqk=";
   };
 
   # The upstream project includes several unrelated Go tools in go.mod; only
