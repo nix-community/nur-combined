@@ -70,7 +70,7 @@ lib.makeScope pkgs.newScope (
           postPatch = null;
           nativeBuildInputs = [ pkgs.autoreconfHook ];
           passthru = (prev.passthru or { }) // {
-            # Versions are tracked by nvfetcher (`just up`); the inherited xz updater does not apply.
+            # Versions are tracked by nvfetcher (`just nvf`); the inherited xz updater does not apply.
             updateScript = null;
           };
           meta = prev.meta // {
@@ -308,7 +308,7 @@ lib.makeScope pkgs.newScope (
         inherit (sources) src;
         version = unstableVersion sources prev.version;
         passthru = (prev.passthru or { }) // {
-          # Versions are tracked by nvfetcher (`just up`); the inherited updater does not apply.
+          # Versions are tracked by nvfetcher (`just nvf`); the inherited updater does not apply.
           updateScript = null;
         };
       });

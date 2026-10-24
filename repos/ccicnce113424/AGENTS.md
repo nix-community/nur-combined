@@ -17,7 +17,7 @@ Source/update data flow:
 
 ```mermaid
 flowchart LR
-  toml["nvfetcher.toml"] -->|"just up"| gen["_sources/generated.nix + generated.json"]
+  toml["nvfetcher.toml"] -->|"just nvf"| gen["_sources/generated.nix + generated.json"]
   gen -->|"fetchedSrc = callPackage"| scope["pkgs/default.nix (makeScope)"]
   scope -->|"callPackage + sources/version/hash"| pkg["pkgs/<name>/derivation"]
   gen -->|"jq"| upd["passthru.updateScript (update.sh + _scripts/update-lib.sh)"]
@@ -49,8 +49,9 @@ Enter dev shell first: `nix develop`, or direnv (`.envrc` = `use flake`).
 | `nix flake check -L`                        | full QA: eval + VM tests + treefmt check (what CI runs)                                                                                                        |
 | `nix build -L .#checks.x86_64-linux.<name>` | run one NixOS VM test                                                                                                                                          |
 | `just fmt` (= `nix fmt .`)                  | format + lint entire tree (treefmt)                                                                                                                            |
-| `just up`                                   | regenerate all `_sources/` from `nvfetcher.toml` (bulk / first run only)                                                                                       |
-| `just upr '<regex>'`                        | targeted refresh of matching sources (`nvfetcher --keep-old -f <REGEX>`) then prune stale `_sources` artifacts; preferred for routine updates                  |
+| `just nvf`                                  | regenerate all `_sources/` from `nvfetcher.toml` (bulk / first run only)                                                                                       |
+| `just nvfr '<regex>'`                       | targeted refresh of matching sources (`nvfetcher --keep-old -f <REGEX>`) then prune stale `_sources` artifacts; preferred for routine updates                  |
+| `just upd [attr …]`                         | refresh update units (all by default): nvfetcher sources + `passthru.updateScript` via `_scripts/run-update-scripts.sh`                                        |
 | `just fup`                                  | `nix flake update --commit-lock-file`                                                                                                                          |
 | `_scripts/run-update-scripts.sh [attr …]`   | refresh update units: nvfetcher sources + `passthru.updateScript` (via nixpkgs `update.py`), then prune stale `_sources` artifacts; `--list` prints unit names |
 | `nix-build -A <pkg>` / `nix-shell`          | non-flake compat via `default.nix`/`shell.nix` (flake-compat)                                                                                                  |
@@ -71,7 +72,7 @@ Enter dev shell first: `nix develop`, or direnv (`.envrc` = `use flake`).
 - **Variants via `overrideAttrs`**, not copied derivations: arch/prerelease/tracking variants override a base derivation (see `pkgs/default.nix`, `pkgs/ntfsprogs-plus/`).
 - **Meta block required**: `description` (no trailing period), `homepage`, `license`, `maintainers = with lib.maintainers; [ ccicnce113424 ];`, `mainProgram`, `platforms`; add `changelog` when upstream has one; binary packages add `sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];`.
 - **keep-sorted blocks** in `pkgs/default.nix`, `modules/module-list.nix`, `tests/flake-module.nix`: insert entries alphabetically between the keep-sorted marker comments (see any of those files); the formatter enforces it.
-- **Update automation**: `passthru.updateScript` is the source of truth — `_scripts/run-update-scripts.sh` runs every non-null script through the pinned nixpkgs' `maintainers/scripts/update.py` (nixpkgs contract: `command`/`attrPath`/`supportedFeatures`, `UPDATE_NIX_*` env, `nix-update-script`/`gitUpdater`/`_experimental-update-script-combinators` all supported). Simple packages use `nix-update-script { … }`; packages needing sidecar regeneration (`src-info.json`/lock JSON) point `updateScript` at their `update.sh` (`[ ./update.sh ]`, `#!/usr/bin/env -S nix shell -L nixpkgs#… -c bash`, `set -euo pipefail`, sources `_scripts/update-lib.sh`). Nvfetcher-fed packages with no extra steps declare `updateScript = null` (versions come from nvfetcher). **Never hand-edit** `_sources/**`, `src-info.json`, `pubspec.lock.json`, `git-hashes.json` — regenerate via nvfetcher / the update scripts. For local nvfetcher refreshes prefer the targeted `just upr '<regex>'` (`nvfetcher --keep-old -f <REGEX>`): it only touches matching sources and keeps existing artifacts, whereas `just up` re-checks and rewrites everything.
+- **Update automation**: `passthru.updateScript` is the source of truth — `_scripts/run-update-scripts.sh` runs every non-null script through the pinned nixpkgs' `maintainers/scripts/update.py` (nixpkgs contract: `command`/`attrPath`/`supportedFeatures`, `UPDATE_NIX_*` env, `nix-update-script`/`gitUpdater`/`_experimental-update-script-combinators` all supported). Simple packages use `nix-update-script { … }`; packages needing sidecar regeneration (`src-info.json`/lock JSON) point `updateScript` at their `update.sh` (`[ ./update.sh ]`, `#!/usr/bin/env -S nix shell -L nixpkgs#… -c bash`, `set -euo pipefail`, sources `_scripts/update-lib.sh`). Nvfetcher-fed packages with no extra steps declare `updateScript = null` (versions come from nvfetcher). **Never hand-edit** `_sources/**`, `src-info.json`, `pubspec.lock.json`, `git-hashes.json` — regenerate via nvfetcher / the update scripts. For local nvfetcher refreshes prefer the targeted `just nvfr '<regex>'` (`nvfetcher --keep-old -f <REGEX>`): it only touches matching sources and keeps existing artifacts, whereas `just nvf` re-checks and rewrites everything.
 - **NixOS modules** (`modules/`): options + systemd hardening + `meta.maintainers`; reference packages via `mkPackageOption pkgs "<name>"`; register in `modules/module-list.nix`; replace upstream modules with `disabledModules` (see `modules/daed.nix`).
 - **GUI packages**: `makeDesktopItem` + `copyDesktopItems`, icons under `$out/share/icons/hicolor/<size>/apps/`, `wrapProgram` for `LD_LIBRARY_PATH` / Electron `--add-flags "\${NIXOS_OZONE_WL:+...}"`.
 - **Shell scripts**: shfmt + shellcheck enforced by treefmt (`source-path = "SCRIPTDIR"`); match the existing `update.sh` style.
@@ -80,7 +81,7 @@ Enter dev shell first: `nix develop`, or direnv (`.envrc` = `use flake`).
 
 1. Create `pkgs/<name>/` (copy a neighbor: simple → `lxgw-wenkai-gb`, Rust/Tauri → `dorion-git`, binary → `waywallen-bin`, Go → `kanzi-go`, CMake → `kanzi-cpp`, Flutter → `piliplus`, stable+dev split → `open-orpheus-dev`). Use `package.nix` for the nixpkgs-aligned base (syncable with nixpkgs) and `default.nix` for the repo-native override; a single `default.nix` is fine for repo-only packages.
 2. Add a keep-sorted entry in `pkgs/default.nix`: `foo = self.callPackage ./foo { sources = fetchedSrc.foo; ... };`.
-3. Track sources in `nvfetcher.toml` (`src.github` / `src.git` / `fetch.url`; `cargo_lock`/`extract` for lockfiles) and run `just up`.
+3. Track sources in `nvfetcher.toml` (`src.github` / `src.git` / `fetch.url`; `cargo_lock`/`extract` for lockfiles) and run `just nvf`.
 4. Declare `passthru.updateScript` (`nix-update-script { … }` for plain bumps, `[ ./update.sh ]` for sidecar regeneration); the `update-packages.yml` matrix picks it up automatically.
 5. `just fmt`, then `nix flake check -L`.
 

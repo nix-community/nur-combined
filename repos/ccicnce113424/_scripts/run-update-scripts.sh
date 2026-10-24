@@ -64,7 +64,7 @@ PY
 if [[ -s $plan_dir/sources.txt ]]; then
   filter=$(paste -sd'|' "$plan_dir/sources.txt")
   # A filtered run must not drop the extract files of unselected sources; a full run
-  # (no selection) keeps today's `just up` semantics, including old-file cleanup.
+  # (no selection) keeps today's `just nvf` semantics, including old-file cleanup.
   # --keep-old also retains superseded artifacts of the selected source, so prune
   # whatever generated.json stopped referencing afterwards.
   keep_old=()
