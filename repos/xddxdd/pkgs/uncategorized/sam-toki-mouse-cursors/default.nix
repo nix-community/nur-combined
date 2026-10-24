@@ -14,12 +14,12 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "sam-toki-mouse-cursors";
-  version = "10.00";
+  version = "10.01";
   src = fetchFromGitHub {
     owner = "SamToki";
     repo = "Sam-Toki-Mouse-Cursors";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-juRUv7/9dd+bIDjbwzfznPyPUZpPyL9sYKcNgZXngro=";
+    hash = "sha256-FcAkqTf32Xr15SbJrLgHMauTRCyk7pff5YqHTsp+pkE=";
   };
   __structuredAttrs = true;
   strictDeps = true;
