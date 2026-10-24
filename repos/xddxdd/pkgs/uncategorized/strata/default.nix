@@ -96,6 +96,9 @@ cudaPackages.backendStdenv.mkDerivation (finalAttrs: {
 
     cp -a . "$out/share/strata/"
     cp -a ${llamaSrc} "$out/share/strata/third_party/llama.cpp"
+    # file(COPY) carries the read-only permission bits of the nix store
+    # source tree; make the copied build trees writable before removal
+    chmod -R u+w "$out/share/strata/build" "$out/share/strata/build-vision"
     rm -rf "$out/share/strata/build" "$out/share/strata/build-vision"
 
     sed -i -e '/^cmake==/d' -e '/^ninja==/d' "$out/share/strata/requirements.txt"
