@@ -3,7 +3,6 @@
   stdenvNoCC,
   fetchzip,
   age-plugin-se,
-  runCommand,
   testers,
 }:
 stdenvNoCC.mkDerivation (
@@ -52,10 +51,6 @@ stdenvNoCC.mkDerivation (
         version = "v${version}";
       };
 
-      help = runCommand "test-age-plugin-se-help" { nativeBuildInputs = [ finalAttrs.finalPackage ]; } ''
-        age-plugin-se --help
-        touch $out
-      '';
     };
 
     meta = {

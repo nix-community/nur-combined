@@ -65,52 +65,17 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
-  passthru.tests =
-    let
-      pkg = finalAttrs.finalPackage;
-    in
-    {
-      imgcat-help = runCommand "test-imgcat-help" { nativeBuildInputs = [ pkg ]; } ''
-        imgcat --help
-        touch $out
-      '';
-
-      it2api-help = runCommand "test-it2api-help" { nativeBuildInputs = [ pkg ]; } ''
-        it2api --help
-        touch $out
-      '';
-
-      it2cat-help = runCommand "test-it2cat-help" { nativeBuildInputs = [ pkg ]; } ''
-        it2cat --help
-        touch $out
-      '';
-
-      it2copy-help = runCommand "test-it2copy-help" { nativeBuildInputs = [ pkg ]; } ''
-        it2copy --help
-        touch $out
-      '';
-
-      it2getvar-help = runCommand "test-it2getvar-help" { nativeBuildInputs = [ pkg ]; } ''
-        it2getvar --help
-        touch $out
-      '';
-
-      it2profile-help = runCommand "test-it2profile-help" { nativeBuildInputs = [ pkg ]; } ''
-        it2profile --help
-        touch $out
-      '';
-
-      it2setcolor-help = runCommand "test-it2setcolor-help" { nativeBuildInputs = [ pkg ]; } ''
-        it2setcolor --help
-        touch $out
-      '';
-
-      it2tip-help = runCommand "test-it2tip-help" { nativeBuildInputs = [ pkg ]; } ''
-        export HOME="$PWD"
-        it2tip --help
-        touch $out
-      '';
-    };
+  passthru.tests = {
+    help =
+      runCommand "test-iterm2-shell-integration-help" { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
+        ''
+          export HOME="$PWD"
+          for bin in imgcat it2api it2cat it2copy it2getvar it2profile it2setcolor it2tip; do
+            "$bin" --help
+          done
+          touch $out
+        '';
+  };
 
   meta = {
     description = "Shell integration and utilities for iTerm2";

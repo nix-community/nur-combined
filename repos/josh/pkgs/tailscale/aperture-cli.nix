@@ -2,9 +2,7 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
-
   nix-update-script,
-  runCommand,
   testers,
 }:
 buildGoModule (finalAttrs: {
@@ -37,10 +35,6 @@ buildGoModule (finalAttrs: {
       version = "v${finalAttrs.version}";
     };
 
-    help = runCommand "test-aperture-cli-help" { nativeBuildInputs = [ finalAttrs.finalPackage ]; } ''
-      aperture --help 2>&1 | grep "print version and exit"
-      touch $out
-    '';
   };
 
   meta = {

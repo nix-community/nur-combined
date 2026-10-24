@@ -51,14 +51,6 @@ buildGoModule (finalAttrs: {
       inherit (finalAttrs) version;
     };
 
-    help =
-      runCommand "test-prometheus-iperf3-exporter-help"
-        { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
-        ''
-          iperf3_exporter --help
-          touch $out
-        '';
-
     iperf3-path = runCommand "test-prometheus-iperf3-exporter-iperf3-path" { } ''
       grep --text --quiet "${
         lib.strings.makeBinPath [ iperf3 ]

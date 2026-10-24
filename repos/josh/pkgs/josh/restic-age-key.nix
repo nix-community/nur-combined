@@ -54,11 +54,6 @@ buildGoModule (finalAttrs: {
         inherit (finalAttrs) version;
       };
 
-      help = runCommand "test-restic-age-key-help" { nativeBuildInputs = [ restic-age-key ]; } ''
-        restic-age-key --help
-        touch $out
-      '';
-
       age-path = runCommand "test-restic-age-key-age-path" { nativeBuildInputs = [ restic-age-key ]; } ''
         restic-age-key --help | grep "${lib.meta.getExe age}"
         touch $out

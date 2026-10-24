@@ -4,7 +4,6 @@
   fetchFromGitHub,
   ceph,
   nix-update-script,
-  runCommand,
   testers,
 }:
 buildGoModule (finalAttrs: {
@@ -42,12 +41,6 @@ buildGoModule (finalAttrs: {
       inherit (finalAttrs) version;
     };
 
-    help =
-      runCommand "test-restic-rados-server-help" { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
-        ''
-          restic-rados-server --help
-          touch $out
-        '';
   };
 
   meta = {

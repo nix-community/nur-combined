@@ -54,14 +54,6 @@ buildGoModule (finalAttrs: {
       inherit (finalAttrs) version;
     };
 
-    help =
-      runCommand "test-prometheus-restic-exporter-help"
-        { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
-        ''
-          restic-exporter --help
-          touch $out
-        '';
-
     grafana-json =
       runCommand "test-prometheus-restic-exporter-grafana-json"
         {

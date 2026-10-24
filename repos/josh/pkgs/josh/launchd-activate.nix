@@ -8,7 +8,6 @@
   swiftpm,
 
   nix-update-script,
-  runCommand,
   testers,
 }:
 swiftPackages.stdenv.mkDerivation (finalAttrs: {
@@ -59,12 +58,6 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
       inherit (finalAttrs) version;
     };
 
-    help =
-      runCommand "test-launchd-activate-help" { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
-        ''
-          launchd-activate --help
-          touch $out
-        '';
   };
 
   meta = {

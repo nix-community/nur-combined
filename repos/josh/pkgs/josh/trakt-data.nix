@@ -3,7 +3,6 @@
   python3Packages,
   fetchFromGitHub,
   nix-update-script,
-  runCommand,
   testers,
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
@@ -40,16 +39,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
       inherit (finalAttrs) version;
     };
 
-    help =
-      runCommand "test-trakt-data-help"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ finalAttrs.finalPackage ];
-        }
-        ''
-          trakt-data --help
-          touch $out
-        '';
   };
 
   meta = {

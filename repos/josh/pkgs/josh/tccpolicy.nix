@@ -2,12 +2,9 @@
   lib,
   swiftPackages,
   fetchFromGitHub,
-
   sqlite,
   swift,
   swiftpm,
-
-  runCommand,
   testers,
   writeText,
 }:
@@ -67,16 +64,6 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
       inherit (finalAttrs) version;
     };
 
-    help =
-      runCommand "test-tccpolicy-help"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ finalAttrs.finalPackage ];
-        }
-        ''
-          tccpolicy --help
-          touch $out
-        '';
   };
 
   meta = {

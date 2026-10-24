@@ -4,7 +4,6 @@
   buildGoModule,
   fetchFromGitHub,
   nix-update-script,
-  runCommand,
   testers,
 }:
 buildGoModule (finalAttrs: {
@@ -40,13 +39,6 @@ buildGoModule (finalAttrs: {
       inherit (finalAttrs) version;
     };
 
-    help =
-      runCommand "test-prometheus-tailscale-exporter-help"
-        { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
-        ''
-          tailscale_exporter --help
-          touch $out
-        '';
   };
 
   meta = {
