@@ -908,12 +908,12 @@
             "name": null,
             "owner": "hamster1963",
             "repo": "nezha-dash-v2",
-            "rev": "v2.5.1",
-            "sha256": "sha256-qtKU+icxGQKiBtwfZp/ec2SjDCWhlnsCVsmuwLrq+24=",
+            "rev": "v2.6.0",
+            "sha256": "sha256-TUaZOkR3fWdrXFNYUdnXXNbrvcWyG5qFou0FL4GBbso=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.5.1"
+        "version": "v2.6.0"
     },
     "nipaplay-reload-darwin": {
         "cargoLock": null,

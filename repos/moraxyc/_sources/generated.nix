@@ -529,13 +529,13 @@
   };
   nezha-theme-user = {
     pname = "nezha-theme-user";
-    version = "v2.5.1";
+    version = "v2.6.0";
     src = fetchFromGitHub {
       owner = "hamster1963";
       repo = "nezha-dash-v2";
-      rev = "v2.5.1";
+      rev = "v2.6.0";
       fetchSubmodules = false;
-      sha256 = "sha256-qtKU+icxGQKiBtwfZp/ec2SjDCWhlnsCVsmuwLrq+24=";
+      sha256 = "sha256-TUaZOkR3fWdrXFNYUdnXXNbrvcWyG5qFou0FL4GBbso=";
     };
   };
   nipaplay-reload-darwin = {
