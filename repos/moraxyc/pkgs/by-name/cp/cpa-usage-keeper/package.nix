@@ -1,14 +1,14 @@
 {
   lib,
   stdenv,
-  buildGoModule,
+  buildGo127Module,
   callPackage,
   gitMinimal,
   sources,
   source ? sources.cpa-usage-keeper,
 }:
 
-buildGoModule (finalAttrs: {
+buildGo127Module (finalAttrs: {
   inherit (source) pname version src;
 
   # nix-update auto
