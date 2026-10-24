@@ -11,7 +11,6 @@
   bubblewrap,
   makeWrapper,
   autoPatchelfHook,
-  patchelfUnstable,
   nix-update-script,
   versionCheckHook,
   writableTmpDirAsHomeHook,
@@ -58,13 +57,8 @@ stdenv.mkDerivation (finalAttrs: {
     pnpmConfigHook
     makeWrapper
     autoPatchelfHook
-    patchelfUnstable
   ];
   buildInputs = [ stdenv.cc.cc.lib ];
-
-  # Preserve libvips' .init section when adding its runtime search paths.
-  # https://github.com/NixOS/patchelf/issues/639
-  patchelfFlags = [ "--no-clobber-old-sections" ];
 
   env = {
     CI = "true";
