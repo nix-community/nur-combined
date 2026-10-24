@@ -57,19 +57,23 @@ buildGoApplication {
 
   doCheck = true;
 
-  postInstall = ''
-    installShellCompletion release/completions/sing-box.{bash,fish,zsh}
+  postInstall =
+    ''
+      installShellCompletion release/completions/sing-box.{bash,fish,zsh}
 
-    substituteInPlace release/config/sing-box{,@}.service \
-      --replace-fail "/usr/bin/sing-box" "$out/bin/sing-box" \
-      --replace-fail "/bin/kill" "${coreutils}/bin/kill"
-    install -Dm444 -t "$out/lib/systemd/system/" release/config/sing-box{,@}.service
+      substituteInPlace release/config/sing-box{,@}.service \
+        --replace-fail "/usr/bin/sing-box" "$out/bin/sing-box" \
+        --replace-fail "/bin/kill" "${coreutils}/bin/kill"
+      install -Dm444 -t "$out/lib/systemd/system/" release/config/sing-box{,@}.service
 
-    install -Dm444 release/config/sing-box.rules $out/share/polkit-1/rules.d/sing-box.rules
-    install -Dm444 release/config/sing-box-split-dns.xml $out/share/dbus-1/system.d/sing-box-split-dns.conf
+      install -Dm444 release/config/sing-box-split-dns.xml $out/share/dbus-1/system.d/sing-box-split-dns.conf
 
-    install -Dm644 LICENSE README.md -t $out/share/doc/${pname}
-  '';
+      install -Dm644 LICENSE README.md -t $out/share/doc/${pname}
+    ''
+    # 1.15 runs the service as root and dropped the polkit rule for the `sing-box` user.
+    + lib.optionalString (lib.versionOlder source.version "1.15") ''
+      install -Dm444 release/config/sing-box.rules $out/share/polkit-1/rules.d/sing-box.rules
+    '';
 
   doInstallCheck = true;
   installCheckPhase = ''
