@@ -27,10 +27,10 @@
     };
     "2fas-two-factor-authentication" = buildMozillaXpiAddon {
       pname = "2fas-two-factor-authentication";
-      version = "1.9.2";
+      version = "1.9.3";
       addonId = "admin@2fas.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5065343/2fas_two_factor_authentication-1.9.2.xpi";
-      sha256 = "48249e4bf2d90706e03632aff8a86125bb338f1b24ecab583e8c00589ac535f4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5155897/2fas_two_factor_authentication-1.9.3.xpi";
+      sha256 = "024c8ca86e6d2883257bf0d379c9d796018b55ab7838f5e2a44133bd85e7552f";
       meta = with lib;
       {
         homepage = "https://2fas.com/";
@@ -444,10 +444,10 @@
     };
     "archivebox-exporter" = buildMozillaXpiAddon {
       pname = "archivebox-exporter";
-      version = "3.3.20";
+      version = "3.3.21";
       addonId = "archivebox@tjhorner.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5134305/archivebox_exporter-3.3.20.xpi";
-      sha256 = "a22cac9c62e51e51436d92e120dc21e8fcde8ad26adbabc8553879a915e522b2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5155768/archivebox_exporter-3.3.21.xpi";
+      sha256 = "a37ade23e3ce188c2992c2a402e53afe9a7eea6c15f5698419da062481fe5e3b";
       meta = with lib;
       {
         homepage = "https://extension.archivebox.io/";
@@ -1285,10 +1285,10 @@
     };
     "bilisponsorblock" = buildMozillaXpiAddon {
       pname = "bilisponsorblock";
-      version = "0.17.0";
+      version = "0.17.1";
       addonId = "{f10c197e-c2a4-43b6-a982-7e186f7c63d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5129607/bilisponsorblock-0.17.0.xpi";
-      sha256 = "127dbbc557374f40ac471ef035d232290ee957ffc531bec1d1a7ed9d5771a503";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5157710/bilisponsorblock-0.17.1.xpi";
+      sha256 = "769975e8e160dd59766053e05fd33a424905414a99e111cecfb2f33be4151dd7";
       meta = with lib;
       {
         homepage = "https://www.bsbsb.top";
@@ -1765,10 +1765,10 @@
     };
     "castkodi" = buildMozillaXpiAddon {
       pname = "castkodi";
-      version = "7.19.0";
+      version = "7.20.0";
       addonId = "castkodi@regseb.github.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4780034/castkodi-7.19.0.xpi";
-      sha256 = "97389cd70a0b0695a7978c287fe3e44f89bba233583453524dd6dd02fabc824a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5157922/castkodi-7.20.0.xpi";
+      sha256 = "809943604dc11286c5831b12940178326e9036c065efb4835c5630fe821651cb";
       meta = with lib;
       {
         homepage = "https://github.com/regseb/castkodi";
@@ -1824,18 +1824,19 @@
     };
     "censor-tracker" = buildMozillaXpiAddon {
       pname = "censor-tracker";
-      version = "18.5.0";
+      version = "21.0.0";
       addonId = "{5d0d1f87-5991-42d3-98c3-54878ead1ed1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4333567/censor_tracker-18.5.0.xpi";
-      sha256 = "5c90e1be3d1a1aa9cdafe51c84a0d1cdacd2cbb1445bf0e800e82bf1d85ec4b4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5158592/censor_tracker-21.0.0.xpi";
+      sha256 = "e831b6732457477c725d17a126e645aa3ed9d97257f2be135e5893a5d052b71e";
       meta = with lib;
       {
         homepage = "https://censortracker.org/en.html";
-        description = "Censor Tracker is an extension that allows you to bypass Internet censorship, warns you about sites that transmit your data with government agencies, and detect new acts of censorship.";
+        description = "Censor Tracker bypasses internet restrictions with built-in or your own proxies, and warns you about sites that share your data with government agencies. No browsing history is collected.";
         license = licenses.mit;
         mozPermissions = [
           "<all_urls>"
           "webRequest"
+          "webRequestBlocking"
           "alarms"
           "activeTab"
           "management"
@@ -4478,10 +4479,10 @@
     };
     "floccus" = buildMozillaXpiAddon {
       pname = "floccus";
-      version = "5.11.0";
+      version = "5.12.0";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5063393/floccus-5.11.0.xpi";
-      sha256 = "14e934361bde413a198eaf3c851537c23255c11f36650fc3240cfa86a9642588";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5156500/floccus-5.12.0.xpi";
+      sha256 = "a461abeb50d6578498d959fb4ac96cb8a327f0ecae6371618a1550425267ee62";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -6179,10 +6180,10 @@
     };
     "javascript-restrictor" = buildMozillaXpiAddon {
       pname = "javascript-restrictor";
-      version = "0.24.7";
+      version = "0.24.8";
       addonId = "jsr@javascriptrestrictor";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5144507/javascript_restrictor-0.24.7.xpi";
-      sha256 = "9b57de3de34b35b67324d45276318913a4a748bc4f4f8f7899c6b759335e1946";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5157610/javascript_restrictor-0.24.8.xpi";
+      sha256 = "e54106c5496574ed52a90f1fa17fde4c3f1e9f279ba449179458948c32221246";
       meta = with lib;
       {
         homepage = "https://jshelter.org";
@@ -6364,10 +6365,10 @@
     };
     "keepa" = buildMozillaXpiAddon {
       pname = "keepa";
-      version = "5.66";
+      version = "5.67";
       addonId = "amptra@keepa.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5047933/keepa-5.66.xpi";
-      sha256 = "541a66a6dfe2c92e80f177ee252ed36a81e39c8091058ef0ce70ba6081cd01c7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5158558/keepa-5.67.xpi";
+      sha256 = "79f98923550e8c41b32d901ebfb814c096c378a26e1d8f8524d646bc08f92d96";
       meta = with lib;
       {
         homepage = "https://Keepa.com";
@@ -10043,10 +10044,10 @@
     };
     "paperpile" = buildMozillaXpiAddon {
       pname = "paperpile";
-      version = "1.0.132";
+      version = "1.0.134";
       addonId = "firefox-production@paperpile.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5065528/paperpile_addon-1.0.132.xpi";
-      sha256 = "6d5693074ad6139fa0dea445241383a7b546b1f04563b5c4dd7f57153034bd61";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5156160/paperpile_addon-1.0.134.xpi";
+      sha256 = "441e1696126a0fa7cda6177c03395dcd0e823c1a7c9fcd90b24504050d8c56d6";
       meta = with lib;
       {
         homepage = "https://paperpile.com/?welcome";
@@ -10373,10 +10374,10 @@
     };
     "print-friendly-pdf" = buildMozillaXpiAddon {
       pname = "print-friendly-pdf";
-      version = "7.3.5";
+      version = "7.3.6";
       addonId = "jid0-YQz0l1jthOIz179ehuitYAOdBEs@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5152947/print_friendly_pdf-7.3.5.xpi";
-      sha256 = "6327461dc81e7f7753cd137a8e69b757a03c333c248d8db8294d3c7fe6b851e0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5159101/print_friendly_pdf-7.3.6.xpi";
+      sha256 = "befd1f34a30fde8e372fd6a87cc8aeb1345a073425c746f04359057c759e784f";
       meta = with lib;
       {
         homepage = "https://www.printfriendly.com/";
@@ -11400,10 +11401,10 @@
     };
     "read-aloud" = buildMozillaXpiAddon {
       pname = "read-aloud";
-      version = "1.82.0";
+      version = "1.83.2";
       addonId = "{ddc62400-f22d-4dd3-8b4a-05837de53c2e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5137478/read_aloud-1.82.0.xpi";
-      sha256 = "4a080a2265877e21fae2f697ae2aadf115c3783c0e6b30f374d5457bb5c5a530";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5158933/read_aloud-1.83.2.xpi";
+      sha256 = "6ab00af2427d66096c487021f69ede54417d5399248fd640d3f652735ea1b847";
       meta = with lib;
       {
         description = "Read out loud the current web-page article with one click. Supports 40+ languages.";
@@ -13898,10 +13899,10 @@
     };
     "themesong-for-youtube-music" = buildMozillaXpiAddon {
       pname = "themesong-for-youtube-music";
-      version = "26.10.1";
+      version = "26.10.2";
       addonId = "{6458ac08-a9d7-4e42-a1b0-f0c43bf90f7d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5102830/themesong_for_youtube_music-26.10.1.xpi";
-      sha256 = "12c5988b55d8e3db460cf490bceed964d0d1f74e7d7b4edca71a3f19da434fc2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5157657/themesong_for_youtube_music-26.10.2.xpi";
+      sha256 = "2f9d6729141dc04caee770c768f5de161030b285622becffcbf584d0fc780169";
       meta = with lib;
       {
         homepage = "https://www.themesong.app";
@@ -16665,10 +16666,10 @@
     };
     "youtube-no-translation" = buildMozillaXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.25.1";
+      version = "2.26.0";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5055100/youtube_no_translation-2.25.1.xpi";
-      sha256 = "dd6c9e52824b58ffa2bf6eb42de6c4f205278ff0b0acc2d7254c59cb69b95af1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5156795/youtube_no_translation-2.26.0.xpi";
+      sha256 = "ad692c47c41aa6c5480e9d96d6030bca49b57b93a0310c1bcccf927a14f2c371";
       meta = with lib;
       {
         description = "Keeps YouTube content in its original language (Titles, Audio Tracks, Descriptions...)";
