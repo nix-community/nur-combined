@@ -1,24 +1,9 @@
-{
-  lib,
-  stdenvNoCC,
-  fetchFromGitHub,
-  cmake,
-  ninja,
-}:
+{ callPackage, stdenvNoCC }:
 
-let
-  cu = import ../cutefish/mk.nix { inherit lib; };
-in
-stdenvNoCC.mkDerivation {
+(callPackage ../cutefish/mk.nix { stdenv = stdenvNoCC; }) {
   pname = "cutefish-wallpapers";
-  version = cu.version "2026-10-20";
-
-  src = fetchFromGitHub {
-    owner = "cutefishos";
-    repo = "wallpapers";
-    rev = "2c6191179b82c49584e738baf92d34a84c6a62d6";
-    hash = "sha256-oyq7PuGb3X+aEwBC3neVXTl4a05bgjiVaPVfb1egIXs=";
-  };
+  withPkgConfig = false;
+  withGettext = false;
 
   postPatch = ''
     # The project only copies images. NONE skips the C/C++ compiler probe.
@@ -30,15 +15,7 @@ stdenvNoCC.mkDerivation {
         'DESTINATION share/backgrounds/cutefishos'
   '';
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-  ];
-
-  cmakeFlags = cu.cmakeFlags;
-
   meta = {
-    inherit (cu) homepage platforms;
     description = "Default wallpapers for the Cutefish desktop";
     license = {
       fullName = "Unsplash License";

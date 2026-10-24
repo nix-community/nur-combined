@@ -1,11 +1,5 @@
 {
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  ninja,
-  pkg-config,
-  gettext,
+  callPackage,
   cutefish-toolkit,
   cutefish-framework,
   icu,
@@ -22,28 +16,10 @@
   libarchive,
 }:
 
-let
-  cu = import ../cutefish/mk.nix { inherit lib; };
-in
-stdenv.mkDerivation {
+(callPackage ../cutefish/mk.nix { }) {
   pname = "cutefish-filemanager";
-  version = cu.version "2026-10-23";
 
-  src = fetchFromGitHub {
-    owner = "cutefishos";
-    repo = "filemanager";
-    rev = "e3dfa655d51b7861a10d84c694e4cc0af943f48e";
-    hash = "sha256-JMc8OFnq+f2LPTMHxvNhcx2W+vx0xWCrYVPZsCFHwbw=";
-  };
-
-  nativeBuildInputs = [
-    cmake
-    ninja
-    pkg-config
-    gettext
-  ];
-
-  buildInputs = [
+  extraBuildInputs = [
     cutefish-toolkit
     cutefish-framework
     icu
@@ -60,12 +36,8 @@ stdenv.mkDerivation {
     libarchive
   ];
 
-  cmakeFlags = cu.cmakeFlags;
-
   meta = {
-    inherit (cu) homepage platforms;
     description = "File manager for the Cutefish desktop; also draws the desktop icons";
-    license = lib.licenses.bsd3;
     mainProgram = "cutefish-filemanager";
   };
 }

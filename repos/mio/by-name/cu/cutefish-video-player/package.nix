@@ -1,44 +1,19 @@
 {
   lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  ninja,
-  pkg-config,
-  gettext,
+  callPackage,
   cutefish-toolkit,
   icu,
   mpv,
 }:
 
-let
-  cu = import ../cutefish/mk.nix { inherit lib; };
-in
-stdenv.mkDerivation {
+(callPackage ../cutefish/mk.nix { }) {
   pname = "cutefish-video-player";
-  version = cu.version "2026-10-20";
 
-  src = fetchFromGitHub {
-    owner = "cutefishos";
-    repo = "video-player";
-    rev = "86f2eab74dadfd0482f457122547e0684bca3f23";
-    hash = "sha256-3mPfyqau/0JExgwKToZ6qHJgDlXLNb2BushKxgzVfO0=";
-  };
-
-  nativeBuildInputs = [
-    cmake
-    ninja
-    pkg-config
-    gettext
-  ];
-
-  buildInputs = [
+  extraBuildInputs = [
     cutefish-toolkit
     icu
     mpv
   ];
-
-  cmakeFlags = cu.cmakeFlags;
 
   # libmpv is dlopened by SONAME the first time a file is played.
   postFixup = ''
@@ -46,9 +21,7 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    inherit (cu) homepage platforms;
     description = "Video player for the Cutefish desktop, using libmpv";
-    license = lib.licenses.bsd3;
     mainProgram = "cutefish-video-player";
   };
 }

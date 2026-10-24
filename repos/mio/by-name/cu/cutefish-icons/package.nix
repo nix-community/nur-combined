@@ -1,33 +1,16 @@
 {
-  lib,
+  callPackage,
   stdenvNoCC,
-  fetchFromGitHub,
-  cmake,
-  ninja,
   gtk3,
+  lib,
 }:
 
-let
-  cu = import ../cutefish/mk.nix { inherit lib; };
-in
-stdenvNoCC.mkDerivation {
+(callPackage ../cutefish/mk.nix { stdenv = stdenvNoCC; }) {
   pname = "cutefish-icons";
-  version = cu.version "2026-10-23";
+  withPkgConfig = false;
+  withGettext = false;
 
-  src = fetchFromGitHub {
-    owner = "cutefishos";
-    repo = "icons";
-    rev = "863d156cbef6be7bc2eb7c4453800df416bd73ea";
-    hash = "sha256-Yd+bd2ACS9TAsakFjAoCP54hs7N0i0SQaslWztjamwo=";
-  };
-
-  nativeBuildInputs = [
-    cmake
-    ninja
-    gtk3
-  ];
-
-  cmakeFlags = cu.cmakeFlags;
+  extraNativeBuildInputs = [ gtk3 ];
 
   # The Colloid-based theme ships a handful of symlinks whose targets are not
   # in the tree. Drop them so the package can be installed.
@@ -36,7 +19,6 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
-    inherit (cu) homepage platforms;
     description = "Icon theme for the Cutefish desktop, based on Colloid";
     license = lib.licenses.gpl3Plus;
   };

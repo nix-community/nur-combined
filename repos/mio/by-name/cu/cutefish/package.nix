@@ -1,56 +1,37 @@
+# Not a desktop derivation. Nixpkgs does not ship Plasma or GNOME as one
+# joined package; the module installs corePackages and optionalPackages.
+# Top-level pkgs.cutefish-* are the individual components.
 {
-  lib,
-  symlinkJoin,
   cutefish-core,
   cutefish-compositor,
   cutefish-filemanager,
+  cutefish-settings,
+  cutefish-qt-plugins,
   cutefish-icons,
   cutefish-wallpapers,
-  cutefish-settings,
   cutefish-terminal,
   cutefish-text-editor,
   cutefish-video-player,
   cutefish-calendar,
   cutefish-system-monitor,
   cutefish-calculator,
-  cutefish-qt-plugins,
-  cutefish-dm,
   xdg-desktop-portal-cutefish,
 }:
-
-let
-  cu = import ./mk.nix { inherit lib; };
-in
-symlinkJoin {
-  name = "cutefish-${cu.version "2026-10-24"}";
-  paths = [
+import ./groups.nix {
+  inherit
     cutefish-core
     cutefish-compositor
     cutefish-filemanager
+    cutefish-settings
+    cutefish-qt-plugins
     cutefish-icons
     cutefish-wallpapers
-    cutefish-settings
     cutefish-terminal
     cutefish-text-editor
     cutefish-video-player
     cutefish-calendar
     cutefish-system-monitor
     cutefish-calculator
-    cutefish-qt-plugins
-    cutefish-dm
     xdg-desktop-portal-cutefish
-  ];
-
-  passthru.providedSessions = cutefish-core.providedSessions;
-
-  meta = {
-    inherit (cu) homepage platforms;
-    description = "Wayland session, shell and applications for the Cutefish desktop";
-    license = [
-      lib.licenses.bsd3
-      lib.licenses.gpl2Plus
-      lib.licenses.gpl3Plus
-      cutefish-wallpapers.meta.license
-    ];
-  };
+    ;
 }

@@ -161,7 +161,7 @@ implemented as Nix update-script combinator lists are transparently wrapped and 
 ## More
 
 
-Cutefish (https://cutefish.org/) is a Wayland desktop. The NixOS module is required: installing the package does not register the session, the lock-screen PAM service, or the portals. Pick **Cutefish (Wayland)** in SDDM, GDM or LightDM; it does not replace the display manager.
+Cutefish (https://cutefish.org/) is a Wayland desktop. Enable the NixOS module; it registers the session, the lock-screen PAM service and the portals, and installs the shell plus the default applications. Installing one `pkgs.cutefish-*` package on its own does none of that. Pick **Cutefish (Wayland)** in SDDM, GDM or LightDM; the module does not enable a display manager. `cutefish-dm` stays packaged separately (`pkgs.cutefish-dm`) and is left disabled.
 
 ```nix
 imports = [ inputs.mio.nixosModules.cutefish ];
@@ -170,6 +170,10 @@ imports = [ inputs.mio.nixosModules.cutefish ];
 services.desktopManager.cutefish.enable = true;
 services.displayManager.sddm.enable = true; # or gdm / lightdm
 services.displayManager.sddm.wayland.enable = true;
+
+# Optional applications (terminal, text editor, video player, calendar,
+# system monitor, calculator) can be dropped individually:
+environment.cutefish.excludePackages = [ pkgs.cutefish-video-player ];
 ```
 
-`cutefish-dm` is also packaged (`pkgs.cutefish-dm`) and is left disabled. Languages besides the ones in `i18n.supportedLocales` are not generated into the NixOS locale archive.
+Languages besides the ones in `i18n.supportedLocales` are not generated into the NixOS locale archive.

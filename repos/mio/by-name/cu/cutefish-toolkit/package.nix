@@ -1,11 +1,6 @@
 {
   lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  ninja,
-  pkg-config,
-  gettext,
+  callPackage,
   clang,
   gn,
   python3,
@@ -28,10 +23,10 @@
   libheif,
   libjxl,
   libxkbcommon,
+  fetchFromGitHub,
 }:
 
 let
-  cu = import ../cutefish/mk.nix { inherit lib; };
   # Pinned by cutefish-toolkit/scripts/fetch-skia.sh. Official Skia builds link
   # the system FreeType, HarfBuzz, ICU and image codecs instead of third_party/externals.
   skiaSrc = fetchFromGitHub {
@@ -41,16 +36,8 @@ let
     hash = "sha256-ou4cLjDBhKrL7yUJX/4el/HTDDWcmpL9ZGsdmHjX3I4=";
   };
 in
-stdenv.mkDerivation {
+(callPackage ../cutefish/mk.nix { }) {
   pname = "cutefish-toolkit";
-  version = cu.version "2026-10-23";
-
-  src = fetchFromGitHub {
-    owner = "cutefishos";
-    repo = "cutefish-toolkit";
-    rev = "d8a60ed3a7546094a2c40f7e24db8c3f304d53bc";
-    hash = "sha256-r37yZN3hQjY9bBh64DLmEKY/kPjs2HzUUn6+jLN0mWA=";
-  };
 
   patches = [ ../cutefish/patches/toolkit-xdg-paths.patch ];
 
@@ -73,18 +60,14 @@ stdenv.mkDerivation {
       --replace-fail '/usr/include/harfbuzz' '${lib.getDev harfbuzz}/include/harfbuzz'
   '';
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    pkg-config
-    gettext
+  extraNativeBuildInputs = [
     clang
     gn
     python3
     wayland-scanner
   ];
 
-  buildInputs = [
+  extraBuildInputs = [
     wayland
     wayland-protocols
     libglvnd
@@ -105,16 +88,12 @@ stdenv.mkDerivation {
     libxkbcommon
   ];
 
-  cmakeFlags = cu.cmakeFlags;
-
   # libjxl is dlopened by SONAME, so the dynamic linker has to find it on the toolkit's rpath.
   postFixup = ''
     patchelf --add-rpath ${lib.makeLibraryPath [ libjxl ]} "$out/lib/libcutefish-toolkit.so"
   '';
 
   meta = {
-    inherit (cu) homepage platforms;
     description = "Wayland client toolkit for the Cutefish desktop, drawn with Skia";
-    license = lib.licenses.bsd3;
   };
 }

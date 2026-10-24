@@ -1,45 +1,22 @@
 {
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  ninja,
-  pkg-config,
-  gettext,
-  wayland-scanner,
+  callPackage,
   cutefish-toolkit,
   systemd,
   pipewire,
   wayland,
   wayland-protocols,
+  wayland-scanner,
   mesa,
   libgbm,
   libdrm,
 }:
 
-let
-  cu = import ../../cu/cutefish/mk.nix { inherit lib; };
-in
-stdenv.mkDerivation {
+(callPackage ../../cu/cutefish/mk.nix { }) {
   pname = "xdg-desktop-portal-cutefish";
-  version = cu.version "2026-10-20";
 
-  src = fetchFromGitHub {
-    owner = "cutefishos";
-    repo = "xdg-desktop-portal-cutefish";
-    rev = "03d019c0bf5cb875881f852b6a74e2b1670a5949";
-    hash = "sha256-x9RvruXCTrSY7lbpLf6rrcwxLUsAM35Cd9Gjvgqf+64=";
-  };
+  extraNativeBuildInputs = [ wayland-scanner ];
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    pkg-config
-    gettext
-    wayland-scanner
-  ];
-
-  buildInputs = [
+  extraBuildInputs = [
     cutefish-toolkit
     systemd
     pipewire
@@ -50,11 +27,7 @@ stdenv.mkDerivation {
     libdrm
   ];
 
-  cmakeFlags = cu.cmakeFlags;
-
   meta = {
-    inherit (cu) homepage platforms;
     description = "XDG desktop portal backend for the Cutefish desktop";
-    license = lib.licenses.bsd3;
   };
 }

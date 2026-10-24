@@ -1,10 +1,5 @@
 {
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  ninja,
-  pkg-config,
+  callPackage,
   qt6,
   wayland,
   wayland-scanner,
@@ -14,19 +9,9 @@
   libjxl,
 }:
 
-let
-  cu = import ../cutefish/mk.nix { inherit lib; };
-in
-stdenv.mkDerivation {
+(callPackage ../cutefish/mk.nix { }) {
   pname = "cutefish-qt-plugins";
-  version = cu.version "2026-10-20";
-
-  src = fetchFromGitHub {
-    owner = "cutefishos";
-    repo = "qt-plugins";
-    rev = "7e1a132d26aae471832179f765c7c5d28d62bc4a";
-    hash = "sha256-NymabMQZIYPYcVURo8NiROIQE1i8f3Q89X96tYGTv3w=";
-  };
+  withGettext = false;
 
   patches = [ ../cutefish/patches/qt-handle-theme-change.patch ];
 
@@ -39,15 +24,12 @@ stdenv.mkDerivation {
         'DESTINATION ''${CMAKE_INSTALL_PREFIX}/${qt6.qtbase.qtPluginPrefix}/imageformats/'
   '';
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    pkg-config
+  extraNativeBuildInputs = [
     qt6.wrapQtAppsHook
     wayland-scanner
   ];
 
-  buildInputs = [
+  extraBuildInputs = [
     qt6.qtbase
     qt6.qtdeclarative
     wayland
@@ -59,7 +41,6 @@ stdenv.mkDerivation {
 
   # The platform theme loads libcutefish-qt-scrolling-quick by name.
   dontWrapQtApps = true;
-  cmakeFlags = cu.cmakeFlags;
 
   postFixup = ''
     for plugin in "$out/${qt6.qtbase.qtPluginPrefix}/platformthemes/"*.so; do
@@ -68,8 +49,6 @@ stdenv.mkDerivation {
   '';
 
   meta = {
-    inherit (cu) homepage platforms;
     description = "Qt 6 platform theme, scrolling and image plugins for the Cutefish desktop";
-    license = lib.licenses.bsd3;
   };
 }

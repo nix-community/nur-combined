@@ -1,11 +1,5 @@
 {
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  ninja,
-  pkg-config,
-  gettext,
+  callPackage,
   cutefish-toolkit,
   cutefish-framework,
   icu,
@@ -20,19 +14,8 @@
   xorgproto,
 }:
 
-let
-  cu = import ../cutefish/mk.nix { inherit lib; };
-in
-stdenv.mkDerivation {
+(callPackage ../cutefish/mk.nix { }) {
   pname = "cutefish-settings";
-  version = cu.version "2026-10-21";
-
-  src = fetchFromGitHub {
-    owner = "cutefishos";
-    repo = "settings";
-    rev = "724827e0fd2a56dac5d506075b5a891e516b4015";
-    hash = "sha256-5gUYjqVd9WpAYE2QYWUO983ekQT03uRk8BjQPVsKqTc=";
-  };
 
   postPatch = ''
     substituteInPlace cutefish-settings.desktop \
@@ -50,14 +33,7 @@ stdenv.mkDerivation {
         'PATH=/run/wrappers/bin:/run/current-system/sw/bin:/usr/sbin:/usr/bin:/sbin:/bin'
   '';
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    pkg-config
-    gettext
-  ];
-
-  buildInputs = [
+  extraBuildInputs = [
     cutefish-toolkit
     cutefish-framework
     icu
@@ -72,12 +48,8 @@ stdenv.mkDerivation {
     xorgproto
   ];
 
-  cmakeFlags = cu.cmakeFlags;
-
   meta = {
-    inherit (cu) homepage platforms;
     description = "System Settings for the Cutefish desktop";
-    license = lib.licenses.bsd3;
     mainProgram = "cutefish-settings";
   };
 }

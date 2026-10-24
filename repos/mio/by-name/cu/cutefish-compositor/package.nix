@@ -1,12 +1,5 @@
 {
-  lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  ninja,
-  pkg-config,
-  gettext,
-  wayland-scanner,
+  callPackage,
   cutefish-toolkit,
   cutefish-framework,
   cutefish-core,
@@ -14,6 +7,7 @@
   xwayland,
   wayland,
   wayland-protocols,
+  wayland-scanner,
   seatd,
   libdrm,
   libgbm,
@@ -32,19 +26,8 @@
   xorgproto,
 }:
 
-let
-  cu = import ../cutefish/mk.nix { inherit lib; };
-in
-stdenv.mkDerivation {
+(callPackage ../cutefish/mk.nix { }) {
   pname = "cutefish-compositor";
-  version = cu.version "2026-10-24";
-
-  src = fetchFromGitHub {
-    owner = "cutefishos";
-    repo = "cutefish-compositor";
-    rev = "f7f1f14a38e9a9deb6f8ce34108598d21c06736a";
-    hash = "sha256-0GAKvt+xzcxsOifmF01MhhmaiShOatLBQ3vCp3lEayU=";
-  };
 
   postPatch = ''
     substituteInPlace CMakeLists.txt tests/CMakeLists.txt \
@@ -70,15 +53,9 @@ stdenv.mkDerivation {
         paths.push_back("/usr/share/pixmaps");'
   '';
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    pkg-config
-    gettext
-    wayland-scanner
-  ];
+  extraNativeBuildInputs = [ wayland-scanner ];
 
-  buildInputs = [
+  extraBuildInputs = [
     cutefish-toolkit
     cutefish-framework
     wayland
@@ -101,12 +78,8 @@ stdenv.mkDerivation {
     xorgproto
   ];
 
-  cmakeFlags = cu.cmakeFlags;
-
   meta = {
-    inherit (cu) homepage platforms;
     description = "Wayland compositor, shell and lock screen for the Cutefish desktop";
-    license = lib.licenses.bsd3;
     mainProgram = "cutefish-compositor";
   };
 }

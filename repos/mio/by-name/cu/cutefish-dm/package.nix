@@ -1,29 +1,13 @@
 {
   lib,
-  stdenv,
-  fetchFromGitHub,
-  cmake,
-  ninja,
-  pkg-config,
-  gettext,
+  callPackage,
   cutefish-toolkit,
   cutefish-compositor,
   pam,
 }:
 
-let
-  cu = import ../cutefish/mk.nix { inherit lib; };
-in
-stdenv.mkDerivation {
+(callPackage ../cutefish/mk.nix { }) {
   pname = "cutefish-dm";
-  version = cu.version "2026-10-22";
-
-  src = fetchFromGitHub {
-    owner = "cutefishos";
-    repo = "cutefish-dm";
-    rev = "73ed274f3ec27af8e4e118f428073769fc4e873a";
-    hash = "sha256-eg3oh55IqlOKhX0nneuDaYnRjrE8Zzz/UWPyly3ao/E=";
-  };
 
   postPatch = ''
     substituteInPlace daemon/config.h \
@@ -41,22 +25,12 @@ stdenv.mkDerivation {
         'PATH=/run/wrappers/bin:/run/current-system/sw/bin:/usr/local/bin:/usr/bin:/bin'
   '';
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    pkg-config
-    gettext
-  ];
-
-  buildInputs = [
+  extraBuildInputs = [
     cutefish-toolkit
     pam
   ];
 
-  cmakeFlags = cu.cmakeFlags;
-
   meta = {
-    inherit (cu) homepage platforms;
     description = "Display manager for the Cutefish desktop";
     longDescription = ''
       The Wayland session also logs in through SDDM, GDM or LightDM.
