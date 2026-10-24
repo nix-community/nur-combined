@@ -16,10 +16,12 @@
     # keep-sorted start
     buildPythonApplication
     hatchling
-    mcp
     pytestCheckHook
     # keep-sorted end
     ;
+
+  # Hypruse requires the MCP 1.x SDK.
+  mcp = python3Packages.mcp_1 or python3Packages.mcp;
 
   runtimePath = makeBinPath [
     # keep-sorted start
