@@ -1,5 +1,4 @@
 {
-  outputs,
   pkgs,
   darwinModules,
   ...
@@ -9,11 +8,6 @@
   imports = [
     darwinModules.default
     ./homebrew.nix
-  ];
-
-  nixpkgs.overlays = [
-    outputs.overlays.additions
-    outputs.overlays.modifications
   ];
 
   # Enable alternative shell support in nix-darwin.

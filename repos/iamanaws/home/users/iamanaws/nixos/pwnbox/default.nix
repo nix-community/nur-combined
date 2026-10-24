@@ -1,7 +1,6 @@
 {
   lib,
   pkgs,
-  outputs,
   ...
 }:
 
@@ -32,13 +31,6 @@
   };
 
   programs.home-manager.enable = true;
-
-  nixpkgs = {
-    overlays = [
-      outputs.overlays.additions
-      outputs.overlays.modifications
-    ];
-  };
 
   systemd.user.startServices = "sd-switch";
   home.stateVersion = "24.11";

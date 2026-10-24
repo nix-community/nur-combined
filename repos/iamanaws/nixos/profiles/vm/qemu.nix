@@ -5,4 +5,5 @@
     nixosModules.profiles.core
     nixosModules.display.default
   ];
+  services.fwupd.enable = false;
 }

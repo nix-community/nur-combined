@@ -47,6 +47,9 @@
 
   swapDevices = [ ];
 
+  # Firmware updates for this Pi are managed through its NixOS configuration.
+  services.fwupd.enable = false;
+
   hardware = {
     # needed for wlan0 to work (https://github.com/NixOS/nixpkgs/issues/115652)
     enableRedistributableFirmware = lib.mkForce false;

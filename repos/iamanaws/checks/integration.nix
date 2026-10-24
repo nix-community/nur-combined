@@ -37,6 +37,17 @@ let
           "profileExtra"
         ]
       ) enabledUsers;
+      matchingPackages = lib.all (
+        user:
+        let
+          standalone = inputs.self.homeConfigurations."${user.name}@${host.name}";
+        in
+        # Check a regular package and one supplied by our shared overlay.
+        lib.all (name: systemConfig.pkgs.${name}.drvPath == standalone.pkgs.${name}.drvPath) [
+          "nixd"
+          "bitbucket-cli"
+        ]
+      ) enabledUsers;
     in
     # Force real module evaluation, but don't make system closures build inputs.
     assert builtins.deepSeq systemConfig.config.device true;
@@ -45,6 +56,10 @@ let
     ) "${host.name}: system device data differs from the host registry";
     assert lib.assertMsg matchingShells
       "${host.name}: integrated and standalone Home Manager shell startup differs";
+    assert lib.assertMsg systemConfig.config.home-manager.useGlobalPkgs
+      "${host.name}: integrated Home Manager must share the system package set";
+    assert lib.assertMsg matchingPackages
+      "${host.name}: system and standalone Home Manager package policies differ";
     assert lib.assertMsg (
       !host.hostConfig.hyprland
       || lib.any (

@@ -30,7 +30,7 @@
     };
   };
 
-  environment.systemPackages = (
+  environment.systemPackages =
     with pkgs;
     [
       # ghostty
@@ -55,8 +55,7 @@
       hyprsunset
       hyprpolkitagent
       wl-clipboard
-    ]
-  );
+    ];
 
   security.polkit.enable = true;
 }

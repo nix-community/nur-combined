@@ -4,15 +4,17 @@
   lib,
   ...
 }:
+let
+  sshPolicy = import ../../lib/ssh-policy.nix;
+in
 {
   imports = [
     inputs.nix-mineral.nixosModules.nix-mineral
   ];
 
   boot = {
-    # kernelPackages = pkgs.linuxPackagesFor pkgs.linuxKernel.kernels.linux_hardened;
-
     # Preload required modules before disabling runtime kernel module loading.
+    # Adapt this example to the host's filesystems and firewall.
     # kernelModules = [
     #   # /boot
     #   "vfat"
@@ -29,11 +31,10 @@
     #   "ip6t_rpfilter"
     # ];
 
-    # Enable unprivileged user namespaces (kernel-level risk)
-    # for chromium based apps, flatpacks, and steam sandboxing
+    # Allow unprivileged user namespaces for Chromium, Flatpak and Steam sandboxes.
+    # This exposes more kernel attack surface to unprivileged processes.
     kernel.sysctl = lib.optionalAttrs (hostConfig.isGraphical && hostConfig.isLinux) {
       "kernel.unprivileged_userns_clone" = lib.mkForce 1;
-      # "kernel.yama.ptrace_scope" = lib.mkOverride 10 1;
     };
   };
 
@@ -64,7 +65,7 @@
       # network.ip-forwarding = true;
       system.multilib = true; # 32-bit
       # system.proc-mem-force = "ptrace";
-      system.yama = "relaxed";
+      system.yama = "relaxed"; # kernel.yama.ptrace_scope = 1
     };
 
     extras = {
@@ -85,30 +86,9 @@
 
   # Client side SSH configuration
   programs.ssh = {
-    ciphers = [
-      "aes256-gcm@openssh.com"
-      "aes256-ctr,aes192-ctr"
-      "aes128-ctr"
-      "aes128-gcm@openssh.com"
-      "chacha20-poly1305@openssh.com" # ?
-    ];
-    hostKeyAlgorithms = [
-      "ssh-ed25519"
-      "ssh-ed25519-cert-v01@openssh.com"
-      "sk-ssh-ed25519@openssh.com"
-      "sk-ssh-ed25519-cert-v01@openssh.com"
-      "rsa-sha2-512"
-      "rsa-sha2-512-cert-v01@openssh.com"
-      "rsa-sha2-256"
-      "rsa-sha2-256-cert-v01@openssh.com"
-    ];
-    kexAlgorithms = [
-      "curve25519-sha256"
-      "curve25519-sha256@libssh.org"
-      "diffie-hellman-group16-sha512"
-      "diffie-hellman-group18-sha512"
-      "sntrup761x25519-sha512@openssh.com"
-    ];
+    inherit (sshPolicy) ciphers kexAlgorithms macs;
+    hostKeyAlgorithms = sshPolicy.keyAlgorithms;
+    pubkeyAcceptedKeyTypes = sshPolicy.keyAlgorithms;
     knownHosts = {
       github-ed25519 = {
         hostNames = [ "github.com" ];
@@ -123,11 +103,5 @@
         publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIVIC02vnjFyL+I4RHfvIGNtOgJMe769VTF1VR4EB3ZB";
       };
     };
-    macs = [
-      # "hmac-sha2-512" # ?
-      "hmac-sha2-512-etm@openssh.com"
-      "hmac-sha2-256-etm@openssh.com"
-      "umac-128-etm@openssh.com"
-    ];
   };
 }

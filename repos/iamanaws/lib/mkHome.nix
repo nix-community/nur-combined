@@ -8,7 +8,6 @@
 let
   flakeRoot = inputs.self;
   hostUtils = import ./hostUtils.nix { inherit lib; };
-  nixpkgsConfig = import ./nixpkgsConfig.nix { inherit lib; };
   homeUsersRoot = flakeRoot + /home/users;
 
   defaultHomeDirectory =
@@ -41,9 +40,7 @@ let
     inputs.home-manager.lib.homeManagerConfiguration {
       pkgs = nixpkgs.legacyPackages.${system};
       modules = [
-        {
-          nixpkgs.config = nixpkgsConfig;
-        }
+        ./nixpkgs.nix
         modulePath
         {
           home.username = name;

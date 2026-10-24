@@ -39,7 +39,7 @@ lib.optionalAttrs (hostConfig.isGraphical && hostConfig.isLinux) {
 
     iconTheme = {
       name = "kuyen-icons";
-      package = pkgs.kuyen-icons.overrideAttrs (old: {
+      package = pkgs.kuyen-icons.overrideAttrs (_: {
         propagatedBuildInputs = [ pkgs.adwaita-icon-theme ];
         postInstall = ''
           substituteInPlace $out/share/icons/kuyen-icons/index.theme \

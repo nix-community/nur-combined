@@ -20,14 +20,9 @@
         "gppongmhjkpfnbhagpmjfkannfbllamg" # wappalyzer
       ];
 
-      commandLineArgs =
-        lib.optionals hostConfig.isLinux [
-          "--password-store=gnome-libsecret"
-        ]
-        ++ [
-          # "--enable-features=UseOzonePlatform "
-          # "--ozone-platform=x11"
-        ];
+      commandLineArgs = lib.optionals hostConfig.isLinux [
+        "--password-store=gnome-libsecret"
+      ];
     };
   };
 }

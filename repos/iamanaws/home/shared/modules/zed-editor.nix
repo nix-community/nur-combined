@@ -255,70 +255,72 @@ in
       }
     ];
 
-    home.packages = mkIf (cfg.package != null) (
-      if cfg.extraPackages != [ ] then
-        [
-          (pkgs.symlinkJoin {
-            name = "${lib.getName cfg.package}-wrapped-${lib.getVersion cfg.package}";
-            paths = [ cfg.package ];
-            preferLocalBuild = true;
-            nativeBuildInputs = [ pkgs.makeWrapper ];
-            postBuild = ''
-              wrapProgram "$out/bin/zeditor" \
-                --suffix PATH : ${extraPath}
-            '';
-          })
-        ]
-        # Zed on uses a shell-derived project environment for
-        # language server lookup, so the binaries must also be visible there.
-        ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin cfg.extraPackages
-      else
-        [ cfg.package ]
-    );
+    home = {
+      packages = mkIf (cfg.package != null) (
+        if cfg.extraPackages != [ ] then
+          [
+            (pkgs.symlinkJoin {
+              name = "${lib.getName cfg.package}-wrapped-${lib.getVersion cfg.package}";
+              paths = [ cfg.package ];
+              preferLocalBuild = true;
+              nativeBuildInputs = [ pkgs.makeWrapper ];
+              postBuild = ''
+                wrapProgram "$out/bin/zeditor" \
+                  --suffix PATH : ${extraPath}
+              '';
+            })
+          ]
+          # Zed on uses a shell-derived project environment for
+          # language server lookup, so the binaries must also be visible there.
+          ++ lib.optionals pkgs.stdenv.hostPlatform.isDarwin cfg.extraPackages
+        else
+          [ cfg.package ]
+      );
 
-    home.file = mkIf (cfg.installRemoteServer && (cfg.package ? remote_server)) (
-      let
-        inherit (cfg.package) remote_server;
-        binaryName = cfg.package.remoteServerExecutableName;
-      in
-      {
-        ".zed_server/${binaryName}".source = lib.getExe' remote_server binaryName;
-      }
-    );
+      file = mkIf (cfg.installRemoteServer && (cfg.package ? remote_server)) (
+        let
+          inherit (cfg.package) remote_server;
+          binaryName = cfg.package.remoteServerExecutableName;
+        in
+        {
+          ".zed_server/${binaryName}".source = lib.getExe' remote_server binaryName;
+        }
+      );
 
-    home.activation = mkMerge [
-      (mkIf (cfg.mutableUserSettings && mergedSettings != { }) {
-        zedSettingsActivation = lib.hm.dag.entryAfter [ "linkGeneration" ] (
-          impureConfigMerger "{}" "$dynamic * $static" "${config.xdg.configHome}/zed/settings.json" (
-            jsonFormat.generate "zed-user-settings" mergedSettings
-          )
-        );
-      })
-      (mkIf (cfg.mutableUserKeymaps && cfg.userKeymaps != [ ]) {
-        zedKeymapActivation = lib.hm.dag.entryAfter [ "linkGeneration" ] (
-          impureConfigMerger "[]"
-            "$dynamic + $static | group_by(.context) | map(reduce .[] as $item ({}; . * $item))"
-            "${config.xdg.configHome}/zed/keymap.json"
-            (jsonFormat.generate "zed-user-keymaps" cfg.userKeymaps)
-        );
-      })
-      (mkIf (cfg.mutableUserTasks && cfg.userTasks != [ ]) {
-        zedTasksActivation = lib.hm.dag.entryAfter [ "linkGeneration" ] (
-          impureConfigMerger "[]"
-            "$dynamic + $static | group_by(.label) | map(reduce .[] as $item ({}; . * $item))"
-            "${config.xdg.configHome}/zed/tasks.json"
-            (jsonFormat.generate "zed-user-tasks" cfg.userTasks)
-        );
-      })
-      (mkIf (cfg.mutableUserDebug && cfg.userDebug != [ ]) {
-        zedDebugActivation = lib.hm.dag.entryAfter [ "linkGeneration" ] (
-          impureConfigMerger "[]"
-            "$dynamic + $static | group_by(.label) | map(reduce .[] as $item ({}; . * $item))"
-            "${config.xdg.configHome}/zed/debug.json"
-            (jsonFormat.generate "zed-user-debug" cfg.userDebug)
-        );
-      })
-    ];
+      activation = mkMerge [
+        (mkIf (cfg.mutableUserSettings && mergedSettings != { }) {
+          zedSettingsActivation = lib.hm.dag.entryAfter [ "linkGeneration" ] (
+            impureConfigMerger "{}" "$dynamic * $static" "${config.xdg.configHome}/zed/settings.json" (
+              jsonFormat.generate "zed-user-settings" mergedSettings
+            )
+          );
+        })
+        (mkIf (cfg.mutableUserKeymaps && cfg.userKeymaps != [ ]) {
+          zedKeymapActivation = lib.hm.dag.entryAfter [ "linkGeneration" ] (
+            impureConfigMerger "[]"
+              "$dynamic + $static | group_by(.context) | map(reduce .[] as $item ({}; . * $item))"
+              "${config.xdg.configHome}/zed/keymap.json"
+              (jsonFormat.generate "zed-user-keymaps" cfg.userKeymaps)
+          );
+        })
+        (mkIf (cfg.mutableUserTasks && cfg.userTasks != [ ]) {
+          zedTasksActivation = lib.hm.dag.entryAfter [ "linkGeneration" ] (
+            impureConfigMerger "[]"
+              "$dynamic + $static | group_by(.label) | map(reduce .[] as $item ({}; . * $item))"
+              "${config.xdg.configHome}/zed/tasks.json"
+              (jsonFormat.generate "zed-user-tasks" cfg.userTasks)
+          );
+        })
+        (mkIf (cfg.mutableUserDebug && cfg.userDebug != [ ]) {
+          zedDebugActivation = lib.hm.dag.entryAfter [ "linkGeneration" ] (
+            impureConfigMerger "[]"
+              "$dynamic + $static | group_by(.label) | map(reduce .[] as $item ({}; . * $item))"
+              "${config.xdg.configHome}/zed/debug.json"
+              (jsonFormat.generate "zed-user-debug" cfg.userDebug)
+          );
+        })
+      ];
+    };
 
     xdg.configFile = mkMerge [
       (lib.mapAttrs' (

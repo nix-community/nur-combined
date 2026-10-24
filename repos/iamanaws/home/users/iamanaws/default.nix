@@ -1,8 +1,5 @@
-# This is your home-manager configuration file
-# Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
 {
   inputs,
-  outputs,
   config,
   hostConfig,
   pkgs,
@@ -17,7 +14,6 @@ in
     "programs/zed-editor.nix"
   ];
 
-  # You can import other home-manager modules here
   imports = [
     # If you want to use modules your own flake exports (from modules/home-manager):
     # outputs.homeManagerModules.example
@@ -29,27 +25,6 @@ in
     ./graphical.nix
   ];
 
-  nixpkgs = {
-    overlays = [
-      # Add overlays your own flake exports (from overlays and pkgs dir):
-      outputs.overlays.additions
-      outputs.overlays.modifications
-
-      # You can also add overlays exported from other flakes:
-      # neovim-nightly-overlay.overlays.default
-
-      # Or define it inline, for example:
-      # (final: prev: {
-      #   hi = final.hello.overrideAttrs (oldAttrs: {
-      #     patches = [ ./change-hello-to-hi.patch ];
-      #   });
-      # })
-    ];
-  };
-
-  # Add environment variables
-  home.sessionVariables = { };
-
   home.packages =
     with pkgs;
     [
@@ -57,100 +32,107 @@ in
     ]
     ++ [ llmAgentPkgs.cursor-agent ];
 
-  # Enable home-manager and git
-  programs.home-manager.enable = true;
+  programs = {
+    home-manager.enable = true;
 
-  programs.claude-code = {
-    enable = hostConfig.isGraphical;
-    enableMcpIntegration = true;
-    package = llmAgentPkgs.claude-code.override {
-      disableTelemetry = true;
-    };
-    settings = {
-      includeCoAuthoredBy = false;
-      model = "fable";
-      effortLevel = "low";
-      permissions = {
-        allow = [ ];
+    claude-code = {
+      enable = hostConfig.isGraphical;
+      enableMcpIntegration = true;
+      package = llmAgentPkgs.claude-code.override {
+        disableTelemetry = true;
       };
-    };
+      settings = {
+        includeCoAuthoredBy = false;
+        model = "fable";
+        effortLevel = "low";
+        permissions = {
+          allow = [ ];
+        };
+      };
     skills = { };
-  };
-
-  programs.codex = {
-    enable = config.programs.claude-code.enable;
-    # enableMcpIntegration = true;
-    package = llmAgentPkgs.codex;
-    # settings = { };
-    # skills = { };
-  };
-
-  programs.git = {
-    enable = true;
-    lfs.enable = true;
-
-    signing = {
-      signByDefault = true;
-      format = "openpgp";
-      key = "C5EE9152B41B8B071A4A30AD33744241C7B86BCA";
     };
 
-    settings = {
-      user = {
-        name = "Angel J";
-        email = "78835633+iamanaws@users.noreply.github.com";
-      };
-
-      sendemail = {
-        smtpServer = "smtp.protonmail.ch";
-        smtpServerPort = 587;
-        smtpUser = "iamanaws@httpd.dev";
-        smtpEncryption = "tls";
-      };
-
-      alias = {
-        pu = "push";
-        co = "checkout";
-        cm = "commit";
-      };
-
-      core.editor = "vim";
-      init.defaultBranch = "main";
-      fetch.prune = true;
-      fetch.prunetags = true;
-      merge.conflictStyle = "zdiff3";
-      push.autosetupremote = true;
-      push.followtags = true;
-
-      diff.algorithm = "histogram";
-      diff.colorMoved = "default";
-      help.autocorrect = "prompt";
-
-      #log.date = "iso";
-      branch.sort = "-committerdate";
-      tag.sort = "taggerdate";
-
-      # better submodule logs
-      status.submoduleSummary = true;
-      diff.submodule = "log";
-
-      # avoid data corruption
-      transfer.fsckobjects = true;
-      fetch.fsckobjects = true;
-      receive.fsckObjects = true;
-
-      gpg.format = "openpgp";
+    codex = {
+      enable = config.programs.claude-code.enable;
+      # enableMcpIntegration = true;
+      package = llmAgentPkgs.codex;
+      # settings = { };
+      # skills = { };
     };
 
-    ignores = [
-      ".env"
-      ".DS_Store"
-      ".cursor"
-      ".vscode"
-      ".idea"
-    ];
+    git = {
+      enable = true;
+      lfs.enable = true;
 
-    hooks = { };
+      signing = {
+        signByDefault = true;
+        format = "openpgp";
+        key = "C5EE9152B41B8B071A4A30AD33744241C7B86BCA";
+      };
+
+      settings = {
+        user = {
+          name = "Angel J";
+          email = "78835633+iamanaws@users.noreply.github.com";
+        };
+
+        sendemail = {
+          smtpServer = "smtp.protonmail.ch";
+          smtpServerPort = 587;
+          smtpUser = "iamanaws@httpd.dev";
+          smtpEncryption = "tls";
+        };
+
+        alias = {
+          pu = "push";
+          co = "checkout";
+          cm = "commit";
+        };
+
+        core.editor = "vim";
+        init.defaultBranch = "main";
+        merge.conflictStyle = "zdiff3";
+        push = {
+          autosetupremote = true;
+          followtags = true;
+        };
+
+        diff = {
+          algorithm = "histogram";
+          colorMoved = "default";
+          submodule = "log";
+        };
+        help.autocorrect = "prompt";
+
+        #log.date = "iso";
+        branch.sort = "-committerdate";
+        tag.sort = "taggerdate";
+
+        # better submodule logs
+        status.submoduleSummary = true;
+
+        # avoid data corruption
+        transfer.fsckobjects = true;
+        fetch = {
+          prune = true;
+          prunetags = true;
+          fsckobjects = true;
+        };
+        receive.fsckObjects = true;
+
+        gpg.format = "openpgp";
+      };
+
+      ignores = [
+        ".env"
+        ".DS_Store"
+        ".cursor"
+        ".vscode"
+        ".idea"
+      ];
+
+      hooks = { };
+    };
   };
 
   # Nicely reload system units when changing configs

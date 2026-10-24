@@ -18,6 +18,22 @@ let
   wifiProfiles = alpha.networking.networkmanager.ensureProfiles.profiles;
   recovery = wifiProfiles.alpha-recovery;
 in
+# Recovery keeps DNS/DHCP on Wi-Fi; the server profile exposes only SSH globally.
+assert alpha.networking.firewall.allowedTCPPorts == alpha.services.openssh.ports;
+assert alpha.networking.firewall.allowedUDPPorts == [ ];
+assert alpha.networking.firewall.interfaces.wlan0.allowedTCPPorts == [ 53 ];
+assert
+  alpha.networking.firewall.interfaces.wlan0.allowedUDPPorts == [
+    53
+    67
+  ];
+assert alpha.services.openssh.settings.AuthenticationMethods == "publickey";
+assert alpha.services.openssh.settings.PermitRootLogin == "no";
+assert !alpha.services.openssh.settings.PasswordAuthentication;
+assert !alpha.services.openssh.settings.KbdInteractiveAuthentication;
+assert !alpha.services.fwupd.enable && !pwnbox.services.fwupd.enable;
+assert !alphaVM.services.fwupd.enable && !pwnboxVM.services.fwupd.enable;
+
 # The physical Pi's profiles receive credentials only at runtime.
 assert builtins.elem wifiSecret.path wifiService.serviceConfig.EnvironmentFile;
 assert wifiSecret.format == "dotenv" && wifiSecret.key == "";

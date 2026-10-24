@@ -1,5 +1,4 @@
 {
-  outputs,
   lib,
   pkgs,
   darwinModules,
@@ -14,11 +13,6 @@ in
   imports = [
     darwinModules.default
     ./homebrew.nix
-  ];
-
-  nixpkgs.overlays = [
-    outputs.overlays.additions
-    outputs.overlays.modifications
   ];
 
   system.primaryUser = "iamanaws";

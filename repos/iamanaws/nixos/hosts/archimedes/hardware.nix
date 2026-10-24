@@ -1,6 +1,7 @@
 {
   inputs,
   lib,
+  nixosModules,
   modulesPath,
   ...
 }:
@@ -8,6 +9,7 @@
 {
   imports = [
     inputs.nixos-hardware.nixosModules.lenovo-thinkpad-e14-intel-gen6
+    nixosModules.intel-laptop
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
@@ -55,4 +57,16 @@
   # networking.interfaces.wlp0s20f3.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+
+  services = {
+    # Fingerprint readers supported by libfprint.
+    fprintd.enable = true;
+    tlp.settings = {
+      # Delay recharging until below 40%, then charge to 80%.
+      START_CHARGE_THRESH_BAT0 = 40;
+      STOP_CHARGE_THRESH_BAT0 = 80;
+    };
+  };
+
+  hardware.bluetooth.enable = true;
 }

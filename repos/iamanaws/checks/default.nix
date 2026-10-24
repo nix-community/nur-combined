@@ -35,6 +35,7 @@ in
 }
 // import ./integration.nix { inherit pkgs inputs hostRegistry; }
 // lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
+  ssh-policy = import ./ssh.nix { inherit pkgs inputs; };
   virtual-machines =
     assert import ./virtual-machines.nix { inherit inputs; };
     pkgs.runCommand "virtual-machine-config-checks" { } ''
