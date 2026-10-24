@@ -14,7 +14,7 @@ in
     ./scanner.nix
     ./keyboard_layout.nix
     ./gtk.nix
-    ./fonts.nix
+    # ./fonts.nix
   ];
 
   services.xserver = {
@@ -52,16 +52,15 @@ in
     pkgs.pulsemixer
     pkgs.poppler-utils # pdf utils
     pkgs.yt-dlp
-    (
-      (pkgs.pass.override {
-        x11Support = false;
-      }).withExtensions
-      (exts: [
-        exts.pass-otp
-      ])
-    )
     pkgs.age
-    (pkgs.passage.withExtensions(subpkgs: [ subpkgs.pass-otp ] ))
+    # `passage` has no dmenu support, but `pass.withExtensions` still tries to
+    # wrap `passmenu` when dmenuSupport is enabled. Force it off for this env.
+    (
+      ((pkgs.pass.override { dmenuSupport = false; }).withExtensions.override {
+        pass = pkgs.passage;
+      })
+      (subpkgs: [ subpkgs.pass-otp ])
+    )
     pkgs.ssh-to-age
     (pkgs.zbar.override {
       withXorg = false;

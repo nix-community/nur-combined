@@ -114,7 +114,10 @@ in
     '';
   };
 
-  programs.fuse.userAllowOther = true;
+  programs.fuse = {
+    enable = true;
+    userAllowOther = true;
+  };
 
   environment.shellAliases = {
     mv = "mv --no-clobber";

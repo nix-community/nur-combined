@@ -7,9 +7,12 @@
 {
   fonts = {
     fontconfig = {
-      enable = config.services.xserver.enable;
+      enable = true;
       defaultFonts = {
-        monospace = [ "Iosevka Comfy" ];
+        monospace = [
+          "IoskeleyMono Nerd Font Mono"
+          "Iosevka Comfy"
+        ];
         #   sansSerif = [ "" ];
         #   serif = [ "" ];
       };
@@ -41,6 +44,7 @@
     };
     enableDefaultPackages = true;
     packages = [
+      pkgs.ioskeley-mono.nf
       pkgs.iosevka-comfy.comfy
       pkgs.et-book # EtBembo https://edwardtufte.github.io/et-book/
       pkgs.noto-fonts
