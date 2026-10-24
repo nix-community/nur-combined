@@ -20,13 +20,13 @@
 
 let
   pname = "vidbee";
-  version = "2.2.3";
+  version = "2.2.4";
 
   baseSrc = fetchFromGitHub {
     owner = "nexmoe";
     repo = "VidBee";
     tag = "v${version}";
-    hash = "sha256-L7/J/K7D+63v7/MG8rZw2Z0y0tPoVVrDRNWiYEQKx94=";
+    hash = "sha256-XNnyQwgRw8wvWtQHqUr8iKh5e//EKiNmuydN1/34vnw=";
   };
 
   # Replace the upstream manifest and lockfile with the Nix-maintained versions.
@@ -55,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (finalAttrs) pname version src;
 
     pnpm = pnpm_11;
-    hash = "sha256-0jsHt5Amp+c1Xyj/RV+Mv938eHfjS5a1ryQFcE8+Q3U=";
+    hash = "sha256-rPGsZAHva6CRSNkezMGIZMeQAUX/RqDDKfPBscsTniQ=";
     fetcherVersion = 4;
   };
 

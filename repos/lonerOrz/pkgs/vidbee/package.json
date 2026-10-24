@@ -42,6 +42,6 @@
     "ultracite": "7.10.6"
   },
   "dependencies": {
-    "@sentry/browser": "^11.6.0"
+    "@sentry/browser": "^11.9.0"
   }
 }
