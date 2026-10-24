@@ -25,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
   strictDeps = true;
 
   pname = "deepseek-harness";
-  version = "0.2.1-rc.2";
+  version = "0.2.1-rc.3";
 
   src = fetchFromGitHub {
     owner = "deepseek-ai";
@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
       git -C "$out" rev-parse HEAD > "$out/.git-revision"
       rm -rf "$out/.git"
     '';
-    hash = "sha256-+Dn1yUbE+U3n5kRv3YKQTIBVkcBbCudlQluwCvGdOYc=";
+    hash = "sha256-3qZOezUYuvMOQvJI8sRPq5SOfurTKM06E39Zxar7KdI=";
   };
 
   # Match upstream's pnpm major for the lockfile and workspace deployment.
