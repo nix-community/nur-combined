@@ -2343,6 +2343,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "nyanpasu-log-preview"
+version = "0.1.0"
+dependencies = [
+ "crc32fast",
+]
+
+[[package]]
 name = "nyanpasu-logging"
 version = "0.1.2"
 dependencies = [
@@ -2463,6 +2470,7 @@ dependencies = [
  "log",
  "memchr",
  "nix 0.31.3",
+ "nyanpasu-log-preview",
  "os_pipe",
  "parking_lot 0.13.0",
  "processkit",
