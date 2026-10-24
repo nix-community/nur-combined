@@ -1,11 +1,10 @@
 {
   sources,
   hash,
-  pnpm_11,
+  pnpm_12,
   fetchPnpmDeps,
   rustPlatform,
   callPackage,
-  dbus,
 }:
 let
   splayer-next = callPackage ./package.nix { };
@@ -21,13 +20,12 @@ splayer-next.overrideAttrs (
     pnpmDeps = fetchPnpmDeps {
       inherit (final) pname version src;
       inherit hash;
-      pnpm = pnpm_11;
+      pnpm = pnpm_12;
       fetcherVersion = 4;
     };
     cargoDeps = rustPlatform.importCargoLock sources.cargoLock."Cargo.lock";
     prePatch = prev.prePatch + ''
       echo ${sources.src.rev} > COMMIT
     '';
-    buildInputs = prev.buildInputs ++ [ dbus ];
   }
 )
