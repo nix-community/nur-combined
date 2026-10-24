@@ -8,10 +8,8 @@
 (callPackage ./generic.nix { }) {
   name = "aws";
   repo = "duckdb-aws";
-  branch = "v1.5-variegata";
-  rev = "548887af4e0b77ad4e2c886c4b093e670852ec12";
-  hash = "sha256-PuXyRbvmdUDb63URbdRJKFv2G6Iu6dz+C3xurpDyAaE=";
-  loadOptions = [ "DONT_LINK" ];
+  rev = "16ae9c135300f750478d648c2496f2952a6f2827";
+  hash = "sha256-YjOMPH2jdQ8s8VYXM+lhhvx0Lbp4KT/YVc5Yg67w3mI=";
   duckdbBuildInputs = [
     aws-sdk-cpp
     curl

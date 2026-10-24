@@ -9,11 +9,8 @@
   repo,
   rev,
   hash,
-  attrName ? lib.replaceStrings [ "_" ] [ "-" ] name,
-  branch,
   owner ? "duckdb",
   fetchSubmodules ? false,
-  submodulePath ? "duckdb",
   loadOptions ? [ ],
   loadableTarget ? "${name}_loadable_extension",
   # C API extensions can only be loaded at runtime
@@ -63,6 +60,9 @@ stdenvNoCC.mkDerivation {
     duckdbExtension = {
       inherit
         name
+        owner
+        repo
+        rev
         loadOptions
         loadableTarget
         linkable
@@ -73,32 +73,6 @@ stdenvNoCC.mkDerivation {
         duckdbPostPatch
         ;
     };
-
-    updateScript = [
-      "bash"
-      "packages/duckdb/extensions/update.sh"
-      "--owner"
-      owner
-      "--repo"
-      repo
-      "--branch"
-      branch
-    ]
-    ++ (
-      if submodulePath == null then
-        [ "--no-submodule" ]
-      else
-        [
-          "--submodule-path"
-          submodulePath
-        ]
-    )
-    ++ [
-      "--override-filename"
-      "packages/duckdb/extensions/${attrName}.nix"
-      "--attr"
-      "duckdb.extensions.${attrName}"
-    ];
   };
 
   meta = {

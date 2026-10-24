@@ -9,10 +9,8 @@
 (callPackage ./generic.nix { }) {
   name = "iceberg";
   repo = "duckdb-iceberg";
-  branch = "v1.5-variegata";
-  rev = "5dcf5070c50341c2e4b4403b67ed4cbc7afaa37b";
-  hash = "sha256-RJ/D5o6NOelrXtOv4mBIJBRR28yRKWudOcDkuB4uIZY=";
-  loadOptions = [ "DONT_LINK" ];
+  rev = "4c0c0874c48ec82a3e29910554891d04bcc0e988";
+  hash = "sha256-zwhf6ePplnWagroxJ7hojgJrllRSRX66/9wH+qi3Fzw=";
   dependencies = [
     "avro"
     "httpfs"

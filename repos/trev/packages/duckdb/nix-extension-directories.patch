@@ -1,21 +1,19 @@
-diff --git a/src/include/duckdb/main/extension_helper.hpp b/src/include/duckdb/main/extension_helper.hpp
-index f268b9f..46c08a0 100644
 --- a/src/include/duckdb/main/extension_helper.hpp
 +++ b/src/include/duckdb/main/extension_helper.hpp
-@@ -255,6 +255,8 @@ private:
+@@ -280,6 +280,10 @@
  	                                                                 optional_ptr<ClientContext> context = nullptr);
  	static const vector<string> PathComponents();
  	static vector<string> DefaultExtensionFolders(FileSystem &fs);
 +	//! Read-only extension folders provided by nix through DUCKDB_NIX_EXTENSION_DIRECTORIES
 +	static vector<string> NixExtensionFolders();
++	//! Whether an extension is provided by nix, which installs have nothing to do for
++	static bool IsNixProvidedExtension(FileSystem &fs, const string &extension);
  	static bool AllowAutoInstall(const string &extension);
- 	static ExtensionInitResult InitialLoad(DatabaseInstance &db, FileSystem &fs, const string &extension);
- 	static bool TryInitialLoad(DatabaseInstance &db, FileSystem &fs, const string &extension,
-diff --git a/src/main/extension/extension_install.cpp b/src/main/extension/extension_install.cpp
-index 81a453d..f0a340f 100644
+ 	static ExtensionInitResult InitialLoad(DatabaseInstance &db, FileSystem &fs, const string &extension,
+ 	                                       const string &repository_name = string(), bool core_only = false);
 --- a/src/main/extension/extension_install.cpp
 +++ b/src/main/extension/extension_install.cpp
-@@ -91,6 +91,17 @@ vector<duckdb::string> ExtensionHelper::DefaultExtensionFolders(FileSystem &fs)
+@@ -95,6 +95,34 @@
  	return default_folders;
  }
  
@@ -30,10 +28,27 @@ index 81a453d..f0a340f 100644
 +	return nix_folders;
 +}
 +
++bool ExtensionHelper::IsNixProvidedExtension(FileSystem &fs, const string &extension) {
++	if (ExtensionHelper::IsFullPath(extension)) {
++		return false;
++	}
++	auto extension_name = ExtensionHelper::ApplyExtensionAlias(extension);
++	for (const auto &dir : ExtensionHelper::NixExtensionFolders()) {
++		auto path = dir;
++		for (const auto &component : PathComponents()) {
++			path = fs.JoinPath(path, component);
++		}
++		if (fs.FileExists(fs.JoinPath(path, extension_name + ".duckdb_extension"))) {
++			return true;
++		}
++	}
++	return false;
++}
++
  vector<string> ExtensionHelper::GetExtensionDirectoryPath(ClientContext &context) {
  	auto &db = DatabaseInstance::GetDatabase(context);
  	auto &fs = FileSystem::GetFileSystem(context);
-@@ -118,6 +129,9 @@ vector<string> ExtensionHelper::GetExtensionDirectoryPath(DatabaseInstance &db,
+@@ -122,6 +150,9 @@
  			extension_directories.push_back(default_dir);
  		}
  	}
@@ -43,19 +58,28 @@ index 81a453d..f0a340f 100644
  
  	// Process all directories with common path operations
  	auto path_components = PathComponents();
-diff --git a/src/main/extension/extension_load.cpp b/src/main/extension/extension_load.cpp
-index 50f95a2..c859df9 100644
+@@ -244,6 +275,10 @@
+                                                                            const string &extension,
+                                                                            ExtensionInstallOptions &options,
+                                                                            optional_ptr<ClientContext> context) {
++	// autoloading installs extensions before loading them, which would replace the one nix provides
++	if (!options.force_install && ExtensionHelper::IsNixProvidedExtension(fs, extension)) {
++		return nullptr;
++	}
+ 	return DBConfig::GetConfig(db).GetExternalExtensionProvider().Install(db, fs, local_path, extension, options,
+ 	                                                                      context);
+ }
 --- a/src/main/extension/extension_load.cpp
 +++ b/src/main/extension/extension_load.cpp
-@@ -371,6 +371,7 @@ bool ExtensionHelper::TryInitialLoad(DatabaseInstance &db, FileSystem &fs, const
+@@ -481,6 +481,7 @@
  	auto filename = fs.ConvertSeparators(extension);
  
  	bool direct_load;
 +	bool nix_provided = false;
  
- 	// shorthand case
- 	if (!ExtensionHelper::IsFullPath(extension)) {
-@@ -434,12 +435,19 @@ bool ExtensionHelper::TryInitialLoad(DatabaseInstance &db, FileSystem &fs, const
+ 	// resolve the FROM repository (LOAD httpfs FROM core, LOAD x FROM community, LOAD x FROM myrepo). A bare LOAD keeps
+ 	// the flat top-level layout and only resolves core and community extensions; user-provided repositories live in a
+@@ -569,12 +570,19 @@
  			}
  		}
  
@@ -77,12 +101,12 @@ index 50f95a2..c859df9 100644
  				break;
  			}
  		}
-@@ -480,7 +488,7 @@ bool ExtensionHelper::TryInitialLoad(DatabaseInstance &db, FileSystem &fs, const
- 		metadata_mismatch_error = StringUtil::Format("Failed to load '%s', %s", extension, metadata_mismatch_error);
+@@ -640,7 +648,7 @@
+ 		}
  	}
  
 -	if (!Settings::Get<AllowUnsignedExtensionsSetting>(db)) {
 +	if (!Settings::Get<AllowUnsignedExtensionsSetting>(db) && !nix_provided) {
  		bool signature_valid;
- 		if (parsed_metadata.AppearsValid()) {
- 			bool allow_community_extensions = Settings::Get<AllowCommunityExtensionsSetting>(db);
+ 		// The recorded origin (from the .info) determines which keys could have signed the extension, but without an
+ 		// explicit FROM a bare load - which is also how autoloading loads - trusts only the fixed core/community keys,

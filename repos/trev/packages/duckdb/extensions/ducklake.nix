@@ -6,9 +6,7 @@
 (callPackage ./generic.nix { }) {
   name = "ducklake";
   repo = "ducklake";
-  branch = "v1.5-variegata";
-  rev = "343df36a33954f40c8a92fd4b6d46a25577dd98e";
-  hash = "sha256-jzGETxMiQpkaYMxI90p95qTqLfIi/zEg52iwXHWnXBg=";
-  loadOptions = [ "DONT_LINK" ];
+  rev = "417a9117f590e8141742ac0579d02f6a90162e37";
+  hash = "sha256-CfGNeFJlTjLS5/2GEg4EU8Ph9I8mLPax96wCNOIrgZk=";
   duckdbBuildInputs = [ croaring ];
 }

@@ -3,8 +3,6 @@
 (callPackage ./generic.nix { }) {
   name = "encodings";
   repo = "duckdb-encodings";
-  branch = "main";
-  rev = "f3e4d03ecf18406ef86fe5833a7ad55d8f93520f";
-  hash = "sha256-U2BNceWrjnP85KYZ9OA97Xly46pSeokwUB/8y4XA60k=";
-  loadOptions = [ "DONT_LINK" ];
+  rev = "2d1447a890302d9dff23ac7c8119ddce53ee65ff";
+  hash = "sha256-EF2lbkvQwXjl79VdIlzvsVsxq3VvujGHZO1ELmiA7P4=";
 }

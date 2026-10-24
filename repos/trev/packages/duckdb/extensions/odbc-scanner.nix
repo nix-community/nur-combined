@@ -7,11 +7,8 @@
 (callPackage ./generic.nix { }) rec {
   name = "odbc_scanner";
   repo = "odbc-scanner";
-  branch = "main";
-  submodulePath = null;
   rev = "a33698df40f95cc3eb339703dcb085497eabfca3";
   hash = "sha256-H3seSmjDKK5R+xYyEjOe1zGpM7kch8I0qqD/5KzUWQg=";
-  loadOptions = [ "DONT_LINK" ];
   # C API extension with its own target instead of build_loadable_extension
   loadableTarget = "odbc_scanner";
   linkable = false;

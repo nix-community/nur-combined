@@ -3,9 +3,7 @@
 (callPackage ./generic.nix { }) {
   name = "quack";
   repo = "duckdb-quack";
-  branch = "v1.5-variegata";
-  rev = "7e80f7ffcc98d0b3e81d0e1df8cc1c2da240a64b";
-  hash = "sha256-fLswkJMvfhv8yAsWIiZvG6Lg5Svy8d8d8+WmPiWt4AI=";
-  loadOptions = [ "DONT_LINK" ];
+  rev = "f96420ed46aee9c42064bdb99ddfd1230d6c0086";
+  hash = "sha256-S3/yaeTiJoA3efiMPksLVGlfKm3JH7I3tzuub9v3IQg=";
   dependencies = [ "httpfs" ];
 }

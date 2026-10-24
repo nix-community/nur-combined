@@ -11,7 +11,6 @@
   pkg-config,
   openssl,
   openjdk11,
-  nix-update-script,
   python3,
   unixodbc,
   versionCheckHook,
@@ -91,8 +90,6 @@ let
   };
   inTreeExtensions = map mkExtension (
     lib.optionals withAutocomplete [ "autocomplete" ]
-    ++ lib.optionals withIcu [ "icu" ]
-    ++ lib.optionals withJson [ "json" ]
     ++ lib.optionals withTpcds [ "tpcds" ]
     ++ lib.optionals withTpch [ "tpch" ]
   );
@@ -137,46 +134,63 @@ let
     // {
       src = extension;
     }
-    # static binaries cannot load extensions at runtime, so link everything in
-    // lib.optionalAttrs stdenv.hostPlatform.isStatic {
-      loadOptions = lib.remove "DONT_LINK" extension.passthru.duckdbExtension.loadOptions;
-    }
   ) externalExtensionDrvs;
 
-  # DONT_LINK extensions are built separately as loadable extensions against a prebuilt duckdb
-  isLoadable = extension: lib.elem "DONT_LINK" extension.loadOptions;
-  linkedExtensions = lib.filter (extension: !isLoadable extension) externalExtensions;
-  loadableExtensions = lib.filter isLoadable externalExtensions;
+  # out-of-tree extensions are built separately as loadable extensions against a prebuilt duckdb,
+  # except in static builds, which cannot load extensions at runtime and link everything in
+  linkedExtensions = lib.optionals stdenv.hostPlatform.isStatic externalExtensions;
+  loadableExtensions = lib.optionals (!stdenv.hostPlatform.isStatic) externalExtensions;
+
+  # extension/extension_config.cmake always builds and links these, so disabling one skips it
+  skippedExtensions = lib.optionals (!withIcu) [ "icu" ] ++ lib.optionals (!withJson) [ "json" ];
 
   # system libraries of linked extensions, resolved at build time for passthru.link.static
   pkgConfigModules = lib.unique (
     lib.concatMap (extension: extension.pkgConfigModules) linkedExtensions
   );
   systemLibrariesFile = "nix-support/duckdb-static-ldflags";
+  staticExtensionLoader = "duckdb_static_extension_loader.o";
+  # linked and registered like extensions, see duckdb_resolve_static_link
+  capabilities = [
+    "httplib"
+    "loadable_extensions"
+  ];
+  staticExtensionAutoregister = "duckdb_static_extension_autoregister.o";
 
+  # extensions are only built as loadable extensions unless they are also statically linked
   formatExtensionLoad =
-    extension:
-    if extension.loadOptions == [ ] then
-      "duckdb_extension_load(${extension.name})"
-    else
-      lib.concatStringsSep "\n" (
-        [ "duckdb_extension_load(${extension.name}" ]
-        ++ map (option: "    ${option}") extension.loadOptions
-        ++ [ ")" ]
-      );
+    link: extension:
+    (
+      if extension.loadOptions == [ ] then
+        "duckdb_extension_load(${extension.name})"
+      else
+        lib.concatStringsSep "\n" (
+          [ "duckdb_extension_load(${extension.name}" ]
+          ++ map (option: "    ${option}") extension.loadOptions
+          ++ [ ")" ]
+        )
+    )
+    + lib.optionalString link "\nduckdb_extension_statically_link(${extension.name})";
 
   externalExtensionCopyCommand =
     extension:
     let
       destination = "extension_external/${extension.name}";
+      # the patches duckdb applies to the extension commit it pins, applied the same way as scripts/apply_extension_patches.py
+      upstreamPatches = ".github/patches/extensions/${extension.name}";
     in
     ''
       cp -R ${lib.escapeShellArg (toString extension.src)} ${lib.escapeShellArg destination}
       chmod -R u+w ${lib.escapeShellArg destination}
+      if [ -d ${lib.escapeShellArg upstreamPatches} ]; then
+        for patch in ${lib.escapeShellArg upstreamPatches}/*.patch; do
+          patch -d ${lib.escapeShellArg destination} -p1 --forward -i "$PWD/$patch"
+        done
+      fi
     '';
 
   mkPostPatch =
-    extensions: externalExtensions:
+    link: extensions: externalExtensions:
     lib.optionalString (extensions != [ ]) ''
       ${lib.optionalString (externalExtensions != [ ]) ''
         mkdir -p extension_external
@@ -187,7 +201,7 @@ let
 
       cat >> extension/extension_config.cmake <<'EOF'
 
-      ${lib.concatMapStringsSep "\n" formatExtensionLoad extensions}
+      ${lib.concatMapStringsSep "\n" (formatExtensionLoad link) extensions}
       EOF
     '';
 
@@ -205,7 +219,7 @@ let
       ++ extension.duckdbNativeBuildInputs;
       buildInputs = [ openssl ] ++ extension.duckdbBuildInputs;
 
-      postPatch = mkPostPatch [ extension ] [ extension ];
+      postPatch = mkPostPatch false [ extension ] [ extension ];
 
       cmakeFlags = [
         (lib.cmakeFeature "PREBUILT_BINARY" "${duckdb.lib}/lib/libduckdb_static.a")
@@ -278,13 +292,13 @@ in
 withLoadableExtensions (
   stdenv.mkDerivation (finalAttrs: {
     pname = "duckdb";
-    version = "1.5.6";
+    version = "2.0.0";
 
     src = fetchFromGitHub {
       owner = "duckdb";
       repo = "duckdb";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-xHcucJA+2nTD9oeoZxDQzGS6QNnzjHQ7t9sz0OHA+zo=";
+      hash = "sha256-1fhgPD/QGT/fK+BabX2dbTWOsajS6feNl5+9iw8rvwU=";
     };
 
     outputs = [
@@ -314,25 +328,35 @@ withLoadableExtensions (
       ./static-no-loadable-extensions.patch
     ];
 
-    postPatch = mkPostPatch (inTreeExtensions ++ linkedExtensions) linkedExtensions;
+    postPatch = mkPostPatch true (inTreeExtensions ++ linkedExtensions) linkedExtensions;
 
-    postInstall =
-      if pkgConfigModules == [ ] then
-        null
-      else
-        ''
-          mkdir -p "$dev/${builtins.dirOf systemLibrariesFile}"
-          "$PKG_CONFIG" --static --libs ${lib.escapeShellArgs pkgConfigModules} > "$dev/${systemLibrariesFile}"
-        '';
+    # programs linking libduckdb_static.a register its extensions through a generated loader, see passthru.link.static
+    postInstall = ''
+      python3 ../scripts/generate_static_extension_loader.py -o static_extension_loader.c \
+        ${lib.escapeShellArgs finalAttrs.passthru.link.static.registeredExtensions}
+      "$CC" -c -O2 -fPIC -I"$dev/include" static_extension_loader.c \
+        -o "$lib/lib/${staticExtensionLoader}"
+      "$CXX" -c -O2 -fPIC ../extension/loader/static_extension_autoregister.cpp \
+        -o "$lib/lib/${staticExtensionAutoregister}"
+    ''
+    + lib.optionalString (pkgConfigModules != [ ]) ''
+      mkdir -p "$dev/${builtins.dirOf systemLibrariesFile}"
+      "$PKG_CONFIG" --static --libs ${lib.escapeShellArgs pkgConfigModules} > "$dev/${systemLibrariesFile}"
+    '';
 
     cmakeFlags = [
       (lib.cmakeBool "BUILD_ODBC_DRIVER" withOdbc)
+      # without local_extension_repository, which points automatic installs at the build directory
+      (lib.cmakeFeature "DUCKDB_CAPABILITIES" (lib.concatStringsSep ";" capabilities))
       (lib.cmakeBool "ENABLE_EXTENSION_AUTOLOADING" true)
       (lib.cmakeBool "JDBC_DRIVER" withJdbc)
       (lib.cmakeBool "NIX_STATIC_BUILD" stdenv.hostPlatform.isStatic)
       (lib.cmakeFeature "OVERRIDE_GIT_DESCRIBE" "v${finalAttrs.version}")
       # development settings
       (lib.cmakeBool "BUILD_UNITTESTS" finalAttrs.doInstallCheck)
+    ]
+    ++ lib.optionals (skippedExtensions != [ ]) [
+      (lib.cmakeFeature "SKIP_EXTENSIONS" (lib.concatStringsSep ";" skippedExtensions))
     ]
     ++ lib.optionals (lib.any (extension: extension.name == "spatial") linkedExtensions) [
       # Match spatial's dependencies to avoid mixing C++11 and C++17 constexpr symbols.
@@ -397,6 +421,7 @@ withLoadableExtensions (
             "test/sql/attach/remote_file_concurrently.test"
             "test/sql/copy/csv/test_sniff_httpfs.test"
             "test/sql/httpfs/internal_issue_2490.test"
+            "test/sql/logging/http_response_log_redaction.test"
             # fails with incorrect result
             # Upstream issue https://github.com/duckdb/duckdb/issues/14294
             "test/sql/copy/file_size_bytes.test"
@@ -421,6 +446,8 @@ withLoadableExtensions (
             "test/sql/aggregate/aggregates/test_skewness.test"
             "test/sql/function/list/aggregates/skewness.test"
             "test/sql/aggregate/aggregates/histogram_table_function.test"
+            "test/sql/settings/operator_memory_limit.test"
+            "test/sql/storage/test_eviction_queue_dead_nodes_underflow.test"
           ]
           ++ lib.optionals stdenv.hostPlatform.isDarwin [
             # UB in PhysicalRangeJoin (shared by IEJoin and PiecewiseMergeJoin) causes
@@ -456,7 +483,15 @@ withLoadableExtensions (
         runHook preInstallCheck
         (($(ulimit -n) < 1024)) && ulimit -n 1024
 
-        HOME="$(mktemp -d)" ${LD_LIBRARY_PATH}="$lib/lib" ./test/unittest ${toString excludes}
+        status=0
+        HOME="$(mktemp -d)" ${LD_LIBRARY_PATH}="$lib/lib" ./test/unittest ${toString excludes} 2>&1 \
+          | tee unittest.log || status=$?
+        if [ "$status" -ne 0 ]; then
+          # failure details scroll out of the log tail nix prints, so list the failing tests last
+          echo "failing tests:"
+          grep -E '^[0-9]+\. ' unittest.log || true
+          exit "$status"
+        fi
 
         runHook postInstallCheck
       '';
@@ -468,10 +503,14 @@ withLoadableExtensions (
         let
           libDir = "${finalAttrs.finalPackage.lib}/lib";
           # always loaded by extension/extension_config.cmake
-          builtinExtensions = map mkExtension [
-            "core_functions"
-            "parquet"
-          ];
+          builtinExtensions = map mkExtension (
+            [
+              "core_functions"
+              "parquet"
+            ]
+            ++ lib.optionals withIcu [ "icu" ]
+            ++ lib.optionals withJson [ "json" ]
+          );
           staticExtensions = builtinExtensions ++ inTreeExtensions ++ linkedExtensions;
           # add_third_party in CMakeLists.txt, which only builds jemalloc on 64-bit linux
           thirdPartyLibraries = [
@@ -481,7 +520,6 @@ withLoadableExtensions (
             "hyperloglog"
             "mbedtls"
             "miniz"
-            "pg_query"
             "re2"
             "skiplistlib"
             "utf8proc"
@@ -493,15 +531,21 @@ withLoadableExtensions (
           ) [ "jemalloc" ];
           archiveNames = [
             "libduckdb_static.a"
-            "libduckdb_generated_extension_loader.a"
           ]
           ++ map (extension: "lib${extension.name}_extension.a") staticExtensions
-          ++ map (library: "libduckdb_${library}.a") thirdPartyLibraries;
+          ++ map (library: "libduckdb_${library}.a") (capabilities ++ thirdPartyLibraries);
           archives = map (archive: "${libDir}/${archive}") archiveNames;
+          # the generated loader and its autoregistration, objects so the linker keeps them
+          objects = map (object: "${libDir}/${object}") [
+            staticExtensionLoader
+            staticExtensionAutoregister
+          ];
           systemLibraries = [
-            "stdc++"
+            (if stdenv.hostPlatform.isDarwin then "c++" else "stdc++")
             "m"
           ];
+          # ld64 searches archives repeatedly by itself and has no --start-group
+          groupArchives = !stdenv.hostPlatform.isDarwin;
           driverFlags = [ "-pthread" ];
           # gcc and clang read the linker flags of extension system libraries from this file
           systemLibraryFlagsFile =
@@ -522,29 +566,31 @@ withLoadableExtensions (
           static = {
             inherit
               archives
+              objects
               systemLibraries
               driverFlags
               pkgConfigModules
               systemLibraryFlagsFile
+              groupArchives
               ;
-            groupArchives = true;
-            flags = [
-              "-Wl,--start-group"
-            ]
-            ++ archives
-            ++ [ "-Wl,--end-group" ]
-            ++ lib.optional (systemLibraryFlagsFile != null) "@${systemLibraryFlagsFile}"
-            ++ map (library: "-l${library}") systemLibraries
-            ++ driverFlags;
+            extensions = map (extension: extension.name) staticExtensions;
+            registeredExtensions = capabilities ++ finalAttrs.passthru.link.static.extensions;
+            flags =
+              objects
+              ++ lib.optional groupArchives "-Wl,--start-group"
+              ++ archives
+              ++ lib.optional groupArchives "-Wl,--end-group"
+              ++ lib.optional (systemLibraryFlagsFile != null) "@${systemLibraryFlagsFile}"
+              ++ map (library: "-l${library}") systemLibraries
+              ++ driverFlags;
           };
         };
 
-      updateScript = nix-update-script {
-        extraArgs = [
-          "--commit"
-          finalAttrs.pname
-        ];
-      };
+      # also pins the out-of-tree extensions to the commits this release builds
+      updateScript = [
+        "bash"
+        "packages/duckdb/update.sh"
+      ];
     };
 
     meta = {

@@ -246,7 +246,14 @@
         // import ./tests/mkImage { inherit pkgs self; }
         // import ./tests/mkRustPackage { inherit pkgs self; }
         // pkgs.lib.optionalAttrs (system == "x86_64-linux") (import ./tests/mkFlake { inherit pkgs self; })
-        // import ./packages/duckdb/checks.nix { inherit (pkgs) lib callPackage runCommand; }
+        // import ./packages/duckdb/checks.nix {
+          inherit (pkgs)
+            lib
+            callPackage
+            runCommand
+            runCommandCC
+            ;
+        }
         // pkgs.lib.mapAttrs' (
           name: value: pkgs.lib.nameValuePair ("package_" + name) value
         ) self.packages."${system}"

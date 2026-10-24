@@ -13,11 +13,9 @@
 (callPackage ./generic.nix { }) {
   name = "spatial";
   repo = "duckdb-spatial";
-  branch = "v1.5-variegata";
-  rev = "9bfcf30e0062aaee1b1fe89d82e7eb3e6b4aba83";
-  hash = "sha256-Q8ElADl2HA8rtaz6TQxuPzHaA/Ulf/bNyNibFKVWWa8=";
+  rev = "4e066c17e2d1f24625baff4c62430d68ceb4e41f";
+  hash = "sha256-bhLRwuN8SfW1oDCaiRpdZDh3kTSndiPs+sHoXQ+MSrc=";
   loadOptions = [
-    "DONT_LINK"
     "SOURCE_DIR \${PROJECT_SOURCE_DIR}/extension_external/spatial"
     "INCLUDE_DIR \${PROJECT_SOURCE_DIR}/extension_external/spatial/src/spatial"
   ];
@@ -41,23 +39,12 @@
     substituteInPlace extension_external/spatial/src/spatial/modules/gdal/gdal_module.cpp \
       --replace-fail "OGRRegisterAllInternal();" "GDALAllRegister();" \
       --replace-fail "VSIFileManager::InstallHandler(client_prefix, fs_handler.get());" "VSIFileManager::InstallHandler(client_prefix, std::shared_ptr<VSIFilesystemHandler>(fs_handler.get(), [](VSIFilesystemHandler *) {}));" \
-      --replace-fail "VSIVirtualHandle *Open(" "VSIVirtualHandleUniquePtr Open(" \
-      --replace-fail "return new DuckDBFileHandle(std::move(file));" "return VSIVirtualHandleUniquePtr(new DuckDBFileHandle(std::move(file)));" \
-      --replace-fail "bool IsLocal(const char *gdal_file_path) override" "bool IsLocal(const char *gdal_file_path) const override" \
-      --replace-fail "int Rename(const char *oldpath, const char *newpath) override" "int Rename(const char *oldpath, const char *newpath, GDALProgressFunc, void *) override" \
       --replace-fail "size_t Read(void *buffer, size_t size, size_t count) override {" "size_t Read(void *buffer, size_t nBytes) override {
         return Read(buffer, 1, nBytes);
       }
 
       size_t Read(void *buffer, size_t size, size_t count) {" \
-      --replace-fail "size_t Write(const void *buffer, size_t size, size_t count) override {" "void ClearErr() override {
-      }
-
-      int Error() override {
-        return FALSE;
-      }
-
-      size_t Write(const void *buffer, size_t nBytes) override {
+      --replace-fail "size_t Write(const void *buffer, size_t size, size_t count) override {" "size_t Write(const void *buffer, size_t nBytes) override {
         return Write(buffer, 1, nBytes);
       }
 

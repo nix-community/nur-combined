@@ -1,57 +1,32 @@
 {
-  lib,
-  avro-c,
   callPackage,
-  fetchFromGitHub,
   jansson,
   snappy,
   xz,
   zlib,
 }:
 
-let
-  duckdbAvroC = avro-c.overrideAttrs (oldAttrs: {
-    version = "1.11.3-duckdb";
-
-    src = fetchFromGitHub {
-      owner = "duckdb";
-      repo = "duckdb-avro-c";
-      rev = "8af400279c445a81b8552a7670d8c1ebd92ba34a";
-      hash = "sha256-LaRdDinWkoXjUp/Z8Fyi5gQ2syB8ptaPA/y1oO+mYrA=";
-    };
-
-    sourceRoot = "source/lang/c";
-
-    cmakeFlags = (oldAttrs.cmakeFlags or [ ]) ++ [
-      (lib.cmakeBool "BUILD_EXAMPLES" false)
-      (lib.cmakeBool "BUILD_TESTS" false)
-      (lib.cmakeBool "BUILD_DOCS" false)
-      (lib.cmakeFeature "CMAKE_POLICY_VERSION_MINIMUM" "3.5")
-    ];
-
-    env.NIX_CFLAGS_COMPILE = "-std=gnu17 -Wno-incompatible-pointer-types";
-  });
-in
-
 (callPackage ./generic.nix { }) {
   name = "avro";
   repo = "duckdb-avro";
-  branch = "v1.5-variegata";
-  rev = "a54bd1746e583f723e580c4a85a9c014adecd810";
-  hash = "sha256-g7R++xN2hMPOluitJx8pqGM7jOJqYt+fu11fGGCqHhc=";
-  loadOptions = [ "DONT_LINK" ];
+  rev = "758fb6063cbb6da49b2e1c16c4044cfcafefc52f";
+  hash = "sha256-apH/rqm9mAhpRrXJSb5t8pcCauHoWMi0tz53SYlmymo=";
+  # avro-c is built from the third_party/avro-c submodule
+  fetchSubmodules = true;
   duckdbBuildInputs = [
-    duckdbAvroC
     jansson
     snappy
     xz
     zlib
   ];
   duckdbPostPatch = ''
+    # avro-c's cmake runs version.sh, which expects /bin/bash
+    patchShebangs extension_external/avro/third_party/avro-c/lang/c/version.sh
+
+    # avro-c predates C23, which newer compilers default to
     substituteInPlace extension_external/avro/CMakeLists.txt \
-      --replace-fail "find_library(AVRO_LIBRARY libavro.a REQUIRED)" "find_library(AVRO_LIBRARY avro REQUIRED)" \
-      --replace-fail "find_library(JANSSON_LIBRARY libjansson.a REQUIRED)" "find_library(JANSSON_LIBRARY jansson REQUIRED)" \
-      --replace-fail "find_library(LZMA_LIBRARY liblzma.a REQUIRED)" "find_library(LZMA_LIBRARY lzma REQUIRED)" \
-      --replace-fail "find_library(ZLIB_LIBRARY libz.a REQUIRED)" "find_library(ZLIB_LIBRARY z REQUIRED)"
+      --replace-fail "# Add avro-c from submodule" "set(CMAKE_C_STANDARD 17)
+    set(CMAKE_C_FLAGS \"\''${CMAKE_C_FLAGS} -Wno-incompatible-pointer-types\")
+    # Add avro-c from submodule"
   '';
 }

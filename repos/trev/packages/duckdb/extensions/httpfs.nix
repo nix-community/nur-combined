@@ -9,10 +9,8 @@
 (callPackage ./generic.nix { }) {
   name = "httpfs";
   repo = "duckdb-httpfs";
-  branch = "main";
-  rev = "1c3cc07aaf6c612547341a63ca19d584eb8497b4";
-  hash = "sha256-MDRpvRVxFrATiNKKxXCd3fan8bnYukmMvS+gt1q1osQ=";
-  loadOptions = [ "DONT_LINK" ];
+  rev = "77392a72077a85897db2519fae11e2c0da972b8a";
+  hash = "sha256-Ni2stJrRSbTkHs+SjfuumtrhIVO917Q9uh91O2YalPM=";
   duckdbBuildInputs = [
     curl
   ];

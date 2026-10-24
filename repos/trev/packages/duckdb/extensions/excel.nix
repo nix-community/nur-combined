@@ -8,11 +8,9 @@
 (callPackage ./generic.nix { }) {
   name = "excel";
   repo = "duckdb-excel";
-  branch = "main";
-  rev = "854b06318382f034792aa244427da7e1d1328350";
-  hash = "sha256-LWCmzyPgG4vmFpKEqHtmfihBBTxgFmkj4oBUkiwzhHI=";
+  rev = "81bb84b115b97cc4edec4827714cac80da0127e1";
+  hash = "sha256-6Z5MLv9aT09KMSwvgsTWsWpst1nmBZ90xEHX/r98ZEk=";
   loadOptions = [
-    "DONT_LINK"
     "SOURCE_DIR \${PROJECT_SOURCE_DIR}/extension_external/excel"
     "INCLUDE_DIR \${PROJECT_SOURCE_DIR}/extension_external/excel/src/excel/include"
   ];

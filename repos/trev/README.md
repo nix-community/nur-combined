@@ -100,6 +100,8 @@ pkgs.trev.duckdb.override {
 
 Out-of-tree extensions are built as loadable extensions against the default duckdb, so enabling them does not rebuild duckdb; the `duckdb` binary finds them through `DUCKDB_NIX_EXTENSION_DIRECTORIES`, which programs linking `libduckdb` can set to `duckdb.extensionDirectory`. `spatial`, `vss` and `odbc_scanner` are not autoloaded and need `LOAD`. Static builds (`pkgsStatic`) compile every extension into the binary, except `odbc_scanner` which is unsupported.
 
+Out-of-tree extensions are pinned to the commits the duckdb release builds (`.github/config/extensions` in the duckdb source), with the patches it applies from `.github/patches/extensions`. `packages/duckdb/update.sh` updates duckdb and the extension pins together.
+
 ### [fetch-hash](https://github.com/spotdemo4/trevpkgs/blob/main/packages/fetch-hash)
 
 Fetch the hashes of remote files
