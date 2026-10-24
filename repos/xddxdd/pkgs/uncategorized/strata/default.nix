@@ -8,6 +8,7 @@
   makeWrapper,
   ninja,
   python3,
+  symlinkJoin,
 }:
 
 let
@@ -35,128 +36,151 @@ let
     ${lib.getExe pythonEnv} "${placeholder "out"}/libexec/strata/hydrate.py" \
       "${placeholder "out"}/share/strata" "$dest"
   '';
-in
-cudaPackages.backendStdenv.mkDerivation (finalAttrs: {
-  pname = "strata";
-  inherit version;
-  src = fetchFromGitHub {
-    owner = "Niko1221";
-    repo = "Strata";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-/XIjcm1AWS//7AA734FhHCrQlFdylqiPiVVzYksHiAA=";
-  };
+  unwrapped = cudaPackages.backendStdenv.mkDerivation (finalAttrs: {
+    pname = "strata";
+    inherit version;
+    src = fetchFromGitHub {
+      owner = "Niko1221";
+      repo = "Strata";
+      tag = "v${finalAttrs.version}";
+      hash = "sha256-/XIjcm1AWS//7AA734FhHCrQlFdylqiPiVVzYksHiAA=";
+    };
 
-  __structuredAttrs = true;
-  strictDeps = true;
+    __structuredAttrs = true;
+    strictDeps = true;
 
-  patches = [ ./pip-importable.patch ];
+    patches = [ ./pip-importable.patch ];
 
-  nativeBuildInputs = [
-    cmake
-    ninja
-    cudaPackages.cuda_nvcc
-    pythonEnv
-    autoAddDriverRunpath
-    makeWrapper
-  ];
+    nativeBuildInputs = [
+      cmake
+      ninja
+      cudaPackages.cuda_nvcc
+      pythonEnv
+      autoAddDriverRunpath
+      makeWrapper
+    ];
 
-  buildInputs = [
-    cudaPackages.cccl
-    cudaPackages.cuda_cudart
-    cudaPackages.libcublas
-  ];
+    buildInputs = [
+      cudaPackages.cccl
+      cudaPackages.cuda_cudart
+      cudaPackages.libcublas
+    ];
 
-  cmakeFlags = [
-    (lib.cmakeBool "STRATA_ENABLE_CUDA" true)
-    (lib.cmakeBool "STRATA_BUILD_TESTS" false)
-    (lib.cmakeBool "STRATA_PORTABLE" false)
-    (lib.cmakeFeature "STRATA_GGML_DIR" "${llamaSrc}")
-    (lib.cmakeFeature "CMAKE_CUDA_ARCHITECTURES" cudaArchitectures)
-  ];
+    cmakeFlags = [
+      (lib.cmakeBool "STRATA_ENABLE_CUDA" true)
+      (lib.cmakeBool "STRATA_BUILD_TESTS" false)
+      (lib.cmakeBool "STRATA_PORTABLE" false)
+      (lib.cmakeFeature "STRATA_GGML_DIR" "${llamaSrc}")
+      (lib.cmakeFeature "CMAKE_CUDA_ARCHITECTURES" cudaArchitectures)
+    ];
 
-  ninjaFlags = [ "strata" ];
+    ninjaFlags = [ "strata" ];
 
-  postBuild = ''
-    cmake -S "$cmakeDir/tools/vision" -B "$cmakeDir/build-vision" -G Ninja \
-      ${lib.cmakeFeature "CMAKE_BUILD_TYPE" "Release"} \
-      ${lib.cmakeFeature "LLAMA_DIR" "${llamaSrc}"} \
-      ${lib.cmakeBool "STRATA_VISION_CUDA" true} \
-      ${lib.escapeShellArg (lib.cmakeFeature "CMAKE_CUDA_ARCHITECTURES" cudaArchitectures)}
-    cmake --build "$cmakeDir/build-vision" --target strata-vision -j "$NIX_BUILD_CORES"
-  '';
+    postBuild = ''
+      cmake -S "$cmakeDir/tools/vision" -B "$cmakeDir/build-vision" -G Ninja \
+        ${lib.cmakeFeature "CMAKE_BUILD_TYPE" "Release"} \
+        ${lib.cmakeFeature "LLAMA_DIR" "${llamaSrc}"} \
+        ${lib.cmakeBool "STRATA_VISION_CUDA" true} \
+        ${lib.escapeShellArg (lib.cmakeFeature "CMAKE_CUDA_ARCHITECTURES" cudaArchitectures)}
+      cmake --build "$cmakeDir/build-vision" --target strata-vision -j "$NIX_BUILD_CORES"
+    '';
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    cd "$cmakeDir"
+      cd "$cmakeDir"
 
-    install -Dm755 build/strata "$out/share/strata/engine/strata"
-    install -Dm755 build-vision/bin/strata-vision "$out/share/strata/engine/strata-vision"
-    install -Dm644 ${./hydrate.py} "$out/libexec/strata/hydrate.py"
+      install -Dm755 build/strata "$out/share/strata/engine/strata"
+      install -Dm755 build-vision/bin/strata-vision "$out/share/strata/engine/strata-vision"
+      install -Dm644 ${./hydrate.py} "$out/libexec/strata/hydrate.py"
 
-    cp -a . "$out/share/strata/"
-    cp -a ${llamaSrc} "$out/share/strata/third_party/llama.cpp"
-    # file(COPY) carries the read-only permission bits of the nix store
-    # source tree; make the copied build trees writable before removal
-    chmod -R u+w "$out/share/strata/build" "$out/share/strata/build-vision"
-    rm -rf "$out/share/strata/build" "$out/share/strata/build-vision"
+      cp -a . "$out/share/strata/"
+      cp -a ${llamaSrc} "$out/share/strata/third_party/llama.cpp"
+      # file(COPY) carries the read-only permission bits of the nix store
+      # source tree; make the copied build trees writable before removal
+      chmod -R u+w "$out/share/strata/build" "$out/share/strata/build-vision"
+      rm -rf "$out/share/strata/build" "$out/share/strata/build-vision"
 
-    sed -i -e '/^cmake==/d' -e '/^ninja==/d' "$out/share/strata/requirements.txt"
+      sed -i -e '/^cmake==/d' -e '/^ninja==/d' "$out/share/strata/requirements.txt"
 
-    # the engine copy's BUILD.json must carry the same src hash setup.py
-    # recomputes at run time, or it recompiles the engine instead of using it
-    cd "$out/share/strata"
-    python3 - <<'PYEOF'
-    import json
-    import setup
+      # the engine copy's BUILD.json must carry the same src hash setup.py
+      # recomputes at run time, or it recompiles the engine instead of using it
+      cd "$out/share/strata"
+      python3 - <<'PYEOF'
+      import json
+      import setup
+
+      meta = {
+          "source": "local",
+          "version": "${finalAttrs.version}",
+          "archs": [int(a) for a in "${cudaArchitectures}".split(";")],
+          "vision": "gpu",
+          "vision_archs": [int(a) for a in "${cudaArchitectures}".split(";")],
+          "vision_src": setup.source_hash(setup.VISION_SOURCES),
+          "cuda": ${lib.versions.major cudaPackages.cuda_nvcc.version},
+          "src": setup.source_hash(setup.ENGINE_SOURCES),
+      }
+      with open("engine/BUILD.json", "w", encoding="utf-8") as f:
+          json.dump(meta, f, indent=1)
+      PYEOF
+      rm -rf "$out/share/strata/__pycache__"
+
+      # makeWrapper --run content is pasted verbatim into the generated wrapper, so
+      # $dest there is expanded each time the wrapper runs
+      makeWrapper ${lib.getExe pythonEnv} "$out/bin/strata" \
+        --run ${lib.escapeShellArg hydrateScript} \
+        --set STRATA_EXECV 1 \
+        --add-flags '"''$dest/setup.py"'
+
+      makeWrapper ${lib.getExe pythonEnv} "$out/bin/strata-chat" \
+        --run ${lib.escapeShellArg hydrateScript} \
+        --set STRATA_EXECV 1 \
+        --add-flags '"''$dest/chat.py"'
+
+      runHook postInstall
+    '';
+
+    doInstallCheck = true;
+    installCheckPhase = ''
+      runHook preInstallCheck
+      ${lib.getExe pythonEnv} ${./test-hydrate.py} "$out/libexec/strata/hydrate.py"
+      runHook postInstallCheck
+    '';
+
+    passthru.llamaSrc = llamaSrc;
+
+    passthru.updateScript = [ (toString ./update.sh) ];
 
     meta = {
-        "source": "local",
-        "version": "${finalAttrs.version}",
-        "archs": [int(a) for a in "${cudaArchitectures}".split(";")],
-        "vision": "gpu",
-        "vision_archs": [int(a) for a in "${cudaArchitectures}".split(";")],
-        "vision_src": setup.source_hash(setup.VISION_SOURCES),
-        "cuda": ${lib.versions.major cudaPackages.cuda_nvcc.version},
-        "src": setup.source_hash(setup.ENGINE_SOURCES),
-    }
-    with open("engine/BUILD.json", "w", encoding="utf-8") as f:
-        json.dump(meta, f, indent=1)
-    PYEOF
-    rm -rf "$out/share/strata/__pycache__"
+      description = "Local large language model inference stack with a CUDA engine and a self-managed data folder";
+      homepage = "https://github.com/Niko1221/Strata";
+      license = lib.licenses.mit;
+      maintainers = [ lib.maintainers.xddxdd ];
+      mainProgram = "strata";
+      platforms = lib.platforms.linux;
+    };
+  });
+in
+symlinkJoin {
+  pname = "strata-runtime";
+  inherit version;
+  __structuredAttrs = false;
+  strictDeps = true;
 
-    # makeWrapper --run content is pasted verbatim into the generated wrapper, so
-    # $dest there is expanded each time the wrapper runs
-    makeWrapper ${lib.getExe pythonEnv} "$out/bin/strata" \
-      --run ${lib.escapeShellArg hydrateScript} \
-      --set STRATA_EXECV 1 \
-      --add-flags '"''$dest/setup.py"'
-
-    makeWrapper ${lib.getExe pythonEnv} "$out/bin/strata-chat" \
-      --run ${lib.escapeShellArg hydrateScript} \
-      --set STRATA_EXECV 1 \
-      --add-flags '"''$dest/chat.py"'
-
-    runHook postInstall
+  paths = [ unwrapped ];
+  nativeBuildInputs = [ makeWrapper ];
+  postBuild = ''
+    for program in strata strata-chat; do
+      wrapProgram "$out/bin/$program" \
+        --prefix PYTHONPATH : "${python3.pkgs.truststore}/${python3.sitePackages}"
+    done
+    PYTHONPATH="${python3.pkgs.truststore}/${python3.sitePackages}:$out/share/strata" \
+      ${lib.getExe pythonEnv} -c \
+      'import setup; setup.pip_install(setup.requirement_lines(), "runtime dependencies")'
   '';
 
-  doInstallCheck = true;
-  installCheckPhase = ''
-    runHook preInstallCheck
-    ${lib.getExe pythonEnv} ${./test-hydrate.py} "$out/libexec/strata/hydrate.py"
-    runHook postInstallCheck
-  '';
-
-  passthru.llamaSrc = llamaSrc;
-
-  passthru.updateScript = [ (toString ./update.sh) ];
-
-  meta = {
-    description = "Local large language model inference stack with a CUDA engine and a self-managed data folder";
-    homepage = "https://github.com/Niko1221/Strata";
-    license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.xddxdd ];
-    mainProgram = "strata";
-    platforms = lib.platforms.linux;
+  inherit (unwrapped) src meta;
+  passthru = unwrapped.passthru // {
+    inherit unwrapped;
   };
-})
+}
