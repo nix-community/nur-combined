@@ -416,14 +416,14 @@
     "open-orpheus-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-bvJP4XbJDtg_JN8z2pRYrpWT6iSxSYB6ndaLbFWUUA0=/Cargo.lock",
+                "sha256-iooSmGRjIbN0fSi1AmQeBmJuyG8fpXFPa1+avMvoMGQ=/Cargo.lock",
                 {
                     "avs3a-0.1.0": "sha256-OcI39YMDhcBpP6Tij11rATcKtp+mVrXHsjy8gRSm3eI=",
                     "font-kit-0.14.3": "sha256-1/5w7y6XhNNg7jRZmJazM188v6vWkdYHn+94WqmJpMg="
                 }
             ]
         },
-        "date": "2026-10-23",
+        "date": "2026-10-24",
         "extract": null,
         "name": "open-orpheus-dev",
         "passthru": null,
@@ -435,12 +435,12 @@
             "name": null,
             "owner": "YUCLing",
             "repo": "open-orpheus",
-            "rev": "1aeeab88cd58ba386cc26ecc485237ac5495fee4",
-            "sha256": "sha256-bvJP4XbJDtg/JN8z2pRYrpWT6iSxSYB6ndaLbFWUUA0=",
+            "rev": "bb7d217f1500d1f2a0d7c9780caccd52661d8d98",
+            "sha256": "sha256-iooSmGRjIbN0fSi1AmQeBmJuyG8fpXFPa1+avMvoMGQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1aeeab88cd58ba386cc26ecc485237ac5495fee4"
+        "version": "bb7d217f1500d1f2a0d7c9780caccd52661d8d98"
     },
     "piliplus": {
         "cargoLock": null,
