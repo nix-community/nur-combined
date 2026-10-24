@@ -46,7 +46,7 @@ This NUR automatically builds and pushes build artifacts to my binary cache. You
 ```nix
 {
   nix.settings.substituters = [ "https://cache.lantian.pub/lantian" ];
-  nix.settings.trusted-public-keys = [ "cache.lantian.pub:WVGO7vsRMSEN+h7Lp7kv6SAmrkEXgUGbbXm7jMDjBuQ=" ];
+  nix.settings.trusted-public-keys = [ "lantian:WVGO7vsRMSEN+h7Lp7kv6SAmrkEXgUGbbXm7jMDjBuQ=" ];
 }
 ```
 
