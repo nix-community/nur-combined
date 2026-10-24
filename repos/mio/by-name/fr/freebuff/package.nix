@@ -11,8 +11,8 @@ let
   src = fetchFromGitHub {
     owner = "CodebuffAI";
     repo = "freebuff";
-    rev = "f61a680b9f9601f6fba31eec2537e8bf115753d3";
-    hash = "sha256-enBs6pb7O29ibIDTpcaTLEbDJPPctokOWmP0w5mARMQ=";
+    rev = "fd1176f25b2d054782972c4f2fce863002b9775e";
+    hash = "sha256-p4+XhEVnnWSglyAEdCTc2I9XOS6dLysNARm0TuPQFyo=";
   };
 
   # The CLI validates its client environment at startup (common/src/env.ts) and
@@ -53,7 +53,7 @@ let
 
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
-    outputHash = "sha256-qRmnygtUId5K/sUbGy2DmIRccFIJ3aRxofJmYjHBovI=";
+    outputHash = "sha256-KXKuDrL1exXq7ONBWfr5CqPrBvTRqMOXyUU5lDX2e4U=";
 
     dontConfigure = true;
     dontBuild = true;
