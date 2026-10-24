@@ -64,11 +64,6 @@ in
     publicKeys = all;
   };
 
-  "nextcloud/password.age" = {
-    owner = "nextcloud";
-    publicKeys = all;
-  };
-
   "nix-cache/cache-key.age".publicKeys = all;
 
   "paperless/password.age".publicKeys = all;

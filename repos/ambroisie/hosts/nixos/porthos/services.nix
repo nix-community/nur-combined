@@ -94,7 +94,6 @@ in
     # Nextcloud self-hosted cloud
     nextcloud = {
       enable = true;
-      passwordFile = secrets."nextcloud/password".path;
       collabora = {
         enable = true;
       };

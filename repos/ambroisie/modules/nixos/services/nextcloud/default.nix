@@ -16,20 +16,6 @@ in
       example = "1G";
       description = "Maximum file upload size";
     };
-    admin = mkOption {
-      type = types.str;
-      default = "Ambroisie";
-      example = "admin";
-      description = "Name of the admin user";
-    };
-    passwordFile = mkOption {
-      type = types.str;
-      example = "/var/lib/nextcloud/password.txt";
-      description = ''
-        Path to a file containing the admin's password, must be readable by
-        'nextcloud' user.
-      '';
-    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -41,8 +27,6 @@ in
       maxUploadSize = cfg.maxSize;
       configureRedis = true;
       config = {
-        adminuser = cfg.admin;
-        adminpassFile = cfg.passwordFile;
         dbtype = "pgsql";
       };
 
