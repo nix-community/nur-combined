@@ -1,0 +1,12 @@
+diff --git a/HMCL/src/main/java/org/jackhuang/hmcl/terracotta/TerracottaNodeList.java b/HMCL/src/main/java/org/jackhuang/hmcl/terracotta/TerracottaNodeList.java
+--- a/HMCL/src/main/java/org/jackhuang/hmcl/terracotta/TerracottaNodeList.java
++++ b/HMCL/src/main/java/org/jackhuang/hmcl/terracotta/TerracottaNodeList.java
+@@ -98,2 +98,7 @@
++            list = java.util.stream.Stream.concat(
++                    java.util.stream.Stream.of(@NODES@).map(WebURL::parse),
++                    list.stream()
++            ).distinct().toList();
++
+             TerracottaNodeList.list = list;
+             return list;
+
