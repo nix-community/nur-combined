@@ -73,13 +73,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "naiveproxy";
-  version = "154.0.8037.49-4";
+  version = "154.0.8037.49-5";
 
   src = fetchFromGitHub {
     owner = "klzgrad";
     repo = "naiveproxy";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-qCw0dkXRZbe6faLU0Oyr6dXgZEnh+PnY2rwRuuDzt2Y=";
+    hash = "sha256-3bwBlPk1sPNjo7GYEfQs8F2S6Atrb8D/S+Xry5/nlQY=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/src";
