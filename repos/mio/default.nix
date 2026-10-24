@@ -164,6 +164,7 @@ with (import ./private.nix { inherit pkgs; });
               #cider # started failing recently
               rocksmith2tab
               darling
+              darling_patched
               supertuxkart-evolution
             ];
           }
