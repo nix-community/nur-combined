@@ -11,8 +11,8 @@ stdenvNoCC.mkDerivation (final: {
   src = fetchFromGitHub {
     owner = "ComfyAssets";
     repo = "ComfyUI_PromptManager";
-    rev = "06099579e6c54a5791ffaaa8e1109d6d94d263ca";
-    hash = "sha256-+OAxAocXfXGsBIklyB6I8QuYLs435AOQvZt5noeXagw=";
+    rev = "fc3266d455da4f1dc9770cadfd59234b5c4d5335";
+    hash = "sha256-LX3kHF0ZzuzKDtJj3gklHcb/Cw2E5eM3TX6z9vIiDj4=";
   };
 
   propagatedBuildInputs = with python3.pkgs; [
