@@ -28,6 +28,8 @@ On nix-darwin, import `inputs.nur.repos.mzwing.modules.darwin.magpie`; it has no
 
 The gateway listens on `host` and `port`, which reach magpie as `MAGPIE_ADDR`, so turning on sharing in magpie keeps it there. Anything else goes through `env`, such as `MAGPIE_PUBLIC_URL` behind a reverse proxy.
 
+`web.enable` also serves the page of `magpie web`, the app's window in a browser, from the same process on `web.host` and `web.port`. The page asks for a key, which the link in the log carries. magpie makes a new key at every start unless `MAGPIE_WEB_KEY` sets one, which browsers then stay signed in with. Anyone holding it can change magpie and read its keys, so keep it out of `env`, which is stored in the Nix store; on NixOS, set it from a file with `systemd.services.magpie.serviceConfig.EnvironmentFile`.
+
 Before every start, `settings` is merged into `settings.json` in `$XDG_CONFIG_HOME/magpie`, else `~/.config/magpie`. Its keys are the JSON names of `Settings` in magpie's `internal/settings/settings.go`. The keys merged are recorded in `.magpie-nix-managed.json` beside it, so a key dropped from `settings` is dropped from the file as well, while keys set in magpie itself stay. The file as it was before the first merge is kept as `settings.json.stateful`. A `settings.json` that does not parse stops the start instead of being replaced.
 
 ## NixOS

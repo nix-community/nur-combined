@@ -12,6 +12,8 @@
     format = "json";
   };
 
+  serveArgs = ["serve"] ++ lib.optional cfg.web.enable "--web=${cfg.web.host}:${toString cfg.web.port}";
+
   startScript = executable:
     pkgs.writeShellApplication {
       name = "magpie-start";
@@ -27,7 +29,7 @@
           "$config_dir/.magpie-nix-managed.json" \
           "$config_dir/settings.json.stateful"
 
-        exec ${lib.escapeShellArg executable} serve
+        exec ${lib.escapeShellArg executable} ${lib.escapeShellArgs serveArgs}
       '';
     };
 
@@ -44,6 +46,22 @@
       type = lib.types.port;
       default = 3425;
       description = "Port the gateway listens on.";
+    };
+
+    web = {
+      enable = lib.mkEnableOption "magpie's web page, served beside the gateway";
+
+      host = lib.mkOption {
+        type = lib.types.str;
+        default = "127.0.0.1";
+        description = "Address the page listens on.";
+      };
+
+      port = lib.mkOption {
+        type = lib.types.port;
+        default = 3430;
+        description = "Port the page listens on.";
+      };
     };
 
     settings = lib.mkOption {
