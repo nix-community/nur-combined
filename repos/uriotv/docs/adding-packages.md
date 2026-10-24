@@ -94,6 +94,11 @@ other packages. It writes `update_failures` and `successful_updates` counters to
 marks incomplete checks failed. The counters count updater executions, including
 successful no-op checks, not the number of changed files.
 
+Add a row for every new package to the README package table, leaving the
+Version cell empty, then run `python3 -B scripts/readme-versions.py --write`.
+The update workflow refreshes that column with each update PR, and CI fails if
+it is stale or lists a different set of packages than the registry.
+
 Package updates never silently advance `flake.lock`. Use `nix flake update`
 as a separate deliberate maintenance change and validate it before committing.
 The independently defined CachyOS packages keep source/config/patch metadata in

@@ -32,6 +32,9 @@ strict-Bash updater, then runs:
   numeric version-only updates, coupled source/config/patch hashes, malformed
   metadata, package-directory isolation and rollback on evaluation errors.
 
+- `readme-versions.py`: README Version column is filled from a manifest; stale
+  versions, unknown versions and package-set drift in either direction fail.
+
 ## Nix evaluation (not compilation)
 
 ```console

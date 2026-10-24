@@ -50,10 +50,12 @@ jobs:
           UPDATE_PACKAGE: ${{ inputs.package }}
           BUILD_LOG_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: bash scripts/update-packages.sh
+      - name: Refresh package versions in README
+        run: python3 -B scripts/readme-versions.py --write
       - name: Check for changes
         id: changes
         run: |
-          if [ -n "$(git status --porcelain -- pkgs/)" ]; then
+          if [ -n "$(git status --porcelain -- pkgs/ README.md)" ]; then
             echo 'has_changes=true' >> "$GITHUB_OUTPUT"
           else
             echo 'has_changes=false' >> "$GITHUB_OUTPUT"
@@ -64,7 +66,9 @@ jobs:
         uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.PAT_FOR_UPDATES }}
-          add-paths: pkgs/
+          add-paths: |
+            pkgs/
+            README.md
           commit-message: 'chore: auto-update packages'
           title: 'chore: Auto-update packages'
           body-path: /tmp/pr-body.md
