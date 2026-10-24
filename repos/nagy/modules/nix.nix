@@ -50,6 +50,11 @@ in
       pkgs.nls
     ];
     nix = {
+      # Give interactive work priority over Nix builds.
+      # `batch` sets SCHED_BATCH (nice 0, no interactivity bonus).
+      # `idle` sets SCHED_IDLE (very nice, risks starving builds).
+      daemonCPUSchedPolicy = "batch";
+      daemonIOSchedClass = "idle";
       nixPath = [
         "nixpkgs=${lib.cleanSource pkgs.path}"
         "nur=https://github.com/nix-community/NUR/archive/main.tar.gz"
@@ -77,13 +82,13 @@ in
           "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
         ];
         warn-dirty = false;
+        # # Build parallelism. `max-jobs` is concurrent derivations,
+        # # `cores` is the core count passed to each. 16 * 16 oversubscribes.
+        # max-jobs = 4;
+        # cores = 4;
         # eval-cache = false;
         # Build logs are backed up. Backup mechanism itself takes care of the compression already.
         # compress-build-log = false; maybe enable after all. backups need to be thought of differently.
-        # this reduces memory usage at the expense of performance
-        # cores = 1;
-        # this keeps build logs clean at the expense of performance
-        # max-jobs = 1;
       };
       registry = {
         nixpkgs.flake = lib.cleanSource pkgs.path;

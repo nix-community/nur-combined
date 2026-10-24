@@ -7,23 +7,22 @@
     enable = true;
     config = {
       # audio
-      mute = "yes";
+      mute = true;
       ao = "pulse";
       # this gives better audio quality when speeding up a video
       # af = "rubberband";
       # dont show album covers when they are embedded in music files
       audio-display = "no";
 
-      cache-secs = "60";
+      cache-secs = 60;
       sub-auto = "fuzzy";
       sid = "auto";
-      ytdl-raw-options = "write-sub=,write-auto-sub=,sub-lang=en,sub-format=en,write-srt=";
-      script-opts = "ytdl_hook-ytdl_path=${pkgs.yt-dlp}/bin/yt-dlp";
+      ytdl-raw-options = "write-sub=,write-auto-sub=,sub-lang=en,sub-format=srt,write-srt=";
 
       # https://nixos.wiki/wiki/Accelerated_Video_Playback
-      hwdec = "auto-safe";
-      vo = "gpu";
-      profile = "gpu-hq";
+      # hwdec = "auto-safe";
+      hwdec = "vaapi"; # Use this as hwdec might use vulkan which sometimes breaks the first keyframe, resulting in artefacts
+      profile = "high-quality";
 
       # info from here https://github.com/mpv-player/mpv/issues/2188
       title = "\${?media-title:\${media-title}}\${!media-title:No file.}";
@@ -33,6 +32,9 @@
 
       # Naysayer background
       background-color = "#062329";
+    };
+    scriptOpts = {
+      ytdl_hook.ytdl_path = "${pkgs.yt-dlp}/bin/yt-dlp";
     };
     profiles = {
       "extension.webm" = {

@@ -259,9 +259,9 @@ in
     nixpkgs.overlays = lib.mkIf cfg.useEmacsOverlay [
       (import (
         builtins.fetchTarball {
-          # updated 2026-09-26
+          # updated 2026-10-17
           # to update: curl -s https://api.github.com/repos/nix-community/emacs-overlay/commits/master | head -2
-          url = "https://github.com/nix-community/emacs-overlay/archive/260fba0a160f4d1bb52b4a8f1ed025874e40aa50.tar.gz";
+          url = "https://github.com/nix-community/emacs-overlay/archive/973c6db5f491e8f43da5b9768dee61c94f0b0f98.tar.gz";
         }
       ))
     ];
@@ -290,7 +290,7 @@ in
 
     # maybe only needed for remote systems
     environment.sessionVariables.TERMINFO_DIRS = [
-      "${pkgs.emacs.pkgs.ghostel}/share/emacs/site-lisp/elpa/ghostel-${pkgs.emacs.pkgs.ghostel.version}/etc/terminfo"
+      # "${pkgs.emacs.pkgs.ghostel}/share/emacs/site-lisp/elpa/ghostel-${pkgs.emacs.pkgs.ghostel.version}/etc/terminfo"
     ];
   };
 }

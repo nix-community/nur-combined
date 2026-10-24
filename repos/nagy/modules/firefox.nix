@@ -152,6 +152,9 @@ in
       # Disallow web mail clients to ask to set themselves as an app
       "network.protocol-handler.external.mailto" = false;
 
+      # https://lunarwatcher.codeberg.page/til/firefox/resumable-big-downloads.html
+      "network.http.response.timeout" = 0;
+
       "browser.urlbar.suggest.calculator" = true;
 
       # No need to check for blocked extensions

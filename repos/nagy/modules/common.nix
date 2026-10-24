@@ -192,6 +192,22 @@ in
   networking.firewall.logRefusedConnections = lib.mkDefault false;
   networking.firewall.rejectPackets = lib.mkDefault true;
 
+  # CloudFlare DNS
+  networking.hosts = {
+    "1.1.1.1" = [
+      "one.one.one.one"
+    ];
+    "1.0.0.1" = [
+      "one.one.one.one"
+    ];
+    "2606:4700:4700::1111" = [
+      "one.one.one.one"
+    ];
+    "2606:4700:4700::1001" = [
+      "one.one.one.one"
+    ];
+  };
+
   boot.kernel.sysctl = {
     # disable coredumps
     # https://wiki.archlinux.org/index.php/Core_dump#Disabling_automatic_core_dumps

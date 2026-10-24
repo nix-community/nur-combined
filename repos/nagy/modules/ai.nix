@@ -18,7 +18,7 @@ in
 
     # pkgs.llama-cpp # -vulkan
     # pkgs.aichat
-    self.llm-ttok
+    # self.llm-ttok
   ];
 
   environment.sessionVariables = {
@@ -28,6 +28,7 @@ in
     PONYTAIL_DEFAULT_MODE = "off";
 
     # might not be needed with modern deepseek
+    PI_HARNESS_CACHE_ENABLED = "0";
     PI_HARNESS_HASHLINES_TOOL_ENABLED = "0";
     PI_HARNESS_STORMBREAKER_ENABLED = "0";
     # Never used
@@ -38,6 +39,11 @@ in
       "PI_TELEMETRY"
       "PI_OFFLINE"
       "PI_SKIP_VERSION_CHECK"
+
+      "PI_HARNESS_CACHE_ENABLED"
+      "PI_HARNESS_HASHLINES_TOOL_ENABLED"
+      "PI_HARNESS_STORMBREAKER_ENABLED"
+      "PI_HARNESS_PLANMODE_ENABLED"
 
       "DEEPSEEK_API_KEY"
       "OPENROUTER_API_KEY"

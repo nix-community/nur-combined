@@ -29,9 +29,9 @@ let
     ps.typst
 
     # Misc
-    (ps.callPackage ../pkgs/python3-packages/tvdatafeed.nix { })
-    (ps.callPackage ../pkgs/python3-packages/ta-lib.nix { })
-    (ps.callPackage ../pkgs/python3-packages/mintalib.nix { })
+    # (ps.callPackage ../pkgs/python3-packages/tvdatafeed.nix { })
+    # (ps.callPackage ../pkgs/python3-packages/ta-lib.nix { })
+    # (ps.callPackage ../pkgs/python3-packages/mintalib.nix { })
   ];
 in
 {
