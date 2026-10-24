@@ -108,6 +108,10 @@ def update(root, *, hash_only=False):
         target = f"path:{root}#caddy-sn0wm1x"
         print("Prefetching normalized QUIC patch...", flush=True)
         versions["patchHash"] = prefetch_hash(target + ".quicPatch")
+        versions["idleTimeoutPatchHash"] = FAKE_HASH
+        write_versions(path, versions)
+        print("Prefetching normalized idle-timeout patch...", flush=True)
+        versions["idleTimeoutPatchHash"] = prefetch_hash(target + ".idleTimeoutPatch")
         versions["hash"] = FAKE_HASH
         write_versions(path, versions)
         print("Building vendored source to determine its hash...", flush=True)

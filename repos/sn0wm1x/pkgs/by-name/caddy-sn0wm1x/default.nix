@@ -22,10 +22,18 @@ let
     url = "https://raw.githubusercontent.com/klzgrad/forwardproxy/${versions.forwardproxyRevision}/caddy-sing-quic-bbrv1.patch";
     hash = versions.patchHash;
   };
+  idleTimeoutPatch = fetchpatch2 {
+    name = "caddy-read-idle-timeout.patch";
+    url = "https://raw.githubusercontent.com/klzgrad/forwardproxy/${versions.forwardproxyRevision}/caddy-read-idle-timeout.patch";
+    hash = versions.idleTimeoutPatchHash;
+  };
   patchedCaddy = applyPatches {
     name = "caddy-${caddy.version}-quic-bbrv1-source";
     src = caddy.src;
-    patches = [ quicPatch ];
+    patches = [
+      quicPatch
+      idleTimeoutPatch
+    ];
     patchFlags = [
       "-p1"
       "--fuzz=0"
@@ -75,6 +83,10 @@ caddyWithPlugins.overrideAttrs (
         go mod edit \
           -replace github.com/caddyserver/caddy/v2=./caddy \
           -replace github.com/caddyserver/forwardproxy@${versions.plugins.forwardproxy.version}=github.com/klzgrad/forwardproxy@${versions.plugins.forwardproxy.version}
+        # go mod init records the compiler's patch version. Use the highest
+        # dependency requirement so Go patch updates do not change this hash.
+        goVersion=$(go list -m -f '{{if not .Main}}{{.GoVersion}}{{end}}' all | sort -V | tail -n1)
+        go mod edit -go="$goVersion" -toolchain=none
         go mod vendor
         cd ..
 
@@ -98,7 +110,12 @@ caddyWithPlugins.overrideAttrs (
     '';
 
     passthru = prevAttrs.passthru // {
-      inherit plugins quicPatch patchedCaddy;
+      inherit
+        plugins
+        quicPatch
+        idleTimeoutPatch
+        patchedCaddy
+        ;
       updateScript = lib.getExe (writeShellApplication {
         name = "update-caddy-sn0wm1x";
         runtimeInputs = [

@@ -2,7 +2,7 @@
 
 Caddy with plugins selected by SN0WM1X: forwardproxy, dns-cloudflare,
 caddy-docker-proxy, caddy-l4, caddy-dynamicdns and caddy-webdav, plus the upstream
-QUIC BBRv1 patch.
+QUIC BBRv1 and authenticated CONNECT idle-timeout patches.
 
 ## Usage
 

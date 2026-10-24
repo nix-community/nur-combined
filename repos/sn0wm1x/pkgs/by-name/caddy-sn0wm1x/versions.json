@@ -1,13 +1,14 @@
 {
-  "forwardproxyRevision": "c096d6a00cb28e019cc1995b04bdc6a9311d8024",
+  "forwardproxyRevision": "e747854e78743dba85c039b38ed185fb11d93667",
   "patchHash": "sha256-6rfFMqmxvbR989QsgPupsThwH5sUMYHvsRkpxm/Z3zA=",
-  "hash": "sha256-B+rle9f2+wfVyYIku/wAB19uLwH9/FAzoWHE+WqfuQM=",
+  "idleTimeoutPatchHash": "sha256-2ZMVuvoT3+mTt98eceQQKEspEkDMuCBQvAoTV8uF6WI=",
+  "hash": "sha256-rUYf5NmDdFicL0GL3LPIxG26pw1kuxH1H97RE5qVXwc=",
   "plugins": {
     "forwardproxy": {
       "repo": "klzgrad/forwardproxy",
       "module": "github.com/caddyserver/forwardproxy",
       "replacement": "github.com/klzgrad/forwardproxy",
-      "version": "v0.0.0-20261006113151-c096d6a00cb2"
+      "version": "v0.0.0-20261022172731-e747854e7874"
     },
     "cloudflare": {
       "repo": "caddy-dns/cloudflare",
