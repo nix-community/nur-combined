@@ -24,6 +24,7 @@ in
       ./patches/kiwix-opds-url.patch
       ./patches/kiwix-mac-tabbar-crash.patch
       ./patches/kiwix-mac-unified-titlebar-crash.patch
+      ./patches/kiwix-force-storage-check.patch
     ];
     postPatch =
       (old.postPatch or "")
