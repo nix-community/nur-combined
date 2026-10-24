@@ -29,15 +29,12 @@ args@{
       terracottaBundleJava = "${source-src.src}/HMCL/src/main/java/org/jackhuang/hmcl/terracotta/TerracottaBundle.java";
       macOSProviderJava = "${source-src.src}/HMCL/src/main/java/org/jackhuang/hmcl/terracotta/provider/MacOSProvider.java";
 
-      regionUtilsJava = "${source-src.src}/HMCL/src/main/java/org/jackhuang/hmcl/util/RegionUtils.java";
       regionUtilsJavaPath = "HMCL/src/main/java/org/jackhuang/hmcl/util/RegionUtils.java";
-
-      terracottaNodeListJava = "${source-src.src}/HMCL/src/main/java/org/jackhuang/hmcl/terracotta/TerracottaNodeList.java";
       terracottaNodeListJavaPath = "HMCL/src/main/java/org/jackhuang/hmcl/terracotta/TerracottaNodeList.java";
 
       prePatch = prevAttrs.prePatch + ''
-        install -Dm644 "$regionUtilsJava" "$regionUtilsJavaPath"
-        install -Dm644 "$terracottaNodeListJava" "$terracottaNodeListJavaPath"
+        install -Dm644 "${source-src.src}/$regionUtilsJavaPath" "$regionUtilsJavaPath"
+        install -Dm644 "${source-src.src}/$terracottaNodeListJavaPath" "$terracottaNodeListJavaPath"
       '';
 
       patches =

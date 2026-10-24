@@ -34,12 +34,12 @@
             "name": null,
             "owner": "johanohly",
             "repo": "AirTrail",
-            "rev": "v3.13.0",
-            "sha256": "sha256-PfJ775FqZ8Kkrb8ajl6LDdCBwg25uffYaaT7Hv/Ltbw=",
+            "rev": "v3.13.1",
+            "sha256": "sha256-HdVx7h8DHkW+uaNexA8sdy7gQt3pg+eeXa4nI3tqTlo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.13.0"
+        "version": "v3.13.1"
     },
     "aliyundrive-webdav": {
         "cargoLock": {
@@ -142,7 +142,7 @@
     "clash-nyanpasu": {
         "cargoLock": {
             "backend/Cargo.lock": [
-                "sha256-fYlFEq7QhNf0UzHQv+oMVSx+ZZ2XmXMtcR33LnQomPw=/backend/Cargo.lock",
+                "sha256-qTMlA1f76Durf4Bp6NMfwThQMDMrK40uqLCDnyGax18=/backend/Cargo.lock",
                 {
                     "auto-launch-0.5.0": "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=",
                     "gpu-info-0.2.1": "sha256-dQ5cLLZf0Ao0MxaBeue2osQVpUs+G+7ewGf4X1nkKAM=",
@@ -169,12 +169,12 @@
             "name": null,
             "owner": "libnyanpasu",
             "repo": "clash-nyanpasu",
-            "rev": "d4ef2755941a224567bae4580329b8d32a2b51f6",
-            "sha256": "sha256-fYlFEq7QhNf0UzHQv+oMVSx+ZZ2XmXMtcR33LnQomPw=",
+            "rev": "4c4507239a919daa873bd0363ab68cea7c672749",
+            "sha256": "sha256-qTMlA1f76Durf4Bp6NMfwThQMDMrK40uqLCDnyGax18=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d4ef2755941a224567bae4580329b8d32a2b51f6"
+        "version": "4c4507239a919daa873bd0363ab68cea7c672749"
     },
     "clash-nyanpasu-stable": {
         "cargoLock": null,
@@ -548,6 +548,21 @@
             "sha256": "sha256-nnx57IzscXwpgyPs3cq4ZNc8L+DTsbnopRhHpEyPug0=",
             "type": "url",
             "url": "https://github.com/HMCL-dev/HMCL/releases/download/v3.17.0.362/HMCL-3.17.0.362.jar"
+        },
+        "version": "3.17.0.362"
+    },
+    "hmcl-dev-exe": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "hmcl-dev-exe",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-CLo+VDW1GtXY1SZqy4z6yIc2xLWvucMPa2RVVl0PhlI=",
+            "type": "url",
+            "url": "https://github.com/HMCL-dev/HMCL/releases/download/v3.17.0.362/HMCL-3.17.0.362.exe"
         },
         "version": "3.17.0.362"
     },
@@ -948,13 +963,13 @@
     "nyanpasu-service": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-6uyHWr2ezXg20UlxwLp6jwhk3WaVMCjhHNhn6O4y73I=/Cargo.lock",
+                "sha256-rE6P_0jgGEiTBH0z01NGqvJx6g6DJTChCz+gfaXTUJ8=/Cargo.lock",
                 {
                     "processkit-2.2.5": "sha256-aLH0vrplsy8uTBzm5ult//Ix4DGE/Qg5TQyCBlUCCJo="
                 }
             ]
         },
-        "date": "2026-10-23",
+        "date": "2026-10-24",
         "extract": null,
         "name": "nyanpasu-service",
         "passthru": null,
@@ -966,12 +981,12 @@
             "name": null,
             "owner": "libnyanpasu",
             "repo": "nyanpasu-service",
-            "rev": "1f76af67f3f6dbbd7849e65f664e232cb1fa1952",
-            "sha256": "sha256-6uyHWr2ezXg20UlxwLp6jwhk3WaVMCjhHNhn6O4y73I=",
+            "rev": "6598188d023b968eb09bffc9dd88c6db759a3734",
+            "sha256": "sha256-rE6P/0jgGEiTBH0z01NGqvJx6g6DJTChCz+gfaXTUJ8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1f76af67f3f6dbbd7849e65f664e232cb1fa1952"
+        "version": "6598188d023b968eb09bffc9dd88c6db759a3734"
     },
     "nyanpasu-service-stable": {
         "cargoLock": null,
