@@ -5,7 +5,7 @@
   rust,
   fetchFromGitHub,
   bpf-linker,
-  llvmPackages_22,
+  llvmPackages_23,
   cmake,
   gitMinimal,
   iproute2,
@@ -38,7 +38,7 @@ rustPlatform.buildRustPackage (
     };
     rustcWithLibSrc = rustPrebuilt.rustc.override { inherit sysroot; };
     bpf-linker-using-llvm = bpf-linker.override {
-      llvmPackagesForLinker = llvmPackages_22;
+      llvmPackagesForLinker = llvmPackages_23;
     };
 
     # crates/honk-ebpf is excluded from the workspace and pins its own toolchain
