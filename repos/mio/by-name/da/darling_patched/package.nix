@@ -3,14 +3,16 @@
   coreutils,
   fetchFromGitHub,
   fetchpatch,
+  fetchurl,
   lib,
 }:
 
 # Upstream darling, plus open PRs that apply on that commit:
 # Clang/CMake/DESTDIR build fixes, SysV semaphore IDs, libc++ filesystem
-# symbols, and host-path linking (darpath).
-# Drafts, ARM64 ports, Docker/RPM packaging, off-by-default options, and the
-# GLUT/MediaLibrary stubs are not included.
+# symbols, host-path linking (darpath), the GLUT and MediaLibrary stubs, and
+# the cli-only CoreData stub.
+# Drafts, ARM64 ports, Docker/RPM packaging, and off-by-default options are
+# not included.
 let
   # Same owner/repo as the Darling submodules. Applied by replacing the
   # already-fetched trees; a gitlink-only patch cannot update them.
@@ -125,6 +127,25 @@ darling.overrideAttrs (old: {
       "sha256-A5Hwtks1Bsw9GuJtizQLIhSTRjbHGLpih8Ei/j1C6AM="
       { }
     )
+    # https://github.com/darlinghq/darling/pull/1725
+    # fetchurl keeps the git symlink modes that fetchpatch strips.
+    (fetchurl {
+      name = "darling-pr-1725-glut.patch";
+      url = "https://github.com/darlinghq/darling/pull/1725.diff";
+      hash = "sha256-mbgtsuco57Mg1sV1OFSdyIqgI46KlR28NrQRkd4+uug=";
+    })
+    # https://github.com/darlinghq/darling/pull/1724
+    (fetchurl {
+      name = "darling-pr-1724-medialibrary.patch";
+      url = "https://github.com/darlinghq/darling/pull/1724.diff";
+      hash = "sha256-QDnhf8O4ToIMKuNhdzUF3CDKCJmVWwgFB3+R4NmAPTE=";
+    })
+    # https://github.com/darlinghq/darling/pull/1789
+    (fetchpatch {
+      name = "darling-pr-1789-coredata-cli.patch";
+      url = "https://github.com/darlinghq/darling/pull/1789.diff";
+      hash = "sha256-7SbPty36H0vSH/TXLVjsZhyblVbBn51HbWKTQxeqOEw=";
+    })
   ];
 
   postPatch =
@@ -160,6 +181,6 @@ darling.overrideAttrs (old: {
       old.postFixup;
 
   meta = old.meta // {
-    description = "Darling with open pull requests for Clang, DESTDIR installs, semaphores, and host paths";
+    description = "Darling with open pull requests for Clang, DESTDIR installs, semaphores, host paths, and framework stubs";
   };
 })
