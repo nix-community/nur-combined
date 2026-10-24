@@ -23,29 +23,17 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   passthru.tests = {
-    json =
-      runCommand "test-ceph-dashboards-json"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ jq ];
-        }
-        ''
-          readarray -t files < <(find ${finalAttrs.finalPackage} -name '*.json')
-          [ "''${#files[@]}" -gt 0 ]
-          jq --exit-status . "''${files[@]}" >/dev/null
-          touch $out
-        '';
+    json = runCommand "test-ceph-dashboards-json" { nativeBuildInputs = [ jq ]; } ''
+      readarray -t files < <(find ${finalAttrs.finalPackage} -name '*.json')
+      [ "''${#files[@]}" -gt 0 ]
+      jq --exit-status . "''${files[@]}" >/dev/null
+      touch $out
+    '';
 
-    alerts =
-      runCommand "test-ceph-dashboards-alerts"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ prometheus.cli ];
-        }
-        ''
-          promtool check rules ${finalAttrs.finalPackage}/alerts/ceph_alerts.yml
-          touch $out
-        '';
+    alerts = runCommand "test-ceph-dashboards-alerts" { nativeBuildInputs = [ prometheus.cli ]; } ''
+      promtool check rules ${finalAttrs.finalPackage}/alerts/ceph_alerts.yml
+      touch $out
+    '';
   };
 
   meta = {

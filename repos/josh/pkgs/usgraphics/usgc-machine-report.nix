@@ -21,8 +21,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "usgc-machine-report";
   version = "0-unstable-2026-05-06";
 
-  __structuredAttrs = true;
-
   src = fetchFromGitHub {
     owner = "usgraphics";
     repo = "usgc-machine-report";
@@ -39,23 +37,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   buildInputs = [ bash ];
 
-  makeWrapperArgs = [
-    "--prefix"
-    "PATH"
-    ":"
-    (lib.strings.makeBinPath [
-      # procps before coreutils, which also ships an uptime but without -p
-      procps
-      coreutils
-      gawk
-      gnugrep
-      gnused
-      hostname
-      iproute2
-      util-linux
-    ])
-  ];
-
   dontBuild = true;
 
   installPhase = ''
@@ -63,7 +44,19 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     install -Dm755 machine_report.sh $out/bin/usgc-machine-report
     patchShebangs --host $out/bin
-    wrapProgram $out/bin/usgc-machine-report "''${makeWrapperArgs[@]}"
+    wrapProgram $out/bin/usgc-machine-report --prefix PATH : ${
+      lib.strings.makeBinPath [
+        # procps before coreutils, which also ships an uptime but without -p
+        procps
+        coreutils
+        gawk
+        gnugrep
+        gnused
+        hostname
+        iproute2
+        util-linux
+      ]
+    }
 
     runHook postInstall
   '';
@@ -72,11 +65,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru.tests = {
     report =
-      runCommand "test-usgc-machine-report-report"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ finalAttrs.finalPackage ];
-        }
+      runCommand "test-usgc-machine-report-report" { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
         ''
           env -u PATH ${lib.getExe finalAttrs.finalPackage} | tee report.txt
           grep -F "UNITED STATES GRAPHICS COMPANY" report.txt

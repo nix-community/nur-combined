@@ -11,8 +11,6 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
   pname = "itunes-library-export";
   version = "0.1.2";
 
-  __structuredAttrs = true;
-
   src = fetchFromGitHub {
     owner = "josh";
     repo = "itunes-library-export";
@@ -35,11 +33,7 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
 
   passthru.tests = {
     help =
-      runCommand "test-itunes-library-export-help"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ finalAttrs.finalPackage ];
-        }
+      runCommand "test-itunes-library-export-help" { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
         ''
           itunes-library-export --help
           touch $out

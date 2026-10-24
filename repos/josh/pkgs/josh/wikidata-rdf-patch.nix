@@ -9,7 +9,6 @@ python3Packages.buildPythonPackage (finalAttrs: {
   version = "1.0.5";
 
   pyproject = true;
-  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "josh";
@@ -20,7 +19,6 @@ python3Packages.buildPythonPackage (finalAttrs: {
 
   build-system = with python3Packages; [
     setuptools
-    wheel
   ];
 
   dependencies = with python3Packages; [

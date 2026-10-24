@@ -36,17 +36,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   passthru.tests = {
-    json =
-      runCommand "test-zydepoint-tailscale-dashboard-json"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ jq ];
-        }
-        ''
-          jq --exit-status . ${finalAttrs.finalPackage}/tailscale.json >/dev/null
-          jq --exit-status . ${finalAttrs.finalPackage.prometheus} >/dev/null
-          touch $out
-        '';
+    json = runCommand "test-zydepoint-tailscale-dashboard-json" { nativeBuildInputs = [ jq ]; } ''
+      jq --exit-status . ${finalAttrs.finalPackage}/tailscale.json >/dev/null
+      jq --exit-status . ${finalAttrs.finalPackage.prometheus} >/dev/null
+      touch $out
+    '';
   };
 
   meta = {

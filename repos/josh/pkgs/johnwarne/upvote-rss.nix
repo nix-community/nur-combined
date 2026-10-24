@@ -24,9 +24,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     substituteInPlace classes/custom-logger.php \
       --replace-fail "__DIR__ . '/../logs/upvote-rss.log'" \
                      '(getenv("LOGS_DIRECTORY") ?: (getenv("CACHE_DIRECTORY") ?: sys_get_temp_dir() . "/upvote-rss") . "/logs") . "/upvote-rss.log"'
-    status=0
-    grep -qF "__DIR__ . '/cache" config.php || status=$?
-    test "$status" -eq 1
+    ! grep -qF "__DIR__ . '/cache" config.php
   '';
 
   nativeCheckInputs = [ php ];

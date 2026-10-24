@@ -67,7 +67,3 @@ Order attributes by the build lifecycle:
 `pname` → `version` → format flags (`pyproject`, `__structuredAttrs`, `outputs`) → `src` → `patches`/`postPatch` → hashes (`vendorHash`, `cargoHash`) → inputs (`build-system`, `nativeBuildInputs`, `buildInputs`, `nativeCheckInputs`, `dependencies`) → build configuration (`env`, `ldflags`, `cmakeFlags`) → check flags (`doCheck`, `checkFlags`) → phases in lifecycle order (`checkPhase` sits between build and install) → `passthru` → `meta`
 
 `pname` is always first and `meta` is always last, with `passthru` immediately before it.
-
-### Exceptions
-
-`internal/*.nix` mix nixpkgs dependencies with caller-supplied derivation parameters (`src`, `pname`, `chartName`, `helmValues`). Keep nixpkgs dependencies first, then the parameters, then the `?`-defaulted ones; do not interleave them.

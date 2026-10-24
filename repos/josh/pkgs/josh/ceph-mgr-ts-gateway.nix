@@ -28,11 +28,7 @@ buildGoModule (finalAttrs: {
 
   passthru.tests = {
     help =
-      runCommand "test-ceph-mgr-ts-gateway-help"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ finalAttrs.finalPackage ];
-        }
+      runCommand "test-ceph-mgr-ts-gateway-help" { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
         ''
           ceph-mgr-ts-gateway --help
           touch $out

@@ -28,20 +28,15 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   passthru.tests = {
-    icns =
-      runCommand "test-ghostty-theme-icons-icns"
-        {
-          __structuredAttrs = true;
-        }
-        ''
-          count=0
-          for f in ${finalAttrs.finalPackage}/share/ghostty/*.icns; do
-            head -c 4 "$f" | grep -qF icns
-            count=$((count + 1))
-          done
-          test "$count" -gt 0
-          touch $out
-        '';
+    icns = runCommand "test-ghostty-theme-icons-icns" { } ''
+      count=0
+      for f in ${finalAttrs.finalPackage}/share/ghostty/*.icns; do
+        head -c 4 "$f" | grep -qF icns
+        count=$((count + 1))
+      done
+      test "$count" -gt 0
+      touch $out
+    '';
   };
 
   meta = {

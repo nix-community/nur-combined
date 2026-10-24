@@ -37,18 +37,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   passthru.tests = {
-    json =
-      runCommand "test-proxmox-via-prometheus-dashboard-json"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ jq ];
-        }
-        ''
-          readarray -t files < <(find ${finalAttrs.finalPackage} ${finalAttrs.finalPackage.prometheus} -name '*.json')
-          [ "''${#files[@]}" -gt 0 ]
-          jq --exit-status . "''${files[@]}" >/dev/null
-          touch $out
-        '';
+    json = runCommand "test-proxmox-via-prometheus-dashboard-json" { nativeBuildInputs = [ jq ]; } ''
+      readarray -t files < <(find ${finalAttrs.finalPackage} ${finalAttrs.finalPackage.prometheus} -name '*.json')
+      [ "''${#files[@]}" -gt 0 ]
+      jq --exit-status . "''${files[@]}" >/dev/null
+      touch $out
+    '';
   };
 
   meta = {

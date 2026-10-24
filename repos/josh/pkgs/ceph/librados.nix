@@ -2,8 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch2,
-  fetchurl,
 
   # Build tools
   autoconf,
@@ -63,22 +61,6 @@
 }:
 
 let
-  ceph20 = lib.strings.versionAtLeast ceph.version "20";
-
-  version = if ceph20 then ceph.version else "20.2.0";
-
-  # 20.2.4 moved `namespace TOPNSPC::auth {` into each getentropy branch but missed the fallback
-  crypto-namespace-missing = lib.strings.versionAtLeast version "20.2.4";
-
-  src =
-    if ceph20 then
-      ceph.src
-    else
-      fetchurl {
-        url = "https://download.ceph.com/tarballs/ceph-${version}.tar.gz";
-        hash = "sha256-jeBk1pgx7zJzOVOfIzx47IJ/o1HEDO2amRbwtBdMZoU=";
-      };
-
   ceph-python = python3.withPackages (ps: [
     ps.cython
     ps.pyyaml
@@ -98,18 +80,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "librados";
-  inherit version src;
-
-  patches = lib.lists.optionals (!lib.strings.versionAtLeast version "20.2.1") [
-    # PyO3 workaround — allows build on Python 3.12 (merged upstream in 20.2.1)
-    # https://github.com/ceph/ceph/pull/66794
-    # Pinned base...head range of that PR; PR diff URLs are mutable
-    (fetchpatch2 {
-      name = "ceph-upstream-pyo3-workaround.patch";
-      url = "https://github.com/ceph/ceph/compare/ba0181c0fc1118f6199dc21db58da8ccc94ca0b7...411fcaa78fcf75392dd235533ba9b8d351971b08.diff";
-      hash = "sha256-Et3v5U6HibwlhErYxogimluLRL+9efRBptdcNuh4xLg=";
-    })
-  ];
+  inherit (ceph) version src;
 
   nativeBuildInputs = [
     autoconf
@@ -249,9 +220,9 @@ stdenv.mkDerivation (finalAttrs: {
                      'max_prims_per_osd = std::max(max_prims_per_osd, static_cast<uint64_t>(n_prims));' \
       --replace-fail 'max_acting_prims_per_osd = std::max(max_acting_prims_per_osd, n_aprims);' \
                      'max_acting_prims_per_osd = std::max(max_acting_prims_per_osd, static_cast<uint64_t>(n_aprims));'
-  ''
-  + lib.strings.optionalString (stdenv.hostPlatform.isDarwin && crypto-namespace-missing) ''
-    # /dev/urandom fallback (taken on macOS, no getentropy in unistd.h) never opens the namespace
+
+    # 20.2.4 moved `namespace TOPNSPC::auth {` into each getentropy branch but missed the
+    # /dev/urandom fallback (taken on macOS, no getentropy in unistd.h)
     substituteInPlace src/auth/Crypto.cc \
       --replace-fail $'#else // !HAVE_GETENTROPY && !_WIN32\n// open /dev/urandom' \
                      $'#else // !HAVE_GETENTROPY && !_WIN32\nnamespace TOPNSPC::auth {\n// open /dev/urandom'

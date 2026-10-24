@@ -38,11 +38,7 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
 
   passthru.tests = {
     help =
-      runCommand "test-apple-reminders-server-help"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ finalAttrs.finalPackage ];
-        }
+      runCommand "test-apple-reminders-server-help" { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
         ''
           apple-reminders-server --help
           touch $out

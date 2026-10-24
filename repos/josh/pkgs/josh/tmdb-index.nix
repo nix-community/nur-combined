@@ -11,7 +11,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
   version = "1.2.0";
 
   pyproject = true;
-  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "josh";
@@ -40,16 +39,10 @@ python3Packages.buildPythonApplication (finalAttrs: {
   passthru.tests = {
     # TODO: Add --version test
 
-    help =
-      runCommand "test-tmdb-index-help"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ finalAttrs.finalPackage ];
-        }
-        ''
-          tmdb-index --help
-          touch $out
-        '';
+    help = runCommand "test-tmdb-index-help" { nativeBuildInputs = [ finalAttrs.finalPackage ]; } ''
+      tmdb-index --help
+      touch $out
+    '';
   };
 
   meta = {
@@ -58,6 +51,5 @@ python3Packages.buildPythonApplication (finalAttrs: {
     license = lib.licenses.mit;
     mainProgram = "tmdb-index";
     platforms = lib.platforms.all;
-    broken = lib.strings.versionOlder nur.repos.josh.polars.version "1.30";
   };
 })

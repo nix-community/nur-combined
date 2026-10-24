@@ -9,7 +9,6 @@ python3Packages.buildPythonPackage (finalAttrs: {
   version = "1.3.5";
 
   pyproject = true;
-  __structuredAttrs = true;
 
   src = fetchPypi {
     pname = "toml_fmt_common";

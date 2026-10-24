@@ -10,7 +10,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
   version = "0.3.3";
 
   pyproject = true;
-  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "josh";
@@ -34,7 +33,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
     import =
       runCommand "test-trakt-plex-sync-import"
         {
-          __structuredAttrs = true;
           nativeBuildInputs = [
             (python3Packages.python.withPackages (_: [
               (python3Packages.toPythonModule finalAttrs.finalPackage)

@@ -18,8 +18,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "iterm2-shell-integration";
   version = "0-unstable-2026-10-21";
 
-  __structuredAttrs = true;
-
   src = fetchFromGitHub {
     owner = "gnachman";
     repo = "iTerm2-shell-integration";
@@ -37,23 +35,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     venv
   ];
 
-  makeWrapperArgs = [
-    "--prefix"
-    "PATH"
-    ":"
-    (lib.strings.makeBinPath [
-      bash
-      perl
-      venv
-    ])
-  ];
-
   buildCommand = ''
     mkdir -p $out/bin
     cp -r $src/utilities/* $out/bin/
     patchShebangs --host $out/bin
     for bin in $out/bin/*; do
-      wrapProgram "$bin" "''${makeWrapperArgs[@]}"
+      wrapProgram "$bin" --prefix PATH : ${lib.strings.makeBinPath finalAttrs.buildInputs}
     done
 
     mkdir -p $out/share/iterm2-shell-integration

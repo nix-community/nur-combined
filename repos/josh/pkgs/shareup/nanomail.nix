@@ -37,19 +37,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   passthru.tests = {
-    help =
-      runCommand "test-nanomail-help"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ finalAttrs.finalPackage ];
-        }
-        ''
-          export HOME="$TMPDIR"
-          export DENO_DIR="$TMPDIR/deno"
-          export DENO_NO_UPDATE_CHECK=1
-          nanomail --help
-          touch $out
-        '';
+    help = runCommand "test-nanomail-help" { nativeBuildInputs = [ finalAttrs.finalPackage ]; } ''
+      export HOME="$TMPDIR"
+      export DENO_DIR="$TMPDIR/deno"
+      export DENO_NO_UPDATE_CHECK=1
+      nanomail --help
+      touch $out
+    '';
   };
 
   meta = {

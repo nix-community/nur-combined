@@ -27,16 +27,10 @@ buildGoModule (finalAttrs: {
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   passthru.tests = {
-    help =
-      runCommand "test-mqtt2nats-help"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ finalAttrs.finalPackage ];
-        }
-        ''
-          mqtt2nats --help
-          touch $out
-        '';
+    help = runCommand "test-mqtt2nats-help" { nativeBuildInputs = [ finalAttrs.finalPackage ]; } ''
+      mqtt2nats --help
+      touch $out
+    '';
   };
 
   meta = {

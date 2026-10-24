@@ -10,7 +10,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
   version = "0.3.0";
 
   pyproject = true;
-  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "josh";
@@ -35,16 +34,10 @@ python3Packages.buildPythonApplication (finalAttrs: {
   passthru.tests = {
     # TODO: Add --version test
 
-    help =
-      runCommand "test-imdb-data-help"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ finalAttrs.finalPackage ];
-        }
-        ''
-          imdb-data --help
-          touch $out
-        '';
+    help = runCommand "test-imdb-data-help" { nativeBuildInputs = [ finalAttrs.finalPackage ]; } ''
+      imdb-data --help
+      touch $out
+    '';
   };
 
   meta = {

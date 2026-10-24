@@ -27,16 +27,10 @@ buildGoModule (finalAttrs: {
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   passthru.tests = {
-    help =
-      runCommand "test-jmap2nats-help"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ finalAttrs.finalPackage ];
-        }
-        ''
-          jmap2nats --help
-          touch $out
-        '';
+    help = runCommand "test-jmap2nats-help" { nativeBuildInputs = [ finalAttrs.finalPackage ]; } ''
+      jmap2nats --help
+      touch $out
+    '';
   };
 
   meta = {

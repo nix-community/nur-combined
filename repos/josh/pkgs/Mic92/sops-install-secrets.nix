@@ -34,10 +34,7 @@ buildGoModule (finalAttrs: {
   passthru.tests = {
     check-empty-manifest =
       runCommand "test-sops-install-secrets-check-empty-manifest"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ finalAttrs.finalPackage ];
-        }
+        { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
         ''
           echo '{}' >manifest.json
           sops-install-secrets -check-mode=manifest manifest.json

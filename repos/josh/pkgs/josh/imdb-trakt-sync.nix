@@ -10,7 +10,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
   version = "0.3.1";
 
   pyproject = true;
-  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "josh";
@@ -35,11 +34,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     # TODO: Add --version test
 
     help =
-      runCommand "test-imdb-trakt-sync-help"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ finalAttrs.finalPackage ];
-        }
+      runCommand "test-imdb-trakt-sync-help" { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
         ''
           imdb-trakt-sync --help
           touch $out

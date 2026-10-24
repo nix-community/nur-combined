@@ -55,11 +55,7 @@ buildGoModule (finalAttrs: {
     };
 
     grafana-json =
-      runCommand "test-prometheus-restic-exporter-grafana-json"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ jq ];
-        }
+      runCommand "test-prometheus-restic-exporter-grafana-json" { nativeBuildInputs = [ jq ]; }
         ''
           readarray -t files < <(find ${finalAttrs.finalPackage.grafana} -name '*.json')
           [ "''${#files[@]}" -gt 0 ]

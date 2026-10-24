@@ -45,18 +45,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   passthru.tests = {
-    json =
-      runCommand "test-victoria-metrics-dashboards-json"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ jq ];
-        }
-        ''
-          readarray -t files < <(find ${finalAttrs.finalPackage} ${finalAttrs.finalPackage.prometheus} ${finalAttrs.finalPackage.vm} -name '*.json')
-          [ "''${#files[@]}" -gt 0 ]
-          jq --exit-status . "''${files[@]}" >/dev/null
-          touch $out
-        '';
+    json = runCommand "test-victoria-metrics-dashboards-json" { nativeBuildInputs = [ jq ]; } ''
+      readarray -t files < <(find ${finalAttrs.finalPackage} ${finalAttrs.finalPackage.prometheus} ${finalAttrs.finalPackage.vm} -name '*.json')
+      [ "''${#files[@]}" -gt 0 ]
+      jq --exit-status . "''${files[@]}" >/dev/null
+      touch $out
+    '';
   };
 
   meta = {

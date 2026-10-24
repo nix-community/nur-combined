@@ -10,7 +10,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
   version = "0.4.1";
 
   pyproject = true;
-  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "josh";
@@ -38,16 +37,10 @@ python3Packages.buildPythonApplication (finalAttrs: {
   passthru.tests = {
     # TODO: Add --version test
 
-    help =
-      runCommand "test-imdb-plex-sync-help"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ finalAttrs.finalPackage ];
-        }
-        ''
-          imdb-plex-sync --help
-          touch $out
-        '';
+    help = runCommand "test-imdb-plex-sync-help" { nativeBuildInputs = [ finalAttrs.finalPackage ]; } ''
+      imdb-plex-sync --help
+      touch $out
+    '';
   };
 
   meta = {

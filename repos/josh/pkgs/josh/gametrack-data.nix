@@ -10,7 +10,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
   version = "2.0.4";
 
   pyproject = true;
-  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "josh";
@@ -30,16 +29,10 @@ python3Packages.buildPythonApplication (finalAttrs: {
   passthru.tests = {
     # TODO: Add --version test once upstream argparse exposes one
 
-    help =
-      runCommand "test-gametrack-data-help"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ finalAttrs.finalPackage ];
-        }
-        ''
-          gametrack-data --help
-          touch $out
-        '';
+    help = runCommand "test-gametrack-data-help" { nativeBuildInputs = [ finalAttrs.finalPackage ]; } ''
+      gametrack-data --help
+      touch $out
+    '';
   };
 
   meta = {

@@ -29,18 +29,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   passthru.tests = {
-    json =
-      runCommand "test-rfmoz-grafana-dashboards-json"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ jq ];
-        }
-        ''
-          readarray -t files < <(find ${finalAttrs.finalPackage} -name '*.json')
-          [ "''${#files[@]}" -gt 0 ]
-          jq --exit-status . "''${files[@]}" >/dev/null
-          touch $out
-        '';
+    json = runCommand "test-rfmoz-grafana-dashboards-json" { nativeBuildInputs = [ jq ]; } ''
+      readarray -t files < <(find ${finalAttrs.finalPackage} -name '*.json')
+      [ "''${#files[@]}" -gt 0 ]
+      jq --exit-status . "''${files[@]}" >/dev/null
+      touch $out
+    '';
   };
 
   meta = {

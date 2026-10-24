@@ -28,7 +28,6 @@ python3Packages.buildPythonPackage (finalAttrs: {
   version = "2.30.3";
 
   pyproject = true;
-  __structuredAttrs = true;
 
   src = fetchPypi {
     pname = "pyproject_fmt";
@@ -71,11 +70,7 @@ python3Packages.buildPythonPackage (finalAttrs: {
     };
 
     format =
-      runCommand "test-pyproject-fmt-format"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ finalAttrs.finalPackage ];
-        }
+      runCommand "test-pyproject-fmt-format" { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
         ''
           printf '[project]\nname="demo"\nversion="1.0.0"\n' >unformatted.toml
           pyproject-fmt --stdout unformatted.toml >formatted.toml || [ $? -eq 1 ]
