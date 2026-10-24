@@ -14,9 +14,13 @@ readonly repo="${BASH_REMATCH[2]}"
 readonly path="${3:-$repo}"
 
 case "$hostname" in
-  'codeberg.org'|'github.com'|'gist.github.com'|'gitlab.'*)
+  'codeberg.org'|'github.com'|'gitlab.'*)
     https="https://$hostname/$owner/$repo.git"
     ssh="git@$hostname:$owner/$repo.git"
+    ;;
+  'gist.github.com')
+    https="https://$hostname/$repo.git"
+    ssh="git@$hostname:$repo.git"
     ;;
   'sr.ht')
     https="https://git.$hostname/~$owner/$repo"

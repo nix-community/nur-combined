@@ -25,7 +25,7 @@ let
 in
 {
   pname = "josm-plugin-build-env";
-  versionLegacy = "36512"; # TODO: Can this be derived from `pkgs.josm`?
+  versionLegacy = "36514"; # TODO: Can this be derived from `pkgs.josm`?
   versionTools = josm.version;
   version = "${josm-plugin-build-env.versionTools}-${josm-plugin-build-env.versionLegacy}";
   meta = {
@@ -51,7 +51,7 @@ in
   '';
 
   srcLegacyCommon = mkSrcLegacy "plugins/build-common.xml" "sha256-sXk0oltWwrfOISCCBpcHBCU5es6Dulqe68CprUpTt0Y=";
-  srcLegacyDist = mkSrcLegacy "dist" "sha256-VJEzZja0neku9FJsmcRY8NDBLXZPOElyg+1Fcc1MkKE=";
+  srcLegacyDist = mkSrcLegacy "dist" "sha256-SuZSzrPjlorijR7lxgD4sMYdddJgzrcv9REXD/dWIBU=";
   srcLegacyTools = mkSrcLegacy "plugins/00_tools" "sha256-2HoDySGB1PXL4n/HsVO9H1BGAXhbaHCiUxA2tFXDlJE=";
   srcTools = fetchsvn {
     url = "https://josm.openstreetmap.de/svn/trunk/tools/";
