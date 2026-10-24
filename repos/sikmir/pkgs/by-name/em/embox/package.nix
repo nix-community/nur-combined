@@ -1,5 +1,6 @@
 {
   lib,
+  gccMultiStdenv,
   stdenv,
   fetchFromGitHub,
   fetchurl,
@@ -24,19 +25,20 @@ assert lib.assertOneOf "arch" arch [
 ];
 
 let
+  stdenv' = if arch == "x86" then gccMultiStdenv else stdenv;
   third-party = lib.mapAttrs (name: spec: fetchurl spec) (
     builtins.fromJSON (builtins.readFile ./third-party.json)
   );
 in
-stdenv.mkDerivation (finalAttrs: {
+stdenv'.mkDerivation (finalAttrs: {
   pname = "embox-${arch}-qemu";
-  version = "0.7.2";
+  version = "0.7.3";
 
   src = fetchFromGitHub {
     owner = "embox";
     repo = "embox";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-lySO7VZJzvTwn1gMNo0LJOQ5vXCN5Wyea4DTzP46Y8Y=";
+    hash = "sha256-fT9cMPczEEBqiuULobsrgM30ivDGFRSNCNzIbw+RENs=";
   };
 
   patches = [ ./0001-fix-build.patch ];
@@ -60,7 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
       which
       makeWrapper
     ]
-    ++ lib.optional (arch != "x86" && arch != "arm") pkgsCross."${arch}-embedded".stdenv.cc
+    ++ lib.optional (arch != "x86" && arch != "arm") pkgsCross."${arch}-embedded".stdenv'.cc
     ++ lib.optional (arch == "arm") gcc-arm-embedded;
 
   configurePhase = "make confload-${arch}/qemu";
@@ -89,7 +91,7 @@ stdenv.mkDerivation (finalAttrs: {
         arm = "model=smc91c111";
         x86 = "model=virtio";
       };
-      withNetwork = (lib.hasAttr arch net_args) && stdenv.hostPlatform.isLinux;
+      withNetwork = (lib.hasAttr arch net_args) && stdenv'.hostPlatform.isLinux;
     in
     ''
       mkdir -p $out/bin

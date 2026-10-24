@@ -16,7 +16,7 @@ index 3c0887cf9a..254ab2bb77 100644
 -OBJCOPY := $(CROSS_COMPILE)objcopy
 -SIZE    := $(CROSS_COMPILE)size
 +GCC     = $(CROSS_COMPILE)gcc
-+CXX     = $(CROSS_COMPILE)g++
++GXX     = $(CROSS_COMPILE)g++
 +AR      = $(CROSS_COMPILE)ar
 +AS      = $(CROSS_COMPILE)as
 +LD      = $(CROSS_COMPILE)ld

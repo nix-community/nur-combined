@@ -54,14 +54,6 @@ lib.makeScope newScope (
     perlPackages =
       (callPackage ./perl-packages.nix { }) // pkgs.perlPackages // { recurseForDerivations = false; };
 
-    ### EMBEDDED
-
-    embox-aarch64 = callPackage ./embedded/embox { arch = "aarch64"; };
-    embox-arm = callPackage ./embedded/embox { arch = "arm"; };
-    embox-ppc = callPackage ./embedded/embox { arch = "ppc"; };
-    embox-riscv64 = callPackage ./embedded/embox { arch = "riscv64"; };
-    embox-x86 = callPackage ./embedded/embox { stdenv = pkgs.gccMultiStdenv; };
-
     ### GEOSPATIAL
 
     #tdh = callPackage ./geospatial/tdh { };
