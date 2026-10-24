@@ -23,11 +23,16 @@ let
   # These are the public production values found in the official 0.2.34 release
   # binary (Publishable/ingestion keys — the client halves of PostHog and
   # Stripe, not secrets). CODEBUFF_APP_URL can still be overridden at runtime.
+  #
+  # The API host must be `www.codebuff.com`: the bare `codebuff.com` 301s to it,
+  # and Bun's fetch drops the Authorization header on that cross-host redirect,
+  # so every bearer-authenticated call (/api/v1/me, completions, agent runs)
+  # came back 401 and the CLI reported the stored key as invalid.
   clientEnv = {
     NEXT_PUBLIC_CB_ENVIRONMENT = "prod";
-    NEXT_PUBLIC_CODEBUFF_APP_URL = "https://codebuff.com";
+    NEXT_PUBLIC_CODEBUFF_APP_URL = "https://www.codebuff.com";
     NEXT_PUBLIC_FREEBUFF_APP_URL = "https://freebuff.com";
-    NEXT_PUBLIC_SUPPORT_EMAIL = "support@freebuff.com";
+    NEXT_PUBLIC_SUPPORT_EMAIL = "support@codebuff.com";
     NEXT_PUBLIC_POSTHOG_API_KEY = "phc_tug7g8yc10qNestK14QV8WyKwjfEl6vwzIbJkBdqeHS";
     NEXT_PUBLIC_POSTHOG_HOST_URL = "https://us.i.posthog.com";
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY = "pk_live_51Q0SA5KrNS6SjmqWMgRE0ar5v6cMvtizkyY3mXjYaZsU6AG9ctpNPKZMVf6xFK2ngqwkt8rHNIQgNiCFSbRdGb9Z00QEo13rfx";
