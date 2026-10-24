@@ -1,0 +1,40 @@
+--- a/src/mainwindow.cpp
++++ b/src/mainwindow.cpp
+@@ -118,6 +118,10 @@
+ 
+ void MainWindow::updateTabButtons()
+ {
++    if (!mp_ui || !mp_ui->tabBar || !mp_ui->newTabSideButton
++        || !mp_ui->prevTabButton || !mp_ui->nextTabButton) {
++        return;
++    }
+     auto tabBar = getTabBar();
+     QRect tabBarRect = getTabBar()->rect();
+     QRect newTabButtonRect = tabBar->tabRect(tabBar->count() - 1);
+@@ -168,7 +172,14 @@
+ void MainWindow::resizeEvent(QResizeEvent *event)
+ {
+     QMainWindow::resizeEvent(event);
+-    KiwixApp::instance()->getContentManager()->getView()->updateSizeHint();
++    // setupUi() applies unifiedTitleAndToolBarOnMac before child widgets exist.
++    // Qt 6 on macOS resizes the window from that call, so this runs mid-construction.
++    if (!mp_ui || !mp_ui->tabBar)
++        return;
++    if (auto *manager = KiwixApp::instance()->getContentManager()) {
++        if (auto *view = manager->getView())
++            view->updateSizeHint();
++    }
+     updateTabButtons();
+ }
+ 
+--- a/ui/mainwindow.ui
++++ b/ui/mainwindow.ui
+@@ -20,7 +20,7 @@
+    <set>QMainWindow::AnimatedDocks</set>
+   </property>
+   <property name="unifiedTitleAndToolBarOnMac">
+-   <bool>true</bool>
++   <bool>false</bool>
+   </property>
+   <widget class="QWidget" name="centralWidget">
+    <layout class="QVBoxLayout" name="verticalLayout">

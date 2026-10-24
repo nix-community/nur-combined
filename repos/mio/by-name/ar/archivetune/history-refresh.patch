@@ -1,0 +1,94 @@
+--- a/app/src/main/kotlin/moe/rukamori/archivetune/viewmodels/HistoryViewModel.kt
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/viewmodels/HistoryViewModel.kt
+@@ -41,6 +41,7 @@
+         val events = MutableStateFlow<Map<DateAgo, List<EventWithSong>>>(emptyMap())
+         val isLoadingMoreEvents = MutableStateFlow(false)
+         val canLoadMoreEvents = MutableStateFlow(true)
++        private var refreshGeneration = 0
+ 
+         private val today = LocalDate.now()
+         private val thisMonday = today.with(DayOfWeek.MONDAY)
+@@ -53,10 +54,13 @@
+         fun loadMoreEvents() {
+             if (isLoadingMoreEvents.value || !canLoadMoreEvents.value) return
+ 
++            val generation = refreshGeneration
++            val offset = loadedEvents.size
+             isLoadingMoreEvents.value = true
+             viewModelScope.launch(Dispatchers.IO) {
+                 try {
+-                    val page = database.events(limit = HISTORY_PAGE_SIZE, offset = loadedEvents.size)
++                    val page = database.events(limit = HISTORY_PAGE_SIZE, offset = offset)
++                    if (generation != refreshGeneration) return@launch
+                     loadedEvents += page
+                     events.value = loadedEvents.groupEventsByDate()
+                     canLoadMoreEvents.value = page.size == HISTORY_PAGE_SIZE
+@@ -64,9 +68,33 @@
+                     throw exception
+                 } catch (exception: Throwable) {
+                     reportException(exception)
+-                    canLoadMoreEvents.value = false
++                    if (generation == refreshGeneration) canLoadMoreEvents.value = false
+                 } finally {
+-                    isLoadingMoreEvents.value = false
++                    if (generation == refreshGeneration) isLoadingMoreEvents.value = false
++                }
++            }
++        }
++
++        /** Reload the first page. The desktop history tab keeps this ViewModel, so a one-shot init load stays empty after playback starts. */
++        fun refreshEvents() {
++            val generation = ++refreshGeneration
++            isLoadingMoreEvents.value = true
++            canLoadMoreEvents.value = true
++            viewModelScope.launch(Dispatchers.IO) {
++                try {
++                    val page = database.events(limit = HISTORY_PAGE_SIZE, offset = 0)
++                    if (generation != refreshGeneration) return@launch
++                    loadedEvents.clear()
++                    loadedEvents += page
++                    events.value = loadedEvents.groupEventsByDate()
++                    canLoadMoreEvents.value = page.size == HISTORY_PAGE_SIZE
++                } catch (exception: CancellationException) {
++                    throw exception
++                } catch (exception: Throwable) {
++                    reportException(exception)
++                    if (generation == refreshGeneration) canLoadMoreEvents.value = false
++                } finally {
++                    if (generation == refreshGeneration) isLoadingMoreEvents.value = false
+                 }
+             }
+         }
+--- a/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/HistoryScreen.kt
++++ b/app/src/main/kotlin/moe/rukamori/archivetune/ui/screens/HistoryScreen.kt
+@@ -100,7 +100,10 @@
+ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+ import androidx.lifecycle.compose.collectAsStateWithLifecycle
+ import androidx.navigation.NavController
++import kotlinx.coroutines.coroutineScope
+ import kotlinx.coroutines.delay
++import kotlinx.coroutines.launch
++import kotlinx.coroutines.yield
+ import moe.rukamori.archivetune.LocalAnimationsDisabled
+ import moe.rukamori.archivetune.LocalPlayerAwareWindowInsets
+ import moe.rukamori.archivetune.LocalPlayerConnection
+@@ -415,6 +418,19 @@
+         }
+     }
+ 
++    // Local history is written when playback starts. Reload on entry, and again when that write finishes.
++    LaunchedEffect(Unit) {
++        coroutineScope {
++            launch {
++                YouTube.historySyncEvent.collect {
++                    viewModel.refreshEvents()
++                }
++            }
++            yield()
++            viewModel.refreshEvents()
++        }
++    }
++
+     // A. When screen opens + user is logged in → fetch remote history in background
+     LaunchedEffect("prefetch", isLoggedIn) {
+         if (!isLoggedIn) return@LaunchedEffect

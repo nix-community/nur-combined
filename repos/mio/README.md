@@ -33,19 +33,6 @@ imports = [ inputs.mio.homeModules.toshy ];
 services.toshy.enable = true;
 ```
 
-Cutefish (https://cutefish.org/) is a Wayland desktop. The NixOS module is required: installing the package does not register the session, the lock-screen PAM service, or the portals. Pick **Cutefish (Wayland)** in SDDM, GDM or LightDM; it does not replace the display manager.
-
-```nix
-imports = [ inputs.mio.nixosModules.cutefish ];
-# or inputs.mio.legacyPackages.${system}.modules.cutefish
-
-services.desktopManager.cutefish.enable = true;
-services.displayManager.sddm.enable = true; # or gdm / lightdm
-services.displayManager.sddm.wayland.enable = true;
-```
-
-`cutefish-dm` is also packaged (`pkgs.cutefish-dm`) and is left disabled. Languages besides the ones in `i18n.supportedLocales` are not generated into the NixOS locale archive.
-
 Use without nur: add to flake.nix inputs
 
 ```
@@ -169,3 +156,20 @@ nix run .#chatbox.passthru.updateScript
 The daily GitHub Actions workflow discovers and runs all executable package
 update scripts, then commits and pushes any resulting changes. Update scripts
 implemented as Nix update-script combinator lists are transparently wrapped and executed as well.
+
+
+## More
+
+
+Cutefish (https://cutefish.org/) is a Wayland desktop. The NixOS module is required: installing the package does not register the session, the lock-screen PAM service, or the portals. Pick **Cutefish (Wayland)** in SDDM, GDM or LightDM; it does not replace the display manager.
+
+```nix
+imports = [ inputs.mio.nixosModules.cutefish ];
+# or inputs.mio.legacyPackages.${system}.modules.cutefish
+
+services.desktopManager.cutefish.enable = true;
+services.displayManager.sddm.enable = true; # or gdm / lightdm
+services.displayManager.sddm.wayland.enable = true;
+```
+
+`cutefish-dm` is also packaged (`pkgs.cutefish-dm`) and is left disabled. Languages besides the ones in `i18n.supportedLocales` are not generated into the NixOS locale archive.

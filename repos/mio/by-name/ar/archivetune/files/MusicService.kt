@@ -24,12 +24,11 @@ import java.nio.channels.Channels
 import java.nio.channels.SocketChannel
 import java.nio.charset.StandardCharsets
 import java.util.concurrent.CopyOnWriteArrayList
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import androidx.datastore.preferences.DesktopPreferenceStore
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -951,7 +950,7 @@ class MusicService {
         private var eventId: Long? = null
         private var immediateRecorded: Boolean = false
         private var finalized: Boolean = false
-        private var thresholdJob: Job? = null
+        private var insertResult: CompletableDeferred<Long?>? = null
 
         private fun historyThresholdMs(): Long {
             val duration = runCatching {
@@ -977,6 +976,7 @@ class MusicService {
         fun onMediaItemTransition(newMediaId: String?) {
             val normalized = newMediaId?.trim()?.removePrefix("song/")?.takeIf { it.isNotEmpty() }
             if (normalized == currentMediaId && sessionToken != 0L && !finalized) {
+                refreshSongMetadata()
                 return
             }
             finalizeCurrentSession()
@@ -988,6 +988,7 @@ class MusicService {
             eventId = null
             immediateRecorded = false
             finalized = false
+            insertResult = null
 
             updatePlaybackState(getPlayer().isPlaying)
         }
@@ -1000,8 +1001,6 @@ class MusicService {
         private fun updatePlaybackState(isPlaying: Boolean) {
             val mediaId = currentMediaId ?: return
             if (isHistoryPaused()) {
-                thresholdJob?.cancel()
-                thresholdJob = null
                 startedAtElapsedMs = null
                 return
             }
@@ -1015,6 +1014,7 @@ class MusicService {
                 eventId = null
                 immediateRecorded = false
                 finalized = false
+                insertResult = null
             }
 
             if (isPlaying) {
@@ -1032,77 +1032,100 @@ class MusicService {
         }
 
         private fun syncThresholdJob() {
-            thresholdJob?.cancel()
-            thresholdJob = null
-
             val mediaId = currentMediaId ?: return
             if (finalized) return
             if (isHistoryPaused()) return
-            if (immediateRecorded && eventId != null) return
-
-            val thresholdMs = historyThresholdMs()
-            val playedMs = currentPlayedMs()
-            if (playedMs >= thresholdMs) {
-                if (!immediateRecorded) {
-                    recordHistoryEvent(mediaId, playedMs)
-                }
-                return
-            }
-
-            if (!getPlayer().isPlaying) return
-
-            val remainingMs = (thresholdMs - playedMs).coerceAtLeast(0L)
-            val currentToken = sessionToken
-            thresholdJob = scope.launch {
-                delay(remainingMs)
-                synchronized(this@DesktopHistoryTracker) {
-                    if (sessionToken == currentToken && !immediateRecorded) {
-                        recordHistoryEvent(mediaId, currentPlayedMs())
-                    }
-                }
-            }
+            if (immediateRecorded) return
+            // The history list shows the song as soon as playback starts. The duration
+            // preference still decides when the session counts as a listen.
+            if (!getPlayer().isPlaying && currentPlayedMs() <= 0L) return
+            recordHistoryEvent(mediaId, currentPlayedMs())
         }
 
         private fun recordHistoryEvent(mediaId: String, playedMs: Long) {
-            if (isHistoryPaused()) return
+            if (isHistoryPaused() || immediateRecorded) return
             immediateRecorded = true
             val meta = getCurrentMetadata()?.takeIf { it.id == mediaId }
             val currentToken = sessionToken
+            val deferred = CompletableDeferred<Long?>()
+            insertResult = deferred
 
             scope.launch(Dispatchers.IO) {
+                var newEventId: Long? = null
                 try {
-                    val db = androidx.hilt.navigation.compose.getGlobalMusicDatabase() as? MusicDatabase ?: return@launch
-                    ensureSongInDatabase(db, mediaId, meta)
-                    val newEventId = db.insert(
-                        Event(
-                            songId = mediaId,
-                            timestamp = java.time.LocalDateTime.now(),
-                            playTime = playedMs,
+                    val db = androidx.hilt.navigation.compose.getGlobalMusicDatabase() as? MusicDatabase
+                    if (db == null) {
+                        System.err.println("[ArchiveTune/History] Music database unavailable; not recording $mediaId")
+                    } else {
+                        ensureSongInDatabase(db, mediaId, meta)
+                        val inserted = db.insert(
+                            Event(
+                                songId = mediaId,
+                                timestamp = java.time.LocalDateTime.now(),
+                                playTime = playedMs,
+                            )
                         )
-                    )
-                    if (newEventId > 0L) {
-                        synchronized(this@DesktopHistoryTracker) {
-                            if (sessionToken == currentToken) {
-                                eventId = newEventId
-                            }
+                        if (inserted > 0L) {
+                            newEventId = inserted
+                            System.err.println("[ArchiveTune/History] Recorded playback history for $mediaId (eventId=$inserted, playedMs=$playedMs)")
+                            YouTube.notifyHistorySynced()
+                        } else {
+                            System.err.println("[ArchiveTune/History] Event insert ignored for $mediaId (rowId=$inserted)")
                         }
-                        System.err.println("[ArchiveTune/History] Recorded playback history for $mediaId (eventId=$newEventId, playedMs=$playedMs)")
                     }
-                    registerRemotePlayback(mediaId)
                 } catch (t: Throwable) {
                     System.err.println("[ArchiveTune/History] Failed to record playback history for $mediaId: ${t.message}")
+                    t.printStackTrace()
+                } finally {
+                    deferred.complete(newEventId)
+                    synchronized(this@DesktopHistoryTracker) {
+                        if (sessionToken == currentToken) {
+                            if (newEventId != null) {
+                                eventId = newEventId
+                            } else {
+                                immediateRecorded = false
+                            }
+                        }
+                    }
+                }
+                if (newEventId != null) {
+                    try {
+                        registerRemotePlayback(mediaId)
+                    } catch (t: Throwable) {
+                        System.err.println("[ArchiveTune/History] Remote history sync failed for $mediaId: ${t.message}")
+                    }
                 }
             }
         }
 
-        private suspend fun ensureSongInDatabase(db: MusicDatabase, mediaId: String, meta: MediaMetadata?) {
+        private fun refreshSongMetadata() {
+            val mediaId = currentMediaId ?: return
+            val meta = getCurrentMetadata()?.takeIf {
+                it.id == mediaId && it.title.isNotBlank() && it.title != "Playing..."
+            } ?: return
+            scope.launch(Dispatchers.IO) {
+                val db = androidx.hilt.navigation.compose.getGlobalMusicDatabase() as? MusicDatabase ?: return@launch
+                if (ensureSongInDatabase(db, mediaId, meta)) {
+                    YouTube.notifyHistorySynced()
+                }
+            }
+        }
+
+        private suspend fun ensureSongInDatabase(db: MusicDatabase, mediaId: String, meta: MediaMetadata?): Boolean {
             val existing = db.getSongById(mediaId)
-            val songToInsert = if (meta != null && meta.title != "Playing...") {
-                meta
+            val realMeta = meta?.takeIf { it.title.isNotBlank() && it.title != "Playing..." }
+            if (realMeta != null && existing != null &&
+                (existing.song.title == "Unknown Title" || existing.song.title == "Playing...")
+            ) {
+                db.update(existing, realMeta)
+                return true
+            }
+            val songToInsert = if (realMeta != null && existing == null) {
+                realMeta
             } else if (existing == null) {
                 MediaMetadata(
                     id = mediaId,
-                    title = meta?.title?.takeIf { it != "Playing..." } ?: "Unknown Title",
+                    title = "Unknown Title",
                     artists = meta?.artists?.takeIf { it.isNotEmpty() } ?: listOf(MediaMetadata.Artist(id = null, name = "Unknown Artist")),
                     duration = meta?.duration ?: 0,
                     thumbnailUrl = meta?.thumbnailUrl ?: "https://i.ytimg.com/vi/$mediaId/hqdefault.jpg"
@@ -1110,16 +1133,20 @@ class MusicService {
             } else {
                 null
             }
-            if (songToInsert != null) {
+            if (songToInsert == null) return false
+            try {
                 db.insert(songToInsert)
+            } catch (t: Throwable) {
+                System.err.println("[ArchiveTune/History] Song metadata insert failed for $mediaId: ${t.message}")
+                if (db.getSongById(mediaId) == null) {
+                    db.insert(songToInsert.toSongEntity())
+                }
             }
+            return true
         }
 
         @Synchronized
         fun finalizeCurrentSession() {
-            thresholdJob?.cancel()
-            thresholdJob = null
-
             val mediaId = currentMediaId ?: return
             if (finalized) return
             finalized = true
@@ -1131,18 +1158,25 @@ class MusicService {
 
             val totalPlayed = accumulatedPlayMs
             val existingEventId = eventId
+            val pendingInsert = insertResult
             val meta = getCurrentMetadata()?.takeIf { it.id == mediaId }
             val thresholdMs = historyThresholdMs()
             val paused = isHistoryPaused()
+            if (paused) return
+            if (totalPlayed <= 0L && pendingInsert == null && existingEventId == null) return
 
-            if (totalPlayed >= thresholdMs && !paused) {
-                scope.launch(Dispatchers.IO) {
-                    try {
-                        val db = androidx.hilt.navigation.compose.getGlobalMusicDatabase() as? MusicDatabase ?: return@launch
-                        ensureSongInDatabase(db, mediaId, meta)
-                        val targetEventId = if (existingEventId != null) {
-                            existingEventId
-                        } else {
+            scope.launch(Dispatchers.IO) {
+                val insertedId = try {
+                    pendingInsert?.await()
+                } catch (t: Throwable) {
+                    System.err.println("[ArchiveTune/History] History insert did not finish for $mediaId: ${t.message}")
+                    null
+                }
+                try {
+                    val db = androidx.hilt.navigation.compose.getGlobalMusicDatabase() as? MusicDatabase ?: return@launch
+                    ensureSongInDatabase(db, mediaId, meta)
+                    val targetEventId = existingEventId ?: insertedId?.takeIf { it > 0L }
+                        ?: if (totalPlayed > 0L || pendingInsert != null) {
                             db.insert(
                                 Event(
                                     songId = mediaId,
@@ -1150,17 +1184,24 @@ class MusicService {
                                     playTime = totalPlayed,
                                 )
                             ).takeIf { it > 0L }
+                        } else {
+                            null
                         }
 
-                        if (targetEventId != null) {
-                            db.updateEventPlayTime(targetEventId, totalPlayed)
-                        }
+                    if (targetEventId != null) {
+                        db.updateEventPlayTime(targetEventId, totalPlayed)
+                        YouTube.notifyHistorySynced()
+                    }
+                    if (totalPlayed >= thresholdMs) {
                         db.incrementTotalPlayTime(mediaId, totalPlayed)
                         db.incrementPlayCount(mediaId)
-                        System.err.println("[ArchiveTune/History] Finalized history session for $mediaId (totalPlayedMs=$totalPlayed)")
-                    } catch (t: Throwable) {
-                        System.err.println("[ArchiveTune/History] Failed to finalize history session for $mediaId: ${t.message}")
                     }
+                    if (targetEventId != null) {
+                        System.err.println("[ArchiveTune/History] Finalized history session for $mediaId (totalPlayedMs=$totalPlayed, eventId=$targetEventId)")
+                    }
+                } catch (t: Throwable) {
+                    System.err.println("[ArchiveTune/History] Failed to finalize history session for $mediaId: ${t.message}")
+                    t.printStackTrace()
                 }
             }
         }

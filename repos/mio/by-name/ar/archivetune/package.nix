@@ -141,6 +141,7 @@ let
       patch -p1 < ${./root-build.patch}
       patch -p1 < ${./app-kotlin.patch}
       patch -p1 < ${./app-source.patch}
+      patch -p1 < ${./history-refresh.patch}
       # Drop the Android-only subsystems (see narrow.py), then shim the rest.
       python3 ${./narrow.py}
       python3 ${./fix_theme.py}
@@ -168,6 +169,10 @@ let
       # Bypass NetworkGatekeeper unofficial build block
       substituteInPlace core/src/main/kotlin/moe/rukamori/archivetune/innertube/NetworkGatekeeper.kt \
         --replace-fail "AtomicBoolean(true)" "AtomicBoolean(false)"
+
+      # Keep the latest local-history write so the history tab can reload after it subscribes.
+      substituteInPlace core/src/main/kotlin/moe/rukamori/archivetune/innertube/YouTube.kt \
+        --replace-fail "MutableSharedFlow<Unit>(extraBufferCapacity = 1)" "MutableSharedFlow<Unit>(replay = 1, extraBufferCapacity = 1)"
 
       # Replace Looper.getMainLooper() main thread check in DataStore.kt with native AWT EventQueue.isDispatchThread()
       substituteInPlace app/src/main/kotlin/moe/rukamori/archivetune/utils/DataStore.kt \
