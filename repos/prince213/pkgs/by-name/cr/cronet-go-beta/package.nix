@@ -10,11 +10,11 @@
 
 cronet-go.overrideAttrs (previousAttrs: {
   pname = previousAttrs.pname + "-beta";
-  version = "154.0.8037.49-2-unstable-2026-09-29";
+  version = "154.0.8037.49-2-unstable-2026-10-23";
 
   src = previousAttrs.src.override {
-    rev = "abcdebebd23da6e74cf9c55ab63024ce66fc0f7b";
-    hash = "sha256-d+Cabf/ibbk9whmrAkLczS2Bt2SltfaX/vm4hVSlr/o=";
+    rev = "fa319c4f3b554bd7c647c6e0f18a7195ac1497a6";
+    hash = "sha256-Vu6Xb3WpnX5n+eK8XbOOHOq1tzXKwPPsiZJGQ90KsSs=";
   };
 
   patches = [
