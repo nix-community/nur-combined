@@ -9,11 +9,16 @@
 #     DockDetailPanel), which also covers inline transcript ads and the
 #     landing-screen columns;
 #   - the composer partner row (PartnerAdLineView);
+#   - the slash-menu partner row, which also stops being a selectable-but-blank
+#     menu position (its fill's impression is reported from the suggestion
+#     hook instead of from the hidden row);
 #   - the launch splash and footer statusline display ads.
 #
 # `/deals` is a command the user runs on purpose, so its list still prints.
 # Sponsored *proposals* (the opt-in sponsored task cards) are not display ads
-# and are left alone.
+# and are left alone. The installed binary is still `bin/freebuff`, so it shares
+# `~/.config/manicode` (credentials, settings) with the plain package; only the
+# derivation name differs.
 { freebuff }:
 
 freebuff.overrideAttrs (old: {
