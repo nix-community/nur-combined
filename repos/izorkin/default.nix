@@ -15,7 +15,7 @@ rec {
   mariadb_10_6        = pkgs.callPackage  ./pkgs/servers/mariadb/mariadb_10_6.nix { openssl = pkgs.libressl; inherit curl; inherit (pkgs.darwin) cctools; inherit (pkgs.darwin.apple_sdk.frameworks) CoreServices; };
   mariadb-galera_25   = pkgs.callPackage  ./pkgs/servers/mariadb/galera_25.nix { asio = asio_1_10; };
   mariadb-galera_26   = pkgs.callPackage  ./pkgs/servers/mariadb/galera_26.nix { asio = pkgs.asio_1_32_0; };
-  unit                = pkgs.callPackage  ./pkgs/servers/unit { openssl = pkgs.libressl; php56 = php56-unit; php71 = php71-unit; php72 = php72-unit; php73 = php73-unit; php74 = php74-unit; php80 = php80-unit; php81 = php81-unit; php82 = php82-unit; withPython3 = false; withPHP56 = true; withPHP71 = true; withPHP72 = true; withPHP73 = true; withPHP74 = true; withPHP80 = true; withPHP81 = true; withPHP82 = true; withPerl = false; withRuby_3_1 = false; withIPv6 = true; };
+  unit                = pkgs.callPackage  ./pkgs/servers/unit { openssl = pkgs.libressl; php56 = php56-unit; php71 = php71-unit; php72 = php72-unit; php73 = php73-unit; php74 = php74-unit; php80 = php80-unit; php81 = php81-unit; php82 = php82-unit; withPython3 = false; withPHP56 = false; withPHP71 = false; withPHP72 = false; withPHP73 = false; withPHP74 = false; withPHP80 = false; withPHP81 = false; withPHP82 = true; withPerl = false; withRuby_3_1 = false; withIPv6 = true; };
   oh-my-zsh-custom    = pkgs.callPackage  ./pkgs/shells/oh-my-zsh-custom { inherit zsh-history-sync; inherit zsh-theme-rkj-mod; };
   zsh-history-sync    = pkgs.callPackage  ./pkgs/shells/zsh-history-sync { };
   zsh-theme-rkj-mod   = pkgs.callPackage  ./pkgs/shells/zsh-theme-rkj-mod { };
