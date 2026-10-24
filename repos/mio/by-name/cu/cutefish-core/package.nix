@@ -1,5 +1,5 @@
 {
-  callPackage,
+  mkCutefishDerivation,
   cutefish-toolkit,
   cutefish-framework,
   systemd,
@@ -18,7 +18,7 @@
   polkit,
 }:
 
-(callPackage ../cutefish/mk.nix { }) {
+mkCutefishDerivation {
   pname = "cutefish-core";
 
   postPatch = ''
@@ -59,6 +59,7 @@
     icu
     fontconfig
     wayland
+    wayland-scanner
     wayland-protocols
     mesa
     libgbm

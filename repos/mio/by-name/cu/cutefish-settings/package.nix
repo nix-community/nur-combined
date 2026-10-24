@@ -1,5 +1,5 @@
 {
-  callPackage,
+  mkCutefishDerivation,
   cutefish-toolkit,
   cutefish-framework,
   icu,
@@ -14,7 +14,7 @@
   xorgproto,
 }:
 
-(callPackage ../cutefish/mk.nix { }) {
+mkCutefishDerivation {
   pname = "cutefish-settings";
 
   postPatch = ''

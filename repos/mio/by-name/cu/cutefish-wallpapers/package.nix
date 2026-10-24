@@ -1,6 +1,7 @@
-{ callPackage, stdenvNoCC }:
+{ mkCutefishDerivation, stdenvNoCC }:
 
-(callPackage ../cutefish/mk.nix { stdenv = stdenvNoCC; }) {
+mkCutefishDerivation {
+  stdenv = stdenvNoCC;
   pname = "cutefish-wallpapers";
   withPkgConfig = false;
   withGettext = false;

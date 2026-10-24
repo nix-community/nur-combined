@@ -1,5 +1,5 @@
 {
-  callPackage,
+  mkCutefishDerivation,
   cutefish-toolkit,
   cutefish-framework,
   icu,
@@ -16,7 +16,7 @@
   libarchive,
 }:
 
-(callPackage ../cutefish/mk.nix { }) {
+mkCutefishDerivation {
   pname = "cutefish-filemanager";
 
   extraBuildInputs = [

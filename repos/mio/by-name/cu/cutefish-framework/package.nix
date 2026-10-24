@@ -1,5 +1,5 @@
 {
-  callPackage,
+  mkCutefishDerivation,
   cutefish-toolkit,
   icu,
   libpng,
@@ -7,7 +7,7 @@
   systemd,
 }:
 
-(callPackage ../cutefish/mk.nix { }) {
+mkCutefishDerivation {
   pname = "cutefish-framework";
 
   postPatch = ''

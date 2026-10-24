@@ -1,6 +1,6 @@
 {
   lib,
-  callPackage,
+  mkCutefishDerivation,
   clang,
   gn,
   python3,
@@ -36,10 +36,10 @@ let
     hash = "sha256-ou4cLjDBhKrL7yUJX/4el/HTDDWcmpL9ZGsdmHjX3I4=";
   };
 in
-(callPackage ../cutefish/mk.nix { }) {
+mkCutefishDerivation {
   pname = "cutefish-toolkit";
 
-  patches = [ ../cutefish/patches/toolkit-xdg-paths.patch ];
+  patches = [ ./toolkit-xdg-paths.patch ];
 
   postPatch = ''
         substituteInPlace cmake/Skia.cmake \
@@ -69,6 +69,7 @@ in
 
   extraBuildInputs = [
     wayland
+    wayland-scanner
     wayland-protocols
     libglvnd
     mesa

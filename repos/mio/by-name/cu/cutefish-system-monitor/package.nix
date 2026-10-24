@@ -1,10 +1,10 @@
 {
-  callPackage,
+  mkCutefishDerivation,
   cutefish-toolkit,
   icu,
 }:
 
-(callPackage ../cutefish/mk.nix { }) {
+mkCutefishDerivation {
   pname = "cutefish-system-monitor";
 
   postPatch = ''

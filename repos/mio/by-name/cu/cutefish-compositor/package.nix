@@ -1,5 +1,5 @@
 {
-  callPackage,
+  mkCutefishDerivation,
   cutefish-toolkit,
   cutefish-framework,
   cutefish-core,
@@ -26,7 +26,7 @@
   xorgproto,
 }:
 
-(callPackage ../cutefish/mk.nix { }) {
+mkCutefishDerivation {
   pname = "cutefish-compositor";
 
   postPatch = ''
@@ -59,6 +59,7 @@
     cutefish-toolkit
     cutefish-framework
     wayland
+    wayland-scanner
     wayland-protocols
     seatd
     libdrm

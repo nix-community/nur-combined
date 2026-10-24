@@ -1,5 +1,5 @@
 {
-  callPackage,
+  mkCutefishDerivation,
   qt6,
   wayland,
   wayland-scanner,
@@ -9,11 +9,11 @@
   libjxl,
 }:
 
-(callPackage ../cutefish/mk.nix { }) {
+mkCutefishDerivation {
   pname = "cutefish-qt-plugins";
   withGettext = false;
 
-  patches = [ ../cutefish/patches/qt-handle-theme-change.patch ];
+  patches = [ ./qt-handle-theme-change.patch ];
 
   postPatch = ''
     substituteInPlace platformtheme/CMakeLists.txt \
@@ -24,7 +24,10 @@
         'DESTINATION ''${CMAKE_INSTALL_PREFIX}/${qt6.qtbase.qtPluginPrefix}/imageformats/'
   '';
 
+  # qtpaths6 is used at configure time, so Qt has to be a native input
+  # once strictDeps splits build tools from libraries.
   extraNativeBuildInputs = [
+    qt6.qtbase
     qt6.wrapQtAppsHook
     wayland-scanner
   ];
@@ -33,6 +36,7 @@
     qt6.qtbase
     qt6.qtdeclarative
     wayland
+    wayland-scanner
     wayland-protocols
     librsvg
     libheif

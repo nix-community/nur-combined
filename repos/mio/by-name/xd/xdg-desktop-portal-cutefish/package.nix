@@ -1,5 +1,5 @@
 {
-  callPackage,
+  mkCutefishDerivation,
   cutefish-toolkit,
   systemd,
   pipewire,
@@ -11,7 +11,7 @@
   libdrm,
 }:
 
-(callPackage ../../cu/cutefish/mk.nix { }) {
+mkCutefishDerivation {
   pname = "xdg-desktop-portal-cutefish";
 
   extraNativeBuildInputs = [ wayland-scanner ];
@@ -21,6 +21,7 @@
     systemd
     pipewire
     wayland
+    wayland-scanner
     wayland-protocols
     mesa
     libgbm

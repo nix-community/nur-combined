@@ -1,12 +1,11 @@
 {
-  lib,
-  callPackage,
+  mkCutefishDerivation,
   cutefish-toolkit,
   cutefish-compositor,
   pam,
 }:
 
-(callPackage ../cutefish/mk.nix { }) {
+mkCutefishDerivation {
   pname = "cutefish-dm";
 
   postPatch = ''
@@ -36,7 +35,6 @@
       The Wayland session also logs in through SDDM, GDM or LightDM.
       services.desktopManager.cutefish does not enable this display manager.
     '';
-    license = lib.licenses.bsd3;
     mainProgram = "cutefish-dm";
   };
 }

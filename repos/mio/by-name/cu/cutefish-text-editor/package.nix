@@ -1,11 +1,11 @@
 {
-  callPackage,
+  mkCutefishDerivation,
   cutefish-toolkit,
   icu,
   pcre2,
 }:
 
-(callPackage ../cutefish/mk.nix { }) {
+mkCutefishDerivation {
   pname = "cutefish-text-editor";
 
   extraBuildInputs = [

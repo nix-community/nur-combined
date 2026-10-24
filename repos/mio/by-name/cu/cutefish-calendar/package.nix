@@ -1,12 +1,12 @@
 {
-  callPackage,
+  mkCutefishDerivation,
   cutefish-toolkit,
   icu,
   libical,
   curl,
 }:
 
-(callPackage ../cutefish/mk.nix { }) {
+mkCutefishDerivation {
   pname = "cutefish-calendar";
 
   extraBuildInputs = [

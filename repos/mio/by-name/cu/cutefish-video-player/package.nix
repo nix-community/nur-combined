@@ -1,12 +1,12 @@
 {
   lib,
-  callPackage,
+  mkCutefishDerivation,
   cutefish-toolkit,
   icu,
   mpv,
 }:
 
-(callPackage ../cutefish/mk.nix { }) {
+mkCutefishDerivation {
   pname = "cutefish-video-player";
 
   extraBuildInputs = [

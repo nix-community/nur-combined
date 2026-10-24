@@ -12,9 +12,11 @@
 }:
 let
   sources = import ./sources.nix;
+  defaultStdenv = stdenv;
 in
 {
   pname,
+  stdenv ? defaultStdenv,
   withPkgConfig ? true,
   withGettext ? true,
   extraNativeBuildInputs ? [ ],
@@ -25,7 +27,8 @@ in
 }@args:
 let
   source = sources.${pname} or (throw "cutefish source entry missing for ${pname}");
-  passthrough = removeAttrs args [
+  passthrough = lib.removeAttrs args [
+    "stdenv"
     "withPkgConfig"
     "withGettext"
     "extraNativeBuildInputs"
@@ -49,8 +52,16 @@ stdenv.mkDerivation (
     src =
       args.src or (fetchFromGitHub {
         owner = "cutefishos";
-        inherit (source) repo rev hash;
+        inherit (source)
+          repo
+          rev
+          hash
+          ;
       });
+
+    # pkg-config only sees .pc files from buildInputs, and find_program only
+    # sees nativeBuildInputs. wayland-scanner and qtpaths6 are listed accordingly.
+    strictDeps = true;
 
     nativeBuildInputs = [
       cmake
@@ -65,17 +76,17 @@ stdenv.mkDerivation (
     # Upstream installs to /usr. The prefix is the store path; SYSCONFDIR must
     # not stay the GNU default of /etc.
     cmakeFlags = [
-      "-DBUILD_TESTING=OFF"
-      "-DCMAKE_BUILD_TYPE=Release"
-      "-DCMAKE_INSTALL_LIBEXECDIR=libexec"
-      "-DCMAKE_INSTALL_SYSCONFDIR=${placeholder "out"}/etc"
+      (lib.cmakeBool "BUILD_TESTING" false)
+      (lib.cmakeFeature "CMAKE_BUILD_TYPE" "Release")
+      (lib.cmakeFeature "CMAKE_INSTALL_LIBEXECDIR" "libexec")
+      (lib.cmakeFeature "CMAKE_INSTALL_SYSCONFDIR" "${placeholder "out"}/etc")
     ]
     ++ extraCmakeFlags;
 
     meta = {
       homepage = "https://cutefish.org/";
-      platforms = lib.platforms.linux;
       license = lib.licenses.bsd3;
+      platforms = lib.platforms.linux;
     }
     // meta;
   }

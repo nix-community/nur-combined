@@ -1,11 +1,12 @@
 {
-  callPackage,
+  mkCutefishDerivation,
   stdenvNoCC,
   gtk3,
   lib,
 }:
 
-(callPackage ../cutefish/mk.nix { stdenv = stdenvNoCC; }) {
+mkCutefishDerivation {
+  stdenv = stdenvNoCC;
   pname = "cutefish-icons";
   withPkgConfig = false;
   withGettext = false;

@@ -1,13 +1,13 @@
 {
   lib,
-  callPackage,
+  mkCutefishDerivation,
   cutefish-toolkit,
   icu,
   pcre2,
   libxkbcommon,
 }:
 
-(callPackage ../cutefish/mk.nix { }) {
+mkCutefishDerivation {
   pname = "cutefish-terminal";
 
   postPatch = ''

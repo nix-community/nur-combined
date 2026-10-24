@@ -14,13 +14,34 @@
 
 let
   cfg = config.services.desktopManager.cutefish;
-  # The NUR overlay puts the package groups on pkgs.cutefish. Importing only
-  # this module still builds them from the same expressions.
+  # Components come from the NUR overlay. Importing only this module still
+  # builds them from the same expressions.
   cu =
-    if pkgs ? cutefish && pkgs.cutefish ? corePackages then
-      pkgs.cutefish
+    if pkgs ? cutefish-core && pkgs ? cutefish-compositor && pkgs ? xdg-desktop-portal-cutefish then
+      pkgs
     else
-      pkgs.callPackage ../by-name/cu/cutefish/scope.nix { };
+      pkgs.callPackage ../pkgs/desktops/cutefish/scope.nix { };
+
+  # Shell, session services, settings, and artwork.
+  corePackages = [
+    cu.cutefish-core
+    cu.cutefish-compositor
+    cu.cutefish-filemanager # paints the desktop icons
+    cu.cutefish-settings
+    cu.cutefish-qt-plugins
+    cu.cutefish-icons
+    cu.cutefish-wallpapers
+  ];
+
+  # Installed by default. Drop entries with environment.cutefish.excludePackages.
+  optionalPackages = [
+    cu.cutefish-terminal
+    cu.cutefish-text-editor
+    cu.cutefish-video-player
+    cu.cutefish-calendar
+    cu.cutefish-system-monitor
+    cu.cutefish-calculator
+  ];
 in
 {
   imports = [
@@ -53,8 +74,8 @@ in
     services.displayManager.defaultSession = lib.mkDefault "cutefish-wayland";
 
     environment.systemPackages =
-      cu.corePackages
-      ++ utils.removePackagesByName cu.optionalPackages config.environment.cutefish.excludePackages
+      corePackages
+      ++ utils.removePackagesByName optionalPackages config.environment.cutefish.excludePackages
       ++ [
         pkgs.adwaita-icon-theme
         pkgs.hwdata
@@ -106,10 +127,10 @@ in
     # cutefish-core ships lib/modules-load.d/cutefish-ddc.conf, which NixOS does not load.
     boot.kernelModules = [ "i2c-dev" ];
 
-    fonts.packages = with pkgs; [
-      noto-fonts
-      noto-fonts-color-emoji
-      dejavu_fonts
+    fonts.packages = [
+      pkgs.noto-fonts
+      pkgs.noto-fonts-color-emoji
+      pkgs.dejavu_fonts
     ];
 
     xdg.portal = {

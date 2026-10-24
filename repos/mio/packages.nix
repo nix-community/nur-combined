@@ -43,6 +43,7 @@ let
     in
     flattened
     // {
+      mkCutefishDerivation = self.callPackage ./pkgs/desktops/cutefish/mk.nix { };
       ocamlPackages =
         (pkgs.ocaml-ng.ocamlPackages_5_4.overrideScope (
           oself: osuper: {
@@ -64,7 +65,10 @@ let
         };
     }
   );
-  exportedByName = builtins.removeAttrs byName [ "ocamlPackages" ];
+  exportedByName = builtins.removeAttrs byName [
+    "ocamlPackages"
+    "mkCutefishDerivation"
+  ];
 in
 exportedByName
 // (with byName; rec {

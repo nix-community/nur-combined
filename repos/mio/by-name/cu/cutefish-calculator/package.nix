@@ -1,6 +1,6 @@
-{ callPackage, cutefish-toolkit }:
+{ mkCutefishDerivation, cutefish-toolkit }:
 
-(callPackage ../cutefish/mk.nix { }) {
+mkCutefishDerivation {
   pname = "cutefish-calculator";
 
   extraBuildInputs = [ cutefish-toolkit ];
