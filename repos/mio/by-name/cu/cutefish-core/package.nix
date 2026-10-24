@@ -98,7 +98,7 @@ stdenv.mkDerivation {
 
   meta = {
     inherit (cu) homepage platforms;
-    description = "Cutefish session, system services, polkit agent and screen recorder";
+    description = "Session, system services, polkit agent and screen recorder for the Cutefish desktop";
     license = lib.licenses.bsd3;
     mainProgram = "cutefish-wayland-session";
   };

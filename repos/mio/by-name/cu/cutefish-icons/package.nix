@@ -37,7 +37,7 @@ stdenvNoCC.mkDerivation {
 
   meta = {
     inherit (cu) homepage platforms;
-    description = "Cutefish icon theme, based on Colloid";
+    description = "Icon theme for the Cutefish desktop, based on Colloid";
     license = lib.licenses.gpl3Plus;
   };
 }

@@ -57,7 +57,11 @@ stdenv.mkDerivation {
 
   meta = {
     inherit (cu) homepage platforms;
-    description = "Cutefish display manager. The desktop session also logs in through SDDM, GDM or LightDM";
+    description = "Display manager for the Cutefish desktop";
+    longDescription = ''
+      The Wayland session also logs in through SDDM, GDM or LightDM.
+      services.desktopManager.cutefish does not enable this display manager.
+    '';
     license = lib.licenses.bsd3;
     mainProgram = "cutefish-dm";
   };

@@ -54,8 +54,7 @@ stdenv.mkDerivation {
 
   meta = {
     inherit (cu) homepage platforms;
-    description = "xdg-desktop-portal backend for the Cutefish desktop";
+    description = "XDG desktop portal backend for the Cutefish desktop";
     license = lib.licenses.bsd3;
-    mainProgram = "xdg-desktop-portal-cutefish";
   };
 }

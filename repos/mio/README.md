@@ -33,7 +33,7 @@ imports = [ inputs.mio.homeModules.toshy ];
 services.toshy.enable = true;
 ```
 
-Cutefish (https://cutefish.org/) is a Wayland desktop. The module installs the session and its applications. Pick **Cutefish (Wayland)** in SDDM, GDM or LightDM; it does not replace the display manager.
+Cutefish (https://cutefish.org/) is a Wayland desktop. The NixOS module is required: installing the package does not register the session, the lock-screen PAM service, or the portals. Pick **Cutefish (Wayland)** in SDDM, GDM or LightDM; it does not replace the display manager.
 
 ```nix
 imports = [ inputs.mio.nixosModules.cutefish ];

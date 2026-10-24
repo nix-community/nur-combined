@@ -45,7 +45,12 @@ symlinkJoin {
 
   meta = {
     inherit (cu) homepage platforms;
-    description = "Cutefish desktop: Wayland session, shell and applications";
-    license = lib.licenses.bsd3;
+    description = "Wayland session, shell and applications for the Cutefish desktop";
+    license = [
+      lib.licenses.bsd3
+      lib.licenses.gpl2Plus
+      lib.licenses.gpl3Plus
+      cutefish-wallpapers.meta.license
+    ];
   };
 }

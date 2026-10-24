@@ -105,7 +105,7 @@ stdenv.mkDerivation {
 
   meta = {
     inherit (cu) homepage platforms;
-    description = "Cutefish Wayland compositor, shell and lock screen";
+    description = "Wayland compositor, shell and lock screen for the Cutefish desktop";
     license = lib.licenses.bsd3;
     mainProgram = "cutefish-compositor";
   };

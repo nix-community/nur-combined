@@ -1,5 +1,5 @@
-# Cutefish Wayland desktop. Log in by choosing "Cutefish (Wayland)" in SDDM, GDM
-# or LightDM. cutefish-dm is packaged separately and is not enabled here.
+# Cutefish Wayland desktop. The session shows up as "Cutefish (Wayland)" in an
+# existing display manager. cutefish-dm stays a separate package and is not enabled.
 {
   config,
   lib,
@@ -12,29 +12,29 @@ let
   # The NUR overlay puts these on pkgs. Importing only this module still builds
   # them from the same expressions.
   cutefishPkgs =
-    if pkgs ? cutefish-core && pkgs ? cutefish-compositor && pkgs ? xdg-desktop-portal-cutefish then
+    if pkgs ? cutefish-core && pkgs ? cutefish && pkgs ? xdg-desktop-portal-cutefish then
       pkgs
     else
       pkgs.callPackage ../by-name/cu/cutefish/scope.nix { };
 in
 {
   options.services.desktopManager.cutefish = {
-    enable = lib.mkEnableOption ''
-      the Cutefish Wayland desktop (https://cutefish.org/).
-      Choose "Cutefish (Wayland)" in your display manager. A display manager
-      such as SDDM or GDM has to be enabled separately
-    '';
+    enable = lib.mkEnableOption "Cutefish Wayland desktop (https://cutefish.org/)";
 
     package = lib.mkPackageOption cutefishPkgs "cutefish" { };
   };
 
   config = lib.mkIf cfg.enable {
+    warnings = lib.optional (!config.services.displayManager.enable) ''
+      services.desktopManager.cutefish.enable registers the Cutefish Wayland session.
+      Enable a display manager such as services.displayManager.sddm.enable to log in to it.
+    '';
+
     services.displayManager.sessionPackages = [ cutefishPkgs.cutefish-core ];
 
     environment.systemPackages = [
       cfg.package
       pkgs.adwaita-icon-theme
-      pkgs.hicolor-icon-theme
       pkgs.hwdata
       pkgs.shared-mime-info
       pkgs.xkeyboard-config
@@ -42,11 +42,11 @@ in
       pkgs.xdg-utils
     ];
 
+    # xdg.icons links /share/icons, and /lib already covers Qt plugins.
+    # Wallpapers and session files are looked up under /run/current-system/sw.
     environment.pathsToLink = [
       "/share/backgrounds"
-      "/share/icons"
       "/share/wayland-sessions"
-      "/lib/qt-6/plugins"
     ];
 
     services.graphical-desktop.enable = true;
@@ -56,10 +56,11 @@ in
 
     services.udev.packages = [ cutefishPkgs.cutefish-core ];
     services.dbus.packages = [ cutefishPkgs.cutefish-core ];
+    # Privacy, locales and the session. The portal unit comes in with extraPortals.
+    systemd.packages = [ cutefishPkgs.cutefish-core ];
 
     security.polkit.enable = true;
-    # Lock screen authenticates through PAM service "cutefish-auth" and does not
-    # open another login session.
+    # The lock screen calls pam_start("cutefish-auth") and must not open a login session.
     security.pam.services.cutefish-auth = {
       startSession = false;
       setEnvironment = false;
@@ -80,13 +81,8 @@ in
       wireplumber.enable = lib.mkDefault true;
     };
 
-    # External brightness. The matching udev rules ship in cutefish-core.
+    # cutefish-core ships lib/modules-load.d/cutefish-ddc.conf, which NixOS does not load.
     boot.kernelModules = [ "i2c-dev" ];
-
-    systemd.packages = [
-      cutefishPkgs.cutefish-core
-      cutefishPkgs.xdg-desktop-portal-cutefish
-    ];
 
     fonts.packages = with pkgs; [
       noto-fonts
@@ -100,17 +96,9 @@ in
         cutefishPkgs.xdg-desktop-portal-cutefish
         pkgs.xdg-desktop-portal-gtk
       ];
-      config.Cutefish = {
-        default = [ "gtk" ];
-        "org.freedesktop.impl.portal.Settings" = [
-          "cutefish"
-          "gtk"
-        ];
-        "org.freedesktop.impl.portal.FileChooser" = [ "cutefish" ];
-        "org.freedesktop.impl.portal.Inhibit" = [ "cutefish" ];
-        "org.freedesktop.impl.portal.ScreenCast" = [ "cutefish" ];
-        "org.freedesktop.impl.portal.Secret" = [ "gnome-keyring" ];
-      };
+      # share/xdg-desktop-portal/cutefish-portals.conf. The portal lowercases
+      # XDG_CURRENT_DESKTOP=Cutefish before looking that file up.
+      configPackages = [ cutefishPkgs.xdg-desktop-portal-cutefish ];
     };
   };
 }
