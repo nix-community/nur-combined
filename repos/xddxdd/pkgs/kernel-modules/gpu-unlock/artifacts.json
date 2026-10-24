@@ -1,0 +1,31 @@
+[
+  {
+    "name": "NVIDIA open kernel modules source archive",
+    "url": "https://download.nvidia.com/XFree86/NVIDIA-kernel-module-source/NVIDIA-kernel-module-source-610.43.03.tar.xz",
+    "checksum_url": "https://download.nvidia.com/XFree86/NVIDIA-kernel-module-source/NVIDIA-kernel-module-source-610.43.03.tar.xz.sha256sum",
+    "revision": "610.43.03 release source (NVIDIA tag 610.43.03)",
+    "sha256": "7e118923c7a23edc36114d63273a46e3e04e9af98695a42203e7ac2dfe9fc1dc",
+    "license": "GPL-2.0 OR MIT",
+    "filename": "NVIDIA-kernel-module-source-610.43.03.tar.xz"
+  },
+  {
+    "name": "nvidia-utils binary package used for exact firmware extraction",
+    "version": "610.43.03-1",
+    "architecture": "x86_64_v3",
+    "license": "custom (package metadata)",
+    "sha256": "e17e7c92eeffa178b0fe1f40eb17a47095f8fc3ce4a77bf115cf5bd5a4df86e9",
+    "firmware": [
+      {
+        "path": "usr/lib/firmware/nvidia/610.43.03/gsp_ga10x.bin",
+        "size": 84277400,
+        "sha256": "572373620a37418f24dc16b5031c39338778c3257e48e8408de9a57291b24f3a"
+      }
+    ],
+    "filename": "nvidia-utils-610.43.03-1-x86_64_v3.pkg.tar.zst",
+    "url": "https://archive.cachyos.org/archive/cachyos-v3/nvidia-utils-610.43.03-1-x86_64_v3.pkg.tar.zst",
+    "notice": {
+      "path": "usr/share/licenses/nvidia-utils/LICENSE",
+      "sha256": "c692fb14ad4f499c6aee1b9e144e6905148c420e6225b17cb2937366c1e507ad"
+    }
+  }
+]

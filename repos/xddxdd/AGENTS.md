@@ -21,6 +21,7 @@
 ### 最佳实践
 
 - **CUDA 构建元数据必须跟随所选工具链**：CUDA 主版本应从所选 `cudaPackages.cuda_nvcc.version` 用 `lib.versions.major` 派生，不要硬编码。
+- **固件中的 ELF 也是不透明数据**：固件包应关闭 `dontPatchELF` 对应的修补和 strip（设置 `dontPatchELF = true; dontStrip = true;`），避免签名或摘要失效；在安装检查中对最终产物重新校验上游固定的哈希，不能只校验生成步骤的临时文件。
 - **大型 CUDA fatbinary 可导致 x86_64 主机链接重定位溢出**：把多架构 CUDA 与主机代码链接进同一共享库时，超过 2 GiB 的 `.nv_fatbin` 可能被默认链接脚本放在主机代码与数据之间，触发 `R_X86_64_REX_GOTPCRELX` 或 PLT 的 PC-relative offset overflow。可用附加链接脚本将该节 `INSERT AFTER .bss`，仅在 CUDA 变体传入共享库链接参数；不要以减少支持的 GPU 架构掩盖问题。用完整构建和已安装 ELF 的节地址验证布局，再运行实际 CLI。参考 `pkgs/uncategorized/ik-llama-cpp/cuda-fatbin.ld`。
 - **上游源码为 CRLF 行尾时先转 LF 再打补丁**：上游仓库的文本文件可能带 CRLF 行尾（如 FlashBrowser 的 index.js），直接对原文件生成的补丁会整文件重写（diff 把每行都视为修改）。正确做法：补丁一律以 LF 内容生成，并在派生的 `prePatch` 中用 `sed -i 's/\r$//' <文件>` 把上游源码转为 LF——转换必须放在 `prePatch`，因为 patchPhase 在 prePatch 之后、postPatch 之前执行。本仓库内所有文件（补丁、脚本等）一律保持 LF 行尾
 - **预臭氧（pre-ozone）Electron（< 12）在 Wayland 会话下必须强制 GDK_BACKEND=x11**：nixpkgs 的 gtk3 含 Wayland 后端，`WAYLAND_DISPLAY` 存在时 GTK 优先走 Wayland，旧版 Electron（Chromium 无 ozone）初始化显示失败报 `Gtk-WARNING **: cannot open display`。在包装器的 makeWrapper 里加 `--set GDK_BACKEND x11`（用 `--set` 而非 `--set-default`：用户会话可能全局设了 `GDK_BACKEND=wayland`，而旧 Electron 根本无 Wayland 支持，保留用户值只会失败）。配套注意旧 Electron 的 rpath：新版 Electron 把大部分 X 库静态打包进二进制，旧版（如 Electron 9）动态链接 `libXcursor`/`libXi`/`libXrender`/`libXtst`，且新版 nixpkgs 已把 `libgbm` 从 `mesa` 拆出为独立包，`electronLibPath` 需按版本条件补齐，否则报 `error while loading shared libraries`
