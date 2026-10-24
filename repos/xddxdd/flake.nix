@@ -141,7 +141,6 @@
             kata-containers = import ./modules/kata-containers.nix;
             lyrica = import ./modules/lyrica.nix;
             nix-cache-attic = import ./modules/nix-cache-attic.nix;
-            nix-cache-cachix = import ./modules/nix-cache-cachix.nix;
             openssl-conf = import ./modules/openssl-conf.nix;
             openssl-gost-engine = import ./modules/openssl-gost-engine.nix;
             openssl-oqs-provider = import ./modules/openssl-oqs-provider.nix;

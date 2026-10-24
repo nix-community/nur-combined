@@ -1,9 +1,7 @@
 rec {
   # Binary cache keys
-  atticUrl = "https://attic.xuyh0120.win/lantian";
-  atticPublicKey = "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=";
-  cachixUrl = "https://xddxdd.cachix.org";
-  cachixPublicKey = "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8=";
+  atticUrl = "https://cache.lantian.pub/lantian";
+  atticPublicKey = "cache.lantian.pub:WVGO7vsRMSEN+h7Lp7kv6SAmrkEXgUGbbXm7jMDjBuQ=";
 
   # Backwards compatibility
   url = atticUrl;
