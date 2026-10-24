@@ -25,11 +25,13 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "ttlns";
     repo = "Selenium-Driverless";
-    rev = "ca333fd88b0b7722ac128e08deccbb5ffbd66b39";
-    hash = "sha256-wk+0W888dx62hNjZVzzVDHXMs6VNtXRBRWEM1rOe9yc=";
+    rev = "117fe84283535c976c973b9dfe0b3776b8f36b46";
+    hash = "sha256-eT3fzWjXT9Q/jQNina5YpbLMdaZN8lRy2/1TL0WnWVo=";
   };
 
+  /*
   patches = [
+    # superseded by https://github.com/ttlns/Selenium-Driverless/commit/a2e101d23d5e52fc46624622e2758e45fefa6892
     # remove license nagger
     # https://github.com/ttlns/Selenium-Driverless/issues/122
     # https://github.com/milahu/selenium_driverless
@@ -37,6 +39,7 @@ buildPythonPackage rec {
       url = "https://github.com/milahu/selenium_driverless/commit/93f02860142e1db6133cc79bff824844ab89b564.patch";
       hash = "sha256-6kibaCYogqyUWN6uJrOkzs0KmD3XU+RRsGqKXbLz4ps=";
     })
+    # merged in https://github.com/ttlns/Selenium-Driverless/commit/9d3ba72a899a0ac1d3f9054b55d6f26d153fd3d5
     # fix for numpy 2
     # https://github.com/ttlns/Selenium-Driverless/pull/345
     (fetchurl {
@@ -44,6 +47,7 @@ buildPythonPackage rec {
       hash = "sha256-J7sqznhWVUvm/oNoMZ+LoKqbAkqs3Dnc8FY9q5u1O5o=";
     })
   ];
+  */
 
   nativeBuildInputs = [
     setuptools
@@ -75,7 +79,8 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Undetected Selenium without usage of chromedriver";
     homepage = "https://github.com/ttlns/Selenium-Driverless";
-    license = licenses.cc-by-nc-sa-40;
+    # license was changed to MIT license in https://github.com/ttlns/Selenium-Driverless/commit/dd5e7e51395e96e3844f4440c4e86a2bc98e9aef
+    license = licenses.mit;
     maintainers = with maintainers; [ ];
   };
 }
