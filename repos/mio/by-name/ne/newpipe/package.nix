@@ -61,6 +61,12 @@ stdenv.mkDerivation (finalAttrs: {
       > local.properties
 
     echo "android.aapt2FromMavenOverride=${aapt2}" >> gradle.properties
+
+    # assembleRelease depends on lintVital* while checkReleaseBuilds is true.
+    # Those tasks resolve lint-gradle and are what records it in the MITM lockfile.
+    # Deps generation rebuilds this patched tree and runs the same Gradle task.
+    sed -i '/abortOnError = false/a\        checkReleaseBuilds = false' app/build.gradle.kts
+    cat ${./disable-lint.gradle.kts} >> build.gradle.kts
   '';
 
   nativeBuildInputs = [
@@ -74,7 +80,9 @@ stdenv.mkDerivation (finalAttrs: {
   mitmCache = gradle.fetchDeps {
     inherit (finalAttrs) pname;
     pkg = finalAttrs.finalPackage;
-    data = if stdenv.hostPlatform.isDarwin then ./deps-darwin.json else ./deps-linux.json;
+    # Single lockfile for all platforms: aapt2 comes from androidenv (not Maven) and lint is
+    # disabled, so Linux and Darwin resolve the same artifacts.
+    data = ./deps.json;
     silent = false;
     useBwrap = false;
   };
@@ -93,6 +101,7 @@ stdenv.mkDerivation (finalAttrs: {
     "-Dorg.gradle.java.home=${jdk21}"
     "-Dfile.encoding=utf-8"
     "-Dorg.gradle.project.android.aapt2FromMavenOverride=${aapt2}"
+    # Global lint task. Vital tasks are not registered once checkReleaseBuilds is false.
     "-x"
     "lint"
   ];

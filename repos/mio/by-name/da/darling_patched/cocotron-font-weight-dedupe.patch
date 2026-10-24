@@ -1,0 +1,48 @@
+--- a/AppKit/NSFont.m
++++ b/AppKit/NSFont.m
+@@ -105,15 +105,6 @@
+ @end
+ #endif
+ 
+-const NSFontWeight NSFontWeightUltraLight = -0.8;
+-const NSFontWeight NSFontWeightThin = -0.6;
+-const NSFontWeight NSFontWeightLight = -0.4;
+-const NSFontWeight NSFontWeightRegular = 0.0;
+-const NSFontWeight NSFontWeightMedium = 0.23;
+-const NSFontWeight NSFontWeightSemibold = 0.3;
+-const NSFontWeight NSFontWeightBold = 0.4;
+-const NSFontWeight NSFontWeightHeavy = 0.56;
+-const NSFontWeight NSFontWeightBlack = 0.62;
+ 
+ @implementation NSFont
+ 
+--- a/AppKit/include/AppKit/NSFont.h
++++ b/AppKit/include/AppKit/NSFont.h
+@@ -18,6 +18,7 @@
+ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
+ 
+ #import <AppKit/NSCell.h>
++#import <AppKit/NSFontDescriptor.h>
+ #import <ApplicationServices/ApplicationServices.h>
+ #import <Foundation/Foundation.h>
+ 
+@@ -54,19 +55,6 @@
+     NSFontAntialiasedIntegerAdvancementsRenderingMode,
+ } NSFontRenderingMode;
+ 
+-// A font weight on a [-1, 1] scale, 0 being regular (10.11).
+-typedef CGFloat NSFontWeight;
+-
+-APPKIT_EXPORT const NSFontWeight NSFontWeightUltraLight;
+-APPKIT_EXPORT const NSFontWeight NSFontWeightThin;
+-APPKIT_EXPORT const NSFontWeight NSFontWeightLight;
+-APPKIT_EXPORT const NSFontWeight NSFontWeightRegular;
+-APPKIT_EXPORT const NSFontWeight NSFontWeightMedium;
+-APPKIT_EXPORT const NSFontWeight NSFontWeightSemibold;
+-APPKIT_EXPORT const NSFontWeight NSFontWeightBold;
+-APPKIT_EXPORT const NSFontWeight NSFontWeightHeavy;
+-APPKIT_EXPORT const NSFontWeight NSFontWeightBlack;
+-
+ @interface NSFont : NSObject <NSCopying> {
+     NSString *_name;
+     CGFloat _pointSize;

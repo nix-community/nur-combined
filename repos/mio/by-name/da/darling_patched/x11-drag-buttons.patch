@@ -1,0 +1,14 @@
+--- a/AppKit/X11.backend/X11Display.m
++++ b/AppKit/X11.backend/X11Display.m
+@@ -1195,9 +1195,9 @@
+ 
+             if (ev->xmotion.state & Button1Mask) {
+                 type = NSLeftMouseDragged;
+-            } else if (ev->xmotion.state & Button2Mask) {
+-                type = NSRightMouseDragged;
+             } else if (ev->xmotion.state & Button3Mask) {
++                type = NSRightMouseDragged;
++            } else if (ev->xmotion.state & Button2Mask) {
+                 type = NSOtherMouseDragged;
+             }
+ 
