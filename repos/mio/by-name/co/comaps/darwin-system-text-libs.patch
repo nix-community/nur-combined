@@ -1,0 +1,29 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -169,7 +169,10 @@
+ endif()
+ 
+ # Should be on the root level, not in 3party, so tests can get these dependencies.
+-if (PLATFORM_LINUX)
++# Vendored FreeType/HarfBuzz/ICU are not built with WITH_SYSTEM_PROVIDED_3PARTY,
++# and upstream only searches for the system packages on Linux. Desktop code still
++# links Freetype::Freetype, harfbuzz::harfbuzz and ICU::i18n on macOS.
++if (PLATFORM_LINUX OR PLATFORM_MAC)
+   find_package(ICU COMPONENTS uc i18n data REQUIRED)
+   find_package(Freetype REQUIRED)
+   find_package(harfbuzz REQUIRED)
+diff --git a/libs/i18n/transliteration.cpp b/libs/i18n/transliteration.cpp
+--- a/libs/i18n/transliteration.cpp
++++ b/libs/i18n/transliteration.cpp
+@@ -54,8 +54,8 @@
+     return;
+ 
+   // This function should be called before the first ICU operation that will require the loading of
+-  // an ICU data file. On Linux, data file is loaded automatically from the shared library.
+-#ifndef OMIM_OS_LINUX
++  // an ICU data file. On Linux and macOS Nix builds, data is loaded from the shared library.
++#if !defined(OMIM_OS_LINUX) && !defined(OMIM_OS_MAC)
+   u_setDataDirectory(icuDataDir.c_str());
+ #else
+   UNUSED_VALUE(icuDataDir);
