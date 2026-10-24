@@ -5,13 +5,13 @@
 }:
 pkgs.appimageTools.wrapAppImage rec {
   pname = "hayase";
-  version = "6.5.8";
+  version = "6.5.10";
 
   src = pkgs.appimageTools.extract {
     inherit pname version;
     src = pkgs.fetchurl {
       url = "https://api.hayase.watch/files/linux-hayase-${version}-linux.AppImage";
-      hash = "sha256-OTMfw7NhYUfNYFtdoqzaO9qxUNPHxvopXJz0glnUXo4=";
+      hash = "sha256-i2NhyoXboKMV735QkTiZKvghgu5z2gbmPVqEO5fBZnc=";
     };
   };
 
