@@ -497,6 +497,12 @@ lib.mkOption {
               description = "Name of the context file to create/update during project initialization";
             };
 
+            max_background_jobs = lib.mkOption {
+              type = lib.types.nullOr lib.types.int;
+              default = 50;
+              description = "How many background shell jobs may run at once. Jobs that have finished never count against it. 0 or negative restores the default.";
+            };
+
             notifications = lib.mkOption {
               type = lib.types.nullOr (
                 lib.types.enum [
@@ -520,7 +526,7 @@ lib.mkOption {
             request_timeout = lib.mkOption {
               type = lib.types.nullOr lib.types.int;
               default = 60;
-              description = "Timeout in seconds for each LLM API request. Streaming responses are aborted only after this much inactivity, so slow but active streams are never killed. 0 disables it, negative values are invalid.";
+              description = "Timeout in seconds for each LLM API request. Streaming responses are aborted only after this much inactivity between tokens, so slow but active streams are never killed; the wait for the first token gets at least five minutes for prompt prefill. 0 disables it, negative values are invalid.";
             };
 
             skills_paths = lib.mkOption {
