@@ -18,6 +18,7 @@ rec {
         miodroid
         local-ai
         toshy
+        cutefish
       ];
     }
   );
@@ -28,4 +29,5 @@ rec {
   miodroid = ./miodroid.nix;
   local-ai = ../by-name/lo/local-ai/module.nix;
   toshy = ../by-name/to/toshy/nixos-module.nix;
+  cutefish = ./cutefish.nix;
 }

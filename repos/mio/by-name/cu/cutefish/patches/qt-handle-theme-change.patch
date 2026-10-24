@@ -1,0 +1,15 @@
+diff --git a/platformtheme/platformtheme.cpp b/platformtheme/platformtheme.cpp
+index c46068a..c409457 100644
+--- a/platformtheme/platformtheme.cpp
++++ b/platformtheme/platformtheme.cpp
+@@ -56,9 +56,7 @@ PlatformTheme::PlatformTheme()
+             &PlatformTheme::onFontChanged);
+     connect(m_hints, &HintsSettings::iconThemeChanged, this, &PlatformTheme::onIconThemeChanged);
+     connect(m_hints, &HintsSettings::cursorThemeChanged, this, [] {
+-        for (auto *window : qGuiApp->allWindows()) {
+-            QWindowSystemInterface::handleThemeChange(window);
+-        }
++        QWindowSystemInterface::handleThemeChange();
+     });
+     connect(m_hints, &HintsSettings::darkModeChanged, this, [] {
+         QWindowSystemInterface::handleThemeChange();

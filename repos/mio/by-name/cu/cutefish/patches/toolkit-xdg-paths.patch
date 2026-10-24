@@ -1,0 +1,154 @@
+diff --git a/src/base/paths.cpp b/src/base/paths.cpp
+index 77d4749..1295f02 100644
+--- a/src/base/paths.cpp
++++ b/src/base/paths.cpp
+@@ -4,6 +4,7 @@
+ #include "base/paths.h"
+ 
+ #include <optional>
++#include <cstdlib>
+ #include <pwd.h>
+ #include <regex>
+ #include <unistd.h>
+@@ -12,6 +13,27 @@
+ 
+ namespace cutefish::base::paths {
+ 
++// XDG lists are colon-separated. Empty entries are skipped.
++static std::vector<std::string> splitColon(const char *value)
++{
++    std::vector<std::string> parts;
++    if (!value || !*value)
++        return parts;
++    const std::string text(value);
++    size_t start = 0;
++    while (start <= text.size()) {
++        size_t end = text.find(':', start);
++        if (end == std::string::npos)
++            end = text.size();
++        if (end > start)
++            parts.push_back(text.substr(start, end - start));
++        if (end == text.size())
++            break;
++        start = end + 1;
++    }
++    return parts;
++}
++
+ std::string home()
+ {
+     static const std::string directory = [] {
+@@ -52,11 +74,17 @@ std::string runtimeDirectory()
+ 
+ std::vector<std::string> dataDirectories()
+ {
++    const std::vector<std::string> fromEnv = splitColon(std::getenv("XDG_DATA_DIRS"));
++    if (!fromEnv.empty())
++        return fromEnv;
+     return {"/usr/local/share", "/usr/share"};
+ }
+ 
+ std::vector<std::string> configDirectories()
+ {
++    const std::vector<std::string> fromEnv = splitColon(std::getenv("XDG_CONFIG_DIRS"));
++    if (!fromEnv.empty())
++        return fromEnv;
+     return {"/etc/xdg"};
+ }
+ 
+@@ -123,8 +151,13 @@ std::string findExecutable(const std::string& program)
+     if (program.find('/') != std::string::npos)
+         return access(program.c_str(), X_OK) == 0 ? program : std::string();
+ 
+-    const std::string directories[] = {home() + "/.local/bin", "/usr/local/sbin", "/usr/local/bin",
+-                                       "/usr/sbin", "/usr/bin", "/sbin", "/bin"};
++    std::vector<std::string> directories = splitColon(std::getenv("PATH"));
++    if (directories.empty()) {
++        directories = {home() + "/.local/bin", "/usr/local/sbin", "/usr/local/bin",
++                       "/usr/sbin", "/usr/bin", "/sbin", "/bin"};
++    } else {
++        directories.insert(directories.begin(), home() + "/.local/bin");
++    }
+     for (const std::string& directory : directories) {
+         const std::string path = directory + "/" + program;
+         if (access(path.c_str(), X_OK) == 0)
+diff --git a/src/base/paths.h b/src/base/paths.h
+index f3157a7..de48f44 100644
+--- a/src/base/paths.h
++++ b/src/base/paths.h
+@@ -6,8 +6,9 @@
+ #include <string>
+ #include <vector>
+ 
+-// The user's and the system's standard directories. They are the XDG base
+-// directory defaults; the XDG_* variables are not read.
++// The user's and the system's standard directories. dataDirectories(),
++// configDirectories() and findExecutable() follow XDG_DATA_DIRS,
++// XDG_CONFIG_DIRS and PATH when those variables are set, and the XDG defaults otherwise.
+ namespace cutefish::base::paths {
+ 
+ std::string home();
+@@ -21,9 +22,9 @@ std::string cacheHome();
+ std::string stateHome();
+ // /run/user/<uid>
+ std::string runtimeDirectory();
+-// /usr/local/share and /usr/share
++// XDG_DATA_DIRS, or /usr/local/share and /usr/share
+ std::vector<std::string> dataDirectories();
+-// /etc/xdg
++// XDG_CONFIG_DIRS, or /etc/xdg
+ std::vector<std::string> configDirectories();
+ // ~/.config/cutefish/<name>.conf, a Cutefish process's own settings.
+ std::string cutefishConfig(const std::string& name);
+@@ -46,8 +47,8 @@ std::string userDirectory(UserDirectory directory);
+ // The same from another user-dirs.dirs file, for tests.
+ std::string userDirectory(UserDirectory directory, const std::string& userDirsFile);
+ 
+-// The program's path through ~/.local/bin and the system's binary
+-// directories, or itself when it has a slash; empty when not executable.
++// The program's path through ~/.local/bin and PATH, or itself when it has a
++// slash; empty when not executable.
+ std::string findExecutable(const std::string& program);
+ 
+ } // namespace cutefish::base::paths
+diff --git a/src/ui/icon_loader.cpp b/src/ui/icon_loader.cpp
+index 37ee9f3..ab489fa 100644
+--- a/src/ui/icon_loader.cpp
++++ b/src/ui/icon_loader.cpp
+@@ -35,6 +35,7 @@
+ #include "modules/svg/include/SkSVGSVG.h"
+ 
+ #include "base/file.h"
++#include "base/paths.h"
+ #include "base/thread_pool.h"
+ #include "ui/embedded_files.h"
+ #include "ui/theme.h"
+@@ -61,8 +62,8 @@ static std::vector<std::string> iconBases()
+         bases.push_back(home + "/.icons");
+         bases.push_back(home + "/.local/share/icons");
+     }
+-    bases.push_back("/usr/local/share/icons");
+-    bases.push_back("/usr/share/icons");
++    for (const std::string& directory : cutefish::base::paths::dataDirectories())
++        bases.push_back(directory + "/icons");
+     return bases;
+ }
+ 
+@@ -833,8 +834,15 @@ std::string IconLoader::themeIconPath(const std::string& name, int size, double
+     for (const char* extension : kExtensions) {
+         if (!path.empty())
+             break;
+-        if (std::filesystem::exists("/usr/share/pixmaps/" + name + extension))
+-            path = "/usr/share/pixmaps/" + name + extension;
++        for (const std::string& directory : cutefish::base::paths::dataDirectories()) {
++            const std::string candidate = directory + "/pixmaps/" + name + extension;
++            if (std::filesystem::exists(candidate)) {
++                path = candidate;
++                break;
++            }
++        }
++        if (path.empty() && std::filesystem::exists(std::string("/usr/share/pixmaps/") + name + extension))
++            path = std::string("/usr/share/pixmaps/") + name + extension;
+     }
+     m_paths.emplace(key, path);
+     return path;

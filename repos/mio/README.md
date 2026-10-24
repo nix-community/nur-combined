@@ -33,6 +33,19 @@ imports = [ inputs.mio.homeModules.toshy ];
 services.toshy.enable = true;
 ```
 
+Cutefish (https://cutefish.org/) is a Wayland desktop. The module installs the session and its applications. Pick **Cutefish (Wayland)** in SDDM, GDM or LightDM; it does not replace the display manager.
+
+```nix
+imports = [ inputs.mio.nixosModules.cutefish ];
+# or inputs.mio.legacyPackages.${system}.modules.cutefish
+
+services.desktopManager.cutefish.enable = true;
+services.displayManager.sddm.enable = true; # or gdm / lightdm
+services.displayManager.sddm.wayland.enable = true;
+```
+
+`cutefish-dm` is also packaged (`pkgs.cutefish-dm`) and is left disabled. Languages besides the ones in `i18n.supportedLocales` are not generated into the NixOS locale archive.
+
 Use without nur: add to flake.nix inputs
 
 ```
