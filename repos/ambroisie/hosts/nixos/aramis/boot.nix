@@ -20,7 +20,6 @@
       ];
       luks.devices.crypt = {
         device = "/dev/nvme0n1p1";
-        preLVM = true;
       };
     };
 
