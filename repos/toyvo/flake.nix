@@ -18,7 +18,6 @@
     };
     ekapkgs.url = "github:ekala-project/ekapkgs";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    herdr.url = "github:herdrdev/herdr";
     hermes-agent.url = "github:NousResearch/hermes-agent";
 
     home-manager = {
@@ -60,6 +59,7 @@
     rust-overlay.url = "github:oxalica/rust-overlay";
     sops-nix.url = "github:Mic92/sops-nix";
     treefmt-nix.url = "github:numtide/treefmt-nix";
+    tuios.url = "github:Gaurav-Gosain/tuios";
     zed.url = "github:zed-industries/zed";
   };
 

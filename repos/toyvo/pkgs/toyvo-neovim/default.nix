@@ -8,8 +8,6 @@
   git,
   ripgrep,
   fd,
-  fetchFromGitHub,
-  vimUtils,
   lua-language-server,
   rust-analyzer,
   typescript-language-server,
@@ -23,32 +21,6 @@
 
 if inputs ? "nvf" then
   let
-    # avante.nvim upstream added hard dependencies on
-    # ColinKennedy/mega.cmdparse (which needs ColinKennedy/mega.logging)
-    # that nvf does not package yet, so `require("mega.cmdparse")` in
-    # avante's setup fails on startup. Vendor them here and put them on the
-    # runtimepath via extraPlugins until nvf fixes it upstream.
-    mega-logging = vimUtils.buildVimPlugin {
-      pname = "mega.logging";
-      version = "0-unstable-194ad8c";
-      src = fetchFromGitHub {
-        owner = "ColinKennedy";
-        repo = "mega.logging";
-        rev = "194ad8c300186e73c3eb1ebeb3ede42eb219be3b";
-        hash = "sha256-hV7uJyu0XszGLOvcRcDNDE9P6d8GTxBX+la1lQVxx2s=";
-      };
-    };
-    mega-cmdparse = vimUtils.buildVimPlugin {
-      pname = "mega.cmdparse";
-      version = "0-unstable-47ea5b1";
-      dependencies = [ mega-logging ];
-      src = fetchFromGitHub {
-        owner = "ColinKennedy";
-        repo = "mega.cmdparse";
-        rev = "47ea5b1b23059fbb79a8e262002f32e7cd8aed90";
-        hash = "sha256-RgRsHt1O6UQ/90JeAkHvdpgfjF+I25zg/oGV0cK7t6U=";
-      };
-    };
     nvfConfig = inputs.nvf.lib.neovimConfiguration {
       inherit pkgs;
       modules = [
@@ -301,47 +273,61 @@ if inputs ? "nvf" then
                 };
               };
             };
-            assistant.avante-nvim = {
-              enable = true;
-              setupOpts = {
-                provider = "opencode";
-                auto_suggestions_provider = "opencode";
-                providers = {
-                  opencode = {
-                    __inherited_from = "openai";
-                    api_key_name = "OPENCODE_API_KEY";
-                    endpoint = "https://opencode.ai/zen/v1";
-                    model = "deepseek-v4-flash-free";
-                    timeout = 10000;
-                  };
-                };
-                behaviour = {
-                  auto_suggestions = true;
-                  auto_apply_diff_after_generation = false;
-                  enable_cursor_planning_mode = false;
-                  enable_claude_text_editor_tool_mode = false;
-                };
-                suggestion = {
-                  debounce = 300;
-                  throttle = 600;
-                };
-                windows = {
-                  position = "right";
-                  width = 40;
-                };
-                hints.enabled = true;
-              };
-            };
             binds.whichKey.enable = true;
             git.enable = true;
           };
         }
         {
-          # Runtimepath dependencies of avante.nvim missing from nvf, see above.
-          config.vim.extraPlugins = {
-            mega-logging.package = mega-logging;
-            mega-cmdparse.package = mega-cmdparse;
-          };
+          # Inline completions via OpenCode Go (OpenAI-compatible chat endpoint).
+          # These are chat models, not FIM models, so thinking is disabled to
+          # keep latency usable. Go requires an x-opencode-session header.
+          config.vim.startPlugins = [
+            pkgs.vimPlugins.plenary-nvim
+            pkgs.vimPlugins.minuet-ai-nvim
+          ];
+          config.vim.luaConfigRC.minuet = ''
+            require("minuet").setup({
+              provider = "openai_compatible",
+              request_timeout = 4,
+              throttle = 600,
+              debounce = 300,
+              n_completions = 1,
+              context_window = 8000,
+              provider_options = {
+                openai_compatible = {
+                  name = "OpenCode Go",
+                  end_point = "https://opencode.ai/zen/go/v1/chat/completions",
+                  api_key = "OPENCODE_API_KEY",
+                  model = "deepseek-v4.1-flash",
+                  stream = true,
+                  optional = {
+                    max_tokens = 128,
+                    temperature = 0,
+                    thinking = { type = "disabled" },
+                  },
+                  transform = {
+                    function(d)
+                      d.headers["x-opencode-session"] = "nvim-minuet"
+                      return d
+                    end,
+                  },
+                },
+              },
+              virtualtext = {
+                auto_trigger_ft = { "*" },
+                auto_trigger_ignore_ft = {
+                  "gitcommit", "jjdescription", "markdown", "text", "help", "TelescopePrompt", "",
+                },
+                keymap = {
+                  accept = "<C-y>",
+                  accept_line = "<C-l>",
+                  next = "<C-]>",
+                  prev = "<C-\\>",
+                  dismiss = "<C-e>",
+                },
+              },
+            })
+          '';
         }
       ];
     };
