@@ -1725,6 +1725,13 @@
     "slug": "pwnfox"
   },
   {
+    "slug": "pystol",
+    "license": {
+      "tag": "predefined",
+      "shortName": "unlicense"
+    }
+  },
+  {
     "slug": "pywalfox"
   },
   {

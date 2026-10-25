@@ -1449,10 +1449,10 @@
     };
     "bookmark-search-plus-2" = buildMozillaXpiAddon {
       pname = "bookmark-search-plus-2";
-      version = "2.0.137";
+      version = "2.0.139";
       addonId = "bookmarksearchplus2@aafn.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4648504/bookmark_search_plus_2-2.0.137.xpi";
-      sha256 = "5a9d161ee6b9c2bf518eca0fe15cd6c7b90dc9eb2a060ccec6b6b4e99ed56c40";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5163841/bookmark_search_plus_2-2.0.139.xpi";
+      sha256 = "8eb94bca2d4811f09d856d90b0b0175cae951530d66327b6f14da6da58e8a692";
       meta = with lib;
       {
         homepage = "https://github.com/aaFn/Bookmark-search-plus-2/wiki";
@@ -4088,10 +4088,10 @@
     };
     "external-application" = buildMozillaXpiAddon {
       pname = "external-application";
-      version = "0.6.1";
+      version = "0.6.3";
       addonId = "{65b77238-bb05-470a-a445-ec0efe1d66c4}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4914536/external_application-0.6.1.xpi";
-      sha256 = "954bdc05103e86ffda9cc9e3721d18778bc70c7d6279c167ddf7a32a99291366";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5163556/external_application-0.6.3.xpi";
+      sha256 = "30941b76862e9c9dbcbbdd7282f50175030745d7f40a07b4f245f8c86b81b7a4";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/external-application-button.html";
@@ -11225,6 +11225,20 @@
         platforms = platforms.all;
       };
     };
+    "pystol" = buildMozillaXpiAddon {
+      pname = "pystol";
+      version = "1.12";
+      addonId = "pystol@zacoons.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4713240/pystol-1.12.xpi";
+      sha256 = "9f1dad172d4de55b23e4196a17c1277c4c0bdc20e75373392acd935b2112082f";
+      meta = with lib;
+      {
+        description = "(AKA. PYSToL) shoots temptation in the face";
+        license = licenses.unlicense;
+        mozPermissions = [ "storage" "*://*.youtube.com/*" ];
+        platforms = platforms.all;
+      };
+    };
     "pywalfox" = buildMozillaXpiAddon {
       pname = "pywalfox";
       version = "2.1.1";
@@ -12381,10 +12395,10 @@
     };
     "search-engines-helper" = buildMozillaXpiAddon {
       pname = "search-engines-helper";
-      version = "3.5.1";
+      version = "3.5.2";
       addonId = "{65a2d764-7358-455b-930d-5afa86fb5ed0}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5133757/search_engines_helper-3.5.1.xpi";
-      sha256 = "3ced43acca569dc80e00dba83ebaa25310503c66c7a42ee5cdd65b8bf1b324bd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5164015/search_engines_helper-3.5.2.xpi";
+      sha256 = "2077359cd210d8b1fec80736fe78b6b51ec2d48552eb306b8444483c3e6eabb9";
       meta = with lib;
       {
         homepage = "https://github.com/soufianesakhi/firefox-search-engines-helper";
@@ -14928,10 +14942,10 @@
     };
     "untrap-for-youtube" = buildMozillaXpiAddon {
       pname = "untrap-for-youtube";
-      version = "12.3";
+      version = "12.4";
       addonId = "{2662ff67-b302-4363-95f3-b050218bd72c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5091294/untrap_for_youtube-12.3.xpi";
-      sha256 = "d28e12b2e90680995e4fbc38dc4aae952cc106df19da770c59994211e9fee458";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5163656/untrap_for_youtube-12.4.xpi";
+      sha256 = "81a67343e57f5e13054f327982e69ae9ef1bb91c84a9b404356fd0f992d231b9";
       meta = with lib;
       {
         homepage = "http://untrap.app";
