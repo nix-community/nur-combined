@@ -1,0 +1,39 @@
+--- a/src/modules/GameManager/FileManager.py
++++ b/src/modules/GameManager/FileManager.py
+@@ -17,6 +17,20 @@
+ from run_config import __ROOT__
+ 
+ 
++def RestoreWriteBit(path):
++    """Re-add the owner write bit over a tree copied out of the Nix store.
++
++    copytree replays the source mode bits, and everything the store holds is
++    read-only, so the copy lands unwritable and nothing may touch it again.
++    """
++
++    for root, dirs, files in os.walk(path):
++        for name in dirs + files:
++            entry = os.path.join(root, name)
++            os.chmod(entry, os.stat(entry).st_mode | 0o200)
++    os.chmod(path, os.stat(path).st_mode | 0o200)
++
++
+ class FileManager:
+ 
+     _window: ttk.Window = None
+@@ -242,11 +256,15 @@
+         if filemgr.is_extracting is False:
+             destination = os.path.join(filemgr.contentID, patchinfo.ModName)
+             os.makedirs(destination, exist_ok=True)
++            RestoreWriteBit(destination)
+             shutil.copytree(source, destination, dirs_exist_ok=True)
++            RestoreWriteBit(destination)
+         else:
+             destination = os.path.join(os.getcwd(), "Extracted Files", patchinfo.ModName)
+             os.makedirs(destination, exist_ok=True)
++            RestoreWriteBit(destination)
+             shutil.copytree(source, destination, dirs_exist_ok=True)
++            RestoreWriteBit(destination)
+ 
+         log.info(f"Copying Mod Folder. {source} to {destination}")
+ 

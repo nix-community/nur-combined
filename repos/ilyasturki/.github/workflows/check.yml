@@ -1,0 +1,116 @@
+name: check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  # main is the only ref that populates the cache, and a cold matrix runs for
+  # hours; cancelling it on the next push means it never finishes one.
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # Citron is a yuzu-lineage C++ tree, PCSX2 and Panda3DS are large C++ trees
+    # with vendored deps, and ryujinx-canary is a full .NET restore; none of them
+    # finish anywhere near the 6 h default on a cold cache.
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          [
+            atmosphere,
+            citron-neo,
+            eden,
+            hekate,
+            nx-optimizer,
+            panda3ds,
+            pcsx2,
+            ryujinx-canary,
+          ]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      # The Citron source alone is ~490 MB before a single object is compiled.
+      - name: Reclaim runner disk
+        run: |
+          sudo rm -rf /usr/local/lib/android /usr/share/dotnet /opt/ghc \
+            /usr/local/share/boost /usr/local/lib/node_modules
+          df -h /
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v23
+
+      - name: Set up Cachix
+        uses: cachix/cachix-action@v17
+        # A cache outage, or a fork PR with no token, must not mask the build.
+        continue-on-error: true
+        with:
+          name: emulation-nix
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          # Only main populates the cache: a pull request is an unreviewed bump,
+          # and fork PRs have no token to push with anyway.
+          skipPush: ${{ github.ref != 'refs/heads/main' }}
+
+      - name: Build
+        run: nix build --print-build-logs '.#${{ matrix.package }}'
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v23
+
+      - name: Evaluate every flake output
+        run: nix flake check --no-build --all-systems
+
+      - name: Formatting
+        run: nix fmt -- --ci
+
+      # nix fmt only covers *.nix, and update.sh rewrites every package in the repo.
+      - name: Shell
+        run: nix develop --command shellcheck scripts/update.sh
+
+      - name: Workflows
+        run: nix develop --command actionlint
+
+  # update.yml dispatches this run against its bump branch; a dispatch on main
+  # never matches, so the run below cannot loop.
+  merge:
+    needs: [build, lint]
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/update/packages'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: write
+      pull-requests: write
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      # --match-head-commit: an update run that force-pushed mid-build leaves a
+      # head this run never built.
+      - name: Merge the bump
+        run: |
+          gh pr merge update/packages --squash --delete-branch \
+            --match-head-commit "$GITHUB_SHA" \
+            --body ""
+
+      # A merge made with GITHUB_TOKEN raises no push run, and main's run is the
+      # only one that fills the cache.
+      - name: Build main into the cache
+        run: gh workflow run check.yml --ref main
