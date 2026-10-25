@@ -18,7 +18,13 @@
     "aarch64-linux": {
       "repo": "ForkPrince/xuan",
       "file": "xuan-{version}-linux-aarch64.tar.gz",
-      "hash": "sha256-HSvBaGjQjmfGpryqNoFvS9l0+VNZilbT4eodT9buoWo=",
+      "hash": "sha256-aDDZ8ky2Ad/JJa50a6UOiZ/4afd4+/m7xtjSuhsTkHw=",
+      "version": "0.3.0"
+    },
+    "aarch64-darwin": {
+      "repo": "ForkPrince/xuan",
+      "file": "xuan-{version}-macos-arm64.zip",
+      "hash": "sha256-07tOXfKLgDlWDcY8yBL2g/BxE3qBFzzPXGNd3od1vBs=",
       "version": "0.3.0"
     }
   }
