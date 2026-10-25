@@ -7,7 +7,7 @@
 
 let
   pname = "secureboot-objects";
-  version = "1.7.0";
+  version = "1.7.1";
   baseUrl = "https://github.com/microsoft/secureboot_objects/releases/download/v${version}-signed";
   # The authenticated updates must retain Microsoft's KEK signatures;
   # rebuilding the source cannot produce equivalent usable firmware objects.
@@ -18,15 +18,15 @@ let
   sources = {
     signed2011 = {
       url = "${baseUrl}/edk2-2011-signed-secureboot-binaries.tar.gz";
-      hash = "sha256-kox3MafkMU7xmKI1Fpz72rsYS3nBozPPjWrqrn3CVj4=";
+      hash = "sha256-sszsPa/Rmk2VwteaqyIeggaVmYbxaeSEfrxNPHv6hHU=";
     };
     signed2023 = {
       url = "${baseUrl}/edk2-2023-signed-secureboot-binaries.tar.gz";
-      hash = "sha256-MEdX2g/M/pwVRGyaSc5sDwzDYqFLvusQOC0qP4fbfWI=";
+      hash = "sha256-ddnGbTS1ARyTscwNJZhVqVNUSnPKN8oCGMXtmZ+ri9I=";
     };
     optional = {
       url = "${baseUrl}/edk2-2011-optional-signed-secureboot-binaries.tar.gz";
-      hash = "sha256-9ar8H1rP6RY14JnigeYiabFA+4A3Emk9yrlqgR3fWzU=";
+      hash = "sha256-3VpwUTDVc0B5EF5ZzXO9p2992Zj6MM68+DSh9qweDuE=";
     };
   };
   signed2011Src = fetchurl sources.signed2011;

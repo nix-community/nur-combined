@@ -61,33 +61,33 @@
   },
   {
     "pname": "Aiursoft.CSTools",
-    "version": "10.0.6",
-    "hash": "sha256-peCIaoANHuza5DVMPggbU3Tv4BhgD66Ij0PSocOs0iI="
+    "version": "10.0.8",
+    "hash": "sha256-PhshHmfrrukmjFRD6utPAE4JvXE2IbC2zlE0Zvff7II="
   },
   {
     "pname": "Aiursoft.DbTools",
-    "version": "10.0.27",
-    "hash": "sha256-j9RvEiJpXGBAt0ohe7onDbaAq5mB4exjHD5qm5ZJtrs="
+    "version": "10.0.29",
+    "hash": "sha256-rrHEqkoYSTW2h3zrUOzwFdzwI0x6xItl4nvudQHT5+Q="
   },
   {
     "pname": "Aiursoft.DbTools.InMemory",
-    "version": "10.0.27",
-    "hash": "sha256-/JeZvvb5W3UMGh3A6nciXEwnN44NOv+699c+2MwYAC4="
+    "version": "10.0.29",
+    "hash": "sha256-siLviMchO7rHvrdgSf/Gkm1nMq4SHhQxNoE7TxvcYms="
   },
   {
     "pname": "Aiursoft.DbTools.MySql",
-    "version": "10.0.36",
-    "hash": "sha256-jjNOnpSdIYEMQVyW55bm5VdP6mDYc2OsVXuJw0sO/B4="
+    "version": "10.0.39",
+    "hash": "sha256-5FHxUuy4GCH9YngLSIFXtzxTSNpwA4XUFLV+AfowqM0="
   },
   {
     "pname": "Aiursoft.DbTools.Sqlite",
-    "version": "10.0.38",
-    "hash": "sha256-iRncAxaB7tNsKz7SymUnLR9lt5EerpaW+4XDiZIL2mI="
+    "version": "10.0.41",
+    "hash": "sha256-rR4fVyrU/BT0JznYVSCS/1SsXKJtMEAkVR71zoN5IbU="
   },
   {
     "pname": "Aiursoft.DbTools.Switchable",
-    "version": "10.0.27",
-    "hash": "sha256-YJhpUP6Z1TAI51OMviFhPg6aq2hEmEKr7egqAa5Ji9U="
+    "version": "10.0.29",
+    "hash": "sha256-84qVyCeRka/YRkksBeXfr5NT6/4iAJzkvw55vn3mQwY="
   },
   {
     "pname": "Aiursoft.Scanner",
@@ -96,23 +96,18 @@
   },
   {
     "pname": "Aiursoft.Scanner.Abstractions",
-    "version": "10.0.0",
-    "hash": "sha256-T3LQiBDqSYo0AzKKL/DgTqmhZZFcBNEMaKLX8cyVGSI="
-  },
-  {
-    "pname": "Aiursoft.Scanner.Abstractions",
     "version": "10.0.1",
     "hash": "sha256-RWmioyEUa/ooqjbvOlvqy7kTnhv6aq+cAU9j4qIzboc="
   },
   {
     "pname": "Aiursoft.UiStack",
-    "version": "10.0.29",
-    "hash": "sha256-s3aGY9kWFosUBGrWSPy1a8/03OPwYJfm+joxyqSD9Bo="
+    "version": "10.0.31",
+    "hash": "sha256-4hkSXagD3UXxQfgT+JxNcOOVK/W0I1C3ig/TVjgBCeM="
   },
   {
     "pname": "Aiursoft.WebTools",
-    "version": "10.0.17",
-    "hash": "sha256-TnJiRlWO9mGWmLd1Hki8SMecIbxo2lyUzgX6N5F3HJE="
+    "version": "10.0.19",
+    "hash": "sha256-nG03n5BAca9ebwSUBbhHYCVMUv1uIEG6tZcalGKJ+fY="
   },
   {
     "pname": "Aiursoft.WebTools.Abstractions",
@@ -136,13 +131,13 @@
   },
   {
     "pname": "EFCoreSecondLevelCacheInterceptor",
-    "version": "5.5.2",
-    "hash": "sha256-akmaF8/WhvJ3RL9HEdCRgx0edFyRvuvVqZC9VzumnWY="
+    "version": "5.6.0",
+    "hash": "sha256-xnXMSk8Gi05r7VWPtcIJykcuJSxhoR07xI5+/FLPFAs="
   },
   {
     "pname": "EFCoreSecondLevelCacheInterceptor.MemoryCache",
-    "version": "5.5.2",
-    "hash": "sha256-rFWHWXX6fBdnyoQajrCnQA5qmk7KyNciar6qZXrTqcA="
+    "version": "5.6.0",
+    "hash": "sha256-3qZA4oxw8jeMhWboGcHHOFy1yh5wfvTO0ghJQ1Kzes4="
   },
   {
     "pname": "Humanizer.Core",
@@ -151,8 +146,8 @@
   },
   {
     "pname": "JunitXml.TestLogger",
-    "version": "8.0.0",
-    "hash": "sha256-nd/pahkEh0TO08SCrgmPTND3ydSuyKbiyuFoJEs9ows="
+    "version": "8.1.0",
+    "hash": "sha256-o433qfDaG8Ujw2KUOg02JDaKgUanETIyqY/3xSxJYes="
   },
   {
     "pname": "Microsoft.ApplicationInsights",
@@ -706,7 +701,7 @@
   },
   {
     "pname": "System.IO.Hashing",
-    "version": "10.0.12",
-    "hash": "sha256-2RjeBEFopI4UinPoTG22+P6lcJY4SNxMA2MarZeVjdE="
+    "version": "10.0.13",
+    "hash": "sha256-UudWV2IQhjERtHAWD7oUcu4q2b1pOPzAOcsH7xdYszQ="
   }
 ]
