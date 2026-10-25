@@ -9,12 +9,19 @@
   hatchling,
   setuptools,
   fastmcp,
+  fastmcp-slim,
   kagiapi ? callPackage ./kagiapi.nix { },
   mcp,
+  mcp_1 ? mcp,
   pydantic,
   python-dateutil,
 }:
-
+let
+  # fastmcp is broken with mcp 2.x
+  fastmcp' = fastmcp.override {
+    fastmcp-slim = fastmcp-slim.override { mcp = mcp_1; };
+  };
+in
 buildPythonPackage (final: {
   pname = "kagimcp";
   version = "0.1.5-unstable-2026-07-07";
@@ -34,9 +41,9 @@ buildPythonPackage (final: {
 
   pythonRelaxDeps = true;
   dependencies = [
-    fastmcp
+    fastmcp'
     kagiapi
-    mcp
+    mcp_1
     pydantic
     python-dateutil
   ];
