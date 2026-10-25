@@ -1,4 +1,5 @@
 {
+  lib,
   stdenvNoCC,
   fetchurl,
   inkscape,
@@ -12,7 +13,16 @@
 stdenvNoCC.mkDerivation {
   name = "plymouth-logo.png";
   dontUnpack = true;
-  src = fetchurl { inherit url sha256; };
+  # Cloudflare 403s the Nixpkgs curl user-agent on wikia.nocookie.net.
+  src = fetchurl {
+    inherit url sha256;
+    curlOptsList = lib.optionals (lib.hasInfix "wikia.nocookie.net" url) [
+      "--user-agent"
+      "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+      "--referer"
+      "https://elderscrolls.fandom.com/"
+    ];
+  };
   nativeBuildInputs = [ inkscape ];
   buildPhase = ''
     runHook preBuild

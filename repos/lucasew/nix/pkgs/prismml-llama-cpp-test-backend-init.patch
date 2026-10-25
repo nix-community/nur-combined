@@ -1,0 +1,10 @@
+--- a/tests/test-llama-archs.cpp
++++ b/tests/test-llama-archs.cpp
+@@ -744,6 +744,7 @@
+ int main(int argc, char ** argv) {
+     // FIXME these tests are disabled in the CI for macOS-latest-cmake-arm64 because they are segfaulting
+     common_init();
++    llama_backend_init();
+     std::random_device rd;
+ 
+     llm_arch arch = LLM_ARCH_UNKNOWN;

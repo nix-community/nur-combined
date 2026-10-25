@@ -1,0 +1,11 @@
+--- a/tests/test-kv-mean-center.cpp
++++ b/tests/test-kv-mean-center.cpp
+@@ -332,6 +332,8 @@
+ int main() {
++    common_init();
++    llama_backend_init();
+     test_regression_safety();
+     test_q4_0_gate();
+     test_softmax_invariance();
+ 
+     return 0;

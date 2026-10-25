@@ -17,12 +17,22 @@
       hash = "sha256-8/oJa/GpMnbfvKjAmBrmX0E+L2hoStlUJLz9AjXavnI=";
     };
 
+    # Upstream llama-cpp patches target ggml-org v0.6.0 and do not apply here.
+    # With GGML_BACKEND_DL these tests must call llama_backend_init() first.
+    patches = [
+      ./prismml-llama-cpp-test-backend-init.patch
+      ./prismml-llama-cpp-kv-mean-center.patch
+    ];
+
+    # test-save-load-state requires the download fixture, so excluding
+    # test-download-model alone still runs that fixture. No network here.
+    disabledTests = prev.disabledTests ++ [ "test-save-load-state" ];
+
     # tools/ui lockfile matches ggml-org v0.3.0.
     npmDepsHash = "sha256-2Q7XhaLAArmviOLdQsNbYTfdyDE5pW9lR26cRHEVl9k=";
     npmDeps = fetchNpmDeps {
       name = "${final.pname}-${final.version}-npm-deps";
-      inherit (final) src;
-      inherit (prev) patches;
+      inherit (final) src patches;
       preBuild = ''
         pushd tools/ui
       '';
