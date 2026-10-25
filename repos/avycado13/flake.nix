@@ -129,15 +129,27 @@
       (mkNixos "pi0" inputs.nixpkgs system.aarch64-linux
         [ ]
         [
-          inputs.nixos-pi-zero-2.nixosModules.hardware
+          inputs.nixos-hardware.nixosModules.raspberry-pi-3
           inputs.nixos-pi-zero-2.nixosModules.sd-image
         ]
       )
 
-      (mkNixos "pi1" inputs.nixpkgs system.aarch64-linux [ ] [ ])
+      (mkNixos "pi1" inputs.nixpkgs system.aarch64-linux
+        [ ]
+        [
+          (homeManagerCfg {
+            pkgs = inputs.nixpkgs.legacyPackages.${system.aarch64-linux};
+          })
+        ]
+      )
       (mkNixos "pi2" inputs.nixpkgs system.aarch64-linux
         [ ]
-        [ "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix" ]
+        [
+          "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+          (homeManagerCfg {
+            pkgs = inputs.nixpkgs.legacyPackages.${system.x86_64-linux};
+          })
+        ]
       )
 
       (mkNixos "apollo1" inputs.nixpkgs "aarch64-linux"
@@ -172,7 +184,6 @@
         [
           inputs.srvos.nixosModules.server
           (homeManagerCfg {
-            userPackages = true;
             pkgs = inputs.nixpkgs.legacyPackages.${system.x86_64-linux};
           })
         ]

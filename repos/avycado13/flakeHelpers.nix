@@ -47,6 +47,20 @@ let
     };
   };
 
+  # Let hosts configure avy's dotfile modules without nesting under home-manager.users.avy.
+  homeDotsModule =
+    { config, ... }:
+    {
+      options.dots = lib.mkOption {
+        type = lib.types.attrsOf lib.types.anything;
+        default = { };
+        description = "Host-level settings forwarded to avy's Home Manager dots options";
+      };
+      config = lib.mkIf (config.dots != { }) {
+        home-manager.users.avy.dots = config.dots;
+      };
+    };
+
   homeManagerCfg =
     {
       userPackages ? true,
@@ -99,6 +113,7 @@ in
         ./modules/secrets
         inputs.mac-app-util.darwinModules.default
         inputs.home-manager.darwinModules.home-manager
+        homeDotsModule
         inputs.nix-index-database.darwinModules.nix-index
         inputs.nix-homebrew.darwinModules.nix-homebrew
         inputs.niks3.darwinModules.niks3-auto-upload
@@ -154,6 +169,7 @@ in
         inputs.nix-topology.nixosModules.default
         inputs.nix-index-database.nixosModules.nix-index
         inputs.home-manager.nixosModules.home-manager
+        homeDotsModule
         inputs.catppuccin.nixosModules.catppuccin
         inputs.srvos.nixosModules.mixins-terminfo
         inputs.niks3.nixosModules.niks3-auto-upload

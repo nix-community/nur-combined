@@ -1,5 +1,8 @@
 { lib, pkgs, ... }:
 {
+  imports = [
+    ./home.nix
+  ];
   networking.hostName = "pi2";
   networking.useDHCP = true;
 
@@ -16,17 +19,5 @@
   nix-mineral.enable = lib.mkForce false;
   services.smartd.enable = lib.mkForce false;
 
-  services.xserver.windowManager.jwm.enable = true;
-  services.xserver.enable = true;
-
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        user = "avy";
-        command = lib.getExe' pkgs.tuigreet "tuigreet"; # you may pass `--config` here
-      };
-    };
-  };
   system.stateVersion = "26.05";
 }

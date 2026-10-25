@@ -1,19 +1,10 @@
+{ lib, ... }:
 {
-  inputs,
-  ...
-}:
-let
   home = {
     username = "avy";
-    homeDirectory = "/home/avy";
-    stateVersion = "25.05";
+    homeDirectory = lib.mkDefault "/home/avy";
+    stateVersion = lib.mkDefault "25.05";
   };
-  helpers = import ../../flakeHelpers.nix inputs;
-in
-{
-  nixpkgs = helpers.nixpkgsCfg;
-
-  inherit home;
 
   imports = [
     ./dotfiles/shell/default.nix

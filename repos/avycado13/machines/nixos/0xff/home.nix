@@ -1,35 +1,11 @@
-{ inputs, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   programs.zsh.enable = true;
   users.users.avy.shell = pkgs.zsh;
-  home-manager = {
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    extraSpecialArgs = { inherit inputs; };
-    backupFileExtension = "bak";
-    users.avy = {
-      imports = [
-        inputs.sops-nix.homeManagerModules.sops
-        inputs.nix-index-database.homeModules.nix-index
-        ../../../modules/secrets/home.nix
-        ../../../users/avy/sops.nix
-        ../../../users/avy/dotfiles/shell/default.nix
-        ../../../users/avy/dotfiles/editor/default.nix
-      ];
+  dots.shell.enable = true;
+  dots.editor.enable = true;
 
-      # User services cannot read the host's root-only SSH key.
-      sops.age.sshKeyPaths = lib.mkForce [ ];
-
-      dots.shell.enable = true;
-      dots.editor.enable = true;
-
-      home = {
-        username = "avy";
-        homeDirectory = "/home/avy";
-        stateVersion = "26.05";
-      };
-
-      programs.home-manager.enable = true;
-    };
-  };
+  # User services cannot read the host's root-only SSH key.
+  home-manager.users.avy.sops.age.sshKeyPaths = lib.mkForce [ ];
+  home-manager.users.avy.home.stateVersion = lib.mkForce "26.05";
 }

@@ -1,5 +1,5 @@
 {
-  home-manager.users.avy.dots = {
+  dots = {
     shell = {
       enable = true;
       # profiling.enable = true;
@@ -23,8 +23,10 @@
     devenv = {
       enable = true;
       asic.enable = true;
-      ai.enable = true;
-      ai.codex.enable = true;
+      ai = {
+        enable = true;
+        codex.enable = true;
+      };
     };
     theme.enable = true;
     syncthing.enable = true;

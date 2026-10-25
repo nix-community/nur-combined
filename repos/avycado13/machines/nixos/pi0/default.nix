@@ -74,9 +74,8 @@
     };
   };
 
-  # Hardware config (device tree overlays, kernel, zram, wifi firmware) and
-  # base sd-image settings (image.fileName, extraFirmwareConfig) come from
-  # inputs.nixos-pi-zero-2's `hardware` and `sd-image` modules.
+  # The Raspberry Pi 3 hardware module supplies a supported Pi kernel and
+  # firmware; nixos-pi-zero-2's sd-image module supplies the Zero 2 image settings.
   sdImage = {
     # bzip2 compression takes loads of time with emulation, skip it. Enable this if you're low on space.
     compressImage = true;
