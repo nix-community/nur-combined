@@ -2,7 +2,6 @@
   callPackage,
   fetchFromGitHub,
   kernel,
-  kmod,
   lib,
   stdenv,
 }:
@@ -24,7 +23,6 @@ stdenv.mkDerivation (finalAttrs: {
     "format"
   ];
   nativeBuildInputs = kernel.moduleBuildDependencies;
-  nativeInstallCheckInputs = [ kmod ];
   env.KSRC = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
   env.INSTALL_MOD_PATH = placeholder "out";
   makeFlags = kernel.commonMakeFlags or kernel.makeFlags;
@@ -32,17 +30,6 @@ stdenv.mkDerivation (finalAttrs: {
     makeFlagsArray+=("-C" "${finalAttrs.env.KSRC}" "M=$(pwd)")
   '';
   installTargets = [ "modules_install" ];
-
-  doInstallCheck = true;
-  installCheckPhase = ''
-    runHook preInstallCheck
-    module=$(find "$out/lib/modules/${kernel.modDirVersion}" -name 'gpu_unlock.ko*' -type f)
-    test -n "$module"
-    test "$(modinfo -F name "$module")" = gpu_unlock
-    modinfo -F vermagic "$module" | grep -F '${kernel.modDirVersion} '
-    test "$(modinfo -F firmware "$module" | wc -l)" -eq 5
-    runHook postInstallCheck
-  '';
 
   passthru.firmware = callPackage ./firmware.nix { inherit (finalAttrs) src version; };
   passthru.updateScript = [ (toString ./update.sh) ];

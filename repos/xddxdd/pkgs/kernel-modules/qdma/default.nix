@@ -50,12 +50,24 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = kernel.moduleBuildDependencies;
   dontPatchELF = true;
 
-  installPhase = ''
-    runHook preInstall
-    moduleDir="$out/lib/modules/${kernel.modDirVersion}/extra"
-    install -Dm644 ../bin/qdma-pf.ko "$moduleDir/qdma-pf.ko"
-    install -Dm644 ../bin/qdma-vf.ko "$moduleDir/qdma-vf.ko"
-    runHook postInstall
+  env.INSTALL_MOD_PATH = placeholder "out";
+  env.INSTALL_MOD_DIR = "extra";
+
+  installFlags = [
+    "-C"
+    "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    "M=$(PWD)/src"
+  ];
+  installTargets = [ "modules_install" ];
+
+  # PF/VF variants build into the same src/ dir and each kbuild run rewrites
+  # src/modules.order with only its own module; restore the full module list
+  # so modules_install installs and signs both .ko files with certificates.
+  preInstall = ''
+    for ko in ../bin/*.ko; do
+      mf=$(basename "$ko" .ko)
+      grep -q "^$mf\.o$" src/modules.order || echo "$mf.o" >> src/modules.order
+    done
   '';
 
   passthru = {

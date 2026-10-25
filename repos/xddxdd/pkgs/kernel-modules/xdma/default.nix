@@ -30,16 +30,14 @@ stdenv.mkDerivation (finalAttrs: {
   preConfigure = "cd XDMA/linux-kernel/xdma";
 
   env.KSRC = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
+  env.INSTALL_MOD_PATH = placeholder "out";
+  env.INSTALL_MOD_DIR = "extra";
 
   makeFlags = kernel.commonMakeFlags or kernel.makeFlags;
+
+  installTargets = [ "modules_install" ];
   preBuild = ''
     makeFlagsArray+=("-C" "${finalAttrs.env.KSRC}" "M=$(pwd)")
-  '';
-
-  installPhase = ''
-    runHook preInstall
-    install -Dm644 xdma.ko "$out/lib/modules/${kernel.modDirVersion}/extra/xdma.ko"
-    runHook postInstall
   '';
 
   hardeningDisable = [

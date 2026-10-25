@@ -37,6 +37,13 @@ stdenv.mkDerivation (finalAttrs: {
     "DESTDIR=${placeholder "out"}"
   ];
 
+  installFlags = [
+    "-C"
+    "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+    "M=$(PWD)"
+  ];
+  installTargets = [ "modules_install" ];
+
   passthru.updateScript = unstableGitUpdater {
     url = "https://github.com/sipwise/rtpengine";
     tagPrefix = "mr";
