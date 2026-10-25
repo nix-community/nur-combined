@@ -57,11 +57,18 @@ apply the overlay:
 }
 ```
 
-The overlay builds ordinary packages against your system's nixpkgs. The two CachyOS
-kernels are the exception: the flake overlay takes them from this repository's
-`flake.lock`, so you get exactly the derivations CI publishes, whatever your nixpkgs
-is. Only their out-of-tree modules (`linuxPackagesFor`) use your nixpkgs. Direct
-flake outputs (`urio-nur.packages.<system>.<name>`) also use this repository's lock.
+The flake's `overlays.default` takes every registered package recipe from this
+repository's `legacyPackages`, pinned by its `flake.lock`. Therefore package
+`drvPath`s match the direct flake outputs and CI/cache regardless of the consumer's
+nixpkgs, overlays, or package configuration. The `rimsort` compatibility alias
+points to the pinned `rimsort-appimage` derivation.
+
+The CachyOS `linuxPackages-*` convenience sets are the exception: they are built
+with the consumer's `linuxPackagesFor` so out-of-tree modules match the consumer's
+kernel package machinery, while the kernel derivations themselves remain pinned.
+The ordinary NUR overlay (`urio-nur.overlays.unpinned`) is also available explicitly
+for consumers who want recipes evaluated against their own nixpkgs. Direct flake
+outputs (`urio-nur.packages.<system>.<name>`) use this repository's lock as well.
 
 Do not set `inputs.nixpkgs.follows` on the `urio-nur` input. It replaces this
 repository's nixpkgs with yours, which changes the kernel derivation and makes Nix

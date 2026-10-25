@@ -2,10 +2,7 @@
 # No per-package list in the NUR entry point, flake, overlay or CI is needed.
 { pkgs }:
 let
-  entries = builtins.readDir ./.;
-  names = builtins.filter (
-    name: entries.${name} == "directory" && builtins.pathExists (./. + "/${name}/default.nix")
-  ) (builtins.attrNames entries);
+  names = import ./registry.nix { packageDirectory = ./.; };
 in
 assert builtins.all (
   name:

@@ -22,6 +22,7 @@ class RegistryTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
         shutil.copy(ROOT / "pkgs/default.nix", self.root / "default.nix")
+        shutil.copy(ROOT / "pkgs/registry.nix", self.root / "registry.nix")
 
     def names(self, check=True):
         return evaluate(f'''builtins.attrNames (import {self.root} {{

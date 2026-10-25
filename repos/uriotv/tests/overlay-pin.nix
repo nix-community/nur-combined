@@ -1,14 +1,14 @@
-# Evaluation only. A consumer whose nixpkgs differs from ours (simulated by a
-# changed kernel build input) must still get the CI-built kernel derivation from the
-# flake overlay, through the package set and the NixOS boot.kernelPackages path.
-# The plain NUR overlay (./overlays) intentionally follows the consumer's nixpkgs.
+# Evaluation-only tests for the flake overlay contract. Package derivations must
+# equal CI's pinned derivations even when the consumer changes its nixpkgs set.
 {
   pkgs,
   overlay,
   pinned,
+  ciPackages,
 }:
 let
   inherit (pkgs) lib;
+  packageNames = import ../pkgs/registry.nix { packageDirectory = ../pkgs; };
   consumer = pkgs.extend (
     _: prev: {
       bc = prev.bc.overrideAttrs (old: {
@@ -19,11 +19,26 @@ let
   );
   withFlakeOverlay = consumer.extend overlay;
   withPlainOverlay = consumer.extend (import ../overlays).default;
-  check =
+  checkPackage =
+    name:
+    let
+      expected = ciPackages.${name}.drvPath;
+    in
+    assert pinned.${name}.drvPath == expected;
+    assert withFlakeOverlay.${name}.drvPath == expected;
+    {
+      passed = true;
+      drvPath = expected;
+    };
+  kernelNames = [
+    "linux-cachyos-latest-x86_64-v3"
+    "linux-cachyos-bore-x86_64-v3"
+  ];
+  checkKernel =
     name:
     let
       setName = builtins.replaceStrings [ "linux-" ] [ "linuxPackages-" ] name;
-      expected = pinned.${name}.drvPath;
+      expected = ciPackages.${name}.drvPath;
       system = import (pkgs.path + "/nixos/lib/eval-config.nix") {
         system = "x86_64-linux";
         modules = [
@@ -34,17 +49,24 @@ let
         ];
       };
     in
-    # Sanity: the simulated consumer change really alters an unpinned kernel.
+    # The alternate consumer really has a different dependency; ordinary overlay
+    # recipes follow it, whereas the flake overlay remains pinned to CI.
     assert withPlainOverlay.${name}.drvPath != expected;
     assert withFlakeOverlay.${name}.drvPath == expected;
     assert withFlakeOverlay.${setName}.kernel.drvPath == expected;
     assert system.config.boot.kernelPackages.kernel.drvPath == expected;
     {
       passed = true;
-      kernel = expected;
+      drvPath = expected;
     };
+  packageResults = builtins.mapAttrs (name: _: checkPackage name) (
+    lib.genAttrs packageNames (_: true)
+  );
+  kernelResults = builtins.mapAttrs (name: _: checkKernel name) (lib.genAttrs kernelNames (_: true));
 in
-lib.genAttrs [
-  "linux-cachyos-latest-x86_64-v3"
-  "linux-cachyos-bore-x86_64-v3"
-] check
+assert consumer.bc.drvPath != pkgs.bc.drvPath;
+assert withFlakeOverlay.rimsort.drvPath == pinned.rimsort-appimage.drvPath;
+{
+  packages = packageResults;
+  kernels = kernelResults;
+}
