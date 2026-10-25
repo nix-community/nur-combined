@@ -10,5 +10,5 @@ Uncomment this if you use travis:
 
 [![Build Status](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages.svg?branch=master)](https://travis-ci.com/<YOUR_TRAVIS_USERNAME>/nur-packages)
 -->
-[![Cachix Cache](https://img.shields.io/badge/cachix-nurpkgs-claymorwan-blue.svg)](https://nurpkgs-claymorwan.cachix.org)
+[![Cachix Cache](https://img.shields.io/badge/Binary%20cache-nurpkgs%20claymorwan-blue?logo=nixos&logoColor=white)](https://nurpkgs-claymorwan.cachix.org)
 

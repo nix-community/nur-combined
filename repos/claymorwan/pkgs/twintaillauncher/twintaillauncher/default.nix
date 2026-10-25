@@ -1,4 +1,3 @@
-# Might be a bit overkill of an FHS env BUT idk what those games exactly need so I'd rather not take risk
 {
   lib,
   buildFHSEnv,
@@ -8,21 +7,6 @@
 }:
 
 let
-  qt5Deps =
-    pkgs: with pkgs.qt5; [
-      qtbase
-      qtmultimedia
-    ];
-  qt6Deps = pkgs: with pkgs.qt6; [ qtbase ];
-  gnomeDeps =
-    pkgs: with pkgs; [
-      zenity
-      gtksourceview5
-      gnome-desktop
-      libgnome-keyring
-      webkitgtk_4_1
-      adwaita-icon-theme
-    ];
   xorgDeps =
     pkgs: with pkgs; [
       libx11
@@ -47,6 +31,7 @@ let
       libice
       libxt
     ];
+    
   gstreamerDeps =
     pkgs: with pkgs.gst_all_1; [
       gstreamer
@@ -67,22 +52,6 @@ buildFHSEnv {
   targetPkgs = pkgs: with pkgs; [
     twintaillauncher-unwrapped
     
-    # Launcher dependencies
-    # gsettings-desktop-schemas
-    # libayatana-appindicator
-    # libappindicator-gtk3
-    # webkitgtk_4_1
-    # gdk-pixbuf
-    # cairo
-    # pango
-    # glib
-    # gtk3
-    # nss
-
-    # Game runtime dependencies
-    mangohud
-    gamemode
-
     # WINE
     xrandr
     perl
@@ -94,9 +63,6 @@ buildFHSEnv {
     opencl-headers
 
   ]
-  ++ qt5Deps pkgs
-  ++ qt6Deps pkgs
-  ++ gnomeDeps pkgs
   ++ extraPkgs pkgs
   ;
 
@@ -167,10 +133,7 @@ buildFHSEnv {
     libbsd
     harfbuzz
 
-    # PCSX2 // TODO: "libgobject-2.0.so.0: wrong ELF class: ELFCLASS64"
-
     # WINE
-    cups
     lcms2
     mpg123
     cairo
@@ -199,13 +162,4 @@ buildFHSEnv {
     ln -sf ${twintaillauncher-unwrapped}/share/applications $out/share
     ln -sf ${twintaillauncher-unwrapped}/share/icons $out/share
   '';
-
-  # allows for some gui applications to share IPC
-  # this fixes certain issues where they don't render correctly
-  unshareIpc = false;
-
-  # Some applications such as Natron need access to MIT-SHM or other
-  # shared memory mechanisms. Unsharing the pid namespace
-  # breaks the ability for application to reference shared memory.
-  unsharePid = false;
 }

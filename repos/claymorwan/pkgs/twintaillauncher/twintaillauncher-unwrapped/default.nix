@@ -13,6 +13,7 @@
   webkitgtk_4_1,
   git,
   perl,
+  protobuf,
   libayatana-appindicator,
   wrapGAppsHook4,
   nix-update-script,
@@ -57,6 +58,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     pkg-config
     git
     perl
+    protobuf
     wrapGAppsHook4
   ];
 
