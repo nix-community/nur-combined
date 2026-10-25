@@ -198,7 +198,9 @@ stdenv.mkDerivation (finalAttrs: {
         gpl2Plus # ReactOS RTL (raven-rtl.dll), user32 (raven-user32.dll) and UTF-8 codec
         lgpl21Plus # ReactOS/Wine DLLs, ReactOS non-client drawing
         bsd2 # ReactOS RTL (COPYING.ARM)
-        unicode-30 # Unicode decomposition data
+        # Unicode decomposition data, ReactOS c_1252.txt (Microsoft's bestfit1252.txt, published
+        # under unicode.org/Public/ whose data files the Unicode Terms of Use place under this license)
+        unicode-30
         zlib # zlib (cabinet.dll, libpng.dll, libxslt.dll), DXVK
         libpng2 # libpng.dll
         ijg # libjpeg.dll
@@ -210,15 +212,6 @@ stdenv.mkDerivation (finalAttrs: {
           shortName = "isc-veillard";
           spdxId = "ISC-Veillard";
           fullName = "ISC Veillard variant";
-        })
-        # ReactOS c_1252.txt, embedded in raven, is Microsoft's bestfit1252.txt. It carries no
-        # license grant; ReactOS and Wine redistribute the same tables.
-        (mkLicense {
-          shortName = "microsoft-bestfit";
-          fullName = "Microsoft Windows Best Fit code page data";
-          url = "https://www.unicode.org/Public/MAPPINGS/VENDORS/MICSFT/WindowsBestFit/readme.txt";
-          free = false;
-          redistributable = true;
         })
       ];
     platforms = [ "x86_64-linux" ];
