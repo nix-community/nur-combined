@@ -4,7 +4,7 @@
 
 - [x] k3s two-server cluster declared (design: `docs/superpowers/specs/2026-10-25-k3s-nas-design.md`, plan: `docs/superpowers/plans/2026-10-25-k3s-nas-macmini.md`): `nixcfg.k3s` wrapper module, nas cluster-init server, MacMini-Intel joins via `https://10.1.0.3:6443`, shared sops `k3s-token`, traefik disabled.
   - Manual rollout order (eval verified, not yet deployed): deploy nas first, wait for `k3s kubectl get nodes` Ready, then deploy MacMini-Intel.
-- [ ] Deploy + verify: `nixos-rebuild switch --flake .#nas`, then `.#MacMini-Intel-NixOS`; `kubectl get nodes -o wide` shows 2 Ready.
+- [x] Deploy + verify (2026-10-26): `nixos-rebuild switch --flake .#nas`, then `.#MacMini-Intel-NixOS`; `kubectl get nodes` shows nas + macmini-intel-nixos Ready (control-plane,etcd). Required opening etcd 2379-2380/tcp in `nixcfg.k3s` firewall on both nodes.
 - [ ] Third server for etcd quorum (router or protectli) — 2-node etcd has no quorum HA until then.
 - [ ] Storage re-architecture for stateful workloads (`/mnt/POOL` via local-path/Longhorn/Ceph decision).
 - [ ] Caddy ingress integration for cluster services.

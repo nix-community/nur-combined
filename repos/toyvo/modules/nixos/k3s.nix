@@ -86,10 +86,14 @@ in
 
     # Ruling: opened globally, not interface-scoped — both hosts sit behind
     # the router NAT, interface names differ per host, and 6443 is token-gated.
+    # 2379-2380 are the etcd client/peer ports: required on every server for
+    # HA joins (the joiner syncs from the leader over 2380 in both directions).
     networking.firewall = {
       allowedTCPPorts = [
         6443
         10250
+        2379
+        2380
       ];
       allowedUDPPorts = [
         8472
