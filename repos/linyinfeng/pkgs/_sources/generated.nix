@@ -19,16 +19,16 @@
   };
   baibot = {
     pname = "baibot";
-    version = "v1.29.0";
+    version = "v1.29.1";
     src = fetchFromGitHub {
       owner = "etkecc";
       repo = "baibot";
-      rev = "v1.29.0";
+      rev = "v1.29.1";
       fetchSubmodules = false;
-      sha256 = "sha256-oGYqD06BKZYgkDxTeP/JXG+YMxt+z1W2VHLcJYqw5e0=";
+      sha256 = "sha256-oe2691wVOhul1ezCW4T2aUYd6viO5aQP4SPfNNUUOQo=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-oGYqD06BKZYgkDxTeP_JXG+YMxt+z1W2VHLcJYqw5e0=/Cargo.lock";
+      lockFile = ./. + "/sha256-oe2691wVOhul1ezCW4T2aUYd6viO5aQP4SPfNNUUOQo=/Cargo.lock";
       outputHashes = {
         "anthropic-0.0.8" = "sha256-I7mpWrolVy1SkLa2ovy2TXAHFnVFABXnxaA8uKzRGuw=";
       };
@@ -153,18 +153,18 @@
   };
   lxgw-neozhisong = {
     pname = "lxgw-neozhisong";
-    version = "v1.068";
+    version = "v1.070";
     src = fetchurl {
-      url = "https://github.com/lxgw/LxgwNeoZhiSong/releases/download/v1.068/LXGWNeoZhiSong.ttf";
-      sha256 = "sha256-rkgNWSlLajGBc+NYGljRo4XPOtRGemWQsFs3R+opKjo=";
+      url = "https://github.com/lxgw/LxgwNeoZhiSong/releases/download/v1.070/LXGWNeoZhiSong.ttf";
+      sha256 = "sha256-xCAAtZyv/ozPzRyQqihB3K+oZs8kdpzBsQw3CMZx8gc=";
     };
   };
   lxgw-neozhisong-plus = {
     pname = "lxgw-neozhisong-plus";
-    version = "v1.068";
+    version = "v1.070";
     src = fetchurl {
-      url = "https://github.com/lxgw/LxgwNeoZhiSong/releases/download/v1.068/LXGWNeoZhiSongPlus.ttf";
-      sha256 = "sha256-CKd65yM9hLEym3rEMJerfDzOS/yOabrXheq0Lvg0kRk=";
+      url = "https://github.com/lxgw/LxgwNeoZhiSong/releases/download/v1.070/LXGWNeoZhiSongPlus.ttf";
+      sha256 = "sha256-MBHawdaPffIsmuSpG+7TI91yZsCynanxxUAkJSK2jww=";
     };
   };
   ly2video = {

@@ -23,7 +23,7 @@
     "baibot": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-oGYqD06BKZYgkDxTeP_JXG+YMxt+z1W2VHLcJYqw5e0=/Cargo.lock",
+                "sha256-oe2691wVOhul1ezCW4T2aUYd6viO5aQP4SPfNNUUOQo=/Cargo.lock",
                 {
                     "anthropic-0.0.8": "sha256-I7mpWrolVy1SkLa2ovy2TXAHFnVFABXnxaA8uKzRGuw="
                 }
@@ -41,12 +41,12 @@
             "name": null,
             "owner": "etkecc",
             "repo": "baibot",
-            "rev": "v1.29.0",
-            "sha256": "sha256-oGYqD06BKZYgkDxTeP/JXG+YMxt+z1W2VHLcJYqw5e0=",
+            "rev": "v1.29.1",
+            "sha256": "sha256-oe2691wVOhul1ezCW4T2aUYd6viO5aQP4SPfNNUUOQo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.29.0"
+        "version": "v1.29.1"
     },
     "codestable": {
         "cargoLock": null,
@@ -247,11 +247,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-rkgNWSlLajGBc+NYGljRo4XPOtRGemWQsFs3R+opKjo=",
+            "sha256": "sha256-xCAAtZyv/ozPzRyQqihB3K+oZs8kdpzBsQw3CMZx8gc=",
             "type": "url",
-            "url": "https://github.com/lxgw/LxgwNeoZhiSong/releases/download/v1.068/LXGWNeoZhiSong.ttf"
+            "url": "https://github.com/lxgw/LxgwNeoZhiSong/releases/download/v1.070/LXGWNeoZhiSong.ttf"
         },
-        "version": "v1.068"
+        "version": "v1.070"
     },
     "lxgw-neozhisong-plus": {
         "cargoLock": null,
@@ -262,11 +262,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-CKd65yM9hLEym3rEMJerfDzOS/yOabrXheq0Lvg0kRk=",
+            "sha256": "sha256-MBHawdaPffIsmuSpG+7TI91yZsCynanxxUAkJSK2jww=",
             "type": "url",
-            "url": "https://github.com/lxgw/LxgwNeoZhiSong/releases/download/v1.068/LXGWNeoZhiSongPlus.ttf"
+            "url": "https://github.com/lxgw/LxgwNeoZhiSong/releases/download/v1.070/LXGWNeoZhiSongPlus.ttf"
         },
-        "version": "v1.068"
+        "version": "v1.070"
     },
     "ly2video": {
         "cargoLock": null,
