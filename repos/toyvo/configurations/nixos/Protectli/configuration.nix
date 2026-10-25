@@ -1,4 +1,5 @@
 {
+  config,
   ekaPkgs,
   homelab,
   inputs,
@@ -23,6 +24,7 @@ in
     inputs.nixcfg.modules.os.console
     inputs.nixcfg.modules.os.toyvo
     inputs.nixcfg.modules.nixos.ids
+    inputs.nixcfg.modules.nixos.k3s
     inputs.nixcfg.modules.nixos.boot
     inputs.nixcfg.modules.nixos.networking
     inputs.nixcfg.modules.nixos.system
@@ -180,12 +182,21 @@ in
   };
   nixcfg = {
     nix.enable = true;
+    k3s = {
+      enable = true;
+      role = "agent";
+      serverAddr = "https://10.1.0.3:6443";
+      tokenFile = config.sops.secrets."k3s-token".path;
+      # Node IP 10.1.0.6 lives on enp1s0 (DHCP from the router).
+      firewallInterfaces = [ "enp1s0" ];
+    };
     security.enable = true;
     home-manager.enable = true;
     networking.enable = true;
     system.enable = true;
     boot.enable = true;
   };
+  sops.secrets."k3s-token" = { };
   userPresets.toyvo.enable = true;
   systemd = {
     network = {
