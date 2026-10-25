@@ -45,6 +45,14 @@ let
   # fixed-output derivation and the real build runs offline. Upstream pins Bun
   # 1.3.14 in .bun-version; nixpkgs' Bun builds the same tree with the same
   # output, so no second Bun is carried around.
+  #
+  # `bun install` resolves the platform-specific payloads (the OpenTUI native
+  # bundles, ripgrep, ...), so every target has its own hash.
+  workspaceDepsHashes = {
+    x86_64-linux = "sha256-KXKuDrL1exXq7ONBWfr5CqPrBvTRqMOXyUU5lDX2e4U=";
+    aarch64-darwin = "sha256-wgmvcKb/fV2WRcH074pacos0nZQ87BSJHg6dZHetVcs=";
+  };
+
   workspaceDeps = stdenvNoCC.mkDerivation {
     pname = "freebuff-workspace-deps";
     inherit version src;
@@ -53,7 +61,9 @@ let
 
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
-    outputHash = "sha256-KXKuDrL1exXq7ONBWfr5CqPrBvTRqMOXyUU5lDX2e4U=";
+    outputHash =
+      workspaceDepsHashes.${stdenvNoCC.hostPlatform.system}
+        or (throw "freebuff: no workspace dependency hash for ${stdenvNoCC.hostPlatform.system}");
 
     dontConfigure = true;
     dontBuild = true;
@@ -154,9 +164,11 @@ stdenvNoCC.mkDerivation {
     license = lib.licenses.asl20;
     sourceProvenance = [ lib.sourceTypes.fromSource ];
     mainProgram = "freebuff";
-    # The dependency hash above pins the x86_64-linux package set (the OpenTUI
-    # and ripgrep payloads differ per target); building elsewhere needs its own
-    # hash for `workspaceDeps`.
-    platforms = [ "x86_64-linux" ];
+    # The dependency hashes above pin the targets that have been built; a new
+    # platform needs its own `workspaceDeps` hash.
+    platforms = [
+      "x86_64-linux"
+      "aarch64-darwin"
+    ];
   };
 }

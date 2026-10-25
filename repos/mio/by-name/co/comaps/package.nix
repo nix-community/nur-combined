@@ -40,18 +40,18 @@ let
 
   # Update mapRev based on v field and mapSeries near the top in https://codeberg.org/comaps/comaps/src/branch/main/data/countries.txt
   mapSeries = "2026.06.28";
-  mapRev = 260830;
+  mapRev = 261004;
 
   worldMap = fetchurl {
     name = "World-${mapSeries}-${toString mapRev}.mwm";
     url = "https://mapgen-fi-1.comaps.app/maps/${mapSeries}/${toString mapRev}/World.mwm";
-    hash = "sha256-TcaGJK8xAkceA7wFsCrYt6euOnts0w7LZCKLFPnU3wM=";
+    hash = "sha256-d6NcFvrWQlL+ff+tuOlm6OOvkGNUsU3y7cGAmz4i5KU=";
   };
 
   worldCoasts = fetchurl {
     name = "WorldCoasts-${mapSeries}-${toString mapRev}.mwm";
     url = "https://mapgen-fi-1.comaps.app/maps/${mapSeries}/${toString mapRev}/WorldCoasts.mwm";
-    hash = "sha256-pNb0cLGRN6YkliraL+DZyAPh+JJSM6vTzoejeKvi/oc=";
+    hash = "sha256-1CpxsQxWN4FEaJKdxMcsL8IPKZbOmHfWl7091NwUNiY=";
   };
 
   pythonEnv = python3.withPackages (
