@@ -1,18 +1,21 @@
 {
   buildGoModule,
   fetchFromGitHub,
+  go_latest,
   lib,
   nix-update-script,
 }:
 
-buildGoModule rec {
+# nixpkgs' default go lags behind upstream's go.mod, so build with the newest
+# one available.
+(buildGoModule.override { go = go_latest; }) rec {
   pname = "cf-terraforming";
-  version = "0.29.0";
+  version = "0.30.0";
   src = fetchFromGitHub {
     owner = "cloudflare";
     repo = "cf-terraforming";
     rev = "v${version}";
-    sha256 = "sha256-jq0xBmn+ZGYF6Yup/82wVYgtuIs9RcPHviGxj9JpTF0=";
+    sha256 = "sha256-ju/qOwwtBciEfBYZ9W82p2KUF0hoA1UKbt12QWhZ5PQ=";
   };
 
   vendorHash = "sha256-7/VRs7BEFLCx7sqIbOFA7b7tQwlpgzeWYUdgankHNCo=";
@@ -34,7 +37,7 @@ buildGoModule rec {
     description = "A command line utility to facilitate terraforming your existing Cloudflare resources";
     homepage = "https://github.com/cloudflare/cf-terraforming";
     license = licenses.mpl20;
-    broken = !(versionAtLeast (versions.majorMinor trivial.version) "22.11");
+    broken = !(versionAtLeast go_latest.version "1.27.3");
     maintainers = with maintainers; [ yinfeng ];
   };
 }
