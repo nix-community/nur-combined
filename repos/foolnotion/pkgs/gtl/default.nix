@@ -4,13 +4,13 @@
 
 stdenv.mkDerivation rec {
   pname = "gtl";
-  version = "unstable-2026-07-02";
+  version = "unstable-2026-10-24";
 
   src = fetchFromGitHub {
     owner = "greg7mdp";
     repo = "gtl";
-    rev = "bf28b50e276a9b4d6c01af2d92878801e43920f7";
-    sha256 = "sha256-BUj/F+ZPJ51gVYM5c/PUIjI7fo5yk/tRmUn1Kvn+AXw=";
+    rev = "086db6687a8d5bfe40219a54343f35316d4f588b";
+    sha256 = "sha256-L9wJSYldkXAkFpNIX+GRw0TLO4l/ciMevtZ5iC9WN9c=";
   };
 
   nativeBuildInputs = [ cmake ];
