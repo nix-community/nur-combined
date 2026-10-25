@@ -5,10 +5,7 @@
   ...
 }:
 {
-  imports = [
-    ./wut/default.nix
-  ];
-
+  imports = [ ./wut/default.nix ];
   options.dots.git.enable = lib.mkOption {
     type = lib.types.bool;
     default = false;
@@ -108,6 +105,7 @@
         pkgs.gh-stack
         pkgs.gh-markdown-preview
         pkgs.gh-skyline
+        pkgs.gh-actions-lock
       ];
     };
     programs.gh-dash = {

@@ -105,6 +105,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     import-tree.url = "github:denful/import-tree";
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -223,7 +227,15 @@
             && inputs.nixpkgs.lib.meta.availableOn pkgs.stdenv.hostPlatform package
           ) nurPackages;
           formatter = treefmtEval.config.build.wrapper;
-          checks.formatting = treefmtEval.config.build.check inputs.self;
+          checks = {
+            formatting = treefmtEval.config.build.check inputs.self;
+            pre-commit-check = inputs.git-hooks.lib.${system}.run {
+              src = ./.;
+              hooks = {
+                treefmt.enable = true;
+              };
+            };
+          };
           devShells.default = pkgs.mkShell {
             packages = [
               pkgs.just
