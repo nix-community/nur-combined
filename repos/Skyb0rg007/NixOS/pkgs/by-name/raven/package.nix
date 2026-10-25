@@ -17,8 +17,14 @@
   wine64Packages,
   dxvk,
   freetype,
+  libffi,
+  libGL,
+  libGLU,
   libpng,
   liberation_ttf,
+  libxau,
+  libxcb,
+  libxdmcp,
   libxkbcommon,
   openssl,
   pixman,
@@ -26,6 +32,7 @@
   vulkan-headers,
   vulkan-loader,
   wayland,
+  wayland-protocols,
 }:
 let
   # Pinned ReactOS source the guest components are built from (scripts/provision-*.py)
@@ -55,13 +62,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "raven";
-  version = "0-unstable-2026-10-24";
+  version = "0-unstable-2026-10-25";
 
   src = fetchFromGitHub {
     owner = "mirkobrombin";
     repo = "raven";
-    rev = "8966a3a2927eb7b3c68ad553043032c771266c89";
-    hash = "sha256-BX100t7b/cjJdkZOJNROHam8Exudx2suZxO8OhMbHG4=";
+    rev = "5ca60c6e94c7d2e29cabc073983e627eeecadef8";
+    hash = "sha256-VidFLywbN9bySlsaI6IvirlNRvL7FK0d7toSWeb3jYs=";
   };
 
   # Configure-time fixture provisioning downloads and builds test programs
@@ -73,9 +80,6 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace native/CMakeLists.txt \
       --replace-fail 'file(GLOB RAVEN_SKIA_PATHOPS ''${RAVEN_SKIA_SOURCE}/src/pathops/*.cpp)' \
         'set(RAVEN_SKIA_PATHOPS)'
-    # objcopy sits beside the compiler, but "gcc" also appears in the wrapper's store path
-    substituteInPlace scripts/generate-vulkan-{layout32,thunk32}.py \
-      --replace-fail 'compiler.replace("gcc", "objcopy")' 'compiler.removesuffix("gcc") + "objcopy"'
     # Raven pins Ubuntu's build of the fonts; nixpkgs builds them from source
     substituteInPlace native/CMakeLists.txt \
       --replace-fail 'if(NOT ACTUAL_FONT_HASH STREQUAL FONT_HASH)' 'if(FALSE)'
@@ -110,13 +114,21 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [
     freetype
+    libGL
+    libGLU
     libpng
+    libxcb
     libxkbcommon
+    # Private requirements of wayland-client.pc and xcb.pc, which pkg_check_modules also resolves
+    libffi
+    libxau
+    libxdmcp
     openssl
     pixman
     vulkan-headers
     vulkan-loader
     wayland
+    wayland-protocols
   ];
 
   # `all` also builds hundreds of test fixtures, some of which fail to build with GCC 16
@@ -161,11 +173,20 @@ stdenv.mkDerivation (finalAttrs: {
         wine64Packages.minimal # widl
       ];
 
-      # Some sources call undeclared functions, an error since GCC 14
-      env = {
-        NIX_CFLAGS_COMPILE_x86_64_w64_mingw32 = "-fpermissive";
-        NIX_CFLAGS_COMPILE_i686_w64_mingw32 = "-fpermissive";
-      };
+      # ReactOS sources still trip errors GCC 14 made of warnings: msi passes incompatible pointers
+      # and lzexpand declares its debug channel with a macro the generated kernel32 header lacks
+      env =
+        let
+          flags = toString [
+            "-Wno-error=incompatible-pointer-types"
+            "-Wno-error=implicit-int"
+            "-Wno-error=declaration-missing-parameter-type"
+          ];
+        in
+        {
+          NIX_CFLAGS_COMPILE_x86_64_w64_mingw32 = flags;
+          NIX_CFLAGS_COMPILE_i686_w64_mingw32 = flags;
+        };
 
       buildPhase = ''
         runHook preBuild
@@ -176,7 +197,7 @@ stdenv.mkDerivation (finalAttrs: {
         for triple in x86_64-w64-mingw32 i686-w64-mingw32; do
           compat=$NIX_BUILD_TOP/compat-$triple
           mkdir -p $compat
-          printf '%s\n' 'LIBRARY msvcrt.dll' EXPORTS _assert iswctype wcstok_s __getmainargs __wgetmainargs \
+          printf '%s\n' 'LIBRARY msvcrt.dll' EXPORTS iswctype wcstok_s __getmainargs __wgetmainargs \
             > $compat/msvcrt.def
           $triple-dlltool -d $compat/msvcrt.def -l $compat/libmsvcrt-compat.a
           ldflags="-L$compat -lmsvcrt-compat"
@@ -217,8 +238,10 @@ stdenv.mkDerivation (finalAttrs: {
     license =
       with lib.licenses;
       AND [
-        mit # Raven, libxml2, ReactOS PSEH
-        gpl2Plus # ReactOS RTL (raven-rtl.dll), user32 (raven-user32.dll) and UTF-8 codec
+        gpl3Plus # Raven host (raven, raven-bootstrap)
+        mit # Raven guest adapters, libxml2, ReactOS PSEH
+        gpl2Only # ReactOS-derived guest components
+        gpl2Plus # ReactOS UTF-8 codec linked into the host
         lgpl21Plus # ReactOS/Wine DLLs, ReactOS non-client drawing
         bsd2 # ReactOS RTL (COPYING.ARM)
         unicode-30 # Unicode decomposition data, ReactOS c_1252.txt
