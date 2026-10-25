@@ -2,7 +2,7 @@
 
 ## nas libvirtd (pre-existing, unrelated to k3s)
 
-- [ ] `libvirtd.service` fails since ~Oct 24 with `status=243/CREDENTIALS` (`LoadCredentialEncrypted` from upstream libvirt packaging can't determine host key; no TPM on nas). Switches still activate (k3s fine) but exit non-zero. No stored libvirt secrets (only the key file in `/var/lib/libvirt/secrets/`), so safe to regenerate: `sudo rm /var/lib/libvirt/secrets/secrets-encryption-key && sudo systemctl start virt-secret-init-encryption.service && sudo systemctl restart libvirtd.service`. If init also fails → host-key problem, investigate `systemd-creds`/TPM-less setup. If no VMs are used, set `virtualisation.libvirtd.enable = false` instead.
+- [ ] `libvirtd.service` fails since ~Oct 24 with `status=243/CREDENTIALS`. Root cause 2026-10-26: `/var/lib/systemd/credential.secret` (TPM-less host key) is 0 bytes, truncated Oct 12 — so `systemd-creds encrypt` fails (`Failed to determine local credential host secret`) and `LoadCredentialEncrypted` can never decrypt. Only libvirt uses encrypted credentials; no stored secrets. Fix: `sudo systemd-creds setup && sudo systemctl start virt-secret-init-encryption.service && sudo systemctl restart libvirtd.service` (old March key blob already deleted, unrecoverable but unneeded). 2026-10-26: `setup` fails because the 0-byte `/var/lib/systemd/credential.secret` exists but is `too small, refusing` (debug output). Fix: delete the empty file so `setup` regenerates it, then re-mint libvirt key + restart libvirtd. Still need VM-use answer; if unused, disable libvirtd instead. If no VMs are used, set `virtualisation.libvirtd.enable = false` instead.
 
 ## k3s cluster (nas + MacMini-Intel, day one)
 
