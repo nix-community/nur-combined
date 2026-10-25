@@ -139,7 +139,6 @@ Required repository secrets:
 |---|---|
 | `PAT_FOR_UPDATES` | Token that creates the update PR and enables auto-merge. It must trigger PR CI, so `GITHUB_TOKEN` cannot be used. |
 | `CACHIX_AUTH_TOKEN` | Write access to `uriotv`, used only in the publication steps on `main`. |
-| `ATTIC_TOKEN` | Push access to the private attic cache `urio` (`https://attic.urio.dev`), used after the cachix publication on `main`. Without it the attic push fails and the `cache` branch is not promoted. |
 
 ## CachyOS kernels
 
@@ -185,10 +184,9 @@ See [the kernel recipe notes](lib/cachyos/README.md) for details.
 
 ## Cache branch: consume only verified state
 
-The `cache` branch is a copy of a `main` commit whose publications all succeeded:
-packages and both kernels were pushed to `uriotv` and to the private attic cache,
-and the outputs were verified. It is moved only forward, never forced, and only by
-the automated workflow.
+The `cache` branch is a copy of a `main` commit whose eligible package and kernel
+outputs were published to `uriotv` and whose StorePaths were verified. It is moved
+only forward, never forced, and only by the automated workflow.
 
 Use it as your flake input to get exactly that state and nothing unverified:
 
@@ -202,7 +200,7 @@ otherwise the kernel derivation is not the published one.
 
 The public cache `uriotv` serves every eligible package and both kernels at that
 commit. Packages that are not redistributable are never published, so they build
-locally. The private attic cache is for the owner only.
+locally.
 
 ## Adding a package
 

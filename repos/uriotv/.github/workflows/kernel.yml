@@ -82,7 +82,7 @@ jobs:
           set -euo pipefail
           nix build --no-link --print-out-paths --no-write-lock-file --inputs-from . \
             nixpkgs#coreutils nixpkgs#gawk nixpkgs#gnugrep nixpkgs#findutils \
-            nixpkgs#curl nixpkgs#jq nixpkgs#python3 nixpkgs#cachix nixpkgs#attic-client nixpkgs#gh \
+            nixpkgs#curl nixpkgs#jq nixpkgs#python3 nixpkgs#cachix nixpkgs#gh \
             > "$RUNNER_TEMP/tool-paths"
           while IFS= read -r path; do
             [[ -d "$path/bin" ]] && echo "$path/bin" >> "$GITHUB_PATH"
@@ -157,7 +157,7 @@ jobs:
           fi
 
       - name: Realise already-published kernel outputs (no compilation)
-        # When the pin is already in uriotv, fetch the outputs so both pushes can still
+        # When the pin is already in uriotv, fetch the outputs so publication can still
         # run. --max-jobs 0 makes Nix fail instead of compiling if they cannot be fetched.
         id: realise
         if: steps.published.outputs.skip == 'true'
@@ -238,8 +238,8 @@ jobs:
         id: cachix
         # Automatic only after successful build AND fail-closed closure check.
         # Only this main-only step receives the write token; never a PR job.
-        # Independent of attic and of whether the pin was already published: pushes
-        # every time the closure passed the licence gate.
+        # Pushes every time the closure passed the licence gate, even when the pin
+        # was already published.
         if: >-
           always() && steps.closure.outcome == 'success' &&
           github.ref == 'refs/heads/main' &&
@@ -258,23 +258,9 @@ jobs:
           done < "$RUNNER_TEMP/publish-paths"
           echo 'Kernel outputs published and their StorePath verified.'
 
-      - name: Push kernel outputs to the private attic cache
-        # Independent of cachix: runs once the build and licence check passed, even if
-        # the cachix step failed. Never fails the job. Skipped with a warning when
-        # ATTIC_TOKEN is empty.
-        id: attic
-        continue-on-error: true
-        if: >-
-          always() && steps.closure.outcome == 'success' &&
-          github.ref == 'refs/heads/main' &&
-          (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_run')
-        env:
-          ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
-        run: bash scripts/attic-push.sh "$RUNNER_TEMP/publish-paths"
-
       - name: Record publication status for the cache branch
-        # Success only when the closure passed the licence gate, uriotv was pushed and
-        # verified, and the private attic push succeeded with ATTIC_TOKEN configured.
+        # Success only when the closure passed the licence gate and uriotv was pushed
+        # and verified.
         # Runs for trusted main events only; a failed status keeps cache unchanged.
         if: >-
           always() && github.ref == 'refs/heads/main' &&
@@ -283,5 +269,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           CLOSURE_OUTCOME: ${{ steps.closure.outcome }}
           CACHIX_OUTCOME: ${{ steps.cachix.outcome }}
-          ATTIC_OUTCOME: ${{ secrets.ATTIC_TOKEN != '' && steps.attic.outcome || 'failure' }}
-        run: bash scripts/publication-status.sh "cache/kernel/${KERNEL_ATTR}" "$CLOSURE_OUTCOME" "$CACHIX_OUTCOME" "$ATTIC_OUTCOME"
+        run: bash scripts/publication-status.sh "cache/kernel/${KERNEL_ATTR}" "$CLOSURE_OUTCOME" "$CACHIX_OUTCOME"

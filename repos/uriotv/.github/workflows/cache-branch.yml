@@ -2,8 +2,8 @@ name: "Update cache branch"
 
 # Promotes the verified main commit to the `cache` branch. The decision is taken
 # from commit statuses written by the publishing jobs (build.yml, kernel.yml), not
-# from workflow conclusions: the private attic push is non-blocking for CI, so a
-# green run alone does not prove that every cache received the outputs.
+# from workflow conclusions: only explicit publication statuses prove that the
+# closure passed licensing and the required Cachix StorePaths were verified.
 on:
   workflow_run:
     workflows: ['Build and populate cache', 'Build CachyOS kernel (self-hosted)']

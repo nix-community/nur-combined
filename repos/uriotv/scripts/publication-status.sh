@@ -3,7 +3,8 @@
 # Usage: publication-status.sh <context> <outcome>...
 # The status is "success" only when every outcome is exactly "success"; any other
 # value (failure, cancelled, skipped, empty) records "failure". Callers pass the
-# step outcomes of the cache pushes; the cache branch is promoted only from success.
+# step outcomes of publication verification; the cache branch is promoted only from
+# success.
 set -euo pipefail
 
 if (( $# < 2 )); then
@@ -14,11 +15,11 @@ context=$1
 shift
 
 state=success
-description='All cache publications succeeded for this commit.'
+description='All required publication checks succeeded for this commit.'
 for outcome in "$@"; do
   if [[ $outcome != success ]]; then
     state=failure
-    description="A cache publication did not succeed (outcome: ${outcome:-empty})."
+    description="A publication check did not succeed (outcome: ${outcome:-empty})."
     break
   fi
 done

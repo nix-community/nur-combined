@@ -34,6 +34,8 @@ strict-Bash updater, then runs:
 
 - `readme-versions.py`: README Version column is filled from a manifest; stale
   versions, unknown versions and package-set drift in either direction fail.
+- `cache-workflows.py`: package and kernel workflows retain Cachix publication and
+  verification while obsolete private-cache jobs, tools, and path exports stay absent.
 
 ## Nix evaluation (not compilation)
 

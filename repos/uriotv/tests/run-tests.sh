@@ -168,7 +168,7 @@ main() {
     python3 -B "$SCRIPT_DIR/nur-notification.py"
     python3 -B "$SCRIPT_DIR/cachyos-kernel-update.py"
     python3 -B "$SCRIPT_DIR/kernel-publication.py"
-    python3 -B "$SCRIPT_DIR/attic-push.py"
+    python3 -B "$SCRIPT_DIR/cache-workflows.py"
     python3 -B "$SCRIPT_DIR/publication-cache.py"
     python3 -B "$SCRIPT_DIR/readme-versions.py"
 

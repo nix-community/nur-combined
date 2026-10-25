@@ -94,14 +94,6 @@ jobs:
           CI_MANIFEST_PATH: ${{ runner.temp }}/ci-manifest.json
           CI_BUILT_OUTPUTS_FILE: ${{ runner.temp }}/ci-built-outputs.txt
         run: bash scripts/build-ci.sh
-      - name: Install attic client for private mirror
-        # Never fails the job: the private mirror must not gate cachix or test-gate.
-        continue-on-error: true
-        if: >-
-          success() && github.ref == 'refs/heads/main' &&
-          (github.event_name == 'push' || github.event_name == 'workflow_dispatch' ||
-           (github.event_name == 'workflow_run' && env.CI_TRUSTED_UPDATE_COMPLETION == 'true'))
-        run: nix profile install --no-write-lock-file --inputs-from . nixpkgs#attic-client
       - name: Publish eligible outputs
         id: cachix
         if: >-
@@ -114,27 +106,8 @@ jobs:
           CI_PUBLISH_ONLY: 'true'
           GITHUB_EVENT_NAME: ${{ github.event_name }}
           GITHUB_REF: ${{ github.ref }}
-          CI_PUBLISH_LIST_FILE: ${{ runner.temp }}/publish-paths.txt
           CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
         run: bash scripts/build-ci.sh
-      - name: Push verified outputs to the private attic cache
-        # Independent of cachix: runs even if the cachix step failed, as long as the
-        # build succeeded and produced a verified list. Never fails the job.
-        id: attic
-        continue-on-error: true
-        if: >-
-          always() && github.ref == 'refs/heads/main' &&
-          (github.event_name == 'push' || github.event_name == 'workflow_dispatch' ||
-           (github.event_name == 'workflow_run' && env.CI_TRUSTED_UPDATE_COMPLETION == 'true'))
-        env:
-          ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
-        run: |
-          set -euo pipefail
-          if [[ ! -f "$RUNNER_TEMP/publish-paths.txt" ]]; then
-            echo '::error::attic push impossible: the build did not produce a verified publication list.'
-            exit 1
-          fi
-          bash scripts/attic-push.sh "$RUNNER_TEMP/publish-paths.txt"
       - name: Trigger NUR update
         if: >-
           success() && github.ref == 'refs/heads/main' &&
@@ -143,8 +116,7 @@ jobs:
         run: bash scripts/notify-nur.sh '${{ matrix.nurRepo }}'
 
       - name: Record publication status for the cache branch
-        # Success only when uriotv and the private attic cache both received this run's
-        # verified outputs. The attic token must be configured; an absent token is a failure.
+        # Success only when eligible outputs were pushed to uriotv and verified.
         if: >-
           always() && github.ref == 'refs/heads/main' &&
           (github.event_name == 'push' || github.event_name == 'workflow_dispatch' ||
@@ -152,8 +124,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           CACHIX_OUTCOME: ${{ steps.cachix.outcome }}
-          ATTIC_OUTCOME: ${{ secrets.ATTIC_TOKEN != '' && steps.attic.outcome || 'failure' }}
-        run: bash scripts/publication-status.sh cache/packages "$CACHIX_OUTCOME" "$ATTIC_OUTCOME"
+        run: bash scripts/publication-status.sh cache/packages "$CACHIX_OUTCOME"
 
   test-gate:
     runs-on: ubuntu-latest

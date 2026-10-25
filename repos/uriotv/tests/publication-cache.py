@@ -85,12 +85,6 @@ class PublicationStatusTests(GateTests):
                 self.assertEqual(result.returncode, 0, result.stderr)
                 self.assertIn("-f state=failure", self.calls()[-1])
 
-    def test_missing_attic_token_outcome_is_failure(self):
-        # build.yml maps an absent ATTIC_TOKEN to "failure" before calling the script.
-        result = self.run_script(STATUS, ["cache/packages", "success", "failure"])
-        self.assertIn("-f state=failure", self.calls()[-1])
-        self.assertEqual(result.returncode, 0, result.stderr)
-
     def test_requires_context_and_commit(self):
         self.assertNotEqual(self.run_script(STATUS, ["cache/packages"]).returncode, 0)
         self.assertNotEqual(self.run_script(STATUS, [], GITHUB_SHA=None).returncode, 0)

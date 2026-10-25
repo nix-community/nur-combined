@@ -111,12 +111,6 @@ assert built == expected, "Incomplete or unexpected built outputs; refusing publ
 paths = {path for p in rows if p["cacheable"] for path in p["outputs"]}
 print("\n".join(sorted(paths)), end="\n" if paths else "")
 PY
-# Export the verified list for independent follow-up steps (private attic mirror).
-# Written before cachix runs, so a cachix failure does not hide what was verified.
-if [[ -n "${CI_PUBLISH_LIST_FILE:-}" ]]; then
-  cp "$work/cacheable" "$CI_PUBLISH_LIST_FILE"
-fi
-
 if [[ -s "$work/cacheable" ]]; then
   cachix push uriotv < "$work/cacheable"
   while IFS= read -r path; do
