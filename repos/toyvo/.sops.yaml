@@ -12,7 +12,7 @@ keys:
   - &server_nas age1cdhakptq68qa7w3kmszkmlygfgu94evze6x66l7ekafsr2jlyf0sfhq29x
   - &server_oracle_cloud_nixos age1qcasr36jkxpyy2ehpngdyvdg7nfvvqrv56pynzem6cvgtkw64das0frg26
   - &server_pinebook_pro age1vpstfqc4ratdd60ne5k38zr8jddnc3lvvadgkr4s8y2nkehl73xsemx7ny
-  - &server_protectli age1p62hrzq947f3ft2pljpctmudvvpazzafxe46kuyac7tkypjkpspshh6wnm
+  - &server_protectli age1mf6jh0c6dk7ce9ewqj98z3cfwexsxlgw7zvkzyvys5lmuwf4ru8snupvfn
   - &server_router age1v5v7n0klvuusw7r55jg25fppw7u26pj85zffs0cpjajgeeuqadxqf40sgg
   - &server_steamdeck_nixos age1wlrat6ckl34359tnqrww8jc0tlyedy33puzw9uvhszralfzcpaaqesg4ts
   - &server_thinkpad age1xech2qev7kpnquuv88qtaygnqtp4972ke605puef5hj6mjvh6ypqg7ud7q
