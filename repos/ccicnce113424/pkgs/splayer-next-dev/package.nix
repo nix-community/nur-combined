@@ -191,7 +191,11 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Cross-platform desktop music player with rich lyric support and wide audio format compatibility";
     homepage = "https://github.com/SPlayer-Dev/SPlayer-Next";
     changelog = "https://github.com/SPlayer-Dev/SPlayer-Next/releases/tag/v${finalAttrs.version}";
-    license = lib.licenses.agpl3Only;
+    license = with lib.licenses; [
+      agpl3Only
+      gpl3Only # ffmpeg_audio_sys
+      lgpl21Plus # bundled FFmpeg
+    ];
     sourceProvenance = with lib.sourceTypes; [
       fromSource
       binaryBytecode # resources/afp/afp.wasm.mjs
