@@ -18,13 +18,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "renovate";
-  version = "44.181.1";
+  version = "44.181.5";
 
   src = fetchFromGitHub {
     owner = "renovatebot";
     repo = "renovate";
     tag = finalAttrs.version;
-    hash = "sha256-hmKnWeaRq/CBY1I6Mx9VQ+NvI77NEba8IVuA6WzcdUc=";
+    hash = "sha256-U04x/D5lESM+xo/JsGeDF4vyr92iUBx+/wivMila+Ts=";
   };
 
   patches = [
@@ -56,7 +56,7 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (finalAttrs) pname version src;
     pnpm = pnpm_11;
     fetcherVersion = 4;
-    hash = "sha256-nDFxFntp8evljMcy2UCAiMrJx7O3f3WWqju/9icd/is=";
+    hash = "sha256-XElPyEYQ63uTQCdtpeNrEgbq2GsAP4711sKC0SHdgcs=";
   };
 
   env.COREPACK_ENABLE_STRICT = 0;
