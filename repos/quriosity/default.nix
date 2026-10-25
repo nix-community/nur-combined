@@ -37,7 +37,7 @@
   figcraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/figcraft {};
 
   # Compatibility tools
-  proton-ge = pkgs.callPackage ./pkgs/compat-tools/ge-proton {};
+  ge-proton = pkgs.callPackage ./pkgs/compat-tools/ge-proton {};
   dwproton = pkgs.callPackage ./pkgs/compat-tools/dwproton {};
   proton-wineland = pkgs.callPackage ./pkgs/compat-tools/proton-wineland {};
   proton-wineland-v3 = pkgs.callPackage ./pkgs/compat-tools/proton-wineland { variant = "x86_64-v3"; };

@@ -35,16 +35,16 @@ in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "gridcraft";
-  version = "0.8.0";
+  version = "0.12.1";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "gridcraft";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-G0xsNWRoNMtA5lTKSZgLCHP6gcq+zOaOPdcColuFr0A=";
+    hash = "sha256-NVtXuSOBTe8wpa/l/DwH8nn7JFR7dgC3G9Wfl6jixcc=";
   };
 
-  cargoHash = "sha256-EY/41uMNm9hG7LhynI4d/7RSj5tGXsT8/s+Al8mr7pk=";
+  cargoHash = "sha256-ErwPpeYf6SzvdEk2yOHVGZ0WuSQfRcCvGp1yffw+6PQ=";
   cargoBuildFlags = [ "--package" "gridcraft" "--package" "gridcraft-cli" ];
   cargoTestFlags = [ "--package" "gridcraft" "--package" "gridcraft-cli" ];
 

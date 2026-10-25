@@ -37,16 +37,16 @@ in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "deckcraft";
-  version = "0.8.0";
+  version = "0.11.1";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "deckcraft";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-kO8YBFzyip+NJmH2eFGGOB7OCOZWUhIGvEuxBzSemgk=";
+    hash = "sha256-sxLcPfXXitvbQWWRV3pdsLEHYLde05qp7/QRinNz0xc=";
   };
 
-  cargoHash = "sha256-TlPzzZqjfKPE0D6FUSQKYkfdENzED+zNRYfQxepEBzk=";
+  cargoHash = "sha256-JPjjGZ7/A5EYdpwsjQksPFh9Q5usZGcqv5en1P3hbVs=";
   cargoBuildFlags = [ "--package" "deckcraft" "--package" "deckcraft-cli" ];
   cargoTestFlags = [ "--package" "deckcraft" "--package" "deckcraft-cli" ];
 

@@ -8,7 +8,7 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ge-proton";
-  version = "GE-Proton11-10";
+  version = "GE-Proton11-11";
 
   inherit (finalAttrs.passthru.variants.${stdenvNoCC.hostPlatform.system}) src toolName;
 
@@ -47,7 +47,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         toolName = "${finalAttrs.version}-x86_64";
         src = fetchzip {
           url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/${finalAttrs.version}/${finalAttrs.version}-x86_64.tar.gz";
-          hash = "sha256-pR0MFuBcjr1RZOCJ9aDyWvadGDcXfpZt7loFSNFjWuU=";
+          hash = "sha256-3tVgf83IkteFtVo/bHd4yG1xCtPeuW8FXaTrHOLjvKQ=";
         };
       };
       "aarch64-linux" = {
@@ -58,6 +58,16 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         };
       };
     };
+    
+    updateScript = writeScript "update-proton-ge" ''
+      #!/usr/bin/env nix-shell
+      #!nix-shell -i bash -p curl jq common-updater-scripts
+      repo="https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases"
+      version="$(curl -sL "$repo" | jq 'map(select(.prerelease == false)) | .[0].tag_name' --raw-output)"
+      for platform in ${lib.escapeShellArgs finalAttrs.meta.platforms}; do
+        update-source-version ge-proton "$version" --ignore-same-version --source-key="variants.$platform.src"
+      done
+    '';
   };
 
   meta = {

@@ -18,7 +18,7 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "proton-wineland";
-  version = "11.0-20261015";
+  version = "11.0-20261024";
 
   inherit (finalAttrs.passthru.variants.${variant}) src toolName;
 
@@ -57,17 +57,32 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         toolName = "proton-wineland-${finalAttrs.version}-x86_64";
         src = fetchzip {
           url = "https://github.com/nanomatters/proton-salkim/releases/download/wineland-${finalAttrs.version}/proton-wineland-${finalAttrs.version}-x86_64.tar.xz";
-          hash = "sha256-cacwol74hOi8dEdkH4djbGrSOvP5ILJPxITgzueajus=";
+          hash = "sha256-A6tVDll8DN2lJJKhhiBAF5MSsjxFgm1z4CXrHXOQgVs=";
+        } // {
+          tag = "refs/tags/wineland-${finalAttrs.version}";
         };
       };
       "x86_64-v3" = {
         toolName = "proton-wineland-${finalAttrs.version}-x86_64_v3";
         src = fetchzip {
           url = "https://github.com/nanomatters/proton-salkim/releases/download/wineland-${finalAttrs.version}/proton-wineland-${finalAttrs.version}-x86_64_v3.tar.xz";
-          hash = "sha256-LrL6AV3wdTMKd1zkI4cKjTiKp77+V4ws8RVHsswOnTY=";
+          hash = "sha256-Q/HzmHBZplWg/1JMvkxgxNXkDMsG0U3QjCRSisV2Qu0=";
+        } // {
+          tag = "refs/tags/wineland-${finalAttrs.version}";
         };
       };
     };
+
+    updateScript = writeScript "update-proton-wineland" ''
+      #!/usr/bin/env nix-shell
+      #!nix-shell -i bash -p curl jq common-updater-scripts
+      repo="https://api.github.com/repos/nanomatters/proton-salkim/releases"
+      version="$(curl -sL "$repo" | jq 'map(select(.prerelease == false and (.tag_name | startswith("wineland-")))) | .[0].tag_name' --raw-output)"
+      version="''${version#wineland-}"
+      for variant in x86_64 x86_64-v3; do
+        update-source-version proton-wineland "$version" --ignore-same-version --source-key="variants.$variant.src"
+      done
+    '';
   };
 
   meta = {

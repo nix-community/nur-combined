@@ -35,16 +35,16 @@ in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "pdfcraft";
-  version = "0.9.0";
+  version = "0.14.0";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "pdfcraft";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-pOHCv3K6XfRci1kWhta1gmTZGklSpBJqjLIXvqKq484=";
+    hash = "sha256-UCTQr6j4TqPXQWH410cF6DZC0vK59QFv1FAWzxdDjwA=";
   };
 
-  cargoHash = "sha256-4zRin04PC+QAeV41qcXHouOXNbwIGYZ/IfXhGKa9Zp8=";
+  cargoHash = "sha256-L0fC96fLlwTq0Gu0CSL9swKzZe4lcgLFsMsaIk3CxuY=";
   cargoBuildFlags = [ "--package" "pdfcraft" "--package" "pdfcraft-cli" ];
   cargoTestFlags = [ "--package" "pdfcraft" "--package" "pdfcraft-cli" ];
 

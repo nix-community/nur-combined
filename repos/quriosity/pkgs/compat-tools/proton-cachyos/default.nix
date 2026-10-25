@@ -17,9 +17,11 @@
       or (throw "proton-cachyos: no build for ${stdenvNoCC.hostPlatform.system}"),
 }:
 
-stdenvNoCC.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation (finalAttrs: let
+  releaseVersion = lib.removePrefix "cachyos-" (lib.removeSuffix "-slr" finalAttrs.version);
+in {
   pname = "proton-cachyos";
-  version = "11.0-20261014";
+  version = "cachyos-11.0-20261015-slr";
 
   inherit (finalAttrs.passthru.variants.${variant}) src toolName;
 
@@ -55,27 +57,37 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   passthru = {
     variants = {
       "x86_64" = {
-        toolName = "proton-cachyos-${finalAttrs.version}-slr-x86_64";
+        toolName = "proton-cachyos-${releaseVersion}-slr-x86_64";
         src = fetchzip {
-          url = "https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-${finalAttrs.version}-slr/proton-cachyos-${finalAttrs.version}-slr-x86_64.tar.xz";
-          hash = "sha256-L0CzBfelMJP2jj4VNEQY/ZswJo16TN6nNf9qKVryCRU=";
+          url = "https://github.com/CachyOS/proton-cachyos/releases/download/${finalAttrs.version}/proton-cachyos-${releaseVersion}-slr-x86_64.tar.xz";
+          hash = "sha256-Vb1AvDQLIpgxr3ABPMstM3DFRN1tfUD+6OnhQirMnAQ=";
         };
       };
       "x86_64-v3" = {
-        toolName = "proton-cachyos-${finalAttrs.version}-slr-x86_64_v3";
+        toolName = "proton-cachyos-${releaseVersion}-slr-x86_64_v3";
         src = fetchzip {
-          url = "https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-${finalAttrs.version}-slr/proton-cachyos-${finalAttrs.version}-slr-x86_64_v3.tar.xz";
-          hash = "sha256-fHi/LfyvPj2qm8ma6JH+wEJiJO1Htwp6zkbdRSg6Xic=";
+          url = "https://github.com/CachyOS/proton-cachyos/releases/download/${finalAttrs.version}/proton-cachyos-${releaseVersion}-slr-x86_64_v3.tar.xz";
+          hash = "sha256-USZ7wVV069xmGJdtyg6b/pdv7qqLkUkSZEyHiiVIs1o=";
         };
       };
       "aarch64" = {
-        toolName = "proton-cachyos-${finalAttrs.version}-slr-arm64";
+        toolName = "proton-cachyos-${releaseVersion}-slr-arm64";
         src = fetchzip {
-          url = "https://github.com/CachyOS/proton-cachyos/releases/download/cachyos-${finalAttrs.version}-slr/proton-cachyos-${finalAttrs.version}-slr-arm64.tar.xz";
-          hash = "sha256-fYsKzT7d1wV3gqY08KPrpEdzB1wNdXvq/hNrzs9UHhA=";
+          url = "https://github.com/CachyOS/proton-cachyos/releases/download/${finalAttrs.version}/proton-cachyos-${releaseVersion}-slr-arm64.tar.xz";
+          hash = "sha256-xV683d43wjkDyERXknf4yDzQbWVlD3w+Wo4H6AxeIis=";
         };
       };
     };
+
+    updateScript = writeScript "update-proton-cachyos" ''
+      #!/usr/bin/env nix-shell
+      #!nix-shell -i bash -p curl jq common-updater-scripts
+      repo="https://api.github.com/repos/CachyOS/proton-cachyos/releases"
+      version="$(curl -sL "$repo" | jq 'map(select(.prerelease == false)) | .[0].tag_name' --raw-output)"
+      for variant in x86_64 x86_64-v3 aarch64; do
+        update-source-version proton-cachyos "$version" --ignore-same-version --source-key="variants.$variant.src"
+      done
+    '';
   };
 
   meta = {

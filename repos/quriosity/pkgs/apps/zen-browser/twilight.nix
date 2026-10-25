@@ -2,11 +2,11 @@
 
 let
   pname = "zen-browser-twilight";
-  version = "1.24t";
+  version = "1.23.4b";
 
   src = fetchurl {
     url = "https://github.com/zen-browser/desktop/releases/download/twilight-1/zen-x86_64.AppImage";
-    hash = "sha256-iUjm/TdMyVTiwKpgkWDVGMrPNqFutJThg+RKgGrJb8I=";
+    hash = "sha256-Vs7PCjW7AffT1AgnLHe9NmdG/KI24jl3MzQkniCL+Zw=";
   };
 
   appimageContents = appimageTools.extract {

@@ -35,16 +35,16 @@ in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "wordcraft";
-  version = "0.8.0";
+  version = "0.11.0";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "wordcraft";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-5zT+XjveKuuqaSsJnKZjerai0TaBO6s7LhrWKrvNcSU=";
+    hash = "sha256-KykZpvpFAbUkYLjEigX8813tx+IMCHIf7MisSpC8qjQ=";
   };
 
-  cargoHash = "sha256-Dvjl82GeD/lxrRMCOQJm8pxbVctSeMiRhtmUWpDjziE=";
+  cargoHash = "sha256-UGAz/7P//xjWivV+Zhh8ahi5XJEPITdBOATmtW+cYQs=";
   cargoBuildFlags = [ "--package" "wordcraft" "--package" "wordcraft-cli" ];
   cargoTestFlags = [ "--package" "wordcraft" "--package" "wordcraft-cli" ];
 
