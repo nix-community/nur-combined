@@ -512,9 +512,9 @@ in
         # Trust X-Forwarded-Proto/-Host from the router reverse proxy.
         trusted_proxies = [ homelab.router.ip ];
         oauth.self_hosted = {
-          issuer = "https://auth.diekvoss.net/application/o/hermes-dashboard/";
+          issuer = "https://auth.diekvoss.net/application/o/hermes/";
           # Client ID from the Authentik OAuth2/OIDC provider (slug
-          # hermes-dashboard). Fill in after creating it in the Authentik UI.
+          # hermes). Fill in after creating it in the Authentik UI.
           client_id = "2YLxUNkZnHxrwSK2LzpeQ4YUUv1UkIOcODQmAcRQ";
           scopes = "openid profile email";
         };
