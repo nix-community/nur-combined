@@ -1,12 +1,12 @@
-{ lib, appimageTools, fetchurl, makeDesktopItem, nix-update-script }:
+{ lib, appimageTools, fetchurl, makeDesktopItem, nix-update-script, libgpg-error }:
 
 let
   pname = "opennow";
-  version = "0.5.5";
+  version = "1.0.3";
 
   src = fetchurl {
-    url = "https://github.com/OpenCloudGaming/OpenNOW/releases/download/v${version}/OpenNOW-v${version}-linux-x86_64.AppImage";
-    hash = "sha256-JvQ1MQaWzk94boSw2ioEaS+mXu/QPoPxuIGO3RP/i4w=";
+    url = "https://github.com/OpenCloudGaming/OpenNOW/releases/download/v${version}/OpenNOW-Qt-${version}-Linux-x64.AppImage";
+    hash = "sha256-xG1Wzyk89VMhsA4Pc32e9nmbceq6wGBRhgsiK2j5EDo=";
   };
 
   appimageContents = appimageTools.extract {
@@ -27,12 +27,14 @@ in
 appimageTools.wrapType2 {
   inherit pname version src;
 
+  extraPkgs = _: [ libgpg-error ];
+
   extraInstallCommands = ''
     install -m 444 -D ${desktopItem}/share/applications/${pname}.desktop \
       $out/share/applications/${pname}.desktop
 
-    install -m 444 -D ${appimageContents}/usr/share/icons/hicolor/2048x2048/apps/opennow-stable.png \
-      $out/share/icons/hicolor/256x256/apps/${pname}.png
+    install -m 444 -D ${appimageContents}/usr/share/icons/hicolor/512x512/apps/io.github.opencloudgaming.OpenNOW.png \
+      $out/share/icons/hicolor/512x512/apps/${pname}.png
   '';
 
   passthru.updateScript = nix-update-script { };

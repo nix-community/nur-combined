@@ -37,16 +37,16 @@ in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "effectcraft";
-  version = "0.16.0";
+  version = "0.17.0";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "effectcraft";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-Qc6DJtbJND79MHsqQsHkPpL+xg622xk4kn4+nYXBpSM=";
+    hash = "sha256-Pt4D6BDodgCaTKj11i+/D+RH+B/h/cq8mQgmNIwLhxU=";
   };
 
-  cargoHash = "sha256-BkZjYS5G+mx7F+0ODjEwMn9JBBLG8x58oMGgeBMrT8E=";
+  cargoHash = "sha256-86/HTxR+qgkGp3U13fT+b6TGmH44VIvOlMQU+rlyaEc=";
   cargoBuildFlags = [ "--package" "effectcraft" "--package" "effectcraft-cli" ];
   cargoTestFlags = [ "--package" "effectcraft" "--package" "effectcraft-cli" ];
 

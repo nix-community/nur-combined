@@ -1,6 +1,7 @@
 { lib
 , stdenv
 , fetchurl
+, writeScript
 , makeWrapper
 , temurin-jre-bin-25
 , libGL
@@ -29,6 +30,8 @@ stdenv.mkDerivation rec {
   src = fetchurl {
     url = "https://github.com/RagedMeteor1837/olauncher/releases/download/v${version}/olauncher-${version}-redist.jar";
     hash = "sha256-GZ+p2v3Q95gsWpmA07qRxn8oKlAA7P0nEFREatcSjbY=";
+  } // {
+    tag = "refs/tags/v${version}";
   };
 
   dontUnpack = true;
@@ -72,6 +75,16 @@ stdenv.mkDerivation rec {
       categories = [ "Game" ];
     })
   ];
+
+  passthru = {
+    updateScript = writeScript "update-olauncher" ''
+      #!/usr/bin/env nix-shell
+      #!nix-shell -i bash -p curl jq common-updater-scripts
+      repo="https://api.github.com/repos/RagedMeteor1837/olauncher/releases"
+      version="$(curl -sL "$repo" | jq 'map(select(.prerelease == false and (.tag_name | startswith("v")))) | .[0].tag_name' --raw-output)"
+      update-source-version olauncher "''${version#v}"
+    '';
+  };
 
   meta = with lib; {
     description = "Modified old-style Minecraft launcher with Microsoft authentication support";
