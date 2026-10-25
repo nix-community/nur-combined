@@ -84,6 +84,7 @@
 
 ## nginx 模块包（pkgs/nginx-modules/）
 
+- **自定义明文代理协议必须同时绕过请求和响应的 HTTP 处理**：只修改发出的请求行或在 HTTP 状态解析失败后接受原始数据，不代表响应已经透明传输。明文模式应在状态行和响应头解析之前直接进入原始响应路径；回归测试应覆盖以合法 HTTP 状态行开头的数据、控制响应头、分片与提前 EOF，并同时验证普通 HTTP 代理行为不变。
 - **nginx 第三方模块用 mkNginxPlugin 打包，仿照 nixpkgs nginxModules**：自定义 nginx 模块放在 `pkgs/nginx-modules/<模块名>/default.nix`（目录名即包名，由顶层 loadPackages 自动加载），包定义调用 nixpkgs 的 `mkNginxPlugin (finalAttrs: { ... })`，主体只需 `pname`/`version`/`src`（fetchFromGitHub + 可选 `fetchSubmodules = true`）与 `buildInputs`；rev 跟踪包用 `unstableGitUpdater { url = ...; hardcodeZeroVersion = true; }`（版本 `0-unstable-<日期>`），tag 版本包用 mkNginxPlugin 默认的 `nix-update-script`。`lantianCustomized.nginx` 通过函数参数直接引用这些包（Nix 标识符允许连字符，`ja4-nginx-module` 可作为参数名由 callPackage 自动注入）。
 - **mkNginxPlugin 模块的 dynamic 标志在 passthru 里**：nixpkgs 部分模块（vts、brotli）声明 `passthru.dynamic = true`，nginx generic 按 `mod.dynamic or false` 决定 STATIC `--add-module` 还是 DYNAMIC。想在静态/动态间切换不能用直接添加顶层 `dynamic` 属性的 `overrideAttrs`（不生效，因为读取的是 passthru）——要用 `pkg.overrideAttrs (_: { passthru = (pkg.passthru or { }) // { dynamic = false; }; })`；`.override` 不行（会被 mkNginxPlugin functor 的严格参数列表拒收）。另外 nixpkgs `nginx` generic 会自动套用 `nix-etag-1.15.4.patch`、`nix-skip-check-logs-path.patch`、`@nixStoreDir@` 替换和 libxml2 include 修正，包装 nginx 时不要重复提供这些补丁/替换，否则重复应用报错。
 - **mkNginxPlugin 模块本身是纯源码 FOD**：它 `dontConfigure/dontBuild/dontFixup`，仅把打过补丁的源码拷到 $out；真正的编译发生在传给 nginx 构建时。模块的 `patches`（如 stream-echo 的补丁）在 FOD 的 patchPhase 应用，所以模块包自身也要能独立 `nix build` 成功。模块 meta 会带 `hydraPlatforms = [ ]`，不单独入 Hydra，仅作为依赖被 nginx 构建拉起。

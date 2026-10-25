@@ -193,10 +193,44 @@ diff -ruN tree_prev/src/http/modules/ngx_http_proxy_module.c tree/src/http/modul
          e.ip = plcf->body_values->elts;
          e.pos = b->last;
          e.end = b->last + body_len;
-@@ -1832,16 +1848,15 @@
- 
+@@ -1801,10 +1817,11 @@
+ static ngx_int_t
+ ngx_http_proxy_process_status_line(ngx_http_request_t *r)
+ {
+-    size_t                 len;
+-    ngx_int_t              rc;
+-    ngx_http_upstream_t   *u;
+-    ngx_http_proxy_ctx_t  *ctx;
++    size_t                      len;
++    ngx_int_t                   rc;
++    ngx_http_upstream_t         *u;
++    ngx_http_proxy_ctx_t        *ctx;
++    ngx_http_proxy_loc_conf_t   *plcf;
+
+     ctx = ngx_http_get_module_ctx(r, ngx_http_proxy_module);
+
+@@ -1813,6 +1830,17 @@
+     }
+
+     u = r->upstream;
++    plcf = ngx_http_get_module_loc_conf(r, ngx_http_proxy_module);
++
++    if (plcf->http_version == NGX_HTTP_VERSION_PLAIN) {
++        u->headers_in.status_n = NGX_HTTP_OK;
++        u->headers_in.status_line.len = 0;
++        u->headers_in.status_line.data = NULL;
++        u->state->status = NGX_HTTP_OK;
++        u->headers_in.connection_close = 1;
++
++        return NGX_OK;
++    }
+
+     rc = ngx_http_parse_status_line(r, &u->buffer, &ctx->status);
+
+@@ -1832,16 +1860,15 @@
+
  #endif
- 
+
 -        ngx_log_error(NGX_LOG_ERR, r->connection->log, 0,
 -                      "upstream sent no valid HTTP/1.0 header");
 -
@@ -205,21 +239,20 @@ diff -ruN tree_prev/src/http/modules/ngx_http_proxy_module.c tree/src/http/modul
              return NGX_HTTP_UPSTREAM_INVALID_HEADER;
          }
  #endif
- 
+
 -        r->http_version = NGX_HTTP_VERSION_9;
 +        u->headers_in.status_n = NGX_HTTP_OK;
 +        u->headers_in.status_line.len = 0;
 +        u->headers_in.status_line.data = NULL;
          u->state->status = NGX_HTTP_OK;
          u->headers_in.connection_close = 1;
- 
-diff -ruN tree_prev/src/http/ngx_http_request.h tree/src/http/ngx_http_request.h
---- a/src/http/ngx_http_request.h	2026-10-15 23:57:34.049991879 -0700
-+++ b/src/http/ngx_http_request.h	2026-10-15 23:57:34.087724926 -0700
-@@ -19,7 +19,7 @@
+
+--- a/src/http/ngx_http_request.h
++++ b/src/http/ngx_http_request.h
+@@ -20,7 +20,7 @@
  #define NGX_HTTP_DISCARD_BUFFER_SIZE       4096
  #define NGX_HTTP_LINGERING_BUFFER_SIZE     4096
- 
+
 -
 +#define NGX_HTTP_VERSION_PLAIN             1
  #define NGX_HTTP_VERSION_9                 9
