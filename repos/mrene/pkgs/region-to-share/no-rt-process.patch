@@ -1,0 +1,25 @@
+--- a/crates/region-portal/src/pipewire.rs
++++ b/crates/region-portal/src/pipewire.rs
+@@ -545,7 +545,11 @@
+         })
+         .register()?;
+     
+-    // RT_PROCESS  : dequeue buffers dans le process callback
++    // No RT_PROCESS: the process callback allocates and copies whole frames,
++    // which is not realtime-safe. On the RT data thread, PipeWire's module-rt
++    // (via RTKit) caps RLIMIT_RTTIME at 200 ms soft == hard, and the kernel
++    // SIGKILLs the process once that thread runs that long without sleeping.
++    // Without the flag, process() runs on this (non-RT) main loop thread.
+     // MAP_BUFFERS : mapper automatiquement les buffers mémoire (MemFd/SHM).
+     //               Si le mapping automatique échoue sous Flatpak (data()==None),
+     //               le process callback effectue un mmap manuel via le fd.
+@@ -568,8 +572,7 @@
+         pw::spa::utils::Direction::Input,
+         Some(node_id),
+         pw::stream::StreamFlags::AUTOCONNECT
+-            | pw::stream::StreamFlags::MAP_BUFFERS
+-            | pw::stream::StreamFlags::RT_PROCESS,
++            | pw::stream::StreamFlags::MAP_BUFFERS,
+         &mut params_refs,
+     )?;
+     debug!("PipeWire: stream connecté");

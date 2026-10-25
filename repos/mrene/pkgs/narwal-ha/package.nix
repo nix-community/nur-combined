@@ -7,15 +7,15 @@
 
 let
   pname = "narwal-ha";
-  version = "1.0.0-unstable-2026-05-30";
+  version = "1.0.11";
   owner = "sjmotew";
   domain = "narwal";
 
   src = fetchFromGitHub {
     inherit owner;
     repo = "NarwalIntegration";
-    rev = "125d0a3a3409a1109e26ed8c71f204a14b381f60";
-    hash = "sha256-SxU4YAiBfc4oKmRDsMsgP49DsHGxrove4fSK8URxpv8=";
+    tag = "v${version}";
+    hash = "sha256-3tApVG0foVOF2jg5sQY/ERHv2e9KBE9ax9HeXbIJNZk=";
   };
 
   bbpb = home-assistant.python3Packages.callPackage ./bbpb.nix { };
