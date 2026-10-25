@@ -161,6 +161,12 @@ in
                     value = "diekvoss.net";
                   }
                 ];
+                # Widget API keys from Secret `homepage-widgets` (populated
+                # via k8s/homepage/secretspec.toml). Same HOMEPAGE_VAR_*
+                # names the native service used.
+                envFrom = [
+                  { secretRef.name = "homepage-widgets"; }
+                ];
                 resources = {
                   requests = {
                     cpu = "50m";

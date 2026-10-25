@@ -13,6 +13,7 @@
 - [x] Protectli joined as worker agent (2026-10-26): Ready, `<none>` roles as designed; etcd stays 3 voters.
 - [ ] Traefik NodePorts 30080/30443 live (code done on nas+macmini); deploy both, verify svc + cross-node pod curl.
 - [x] homepage serves from cluster (2026-10-26): manifests live, Caddy `upstreams` flip for `diekvoss.net` verified 200 with auth gate, nas-native service retired (file deleted, 8082 closed). Failover verified 2026-10-26 in both directions (k3s stopped on nas → 200 via macmini, and vice versa).
+- [ ] homepage widget secrets via secretspec (contract `k8s/homepage/secretspec.toml` + Deployment `envFrom` done; design `docs/superpowers/specs/2026-10-26-homepage-secretspec-design.md`, plan `docs/superpowers/plans/2026-10-26-homepage-secretspec.md`): user to check `secretspec --version` + `pass-cli` pin, copy the 17 keys to `homepage/default/*` in the `secretspec` Pass vault, run the populate loop, verify widgets + `secretspec check`.
 - [ ] Storage re-architecture for stateful workloads (`/mnt/POOL` via local-path/Longhorn/Ceph decision).
 - [ ] Caddy ingress integration for cluster services.
 - [ ] aarch64 nodes (rpis) after x86_64 stable.
