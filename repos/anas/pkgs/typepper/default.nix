@@ -5,7 +5,7 @@
 
 let
   pname = "typepper";
-  version = "0.2.0";
+  version = "0.5.0";
   owner = "leodiegues";
 in
 rustPlatform.buildRustPackage rec {
@@ -15,10 +15,10 @@ rustPlatform.buildRustPackage rec {
     inherit owner;
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-jojwNMqsSP/8rLP+gxWq8vEKajIz2zHJqrJ0ycRVwWM=";
+    hash = "sha256-H+QEv0Ihv7/zcG80iXllLZONEyEX3K8nBmCGIKzbQWk=";
   };
 
-  cargoHash = "sha256-6nWNz27f90KyDxgtHDznwx4t6Z+bELSiKPs22yNuHCo=";
+  cargoHash = "sha256-KMSakdhbNab5+yvuEHjB+zCsL6LdwkszoaABWm0sg1o=";
 
   # There are no tests
   doCheck = false;
