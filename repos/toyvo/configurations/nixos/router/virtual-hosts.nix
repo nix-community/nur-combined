@@ -27,6 +27,7 @@
                 selfSigned ? false,
                 public ? domain != "diekvoss.net",
                 forwardAuthGate ? true,
+                upstreams ? null,
                 ...
               }:
               {
@@ -83,6 +84,13 @@
                             transport http {
                               tls_insecure_skip_verify
                             }
+                          }
+                        ''
+                      else if upstreams != null then
+                        ''
+                          header Strict-Transport-Security "max-age=15552000; includeSubDomains; preload"
+                          reverse_proxy ${lib.concatStringsSep " " upstreams} {
+                            header_down -Server
                           }
                         ''
                       else

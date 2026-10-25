@@ -72,6 +72,7 @@
     k3s = {
       enable = true;
       role = "server";
+      traefik.enable = true;
       clusterInit = false;
       serverAddr = "https://10.1.0.3:6443";
       tokenFile = config.sops.secrets."k3s-token".path;

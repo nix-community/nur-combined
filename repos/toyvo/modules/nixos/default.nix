@@ -26,6 +26,7 @@
         ./system.nix
         ./ids.nix
         ./k3s.nix
+        ./k3s-homepage.nix
         ./gaming.nix
         ./mcsmanager.nix
         ./monitoring/default.nix
@@ -68,6 +69,7 @@
   system = ./system.nix;
   ids = ./ids.nix;
   k3s = ./k3s.nix;
+  k3s-homepage = ./k3s-homepage.nix;
   gaming = ./gaming.nix;
   mcsmanager = ./mcsmanager.nix;
   monitoring = ./monitoring/default.nix;

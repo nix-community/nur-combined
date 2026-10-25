@@ -140,6 +140,7 @@ in
     k3s = {
       enable = true;
       role = "server";
+      traefik.enable = true;
       clusterInit = true;
       tokenFile = config.sops.secrets."k3s-token".path;
       extraSANs = [
@@ -151,6 +152,8 @@ in
         "10.1.0.12"
       ];
     };
+    # First migration passenger; manifests deploy cluster-wide from here.
+    k3sHomepage.enable = true;
     security.enable = true;
     home-manager.enable = true;
     networking.enable = true;

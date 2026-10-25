@@ -1,11 +1,17 @@
 # TODOs
 
+## nas libvirtd (pre-existing, unrelated to k3s)
+
+- [ ] `libvirtd.service` fails since ~Oct 24 with `status=243/CREDENTIALS` (`LoadCredentialEncrypted` from upstream libvirt packaging can't determine host key; no TPM on nas). Switches still activate (k3s fine) but exit non-zero. No stored libvirt secrets (only the key file in `/var/lib/libvirt/secrets/`), so safe to regenerate: `sudo rm /var/lib/libvirt/secrets/secrets-encryption-key && sudo systemctl start virt-secret-init-encryption.service && sudo systemctl restart libvirtd.service`. If init also fails → host-key problem, investigate `systemd-creds`/TPM-less setup. If no VMs are used, set `virtualisation.libvirtd.enable = false` instead.
+
 ## k3s cluster (nas + MacMini-Intel, day one)
 
 - [x] k3s two-server cluster declared (design: `docs/superpowers/specs/2026-10-25-k3s-nas-design.md`, plan: `docs/superpowers/plans/2026-10-25-k3s-nas-macmini.md`): `nixcfg.k3s` wrapper module, nas cluster-init server, MacMini-Intel joins via `https://10.1.0.3:6443`, shared sops `k3s-token`, traefik disabled.
   - Manual rollout order (eval verified, not yet deployed): deploy nas first, wait for `k3s kubectl get nodes` Ready, then deploy MacMini-Intel.
 - [x] Deploy + verify (2026-10-26): `nixos-rebuild switch --flake .#nas`, then `.#MacMini-Intel-NixOS`; `kubectl get nodes` shows nas + macmini-intel-nixos Ready (control-plane,etcd). Required opening etcd 2379-2380/tcp in `nixcfg.k3s` firewall on both nodes.
-- [ ] Third server for etcd quorum (router or protectli) — 2-node etcd has no quorum HA until then.
+- [ ] Router joins as etcd-only third server (code done: `disableAgent` + LAN-scoped firewall, design `docs/superpowers/specs/2026-10-25-k3s-ingress-router-design.md`, plan `docs/superpowers/plans/2026-10-25-k3s-ingress-router.md`); deploy router and verify 3 servers.
+- [ ] Traefik NodePorts 30080/30443 live (code done on nas+macmini); deploy both, verify svc + cross-node pod curl.
+- [ ] homepage serves from cluster (manifests dark-deployed with switch); then Caddy `upstreams` flip for `diekvoss.net`, verify, retire nas-native service.
 - [ ] Storage re-architecture for stateful workloads (`/mnt/POOL` via local-path/Longhorn/Ceph decision).
 - [ ] Caddy ingress integration for cluster services.
 - [ ] aarch64 nodes (rpis) after x86_64 stable.

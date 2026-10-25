@@ -325,6 +325,22 @@ in
   virtualisation.containers.enable = true;
   nixcfg = {
     nix.enable = true;
+    k3s = {
+      enable = true;
+      role = "server";
+      clusterInit = false;
+      serverAddr = "https://10.1.0.3:6443";
+      tokenFile = config.sops.secrets."k3s-token".path;
+      # Quorum vote only: no kubelet, no workloads on the edge box.
+      disableAgent = true;
+      # enp2s0 is WAN-facing (toyvo.dev is public); k3s ports stay on LAN.
+      firewallInterfaces = [ "br0" ];
+      extraSANs = [
+        "10.1.0.1"
+        "router"
+        "router.diekvoss.net"
+      ];
+    };
     security.enable = true;
     home-manager.enable = true;
     networking.enable = true;
@@ -640,6 +656,7 @@ in
     "wireguard-router-private-key" = { };
     technitium_api_key = { };
     technitium_admin_password = { };
+    "k3s-token" = { };
   };
   disko.devices.disk.nvme0n1 = {
     type = "disk";

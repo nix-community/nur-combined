@@ -48,7 +48,36 @@ in
     disable = lib.mkOption {
       type = lib.types.listOf lib.types.str;
       default = [ "traefik" ];
-      description = "Disable default k3s components (traefik stays off; router Caddy owns the edge).";
+      description = "Disable default k3s components (traefik stays off unless traefik.enable; router Caddy owns the edge).";
+    };
+
+    disableAgent = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Only run the server (etcd/control-plane, no kubelet workloads). For quorum-only members like the router.";
+    };
+
+    firewallInterfaces = lib.mkOption {
+      type = lib.types.nullOr (lib.types.listOf lib.types.str);
+      default = null;
+      example = [ "br0" ];
+      description = "Interfaces to open k3s ports on. Null opens globally (LAN hosts behind NAT); set on WAN-facing boxes like the router.";
+    };
+
+    traefik = {
+      enable = lib.mkEnableOption "k3s Traefik ingress (NodePort service with pinned nodePorts)";
+
+      httpNodePort = lib.mkOption {
+        type = lib.types.port;
+        default = 30080;
+        description = "Pinned NodePort for Traefik web (what Caddy forwards to).";
+      };
+
+      httpsNodePort = lib.mkOption {
+        type = lib.types.port;
+        default = 30443;
+        description = "Pinned NodePort for Traefik websecure.";
+      };
     };
   };
 
@@ -70,6 +99,10 @@ in
         assertion = cfg.role == "server" && cfg.serverAddr == null -> cfg.clusterInit;
         message = "nixcfg.k3s: a server without serverAddr must be the cluster-init server.";
       }
+      {
+        assertion = cfg.disableAgent -> cfg.role == "server";
+        message = "nixcfg.k3s: disableAgent only makes sense for a server.";
+      }
     ];
 
     services.k3s = {
@@ -77,29 +110,66 @@ in
       inherit (cfg)
         role
         clusterInit
-        disable
+        disableAgent
         tokenFile
         ;
+      # traefik.enable removes only "traefik" from the disable list so any
+      # other entries (e.g. servicelb) are still honored.
+      disable =
+        if cfg.traefik.enable then builtins.filter (x: x != "traefik") cfg.disable else cfg.disable;
       serverAddr = lib.mkIf (cfg.serverAddr != null) cfg.serverAddr;
       extraFlags = map (san: "--tls-san=${san}") cfg.extraSANs;
+      manifests = lib.mkIf cfg.traefik.enable {
+        "traefik-config.yaml".content = {
+          apiVersion = "helm.cattle.io/v1";
+          kind = "HelmChartConfig";
+          metadata = {
+            name = "traefik";
+            namespace = "kube-system";
+          };
+          spec.valuesContent = ''
+            service:
+              type: NodePort
+            ports:
+              web:
+                nodePort: ${toString cfg.traefik.httpNodePort}
+              websecure:
+                nodePort: ${toString cfg.traefik.httpsNodePort}
+          '';
+        };
+      };
     };
 
-    # Ruling: opened globally, not interface-scoped — both hosts sit behind
-    # the router NAT, interface names differ per host, and 6443 is token-gated.
+    # Ruling: opened globally by default — LAN hosts sit behind the router
+    # NAT, interface names differ per host, and 6443 is token-gated.
     # 2379-2380 are the etcd client/peer ports: required on every server for
     # HA joins (the joiner syncs from the leader over 2380 in both directions).
-    networking.firewall = {
-      allowedTCPPorts = [
-        6443
-        10250
-        2379
-        2380
-      ];
-      allowedUDPPorts = [
-        8472
-        51820
-        51821
-      ];
-    };
+    # WAN-facing boxes (router) must set firewallInterfaces instead.
+    networking.firewall =
+      let
+        k3sTCP = [
+          6443
+          10250
+          2379
+          2380
+        ];
+        k3sUDP = [
+          8472
+          51820
+          51821
+        ];
+      in
+      if cfg.firewallInterfaces == null then
+        {
+          allowedTCPPorts = k3sTCP;
+          allowedUDPPorts = k3sUDP;
+        }
+      else
+        {
+          interfaces = lib.genAttrs cfg.firewallInterfaces (_: {
+            allowedTCPPorts = k3sTCP;
+            allowedUDPPorts = k3sUDP;
+          });
+        };
   };
 }
