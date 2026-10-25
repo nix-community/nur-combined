@@ -85,6 +85,7 @@
         enable = mkIf (config.sslOnly && config.ssl.enable) (mkDefault false);
         ipProtocol = mkDefault "ipv6";
         port = mkDefault config.bindings.http4.port;
+        firewall.open = mkDefault config.bindings.http4.firewall.open;
       };
       https4 = {
         enable = mkIf (!config.ssl.enable) (mkDefault false);
@@ -96,6 +97,7 @@
         ipProtocol = mkDefault "ipv6";
         protocol = mkDefault "https";
         port = mkDefault config.bindings.https4.port;
+        firewall.open = mkDefault config.bindings.https4.firewall.open;
       };
     };
     connections = mapAttrs (_: binding: {

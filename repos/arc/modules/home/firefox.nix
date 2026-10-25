@@ -4,7 +4,10 @@
   wrapped = cfg.wrapper cfg.packageUnwrapped cfg.wrapperConfig;
   firefoxConfigPath = if pkgs.hostPlatform.isDarwin then "Library/Application Support/Firefox" else ".mozilla/firefox";
   profilesPath = firefoxConfigPath + optionalString pkgs.hostPlatform.isDarwin "/Profiles";
-  profileType = { config, ... }: {
+  profileType = { config, options, ... }: let
+    #mkBookmarks = settings: settings;
+    mkBookmarks = settings: { inherit settings; };
+  in {
     options = with types; {
       containers = mkOption {
         type = types.attrsOf (types.submodule ({ config, name, ... }: {
@@ -44,9 +47,13 @@
         type = listOf (attrsOf (oneOf [ str bool int ]));
         default = [ ];
       };
-      importBukuBookmarks = mkOption {
-        type = bool;
-        default = false;
+      importBukuBookmarks = {
+        enable = mkEnableOption "programs.buku.bookmarks";
+        topLevelFolder = mkOption {
+          type = nullOr str;
+          default = null;
+          example = "unsorted buku";
+        };
       };
     };
 
@@ -86,20 +93,19 @@
           tags = attrNames (removeAttrs (genAttrs bookmark.tags id) (attrNames bukuFolders));
           inherit (bookmark) url;
         };
+        bukuUnsortedBookmarks = map bukuImport topLevelBookmarks;
         bookmarks = mkMerge [
-          (mapAttrs (folder: { name, bookmarks, ... }: {
+          (mapAttrsToList (folder: { name, bookmarks, ... }: {
             inherit name;
             bookmarks = map bukuImport bookmarks;
           }) bukuFolders)
-          {
-            # TODO: top level should still have some way to add these...
-            unsorted = {
-              name = "unsorted buku";
-              bookmarks = map bukuImport topLevelBookmarks;
-            };
-          }
+          (mkIf (config.importBukuBookmarks.topLevelFolder == null) (mkAfter bukuUnsortedBookmarks))
+          (mkIf (config.importBukuBookmarks.topLevelFolder != null) (mkAfter (singleton {
+            name = config.importBukuBookmarks.topLevelFolder;
+            bookmarks = map bukuImport topLevelBookmarks;
+          })))
         ];
-      in mkIf config.importBukuBookmarks bookmarks;
+      in mkIf config.importBukuBookmarks.enable (mkBookmarks bookmarks);
     };
   };
 in {

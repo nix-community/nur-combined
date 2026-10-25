@@ -1,6 +1,6 @@
 { config, lib, ... }: with lib; let
   userDirs = getAttrs [
-    "desktop" "documents" "download" "music" "pictures" "publicShare" "templates" "videos"
+    "desktop" "documents" "download" "music" "pictures" "projects" "publicShare" "templates" "videos"
   ] config.xdg.userDirs;
 in {
   options.xdg.userDirs.absolute = mkOption {

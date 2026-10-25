@@ -20,7 +20,6 @@
   i3gopher = ./i3gopher.nix;
   lorri = ./lorri.nix;
   shell = ./shell.nix;
-  less = ./less.nix;
   firefox = ./firefox.nix;
   tridactyl = ./tridactyl.nix;
   ncpamixer = ./ncpamixer.nix;
@@ -55,7 +54,6 @@
       i3 i3gopher
       lorri
       shell
-      less
       firefox
       tridactyl
       ncpamixer

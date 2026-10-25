@@ -1,7 +1,8 @@
-{ config, lib, ... }:
+{ config, options, lib, ... }:
 with lib;
 let
   cfg = config.programs.git.codeberg;
+  gitConfigAttr = if options.programs.git ? settings then "settings" else "extraConfig";
 in {
   options.programs.git.codeberg = let
     typeRepoConfig = types.submodule {
@@ -81,7 +82,7 @@ in {
       email = if user.email != null then user.email else "${user.username}@users.noreply.github.com";
       signingKey = user.signingKey;
     }) cfg.users;
-    programs.git.extraConfig.url = attrsets.mergeAttrsList urls;
+    programs.git.${gitConfigAttr}.url = attrsets.mergeAttrsList urls;
     programs.ssh.matchBlocks = mapAttrs' (name: user:
       nameValuePair "codeberg-${name}" (let
         privateKey = optional (user.sshKeyPrivate != null) user.sshKeyPrivate;
