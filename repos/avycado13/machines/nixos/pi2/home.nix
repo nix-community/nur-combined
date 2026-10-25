@@ -11,11 +11,12 @@
       st.enable = true;
     };
     apps.qutebrowser.enable = true;
-    apps.tuigreet = {
-      enable = true;
-      remember = true;
-    };
     theme.enable = true;
+  };
+
+  services.tuigreet = {
+    enable = true;
+    remember = true;
   };
 
   # ultra lightweight desktop enviroment (JWM)

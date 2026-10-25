@@ -9,7 +9,7 @@
   config = lib.mkIf config.dots.apps.qutebrowser.enable {
     programs.qutebrowser = {
       enable = true;
-      package = pkgs.qutebrowser.override { enableWideVine = true; };
+      package = pkgs.qutebrowser.override { enableWideVine = pkgs.stdenv.hostPlatform.isx86_64; };
       settings = {
         colors.webpage = {
           darkmode.enabled = true;

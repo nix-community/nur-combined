@@ -147,7 +147,7 @@
         [
           "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
           (homeManagerCfg {
-            pkgs = inputs.nixpkgs.legacyPackages.${system.x86_64-linux};
+            pkgs = inputs.nixpkgs.legacyPackages.${system.aarch64-linux};
           })
         ]
       )

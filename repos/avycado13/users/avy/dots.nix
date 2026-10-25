@@ -13,6 +13,7 @@
     ./packages.nix
     ./dotfiles/git/default.nix
     ./dotfiles/terminal/default.nix
+    ./dotfiles/apps/qutebrowser.nix
     ./dotfiles/gpg/default.nix
     ./dotfiles/devenv/default.nix
     ./dotfiles/theme/default.nix

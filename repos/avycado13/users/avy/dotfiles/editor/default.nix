@@ -383,13 +383,6 @@ in
           }
           {
             auto-format = true;
-            formatter = {
-              args = [
-                "fmt"
-                "--emit=stdout"
-              ];
-              command = "${lib.getExe pkgs.rustfmt}";
-            };
             name = "rust";
             language-servers = [
               "rust-analyzer"
@@ -574,6 +567,7 @@ in
           # };
           rust-analyzer = {
             command = "${lib.getExe pkgs.rust-analyzer}";
+            config.rust-analyzer.rustfmt.overrideCommand = [ "${lib.getExe pkgs.rustfmt}" ];
           };
           kotlin-language-server = {
             command = "${lib.getExe pkgs.kotlin-language-server}";

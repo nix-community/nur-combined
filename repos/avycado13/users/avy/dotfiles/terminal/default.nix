@@ -2,28 +2,26 @@
   pkgs,
   lib,
   config,
-  fetchpatch,
-  writeText,
   ...
 }:
 let
   st = pkgs.st.overrideAttrs (oldAttrs: rec {
     patches = [
       # Fetch them directly from `st.suckless.org`
-      (fetchpatch {
+      (pkgs.fetchpatch {
         url = "https://st.suckless.org/patches/kitty-graphics-protocol/st-kitty-graphics-20251230-0.9.3.diff";
         sha256 = "sha256-+b0LySNZlrjjLzXq7XU7lPQhBnQs91sJjD30tAbXKRA=";
       })
-      (fetchpatch {
+      (pkgs.fetchpatch {
         url = "https://st.suckless.org/patches/drag-n-drop/st-drag-n-drop-0.9.2.diff";
         hash = "sha256-sqlZUjZheykBdfXwhIURp95aEiyiZUp6My7gnWrd3qY=";
       })
-      (fetchpatch {
+      (pkgs.fetchpatch {
         url = "https://st.suckless.org/patches/clickurl/st-clickurl-0.8.5.diff";
         hash = "sha256-2/pEVF6GUJKKaOAbi4Rlgu5GJh0zHKMOzo4bv8TacIo=";
       })
     ];
-    configFile = writeText "config.h" (builtins.readFile ./config.def.h);
+    configFile = pkgs.writeText "config.h" (builtins.readFile ./config.h);
     postPatch = "${oldAttrs.postPatch}\n cp ${configFile} config.def.h";
   });
 in
@@ -39,7 +37,7 @@ in
   config = lib.mkIf config.dots.terminal.enable {
     home.packages =
       lib.optionals
-        (config.dots.terminal.st.enable && pkgs.st.meta.availableOn pkgs.st.stdenv.hostPlatform)
+        (config.dots.terminal.st.enable && lib.meta.availableOn pkgs.stdenv.hostPlatform pkgs.st)
         [
           st
           (pkgs.writeShellApplication {

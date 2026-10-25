@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.dots.apps.tuigreet;
+  cfg = config.services.tuigreet;
   tuigreetBin = lib.getExe' pkgs.tuigreet "tuigreet";
   msg = cfg.greeting;
   baseArgs =
@@ -115,7 +115,7 @@ let
   );
 in
 {
-  options.dots.apps.tuigreet = {
+  options.services.tuigreet = {
     enable = lib.mkEnableOption "Enable greetd with tuigreet";
 
     command = lib.mkOption {
