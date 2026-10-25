@@ -113,7 +113,7 @@ reference to [StarryReverie/selector4nix](https://github.com/StarryReverie/selec
 ### nextppp
 
 ```nix
-# server
+# server: one port serves both plain tunnels and bond links
 {
   services.nextppp = {
     enable = true;
@@ -121,6 +121,7 @@ reference to [StarryReverie/selector4nix](https://github.com/StarryReverie/selec
     settings = {
       listen = "0.0.0.0:6666";
       password = "CHANGE_ME";
+      # bond_enabled = true; # accept bond links (default in nextppp >= 0.3.0)
       # connect_timeout = 10;
       # handshake_timeout = 15;
       # obfuscation = { ... };
@@ -128,7 +129,8 @@ reference to [StarryReverie/selector4nix](https://github.com/StarryReverie/selec
   };
 }
 
-# client
+# client: optional bonded inbound (bandwidth path); links dial the
+# server's regular address
 {
   services.nextppp = {
     enable = true;
@@ -139,6 +141,12 @@ reference to [StarryReverie/selector4nix](https://github.com/StarryReverie/selec
       server = {
         address = "your.server.example:6666";
       };
+      # bond = {
+      #   listen = "127.0.0.1:1081";
+      #   links = 3;
+      #   # pool_size = 1;
+      #   # max_streams = 64;
+      # };
     };
   };
 }
