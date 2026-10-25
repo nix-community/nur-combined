@@ -2,12 +2,13 @@
   "name": "Folder Preview Pro",
   "source": {
     "type": "api",
-    "url": "https://pins.twint.pp.ua/api/snapshots/folder-preview-pro/latest",
-    "version_path": ".hash"
+    "url": "https://archive.org/wayback/available?url=https://anybox.ltd/folder-preview-pro/download/folder-preview-pro-latest.zip&timestamp=20991231",
+    "version_path": ".archived_snapshots.closest.timestamp",
+    "url_path": ".archived_snapshots.closest.url"
   },
-  "version": "f326e33c1e8a9fa32e3fce91f5527c803b794ccb0d43ea0115e424a132a7318f",
+  "version": "20261025153852",
   "asset": {
-    "url": "https://pins.twint.pp.ua/api/download/{version}.zip",
-    "hash": "sha256-8ybjPB6Kn6MuP86R9VJ8gDt5TMsNQ+oBFeQkoTKnMY8="
+    "url": "http://web.archive.org/web/20261025153852/https://anybox.ltd/folder-preview-pro/download/folder-preview-pro-latest.zip",
+    "hash": "sha256-zrRsLhpuP9oCEPEmzOGBhna+CuQw/nCEamQf49nc638="
   }
 }
