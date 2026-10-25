@@ -14,6 +14,8 @@ in
   '';
 
   config = mkIf cfg.enable {
+    nixpkgs.config.rocmSupport = true;
+
     hardware = {
       bluetooth.enable = true;
       enableRedistributableFirmware = true;

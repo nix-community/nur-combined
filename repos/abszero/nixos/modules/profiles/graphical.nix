@@ -57,6 +57,8 @@ in
 
     services = {
       automatic-timezoned.enable = true;
+      # For auto PAM unlock and DBus registration of graphical prompt
+      gnome.gnome-keyring.enable = true;
       kmscon = {
         enable = true;
         config = {
@@ -92,13 +94,21 @@ in
       scx = {
         enable = true;
         package = pkgs.scx.rustscheds;
-        scheduler = "scx_lavd"; # Scheduler that minimizes latency and reduces power usage
+        # Scheduler that minimizes latency and reduces power usage
+        scheduler = "scx_lavd";
       };
     };
 
-    xdg.terminal-exec = {
-      enable = true;
-      settings.default = [ "ghostty.desktop" ];
+    xdg = {
+      # The actual config is in home-manager, enabled for flatpak
+      portal = {
+        enable = true;
+        config.common.default = "*"; # Suppress warning
+      };
+      terminal-exec = {
+        enable = true;
+        settings.default = [ "ghostty.desktop" ];
+      };
     };
 
     programs = {

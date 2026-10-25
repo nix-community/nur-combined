@@ -37,7 +37,7 @@ in
     };
 
     nixpkgs.config.permittedInsecurePackages = [
-      "ventoy-1.1.17" # Chronic
+      "ventoy-1.1.18" # Chronic
     ];
 
     hardware.keyboard.qmk.enable = true;
@@ -47,6 +47,7 @@ in
     services = {
       displayManager.noctalia-greeter = {
         enable = true;
+        passwordlessSyncUsers = config.abszero.users.admins;
         settings = {
           appearance.hide_logo = true;
           idle.timeout = 600;
@@ -60,7 +61,8 @@ in
       dconf.enable = true;
       kdeconnect.enable = true;
       nix-ld.enable = true;
-      wisp.enable = true;
+      # FIXME: build failure
+      # wisp.enable = true;
     };
 
     environment = {

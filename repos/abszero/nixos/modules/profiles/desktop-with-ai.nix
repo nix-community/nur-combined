@@ -1,10 +1,5 @@
 # Desktop running local AI
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -22,7 +17,6 @@ in
       services = {
         # comfyui.enable = true; # TODO: enable
         llama-cpp.enable = true;
-        sillytavern.enable = true;
       };
     };
   };

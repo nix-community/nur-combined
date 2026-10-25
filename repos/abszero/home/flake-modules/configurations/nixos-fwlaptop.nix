@@ -6,13 +6,6 @@ let
   mainModule = { pkgs, ... }: {
     abszero = {
       profiles.driftwm.enable = true;
-
-      programs.driftwm.settings.outputs = singleton {
-        name = "eDP-1";
-        scale = 1.25;
-        # variable-refresh-rate = true; # TODO: enable when supported
-      };
-
       themes = {
         base = {
           pointerCursor.enable = true;
@@ -35,6 +28,12 @@ let
     home.pointerCursor = {
       name = "aris-cursors";
       package = pkgs.aris-cursors;
+    };
+
+    wayland.windowManager.driftwm.settings.outputs = singleton {
+      name = "eDP-1";
+      scale = 1.25;
+      # variable-refresh-rate = true; # TODO: enable when supported
     };
 
     # There's no ALS on framework 12 :(

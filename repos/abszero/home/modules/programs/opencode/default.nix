@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}:
+{ config, lib, ... }:
 
 let
   inherit (lib) mkEnableOption mkIf;
@@ -17,20 +12,7 @@ in
   config = mkIf cfg.enable {
     programs.opencode = {
       enable = true;
-      package =
-        with pkgs;
-        symlinkJoin {
-          name = "opencode";
-          paths = [ opencode ];
-          nativeBuildInputs = [ makeWrapper ];
-          postBuild = ''
-            wrapProgram "$out/bin/opencode" \
-              --set OPENCODE_EXPERIMENTAL_CODE_MODE true \
-              --set OPENCODE_DISABLE_LSP_DOWNLOAD true
-          '';
-          inherit (opencode) meta;
-        };
-      tui = fromJSON (readFile ./tui.json);
+      cli = fromJSON (readFile ./cli.json);
       settings = fromJSON (readFile ./opencode.json);
     };
   };

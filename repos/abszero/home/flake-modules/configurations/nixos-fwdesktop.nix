@@ -6,14 +6,6 @@ let
   mainModule = { pkgs, ... }: {
     abszero = {
       profiles.driftwm.enable = true;
-
-      programs.driftwm.settings.outputs = singleton {
-        name = "DP-4";
-        mode = "3840x2160@120";
-        scale = 2;
-        # variable-refresh-rate = true; # TODO: enable when supported
-      };
-
       themes = {
         base = {
           pointerCursor.enable = true;
@@ -35,6 +27,13 @@ let
     home.pointerCursor = {
       name = "aris-cursors";
       package = pkgs.aris-cursors;
+    };
+
+    wayland.windowManager.driftwm.settings.outputs = singleton {
+      name = "DP-4";
+      mode = "3840x2160@120";
+      scale = 2;
+      # variable-refresh-rate = true; # TODO: enable when supported
     };
 
     programs.opencode.web.enable = true;

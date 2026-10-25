@@ -1,0 +1,23 @@
+{
+  "$schema": "https://opencode.ai/v2/cli.json",
+  "animations": true,
+  "theme": {
+    "name": "matugen"
+  },
+  "cursor": {
+    "style": "line"
+  },
+  "session": {
+    "image_preview": true,
+    "thinking": "show",
+    "verbosity": "low"
+  },
+  "prompt": {
+    "image_preview": true,
+    "paste": "full"
+  },
+  "attention": {
+    "notifications": true,
+    "sound": true
+  }
+}

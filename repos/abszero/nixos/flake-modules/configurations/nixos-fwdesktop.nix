@@ -59,8 +59,6 @@ let
         };
       };
 
-      programs.driftwm.enable = true;
-
       themes.noctalia.fonts.enable = true;
     };
 
@@ -138,8 +136,6 @@ let
       };
     };
 
-    nixpkgs.config.rocmSupport = true; # For ComfyUI
-
     users.users = rec {
       weathercold = {
         description = "Weathercold";
@@ -153,12 +149,15 @@ let
 
     services = {
       comfyui.acceleration = "rocm";
-      displayManager.noctalia-greeter = {
-        cursorTheme = {
-          name = "aris-cursors";
-          package = pkgs.aris-cursors;
+      displayManager = {
+        noctalia-greeter = {
+          cursorTheme = {
+            name = "aris-cursors";
+            package = pkgs.aris-cursors;
+          };
+          settings.cursor.size = 96;
         };
-        settings.cursor.size = 96;
+        sessionPackages = with pkgs; [ driftwm ];
       };
     };
   };

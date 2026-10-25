@@ -27,7 +27,7 @@ in
         waylandFrontend = true; # Do not set `GTK_IM_MODULE` and `QT_IM_MODULE`
         addons = with pkgs; [
           fcitx5-gtk
-          fcitx5-mozc-ut # Mozc with UT dictionaries
+          # fcitx5-mozc-ut # Mozc with UT dictionaries
           fcitx5-pinyin-moegirl
           fcitx5-pinyin-zhwiki
           kdePackages.fcitx5-chinese-addons

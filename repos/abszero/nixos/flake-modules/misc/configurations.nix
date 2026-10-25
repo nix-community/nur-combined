@@ -63,26 +63,31 @@ in
         specialArgs = { inherit inputs; };
         modules = flatten [
           inputs.nixified-ai.nixosModules.comfyui
-          inputs.driftwm.nixosModules.driftwm
           inputs.wisp.nixosModules.wisp
-          inputs.charmbracelet.nixosModules.crush
           inputs.sops.nixosModules.sops
           inputs.disko.nixosModules.disko
           inputs.lanzaboote.nixosModules.lanzaboote
           (toModuleList ../../../lib/modules)
           (toModuleList ../../modules)
           c.modules
-          {
+          ({ pkgs, ... }: {
             disabledModules = flatten [
               ../../../lib/modules/themes/catppuccin/catppuccin.nix
+              ../../modules/programs/crush.nix
               (toModuleList ../../modules/themes/catppuccin)
             ];
             nixpkgs.overlays = [
-              (_: prev: import ../../../pkgs { pkgs = prev; })
+              (
+                _: prev:
+                import ../../../pkgs { pkgs = prev; }
+                // {
+                  driftwm = inputs.driftwm.packages.${pkgs.stdenv.hostPlatform.system}.default;
+                }
+              )
               inputs.nix-cachyos-kernel.overlays.default
             ];
             networking = { inherit (c) hostName; };
-          }
+          })
         ];
       }
     )

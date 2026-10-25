@@ -12,7 +12,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    abszero.programs.driftwm.settings = mkMerge [
+    wayland.windowManager.driftwm.settings = mkMerge [
       {
         decorations = {
           default_mode = "minimal"; # SSD
@@ -36,6 +36,7 @@ in
       (mkIf cfg.enableCompactLayout {
         snap = {
           gap = 0;
+          outer_gap = 0;
           distance = 12;
           break_force = 12;
         };

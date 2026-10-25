@@ -64,6 +64,7 @@ in
         inherit pkgs lib;
         extraSpecialArgs = { inherit inputs; };
         modules = flatten [
+          inputs.driftwm.homeModules.driftwm
           inputs.zen-browser.homeModules.beta
           inputs.nix-index-database.homeModules.nix-index
           inputs.sops.homeModules.sops

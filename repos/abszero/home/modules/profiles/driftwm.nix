@@ -18,23 +18,7 @@ in
   config = mkIf cfg.enable {
     abszero = {
       profiles.full.enable = true;
-      programs.driftwm = {
-        enable = true;
-        settings = {
-          background.type = "none";
-
-          keybindings = {
-            XF86MonBrightnessDown = "exec sudo brillo -qu 200000 -U 5";
-            XF86MonBrightnessUp = "exec sudo brillo -qu 200000 -A 5";
-            Print = "exec noctalia msg screenshot-fullscreen";
-
-            "mod+ctrl+t" = "exec ghostty";
-            "mod+ctrl+slash" = "exec noctalia msg panel-toggle launcher";
-            "mod+ctrl+b" = "exec zen-beta";
-            "mod+ctrl+period" = "exec smile";
-          };
-        };
-      };
+      programs.driftwm.enable = true;
     };
 
     home.packages = with pkgs; [
@@ -43,6 +27,23 @@ in
       ddcutil # For controlling brightness with noctalia
       smile
     ];
+
+    xdg.portal.config.driftwm."org.freedesktop.impl.portal.Secret" = "gnome-keyring";
+
+    wayland.windowManager.driftwm.settings = {
+      background.type = "none";
+
+      keybindings = {
+        XF86MonBrightnessDown = "exec sudo brillo -qu 200000 -U 5";
+        XF86MonBrightnessUp = "exec sudo brillo -qu 200000 -A 5";
+        Print = "exec noctalia msg screenshot-fullscreen";
+
+        "mod+ctrl+t" = "exec ghostty";
+        "mod+ctrl+slash" = "exec noctalia msg panel-toggle launcher";
+        "mod+ctrl+b" = "exec zen-beta";
+        "mod+ctrl+period" = "exec smile";
+      };
+    };
 
     programs = {
       ghostty = {

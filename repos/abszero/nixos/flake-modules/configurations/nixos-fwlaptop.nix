@@ -36,7 +36,7 @@ let
         };
       };
 
-      programs.driftwm.enable = true;
+      services.displayManager.sessionPackages = with pkgs; [ driftwm ];
 
       themes.noctalia.fonts.enable = true;
     };
@@ -149,12 +149,15 @@ let
       };
     };
 
-    services.displayManager.noctalia-greeter = {
-      cursorTheme = {
-        name = "aris-cursors";
-        package = pkgs.aris-cursors;
+    services.displayManager = {
+      noctalia-greeter = {
+        cursorTheme = {
+          name = "aris-cursors";
+          package = pkgs.aris-cursors;
+        };
+        settings.cursor.size = 96;
       };
-      settings.cursor.size = 96;
+      sessionPackages = with pkgs; [ driftwm ];
     };
   };
 in

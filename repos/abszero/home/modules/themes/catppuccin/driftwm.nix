@@ -17,15 +17,15 @@ in
 
   options.abszero.themes.catppuccin.driftwm.enable = mkEnableOption "catppuccin driftwm theme";
 
-  config.abszero = mkIf cfg.driftwm.enable {
-    themes = {
+  config = mkIf cfg.driftwm.enable {
+    abszero.themes = {
       base.driftwm.enable = true;
       catppuccin = {
         enable = true;
         fonts.enable = true;
       };
     };
-    programs.driftwm.settings.decorations = {
+    wayland.windowManager.driftwm.settings.decorations = {
       font = "Maple Mono NF CN";
       font_size = 14;
       border_color_focused = palette.pink.hex;

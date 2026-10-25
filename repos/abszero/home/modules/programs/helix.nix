@@ -228,6 +228,7 @@ in
           language-servers = [
             "oxfmt"
             "biome"
+            "vscode-json-language-server"
             "ai"
           ];
         }
@@ -236,6 +237,7 @@ in
           language-servers = [
             "oxfmt"
             "biome"
+            "vscode-json-language-server"
             "ai"
           ];
         }

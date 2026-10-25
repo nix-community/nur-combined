@@ -4,6 +4,10 @@
   inputs = {
     # Repos
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    driftwm = {
+      url = "github:malbiruk/driftwm";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     wisp = {
       url = "github:Weathercold/wisp";
       inputs = {

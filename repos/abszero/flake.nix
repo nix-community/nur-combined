@@ -42,10 +42,6 @@
         home-manager.follows = "home-manager";
       };
     };
-    charmbracelet = {
-      url = "github:charmbracelet/nur";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -146,11 +142,12 @@
                 bash-language-server
                 cachix
                 deploy-rs
-                markdown-oxide
+                markdown-oxide # Markdown language server
                 nixd
                 nixfmt
                 nixfmt-tree
                 nixos-anywhere
+                nixpkgs-review
                 nix-init
                 nix-prefetch-github # Somehow not in nix-prefetch-scripts
                 nix-prefetch-scripts

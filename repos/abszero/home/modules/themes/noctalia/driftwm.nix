@@ -13,12 +13,12 @@ in
 
   options.abszero.themes.noctalia.driftwm.enable = mkEnableOption "noctalia driftwm theme";
 
-  config.abszero = mkIf cfg.enable {
-    themes = {
+  config = mkIf cfg.enable {
+    abszero.themes = {
       base.driftwm.enable = true;
       noctalia.fonts.enable = true;
     };
-    programs.driftwm.settings.decorations = {
+    wayland.windowManager.driftwm.settings.decorations = {
       font = "Maple Mono NF CN";
       font_size = 14;
     };

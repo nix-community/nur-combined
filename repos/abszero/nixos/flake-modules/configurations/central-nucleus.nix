@@ -99,12 +99,6 @@ let
         prefixLength = 64;
       };
     };
-
-    services.caddy.extraConfig = ''
-      ${domain} {
-        reverse_proxy https://example.com
-      }
-    '';
   };
 in
 
