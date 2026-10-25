@@ -24,21 +24,21 @@
   };
   daed-next-core = {
     pname = "daed-next-core";
-    version = "b42d9b20f3856574bcd8f82fc0b43dbcbdf0054b";
+    version = "a87b3416e9ecd746cc47fba7b77eec11b08d3cf3";
     src = fetchFromGitHub {
       owner = "ksong008";
       repo = "DaeNext";
-      rev = "b42d9b20f3856574bcd8f82fc0b43dbcbdf0054b";
+      rev = "a87b3416e9ecd746cc47fba7b77eec11b08d3cf3";
       fetchSubmodules = false;
-      sha256 = "sha256-fAUQmvOWObi8xkRP3szGsLcrISJgw0GXssEPIcdvbzg=";
+      sha256 = "sha256-GojsHmMvSuN2FUuVpf2sTCNDFQX9H74dIl+XPauA960=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-fAUQmvOWObi8xkRP3szGsLcrISJgw0GXssEPIcdvbzg=/Cargo.lock";
+      lockFile = ./. + "/sha256-GojsHmMvSuN2FUuVpf2sTCNDFQX9H74dIl+XPauA960=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-10-18";
+    date = "2026-10-25";
   };
   daed-next-web = {
     pname = "daed-next-web";

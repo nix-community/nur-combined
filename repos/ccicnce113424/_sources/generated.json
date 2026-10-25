@@ -32,11 +32,11 @@
     "daed-next-core": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-fAUQmvOWObi8xkRP3szGsLcrISJgw0GXssEPIcdvbzg=/Cargo.lock",
+                "sha256-GojsHmMvSuN2FUuVpf2sTCNDFQX9H74dIl+XPauA960=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-10-18",
+        "date": "2026-10-25",
         "extract": null,
         "name": "daed-next-core",
         "passthru": null,
@@ -48,12 +48,12 @@
             "name": null,
             "owner": "ksong008",
             "repo": "DaeNext",
-            "rev": "b42d9b20f3856574bcd8f82fc0b43dbcbdf0054b",
-            "sha256": "sha256-fAUQmvOWObi8xkRP3szGsLcrISJgw0GXssEPIcdvbzg=",
+            "rev": "a87b3416e9ecd746cc47fba7b77eec11b08d3cf3",
+            "sha256": "sha256-GojsHmMvSuN2FUuVpf2sTCNDFQX9H74dIl+XPauA960=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b42d9b20f3856574bcd8f82fc0b43dbcbdf0054b"
+        "version": "a87b3416e9ecd746cc47fba7b77eec11b08d3cf3"
     },
     "daed-next-web": {
         "cargoLock": null,

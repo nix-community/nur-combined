@@ -19,12 +19,12 @@
 rustPlatform.buildRustPackage (
   finalAttrs:
   let
-    version = "0.1.0-beta.1";
+    version = "0.1.0-beta.2";
     src = fetchFromGitHub {
       owner = "daeuniverse";
       repo = "honk";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-C4cRMldWKBFIlIFcAKNKtP65UwSxu101hoOpRls7H9M=";
+      hash = "sha256-MtEsIGGqlJ5zdFDsLZkl4qq8dxM5ysaKDnhEGjOWwzE=";
     };
 
     rustPrebuilt = rust.packages.prebuilt;
@@ -59,7 +59,7 @@ rustPlatform.buildRustPackage (
         inherit (finalAttrs) version src;
         pname = "honk-ebpf";
         cargoRoot = "crates/honk-ebpf";
-        hash = "sha256-XGH0Z1VTyYYxk1UWY1+efyMWOOVCMz76OYbJE6kd5xA=";
+        hash = "sha256-Q5O7QBjM3mO9aP5KF9BLMz3qQ1oPfYTFQ94mgbIHuZM=";
       };
 
       nativeBuildInputs = [
@@ -112,7 +112,7 @@ rustPlatform.buildRustPackage (
     pname = "honk-core";
     inherit version src;
 
-    cargoHash = "sha256-YnaA4ESK09Mz8dlp8D3tk/51sEhOQjHImSLFOA5iTZA=";
+    cargoHash = "sha256-ZEuQH/GmhqZdCXgkxRp4VY+2Ce9rJpKDzd7ecYXGmmo=";
 
     __structuredAttrs = true;
     strictDeps = true;
