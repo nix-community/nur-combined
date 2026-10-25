@@ -23,14 +23,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   src = source-exe.src;
 
   prePatch = ''
-    install -Dm644 "${source-src.src}/$regionUtilsJavaPath" "$regionUtilsJavaPath"
     install -Dm644 "${source-src.src}/$terracottaNodeListJavaPath" "$terracottaNodeListJavaPath"
   '';
 
-  patches = [
-    ../hmcl-dev/0003-nix-keep-downloads-enabled.patch
-  ]
-  ++ lib.optional (easytierDiscoveryNodes != [ ]) (
+  patches = lib.optional (easytierDiscoveryNodes != [ ]) (
     replaceVars ../hmcl-dev/0004-nix-add-easytier-nodes.patch {
       NODES = lib.concatMapStringsSep ", " builtins.toJSON easytierDiscoveryNodes;
     }
@@ -40,7 +36,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   dontConfigure = true;
 
   env = {
-    inherit (hmcl-dev) regionUtilsJavaPath terracottaNodeListJavaPath;
+    inherit (hmcl-dev) terracottaNodeListJavaPath;
   };
 
   nativeBuildInputs = [
@@ -50,10 +46,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   buildPhase = ''
     runHook preBuild
-
-    javac -cp "${source-bin.src}" \
-      -sourcepath "${source-src.src}/HMCLCore/src/main/java" \
-      -implicit:none -d out "$regionUtilsJavaPath"
 
     javac -cp "${source-bin.src}" \
       -sourcepath "${source-src.src}/HMCLCore/src/main/java" \

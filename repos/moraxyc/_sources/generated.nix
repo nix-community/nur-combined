@@ -326,29 +326,29 @@
   };
   hmcl-dev-bin = {
     pname = "hmcl-dev-bin";
-    version = "3.17.0.362";
+    version = "3.17.0.363";
     src = fetchurl {
-      url = "https://github.com/HMCL-dev/HMCL/releases/download/v3.17.0.362/HMCL-3.17.0.362.jar";
-      sha256 = "sha256-nnx57IzscXwpgyPs3cq4ZNc8L+DTsbnopRhHpEyPug0=";
+      url = "https://github.com/HMCL-dev/HMCL/releases/download/v3.17.0.363/HMCL-3.17.0.363.jar";
+      sha256 = "sha256-xNkWQYa+B2zOdtAmOTA8zlaybf77PHH5wnfwGhTO5Lo=";
     };
   };
   hmcl-dev-exe = {
     pname = "hmcl-dev-exe";
-    version = "3.17.0.362";
+    version = "3.17.0.363";
     src = fetchurl {
-      url = "https://github.com/HMCL-dev/HMCL/releases/download/v3.17.0.362/HMCL-3.17.0.362.exe";
-      sha256 = "sha256-CLo+VDW1GtXY1SZqy4z6yIc2xLWvucMPa2RVVl0PhlI=";
+      url = "https://github.com/HMCL-dev/HMCL/releases/download/v3.17.0.363/HMCL-3.17.0.363.exe";
+      sha256 = "sha256-u9dlUHcRcFqeM0kamfsqiPp/MvBTlfyrB/x+2DxAgi0=";
     };
   };
   hmcl-dev-src = {
     pname = "hmcl-dev-src";
-    version = "v3.17.0.362";
+    version = "v3.17.0.363";
     src = fetchFromGitHub {
       owner = "HMCL-dev";
       repo = "HMCL";
-      rev = "v3.17.0.362";
+      rev = "v3.17.0.363";
       fetchSubmodules = false;
-      sha256 = "sha256-ySYQT9ZoovZamMnYqXx+Sy/fULMtnm7SthFfPzoP/4Q=";
+      sha256 = "sha256-tBAL7SZPH9d1vdwTqBzsWrxhli8YNSNle09fGUfpEnc=";
     };
   };
   hysteria-realm-server = {

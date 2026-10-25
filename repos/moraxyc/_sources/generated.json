@@ -545,11 +545,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-nnx57IzscXwpgyPs3cq4ZNc8L+DTsbnopRhHpEyPug0=",
+            "sha256": "sha256-xNkWQYa+B2zOdtAmOTA8zlaybf77PHH5wnfwGhTO5Lo=",
             "type": "url",
-            "url": "https://github.com/HMCL-dev/HMCL/releases/download/v3.17.0.362/HMCL-3.17.0.362.jar"
+            "url": "https://github.com/HMCL-dev/HMCL/releases/download/v3.17.0.363/HMCL-3.17.0.363.jar"
         },
-        "version": "3.17.0.362"
+        "version": "3.17.0.363"
     },
     "hmcl-dev-exe": {
         "cargoLock": null,
@@ -560,11 +560,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-CLo+VDW1GtXY1SZqy4z6yIc2xLWvucMPa2RVVl0PhlI=",
+            "sha256": "sha256-u9dlUHcRcFqeM0kamfsqiPp/MvBTlfyrB/x+2DxAgi0=",
             "type": "url",
-            "url": "https://github.com/HMCL-dev/HMCL/releases/download/v3.17.0.362/HMCL-3.17.0.362.exe"
+            "url": "https://github.com/HMCL-dev/HMCL/releases/download/v3.17.0.363/HMCL-3.17.0.363.exe"
         },
-        "version": "3.17.0.362"
+        "version": "3.17.0.363"
     },
     "hmcl-dev-src": {
         "cargoLock": null,
@@ -580,12 +580,12 @@
             "name": null,
             "owner": "HMCL-dev",
             "repo": "HMCL",
-            "rev": "v3.17.0.362",
-            "sha256": "sha256-ySYQT9ZoovZamMnYqXx+Sy/fULMtnm7SthFfPzoP/4Q=",
+            "rev": "v3.17.0.363",
+            "sha256": "sha256-tBAL7SZPH9d1vdwTqBzsWrxhli8YNSNle09fGUfpEnc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.17.0.362"
+        "version": "v3.17.0.363"
     },
     "hysteria-realm-server": {
         "cargoLock": null,

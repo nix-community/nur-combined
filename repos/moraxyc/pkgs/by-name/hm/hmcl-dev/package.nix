@@ -29,19 +29,14 @@ args@{
       terracottaBundleJava = "${source-src.src}/HMCL/src/main/java/org/jackhuang/hmcl/terracotta/TerracottaBundle.java";
       macOSProviderJava = "${source-src.src}/HMCL/src/main/java/org/jackhuang/hmcl/terracotta/provider/MacOSProvider.java";
 
-      regionUtilsJavaPath = "HMCL/src/main/java/org/jackhuang/hmcl/util/RegionUtils.java";
       terracottaNodeListJavaPath = "HMCL/src/main/java/org/jackhuang/hmcl/terracotta/TerracottaNodeList.java";
 
       prePatch = prevAttrs.prePatch + ''
-        install -Dm644 "${source-src.src}/$regionUtilsJavaPath" "$regionUtilsJavaPath"
         install -Dm644 "${source-src.src}/$terracottaNodeListJavaPath" "$terracottaNodeListJavaPath"
       '';
 
       patches =
         prevAttrs.patches
-        ++ [
-          ./0003-nix-keep-downloads-enabled.patch
-        ]
         ++ lib.optional (easytierDiscoveryNodes != [ ]) (
           nixpkgs.replaceVars ./0004-nix-add-easytier-nodes.patch {
             NODES = lib.concatMapStringsSep ", " builtins.toJSON easytierDiscoveryNodes;
@@ -50,9 +45,6 @@ args@{
 
       preBuild = (prevAttrs.preBuild or "") + ''
         mkdir -p out
-        javac -cp "$src" \
-          -sourcepath "${source-src.src}/HMCLCore/src/main/java" \
-          -implicit:none -d out "$regionUtilsJavaPath"
 
         javac -cp "out:$src" \
           -sourcepath "${source-src.src}/HMCLCore/src/main/java" \
