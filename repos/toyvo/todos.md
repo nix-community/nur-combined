@@ -12,6 +12,8 @@
 
 Outstanding work and follow-up items for this repository.
 
+- [ ] Explore k3s cluster (server on nas, agents on router/Protectli/oracle/MacMini-Intel/MacMini-M1) for web services; decide topology, storage, and ingress vs existing Caddy + nixos-containers
+
 > AI agents: per the "Todo Tracking" section of [AGENTS.md](AGENTS.md), you are
 > expected to keep this file up to date — check off completed items, and add
 > deferred work or manual steps before finishing a task.
