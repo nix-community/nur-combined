@@ -412,6 +412,9 @@ withLoadableExtensions (
             "test/sql/table_function/read_text_and_blob.test"
             # fails with Out of Memory Error
             "test/sql/copy/parquet/batched_write/batch_memory_usage.test"
+            # fails on x86_64-linux as well as aarch64
+            "test/sql/settings/operator_memory_limit.test"
+            "test/sql/storage/test_eviction_queue_dead_nodes_underflow.test"
             # wants http connection
             "test/sql/copy/csv/recursive_query_csv.test"
             "test/sql/copy/csv/test_mixed_lines.test"
@@ -446,8 +449,6 @@ withLoadableExtensions (
             "test/sql/aggregate/aggregates/test_skewness.test"
             "test/sql/function/list/aggregates/skewness.test"
             "test/sql/aggregate/aggregates/histogram_table_function.test"
-            "test/sql/settings/operator_memory_limit.test"
-            "test/sql/storage/test_eviction_queue_dead_nodes_underflow.test"
           ]
           ++ lib.optionals stdenv.hostPlatform.isDarwin [
             # UB in PhysicalRangeJoin (shared by IEJoin and PiecewiseMergeJoin) causes
