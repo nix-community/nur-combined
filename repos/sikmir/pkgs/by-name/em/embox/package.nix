@@ -62,7 +62,7 @@ stdenv'.mkDerivation (finalAttrs: {
       which
       makeWrapper
     ]
-    ++ lib.optional (arch != "x86" && arch != "arm") pkgsCross."${arch}-embedded".stdenv'.cc
+    ++ lib.optional (arch != "x86" && arch != "arm") pkgsCross."${arch}-embedded".stdenv.cc
     ++ lib.optional (arch == "arm") gcc-arm-embedded;
 
   configurePhase = "make confload-${arch}/qemu";
