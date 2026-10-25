@@ -460,6 +460,9 @@
         "dandellion": {
             "url": "https://git.dodsorf.as/Dandellion/NUR"
         },
+        "danny19862025": {
+            "url": "https://github.com/danny19862025/spotlight"
+        },
         "davinci42": {
             "url": "https://github.com/DaVinci42/nur-packages"
         },
@@ -765,6 +768,9 @@
         },
         "ilya-fedin": {
             "url": "https://github.com/ilya-fedin/nur-repository"
+        },
+        "ilyasturki": {
+            "url": "https://github.com/ilyasturki/emulation-nix"
         },
         "immae": {
             "url": "https://git.immae.eu/perso/Immae/Config/Nix/NUR.git"
@@ -1802,6 +1808,9 @@
         },
         "zeratax": {
             "url": "https://github.com/ZerataX/nur-packages"
+        },
+        "zerokaze420": {
+            "url": "https://github.com/zerokaze420/nur-lazycat-cloud-client-flake"
         },
         "zerozawa": {
             "url": "https://github.com/lz37/nur"
