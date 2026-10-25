@@ -1,7 +1,7 @@
 {
   sources,
   hash,
-  pnpm_11,
+  pnpm_12,
   fetchPnpmDeps,
   rustPlatform,
   callPackage,
@@ -20,7 +20,7 @@ open-orpheus.overrideAttrs (
     pnpmDeps = fetchPnpmDeps {
       inherit (final) pname version src;
       inherit hash;
-      pnpm = pnpm_11;
+      pnpm = pnpm_12;
       fetcherVersion = 4;
     };
     cargoDeps = rustPlatform.importCargoLock sources.cargoLock."Cargo.lock";
