@@ -17,3 +17,4 @@ builtins.listToAttrs (
     builtins.filter (n: !isReserved n) (builtins.attrNames nurAttrs)
   )
 )
+// (import ./overlays).kernel-modules self super

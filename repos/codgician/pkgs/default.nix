@@ -18,9 +18,18 @@ let
       nurTests = import ../tests { inherit pkgs; };
     }
   );
+  # Kernel modules (see ./kernel-modules.nix) are built against nixpkgs'
+  # default kernel here, so CI and the update automation see an ordinary
+  # top-level derivation. Consumers get per-kernel builds through
+  # overlays.kernel-modules / modules.kernel-modules instead.
+  kernelModules = import ./kernel-modules.nix;
+  defaultKernelPackages = pkgs.linuxPackages.extend kernelModules.extension;
   mypkgs = pipe (builtins.readDir ./.) [
     (filterAttrs (_: type: type == "directory"))
-    (mapAttrs (k: v: callPackage ./${k} { }))
+    (mapAttrs (
+      k: v:
+      if builtins.elem k kernelModules.names then defaultKernelPackages.${k} else callPackage ./${k} { }
+    ))
   ];
 in
 filterAttrs (

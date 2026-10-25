@@ -1,3 +1,3 @@
 {
-  # my_module = ./my_module
+  kernel-modules = ./kernel-modules.nix;
 }

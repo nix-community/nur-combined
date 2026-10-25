@@ -118,5 +118,7 @@
       );
 
       nixosModules = import ./modules;
+
+      overlays = import ./overlays;
     };
 }

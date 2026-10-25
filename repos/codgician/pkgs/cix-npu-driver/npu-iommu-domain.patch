@@ -1,0 +1,30 @@
+From: serenitea-pot <noreply@localhost>
+Subject: [PATCH] aipu: reject unsupported IOMMU domains
+
+The Zhouyi v3 allocator programs explicit IOVAs, so identity domains created
+by iommu.passthrough cannot support it. Its fallback path also dereferences the
+DMA-IOMMU cookie while reserving forbidden IOVA ranges. Reject a missing or
+identity domain cleanly instead of failing mappings or dereferencing NULL.
+
+---
+diff --git a/armchina-npu/aipu_mm.c b/armchina-npu/aipu_mm.c
+--- a/armchina-npu/aipu_mm.c
++++ b/armchina-npu/aipu_mm.c
+@@ -1735,6 +1735,17 @@ int aipu_init_mm(struct aipu_memory_manager *mm, struct platform_device *p_dev,
+ 	if (group) {
+ 		mm->has_iommu = true;
+ 		mm->iommu_domain = iommu_get_domain_for_dev(mm->dev);
++		if (!mm->iommu_domain ||
++		    (mm->version == AIPU_ISA_VERSION_ZHOUYI_V3 &&
++		     !mm->iommu_domain->iova_cookie)) {
++			dev_err(mm->dev,
++				"Zhouyi v3 requires an IOMMU DMA domain; disable iommu.passthrough\n");
++			mm->has_iommu = false;
++			ret = -ENODEV;
++			iommu_group_put(group);
++			goto finish;
++		}
++
+ 		if (mm->version >= AIPU_ISA_VERSION_ZHOUYI_V3_2) {
+ 			mm->valid_asid_cnt = 0;
+ 			mm->iova_base = 0x100000000ULL;   // start from 4GB

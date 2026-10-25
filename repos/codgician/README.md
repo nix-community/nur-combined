@@ -7,6 +7,23 @@ NUR Packages from codgician.
 
 Packages are built on GitHub Actions via [atelier](https://github.com/stepbrobd/atelier) for `x86_64-linux`, `aarch64-linux` and `aarch64-darwin`.
 
+## Kernel modules
+
+Out-of-tree kernel modules (packages whose expression takes a `kernel` argument, such as `cix-vpu-driver`) must be built against the kernel that loads them. Use them through `boot.kernelPackages`:
+
+- **NixOS**: import the `kernel-modules` NixOS module (`modules.kernel-modules` of this repository, e.g. `nur.legacyPackages.<system>.repos.codgician.modules.kernel-modules`, or this flake's `nixosModules.kernel-modules`), then reference `config.boot.kernelPackages.<name>`:
+
+  ```nix
+  { config, ... }:
+  {
+    boot.extraModulePackages = [ config.boot.kernelPackages.cix-vpu-driver ];
+  }
+  ```
+
+- **Other `pkgs` instances**, including read-only `nixpkgs.pkgs` such as `pkgs.testers.runNixOSTest` nodes: apply `overlays.kernel-modules` where `pkgs` is constructed. Every `linuxPackages*` set then contains the modules.
+
+The top-level attribute (e.g. `cix-vpu-driver`) is built against nixpkgs' default kernel for CI and caching. Use it directly only for kernel-independent outputs such as UAPI headers.
+
 ## Automatic build repairs
 
 When a package build or check fails on the current `main` revision, build-completion automation invokes Pi and opens one PR per failing package on `bot/repair-<package>`. Multiple platform failures for the same package share one repair. Existing open repair PRs prevent duplicate creation; stale builds, cancelled runs, and harness or unattributed infrastructure failures do not create repair PRs.
