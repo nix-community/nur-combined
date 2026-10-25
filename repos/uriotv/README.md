@@ -33,7 +33,7 @@ redistribution.
 | `cybergrub2077` | `2.0.1-unstable-2026-02-28` | Cyberpunk 2077 inspired GRUB theme | Yes |
 | `nmssaveeditor` | `1.21.0` | Save editor for No Man's Sky | No: unfree |
 | `pig` | `0.5.3` | Pi coding agent rebuilt in Go as a native binary | Yes |
-| `rimsort-appimage` | `1.17.3` | RimWorld mod manager | Yes |
+| `rimsort-appimage` | `1.17.4` | RimWorld mod manager | Yes |
 | `scopebuddy` | `1.5.0` | Gamescope manager | Yes |
 | `storyforge` | `2.0.10` | Story Forge desktop application, built independently of the upstream flake | Yes |
 | `wowup-cf` | `2.24.1` | World of Warcraft addon manager with CurseForge support | Yes |
