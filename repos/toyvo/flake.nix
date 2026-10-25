@@ -35,7 +35,7 @@
       inputs.nixpkgs.follows = "nixos-unstable";
     };
     nixos-avf = {
-      url = "github:nix-community/nixos-avf";
+      url = "github:nix-community/nixos-avf?ref=pull/45/merge";
       inputs.nixpkgs.follows = "nixos-unstable";
     };
     nixos-hardware.url = "github:nixos/nixos-hardware";
@@ -55,7 +55,7 @@
       inputs.nixpkgs.follows = "nixos-unstable";
     };
     plasma-manager.url = "github:pjones/plasma-manager";
-    preservation.url = "github:WilliButz/preservation";
+    preservation.url = "github:nix-community/preservation?ref=pull/36/merge";
     rust-overlay.url = "github:oxalica/rust-overlay";
     sops-nix.url = "github:Mic92/sops-nix";
     treefmt-nix.url = "github:numtide/treefmt-nix";

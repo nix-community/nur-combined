@@ -33,7 +33,6 @@ in
           libxml2
           mesa
           pcre
-          pcre-cpp
           pcre2
           python3
           stdenv.cc.cc

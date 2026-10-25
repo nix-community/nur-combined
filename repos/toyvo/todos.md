@@ -8,6 +8,8 @@ Outstanding work and follow-up items for this repository.
 
 - [x] Consolidate `hermes` user into `agent`: set `shell = lib.mkDefault pkgs.bash` in `modules/os/users/agent.nix`, and override `services.hermes-agent.user/group = "agent"` with `createUser = false` in `nas/configuration.nix`. After rebuild the `hermes` passwd entry will disappear automatically.
 - [ ] Genericize remaining `hermes`→`agent` descriptions in `secretspec.toml` (`HERMES_MAX_ITERATIONS`, `OPENCODE_API_KEY`) and `nas/configuration.nix` comments. Keep upstream API names (`services.hermes-agent`, `inputs.hermes-agent`, `HERMES_*` env, `hermes-cli` toolset) as-is.
+- [ ] Revert `nixos-avf` flake input to `github:nix-community/nixos-avf` once [PR #45](https://github.com/nix-community/nixos-avf/pull/45) (remove `boot.initrd.systemd.enable`) is merged. Currently pinned to `github:mio-19/nixos-avf/4c557dc7444eb6b6b16937e9e788cbd20496748a`.
+- [ ] Revert `preservation` flake input to `github:WilliButz/preservation` once [PR #36](https://github.com/WilliButz/preservation/pull/36) (remove `boot.initrd.systemd.enable` references) is merged. Currently pinned to `github:mjm/preservation/ed8dbeaac0ad240341259c814cade7163a53fc1f`.
 - [ ] setup forwarding to binary cache/nas with nix.settings.post-build-hook
 - [ ] Jellyfin LDAP: `ldap.diekvoss.net` resolves to router (10.1.0.1) with nothing on 6636; Jellyfin `LDAP-Auth.xml` manually pointed at `10.200.0.16:6636`. Decide durable fix: Technitium split-horizon override for `ldap.diekvoss.net` -> `10.200.0.16`, router TCP proxy for 6636, or document direct-IP convention
 

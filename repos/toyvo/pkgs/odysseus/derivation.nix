@@ -27,6 +27,7 @@ let
   # packageOverrides (instead of a nixpkgs overlay) so the package stays
   # self-contained.
   python = python3.override {
+    self = python;
     packageOverrides = _pyFinal: pyPrev: {
       niquests = pyPrev.niquests.overridePythonAttrs (_: {
         doCheck = false;
@@ -37,6 +38,12 @@ let
       });
       "urllib3-future" = pyPrev."urllib3-future".overridePythonAttrs (_: {
         doCheck = false;
+      });
+      posthog = pyPrev.posthog.overridePythonAttrs (old: {
+        doCheck = false;
+        meta = old.meta // {
+          broken = false;
+        };
       });
     };
   };
