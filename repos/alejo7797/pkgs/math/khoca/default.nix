@@ -9,15 +9,15 @@
 
 python3.pkgs.buildPythonApplication {
   pname = "khoca";
-  version = "1.5-unstable-2026-03-20";
+  version = "1.6-unstable-2026-10-25";
 
   format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "alejo7797";
     repo = "khoca";
-    rev = "716b721f84d56524461ae3d4631e9c92c35a1f4a";
-    hash = "sha256-FdKtXZ+l9komnkIKSprg2fvWYXF+ZiozEuJIJ7mhaHA=";
+    rev = "46905cc73e58c7b01ee4e63b04c2f5f9c4b9b22b";
+    hash = "sha256-m+9mer97K5lgfT4P1q4UZLoc4FT++cicjX8VgXqBGxw=";
   };
 
   build-system = with python3.pkgs; [
@@ -29,21 +29,9 @@ python3.pkgs.buildPythonApplication {
     pkg-config
   ];
 
-  dependencies = with python3.pkgs; [
-    py
-  ];
-
   buildInputs = [
     gmp
     pari
-  ];
-
-  preBuild = ''
-    patchShebangs src/khoca/*.py
-  '';
-
-  pythonImportsCheck = [
-    "khoca"
   ];
 
   meta = {
