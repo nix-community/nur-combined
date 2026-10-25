@@ -3,6 +3,9 @@
   system = {
     defaults = {
       NSGlobalDomain = {
+        AppleInterfaceStyle = "Dark";
+        InitialKeyRepeat = 15;
+        KeyRepeat = 5;
         AppleICUForce24HourTime = true;
         "com.apple.swipescrolldirection" = true;
         PMPrintingExpandedStateForPrint = true;
@@ -33,6 +36,7 @@
       # Dock settings
       dock = {
         autohide = true;
+        tilesize = 67;
         orientation = "bottom";
         showhidden = true;
         mineffect = "genie";
@@ -51,6 +55,7 @@
 
       # Finder settings
       finder = {
+        AppleShowAllFiles = true;
         AppleShowAllExtensions = true;
         FXEnableExtensionChangeWarning = false;
         _FXShowPosixPathInTitle = true;

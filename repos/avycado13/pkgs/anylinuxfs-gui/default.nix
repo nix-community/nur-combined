@@ -2,7 +2,7 @@
   lib,
   stdenvNoCC,
   fetchurl,
-  undmg ? null,
+  _7zz,
 }:
 
 stdenvNoCC.mkDerivation rec {
@@ -14,11 +14,10 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-e5INmXsSc2ptk8FOy2DG/saMNHCjpvQNvswSC+yQaos=";
   };
 
-  nativeBuildInputs = [
-    undmg
-  ];
-
+  # The release DMG uses APFS, which undmg cannot unpack.
+  nativeBuildInputs = [ _7zz ];
   sourceRoot = ".";
+  unpackCmd = "7zz x -snld $curSrc";
 
   installPhase = ''
     runHook preInstall
