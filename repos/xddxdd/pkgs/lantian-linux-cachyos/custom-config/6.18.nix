@@ -73,10 +73,6 @@ with lib.kernel;
   EXT3_FS_POSIX_ACL = lib.mkForce (option no);
   EXT3_FS_SECURITY = lib.mkForce (option no);
 
-  # Reduce log buffer size
-  LOG_BUF_SHIFT = freeform "12";
-  LOG_CPU_MAX_BUF_SHIFT = freeform "12";
-
   # Sched-ext
   SCHED_CLASS_EXT = yes;
 
