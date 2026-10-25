@@ -1,0 +1,667 @@
+From 4ffe9b39374404a2832fc75bd335241a6f62066f Mon Sep 17 00:00:00 2001
+From: LuYixian <mcluoc@gmail.com>
+Date: Sun, 25 Oct 2026 23:17:45 +0900
+Subject: [PATCH 1/2] Add F5 SAML authentication
+
+---
+ auth_form.go                      |   9 +-
+ browser_cookie_completion_test.go |  93 ++++++++
+ f5_auth.go                        |  90 ++++++++
+ f5_saml_test.go                   | 368 ++++++++++++++++++++++++++++++
+ 4 files changed, 558 insertions(+), 2 deletions(-)
+ create mode 100644 browser_cookie_completion_test.go
+ create mode 100644 f5_saml_test.go
+
+diff --git a/auth_form.go b/auth_form.go
+index 5486f04..a52bfdb 100644
+--- a/auth_form.go
++++ b/auth_form.go
+@@ -423,8 +423,10 @@ func validateBrowserRequest(request *BrowserRequest) (browserAuthenticationMode,
+ 		return browserAuthenticationModeCallback, nil
+ 	}
+ 	if cookieMode {
+-		if request.FinalURL == "" || len(request.CookieNames) == 0 || len(request.CallbackURLPrefixes) != 0 || len(request.HeaderNames) != 0 {
+-			return 0, E.New("openconnect cookie browser request requires only a final URL and cookie names")
++		// Without a final URL, the browser completes once it holds every
++		// requested cookie.
++		if len(request.CookieNames) == 0 || len(request.CallbackURLPrefixes) != 0 || len(request.HeaderNames) != 0 {
++			return 0, E.New("openconnect cookie browser request requires only cookie names and an optional final URL")
+ 		}
+ 		if invalidStringList(request.CookieNames, false) {
+ 			return 0, E.New("openconnect cookie browser request contains an empty or duplicate cookie name")
+@@ -488,6 +490,9 @@ func validateBrowserResponse(
+ 			}
+ 			seenCookieNames[cookie.Name] = struct{}{}
+ 		}
++		if request.FinalURL == "" && len(seenCookieNames) != len(request.CookieNames) {
++			return E.Errors(ErrInvalidBrowserAuthentication, E.New("browser result omitted a requested cookie"))
++		}
+ 		return nil
+ 	case browserAuthenticationModeHeaders:
+ 		if result.FinalURL != "" || len(result.Cookies) != 0 || len(result.Header) == 0 {
+diff --git a/browser_cookie_completion_test.go b/browser_cookie_completion_test.go
+new file mode 100644
+index 0000000..2e79b82
+--- /dev/null
++++ b/browser_cookie_completion_test.go
+@@ -0,0 +1,93 @@
++package openconnect
++
++import (
++	"errors"
++	"testing"
++)
++
++func TestCookieBrowserRequestWithoutFinalURL(t *testing.T) {
++	t.Parallel()
++	request := &BrowserRequest{
++		URL:              "https://vpn.example.com/",
++		CookieNames:      []string{"session", "ticket"},
++		EarlyCookieNames: []string{"error"},
++	}
++	mode, err := validateBrowserRequest(request)
++	if err != nil || mode != browserAuthenticationModeCookies {
++		t.Fatalf("validateBrowserRequest = %v, %v", mode, err)
++	}
++	for _, testCase := range []struct {
++		name   string
++		result BrowserResult
++		valid  bool
++	}{
++		{
++			name:   "every cookie",
++			result: BrowserResult{Cookies: []BrowserCookie{{Name: "ticket", Value: "t"}, {Name: "session", Value: "s"}}},
++			valid:  true,
++		},
++		{
++			name:   "early cookie",
++			result: BrowserResult{Cookies: []BrowserCookie{{Name: "error", Value: "denied"}}},
++			valid:  true,
++		},
++		{
++			name:   "missing cookie",
++			result: BrowserResult{Cookies: []BrowserCookie{{Name: "session", Value: "s"}}},
++		},
++		{
++			name:   "unrequested final URL",
++			result: BrowserResult{FinalURL: "https://vpn.example.com/done", Cookies: []BrowserCookie{{Name: "ticket", Value: "t"}, {Name: "session", Value: "s"}}},
++		},
++		{
++			name:   "unrequested cookie",
++			result: BrowserResult{Cookies: []BrowserCookie{{Name: "ticket", Value: "t"}, {Name: "session", Value: "s"}, {Name: "other", Value: "o"}}},
++		},
++	} {
++		t.Run(testCase.name, func(t *testing.T) {
++			t.Parallel()
++			result := testCase.result
++			err := validateBrowserResponse(request, mode, AuthResponse{Browser: &result})
++			if testCase.valid && err != nil {
++				t.Fatalf("expected the result to be accepted, got %v", err)
++			}
++			if !testCase.valid && !errors.Is(err, ErrInvalidBrowserAuthentication) {
++				t.Fatalf("expected the result to be rejected, got %v", err)
++			}
++		})
++	}
++}
++
++func TestCookieBrowserRequestWithFinalURLUnchanged(t *testing.T) {
++	t.Parallel()
++	request := &BrowserRequest{
++		URL:         "https://vpn.example.com/login",
++		FinalURL:    "https://vpn.example.com/done",
++		CookieNames: []string{"session", "ticket"},
++	}
++	mode, err := validateBrowserRequest(request)
++	if err != nil || mode != browserAuthenticationModeCookies {
++		t.Fatalf("validateBrowserRequest = %v, %v", mode, err)
++	}
++	err = validateBrowserResponse(request, mode, AuthResponse{Browser: &BrowserResult{
++		FinalURL: request.FinalURL,
++		Cookies:  []BrowserCookie{{Name: "session", Value: "s"}},
++	}})
++	if err != nil {
++		t.Fatalf("a final URL with some of the cookies is still accepted, got %v", err)
++	}
++	err = validateBrowserResponse(request, mode, AuthResponse{Browser: &BrowserResult{
++		Cookies: []BrowserCookie{{Name: "session", Value: "s"}, {Name: "ticket", Value: "t"}},
++	}})
++	if !errors.Is(err, ErrInvalidBrowserAuthentication) {
++		t.Fatalf("a result without the requested final URL is still rejected, got %v", err)
++	}
++}
++
++func TestCookieBrowserRequestNeedsCookieNames(t *testing.T) {
++	t.Parallel()
++	_, err := validateBrowserRequest(&BrowserRequest{URL: "https://vpn.example.com/", EarlyCookieNames: []string{"error"}})
++	if err == nil {
++		t.Fatal("expected a cookie request without cookie names to be rejected")
++	}
++}
+diff --git a/f5_auth.go b/f5_auth.go
+index 5a3bbd7..67870e4 100644
+--- a/f5_auth.go
++++ b/f5_auth.go
+@@ -26,6 +26,7 @@ const (
+ 	f5MaximumAuthenticationRedirects = 10
+ 	f5LogoutTimeout                  = 5 * time.Second
+ 	f5DefaultUserAgent               = "AnyConnect-compatible OpenConnect VPN Agent " + defaultClientVersion
++	f5SAMLFinalPath                  = "/vdesk/webtop.eui"
+ )
+ 
+ type f5Frontend struct {
+@@ -49,6 +50,7 @@ type f5Authentication struct {
+ 	primaryPasswordSeen bool
+ 	primaryPasswordSent bool
+ 	currentFormPrimary  bool
++	currentSAML         bool
+ 	started             bool
+ 	completed           bool
+ 	closed              bool
+@@ -189,6 +191,7 @@ func (a *f5Authentication) Advance(
+ 	started := a.started
+ 	currentForm := a.currentForm
+ 	currentFormPrimary := a.currentFormPrimary
++	currentSAML := a.currentSAML
+ 	if !started {
+ 		a.started = true
+ 	}
+@@ -204,6 +207,12 @@ func (a *f5Authentication) Advance(
+ 		}
+ 		return a.doAuthenticationExchange(ctx, http.MethodGet, a.currentURL, "")
+ 	}
++	if currentSAML {
++		if response == nil || response.BrowserResult == nil {
++			return nil, nil, E.Extend(ErrProtocolNotSupported, "missing F5 SAML browser response")
++		}
++		return a.completeSAMLAuthentication(response.BrowserResult)
++	}
+ 	if response == nil || currentForm == nil {
+ 		return nil, nil, E.Extend(ErrProtocolNotSupported, "missing F5 authentication form response")
+ 	}
+@@ -286,6 +295,9 @@ func (a *f5Authentication) doAuthenticationExchange(
+ 			if locationErr != nil {
+ 				return nil, nil, markTerminal(E.Cause(locationErr, "parse F5 authentication redirect"))
+ 			}
++			if location.Query().Has("SAMLRequest") {
++				return a.beginSAMLAuthentication()
++			}
+ 			validationErr := validateHTTPSRequestURL(location)
+ 			if validationErr != nil {
+ 				return nil, nil, markTerminal(validationErr)
+@@ -398,6 +410,9 @@ func (a *f5Authentication) authenticationRequestFromDocument(
+ 			a.frontend.client.options.Logger.WarnContext(a.frontend.client.options.Context, warning)
+ 		}
+ 	}
++	if form != nil && isF5SAMLRequestForm(form) {
++		return a.beginSAMLAuthentication()
++	}
+ 	a.access.Lock()
+ 	formNumber := a.formNumber
+ 	if form != nil && form.html && !a.seenHTMLForm {
+@@ -539,6 +554,72 @@ func (a *f5Authentication) resetAuthenticationJar() error {
+ 	return nil
+ }
+ 
++// The gateway handed the logon off to a SAML identity provider. The browser
++// logs in from the gateway's own login URL so that the MRHSession it ends up
++// with is the one the identity provider authenticated. The page it lands on
++// depends on the gateway's webtop, so there is no final URL: like
++// openconnect's native F5 login, the session counts as authenticated once
++// the gateway has set F5_ST next to MRHSession, which it only does after the
++// access policy allowed the session.
++func (a *f5Authentication) beginSAMLAuthentication() (obtainedSession, *authenticationRequest, error) {
++	if a.frontend.client.options.ExternalAuthDisabled {
++		return nil, nil, markTerminal(E.Extend(ErrProtocolNotSupported, "gateway requested disabled external authentication"))
++	}
++	loginURL := cloneF5URL(a.frontend.client.serverURL)
++	a.access.Lock()
++	a.currentForm = nil
++	a.currentSAML = true
++	a.access.Unlock()
++	return nil, &authenticationRequest{
++		FormID:  "_saml",
++		Message: "Sign in through the identity provider, then read the gateway's MRHSession and F5_ST cookies.",
++		Browser: &BrowserRequest{
++			URL:         loginURL.String(),
++			CookieNames: []string{"MRHSession", "F5_ST"},
++		},
++	}, nil
++}
++
++func (a *f5Authentication) completeSAMLAuthentication(result *BrowserResult) (obtainedSession, *authenticationRequest, error) {
++	var mrhSession string
++	var f5ST string
++	for _, cookie := range result.Cookies {
++		// Tolerate a pasted "name=value" pair and surrounding whitespace.
++		value := strings.TrimPrefix(strings.TrimSpace(cookie.Value), cookie.Name+"=")
++		switch cookie.Name {
++		case "MRHSession":
++			mrhSession = value
++		case "F5_ST":
++			f5ST = value
++		}
++	}
++	if mrhSession == "" {
++		return nil, nil, E.Errors(ErrInvalidBrowserAuthentication, E.New("SAML browser result omitted MRHSession"))
++	}
++	jar, jarErr := cookiejar.New(&cookiejar.Options{PublicSuffixList: publicsuffix.List})
++	if jarErr != nil {
++		return nil, nil, markTerminal(E.Cause(jarErr, "create F5 SAML cookie jar"))
++	}
++	serverURL := cloneF5URL(a.frontend.client.serverURL)
++	cookies := []*http.Cookie{{Name: "MRHSession", Value: mrhSession, Path: "/", Secure: true}}
++	if f5ST != "" {
++		cookies = append(cookies, &http.Cookie{Name: "F5_ST", Value: f5ST, Path: "/", Secure: true})
++	}
++	jar.SetCookies(serverURL, cookies)
++	a.access.Lock()
++	a.completed = true
++	a.currentSAML = false
++	a.access.Unlock()
++	return &f5SessionState{
++		frontend:                 a.frontend,
++		serverURL:                serverURL,
++		jar:                      jar,
++		mrhSession:               mrhSession,
++		f5ST:                     f5ST,
++		authenticationExpiration: parseF5AuthenticationExpiration(f5ST),
++	}, nil, nil
++}
++
+ func encodeF5AuthenticationResponse(form *f5AuthenticationForm, response *authenticationResponse) (string, error) {
+ 	var encoded strings.Builder
+ 	for fieldIndex, field := range form.fields {
+@@ -600,6 +681,15 @@ func f5FormHasPassword(form *f5AuthenticationForm) bool {
+ 	return false
+ }
+ 
++func isF5SAMLRequestForm(form *f5AuthenticationForm) bool {
++	for _, field := range form.fields {
++		if field.name == "SAMLRequest" {
++			return true
++		}
++	}
++	return false
++}
++
+ func parseF5AuthenticationExpiration(value string) time.Time {
+ 	parts := strings.Split(value, "z")
+ 	if len(parts) < 5 {
+diff --git a/f5_saml_test.go b/f5_saml_test.go
+new file mode 100644
+index 0000000..16ca97b
+--- /dev/null
++++ b/f5_saml_test.go
+@@ -0,0 +1,368 @@
++package openconnect
++
++import (
++	"context"
++	"crypto/tls"
++	"crypto/x509"
++	"errors"
++	"net/http"
++	"net/http/httptest"
++	"slices"
++	"strconv"
++	"strings"
++	"sync/atomic"
++	"testing"
++	"time"
++
++	E "github.com/sagernet/sing/common/exceptions"
++)
++
++const (
++	f5SAMLTestSession = "0123456789abcdef0123456789abcdef"
++	f5SAMLTestProfile = `<?xml version="1.0" encoding="utf-8"?>
++<favorites type="VPN" limited="NO"><favorite id="/Common/na"><caption>na</caption><name>/Common/na</name><params>resourcename=/Common/na</params></favorite></favorites>`
++	f5SAMLTestOptions = `<?xml version="1.0" encoding="utf-8"?>
++<favorite id="/Common/na"><object ID="ID_PARAMS"><ur_Z>urz</ur_Z><Session_ID>sid</Session_ID><IPV4_0>1</IPV4_0><IPV6_0>0</IPV6_0><DNS0>192.0.2.53</DNS0></object></favorite>`
++)
++
++type f5SAMLTestGateway struct {
++	gateway     *httptest.Server
++	idp         *httptest.Server
++	idpRequests atomic.Int32
++	f5ST        string
++}
++
++func newF5SAMLTestGateway(t *testing.T, redirectBinding bool) *f5SAMLTestGateway {
++	t.Helper()
++	g := &f5SAMLTestGateway{
++		f5ST: "1z1z1z" + strconv.FormatInt(time.Now().Unix(), 10) + "z3600",
++	}
++	g.idp = httptest.NewTLSServer(http.HandlerFunc(func(writer http.ResponseWriter, _ *http.Request) {
++		g.idpRequests.Add(1)
++		writer.Header().Set("Content-Type", "text/html")
++		_, _ = writer.Write([]byte(`<html><body><form id="login" method="post" action="/login"><input type="text" name="j_username"><input type="password" name="j_password"></form></body></html>`))
++	}))
++	t.Cleanup(g.idp.Close)
++	g.gateway = httptest.NewTLSServer(http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
++		switch request.URL.Path {
++		case "/":
++			http.SetCookie(writer, &http.Cookie{Name: "MRHSession", Value: "anonymous", Path: "/", Secure: true})
++			http.Redirect(writer, request, "/my.policy", http.StatusFound)
++		case "/my.policy":
++			if redirectBinding {
++				http.Redirect(writer, request, g.idp.URL+"/sso/SSORedirect?SAMLRequest=fZJdT4MwFIb%2FCun9oFAQ&RelayState=x", http.StatusFound)
++				return
++			}
++			writer.Header().Set("Content-Type", "text/html")
++			_, _ = writer.Write([]byte(`<html><body onload="document.forms[0].submit()"><form method="POST" action="` + g.idp.URL + `/sso/SSOPOST"><div><input type="hidden" name="SAMLRequest" value="PHNhbWxwOkF1dGhuUmVxdWVzdC8+"/><input type="hidden" name="RelayState" value="x"/></div><noscript><input type="submit" value="Continue"/></noscript></form></body></html>`))
++		case "/vdesk/vpn/index.php3", "/vdesk/vpn/connect.php3":
++			session, sessionErr := request.Cookie("MRHSession")
++			f5ST, f5STErr := request.Cookie("F5_ST")
++			if sessionErr != nil || session.Value != f5SAMLTestSession || f5STErr != nil || f5ST.Value != g.f5ST {
++				http.Redirect(writer, request, "/my.policy", http.StatusFound)
++				return
++			}
++			writer.Header().Set("Content-Type", "text/xml")
++			if request.URL.Path == "/vdesk/vpn/index.php3" {
++				_, _ = writer.Write([]byte(f5SAMLTestProfile))
++			} else {
++				_, _ = writer.Write([]byte(f5SAMLTestOptions))
++			}
++		default:
++			http.NotFound(writer, request)
++		}
++	}))
++	t.Cleanup(g.gateway.Close)
++	return g
++}
++
++func newF5SAMLTestClient(t *testing.T, g *f5SAMLTestGateway) *Client {
++	t.Helper()
++	rootCAs := x509.NewCertPool()
++	rootCAs.AddCert(g.gateway.Certificate())
++	rootCAs.AddCert(g.idp.Certificate())
++	client, err := NewClient(ClientOptions{
++		Server:        g.gateway.URL,
++		Flavor:        FlavorF5,
++		LocalHostname: "test",
++		TLSConfig:     ClientTLSOptions{Config: &tls.Config{RootCAs: rootCAs}},
++	})
++	if err != nil {
++		t.Fatal(err)
++	}
++	t.Cleanup(func() {
++		client.httpTransport.CloseIdleConnections()
++	})
++	return client
++}
++
++func TestF5SAMLBrowserChallenge(t *testing.T) {
++	t.Parallel()
++	for _, testCase := range []struct {
++		name            string
++		redirectBinding bool
++	}{
++		{name: "post binding"},
++		{name: "redirect binding", redirectBinding: true},
++	} {
++		t.Run(testCase.name, func(t *testing.T) {
++			t.Parallel()
++			g := newF5SAMLTestGateway(t, testCase.redirectBinding)
++			client := newF5SAMLTestClient(t, g)
++			ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
++			defer cancel()
++
++			continuation := client.frontend.BeginAuthentication()
++			defer continuation.Close()
++			session, request, err := continuation.Advance(ctx, nil)
++			if err != nil {
++				t.Fatal(err)
++			}
++			if session != nil || request == nil || request.Browser == nil {
++				t.Fatalf("expected a browser request, got session %v request %+v", session, request)
++			}
++			if g.idpRequests.Load() != 0 {
++				t.Fatal("client contacted the identity provider itself")
++			}
++
++			type awaitResult struct {
++				response authenticationResponse
++				err      error
++			}
++			challengeUpdated := client.AuthChallengeUpdated()
++			awaitDone := make(chan awaitResult, 1)
++			go func() {
++				response, awaitErr := client.awaitAuthChallenge(ctx, *request, continuation)
++				awaitDone <- awaitResult{response, awaitErr}
++			}()
++			select {
++			case <-challengeUpdated:
++			case <-ctx.Done():
++				t.Fatal("browser challenge was not published")
++			}
++			challenge := client.PendingAuthChallenge()
++			if challenge == nil || challenge.Browser == nil || challenge.Form != nil {
++				t.Fatalf("expected a pending browser challenge, got %+v", challenge)
++			}
++			browser := challenge.Browser
++			if browser.URL != g.gateway.URL {
++				t.Fatalf("browser URL = %q, want the gateway login URL %q", browser.URL, g.gateway.URL)
++			}
++			if browser.FinalURL != "" {
++				t.Fatalf("browser final URL = %q, want none", browser.FinalURL)
++			}
++			if !slices.Equal(browser.CookieNames, []string{"MRHSession", "F5_ST"}) {
++				t.Fatalf("browser cookie names = %q", browser.CookieNames)
++			}
++			if len(browser.CallbackURLPrefixes) != 0 || len(browser.HeaderNames) != 0 || len(browser.EarlyCookieNames) != 0 {
++				t.Fatalf("browser request mixes completion modes: %+v", browser)
++			}
++			if challenge.Message == "" {
++				t.Fatal("browser challenge has no sign-in message")
++			}
++
++			// MRHSession alone is the anonymous pre-login session: the
++			// challenge only completes once F5_ST is there too.
++			err = client.CompleteAuthChallenge(challenge.ID, AuthResponse{Browser: &BrowserResult{
++				Cookies: []BrowserCookie{{Name: "MRHSession", Value: f5SAMLTestSession}},
++			}})
++			if !errors.Is(err, ErrInvalidBrowserAuthentication) {
++				t.Fatalf("expected an incomplete browser result to be rejected, got %v", err)
++			}
++			if pending := client.PendingAuthChallenge(); pending == nil || pending.ID != challenge.ID {
++				t.Fatal("rejected browser result withdrew the challenge")
++			}
++
++			err = client.CompleteAuthChallenge(challenge.ID, AuthResponse{Browser: &BrowserResult{
++				FinalURL: browser.FinalURL,
++				Cookies: []BrowserCookie{
++					{Name: "MRHSession", Value: f5SAMLTestSession},
++					{Name: "F5_ST", Value: g.f5ST},
++				},
++			}})
++			if err != nil {
++				t.Fatal(err)
++			}
++			result := <-awaitDone
++			if result.err != nil {
++				t.Fatal(result.err)
++			}
++			session, request, err = continuation.Advance(ctx, &result.response)
++			if err != nil {
++				t.Fatal(err)
++			}
++			if request != nil {
++				t.Fatalf("expected a session after the browser answer, got request %+v", request)
++			}
++			state, isF5Session := session.(*f5SessionState)
++			if !isF5Session {
++				t.Fatalf("session type = %T", session)
++			}
++			defer state.Close()
++			if state.mrhSession != f5SAMLTestSession || state.f5ST != g.f5ST || state.authenticationExpiration.IsZero() {
++				t.Fatalf("session state = %q %q %v", state.mrhSession, state.f5ST, state.authenticationExpiration)
++			}
++			configuration, err := state.loadConfiguration(ctx)
++			if err != nil {
++				t.Fatal(err)
++			}
++			if configuration.sessionID != "sid" || configuration.urZ != "urz" || !configuration.wantIPv4 {
++				t.Fatalf("tunnel configuration = %+v", configuration)
++			}
++			if !configuration.configuration.RemoteAddress.IsLoopback() {
++				t.Fatalf("accepted address = %v", configuration.configuration.RemoteAddress)
++			}
++			if g.idpRequests.Load() != 0 {
++				t.Fatal("client contacted the identity provider itself")
++			}
++		})
++	}
++}
++
++func TestF5SAMLBrowserResultRequiresMRHSession(t *testing.T) {
++	t.Parallel()
++	g := newF5SAMLTestGateway(t, false)
++	client := newF5SAMLTestClient(t, g)
++	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
++	defer cancel()
++	continuation := client.frontend.BeginAuthentication()
++	defer continuation.Close()
++	_, request, err := continuation.Advance(ctx, nil)
++	if err != nil {
++		t.Fatal(err)
++	}
++	if request == nil || request.Browser == nil {
++		t.Fatalf("expected a browser request, got %+v", request)
++	}
++	_, _, err = continuation.Advance(ctx, &authenticationResponse{BrowserResult: &BrowserResult{
++		FinalURL: request.Browser.FinalURL,
++		Cookies:  []BrowserCookie{{Name: "F5_ST", Value: g.f5ST}},
++	}})
++	if err == nil || !strings.Contains(err.Error(), "MRHSession") {
++		t.Fatalf("expected a missing MRHSession error, got %v", err)
++	}
++}
++
++func TestF5SAMLExternalAuthDisabled(t *testing.T) {
++	t.Parallel()
++	g := newF5SAMLTestGateway(t, false)
++	client := newF5SAMLTestClient(t, g)
++	client.options.ExternalAuthDisabled = true
++	continuation := client.frontend.BeginAuthentication()
++	defer continuation.Close()
++	_, request, err := continuation.Advance(context.Background(), nil)
++	if err == nil || request != nil {
++		t.Fatalf("expected external authentication to be refused, got request %+v error %v", request, err)
++	}
++}
++
++func TestF5FirstFormWithoutSAMLRequest(t *testing.T) {
++	t.Parallel()
++	for _, testCase := range []struct {
++		name      string
++		document  string
++		formID    string
++		errorText string
++	}{
++		{
++			name:     "native logon form",
++			document: `<html><body><form id="auth_form" method="post" action="/my.policy"><input type="text" name="username"><input type="password" name="password"></form></body></html>`,
++			formID:   "auth_form",
++		},
++		{
++			name:      "unknown form",
++			document:  `<html><body><form method="post" action="/other"><input type="text" name="user"></form></body></html>`,
++			errorText: "unexpected first F5 HTML form ID: unknown",
++		},
++	} {
++		t.Run(testCase.name, func(t *testing.T) {
++			t.Parallel()
++			gateway := httptest.NewTLSServer(http.HandlerFunc(func(writer http.ResponseWriter, _ *http.Request) {
++				writer.Header().Set("Content-Type", "text/html")
++				_, _ = writer.Write([]byte(testCase.document))
++			}))
++			defer gateway.Close()
++			rootCAs := x509.NewCertPool()
++			rootCAs.AddCert(gateway.Certificate())
++			client, err := NewClient(ClientOptions{
++				Server:        gateway.URL,
++				Flavor:        FlavorF5,
++				LocalHostname: "test",
++				TLSConfig:     ClientTLSOptions{Config: &tls.Config{RootCAs: rootCAs}},
++			})
++			if err != nil {
++				t.Fatal(err)
++			}
++			defer client.httpTransport.CloseIdleConnections()
++			continuation := client.frontend.BeginAuthentication()
++			defer continuation.Close()
++			_, request, err := continuation.Advance(context.Background(), nil)
++			if testCase.errorText != "" {
++				if err == nil || !strings.Contains(err.Error(), testCase.errorText) {
++					t.Fatalf("expected %q, got request %+v error %v", testCase.errorText, request, err)
++				}
++				return
++			}
++			if err != nil {
++				t.Fatal(err)
++			}
++			if request == nil || request.Browser != nil || request.FormID != testCase.formID {
++				t.Fatalf("expected native form %q, got %+v", testCase.formID, request)
++			}
++		})
++	}
++}
++
++func advanceF5SAMLTestBrowser(t *testing.T, g *f5SAMLTestGateway, cookies []BrowserCookie) (*f5SessionState, error) {
++	t.Helper()
++	client := newF5SAMLTestClient(t, g)
++	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
++	defer cancel()
++	continuation := client.frontend.BeginAuthentication()
++	t.Cleanup(func() { _ = continuation.Close() })
++	_, request, err := continuation.Advance(ctx, nil)
++	if err != nil {
++		t.Fatal(err)
++	}
++	if request == nil || request.Browser == nil {
++		t.Fatalf("expected a browser request, got %+v", request)
++	}
++	session, _, err := continuation.Advance(ctx, &authenticationResponse{BrowserResult: &BrowserResult{
++		FinalURL: request.Browser.FinalURL,
++		Cookies:  cookies,
++	}})
++	if err != nil {
++		return nil, err
++	}
++	state := session.(*f5SessionState)
++	t.Cleanup(func() { _ = state.Close() })
++	_, err = state.loadConfiguration(ctx)
++	return state, err
++}
++
++func TestF5SAMLBrowserResultPastedPairs(t *testing.T) {
++	t.Parallel()
++	g := newF5SAMLTestGateway(t, false)
++	state, err := advanceF5SAMLTestBrowser(t, g, []BrowserCookie{
++		{Name: "MRHSession", Value: " MRHSession=" + f5SAMLTestSession + "\n"},
++		{Name: "F5_ST", Value: "F5_ST=" + g.f5ST},
++	})
++	if err != nil {
++		t.Fatal(err)
++	}
++	if state.mrhSession != f5SAMLTestSession || state.f5ST != g.f5ST {
++		t.Fatalf("session state = %q %q", state.mrhSession, state.f5ST)
++	}
++}
++
++func TestF5SAMLBrowserResultRejectedSessionIsRetryable(t *testing.T) {
++	t.Parallel()
++	g := newF5SAMLTestGateway(t, false)
++	_, err := advanceF5SAMLTestBrowser(t, g, []BrowserCookie{
++		{Name: "MRHSession", Value: "fedcba9876543210fedcba9876543210"},
++		{Name: "F5_ST", Value: g.f5ST},
++	})
++	if !E.IsMulti(err, ErrSessionRejected) || classifyClientSessionError(err) == clientSessionErrorTerminal {
++		t.Fatalf("expected a retryable session rejection, got %v", err)
++	}
++}
+-- 
+2.56.0
+

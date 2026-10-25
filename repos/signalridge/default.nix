@@ -7,4 +7,5 @@
   overlays = import ./overlays;
 
   clinvk = pkgs.callPackage ./pkgs/clinvk { };
+  sing-box = pkgs.callPackage ./pkgs/sing-box { };
 }

@@ -18,6 +18,7 @@
 
       overlays.default = final: prev: {
         clinvk = final.callPackage ./pkgs/clinvk { };
+        sing-box = final.callPackage ./pkgs/sing-box { };
       };
     };
 }

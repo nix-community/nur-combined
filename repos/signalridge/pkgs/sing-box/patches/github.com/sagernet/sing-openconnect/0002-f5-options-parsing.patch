@@ -1,0 +1,391 @@
+From f3230e66de6261f2183ae37722227ee3b9c09b60 Mon Sep 17 00:00:00 2001
+From: LuYixian <mcluoc@gmail.com>
+Date: Sun, 25 Oct 2026 23:29:24 +0900
+Subject: [PATCH 2/2] Fix F5 VPN options parsing
+
+---
+ f5_config.go               | 121 ++++++++++++++++++++++-------------
+ f5_options_parsing_test.go | 127 +++++++++++++++++++++++++++++++++++++
+ 2 files changed, 203 insertions(+), 45 deletions(-)
+ create mode 100644 f5_options_parsing_test.go
+
+diff --git a/f5_config.go b/f5_config.go
+index b234584..98620e3 100644
+--- a/f5_config.go
++++ b/f5_config.go
+@@ -117,10 +117,15 @@ func (f *f5Frontend) fetchTunnelConfiguration(
+ 	if optionsErr != nil {
+ 		return nil, optionsErr
+ 	}
+-	configuration, parseOptionsErr := parseF5Options(optionsBody, snapshot.authenticationExpiration)
++	configuration, warnings, parseOptionsErr := parseF5Options(optionsBody, snapshot.authenticationExpiration)
+ 	if parseOptionsErr != nil {
+ 		return nil, markTerminal(parseOptionsErr)
+ 	}
++	for _, warning := range warnings {
++		if f.client.options.Logger != nil {
++			f.client.options.Logger.WarnContext(f.client.options.Context, warning)
++		}
++	}
+ 	if f.client.options.IPv6Disabled {
+ 		configuration.wantIPv6 = false
+ 		if !configuration.wantIPv4 {
+@@ -216,18 +221,21 @@ func parseF5Profile(content []byte) (string, error) {
+ 	return "", E.New("VPN profile has no favorite parameters")
+ }
+ 
+-func parseF5Options(content []byte, authenticationExpiration time.Time) (*f5TunnelConfiguration, error) {
++// Optional values the client cannot parse are dropped with a warning, as
++// openconnect does, rather than failing the connection; values that decide
++// framing, address families or the default route stay strict.
++func parseF5Options(content []byte, authenticationExpiration time.Time) (*f5TunnelConfiguration, []string, error) {
+ 	structureErr := validateF5OptionsStructure(content)
+ 	if structureErr != nil {
+-		return nil, structureErr
++		return nil, nil, structureErr
+ 	}
+ 	var document f5OptionsDocument
+ 	decodeErr := xml.Unmarshal(bytes.TrimSpace(content), &document)
+ 	if decodeErr != nil {
+-		return nil, E.Cause(decodeErr, "decode F5 VPN options XML")
++		return nil, nil, E.Cause(decodeErr, "decode F5 VPN options XML")
+ 	}
+ 	if document.XMLName.Local != "favorite" || len(document.Objects) == 0 {
+-		return nil, E.New("VPN options has no favorite object")
++		return nil, nil, E.New("VPN options has no favorite object")
+ 	}
+ 	configuration := &f5TunnelConfiguration{
+ 		configuration: TunnelConfiguration{
+@@ -239,6 +247,7 @@ func parseF5Options(content []byte, authenticationExpiration time.Time) (*f5Tunn
+ 	dtlsAdvertised := false
+ 	var dnsCount int
+ 	var nbnsCount int
++	var warnings []string
+ 	for _, field := range document.Objects[0].Fields {
+ 		name := field.XMLName.Local
+ 		value := strings.TrimSpace(field.Value)
+@@ -250,34 +259,33 @@ func parseF5Options(content []byte, authenticationExpiration time.Time) (*f5Tunn
+ 		case "IPV4_0":
+ 			parsed, parseErr := parseF5Boolean(value)
+ 			if parseErr != nil {
+-				return nil, E.Cause(parseErr, "parse F5 IPv4 enablement")
++				return nil, nil, E.Cause(parseErr, "parse F5 IPv4 enablement")
+ 			}
+ 			configuration.wantIPv4 = parsed
+ 		case "IPV6_0":
+ 			parsed, parseErr := parseF5Boolean(value)
+ 			if parseErr != nil {
+-				return nil, E.Cause(parseErr, "parse F5 IPv6 enablement")
++				return nil, nil, E.Cause(parseErr, "parse F5 IPv6 enablement")
+ 			}
+ 			configuration.wantIPv6 = parsed
+ 		case "hdlc_framing":
+ 			parsed, parseErr := parseF5Boolean(value)
+ 			if parseErr != nil {
+-				return nil, E.Cause(parseErr, "parse F5 HDLC enablement")
++				return nil, nil, E.Cause(parseErr, "parse F5 HDLC enablement")
+ 			}
+ 			configuration.hdlc = parsed
+ 		case "idle_session_timeout":
+ 			seconds, parseErr := parseF5NonnegativeInteger(value)
+-			if parseErr != nil {
+-				return nil, E.Cause(parseErr, "parse F5 idle timeout")
+-			}
+-			if seconds > math.MaxInt64/int64(time.Second) {
+-				return nil, E.New("idle timeout exceeds supported duration")
++			if parseErr != nil || seconds > math.MaxInt64/int64(time.Second) {
++				warnings = append(warnings, "ignoring invalid F5 idle timeout: "+value)
++				break
+ 			}
+ 			configuration.configuration.IdleTimeout = time.Duration(seconds) * time.Second
+ 		case "tunnel_dtls":
+ 			parsed, parseErr := parseF5Boolean(value)
+ 			if parseErr != nil {
+-				return nil, E.Cause(parseErr, "parse F5 DTLS enablement")
++				warnings = append(warnings, "ignoring invalid F5 DTLS enablement: "+value)
++				parsed = false
+ 			}
+ 			dtlsAdvertised = parsed
+ 		case "tunnel_port_dtls":
+@@ -287,67 +295,69 @@ func parseF5Options(content []byte, authenticationExpiration time.Time) (*f5Tunn
+ 			}
+ 			port, parseErr := strconv.ParseUint(value, 10, 16)
+ 			if parseErr != nil {
+-				return nil, E.New("DTLS port is invalid: ", value)
++				warnings = append(warnings, "ignoring invalid F5 DTLS port: "+value)
++				port = 0
+ 			}
+ 			configuration.dtlsPort = uint16(port)
+ 		case "dtls_v1_2_supported":
+ 			parsed, parseErr := parseF5Boolean(value)
+ 			if parseErr != nil {
+-				return nil, E.Cause(parseErr, "parse F5 DTLS 1.2 support")
++				warnings = append(warnings, "ignoring invalid F5 DTLS 1.2 support: "+value)
++				parsed = false
+ 			}
+ 			configuration.dtls12 = parsed
+ 		case "UseDefaultGateway0":
+ 			parsed, parseErr := parseF5Boolean(value)
+ 			if parseErr != nil {
+-				return nil, E.Cause(parseErr, "parse F5 default gateway")
++				return nil, nil, E.Cause(parseErr, "parse F5 default gateway")
+ 			}
+ 			defaultRoute = parsed
+ 		default:
+ 			switch {
+ 			case isF5IndexedName(name, "DNS") || isF5IndexedName(name, "DNS6_"):
+-				if value != "" && dnsCount < 3 {
+-					address, parseErr := netip.ParseAddr(value)
++				for word := range strings.FieldsSeq(value) {
++					address, parseErr := netip.ParseAddr(word)
+ 					if parseErr != nil {
+-						return nil, E.Cause(parseErr, "parse F5 DNS address")
++						warnings = append(warnings, "ignoring invalid F5 DNS address: "+word)
++						continue
++					}
++					if dnsCount < 3 {
++						configuration.configuration.DNS = append(configuration.configuration.DNS, address.Unmap())
++						dnsCount++
+ 					}
+-					configuration.configuration.DNS = append(configuration.configuration.DNS, address.Unmap())
+-					dnsCount++
+ 				}
+ 			case isF5IndexedName(name, "WINS"):
+-				if value != "" && nbnsCount < 3 {
+-					address, parseErr := netip.ParseAddr(value)
++				for word := range strings.FieldsSeq(value) {
++					address, parseErr := netip.ParseAddr(word)
+ 					if parseErr != nil {
+-						return nil, E.Cause(parseErr, "parse F5 NBNS address")
++						warnings = append(warnings, "ignoring invalid F5 NBNS address: "+word)
++						continue
++					}
++					if nbnsCount < 3 {
++						configuration.configuration.NBNS = append(configuration.configuration.NBNS, address.Unmap())
++						nbnsCount++
+ 					}
+-					configuration.configuration.NBNS = append(configuration.configuration.NBNS, address.Unmap())
+-					nbnsCount++
+ 				}
+ 			case isF5IndexedName(name, "DNSSuffix"):
+-				if value != "" {
+-					configuration.configuration.SearchDomains = append(configuration.configuration.SearchDomains, value)
+-				}
++				configuration.configuration.SearchDomains = append(configuration.configuration.SearchDomains, strings.Fields(value)...)
+ 			case isF5IndexedName(name, "DNS_SPLIT"):
+ 				configuration.configuration.SplitDNS = append(configuration.configuration.SplitDNS, strings.Fields(value)...)
+ 			case isF5IndexedName(name, "LAN") || isF5IndexedName(name, "LAN6_"):
+-				routes, parseErr := parseF5Routes(value)
+-				if parseErr != nil {
+-					return nil, E.Cause(parseErr, "parse F5 include routes")
+-				}
++				routes, routeWarnings := parseF5Routes(value, "include")
+ 				configuration.configuration.Routes = append(configuration.configuration.Routes, routes...)
++				warnings = append(warnings, routeWarnings...)
+ 			case isF5IndexedName(name, "ExcludeSubnets") || isF5IndexedName(name, "ExcludeSubnets6_"):
+-				routes, parseErr := parseF5Routes(value)
+-				if parseErr != nil {
+-					return nil, E.Cause(parseErr, "parse F5 exclude routes")
+-				}
++				routes, routeWarnings := parseF5Routes(value, "exclude")
+ 				configuration.configuration.ExcludedRoutes = append(configuration.configuration.ExcludedRoutes, routes...)
++				warnings = append(warnings, routeWarnings...)
+ 			}
+ 		}
+ 	}
+ 	if configuration.sessionID == "" || configuration.urZ == "" {
+-		return nil, E.New("VPN options is missing Session_ID or ur_Z")
++		return nil, nil, E.New("VPN options is missing Session_ID or ur_Z")
+ 	}
+ 	if !configuration.wantIPv4 && !configuration.wantIPv6 {
+-		return nil, E.New("VPN options enables no network family")
++		return nil, nil, E.New("VPN options enables no network family")
+ 	}
+ 	if defaultRoute {
+ 		if configuration.wantIPv4 {
+@@ -361,7 +371,7 @@ func parseF5Options(content []byte, authenticationExpiration time.Time) (*f5Tunn
+ 		configuration.configuration.defaultIPv6RouteSuppressed = configuration.wantIPv6
+ 	}
+ 	configuration.dtlsEnabled = dtlsAdvertised && configuration.dtlsPort != 0 && !configuration.hdlc
+-	return configuration, nil
++	return configuration, warnings, nil
+ }
+ 
+ func validateF5OptionsStructure(content []byte) error {
+@@ -491,15 +501,36 @@ func isF5IndexedName(name string, prefix string) bool {
+ 	return name[len(prefix)] >= '0' && name[len(prefix)] <= '9'
+ }
+ 
+-func parseF5Routes(value string) ([]TunnelRoute, error) {
++func parseF5Routes(value string, kind string) ([]TunnelRoute, []string) {
+ 	words := strings.Fields(value)
+ 	routes := make([]TunnelRoute, 0, len(words))
++	var warnings []string
+ 	for _, word := range words {
+-		prefix, parseErr := netip.ParsePrefix(word)
++		prefix, parseErr := parseF5Prefix(word)
+ 		if parseErr != nil {
+-			return nil, E.Cause(parseErr, "parse F5 route ", word)
++			warnings = append(warnings, "ignoring invalid F5 "+kind+" route "+word+": "+parseErr.Error())
++			continue
+ 		}
+ 		routes = append(routes, TunnelRoute{Prefix: prefix.Masked()})
+ 	}
+-	return routes, nil
++	return routes, warnings
++}
++
++func parseF5Prefix(value string) (netip.Prefix, error) {
++	addressText, maskText, hasMask := strings.Cut(value, "/")
++	if !hasMask || !strings.Contains(maskText, ":") {
++		return parseCSTPPrefix(value)
++	}
++	address, addressErr := netip.ParseAddr(addressText)
++	if addressErr != nil {
++		return netip.Prefix{}, addressErr
++	}
++	if !address.Is6() {
++		return netip.Prefix{}, E.New("IPv6 netmask on a non-IPv6 address: ", value)
++	}
++	bits, maskErr := parseIPv6NetmaskBits(maskText)
++	if maskErr != nil {
++		return netip.Prefix{}, maskErr
++	}
++	return netip.PrefixFrom(address, bits), nil
+ }
+diff --git a/f5_options_parsing_test.go b/f5_options_parsing_test.go
+new file mode 100644
+index 0000000..24b4072
+--- /dev/null
++++ b/f5_options_parsing_test.go
+@@ -0,0 +1,127 @@
++package openconnect
++
++import (
++	"net/netip"
++	"slices"
++	"testing"
++	"time"
++)
++
++func parseF5TestOptions(t *testing.T, fields string) (*f5TunnelConfiguration, []string, error) {
++	t.Helper()
++	return parseF5Options([]byte(`<?xml version="1.0" encoding="utf-8"?>
++<favorite id="/Common/na"><object ID="ID_PARAMS"><ur_Z>urz</ur_Z><Session_ID>sid</Session_ID><IPV4_0>1</IPV4_0>`+
++		fields+`</object></favorite>`), time.Time{})
++}
++
++func f5TestRoutePrefixes(routes []TunnelRoute) []netip.Prefix {
++	var prefixes []netip.Prefix
++	for _, route := range routes {
++		prefixes = append(prefixes, route.Prefix)
++	}
++	return prefixes
++}
++
++func TestF5OptionsLists(t *testing.T) {
++	t.Parallel()
++	configuration, warnings, err := parseF5TestOptions(t,
++		`<DNS0>192.0.2.1  192.0.2.2</DNS0><DNS1>192.0.2.3 192.0.2.4</DNS1>`+
++			`<WINS0>192.0.2.130 192.0.2.131</WINS0>`+
++			`<DNSSuffix0>example.com example.net</DNSSuffix0>`+
++			`<LAN0>198.51.100.0/255.255.255.0 203.0.113.7 10.0.0.0/8 10.1.2.3/255.255.0.0</LAN0>`+
++			`<LAN6_0>2001:db8:1::/ffff:ffff:ffff:: 2001:db8:2::/48 2001:db8:3::1</LAN6_0>`+
++			`<ExcludeSubnets0>198.51.100.128/255.255.255.128</ExcludeSubnets0>`)
++	if err != nil {
++		t.Fatal(err)
++	}
++	if len(warnings) != 0 {
++		t.Fatalf("unexpected warnings: %q", warnings)
++	}
++	expectedDNS := []netip.Addr{
++		netip.MustParseAddr("192.0.2.1"),
++		netip.MustParseAddr("192.0.2.2"),
++		netip.MustParseAddr("192.0.2.3"),
++	}
++	if !slices.Equal(configuration.configuration.DNS, expectedDNS) {
++		t.Fatalf("DNS = %v, want %v", configuration.configuration.DNS, expectedDNS)
++	}
++	expectedNBNS := []netip.Addr{
++		netip.MustParseAddr("192.0.2.130"),
++		netip.MustParseAddr("192.0.2.131"),
++	}
++	if !slices.Equal(configuration.configuration.NBNS, expectedNBNS) {
++		t.Fatalf("NBNS = %v, want %v", configuration.configuration.NBNS, expectedNBNS)
++	}
++	if !slices.Equal(configuration.configuration.SearchDomains, []string{"example.com", "example.net"}) {
++		t.Fatalf("search domains = %q", configuration.configuration.SearchDomains)
++	}
++	expectedRoutes := []netip.Prefix{
++		netip.MustParsePrefix("198.51.100.0/24"),
++		netip.MustParsePrefix("203.0.113.7/32"),
++		netip.MustParsePrefix("10.0.0.0/8"),
++		netip.MustParsePrefix("10.1.0.0/16"),
++		netip.MustParsePrefix("2001:db8:1::/48"),
++		netip.MustParsePrefix("2001:db8:2::/48"),
++		netip.MustParsePrefix("2001:db8:3::1/128"),
++	}
++	if routes := f5TestRoutePrefixes(configuration.configuration.Routes); !slices.Equal(routes, expectedRoutes) {
++		t.Fatalf("routes = %v, want %v", routes, expectedRoutes)
++	}
++	expectedExcludedRoutes := []netip.Prefix{netip.MustParsePrefix("198.51.100.128/25")}
++	if routes := f5TestRoutePrefixes(configuration.configuration.ExcludedRoutes); !slices.Equal(routes, expectedExcludedRoutes) {
++		t.Fatalf("excluded routes = %v, want %v", routes, expectedExcludedRoutes)
++	}
++}
++
++func TestF5OptionsSkipInvalidOptionalValues(t *testing.T) {
++	t.Parallel()
++	configuration, warnings, err := parseF5TestOptions(t,
++		`<DNS0>not-an-address 192.0.2.1</DNS0>`+
++			`<WINS0>192.0.2.130 150.65</WINS0>`+
++			`<LAN0>10/8 198.51.100.0/255.0.255.0 198.51.100.0/ffff:: 203.0.113.0/24</LAN0>`+
++			`<LAN6_0>2001:db8::/ffff:0:ffff:: 2001:db8:1::/64</LAN6_0>`+
++			`<ExcludeSubnets0>bogus 203.0.113.128/25</ExcludeSubnets0>`+
++			`<idle_session_timeout>forever</idle_session_timeout>`+
++			`<tunnel_dtls>maybe</tunnel_dtls><tunnel_port_dtls>4433x</tunnel_port_dtls>`+
++			`<dtls_v1_2_supported>maybe</dtls_v1_2_supported>`)
++	if err != nil {
++		t.Fatal(err)
++	}
++	if len(warnings) != 11 {
++		t.Fatalf("warnings = %q, want 11", warnings)
++	}
++	if !slices.Equal(configuration.configuration.DNS, []netip.Addr{netip.MustParseAddr("192.0.2.1")}) {
++		t.Fatalf("DNS = %v", configuration.configuration.DNS)
++	}
++	if !slices.Equal(configuration.configuration.NBNS, []netip.Addr{netip.MustParseAddr("192.0.2.130")}) {
++		t.Fatalf("NBNS = %v", configuration.configuration.NBNS)
++	}
++	expectedRoutes := []netip.Prefix{
++		netip.MustParsePrefix("203.0.113.0/24"),
++		netip.MustParsePrefix("2001:db8:1::/64"),
++	}
++	if routes := f5TestRoutePrefixes(configuration.configuration.Routes); !slices.Equal(routes, expectedRoutes) {
++		t.Fatalf("routes = %v, want %v", routes, expectedRoutes)
++	}
++	expectedExcludedRoutes := []netip.Prefix{netip.MustParsePrefix("203.0.113.128/25")}
++	if routes := f5TestRoutePrefixes(configuration.configuration.ExcludedRoutes); !slices.Equal(routes, expectedExcludedRoutes) {
++		t.Fatalf("excluded routes = %v, want %v", routes, expectedExcludedRoutes)
++	}
++	if configuration.configuration.IdleTimeout != 0 || configuration.dtlsEnabled || configuration.dtlsPort != 0 || configuration.dtls12 {
++		t.Fatalf("invalid optional values were not ignored: %+v", configuration)
++	}
++}
++
++func TestF5OptionsStrictValues(t *testing.T) {
++	t.Parallel()
++	for _, fields := range []string{
++		`<IPV6_0>maybe</IPV6_0>`,
++		`<hdlc_framing>maybe</hdlc_framing>`,
++		`<UseDefaultGateway0>maybe</UseDefaultGateway0>`,
++	} {
++		_, _, err := parseF5TestOptions(t, fields)
++		if err == nil {
++			t.Fatalf("expected %s to be rejected", fields)
++		}
++	}
++}
+-- 
+2.56.0
+

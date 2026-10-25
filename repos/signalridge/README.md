@@ -7,6 +7,7 @@ Nix User Repository packages maintained by SignalRidge.
 ## Packages
 
 - **clinvk** - Unified AI CLI wrapper for multiple backends (Claude, Codex, Gemini)
+- **sing-box** - sing-box with F5 OpenConnect patches, synced from [sing-box-patches](https://github.com/signalridge/sing-box-patches)
 
 ## Usage
 
