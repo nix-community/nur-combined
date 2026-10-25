@@ -7,7 +7,7 @@
 
 buildGoModule (finallAttrs: {
   pname = "fabric-cli";
-  version = "0-unstable-2026-08-26";
+  version = "0-unstable-2025-08-24";
 
   src = fetchFromGitHub {
     owner = "Fabric-Development";
