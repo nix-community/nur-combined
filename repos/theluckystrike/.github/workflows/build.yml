@@ -11,6 +11,9 @@ on:
     # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
     - cron:  '51 2 * * *'
   workflow_dispatch:
+permissions:
+  contents: read
+
 jobs:
   tests:
     strategy:
@@ -39,6 +42,7 @@ jobs:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-26.05.tar.gz
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
     - name: Checkout repository
       uses: actions/checkout@v5
