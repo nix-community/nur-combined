@@ -9,12 +9,12 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "nix-reaper";
-  version = "6ca8ccc";
+  version = "9bd9b9c";
   src = fetchFromGitHub {
     owner = "ibuysausage";
     repo = "nix-reaper";
     rev = "${version}";
-    sha256 = "sha256-pIyd/Eqvir8jZgNVI9ZmZOXt1fzXZ7C4bM0jElLsUQ8=";
+    sha256 = "sha256-wBfmLaL1+OAWzz1ktjVIKt3hNL/X28MxDcjFhHLY8ZU=";
   };
   cargoLock.lockFile = ./Cargo.lock;
   nativeBuildInputs = [makeWrapper];
