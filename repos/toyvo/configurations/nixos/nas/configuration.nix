@@ -148,13 +148,12 @@ in
     nix-ld.enable = true;
     gui.enable = true;
     dev.enable = true;
-    users.agent.enable = true;
-  };
-  userPresets = {
-    agent.enable = true;
-    chloe.enable = true;
-    root.enable = true;
-    toyvo.enable = true;
+    users = {
+      agent.enable = true;
+      chloe.enable = true;
+      root.enable = true;
+      toyvo.enable = true;
+    };
   };
   users.users.agent.home = lib.mkForce "/mnt/POOL/agent";
   services = {

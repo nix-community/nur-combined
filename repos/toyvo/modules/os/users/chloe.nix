@@ -5,7 +5,7 @@
   ...
 }:
 let
-  cfg = config.userPresets;
+  cfg = config.nixcfg.users;
   homePath = if pkgs.stdenv.hostPlatform.isDarwin then "/Users" else "/home";
   enableGui = config.nixcfg.gui.enable;
 in
@@ -16,7 +16,7 @@ in
   # `inputs.nixcfg.modules.nixos.ids`.
   imports = [ ../gui.nix ];
 
-  options.userPresets = {
+  options.nixcfg.users = {
     chloe = {
       enable = lib.mkEnableOption "chloe user";
       name = lib.mkOption {

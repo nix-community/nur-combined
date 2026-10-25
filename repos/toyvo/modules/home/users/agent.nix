@@ -2,10 +2,21 @@
   config,
   lib,
   pkgs,
+  osConfig ? null,
   ...
 }:
 let
   cfg = config.nixcfg;
+  # NixOS system config (absent in standalone home-manager builds). The git
+  # identity tracks the hermes model; fall back to a static name where the
+  # system config is unavailable.
+  hermesSettings =
+    if osConfig != null then (osConfig.services.hermes-agent.settings or null) else null;
+  agentGitName =
+    if hermesSettings != null then
+      "AI Agent (${hermesSettings.model.default} via ${hermesSettings.model.provider}) for Collin Diekvoss"
+    else
+      "AI Agent for Collin Diekvoss";
 in
 {
   imports = [
@@ -25,7 +36,7 @@ in
       git = {
         enable = true;
         settings = {
-          user.name = "AI Agent (${config.services.hermes-agent.settings.model.default} via ${config.services.hermes-agent.settings.model.provider}) for Collin Diekvoss";
+          user.name = agentGitName;
           user.email = "agent@diekvoss.com";
           safe.directory = "/home/toyvo/*";
           core.editor = lib.mkForce "hx";

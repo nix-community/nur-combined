@@ -82,7 +82,7 @@
     dev.enable = true;
     gaming.enable = true;
   };
-  userPresets.toyvo.enable = true;
+  nixcfg.users.toyvo.enable = true;
   services = {
     openssh.enable = true;
     desktopManager.cosmic.enable = true;

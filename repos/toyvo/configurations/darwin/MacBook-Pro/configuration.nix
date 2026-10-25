@@ -60,7 +60,7 @@
     gui.enable = true;
     dev.enable = true;
   };
-  userPresets.toyvo.enable = true;
+  nixcfg.users.toyvo.enable = true;
   environment.systemPackages = with pkgs; [
     # openscad
     # ollama

@@ -53,7 +53,7 @@
     system.enable = true;
     boot.enable = true;
   };
-  userPresets.toyvo.enable = true;
+  nixcfg.users.toyvo.enable = true;
   wsl.enable = true;
   wsl.defaultUser = "toyvo";
   wsl.interop.register = true;

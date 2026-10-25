@@ -185,7 +185,7 @@
     "wireguard-oracle-private-key" = { };
   };
   users.users.caddy.extraGroups = [ "acme" ];
-  userPresets.toyvo.enable = true;
+  nixcfg.users.toyvo.enable = true;
   disko.devices.disk.sda = {
     type = "disk";
     device = "/dev/sda";

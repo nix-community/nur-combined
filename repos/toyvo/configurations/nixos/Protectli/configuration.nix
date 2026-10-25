@@ -197,7 +197,7 @@ in
     boot.enable = true;
   };
   sops.secrets."k3s-token" = { };
-  userPresets.toyvo.enable = true;
+  nixcfg.users.toyvo.enable = true;
   systemd = {
     network = {
       enable = true;

@@ -45,7 +45,7 @@
     system.enable = true;
     dev.enable = true;
   };
-  userPresets.toyvo.enable = true;
+  nixcfg.users.toyvo.enable = true;
   home-manager = {
     extraSpecialArgs = {
       inherit

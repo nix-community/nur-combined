@@ -78,8 +78,8 @@
     enable = true;
     autoEnable = true;
   };
-  userPresets.toyvo.enable = true;
-  userPresets.chloe.enable = true;
+  nixcfg.users.toyvo.enable = true;
+  nixcfg.users.chloe.enable = true;
   services.desktopManager.cosmic.enable = true;
   services.xserver.videoDrivers = [ "amdgpu" ];
   hardware.graphics = {

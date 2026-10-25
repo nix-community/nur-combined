@@ -10,7 +10,7 @@
   - Manual rollout order (eval verified, not yet deployed): deploy nas first, wait for `k3s kubectl get nodes` Ready, then deploy MacMini-Intel.
 - [x] Deploy + verify (2026-10-26): `nixos-rebuild switch --flake .#nas`, then `.#MacMini-Intel-NixOS`; `kubectl get nodes` shows nas + macmini-intel-nixos Ready (control-plane,etcd). Required opening etcd 2379-2380/tcp in `nixcfg.k3s` firewall on both nodes.
 - [x] Router joined as etcd-only third server (2026-10-26).
-- [ ] Protectli joins as worker agent (code done, design `docs/superpowers/specs/2026-10-26-k3s-protectli-agent-design.md`, plan `docs/superpowers/plans/2026-10-26-k3s-protectli-agent.md`): deploy protectli, verify Ready worker with INTERNAL-IP 10.1.0.6.
+- [x] Protectli joined as worker agent (2026-10-26): Ready, `<none>` roles as designed; etcd stays 3 voters.
 - [ ] Traefik NodePorts 30080/30443 live (code done on nas+macmini); deploy both, verify svc + cross-node pod curl.
 - [x] homepage serves from cluster (2026-10-26): manifests live, Caddy `upstreams` flip for `diekvoss.net` verified 200 with auth gate, nas-native service retired (file deleted, 8082 closed). Failover verified 2026-10-26 in both directions (k3s stopped on nas → 200 via macmini, and vice versa).
 - [ ] Storage re-architecture for stateful workloads (`/mnt/POOL` via local-path/Longhorn/Ceph decision).
@@ -53,7 +53,6 @@ Outstanding work and follow-up items for this repository.
 
 - [x] Removed `default` aggregators from `modules/{os,nixos,darwin,home}/default.nix` (now pure registries + new `modules.os`/`osModules` output); every module declares its own `imports`, every host imports a minimal set (plan: `docs/superpowers/plans/2026-10-25-remove-default-modules.md`). Verified: `nix flake show` PASS, `nix flake check --no-build` all green, dry-run builds for wsl + MacBook-Pro darwin + deck@steamdeck green.
 - [ ] `nix flake check` (full, with builds) still red on `checks.aarch64-darwin.tinycast` (dmg unpack fails; pre-existing package issue in `pkgs/tinycast`, unrelated to the refactor).
-- [ ] nas eval blocked on `userPresets.agent` (no module defines it yet) — belongs to the in-flight hermes→agent consolidation, not the refactor; finish that work, then re-run `nix flake check`.
 
 ## Neovim
 

@@ -72,7 +72,7 @@
     enable = true;
     autoEnable = true;
   };
-  userPresets.toyvo.enable = true;
+  nixcfg.users.toyvo.enable = true;
   services.desktopManager.cosmic.enable = true;
   hardware.asahi.enable = true;
   hardware.asahi.peripheralFirmwareDirectory = ./firmware;

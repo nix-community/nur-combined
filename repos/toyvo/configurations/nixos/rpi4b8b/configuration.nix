@@ -67,7 +67,7 @@
     system.enable = true;
     boot.enable = true;
   };
-  userPresets.toyvo.enable = true;
+  nixcfg.users.toyvo.enable = true;
   services.monitoring.enable = true;
   services.openssh.enable = true;
   disko.devices.disk.nvme0n1 = {

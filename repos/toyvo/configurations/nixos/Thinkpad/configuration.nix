@@ -81,7 +81,7 @@
     dev.enable = true;
     gaming.enable = true;
   };
-  userPresets.toyvo.enable = true;
+  nixcfg.users.toyvo.enable = true;
   services.desktopManager.cosmic.enable = true;
   services.xserver.videoDrivers = [ "amdgpu" ];
   hardware.graphics = {

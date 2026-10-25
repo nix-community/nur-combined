@@ -73,7 +73,7 @@
     enable = true;
     autoEnable = true;
   };
-  userPresets.toyvo.enable = true;
+  nixcfg.users.toyvo.enable = true;
   services.desktopManager.cosmic.enable = true;
   disko.devices.disk.nvme0n1 = {
     type = "disk";

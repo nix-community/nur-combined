@@ -8,9 +8,9 @@ let
   rootHomeDirectory = if pkgs.stdenv.hostPlatform.isDarwin then "/var/root" else "/root";
 in
 {
-  options.userPresets.root.enable = lib.mkEnableOption "root user";
+  options.nixcfg.users.root.enable = lib.mkEnableOption "root user";
 
-  config = lib.mkIf config.userPresets.root.enable {
+  config = lib.mkIf config.nixcfg.users.root.enable {
     users.users.root = lib.mkMerge [
       {
         name = "root";

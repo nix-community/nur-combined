@@ -123,9 +123,13 @@ in
         tokenFile
         ;
       # traefik.enable removes only "traefik" from the disable list so any
-      # other entries (e.g. servicelb) are still honored.
-      disable =
-        if cfg.traefik.enable then builtins.filter (x: x != "traefik") cfg.disable else cfg.disable;
+      # other entries (e.g. servicelb) are still honored. Agents never get
+      # --disable at all: `k3s agent` has no such flag and dies on it
+      # (observed 2026-10-26: "flag provided but not defined: -disable").
+      # Packaged charts are a server concern; agents ignore manifests anyway.
+      disable = lib.mkIf (cfg.role == "server") (
+        if cfg.traefik.enable then builtins.filter (x: x != "traefik") cfg.disable else cfg.disable
+      );
       serverAddr = lib.mkIf (cfg.serverAddr != null) cfg.serverAddr;
       extraFlags = map (san: "--tls-san=${san}") cfg.extraSANs;
       manifests = lib.mkIf cfg.traefik.enable {

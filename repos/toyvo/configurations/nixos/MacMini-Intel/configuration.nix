@@ -76,7 +76,7 @@
     ];
     kernelModules = [ "kvm-intel" ];
   };
-  userPresets.toyvo.enable = true;
+  nixcfg.users.toyvo.enable = true;
   nixcfg = {
     k3s = {
       enable = true;
