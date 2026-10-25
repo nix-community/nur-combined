@@ -15,6 +15,15 @@
     hash = "sha256-N0Ov1YVNpsCdt2G9cS6jHs52gCvbZ4+CL3kFRuKfYts=";
   };
 
+  postPatch = ''
+    grep -Fxq '// AAA Certificate Services' common/certificate/mozilla.go
+    grep -Fq '// CN=emSign ECC Root CA - G3;' common/certificate/chrome.go
+
+    sed -i -E \
+      '/^\/\/ (CN=)?(AAA Certificate Services|emSign ECC Root CA - G3)(;|$)/,/^-----END CERTIFICATE-----$/d' \
+      common/certificate/{mozilla,chrome}.go
+  '';
+
   vendorHash = "sha256-3SyWbFw727nZRCaECDl+Bu1w1yhYB+fzUxvCKw2om6w=";
 
   postInstall =
