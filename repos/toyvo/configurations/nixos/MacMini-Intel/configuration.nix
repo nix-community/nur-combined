@@ -1,4 +1,5 @@
 {
+  config,
   ekaPkgs,
   homelab,
   inputs,
@@ -68,6 +69,17 @@
   };
   userPresets.toyvo.enable = true;
   nixcfg = {
+    k3s = {
+      enable = true;
+      role = "server";
+      clusterInit = false;
+      serverAddr = "https://10.1.0.3:6443";
+      tokenFile = config.sops.secrets."k3s-token".path;
+      extraSANs = [
+        "10.1.0.12"
+        "MacMini-Intel-NixOS"
+      ];
+    };
     nix.enable = true;
     security.enable = true;
     home-manager.enable = true;
@@ -80,6 +92,7 @@
     autoEnable = true;
   };
   services.openssh.enable = true;
+  sops.secrets."k3s-token" = { };
   environment.systemPackages = with pkgs; [
     signal-cli
   ];

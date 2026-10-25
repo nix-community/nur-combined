@@ -137,6 +137,20 @@ in
   };
   nixcfg = {
     nix.enable = true;
+    k3s = {
+      enable = true;
+      role = "server";
+      clusterInit = true;
+      tokenFile = config.sops.secrets."k3s-token".path;
+      extraSANs = [
+        "10.1.0.3"
+        "nas"
+        "nas.diekvoss.net"
+        "10.1.0.1"
+        "10.1.0.6"
+        "10.1.0.12"
+      ];
+    };
     security.enable = true;
     home-manager.enable = true;
     networking.enable = true;
@@ -553,6 +567,7 @@ in
   # Administration -> Actions -> Runners -> Create new runner). The template
   # wraps it into the TOKEN= env file used when rendering .runner credentials.
   sops.secrets."forgejo-runner-token-nas" = { };
+  sops.secrets."k3s-token" = { };
   sops.secrets."agent.env".owner = "agent";
   # Maintainer shares the existing opencode key (owner call) and needs a
   # Forgejo PAT with repo scope: create it in the Forgejo UI, then add the

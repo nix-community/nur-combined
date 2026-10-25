@@ -25,6 +25,7 @@
         ./odysseus.nix
         ./system.nix
         ./ids.nix
+        ./k3s.nix
         ./gaming.nix
         ./mcsmanager.nix
         ./monitoring/default.nix
@@ -66,6 +67,7 @@
   odysseus = ./odysseus.nix;
   system = ./system.nix;
   ids = ./ids.nix;
+  k3s = ./k3s.nix;
   gaming = ./gaming.nix;
   mcsmanager = ./mcsmanager.nix;
   monitoring = ./monitoring/default.nix;
