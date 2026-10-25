@@ -71,6 +71,9 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace native/CMakeLists.txt \
       --replace-fail 'file(GLOB RAVEN_SKIA_PATHOPS ''${RAVEN_SKIA_SOURCE}/src/pathops/*.cpp)' \
         'set(RAVEN_SKIA_PATHOPS)'
+    # objcopy sits beside the compiler, but "gcc" also appears in the wrapper's store path
+    substituteInPlace scripts/generate-vulkan-{layout32,thunk32}.py \
+      --replace-fail 'compiler.replace("gcc", "objcopy")' 'compiler.removesuffix("gcc") + "objcopy"'
     patchShebangs scripts
   '';
 
@@ -117,6 +120,7 @@ stdenv.mkDerivation (finalAttrs: {
     fontHashes=$(sha256sum $fonts/Liberation{Sans,Mono,Serif}-Regular.ttf | cut -d' ' -f1 | paste -sd';')
 
     cmakeFlagsArray+=(
+      -DRAVEN_VK_XML=${vulkan-headers}/share/vulkan/registry/vk.xml
       -DRAVEN_SKIA_SOURCE=${skia.src}
       -DRAVEN_SKIA_LIBRARY=${lib.getLib skia}/lib/libskia.so
       -DRAVEN_FONT_DIRECTORY=$fonts
@@ -191,11 +195,11 @@ stdenv.mkDerivation (finalAttrs: {
       with lib.licenses;
       AND [
         mit # Raven, libxml2, libxslt, ReactOS PSEH
-        gpl2Plus # ReactOS RTL (raven-rtl.dll), ReactOS UTF-8 codec
+        gpl2Plus # ReactOS RTL (raven-rtl.dll), user32 (raven-user32.dll) and UTF-8 codec
         lgpl21Plus # ReactOS/Wine DLLs, ReactOS non-client drawing
         bsd2 # ReactOS RTL (COPYING.ARM)
         unicode-30 # Unicode decomposition data
-        zlib # zlib (cabinet.dll), DXVK
+        zlib # zlib (cabinet.dll, libpng.dll, libxslt.dll), DXVK
         libpng2 # libpng.dll
         ijg # libjpeg.dll
         libtiff # libtiff.dll
