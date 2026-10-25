@@ -15,6 +15,7 @@ in
       uid = config.ids.uids.agent;
       group = "agent";
       isSystemUser = true;
+      shell = lib.mkDefault pkgs.bash;
       description = "AI agent service user";
       subUidRanges = [
         {

@@ -116,19 +116,14 @@
       };
       hermes_dashboard = {
         port = 9119;
-        subdomain = "hermes-dashboard";
+        subdomain = "hermes";
+        # Dashboard does native OIDC against Authentik itself, so skip the
+        # Caddy forward-auth gate (avoids a double login).
+        forwardAuthGate = false;
         displayName = "Hermes Dashboard";
         description = "Agent Dashboard";
         category = "Nas";
         icon = "sh-hermes";
-      };
-      odysseus = {
-        port = 7000;
-        subdomain = "odysseus";
-        category = "Nas";
-        displayName = "Odysseus";
-        description = "AI Assistant";
-        icon = "sh-odysseus";
       };
     };
   };
@@ -207,17 +202,6 @@
         url = "https://jellyfin.diekvoss.net";
         key = "{{HOMEPAGE_VAR_JELLYFIN_API_KEY}}";
       };
-    };
-  };
-  open-webui = {
-    ip = "10.200.0.14";
-    services.open-webui = {
-      port = 11435;
-      subdomain = "chat";
-      category = "Nas";
-      displayName = "Open WebUI";
-      description = "Chat with LLMs";
-      icon = "sh-open-webui";
     };
   };
   monitoring = {

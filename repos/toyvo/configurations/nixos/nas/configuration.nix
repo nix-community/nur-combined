@@ -111,7 +111,6 @@ in
         3000 # forgejo
         8642 # hermes-agent API
         9119 # hermes-dashboard
-        7000 # odysseus
       ];
       allowedUDPPorts = [
         53
@@ -234,10 +233,6 @@ in
     ollama = {
       enable = true;
       port = homelab.${hostName}.services.ollama.port;
-    };
-    odysseus = {
-      enable = true;
-      port = homelab.${hostName}.services.odysseus.port;
     };
     openssh = {
       enable = true;
@@ -484,12 +479,21 @@ in
     forgejoLogDir = "/mnt/POOL/forgejo/data/actions_log";
     environmentFile = config.sops.templates."repo-maintainer.env".path;
   };
-  services.hermes-dashboard = {
-    enable = true;
-    stateDir = "/mnt/POOL/agent";
-  };
   services.hermes-agent = {
     enable = true;
+    user = "agent";
+    group = "agent";
+    createUser = false;
+    # Built-in dashboard backend (replaces the old custom services.hermes-dashboard
+    # module, which passed the now-dead `--insecure` flag). Runs
+    # `hermes dashboard --host 0.0.0.0 --port 9119` as hermes-backend.service.
+    # A non-loopback bind engages the dashboard auth gate, satisfied below by
+    # native OIDC against Authentik (self-hosted provider).
+    backend = {
+      mode = "dashboard";
+      host = "0.0.0.0";
+      port = homelab.${hostName}.services.hermes_dashboard.port;
+    };
     settings = {
       model = {
         # see https://models.dev/?search=opencode&sort=output-costper&order=asc if considering different models, same api key, but url is different https://opencode.ai/zen/v1 vs https://opencode.ai/zen/go/v1
@@ -500,8 +504,26 @@ in
       };
       toolsets = [ "hermes-cli" ];
       display.personality = "kawaii";
+      dashboard = {
+        # Public URL behind the router Caddy reverse proxy. Its hostname is
+        # trusted by the Host/Origin guards and it builds the OIDC
+        # redirect_uri (https://hermes.diekvoss.net/auth/callback).
+        public_url = "https://hermes.diekvoss.net";
+        # Trust X-Forwarded-Proto/-Host from the router reverse proxy.
+        trusted_proxies = [ homelab.router.ip ];
+        oauth.self_hosted = {
+          issuer = "https://auth.diekvoss.net/application/o/hermes-dashboard/";
+          # Client ID from the Authentik OAuth2/OIDC provider (slug
+          # hermes-dashboard). Fill in after creating it in the Authentik UI.
+          client_id = "2YLxUNkZnHxrwSK2LzpeQ4YUUv1UkIOcODQmAcRQ";
+          scopes = "openid profile email";
+        };
+      };
     };
     stateDir = "/mnt/POOL/agent";
+    # agent.env must also export HERMES_DASHBOARD_OIDC_CLIENT_SECRET (the
+    # confidential-client secret from the Authentik provider); env wins over
+    # config.yaml and keeps the secret out of the world-readable store.
     environmentFiles = [ config.sops.secrets."agent.env".path ];
     environment = {
       API_SERVER_HOST = "0.0.0.0";
