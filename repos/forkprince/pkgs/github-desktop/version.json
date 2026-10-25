@@ -13,8 +13,8 @@
     },
     "x86_64-darwin": {
       "redirect_url": "https://central.github.com/deployments/desktop/desktop/latest/darwin",
-      "url": "https://desktop.githubusercontent.com/releases/3.6.8-c5923f66/GitHubDesktop-x64.zip",
-      "hash": "sha256-5QdhlzahtEjjDz4DkwhHXvgkKrs0rvk4ZCLogcEUIAk="
+      "url": "https://desktop.githubusercontent.com/releases/3.6.9-e0ba6bb8/GitHubDesktop-x64.zip",
+      "hash": "sha256-WGSGxcMC4Xdk7a8CSwXm16e953tifeGT0QURHNnzCmw="
     }
   }
 }
