@@ -8,8 +8,6 @@
 
 let
   current = lib.trivial.importJSON ./version.json;
-
-  pname = "crabport";
   version = current.version;
 
   sourceMap = {
@@ -22,19 +20,16 @@ let
       hash = current.aarch64-linux-hash;
     };
   };
+in
+appimageTools.wrapType2 (finalAttrs: {
+  pname = "crabport";
+  inherit version;
 
   src = sourceMap.${stdenv.hostPlatform.system};
 
-  appimageContents = appimageTools.extract {
-    inherit pname version src;
-  };
-in
-appimageTools.wrapType2 {
-  inherit pname version src;
-
   extraInstallCommands = ''
-    install -Dm644 ${appimageContents}/CrabPort.desktop $out/share/applications/CrabPort.desktop
-    cp -r ${appimageContents}/usr/share/icons $out/share/
+    install -Dm644 ${finalAttrs.contents}/CrabPort.desktop $out/share/applications/CrabPort.desktop
+    cp -r ${finalAttrs.contents}/usr/share/icons $out/share/
   '';
 
   passthru.updateScript = callPackage ../../utils/update.nix {
@@ -52,6 +47,6 @@ appimageTools.wrapType2 {
     license = lib.licenses.asl20;
     platforms = builtins.attrNames sourceMap;
     maintainers = with lib.maintainers; [ lonerOrz ];
-    mainProgram = pname;
+    mainProgram = finalAttrs.pname;
   };
-}
+})

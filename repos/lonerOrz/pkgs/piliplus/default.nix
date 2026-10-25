@@ -27,21 +27,16 @@
 }:
 let
   current = lib.trivial.importJSON ./version.json;
-
-  pname = "piliplus";
   version = current.version;
+in
+appimageTools.wrapType2 (finalAttrs: {
+  pname = "piliplus";
+  inherit version;
 
   src = fetchurl {
     url = "https://github.com/bggRGjQaUbCoE/PiliPlus/releases/download/${version}/${current.asset-name}";
     hash = current.x86_64-linux-hash;
   };
-
-  appimageContents = appimageTools.extract {
-    inherit src pname version;
-  };
-in
-appimageTools.wrapType2 {
-  inherit pname version src;
 
   nativeBuildInputs = [
     tree
@@ -50,15 +45,15 @@ appimageTools.wrapType2 {
   ];
 
   extraInstallCommands = ''
-    tree ${appimageContents}
+    tree ${finalAttrs.contents}
 
     install -m 444 -D \
-      ${appimageContents}/com.example.piliplus.desktop \
+      ${finalAttrs.contents}/com.example.piliplus.desktop \
       $out/share/applications/com.example.piliplus.desktop
 
     for size in 16 24 32 48 64 128 256 512; do
       mkdir -p $out/share/icons/hicolor/"$size"x"$size"/apps
-      magick ${appimageContents}/piliplus.png -background none -resize "$size"x"$size" $out/share/icons/hicolor/"$size"x"$size"/apps/piliplus.png
+      magick ${finalAttrs.contents}/piliplus.png -background none -resize "$size"x"$size" $out/share/icons/hicolor/"$size"x"$size"/apps/piliplus.png
     done
 
     substituteInPlace $out/share/applications/com.example.piliplus.desktop \
@@ -103,4 +98,4 @@ appimageTools.wrapType2 {
     mainProgram = "piliplus";
     maintainers = with lib.maintainers; [ lonerOrz ];
   };
-}
+})

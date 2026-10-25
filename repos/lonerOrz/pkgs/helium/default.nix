@@ -16,24 +16,20 @@ let
     };
   };
 in
-pkgs.appimageTools.wrapType2 rec {
+pkgs.appimageTools.wrapType2 (finalAttrs: {
   pname = "helium";
   inherit version;
 
   src = sourceMap.${pkgs.stdenv.hostPlatform.system};
 
-  extraInstallCommands =
-    let
-      contents = pkgs.appimageTools.extract { inherit pname version src; };
-    in
-    ''
-      mkdir -p $out/share/{applications,lib/helium}
+  extraInstallCommands = ''
+    mkdir -p $out/share/{applications,lib/helium}
 
-      cp -r ${contents}/opt/${pname}/locales "$out/share/lib/helium"
-      cp -r ${contents}/usr/share/* "$out/share"
+    cp -r ${finalAttrs.contents}/opt/${finalAttrs.pname}/locales "$out/share/lib/helium"
+    cp -r ${finalAttrs.contents}/usr/share/* "$out/share"
 
-      cp "${contents}/${pname}.desktop" "$out/share/applications/"
-    '';
+    cp "${finalAttrs.contents}/${finalAttrs.pname}.desktop" "$out/share/applications/"
+  '';
 
   meta = {
     description = "Private, fast, and honest web browser based on Chromium";
@@ -47,4 +43,4 @@ pkgs.appimageTools.wrapType2 rec {
     maintainers = with lib.maintainers; [ lonerOrz ];
     mainProgram = "helium";
   };
-}
+})

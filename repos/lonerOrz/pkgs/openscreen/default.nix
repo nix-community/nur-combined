@@ -7,33 +7,28 @@
 
 let
   current = lib.trivial.importJSON ./version.json;
-
-  pname = "openscreen";
   version = current.version;
+in
+appimageTools.wrapType2 (finalAttrs: {
+  pname = "openscreen";
+  inherit version;
 
   src = fetchurl {
     url = "https://github.com/siddharthvaddem/openscreen/releases/download/v${version}/Openscreen-Linux-${version}.AppImage";
     hash = current.hash;
   };
 
-  appimageContents = appimageTools.extract {
-    inherit pname version src;
-  };
-in
-appimageTools.wrapType2 {
-  inherit pname version src;
-
   extraInstallCommands = ''
     install -m 444 -D \
-      ${appimageContents}/openscreen.desktop \
+      ${finalAttrs.contents}/openscreen.desktop \
       $out/share/applications/openscreen.desktop
 
     cp -r \
-      ${appimageContents}/usr/share/icons/hicolor \
+      ${finalAttrs.contents}/usr/share/icons/hicolor \
       $out/share/icons/
 
     substituteInPlace $out/share/applications/openscreen.desktop \
-      --replace-fail 'Exec=AppRun' 'Exec=${pname}'
+      --replace-fail 'Exec=AppRun' 'Exec=${finalAttrs.pname}'
   '';
 
   passthru.updateScript = callPackage ../../utils/update.nix {
@@ -53,4 +48,4 @@ appimageTools.wrapType2 {
     maintainers = with lib.maintainers; [ lonerOrz ];
     mainProgram = "openscreen";
   };
-}
+})

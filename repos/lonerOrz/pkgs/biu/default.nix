@@ -10,8 +10,6 @@
 }:
 let
   current = lib.trivial.importJSON ./version.json;
-
-  pname = "biu";
   version = current.version;
 
   sourceMap = {
@@ -25,15 +23,12 @@ let
       hash = current.aarch64-linux-hash;
     };
   };
+in
+appimageTools.wrapType2 (finalAttrs: {
+  pname = "biu";
+  inherit version;
 
   src = sourceMap.${stdenv.hostPlatform.system};
-
-  appimageContents = appimageTools.extract {
-    inherit src pname version;
-  };
-in
-appimageTools.wrapType2 {
-  inherit pname version src;
 
   nativeBuildInputs = [
     tree
@@ -42,15 +37,15 @@ appimageTools.wrapType2 {
   ];
 
   extraInstallCommands = ''
-    tree ${appimageContents}
+    tree ${finalAttrs.contents}
 
     install -m 444 -D \
-      ${appimageContents}/Biu.desktop \
+      ${finalAttrs.contents}/Biu.desktop \
       $out/share/applications/biu.desktop
 
     for size in 16 24 32 48 64 128 256 512; do
       mkdir -p $out/share/icons/hicolor/"$size"x"$size"/apps
-      magick convert -background none -resize "$size"x"$size" ${appimageContents}/Biu.png $out/share/icons/hicolor/"$size"x"$size"/apps/Biu.png
+      magick convert -background none -resize "$size"x"$size" ${finalAttrs.contents}/Biu.png $out/share/icons/hicolor/"$size"x"$size"/apps/Biu.png
     done
 
     substituteInPlace $out/share/applications/biu.desktop \
@@ -94,4 +89,4 @@ appimageTools.wrapType2 {
     mainProgram = "biu";
     maintainers = with lib.maintainers; [ lonerOrz ];
   };
-}
+})

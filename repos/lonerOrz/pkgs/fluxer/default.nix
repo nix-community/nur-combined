@@ -9,8 +9,6 @@
 }:
 let
   current = lib.trivial.importJSON ./version.json;
-
-  pname = "fluxer";
   version = current.version;
 
   sourceMap = {
@@ -24,15 +22,12 @@ let
       hash = current.aarch64-linux-hash;
     };
   };
+in
+appimageTools.wrapType2 (finalAttrs: {
+  pname = "fluxer";
+  inherit version;
 
   src = sourceMap.${stdenv.hostPlatform.system};
-
-  appimageContents = appimageTools.extract {
-    inherit src pname version;
-  };
-in
-appimageTools.wrapType2 {
-  inherit pname version src;
 
   nativeBuildInputs = [
     tree
@@ -44,13 +39,13 @@ appimageTools.wrapType2 {
     # (it used to be fluxer.desktop, now it's app.fluxer.FluxerDesktop.desktop,
     # who knows what it'll be tomorrow). Stop hardcoding it and just grep
     # the extracted AppImage for whatever .desktop they shipped this time.
-    desktopFile=$(find ${appimageContents} -maxdepth 2 -name '*.desktop' | head -n1)
+    desktopFile=$(find ${finalAttrs.contents} -maxdepth 2 -name '*.desktop' | head -n1)
     install -Dm644 \
       "$desktopFile" \
       $out/share/applications/fluxer.desktop
 
     # same story with the icon path, so don't trust the directory layout either
-    iconFile=$(find ${appimageContents} -name 'fluxer.png' | head -n1)
+    iconFile=$(find ${finalAttrs.contents} -name 'fluxer.png' | head -n1)
     install -Dm644 \
       "$iconFile" \
       $out/share/icons/hicolor/1024x1024/apps/fluxer.png
@@ -101,7 +96,7 @@ appimageTools.wrapType2 {
     homepage = "https://fluxer.app";
     license = lib.licenses.agpl3Only;
     platforms = builtins.attrNames sourceMap;
-    mainProgram = pname;
+    mainProgram = finalAttrs.pname;
     maintainers = with lib.maintainers; [ lonerOrz ];
   };
-}
+})

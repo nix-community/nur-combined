@@ -6,32 +6,27 @@
 }:
 let
   current = lib.trivial.importJSON ./version.json;
-
-  pname = "orca";
   version = current.version;
+in
+appimageTools.wrapType2 (finalAttrs: {
+  pname = "orca";
+  inherit version;
 
   src = fetchurl {
     url = "https://github.com/stablyai/orca/releases/download/v${version}/orca-linux.AppImage";
     hash = current.hash;
   };
 
-  appimageContents = appimageTools.extract {
-    inherit src pname version;
-  };
-in
-appimageTools.wrapType2 {
-  inherit pname version src;
-
   extraInstallCommands = ''
     # Install desktop file
-    install -Dm644 ${appimageContents}/orca-ide.desktop $out/share/applications/orca.desktop
+    install -Dm644 ${finalAttrs.contents}/orca-ide.desktop $out/share/applications/orca.desktop
     substituteInPlace $out/share/applications/orca.desktop \
       --replace-fail 'Exec=AppRun %U' 'Exec=orca --no-sandbox %U' \
       --replace-fail 'Icon=orca-ide' 'Icon=orca'
 
     # Install all icon sizes, renaming orca-ide.png to orca.png
-    find ${appimageContents}/usr/share/icons/hicolor -name "orca-ide.png" | while read src; do
-      rel="''${src#${appimageContents}/usr/share/icons/hicolor/}"
+    find ${finalAttrs.contents}/usr/share/icons/hicolor -name "orca-ide.png" | while read src; do
+      rel="''${src#${finalAttrs.contents}/usr/share/icons/hicolor/}"
       dir="''${rel%/*}"
       mkdir -p "$out/share/icons/hicolor/$dir"
       cp "$src" "$out/share/icons/hicolor/$dir/orca.png"
@@ -53,6 +48,6 @@ appimageTools.wrapType2 {
     platforms = [ "x86_64-linux" ];
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ lonerOrz ];
-    mainProgram = pname;
+    mainProgram = finalAttrs.pname;
   };
-}
+})
