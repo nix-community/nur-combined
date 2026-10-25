@@ -1,5 +1,5 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index 775320c..0233ffb 100644
+index 9d288fa..920b9db 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
 @@ -58,6 +58,8 @@
@@ -27,7 +27,7 @@ index 1eb1a9a..5d024c1 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index 7ea3ab8..26718ef 100644
+index 571dd25..a972802 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -440,6 +440,12 @@ importers:
@@ -44,7 +44,7 @@ index 7ea3ab8..26718ef 100644
          specifier: 4.7.0
          version: 4.7.0(monaco-editor@0.57.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
 @@ -508,7 +514,7 @@ importers:
-         version: 21.1.0(oxc-parser@0.154.0)(rolldown@1.2.14)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(less@4.9.1(supports-color@10.2.2))(terser@5.36.0)(yaml@2.9.1))
+         version: 21.1.0(oxc-parser@0.155.0)(rolldown@1.2.14)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(less@4.9.1(supports-color@10.2.2))(terser@5.36.0)(yaml@2.9.1))
        unplugin-icons:
          specifier: 24.0.0
 -        version: 24.0.0(@svgr/core@8.1.0(supports-color@10.2.2)(typescript@7.0.2))(rolldown@1.2.14)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(less@4.9.1(supports-color@10.2.2))(terser@5.36.0)(yaml@2.9.1))
@@ -65,7 +65,7 @@ index 7ea3ab8..26718ef 100644
    '@inlang/recommend-sherlock@0.2.1':
      resolution: {integrity: sha512-ckv8HvHy/iTqaVAEKrr+gnl+p3XFNwe5D2+6w6wJk2ORV2XkcRkKOJ/XsTUJbPSiyi4PI+p+T3bqbmNx/rDUlg==}
  
-@@ -3069,6 +3081,11 @@ packages:
+@@ -3072,6 +3084,11 @@ packages:
    '@standard-schema/utils@0.3.0':
      resolution: {integrity: sha512-e7Mew686owMaPJVNNLs55PUvgz371nKgwsc4vxE49zsODpJEnxgxRo2y/OKrqueavXgZNMDVj3DdHFlaSAeU8g==}
  
@@ -77,7 +77,7 @@ index 7ea3ab8..26718ef 100644
    '@svgr/babel-plugin-add-jsx-attribute@8.0.0':
      resolution: {integrity: sha512-b9MIk7yhdS1pMCZM8VeNfUlSKVRhsHZNMl5O9SfaX0l0t5wjdgu4IDzGB8bpnGBBOjGST3rRFVsaaEtI4W6f7g==}
      engines: {node: '>=14'}
-@@ -3693,6 +3710,9 @@ packages:
+@@ -3696,6 +3713,9 @@ packages:
    '@types/estree@1.0.8':
      resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
  
@@ -87,7 +87,7 @@ index 7ea3ab8..26718ef 100644
    '@types/geojson@7946.0.14':
      resolution: {integrity: sha512-WCfD5Ht3ZesJUsONdhvm84dmzWOiOzOAqOncN0++w0lBw1o8OuDNJF2McvvCef/yBqb/HYRahp1BYtODFQ8bRg==}
  
-@@ -3979,6 +3999,10 @@ packages:
+@@ -3982,6 +4002,10 @@ packages:
      resolution: {integrity: sha512-ik3ZgC9dY/lYVVM++OISsaYDeg1tb0VtP5uL3ouh1koGOaUMDPpbFIei4JkFimWUFPn90sbMNMXQAIVOlnYKJA==}
      engines: {node: '>=10'}
  
@@ -98,7 +98,7 @@ index 7ea3ab8..26718ef 100644
    array-timsort@1.0.3:
      resolution: {integrity: sha512-/+3GRL7dDAGEfM6TseQk/U+mi18TU2Ms9I3UlLdUMhz2hbvGNTKdj9xniwXfUqgYhHxRx0+8UnKkvlNwVU+cWQ==}
  
-@@ -3993,6 +4017,10 @@ packages:
+@@ -3996,6 +4020,10 @@ packages:
    async@3.2.6:
      resolution: {integrity: sha512-htCUDlxyyCLMgaM3xXg0C0LW2xqfuQ6p05pCEIsXuyQ+a1koYKTuBMzRNwmybfLgvJDMd0r1LTn4+E0Ti6C2AA==}
  
@@ -109,7 +109,7 @@ index 7ea3ab8..26718ef 100644
    babel-dead-code-elimination@1.0.12:
      resolution: {integrity: sha512-GERT7L2TiYcYDtYk1IpD+ASAYXjKbLTDPhBtYj7X1NuRMDTMtAx9kyBenub1Ev41lo91OHCKdmP+egTDmfQ7Ig==}
  
-@@ -4510,6 +4538,9 @@ packages:
+@@ -4513,6 +4541,9 @@ packages:
    detect-node-es@1.1.0:
      resolution: {integrity: sha512-ypdmJU/TbBby2Dxibuv7ZLW3Bs1QEmM7nHjEANfohJLvE0XVujisn1qPJcZxg+qDucsr+bP6fLD1rPS3AhJ7EQ==}
  
@@ -119,7 +119,7 @@ index 7ea3ab8..26718ef 100644
    devlop@1.1.0:
      resolution: {integrity: sha512-RWmIqhcFf1lRYBvNmr7qTNuyCt/7/ns2jbpp1+PalgE/rDQcBT0fioSMUpJ93irlUhC5hrg4cYqe6U+0ImW0rA==}
  
-@@ -4617,11 +4648,22 @@ packages:
+@@ -4620,11 +4651,22 @@ packages:
      resolution: {integrity: sha512-/veY75JbMK4j1yjvuUxuVsiS/hr/4iHs9FTT6cgTexxdE0Ly/glccBAkloH/DofkjRbZU3bnoj38mOmhkZ0lHw==}
      engines: {node: '>=12'}
  
@@ -142,7 +142,7 @@ index 7ea3ab8..26718ef 100644
    estree-util-is-identifier-name@3.0.0:
      resolution: {integrity: sha512-hFtqIDZTIUZ9BXLb8y4pYGyk6+wekIivNVTcmvk8NoOh+VeRn5y6cEHzbURrWbfp1fIqdVipilzj+lfaadNZmg==}
  
-@@ -4943,6 +4985,9 @@ packages:
+@@ -4946,6 +4988,9 @@ packages:
      resolution: {integrity: sha512-+Pgi+vMuUNkJyExiMBt5IlFoMyKnr5zhJ4Uspz58WOhBF5QoIZkFyNHIbBAtHwzVAgk5RtndVNsDRN61/mmDqg==}
      engines: {node: '>=12'}
  
@@ -152,7 +152,7 @@ index 7ea3ab8..26718ef 100644
    is-what@4.1.16:
      resolution: {integrity: sha512-ZhMwEosbFJkA0YhFnNDgTM4ZxDRsS6HqTo7qsZM08fehyRYIYa0yHu5R6mgo1n/8MgaPBXiPimPD77baVFYg+A==}
      engines: {node: '>=12.13'}
-@@ -5207,6 +5252,9 @@ packages:
+@@ -5210,6 +5255,9 @@ packages:
      resolution: {integrity: sha512-++gUqRDEvcnN6Zhqrr+y/CkVEHhlrR96vZn3nZZPYzMcBUyBtTKzB9NadClFIsIVSsu+3i9tfk/erqy9kAmt7Q==}
      engines: {node: '>=14'}
  
@@ -162,7 +162,7 @@ index 7ea3ab8..26718ef 100644
    lodash-es@4.18.1:
      resolution: {integrity: sha512-J8xewKD/Gk22OZbhpOVSwcs60zhd95ESDwezOFuA3/099925PdHJ7OFHNTGtajL3AlZkykD32HykiMo+BIBI8A==}
  
-@@ -6255,6 +6303,10 @@ packages:
+@@ -6258,6 +6306,10 @@ packages:
      resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
      engines: {node: '>= 0.4'}
  
@@ -173,7 +173,7 @@ index 7ea3ab8..26718ef 100644
    svg-parser@2.0.4:
      resolution: {integrity: sha512-e4hG1hRwoOdRb37cIMSgzNsxyzKfayW6VOflrwvR+/bzrkyxY/31WkbgnQpgtrNp1SdpJvpUAGTa/ZoiPNDuRQ==}
  
-@@ -6748,6 +6800,9 @@ packages:
+@@ -6751,6 +6803,9 @@ packages:
      resolution: {integrity: sha512-4UEqdc2RYGHZc7Doyqkrqiln3p9X2DZVxaGbwhn2pi7MrRagKaOcIKe8L3OxYcbhXLgLFUS3zAYuQjKBQgmuNg==}
      engines: {node: ^20.19.0 || ^22.12.0 || >=23}
  
@@ -183,7 +183,7 @@ index 7ea3ab8..26718ef 100644
    zod@4.6.7:
      resolution: {integrity: sha512-g8W2D2kU6a8untc053fX1uVBKzM7yqAxW/3zwk83+6RyF2+SKOuV+c0wBDhUwzV1PaGapmZH+rmcUzPf+3CGwg==}
  
-@@ -7882,6 +7937,19 @@ snapshots:
+@@ -7885,6 +7940,19 @@ snapshots:
        typescript: 7.0.2
        vite: 8.3.5(@types/node@24.19.2)(jiti@2.7.0)(less@4.9.1(supports-color@10.2.2))(terser@5.36.0)(yaml@2.9.1)
  
@@ -203,7 +203,7 @@ index 7ea3ab8..26718ef 100644
    '@inlang/recommend-sherlock@0.2.1':
      dependencies:
        comment-json: 4.5.0
-@@ -9115,6 +9183,10 @@ snapshots:
+@@ -9120,6 +9188,10 @@ snapshots:
  
    '@standard-schema/utils@0.3.0': {}
  
@@ -214,7 +214,7 @@ index 7ea3ab8..26718ef 100644
    '@svgr/babel-plugin-add-jsx-attribute@8.0.0(@babel/core@7.29.7(supports-color@10.2.2))':
      dependencies:
        '@babel/core': 7.29.7(supports-color@10.2.2)
-@@ -9654,6 +9726,8 @@ snapshots:
+@@ -9659,6 +9731,8 @@ snapshots:
  
    '@types/estree@1.0.8': {}
  
@@ -223,7 +223,7 @@ index 7ea3ab8..26718ef 100644
    '@types/geojson@7946.0.14': {}
  
    '@types/hast@3.0.4':
-@@ -9888,6 +9962,8 @@ snapshots:
+@@ -9893,6 +9967,8 @@ snapshots:
      dependencies:
        tslib: 2.8.1
  
@@ -232,7 +232,7 @@ index 7ea3ab8..26718ef 100644
    array-timsort@1.0.3: {}
  
    assertion-error@2.0.1: {}
-@@ -9896,6 +9972,8 @@ snapshots:
+@@ -9901,6 +9977,8 @@ snapshots:
  
    async@3.2.6: {}
  
@@ -241,7 +241,7 @@ index 7ea3ab8..26718ef 100644
    babel-dead-code-elimination@1.0.12(supports-color@10.2.2):
      dependencies:
        '@babel/core': 7.29.7(supports-color@10.2.2)
-@@ -10419,6 +10497,8 @@ snapshots:
+@@ -10424,6 +10502,8 @@ snapshots:
  
    detect-node-es@1.1.0: {}
  
@@ -250,7 +250,7 @@ index 7ea3ab8..26718ef 100644
    devlop@1.1.0:
      dependencies:
        dequal: 2.0.3
-@@ -10520,8 +10600,14 @@ snapshots:
+@@ -10525,8 +10605,14 @@ snapshots:
  
    escape-string-regexp@5.0.0: {}
  
@@ -265,7 +265,7 @@ index 7ea3ab8..26718ef 100644
    estree-util-is-identifier-name@3.0.0: {}
  
    estree-walker@2.0.2: {}
-@@ -10832,6 +10918,10 @@ snapshots:
+@@ -10837,6 +10923,10 @@ snapshots:
  
    is-plain-obj@4.1.0: {}
  
@@ -276,7 +276,7 @@ index 7ea3ab8..26718ef 100644
    is-what@4.1.16: {}
  
    is-wsl@2.2.0:
-@@ -11045,6 +11135,8 @@ snapshots:
+@@ -11050,6 +11140,8 @@ snapshots:
        pkg-types: 2.3.0
        quansync: 0.2.11
  
@@ -285,7 +285,7 @@ index 7ea3ab8..26718ef 100644
    lodash-es@4.18.1: {}
  
    lodash.debounce@4.0.8: {}
-@@ -12482,6 +12574,26 @@ snapshots:
+@@ -12487,6 +12579,26 @@ snapshots:
  
    supports-preserve-symlinks-flag@1.0.0: {}
  
@@ -312,7 +312,7 @@ index 7ea3ab8..26718ef 100644
    svg-parser@2.0.4: {}
  
    svg-tags@1.0.0: {}
-@@ -12707,6 +12819,27 @@ snapshots:
+@@ -12712,6 +12824,27 @@ snapshots:
        - vite
        - webpack
  
@@ -340,7 +340,7 @@ index 7ea3ab8..26718ef 100644
    unplugin-icons@24.0.0(@svgr/core@8.1.0(supports-color@10.2.2)(typescript@7.0.2))(rolldown@1.2.14)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(less@4.9.1(supports-color@10.2.2))(terser@5.36.0)(yaml@2.9.1)):
      dependencies:
        '@antfu/install-pkg': 1.1.0
-@@ -12962,6 +13095,8 @@ snapshots:
+@@ -12967,6 +13100,8 @@ snapshots:
        y18n: 5.0.8
        yargs-parser: 22.0.0
  
