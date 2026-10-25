@@ -20,6 +20,11 @@
 #
 # Flutter lock generation keeps upstream versions and checksums, but rewrites
 # hosted pub.flutter-io.cn URLs to pub.dev so CI fetches from the origin.
+#
+# Binary updates need direct ELF library inputs: ChatGPT's device-key addon
+# needs tpm2-tss, and ClassIn's bundled libgcrypt needs libgpg-error in their
+# package buildInputs. autoPatchelf does not search arbitrary transitive
+# dependency closures; do not ignore missing required libraries.
 set -euo pipefail
 
 here=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
