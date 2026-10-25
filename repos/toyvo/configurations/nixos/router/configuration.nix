@@ -333,6 +333,11 @@ in
       tokenFile = config.sops.secrets."k3s-token".path;
       # Quorum vote only: no kubelet, no workloads on the edge box.
       disableAgent = true;
+      # Traefik must be enabled on EVERY server: k3s shares one Addon
+      # object per packaged chart, and a server with --disable=traefik
+      # deletes it cluster-wide (observed: router join uninstalled Traefik
+      # 26s later). No pods land here (no kubelet).
+      traefik.enable = true;
       # enp2s0 is WAN-facing (toyvo.dev is public); k3s ports stay on LAN.
       firewallInterfaces = [ "br0" ];
       extraSANs = [
