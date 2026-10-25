@@ -3,6 +3,6 @@
   "private": true,
   "version": "1.0.0",
   "dependencies": {
-    "@ychris12138/dsh-usage-stats": "0.3.5"
+    "@ychris12138/dsh-usage-stats": "0.3.6"
   }
 }
