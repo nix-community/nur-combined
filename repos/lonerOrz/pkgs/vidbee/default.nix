@@ -20,13 +20,13 @@
 
 let
   pname = "vidbee";
-  version = "2.2.4";
+  version = "2.3.0";
 
   baseSrc = fetchFromGitHub {
     owner = "nexmoe";
     repo = "VidBee";
     tag = "v${version}";
-    hash = "sha256-XNnyQwgRw8wvWtQHqUr8iKh5e//EKiNmuydN1/34vnw=";
+    hash = "sha256-DKEkoLGwiiTViFpgAZA9VKnS6nc8sn5BWfLzLE8mj0U=";
   };
 
   # Replace the upstream manifest and lockfile with the Nix-maintained versions.

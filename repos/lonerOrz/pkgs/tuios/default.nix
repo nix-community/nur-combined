@@ -8,16 +8,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "tuios";
-  version = "sketch/v0.3.1";
+  version = "0.11.0";
 
   src = fetchFromGitHub {
     owner = "Gaurav-Gosain";
     repo = "tuios";
-    tag = finalAttrs.version;
-    hash = "sha256-pysb5ldX3hxU4xcFaPQGfiLmEX33oCC0GS1ZP01MoCw=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-Ss8jYuaCkivmAzbwnlPciOtR9ftsy7wAg/mNxm/WsK0=";
   };
 
-  vendorHash = "sha256-sjivOKRIFcl+9qcfVAdH5SpbdaEEzXhCaDciqPEfJO4=";
+  vendorHash = "sha256-XmpwiFkLAeCLGtM0yd+2gzX9thshUZe9XqU8VQEBz7s=";
 
   # Only build the main binary
   subPackages = [ "cmd/tuios" ];
