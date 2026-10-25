@@ -111,12 +111,12 @@
             "name": null,
             "owner": "vastsa",
             "repo": "FileCodeBox",
-            "rev": "v2.8.3",
-            "sha256": "sha256-iRzMZan0O/3rN54cjXnfrOxjkDbonNPVD1Ga0QOHebQ=",
+            "rev": "v2.8.4",
+            "sha256": "sha256-KsAkmvm8qQfzDfbdv9nDrKudD4ieUIUAAiX1qo+en/A=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.8.3"
+        "version": "v2.8.4"
     },
     "filecodebox-frontend": {
         "cargoLock": null,

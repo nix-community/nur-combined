@@ -57,12 +57,12 @@
   };
   filecodebox = {
     pname = "filecodebox";
-    version = "v2.8.3";
+    version = "v2.8.4";
     src = fetchFromGitHub {
       owner = "vastsa";
       repo = "FileCodeBox";
-      tag = "v2.8.3";
-      hash = "sha256-iRzMZan0O/3rN54cjXnfrOxjkDbonNPVD1Ga0QOHebQ=";
+      tag = "v2.8.4";
+      hash = "sha256-KsAkmvm8qQfzDfbdv9nDrKudD4ieUIUAAiX1qo+en/A=";
     };
   };
   filecodebox-frontend = {
