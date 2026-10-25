@@ -9159,10 +9159,10 @@
     };
     "nekocap" = buildMozillaXpiAddon {
       pname = "nekocap";
-      version = "1.24.0";
+      version = "1.25.0";
       addonId = "nekocaption@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5025837/nekocap-1.24.0.xpi";
-      sha256 = "4dde7d98a7db7532f47143fcef585d07733c77aeb62985eb34af1ae03781fcaa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5159569/nekocap-1.25.0.xpi";
+      sha256 = "46fa390bd5d77648d2176b50002c5c09ec0c018c07fc720e5ce89d97031b0202";
       meta = with lib;
       {
         homepage = "https://nekocap.com";

@@ -2,10 +2,10 @@
   {
     "cardbook" = buildMozillaXpiAddon {
       pname = "cardbook";
-      version = "106.9";
+      version = "107.2";
       addonId = "cardbook@vigneau.philippe";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1052896/cardbook-106.9-tb.xpi?src=";
-      sha256 = "1f1c792d6266c63c8c4ed4aea4dc9a4c30cb805e0b1ea880ac2207b1efbfbdd6";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1054032/cardbook-107.2-tb.xpi?src=";
+      sha256 = "8c6d80e3c5d1b3372a7f87679c45814343f96614e6fcc7a2b5e776885d7aa2ea";
       meta = with lib;
       {
         homepage = "https://gitlab.com/CardBook/CardBook";
@@ -273,10 +273,10 @@
     };
     "quickfilters" = buildMozillaXpiAddon {
       pname = "quickfilters";
-      version = "6.13.4";
+      version = "6.14";
       addonId = "quickFilters@axelg.com";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1052832/quickfilters-6.13.4-tb.xpi?src=";
-      sha256 = "4ed3d31916ea09bba4392e4fcbbcb348db9a86e0b96d8b97cb150159ef11256b";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1054014/quickfilters-6.14-tb.xpi?src=";
+      sha256 = "68fbe5fb1be554ebdd95509aeb9802e83c0dbcfbc42a3b2752af45f8fe1a09c5";
       meta = with lib;
       {
         homepage = "https://quickfilters.quickfolders.org/";
