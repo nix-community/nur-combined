@@ -3,4 +3,4 @@ _final: prev:
 let
   nur = import ./default.nix { pkgs = prev; };
 in
-builtins.removeAttrs nur [ "overlays" ]
+removeAttrs nur [ "overlays" ]

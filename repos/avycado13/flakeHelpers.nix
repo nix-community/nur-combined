@@ -1,5 +1,6 @@
 inputs:
 let
+  lib = inputs.nixpkgs.lib;
   mkOpts =
     system: module:
     inputs.unf.lib.json {
@@ -48,12 +49,12 @@ let
 
   homeManagerCfg =
     {
-      userPackages,
-      extraImports ? [ ],
+      userPackages ? true,
       pkgs,
+      extraImports ? [ ],
     }:
     {
-      home-manager.useGlobalPkgs = false;
+      home-manager.useGlobalPkgs = true;
       home-manager.extraSpecialArgs = {
         inherit inputs;
         inherit mkOpts;
@@ -64,8 +65,12 @@ let
         inputs.nix-index-database.homeModules.nix-index
         inputs.catppuccin.homeModules.catppuccin
         inputs.try.homeModules.default
-        ./users/avy/dots.nix
-        ./users/avy/sops.nix
+        (inputs.import-tree.filterNot (
+          path:
+          lib.hasSuffix "/avy/default.nix" path
+          || lib.hasSuffix "/avy/packages.nix" path
+          || lib.hasInfix "/avy/dotfiles/" path
+        ) ./users)
       ]
       ++ (
         if pkgs.stdenv.hostPlatform.isDarwin then
@@ -81,7 +86,7 @@ let
     };
 in
 {
-  inherit nixpkgsCfg;
+  inherit nixpkgsCfg homeManagerCfg;
 
   mkDarwin = machineHostname: _nixpkgsVersion: system: extraHmModules: extraModules: {
     darwinConfigurations.${machineHostname} = inputs.darwin.lib.darwinSystem {
@@ -98,7 +103,7 @@ in
         inputs.nix-homebrew.darwinModules.nix-homebrew
         inputs.niks3.darwinModules.niks3-auto-upload
         {
-          home-manager.users.avy.home.homeDirectory = inputs.nixpkgs.lib.mkForce "/Users/avy";
+          home-manager.users.avy.home.homeDirectory = lib.mkForce "/Users/avy";
           nix-homebrew = {
             enable = true;
             enableRosetta = false;
@@ -124,8 +129,8 @@ in
         }
         (homeManagerCfg {
           userPackages = true;
-          extraImports = extraHmModules;
           pkgs = inputs.nixpkgs.legacyPackages.${system};
+          extraImports = extraHmModules;
         })
       ]
       ++ extraModules;
@@ -143,36 +148,21 @@ in
         ./modules/email
         ./modules/ddns
         ./modules/heTunnel
+        ./modules/secrets
         inputs.nix-mineral.nixosModules.nix-mineral
         inputs.sops-nix.nixosModules.sops
-        ./modules/secrets
         inputs.nix-topology.nixosModules.default
         inputs.nix-index-database.nixosModules.nix-index
-        inputs.nix-minecraft.nixosModules.minecraft-servers
         inputs.home-manager.nixosModules.home-manager
         inputs.catppuccin.nixosModules.catppuccin
         inputs.srvos.nixosModules.mixins-terminfo
-        inputs.niks3.nixosModules.niks3
         inputs.niks3.nixosModules.niks3-auto-upload
-        inputs.nix-cache-beacon.nixosModules.default
-        {
-          # home-manager.users.avy.home.stateVersion = "25.05";
-        }
-        # ./users/avy
-        # (homeManagerCfg {
-        # userPackages = true;
-        # system = hardware;
-        # extraImports = extraHmModules;
-        # lib = nixpkgsVersion.lib;
-        # })
         inputs.disko.nixosModules.disko
       ]
       ++ extraModules;
     };
   };
 
-  mkMerge = inputs.nixpkgs.lib.lists.foldl' (
-    a: b: inputs.nixpkgs.lib.attrsets.recursiveUpdate a b
-  ) { };
+  mkMerge = lib.lists.foldl' (a: b: lib.attrsets.recursiveUpdate a b) { };
 
 }

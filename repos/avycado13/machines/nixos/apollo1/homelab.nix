@@ -1,5 +1,7 @@
 { config, ... }:
 {
+  imports = [ ../../../homelab/services/niks3/server.nix ];
+
   # niks3 runs here; pi1 reverse-proxies to it over tailscale (see
   # machines/nixos/pi1/homelab.nix) since that's where Caddy/ACME live.
   sops.secrets = {

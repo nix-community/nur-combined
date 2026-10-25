@@ -18,7 +18,5 @@
     homelab.services.indiko.enable = true;
   };
 
-  imports = [
-    ./indiko
-  ];
+  imports = [ ./indiko ];
 }

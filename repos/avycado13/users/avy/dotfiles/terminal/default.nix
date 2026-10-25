@@ -10,43 +10,13 @@
     default = false;
     description = "Enable the terminal dotfiles module.";
   };
+  options.dots.terminal.foot.enable = lib.mkEnableOption "Foot lightweight Terminal";
+  options.dots.terminal.ghostty.enable = lib.mkEnableOption "Ghostty Terminal";
 
   config = lib.mkIf config.dots.terminal.enable {
     programs = {
-      kitty = {
-        enable = false;
-        shellIntegration = {
-          enableZshIntegration = true;
-        };
-        settings = {
-          macos_titlebar_color = "#2E3440";
-          window_padding_width = 0;
-          window_margin_width = 0;
-          adjust_line_height = "120%";
-          font_family = "Comic Code Ligatures";
-          font_size = "16.0";
-        };
-        enableGitIntegration = true;
-        extraConfig = ''
-
-          map cmd+h hide_macos_app
-          map cmd+m minimize_macos_window
-          map cmd+q quit
-          map kitty_mod+p>y kitten hints --type hyperlink
-        '';
-      };
-      # ghostty = {
-      #   enable = true;
-      #   # package = inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default;
-      #   package = pkgs.ghostty-bin;
-      # installVimSyntax = true;
-      # installBatSyntax = true;
-      # enableZshIntegration = true;
-      # enableFishIntegration = true;
-      # enableBashIntegration = true;
-      # };
       ghostty = {
-        enable = true;
+        enable = config.dots.terminal.ghostty.enable;
         package = pkgs.ghostty-bin; # macos be funky
         settings = {
           font-size = 16;
@@ -63,7 +33,15 @@
         enableFishIntegration = true;
         enableBashIntegration = true;
       };
+      foot = {
+        enable = config.dots.terminal.foot.enable && pkgs.stdenv.isLinux;
+        server.enable = true;
+        settings = {
+          main.dpi-aware = "yes";
+
+          mouse.hide-when-typing = "yes";
+        };
+      };
     };
-    home.packages = [ pkgs.ghostty-bin ];
   };
 }

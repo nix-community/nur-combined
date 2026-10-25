@@ -4,16 +4,15 @@
   ...
 }:
 let
-  service = "niks3";
   hl = config.homelab;
-  cfg = hl.services.${service};
+  cfg = hl.services.niks3;
   port = 5751;
 
   backupData = import ../../lib/backupData.nix { inherit lib; };
 in
 {
-  options.homelab.services.${service} = {
-    enable = lib.mkEnableOption "Enable ${service}, a self-hosted S3-backed Nix binary cache";
+  options.homelab.services.niks3 = {
+    enable = lib.mkEnableOption "Enable niks3, a self-hosted S3-backed Nix binary cache";
 
     host = lib.mkOption {
       type = lib.types.str;
@@ -92,104 +91,15 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable (
-    lib.mkMerge [
-      (lib.mkIf (cfg.host == "127.0.0.1") {
-        services.niks3 = {
-          enable = true;
-          readProxy = {
-            enable = true;
-            redirectTTL = "24h";
-          };
-          httpAddr = "127.0.0.1:${toString port}";
-
-          s3 = {
-            endpoint = cfg.s3.endpoint;
-            bucket = cfg.s3.bucket;
-            region = cfg.s3.region;
-            accessKeyFile = cfg.s3.accessKeyFile;
-            secretKeyFile = cfg.s3.secretKeyFile;
-          };
-
-          oidc.providers = {
-            github = {
-              issuer = "https://token.actions.githubusercontent.com";
-              audience = "https://${cfg.url}";
-              boundClaims = {
-                repository_owner = [ "avycado13" ];
-              };
-              boundSubject = [ "repo:avycado13/*:*" ];
-              # scopes = [ "write" ]; or rules = [ { boundSubject = [ ... ]; scopes = [ ... ]; } ];
-            };
-            # GCP Workload Identity Federation: e.g. GitHub Actions
-            # impersonates this service account and mints a Google ID token
-            # (iss=accounts.google.com) instead of presenting the GitHub
-            # token directly. Replace the placeholder email below with the
-            # actual federated service account before this does anything.
-            gcp = {
-              issuer = "https://accounts.google.com";
-              audience = "https://${cfg.url}";
-              boundClaims = {
-                email = [ "CHANGEME@CHANGEME.iam.gserviceaccount.com" ];
-              };
-              scopes = [ "write" ];
-            };
-          };
-
-          inherit (cfg) apiTokenFile;
-          inherit (cfg) signKeyFiles;
-
-          cacheUrl = "https://${cfg.url}";
-          serverUrl = "https://${cfg.url}";
-          inherit (cfg) maxNarSize;
-          gc = {
-            enable = true; # Default: true
-            olderThan = "336h"; # 14 days
-            failedUploadsOlderThan = "6h"; # 6 hours (default)
-            schedule = "daily"; # Run at midnight daily (default)
-            randomizedDelaySec = 1800; # Add 0–30 minimum random delay (default)
-          };
-        };
-
-        systemd.services.${service}.unitConfig.OnFailure = lib.mkIf (
-          hl.notifications.ntfySecretsFile != null
-        ) "notify-failure@%n.service";
-
-        # First-boot initdb can outrun systemd's default 90s TimeoutStartSec
-        # on slow SD-card-backed boards (e.g. apollo1), which fails
-        # postgresql.service and cascades into "dependency failed" for
-        # niks3 (Requires=postgresql.service). Give it more room.
-        systemd.services.postgresql.serviceConfig.TimeoutStartSec = "600s";
-
-        services.nix-cache-beacon = {
-          # Announce cache to the local network
-          advert = {
-            enable = true;
-            inherit port;
-          };
-
-          # Enable local binary cache using discovered caches on the local network
-          cache.enable = true;
-        };
-
-        # mDNS may not be ready yet at boot, and nix-cache-beacon panics instead
-        # of retrying internally when it can't resolve *.local; wait for avahi.
-        systemd.services.nix-cache-beacon-cache = {
-          after = [ "avahi-daemon.service" ];
-          wants = [ "avahi-daemon.service" ];
-        };
-      })
-      (lib.mkIf hl.services.enable {
-        services.caddy.virtualHosts."${cfg.url}" = {
-          useACMEHost = hl.baseDomainName;
-          extraConfig = ''
-            reverse_proxy http://${cfg.host}:${toString port}
-            request_body {
-              max_size 0
-            }
-          '';
-        };
-      })
-    ]
-  );
+  config = lib.mkIf (cfg.enable && hl.services.enable) {
+    services.caddy.virtualHosts."${cfg.url}" = {
+      useACMEHost = hl.baseDomainName;
+      extraConfig = ''
+        reverse_proxy http://${cfg.host}:${toString port}
+        request_body {
+          max_size 0
+        }
+      '';
+    };
+  };
 }

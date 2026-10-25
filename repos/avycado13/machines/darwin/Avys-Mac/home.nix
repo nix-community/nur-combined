@@ -1,7 +1,10 @@
 {
   home-manager.users.avy.dots = {
-    shell.enable = true;
-    # shell.profiling.enable = true;
+    shell = {
+      enable = true;
+      # profiling.enable = true;
+    };
+
     editor.enable = true;
     ssh = {
       enable = true;
@@ -11,7 +14,11 @@
       enable = true;
       wut.enable = true;
     };
-    terminal.enable = true;
+    terminal = {
+      enable = true;
+      ghostty.enable = true;
+    };
+
     gpg.enable = true;
     devenv = {
       enable = true;

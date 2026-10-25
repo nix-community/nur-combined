@@ -30,11 +30,11 @@
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     mac-app-util.url = "github:hraban/mac-app-util";
-    sops-nix.url = "github:Mic92/sops-nix";
-    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
-    nix-mineral = {
-      url = "github:cynicsketch/nix-mineral"; # Refers to the main branch and is updated to the latest commit when you use "nix flake update"
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-mineral.url = "github:cynicsketch/nix-mineral";
     nix-topology.url = "github:oddlama/nix-topology";
     nix-search-tv.url = "github:3timeslazy/nix-search-tv";
     brew-boring-notch = {
@@ -46,8 +46,10 @@
       flake = false;
     };
     catppuccin.url = "github:catppuccin/nix";
-    disko.url = "github:nix-community/disko";
-    disko.inputs.nixpkgs.follows = "nixpkgs";
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     flake-utils.url = "github:numtide/flake-utils";
     llm-agents.url = "github:numtide/llm-agents.nix";
     nix-auth.url = "github:numtide/nix-auth";
@@ -63,7 +65,6 @@
     wakatime-ls.url = "github:mrnossiom/wakatime-ls";
     wakatime-ls.inputs.nixpkgs.follows = "nixpkgs";
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
-    virby.url = "github:quinneden/virby-nix-darwin/be170bd7ef21ce9773e7daa646d43f5405a1bdb2";
     srvos.url = "github:nix-community/srvos";
     unf = {
       url = "git+https://git.atagen.co/atagen/unf";
@@ -98,18 +99,12 @@
       url = "github:srid/devour-flake";
       flake = false;
     };
-    # Don't follow root nixpkgs: retrom's package.nix pins fetchPnpmDeps
-    # fetcherVersion = 3, which newer nixpkgs has dropped support for.
-    # Let it build against its own (older) locked nixpkgs instead.
-    retrom = {
-      url = "github:JMBeresford/retrom/latest";
-    };
-    late-sh.url = "github:mpiorowski/late-sh";
     copyparty.url = "github:9001/copyparty";
     nixos-pi-zero-2 = {
       url = "github:plmercereau/nixos-pi-zero-2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    import-tree.url = "github:denful/import-tree";
   };
 
   outputs =
@@ -120,6 +115,7 @@
         mkMerge
         mkDarwin
         mkNixos
+        homeManagerCfg
         ;
       system = {
         x86_64-linux = "x86_64-linux";
@@ -139,6 +135,10 @@
       )
 
       (mkNixos "pi1" inputs.nixpkgs system.aarch64-linux [ ] [ ])
+      (mkNixos "pi2" inputs.nixpkgs system.aarch64-linux
+        [ ]
+        [ "${inputs.nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix" ]
+      )
 
       (mkNixos "apollo1" inputs.nixpkgs "aarch64-linux"
         [ ]
@@ -171,6 +171,10 @@
         [ ]
         [
           inputs.srvos.nixosModules.server
+          (homeManagerCfg {
+            userPackages = true;
+            pkgs = inputs.nixpkgs.legacyPackages.${system.x86_64-linux};
+          })
         ]
       )
       (mkNixos "gce" inputs.nixpkgs system.x86_64-linux [ ] [ ])

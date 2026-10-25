@@ -47,14 +47,13 @@ in
     };
   };
 
-  assertions = [
-    {
-      assertion = cfg.enable -> (cfg.pubKeyFiles != [ ] || cfg.pubKeys != [ ]);
-      message = "remoteBuild: At least one of pubKeyFiles or pubKeys must be non-empty when remoteBuild.enable is true.";
-    }
-  ];
-
   config = lib.mkIf cfg.enable {
+    assertions = [
+      {
+        assertion = cfg.enable -> (cfg.pubKeyFiles != [ ] || cfg.pubKeys != [ ]);
+        message = "remoteBuild: At least one of pubKeyFiles or pubKeys must be non-empty when remoteBuild.enable is true.";
+      }
+    ];
     users.users.remotebuild = {
       isNormalUser = true;
       createHome = false;
