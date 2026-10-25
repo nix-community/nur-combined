@@ -214,3 +214,10 @@ sed -i -e '/if (fullPath.endsWith(".zip") || fullPath.endsWith(".jar")) {/,+2c\
       try { visitZip(zipPath = fullPath, zipRelPath = relativePath, file = ZipFile(FileChannel.open(file, READ)), errors = errors) }\
       catch (e: Exception) { System.err.println("WARN: Failed to read ZIP file: $fullPath: ${e.message}") }\
     }' platform/build-scripts/src/org/jetbrains/intellij/build/impl/ClassFileChecker.kt
+
+# Fix ClassCastException in commit workflow when invoking scheduleRefreshNow with Runnable callback
+substituteInPlace platform/vcs-impl/src/com/intellij/vcs/changes/viewModel/LocalChangesViewProxy.kt \
+  --replace-fail \
+  'panel.scheduleRefreshNow(if (callback == null) null else callback::run)' \
+  'if (callback == null) { panel.scheduleRefreshNow(null) } else { panel.scheduleRefreshNow { callback.run() } }'
+

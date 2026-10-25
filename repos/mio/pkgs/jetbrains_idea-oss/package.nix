@@ -357,10 +357,35 @@ let
         '';
       });
 
+  oldDesktopItem = jetbrains.idea-oss.desktopItem or null;
+  oldLibdbm = jetbrains.idea-oss.jetbrains-libdbm or null;
+  oldFsnotifier = jetbrains.idea-oss.fsnotifier or null;
+
+  desktopItem =
+    if oldDesktopItem != null then
+      oldDesktopItem.override {
+        startupWMClass = "jetbrains-idea";
+      }
+    else
+      null;
+
+  fromStrings =
+    lib.optional (oldDesktopItem != null) "item=${oldDesktopItem}"
+    ++ lib.optional (oldLibdbm != null && src ? libdbm) "${oldLibdbm}/lib/libdbm.so"
+    ++ lib.optional (oldFsnotifier != null && src ? fsnotifier) "${oldFsnotifier}/bin/fsnotifier";
+
+  toStrings =
+    lib.optional (desktopItem != null) "item=${desktopItem}"
+    ++ lib.optional (oldLibdbm != null && src ? libdbm) "${src.libdbm}/lib/libdbm.so"
+    ++ lib.optional (oldFsnotifier != null && src ? fsnotifier) "${src.fsnotifier}/bin/fsnotifier";
+
 in
 jetbrains.idea-oss.overrideAttrs (
   old:
   {
+    inherit desktopItem;
+    wmClass = "jetbrains-idea";
+    jetbrains-libdbm = src.libdbm;
     inherit src;
     inherit (src)
       version
@@ -371,6 +396,9 @@ jetbrains.idea-oss.overrideAttrs (
     meta = (old.meta or { }) // {
       knownVulnerabilities = [ ];
     };
+  }
+  // lib.optionalAttrs (old ? installPhase) {
+    installPhase = builtins.replaceStrings fromStrings toStrings old.installPhase;
   }
   // lib.optionalAttrs (src ? fsnotifier) {
     inherit (src) fsnotifier;
