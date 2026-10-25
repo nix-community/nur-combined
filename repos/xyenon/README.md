@@ -141,7 +141,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>magpie</code></strong> — Manage models, providers, and accounts for AI coding agents in one place</summary>
 
-- **Version:** `0.1.1347`
+- **Version:** `0.1.1491`
 - **License:** MIT
 - **Homepage:** [https://github.com/yetone/magpie](https://github.com/yetone/magpie)
 - **Build:** `nix build github:XYenon/nur-packages#magpie`
@@ -221,7 +221,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>pleroma</code></strong> — ActivityPub microblogging server</summary>
 
-- **Version:** `2.10.2`
+- **Version:** `2.11.0`
 - **License:** AGPL-3.0-only
 - **Homepage:** [https://pleroma.social](https://pleroma.social)
 - **Build:** `nix build github:XYenon/nur-packages#pleroma`
@@ -251,7 +251,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>rime-moegirl</code></strong> — RIME dictionary file for entries from zh.moegirl.org.cn</summary>
 
-- **Version:** `20260911`
+- **Version:** `20261024`
 - **License:** Unlicense
 - **Homepage:** [https://github.com/outloudvi/mw2fcitx](https://github.com/outloudvi/mw2fcitx)
 - **Build:** `nix build github:XYenon/nur-packages#rime-moegirl`
@@ -271,7 +271,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>vodozemac-bindings-kazv</code></strong> — Language bindings for vodozemac</summary>
 
-- **Version:** `1.0.0-unstable-2026-08-23`
+- **Version:** `1.0.0-unstable-2026-10-24`
 - **License:** Apache-2.0
 - **Homepage:** [https://r.lily-is.land/the-kazv-project/vodozemac-bindings](https://r.lily-is.land/the-kazv-project/vodozemac-bindings)
 - **Build:** `nix build github:XYenon/nur-packages#vodozemac-bindings-kazv`

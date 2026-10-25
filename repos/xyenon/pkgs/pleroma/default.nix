@@ -17,14 +17,14 @@
 
 beamPackages.mixRelease rec {
   pname = "pleroma";
-  version = "2.10.2";
+  version = "2.11.0";
 
   src = fetchFromForgejo {
     domain = "git.pleroma.social";
     owner = "pleroma";
     repo = "pleroma";
     rev = "v${version}";
-    hash = "sha256-5BFzV2alNDjO/bS08+V4idzFaXQLr+4pNlLLXayBqIE=";
+    hash = "sha256-yQcvmoqKepL5l1YbWsgTBN0XGKSBLF4Rz9n+SJTcfo0=";
   };
 
   patches = [
@@ -48,7 +48,7 @@ beamPackages.mixRelease rec {
   mixFodDeps = beamPackages.fetchMixDeps {
     pname = "mix-deps-${pname}";
     inherit src version;
-    hash = "sha256-IMVGkX7hioMmHeUY1ajog0262qNQdd0xjJKLdGz1pLE=";
+    hash = "sha256-4+NIHXxPGhWSh2KDEnqaqK2K1ddf7mGdwwUZ9e0Oc2c=";
 
     postInstall = ''
       substituteInPlace "$out/http_signatures/mix.exs" \
@@ -114,6 +114,6 @@ beamPackages.mixRelease rec {
     license = lib.licenses.agpl3Only;
     maintainers = with lib.maintainers; [ xyenon ];
     platforms = lib.platforms.unix;
-    broken = lib.versionOlder beamPackages.erlang.version "26.0.0";
+    broken = lib.versionOlder beamPackages.erlang.version "27.0.0";
   };
 }

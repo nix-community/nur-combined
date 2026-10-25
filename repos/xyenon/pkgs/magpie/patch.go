@@ -3,7 +3,8 @@
 // Complete helper sources live in template files; inline fragments reuse upstream names,
 // import aliases or Nix paths and therefore remain next to their AST adaptations.
 //
-// Runtime patches (GUI builds only):
+// Runtime patches:
+//   - Use proc.Command for TUI background serving; it is identical to exec.Command on Unix.
 //   - Linux: replace scheme registration with cleanup of legacy Nix wrapper entries.
 //   - Linux: use the public autostart launcher while preserving AppImage handling.
 //   - Linux: refresh existing Nix autostart paths, preserving disabled and custom entries.
@@ -393,9 +394,22 @@ func (f *sourceFile) policyBody(fn *ast.FuncDecl, body string) error {
 	return nil
 }
 
-// patchRuntime applies Linux scheme/autostart policies and sets Bun's path in Darwin GUI builds.
+// patchRuntime preserves Unix command behavior and applies GUI launcher policies.
 // These edits enter the installed binary; only active platform and build-tag sources are patched.
 func patchRuntime(files []*sourceFile, o options) error {
+	// Upstream's new background server bypasses its own command-construction policy.
+	// proc.Command's batch/hide hooks are no-ops on both Nix platforms.
+	for _, f := range files {
+		if filepath.ToSlash(f.path) != "internal/tui/keep.go" {
+			continue
+		}
+		ast.Inspect(f.file, func(n ast.Node) bool {
+			if call, ok := n.(*ast.CallExpr); ok && f.call(call, "os/exec", "Command") {
+				f.replace(call.Fun, f.qualify("github.com/yetone/magpie/internal/proc", "Command"))
+			}
+			return true
+		})
+	}
 	if !o.gui {
 		return nil
 	}
@@ -661,6 +675,28 @@ func patchChecks(files []*sourceFile, o options) error {
 					})
 				}
 				continue
+			}
+			// Cancelling the old test server only schedules Shutdown. Wait until it
+			// stops accepting before asserting that new requests reach its successor.
+			// The in-flight stream must still drain and every request must still succeed.
+			if dir == "internal/gateway" && fn.Name.Name == "TestHandedOverGatewayFinishesItsStream" && !strings.Contains(f.text(fn.Body), "handed-over listener did not close") {
+				for _, stmt := range fn.Body.List {
+					expr, ok := stmt.(*ast.ExprStmt)
+					if !ok {
+						continue
+					}
+					if call, ok := expr.X.(*ast.CallExpr); ok && f.call(call, "", "stopOld") {
+						f.insert(stmt.End(), `
+for deadline := time.Now().Add(10 * time.Second); ; {
+ file, err := old.ListenerFile()
+ if `+f.qualify("errors", "Is")+`(err, net.ErrClosed) { break }
+ if err != nil { t.Fatal(err) }
+ file.Close()
+ if time.Now().After(deadline) { t.Fatal("handed-over listener did not close") }
+ time.Sleep(time.Millisecond)
+}`)
+					}
+				}
 			}
 			// Nix checks have no external network access. Upstream's offline setup makes
 			// network-dependent tests use their intended offline behavior instead of timing out.
