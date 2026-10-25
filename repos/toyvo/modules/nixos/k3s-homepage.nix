@@ -115,24 +115,9 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    # Migration-window drift guard: the k8s ConfigMap must render exactly
-    # what the nas-native service serves today. Remove together with
-    # configurations/nixos/nas/homepage.nix at cutover.
-    assertions = [
-      {
-        assertion = homepageServices == config.services.homepage-dashboard.services;
-        message = "nixcfg.k3sHomepage: services drift vs homepage.nix — update the replication.";
-      }
-      {
-        assertion = homepageBookmarks == config.services.homepage-dashboard.bookmarks;
-        message = "nixcfg.k3sHomepage: bookmarks drift vs homepage.nix — update the replication.";
-      }
-      {
-        assertion = homepageWidgets == config.services.homepage-dashboard.widgets;
-        message = "nixcfg.k3sHomepage: widgets drift vs homepage.nix — update the replication.";
-      }
-    ];
-
+    # The replication above was verified identical against the retired
+    # nas-native service; this module (fed from homelab.nix) is now the
+    # only source of truth.
     # One manifest per resource: k3s auto-deploy applies files as-is and
     # a wrapping `kind: List` is not safe for server-side apply.
     services.k3s.manifests."homepage-config.yaml".content = {

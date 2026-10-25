@@ -11,7 +11,7 @@
 - [x] Deploy + verify (2026-10-26): `nixos-rebuild switch --flake .#nas`, then `.#MacMini-Intel-NixOS`; `kubectl get nodes` shows nas + macmini-intel-nixos Ready (control-plane,etcd). Required opening etcd 2379-2380/tcp in `nixcfg.k3s` firewall on both nodes.
 - [ ] Router joins as etcd-only third server (code done: `disableAgent` + LAN-scoped firewall, design `docs/superpowers/specs/2026-10-25-k3s-ingress-router-design.md`, plan `docs/superpowers/plans/2026-10-25-k3s-ingress-router.md`); deploy router and verify 3 servers.
 - [ ] Traefik NodePorts 30080/30443 live (code done on nas+macmini); deploy both, verify svc + cross-node pod curl.
-- [ ] homepage serves from cluster (manifests dark-deployed with switch); then Caddy `upstreams` flip for `diekvoss.net`, verify, retire nas-native service.
+- [x] homepage serves from cluster (2026-10-26): manifests live, Caddy `upstreams` flip for `diekvoss.net` verified 200 with auth gate, nas-native service retired (file deleted, 8082 closed). Remaining: failover test (stop k3s on one server → still 200).
 - [ ] Storage re-architecture for stateful workloads (`/mnt/POOL` via local-path/Longhorn/Ceph decision).
 - [ ] Caddy ingress integration for cluster services.
 - [ ] aarch64 nodes (rpis) after x86_64 stable.

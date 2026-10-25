@@ -18,7 +18,6 @@ in
     inputs.nixcfg.modules.nixos.default
     inputs.hermes-agent.nixosModules.default
     ./samba.nix
-    ./homepage.nix
     inputs.catppuccin.nixosModules.catppuccin
     inputs.disko.nixosModules.disko
     inputs.home-manager.nixosModules.default
@@ -240,7 +239,6 @@ in
         ];
       };
     };
-    homepage-dashboard.enable = true;
     nix-serve = {
       enable = true;
       openFirewall = true;
