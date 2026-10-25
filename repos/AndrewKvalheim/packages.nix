@@ -127,7 +127,7 @@ specify {
     earshinov.permute-lines.search = open-vsx;
     earshinov.simple-alignment.search = open-vsx;
     eseom.nunjucks-template.search = open-vsx;
-    exiasr.hadolint.search = open-vsx;
+    exiasr.hadolint.search = [ open-vsx vscode-marketplace ];
     fabiospampinato.vscode-highlight.search = open-vsx;
     flowtype.flow-for-vscode = { version = "≥2.2.1"; search = [ open-vsx vscode-marketplace ]; };
     jacobpfeifer.pfeifer-hurl.search = open-vsx;

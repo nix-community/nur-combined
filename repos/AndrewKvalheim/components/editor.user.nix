@@ -57,7 +57,7 @@ in
         editorconfig.editorconfig
         esbenp.prettier-vscode
         eseom.nunjucks-template
-        exiasr.hadolint
+        # exiasr.hadolint # FIXME: Unavailable
         dbaeumer.vscode-eslint
         fabiospampinato.vscode-highlight
         flowtype.flow-for-vscode
