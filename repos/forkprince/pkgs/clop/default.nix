@@ -14,6 +14,12 @@ in
 
     nativeBuildInputs = [_7zz];
 
+    unpackPhase = ''
+      runHook preUnpack
+      7zz x -y -snld20 "$src"
+      runHook postUnpack
+    '';
+
     meta = {
       description = "Image, video and clipboard optimiser";
       homepage = "https://lowtechguys.com/clop/";
