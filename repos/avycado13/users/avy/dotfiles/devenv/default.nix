@@ -152,6 +152,13 @@ in
         enable = config.dots.devenv.ai.enable;
         enableMcpIntegration = true;
       };
+      t3code = {
+        enable = config.dots.devenv.ai.enable;
+        package = pkgs.t3code.override {
+          enableClaude = true;
+          enableOpencode = true;
+        };
+      };
       codex = {
         enable = config.dots.devenv.ai.codex.enable;
         settings = {
