@@ -1,0 +1,28 @@
+[package]
+name = "spotlight"
+version = "0.4.0"
+edition = "2024"
+description = "A keyboard-first native Linux productivity launcher"
+license = "MIT"
+
+[dependencies]
+gtk = { package = "gtk4", version = "0.10", features = ["v4_10"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+wasmi = { version = "2.0", default-features = false, features = ["stable", "std", "validate", "extra-checks", "portable-dispatch"] }
+qrcodegen = "1.8.0"
+ignore = "0.4"
+libc = "0.2"
+argon2 = { version = "0.5", features = ["zeroize"] }
+chacha20poly1305 = "0.10"
+base64 = "0.22"
+rand_core = { version = "0.6", features = ["getrandom"] }
+zeroize = { version = "1", features = ["derive"] }
+
+[dev-dependencies]
+wat = "1"
+
+[profile.release]
+opt-level = "s"
+lto = "thin"
+strip = true

@@ -1,0 +1,56 @@
+window { background: transparent; color: #eeedf2; font-family: Inter, "Noto Sans", sans-serif; font-size: 13px; }
+.shell { background: #17171c; border: 1px solid #3a3a43; border-radius: 16px; box-shadow: 0 12px 40px #00000055; }
+.launcher-top { padding: 16px 20px; border-bottom: 1px solid #303038; }
+.file-shortcuts { padding: 12px 20px 0; }
+.file-shortcuts button { border-radius: 10px; padding: 8px 14px; font-weight: 600; }
+.brand { background: #62a0ea; color: #15151c; border-radius: 9px; padding: 7px; font-weight: 800; font-size: 21px; }
+.search { background: transparent; border: 0; box-shadow: none; font-size: 21px; color: #f4f3f8; min-height: 40px; caret-color: #ec5862; }
+.search:focus { outline: none; }
+.section { color: #9c9ca9; font-size: 11px; font-weight: 600; padding: 12px 20px 8px; }
+list { background: transparent; padding: 0 10px; }
+row { background: transparent; border-radius: 8px; padding: 8px 10px; margin: 2px 0; min-height: 37px; }
+row:hover { background: transparent; }
+row:selected, row:selected:hover { background: #34343f; color: #ffffff; }
+.item-title { font-weight: 500; font-size: 14px; }
+.subtitle { color: #91919e; font-size: 11px; }
+.badge { color: #92929e; font-size: 11px; padding-right: 8px; }
+.tile { background: #292933; border-radius: 8px; padding: 6px; min-width: 22px; min-height: 22px; color: #c9b6fa; font-size: 19px; }
+.footer { padding: 10px 17px; border-top: 1px solid #303038; color: #a5a5b1; font-size: 11px; }
+.key { background: #303039; border: 1px solid #454550; border-radius: 4px; padding: 2px 5px; color: #c6c6cf; font-size: 10px; }
+button { background: #292932; color: #d8d8e2; border: 1px solid #42424e; border-radius: 6px; padding: 6px 10px; box-shadow: none; transition: box-shadow 160ms ease, background-color 160ms ease, border-color 160ms ease; }
+button:hover { background: #3a3a46; }
+.flat { background: transparent; border: none; padding: 4px 8px; }
+.accent { background: #d94f5e; color: white; border-color: #d94f5e; }
+.editor { padding: 20px; background: #1e1e25; border-radius: 12px; }
+.editor entry, .editor textview, .editor textview text { background: #292932; color: #eeeef5; border-radius: 6px; padding: 8px; }
+.notice { color: #f0a7ac; padding: 6px 20px; }
+.guide-title { font-size: 23px; font-weight: 700; }
+.guide-example { background: #292932; padding: 16px; border-radius: 8px; font-family: monospace; font-size: 14px; }
+scrollbar slider { min-width: 6px; min-height: 6px; }
+.screen-measure { background: #101015; }
+.measure-tools { background: #17171cf5; border: 1px solid #555562; border-radius: 12px; padding: 14px 22px; box-shadow: 0 6px 24px #00000066; }
+
+.settings-shell { border: 1px solid #3a3a43; border-radius: 16px; }
+.settings-heading { padding: 24px 28px 18px; }
+.settings-tabs { padding: 0 24px; border-bottom: 1px solid #303038; }
+.settings-tabs button, .settings-tabs button:checked { background: transparent; background-image: none; border: none; border-bottom: 2px solid transparent; border-radius: 0; box-shadow: none; padding: 12px 16px; margin: 0 4px 0 0; font-weight: 600; min-height: 20px; }
+.settings-tabs button:hover { border-radius: 12px; }
+.settings-tabs button:focus-visible { outline-width: 2px; outline-offset: -5px; outline-style: solid; }
+.settings-shell .editor { padding: 24px 28px; border-radius: 0; }
+.settings-footer { padding: 14px 24px; border-top: 1px solid #303038; }
+.about-page { padding: 24px 28px 40px; }
+.about-title { font-size: 32px; font-weight: 800; letter-spacing: -1px; }
+.about-version { border-radius: 20px; padding: 6px 14px; font-size: 12px; }
+.about-description { margin-top: 12px; font-size: 13px; }
+
+.settings-shell button { border-radius: 12px; }
+.settings-shell .window-mode { border-radius: 16px; }
+.settings-shell .window-mode .item-title { font-weight: 700; }
+
+.workflow-card { padding: 8px; border: 1px solid alpha(currentColor, 0.15); border-radius: 8px; }
+
+.workflow-editor dropdown > button { min-height: 24px; padding: 4px 8px; }
+.workflow-card button { min-height: 24px; padding: 4px 8px; }
+.workflow-editor dropdown > button > box { min-height: 24px; padding: 0; }
+
+.workflow-editor dropdown row { min-height: 20px; padding: 0; margin: 0; }

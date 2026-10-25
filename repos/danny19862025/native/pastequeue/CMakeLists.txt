@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.16)
+project(spotlight_pastequeue LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 17)
+find_package(Qt6 REQUIRED COMPONENTS Gui)
+find_package(KF6GuiAddons REQUIRED)
+add_executable(spotlight-pastequeue main.cpp)
+target_link_libraries(spotlight-pastequeue PRIVATE Qt6::Gui KF6::GuiAddons)

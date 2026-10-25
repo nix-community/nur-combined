@@ -1,0 +1,37 @@
+# Build output
+/target/
+/result
+/examples/plugins/*/plugin.wasm
+
+# Runtime data and private local configuration (never distribute)
+data.json
+data.tmp
+desktop-themes.json
+desktop-themes.tmp
+/quick-notes/
+/scripts/
+/.local/
+/.config/
+/.obsidian/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Generated desktop screenshots can contain personal information
+/preview.png
+/currency-preview.png
+
+# Editor and operating-system files
+*.swp
+__pycache__/
+*~
+.DS_Store
+
+# Distribution packaging outputs
+/dist/
+/packaging/arch/src/
+/packaging/arch/pkg/
+/packaging/arch/spotlight/
+/packaging/arch/*.pkg.tar.*

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Spotlight
+Comment=Search apps, files, clipboard, snippets, and commands
+Exec=spotlight
+Icon=spotlight
+Terminal=false
+Categories=Utility;
+StartupNotify=true
+StartupWMClass=local.spotlight.Spotlight
+X-KDE-Shortcuts=Meta+Space

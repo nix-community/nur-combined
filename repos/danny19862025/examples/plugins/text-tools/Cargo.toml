@@ -1,0 +1,18 @@
+[package]
+name = "spotlight-wasm-text-tools"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+spotlight-plugin = { path = "../../../sdk/rust" }
+
+[profile.release]
+opt-level = "s"
+lto = true
+panic = "abort"
+strip = true

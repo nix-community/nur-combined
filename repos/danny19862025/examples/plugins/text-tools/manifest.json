@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "id": "wasm-text",
+  "name": "Text Tools (WASM)",
+  "description": "Uppercase, lowercase, and character count in a WASM sandbox",
+  "icon": "insert-text-symbolic",
+  "runtime": "wasm",
+  "module": "plugin.wasm",
+  "mode": "search",
+  "timeout_ms": 1500
+}

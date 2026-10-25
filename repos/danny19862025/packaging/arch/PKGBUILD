@@ -1,0 +1,83 @@
+# Maintainer: Danny <danny19862025@users.noreply.github.com>
+pkgname=spotlight
+pkgver=0.4.0
+pkgrel=1
+pkgdesc='A keyboard-first native Linux productivity launcher'
+arch=('x86_64' 'aarch64')
+url='https://github.com/danny19862025/spotlight'
+license=('MIT')
+options=('!debug') # Cargo's release profile already strips this binary.
+depends=('gtk4>=4.10' 'sqlite' 'gcc-libs' 'glibc')
+makedepends=('cargo' 'git' 'pkgconf')
+checkdepends=('ripgrep' 'gzip' 'libvips' 'ffmpeg' 'zbar' 'poppler' 'python' 'curl')
+optdepends=(
+  'python: browser history, local AI, and developer tools'
+  'curl: currency conversion and HTTP tools'
+  'ripgrep: fast file content search'
+  'xdg-utils: open files and URLs'
+  'wl-clipboard: Wayland clipboard tools'
+  'kde-cli-tools: KDE desktop integration'
+  'tesseract: local OCR'
+  'rbw: cached Bitwarden password lookup'
+  'keepassxc: local KeePassXC password lookup'
+  'gnupg: file encryption and decryption'
+  'bind: DNS lookup with dig'
+  'iputils: ping probes'
+  'iproute2: listening ports and routes'
+  'networkmanager: Wi-Fi scan and toggle'
+  'plasma-workspace: wallpaper and accent commands'
+)
+# Pin the upstream release commit; update together with pkgver for each release.
+_commit=42ceb963be1fb37aae3c0ca052814eda78e88e45
+source=("git+$url.git#commit=$_commit")
+sha256sums=('SKIP') # Git source is pinned by its full commit ID.
+
+prepare() {
+  cd "$srcdir/spotlight"
+  export CARGO_TARGET_DIR=target
+  cargo fetch --locked
+}
+
+build() {
+  cd "$srcdir/spotlight"
+  export CARGO_TARGET_DIR=target
+  cargo build --frozen --release
+}
+
+check() {
+  cd "$srcdir/spotlight"
+  export CARGO_TARGET_DIR=target
+  cargo test --frozen --all-targets
+}
+
+package() {
+  cd "$srcdir/spotlight"
+  install -Dm755 target/release/spotlight "$pkgdir/usr/lib/spotlight/spotlight"
+  install -dm755 "$pkgdir/usr/bin"
+  cat > "$pkgdir/usr/bin/spotlight" <<'LAUNCHER'
+#!/bin/sh
+export GSK_RENDERER=cairo
+exec /usr/lib/spotlight/spotlight "$@"
+LAUNCHER
+  chmod 755 "$pkgdir/usr/bin/spotlight"
+  install -Dm644 docs/community-plugins.toml "$pkgdir/usr/lib/spotlight/community-plugins.toml"
+  install -Dm644 assets/spotlight.svg "$pkgdir/usr/share/icons/hicolor/scalable/apps/spotlight.svg"
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  for file in assets/UNICODE-LICENSE.txt assets/QRCODEGEN-LICENSE.txt; do
+    install -Dm644 "$file" "$pkgdir/usr/share/licenses/$pkgname/${file##*/}"
+  done
+  install -dm755 "$pkgdir/usr/share/applications"
+  cat > "$pkgdir/usr/share/applications/spotlight.desktop" <<'DESKTOP'
+[Desktop Entry]
+Type=Application
+Name=Spotlight
+Comment=Search apps, files, clipboard, snippets, and commands
+Exec=spotlight
+Icon=spotlight
+Terminal=false
+Categories=Utility;
+StartupNotify=true
+StartupWMClass=local.spotlight.Spotlight
+X-KDE-Shortcuts=Meta+Space
+DESKTOP
+}

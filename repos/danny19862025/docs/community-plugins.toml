@@ -1,0 +1,15 @@
+# Local catalog. Community entries must implement Spotlight's WASM ABI v1.
+# Use immutable https://github.com/OWNER/REPO/releases/download/TAG/ASSET.wasm
+# URLs and the SHA-256 of that exact module. No server or registry is queried.
+schema_version = 1
+
+[[plugins]]
+id = "wasm-text"
+name = "Text Tools (WASM)"
+version = "0.1.0"
+author = "Spotlight contributors"
+description = "Uppercase, lowercase, and character count. Bundled SDK example; available offline."
+source = "https://github.com/danny19862025/spotlight/tree/main/examples/plugins/text-tools"
+artifact = "bundled:text-tools"
+sha256 = "327e7d3746aadc4fbcbdbbdb3461aebdd89f395798767d746111459a527987ad"
+mode = "search"

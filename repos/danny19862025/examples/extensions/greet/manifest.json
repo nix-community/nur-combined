@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "id": "greet",
+  "name": "Greeting",
+  "description": "Create and copy a greeting",
+  "icon": "face-smile-symbolic",
+  "command": ["python3", "main.py"],
+  "mode": "command",
+  "args": [{"name": "name", "required": true, "placeholder": "Your name"}],
+  "timeout_ms": 5000
+}

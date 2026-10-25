@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Spotlight Extension Manifest v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "name"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{1,64}$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160
+    },
+    "description": {
+      "type": "string",
+      "maxLength": 1024,
+      "default": ""
+    },
+    "icon": {
+      "type": "string",
+      "default": "utilities-terminal-symbolic"
+    },
+    "command": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 32,
+      "items": {
+        "type": "string",
+        "maxLength": 4096
+      }
+    },
+    "mode": {
+      "enum": [
+        "command",
+        "search"
+      ],
+      "default": "command"
+    },
+    "timeout_ms": {
+      "type": "integer",
+      "minimum": 100,
+      "maximum": 30000,
+      "default": 5000
+    },
+    "args": {
+      "type": "array",
+      "maxItems": 16,
+      "default": [],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "placeholder": {
+            "type": "string",
+            "maxLength": 160,
+            "default": ""
+          },
+          "required": {
+            "type": "boolean",
+            "default": false
+          },
+          "default": {
+            "type": "string",
+            "maxLength": 4096,
+            "default": ""
+          }
+        }
+      }
+    },
+    "runtime": {
+      "enum": [
+        "process",
+        "wasm"
+      ],
+      "default": "process"
+    },
+    "module": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "runtime": {
+            "const": "wasm"
+          }
+        },
+        "required": [
+          "runtime"
+        ]
+      },
+      "then": {
+        "required": [
+          "module"
+        ],
+        "properties": {
+          "command": {
+            "maxItems": 0
+          }
+        }
+      },
+      "else": {
+        "required": [
+          "command"
+        ],
+        "properties": {
+          "module": false
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "id": "live-demo",
+  "name": "Streaming Demo",
+  "description": "Two local results delivered asynchronously",
+  "icon": "system-search-symbolic",
+  "command": ["python3", "main.py"],
+  "mode": "search",
+  "timeout_ms": 5000
+}

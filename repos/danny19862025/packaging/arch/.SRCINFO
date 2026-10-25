@@ -1,0 +1,43 @@
+pkgbase = spotlight
+	pkgdesc = A keyboard-first native Linux productivity launcher
+	pkgver = 0.4.0
+	pkgrel = 1
+	url = https://github.com/danny19862025/spotlight
+	arch = x86_64
+	arch = aarch64
+	license = MIT
+	checkdepends = ripgrep
+	checkdepends = gzip
+	checkdepends = libvips
+	checkdepends = ffmpeg
+	checkdepends = zbar
+	checkdepends = poppler
+	checkdepends = python
+	checkdepends = curl
+	makedepends = cargo
+	makedepends = git
+	makedepends = pkgconf
+	depends = gtk4>=4.10
+	depends = sqlite
+	depends = gcc-libs
+	depends = glibc
+	optdepends = python: browser history, local AI, and developer tools
+	optdepends = curl: currency conversion and HTTP tools
+	optdepends = ripgrep: fast file content search
+	optdepends = xdg-utils: open files and URLs
+	optdepends = wl-clipboard: Wayland clipboard tools
+	optdepends = kde-cli-tools: KDE desktop integration
+	optdepends = tesseract: local OCR
+	optdepends = rbw: cached Bitwarden password lookup
+	optdepends = keepassxc: local KeePassXC password lookup
+	optdepends = gnupg: file encryption and decryption
+	optdepends = bind: DNS lookup with dig
+	optdepends = iputils: ping probes
+	optdepends = iproute2: listening ports and routes
+	optdepends = networkmanager: Wi-Fi scan and toggle
+	optdepends = plasma-workspace: wallpaper and accent commands
+	options = !debug
+	source = git+https://github.com/danny19862025/spotlight.git#commit=42ceb963be1fb37aae3c0ca052814eda78e88e45
+	sha256sums = SKIP
+
+pkgname = spotlight
