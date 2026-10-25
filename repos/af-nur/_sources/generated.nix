@@ -66,18 +66,18 @@
   };
   chatgpt-aarch64 = {
     pname = "chatgpt-aarch64";
-    version = "26.1013.40934";
+    version = "26.1021.22027";
     src = fetchurl {
-      url = "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_26.1013.40934_arm64.deb";
-      sha256 = "sha256-mrLLuvM86+qh4G61yreBKJNvknoNl78A5AaU5fMcYps=";
+      url = "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_26.1021.22027_arm64.deb";
+      sha256 = "sha256-aN4exEBmhx5Bd7ocp5Pr7muiODl/E8eU5FsUlBwSYfs=";
     };
   };
   chatgpt-x86_64 = {
     pname = "chatgpt-x86_64";
-    version = "26.1013.40934";
+    version = "26.1021.22027";
     src = fetchurl {
-      url = "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_26.1013.40934_amd64.deb";
-      sha256 = "sha256-PKWef5pmQbni+5rWgGg3hLWrgCb/dBj7ISoOvl3zodc=";
+      url = "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_26.1021.22027_amd64.deb";
+      sha256 = "sha256-6wgxxzTxVPk/jrzw4X0RjaDep9wXN9xhoecURDdb8ZA=";
     };
   };
   classin-aarch64 = {
@@ -142,32 +142,32 @@
   };
   pixivbiu = {
     pname = "pixivbiu";
-    version = "v3.1.5";
+    version = "v3.1.6";
     src = fetchFromGitHub {
       owner = "txperl";
       repo = "PixivBiu";
-      rev = "v3.1.5";
+      rev = "v3.1.6";
       fetchSubmodules = false;
-      sha256 = "sha256-cFTsC2nnII7nAAp2Ny8piVFnajxSzmruG/cvk29vmI0=";
+      sha256 = "sha256-3C/xzLO/YgEIncA9jkkCXhA9wml6WN9RIkqpD6KApao=";
     };
     extract = {
-      "frontend/bun.lock" = ./. + "/sha256-cFTsC2nnII7nAAp2Ny8piVFnajxSzmruG_cvk29vmI0=/frontend/bun.lock";
+      "frontend/bun.lock" = ./. + "/sha256-3C_xzLO_YgEIncA9jkkCXhA9wml6WN9RIkqpD6KApao=/frontend/bun.lock";
     };
   };
   pixivbiu-bin-aarch64 = {
     pname = "pixivbiu-bin-aarch64";
-    version = "3.1.5";
+    version = "3.1.6";
     src = fetchurl {
-      url = "https://github.com/txperl/PixivBiu/releases/download/v3.1.5/PixivBiu_3.1.5_linux_arm64.tar.gz";
-      sha256 = "sha256-J13RpyH/eOt53pnSoo0shBFWxO2mqmbdUOkOyiyMMEM=";
+      url = "https://github.com/txperl/PixivBiu/releases/download/v3.1.6/PixivBiu_3.1.6_linux_arm64.tar.gz";
+      sha256 = "sha256-H0ONXsejincs+EGiLyQUF3xe8/LIReJe8VAyiJdg/kk=";
     };
   };
   pixivbiu-bin-x86_64 = {
     pname = "pixivbiu-bin-x86_64";
-    version = "3.1.5";
+    version = "3.1.6";
     src = fetchurl {
-      url = "https://github.com/txperl/PixivBiu/releases/download/v3.1.5/PixivBiu_3.1.5_linux_amd64.tar.gz";
-      sha256 = "sha256-I1Kt1yzyKCbDWGAAa6VNaG67jr0tqgwv5PbjlvdXgow=";
+      url = "https://github.com/txperl/PixivBiu/releases/download/v3.1.6/PixivBiu_3.1.6_linux_amd64.tar.gz";
+      sha256 = "sha256-1IEdp3klgKRBNtOIOystgVi2PeeRRj5zHK9z+HNQC90=";
     };
   };
   qq-aarch64 = {
@@ -180,22 +180,22 @@
   };
   qq-wayland-fix = {
     pname = "qq-wayland-fix";
-    version = "c86286f5c78cd86ed9d9a280b43e91c8f5670af4";
+    version = "56a13c678b1637d25e656aa92f1a718deda11017";
     src = fetchFromGitHub {
       owner = "SHORiN-KiWATA";
       repo = "linuxqq-wayland-fix";
-      rev = "c86286f5c78cd86ed9d9a280b43e91c8f5670af4";
+      rev = "56a13c678b1637d25e656aa92f1a718deda11017";
       fetchSubmodules = false;
-      sha256 = "sha256-D/gu8ZZz8hmpvybrYdPNNmOFHsNCaZiMQe5X8gPPQXI=";
+      sha256 = "sha256-uxTwR3P0DejaLGiB/O+5AfsMHlFWbOIrW3WJFVlQL+E=";
     };
-    date = "2026-10-11";
+    date = "2026-10-23";
   };
   qq-wayland-fix-bin-x86_64 = {
     pname = "qq-wayland-fix-bin-x86_64";
-    version = "0.2.21";
+    version = "0.2.24";
     src = fetchurl {
-      url = "https://github.com/SHORiN-KiWATA/linuxqq-wayland-fix/releases/download/v0.2.21/linuxqq-wayland-fix_0.2.21-1.debian12_amd64.deb";
-      sha256 = "sha256-A5YjcrZumUpORt54orNt15f3jT7mNnxLDvGxpKCACek=";
+      url = "https://github.com/SHORiN-KiWATA/linuxqq-wayland-fix/releases/download/v0.2.24/linuxqq-wayland-fix_0.2.24-1.debian12_amd64.deb";
+      sha256 = "sha256-MhP51u1Q5S3U9CbKhJWBCwUOZqrKYzSII9AsB2U2UyQ=";
     };
   };
   qq-x86_64 = {

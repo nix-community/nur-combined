@@ -105,11 +105,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-mrLLuvM86+qh4G61yreBKJNvknoNl78A5AaU5fMcYps=",
+            "sha256": "sha256-aN4exEBmhx5Bd7ocp5Pr7muiODl/E8eU5FsUlBwSYfs=",
             "type": "url",
-            "url": "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_26.1013.40934_arm64.deb"
+            "url": "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_26.1021.22027_arm64.deb"
         },
-        "version": "26.1013.40934"
+        "version": "26.1021.22027"
     },
     "chatgpt-x86_64": {
         "cargoLock": null,
@@ -120,11 +120,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-PKWef5pmQbni+5rWgGg3hLWrgCb/dBj7ISoOvl3zodc=",
+            "sha256": "sha256-6wgxxzTxVPk/jrzw4X0RjaDep9wXN9xhoecURDdb8ZA=",
             "type": "url",
-            "url": "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_26.1013.40934_amd64.deb"
+            "url": "https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_26.1021.22027_amd64.deb"
         },
-        "version": "26.1013.40934"
+        "version": "26.1021.22027"
     },
     "classin-aarch64": {
         "cargoLock": null,
@@ -230,7 +230,7 @@
         "cargoLock": null,
         "date": null,
         "extract": {
-            "frontend/bun.lock": "sha256-cFTsC2nnII7nAAp2Ny8piVFnajxSzmruG_cvk29vmI0=/frontend/bun.lock"
+            "frontend/bun.lock": "sha256-3C_xzLO_YgEIncA9jkkCXhA9wml6WN9RIkqpD6KApao=/frontend/bun.lock"
         },
         "name": "pixivbiu",
         "passthru": null,
@@ -242,12 +242,12 @@
             "name": null,
             "owner": "txperl",
             "repo": "PixivBiu",
-            "rev": "v3.1.5",
-            "sha256": "sha256-cFTsC2nnII7nAAp2Ny8piVFnajxSzmruG/cvk29vmI0=",
+            "rev": "v3.1.6",
+            "sha256": "sha256-3C/xzLO/YgEIncA9jkkCXhA9wml6WN9RIkqpD6KApao=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.1.5"
+        "version": "v3.1.6"
     },
     "pixivbiu-bin-aarch64": {
         "cargoLock": null,
@@ -258,11 +258,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-J13RpyH/eOt53pnSoo0shBFWxO2mqmbdUOkOyiyMMEM=",
+            "sha256": "sha256-H0ONXsejincs+EGiLyQUF3xe8/LIReJe8VAyiJdg/kk=",
             "type": "url",
-            "url": "https://github.com/txperl/PixivBiu/releases/download/v3.1.5/PixivBiu_3.1.5_linux_arm64.tar.gz"
+            "url": "https://github.com/txperl/PixivBiu/releases/download/v3.1.6/PixivBiu_3.1.6_linux_arm64.tar.gz"
         },
-        "version": "3.1.5"
+        "version": "3.1.6"
     },
     "pixivbiu-bin-x86_64": {
         "cargoLock": null,
@@ -273,11 +273,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-I1Kt1yzyKCbDWGAAa6VNaG67jr0tqgwv5PbjlvdXgow=",
+            "sha256": "sha256-1IEdp3klgKRBNtOIOystgVi2PeeRRj5zHK9z+HNQC90=",
             "type": "url",
-            "url": "https://github.com/txperl/PixivBiu/releases/download/v3.1.5/PixivBiu_3.1.5_linux_amd64.tar.gz"
+            "url": "https://github.com/txperl/PixivBiu/releases/download/v3.1.6/PixivBiu_3.1.6_linux_amd64.tar.gz"
         },
-        "version": "3.1.5"
+        "version": "3.1.6"
     },
     "qq-aarch64": {
         "cargoLock": null,
@@ -296,7 +296,7 @@
     },
     "qq-wayland-fix": {
         "cargoLock": null,
-        "date": "2026-10-11",
+        "date": "2026-10-23",
         "extract": null,
         "name": "qq-wayland-fix",
         "passthru": null,
@@ -308,12 +308,12 @@
             "name": null,
             "owner": "SHORiN-KiWATA",
             "repo": "linuxqq-wayland-fix",
-            "rev": "c86286f5c78cd86ed9d9a280b43e91c8f5670af4",
-            "sha256": "sha256-D/gu8ZZz8hmpvybrYdPNNmOFHsNCaZiMQe5X8gPPQXI=",
+            "rev": "56a13c678b1637d25e656aa92f1a718deda11017",
+            "sha256": "sha256-uxTwR3P0DejaLGiB/O+5AfsMHlFWbOIrW3WJFVlQL+E=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c86286f5c78cd86ed9d9a280b43e91c8f5670af4"
+        "version": "56a13c678b1637d25e656aa92f1a718deda11017"
     },
     "qq-wayland-fix-bin-x86_64": {
         "cargoLock": null,
@@ -324,11 +324,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-A5YjcrZumUpORt54orNt15f3jT7mNnxLDvGxpKCACek=",
+            "sha256": "sha256-MhP51u1Q5S3U9CbKhJWBCwUOZqrKYzSII9AsB2U2UyQ=",
             "type": "url",
-            "url": "https://github.com/SHORiN-KiWATA/linuxqq-wayland-fix/releases/download/v0.2.21/linuxqq-wayland-fix_0.2.21-1.debian12_amd64.deb"
+            "url": "https://github.com/SHORiN-KiWATA/linuxqq-wayland-fix/releases/download/v0.2.24/linuxqq-wayland-fix_0.2.24-1.debian12_amd64.deb"
         },
-        "version": "0.2.21"
+        "version": "0.2.24"
     },
     "qq-x86_64": {
         "cargoLock": null,
