@@ -13,7 +13,7 @@ dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 nixfile="$dir/default.nix"
 
 fake_src="sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
-fake_deps="sha256-BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB="
+fake_deps="sha256-BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBA="
 
 old_version=$(sed -nE 's/^  version = "(.*)";$/\1/p' "$nixfile")
 

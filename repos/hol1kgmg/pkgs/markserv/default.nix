@@ -6,12 +6,12 @@
 
 buildNpmPackage rec {
   pname = "markserv";
-  version = "1.17.4";
+  version = "1.21.1";
 
   # Upstream publishes no git tags, so the npm tarball is the source.
   src = fetchzip {
     url = "https://registry.npmjs.org/markserv/-/markserv-${version}.tgz";
-    hash = "sha256-mbYwuyTKmtgxceyBBY0iBDn0B75yex1E6mbsCxOjA1Q=";
+    hash = "sha256-PtYI6Bhtj8+457wYYO/Df9HSMxHZPePgLsW7mqPMQbc=";
   };
 
   # ...and it ships no lockfile either.
@@ -19,7 +19,7 @@ buildNpmPackage rec {
     cp ${./package-lock.json} package-lock.json
   '';
 
-  npmDepsHash = "sha256-A7xJPnCYow06rsZ42/16etfGEuM0/auvOwpw/z1AQK4=";
+  npmDepsHash = "sha256-mR73l1TICJAJ90PLkrJYalROaD4qN2/DE7d2v4R5ClU=";
 
   dontNpmBuild = true;
 
