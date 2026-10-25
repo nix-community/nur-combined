@@ -36,6 +36,7 @@
 , openssl
 , pango
 , systemd
+, tpm2-tss
 , xdg-utils
 , bubblewrap
 }:
@@ -58,7 +59,7 @@ stdenv.mkDerivation (finalAttrs: {
     alsa-lib at-spi2-atk at-spi2-core atk cairo cups dbus expat
     fontconfig freetype gdk-pixbuf glib gtk3 libdrm libnotify libGL
     libusb1 libx11 libxcb libxcomposite libxdamage libxext libxfixes
-    libxkbcommon libxrandr mesa nspr nss openssl pango systemd
+    libxkbcommon libxrandr mesa nspr nss openssl pango systemd tpm2-tss
   ];
 
   unpackPhase = "dpkg-deb -x $src .";

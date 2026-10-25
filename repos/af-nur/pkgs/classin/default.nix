@@ -20,6 +20,7 @@
 , keyutils
 , libGL
 , libdrm
+, libgpg-error
 , libice
 , libkrb5
 , libselinux
@@ -73,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     stdenv.cc.cc.lib
     alsa-lib at-spi2-atk at-spi2-core atk cairo cups dbus e2fsprogs expat
-    fontconfig freetype glib keyutils libGL libdrm libice libkrb5 libselinux
+    fontconfig freetype glib keyutils libGL libdrm libgpg-error libice libkrb5 libselinux
     libsm libuuid libx11 libxcb libxcomposite libxcursor libxdamage libxext
     libxfixes libxi libxinerama libxkbcommon libxrandr libxrender libxscrnsaver
     libxtst mesa nspr nss pango pcre pipewire pixman pulseaudio systemd util-linux
