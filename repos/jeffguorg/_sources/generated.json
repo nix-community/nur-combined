@@ -319,11 +319,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-IUSzF9DCWuTSaI8e8sc7wsleEhCFrFl30AQH3NKxM24=",
+            "sha256": "sha256-iAAvzIOlEzpb/awk8yudt4bTNaijBGgh1XZz31fzLYs=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@deepseek-harness-tui/dsh-tui/-/dsh-tui-0.16.1.tgz"
+            "url": "https://registry.npmjs.org/@deepseek-harness-tui/dsh-tui/-/dsh-tui-0.17.0.tgz"
         },
-        "version": "0.16.1"
+        "version": "0.17.0"
     },
     "garble": {
         "cargoLock": null,
