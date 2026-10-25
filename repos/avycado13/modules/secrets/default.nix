@@ -1,4 +1,4 @@
-{ config, ... }:
+{ ... }:
 {
   sops.defaultSopsFile = ../../secrets/secrets.yaml;
   sops.age = {
