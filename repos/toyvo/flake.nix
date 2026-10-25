@@ -136,162 +136,84 @@
           darwinConfigurations = configurations.darwinConfigurations;
           homeConfigurations = configurations.homeConfigurations;
 
-          deploy.nodes = {
-            HP-Envy = {
-              hostname = "HP-Envy";
-              profiles.system = {
-                user = "toyvo";
-                path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.HP-Envy;
+          # Deploy nodes are generated from `configurations`: every
+          # nixos/darwin config becomes a node with inferred type, system,
+          # hostname, and user. Standalone home-manager machines and other
+          # exceptions live in `deployOverrides` below, which wins over the
+          # generated set. Adding a standard host to
+          # `configurations/default.nix` is enough to make it deployable.
+          deploy.nodes =
+            let
+              configsFor =
+                type:
+                if type == "nixos" then
+                  configurations.nixosConfigurations
+                else if type == "darwin" then
+                  configurations.darwinConfigurations
+                else
+                  configurations.homeConfigurations;
+              configsAttr =
+                type:
+                if type == "nixos" then
+                  "nixosConfigurations"
+                else if type == "darwin" then
+                  "darwinConfigurations"
+                else
+                  "homeConfigurations";
+              mkNode =
+                {
+                  type,
+                  system,
+                  config,
+                  hostname,
+                  user,
+                }:
+                {
+                  inherit hostname;
+                  profiles.system = {
+                    inherit user;
+                    path = deploy-rs.lib.${system}.activate.${type} self.${configsAttr type}.${config};
+                  };
+                };
+              autoNodes =
+                type:
+                builtins.mapAttrs (
+                  name: _:
+                  mkNode {
+                    inherit type;
+                    system = configurations.${configsAttr type}.${name}.pkgs.stdenv.hostPlatform.system;
+                    config = name;
+                    hostname = name;
+                    user = "toyvo";
+                  }
+                ) (configsFor type);
+              deployOverrides = {
+                pixel10a = mkNode {
+                  type = "home-manager";
+                  system = "aarch64-linux";
+                  config = "droid@debian";
+                  hostname = "debian";
+                  user = "droid";
+                };
+                # Deploys the pixel10a NixOS config under a distinct node
+                # name (pixel10a itself is the home-manager node above).
+                pixel10a-nixos = mkNode {
+                  type = "nixos";
+                  system = configurations.nixosConfigurations.pixel10a.pkgs.stdenv.hostPlatform.system;
+                  config = "pixel10a";
+                  hostname = "pixel10a";
+                  user = "toyvo";
+                };
+                steamdeck = mkNode {
+                  type = "home-manager";
+                  system = "x86_64-linux";
+                  config = "deck@steamdeck";
+                  hostname = "steamdeck";
+                  user = "deck";
+                };
               };
-            };
-            HP-ZBook = {
-              hostname = "HP-ZBook";
-              profiles.system = {
-                user = "toyvo";
-                path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.HP-ZBook;
-              };
-            };
-            MacBook-Pro = {
-              hostname = "MacBook-Pro";
-              profiles.system = {
-                user = "toyvo";
-                path = deploy-rs.lib.aarch64-darwin.activate.darwin self.darwinConfigurations.MacBook-Pro;
-              };
-            };
-            MacMini-M1 = {
-              hostname = "MacMini-M1";
-              profiles.system = {
-                user = "toyvo";
-                path = deploy-rs.lib.aarch64-darwin.activate.darwin self.darwinConfigurations.MacMini-M1;
-              };
-            };
-            MacMini-Intel-NixOS = {
-              hostname = "MacMini-Intel-NixOS";
-              profiles.system = {
-                user = "toyvo";
-                path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.MacMini-Intel-NixOS;
-              };
-            };
-            MacBook-Pro-NixOS = {
-              hostname = "MacBook-Pro-NixOS";
-              profiles.system = {
-                user = "toyvo";
-                path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.MacBook-Pro-NixOS;
-              };
-            };
-            nas = {
-              hostname = "nas";
-              profiles.system = {
-                user = "toyvo";
-                path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.nas;
-              };
-            };
-            oracle-cloud-nixos = {
-              hostname = "oracle-cloud-nixos";
-              profiles.system = {
-                user = "toyvo";
-                path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.oracle-cloud-nixos;
-              };
-            };
-            PineBook-Pro = {
-              hostname = "PineBook-Pro";
-              profiles.system = {
-                user = "toyvo";
-                path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.PineBook-Pro;
-              };
-            };
-            pixel10a = {
-              hostname = "debian";
-              profiles.system = {
-                user = "droid";
-                path = deploy-rs.lib.aarch64-linux.activate.home-manager self.homeConfigurations."droid@debian";
-              };
-            };
-            pixel10a-nixos = {
-              hostname = "pixel10a";
-              profiles.system = {
-                user = "toyvo";
-                path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.pixel10a;
-              };
-            };
-            Protectli = {
-              hostname = "Protectli";
-              profiles.system = {
-                user = "toyvo";
-                path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.Protectli;
-              };
-            };
-            router = {
-              hostname = "router";
-              profiles.system = {
-                user = "toyvo";
-                path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.router;
-              };
-            };
-            rpi4b4a = {
-              hostname = "rpi4b4a";
-              profiles.system = {
-                user = "toyvo";
-                path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi4b4a;
-              };
-            };
-            rpi4b8a = {
-              hostname = "rpi4b8a";
-              profiles.system = {
-                user = "toyvo";
-                path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi4b8a;
-              };
-            };
-            rpi4b8b = {
-              hostname = "rpi4b8b";
-              profiles.system = {
-                user = "toyvo";
-                path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi4b8b;
-              };
-            };
-            rpi4b8c = {
-              hostname = "rpi4b8c";
-              profiles.system = {
-                user = "toyvo";
-                path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi4b8c;
-              };
-            };
-            steamdeck = {
-              hostname = "steamdeck";
-              profiles.system = {
-                user = "deck";
-                path = deploy-rs.lib.x86_64-linux.activate.home-manager self.homeConfigurations."deck@steamdeck";
-              };
-            };
-            steamdeck-nixos = {
-              hostname = "steamdeck-nixos";
-              profiles.system = {
-                user = "toyvo";
-                path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.steamdeck-nixos;
-              };
-            };
-            Thinkpad = {
-              hostname = "Thinkpad";
-              profiles.system = {
-                user = "toyvo";
-                path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.Thinkpad;
-              };
-            };
-            utm = {
-              hostname = "utm";
-              profiles.system = {
-                user = "toyvo";
-                path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.utm;
-              };
-            };
-            wsl = {
-              hostname = "wsl";
-              profiles.system = {
-                user = "toyvo";
-                path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.wsl;
-              };
-            };
-          };
+            in
+            autoNodes "nixos" // autoNodes "darwin" // deployOverrides;
         };
         systems = nixos-unstable.lib.systems.flakeExposed;
         imports = [
@@ -359,36 +281,59 @@
             };
 
             checks =
-              builtins.listToAttrs (
-                builtins.concatMap (
-                  { path, drv }:
-                  map
-                    (
-                      o:
-                      lib.nameValuePair "${lib.concatStringsSep "-" path}${
-                        lib.optionalString (o != "out") "-${o}"
-                      }" drv.${o}
-                    )
-                    (
-                      builtins.filter (
+              let
+                pkgChecks = builtins.listToAttrs (
+                  builtins.concatMap (
+                    { path, drv }:
+                    map
+                      (
                         o:
-                        let
-                          p = drv.${o};
-                        in
-                        self.lib.isBuildable p && self.lib.isCacheable p && self.lib.forSystem system p
-                      ) drv.outputs
-                    )
-                ) (self.lib.flattenPkgsWithPaths self'.packages)
-              )
-              // lib.mapAttrs' (n: lib.nameValuePair "devShells-${n}") (
-                lib.filterAttrs (n: v: self.lib.isCacheable v) self'.devShells
-              )
-              // (deploy-rs-checks.${system} or { })
+                        lib.nameValuePair "${lib.concatStringsSep "-" path}${
+                          lib.optionalString (o != "out") "-${o}"
+                        }" drv.${o}
+                      )
+                      (
+                        builtins.filter (
+                          o:
+                          let
+                            p = drv.${o};
+                          in
+                          self.lib.isBuildable p && self.lib.isCacheable p && self.lib.forSystem system p
+                        ) drv.outputs
+                      )
+                  ) (self.lib.flattenPkgsWithPaths self'.packages)
+                );
+                extraChecks =
+                  lib.mapAttrs' (n: lib.nameValuePair "devShells-${n}") (
+                    lib.filterAttrs (n: v: self.lib.isCacheable v) self'.devShells
+                  )
+                  // (deploy-rs-checks.${system} or { });
+                allChecks = pkgChecks // extraChecks;
+                # Round-robin partition over sorted names so version bombs
+                # (e.g. 150 MC-server derivations) spread evenly. Each shard
+                # is built by a separate `nix build` in CI, so no single
+                # process ever evaluates the whole closure (the OOM killer
+                # that took the nas runner at ~19 GB RSS).
+                sortedNames = builtins.sort builtins.lessThan (builtins.attrNames allChecks);
+                shardNames =
+                  k:
+                  builtins.concatLists (
+                    builtins.genList (
+                      i: if i - 4 * builtins.div i 4 == k then [ (builtins.elemAt sortedNames i) ] else [ ]
+                    ) (builtins.length sortedNames)
+                  );
+                mkShard =
+                  k:
+                  pkgs.runCommand "checks-all-shard-${toString (k + 1)}" {
+                    buildInputs = map (n: allChecks.${n}) (shardNames k);
+                  } "touch $out";
+              in
+              allChecks
               // {
-                # Aggregate of every check. Excludes itself by name to avoid infinite recursion.
-                all = pkgs.runCommand "checks-all" {
-                  buildInputs = builtins.attrValues (builtins.removeAttrs config.checks [ "all" ]);
-                } "touch $out";
+                all-shard-1 = mkShard 0;
+                all-shard-2 = mkShard 1;
+                all-shard-3 = mkShard 2;
+                all-shard-4 = mkShard 3;
               };
           };
       }

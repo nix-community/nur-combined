@@ -141,7 +141,11 @@ jobs:
   build:
     needs: update
     runs-on: native
-    # This builds .#checks.<system>.all with -j 1 and routinely takes ~3h.
+    # Sharded build: each `nix build` below evaluates only what it builds
+    # (one host toplevel or one package slice), so no single process ever
+    # holds the whole flake in memory. The old `nix flake show` /
+    # `nix flake check -j 1` / `checks.<system>.all` monolith OOM-killed the
+    # runner at ~19 GB RSS. Total work is unchanged, just sequenced.
     # Set an explicit 4h job timeout so the Forgejo default (which would
     # cancel the job with "ctx: context canceled") can't kill it early,
     # with ~1h padding over the expected runtime.
@@ -155,12 +159,44 @@ jobs:
           ref: ${{ needs.update.outputs.branch }}
       - name: Show nixpkgs version
         run: nix-instantiate --eval -E '(builtins.getFlake (builtins.toString ./.)).inputs.nixos-unstable.lib.version'
-      - name: Show evaluation
-        run: nix flake show
-      - name: Check evaluation
-        run: nix flake check -j 1
-      - name: Build nix packages
-        run: nix build -j 1 -L ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem).all"
+      - name: Build toplevels (x86 group 1)
+        run: |
+          nix build -j 1 -L .#nixosConfigurations.HP-Envy.config.system.build.toplevel --no-link
+          nix build -j 1 -L .#nixosConfigurations.HP-ZBook.config.system.build.toplevel --no-link
+          nix build -j 1 -L .#nixosConfigurations.MacMini-Intel-NixOS.config.system.build.toplevel --no-link
+      - name: Build toplevels (x86 group 2)
+        run: |
+          nix build -j 1 -L .#nixosConfigurations.nas.config.system.build.toplevel --no-link
+          nix build -j 1 -L .#nixosConfigurations.Protectli.config.system.build.toplevel --no-link
+          nix build -j 1 -L .#nixosConfigurations.router.config.system.build.toplevel --no-link
+      - name: Build toplevels (x86 group 3)
+        run: |
+          nix build -j 1 -L .#nixosConfigurations.steamdeck-nixos.config.system.build.toplevel --no-link
+          nix build -j 1 -L .#nixosConfigurations.Thinkpad.config.system.build.toplevel --no-link
+          nix build -j 1 -L .#nixosConfigurations.wsl.config.system.build.toplevel --no-link
+      - name: Build toplevels (aarch64 group 1, via binfmt)
+        run: |
+          nix build -j 1 -L .#nixosConfigurations.MacBook-Pro-NixOS.config.system.build.toplevel --no-link
+          nix build -j 1 -L .#nixosConfigurations.PineBook-Pro.config.system.build.toplevel --no-link
+          nix build -j 1 -L .#nixosConfigurations.oracle-cloud-nixos.config.system.build.toplevel --no-link
+      - name: Build toplevels (aarch64 group 2, via binfmt)
+        run: |
+          nix build -j 1 -L .#nixosConfigurations.pixel10a.config.system.build.toplevel --no-link
+          nix build -j 1 -L .#nixosConfigurations.rpi4b4a.config.system.build.toplevel --no-link
+          nix build -j 1 -L .#nixosConfigurations.rpi4b8a.config.system.build.toplevel --no-link
+      - name: Build toplevels (aarch64 group 3, via binfmt)
+        run: |
+          nix build -j 1 -L .#nixosConfigurations.rpi4b8b.config.system.build.toplevel --no-link
+          nix build -j 1 -L .#nixosConfigurations.rpi4b8c.config.system.build.toplevel --no-link
+          nix build -j 1 -L .#nixosConfigurations.utm.config.system.build.toplevel --no-link
+      - name: Build package shard 1
+        run: nix build -j 1 -L ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem).all-shard-1"
+      - name: Build package shard 2
+        run: nix build -j 1 -L ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem).all-shard-2"
+      - name: Build package shard 3
+        run: nix build -j 1 -L ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem).all-shard-3"
+      - name: Build package shard 4
+        run: nix build -j 1 -L ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem).all-shard-4"
   merge:
     needs:
       - update

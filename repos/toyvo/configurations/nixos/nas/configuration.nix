@@ -278,6 +278,13 @@ in
   # kept outside the 01:00-05:00 reboot window for that.)
   systemd.services.forgejo-runner-nas.restartIfChanged = false;
 
+  # Cap runner memory so a future blowup fails the job instead of letting
+  # the kernel OOM-kill the whole unit and starve postgres/forgejo (seen
+  # 2026-10-25: 18 GB mem + 12 GB swap peak). Headroom above the ~19 GB
+  # single-evaluation peak on a 31 GB + 15 GB-zram box.
+  systemd.services.forgejo-runner-nas.serviceConfig.MemoryHigh = "26G";
+  systemd.services.forgejo-runner-nas.serviceConfig.MemoryMax = "28G";
+
   # The new forgejo-runner module manages the .runner credentials file
   # itself from settings+secrets (DynamicUser, no registration step), so the
   # old ExecStartPre renderer is gone. If the runner is ever recreated in the
