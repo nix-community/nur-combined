@@ -31,6 +31,10 @@ let
     ps.psutil
     ps.packaging
   ]);
+  runtimePython = python3.withPackages (ps: [
+    ps.textual
+    ps.truststore
+  ]);
   hydrateScript = ''
     dest="''${XDG_DATA_HOME:-''$HOME/.local/share}/strata"
     ${lib.getExe pythonEnv} "${placeholder "out"}/libexec/strata/hydrate.py" \
@@ -172,11 +176,11 @@ symlinkJoin {
   postBuild = ''
     for program in strata strata-chat; do
       wrapProgram "$out/bin/$program" \
-        --prefix PYTHONPATH : "${python3.pkgs.truststore}/${python3.sitePackages}"
+        --prefix PYTHONPATH : "${runtimePython}/${python3.sitePackages}"
     done
-    PYTHONPATH="${python3.pkgs.truststore}/${python3.sitePackages}:$out/share/strata" \
+    STRATA_NO_ACQUIRE=1 PYTHONPATH="${runtimePython}/${python3.sitePackages}:$out/share/strata" \
       ${lib.getExe pythonEnv} -c \
-      'import setup; setup.pip_install(setup.requirement_lines(), "runtime dependencies")'
+      'import setup; setup.pip_install(setup.runtime_packages(), "runtime dependencies"); import strata_cli.monitor'
   '';
 
   inherit (unwrapped) src meta;
