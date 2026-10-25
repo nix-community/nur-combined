@@ -186,10 +186,30 @@ in
                     memory = "512Mi";
                   };
                 };
+                # RUNTIME: mount the four files individually, not the whole
+                # directory. The ConfigMap volume is read-only and homepage
+                # mkdirs /app/config/logs at runtime (EROFS → HTTP 500).
+                # File mounts leave the image's own /app/config writable.
                 volumeMounts = [
                   {
                     name = "config";
-                    mountPath = "/app/config";
+                    mountPath = "/app/config/settings.yaml";
+                    subPath = "settings.yaml";
+                  }
+                  {
+                    name = "config";
+                    mountPath = "/app/config/bookmarks.yaml";
+                    subPath = "bookmarks.yaml";
+                  }
+                  {
+                    name = "config";
+                    mountPath = "/app/config/services.yaml";
+                    subPath = "services.yaml";
+                  }
+                  {
+                    name = "config";
+                    mountPath = "/app/config/widgets.yaml";
+                    subPath = "widgets.yaml";
                   }
                 ];
               }

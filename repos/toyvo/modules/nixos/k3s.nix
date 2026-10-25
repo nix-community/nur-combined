@@ -47,7 +47,16 @@ in
 
     disable = lib.mkOption {
       type = lib.types.listOf lib.types.str;
-      default = [ "traefik" ];
+      # servicelb (klipper-lb) stays off: no LoadBalancer services, no :80/:443
+      # binds on nodes — Caddy on the router owns the edge. NOTE: packaged
+      # disable flags must be identical on ALL servers; a single server with
+      # a component enabled deletes the shared Addon cluster-wide (observed
+      # with traefik). Keep this default uniform; override per-host only to
+      # disable MORE, never less.
+      default = [
+        "traefik"
+        "servicelb"
+      ];
       description = "Disable default k3s components (traefik stays off unless traefik.enable; router Caddy owns the edge).";
     };
 

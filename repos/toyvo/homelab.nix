@@ -56,6 +56,12 @@
       homepage = {
         port = 8082;
         subdomain = "@";
+        # Served from k3s via Traefik (plan step: flip). Caddy fails over
+        # across both servers; port kept as fallback documentation.
+        upstreams = [
+          "10.1.0.3:30080"
+          "10.1.0.12:30080"
+        ];
         description = "Hosted Services UI";
         category = "Nas";
         icon = "sh-homepage";
