@@ -1,6 +1,7 @@
 {
   inputs,
   lib,
+  mode ? null,
   pkgs,
   ...
 }@importArgs:
@@ -8,6 +9,14 @@ let
   prefix = "linux-cachyos-";
 
   kernels = (inputs.nix-cachyos-kernel.overlays.pinned pkgs pkgs).cachyosKernels;
+
+  inCI = mode == "ci" || mode == "hydra";
+
+  filteredKernels =
+    if inCI then
+      { "${prefix}lts-lto" = kernels."${prefix}lts-lto"; }
+    else
+      lib.filterAttrs (n: v: lib.hasPrefix "${prefix}lts" n) kernels;
 in
 lib.mapAttrs' (
   n: v:
@@ -33,4 +42,4 @@ lib.mapAttrs' (
         strictDeps = true;
       })
   )
-) (lib.filterAttrs (n: v: lib.hasPrefix "${prefix}lts" n) kernels)
+) filteredKernels
