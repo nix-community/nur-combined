@@ -5,17 +5,17 @@
     "repo": "OakVideoEditorCommunity/oak",
     "tag_prefix": "v"
   },
-  "version": "0.5.1-alpha",
+  "version": "0.5.2-alpha",
   "platforms": {
     "x86_64-linux": {
-      "file": "oak-editor_0.5.1_x86_64.AppImage",
+      "file": "oak-editor_0.5.2_x86_64.AppImage",
       "query": "[0].assets.find(a => a.name.endsWith('_x86_64.AppImage')).name",
-      "hash": "sha256-1VuJ1PLMJti1gkTZqh4gKL0hd6soXwF9b8Y5w81ZlmA="
+      "hash": "sha256-6EDDiaEHm+eoVuuWOA/88j4S3+KdNP6HXUeS0Bz9tTk="
     },
     "aarch64-darwin": {
       "file": "Oak-macOS-arm64.dmg",
       "query": "[0].assets.find(a => a.name.endsWith('.dmg')).name",
-      "hash": "sha256-rdGoccvjRD6qui7IY35Tw260epufHTr27HS9BKPkISY="
+      "hash": "sha256-FBQ1SNzLx0cQz8vr6+f/kKKzu9i2bBU+PY5EUvlYprs="
     }
   }
 }

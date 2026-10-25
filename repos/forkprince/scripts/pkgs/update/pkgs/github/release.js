@@ -59,7 +59,7 @@ async function platforms(file, { config, force }) {
 
   const hasVersions = Object.values(platforms).some(p => p.version !== undefined);
   if (!hasVersions) {
-    const { version } = await check(file, { config, force });
+    const { version, releases } = await check(file, { config, force });
     if (!version) return;
 
     for (const [platform, settings] of Object.entries(platforms)) {
@@ -73,7 +73,13 @@ async function platforms(file, { config, force }) {
       const prefix = settings.tag_prefix || config.source.tag_prefix || "";
       const unpack = settings.unpack || false;
 
-      let url = settings.file ? `https://github.com/${repo}/releases/download/${prefix}${version}/${settings.file}` : settings.url;
+      const resolved = settings.query ? await guard(q => eval(`(${JSON.stringify(releases)})${q}`), undefined)(settings.query) : settings.file;
+      if (!resolved && !settings.url) {
+        console.log(`Skipping ${platform}: no matching asset found for version ${version}`);
+        continue;
+      }
+
+      let url = resolved ? `https://github.com/${repo}/releases/download/${prefix}${version}/${resolved}` : settings.url;
 
       url = url
         .replace(/\{repo\}/g, repo)
@@ -84,7 +90,7 @@ async function platforms(file, { config, force }) {
 
       const hash = await getHash(url, unpack);
 
-      await update.platforms(file, { platform, url: settings.url ? url : undefined, hash });
+      await update.platforms(file, { platform, url: settings.url ? url : undefined, hash, file: settings.query ? resolved : undefined });
 
       console.log(`Updated ${platform} to version ${version}`);
 

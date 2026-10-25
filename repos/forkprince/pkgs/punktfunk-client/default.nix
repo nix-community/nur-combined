@@ -96,8 +96,8 @@ in
 
         install -Dm755 usr/bin/{punktfunk,punktfunk-client,punktfunk-session} -t $out/bin
 
-        install -Dm644 usr/share/applications/io.unom.Punktfunk.{desktop,Console.desktop} -t $out/share/applications
-        install -Dm644 usr/share/icons/hicolor/scalable/apps/io.unom.Punktfunk.svg -t $out/share/icons/hicolor/scalable/apps
+        install -Dm644 usr/share/applications/io.unom.punktfunk{,.console}.desktop -t $out/share/applications
+        install -Dm644 usr/share/icons/hicolor/scalable/apps/io.unom.punktfunk.svg -t $out/share/icons/hicolor/scalable/apps
         install -Dm644 usr/lib/udev/rules.d/70-punktfunk-client.rules -t $out/lib/udev/rules.d
 
         runHook postInstall
