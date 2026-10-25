@@ -19,7 +19,7 @@ appimageTools.wrapType2 rec {
   meta = {
     description = "A clean and powerful open source notes app for Mac, Windows, and Linux";
     homepage = "https://www.tangentnotes.com/";
-    license = lib.licenses.apsl20;
+    license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
   };
 }
