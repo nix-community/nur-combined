@@ -14,6 +14,7 @@ let
     t3code-bin = pkgs.callPackage ./pkgs/t3code-bin { channel = "stable"; };
     t3code-nightly-bin = t3code-bin.override { channel = "nightly"; };
     tauritavern = pkgs.callPackage ./pkgs/tauritavern.nix { };
+    vite-plus = pkgs.callPackage ./pkgs/vite-plus { };
     yaasm = pkgs.callPackage ./pkgs/yaasm.nix { };
   };
 in

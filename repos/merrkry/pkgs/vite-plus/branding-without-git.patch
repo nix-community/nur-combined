@@ -1,0 +1,38 @@
+--- a/packages/tools/src/brand-vite.ts
++++ b/packages/tools/src/brand-vite.ts
+@@ -17 +17 @@
+-import { readFileSync, writeFileSync } from 'node:fs';
++import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+@@ -95,15 +95,17 @@
+-  execFileSync(
+-    'git',
+-    [
+-      'restore',
+-      '--source=HEAD',
+-      '--',
+-      'constants.ts',
+-      'cli.ts',
+-      'build.ts',
+-      'logger.ts',
+-      'plugins/reporter.ts',
+-      'config.ts',
+-    ],
+-    { cwd: nodeDir },
+-  );
++  if (existsSync(join(rootDir, 'vite/.git'))) {
++    execFileSync(
++      'git',
++      [
++        'restore',
++        '--source=HEAD',
++        '--',
++        'constants.ts',
++        'cli.ts',
++        'build.ts',
++        'logger.ts',
++        'plugins/reporter.ts',
++        'config.ts',
++      ],
++      { cwd: nodeDir },
++    );
++  }
