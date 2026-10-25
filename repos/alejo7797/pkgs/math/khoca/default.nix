@@ -16,8 +16,8 @@ python3.pkgs.buildPythonApplication {
   src = fetchFromGitHub {
     owner = "alejo7797";
     repo = "khoca";
-    rev = "46905cc73e58c7b01ee4e63b04c2f5f9c4b9b22b";
-    hash = "sha256-m+9mer97K5lgfT4P1q4UZLoc4FT++cicjX8VgXqBGxw=";
+    rev = "aced077a5f0256726bd75b84a9510d55500419c2";
+    hash = "sha256-Lz6Ljl0o1ydtJpdETMlXIzrlgfddWS7mh4kxn0dhUi0=";
   };
 
   build-system = with python3.pkgs; [
