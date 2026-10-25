@@ -1,23 +1,9 @@
 {
-  # Add your Nix Darwin modules here
+  # nix-darwin modules, importable individually from system configurations,
+  # e.g. `inputs.nixcfg.modules.darwin.bash`. Modules declare their own
+  # dependent-module `imports`; configurations import only what they use.
   #
   # my-module = ./my-module;
-  default =
-    { ... }:
-    {
-      imports = [
-        ./bash.nix
-        ./homebrew.nix
-        ./keyboard.nix
-        ./odysseus.nix
-        ./ollama.nix
-        ./podman.nix
-        ./system.nix
-        ./terminfo.nix
-        ./touchid.nix
-        (import ../os).default
-      ];
-    };
   android = ./android.nix;
   bash = ./bash.nix;
   homebrew = ./homebrew.nix;

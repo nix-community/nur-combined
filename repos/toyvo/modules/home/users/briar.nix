@@ -8,7 +8,13 @@ let
   cfg = config.nixcfg;
 in
 {
-  imports = [ ../catppuccin.nix ];
+  imports = [
+    ../catppuccin.nix
+    ../gui.nix
+    ../shells.nix
+    ../session.nix
+    ../sops.nix
+  ];
 
   options.nixcfg.users.briar.enable = lib.mkEnableOption "Enable briar profile";
 

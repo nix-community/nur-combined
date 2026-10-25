@@ -10,6 +10,12 @@ let
   enableGui = config.nixcfg.gui.enable;
 in
 {
+  # `nixcfg.gui` is read below; `config.ids.*` is read under `isLinux`
+  # guards only. nix-darwin has no `ids` option, so this module must NOT
+  # import it — NixOS hosts importing this module must also import
+  # `inputs.nixcfg.modules.nixos.ids`.
+  imports = [ ../gui.nix ];
+
   options.userPresets = {
     chloe = {
       enable = lib.mkEnableOption "chloe user";

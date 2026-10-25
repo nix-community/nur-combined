@@ -57,6 +57,7 @@ in
     || n == "nixosModules"
     || n == "homeModules"
     || n == "darwinModules"
+    || n == "osModules"
     || n == "flakeModules";
   isBuildable =
     p:

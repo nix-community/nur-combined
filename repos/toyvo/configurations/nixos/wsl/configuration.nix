@@ -9,7 +9,15 @@
 }:
 {
   imports = [
-    inputs.nixcfg.modules.nixos.default
+    inputs.nixcfg.modules.os.nix
+    inputs.nixcfg.modules.os.security
+    inputs.nixcfg.modules.os.home-manager
+    inputs.nixcfg.modules.os.console
+    inputs.nixcfg.modules.os.toyvo
+    inputs.nixcfg.modules.nixos.ids
+    inputs.nixcfg.modules.nixos.boot
+    inputs.nixcfg.modules.nixos.networking
+    inputs.nixcfg.modules.nixos.system
     inputs.nixos-wsl.nixosModules.wsl
     inputs.catppuccin.nixosModules.catppuccin
     inputs.disko.nixosModules.disko

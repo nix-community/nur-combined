@@ -8,6 +8,19 @@ let
   cfg = config.nixcfg.shells;
 in
 {
+  # This module enables these shells/tools when active, so it imports
+  # their config-default modules (powershell/ion extend HM-core options).
+  imports = [
+    ./programs/bat.nix
+    ./programs/eza.nix
+    ./programs/shells/bash.nix
+    ./programs/shells/fish.nix
+    ./programs/shells/ion.nix
+    ./programs/shells/nushell.nix
+    ./programs/shells/powershell.nix
+    ./programs/shells/zsh.nix
+  ];
+
   options.nixcfg.shells.enable = lib.mkEnableOption "shell tools";
 
   config = lib.mkIf cfg.enable {

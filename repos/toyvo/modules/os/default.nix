@@ -1,25 +1,11 @@
 {
-  # Add your NixOS / Nix Darwin modules here, should be compatible with both
+  # Shared NixOS / nix-darwin modules, compatible with both.
+  #
+  # Import modules individually from system configurations, e.g.
+  # `inputs.nixcfg.modules.os.nix`. Modules declare their own
+  # dependent-module `imports`; configurations import only what they use.
   #
   # my-module = ./my-module;
-  default =
-    { ... }:
-    {
-      imports = [
-        ./console.nix
-        ./dev.nix
-        ./gui.nix
-        ./home-manager.nix
-        ./nix.nix
-        ./odysseus.nix
-        ./podman.nix
-        ./security.nix
-        ./users/chloe.nix
-        ./users/agent.nix
-        ./users/root.nix
-        ./users/toyvo.nix
-      ];
-    };
   console = ./console.nix;
   dev = ./dev.nix;
   gui = ./gui.nix;

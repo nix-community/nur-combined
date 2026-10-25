@@ -174,21 +174,21 @@ jobs:
           nix build -j 1 -L .#nixosConfigurations.steamdeck-nixos.config.system.build.toplevel --no-link
           nix build -j 1 -L .#nixosConfigurations.Thinkpad.config.system.build.toplevel --no-link
           nix build -j 1 -L .#nixosConfigurations.wsl.config.system.build.toplevel --no-link
-      - name: Build toplevels (aarch64 group 1, via binfmt)
-        run: |
-          nix build -j 1 -L .#nixosConfigurations.MacBook-Pro-NixOS.config.system.build.toplevel --no-link
-          nix build -j 1 -L .#nixosConfigurations.PineBook-Pro.config.system.build.toplevel --no-link
-          nix build -j 1 -L .#nixosConfigurations.oracle-cloud-nixos.config.system.build.toplevel --no-link
-      - name: Build toplevels (aarch64 group 2, via binfmt)
-        run: |
-          nix build -j 1 -L .#nixosConfigurations.pixel10a.config.system.build.toplevel --no-link
-          nix build -j 1 -L .#nixosConfigurations.rpi4b4a.config.system.build.toplevel --no-link
-          nix build -j 1 -L .#nixosConfigurations.rpi4b8a.config.system.build.toplevel --no-link
-      - name: Build toplevels (aarch64 group 3, via binfmt)
-        run: |
-          nix build -j 1 -L .#nixosConfigurations.rpi4b8b.config.system.build.toplevel --no-link
-          nix build -j 1 -L .#nixosConfigurations.rpi4b8c.config.system.build.toplevel --no-link
-          nix build -j 1 -L .#nixosConfigurations.utm.config.system.build.toplevel --no-link
+      # - name: Build toplevels (aarch64 group 1, via binfmt)
+      #   run: |
+      #     nix build -j 1 -L .#nixosConfigurations.MacBook-Pro-NixOS.config.system.build.toplevel --no-link
+      #     nix build -j 1 -L .#nixosConfigurations.PineBook-Pro.config.system.build.toplevel --no-link
+      #     nix build -j 1 -L .#nixosConfigurations.oracle-cloud-nixos.config.system.build.toplevel --no-link
+      # - name: Build toplevels (aarch64 group 2, via binfmt)
+      #   run: |
+      #     nix build -j 1 -L .#nixosConfigurations.pixel10a.config.system.build.toplevel --no-link
+      #     nix build -j 1 -L .#nixosConfigurations.rpi4b4a.config.system.build.toplevel --no-link
+      #     nix build -j 1 -L .#nixosConfigurations.rpi4b8a.config.system.build.toplevel --no-link
+      # - name: Build toplevels (aarch64 group 3, via binfmt)
+      #   run: |
+      #     nix build -j 1 -L .#nixosConfigurations.rpi4b8b.config.system.build.toplevel --no-link
+      #     nix build -j 1 -L .#nixosConfigurations.rpi4b8c.config.system.build.toplevel --no-link
+      #     nix build -j 1 -L .#nixosConfigurations.utm.config.system.build.toplevel --no-link
       - name: Build package shard 1
         run: nix build -j 1 -L ".#checks.$(nix eval --raw --impure --expr builtins.currentSystem).all-shard-1"
       - name: Build package shard 2

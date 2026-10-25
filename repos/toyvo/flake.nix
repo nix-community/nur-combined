@@ -124,12 +124,14 @@
           nixosModules = import ./modules/nixos;
           homeModules = import ./modules/home;
           darwinModules = import ./modules/darwin;
+          osModules = import ./modules/os;
           flakeModules = import ./modules/flake;
           modules = {
             nixos = self.nixosModules;
             darwin = self.darwinModules;
             flake = self.flakeModules;
             home = self.homeModules;
+            os = self.osModules;
           };
           overlays = import ./overlays;
           nixosConfigurations = configurations.nixosConfigurations;

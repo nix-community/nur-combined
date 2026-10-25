@@ -10,6 +10,8 @@ let
   ids = config.ids;
 in
 {
+  imports = [ ../ids.nix ];
+
   options.nixcfg.containers.vintagestory = {
     enable = lib.mkEnableOption "Vintage Story NixOS container";
 

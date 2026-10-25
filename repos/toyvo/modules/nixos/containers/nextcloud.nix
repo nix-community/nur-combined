@@ -10,6 +10,8 @@ let
   ids = config.ids;
 in
 {
+  imports = [ ../ids.nix ];
+
   options.nixcfg.containers.nextcloud = {
     enable = lib.mkEnableOption "Nextcloud + Collabora NixOS container";
 

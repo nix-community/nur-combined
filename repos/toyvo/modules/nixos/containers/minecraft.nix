@@ -11,6 +11,8 @@ let
   ids = config.ids;
 in
 {
+  imports = [ ../ids.nix ];
+
   options.nixcfg.containers.minecraft = {
     enable = lib.mkEnableOption "Minecraft NixOS container";
 

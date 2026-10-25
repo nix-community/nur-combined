@@ -1,55 +1,9 @@
 {
-  # Add your NixOS modules here
+  # NixOS modules, importable individually from system configurations,
+  # e.g. `inputs.nixcfg.modules.nixos.boot`. Modules declare their own
+  # dependent-module `imports`; configurations import only what they use.
   #
   # my-module = ./my-module;
-  default =
-    { ... }:
-    {
-      imports = [
-        (import ../os).default
-        ./containers/authentik.nix
-        ./containers/home-assistant.nix
-        ./containers/immich.nix
-        ./containers/jellyfin.nix
-        ./containers/minecraft.nix
-        ./containers/monitoring.nix
-        ./containers/nextcloud.nix
-        ./containers/open-webui.nix
-        ./containers/starr.nix
-        ./containers/terraria.nix
-        ./containers/vintagestory.nix
-        ./boot.nix
-        ./kanata.nix
-        ./networking.nix
-        ./nix-ld.nix
-        ./odysseus.nix
-        ./system.nix
-        ./ids.nix
-        ./k3s.nix
-        ./k3s-homepage.nix
-        ./gaming.nix
-        ./mcsmanager.nix
-        ./monitoring/default.nix
-        ./monitoring/grafana.nix
-        ./monitoring/internet.nix
-        ./monitoring/loki.nix
-        ./monitoring/prometheus.nix
-        ./monitoring/tempo.nix
-        ./podman.nix
-        ./services/desktopManager/cosmic.nix
-        ./services/desktopManager/gnome.nix
-        ./services/desktopManager/plasma.nix
-        ./services/desktopManager/xfce.nix
-        ./services/minecraft.nix
-        ./services/ollama.nix
-        ./services/protonmail-bridge.nix
-        ./services/repo-maintainer.nix
-        ./services/signal-cli.nix
-        ./syncthing.nix
-        ./tmpfiles.nix
-        ./vintagestory.nix
-      ];
-    };
   authentik_container = ./containers/authentik.nix;
   home-assistant_container = ./containers/home-assistant.nix;
   immich_container = ./containers/immich.nix;

@@ -15,6 +15,8 @@ let
   );
 in
 {
+  imports = [ ../gui.nix ];
+
   options.programs.kde.catppuccin = {
     enable = lib.mkOption {
       type = lib.types.bool;

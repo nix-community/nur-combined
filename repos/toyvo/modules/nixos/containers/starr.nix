@@ -11,6 +11,8 @@ let
   vpnNamespace = "protonvpn0";
 in
 {
+  imports = [ ../ids.nix ];
+
   options.nixcfg.containers.starr = {
     enable = lib.mkEnableOption "Starr suite NixOS container";
 

@@ -4,6 +4,8 @@
   ...
 }:
 {
+  imports = [ ../os/users/toyvo.nix ];
+
   options.nixcfg.system.enable = lib.mkEnableOption "system defaults";
 
   config = {

@@ -5,6 +5,8 @@
   ...
 }:
 {
+  imports = [ ../../gui.nix ];
+
   home.packages =
     with pkgs;
     lib.mkIf (stdenv.hostPlatform.isLinux && config.nixcfg.gui.enable) [

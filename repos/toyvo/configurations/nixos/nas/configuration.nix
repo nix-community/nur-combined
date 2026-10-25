@@ -15,7 +15,39 @@ let
 in
 {
   imports = [
-    inputs.nixcfg.modules.nixos.default
+    inputs.nixcfg.modules.os.nix
+    inputs.nixcfg.modules.os.security
+    inputs.nixcfg.modules.os.home-manager
+    inputs.nixcfg.modules.os.console
+    inputs.nixcfg.modules.os.gui
+    inputs.nixcfg.modules.os.dev
+    inputs.nixcfg.modules.os.podman
+    inputs.nixcfg.modules.os.toyvo
+    inputs.nixcfg.modules.os.chloe
+    inputs.nixcfg.modules.os.root
+    inputs.nixcfg.modules.os.agent
+    inputs.nixcfg.modules.nixos.ids
+    inputs.nixcfg.modules.nixos.boot
+    inputs.nixcfg.modules.nixos.networking
+    inputs.nixcfg.modules.nixos.system
+    inputs.nixcfg.modules.nixos.nix-ld
+    inputs.nixcfg.modules.nixos.podman
+    inputs.nixcfg.modules.nixos.k3s
+    inputs.nixcfg.modules.nixos.k3s-homepage
+    inputs.nixcfg.modules.nixos.monitoring
+    inputs.nixcfg.modules.nixos.ollama
+    inputs.nixcfg.modules.nixos.protonmail-bridge
+    inputs.nixcfg.modules.nixos.repo-maintainer
+    inputs.nixcfg.modules.nixos.signal-cli
+    inputs.nixcfg.modules.nixos.syncthing
+    inputs.nixcfg.modules.nixos.tmpfiles
+    inputs.nixcfg.modules.nixos.authentik_container
+    inputs.nixcfg.modules.nixos.home-assistant_container
+    inputs.nixcfg.modules.nixos.immich_container
+    inputs.nixcfg.modules.nixos.jellyfin_container
+    inputs.nixcfg.modules.nixos.monitoring_container
+    inputs.nixcfg.modules.nixos.nextcloud_container
+    inputs.nixcfg.modules.nixos.starr_container
     inputs.hermes-agent.nixosModules.default
     ./samba.nix
     inputs.catppuccin.nixosModules.catppuccin
@@ -39,52 +71,7 @@ in
     };
     sharedModules = [ ./home.nix ];
     users.toyvo.programs.git.settings.safe.directory = "/mnt/POOL/agent/*";
-    users.agent = {
-      home.username = "agent";
-      home.homeDirectory = "/mnt/POOL/agent";
-      nixcfg = {
-        shells.enable = true;
-        session.enable = true;
-        sops-home.enable = true;
-      };
-      programs = {
-        git = {
-          enable = true;
-          settings = {
-            user.name = "AI Agent (${config.services.hermes-agent.settings.model.default} via ${config.services.hermes-agent.settings.model.provider}) for Collin Diekvoss";
-            user.email = "agent@diekvoss.com";
-            safe.directory = "/home/toyvo/*";
-            core.editor = lib.mkForce "hx";
-          };
-        };
-        nvf.defaultEditor = lib.mkForce false;
-        helix = {
-          enable = true;
-          defaultEditor = true;
-        };
-        direnv = {
-          enable = true;
-          nix-direnv.enable = true;
-        };
-        fzf = {
-          enable = true;
-        };
-      };
-      home.packages = with pkgs; [
-        ripgrep
-        fd
-        jq
-        yq
-        nix-output-monitor
-        nix-tree
-        gh
-        tlrc
-        procs
-        dust
-        sd
-        hyperfine
-      ];
-    };
+    users.agent.home.homeDirectory = lib.mkForce "/mnt/POOL/agent";
   };
 
   # Allow root (and libgit2 via nix) to access the flake repo for rebuilds
@@ -163,9 +150,13 @@ in
     dev.enable = true;
     users.agent.enable = true;
   };
-  userPresets.chloe.enable = true;
-  userPresets.toyvo.enable = true;
-  users.users.agent.home = "/mnt/POOL/agent";
+  userPresets = {
+    agent.enable = true;
+    chloe.enable = true;
+    root.enable = true;
+    toyvo.enable = true;
+  };
+  users.users.agent.home = lib.mkForce "/mnt/POOL/agent";
   services = {
     cockpit = {
       enable = true;
@@ -478,10 +469,6 @@ in
     %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/nixos-container *
     %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/journalctl *
     %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/systemctl status *
-    agent ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/nixos-container *
-    agent ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/journalctl *
-    agent ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/systemctl status *
-    agent ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/nixos-rebuild *
   '';
 
   systemd.targets = {
@@ -597,12 +584,6 @@ in
   # it can be bind-mounted read-only into the starr container, where the WireGuard
   # interface and network namespace are actually configured.
   sops.secrets."protonvpn-US-IL-503.key" = { };
-
-  nix.settings.trusted-users = [
-    "toyvo"
-    "root"
-    "agent"
-  ];
 
   # Set ACLs so container users can access external storage directories.
   # systemd-tmpfiles handles default ACLs (for new files); the apply-generated-acls

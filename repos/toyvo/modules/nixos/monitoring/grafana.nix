@@ -9,6 +9,8 @@ let
   inherit (config.networking) hostName;
 in
 {
+  imports = [ ./default.nix ];
+
   options.services.monitoring.grafana = {
     enable = lib.mkEnableOption "Grafana dashboard server";
   };

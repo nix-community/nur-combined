@@ -74,6 +74,8 @@ let
   '';
 in
 {
+  imports = [ ./default.nix ];
+
   options.services.monitoring.internet = {
     enable = lib.mkEnableOption "internet uptime and speed monitoring";
 

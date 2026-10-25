@@ -9,6 +9,8 @@ let
   cfg = config.nixcfg.system;
 in
 {
+  imports = [ ../os/gui.nix ];
+
   options.nixcfg.system.enable = lib.mkEnableOption "system defaults (timezone, locale, stateVersion, autoUpgrade, services, packages)";
 
   config = lib.mkIf cfg.enable {

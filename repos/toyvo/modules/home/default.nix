@@ -1,51 +1,20 @@
 {
-  # Add your Home Manager modules here
+  # Home Manager modules, importable individually from home configurations,
+  # e.g. `inputs.nixcfg.modules.home.toyvo`. Modules declare their own
+  # dependent-module `imports`; configurations import only what they use.
+  # User-profile modules (`users/*`) pull in the program and `nixcfg`
+  # modules they need, so a home configuration typically imports only
+  # its user profile(s).
   #
   # my-module = ./my-module;
-  default =
-    { lib, inputs, ... }:
-    {
-      imports = [
-        ./catppuccin.nix
-        ./programs/bat.nix
-        ./programs/editors/helix.nix
-        ./programs/editors/ideavim.nix
-        ./programs/editors/opencode.nix
-        ./programs/editors/zed.nix
-        ./programs/eza.nix
-        ./programs/git.nix
-        ./programs/gtk.nix
-        ./programs/jujutsu.nix
-        ./programs/kde.nix
-        ./programs/pi.nix
-        ./programs/shells/bash.nix
-        ./programs/shells/fish.nix
-        ./programs/shells/ion.nix
-        ./programs/shells/nushell.nix
-        ./programs/shells/powershell.nix
-        ./programs/shells/zsh.nix
-        ./programs/ssh.nix
-        ./programs/terminals/alacritty.nix
-        ./programs/terminals/ghostty.nix
-        ./programs/terminals/hyper.nix
-        ./programs/terminals/kitty.nix
-        ./programs/terminals/rio.nix
-        ./programs/terminals/wezterm.nix
-        ./programs/volta.nix
-        ./session.nix
-        ./shells.nix
-        ./sops.nix
-        ./users/chloe.nix
-        ./users/toyvo.nix
-      ];
-
-      options.nixcfg.gui.enable = lib.mkEnableOption "GUI Applications";
-    };
+  agent = ./users/agent.nix;
   alacritty = ./programs/terminals/alacritty.nix;
   bash = ./programs/shells/bash.nix;
   bat = ./programs/bat.nix;
+  briar = ./users/briar.nix;
   catppuccin = ./catppuccin.nix;
   chloe = ./users/chloe.nix;
+  gui = ./gui.nix;
   eza = ./programs/eza.nix;
   fish = ./programs/shells/fish.nix;
   ghostty = ./programs/terminals/ghostty.nix;
@@ -63,6 +32,7 @@
   pi = ./programs/pi.nix;
   powershell = ./programs/shells/powershell.nix;
   rio = ./programs/terminals/rio.nix;
+  root = ./users/root.nix;
   session = ./session.nix;
   shells = ./shells.nix;
   sops = ./sops.nix;

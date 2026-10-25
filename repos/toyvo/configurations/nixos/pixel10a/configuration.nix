@@ -10,7 +10,7 @@
 }:
 {
   imports = [
-    ../../../modules/os/security.nix
+    inputs.nixcfg.modules.os.security
     inputs.home-manager.nixosModules.default
     inputs.nix-index-database.nixosModules.nix-index
     inputs.nixos-avf.nixosModules.avf

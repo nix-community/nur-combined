@@ -9,7 +9,23 @@
 }:
 {
   imports = [
-    inputs.nixcfg.modules.darwin.default
+    inputs.nixcfg.modules.os.nix
+    inputs.nixcfg.modules.os.security
+    inputs.nixcfg.modules.os.home-manager
+    inputs.nixcfg.modules.os.console
+    inputs.nixcfg.modules.os.gui
+    inputs.nixcfg.modules.os.dev
+    inputs.nixcfg.modules.os.podman
+    inputs.nixcfg.modules.os.toyvo
+    inputs.nixcfg.modules.darwin.system
+    inputs.nixcfg.modules.darwin.bash
+    inputs.nixcfg.modules.darwin.homebrew
+    inputs.nixcfg.modules.darwin.keyboard
+    inputs.nixcfg.modules.darwin.terminfo
+    inputs.nixcfg.modules.darwin.touchid
+    inputs.nixcfg.modules.darwin.podman
+    inputs.nixcfg.modules.darwin.ollama
+    inputs.nixcfg.modules.darwin.odysseus
     inputs.home-manager.darwinModules.default
     inputs.mac-app-util.darwinModules.default
     inputs.nix-index-database.darwinModules.nix-index

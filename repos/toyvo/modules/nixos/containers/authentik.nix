@@ -10,6 +10,8 @@ let
   ids = config.ids;
 in
 {
+  imports = [ ../ids.nix ];
+
   options.nixcfg.containers.authentik = {
     enable = lib.mkEnableOption "Authentik SSO container";
 

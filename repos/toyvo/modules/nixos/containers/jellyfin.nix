@@ -9,6 +9,8 @@ let
   ids = config.ids;
 in
 {
+  imports = [ ../ids.nix ];
+
   options.nixcfg.containers.jellyfin = {
     enable = lib.mkEnableOption "Jellyfin NixOS container";
 

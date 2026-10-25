@@ -10,7 +10,13 @@ let
   cfg = config.nixcfg;
 in
 {
-  imports = [ ../catppuccin.nix ];
+  imports = [
+    ../catppuccin.nix
+    ../shells.nix
+    ../session.nix
+    ../sops.nix
+    ../programs/editors/helix.nix
+  ];
   options.nixcfg.users.root.enable = lib.mkEnableOption "Enable root profile";
 
   config = lib.mkIf cfg.users.root.enable {

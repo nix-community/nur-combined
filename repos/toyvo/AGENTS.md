@@ -157,7 +157,9 @@ stdenv.mkDerivation rec {
 
 ### Module Tree (`modules/`)
 
-Each tree has a `default.nix` that **explicitly imports** its modules (no auto-discovery):
+Each tree has a `default.nix` that is a pure name→path **registry** (no auto-discovery,
+no aggregator imports). Each module declares its own dependent-module `imports`, and
+system/home configurations import only the modules they use:
 
 | Directory         | Scope        | Description                                       |
 | ----------------- | ------------ | ------------------------------------------------- |
@@ -167,9 +169,11 @@ Each tree has a `default.nix` that **explicitly imports** its modules (no auto-d
 | `modules/home/`   | Home Manager | User-level programs, user profiles                |
 | `modules/flake/`  | flake-parts  | Flake-level modules                               |
 
-Exposed as flake outputs `nixosModules` / `darwinModules` / `homeModules` / `flakeModules`
-(plus `modules.<tree>` aliases). Machine configs consume them via
-`inputs.nixcfg.modules.<tree>.default`.
+Exposed as flake outputs `nixosModules` / `darwinModules` / `homeModules` / `osModules` /
+`flakeModules` (plus `modules.<tree>` aliases). Machine configs consume them individually via
+`inputs.nixcfg.modules.<tree>.<name>` (e.g. `inputs.nixcfg.modules.nixos.boot`).
+User-profile home modules (`modules.home.{toyvo,chloe,root,agent,...}`) pull in the program
+and `nixcfg` modules they need, so a `home.nix` typically imports only its profile(s).
 
 ### System Configurations (`configurations/`)
 
@@ -265,8 +269,14 @@ Exposed as `self.lib`. Key utilities:
 ### Adding a New Module
 
 1. Place the `.nix` file under the appropriate `modules/<tree>/`
-1. Import it from that tree's `default.nix`
-1. Reference via `inputs.nixcfg.modules.<tree>.default` (or `self.modules.<tree>`)
+1. Register it as `name = ./file.nix;` in that tree's `default.nix` registry
+1. Declare its dependencies via its own `imports = [ ... ];` (same-ecosystem modules only;
+   cross-ecosystem option writes like NixOS→Home Manager are satisfied by the host
+   importing both sides, and NixOS-only namespaces like `config.ids` must not be
+   imported from shared `modules/os/` code — NixOS hosts co-import `modules.nixos.ids`)
+1. Import it explicitly in the host `configuration.nix`/`home.nix` files that need it via
+   `inputs.nixcfg.modules.<tree>.<name>` (or `self.modules.<tree>.<name>`) — never re-add
+   an aggregator that imports everything
 
 ## Binary Caches
 

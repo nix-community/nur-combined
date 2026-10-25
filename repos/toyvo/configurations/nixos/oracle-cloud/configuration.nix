@@ -12,7 +12,19 @@
 }:
 {
   imports = [
-    inputs.nixcfg.modules.nixos.default
+    inputs.nixcfg.modules.os.nix
+    inputs.nixcfg.modules.os.security
+    inputs.nixcfg.modules.os.home-manager
+    inputs.nixcfg.modules.os.console
+    inputs.nixcfg.modules.os.toyvo
+    inputs.nixcfg.modules.nixos.ids
+    inputs.nixcfg.modules.nixos.boot
+    inputs.nixcfg.modules.nixos.networking
+    inputs.nixcfg.modules.nixos.system
+    inputs.nixcfg.modules.nixos.monitoring
+    inputs.nixcfg.modules.nixos.minecraft_container
+    inputs.nixcfg.modules.nixos.vintagestory_container
+    inputs.nixcfg.modules.nixos.terraria_container
     "${inputs.nixos-unstable}/nixos/modules/profiles/qemu-guest.nix"
     inputs.catppuccin.nixosModules.catppuccin
     inputs.disko.nixosModules.disko

@@ -11,7 +11,7 @@
 - [x] Deploy + verify (2026-10-26): `nixos-rebuild switch --flake .#nas`, then `.#MacMini-Intel-NixOS`; `kubectl get nodes` shows nas + macmini-intel-nixos Ready (control-plane,etcd). Required opening etcd 2379-2380/tcp in `nixcfg.k3s` firewall on both nodes.
 - [ ] Router joins as etcd-only third server (code done: `disableAgent` + LAN-scoped firewall, design `docs/superpowers/specs/2026-10-25-k3s-ingress-router-design.md`, plan `docs/superpowers/plans/2026-10-25-k3s-ingress-router.md`); deploy router and verify 3 servers.
 - [ ] Traefik NodePorts 30080/30443 live (code done on nas+macmini); deploy both, verify svc + cross-node pod curl.
-- [x] homepage serves from cluster (2026-10-26): manifests live, Caddy `upstreams` flip for `diekvoss.net` verified 200 with auth gate, nas-native service retired (file deleted, 8082 closed). Remaining: failover test (stop k3s on one server → still 200).
+- [x] homepage serves from cluster (2026-10-26): manifests live, Caddy `upstreams` flip for `diekvoss.net` verified 200 with auth gate, nas-native service retired (file deleted, 8082 closed). Failover verified 2026-10-26 in both directions (k3s stopped on nas → 200 via macmini, and vice versa).
 - [ ] Storage re-architecture for stateful workloads (`/mnt/POOL` via local-path/Longhorn/Ceph decision).
 - [ ] Caddy ingress integration for cluster services.
 - [ ] aarch64 nodes (rpis) after x86_64 stable.
@@ -47,6 +47,12 @@ Outstanding work and follow-up items for this repository.
 - [x] Upstream `python3.14-urllib3-future-2.25.902` test failures blocking CI (`checks.all` builds odysseus): fixed by extending the scoped `packageOverrides` in `pkgs/odysseus/derivation.nix` to `doCheck=false` for `urllib3-future`, `niquests` (same SOCKS sandbox failures on Linux), and `caldav` (local-network fixtures). Full `nix build .#packages.x86_64-linux.odysseus` verified green.
 - [x] Fix CI update failures caused by Forgejo GITHUB_TOKEN being incorrectly used for api.github.com requests (fixed in scripts/update-lib.ts)
 - [ ] hermes-dashboard OIDC via Authentik (502 fixed once live): migrated from custom `services.hermes-dashboard` module (dead `--insecure` flag) to upstream `services.hermes-agent.backend.mode = "dashboard"` with `dashboard.oauth.self_hosted` + `public_url`/`trusted_proxies` in nas config and `forwardAuthGate = false` in homelab.nix. Manual steps: (1) create Authentik OAuth2/OIDC provider + app (slug `hermes`, confidential, redirect `https://hermes.diekvoss.net/auth/callback`); (2) put client ID in nas `settings.dashboard.oauth.self_hosted.client_id` (placeholder now); (3) append `HERMES_DASHBOARD_OIDC_CLIENT_SECRET=<secret>` to `agent.env` via `sops secrets.yaml`; (4) `sudo chown -R agent:agent /mnt/POOL/agent/.hermes` (fixes gateway + dashboard `state.db` PermissionError from root-owned files); (5) rebuild nas + router (Caddy vhost change).
+
+## Module registry refactor (2026-10-25)
+
+- [x] Removed `default` aggregators from `modules/{os,nixos,darwin,home}/default.nix` (now pure registries + new `modules.os`/`osModules` output); every module declares its own `imports`, every host imports a minimal set (plan: `docs/superpowers/plans/2026-10-25-remove-default-modules.md`). Verified: `nix flake show` PASS, `nix flake check --no-build` all green, dry-run builds for wsl + MacBook-Pro darwin + deck@steamdeck green.
+- [ ] `nix flake check` (full, with builds) still red on `checks.aarch64-darwin.tinycast` (dmg unpack fails; pre-existing package issue in `pkgs/tinycast`, unrelated to the refactor).
+- [ ] nas eval blocked on `userPresets.agent` (no module defines it yet) — belongs to the in-flight hermes→agent consolidation, not the refactor; finish that work, then re-run `nix flake check`.
 
 ## Neovim
 

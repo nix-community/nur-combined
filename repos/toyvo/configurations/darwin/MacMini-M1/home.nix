@@ -1,7 +1,7 @@
 { inputs, ... }:
 {
   imports = [
-    inputs.nixcfg.modules.home.default
+    inputs.nixcfg.modules.home.toyvo
     inputs.mac-app-util.homeManagerModules.default
     inputs.catppuccin.homeModules.catppuccin
     inputs.nix-index-database.homeModules.nix-index

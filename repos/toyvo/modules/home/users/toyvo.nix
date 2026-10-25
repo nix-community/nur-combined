@@ -11,11 +11,24 @@ let
 in
 {
   imports = [
-    ../programs/terminals/hyper.nix
-    ../programs/editors/zed.nix
+    ../catppuccin.nix
+    ../gui.nix
+    ../shells.nix
+    ../session.nix
+    ../sops.nix
+    ../programs/git.nix
     ../programs/jujutsu.nix
     ../programs/pi.nix
-    ../catppuccin.nix
+    ../programs/ssh.nix
+    ../programs/editors/helix.nix
+    ../programs/editors/ideavim.nix
+    ../programs/editors/opencode.nix
+    ../programs/editors/zed.nix
+    ../programs/terminals/alacritty.nix
+    ../programs/terminals/hyper.nix
+    ../programs/terminals/kitty.nix
+    ../programs/terminals/rio.nix
+    ../programs/terminals/wezterm.nix
   ];
 
   options.nixcfg.users.toyvo.enable = lib.mkEnableOption "Enable toyvo profile";

@@ -53,6 +53,7 @@ let
   nixosModules = import ./modules/nixos; # NixOS modules
   homeModules = import ./modules/home; # Home Manager modules
   darwinModules = import ./modules/darwin; # nix-darwin modules
+  osModules = import ./modules/os; # Shared NixOS / nix-darwin modules
   flakeModules = import ./modules/flake; # flake-parts modules
 
   VintagestoryServers = safeSet ./pkgs/VintagestoryServers;
@@ -85,18 +86,20 @@ let
 in
 {
   # The `lib`, `overlays`, `nixosModules`, `homeModules`,
-  # `darwinModules` and `flakeModules` names are special
+  # `darwinModules`, `osModules` and `flakeModules` names are special
   lib = ourLib;
   inherit
     nixosModules
     homeModules
     darwinModules
+    osModules
     flakeModules
     ;
   modules = {
     nixos = nixosModules;
     home = homeModules;
     darwin = darwinModules;
+    os = osModules;
     flake = flakeModules;
   };
   overlays = import ./overlays; # nixpkgs overlays

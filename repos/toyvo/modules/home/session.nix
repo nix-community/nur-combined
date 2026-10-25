@@ -13,6 +13,8 @@ let
   hostServesCache = osConfig != null && (osConfig.services.nix-serve.enable or false);
 in
 {
+  imports = [ ./programs/volta.nix ];
+
   options = {
     nixcfg.session.enable = lib.mkEnableOption "session configuration";
   };

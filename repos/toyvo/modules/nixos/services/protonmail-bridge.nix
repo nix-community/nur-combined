@@ -9,6 +9,8 @@ let
   stateDir = "/var/lib/protonmail-bridge";
 in
 {
+  imports = [ ../ids.nix ];
+
   # The upstream nixpkgs module targets graphical sessions (wantedBy = graphical-session.target)
   # and does no user/UID setup. Disable it so our system-service replacement owns the namespace.
   disabledModules = [ "services/mail/protonmail-bridge.nix" ];

@@ -1,7 +1,7 @@
 { pkgs, inputs, ... }:
 {
   imports = [
-    inputs.nixcfg.modules.home.default
+    inputs.nixcfg.modules.home.toyvo
     inputs.catppuccin.homeModules.catppuccin
     inputs.nix-index-database.homeModules.nix-index
     inputs.nur.modules.homeManager.default

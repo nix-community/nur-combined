@@ -9,6 +9,8 @@ let
   ids = config.ids;
 in
 {
+  imports = [ ../ids.nix ];
+
   options.nixcfg.containers.open-webui = {
     enable = lib.mkEnableOption "Open WebUI NixOS container";
 

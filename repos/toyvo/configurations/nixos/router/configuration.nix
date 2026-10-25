@@ -125,7 +125,18 @@ let
 in
 {
   imports = [
-    inputs.nixcfg.modules.nixos.default
+    inputs.nixcfg.modules.os.nix
+    inputs.nixcfg.modules.os.security
+    inputs.nixcfg.modules.os.home-manager
+    inputs.nixcfg.modules.os.console
+    inputs.nixcfg.modules.os.toyvo
+    inputs.nixcfg.modules.nixos.ids
+    inputs.nixcfg.modules.nixos.boot
+    inputs.nixcfg.modules.nixos.networking
+    inputs.nixcfg.modules.nixos.system
+    inputs.nixcfg.modules.nixos.k3s
+    inputs.nixcfg.modules.nixos.monitoring
+    inputs.nixcfg.modules.nixos.internet
     ./kea.nix
     ./virtual-hosts.nix
     inputs.catppuccin.nixosModules.catppuccin

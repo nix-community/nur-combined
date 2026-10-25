@@ -10,6 +10,8 @@ let
   tmuxCmd = "${pkgs.tmux}/bin/tmux -S /var/lib/terraria/terraria.sock";
 in
 {
+  imports = [ ../ids.nix ];
+
   options.nixcfg.containers.terraria = {
     enable = lib.mkEnableOption "Terraria (TShock) NixOS container";
 
