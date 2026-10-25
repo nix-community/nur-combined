@@ -12,12 +12,12 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "it-tools";
-  version = "2026.9.27";
+  version = "2026.10.25";
   src = fetchFromGitHub {
     owner = "sharevb";
     repo = "it-tools";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-tOTtibNYctIOX63MJzB28eq8FLmAuvtFuO/m226KUpE=";
+    hash = "sha256-BzyA6559scTX6q+o1mACZ9WqdUpNHi0UEoDOlwMlYb0=";
   };
   __structuredAttrs = true;
   strictDeps = true;

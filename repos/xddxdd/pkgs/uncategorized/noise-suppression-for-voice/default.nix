@@ -8,12 +8,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "noise-suppression-for-voice";
-  version = "1.21";
+  version = "1.22";
   src = fetchFromGitHub {
     owner = "werman";
     repo = "noise-suppression-for-voice";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-QsY8J+CZ6G5uoiQ7AwgDIyExdW2xwBQ+0UEXAz9b4WU=";
+    hash = "sha256-gUNU35yrJd4t2RenPH4IwBnZtV8kd05nwVT1vzokkzM=";
   };
   __structuredAttrs = true;
   strictDeps = true;
