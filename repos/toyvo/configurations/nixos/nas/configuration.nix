@@ -35,6 +35,7 @@ in
     inputs.nixcfg.modules.nixos.k3s
     inputs.nixcfg.modules.nixos.k3s-homepage
     inputs.nixcfg.modules.nixos.k3s-storage
+    inputs.nixcfg.modules.nixos.k3s-starr
     inputs.nixcfg.modules.nixos.monitoring
     inputs.nixcfg.modules.nixos.ollama
     inputs.nixcfg.modules.nixos.protonmail-bridge
@@ -148,6 +149,8 @@ in
     # Shared NFS storage (csi-driver-nfs + static pool PVs).
     # Single writer: enable ONLY here, never on another server.
     k3sStorage.enable = true;
+    # First starr migration; manifests deploy cluster-wide from here.
+    k3sStarr.prowlarr.enable = true;
     security.enable = true;
     home-manager.enable = true;
     networking.enable = true;

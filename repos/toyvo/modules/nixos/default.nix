@@ -25,6 +25,7 @@
   k3s = ./k3s.nix;
   k3s-homepage = ./k3s-homepage.nix;
   k3s-storage = ./k3s-storage.nix;
+  k3s-starr = ./k3s-starr.nix;
   gaming = ./gaming.nix;
   mcsmanager = ./mcsmanager.nix;
   monitoring = ./monitoring/default.nix;

@@ -272,6 +272,11 @@
       };
       prowlarr = {
         port = 9696;
+        # Served from k3s via Traefik (plan step: flip). Same shape as homepage.
+        upstreams = [
+          "10.1.0.3:30080"
+          "10.1.0.12:30080"
+        ];
         displayName = "Prowlarr";
         description = "Indexer Manager";
         category = "Starr";
