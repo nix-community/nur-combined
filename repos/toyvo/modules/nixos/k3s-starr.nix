@@ -14,6 +14,10 @@ let
   # nixpkgs ids.uids/gids.radarr = 275; pinned to match existing ownership.
   radarrImage = "lscr.io/linuxserver/radarr:6.4.4.10685-ls324";
   radarrPort = 7878;
+  # nixpkgs ids.uids/gids.readarr = 352; pinned to match existing ownership.
+  # Readarr has no stable release (discontinued upstream); pinned develop tag verified against hub.
+  readarrImage = "lscr.io/linuxserver/readarr:develop-0.4.18.2805-ls157";
+  readarrPort = 8787;
 in
 {
   options.nixcfg.k3sStarr.prowlarr.enable =
@@ -24,6 +28,9 @@ in
   options.nixcfg.k3sStarr.lidarr.enable = lib.mkEnableOption "Lidarr in k3s (third starr migration)";
 
   options.nixcfg.k3sStarr.radarr.enable = lib.mkEnableOption "Radarr in k3s (fourth starr migration)";
+
+  options.nixcfg.k3sStarr.readarr.enable =
+    lib.mkEnableOption "Readarr in k3s (fifth starr migration)";
 
   # Single writer: enable ONLY on nas. See k3s-storage.nix for why.
   config = lib.mkMerge [
@@ -596,6 +603,156 @@ in
                     backend.service = {
                       name = "radarr";
                       port.number = radarrPort;
+                    };
+                  }
+                ];
+              }
+            ];
+          };
+        };
+      };
+    })
+    (lib.mkIf cfg.readarr.enable {
+      assertions = [
+        {
+          assertion = config.nixcfg.k3s.enable && config.nixcfg.k3s.role == "server";
+          message = "nixcfg.k3sStarr: starr manifests must live on a server (nas), never an agent.";
+        }
+      ];
+
+      services.k3s.manifests = {
+        "readarr-media-pvc.yaml".content = {
+          apiVersion = "v1";
+          kind = "PersistentVolumeClaim";
+          metadata = {
+            name = "readarr-media";
+          };
+          spec = {
+            accessModes = [ "ReadWriteMany" ];
+            storageClassName = "nfs-pool";
+            resources.requests.storage = "100Gi";
+          };
+        };
+        "readarr-statefulset.yaml".content = {
+          apiVersion = "apps/v1";
+          kind = "StatefulSet";
+          metadata = {
+            name = "readarr";
+            labels.app = "readarr";
+          };
+          spec = {
+            serviceName = "readarr";
+            replicas = 1;
+            selector.matchLabels.app = "readarr";
+            template = {
+              metadata.labels.app = "readarr";
+              spec = {
+                affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms = [
+                  {
+                    matchExpressions = [
+                      {
+                        key = "kubernetes.io/hostname";
+                        operator = "In";
+                        values = [ "nas" ];
+                      }
+                    ];
+                  }
+                ];
+                containers = [
+                  {
+                    name = "readarr";
+                    image = readarrImage;
+                    imagePullPolicy = "IfNotPresent";
+                    env = [
+                      {
+                        name = "PUID";
+                        value = "352";
+                      }
+                      {
+                        name = "PGID";
+                        value = "352";
+                      }
+                      {
+                        name = "TZ";
+                        value = "America/Chicago";
+                      }
+                    ];
+                    ports = [ { containerPort = readarrPort; } ];
+                    resources = {
+                      requests = {
+                        cpu = "50m";
+                        memory = "256Mi";
+                      };
+                      limits = {
+                        cpu = "1000m";
+                        memory = "2Gi";
+                      };
+                    };
+                    volumeMounts = [
+                      {
+                        name = "config";
+                        mountPath = "/config";
+                      }
+                      {
+                        name = "media";
+                        mountPath = "/mnt";
+                      }
+                    ];
+                  }
+                ];
+                volumes = [
+                  {
+                    name = "media";
+                    persistentVolumeClaim.claimName = "readarr-media";
+                  }
+                ];
+              };
+            };
+            volumeClaimTemplates = [
+              {
+                metadata.name = "config";
+                spec = {
+                  accessModes = [ "ReadWriteOnce" ];
+                  resources.requests.storage = "5Gi";
+                };
+              }
+            ];
+          };
+        };
+        "readarr-service.yaml".content = {
+          apiVersion = "v1";
+          kind = "Service";
+          metadata = {
+            name = "readarr";
+          };
+          spec = {
+            selector.app = "readarr";
+            ports = [
+              {
+                port = readarrPort;
+                targetPort = readarrPort;
+              }
+            ];
+          };
+        };
+        "readarr-ingress.yaml".content = {
+          apiVersion = "networking.k8s.io/v1";
+          kind = "Ingress";
+          metadata = {
+            name = "readarr";
+          };
+          spec = {
+            ingressClassName = "traefik";
+            rules = [
+              {
+                host = "readarr.diekvoss.net";
+                http.paths = [
+                  {
+                    path = "/";
+                    pathType = "Prefix";
+                    backend.service = {
+                      name = "readarr";
+                      port.number = readarrPort;
                     };
                   }
                 ];
