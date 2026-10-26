@@ -10,6 +10,7 @@ declare -A SKIPPED_TASKS=()
 GO_VENDORHASH_TARGETS=""
 NPM_DEPS_TARGETS=""
 
+GIT_WORK_TREE=""
 init_nvfetcher_args() {
   local -a env_args=()
 
@@ -93,22 +94,77 @@ snapshot_task_field() {
   ' _sources/generated.json
 }
 
+ensure_git_work_tree() {
+  if [[ -n "$GIT_WORK_TREE" ]]; then
+    return 0
+  fi
+
+  if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    GIT_WORK_TREE=1
+    return 0
+  fi
+
+  echo "::warning title=auto-update git guard::not inside a git work tree; _sources stage/rollback disabled"
+  return 1
+}
+
+snapshot_source_keys() {
+  local out="$1"
+
+  if [[ -f _sources/generated.json ]]; then
+    jq -r 'keys[]' _sources/generated.json 2>/dev/null | sort > "$out"
+  else
+    : > "$out"
+  fi
+}
+
+stage_sources() {
+  # 把当前 _sources 登记为已知好状态：失败组回滚以暂存区为准，
+  # 已成功组的更新不会随回滚丢失。
+  ensure_git_work_tree || return 0
+  git add -A -- _sources
+}
+
+restore_staged_sources() {
+  # 丢弃 _sources 内未暂存的修改与删除，并清除未跟踪文件/目录，
+  # 回到最近一次成功 stage 的状态。
+  ensure_git_work_tree || return 0
+  git checkout -- _sources
+  git clean -fdq -- _sources
+}
 run_nvfetcher() {
   local filter="$1"
   local log
+  local before_keys
+  local after_keys
+  local dropped
+
   log=$(mktemp)
+  before_keys=$(mktemp)
+  after_keys=$(mktemp)
+  snapshot_source_keys "$before_keys"
 
   # 捕获 nvfetcher 输出：成功时不打印（本脚本自身的 Updating / ::warning:: / ::error::
   # 已覆盖关心的部分）；失败时用 GitHub Actions 折叠分组打印完整日志，便于排错。
   if nix run nixpkgs#nvfetcher -- --keep-going --filter "$filter" "${NVFETCHER_ARGS[@]}" >"$log" 2>&1; then
-    rm -f "$log"
+    snapshot_source_keys "$after_keys"
+    dropped="$(comm -23 "$before_keys" "$after_keys")"
+    if [[ -n "$dropped" ]]; then
+      echo "::warning title=nvfetcher dropped sources::filter $filter dropped existing entries: $(echo "$dropped" | tr '\n' ' '); rolled back _sources"
+      rm -f "$log" "$before_keys" "$after_keys"
+      restore_staged_sources
+      return 1
+    fi
+    stage_sources
+    rm -f "$log" "$before_keys" "$after_keys"
     return 0
   fi
 
   echo "::group::nvfetcher 输出 (filter: $filter)"
   cat "$log"
   echo "::endgroup::"
-  rm -f "$log"
+  rm -f "$log" "$before_keys" "$after_keys"
+  restore_staged_sources
   return 1
 }
 
