@@ -80,7 +80,6 @@ in
     powerManagement.cpuFreqGovernor = mkDefault "powersave";
 
     boot = {
-      initrd.systemd.enable = true; # Required for nixos-init
       loader = {
         timeout = 0;
         # Whether the installation process can modify EFI boot variables.

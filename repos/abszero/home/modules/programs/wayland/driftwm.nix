@@ -147,11 +147,14 @@ in
 
         window_rules = [
           # Fullscreen
+
           {
             title = "Waydroid";
             fullscreen = true;
           }
+
           # Resize
+
           {
             title = "/^.* - Anki$/";
             size = [
@@ -194,14 +197,27 @@ in
               894
             ];
           }
+
           # Pin
+
           {
             title = "AIRI";
             pinned_to_screen = true;
             position = [
               1000
+              (-820)
+            ];
+            decoration = "none";
+          }
+          {
+            app_id = "ai-moeru-airi";
+            title = "Inlay";
+            pinned_to_screen = true;
+            position = [
+              0
               (-800)
             ];
+            decoration = "none";
           }
           {
             app_id = "org.kde.polkit-kde-authentication-agent-1";

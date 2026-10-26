@@ -36,8 +36,6 @@ let
         };
       };
 
-      services.displayManager.sessionPackages = with pkgs; [ driftwm ];
-
       themes.noctalia.fonts.enable = true;
     };
 

@@ -171,7 +171,7 @@ let
     config.modules = [
       {
         nix.settings.substituters = mkIf submodule.config.substituters.${hostName}.enable (mkAfter [
-          "ssh-ng://${hostName}?trusted=true"
+          "ssh://${hostName}?trusted=true"
         ]);
       }
       {
@@ -179,11 +179,10 @@ let
           distributedBuilds = true;
           buildMachines = singleton {
             inherit hostName;
-            protocol = "ssh-ng";
             sshUser = "weathercold";
             inherit system;
             maxJobs = 4;
-            speedFactor = 2;
+            speedFactor = 1.5;
             supportedFeatures = [
               "benchmark"
               "big-parallel"

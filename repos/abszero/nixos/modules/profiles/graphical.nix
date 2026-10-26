@@ -80,6 +80,7 @@ in
           disableWhileTyping = true;
         };
       };
+      power-profiles-daemon.enable = true;
       resolved = {
         enable = true;
         settings.Resolve = {
