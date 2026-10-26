@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.nixcfg.k3s;
 in
@@ -91,6 +91,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    # NFS client tooling (mount.nfs) for node-level mounts and debugging.
+    # The csi-driver-nfs containerizes its own mount helper, so this is
+    # not on the k8s data path — but nodes need it for manual mounts.
+    environment.systemPackages = [ pkgs.nfs-utils ];
     assertions = [
       {
         assertion = cfg.role == "server" || cfg.serverAddr != null;

@@ -97,6 +97,10 @@ in
         3000 # forgejo
         8642 # hermes-agent API
         9119 # hermes-dashboard
+        2049 # NFSv4 for k3s shared storage
+        4001 # lockd (fixed port, deterministic firewall)
+        4002 # mountd (fixed port, deterministic firewall)
+        4003 # statd (fixed port, deterministic firewall)
       ];
       allowedUDPPorts = [
         53
@@ -259,6 +263,19 @@ in
     };
     protonmail-bridge.enable = true;
     samba.enable = true;
+    nfs.server = {
+      enable = true;
+      # Fixed ports so the firewall stays deterministic (v4-only traffic,
+      # single port 2049 in practice).
+      lockdPort = 4001;
+      mountdPort = 4002;
+      statdPort = 4003;
+      createMountPoints = true;
+      exports = ''
+        /mnt/POOL/k3s-test 10.1.0.0/24(rw,sync,no_subtree_check,root_squash)
+        /mnt/POOL/Public 10.1.0.0/24(ro,sync,no_subtree_check,root_squash)
+      '';
+    };
     spice-vdagentd.enable = true;
     monitoring.enable = true;
     syncthing = {
