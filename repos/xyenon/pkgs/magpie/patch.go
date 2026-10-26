@@ -676,6 +676,54 @@ func patchChecks(files []*sourceFile, o options) error {
 				}
 				continue
 			}
+			// Freeze only the backup clock: synctest also owns channels created by
+			// filememo, which later plugin callbacks must close outside its bubble.
+			if dir == "internal/provider" && fn.Name.Name == "TestUnreadLoginsWriteErrorsKeepCredentials" {
+				ast.Inspect(fn.Body, func(n ast.Node) bool {
+					call, ok := n.(*ast.CallExpr)
+					if !ok {
+						return true
+					}
+					if f.call(call, "testing/synctest", "Test") && len(call.Args) == 2 {
+						f.replace(call.Fun, f.text(call.Args[0])+".Run")
+						f.replace(call.Args[0], `"write"`)
+						if body, ok := call.Args[1].(*ast.FuncLit); ok {
+							f.insert(body.Body.Lbrace+1, "\nbackupTime := "+f.qualify("github.com/yetone/magpie/internal/lastgood", "NixFreezeBackupClock")+"(t)\n")
+						}
+					}
+					if f.call(call, "time", "Now") {
+						f.replace(call, "backupTime")
+					}
+					return true
+				})
+			}
+			// Model a read 150 ms after the observed stamp, including its coarse
+			// clock boundary, rather than after an arbitrary point in the real second.
+			if dir == "internal/usage" && fn.Name.Name == "TestUsageReadAfterAppendHashesNothingOnAFineClock" {
+				ast.Inspect(fn.Body, func(n ast.Node) bool {
+					assignment, ok := n.(*ast.AssignStmt)
+					if !ok || len(assignment.Lhs) != 1 || f.text(assignment.Lhs[0]) != "logIndexNow" {
+						return true
+					}
+					ast.Inspect(assignment, func(n ast.Node) bool {
+						if call, ok := n.(*ast.CallExpr); ok && f.call(call, "time", "Now") {
+							f.replace(call, "logChangeTime(mustStat(t))")
+						}
+						return true
+					})
+					return false
+				})
+			}
+			// The freshness fixture reads Chinese notes. Its first check must use
+			// that language too, or a legitimate translation fetch races the count.
+			if dir == "internal/gui" && fn.Name.Name == "TestStaleLatestIsNotUpToDate" {
+				ast.Inspect(fn.Body, func(n ast.Node) bool {
+					if literal, ok := n.(*ast.CompositeLit); ok && f.text(literal.Type) == "updater" && len(literal.Elts) == 0 {
+						f.replace(literal, `updater{lang: "zh"}`)
+					}
+					return true
+				})
+			}
 			// Cancelling the old test server only schedules Shutdown. Wait until it
 			// stops accepting before asserting that new requests reach its successor.
 			// The in-flight stream must still drain and every request must still succeed.
@@ -925,6 +973,9 @@ func installHelpers(files []*sourceFile, o options) error {
 		if err := installHelper(dir, "tempdir_test.go", o); err != nil {
 			return err
 		}
+	}
+	if err := installHelper("internal/lastgood", "backup_clock.go", o); err != nil {
+		return err
 	}
 	if o.gui && o.platform == "linux" {
 		// Exercise the Nix scheme and launcher policies against the real upstream packages.
