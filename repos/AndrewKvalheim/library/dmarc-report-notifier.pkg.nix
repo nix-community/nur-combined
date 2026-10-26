@@ -10,7 +10,7 @@ let
 in
 python3Packages.buildPythonApplication (dmarc-report-notifier: {
   pname = "dmarc-report-notifier";
-  version = "1.1.17";
+  version = "1.1.18";
   meta = {
     description = "Headless periodic DMARC report handler";
     homepage = "https://codeberg.org/AndrewKvalheim/dmarc-report-notifier";
@@ -28,7 +28,7 @@ python3Packages.buildPythonApplication (dmarc-report-notifier: {
     owner = "AndrewKvalheim";
     repo = "dmarc-report-notifier";
     rev = "refs/tags/v${dmarc-report-notifier.version}";
-    hash = "sha256-wcdSqQ2ijW1KavChB1HNr9ojSUdC4fxkr6lUV6q3iGU=";
+    hash = "sha256-neaqF5dmwUglio6XFXRR5bhmM2hbyBHujPch2R5XzPQ=";
   };
 
   format = "pyproject";

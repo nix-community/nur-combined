@@ -23,9 +23,16 @@ _direnv_use_bwrap() {
   local cache_dir="$HOME/.cache/isolated/$dir_id"
   mkdir --parents "$cache_dir"
 
+  local gnupg_dir="$HOME/.gnupg/isolated/$dir_id"
+  (
+    umask '077'
+    mkdir --parents "$gnupg_dir"
+    <@openpgp-key-path@ GNUPGHOME="$gnupg_dir" gpg --batch --import --quiet
+  )
+
   local ssh_dir="$HOME/.ssh/isolated/$dir_id"
   (
-    umask 'go=rwx'
+    umask '077'
     mkdir --parents "$ssh_dir"
     [[ -f "$ssh_dir/config" ]] || echo 'PreferredAuthentications publickey' > "$ssh_dir/config"
   )
@@ -45,6 +52,7 @@ _direnv_use_bwrap() {
     --bind "$history_dir" "$HOME/akorg/resource/shell-history"
     --bind "$vscodium_dir" "$HOME/.config/VSCodium"
     --bind "$cache_dir" "$HOME/.cache"
+    --bind "$gnupg_dir" "$HOME/.gnupg"
     --bind "$ssh_dir" "$HOME/.ssh"
   )
   local dev_try_paths=(
@@ -115,7 +123,6 @@ _direnv_use_bwrap() {
     store_path="$(gopass config 'mounts.path')"
     ro_paths+=(
       "$HOME/.config/gopass"
-      "$HOME/.gnupg/pubring.gpg"
       "$store_path/.gpg-id"
     )
     for _ p in "${(@)allow_gopass}"; ro_paths+=("$store_path/$p.gpg")

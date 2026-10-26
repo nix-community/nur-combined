@@ -5,9 +5,11 @@ let
   inherit (config.home) homeDirectory;
   inherit (config.programs) delta;
   inherit (lib) concatLines concatStrings escapeShellArg genAttrs getExe getExe' init last mapAttrsToList mapAttrsToListRecursive mkMerge mkOrder toList;
-  inherit (pkgs) runtimeShell starship-jj;
+  inherit (pkgs) replaceVars runtimeShell starship-jj;
   inherit (pkgs.writers) writeTOML;
   inherit (import ../library/utilities.lib.nix { inherit lib; }) mkSgr sgr tryEscapeShellArgs;
+
+  identity = import ../library/identity.lib.nix { inherit lib; };
 
   zsh-complete-git-commit-message = toFile "zsh-complete-git-commit-message" (readFile ./assets/complete-git-commit-message.zsh);
   zsh-starship-issue-4205 = toFile "zsh-starship-issue-4205" (readFile ./assets/starship-issue-4205.zsh);
@@ -343,7 +345,9 @@ in
           window-title.format = "%1~";
         };
       }))
-      (main (readFile ./assets/direnv-use-bwrap.zsh))
+      (main (readFile (replaceVars ./assets/direnv-use-bwrap.zsh {
+        openpgp-key-path = escapeShellArg identity.openpgp.asc;
+      })))
       (main (readFile ./assets/init.zsh))
 
       # Key bindings
