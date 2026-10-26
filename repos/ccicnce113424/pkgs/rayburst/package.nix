@@ -106,11 +106,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
           xdg-utils
         ]
       }
-      # rayburst 4.x treats APPIMAGE as a filesystem path and canonicalizes it
-      # before writing desktop entries and browser native-messaging manifests.
-      # An absolute path to this wrapper is what makes those point at the
-      # wrapper (and keeps the library/data environment) instead of the hidden
-      # .rayburst-wrapped binary.
+      # Tricky way to make the protocol handler desktop file point to the wrapper
       --set APPIMAGE "$out/bin/rayburst"
     )
     wrapGApp $out/bin/rayburst
@@ -121,7 +117,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   meta = {
     description = "Desktop download manager for files, torrents and streams";
     homepage = "https://github.com/AnInsomniacy/rayburst";
-    changelog = "https://github.com/AnInsomniacy/rayburst/releases/tag/v${finalAttrs.version}";
+    changelog = "https://github.com/AnInsomniacy/rayburst/releases/tag/${finalAttrs.src.tag}";
     license = with lib.licenses; [
       mit
       gpl2Plus
