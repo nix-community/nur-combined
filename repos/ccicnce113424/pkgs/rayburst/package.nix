@@ -106,8 +106,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
           xdg-utils
         ]
       }
-      # Tricky way to make the protocol handler desktop file point to the wrapper
-      --set-default APPIMAGE rayburst
+      # rayburst 4.x treats APPIMAGE as a filesystem path and canonicalizes it
+      # before writing desktop entries and browser native-messaging manifests.
+      # An absolute path to this wrapper is what makes those point at the
+      # wrapper (and keeps the library/data environment) instead of the hidden
+      # .rayburst-wrapped binary.
+      --set APPIMAGE "$out/bin/rayburst"
     )
     wrapGApp $out/bin/rayburst
   '';
