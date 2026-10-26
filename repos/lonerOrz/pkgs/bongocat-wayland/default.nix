@@ -9,13 +9,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "wayland-bongocat";
-  version = "2.1.0";
+  version = "2.1.1";
 
   src = fetchFromGitHub {
     owner = "saatvik333";
     repo = "wayland-bongocat";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-aSjHqbIRoA/woFPy1u2td4uXF5Sw/wZ9bqp1pfpnb4c=";
+    hash = "sha256-qCLD/HoQB1fef5tjsYxZMZStfOvCRfV5jtfS02RIYf4=";
   };
 
   # Build toolchain and dependencies
@@ -38,8 +38,9 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    install -Dm755 build/bongocat $out/bin/${finalAttrs.meta.mainProgram}
-    install -Dm755 scripts/find_input_devices.sh $out/bin/bongocat-find-devices
+    install -Dm755 build/release/bongocat $out/bin/${finalAttrs.meta.mainProgram}
+    install -Dm644 man/bongocat.1 $out/share/man/man1/bongocat.1
+    install -Dm644 bongocat.conf.example $out/share/bongocat/bongocat.conf.example
 
     runHook postInstall
   '';
