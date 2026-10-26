@@ -19,6 +19,14 @@ in
     })
   ];
 
+  # The kmod is built against one kernel, so it belongs on each kernelPackages
+  # set (kernel + kernelModuleMakeFlags), not at the top level.
+  kernelPackagesExtensions = prev.kernelPackagesExtensions ++ [
+    (lpself: _lpsuper: {
+      gpu-unlock = lpself.callPackage ./pkgs/gpu-unlock { };
+    })
+  ];
+
   python3PackagesBin = prev.python3Packages.overrideScope (
     self: super: {
       torch = super.pytorch-bin;

@@ -26,6 +26,7 @@ in
     ./tuning.nix
     ./unstore.nix
     ./workusers.nix
+    ./gpu-unlock.nix
   ];
 
   boot.supportedFilesystems = [

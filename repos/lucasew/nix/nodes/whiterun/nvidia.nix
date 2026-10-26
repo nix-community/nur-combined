@@ -22,6 +22,9 @@
     # nvidiaPersistenced = true;
   };
 
+  # GA104 RTX 3060 at 0000:01:00.0 (10de:2487). Audio function is not a target.
+  hardware.gpu-unlock.enable = true;
+
   hardware.nvidia-container-toolkit = {
     enable = true;
     device-name-strategy = "uuid";
