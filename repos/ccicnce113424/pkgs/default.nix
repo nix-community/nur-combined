@@ -87,6 +87,8 @@ lib.makeScope pkgs.newScope (
 
     gaze-gui = self.callPackage ./gaze-gui/package.nix { };
 
+    gaze-kcm = self.callPackage ./gaze-kcm/package.nix { };
+
     honk-core = self.callPackage ./honk-core/package.nix { };
 
     jj-lsp = self.callPackage ./jj-lsp rec {

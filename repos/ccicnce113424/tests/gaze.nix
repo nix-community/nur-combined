@@ -16,6 +16,7 @@
       gui.enable = true;
       gnome.enable = true;
       kde = {
+        enableKCM = true;
         lockScreen = true;
         loginScreen = true;
         unlockKwallet = true;
@@ -111,7 +112,20 @@
     )
     gdm_face = "".join(auth_rules("gdm-face"))
     assert "pam_gaze.so" in gdm_face
+    assert "auth_err=ignore" in gdm_face
     assert "pam_gnome_keyring.so use_authtok" in gdm_face
+    # The lockout gate runs in front of the face, because a match ends the
+    # stack, and only a match clears the failure count.
+    assert auth_position("gdm-face", "pam_faillock.so preauth") < auth_position(
+        "gdm-face", "pam_gaze.so"
+    ) < auth_position("gdm-face", "pam_faillock.so authsucc")
+
+    # `kde.enableKCM` puts the System Settings page into the profile: the plugin
+    # System Settings loads and the entry that lists it.
+    machine.succeed(
+        "test -e /run/current-system/sw/lib/qt-6/plugins/plasma/kcms/systemsettings/kcm_gaze.so"
+    )
+    machine.succeed("test -e /run/current-system/sw/share/applications/kcm_gaze.desktop")
 
     # The per-service knob wires any documented service, here the Cinnamon
     # lock screen.
