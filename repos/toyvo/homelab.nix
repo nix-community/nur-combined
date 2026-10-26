@@ -279,6 +279,9 @@
         ];
         displayName = "Prowlarr";
         description = "Indexer Manager";
+        # API consumers (*arrs) can't complete the forward-auth login flow;
+        # Prowlarr handles its own auth (login + API keys), like forgejo.
+        forwardAuthGate = false;
         category = "Starr";
         icon = "sh-prowlarr";
         widget = {
