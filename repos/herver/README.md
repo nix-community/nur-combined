@@ -8,6 +8,7 @@
 [![Cachix Cache](https://img.shields.io/badge/cachix-herver-blue.svg)](https://herver.cachix.org)
 
 ## Packages
+ * [Audiveris](https://audiveris.github.io/audiveris/)
  * [IB Gateway](https://www.interactivebrokers.com/en/trading/ibgateway-latest.php)
  * [IBKR Desktop](https://www.interactivebrokers.com/en/trading/ibkr-desktop.php)
  * [IBKR Trader Workstation (TWS)](https://www.interactivebrokers.com/en/trading/download-tws.php)

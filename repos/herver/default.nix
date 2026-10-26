@@ -8,6 +8,8 @@
     udpxy = ./modules/udpxy.nix; # NixOS module exposing services.udpxy
   };
 
+  audiveris = pkgs.callPackage ./pkgs/audiveris { };
+
   cernphone = pkgs.callPackage ./pkgs/cernphone { };
 
   ibkr-gateway = pkgs.callPackage ./pkgs/ibkr-gateway { };
