@@ -24,49 +24,52 @@ let
     }
   ) node;
 
+  serviceHosts = {
+    abhoth = [ "box.nyaw.xyz" ];
+    eihort = map (n: n + ".nyaw.xyz") [
+      "matrix"
+      "gf"
+      "vault"
+      "photo"
+      "s3"
+      "ms"
+      "alist"
+      "book"
+      "scrutiny"
+      "seaweedfs"
+      "oidc"
+      "memos"
+      "rqbit"
+      "seed"
+      "alert"
+      "jellyfin"
+      "cache"
+      "git"
+    ];
+    hastur = [ "proxyapi.nyaw.xyz" ];
+  };
+
   hosts =
     (
       { lib, ... }:
       let
-        srvOnEihort = map (n: n + ".nyaw.xyz") [
-          "matrix"
-          "gf"
-          "vault"
-          "photo"
-          "s3"
-          "ms"
-          "alist"
-          "book"
-          "scrutiny"
-          "seaweedfs"
-          "oidc"
-          "memos"
-          "rqbit"
-          "seed"
-          "alert"
-          "jellyfin"
-          "cache"
-          "git"
-        ];
-        srvOnHastur = [ "proxyapi.nyaw.xyz" ];
-
         getAddrFromCIDR = i: lib.elemAt (lib.splitString "/" i) 0;
 
-        sum = lib.mkMerge [
-          (lib.foldlAttrs (
-            acc: name: value:
-            acc
-            // {
-              "${getAddrFromCIDR value.unique_addr}" = lib.singleton "${name}.nyaw.xyz";
-            }
-          ) { } node-data)
-          {
-            "fdcc::5" = [ "box.nyaw.xyz" ];
-            "fdcc::3" = srvOnEihort;
-            "fdcc::1" = srvOnHastur;
-            "127.0.0.1" = [ "sync.nyaw.xyz" ];
-          }
-        ];
+        sum = lib.mkMerge (
+          [
+            (lib.foldlAttrs (
+              acc: name: value:
+              acc
+              // {
+                "${getAddrFromCIDR value.unique_addr}" = lib.singleton "${name}.nyaw.xyz";
+              }
+            ) { } node-data)
+            { "127.0.0.1" = [ "sync.nyaw.xyz" ]; }
+          ]
+          ++ lib.mapAttrsToList (name: names: {
+            "${node-data.${name}.unique_addr_nomask}" = names;
+          }) serviceHosts
+        );
       in
       {
         kaambl = sum;
@@ -95,7 +98,7 @@ let
         sshCAPubKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIkPoZURmlL2Awbgp8dL2N29EDa/2BS2dYsYb6EeFLp3";
       };
       node = node-data;
-      inherit hosts;
+      inherit hosts serviceHosts;
     };
   };
 

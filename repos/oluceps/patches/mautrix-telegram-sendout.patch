@@ -1,0 +1,188 @@
+diff --git a/pkg/gotd/telegram/updates/state_channel.go b/pkg/gotd/telegram/updates/state_channel.go
+index e2fab62a..9cfad0af 100644
+--- a/pkg/gotd/telegram/updates/state_channel.go
++++ b/pkg/gotd/telegram/updates/state_channel.go
+@@ -272,17 +272,15 @@ func (s *channelState) getDifference(ctx context.Context) error {
+ 	switch diff := diff.(type) {
+ 	case *tg.UpdatesChannelDifference:
+ 		if len(diff.OtherUpdates) > 0 {
+-			select {
+-			case s.out <- tracedUpdate{
++			if err := s.sendOut(ctx, tracedUpdate{
+ 				span: trace.SpanContextFromContext(ctx),
+ 				update: &tg.Updates{
+ 					Updates: diff.OtherUpdates,
+ 					Users:   diff.Users,
+ 					Chats:   diff.Chats,
+ 				},
+-			}:
+-			case <-ctx.Done():
+-				return ctx.Err()
++			}); err != nil {
++				return err
+ 			}
+ 		}
+ 
+@@ -346,6 +344,33 @@ func (s *channelState) getDifference(ctx context.Context) error {
+ 	}
+ }
+ 
++// sendOut hands off updates to the *internalState worker via s.out.
++//
++// While waiting for the worker to accept the update, it keeps draining its own
++// input queue. Otherwise the worker may block pushing into s.updates while this
++// goroutine blocks pushing into s.out, producing a deadlock (both queues are
++// bounded and the worker is the only reader of s.out).
++//
++// Drained updates are ignored on purpose: they are restored by a future
++// getChannelDifference call, same as in the diffTimeout wait above.
++func (s *channelState) sendOut(ctx context.Context, out tracedUpdate) error {
++	for {
++		select {
++		case s.out <- out:
++			return nil
++		case u, ok := <-s.updates:
++			if !ok {
++				continue
++			}
++			s.log.Debug("Ignoring update while sending channel difference",
++				zap.Any("update", u.update),
++			)
++		case <-ctx.Done():
++			return ctx.Err()
++		}
++	}
++}
++
+ func (s *channelState) getDifferenceLogger(ctx context.Context) {
+ 	if err := s.getDifference(ctx); err != nil {
+ 		s.log.Error("get channel difference error", zap.Error(err))
+diff --git a/pkg/gotd/telegram/updates/state_channel_sendout_test.go b/pkg/gotd/telegram/updates/state_channel_sendout_test.go
+new file mode 100644
+index 00000000..a3cd269e
+--- /dev/null
++++ b/pkg/gotd/telegram/updates/state_channel_sendout_test.go
+@@ -0,0 +1,123 @@
++package updates
++
++import (
++	"context"
++	"testing"
++	"time"
++
++	"go.uber.org/zap"
++
++	"go.mau.fi/mautrix-telegram/pkg/gotd/tg"
++)
++
++func newSendOutState(out chan tracedUpdate) *channelState {
++	return &channelState{
++		updates: make(chan channelUpdate, 1),
++		out:     out,
++		log:     zap.NewNop(),
++	}
++}
++
++// TestChannelStateSendOutDeadlock reproduces the deadlock: both s.out and
++// s.updates are full, and the only reader of s.out (the main loop) cannot
++// proceed until it manages to push into s.updates.
++func TestChannelStateSendOutDeadlock(t *testing.T) {
++	out := make(chan tracedUpdate, 1)
++	s := newSendOutState(out)
++
++	// Fill both bounded queues.
++	out <- tracedUpdate{}
++	s.updates <- channelUpdate{}
++
++	want := &tg.Updates{Updates: []tg.UpdateClass{&tg.UpdateNewMessage{}}}
++	got := make(chan tg.UpdatesClass, 2)
++
++	// Emulate the single main loop: it only reads s.out after sending the
++	// next item to s.updates, which is initially blocked because the queue
++	// is full.
++	go func() {
++		s.updates <- channelUpdate{}
++		for i := 0; i < 2; i++ {
++			tu := <-out
++			if tu.update != nil {
++				got <- tu.update
++			}
++		}
++	}()
++
++	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
++	defer cancel()
++
++	done := make(chan error, 1)
++	go func() {
++		done <- s.sendOut(ctx, tracedUpdate{update: want})
++	}()
++
++	select {
++	case err := <-done:
++		if err != nil {
++			t.Fatalf("sendOut returned error: %v", err)
++		}
++	case <-time.After(10 * time.Second):
++		t.Fatal("sendOut did not complete: deadlock")
++	}
++
++	for {
++		select {
++		case u := <-got:
++			if u == want {
++				return
++			}
++		case <-time.After(5 * time.Second):
++			t.Fatal("expected update was not delivered to s.out")
++		}
++	}
++}
++
++func TestChannelStateSendOutContextCancel(t *testing.T) {
++	s := newSendOutState(make(chan tracedUpdate))
++
++	ctx, cancel := context.WithCancel(context.Background())
++	done := make(chan error, 1)
++	go func() {
++		done <- s.sendOut(ctx, tracedUpdate{update: &tg.Updates{}})
++	}()
++
++	select {
++	case <-time.After(50 * time.Millisecond):
++		cancel()
++	case <-done:
++		t.Fatal("sendOut returned before context cancellation")
++	}
++
++	select {
++	case err := <-done:
++		if err == nil {
++			t.Fatal("sendOut returned nil error after cancellation")
++		}
++	case <-time.After(5 * time.Second):
++		t.Fatal("sendOut did not exit on context cancellation")
++	}
++}
++
++func TestChannelStateSendOut(t *testing.T) {
++	out := make(chan tracedUpdate, 1)
++	s := newSendOutState(out)
++
++	want := &tg.Updates{}
++	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
++	defer cancel()
++
++	if err := s.sendOut(ctx, tracedUpdate{update: want}); err != nil {
++		t.Fatalf("sendOut returned error: %v", err)
++	}
++
++	select {
++	case tu := <-out:
++		if tu.update != want {
++			t.Fatalf("unexpected update: %T", tu.update)
++		}
++	default:
++		t.Fatal("sendOut did not deliver update to s.out")
++	}
++}

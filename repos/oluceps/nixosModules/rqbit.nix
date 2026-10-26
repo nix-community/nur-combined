@@ -60,7 +60,7 @@ in
         User = "rqbit";
         Group = "rqbit";
         # --socks-url socks5://127.0.0.1:1091
-        ExecStart = "${lib.getExe' cfg.package "rqbit"} --http-api-listen-addr [::]:3031 server start ${cfg.location}";
+        ExecStart = "${lib.getExe' cfg.package "rqbit"} --http-api-listen-addr [::]:3031 --dht-bootstrap-addrs '87.98.162.88:6881,212.129.33.59:6881,185.157.221.247:25401' server start ${cfg.location}";
         Environment = [ "RUST_LOG=warn" ];
         Restart = "on-failure";
       };

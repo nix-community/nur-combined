@@ -1,10 +1,25 @@
 {
   flake.modules.nixos.jellyfin =
-    { pkgs, ... }:
+    { config, pkgs, ... }:
     {
       services.jellyfin = {
         enable = true;
-        openFirewall = true;
+        openFirewall = false;
+      };
+      realm.workloads.jellyfin = {
+        ingress.http = {
+          port = 18096;
+          backend = {
+            kind = "private-tcp";
+            port = 8096;
+          };
+          service = "jellyfin";
+          allow.identities = config.realm.caddy.allowedIDs.jellyfin;
+        };
+        http.internet = true;
+      };
+      systemd.services.jellyfin.environment = {
+        JELLYFIN_PublishedServerUrl = "https://jellyfin.nyaw.xyz";
       };
       environment.systemPackages = [
         pkgs.jellyfin

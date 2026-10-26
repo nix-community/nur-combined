@@ -131,6 +131,10 @@
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
     };
+    owly = {
+      url = "github:t4t5/owly";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     preservation.url = "github:WilliButz/preservation";
     prismlauncher = {
       url = "github:PrismLauncher/PrismLauncher";
@@ -166,8 +170,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nuanmonito.url = "/home/riro/Src/nuanmonito";
-    ranet.url = "/home/riro/Src/ranet";
-    ranet-discover.url = "/home/riro/Src/ranet-discover";
+    # ranet.url = "/home/riro/Src/ranet";
+    # ranet-discover.url = "/home/riro/Src/ranet-discover";
     hjem.url = "github:feel-co/hjem";
     import-tree.url = "github:vic/import-tree";
     flyline.url = "github:HalFrgrd/flyline";

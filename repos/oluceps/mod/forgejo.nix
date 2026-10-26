@@ -10,6 +10,36 @@
       srv = cfg.settings.server;
     in
     {
+      realm.workloads.forgejo = {
+        http = {
+          internet = true;
+          gateway = {
+            ref = "eihort";
+            resolveHosts = [ "s3.nyaw.xyz" ];
+          };
+        };
+        isolation = {
+          runtimePaths = [ "/run/forgejo" ];
+          allowUnixSockets = [ "/run/postgresql" ];
+          hosts."box.nyaw.xyz" = "127.0.0.1";
+        };
+        ingressGroups = [ "forgejo" ];
+        ingress.http = {
+          port = 16462;
+          backend = {
+            kind = "unix";
+            path = "/run/forgejo/forgejo.sock";
+          };
+          service = "forgejo";
+          allow.identities = config.realm.caddy.allowedIDs.forgejo;
+        };
+        egress = {
+          smtp = {
+            service = "smtp-submission";
+            localPort = 465;
+          };
+        };
+      };
       services.forgejo = {
         enable = true;
         database.type = "postgres";
@@ -18,7 +48,9 @@
           server = {
             DOMAIN = "git.nyaw.xyz";
             ROOT_URL = "https://${srv.DOMAIN}/";
-            HTTP_PORT = 36462;
+            PROTOCOL = "http+unix";
+            HTTP_ADDR = "/run/forgejo/forgejo.sock";
+            UNIX_SOCKET_PERMISSION = "660";
             DISABLE_SSH = true;
           };
           service = {
@@ -26,12 +58,20 @@
             REGISTER_EMAIL_CONFIRM = true;
             REGISTER_MANUAL_CONFIRM = true;
           };
+          proxy = {
+            PROXY_ENABLED = true;
+            # Follow environment proxy selection, including NO_PROXY for private adapters.
+            PROXY_URL = "";
+            PROXY_HOSTS = "**";
+          };
           actions = {
             ENABLED = true;
           };
           mailer = {
             ENABLED = true;
             SMTP_ADDR = "box.nyaw.xyz";
+            SMTP_PORT = 465;
+            PROTOCOL = "smtps";
             FROM = "forgejo admin of nyaw <forgejo@nyaw.xyz>";
             USER = "forgejo@nyaw.xyz";
           };

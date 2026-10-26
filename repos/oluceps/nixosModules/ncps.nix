@@ -738,13 +738,16 @@ in
           ProcSubset = "pid";
           RestrictNamespaces = true;
           SystemCallArchitectures = "native";
-          PrivateNetwork = false;
           PrivateTmp = true;
           PrivateDevices = true;
           PrivateMounts = true;
           NoNewPrivileges = true;
           LockPersonality = true;
-          RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6";
+          RestrictAddressFamilies = [
+            "AF_UNIX"
+            "AF_INET"
+            "AF_INET6"
+          ];
           LimitNOFILE = 65536;
           UMask = "0066";
         }

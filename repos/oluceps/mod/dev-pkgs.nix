@@ -49,6 +49,8 @@
               rage
               sequoia-sq
               sequoia-sqv
+              # sequoia-chameleon-gnupg
+
               age-plugin-yubikey
               cryptsetup
               tpm2-tss

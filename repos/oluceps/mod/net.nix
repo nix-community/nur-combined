@@ -1,52 +1,64 @@
 { lib, ... }:
 let
-  common = {
-    services.resolved = {
+  # Every host keeps NetworkManager off, and only the ones that pass
+  # `networkmanager = true` set it themselves. Wired stays on
+  # systemd-networkd everywhere.
+  common =
+    {
+      networkmanager ? false,
+    }:
+    {
+      services.resolved = {
 
-      settings.Resolve = {
-        LLMNR = "true";
-        Cache = "no";
-        FallbackDNS = [
-          "8.8.8.8#dns.google"
-          "2001:4860:4860::8888#dns.google"
-        ];
-        DNSSEC = "true";
+        settings.Resolve = {
+          LLMNR = "true";
+          Cache = "no";
+          FallbackDNS = [
+            "8.8.8.8#dns.google"
+            "2001:4860:4860::8888#dns.google"
+          ];
+          DNSSEC = "true";
+        };
+      };
+      networking = {
+        usePredictableInterfaceNames = true;
+
+        domain = "nyaw.xyz";
+        # replicates the default behaviour.
+        enableIPv6 = true;
+        # WARNING: THIS FAILED MY DHCP
+        # interfaces.eth0.wakeOnLan.enable = true;
+        # wireless.iwd.enable = true;
+        useNetworkd = true;
+        useDHCP = false;
+        firewall = {
+          enable = true;
+          checkReversePath = false;
+          logRefusedConnections = true;
+          trustedInterfaces = [
+            "virbr0"
+            "podman*"
+            "tun0"
+          ];
+          allowedUDPPorts = [
+          ];
+          allowedTCPPorts = [
+          ];
+        };
+        nftables = {
+          enable = true;
+        };
+
+        # services.resolved owns /etc/resolv.conf, so NetworkManager hands its
+        # per-link DNS to systemd-resolved instead of writing the file. A
+        # default, because the resolved and NetworkManager modules both set
+        # their own mode.
+        networkmanager.dns = lib.mkDefault "none";
+      }
+      // lib.optionalAttrs (!networkmanager) {
+        networkmanager.enable = lib.mkForce false;
       };
     };
-    networking = {
-      usePredictableInterfaceNames = true;
-
-      domain = "nyaw.xyz";
-      # replicates the default behaviour.
-      enableIPv6 = true;
-      # WARNING: THIS FAILED MY DHCP
-      # interfaces.eth0.wakeOnLan.enable = true;
-      # wireless.iwd.enable = true;
-      useNetworkd = true;
-      useDHCP = false;
-      firewall = {
-        enable = true;
-        checkReversePath = false;
-        logRefusedConnections = true;
-        trustedInterfaces = [
-          "virbr0"
-          "podman*"
-          "tun0"
-        ];
-        allowedUDPPorts = [
-        ];
-        allowedTCPPorts = [
-        ];
-      };
-      nftables = {
-        enable = true;
-      };
-
-      networkmanager.enable = lib.mkForce false;
-      networkmanager.dns = "none";
-    };
-
-  };
 in
 {
   flake.modules.nixos."net/hastur" =
@@ -57,17 +69,39 @@ in
           hosts = config.data.hosts.${config.networking.hostName} // {
             "localhost" = [ "alert.nyaw.xyz" ];
           };
-          wireless.iwd = {
+          # NetworkManager controls wpa_supplicant over D-Bus.
+          networkmanager = {
             enable = true;
+            wifi.powersave = false;
+            # NetworkManager owns wlan0 and nothing else: eno1, vm2,
+            # vxlan-mesh, br0 and the taps stay with systemd-networkd.
+            # match-all is explicit because a negative match only implies it
+            # when the list holds nothing else, and the owly module adds its
+            # own entries to this list.
+            unmanaged = [
+              "*"
+              "except:interface-name:wlan0"
+            ];
+            # NetworkManager gives Wi-Fi metric 600 by itself, which beats
+            # networkd's 1024 on eno1. Keep the wired default route first.
             settings = {
-              Network = {
-                EnableIPv6 = true;
-                RoutePriorityOffset = 300;
+              "connection-wifi-wlan0" = {
+                match-device = "interface-name:wlan0";
+                "ipv4.route-metric" = 1100;
               };
-              Settings = {
-                AutoConnect = false;
-              };
+              # /etc is a read-only overlay on this host, so the profiles go
+              # under the state directory, which /persist holds.
+              keyfile.path = "/var/lib/NetworkManager/system-connections";
             };
+          };
+          # /etc is a read-only overlay on this host, so wpa_supplicant must
+          # not write its imperative config there. NetworkManager supplies the
+          # networks over D-Bus, and a declarative file gives it a start point.
+          wireless = {
+            allowAuxiliaryImperativeNetworks = false;
+            extraConfig = ''
+              # NetworkManager adds the networks over D-Bus.
+            '';
           };
           hostName = "hastur"; # Define your hostname.
           firewall = {
@@ -77,13 +111,6 @@ in
             ];
             allowedUDPPorts = [ 1901 ];
           };
-
-          timeServers = [
-            "ntp1.aliyun.com"
-            "240e:982:13a3:f700:70c6:e4fd:a208:19d3"
-            "edu.ntp.org.cn"
-            "2001:250:380a:5::10"
-          ];
 
           nftables = {
             enable = true;
@@ -184,8 +211,16 @@ in
             };
           };
         };
+        # Store both profiles and state outside the read-only /etc overlay.
+        preservation.preserveAt."/persist".directories = [
+          "/var/lib/NetworkManager"
+        ];
+        # owlyd reads radio.toml once at startup.
+        systemd.services.owlyd.restartTriggers = [
+          config.environment.etc."owly/radio.toml".source
+        ];
       }
-      common
+      (common { networkmanager = true; })
     ]);
 
   flake.modules.nixos."net/eihort" =
@@ -206,13 +241,6 @@ in
             allowedUDPPorts = [ ];
           };
           hostId = "0bc55a2e";
-
-          timeServers = [
-            "ntp1.aliyun.com"
-            "240e:982:13a3:f700:70c6:e4fd:a208:19d3"
-            "edu.ntp.org.cn"
-            "2001:250:380a:5::10"
-          ];
         };
         systemd.network = {
           enable = true;
@@ -257,13 +285,13 @@ in
           };
         };
       }
-      common
+      (common { })
     ]);
 
   flake.modules.nixos."net/abhoth" =
     { ... }:
     lib.mkMerge [
-      common
+      (common { })
       {
         networking = {
           hostName = "abhoth";
@@ -331,7 +359,7 @@ in
   flake.modules.nixos."net/nodens" =
     { ... }:
     lib.mkMerge [
-      common
+      (common { })
       {
         networking = {
           hostName = "nodens";
@@ -391,7 +419,7 @@ in
   flake.modules.nixos."net/yidhra" =
     { ... }:
     lib.mkMerge [
-      common
+      (common { })
       {
         networking = {
           hostName = "yidhra";
@@ -461,7 +489,7 @@ in
   flake.modules.nixos."net/kaambl" =
     { config, ... }:
     lib.mkMerge [
-      common
+      (common { })
       {
         networking = {
           hostName = "kaambl";
@@ -540,7 +568,7 @@ in
   flake.modules.nixos."net/uubboo" =
     { config, ... }:
     lib.mkMerge [
-      common
+      (common { })
       {
         networking = {
           hosts = config.data.hosts.${config.networking.hostName} // {
@@ -580,7 +608,7 @@ in
   flake.modules.nixos."net/azasos" =
     { config, ... }:
     lib.mkMerge [
-      common
+      (common { })
       {
         vaultix.secrets.wg-azasos-warp = {
           owner = "systemd-network";

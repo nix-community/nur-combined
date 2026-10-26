@@ -8,9 +8,59 @@
     {
       config,
       pkgs,
+      lib,
       ...
     }:
     {
+      realm.workloads.pocket-id = {
+        user = config.services.pocket-id.user;
+        group = config.services.pocket-id.group;
+        isolation = {
+          runtimePaths = [ "/run/pocket-id" ];
+          allowUnixSockets = [ "/run/postgresql" ];
+          hosts."box.nyaw.xyz" = "127.0.0.1";
+        };
+        ingressGroups = [ config.services.pocket-id.group ];
+        ingress = {
+          http = {
+            port = 11411;
+            backend = {
+              kind = "unix";
+              path = "/run/pocket-id/http.sock";
+            };
+            service = "pocket-id";
+            allow.identities = config.realm.caddy.allowedIDs.pocket-id;
+          };
+          metrics = {
+            port = 19464;
+            backend = {
+              kind = "private-tcp";
+              port = 9464;
+            };
+            service = "pocket-id-metrics";
+            allow.identities = [ config.realm.workloads.observability.spiffeID ];
+          };
+        };
+        http.internet = true;
+        egress = {
+          smtp = {
+            service = "smtp-submission";
+            localPort = 465;
+          };
+        };
+      };
+      realm.workloads.observability.egress.pocket-id = {
+        service = "pocket-id-metrics";
+      };
+      realm.observability.endpoints.pocket-id.socket = "/run/realm/observability/egress/pocket-id.sock";
+      systemd.services.pocket-id = {
+        requires = [ "postgresql.target" ];
+        after = [ "postgresql.target" ];
+        serviceConfig = {
+          PrivateNetwork = lib.mkForce true;
+          RuntimeDirectory = "pocket-id";
+        };
+      };
       imports =
         with self.modules;
         (
@@ -33,7 +83,6 @@
             base
             dev
             plugIn
-            garage
             vxlan-mesh
             yggdrasil
             scrutiny
@@ -58,13 +107,12 @@
 
             loki
             alloy
-            zeek
+            suricata
             jellyfin
             samba
             ncps
             forgejo
             sept
-            zeek
             virt
             # clickhouse
 
@@ -79,6 +127,8 @@
 
       identity.user = "elen";
       incus.bridgeAddr = "fdcc:3::1/64";
+      realm.observability.endpoints.cloudflared.port = 20241;
+      realm.observability.endpoints.tg-online.port = 8087;
       # xray.configFile = config.vaultix.secrets.xray-cli.path;
 
       hardware.facter = {
@@ -160,6 +210,41 @@
           RuntimeWatchdogSec = "30s";
         };
       };
+      systemd.sockets.sept-proxy = {
+        description = "Sept forwarding socket";
+        wantedBy = [ "sockets.target" ];
+        listenStreams = [ "[::]:1905" ];
+        socketConfig = {
+          BindIPv6Only = "both";
+          FreeBind = true;
+        };
+      };
+
+      systemd.services.sept-proxy = {
+        description = "Forward connections to Sept";
+        requires = [ "sept-proxy.socket" ];
+        serviceConfig = (import ../../lib/proxy-hardening.nix) // {
+          ExecStart = "${config.systemd.package}/lib/systemd/systemd-socket-proxyd 10.255.0.1:1095";
+          DynamicUser = true;
+          NoNewPrivileges = true;
+          CapabilityBoundingSet = "";
+          PrivateTmp = true;
+          PrivateDevices = true;
+          ProtectSystem = "strict";
+          ProtectHome = true;
+          ProtectProc = "ptraceable";
+          ProcSubset = "pid";
+          RestrictSUIDSGID = true;
+          RestrictNamespaces = true;
+          RestrictAddressFamilies = [
+            "AF_UNIX"
+            "AF_INET"
+            "AF_INET6"
+          ];
+          SystemCallArchitectures = "native";
+        };
+      };
+
       services = {
         zfs = {
           autoScrub.enable = true;
@@ -176,6 +261,7 @@
         };
         cloudflared = {
           enable = true;
+          edgeDnsOverHttps = true;
           environmentFile = config.vaultix.secrets.cfd.path;
         };
         nuanmonito = {
@@ -210,28 +296,17 @@
         #   key = config.vaultix.secrets.garden_key.path;
         #   interface = "eno1";
         # };
-        realm = {
-          enable = true;
-          settings = {
-            log.level = "warn";
-            network = {
-              no_tcp = false;
-              use_udp = true;
-            };
-            endpoints = [
-              {
-                listen = "[::]:1905";
-                remote = "10.255.0.1:1095";
-              }
-            ];
-          };
-        };
         pocket-id = {
           enable = true;
           settings = {
             APP_URL = "https://oidc.nyaw.xyz";
+            UNIX_SOCKET = "/run/pocket-id/http.sock";
+            UNIX_SOCKET_MODE = "0660";
+            DB_CONNECTION_STRING = "postgresql://pocket-id@localhost/pocketid?host=/run/postgresql&sslmode=disable";
             TRUST_PROXY = true;
             OTEL_METRICS_EXPORTER = "prometheus";
+            OTEL_EXPORTER_PROMETHEUS_HOST = "127.0.0.1";
+            OTEL_EXPORTER_PROMETHEUS_PORT = 9464;
           };
           environmentFile = config.vaultix.secrets.pocketid.path;
         };

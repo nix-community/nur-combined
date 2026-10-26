@@ -87,6 +87,17 @@ in
         serviceConfig =
           let
             binSuffix = if opts.serve then "server" else "client";
+            capabilities = [
+              "CAP_NET_BIND_SERVICE"
+            ]
+            ++ lib.optionals (!opts.serve || opts.mimic) [
+              "CAP_NET_ADMIN"
+              "CAP_NET_RAW"
+            ]
+            ++ lib.optionals opts.mimic [
+              "CAP_BPF"
+              "CAP_PERFMON"
+            ];
           in
           {
             Type = "simple";
@@ -97,26 +108,32 @@ in
             StateDirectory = "hysteria-${name}";
             WorkingDirectory = "/var/lib/hysteria-${name}";
             RuntimeDirectory = mkIf opts.mimic "mimic";
-            AmbientCapabilities = [
-              "CAP_NET_ADMIN"
-              "CAP_NET_BIND_SERVICE"
-              "CAP_NET_RAW"
-              "CAP_BPF"
-              "CAP_PERFMON"
-            ];
-            CapabilityBoundingSet = [
-              "CAP_NET_ADMIN"
-              "CAP_NET_BIND_SERVICE"
-              "CAP_NET_RAW"
-              "CAP_BPF"
-              "CAP_PERFMON"
-            ];
+            AmbientCapabilities = capabilities;
+            CapabilityBoundingSet = capabilities;
+            NoNewPrivileges = true;
+            ProtectSystem = "strict";
+            ProtectHome = true;
+            PrivateTmp = true;
+            PrivateDevices = !opts.mimic && opts.serve;
+            ProtectKernelTunables = true;
+            ProtectKernelModules = true;
+            ProtectKernelLogs = true;
+            ProtectControlGroups = true;
+            ProtectClock = true;
+            ProtectProc = "invisible";
+            RestrictNamespaces = true;
+            RestrictSUIDSGID = true;
+            RestrictRealtime = true;
+            LockPersonality = true;
+            SystemCallArchitectures = "native";
+            UMask = "0077";
             LimitNPROC = 512;
             LimitNOFILE = "infinity";
             Restart = "always";
             RestartSec = 1;
-            CPUSchedulingPolicy = "rr";
-            CPUSchedulingPriority = 99;
+            # Public proxy traffic must share CPU with discovery and identity.
+            CPUSchedulingPolicy = "other";
+            CPUSchedulingPriority = 0;
           };
       }
     ) (lib.filterAttrs (_: v: v.enable) cfg.instances);

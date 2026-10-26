@@ -1,0 +1,31 @@
+direction: down
+vars: { d2-config: { theme-id: 0 } }
+classes: {
+  node: { style: { fill: "#eef4ff"; stroke: "#37628b"; border-radius: 10; font-size: 20 } }
+  gateway: { style: { fill: "#e6f4ed"; stroke: "#31765b"; border-radius: 10; font-size: 20 } }
+  note: { style: { fill: "#fff6df"; stroke: "#aa8330"; border-radius: 8; font-size: 18 } }
+}
+title: "Realm: Roles and Connections" { shape: text; style.font-size: 30 }
+users: "Public and internal users" { class: node }
+apps: "Isolated applications\nExample: Forgejo" { class: node }
+caddy: "Caddy HTTPS entry\nNormal HTTPS certificates" { class: gateway }
+clients: "Realm clients\nGhostunnel holds the service identity" { class: gateway }
+receivers: "Realm receivers\nGhostunnel checks caller allowlists" { class: gateway }
+backends: "Private backends\nExamples: Immich and PostgreSQL" { class: node }
+native: "Gateways with their own mutual TLS\nObservability Caddy / Internet Envoy" { class: gateway }
+identity: "Identity control\nLocal SPIRE Agent per host\nSPIRE Server on eihort" { class: node }
+users -> caddy: "HTTPS"
+caddy -> clients: "Declared upstreams"
+apps -> clients: "Local socket or TCP adapter"
+clients -> receivers: "Mutual TLS"
+receivers -> backends: "Socket or local adapter"
+clients -> native: "Mutual TLS"
+clients -> identity: "Certificates" { style.stroke-dash: 5 }
+receivers -> identity: "Certificates" { style.stroke-dash: 5 }
+native -> identity: "Certificates" { style.stroke-dash: 5 }
+note: "Solid links: request paths. Dashed links: certificate requests.\nEach receiver checks the caller's identity before it accepts a connection." { class: note }
+# Invisible edges arrange the title and note.
+title -> users: { style.opacity: 0 }
+title -> apps: { style.opacity: 0 }
+backends -> note: { style.opacity: 0 }
+identity -> note: { style.opacity: 0 }

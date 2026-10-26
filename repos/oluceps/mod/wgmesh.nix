@@ -35,22 +35,7 @@
           ];
         };
 
-        systemd.sockets.wgmesh-metrics-proxy = {
-          listenStreams = [ "[::]:9586" ];
-          wantedBy = [ "sockets.target" ];
-          socketConfig = {
-            BindIPv6Only = "ipv6-only";
-          };
-        };
-
-        systemd.services.wgmesh-metrics-proxy = {
-          description = "Proxy for wg-mesh Metrics IPv6 to IPv4";
-          requires = [ "wgmesh-metrics-proxy.socket" ];
-          serviceConfig = {
-            ExecStart = "${pkgs.systemd}/lib/systemd/systemd-socket-proxyd 127.0.0.1:19586";
-          };
-        };
-
+        realm.observability.endpoints.wgmesh.port = 19586;
         networking.firewall = {
           allowedUDPPorts = [ 58833 ];
         };

@@ -2,105 +2,58 @@
 {
   flake.modules.nixos."caddy/yidhra" =
     {
-      pkgs,
       config,
+      pkgs,
+      lib,
       ...
     }:
+    let
+      publicHosts = lib.unique (
+        lib.concatMap (route: lib.concatMap (match: match.host or [ ]) (route.match or [ ])) (
+          import ../../caddy/nyaw-xyz.nix { inherit pkgs; }
+        )
+      );
+    in
     {
       imports = [ self.modules.nixos.caddy ];
+      realm.workloads.caddy.egress.public-http = {
+        service = "public-http";
+      };
+      systemd.services.caddy = {
+        environment = {
+          GOMEMLIMIT = "48MiB";
+          GOGC = "50";
+        };
+        serviceConfig.MemoryLow = "64M";
+      };
       caddy = {
         expose = true;
         settings.apps = {
           http.servers.srv0 = {
-            listener_wrappers = [
-              {
-                wrapper = "layer4";
-                routes = [
-                  {
-                    handle = [
-                      {
-                        handler = "proxy";
-                        upstreams = [
-                          {
-                            dial = [
-                              "127.0.0.1:4474"
-                            ];
-                          }
-                        ];
-                      }
-                    ];
-                    match = [
-                      {
-                        tls = {
-                          sni = [
-                            "www.ndl.go.jp"
-                          ];
-                        };
-                      }
-                    ];
-                  }
-                ];
-              }
-
-              { wrapper = "tls"; }
-            ];
+            # Offload shared route state and per-backend egress processes.
+            # Autopeer keeps its node-local authenticated ingress.
             routes = [
               {
-                handle = [
+                match = [
                   {
-                    handler = "subroute";
-                    routes = import ../../caddy/nyaw-xyz.nix { inherit pkgs; } ++ [
-
-                      {
-                        handle = [
-                          {
-                            handler = "rate_limit";
-                            rate_limits = {
-                              static = {
-                                match = [ { method = [ "GET" ]; } ];
-                                key = "static";
-                                window = "1m";
-                                max_events = 60;
-                              };
-                              dynamic = {
-                                key = "{http.request.remote.host}";
-                                window = "5s";
-                                max_events = 5;
-                              };
-                            };
-                            log_key = true;
-                          }
-                          {
-                            handler = "reverse_proxy";
-                            upstreams = [ { dial = "127.0.0.1:3999"; } ];
-                          }
-                        ];
-                        match = [ { host = [ "pb.nyaw.xyz" ]; } ];
-                      }
+                    host = publicHosts ++ [
+                      "nyaw.xyz"
+                      "api.atuin.nyaw.xyz"
+                      "pb.nyaw.xyz"
                     ];
                   }
                 ];
-                match = [ { host = [ "*.nyaw.xyz" ]; } ];
-              }
-              {
                 handle = [
                   {
                     handler = "reverse_proxy";
-                    upstreams = [ { dial = "[fdcc::3]:8888"; } ];
+                    upstreams = [ { dial = "unix//run/realm/caddy/egress/public-http.sock"; } ];
                   }
                 ];
-                match = [ { host = [ "api.atuin.nyaw.xyz" ]; } ];
+                terminal = true;
               }
-              {
-                handle = [
-                  {
-                    handler = "reverse_proxy";
-                    upstreams = [ { dial = "localhost:${toString config.services.autopeer.port}"; } ];
-                  }
-                ];
-                match = [ { host = [ "sgp-1.dn42.nyaw.xyz" ]; } ];
-              }
-              (import ../../caddy/nyaw-xyz-zone-apex.nix)
+              (import ../../caddy/dn42-cors.nix {
+                hosts = [ "sgp-1.dn42.nyaw.xyz" ];
+              })
             ];
 
             tls_connection_policies = [
@@ -133,7 +86,6 @@
                       module = "acme";
                       email = "mn1.674927211@gmail.com";
                       challenges.dns.provider = dns;
-                      preferred_chains.smallest = true;
                     }
                   ];
                   key_type = "p256";

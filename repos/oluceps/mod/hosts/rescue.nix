@@ -17,6 +17,7 @@
         {
           nixpkgs = {
             hostPlatform = "x86_64-linux";
+            overlays = [ self.overlays.kernel ];
           };
         }
       ];
@@ -29,7 +30,7 @@
         enableIPv6 = true;
         nftables.enable = true;
       };
-      # boot.kernelPackages = pkgs.linuxPackages_latest;
+      boot.kernelPackages = lib.mkForce pkgs.linuxPackages_testing;
 
       isoImage = {
         compressImage = true;

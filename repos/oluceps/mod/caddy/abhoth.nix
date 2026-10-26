@@ -7,7 +7,10 @@
       ...
     }:
     {
-      imports = [ self.modules.nixos.caddy ];
+      imports = [ self.modules.nixos.caddy-public ];
+      realm.workloads.caddy.egress.stalwart-web = {
+        service = "stalwart-web";
+      };
 
       vaultix.secrets."nyaw.key" = {
         mode = "400";
@@ -34,7 +37,7 @@
                           upstreams = [
                             {
                               dial = [
-                                "tcp/127.0.0.1:4474"
+                                "tcp/127.0.0.1:22024"
                               ];
                             }
                           ];
@@ -83,7 +86,7 @@
                             }
                             {
                               handler = "reverse_proxy";
-                              upstreams = [ { dial = "127.0.0.1:3999"; } ];
+                              upstreams = [ { dial = "unix//run/realm/caddy/egress/rustypaste.sock"; } ];
                             }
                           ];
                           match = [ { host = [ "pb.nyaw.xyz" ]; } ];
@@ -94,6 +97,26 @@
                             {
                               handler = "subroute";
                               routes = [
+                                # Metrics and debug paths are served only through the
+                                # SPIFFE observation listener, never on the public host.
+                                {
+                                  handle = [
+                                    {
+                                      handler = "static_response";
+                                      status_code = 403;
+                                    }
+                                  ];
+                                  match = [
+                                    {
+                                      path = [
+                                        "/metrics/prometheus"
+                                        "/metrics/prometheus/*"
+                                        "/debug/*"
+                                      ];
+                                    }
+                                  ];
+                                  terminal = true;
+                                }
                                 # {
                                 #   handle = [
                                 #     {
@@ -107,7 +130,7 @@
                                   handle = [
                                     {
                                       handler = "reverse_proxy";
-                                      upstreams = [ { dial = "localhost:9313"; } ];
+                                      upstreams = [ { dial = "unix//run/realm/caddy/egress/stalwart-web.sock"; } ];
                                     }
                                   ];
                                 }
@@ -127,22 +150,16 @@
                   handle = [
                     {
                       handler = "reverse_proxy";
-                      upstreams = [ { dial = "[fdcc::3]:8888"; } ];
+                      upstreams = [ { dial = "unix//run/realm/caddy/egress/atuin.sock"; } ];
                     }
                   ];
                   match = [ { host = [ "api.atuin.nyaw.xyz" ]; } ];
                   terminal = true;
                 }
 
-                {
-                  handle = [
-                    {
-                      handler = "reverse_proxy";
-                      upstreams = [ { dial = "localhost:${toString config.services.autopeer.port}"; } ];
-                    }
-                  ];
-                  match = [ { host = [ "jp-tyo-1.dn42.nyaw.xyz" ]; } ];
-                }
+                (import ../../caddy/dn42-cors.nix {
+                  hosts = [ "jp-tyo-1.dn42.nyaw.xyz" ];
+                })
                 (import ../../caddy/nyaw-xyz-zone-apex.nix)
               ];
 

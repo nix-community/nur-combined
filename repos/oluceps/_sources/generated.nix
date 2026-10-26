@@ -8,40 +8,40 @@
 {
   GeoLite2-ASN = {
     pname = "GeoLite2-ASN";
-    version = "2026.10.10";
+    version = "2026.10.16";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.10.10/GeoLite2-ASN.mmdb";
-      sha256 = "sha256-yd6hKJMabtdpcGd1hExC6Yg44HkNvQO1jJLlqkzvpXo=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.10.16/GeoLite2-ASN.mmdb";
+      sha256 = "sha256-GescBOU5ibqhKSy9Oz0OmQT2m+KsZFSRY/hX/dpzUB4=";
     };
   };
   GeoLite2-City = {
     pname = "GeoLite2-City";
-    version = "2026.10.10";
+    version = "2026.10.16";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.10.10/GeoLite2-City.mmdb";
-      sha256 = "sha256-VsJPkSBYsUvkEIW2gi+ML5lPliQptWPDs0vMhCIPPLk=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.10.16/GeoLite2-City.mmdb";
+      sha256 = "sha256-eYcyhpqIv9qYuaFfhwVk6opaaWl1R2cXWXgZX9+HOC0=";
     };
   };
   alist = {
     pname = "alist";
-    version = "v3.64.0";
+    version = "v3.65.0";
     src = fetchFromGitHub {
       owner = "AlistGo";
       repo = "alist";
-      rev = "v3.64.0";
+      rev = "v3.65.0";
       fetchSubmodules = false;
-      sha256 = "sha256-k9omzxl7m0WCo52dRhUpHdi/lY1UG3kdbw0cWEpPrCo=";
+      sha256 = "sha256-rQloeURigU9eS5ro0j5EOgnkKZ6oEZeud8reALqnFik=";
     };
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v8.0.24";
+    version = "v8.0.33";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      rev = "v8.0.24";
+      rev = "v8.0.33";
       fetchSubmodules = false;
-      sha256 = "sha256-YqyywNAgA7/CAadZuESPIqDMhqxw0pj9RDNPCK4uq0I=";
+      sha256 = "sha256-HpsmjjMzVTnP+KcK6hy3cq3AHRsaCAVvgJdb9PKL7QU=";
     };
   };
   dnsproxy = {
@@ -94,23 +94,6 @@
     };
     cargoLock."Cargo.lock" = {
       lockFile = ./. + "/sha256-Syz2W0IYm9nzu2Ph09uJxeo_odznDC9aMe+TEMhWurc=/Cargo.lock";
-      outputHashes = {
-
-      };
-    };
-  };
-  realm = {
-    pname = "realm";
-    version = "v2.9.6";
-    src = fetchFromGitHub {
-      owner = "zhboner";
-      repo = "realm";
-      rev = "v2.9.6";
-      fetchSubmodules = false;
-      sha256 = "sha256-P7jyVe6KNe1evan2qRtpA99ZKbgF1Zz7DiRxi1+h7WI=";
-    };
-    cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-P7jyVe6KNe1evan2qRtpA99ZKbgF1Zz7DiRxi1+h7WI=/Cargo.lock";
       outputHashes = {
 
       };

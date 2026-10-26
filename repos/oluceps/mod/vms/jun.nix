@@ -33,62 +33,28 @@
           }
         ];
       };
-      # systemd.sockets.forward-9222 = {
-      #   description = "socket for port 9222 forwarding";
-      #   wantedBy = [ "sockets.target" ];
-      #   socketConfig = {
-      #     ListenStream = "10.255.0.0:9222";
-      #     # bind explicitly to the device
-      #     BindToDevice = "vm2";
-      #     # optional: allow binding even if the interface is not fully up yet
-      #     FreeBind = true;
-      #   };
-      # };
-
-      # systemd.services.forward-9222 = {
-      #   description = "forward 9222 to localhost";
-      #   requires = [ "forward-9222.socket" ];
-      #   after = [ "forward-9222.socket" ];
-      #   serviceConfig = {
-      #     # execute the built-in systemd proxy
-      #     ExecStart = "${pkgs.systemd}/lib/systemd/systemd-socket-proxyd 127.0.0.1:9222";
-
-      #     # security hardening
-      #     DynamicUser = true;
-      #     PrivateTmp = true;
-      #     NoNewPrivileges = true;
-      #   };
-      # };
-      # networking = {
-      #   nat = {
-      #     enable = true;
-      #     enableIPv6 = true;
-      #     internalIPv6s = [ "fcbd::809c:183e:12fb:9ff0:1/64" ];
-      #     # the interface with upstream Internet access, TODO: change with host
-      #     externalInterface = "eno1";
-      #   };
-      # };
-      #
-      services.realm = {
-        enable = true;
-        settings = {
-          log.level = "warn";
-          network = {
-            no_tcp = false;
-            use_udp = true;
-          };
-          endpoints = [
-            {
-              listen = "10.255.0.0:9222";
-              remote = "127.0.0.1:9222";
-            }
-          ];
+      systemd.sockets.forward-9222 = {
+        description = "Port 9222 forwarding socket";
+        wantedBy = [ "sockets.target" ];
+        listenStreams = [ "10.255.0.0:9222" ];
+        socketConfig = {
+          BindToDevice = "vm2";
+          FreeBind = true;
         };
       };
 
-      systemd.services.realm = {
+      systemd.services.forward-9222 = {
+        description = "Forward port 9222 to localhost";
+        requires = [ "forward-9222.socket" ];
         bindsTo = [ "sys-subsystem-net-devices-vm2.device" ];
         after = [ "sys-subsystem-net-devices-vm2.device" ];
+        serviceConfig = {
+          ExecStart = "${config.systemd.package}/lib/systemd/systemd-socket-proxyd 127.0.0.1:9222";
+          DynamicUser = true;
+          NoNewPrivileges = true;
+          ProtectSystem = "strict";
+          ProtectHome = true;
+        };
       };
       microvm.autostart = [
         "june"

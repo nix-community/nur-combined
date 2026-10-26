@@ -13,6 +13,29 @@
         self.modules.nixos.routed-subnet
       ];
 
+      realm.observability.endpoints = {
+        sept-node = {
+          address = "10.255.0.1";
+          port = 9100;
+        };
+        sept-wg = {
+          address = "10.255.0.1";
+          port = 9586;
+        };
+        sept-blackbox = {
+          address = "10.255.0.1";
+          port = 9115;
+          path = "/probe";
+          kind = "probe";
+          probes = [
+            {
+              module = "icmp";
+              target = "10.10.10.2";
+            }
+          ];
+        };
+      };
+
       systemd.sockets.fec0-ssh = {
         description = "Socket for fec0 SSH forwarding";
         wantedBy = [ "sockets.target" ];
@@ -84,6 +107,7 @@
               {
                 imports = [
                   # ../../nixosModules/hysteria.nix
+                  inputs.flyline.nixosModules.default
                 ];
                 networking.hostName = "sept";
                 networking.useNetworkd = true;
@@ -116,6 +140,10 @@
                   };
                 };
                 networking.enableIPv6 = true;
+                programs = {
+                  fish.enable = true;
+                  flyline.enable = true;
+                };
                 services.prometheus.exporters = {
                   # forbid end
 
@@ -276,12 +304,12 @@
                   ];
                 };
                 virtualisation = {
-                  vmVariant = {
-                    virtualisation = {
-                      memorySize = 2048;
-                      cores = 6;
-                    };
-                  };
+                  # vmVariant = {
+                  #   virtualisation = {
+                  #     memorySize = 2048;
+                  #     cores = 6;
+                  #   };
+                  # };
 
                   podman = {
                     enable = true;
@@ -327,6 +355,7 @@
                     "L+ /root/.config/containers/containers.conf - - - - ${rootPodmanConf}"
                   ];
                 microvm = {
+                  mem = 2048;
                   interfaces = [
                     {
                       id = "vm${toString index}";

@@ -1,5 +1,31 @@
 { withSystem, inputs, ... }:
+let
+  kernelOverlay =
+    final: prev:
+    let
+      master = import inputs.nixpkgs-master {
+        inherit (prev.stdenv.hostPlatform) system;
+        inherit (prev) config;
+      };
+    in
+    {
+      # Keep the kernel and its external modules from the same package set.
+      linux_testing = master.linux_latest;
+      linuxPackages_testing = master.linuxPackages_latest.extend (
+        _kernelFinal: kernelPrev: {
+          v4l2loopback = kernelPrev.v4l2loopback.overrideAttrs (old: {
+            # Generate depmod indexes only after merging the kernel and external modules.
+            makeFlags = (old.makeFlags or [ ]) ++ [ "DEPMOD=true" ];
+          });
+        }
+      );
+    };
+in
 {
+  flake.overlays.kernel = kernelOverlay;
+  flake.overlays.envoy = final: _prev: {
+    envoy = final.callPackage ../pkgs/by-name/envoy-realm.nix { };
+  };
   flake.modules.nixos.overlay =
     # Go: https://github.com/NixOS/nixpkgs/issues/86349#issuecomment-624489806
     # Rust:
@@ -67,6 +93,8 @@
         )
         ++ [
           inputs.self.overlays.default
+          kernelOverlay
+          inputs.self.overlays.envoy
           inputs.nix-topology.overlays.default
           inputs.nix-minecraft.overlay
         ]

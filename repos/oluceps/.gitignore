@@ -1,3 +1,6 @@
+/plaintext-secret
+/.pi
+/nix-*
 /.stfolder
 /.direnv
 result*

@@ -5,15 +5,10 @@
       routes = [
         {
           handle = [
+            (import ./nyaw-xyz-matrix-wellknown.nix)
             {
               handler = "reverse_proxy";
-              transport = {
-                protocol = "http";
-                tls = {
-                  server_name = "nyaw.xyz";
-                };
-              };
-              upstreams = [ { dial = "[fdcc::3]:443"; } ];
+              upstreams = [ { dial = "unix//run/realm/caddy/egress/misskey.sock"; } ];
             }
           ];
           match = [ { host = [ "nyaw.xyz" ]; } ];

@@ -154,16 +154,21 @@
             }
           '';
         };
-        systemd.services.bird.restartIfChanged = false;
+        systemd.services.bird = {
+          restartIfChanged = false;
+          # Autopeer bind-mounts this directory to reach bird.ctl.
+          serviceConfig.RuntimeDirectoryPreserve = "yes";
+        };
         services.bird = {
           enable = true;
           config = config.bird.baseConfig + config.bird.config;
           checkConfig = false;
         };
 
+        realm.observability.endpoints.bird.port = config.services.prometheus.exporters.bird.port;
         services.prometheus.exporters.bird = {
           enable = true;
-          listenAddress = "[::]";
+          listenAddress = "127.0.0.1";
         };
       };
     };

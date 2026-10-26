@@ -6,7 +6,7 @@
       ...
     }:
     {
-      imports = [ self.modules.nixos.caddy ];
+      imports = [ self.modules.nixos.caddy-public ];
       caddy = {
         expose = true;
         settings.apps = {
@@ -80,7 +80,7 @@
                                 handle = [
                                   {
                                     handler = "reverse_proxy";
-                                    upstreams = [ { dial = "127.0.0.1:2586"; } ];
+                                    upstreams = [ { dial = "unix//run/realm/caddy/egress/ntfy.sock"; } ];
                                   }
                                 ];
                               }
@@ -110,7 +110,7 @@
                           }
                           {
                             handler = "reverse_proxy";
-                            upstreams = [ { dial = "localhost:8004"; } ];
+                            upstreams = [ { dial = "unix//run/realm/caddy/egress/subs.sock"; } ];
                           }
                         ];
                         match = [ { host = [ "subs.nyaw.xyz" ]; } ];
@@ -154,7 +154,6 @@
                       module = "acme";
                       email = "mn1.674927211@gmail.com";
                       challenges.dns.provider = dns;
-                      preferred_chains.smallest = true;
                     }
                   ];
                   key_type = "p256";

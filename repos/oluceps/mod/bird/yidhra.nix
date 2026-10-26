@@ -1,16 +1,21 @@
-{ inputs, self, ... }:
+{ self, ... }:
 {
   flake.modules.nixos."bird/yidhra" =
     { lib, config, ... }:
     {
       imports = [
         self.modules.nixos.bird
-        inputs.autopeer.nixosModules.default
+        self.modules.nixos.autopeer
       ];
+      realm.workloads.autopeer.egress.postgresql.target =
+        "[${config.data.node.eihort.unique_addr_nomask}]:15438";
       services.autopeer = {
         enable = true;
         localAsn = 4242420291;
         port = 9341;
+        databaseSocket = "/run/realm/autopeer/egress";
+        databaseUser = "dn42";
+        databaseName = "dn42yidhra";
         environmentFile = config.vaultix.secrets."autopeer".path;
       };
       vaultix.secrets = {

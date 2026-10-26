@@ -15,12 +15,22 @@
         # git-absorb
       ];
       programs = {
-        # bash.interactiveShellInit = ''
-        #   eval "$(${lib.getExe pkgs.mcfly} init bash)"
-        # '';
+        atuin = {
+          enable = true;
+          flags = [ "--disable-up-arrow" ];
+          settings = {
+            auto_sync = true;
+            dialect = "us";
+            filter_mode = "global";
+            filter_mode_shell_up_key_binding = "directory";
+            key_path = config.vaultix.secrets.atuin_key.path;
+            sync_address = "https://api.atuin.nyaw.xyz";
+            sync_frequency = "5m";
+            search_mode = "fuzzy";
+          };
+        };
 
         fish.interactiveShellInit = ''
-          ${lib.getExe pkgs.mcfly} init fish | source
           ${lib.getExe pkgs.zoxide} init fish | source
         '';
         nh = {

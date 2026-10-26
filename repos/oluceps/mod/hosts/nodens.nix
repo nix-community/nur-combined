@@ -38,7 +38,7 @@
             chrony
             # sing-server
             # xray
-            mc
+            # mc
             wgmesh
 
           ])
@@ -55,18 +55,20 @@
         image = "ghcr.io/asoul-rec/wg-mesh:master@sha256:4a22da9332b01c2fa70dc9df2d82342880881f9dcf05f68cde308a2517b1b496";
       };
 
-      zramSwap = {
-        enable = false;
-        swapDevices = 1;
-        memoryPercent = 50;
-        algorithm = "lz4";
-      };
+      zramSwap.enable = false;
       system = {
         # This headless machine uses to perform heavy task.
         # Running database and web services.
         stateVersion = "25.05";
       };
       boot = {
+        zswap = {
+          enable = true;
+          compressor = "zstd";
+          zpool = "zsmalloc";
+          maxPoolPercent = 10;
+          shrinkerEnabled = true;
+        };
         supportedFilesystems = [ ];
         kernelModules = [ "tcp_bbr" ];
         loader = {
@@ -78,7 +80,7 @@
           timeout = 3;
         };
 
-        kernelPackages = pkgs.linuxPackages_latest;
+        kernelPackages = pkgs.linuxPackages_testing;
         kernelParams = [
           "audit=0"
           "net.ifnames=0"
@@ -86,12 +88,6 @@
           "earlyprintk=ttyS0"
           "rootdelay=300"
           "19200n8"
-
-          "zswap.enabled=1"
-          "zswap.compressor=zstd"
-          "zswap.zpool=zsmalloc"
-          "zswap.max_pool_percent=25"
-          "zswap.shrinker_enabled=1"
         ];
         initrd = {
           compressor = "zstd";
@@ -142,7 +138,7 @@
         }
         loki.write "default" {
           endpoint {
-            url = "http://[fdcc::3]:3030/loki/api/v1/push"
+            url = "http://127.0.0.1:13030/loki/api/v1/push"
           }
           external_labels = {}
         }

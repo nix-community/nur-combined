@@ -23,7 +23,7 @@
       shadowedModules = [ ];
       modules =
         let
-          genModule = dir: genFilteredDirAttrs dir shadowedModules (n: import (dir + "/${n}.nix"));
+          genModule = dir: genFilteredDirAttrs dir shadowedModules (n: dir + "/${n}.nix");
         in
         (genModule ../nixosModules);
 

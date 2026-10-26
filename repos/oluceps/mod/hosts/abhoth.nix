@@ -37,12 +37,13 @@
             earlyoom
             chrony
             # sing-server
-            xray
+            # xray
             stalwart
             rustypaste
             wgmesh
 
             security-toolkit
+            shellbox
           ])
         )
         ++ [
@@ -51,11 +52,19 @@
         ];
 
       identity.user = "elen";
-      xray.configFile = config.vaultix.secrets.xray.path;
+      # xray.configFile = config.vaultix.secrets.xray.path;
       wgmesh.configFile = "/var/lib/wgmesh/config.json";
 
+      swapDevices = [
+        {
+          device = "/var/swapfile";
+          size = 2048;
+          priority = 0;
+        }
+      ];
+
       zramSwap = {
-        enable = true;
+        enable = false;
         swapDevices = 1;
         memoryPercent = 50;
         algorithm = "lz4";
@@ -66,6 +75,13 @@
         stateVersion = "25.05";
       };
       boot = {
+        zswap = {
+          enable = true;
+          compressor = "lz4";
+          zpool = "zsmalloc";
+          maxPoolPercent = 25;
+          shrinkerEnabled = true;
+        };
         supportedFilesystems = [ ];
         kernelModules = [
           "tcp_bbr"
@@ -83,7 +99,7 @@
           };
         };
 
-        kernelPackages = pkgs.linuxPackages_latest;
+        kernelPackages = pkgs.linuxPackages_testing;
         kernelParams = [
           "audit=0"
           "net.ifnames=0"
@@ -141,7 +157,7 @@
         }
         loki.write "default" {
           endpoint {
-            url = "http://[fdcc::3]:3030/loki/api/v1/push"
+            url = "http://127.0.0.1:13030/loki/api/v1/push"
           }
           external_labels = {}
         }
@@ -187,6 +203,28 @@
 
       #----------
 
+      systemd.sockets.radicle-proxy = {
+        description = "Radicle forwarding socket";
+        wantedBy = [ "sockets.target" ];
+        listenStreams = [ "[::]:8776" ];
+        socketConfig = {
+          BindIPv6Only = "both";
+          FreeBind = true;
+        };
+      };
+
+      systemd.services.radicle-proxy = {
+        description = "Forward Radicle connections";
+        requires = [ "radicle-proxy.socket" ];
+        serviceConfig = {
+          ExecStart = "${config.systemd.package}/lib/systemd/systemd-socket-proxyd fdcc::3:8776";
+          DynamicUser = true;
+          NoNewPrivileges = true;
+          ProtectSystem = "strict";
+          ProtectHome = true;
+        };
+      };
+
       services = {
         alloy.enable = true;
         yggdrasil.settings.AllowedPublicKeys = [
@@ -214,23 +252,6 @@
         # };
         metrics.enable = true;
         qemuGuest.enable = true;
-
-        realm = {
-          enable = true;
-          settings = {
-            log.level = "warn";
-            network = {
-              no_tcp = false;
-              use_udp = true;
-            };
-            endpoints = [
-              {
-                listen = "[::]:8776";
-                remote = "[fdcc::3]:8776";
-              }
-            ];
-          };
-        };
 
       };
 

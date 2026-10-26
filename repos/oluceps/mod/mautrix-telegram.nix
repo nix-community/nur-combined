@@ -25,6 +25,9 @@
         };
         vendorHash = "sha256-qW/v/QmhQRF2SAMUNXE2mfVGVEp+DU3gESWVRKHqfGM=";
         buildInputs = [ fixedPkgs.olm ];
+        # Backport gotd daca24ff: avoid a bounded-queue deadlock between the
+        # channel worker and the main update loop.
+        patches = [ ../patches/mautrix-telegram-sendout.patch ];
         ldflags = [
           "-s"
           "-w"
@@ -34,7 +37,38 @@
     in
     {
       vaultix.secrets.mautrix-tg = { };
-      systemd.services.mautrix-telegram.serviceConfig.RuntimeMaxSec = 86400;
+      realm.workloads.mautrix-telegram = {
+        isolation.allowUnixSockets = [ "/run/postgresql" ];
+        isolation.runtimePaths = [ "/run/mautrix-telegram" ];
+        ingressGroups = [ "mautrix-telegram" ];
+        socksProxy.enable = true;
+        ingress.appservice = {
+          port = 19317;
+          backend = {
+            kind = "unix";
+            path = "/run/mautrix-telegram/appservice.sock";
+          };
+          service = "mautrix-telegram";
+          allow.identities = [ "spiffe://nyaw.xyz/service/synapse" ];
+        };
+        http.internet = true;
+        egress = {
+          synapse = {
+            service = "synapse";
+            localPort = 18196;
+          };
+        };
+      };
+      # Start PostgreSQL first without coupling the bridge's stop/restart lifecycle.
+      systemd.services.mautrix-telegram = {
+        after = [ "postgresql.service" ];
+        wants = [ "postgresql.service" ];
+        serviceConfig = {
+          RuntimeMaxSec = 86400;
+          RuntimeDirectory = "mautrix-telegram";
+          UMask = lib.mkForce "0007";
+        };
+      };
       services.mautrix-telegram = {
         enable = true;
         package = mautrix-telegram-go;
@@ -42,13 +76,13 @@
         serviceDependencies = [ "matrix-synapse.service" ];
         settings = {
           homeserver = {
-            address = "http://[fdcc::3]:8196";
+            address = "http://127.0.0.1:18196";
             domain = "nyaw.xyz";
           };
           appservice = {
             address = "http://127.0.0.1:29317";
-            hostname = "127.0.0.1";
-            port = 29317;
+            hostname = "/run/mautrix-telegram/appservice.sock";
+            port = 0;
             # Nullify default python options to prevent mautrix-go legacy config migration
             database = lib.mkForce null;
             database_opts = lib.mkForce null;
@@ -70,6 +104,10 @@
             };
           };
           network = {
+            proxy = {
+              type = "socks5";
+              address = "127.0.0.1:11080";
+            };
             api_id = 611335;
             api_hash = "d524b414d21f4d37f08684c1df41ac9c";
             device_info = {

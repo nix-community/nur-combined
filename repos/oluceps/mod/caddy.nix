@@ -22,18 +22,7 @@
           expose = lib.mkEnableOption "API env";
           package = lib.mkOption {
             type = lib.types.package;
-            default = (
-              pkgs.caddy.withPlugins {
-                plugins = [
-                  "github.com/caddy-dns/cloudflare@v0.0.0-20250724223520-f589a18c0f5d"
-                  "github.com/mholt/caddy-ratelimit@v0.1.0"
-                  "github.com/ss098/certmagic-s3@v0.0.0-20250607141218-0c4ff782fbd0"
-                  "github.com/greenpau/caddy-security@v1.1.31"
-                  "github.com/mholt/caddy-l4@v0.0.0-20260112235400-e24201789f06"
-                ];
-                hash = "sha256-AgRty5tIy8foRR2U/MGl4NwDHc6rVuc5S9pQSeE12wo=";
-              }
-            );
+            default = pkgs.caddy-realm;
             # ;
           };
           settings = lib.mkOption {
@@ -44,6 +33,22 @@
       };
 
       config = {
+        users.groups.caddy = { };
+        users.users.caddy = {
+          isSystemUser = true;
+          group = "caddy";
+        };
+        realm.workloads.caddy = {
+          spiffeID = config.realm.caddy.localID;
+          # Public HTTP/3, ACME and DNS need the host network. Keep the same
+          # runtime socket isolation as other systemd workloads.
+          isolation = {
+            privateNetwork = false;
+            runtimePaths = [ "/run/caddy" ];
+            allowUnixSockets = [ "-/run/systemd/resolve" ];
+          };
+        };
+        realm.observability.endpoints.caddy.port = 20242;
         vaultix.secrets.caddy = { };
         networking.firewall = lib.mkIf (!config.data.node.${config.networking.hostName}.nat) {
           allowedTCPPorts = [
@@ -54,6 +59,7 @@
         };
         caddy.settings = {
           admin = {
+            listen = "unix//run/caddy/admin.sock|0600";
             config.persist = false;
           };
           # logging.logs.debug.level = "debug";
@@ -63,6 +69,12 @@
             insecure = false;
           };
           apps = {
+            http.servers.observability = {
+              listen = [ "127.0.0.1:20242" ];
+              automatic_https.disable = true;
+              routes = [ { handle = [ { handler = "metrics"; } ]; } ];
+            };
+
             http.metrics = { };
             http.grace_period = "1s";
             http.servers.srv0 = {
@@ -72,30 +84,7 @@
                 skip_certificates = [
                 ];
               };
-              routes = [
-                {
-                  match = [
-                    {
-                      host = [ config.networking.fqdn ];
-                      path = [ "/caddy" ];
-                    }
-                  ];
-                  handle = [
-                    {
-                      handler = "authentication";
-                      providers.http_basic.accounts = [
-                        {
-                          username = "prometheus";
-                          password = "$2b$05$9CaXvrYtguDwi190/llO9.qytgqCyPp1wqyO0.umxsTEfKkhpwr4q";
-                        }
-                      ];
-                    }
-                    { handler = "metrics"; }
-                  ];
-                }
-              ];
             };
-
           };
         };
 
@@ -113,13 +102,38 @@
             in
             {
               Type = "notify";
+              # Public entrypoints initialize their shared S3 certificate store.
+              TimeoutStartSec = "5min";
               ExecStartPre = "${caddyBin} validate --config /etc/caddy/config.json";
               ExecStart = "${caddyBin} run --config /etc/caddy/config.json";
               ExecReload = "${caddyBin} reload --force --config /etc/caddy/config.json";
               DynamicUser = true;
+              User = "caddy";
+              Group = "caddy";
               StateDirectory = "caddy";
+              RuntimeDirectory = "caddy";
+              RuntimeDirectoryMode = "0700";
+              ProtectSystem = "strict";
+              ProtectHome = true;
+              PrivateDevices = true;
+              ProtectKernelTunables = true;
+              ProtectKernelModules = true;
+              ProtectKernelLogs = true;
+              ProtectControlGroups = true;
+              ProtectClock = true;
+              ProtectHostname = true;
+              ProtectProc = "invisible";
+              RestrictSUIDSGID = true;
+              RestrictRealtime = true;
+              LockPersonality = true;
               AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-              Environment = [ "XDG_DATA_HOME=%S" ];
+              CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+              UMask = "0027";
+              Environment = [
+                "XDG_DATA_HOME=%S"
+                "XDG_CONFIG_HOME=%S/caddy"
+                "HOME=%S/caddy"
+              ];
               Restart = "always";
               EnvironmentFile = mkIf cfg.expose config.vaultix.secrets.caddy.path;
               LoadCredential = mkIf (!cfg.expose) (
@@ -134,10 +148,12 @@
           after = [
             "network.target"
             "network-online.target"
+            "systemd-tmpfiles-setup.service"
+            "coredns.service"
           ];
+          wants = [ "coredns.service" ];
           requires = [ "network-online.target" ];
           reloadTriggers = [ configfile ];
-          restartIfChanged = false;
         };
       };
     };

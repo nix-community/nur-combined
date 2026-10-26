@@ -51,12 +51,14 @@
             june
             vocat
             artex
+            magpie
             # ipex
             # scx
           ])
         )
         ++ [
           (inputs.nixpkgs + "/nixos/modules/installer/scan/not-detected.nix")
+          inputs.owly.nixosModules.default
         ];
 
       identity.user = "riro";
@@ -105,7 +107,7 @@
         }
         loki.write "default" {
         	endpoint {
-        		url = "http://[fdcc::3]:3030/loki/api/v1/push"
+            url = "http://127.0.0.1:13030/loki/api/v1/push"
         	}
         	external_labels = {}
         }
@@ -119,6 +121,13 @@
       };
       boot = {
         # binfmt.emulatedSystems = [ "aarch64-linux" ];
+        zswap = {
+          enable = true;
+          compressor = "zstd";
+          zpool = "zsmalloc";
+          maxPoolPercent = 20;
+          shrinkerEnabled = true;
+        };
         kernel.sysctl = {
           "vm.vfs_cache_pressure" = lib.mkForce 200;
         };
@@ -171,7 +180,7 @@
           #   };
           # in
           # helpers.kernelModuleLLVMOverride (pkgs.linuxKernel.packagesFor rawKernel);
-          pkgs.linuxPackages_latest;
+          pkgs.linuxPackages_testing;
         blacklistedKernelModules = [ "hid_nintendo" ];
         kernelParams = [
           "amd_pstate=active"
@@ -185,12 +194,6 @@
         ];
 
       };
-      zramSwap = {
-        enable = false;
-        swapDevices = 1;
-        memoryPercent = 50;
-        algorithm = "lz4";
-      };
       systemd = {
         enableEmergencyMode = false;
         # random encrypted swap
@@ -200,6 +203,7 @@
           RuntimeWatchdogSec = "30s";
         };
       };
+      realm.observability.endpoints.syncthing.port = 8384;
       services = {
         # Did you read the comment?
         blueman.enable = true;
@@ -207,7 +211,7 @@
           enable = true;
           openDefaultPorts = true;
           inherit (config.identity) user;
-          guiAddress = "[::]:8384";
+          guiAddress = "127.0.0.1:8384";
         };
         smartd.notifications.systembus-notify.enable = true;
         metrics.enable = true;
@@ -236,6 +240,17 @@
         sing-box.enable = true;
         gvfs.enable = false;
         alloy.enable = true;
+
+        # AirDrop over awdl0 on the RTL8852CE. The card is in Owly's quirks
+        # table but not marked tested, so allow_untested is required. Shared
+        # mode needs the AP on channel 6, 44 or 149.
+        owly = {
+          enable = true;
+          settings = {
+            station = "wlan0";
+            allow_untested = true;
+          };
+        };
 
         xserver.videoDrivers = [ "modesetting" ];
       };

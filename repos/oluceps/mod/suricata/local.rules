@@ -1,0 +1,21 @@
+# Local SIDs: 1000100-1000199. These rules only raise alerts.
+# Query this reserved name to check DNS capture and alert delivery.
+alert dns any any -> any any (msg:"LOCAL TEST DNS sensor check"; dns.query; content:"suricata-check.invalid"; nocase; endswith; classtype:misc-activity; priority:3; sid:1000100; rev:1;)
+
+# An onion name in normal DNS can disclose a private browsing target.
+alert dns $HOME_NET any -> any any (msg:"LOCAL POLICY Onion name sent to DNS"; dns.query; content:".onion"; nocase; endswith; threshold:type limit, track by_src, count 1, seconds 300; classtype:policy-violation; priority:3; sid:1000101; rev:1;)
+
+# Frequent long labels can indicate DNS tunneling. Review before blocking.
+alert dns $HOME_NET any -> any any (msg:"LOCAL REVIEW Repeated long DNS labels"; dns.query; pcre:"/(?:^|\.)[a-z0-9_-]{55,63}\./i"; threshold:type both, track by_src, count 10, seconds 60; classtype:misc-activity; priority:3; sid:1000102; rev:1;)
+
+# HTTP parsing here requires cleartext traffic.
+alert http $HOME_NET any -> any any (msg:"LOCAL POLICY HTTP Basic credentials over cleartext"; flow:established,to_server; http.header; content:"Authorization|3a 20|Basic "; nocase; threshold:type limit, track by_src, count 1, seconds 300; classtype:policy-violation; priority:3; sid:1000103; rev:1;)
+
+# These alerts record connection attempts, not successful logins.
+alert tcp $HOME_NET any -> !$HOME_NET [23,445,3389,6379] (msg:"LOCAL POLICY Sensitive service connection to non-local address"; flags:S; flow:to_server,stateless; threshold:type limit, track by_src, count 1, seconds 300; classtype:policy-violation; priority:3; sid:1000104; rev:1;)
+
+# PUBLIC_MESH_NET comes from registry.toml nodes with nat=false.
+alert tcp $PUBLIC_MESH_NET any -> $HOME_NET [22,2375,2376,3306,3389,5432,6379,9200] (msg:"LOCAL AUDIT Public mesh node attempted a management or database connection"; flags:S; flow:to_server,stateless; threshold:type limit, track by_src, count 1, seconds 60; classtype:misc-activity; priority:3; sid:1000105; rev:1;)
+
+# Retransmissions and busy clients can also reach this threshold.
+alert tcp $PUBLIC_MESH_NET any -> $HOME_NET any (msg:"LOCAL REVIEW Repeated TCP SYNs from public mesh node"; flags:S; flow:to_server,stateless; threshold:type both, track by_src, count 30, seconds 60; classtype:misc-activity; priority:3; sid:1000106; rev:1;)

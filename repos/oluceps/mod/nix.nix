@@ -58,7 +58,7 @@
           ];
           extra-substituters = [
             # "https://cache.lix.systems"
-            # "http://cache.nyaw.xyz:8501"
+            # "http://127.0.0.1:18502" # SPIFFE cache adapter on realm hosts
           ]
           ++ (map (n: "https://${n}.cachix.org") [
             # "nix-community"

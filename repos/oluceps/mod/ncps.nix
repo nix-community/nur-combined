@@ -8,7 +8,46 @@
       };
       systemd.services.ncps = {
         requires = [ "seaweedfs.service" ];
-        serviceConfig.EnvironmentFile = config.vaultix.secrets.ncps.path;
+        serviceConfig = {
+          EnvironmentFile = config.vaultix.secrets.ncps.path;
+        };
+      };
+      realm.observability.endpoints.ncps.socket = "/run/realm/observability/egress/ncps.sock";
+      realm.workloads.observability.egress.ncps = {
+        service = "ncps-metrics";
+      };
+      realm.workloads.ncps = {
+        http = {
+          internet = true;
+          gateway = {
+            ref = "eihort";
+            resolveHosts = [ "s3.nyaw.xyz" ];
+          };
+        };
+        isolation = {
+          runtimePaths = [ "/run/ncps" ];
+          allowUnixSockets = [ "/run/postgresql" ];
+        };
+        ingress = {
+          http = {
+            port = 18501;
+            backend = {
+              kind = "private-tcp";
+              port = 8501;
+            };
+            service = "ncps";
+            allow.identities = [ "spiffe://nyaw.xyz/service/nix-cache" ];
+          };
+          metrics = {
+            port = 19501;
+            backend = {
+              kind = "private-tcp";
+              port = 8501;
+            };
+            service = "ncps-metrics";
+            allow.identities = [ "spiffe://nyaw.xyz/service/observability-${config.networking.hostName}" ];
+          };
+        };
       };
       services.ncps = {
         enable = true;
@@ -37,7 +76,8 @@
             ];
           };
         };
-        server.addr = "[fdcc::3]:8501";
+        prometheus.enable = true;
+        server.addr = "127.0.0.1:8501";
       };
     };
 }

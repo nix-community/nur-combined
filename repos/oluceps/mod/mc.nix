@@ -8,12 +8,7 @@
     }:
     {
 
-      systemd.sockets.mc-metrics-proxy = {
-        listenStreams = [
-          "[fdcc::8]:19565"
-        ];
-        wantedBy = [ "sockets.target" ];
-      };
+      realm.observability.endpoints.mc.port = 19565;
       systemd.sockets.mc-rcon-proxy = {
         listenStreams = [
           "[fdcc::8]:25575"
@@ -21,13 +16,7 @@
         wantedBy = [ "sockets.target" ];
         socketConfig = {
           BindIPv6Only = "ipv6-only";
-        };
-      };
-      systemd.services.mc-metrics-proxy = {
-        description = "Proxy for MC Metrics IPv6 to IPv4";
-        requires = [ "mc-metrics-proxy.socket" ];
-        serviceConfig = {
-          ExecStart = "${pkgs.systemd}/lib/systemd/systemd-socket-proxyd 127.0.0.1:19565";
+          FreeBind = true;
         };
       };
       systemd.services.mc-rcon-proxy = {
@@ -43,7 +32,7 @@
         ports = [
           "25565:25565"
           "25575:25575"
-          "19565:19565"
+          "127.0.0.1:19565:19565"
         ];
         volumes = [
           "/var/lib/new-steam-trip:/data"

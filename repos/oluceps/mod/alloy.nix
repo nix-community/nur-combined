@@ -1,16 +1,102 @@
 {
+  flake.modules.nixos.alloy-realm =
+    { config, lib, ... }:
+    {
+      services.alloy.enable = lib.mkIf (config.realm.internet.enable or false) (lib.mkDefault true);
+      realm.workloads.alloy = lib.mkIf config.services.alloy.enable {
+        isolation.allowUnixSockets = [
+          "-/run/log/journal"
+          "-/run/systemd/journal"
+        ];
+        egress.loki = {
+          service = "loki";
+          localPort = 13030;
+        };
+      };
+      environment.etc = lib.mkIf (config.realm.internet.enable or false) {
+        "alloy/realm-internet.alloy".text = # alloy
+          ''
+            loki.source.journal "realm_internet" {
+                max_age       = "12h0m0s"
+                forward_to    = [loki.write.realm_internet.receiver]
+                matches       = "_SYSTEMD_UNIT=realm-internet.service"
+                labels        = {
+                    host = "${config.networking.hostName}",
+                    job  = "systemd-journal",
+                    unit = "realm-internet.service",
+                }
+            }
+            loki.write "realm_internet" {
+              endpoint {
+                url = "http://127.0.0.1:13030/loki/api/v1/push"
+              }
+              external_labels = {}
+            }
+          '';
+      };
+    };
   flake.modules.nixos.alloy =
     {
       config,
       pkgs,
+      lib,
       ...
     }:
+    let
+      publicMeshNodes = import ../lib/public-mesh-nodes.nix {
+        inherit lib;
+        nodes = config.data.node;
+        hostName = config.networking.hostName;
+      };
+      # Suricata writes IPv6 addresses with eight padded groups.
+      suricataAddress =
+        addr:
+        if !(lib.hasInfix ":" addr) then
+          addr
+        else
+          let
+            halves = lib.splitString "::" addr;
+            groups = part: lib.filter (group: group != "") (lib.splitString ":" part);
+            left = groups (builtins.head halves);
+            right = if builtins.length halves == 2 then groups (builtins.elemAt halves 1) else [ ];
+            expanded =
+              if builtins.length halves == 2 then
+                left ++ lib.replicate (8 - builtins.length left - builtins.length right) "0" ++ right
+              else
+                left;
+          in
+          lib.concatMapStringsSep ":" (group: lib.fixedWidthString 4 "0" (lib.toLower group)) expanded;
+      meshPeerTemplate =
+        lib.concatStrings (
+          lib.imap0 (
+            index: name:
+            let
+              matches =
+                lib.concatMapStringsSep " "
+                  (addr: "(eq .src ${builtins.toJSON addr}) (eq .dst ${builtins.toJSON addr})")
+                  (
+                    lib.unique (
+                      lib.concatMap (addr: [
+                        addr
+                        (suricataAddress addr)
+                      ]) publicMeshNodes.${name}
+                    )
+                  );
+            in
+            "{{ ${if index == 0 then "if" else "else if"} or ${matches} }}${name}"
+          ) (builtins.attrNames publicMeshNodes)
+        )
+        + "{{ else }}unknown{{ end }}";
+    in
     {
       services.alloy = {
         enable = true;
       };
+      # Reload keeps the old /etc files in the service mount namespace.
+      systemd.services.alloy.restartTriggers = config.systemd.services.alloy.reloadTriggers;
       systemd.services.alloy.serviceConfig = {
-        ReadOnlyPaths = [ "/var/log/zeek" ];
+        ReadOnlyPaths = [ "-/var/log/suricata" ];
+        SupplementaryGroups = [ "suricata" ];
       };
       environment.etc."alloy/config.alloy".text = # alloy
         ''
@@ -55,89 +141,115 @@
                   job  = "systemd-journal",
               }
           }
-          local.file_match "zeek_logs" {
+          local.file_match "suricata" {
             path_targets = [
-              { "__path__" = "/var/log/zeek/vm1/dns.log" },
-              { "__path__" = "/var/log/zeek/vm1/ssl.log" },
-              { "__path__" = "/var/log/zeek/eno1/dns.log" },
-              { "__path__" = "/var/log/zeek/eno1/ssl.log" },
+              {
+                "__path__" = "/var/log/suricata/vm1/eve.json",
+                "host" = "${config.networking.hostName}",
+                "job" = "suricata",
+                "interface" = "vm1",
+              },
+              {
+                "__path__" = "/var/log/suricata/eno1/eve.json",
+                "host" = "${config.networking.hostName}",
+                "job" = "suricata",
+                "interface" = "eno1",
+              },
+              {
+                "__path__" = "/var/log/suricata/vxlan-mesh/eve.json",
+                "host" = "${config.networking.hostName}",
+                "job" = "suricata",
+                "interface" = "vxlan-mesh",
+              },
             ]
             sync_period = "5s"
           }
 
-          loki.source.file "zeek_logs" {
-            targets    = local.file_match.zeek_logs.targets
-            forward_to = [loki.write.default.receiver]
-            tail_from_end = true
+          loki.source.file "suricata" {
+            targets    = local.file_match.suricata.targets
+            forward_to = [loki.process.suricata.receiver]
           }
 
-          local.file_match "zeek_conns" {
-            path_targets = [
-              { "__path__" = "/var/log/zeek/vm1/conn.log" },
-              { "__path__" = "/var/log/zeek/eno1/conn.log" },
-            ]
-            sync_period = "5s"
-          }
-
-          loki.source.file "zeek_conns" {
-            targets    = local.file_match.zeek_conns.targets
-            forward_to = [loki.process.conn_geo.receiver]
-            tail_from_end = true
-          }
-
-          loki.process "conn_geo" {
+          loki.process "suricata" {
             stage.json {
               expressions = {
-                ts        = "ts",
-                dst = "\"id.resp_h\"",
-                dpt = "\"id.resp_p\"",
-                proto     = "proto",
-                ip_proto  = "ip_proto",
+                ts         = "timestamp",
+                event_type = "event_type",
+                src        = "src_ip",
+                spt        = "src_port",
+                dst        = "dest_ip",
+                dpt        = "dest_port",
+                proto      = "proto",
               }
             }
 
-            stage.geoip {
-              source  = "dst"
-              db      = "${
-                let
-                  sources = import ../_sources/generated.nix {
-                    inherit (pkgs)
-                      fetchurl
-                      fetchgit
-                      fetchFromGitHub
-                      dockerTools
-                      ;
-                  };
-                in
-                sources.GeoLite2-ASN.src
-              }"
-              db_type = "asn"
-            }
-            stage.geoip {
-              source  = "dst"
-              db      = "${
-                let
-                  sources = import ../_sources/generated.nix {
-                    inherit (pkgs)
-                      fetchurl
-                      fetchgit
-                      fetchFromGitHub
-                      dockerTools
-                      ;
-                  };
-                in
-                sources.GeoLite2-City.src
-              }"
-              db_type = "city"
+            stage.timestamp {
+              source = "ts"
+              format = "RFC3339Nano"
+              fallback_formats = ["2006-01-02T15:04:05.999999-0700"]
+              action_on_failure = "skip"
             }
 
             stage.labels {
               values = {
-                proto     = "",
+                event_type = "",
+                proto = "",
+              }
+            }
+
+            stage.match {
+              selector = "{interface=\"vxlan-mesh\"}"
+              stage.template {
+                source = "peer_node"
+                template = ${builtins.toJSON meshPeerTemplate}
+              }
+              stage.labels {
+                values = { peer_node = "" }
+              }
+            }
+
+            stage.match {
+              selector = "{event_type=\"flow\"}"
+
+              stage.geoip {
+                source  = "dst"
+                db      = "${
+                  let
+                    sources = import ../_sources/generated.nix {
+                      inherit (pkgs)
+                        fetchurl
+                        fetchgit
+                        fetchFromGitHub
+                        dockerTools
+                        ;
+                    };
+                  in
+                  sources.GeoLite2-ASN.src
+                }"
+                db_type = "asn"
+              }
+              stage.geoip {
+                source  = "dst"
+                db      = "${
+                  let
+                    sources = import ../_sources/generated.nix {
+                      inherit (pkgs)
+                        fetchurl
+                        fetchgit
+                        fetchFromGitHub
+                        dockerTools
+                        ;
+                    };
+                  in
+                  sources.GeoLite2-City.src
+                }"
+                db_type = "city"
               }
             }
             stage.structured_metadata {
                 values = {
+                  src      = "",
+                  spt      = "",
                   dst      = "",
                   dpt      = "",
                   dst_city = "geoip_city_name",
@@ -151,7 +263,7 @@
 
           loki.write "default" {
           	endpoint {
-          		url = "http://[fdcc::3]:3030/loki/api/v1/push"
+              url = "http://127.0.0.1:13030/loki/api/v1/push"
           	}
           	external_labels = {}
           }

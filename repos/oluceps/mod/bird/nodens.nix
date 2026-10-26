@@ -1,16 +1,19 @@
-{ self, inputs, ... }:
+{ self, ... }:
 {
   flake.modules.nixos."bird/nodens" =
     { lib, config, ... }:
     {
       imports = [
         self.modules.nixos.bird
-        inputs.autopeer.nixosModules.default
+        self.modules.nixos.autopeer
       ];
       services.autopeer = {
         enable = true;
         localAsn = 4242420291;
         port = 9341;
+        databaseSocket = "/run/realm/autopeer/egress";
+        databaseUser = "dn42";
+        databaseName = "dn42nodens";
         environmentFile = config.vaultix.secrets."autopeer".path;
       };
       vaultix.secrets = {

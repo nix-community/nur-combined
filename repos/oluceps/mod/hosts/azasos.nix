@@ -46,14 +46,24 @@
 
       xray.configFile = config.vaultix.secrets.xray.path;
 
-      zramSwap = {
-        enable = true;
-        swapDevices = 1;
-        memoryPercent = 50;
-        algorithm = "lz4";
-      };
+      swapDevices = [
+        {
+          device = "/var/swapfile";
+          size = 2048;
+          priority = 0;
+        }
+      ];
+      zramSwap.enable = false;
+
       boot = {
-        kernelPackages = pkgs.linuxPackages_latest;
+        zswap = {
+          enable = true;
+          compressor = "lz4";
+          zpool = "zsmalloc";
+          maxPoolPercent = 25;
+          shrinkerEnabled = true;
+        };
+        kernelPackages = pkgs.linuxPackages_testing;
         kernelParams = [
           "audit=0"
           "rootdelay=300"

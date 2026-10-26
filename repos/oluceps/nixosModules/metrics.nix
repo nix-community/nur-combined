@@ -1,93 +1,25 @@
-{
-  lib,
-  config,
-  ...
-}:
-# metrics for exposed machine
+{ lib, config, ... }:
 let
   cfg = config.services.metrics;
 in
 {
-  options.services.metrics = {
-    enable = lib.mkEnableOption "export server metrics";
-  };
+  options.services.metrics.enable = lib.mkEnableOption "export server metrics";
   config = lib.mkIf cfg.enable {
     services.prometheus.exporters = {
       node = {
         enable = true;
-        listenAddress = "[::]";
+        listenAddress = "127.0.0.1";
         enabledCollectors = [ "systemd" ];
         disabledCollectors = [ "arp" ];
       };
       chrony = {
         enable = true;
-        listenAddress = "[::]";
+        listenAddress = "127.0.0.1";
       };
     };
-
-    caddy.settings.apps.http.servers.srv0.routes = lib.mkIf (config.caddy ? settings) [
-      {
-
-        handle = [
-          {
-            handler = "subroute";
-            routes = [
-
-              {
-                match = [
-                  {
-                    host = [ config.networking.fqdn ];
-                    path = [ "/metrics" ];
-                  }
-                ];
-                handle = [
-                  {
-                    handler = "authentication";
-                    providers.http_basic.accounts = [
-                      {
-                        username = "prometheus";
-                        password = "$2b$05$9CaXvrYtguDwi190/llO9.qytgqCyPp1wqyO0.umxsTEfKkhpwr4q";
-                      }
-                    ];
-                  }
-                  {
-                    handler = "reverse_proxy";
-                    upstreams = with config.services.prometheus.exporters.node; [
-                      { dial = "${listenAddress}:${toString port}"; }
-                    ];
-                  }
-                ];
-              }
-              {
-                match = [
-                  {
-                    host = [ config.networking.fqdn ];
-                    path = [ "/probe" ];
-                  }
-                ];
-                handle = [
-                  {
-                    handler = "authentication";
-                    providers.http_basic.accounts = [
-                      {
-                        username = "prometheus";
-                        password = "$2b$05$9CaXvrYtguDwi190/llO9.qytgqCyPp1wqyO0.umxsTEfKkhpwr4q";
-                      }
-                    ];
-                  }
-                  {
-                    handler = "reverse_proxy";
-                    upstreams = with config.services.prometheus.exporters.blackbox; [
-                      { dial = "${listenAddress}:${toString port}"; }
-                    ];
-                  }
-                ];
-              }
-            ];
-          }
-        ];
-        match = [ { host = [ "*.nyaw.xyz" ]; } ];
-      }
-    ];
+    realm.observability.endpoints = {
+      node.port = config.services.prometheus.exporters.node.port;
+      chrony.port = config.services.prometheus.exporters.chrony.port;
+    };
   };
 }

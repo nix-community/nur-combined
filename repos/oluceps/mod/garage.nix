@@ -6,6 +6,7 @@
     { config, pkgs, ... }:
     {
       vaultix.secrets.garage = { };
+      realm.observability.endpoints.garage.port = 3903;
       services.garage = {
         enable = true;
         environmentFile = config.vaultix.secrets.garage.path;
@@ -26,7 +27,7 @@
             index = "index.html";
           };
           k2v_api.api_bind_addr = "[::]:3904";
-          admin.api_bind_addr = "[::]:3903";
+          admin.api_bind_addr = "127.0.0.1:3903";
         };
       };
     };

@@ -41,7 +41,7 @@
 
             hostName = "bootstrap";
           };
-          # boot.kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
+          boot.kernelPackages = pkgs.linuxPackages_testing;
 
           users.mutableUsers = false;
           users.users.root = {
@@ -369,6 +369,7 @@
             overlays = with inputs; [
               fenix.overlays.default
               self.overlays.default
+              self.overlays.kernel
               (final: prev: {
                 aggregateModules =
                   args:
