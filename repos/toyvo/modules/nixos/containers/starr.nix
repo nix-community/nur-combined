@@ -202,17 +202,29 @@ in
           # bazarr and readarr are not in nixpkgs ids.nix so their UIDs can diverge
           # across systems. prowlarr uses DynamicUser=yes upstream and requires an
           # explicit static user.
-          users.users.bazarr.uid = ids.uids.bazarr;
-          users.users.sonarr.uid = ids.uids.sonarr;
-          users.users.lidarr.uid = ids.uids.lidarr;
-          users.users.radarr.uid = ids.uids.radarr;
-          users.users.readarr.uid = ids.uids.readarr;
-          users.users.qbittorrent.uid = ids.uids.qbittorrent;
-          users.users.prowlarr = {
-            uid = ids.uids.prowlarr;
-            group = "prowlarr";
-            isSystemUser = true;
-          };
+          # UID pins only while the service is alive: the group comes from
+          # each NixOS service module, so pinning a UID for a disabled
+          # service leaves a user with no group (eval assertion). Prowlarr
+          # defines its user+group in full below and needs no guard.
+          users.users = lib.mkMerge (
+            (map (svc: lib.mkIf (!lib.elem svc cfg.disabledServices) { ${svc}.uid = ids.uids.${svc}; }) [
+              "bazarr"
+              "sonarr"
+              "lidarr"
+              "radarr"
+              "readarr"
+              "qbittorrent"
+            ])
+            ++ [
+              {
+                prowlarr = {
+                  uid = ids.uids.prowlarr;
+                  group = "prowlarr";
+                  isSystemUser = true;
+                };
+              }
+            ]
+          );
           users.groups.bazarr.gid = ids.gids.bazarr;
           users.groups.sonarr.gid = ids.gids.sonarr;
           users.groups.lidarr.gid = ids.gids.lidarr;
