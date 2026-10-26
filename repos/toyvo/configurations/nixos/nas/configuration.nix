@@ -413,10 +413,11 @@ in
     };
     starr = {
       enable = true;
-      # Retired to k3s (data migrated, traffic flipped; prowlarr 2026-10-26, sonarr 2026-10-27).
+      # Retired to k3s (data migrated, traffic flipped; prowlarr 2026-10-26, sonarr + lidarr 2026-10-27).
       disabledServices = [
         "prowlarr"
         "sonarr"
+        "lidarr"
       ];
       natInterface = "eno1";
       hostAddress = "10.200.0.1";
