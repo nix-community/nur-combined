@@ -7,7 +7,7 @@
 
 let
   pname = "toaster";
-  version = "0.4.17";
+  version = "0.4.19";
 in
 buildNpmPackage rec {
   inherit pname version;
@@ -16,7 +16,7 @@ buildNpmPackage rec {
     owner = "StopBanning";
     repo = "toaster";
     rev = "v${version}";
-    hash = "sha256-0jqSTGZGI5r/82/lI5K7uJmUa/2eoNwNE6WfbZU/oi0=";
+    hash = "sha256-xC7VI1KLQE+UQveRZ9QASe730FIwVc4O0f/vlxHGtRQ=";
   };
 
   npmDepsHash = "sha256-q2Zakb2A10YBOhxtZbBtOIzayRwnBzIaf+7tZF0fpw4=";
@@ -51,7 +51,7 @@ buildNpmPackage rec {
     changelog = "https://github.com/StopBanning/toaster/releases/tag/v${version}";
     license = lib.licenses.mit;
     mainProgram = pname;
-    # maintainers = with lib.maintainers; [ anas ];
+    maintainers = with lib.maintainers; [ anas ];
     platforms = lib.platforms.linux;
   };
 }

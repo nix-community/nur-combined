@@ -16,7 +16,6 @@
 
   firefox-addons = import ./pkgs/firefox-addons { inherit pkgs; };
 
-  example-package = pkgs.callPackage ./pkgs/example-package { };
   ducker = pkgs.callPackage ./pkgs/ducker { };
   lpl = pkgs.callPackage ./pkgs/lpl { };
   tokei-pie = pkgs.callPackage ./pkgs/tokie-pie { buildPythonApplication = pkgs.python3Packages.buildPythonApplication; };
