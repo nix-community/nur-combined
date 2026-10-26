@@ -10,6 +10,7 @@ My personal package repository for the [Nix User Repository (NUR)](https://githu
 | `claude-desktop` | [Claude Desktop](https://support.claude.com/en/articles/10065433-install-claude-desktop), Anthropic's official Linux beta for x86_64 and ARM64 |
 | `koharu` | [Koharu](https://github.com/koharu-rs/koharu), an AI-powered manga translator for Linux x86_64 and ARM64 |
 | `open-pencil` | [OpenPencil](https://github.com/open-pencil/open-pencil), an open-source design editor |
+| `pdfcraft` | [PdfCraft](https://github.com/storytold/pdfcraft), an open-source PDF reader and editor written in Rust |
 
 ## Claude Desktop
 
