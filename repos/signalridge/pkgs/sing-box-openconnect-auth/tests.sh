@@ -7,8 +7,8 @@ trap 'if [[ ${KEEP_TEST_TMP:-} == true ]]; then printf "Fixtures: %s\n" "$tempor
 export MOCK_ROOT="$temporary/mock" XDG_STATE_HOME="$temporary/state"
 mkdir -p "$MOCK_ROOT/bin"
 export PATH="$MOCK_ROOT/bin:$PATH"
-cat >"$MOCK_ROOT/bin/buf" <<'MOCK'
-#!/usr/bin/env bash
+printf '#!%s\n' "$(command -v bash)" >"$MOCK_ROOT/bin/buf"
+cat >>"$MOCK_ROOT/bin/buf" <<'MOCK'
 set -euo pipefail
 for argument; do
   [[ $argument != *fixture-api-value* && $argument != *fixture-cookie* ]] || exit 9
@@ -38,8 +38,8 @@ CancelOpenConnectAuthChallenge) touch "$MOCK_ROOT/canceled"; printf '{}\n' ;;
 *) exit 96 ;;
 esac
 MOCK
-cat >"$MOCK_ROOT/bin/authenticate" <<'MOCK'
-#!/usr/bin/env bash
+printf '#!%s\n' "$(command -v bash)" >"$MOCK_ROOT/bin/authenticate"
+cat >>"$MOCK_ROOT/bin/authenticate" <<'MOCK'
 set -euo pipefail
 touch "$MOCK_ROOT/started"
 jq -e '.username == "fixture-user" and .password == "fixture-password" and .certificate.pfxBase64 == "YWJj"' <&3 >/dev/null
