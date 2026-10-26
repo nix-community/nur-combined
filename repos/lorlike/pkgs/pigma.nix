@@ -4,15 +4,15 @@
   lib,
 }:
 let
-  version = "0.2.15";
+  version = "0.2.16";
   archMap = {
     "x86_64-linux" = {
       name = "x86_64";
-      hash = "sha256-HLqocTyyOmVeVEIw0R0o4hZBMYiWY/BS5GdGhvhme0I=";
+      hash = "sha256-9KC+z3wGJTOS7JuTPnkDX5O3B8+/abnMzpyfSBOGFpw=";
     };
     "aarch64-linux" = {
       name = "aarch64";
-      hash = "sha256-nzkDN9oNSIsJdEtWREYbWI9D+sebE7LKaWKMYgcAxzg=";
+      hash = "sha256-6kgO76YKPcc4EqcE/FqV5T4ZtTo+ginFsMi//dG2mI0=";
     };
   };
   currentArch =
