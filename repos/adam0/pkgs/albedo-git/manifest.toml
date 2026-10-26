@@ -27,7 +27,7 @@ packages = [
   { name = "idna", version = "7.1.0", build_tools = ["rebar3"], requirements = [], otp_app = "idna", source = "hex", outer_checksum = "6AE959A025BF36DF61A8CAB8508D9654891B5426A84C44D82DEAFFD6DDF8C71F" },
   { name = "logging", version = "1.5.0", build_tools = ["gleam"], requirements = ["gleam_stdlib"], otp_app = "logging", source = "hex", outer_checksum = "BC5F18CE5DD9686100229FE5409BDC3DD5C46D5A7DF2F804AD2D8F0DD6C5060E" },
   { name = "mimerl", version = "1.5.0", build_tools = ["rebar3"], requirements = [], otp_app = "mimerl", source = "hex", outer_checksum = "DB648CE065BAE14EA84CA8B5DD123F42F49417CEF693541110BF6F9E9BE9ECC4" },
-  { name = "mist", version = "6.0.3", build_tools = ["gleam"], requirements = ["exception", "gleam_erlang", "gleam_http", "gleam_otp", "gleam_stdlib", "glisten", "gramps", "hpack_erl", "logging"], otp_app = "mist", source = "hex", outer_checksum = "1B07F321D5FA0CB162D81496F2DE96AEB6EF8980F4F38230A4CC3F849497E020" },
+  { name = "mist", version = "6.0.3", build_tools = ["gleam"], requirements = ["exception", "gleam_erlang", "gleam_http", "gleam_otp", "gleam_stdlib", "glisten", "gramps", "hpack_erl", "logging"], source = "local", path = "vendor/mist" },
   { name = "parse_trans", version = "3.4.2", build_tools = ["rebar3"], requirements = [], otp_app = "parse_trans", source = "hex", outer_checksum = "4C25347DE3B7C35732D32E69AB43D1CEEE0BEAE3F3B3ADE1B59CBD3DD224D9CA" },
   { name = "quic", version = "2.1.1", build_tools = ["rebar3"], requirements = [], otp_app = "quic", source = "hex", outer_checksum = "305D78A857298D940F6621A9ACD7391C02980555D5E7FFFEF364ECCD330FD64D" },
   { name = "sqlight", version = "1.2.0", build_tools = ["gleam"], requirements = ["esqlite", "gleam_stdlib"], otp_app = "sqlight", source = "hex", outer_checksum = "841768D0A81107EE2DB46B949354F284A68B2E8098315C28A1FE3C07D206C17A" },
@@ -45,6 +45,6 @@ gleam_json = { version = ">= 3.1.0 and < 4.0.0" }
 gleam_otp = { version = ">= 1.3.0 and < 2.0.0" }
 gleam_stdlib = { version = ">= 1.0.0 and < 2.0.0" }
 gleeunit = { version = ">= 1.0.0 and < 2.0.0" }
-mist = { version = ">= 6.0.3 and < 7.0.0" }
+mist = { path = "vendor/mist" }
 sqlight = { version = ">= 1.2.0 and < 2.0.0" }
 yamerl = { version = ">= 0.10.0 and < 1.0.0" }
