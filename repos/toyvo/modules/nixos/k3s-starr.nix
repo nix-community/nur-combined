@@ -8,12 +8,17 @@ let
   # nixpkgs ids.uids/gids.sonarr = 274; pinned to match existing ownership.
   sonarrImage = "lscr.io/linuxserver/sonarr:4.0.20.3014-ls329";
   sonarrPort = 8989;
+  # nixpkgs ids.uids/gids.lidarr = 306; pinned to match existing ownership.
+  lidarrImage = "lscr.io/linuxserver/lidarr:3.1.6.5079-ls46";
+  lidarrPort = 8686;
 in
 {
   options.nixcfg.k3sStarr.prowlarr.enable =
     lib.mkEnableOption "Prowlarr in k3s (first starr migration)";
 
   options.nixcfg.k3sStarr.sonarr.enable = lib.mkEnableOption "Sonarr in k3s (second starr migration)";
+
+  options.nixcfg.k3sStarr.lidarr.enable = lib.mkEnableOption "Lidarr in k3s (third starr migration)";
 
   # Single writer: enable ONLY on nas. See k3s-storage.nix for why.
   config = lib.mkMerge [
@@ -286,6 +291,156 @@ in
                     backend.service = {
                       name = "sonarr";
                       port.number = sonarrPort;
+                    };
+                  }
+                ];
+              }
+            ];
+          };
+        };
+      };
+    })
+    (lib.mkIf cfg.lidarr.enable {
+      assertions = [
+        {
+          assertion = config.nixcfg.k3s.enable && config.nixcfg.k3s.role == "server";
+          message = "nixcfg.k3sStarr: starr manifests must live on a server (nas), never an agent.";
+        }
+      ];
+
+      services.k3s.manifests = {
+        "lidarr-media-pvc.yaml".content = {
+          apiVersion = "v1";
+          kind = "PersistentVolumeClaim";
+          metadata = {
+            name = "lidarr-media";
+          };
+          spec = {
+            accessModes = [ "ReadWriteMany" ];
+            storageClassName = "nfs-pool";
+            resources.requests.storage = "100Gi";
+          };
+        };
+        "lidarr-statefulset.yaml".content = {
+          apiVersion = "apps/v1";
+          kind = "StatefulSet";
+          metadata = {
+            name = "lidarr";
+            labels.app = "lidarr";
+          };
+          spec = {
+            serviceName = "lidarr";
+            replicas = 1;
+            selector.matchLabels.app = "lidarr";
+            template = {
+              metadata.labels.app = "lidarr";
+              spec = {
+                affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms = [
+                  {
+                    matchExpressions = [
+                      {
+                        key = "kubernetes.io/hostname";
+                        operator = "In";
+                        values = [ "nas" ];
+                      }
+                    ];
+                  }
+                ];
+                containers = [
+                  {
+                    name = "lidarr";
+                    image = lidarrImage;
+                    imagePullPolicy = "IfNotPresent";
+                    env = [
+                      {
+                        name = "PUID";
+                        value = "306";
+                      }
+                      {
+                        name = "PGID";
+                        value = "306";
+                      }
+                      {
+                        name = "TZ";
+                        value = "America/Chicago";
+                      }
+                    ];
+                    ports = [ { containerPort = lidarrPort; } ];
+                    resources = {
+                      requests = {
+                        cpu = "50m";
+                        memory = "128Mi";
+                      };
+                      limits = {
+                        cpu = "1000m";
+                        memory = "2Gi";
+                      };
+                    };
+                    volumeMounts = [
+                      {
+                        name = "config";
+                        mountPath = "/config";
+                      }
+                      {
+                        name = "media";
+                        mountPath = "/mnt";
+                      }
+                    ];
+                  }
+                ];
+                volumes = [
+                  {
+                    name = "media";
+                    persistentVolumeClaim.claimName = "lidarr-media";
+                  }
+                ];
+              };
+            };
+            volumeClaimTemplates = [
+              {
+                metadata.name = "config";
+                spec = {
+                  accessModes = [ "ReadWriteOnce" ];
+                  resources.requests.storage = "5Gi";
+                };
+              }
+            ];
+          };
+        };
+        "lidarr-service.yaml".content = {
+          apiVersion = "v1";
+          kind = "Service";
+          metadata = {
+            name = "lidarr";
+          };
+          spec = {
+            selector.app = "lidarr";
+            ports = [
+              {
+                port = lidarrPort;
+                targetPort = lidarrPort;
+              }
+            ];
+          };
+        };
+        "lidarr-ingress.yaml".content = {
+          apiVersion = "networking.k8s.io/v1";
+          kind = "Ingress";
+          metadata = {
+            name = "lidarr";
+          };
+          spec = {
+            ingressClassName = "traefik";
+            rules = [
+              {
+                host = "lidarr.diekvoss.net";
+                http.paths = [
+                  {
+                    path = "/";
+                    pathType = "Prefix";
+                    backend.service = {
+                      name = "lidarr";
+                      port.number = lidarrPort;
                     };
                   }
                 ];

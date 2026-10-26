@@ -153,6 +153,8 @@ in
     k3sStarr.prowlarr.enable = true;
     # Second starr migration (sonarr); same template + RW media mount.
     k3sStarr.sonarr.enable = true;
+    # Third starr migration (lidarr); same template again.
+    k3sStarr.lidarr.enable = true;
     security.enable = true;
     home-manager.enable = true;
     networking.enable = true;
