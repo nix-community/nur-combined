@@ -67,8 +67,8 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "mirkobrombin";
     repo = "raven";
-    rev = "5ca60c6e94c7d2e29cabc073983e627eeecadef8";
-    hash = "sha256-VidFLywbN9bySlsaI6IvirlNRvL7FK0d7toSWeb3jYs=";
+    rev = "fb18bcaced0783b5e74386b7527b441427e5e0cf";
+    hash = "sha256-2SCwC+C0zHaTgmGzeqdM+lu4pplmGRi3cYp1p59y0Kk=";
   };
 
   # Configure-time fixture provisioning downloads and builds test programs
@@ -173,43 +173,8 @@ stdenv.mkDerivation (finalAttrs: {
         wine64Packages.minimal # widl
       ];
 
-      # ReactOS sources still trip errors GCC 14 made of warnings: msi passes incompatible pointers
-      # and lzexpand declares its debug channel with a macro the generated kernel32 header lacks
-      env =
-        let
-          flags = toString [
-            "-Wno-error=incompatible-pointer-types"
-            "-Wno-error=implicit-int"
-            "-Wno-error=declaration-missing-parameter-type"
-          ];
-        in
-        {
-          NIX_CFLAGS_COMPILE_x86_64_w64_mingw32 = flags;
-          NIX_CFLAGS_COMPILE_i686_w64_mingw32 = flags;
-        };
-
       buildPhase = ''
         runHook preBuild
-
-        # MinGW-w64 >= 14 wraps these msvcrt.dll functions in libmingwex instead of importing them, and
-        # moved the i686 LZ imports from kernel32 to lz32, but the components link with -nostdlib
-        # against Raven's own msvcrt.dll and kernel32.dll
-        for triple in x86_64-w64-mingw32 i686-w64-mingw32; do
-          compat=$NIX_BUILD_TOP/compat-$triple
-          mkdir -p $compat
-          printf '%s\n' 'LIBRARY msvcrt.dll' EXPORTS iswctype wcstok_s __getmainargs __wgetmainargs \
-            > $compat/msvcrt.def
-          $triple-dlltool -d $compat/msvcrt.def -l $compat/libmsvcrt-compat.a
-          ldflags="-L$compat -lmsvcrt-compat"
-          if [[ $triple == i686-* ]]; then
-            printf '%s\n' 'LIBRARY kernel32.dll' EXPORTS LZStart@0 LZSeek@12 LZRead@12 LZOpenFileW@12 \
-              LZOpenFileA@12 LZInit@4 LZDone@0 LZCopy@8 LZClose@4 GetExpandedNameW@8 GetExpandedNameA@8 \
-              CopyLZFile@8 > $compat/kernel32.def
-            $triple-dlltool -k -d $compat/kernel32.def -l $compat/libkernel32-compat.a
-            ldflags+=" -lkernel32-compat"
-          fi
-          export NIX_LDFLAGS_AFTER_''${triple//-/_}="$ldflags"
-        done
 
         # The import libraries the components link against are named after the output directory
         python3 scripts/provision-rtl.py --archive ${reactosSource} --output components/rtl
