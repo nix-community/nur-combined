@@ -49,13 +49,13 @@ let
 in
 stdenv.mkDerivation {
   pname = "networkmanager-gpclient";
-  version = "1.5.0-unstable-2026-10-24";
+  version = "1.5.0-unstable-2026-10-26";
 
   src = fetchFromGitHub {
     owner = "WMP";
     repo = "GlobalProtect-SAML-NetworkManager";
-    rev = "389c488b0a0d2739b0e885624174ad2bc9c8daaf";
-    hash = "sha256-L3lJAQOprXxDZxUBk5eruIVInQewKhXqRUyNjTuxPes=";
+    rev = "d7118862138bbc09962f4eca295ea8e0d1db336c";
+    hash = "sha256-x0VghRSHtbSIfYzzEteppddGVhZhf05afSq/eV/AtTg=";
   };
 
   nativeBuildInputs = [
