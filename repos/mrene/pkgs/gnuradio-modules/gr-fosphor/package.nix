@@ -19,6 +19,7 @@
   libsForQt5,
   darwin,
   glfw,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation rec {
@@ -67,6 +68,8 @@ stdenv.mkDerivation rec {
 
   dontWrapQtApps = true;
   NIX_CFLAGS_COMPILE = "-Wno-deprecated-declarations";
+
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = with lib; {
     description = "GNURadio block for spectrum visualization using GPU; mirror of https://gitea.osmocom.org/sdr/gr-fosphor";

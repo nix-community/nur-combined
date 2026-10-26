@@ -16,6 +16,7 @@
   gr-fhss_utils,
   gr-smart_meters,
   gr-fosphor,
+  nix-update-script,
 }:
 
 let
@@ -79,7 +80,9 @@ stdenv.mkDerivation rec {
     in
     {
       gnuradio = gr;
+      updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
     };
+
   meta = with lib; {
     description = "";
     homepage = "https://github.com/BitBangingBytes/gr-smart_meters.git";

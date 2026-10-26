@@ -7,17 +7,17 @@
 
 buildGo127Module (finalAttrs: {
   pname = "sagemcom-fast-exporter";
-  version = "0.5.1";
+  version = "0.5.2";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "hairyhenderson";
     repo = "sagemcom_fast_exporter";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-2WXV1nzSnuhdDMoZW5/lBwrDpybP+AGTC+rOZF3Mkeg=";
+    hash = "sha256-jPRSB70XWVXZpslDOgNzITts7hpLzT0MP41ovINyuYc=";
   };
 
-  vendorHash = "sha256-XpcZjcjyLV+FKqQh5RtGzB5EbYaP50n7TnnA3LZY+m0=";
+  vendorHash = "sha256-8FLLGuMVlnsX+L7VHptCef/AWN1CeDfj3MCIxPyea8E=";
 
   ldflags = [
     "-s"

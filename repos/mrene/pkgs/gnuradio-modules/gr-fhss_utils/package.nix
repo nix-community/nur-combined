@@ -14,17 +14,18 @@
   gr-sandia_utils,
   gr-timing_utils,
   llvmPackages,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation rec {
   pname = "gr-fhss-utils";
-  version = "0-unstable-2023-08-17";
+  version = "0-unstable-2026-09-16";
 
   src = fetchFromGitHub {
     owner = "sandialabs";
     repo = "gr-fhss_utils";
-    rev = "8993c6a89444e740b06ff4829b94555b04433bf7";
-    hash = "sha256-HLLXAfdTtALnHNJ7lBkLCksmk5tMD595jAEqjtgXRw4=";
+    rev = "a2d1f5010b9b35be87ce4eabaa8e85d035d27afe";
+    hash = "sha256-/byR+HJr2QK4wv+BcazAnc5JJnkK85GFzWY4z/yMjig=";
   };
 
   nativeBuildInputs = [
@@ -50,6 +51,8 @@ stdenv.mkDerivation rec {
       gr-timing_utils
     ]
     ++ lib.optionals stdenv.isDarwin [ llvmPackages.openmp ];
+
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = with lib; {
     description = "Bursty modem utilities";

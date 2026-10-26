@@ -23,5 +23,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ ];
     mainProgram = "macpow";
+    platforms = lib.platforms.darwin;
   };
 })
