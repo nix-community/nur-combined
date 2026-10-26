@@ -22,17 +22,17 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "sequin";
-  version = "0-unstable-2026-10-19";
+  version = "0-unstable-2026-10-25";
   __structuredAttrs = true;
 
   src = fetchFromGitLab {
     owner = "sequoia-pgp";
     repo = "Sequin";
-    rev = "1c1383b1406c46e2566d9232cbec9451cfe66159";
-    hash = "sha256-c00CIqCTbuWeB223gWLcHv23lbc61cGdbVIM4x3kX9Y=";
+    rev = "2dbdb21f45fbae2917ed8e9ac6fc1fd811b3e3b5";
+    hash = "sha256-+Vlv5Xtbpxa6ll4D3TuMkS7r5DP/DVGuF2qmmCSMYrQ=";
   };
 
-  cargoHash = "sha256-u0IQe3TNA9U5dVGMOiDYr3fe7VTCClGyp8qiLPjY4F4=";
+  cargoHash = "sha256-29HHMmAhxCbKf1M10FEG3nJcNq3Kt5GqA8GftB66P/Y=";
 
   nativeBuildInputs = [
     autoPatchelfHook
