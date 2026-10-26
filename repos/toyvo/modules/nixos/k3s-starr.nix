@@ -12,7 +12,7 @@ let
   lidarrImage = "lscr.io/linuxserver/lidarr:3.1.6.5079-ls46";
   lidarrPort = 8686;
   # nixpkgs ids.uids/gids.radarr = 275; pinned to match existing ownership.
-  radarrImage = "lscr.io/linuxserver/radarr:4.0.20.3014-ls324";
+  radarrImage = "lscr.io/linuxserver/radarr:6.4.4.10685-ls324";
   radarrPort = 7878;
 in
 {
