@@ -282,7 +282,10 @@ in
       createMountPoints = true;
       exports = ''
         /mnt/POOL/k3s-test 10.1.0.0/24(rw,sync,no_subtree_check,root_squash)
-        /mnt/POOL/Public 10.1.0.0/24(ro,sync,no_subtree_check,root_squash)
+        # RW: sonarr (and future *arrs) import into the library here.
+        # Pod-level read-only is still enforced separately via the
+        # pool-public-ro PV (mountOptions ro + csi.readOnly).
+        /mnt/POOL/Public 10.1.0.0/24(rw,sync,no_subtree_check,root_squash)
       '';
     };
     spice-vdagentd.enable = true;
