@@ -113,11 +113,11 @@
           }
         else throw "Unsupported Gleam package source: ${p.source}";
     })
-    manifest.packages;
+    (builtins.filter (p: p.source != "local") manifest.packages);
 
   packageIndex = toFile "packages.toml" (
     "[packages]\n"
-    + concatMapStrings (p: "${p.name} = \"${p.version}\"\n") packages
+    + concatMapStrings (p: "${p.name} = \"${p.version}\"\n") manifest.packages
     + "\n[git]\n"
     + concatMapStrings (p: "[git.${p.name}]\ncommit = \"${p.commit}\"\n")
     (builtins.filter (p: p.source == "git") manifest.packages)
@@ -170,6 +170,10 @@ in
         '')
         packages}
       cp ${packageIndex} build/packages/packages.toml
+      # Local dependencies remain in the source tree. A fresh fingerprint keeps
+      # Gleam from resolving their versions over the network in the sandbox.
+      ${concatMapStringsSep "\n" (p: "touch build/packages/${p.name}.config_fingerprint")
+        (builtins.filter (p: p.source == "local") manifest.packages)}
       chmod -R u+w build/packages
 
       gleam export erlang-shipment
