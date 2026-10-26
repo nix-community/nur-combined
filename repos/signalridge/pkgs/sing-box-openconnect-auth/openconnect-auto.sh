@@ -54,6 +54,7 @@ if ! settings=$(jq -ce '
   def command: type == "array" and length > 0 and all(.[]; type == "string" and length > 0 and (contains("\u0000") | not));
   .defaultMethod //= "certificate" | .pollSeconds //= 5 | .fallbacks //= []
   | .fallbackPollSeconds //= 30 | .fallbackRetrySeconds //= 300 | .fallbackAuthSeconds //= 240
+  | .fallbacks |= map(.parent //= .selector)
   | select((.endpoint | type) == "string" and (.endpoint | length) > 0)
   | select(.apiURL | test("^http://(127\\.0\\.0\\.1|localhost|\\[::1\\]):[0-9]+/?$"))
   | select(.gateway | test("^https://[A-Za-z0-9.-]+(:[0-9]+)?/?$"))
@@ -63,7 +64,7 @@ if ! settings=$(jq -ce '
   | select(.authCommands[.defaultMethod] != null)
   | select((.fallbacks | type) == "array" and all(.fallbacks[];
       ([.selector, .parent, .fallback, .probeURL] | all(.[]; type == "string" and length > 0 and (test("[\r\n\u0000]") | not)))
-      and .selector != .parent and (.preferred | type) == "array" and (.preferred | length) > 0
+      and (.preferred | type) == "array" and (.preferred | length) > 0
       and all(.preferred[]; type == "string" and length > 0)))
   | select((.fallbacks | length) == 0 or (.clashAPIURL | test("^http://(127\\.0\\.0\\.1|localhost|\\[::1\\]):[0-9]+/?$")))
   | select([.fallbackPollSeconds, .fallbackRetrySeconds, .fallbackAuthSeconds] | all(.[]; type == "number" and . >= 1 and . <= 86400 and . == floor))

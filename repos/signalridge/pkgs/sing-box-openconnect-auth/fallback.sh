@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Sourced by openconnect-auto.sh. Persistent state contains only timestamps and
-# a one-time migration marker; group names and commands come from configuration.
+# selection ownership and migration metadata; commands come from configuration.
 # shellcheck disable=SC2154,SC2034 # Globals are supplied/consumed by the parent script.
 fallback_next=0
 fallback_managed=false
@@ -12,28 +12,51 @@ fallback_file() {
   printf '%s/fallback-%s.json\n' "$state" "$digest"
 }
 fallback_save() {
-  local file=$1 retry=$2 pending=$3 temporary
+  local file=$1 retry=$2 pending=$3 temporary selected=''
+  if (($# >= 4)); then
+    selected=$4
+  elif [[ -f $file ]]; then selected=$(jq -r '.autoSelection // ""' "$file" 2>/dev/null); fi
   temporary=$(mktemp "$state/.fallback.XXXXXX") || return 75
-  jq -cn --argjson retry "$retry" --argjson pending "$pending" \
-    '{initialized:true, retryAt:$retry, pendingSince:$pending}' >"$temporary" || return 75
+  jq -cn --argjson retry "$retry" --argjson pending "$pending" --arg selected "$selected" \
+    '{initialized:true, retryAt:$retry, pendingSince:$pending,autoSelection:$selected}' >"$temporary" || return 75
   mv -f "$temporary" "$file"
 }
 fallback_select() {
   rpc SelectOutbound "$(jq -cn --arg group "$1" --arg outbound "$2" '{groupTag:$group,outboundTag:$outbound}')" >/dev/null
 }
+fallback_active() {
+  local route=$1 current=$2 selector parent file
+  selector=$(printf '%s' "$route" | jq -r .selector)
+  parent=$(printf '%s' "$route" | jq -r .parent)
+  if [[ $parent != "$selector" ]]; then
+    [[ $current == "$selector" ]]
+    return
+  fi
+  # Flat selectors retain the original mesh/Egress automatic range. A VPN
+  # chosen by this controller is also managed until the preferred exits recover.
+  printf '%s' "$route" | jq -e --arg current "$current" '.preferred + [.fallback] | index($current)' >/dev/null && return 0
+  [[ $current == "$endpoint" ]] || return 1
+  file=$(fallback_file "$selector")
+  [[ -f $file ]] && jq -e --arg endpoint "$endpoint" '.autoSelection == $endpoint' "$file" >/dev/null 2>&1
+}
 fallback_choose() {
-  local route=$1 want=$2 groups parent selector current
+  local route=$1 want=$2 groups parent selector current parent_choice file retry pending
   parent=$(printf '%s' "$route" | jq -r .parent)
   selector=$(printf '%s' "$route" | jq -r .selector)
   groups=$(rpc SubscribeGroups) || return $?
   printf '%s' "$groups" | jq -e '.group | type == "array" and length > 0' >/dev/null 2>&1 || return 75
-  # Recheck after probes/authentication: a manual parent selection wins.
-  printf '%s' "$groups" | jq -e --arg parent "$parent" --arg selector "$selector" \
-    '.group[] | select(.tag == $parent) | .selected == $selector' >/dev/null || return 0
+  # Recheck after probes/authentication so explicit manual selections win.
+  parent_choice=$(printf '%s' "$groups" | jq -er --arg parent "$parent" '.group[] | select(.tag == $parent) | .selected') || return 75
+  fallback_active "$route" "$parent_choice" || return 0
   current=$(printf '%s' "$groups" | jq -er --arg selector "$selector" '.group[] | select(.tag == $selector) | .selected') || return 65
-  [[ $current != "$want" ]] || return 0
-  fallback_select "$selector" "$want" || return $?
-  printf '%s: %s -> %s\n' "$selector" "$current" "$want" >&2
+  if [[ $current != "$want" ]]; then
+    fallback_select "$selector" "$want" || return $?
+    printf '%s: %s -> %s\n' "$selector" "$current" "$want" >&2
+  fi
+  file=$(fallback_file "$selector")
+  retry=$(jq -r '.retryAt // 0' "$file" 2>/dev/null)
+  pending=$(jq -r '.pendingSince // 0' "$file" 2>/dev/null)
+  fallback_save "$file" "${retry:-0}" "${pending:-0}" "$want"
 }
 fallback_probe() {
   local member=$1 probe=$2 control encoded url response
@@ -81,8 +104,8 @@ fallback_tick_locked() {
   while IFS= read -r route; do
     selector=$(printf '%s' "$route" | jq -r .selector)
     parent=$(printf '%s' "$route" | jq -r .parent)
-    # Older running configurations may not contain the new automatic subgroup
-    # yet. Leave routing untouched until the configuration has been applied.
+    # A running configuration may not contain these selectors yet. Leave routing
+    # untouched until the configuration has been applied.
     printf '%s' "$groups" | jq -e --arg selector "$selector" --arg parent "$parent" \
       'any(.group[]; .tag == $selector) and any(.group[]; .tag == $parent)' >/dev/null || continue
     file=$(fallback_file "$selector")
@@ -96,14 +119,16 @@ fallback_tick_locked() {
     if [[ $initialized != true ]]; then
       # Existing primary/fallback choices were managed automatically before the
       # subgroup existed. Migrate them once; preserve explicit VPN/bastion picks.
-      printf '%s' "$route" | jq -e --arg current "$current" '.preferred + [.fallback] | index($current)' >/dev/null && {
-        fallback_select "$parent" "$selector" || return $?
-        current=$selector
-      }
+      if [[ $parent != "$selector" ]]; then
+        printf '%s' "$route" | jq -e --arg current "$current" '.preferred + [.fallback] | index($current)' >/dev/null && {
+          fallback_select "$parent" "$selector" || return $?
+          current=$selector
+        }
+      fi
       fallback_save "$file" 0 0 || return $?
     fi
-    if [[ $current != "$selector" ]]; then
-      fallback_save "$file" "$retry" 0 || return $?
+    if ! fallback_active "$route" "$current"; then
+      fallback_save "$file" "$retry" 0 "" || return $?
       continue
     fi
     fallback_managed=true
@@ -163,8 +188,8 @@ fallback_auth_result() {
     parent=$(printf '%s' "$route" | jq -r .parent)
     current=$(printf '%s' "$groups" | jq -r --arg selector "$selector" '.group[] | select(.tag == $selector) | .selected')
     [[ $current == "$endpoint" ]] || continue
-    printf '%s' "$groups" | jq -e --arg parent "$parent" --arg selector "$selector" \
-      '.group[] | select(.tag == $parent) | .selected == $selector' >/dev/null || continue
+    current=$(printf '%s' "$groups" | jq -r --arg parent "$parent" '.group[] | select(.tag == $parent) | .selected')
+    fallback_active "$route" "$current" || continue
     fallback_defer "$route" "$now" || return $?
   done < <(printf '%s' "$settings" | jq -c '.fallbacks[]')
   fallback_next=0

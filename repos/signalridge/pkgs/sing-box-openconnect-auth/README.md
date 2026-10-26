@@ -69,16 +69,15 @@ enable interactive login over a local or SSH terminal.
 
 ## Priority fallback
 
-Add an automatic selector beneath a manual parent selector in sing-box. The
-automatic selector lists preferred exits, this adapter's VPN endpoint and a final
-fallback. Configure its policy with:
+Configure an existing selector with preferred exits, this adapter's VPN endpoint
+and a final fallback. The adapter changes that selector directly, so dashboards
+show the actual selected outbound without requiring an extra group:
 
 ```json
 {
   "clashAPIURL": "http://127.0.0.1:9090",
   "fallbacks": [{
-    "parent": "Office",
-    "selector": "Office auto",
+    "selector": "Office",
     "preferred": ["Primary", "Secondary"],
     "fallback": "Egress",
     "probeURL": "https://www.example.com/"
@@ -86,10 +85,16 @@ fallback. Configure its policy with:
 }
 ```
 
-Only the automatic subgroup is changed. Manual choices in the parent win,
-including choices made while a health probe is running. On first use, an existing
-parent choice of a preferred exit or final fallback migrates to the automatic
-subgroup once; explicit VPN and other manual choices are preserved.
+Preferred exits and the final fallback remain automatically managed, matching a
+priority failover selector. The adapter records when it selects the VPN so it can
+return to a preferred exit later. A VPN selected explicitly, or another manual
+outbound, is left alone. Selecting an already automatically selected VPN again
+does not communicate a separate pin operation.
+
+An optional `parent` enables the previous nested-selector mode. In that mode only
+the child selector is changed while the parent selects it; other parent choices
+remain manual. Existing preferred/fallback parent choices migrate to the child
+once. Omitting `parent` uses the flat selector mode above.
 
 Preferred exits are checked in order using the Clash API's synchronous delay
 endpoint. If none answers, the VPN is selected before authentication, allowing a
@@ -120,7 +125,7 @@ Interactive challenges require `login` in a terminal; a background service pause
 
 Credentials, certificates, API secrets and session cookies are held in memory and
 passed through pipes or descriptors. Only lock ownership, pause state and sanitized
-failure codes and fallback timestamps are written beneath `$XDG_STATE_HOME/openconnect-auto`. Providers'
+failure codes, automatic selections and fallback timestamps are written beneath `$XDG_STATE_HOME/openconnect-auto`. Providers'
 stderr is shown only during an interactive login, and never copied into service logs.
 
 Network failures back off from one minute to fifteen minutes. Rejected credentials,

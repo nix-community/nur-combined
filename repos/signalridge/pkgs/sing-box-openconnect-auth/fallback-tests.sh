@@ -125,4 +125,49 @@ mv "$MOCK_ROOT/config.tmp" "$configuration"
 run 75 watch --once
 [[ $(choice 'jaist auto') == Egress && ! -f $MOCK_ROOT/submitted ]]
 printf 'ok - authentication is canceled when its fallback grace deadline expires\n'
+jq '.fallbackAuthSeconds = 240 | .fallbacks[0].selector = "jaist" | del(.fallbacks[0].parent)' "$configuration" >"$MOCK_ROOT/config.tmp"
+mv "$MOCK_ROOT/config.tmp" "$configuration"
+reset_flat() {
+  reset
+  jq '.group |= map(select(.tag != "jaist auto"))' "$MOCK_ROOT/groups.json" >"$MOCK_ROOT/groups.tmp"
+  mv "$MOCK_ROOT/groups.tmp" "$MOCK_ROOT/groups.json"
+}
+reset_flat
+touch "$MOCK_ROOT/mesh-1" "$MOCK_ROOT/mesh-2"
+run 0 watch --once
+[[ $(choice jaist) == 'First exit' && ! -f $MOCK_ROOT/started ]]
+rm "$MOCK_ROOT/mesh-1"
+run 0 watch --once
+[[ $(choice jaist) == 'Second exit' && ! -f $MOCK_ROOT/started ]]
+rm "$MOCK_ROOT/mesh-2"
+run 0 watch --once
+[[ $(choice jaist) == 'Test VPN' && -f $MOCK_ROOT/submitted ]]
+touch "$MOCK_ROOT/mesh-1"
+run 0 watch --once
+[[ $(choice jaist) == 'First exit' ]]
+printf 'ok - flat selector updates the actual UI choice and recovers automatically\n'
+choose jaist 'Test VPN'
+run 0 watch --once
+run 0 watch --once
+[[ $(choice jaist) == 'Test VPN' ]]
+printf 'ok - an explicitly selected VPN is preserved in flat mode\n'
+reset_flat
+touch "$MOCK_ROOT/network"
+run 75 watch --once
+[[ $(choice jaist) == Egress ]]
+rm "$MOCK_ROOT/network" "$MOCK_ROOT/started"
+run 0 watch --once
+[[ $(choice jaist) == Egress && ! -f $MOCK_ROOT/started ]]
+touch "$MOCK_ROOT/mesh-2"
+run 0 watch --once
+[[ $(choice jaist) == 'Second exit' ]]
+printf 'ok - flat fallback cooldown and preferred-exit recovery survive restart\n'
+reset_flat
+touch "$MOCK_ROOT/reject"
+run 65 watch --once
+[[ $(choice jaist) == Egress ]]
+rm "$MOCK_ROOT/reject" "$MOCK_ROOT/started"
+run 0 watch --once
+[[ $(choice jaist) == Egress && ! -f $MOCK_ROOT/started ]]
+printf 'ok - flat authentication rejection retreats and pauses safely\n'
 if rg -q 'fixture-password|fixture-cookie|fixture-api-value' "$XDG_STATE_HOME" "$MOCK_ROOT/fallback-output"; then exit 1; fi
