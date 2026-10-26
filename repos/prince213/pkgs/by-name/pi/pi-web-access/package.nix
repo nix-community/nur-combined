@@ -6,7 +6,7 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "pi-web-access";
-  version = "0.44.0";
+  version = "0.45.0";
 
   __structuredAttrs = true;
 
@@ -14,11 +14,11 @@ buildNpmPackage (finalAttrs: {
     owner = "nicobailon";
     repo = "pi-web-access";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-/NQbfQTheJ8Di5l3ZP8pbWqAKqrhJ2F6OsiZAKt59YI=";
+    hash = "sha256-0ddDs0lkH1AuMWIBcoIu7QAv13ZU6SnymRyOeJgg6ao=";
   };
 
   npmDepsFetcherVersion = 2;
-  npmDepsHash = "sha256-fw/HcePRMdJNNe+vNo4oBHWBUB9X2i2FAsl8BFr4qOc=";
+  npmDepsHash = "sha256-jyIrcH9OmEPV9bn+BGLEccImRFRHd7ZxMSYGuISXg4Y=";
 
   postBuild = ''
     node scripts/pi-extensions-dist.js dist
