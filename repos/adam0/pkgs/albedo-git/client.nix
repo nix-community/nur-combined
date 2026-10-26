@@ -49,7 +49,15 @@ in
       # keep-sorted end
     ];
 
-    postInstall = ''
-      wrapProgram $out/bin/albedo --prefix PATH : ${makeBinPath clipboardTools}
-    '';
+    meta.license = lib.licenses.mpl20;
+
+    postInstall =
+      (import ./install-notices.nix {
+        dependencyRoot = "vendor";
+        pname = "albedo-client";
+        inherit src;
+      })
+      + ''
+        wrapProgram $out/bin/albedo --prefix PATH : ${makeBinPath clipboardTools}
+      '';
   }

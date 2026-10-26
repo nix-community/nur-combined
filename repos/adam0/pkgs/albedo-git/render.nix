@@ -1,5 +1,6 @@
 {
   # keep-sorted start
+  lib,
   rustPlatform,
   src,
   # keep-sorted end
@@ -13,6 +14,14 @@ in
     version = "0.1.0";
 
     src = root;
+
+    meta.license = lib.licenses.mpl20;
+
+    postInstall = import ./install-notices.nix {
+      dependencyRoot = "$cargoDeps";
+      pname = "albedo-render";
+      inherit src;
+    };
 
     cargoHash = "sha256-5UOrvLYnUaf64fiDAaN4FqKxqp2B1G+uBSU/7MjBg6Q=";
   }

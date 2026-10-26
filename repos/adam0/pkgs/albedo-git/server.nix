@@ -181,6 +181,14 @@ in
       runHook postBuild
     '';
 
+    postInstall = import ./install-notices.nix {
+      dependencyRoot = "build/packages";
+      pname = "albedo-server";
+      inherit src;
+    };
+
+    meta.license = lib.licenses.mpl20;
+
     installPhase = ''
       runHook preInstall
 

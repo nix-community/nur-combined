@@ -42,8 +42,7 @@
       # keep-sorted end
       ;
   };
-in
-  symlinkJoin {
+  package = symlinkJoin {
     inherit
       # keep-sorted start
       pname
@@ -61,14 +60,19 @@ in
 
     nativeBuildInputs = [makeWrapper];
 
-    postBuild = ''
-      rm $out/bin/albedo
-      makeWrapper ${client}/bin/albedo $out/bin/albedo --set-default ALBEDO_DAEMON ${server}/bin/albedo-daemon
-    '';
+    postBuild =
+      (import ./install-notices.nix {inherit pname src;})
+      + ''
+        rm $out/bin/albedo
+        makeWrapper ${client}/bin/albedo $out/bin/albedo --set-default ALBEDO_DAEMON ${server}/bin/albedo-daemon
+      '';
 
     passthru = {
       updateSourceFiles = ["manifest.toml"];
       daemon = server;
+      tests.notices = callPackage ./notices-test.nix {
+        inherit package;
+      };
       inherit
         # keep-sorted start
         client
@@ -83,9 +87,11 @@ in
       # keep-sorted start
       description = "Coding agent daemon with a Charm terminal client";
       homepage = "https://tangled.org/okami.mom/albedo";
-      license = licenses.wtfpl;
+      license = licenses.mpl20;
       mainProgram = "albedo";
       platforms = platforms.unix;
       # keep-sorted end
     };
-  }
+  };
+in
+  package
