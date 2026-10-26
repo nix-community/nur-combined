@@ -236,6 +236,11 @@ in
       kind = "Ingress";
       metadata = {
         name = "homepage";
+        annotations = {
+          # Sticky sessions: the resources widget reports per-node stats,
+          # so without stickiness the values flap between replicas.
+          "traefik.ingress.kubernetes.io/service.sticky.cookie" = "true";
+        };
       };
       spec = {
         ingressClassName = "traefik";

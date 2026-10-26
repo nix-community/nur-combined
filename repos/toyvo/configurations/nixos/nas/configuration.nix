@@ -406,6 +406,8 @@ in
     };
     starr = {
       enable = true;
+      # Retired to k3s (data migrated, traffic flipped 2026-10-26).
+      disabledServices = [ "prowlarr" ];
       natInterface = "eno1";
       hostAddress = "10.200.0.1";
       localAddress = "10.200.0.2";

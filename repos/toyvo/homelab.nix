@@ -283,8 +283,9 @@
         icon = "sh-prowlarr";
         widget = {
           type = "prowlarr";
-          # Direct internal address; see technitium widget comment above.
-          url = "http://10.200.0.2:9696";
+          # Public hostname (like jellyfin): the container address dies
+          # with the retired container service; this follows the Caddy flip.
+          url = "https://prowlarr.diekvoss.net";
           key = "{{HOMEPAGE_VAR_PROWLARR_API_KEY}}";
         };
       };
