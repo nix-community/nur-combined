@@ -9,22 +9,22 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    x86_64-linux = "16fm95g9nbhgajcd9zxasv3nypmf21cg5iwghq8n33ys7kjfdsqr";
-    aarch64-linux = "1c86sfjr1yf5i0zqhs1vfz5rlwzs59jj7zd0awm4krcddgi6sgx1";
-    x86_64-darwin = "0hb7hiq4an8y54w2kg3a9khz2k9ksscp5d9c7sbqc9ki4lpvdvv8";
-    aarch64-darwin = "11z0rsiqwwdah2ch6vjdll44ypbmk10p0si1a2bjqznmf55mkr1r";
+    x86_64-linux = "1z8ggpciys5fl74cw1whyq572nllihqzc036yib49c8f95kra3gi";
+    aarch64-linux = "1gy8jmavn42zzc5kijl9icrcrpznzp05widjxxnnhn5mpzsdp635";
+    x86_64-darwin = "09ms0xqsicbms8w8dn9bhk2gl7r589my94k3ni3kblpz1m4q3kk0";
+    aarch64-darwin = "0xqav0n6ywbi8fgfi9y5xfhf3fyycfw2kfnxvprviw8037m1xkc6";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/rapatao/md2/releases/download/v0.10.1/md2_0.10.1_linux_amd64.tar.gz";
-    aarch64-linux = "https://github.com/rapatao/md2/releases/download/v0.10.1/md2_0.10.1_linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/rapatao/md2/releases/download/v0.10.1/md2_0.10.1_darwin_amd64.tar.gz";
-    aarch64-darwin = "https://github.com/rapatao/md2/releases/download/v0.10.1/md2_0.10.1_darwin_arm64.tar.gz";
+    x86_64-linux = "https://github.com/rapatao/md2/releases/download/v0.10.2/md2_0.10.2_linux_amd64.tar.gz";
+    aarch64-linux = "https://github.com/rapatao/md2/releases/download/v0.10.2/md2_0.10.2_linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/rapatao/md2/releases/download/v0.10.2/md2_0.10.2_darwin_amd64.tar.gz";
+    aarch64-darwin = "https://github.com/rapatao/md2/releases/download/v0.10.2/md2_0.10.2_darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "md2";
-  version = "0.10.1";
+  version = "0.10.2";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
