@@ -48,8 +48,8 @@ stdenv.mkDerivation (finalAttrs: {
       src
       ;
     inherit pnpm;
-    fetcherVersion = 4;
-    hash = "sha256-Mw6CVxQw+mva5zXtfo7P2UweeauAPLJRImpgCujea4A=";
+    fetcherVersion = 5;
+    hash = "sha256-dZSYcbLP31Ezg34qtAGxy4/bnOP1ZJlOPr+lDPfy6J0=";
   };
 
   # Otherwise pnpm prune complains about not being able to ask for confirmation
