@@ -1,6 +1,5 @@
-diff -ru a/Telegram/SourceFiles/data/data_stories.cpp b/Telegram/SourceFiles/data/data_stories.cpp
---- a/Telegram/SourceFiles/data/data_stories.cpp	2026-09-05 12:12:09.890231721 -0700
-+++ b/Telegram/SourceFiles/data/data_stories.cpp	2026-09-05 12:12:10.553536361 -0700
+--- a/Telegram/SourceFiles/data/data_stories.cpp
++++ b/Telegram/SourceFiles/data/data_stories.cpp
 @@ -7,6 +7,7 @@
  */
  #include "data/data_stories.h"
@@ -45,10 +44,8 @@ diff -ru a/Telegram/SourceFiles/data/data_stories.cpp b/Telegram/SourceFiles/dat
  	const auto index = static_cast<int>(list);
  	if (_loadMoreRequestId[index] || _sourcesLoaded[index]) {
  		return;
-只在 b/Telegram/SourceFiles/data 中存在：data_stories.cpp.orig
-diff -ru a/Telegram/SourceFiles/data/data_stories.h b/Telegram/SourceFiles/data/data_stories.h
---- a/Telegram/SourceFiles/data/data_stories.h	2026-09-05 12:12:09.890268189 -0700
-+++ b/Telegram/SourceFiles/data/data_stories.h	2026-09-05 12:12:10.553834831 -0700
+--- a/Telegram/SourceFiles/data/data_stories.h
++++ b/Telegram/SourceFiles/data/data_stories.h
 @@ -38,6 +38,8 @@
  struct StoryAlbum;
  class StoryPreload;
@@ -58,9 +55,8 @@ diff -ru a/Telegram/SourceFiles/data/data_stories.h b/Telegram/SourceFiles/data/
  struct StoriesIds {
  	std::vector<StoryId> list; // flat_set<int, greater> for saved/archive.
  	std::vector<StoryId> pinnedToTop;
-diff -ru a/Telegram/SourceFiles/settings/settings_experimental.cpp b/Telegram/SourceFiles/settings/settings_experimental.cpp
---- a/Telegram/SourceFiles/settings/settings_experimental.cpp	2026-09-05 12:12:09.928880220 -0700
-+++ b/Telegram/SourceFiles/settings/settings_experimental.cpp	2026-09-05 12:12:12.886030051 -0700
+--- a/Telegram/SourceFiles/settings/settings_experimental.cpp
++++ b/Telegram/SourceFiles/settings/settings_experimental.cpp
 @@ -33,6 +33,7 @@
  #include "core/launcher.h"
  #include "core/sandbox.h"
@@ -69,12 +65,11 @@ diff -ru a/Telegram/SourceFiles/settings/settings_experimental.cpp b/Telegram/So
  #include "dialogs/dialogs_entry.h"
  #include "dialogs/dialogs_widget.h"
  #include "dialogs/ui/dialogs_layout.h"
-@@ -336,6 +337,7 @@
- 			registerHighlight);
- 	};
- 
-+	addToggle(Data::kOptionDisableStories);
- 	addToggle(ChatHelpers::kOptionTabbedPanelShowOnClick);
- 	addToggle(Dialogs::kOptionForumHideChatsList);
- 	addToggle(Dialogs::kOptionDialogsUnreadOnTop);
-只在 b/Telegram/SourceFiles/settings 中存在：settings_experimental.cpp.orig
+@@ -386,6 +387,7 @@
+ 		{
+ 			u"Chats"_q,
+ 			{
++				Data::kOptionDisableStories,
+ 				Dialogs::kOptionForumHideChatsList,
+ 				Dialogs::kOptionDialogsUnreadOnTop,
+ 				Dialogs::Ui::kOptionDialogsMuteIcon,
