@@ -9,13 +9,32 @@ let
   zedVersions = readJSON ../pkgs/zed/versions.json;
   zedHashes = readJSON ../pkgs/zed/hashes.json;
 
-  makeGo =
-    pkgs: majorMinor:
-    let
-      version = goVersions.${majorMinor};
-      hashes = goHashes.${version};
-    in
-    pkgs.callPackage ../pkgs/go-bin/package.nix { inherit version hashes; };
+  makeGoVersion =
+    pkgs:
+    {
+      version,
+      hashes ? { },
+    }:
+    pkgs.callPackage ../pkgs/go-bin/package.nix {
+      inherit version;
+      hashes = (goHashes.${version} or { }) // hashes;
+      extraPassthru = goApi pkgs;
+    };
+
+  makeGo = pkgs: majorMinor: makeGoVersion pkgs { version = goVersions.${majorMinor}; };
+
+  # Toolchain selection helpers, attached to every go-bin package:
+  #   pkgs.go-bin.fromGoMod ./go.mod
+  #   pkgs.go-bin.fromGoRelease { version = "1.26.9"; hashes."linux-arm64" = "…"; }
+  # like `rust-bin.fromRustupToolchainFile` and `rust-bin.fromRustcRev`.
+  goApi =
+    pkgs:
+    import ../pkgs/go-bin/go-mod.nix {
+      inherit lib;
+      versions = goVersions;
+      hashes = goHashes;
+      mkToolchain = makeGoVersion pkgs;
+    };
 
   latestGoVersion = builtins.head (
     builtins.sort (a: b: a > b) (builtins.filter (v: v != "next") (builtins.attrNames goVersions))

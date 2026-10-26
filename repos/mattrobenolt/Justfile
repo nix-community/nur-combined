@@ -40,6 +40,12 @@ update-benchstat:
 update-go:
     @just update go-bin
 
+[arg("version", pattern="^[0-9][A-Za-z0-9.]*$")]
+[doc("Print Go hashes for a release from go.dev, for fromGoRelease")]
+[group("updates")]
+go-hashes version:
+    ./pkgs/go-bin/hashes-for.py {{ version }}
+
 [doc("Update hunk package")]
 [group("updates")]
 update-hunk:

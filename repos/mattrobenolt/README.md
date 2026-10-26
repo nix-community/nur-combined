@@ -20,7 +20,19 @@ When new Go versions are released, they show up here automatically. The updater 
 
 These packages are named differently from nixpkgs' `go` to avoid invalidating your binary cache. Use them in devShells for fast updates without rebuilding everything that depends on Go.
 
-See [`pkgs/go-bin/README.md`](./pkgs/go-bin/README.md) for implementation details.
+`pkgs.go-bin.fromGoMod ./go.mod` selects the toolchain from a `go.mod` or `go.work` file, the same way `rust-bin.fromRustupToolchainFile` works for Rust:
+
+```nix
+devShells.default = pkgs.mkShell {
+  packages = [ (pkgs.go-bin.fromGoMod ./go.mod) ];
+};
+```
+
+All `go-bin` packages wrap `go` to default `GOTOOLCHAIN=local`, so cmd/go never downloads a different toolchain behind your back. An explicit `GOTOOLCHAIN` value still wins.
+
+`pkgs.go-bin.fromGoRelease { version = "1.26.9"; hashes."linux-arm64" = "sha256-…"; }` pins any release from go.dev/dl, tracked or not.
+
+See [`pkgs/go-bin/README.md`](./pkgs/go-bin/README.md) for the resolution rules and implementation details.
 
 ### Other packages
 

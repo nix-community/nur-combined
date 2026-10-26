@@ -71,6 +71,70 @@ The flake reads these JSON files and creates packages for each version. No code 
 }
 ```
 
+## Selecting a toolchain from go.mod
+
+`pkgs.go-bin.fromGoMod` reads a `go.mod` or `go.work` file and returns the toolchain named by it. It is the Go counterpart of `rust-bin.fromRustupToolchainFile`.
+
+```nix
+devShells.default = pkgs.mkShell {
+  packages = [
+    (pkgs.go-bin.fromGoMod ./go.mod)
+    pkgs.gopls
+  ];
+};
+```
+
+Resolution rules:
+
+1. A `toolchain goVERSION` directive wins, because it is the toolchain cmd/go builds with.
+2. Otherwise the `go` directive states a minimum version. The newest tracked patch of that minor is used.
+3. A version that matches a tracked release is used unchanged. A version that does not match resolves to the newest tracked patch of the same minor. The build fails if that patch is older than the requested version, because the release database is stale.
+4. A custom toolchain name, or a `+suffix`, is an error. The overlay cannot reproduce a toolchain that exists only on one machine.
+
+Resolution reads `versions.json` and `hashes.json` and downloads nothing. A version that is not tracked fails with the list of tracked minor versions.
+
+## Pinning an arbitrary release
+
+`pkgs.go-bin.fromGoRelease` accepts any release published at <https://go.dev/dl/>, including versions the updater does not track. This is the counterpart of `rust-bin.fromRustcRev`: you supply the hash.
+
+```nix
+pkgs.go-bin.fromGoRelease {
+  version = "1.26.9";
+  hashes = {
+    "linux-arm64" = "sha256-Spc3PUn8rNzzaU/qNopQCwDuPpY5dPPnUUEycXYy8FI=";
+  };
+}
+```
+
+Supply hashes only for the platforms that get evaluated. Every platform you leave out fails with its own name in the error message. A tracked version needs no hashes, because the database already has them, so this also works for a version the updater knows about.
+
+`just go-hashes VERSION` prints the whole attrset for a release, converted from the checksums that go.dev publishes:
+
+```console
+$ just go-hashes 1.26.9
+pkgs.go-bin.fromGoRelease {
+  version = "1.26.9";
+  hashes = {
+    "linux-amd64" = "sha256-QtFYtNj3thrAqDBWfJQKhgmPt6rFLkZ6Xr7APvXML40=";
+    "linux-arm64" = "sha256-Spc3PUn8rNzzaU/qNopQCwDuPpY5dPPnUUEycXYy8FI=";
+    "darwin-amd64" = "sha256-AMKePUyFYvVHQQ2qGNKVm2Qb1pGrAMSlJeqBegJT1L0=";
+    "darwin-arm64" = "sha256-+bt8CgJQbF2b8NHrH37mx2hPhErklVgwigQnuDDgIsw=";
+  };
+}
+```
+
+The hash values may also be the bare 64-character `sha256` hex string from go.dev's JSON, so a hash can be copied from the download page without a conversion step.
+
+## Toolchain switching is disabled
+
+Every `go-bin` package wraps `go` and sets `GOTOOLCHAIN=local` when the variable is not already set. cmd/go therefore never downloads a second toolchain. A module that requires a newer release fails at build time:
+
+```text
+go: go.mod requires go >= 1.27.0 (running go 1.24.13; GOTOOLCHAIN=local)
+```
+
+An explicit `GOTOOLCHAIN` value wins, so `GOTOOLCHAIN=auto` restores the upstream behavior. The real binary stays at `share/go/bin/go` and the wrapper calls it in place, so `go env GOROOT` still reports the package root.
+
 ## Manual Updates
 
 You can manually trigger updates:
@@ -94,8 +158,10 @@ Or run the script directly:
 ## Files
 
 - `package.nix` - Go derivation, parameterized by version and hashes
+- `go-mod.nix` - Toolchain selection from `go.mod`, plus `fromGoRelease`
 - `default.nix` - Compatibility shim importing `package.nix`
 - `versions.json` - Maps minor versions to latest patch versions
 - `hashes.json` - SRI hashes for all versions and platforms
 - `update.py` - Automated update script
+- `hashes-for.py` - Prints `fromGoRelease` hashes for any release on go.dev
 - `README.md` - This file
