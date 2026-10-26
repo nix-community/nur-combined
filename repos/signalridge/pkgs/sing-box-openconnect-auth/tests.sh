@@ -15,6 +15,8 @@ for argument; do
 done
 while IFS= read -r header && [[ -n $header ]]; do :; done
 body=$(cat)
+if [[ -f $MOCK_ROOT/restarting ]]; then printf '{}\n'; exit 0; fi
+if [[ -f $MOCK_ROOT/rpc-unknown ]]; then exit 16; fi
 method=${!#}; method=${method##*/}
 case $method in
 SubscribeGroups)
@@ -97,7 +99,7 @@ expect() {
 }
 reset() {
   rm -rf "$XDG_STATE_HOME"
-  rm -f "$MOCK_ROOT/"{started,submitted,direct,changed,change,reject,network,canceled,slow,malformed}
+  rm -f "$MOCK_ROOT/"{started,submitted,direct,changed,change,reject,network,canceled,slow,malformed,restarting,rpc-unknown}
 }
 
 jq -en -L "$source_dir" 'include "auth";
@@ -111,6 +113,15 @@ touch "$MOCK_ROOT/direct"
 expect 0 watch --once
 [[ ! -e $MOCK_ROOT/started ]]
 printf 'ok - unselected VPN does not read credentials or authenticate\n'
+reset
+touch "$MOCK_ROOT/restarting"
+expect 75 watch --once
+[[ -z $(ls "$XDG_STATE_HOME/openconnect-auto/"*/paused 2>/dev/null || true) && ! -f $MOCK_ROOT/started ]]
+rm "$MOCK_ROOT/restarting"
+touch "$MOCK_ROOT/rpc-unknown"
+expect 75 watch --once
+[[ -z $(ls "$XDG_STATE_HOME/openconnect-auto/"*/paused 2>/dev/null || true) && ! -f $MOCK_ROOT/started ]]
+printf 'ok - restarting APIs and transient RPC failures never pause authentication\n'
 reset
 expect 0 watch --once
 [[ -f $MOCK_ROOT/submitted ]]

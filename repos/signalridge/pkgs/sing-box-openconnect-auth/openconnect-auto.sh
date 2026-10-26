@@ -163,19 +163,20 @@ rpc() {
     --reflect-header '*' --timeout "$duration" "$api_url/daemon.StartedService/$name" 2>/dev/null)
   code=$?
   if ((code == 0)) || [[ $name == Subscribe* && $code == 32 && -n $response ]]; then
-    printf '%s' "$response" | jq -ces 'last' 2>/dev/null || return 65
+    printf '%s' "$response" | jq -ces 'last' 2>/dev/null || return 75
   else
-    case $code in 32 | 80 | 112) return 75 ;; *) return 65 ;; esac
+    case $code in 24 | 40 | 56 | 96 | 128) return 65 ;; *) return 75 ;; esac
   fi
 }
 status() {
   local update
   update=$(rpc SubscribeOpenConnectStatus) || return $?
-  printf '%s' "$update" | jq -ce --arg endpoint "$endpoint" '.endpoints[] | select(.endpointTag == $endpoint)' 2>/dev/null || return 65
+  printf '%s' "$update" | jq -ce --arg endpoint "$endpoint" '.endpoints[]? | select(.endpointTag == $endpoint)' 2>/dev/null || return 75
 }
 using_vpn() {
   local groups
   groups=$(rpc SubscribeGroups) || return $?
+  printf '%s' "$groups" | jq -e '.group | type == "array" and length > 0' >/dev/null 2>&1 || return 75
   printf '%s' "$groups" | jq -e -L "$libdir" --argjson roots "$(printf '%s' "$settings" | jq -c .selectors)" \
     --arg target "$endpoint" 'include "auth"; .group | selected($roots; $target)' >/dev/null 2>&1
 }

@@ -26,6 +26,7 @@ fallback_choose() {
   parent=$(printf '%s' "$route" | jq -r .parent)
   selector=$(printf '%s' "$route" | jq -r .selector)
   groups=$(rpc SubscribeGroups) || return $?
+  printf '%s' "$groups" | jq -e '.group | type == "array" and length > 0' >/dev/null 2>&1 || return 75
   # Recheck after probes/authentication: a manual parent selection wins.
   printf '%s' "$groups" | jq -e --arg parent "$parent" --arg selector "$selector" \
     '.group[] | select(.tag == $parent) | .selected == $selector' >/dev/null || return 0
@@ -74,6 +75,7 @@ fallback_tick_locked() {
   fallback_next=$((now + $(printf '%s' "$settings" | jq -r .fallbackPollSeconds)))
   load_api_secret || return $?
   groups=$(rpc SubscribeGroups) || return $?
+  printf '%s' "$groups" | jq -e '.group | type == "array" and length > 0' >/dev/null 2>&1 || return 75
   fallback_managed=false
   fallback_deadline=0
   while IFS= read -r route; do
