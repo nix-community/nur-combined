@@ -6,13 +6,13 @@
 }:
 stdenvNoCC.mkDerivation (final: {
   pname = "comfyui-prompt-manager";
-  version = "3.3.1-unstable-2026-10-25";
+  version = "3.3.1-unstable-2026-10-26";
 
   src = fetchFromGitHub {
     owner = "ComfyAssets";
     repo = "ComfyUI_PromptManager";
-    rev = "f9835aa4d66f746c40c30b2f00668b82d6e2b549";
-    hash = "sha256-xtbuGLHXFrEUleO8DhYaOn/0a+Ng44OkKqk50vHvtOk=";
+    rev = "3be0ada6a129cbdd7e72193986b5ccdb2f86fc26";
+    hash = "sha256-wYun8dxrDCsuRCqmP6cacnJFuPlsBvst2xwWmu/Pb1Y=";
   };
 
   propagatedBuildInputs = with python3.pkgs; [
