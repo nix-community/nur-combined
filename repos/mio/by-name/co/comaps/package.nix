@@ -173,6 +173,9 @@ stdenv.mkDerivation (
       (lib.cmakeFeature "CMAKE_CXX_COMPILER_AR" "${stdenv.cc.bintools.targetPrefix}ar")
       (lib.cmakeFeature "CMAKE_C_COMPILER_RANLIB" "${stdenv.cc.bintools.targetPrefix}ranlib")
       (lib.cmakeFeature "CMAKE_CXX_COMPILER_RANLIB" "${stdenv.cc.bintools.targetPrefix}ranlib")
+      # Install the MACOSX_BUNDLE target into $out/Applications/ (macOS convention)
+      # instead of the GNUInstallDirs default of $out/bin/.
+      (lib.cmakeFeature "CMAKE_INSTALL_BINDIR" "Applications")
     ];
 
     env = {
@@ -188,7 +191,7 @@ stdenv.mkDerivation (
       install -Dm644 ${worldCoasts} $out/share/comaps/data/WorldCoasts.mwm
     ''
     + lib.optionalString stdenv.hostPlatform.isDarwin ''
-      bundle="$out/bin/CoMaps.app/Contents/Resources"
+      bundle="$out/Applications/CoMaps.app/Contents/Resources"
       if [ ! -d "$bundle" ]; then
         echo "CoMaps.app resources directory was not installed" >&2
         find "$out" -maxdepth 4 -print >&2
@@ -196,6 +199,9 @@ stdenv.mkDerivation (
       fi
       install -m644 ${worldMap} "$bundle/World.mwm"
       install -m644 ${worldCoasts} "$bundle/WorldCoasts.mwm"
+      # categories_brands.txt is in the source data/ dir but omitted from the
+      # upstream CMakeLists DATA_FILES list; install it manually into the bundle.
+      install -m644 "$NIX_BUILD_TOP/source/data/categories_brands.txt" "$bundle/categories_brands.txt"
     '';
 
     passthru.updateScript = nix-update-script {
@@ -218,10 +224,10 @@ stdenv.mkDerivation (
     };
   }
   // lib.optionalAttrs stdenv.hostPlatform.isDarwin {
-    # macOS installs CoMaps.app; nix run looks for bin/CoMaps. Create that after
-    # wrapQtAppsHook rewrites the Mach-O inside the bundle.
+    # macOS installs CoMaps.app into $out/Applications/ (macOS convention).
+    # Create a bin/CoMaps wrapper so `nix run` and PATH-based launch work too.
     postFixup = ''
-      exe="$out/bin/CoMaps.app/Contents/MacOS/CoMaps"
+      exe="$out/Applications/CoMaps.app/Contents/MacOS/CoMaps"
       if [ ! -x "$exe" ]; then
         echo "CoMaps.app executable was not installed" >&2
         exit 1
