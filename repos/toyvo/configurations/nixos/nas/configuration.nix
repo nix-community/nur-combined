@@ -151,6 +151,8 @@ in
     k3sStorage.enable = true;
     # First starr migration; manifests deploy cluster-wide from here.
     k3sStarr.prowlarr.enable = true;
+    # Second starr migration (sonarr); same template + RW media mount.
+    k3sStarr.sonarr.enable = true;
     security.enable = true;
     home-manager.enable = true;
     networking.enable = true;

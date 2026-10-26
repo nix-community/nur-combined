@@ -335,6 +335,11 @@
       };
       sonarr = {
         port = 8989;
+        # Served from k3s via Traefik (plan step: flip). Same shape as Prowlarr.
+        upstreams = [
+          "10.1.0.3:30080"
+          "10.1.0.12:30080"
+        ];
         displayName = "Sonarr";
         description = "TV Show Manager";
         # API consumers (*arrs) can't complete the forward-auth login flow;
