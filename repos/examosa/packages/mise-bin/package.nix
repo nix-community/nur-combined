@@ -1,9 +1,7 @@
 {
-  autoPatchelfHook,
   lib,
   fetchGitHubReleaseAsset,
   installShellFiles,
-  libgcc,
   mise,
   stdenvNoCC,
   versionCheckHook,
@@ -16,8 +14,8 @@
 
   hashes = {
     aarch64-darwin = "sha256-KBxs1/TccH9OCzQ+4bIeiS6OtmNaaoZ50I91gnHYXv4=";
-    aarch64-linux = "sha256-v2ylyz5Ele0Qx+alXWHfsej6trQbCFG9dB4V6Bq5Ns4=";
-    x86_64-linux = "sha256-o9tXCDMAsXzqMkwaZSR1ufjQJcPJAMm1WpKWA5oVUAk=";
+    aarch64-linux = "sha256-bX1LoI2LiQ9xIrbX87e/UJr3jF3UdldGl01eJzcS86o=";
+    x86_64-linux = "sha256-yn1V7Cr2VuFfNWRdKjZkb9tiwb/x13oEhmG1m/jkvsE=";
   };
 
   fetchAsset = args:
@@ -47,7 +45,11 @@
       then hostPlatform.ubootArch
       else hostPlatform.efiArch;
 
-    basename = lib.concatStringsSep "-" [mise.pname tag os arch];
+    basename = lib.concatStringsSep "-" (
+      [mise.pname tag os arch]
+      ++ (lib.optional hostPlatform.isLinux "musl")
+    );
+
     extension = "tar.xz";
   in
     fetchAsset {
@@ -63,24 +65,13 @@ in
     __structuredAttrs = true;
     strictDeps = true;
 
-    nativeBuildInputs =
-      [
-        installShellFiles
-        writableTmpDirAsHomeHook
-      ]
-      ++ lib.optional hostPlatform.isLinux autoPatchelfHook;
-
-    buildInputs = lib.optionals hostPlatform.isLinux [
-      libgcc
+    nativeBuildInputs = [
+      installShellFiles
+      writableTmpDirAsHomeHook
     ];
 
     dontConfigure = true;
     dontBuild = true;
-    dontStrip = hostPlatform.isLinux;
-
-    postPatch = lib.optionalString hostPlatform.isLinux ''
-      autoPatchelf bin/mise
-    '';
 
     installPhase = ''
       runHook preinstall
