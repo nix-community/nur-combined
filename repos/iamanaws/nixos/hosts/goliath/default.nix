@@ -10,6 +10,7 @@
     gaming
     hardened
     services.flatpak
+    ./audio.nix
   ];
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
@@ -52,6 +53,7 @@
     egl-wayland
     libva-utils
     libreoffice
+    proton-meet-bin
     rapidraw
     reaper
   ];

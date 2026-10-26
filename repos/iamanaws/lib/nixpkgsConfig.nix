@@ -28,6 +28,7 @@ let
     "iina"
     "libreoffice"
     "proton-ge-bin"
+    "proton-meet-bin"
     "protonup-qt"
 
     # Dependencies
