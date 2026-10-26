@@ -11,6 +11,9 @@ let
   # nixpkgs ids.uids/gids.lidarr = 306; pinned to match existing ownership.
   lidarrImage = "lscr.io/linuxserver/lidarr:3.1.6.5079-ls46";
   lidarrPort = 8686;
+  # nixpkgs ids.uids/gids.radarr = 275; pinned to match existing ownership.
+  radarrImage = "lscr.io/linuxserver/radarr:4.0.20.3014-ls324";
+  radarrPort = 7878;
 in
 {
   options.nixcfg.k3sStarr.prowlarr.enable =
@@ -19,6 +22,8 @@ in
   options.nixcfg.k3sStarr.sonarr.enable = lib.mkEnableOption "Sonarr in k3s (second starr migration)";
 
   options.nixcfg.k3sStarr.lidarr.enable = lib.mkEnableOption "Lidarr in k3s (third starr migration)";
+
+  options.nixcfg.k3sStarr.radarr.enable = lib.mkEnableOption "Radarr in k3s (fourth starr migration)";
 
   # Single writer: enable ONLY on nas. See k3s-storage.nix for why.
   config = lib.mkMerge [
@@ -441,6 +446,156 @@ in
                     backend.service = {
                       name = "lidarr";
                       port.number = lidarrPort;
+                    };
+                  }
+                ];
+              }
+            ];
+          };
+        };
+      };
+    })
+    (lib.mkIf cfg.radarr.enable {
+      assertions = [
+        {
+          assertion = config.nixcfg.k3s.enable && config.nixcfg.k3s.role == "server";
+          message = "nixcfg.k3sStarr: starr manifests must live on a server (nas), never an agent.";
+        }
+      ];
+
+      services.k3s.manifests = {
+        "radarr-media-pvc.yaml".content = {
+          apiVersion = "v1";
+          kind = "PersistentVolumeClaim";
+          metadata = {
+            name = "radarr-media";
+          };
+          spec = {
+            accessModes = [ "ReadWriteMany" ];
+            storageClassName = "nfs-pool";
+            resources.requests.storage = "100Gi";
+          };
+        };
+        "radarr-statefulset.yaml".content = {
+          apiVersion = "apps/v1";
+          kind = "StatefulSet";
+          metadata = {
+            name = "radarr";
+            labels.app = "radarr";
+          };
+          spec = {
+            serviceName = "radarr";
+            replicas = 1;
+            selector.matchLabels.app = "radarr";
+            template = {
+              metadata.labels.app = "radarr";
+              spec = {
+                affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms = [
+                  {
+                    matchExpressions = [
+                      {
+                        key = "kubernetes.io/hostname";
+                        operator = "In";
+                        values = [ "nas" ];
+                      }
+                    ];
+                  }
+                ];
+                containers = [
+                  {
+                    name = "radarr";
+                    image = radarrImage;
+                    imagePullPolicy = "IfNotPresent";
+                    env = [
+                      {
+                        name = "PUID";
+                        value = "275";
+                      }
+                      {
+                        name = "PGID";
+                        value = "275";
+                      }
+                      {
+                        name = "TZ";
+                        value = "America/Chicago";
+                      }
+                    ];
+                    ports = [ { containerPort = radarrPort; } ];
+                    resources = {
+                      requests = {
+                        cpu = "50m";
+                        memory = "256Mi";
+                      };
+                      limits = {
+                        cpu = "1000m";
+                        memory = "2Gi";
+                      };
+                    };
+                    volumeMounts = [
+                      {
+                        name = "config";
+                        mountPath = "/config";
+                      }
+                      {
+                        name = "media";
+                        mountPath = "/mnt";
+                      }
+                    ];
+                  }
+                ];
+                volumes = [
+                  {
+                    name = "media";
+                    persistentVolumeClaim.claimName = "radarr-media";
+                  }
+                ];
+              };
+            };
+            volumeClaimTemplates = [
+              {
+                metadata.name = "config";
+                spec = {
+                  accessModes = [ "ReadWriteOnce" ];
+                  resources.requests.storage = "5Gi";
+                };
+              }
+            ];
+          };
+        };
+        "radarr-service.yaml".content = {
+          apiVersion = "v1";
+          kind = "Service";
+          metadata = {
+            name = "radarr";
+          };
+          spec = {
+            selector.app = "radarr";
+            ports = [
+              {
+                port = radarrPort;
+                targetPort = radarrPort;
+              }
+            ];
+          };
+        };
+        "radarr-ingress.yaml".content = {
+          apiVersion = "networking.k8s.io/v1";
+          kind = "Ingress";
+          metadata = {
+            name = "radarr";
+          };
+          spec = {
+            ingressClassName = "traefik";
+            rules = [
+              {
+                host = "radarr.diekvoss.net";
+                http.paths = [
+                  {
+                    path = "/";
+                    pathType = "Prefix";
+                    backend.service = {
+                      name = "radarr";
+                      port.number = radarrPort;
                     };
                   }
                 ];

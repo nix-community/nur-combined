@@ -308,6 +308,11 @@
       };
       radarr = {
         port = 7878;
+        # Served from k3s via Traefik (plan step: flip). Same shape as Sonarr.
+        upstreams = [
+          "10.1.0.3:30080"
+          "10.1.0.12:30080"
+        ];
         displayName = "Radarr";
         description = "Movie Manager";
         # API consumers (*arrs) can't complete the forward-auth login flow;
