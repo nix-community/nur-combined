@@ -20,4 +20,6 @@ nushell.overrideAttrs (attrs: {
   extraRustcOpts = (attrs.extraRustcOpts or [ ]) ++ [
     "-Dunreachable_patterns"
   ];
+
+  passthru = removeAttrs attrs.passthru [ "updateScript" ];
 })
