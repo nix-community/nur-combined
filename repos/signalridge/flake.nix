@@ -3,13 +3,20 @@
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
-  outputs = { self, nixpkgs }:
+  outputs =
+    { self, nixpkgs }:
     let
-      systems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
       forAllSystems = nixpkgs.lib.genAttrs systems;
     in
     {
-      packages = forAllSystems (system:
+      packages = forAllSystems (
+        system:
         let
           pkgs = nixpkgs.legacyPackages.${system};
         in
@@ -19,6 +26,7 @@
       overlays.default = final: prev: {
         clinvk = final.callPackage ./pkgs/clinvk { };
         sing-box = final.callPackage ./pkgs/sing-box { };
+        sing-box-openconnect-auth = final.callPackage ./pkgs/sing-box-openconnect-auth { };
       };
     };
 }

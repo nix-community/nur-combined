@@ -1,5 +1,7 @@
 # This file describes your repository contents.
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 {
   lib = import ./lib { inherit pkgs; };
@@ -8,4 +10,5 @@
 
   clinvk = pkgs.callPackage ./pkgs/clinvk { };
   sing-box = pkgs.callPackage ./pkgs/sing-box { };
+  sing-box-openconnect-auth = pkgs.callPackage ./pkgs/sing-box-openconnect-auth { };
 }
