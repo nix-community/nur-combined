@@ -83,6 +83,11 @@ in
           DNS = [ "172.19.0.2" ] ++ lib.optional config.networking.enableIPv6 "fdfe:dcba:9876::2";
           Domains = [ "~." ];
           DNSDefaultRoute = true;
+          # Keep validation off: sing-box answers A/AAAA from the fakeip
+          # pool and the persistent DNS cache, and those responses carry no
+          # RRSIG. With DNSSEC on, resolved marks every answer bogus and
+          # returns SERVFAIL for all names. The `query_dnssec` DNS rules do
+          # not keep fakeip out of the path in practice.
           DNSSEC = false;
         };
       };

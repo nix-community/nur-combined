@@ -17,7 +17,10 @@ let
             "8.8.8.8#dns.google"
             "2001:4860:4860::8888#dns.google"
           ];
-          DNSSEC = "true";
+          # Off for the links. The home router's DNS returns no DNSSEC
+          # signatures, so validation on eno1 or wlan0 fails for most names.
+          # Only the sing-box tun0 link turns validation on.
+          DNSSEC = "false";
         };
       };
       networking = {
@@ -197,17 +200,11 @@ in
             "25-ncm" = {
               matchConfig.Name = "ncm";
               DHCP = "yes";
-              networkConfig = {
-                DNSSEC = true;
-              };
             };
 
             "30-rndis" = {
               matchConfig.Name = "rndis";
               DHCP = "yes";
-              networkConfig = {
-                DNSSEC = false;
-              };
             };
           };
         };
@@ -549,16 +546,10 @@ in
             "30-rndis" = {
               matchConfig.Name = "rndis";
               DHCP = "yes";
-              networkConfig = {
-                DNSSEC = true;
-              };
             };
             "25-ncm" = {
               matchConfig.Name = "ncm";
               DHCP = "yes";
-              networkConfig = {
-                DNSSEC = true;
-              };
             };
           };
         };

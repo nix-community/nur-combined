@@ -116,6 +116,7 @@
 
   [language-server.nixd]
   command = "nixd"
+  config = { nixd = {} }
 
   [language-server.ocamllsp]
   command = "ocamllsp"

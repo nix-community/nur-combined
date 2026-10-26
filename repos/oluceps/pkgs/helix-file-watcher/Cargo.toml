@@ -1,0 +1,14 @@
+[package]
+name = "helix-file-watcher"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "helix_file_watcher"
+crate-type = ["rlib", "cdylib"]
+
+
+[dependencies]
+steel-core = { version = "0.8.2", git = "https://github.com/mattwparas/steel.git", features = ["dylibs", "sync"] }
+abi_stable = "0.11.1"
+notify = "8.0.0"
