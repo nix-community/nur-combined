@@ -241,6 +241,9 @@
         port = 6767;
         displayName = "Bazarr";
         description = "Subtitle Manager";
+        # API consumers (*arrs) can't complete the forward-auth login flow;
+        # Bazarr handles its own auth (login + API keys), like forgejo.
+        forwardAuthGate = false;
         category = "Starr";
         icon = "sh-bazarr";
         widget = {
@@ -254,6 +257,9 @@
         port = 8191;
         displayName = "FlareSolverr";
         description = "Cloudflare Bypass";
+        # API consumers (*arrs) can't complete the forward-auth login flow;
+        # FlareSolverr is a proxy for prowlarr to bypass cloudflare
+        forwardAuthGate = false;
         category = "Starr";
         icon = "sh-flaresolverr";
       };
@@ -261,6 +267,9 @@
         port = 8686;
         displayName = "Lidarr";
         description = "Music Manager";
+        # API consumers (*arrs) can't complete the forward-auth login flow;
+        # Lidarr handles its own auth (login + API keys), like forgejo.
+        forwardAuthGate = false;
         category = "Starr";
         icon = "sh-lidarr";
         widget = {
@@ -296,6 +305,9 @@
         port = 7878;
         displayName = "Radarr";
         description = "Movie Manager";
+        # API consumers (*arrs) can't complete the forward-auth login flow;
+        # Radarr handles its own auth (login + API keys), like forgejo.
+        forwardAuthGate = false;
         category = "Starr";
         icon = "sh-radarr";
         widget = {
@@ -309,6 +321,9 @@
         port = 8787;
         displayName = "Readarr";
         description = "EBook/Audiobook Manager";
+        # API consumers (*arrs) can't complete the forward-auth login flow;
+        # Readarr handles its own auth (login + API keys), like forgejo.
+        forwardAuthGate = false;
         category = "Starr";
         icon = "sh-readarr";
         widget = {
@@ -322,6 +337,9 @@
         port = 8989;
         displayName = "Sonarr";
         description = "TV Show Manager";
+        # API consumers (*arrs) can't complete the forward-auth login flow;
+        # Sonarr handles its own auth (login + API keys), like forgejo.
+        forwardAuthGate = false;
         category = "Starr";
         icon = "sh-sonarr";
         widget = {
