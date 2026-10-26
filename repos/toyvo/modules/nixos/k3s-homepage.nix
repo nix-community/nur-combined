@@ -220,6 +220,12 @@ in
       kind = "Service";
       metadata = {
         name = "homepage";
+        annotations = {
+          # Sticky sessions: the resources widget reports per-node stats,
+          # so without stickiness the values flap between replicas.
+          # MUST live here (see note on the Ingress above).
+          "traefik.ingress.kubernetes.io/service.sticky.cookie" = "true";
+        };
       };
       spec = {
         selector.app = "homepage";
@@ -231,16 +237,16 @@ in
         ];
       };
     };
+    # NOTE: traefik.ingress.kubernetes.io/service.* annotations belong on
+    # the Service object, NOT the Ingress: the k8s-ingress provider reads
+    # service config only from the Service's own annotations
+    # (loadService -> parseServiceConfig(service.Annotations)). Annotations
+    # on the Ingress are silently ignored (verified 2026-10-26: no cookie).
     services.k3s.manifests."homepage-ingress.yaml".content = {
       apiVersion = "networking.k8s.io/v1";
       kind = "Ingress";
       metadata = {
         name = "homepage";
-        annotations = {
-          # Sticky sessions: the resources widget reports per-node stats,
-          # so without stickiness the values flap between replicas.
-          "traefik.ingress.kubernetes.io/service.sticky.cookie" = "true";
-        };
       };
       spec = {
         ingressClassName = "traefik";
