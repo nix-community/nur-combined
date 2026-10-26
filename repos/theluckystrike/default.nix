@@ -20,6 +20,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   bln-mcp-server = pkgs.callPackage ./pkgs/bln-mcp-server { };
+  followcheck = pkgs.python3Packages.callPackage ./pkgs/followcheck { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }

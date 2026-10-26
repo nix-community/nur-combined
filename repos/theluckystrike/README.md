@@ -10,6 +10,7 @@ that are not (yet) in nixpkgs.
 | Attribute | Description |
 |---|---|
 | `bln-mcp-server` | Model Context Protocol stdio server exposing grammar, style, translation and tone tools to MCP clients (Claude Desktop, Claude Code, Cursor). `check_grammar` and `improve_writing` run fully offline against a local 70-rule engine; no API key and no network access at run time. |
+| `followcheck` | CLI and Python library that decides whether an outbound link is really followable and crawlable: anchor present in the served HTML, `rel` nofollow/ugc/sponsored, robots meta, `X-Robots-Tag`, robots.txt, and Accept-header content negotiation. Exits 0 only on `DOFOLLOW`. Standard library only. |
 
 ## Usage
 
