@@ -19,34 +19,24 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "lrcget";
-  version = "2.2.0";
+  version = "2.2.1";
 
   src = fetchFromGitHub {
     owner = "tranxuanthang";
     repo = "lrcget";
     tag = version;
-    hash = "sha256-sp31o62rwWONd7ajo8prvkEVbU3lPPLFkXsxAT9oRzY=";
+    hash = "sha256-PI5yKVFGm4kdefLXltEq/WupJ5HKe3tqSm0O0DJOa/Q=";
   };
 
   patches = [
     # needed to not attempt codesigning on darwin
     ./remove-signing-identity.patch
-
-    # Make npm ci pass by adding missing packages to package-lock.json
-    # Upstream PR: https://github.com/tranxuanthang/lrcget/pull/408
-    ./sync-package-lock.patch
-  ];
-
-  cargoPatches = [
-    # Update charabia crate to v0.10.0 to allow caching of Lindera dictionaries
-    # Upstream PR: https://github.com/tranxuanthang/lrcget/pull/407
-    ./update-to-charabia-0.10.0.patch
   ];
 
   cargoRoot = "src-tauri";
   buildAndTestSubdir = "src-tauri";
 
-  cargoHash = "sha256-qyIvUbEBImJfVaxILtLN88KREgUk45zRdxbdZ1A6vc0=";
+  cargoHash = "sha256-qrJnEqmqCC6iDMbDY3W8/E5+J3qjLdLRLza3lgi954w=";
 
   # FIXME: This is a workaround, because we have a git dependency node_modules/lrc-kit contains install scripts
   # but has no lockfile, which is something that will probably break.
@@ -55,7 +45,7 @@ rustPlatform.buildRustPackage rec {
   npmDeps = fetchNpmDeps {
     name = "lrcget-${version}-npm-deps";
     inherit src forceGitDeps patches;
-    hash = "sha256-PyKnh2AjdhWurTQmoCuOnLDdDIcZT51xwpPImkc3nBc=";
+    hash = "sha256-vC0pyORU85fT/AqtUSWZ521OE4w8ams790Hv7HYYCTw=";
   };
 
   preConfigure =
@@ -70,7 +60,7 @@ rustPlatform.buildRustPackage rec {
       # dictionaries for different versions of Lindera.
       # The name of those subdirectories is made up of the Lindera version
       # and the "format" version (currently only for format version 2).
-      # LRCGET's Lindera version is in their Cargo.lock file: https://github.com/tranxuanthang/lrcget/tree/${version}/src-tauri/Cargo.lock
+      # lrcget's Lindera version is in their Cargo.lock file: https://github.com/tranxuanthang/lrcget/tree/${version}/src-tauri/Cargo.lock
       # And the current format version is 2, represented by the -fmt2 suffix in the subdirectory name.
       cacheSubdir = "5.3.0-fmt2";
 
@@ -98,7 +88,7 @@ rustPlatform.buildRustPackage rec {
           };
         };
 
-      # LRCGET via charabia requires the Korean and Japanese (unidic) dictionaries.
+      # lrcget via charabia requires the Korean and Japanese (unidic) dictionaries.
       dictionaries = {
         lindera-ko-dic = dict {
           language = "Korean";
@@ -148,9 +138,19 @@ rustPlatform.buildRustPackage rec {
   # Disable checkPhase, since the project doesn't contain tests
   doCheck = false;
 
+  postInstall = ''
+    install -Dm644 packaging/linux/lrcget.desktop \
+      $out/share/applications/lrcget.desktop
+
+    install -Dm644 src-tauri/icons/icon.png \
+      $out/share/pixmaps/lrcget.png
+
+    install -Dm644 packaging/linux/lrcget.metainfo.xml \
+      $out/share/metainfo/lrcget.metainfo.xml
+  ''
   # make the binary also runnable from the shell
-  postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
-    makeWrapper "$out/Applications/LRCGET.app/Contents/MacOS/LRCGET" "$out/bin/LRCGET"
+  + lib.optionalString stdenv.hostPlatform.isDarwin ''
+    makeWrapper "$out/Applications/lrcget.app/Contents/MacOS/lrcget" "$out/bin/lrcget"
   '';
 
   preFixup = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
@@ -177,7 +177,7 @@ rustPlatform.buildRustPackage rec {
       anas
       Scrumplex
     ];
-    mainProgram = "LRCGET";
+    mainProgram = "lrcget";
     platforms = with lib.platforms; unix ++ windows;
   };
 }
