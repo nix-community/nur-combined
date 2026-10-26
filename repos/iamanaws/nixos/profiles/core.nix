@@ -18,8 +18,6 @@
   ]);
 
   boot = {
-    initrd.systemd.enable = lib.mkDefault true;
-
     loader = {
       efi.canTouchEfiVariables = lib.mkDefault true;
 

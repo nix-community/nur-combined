@@ -12,5 +12,6 @@ in
   bitbucket-cli = callPackageDir ./bitbucket-cli;
   clickup-cli = callPackageDir ./clickup-cli;
   dmenu-wpctl = callPackageDir ./dmenu-wpctl;
+  proton-meet = callPackageDir ./proton-meet;
   proton-meet-bin = callPackageDir ./proton-meet-bin;
 }
