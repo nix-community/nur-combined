@@ -9,25 +9,38 @@ from .process import ROOT, run
 
 
 class FileTransaction:
+    """Roll back package-owned files unless the caller explicitly accepts the update."""
+
     def __init__(self, owned_paths: list[Path]) -> None:
-        self.owned_paths = sorted({path.resolve() for path in owned_paths if path.exists()})
-        self._snapshot_files = _files_under(self.owned_paths)
-        self._tmpdir: Path | None = None
+        self.owned_paths = sorted({path.resolve() for path in owned_paths})
+        self._tmpdir: tempfile.TemporaryDirectory[str] | None = None
         self._backups: dict[Path, Path] = {}
-        self.before_diff = git_changed_files()
+        self._committed = False
+        self.before_diff: set[Path] = set()
 
     def __enter__(self) -> Self:
-        self._tmpdir = Path(tempfile.mkdtemp(prefix="update-package-"))
-        for path in self._snapshot_files:
-            backup = self._tmpdir / str(path.relative_to(ROOT)).replace("/", "__")
-            backup.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copy2(path, backup)
-            self._backups[path] = backup
+        self.before_diff = git_changed_files()
+        self._tmpdir = tempfile.TemporaryDirectory(prefix="update-package-")
+        try:
+            for index, path in enumerate(_files_under(self.owned_paths)):
+                backup = Path(self._tmpdir.name) / str(index)
+                shutil.copy2(path, backup)
+                self._backups[path] = backup
+        except BaseException:
+            self._tmpdir.cleanup()
+            raise
         return self
 
+    def commit(self) -> None:
+        self._committed = True
+
     def __exit__(self, exc_type: object, exc: object, tb: object) -> None:
-        if self._tmpdir:
-            shutil.rmtree(self._tmpdir, ignore_errors=True)
+        try:
+            if exc_type is not None or not self._committed:
+                self.restore()
+        finally:
+            if self._tmpdir:
+                self._tmpdir.cleanup()
 
     def new_changed_files(self) -> set[Path]:
         changed = git_changed_files() - self.before_diff
@@ -46,6 +59,7 @@ class FileTransaction:
             if path not in before:
                 path.unlink()
         for path, backup in self._backups.items():
+            path.parent.mkdir(parents=True, exist_ok=True)
             shutil.copy2(backup, path)
 
 

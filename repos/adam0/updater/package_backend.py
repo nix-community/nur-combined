@@ -8,7 +8,7 @@ import tempfile
 from pathlib import Path
 
 from .manifest import latest_release_prefix_for_url, package_has_manifest_updater
-from .models import PackageRef, PackageState, ResultStatus, UpdateResult
+from .models import PackageRef, PackageState, UpdateResult
 from .nix import read_state
 from .process import CommandError, run
 from .transactions import FileTransaction, paths_owned_by
@@ -49,13 +49,11 @@ def update_package(
             else:
                 _run_nix_update(ref, update_mode, timeout=timeout)
         except CommandError as error:
-            transaction.restore()
             logger.info("nix-update failed for %s:\n%s", ref.attr_path, error.details)
             return UpdateResult(ref.attr_path, "skipped", f"nix-update failed: {error}")
 
         verification = _update_source_with_verification(ref, before, update_mode, timeout=timeout)
         if verification:
-            transaction.restore()
             logger.info("source hash verification failed for %s", ref.attr_path)
             return UpdateResult(ref.attr_path, "failed", verification)
 
@@ -75,21 +73,16 @@ def update_package(
             release_prefix=release_prefix,
         )
         if not validation.accepted:
-            transaction.restore()
-            return UpdateResult(
-                ref.attr_path, _rejected_status(validation.reason), validation.reason
-            )
+            return UpdateResult(ref.attr_path, validation.status, validation.reason)
 
         if validation.dependency_hash_refresh_allowed:
             try:
                 _refresh_source_files(ref, after)
             except (OSError, ValueError) as error:
-                transaction.restore()
                 return UpdateResult(ref.attr_path, "failed", f"source file refresh failed: {error}")
             try:
                 _refresh_dependency_hashes(ref, timeout=timeout)
             except CommandError as error:
-                transaction.restore()
                 logger.warning(
                     "dependencyHash refresh failed for %s:\n%s", ref.attr_path, error.details
                 )
@@ -100,7 +93,6 @@ def update_package(
         changed_after_refresh = transaction.new_changed_files()
         owned_changed, unrelated = paths_owned_by(changed_after_refresh, owned_roots)
         if unrelated:
-            transaction.restore()
             return UpdateResult(
                 ref.attr_path,
                 "invalid",
@@ -108,13 +100,13 @@ def update_package(
             )
 
         if dry_run:
-            transaction.restore()
             return UpdateResult(
                 ref.attr_path,
                 "updated",
                 f"{validation.reason} (dry-run)",
                 sorted(owned_changed),
             )
+        transaction.commit()
         return UpdateResult(ref.attr_path, "updated", validation.reason, sorted(owned_changed))
 
 
@@ -240,17 +232,6 @@ def _preserve_unproven_branch_prefix(
         return False
     file_path.write_text(updated)
     return True
-
-
-def _rejected_status(reason: str) -> ResultStatus:
-    skipped_prefixes = (
-        "no package-owned files changed",
-        "rejected apparent downgrade",
-        "rejected branch version change without source change",
-        "rejected dependency-hash-only diff",
-        "rejected version-only branch prefix change",
-    )
-    return "skipped" if reason.startswith(skipped_prefixes) else "invalid"
 
 
 def _update_tangled_revision(file_path: Path, before: PackageState, *, timeout: str | None) -> bool:

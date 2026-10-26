@@ -40,6 +40,10 @@ class UpdateResult:
 
 @dataclass(frozen=True)
 class ValidationResult:
-    accepted: bool
+    status: Literal["updated", "skipped", "invalid"]
     reason: str
     dependency_hash_refresh_allowed: bool = False
+
+    @property
+    def accepted(self) -> bool:
+        return self.status == "updated"

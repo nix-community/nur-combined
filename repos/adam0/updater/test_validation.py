@@ -39,5 +39,50 @@ class SourceTransitionTests(unittest.TestCase):
         self.assertTrue(self.validate(before, replace(before, version="2")).accepted)
 
 
+class ValidationStatusTests(unittest.TestCase):
+    def test_status_classification(self):
+        stable = PackageState("1.0", "stable", src_rev="old", dependency_hash="old")
+        branch = PackageState("1.0-unstable-2026-01-01", "branch", src_rev="old")
+        cases = [
+            (stable, stable, False, False, "skipped"),
+            (stable, stable, True, True, "invalid"),
+            (stable, replace(stable, dependency_hash="new"), True, False, "skipped"),
+            (branch, replace(branch, version="2.0-unstable-2026-01-01"), True, False, "skipped"),
+            (branch, replace(branch, version="1.0-unstable-2026-01-02"), True, False, "skipped"),
+            (
+                branch,
+                replace(branch, version="2.0-unstable-2026-01-02", src_rev="new"),
+                True,
+                False,
+                "invalid",
+            ),
+            (branch, replace(branch, version="unrecognized"), True, False, "invalid"),
+            (stable, replace(stable, version="2.0"), True, False, "invalid"),
+            (stable, replace(stable, src_rev="new"), True, False, "updated"),
+        ]
+        with patch("updater.validation.version_is_older", return_value=False):
+            for before, after, changed, unrelated, expected in cases:
+                with self.subTest(after=after, changed=changed, unrelated=unrelated):
+                    result = validate_transition(
+                        before,
+                        after,
+                        package_files_changed=changed,
+                        unrelated_files_changed=unrelated,
+                    )
+                    self.assertEqual(result.status, expected)
+                    self.assertEqual(result.accepted, expected == "updated")
+
+    def test_downgrade_is_skipped(self):
+        before = PackageState("2.0", "stable", src_rev="old")
+        with patch("updater.validation.version_is_older", return_value=True):
+            result = validate_transition(
+                before,
+                replace(before, version="1.0", src_rev="new"),
+                package_files_changed=True,
+                unrelated_files_changed=False,
+            )
+        self.assertEqual(result.status, "skipped")
+
+
 if __name__ == "__main__":
     unittest.main()
