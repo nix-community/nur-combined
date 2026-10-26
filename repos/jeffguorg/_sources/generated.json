@@ -346,6 +346,66 @@
         },
         "version": "v0.18.0"
     },
+    "kagent-bin-amd64-darwin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "kagent-bin-amd64-darwin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-vEOhArz2iv92vYYuTcRS9yCVUunvTDFD9nLspo7ixsU=",
+            "type": "url",
+            "url": "https://github.com/kagent-dev/kagent/releases/download/v1.0.0-alpha17/kagent-darwin-amd64"
+        },
+        "version": "v1.0.0-alpha17"
+    },
+    "kagent-bin-amd64-linux": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "kagent-bin-amd64-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-AfshvEYTDc/6xbWnINkDEiVjpNkm9EVc2CNMYRLTOKM=",
+            "type": "url",
+            "url": "https://github.com/kagent-dev/kagent/releases/download/v1.0.0-alpha17/kagent-linux-amd64"
+        },
+        "version": "v1.0.0-alpha17"
+    },
+    "kagent-bin-arm64-darwin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "kagent-bin-arm64-darwin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-Kxm7EQtcMisRANNsbJn3e5ov00VNtqdo77ulebsT0PE=",
+            "type": "url",
+            "url": "https://github.com/kagent-dev/kagent/releases/download/v1.0.0-alpha17/kagent-darwin-arm64"
+        },
+        "version": "v1.0.0-alpha17"
+    },
+    "kagent-bin-arm64-linux": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "kagent-bin-arm64-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-nss5P6NeDFqpbAOs07edc5DN4OTYZos418S4yPTtH+Y=",
+            "type": "url",
+            "url": "https://github.com/kagent-dev/kagent/releases/download/v1.0.0-alpha17/kagent-linux-arm64"
+        },
+        "version": "v1.0.0-alpha17"
+    },
     "kimi-code": {
         "cargoLock": null,
         "date": null,
@@ -355,11 +415,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-VawdsEUuZkb/UOP4ORa8u31IoVdiLR5REEl9UrJveec=",
+            "sha256": "sha256-kjzuHITNGMk8VbpAYicFVSVtCB12B9PitLq63J5N6wo=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@moonshot-ai/kimi-code/-/kimi-code-2.3.1.tgz"
+            "url": "https://registry.npmjs.org/@moonshot-ai/kimi-code/-/kimi-code-2.3.2.tgz"
         },
-        "version": "2.3.1"
+        "version": "2.3.2"
     },
     "kwok": {
         "cargoLock": null,

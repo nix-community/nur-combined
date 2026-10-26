@@ -206,12 +206,44 @@
       sha256 = "sha256-i7fBd2u6lOT+w98KsbwikZkgJz++51G5kH4HaDoFwf4=";
     };
   };
+  kagent-bin-amd64-darwin = {
+    pname = "kagent-bin-amd64-darwin";
+    version = "v1.0.0-alpha17";
+    src = fetchurl {
+      url = "https://github.com/kagent-dev/kagent/releases/download/v1.0.0-alpha17/kagent-darwin-amd64";
+      sha256 = "sha256-vEOhArz2iv92vYYuTcRS9yCVUunvTDFD9nLspo7ixsU=";
+    };
+  };
+  kagent-bin-amd64-linux = {
+    pname = "kagent-bin-amd64-linux";
+    version = "v1.0.0-alpha17";
+    src = fetchurl {
+      url = "https://github.com/kagent-dev/kagent/releases/download/v1.0.0-alpha17/kagent-linux-amd64";
+      sha256 = "sha256-AfshvEYTDc/6xbWnINkDEiVjpNkm9EVc2CNMYRLTOKM=";
+    };
+  };
+  kagent-bin-arm64-darwin = {
+    pname = "kagent-bin-arm64-darwin";
+    version = "v1.0.0-alpha17";
+    src = fetchurl {
+      url = "https://github.com/kagent-dev/kagent/releases/download/v1.0.0-alpha17/kagent-darwin-arm64";
+      sha256 = "sha256-Kxm7EQtcMisRANNsbJn3e5ov00VNtqdo77ulebsT0PE=";
+    };
+  };
+  kagent-bin-arm64-linux = {
+    pname = "kagent-bin-arm64-linux";
+    version = "v1.0.0-alpha17";
+    src = fetchurl {
+      url = "https://github.com/kagent-dev/kagent/releases/download/v1.0.0-alpha17/kagent-linux-arm64";
+      sha256 = "sha256-nss5P6NeDFqpbAOs07edc5DN4OTYZos418S4yPTtH+Y=";
+    };
+  };
   kimi-code = {
     pname = "kimi-code";
-    version = "2.3.1";
+    version = "2.3.2";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@moonshot-ai/kimi-code/-/kimi-code-2.3.1.tgz";
-      sha256 = "sha256-VawdsEUuZkb/UOP4ORa8u31IoVdiLR5REEl9UrJveec=";
+      url = "https://registry.npmjs.org/@moonshot-ai/kimi-code/-/kimi-code-2.3.2.tgz";
+      sha256 = "sha256-kjzuHITNGMk8VbpAYicFVSVtCB12B9PitLq63J5N6wo=";
     };
   };
   kwok = {

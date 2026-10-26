@@ -99,22 +99,22 @@ fetch.github = "hashicorp/vagrant-vmware-desktop"
 
 [kagent-bin-amd64-linux]
 src.github_tag = "kagent-dev/kagent"
-src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+(-\\S+)?"
 fetch.url = "https://github.com/kagent-dev/kagent/releases/download/$ver/kagent-linux-amd64"
 
 [kagent-bin-arm64-linux]
 src.github_tag = "kagent-dev/kagent"
-src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+(-\\S+)?"
 fetch.url = "https://github.com/kagent-dev/kagent/releases/download/$ver/kagent-linux-arm64"
 
 [kagent-bin-amd64-darwin]
 src.github_tag = "kagent-dev/kagent"
-src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+(-\\S+)?"
 fetch.url = "https://github.com/kagent-dev/kagent/releases/download/$ver/kagent-darwin-amd64"
 
 [kagent-bin-arm64-darwin]
 src.github_tag = "kagent-dev/kagent"
-src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+(-\\S+)?"
 fetch.url = "https://github.com/kagent-dev/kagent/releases/download/$ver/kagent-darwin-arm64"
 
 [oh-my-pi-bin-amd64-linux]
