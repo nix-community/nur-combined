@@ -15,9 +15,9 @@
 }:
 let
   hashes = {
-    "x86_64-linux" = "sha256-Tyqj3GQE43AJJea67acsom2KNnaNK/6AVvHo7N/UVA4=";
-    "aarch64-linux" = "sha256-Oj/q9IMv/AcMduXt3Zn7MqopqeaGrpyKyBF8ns1Jkg4=";
-    "aarch64-darwin" = "sha256-55e9btiCzfvUFTGPRPJWnXI40Udj/ixEV3MJni5hM4U=";
+    "x86_64-linux" = "sha256-u3Oz8A1FsytuEsmceSadsJetzyp19dkEpNECf7b/1VM=";
+    "aarch64-linux" = "sha256-qRPrT+x8xmuTsCL4lT61cA3VuCUv6p0rbUKM9lyZJQg=";
+    "aarch64-darwin" = "sha256-Xu9d4Dk6LgXTbKxoUdWMLW6sgv1qCz7M2r+xm/wOI/w=";
   };
   platformName = {
     "x86_64-linux" = "linux-amd64";
@@ -27,7 +27,7 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "docker-sbx";
-  version = "0.49.1";
+  version = "0.50.0-rc1";
   src =
     let
       throwPlat = throw "Unsupported platform ${stdenvNoCC.hostPlatform.system}";
