@@ -12,7 +12,10 @@ let
 in
 rayburst.overrideAttrs (
   final: prev: {
-    inherit (sources) pname src;
+    inherit (sources) pname;
+    src = sources.src // {
+      tag = sources.version;
+    };
     inherit version;
     passthru = (prev.passthru or { }) // {
       updateScript = [ ./update-beta.sh ];
