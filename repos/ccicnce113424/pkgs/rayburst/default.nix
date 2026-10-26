@@ -16,6 +16,7 @@ rayburst.overrideAttrs (
     inherit version;
     passthru = (prev.passthru or { }) // {
       updateScript = [ ./update-beta.sh ];
+      changelog = "https://github.com/AnInsomniacy/rayburst/releases/tag/${sources.version}";
     };
     pnpmDeps = fetchPnpmDeps {
       inherit (final) pname version src;
