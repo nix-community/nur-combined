@@ -1,48 +1,53 @@
 [
     {
-        "url": "ai/grazie/api/api-gateway-api-jvm/0.8.184/api-gateway-api-jvm-0.8.184.jar",
-        "hash": "83a6b488996c4dbc84c8e5c68b7c4082fd1e454b394a134ef4e142c22b3863c0",
-        "path": "ai/grazie/api/api-gateway-api-jvm/0.8.184/api-gateway-api-jvm-0.8.184.jar"
+        "url": "ai/grazie/api/api-gateway-api-jvm/0.8.256/api-gateway-api-jvm-0.8.256.jar",
+        "hash": "3d2b4b07e28a2b394a69be1b9158556c5f715d101233a8da790acbf5a24eb0e4",
+        "path": "ai/grazie/api/api-gateway-api-jvm/0.8.256/api-gateway-api-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/api/api-gateway-client-jvm/0.8.184/api-gateway-client-jvm-0.8.184.jar",
-        "hash": "555b33ddcbbcd2192c3434b37d089d43234c55cb9b705d7a4c8d9615e0e11aa2",
-        "path": "ai/grazie/api/api-gateway-client-jvm/0.8.184/api-gateway-client-jvm-0.8.184.jar"
+        "url": "ai/grazie/api/api-gateway-client-jvm/0.8.256/api-gateway-client-jvm-0.8.256.jar",
+        "hash": "7fe00bece4d3f9e679ecdd2d2f9ac83e89fb693db4f54969b230d08ec3467e32",
+        "path": "ai/grazie/api/api-gateway-client-jvm/0.8.256/api-gateway-client-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/auth/auth-model-jvm/0.8.184/auth-model-jvm-0.8.184.jar",
+        "url": "ai/grazie/auth/auth-model-jvm/0.8.256/auth-model-jvm-0.8.256.jar",
         "hash": "651f06cd499a25e8e50c24786659806b2bd063bd80906dcc853df54553a0cb9b",
-        "path": "ai/grazie/auth/auth-model-jvm/0.8.184/auth-model-jvm-0.8.184.jar"
+        "path": "ai/grazie/auth/auth-model-jvm/0.8.256/auth-model-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/auth/gec-agg-model-public-jvm/0.8.184/gec-agg-model-public-jvm-0.8.184.jar",
+        "url": "ai/grazie/auth/gec-agg-model-public-jvm/0.8.256/gec-agg-model-public-jvm-0.8.256.jar",
         "hash": "a9a5fe52382d2b214975c49ced17d21018af90e9377945009f1e4bd7da66b453",
-        "path": "ai/grazie/auth/gec-agg-model-public-jvm/0.8.184/gec-agg-model-public-jvm-0.8.184.jar"
+        "path": "ai/grazie/auth/gec-agg-model-public-jvm/0.8.256/gec-agg-model-public-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/auth/product/auth-product-model-jvm/0.8.184/auth-product-model-jvm-0.8.184.jar",
+        "url": "ai/grazie/auth/product/auth-product-model-jvm/0.8.256/auth-product-model-jvm-0.8.256.jar",
         "hash": "02a1eae3b6e2fdca91b4a34d86c601ee32571a4a227d3e7e7cf9d0a3a2a70af5",
-        "path": "ai/grazie/auth/product/auth-product-model-jvm/0.8.184/auth-product-model-jvm-0.8.184.jar"
+        "path": "ai/grazie/auth/product/auth-product-model-jvm/0.8.256/auth-product-model-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/client/client-attribute-jvm/0.8.184/client-attribute-jvm-0.8.184.jar",
+        "url": "ai/grazie/client/client-attribute-jvm/0.8.256/client-attribute-jvm-0.8.256.jar",
         "hash": "1e7aa1e7a91867ed800a67d5cc9c6530c36c83b2a9230ae0c1d3f7a1c439c08e",
-        "path": "ai/grazie/client/client-attribute-jvm/0.8.184/client-attribute-jvm-0.8.184.jar"
+        "path": "ai/grazie/client/client-attribute-jvm/0.8.256/client-attribute-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/client/client-common-jvm/0.8.184/client-common-jvm-0.8.184.jar",
-        "hash": "7f0ba70a6595b368e14c65e52202f807d5b564ffe11e5b380fe49da2aaed4e92",
-        "path": "ai/grazie/client/client-common-jvm/0.8.184/client-common-jvm-0.8.184.jar"
+        "url": "ai/grazie/client/client-cbor-jvm/0.8.256/client-cbor-jvm-0.8.256.jar",
+        "hash": "6ffc70b63b1aebf27552b5acab83c882d88edf9e9be9b0ead4f6a13956e9fafe",
+        "path": "ai/grazie/client/client-cbor-jvm/0.8.256/client-cbor-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/client/client-ktor-jvm/0.8.184/client-ktor-jvm-0.8.184.jar",
-        "hash": "f6dd5c9f2e0a4d9316ee46916fecc7f67b95059099b405f6ca17ce31569a68d1",
-        "path": "ai/grazie/client/client-ktor-jvm/0.8.184/client-ktor-jvm-0.8.184.jar"
+        "url": "ai/grazie/client/client-common-jvm/0.8.256/client-common-jvm-0.8.256.jar",
+        "hash": "9eb06480609d0a426425c490ce5e22035fe044e13ca8d1aa57593d1aba8113c1",
+        "path": "ai/grazie/client/client-common-jvm/0.8.256/client-common-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/gec/gec-util/0.8.184/gec-util-0.8.184.jar",
-        "hash": "360b9b2e1e7c995761a200a4cd47ea29a7bcd13a8b9a1109849a517554bc5168",
-        "path": "ai/grazie/gec/gec-util/0.8.184/gec-util-0.8.184.jar"
+        "url": "ai/grazie/client/client-ktor-jvm/0.8.256/client-ktor-jvm-0.8.256.jar",
+        "hash": "e075c4889e2bf53809222dc2d1cdba0087f5a81d7c5c9e831562ed27ef202dc7",
+        "path": "ai/grazie/client/client-ktor-jvm/0.8.256/client-ktor-jvm-0.8.256.jar"
+    },
+    {
+        "url": "ai/grazie/gec/gec-util/0.9.2/gec-util-0.9.2.jar",
+        "hash": "f10519c0285c371ac0dcdd984a050d85409920281ee4fa0610f5a5f282e48608",
+        "path": "ai/grazie/gec/gec-util/0.9.2/gec-util-0.9.2.jar"
     },
     {
         "url": "ai/grazie/grazie-rule-engine/0.3.261/grazie-rule-engine-0.3.261.jar",
@@ -55,179 +60,164 @@
         "path": "ai/grazie/grazie-rules-llm/0.3.261/grazie-rules-llm-0.3.261.jar"
     },
     {
-        "url": "ai/grazie/indexing/indexing-provider-api-jvm/0.8.184/indexing-provider-api-jvm-0.8.184.jar",
-        "hash": "fc5b58440da5fa25c2d47b669dd65969820e8758ddb16948649584a860d412ef",
-        "path": "ai/grazie/indexing/indexing-provider-api-jvm/0.8.184/indexing-provider-api-jvm-0.8.184.jar"
+        "url": "ai/grazie/indexing/indexing-provider-api-jvm/0.8.256/indexing-provider-api-jvm-0.8.256.jar",
+        "hash": "309899032dfc96f984453ed4b1944ebde5f5ade3b60b9b261791c89695c8792b",
+        "path": "ai/grazie/indexing/indexing-provider-api-jvm/0.8.256/indexing-provider-api-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/indexing/indexing-server-api-jvm/0.8.184/indexing-server-api-jvm-0.8.184.jar",
-        "hash": "0773a59376c96ce2ec6cd6bd7d0b00b6a8d91080ab02d6a2273a632bfdf13f25",
-        "path": "ai/grazie/indexing/indexing-server-api-jvm/0.8.184/indexing-server-api-jvm-0.8.184.jar"
+        "url": "ai/grazie/indexing/indexing-server-api-jvm/0.8.256/indexing-server-api-jvm-0.8.256.jar",
+        "hash": "7025781d7bf1b682be2064204febe52c4d2237e1a9f5ec8a6392e0bb11d4eb3a",
+        "path": "ai/grazie/indexing/indexing-server-api-jvm/0.8.256/indexing-server-api-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/llm/llm-agg-api-model-jvm/0.8.184/llm-agg-api-model-jvm-0.8.184.jar",
-        "hash": "1799b940b3b6382cab6166bf2fdc69d4b24806b805b5c3c9b7e1b7d1fa5503b0",
-        "path": "ai/grazie/llm/llm-agg-api-model-jvm/0.8.184/llm-agg-api-model-jvm-0.8.184.jar"
+        "url": "ai/grazie/llm/llm-agg-api-model-jvm/0.8.256/llm-agg-api-model-jvm-0.8.256.jar",
+        "hash": "c751dc92722c1901640e52152c39ca45f948471180b42ac317a06c487ab6acca",
+        "path": "ai/grazie/llm/llm-agg-api-model-jvm/0.8.256/llm-agg-api-model-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/model/model-auth-jvm/0.8.184/model-auth-jvm-0.8.184.jar",
+        "url": "ai/grazie/model/model-auth-jvm/0.8.256/model-auth-jvm-0.8.256.jar",
         "hash": "bf736b204f0d02bd7717db7f91375be50af2de7c8666acf773f1e9b6338377c6",
-        "path": "ai/grazie/model/model-auth-jvm/0.8.184/model-auth-jvm-0.8.184.jar"
+        "path": "ai/grazie/model/model-auth-jvm/0.8.256/model-auth-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/model/model-bdg-jvm/0.8.184/model-bdg-jvm-0.8.184.jar",
-        "hash": "900deb4a897c1261b567e10152bc28ba8d64e191c8d0cf2fed2586ecc5ab42fd",
-        "path": "ai/grazie/model/model-bdg-jvm/0.8.184/model-bdg-jvm-0.8.184.jar"
+        "url": "ai/grazie/model/model-cloud-jvm/0.8.256/model-cloud-jvm-0.8.256.jar",
+        "hash": "8111663abb3957ffce916073984473beb7075d2e23d268866d6a93845003db63",
+        "path": "ai/grazie/model/model-cloud-jvm/0.8.256/model-cloud-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/model/model-chat-jvm/0.8.184/model-chat-jvm-0.8.184.jar",
-        "hash": "8cb401a9e7f3bab338823da916c15024d5e080ecd57a58d6930e593a36b153ad",
-        "path": "ai/grazie/model/model-chat-jvm/0.8.184/model-chat-jvm-0.8.184.jar"
+        "url": "ai/grazie/model/model-common-jvm/0.8.256/model-common-jvm-0.8.256.jar",
+        "hash": "ca66eca73623e260bafb0a12f6e0ce37d06e92215fcf9d4be189376b984c9e01",
+        "path": "ai/grazie/model/model-common-jvm/0.8.256/model-common-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/model/model-cloud-jvm/0.8.184/model-cloud-jvm-0.8.184.jar",
-        "hash": "6e5dc6fbdc534c7f28b7f6c5f7924ea6ec953817562d0f97aa7341838193f3ab",
-        "path": "ai/grazie/model/model-cloud-jvm/0.8.184/model-cloud-jvm-0.8.184.jar"
-    },
-    {
-        "url": "ai/grazie/model/model-common-jvm/0.8.184/model-common-jvm-0.8.184.jar",
-        "hash": "c6ef673d49057bab8f64f9c9f54f78bc2dd0cda95ffd55d0d681de16da64e20e",
-        "path": "ai/grazie/model/model-common-jvm/0.8.184/model-common-jvm-0.8.184.jar"
-    },
-    {
-        "url": "ai/grazie/model/model-emb-jvm/0.8.184/model-emb-jvm-0.8.184.jar",
+        "url": "ai/grazie/model/model-emb-jvm/0.8.256/model-emb-jvm-0.8.256.jar",
         "hash": "64a8ba9d2a64c26e89a3e0b63d626dff3ed3b02d23b5deb3f6ec05c7c97d0ae5",
-        "path": "ai/grazie/model/model-emb-jvm/0.8.184/model-emb-jvm-0.8.184.jar"
+        "path": "ai/grazie/model/model-emb-jvm/0.8.256/model-emb-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/model/model-feedback-jvm/0.8.184/model-feedback-jvm-0.8.184.jar",
+        "url": "ai/grazie/model/model-feedback-jvm/0.8.256/model-feedback-jvm-0.8.256.jar",
         "hash": "c088a24c24dda9ba3012b9d2196f103a4b531d635460d14409b721e850a833c1",
-        "path": "ai/grazie/model/model-feedback-jvm/0.8.184/model-feedback-jvm-0.8.184.jar"
+        "path": "ai/grazie/model/model-feedback-jvm/0.8.256/model-feedback-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/model/model-gateway-jvm/0.8.184/model-gateway-jvm-0.8.184.jar",
+        "url": "ai/grazie/model/model-gateway-jvm/0.8.256/model-gateway-jvm-0.8.256.jar",
         "hash": "3392479f899547ad31bc12c48ca433119f3bd0c6b750a7f5cf3c883e10f0cf91",
-        "path": "ai/grazie/model/model-gateway-jvm/0.8.184/model-gateway-jvm-0.8.184.jar"
+        "path": "ai/grazie/model/model-gateway-jvm/0.8.256/model-gateway-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/model/model-gec-jvm/0.8.184/model-gec-jvm-0.8.184.jar",
-        "hash": "3c2c43cf80a040b0e30008f5cc5e7a8bf59f279c8f5f0264c503a0a2a3981485",
-        "path": "ai/grazie/model/model-gec-jvm/0.8.184/model-gec-jvm-0.8.184.jar"
+        "url": "ai/grazie/model/model-gec-jvm/0.8.256/model-gec-jvm-0.8.256.jar",
+        "hash": "2f2ed43ce14ca7f71e5a2ac3b463800a527faa91ec2208da184e9db36a5fb34a",
+        "path": "ai/grazie/model/model-gec-jvm/0.8.256/model-gec-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/model/model-indexing-jvm/0.8.184/model-indexing-jvm-0.8.184.jar",
-        "hash": "e552a00ac2ffa4931a80f0c8adac9e65146233666159f2836f509fbf94dc2ef6",
-        "path": "ai/grazie/model/model-indexing-jvm/0.8.184/model-indexing-jvm-0.8.184.jar"
+        "url": "ai/grazie/model/model-indexing-jvm/0.8.256/model-indexing-jvm-0.8.256.jar",
+        "hash": "b4192e31c779f3773bdf9b5f3195269eaca5a912b97295f2be88a41aef4d8b88",
+        "path": "ai/grazie/model/model-indexing-jvm/0.8.256/model-indexing-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/model/model-jet-jvm/0.8.184/model-jet-jvm-0.8.184.jar",
+        "url": "ai/grazie/model/model-jet-jvm/0.8.256/model-jet-jvm-0.8.256.jar",
         "hash": "1489f8fe78c9a56abcf02d339ab6261e1c2c6b98687a7925e2867a70c07ef2f9",
-        "path": "ai/grazie/model/model-jet-jvm/0.8.184/model-jet-jvm-0.8.184.jar"
+        "path": "ai/grazie/model/model-jet-jvm/0.8.256/model-jet-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/model/model-license-jvm/0.8.184/model-license-jvm-0.8.184.jar",
-        "hash": "dc3788d44ac18c1f58626ee0f2cf30c47667d4d687c737037de55726f6ddbaf1",
-        "path": "ai/grazie/model/model-license-jvm/0.8.184/model-license-jvm-0.8.184.jar"
+        "url": "ai/grazie/model/model-license-jvm/0.8.256/model-license-jvm-0.8.256.jar",
+        "hash": "04c128ef8a9f5d99690888e37048d2b683c82a7884c54de30b0a1ea962098cbc",
+        "path": "ai/grazie/model/model-license-jvm/0.8.256/model-license-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/model/model-llm-jvm/0.8.184/model-llm-jvm-0.8.184.jar",
-        "hash": "a10ea73e4ae69095093b931c8e8e34c803d760ee279df735eecb528085446f93",
-        "path": "ai/grazie/model/model-llm-jvm/0.8.184/model-llm-jvm-0.8.184.jar"
+        "url": "ai/grazie/model/model-llm-jvm/0.8.256/model-llm-jvm-0.8.256.jar",
+        "hash": "11bf07adcde4f24b7133884712e281cda774f03d35a08f1c39a963d5dad53acf",
+        "path": "ai/grazie/model/model-llm-jvm/0.8.256/model-llm-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/model/model-ner-jvm/0.8.184/model-ner-jvm-0.8.184.jar",
+        "url": "ai/grazie/model/model-ner-jvm/0.8.256/model-ner-jvm-0.8.256.jar",
         "hash": "1ebcfdb5c2bb052c1590d3952a50e89146fdd9ae39aa343c1b94a59009edb6b6",
-        "path": "ai/grazie/model/model-ner-jvm/0.8.184/model-ner-jvm-0.8.184.jar"
+        "path": "ai/grazie/model/model-ner-jvm/0.8.256/model-ner-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/model/model-nlc-jvm/0.8.184/model-nlc-jvm-0.8.184.jar",
-        "hash": "b999aba354a1f887908ba50b0a4fea0d461fb6f599baf41e840e9116c822ab87",
-        "path": "ai/grazie/model/model-nlc-jvm/0.8.184/model-nlc-jvm-0.8.184.jar"
+        "url": "ai/grazie/model/model-nlc-jvm/0.8.256/model-nlc-jvm-0.8.256.jar",
+        "hash": "e6450b43b29f668cca994f13f3af4e50f1bdcd414cd91138dd1b1b2dd410f3c5",
+        "path": "ai/grazie/model/model-nlc-jvm/0.8.256/model-nlc-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/model/model-nlp-jvm/0.8.184/model-nlp-jvm-0.8.184.jar",
+        "url": "ai/grazie/model/model-nlp-jvm/0.8.256/model-nlp-jvm-0.8.256.jar",
         "hash": "c3db4ef129f5f0a1b3aa97028a3c0d71aa9b3429c35114dc4a33765a01f7b265",
-        "path": "ai/grazie/model/model-nlp-jvm/0.8.184/model-nlp-jvm-0.8.184.jar"
+        "path": "ai/grazie/model/model-nlp-jvm/0.8.256/model-nlp-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/model/model-nmt-jvm/0.8.184/model-nmt-jvm-0.8.184.jar",
+        "url": "ai/grazie/model/model-nmt-jvm/0.8.256/model-nmt-jvm-0.8.256.jar",
         "hash": "3d3ab59a7da590d6995342b9347eab9a1cc7829d01e5fc6509441619cb72d195",
-        "path": "ai/grazie/model/model-nmt-jvm/0.8.184/model-nmt-jvm-0.8.184.jar"
+        "path": "ai/grazie/model/model-nmt-jvm/0.8.256/model-nmt-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/model/model-qa-jvm/0.8.184/model-qa-jvm-0.8.184.jar",
+        "url": "ai/grazie/model/model-qa-jvm/0.8.256/model-qa-jvm-0.8.256.jar",
         "hash": "844297cc2888dfcacf1bbeb478f872b4f9dadb892c2036a7d686ea93f6c25d73",
-        "path": "ai/grazie/model/model-qa-jvm/0.8.184/model-qa-jvm-0.8.184.jar"
+        "path": "ai/grazie/model/model-qa-jvm/0.8.256/model-qa-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/model/model-quota-jvm/0.8.184/model-quota-jvm-0.8.184.jar",
+        "url": "ai/grazie/model/model-quota-jvm/0.8.256/model-quota-jvm-0.8.256.jar",
         "hash": "ef454f66e89e3fd9b46098f0780e9734cc9236abf97eba0cc490070f8baf3dae",
-        "path": "ai/grazie/model/model-quota-jvm/0.8.184/model-quota-jvm-0.8.184.jar"
+        "path": "ai/grazie/model/model-quota-jvm/0.8.256/model-quota-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/model/model-task-jvm/0.8.184/model-task-jvm-0.8.184.jar",
-        "hash": "d006cdfe85d757809d157ab2e421df4b27f35ee91699043f56f7c8522d4950dc",
-        "path": "ai/grazie/model/model-task-jvm/0.8.184/model-task-jvm-0.8.184.jar"
+        "url": "ai/grazie/model/model-task-jvm/0.8.256/model-task-jvm-0.8.256.jar",
+        "hash": "a582ea5d9670587a5ecdb52d2798c15339e67053d767e66ebe2546da2307a233",
+        "path": "ai/grazie/model/model-task-jvm/0.8.256/model-task-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/model/model-text-jvm/0.8.184/model-text-jvm-0.8.184.jar",
+        "url": "ai/grazie/model/model-text-jvm/0.8.256/model-text-jvm-0.8.256.jar",
         "hash": "550ac194a0d0970a36651b6da6ba432908dec87501bbdb0fba35d7a9decba38c",
-        "path": "ai/grazie/model/model-text-jvm/0.8.184/model-text-jvm-0.8.184.jar"
+        "path": "ai/grazie/model/model-text-jvm/0.8.256/model-text-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/model/model-tone-formality-jvm/0.8.184/model-tone-formality-jvm-0.8.184.jar",
-        "hash": "871653f81919bb2406f7416ec89f380101ef4d6538c631179d0d1ed08780c20f",
-        "path": "ai/grazie/model/model-tone-formality-jvm/0.8.184/model-tone-formality-jvm-0.8.184.jar"
-    },
-    {
-        "url": "ai/grazie/model/model-tree-jvm/0.8.184/model-tree-jvm-0.8.184.jar",
-        "hash": "bc283081ba72b5cf798f2533cd6f0ea6442e70745f103d81402728a446dd6be3",
-        "path": "ai/grazie/model/model-tree-jvm/0.8.184/model-tree-jvm-0.8.184.jar"
-    },
-    {
-        "url": "ai/grazie/model/swagger-annotations-jvm/0.8.184/swagger-annotations-jvm-0.8.184.jar",
+        "url": "ai/grazie/model/swagger-annotations-jvm/0.8.256/swagger-annotations-jvm-0.8.256.jar",
         "hash": "44f6fc4e9c80bbf0a98f37782560ccaca6fb1531a569953fc8538b8bb3141bde",
-        "path": "ai/grazie/model/swagger-annotations-jvm/0.8.184/swagger-annotations-jvm-0.8.184.jar"
+        "path": "ai/grazie/model/swagger-annotations-jvm/0.8.256/swagger-annotations-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/nlp/nlp-common-jvm/0.8.184/nlp-common-jvm-0.8.184.jar",
-        "hash": "b8776d100378f5964f5addc5ed733ca06c46572e43317ab66222761c344ac8c8",
-        "path": "ai/grazie/nlp/nlp-common-jvm/0.8.184/nlp-common-jvm-0.8.184.jar"
+        "url": "ai/grazie/nlp/nlp-common-jvm/0.8.256/nlp-common-jvm-0.8.256.jar",
+        "hash": "31417c4ac77c32679f63b307ab53def831ef0a290e91d8b50f27c4abf161b6b2",
+        "path": "ai/grazie/nlp/nlp-common-jvm/0.8.256/nlp-common-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/nlp/nlp-detect-jvm/0.8.184/nlp-detect-jvm-0.8.184.jar",
-        "hash": "2cad3ef7a547f82bc981972372f44538aa346caa87abf5a780bcdd4156469aba",
-        "path": "ai/grazie/nlp/nlp-detect-jvm/0.8.184/nlp-detect-jvm-0.8.184.jar"
+        "url": "ai/grazie/nlp/nlp-common-jvm/0.9.2/nlp-common-jvm-0.9.2.jar",
+        "hash": "81c136c9aed0e9be274920371c519b8e0e7a8c1cdfe7bf11a01fbbbbd0631ec2",
+        "path": "ai/grazie/nlp/nlp-common-jvm/0.9.2/nlp-common-jvm-0.9.2.jar"
     },
     {
-        "url": "ai/grazie/nlp/nlp-langs-jvm/0.8.184/nlp-langs-jvm-0.8.184.jar",
-        "hash": "01d77682c32c7388cb1a14a11b24db714db3bd826da025256147cc7742a9ab17",
-        "path": "ai/grazie/nlp/nlp-langs-jvm/0.8.184/nlp-langs-jvm-0.8.184.jar"
+        "url": "ai/grazie/nlp/nlp-detect-jvm/0.9.2/nlp-detect-jvm-0.9.2.jar",
+        "hash": "4172acdfc1317cf7cfab61e5bbd91f8e1e0662f4ecfbf16ec6ba24136e82390f",
+        "path": "ai/grazie/nlp/nlp-detect-jvm/0.9.2/nlp-detect-jvm-0.9.2.jar"
     },
     {
-        "url": "ai/grazie/nlp/nlp-patterns-jvm/0.8.184/nlp-patterns-jvm-0.8.184.jar",
-        "hash": "076ec28c98ae8b5c77ed75be16c207c5a1c8a70434d20fafb565a5114eb0590a",
-        "path": "ai/grazie/nlp/nlp-patterns-jvm/0.8.184/nlp-patterns-jvm-0.8.184.jar"
+        "url": "ai/grazie/nlp/nlp-langs-jvm/0.8.256/nlp-langs-jvm-0.8.256.jar",
+        "hash": "f78572a732c26a4f76f0a28d6b52622240130efca7f1c35978479204f2f89ed7",
+        "path": "ai/grazie/nlp/nlp-langs-jvm/0.8.256/nlp-langs-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/nlp/nlp-phonetics-jvm/0.8.184/nlp-phonetics-jvm-0.8.184.jar",
-        "hash": "b319d0f13e0360a06e3f8a8178571dcc275d8459c5674a6d851cd7f1a6400f74",
-        "path": "ai/grazie/nlp/nlp-phonetics-jvm/0.8.184/nlp-phonetics-jvm-0.8.184.jar"
+        "url": "ai/grazie/nlp/nlp-patterns-jvm/0.9.2/nlp-patterns-jvm-0.9.2.jar",
+        "hash": "c8c4fdc298105030acefffd733cfbdcc32da8b9dac7f19d3b6304dd745028458",
+        "path": "ai/grazie/nlp/nlp-patterns-jvm/0.9.2/nlp-patterns-jvm-0.9.2.jar"
     },
     {
-        "url": "ai/grazie/nlp/nlp-similarity-jvm/0.8.184/nlp-similarity-jvm-0.8.184.jar",
+        "url": "ai/grazie/nlp/nlp-phonetics-jvm/0.8.256/nlp-phonetics-jvm-0.8.256.jar",
+        "hash": "b59862b1fa46d1140ddb80e661dfcc9c0f3756a418081adb9bfa8ea5958cd0cb",
+        "path": "ai/grazie/nlp/nlp-phonetics-jvm/0.8.256/nlp-phonetics-jvm-0.8.256.jar"
+    },
+    {
+        "url": "ai/grazie/nlp/nlp-similarity-jvm/0.8.256/nlp-similarity-jvm-0.8.256.jar",
         "hash": "9fb5b6b4a0b6861db9473654bc4206d29344fb52ae1e9a6c43043cbc9e78bf39",
-        "path": "ai/grazie/nlp/nlp-similarity-jvm/0.8.184/nlp-similarity-jvm-0.8.184.jar"
+        "path": "ai/grazie/nlp/nlp-similarity-jvm/0.8.256/nlp-similarity-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/nlp/nlp-tokenizer-jvm/0.8.184/nlp-tokenizer-jvm-0.8.184.jar",
-        "hash": "dbfb39d68641d0e6d4de60831771f4b3b0b5012026253e71a6968f6fd8b9a546",
-        "path": "ai/grazie/nlp/nlp-tokenizer-jvm/0.8.184/nlp-tokenizer-jvm-0.8.184.jar"
+        "url": "ai/grazie/nlp/nlp-tokenizer-jvm/0.9.2/nlp-tokenizer-jvm-0.9.2.jar",
+        "hash": "c779b31364847ed86e7628bcb0cbdf28d39ad23d95e7827054cdbe73068d20ec",
+        "path": "ai/grazie/nlp/nlp-tokenizer-jvm/0.9.2/nlp-tokenizer-jvm-0.9.2.jar"
     },
     {
-        "url": "ai/grazie/spell/gec-spell-engine-local/0.8.184/gec-spell-engine-local-0.8.184.jar",
-        "hash": "71d6878c75865e62f116cf8c143a62f964f3b757ea08e555b267b7c2414a2308",
-        "path": "ai/grazie/spell/gec-spell-engine-local/0.8.184/gec-spell-engine-local-0.8.184.jar"
+        "url": "ai/grazie/spell/gec-spell-engine-local/0.9.2/gec-spell-engine-local-0.9.2.jar",
+        "hash": "48fd7603b34d459198e5da3a2d5b0410b5e94cb4c8d770ecf2c29a839a00e3de",
+        "path": "ai/grazie/spell/gec-spell-engine-local/0.9.2/gec-spell-engine-local-0.9.2.jar"
     },
     {
         "url": "ai/grazie/spell/hunspell-de/0.2.359/hunspell-de-0.2.359.jar",
@@ -250,64 +240,64 @@
         "path": "ai/grazie/spell/hunspell-uk/0.2.359/hunspell-uk-0.2.359.jar"
     },
     {
-        "url": "ai/grazie/tasks-library/tasks-library-api-jvm/0.4.18/tasks-library-api-jvm-0.4.18.jar",
-        "hash": "0f204644b0ad2d1843023cfd89991a4f951df12650f8b950702aa18b5d50db8c",
-        "path": "ai/grazie/tasks-library/tasks-library-api-jvm/0.4.18/tasks-library-api-jvm-0.4.18.jar"
+        "url": "ai/grazie/tasks-library/tasks-library-api-jvm/0.8.256/tasks-library-api-jvm-0.8.256.jar",
+        "hash": "9f1854d175243e66aeb748b0fb55f67a4ed7d1347276bc1b50bf1d4fc3f71180",
+        "path": "ai/grazie/tasks-library/tasks-library-api-jvm/0.8.256/tasks-library-api-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/tasks-library/tasks-library-model-jvm/0.4.18/tasks-library-model-jvm-0.4.18.jar",
-        "hash": "970a6434c329880aa613e6e41776cc4595f0b21a483011da0ab6b473f0568b3c",
-        "path": "ai/grazie/tasks-library/tasks-library-model-jvm/0.4.18/tasks-library-model-jvm-0.4.18.jar"
+        "url": "ai/grazie/tasks-library/tasks-library-model-jvm/0.8.256/tasks-library-model-jvm-0.8.256.jar",
+        "hash": "4685354cf3c8c33deb1a24c3a1dc708a9f97995677e421289f4df3b034543786",
+        "path": "ai/grazie/tasks-library/tasks-library-model-jvm/0.8.256/tasks-library-model-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/tasks/provider/llm/completion/tasks-provider-llm-completion-model-jvm/0.8.184/tasks-provider-llm-completion-model-jvm-0.8.184.jar",
-        "hash": "9e2636caadc15686f07150ae0211257ae4f23fa2320b501489bf4f07b6105c82",
-        "path": "ai/grazie/tasks/provider/llm/completion/tasks-provider-llm-completion-model-jvm/0.8.184/tasks-provider-llm-completion-model-jvm-0.8.184.jar"
-    },
-    {
-        "url": "ai/grazie/tasks/provider/model/tasks-provider-jet-completion-model-jvm/0.8.184/tasks-provider-jet-completion-model-jvm-0.8.184.jar",
+        "url": "ai/grazie/tasks/provider/model/tasks-provider-jet-completion-model-jvm/0.8.256/tasks-provider-jet-completion-model-jvm-0.8.256.jar",
         "hash": "c6e3b5eb96c5f82ea305555294339fe97365c647c17223ec2f924f8228ed924b",
-        "path": "ai/grazie/tasks/provider/model/tasks-provider-jet-completion-model-jvm/0.8.184/tasks-provider-jet-completion-model-jvm-0.8.184.jar"
+        "path": "ai/grazie/tasks/provider/model/tasks-provider-jet-completion-model-jvm/0.8.256/tasks-provider-jet-completion-model-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/tasks/provider/model/tasks-provider-proxy-model-jvm/0.8.184/tasks-provider-proxy-model-jvm-0.8.184.jar",
-        "hash": "a94942907a7002b80c2d59020bd1d4bf3edafdb09f7a577866029130561d0535",
-        "path": "ai/grazie/tasks/provider/model/tasks-provider-proxy-model-jvm/0.8.184/tasks-provider-proxy-model-jvm-0.8.184.jar"
+        "url": "ai/grazie/tasks/provider/model/tasks-provider-proxy-model-jvm/0.8.256/tasks-provider-proxy-model-jvm-0.8.256.jar",
+        "hash": "f900254ff6cef67f10114f9e62df8d76d8d8b1ced32431c2582a715196b18506",
+        "path": "ai/grazie/tasks/provider/model/tasks-provider-proxy-model-jvm/0.8.256/tasks-provider-proxy-model-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/tasks/provider/tasks-provider-task-schema/0.8.184/tasks-provider-task-schema-0.8.184.jar",
-        "hash": "0a01abd1053298aacac592606dba8b0c8b8ab4f07e249b7d796dc215bb96de1f",
-        "path": "ai/grazie/tasks/provider/tasks-provider-task-schema/0.8.184/tasks-provider-task-schema-0.8.184.jar"
+        "url": "ai/grazie/tasks/provider/tasks-provider-task-schema/0.8.256/tasks-provider-task-schema-0.8.256.jar",
+        "hash": "b5feae75b78f3ed5f04dbd0049960eabd2cf0ff3bd0639a6c98935319a8773d3",
+        "path": "ai/grazie/tasks/provider/tasks-provider-task-schema/0.8.256/tasks-provider-task-schema-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/user/cfg/user-cfg-model-jvm/0.8.184/user-cfg-model-jvm-0.8.184.jar",
+        "url": "ai/grazie/user/cfg/user-cfg-model-jvm/0.8.256/user-cfg-model-jvm-0.8.256.jar",
         "hash": "b9aea90cc4c00ae349c1f0c8b046b30107ed45578d046b61c5f940fe420e6912",
-        "path": "ai/grazie/user/cfg/user-cfg-model-jvm/0.8.184/user-cfg-model-jvm-0.8.184.jar"
+        "path": "ai/grazie/user/cfg/user-cfg-model-jvm/0.8.256/user-cfg-model-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/user/strg/user-strg-model-jvm/0.8.184/user-strg-model-jvm-0.8.184.jar",
+        "url": "ai/grazie/user/strg/user-strg-model-jvm/0.8.256/user-strg-model-jvm-0.8.256.jar",
         "hash": "56eefb7bc5a4657af567be340d7b7efabe47cf47e0966ee1b6271623b030b59b",
-        "path": "ai/grazie/user/strg/user-strg-model-jvm/0.8.184/user-strg-model-jvm-0.8.184.jar"
+        "path": "ai/grazie/user/strg/user-strg-model-jvm/0.8.256/user-strg-model-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/utils/utils-common-jvm/0.8.184/utils-common-jvm-0.8.184.jar",
+        "url": "ai/grazie/utils/utils-cbor-jvm/0.8.256/utils-cbor-jvm-0.8.256.jar",
+        "hash": "d68040a5ed1d2fefdb963182673b06b48678f8a285172f397d7bfca54244e0fd",
+        "path": "ai/grazie/utils/utils-cbor-jvm/0.8.256/utils-cbor-jvm-0.8.256.jar"
+    },
+    {
+        "url": "ai/grazie/utils/utils-common-jvm/0.8.256/utils-common-jvm-0.8.256.jar",
         "hash": "c7c9da6b27ff6f0e48a08dab0258b0b9f3c773764aece37787cce94e80148be8",
-        "path": "ai/grazie/utils/utils-common-jvm/0.8.184/utils-common-jvm-0.8.184.jar"
+        "path": "ai/grazie/utils/utils-common-jvm/0.8.256/utils-common-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/utils/utils-jwt-jvm/0.8.184/utils-jwt-jvm-0.8.184.jar",
+        "url": "ai/grazie/utils/utils-jwt-jvm/0.8.256/utils-jwt-jvm-0.8.256.jar",
         "hash": "2c176d7e73c0870cdd696954e9e92e96a71efe0659c1dbe9d1997195cd15263c",
-        "path": "ai/grazie/utils/utils-jwt-jvm/0.8.184/utils-jwt-jvm-0.8.184.jar"
+        "path": "ai/grazie/utils/utils-jwt-jvm/0.8.256/utils-jwt-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/utils/utils-ktor-jvm/0.8.184/utils-ktor-jvm-0.8.184.jar",
-        "hash": "bf45f67506b4f421a77cb6c9938459162881ba648716922d8e1ad2ce171e6916",
-        "path": "ai/grazie/utils/utils-ktor-jvm/0.8.184/utils-ktor-jvm-0.8.184.jar"
+        "url": "ai/grazie/utils/utils-ktor-jvm/0.8.256/utils-ktor-jvm-0.8.256.jar",
+        "hash": "c0217ed66eef3aca5c1c1946829c5aebd3d0475157905ec4da5427f92be30c0e",
+        "path": "ai/grazie/utils/utils-ktor-jvm/0.8.256/utils-ktor-jvm-0.8.256.jar"
     },
     {
-        "url": "ai/grazie/utils/utils-multiplatform-jvm/0.8.184/utils-multiplatform-jvm-0.8.184.jar",
+        "url": "ai/grazie/utils/utils-multiplatform-jvm/0.8.256/utils-multiplatform-jvm-0.8.256.jar",
         "hash": "659387ca197f28c3513996522f9fc634472a7729059d5a2d2597a1cf1e80696a",
-        "path": "ai/grazie/utils/utils-multiplatform-jvm/0.8.184/utils-multiplatform-jvm-0.8.184.jar"
+        "path": "ai/grazie/utils/utils-multiplatform-jvm/0.8.256/utils-multiplatform-jvm-0.8.256.jar"
     },
     {
         "url": "androidx/annotation/annotation-jvm/1.9.1/annotation-jvm-1.9.1.jar",
@@ -345,29 +335,34 @@
         "path": "androidx/collection/collection/1.6.0-beta01/collection-1.6.0-beta01.jar"
     },
     {
-        "url": "androidx/compose/runtime/runtime-annotation-jvm/1.11.0/runtime-annotation-jvm-1.11.0.jar",
-        "hash": "e286a8520709d7bdc66481c272660c2a8d26b12740f76102543ce45704370396",
-        "path": "androidx/compose/runtime/runtime-annotation-jvm/1.11.0/runtime-annotation-jvm-1.11.0.jar"
+        "url": "androidx/compose/runtime/runtime-annotation-jvm/1.12.0/runtime-annotation-jvm-1.12.0.jar",
+        "hash": "e291a6ae01ab71a7f48a568ec9744c6bf9b3f46ef72fbcdeb28c3407ae531c5e",
+        "path": "androidx/compose/runtime/runtime-annotation-jvm/1.12.0/runtime-annotation-jvm-1.12.0.jar"
     },
     {
-        "url": "androidx/compose/runtime/runtime-desktop/1.11.0/runtime-desktop-1.11.0.jar",
-        "hash": "50c9b5c5c84fa63d0c2aa7131a3c6f55b33d16b52115759645e4370f4c99858f",
-        "path": "androidx/compose/runtime/runtime-desktop/1.11.0/runtime-desktop-1.11.0.jar"
+        "url": "androidx/compose/runtime/runtime-desktop/1.12.0/runtime-desktop-1.12.0.jar",
+        "hash": "ed390d7bf7bdba951359d127f4c1ddd223f535f5a6a63078c5c5ac6b6924eb08",
+        "path": "androidx/compose/runtime/runtime-desktop/1.12.0/runtime-desktop-1.12.0.jar"
     },
     {
-        "url": "androidx/compose/runtime/runtime-retain-desktop/1.11.0/runtime-retain-desktop-1.11.0.jar",
+        "url": "androidx/compose/runtime/runtime-retain-desktop/1.12.0/runtime-retain-desktop-1.12.0.jar",
         "hash": "9b7e62a7df333c33eff9e1a6d6c2508a4d8fe4b7a43778075538fe3da4bc4485",
-        "path": "androidx/compose/runtime/runtime-retain-desktop/1.11.0/runtime-retain-desktop-1.11.0.jar"
+        "path": "androidx/compose/runtime/runtime-retain-desktop/1.12.0/runtime-retain-desktop-1.12.0.jar"
     },
     {
-        "url": "androidx/compose/runtime/runtime-saveable-desktop/1.11.0/runtime-saveable-desktop-1.11.0.jar",
-        "hash": "b1a17e6c226debb42ca227f580459d9d9dea62d42aa8e685ef56cd7ce770b1a1",
-        "path": "androidx/compose/runtime/runtime-saveable-desktop/1.11.0/runtime-saveable-desktop-1.11.0.jar"
+        "url": "androidx/compose/runtime/runtime-saveable-desktop/1.12.0/runtime-saveable-desktop-1.12.0.jar",
+        "hash": "069949667409ab6de21053f9fdbff0869ae2a1f70a7212cdb89e7d409fd2552c",
+        "path": "androidx/compose/runtime/runtime-saveable-desktop/1.12.0/runtime-saveable-desktop-1.12.0.jar"
     },
     {
         "url": "androidx/lifecycle/lifecycle-common-jvm/2.9.4/lifecycle-common-jvm-2.9.4.jar",
         "hash": "37d89b2101f074ac6c260917dabb185607645ee200aa3018c7c5bde70edcf184",
         "path": "androidx/lifecycle/lifecycle-common-jvm/2.9.4/lifecycle-common-jvm-2.9.4.jar"
+    },
+    {
+        "url": "androidx/lifecycle/lifecycle-runtime-compose-desktop/2.11.0/lifecycle-runtime-compose-desktop-2.11.0.jar",
+        "hash": "d5336753ea4d5881ccfb8b0613e034eb241f0d8b4349536df1cd0ec86cf63664",
+        "path": "androidx/lifecycle/lifecycle-runtime-compose-desktop/2.11.0/lifecycle-runtime-compose-desktop-2.11.0.jar"
     },
     {
         "url": "androidx/lifecycle/lifecycle-runtime-compose-desktop/2.9.4/lifecycle-runtime-compose-desktop-2.9.4.jar",
@@ -380,19 +375,29 @@
         "path": "androidx/lifecycle/lifecycle-runtime-desktop/2.9.4/lifecycle-runtime-desktop-2.9.4.jar"
     },
     {
-        "url": "androidx/lifecycle/lifecycle-viewmodel-desktop/2.9.4/lifecycle-viewmodel-desktop-2.9.4.jar",
-        "hash": "98f816be6869407c87d46058756f97780fa6c6cf61acdba97216f413731af15d",
-        "path": "androidx/lifecycle/lifecycle-viewmodel-desktop/2.9.4/lifecycle-viewmodel-desktop-2.9.4.jar"
+        "url": "androidx/lifecycle/lifecycle-viewmodel-compose-desktop/2.11.0/lifecycle-viewmodel-compose-desktop-2.11.0.jar",
+        "hash": "1b4c58125c7b3693444f40c8ab76881d17fa74726860c24872a3dec3e0fad34b",
+        "path": "androidx/lifecycle/lifecycle-viewmodel-compose-desktop/2.11.0/lifecycle-viewmodel-compose-desktop-2.11.0.jar"
     },
     {
-        "url": "androidx/lifecycle/lifecycle-viewmodel-savedstate-desktop/2.9.4/lifecycle-viewmodel-savedstate-desktop-2.9.4.jar",
-        "hash": "3e0b44e2514eafdd6938d5457d9f46e4785077c45d3b4364b5c23c4dcb93efd3",
-        "path": "androidx/lifecycle/lifecycle-viewmodel-savedstate-desktop/2.9.4/lifecycle-viewmodel-savedstate-desktop-2.9.4.jar"
+        "url": "androidx/lifecycle/lifecycle-viewmodel-desktop/2.11.0/lifecycle-viewmodel-desktop-2.11.0.jar",
+        "hash": "175c349266ccbb6a2036615725b7066ee3f3319665c98af42206ab3a582a43c3",
+        "path": "androidx/lifecycle/lifecycle-viewmodel-desktop/2.11.0/lifecycle-viewmodel-desktop-2.11.0.jar"
     },
     {
-        "url": "androidx/navigationevent/navigationevent-desktop/1.0.1/navigationevent-desktop-1.0.1.jar",
-        "hash": "43deeb5774fd737fa945e09a47f93b6f1a508d17fac8f3b65f1c863e7f7d0660",
-        "path": "androidx/navigationevent/navigationevent-desktop/1.0.1/navigationevent-desktop-1.0.1.jar"
+        "url": "androidx/lifecycle/lifecycle-viewmodel-savedstate-desktop/2.11.0/lifecycle-viewmodel-savedstate-desktop-2.11.0.jar",
+        "hash": "ca21720ce7f370cb21cabb5329b959eda624107ec06282e3bdc92582917b1d27",
+        "path": "androidx/lifecycle/lifecycle-viewmodel-savedstate-desktop/2.11.0/lifecycle-viewmodel-savedstate-desktop-2.11.0.jar"
+    },
+    {
+        "url": "androidx/navigationevent/navigationevent-compose-desktop/1.1.1/navigationevent-compose-desktop-1.1.1.jar",
+        "hash": "1d7d20d7826a2cc63ace9862cddd8a7085a11a3ea2cff258c28b3d58e57f143b",
+        "path": "androidx/navigationevent/navigationevent-compose-desktop/1.1.1/navigationevent-compose-desktop-1.1.1.jar"
+    },
+    {
+        "url": "androidx/navigationevent/navigationevent-desktop/1.1.1/navigationevent-desktop-1.1.1.jar",
+        "hash": "4c92508d4bd3b9cafb2785e8211057d39ed8465b529660223864a19625cedb5b",
+        "path": "androidx/navigationevent/navigationevent-desktop/1.1.1/navigationevent-desktop-1.1.1.jar"
     },
     {
         "url": "androidx/savedstate/savedstate-compose-desktop/1.3.2/savedstate-compose-desktop-1.3.2.jar",
@@ -690,9 +695,19 @@
         "path": "com/electronwill/night-config/toml/3.8.4/toml-3.8.4.jar"
     },
     {
+        "url": "com/esotericsoftware/kryo/kryo/2.24.0/kryo-2.24.0.jar",
+        "hash": "7e56b32c635058f9aa2820f88919ab702d029cbcd15285da9992e36cc0ae52f2",
+        "path": "com/esotericsoftware/kryo/kryo/2.24.0/kryo-2.24.0.jar"
+    },
+    {
         "url": "com/esotericsoftware/kryo5/5.6.0/kryo5-5.6.0.jar",
         "hash": "2ceef6a5a0527ad89ab6d1fd71bba4fef355cded510970c650d1443412b18dc5",
         "path": "com/esotericsoftware/kryo5/5.6.0/kryo5-5.6.0.jar"
+    },
+    {
+        "url": "com/esotericsoftware/minlog/minlog/1.2/minlog-1.2.jar",
+        "hash": "a678cb1aa8f5d03d901c992c75741841d98a9bc3d55dad02e84d65315c4e60f2",
+        "path": "com/esotericsoftware/minlog/minlog/1.2/minlog-1.2.jar"
     },
     {
         "url": "com/fasterxml/aalto-xml/1.3.4/aalto-xml-1.3.4.jar",
@@ -4085,14 +4100,14 @@
         "path": "org/jetbrains/apple-notary-api-kotlin-client/2.0.1/apple-notary-api-kotlin-client-2.0.1.jar"
     },
     {
-        "url": "org/jetbrains/compose/animation/animation-core-desktop/1.11.0/animation-core-desktop-1.11.0.jar",
-        "hash": "1b3af8d20627b01101d827f72e26dbadccc8d212c0ffc0c02ff2a6fc967a6ca8",
-        "path": "org/jetbrains/compose/animation/animation-core-desktop/1.11.0/animation-core-desktop-1.11.0.jar"
+        "url": "org/jetbrains/compose/animation/animation-core-desktop/1.12.0/animation-core-desktop-1.12.0.jar",
+        "hash": "d988b6b7d867146825a9da38e1522fc50580aa14986ab22a8b724fcdcef17875",
+        "path": "org/jetbrains/compose/animation/animation-core-desktop/1.12.0/animation-core-desktop-1.12.0.jar"
     },
     {
-        "url": "org/jetbrains/compose/animation/animation-desktop/1.11.0/animation-desktop-1.11.0.jar",
-        "hash": "bb41c6c550a471c68c51185c3bb0458482a4e803ee074bf215adc8832e2007e1",
-        "path": "org/jetbrains/compose/animation/animation-desktop/1.11.0/animation-desktop-1.11.0.jar"
+        "url": "org/jetbrains/compose/animation/animation-desktop/1.12.0/animation-desktop-1.12.0.jar",
+        "hash": "04c0adb196185267173cef50658a3adb2987a4fa0328733ca68f029324e86a09",
+        "path": "org/jetbrains/compose/animation/animation-desktop/1.12.0/animation-desktop-1.12.0.jar"
     },
     {
         "url": "org/jetbrains/compose/compiler/compiler-hosted/1.5.14/compiler-hosted-1.5.14.jar",
@@ -4100,14 +4115,14 @@
         "path": "org/jetbrains/compose/compiler/compiler-hosted/1.5.14/compiler-hosted-1.5.14.jar"
     },
     {
-        "url": "org/jetbrains/compose/components/components-resources-desktop/1.11.0/components-resources-desktop-1.11.0.jar",
-        "hash": "05e1cad77c8ede7930ad21223b819932b70d7ad969ebfef97ddf272fc1a7bc39",
-        "path": "org/jetbrains/compose/components/components-resources-desktop/1.11.0/components-resources-desktop-1.11.0.jar"
+        "url": "org/jetbrains/compose/components/components-resources-desktop/1.12.0/components-resources-desktop-1.12.0.jar",
+        "hash": "9d5ad07d082fffc19c728516e87d51d3e439c00087cc067f821a116f27e8b29e",
+        "path": "org/jetbrains/compose/components/components-resources-desktop/1.12.0/components-resources-desktop-1.12.0.jar"
     },
     {
-        "url": "org/jetbrains/compose/components/components-resources/1.11.0/components-resources-1.11.0.jar",
-        "hash": "6ab4a950f0663d763ce6a66c367d9fe54776553f6c92bceb6ce5d328db44588e",
-        "path": "org/jetbrains/compose/components/components-resources/1.11.0/components-resources-1.11.0.jar"
+        "url": "org/jetbrains/compose/components/components-resources/1.12.0/components-resources-1.12.0.jar",
+        "hash": "fa8ea0bf4dc142596c3a65875d610b12fed6f8996d3f1863cdf39d3fbbd0cb08",
+        "path": "org/jetbrains/compose/components/components-resources/1.12.0/components-resources-1.12.0.jar"
     },
     {
         "url": "org/jetbrains/compose/components/components-ui-tooling-preview-desktop/1.9.0/components-ui-tooling-preview-desktop-1.9.0.jar",
@@ -4115,59 +4130,54 @@
         "path": "org/jetbrains/compose/components/components-ui-tooling-preview-desktop/1.9.0/components-ui-tooling-preview-desktop-1.9.0.jar"
     },
     {
-        "url": "org/jetbrains/compose/foundation/foundation-desktop/1.11.0/foundation-desktop-1.11.0.jar",
-        "hash": "32601653637e47cc442fa77c9e5dd95a557a0533a5304ba5200cc72c565f074a",
-        "path": "org/jetbrains/compose/foundation/foundation-desktop/1.11.0/foundation-desktop-1.11.0.jar"
+        "url": "org/jetbrains/compose/foundation/foundation-desktop/1.12.0/foundation-desktop-1.12.0.jar",
+        "hash": "17d39fc8182ab461d7ef52cd98618b489e970b3a48a49b3cd68441a829e1331e",
+        "path": "org/jetbrains/compose/foundation/foundation-desktop/1.12.0/foundation-desktop-1.12.0.jar"
     },
     {
-        "url": "org/jetbrains/compose/foundation/foundation-layout-desktop/1.11.0/foundation-layout-desktop-1.11.0.jar",
-        "hash": "d79929b45521dff0c77d3184412007b3b9695755c8b1933d5ff9e4f1e93fa131",
-        "path": "org/jetbrains/compose/foundation/foundation-layout-desktop/1.11.0/foundation-layout-desktop-1.11.0.jar"
+        "url": "org/jetbrains/compose/foundation/foundation-layout-desktop/1.12.0/foundation-layout-desktop-1.12.0.jar",
+        "hash": "57b54c104bae9eea0e90bb26487f8b64ead09a473f1b32cbed8579084f485e7b",
+        "path": "org/jetbrains/compose/foundation/foundation-layout-desktop/1.12.0/foundation-layout-desktop-1.12.0.jar"
     },
     {
-        "url": "org/jetbrains/compose/ui/ui-backhandler-desktop/1.11.0/ui-backhandler-desktop-1.11.0.jar",
-        "hash": "007fb9a83fa405b8bfe1ddbefef3dd929dea2be42953e6510ce46f85ff635e30",
-        "path": "org/jetbrains/compose/ui/ui-backhandler-desktop/1.11.0/ui-backhandler-desktop-1.11.0.jar"
+        "url": "org/jetbrains/compose/ui/ui-desktop/1.12.0/ui-desktop-1.12.0.jar",
+        "hash": "a345a0722fce80ae387f8b3c60777492df6051c09537e50c956f789f2c341d00",
+        "path": "org/jetbrains/compose/ui/ui-desktop/1.12.0/ui-desktop-1.12.0.jar"
     },
     {
-        "url": "org/jetbrains/compose/ui/ui-desktop/1.11.0/ui-desktop-1.11.0.jar",
-        "hash": "c2b3f12ecd91fe6126f4e2ab44968d2f18fea26d3959024d1524cd07ad692d7b",
-        "path": "org/jetbrains/compose/ui/ui-desktop/1.11.0/ui-desktop-1.11.0.jar"
+        "url": "org/jetbrains/compose/ui/ui-geometry-desktop/1.12.0/ui-geometry-desktop-1.12.0.jar",
+        "hash": "2cde44d95ba21654dcced3a3098bdd171b3ef5b17ef7fc6cec0d25983dbc9fa0",
+        "path": "org/jetbrains/compose/ui/ui-geometry-desktop/1.12.0/ui-geometry-desktop-1.12.0.jar"
     },
     {
-        "url": "org/jetbrains/compose/ui/ui-geometry-desktop/1.11.0/ui-geometry-desktop-1.11.0.jar",
-        "hash": "ad6d5557572708aceebf1aa626c5900e8fce61f040a6d5d971b1adca5869ab8c",
-        "path": "org/jetbrains/compose/ui/ui-geometry-desktop/1.11.0/ui-geometry-desktop-1.11.0.jar"
+        "url": "org/jetbrains/compose/ui/ui-graphics-desktop/1.12.0/ui-graphics-desktop-1.12.0.jar",
+        "hash": "5ae046f0745e4f484f39a0202e5545b8ffdd1930c550a60d76f6c1ca9534eaff",
+        "path": "org/jetbrains/compose/ui/ui-graphics-desktop/1.12.0/ui-graphics-desktop-1.12.0.jar"
     },
     {
-        "url": "org/jetbrains/compose/ui/ui-graphics-desktop/1.11.0/ui-graphics-desktop-1.11.0.jar",
-        "hash": "c7d7620c78f0e64052f1f28df54a969b36cf4918e7965b566875855569346e59",
-        "path": "org/jetbrains/compose/ui/ui-graphics-desktop/1.11.0/ui-graphics-desktop-1.11.0.jar"
+        "url": "org/jetbrains/compose/ui/ui-test-desktop/1.12.0/ui-test-desktop-1.12.0.jar",
+        "hash": "660fa942dca3fad63d2436841eba124a8908b686961a912f4a0dcddd29469e52",
+        "path": "org/jetbrains/compose/ui/ui-test-desktop/1.12.0/ui-test-desktop-1.12.0.jar"
     },
     {
-        "url": "org/jetbrains/compose/ui/ui-test-desktop/1.11.0/ui-test-desktop-1.11.0.jar",
-        "hash": "5ecbf9db2b48c3a34974f6b38d9bc59a9b6da335d7b4985c8bb9f65e045e8a7e",
-        "path": "org/jetbrains/compose/ui/ui-test-desktop/1.11.0/ui-test-desktop-1.11.0.jar"
+        "url": "org/jetbrains/compose/ui/ui-test-junit4-desktop/1.12.0/ui-test-junit4-desktop-1.12.0.jar",
+        "hash": "4a198be74dcf9097de7366065b34c1ac821e2aefc5687fc726e0df93dfd6c578",
+        "path": "org/jetbrains/compose/ui/ui-test-junit4-desktop/1.12.0/ui-test-junit4-desktop-1.12.0.jar"
     },
     {
-        "url": "org/jetbrains/compose/ui/ui-test-junit4-desktop/1.11.0/ui-test-junit4-desktop-1.11.0.jar",
-        "hash": "f5497e8de1e2b3c467c5686b2623157118c54427c32b45a2a2d438324c757d32",
-        "path": "org/jetbrains/compose/ui/ui-test-junit4-desktop/1.11.0/ui-test-junit4-desktop-1.11.0.jar"
+        "url": "org/jetbrains/compose/ui/ui-text-desktop/1.12.0/ui-text-desktop-1.12.0.jar",
+        "hash": "672331d7e1440f2406f6a9b6d3d61475316cf622d0dbbe910e47bdbd69861c38",
+        "path": "org/jetbrains/compose/ui/ui-text-desktop/1.12.0/ui-text-desktop-1.12.0.jar"
     },
     {
-        "url": "org/jetbrains/compose/ui/ui-text-desktop/1.11.0/ui-text-desktop-1.11.0.jar",
-        "hash": "c1a8ceb1e875c6f1bb2e67eca8778fc04027dd618f31a69f886368cbdd35eeec",
-        "path": "org/jetbrains/compose/ui/ui-text-desktop/1.11.0/ui-text-desktop-1.11.0.jar"
+        "url": "org/jetbrains/compose/ui/ui-unit-desktop/1.12.0/ui-unit-desktop-1.12.0.jar",
+        "hash": "7c4998f1224f241dbe88fa59701d697d598fe8979a4acaed717b8365d4cd9300",
+        "path": "org/jetbrains/compose/ui/ui-unit-desktop/1.12.0/ui-unit-desktop-1.12.0.jar"
     },
     {
-        "url": "org/jetbrains/compose/ui/ui-unit-desktop/1.11.0/ui-unit-desktop-1.11.0.jar",
-        "hash": "9c91868b0bd967d64f726edc319c895e359871a44ef7e75dc69ff0cad46ac0da",
-        "path": "org/jetbrains/compose/ui/ui-unit-desktop/1.11.0/ui-unit-desktop-1.11.0.jar"
-    },
-    {
-        "url": "org/jetbrains/compose/ui/ui-util-desktop/1.11.0/ui-util-desktop-1.11.0.jar",
-        "hash": "73d04930a91fb9a2044f2c198ec6e3f1da61696ccb59a288d1ff0a15bab08eed",
-        "path": "org/jetbrains/compose/ui/ui-util-desktop/1.11.0/ui-util-desktop-1.11.0.jar"
+        "url": "org/jetbrains/compose/ui/ui-util-desktop/1.12.0/ui-util-desktop-1.12.0.jar",
+        "hash": "bb81e9748c9bcadeaeb99bab647e21442e62e253a3a497a213c68e040cb2b385",
+        "path": "org/jetbrains/compose/ui/ui-util-desktop/1.12.0/ui-util-desktop-1.12.0.jar"
     },
     {
         "url": "org/jetbrains/dokka/analysis-kotlin-descriptors/2.1.0/analysis-kotlin-descriptors-2.1.0.jar",
@@ -4560,29 +4570,29 @@
         "path": "org/jetbrains/intellij/deps/jcef/jcef/144.0.15-g72717cf-chromium-144.0.7559.172-api-1.21-262-b37/jcef-144.0.15-g72717cf-chromium-144.0.7559.172-api-1.21-262-b37.jar"
     },
     {
-        "url": "org/jetbrains/intellij/deps/kotlinx/kotlinx-coroutines-core-jvm/1.10.2-intellij-1/kotlinx-coroutines-core-jvm-1.10.2-intellij-1.jar",
-        "hash": "1e9b4b60644ca8dd5e9687ad096aee0028bd9d3a24afed3e38565b22ca726ee0",
-        "path": "org/jetbrains/intellij/deps/kotlinx/kotlinx-coroutines-core-jvm/1.10.2-intellij-1/kotlinx-coroutines-core-jvm-1.10.2-intellij-1.jar"
+        "url": "org/jetbrains/intellij/deps/kotlinx/kotlinx-coroutines-core-jvm/1.10.2-intellij-2/kotlinx-coroutines-core-jvm-1.10.2-intellij-2.jar",
+        "hash": "28f4820b648f65500f9d88d87e0990543399c06f9d6dca57e8102cf802b3f930",
+        "path": "org/jetbrains/intellij/deps/kotlinx/kotlinx-coroutines-core-jvm/1.10.2-intellij-2/kotlinx-coroutines-core-jvm-1.10.2-intellij-2.jar"
     },
     {
-        "url": "org/jetbrains/intellij/deps/kotlinx/kotlinx-coroutines-debug/1.10.2-intellij-1/kotlinx-coroutines-debug-1.10.2-intellij-1.jar",
-        "hash": "9d22a3c12d2e9446ed6582dae3a6a76428d118edf14c42098aa46dd6d880fa4d",
-        "path": "org/jetbrains/intellij/deps/kotlinx/kotlinx-coroutines-debug/1.10.2-intellij-1/kotlinx-coroutines-debug-1.10.2-intellij-1.jar"
+        "url": "org/jetbrains/intellij/deps/kotlinx/kotlinx-coroutines-debug/1.10.2-intellij-2/kotlinx-coroutines-debug-1.10.2-intellij-2.jar",
+        "hash": "b3953d4dab6bd76ecdb478b1573a2103512ec9ca244e77b2825e6a970565d5d1",
+        "path": "org/jetbrains/intellij/deps/kotlinx/kotlinx-coroutines-debug/1.10.2-intellij-2/kotlinx-coroutines-debug-1.10.2-intellij-2.jar"
     },
     {
-        "url": "org/jetbrains/intellij/deps/kotlinx/kotlinx-coroutines-guava/1.10.2-intellij-1/kotlinx-coroutines-guava-1.10.2-intellij-1.jar",
-        "hash": "8763dd35bcad9dc38e6b628d4b294d820868df7a9c3bd62c5c7bc38edd5e4a13",
-        "path": "org/jetbrains/intellij/deps/kotlinx/kotlinx-coroutines-guava/1.10.2-intellij-1/kotlinx-coroutines-guava-1.10.2-intellij-1.jar"
+        "url": "org/jetbrains/intellij/deps/kotlinx/kotlinx-coroutines-guava/1.10.2-intellij-2/kotlinx-coroutines-guava-1.10.2-intellij-2.jar",
+        "hash": "863fb6b8aa5d530a7d3ac4ba5342469b13aa74d0fa4e2ee2b298095a65c0096f",
+        "path": "org/jetbrains/intellij/deps/kotlinx/kotlinx-coroutines-guava/1.10.2-intellij-2/kotlinx-coroutines-guava-1.10.2-intellij-2.jar"
     },
     {
-        "url": "org/jetbrains/intellij/deps/kotlinx/kotlinx-coroutines-slf4j/1.10.2-intellij-1/kotlinx-coroutines-slf4j-1.10.2-intellij-1.jar",
-        "hash": "b717a07b48c38f6ef8c844143c7ca76f7a6ed0276a2333f9499bc12e008d0c61",
-        "path": "org/jetbrains/intellij/deps/kotlinx/kotlinx-coroutines-slf4j/1.10.2-intellij-1/kotlinx-coroutines-slf4j-1.10.2-intellij-1.jar"
+        "url": "org/jetbrains/intellij/deps/kotlinx/kotlinx-coroutines-slf4j/1.10.2-intellij-2/kotlinx-coroutines-slf4j-1.10.2-intellij-2.jar",
+        "hash": "48db31aa32ed6f5fdf53ef45d97429292b80f6e538278658de039b78777b221b",
+        "path": "org/jetbrains/intellij/deps/kotlinx/kotlinx-coroutines-slf4j/1.10.2-intellij-2/kotlinx-coroutines-slf4j-1.10.2-intellij-2.jar"
     },
     {
-        "url": "org/jetbrains/intellij/deps/kotlinx/kotlinx-coroutines-test-jvm/1.10.2-intellij-1/kotlinx-coroutines-test-jvm-1.10.2-intellij-1.jar",
-        "hash": "9eacaf068b49da9648134b42b08d071b66fd8fc70bed344dbc162f6c21beb555",
-        "path": "org/jetbrains/intellij/deps/kotlinx/kotlinx-coroutines-test-jvm/1.10.2-intellij-1/kotlinx-coroutines-test-jvm-1.10.2-intellij-1.jar"
+        "url": "org/jetbrains/intellij/deps/kotlinx/kotlinx-coroutines-test-jvm/1.10.2-intellij-2/kotlinx-coroutines-test-jvm-1.10.2-intellij-2.jar",
+        "hash": "4d1f02a6866849a71a84e2f1571bfcae26f9577d487f956934046c97a283a2a0",
+        "path": "org/jetbrains/intellij/deps/kotlinx/kotlinx-coroutines-test-jvm/1.10.2-intellij-2/kotlinx-coroutines-test-jvm-1.10.2-intellij-2.jar"
     },
     {
         "url": "org/jetbrains/intellij/deps/languagetool/language-be/6.8.27/language-be-6.8.27.jar",
@@ -4870,9 +4880,9 @@
         "path": "org/jetbrains/kotlin/kotlin-dataframe-compiler-plugin-for-ide/2.4.20-ij262-52/kotlin-dataframe-compiler-plugin-for-ide-2.4.20-ij262-52.jar"
     },
     {
-        "url": "org/jetbrains/kotlin/kotlin-dist-for-ide/2.4.20-ij262-52/kotlin-dist-for-ide-2.4.20-ij262-52.jar",
-        "hash": "1d1y29gpgfq0irshba2rb860v5bb2fxfb205wzkj9h1zczh38q8p",
-        "path": "org/jetbrains/kotlin/kotlin-dist-for-ide/2.4.20-ij262-52/kotlin-dist-for-ide-2.4.20-ij262-52.jar"
+        "url": "org/jetbrains/kotlin/kotlin-dist-for-ide/2.4.0/kotlin-dist-for-ide-2.4.0.jar",
+        "hash": "d12b996e50fe7b245a0a5045bac8c0bd5cbc227a792e44b41b0ae80e042c8490",
+        "path": "org/jetbrains/kotlin/kotlin-dist-for-ide/2.4.0/kotlin-dist-for-ide-2.4.0.jar"
     },
     {
         "url": "org/jetbrains/kotlin/kotlin-gradle-plugin-idea-proto/1.9.20-dev-8162/kotlin-gradle-plugin-idea-proto-1.9.20-dev-8162.jar",
@@ -4895,24 +4905,24 @@
         "path": "org/jetbrains/kotlin/kotlin-jps-common-for-ide/2.4.20-ij262-52/kotlin-jps-common-for-ide-2.4.20-ij262-52.jar"
     },
     {
-        "url": "org/jetbrains/kotlin/kotlin-jps-plugin-classpath/2.4.20-ij262-52/kotlin-jps-plugin-classpath-2.4.20-ij262-52.jar",
-        "hash": "1yd6dwyv5f1cslrikh7hmj18ri5bksq6s88j6yiy8cfbh64i92gc",
-        "path": "org/jetbrains/kotlin/kotlin-jps-plugin-classpath/2.4.20-ij262-52/kotlin-jps-plugin-classpath-2.4.20-ij262-52.jar"
+        "url": "org/jetbrains/kotlin/kotlin-jps-plugin-classpath/2.2.0/kotlin-jps-plugin-classpath-2.2.0.jar",
+        "hash": "61002bb21cc3c512bd7c9d532f3932e33e019e58d554bc4d3c208ebec5c11284",
+        "path": "org/jetbrains/kotlin/kotlin-jps-plugin-classpath/2.2.0/kotlin-jps-plugin-classpath-2.2.0.jar"
+    },
+    {
+        "url": "org/jetbrains/kotlin/kotlin-jps-plugin-classpath/2.4.0/kotlin-jps-plugin-classpath-2.4.0.jar",
+        "hash": "80d785cfe4309db0246069b3313d11a119fe8ee38bd8b102bd8bb4978a1c61be",
+        "path": "org/jetbrains/kotlin/kotlin-jps-plugin-classpath/2.4.0/kotlin-jps-plugin-classpath-2.4.0.jar"
     },
     {
         "url": "org/jetbrains/kotlin/kotlin-jps-plugin-classpath/2.4.20-ij262-52/kotlin-jps-plugin-classpath-2.4.20-ij262-52.jar",
-        "hash": "1yd6dwyv5f1cslrikh7hmj18ri5bksq6s88j6yiy8cfbh64i92gc",
+        "hash": "ec89148981cb31e4a33712216db09eabc48c82acf0c01933d52cb8b23d6fa6f9",
         "path": "org/jetbrains/kotlin/kotlin-jps-plugin-classpath/2.4.20-ij262-52/kotlin-jps-plugin-classpath-2.4.20-ij262-52.jar"
     },
     {
-        "url": "org/jetbrains/kotlin/kotlin-jps-plugin-classpath/2.4.20-ij262-52/kotlin-jps-plugin-classpath-2.4.20-ij262-52.jar",
-        "hash": "1yd6dwyv5f1cslrikh7hmj18ri5bksq6s88j6yiy8cfbh64i92gc",
-        "path": "org/jetbrains/kotlin/kotlin-jps-plugin-classpath/2.4.20-ij262-52/kotlin-jps-plugin-classpath-2.4.20-ij262-52.jar"
-    },
-    {
-        "url": "org/jetbrains/kotlin/kotlin-jps-plugin-tests-for-ide/2.4.20-ij262-52/kotlin-jps-plugin-tests-for-ide-2.4.20-ij262-52.jar",
-        "hash": "0y8r8gq0k72qzdzgvc3y61m5wijsvi4b890a6rqdvry1q50pnhyy",
-        "path": "org/jetbrains/kotlin/kotlin-jps-plugin-tests-for-ide/2.4.20-ij262-52/kotlin-jps-plugin-tests-for-ide-2.4.20-ij262-52.jar"
+        "url": "org/jetbrains/kotlin/kotlin-jps-plugin-tests-for-ide/2.4.0/kotlin-jps-plugin-tests-for-ide-2.4.0.jar",
+        "hash": "fb292f37213201021a9c2ff5c4ea96a45796ce049d0974b78fdfe547810e0c68",
+        "path": "org/jetbrains/kotlin/kotlin-jps-plugin-tests-for-ide/2.4.0/kotlin-jps-plugin-tests-for-ide-2.4.0.jar"
     },
     {
         "url": "org/jetbrains/kotlin/kotlin-metadata-jvm/2.2.0/kotlin-metadata-jvm-2.2.0.jar",
@@ -5095,6 +5105,11 @@
         "path": "org/jetbrains/kotlinx/kotlinx-io-core-jvm/0.7.0/kotlinx-io-core-jvm-0.7.0.jar"
     },
     {
+        "url": "org/jetbrains/kotlinx/kotlinx-serialization-cbor-jvm/1.7.3/kotlinx-serialization-cbor-jvm-1.7.3.jar",
+        "hash": "ec45d74e2293eacbc1f804f3ec55d4908f9905ac5053316b565f1b66326f1f70",
+        "path": "org/jetbrains/kotlinx/kotlinx-serialization-cbor-jvm/1.7.3/kotlinx-serialization-cbor-jvm-1.7.3.jar"
+    },
+    {
         "url": "org/jetbrains/kotlinx/kotlinx-serialization-cbor-jvm/1.9.0/kotlinx-serialization-cbor-jvm-1.9.0.jar",
         "hash": "e45f32f0d80e1164593cfcf9f1907ae39871084c6aa08e49acc2e8e22e1d93ce",
         "path": "org/jetbrains/kotlinx/kotlinx-serialization-cbor-jvm/1.9.0/kotlinx-serialization-cbor-jvm-1.9.0.jar"
@@ -5185,14 +5200,14 @@
         "path": "org/jetbrains/runtime/jbr-api/1.9.0/jbr-api-1.9.0.jar"
     },
     {
-        "url": "org/jetbrains/skiko/skiko-awt-runtime-all/0.144.5/skiko-awt-runtime-all-0.144.5.jar",
-        "hash": "c45213154c9ef4a126a0bb8e9505e02600b49c774db96f13e5bc0b53e5fa0d51",
-        "path": "org/jetbrains/skiko/skiko-awt-runtime-all/0.144.5/skiko-awt-runtime-all-0.144.5.jar"
+        "url": "org/jetbrains/skiko/skiko-awt-runtime-all/0.150.1/skiko-awt-runtime-all-0.150.1.jar",
+        "hash": "8bc56764df1359192bb0efa874d79d0e5da621f18458ce6d1d7915d865f4da73",
+        "path": "org/jetbrains/skiko/skiko-awt-runtime-all/0.150.1/skiko-awt-runtime-all-0.150.1.jar"
     },
     {
-        "url": "org/jetbrains/skiko/skiko-awt/0.144.5/skiko-awt-0.144.5.jar",
-        "hash": "19e328cf39a339c0d80c64b1e986d823807cdfdd44b5ad1e8091c4b034f2e52d",
-        "path": "org/jetbrains/skiko/skiko-awt/0.144.5/skiko-awt-0.144.5.jar"
+        "url": "org/jetbrains/skiko/skiko-awt/0.150.1/skiko-awt-0.150.1.jar",
+        "hash": "bb610ada28509ebee3a623c0469aff3665689fbec73d118055f3dbf5a37211f5",
+        "path": "org/jetbrains/skiko/skiko-awt/0.150.1/skiko-awt-0.150.1.jar"
     },
     {
         "url": "org/jetbrains/teamcity/serviceMessages/2024.07/serviceMessages-2024.07.jar",

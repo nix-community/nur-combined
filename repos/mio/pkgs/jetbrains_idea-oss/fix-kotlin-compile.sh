@@ -80,8 +80,7 @@ substituteInPlace platform/util/base/src/com/intellij/diagnostic/coroutineDumper
   --replace-fail 'info.state == SUSPENDED' 'info.state == "SUSPENDED"'
 
 # KotlinBinaries.loadKotlinJpsPluginToClassPath checks this against the jar version.
-substituteInPlace .idea/kotlinc.xml \
-  --replace-fail 'value="2.4.0"' "value=\"${KOTLIN_IDE_NEW}\""
+sed -i "s|<option name=\"version\" value=\".*\" />|<option name=\"version\" value=\"${KOTLIN_IDE_NEW}\" />|g" .idea/kotlinc.xml
 
 # Bypass expects compiler plugin: bind common expect functions to JVM actuals.
 sed -i 's/.*fun <K, V> MultiplatformConcurrentHashMap().*/fun <K, V> MultiplatformConcurrentHashMap(): MultiplatformConcurrentHashMap<K, V> = MultiplatformConcurrentHashMapJvm()/' \
