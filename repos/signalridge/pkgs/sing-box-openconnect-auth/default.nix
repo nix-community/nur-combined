@@ -4,6 +4,7 @@
   buf,
   jq,
   coreutils,
+  curl,
 }:
 writeShellApplication {
   name = "sing-box-openconnect-auth";
@@ -11,6 +12,7 @@ writeShellApplication {
     buf
     jq
     coreutils
+    curl
   ];
   text = lib.replaceStrings [ "@lib@" ] [ "${./.}" ] (builtins.readFile ./openconnect-auto.sh);
   meta = {

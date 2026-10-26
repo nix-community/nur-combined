@@ -18,6 +18,7 @@ body=$(cat)
 method=${!#}; method=${method##*/}
 case $method in
 SubscribeGroups)
+  if [[ -f $MOCK_ROOT/groups.json ]]; then cat "$MOCK_ROOT/groups.json"; exit 32; fi
   target='Test VPN'
   [[ ! -f $MOCK_ROOT/direct ]] || target=Direct
   jq -cn --arg target "$target" '{group: [{tag: "Egress", selected: "Nested"}, {tag: "Nested", selected: $target}]}'
@@ -26,6 +27,7 @@ SubscribeOpenConnectStatus)
   state=auth-pending; id=challenge-1
   [[ ! -f $MOCK_ROOT/submitted ]] || state=connected
   [[ ! -f $MOCK_ROOT/changed ]] || id=challenge-2
+  if [[ -f $MOCK_ROOT/waiting ]]; then printf '{"endpoints":[{"endpointTag":"Test VPN","state":"connecting"}]}\n'; exit 32; fi
   jq -cn --arg state "$state" --arg id "$id" '{endpoints: [{endpointTag: "Test VPN", state: $state, authChallenge:
     (if $state == "connected" then null else {id: $id, browser: {url: "https://vpn.example.test/", cookieNames: ["Session", "Token"]}} end)}]}'
   exit 32 ;;
@@ -35,8 +37,30 @@ SubmitOpenConnectAuthResponse)
   touch "$MOCK_ROOT/submitted"
   printf '{}\n' ;;
 CancelOpenConnectAuthChallenge) touch "$MOCK_ROOT/canceled"; printf '{}\n' ;;
+SelectOutbound)
+  printf '%s' "$body" | jq -r '[.groupTag,.outboundTag] | @json' >> "$MOCK_ROOT/choices"
+  jq --argjson body "$body" '(.group[] | select(.tag == $body.groupTag) | .selected) = $body.outboundTag' "$MOCK_ROOT/groups.json" > "$MOCK_ROOT/groups.tmp"
+  mv "$MOCK_ROOT/groups.tmp" "$MOCK_ROOT/groups.json"
+  printf '{}\n' ;;
 *) exit 96 ;;
 esac
+MOCK
+printf '#!%s\n' "$(command -v bash)" >"$MOCK_ROOT/bin/curl"
+cat >>"$MOCK_ROOT/bin/curl" <<'MOCK'
+set -euo pipefail
+cat > /dev/null
+for argument; do [[ $argument != *fixture-api-value* ]] || exit 9; done
+if [[ -f $MOCK_ROOT/manual-during-probe ]]; then
+  jq '(.group[] | select(.tag == "jaist") | .selected) = "Second exit"' "$MOCK_ROOT/groups.json" > "$MOCK_ROOT/groups.tmp"
+  mv "$MOCK_ROOT/groups.tmp" "$MOCK_ROOT/groups.json"
+fi
+case ${!#} in
+  */proxies/First%20exit/delay*) [[ -f $MOCK_ROOT/mesh-1 ]] || exit 22 ;;
+  */proxies/Second%20exit/delay*) [[ -f $MOCK_ROOT/mesh-2 ]] || exit 22 ;;
+  */proxies/Test%20VPN/delay*) [[ ! -f $MOCK_ROOT/vpn-unhealthy ]] || exit 22 ;;
+  *) exit 9 ;;
+esac
+printf '{"delay":15}\n'
 MOCK
 printf '#!%s\n' "$(command -v bash)" >"$MOCK_ROOT/bin/authenticate"
 cat >>"$MOCK_ROOT/bin/authenticate" <<'MOCK'
@@ -161,6 +185,7 @@ wait "$watcher" || code=$?
 [[ $code == 143 && ! -e $MOCK_ROOT/submitted ]]
 [[ -z $(ls -d "$XDG_STATE_HOME/openconnect-auto/"*/auth.lock 2>/dev/null || true) ]]
 printf 'ok - terminating the service releases the login lock\n'
+bash "$source_dir/fallback-tests.sh" "$temporary/config.json"
 if rg -q 'fixture-password|fixture-cookie|fixture-api-value' "$XDG_STATE_HOME" "$temporary/output"; then
   printf 'Sensitive fixture data leaked\n'
   exit 1

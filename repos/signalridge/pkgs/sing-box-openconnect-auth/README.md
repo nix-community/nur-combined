@@ -2,7 +2,8 @@
 
 Connect an external cookie authenticator to sing-box's OpenConnect API. The
 adapter polls configured selectors, authenticates only while the endpoint is
-selected, and submits the result against the current challenge. It requires
+selected, and submits the result against the current challenge. Optional priority
+fallback selects the VPN after preferred exits fail. It requires
 sing-box's API service with server reflection and cookie-based browser challenges.
 
 ```sh
@@ -10,8 +11,9 @@ nix profile install github:signalridge/nur-packages#sing-box-openconnect-auth
 sing-box-openconnect-auth --config ~/.config/sing-box/openconnect-auto.json watch
 ```
 
-The Nix package supplies Bash, Buf, jq and coreutils. A source installation needs
-Bash 4.4 or newer and those commands on PATH. Keep `auth.jq` beside the script.
+The Nix package supplies Bash, Buf, jq, curl and coreutils. A source installation
+needs Bash 4.4 or newer and those commands on PATH. Keep `auth.jq` and
+`fallback.sh` beside the script.
 
 ## Configuration
 
@@ -65,6 +67,45 @@ with the actual gateway. Supply `username`, `password`, `certificate.pfxBase64`
 and `certificate.passphrase`. Additional `totp` and `email-otp` command arrays
 enable interactive login over a local or SSH terminal.
 
+## Priority fallback
+
+Add an automatic selector beneath a manual parent selector in sing-box. The
+automatic selector lists preferred exits, this adapter's VPN endpoint and a final
+fallback. Configure its policy with:
+
+```json
+{
+  "clashAPIURL": "http://127.0.0.1:9090",
+  "fallbacks": [{
+    "parent": "Office",
+    "selector": "Office auto",
+    "preferred": ["Primary", "Secondary"],
+    "fallback": "Egress",
+    "probeURL": "https://www.example.com/"
+  }]
+}
+```
+
+Only the automatic subgroup is changed. Manual choices in the parent win,
+including choices made while a health probe is running. On first use, an existing
+parent choice of a preferred exit or final fallback migrates to the automatic
+subgroup once; explicit VPN and other manual choices are preserved.
+
+Preferred exits are checked in order using the Clash API's synchronous delay
+endpoint. If none answers, the VPN is selected before authentication, allowing a
+cold session to log in. A usable VPN remains selected until a preferred exit
+recovers. Failed authentication, a failed VPN connectivity check or an expired
+authentication grace period selects the final fallback and starts a retry cooldown.
+Permanent authentication errors also retain the existing persistent pause.
+
+Defaults are `fallbackPollSeconds: 30`, `fallbackAuthSeconds: 240` and
+`fallbackRetrySeconds: 300`. Cooldown timestamps survive service restarts. Manual
+`login` clears the pause and cooldown. Preferred exits can recover while login is
+paused. Use a probe URL that tests the network the route is intended to reach.
+The Clash API and gRPC API must use the same secret; only loopback APIs are accepted.
+Other routing controllers must leave these automatic selectors and their parents
+to this process.
+
 ## Commands
 
 - `watch`: poll selectors and renew expired authentication while selected.
@@ -79,7 +120,7 @@ Interactive challenges require `login` in a terminal; a background service pause
 
 Credentials, certificates, API secrets and session cookies are held in memory and
 passed through pipes or descriptors. Only lock ownership, pause state and sanitized
-failure codes are written beneath `$XDG_STATE_HOME/openconnect-auto`. Providers'
+failure codes and fallback timestamps are written beneath `$XDG_STATE_HOME/openconnect-auto`. Providers'
 stderr is shown only during an interactive login, and never copied into service logs.
 
 Network failures back off from one minute to fifteen minutes. Rejected credentials,

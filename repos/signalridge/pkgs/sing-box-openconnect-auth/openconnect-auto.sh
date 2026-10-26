@@ -52,7 +52,8 @@ done
 
 if ! settings=$(jq -ce '
   def command: type == "array" and length > 0 and all(.[]; type == "string" and length > 0 and (contains("\u0000") | not));
-  .defaultMethod //= "certificate" | .pollSeconds //= 5
+  .defaultMethod //= "certificate" | .pollSeconds //= 5 | .fallbacks //= []
+  | .fallbackPollSeconds //= 30 | .fallbackRetrySeconds //= 300 | .fallbackAuthSeconds //= 240
   | select((.endpoint | type) == "string" and (.endpoint | length) > 0)
   | select(.apiURL | test("^http://(127\\.0\\.0\\.1|localhost|\\[::1\\]):[0-9]+/?$"))
   | select(.gateway | test("^https://[A-Za-z0-9.-]+(:[0-9]+)?/?$"))
@@ -60,6 +61,12 @@ if ! settings=$(jq -ce '
   | select(.apiSecretCommand | command)
   | select((.authCommands | type) == "object" and (.authCommands | length) > 0 and all(.authCommands[]; command))
   | select(.authCommands[.defaultMethod] != null)
+  | select((.fallbacks | type) == "array" and all(.fallbacks[];
+      ([.selector, .parent, .fallback, .probeURL] | all(.[]; type == "string" and length > 0 and (test("[\r\n\u0000]") | not)))
+      and .selector != .parent and (.preferred | type) == "array" and (.preferred | length) > 0
+      and all(.preferred[]; type == "string" and length > 0)))
+  | select((.fallbacks | length) == 0 or (.clashAPIURL | test("^http://(127\\.0\\.0\\.1|localhost|\\[::1\\]):[0-9]+/?$")))
+  | select([.fallbackPollSeconds, .fallbackRetrySeconds, .fallbackAuthSeconds] | all(.[]; type == "number" and . >= 1 and . <= 86400 and . == floor))
   | select((.pollSeconds | type) == "number" and .pollSeconds >= 1 and .pollSeconds <= 60 and .pollSeconds == (.pollSeconds | floor))
   | select((.credentials | type) == "array" and all(.credentials[];
       (.path | type) == "array" and (.path | length) > 0 and all(.path[]; type == "string" and length > 0)
@@ -85,6 +92,7 @@ chmod 700 "$state" || exit 65
 pause_file="$state/paused"
 lock_dir="$state/auth.lock"
 api_secret=
+login_started=false fallback_managed=false fallback_deadline=0
 
 stop_child() {
   if [[ -n $active_pid ]]; then
@@ -217,6 +225,12 @@ authenticate() {
         rm -f "$error_file"
         return 130
       fi
+      if [[ $action == watch ]] && ((fallback_deadline > 0 && $(date +%s) >= fallback_deadline)); then
+        stop_child
+        exec {fd}<&-
+        rm -f "$error_file"
+        return 75
+      fi
       if [[ $action == watch ]]; then
         using_vpn
         check=$?
@@ -248,8 +262,12 @@ authenticate() {
 }
 login() {
   local current challenge response session check attempt
+  login_started=false
   acquire_lock || return $?
-  if [[ $action == login ]]; then rm -f "$pause_file"; elif [[ -f $pause_file ]]; then
+  if [[ $action == login ]]; then
+    rm -f "$pause_file"
+    fallback_resume || return $?
+  elif [[ -f $pause_file ]]; then
     release_lock
     return 0
   fi
@@ -264,6 +282,7 @@ login() {
     (.browser.url | origin) == ($gateway | origin)
     and (.browser.cookieNames | length) > 0 and (.browser.headerNames // [] | length) == 0' >/dev/null 2>&1 || return 65
   printf '%s: authenticating\n' "$endpoint" >&2
+  login_started=true
   authenticate
   check=$?
   ((check == 0)) || return "$check"
@@ -301,6 +320,12 @@ login() {
   return 75
 }
 
+# Optional priority selection shares this process with authentication, so there
+# is one writer for automatic selectors on both launchd and systemd hosts.
+# shellcheck source=tools/openconnect-auth/fallback.sh
+# shellcheck disable=SC1091 # Installed library path; linted and tested separately.
+source "$libdir/fallback.sh"
+
 case $action in
   status)
     load_api_secret || {
@@ -333,6 +358,26 @@ case $action in
     delay=$poll previous=
     while :; do
       code=0
+      if [[ $action == watch ]]; then
+        fallback_tick
+        code=$?
+      fi
+      if ((code != 0)); then
+        message='waiting for fallback API'
+        delay=60
+        if ((code == 73)); then
+          message='waiting for another login'
+          delay=$poll
+        fi
+        [[ $message == "$previous" ]] || fail "$message"
+        previous=$message
+        [[ $once != true ]] || exit "$code"
+        sleep "$delay" &
+        active_pid=$!
+        wait "$active_pid"
+        active_pid=
+        continue
+      fi
       if [[ $action == watch && -f $pause_file ]]; then
         message='automatic login paused; run openconnect-login to resume'
       else
@@ -346,6 +391,7 @@ case $action in
           login
           code=$?
           release_lock
+          if [[ $action == watch && $login_started == true ]]; then fallback_auth_result "$code" || true; fi
         elif ((selected != 1)); then code=$selected; fi
         case $code in
           0 | 73 | 130)
@@ -357,6 +403,7 @@ case $action in
             delay=$((delay * 2))
             ((delay >= 60)) || delay=60
             ((delay <= 900)) || delay=900
+            [[ $fallback_managed != true ]] || delay=$poll
             ;;
           *)
             pause authentication
