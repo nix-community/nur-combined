@@ -24,6 +24,21 @@ Out-of-tree kernel modules (packages whose expression takes a `kernel` argument,
 
 The top-level attribute (e.g. `cix-vpu-driver`) is built against nixpkgs' default kernel for CI and caching. Use it directly only for kernel-independent outputs such as UAPI headers.
 
+### GPU unlock
+
+`gpu-unlock` packages [gpu-unlock-ada](https://github.com/JustAResearcher/gpu-unlock-ada); `gpu-unlock-firmware` generates its pinned NVIDIA firmware assets and preserves their license notices. Import this flake's `nixosModules.gpu-unlock` (or the NUR repository's `modules.gpu-unlock`), then opt in explicitly:
+
+```nix
+hardware.gpu-unlock = {
+  enable = true;
+  targets = [ "0000:01:00.0" ]; # Replace with the intended GPU's full PCI address.
+};
+```
+
+The module adds the kernel module and firmware to the initrd and orders `gpu_unlock` before normally ordered NVIDIA initrd modules. It is disabled by default. Experimental RTX 4090 D, RTX 4070 Ti SUPER and RTX 4060 Ti 16GB support requires the corresponding `rtx4090dExperimental`, `ad103Experimental` or `ad106Experimental` option; AD103/AD106 also require exactly one PCI address.
+
+Follow upstream's cold-boot and recovery instructions, keep a stock boot entry, and verify the hardware result independently. Compilation and a successful module load do not establish that a GPU was unlocked. Modified-memory boards are not validated by these package checks. This does not replace the normal NVIDIA driver's GSP firmware or repair VBIOS power-state tables.
+
 ## Automatic build repairs
 
 When a package build or check fails on the current `main` revision, build-completion automation invokes Pi and opens one PR per failing package on `bot/repair-<package>`. Multiple platform failures for the same package share one repair. Existing open repair PRs prevent duplicate creation; stale builds, cancelled runs, and harness or unattributed infrastructure failures do not create repair PRs.
