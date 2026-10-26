@@ -42,23 +42,9 @@ in
   flutter347.buildFlutterApplication {
     inherit pname src version;
 
-    # Upstream gitignores pubspec.lock; source.ts resolves it with this same flutter347.
     pubspecLock = lib.importJSON ./pubspec.lock.json;
 
     customSourceBuilders.sqlite3 = sqlite3SourceBuilder;
-
-    # `lib/secrets/fallback.dart` is gitignored but imported unconditionally by
-    # lib/core/providers/model_provider.dart. Upstream CI injects a SiliconFlow
-    # key here; an empty one only disables the bundled free models.
-    postPatch = ''
-      mkdir -p lib/secrets
-      echo 'const String siliconflowFallbackKey = "";' > lib/secrets/fallback.dart
-
-      # v1.3.1 ships a syntax error: `final` on an overriding method parameter,
-      # rejected by Dart 3.13's kernel compiler. Still unfixed on master.
-      sed -i 's/final GptMarkdownConfig config,/GptMarkdownConfig config,/' \
-        lib/shared/widgets/markdown_with_highlight.dart
-    '';
 
     # Required, not optional: the `sqlite3` package source builder hands sqlite over
     # through `runtimeDependencies`, and `sherpa_onnx_linux` ships prebuilt shared
