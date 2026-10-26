@@ -113,6 +113,8 @@ class MusicService {
         private val onPositionChanged: (posMs: Long) -> Unit,
         private val onDurationChanged: (durMs: Long) -> Unit,
         private val onTrackEnded: () -> Unit,
+        private val onNextRequested: (() -> Unit)? = null,
+        private val onPreviousRequested: (() -> Unit)? = null,
     ) {
         companion object {
             fun findMpvExecutable(): String? {
@@ -190,7 +192,8 @@ class MusicService {
                         "--idle=yes",
                         "--no-video",
                         "--no-terminal",
-                        "--input-ipc-server=${sock.absolutePath}"
+                        "--input-ipc-server=${sock.absolutePath}",
+                        "--script-opts=mpris-instance_name=archivetune"
                     )
                     pb.redirectErrorStream(true)
                     val proc = pb.start()
@@ -259,6 +262,7 @@ class MusicService {
                     sendRaw("{\"command\": [\"observe_property\", 2, \"pause\"]}\n")
                     sendRaw("{\"command\": [\"observe_property\", 3, \"duration\"]}\n")
                     sendRaw("{\"command\": [\"observe_property\", 4, \"idle-active\"]}\n")
+                    sendRaw("{\"command\": [\"observe_property\", 5, \"playlist-pos\"]}\n")
 
                     Runtime.getRuntime().addShutdownHook(Thread {
                         release()
@@ -281,14 +285,39 @@ class MusicService {
             }
         }
 
-        fun load(url: String, startPosMs: Long, playWhenReady: Boolean) {
+        fun load(
+            url: String,
+            startPosMs: Long,
+            playWhenReady: Boolean,
+            hasNext: Boolean = false,
+            metadata: MediaMetadata? = null,
+        ) {
             ensureStarted()
-            System.err.println("[ArchiveTune/Audio] mpv.load: url=$url, startPosMs=$startPosMs, playWhenReady=$playWhenReady, isConnected=$isConnected")
+            System.err.println("[ArchiveTune/Audio] mpv.load: url=$url, startPosMs=$startPosMs, playWhenReady=$playWhenReady, hasNext=$hasNext, isConnected=$isConnected")
             val escaped = url.replace("\\", "\\\\").replace("\"", "\\\"")
             sendRaw("{\"command\": [\"loadfile\", \"$escaped\", \"replace\"]}\n")
             if (startPosMs > 0) {
                 val secs = startPosMs / 1000.0
                 sendRaw("{\"command\": [\"seek\", $secs, \"absolute\"]}\n")
+            }
+            if (metadata != null) {
+                val title = metadata.title.replace("\\", "\\\\").replace("\"", "\\\"")
+                val artist = metadata.artists.joinToString(", ") { it.name }.replace("\\", "\\\\").replace("\"", "\\\"")
+                val album = (metadata.album?.title ?: "").replace("\\", "\\\\").replace("\"", "\\\"")
+                if (title.isNotEmpty()) {
+                    sendRaw("{\"command\": [\"set_property\", \"file-local-options/force-media-title\", \"$title\"]}\n")
+                }
+                val metaTag = listOfNotNull(
+                    if (title.isNotEmpty()) "title=$title" else null,
+                    if (artist.isNotEmpty()) "artist=$artist" else null,
+                    if (album.isNotEmpty()) "album=$album" else null,
+                ).joinToString(",")
+                if (metaTag.isNotEmpty()) {
+                    sendRaw("{\"command\": [\"set_property\", \"file-local-options/metadata\", \"$metaTag\"]}\n")
+                }
+            }
+            if (hasNext) {
+                sendRaw("{\"command\": [\"loadfile\", \"null://\", \"append\"]}\n")
             }
             sendRaw("{\"command\": [\"set_property\", \"pause\", ${!playWhenReady}]}\n")
             if (playWhenReady) {
@@ -370,6 +399,11 @@ class MusicService {
                         durationMs = durMs
                         onDurationChanged(durMs)
                     }
+                } else if (json.contains("\"name\":\"playlist-pos\"")) {
+                    val pos = extractDouble(json, "data")?.toInt() ?: -1
+                    if (pos > 0) {
+                        onNextRequested?.invoke()
+                    }
                 }
             } else if (json.contains("\"event\":\"end-file\"")) {
                 if (json.contains("\"reason\":\"eof\"")) {
@@ -415,6 +449,8 @@ class MusicService {
             }
         }
 
+        private var lastNextReqTime = 0L
+
         private val mpvPlayer = DesktopMpvPlayer(
             onPlaybackStateChanged = { playing ->
                 runOnMain {
@@ -450,6 +486,22 @@ class MusicService {
                     } else {
                         stop()
                     }
+                }
+            },
+            onNextRequested = {
+                runOnMain {
+                    val now = System.currentTimeMillis()
+                    if (now - lastNextReqTime > 500L) {
+                        lastNextReqTime = now
+                        if (hasNextMediaItem() || (repeatMode == Player.REPEAT_MODE_ALL && mediaItems.isNotEmpty())) {
+                            seekToNext()
+                        }
+                    }
+                }
+            },
+            onPreviousRequested = {
+                runOnMain {
+                    seekToPrevious()
                 }
             }
         )
@@ -501,8 +553,10 @@ class MusicService {
                     }
                 }
 
-                System.err.println("[ArchiveTune/Audio] Passing URL to mpv: $finalUrl")
-                mpvPlayer.load(finalUrl, startPositionMs, playWhenReady)
+                val hasNext = hasNextMediaItem() || (repeatMode == Player.REPEAT_MODE_ALL && mediaItems.size > 1)
+                val meta = currentMetadata ?: service.currentMediaMetadata.value
+                System.err.println("[ArchiveTune/Audio] Passing URL to mpv: $finalUrl (hasNext=$hasNext)")
+                mpvPlayer.load(finalUrl, startPositionMs, playWhenReady, hasNext = hasNext, metadata = meta)
             }
         }
 
@@ -576,9 +630,27 @@ class MusicService {
                 listeners.forEach { it.onRepeatModeChanged(value) }
             }
 
+        private val shuffledIndices = mutableListOf<Int>()
+
+        private fun rebuildShuffleIndices() {
+            shuffledIndices.clear()
+            shuffledIndices.addAll(mediaItems.indices)
+            shuffledIndices.shuffle()
+            val curr = currentMediaItemIndex
+            if (curr in mediaItems.indices) {
+                shuffledIndices.remove(curr)
+                shuffledIndices.add(0, curr)
+            }
+        }
+
         override var shuffleModeEnabled: Boolean = false
             set(value) {
                 field = value
+                if (value) {
+                    rebuildShuffleIndices()
+                } else {
+                    shuffledIndices.clear()
+                }
                 listeners.forEach { it.onShuffleModeEnabledChanged(value) }
             }
 
@@ -608,10 +680,32 @@ class MusicService {
         override val isCurrentMediaItemDynamic: Boolean get() = false
 
         override val nextMediaItemIndex: Int
-            get() = if (currentMediaItemIndex + 1 < mediaItems.size) currentMediaItemIndex + 1 else -1
+            get() {
+                if (mediaItems.isEmpty()) return -1
+                if (shuffleModeEnabled && shuffledIndices.size == mediaItems.size) {
+                    val pos = shuffledIndices.indexOf(currentMediaItemIndex)
+                    if (pos in 0 until shuffledIndices.size - 1) return shuffledIndices[pos + 1]
+                    if (repeatMode == Player.REPEAT_MODE_ALL) return shuffledIndices[0]
+                    return -1
+                }
+                if (currentMediaItemIndex + 1 < mediaItems.size) return currentMediaItemIndex + 1
+                if (repeatMode == Player.REPEAT_MODE_ALL) return 0
+                return -1
+            }
 
         override val previousMediaItemIndex: Int
-            get() = if (currentMediaItemIndex > 0) currentMediaItemIndex - 1 else -1
+            get() {
+                if (mediaItems.isEmpty()) return -1
+                if (shuffleModeEnabled && shuffledIndices.size == mediaItems.size) {
+                    val pos = shuffledIndices.indexOf(currentMediaItemIndex)
+                    if (pos > 0) return shuffledIndices[pos - 1]
+                    if (repeatMode == Player.REPEAT_MODE_ALL) return shuffledIndices.last()
+                    return -1
+                }
+                if (currentMediaItemIndex > 0) return currentMediaItemIndex - 1
+                if (repeatMode == Player.REPEAT_MODE_ALL) return mediaItems.size - 1
+                return -1
+            }
 
         override fun hasNextMediaItem(): Boolean = nextMediaItemIndex != -1
         override fun hasPreviousMediaItem(): Boolean = previousMediaItemIndex != -1
@@ -741,6 +835,8 @@ class MusicService {
         override fun seekToNext() {
             if (nextMediaItemIndex != -1) {
                 seekTo(nextMediaItemIndex, 0L)
+            } else if (repeatMode == Player.REPEAT_MODE_ALL && mediaItems.isNotEmpty()) {
+                seekTo(0, 0L)
             }
         }
 
@@ -768,6 +864,7 @@ class MusicService {
             val previousId = currentMediaItem?.metadata?.id?.takeIf { it.isNotBlank() } ?: currentMediaItem?.mediaId?.takeIf { it.isNotBlank() }
             this.mediaItems.clear()
             this.mediaItems.addAll(mediaItems)
+            if (shuffleModeEnabled) rebuildShuffleIndices()
             _timeline = DesktopTimeline(this.mediaItems)
             currentMediaItemIndex = if (this.mediaItems.isNotEmpty()) startIndex.coerceIn(this.mediaItems.indices) else -1
             pausedPosition = startPositionMs
@@ -821,6 +918,7 @@ class MusicService {
         override fun addMediaItems(index: Int, mediaItems: List<MediaItem>) {
             val insertAt = index.coerceIn(0, this.mediaItems.size)
             this.mediaItems.addAll(insertAt, mediaItems)
+            if (shuffleModeEnabled) rebuildShuffleIndices()
             _timeline = DesktopTimeline(this.mediaItems)
             if (currentMediaItemIndex == -1 && this.mediaItems.isNotEmpty()) {
                 currentMediaItemIndex = 0
@@ -851,6 +949,7 @@ class MusicService {
         override fun removeMediaItems(fromIndex: Int, toIndex: Int) {
             if (fromIndex in 0 until toIndex && toIndex <= mediaItems.size) {
                 mediaItems.subList(fromIndex, toIndex).clear()
+                if (shuffleModeEnabled) rebuildShuffleIndices()
                 _timeline = DesktopTimeline(mediaItems)
                 if (currentMediaItemIndex in fromIndex until toIndex) {
                     currentMediaItemIndex = currentMediaItemIndex.coerceIn(0, maxOf(0, mediaItems.size - 1))
@@ -867,6 +966,7 @@ class MusicService {
             service.historyTracker.finalizeCurrentSession()
             service.historyTracker.onMediaItemTransition(null)
             mediaItems.clear()
+            shuffledIndices.clear()
             _timeline = Timeline.EMPTY
             currentMediaItemIndex = -1
             pausedPosition = 0L

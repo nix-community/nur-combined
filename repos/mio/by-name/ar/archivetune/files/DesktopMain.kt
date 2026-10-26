@@ -167,6 +167,7 @@ fun main() {
 
             val menuState = remember { MenuState() }
             val bottomSheetPageState = remember { BottomSheetPageState() }
+            var lastVolume by remember { mutableStateOf(1f) }
 
             val navBarHeight = 80.dp
             val miniPlayerHeight = 70.dp
@@ -275,6 +276,73 @@ fun main() {
                                         Key.MediaStop -> {
                                             playerConnection?.player?.stop()
                                             true
+                                        }
+                                        Key.Spacebar -> {
+                                            if (!isSearchActive && playerConnection != null) {
+                                                playerConnection.player.togglePlayPause()
+                                                true
+                                            } else false
+                                        }
+                                        Key.DirectionLeft -> {
+                                            if (!isSearchActive && playerConnection != null) {
+                                                val pos = (playerConnection.player.currentPosition - 5000L).coerceAtLeast(0L)
+                                                playerConnection.player.seekTo(pos)
+                                                true
+                                            } else false
+                                        }
+                                        Key.DirectionRight -> {
+                                            if (!isSearchActive && playerConnection != null) {
+                                                val dur = playerConnection.player.duration.takeIf { it > 0 } ?: Long.MAX_VALUE
+                                                val pos = (playerConnection.player.currentPosition + 5000L).coerceAtMost(dur)
+                                                playerConnection.player.seekTo(pos)
+                                                true
+                                            } else false
+                                        }
+                                        Key.DirectionUp -> {
+                                            if (!isSearchActive && playerConnection != null) {
+                                                val newVol = (playerConnection.player.volume + 0.05f).coerceIn(0f, 1f)
+                                                playerConnection.player.volume = newVol
+                                                true
+                                            } else false
+                                        }
+                                        Key.DirectionDown -> {
+                                            if (!isSearchActive && playerConnection != null) {
+                                                val newVol = (playerConnection.player.volume - 0.05f).coerceIn(0f, 1f)
+                                                playerConnection.player.volume = newVol
+                                                true
+                                            } else false
+                                        }
+                                        Key.M -> {
+                                            if (!isSearchActive && playerConnection != null) {
+                                                if (playerConnection.player.volume > 0.01f) {
+                                                    lastVolume = playerConnection.player.volume
+                                                    playerConnection.player.volume = 0f
+                                                } else {
+                                                    playerConnection.player.volume = if (lastVolume > 0.01f) lastVolume else 1.0f
+                                                }
+                                                true
+                                            } else false
+                                        }
+                                        Key.J -> {
+                                            if (!isSearchActive && playerConnection != null) {
+                                                val pos = (playerConnection.player.currentPosition - 10000L).coerceAtLeast(0L)
+                                                playerConnection.player.seekTo(pos)
+                                                true
+                                            } else false
+                                        }
+                                        Key.K -> {
+                                            if (!isSearchActive && playerConnection != null) {
+                                                playerConnection.player.togglePlayPause()
+                                                true
+                                            } else false
+                                        }
+                                        Key.L -> {
+                                            if (!isSearchActive && playerConnection != null) {
+                                                val dur = playerConnection.player.duration.takeIf { it > 0 } ?: Long.MAX_VALUE
+                                                val pos = (playerConnection.player.currentPosition + 10000L).coerceAtMost(dur)
+                                                playerConnection.player.seekTo(pos)
+                                                true
+                                            } else false
                                         }
                                         else -> false
                                     }

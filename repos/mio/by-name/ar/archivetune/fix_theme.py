@@ -54,8 +54,6 @@ c = re.sub(r'import androidx.compose.material3.dynamicLightColorScheme.*?\n', ''
 
 
 c = c.replace('LocalArchiveTuneFontFamily provides resolvedFontFamily,', 'LocalArchiveTuneFontFamily provides (resolvedFontFamily as androidx.compose.ui.text.font.SystemFontFamily),')
-c = re.sub(r'fun Bitmap\.extractThemeColor\(\): Color \{.*?\n\}', 'fun Bitmap.extractThemeColor(): Color { return DefaultThemeColor }', c, flags=re.DOTALL)
-c = re.sub(r'fun Bitmap\.extractGradientColors\(\): List<Color> \{.*?\n\}', 'fun Bitmap.extractGradientColors(): List<Color> { return listOf(androidx.compose.ui.graphics.Color(0xFF595959), androidx.compose.ui.graphics.Color(0xFF0D0D0D)) }', c, flags=re.DOTALL)
 c = re.sub(r'fun extractWallpaperThemeColor\(context: Context\): Color\? \{.*?\n\}', 'fun extractWallpaperThemeColor(context: Context): Color? { return null }', c, flags=re.DOTALL)
 
 with open('app/src/main/kotlin/moe/rukamori/archivetune/ui/theme/Theme.kt', 'w') as f:

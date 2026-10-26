@@ -30,6 +30,7 @@
   makeDesktopItem,
   makeWrapper,
   mpv,
+  mpvScripts ? null,
   yt-dlp,
   nix-update-script,
   zlib,
@@ -38,6 +39,11 @@
 let
   jdk = jdk21;
   gradle = gradle_9.override { java = jdk; };
+
+  mpvPkg = if (stdenv.hostPlatform.isLinux && mpvScripts != null) then
+    (mpv.override { scripts = [ mpvScripts.mpris ]; })
+  else
+    mpv;
 
   # Compose Desktop native launcher + Skiko/JNA runtime libs.
   runtimeLibs = lib.optionals stdenv.hostPlatform.isLinux [
@@ -385,31 +391,31 @@ stdenv.mkDerivation {
     mkdir -p $out/bin
     if [ -d $out/Applications/ArchiveTune.app ]; then
       if [ -f $out/Applications/ArchiveTune.app/Contents/app/ArchiveTune.cfg ]; then
-        echo "java-options=-Darchivetune.mpv.path=${mpv}/bin/mpv" >> $out/Applications/ArchiveTune.app/Contents/app/ArchiveTune.cfg
+        echo "java-options=-Darchivetune.mpv.path=${mpvPkg}/bin/mpv" >> $out/Applications/ArchiveTune.app/Contents/app/ArchiveTune.cfg
         echo "java-options=-Xdock:icon=$out/Applications/ArchiveTune.app/Contents/Resources/ArchiveTune.icns" >> $out/Applications/ArchiveTune.app/Contents/app/ArchiveTune.cfg
       fi
 
       makeWrapper $out/Applications/ArchiveTune.app/Contents/MacOS/ArchiveTune $out/bin/archivetune \
         --prefix PATH : "${
           lib.makeBinPath [
-            mpv
+            mpvPkg
             yt-dlp
           ]
         }" \
-        --set ARCHIVETUNE_MPV_PATH "${mpv}/bin/mpv"
+        --set ARCHIVETUNE_MPV_PATH "${mpvPkg}/bin/mpv"
     else
       if [ -f $out/lib/archivetune/lib/app/ArchiveTune.cfg ]; then
-        echo "java-options=-Darchivetune.mpv.path=${mpv}/bin/mpv" >> $out/lib/archivetune/lib/app/ArchiveTune.cfg
+        echo "java-options=-Darchivetune.mpv.path=${mpvPkg}/bin/mpv" >> $out/lib/archivetune/lib/app/ArchiveTune.cfg
       fi
 
       makeWrapper $out/lib/archivetune/bin/ArchiveTune $out/bin/archivetune \
         --prefix PATH : "${
           lib.makeBinPath [
-            mpv
+            mpvPkg
             yt-dlp
           ]
         }" \
-        --set ARCHIVETUNE_MPV_PATH "${mpv}/bin/mpv" \
+        --set ARCHIVETUNE_MPV_PATH "${mpvPkg}/bin/mpv" \
         --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath runtimeLibs}"
     fi
   '';
