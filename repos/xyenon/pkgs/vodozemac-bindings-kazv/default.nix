@@ -37,6 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   # Corrosion 0.6 places Cargo artifacts in a directory with a manifest path hash.
   postPatch = ''
+    cp ${./Cargo.lock} Cargo.lock
     substituteInPlace CMakeLists.txt \
       --replace-fail 'COMMAND "''${CMAKE_COMMAND}" -E copy "''${CMAKE_BINARY_DIR}/cargo/build/''${Rust_CARGO_TARGET}/cxxbridge/vodozemac/src/lib.rs.h" "''${CMAKE_BINARY_DIR}/vodozemac.h"' \
         'COMMAND sh -c "cp ''${CMAKE_BINARY_DIR}/cargo/*/''${Rust_CARGO_TARGET}/cxxbridge/vodozemac/src/lib.rs.h ''${CMAKE_BINARY_DIR}/vodozemac.h"'
