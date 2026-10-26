@@ -6,13 +6,13 @@
 }:
 nurLib.mkAgentPlugins (finalAttrs: {
   pname = finalAttrs.finalPackage.marketplace.name or "dotnet-skills";
-  version = "unstable-2026-10-16";
+  version = "unstable-2026-10-22";
 
   src = fetchFromGitHub {
     owner = "dotnet";
     repo = "skills";
-    rev = "10d85e25fb42d5f65c568d5e979a005ee69eecb3";
-    sha256 = "sha256-ynj5Z+w77tg5XYQKn9OaIyys7ZPq6GRwHxJFtQtEvQU=";
+    rev = "a6bf43ab61967c30919334986515163ab24d7635";
+    sha256 = "sha256-jbv6CrsIkhRahJ6bo2c/M/ji9g0LoRTqjiBQr/0J9hQ=";
   };
 
   marketplace = ./marketplace.json;

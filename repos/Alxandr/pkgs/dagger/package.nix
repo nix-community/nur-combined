@@ -11,19 +11,19 @@
 
 buildGoModule (finalAttrs: {
   pname = "dagger";
-  version = "0.21.10";
+  version = "0.21.11";
 
   src = fetchFromGitHub {
     owner = "dagger";
     repo = "dagger";
     rev = "v${finalAttrs.version}";
-    sha256 = "sha256-aRWgwGRWJgUVSy4DanmrRBX8cpF86n/YxStaE2C67HA=";
+    sha256 = "sha256-vE1flfcSZK0GluFORnXRPgaSAh7jjPIn8C1vk17r1Ag=";
     fetchSubmodules = true;
   };
 
   # Some native dependencies are not properly vendored without this
   proxyVendor = true;
-  vendorHash = "sha256-GNVVwSdsNuGOrApJ6oXNMWv5C0S0tFVLNWKc+R9Ld1s=";
+  vendorHash = "sha256-p/tyNt19wUwzYA7uzRE8X4E1xWZ1/yiWCxknOlgHX+o=";
 
   subPackages = [
     "cmd/dagger"
