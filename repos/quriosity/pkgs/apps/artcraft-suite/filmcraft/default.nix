@@ -60,10 +60,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   runtimeDependencies = runtimeLibs;
 
-  postPatch = ''
-    patch -p1 < ${./dev-icon-mimetype.patch}
-  '';
-
   postInstall = ''
     mkdir -p $out/share/applications $out/share/icons $out/share/metainfo
     install -Dm644 packaging/linux/ai.storyteller.filmcraft.desktop \
