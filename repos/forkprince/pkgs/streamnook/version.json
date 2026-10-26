@@ -6,16 +6,16 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "8.8.15",
+  "version": "8.8.16",
   "platforms": {
     "aarch64-darwin": {
       "file": "StreamNook.app.tar.gz",
-      "hash": "sha256-UFCtwCRwYj7ZR6uVm0zTx30LX5galk2oG3BvitZn6wQ=",
+      "hash": "sha256-ewK6Mz7MZib9RNROyxrRuaso0UG3Aj/+UZokJ4QQNbE=",
       "unpack": true
     },
     "x86_64-darwin": {
       "file": "StreamNook.app.tar.gz",
-      "hash": "sha256-UFCtwCRwYj7ZR6uVm0zTx30LX5galk2oG3BvitZn6wQ=",
+      "hash": "sha256-ewK6Mz7MZib9RNROyxrRuaso0UG3Aj/+UZokJ4QQNbE=",
       "unpack": true
     },
     "x86_64-linux": {
