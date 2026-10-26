@@ -22,6 +22,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   lain-kde-splashscreen = pkgs.callPackage ./pkgs/lain-kde-splashscreen { };
+  artmatic = pkgs.callPackage ./pkgs/artmatic { };
   cc-switch = pkgs.callPackage ./pkgs/cc-switch { };
   luker = pkgs.callPackage ./pkgs/luker { };
   metapi = pkgs.callPackage ./pkgs/metapi { };
