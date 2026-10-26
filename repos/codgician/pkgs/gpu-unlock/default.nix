@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gpu-unlock";
-  version = "1.1.1-unstable-2026-10-24";
+  version = "1.1.1-unstable-2026-10-26";
 
   src = fetchFromGitHub {
     owner = "JustAResearcher";
     repo = "gpu-unlock-ada";
-    rev = "4e7fefcc4923f9e083d5324dc75a7d2f906af77f";
-    hash = "sha256-pMyw74XF3F1DeDABpRzRJlALZZ1SD7YUbVFXUrMrM5Q=";
+    rev = "d28c485418c3d9d034cd4bac19200bc33dd3453b";
+    hash = "sha256-+asA7z8uR3dwJROyK8xl2Xe2VvWmVv/vZ8nx/SjB4fk=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/kernel/gpu_unlock";
