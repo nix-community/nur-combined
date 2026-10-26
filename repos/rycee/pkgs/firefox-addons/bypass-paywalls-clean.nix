@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "bypass-paywalls-clean";
-  version = "4.4.7.7";
+  version = "4.4.8.0";
   addonId = "magnolia@12.34";
-  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.7.7.xpi";
-  sha256 = "9bb9212a2e6a5b6863bd66f0a987e5191dd07dcebb0417833928dc85c3366ed9";
+  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.8.0.xpi";
+  sha256 = "b80a85b1c7571a1a803fcbfb4b5231dd7c3e12c12e57e2703845da03371596ad";
   meta = with lib; {
     homepage = "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean";
     description = "Bypass Paywalls of (custom) news sites";
@@ -238,6 +238,7 @@ buildFirefoxXpiAddon {
       "*://*.economist.com/*"
       "*://*.ed.nl/*"
       "*://*.editorialedomani.it/*"
+      "*://*.edmontonjournal.com/*"
       "*://*.elcomercio.es/*"
       "*://*.elcomercio.pe/*"
       "*://*.elconfidencial.com/*"
@@ -407,7 +408,6 @@ buildFirefoxXpiAddon {
       "*://*.jacobin.de/*"
       "*://*.japantimes.co.jp/*"
       "*://*.jazzwise.com/*"
-      "*://*.jeuneafrique.com/*"
       "*://*.jgnt.co/*"
       "*://*.journaldemillau.fr/*"
       "*://*.journaldemontreal.com/*"
@@ -546,6 +546,7 @@ buildFirefoxXpiAddon {
       "*://*.modernretail.co/*"
       "*://*.monacomatin.mc/*"
       "*://*.monocle.com/*"
+      "*://*.montrealgazette.com/*"
       "*://*.morgenpost.de/*"
       "*://*.motorradonline.de/*"
       "*://*.motorsportmagazine.com/*"
@@ -623,6 +624,7 @@ buildFirefoxXpiAddon {
       "*://*.orlandosentinel.com/*"
       "*://*.ostdeutscheallgemeine.com/*"
       "*://*.ostsee-zeitung.de/*"
+      "*://*.ottawacitizen.com/*"
       "*://*.otz.de/*"
       "*://*.ouest-france.fr/*"
       "*://*.outdoorlife.com/*"
@@ -700,6 +702,7 @@ buildFirefoxXpiAddon {
       "*://*.sabado.pt/*"
       "*://*.sacbee.com/*"
       "*://*.saechsische.de/*"
+      "*://*.saltwire.com/*"
       "*://*.sandiegouniontribune.com/*"
       "*://*.scholastic.com/*"
       "*://*.schweizermonat.ch/*"
@@ -770,7 +773,6 @@ buildFirefoxXpiAddon {
       "*://*.techinasia.com/*"
       "*://*.technologyreview.com/*"
       "*://*.techtarget.com/*"
-      "*://*.telegraaf.nl/*"
       "*://*.telegram.hr/*"
       "*://*.telegraph.co.uk/*"
       "*://*.telerama.fr/*"

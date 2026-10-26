@@ -444,10 +444,10 @@
     };
     "archivebox-exporter" = buildMozillaXpiAddon {
       pname = "archivebox-exporter";
-      version = "3.3.21";
+      version = "3.3.22";
       addonId = "archivebox@tjhorner.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5155768/archivebox_exporter-3.3.21.xpi";
-      sha256 = "a37ade23e3ce188c2992c2a402e53afe9a7eea6c15f5698419da062481fe5e3b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5165963/archivebox_exporter-3.3.22.xpi";
+      sha256 = "6dd25a3a9a8a729fb931daaf1cfa521a7e9a9ba0ded42c4474a226e77089dac0";
       meta = with lib;
       {
         homepage = "https://extension.archivebox.io/";
@@ -6343,13 +6343,13 @@
     };
     "karakeep" = buildMozillaXpiAddon {
       pname = "karakeep";
-      version = "1.2.11";
+      version = "1.2.13";
       addonId = "addon@karakeep.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4800400/karakeep-1.2.11.xpi";
-      sha256 = "bf090952fb45a322910af468549cd2f41e19635169030bf35144a9224b4a3e50";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5165240/karakeep-1.2.13.xpi";
+      sha256 = "61d924dac783459f16731f522048f8b42c3069bb9af4a67eaeee7a397e41fc03";
       meta = with lib;
       {
-        homepage = "https://karakeep.app";
+        homepage = "https://karakeep.com";
         description = "An extension to bookmark links to karakeep.app";
         license = licenses.agpl3Only;
         mozPermissions = [
@@ -6365,10 +6365,10 @@
     };
     "keepa" = buildMozillaXpiAddon {
       pname = "keepa";
-      version = "5.67";
+      version = "5.68";
       addonId = "amptra@keepa.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5158558/keepa-5.67.xpi";
-      sha256 = "79f98923550e8c41b32d901ebfb814c096c378a26e1d8f8524d646bc08f92d96";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5166835/keepa-5.68.xpi";
+      sha256 = "e03a74556f47be7a5892d798565cb9a242ae14ef6f6e12e28b1c48445c5c608b";
       meta = with lib;
       {
         homepage = "https://Keepa.com";
@@ -9022,10 +9022,10 @@
     };
     "mtab" = buildMozillaXpiAddon {
       pname = "mtab";
-      version = "1.13.4";
+      version = "1.13.5";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5155253/mtab-1.13.4.xpi";
-      sha256 = "dbe713751e21b923aae29915ef0d7cd212d2731fea223b0f907a5f2959a9091b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5165972/mtab-1.13.5.xpi";
+      sha256 = "5c00781fac21807e480e0961b86215c7afe5c3509082360f942faed6d35ef226";
       meta = with lib;
       {
         homepage = "https://mtab.maxhu.dev";
@@ -9991,10 +9991,10 @@
     };
     "page-assist" = buildMozillaXpiAddon {
       pname = "page-assist";
-      version = "1.5.88";
+      version = "1.5.89";
       addonId = "page-assist@nazeem";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5136047/page_assist-1.5.88.xpi";
-      sha256 = "2551cae24147645759e6c58ecae91f032f29eb75642eeb58761ab4f19af98138";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5164959/page_assist-1.5.89.xpi";
+      sha256 = "b8a7c67d8856f71827d4ee8704c597a1d13628884d9c210be491aa4c920e69ae";
       meta = with lib;
       {
         homepage = "https://github.com/n4ze3m/page-assist";
@@ -15734,10 +15734,10 @@
     };
     "wappalyzer" = buildMozillaXpiAddon {
       pname = "wappalyzer";
-      version = "6.12.7";
+      version = "6.12.8";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5067215/wappalyzer-6.12.7.xpi";
-      sha256 = "8e82bc82f2926127309f27bcf64aaabc1cf3aed918b9327b4600af369b75774b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5166528/wappalyzer-6.12.8.xpi";
+      sha256 = "20bb60052190e00204970fc9d430e5c7756eab90a8e29f3006e79f2ed9f8efb8";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
