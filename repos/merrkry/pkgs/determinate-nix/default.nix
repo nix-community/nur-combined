@@ -42,9 +42,6 @@ let
     dependencies final
     // packages
     // {
-      # Reuse nixpkgs' existing Wasmtime C API build.
-      inherit (pkgs) wasmtime;
-
       nix-store = packages.nix-store.overrideAttrs {
         # The source already contains a build/ directory, as in nixpkgs' Nix.
         mesonBuildDir = "meson-build-dir";
