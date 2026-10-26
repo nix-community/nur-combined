@@ -1,9 +1,6 @@
 {
   lib,
   buildDotnetModule,
-  patchelf,
-  fetchurl,
-  autoreconfHook,
   fetchFromGitHub,
   dotnetCorePackages,
   autoPatchelfHook,
@@ -14,36 +11,7 @@
   nix-update-script,
 }:
 
-let
-  # autoreview: 2026-10-22-patchelf-bug
-  grpcPatchelf = patchelf.overrideAttrs (old: {
-    patches = (old.patches or [ ]) ++ [
-      (fetchurl {
-        url = "https://github.com/NixOS/patchelf/commit/59acc3d98b4961cfddf02090d9426ac735603218.patch";
-        hash = "sha256-ONXiByBJKla9r9FzeOx7KgvCEmuySRYE74XGGpEXFKo=";
-      })
-    ];
-    nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ autoreconfHook ];
-  });
-  buildAspire =
-    if patchelf.version != "0.19.2" then
-      buildDotnetModule
-    else
-      buildDotnetModule.override (previous: {
-        addNuGetDeps = previous.addNuGetDeps.override (deps: {
-          fetchNupkg =
-            args:
-            if args.pname == "Grpc.Tools" && args.version == "2.83.0" then
-              (deps.fetchNupkg.override (fetchArgs: {
-                patchNupkgs = fetchArgs.patchNupkgs.override { patchelf = grpcPatchelf; };
-              }))
-                args
-            else
-              deps.fetchNupkg args;
-        });
-      });
-in
-buildAspire (finalAttrs: {
+buildDotnetModule (finalAttrs: {
   pname = "aspire-dashboard";
   version = "13.6.1";
 

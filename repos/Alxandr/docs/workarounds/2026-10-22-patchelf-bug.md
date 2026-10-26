@@ -1,11 +1,39 @@
 # patchelf aborts while preparing Grpc.Tools
 
-- Status: fixed upstream
+- Status: resolved
 - Introduced: 2026-10-22
-- Last reviewed: 2026-10-22
-- Location: `pkgs/aspire-dashboard/package.nix`, `grpcPatchelf` and `buildAspire`
+- Last reviewed: 2026-10-26
+- Removed: 2026-10-26
+- Former location: `pkgs/aspire-dashboard/package.nix`, `grpcPatchelf` and `buildAspire`
 - Affected dependency: Aspire Dashboard 13.6.1's `Grpc.Tools` 2.83.0
-- Activation: exactly `patchelf.version == "0.19.2"`, for that dependency only
+- Former activation: exactly `patchelf.version == "0.19.2"`, for that dependency only
+
+## Resolution
+
+Removed the backport, dependency overrides, extra package arguments, and code
+marker on 2026-10-26. Aspire now uses `buildDotnetModule` directly.
+
+The current supported matrix no longer needs our backport:
+
+- `nixpkgs-unstable`, revision `d3b13ad75cc492690728f9307e443dec9ef9a20e`,
+  and `nixos-unstable`, revision `3ec636362e1816bc2f0888fa0fa2c69f1bc9e504`,
+  downgrade patchelf internally to 0.15.2 for NuGet binary modification.
+- `nixos-stable`, revision `1f607aa79b6356ed45d3cd3c8079c196e79efa2c`,
+  defines patchelf 0.15.2, so our override was inactive.
+- `detnix-weekly`, revision `55bfb4d7437bd4e09ab7cba58a43bd68eb310044`,
+  evaluates to patchelf 0.15.2, so our override was inactive.
+
+The upstream downgrade was introduced by
+[`967152e4070ab72a7b510bccac2fd598602314eb`](https://github.com/NixOS/nixpkgs/commit/967152e4070ab72a7b510bccac2fd598602314eb).
+Its later `overrideAttrs` retained our patch while replacing the version and
+source with 0.15.2. This caused both unstable jobs in
+[CI run 40314273250](https://github.com/Alxandr/nur/actions/runs/40314273250)
+to fail applying the 0.19.2 backport to 0.15.2 sources.
+
+These are current source/evaluation checks, not a reconstruction of every
+revision used by that CI run. At the user's request, removal was not built
+locally; verification of builds across all four inputs is deferred to CI.
+The historical workaround and its verification are documented below.
 
 ## Problem and upstream tracking
 
