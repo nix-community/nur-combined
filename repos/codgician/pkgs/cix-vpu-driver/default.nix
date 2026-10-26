@@ -49,14 +49,15 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postBuild
   '';
 
-  # No `modules_install` target in-tree; install `amvx.ko` manually into
-  # the standard out-of-tree location so the NixOS module loader picks it
-  # up. Also expose the uapi header for userspace consumers (cix-vaapi,
-  # cix-ffmpeg).
+  # Install through Kbuild's `modules_install` so the kernel's signing rule
+  # (kmodigest on current nixpkgs) and module compression apply; NixOS's
+  # module aggregation expects the resulting per-module `.ko.cer`. Also expose
+  # the uapi header for userspace consumers (cix-vaapi, cix-ffmpeg).
   installPhase = ''
     runHook preInstall
-    install -Dm644 amvx.ko \
-      "$out/lib/modules/${kernel.modDirVersion}/extra/amvx.ko"
+    make -C ${kernelDir} M=$PWD modules_install \
+      ${lib.escapeShellArgs kernelModuleMakeFlags} \
+      INSTALL_MOD_PATH=$out INSTALL_MOD_DIR=extra DEPMOD=true
     install -Dm644 linux/mvx-v4l2-controls.h \
       "$out/include/cix/mvx-v4l2-controls.h"
     runHook postInstall

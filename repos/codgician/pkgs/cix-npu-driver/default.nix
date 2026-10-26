@@ -58,10 +58,14 @@ stdenv.mkDerivation (finalAttrs: {
                      '-I$(M)/armchina-npu/ -I$(M)/armchina-npu/include -I$(M)/armchina-npu/zhouyi'
   '';
 
+  # Install through Kbuild's `modules_install` so the kernel's signing rule
+  # (kmodigest on current nixpkgs) and module compression apply; NixOS's
+  # module aggregation expects the resulting per-module `.ko.cer`.
   installPhase = ''
     runHook preInstall
-    install -Dm644 aipu.ko \
-      "$out/lib/modules/${kernel.modDirVersion}/extra/aipu.ko"
+    make -C ${kernelDir} M=$PWD modules_install \
+      ${lib.escapeShellArgs kernelModuleMakeFlags} \
+      INSTALL_MOD_PATH=$out INSTALL_MOD_DIR=extra DEPMOD=true
     runHook postInstall
   '';
 
