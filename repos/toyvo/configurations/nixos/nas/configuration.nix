@@ -34,6 +34,7 @@ in
     inputs.nixcfg.modules.nixos.podman
     inputs.nixcfg.modules.nixos.k3s
     inputs.nixcfg.modules.nixos.k3s-homepage
+    inputs.nixcfg.modules.nixos.k3s-storage
     inputs.nixcfg.modules.nixos.monitoring
     inputs.nixcfg.modules.nixos.ollama
     inputs.nixcfg.modules.nixos.protonmail-bridge
@@ -144,6 +145,9 @@ in
     };
     # First migration passenger; manifests deploy cluster-wide from here.
     k3sHomepage.enable = true;
+    # Shared NFS storage (csi-driver-nfs + static pool PVs).
+    # Single writer: enable ONLY here, never on another server.
+    k3sStorage.enable = true;
     security.enable = true;
     home-manager.enable = true;
     networking.enable = true;

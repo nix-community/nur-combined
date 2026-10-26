@@ -41,6 +41,7 @@ in
         inputs.tuios.packages.${system}.tuios
         proton-pass-cli
         ripgrep
+        secretspec
         sops
       ];
       sessionVariables.EDITOR = "nvim";
