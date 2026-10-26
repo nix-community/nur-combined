@@ -676,6 +676,36 @@ func patchChecks(files []*sourceFile, o options) error {
 				}
 				continue
 			}
+			// Linux tries GPUs through the Vulkan helper, not pf-serve's Metal
+			// backend. Install that stand-in in fixtures asserting GPU behavior.
+			if o.platform == "linux" && dir == "internal/pii" &&
+				(fn.Name.Name == "TestFindJoinsTextsAndMapsBack" || fn.Name.Name == "TestGPUDeathMovesToCPU" ||
+					fn.Name.Name == "TestServeStartsWithoutResidencyHeartbeat" || fn.Name.Name == "TestWarm") {
+				ast.Inspect(fn.Body, func(n ast.Node) bool {
+					if call, ok := n.(*ast.CallExpr); ok && f.call(call, "", "fakeInstall") && len(call.Args) == 3 &&
+						(firstString(call.Args[1]) == "ok" || firstString(call.Args[1]) == "gpudies") {
+						f.replace(call.Args[2], "true")
+					}
+					if literal, ok := n.(*ast.BasicLit); ok && firstString(literal) == "start pf-serve MTL0" {
+						f.replace(literal, strconv.Quote("start pf-serve-vulkan MTL0"))
+					}
+					return true
+				})
+			}
+			// The timeout response can release the masker before its timer records
+			// the final route. Wait for completion before checking the same error.
+			if dir == "internal/gateway" && fn.Name.Name == "TestHeldForTheMaskingModelSaysSo" &&
+				!strings.Contains(f.text(fn.Body), "the masking route never finished") {
+				for _, statement := range fn.Body.List {
+					assignment, ok := statement.(*ast.AssignStmt)
+					if ok && len(assignment.Lhs) == 1 && f.text(assignment.Lhs[0]) == "rs" {
+						f.insert(statement.Pos(), `eventually(t, "the masking route never finished", func() bool {
+							rs := routesOf(s, "probe/text")
+							return len(rs) == 1 && rs[0].Done
+						})`+"\n")
+					}
+				}
+			}
 			// Freeze only the backup clock: synctest also owns channels created by
 			// filememo, which later plugin callbacks must close outside its bubble.
 			if dir == "internal/provider" && fn.Name.Name == "TestUnreadLoginsWriteErrorsKeepCredentials" {
