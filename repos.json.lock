@@ -261,8 +261,8 @@
             "url": "https://github.com/aciceri/nur"
         },
         "adam0": {
-            "rev": "11ffe7785aaeee79c822f127db77f21898e55086",
-            "sha256": "112f3ls6c84zdmnydddmnhzxxi3w81k9nz10rfbg27a378b8dsnz",
+            "rev": "345341251d8e4702bc16f5c2e7730cc39b9237cb",
+            "sha256": "1pjrg5sprs892wccqbdrjws1xngwj3l65j71kvcz0siyhvyyzvsf",
             "url": "https://github.com/adam01110/nur"
         },
         "af-nur": {
@@ -998,11 +998,6 @@
             "rev": "43c29fa76d0b1cf74650b2bc346059b0b1440d0f",
             "sha256": "1h44kpx9y62h7bdxr7ad7ra4pg9rl2wrcdm15rjx4s3mqymh805s",
             "url": "https://github.com/fooker/nur-packages"
-        },
-        "foolnotion": {
-            "rev": "6dfcd286225de0be438b247b94b02dcce3b80aee",
-            "sha256": "08vqnvixnyszai5rw7r8kzmply0lrxxcjwli2m2cz2hls4k1fsdv",
-            "url": "https://github.com/foolnotion/nur-pkg"
         },
         "foresense": {
             "rev": "af832ac9bbe2213339c3c6d8e6d8f4adf4ae2d4a",
