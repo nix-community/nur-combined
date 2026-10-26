@@ -49,16 +49,16 @@
 
 let
   pname = "openide";
-  version = "262.10968.63.1";
+  version = "262.10968.63.2";
 
   sources = {
     x86_64-linux = {
       url = "https://download.openide.ru/${version}/openIDE-${version}.tar.gz";
-      hash = "sha256-7SH5EqUE3j6t2IC8ECgzRrzj+Ala7DlFH/DAvS3yZ34=";
+      hash = "sha256-6B9Y4v8mC3uad4Sm6xelO2jF51vS/WjlrZ9QDl8J+JQ=";
     };
     aarch64-linux = {
       url = "https://download.openide.ru/${version}/openIDE-${version}-aarch64.tar.gz";
-      hash = "sha256-TNtnJvvKerFrYtd6kxq1SLY7uENeG1Bgu3wyX5xnH9Q=";
+      hash = "sha256-4v/U83Qvi1xodILU77cbJPfIkXDB6nzuKLYnk+LLbR4=";
     };
   };
 
