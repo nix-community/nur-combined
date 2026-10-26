@@ -40,10 +40,11 @@ let
   jdk = jdk21;
   gradle = gradle_9.override { java = jdk; };
 
-  mpvPkg = if (stdenv.hostPlatform.isLinux && mpvScripts != null) then
-    (mpv.override { scripts = [ mpvScripts.mpris ]; })
-  else
-    mpv;
+  mpvPkg =
+    if (stdenv.hostPlatform.isLinux && mpvScripts != null) then
+      (mpv.override { scripts = [ mpvScripts.mpris ]; })
+    else
+      mpv;
 
   # Compose Desktop native launcher + Skiko/JNA runtime libs.
   runtimeLibs = lib.optionals stdenv.hostPlatform.isLinux [
