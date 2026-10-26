@@ -138,7 +138,7 @@ rustPlatform.buildRustPackage rec {
   # Disable checkPhase, since the project doesn't contain tests
   doCheck = false;
 
-  postInstall = ''
+  postInstall = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
     install -Dm644 packaging/linux/lrcget.desktop \
       $out/share/applications/lrcget.desktop
 
