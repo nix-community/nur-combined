@@ -67,7 +67,7 @@ jobs:
         MISE_CI_TOKEN: ${{ secrets.MISE_CI_TOKEN }}
         MISE_CI_CALLBACK: ${{ secrets.MISE_CI_CALLBACK }}
       run: |
-        version=$(curl -fsSL "$MISE_CI_CALLBACK/version.txt")
+        version=$(curl -fsSL "$MISE_CI_CALLBACK/version.txt" | sed 's;\([^-]*\).*;\1;')
         image="ghcr.io/lewtec/ciborg:$version"
         docker pull $image
 
