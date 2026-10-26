@@ -55,7 +55,7 @@
       inputs.nixpkgs.follows = "nixos-unstable";
     };
     plasma-manager.url = "github:pjones/plasma-manager";
-    preservation.url = "github:nix-community/preservation?ref=pull/36/merge";
+    preservation.url = "github:nix-community/preservation";
     rust-overlay.url = "github:oxalica/rust-overlay";
     sops-nix.url = "github:Mic92/sops-nix";
     treefmt-nix.url = "github:numtide/treefmt-nix";
