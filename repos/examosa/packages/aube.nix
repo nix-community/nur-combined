@@ -17,7 +17,7 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "aube";
-  version = "2.3.0";
+  version = "2.8.3";
 
   __structuredAttrs = true;
 
@@ -25,10 +25,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "aubepkg";
     repo = "aube";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-nNfDd3Aur7P5dRcT6ioyXf6TzNrXAafOVs8grZ0rfB8=";
+    hash = "sha256-b3FPqvMraOxL51EWY5JUTIwtbw4RSEa8Yr7qSSKb9VI=";
   };
 
-  cargoHash = "sha256-54C321JXpcSFueT8EF5bloDdjfjiS+ZppLsd8Q64stk=";
+  cargoHash = "sha256-oYAiWoSz0fXvoUKGrQJUQSaBkjJep9bWn+g8fTKuwBk=";
 
   nativeBuildInputs = [
     cmakeMinimal
@@ -53,13 +53,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
     substituteInPlace crates/aube-lockfile/src/io.rs crates/aube/src/commands/version.rs \
       --replace-fail '"git"' '"${lib.getExe gitMinimal}"'
-
-    substituteInPlace crates/aube/tests/e2e.rs \
-      --replace-fail '"node ' '"${lib.getExe nodejs-slim} '
   '';
 
   nativeCheckInputs = [
     cacert
+    nodejs-slim
     writableTmpDirAsHomeHook
   ];
 
@@ -82,7 +80,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   postInstall = ''
-    rm -fv $out/bin/generate-{error-codes,settings}-docs
+    rm -f $out/bin/generate-{error-codes,settings}-docs
 
     completions=()
 

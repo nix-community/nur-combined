@@ -6,7 +6,7 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "crgx";
-  version = "0.1.0";
+  version = "0.1.1";
 
   __structuredAttrs = true;
 
@@ -14,10 +14,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "yfedoseev";
     repo = "crgx";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-eKtiB+7U2daUpN31axxAHswZE6xQ2mh09mMhdCr1Suc=";
+    hash = "sha256-rBzKY3owlk9SDFZSFv7tg2xPGUpUFLafxmaFW0+IS5E=";
   };
 
-  cargoHash = "sha256-qwwI2nUub0wkBwny0IsKXTDNrsq5WPR5x1v55nJwx1Y=";
+  cargoHash = "sha256-3RuHgz9xfpi4eLqNQuDItRUipN2CxbhVioTANRekTs0=";
 
   passthru.updateScript = nix-update-script {extraArgs = ["--use-github-releases"];};
 
