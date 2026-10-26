@@ -14,13 +14,13 @@
 }:
 
 let
-  glideVersion = "0.1.64a";
+  glideVersion = "0.1.65a";
   glideRevision = "e89e9a621993";
-  firefoxVersion = "156.0b3";
+  firefoxVersion = "159.0b4";
 
   firefoxSrc = fetchurl {
     url = "mirror://mozilla/firefox/releases/${firefoxVersion}/source/firefox-${firefoxVersion}.source.tar.xz";
-    hash = "sha256-9WRZZH1ccXfm3FqxDq/ksG/EKZPa9RPVYZ2VCSqw/eQ=";
+    hash = "sha256-CaXl+swG8NSDOXcgYulQt54yxhZ/jVYiiR6orXqXZ8w=";
   };
 
   patchedGlideSrc = stdenv.mkDerivation {
@@ -31,28 +31,28 @@ let
       owner = "glide-browser";
       repo = "glide";
       tag = glideVersion;
-      hash = "sha256-T/Sw6HxbCY9qbpa7ALtOQiDkFcsgIZcPXgU5dLE444o=";
+      hash = "sha256-5wMMI1DyUQi5xpX8ZBVKiAEt6Z1+dZn8pxgG6C5n/5k=";
     };
 
     nativeBuildInputs = [ nodejs ];
 
-    postPatch = ''
-      # pnpm is a fuck 
-      # moves package overrides somewhere else as required by pnpm 11
-      node -e "
-        const fs = require('fs');
-        const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
-        if (pkg.pnpm && pkg.pnpm.overrides) {
-          pkg.overrides = { ...(pkg.overrides || {}), ...pkg.pnpm.overrides };
-          delete pkg.pnpm.overrides;
-          if (Object.keys(pkg.pnpm).length === 0) delete pkg.pnpm;
-        }
-        delete pkg.packageManager;
-        fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
-      "
-      # remove old pnpm overrides section
-      sed -i '/^overrides:/,/^$/d' pnpm-lock.yaml
-    '';
+    #postPatch = ''
+    #  # pnpm is a fuck
+    #  # moves package overrides somewhere else as required by pnpm 11
+    #  node -e "
+    #    const fs = require('fs');
+    #    const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+    #    if (pkg.pnpm && pkg.pnpm.overrides) {
+    #      pkg.overrides = { ...(pkg.overrides || {}), ...pkg.pnpm.overrides };
+    #      delete pkg.pnpm.overrides;
+    #      if (Object.keys(pkg.pnpm).length === 0) delete pkg.pnpm;
+    #    }
+    #    delete pkg.packageManager;
+    #    fs.writeFileSync('package.json', JSON.stringify(pkg, null, 2) + '\n');
+    #  "
+    #  # remove old pnpm overrides section
+    #  sed -i '/^overrides:/,/^$/d' pnpm-lock.yaml
+    #'';
 
     dontBuild = true;
     dontFixup = true;
@@ -94,7 +94,7 @@ let
     pnpmDeps = fetchPnpmDeps {
       inherit (finalAttrs) pname version src;
       fetcherVersion = 4;
-      hash = "sha256-qczgipxw2lU3qIaIn9xgJATVQV/1ZjWnPmYXNd6jq44=";
+      hash = "sha256-CFeRR6UXS3Mdg0xzT0NdIitGFQpY2NI6gW2BcMTxObo=";
     };
 
     buildPhase = ''
@@ -159,13 +159,13 @@ in
       mainProgram = "glide";
     };
   }).override
-  {
-    enablePGO = false;
-    enableCrashReporter = false;
-    enableAddonSigning = false;
-    enableAddonSideload = true;
-    enableOfficialBranding = false;
-  }
+    {
+      enablePGO = false;
+      enableCrashReporter = false;
+      enableAddonSigning = false;
+      enableAddonSideload = true;
+      enableOfficialBranding = false;
+    }
 ).overrideAttrs
   (
     prev:
