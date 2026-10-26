@@ -10,11 +10,6 @@
     };
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-
-    nix-fast-build = {
-      url = "github:Mic92/nix-fast-build";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -22,7 +17,6 @@
       flake-utils,
       flake-linter,
       nixpkgs,
-      nix-fast-build,
       ...
     }:
     {
@@ -103,7 +97,6 @@
       rec {
         packages = flake-utils.lib.filterPackages system flatNurPkgs // {
           sync = nurPkgs.callPackage ./maintainers/scripts/sync.nix {
-            nix-fast-build = nix-fast-build.packages.${system}.default;
             inherit nixpkgs;
             inherit (packages) update;
           };
