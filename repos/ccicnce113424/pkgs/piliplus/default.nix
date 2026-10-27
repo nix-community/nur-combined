@@ -10,7 +10,7 @@
   powershell,
   makeDesktopItem,
   copyDesktopItems,
-  makeWrapper,
+  autoPatchelfHook,
   pkg-config,
   alsa-lib,
   mpv-unwrapped,
@@ -42,7 +42,7 @@ flutter.buildFlutterApplication {
     powershell
     copyDesktopItems
     pkg-config
-    makeWrapper
+    autoPatchelfHook
   ];
 
   buildInputs = [
@@ -134,13 +134,11 @@ flutter.buildFlutterApplication {
 
   flutterBuildFlags = [ "--dart-define-from-file=pili_release.json" ];
 
-  postFixup = ''
-    # cnativeapi's @Native bindings dlopen libcnativeapi.so by bare name;
-    # DynamicLibrary.open() is called from libflutter_linux_gtk.so and ignores
-    # the executable RUNPATH, so put the bundle's lib/ dir on LD_LIBRARY_PATH.
-    wrapProgram $out/bin/piliplus \
-      --prefix LD_LIBRARY_PATH : "$out/app/piliplus/lib"
-  '';
+  # cnativeapi's @Native bindings dlopen libcnativeapi.so by bare name from the
+  # bundled Dart code, i.e. from libapp.so / libflutter_linux_gtk.so rather than
+  # the executable, so the bundle's lib/ directory has to be appended to the
+  # RUNPATH of the bundle's ELFs.
+  appendRunpaths = [ "${placeholder "out"}/app/piliplus/lib" ];
 
   postInstall = ''
     declare -A sizes=(

@@ -11,6 +11,7 @@
   pkg-config,
   jq,
   moreutils,
+  autoPatchelfHook,
   glib-networking,
   openssl,
   webkitgtk_4_1,
@@ -59,7 +60,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     jq
     moreutils
   ]
-  ++ lib.optionals stdenv.hostPlatform.isLinux [ wrapGAppsHook4 ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    autoPatchelfHook
+    wrapGAppsHook4
+  ]
   ++ lib.optionals stdenv.hostPlatform.isDarwin [ actool ];
 
   # we don't want to wrap aria2c
@@ -70,6 +74,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
     openssl
     webkitgtk_4_1
     libayatana-appindicator
+    # the bundled aria2-next binary links libstdc++/libgcc_s dynamically
+    stdenv.cc.cc.lib
+  ];
+
+  # `libappindicator-sys` dlopen()s the tray library from the executable, but
+  # it has no DT_NEEDED entry, so autoPatchelfHook cannot discover it.
+  appendRunpaths = lib.optionals stdenv.hostPlatform.isLinux [
+    (lib.makeLibraryPath [ libayatana-appindicator ])
   ];
 
   __structuredAttrs = true;
@@ -95,11 +107,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     gappsWrapperArgs+=(
-      --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [
-          libayatana-appindicator
-        ]
-      }
       --suffix PATH : ${
         lib.makeBinPath [
           desktop-file-utils

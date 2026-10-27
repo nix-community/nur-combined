@@ -8,7 +8,7 @@
   mpv-unwrapped,
   makeDesktopItem,
   copyDesktopItems,
-  makeWrapper,
+  autoPatchelfHook,
 }:
 flutter.buildFlutterApplication (finalAttrs: {
   inherit (sources) pname src;
@@ -36,13 +36,14 @@ flutter.buildFlutterApplication (finalAttrs: {
 
   nativeBuildInputs = [
     copyDesktopItems
-    makeWrapper
+    autoPatchelfHook
   ];
 
-  postFixup = ''
-    wrapProgram $out/bin/KikoFlu \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ mpv-unwrapped ]}"
-  '';
+  # media_kit loads libmpv through DynamicLibrary.open(), and the call site is
+  # the bundled Dart VM (libflutter_linux_gtk.so) rather than the executable,
+  # so runtimeDependencies (executables only) cannot cover it: the directory has
+  # to be appended to the RUNPATH of every ELF in the bundle.
+  appendRunpaths = [ (lib.makeLibraryPath [ mpv-unwrapped ]) ];
 
   postInstall = ''
     install -D assets/icons/app_icon_no_background.png $out/share/icons/kikoflu.png
