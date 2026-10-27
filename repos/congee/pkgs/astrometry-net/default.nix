@@ -36,7 +36,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "astrometry-net";
-  version = "0.98";
+  version = "0.99";
 
   # Tag, not release tarball: upstream tags ahead of publishing. The tarball only
   # adds pre-swigged sources (`all` never swigs) and a `git describe`, pinned below.
@@ -44,7 +44,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "dstndstn";
     repo = "astrometry.net";
     tag = finalAttrs.version;
-    hash = "sha256-/YLDcPOQHw23s77s3XRVa6YV4CwT5CKs3f+m2pBLajY=";
+    hash = "sha256-paNmv55J5kUjICFfoTx8HejX2XStNj4aqZ1G2JbqUK8=";
   };
 
   # pythonEnv is also a runtime dep (see above).
