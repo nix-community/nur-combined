@@ -6,7 +6,7 @@
 }:
 
 let
-  version = "0.28.30";
+  version = "0.28.32";
 
   os =
     if stdenv.hostPlatform.isLinux then
@@ -28,10 +28,10 @@ let
       throw "plannotator: unsupported arch ${stdenv.hostPlatform.system}";
 
   sha256BySystem = {
-    "x86_64-linux" = "sha256-D6/3lPsUVVLi2V38vO5OeVpSmAF2Luqg1Qz8+K2PiP4=";
-    "aarch64-linux" = "sha256-ZAuOJtKKI9eFFnIpqjKhyLbysDLoEhA92rXlbq1ET3M=";
-    "x86_64-darwin" = "sha256-ppGlUb+b/qV4cqjiWDbZ1ENICF8lOiB7sOkAtsshRSA=";
-    "aarch64-darwin" = "sha256-31uMf4cHsLRZ1H3I503+98pJdZ4FYrSzazzMM+qH9hE=";
+    "x86_64-linux" = "sha256-HnhkrOCV54SSMPJ9PfbsE/oq8htuZ/2ih/Isruv6Cfk=";
+    "aarch64-linux" = "sha256-jo2PKVq/uxXWRc0ELnJvMHEuTTobEj3l12LwqsXpDBU=";
+    "x86_64-darwin" = "sha256-eelOGxTlWQcWllRiZKchMMeOM6X9kFGn2C7v0XfgMF0=";
+    "aarch64-darwin" = "sha256-mulKfesFgyr0c98/LFJ+7z5VrCL2Q11KmaYzZ6owep8=";
   };
 
   srcUrl = "https://github.com/backnotprop/plannotator/releases/download/v${version}/plannotator-${os}-${arch}";
