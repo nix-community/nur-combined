@@ -1,0 +1,57 @@
+{
+	"name": "@router-for-me/pi-cliproxyapi-provider",
+	"version": "1.4.23",
+	"description": "Pi provider extension that auto-registers CLIProxyAPI models, plus TUI elapsed/TPS status",
+	"type": "module",
+	"keywords": [
+		"pi-package",
+		"pi-extension",
+		"cliproxyapi",
+		"tps"
+	],
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/router-for-me/pi-cliproxyapi-provider.git"
+	},
+	"homepage": "https://github.com/router-for-me/pi-cliproxyapi-provider#readme",
+	"bugs": {
+		"url": "https://github.com/router-for-me/pi-cliproxyapi-provider/issues"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"engines": {
+		"node": ">=22.19.0"
+	},
+	"scripts": {
+		"test": "vitest run",
+		"typecheck": "tsc --noEmit",
+		"lint": "biome check .",
+		"format": "biome check --write .",
+		"check": "npm run typecheck && npm run lint && npm run test"
+	},
+	"pi": {
+		"extensions": [
+			"./extensions/index.ts",
+			"./extensions/tps.ts"
+		]
+	},
+	"peerDependencies": {
+		"@earendil-works/pi-ai": "*",
+		"@earendil-works/pi-coding-agent": ">=0.82.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.5.3",
+		"@earendil-works/pi-ai": "^1.3.0",
+		"@earendil-works/pi-coding-agent": "^1.3.0",
+		"@types/node": "^22.15.21",
+		"typescript": "6.0.3",
+		"vitest": "4.1.9"
+	},
+	"files": [
+		"extensions",
+		"README.md",
+		"LICENSE"
+	]
+}

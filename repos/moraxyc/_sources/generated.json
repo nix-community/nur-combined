@@ -1063,6 +1063,54 @@
         },
         "version": "v0.26.5"
     },
+    "pi-cliproxyapi-provider": {
+        "cargoLock": null,
+        "date": null,
+        "extract": {
+            "package-lock.json": "sha256-PsmXW3yCr9zIDGpxsDz3nDfqE8NQPqEZNifbEo9GQCI=/package-lock.json",
+            "package.json": "sha256-PsmXW3yCr9zIDGpxsDz3nDfqE8NQPqEZNifbEo9GQCI=/package.json"
+        },
+        "name": "pi-cliproxyapi-provider",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "router-for-me",
+            "repo": "pi-cliproxyapi-provider",
+            "rev": "v1.4.23",
+            "sha256": "sha256-PsmXW3yCr9zIDGpxsDz3nDfqE8NQPqEZNifbEo9GQCI=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.4.23"
+    },
+    "pi-subagents": {
+        "cargoLock": null,
+        "date": null,
+        "extract": {
+            "package-lock.json": "sha256-n2VQpu7LnEmiprtyIL4H7AxNSkplBLPEjbYhFA6njlY=/package-lock.json",
+            "package.json": "sha256-n2VQpu7LnEmiprtyIL4H7AxNSkplBLPEjbYhFA6njlY=/package.json"
+        },
+        "name": "pi-subagents",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "nicobailon",
+            "repo": "pi-subagents",
+            "rev": "v0.83.0",
+            "sha256": "sha256-n2VQpu7LnEmiprtyIL4H7AxNSkplBLPEjbYhFA6njlY=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.83.0"
+    },
     "picoclaw": {
         "cargoLock": null,
         "date": null,

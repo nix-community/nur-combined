@@ -623,6 +623,36 @@
       "package.json" = ./. + "/sha256-Mjku5+XNECO0kQNX2zls18IAlf8kJElaFwTTHfo9xuU=/package.json";
     };
   };
+  pi-cliproxyapi-provider = {
+    pname = "pi-cliproxyapi-provider";
+    version = "v1.4.23";
+    src = fetchFromGitHub {
+      owner = "router-for-me";
+      repo = "pi-cliproxyapi-provider";
+      rev = "v1.4.23";
+      fetchSubmodules = false;
+      sha256 = "sha256-PsmXW3yCr9zIDGpxsDz3nDfqE8NQPqEZNifbEo9GQCI=";
+    };
+    extract = {
+      "package-lock.json" = ./. + "/sha256-PsmXW3yCr9zIDGpxsDz3nDfqE8NQPqEZNifbEo9GQCI=/package-lock.json";
+      "package.json" = ./. + "/sha256-PsmXW3yCr9zIDGpxsDz3nDfqE8NQPqEZNifbEo9GQCI=/package.json";
+    };
+  };
+  pi-subagents = {
+    pname = "pi-subagents";
+    version = "v0.83.0";
+    src = fetchFromGitHub {
+      owner = "nicobailon";
+      repo = "pi-subagents";
+      rev = "v0.83.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-n2VQpu7LnEmiprtyIL4H7AxNSkplBLPEjbYhFA6njlY=";
+    };
+    extract = {
+      "package-lock.json" = ./. + "/sha256-n2VQpu7LnEmiprtyIL4H7AxNSkplBLPEjbYhFA6njlY=/package-lock.json";
+      "package.json" = ./. + "/sha256-n2VQpu7LnEmiprtyIL4H7AxNSkplBLPEjbYhFA6njlY=/package.json";
+    };
+  };
   picoclaw = {
     pname = "picoclaw";
     version = "v0.3.1";

@@ -1,0 +1,112 @@
+--- a/extensions/lib.ts
++++ b/extensions/lib.ts
+@@ -4,2 +4,3 @@
+ 
++import { execFileSync } from "node:child_process";
+ import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+@@ -12,2 +13,4 @@
+ 	apiKey?: string;
++	/** Read the API key via execFile (no shell). Arguments are passed verbatim. */
++	apiKeyCommand?: { command: string; args?: string[] };
+ 	providerId?: string;
+@@ -25,5 +28,36 @@
+ 
++/** Run a configured secret lookup without a shell or leaking subprocess output. */
++export function runApiKeyCommand(value: CliproxyConfigFile["apiKeyCommand"]): string {
++	if (
++		!value ||
++		typeof value !== "object" ||
++		typeof value.command !== "string" ||
++		!value.command.trim() ||
++		(value.args !== undefined && (!Array.isArray(value.args) || !value.args.every((arg) => typeof arg === "string")))
++	) {
++		throw new Error('cliproxyapi.json: "apiKeyCommand" must contain a command and optional string[] args');
++	}
++
++	let output: string;
++	try {
++		output = execFileSync(value.command, value.args ?? [], {
++			encoding: "utf8",
++			timeout: 5000,
++			maxBuffer: 65536,
++			stdio: ["ignore", "pipe", "pipe"],
++		});
++	} catch {
++		// Do not surface child-process errors: they may contain secret stdout/stderr.
++		throw new Error('cliproxyapi.json: "apiKeyCommand" failed');
++	}
++
++	const key = output.trim();
++	if (!key) throw new Error('cliproxyapi.json: "apiKeyCommand" returned an empty API key');
++	return key;
++}
++
+ /**
+  * Resolve connection settings.
+- * Priority: env > cliproxyapi.json > auth.json (/login) > default baseUrl
++ * API key priority: environment > file apiKey > file apiKeyCommand > /login credentials.
++ * Base URL priority: environment > file > /login > default.
+  */
+@@ -45,3 +79,7 @@
+ 	const baseUrlInput = firstNonEmpty(process.env.CLIPROXYAPI_BASE_URL, file.baseUrl, auth?.baseUrl, DEFAULT_BASE_URL)!;
+-	const apiKey = firstNonEmpty(process.env.CLIPROXYAPI_API_KEY, file.apiKey, auth?.apiKey);
++	let apiKey = firstNonEmpty(process.env.CLIPROXYAPI_API_KEY, file.apiKey);
++	if (!apiKey && file.apiKeyCommand !== undefined) {
++		apiKey = runApiKeyCommand(file.apiKeyCommand);
++	}
++	apiKey ??= firstNonEmpty(auth?.apiKey);
+ 	if (!apiKey) {
+--- /dev/null
++++ b/test/api-key-command.test.ts
+@@ -0,0 +1,50 @@
++import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
++import { tmpdir } from "node:os";
++import { join } from "node:path";
++import { afterEach, describe, expect, it, vi } from "vitest";
++import { CONFIG_FILE_NAME, resolveConnection, runApiKeyCommand } from "../extensions/lib.ts";
++
++const dirs: string[] = [];
++
++afterEach(() => {
++	vi.unstubAllEnvs();
++	for (const dir of dirs.splice(0)) rmSync(dir, { recursive: true, force: true });
++});
++
++function makeFixture(key = "secret-from-command") {
++	const dir = mkdtempSync(join(tmpdir(), "pi-cpa-secret-test-"));
++	dirs.push(dir);
++	const command = join(dir, "secret-tool-mock");
++	writeFileSync(command, `#!/bin/sh\nprintf '%s\\n' '${key}'\n`, { mode: 0o700 });
++	const config = { baseUrl: "http://127.0.0.1:8317", apiKeyCommand: { command, args: ["lookup", "service", "codex-cpa"] } };
++	writeFileSync(join(dir, CONFIG_FILE_NAME), JSON.stringify(config));
++	return { dir, command };
++}
++
++describe("apiKeyCommand", () => {
++	it("runs an argv-based command and uses its trimmed output", () => {
++		const { dir } = makeFixture();
++		expect(resolveConnection(dir, "cliproxyapi")?.apiKey).toBe("secret-from-command");
++	});
++
++	it("gives CLIPROXYAPI_API_KEY precedence without executing the command", () => {
++		const { dir, command } = makeFixture();
++		writeFileSync(command, "#!/bin/sh\nexit 12\n", { mode: 0o700 });
++		vi.stubEnv("CLIPROXYAPI_API_KEY", "from-env");
++		expect(resolveConnection(dir, "cliproxyapi")?.apiKey).toBe("from-env");
++	});
++
++	it("rejects empty, malformed, and failing commands without leaking output", () => {
++		expect(() => runApiKeyCommand({ command: "" })).toThrow(/must contain/);
++		expect(() => runApiKeyCommand({ command: "echo", args: [3] as unknown as string[] })).toThrow(/must contain/);
++		const { command } = makeFixture();
++		writeFileSync(command, "#!/bin/sh\nprintf 'sensitive-error' >&2\nexit 1\n", { mode: 0o700 });
++		expect(() => runApiKeyCommand({ command })).toThrow(/^cliproxyapi\.json: "apiKeyCommand" failed$/);
++	});
++
++	it("rejects an empty command result", () => {
++		const { command } = makeFixture();
++		writeFileSync(command, "#!/bin/sh\nexit 0\n", { mode: 0o700 });
++		expect(() => runApiKeyCommand({ command })).toThrow(/empty API key/);
++	});
++});
+

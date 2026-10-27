@@ -234,6 +234,16 @@ src.github = "grinev/opencode-telegram-bot"
 fetch.github = "grinev/opencode-telegram-bot"
 extract = ["package.json", "package-lock.json"]
 
+[pi-cliproxyapi-provider]
+src.github_tag = "router-for-me/pi-cliproxyapi-provider"
+fetch.github = "router-for-me/pi-cliproxyapi-provider"
+extract = ["package-lock.json", "package.json"]
+
+[pi-subagents]
+src.github = "nicobailon/pi-subagents"
+fetch.github = "nicobailon/pi-subagents"
+extract = ["package-lock.json", "package.json"]
+
 [picoclaw]
 src.github_tag = "sipeed/picoclaw"
 fetch.github = "sipeed/picoclaw"
