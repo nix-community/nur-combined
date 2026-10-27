@@ -123,6 +123,19 @@ in
       }
     ];
 
+    # Pod DNS: kubelet builds pod resolv.conf from --resolv-conf, and the
+    # host file carries LAN search domains (diekvoss.*) whose router wildcard
+    # answers at any depth. With ndots:5 every external hostname with <5
+    # dots resolved to 10.1.0.1 inside pods (observed 2026-10-26: alert-80
+    # TLS failures for ALL pod egress, incl. FlareSolverr + indexer tests).
+    # A search-less copy keeps cluster.local expansion and lets bare
+    # external names resolve correctly. Applies to every kubelet (servers +
+    # agent); CoreDNS upstream is unchanged (same nameservers).
+    environment.etc."rancher/k3s/resolv.conf".text = ''
+      nameserver 10.1.0.1
+      nameserver fdcd:2022:1118::1
+    '';
+
     services.k3s = {
       enable = true;
       inherit (cfg)
@@ -140,7 +153,9 @@ in
         if cfg.traefik.enable then builtins.filter (x: x != "traefik") cfg.disable else cfg.disable
       );
       serverAddr = lib.mkIf (cfg.serverAddr != null) cfg.serverAddr;
-      extraFlags = map (san: "--tls-san=${san}") cfg.extraSANs;
+      extraFlags = map (san: "--tls-san=${san}") cfg.extraSANs ++ [
+        "--resolv-conf=/etc/rancher/k3s/resolv.conf"
+      ];
       manifests = lib.mkIf cfg.traefik.enable {
         "traefik-config.yaml".content = {
           apiVersion = "helm.cattle.io/v1";
