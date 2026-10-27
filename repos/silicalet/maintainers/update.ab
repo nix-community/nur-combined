@@ -7,6 +7,7 @@ main (args) {
     const default_packages = [
         "amber-lsp",
         "code996",
+        "craft-suite-bin",
         "dnspick",
         "folia-major-bin",
         "ghost-downloader-3",

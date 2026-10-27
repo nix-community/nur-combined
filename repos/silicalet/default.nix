@@ -52,3 +52,4 @@
   winpodx-bin = pkgs.callPackage ./pkgs/apps/winpodx/binary.nix { };
   zlib-cli = pkgs.callPackage ./pkgs/tools/zlib-cli { };
 }
+// (pkgs.callPackage ./pkgs/apps/craft-suite { })

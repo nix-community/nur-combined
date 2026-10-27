@@ -91,6 +91,45 @@ existing banks and custom data are not overwritten on restart or upgrade.
 ModelTrace has no upstream release tags, so its updater follows the default
 branch and pins the resulting commit and source hash.
 
+## ArtCraft creative suite
+
+`craft-suite-bin` installs all thirteen Craft applications and ArtCraft Launcher
+from official Linux releases, including their headless CLIs, desktop entries,
+icons, and licenses. Both `x86_64-linux` and `aarch64-linux` are supported.
+
+```console
+nix build .#craft-suite-bin
+nix run .#photocraft-bin
+nix shell .#photocraft-bin -c photocraft-cli --help
+```
+
+For a permanent installation, add `craft-suite-bin` to your NixOS or Home Manager
+package list. Each application is also available separately: `photocraft-bin`,
+`vectorcraft-bin`, `filmcraft-bin`, `lightcraft-bin`, `pdfcraft-bin`,
+`effectcraft-bin`, `designcraft-bin`, `figcraft-bin`, `wordcraft-bin`,
+`soundcraft-bin`, `deckcraft-bin`, `cadcraft-bin`, `gridcraft-bin`, and
+`artcraft-launcher-bin`. The suite itself has no single default executable.
+
+Manage these installations and updates through Nix. The launcher's own
+installer and self-updater do not manage the read-only Nix store; applications
+downloaded by the launcher are separate installations and may need additional
+NixOS runtime support. The separate ArtCraft AI studio has no official Linux
+binary and is not included. These applications are still early releases;
+packaging does not imply that every editing feature is complete.
+
+Update all Craft packages, or one application:
+
+```console
+nix run .#update -- craft-suite-bin
+nix run .#update -- photocraft-bin
+nix run .#update -- --arch aarch64-linux craft-suite-bin
+```
+
+The suite is included in the default daily update set. The updater pins each
+application's version, download URL, and SHA-256 independently for each
+architecture. CI builds the full suite on native x86_64 and ARM64 runners;
+each application's build also checks its bundled CLI's `--help` command.
+
 ## Update packages
 
 Update selected packages:

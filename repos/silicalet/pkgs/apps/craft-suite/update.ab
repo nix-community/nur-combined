@@ -1,0 +1,100 @@
+import { env_var_load } from "std/env"
+import { split } from "std/text"
+
+main (args) {
+    let system = "x86_64-linux"
+    if len(args) > 1 {
+        system = args[1]
+    }
+    if system != "x86_64-linux" and system != "aarch64-linux" {
+        echo("error: unsupported architecture: {system}")
+        exit(1)
+    }
+
+    let selected_app = ""
+    if len(args) > 2 {
+        selected_app = args[2]
+    }
+    const repo_root = $ git rev-parse --show-toplevel $?
+    const source_file = "{repo_root}/pkgs/apps/craft-suite/sources/{system}.json"
+    if selected_app != "" {
+        $ jq -e --arg app "{selected_app}" 'has(\$app)' "{source_file}" > /dev/null $
+        failed {
+            echo("error: unknown Craft app: {selected_app}")
+            exit(1)
+        }
+    }
+
+    const app_names = $ jq -r 'keys | join(" ")' "{source_file}" $?
+    const apps = split(app_names, " ")
+    const work_dir = $ mktemp -d $?
+    const release_file = "{work_dir}/release.json"
+    const staged_file = "{work_dir}/sources.json"
+    $ trap 'rm -rf {work_dir}' EXIT $?
+    $ cp "{source_file}" "{staged_file}" $?
+    const github_token = env_var_load("GITHUB_TOKEN", "/dev/null")
+    let arch = "x86_64"
+    if system == "aarch64-linux" {
+        arch = "aarch64"
+    }
+
+    for app in apps {
+        if selected_app == "" or selected_app == app {
+            let repo = app
+            if app == "artcraft-launcher" {
+                repo = "craft-launcher"
+            }
+            const endpoint = "https://api.github.com/repos/storytold/{repo}/releases/latest"
+            if github_token == "" {
+                $ curl --fail --silent --show-error --location \
+                    --retry 5 --retry-all-errors --retry-delay 2 \
+                    "{endpoint}" --output "{release_file}" $?
+            } else {
+                $ curl --fail --silent --show-error --location \
+                    --retry 5 --retry-all-errors --retry-delay 2 \
+                    --header "Authorization: Bearer {github_token}" \
+                    "{endpoint}" --output "{release_file}" $?
+            }
+            const version = $ jq -er '.tag_name | sub("^v"; "")' "{release_file}" $?
+            $ printf '%s\n' "{version}" | grep -Eq '^[0-9][0-9A-Za-z._+-]*\$' $
+            failed {
+                echo("error: invalid release version: {version}")
+                exit(1)
+            }
+            const asset = "{app}-{version}-linux-{arch}.tar.gz"
+            const url = $ jq -er --arg asset "{asset}" \
+                '.assets[] | select(.name == \$asset) | .browser_download_url' \
+                "{release_file}" $?
+            const digest = $ jq -r --arg asset "{asset}" \
+                '.assets[] | select(.name == \$asset) | .digest // empty' \
+                "{release_file}" $?
+            let hash = ""
+            if digest != "" {
+                $ printf '%s\n' "{digest}" | grep -Eq '^sha256:[0-9a-f]+\$' $?
+                const digest_hex = $ printf '%s\n' "{digest}" | sed 's/^sha256://' $?
+                hash = $ nix hash convert --hash-algo sha256 --to sri "{digest_hex}" $?
+            } else {
+                hash = $ nix store prefetch-file --json "{url}" | jq -er '.hash' $?
+            }
+            $ jq --sort-keys --arg app "{app}" --arg version "{version}" \
+                --arg url "{url}" --arg hash "{hash}" \
+                '.[\$app] = (null | .version = \$version | .url = \$url | .hash = \$hash)' \
+                "{staged_file}" > "{work_dir}/next.json" $?
+            $ mv "{work_dir}/next.json" "{staged_file}" $?
+            echo("Updated {app}-bin for {system} to {version}")
+        }
+    }
+    $ cp "{staged_file}" "{source_file}" $?
+
+    let package = "craft-suite-bin"
+    if selected_app != "" {
+        package = "{selected_app}-bin"
+    }
+    $ nix eval --raw "path:{repo_root}#packages.{system}.{package}.drvPath" > /dev/null $?
+    const current_system = $ nix eval --impure --raw --expr builtins.currentSystem $?
+    if system == current_system {
+        $ nix build "path:{repo_root}#packages.{system}.{package}" --no-link $?
+    } else {
+        echo("Skipping build for non-native system {system} on {current_system}")
+    }
+}

@@ -50,7 +50,7 @@
         system:
         let
           pkgs = pkgsFor system;
-          packageUpdaters = map (
+          compileUpdater =
             updater:
             let
               updaterName =
@@ -68,8 +68,19 @@
                 amber build \
                   ${updater.path + "/update.ab"} \
                   "$out/bin/${updaterName}"
+              '';
+          craftUpdater = compileUpdater {
+            name = "craft-suite";
+            path = ./pkgs/apps/craft-suite;
+          };
+          packageUpdaters =
+            map compileUpdater (findUpdaters ./pkgs)
+            ++ map (
+              appName:
+              pkgs.writeShellScriptBin "nur-update-${appName}-bin" ''
+                exec ${craftUpdater}/bin/nur-update-craft-suite-bin "''${1:-x86_64-linux}" ${nixpkgs.lib.escapeShellArg appName}
               ''
-          ) (findUpdaters ./pkgs);
+            ) (builtins.attrNames (import ./pkgs/apps/craft-suite/catalog.nix));
           update =
             pkgs.runCommand "nur-packages-update"
               {

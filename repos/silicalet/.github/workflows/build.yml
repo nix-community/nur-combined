@@ -70,6 +70,7 @@ jobs:
         include:
           - { package: amber-lsp, system: x86_64-linux, runner: ubuntu-latest }
           - { package: code996, system: x86_64-linux, runner: ubuntu-latest }
+          - { package: craft-suite-bin, system: x86_64-linux, runner: ubuntu-latest }
           - { package: dnspick, system: x86_64-linux, runner: ubuntu-latest }
           - { package: ghost-downloader-3, system: x86_64-linux, runner: ubuntu-latest }
           - { package: ipgw, system: x86_64-linux, runner: ubuntu-latest }
@@ -87,6 +88,7 @@ jobs:
           - { package: uipro-cli, system: x86_64-linux, runner: ubuntu-latest }
           - { package: zlib-cli, system: x86_64-linux, runner: ubuntu-latest }
           - { package: qrypt-bin, system: aarch64-linux, runner: ubuntu-24.04-arm }
+          - { package: craft-suite-bin, system: aarch64-linux, runner: ubuntu-24.04-arm }
           - { package: meatshell-bin, system: aarch64-linux, runner: ubuntu-24.04-arm }
           - { package: neomacs-bin, system: aarch64-linux, runner: ubuntu-24.04-arm }
           - { package: nyaterm-bin, system: aarch64-linux, runner: ubuntu-24.04-arm }
