@@ -686,6 +686,11 @@ return nil
 					return `if nixUntilPoll := time.Until(time.Now().Truncate(filememo.OthersEvery()).Add(filememo.OthersEvery())); nixUntilPoll < 100*time.Millisecond { time.Sleep(nixUntilPoll) }`
 				})
 			}
+			// This fixture has no Codex CLI cache. Models known only to the
+			// subscription are now offered through magpie, with their catalog ID.
+			if test && dir == "internal/tui" && fn.Name.Name == "openModelPicker" {
+				f.replace(fn.Body, strings.Replace(f.text(fn.Body), `return m, "gpt-6-luna" // Codex's own account: its models bare`, `return m, "codex/gpt-6-luna" // No CLI cache: this model is served through magpie.`, 1))
+			}
 			program := !test && dir == "internal/testenv" && fn.Name.Name == "WriteProgram"
 			// Wrap the whole installer, including Darwin's warmed executable rewrite.
 			// Snapshot the parent clock before writing so a same-tick install invalidates discovery.
