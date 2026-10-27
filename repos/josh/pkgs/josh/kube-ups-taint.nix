@@ -6,13 +6,13 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "kube-ups-taint";
-  version = "0.1.1";
+  version = "0.1.2";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "kube-ups-taint";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-B72Au8F4tbJcMFZqal0KoqFv1W4hnlWHdRaWJ2wZ3dU=";
+    hash = "sha256-Imutgz+e+7ndWM3eUaZbgTsgdTjVFUNx8mwV1hxJWIE=";
   };
 
   vendorHash = "sha256-boZ+eItwmmkb0P/ax2BbgV+2j8G38at40huz/uI/sas=";

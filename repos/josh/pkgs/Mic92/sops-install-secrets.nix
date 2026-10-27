@@ -7,16 +7,16 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "sops-install-secrets";
-  version = "assets-unstable-2026-10-24";
+  version = "assets-unstable-2026-10-26";
 
   src = fetchFromGitHub {
     owner = "Mic92";
     repo = "sops-nix";
-    rev = "442449fa7b1fe6c692d0103ac9fc8f9e82931cf3";
-    hash = "sha256-KV+CaZX7QS0hcdKxwGKehDb1jmUgx6lbkTPpaoIW5Nw=";
+    rev = "60182817ee048ac94b4c68ea76d5ef2e8aac730d";
+    hash = "sha256-Y/JIHTnMlOabDfyaSBubWGLDIVGihLEUuoMhFvQKaDo=";
   };
 
-  vendorHash = "sha256-/7qWP61RK61qgEaEyoOVveWw7S2LpoKJxC9S4dLu6Lo=";
+  vendorHash = "sha256-ZRRW1WPoszoZaiARVKNjnM6tz8eBXeVm5sHUxRWOcDw=";
 
   subPackages = [ "pkgs/sops-install-secrets" ];
 
