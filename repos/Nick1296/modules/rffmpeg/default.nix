@@ -14,7 +14,7 @@ let
       name = cfg.settingsFile;
       text = (lib.generators.toYAML { } cfg.settings);
       executable = false;
-      destination = cfg.settingsDir;
+      destination = "${cfg.settingsDir}/${cfg.settingsFile}";
     }
   );
   yaml = pkgs.formats.yaml { };
