@@ -17,6 +17,7 @@
     in
     modules
     // {
-      default.imports = builtins.attrValues modules;
+      # Service modules only; no `nixpkgs.overlays` injection.
+      modules.imports = builtins.attrValues modules;
     };
 }

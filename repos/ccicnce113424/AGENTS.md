@@ -3,7 +3,7 @@
 ## Project Overview
 
 Nix Package Collection (~45 packages) plus NixOS service modules. MIT licensed.
-Distribution: flake outputs `packages`, `overlays.default`, `nixosModules.{default,daed,honk-core}`, `checks`, `devShells.default`, `formatter`; also published as NUR repo `ccicnce113424`. Binary cache: `https://ccicnce113424.cachix.org`. **x86_64-linux only** (`systems = [ "x86_64-linux" ]`).
+Distribution: flake outputs `packages`, `overlays.default`, `nixosModules.{default,modules,overlay,daed,honk-core}`, `checks`, `devShells.default`, `formatter`; also published as NUR repo `ccicnce113424`. Binary cache: `https://ccicnce113424.cachix.org`. **x86_64-linux only** (`systems = [ "x86_64-linux" ]`).
 
 Built with flake-parts: `flake.nix` is thin; every root `*.nix` module owns one concern (see Important Files).
 
@@ -11,7 +11,7 @@ Built with flake-parts: `flake.nix` is thin; every root `*.nix` module owns one 
 
 Flake-parts modules imported by `flake.nix`: `treefmt.nix` (format/lint), `nixpkgs.nix` (perSystem pkgs, `allowUnfree`), `pkgs/flake-module.nix`, `modules/flake-module.nix`, `tests/flake-module.nix`, `github-actions.nix` (CI matrix).
 
-Package aggregation: `pkgs/default.nix` is `lib.makeScope pkgs.newScope` calling every `pkgs/<dir>` with explicit source args. `pkgs/flake-module.nix` strips scope internals via `removeAttrs` → `packages`, sets `overlayAttrs = config.packages` (flake-parts `easyOverlay` → `overlays.default`), and `nixosModules.default` just applies the overlay.
+Package aggregation: `pkgs/default.nix` is `lib.makeScope pkgs.newScope` calling every `pkgs/<dir>` with explicit source args. `pkgs/flake-module.nix` strips scope internals via `removeAttrs` → `packages`, sets `overlayAttrs = config.packages` (flake-parts `easyOverlay` → `overlays.default`), and exports `nixosModules.{overlay,default}`. `nixosModules.modules` contains the service modules only; it deliberately does not inject the overlay, because adding `nixpkgs.overlays` to an already constructed `pkgs` makes the nixpkgs module re-import nixpkgs in full. `nixosModules.default` combines `modules` with the overlay for consumers that do not apply `overlays.default` themselves.
 
 Source/update data flow:
 
