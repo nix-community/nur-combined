@@ -38,6 +38,7 @@
   typepper = pkgs.callPackage ./pkgs/typepper { };
   eprofiler-tui = pkgs.callPackage ./pkgs/eprofiler-tui { };
   toaster = pkgs.callPackage ./pkgs/toaster { };
+  grimoire = pkgs.callPackage ./pkgs/grimoire { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
