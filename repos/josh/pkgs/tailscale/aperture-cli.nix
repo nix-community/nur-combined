@@ -1,22 +1,25 @@
 {
   lib,
-  buildGoModule,
+  buildGo127Module,
   fetchFromGitHub,
+  go,
   nix-update-script,
   testers,
 }:
-buildGoModule (finalAttrs: {
+assert lib.assertMsg (lib.versionOlder go.version "1.26.10")
+  "aperture-cli: stock go ${go.version} now satisfies go.mod, switch back to buildGoModule";
+buildGo127Module (finalAttrs: {
   pname = "aperture-cli";
-  version = "0.1.0";
+  version = "0.1.2";
 
   src = fetchFromGitHub {
     owner = "tailscale";
     repo = "aperture-cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-RxXEHd73j+Cef9GZk3pKjv7T3a60lGSi4vreKDW3JUU=";
+    hash = "sha256-WO2+KR/3aRvPvBtlyQNDC3b0emIApnMASCWESlXGkc4=";
   };
 
-  vendorHash = "sha256-OEBKpEwaQ9ehSHDlkZjRoP2gRQByJK9Ikpe2nhIKzAg=";
+  vendorHash = "sha256-1JGF7ngvUz/YDKYp3cA06fKE0ZlmVI3Y7pBzhkQ/MJQ=";
 
   env.CGO_ENABLED = 0;
   ldflags = [
