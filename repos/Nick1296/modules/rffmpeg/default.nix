@@ -9,12 +9,14 @@ with lib;
 
 let
   cfg = config.services.rffmpeg;
-  configFile = pkgs.writeTextFile {
-    name = cfg.settingsFile;
-    text = (lib.generators.toYaml cfg.settings);
-    executable = false;
-    destination = cfg.settingsPath;
-  };
+  configFile = (
+    pkgs.writeTextFile {
+      name = cfg.settingsFile;
+      text = (lib.generators.toYaml cfg.settings);
+      executable = false;
+      destination = cfg.settingsPath;
+    }
+  );
 in
 {
   options.services.rffmpeg = {
