@@ -56,7 +56,7 @@
       homepage = {
         port = 8082;
         subdomain = "@";
-        # Served from k3s via Traefik (plan step: flip). Caddy fails over
+        # Served from k3s via Traefik.. Caddy fails over
         # across both servers; port kept as fallback documentation.
         upstreams = [
           "10.1.0.3:30080"
@@ -239,7 +239,7 @@
     services = {
       bazarr = {
         port = 6767;
-        # Served from k3s via Traefik (plan step: flip). Same shape as Readarr.
+        # Served from k3s via Traefik.. Same shape as Readarr.
         upstreams = [
           "10.1.0.3:30080"
           "10.1.0.12:30080"
@@ -260,7 +260,7 @@
       };
       flaresolverr = {
         port = 8191;
-        # Served from k3s via Traefik (plan step: flip). Stateless; no seed.
+        # Served from k3s via Traefik.. Stateless; no seed.
         upstreams = [
           "10.1.0.3:30080"
           "10.1.0.12:30080"
@@ -275,7 +275,7 @@
       };
       lidarr = {
         port = 8686;
-        # Served from k3s via Traefik (plan step: flip). Same shape as Sonarr.
+        # Served from k3s via Traefik.. Same shape as Sonarr.
         upstreams = [
           "10.1.0.3:30080"
           "10.1.0.12:30080"
@@ -296,7 +296,7 @@
       };
       prowlarr = {
         port = 9696;
-        # Served from k3s via Traefik (plan step: flip). Same shape as homepage.
+        # Served from k3s via Traefik.. Same shape as homepage.
         upstreams = [
           "10.1.0.3:30080"
           "10.1.0.12:30080"
@@ -318,7 +318,7 @@
       };
       radarr = {
         port = 7878;
-        # Served from k3s via Traefik (plan step: flip). Same shape as Sonarr.
+        # Served from k3s via Traefik.. Same shape as Sonarr.
         upstreams = [
           "10.1.0.3:30080"
           "10.1.0.12:30080"
@@ -339,7 +339,7 @@
       };
       readarr = {
         port = 8787;
-        # Served from k3s via Traefik (plan step: flip). Same shape as Radarr.
+        # Served from k3s via Traefik.. Same shape as Radarr.
         upstreams = [
           "10.1.0.3:30080"
           "10.1.0.12:30080"
@@ -360,7 +360,7 @@
       };
       sonarr = {
         port = 8989;
-        # Served from k3s via Traefik (plan step: flip). Same shape as Prowlarr.
+        # Served from k3s via Traefik.. Same shape as Prowlarr.
         upstreams = [
           "10.1.0.3:30080"
           "10.1.0.12:30080"

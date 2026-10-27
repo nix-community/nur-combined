@@ -14,7 +14,7 @@ in
   imports = [ ../ids.nix ];
 
   options.nixcfg.containers.starr = {
-    enable = lib.mkEnableOption "Starr suite NixOS container";
+    enable = lib.mkEnableOption "qBittorrent NixOS container (VPN-isolated; the *arr suite retired to k3s)";
 
     hostAddress = lib.mkOption {
       type = lib.types.str;
@@ -81,60 +81,18 @@ in
     };
 
     ports = {
-      bazarr = lib.mkOption {
-        type = lib.types.port;
-        default = homelab.starr.services.bazarr.port;
-        description = "Bazarr listen port";
-      };
-      flaresolverr = lib.mkOption {
-        type = lib.types.port;
-        default = homelab.starr.services.flaresolverr.port;
-        description = "FlareSolverr listen port";
-      };
-      lidarr = lib.mkOption {
-        type = lib.types.port;
-        default = homelab.starr.services.lidarr.port;
-        description = "Lidarr listen port";
-      };
-      prowlarr = lib.mkOption {
-        type = lib.types.port;
-        default = homelab.starr.services.prowlarr.port;
-        description = "Prowlarr listen port";
-      };
       qbittorrent = lib.mkOption {
         type = lib.types.port;
         default = homelab.starr.services.qbittorrent.port;
         description = "qBittorrent web UI listen port";
       };
-      radarr = lib.mkOption {
-        type = lib.types.port;
-        default = homelab.starr.services.radarr.port;
-        description = "Radarr listen port";
-      };
-      readarr = lib.mkOption {
-        type = lib.types.port;
-        default = homelab.starr.services.readarr.port;
-        description = "Readarr listen port";
-      };
-      sonarr = lib.mkOption {
-        type = lib.types.port;
-        default = homelab.starr.services.sonarr.port;
-        description = "Sonarr listen port";
-      };
-    };
-
-    disabledServices = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      default = [ ];
-      example = [ "prowlarr" ];
-      description = "Starr services retired to k3s (data migrated, traffic flipped). Listed services are force-disabled so their ports go quiet.";
     };
   };
 
   config = lib.mkIf cfg.enable {
     services.monitoring.containerJournals = [ "starr" ];
 
-    # NAT masquerade so the container can reach external indexers (Prowlarr, FlareSolverr)
+    # NAT masquerade so the container has general external egress
     networking.nat = {
       enable = true;
       externalInterface = cfg.natInterface;
@@ -165,32 +123,8 @@ in
           hostPath = cfg.protonvpn.privateKeyFile;
           isReadOnly = true;
         };
-        "/var/lib/bazarr" = {
-          hostPath = "${cfg.stateDir}/bazarr";
-          isReadOnly = false;
-        };
-        "/var/lib/lidarr" = {
-          hostPath = "${cfg.stateDir}/lidarr";
-          isReadOnly = false;
-        };
-        "/var/lib/prowlarr" = {
-          hostPath = "${cfg.stateDir}/prowlarr";
-          isReadOnly = false;
-        };
         "/var/lib/qBittorrent" = {
           hostPath = "${cfg.stateDir}/qbittorrent";
-          isReadOnly = false;
-        };
-        "/var/lib/radarr" = {
-          hostPath = "${cfg.stateDir}/radarr";
-          isReadOnly = false;
-        };
-        "/var/lib/readarr" = {
-          hostPath = "${cfg.stateDir}/readarr";
-          isReadOnly = false;
-        };
-        "/var/lib/sonarr" = {
-          hostPath = "${cfg.stateDir}/sonarr";
           isReadOnly = false;
         };
       };
@@ -198,41 +132,9 @@ in
       config =
         { pkgs, ... }:
         {
-          # Pin UIDs to match state dir ownership on the host.
-          # bazarr and readarr are not in nixpkgs ids.nix so their UIDs can diverge
-          # across systems. prowlarr uses DynamicUser=yes upstream and requires an
-          # explicit static user.
-          # UID pins only while the service is alive: the group comes from
-          # each NixOS service module, so pinning a UID for a disabled
-          # service leaves a user with no group (eval assertion). Prowlarr
-          # defines its user+group in full below and needs no guard.
-          users.users = lib.mkMerge (
-            (map (svc: lib.mkIf (!lib.elem svc cfg.disabledServices) { ${svc}.uid = ids.uids.${svc}; }) [
-              "bazarr"
-              "sonarr"
-              "lidarr"
-              "radarr"
-              "readarr"
-              "qbittorrent"
-            ])
-            ++ [
-              {
-                prowlarr = {
-                  uid = ids.uids.prowlarr;
-                  group = "prowlarr";
-                  isSystemUser = true;
-                };
-              }
-            ]
-          );
-          users.groups.bazarr.gid = ids.gids.bazarr;
-          users.groups.sonarr.gid = ids.gids.sonarr;
-          users.groups.lidarr.gid = ids.gids.lidarr;
-          users.groups.radarr.gid = ids.gids.radarr;
-          users.groups.readarr.gid = ids.gids.readarr;
+          # Pin UID to match state dir ownership on the host.
+          users.users.qbittorrent.uid = ids.uids.qbittorrent;
           users.groups.qbittorrent.gid = ids.gids.qbittorrent;
-          users.groups.prowlarr.gid = ids.gids.prowlarr;
-          systemd.services.prowlarr.serviceConfig.DynamicUser = lib.mkForce false;
 
           # ProtonVPN WireGuard in an isolated network namespace so all qbittorrent
           # traffic is forced through the VPN and cannot leak via the container veth.
@@ -259,69 +161,30 @@ in
           # DNS inside the VPN namespace resolves via ProtonVPN's resolver
           environment.etc."netns/${vpnNamespace}/resolv.conf".text = "nameserver ${cfg.protonvpn.gateway}";
 
-          # Retired-to-k3s services are force-disabled below (mkForce wins
-          # over each `enable = true` above), so their ports go quiet while
-          # the rest of the suite keeps running.
-          services = lib.mkMerge [
-            {
-              bazarr = {
-                enable = true;
-                openFirewall = true;
-                listenPort = cfg.ports.bazarr;
-              };
-              flaresolverr = {
-                enable = true;
-                openFirewall = true;
-                port = cfg.ports.flaresolverr;
-              };
-              lidarr = {
-                enable = true;
-                openFirewall = true;
-                settings.server.port = cfg.ports.lidarr;
-              };
-              prowlarr = {
-                enable = true;
-                openFirewall = true;
-                settings.server.port = cfg.ports.prowlarr;
-              };
-              qbittorrent = {
-                enable = true;
-                openFirewall = true;
-                webuiPort = cfg.ports.qbittorrent;
-                # Disable built-in UPnP/NAT-PMP: ProtonVPN's gateway won't respond to
-                # qbittorrent's own mapping requests through the tunnel — handled by
-                # the protonvpn-port-forward service instead.
-                # LocalHostAuth=false lets the port-forward service call the API from
-                # within the VPN namespace without needing credentials.
-                serverConfig = lib.recursiveUpdate {
-                  LegalNotice.Accepted = true;
-                  Preferences = {
-                    Connection = {
-                      UPnP = false;
-                      NATPMPEnabled = false;
-                    };
-                    WebUI.LocalHostAuth = false;
+          # qBittorrent is the only remaining service (all *arrs +
+          # flaresolverr retired to k3s); everything else was deleted.
+          services = {
+            qbittorrent = {
+              enable = true;
+              openFirewall = true;
+              webuiPort = cfg.ports.qbittorrent;
+              # Disable built-in UPnP/NAT-PMP: ProtonVPN's gateway won't respond to
+              # qbittorrent's own mapping requests through the tunnel — handled by
+              # the protonvpn-port-forward service instead.
+              # LocalHostAuth=false lets the port-forward service call the API from
+              # within the VPN namespace without needing credentials.
+              serverConfig = lib.recursiveUpdate {
+                LegalNotice.Accepted = true;
+                Preferences = {
+                  Connection = {
+                    UPnP = false;
+                    NATPMPEnabled = false;
                   };
-                } cfg.qbittorrent.serverConfig;
-              };
-              radarr = {
-                enable = true;
-                openFirewall = true;
-                settings.server.port = cfg.ports.radarr;
-              };
-              readarr = {
-                enable = true;
-                openFirewall = true;
-                settings.server.port = cfg.ports.readarr;
-              };
-              sonarr = {
-                enable = true;
-                openFirewall = true;
-                settings.server.port = cfg.ports.sonarr;
-              };
-            }
-            (lib.mkMerge (map (svc: { ${svc}.enable = lib.mkForce false; }) cfg.disabledServices))
-          ];
+                  WebUI.LocalHostAuth = false;
+                };
+              } cfg.qbittorrent.serverConfig;
+            };
+          };
 
           # qbittorrent runs inside the VPN network namespace; it cannot reach the
           # outside world except through the WireGuard tunnel.

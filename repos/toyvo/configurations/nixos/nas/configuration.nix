@@ -421,16 +421,9 @@ in
     };
     starr = {
       enable = true;
-      # Retired to k3s (data migrated, traffic flipped; prowlarr 2026-10-26, sonarr + lidarr + radarr + readarr + bazarr + flaresolverr 2026-10-27).
-      disabledServices = [
-        "prowlarr"
-        "sonarr"
-        "lidarr"
-        "radarr"
-        "readarr"
-        "bazarr"
-        "flaresolverr"
-      ];
+      # qBittorrent only: the *arr suite + flaresolverr all retired to k3s
+      # (2026-10-26/27); their container definitions were deleted, so there
+      # is nothing left to disable. Retired POOL state dirs remain on disk.
       natInterface = "eno1";
       hostAddress = "10.200.0.1";
       localAddress = "10.200.0.2";
