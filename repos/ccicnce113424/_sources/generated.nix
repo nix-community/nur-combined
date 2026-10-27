@@ -42,13 +42,13 @@
   };
   daed-next-web = {
     pname = "daed-next-web";
-    version = "af984eb11f023ba003f4e03a2ca60fc773c1a8c4";
+    version = "76ad4577501ba327da304c0f520f6fa707594ef8";
     src = fetchFromGitHub {
       owner = "ksong008";
       repo = "DaedNext";
-      rev = "af984eb11f023ba003f4e03a2ca60fc773c1a8c4";
+      rev = "76ad4577501ba327da304c0f520f6fa707594ef8";
       fetchSubmodules = false;
-      sha256 = "sha256-1GQ0D4RHhIdWynOn7iMMZf/ests4V/HxRwlxUJelt4Q=";
+      sha256 = "sha256-mtYNPv8oz6wtmP3N/zlUQ6SeFq9Vr+4halN/mU4JPB4=";
     };
     date = "2026-10-26";
   };
