@@ -38,7 +38,7 @@ python3Packages.buildPythonApplication rec {
     mkdir -p $out/share/rffmpeg
     install -Dm644 rffmpeg.yml.sample $out/share/rffmpeg/rffmpeg.yml.sample
     wrapProgram $out/bin/rffmpeg \
-     --set-default RFFMPEG_CONFIG ${rffmpeg_config}
+     --set-default RFFMPEG_CONFIG ${rffmpeg_config} \
      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath dependencies}
      ln -s $out/bin/rffmpeg $out/bin/ffmpeg
      ln -s $out/bin/rffmpeg $out/bin/ffprobe
