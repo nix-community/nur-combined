@@ -25,14 +25,14 @@
 }:
 buildPythonPackage (finalAttrs: {
   pname = "mtkclient";
-  version = "2.1.4.1-unstable-2026-10-12";
+  version = "2.1.4.1-unstable-2026-10-26";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "bkerler";
     repo = "mtkclient";
-    rev = "7cb40e727727dfe3faa065eefb29b16ed29bbdf1";
-    hash = "sha256-JVuGCoUtNtdW26RERVT5Fjs9qvJ1tSl9UF1MieQgJM8=";
+    rev = "118a000a83ea31c4f427fe5225abfe964546e05e";
+    hash = "sha256-liVOKrT6eaNhi6ROLiNJf+dmWazAniOnBwOJA+pbCoQ=";
   };
   __structuredAttrs = true;
   strictDeps = true;
