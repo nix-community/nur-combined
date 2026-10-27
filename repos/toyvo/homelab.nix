@@ -381,6 +381,11 @@
       };
       qbittorrent = {
         port = 4080;
+        # Served from k3s via Traefik (plan step: flip). VPN-isolated pod; same shape.
+        upstreams = [
+          "10.1.0.3:30080"
+          "10.1.0.12:30080"
+        ];
         displayName = "qBittorrent";
         description = "Torrent Client";
         category = "Starr";

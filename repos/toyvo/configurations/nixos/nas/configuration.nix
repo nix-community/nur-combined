@@ -163,6 +163,8 @@ in
     k3sStarr.bazarr.enable = true;
     # Stateless solver for prowlarr; no storage at all.
     k3sStarr.flaresolverr.enable = true;
+    # Last one: VPN-isolated torrent client.
+    k3sStarr.qbittorrent.enable = true;
     security.enable = true;
     home-manager.enable = true;
     networking.enable = true;

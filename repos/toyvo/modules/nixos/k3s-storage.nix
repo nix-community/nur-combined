@@ -176,6 +176,27 @@ in
         {
           apiVersion = "v1";
           kind = "PersistentVolume";
+          metadata.name = "pool-media-qbittorrent-rw";
+          spec = {
+            capacity.storage = "4Ti";
+            volumeMode = "Filesystem";
+            accessModes = [ "ReadWriteMany" ];
+            persistentVolumeReclaimPolicy = "Retain";
+            storageClassName = "nfs-pool";
+            mountOptions = [ "vers=4.2" ];
+            csi = {
+              driver = "nfs.csi.k8s.io";
+              volumeHandle = "nas-pool-media-qbittorrent-rw";
+              volumeAttributes = {
+                server = "10.1.0.3";
+                share = "/mnt/POOL/Public";
+              };
+            };
+          };
+        }
+        {
+          apiVersion = "v1";
+          kind = "PersistentVolume";
           metadata.name = "pool-media-rw";
           spec = {
             capacity.storage = "4Ti";
