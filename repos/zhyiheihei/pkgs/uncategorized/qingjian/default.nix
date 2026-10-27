@@ -5,6 +5,7 @@
   makeWrapper,
   python3,
   fcitx5,
+  openssl,
   sources,
 }:
 let
@@ -26,6 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     stdenv.cc.cc.lib
     fcitx5
+    openssl
   ];
 
   dontConfigure = true;
