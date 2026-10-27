@@ -6,6 +6,7 @@
   installShellFiles,
   nix-update-script,
   cacert,
+  gitMinimal,
   perl,
   pkg-config,
   dbus,
@@ -14,7 +15,7 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "fnox";
-  version = "1.35.3";
+  version = "1.43.0";
 
   __structuredAttrs = true;
 
@@ -22,21 +23,20 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "jdx";
     repo = "fnox";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-4+7vV4OaqFbtzO093YHooMF6n1soZObiFpC2JLebaXE=";
+    hash = "sha256-GWvPXx+JwFuavRMBGSZiKmqxaaQbhvl8Q4EmQ7AoSqA=";
   };
 
-  cargoHash = "sha256-Fmpf4eArSW8FDHVekmbG+dJuO2UzrsJO9iBUxB2RGAw=";
+  cargoHash = "sha256-ubz4CWKa9WiB66DOPIEiZIfNxMpKJg4lq2Sr14ITaDA=";
 
-  nativeBuildInputs =
-    [
-      installShellFiles
-      pkg-config
-    ]
-    ++ lib.optional stdenv.hostPlatform.isLinux perl;
+  nativeBuildInputs = [
+    installShellFiles
+    perl
+    pkg-config
+  ];
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [dbus udev];
 
-  nativeCheckInputs = [cacert];
+  nativeCheckInputs = [cacert gitMinimal];
 
   postInstall = ''
     completions=()
