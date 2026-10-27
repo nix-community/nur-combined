@@ -8,7 +8,7 @@
 #   - epd-food-push.service    oneshot 推送（供 timer 与手动调用）
 #   - epd-food-push.timer      每天 00:00 推送墨水屏（Persistent 补跑）
 #   - epd-food-retry.timer     每 15 分钟拉起一次传输失败后的退避重试
-#   - epd-food-watch.timer     每 5 分钟被动扫广播，设备重启（面板内容丢失）就补推
+#   - epd-food-watch.timer     每小时探一次设备状态，重启（面板内容丢失）就补推
 #
 # 私有服务：不开公网 vhost，WebUI/API 经 nginx 私网 vhost 暴露（accessibleBy private）。
 self:
@@ -400,8 +400,8 @@ in
     };
 
     # 面板内容只存在设备 RAM：上电/重启/OTA 后就是空的，而服务端不一定
-    # 知道它重启过。固件在广播的厂商数据里带「需要推送」标志，这条定时
-    # 任务只扫描不连接（不扰设备），看到标志才去连一次全刷。
+    # 知道它重启过。这条定时任务每小时连一次、只读 16 字节状态块就断开
+    # （不传图形、不刷屏），发现重启才补推；探测结果同时当硬件健康检查。
     systemd.services.epd-food-watch = {
       description = "EPD Food Dashboard 重启检测（广播扫描）";
       after = [ "bluetooth.service" ];
@@ -441,7 +441,7 @@ in
     systemd.timers.epd-food-watch = {
       wantedBy = [ "timers.target" ];
       timerConfig = {
-        OnCalendar = "*:0/5";
+        OnCalendar = "hourly";
         Persistent = true;
         RandomizedDelaySec = "20";
         Unit = "epd-food-watch.service";
