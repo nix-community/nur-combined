@@ -25,8 +25,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = lib.optional (
-      lib.meta.availableOn pkgs.stdenv.hostPlatform cfg.package
-    ) cfg.package;
+    environment.systemPackages = lib.optional (lib.meta.availableOn pkgs.stdenv.hostPlatform cfg.package) cfg.package;
   };
 }

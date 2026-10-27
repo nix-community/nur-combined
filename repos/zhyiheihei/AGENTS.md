@@ -33,6 +33,19 @@
 - 包源码来源写在 `nvfetcher.toml`，不要在 `default.nix` 里手写 URL/hash
   绕过 `_sources`。
 
+## 更新包源码
+
+单项更新（改完 epd-food-server 这类上游仓的 rev 时用这个，不要手改 `_sources`）：
+
+```bash
+nix run .#update-sources -- -f '^<包名>$'   # 重新解析版本、prefetch、重写 _sources
+nix run .#update                       # 全量：flake update + 全部包源码 + readme
+nix run .#update-hashes                # 只重算非 src 类 hash（pkgs 里手写 sha256 的）
+```
+
+`update-sources` 对单包失败保留旧条目，不会中断整轮；GitHub 侧每天
+`auto-update.yml` 跑同一套命令并回写提交。
+
 ## 验证方式
 
 - 代码变更后提交并推送，让 GitHub Actions 的 `build.yml` 自动验证；
