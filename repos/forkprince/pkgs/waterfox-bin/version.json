@@ -5,23 +5,23 @@
     "repo": "BrowserWorks/Waterfox",
     "skip_prerelease": true
   },
-  "version": "6.7.6",
+  "version": "6.7.7",
   "platforms": {
     "x86_64-linux": {
       "url": "https://cdn1.waterfox.net/waterfox/releases/{version}/Linux_x86_64/waterfox-{version}.tar.bz2",
-      "hash": "sha256-kxY7aDUaWKTWZFchm5Xvhv5wZqZSTYG7bKvXR956kFY="
+      "hash": "sha256-8KHGIAEU2lMJi78twSc60dnuvg2s5MLtM7eFsZlzLWA="
     },
     "aarch64-linux": {
       "url": "https://cdn1.waterfox.net/waterfox/releases/{version}/Linux_aarch64/waterfox-{version}.tar.bz2",
-      "hash": "sha256-w0DhRfnU6AztCbn1suqr8It2mIfUR7FuBYKAwuij5so="
+      "hash": "sha256-Ugq+x4l0DCZNCv5eBlQ6Y0RYzpa8U1w3dUJDLZ4G67Q="
     },
     "x86_64-darwin": {
       "url": "https://cdn.waterfox.com/waterfox/releases/{version}/Darwin_x86_64-aarch64/Waterfox {version}.dmg",
-      "hash": "sha256-wFeaZSbrf9Gvlxbp6BeYpKb0wejfE7LZK3LZjZVDWd8="
+      "hash": "sha256-QKFPwISB+Ptzisn2qc8A3+jRXkmteGoYLHAi9D5IK48="
     },
     "aarch64-darwin": {
       "url": "https://cdn.waterfox.com/waterfox/releases/{version}/Darwin_x86_64-aarch64/Waterfox {version}.dmg",
-      "hash": "sha256-wFeaZSbrf9Gvlxbp6BeYpKb0wejfE7LZK3LZjZVDWd8="
+      "hash": "sha256-QKFPwISB+Ptzisn2qc8A3+jRXkmteGoYLHAi9D5IK48="
     }
   }
 }

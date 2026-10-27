@@ -6,9 +6,9 @@
     "version_path": ".archived_snapshots.closest.timestamp",
     "url_path": ".archived_snapshots.closest.url"
   },
-  "version": "20261025153852",
+  "version": "20260825023426",
   "asset": {
-    "url": "http://web.archive.org/web/20261025153852/https://anybox.ltd/folder-preview-pro/download/folder-preview-pro-latest.zip",
-    "hash": "sha256-zrRsLhpuP9oCEPEmzOGBhna+CuQw/nCEamQf49nc638="
+    "url": "http://web.archive.org/web/20260825023426/https://anybox.ltd/folder-preview-pro/download/folder-preview-pro-latest.zip",
+    "hash": "sha256-dYMCS5W/oR8CmPi4RaWKOFL5pgUPwwEacnuby2Y8mDw="
   }
 }
