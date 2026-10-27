@@ -3,32 +3,32 @@
   fetchFromGitHub,
   fetchPnpmDeps,
   equicord,
-  pnpm_11,
+  pnpm_12,
   ...
 }: let
-  version = "2026-10-08";
+  version = "1.15.13.0";
 
   src = fetchFromGitHub {
     owner = "Equicord";
     repo = "Equicord";
-    tag = version;
-    hash = "sha256-38mMUaDgS0nYwrW2WceQmuHDJk1vFU1PEi7HWvNxiZk=";
+    tag = "v${version}";
+    hash = "sha256-tNDfbq1jWW9mpHY2psUkomTApp7A1sBKvZHx7YWWKd4=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (equicord) pname;
     inherit version src;
-    pnpm = pnpm_11;
+    pnpm = pnpm_12;
     fetcherVersion = 4;
-    hash = "sha256-hBZHHB5kRkNqep5vWMMnwIblNCAOZvLotDjJUJd9iMU=";
+    hash = "sha256-kEV4/U9w37n9ROGIzmrdNxXuCSEafoxy0pbX+naSTaA=";
   };
 in
   equicord.overrideAttrs (old: {
     inherit version src pnpmDeps;
 
     nativeBuildInputs = map (input:
-      if builtins.isAttrs input && (input.pname or "") == "pnpm"
-      then pnpm_11
+      if builtins.isAttrs input && builtins.match "pnpm(_[0-9]+)?" (input.pname or "") != null
+      then pnpm_12
       else input)
     (old.nativeBuildInputs or []);
 
@@ -45,7 +45,7 @@ in
         updateScript = nix-update-script {
           extraArgs = [
             "--version-regex"
-            "^(\\d{4}-\\d{2}-\\d{2})$"
+            "^v(\\d+\\.\\d+\\.\\d+\\.\\d+)$"
           ];
         };
       };
