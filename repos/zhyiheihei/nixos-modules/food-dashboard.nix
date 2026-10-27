@@ -7,6 +7,7 @@
 #   - epd-food-server.service  常驻 REST API + WebUI（默认仅监听本机，nginx 私网反代）
 #   - epd-food-push.service    oneshot 推送（供 timer 与手动调用）
 #   - epd-food-push.timer      每天 00:00 推送墨水屏（Persistent 补跑）
+#   - epd-food-retry.timer     每 15 分钟拉起一次传输失败后的退避重试
 #
 # 私有服务：不开公网 vhost，WebUI/API 经 nginx 私网 vhost 暴露（accessibleBy private）。
 self:
@@ -19,11 +20,7 @@ self:
 let
   cfg = config.lantian.food-dashboard;
 
-  package =
-    if cfg.package != null then
-      cfg.package
-    else
-      self.packages.${pkgs.system}.epd-food-server;
+  package = if cfg.package != null then cfg.package else self.packages.${pkgs.system}.epd-food-server;
 
   # 从字体包里挑出 CJK Bold 字体文件（对包内目录布局变化稳健）
   fontFile = pkgs.runCommand "epd-food-cjk-font" { } ''
@@ -43,7 +40,12 @@ let
     EPD_FOOD_DEVICE_NAME_PREFIX = cfg.deviceNamePrefix;
     EPD_FOOD_MAX_CHUNK = toString cfg.maxChunk;
     EPD_FOOD_PUSH_ON_CHANGE = if cfg.pushOnChange then "true" else "false";
-  } // (
+  }
+  // (
+    # Prometheus textfile 指标（停摆告警）：空 = 不导出
+    if cfg.textfilePath != "" then { EPD_FOOD_TEXTFILE_PATH = cfg.textfilePath; } else { }
+  )
+  // (
     # 日程栏（标准 CalDAV 只读）：caldavUrl 非空才注入相关变量
     if cfg.caldavUrl != "" then
       {
@@ -55,6 +57,15 @@ let
     else
       { }
   );
+
+  # BLE 走 BlueZ 的 system D-Bus（bleak 只用 D-Bus，不用 HCI socket）：
+  # confinement chroot 里看不到 /run/dbus，缺它扫描直接 ENOENT。
+  deviceBinds = {
+    BindReadOnlyPaths = [ "/run/dbus/system_bus_socket" ];
+  }
+  // lib.optionalAttrs (cfg.textfilePath != "") {
+    BindPaths = [ (builtins.dirOf cfg.textfilePath) ];
+  };
 
   # systemd 服务加固基线（与上层仓库 LT.serviceHarden 同源；本模块不依赖上层
   # helpers。BLE 走 BlueZ D-Bus：不需要 /dev 设备节点（PrivateDevices=false），
@@ -196,6 +207,12 @@ in
       default = "epd";
       description = "专属 journald 命名空间名；空字符串退回默认 journal";
     };
+
+    textfilePath = lib.mkOption {
+      type = lib.types.str;
+      default = "";
+      description = "Prometheus textfile 指标落盘路径（如 /var/lib/node-exporter-textfile/epd-food.prom）；空 = 不导出";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -206,14 +223,14 @@ in
     users.groups.epd_dashboard = { };
 
     # 命名空间独立保留策略：容量小、保留久
-    environment.etc."systemd/journald@${cfg.logNamespace}.conf" =
-      lib.mkIf (cfg.logNamespace != "") { text = ''
+    environment.etc."systemd/journald@${cfg.logNamespace}.conf" = lib.mkIf (cfg.logNamespace != "") {
+      text = ''
         [Journal]
         Storage=persistent
         SystemMaxUse=64M
         MaxRetentionSec=180day
       '';
-      };
+    };
 
     # 数据库：沿用仓库 ensureDatabases 模式；使用方主机需已启用 services.postgresql。
     # 数据库/角色统一下划线名（ensureUsers 断言要求 db 与 role 同名）
@@ -260,17 +277,21 @@ in
             exec ${package}/bin/epd-food-server serve --host ${cfg.bindAddress} --port ${toString cfg.port}
           '';
 
-      serviceConfig = serviceHarden // {
-        Type = "simple";
-        Restart = "on-failure";
-        RestartSec = "5s";
-        User = "epd_dashboard";
-        Group = "epd_dashboard";
-        StateDirectory = "epd_dashboard";
-        WorkingDirectory = "/var/lib/epd_dashboard";
-      } // lib.optionalAttrs (cfg.logNamespace != "") {
-        LogNamespace = cfg.logNamespace;
-      };
+      serviceConfig =
+        serviceHarden
+        // deviceBinds
+        // {
+          Type = "simple";
+          Restart = "on-failure";
+          RestartSec = "5s";
+          User = "epd_dashboard";
+          Group = "epd_dashboard";
+          StateDirectory = "epd_dashboard";
+          WorkingDirectory = "/var/lib/epd_dashboard";
+        }
+        // lib.optionalAttrs (cfg.logNamespace != "") {
+          LogNamespace = cfg.logNamespace;
+        };
     };
 
     systemd.services.epd-food-push = {
@@ -298,16 +319,73 @@ in
           exec ${package}/bin/epd-food-server push-now
         '';
 
-      serviceConfig = serviceHarden // {
-        Type = "oneshot";
-        User = "epd_dashboard";
-        Group = "epd_dashboard";
-        StateDirectory = "epd_dashboard";
-        WorkingDirectory = "/var/lib/epd_dashboard";
-        # 物理刷新 + 锁等待，上限放宽
-        TimeoutStartSec = "10min";
-      } // lib.optionalAttrs (cfg.logNamespace != "") {
-        LogNamespace = cfg.logNamespace;
+      serviceConfig =
+        serviceHarden
+        // deviceBinds
+        // {
+          Type = "oneshot";
+          User = "epd_dashboard";
+          Group = "epd_dashboard";
+          StateDirectory = "epd_dashboard";
+          WorkingDirectory = "/var/lib/epd_dashboard";
+          # 物理刷新 + 锁等待，上限放宽
+          TimeoutStartSec = "10min";
+        }
+        // lib.optionalAttrs (cfg.logNamespace != "") {
+          LogNamespace = cfg.logNamespace;
+        };
+    };
+
+    # 传输失败后的自愈退避重试：每 15 分钟拉起一次，未到退避时间或无需重试
+    # 时立即退出（不碰设备），到点才真推一次。
+    systemd.services.epd-food-retry = {
+      description = "EPD Food Dashboard 退避重试推送";
+      after = [
+        "network.target"
+        "postgresql.service"
+        "bluetooth.service"
+      ];
+      wants = [
+        "network.target"
+        "postgresql.service"
+        "bluetooth.service"
+      ];
+
+      environment = commonEnvironment;
+      script =
+        let
+          caldavPasswordExport = lib.optionalString (cfg.caldavPasswordFile != null) ''
+            export EPD_FOOD_CALDAV_PASSWORD="$(cat ${cfg.caldavPasswordFile})"
+          '';
+        in
+        ''
+          ${caldavPasswordExport}
+          exec ${package}/bin/epd-food-server push-now --retry
+        '';
+
+      serviceConfig =
+        serviceHarden
+        // deviceBinds
+        // {
+          Type = "oneshot";
+          User = "epd_dashboard";
+          Group = "epd_dashboard";
+          StateDirectory = "epd_dashboard";
+          WorkingDirectory = "/var/lib/epd_dashboard";
+          TimeoutStartSec = "10min";
+        }
+        // lib.optionalAttrs (cfg.logNamespace != "") {
+          LogNamespace = cfg.logNamespace;
+        };
+    };
+
+    systemd.timers.epd-food-retry = {
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnCalendar = "*:0/15";
+        Persistent = true;
+        RandomizedDelaySec = "30";
+        Unit = "epd-food-retry.service";
       };
     };
 
@@ -329,7 +407,7 @@ in
         };
       };
       accessibleBy = "private";
-      sslCertificate = cfg.sslCertificate;
+      inherit (cfg) sslCertificate;
       noIndex.enable = true;
     };
   };
