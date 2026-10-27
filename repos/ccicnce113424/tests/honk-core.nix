@@ -65,7 +65,7 @@
 
     # The nfqueue switch (on by default) loads the netlink family.
     machine.succeed("test -d /sys/module/nfnetlink_queue")
-    machine.succeed("grep -q 'nfqueue_enable: true' /etc/honk/config.d/10-global.dae")
+    machine.succeed("grep -q 'nfqueue_enable: true' /etc/honk/config.d/10-nix.dae")
 
     # The web UI is served by honk's native API.
     machine.succeed(
@@ -82,7 +82,7 @@
     # The Nix-managed settings live beside it, inside the import; a fragment
     # declared in configFiles is placed and imported the same way (an invalid
     # file there would keep honk from starting).
-    machine.succeed("grep -q 'native_api' /etc/honk/config.d/20-doona.dae")
+    machine.succeed("grep -q 'native_api' /etc/honk/config.d/10-nix.dae")
     machine.succeed("grep -q 'user fragment' /etc/honk/config.d/30-user.dae")
 
     # Traffic to the server goes through honk and is routed to `direct`.
@@ -138,7 +138,7 @@
     machine.succeed(
         "curl -sS -H \"Authorization: Bearer $(cat /tmp/token)\""
         " http://127.0.0.1:9527/api/v1/config"
-        " | jq -r '.sources[] | select(.path == \"config.d/20-doona.dae\")"
+        " | jq -r '.sources[] | select(.path == \"config.d/10-nix.dae\")"
         " | [.id, .content_sha256] | @tsv' > /tmp/doona-source"
     )
     machine.fail(

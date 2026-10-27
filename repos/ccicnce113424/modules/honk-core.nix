@@ -40,9 +40,9 @@ let
   # `environment.etc` entry whose mode is not "symlink" is copied on every
   # activation. They are copies of Nix-owned files, hence read-only, like the
   # store paths they come from.
-  # The startup-only settings and the native API, one file each; the entry
-  # config imports them.
-  globalConfig = pkgs.writeText "10-global.dae" ''
+  # The startup-only settings and the native API live in one fragment; the
+  # entry config imports it.
+  generatedConfigText = ''
     global {
         data_dir: '${cfg.dataDir}'
         tproxy_port: ${toString cfg.tproxyPort}
@@ -50,28 +50,24 @@ let
         ${lib.optionalString (cfg.lanInterface != "") "    lan_interface: ${cfg.lanInterface}"}
         nfqueue_enable: ${lib.boolToString cfg.nfqueue}
     }
-  '';
-
-  doonaConfig = pkgs.writeText "20-doona.dae" ''
+  ''
+  + lib.optionalString cfg.doona.enable ''
     experimental {
         native_api {
             enabled: true
             password_auth: true
             config_write: true
             listen: '${cfg.doona.listenAddress}:${toString cfg.doona.port}'
-            ui: '${cfg.doona.package}/share/doona-web'
+            ui: '${cfg.doona.package}'
         }
     }
   '';
 
+  generatedConfig = pkgs.writeText "10-nix.dae" generatedConfigText;
+
   generatedFragments = {
-    "10-global.dae" = {
-      source = globalConfig;
-    };
-  }
-  // lib.optionalAttrs cfg.doona.enable {
-    "20-doona.dae" = {
-      source = doonaConfig;
+    "10-nix.dae" = {
+      source = generatedConfig;
     };
   };
 
@@ -139,7 +135,9 @@ in
         // {
           default = true;
         };
-      package = mkPackageOption pkgs "doona-web" { };
+      package = mkPackageOption pkgs "doona-web" {
+        example = [ "doona-lite" ];
+      };
       listenAddress = mkOption {
         type = types.str;
         default = "127.0.0.1";
@@ -289,7 +287,7 @@ in
           && lib.all (name: !(builtins.hasAttr name generatedFragments)) (builtins.attrNames cfg.configFiles);
         message = ''
           services.honk-core.configFiles: names must end in '.dae' and must not
-          collide with the generated fragments ('10-global.dae', '20-doona.dae').
+          collide with the generated fragment ('10-nix.dae').
         '';
       }
       {
@@ -342,15 +340,13 @@ in
 
     systemd.services.honk-core = {
       wantedBy = [ "multi-user.target" ];
-      # The fragments carry the startup-only settings; changes to them need a
-      # restart, while the entry config and the fragments are both reloaded by
-      # honk's reload.
-      restartTriggers = lib.mapAttrsToList (
-        name: _: config.environment.etc."${configBaseName}/config.d/${name}".source
-      ) generatedFragments;
+      # The generated fragment carries the startup-only settings, so changing
+      # it restarts the unit. Everything else — the entry config and the user
+      # fragments — is picked up by honk's reload.
+      restartTriggers = [ generatedConfig ];
       reloadTriggers = lib.mapAttrsToList (
         name: _: config.environment.etc."${configBaseName}/config.d/${name}".source
-      ) allFragments;
+      ) cfg.configFiles;
       serviceConfig = {
         # A drop-in replaces Exec* only after an empty assignment clears the
         # unit's /usr/bin entries.

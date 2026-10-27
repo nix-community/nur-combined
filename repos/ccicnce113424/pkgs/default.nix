@@ -27,6 +27,8 @@ lib.makeScope pkgs.newScope (
 
     dav2d = self.callPackage ./dav2d/package.nix { };
 
+    doona-lite = self.doona-web.override { isLite = true; };
+
     doona-web = self.callPackage ./doona-web/package.nix { };
 
     dorion-git =
