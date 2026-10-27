@@ -21,6 +21,9 @@ let
   # nixpkgs ids.uids/gids.bazarr = 350; pinned to match existing ownership.
   bazarrImage = "lscr.io/linuxserver/bazarr:v1.6.2-ls369";
   bazarrPort = 6767;
+  # No linuxserver build; official image, pinned and hub-verified. Stateless: no PUID/PGID, no volumes.
+  flaresolverrImage = "flaresolverr/flaresolverr:v3.5.2";
+  flaresolverrPort = 8191;
 in
 {
   options.nixcfg.k3sStarr.prowlarr.enable =
@@ -36,6 +39,9 @@ in
     lib.mkEnableOption "Readarr in k3s (fifth starr migration)";
 
   options.nixcfg.k3sStarr.bazarr.enable = lib.mkEnableOption "Bazarr in k3s (sixth starr migration)";
+
+  options.nixcfg.k3sStarr.flaresolverr.enable =
+    lib.mkEnableOption "FlareSolverr in k3s (stateless solver for prowlarr)";
 
   # Single writer: enable ONLY on nas. See k3s-storage.nix for why.
   config = lib.mkMerge [
@@ -908,6 +914,111 @@ in
                     backend.service = {
                       name = "bazarr";
                       port.number = bazarrPort;
+                    };
+                  }
+                ];
+              }
+            ];
+          };
+        };
+      };
+    })
+    (lib.mkIf cfg.flaresolverr.enable {
+      assertions = [
+        {
+          assertion = config.nixcfg.k3s.enable && config.nixcfg.k3s.role == "server";
+          message = "nixcfg.k3sStarr: starr manifests must live on a server (nas), never an agent.";
+        }
+      ];
+
+      services.k3s.manifests = {
+        "flaresolverr-statefulset.yaml".content = {
+          apiVersion = "apps/v1";
+          kind = "StatefulSet";
+          metadata = {
+            name = "flaresolverr";
+            labels.app = "flaresolverr";
+          };
+          spec = {
+            serviceName = "flaresolverr";
+            replicas = 1;
+            selector.matchLabels.app = "flaresolverr";
+            template = {
+              metadata.labels.app = "flaresolverr";
+              spec = {
+                affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms = [
+                  {
+                    matchExpressions = [
+                      {
+                        key = "kubernetes.io/hostname";
+                        operator = "In";
+                        values = [ "nas" ];
+                      }
+                    ];
+                  }
+                ];
+                containers = [
+                  {
+                    name = "flaresolverr";
+                    image = flaresolverrImage;
+                    imagePullPolicy = "IfNotPresent";
+                    env = [
+                      {
+                        name = "TZ";
+                        value = "America/Chicago";
+                      }
+                    ];
+                    ports = [ { containerPort = flaresolverrPort; } ];
+                    resources = {
+                      requests = {
+                        cpu = "50m";
+                        memory = "256Mi";
+                      };
+                      limits = {
+                        cpu = "1000m";
+                        memory = "2Gi";
+                      };
+                    };
+                  }
+                ];
+              };
+            };
+          };
+        };
+        "flaresolverr-service.yaml".content = {
+          apiVersion = "v1";
+          kind = "Service";
+          metadata = {
+            name = "flaresolverr";
+          };
+          spec = {
+            selector.app = "flaresolverr";
+            ports = [
+              {
+                port = flaresolverrPort;
+                targetPort = flaresolverrPort;
+              }
+            ];
+          };
+        };
+        "flaresolverr-ingress.yaml".content = {
+          apiVersion = "networking.k8s.io/v1";
+          kind = "Ingress";
+          metadata = {
+            name = "flaresolverr";
+          };
+          spec = {
+            ingressClassName = "traefik";
+            rules = [
+              {
+                host = "flaresolverr.diekvoss.net";
+                http.paths = [
+                  {
+                    path = "/";
+                    pathType = "Prefix";
+                    backend.service = {
+                      name = "flaresolverr";
+                      port.number = flaresolverrPort;
                     };
                   }
                 ];

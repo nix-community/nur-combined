@@ -161,6 +161,8 @@ in
     k3sStarr.readarr.enable = true;
     # Sixth starr migration (bazarr); same template, different wiring.
     k3sStarr.bazarr.enable = true;
+    # Stateless solver for prowlarr; no storage at all.
+    k3sStarr.flaresolverr.enable = true;
     security.enable = true;
     home-manager.enable = true;
     networking.enable = true;
@@ -419,13 +421,14 @@ in
     };
     starr = {
       enable = true;
-      # Retired to k3s (data migrated, traffic flipped; prowlarr 2026-10-26, sonarr + lidarr + radarr + readarr 2026-10-27).
+      # Retired to k3s (data migrated, traffic flipped; prowlarr 2026-10-26, sonarr + lidarr + radarr + readarr + bazarr 2026-10-27).
       disabledServices = [
         "prowlarr"
         "sonarr"
         "lidarr"
         "radarr"
         "readarr"
+        "bazarr"
       ];
       natInterface = "eno1";
       hostAddress = "10.200.0.1";
