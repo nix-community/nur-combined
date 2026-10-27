@@ -52,13 +52,13 @@ buildGoModule (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "magpie";
-  version = "0.1.1664";
+  version = "0.1.1720";
 
   src = fetchFromGitHub {
     owner = "yetone";
     repo = "magpie";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-RbhxodZezerYnR0/HfjhIATz9BxIyXTHZDkj7nvc7rk=";
+    hash = "sha256-huPnSuwTmNcljWWYuIDPxfAnlQ40emZc3U/1gl4Qnnk=";
   };
 
   vendorHash = "sha256-TnyCe6gD8SC4625Fc5iFSDLbs0a0ehdi0MlN1kANoQg=";

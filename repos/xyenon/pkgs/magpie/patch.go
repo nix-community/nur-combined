@@ -621,10 +621,70 @@ func patchChecks(files []*sourceFile, o options) error {
 	for _, f := range files {
 		dir := filepath.ToSlash(filepath.Dir(f.path))
 		test := strings.HasSuffix(f.path, "_test.go")
+		// Cargo's home locates the rtk executable, not an agent's configuration.
+		if filepath.ToSlash(f.path) == "internal/agent/agentenv_test.go" {
+			ast.Inspect(f.file, func(n ast.Node) bool {
+				spec, ok := n.(*ast.ValueSpec)
+				if !ok || len(spec.Names) != 1 || spec.Names[0].Name != "notAnAgent" || len(spec.Values) != 1 {
+					return true
+				}
+				if table, ok := spec.Values[0].(*ast.CompositeLit); ok && !strings.Contains(f.text(table), `"CARGO_HOME"`) {
+					f.insert(table.Lbrace+1, "\n\"CARGO_HOME\": \"Cargo's tool installation folder, used to locate rtk, not an agent's configuration\",\n")
+				}
+				return false
+			})
+		}
 		for _, decl := range f.file.Decls {
 			fn, ok := decl.(*ast.FuncDecl)
 			if !ok || fn.Body == nil {
 				continue
+			}
+			// Codex's metadata has its own versioned request. These fixtures count
+			// ordinary model listings; keep their exact-once assertions for those.
+			if test && dir == "internal/provider" && (fn.Name.Name == "TestFetchAsksOneListOnceForTwoBasesOfIt" || fn.Name.Name == "TestFetchUnionsProtocolListsWithoutChat" || fn.Name.Name == "TestFetchAsksASharedBaseOnce") {
+				ast.Inspect(fn.Body, func(n ast.Node) bool {
+					call, ok := n.(*ast.CallExpr)
+					if !ok || !f.call(call, "net/http", "HandlerFunc") || len(call.Args) != 1 {
+						return true
+					}
+					handler, ok := call.Args[0].(*ast.FuncLit)
+					if ok && !strings.Contains(f.text(handler.Body), `"client_version"`) {
+						f.insert(handler.Body.Lbrace+1, "\nif r.URL.Query().Has(\"client_version\") { http.NotFound(w, r); return }\n")
+					}
+					return true
+				})
+			}
+			// A started Linux executable can briefly expose an empty environ before
+			// its first user-space instruction. Read only after the fixture is ready.
+			if test && ((dir == "internal/proc" && fn.Name.Name == "TestEnvOfHelper") || (dir == "internal/provider" && fn.Name.Name == "TestCodexAppHomeHelper")) && !f.hasCall(fn.Body, "fmt", "Fprint") {
+				f.beforeCalls(fn.Body, func(call *ast.CallExpr) bool { return f.call(call, "time", "Sleep") }, func(_ *ast.BlockStmt) string {
+					return f.qualify("fmt", "Fprint") + "(" + f.qualify("os", "Stdout") + ", \"!\")"
+				})
+			}
+			if test && ((dir == "internal/proc" && fn.Name.Name == "TestEnvOfChild") || (dir == "internal/provider" && fn.Name.Name == "TestCodexAppServersOnHome")) && !strings.Contains(f.text(fn.Body), "nixReady") {
+				ast.Inspect(fn.Body, func(n ast.Node) bool {
+					call, ok := n.(*ast.CallExpr)
+					if !ok || f.text(call.Fun) != "cmd.Start" {
+						return true
+					}
+					f.replace(call, `func() error {
+nixReady, err := cmd.StdoutPipe()
+if err != nil { return err }
+if err := cmd.Start(); err != nil { return err }
+var signal [1]byte
+if _, err := `+f.qualify("io", "ReadFull")+`(nixReady, signal[:]); err != nil { return err }
+if signal[0] != '!' { return `+f.qualify("fmt", "Errorf")+`("child readiness: %q", signal) }
+return nil
+}()`)
+					return false
+				})
+			}
+			// Keep intentionally polls other writers on a five-second wall-clock
+			// beat. Place this 50 ms quiet-window assertion between those beats.
+			if test && dir == "internal/awake" && fn.Name.Name == "TestKeepOffWaitsForTheSetting" && !strings.Contains(f.text(fn.Body), "nixUntilPoll") {
+				f.beforeCalls(fn.Body, func(call *ast.CallExpr) bool { return f.call(call, "context", "WithCancel") }, func(_ *ast.BlockStmt) string {
+					return `if nixUntilPoll := time.Until(time.Now().Truncate(filememo.OthersEvery()).Add(filememo.OthersEvery())); nixUntilPoll < 100*time.Millisecond { time.Sleep(nixUntilPoll) }`
+				})
 			}
 			program := !test && dir == "internal/testenv" && fn.Name.Name == "WriteProgram"
 			// Wrap the whole installer, including Darwin's warmed executable rewrite.
