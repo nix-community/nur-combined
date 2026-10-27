@@ -141,7 +141,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>magpie</code></strong> — Manage models, providers, and accounts for AI coding agents in one place</summary>
 
-- **Version:** `0.1.1620`
+- **Version:** `0.1.1664`
 - **License:** MIT
 - **Homepage:** [https://github.com/yetone/magpie](https://github.com/yetone/magpie)
 - **Build:** `nix build github:XYenon/nur-packages#magpie`
@@ -221,7 +221,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>pleroma</code></strong> — ActivityPub microblogging server</summary>
 
-- **Version:** `2.11.0`
+- **Version:** `2.11.1`
 - **License:** AGPL-3.0-only
 - **Homepage:** [https://pleroma.social](https://pleroma.social)
 - **Build:** `nix build github:XYenon/nur-packages#pleroma`

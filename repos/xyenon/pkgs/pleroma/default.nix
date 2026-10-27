@@ -17,14 +17,14 @@
 
 beamPackages.mixRelease rec {
   pname = "pleroma";
-  version = "2.11.0";
+  version = "2.11.1";
 
   src = fetchFromForgejo {
     domain = "git.pleroma.social";
     owner = "pleroma";
     repo = "pleroma";
     rev = "v${version}";
-    hash = "sha256-yQcvmoqKepL5l1YbWsgTBN0XGKSBLF4Rz9n+SJTcfo0=";
+    hash = "sha256-oXMg6NJZZW8aQu8AONaqgty6JYp2C9uB6NK7LaM0Zpc=";
   };
 
   patches = [
@@ -48,7 +48,7 @@ beamPackages.mixRelease rec {
   mixFodDeps = beamPackages.fetchMixDeps {
     pname = "mix-deps-${pname}";
     inherit src version;
-    hash = "sha256-4+NIHXxPGhWSh2KDEnqaqK2K1ddf7mGdwwUZ9e0Oc2c=";
+    hash = "sha256-40aOP84ZGF8V9GWulAX3jHsI/T39zdCqKv12lek+oSg=";
 
     postInstall = ''
       substituteInPlace "$out/http_signatures/mix.exs" \
