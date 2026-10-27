@@ -13,17 +13,17 @@
 
 buildRustPackage (final: {
   pname = "bumper";
-  version = "0.33.0";
+  version = "0.34.0";
 
   src = fetchFromGitea {
     domain = "trev.zip";
     owner = "llc";
     repo = "bumper";
     rev = "v${final.version}";
-    hash = "sha256-7zyZFL5jvaSdOl1Hwmc4wc//qvUndj6ePU7ts5csONQ=";
+    hash = "sha256-qCneyr/wF3U6pmfPws1zAEdlAB5t8q2XRaxdXALw73o=";
   };
 
-  cargoHash = "sha256-w1KiaJWWEqIb53cQ6YPmqUBV8J2j1Ps9n6lrtNwSrSw=";
+  cargoHash = "sha256-jtWaipT1dNPc8JmJYcfLERCl/CXYTb7QL8jtz6xYR50=";
 
   nativeBuildInputs = [
     pkg-config
