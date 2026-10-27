@@ -73,8 +73,8 @@ in
 
     #export rffmpeg and the generated config
     environment.systemPackages = [
+      configFile
       (cfg.package.override { rffmpeg_config = "${cfg.settingsDir}/${cfg.settingsFile}"; })
-    ]
-    ++ lib.optional (cfg.settings != { }) configFile;
+    ];
   };
 }
