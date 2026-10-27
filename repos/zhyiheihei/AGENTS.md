@@ -12,6 +12,15 @@
 - 保持与上游 `xddxdd/nur-packages` 的结构和工作流对齐；
 - 通过 NUR、Attic、GitHub Actions 完成构建、缓存和自动更新。
 
+## 与上游的已知偏离
+
+- 包源码更新用 nvfetcher（`nvfetcher.toml` + `_sources/` + `tools/update_sources.py`
+  + `nix run .#update-sources`）；上游已迁到 `passthru.updateScript` +
+  `helpers/update.nix` + `tools/update-package`。保持现状，不迁移。
+- `build.yml` 多一个 `push-cache` job（推 Attic），上游没有；缓存服务是
+  `https://cache.zhyi.xin`、缓存名 `zhyi`。
+- 包集合按自用裁剪（只保留实际在用的包），不跟随上游的包清单。
+
 ## 禁止事项
 
 - 不要在这里写学习文档或复制 `nixos-config` 的文档；
