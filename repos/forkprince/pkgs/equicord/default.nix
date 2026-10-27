@@ -19,8 +19,8 @@
     inherit (equicord) pname;
     inherit version src;
     pnpm = pnpm_12;
-    fetcherVersion = 4;
-    hash = "sha256-kEV4/U9w37n9ROGIzmrdNxXuCSEafoxy0pbX+naSTaA=";
+    fetcherVersion = 5;
+    hash = "sha256-X4muYcEHXLquPb+ORoU1DdMCiJRLlU5Oywn1VCx0R7s=";
   };
 in
   equicord.overrideAttrs (old: {
