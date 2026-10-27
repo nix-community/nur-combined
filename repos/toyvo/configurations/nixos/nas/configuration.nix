@@ -450,6 +450,15 @@ in
           };
           General.Locale = "en";
         };
+        # Default save path shared with the k8s *arr pods (they mount the
+        # media pool at /mnt): downloads land where every app can see them,
+        # no Remote Path Mappings needed. Declarative because the module
+        # regenerates qBittorrent.conf on every switch (WebUI edits revert).
+        BitTorrent = {
+          Session = {
+            DefaultSavePath = "/mnt/Downloads";
+          };
+        };
       };
     };
     authentik = {
