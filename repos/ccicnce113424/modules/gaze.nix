@@ -200,6 +200,15 @@ in
     };
 
     kde = {
+      enableKCM = lib.mkEnableOption ''
+        the Gaze page in the KDE Plasma System Settings, which lists and edits
+        the enrolled faces and every setting through the daemon's D-Bus API. It
+        needs a Plasma 6 session and is installed into the system profile, where
+        System Settings finds it next to the bundled pages
+      '';
+
+      kcmPackage = lib.mkPackageOption pkgs "gaze-kcm" { };
+
       lockScreen = lib.mkEnableOption ''
         hands-free face unlock on the KDE Plasma lock screen. KScreenLocker
         starts the biometric PAM slots alongside the password field, so face
@@ -417,8 +426,8 @@ in
           after = [ "dbus.service" ];
           requires = [ "dbus.service" ];
           wantedBy = [ "multi-user.target" ];
-          startLimitIntervalSec = 60;
-          startLimitBurst = 5;
+          # Retry offline model downloads without hitting the start limit.
+          startLimitIntervalSec = 0;
           environment = {
             XDG_CACHE_HOME = "/var/cache/gaze";
             TPM2TOOLS_TCTI = lib.mkIf (cfg.tpm.tcti != null) cfg.tpm.tcti;
@@ -427,12 +436,17 @@ in
             ExecStart = "${lib.getBin cfg.package}/bin/gazed";
             Restart = "on-failure";
             RestartSec = 5;
-            # 78 is gaze_core::cpu::EXIT_UNSUPPORTED_CPU (the CPU has no AVX2):
-            # restarting can only reproduce the same exit.
-            RestartPreventExitStatus = 78;
+            # 78 is gaze_core::cpu::EXIT_UNSUPPORTED_CPU (the CPU has no AVX2)
+            # and 77 a template-storage block (no TPM, or untrusted templates):
+            # restarting can only reproduce either exit.
+            RestartPreventExitStatus = "78 77";
             StateDirectory = "gaze";
             StateDirectoryMode = "0700";
             CacheDirectory = "gaze";
+            RuntimeDirectory = "gaze";
+            RuntimeDirectoryMode = "0700";
+            # Keep resume history until reboot.
+            RuntimeDirectoryPreserve = "yes";
             UMask = "0077";
             LimitCORE = 0;
             NoNewPrivileges = true;
@@ -532,12 +546,33 @@ in
 
         # Face-only service the extension runs at the login screen; the password
         # stays available through `gdm-password`, which GDM runs in parallel.
-        # Mirrors packaging/pam/gdm-face.arch.
+        # Mirrors packaging/pam/gdm-face.arch. The faillock gate sits in front of
+        # Gaze because a match ends the stack, and only a rejected face counts as
+        # a failure: an unavailable camera or an unenrolled user must not spend
+        # login attempts.
         security.pam.services."gdm-face" = mkPamService {
           auth = [
             (rule "env" "${pamPackage}/lib/security/pam_env.so" "required")
-            (rule "gaze" pamModule "[success=1 default=ignore]")
+            (
+              rule "faillock-pre" "${pamPackage}/lib/security/pam_faillock.so" "requisite"
+              // {
+                args = [ "preauth" ];
+              }
+            )
+            (rule "gaze" pamModule "[success=2 auth_err=ignore default=1]")
+            (
+              rule "faillock-fail" "${pamPackage}/lib/security/pam_faillock.so" "[default=die]"
+              // {
+                args = [ "authfail" ];
+              }
+            )
             (rule "deny" "${pamPackage}/lib/security/pam_deny.so" "requisite")
+            (
+              rule "faillock-succ" "${pamPackage}/lib/security/pam_faillock.so" "required"
+              // {
+                args = [ "authsucc" ];
+              }
+            )
             (rule "permit" "${pamPackage}/lib/security/pam_permit.so" "required")
             (
               rule "gnome_keyring" "${pkgs.gnome-keyring}/lib/security/pam_gnome_keyring.so" "optional"
@@ -573,6 +608,10 @@ in
         };
       })
 
+      (lib.mkIf cfg.kde.enableKCM {
+        environment.systemPackages = [ cfg.kde.kcmPackage ];
+      })
+
       (lib.mkIf cfg.kde.lockScreen (
         let
           # nixpkgs configures these two slots from fprintd and p11, so Gaze stays
@@ -595,10 +634,11 @@ in
         }
       ))
 
-      # The configuration the package ships opts into TPM-sealed templates while
-      # the daemon defaults to plaintext, so keep the package's choice. Set
-      # `storage.encrypt_templates` to false for plaintext templates; the daemon
-      # then also refuses the keyring unlock options.
+      # The configuration the package ships opts into TPM-sealed templates, and
+      # the daemon fails closed without a usable TPM (exit 77, which the unit
+      # does not restart), so keep the package's choice. Set
+      # `storage.encrypt_templates` to false to accept plaintext templates; the
+      # daemon then also refuses the keyring unlock options.
       {
         services.gaze.settings.storage.encrypt_templates = lib.mkDefault true;
       }

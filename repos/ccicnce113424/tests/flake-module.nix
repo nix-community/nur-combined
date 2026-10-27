@@ -33,6 +33,7 @@
             services.gaze.package = self'.packages.gaze;
             services.gaze.gnome.extensionPackage = self'.packages.gaze-gnome-extension;
             services.gaze.gui.package = self'.packages.gaze-gui;
+            services.gaze.kde.kcmPackage = self'.packages.gaze-kcm;
           };
         };
 
