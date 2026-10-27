@@ -6,23 +6,10 @@
 }:
 let
   sshPolicy = import ../../lib/ssh-policy.nix;
-  # Resolve imports without depending on the module system's pkgs argument.
-  patchPkgs = inputs.nixpkgs.legacyPackages.${hostConfig.device.system};
-  nixMineralSource = patchPkgs.applyPatches {
-    name = "nix-mineral-initrd-compat";
-    src = inputs.nix-mineral;
-    patches = [
-      # Drop once a release includes https://github.com/cynicsketch/nix-mineral/pull/244.
-      (patchPkgs.fetchpatch2 {
-        url = "https://github.com/cynicsketch/nix-mineral/commit/11acd9af1e7e6ed18b6f87452b51945306539c3f.patch?full_index=1";
-        hash = "sha256-TwZ89X0WA6m5PEMrWqLqKPCxm8ISICSqopsliZ41gIY=";
-      })
-    ];
-  };
 in
 {
   imports = [
-    (inputs.nix-mineral.lib.importModule "${nixMineralSource}/nix-mineral.nix" { })
+    inputs.nix-mineral.nixosModules.nix-mineral
   ];
 
   boot = {
@@ -69,6 +56,11 @@ in
 
     filesystems.enable = false;
 
+    kernel-modules = {
+      load = true; # allow runtime kernel module loading
+      disable.bluetooth-related = false; # allow Bluetooth with the maximum preset
+    };
+
     settings = {
       kernel = {
         # pti = false; # performance
@@ -82,12 +74,7 @@ in
     };
 
     extras = {
-      kernel = {
-        load-kernel-modules = true; # enable runtime kernel module loading
-      };
-
       network = {
-        bluetooth-kmodules = true;
         tcp-window-scaling = true;
       };
 

@@ -15,6 +15,18 @@
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
   nix-mineral.settings.kernel.binfmt-misc = true;
+  nix-mineral.kernel-modules.disable = {
+    # CD/DVD support.
+    cdrom-related = false;
+    udf = false;
+  };
+
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    # Override nix-mineral to power on Bluetooth at startup.
+    settings.Policy.AutoEnable = true;
+  };
 
   services.xserver.xkb.layout = "latam";
 

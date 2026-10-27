@@ -35,6 +35,35 @@ in
 }
 // import ./integration.nix { inherit pkgs inputs hostRegistry; }
 // lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
+  gaming =
+    let
+      standalone = inputs.nixpkgs.lib.nixosSystem {
+        modules = [
+          ../nixos/modules/gaming.nix
+          {
+            nixpkgs.hostPlatform = pkgs.stdenv.hostPlatform.system;
+            nixpkgs.config.allowUnfree = true;
+          }
+        ];
+      };
+      hardened = standalone.extendModules {
+        modules = [
+          inputs.nix-mineral.nixosModules.nix-mineral
+          {
+            nix-mineral.enable = true;
+            nix-mineral.preset = [ "maximum" ];
+          }
+        ];
+      };
+    in
+    assert standalone.config.programs.steam.enable;
+    assert !(standalone.config ? nix-mineral);
+    assert hardened.config.programs.steam.enable;
+    assert !hardened.config.nix-mineral.kernel-modules.disable.joydev;
+    assert hardened.config.nix-mineral.kernel-modules.disable.joystick-drivers;
+    pkgs.runCommand "gaming-module-checks" { } ''
+      touch "$out"
+    '';
   ssh-policy = import ./ssh.nix { inherit pkgs inputs; };
   virtual-machines =
     assert import ./virtual-machines.nix { inherit inputs; };
