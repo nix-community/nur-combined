@@ -42,7 +42,7 @@ async function platforms(file, { config, force }) {
   const platforms = config.platforms || {};
   const regex = config.source.version_regex ? new RegExp(config.source.version_regex) : null;
 
-  let updated = 0, common = null;
+  let next = platforms, updated = 0, common = null;
 
   for (const [platform, settings] of Object.entries(platforms)) {
     if (settings.locked && !force) {
@@ -96,14 +96,14 @@ async function platforms(file, { config, force }) {
     console.log(`Downloading ${final} (${platform})...`);
     const hash = await getHash(final);
 
-    await update.platforms(file, { platform, url: final, hash });
+    next = update.merge(next, platform, { url: final, hash });
 
     console.log(`Updated ${platform} to version ${version}`);
     updated++;
   }
 
   if (updated > 0 && common) {
-    await update.single(file, { version: common });
+    await update.single(file, { version: common, platforms: next });
     console.log(`Updated ${updated} platforms to version ${common}`);
   }
 }

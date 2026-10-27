@@ -60,7 +60,8 @@ async function platforms(file, { config, force }) {
 
   console.log(`Update: ${config.version} → ${parsed}`);
 
-  let updated = 0;
+  let next = platforms, updated = 0;
+
   for (const [platform, settings] of Object.entries(platforms)) {
     if (settings.locked && !force) {
       console.log(`Skipping ${platform} because it is locked.`);
@@ -92,11 +93,7 @@ async function platforms(file, { config, force }) {
 
     const hash = await getHash(download);
 
-    await update.platforms(file, {
-      platform,
-      url: template ? undefined : download,
-      hash
-    });
+    next = update.merge(next, platform, { hash, ...(template ? {} : { url: download }) });
 
     console.log(`Updated ${platform} to version ${parsed}`);
 
@@ -104,7 +101,7 @@ async function platforms(file, { config, force }) {
   }
 
   if (updated > 0) {
-    await update.single(file, { version: parsed });
+    await update.single(file, { version: parsed, platforms: next });
     console.log(`Updated ${updated} platforms to version ${parsed}`);
   }
 }

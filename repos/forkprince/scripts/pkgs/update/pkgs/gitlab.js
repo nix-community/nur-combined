@@ -63,7 +63,7 @@ async function single(file, { config, force }) {
 
   const hash = await getHash(url, unpack);
 
-  await update.single(file, { version, asset: { ...config.asset, url: config.asset.url ? url : undefined, file: config.asset.file }, hash });
+  await update.single(file, { version, hash });
 
   console.log(`Updated to version ${version}`);
 }
@@ -79,6 +79,8 @@ async function platforms(file, { config, force }) {
     if (!version) return;
 
     const release = releases.find(r => r.tag_name === `${config.source.tag_prefix || ""}${version}`) || releases[0];
+
+    let next = platforms;
 
     for (const [platform, settings] of Object.entries(platforms)) {
       if (settings.locked && !force) {
@@ -109,7 +111,7 @@ async function platforms(file, { config, force }) {
 
       const hash = await getHash(url, unpack);
 
-      await update.platforms(file, { platform, url: settings.url ? url : undefined, hash });
+      next = update.merge(next, platform, { hash });
 
       console.log(`Updated ${platform} to version ${version}`);
 
@@ -117,7 +119,7 @@ async function platforms(file, { config, force }) {
     }
 
     if (updated > 0) {
-      await update.single(file, { version });
+      await update.single(file, { version, platforms: next });
       console.log(`Updated ${updated} platforms to version ${version}`);
     }
   } else {
@@ -184,7 +186,7 @@ async function platforms(file, { config, force }) {
 
       const hash = await getHash(url, unpack);
 
-      await update.platforms(file, { platform, url: settings.url ? url : undefined, hash, version: parsed, file: settings.query ? resolved : undefined });
+      await update.platforms(file, { platform, hash, version: parsed, file: settings.query ? resolved : undefined });
 
       console.log(`Updated ${platform} to version ${parsed}`);
 
@@ -235,7 +237,7 @@ async function variants(file, { config, force }) {
 
     const hash = await getHash(url, unpack);
 
-    await update.variants(file, { variant, url: settings.url ? url : undefined, hash });
+    await update.variants(file, { variant, hash });
 
     console.log(`Updated ${variant} to version ${version}`);
 

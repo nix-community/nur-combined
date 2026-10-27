@@ -62,7 +62,7 @@ async function platforms(file, { config, force }) {
     const { version, releases } = await check(file, { config, force });
     if (!version) return;
 
-    const nextPlatforms = { ...platforms };
+    let next = platforms;
 
     for (const [platform, settings] of Object.entries(platforms)) {
       if (settings.locked && !force) {
@@ -92,11 +92,7 @@ async function platforms(file, { config, force }) {
 
       const hash = await getHash(url, unpack);
 
-      nextPlatforms[platform] = {
-        ...settings,
-        hash,
-        ...(settings.query ? { file: resolved } : {}),
-      };
+      next = update.merge(next, platform, { hash, ...(settings.query ? { file: resolved } : {}) });
 
       console.log(`Updated ${platform} to version ${version}`);
 
@@ -104,7 +100,7 @@ async function platforms(file, { config, force }) {
     }
 
     if (updated > 0) {
-      await update.single(file, { version, platforms: nextPlatforms });
+      await update.single(file, { version, platforms: next });
       console.log(`Updated ${updated} platforms to version ${version}`);
     }
   } else {

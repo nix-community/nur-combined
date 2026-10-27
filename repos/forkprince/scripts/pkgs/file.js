@@ -12,13 +12,22 @@ async function single(file, data) {
   await save(file, { ...content, ...data });
 }
 
-async function platforms(file, { platform, url, hash, version, file: name }) {
+function merge(entries, name, changes) {
+  return {
+    ...entries,
+    [name]: {
+      ...(entries[name] || {}),
+      ...changes,
+    },
+  };
+}
+
+async function platforms(file, { platform, hash, version, file: name }) {
   const content = await read(file);
 
   const platforms = content.platforms || {};
 
   if (version) platforms[platform].version = version;
-  if (url) platforms[platform].url = url;
   if (name) platforms[platform].file = name;
 
   platforms[platform].hash = hash;
@@ -40,6 +49,7 @@ module.exports = {
   read,
   save,
   single,
+  merge,
   platforms,
   variants
 }
