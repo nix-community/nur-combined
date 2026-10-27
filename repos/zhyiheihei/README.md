@@ -51,7 +51,7 @@ Build artifacts are cached in the Attic binary cache:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (28 packages)</summary>
+<summary>Package set: (Uncategorized) (29 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -60,18 +60,19 @@ Build artifacts are cached in the Attic binary cache:
 | - [x] |  | `docker-proxy` | [docker-proxy](https://github.com/dqzboy/Docker-Proxy) | 5.1.9 | Self-hosted Docker registry proxy with host-based upstream routing |
 | - [x] |  | `docker-proxy-hubcmdui` | [docker-proxy-hubcmdui](https://github.com/dqzboy/Docker-Proxy) | 5.1.9 | Web management panel for the Docker-Proxy registry proxy |
 | - [ ] |  | `epd-food-server` | [epd-food-server](https://github.com/zhyiheihei/EPD-Dashboard) | 0.1.0 | 家庭食品存储看板服务端（REST API + PostgreSQL + BLE 推送） |
-| - [x] |  | `filecodebox` | [filecodebox](https://github.com/vastsa/FileCodeBox) | 2.8.4 | Lightweight anonymous file sharing server with a FastAPI backend and Vue 3 theme |
+| - [x] |  | `filecodebox` | [filecodebox](https://github.com/vastsa/FileCodeBox) | 2.8.5 | Lightweight anonymous file sharing server with a FastAPI backend and Vue 3 theme |
 | - [ ] |  | `hubproxy` | [hubproxy](https://github.com/sky22333/hubproxy) | 1.2.5 | Lightweight multi-purpose proxy for Docker images, GitHub and Hugging Face acceleration |
 | - [ ] |  | `imou-bridge` | [imou-bridge](https://github.com/home-assistant-tools/imou-life) | 2026-08-16 | Imou/Lechange P2P bridge for Home Assistant and Frigate (go2rtc RTSP restream) |
 | - [x] |  | `jieba-next` | [jieba-next](https://github.com/mxcoras/jieba-next) | 1.0.0rc1 | Modern jieba fork with Rust speedups |
 | - [ ] |  | `navdash` | [navdash](https://github.com/zhyiheihei/navdash) | 0.7.1 | Personal service portal with native OIDC login and Nix-generated service cards |
-| - [x] |  | `nexus-media` | [nexus-media](https://github.com/linyuan0213/nexus-media) | 4.27.2 | Media library manager with automated downloading, media organization and subscription workflows |
-| - [ ] |  | `nexus-media-web` | [nexus-media-web](https://github.com/linyuan0213/nexus-media-web) | 4.27.1 | Vue 3 web frontend for the Nexus Media media library manager |
+| - [x] |  | `nexus-media` | [nexus-media](https://github.com/linyuan0213/nexus-media) | 5.0.2 | Media library manager with automated downloading, media organization and subscription workflows |
+| - [ ] |  | `nexus-media-web` | [nexus-media-web](https://github.com/linyuan0213/nexus-media-web) | 5.0.2 | Vue 3 web frontend for the Nexus Media media library manager |
 | - [x] |  | `pinyin2hanzi` | [Pinyin2Hanzi](https://github.com/someus/Pinyin2Hanzi) | 0.1.1 | Pinyin to Chinese character conversion engine |
 | - [x] |  | `proces` | [proces](https://github.com/Ailln/proces) | 0.1.7 | Text preprocess utilities |
 | - [x] |  | `pypika-tortoise` | [pypika-tortoise](https://github.com/tortoise/pypika-tortoise) | 0.6.5 | SQL query builder fork streamlined for tortoise-orm |
 | - [x] |  | `pyromark` | [pyromark](https://github.com/monosans/pyromark) | 0.10.3 | Blazingly fast Markdown parser |
 | - [ ] | `x86_64-linux` | `qingjian` | [qingjian](https://qingjian.app) | 0.3.1 | Pinyin input method with translation hints for language learners |
+| - [ ] |  | `rtkbt` | [rtkbt](https://github.com/radxa/rtkbt) | 2022-06-07 | Realtek Bluetooth UART attach tool and RTL8852BS firmware |
 | - [x] |  | `sublinkpro` | [sublinkpro](https://github.com/ZeroDeng01/sublinkPro) | 1.2.22 | Modern proxy subscription management panel with smart tags, speed tests and relay chains |
 | - [x] |  | `sun-panel` | [sun-panel](https://github.com/hslr-s/sun-panel) | 1.8.1 | Server and NAS navigation panel, homepage, browser homepage |
 | - [x] |  | `tachidesk-server` | [tachidesk-server](https://github.com/Suwayomi/Suwayomi-Server) | 2.4.2366 | Self-hosted manga reader and aggregator server |
@@ -105,20 +106,21 @@ Build artifacts are cached in the Attic binary cache:
 </details>
 
 <details>
-<summary>Package set: uncategorized (17 packages)</summary>
+<summary>Package set: uncategorized (18 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
 | - [ ] |  | `uncategorized.docker-proxy` | [docker-proxy](https://github.com/dqzboy/Docker-Proxy) | 5.1.9 | Self-hosted Docker registry proxy with host-based upstream routing |
 | - [ ] |  | `uncategorized.docker-proxy-hubcmdui` | [docker-proxy-hubcmdui](https://github.com/dqzboy/Docker-Proxy) | 5.1.9 | Web management panel for the Docker-Proxy registry proxy |
 | - [ ] |  | `uncategorized.epd-food-server` | [epd-food-server](https://github.com/zhyiheihei/EPD-Dashboard) | 0.1.0 | 家庭食品存储看板服务端（REST API + PostgreSQL + BLE 推送） |
-| - [ ] |  | `uncategorized.filecodebox` | [filecodebox](https://github.com/vastsa/FileCodeBox) | 2.8.4 | Lightweight anonymous file sharing server with a FastAPI backend and Vue 3 theme |
+| - [ ] |  | `uncategorized.filecodebox` | [filecodebox](https://github.com/vastsa/FileCodeBox) | 2.8.5 | Lightweight anonymous file sharing server with a FastAPI backend and Vue 3 theme |
 | - [ ] |  | `uncategorized.hubproxy` | [hubproxy](https://github.com/sky22333/hubproxy) | 1.2.5 | Lightweight multi-purpose proxy for Docker images, GitHub and Hugging Face acceleration |
 | - [ ] |  | `uncategorized.imou-bridge` | [imou-bridge](https://github.com/home-assistant-tools/imou-life) | 2026-08-16 | Imou/Lechange P2P bridge for Home Assistant and Frigate (go2rtc RTSP restream) |
 | - [ ] |  | `uncategorized.navdash` | [navdash](https://github.com/zhyiheihei/navdash) | 0.7.1 | Personal service portal with native OIDC login and Nix-generated service cards |
-| - [ ] |  | `uncategorized.nexus-media` | [nexus-media](https://github.com/linyuan0213/nexus-media) | 4.27.2 | Media library manager with automated downloading, media organization and subscription workflows |
-| - [ ] |  | `uncategorized.nexus-media-web` | [nexus-media-web](https://github.com/linyuan0213/nexus-media-web) | 4.27.1 | Vue 3 web frontend for the Nexus Media media library manager |
+| - [ ] |  | `uncategorized.nexus-media` | [nexus-media](https://github.com/linyuan0213/nexus-media) | 5.0.2 | Media library manager with automated downloading, media organization and subscription workflows |
+| - [ ] |  | `uncategorized.nexus-media-web` | [nexus-media-web](https://github.com/linyuan0213/nexus-media-web) | 5.0.2 | Vue 3 web frontend for the Nexus Media media library manager |
 | - [ ] | `x86_64-linux` | `uncategorized.qingjian` | [qingjian](https://qingjian.app) | 0.3.1 | Pinyin input method with translation hints for language learners |
+| - [ ] |  | `uncategorized.rtkbt` | [rtkbt](https://github.com/radxa/rtkbt) | 2022-06-07 | Realtek Bluetooth UART attach tool and RTL8852BS firmware |
 | - [ ] |  | `uncategorized.sublinkpro` | [sublinkpro](https://github.com/ZeroDeng01/sublinkPro) | 1.2.22 | Modern proxy subscription management panel with smart tags, speed tests and relay chains |
 | - [ ] |  | `uncategorized.sun-panel` | [sun-panel](https://github.com/hslr-s/sun-panel) | 1.8.1 | Server and NAS navigation panel, homepage, browser homepage |
 | - [ ] |  | `uncategorized.tachidesk-server` | [tachidesk-server](https://github.com/Suwayomi/Suwayomi-Server) | 2.4.2366 | Self-hosted manga reader and aggregator server |
