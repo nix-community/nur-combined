@@ -1,13 +1,13 @@
 {
   "platforms": {
     "aarch64-linux": {
-      "url": "https://github.com/home-assistant/operating-system/releases/download/18.3/haos_generic-aarch64-18.3.qcow2.xz",
-      "sha256": "f54b659f12c665038134bdf9d4235903048056257368f82369dc230131f5a675"
+      "url": "https://github.com/home-assistant/operating-system/releases/download/18.4/haos_generic-aarch64-18.4.qcow2.xz",
+      "sha256": "1616dd368542591f7b144fc4b21fae51c8d1d23b4545a5b3904011d11ed724a3"
     },
     "x86_64-linux": {
-      "url": "https://github.com/home-assistant/operating-system/releases/download/18.3/haos_ova-18.3.qcow2.xz",
-      "sha256": "fae6a728768cc10aff60d4820bfcd40d64cd77fab82c8bd92af13b3d9d414090"
+      "url": "https://github.com/home-assistant/operating-system/releases/download/18.4/haos_ova-18.4.qcow2.xz",
+      "sha256": "756ec485b1b153099ca53e88a5eebd63a801d56b791afe5c6d63ef94a35dc02d"
     }
   },
-  "version": "18.3"
+  "version": "18.4"
 }
