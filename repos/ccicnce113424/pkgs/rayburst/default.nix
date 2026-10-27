@@ -12,15 +12,13 @@ let
 in
 rayburst.overrideAttrs (
   final: prev: {
-    inherit (sources) pname;
-    src = sources.src // {
-      tag = sources.version;
-    };
+    inherit (sources) pname src;
     inherit version;
-    passthru = (prev.passthru or { }) // {
+    passthru = {
       updateScript = [ ./update-beta.sh ];
       changelog = "https://github.com/AnInsomniacy/rayburst/releases/tag/${sources.version}";
-    };
+    }
+    // (prev.passthru or { });
     pnpmDeps = fetchPnpmDeps {
       inherit (final) pname version src;
       inherit hash;
