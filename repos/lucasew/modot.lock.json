@@ -20,49 +20,49 @@
       "kind": "tool",
       "ref": "github:Wilfred/difftastic",
       "depName": "Wilfred/difftastic",
-      "currentValue": "0.69.0",
+      "currentValue": "0.71.0",
       "datasource": "github-releases"
     },
     {
       "kind": "tool",
       "ref": "github:anomalyco/opencode",
       "depName": "anomalyco/opencode",
-      "currentValue": "v1.18.18",
+      "currentValue": "v1.19.4",
       "datasource": "github-releases"
     },
     {
       "kind": "tool",
       "ref": "github:ast-grep/ast-grep",
       "depName": "ast-grep/ast-grep",
-      "currentValue": "0.44.1",
+      "currentValue": "0.51.0",
       "datasource": "github-releases"
     },
     {
       "kind": "tool",
       "ref": "github:astral-sh/ruff",
       "depName": "astral-sh/ruff",
-      "currentValue": "0.16.2",
+      "currentValue": "0.17.3",
       "datasource": "github-releases"
     },
     {
       "kind": "tool",
       "ref": "github:astral-sh/uv",
       "depName": "astral-sh/uv",
-      "currentValue": "0.12.3",
+      "currentValue": "0.13.6",
       "datasource": "github-releases"
     },
     {
       "kind": "tool",
       "ref": "github:badlogic/pi-mono",
       "depName": "badlogic/pi-mono",
-      "currentValue": "v0.80.3",
+      "currentValue": "v1.4.0",
       "datasource": "github-releases"
     },
     {
       "kind": "tool",
       "ref": "github:boyter/scc",
       "depName": "boyter/scc",
-      "currentValue": "v3.7.0",
+      "currentValue": "v4.1.0",
       "datasource": "github-releases"
     },
     {
@@ -90,7 +90,7 @@
       "kind": "tool",
       "ref": "github:direnv/direnv",
       "depName": "direnv/direnv",
-      "currentValue": "v2.37.1",
+      "currentValue": "v2.38.2",
       "datasource": "github-releases"
     },
     {
@@ -174,7 +174,7 @@
       "kind": "tool",
       "ref": "github:jj-vcs/jj",
       "depName": "jj-vcs/jj",
-      "currentValue": "v0.43.0",
+      "currentValue": "v0.46.0",
       "datasource": "github-releases"
     },
     {
@@ -216,7 +216,7 @@
       "kind": "tool",
       "ref": "github:lewtec/rod-mcp",
       "depName": "lewtec/rod-mcp",
-      "currentValue": "0.2.2",
+      "currentValue": "0.2.3",
       "datasource": "github-releases"
     },
     {
@@ -255,7 +255,7 @@
       "kind": "tool",
       "ref": "github:ogulcancelik/herdr",
       "depName": "ogulcancelik/herdr",
-      "currentValue": "v0.8.2",
+      "currentValue": "v0.9.5",
       "datasource": "github-releases"
     },
     {
@@ -283,35 +283,35 @@
       "kind": "tool",
       "ref": "github:prefix-dev/pixi",
       "depName": "prefix-dev/pixi",
-      "currentValue": "v0.76.1",
+      "currentValue": "v0.83.0",
       "datasource": "github-releases"
     },
     {
       "kind": "tool",
       "ref": "github:rclone/rclone",
       "depName": "rclone/rclone",
-      "currentValue": "v1.74.3",
+      "currentValue": "v1.75.2",
       "datasource": "github-releases"
     },
     {
       "kind": "tool",
       "ref": "github:rtk-ai/rtk",
       "depName": "rtk-ai/rtk",
-      "currentValue": "v0.45.0",
+      "currentValue": "v1.1.0",
       "datasource": "github-releases"
     },
     {
       "kind": "tool",
       "ref": "github:sharkdp/fd",
       "depName": "sharkdp/fd",
-      "currentValue": "v10.4.2",
+      "currentValue": "v10.5.0",
       "datasource": "github-releases"
     },
     {
       "kind": "tool",
       "ref": "github:tekumara/typos-lsp",
       "depName": "tekumara/typos-lsp",
-      "currentValue": "v0.1.52",
+      "currentValue": "v0.1.57",
       "datasource": "github-releases"
     },
     {
@@ -332,7 +332,7 @@
       "kind": "tool",
       "ref": "github:zed-industries/zed",
       "depName": "zed-industries/zed",
-      "currentValue": "v1.9.0",
+      "currentValue": "v1.25.3",
       "datasource": "github-releases"
     },
     {
@@ -390,7 +390,7 @@
       "kind": "tool",
       "ref": "registry:resvg",
       "depName": "linebender/resvg",
-      "currentValue": "0.48.1",
+      "currentValue": "0.49.0",
       "datasource": "github-releases"
     },
     {
