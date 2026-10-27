@@ -38,6 +38,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   inherit (sable-next.unwrapped)
     version
     src
+    patches
     cargoDeps
     ;
 

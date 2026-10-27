@@ -6,6 +6,7 @@
   nix-update-script,
   fetchFromForgejo,
   fetchPnpmDeps,
+  fetchpatch,
   pnpm_12,
   pnpmConfigHook,
   nodejs_26,
@@ -23,7 +24,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "sable-next-unwrapped";
-  version = "2.1.6";
+  version = "2.2.0";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -33,12 +34,19 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "SableClient";
     repo = "sable-next";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-c1hY3eQ3dzrt0f8xPsKrbMiIry2Nk/QkKZXJ95MpddU=";
+    hash = "sha256-J5IIDdw9DLHBV7npugJeQ7U/4q11nRkSy/p7kzEBBMU=";
   };
+
+  patches = [
+    (fetchpatch {
+      url = "https://git.sable.moe/SableClient/sable-next/pulls/1419.patch";
+      hash = "sha256-Az8qTSyipecCV18RgVbdhewidkVIFd7HXKwVRGXU2NM=";
+    })
+  ];
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) src;
-    hash = "sha256-Xcl64XvpQqWiU+yJE3L6rPuGSVxZqcfwsR3NWC2FKRw=";
+    hash = "sha256-XOy7hf6AfbuEKKb9xKnKGyPrTsJ2TTZRpUhwcm4+JsU=";
   };
 
   postPatch = lib.optionalString withDeepfilternet ''
@@ -66,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
     fetcherVersion = 5;
-    hash = "sha256-oOWbU71DqxFhI0Ba2AfiCwEl+pvk79w5RWZk5lxTnEA=";
+    hash = "sha256-yGjMHlRCLAdF2cQXzqHDGCdxhECaErFrU5CHlzNblfM=";
   };
 
   env = {

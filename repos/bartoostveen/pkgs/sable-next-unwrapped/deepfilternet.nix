@@ -15,6 +15,7 @@ stdenv.mkDerivation {
   inherit (sable-next-unwrapped)
     version
     src
+    patches
     ;
 
   __structuredAttrs = true;
