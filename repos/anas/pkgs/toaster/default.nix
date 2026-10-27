@@ -7,7 +7,7 @@
 
 let
   pname = "toaster";
-  version = "0.4.19";
+  version = "0.4.21";
 in
 buildNpmPackage rec {
   inherit pname version;
@@ -16,7 +16,7 @@ buildNpmPackage rec {
     owner = "StopBanning";
     repo = "toaster";
     rev = "v${version}";
-    hash = "sha256-xC7VI1KLQE+UQveRZ9QASe730FIwVc4O0f/vlxHGtRQ=";
+    hash = "sha256-j1MansKYDcyzL+xtJHNJO+yTcnI6e+2I6GGvAJwVrcE=";
   };
 
   npmDepsHash = "sha256-q2Zakb2A10YBOhxtZbBtOIzayRwnBzIaf+7tZF0fpw4=";
