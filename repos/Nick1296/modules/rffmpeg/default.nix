@@ -12,11 +12,12 @@ let
   configFile = (
     pkgs.writeTextFile {
       name = cfg.settingsFile;
-      text = (lib.generators.toYaml { } cfg.settings);
+      text = (lib.generators.toYAML { } cfg.settings);
       executable = false;
       destination = cfg.settingsPath;
     }
   );
+  yaml = pkgs.formats.yaml { };
 in
 {
   options.services.rffmpeg = {
@@ -37,7 +38,7 @@ in
     };
 
     settings = mkOption {
-      type = pkgs.formats.yaml.type;
+      type = yaml.type;
       default = { };
       description = ''
         Configuration for rffmpeg written as a Nix attribute set.
