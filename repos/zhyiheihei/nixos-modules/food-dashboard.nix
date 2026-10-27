@@ -8,6 +8,7 @@
 #   - epd-food-push.service    oneshot 推送（供 timer 与手动调用）
 #   - epd-food-push.timer      每天 00:00 推送墨水屏（Persistent 补跑）
 #   - epd-food-retry.timer     每 15 分钟拉起一次传输失败后的退避重试
+#   - epd-food-watch.timer     每 5 分钟被动扫广播，设备重启（面板内容丢失）就补推
 #
 # 私有服务：不开公网 vhost，WebUI/API 经 nginx 私网 vhost 暴露（accessibleBy private）。
 self:
@@ -395,6 +396,55 @@ in
         Persistent = true;
         RandomizedDelaySec = "30";
         Unit = "epd-food-retry.service";
+      };
+    };
+
+    # 面板内容只存在设备 RAM：上电/重启/OTA 后就是空的，而服务端不一定
+    # 知道它重启过。固件在广播的厂商数据里带「需要推送」标志，这条定时
+    # 任务只扫描不连接（不扰设备），看到标志才去连一次全刷。
+    systemd.services.epd-food-watch = {
+      description = "EPD Food Dashboard 重启检测（广播扫描）";
+      after = [ "bluetooth.service" ];
+      wants = [
+        "postgresql.service"
+        "bluetooth.service"
+      ];
+
+      environment = commonEnvironment;
+      script =
+        let
+          caldavPasswordExport = lib.optionalString (cfg.caldavPasswordFile != null) ''
+            export EPD_FOOD_CALDAV_PASSWORD="$(cat ${cfg.caldavPasswordFile})"
+          '';
+        in
+        ''
+          ${caldavPasswordExport}
+          exec ${package}/bin/epd-food-server watch
+        '';
+
+      serviceConfig =
+        serviceHarden
+        // deviceBinds
+        // {
+          Type = "oneshot";
+          User = "epd_dashboard";
+          Group = "epd_dashboard";
+          StateDirectory = "epd_dashboard";
+          WorkingDirectory = "/var/lib/epd_dashboard";
+          TimeoutStartSec = "10min";
+        }
+        // lib.optionalAttrs (cfg.logNamespace != "") {
+          LogNamespace = cfg.logNamespace;
+        };
+    };
+
+    systemd.timers.epd-food-watch = {
+      wantedBy = [ "timers.target" ];
+      timerConfig = {
+        OnCalendar = "*:0/5";
+        Persistent = true;
+        RandomizedDelaySec = "20";
+        Unit = "epd-food-watch.service";
       };
     };
 
