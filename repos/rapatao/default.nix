@@ -20,4 +20,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   md2 = pkgs.callPackage ./pkgs/md2 { };
+  virtual-display = pkgs.callPackage ./pkgs/virtual-display { };
 }
