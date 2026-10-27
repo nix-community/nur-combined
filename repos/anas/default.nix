@@ -39,6 +39,7 @@
   eprofiler-tui = pkgs.callPackage ./pkgs/eprofiler-tui { };
   toaster = pkgs.callPackage ./pkgs/toaster { };
   grimoire = pkgs.callPackage ./pkgs/grimoire { };
+  therapist = pkgs.callPackage ./pkgs/therapist { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
