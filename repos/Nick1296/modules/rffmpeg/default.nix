@@ -11,10 +11,10 @@ let
   cfg = config.services.rffmpeg;
   configFile = (
     pkgs.writeTextFile {
-      name = cfg.settingsFile;
+      name = "rffmpeg.yml";
       text = (lib.generators.toYAML { } cfg.settings);
       executable = false;
-      destination = "${cfg.settingsDir}/${cfg.settingsFile}";
+      destination = cfg.settingsPath;
     }
   );
   yaml = pkgs.formats.yaml { };
@@ -25,16 +25,10 @@ in
 
     package = mkPackageOption pkgs "rffmpeg" { };
 
-    settingsDir = mkOption {
+    settingsPath = mkOption {
       type = types.path;
-      default = "/etc/rffmpeg/";
+      default = "/etc/rffmpeg/rffmpeg.yml";
       description = "The directory where rffmpeg will look for the settings file.";
-    };
-
-    settingsFile = mkOption {
-      type = types.str;
-      default = "rffmpeg.yml";
-      description = "The filename of the rffmpeg settings file.";
     };
 
     settings = mkOption {
@@ -74,7 +68,13 @@ in
     #export rffmpeg and the generated config
     environment.systemPackages = [
       configFile
-      (cfg.package.override { rffmpeg_config = "${cfg.settingsDir}/${cfg.settingsFile}"; })
+      (cfg.package.override { rffmpeg_config = "${configFile}/${cfg.settingsPath}"; })
     ];
+    # symlink the file on the system
+    system.activationScripts.rffmpegConfig.text = ''
+      target=${escapeShellArg cfg.settingsPath}
+      mkdir -p -- "$(dirname -- "$target")"
+      ln -sfnT -- ${escapeShellArg "${configFile}/${cfg.settingsPath}"} "$target"
+    '';
   };
 }
