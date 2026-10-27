@@ -12,7 +12,7 @@ let
   configFile = (
     pkgs.writeTextFile {
       name = cfg.settingsFile;
-      text = (lib.generators.toYaml cfg.settings);
+      text = (lib.generators.toYaml { } cfg.settings);
       executable = false;
       destination = cfg.settingsPath;
     }
