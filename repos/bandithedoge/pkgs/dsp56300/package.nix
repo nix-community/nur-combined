@@ -7,6 +7,7 @@
   enableXenia ? true,
 
   fetchFromGitHub,
+  fetchpatch,
   lib,
   nix-update-script,
   stdenv,
@@ -15,14 +16,21 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "dsp56300";
-  version = "2.2.25";
+  version = "2.2.27";
   src = fetchFromGitHub {
     owner = "dsp56300";
     repo = "gearmulator";
     rev = finalAttrs.version;
-    hash = "sha256-B9jOT95tXKVpUtKrApLgrmA1aroOSaOHrZd+yCYvDG8=";
+    hash = "sha256-X5Y0w8vf0HReymSxUk435Srbzqvirr5oKdPq5ceQLHk=";
     fetchSubmodules = true;
   };
+
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/dsp56300/gearmulator/commit/b341b55d9f8f803bb1f616378c57ec3c4b334f9a.patch";
+      hash = "sha256-6A86uHFIaRN1Sy4V6jLSJwlIyNZhXXsPJ1E6sY7mYmo=";
+    })
+  ];
 
   nativeBuildInputs = [
     juceCmakeHook
@@ -30,7 +38,6 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     substituteAll CMakeLists.txt --replace-fail "/usr/local" "${placeholder "out"}"
-    substituteInPlace source/CMakeLists.txt --replace-fail "add_subdirectory(framework/tools/midiLearnTest)" ""
   '';
 
   installPhase = ''

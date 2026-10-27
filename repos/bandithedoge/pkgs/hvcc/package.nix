@@ -27,12 +27,12 @@ let
 in
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "hvcc";
-  version = "0.17.2";
+  version = "0.17.3";
   src = fetchFromGitHub {
     owner = "Wasted-Audio";
     repo = "hvcc";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-Hb6z7OeQep3KVLDufwf8c5hbu+YSot/lWiDpc3/QBKE=";
+    hash = "sha256-pYGmc9ucEQLR4ufpe9yfnaQQo6AoCqCyhKeKUwcpUS0=";
   };
 
   pyproject = true;

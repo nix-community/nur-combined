@@ -13,10 +13,10 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "chainner-bin";
-  version = "0.25.1";
+  version = "0.26.0";
   src = fetchzip {
     url = "https://github.com/chaiNNer-org/chaiNNer/releases/download/v${finalAttrs.version}/chaiNNer-linux-x64-${finalAttrs.version}-portable.zip";
-    sha256 = "sha256-jvDudezyqZFdUWldk+3fCqVdbS81ymXW1tBSxDrEDTI=";
+    sha256 = "sha256-oATn5wnTwiS2/0lCC1hF8dZEermfSewpDJiHFDrImiA=";
   };
 
   nativeBuildInputs = [

@@ -7,12 +7,12 @@
 }:
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "searxng-bm25-reranker";
-  version = "0.1.0";
+  version = "0.2.0";
   src = fetchFromGitHub {
     owner = "Oaklight";
     repo = "searxng-bm25-reranker";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-56tp7DMw8sZ6dSnKQ6DDeetWcOhOs6WS3bwlsbIAtxM=";
+    hash = "sha256-5kzkebIKB1ztiuqiWb+xZiKzcJNNIMfXiElK5RfImaw=";
   };
 
   pyproject = true;

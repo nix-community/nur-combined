@@ -259,10 +259,10 @@
     };
     "betterviewer" = buildMozillaXpiAddon {
       pname = "betterviewer";
-      version = "3.2.0";
+      version = "3.3.0";
       addonId = "ademking@betterviewer";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5107056/betterviewer-3.2.0.xpi";
-      sha256 = "0703c43512caec2198fa5d84fe99697cac9abe0ec667f562b768082c4963ed15";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5168321/betterviewer-3.3.0.xpi";
+      sha256 = "d2f9eed01f436977856624ca4449718998eecf190acd8c9587d40cae58845b03";
       meta = with lib;
       {
         homepage = "https://github.com/Ademking/BetterViewer";
@@ -298,10 +298,10 @@
     };
     "csgofloat" = buildMozillaXpiAddon {
       pname = "csgofloat";
-      version = "5.18.0";
+      version = "5.19.1";
       addonId = "{194d0dc6-7ada-41c6-88b8-95d7636fe43c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5067860/csgofloat-5.18.0.xpi";
-      sha256 = "481cb8c45a2dbf615c9cbf4131d410d79813e70d879416d8f2ad570b83e5b075";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5145136/csgofloat-5.19.1.xpi";
+      sha256 = "f86ee3ab061a8d5834ad7a0de6eee31a83c60eb9692a54e9297bf19d5eed1c61";
       meta = with lib;
       {
         homepage = "https://csgofloat.com";
@@ -343,10 +343,10 @@
     };
     "downthemall" = buildMozillaXpiAddon {
       pname = "downthemall";
-      version = "4.15.1";
+      version = "4.16.1";
       addonId = "{DDC359D1-844A-42a7-9AA1-88A850A938A8}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4825019/downthemall-4.15.1.xpi";
-      sha256 = "a6f53822b708b4cb595195f25818fb0eeb690e1244ca2d7fc0d0b645c4dc5de9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5133532/downthemall-4.16.1.xpi";
+      sha256 = "c5249ec3e5441b5a7c6515762d612c720d2b835e517cdc93dd2a00b257f2f456";
       meta = with lib;
       {
         homepage = "https://www.downthemall.org/";
@@ -505,10 +505,10 @@
     };
     "harper" = buildMozillaXpiAddon {
       pname = "harper";
-      version = "2.13.0";
+      version = "3.0.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5129427/private_grammar_checker_harper-2.13.0.xpi";
-      sha256 = "0632946eabecc5fa6b512f3fc0663cd178ff28833ef5274dae59e4193bdff078";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5171001/private_grammar_checker_harper-3.0.0.xpi";
+      sha256 = "037f4c65163eb14be4b98430500304e88e6787234eae7e5ea0e305c63eb21648";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -587,10 +587,10 @@
     };
     "material-icons-for-github" = buildMozillaXpiAddon {
       pname = "material-icons-for-github";
-      version = "1.17.1";
+      version = "1.18.0";
       addonId = "{eac6e624-97fa-4f28-9d24-c06c9b8aa713}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5080172/material_icons_for_github-1.17.1.xpi";
-      sha256 = "6cbd72b544f948e177a3a46df806844409bc67e4de24eac2038fd9b0bcb90558";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5172134/material_icons_for_github-1.18.0.xpi";
+      sha256 = "487a7e9848076c6fdc85a0a76c8e3aa85e6092f9c2d3b5ca1455da535c7ef363";
       meta = with lib;
       {
         homepage = "https://github.com/material-extensions/material-icons-browser-extension";
@@ -616,10 +616,10 @@
     };
     "nexusmods-advance" = buildMozillaXpiAddon {
       pname = "nexusmods-advance";
-      version = "0.27.4";
+      version = "0.27.5";
       addonId = "NexusModsAdvance@Caiota";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5131178/nexusmods_advance-0.27.4.xpi";
-      sha256 = "c36ff24d51efeda15ebd1a8b49167944a6d15d5593a7e98e9911ac93e3af3ddb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5150975/nexusmods_advance-0.27.5.xpi";
+      sha256 = "416a6cc16cb4379721178bf453a85aa4e7836970ac7bdc84f8e6dfc4da1857b4";
       meta = with lib;
       {
         description = "Enhance your browsing experience on the NexusMods site and manage your mods directly through the browser!";
@@ -1168,10 +1168,10 @@
     };
     "refined-github" = buildMozillaXpiAddon {
       pname = "refined-github";
-      version = "26.10.15";
+      version = "26.10.26";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5125706/refined_github-26.10.15.xpi";
-      sha256 = "1031326e687461df90180abc923ad1206949aa94e91811730b59a9855ba19c1c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5167698/refined_github-26.10.26.xpi";
+      sha256 = "12c2828bc4c31718f9a2595a007fa7b0300970b5b0d2eadd0aaf3754dbf7f1ff";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -1371,10 +1371,10 @@
     };
     "stylus" = buildMozillaXpiAddon {
       pname = "stylus";
-      version = "2.4.14";
+      version = "2.4.17";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5044316/styl_us-2.4.14.xpi";
-      sha256 = "51d4efd6aa6484a749b97e36222f7bbe2ff699ed16b9a13adf40ecb6a0597081";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5142667/styl_us-2.4.17.xpi";
+      sha256 = "6ea20f86a2015e3e7a639e2dbb13bc0d63461fdfdb80d7138c3f8e8924e4fb1c";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
@@ -1531,10 +1531,10 @@
     };
     "violentmonkey" = buildMozillaXpiAddon {
       pname = "violentmonkey";
-      version = "2.49.0";
+      version = "2.50.0";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5009389/violentmonkey-2.49.0.xpi";
-      sha256 = "761ea6a32cee78c3263d19bbd821eafd4ea0722f10ff358ecba2739c5bff76fb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5170937/violentmonkey-2.50.0.xpi";
+      sha256 = "5e074465c7fdd31934e5b4664e3d2eac54269df575a0c0db52c843fe9afd81df";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";

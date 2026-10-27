@@ -8,20 +8,19 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "maki";
-  version = "0.5.7";
+  version = "0.6.5";
   src = fetchFromGitHub {
     owner = "tontinton";
     repo = "maki";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-HcTlxua+N/O2qHT67q96b/TT/gIIcsS+OwCM8X7udrM=";
+    hash = "sha256-xRpMH/0j7aiCFXKKoiDlVC4wm/TGGMCte7YEBuzdDgY=";
   };
 
-  cargoHash = "sha256-zRc7zvhTMUaP3BkRC+OZlQnMwreFMe3VeONXPImeX98=";
+  cargoHash = "sha256-Gfp8gE7brcs5lb4uojQqtcOzdTkd0JRQJkhREeLQc9M=";
 
   nativeBuildInputs = [ perl ];
 
-  # XXX: waiting for https://github.com/NixOS/nixpkgs/pull/569018
-  # passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Efficient AI coding agent extendable by neovim-like Lua plugins";

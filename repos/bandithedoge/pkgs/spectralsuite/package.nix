@@ -9,12 +9,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "spectralsuite";
-  version = "2.2.0";
+  version = "2.3.0";
   src = fetchFromGitHub {
     owner = "andrewreeman";
     repo = "SpectralSuite";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-CqnmF+i7JoAaKQHVx9SwgA566TV0M5BdjibE8ik9AHk=";
+    hash = "sha256-EDmhwQT0NUFBTeX8AatMfK7CC+DrDHEkLXk/etS846Y=";
   };
 
   nativeBuildInputs = [ juceCmakeHook ];

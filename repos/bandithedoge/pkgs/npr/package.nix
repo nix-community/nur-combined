@@ -6,14 +6,14 @@
 }:
 rustPlatform.buildRustPackage {
   pname = "npr";
-  version = "0-unstable-2026-10-14";
+  version = "0-unstable-2026-10-20";
   src = fetchFromGitHub {
     owner = "manic-systems";
     repo = "npr";
-    rev = "37581d252755979182fa50b20745dd77ea6294bd";
-    hash = "sha256-bwJw5Tbmp+9MV6/KpqBlRsWpA500Z/7k5/FmxrP5VvE=";
+    rev = "f19f5001564538a9c1166c5ca9a8d346c5588afe";
+    hash = "sha256-Tks8wyESKQ21rIEvk9aooXphBu/0sB/1x9Sh9IB8JYk=";
   };
-  cargoHash = "sha256-sW23JW0r14MyhOlQTSXblIodT8bEakJUiDzYJ+PRV4k=";
+  cargoHash = "sha256-MEyZ4E0FExOqzpWbmJCqDv6/gboFAnlo1kjPAqfMUQk=";
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

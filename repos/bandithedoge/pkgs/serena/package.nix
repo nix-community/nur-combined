@@ -5,12 +5,12 @@
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "serena";
-  version = "2.0.0";
+  version = "2.1.0";
   src = fetchFromGitHub {
     owner = "oraios";
     repo = "serena";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-uX2l8IlVTAH1xEVgA0SsUyaEFGqcJpoDiCCWlAjvPhE=";
+    hash = "sha256-rwaZ8DmUKgdgi3lWRN2M67ZJLnJGfe76/V+a+zjAaMU=";
   };
 
   pyproject = true;
