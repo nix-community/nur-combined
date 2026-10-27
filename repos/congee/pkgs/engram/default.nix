@@ -7,16 +7,16 @@
 
 buildGoModule rec {
   pname = "engram";
-  version = "3.4.0";
+  version = "3.5.4";
 
   src = fetchFromGitHub {
     owner = "Gentleman-Programming";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-nF64HUlc2wnZFYlI8QVPB77IqA6SHY09W6kQH1CdR7E=";
+    hash = "sha256-gFotVxsQXqgE5jfk17X/yP/kNvwNPcPWi+OWu2H19Bg=";
   };
 
-  vendorHash = "sha256-M6+OxF+qigWmjMCEeQn2nvpZqDxh9D4bXewGGUW6QEQ=";
+  vendorHash = "sha256-LH8sSmer918+KL5hnOju7b5NsZo+W9sd3HhkQgjS2Ho=";
 
   subPackages = [ "cmd/engram" ];
   ldflags = [ "-s" "-w" "-X main.version=${version}" ];
