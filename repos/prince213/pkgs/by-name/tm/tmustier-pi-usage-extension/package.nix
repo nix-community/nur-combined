@@ -6,7 +6,7 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "tmustier-pi-usage-extension";
-  version = "0.9.5";
+  version = "0.10.0";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     owner = "tmustier";
     repo = "pi-extensions";
     tag = "usage-extension/v${finalAttrs.version}";
-    hash = "sha256-CnU01tMeRf42wC5Rune0ANl9bv0mLM5iOCGUgX7W8D4=";
+    hash = "sha256-D48xE9DNJPNsiaioUgUXMamZ/lS9PBNgvk5zLbdJ+XE=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/usage-extension";
