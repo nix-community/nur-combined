@@ -22,8 +22,8 @@ in
     src = fetchFromGitHub {
       owner = "SylEleuth";
       repo = "gruvbox-plus-icon-pack";
-      rev = "7dcc3284994c1862f01a9369631d0290e4289433";
-      hash = "sha256-fMr8WP4+s3mnSdBxcsBG9VxnpleHDVlTcXDKLI7+jXQ=";
+      rev = "da6113776a514d52ae347910ab7dab36be4d07f5";
+      hash = "sha256-Y6OU49jcu/NgK35pZcTbV5FNwRiu5qML04P1+M3wick=";
     };
 
     patches = [./folder-color.patch];
