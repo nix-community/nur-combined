@@ -29,7 +29,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-y1nDCMRhltUQKrmqVx9coQgFDqFQ26zT5tcRD6TqlQ0=",
+            "sha256": "sha256-VWYx4P4lIN5FNx2wScAA45trkFkmQ75hjkU2nuBd0eM=",
             "type": "url",
             "url": "https://pypi.org/packages/source/c/cn2an/cn2an-0.5.24.tar.gz"
         },
@@ -89,13 +89,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "fbeede263dcd55ea7a3f4a4dfd1d451c2edeb5d5",
-            "sha256": "sha256-y1nDCMRhltUQKrmqVx9coQgFDqFQ26zT5tcRD6TqlQ0=",
+            "rev": "5b96085f2e108ce9acebee4749554298ff76d626",
+            "sha256": "sha256-VWYx4P4lIN5FNx2wScAA45trkFkmQ75hjkU2nuBd0eM=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/zhyiheihei/EPD-Dashboard.git"
         },
-        "version": "fbeede263dcd55ea7a3f4a4dfd1d451c2edeb5d5"
+        "version": "5b96085f2e108ce9acebee4749554298ff76d626"
     },
     "filecodebox": {
         "cargoLock": null,
