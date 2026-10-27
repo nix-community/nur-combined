@@ -33,12 +33,12 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "honk-core";
-  version = "0.1.0-beta.2";
+  version = "0.1.0-beta.3";
   src = fetchFromGitHub {
     owner = "daeuniverse";
     repo = "honk";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-MtEsIGGqlJ5zdFDsLZkl4qq8dxM5ysaKDnhEGjOWwzE=";
+    hash = "sha256-ZSUCymjFPjnii5AK5eouCXlvcjAmykNIS1YyYpMSVy8=";
   };
 
   # crates/honk-ebpf is excluded from the workspace and pins its own toolchain
