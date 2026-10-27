@@ -26,21 +26,21 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "vacs";
-  version = "2.8.0";
+  version = "3.0.0";
 
   src = fetchFromGitHub {
     owner = "vacs-project";
     repo = "vacs";
     tag = "vacs-client-v${finalAttrs.version}";
-    hash = "sha256-cBj5Wsv3OlM4nh6Ys9MfjmK1CCrK+1qfYvYNhZi8oDo=";
+    hash = "sha256-QLdncUwI/es8vhr+EzyjOcQcoKfXCO5i3Cdc9LwH9Po=";
   };
 
-  cargoHash = "sha256-gvktoERwZfLu9+60jnNdA/XD3mADTYWeeFrSFIObrXM=";
+  cargoHash = "sha256-svIdDSBFcBxq2XkZobTK6mWjHWv2dMvvL9FldOpeHho=";
 
   npmDeps = fetchNpmDeps {
     name = "${finalAttrs.pname}-${finalAttrs.version}-npm-deps";
     src = "${finalAttrs.src}/vacs-client";
-    hash = "sha256-qW8qoPJa3PmdiH0VxpRqENqy5PBi7lrHO0t5Wy0VBVQ=";
+    hash = "sha256-vsRIOvQM6R8CjL//p21s9S6mgewrNGcpRE3nkRNVRnU=";
   };
   npmRoot = "vacs-client";
 
