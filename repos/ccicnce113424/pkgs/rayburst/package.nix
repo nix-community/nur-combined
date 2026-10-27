@@ -80,9 +80,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   # `libappindicator-sys` dlopen()s the tray library from the executable, but
   # it has no DT_NEEDED entry, so autoPatchelfHook cannot discover it.
-  appendRunpaths = lib.optionals stdenv.hostPlatform.isLinux [
-    (lib.makeLibraryPath [ libayatana-appindicator ])
-  ];
+  runtimeDependencies = lib.optionals stdenv.hostPlatform.isLinux [ libayatana-appindicator ];
 
   __structuredAttrs = true;
 
