@@ -10,18 +10,18 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "violentmonkey";
-  version = "2.49.5";
+  version = "2.49.6";
 
   src = fetchFromGitHub {
     owner = "violentmonkey";
     repo = "violentmonkey";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-eGn7zkkOOwN5WAHOMddCcXnNmkFQKyfk5qd785qdAnw=";
+    hash = "sha256-tILviyCOtlBka5XfoFk25JvEo3Pcvb00N44ikY3bEd8=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
-    hash = "sha256-UpBCdDx7L8YM9pttx9YyzQYy2+7zp1NSMIwZYfbdYL8=";
+    hash = "sha256-P6H+3GMs41+yrO35raL+w/SjojIMNPrkUoXqMC+N+zE=";
     fetcherVersion = 4;
   };
 

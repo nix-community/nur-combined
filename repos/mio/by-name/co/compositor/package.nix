@@ -13,14 +13,18 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "compositor";
-  version = "1.5.3";
+  version = "1.5.9";
 
   src = fetchFromGitHub {
     owner = "robbietilton";
     repo = "Compositor";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-4R22ZVrlT2buFbrKkaNGb16v79gpNbefSSN2rN/Y0xE=";
+    hash = "sha256-UnUFDnO2ZIRIyyuYRbdbh3mnYBn+JPAnfY/1yfI7YX4=";
   };
+
+  # Two expressions upstream's Xcode accepts are rejected by Xcode 26's
+  # type checker; see the patch header for the explicit-type fixes.
+  patches = [ ./xcode-26-type-check-fixes.patch ];
 
   postPatch = ''
     substituteInPlace Compositor/Document/CameraRawShadows.swift \

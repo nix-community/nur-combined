@@ -1,0 +1,28 @@
+Two expressions that upstream's Xcode type-checks fine are rejected by the
+Swift 6 compiler in Xcode 26: the PDF page scale picks up an optional Double
+through CGFloat <-> Double bridging, and the dispersion side mask is an Int
+where the shader parameters take a UInt32. Pin both explicitly.
+--- a/Compositor/IO/ImageImporter.swift
++++ b/Compositor/IO/ImageImporter.swift
+@@ -122,7 +122,7 @@
+             guard let page = document.page(at: number) else { throw ImageImportError.unreadable }
+             let box = page.getBoxRect(.cropBox)
+             let size = abs(page.rotationAngle % 180) == 90 ? CGSize(width: box.height, height: box.width) : box.size
+-            let scale = fitting.map { min($0.width / size.width, $0.height / size.height) } ?? Self.pdfResolution / 72
++            let scale: CGFloat = fitting.map { min($0.width / size.width, $0.height / size.height) } ?? CGFloat(Self.pdfResolution) / 72
+             let width = Int((size.width * scale).rounded()), height = Int((size.height * scale).rounded())
+             guard width >= 1, height >= 1, width <= DocumentLimits.maxSide, height <= DocumentLimits.maxSide,
+                   width * height <= remaining else { throw ImageImportError.tooLarge }
+--- a/Compositor/Document/Filters.swift
++++ b/Compositor/Document/Filters.swift
+@@ -300,8 +300,8 @@
+             // Rows run top-down here, so up on screen is a smaller row.
+             direction: SIMD2(Float(cos(angle)), Float(-sin(angle))),
+             distance: Float(distance), blur: Float(blur), reach: Float(reach), radial: settings.rgbSplitRadial ? 1 : 0,
+-            sides: (sides.contains(.left) ? 1 : 0) | (sides.contains(.right) ? 2 : 0) | (sides.contains(.top) ? 4 : 0)
+-                | (sides.contains(.bottom) ? 8 : 0),
++            sides: UInt32((sides.contains(.left) ? 1 : 0) | (sides.contains(.right) ? 2 : 0) | (sides.contains(.top) ? 4 : 0)
++                | (sides.contains(.bottom) ? 8 : 0)),
+             spectral: distance > 0 ? UInt32(min(32, max(3, Int(spread)))) : 1,
+             smear: blur > 0 ? UInt32(min(24, max(2, Int(smear / 2)))) : 1))
+         guard let image = context.makeImage() else { throw ExportError.render }

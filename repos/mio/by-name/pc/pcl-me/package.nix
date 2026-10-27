@@ -10,13 +10,13 @@
 
 let
   pname = "pcl-me";
-  version = "1.0.0-beta.5";
+  version = "1.0.0-beta.7-unstable-2026-10-25";
 
   src = fetchFromGitHub {
     owner = "TheUnknownThing";
     repo = "PCL-ME";
-    rev = "a3671b6763d9c5e8cf8083783c761c92ca400bde";
-    hash = "sha256-iq7NXTlb7JqgU70HiYgExGiQpJvHjUqx8LApiylckaY=";
+    rev = "f1e420912a2d2b3d0739d09a233ecdb237b6b7d6";
+    hash = "sha256-/RZdIG6VJIVSL5k0lq8Cv3Oxues+PLU6PoTYmF4HKeQ=";
   };
 
   dotnet-sdk = dotnetCorePackages.sdk_10_0;
@@ -53,6 +53,11 @@ stdenv.mkDerivation {
     makeWrapper
   ];
   buildInputs = [ fontconfig ];
+
+  # Avalonia's build task phones home and creates a telemetry directory under
+  # the home directory, which is not writable in the sandbox (on Darwin it
+  # resolves to /var/empty). The sandbox has no network anyway.
+  env.AVALONIA_TELEMETRY_OPTOUT = "1";
 
   buildPhase = ''
     export DOTNET_NOLOGO=1

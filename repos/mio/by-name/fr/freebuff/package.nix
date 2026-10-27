@@ -6,13 +6,13 @@
 }:
 
 let
-  version = "0.2.34-unstable-2026-10-24";
+  version = "0.2.34-unstable-2026-10-25";
 
   src = fetchFromGitHub {
     owner = "CodebuffAI";
     repo = "freebuff";
-    rev = "fd1176f25b2d054782972c4f2fce863002b9775e";
-    hash = "sha256-p4+XhEVnnWSglyAEdCTc2I9XOS6dLysNARm0TuPQFyo=";
+    rev = "1089f5f59d357eb37ddea74ac6099397a20a47c3";
+    hash = "sha256-HF2mUcrCbQUMCqq+jnQfbzznQpSzH3/IIsnnMN8/8Nk=";
   };
 
   # The CLI validates its client environment at startup (common/src/env.ts) and
@@ -49,8 +49,8 @@ let
   # `bun install` resolves the platform-specific payloads (the OpenTUI native
   # bundles, ripgrep, ...), so every target has its own hash.
   workspaceDepsHashes = {
-    x86_64-linux = "sha256-KXKuDrL1exXq7ONBWfr5CqPrBvTRqMOXyUU5lDX2e4U=";
-    aarch64-darwin = "sha256-wgmvcKb/fV2WRcH074pacos0nZQ87BSJHg6dZHetVcs=";
+    x86_64-linux = "sha256-sbpx4CuypUb1JzYMojaM0Z0z44KR/wfO622D1mv2MFA=";
+    aarch64-darwin = "sha256-t1LLE4yNc8Y+93a9JclfLQpxHCyKQ/+VFCtdFCu1bAc=";
   };
 
   workspaceDeps = stdenvNoCC.mkDerivation {
