@@ -1,8 +1,8 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index db2da6c..c1dcc28 100644
+index f730671..7e919d0 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
-@@ -58,6 +58,8 @@
+@@ -60,6 +60,8 @@
    "devDependencies": {
      "@csstools/normalize.css": "12.1.1",
      "@iconify/json": "2.2.548",
@@ -10,7 +10,7 @@ index db2da6c..c1dcc28 100644
 +    "@inlang/plugin-message-format": "^4.5.5",
      "@monaco-editor/react": "4.7.0",
      "@tailwindcss/vite": "4.3.3",
-     "@tanstack/react-query": "5.104.5",
+     "@tanstack/react-query": "5.105.0",
 diff --git a/frontend/nyanpasu/project.inlang/settings.json b/frontend/nyanpasu/project.inlang/settings.json
 index 1eb1a9a..5d024c1 100644
 --- a/frontend/nyanpasu/project.inlang/settings.json
@@ -27,10 +27,10 @@ index 1eb1a9a..5d024c1 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index 1cad4f0..09eb1f5 100644
+index ba31607..b730bd7 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
-@@ -440,6 +440,12 @@ importers:
+@@ -437,6 +437,12 @@ importers:
        '@iconify/json':
          specifier: 2.2.548
          version: 2.2.548
@@ -43,16 +43,16 @@ index 1cad4f0..09eb1f5 100644
        '@monaco-editor/react':
          specifier: 4.7.0
          version: 4.7.0(monaco-editor@0.57.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
-@@ -508,7 +514,7 @@ importers:
+@@ -505,7 +511,7 @@ importers:
          version: 21.1.0(oxc-parser@0.155.0)(rolldown@1.2.14)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(less@4.9.1(supports-color@10.2.2))(terser@5.36.0)(yaml@2.9.1))
        unplugin-icons:
          specifier: 24.0.0
 -        version: 24.0.0(@svgr/core@8.1.0(supports-color@10.2.2)(typescript@7.0.2))(rolldown@1.2.14)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(less@4.9.1(supports-color@10.2.2))(terser@5.36.0)(yaml@2.9.1))
-+        version: 24.0.0(@svgr/core@8.1.0(supports-color@10.2.2)(typescript@7.0.2))(rolldown@1.2.14)(svelte@5.57.2)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(less@4.9.1(supports-color@10.2.2))(terser@5.36.0)(yaml@2.9.1))
++        version: 24.0.0(@svgr/core@8.1.0(supports-color@10.2.2)(typescript@7.0.2))(rolldown@1.2.14)(svelte@5.57.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(less@4.9.1(supports-color@10.2.2))(terser@5.36.0)(yaml@2.9.1))
        vite:
          specifier: 8.3.5
          version: 8.3.5(@types/node@24.19.2)(jiti@2.7.0)(less@4.9.1(supports-color@10.2.2))(terser@5.36.0)(yaml@2.9.1)
-@@ -1626,6 +1632,12 @@ packages:
+@@ -1620,6 +1626,12 @@ packages:
        vite:
          optional: true
  
@@ -65,7 +65,7 @@ index 1cad4f0..09eb1f5 100644
    '@inlang/recommend-sherlock@0.2.1':
      resolution: {integrity: sha512-ckv8HvHy/iTqaVAEKrr+gnl+p3XFNwe5D2+6w6wJk2ORV2XkcRkKOJ/XsTUJbPSiyi4PI+p+T3bqbmNx/rDUlg==}
  
-@@ -3072,6 +3084,11 @@ packages:
+@@ -3054,6 +3066,11 @@ packages:
    '@standard-schema/utils@0.3.0':
      resolution: {integrity: sha512-e7Mew686owMaPJVNNLs55PUvgz371nKgwsc4vxE49zsODpJEnxgxRo2y/OKrqueavXgZNMDVj3DdHFlaSAeU8g==}
  
@@ -77,7 +77,7 @@ index 1cad4f0..09eb1f5 100644
    '@svgr/babel-plugin-add-jsx-attribute@8.0.0':
      resolution: {integrity: sha512-b9MIk7yhdS1pMCZM8VeNfUlSKVRhsHZNMl5O9SfaX0l0t5wjdgu4IDzGB8bpnGBBOjGST3rRFVsaaEtI4W6f7g==}
      engines: {node: '>=14'}
-@@ -3696,6 +3713,9 @@ packages:
+@@ -3678,6 +3695,9 @@ packages:
    '@types/estree@1.0.8':
      resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
  
@@ -87,7 +87,7 @@ index 1cad4f0..09eb1f5 100644
    '@types/geojson@7946.0.14':
      resolution: {integrity: sha512-WCfD5Ht3ZesJUsONdhvm84dmzWOiOzOAqOncN0++w0lBw1o8OuDNJF2McvvCef/yBqb/HYRahp1BYtODFQ8bRg==}
  
-@@ -3982,6 +4002,10 @@ packages:
+@@ -3964,6 +3984,10 @@ packages:
      resolution: {integrity: sha512-ik3ZgC9dY/lYVVM++OISsaYDeg1tb0VtP5uL3ouh1koGOaUMDPpbFIei4JkFimWUFPn90sbMNMXQAIVOlnYKJA==}
      engines: {node: '>=10'}
  
@@ -98,7 +98,7 @@ index 1cad4f0..09eb1f5 100644
    array-timsort@1.0.3:
      resolution: {integrity: sha512-/+3GRL7dDAGEfM6TseQk/U+mi18TU2Ms9I3UlLdUMhz2hbvGNTKdj9xniwXfUqgYhHxRx0+8UnKkvlNwVU+cWQ==}
  
-@@ -3996,6 +4020,10 @@ packages:
+@@ -3978,6 +4002,10 @@ packages:
    async@3.2.6:
      resolution: {integrity: sha512-htCUDlxyyCLMgaM3xXg0C0LW2xqfuQ6p05pCEIsXuyQ+a1koYKTuBMzRNwmybfLgvJDMd0r1LTn4+E0Ti6C2AA==}
  
@@ -109,7 +109,7 @@ index 1cad4f0..09eb1f5 100644
    babel-dead-code-elimination@1.0.12:
      resolution: {integrity: sha512-GERT7L2TiYcYDtYk1IpD+ASAYXjKbLTDPhBtYj7X1NuRMDTMtAx9kyBenub1Ev41lo91OHCKdmP+egTDmfQ7Ig==}
  
-@@ -4513,6 +4541,9 @@ packages:
+@@ -4495,6 +4523,9 @@ packages:
    detect-node-es@1.1.0:
      resolution: {integrity: sha512-ypdmJU/TbBby2Dxibuv7ZLW3Bs1QEmM7nHjEANfohJLvE0XVujisn1qPJcZxg+qDucsr+bP6fLD1rPS3AhJ7EQ==}
  
@@ -119,7 +119,7 @@ index 1cad4f0..09eb1f5 100644
    devlop@1.1.0:
      resolution: {integrity: sha512-RWmIqhcFf1lRYBvNmr7qTNuyCt/7/ns2jbpp1+PalgE/rDQcBT0fioSMUpJ93irlUhC5hrg4cYqe6U+0ImW0rA==}
  
-@@ -4620,11 +4651,22 @@ packages:
+@@ -4602,11 +4633,22 @@ packages:
      resolution: {integrity: sha512-/veY75JbMK4j1yjvuUxuVsiS/hr/4iHs9FTT6cgTexxdE0Ly/glccBAkloH/DofkjRbZU3bnoj38mOmhkZ0lHw==}
      engines: {node: '>=12'}
  
@@ -142,7 +142,7 @@ index 1cad4f0..09eb1f5 100644
    estree-util-is-identifier-name@3.0.0:
      resolution: {integrity: sha512-hFtqIDZTIUZ9BXLb8y4pYGyk6+wekIivNVTcmvk8NoOh+VeRn5y6cEHzbURrWbfp1fIqdVipilzj+lfaadNZmg==}
  
-@@ -4946,6 +4988,9 @@ packages:
+@@ -4928,6 +4970,9 @@ packages:
      resolution: {integrity: sha512-+Pgi+vMuUNkJyExiMBt5IlFoMyKnr5zhJ4Uspz58WOhBF5QoIZkFyNHIbBAtHwzVAgk5RtndVNsDRN61/mmDqg==}
      engines: {node: '>=12'}
  
@@ -152,7 +152,7 @@ index 1cad4f0..09eb1f5 100644
    is-what@4.1.16:
      resolution: {integrity: sha512-ZhMwEosbFJkA0YhFnNDgTM4ZxDRsS6HqTo7qsZM08fehyRYIYa0yHu5R6mgo1n/8MgaPBXiPimPD77baVFYg+A==}
      engines: {node: '>=12.13'}
-@@ -5210,6 +5255,9 @@ packages:
+@@ -5192,6 +5237,9 @@ packages:
      resolution: {integrity: sha512-++gUqRDEvcnN6Zhqrr+y/CkVEHhlrR96vZn3nZZPYzMcBUyBtTKzB9NadClFIsIVSsu+3i9tfk/erqy9kAmt7Q==}
      engines: {node: '>=14'}
  
@@ -162,18 +162,18 @@ index 1cad4f0..09eb1f5 100644
    lodash-es@4.18.1:
      resolution: {integrity: sha512-J8xewKD/Gk22OZbhpOVSwcs60zhd95ESDwezOFuA3/099925PdHJ7OFHNTGtajL3AlZkykD32HykiMo+BIBI8A==}
  
-@@ -6258,6 +6306,10 @@ packages:
+@@ -6240,6 +6288,10 @@ packages:
      resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
      engines: {node: '>= 0.4'}
  
-+  svelte@5.57.2:
-+    resolution: {integrity: sha512-1YiPCAXT0Ct6g1vOMmSLa0Nsc3QRMvtDF32ihgglGVrugIuIK38RyDiFNXVDhtQ81TJjSO57NdMw6DyYLqSGDQ==}
++  svelte@5.57.3:
++    resolution: {integrity: sha512-5mAftM3SoDV9X0zdF386F9p2pv8iKOwi/KfBS1XnBAkVCKFzVOLHUoa8iGWAt4buoicLmyWVRpuuD5wplXOQsg==}
 +    engines: {node: '>=18'}
 +
    svg-parser@2.0.4:
      resolution: {integrity: sha512-e4hG1hRwoOdRb37cIMSgzNsxyzKfayW6VOflrwvR+/bzrkyxY/31WkbgnQpgtrNp1SdpJvpUAGTa/ZoiPNDuRQ==}
  
-@@ -6751,6 +6803,9 @@ packages:
+@@ -6733,6 +6785,9 @@ packages:
      resolution: {integrity: sha512-4UEqdc2RYGHZc7Doyqkrqiln3p9X2DZVxaGbwhn2pi7MrRagKaOcIKe8L3OxYcbhXLgLFUS3zAYuQjKBQgmuNg==}
      engines: {node: ^20.19.0 || ^22.12.0 || >=23}
  
@@ -183,7 +183,7 @@ index 1cad4f0..09eb1f5 100644
    zod@4.6.7:
      resolution: {integrity: sha512-g8W2D2kU6a8untc053fX1uVBKzM7yqAxW/3zwk83+6RyF2+SKOuV+c0wBDhUwzV1PaGapmZH+rmcUzPf+3CGwg==}
  
-@@ -7885,6 +7940,19 @@ snapshots:
+@@ -7867,6 +7922,19 @@ snapshots:
        typescript: 7.0.2
        vite: 8.3.5(@types/node@24.19.2)(jiti@2.7.0)(less@4.9.1(supports-color@10.2.2))(terser@5.36.0)(yaml@2.9.1)
  
@@ -191,7 +191,7 @@ index 1cad4f0..09eb1f5 100644
 +    dependencies:
 +      '@babel/parser': 7.29.8
 +      '@inlang/sdk': 4.0.4
-+      svelte: 5.57.2
++      svelte: 5.57.3
 +    transitivePeerDependencies:
 +      - '@typescript-eslint/types'
 +
@@ -203,7 +203,7 @@ index 1cad4f0..09eb1f5 100644
    '@inlang/recommend-sherlock@0.2.1':
      dependencies:
        comment-json: 4.5.0
-@@ -9120,6 +9188,10 @@ snapshots:
+@@ -9093,6 +9161,10 @@ snapshots:
  
    '@standard-schema/utils@0.3.0': {}
  
@@ -214,7 +214,7 @@ index 1cad4f0..09eb1f5 100644
    '@svgr/babel-plugin-add-jsx-attribute@8.0.0(@babel/core@7.29.7(supports-color@10.2.2))':
      dependencies:
        '@babel/core': 7.29.7(supports-color@10.2.2)
-@@ -9659,6 +9731,8 @@ snapshots:
+@@ -9632,6 +9704,8 @@ snapshots:
  
    '@types/estree@1.0.8': {}
  
@@ -223,7 +223,7 @@ index 1cad4f0..09eb1f5 100644
    '@types/geojson@7946.0.14': {}
  
    '@types/hast@3.0.4':
-@@ -9893,6 +9967,8 @@ snapshots:
+@@ -9866,6 +9940,8 @@ snapshots:
      dependencies:
        tslib: 2.8.1
  
@@ -232,7 +232,7 @@ index 1cad4f0..09eb1f5 100644
    array-timsort@1.0.3: {}
  
    assertion-error@2.0.1: {}
-@@ -9901,6 +9977,8 @@ snapshots:
+@@ -9874,6 +9950,8 @@ snapshots:
  
    async@3.2.6: {}
  
@@ -241,7 +241,7 @@ index 1cad4f0..09eb1f5 100644
    babel-dead-code-elimination@1.0.12(supports-color@10.2.2):
      dependencies:
        '@babel/core': 7.29.7(supports-color@10.2.2)
-@@ -10424,6 +10502,8 @@ snapshots:
+@@ -10397,6 +10475,8 @@ snapshots:
  
    detect-node-es@1.1.0: {}
  
@@ -250,7 +250,7 @@ index 1cad4f0..09eb1f5 100644
    devlop@1.1.0:
      dependencies:
        dequal: 2.0.3
-@@ -10525,8 +10605,14 @@ snapshots:
+@@ -10498,8 +10578,14 @@ snapshots:
  
    escape-string-regexp@5.0.0: {}
  
@@ -265,7 +265,7 @@ index 1cad4f0..09eb1f5 100644
    estree-util-is-identifier-name@3.0.0: {}
  
    estree-walker@2.0.2: {}
-@@ -10837,6 +10923,10 @@ snapshots:
+@@ -10810,6 +10896,10 @@ snapshots:
  
    is-plain-obj@4.1.0: {}
  
@@ -276,7 +276,7 @@ index 1cad4f0..09eb1f5 100644
    is-what@4.1.16: {}
  
    is-wsl@2.2.0:
-@@ -11050,6 +11140,8 @@ snapshots:
+@@ -11023,6 +11113,8 @@ snapshots:
        pkg-types: 2.3.0
        quansync: 0.2.11
  
@@ -285,11 +285,11 @@ index 1cad4f0..09eb1f5 100644
    lodash-es@4.18.1: {}
  
    lodash.debounce@4.0.8: {}
-@@ -12487,6 +12579,26 @@ snapshots:
+@@ -12460,6 +12552,26 @@ snapshots:
  
    supports-preserve-symlinks-flag@1.0.0: {}
  
-+  svelte@5.57.2:
++  svelte@5.57.3:
 +    dependencies:
 +      '@jridgewell/remapping': 2.3.5
 +      '@jridgewell/sourcemap-codec': 1.6.0
@@ -312,11 +312,11 @@ index 1cad4f0..09eb1f5 100644
    svg-parser@2.0.4: {}
  
    svg-tags@1.0.0: {}
-@@ -12712,6 +12824,27 @@ snapshots:
+@@ -12685,6 +12797,27 @@ snapshots:
        - vite
        - webpack
  
-+  unplugin-icons@24.0.0(@svgr/core@8.1.0(supports-color@10.2.2)(typescript@7.0.2))(rolldown@1.2.14)(svelte@5.57.2)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(less@4.9.1(supports-color@10.2.2))(terser@5.36.0)(yaml@2.9.1)):
++  unplugin-icons@24.0.0(@svgr/core@8.1.0(supports-color@10.2.2)(typescript@7.0.2))(rolldown@1.2.14)(svelte@5.57.3)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(less@4.9.1(supports-color@10.2.2))(terser@5.36.0)(yaml@2.9.1)):
 +    dependencies:
 +      '@antfu/install-pkg': 1.1.0
 +      '@iconify/utils': 3.1.7
@@ -325,7 +325,7 @@ index 1cad4f0..09eb1f5 100644
 +      unplugin: 3.3.0(rolldown@1.2.14)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(less@4.9.1(supports-color@10.2.2))(terser@5.36.0)(yaml@2.9.1))
 +    optionalDependencies:
 +      '@svgr/core': 8.1.0(supports-color@10.2.2)(typescript@7.0.2)
-+      svelte: 5.57.2
++      svelte: 5.57.3
 +    transitivePeerDependencies:
 +      - '@farmfe/core'
 +      - '@rspack/core'
@@ -340,7 +340,7 @@ index 1cad4f0..09eb1f5 100644
    unplugin-icons@24.0.0(@svgr/core@8.1.0(supports-color@10.2.2)(typescript@7.0.2))(rolldown@1.2.14)(vite@8.3.5(@types/node@24.19.2)(jiti@2.7.0)(less@4.9.1(supports-color@10.2.2))(terser@5.36.0)(yaml@2.9.1)):
      dependencies:
        '@antfu/install-pkg': 1.1.0
-@@ -12967,6 +13100,8 @@ snapshots:
+@@ -12940,6 +13073,8 @@ snapshots:
        y18n: 5.0.8
        yargs-parser: 22.0.0
  

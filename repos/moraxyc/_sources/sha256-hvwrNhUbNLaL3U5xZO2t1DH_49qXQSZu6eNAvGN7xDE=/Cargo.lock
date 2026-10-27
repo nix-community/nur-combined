@@ -2784,7 +2784,7 @@ dependencies = [
 [[package]]
 name = "qqmusic-api"
 version = "0.1.0"
-source = "git+https://github.com/YAQMC/qm-api-rs.git?rev=75f6e4d392f6d3e64608fb48e2480fb0087009e3#75f6e4d392f6d3e64608fb48e2480fb0087009e3"
+source = "git+https://github.com/YAQMC/qm-api-rs.git?rev=bab630d44901f80cae47dd0f09314950d0028e23#bab630d44901f80cae47dd0f09314950d0028e23"
 dependencies = [
  "aes",
  "async-trait",
@@ -2796,6 +2796,7 @@ dependencies = [
  "hex",
  "hmac",
  "md-5",
+ "quick-xml",
  "rand 0.8.7",
  "reqwest 0.12.28",
  "rsa",
@@ -4367,9 +4368,9 @@ checksum = "b6c140620e7ffbb22c2dee59cafe6084a59b5ffc27a8859a5f0d494b5d52b6be"
 
 [[package]]
 name = "uuid"
-version = "1.24.0"
+version = "1.26.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bf3923a6f5c4c6382e0b653c4117f48d631ea17f38ed86e2a828e6f7412f5239"
+checksum = "2ef6dac1e96601b4fb3acccccff2139741fcb757cb9a36089bf5be91cfb285ce"
 dependencies = [
  "getrandom 0.4.3",
  "js-sys",
@@ -5396,10 +5397,12 @@ dependencies = [
  "futures-util",
  "http-body-util",
  "keyring",
+ "md-5",
  "mpris-server",
  "rand 0.9.5",
  "reqwest 0.13.4",
  "rodio",
+ "rsa",
  "rusqlite",
  "serde",
  "serde_json",
