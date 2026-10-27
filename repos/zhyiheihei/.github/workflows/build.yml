@@ -119,7 +119,7 @@ jobs:
 
           printf '%s' "$ATTIC_UPLOAD_KEY" > /tmp/attic-key
           nix shell nixpkgs#attic-client -c attic login --set-default zhyi \
-            https://attic.zhyi.xin "$(cat /tmp/attic-key)"
+            https://cache.zhyi.xin "$(cat /tmp/attic-key)"
 
           # Push one output path at a time so a single bad upload (oversized
           # NAR, flaky network) cannot abort the rest of the cache update.
