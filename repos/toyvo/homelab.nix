@@ -239,6 +239,11 @@
     services = {
       bazarr = {
         port = 6767;
+        # Served from k3s via Traefik (plan step: flip). Same shape as Readarr.
+        upstreams = [
+          "10.1.0.3:30080"
+          "10.1.0.12:30080"
+        ];
         displayName = "Bazarr";
         description = "Subtitle Manager";
         # API consumers (*arrs) can't complete the forward-auth login flow;

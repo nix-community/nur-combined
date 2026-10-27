@@ -159,6 +159,8 @@ in
     k3sStarr.radarr.enable = true;
     # Fifth starr migration (readarr); same template again.
     k3sStarr.readarr.enable = true;
+    # Sixth starr migration (bazarr); same template, different wiring.
+    k3sStarr.bazarr.enable = true;
     security.enable = true;
     home-manager.enable = true;
     networking.enable = true;

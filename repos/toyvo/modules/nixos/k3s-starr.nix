@@ -18,6 +18,9 @@ let
   # Readarr has no stable release (discontinued upstream); pinned develop tag verified against hub.
   readarrImage = "lscr.io/linuxserver/readarr:develop-0.4.18.2805-ls157";
   readarrPort = 8787;
+  # nixpkgs ids.uids/gids.bazarr = 350; pinned to match existing ownership.
+  bazarrImage = "lscr.io/linuxserver/bazarr:v1.6.2-ls369";
+  bazarrPort = 6767;
 in
 {
   options.nixcfg.k3sStarr.prowlarr.enable =
@@ -31,6 +34,8 @@ in
 
   options.nixcfg.k3sStarr.readarr.enable =
     lib.mkEnableOption "Readarr in k3s (fifth starr migration)";
+
+  options.nixcfg.k3sStarr.bazarr.enable = lib.mkEnableOption "Bazarr in k3s (sixth starr migration)";
 
   # Single writer: enable ONLY on nas. See k3s-storage.nix for why.
   config = lib.mkMerge [
@@ -753,6 +758,156 @@ in
                     backend.service = {
                       name = "readarr";
                       port.number = readarrPort;
+                    };
+                  }
+                ];
+              }
+            ];
+          };
+        };
+      };
+    })
+    (lib.mkIf cfg.bazarr.enable {
+      assertions = [
+        {
+          assertion = config.nixcfg.k3s.enable && config.nixcfg.k3s.role == "server";
+          message = "nixcfg.k3sStarr: starr manifests must live on a server (nas), never an agent.";
+        }
+      ];
+
+      services.k3s.manifests = {
+        "bazarr-media-pvc.yaml".content = {
+          apiVersion = "v1";
+          kind = "PersistentVolumeClaim";
+          metadata = {
+            name = "bazarr-media";
+          };
+          spec = {
+            accessModes = [ "ReadWriteMany" ];
+            storageClassName = "nfs-pool";
+            resources.requests.storage = "100Gi";
+          };
+        };
+        "bazarr-statefulset.yaml".content = {
+          apiVersion = "apps/v1";
+          kind = "StatefulSet";
+          metadata = {
+            name = "bazarr";
+            labels.app = "bazarr";
+          };
+          spec = {
+            serviceName = "bazarr";
+            replicas = 1;
+            selector.matchLabels.app = "bazarr";
+            template = {
+              metadata.labels.app = "bazarr";
+              spec = {
+                affinity.nodeAffinity.requiredDuringSchedulingIgnoredDuringExecution.nodeSelectorTerms = [
+                  {
+                    matchExpressions = [
+                      {
+                        key = "kubernetes.io/hostname";
+                        operator = "In";
+                        values = [ "nas" ];
+                      }
+                    ];
+                  }
+                ];
+                containers = [
+                  {
+                    name = "bazarr";
+                    image = bazarrImage;
+                    imagePullPolicy = "IfNotPresent";
+                    env = [
+                      {
+                        name = "PUID";
+                        value = "350";
+                      }
+                      {
+                        name = "PGID";
+                        value = "350";
+                      }
+                      {
+                        name = "TZ";
+                        value = "America/Chicago";
+                      }
+                    ];
+                    ports = [ { containerPort = bazarrPort; } ];
+                    resources = {
+                      requests = {
+                        cpu = "50m";
+                        memory = "256Mi";
+                      };
+                      limits = {
+                        cpu = "1000m";
+                        memory = "2Gi";
+                      };
+                    };
+                    volumeMounts = [
+                      {
+                        name = "config";
+                        mountPath = "/config";
+                      }
+                      {
+                        name = "media";
+                        mountPath = "/mnt";
+                      }
+                    ];
+                  }
+                ];
+                volumes = [
+                  {
+                    name = "media";
+                    persistentVolumeClaim.claimName = "bazarr-media";
+                  }
+                ];
+              };
+            };
+            volumeClaimTemplates = [
+              {
+                metadata.name = "config";
+                spec = {
+                  accessModes = [ "ReadWriteOnce" ];
+                  resources.requests.storage = "5Gi";
+                };
+              }
+            ];
+          };
+        };
+        "bazarr-service.yaml".content = {
+          apiVersion = "v1";
+          kind = "Service";
+          metadata = {
+            name = "bazarr";
+          };
+          spec = {
+            selector.app = "bazarr";
+            ports = [
+              {
+                port = bazarrPort;
+                targetPort = bazarrPort;
+              }
+            ];
+          };
+        };
+        "bazarr-ingress.yaml".content = {
+          apiVersion = "networking.k8s.io/v1";
+          kind = "Ingress";
+          metadata = {
+            name = "bazarr";
+          };
+          spec = {
+            ingressClassName = "traefik";
+            rules = [
+              {
+                host = "bazarr.diekvoss.net";
+                http.paths = [
+                  {
+                    path = "/";
+                    pathType = "Prefix";
+                    backend.service = {
+                      name = "bazarr";
+                      port.number = bazarrPort;
                     };
                   }
                 ];
