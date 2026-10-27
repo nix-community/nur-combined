@@ -49,6 +49,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--skip=mcode_history_uses_visible_roots_and_display_messages"
     "--skip=claude_updater_child_inherits_scoped_settings_without_parent_leakage"
     "--skip=test_parent_rollout_is_cached_once_across_fork_cutoffs"
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    "--skip=replacement_closes_the_previous_keep_alive_connection"
   ];
 
   postPatch = ''

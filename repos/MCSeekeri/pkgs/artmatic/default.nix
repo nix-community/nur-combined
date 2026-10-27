@@ -16,13 +16,13 @@
 
 let
   pname = "artmatic";
-  version = "0.3.0-unstable-2026-10-26";
+  version = "0.3.0-unstable-2026-10-27";
 
   src = fetchFromGitHub {
     owner = "OxygenNine";
     repo = "artmatic";
-    rev = "8f57ede70392dbb92a0cccfb82e30b45a0f1329c";
-    hash = "sha256-KczBBzbx+TLEK4Fw4ctwULUgXTrECWB3Z2Ew5TvGk0s=";
+    rev = "a6e76eb52bce9abf0432cc9c499104ce6cb91a5a";
+    hash = "sha256-NDg0MyxpJk9220vDEWljG6MZowbEx9u7Sfche580Dek=";
   };
 
   node_modules = stdenv.mkDerivation {
@@ -64,7 +64,7 @@ let
     '';
 
     dontFixup = true;
-    outputHash = "sha256-+Qusl+2hxvJ2b1symFzuNMhD84ooKCKU1eCL2xfxPOM=";
+    outputHash = "sha256-Ll09BPicWGz8bddYf6Yg2XFVIF1NpP5tzG0G0+7pE4o=";
     outputHashMode = "recursive";
   };
 in

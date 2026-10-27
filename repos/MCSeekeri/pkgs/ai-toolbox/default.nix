@@ -49,7 +49,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --replace-fail '"createUpdaterArtifacts": true' '"createUpdaterArtifacts": false'
   '';
 
-  env.NODE_ENV = "production";
+  env = {
+    NODE_ENV = "production";
+  }
+  // lib.optionalAttrs stdenv.hostPlatform.isDarwin { NODE_OPTIONS = "--max-old-space-size=4096"; };
 
   tauriBuildFlags = [ "--ignore-version-mismatches" ];
 
