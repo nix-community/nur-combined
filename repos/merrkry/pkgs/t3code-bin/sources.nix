@@ -27,9 +27,9 @@ let
 in
 {
   stable = mkSources {
-    version = "0.1.2";
-    cliHash = "sha256-eu1iXLlhk43xdMGgZ8DwUjU2CUC1PogqFkMSa3VNoWw=";
-    desktopHash = "sha256-zwHi0Wfv+dAcTBAE0xssDaniUizJQmLkFkTRyxXf21w=";
+    version = "0.1.3";
+    cliHash = "sha256-Y80PBUfu9iu07OJ/p3m7+eK6hTHMaFQlaLqeeIONxoQ=";
+    desktopHash = "sha256-gBzOSC0ghdob+6HQ4wHAotdafI0O/SSGXCJhlINC3yE=";
   };
 
   nightly = mkSources {
