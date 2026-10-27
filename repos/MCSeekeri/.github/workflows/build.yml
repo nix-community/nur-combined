@@ -118,3 +118,52 @@ jobs:
       - name: Trigger NUR update
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         run: curl -XPOST "https://nur-update.nix-community.org/update?repo=MCSeekeri"
+
+  darwin:
+    strategy:
+      fail-fast: false
+      matrix:
+        nixPath:
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-26.05.tar.gz
+    runs-on: macos-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+      - name: Install nix
+        uses: cachix/install-nix-action@v31
+        with:
+          nix_path: "${{ matrix.nixPath }}"
+          extra_nix_config: |
+            accept-flake-config = true
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            extra-substituters = https://nix.mcseekeri.com?priority=51
+            extra-trusted-public-keys = nix.mcseekeri.com-1:3gd0/2u7IOF7YooxEiBbWTvRCYGC53S2UoqFdnCUYHc=
+            max-jobs = 1
+            max-substitution-jobs = 4
+      - name: Setup niks3
+        uses: Mic92/niks3-action@v1
+        with:
+          server-url: https://niks3.mcseekeri.com
+          drain-timeout: 7200
+      - name: Show nixpkgs version
+        run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+      - name: Check evaluation
+        shell: bash
+        run: |
+          nix-instantiate --show-trace \
+            --allowed-uris https://static.rust-lang.org \
+            --option restrict-eval true \
+            --option allow-import-from-derivation true \
+            -I "nixpkgs=$(nix-instantiate --find-file nixpkgs)" \
+            -I "$PWD" \
+            ci.nix -A cacheOutputs
+      - name: Build nix packages
+        shell: bash
+        run: |
+          heartbeat() { while sleep 5m; do echo "::notice::Nix build still running at $(date -Iseconds)"; done; }
+          heartbeat & heartbeat_pid=$!
+          trap 'kill "$heartbeat_pid" 2>/dev/null || true; wait "$heartbeat_pid" 2>/dev/null || true' EXIT
+          nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached \
+            --show-trace --option log-lines 0 ci.nix -A cacheOutputs

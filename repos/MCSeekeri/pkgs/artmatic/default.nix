@@ -9,6 +9,7 @@
   makeWrapper,
   makeDesktopItem,
   copyDesktopItems,
+  desktopToDarwinBundle,
   nix-update-script,
   writableTmpDirAsHomeHook,
 }:
@@ -76,7 +77,8 @@ stdenv.mkDerivation {
     nodejs
     makeWrapper
     copyDesktopItems
-  ];
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [ desktopToDarwinBundle ];
 
   env = {
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
@@ -84,12 +86,12 @@ stdenv.mkDerivation {
   };
 
   postPatch = ''
-      substituteInPlace desktop/main.mjs \
-        --replace-fail "path.join(__dirname, '..', '.tmp-electron')" \
-                       "path.join(app.getPath('appData'), 'artmatic')"
-      substituteInPlace desktop/main.mjs \
-        --replace-fail "async function main() {" "async function main() {
-    require('electron').Menu.setApplicationMenu(null)"
+    substituteInPlace desktop/main.mjs \
+      --replace-fail "path.join(__dirname, '..', '.tmp-electron')" \
+                     "path.join(app.getPath('appData'), 'artmatic')"
+    substituteInPlace desktop/main.mjs \
+      --replace-fail "async function main() {" "async function main() {
+      if (process.platform !== 'darwin') require('electron').Menu.setApplicationMenu(null)"
   '';
 
   configurePhase = ''
@@ -119,7 +121,7 @@ stdenv.mkDerivation {
     install -m644 scripts/capacity.mjs "$appDir/scripts/"
 
     makeWrapper ${lib.getExe electron} $out/bin/artmatic \
-      --add-flags "--class=artmatic" \
+      ${lib.optionalString stdenv.hostPlatform.isLinux ''--add-flags "--class=artmatic"''} \
       --add-flags "$appDir/main.mjs" \
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}"
 
@@ -160,7 +162,7 @@ stdenv.mkDerivation {
     homepage = "https://github.com/OxygenNine/artmatic";
     license = lib.licenses.asl20;
     mainProgram = "artmatic";
-    platforms = lib.platforms.linux;
+    platforms = electron.meta.platforms;
     sourceProvenance = with lib.sourceTypes; [ fromSource ];
     maintainers = with lib.maintainers; [ MCSeekeri ];
   };
