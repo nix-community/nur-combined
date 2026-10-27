@@ -16,7 +16,7 @@ let
 in
 buildGo127Module (finalAttrs: {
   pname = "venator";
-  version = "0.1.0a4-unstable-2026-10-23";
+  version = "0.1.0a4-unstable-2026-10-27";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -24,8 +24,8 @@ buildGo127Module (finalAttrs: {
   src = fetchFromCodeberg {
     owner = "matrix-venator";
     repo = "venator";
-    rev = "4f624b4f96067e45b998f1e058950b40b819fbec";
-    hash = "sha256-Bb4f6B0hioJ4zPt5pTAjdh0QGevj+RdkL3fB9gQ7GZU=";
+    rev = "31c7bb335f7c12bfb06f0d6fd3638734e33317a0";
+    hash = "sha256-zH9HsvuMmAcR5Wx0piIiFU5F2yaTNn0WPKURFVamPYU=";
   };
 
   vendorHash = "sha256-nV2a9zUDWJ7P03jUi85MaKUB0AxHBkjxdki621j0wSM=";
