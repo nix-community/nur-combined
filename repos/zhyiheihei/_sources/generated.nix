@@ -21,7 +21,7 @@
     version = "0.5.24";
     src = fetchurl {
       url = "https://pypi.org/packages/source/c/cn2an/cn2an-0.5.24.tar.gz";
-      hash = "sha256-4L2dAUyf6zDlkRspQuinnRQ29KQ26iDhIqmYEI+rJv8=";
+      hash = "sha256-3f66W9+q5udPHgc9xp0Xos3yOaBblY3GVqPzd6UIMz8=";
     };
   };
   docker-proxy = {
@@ -46,12 +46,12 @@
   };
   epd-food-server = {
     pname = "epd-food-server";
-    version = "90455da6f02c0555dbeba5360857cd3a3c85f176";
+    version = "9fbc865c32f010c33afaee4fff3970d830e59e76";
     src = fetchgit {
       url = "https://github.com/zhyiheihei/EPD-Dashboard.git";
-      rev = "90455da6f02c0555dbeba5360857cd3a3c85f176";
+      rev = "9fbc865c32f010c33afaee4fff3970d830e59e76";
       fetchSubmodules = false;
-      hash = "sha256-4L2dAUyf6zDlkRspQuinnRQ29KQ26iDhIqmYEI+rJv8=";
+      hash = "sha256-3f66W9+q5udPHgc9xp0Xos3yOaBblY3GVqPzd6UIMz8=";
     };
     date = "2026-10-27";
   };
