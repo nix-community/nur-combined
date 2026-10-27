@@ -1,5 +1,14 @@
 {
-  "version": "8fb41fc4d1616d334ff4629f5ef4e33b01d894f8",
+  "version": "21df464f3198024fc1ee3dc4894fe8d3f8f6a35f",
   "hash": "sha256-PzVphiNSuO+BvEFUD94XkA8amcNWAl22IyidZj9Y1EY=",
-  "sourceSha256": "sha256-lQI7+ElASc39Ri8DqyuD2L9cv9xWeCsVxPo99O3Wn6Q="
+  "sourceSha256": "sha256-HL0ptBKYIIvo/28HbAC/onz9Xgr+7E3Tq6dUh7fY4uM=",
+  "upstreamVersion": "6.14.0",
+  "cef": {
+    "version": "152.0.6",
+    "gitRevision": "708dc14",
+    "chromiumVersion": "152.0.7977.83",
+    "sha256": "sha256-2vjCtuY3h9apHWZiBaikUhQZk36rr0dyNzjIaupxNb0=",
+    "archiveName": "cef_binary_152.0.6+g708dc14+chromium-152.0.7977.83_linux64_minimal.tar.bz2",
+    "archiveSha1": "9711b86c105fb590da576fe5a829802f1a79d520"
+  }
 }

@@ -29,10 +29,15 @@ lib.makeScope pkgs.newScope (
 
     doona-web = self.callPackage ./doona-web/package.nix { };
 
-    dorion-git = self.callPackage ./dorion-git {
-      inherit (lib.importJSON ./dorion-git/src-info.json) hash;
-      sources = fetchedSrc.dorion-git;
-    };
+    dorion-git =
+      let
+        info = lib.importJSON ./dorion-git/src-info.json;
+      in
+      self.callPackage ./dorion-git {
+        inherit (info) hash upstreamVersion;
+        cefInfo = info.cef;
+        sources = fetchedSrc.dorion-git;
+      };
 
     dxvk-gplall-bin-w32 = self.callPackage ./dxvk-gplall-bin rec {
       sources = fetchedSrc.dxvk-gplall;
