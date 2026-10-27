@@ -37,6 +37,7 @@ jobs:
           - pkg: herdr
           - pkg: markserv
           - pkg: openscreen-for-mac
+          - pkg: portless
     runs-on: ubuntu-latest
     steps:
       - id: gate
