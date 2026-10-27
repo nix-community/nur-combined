@@ -129,11 +129,14 @@ jobs:
           failed=0
           while read -r out_path; do
             [ -n "$out_path" ] || continue
-            if nix shell nixpkgs#attic-client -c attic push zhyi "$out_path"; then
+            # Capture stderr: attic rejects bad tokens/patterns with a one-line
+            # reason that is otherwise invisible in CI logs.
+            if out=$(nix shell nixpkgs#attic-client -c attic push zhyi "$out_path" 2>&1); then
               echo "pushed $out_path"
               pushed=$((pushed + 1))
             else
               echo "PUSH-FAIL $out_path"
+              printf '%s\n' "$out" | tail -3
               failed=$((failed + 1))
             fi
           done < /tmp/pkg-out-paths
