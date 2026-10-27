@@ -62,6 +62,8 @@ async function platforms(file, { config, force }) {
     const { version, releases } = await check(file, { config, force });
     if (!version) return;
 
+    const nextPlatforms = { ...platforms };
+
     for (const [platform, settings] of Object.entries(platforms)) {
       if (settings.locked && !force) {
         console.log(`Skipping ${platform} because it is locked.`);
@@ -90,7 +92,11 @@ async function platforms(file, { config, force }) {
 
       const hash = await getHash(url, unpack);
 
-      await update.platforms(file, { platform, url: settings.url ? url : undefined, hash, file: settings.query ? resolved : undefined });
+      nextPlatforms[platform] = {
+        ...settings,
+        hash,
+        ...(settings.query ? { file: resolved } : {}),
+      };
 
       console.log(`Updated ${platform} to version ${version}`);
 
@@ -98,7 +104,7 @@ async function platforms(file, { config, force }) {
     }
 
     if (updated > 0) {
-      await update.single(file, { version });
+      await update.single(file, { version, platforms: nextPlatforms });
       console.log(`Updated ${updated} platforms to version ${version}`);
     }
   } else {
@@ -157,7 +163,7 @@ async function platforms(file, { config, force }) {
 
       const hash = await getHash(url, unpack);
 
-      await update.platforms(file, { platform, url: settings.url ? url : undefined, hash, version: parsed, file: settings.query ? resolved : undefined });
+      await update.platforms(file, { platform, hash, version: parsed, file: settings.query ? resolved : undefined });
 
       if (config.source.name_query && !display) display = await guard(q => eval(`(${JSON.stringify(releases)})${q}`), undefined)(config.source.name_query);
 

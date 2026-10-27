@@ -58,7 +58,7 @@
     homepage = "https://www.waterfox.net/";
     changelog = "https://www.waterfox.net/docs/releases/${version}/";
     license = lib.licenses.mpl20;
-    platforms = lib.platforms.darwin ++ ["x86_64-linux"];
+    platforms = lib.platforms.darwin ++ ["aarch64-linux" "x86_64-linux"];
     maintainers = with lib.maintainers; [JoyfulCat Prinky];
     mainProgram = "waterfox";
     sourceProvenance = [lib.sourceTypes.binaryNativeCode];
@@ -175,7 +175,7 @@ in
       '';
 
       postInstall = ''
-        find $out/opt/waterfox -type f -name "*.so" -exec sh -c '
+        find $out/opt/waterfox -type f -exec sh -c '
           if patchelf --print-interpreter "{}" >/dev/null 2>&1; then
             patchelf \
               --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
@@ -183,21 +183,6 @@ in
               "{}"
           fi
         ' \;
-
-        patchelf \
-          --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-          --set-rpath "${lib.makeLibraryPath buildInputs}:$out/opt/waterfox" \
-          $out/opt/waterfox/waterfox-bin
-
-        patchelf \
-          --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-          --set-rpath "${lib.makeLibraryPath buildInputs}:$out/opt/waterfox" \
-          $out/opt/waterfox/glxtest
-
-        patchelf \
-          --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-          --set-rpath "${lib.makeLibraryPath buildInputs}:$out/opt/waterfox" \
-          $out/opt/waterfox/vaapitest
 
         cp -L ${nspr}/lib/libnspr4.so $out/opt/waterfox/
         cp -L ${nspr}/lib/libplc4.so $out/opt/waterfox/
