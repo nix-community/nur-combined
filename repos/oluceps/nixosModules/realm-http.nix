@@ -142,12 +142,15 @@ in
           NO_PROXY = noProxy;
           no_proxy = noProxy;
         }
-        // lib.optionalAttrs w.http.internet {
-          HTTP_PROXY = "http://127.0.0.1:13128";
-          HTTPS_PROXY = "http://127.0.0.1:13128";
-          http_proxy = "http://127.0.0.1:13128";
-          https_proxy = "http://127.0.0.1:13128";
-        };
+        //
+          lib.optionalAttrs
+            (w.http.internet && !((cfg.agent.enable or false) && (w.transparent.enable or false)))
+            {
+              HTTP_PROXY = "http://127.0.0.1:13128";
+              HTTPS_PROXY = "http://127.0.0.1:13128";
+              http_proxy = "http://127.0.0.1:13128";
+              https_proxy = "http://127.0.0.1:13128";
+            };
       }
     ) clients;
   };

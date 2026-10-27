@@ -34,6 +34,10 @@
       realm.workloads = {
         synapse = {
           unit = "matrix-synapse.service";
+          transparent.internetPorts = [
+            443
+            8448
+          ];
           user = "matrix-synapse";
           group = "matrix-synapse";
           http = {

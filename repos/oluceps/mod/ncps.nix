@@ -7,7 +7,11 @@
         mode = "400";
       };
       systemd.services.ncps = {
-        requires = [ "seaweedfs.service" ];
+        requires = [
+          "seaweedfs.service"
+          "postgresql.service"
+        ];
+        after = [ "postgresql.service" ];
         serviceConfig = {
           EnvironmentFile = config.vaultix.secrets.ncps.path;
         };

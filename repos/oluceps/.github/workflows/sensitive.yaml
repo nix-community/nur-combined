@@ -16,10 +16,16 @@ jobs:
       - name: detect
         run: |
           #!/bin/bash
-          headers=("AGE-SECRET-KEY" "BEGIN OPENSSH PRIVATE KEY" "BEGIN PGP PRIVATE KEY BLOCK" "PRIVATE")
-          
-          for per in "${headers[@]}"
-          do
-            [ -z "$(grep -r "$per" --exclude="sensitive.yaml" ./)" ] || exit 1
-          done
+          pattern='AGE-SECRET-KEY-|-----BEGIN ([A-Z0-9]+ )*PRIVATE KEY( BLOCK)?-----'
+
+          if git grep -l -I -E "$pattern" -- . \
+            ':(exclude).github/workflows/sensitive.yaml'; then
+            echo "发现疑似私钥，请检查以上文件"
+            exit 1
+          else
+            status=$?
+            if [ "$status" -ne 1 ]; then
+              exit "$status"
+            fi
+          fi
         shell: bash

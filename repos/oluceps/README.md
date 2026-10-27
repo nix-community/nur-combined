@@ -17,9 +17,9 @@ Open either image for the full-size diagram.
 </tr>
 </table>
 
-[All diagrams and sources](layout/README.md) · [Local transport](layout/local-transport.svg) · [Outbound example](layout/http-egress.svg) · [Immich routing](layout/immich-routing.svg)
+[All diagrams and sources](layout/README.md) · [Transparent agent](layout/transparent-egress.svg) · [Local transport](layout/local-transport.svg) · [Outbound example](layout/http-egress.svg) · [Immich routing](layout/immich-routing.svg)
 
-Public Caddy terminates normal HTTPS. Its Ghostunnel proxies carry its Realm identity to private backends. Observability Caddy and Internet Envoy handle their own mutual TLS (mTLS). SPIRE supplies certificates through local Agents.
+Public Caddy terminates normal HTTPS. Its Ghostunnel proxies carry its Realm identity to private backends. Observability Caddy and Internet Envoy handle their own mutual TLS (mTLS). SPIRE supplies certificates through local Agents. The host realm-agent captures ordinary TCP/DNS for eligible isolated workloads and forwards through their existing declared egress sockets; SPIFFE authentication stays in the proxies and gateways.
 
 ## Implemented security controls
 
@@ -35,7 +35,7 @@ These controls describe the declared configuration. Host imports and explicit wo
 | Administrator → host | The shared SSH policy disables password authentication and trusts the configured user certificate authority. | [SSH policy](mod/openssh.nix) |
 | Boot and storage | Selected hosts use Lanzaboote boot signing, LUKS volumes, and transient roots with explicit preserved paths. | [Secure Boot](mod/secureboot.nix), [disk layouts](mod/disko/), [preservation](mod/empheral-root.nix) |
 
-SPIRE certificates default to a one-hour lifetime. Ghostunnel separately caps connection lifetime at one hour. Ordinary applications use their local proxy sockets. The dedicated TLS gateways have direct Agent access.
+SPIRE certificates default to a one-hour lifetime. Ghostunnel separately caps connection lifetime at one hour. Applications use direct Unix sockets, loopback adapters, or the transparent worker to reach declared egress. The dedicated TLS gateways have direct SPIRE Agent access.
 
 ## Defensive threat model
 
@@ -43,7 +43,7 @@ SPIRE certificates default to a one-hour lifetime. Ghostunnel separately caps co
 
 **Attacker:** an untrusted network client, a party that can influence DNS, or an attacker with code execution inside one unprivileged application.
 
-**Trusted base:** host root and kernel, systemd, SPIRE, enrollment administrators, deployment keys, and the deployed Nix policy and inputs.
+**Trusted base:** host root and kernel, systemd, the realm-agent controller, SPIRE, enrollment administrators, deployment keys, and the deployed Nix policy and inputs.
 
 | Threat | Boundary and defense | Remaining authority or limit |
 | --- | --- | --- |

@@ -3,29 +3,66 @@ vars: { d2-config: { theme-id: 0 } }
 classes: {
   node: { style: { fill: "#eef4ff"; stroke: "#37628b"; border-radius: 10; font-size: 20 } }
   gateway: { style: { fill: "#e6f4ed"; stroke: "#31765b"; border-radius: 10; font-size: 20 } }
+  agent: { style: { fill: "#f0e8ff"; stroke: "#7652a2"; border-radius: 10; font-size: 20 } }
   note: { style: { fill: "#fff6df"; stroke: "#aa8330"; border-radius: 8; font-size: 18 } }
+  namespace: { style: { fill: "#f7f9fc"; stroke: "#71839b"; stroke-dash: 5; border-radius: 12; font-size: 22 } }
 }
-title: "Realm: Roles and Connections" { shape: text; style.font-size: 30 }
+title: "Realm: Transparent Egress and SPIFFE Identity" { shape: text; style.font-size: 30 }
 users: "Public and internal users" { class: node }
-apps: "Isolated applications\nExample: Forgejo" { class: node }
-caddy: "Caddy HTTPS entry\nNormal HTTPS certificates" { class: gateway }
-clients: "Realm clients\nGhostunnel holds the service identity" { class: gateway }
-receivers: "Realm receivers\nGhostunnel checks caller allowlists" { class: gateway }
-backends: "Private backends\nExamples: Immich and PostgreSQL" { class: node }
-native: "Gateways with their own mutual TLS\nObservability Caddy / Internet Envoy" { class: gateway }
-identity: "Identity control\nLocal SPIRE Agent per host\nSPIRE Server on eihort" { class: node }
-users -> caddy: "HTTPS"
-caddy -> clients: "Declared upstreams"
-apps -> clients: "Local socket or TCP adapter"
-clients -> receivers: "Mutual TLS"
-receivers -> backends: "Socket or local adapter"
-clients -> native: "Mutual TLS"
-clients -> identity: "Certificates" { style.stroke-dash: 5 }
-receivers -> identity: "Certificates" { style.stroke-dash: 5 }
-native -> identity: "Certificates" { style.stroke-dash: 5 }
-note: "Solid links: request paths. Dashed links: certificate requests.\nEach receiver checks the caller's identity before it accepts a connection." { class: note }
+
+app_ns: "Workload A: private network namespace (ns)\nNative: realm-net-<app>.service / Container: own namespace\nlo + realm0 dummy / No external link or default route" {
+  class: namespace
+  app: "Application\nUser: <app user> / Group: <app group>\nNo SPIRE socket access" { class: node }
+  capture: "BPF hooks on application cgroup\nTCP connect + UDP/TCP DNS" { class: agent }
+  worker: "realm-agent worker\nUser: rnet-<app> / Group: <app group>\nSame netns / Own resource cgroup + minimal root\nNo SPIRE API" { class: agent }
+  app -> capture: "Ordinary TCP / DNS"
+  capture -> worker: "Private listeners + original destination"
+  adapter: "Optional local TCP adapter\n127.0.0.1:<localPort>\nUser: realm-<app> / Extra group: <app group>" { class: gateway }
+  app -> adapter: "Loopback TCP"
+}
+
+host_ns: "Host network namespaces (one per host)\nProxies use host networking / Workloads keep separate ns" {
+  class: namespace
+  caddy: "Caddy HTTPS entry\nNormal HTTPS certificates" { class: gateway }
+  egress: "Unix egress socket\nOwner: realm-<app> / Group: <app group>\nSocket: 0660 / Directory: 0750" { class: node }
+  clients: "Realm clients: Ghostunnel\nUser / Group: realm-<app>\nExtra group: realm-proxies" { class: gateway }
+  receivers: "Realm receivers: Ghostunnel\nUser / Group: realm-<backend> (default)\nExtra groups: realm-proxies + ingressGroups\nChecks caller SPIFFE allowlist" { class: gateway }
+  ingress: "Unix ingress socket for TCP backend\nOwner / Group: realm-<backend>\nSocket: 0660 / Directory: 0750" { class: node }
+  native: "Gateways with their own mutual TLS\nObservability Caddy / Internet Envoy\nExtra group: realm-proxies" { class: gateway }
+  controller: "realm-agent controller: host root\nOne daemon / Gate pins peer with pidfd\nChecks UID + actual cgroup/netns\nNative unit binding / Exclusive container UID" { class: agent }
+  agent: "Local SPIRE Agent on each host\nWorkload API access: realm-proxies group\nIssues identity by systemd unit + Unix user" { class: node }
+  caddy -> clients: "Declared upstream socket"
+  egress -> clients: "Socket activation"
+  clients -> receivers: "Mutual TLS\nSame host or across hosts"
+  receivers -> ingress: "Private TCP backend path"
+  clients -> native: "Mutual TLS"
+  clients -> agent: "Certificates" { style.stroke-dash: 5 }
+  receivers -> agent: "Certificates" { style.stroke-dash: 5 }
+  native -> agent: "Certificates" { style.stroke-dash: 5 }
+}
+
+backend_ns: "Workload B: private backend network namespace" {
+  class: namespace
+  label.near: bottom-center
+  adapter: "TCP backend adapter\nUser / Group: realm-<backend>\nJoins the backend network namespace" { class: gateway }
+  backend: "Private backend\nUser: <backend user> / Group: <backend group>\nLoopback TCP or declared Unix socket" { class: node }
+  adapter -> backend: "Loopback TCP"
+}
+server: "SPIRE Server on eihort" { class: node }
+
+users -> host_ns.caddy: "HTTPS"
+app_ns.app -> host_ns.egress: "Direct Unix socket"
+app_ns.adapter -> host_ns.egress: "Unix socket"
+app_ns.worker -> host_ns.egress: "Declared route or Internet CONNECT / DNS DoH"
+host_ns.controller -> app_ns.capture: "Attach BPF to attested app cgroup" { style.stroke-dash: 5 }
+host_ns.controller -> app_ns.worker: "Enter netns, isolate mounts/resources, drop UID" { style.stroke-dash: 5 }
+host_ns.ingress -> backend_ns.adapter: "Socket activation"
+host_ns.receivers -> backend_ns.backend: "Declared Unix backend\nGroup access"
+host_ns.agent -> server: "Identity control" { style.stroke-dash: 5 }
+
+note: "Isolated native services and supported rootless containers enroll automatically; host-network / external workloads stay outside capture.\nRoot controller enforces local attribution; the worker opens only existing declared Unix egress sockets.\nGhostunnel and native gateways retain SPIFFE authentication and receiver allowlists. DNS supplies location, not identity.\nSolid links: requests. Dashed links: control / identity. Backend workloads can use the same capture path as workload A." { class: note }
 # Invisible edges arrange the title and note.
 title -> users: { style.opacity: 0 }
-title -> apps: { style.opacity: 0 }
-backends -> note: { style.opacity: 0 }
-identity -> note: { style.opacity: 0 }
+title -> app_ns: { style.opacity: 0 }
+backend_ns -> note: { style.opacity: 0 }
+server -> note: { style.opacity: 0 }

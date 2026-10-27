@@ -1,0 +1,57 @@
+direction: down
+vars: { d2-config: { theme-id: 0 } }
+classes: {
+  node: { style: { fill: "#eef4ff"; stroke: "#37628b"; border-radius: 10; font-size: 20 } }
+  gateway: { style: { fill: "#e6f4ed"; stroke: "#31765b"; border-radius: 10; font-size: 20 } }
+  agent: { style: { fill: "#f0e8ff"; stroke: "#7652a2"; border-radius: 10; font-size: 20 } }
+  note: { style: { fill: "#fff6df"; stroke: "#aa8330"; border-radius: 8; font-size: 18 } }
+  boundary: { style: { fill: "#f7f9fc"; stroke: "#71839b"; stroke-dash: 5; border-radius: 12; font-size: 22 } }
+}
+title: "realm-agent: Local Capture, Existing SPIFFE Egress" { shape: text; style.font-size: 30 }
+
+private: "Workload network namespace\nlo + realm0 dummy / No external link or default route" {
+  class: boundary
+  app_cgroup: "Application cgroup" {
+    class: boundary
+    gate: "Readiness gate\nNative ExecStartPre / Container realm-helper launch" { class: node }
+    app: "Unprivileged application\nOrdinary TCP and UDP/TCP DNS" { class: node }
+    hooks: "C BPF programs\nTCP connect, DNS send/recv, peer restoration\nOriginal destination in bounded BPF map" { class: agent }
+    gate -> app: "READY before application launch" { style.stroke-dash: 5 }
+    app -> hooks: "connect / DNS"
+  }
+  worker: "Go forwarding worker\nUser: rnet-<workload> / Group: <app group>\nOwn resource cgroup + read-only mount namespace\n128 MiB / 64 tasks / 1 CPU; no SPIRE API\nTCP :15001 / UDP DNS :15053..15060\nDNS: local aliases, otherwise DoH via Internet egress" { class: agent }
+  app_cgroup.hooks -> worker: "Redirect + original destination lookup"
+}
+
+host: "Host network namespace" {
+  class: boundary
+  controller: "Go host controller: root\nOne realm-agent daemon per host\nSO_PEERCRED + SO_PEERPIDFD / pinned proc\nActual cgroup + netns\nNative system unit binding; exclusive rootless container UID" { class: agent }
+  socket: "Existing declared Unix egress sockets\nFilesystem access: workload group\nExplicit internal prefix/port route or Internet route" { class: node }
+  client: "Ghostunnel egress client\nOwn proxy UID / SPIRE access\nCaller SPIFFE ID + expected receiver ID" { class: gateway }
+  spire: "Local SPIRE Agent\nAttests proxy unit + Unix user\nSVIDs / certificate rotation" { class: node }
+  socket -> client: "Socket activation"
+  client -> spire: "Workload API" { style.stroke-dash: 5 }
+}
+
+private.app_cgroup.gate -> host.controller: "Per-workload control.sock\nNo client-supplied PID or identity" { style.stroke-dash: 5 }
+host.controller -> private.app_cgroup.hooks: "Attach only to attested app cgroup" { style.stroke-dash: 5 }
+host.controller -> private.worker: "Enter netns / Pivot into minimal root / Drop UID + caps\nIndependent recovery per workload" { style.stroke-dash: 5 }
+private.worker -> host.socket: "Internal route: raw TCP\nInternet TCP and DNS DoH: CONNECT"
+
+receiver: "Receiving host: existing SPIFFE boundary" {
+  class: boundary
+  gateway: "Internet Envoy / Service Ghostunnel\nValidate caller SPIFFE ID + receiver policy\nPrivate / reserved Internet addresses denied" { class: gateway }
+  internal: "Declared private service\nUnix backend or private loopback adapter" { class: node }
+  routing: "Internet gateway outbound routing\nHost TUN / sing-box may apply\nGateway and TUN stay outside app BPF capture" { class: gateway }
+  internet: "Authorized public TCP target\nHTTPS payload TLS stays end to end" { class: node }
+  doh: "HTTPS DNS upstream\nReal answers, not host fake-IP mappings" { class: node }
+  gateway -> internal: "Declared service receiver"
+  gateway -> routing: "Internet Envoy"
+  routing -> internet
+  routing -> doh
+}
+host.client -> receiver.gateway: "SPIFFE mTLS\nSame host or remote host"
+
+note: "Automatic: enabled isolated native services and supported rootless containers. Host-network / external workloads are excluded.\nNo Internet egress -> external DNS REFUSED and public TCP denied. Other external UDP is denied, including QUIC.\nWorker listener failure or OOM stays within that workload; recovery is retried independently.\nController failure leaves the namespace without a direct external route; existing proxied connections may break during recovery.\nApplication DoH / DoT remains encrypted application traffic; ordinary DNS capture cannot override it.\nSolid links: requests. Dashed links: startup, local control and certificate access. Responses follow the reverse path." { class: note }
+title -> private: { style.opacity: 0 }
+receiver -> note: { style.opacity: 0 }

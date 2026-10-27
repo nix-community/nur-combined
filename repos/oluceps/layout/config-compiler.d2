@@ -6,13 +6,18 @@ classes: {
   note: { style: { fill: "#fff6df"; stroke: "#aa8330"; border-radius: 8; font-size: 18 } }
 }
 title: "Config Compiler: Declarations to System Setup" { shape: text; style.font-size: 30 }
-declarations: "Workload and route declarations\nTypes, identity, and authorization\nHTTP gateway choices" { class: node }
+declarations: "Workload and route declarations\nTypes, identity, and authorization\nHTTP gateway choices / Transparent overrides" { class: node }
 local: "Local exported data\nService identities, listener addresses, and ports\nReadable without egress lookup" { class: node }
 aggregate: "Static catalogs\nDeclared identities and listeners\nBuilt during Nix evaluation" { class: gateway }
 compile: "Fixed output schema\nservices, sockets, userGroups, users\ntmpfiles, registrations, publications, assertions" { class: gateway }
 outputs: "Systemd setup\nSPIRE registration\nStatic DNS" { class: node }
 native: "Gateway configuration generators\nObservability Caddy / Internet Envoy" { class: node }
+enrollment: "Automatic agent enrollment\nEnabled + private netns + supported runtime\nHost / workload opt-out; host-network / external excluded" { class: gateway }
+agent: "realm-agent JSON + service + gate\nApp unit binding / Dedicated worker accounts\nDelegated cgroups + per-worker budgets + minimal root\nInternet route from unique internet-proxy egress" { class: node }
 notes: "Nix reads local listener addresses and identities without resolving egress.\nEndpoint selection stays fixed until configuration changes." { class: note }
+declarations -> enrollment: "Workload eligibility"
+enrollment -> agent: "Existing routes only"
+agent -> outputs: "Gate, mounts, users and host daemon"
 declarations -> local
 local -> aggregate
 aggregate -> compile

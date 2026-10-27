@@ -73,7 +73,6 @@
             identity
             openssh
             fail2ban
-            earlyoom
             incus
             vaultix
             shared-modules

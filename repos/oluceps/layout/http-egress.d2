@@ -3,23 +3,26 @@ vars: { d2-config: { theme-id: 0 } }
 classes: {
   node: { style: { fill: "#eef4ff"; stroke: "#37628b"; border-radius: 10; font-size: 20 } }
   gateway: { style: { fill: "#e6f4ed"; stroke: "#31765b"; border-radius: 10; font-size: 20 } }
+  agent: { style: { fill: "#f0e8ff"; stroke: "#7652a2"; border-radius: 10; font-size: 20 } }
   note: { style: { fill: "#fff6df"; stroke: "#aa8330"; border-radius: 8; font-size: 18 } }
 }
-title: "HTTP Egress: Forgejo Routes" { shape: text; style.font-size: 30 }
-forgejo: "Forgejo" { class: node }
-proxy: "Internet proxy :13128\nGhostunnel\nEnvoy" { class: gateway }
-https: "Private HTTPS alias :443\nGhostunnel\nCaddy" { class: gateway }
+title: "Transparent Egress: Forgejo Routes" { shape: text; style.font-size: 30 }
+forgejo: "Forgejo in private netns\nNo HTTP_PROXY / HTTPS_PROXY injection" { class: node }
+capture: "App cgroup BPF hooks\nrealm-agent worker in app netns\nUser: rnet-forgejo / No SPIRE API" { class: agent }
+proxy: "Declared Internet Unix egress\nGhostunnel client: Forgejo SPIFFE ID\nInternet Envoy: mTLS + port / address policy" { class: gateway }
+https: "Declared s3.nyaw.xyz alias -> 127.0.0.1:443\nLocal adapter -> Ghostunnel -> HTTPS Caddy" { class: gateway }
 smtp: "Explicit SMTP alias :465\nGhostunnel\nStalwart" { class: gateway }
 internet: "Allowed Internet targets" { class: node }
 private: "Private HTTPS site" { class: node }
 mail: "Private SMTPS service" { class: node }
-forgejo -> proxy
+forgejo -> capture: "Ordinary TCP + UDP/TCP DNS"
+capture -> proxy: "Public TCP: CONNECT / External DNS: DoH"
 proxy -> internet
-forgejo -> https
+forgejo -> https: "Hosts / authoritative alias keeps TLS hostname"
 https -> private
-forgejo -> smtp
+forgejo -> smtp: "Existing loopback adapter"
 smtp -> mail
-note: "NO_PROXY selects HTTP proxy use. Receiver allowlists still apply.\nHTTPS and SMTPS stay inside Realm mTLS." { class: note }
+note: "Aliases and proxy-independent DNS are answered by the worker; unknown DNS needs existing Internet egress.\nPublic TCP defaults to 443; other ports require client configuration and receiver permission.\nDirect Unix sockets, loopback adapters and explicit app proxy settings remain usable.\nApplication HTTPS / SMTPS stays end to end inside Realm mTLS; no gateway permission is added." { class: note }
 
 # Invisible edges place the title and note on their own rows.
 title -> forgejo: { style.opacity: 0 }

@@ -8,40 +8,40 @@
 {
   GeoLite2-ASN = {
     pname = "GeoLite2-ASN";
-    version = "2026.10.16";
+    version = "2026.10.25";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.10.16/GeoLite2-ASN.mmdb";
-      sha256 = "sha256-GescBOU5ibqhKSy9Oz0OmQT2m+KsZFSRY/hX/dpzUB4=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.10.25/GeoLite2-ASN.mmdb";
+      sha256 = "sha256-3t7r16/4VUiLDnoaKpj0gswlV0HHLyH0KgllCaIb/xU=";
     };
   };
   GeoLite2-City = {
     pname = "GeoLite2-City";
-    version = "2026.10.16";
+    version = "2026.10.25";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.10.16/GeoLite2-City.mmdb";
-      sha256 = "sha256-eYcyhpqIv9qYuaFfhwVk6opaaWl1R2cXWXgZX9+HOC0=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.10.25/GeoLite2-City.mmdb";
+      sha256 = "sha256-JieQCQmOY8GsV6WOMh6aWOdERMTDGE6HaNPwhmEYvq8=";
     };
   };
   alist = {
     pname = "alist";
-    version = "v3.65.0";
+    version = "v3.66.0";
     src = fetchFromGitHub {
       owner = "AlistGo";
       repo = "alist";
-      rev = "v3.65.0";
+      rev = "v3.66.0";
       fetchSubmodules = false;
-      sha256 = "sha256-rQloeURigU9eS5ro0j5EOgnkKZ6oEZeud8reALqnFik=";
+      sha256 = "sha256-pZv2vmJK1+JS189KsMD+UR1FQZx5Xgbit++dMMq6BWQ=";
     };
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v8.0.33";
+    version = "v8.0.43";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      rev = "v8.0.33";
+      rev = "v8.0.43";
       fetchSubmodules = false;
-      sha256 = "sha256-HpsmjjMzVTnP+KcK6hy3cq3AHRsaCAVvgJdb9PKL7QU=";
+      sha256 = "sha256-83xdrC7HkqKJjUTODhAvGk33FQwIxXCI5NQBr2w3sWU=";
     };
   };
   dnsproxy = {
@@ -57,10 +57,10 @@
   };
   lxgw-neo-xihei = {
     pname = "lxgw-neo-xihei";
-    version = "v1.305";
+    version = "v1.308";
     src = fetchurl {
-      url = "https://github.com/lxgw/LxgwNeoXiHei/releases/download/v1.305/LXGWNeoXiHei.ttf";
-      sha256 = "sha256-iTz77GBHaPA3hatPNpUI3mjCdCczWaXK3uF+KFKXXVw=";
+      url = "https://github.com/lxgw/LxgwNeoXiHei/releases/download/v1.308/LXGWNeoXiHei.ttf";
+      sha256 = "sha256-gEFdNmbZ9Rz0Ls+CxTUEiOaz8oKrRqO5Dcql4hJWTsw=";
     };
   };
   metacubexd = {

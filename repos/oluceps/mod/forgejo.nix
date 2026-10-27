@@ -15,7 +15,11 @@
           internet = true;
           gateway = {
             ref = "eihort";
-            resolveHosts = [ "s3.nyaw.xyz" ];
+            resolveHosts = [
+              "s3.nyaw.xyz"
+              "oidc.nyaw.xyz"
+              "git.nyaw.xyz"
+            ];
           };
         };
         isolation = {

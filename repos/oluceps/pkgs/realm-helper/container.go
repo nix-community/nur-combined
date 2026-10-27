@@ -1,14 +1,17 @@
 package main
 
 import (
+	"bufio"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net"
 	"os"
 	"os/exec"
 	"os/signal"
 	"syscall"
+	"time"
 )
 
 // Container paths. They are variables so tests can point them at a temporary
@@ -43,10 +46,39 @@ func launchCommand(args []string) (int, error) {
 	if len(args) == 0 {
 		return 0, errors.New("launch requires a command")
 	}
+	if path := os.Getenv("REALM_AGENT_SOCKET"); path != "" {
+		if err := waitAgent(path); err != nil {
+			return 0, err
+		}
+	}
 	if err := startContainerRoutes(); err != nil {
 		return 0, err
 	}
 	return supervise(args)
+}
+
+// The host derives the real cgroup and namespace from SO_PEERCRED before the
+// application can open any IP sockets. No identity or PID comes from the app.
+func waitAgent(path string) error {
+	deadline := time.Now().Add(60 * time.Second)
+	for time.Now().Before(deadline) {
+		conn, err := net.DialTimeout("unix", path, time.Second)
+		if err != nil {
+			time.Sleep(100 * time.Millisecond)
+			continue
+		}
+		conn.SetDeadline(time.Now().Add(30 * time.Second))
+		line, err := bufio.NewReader(io.LimitReader(conn, 4096)).ReadString('\n')
+		conn.Close()
+		if err != nil {
+			return fmt.Errorf("realm agent readiness: %w", err)
+		}
+		if line != "READY\n" {
+			return fmt.Errorf("realm agent refused readiness: %s", line)
+		}
+		return nil
+	}
+	return errors.New("timed out waiting for Realm agent")
 }
 
 func startContainerRoutes() error {

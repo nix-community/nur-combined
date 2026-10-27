@@ -212,7 +212,13 @@
           map (interface: lib.nameValuePair "suricata-${interface}" (instance interface)) interfaces
         ))
         // {
-          suricata-update.onSuccess = [ "suricata-reload-instances.service" ];
+          suricata-update = {
+            onSuccess = [ "suricata-reload-instances.service" ];
+            serviceConfig = {
+              Restart = "on-failure";
+              RestartSec = "60s";
+            };
+          };
           suricata-reload-instances = {
             description = "Reload rules in active Suricata instances";
             serviceConfig.Type = "oneshot";
