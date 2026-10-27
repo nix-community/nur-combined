@@ -1,8 +1,10 @@
 {
   fetchFromGitHub,
+  glibc,
   lib,
   nix-update-script,
   rustPlatform,
+  stdenv,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "crgx";
@@ -18,6 +20,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoHash = "sha256-3RuHgz9xfpi4eLqNQuDItRUipN2CxbhVioTANRekTs0=";
+
+  postPatch = lib.optionalString stdenv.hostPlatform.isLinux ''
+    substituteInPlace src/config.rs \
+      --replace-fail '"/lib"' '"${lib.makeLibraryPath [glibc]}"'
+  '';
 
   passthru.updateScript = nix-update-script {extraArgs = ["--use-github-releases"];};
 
