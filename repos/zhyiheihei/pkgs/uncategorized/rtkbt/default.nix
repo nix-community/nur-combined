@@ -14,7 +14,7 @@ let
   # Radxa/Realtek ship these without a separate licence file. The driver is
   # GPL, the firmware blobs are redistributable-but-closed, so the pin above
   # stays explicit rather than tracking a moving branch.
-  firmware = "${src.name}/rtkbt-firmware/lib/firmware/rtlbt";
+  firmware = "${src}/rtkbt-firmware/lib/firmware/rtlbt";
 in
 stdenv.mkDerivation {
   pname = "rtkbt";
@@ -22,6 +22,13 @@ stdenv.mkDerivation {
 
   inherit src;
   sourceRoot = "${src.name}/uart/rtk_hciattach";
+
+  # Upstream ships no install target.
+  installPhase = ''
+    runHook preInstall
+    install -Dm755 rtk_hciattach $out/bin/rtk_hciattach
+    runHook postInstall
+  '';
 
   # The firmware path is compiled in; keep it inside the store instead of the
   # FHS /lib/firmware, which does not exist on NixOS.
