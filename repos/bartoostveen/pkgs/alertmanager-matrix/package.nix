@@ -7,7 +7,7 @@
 
 buildGoModule {
   pname = "alertmanager-matrix";
-  version = "0.1.0-unstable-2026-10-23";
+  version = "0.1.0-unstable-2026-10-26";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -16,11 +16,11 @@ buildGoModule {
     domain = "git.bartoostveen.nl";
     owner = "bart";
     repo = "alertmanager-matrix";
-    rev = "7f56042508bf205257ac85eeed01681695112602";
-    hash = "sha256-MkhMbOBcoPFPWyb4ohVNxDmT8U5n43dDNAkzKA+dGwA=";
+    rev = "b4fc7e739781ad6d4b72a8173a090044ad570774";
+    hash = "sha256-Fv45dxLAboocYD26qHJG1jZfKyNZXyGGv/fwG3hCwbw=";
   };
 
-  vendorHash = "sha256-9U7o3db73hmc34zNuY/voVxnnpK7b1LuRrb+VLMOCBk=";
+  vendorHash = "sha256-KCMytVQkzllW/LCesoVkDW16QyNKWSXKI6M/eIS7hk4=";
 
   ldflags = [ "-s" ];
 
