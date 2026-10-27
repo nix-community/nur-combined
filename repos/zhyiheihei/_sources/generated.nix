@@ -216,18 +216,18 @@
   };
   vaults3-linux-amd64 = {
     pname = "vaults3-linux-amd64";
-    version = "5.0.3";
+    version = "5.0.7";
     src = fetchurl {
-      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v5.0.3/vaults3-linux-amd64.tar.gz";
-      hash = "sha256-FHaMaY81t8pNn6hNCnUIspVBe0IUr43BDO4AOo02ZAA=";
+      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v5.0.7/vaults3-linux-amd64.tar.gz";
+      hash = "sha256-0KGFIXzxHMB81S6Pbuj1b43YT8T4ub5tvBKufPkkCrM=";
     };
   };
   vaults3-linux-arm64 = {
     pname = "vaults3-linux-arm64";
-    version = "5.0.3";
+    version = "5.0.7";
     src = fetchurl {
-      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v5.0.3/vaults3-linux-arm64.tar.gz";
-      hash = "sha256-ktIlJkTUkxbfUDTiCw1SCJHIPSEWOPH9ROErJ5Bl1tk=";
+      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v5.0.7/vaults3-linux-arm64.tar.gz";
+      hash = "sha256-Kwab8fZEquJIgWFyH4EE/krG6DdeXGYI3pc2KoJlwUU=";
     };
   };
   vertex = {
