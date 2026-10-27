@@ -16,20 +16,41 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  tests:
+  build:
     strategy:
       fail-fast: false
       matrix:
-        nixPath:
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-26.05.tar.gz
-    runs-on: ubuntu-latest
+        include:
+          - os: ubuntu-latest
+            system: x86_64-linux
+            nixPath: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
+            extraConfig: |
+              build-dir = /nix/build
+              max-jobs = 2
+              cores = 2
+          - os: ubuntu-latest
+            system: x86_64-linux
+            nixPath: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-26.05.tar.gz
+            extraConfig: |
+              build-dir = /nix/build
+              max-jobs = 2
+              cores = 2
+          - os: macos-latest
+            system: aarch64-darwin
+            nixPath: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
+            extraConfig: |
+              max-jobs = 1
+          - os: macos-latest
+            system: aarch64-darwin
+            nixPath: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-26.05.tar.gz
+            extraConfig: |
+              max-jobs = 1
+    runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
-      - name: Backup Node toolchain
-        run: sudo mv /opt/hostedtoolcache/node /tmp/hostedtoolcache-node 2>&1 | grep -v "Permission denied" || true
       - name: Enlarge swap for Rust LTO
+        if: runner.os == 'Linux'
         shell: bash
         run: |
           sudo swapoff -a 2>&1 | grep -v "Permission denied" || true
@@ -41,16 +62,12 @@ jobs:
           sudo swapon /swapfile 2>&1 | grep -v "Permission denied" || true
           free -h 2>&1 | grep -v "Permission denied" || true; swapon --show 2>&1 | grep -v "Permission denied" || cat /proc/swaps 2>&1 | grep -v "Permission denied" || true; df -h 2>&1 | grep -v "Permission denied" | head -n 20 || true
       - uses: wimpysworld/nothing-but-nix@main
+        if: runner.os == 'Linux'
         with:
           hatchet-protocol: "cleave"
           witness-carnage: true
           root-safe-haven: "1024"
           mnt-safe-haven: "2048"
-      - name: Restore Node toolchain
-        run: |
-          sudo mkdir -p /opt/hostedtoolcache
-          sudo mv /tmp/hostedtoolcache-node /opt/hostedtoolcache/node 2>&1 | grep -v "Permission denied" || true
-          node --version 2>&1 | grep -v "Permission denied" | head -n 5 || true
       - name: Install nix
         uses: cachix/install-nix-action@v31
         with:
@@ -61,30 +78,31 @@ jobs:
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
             extra-substituters = https://nix.mcseekeri.com?priority=51
             extra-trusted-public-keys = nix.mcseekeri.com-1:3gd0/2u7IOF7YooxEiBbWTvRCYGC53S2UoqFdnCUYHc=
-            build-dir = /nix/build
-            max-jobs = 1
             max-substitution-jobs = 4
-            cores = 4
+            ${{ matrix.extraConfig }}
       - name: Setup niks3
         uses: Mic92/niks3-action@v1
         with:
           server-url: https://niks3.mcseekeri.com
           drain-timeout: 7200
       - name: Show nixpkgs version
-        run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-      - name: Check evaluation
         run: |
-          nix-env -f . -qa \* --meta --xml \
+          echo "target: ${{ matrix.system }} (${{ matrix.os }})"
+          nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+      - name: Check evaluation
+        shell: bash
+        run: |
+          nix-instantiate --show-trace \
             --allowed-uris https://static.rust-lang.org \
             --option restrict-eval true \
             --option allow-import-from-derivation true \
-            --drv-path --show-trace \
-            -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
-            -I $PWD
+            -I "nixpkgs=$(nix-instantiate --find-file nixpkgs)" \
+            -I "$PWD" \
+            ci.nix -A cacheOutputs > /dev/null
       - name: Build nix packages
         shell: bash
         run: |
-          heartbeat() { while sleep 5m; do echo "::notice::Nix build still running at $(date -Iseconds)"; done; }
+          heartbeat() { while sleep 5m; do echo "::notice::Nix build still running at $(date -u +%FT%TZ)"; done; }
           sysinfo() {
             while sleep 3m; do
               echo "::group::📊 System Info $(date -Iseconds)"
@@ -111,59 +129,23 @@ jobs:
             done
           }
           heartbeat & heartbeat_pid=$!
-          sysinfo & sysinfo_pid=$!
-          trap 'kill "$heartbeat_pid" "$sysinfo_pid" 2>/dev/null || true; wait "$heartbeat_pid" 2>/dev/null || true; wait "$sysinfo_pid" 2>/dev/null || true' EXIT
-          nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached \
-            --show-trace --option log-lines 0 ci.nix -A cacheOutputs
-      - name: Trigger NUR update
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=MCSeekeri"
+          sysinfo_pid=
+          if [[ "$RUNNER_OS" == "Linux" ]]; then
+            sysinfo & sysinfo_pid=$!
+          fi
+          cleanup() {
+            kill "$heartbeat_pid" 2>/dev/null || true
+            if [[ -n "$sysinfo_pid" ]]; then
+              kill "$sysinfo_pid" 2>/dev/null || true
+            fi
+          }
+          trap cleanup EXIT
+          nix-build ci.nix -A cacheOutputs --no-out-link --keep-going --show-trace
 
-  darwin:
-    strategy:
-      fail-fast: false
-      matrix:
-        nixPath:
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-26.05.tar.gz
-    runs-on: macos-latest
+  update-nur:
+    needs: build
+    if: ${{ success() && github.event_name == 'push' && github.ref == 'refs/heads/master' }}
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v7
-      - name: Install nix
-        uses: cachix/install-nix-action@v31
-        with:
-          nix_path: "${{ matrix.nixPath }}"
-          extra_nix_config: |
-            accept-flake-config = true
-            experimental-features = nix-command flakes
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-            extra-substituters = https://nix.mcseekeri.com?priority=51
-            extra-trusted-public-keys = nix.mcseekeri.com-1:3gd0/2u7IOF7YooxEiBbWTvRCYGC53S2UoqFdnCUYHc=
-            max-jobs = 1
-            max-substitution-jobs = 4
-      - name: Setup niks3
-        uses: Mic92/niks3-action@v1
-        with:
-          server-url: https://niks3.mcseekeri.com
-          drain-timeout: 7200
-      - name: Show nixpkgs version
-        run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-      - name: Check evaluation
-        shell: bash
-        run: |
-          nix-instantiate --show-trace \
-            --allowed-uris https://static.rust-lang.org \
-            --option restrict-eval true \
-            --option allow-import-from-derivation true \
-            -I "nixpkgs=$(nix-instantiate --find-file nixpkgs)" \
-            -I "$PWD" \
-            ci.nix -A cacheOutputs
-      - name: Build nix packages
-        shell: bash
-        run: |
-          heartbeat() { while sleep 5m; do echo "::notice::Nix build still running at $(date -Iseconds)"; done; }
-          heartbeat & heartbeat_pid=$!
-          trap 'kill "$heartbeat_pid" 2>/dev/null || true; wait "$heartbeat_pid" 2>/dev/null || true' EXIT
-          nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached \
-            --show-trace --option log-lines 0 ci.nix -A cacheOutputs
+      - name: Trigger NUR update
+        run: curl -fsS -XPOST "https://nur-update.nix-community.org/update?repo=MCSeekeri"
