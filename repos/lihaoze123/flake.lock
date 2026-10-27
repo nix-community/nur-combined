@@ -54,17 +54,17 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1791953589,
-        "narHash": "sha256-CcMmYub4KCQx3ddPGTw+vewY0iWJxG8F284HVn6Bpi4=",
+        "lastModified": 1793070469,
+        "narHash": "sha256-qDzep6FOCCGlDVXFL3w1GqemOGepvtWdS+LcbVLSgrE=",
         "owner": "lihaoze123",
         "repo": "niri-computer-use",
-        "rev": "daf6e9301200235f9b8af153a22cd321786ad9b2",
+        "rev": "bd6e39f3822ab5e14158def4817f89725064061d",
         "type": "github"
       },
       "original": {
         "owner": "lihaoze123",
         "repo": "niri-computer-use",
-        "rev": "daf6e9301200235f9b8af153a22cd321786ad9b2",
+        "rev": "bd6e39f3822ab5e14158def4817f89725064061d",
         "type": "github"
       }
     },

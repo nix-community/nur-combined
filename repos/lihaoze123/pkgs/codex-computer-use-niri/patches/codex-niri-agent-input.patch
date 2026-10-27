@@ -243,9 +243,27 @@ index bf321c9..81e112a 100644
      let mut nonce = [0u8; 16];
      getrandom::fill(&mut nonce).map_err(|e| anyhow!("screenshot nonce: {e}"))?;
 diff --git a/computer-use-linux/src/server.rs b/computer-use-linux/src/server.rs
-index ca71e18..1e8045f 100644
+index ca71e18..eced635 100644
 --- a/computer-use-linux/src/server.rs
 +++ b/computer-use-linux/src/server.rs
+@@ -250,7 +250,7 @@ impl ComputerUseLinux {
+ 
+     #[tool(
+         name = "activate_window",
+-        description = "Focus a Linux desktop window by window_id, pid, app_id, wm_class, title, or terminal selectors when the compositor permits it.",
++        description = "Focus a Linux desktop window by window_id, pid, app_id, wm_class, title, or terminal selectors when the compositor permits it. On niri with agent input, click/scroll/drag/press_key/type_text with a window target (and relative coordinates for click/drag) need no activation, so only activate a window when the user should see it in front.",
+         annotations(
+             read_only_hint = false,
+             destructive_hint = false,
+@@ -598,7 +598,7 @@ impl ComputerUseLinux {
+ 
+     #[tool(
+         name = "click",
+-        description = "Click an element by index, semantic selector, or desktop coordinate pixels from screenshot metadata.",
++        description = "Click an element by index, semantic selector, or desktop coordinate pixels from screenshot metadata. On niri with agent input, input with a window target (and relative coordinates for click/drag) reaches the window directly, whether or not it is focused, without moving the user's pointer or focus; do not call activate_window first.",
+         annotations(
+             read_only_hint = false,
+             destructive_hint = true,
 @@ -609,6 +609,38 @@ impl ComputerUseLinux {
      async fn click(&self, Parameters(mut params): Parameters<ClickParams>) -> Json<ActionOutput> {
          let received = Some(serde_json::json!(params.clone()));
@@ -285,6 +303,15 @@ index ca71e18..1e8045f 100644
          let mut portal_target_point = None;
          // Raise the target window first (if specified) so the click lands on the
          // intended app rather than whatever is stacked on top at that pixel.
+@@ -1045,7 +1077,7 @@ impl ComputerUseLinux {
+ 
+     #[tool(
+         name = "scroll",
+-        description = "Scroll an element in a direction by a number of pages. With a window target and no x/y/element_index, scrolls at the centre of the targeted window.",
++        description = "Scroll an element in a direction by a number of pages. With a window target and no x/y/element_index, scrolls at the centre of the targeted window. On niri with agent input, input with a window target (and relative coordinates for click/drag) reaches the window directly, whether or not it is focused, without moving the user's pointer or focus; do not call activate_window first.",
+         annotations(
+             read_only_hint = false,
+             destructive_hint = false,
 @@ -1056,6 +1088,51 @@ impl ComputerUseLinux {
      async fn scroll(&self, Parameters(mut params): Parameters<ScrollParams>) -> Json<ActionOutput> {
          let received = Some(serde_json::json!(params.clone()));
@@ -337,6 +364,15 @@ index ca71e18..1e8045f 100644
          let mut portal_target_point = None;
          let units = ((params.pages.unwrap_or(1.0).abs().max(0.1) * 5.0).round() as i32).max(1);
          // Raise/focus the target window first (parity with click) so wheel
+@@ -1381,7 +1458,7 @@ impl ComputerUseLinux {
+ 
+     #[tool(
+         name = "drag",
+-        description = "Drag from one point to another using pixel coordinates.",
++        description = "Drag from one point to another using pixel coordinates. On niri with agent input, input with a window target (and relative coordinates for click/drag) reaches the window directly, whether or not it is focused, without moving the user's pointer or focus; do not call activate_window first.",
+         annotations(
+             read_only_hint = false,
+             destructive_hint = true,
 @@ -1392,6 +1469,33 @@ impl ComputerUseLinux {
      async fn drag(&self, Parameters(mut params): Parameters<DragParams>) -> Json<ActionOutput> {
          let received = Some(serde_json::json!(params.clone()));
@@ -371,6 +407,15 @@ index ca71e18..1e8045f 100644
          let mut portal_target_points = None;
          let window_target = params.window_target();
          if params.relative == Some(true) && window_target.is_none() {
+@@ -1617,7 +1721,7 @@ impl ComputerUseLinux {
+ 
+     #[tool(
+         name = "press_key",
+-        description = "Press a key or key-combination on the keyboard, optionally after focusing a target window or terminal selector. Key grammar (case-insensitive; hyphens/spaces ignored): combos join with '+', e.g. Ctrl+L or Ctrl+Shift+T. Modifiers: ctrl/control, alt/option, shift, meta/super/cmd/command. Named keys: enter/return, escape/esc, tab, backspace, delete/del, space, home, end, pageup, pagedown, arrowleft/left, arrowright/right, arrowup/up, arrowdown/down, f1-f12. Plus single US letters a-z and digits 0-9. Anything else returns an error (never silently dropped). On Wayland, chords are sent through an active remote desktop portal keyboard session when one is available (or when ydotool is absent), falling back to ydotool otherwise. Note: compositor-level shortcuts (e.g. Super+Up) may be consumed by GNOME before reaching the app.",
++        description = "Press a key or key-combination on the keyboard, optionally after focusing a target window or terminal selector. Key grammar (case-insensitive; hyphens/spaces ignored): combos join with '+', e.g. Ctrl+L or Ctrl+Shift+T. Modifiers: ctrl/control, alt/option, shift, meta/super/cmd/command. Named keys: enter/return, escape/esc, tab, backspace, delete/del, space, home, end, pageup, pagedown, arrowleft/left, arrowright/right, arrowup/up, arrowdown/down, f1-f12. Plus single US letters a-z and digits 0-9. Anything else returns an error (never silently dropped). On Wayland, chords are sent through an active remote desktop portal keyboard session when one is available (or when ydotool is absent), falling back to ydotool otherwise. Note: compositor-level shortcuts (e.g. Super+Up) may be consumed by GNOME before reaching the app. On niri with agent input, input with a window target (and relative coordinates for click/drag) reaches the window directly, whether or not it is focused, without moving the user's pointer or focus; do not call activate_window first.",
+         annotations(
+             read_only_hint = false,
+             destructive_hint = true,
 @@ -1632,6 +1736,27 @@ impl ComputerUseLinux {
          let received = Some(serde_json::json!(params.clone()));
          let input_guard =
@@ -399,6 +444,15 @@ index ca71e18..1e8045f 100644
          let focus = match self.focus_target_for_input(&params.window_target()).await {
              Ok(focus) => focus,
              Err(message) => {
+@@ -1766,7 +1891,7 @@ impl ComputerUseLinux {
+ 
+     #[tool(
+         name = "type_text",
+-        description = "Type literal text using keyboard input, optionally after focusing a target window or terminal selector.",
++        description = "Type literal text using keyboard input, optionally after focusing a target window or terminal selector. On niri with agent input, input with a window target (and relative coordinates for click/drag) reaches the window directly, whether or not it is focused, without moving the user's pointer or focus; do not call activate_window first.",
+         annotations(
+             read_only_hint = false,
+             destructive_hint = true,
 @@ -1781,6 +1906,23 @@ impl ComputerUseLinux {
          let received = Some(serde_json::json!(params.clone()));
          let mut input_guard =
@@ -486,7 +540,7 @@ index ca71e18..1e8045f 100644
 +            Ok(()) => format!(
 +                "Delivered {action} to the target window through niri agent input; the user's pointer, keyboard focus and active window were not changed."
 +            ),
-+            Err(error) => format!("niri agent input failed: {error:#}"),
++            Err(error) => format!("niri agent input failed for {action}: {error:#}"),
 +        },
 +        received,
 +    })

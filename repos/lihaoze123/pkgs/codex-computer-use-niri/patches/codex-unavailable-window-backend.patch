@@ -1,0 +1,222 @@
+diff --git a/computer-use-linux/src/main.rs b/computer-use-linux/src/main.rs
+index 9beb27ab..357d016f 100644
+--- a/computer-use-linux/src/main.rs
++++ b/computer-use-linux/src/main.rs
+@@ -125,7 +125,7 @@ async fn main() -> Result<()> {
+                     let backend = windows
+                         .first()
+                         .map(|window| window.backend.as_str())
+-                        .unwrap_or(windows::GNOME_SHELL_INTROSPECT_BACKEND);
++                        .unwrap_or(windows::UNAVAILABLE_BACKEND);
+                     serde_json::json!({
+                         "backend": backend,
+                         "windows": windows,
+@@ -136,7 +136,7 @@ async fn main() -> Result<()> {
+                 Err(error) => {
+                     let error = format!("{error:#}");
+                     serde_json::json!({
+-                        "backend": "unavailable",
++                        "backend": windows::UNAVAILABLE_BACKEND,
+                         "windows": [],
+                         "error": error,
+                         "permissions_hint": windows::window_permission_hint(&error),
+diff --git a/computer-use-linux/src/server.rs b/computer-use-linux/src/server.rs
+index 1e8045f0..1597c2c4 100644
+--- a/computer-use-linux/src/server.rs
++++ b/computer-use-linux/src/server.rs
+@@ -18,10 +18,10 @@ use crate::screenshot::{
+ use crate::terminal::{terminal_paste_shortcut, TerminalPasteShortcut};
+ use crate::windowing::registry;
+ use crate::windows::{
+-    focus_window_target, focused_window, list_windows, resolve_window_target,
+-    window_permission_hint, WindowFocusResult, WindowInfo, WindowTarget,
++    focus_window_target, focused_window, focused_window_with_backend, list_windows,
++    resolve_window_target, window_permission_hint, WindowFocusResult, WindowInfo, WindowTarget,
+     GNOME_SHELL_EXTENSION_BACKEND, GNOME_SHELL_INTROSPECT_BACKEND, KWIN_BACKEND,
+-    NIRI_BACKEND };
++    NIRI_BACKEND, UNAVAILABLE_BACKEND };
+ use crate::ydotool;
+ use anyhow::Result;
+ use rmcp::{
+@@ -222,9 +222,8 @@ impl ComputerUseLinux {
+         )
+     )]
+     async fn focused_window(&self) -> Json<FocusedWindowOutput> {
+-        match focused_window().await {
+-            Ok(window) => {
+-                let backend = window_backend(window.as_ref().into_iter());
++        match focused_window_with_backend().await {
++            Ok((backend, window)) => {
+                 Json(FocusedWindowOutput {
+                     backend,
+                     focused_window: window,
+@@ -238,7 +237,7 @@ impl ComputerUseLinux {
+             Err(error) => {
+                 let error = format!("{error:#}");
+                 Json(FocusedWindowOutput {
+-                    backend: GNOME_SHELL_INTROSPECT_BACKEND.to_string(),
++                    backend: UNAVAILABLE_BACKEND.to_string(),
+                     focused_window: None,
+                     permissions_hint: window_permission_hint(&error),
+                     error: Some(error),
+@@ -282,7 +281,7 @@ impl ComputerUseLinux {
+                 Json(ActivateWindowOutput {
+                     ok: false,
+                     implemented: true,
+-                    backend: GNOME_SHELL_INTROSPECT_BACKEND.to_string(),
++                    backend: UNAVAILABLE_BACKEND.to_string(),
+                     focus: None,
+                     permissions_hint: window_permission_hint(&error),
+                     error: Some(error),
+@@ -4900,7 +4899,7 @@ async fn window_list_output() -> ListWindowsOutput {
+         Err(error) => {
+             let error = format!("{error:#}");
+             ListWindowsOutput {
+-                backend: GNOME_SHELL_INTROSPECT_BACKEND.to_string(),
++                backend: UNAVAILABLE_BACKEND.to_string(),
+                 windows: Vec::new(),
+                 permissions_hint: window_permission_hint(&error),
+                 error: Some(error),
+@@ -4915,7 +4914,7 @@ fn window_backend<'a>(windows: impl Iterator<Item = &'a WindowInfo>) -> String {
+     windows
+         .map(|window| window.backend.clone())
+         .next()
+-        .unwrap_or_else(|| GNOME_SHELL_INTROSPECT_BACKEND.to_string())
++        .unwrap_or_else(|| UNAVAILABLE_BACKEND.to_string())
+ }
+ 
+ fn absolute_mousemove_args(x: i32, y: i32) -> Vec<String> {
+@@ -6366,6 +6365,14 @@ mod tests {
+         }
+     }
+ 
++    #[test]
++    fn window_backend_names_the_backend_that_answered() {
++        let mut window = window_info(1, Some("Editor"), None, None, None);
++        window.backend = NIRI_BACKEND.to_string();
++        assert_eq!(window_backend(std::iter::once(&window)), NIRI_BACKEND);
++        assert_eq!(window_backend(std::iter::empty()), UNAVAILABLE_BACKEND);
++    }
++
+     #[test]
+     fn relative_click_coordinates_use_capture_space_rect() {
+         let mut params = ClickParams {
+diff --git a/computer-use-linux/src/windowing/mod.rs b/computer-use-linux/src/windowing/mod.rs
+index 1acce11d..ee215bc9 100644
+--- a/computer-use-linux/src/windowing/mod.rs
++++ b/computer-use-linux/src/windowing/mod.rs
+@@ -6,12 +6,13 @@ pub mod types;
+ #[allow(unused_imports)]
+ pub use registry::{
+     COSMIC_WAYLAND_BACKEND, GNOME_SHELL_EXTENSION_BACKEND, GNOME_SHELL_INTROSPECT_BACKEND,
+-    HYPRLAND_BACKEND, I3_BACKEND, KWIN_BACKEND, NIRI_BACKEND, WINDOW_PERMISSION_HINT, X11_BACKEND,
++    HYPRLAND_BACKEND, I3_BACKEND, KWIN_BACKEND, NIRI_BACKEND, UNAVAILABLE_BACKEND,
++    WINDOW_PERMISSION_HINT, X11_BACKEND,
+ };
+ #[allow(unused_imports)]
+ pub use target::{
+-    focus_window_target, focused_window, list_windows, resolve_window_target,
+-    window_permission_hint,
++    focus_window_target, focused_window, focused_window_with_backend, list_windows,
++    resolve_window_target, window_permission_hint,
+ };
+ #[allow(unused_imports)]
+ pub use types::{WindowBounds, WindowFocusResult, WindowInfo, WindowTarget};
+@@ -30,7 +31,7 @@ mod tests {
+         backend_can_exact_focus, descriptors, list_note, COSMIC_WAYLAND_BACKEND,
+         GNOME_SHELL_EXTENSION_BACKEND, GNOME_SHELL_INTROSPECT_BACKEND,
+     };
+-    use super::target::ensure_backend_can_focus_target;
++    use super::target::{ensure_backend_can_focus_target, focused_in};
+     use super::*;
+     use crate::terminal::{TerminalProcess, TerminalWindowContext};
+     use std::collections::HashMap;
+@@ -172,6 +173,25 @@ mod tests {
+         assert!(list_note("missing-backend").contains("GNOME Shell Introspect"));
+     }
+ 
++    #[test]
++    fn focused_query_names_the_answering_backend_without_a_focused_window() {
++        let mut unfocused = window(1, "Editor", "editor", "editor");
++        unfocused.backend = NIRI_BACKEND.to_string();
++        let mut focused = unfocused.clone();
++        focused.window_id = 2;
++        focused.focused = true;
++
++        let (backend, window) = focused_in(vec![unfocused.clone()]);
++        assert_eq!(backend, NIRI_BACKEND);
++        assert!(window.is_none());
++
++        let (backend, window) = focused_in(vec![unfocused, focused]);
++        assert_eq!(backend, NIRI_BACKEND);
++        assert_eq!(window.map(|window| window.window_id), Some(2));
++
++        assert_eq!(focused_in(Vec::new()).0, UNAVAILABLE_BACKEND);
++    }
++
+     fn window(window_id: u64, title: &str, app_id: &str, wm_class: &str) -> WindowInfo {
+         WindowInfo {
+             window_id,
+diff --git a/computer-use-linux/src/windowing/registry.rs b/computer-use-linux/src/windowing/registry.rs
+index bd057a90..2a9b578b 100644
+--- a/computer-use-linux/src/windowing/registry.rs
++++ b/computer-use-linux/src/windowing/registry.rs
+@@ -10,6 +10,9 @@ pub use kwin::KWIN_BACKEND;
+ pub use niri::NIRI_BACKEND;
+ pub use x11::X11_BACKEND;
+ 
++/// Reported when no window backend answered, so no backend can be named.
++pub const UNAVAILABLE_BACKEND: &str = "unavailable";
++
+ pub const WINDOW_PERMISSION_HINT: &str = "Computer Use could not access a supported window list backend. Targeted window input requires session-bus access plus GNOME Shell Introspect, the Codex GNOME Shell extension, the COSMIC Wayland helper, KWin/Plasma DBus scripting, Hyprland hyprctl, Niri IPC, or i3-msg. On GNOME, run setup_window_targeting to install the extension backend.";
+ 
+ #[derive(Debug, Clone, Copy)]
+diff --git a/computer-use-linux/src/windowing/target.rs b/computer-use-linux/src/windowing/target.rs
+index fc0509e5..7dce91f6 100644
+--- a/computer-use-linux/src/windowing/target.rs
++++ b/computer-use-linux/src/windowing/target.rs
+@@ -13,7 +13,25 @@ pub async fn list_windows() -> Result<Vec<WindowInfo>> {
+ }
+ 
+ pub async fn focused_window() -> Result<Option<WindowInfo>> {
+-    current_focused_window().await
++    Ok(focused_window_with_backend().await?.1)
++}
++
++/// The focused window together with the backend that answered, which is known
++/// even when no window has focus.
++pub async fn focused_window_with_backend() -> Result<(String, Option<WindowInfo>)> {
++    if let Some(window) = registry::focused_window_override().await {
++        return Ok((window.backend.clone(), Some(window)));
++    }
++
++    Ok(focused_in(list_windows().await?))
++}
++
++pub(crate) fn focused_in(windows: Vec<WindowInfo>) -> (String, Option<WindowInfo>) {
++    let backend = windows
++        .first()
++        .map(|window| window.backend.clone())
++        .unwrap_or_else(|| registry::UNAVAILABLE_BACKEND.to_string());
++    (backend, windows.into_iter().find(|window| window.focused))
+ }
+ 
+ pub async fn focus_window_target(target: &WindowTarget) -> Result<WindowFocusResult> {
+@@ -59,17 +77,6 @@ pub(crate) fn ensure_backend_can_focus_target(
+     Ok(())
+ }
+ 
+-async fn current_focused_window() -> Result<Option<WindowInfo>> {
+-    if let Some(window) = registry::focused_window_override().await {
+-        return Ok(Some(window));
+-    }
+-
+-    Ok(list_windows()
+-        .await?
+-        .into_iter()
+-        .find(|window| window.focused))
+-}
+-
+ async fn wait_for_focused_window(requested_window: &WindowInfo) -> Option<WindowInfo> {
+     wait_for_focused_window_with(
+         requested_window,

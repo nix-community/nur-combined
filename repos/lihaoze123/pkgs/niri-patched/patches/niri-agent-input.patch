@@ -195,10 +195,10 @@ index c11f2bf6..c41f5fc8 100644
  impl From<Duration> for Timestamp {
 diff --git a/src/agent_input.rs b/src/agent_input.rs
 new file mode 100644
-index 00000000..66cb03df
+index 00000000..58d736f7
 --- /dev/null
 +++ b/src/agent_input.rs
-@@ -0,0 +1,1328 @@
+@@ -0,0 +1,1429 @@
 +//! Per-client "virtual focus" input for computer-use agents.
 +//!
 +//! Wayland input objects are per client: every client has its own `wl_pointer` and `wl_keyboard`
@@ -208,9 +208,11 @@ index 00000000..66cb03df
 +//! nothing, so the user's pointer and focus stay where they are.
 +//!
 +//! Protocol events carry no surface after `enter`, so a client cannot distinguish two focus
-+//! streams. Input is therefore refused while the target client holds the real keyboard focus (or
-+//! a real pointer grab). A real pointer merely hovering the client is held back instead: it
-+//! leaves the client's surfaces while the agent pointer drives it, and re-enters afterwards.
++//! streams. Agent input is never refused because of the user, though: when the target client
++//! holds the real keyboard focus, agent keys share that stream and go to the focused surface, and
++//! a real pointer hovering the client is held back (it leaves the client's surfaces while the
++//! agent pointer drives it, and re-enters afterwards). What the user types or drags in the client
++//! meanwhile mixes with the agent's input.
 +
 +use niri_ipc::{AgentActivityKind, AgentEvent, AgentScreenshotInfo, AgentUnicodeInput};
 +use smithay::desktop::{find_popup_root_surface, PopupKind, PopupManager, WindowSurfaceType};
@@ -239,6 +241,9 @@ index 00000000..66cb03df
 +    pointer: Option<WlSurface>,
 +    /// Surface the agent keyboard has entered, and its pressed evdev keycodes.
 +    keyboard: Option<(WlSurface, Vec<u32>)>,
++    /// The target client holds the real keyboard focus: `keyboard` is the surface the real focus
++    /// entered, and agent keys go there without agent enter/leave events.
++    keyboard_shared: bool,
 +    /// Recently issued agent serials. Clients reuse input serials to request xdg-activation;
 +    /// those requests must not move the user's focus.
 +    serials: VecDeque<Serial>,
@@ -595,16 +600,9 @@ index 00000000..66cb03df
 +        let real_pointer_on_client = pointer
 +            .current_focus()
 +            .is_some_and(|s| same_client(&s, &client));
-+        if real_pointer_on_client && pointer.is_grabbed() {
-+            // E.g. the user is dragging or holding a button in that client.
-+            return Err(String::from("the real pointer is interacting with the target client"));
-+        }
-+        if keyboard
++        let keyboard_shared = keyboard
 +            .current_focus()
-+            .is_some_and(|s| same_client(&s, &client))
-+        {
-+            return Err(String::from("target client holds the real keyboard focus"));
-+        }
++            .is_some_and(|s| same_client(&s, &client));
 +        self.agent_mark_window(window_id);
 +
 +        // Drop state that belongs to dead surfaces or another client.
@@ -625,6 +623,11 @@ index 00000000..66cb03df
 +            .is_some_and(|(s, _)| s.is_alive() && !same_client(s, &client))
 +        {
 +            state.keyboard = None;
++        }
++        if state.keyboard_shared != keyboard_shared {
++            // Real focus entered or left the client since; its own enter/leave superseded ours.
++            state.keyboard = None;
++            state.keyboard_shared = keyboard_shared;
 +        }
 +
 +        // Virtual input can leave a synthetic keymap active on the shared seat. Agent keycodes
@@ -654,13 +657,9 @@ index 00000000..66cb03df
 +            )
 +        });
 +        if pointer_events {
++            // During a real pointer grab (the user dragging in the client) the real pointer stays
++            // on the client; the agent's pointer events then mix with the user's.
 +            self.agent_hold_pointer(&client);
-+            if pointer
-+                .current_focus()
-+                .is_some_and(|s| same_client(&s, &client))
-+            {
-+                return Err(String::from("target client holds the real pointer focus"));
-+            }
 +        }
 +
 +        let mut pointer_stale = self.niri.agent_input.pointer.is_some()
@@ -781,11 +780,36 @@ index 00000000..66cb03df
 +                }
 +                AgentEvent::KeyboardLeave => {
 +                    if let Some((surface, _)) = self.niri.agent_input.keyboard.take() {
++                        // The real focus owns a shared keyboard; leaving is up to it.
++                        if self.niri.agent_input.keyboard_shared {
++                            continue;
++                        }
 +                        for kbd in keyboard.client_keyboards(&client) {
 +                            kbd.leave(self.niri.agent_input.next_serial(), &surface);
 +                        }
 +                    }
 +                }
++            }
++        }
++
++        // Give a shared keyboard the user's modifiers back once the agent released its keys.
++        if self.niri.agent_input.keyboard_shared
++            && self
++                .niri
++                .agent_input
++                .keyboard
++                .as_ref()
++                .is_some_and(|(_, keys)| keys.is_empty())
++        {
++            let mods = keyboard.modifier_state().serialized;
++            for kbd in keyboard.client_keyboards(&client) {
++                kbd.modifiers(
++                    self.niri.agent_input.next_serial(),
++                    mods.depressed,
++                    mods.latched,
++                    mods.locked,
++                    mods.layout_effective,
++                );
 +            }
 +        }
 +
@@ -880,6 +904,15 @@ index 00000000..66cb03df
 +    /// is not there already (or real focus touched the client since).
 +    fn agent_keyboard_enter(&mut self, client: &Client, toplevel: &WlSurface) {
 +        let keyboard = self.niri.seat.get_keyboard().unwrap();
++        if self.niri.agent_input.keyboard_shared {
++            // The real focus has entered the client already; type where it is.
++            let state = &mut self.niri.agent_input;
++            if state.keyboard.is_none() {
++                let focus = keyboard.current_focus().unwrap_or_else(|| toplevel.clone());
++                state.keyboard = Some((focus, Vec::new()));
++            }
++            return;
++        }
 +        // Like a popup grab: keys go to the topmost agent popup if there is one.
 +        let target = self
 +            .niri
@@ -1480,6 +1513,74 @@ index 00000000..66cb03df
 +    }
 +
 +    #[test]
++    fn agent_keys_share_real_keyboard_focus() {
++        let mut f = Fixture::new();
++        f.add_output(1, (1920, 1080));
++        let target = f.add_client();
++        let window = f.client(target).create_window();
++        let surface = window.surface.clone();
++        window.commit();
++        f.roundtrip(target);
++        let window = f.client(target).window(&surface);
++        window.attach_new_buffer();
++        window.ack_last_and_commit();
++        f.roundtrip(target);
++        let (window_id, toplevel) = f
++            .niri()
++            .layout
++            .windows()
++            .next()
++            .map(|(_, m)| (m.id().get(), m.toplevel().wl_surface().clone()))
++            .unwrap();
++
++        // The only window holds the real keyboard focus, e.g. after activate_window.
++        let keyboard = f.niri().seat.get_keyboard().unwrap();
++        let original_focus = keyboard.current_focus();
++        assert_eq!(original_focus.as_ref(), Some(&toplevel));
++        let _ = f.client(target).state.recent_keyboard_events(&surface).count();
++
++        f.niri_state()
++            .agent_input(window_id, vec![
++                AgentEvent::Key { keycode: KEY_LEFTSHIFT, pressed: true },
++                AgentEvent::Key { keycode: 16, pressed: true },
++                AgentEvent::Key { keycode: 16, pressed: false },
++                AgentEvent::Key { keycode: KEY_LEFTSHIFT, pressed: false },
++                AgentEvent::KeyboardLeave,
++            ])
++            .unwrap();
++        f.roundtrip(target);
++        assert_eq!(keyboard.current_focus(), original_focus);
++
++        let events: Vec<_> = f
++            .client(target)
++            .state
++            .recent_keyboard_events(&surface)
++            .collect();
++        // Keys arrive on the real focus without agent enter/leave.
++        assert!(!events
++            .iter()
++            .any(|e| matches!(e, KeyboardEvent::Enter { .. } | KeyboardEvent::Leave)));
++        let keys: Vec<_> = events
++            .iter()
++            .filter_map(|event| match event {
++                KeyboardEvent::Key { key, .. } => Some(*key),
++                _ => None,
++            })
++            .collect();
++        assert_eq!(keys, vec![KEY_LEFTSHIFT, 16, 16, KEY_LEFTSHIFT]);
++        // Shift was held for the agent, then the user's (empty) modifiers come back.
++        let mods: Vec<_> = events
++            .iter()
++            .filter_map(|event| match event {
++                KeyboardEvent::Modifiers { depressed, .. } => Some(*depressed),
++                _ => None,
++            })
++            .collect();
++        assert!(mods.iter().any(|m| *m != 0));
++        assert_eq!(mods.last(), Some(&0));
++    }
++
++    #[test]
 +    fn input_method_grab_receives_virtual_keymap_updates() {
 +        let mut f = Fixture::new();
 +        let input_method = f.add_client();
@@ -1963,7 +2064,7 @@ index 771f0d95..64d400e4 100644
      true
  }
 diff --git a/src/tests/client.rs b/src/tests/client.rs
-index e6203cf3..8ee35de0 100644
+index e6203cf3..2a4c1ec8 100644
 --- a/src/tests/client.rs
 +++ b/src/tests/client.rs
 @@ -26,6 +26,11 @@ use smithay::reexports::wayland_protocols_wlr::layer_shell::v1::client::zwlr_lay
