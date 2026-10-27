@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, ruby_3_3, makeBinaryWrapper }:
+{ lib, stdenv, fetchFromGitHub, ruby, makeBinaryWrapper }:
 
 stdenv.mkDerivation {
   pname = "try";
@@ -10,7 +10,7 @@ stdenv.mkDerivation {
     rev = "be566829856ca6bd22963e38a28ffb5efa24c7de";
     hash = "sha256-b+ev9XQDM/nWKFCuF22gUoT0ozxLTd9/fkazW45+WfM=";
   };
-  nativeBuildInputs = [ makeBinaryWrapper ruby_3_3 ];
+  nativeBuildInputs = [ makeBinaryWrapper ruby ];
   dontConfigure = true;
   dontBuild = true;
 
@@ -20,7 +20,7 @@ stdenv.mkDerivation {
     cp try.rb "$out/bin/try"
     cp -r lib "$out/bin/"
     chmod +x "$out/bin/try"
-    wrapProgram "$out/bin/try" --prefix PATH : ${ruby_3_3}/bin
+    wrapProgram "$out/bin/try" --prefix PATH : ${ruby}/bin
     patchShebangs "$out/bin/.try-wrapped"
     runHook postInstall
   '';

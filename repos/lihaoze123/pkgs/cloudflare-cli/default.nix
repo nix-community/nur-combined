@@ -1,6 +1,8 @@
-{ lib, buildNpmPackage, fetchurl, nodejs, autoPatchelfHook, patchelf, stdenv, versionCheckHook }:
+{ lib, buildNpmPackage, fetchurl, nodejs_22, autoPatchelfHook, patchelf, stdenv, versionCheckHook }:
 
 let
+  # cf beta.21 requires ^22.23.0, ^24.22.0 or ^26.12.0; the default is 24.21.
+  nodejs = nodejs_22;
   # Older patchelf corrupts libvips' DT_INIT when extending its RUNPATH.
   # https://github.com/NixOS/patchelf/issues/639
   patchelfForSharp = if lib.versionAtLeast patchelf.version "0.19" then patchelf else
@@ -12,7 +14,7 @@ let
     };
   });
 in
-buildNpmPackage rec {
+(buildNpmPackage.override { inherit nodejs; }) rec {
   pname = "cloudflare-cli";
   version = "1.0.0-beta.21";
 
