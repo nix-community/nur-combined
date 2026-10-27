@@ -51,7 +51,7 @@
   programs.ccache = {
     enable = true;
     cacheDir = "/nix/var/cache/ccache";
-    packageNames = [ ];
+    packageNames = [ "audio-cpp-vulkan" ];
   };
   security.wrappers.nix-ccache.source = lib.mkForce (
     lib.getExe (

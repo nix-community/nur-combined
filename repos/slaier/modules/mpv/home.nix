@@ -24,4 +24,5 @@
       border = false;
     };
   };
+  home.packages = [ pkgs.ffmpeg-headless ];
 }

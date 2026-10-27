@@ -27,7 +27,7 @@
           name = "llama-server (local)";
           options.baseURL = "http://127.0.0.1:8080/v1";
           models = {
-            "preset/Ornith-1.5-35B-A3B" = {
+            "ornith-ai/Ornith-1.5-35B-A3B" = {
               name = "Ornith-1.5-35B-A3B (local)";
               limit = {
                 context = 131072;

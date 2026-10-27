@@ -28,17 +28,12 @@
   boot.extraModulePackages = with config.boot.kernelPackages; [ it87 ];
   boot.extraModprobeConfig = ''
     options it87 ignore_resource_conflict=1
-    options snd_hda_intel power_save=0
   '';
   boot.kernelParams = [
-    "iommu=pt"
-    "amdgpu.ppfeaturemask=0xfffd7fff"
-    "amdgpu.aspm=0"
-    "amdgpu.runpm=0"
+    "amdgpu.ppfeaturemask=0xffffffff"
     "amdgpu.gpu_recovery=1"
+    "amdgpu.send_sigterm=1"
     "zswap.enabled=1"
-    "nmi_watchdog=1"
-    "threadirqs"
   ];
 
   services.fstrim.enable = true;
@@ -117,6 +112,7 @@
         echo "m" > pp_od_clk_voltage
         echo "m 2 2250 950" > pp_od_clk_voltage
         echo "c" > pp_od_clk_voltage
+        echo "auto" > power_dpm_force_performance_level
       ''} %S%p/device"''
     ]}
     # 3554:fa09 - wireless keyboard receiver, disable autosuspend to avoid drops

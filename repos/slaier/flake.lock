@@ -7,16 +7,36 @@
         ]
       },
       "locked": {
-        "lastModified": 1791987827,
-        "narHash": "sha256-tmpuMHIAOze1JGjI/G47srJLnSE8WnvZ2W5hVdt89yM=",
+        "lastModified": 1793120684,
+        "narHash": "sha256-ZDMs74TA5vRiQU6uLaCyjBuMTa+HYsHci/VBr5WUX4E=",
         "owner": "sudosubin",
         "repo": "agents.nix",
-        "rev": "61b2e0bf586aab79f4aa76340ba81ffcbf75a935",
+        "rev": "1d9e072944ca8cc89e9e37c50e773e10472a8be1",
         "type": "github"
       },
       "original": {
         "owner": "sudosubin",
         "repo": "agents.nix",
+        "type": "github"
+      }
+    },
+    "audio-cpp": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793108772,
+        "narHash": "sha256-w8Lt8LPrlp581dFr3+lfg18uhM+C/3RmJfQYh1NmPcg=",
+        "owner": "0xShug0",
+        "repo": "audio.cpp",
+        "rev": "1b8c8122c072293c435ade8dc991405286ec8856",
+        "type": "github"
+      },
+      "original": {
+        "owner": "0xShug0",
+        "repo": "audio.cpp",
         "type": "github"
       }
     },
@@ -124,11 +144,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1789012927,
-        "narHash": "sha256-+h1H0g2XMGXK0fNUlX4ajCmCz8u05IR7k0Cj2MJviBY=",
+        "lastModified": 1793033486,
+        "narHash": "sha256-fXVURa0+CSCgaxLt8tmPNJq2U+fGYOwbk5j2YUe7kSc=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "df044b78fd9ec60d0e54752169666e6e1d393798",
+        "rev": "7db163b2aee7e410e396b48aed02f646d742b9b8",
         "type": "github"
       },
       "original": {
@@ -201,11 +221,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788680125,
-        "narHash": "sha256-amGSoDobwmp4CFvCn841ws2iuitus+HUJdD/gKgsrJA=",
+        "lastModified": 1792915725,
+        "narHash": "sha256-v75hPw5NJ+mRRcwUzKi2OQtVSVv1hgq6ceAlPQB2kEE=",
         "owner": "Mic92",
         "repo": "nix-index-database",
-        "rev": "116ad1c2adb642405ef8916f6a94c8626f971344",
+        "rev": "93696586f3463024cceb089353539be95a38ae2b",
         "type": "github"
       },
       "original": {
@@ -248,11 +268,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1789006805,
-        "narHash": "sha256-xB8mKMOx1IA9vTDNLmJZ6n4wCMq/cuWBBOzGCRnqxrU=",
+        "lastModified": 1792773339,
+        "narHash": "sha256-rZLrzrC6i+jnTAlvPZHogKDulY7WWDEv9hJeHieO7Zw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "8ce4ef6cb6f871616146b9fe26d2a5ae594e94fe",
+        "rev": "3ec636362e1816bc2f0888fa0fa2c69f1bc9e504",
         "type": "github"
       },
       "original": {
@@ -270,11 +290,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1789030495,
-        "narHash": "sha256-dv1nEwrqnxcqg+g73oxfAV+kyVKsbuObTjwG7KkjNto=",
+        "lastModified": 1793120317,
+        "narHash": "sha256-tXkSvJ296WjtEA3SB3XJxbmPboAX0rpxBqSkbEBZlbg=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "30d3a9db08ad41d23ab079127cb52ae438aa9949",
+        "rev": "c66dc4b9beb5a28be123b42ea5224d2154034009",
         "type": "github"
       },
       "original": {
@@ -286,6 +306,7 @@
     "root": {
       "inputs": {
         "agents-nix": "agents-nix",
+        "audio-cpp": "audio-cpp",
         "bluetooth-player": "bluetooth-player",
         "darkmatter-grub-theme": "darkmatter-grub-theme",
         "home-manager": "home-manager",
@@ -303,11 +324,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788914643,
-        "narHash": "sha256-4GuMPW90JSxXWDPUB9M+1m7fYbe3H0apOd86/zBQ2Kw=",
+        "lastModified": 1793052255,
+        "narHash": "sha256-Y/JIHTnMlOabDfyaSBubWGLDIVGihLEUuoMhFvQKaDo=",
         "owner": "Mic92",
         "repo": "sops-nix",
-        "rev": "13616fff713a9f94055c66f15687ebdc17a335df",
+        "rev": "60182817ee048ac94b4c68ea76d5ef2e8aac730d",
         "type": "github"
       },
       "original": {

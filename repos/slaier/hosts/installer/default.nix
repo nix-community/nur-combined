@@ -59,6 +59,8 @@ in
     nixos-fs-mount
   ];
 
+  services.speechd.enable = false;
+
   # The minimal profile disables fontconfig; niri and ghostty need it.
   fonts.fontconfig.enable = lib.mkForce true;
 

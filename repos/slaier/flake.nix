@@ -28,6 +28,9 @@
 
     agents-nix.url = "github:sudosubin/agents.nix";
     agents-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    audio-cpp.url = "github:0xShug0/audio.cpp";
+    audio-cpp.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -109,6 +112,9 @@
                 bluetooth-player.overlays."${config.nixpkgs.hostPlatform.system}".default
                 niri.overlays.niri
                 agents-nix.overlays.default
+                (final: prev: {
+                  audio-cpp-vulkan = audio-cpp.packages."${config.nixpkgs.hostPlatform.system}".vulkan;
+                })
               ];
 
               home-manager = {

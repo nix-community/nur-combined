@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   pkgs,
   ...
@@ -130,8 +129,6 @@
           nixd = {
             nixpkgs.expr = "import (builtins.getFlake (toString ./.)).inputs.nixpkgs { }";
             formatting.command = [ (lib.getExe pkgs.nixfmt) ];
-            options.nixos.expr = "(builtins.getFlake (toString ./.)).nixosConfigurations.local.options";
-            options.home-manager.expr = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.local.options.home-manager.users.type.getSubOptions []";
           };
         };
         "nix.hiddenLanguageServerErrors" = [ "textDocument/definition" ];
