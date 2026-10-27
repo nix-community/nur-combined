@@ -2,8 +2,9 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  bun,
-  cacert,
+  fetchPnpmDeps,
+  pnpmConfigHook,
+  pnpm_12,
   nodejs,
   electron,
   makeWrapper,
@@ -11,70 +12,32 @@
   copyDesktopItems,
   desktopToDarwinBundle,
   nix-update-script,
-  writableTmpDirAsHomeHook,
 }:
 
-let
+stdenv.mkDerivation (finalAttrs: {
   pname = "artmatic";
   version = "0.3.0-unstable-2026-10-27";
 
   src = fetchFromGitHub {
     owner = "OxygenNine";
     repo = "artmatic";
-    rev = "a6e76eb52bce9abf0432cc9c499104ce6cb91a5a";
-    hash = "sha256-NDg0MyxpJk9220vDEWljG6MZowbEx9u7Sfche580Dek=";
+    rev = "e5aa2db9ab4e75993cf769495f5e95cc2a1f40d8";
+    hash = "sha256-vcaxOmpWDXuvXkfUyhduSmB2bGcAcfAWdIdto+xjv6M=";
   };
 
-  node_modules = stdenv.mkDerivation {
-    pname = "${pname}-node_modules";
-    inherit version src;
-
-    nativeBuildInputs = [
-      bun
-      cacert
-      writableTmpDirAsHomeHook
-    ];
-
-    dontConfigure = true;
-
-    buildPhase = ''
-      runHook preBuild
-
-      export SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt
-      export BUN_INSTALL_CACHE_DIR=$(mktemp -d)
-      bun install \
-        --backend=copyfile \
-        --cafile=${cacert}/etc/ssl/certs/ca-bundle.crt \
-        --cpu="*" \
-        --frozen-lockfile \
-        --ignore-scripts \
-        --no-progress \
-        --os="*"
-
-      runHook postBuild
-    '';
-
-    installPhase = ''
-      runHook preInstall
-
-      mkdir -p $out
-      cp -R node_modules $out
-
-      runHook postInstall
-    '';
-
-    dontFixup = true;
-    outputHash = "sha256-Ll09BPicWGz8bddYf6Yg2XFVIF1NpP5tzG0G0+7pE4o=";
-    outputHashMode = "recursive";
+  pnpmDeps = fetchPnpmDeps {
+    inherit (finalAttrs) pname version src;
+    pnpm = pnpm_12;
+    fetcherVersion = 4;
+    hash = "sha256-/W7oQWINOX7C7gjLKWc/eixi1jM6pCGMthOmm62aAAs=";
   };
-in
-stdenv.mkDerivation {
-  inherit pname version src;
 
   strictDeps = true;
 
   nativeBuildInputs = [
     nodejs
+    pnpmConfigHook
+    pnpm_12
     makeWrapper
     copyDesktopItems
   ]
@@ -94,19 +57,10 @@ stdenv.mkDerivation {
       if (process.platform !== 'darwin') require('electron').Menu.setApplicationMenu(null)"
   '';
 
-  configurePhase = ''
-    runHook preConfigure
-
-    cp -R ${node_modules}/. .
-    patchShebangs node_modules
-
-    runHook postConfigure
-  '';
-
   buildPhase = ''
     runHook preBuild
 
-    npm run build
+    pnpm run build
 
     runHook postBuild
   '';
@@ -133,11 +87,11 @@ stdenv.mkDerivation {
 
   desktopItems = [
     (makeDesktopItem {
-      name = pname;
+      name = "artmatic";
       desktopName = "Artmatic";
       comment = "Open-source editor for algorithmic art and glitch art";
       exec = "artmatic %U";
-      icon = pname;
+      icon = "artmatic";
       terminal = false;
       categories = [
         "AudioVideo"
@@ -166,4 +120,4 @@ stdenv.mkDerivation {
     sourceProvenance = with lib.sourceTypes; [ fromSource ];
     maintainers = with lib.maintainers; [ MCSeekeri ];
   };
-}
+})
