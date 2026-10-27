@@ -46,12 +46,12 @@
   };
   epd-food-server = {
     pname = "epd-food-server";
-    version = "f7d79aca14fef7fc0d818df00119750cc566708a";
+    version = "17063f6bea57139f64e67a441d5413a3aac9e378";
     src = fetchgit {
       url = "https://github.com/zhyiheihei/EPD-Dashboard.git";
-      rev = "f7d79aca14fef7fc0d818df00119750cc566708a";
+      rev = "17063f6bea57139f64e67a441d5413a3aac9e378";
       fetchSubmodules = false;
-      hash = "sha256-RXw0ylnr/qYV9+cwuqJYzYHZR+cqyGDriqtNgsfLaQQ=";
+      hash = "sha256-Avkwc+fVv9/YuGvFWepCcNCztZhu1VNM/kzph87R0Yo=";
     };
     date = "2026-10-27";
   };
