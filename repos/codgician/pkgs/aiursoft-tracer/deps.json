@@ -76,8 +76,8 @@
   },
   {
     "pname": "Aiursoft.DbTools.MySql",
-    "version": "10.0.40",
-    "hash": "sha256-pmVJjdXzJcOUuxev5VbAq7xHGnc9LBfzifqwbvP8JyE="
+    "version": "10.0.41",
+    "hash": "sha256-2k7M77Jzf4Qp2psM+vrotfsEgYTwOAqVT94S5qSaJIc="
   },
   {
     "pname": "Aiursoft.DbTools.Sqlite",
@@ -101,13 +101,13 @@
   },
   {
     "pname": "Aiursoft.UiStack",
-    "version": "10.0.31",
-    "hash": "sha256-4hkSXagD3UXxQfgT+JxNcOOVK/W0I1C3ig/TVjgBCeM="
+    "version": "10.0.33",
+    "hash": "sha256-Vv0W1WZqmNwZTvWEasa7YTJ8BA3mZ5/IvVykl2H2jqM="
   },
   {
     "pname": "Aiursoft.WebTools",
-    "version": "10.0.19",
-    "hash": "sha256-nG03n5BAca9ebwSUBbhHYCVMUv1uIEG6tZcalGKJ+fY="
+    "version": "10.0.21",
+    "hash": "sha256-X9uCs0HMxtWvjYoptEDEKpKAOMWQTqpwxe0dWFeZhGY="
   },
   {
     "pname": "Aiursoft.WebTools.Abstractions",
