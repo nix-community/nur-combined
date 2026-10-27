@@ -33,6 +33,9 @@ let
   '';
 
   commonEnvironment = {
+    # dbus-fast 默认连 /var/run/dbus/system_bus_socket；chroot 里只有 /run/dbus，
+    # 不指路扫描就直接 ENOENT。
+    DBUS_SYSTEM_BUS_ADDRESS = "unix:path=/run/dbus/system_bus_socket";
     # 数据库/角色统一下划线名（psycopg DSN 免引号；ensureUsers 断言要求 db 与 role 同名）
     EPD_FOOD_DSN = "host=/run/postgresql dbname=epd_dashboard";
     EPD_FOOD_FONT_PATH = "${fontFile}";
@@ -221,6 +224,12 @@ in
       isSystemUser = true;
     };
     users.groups.epd_dashboard = { };
+
+    # textfile 目录通常由采集方（root）建，用 ACL 给服务用户写权限：
+    # 不改 mode/owner，不与其它模块的 tmpfiles 规则互盖。
+    systemd.tmpfiles.settings."epd-food-metrics" = lib.mkIf (cfg.textfilePath != "") {
+      ${builtins.dirOf cfg.textfilePath}."a+".argument = "u:epd_dashboard:rwx";
+    };
 
     # 命名空间独立保留策略：容量小、保留久
     environment.etc."systemd/journald@${cfg.logNamespace}.conf" = lib.mkIf (cfg.logNamespace != "") {

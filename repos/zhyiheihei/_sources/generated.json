@@ -89,13 +89,13 @@
             "fetchSubmodules": false,
             "leaveDotGit": false,
             "name": null,
-            "rev": "b269240f18c7605b70368aedb1f697c8c7e49baf",
-            "sha256": "sha256-pAgbD3UMM10YeiFCRFgJq3fFbbl7s0Jez39W9p9xYNs=",
+            "rev": "07609b978746a1335bea382384573f54e4815ed6",
+            "sha256": "sha256-hZKyor95ZRaqhKdbxGSxTFd2ODkzdgvdlz/bOHGWnWA=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/zhyiheihei/EPD-Dashboard.git"
         },
-        "version": "b269240f18c7605b70368aedb1f697c8c7e49baf"
+        "version": "07609b978746a1335bea382384573f54e4815ed6"
     },
     "filecodebox": {
         "cargoLock": null,
