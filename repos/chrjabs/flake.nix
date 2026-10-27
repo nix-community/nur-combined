@@ -61,6 +61,7 @@
               cargo-fake-rustup
               cargo-minimal-versions
               coveralls
+              cykhash
               dblp-tools
               dodeca
               gbd

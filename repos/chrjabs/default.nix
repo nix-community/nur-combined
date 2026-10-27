@@ -44,6 +44,9 @@ rec {
   # Janus-SWI python prolog interface
   janus-swi = pkgs.python3Packages.callPackage ./pkgs/janus-swi { };
 
+  # cykhash
+  cykhash = pkgs.python3Packages.callPackage ./pkgs/cykhash { };
+
   # Dodeca static site generator
   dodeca = pkgs.callPackage ./pkgs/dodeca { };
 
