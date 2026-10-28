@@ -20,7 +20,7 @@
   },
   {
     "addonId": "{a8cf72f7-09b7-4cd4-9aaa-7a023bf09916}",
-    "hash": "sha256:c6510e899e35d2ab32451a216176a4a31299fc5c70a2840ef4554c76f3d57085",
+    "hash": "sha256:698e976a06d8dfe60a7bdd2b459ef1f2ffb722f993c22355c61d4862367f9a95",
     "homepage": "https://time-tracker-4-browser.app/en/",
     "licenseId": 22,
     "permissions": [
@@ -32,8 +32,8 @@
     ],
     "slug": "besttimetracker",
     "summary": "Track time, analyze your habits and block addictive sites",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5132235/besttimetracker-4.6.5.xpi",
-    "version": "4.6.5"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5167472/besttimetracker-4.6.6.xpi",
+    "version": "4.6.6"
   },
   {
     "addonId": "{74145f27-f039-47ce-a470-a662b129930a}",
@@ -292,7 +292,7 @@
   },
   {
     "addonId": "addon@darkreader.org",
-    "hash": "sha256:eb06c5096d761616c7f1d954c11524ca4bff4fe7229044dc1fce288a8c0853ab",
+    "hash": "sha256:700633395aa2f639a1bed4253e27309eb676f346d599b0ae2b7a0453232e0aec",
     "homepage": "https://darkreader.org/",
     "licenseId": 22,
     "permissions": [
@@ -305,12 +305,12 @@
     ],
     "slug": "darkreader",
     "summary": "Dark mode for every website. Take care of your eyes, use dark theme for night and daily browsing.",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5055786/darkreader-4.9.133.xpi",
-    "version": "4.9.133"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5175215/darkreader-4.9.134.xpi",
+    "version": "4.9.134"
   },
   {
     "addonId": "floccus@handmadeideas.org",
-    "hash": "sha256:14e934361bde413a198eaf3c851537c23255c11f36650fc3240cfa86a9642588",
+    "hash": "sha256:a461abeb50d6578498d959fb4ac96cb8a327f0ecae6371618a1550425267ee62",
     "homepage": "https://floccus.org",
     "licenseId": 3338,
     "permissions": [
@@ -325,8 +325,8 @@
     ],
     "slug": "floccus",
     "summary": "Securely synchronize bookmarks across Chrome, Firefox, Edge, and more using your own cloud storage.",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5063393/floccus-5.11.0.xpi",
-    "version": "5.11.0"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5156500/floccus-5.12.0.xpi",
+    "version": "5.12.0"
   },
   {
     "addonId": "foxytab@eros.man",
@@ -433,7 +433,7 @@
   },
   {
     "addonId": "{eac6e624-97fa-4f28-9d24-c06c9b8aa713}",
-    "hash": "sha256:6cbd72b544f948e177a3a46df806844409bc67e4de24eac2038fd9b0bcb90558",
+    "hash": "sha256:487a7e9848076c6fdc85a0a76c8e3aa85e6092f9c2d3b5ca1455da535c7ef363",
     "homepage": "https://github.com/material-extensions/material-icons-browser-extension",
     "licenseId": 22,
     "permissions": [
@@ -453,8 +453,8 @@
     ],
     "slug": "material-icons-for-github",
     "summary": "Replace the file/folder icons on github file browsers with icons representing the file's type and which tool it is used by.",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5080172/material_icons_for_github-1.17.1.xpi",
-    "version": "1.17.1"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5172134/material_icons_for_github-1.18.0.xpi",
+    "version": "1.18.0"
   },
   {
     "addonId": "@testpilot-containers",
@@ -1005,7 +1005,7 @@
   },
   {
     "addonId": "{531906d3-e22f-4a6c-a102-8057b88a1a63}",
-    "hash": "sha256:f1b279ade586df54cdd9e61dc6d2bf9e73dbebe21c377bab2afd00e9553626e5",
+    "hash": "sha256:4a2ea4e685e4562995ee0d0b31f11005b69b533959f4119ac6f7b4f8d846b865",
     "homepage": "https://www.getsinglefile.com",
     "licenseId": 7714,
     "permissions": [
@@ -1018,8 +1018,8 @@
     ],
     "slug": "single-file",
     "summary": "Save an entire web page—including images and styling—as a single HTML file.",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5141757/single_file-1.31.5.xpi",
-    "version": "1.31.5"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5177756/single_file-1.33.0.xpi",
+    "version": "1.33.0"
   },
   {
     "addonId": "sponsorBlocker@ajay.app",
@@ -1157,7 +1157,7 @@
   },
   {
     "addonId": "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}",
-    "hash": "sha256:761ea6a32cee78c3263d19bbd821eafd4ea0722f10ff358ecba2739c5bff76fb",
+    "hash": "sha256:5e074465c7fdd31934e5b4664e3d2eac54269df575a0c0db52c843fe9afd81df",
     "homepage": "https://violentmonkey.github.io/",
     "licenseId": 22,
     "permissions": [
@@ -1174,8 +1174,8 @@
     ],
     "slug": "violentmonkey",
     "summary": "Userscript support for browsers, open source.",
-    "url": "https://addons.mozilla.org/firefox/downloads/file/5009389/violentmonkey-2.49.0.xpi",
-    "version": "2.49.0"
+    "url": "https://addons.mozilla.org/firefox/downloads/file/5170937/violentmonkey-2.50.0.xpi",
+    "version": "2.50.0"
   },
   {
     "addonId": "wayback_machine@mozilla.org",
