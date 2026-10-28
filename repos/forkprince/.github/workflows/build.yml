@@ -45,30 +45,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Notify nix-update Failures
-        if: steps.nix_update.outputs.failed_pkgs != ''
-        run: |
-          pkg_list=$(printf '%b' "${{ steps.nix_update.outputs.failed_pkgs }}" | sed '/^$/d' | sed 's/^/• /')
-          payload=$(jq -n \
-            --arg title "⚠️ nix-update failures" \
-            --arg pkgs "$pkg_list" \
-            --arg url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
-            '{
-              username: "NUR",
-              avatar_url: "https://api.serversmp.xyz/upload/69a58cf144d40b74d08297dc.webp",
-              content: "@everyone",
-              embeds: [{
-                title: $title,
-                description: "The following packages failed to update with nix-update:\n```\n\($pkgs)\n```",
-                color: 16744272,
-                url: $url
-              }]
-            }')
-          curl -s -o /dev/null -w "%{http_code}" \
-            -H "Content-Type: application/json" \
-            -d "$payload" \
-            "${{ secrets.DISCORD }}"
-
       - name: Update Packages (bun)
         id: update
         run: |
@@ -84,30 +60,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CODEBERG_TOKEN: ${{ secrets.CODEBERG_TOKEN }}
-
-      - name: Notify Update Failures
-        if: steps.update.outputs.failed_apps != ''
-        run: |
-          app_list=$(printf '%b' "${{ steps.update.outputs.failed_apps }}" | sed '/^$/d' | sed 's/^/• /')
-          payload=$(jq -n \
-            --arg title "⚠️ NUR package update failures" \
-            --arg apps "$app_list" \
-            --arg url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
-            '{
-              username: "NUR",
-              avatar_url: "https://api.serversmp.xyz/upload/69a58cf144d40b74d08297dc.webp",
-              content: "@everyone",
-              embeds: [{
-                title: $title,
-                description: "The following apps failed to update:\n```\n\($apps)\n```",
-                color: 16744272,
-                url: $url
-              }]
-            }')
-          curl -s -o /dev/null -w "%{http_code}" \
-            -H "Content-Type: application/json" \
-            -d "$payload" \
-            "${{ secrets.DISCORD }}"
 
       - name: Wait (5 minutes)
         if: steps.update.outputs.failed_apps != ''
@@ -133,29 +85,58 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CODEBERG_TOKEN: ${{ secrets.CODEBERG_TOKEN }}
 
-      - name: Notify Retry Failures
-        if: steps.retry.outputs.still_failed_apps != ''
+      - name: Notify Failures
+        if: steps.nix_update.outputs.failed_pkgs != '' || steps.update.outputs.failed_apps != ''
+        env:
+          NIX_FAILED: ${{ steps.nix_update.outputs.failed_pkgs }}
+          FAILED: ${{ steps.update.outputs.failed_apps }}
+          STILL_FAILED: ${{ steps.retry.outputs.still_failed_apps }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          DISCORD: ${{ secrets.DISCORD }}
         run: |
-          app_list=$(printf '%b' "${{ steps.retry.outputs.still_failed_apps }}" | sed '/^$/d' | sed 's/^/• /')
+          fmt() { printf '%b' "$1" | sed '/^$/d' | sed 's/^/• /'; }
+
+          desc=""
+          if [ -n "$NIX_FAILED" ]; then
+            desc+=$'**nix-update failed:**\n```\n'"$(fmt "$NIX_FAILED")"$'\n```\n'
+          fi
+          if [ -n "$FAILED" ]; then
+            desc+=$'**Update failed (first pass):**\n```\n'"$(fmt "$FAILED")"$'\n```\n'
+            if [ -n "$STILL_FAILED" ]; then
+              desc+=$'**Still failing after retry:**\n```\n'"$(fmt "$STILL_FAILED")"$'\n```\n'
+            else
+              desc+=$'All first-pass failures recovered on retry.\n'
+            fi
+          fi
+
+          if [ -n "$STILL_FAILED" ]; then
+            title="🚨 NUR update failures"
+            color=15548997
+          else
+            title="⚠️ NUR update failures"
+            color=16744272
+          fi
+
           payload=$(jq -n \
-            --arg title "🚨 NUR package update still failing after retry" \
-            --arg apps "$app_list" \
-            --arg url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --arg title "$title" \
+            --arg desc "$desc" \
+            --arg url "$RUN_URL" \
+            --argjson color "$color" \
             '{
               username: "NUR",
               avatar_url: "https://api.serversmp.xyz/upload/69a58cf144d40b74d08297dc.webp",
               content: "@everyone",
               embeds: [{
                 title: $title,
-                description: "The following apps failed even after retry:\n```\n\($apps)\n```",
-                color: 15548997,
+                description: $desc,
+                color: $color,
                 url: $url
               }]
             }')
           curl -s -o /dev/null -w "%{http_code}" \
             -H "Content-Type: application/json" \
             -d "$payload" \
-            "${{ secrets.DISCORD }}"
+            "$DISCORD"
 
       - name: Update flake
         run: nix flake update
@@ -248,6 +229,8 @@ jobs:
           echo "attrs=$skip_attrs" >> "$GITHUB_OUTPUT"
 
       - name: Check evaluation
+        id: eval
+        continue-on-error: true
         run: |
           nix-env -f . -qa \* --meta --xml \
             --argstr skipPkgs '${{ steps.skips.outputs.attrs }}' \
@@ -260,6 +243,7 @@ jobs:
 
       - name: Build Packages
         id: build
+        if: steps.eval.outcome == 'success'
         continue-on-error: true
         run: |
           nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix \
@@ -273,19 +257,33 @@ jobs:
             exit 1
           fi
 
-      - name: Notify Build Failures
-        if: steps.build.outcome == 'failure' && github.ref == 'refs/heads/main'
+      - name: Notify Failures
+        if: (steps.eval.outcome == 'failure' || steps.build.outcome == 'failure') && github.ref == 'refs/heads/main'
+        env:
+          EVAL_OUTCOME: ${{ steps.eval.outcome }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          OS: ${{ matrix.os }}
+          CHANNEL: ${{ matrix.channel }}
+          DISCORD: ${{ secrets.DISCORD }}
         run: |
+          if [ "$EVAL_OUTCOME" = "failure" ]; then
+            title="❌ NUR evaluation failed on $OS ($CHANNEL)"
+            desc="Evaluation check failed, check the logs for details."
+          else
+            title="❌ NUR build failures on $OS ($CHANNEL)"
+            desc="Build failed, check the logs for details."
+          fi
           payload=$(jq -n \
-            --arg title "❌ NUR build failures on ${{ matrix.os }}" \
-            --arg url "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+            --arg title "$title" \
+            --arg desc "$desc" \
+            --arg url "$RUN_URL" \
             '{
               username: "NUR",
               avatar_url: "https://api.serversmp.xyz/upload/69a58cf144d40b74d08297dc.webp",
               content: "@everyone",
               embeds: [{
                 title: $title,
-                description: "Build failed, check the logs for details.",
+                description: $desc,
                 color: 15158332,
                 url: $url
               }]
@@ -293,10 +291,10 @@ jobs:
           curl -s -o /dev/null -w "%{http_code}" \
             -H "Content-Type: application/json" \
             -d "$payload" \
-            "${{ secrets.DISCORD }}"
+            "$DISCORD"
 
       - name: Fail Job
-        if: steps.build.outcome == 'failure'
+        if: steps.eval.outcome == 'failure' || steps.build.outcome == 'failure'
         run: exit 1
 
   nur:
