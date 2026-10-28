@@ -46,6 +46,12 @@ stdenv.mkDerivation {
     description = "Realtek Bluetooth UART attach tool and RTL8852BS firmware";
     homepage = "https://github.com/radxa/rtkbt";
     license = lib.licenses.unfreeRedistributableFirmware;
+    maintainers = [
+      {
+        github = "zhyiheihei";
+        name = "zhyiheihei";
+      }
+    ];
     platforms = lib.platforms.linux;
   };
 }
