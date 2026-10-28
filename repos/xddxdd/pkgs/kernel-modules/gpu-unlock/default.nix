@@ -7,12 +7,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "gpu-unlock";
-  version = "0-unstable-2026-10-26";
+  version = "unraid-unstable-2026-10-27";
   src = fetchFromGitHub {
     owner = "Zagitta";
     repo = "gpu-unlock";
-    rev = "6081407b312aa3139a2bed62bdda354f4ffddc1d";
-    hash = "sha256-6FbsBw20/+MRP676qur+C4glwrKmqlNi3xwAzB82zoA=";
+    rev = "1fc6d628c49c7fba34ef3a2e7f758700d35ce890";
+    hash = "sha256-E2fmxMc5nq0Jg+J+BVhIihaAoC8ay01DefHxmsa2uiM=";
   };
   __structuredAttrs = true;
   strictDeps = true;
