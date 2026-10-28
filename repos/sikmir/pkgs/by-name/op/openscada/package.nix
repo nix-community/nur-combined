@@ -13,7 +13,7 @@
   libpq,
   libz,
   net-snmp,
-  pcre,
+  pcre2,
   portaudio,
   qt6,
   sqlite,
@@ -63,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     gd
     libz
-    pcre
+    pcre2
     qt6.qtbase
     sqlite
   ]

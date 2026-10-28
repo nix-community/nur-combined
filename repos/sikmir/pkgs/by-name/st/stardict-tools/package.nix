@@ -4,39 +4,45 @@
   fetchurl,
   autoconf,
   automake,
+  gnome-common,
   libtool,
   p7zip,
   pkg-config,
   gtk2,
   libmysqlclient,
   libxml2,
-  pcre,
+  pcre2,
+  which,
+  yelp-tools,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "stardict-tools";
-  version = "3.0.6.2";
+  version = "3.0.7-2";
 
   __structuredAttrs = true;
 
   src = fetchurl {
-    url = "mirror://sourceforge/stardict-4/stardict-${finalAttrs.version}-2-src.7z";
-    hash = "sha256-1XLfXs5v2ZvP5xqCN4x1+0BvkIGc8cHWrgiP0b0DP0U=";
+    url = "mirror://sourceforge/stardict-4/stardict-${finalAttrs.version}-src.7z";
+    hash = "sha256-U9Wfyz0eV3kw7k7XlvBEuHXPrqo+rdhP7fvviSYfyQc=";
   };
 
   nativeBuildInputs = [
     autoconf
     automake
+    gnome-common
     libtool
     p7zip
     pkg-config
+    which
+    yelp-tools
   ];
 
   buildInputs = [
     gtk2
     libmysqlclient
     libxml2
-    pcre
+    pcre2
   ];
 
   hardeningDisable = [ "format" ];

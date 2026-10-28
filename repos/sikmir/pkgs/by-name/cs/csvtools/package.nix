@@ -2,24 +2,24 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  pcre,
+  pcre2,
   openssl,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "csvtools";
-  version = "0-unstable-2023-10-10";
+  version = "0-unstable-2025-09-03";
 
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "DavyLandman";
     repo = "csvtools";
-    rev = "0162d828ec7500cf01080f73fd28387a9cdada92";
-    hash = "sha256-avdnbdKh/GFibIFfKmmLLcZOvijnQmJb5VNgaZA+NiY=";
+    rev = "8e1d2390851dad38ea87950762006e1bf9e642aa";
+    hash = "sha256-Ndz4Cqh7pIru+NzNvlU9Uek5Ke7i40AeJXrw4e0FGns=";
   };
 
-  buildInputs = [ pcre ];
+  buildInputs = [ pcre2 ];
 
   makeFlags = [ "prefix=$(out)" ];
   enableParallelBuilding = true;
@@ -37,5 +37,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
+    broken = true;
   };
 })
