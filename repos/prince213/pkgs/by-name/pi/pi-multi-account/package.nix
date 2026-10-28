@@ -6,7 +6,7 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "pi-multi-account";
-  version = "1.27.0";
+  version = "1.27.1";
 
   __structuredAttrs = true;
 
@@ -14,11 +14,11 @@ buildNpmPackage (finalAttrs: {
     owner = "Sarrius";
     repo = "pi-multi-account";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-QBlFhkM4Xoy6LWQNqAqR1F81sfp9QClIoqxzkUdTcRo=";
+    hash = "sha256-7iKbF1ZaAkpVFa6ZdLivLlM1Pl2eJzCWlJ/6ik3KvlI=";
   };
 
   npmDepsFetcherVersion = 2;
-  npmDepsHash = "sha256-Rti6BoGrpOmNfRvsd4s48fNSyGaH7DtL7RnkQaicV8c=";
+  npmDepsHash = "sha256-ztGvQc+FxuUFFP0b0whWxjclE3bIBBre9x6jQFlFEwU=";
 
   npmInstallFlags = [ "--omit=dev" ];
 

@@ -6,21 +6,21 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "pi-claude-code-ui";
-  version = "1.0.102";
+  version = "1.0.106";
 
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "FammasMaz";
     repo = "pi-cc-tools";
-    rev = "10b1675ac141d242a9b5ea82cff647e996fe5d73";
-    hash = "sha256-vEQpbXCnFzBjdYsFLEo0CITmw+pFlbTrfi4t5MK8SuQ=";
+    rev = "f9d2074f9d619777d968f321a29b5037ef062c53";
+    hash = "sha256-Kd9NlO4yEC/kywJ7ojTYieeYCtra8Y5jsLPWvqLXXCM=";
   };
 
   patches = [ ./package-lock.patch ];
 
   npmDepsFetcherVersion = 2;
-  npmDepsHash = "sha256-ldOUyImK+oaNZbEqfFDfu3sLapsgkdB2zEeCMyfuNuI=";
+  npmDepsHash = "sha256-U2HeozfzVAcCSWneAIXHx9eiVGIvQbFSa9fEC/iM0oA=";
 
   npmInstallFlags = [ "--omit=dev" ];
 
