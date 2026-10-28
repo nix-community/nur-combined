@@ -12,6 +12,7 @@ lihaoze123 的独立 NUR 软件包仓库。软件包配方集中维护，安装�
 | --- | --- |
 | `cloudflare-cli` | Cloudflare 官方 `cf` / `cloudflare` CLI，使用 npm 发布包 |
 | `cisco-packet-tracer-zh` | Packet Tracer 9.0.1 简体中文，修复 Linux 语言目录并默认跳过启动登录窗口；[构建说明](pkgs/cisco-packet-tracer-zh/README.md) |
+| `cisco-packet-tracer-6-zh` | Packet Tracer 6.3.0.0008，32 位运行库、部分简体中文和可关闭的启动免登录补丁；[构建说明](pkgs/cisco-packet-tracer-6-zh/README.md) |
 | `dbx` | DBX 官方预编译 AppImage，包含 NixOS 启动环境、菜单入口和图标 |
 | `fcitx5-vinput-lite`、`fcitx5-vinput-lite-upstream` | 云端语音输入插件；前者含按键重复修复及回归测试，后者保留原版 |
 | `vtype-linux` | 微信拼音 Fcitx5 插件，含小鹤双拼、模糊音、自定义翻页键和固定运行时 |
@@ -25,7 +26,7 @@ lihaoze123 的独立 NUR 软件包仓库。软件包配方集中维护，安装�
 | `codex-desktop`、`codex-computer-use`、`codex-computer-use-niri`、`niri-patched` | niri 上的 Codex Computer Use，固定桌面、后端、niri 和补丁版本 |
 | `gxfp5130-fprintd`、`gxfp5130-libfprint`、`gxfp5130-tools`、`gxfp5130-kernel` | GXFP5130 ChicagoHS 指纹支持 |
 
-目前 Flake 输出支持 `x86_64-linux`。`vscode` 和 `cisco-packet-tracer-zh` 包含非自由软件；Flake 入口已允许，
+目前 Flake 输出支持 `x86_64-linux`。`vscode` 和两个 `cisco-packet-tracer` 包包含非自由软件；Flake 入口已允许，
 通过传统 NUR 入口使用时由调用者设置 `config.allowUnfree`。
 
 ## 安装与更新
