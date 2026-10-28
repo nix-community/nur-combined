@@ -19,6 +19,7 @@ Modeled on [numtide/llm-agents.nix](https://github.com/numtide/llm-agents.nix).
 | [`jetbrains-air`](https://air.dev/) | aarch64-darwin | JetBrains Air, an agentic development environment |
 | [`obs-studio`](https://obsproject.com/) | aarch64-darwin | Streaming and screen recording (nixpkgs' is Linux-only) |
 | [`pulsar`](https://pulsar-edit.dev/) | aarch64-darwin | Community-led hyperhackable text editor, the Atom successor (nixpkgs' is Linux-only) |
+| [`qingjian`](https://qingjian.app) | aarch64-darwin | Pinyin input method that shows a word in the language you are learning beside each candidate (installs under `Library/Input Methods`) |
 | [`scroll-reverser`](https://pilotmoon.com/scrollreverser/) | aarch64-darwin | nixpkgs' Scroll Reverser with the AppleDouble files that make Gatekeeper reject it removed |
 
 Several are unfree (`ego-lite`, `jetbrains-air`); allow unfree packages to use them.
