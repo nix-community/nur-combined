@@ -6,15 +6,15 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "1.9.9",
+  "version": "1.9.12",
   "platforms": {
     "aarch64-darwin": {
       "file": "BlueBubbles-{version}-arm64.dmg",
-      "hash": "sha256-+v1lDIg/UudJSmYl5FJJ8hRNGXN4pNVxQ8z2GYuy6GI="
+      "hash": "sha256-kjtWLSyUXnu1h1dpAvOa8UVux0awQQkKOXKW4HhtXUM="
     },
     "x86_64-darwin": {
       "file": "BlueBubbles-{version}.dmg",
-      "hash": "sha256-loHmX2AhSmqV870StXvUzIrW2PWM2cHYgRsqRgatfAQ="
+      "hash": "sha256-aFipFOPS5/1Asez10k6keJ6g4zr2s60r8alA4JCr/1c="
     }
   }
 }
