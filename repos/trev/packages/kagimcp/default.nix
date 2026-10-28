@@ -24,14 +24,14 @@ let
 in
 buildPythonPackage (final: {
   pname = "kagimcp";
-  version = "0.1.5-unstable-2026-07-07";
+  version = "0.1.5-unstable-2026-10-28";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "kagisearch";
     repo = "kagimcp";
-    rev = "55b38d20c67f1406f2c284af776de395297a75cc";
-    hash = "sha256-GBXAxYjWFkvCBcYyxf2ObqzMjJSPREU3fFHCqyPGnyE=";
+    rev = "4dc1dc97ca8dead8458c7025e4fcc36d2e3d6ec4";
+    hash = "sha256-SuyKFYQECdH9zfYdLBKlTdomrkxSpxOj7hFdQftHiOo=";
   };
 
   build-system = [

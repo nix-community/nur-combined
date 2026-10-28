@@ -12,7 +12,7 @@ index 8524cb6e057..13054df32cf 100644
  
  Use `updateLockedDependency` to directly update dependencies in lock files.
 diff --git a/lib/modules/manager/nix/artifacts.spec.ts b/lib/modules/manager/nix/artifacts.spec.ts
-index 84b470da398..e4ee8574573 100644
+index 84b470da398..c73fed3a843 100644
 --- a/lib/modules/manager/nix/artifacts.spec.ts
 +++ b/lib/modules/manager/nix/artifacts.spec.ts
 @@ -50,6 +50,9 @@ flake update nixpkgs`;
@@ -64,7 +64,7 @@ index 84b470da398..e4ee8574573 100644
            path: 'flake.lock',
            type: 'addition',
          },
-@@ -242,8 +263,44 @@ describe('modules/manager/nix/artifacts', () => {
+@@ -242,8 +263,90 @@ describe('modules/manager/nix/artifacts', () => {
      ]);
    });
  
@@ -103,13 +103,59 @@ index 84b470da398..e4ee8574573 100644
 +    expect(execSnapshots).toMatchObject([{ cmd: updateInputCmd }]);
 +  });
 +
++  it.each`
++    binarySource
++    ${'global'}
++    ${'docker'}
++  `(
++    'forwards runtime Git configuration in $binarySource mode',
++    async ({ binarySource }) => {
++      GlobalConfig.set(
++        binarySource === 'docker' ? dockerAdminConfig : adminConfig,
++      );
++      const gitConfig = {
++        GIT_CONFIG_COUNT: '1',
++        GIT_CONFIG_KEY_0: 'url.https://git.example.com/.insteadOf',
++        GIT_CONFIG_VALUE_0: 'ssh://git@git.example.com/',
++      };
++      env.getChildProcessEnv.mockReturnValue({
++        ...envMock.basic,
++        ...gitConfig,
++      });
++      fs.readLocalFile.mockResolvedValueOnce('old flake.lock');
++      const execSnapshots = mockExecAll();
++      git.getRepoStatus.mockResolvedValue(
++        partial<StatusResult>({ modified: [] }),
++      );
++
++      await updateArtifacts({
++        packageFileName: 'flake.nix',
++        updatedDeps: [{ depName: 'nixpkgs' }],
++        newPackageFileContent: '{}',
++        config: { constraints: { nix: '2.10.0' } },
++      });
++
++      const flakeExec = execSnapshots.at(-1)!;
++      expect(flakeExec.options?.env).toMatchObject(gitConfig);
++      expect(flakeExec.cmd.includes('-e GIT_CONFIG_COUNT')).toBe(
++        binarySource === 'docker',
++      );
++      expect(flakeExec.cmd.includes('-e GIT_CONFIG_KEY_0')).toBe(
++        binarySource === 'docker',
++      );
++      expect(flakeExec.cmd.includes('-e GIT_CONFIG_VALUE_0')).toBe(
++        binarySource === 'docker',
++      );
++    },
++  );
++
    it('supports install mode', async () => {
      GlobalConfig.set({ ...adminConfig, binarySource: 'install' });
 +    fs.readLocalFile.mockResolvedValueOnce('current flake.lock');
      const execSnapshots = mockExecAll();
      git.getRepoStatus.mockResolvedValue(
        partial<StatusResult>({
-@@ -262,6 +319,7 @@ describe('modules/manager/nix/artifacts', () => {
+@@ -262,6 +365,7 @@ describe('modules/manager/nix/artifacts', () => {
      expect(res).toEqual([
        {
          file: {
@@ -117,7 +163,7 @@ index 84b470da398..e4ee8574573 100644
            path: 'flake.lock',
            type: 'addition',
          },
-@@ -349,6 +407,7 @@ describe('modules/manager/nix/artifacts', () => {
+@@ -349,6 +453,7 @@ describe('modules/manager/nix/artifacts', () => {
  
    it('uses nix from config', async () => {
      GlobalConfig.set(dockerAdminConfig);
@@ -125,7 +171,7 @@ index 84b470da398..e4ee8574573 100644
      const execSnapshots = mockExecAll();
      git.getRepoStatus.mockResolvedValue(
        partial<StatusResult>({
-@@ -370,6 +429,7 @@ describe('modules/manager/nix/artifacts', () => {
+@@ -370,6 +475,7 @@ describe('modules/manager/nix/artifacts', () => {
      expect(res).toEqual([
        {
          file: {
@@ -134,12 +180,14 @@ index 84b470da398..e4ee8574573 100644
            type: 'addition',
          },
 diff --git a/lib/modules/manager/nix/artifacts.ts b/lib/modules/manager/nix/artifacts.ts
-index ade2014f9f8..ff2d241b420 100644
+index ade2014f9f8..45cfea4836e 100644
 --- a/lib/modules/manager/nix/artifacts.ts
 +++ b/lib/modules/manager/nix/artifacts.ts
-@@ -4,10 +4,15 @@ import { logger } from '../../../logger/index.ts';
+@@ -2,27 +2,55 @@ import { isNonEmptyStringAndNotWhitespace } from '@sindresorhus/is';
+ import { quote } from 'shlex';
+ import { logger } from '../../../logger/index.ts';
  import { findGithubToken } from '../../../util/check-token.ts';
- import { exec } from '../../../util/exec/index.ts';
+-import { exec } from '../../../util/exec/index.ts';
  import type { ExecOptions } from '../../../util/exec/types.ts';
 -import { readLocalFile } from '../../../util/fs/index.ts';
 +import {
@@ -148,14 +196,16 @@ index ade2014f9f8..ff2d241b420 100644
 +  readLocalFile,
 +  writeLocalFile,
 +} from '../../../util/fs/index.ts';
-+import { getGitEnvironmentVariables } from '../../../util/git/auth.ts';
++import { withGitEnvironment } from '../../../util/git/exec.ts';
  import { getRepoStatus } from '../../../util/git/index.ts';
  import * as hostRules from '../../../util/host-rules.ts';
 -import { regEx } from '../../../util/regex.ts';
  import type { UpdateArtifact, UpdateArtifactsResult } from '../types.ts';
  import { resolveToolConstraint } from '../util.ts';
  
-@@ -15,14 +20,36 @@ export async function updateArtifacts({
++const gitExec = withGitEnvironment();
++
+ export async function updateArtifacts({
    packageFileName,
    config,
    updatedDeps,
@@ -194,7 +244,7 @@ index ade2014f9f8..ff2d241b420 100644
    let cmd = `nix --extra-experimental-features 'nix-command flakes' `;
  
    const token = findGithubToken(
-@@ -36,18 +63,13 @@ export async function updateArtifacts({
+@@ -36,18 +64,12 @@ export async function updateArtifacts({
      cmd += `--extra-access-tokens github.com=${quote(token)} `;
    }
  
@@ -212,14 +262,22 @@ index ade2014f9f8..ff2d241b420 100644
    const execOptions: ExecOptions = {
      cwdFile: packageFileName,
 +    extraEnv: {
-+      ...getGitEnvironmentVariables({}),
 +      NIX_CACHE_HOME: await ensureCacheDir('nix'),
 +    },
      toolConstraints: [
        {
          toolName: 'nix',
+@@ -58,7 +80,7 @@ export async function updateArtifacts({
+   };
+ 
+   try {
+-    await exec(cmd, execOptions);
++    await gitExec(cmd, execOptions);
+ 
+     const status = await getRepoStatus();
+     if (!status.modified.includes(lockFileName)) {
 diff --git a/lib/modules/manager/nix/extract.spec.ts b/lib/modules/manager/nix/extract.spec.ts
-index cc21ed7f50c..7eae0c8f53a 100644
+index cc21ed7f50c..4eba7d761b8 100644
 --- a/lib/modules/manager/nix/extract.spec.ts
 +++ b/lib/modules/manager/nix/extract.spec.ts
 @@ -1,5 +1,6 @@
@@ -328,7 +386,7 @@ index cc21ed7f50c..7eae0c8f53a 100644
            "original": {
              "owner": "NixOS",
              "ref": "nixos-unstable",
-@@ -79,35 +57,54 @@ describe('modules/manager/nix/extract', () => {
+@@ -79,35 +57,55 @@ describe('modules/manager/nix/extract', () => {
              "type": "github"
            }
          },
@@ -351,6 +409,7 @@ index cc21ed7f50c..7eae0c8f53a 100644
 +      deps: [
 +        {
 +          currentDigest: 'fb7944c166a3b630f177938e478f0378e64ce108',
++          digest: { isLockfileUpdate: true },
 +          currentValue: 'nixos-unstable',
 +          datasource: GitRefsDatasource.id,
 +          depName: 'nixpkgs',
@@ -392,7 +451,7 @@ index cc21ed7f50c..7eae0c8f53a 100644
            }
          }
        },
-@@ -118,23 +115,15 @@ describe('modules/manager/nix/extract', () => {
+@@ -118,23 +116,15 @@ describe('modules/manager/nix/extract', () => {
      await expect(extractPackageFile('', 'flake.nix')).resolves.toBeNull();
    });
  
@@ -418,7 +477,7 @@ index cc21ed7f50c..7eae0c8f53a 100644
            }
          },
          "root": {
-@@ -148,9 +137,23 @@ describe('modules/manager/nix/extract', () => {
+@@ -148,9 +138,23 @@ describe('modules/manager/nix/extract', () => {
      }`;
      fs.readLocalFile.mockResolvedValueOnce(flakeLock);
      await expect(extractPackageFile('', 'flake.nix')).resolves.toBeNull();
@@ -443,7 +502,7 @@ index cc21ed7f50c..7eae0c8f53a 100644
      const flakeLock = codeBlock`{
        "nodes": {
          "nixpkgs": {
-@@ -160,12 +163,6 @@ describe('modules/manager/nix/extract', () => {
+@@ -160,12 +164,6 @@ describe('modules/manager/nix/extract', () => {
              "owner": "NixOS",
              "repo": "nixpkgs",
              "rev": "9f4128e00b0ae8ec65918efeba59db998750ead6",
@@ -456,7 +515,7 @@ index cc21ed7f50c..7eae0c8f53a 100644
              "type": "github"
            }
          },
-@@ -180,9 +177,21 @@ describe('modules/manager/nix/extract', () => {
+@@ -180,9 +178,21 @@ describe('modules/manager/nix/extract', () => {
      }`;
      fs.readLocalFile.mockResolvedValueOnce(flakeLock);
      await expect(extractPackageFile('', 'flake.nix')).resolves.toBeNull();
@@ -479,7 +538,7 @@ index cc21ed7f50c..7eae0c8f53a 100644
      const flakeLock = codeBlock`{
        "nodes": {
          "nixpkgs": {
-@@ -192,7 +201,7 @@ describe('modules/manager/nix/extract', () => {
+@@ -192,7 +202,7 @@ describe('modules/manager/nix/extract', () => {
              "owner": "NixOS",
              "repo": "nixpkgs",
              "rev": "9f4128e00b0ae8ec65918efeba59db998750ead6",
@@ -488,7 +547,7 @@ index cc21ed7f50c..7eae0c8f53a 100644
            },
            "original": {
              "owner": "NixOS",
-@@ -212,9 +221,27 @@ describe('modules/manager/nix/extract', () => {
+@@ -212,9 +222,27 @@ describe('modules/manager/nix/extract', () => {
      }`;
      fs.readLocalFile.mockResolvedValueOnce(flakeLock);
      await expect(extractPackageFile('', 'flake.nix')).resolves.toBeNull();
@@ -517,7 +576,7 @@ index cc21ed7f50c..7eae0c8f53a 100644
      const flakeLock = codeBlock`{
        "nodes": {
          "nixpkgs": {
-@@ -224,7 +251,7 @@ describe('modules/manager/nix/extract', () => {
+@@ -224,7 +252,7 @@ describe('modules/manager/nix/extract', () => {
              "owner": "NixOS",
              "repo": "nixpkgs",
              "rev": "9f4128e00b0ae8ec65918efeba59db998750ead6",
@@ -526,7 +585,7 @@ index cc21ed7f50c..7eae0c8f53a 100644
            },
            "original": {
              "owner": "NixOS",
-@@ -243,36 +270,44 @@ describe('modules/manager/nix/extract', () => {
+@@ -243,36 +271,44 @@ describe('modules/manager/nix/extract', () => {
        "version": 7
      }`;
      fs.readLocalFile.mockResolvedValueOnce(flakeLock);
@@ -587,7 +646,7 @@ index cc21ed7f50c..7eae0c8f53a 100644
            }
          },
          "root": {
-@@ -285,57 +320,45 @@ describe('modules/manager/nix/extract', () => {
+@@ -285,57 +321,45 @@ describe('modules/manager/nix/extract', () => {
        "version": 7
      }`;
      fs.readLocalFile.mockResolvedValueOnce(flakeLock);
@@ -672,7 +731,7 @@ index cc21ed7f50c..7eae0c8f53a 100644
            }
          }
        },
-@@ -343,40 +366,46 @@ describe('modules/manager/nix/extract', () => {
+@@ -343,40 +367,46 @@ describe('modules/manager/nix/extract', () => {
        "version": 7
      }`;
      fs.readLocalFile.mockResolvedValueOnce(flakeLock);
@@ -741,7 +800,7 @@ index cc21ed7f50c..7eae0c8f53a 100644
            }
          }
        },
-@@ -384,40 +413,45 @@ describe('modules/manager/nix/extract', () => {
+@@ -384,40 +414,45 @@ describe('modules/manager/nix/extract', () => {
        "version": 7
      }`;
      fs.readLocalFile.mockResolvedValueOnce(flakeLock);
@@ -809,7 +868,7 @@ index cc21ed7f50c..7eae0c8f53a 100644
            }
          }
        },
-@@ -425,909 +459,751 @@ describe('modules/manager/nix/extract', () => {
+@@ -425,909 +460,762 @@ describe('modules/manager/nix/extract', () => {
        "version": 7
      }`;
      fs.readLocalFile.mockResolvedValueOnce(flakeLock);
@@ -822,6 +881,7 @@ index cc21ed7f50c..7eae0c8f53a 100644
 -          packageName: 'https://gitlab.com/rycee/home-manager',
 -          lockedVersion: '65ae9c147349829d3df0222151f53f79821c5134',
 +          currentDigest: 'ff81ac966bb2cae68946d5ed5fc4994f96d0ffec',
++          digest: { isLockfileUpdate: true },
 +          datasource: GitRefsDatasource.id,
 +          depName: 'flake-compat',
 +          packageName: 'https://github.com/edolstra/flake-compat',
@@ -943,6 +1003,7 @@ index cc21ed7f50c..7eae0c8f53a 100644
 +        deps: [
 +          {
 +            currentDigest: 'be97b37989f11b724197b5f4c7ffd78f12c8c4bf',
++            digest: { isLockfileUpdate: true },
 +            currentValue: 'v1.7.2',
 +            datasource: GitRefsDatasource.id,
 +            depName: 'cachix',
@@ -1161,6 +1222,7 @@ index cc21ed7f50c..7eae0c8f53a 100644
 +        deps: [
 +          {
 +            currentDigest: 'be97b37989f11b724197b5f4c7ffd78f12c8c4bf',
++            digest: { isLockfileUpdate: true },
 +            datasource: GitRefsDatasource.id,
 +            depName: 'cachix',
 +            packageName: 'https://github.com/cachix/cachix.git',
@@ -1455,6 +1517,7 @@ index cc21ed7f50c..7eae0c8f53a 100644
 +        deps: [
 +          {
 +            currentDigest: '4524271976b625a4a605beefd893f270620fd751',
++            digest: { isLockfileUpdate: true },
 +            datasource: GitRefsDatasource.id,
 +            depName: 'flake-parts',
 +            packageName: 'https://github.com/hercules-ci/flake-parts',
@@ -1664,6 +1727,7 @@ index cc21ed7f50c..7eae0c8f53a 100644
 +        deps: [
 +          {
 +            currentDigest: '9f4128e00b0ae8ec65918efeba59db998750ead6',
++            digest: { isLockfileUpdate: true },
 +            currentValue: 'nixos-unstable',
 +            datasource: GitRefsDatasource.id,
 +            depName: 'nixpkgs',
@@ -1745,6 +1809,7 @@ index cc21ed7f50c..7eae0c8f53a 100644
 -            currentValue: 'nixpkgs-unstable',
 -            datasource: 'git-refs',
 +            currentDigest: '612ee628421ba2c1abca4c99684862f76cb3b089',
++            digest: { isLockfileUpdate: true },
 +            datasource: GitRefsDatasource.id,
              depName: 'nixpkgs',
              packageName: 'https://github.com/NixOS/nixpkgs',
@@ -1940,6 +2005,7 @@ index cc21ed7f50c..7eae0c8f53a 100644
 +        deps: [
 +          {
 +            currentDigest: '6bf2706348447df6f8b86b1c3e54f87b0afda84f',
++            digest: { isLockfileUpdate: true },
 +            datasource: GitRefsDatasource.id,
 +            depName: 'nixpkgs-extra-pkgs',
 +            packageName:
@@ -2067,6 +2133,7 @@ index cc21ed7f50c..7eae0c8f53a 100644
 +        deps: [
 +          {
 +            currentDigest: '26993d87fd0d3b14f7667b74ad82235f120d986e',
++            digest: { isLockfileUpdate: true },
 +            datasource: GitRefsDatasource.id,
 +            depName: 'home-manager',
 +            packageName: 'https://gitlab.com/rycee/home-manager',
@@ -2180,6 +2247,7 @@ index cc21ed7f50c..7eae0c8f53a 100644
 +        deps: [
 +          {
 +            currentDigest: '2dcb371b407ba4009e27a8e8adf88e6f93d40bfb',
++            digest: { isLockfileUpdate: true },
 +            datasource: GitRefsDatasource.id,
 +            depName: 'firefox-addons',
 +            packageName: 'https://git.sr.ht/~rycee/nur-expressions',
@@ -2266,6 +2334,7 @@ index cc21ed7f50c..7eae0c8f53a 100644
 +        deps: [
 +          {
 +            currentDigest: 'f4bdddf0fdaabc68546cf561c5343b83d95d2466',
++            digest: { isLockfileUpdate: true },
 +            datasource: GitRefsDatasource.id,
 +            depName: 'lix',
 +            packageName: 'https://git.lix.systems/lix-project/lix',
@@ -2338,6 +2407,7 @@ index cc21ed7f50c..7eae0c8f53a 100644
 +          deps: [
 +            {
 +              currentDigest: '0e6684e6c5755325f801bda1751a8a4038145d7d',
++              digest: { isLockfileUpdate: true },
 +              currentValue: 'nixpkgs-unstable',
 +              datasource: GitRefsDatasource.id,
 +              depName: 'nixpkgs',
@@ -2371,10 +2441,10 @@ index cc21ed7f50c..7eae0c8f53a 100644
        "nodes": {
          "unknown-flake": {
 diff --git a/lib/modules/manager/nix/extract.ts b/lib/modules/manager/nix/extract.ts
-index 848076d6849..a7144921f74 100644
+index 848076d6849..5d5bbc285b3 100644
 --- a/lib/modules/manager/nix/extract.ts
 +++ b/lib/modules/manager/nix/extract.ts
-@@ -1,78 +1,80 @@
+@@ -1,78 +1,88 @@
 +import { isString } from '@sindresorhus/is';
  import { logger } from '../../../logger/index.ts';
  import { getSiblingFileName, readLocalFile } from '../../../util/fs/index.ts';
@@ -2384,14 +2454,18 @@ index 848076d6849..a7144921f74 100644
  import { GitRefsDatasource } from '../../datasource/git-refs/index.ts';
 -import { id as gitRefVersioning } from '../../versioning/git/index.ts';
  import { id as nixpkgsVersioning } from '../../versioning/nixpkgs/index.ts';
--import type {
+ import type {
 -  ExtractConfig,
--  PackageDependency,
--  PackageFileContent,
--} from '../types.ts';
-+import type { PackageDependency, PackageFileContent } from '../types.ts';
++  LookupUpdate,
+   PackageDependency,
+   PackageFileContent,
+ } from '../types.ts';
  import { NixFlakeLock } from './schema.ts';
  
++interface NixDependency extends PackageDependency {
++  digest?: Pick<LookupUpdate, 'isLockfileUpdate'>;
++}
++
  // as documented upstream
  // https://github.com/NixOS/nix/blob/master/doc/manual/source/protocols/tarball-fetcher.md#gitea-and-forgejo-support
  const lockableHTTPTarballProtocol = regEx(
@@ -2481,7 +2555,7 @@ index 848076d6849..a7144921f74 100644
        );
        continue;
      }
-@@ -80,7 +82,7 @@ export async function extractPackageFile(
+@@ -80,7 +90,7 @@ export async function extractPackageFile(
      if (flakeOriginal === undefined) {
        logger.debug(
          { flakeLockFile, flakeInput },
@@ -2490,7 +2564,7 @@ index 848076d6849..a7144921f74 100644
        );
        continue;
      }
-@@ -89,7 +91,7 @@ export async function extractPackageFile(
+@@ -89,7 +99,7 @@ export async function extractPackageFile(
      if (flakeOriginal.type === 'indirect' || flakeLocked.type === 'indirect') {
        logger.debug(
          { flakeLockFile, flakeInput },
@@ -2499,7 +2573,7 @@ index 848076d6849..a7144921f74 100644
        );
        continue;
      }
-@@ -98,7 +100,7 @@ export async function extractPackageFile(
+@@ -98,7 +108,7 @@ export async function extractPackageFile(
      if (flakeOriginal.type === 'path' || flakeLocked.type === 'path') {
        logger.debug(
          { flakeLockFile, flakeInput },
@@ -2508,7 +2582,7 @@ index 848076d6849..a7144921f74 100644
        );
        continue;
      }
-@@ -107,45 +109,34 @@ export async function extractPackageFile(
+@@ -107,45 +117,39 @@ export async function extractPackageFile(
      if (flakeLocked.rev === undefined) {
        logger.debug(
          { flakeLockFile, flakeInput },
@@ -2535,8 +2609,9 @@ index 848076d6849..a7144921f74 100644
 -      flakeOriginal.rev = newDigest;
 -    }
 -
-     const dep: PackageDependency = {
+-    const dep: PackageDependency = {
 -      depName,
++    const dep: NixDependency = {
 +      depName: rootInputs.get(node),
        datasource: GitRefsDatasource.id,
 -      versioning: gitRefVersioning,
@@ -2550,12 +2625,16 @@ index 848076d6849..a7144921f74 100644
 -      dep.replaceString = flakeOriginal.rev;
 -    } else {
 -      dep.lockedVersion = flakeLocked.rev;
--    }
 +    dep.currentValue = flakeOriginal.ref?.replace(
 +      regEx(/^refs\/(?:heads|tags)\//),
 +      '',
 +    );
 +    dep.currentDigest = flakeLocked.rev;
++    if (flakeOriginal.rev === undefined) {
++      // Only digest updates use this override. Version updates must still
++      // rewrite flake.nix, as must digests explicitly pinned there.
++      dep.digest = { isLockfileUpdate: true };
+     }
  
      switch (flakeLocked.type) {
 +      case 'git': {
@@ -2572,7 +2651,7 @@ index 848076d6849..a7144921f74 100644
        case 'github':
          // set to nixpkgs if it is a nixpkgs reference
          if (
-@@ -153,7 +144,6 @@ export async function extractPackageFile(
+@@ -153,7 +157,6 @@ export async function extractPackageFile(
            flakeOriginal.repo?.toLowerCase() === 'nixpkgs'
          ) {
            dep.packageName = 'https://github.com/NixOS/nixpkgs';
@@ -2580,7 +2659,7 @@ index 848076d6849..a7144921f74 100644
            dep.versioning = nixpkgsVersioning;
            break;
          }
-@@ -165,15 +155,19 @@ export async function extractPackageFile(
+@@ -165,15 +168,19 @@ export async function extractPackageFile(
          dep.packageName = `https://${flakeOriginal.host ?? 'gitlab.com'}/${decodeURIComponent(flakeOriginal.owner!)}/${flakeOriginal.repo}`;
          break;
  
@@ -2604,7 +2683,7 @@ index 848076d6849..a7144921f74 100644
          // set to nixpkgs if it is a lockable channel URL
          if (
            flakeOriginal.url &&
-@@ -195,12 +189,16 @@ export async function extractPackageFile(
+@@ -195,12 +202,16 @@ export async function extractPackageFile(
          break;
      }
  
@@ -2649,6 +2728,311 @@ index 7b934aa347a..0ba1c8d4221 100644
  };
 -
 -export const supportedDatasources = [GitRefsDatasource.id];
+diff --git a/lib/modules/manager/nix/integration.spec.ts b/lib/modules/manager/nix/integration.spec.ts
+new file mode 100644
+index 00000000000..686e044152d
+--- /dev/null
++++ b/lib/modules/manager/nix/integration.spec.ts
+@@ -0,0 +1,299 @@
++import { codeBlock } from 'common-tags';
++import { fs, git } from '~test/util.ts';
++import { getConfig } from '../../../config/defaults.ts';
++import { coerceArray } from '../../../util/array.ts';
++import { getUpdatedPackageFiles } from '../../../workers/repository/update/branch/get-updated.ts';
++import { flattenUpdates } from '../../../workers/repository/updates/flatten.ts';
++import type { BranchConfig } from '../../../workers/types.ts';
++import type { LookupUpdate } from '../types.ts';
++import * as nix from './index.ts';
++
++vi.mock('../../../util/fs/index.ts');
++vi.mock('../../../util/git/semantic.ts');
++
++async function getUpgrades(
++  updates: Record<string, LookupUpdate[]>,
++  nixpkgsOriginal: { ref?: string; rev?: string } = { ref: 'nixos-26.05' },
++) {
++  const flakeLock = {
++    nodes: {
++      root: {
++        inputs: { nixpkgs: 'nixpkgs', 'otterwiki-source': 'otterwiki-source' },
++      },
++      nixpkgs: {
++        locked: {
++          type: 'github',
++          rev: 'b3fe9581c9061c749abef42b6d4ee7b7c05c33fa',
++        },
++        original: {
++          type: 'github',
++          owner: 'NixOS',
++          repo: 'nixpkgs',
++          ...nixpkgsOriginal,
++        },
++      },
++      'otterwiki-source': {
++        locked: {
++          type: 'github',
++          rev: '623903665d38d7f1c2ef11df007e0e7f313e4cfc',
++        },
++        original: {
++          type: 'github',
++          owner: 'redimp',
++          repo: 'otterwiki',
++          ref: 'v2.24.1',
++        },
++      },
++    },
++    root: 'root',
++    version: 7,
++  };
++  fs.readLocalFile.mockResolvedValueOnce(JSON.stringify(flakeLock));
++  const extracted = await nix.extractPackageFile('', 'flake.nix');
++  const deps = extracted!.deps.map((dep) => ({
++    ...dep,
++    updates: coerceArray(updates[dep.depName!]),
++  }));
++  const config = { ...getConfig(), nix: { enabled: true } };
++  return flattenUpdates(config, {
++    nix: [{ packageFile: 'flake.nix', deps }],
++  });
++}
++
++describe('modules/manager/nix/integration', () => {
++  let config: BranchConfig;
++
++  beforeEach(() => {
++    config = {
++      baseBranch: 'base-branch',
++      manager: 'nix',
++      branchName: 'renovate/nixpkgs-digest',
++      upgrades: [],
++    };
++    fs.getSiblingFileName.mockImplementation(
++      (fileName, siblingName) => siblingName,
++    );
++  });
++
++  it.each`
++    reuseExistingBranch
++    ${false}
++    ${true}
++  `(
++    'regenerates flake.lock for a digest update with reuseExistingBranch=$reuseExistingBranch',
++    async ({ reuseExistingBranch }) => {
++      const fileContent = codeBlock`
++        {
++          inputs = {
++            nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-26.05";
++          };
++          outputs = _: { };
++        }
++      `;
++      git.getFile.mockResolvedValue(fileContent);
++      const updateArtifacts = vi
++        .spyOn(nix, 'updateArtifacts')
++        .mockResolvedValueOnce([
++          {
++            file: {
++              type: 'addition',
++              path: 'flake.lock',
++              contents: 'updated lock',
++            },
++          },
++        ]);
++      config.reuseExistingBranch = reuseExistingBranch;
++      config.upgrades = await getUpgrades({
++        nixpkgs: [
++          {
++            updateType: 'digest',
++            newValue: 'nixos-26.05',
++            newDigest: 'f3a73bcf5d1c5b75a66cf35a48957e30d41d647a',
++          },
++        ],
++      });
++
++      const result = await getUpdatedPackageFiles(config);
++
++      expect(config.upgrades[0].isLockfileUpdate).toBeTrue();
++      expect(updateArtifacts).toHaveBeenCalledExactlyOnceWith(
++        expect.objectContaining({
++          packageFileName: 'flake.nix',
++          newPackageFileContent: fileContent,
++          updatedDeps: config.upgrades,
++        }),
++      );
++      expect(result.updatedArtifacts).toEqual([
++        { type: 'addition', path: 'flake.lock', contents: 'updated lock' },
++      ]);
++      expect(result.artifactErrors).toEqual([]);
++    },
++  );
++
++  it('regenerates flake.lock for an input tracking the default branch', async () => {
++    const fileContent = codeBlock`
++      {
++        inputs.nixpkgs.url = "github:NixOS/nixpkgs";
++      }
++    `;
++    git.getFile.mockResolvedValue(fileContent);
++    const updateArtifacts = vi
++      .spyOn(nix, 'updateArtifacts')
++      .mockResolvedValueOnce([
++        {
++          file: {
++            type: 'addition',
++            path: 'flake.lock',
++            contents: 'updated lock',
++          },
++        },
++      ]);
++    config.upgrades = await getUpgrades(
++      {
++        nixpkgs: [
++          {
++            updateType: 'digest',
++            newDigest: 'f3a73bcf5d1c5b75a66cf35a48957e30d41d647a',
++          },
++        ],
++      },
++      {},
++    );
++
++    const result = await getUpdatedPackageFiles(config);
++
++    expect(config.upgrades[0].isLockfileUpdate).toBeTrue();
++    expect(updateArtifacts).toHaveBeenCalledExactlyOnceWith(
++      expect.objectContaining({ newPackageFileContent: fileContent }),
++    );
++    expect(result.updatedArtifacts).toEqual([
++      { type: 'addition', path: 'flake.lock', contents: 'updated lock' },
++    ]);
++  });
++
++  it('rewrites a digest explicitly pinned in flake.nix', async () => {
++    const fileContent = codeBlock`
++      {
++        inputs.nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-26.05&rev=b3fe9581c9061c749abef42b6d4ee7b7c05c33fa";
++      }
++    `;
++    git.getFile.mockResolvedValue(fileContent);
++    vi.spyOn(nix, 'updateArtifacts').mockResolvedValueOnce(null);
++    config.upgrades = await getUpgrades(
++      {
++        nixpkgs: [
++          {
++            updateType: 'digest',
++            newValue: 'nixos-26.05',
++            newDigest: 'f3a73bcf5d1c5b75a66cf35a48957e30d41d647a',
++          },
++        ],
++      },
++      {
++        ref: 'nixos-26.05',
++        rev: 'b3fe9581c9061c749abef42b6d4ee7b7c05c33fa',
++      },
++    );
++
++    const result = await getUpdatedPackageFiles(config);
++
++    expect(config.upgrades[0].isLockfileUpdate).toBeUndefined();
++    expect(result.updatedPackageFiles).toEqual([
++      {
++        type: 'addition',
++        path: 'flake.nix',
++        contents: fileContent.replace(
++          'b3fe9581c9061c749abef42b6d4ee7b7c05c33fa',
++          'f3a73bcf5d1c5b75a66cf35a48957e30d41d647a',
++        ),
++      },
++    ]);
++  });
++
++  it('does not regenerate artifacts for an unsupported version declaration', async () => {
++    const fileContent = codeBlock`
++      {
++        inputs = {
++          otterwiki-source = {
++            flake = false;
++            url = "github:redimp/otterwiki?ref=v2.24.1";
++          };
++        };
++      }
++    `;
++    git.getFile.mockResolvedValue(fileContent);
++    const updateArtifacts = vi.spyOn(nix, 'updateArtifacts');
++    config.upgrades = await getUpgrades({
++      'otterwiki-source': [
++        {
++          updateType: 'minor',
++          newValue: 'v2.26.0',
++          newVersion: 'v2.26.0',
++        },
++      ],
++    });
++
++    const result = await getUpdatedPackageFiles(config);
++
++    expect(config.upgrades[0].isLockfileUpdate).toBeUndefined();
++    expect(updateArtifacts).not.toHaveBeenCalled();
++    expect(result.updatedPackageFiles).toEqual([]);
++    expect(result.updatedArtifacts).toEqual([]);
++  });
++
++  it('keeps an earlier version update when a digest update follows it', async () => {
++    const fileContent = codeBlock`
++      {
++        inputs = {
++          otterwiki-source.url = "github:redimp/otterwiki?ref=v2.24.1";
++          nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-26.05";
++        };
++      }
++    `;
++    git.getFile.mockResolvedValue(fileContent);
++    const updateArtifacts = vi
++      .spyOn(nix, 'updateArtifacts')
++      .mockResolvedValueOnce([
++        {
++          file: {
++            type: 'addition',
++            path: 'flake.lock',
++            contents: 'updated lock',
++          },
++        },
++      ]);
++    const upgrades = await getUpgrades({
++      'otterwiki-source': [
++        {
++          updateType: 'minor',
++          newValue: 'v2.26.0',
++          newVersion: 'v2.26.0',
++        },
++      ],
++      nixpkgs: [
++        {
++          updateType: 'digest',
++          newValue: 'nixos-26.05',
++          newDigest: 'f3a73bcf5d1c5b75a66cf35a48957e30d41d647a',
++        },
++      ],
++    });
++    config.upgrades = [upgrades[1], upgrades[0]];
++
++    const result = await getUpdatedPackageFiles(config);
++
++    expect(updateArtifacts).toHaveBeenCalledExactlyOnceWith(
++      expect.objectContaining({
++        newPackageFileContent: fileContent.replace('v2.24.1', 'v2.26.0'),
++        updatedDeps: config.upgrades,
++      }),
++    );
++    expect(result.updatedPackageFiles).toEqual([
++      {
++        type: 'addition',
++        path: 'flake.nix',
++        contents: fileContent.replace('v2.24.1', 'v2.26.0'),
++      },
++    ]);
++  });
++});
 diff --git a/lib/modules/manager/nix/range.spec.ts b/lib/modules/manager/nix/range.spec.ts
 index 7b840b90fe5..1aaa834d3bb 100644
 --- a/lib/modules/manager/nix/range.spec.ts
@@ -2703,10 +3087,10 @@ index 7b98380cf5f..ae995c10722 100644
  
    return 'update-lockfile';
 diff --git a/lib/modules/manager/nix/readme.md b/lib/modules/manager/nix/readme.md
-index af3d80c5b0b..07cc677ef07 100644
+index af3d80c5b0b..f34850b447d 100644
 --- a/lib/modules/manager/nix/readme.md
 +++ b/lib/modules/manager/nix/readme.md
-@@ -1,9 +1,26 @@
+@@ -1,9 +1,49 @@
  The [`nix`](https://github.com/NixOS/nix) manager supports:
  
  - [`lockFileMaintenance`](../../../configuration-options.md#lockfilemaintenance) updates for `flake.lock`
@@ -2729,6 +3113,29 @@ index af3d80c5b0b..07cc677ef07 100644
 +
 +Complex Nix expressions and attribute sets where another member appears before `url` are not updated.
 +FlakeHub inputs are not supported because FlakeHub version constraints require registry-specific version lookup.
++
++Renovate also proposes digest updates for root inputs that track a branch, such as `nixos-unstable`, or a repository's default branch, such as `github:owner/repo`.
++These updates refresh the revision in `flake.lock` without changing the URL in `flake.nix`, so a moving branch can produce a new update whenever its upstream revision changes.
++Previously, these revisions were refreshed only by lock file maintenance.
++
++If you prefer to refresh those revisions through lock file maintenance, disable individual Nix digest updates:
++
++```json
++{
++  "packageRules": [
++    {
++      "matchManagers": ["nix"],
++      "matchUpdateTypes": ["digest"],
++      "enabled": false
++    }
++  ],
++  "lockFileMaintenance": {
++    "enabled": true
++  }
++}
++```
++
++This rule leaves version updates enabled and does not disable lock file maintenance.
  
  For specifying `packageRules` it is important to know how `depName` and `packageName` are defined for nix updates:
  
@@ -2750,10 +3157,10 @@ index 7e4ed44294b..61c59cd335f 100644
  );
 diff --git a/lib/modules/manager/nix/update.spec.ts b/lib/modules/manager/nix/update.spec.ts
 new file mode 100644
-index 00000000000..e14b6522270
+index 00000000000..0fd020c5cc5
 --- /dev/null
 +++ b/lib/modules/manager/nix/update.spec.ts
-@@ -0,0 +1,698 @@
+@@ -0,0 +1,755 @@
 +import { codeBlock } from 'common-tags';
 +import { logger } from '~test/util.ts';
 +import { updateDependency } from './update.ts';
@@ -3372,6 +3779,63 @@ index 00000000000..e14b6522270
 +      );
 +    });
 +
++    it('updates a root inputs declaration instead of a depth-2 override', () => {
++      const fileContent = codeBlock`
++        {
++          inputs.foo = {
++            url = "github:owner/foo";
++            inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
++          };
++          inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
++        }
++      `;
++
++      const result = updateDependency({
++        fileContent,
++        upgrade: {
++          depName: 'nixpkgs',
++          currentValue: '24.05',
++          newValue: '25.05',
++        },
++      });
++
++      expect(result).toBe(codeBlock`
++        {
++          inputs.foo = {
++            url = "github:owner/foo";
++            inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
++          };
++          inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
++        }
++      `);
++    });
++
++    it('does not update a depth-2 override when the root input is complex', () => {
++      const fileContent = codeBlock`
++        {
++          inputs.foo = {
++            url = "github:owner/foo";
++            inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
++          };
++          inputs.nixpkgs = {
++            flake = true;
++            url = "github:NixOS/nixpkgs/nixos-24.05";
++          };
++        }
++      `;
++
++      const result = updateDependency({
++        fileContent,
++        upgrade: {
++          depName: 'nixpkgs',
++          currentValue: '24.05',
++          newValue: '25.05',
++        },
++      });
++
++      expect(result).toBe(fileContent);
++    });
++
 +    it('does not update a nested override when the root input is complex', () => {
 +      const fileContent = codeBlock`
 +        {
@@ -3454,10 +3918,10 @@ index 00000000000..e14b6522270
 +});
 diff --git a/lib/modules/manager/nix/update.ts b/lib/modules/manager/nix/update.ts
 new file mode 100644
-index 00000000000..7c15063dafb
+index 00000000000..ef7df0a62a7
 --- /dev/null
 +++ b/lib/modules/manager/nix/update.ts
-@@ -0,0 +1,229 @@
+@@ -0,0 +1,231 @@
 +import { logger } from '../../../logger/index.ts';
 +import { regEx } from '../../../util/regex.ts';
 +import { parseUrl } from '../../../util/url.ts';
@@ -3599,22 +4063,29 @@ index 00000000000..7c15063dafb
 +  return newUrl;
 +}
 +
-+function getBraceDepth(content: string, end: number): number {
++function isRootInput(content: string, end: number): boolean {
 +  const nixSyntax = content
 +    .slice(0, end)
 +    .replace(
 +      regEx(/"(?:\\.|[^"\\])*"|''[\s\S]*?''|#[^\n]*|\/\*[\s\S]*?\*\//g),
 +      '',
 +    );
-+  let depth = 0;
-+  for (const char of nixSyntax) {
-+    if (char === '{') {
-+      depth += 1;
-+    } else if (char === '}') {
-+      depth -= 1;
++  const openingBraces: number[] = [];
++  for (const match of nixSyntax.matchAll(regEx(/[{}]/g))) {
++    if (match[0] === '{') {
++      openingBraces.push(match.index);
++    } else {
++      openingBraces.pop();
 +    }
 +  }
-+  return depth;
++
++  return (
++    openingBraces.length === 1 ||
++    (openingBraces.length === 2 &&
++      regEx(/(?:^|[;{])\s*inputs\s*=\s*$/).test(
++        nixSyntax.slice(0, openingBraces[1]),
++      ))
++  );
 +}
 +
 +function findInputUrl(
@@ -3624,9 +4095,7 @@ index 00000000000..7c15063dafb
 +  return (
 +    patterns
 +      .flatMap((pattern) => [...fileContent.matchAll(pattern)])
-+      // Root declarations are inside the flake attrset (depth 1) or its inputs
-+      // attrset (depth 2). Deeper matches are overrides nested in another input.
-+      .find((match) => getBraceDepth(fileContent, match.index) <= 2) ?? null
++      .find((match) => isRootInput(fileContent, match.index)) ?? null
 +  );
 +}
 +
@@ -3679,209 +4148,13 @@ index 00000000000..7c15063dafb
 +  }
 +
 +  const urlStart = match.index + match[0].lastIndexOf(oldUrl);
-+  const updatedContent =
-+    fileContent.slice(0, urlStart) +
-+    newUrl +
-+    fileContent.slice(urlStart + oldUrl.length);
++  const updatedContent = `${fileContent.slice(0, urlStart)}${newUrl}${fileContent.slice(urlStart + oldUrl.length)}`;
 +
 +  logger.debug({ depName, oldUrl, newUrl }, 'Successfully updated Nix flake');
 +  return updatedContent;
 +}
-diff --git a/lib/workers/repository/update/branch/get-updated.spec.ts b/lib/workers/repository/update/branch/get-updated.spec.ts
-index c8fc8d9cdd9..91ab5660df4 100644
---- a/lib/workers/repository/update/branch/get-updated.spec.ts
-+++ b/lib/workers/repository/update/branch/get-updated.spec.ts
-@@ -1,4 +1,5 @@
- import { isArray } from '@sindresorhus/is';
-+import { codeBlock } from 'common-tags';
- import { mockDeep } from 'vitest-mock-extended';
- import { git, logger } from '~test/util.ts';
- import { GitRefsDatasource } from '../../../../modules/datasource/git-refs/index.ts';
-@@ -9,6 +10,7 @@ import * as _gitSubmodules from '../../../../modules/manager/git-submodules/inde
- import * as _gomod from '../../../../modules/manager/gomod/index.ts';
- import * as _helmv3 from '../../../../modules/manager/helmv3/index.ts';
- import * as _mise from '../../../../modules/manager/mise/index.ts';
-+import * as nix from '../../../../modules/manager/nix/index.ts';
- import * as _npm from '../../../../modules/manager/npm/index.ts';
- import * as _pep621 from '../../../../modules/manager/pep621/index.ts';
- import * as _pipCompile from '../../../../modules/manager/pip-compile/index.ts';
-@@ -101,6 +103,153 @@ describe('workers/repository/update/branch/get-updated', () => {
-       });
-     });
- 
-+    it.each`
-+      reuseExistingBranch
-+      ${false}
-+      ${true}
-+    `(
-+      'regenerates flake.lock for a digest update with reuseExistingBranch=$reuseExistingBranch',
-+      async ({ reuseExistingBranch }) => {
-+        const fileContent = codeBlock`
-+          {
-+            inputs = {
-+              nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-26.05";
-+            };
-+            outputs = _: { };
-+          }
-+        `;
-+        git.getFile.mockReset().mockResolvedValue(fileContent);
-+        const updateArtifacts = vi
-+          .spyOn(nix, 'updateArtifacts')
-+          .mockResolvedValueOnce([
-+            {
-+              file: {
-+                type: 'addition',
-+                path: 'flake.lock',
-+                contents: 'updated lock',
-+              },
-+            },
-+          ]);
-+        config.reuseExistingBranch = reuseExistingBranch;
-+        config.upgrades.push({
-+          manager: 'nix',
-+          packageFile: 'flake.nix',
-+          depName: 'nixpkgs',
-+          branchName: 'renovate/nixpkgs-digest',
-+          updateType: 'digest',
-+          currentValue: 'nixos-26.05',
-+          newValue: 'nixos-26.05',
-+          currentDigest: 'b3fe9581c9061c749abef42b6d4ee7b7c05c33fa',
-+          newDigest: 'f3a73bcf5d1c5b75a66cf35a48957e30d41d647a',
-+        });
-+
-+        const result = await getUpdatedPackageFiles(config);
-+
-+        expect(updateArtifacts).toHaveBeenCalledExactlyOnceWith(
-+          expect.objectContaining({
-+            packageFileName: 'flake.nix',
-+            newPackageFileContent: fileContent,
-+            updatedDeps: config.upgrades,
-+          }),
-+        );
-+        expect(result.updatedArtifacts).toEqual([
-+          { type: 'addition', path: 'flake.lock', contents: 'updated lock' },
-+        ]);
-+        expect(result.artifactErrors).toEqual([]);
-+      },
-+    );
-+
-+    it('does not regenerate artifacts for an unsupported Nix version declaration', async () => {
-+      const fileContent = codeBlock`
-+        {
-+          inputs = {
-+            otterwiki-source = {
-+              flake = false;
-+              url = "github:redimp/otterwiki?ref=v2.24.1";
-+            };
-+          };
-+        }
-+      `;
-+      git.getFile.mockReset().mockResolvedValue(fileContent);
-+      const updateArtifacts = vi.spyOn(nix, 'updateArtifacts');
-+      config.upgrades.push({
-+        manager: 'nix',
-+        packageFile: 'flake.nix',
-+        depName: 'otterwiki-source',
-+        branchName: 'renovate/otterwiki-source-2.x',
-+        updateType: 'minor',
-+        currentValue: 'v2.24.1',
-+        newValue: 'v2.26.0',
-+      });
-+
-+      const result = await getUpdatedPackageFiles(config);
-+
-+      expect(updateArtifacts).not.toHaveBeenCalled();
-+      expect(result.updatedPackageFiles).toEqual([]);
-+      expect(result.updatedArtifacts).toEqual([]);
-+    });
-+
-+    it('keeps an earlier Nix version update when a digest update follows it', async () => {
-+      const fileContent = codeBlock`
-+        {
-+          inputs = {
-+            otterwiki-source.url = "github:redimp/otterwiki?ref=v2.24.1";
-+            nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-26.05";
-+          };
-+        }
-+      `;
-+      git.getFile.mockReset().mockResolvedValue(fileContent);
-+      const updateArtifacts = vi
-+        .spyOn(nix, 'updateArtifacts')
-+        .mockResolvedValueOnce([
-+          {
-+            file: {
-+              type: 'addition',
-+              path: 'flake.lock',
-+              contents: 'updated lock',
-+            },
-+          },
-+        ]);
-+      config.upgrades.push(
-+        {
-+          manager: 'nix',
-+          packageFile: 'flake.nix',
-+          depName: 'otterwiki-source',
-+          branchName: 'renovate/nix',
-+          updateType: 'minor',
-+          currentValue: 'v2.24.1',
-+          newValue: 'v2.26.0',
-+        },
-+        {
-+          manager: 'nix',
-+          packageFile: 'flake.nix',
-+          depName: 'nixpkgs',
-+          branchName: 'renovate/nix',
-+          updateType: 'digest',
-+          currentValue: 'nixos-26.05',
-+          newValue: 'nixos-26.05',
-+          currentDigest: 'b3fe9581c9061c749abef42b6d4ee7b7c05c33fa',
-+          newDigest: 'f3a73bcf5d1c5b75a66cf35a48957e30d41d647a',
-+        },
-+      );
-+
-+      const result = await getUpdatedPackageFiles(config);
-+
-+      expect(updateArtifacts).toHaveBeenCalledExactlyOnceWith(
-+        expect.objectContaining({
-+          newPackageFileContent: fileContent.replace('v2.24.1', 'v2.26.0'),
-+          updatedDeps: config.upgrades,
-+        }),
-+      );
-+      expect(result.updatedPackageFiles).toEqual([
-+        {
-+          type: 'addition',
-+          path: 'flake.nix',
-+          contents: fileContent.replace('v2.24.1', 'v2.26.0'),
-+        },
-+      ]);
-+    });
-+
-     it('handles autoreplace branch no update', async () => {
-       config.upgrades.push({
-         packageFile: 'index.html',
-diff --git a/lib/workers/repository/update/branch/get-updated.ts b/lib/workers/repository/update/branch/get-updated.ts
-index 3a0fa93d314..401fcc0f929 100644
---- a/lib/workers/repository/update/branch/get-updated.ts
-+++ b/lib/workers/repository/update/branch/get-updated.ts
-@@ -399,6 +399,16 @@ export async function getUpdatedPackageFiles(
-         updatedFileContents[packageFile] = newContent;
-         delete nonUpdatedFileContents[packageFile];
-       }
-+      // Nix digests may live only in flake.lock. Digest lookup does not set
-+      // isLockfileUpdate, so explicitly regenerate artifacts for these updates.
-+      if (
-+        newContent === packageFileContent &&
-+        upgrade.manager === 'nix' &&
-+        upgrade.updateType === 'digest' &&
-+        !updatedFileContents[packageFile]
-+      ) {
-+        nonUpdatedFileContents[packageFile] = newContent;
-+      }
-     }
-   }
-   const updatedPackageFiles: FileAddition[] = Object.keys(
 diff --git a/lib/workers/repository/updates/generate.spec.ts b/lib/workers/repository/updates/generate.spec.ts
-index f8d488e1829..bb986913aac 100644
+index 47f36f89caa..691925a4160 100644
 --- a/lib/workers/repository/updates/generate.spec.ts
 +++ b/lib/workers/repository/updates/generate.spec.ts
 @@ -3,6 +3,7 @@ import { logger } from '~test/util.ts';
