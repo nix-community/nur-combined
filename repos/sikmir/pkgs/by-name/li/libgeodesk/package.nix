@@ -23,7 +23,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "libgeodesk";
-  version = "2.2.0";
+  version = "2.3.0";
 
   __structuredAttrs = true;
 
@@ -31,7 +31,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "clarisma";
     repo = "libgeodesk";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-pwFbOTEE62u9iInp7lNi67Q+GgajIk2vbkuwAkfISLA=";
+    hash = "sha256-X8d+0+Xme6Fp080jiM2UuGIPPYVxY17Sg6dqkz9JNYk=";
   };
 
   patches = [
