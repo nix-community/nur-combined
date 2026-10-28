@@ -3,6 +3,6 @@
   "private": true,
   "version": "1.0.0",
   "dependencies": {
-    "@anionex/dsh-turn-rewind": "0.3.10"
+    "@anionex/dsh-turn-rewind": "0.3.11"
   }
 }
