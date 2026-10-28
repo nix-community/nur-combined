@@ -106,7 +106,14 @@ stdenv.mkDerivation (
       # configure.sh builds skin_generator_tool with its own cmake invocation;
       # make it use system dependencies like the main build.
       substituteInPlace tools/unix/generate_symbols.sh \
-        --replace-fail 'CMAKE_EXTRA_ARGS=""' 'CMAKE_EXTRA_ARGS="-DWITH_SYSTEM_PROVIDED_3PARTY=ON -DCMAKE_C_COMPILER_AR=$(command -v "$AR") -DCMAKE_CXX_COMPILER_AR=$(command -v "$AR") -DCMAKE_C_COMPILER_RANLIB=$(command -v "$RANLIB") -DCMAKE_CXX_COMPILER_RANLIB=$(command -v "$RANLIB")"'
+        --replace-fail 'CMAKE_EXTRA_ARGS=""' 'CMAKE_EXTRA_ARGS="-DWITH_SYSTEM_PROVIDED_3PARTY=ON${
+          lib.optionalString stdenv.hostPlatform.isDarwin (
+            " -DCMAKE_C_COMPILER_AR=$(command -v \"$AR\")"
+            + " -DCMAKE_CXX_COMPILER_AR=$(command -v \"$AR\")"
+            + " -DCMAKE_C_COMPILER_RANLIB=$(command -v \"$RANLIB\")"
+            + " -DCMAKE_CXX_COMPILER_RANLIB=$(command -v \"$RANLIB\")"
+          )
+        }"'
       substituteInPlace tools/python/{categories/json_to_txt.py,generate_desktop_ui_strings.py} \
         --replace-fail "/usr/bin/env python3" "${pythonEnv.interpreter}"
     '';

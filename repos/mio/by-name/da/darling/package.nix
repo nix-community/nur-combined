@@ -21,7 +21,7 @@
   fontconfig,
   dbus,
   libGLU,
-  fuse,
+  fuse3,
   ffmpeg,
   pulseaudio,
 
@@ -103,7 +103,7 @@ let
     libGLU
 
     # src/external/darling-dmg/CMakeLists.txt
-    fuse
+    fuse3
 
     # src/CoreAudio/CMakeLists.txt
     ffmpeg
@@ -133,6 +133,10 @@ stdenv.mkDerivation {
     "sdk"
   ];
 
+  patches = [
+    ./fuse3.patch
+  ];
+
   postPatch = ''
     # We have to be careful - Patching everything indiscriminately
     # would affect Darwin scripts as well
@@ -142,8 +146,8 @@ stdenv.mkDerivation {
       src/external/darlingserver/scripts \
       src/external/openssl_certificates/scripts
 
-    substituteInPlace src/startup/CMakeLists.txt --replace SETUID ""
-    substituteInPlace src/external/basic_cmds/CMakeLists.txt --replace SETGID ""
+    substituteInPlace src/startup/CMakeLists.txt --replace-warn SETUID ""
+    substituteInPlace src/external/basic_cmds/CMakeLists.txt --replace-warn SETGID ""
   '';
 
   nativeBuildInputs = [

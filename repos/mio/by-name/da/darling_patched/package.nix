@@ -142,7 +142,7 @@ in
 darling.overrideAttrs (old: {
   pname = "darling_patched";
 
-  patches = [
+  patches = (old.patches or [ ]) ++ [
     # https://github.com/darlinghq/darling/pull/1791
     (pr "darling-pr-1791-asm-static-libraries.patch" "764ef432933d2c10cd293a32fed3530366fcb69b"
       "sha256-NEmwzXsl4S9Ci6nqZsAc5DRDARJUVssZw67+nmHGMYI="

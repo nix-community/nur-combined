@@ -1,0 +1,117 @@
+diff --git a/src/external/darling-dmg/CMakeLists.txt b/src/external/darling-dmg/CMakeLists.txt
+index 64d22bd..1ec5e53 100644
+--- a/src/external/darling-dmg/CMakeLists.txt
++++ b/src/external/darling-dmg/CMakeLists.txt
+@@ -108,7 +108,7 @@ SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
+ SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE) 
+ SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+ 
+-target_link_libraries(darling-dmg -lfuse dmg)
++target_link_libraries(darling-dmg -lfuse3 dmg)
+ install(TARGETS darling-dmg RUNTIME DESTINATION bin)
+ 
+ # This is used in Darling build.
+@@ -119,15 +119,16 @@ else (NOT DARLING)
+ 
+ 	add_definitions(-D_FILE_OFFSET_BITS=64 -DCOMPILE_WITH_LZFSE=1)
+ 
+-	pkg_check_modules(FUSE REQUIRED fuse)
++	pkg_check_modules(FUSE REQUIRED fuse3)
+ 
+ 	include_directories(
+ 		${FUSE_INCLUDE_DIRS}
++		${FUSE_INCLUDEDIR}
+ 	)
+ 
+ 	SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -nostdinc")
+ 
+-	wrap_elf(fuse libfuse.so)
++	wrap_elf(fuse libfuse3.so)
+ 
+ 	add_darling_executable(hdiutil
+ 		${dmg_sources}
+diff --git a/src/external/darling-dmg/src/main-fuse.h b/src/external/darling-dmg/src/main-fuse.h
+index 6917106..80a71be 100644
+--- a/src/external/darling-dmg/src/main-fuse.h
++++ b/src/external/darling-dmg/src/main-fuse.h
+@@ -1,18 +1,18 @@
+ #ifndef MAIN_FUSE_H
+ #define MAIN_FUSE_H
+-#define FUSE_USE_VERSION 26
++#define FUSE_USE_VERSION 31
+ 
+ #include <fuse.h>
+ 
+ static void showHelp(const char* argv0);
+ static void openDisk(const char* path);
+ 
+-int hfs_getattr(const char* path, struct stat* stat);
++int hfs_getattr(const char* path, struct stat* stat, struct fuse_file_info* fi);
+ int hfs_readlink(const char* path, char* buf, size_t size);
+ int hfs_open(const char* path, struct fuse_file_info* info);
+ int hfs_read(const char* path, char* buf, size_t bytes, off_t offset, struct fuse_file_info* info);
+ int hfs_release(const char* path, struct fuse_file_info* info);
+-int hfs_readdir(const char* path, void* buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info* info);
++int hfs_readdir(const char* path, void* buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info* info, enum fuse_readdir_flags flags);
+ #if defined(__APPLE__) && !defined(DARLING)
+   int hfs_getxattr(const char* path, const char* name, char* value, size_t vlen, uint32_t position);
+ #else
+diff --git a/src/external/darling-dmg/src/main-fuse.cpp b/src/external/darling-dmg/src/main-fuse.cpp
+index 99cb304..1fe0a37 100644
+--- a/src/external/darling-dmg/src/main-fuse.cpp
++++ b/src/external/darling-dmg/src/main-fuse.cpp
+@@ -182,7 +182,7 @@ int handle_exceptions(std::function<int()> func)
+ 	}
+ }
+ 
+-int hfs_getattr(const char* path, struct stat* stat)
++int hfs_getattr(const char* path, struct stat* stat, struct fuse_file_info* fi)
+ {
+ 	std::cerr << "hfs_getattr(" << path << ")\n";
+ 
+@@ -256,7 +256,7 @@ int hfs_release(const char* path, struct fuse_file_info* info)
+ 	});
+ }
+ 
+-int hfs_readdir(const char* path, void* buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info* info)
++int hfs_readdir(const char* path, void* buf, fuse_fill_dir_t filler, off_t offset, struct fuse_file_info* info, enum fuse_readdir_flags flags)
+ {
+ 	std::cerr << "hfs_readdir(" << path << ")\n";
+ 
+@@ -267,7 +267,7 @@ int hfs_readdir(const char* path, void* buf, fuse_fill_dir_t filler, off_t offse
+ 
+ 		for (auto it = contents.begin(); it != contents.end(); it++)
+ 		{
+-			if (filler(buf, it->first.c_str(), &it->second, 0) != 0)
++			if (filler(buf, it->first.c_str(), &it->second, 0, FUSE_FILL_DIR_DEFAULTS) != 0)
+ 				return -ENOMEM;
+ 		}
+ 
+diff --git a/src/external/darling-dmg/src/main-hdiutil.cpp b/src/external/darling-dmg/src/main-hdiutil.cpp
+index bb142cf..49ba722 100644
+--- a/src/external/darling-dmg/src/main-hdiutil.cpp
++++ b/src/external/darling-dmg/src/main-hdiutil.cpp
+@@ -324,10 +324,11 @@ static int doDetach(int argc, char** argv)
+ 
+ 	char linux_path[4096];
+ 	__darling_vchroot_expand(argv[optind], linux_path);
+-	const char* pargv[] = { "fusermount", "-u", linux_path, nullptr };
++	const char* pargv[] = { "fusermount3", "-u", linux_path, nullptr };
+ 
+ 	*((void**)(&elf_posix_spawnp)) = _elfcalls->dlsym_fatal(nullptr, "posix_spawnp");
+-	if (elf_posix_spawnp(&pid, "fusermount", nullptr, nullptr, (char* const*) pargv, environ) != 0)
++	if (elf_posix_spawnp(&pid, "fusermount3", nullptr, nullptr, (char* const*) pargv, environ) != 0 &&
++	    elf_posix_spawnp(&pid, "fusermount", nullptr, nullptr, (char* const*) pargv, environ) != 0)
+ 	{
+ 		std::cerr << "Failed to execute fusermount!\n";
+ 		return 1;
+@@ -348,7 +349,8 @@ void addFusermountIntoPath()
+ 	int (*elf_setenv)(const char *name, const char *value, int overwrite);
+ 
+ 	path += ":/Volumes/SystemRoot/bin"
+-		":/Volumes/SystemRoot/usr/bin";
++		":/Volumes/SystemRoot/usr/bin"
++		":/Volumes/SystemRoot/run/wrappers/bin";
+ 
+ 	// Calling setenv doesn't change current process' environment variables,
+ 	// it only modifies the local copy maintained by libc. This local copy
