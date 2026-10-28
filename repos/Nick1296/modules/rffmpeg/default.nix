@@ -68,7 +68,8 @@ in
     #export rffmpeg and the generated config
     environment.systemPackages = [
       configFile
-      (cfg.package.override { rffmpeg_config = "${configFile}/${cfg.settingsPath}"; })
+      # make sure rffmpeg puts their version of ffmpeg and ffprobe on path. You can manage local fallbacks in the settings file
+      (lib.hiPrio (cfg.package.override { rffmpeg_config = "${configFile}/${cfg.settingsPath}"; }))
     ];
     # symlink the file on the system
     system.activationScripts.rffmpegConfig.text = ''

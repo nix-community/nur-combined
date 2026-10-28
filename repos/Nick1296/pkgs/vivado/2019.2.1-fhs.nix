@@ -1,10 +1,50 @@
-{ stdenv, coreutils-full, lib, bash, coreutils, writeScript, gnutar, gzip
-, requireFile, patchelf, procps, makeWrapper, ncurses, zlib, libX11, libXrender
-, libxcb, libXext, libXtst, libXi, libxcrypt, glib, freetype, gtk2
-, buildFHSEnvChroot, gcc, ncurses5, glibc, gperftools, fontconfig
-, liberation_ttf, writeTextFile, nettools, bashInteractive, lsb-release, libXft
-, gtk3, python3, opencl-clhpp, ocl-icd, opencl-headers, libidn, fetchurl, unzip
-, graphviz }:
+{
+  stdenv,
+  coreutils-full,
+  lib,
+  bash,
+  coreutils,
+  writeScript,
+  gnutar,
+  gzip,
+  requireFile,
+  patchelf,
+  procps,
+  makeWrapper,
+  ncurses,
+  zlib,
+  libX11,
+  libXrender,
+  libxcb,
+  libXext,
+  libXtst,
+  libXi,
+  libxcrypt,
+  glib,
+  freetype,
+  gtk2,
+  buildFHSEnv,
+  gcc,
+  ncurses5,
+  glibc,
+  gperftools,
+  fontconfig,
+  liberation_ttf,
+  writeTextFile,
+  nettools,
+  bashInteractive,
+  lsb-release,
+  libXft,
+  gtk3,
+  python3,
+  opencl-clhpp,
+  ocl-icd,
+  opencl-headers,
+  libidn,
+  fetchurl,
+  unzip,
+  graphviz,
+}:
 
 let
   extractedSource = stdenv.mkDerivation rec {
@@ -12,8 +52,7 @@ let
 
     src = requireFile rec {
       name = "Xilinx_Vivado_2019.2_1106_2127.tar.gz";
-      url =
-        "https://www.xilinx.com/member/forms/download/xef.html?filename=Xilinx_Vivado_2019.2_1106_2127.tar.gz";
+      url = "https://www.xilinx.com/member/forms/download/xef.html?filename=Xilinx_Vivado_2019.2_1106_2127.tar.gz";
       sha256 = "15hfkb51axczqmkjfmknwwmn8v36ss39wdaay14ajnwlnb7q2rxh";
       message = ''
         Unfortunately, we cannot download file ${name} automatically.
@@ -50,8 +89,7 @@ let
 
     src = requireFile rec {
       name = "Xilinx_Vivado_Vitis_Update_2019.2.1_1205_0436.tar.gz";
-      url =
-        "https://www.xilinx.com/member/forms/download/xef.html?filename=Xilinx_Vivado_Vitis_Update_2019.2.1_1205_0436.tar.gz";
+      url = "https://www.xilinx.com/member/forms/download/xef.html?filename=Xilinx_Vivado_Vitis_Update_2019.2.1_1205_0436.tar.gz";
       sha256 = "1wn3inbi0nlyg8pskhsi0y6492rymi94shgcxghymxwgj574df3b";
       message = ''
         Unfortunately, we cannot download file ${name} automatically.
@@ -63,7 +101,13 @@ let
       '';
     };
 
-    buildInputs = [ patchelf procps ncurses makeWrapper nettools ];
+    buildInputs = [
+      patchelf
+      procps
+      ncurses
+      makeWrapper
+      nettools
+    ];
 
     builder = writeScript "${name}-builder" ''
         #! ${bash}/bin/bash
@@ -138,10 +182,13 @@ let
   ];
   libPath = lib.makeLibraryPath deps;
 
-in buildFHSEnvChroot {
+in
+buildFHSEnv {
   name = "vivado2019.2.1_fhs";
-  targetPkgs = _pkgs:
-    deps ++ [
+  targetPkgs =
+    _pkgs:
+    deps
+    ++ [
       #add cable drivers udev rules
       (writeTextFile {
         name = "xilinx-diligent-usb-udev";
@@ -222,8 +269,8 @@ in buildFHSEnvChroot {
         '';
       })
     ];
-  multiPkgs = pkgs:
-    with pkgs; [
+  multiPkgs =
+    pkgs: with pkgs; [
       coreutils
       gcc
       ncurses5
@@ -244,10 +291,10 @@ in buildFHSEnvChroot {
         fi
   '';
   runScript = "bash";
-    meta = {
-      description = "Xilinx Vivado 2019.2.1 HLx Edition in FHS enviroment";
-      homepage = "https://www.xilinx.com/products/design-tools/vivado.html";
-      license = lib.licenses.unfree;
-      platforms = lib.platforms.linux;
-    };
+  meta = {
+    description = "Xilinx Vivado 2019.2.1 HLx Edition in FHS enviroment";
+    homepage = "https://www.xilinx.com/products/design-tools/vivado.html";
+    license = lib.licenses.unfree;
+    platforms = lib.platforms.linux;
+  };
 }

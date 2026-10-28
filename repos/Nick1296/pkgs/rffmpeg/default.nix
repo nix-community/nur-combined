@@ -27,6 +27,12 @@ python3Packages.buildPythonApplication rec {
     python3Packages.subprocess4
     python3Packages.psycopg2
   ];
+  patchPhase = ''
+    runHook prePatch
+    #apply patch from https://github.com/joshuaboniface/rffmpeg/issues/94
+    sed -i 's/cmd_name\s*=.*/cmd_name = os.path.basename(all_args[0])/' rffmpeg
+    runHook postPatch
+  '';
   buildPhase = ''
     runHook preBuild
     runHook postBuild
@@ -35,13 +41,19 @@ python3Packages.buildPythonApplication rec {
     runHook preInstall
     mkdir -p $out/bin
     install -Dm755 rffmpeg $out/bin
-    mkdir -p $out/share/rffmpeg
-    install -Dm644 rffmpeg.yml.sample $out/share/rffmpeg/rffmpeg.yml.sample
+    install -Dm755 rffmpeg $out/bin/ffmpeg
+    install -Dm755 rffmpeg $out/bin/ffprobe
     wrapProgram $out/bin/rffmpeg \
      --set-default RFFMPEG_CONFIG ${rffmpeg_config} \
-     --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath dependencies}
-     ln -s $out/bin/rffmpeg $out/bin/ffmpeg
-     ln -s $out/bin/rffmpeg $out/bin/ffprobe
+     --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath dependencies} 
+    #independetnly wrap ffmpeg and ffprobe so their executable name is not rffmpeg.
+    # this avoids this issue: https://github.com/joshuaboniface/rffmpeg/issues/94
+    wrapProgram $out/bin/ffmpeg \
+     --set-default RFFMPEG_CONFIG ${rffmpeg_config} \
+     --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath dependencies} 
+    wrapProgram $out/bin/ffprobe \
+     --set-default RFFMPEG_CONFIG ${rffmpeg_config} \
+     --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath dependencies} 
     runHook postInstall
   '';
   meta = {
