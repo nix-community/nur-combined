@@ -19,7 +19,9 @@
     let
       inherit (nixpkgs) lib;
       forAllSystems = lib.genAttrs lib.systems.flakeExposed;
-      pkgsFor = system: import nixpkgs { inherit system; };
+      # Consumers use these outputs directly (legacyPackages); context-mode is unfree,
+      # so the evaluation itself has to permit it.
+      pkgsFor = system: import nixpkgs { inherit system; config.allowUnfree = true; };
       legacyFor =
         system:
         import ./default.nix {
