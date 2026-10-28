@@ -543,7 +543,7 @@ lib.optionalAttrs (vacuModuleType == "nixos") {
     yanone-kaffeesatz
     yasashisa-gothic
     zilla-slab
-    zrythm
+    # zrythm # build fail
     # keep-sorted end
   '';
 }

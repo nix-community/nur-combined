@@ -25,7 +25,10 @@ in
       maxMem = 128 * 1024;
       dimmSlots = 4;
       cpus = 4;
-      shares = { inherit nixcache; };
+      shares = {
+        bigdata.source = "/propdata/vm-bigdata/vavm";
+        inherit nixcache;
+      };
     };
 
     savm = {

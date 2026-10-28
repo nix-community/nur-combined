@@ -10,7 +10,13 @@
 # Both destinations are told who the client really is with the PROXY protocol,
 # which they have to be configured to expect — Caddy is handled below, and a
 # passthrough target needs its own listener set up to trust this machine.
-{ config, lib, ... }:
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.vacu.sniFrontend;
   inherit (lib) mkOption types;
@@ -254,6 +260,27 @@ in
         }
       ''
     );
+
+    # The Caddyfile adapter copies default_bind into the ACME challenge
+    # bind_host, so the solver tries to listen on a TCP address made from the
+    # socket path and every issuance fails. Pointing it at the wildcard host
+    # makes it find nginx on the port, which it accepts as a cooperating
+    # listener; the challenge then arrives through the relay as usual.
+    services.caddy.adapter = null;
+    services.caddy.configFile =
+      pkgs.runCommand "caddy-config.json"
+        {
+          nativeBuildInputs = [
+            config.services.caddy.package
+            pkgs.jq
+          ];
+        }
+        ''
+          set -o pipefail
+          HOME=$TMPDIR caddy adapt --adapter caddyfile --config ${options.services.caddy.configFile.default} \
+            | jq '(.apps.tls.automation.policies[]?.issuers[]?.challenges.bind_host | select(. != null and startswith("unix/"))) = "0.0.0.0"' \
+            > $out
+        '';
 
     # Appended as raw Caddyfile rather than a virtualHost, so it stays clear of
     # whatever options a host layers onto its vhosts.
