@@ -8,17 +8,17 @@
 }:
 mkPiExtension (finalAttrs: {
   pname = "pi-mcp-adapter";
-  version = "5.3.2";
+  version = "6.0.0";
 
   src = fetchFromGitHub {
     owner = "nicobailon";
     repo = "pi-mcp-adapter";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-syx9/d3IGyTExenHwwaVFuFN5jZvM8gVn8/+W8bJ8jk=";
+    hash = "sha256-PLkjOlWX4WV71FoKv6eEzCku9snzslEio6MAMCu9EgI=";
   };
 
   npmDepsFetcherVersion = 2;
-  npmDepsHash = "sha256-t+B+L93L2vpr4UNlqPKRRzNoiWA+Tv9wqXdIKsWCrFs=";
+  npmDepsHash = "sha256-ypVp6oI8jL7SUif3wmgzDOmIWnPsRgY5q6SIzoT43ow=";
 
   dontNpmBuild = true;  # package.json defines no build script
 

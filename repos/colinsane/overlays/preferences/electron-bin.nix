@@ -11,11 +11,13 @@ let
     "x86_64-unknown-linux-gnu"
   ];
   electronName = v: "electron_${toString v}";
-  electronOverrides = builtins.foldl' (acc: name: acc // super.lib.optionalAttrs (platformHasBin && super ? "${name}-bin") {
+  electronOverridesUnchecked = builtins.foldl' (acc: name: acc // super.lib.optionalAttrs (platformHasBin && super ? "${name}-bin") {
     "${name}" = super."${name}-bin";
   }) {} (map electronName versions);
-in
-  super.lib.throwIf
+  electronOverrides = super.lib.throwIf
     (super ? "${electronName (maxVersion+1)}")
     "electron has updated past ${toString maxVersion}: bump maxVersion to continue using electron-bin"
-    electronOverrides
+    electronOverridesUnchecked;
+in
+  super.lib.optionalAttrs false  # 2026-10-24: we can build this from source now
+  electronOverrides

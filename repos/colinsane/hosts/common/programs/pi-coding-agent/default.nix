@@ -367,7 +367,9 @@ in
       # defaultModel = llamaCppModels.qwen3_5-122b-a10b-ud-q4_k_xl.id;
       # defaultModel = llamaCppModels.qwen3_5-122b-a10b-ud-iq4_xs.id;
       # defaultModel = llamaCppModels.qwen-agentworld-35b-a3b-ud-iq3_s.id;
-      defaultModel = llamaCppModels.qwen3_6-35b-a3b-mtp-ud-q4_k_m.id;
+      # defaultModel = llamaCppModels.qwen3_6-35b-a3b-mtp-ud-q4_k_m.id;
+      # defaultModel = llamaCppModels.spark-x2_6-4b-q4_k_m.id;  #< about 2x faster than qwen3.6
+      defaultModel = llamaCppModels.nvidia-nemotron-3_5-bolt-e4b-ud-iq3_xxs.id;  #< less capable than Qwen-based models, but much faster
       defaultProvider = "llama-cpp";
       defaultThinkingLevel = "medium";
       editorPaddingX = 0;

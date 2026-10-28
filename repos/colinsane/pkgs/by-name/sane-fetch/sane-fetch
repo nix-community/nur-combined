@@ -19,7 +19,7 @@ from aiohttp_socks import ProxyConnector
 from crawl4ai import CacheMode, CrawlerRunConfig
 from crawl4ai.async_webcrawler import AsyncWebCrawler, CrawlResultContainer
 from crawl4ai.async_crawler_strategy import AsyncHTTPCrawlerStrategy
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 from pypdf import PdfReader
 from stem.control import Controller, Listener
 from stem.process import launch_tor_with_config
@@ -251,7 +251,7 @@ def cli_fetch(url: str, format: FetchFormat, network: Optional[Network]) -> None
 
 
 def cli_mcp(default_format: FetchFormat) -> None:
-  mcp = FastMCP("sane-fetch")
+  mcp = MCPServer("sane-fetch")
 
   @mcp.tool()
   def fetch(

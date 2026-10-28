@@ -1,3 +1,9 @@
+# this file contains build fixes or runtime fixes specific to cross compiling.
+# for failure modes which reproduce outside of the `pkgsCross` set, refer to overlays/patches.nix instead.
+# e.g.
+# - `pkgsCross.aarch64-multiplatform.x` fails, but `pkgs.x` builds and `pkgsMusl.x` builds: fix belongs here.
+# - `pkgsCross.aarch64-multiplatform.x` fails, and `pkgs.x` fails in a similar manner: see overlays/patches.nix.
+#
 # tracking:
 # - all cross compilation PRs: <https://github.com/NixOS/nixpkgs/labels/6.topic%3A%20cross-compilation>
 # - potential idiom to fix cross cargo-inside-meson: <https://github.com/NixOS/nixpkgs/pull/434878>
@@ -115,7 +121,54 @@ let
   '').overrideAttrs {
     inherit (cargo) meta;
   };
-in with final; {
+in
+prev.lib.composeManyExtensions [
+(_: prev: let
+  electronNames = map (v: "electron_${toString v}") (prev.lib.range 1 99);
+in
+  builtins.foldl' (acc: name: acc // lib.optionalAttrs (prev ? "${name}") {
+    # 2026-10-25: still required
+    "${name}" = prev.${name}.override {
+      electron-unwrapped = (prev.${name}.unwrapped.override {
+        # Electron consumes Yarn's unspliced passthru hook, which otherwise runs target diff/node.
+        yarn-berry_4 = final.buildPackages.yarn-berry_4;
+        # TODO: does this chromium override belong at the toplevel?
+        chromium = final.chromium.override {
+          newScope = scope: final.newScope (scope // {
+            buildPackages = final.buildPackages // {
+              # Chromium uses bindgen for both target libraries and native Rust build tools.
+              rust-bindgen = final.buildPackages.rust-bindgen.overrideAttrs (old: {
+                buildCommand = old.buildCommand + ''
+                  mv "$out/bin/bindgen" "$out/bin/bindgen-target"
+                  cat > "$out/bin/bindgen" <<'EOF'
+                  #!${final.buildPackages.runtimeShell}
+                  for arg in "$@"; do
+                    case "$arg" in
+                      --target=${final.stdenv.buildPlatform.config})
+                        exec ${final.pkgsBuildBuild.rust-bindgen}/bin/bindgen "$@"
+                        ;;
+                    esac
+                  done
+                  exec "$(dirname "$0")/bindgen-target" "$@"
+                  EOF
+                  chmod +x "$out/bin/bindgen"
+                '';
+              });
+            };
+          });
+        };
+      }).overrideAttrs (old: {
+        # Dawn's Go generators run on the build machine and need no C interop.
+        env = (old.env or {}) // {
+          CGO_ENABLED = "0";
+          # The cross Go toolchain defaults to external linking even with CGO disabled.
+          GO_EXTLINK_ENABLED = "0";
+        };
+      });
+    };
+  }) {} electronNames
+)
+(_: prev: with final; {
   # default-gcc-version = 15;
 
   # binutils = prev.binutils.override {
@@ -864,4 +917,5 @@ in with final; {
   #       and the aports for zbar-devel builds with `--disable-video`.
   # 2026/01/27: still broken upstream
   # zbar = prev.zbar.override { enableVideo = false; };
-}
+})
+] final prev

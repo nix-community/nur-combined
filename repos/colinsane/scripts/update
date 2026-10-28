@@ -14,7 +14,8 @@ usage() {
   echo ""
   echo "options:"
   echo "- --dry-run"
-  echo "- --verbose"
+  echo "- -h, --help"
+  echo "- -v, --verbose"
   echo "- -j <n>  (default: $PARALLELISM)"
   echo ""
   echo "examples:"
@@ -111,14 +112,14 @@ parseArgs() {
     local arg=$1
     shift
     case "$arg" in
-      (--help)
+      (-h|--help)
         usage
         ;;
       (--dry-run)
         scriptFlags+=(--dry-run)
         dryRun=1
         ;;
-      (--verbose)
+      (-v|--verbose)
         scriptFlags+=(--verbose)
         verbose=1
         ;;

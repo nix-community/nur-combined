@@ -1,16 +1,16 @@
-From 8f6fa933f7a00a04b3e085c4f2bf6f42cfbdbdcd Mon Sep 17 00:00:00 2001
+From f624e4ef3781111e05ce81290cd844013aafabfe Mon Sep 17 00:00:00 2001
 From: Colin <colin@uninsane.org>
-Date: Sat, 6 Jun 2026 16:16:32 +0000
+Date: Sun, 25 Oct 2026 11:26:09 +0000
 Subject: [PATCH] HACK: fix
  pkgsCross.aarch64-multiplatform.signal-desktop.passthru.webrtc
 
 ---
- pkgs/by-name/si/signal-desktop/package.nix | 59 ++++++++++++++++++++--
- pkgs/by-name/si/signal-desktop/webrtc.nix  | 18 +++++--
- 2 files changed, 69 insertions(+), 8 deletions(-)
+ pkgs/by-name/si/signal-desktop/package.nix | 53 ++++++++++++++++++++--
+ pkgs/by-name/si/signal-desktop/webrtc.nix  | 36 +++++++++------
+ 2 files changed, 72 insertions(+), 17 deletions(-)
 
 diff --git a/pkgs/by-name/si/signal-desktop/package.nix b/pkgs/by-name/si/signal-desktop/package.nix
-index 74a46bd55..120000d7a 100644
+index 74a46bd555ff..f497d4e7d41c 100644
 --- a/pkgs/by-name/si/signal-desktop/package.nix
 +++ b/pkgs/by-name/si/signal-desktop/package.nix
 @@ -13,6 +13,7 @@
@@ -42,30 +42,28 @@ index 74a46bd55..120000d7a 100644
  
    version = "8.31.0";
  
-@@ -228,7 +236,12 @@ stdenv.mkDerivation (finalAttrs: {
+@@ -228,22 +236,31 @@ stdenv.mkDerivation (finalAttrs: {
        die "ringrtc version mismatch"
      fi
  
 -    install -D ${ringrtc}/lib/libringrtc${stdenv.hostPlatform.extensions.library} \
 +    install -D ${
-+      if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
-+        ringrtc
-+      else
-+        ringrtc-build
++      if stdenv.buildPlatform.canExecute stdenv.hostPlatform then ringrtc else ringrtc-build
 +    }/lib/libringrtc${stdenv.buildPlatform.extensions.library} \
        node_modules/@signalapp/ringrtc/build/libringrtc.node
  
      substituteInPlace package.json \
-@@ -240,10 +253,20 @@ stdenv.mkDerivation (finalAttrs: {
+       --replace-fail '"node_modules/@signalapp/ringrtc/build/''${platform}/*''${arch}*.node",' \
+                      '"node_modules/@signalapp/ringrtc/build/libringrtc.node",'
+ 
+     substituteInPlace node_modules/@signalapp/ringrtc/dist/ringrtc/Native.js \
+       --replace-fail 'exports.default = require(`../../build/''${os.platform()}/libringrtc-''${process.arch}.node`);' \
                       'exports.default = require(`../../build/libringrtc.node`);'
  
      rm -r node_modules/@signalapp/libsignal-client/prebuilds
 -    cp -r ${libsignal-node}/lib node_modules/@signalapp/libsignal-client/prebuilds
 +    cp -r ${
-+      if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
-+        libsignal-node
-+      else
-+        libsignal-node-build
++      if stdenv.buildPlatform.canExecute stdenv.hostPlatform then libsignal-node else libsignal-node-build
 +    }/lib node_modules/@signalapp/libsignal-client/prebuilds
  
      rm -r node_modules/@signalapp/sqlcipher
@@ -79,7 +77,7 @@ index 74a46bd55..120000d7a 100644
  
      # fs-xattr is required at runtime by preload.wrapper.js,
      # but with npmRebuild disabled its native binding is missing.
-@@ -274,9 +297,37 @@ stdenv.mkDerivation (finalAttrs: {
+@@ -274,9 +291,37 @@ stdenv.mkDerivation (finalAttrs: {
      cp -r ${sticker-creator} sticker-creator/dist
    '';
  
@@ -119,7 +117,7 @@ index 74a46bd55..120000d7a 100644
        ${
          if stdenv.hostPlatform.isDarwin then "--mac" else "--linux"
 diff --git a/pkgs/by-name/si/signal-desktop/webrtc.nix b/pkgs/by-name/si/signal-desktop/webrtc.nix
-index 9812435d6..fac8aaffb 100644
+index 9812435d6d13..cff9f7a3445f 100644
 --- a/pkgs/by-name/si/signal-desktop/webrtc.nix
 +++ b/pkgs/by-name/si/signal-desktop/webrtc.nix
 @@ -88,10 +88,11 @@ stdenv.mkDerivation (finalAttrs: {
@@ -138,19 +136,37 @@ index 9812435d6..fac8aaffb 100644
      NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isLinux "-Wno-changes-meaning";
    };
  
-@@ -128,6 +129,15 @@ stdenv.mkDerivation (finalAttrs: {
-     substituteInPlace build/toolchain/linux/BUILD.gn \
-       --replace-fail 'toolprefix = "aarch64-linux-gnu-"' 'toolprefix = ""'
+@@ -121,15 +122,24 @@ stdenv.mkDerivation (finalAttrs: {
+   ];
  
-+    substituteInPlace build/toolchain/linux/unbundle/BUILD.gn \
-+      --replace-fail '  nm = getenv("NM")' '  nm = getenv("NM")
-+  readelf = getenv("READELF")' \
-+      --replace-fail '  nm = getenv("BUILD_NM")' '  nm = getenv("BUILD_NM")
-+  readelf = getenv("BUILD_READELF")' \
-+      --replace-fail '    current_cpu = current_cpu' '    current_cpu = host_cpu' \
-+      --replace-fail '    current_os = current_os' '    current_os = host_os
-+    v8_current_cpu = target_cpu'
+   postPatch = ''
+-    # The RingRTC FFI headers live in the ringrtc repo; upstream symlinks them
+-    # into the webrtc checkout from ringrtc's bin/env.sh.
+-    cp -r ${ringrtcSrc}/src/rust/src/webrtc_include ringrtc/rffi/api
+-
+-    substituteInPlace build/toolchain/linux/BUILD.gn \
+-      --replace-fail 'toolprefix = "aarch64-linux-gnu-"' 'toolprefix = ""'
+-
+-    substituteInPlace modules/audio_device/linux/pulseaudiosymboltable_linux.cc \
+-      --replace-fail "libpulse.so.0" "${pulseaudio}/lib/libpulse.so.0"
++      # The RingRTC FFI headers live in the ringrtc repo; upstream symlinks them
++      # into the webrtc checkout from ringrtc's bin/env.sh.
++      cp -r ${ringrtcSrc}/src/rust/src/webrtc_include ringrtc/rffi/api
 +
-     substituteInPlace modules/audio_device/linux/pulseaudiosymboltable_linux.cc \
-       --replace-fail "libpulse.so.0" "${pulseaudio}/lib/libpulse.so.0"
++      substituteInPlace build/toolchain/linux/BUILD.gn \
++        --replace-fail 'toolprefix = "aarch64-linux-gnu-"' 'toolprefix = ""'
++
++      substituteInPlace build/toolchain/linux/unbundle/BUILD.gn \
++        --replace-fail '  nm = getenv("NM")' '  nm = getenv("NM")
++    readelf = getenv("READELF")' \
++        --replace-fail '  nm = getenv("BUILD_NM")' '  nm = getenv("BUILD_NM")
++    readelf = getenv("BUILD_READELF")' \
++        --replace-fail '    current_cpu = current_cpu' '    current_cpu = host_cpu' \
++        --replace-fail '    current_os = current_os' '    current_os = host_os
++      v8_current_cpu = target_cpu'
++
++      substituteInPlace modules/audio_device/linux/pulseaudiosymboltable_linux.cc \
++        --replace-fail "libpulse.so.0" "${pulseaudio}/lib/libpulse.so.0"
    ''
+   + lib.optionalString stdenv.hostPlatform.isDarwin ''
+     # Fix Darwin Python script shebangs for sandbox builds

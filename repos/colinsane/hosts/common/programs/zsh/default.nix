@@ -226,6 +226,12 @@ in
         _cdNamed nixpkgs "$@"
       }
 
+      function offline() {
+        # run some command in a sandbox that lacks network access, but is otherwise about the same.
+        setopt local_options err_return nounset pipefail
+        bunpen --bunpen-private-lo --bunpen-path / --bunpen-cap all --bunpen-try-keep-users --bunpen-keep-pid "$@"
+      }
+
       function repo() {
         # navigate to a local checkout of the source code for repo (i.e. package) $1
         eval $(sane-clone "$1")

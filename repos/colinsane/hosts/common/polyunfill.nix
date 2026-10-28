@@ -79,38 +79,12 @@ in
         # base = lib.modules.importApply "${pkgs.path}/nixos/modules/system/boot/systemd.nix" moduleArgs;
         base = import "${pkgs.path}/nixos/modules/system/boot/systemd.nix" moduleArgs;
       in {
-        options.systemd = {
-          inherit (base.options.systemd)
-            additionalUpstreamSystemUnits
-            automounts
-            ctrlAltDelUnit
-            defaultUnit
-            enableStrictShellChecks
-            generators
-            generatorEnvironment
-            generatorPath
-            globalEnvironment
-            managerEnvironment
-            mounts
-            package
-            packages
-            paths
-            services
-            settings
-            shutdown
-            sleep
-            slices
-            sockets
-            suppressedSystemUnits
-            targets
-            timers
-            units
-            ;
-        };
-        # inherit (base.systemd) config;
+        options.systemd = base.options.systemd;
         config = {
           # TODO: port to `mkTypedMerge`
+          # this explicit `inherit` list is necessary to avoid infinite recursrion
           inherit (base.config)
+            assertions
             boot
             environment
             security

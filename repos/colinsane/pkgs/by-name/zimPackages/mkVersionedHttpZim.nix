@@ -4,6 +4,7 @@
 {
   directoryListingUpdater,
   fetchurl,
+  lib,
   stdenvNoCC,
   updater-tools,
 }:
@@ -11,7 +12,7 @@
   pname,
   version,
   owner ? null,  #< same meaning as in e.g. `fetchFromGitHub`
-  hash ? "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+  hash ? lib.fakeHash,
 }@args:
 let
   tail = "${pname}_${version}.zim";

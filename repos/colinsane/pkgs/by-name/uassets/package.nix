@@ -8,12 +8,12 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "uassets";
-  version = "0-unstable-2026-10-11";
+  version = "0-unstable-2026-10-24";
   src = fetchFromGitHub {
     owner = "uBlockOrigin";
     repo = "uAssets";
-    rev = "d8a5e65065a2c927be6cc83dc96e6efdb2b97f7c";
-    hash = "sha256-5mDimVkNwEB2VpO9pWrVuuhHs8efNTiiZfBllailqAY=";
+    rev = "c49e3951ff2150ec2b0d0c9b6f30d3d6cbf4e780";
+    hash = "sha256-+Sg0EzYXi6+FcgxipdZN8NvvaXxYHp2KW0iBLukPXII=";
   };
 
   dontBuild = true;

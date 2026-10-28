@@ -24,18 +24,6 @@
   services.nginx.enable = true;
 
   users.users.nginx.extraGroups = [ "anubis" ];
-  # nginxStable is one release behind nginxMainline.
-  # nginx itself recommends running mainline; nixos defaults to stable.
-  # services.nginx.package = pkgs.nginxMainline;
-  # XXX(2024-07-31): nixos defaults to zlib-ng -- supposedly more performant, but spams log with
-  # "gzip filter failed to use preallocated memory: ..."
-  # XXX(2025-07-24): "gzip filter" spam is gone => use default nginx package
-  # services.nginx.package = pkgs.nginxMainline.override { zlib = pkgs.zlib; };
-  services.nginx.appendConfig = ''
-    # use 1 process per core.
-    # may want to increase worker_connections too, but `ulimit -n` must be increased first.
-    worker_processes auto;
-  '';
 
   # this is the standard `combined` log format, with the addition of $host
   # so that we have the virtualHost in the log.

@@ -20,7 +20,7 @@ import shutil
 import subprocess
 
 from dataclasses import dataclass
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 from typing import Iterator
 
 MAX_RESULTS = 50
@@ -311,7 +311,7 @@ def cli_search(
 
 
 def cli_mcp() -> None:
-  mcp = FastMCP("auto-zoekt")
+  mcp = MCPServer("auto-zoekt")
 
   @mcp.tool()
   def search(

@@ -1,4 +1,4 @@
-From 46f45fd4b5cd1d4ca8dc223939f89b3c7ebbbbfb Mon Sep 17 00:00:00 2001
+From ebfc8e5b2c03d6da20f80ba61414ada342dbbd4b Mon Sep 17 00:00:00 2001
 From: Xu Colin <colinxu2020@gmail.com>
 Date: Sat, 5 Sep 2026 12:49:05 +0800
 Subject: [PATCH] python3Packages.mypy: 2.1.0 -> 2.3.1
@@ -7,14 +7,22 @@ https://github.com/python/mypy/blob/refs/tags/v2.3.1/CHANGELOG.md
 
 Signed-off-by: Xu Colin <colinxu2020@gmail.com>
 ---
- pkgs/development/python-modules/mypy/default.nix | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ pkgs/development/python-modules/mypy/default.nix | 15 +++------------
+ 1 file changed, 3 insertions(+), 12 deletions(-)
 
 diff --git a/pkgs/development/python-modules/mypy/default.nix b/pkgs/development/python-modules/mypy/default.nix
-index 68587c7c345f05a0a0095d23f71eb208f6a3ecc9..29bb56efc2e33890f51f76d8657d38e17c9ad6c7 100644
+index a50eb9c32761de94ccc459be5781864aa2fc2ca5..29bb56efc2e33890f51f76d8657d38e17c9ad6c7 100644
 --- a/pkgs/development/python-modules/mypy/default.nix
 +++ b/pkgs/development/python-modules/mypy/default.nix
-@@ -36,7 +36,7 @@
+@@ -6,7 +6,6 @@
+   gitUpdater,
+   pythonAtLeast,
+   isPyPy,
+-  fetchpatch,
+ 
+   # build-system
+   pathspec,
+@@ -37,7 +36,7 @@
  
  buildPythonPackage rec {
    pname = "mypy";
@@ -23,7 +31,7 @@ index 68587c7c345f05a0a0095d23f71eb208f6a3ecc9..29bb56efc2e33890f51f76d8657d38e1
    pyproject = true;
  
    # relies on several CPython internals
-@@ -46,7 +46,7 @@ buildPythonPackage rec {
+@@ -47,18 +46,9 @@ buildPythonPackage rec {
      owner = "python";
      repo = "mypy";
      tag = "v${version}";
@@ -31,8 +39,19 @@ index 68587c7c345f05a0a0095d23f71eb208f6a3ecc9..29bb56efc2e33890f51f76d8657d38e1
 +    hash = "sha256-EkZVBWlT8l3oIC9UuDEJua6dxFDIL0o9k/3FJJFqMB4=";
    };
  
+-  patches = [
+-    # fix build w/ glibc-2.44
+-    # If Python.h isn't included first, a const redefinition error now occurs otherwise.
+-    (fetchpatch {
+-      url = "https://github.com/python/mypy/commit/46acbe85c0e1703ebf2e6d4c699772edcdcf4652.patch";
+-      hash = "sha256-KslHiKqinvvXZoxvCnZXOhCm7i8577PbSdNGudCsjZE=";
+-    })
+-  ];
+-
    passthru.updateScript = gitUpdater {
-@@ -68,6 +68,7 @@ buildPythonPackage rec {
+     rev-prefix = "v";
+   };
+@@ -78,6 +68,7 @@ buildPythonPackage rec {
    ];
  
    dependencies = [

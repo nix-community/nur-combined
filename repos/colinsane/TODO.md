@@ -100,7 +100,10 @@
 - use `pkgsStatic` or `pkgsCross.musl64` where applicable, for much improved perf?
 - port `moby` to `pkgsCross.aarch64-multiplatform.pkgsMusl`
 
-### security/resilience
+### security/resilience/perf
+- enable stdenv hardening flags
+- enable mimalloc by default on musl builds
+  - see Chimera: <https://gist.github.com/q66/84288d3b8e70146a630f65dc1de4b683>
 - /mnt/desko/home, etc, shouldn't include secrets (~/private)
   - 95% of its use is for remote media access and stuff which isn't in VCS (~/records)
 - harden systemd services:

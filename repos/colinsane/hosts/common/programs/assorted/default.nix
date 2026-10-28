@@ -368,7 +368,7 @@ in
       # "gnome-podcasts"
       # "gnome.gnome-system-monitor"
       # "gnome.gnome-terminal"  # works on phosh
-      "gnome-frog"  # OCR/QR decoder
+      # "gnome-frog"  # OCR/QR decoder. XXX(2026-10-22): build break due to dependency on broken `posthog`.
       "gnome-maps"
       "gnome-screenshot"  # libcamera-based screenshotter, for debugging; should be compatible with gc2145 camera on Pinephone
       "gnome-sound-recorder"  # a simple microphone recorder/tester

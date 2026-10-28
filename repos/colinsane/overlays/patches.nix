@@ -117,7 +117,59 @@ super.lib.composeManyExtensions [
 in
   nodejsOverrides
 )
+(_: prev: let
+  electronNames = map (v: "electron_${toString v}") (super.lib.range 1 99);
+in
+  builtins.foldl' (acc: name: acc // super.lib.optionalAttrs (prev ? "${name}") {
+    "${name}" = prev.${name}.override {
+      electron-unwrapped = prev.${name}.unwrapped.overrideAttrs (old: {
+        # XXX(2026-10-24): build OOMs at high core count.
+        # NIX_BUILD_CORES=32 alone is not enough: it exhausts 384 GB RAM + 384 GB zswap.
+        # measurements for PYTHON_CPU_COUNT=NIX_BUILD_CORES=N:
+        # - 128 cores: peak memory 230 GB above baseline, build takes 1200s.
+        # - 64 cores: peak memory 120 GB above baseline, build takes 1900s.
+        # measurements for NIX_BUILD_CORES=N, without setting PYTHON_CPU_COUNT:
+        # - 128 cores: exhausts 384 GB RAM + 384 GB zswap. dies after 900s.
+        # - 64 cores: exhausts 384 GB RAM + 384 GB zswap. dies after 800s.
+        # - 32 cores: peak memory+zswap 580 GB above baseline, build takes 3400s.
+        preBuild = ''
+          if (( NIX_BUILD_CORES == 0 || NIX_BUILD_CORES > 128 )); then
+            export NIX_BUILD_CORES=128
+          fi
+          export PYTHON_CPU_COUNT="$NIX_BUILD_CORES"
+        '' + (old.preBuild or "");
+      });
+    };
+  }) {} electronNames
+)
+(_: prev: let
+  applyBeamPrefs = beam: lib.makeOverridable (args: let
+    beam' = beam.override args;
+  in beam' // {
+    packages = lib.mapAttrs (erlangVer: erlangPkgs:
+      if erlangVer == "erlang" then
+        # `erlang` is an alias: skip it else we'd override it twice
+        erlangPkgs
+      else
+        erlangPkgs.overrideScope (_: beamPrev: {
+          rebar3 = beamPrev.rebar3.overrideAttrs (old: {
+            # XXX(2026-10-22): Common Test is excessively slow on high-core-count builders.
+            env = (old.env or {}) // {
+              ERL_FLAGS = (old.env.ERL_FLAGS or "") + " +S 16:16";
+            };
+          });
+        })
+      ) beam'.packages
+    ;
+  }) {};
+in
+{
+  beam = applyBeamPrefs prev.beam;
+  beam_minimal = applyBeamPrefs prev.beam_minimal;
+})
 (_: prev: {
+  # Preserve beam.override: reduce-closure overrides wxSupport in a later overlay.
+
   bind = prev.bind.overrideAttrs {
     # XXX(2026-10-11): isc_rwlock_benchmark fails for extremely high core count (512).
     # `nix-build -A bind --cores 32` still causes it to use 512 cores.
@@ -130,6 +182,14 @@ in
   #     NIX_CFLAGS_COMPILE = (prevAttrs.env.NIX_CFLAGS_COMPILE or "") + " -Wno-error=discarded-qualifiers";
   #   };
   # });
+
+  # XXX(2026-10-22): ha-mcp depends on broken fastmcp-slim
+  # fix borrowed from <https://github.com/NixOS/nixpkgs/pull/577124>
+  ha-mcp = prev.ha-mcp.override {
+    python3Packages = final.python3Packages.overrideScope (pyFinal: _pyPrev: {
+      mcp = pyFinal.mcp_1;
+    });
+  };
 
   # XXX(2026-10-16): `nix-build -A haskell.compiler.ghc910` fails on high-core count machines.
   # the musl and gnu forms both fail, for different reasons; reducing core count solves both.
@@ -190,6 +250,12 @@ in
     ];
   });
 
+  # XXX(2026-10-24): `onetbb` hangs in checkPhase on highly parallel builder.
+  # i *think* libblake3 is the only user on my system, so disable it there.
+  # libblake3 = prev.libblake3.override {
+  #   useTBB = false;
+  # };
+
   # 2026-10-16: still required
   # XXX(2026-09-23): `python3Packages.pysaml2` fails build, takes down matrix-syanpse alongside it.
   matrix-synapse-unwrapped = prev.matrix-synapse-unwrapped.overridePythonAttrs (prevAttrs: {
@@ -231,24 +297,51 @@ in
   #   });
   # });
 
-  pleroma = prev.pleroma.overrideAttrs (prevAttrs: let
-    # XXX(2026-10-16): checkPhase by default takes nearly 2 hours on desko, only to (sometimes?) fail with
-    # > Failed 30 tests. Skipped 4 (3, 1) tests. Passed 629 tests.
-    # N.B.: overridden for pleroma *specifically* only because the root rebar3 package is deeply hidden
-    # (beam.packages.erlang27.rebar3? and overriding that seems not to affect its neighboring rebar3CompileHook).
-    rebar3 = prev.rebar3.overrideAttrs (prevAttrs: {
-      # Common Test spends excessive time starting a scheduler per visible CPU on large builders.
-      ERL_FLAGS = (prevAttrs.ERL_FLAGS or "") + " +S 16:16";
-      # doCheck = false;
-    });
-  in {
-    env = prevAttrs.env // {
-      MIX_REBAR3 = lib.getExe rebar3;
-    };
+  # onetbb = prev.onetbb.overrideAttrs (prevAttrs: {
+  #   # XXX(2026-10-24):  test_eh_algorithms takes exceptionally long on highly parallel builders.
+  #   # onetbb>  20/140 Test  #20: test_eh_algorithms .......................   Passed  1074.95 sec
+  #   # tests do not honor NIX_BUILD_CORES or `-j`: use cpu affinity to make them think they have only 8 cores.
+  #   preCheck = (prevAttrs.preCheck or "") + ''
+  #     onetbbAffinity=$(${final.buildPackages.util-linux}/bin/taskset -pc $$)
+  #     onetbbAffinity=''${onetbbAffinity##*: }
+  #     IFS=, read -ra onetbbRanges <<< "$onetbbAffinity"
+  #     onetbbCPUs=()
+  #     for range in "''${onetbbRanges[@]}"; do
+  #       first=''${range%-*}
+  #       last=''${range#*-}
+  #       for (( cpu=first; cpu<=last && ''${#onetbbCPUs[@]}<8; cpu++ )); do
+  #         onetbbCPUs+=("$cpu")
+  #       done
+  #       if (( ''${#onetbbCPUs[@]} == 8 )); then break; fi
+  #     done
+  #     ${final.buildPackages.util-linux}/bin/taskset -pc "$(IFS=,; echo "''${onetbbCPUs[*]}")" $$
+  #   '';
+  #   postCheck = ''
+  #     ${final.buildPackages.util-linux}/bin/taskset -pc "$onetbbAffinity" $$
+  #   '' + (prevAttrs.postCheck or "");
+  # });
+
+  openssl = prev.openssl.overrideAttrs (prevAttrs: {
+    # 2026-10-23: on both GNU and musl, AF_ALG sockets exist on the build host,
+    # but binding cbc(aes) fails with ENOENT without the required kernel crypto support.
+    # Alpine also skips this kernel-dependent test; keep the engine enabled:
+    # <https://gitlab.alpinelinux.org/alpine/aports/-/blob/a9ee19e3bec8d1ac288a0912f6c860b0000766fd/main/openssl/APKBUILD>
+    checkFlags = (prevAttrs.checkFlags or []) ++ [ "TESTS=-test_afalg" ];
   });
 
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (pyself: pysuper: {
+      astropy = pysuper.astropy.overridePythonAttrs (prevAttrs: {
+        patches = (prevAttrs.patches or []) ++ [
+          (final.fetchpatch {
+            # XXX(2026-10-26): some flake because one of the tests requires on a side-effect of another test, IIUC.
+            # https://github.com/astropy/astropy/pull/20665
+            url = "https://github.com/astropy/astropy/commit/fa785399f1582c1ad4d46beb5cefe413fb29d626.patch";
+            hash = "sha256-z8uUDJoO5tzlXv2IEBeQUUyKMym4ujtC1YWb3A+GEfE=";
+          })
+        ];
+      });
+
       dask = pysuper.dask.overridePythonAttrs (prevAttrs: {
         # XXX(2026-10-18): hundreds of pytest workers each create their own Dask pools,
         # exhausting resources on high-core-count builders.
@@ -264,12 +357,21 @@ in
         pytestFlags = (prevAttrs.pytestFlags or []) ++ [ "--dist=loadfile" ];
       });
 
-      mypy = pysuper.mypy.overridePythonAttrs (prevAttrs: {
-        # XXX(2026-10-22): PR #560110 includes this fix already; the old backport no longer applies.
-        patches = lib.filter (patch: !(lib.versionAtLeast prevAttrs.version "2.3.1"
-          && lib.hasSuffix "46acbe85c0e1703ebf2e6d4c699772edcdcf4652.patch" (toString patch)
-        )) (prevAttrs.patches or []);
-      });
+      # mypy = pysuper.mypy.overridePythonAttrs (prevAttrs: {
+      #   # XXX(2026-10-24): superseded by <https://github.com/NixOS/nixpkgs/pull/560110>
+      #   # the removed patch is described as:
+      #   # ```nix
+      #   # # fix build w/ glibc-2.44
+      #   # # If Python.h isn't included first, a const redefinition error now occurs otherwise.
+      #   # (fetchpatch {
+      #   #   url = "https://github.com/python/mypy/commit/46acbe85c0e1703ebf2e6d4c699772edcdcf4652.patch";
+      #   #   hash = "sha256-KslHiKqinvvXZoxvCnZXOhCm7i8577PbSdNGudCsjZE=";
+      #   # })
+      #   # ```
+      #   patches = lib.filter (patch: !(lib.versionAtLeast prevAttrs.version "2.3.1"
+      #     && lib.hasSuffix "46acbe85c0e1703ebf2e6d4c699772edcdcf4652.patch" (toString patch)
+      #   )) (prevAttrs.patches or []);
+      # });
 
       narwhals = pysuper.narwhals.overridePythonAttrs (prevAttrs: {
         # XXX(2026-10-17): either hangs, or segfaults, during checkPhase, for high core count. i don't remember which.

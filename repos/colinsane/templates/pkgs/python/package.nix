@@ -52,6 +52,11 @@
 
   doCheck = true;
 
+  passthru = {
+    # if `pythonModule` isn't set, then `python3.withPackages (_: [ MY_PACKAGE ])` will silently skip you.
+    pythonModule = python3;
+  };
+
   meta = with lib; {
     # homepage = "https://example.com";
     # description = "python template project";

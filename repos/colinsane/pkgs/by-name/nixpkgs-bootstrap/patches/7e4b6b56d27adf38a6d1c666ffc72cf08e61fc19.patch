@@ -1,0 +1,79 @@
+From 7e4b6b56d27adf38a6d1c666ffc72cf08e61fc19 Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Tue, 27 Oct 2026 04:38:05 +0000
+Subject: [PATCH] python3Packages.imageio: fix stale test_images hash
+
+and fetch without `leaveDotGit = true;` while here.
+`leaveDotGit = true` causes the hash to be much less reproducible,
+and it seems to have rotted at some point.
+---
+ .../python-modules/imageio/default.nix        | 19 ++++++++++++-------
+ 1 file changed, 12 insertions(+), 7 deletions(-)
+
+diff --git a/pkgs/development/python-modules/imageio/default.nix b/pkgs/development/python-modules/imageio/default.nix
+index 098ce911c53b..82050b0fd026 100644
+--- a/pkgs/development/python-modules/imageio/default.nix
++++ b/pkgs/development/python-modules/imageio/default.nix
+@@ -26,18 +26,16 @@
+ 
+   # tests
+   fsspec,
+-  gitMinimal,
+   pytestCheckHook,
+   writableTmpDirAsHomeHook,
+ }:
+ 
+ let
+   test_images = fetchFromGitHub {
+     owner = "imageio";
+     repo = "test_images";
+     rev = "f676c96b1af7e04bb1eed1e4551e058eb2f14acd";
+-    leaveDotGit = true;
+-    hash = "sha256-Kh8DowuhcCT5C04bE5yJa2C+efilLxP0AM31XjnHRf4=";
++    hash = "sha256-/GYHOTRLD+UdUn3Tz2CzeFFoTmR/Iw3TY7xWLv1UnGY=";
+   };
+   libgl = "${libGL.out}/lib/libGL${stdenv.hostPlatform.extensions.sharedLibrary}";
+ in
+@@ -54,7 +52,15 @@ buildPythonPackage rec {
+     hash = "sha256-IFcLIEcUpWeCyTKnPCCd1poIzQsIRQ/IcrShYhoxi6w=";
+   };
+ 
+-  postPatch = lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
++  postPatch = ''
++    # By default conftest would attempt to update its test images with `git fetch`, and fail.
++    # It tries to cooperate with pyunit and skip the update based on the flags we pass,
++    # but we format those arguments just differently enough that it needs a hand.
++    substituteInPlace tests/conftest.py --replace-fail \
++      'use_internet = "not needs_internet" not in pytestconfig.getoption("-m")' \
++      'use_internet = "not (needs_internet)" not in pytestconfig.getoption("-m")'
++  ''
++  + lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
+     substituteInPlace tests/test_core.py \
+       --replace-fail 'ctypes.util.find_library("GL")' '"${libgl}"'
+   '';
+@@ -90,23 +96,22 @@ buildPythonPackage rec {
+ 
+   nativeCheckInputs = [
+     fsspec
+-    gitMinimal
+     psutil
+     pytestCheckHook
+     writableTmpDirAsHomeHook
+   ]
+   ++ fsspec.optional-dependencies.github
+   ++ lib.concatAttrValues optional-dependencies;
+ 
+-  pytestFlags = [ "--test-images=file://${test_images}" ];
+-
+   disabledTestMarks = [ "needs_internet" ];
+ 
+   # These tests require the old and vulnerable freeimage binaries; skip.
+   disabledTestPaths = [ "tests/test_freeimage.py" ];
+ 
+   preCheck = ''
+     export IMAGEIO_USERDIR=$(mktemp -d)
++    cp -r ${test_images} .test_images
++    chmod +w -R .test_images
+   '';
+ 
+   passthru = {

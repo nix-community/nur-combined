@@ -1,3 +1,9 @@
+# this file contains build fixes or runtime fixes specific to musl.
+# for failure modes which reproduce outside of the `pkgsMusl` set, refer to overlays/patches.nix instead.
+# e.g.
+# - `pkgsMusl.x` fails, but `pkgs.x` builds and `pkgsCross.aarch64-multiplatform.x` builds (or fails in a different manner): fix belongs here.
+# - `pkgsMusl.x` fails, and `pkgs.x` fails in a similar manner: see overlays/patches.nix.
+#
 # places to find musl patches:
 # - <https://github.com/nixos/nixpkgs/pulls?q=label%3A%226.topic%3A+musl%22+>
 # - <https://github.com/nixos/nixpkgs/pulls?q=pkgsMusl>
@@ -84,6 +90,112 @@ let
   });
 in
 super.lib.composeManyExtensions [
+  (_: prev: let
+    electronNames = map (v: "electron_${toString v}") (prev.lib.range 1 99);
+  in builtins.foldl' (acc: name: acc // prev.lib.optionalAttrs (prev ? "${name}") {
+    # 2026-10-25: still required
+    "${name}" = prev.${name}.override {
+      electron-unwrapped = (prev.${name}.unwrapped.override {
+        chromium = final.chromium.override {
+          # musl has no glibc gconv/locale directories for the audio sandbox to whitelist.
+          newScope = scope: final.newScope (scope // { glibc = emptyDirectory; });
+        };
+      }).overrideAttrs (old: let
+        # electron takes 3 hours to build/link on musl, v.s. 30 minutes on glibc,
+        # because musl's default malloc-ng allocator is single-threaded.
+        # using mimalloc brings build/link back down to 30 minutes.
+        # nixpkgs firefox does a similar thing.
+        # Chimera Linux builds *everything* against mimalloc -- maybe we should too.
+        lldWithMimalloc = final.buildPackages.writeShellScriptBin "ld.lld" ''
+          export LD_PRELOAD=${lib.getLib final.buildPackages.mimalloc}/lib/libmimalloc.so''${LD_PRELOAD:+:$LD_PRELOAD}
+          exec ${final.buildPackages.rustc.llvmPackages.bintools}/bin/ld.lld "$@"
+        '';
+        gnFlags = old.gnFlags + lib.optionalString stdenv.buildPlatform.isMusl
+          " lld_path=\"${lldWithMimalloc}/bin\"";
+      in {
+        inherit gnFlags;
+        configurePhase = builtins.replaceStrings [ old.gnFlags ] [ gnFlags ] old.configurePhase;
+        passthru = (old.passthru or {}) // lib.optionalAttrs stdenv.buildPlatform.isMusl {
+          inherit lldWithMimalloc;
+        };
+        # GNU find's -exec batching under musl rejects this build's large environment.
+        nativeBuildInputs = [ final._pkgsGnu.findutils ] ++ old.nativeBuildInputs;
+        postPatch = (old.postPatch or "") + ''
+          # Bundled fontconfig's generated configuration assumes glibc's random_r.
+          substituteInPlace third_party/fontconfig/include/meson-config.h \
+            --replace-fail '#define HAVE_RANDOM_R 1' '/* #undef HAVE_RANDOM_R */'
+          # Electron includes a private glibc header; use the portable integer header instead.
+          substituteInPlace electron/shell/browser/ui/file_dialog.h \
+            --replace-fail '#include <bits/stdint-uintn.h>' '#include <stdint.h>'
+          # The glibc-version-dependent environment interposer cannot be used with musl.
+          substituteInPlace electron/BUILD.gn \
+            --replace-fail '"shell/app/environ_linux.cc",' ""
+        '';
+        patches = (old.patches or []) ++ [
+          (fetchCports {
+            # musl uses different threading and memory-management syscalls.
+            path = "main/chromium/patches/016-musl-sandbox.patch";
+            hash = "sha256-tTJOakjsRlAWpwNQcyNu2AC46TI2kcH/sfBvPIqawck=";
+          })
+          (fetchCports {
+            # musl's clone() rejects the sandbox's temporary TLS buffer (EINVAL).
+            path = "main/chromium/patches/022-no-sandbox-settls.patch";
+            hash = "sha256-i688sRm5yAR2neMkPfRS7f4QCvmUO+JoQ58+RlN7jDo=";
+          })
+          (fetchCports {
+            path = "main/chromium/patches/028-yes-musl.patch";
+            rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
+            hash = "sha256-k6xCVnrZBG6PfDOF8w/LWExLOAMJ60SrxhjgQPpY944=";
+          })
+          (fetchCports {
+            path = "main/chromium/patches/rust-tgt.patch";
+            rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
+            decode = "sed 's/-chimera-linux-musl/-unknown-linux-musl/g'";
+            hash = "sha256-pWfa1FIc7XVICkHQ3IXd5zIieIZlgLrxhwkjoZ50eIs=";
+          })
+          (fetchCports {
+            path = "main/chromium/patches/004-compiler.patch";
+            rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
+            includes = [ "build/config/compiler_cpu_abi.gn" ];
+            decode = "sed 's/-chimera-linux-musl/-unknown-linux-musl/g'";
+            hash = "sha256-LGSAruwlfdgbjD6XAeSMAPBz+DGpYVYoAOFgd361eX4=";
+          })
+          (fetchCports {
+            path = "main/chromium/patches/020-musl-no-mallinfo.patch";
+            rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
+            hash = "sha256-ONax55fJt08SvRYqKg68Nw8G/i/lfJp49grAw6PU+7U=";
+          })
+          (fetchCports {
+            path = "main/chromium/patches/cr143-libsync-__BEGIN_DECLS.patch";
+            rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
+            hash = "sha256-JUqk7j2+w5y9BWdCPf7JeEDtQYsRd240XfH2TFzEKrk=";
+          })
+          (fetchAports {
+            path = "community/chromium/no-execinfo.patch";
+            hash = "sha256-oHVQJelfp0Q2MiCY7GZjXiDjo4NbDM2J78+xPJa1/sw=";
+          })
+          (fetchAports {
+            path = "community/chromium/no-res-ninit-nclose.patch";
+            hash = "sha256-l1Rny5m3fR6NwyQ5JTR+BVo7VmiECjN6KhscJ8dP9iI=";
+          })
+          (fetchAports {
+            path = "community/chromium/disable-dns_config_service.patch";
+            hash = "sha256-5H2EvJnj4FDd6hdHJvwoqZodFLrvjt8RIOIMJrdNo1M=";
+          })
+          (fetchCports {
+            path = "main/chromium/patches/cr140-musl-prctl.patch";
+            rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
+            hash = "sha256-gJXne6eZntzbT1Nr5grecZZYCgE0BXtW3pOBFhn7W7I=";
+          })
+          (fetchCports {
+            path = "main/chromium/patches/cr145-iwyu-dev_t.patch";
+            rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
+            hash = "sha256-cHbQrnDuEvzvw/ecx/EvDs+rnYQpIkKMT4/O50s162w=";
+          })
+        ];
+      });
+    };
+  }) {} electronNames)
   (_: prev: {
     # XXX(2026-01-20): some things (e.g. securityWrapper) build from pkgsStatic, for dubious reasons;
     # `pkgsMusl.pkgsStatic.stdenv` is broken so just redirect it to ordinary `pkgs`.
@@ -338,23 +450,6 @@ super.lib.composeManyExtensions [
     # no hope of discord running natively on musl:
     # <https://github.com/void-linux/void-packages/issues/35132>
     discord = final._pkgsGnu.discord;
-
-    # electron = prev.electron.override {
-    #   electron-unwrapped = prev.electron.unwrapped.overrideAttrs (base: {
-    #     preConfigure = (base.preConfigure or "") + ''
-    #       set -x
-    #     '';
-    #   });
-    # };
-
-    # electron = prev.electron.overrideAttrs (base: {
-    #   preConfigure = (base.preConfigure or "") + ''
-    #     set -x
-    #   '';
-    #   # postConfigure = ''
-    #   #   set -x
-    #   # '' + (base.postConfigure or "");
-    # });
 
     # 2026-10-03: still required
     ffmpeg_7 = prev.ffmpeg_7.overrideAttrs {
@@ -1472,70 +1567,54 @@ super.lib.composeManyExtensions [
       ];
     });
 
-    # XXX(2026-02-15): the below gets signal-desktop to build,
-    # but it fails at runtime unless linked against the non-bin `electron`,
-    # and electron itself fails to build for musl.
-    # signal-desktop = prev.signal-desktop.override {
-    #   # signal-desktop's sub-packages aren't accessible, except by injecting a custom callPackage.
-    #   # most/all of these patches come from alpine.
-    #   callPackage = lib.callPackageWith (final // {
-    #     stdenv = stdenv // {
-    #       # TODO: use `lib.extendMkDerivation`
-    #       mkDerivation = f: stdenv.mkDerivation (finalAttrs:
-    #       let
-    #         attrs = f finalAttrs;
-    #       in attrs
-    #         // lib.optionalAttrs (attrs.pname == "signal-webrtc") {
-    #           # hardeningDisable = [ "all" ];  #< silences warnings, but not necessary
-    #           patches = (attrs.patches or []) ++ [
-    #             (writeTextFile {
-    #               # from: <repo:alpine/aports:testing/signal-desktop/webrtc-rtcbase-platform-thread-type-do-not-include-linux-prctl-header.patch>
-    #               # paths updated slightly, for nixpkgs' `patch` to understand it
-    #               name = "webrtc-rtcbase-platform-thread-type-do-not-include-linux-prctl-header.patch";
-    #               text = ''
-    #                 diff --git a/rtc_base/platform_thread_types.cc b/rtc_base/platform_thread_types.cc
-    #                 index 20bf4af..482b15f 100644
-    #                 --- a/rtc_base/platform_thread_types.cc
-    #                 +++ b/rtc_base/platform_thread_types.cc
-    #                 @@ -12,7 +12,6 @@
-    #
-    #                  // IWYU pragma: begin_keep
-    #                  #if defined(WEBRTC_LINUX)
-    #                 -#include <linux/prctl.h>
-    #                  #include <sys/prctl.h>
-    #                  #include <sys/syscall.h>
-    #               '';
-    #             })
-    #           ];
-    #         }
-    #         // lib.optionalAttrs (attrs.pname == "node-sqlcipher") {
-    #           # from aports' APKBUILD
-    #           postPatch = (attrs.postPatch or "") + ''
-    #             substituteInPlace deps/extension/extension.gyp \
-    #               --replace-fail 'x86_64-unknown-linux-gnu' '${stdenv.hostPlatform.config}'
-    #           '';
-    #         }
-    #       );
-    #     };
-    #     rustPlatform = rustPlatform // {
-    #       buildRustPackage = f: rustPlatform.buildRustPackage (finalAttrs:
-    #       let
-    #         attrs = f finalAttrs;
-    #       in attrs
-    #         // lib.optionalAttrs (attrs.pname == "libsignal-node") {
-    #           # from aports' APKBUILD
-    #           postPatch = (attrs.postPatch or "") + ''
-    #             substituteInPlace node/build_node_bridge.py \
-    #               --replace-fail 'unknown-linux-gnu' '${with stdenv.hostPlatform.parsed; "${vendor.name}-${kernel.name}-${abi.name}"}'
-    #           '';
-    #         }
-    #       );
-    #     };
-    #   });
-    # };
-    #
-    # 2026-08-31: still required
-    signal-desktop = final._pkgsGnu.signal-desktop;
+    # 2026-10-25: Signal's native dependencies assume glibc.
+    signal-desktop = (prev.signal-desktop.override {
+      # The native dependencies are private to Signal's callPackage scope.
+      callPackage = path: args:
+        let
+          package = final.callPackage path args;
+        in
+        if baseNameOf path == "webrtc.nix" then
+          package.overrideAttrs (old: {
+            patches = (old.patches or []) ++ [
+              (fetchAports {
+                path = "testing/signal-desktop/webrtc-rtcbase-platform-thread-type-do-not-include-linux-prctl-header.patch";
+                stripLen = 1;
+                hash = "sha256-T0s6wlaTo6Zva2Xq9RubTZtek6/42UCfsXxdqqjy//M=";
+              })
+              (fetchAports {
+                path = "testing/signal-desktop/webrtc-nullptr_t.patch";
+                stripLen = 1;
+                hash = "sha256-z3d1wFPlmTSTkB3xEa8tNcOVqXJSqe2qZwXFKnIpegI=";
+              })
+            ];
+          })
+        else if baseNameOf path == "libsignal-node.nix" then
+          package.overrideAttrs (old: {
+            # Upstream exposes a target option; avoid its GNU-only default.
+            buildPhase = builtins.replaceStrings
+              [ "--copy-to-prebuilds --node-arch" ]
+              [ "--copy-to-prebuilds --cargo-target ${stdenv.hostPlatform.rust.rustcTarget} --node-arch" ]
+              old.buildPhase;
+          })
+        else if baseNameOf path == "signal-sqlcipher.nix" then
+          package.overrideAttrs (old: {
+            # Like aports' APKBUILD, fix both Cargo's target and its output path.
+            postPatch = (old.postPatch or "") + ''
+              substituteInPlace deps/extension/extension.gyp \
+                --replace-fail 'unknown-linux-gnu' 'unknown-linux-musl'
+            '';
+          })
+        else package;
+    }).overrideAttrs (old: {
+      # electron-builder follows pnpm's backing directory, not the replacement
+      # at node_modules/@signalapp/sqlcipher, and otherwise packages the GNU binary.
+      # XXX: i guess this indicates a bug in the existing nix package: nixpkgs isn't shipping the from-source signal-sqlcipher even on glibc?
+      preFixup = (old.preFixup or "") + ''
+        install -m644 ${final.signal-desktop.signal-sqlcipher}/prebuilds/linux-${stdenv.hostPlatform.node.arch}/*.node \
+          $out/share/signal-desktop/app.asar.unpacked/node_modules/@signalapp/sqlcipher/prebuilds/linux-${stdenv.hostPlatform.node.arch}/
+      '';
+    });
 
     # 2026-04-30: still required
     # XXX(2026-02-03): default `pkgsMusl.slack` fails at launch:

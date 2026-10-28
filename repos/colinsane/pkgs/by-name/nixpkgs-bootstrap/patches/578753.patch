@@ -34,7 +34,7 @@ $ nix-build -E "(import ./. {}).pkgsCross.aarch64-multiplatform.writers.writePyt
  1 file changed, 8 insertions(+), 8 deletions(-)
 
 diff --git a/pkgs/build-support/writers/scripts.nix b/pkgs/build-support/writers/scripts.nix
-index ac9c23ae77b7..6361ee04024b 100644
+index ac9c23ae77b75c1ae77e4220ba404b08fe24be1f..6361ee04024b2969b48b3b4e337024fae16d45d7 100644
 --- a/pkgs/build-support/writers/scripts.nix
 +++ b/pkgs/build-support/writers/scripts.nix
 @@ -409,13 +409,13 @@ rec {

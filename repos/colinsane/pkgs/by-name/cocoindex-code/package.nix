@@ -23,7 +23,6 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
 
   patches = [
     ./find-ccc-from-path.patch
-    ./mcp-compat.patch
   ];
 
   pyproject = true;

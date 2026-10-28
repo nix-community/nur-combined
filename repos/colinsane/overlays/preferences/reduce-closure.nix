@@ -1,13 +1,14 @@
 self: super: {
-  beam = super.beam.override {
-    # build erlang without webkit (for servo)
-    wxSupport = false;
-    # old way: keep wxGTK32, but disable webkitgtk components
-    # doesn't apply anymore: see <repo:nixos/nixpkgs:pkgs/top-level/beam-packages.nix>
-    # wxGTK32 = self.wxGTK32.override {
-    #   withWebKit = false;
-    # };
-  };
+  # beam = super.beam.override {
+  #   # build erlang without webkit (for servo/pleroma)
+  #   wxSupport = false;
+  #   # old way: keep wxGTK32, but disable webkitgtk components
+  #   # doesn't apply anymore: see <repo:nixos/nixpkgs:pkgs/top-level/beam-packages.nix>
+  #   # wxGTK32 = self.wxGTK32.override {
+  #   #   withWebKit = false;
+  #   # };
+  # };
+  beam = super.beam_minimal;
 
   evolution-data-server = super.evolution-data-server.override {
     # OAuth depends on webkitgtk_4_1: old, forces an annoying recompilation

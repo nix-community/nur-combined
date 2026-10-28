@@ -1,4 +1,4 @@
-From bd39b27b4f974cd792e810d541e7ad5a1b7d4f61 Mon Sep 17 00:00:00 2001
+From b8e79fcb57a9428e505a37369a8357b2d85c72ec Mon Sep 17 00:00:00 2001
 From: Aleksi Hannula <ahannula4+nixgit@gmail.com>
 Date: Tue, 20 Oct 2026 22:50:35 +0300
 Subject: [PATCH] minimal-bootstrap.tinycc-{mes,musl*}: fetch from mirror
@@ -10,7 +10,7 @@ The upstream repository has Anubis in front of tarball fetches.
  2 files changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/pkgs/os-specific/linux/minimal-bootstrap/tinycc/mes.nix b/pkgs/os-specific/linux/minimal-bootstrap/tinycc/mes.nix
-index 6cfe732526714..b7d66ca5a62f2 100644
+index 6cfe732526714990c3d055ecbf7bce798bd8749f..b7d66ca5a62f26297956cad0f02eab695932ada5 100644
 --- a/pkgs/os-specific/linux/minimal-bootstrap/tinycc/mes.nix
 +++ b/pkgs/os-specific/linux/minimal-bootstrap/tinycc/mes.nix
 @@ -18,8 +18,8 @@ let
@@ -43,7 +43,7 @@ index 6cfe732526714..b7d66ca5a62f2 100644
    meta = {
      description = "Small, fast, and embeddable C compiler and interpreter";
 diff --git a/pkgs/os-specific/linux/minimal-bootstrap/tinycc/musl.nix b/pkgs/os-specific/linux/minimal-bootstrap/tinycc/musl.nix
-index 4fceaf33471d3..f84b067972b72 100644
+index 4fceaf33471d38f021d8c1bf22a3eb5ca7da6f35..f84b067972b72164f8a28a7b251d27b6a44698aa 100644
 --- a/pkgs/os-specific/linux/minimal-bootstrap/tinycc/musl.nix
 +++ b/pkgs/os-specific/linux/minimal-bootstrap/tinycc/musl.nix
 @@ -15,8 +15,8 @@ let

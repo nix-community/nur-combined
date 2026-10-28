@@ -9,6 +9,7 @@ let
     inherit (mlModels)
       # bonsai-8b-q1_0
       bonsai-27b-q1_0
+      flint-ud-q4_k_xl
       # # gemma-4-e2b-it-bf16
       # gemma-4-e2b-it-q4_k_s
       # # gemma-4-e2b-it-q6_k
@@ -39,6 +40,7 @@ let
       # gemma-4-31b-it-qat-ud-q4_k_xl
       # glm-4_7-flash
       # gpt-oss-20b
+      # humanizer-12b-q4_k_m
       # lfm2_5-230m-fable-5-q8_0
       # lfm2_5-8b-a1b-ud-iq4_xs
       # liquidai-lfm2-24b-a2b-iq4_xs
@@ -46,6 +48,7 @@ let
       # minimax-m2_5
       # nemotron-3-nano-4b
       # nemotron-3-nano-30b-a3b
+      nvidia-nemotron-3_5-bolt-e4b-ud-iq3_xxs
       # omnicoder-9b
       # ornith-1_0-35b-q4_k_m
       # qwen-agentworld-35b-a3b-ud-iq2_m
@@ -68,10 +71,13 @@ let
       qwen3_6-35b-a3b-mtp-ud-q4_k_m
       qwen3_6-35b-a3b-uncensored-hauhaucs-aggressive-q3_k_p
       # qwen3_5-122b-a10b-uncensored-hauhaucs-aggressive-q3_k_p
+      qwen3_8-flash-next-gsq-rco-abliterated-iq3_s
       # qwen3-next-80b-a3b-thinking-grpo-uncensored-i1-q4_k_s
       # qwopus3_6-35b-a3b-coder-mtp-q4_k_m
       # qwythos-9b-claude-mythos-5-1m-q4_k_m
       # qwythos-9b-v2-q4_k_m
+      sage-a1_5-q4_k_m
+      spark-x2_6-4b-q4_k_m
       # step3_7-flash-iq4_xs
       ternary-bonsai-2-27b-ptq1_0
     ;

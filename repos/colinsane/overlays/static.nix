@@ -1,3 +1,8 @@
+# this file contains build fixes or runtime fixes specific to statically-linked packages.
+# for failure modes which reproduce outside of the `pkgsStatic` set, refer to overlays/patches.nix instead.
+# e.g.
+# - `pkgsStatic.x` fails, but `pkgsMusl.x` builds (or fails in a different manner): fix belongs here.
+# - `pkgsStatic.x` fails, and `pkgsMusl.x` fails in a similar manner: see overlays/patches.nix.
 final: prev:
 let
   inherit (final.stdenv.hostPlatform) hasSharedLibraries;

@@ -97,13 +97,6 @@ in
       # patches = (base.patches or []) ++ lib.optionals (!cfg.config.mediaPrevNext) [
       #   ./playerctl-no-prev-next.diff
       # ];
-      src = lib.warnIf (lib.versionOlder "0.12.1" base.version) "nwg-panel outdated: remove patch?" base.src.overrideAttrs {
-        # fetch src from 2026-10-15, which fixes playerctl crash w/o requiring a patched playerctl
-        # https://github.com/nwg-piotr/nwg-panel/pull/460
-        # merged upstream, 2026-10-10
-        rev = "27ede8e0a4e4a8ddb19120a0b4cf18edecd7e81e";
-        hash = "sha256-fthwVSRoHWOg1+dkc1txlF5Wo2kPKoeCChUlqOy1azc=";
-      };
       patches = (base.patches or []) ++ [
         (pkgs.fetchpatch {
           # upstreaming: <https://github.com/nwg-piotr/nwg-panel/pull/309>

@@ -2,7 +2,9 @@
 # steam requires OS-supplied 32-bit libraries (in addition to 64-bit libs).
 #
 # a large number of pkgsi686Linux failures are attributable to /nix/var/nix/b having inodes > 2**32; an impurity not reproducible for cache.nixos.org.
-# - see: <https://github.com/NixOS/nixpkgs/issues/565107>
+# - see: <https://github.com/NixOS/nixpkgs/pull/578642>
+#   - previously: <https://github.com/NixOS/nixpkgs/pull/420063>
+# - see: <https://github.com/NixOS/nixpkgs/issues/24016>
 self: super: {
   stdenv = super.overrideMkDerivationArgs
     (args: {

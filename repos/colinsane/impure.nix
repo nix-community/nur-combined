@@ -149,6 +149,10 @@ let
         # wrap in `tryEval` to deal with that, and not descend into such attributes.
         isAttrs' = builtins.tryEval (builtins.isAttrs value);
       in
+        # XXX(2026-10-22): hack to avoid importing the often-broken `pkgs*` sets like `pkgsStaging`.
+        # `tryEval` doesn't catch a broken IFD, which those sets depend on.
+        # broken IFD would abort the whole eval and prevent access to *any* updateScript.
+        (builtins.match "pkgs.*" name) == null &&
         isAttrs'.success && isAttrs'.value
     )
     attrs;
