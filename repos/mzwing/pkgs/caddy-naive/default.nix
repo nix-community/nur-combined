@@ -8,7 +8,7 @@
   version = source.caddyVersion;
 
   # The vendored module tree, patched Caddy included; refreshed by update-hashes.
-  srcHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+  srcHash = "sha256-u/fuihttqZgHgK9Wnc9P5C5EHiRJXj02LKvjzZnAohY=";
 
   forwardproxy = "github.com/caddyserver/forwardproxy=github.com/klzgrad/forwardproxy@${source.goVersion}";
 

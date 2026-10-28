@@ -14,7 +14,7 @@
   version = "0-unstable-${source.date}";
 
   # Cross-platform pnpm store hash refreshed by update-hashes.
-  pnpmDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+  pnpmDepsHash = "sha256-BCX92A2jt6Kt4NcMxbk1I5TdICx4zabjkARggRQ99AU=";
 in
   stdenv.mkDerivation {
     inherit pname version;

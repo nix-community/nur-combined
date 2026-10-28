@@ -3,11 +3,11 @@
 { fetchzip }:
 
 let
-  date = "2026-09-26";
-  rev = "35608810daa2837fc7e685705951ffa6be85a01a";
+  date = "2026-10-27";
+  rev = "104a7b60c49f8325e05573b208b29962fa3aaa81";
   src = fetchzip {
-    url = "https://codeload.github.com/MZWNET/clash2sing-box/tar.gz/35608810daa2837fc7e685705951ffa6be85a01a";
-    hash = "sha256-giKK/8U/6l4qgizw8/PKgYIG71L+FHUN17IpI+ZbtSQ=";
+    url = "https://codeload.github.com/MZWNET/clash2sing-box/tar.gz/104a7b60c49f8325e05573b208b29962fa3aaa81";
+    hash = "sha256-ADsPSwrHHyF/wAMKM7z0pxJU6nZwv4ztAFUs2KWwPEw=";
     extension = "tar.gz";
   };
 in
