@@ -21,4 +21,6 @@ for flutter in "${flutters[@]}"; do
   nix-store --query --requisites "${sdk}" | xargs -r sudo "$(command -v nix-store)" --delete || true
 done
 
+# Flakes skip untracked files, which would hide a new package's source.nix from update-hashes.
+git add --intent-to-add pkgs
 nix run .#update-hashes

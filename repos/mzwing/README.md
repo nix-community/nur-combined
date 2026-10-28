@@ -12,6 +12,7 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 | `ace-ctx` | [Usage](https://github.com/CodingOX/ace-ctx) |
 | `autocli` | [Usage](https://github.com/nashsu/autocli) |
 | `bakamusic` | [Usage](https://github.com/Zencok/BakaMusic) |
+| `caddy-naive` | [Usage](https://github.com/klzgrad/forwardproxy) |
 | `clash2sing-box` | [Usage](https://github.com/MZWNET/clash2sing-box) |
 | `claude-code-wakatime` | [Usage](https://github.com/wakatime/claude-code-wakatime) |
 | `claude-hud` | [Usage](https://github.com/jarrodwatts/claude-hud) |
@@ -49,6 +50,7 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 | --- | --- |
 | `cliproxyapiplus` | [Usage](docs/modules/cliproxyapiplus.md) |
 | `magpie` | [Usage](docs/modules/magpie.md) |
+| `openlist` | [Usage](docs/modules/openlist.md) |
 
 ## Home Manager modules
 
