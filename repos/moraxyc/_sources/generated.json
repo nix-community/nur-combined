@@ -1087,6 +1087,30 @@
         },
         "version": "v1.4.23"
     },
+    "pi-mcp-adapter": {
+        "cargoLock": null,
+        "date": null,
+        "extract": {
+            "package-lock.json": "sha256-x2qh8hFRg4agNOCyroyAxz_ny3iwCp5x4xsisn_TrKk=/package-lock.json",
+            "package.json": "sha256-x2qh8hFRg4agNOCyroyAxz_ny3iwCp5x4xsisn_TrKk=/package.json"
+        },
+        "name": "pi-mcp-adapter",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "nicobailon",
+            "repo": "pi-mcp-adapter",
+            "rev": "v7.0.0",
+            "sha256": "sha256-x2qh8hFRg4agNOCyroyAxz/ny3iwCp5x4xsisn/TrKk=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v7.0.0"
+    },
     "pi-subagents": {
         "cargoLock": null,
         "date": null,
@@ -1110,6 +1134,27 @@
             "type": "github"
         },
         "version": "v0.83.0"
+    },
+    "pi-token-speed": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "pi-token-speed",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "gsanhueza",
+            "repo": "pi-token-speed",
+            "rev": "0.12.0",
+            "sha256": "sha256-P6u5Og9SkEY6UQdx8IsV4xl4gBECUXHeofi6FxGDm/Q=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "0.12.0"
     },
     "picoclaw": {
         "cargoLock": null,

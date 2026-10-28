@@ -638,6 +638,21 @@
       "package.json" = ./. + "/sha256-PsmXW3yCr9zIDGpxsDz3nDfqE8NQPqEZNifbEo9GQCI=/package.json";
     };
   };
+  pi-mcp-adapter = {
+    pname = "pi-mcp-adapter";
+    version = "v7.0.0";
+    src = fetchFromGitHub {
+      owner = "nicobailon";
+      repo = "pi-mcp-adapter";
+      rev = "v7.0.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-x2qh8hFRg4agNOCyroyAxz/ny3iwCp5x4xsisn/TrKk=";
+    };
+    extract = {
+      "package-lock.json" = ./. + "/sha256-x2qh8hFRg4agNOCyroyAxz_ny3iwCp5x4xsisn_TrKk=/package-lock.json";
+      "package.json" = ./. + "/sha256-x2qh8hFRg4agNOCyroyAxz_ny3iwCp5x4xsisn_TrKk=/package.json";
+    };
+  };
   pi-subagents = {
     pname = "pi-subagents";
     version = "v0.83.0";
@@ -651,6 +666,17 @@
     extract = {
       "package-lock.json" = ./. + "/sha256-n2VQpu7LnEmiprtyIL4H7AxNSkplBLPEjbYhFA6njlY=/package-lock.json";
       "package.json" = ./. + "/sha256-n2VQpu7LnEmiprtyIL4H7AxNSkplBLPEjbYhFA6njlY=/package.json";
+    };
+  };
+  pi-token-speed = {
+    pname = "pi-token-speed";
+    version = "0.12.0";
+    src = fetchFromGitHub {
+      owner = "gsanhueza";
+      repo = "pi-token-speed";
+      rev = "0.12.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-P6u5Og9SkEY6UQdx8IsV4xl4gBECUXHeofi6FxGDm/Q=";
     };
   };
   picoclaw = {

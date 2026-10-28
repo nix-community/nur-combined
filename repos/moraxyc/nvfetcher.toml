@@ -239,10 +239,19 @@ src.github_tag = "router-for-me/pi-cliproxyapi-provider"
 fetch.github = "router-for-me/pi-cliproxyapi-provider"
 extract = ["package-lock.json", "package.json"]
 
+[pi-mcp-adapter]
+src.github = "nicobailon/pi-mcp-adapter"
+fetch.github = "nicobailon/pi-mcp-adapter"
+extract = ["package-lock.json", "package.json"]
+
 [pi-subagents]
 src.github = "nicobailon/pi-subagents"
 fetch.github = "nicobailon/pi-subagents"
 extract = ["package-lock.json", "package.json"]
+
+[pi-token-speed]
+src.github_tag = "gsanhueza/pi-token-speed"
+fetch.github = "gsanhueza/pi-token-speed"
 
 [picoclaw]
 src.github_tag = "sipeed/picoclaw"
