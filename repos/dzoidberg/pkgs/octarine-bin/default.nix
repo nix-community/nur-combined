@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://pub-3d35bc018fc54f11bde129e3e73e8002.r2.dev/${version}/linux/Octarine-bin-${version}-1-x86_64.pkg.tar.zst";
-    hash = "sha256-a5csAYAugaBI4S+KRnfPA47AU/OkcDvPVoCARbdXXMQ=";
+    hash = "sha256-Bz2qfL0WWQ6B6/tBTwmgek7BsxycQJXsYV1su8EOBLs=";
   };
 
   nativeBuildInputs = [ zstd autoPatchelfHook wrapGAppsHook3 makeWrapper ];
