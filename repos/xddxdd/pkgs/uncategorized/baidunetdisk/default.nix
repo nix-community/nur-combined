@@ -22,7 +22,7 @@ let
 
   src = fetchurl {
     url = "http://wppkg.baidupcs.com/issue/netdisk/Linuxguanjia/${version}/baidunetdisk_${version}_amd64.deb";
-    hash = "sha256-7HHCrRFRYJ/Q2LhtlRhMC0V9bbWqGIYeCxX8I8z+Afc=";
+    hash = "sha256-rmsgorL9hDE+Haci3+FOOdW0RmSbRttgD4OyXK91QeI=";
   };
 
   libraries = [
