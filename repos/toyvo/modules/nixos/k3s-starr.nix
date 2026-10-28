@@ -1148,6 +1148,13 @@ in
                         name = "TZ";
                         value = "America/Chicago";
                       }
+                      # The image hardcodes --webui-port on the command line,
+                      # overriding the config file: the env var is the only
+                      # way to match the Service port.
+                      {
+                        name = "WEBUI_PORT";
+                        value = "4080";
+                      }
                     ];
                     ports = [ { containerPort = qbittorrentPort; } ];
                     resources = {
