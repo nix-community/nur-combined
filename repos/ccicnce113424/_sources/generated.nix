@@ -54,26 +54,26 @@
   };
   dorion-git = {
     pname = "dorion-git";
-    version = "4d8822127bd6a8d284bd39b1888443636c3be987";
+    version = "db1adbad3a46384ab4f7235d1d8ff3bc66e6f420";
     src = fetchFromGitHub {
       owner = "SpikeHD";
       repo = "Dorion";
-      rev = "4d8822127bd6a8d284bd39b1888443636c3be987";
+      rev = "db1adbad3a46384ab4f7235d1d8ff3bc66e6f420";
       fetchSubmodules = false;
-      sha256 = "sha256-amZ9zFx3aNQSEDouhtC8YXccPrvz00ZDSXC0LZmsYqU=";
+      sha256 = "sha256-3GcStFkCS9BwtKzLKFqNS+qJRtGw6wfAPeoXh71zj0I=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-amZ9zFx3aNQSEDouhtC8YXccPrvz00ZDSXC0LZmsYqU=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-3GcStFkCS9BwtKzLKFqNS+qJRtGw6wfAPeoXh71zj0I=/src-tauri/Cargo.lock";
       outputHashes = {
         "simple-websockets-0.1.6" = "sha256-iySzwntHw5Wf5HwKMBYL8mrMl7kjGZrZonL7/zrkeCo=";
-        "tauri-runtime-cef-0.1.0" = "sha256-7+M4IvkEXqLXgqa5fraUrMzDQUqXjXcirCdDUJlXJn4=";
+        "tauri-runtime-cef-0.1.0" = "sha256-U/ak4ipPGIAnVGuuBVTrVmTKoC75/Lo4vOL8RxUVQm0=";
         "livesplit-hotkey-0.8.0" = "sha256-iYAzlkYMEN2v4IhsnljWpUZkJO5CN1vcqz5thAJvbXc=";
         "tauri-plugin-shell-2.2.1" = "sha256-/0jPi8kbs+yfLVl5ckD3xcSpc+3KXb1K4xsgdfp0KOQ=";
         "window_titles-0.1.0" = "sha256-lk2T+6curAwqOUuQ8RtYCjX2ygGBgzt4ILBAMV+ql0w=";
         "rsrpc-0.29.0" = "sha256-7zS833bmy6JUjk4PqCENz6ikoTOtelcymXMi2pxD3V0=";
       };
     };
-    date = "2026-10-26";
+    date = "2026-10-27";
   };
   dxvk-gplall = {
     pname = "dxvk-gplall";
