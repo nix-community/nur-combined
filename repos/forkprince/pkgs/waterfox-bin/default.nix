@@ -6,7 +6,7 @@
   at-spi2-core,
   libxkbcommon,
   at-spi2-atk,
-  ffmpeg-full,
+  ffmpeg_9,
   makeWrapper,
   gdk-pixbuf,
   dbus-glib,
@@ -126,7 +126,7 @@ in
         at-spi2-core
         libxkbcommon
         at-spi2-atk
-        ffmpeg-full
+        ffmpeg_9
         libX11
         libXi
         gdk-pixbuf
