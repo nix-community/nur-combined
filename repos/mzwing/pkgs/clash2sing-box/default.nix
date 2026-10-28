@@ -46,9 +46,9 @@ in
     installPhase = ''
       runHook preInstall
 
-      # Pruning leaves links to the removed dev dependencies behind: https://github.com/pnpm/pnpm/issues/3645
-      CI=true pnpm prune --prod --ignore-scripts
-      find node_modules -xtype l -delete
+      # pnpm 12's prune ignores pnpmConfigHook's trust-lockfile and verifies the lockfile against supply-chain policies over the network.
+      rm -rf node_modules
+      pnpm install --offline --frozen-lockfile --ignore-scripts --prod
 
       mkdir -p $out/lib/clash2sing-box
       cp -r dist node_modules $out/lib/clash2sing-box/

@@ -8,7 +8,7 @@
   version = source.caddyVersion;
 
   # The vendored module tree, patched Caddy included; refreshed by update-hashes.
-  srcHash = "sha256-u/fuihttqZgHgK9Wnc9P5C5EHiRJXj02LKvjzZnAohY=";
+  srcHash = "sha256-6IyRKHoQ3i5q7Bi/pMXyLJV21/UcjmYKKdQibOsdluU=";
 
   forwardproxy = "github.com/caddyserver/forwardproxy=github.com/klzgrad/forwardproxy@${source.goVersion}";
 
@@ -34,6 +34,9 @@ in
     src = prevAttrs.src.overrideAttrs (srcAttrs: {
       # The fixed-output hash already pins the whole vendored tree.
       env = srcAttrs.env // {GOSUMDB = "off";};
+
+      # patchShebangs would point the patched tree's setcap.sh at this platform's bash, which a fixed output must not reference.
+      dontFixup = true;
 
       buildPhase = ''
         runHook preBuild
