@@ -1169,6 +1169,14 @@ in
                         name = "media";
                         mountPath = "/mnt";
                       }
+                      # Transitional: live fastresume state references the old
+                      # container paths (/var/lib/qBittorrent/...). Mounts the
+                      # same host dir so existing torrents resume in place.
+                      # Remove once old downloads are migrated to /mnt/Downloads.
+                      {
+                        name = "legacy-state";
+                        mountPath = "/var/lib/qBittorrent";
+                      }
                     ];
                   }
                   {
@@ -1219,6 +1227,10 @@ in
                   {
                     name = "media";
                     persistentVolumeClaim.claimName = "qbittorrent-media";
+                  }
+                  {
+                    name = "legacy-state";
+                    hostPath.path = "/mnt/POOL/starr/qbittorrent";
                   }
                 ];
               };
