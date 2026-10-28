@@ -1094,7 +1094,12 @@ in
                       "/bin/sh"
                       "-c"
                       ''
-                        apk add --no-cache iptables
+                        apk add --no-cache iptables iproute2
+                        # Split tunnel: cluster + LAN bypass WireGuard.
+                        # wg-quick's suppress_prefixlength rule would otherwise
+                        # suck 10/8 into wg0, where Proton blackholes it.
+                        # Evaluated before wg-quick's own rules (pref 32764+).
+                        ip rule add to 10.0.0.0/8 table main pref 31000
                         # Default DROP everywhere: if wg0 disappears, nothing leaks.
                         iptables -F; iptables -X
                         iptables -P INPUT DROP
