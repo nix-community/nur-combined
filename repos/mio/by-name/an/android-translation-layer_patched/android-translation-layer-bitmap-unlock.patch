@@ -5,19 +5,15 @@ Subject: [PATCH] fix bitmap unlock to prevent recycle crashes
 API: https://developer.android.com/ndk/reference/group/bitmap#androidbitmap_unlockpixels
 
 diff --git a/src/libandroid/bitmap.c b/src/libandroid/bitmap.c
-index 7a81d8eb..7a27bd33 100644
 --- a/src/libandroid/bitmap.c
 +++ b/src/libandroid/bitmap.c
-@@ -67,8 +67,11 @@ int AndroidBitmap_unlockPixels(JNIEnv *env, jobject bitmap)
- 	}
+@@ -70,5 +70,8 @@ int AndroidBitmap_unlockPixels(JNIEnv *env, jobject bitmap)
  	GdkTexture *texture = gdk_memory_texture_new(width, height, format, bytes, stride);
  	g_bytes_unref(bytes);
--	(*env)->CallVoidMethod(env, bitmap, _METHOD(_CLASS(bitmap), "recycle", "()V"));
+-	J__Bitmap__recycle(env, bitmap);
 +	jclass bitmap_class = _CLASS(bitmap);
 +	jmethodID native_recycle_method = _STATIC_METHOD(bitmap_class, "native_recycle", "(JJ)V");
 +	(*env)->CallStaticVoidMethod(env, bitmap_class, native_recycle_method, _GET_LONG_FIELD(bitmap, "texture"), _GET_LONG_FIELD(bitmap, "snapshot"));
  	_SET_LONG_FIELD(bitmap, "texture", _INTPTR(texture));
  	_SET_LONG_FIELD(bitmap, "bytes", 0);
 +	_SET_LONG_FIELD(bitmap, "snapshot", 0);
- 	return ANDROID_BITMAP_RESULT_SUCCESS;
- }
