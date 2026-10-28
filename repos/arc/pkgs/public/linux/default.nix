@@ -47,17 +47,21 @@ let
       };
     });
     kernelMakeFlags = linux: [
-      "-C" "${linux.dev}/lib/modules/${linux.modDirVersion}/build" "modules"
+      "-C" "${linux.dev}/lib/modules/${linux.modDirVersion}/build"
       "CROSS_COMPILE=${linux.stdenv.cc.targetPrefix or ""}"
+      "MODLIB=$(out)/lib/modules/${linux.modDirVersion}"
       "M=$(NIX_BUILD_TOP)/$(sourceRoot)"
       "VERSION=$(version)"
-    ] ++ (if linux.stdenv.hostPlatform ? linuxArch then [
+    ] ++ (if linux.kernelAtLeast "7.3" then [
+      # TODO: either 26.11 has incomplete moduleBuildDependencies atm or *.cer shouldn't be required?
+      "cmd_sign=kmodigest$(space)$@"
+    ] else [ ]) ++ (if linux.stdenv.hostPlatform ? linuxArch then [
       "ARCH=${linux.stdenv.hostPlatform.linuxArch}"
     ] else [ ]);
   packages = {
     inherit mergeLinuxConfig generateLinuxConfig;
 
-    forcefully-remove-bootfb = { stdenv, lib, fetchFromGitHub, linux, kmod, gnugrep, coreutils, pahole, makeWrapper }: stdenv.mkDerivation rec {
+    forcefully-remove-bootfb = { stdenv, lib, fetchFromGitHub, linux, kmod, gnugrep, coreutils, makeWrapper, buildPackages }: stdenv.mkDerivation rec {
       version = "2018-02-08";
       pname = let
         name = "forcefully-remove-bootfb";
@@ -72,12 +76,15 @@ let
       };
       sourceRoot = "source";
 
-      nativeBuildInputs = [ makeWrapper pahole ];
+      nativeBuildInputs = linux.moduleBuildDependencies ++ [ makeWrapper ]
+        ++ lib.optional (linux.kernelAtLeast "7.3") buildPackages.kmodigest;
       shellPath = lib.makeBinPath [ kmod gnugrep coreutils ];
 
       kernelVersion = linux.modDirVersion;
       modules = [ "forcefully_remove_bootfb" ];
       makeFlags = kernelMakeFlags linux;
+      buildTargets = [ "modules" ];
+      installTargets = [ "modules_install" ];
       enableParallelBuilding = true;
 
       outputs = [ "bin" "out" ];
@@ -86,22 +93,17 @@ let
         substituteInPlace Makefile \
           --replace '$(TARGET).o:' '$(TARGET).ko:'
       '';
-
-      installPhase = ''
-        runHook preInstall
-
-        install -Dm644 -t $out/lib/modules/$kernelVersion/kernel/drivers/video/fbdev/ forcefully_remove_bootfb.ko
+      postInstall = ''
         install -Dm755 forcefully_remove_bootfb.sh $bin/bin/forcefully-remove-bootfb
         wrapProgram $bin/bin/forcefully-remove-bootfb --prefix PATH : $shellPath
-
-        runHook postInstall
       '';
+      #installPhase = "install -Dm644 -t $out/lib/modules/$kernelVersion/kernel/drivers/video/fbdev/ forcefully_remove_bootfb.ko";
 
       dontStrip = true;
       meta.platforms = lib.platforms.linux;
     };
 
-    ryzen-smu = { stdenv, lib, fetchFromGitLab, linux, pahole }: stdenv.mkDerivation rec {
+    ryzen-smu = { stdenv, lib, fetchFromGitLab, buildPackages, linux }: stdenv.mkDerivation rec {
       version = "2021.04.21";
       pname = let
         pname = "ryzen-smu";
@@ -117,19 +119,20 @@ let
       };
       sourceRoot = "source";
 
-      nativeBuildInputs = [ pahole ];
+      nativeBuildInputs = linux.moduleBuildDependencies
+        ++ lib.optional (linux.kernelAtLeast "7.3") buildPackages.kmodigest;
       kernelVersion = linux.modDirVersion;
       modules = [ "ryzen-smu" ];
       makeFlags = kernelMakeFlags linux;
+      buildTargets = [ "modules" ];
+      installTargets = [ "modules_install" ];
       enableParallelBuilding = true;
 
       postPatch = lib.optionalString (lib.versionAtLeast linux.version "7.2") ''
         sed -e '/^#include <asm\/io\.h>/a #include <asm/cpuid/api.h>' \
           -i smu.c
       '';
-      installPhase = ''
-        install -Dm644 -t $out/lib/modules/$kernelVersion/kernel/drivers/ ryzen_smu.ko
-      '';
+      #installPhase = "install -Dm644 -t $out/lib/modules/$kernelVersion/kernel/drivers/ ryzen_smu.ko";
 
       meta.platforms = lib.platforms.linux;
     };

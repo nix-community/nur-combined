@@ -7,6 +7,7 @@
 
     doCheck = false;
 
+    __structuredAttrs = false;
     passAsFile = [ "setup" ];
     setup = ''
       from setuptools import setup

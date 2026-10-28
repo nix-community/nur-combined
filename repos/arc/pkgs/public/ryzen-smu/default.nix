@@ -35,6 +35,7 @@
       pname = "ryzen-smu-cpuid";
       inherit (ryzen-smu) src version meta;
 
+      __structuredAttrs = false;
       passAsFile = [ "setup" ];
       setup = ''
         from setuptools import setup
@@ -65,6 +66,7 @@
         --replace 'sys.path.append(os.path.abspath("."))' ""
     '';
 
+    __structuredAttrs = false;
     passAsFile = [ "setup" ];
     setup = ''
       from setuptools import setup

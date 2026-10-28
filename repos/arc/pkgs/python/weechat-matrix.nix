@@ -72,6 +72,8 @@ in with pythonPackages; buildPythonPackage rec {
     ./pyopenssl-pyo3.patch
   ];
 
+  # messes with passAsFile...
+  __structuredAttrs = false;
   passAsFile = [ "setup" ];
   setup = ''
     from io import open

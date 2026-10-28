@@ -14,6 +14,8 @@ in {
   , pip ? buildPackages.python3Packages.pip, buildPackages
   }: let
     sourceRoot = "source/polybar-scripts/player-mpris-tail";
+    # TODO: pass explicitly?
+    # pythonIsStructured = lib.versionAtLeast lib.version "26.10.999";
   in python3Packages.buildPythonApplication {
     pname = "mpris-tail";
     inherit (src) version;
@@ -35,6 +37,8 @@ in {
       wrapGAppsHook3
     ];
 
+    # messes with passAsFile...
+    __structuredAttrs = false;
     passAsFile = [ "setup" ];
     setupRequirements = ["dbus-python" "pygobject"];
     setup = ''
