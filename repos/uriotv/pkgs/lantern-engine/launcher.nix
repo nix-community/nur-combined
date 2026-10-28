@@ -6,6 +6,8 @@ buildDotnetModule {
   nugetDeps = ./deps.json;
   dotnet-sdk = dotnetCorePackages.sdk_8_0;
   dotnet-runtime = dotnetCorePackages.runtime_8_0;
+  # The engine is read-only; validate and log in BB_DATA_DIR / BB_OUT_DIR instead.
+  patches = [ ./writable-data.patch ];
   # Nix owns updates: never replace the source-built engine with release binaries.
   postPatch = ''
     substituteInPlace launcher/windows/LanternLauncher/{Program.cs,Views/DiscordPreview.cs,Views/Symbols.cs} \

@@ -1,0 +1,32 @@
+diff --git a/launcher/windows/BloodborneLauncher/Core/GameRunner.cs b/launcher/windows/BloodborneLauncher/Core/GameRunner.cs
+--- a/launcher/windows/BloodborneLauncher/Core/GameRunner.cs
++++ b/launcher/windows/BloodborneLauncher/Core/GameRunner.cs
+@@ -24,8 +24,12 @@ namespace BloodborneLauncher.Core
+             return kill.HasExited && kill.ExitCode == 0;
+         }
+
+-        /// <summary>Everything the last session printed: logs\last_session.log in the engine folder.</summary>
+-        public static string SessionLog => Path.Combine(Paths.IsPortDir(Paths.PortDir) ? Paths.PortDir : Paths.ConfigDir, "logs", "last_session.log");
++        private static string OutputDir =>
++            Environment.GetEnvironmentVariable("BB_OUT_DIR") is { Length: > 0 } dir
++                ? dir : Path.Combine(Paths.DataDir, "out");
++
++        /// <summary>Keep logs with writable player data, not the read-only engine.</summary>
++        public static string SessionLog => Path.Combine(Paths.IsPortDir(Paths.PortDir) ? Paths.DataDir : Paths.ConfigDir, "logs", "last_session.log");
+
+         public bool Running => _process != null;
+         public DateTime StartedAt { get; private set; }
+@@ -73,10 +77,9 @@ namespace BloodborneLauncher.Core
+                 // run.sh with --game-dir and this same environment (engine/packaging/linux).
+                 if (!Paths.IsPortDir(Paths.PortDir))
+                     return "The engine folder is not set. Choose it in Settings › Lantern Engine.";
+-                if (!Writable(Path.Combine(Paths.EngineDir, "out")))
+-                    return $"Windows does not let the game write into its own folder ({Paths.PortDir}), which it needs for its " +
+-                           "prepared files, logs and saves. This happens under Program Files: move the Lantern Engine folder " +
+-                           "somewhere else, such as C:\\Games or your Documents.";
++                if (!Writable(Paths.DataDir) || !Writable(OutputDir))
++                    return $"The game cannot write to its data folder ({Paths.DataDir}) or output folder ({OutputDir}). " +
++                           "Choose writable locations with BB_DATA_DIR and BB_OUT_DIR for prepared files, logs and saves.";
+                 if (File.Exists(Paths.Start))
+                 {
+                     // The engine's native start: the boot image, mods, patches, then bb-probe.
