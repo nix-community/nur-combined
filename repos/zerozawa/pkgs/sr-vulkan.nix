@@ -10,18 +10,18 @@
 
 python313Packages.buildPythonPackage rec {
   pname = "sr-vulkan";
-  version = "2.0.1.1";
+  version = "2.1.0";
   format = "wheel";
 
   src = fetchPypi {
     pname = "sr_vulkan";
     inherit version;
-    hash = "sha256-oA+miP10IRoYewD6g/Baxq1l7J6IQmNhjwbq+TWX04M=";
+    hash = "sha256-gO4jTjYnezsm7fZlVJCDM651LrJtABig4xalUzFOnXQ=";
     format = "wheel";
     dist = "cp37";
     python = "cp37";
     abi = "abi3";
-    platform = "manylinux_2_17_x86_64";
+    platform = "manylinux_2_28_x86_64";
   };
 
   nativeBuildInputs = [ autoPatchelfHook ];

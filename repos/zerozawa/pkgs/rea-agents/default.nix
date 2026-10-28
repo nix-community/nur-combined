@@ -7,7 +7,7 @@
   buildNpmPackage,
   makeWrapper,
   autoPatchelfHook,
-  nodejs_24,
+  nodejs_26,
   python313,
   android-tools,
   apktool,
@@ -29,10 +29,15 @@
   jadx-headless-mcp,
 }:
 let
-  # REA's pwntools bridge (bridge/pwntools/layout_impl.py) rejects any Python
-  # whose installed distributions are not exactly pwntools 4.15.0,
-  # pyelftools 0.33 and unicorn 2.1.2; nixpkgs ships pyelftools 0.32 and
-  # unicorn 2.1.4, so pin the two mismatches in a dedicated package set.
+  # REA's pwntools bridges (bridge/pwntools/layout_impl.py,
+  # recorded_crash_impl.py) reject any Python whose installed distributions are
+  # not exactly pwntools 4.15.0, pyelftools 0.33 and unicorn 2.1.2. nixpkgs
+  # already ships pwntools 4.15.0; pyelftools 0.33 is genuinely required (the
+  # adapter subclasses its iterators with 0.33's filter arguments), so only that
+  # one is overridden here. The unicorn pin is a pwntools lockstep check rather
+  # than a behaviour the bridges use — neither bridge imports unicorn, and a
+  # layout run over a dynamic ELF projects byte-identical records under 2.1.2
+  # and nixpkgs' 2.1.4 — so postPatch follows the packaged version instead.
   reaPython = python313.override {
     packageOverrides = final: prev: {
       pyelftools = prev.pyelftools.overridePythonAttrs (old: rec {
@@ -43,23 +48,6 @@ let
           hash = "sha256-Zg2C3L646D0XAr2X8iP3YWJdoGERwMyYjqxrirDBth8=";
         };
       });
-      # The PyPI manylinux wheel ships a self-contained libunicorn loaded via
-      # ctypes, so no native build or RPATH fixup is needed.
-      unicorn = final.buildPythonPackage rec {
-        pname = "unicorn";
-        version = "2.1.2";
-        format = "wheel";
-        src = fetchPypi {
-          inherit pname version;
-          format = "wheel";
-          dist = "cp313";
-          python = "cp313";
-          abi = "cp313";
-          platform = "manylinux_2_17_x86_64.manylinux2014_x86_64";
-          hash = "sha256-nGoL38OCZmAOrO4vJkIC+tG/+FkK020Ye0cDOngvEtw=";
-        };
-        pythonImportsCheck = [ "unicorn" ];
-      };
     };
   };
   reaPythonEnv = reaPython.withPackages (ps: [
@@ -98,14 +86,14 @@ let
 in
 buildNpmPackage rec {
   pname = "rea-agents";
-  version = "6.7.0";
+  version = "6.8.0";
 
   # Build the pinned upstream source tag; leave its package manifest and lockfile pristine.
   src = fetchFromGitHub {
     owner = "morluto";
     repo = "rea";
     rev = "refs/tags/rea-agents-${version}";
-    hash = "sha256-GKgXQZdzsmr2bEffi+UaffY5TseJ7dSQvWwF1kuz2og=";
+    hash = "sha256-2ADn3U3lvUoB4tCEpzO0rMfYE4sis+5uBiEazcp0gpI=";
   };
 
   # REPO PATCH: re-pin REA's audited jadx-headless-mcp release to the version
@@ -125,19 +113,49 @@ buildNpmPackage rec {
       --replace-fail 'revision: "5844800a486d2248fa949b74c9896285f5b54de2"' 'revision: "${jadxRevision}"' \
       --replace-fail 'sha256: "6e5eacf500b64292bfb73c49797c1958f6ee44646e43e868039ae7feb573ff75"' "sha256: \"$jadxSha\"" \
       --replace-fail 'releases/download/v0.7.1/jadx-headless-mcp-0.7.1-all.jar' 'releases/download/v${jadx-headless-mcp.version}/jadx-headless-mcp-${jadx-headless-mcp.version}-all.jar'
+
+    # bridge/mitmproxy/capture.py rejects any mitmproxy whose version differs
+    # from PROFILE = "12.2.3". The gate guards the native tnetstring record
+    # schema; a capture written by 12.2.3 and one written by 12.3.0 project to
+    # byte-identical records under either version's mitmdump (headers, cookies,
+    # redactions included), so follow the packaged mitmproxy instead of pinning
+    # an older nixpkgs for the whole package. The installCheck decodes a fixture
+    # through the packaged binary, which is what turns a schema break red.
+    substituteInPlace bridge/mitmproxy/capture.py \
+      --replace-fail 'PROFILE = "12.2.3"' 'PROFILE = "${mitmproxy.version}"'
+
+    # Same treatment for the pwntools bridges' unicorn sibling pin: neither
+    # bridge imports unicorn, so follow the packaged distribution.
+    substituteInPlace bridge/pwntools/layout_impl.py bridge/pwntools/recorded_crash_impl.py \
+      --replace-fail 'unicorn@2.1.2' 'unicorn@${python313.pkgs.unicorn.version}' \
+      --replace-fail '"unicorn": "2.1.2"' '"unicorn": "${python313.pkgs.unicorn.version}"'
   '';
 
   # Skip dependency lifecycle scripts: frida's installer attempts a toolchain
   # network download, and no locked Linux x86_64 dependency needs these scripts.
   npmFlags = [ "--ignore-scripts" ];
-  npmDepsHash = "sha256-BWMsF0ja+AyQg3w7BKVjzbI372HOKd2bFpFwbCAB5cA=";
+  npmDepsHash = "sha256-3WPXD+qm5WVfrTEvepKwX5RZBfbLBcPB0uDmKIx4MR8=";
 
   env = {
     HUSKY = "0";
     TURBO_TELEMETRY_DISABLED = "1";
   };
 
-  nodejs = nodejs_24;
+  # 6.8.0's `npm run compile` drives the Rust TypeScript compiler through
+  # @tsrs/linux-x64-gnu, a prebuilt glibc executable whose interpreter is
+  # /lib64/ld-linux-x86-64.so.2; exec fails with ENOENT inside the sandbox.
+  # fixupPhase's autoPatchelfHook only runs after the build script, so patch
+  # the binary first.
+  preBuild = ''
+    tsrsDir=node_modules/@tsrs/linux-x64-gnu
+    if [ ! -x "$tsrsDir/tsrs" ]; then
+      echo "the locked dependency tree no longer installs $tsrsDir/tsrs; check scripts/run-typescript.mjs and update pkgs/rea-agents" >&2
+      exit 1
+    fi
+    autoPatchelf "$tsrsDir"
+  '';
+
+  nodejs = nodejs_26;
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -171,7 +189,7 @@ buildNpmPackage rec {
       echo "the locked dependency tree no longer contains frida; drop fridaBinding and the frida installCheck" >&2
       exit 1
     fi
-    lockedFridaVersion=$(${nodejs_24}/bin/node -p "require('$fridaDir/package.json').version")
+    lockedFridaVersion=$(${nodejs_26}/bin/node -p "require('$fridaDir/package.json').version")
     if [ "$lockedFridaVersion" != "${fridaVersion}" ]; then
       echo "locked frida is $lockedFridaVersion but fridaBinding pins ${fridaVersion}; update pkgs/rea-agents" >&2
       exit 1
@@ -261,20 +279,71 @@ buildNpmPackage rec {
     '
     echo "doctor (node/ghidra/jadx/ilspycmd): ok"
 
-    # bridge/pwntools/layout_impl.py PACKAGES: exact distribution versions.
+    # bridge/pwntools/layout_impl.py PACKAGES: exact distribution versions, with
+    # unicorn following the packaged one (patched, see postPatch).
     ${reaPythonEnv}/bin/python -c '
     import importlib.metadata
-    expected = {"pwntools": "4.15.0", "pyelftools": "0.33", "unicorn": "2.1.2"}
+    expected = {"pwntools": "4.15.0", "pyelftools": "0.33", "unicorn": "${python313.pkgs.unicorn.version}"}
     for name, want in expected.items():
         got = importlib.metadata.version(name)
-        assert got == want, f"{name}: REA requires exactly {want}, pinned env has {got} — update pkgs/rea-agents"
+        assert got == want, f"{name}: the bridge requires exactly {want}, pinned env has {got} — update pkgs/rea-agents"
     '
     echo "pwntools trio: ok"
 
-    # bridge/mitmproxy/capture.py PROFILE = "12.2.3".
-    ${mitmproxy}/bin/mitmdump --version 2>/dev/null | grep -q '^Mitmproxy: 12\.2\.3\b' \
-      || { echo "mitmproxy drifted from REA's exact 12.2.3 profile — update pkgs/rea-agents" >&2; exit 1; }
-    echo "mitmproxy: ok"
+    # mitmproxy: PROFILE is patched to the packaged version in postPatch, so the
+    # drift alarm is a decode rather than a version string. Encode one flow
+    # record, run the installed adapter through the packaged mitmdump, and
+    # require the projected request back with its sensitive header redacted.
+    mkdir -p mitmproxy-check/conf
+    ${reaPythonEnv}/bin/python - > mitmproxy-check/capture.mitm <<'PY'
+    import sys
+
+    def encode(value):
+        if value is None:
+            return b"0:~"
+        if isinstance(value, str):
+            payload = value.encode()
+            return str(len(payload)).encode() + b":" + payload + b";"
+        if isinstance(value, bytes):
+            return str(len(value)).encode() + b":" + value + b","
+        if isinstance(value, list):
+            payload = b"".join(encode(item) for item in value)
+            return str(len(payload)).encode() + b":" + payload + b"]"
+        if isinstance(value, dict):
+            payload = b"".join(encode(key) + encode(item) for key, item in value.items())
+            return str(len(payload)).encode() + b":" + payload + b"}"
+        raise TypeError(type(value))
+
+    record = {
+        "request": {
+            "scheme": "https",
+            "authority": "example.test",
+            "path": "/check?q=1",
+            "method": "GET",
+            "headers": [[b"Host", b"example.test"], [b"Cookie", b"a=b"]],
+        },
+        "response": None,
+        "websocket": None,
+    }
+    sys.stdout.buffer.write(encode(record))
+    PY
+    printf '{"snapshot_path":"%s","reply_path":"%s","sensitive_values":["cookie"]}' \
+      "$PWD/mitmproxy-check/capture.mitm" "$PWD/mitmproxy-check/reply.json" \
+      > mitmproxy-check/request.json
+    timeout 120 ${lib.getExe' mitmproxy "mitmdump"} --no-server -q \
+      --set confdir="$PWD/mitmproxy-check/conf" \
+      --set rea_request_path="$PWD/mitmproxy-check/request.json" \
+      -s "$out/lib/node_modules/rea-agents/bridge/mitmproxy/capture.py" \
+      || { echo "the packaged mitmdump did not complete the capture adapter run — update pkgs/rea-agents" >&2; exit 1; }
+    ${reaPythonEnv}/bin/python -c '
+    import json
+    reply = json.load(open("mitmproxy-check/reply.json"))
+    assert reply["ok"], reply
+    request = reply["value"]["records"][0]["reported"]["request"]
+    assert request["path"] == "/check?q=1", request
+    assert request["headers"][1][1] is None, "the sensitive header was not redacted"
+    ' || { echo "mitmproxy ${mitmproxy.version} no longer projects REA's record schema — update pkgs/rea-agents" >&2; exit 1; }
+    echo "mitmproxy: ok (${mitmproxy.version} profile)"
 
     # ApktoolConfiguration: minimum supported version 2.7.0.
     apktoolVersion=$(${apktool}/bin/apktool --version)
@@ -306,7 +375,7 @@ buildNpmPackage rec {
     # Loading frida's binding is what every REA frida tool does first
     # (node_modules/frida/build/src/frida.js resolves build/frida_binding.node);
     # it catches a missing artifact and an unpatched loader path alike.
-    ${nodejs_24}/bin/node --input-type=module -e "
+    ${nodejs_26}/bin/node --input-type=module -e "
     await import('file://$out/lib/node_modules/rea-agents/node_modules/frida/build/src/frida.js');
     " || { echo "frida failed to load its N-API binding — update pkgs/rea-agents" >&2; exit 1; }
     echo "frida binding: ok"

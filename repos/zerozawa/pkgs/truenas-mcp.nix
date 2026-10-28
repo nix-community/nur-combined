@@ -2,18 +2,20 @@
   lib,
   fetchFromGitHub,
   buildGoModule,
+  go_1_27,
 }:
-buildGoModule rec {
+# v0.0.7's go.mod requires go >= 1.27.3; nixpkgs' default `go` is 1.26.10.
+(buildGoModule.override { go = go_1_27; }) rec {
   pname = "truenas-mcp";
-  version = "0.0.6";
+  version = "0.0.7";
 
   src = fetchFromGitHub {
     owner = "truenas";
     repo = "truenas-mcp";
     rev = "v${version}";
-    hash = "sha256-xEiEyUShMVO6OO1/c1sUhhamXjjb+Bss4eNCEil7d4c=";
+    hash = "sha256-2gUcvUQFHO3H1GmZsJton86v0NaRuLRsWrEbcs0X5TI=";
   };
-  vendorHash = "sha256-0A+zS5N+LZ7yRabl6BvovpZPq9NErroW21sRfiMTA+c=";
+  vendorHash = "sha256-L7+NJP3SAL0fNvxH12E8Ak8tf6oKe5zUVHdXXteUIh8=";
 
   ldflags = [
     "-s"
