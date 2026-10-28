@@ -32,7 +32,6 @@ in
           libxcrypt-legacy
           libxml2
           mesa
-          pcre
           pcre2
           python3
           stdenv.cc.cc

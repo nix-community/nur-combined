@@ -34,6 +34,7 @@ in
     inputs.nixcfg.modules.nixos.podman
     inputs.nixcfg.modules.nixos.k3s
     inputs.nixcfg.modules.nixos.k3s-homepage
+    inputs.nixcfg.modules.nixos.k3s-homeassistant
     inputs.nixcfg.modules.nixos.k3s-storage
     inputs.nixcfg.modules.nixos.k3s-starr
     inputs.nixcfg.modules.nixos.monitoring
@@ -146,6 +147,8 @@ in
     };
     # First migration passenger; manifests deploy cluster-wide from here.
     k3sHomepage.enable = true;
+    # Home Assistant (not starr); same cluster-wide pattern.
+    k3sHomeassistant.enable = true;
     # Shared NFS storage (csi-driver-nfs + static pool PVs).
     # Single writer: enable ONLY here, never on another server.
     k3sStorage.enable = true;
