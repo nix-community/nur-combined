@@ -6,6 +6,9 @@ pythonPlatform = "Linux"
 pythonVersion = "3.13"
 typeCheckingMode = "strict"
 reportWildcardImportFromLibrary = false
+extraPaths = [
+  ".generated/general-env/lib/python3.13/site-packages"
+]
 
 [[tool.pyright.executionEnvironments]]
 root = "tests/liam/testScript"

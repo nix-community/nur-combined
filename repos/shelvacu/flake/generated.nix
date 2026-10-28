@@ -59,7 +59,12 @@
                 requests
               ]
             );
-        "general-env" = py.withPackages (p: with p; [ scriptipy ]);
+        "general-env" = makePathFor (pkgs.makeVacuPythonScript {
+          name = "empty-script";
+          src = ''
+            print("hello")
+          '';
+        });
       };
     };
 }

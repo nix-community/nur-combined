@@ -67,6 +67,7 @@ let
   ];
   # must be bigger than gmail's 25MB "attachment limit" which after base64 encoding (x 1.33) is ~33MB
   mailSizeLimit = 35 * 1024 * 1024;
+  dkimMilter = lib.optional config.services.opendkim.enable "unix:/run/opendkim/opendkim.sock";
 in
 {
   networking.firewall.allowedTCPPorts = [
@@ -177,8 +178,8 @@ in
       # smtp_bind_address = 10.46.0.7
       # inet_interfaces = all
       # inet_protocols = ipv4
-      smtpd_milters = lib.mkIf config.services.opendkim.enable "unix:/run/opendkim/opendkim.sock";
-      non_smtpd_milters = lib.mkIf config.services.opendkim.enable "unix:/run/opendkim/opendkim.sock";
+      smtpd_milters = dkimMilter;
+      non_smtpd_milters = dkimMilter;
     };
 
     settings.master = {
@@ -220,6 +221,7 @@ in
       smtpd_sender_login_maps = "hash:/etc/postfix/extra_login_maps";
       smtpd_sender_restrictions = "reject_authenticated_sender_login_mismatch";
       header_checks = "";
+      smtpd_milters = lib.concatStringsSep "," dkimMilter;
 
       # mozilla intermediate config
       smtpd_tls_mandatory_protocols = "!SSLv2,!SSLv3,!TLSv1,!TLSv1.1";

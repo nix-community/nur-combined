@@ -372,5 +372,8 @@ d.make_tester().smtp_accepted(
     mailfrom="foo@violingifts.com", username="julie@shelvacu.com", password="julie"
 )
 
+liam.succeed("journalctl -u dnsbl-milter -o cat | grep -q ' hits='")
+liam.fail("journalctl -u dnsbl-milter -o cat | grep -q 'failed'")
+
 # now that there's a bunch of mail and logs and stuff, we can still run a borg backup, right?
 liam.succeed("systemctl start auto-borg.service")
