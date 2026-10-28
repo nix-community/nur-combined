@@ -7,11 +7,11 @@ dirname=$(dirname "$0" | xargs realpath)
 attr=vatis
 nix_file="$dirname/default.nix"
 
-# Get latest release tag from GitHub (including pre-releases)
-latestVersion=$(curl -s 'https://api.github.com/repos/vatis-project/vatis/releases?per_page=1' | jq -r '.[0].tag_name' | sed 's/^v//')
+latestVersion=$(curl -fsSL 'https://vatis.app/updates/linux/releases.linux.json' |
+  jq -r '.Assets[] | select(.Type == "Full") | .Version' | sort -V | tail -n1)
 
-if [ -z "$latestVersion" ] || [ "$latestVersion" = "null" ]; then
-  echo "$attr: failed to fetch latest version from GitHub" >&2
+if [ -z "$latestVersion" ]; then
+  echo "$attr: failed to fetch latest version from the vATIS update feed" >&2
   exit 1
 fi
 
