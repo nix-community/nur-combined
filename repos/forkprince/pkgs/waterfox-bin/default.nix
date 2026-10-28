@@ -1,22 +1,33 @@
 {
+  ffmpeg_9 ? ffmpeg,
   makeDesktopItem,
   libappindicator,
   wrapGAppsHook3,
   libpulseaudio,
+  libXcomposite,
+  libXScrnSaver,
   at-spi2-core,
   libxkbcommon,
   at-spi2-atk,
-  ffmpeg_9,
   makeWrapper,
   gdk-pixbuf,
+  libXcursor,
+  libXdamage,
+  libXrender,
   dbus-glib,
   writeText,
   libnotify,
+  libXfixes,
+  libXrandr,
   alsa-lib,
   fetchurl,
   patchelf,
   pciutils,
+  libXext,
   systemd,
+  libXtst,
+  ffmpeg,
+  libX11,
   libdrm,
   libxcb,
   stdenv,
@@ -24,23 +35,13 @@
   libGL,
   pango,
   unzip,
+  libXi,
   _7zz,
   cups,
   glib,
   gtk3,
   mesa,
   nspr,
-  libX11,
-  libXcomposite,
-  libXcursor,
-  libXdamage,
-  libXext,
-  libXfixes,
-  libXi,
-  libXrandr,
-  libXrender,
-  libXScrnSaver,
-  libXtst,
   atk,
   lib,
   nss,
@@ -111,32 +112,32 @@ in
       ];
 
       buildInputs = [
-        libXcomposite
-        libXScrnSaver
         stdenv.cc.cc.lib
         libappindicator
+        libXcomposite
+        libXScrnSaver
+        libpulseaudio
+        libxkbcommon
+        at-spi2-core
+        at-spi2-atk
         libXcursor
         libXdamage
         libXrender
+        gdk-pixbuf
         libXfixes
         libXrandr
-        libpulseaudio
-        libXext
-        libXtst
-        at-spi2-core
-        libxkbcommon
-        at-spi2-atk
-        ffmpeg_9
-        libX11
-        libXi
-        gdk-pixbuf
-        dbus-glib
         libnotify
+        dbus-glib
         alsa-lib
+        ffmpeg_9
         pciutils
         systemd
+        libXext
+        libXtst
         libdrm
         libxcb
+        libX11
+        libXi
         cairo
         libGL
         pango
