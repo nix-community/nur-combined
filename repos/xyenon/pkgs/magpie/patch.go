@@ -17,6 +17,7 @@
 //   - Calibrate successful davsync fixture saves against the wall clock, preserving explicit mtimes.
 //   - Wait before Codex cache rewrites that restore mtime, excluding mocked-clock tests.
 //   - Make gateway route writes synchronous during tests.
+//   - Use fresh connections for gateway handover requests instead of racing idle-connection shutdown.
 //   - Enable upstream offline setup before testenv.Main.
 //   - Exclude vendor dependencies from source-policy tests.
 //   - Linux: give private D-Bus test sessions the packaged session configuration.
@@ -725,6 +726,22 @@ func patchChecks(files []*sourceFile, o options) error {
 					}
 					return true
 				})
+			}
+			// Shutdown closes idle keep-alive connections while a POST may reuse one;
+			// Go cannot safely replay that POST. Exercise listener handover with fresh
+			// connections, retaining the stream-drain and exact request-count assertions.
+			if dir == "internal/gui" && fn.Name.Name == "TestRestartHandsTheGatewayOver" {
+				changed := false
+				ast.Inspect(fn.Body, func(n ast.Node) bool {
+					if call, ok := n.(*ast.CallExpr); ok && f.call(call, "net/http", "Post") {
+						f.replace(call.Fun, "nixHandoverClient.Post")
+						changed = true
+					}
+					return true
+				})
+				if changed {
+					f.insert(fn.Body.Lbrace+1, "\nnixHandoverClient := &"+f.qualify("net/http", "Client")+"{Transport: &"+f.qualify("net/http", "Transport")+"{DisableKeepAlives: true}}\n")
+				}
 			}
 			// Cancelling the old test server only schedules Shutdown. Wait until it
 			// stops accepting before asserting that new requests reach its successor.
