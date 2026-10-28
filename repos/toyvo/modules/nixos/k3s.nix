@@ -136,6 +136,11 @@ in
       nameserver fdcd:2022:1118::1
     '';
 
+    # wg-quick inside pods hard-requires src_valid_mark for its fwmark
+    # policy routing; net.ipv4.conf.all.* is host-global, so no pod can
+    # set it. Harmless host-wide (standard for route-based WireGuard).
+    boot.kernel.sysctl."net.ipv4.conf.all.src_valid_mark" = 1;
+
     services.k3s = {
       enable = true;
       inherit (cfg)
