@@ -1,6 +1,6 @@
 # Packages
 
-Generated from 73 packages.
+Generated from 84 packages.
 
 ## `ambient-build-vm`
 
@@ -61,7 +61,7 @@ Generated from 73 packages.
 ## `brush`
 
 - **Package name:** brush
-- **Version:** 0.4.0-unstable-2026-10-20
+- **Version:** 0.4.0-unstable-2026-10-24
 - **Description:** Bash/POSIX-compatible shell implemented in Rust
 - **Homepage:** [https://github.com/reubeno/brush](https://github.com/reubeno/brush)
 - **License:** MIT
@@ -69,7 +69,7 @@ Generated from 73 packages.
 ## `buildgrid`
 
 - **Package name:** buildgrid
-- **Version:** 0.9.0
+- **Version:** 0.9.1
 - **Description:** Python remote execution service
 - **Homepage:** [https://buildgrid.build](https://buildgrid.build)
 - **License:** Apache-2.0
@@ -140,7 +140,7 @@ Generated from 73 packages.
 ## `docker-sbx`
 
 - **Package name:** docker-sbx
-- **Version:** 0.49.1
+- **Version:** 0.50.0-rc1
 - **Description:** Safe environments for agents
 - **Homepage:** [https://docs.docker.com/reference/cli/sbx/](https://docs.docker.com/reference/cli/sbx/)
 - **License:** LicenseRef-nixos-unfree
@@ -228,7 +228,7 @@ Generated from 73 packages.
 ## `landstrip`
 
 - **Package name:** landstrip
-- **Version:** 0.19.20
+- **Version:** 0.20.12
 - **Description:** Run tools in OS-level sandboxes
 - **Homepage:** [https://github.com/landstrip/landstrip](https://github.com/landstrip/landstrip)
 - **License:** LGPL-3.0-or-later
@@ -276,7 +276,7 @@ Generated from 73 packages.
 ## `mkosi-HEAD`
 
 - **Package name:** mkosi-HEAD
-- **Version:** 27.1-unstable-2026-10-19
+- **Version:** 27.1-unstable-2026-10-25
 - **Description:** Build legacy-free OS images, built from git master
 - **Homepage:** [https://github.com/systemd/mkosi](https://github.com/systemd/mkosi)
 - **License:** LGPL-2.1-only
@@ -297,6 +297,21 @@ Generated from 73 packages.
 - **Homepage:** [https://github.com/microsoft/mxc](https://github.com/microsoft/mxc)
 - **License:** MIT
 
+## `nolibc`
+
+- **Package name:** nolibc
+- **Version:** 7.3
+- **Description:** Libc alternative for minimal programs
+- **Homepage:** [https://github.com/torvalds/linux/blob/master/tools/include/nolibc/nolibc.h](https://github.com/torvalds/linux/blob/master/tools/include/nolibc/nolibc.h)
+- **License:** GPL-2.0-only
+
+## `nolibcStdenv`
+
+- **Package name:** stdenv-linux
+- **Version:** 26.05pre-git
+- **Description:** Build environment that compiles C programs against nolibc
+- **License:** MIT
+
 ## `parsec`
 
 - **Package name:** parsec
@@ -313,6 +328,14 @@ Generated from 73 packages.
 - **Homepage:** [https://parsec.community](https://parsec.community)
 - **License:** Apache-2.0
 
+## `pool-git-init`
+
+- **Package name:** pool-git-init
+- **Version:** 0.3.1
+- **Description:** Initialize and manage git repositories used for openSUSE packaging
+- **Homepage:** [https://src.opensuse.org/openSUSE/pool-git-init](https://src.opensuse.org/openSUSE/pool-git-init)
+- **License:** GPL-2.0-only
+
 ## `porkbun-ddns`
 
 - **Package name:** porkbun-ddns
@@ -324,9 +347,17 @@ Generated from 73 packages.
 ## `pristine-tar`
 
 - **Package name:** pristine-tar
-- **Version:** 1.49
+- **Version:** 1.50
 - **Homepage:** [https://salsa.debian.org/debian/pristine-tar](https://salsa.debian.org/debian/pristine-tar)
 - **License:** BSD-3-Clause AND bzip2-1.0.6 AND GPL-2.0-or-later
+
+## `python3Packages.audioseal`
+
+- **Package name:** audioseal
+- **Version:** 0.2.0
+- **Description:** Localized watermarking for AI-generated speech
+- **Homepage:** [https://github.com/facebookresearch/audioseal](https://github.com/facebookresearch/audioseal)
+- **License:** MIT
 
 ## `python3Packages.buildgrid-metering-client`
 
@@ -376,10 +407,50 @@ Generated from 73 packages.
 - **Homepage:** [https://github.com/darnitdevorg/darnit](https://github.com/darnitdevorg/darnit)
 - **License:** Apache-2.0
 
+## `python3Packages.demucs`
+
+- **Package name:** demucs
+- **Version:** 4.1.0
+- **Description:** Music source separation in the waveform domain
+- **Homepage:** [https://github.com/adefossez/demucs](https://github.com/adefossez/demucs)
+- **License:** MIT
+
+## `python3Packages.kittentts`
+
+- **Package name:** kittentts
+- **Version:** 0.8.1
+- **Description:** Ultra-lightweight ONNX text-to-speech model
+- **Homepage:** [https://github.com/KittenML/KittenTTS](https://github.com/KittenML/KittenTTS)
+- **License:** Apache-2.0
+
+## `python3Packages.lameenc`
+
+- **Package name:** lameenc
+- **Version:** 1.9.0
+- **Description:** Python bindings for the LAME MP3 encoder
+- **Homepage:** [https://github.com/chrisstaite/lameenc](https://github.com/chrisstaite/lameenc)
+- **License:** LGPL-3.0-or-later
+
+## `python3Packages.sphn`
+
+- **Package name:** sphn
+- **Version:** 0.2.1
+- **Description:** Python bindings for symphonia/opus to read and write audio files
+- **Homepage:** [https://github.com/kyutai-labs/sphn](https://github.com/kyutai-labs/sphn)
+- **License:** MIT OR Apache-2.0
+
+## `python3Packages.supertonic`
+
+- **Package name:** supertonic
+- **Version:** 1.3.1
+- **Description:** Lightweight on-device text-to-speech with ONNX Runtime
+- **Homepage:** [https://github.com/supertone-inc/supertonic-py](https://github.com/supertone-inc/supertonic-py)
+- **License:** MIT
+
 ## `quarry`
 
 - **Package name:** quarry
-- **Version:** 0-unstable-2026-10-14
+- **Version:** 0-unstable-2026-10-25
 - **Description:** TUF-based software distribution toolchain
 - **License:** Apache-2.0
 
@@ -394,7 +465,7 @@ Generated from 73 packages.
 ## `rad-plan`
 
 - **Package name:** rad-plan
-- **Version:** 0.3.0
+- **Version:** 0-unstable-2026-08-20
 - **Description:** Collaborative Object for Claude Code Plans
 - **Homepage:** [https://radicle.network/nodes/iris.radicle.network/rad%3Az4L8L9ctRYn2bcPuUT4GRz7sggG1v](https://radicle.network/nodes/iris.radicle.network/rad%3Az4L8L9ctRYn2bcPuUT4GRz7sggG1v)
 - **License:** MIT OR Apache-2.0
@@ -406,6 +477,14 @@ Generated from 73 packages.
 - **Description:** Radicle CI adapter for Ambient CI
 - **Homepage:** [https://radicle-ci.liw.fi](https://radicle-ci.liw.fi)
 - **License:** MIT OR Apache-2.0
+
+## `raven`
+
+- **Package name:** raven
+- **Version:** 0-unstable-2026-10-25
+- **Description:** Runs Windows applications on Linux without a virtual machine
+- **Homepage:** [https://useraven.org/](https://useraven.org/)
+- **License:** GPL-3.0-or-later AND MIT AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-2-Clause AND Unicode-3.0 AND Zlib AND libpng-2.0 AND IJG AND libtiff AND X11 AND LicenseRef-nixos-publicDomain AND ISC-Veillard
 
 ## `reddio`
 
@@ -439,6 +518,14 @@ Generated from 73 packages.
 - **Homepage:** [https://github.com/thkukuk/run0-wrappers](https://github.com/thkukuk/run0-wrappers)
 - **License:** BSD-2-Clause
 
+## `rune`
+
+- **Package name:** rune
+- **Version:** 0.1-unstable-2026-10-26
+- **Description:** Compiler and runtime for Standard ML '97
+- **Homepage:** [https://github.com/ruudkoot/rune](https://github.com/ruudkoot/rune)
+- **License:** CC0-1.0
+
 ## `rust-keylime`
 
 - **Package name:** rust-keylime
@@ -466,7 +553,7 @@ Generated from 73 packages.
 ## `sequin`
 
 - **Package name:** sequin
-- **Version:** 0-unstable-2026-10-19
+- **Version:** 0-unstable-2026-10-25
 - **Description:** Contact-centric PGP certificate manager built on Sequoia
 - **Homepage:** [https://gitlab.com/sequoia-pgp/sequin](https://gitlab.com/sequoia-pgp/sequin)
 - **License:** GPL-3.0-only
@@ -486,14 +573,6 @@ Generated from 73 packages.
 - **Description:** Automated tool for acceptance testing
 - **Homepage:** [https://subplot.tech/](https://subplot.tech/)
 - **License:** MIT-0
-
-## `systemd-btf`
-
-- **Package name:** systemd-btf
-- **Version:** 261.3
-- **Description:** System and service manager for Linux
-- **Homepage:** [https://systemd.io](https://systemd.io)
-- **License:** BSD-2-Clause AND BSD-3-Clause AND CC0-1.0 AND LGPL-2.1-or-later AND LGPL-2.0-or-later AND MIT AND MIT-0 AND OFL-1.1 AND LicenseRef-nixos-publicDomain
 
 ## `tcl9Packages.tcl-syslog`
 
@@ -551,6 +630,14 @@ Generated from 73 packages.
 - **Homepage:** [https://vmdb2.liw.fi/](https://vmdb2.liw.fi/)
 - **License:** GPL-3.0-or-later
 
+## `voice-studio`
+
+- **Package name:** voice-studio
+- **Version:** 0.5.6
+- **Description:** Open-source voice cloning, voice design, dubbing and transcription studio
+- **Homepage:** [https://github.com/debpalash/VoiceStudio](https://github.com/debpalash/VoiceStudio)
+- **License:** AGPL-3.0-only
+
 # Broken Packages
 
 ## `browsertrix-crawler`
@@ -565,7 +652,7 @@ Generated from 73 packages.
 ## `cdash`
 
 - **Package name:** cdash
-- **Version:** 5.5.0
+- **Version:** 5.5.2
 - **Description:** CDash is a web-based software testing server
 - **Homepage:** [https://www.cdash.org](https://www.cdash.org)
 - **License:** BSD-3-Clause
