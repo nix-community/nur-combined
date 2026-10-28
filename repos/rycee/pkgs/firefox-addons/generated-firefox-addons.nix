@@ -167,10 +167,10 @@
     };
     "addy_io" = buildMozillaXpiAddon {
       pname = "addy_io";
-      version = "3.1.0";
+      version = "3.2.0";
       addonId = "browser-extension@anonaddy";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5070068/addy_io-3.1.0.xpi";
-      sha256 = "665876f48c7563b8e230077a48b73b7e295b790ff980776b040526ff4b018622";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5173241/addy_io-3.2.0.xpi";
+      sha256 = "50073c0d0cf23ee61351b3c555369b07c9bd0e5ea14f86452e90f316f75c8f2d";
       meta = with lib;
       {
         homepage = "https://addy.io";
@@ -188,10 +188,10 @@
     };
     "adnauseam" = buildMozillaXpiAddon {
       pname = "adnauseam";
-      version = "3.28.8";
+      version = "3.29.2";
       addonId = "adnauseam@rednoise.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4909199/adnauseam-3.28.8.xpi";
-      sha256 = "fa2aa99c4a3c766514d72a9e9dcc29b3e5b5f8b58072b0d7c495f0c895b72ce0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5058842/adnauseam-3.29.2.xpi";
+      sha256 = "a8384213e05e87b7d18a7e710604c482a91e1dcc45205b074bf7d9b9454b1064";
       meta = with lib;
       {
         homepage = "https://adnauseam.io";
@@ -480,10 +480,10 @@
     };
     "aria2-integration" = buildMozillaXpiAddon {
       pname = "aria2-integration";
-      version = "0.6.1";
+      version = "1.0.0";
       addonId = "{e2488817-3d73-4013-850d-b66c5e42d505}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5094786/aria2_integration-0.6.1.xpi";
-      sha256 = "0d3651fac384b6775e010f0569fb96744c3f153916777aa5117deef725548101";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5173723/aria2_integration-1.0.0.xpi";
+      sha256 = "3686f2245d16406edcbd596a24fa50c8121455470118001fcb1afbdd4b012461";
       meta = with lib;
       {
         description = "Replace built-in download manager. When activated, detects the download links to direct links to this add-on and send to Aria2";
@@ -494,10 +494,12 @@
           "notifications"
           "downloads"
           "downloads.open"
-          "contextMenus"
+          "menus"
           "webRequest"
           "webRequestBlocking"
           "cookies"
+          "nativeMessaging"
+          "webNavigation"
           "<all_urls>"
         ];
         platforms = platforms.all;
@@ -1129,10 +1131,10 @@
     };
     "betterttv" = buildMozillaXpiAddon {
       pname = "betterttv";
-      version = "7.7.28";
+      version = "7.7.29";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5092056/betterttv-7.7.28.xpi";
-      sha256 = "adee5bba1148550a96e1a5e9db207077609083abd2e040e9ef418d57bd02c049";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5173066/betterttv-7.7.29.xpi";
+      sha256 = "6dc280936a27dcf65e5e783e6a2b8751b6ecd81fa2e4558954afe0fcfb36f8fa";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -3129,10 +3131,10 @@
     };
     "darkreader" = buildMozillaXpiAddon {
       pname = "darkreader";
-      version = "4.9.133";
+      version = "4.9.134";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5055786/darkreader-4.9.133.xpi";
-      sha256 = "eb06c5096d761616c7f1d954c11524ca4bff4fe7229044dc1fce288a8c0853ab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5175215/darkreader-4.9.134.xpi";
+      sha256 = "700633395aa2f639a1bed4253e27309eb676f346d599b0ae2b7a0453232e0aec";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -6343,10 +6345,10 @@
     };
     "karakeep" = buildMozillaXpiAddon {
       pname = "karakeep";
-      version = "1.2.13";
+      version = "1.2.14";
       addonId = "addon@karakeep.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5165240/karakeep-1.2.13.xpi";
-      sha256 = "61d924dac783459f16731f522048f8b42c3069bb9af4a67eaeee7a397e41fc03";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5171969/karakeep-1.2.14.xpi";
+      sha256 = "8ff3fe02b286ebc446c074895621026739a80089f49c5fda3f186ae6f8aad52d";
       meta = with lib;
       {
         homepage = "https://karakeep.com";
@@ -7349,10 +7351,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.5.5";
+      version = "2.5.6";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5169918/lichess_tools_by_siderite-2.5.5.xpi";
-      sha256 = "ee3bda1c13f6a68e2998c8950c2d0f2b69bfd23acfc29cece3927cdd76314730";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5174077/lichess_tools_by_siderite-2.5.6.xpi";
+      sha256 = "cf3bdf04dcdff01ef2f6b01389c2a99a74260cbb81323ce4e14c0ae40d2bbae8";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -8593,10 +8595,10 @@
     };
     "material-icons-for-github" = buildMozillaXpiAddon {
       pname = "material-icons-for-github";
-      version = "1.17.1";
+      version = "1.18.0";
       addonId = "{eac6e624-97fa-4f28-9d24-c06c9b8aa713}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5080172/material_icons_for_github-1.17.1.xpi";
-      sha256 = "6cbd72b544f948e177a3a46df806844409bc67e4de24eac2038fd9b0bcb90558";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5172134/material_icons_for_github-1.18.0.xpi";
+      sha256 = "487a7e9848076c6fdc85a0a76c8e3aa85e6092f9c2d3b5ca1455da535c7ef363";
       meta = with lib;
       {
         homepage = "https://github.com/material-extensions/material-icons-browser-extension";
@@ -9022,10 +9024,10 @@
     };
     "mtab" = buildMozillaXpiAddon {
       pname = "mtab";
-      version = "1.13.5";
+      version = "1.13.6";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5165972/mtab-1.13.5.xpi";
-      sha256 = "5c00781fac21807e480e0961b86215c7afe5c3509082360f942faed6d35ef226";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5175689/mtab-1.13.6.xpi";
+      sha256 = "08a1dd87010fbcf12a3ee85a2517c781941d69f247b9e9b80a267a9aa73b297d";
       meta = with lib;
       {
         homepage = "https://mtab.maxhu.dev";
@@ -9500,10 +9502,10 @@
     };
     "noscript" = buildMozillaXpiAddon {
       pname = "noscript";
-      version = "13.6.36";
+      version = "13.6.37";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5075209/noscript-13.6.36.xpi";
-      sha256 = "10863851d18fe74a680e46e4a813fd59550bb4a356a254cde3e8f85c80db0078";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5173524/noscript-13.6.37.xpi";
+      sha256 = "a4733ee2383a4e0debcd4930a2a6e1fe0a8a526332c2cbedaac8d1a563ba921b";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -11415,10 +11417,10 @@
     };
     "read-aloud" = buildMozillaXpiAddon {
       pname = "read-aloud";
-      version = "1.84.0";
+      version = "1.84.1";
       addonId = "{ddc62400-f22d-4dd3-8b4a-05837de53c2e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5169122/read_aloud-1.84.0.xpi";
-      sha256 = "3453beed9fbd4a35c820e9bb3cc05c4c93844183a6e3bcbc6873e8ac32f72241";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5174819/read_aloud-1.84.1.xpi";
+      sha256 = "168935751a82ae7433b099c0c73c5c90d910e250dd1cf5e700f6020973e76051";
       meta = with lib;
       {
         description = "Read out loud the current web-page article with one click. Supports 40+ languages.";
@@ -12807,10 +12809,10 @@
     };
     "single-file" = buildMozillaXpiAddon {
       pname = "single-file";
-      version = "1.31.5";
+      version = "1.32.0";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5141757/single_file-1.31.5.xpi";
-      sha256 = "f1b279ade586df54cdd9e61dc6d2bf9e73dbebe21c377bab2afd00e9553626e5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5173750/single_file-1.32.0.xpi";
+      sha256 = "65128d6b6c12a89e5ecb4560d4aab9e1fbb99b6589dfcb07b4867949c6429d28";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";
@@ -16469,10 +16471,10 @@
     };
     "xkit-rewritten" = buildMozillaXpiAddon {
       pname = "xkit-rewritten";
-      version = "1.3.7";
+      version = "1.3.8";
       addonId = "{6e710c58-36cc-49d6-b772-bfc3030fa56e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5028683/xkit_rewritten-1.3.7.xpi";
-      sha256 = "95841dcac230d7f3015e39b4f14bb8830dc4cd00d3ba49bb8021efea46725801";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5173646/xkit_rewritten-1.3.8.xpi";
+      sha256 = "3e7281d23f285449a156647b280f56708838bdf7a2075a54a44fa8800e51ae11";
       meta = with lib;
       {
         homepage = "https://github.com/AprilSylph/XKit-Rewritten/wiki";
@@ -16593,10 +16595,10 @@
     };
     "youtube-auto-hd-fps" = buildMozillaXpiAddon {
       pname = "youtube-auto-hd-fps";
-      version = "1.19.0";
+      version = "1.19.1";
       addonId = "avi6106@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5099909/youtube_auto_hd_fps-1.19.0.xpi";
-      sha256 = "c670c96354e2dcc1fb4585da5d7b22a6340b0ba5bf1f9d14e16540f092479097";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5175195/youtube_auto_hd_fps-1.19.1.xpi";
+      sha256 = "8f1c369898caf21cf1f81c7d35bee2bf05c53b6783148b47446db4d73b908dba";
       meta = with lib;
       {
         homepage = "https://avi12.com/youtube-auto-hd";
