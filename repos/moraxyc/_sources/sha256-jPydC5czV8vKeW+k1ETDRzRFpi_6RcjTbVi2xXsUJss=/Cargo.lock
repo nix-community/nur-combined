@@ -5401,9 +5401,11 @@ dependencies = [
  "mpris-server",
  "rand 0.9.5",
  "reqwest 0.13.4",
+ "ring",
  "rodio",
  "rsa",
  "rusqlite",
+ "semver",
  "serde",
  "serde_json",
  "sha2",
@@ -5480,6 +5482,18 @@ dependencies = [
  "yaqmc-core",
  "yaqmc-provider-api",
  "zeroize",
+]
+
+[[package]]
+name = "yaqmc-update-helper"
+version = "0.1.1"
+dependencies = [
+ "libc",
+ "serde",
+ "serde_json",
+ "sha2",
+ "tempfile",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
