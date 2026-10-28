@@ -38,6 +38,8 @@
 
   vacs = pkgs.callPackage ./pkgs/vacs { };
 
+  vaccfr-installer = pkgs.callPackage ./pkgs/vaccfr-installer { };
+
   vatis = pkgs.callPackage ./pkgs/vatis { };
 
   xpilot = pkgs.callPackage ./pkgs/xpilot { };
