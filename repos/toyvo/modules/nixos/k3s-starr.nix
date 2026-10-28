@@ -1085,51 +1085,11 @@ in
                     ];
                   }
                 ];
-                initContainers = [
-                  {
-                    name = "kill-switch";
-                    image = "alpine:3.21.9";
-                    imagePullPolicy = "IfNotPresent";
-                    command = [
-                      "/bin/sh"
-                      "-c"
-                      ''
-                        apk add --no-cache iptables iproute2
-                        # Split tunnel: cluster + LAN bypass WireGuard.
-                        # wg-quick's suppress_prefixlength rule would otherwise
-                        # suck 10/8 into wg0, where Proton blackholes it.
-                        # Evaluated before wg-quick's own rules (pref 32764+).
-                        ip rule add to 10.0.0.0/8 table main pref 31000
-                        # Default DROP everywhere: if wg0 disappears, nothing leaks.
-                        iptables -F; iptables -X
-                        iptables -P INPUT DROP
-                        iptables -P FORWARD DROP
-                        iptables -P OUTPUT DROP
-                        # Replies to anything we explicitly allow out.
-                        iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-                        # Loopback.
-                        iptables -A INPUT -i lo -j ACCEPT
-                        iptables -A OUTPUT -o lo -j ACCEPT
-                        # Cluster traffic both ways: kubelet probes (node LAN),
-                        # CoreDNS-independent pod/service traffic, Traefik.
-                        iptables -A OUTPUT -d 10.42.0.0/16 -j ACCEPT
-                        iptables -A INPUT -s 10.42.0.0/16 -j ACCEPT
-                        iptables -A OUTPUT -d 10.43.0.0/16 -j ACCEPT
-                        iptables -A INPUT -s 10.43.0.0/16 -j ACCEPT
-                        iptables -A OUTPUT -d 10.1.0.0/16 -j ACCEPT
-                        iptables -A INPUT -s 10.1.0.0/16 -j ACCEPT
-                        # WireGuard handshake to the one Proton endpoint.
-                        iptables -A OUTPUT -p udp -d 79.127.187.156 --dport 51820 -j ACCEPT
-                        iptables -A INPUT -p udp -s 79.127.187.156 --sport 51820 -j ACCEPT
-                        # Anything through the tunnel.
-                        iptables -A OUTPUT -o wg0 -j ACCEPT
-                        iptables -A INPUT -i wg0 -j ACCEPT
-                        iptables -L -v -n | head -n 20
-                      ''
-                    ];
-                    securityContext.capabilities.add = [ "NET_ADMIN" ];
-                  }
-                ];
+                # No initContainer: the kill-switch (nft) and split-tunnel
+                # rules live in wg0.conf's PostUp (Secret-managed), which owns
+                # every rule/route with explicit prefs. An init-time ip rule
+                # would collide with PostUp's explicit pref and abort the
+                # tunnel; apk can't run pre-tunnel anyway (no DNS yet).
                 containers = [
                   {
                     name = "wireguard";
