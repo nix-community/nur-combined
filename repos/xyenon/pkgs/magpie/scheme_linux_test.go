@@ -1,5 +1,5 @@
 // Nix installs the scheme desktop entry with the package, so upstream's runtime
-// registration assertions are replaced with coverage of legacy-entry cleanup.
+// registration assertions are replaced with coverage of leaving user files alone.
 package gui
 
 import (
@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func TestNixSchemeCleanup(t *testing.T) {
+func TestNixSchemeNoop(t *testing.T) {
 	t.Setenv("FLATPAK_ID", "")
 	for _, xdg := range []bool{true, false} {
 		home := t.TempDir()
@@ -39,18 +39,8 @@ func TestNixSchemeCleanup(t *testing.T) {
 				t.Fatal(err)
 			}
 			body, err := os.ReadFile(path)
-			if exe == "/nix/store/old-magpie/bin/.magpie-wrapped" {
-				if !os.IsNotExist(err) {
-					t.Fatalf("old entry not removed: %v", err)
-				}
-				if err := registerScheme(); err != nil {
-					t.Fatal(err)
-				}
-				if _, err := os.Stat(path); !os.IsNotExist(err) {
-					t.Fatalf("recreated entry: %v", err)
-				}
-			} else if err != nil || string(body) != old {
-				t.Fatalf("modified custom entry: %s, %v", body, err)
+			if err != nil || string(body) != old {
+				t.Fatalf("modified user entry: %s, %v", body, err)
 			}
 		}
 	}

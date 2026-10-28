@@ -151,6 +151,8 @@ buildGoModule (finalAttrs: {
       comment = "Every agent's model. One place.";
       exec = "magpie %u";
       icon = "magpie";
+      startupWMClass = "magpie";
+      terminal = false;
       categories = [
         "Development"
         "Utility"
