@@ -13,7 +13,7 @@
   wasm-bindgen-cli_0_2_129,
   llvmPackages,
   binaryen,
-  withDeepfilternet ? true,
+  withDeepfilternet ? false,
 }:
 
 let
@@ -24,7 +24,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "sable-next-unwrapped";
-  version = "2.2.0";
+  version = "2.2.1";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -34,7 +34,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "SableClient";
     repo = "sable-next";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-J5IIDdw9DLHBV7npugJeQ7U/4q11nRkSy/p7kzEBBMU=";
+    hash = "sha256-3XDXo3WqxO/IVy6twUY8gnbJvKdkMrIf8NpaEChCSQg=";
   };
 
   patches = [
@@ -46,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) src;
-    hash = "sha256-XOy7hf6AfbuEKKb9xKnKGyPrTsJ2TTZRpUhwcm4+JsU=";
+    hash = "sha256-YOWeJM2N1tz1y97jIZjgBufO8R4lPqkjnllp9DoX4I4=";
   };
 
   postPatch = lib.optionalString withDeepfilternet ''
@@ -74,7 +74,7 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
     fetcherVersion = 5;
-    hash = "sha256-yGjMHlRCLAdF2cQXzqHDGCdxhECaErFrU5CHlzNblfM=";
+    hash = "sha256-sb/OKenAVQ/ONAKLkqolvPSt44I8506x3SBibHRYjWs=";
   };
 
   env = {
