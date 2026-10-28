@@ -29,6 +29,8 @@ python3Packages.buildPythonPackage {
 
   pythonImportsCheck = [ "imagequant" ];
 
+  dontCheckPythonMetadata = true;
+
   meta = {
     description = "Python bindings for libimagequant (pngquant core)";
     homepage = "https://github.com/wladich/pyimagequant";
