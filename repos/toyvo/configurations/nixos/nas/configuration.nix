@@ -521,6 +521,9 @@ in
     %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/nixos-container *
     %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/journalctl *
     %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/systemctl status *
+    # TEMPORARY DEBUG (qBittorrent k3s migration): passwordless k3s for faster
+    # agent-driven diagnostics. REMOVE after cutover (tracked in todos).
+    %wheel ALL=(ALL) NOPASSWD: /run/current-system/sw/bin/k3s *
   '';
 
   systemd.targets = {
