@@ -7,10 +7,10 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "virtual-display";
-  version = "0.8.0";
+  version = "0.9.0";
   src = fetchurl {
-    url = "https://github.com/rapatao/virtual-display/releases/download/v0.8.0/VirtualDisplay.zip";
-    hash = "sha256-Y42WHvBSMRJyA7PyrDh9EmSsgDjbnkcrCnxusnG411Y=";
+    url = "https://github.com/rapatao/virtual-display/releases/download/v0.9.0/VirtualDisplay.zip";
+    hash = "sha256-8LLJrNWxzC2r9cEXvT/Zx/4ZhIvRfZPi1gtUcuzAGNs=";
   };
 
   sourceRoot = ".";
