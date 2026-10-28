@@ -10,13 +10,13 @@
 
 let
   pname = "pcl-me";
-  version = "1.0.0-beta.7-unstable-2026-10-25";
+  version = "1.0.0-beta.7-unstable-2026-10-26";
 
   src = fetchFromGitHub {
     owner = "TheUnknownThing";
     repo = "PCL-ME";
-    rev = "f1e420912a2d2b3d0739d09a233ecdb237b6b7d6";
-    hash = "sha256-/RZdIG6VJIVSL5k0lq8Cv3Oxues+PLU6PoTYmF4HKeQ=";
+    rev = "836a679b852042b2f8bcd7093cc713844496a125";
+    hash = "sha256-RdzeEysa/Ozrx62gLSSK0s8bOA4RyacHo8Q2vd7rkdc=";
   };
 
   dotnet-sdk = dotnetCorePackages.sdk_10_0;

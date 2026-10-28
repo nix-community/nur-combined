@@ -1,9 +1,11 @@
 {
   stdenv,
   fetchFromGitLab,
+  fetchurl,
   ffmpeg,
   meson,
   openjdk17,
+  python3,
   lib,
   pkg-config,
   wayland-protocols,
@@ -27,15 +29,29 @@
   bintools,
 }:
 
+let
+  asm = fetchurl {
+    url = "https://repo1.maven.org/maven2/org/ow2/asm/asm/9.7.1/asm-9.7.1.jar";
+    hash = "sha256-jK3UOsXrbQneBfrsyji5F6BAu5E5x+3rTMgcdAtxMoE=";
+  };
+  asmTree = fetchurl {
+    url = "https://repo1.maven.org/maven2/org/ow2/asm/asm-tree/9.7.1/asm-tree-9.7.1.jar";
+    hash = "sha256-mSmIH1nra4QOhtVFcMd7Wc5yHRBObf16QJeJkcLTtB8=";
+  };
+  javaGetopt = fetchurl {
+    url = "https://repo1.maven.org/maven2/gnu/getopt/java-getopt/1.0.13/java-getopt-1.0.13.jar";
+    hash = "sha256-8J3GNp/8T+Q2LL1JtqxsSnRxN1rF2ITHGwpiWoicOMQ=";
+  };
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "android-translation-layer";
-  version = "0-unstable-2026-10-19";
+  version = "0-unstable-2026-10-25";
 
   src = fetchFromGitLab {
     owner = "android_translation_layer";
     repo = "android_translation_layer";
-    rev = "d658957d9fc45cabc2584eecdba1156dbb7ecc95";
-    hash = "sha256-LoPW52G8GywO+j1sahCOi7Wb6Nrkbo7Rdray2gx36+8=";
+    rev = "b17fe9a5794d0365e6731c1c3d02dfd3c1c36162";
+    hash = "sha256-6uZ6HRPButCOfI4JyQKm184pu2a+0O2v3UuXCZjEPrc=";
   };
 
   patches = [
@@ -50,6 +66,18 @@ stdenv.mkDerivation (finalAttrs: {
     # As we need the $out reference, we can't use `replaceVars` here.
     substituteInPlace src/main-executable/main.c \
       --replace-fail '@out@' "$out"
+
+    substituteInPlace tools/jni_upcall_gen/meson.build \
+      --replace-fail "required: not download_tool_deps" "required: false" \
+      --replace-fail "cmd = ['build.py'" "cmd = [find_program('python3'), files('build.py')"
+
+    substituteInPlace tools/jni_upcall_gen/jni_upcall_gen.in \
+      --replace-fail '#!/bin/bash' '#!/bin/sh'
+
+    substituteInPlace tools/jni_upcall_gen/build.py \
+      --replace-fail 'p = subprocess.run(["xmvn5-resolve", "-rc"] + deps_system, capture_output=True, text=True)' 'p = None; deps_system_classpath = "${asm}:${asmTree}:${javaGetopt}"' \
+      --replace-fail 'deps_system_classpath = p.stdout.strip()' '# substituted'
+    patchShebangs tools/jni_upcall_gen/build.py
   '';
 
   nativeBuildInputs = [
@@ -58,6 +86,7 @@ stdenv.mkDerivation (finalAttrs: {
     ninja
     openjdk17
     pkg-config
+    python3
   ];
 
   buildInputs = [

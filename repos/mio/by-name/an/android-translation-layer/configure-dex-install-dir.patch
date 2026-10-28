@@ -1,8 +1,7 @@
 diff --git a/src/main-executable/main.c b/src/main-executable/main.c
-index 558bd994..2d341b4b 100644
 --- a/src/main-executable/main.c
 +++ b/src/main-executable/main.c
-@@ -351,6 +351,7 @@ static void open(GtkApplication *app, GFile **files, gint nfiles, const gchar *h
+@@ -391,6 +391,7 @@
  		fprintf(stderr, "error: couldn't find art install path\n");
  		exit(1);
  	}

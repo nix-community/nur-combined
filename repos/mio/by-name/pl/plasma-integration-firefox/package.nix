@@ -16,8 +16,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     domain = "invent.kde.org";
     owner = "plasma";
     repo = "plasma-browser-integration";
-    tag = "v6.8.1";
-    hash = "sha256-aLL4RnYwi3ZVvNlp6Fg6pwQ3uB+5e7I2tV+Vdx1IB0s=";
+    tag = "v6.8.2";
+    hash = "sha256-VJCOO2fR5PrUHqUuLhOxC935OnJ2O/lm8zlqtEubCbo=";
   };
 
   nativeBuildInputs = [ zip ];
