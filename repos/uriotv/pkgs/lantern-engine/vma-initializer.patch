@@ -1,0 +1,10 @@
+--- a/gpu/shadps4/video_core/renderer_vulkan/vk_instance.cpp
++++ b/gpu/shadps4/video_core/renderer_vulkan/vk_instance.cpp
+@@ -991,7 +991,6 @@
+     }();
+     const VmaAllocatorCreateInfo allocator_info = {
+         .flags = VMA_ALLOCATOR_CREATE_BUFFER_DEVICE_ADDRESS_BIT,
+-        .preferredLargeHeapBlockSize = block_size,
+         .physicalDevice = physical_device,
+         .device = *device,
+         .preferredLargeHeapBlockSize = block_size,

@@ -29,7 +29,7 @@ redistribution.
 
 | Package | Version | Description | Public cache |
 |---|---|---|---|
-| `bbport` | `0.6` | Native Linux port of Bloodborne (needs your own game dump) | Yes |
+| `lantern-engine` | `0.9.37` | Lantern Engine by Awaken, built from source (needs your own game dump) | Yes |
 | `cybergrub2077` | `2.0.1-unstable-2026-02-28` | Cyberpunk 2077 inspired GRUB theme | Yes |
 | `nmssaveeditor` | `1.21.0` | Save editor for No Man's Sky | No: unfree |
 | `pig` | `0.5.3` | Pi coding agent rebuilt in Go as a native binary | Yes |
@@ -209,3 +209,21 @@ See **[Adding and maintaining packages](docs/adding-packages.md)**. In short, ad
 then run the offline tests and check the CI manifest. No workflow edits are needed.
 
 Tests: [tests/README.md](tests/README.md).
+
+### Lantern Engine (modified Nix build)
+
+`lantern-engine` builds the C/C++ engine and Avalonia/.NET launcher from the pinned
+upstream source tag, rather than repackaging the Linux release tarball. NuGet
+inputs are hash-locked. This is a modified Nix build, not an official upstream
+release; upstream credit and licensing notices are installed with the package.
+Updates are managed by Nix (the launcher's binary self-updater is disabled).
+Settings, generated files, saves and mods live under
+`${XDG_DATA_HOME:-$HOME/.local/share}/lantern-engine`, outside the store.
+Your legally obtained Bloodborne dump and a working Vulkan driver are required.
+Optional proprietary DLSS/FSR assets and precompiled shader catalogs are not
+bundled. A successful build/launcher smoke test does not verify gameplay.
+
+The shared package registry exports it through NUR, the flake and both overlays.
+The pinned flake overlay yields the same derivation as CI. The existing successful
+`main` build workflow publishes eligible outputs and their closures to `uriotv`;
+publication still requires its Cachix secret and is not performed by local builds.
