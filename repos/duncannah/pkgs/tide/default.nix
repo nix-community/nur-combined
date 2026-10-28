@@ -7,13 +7,13 @@
 
 buildFishPlugin rec {
   pname = "tide";
-  version = "7.2.0";
+  version = "7.2.1";
 
   src = fetchFromGitHub {
     owner = "plttn";
     repo = "tide";
     rev = "v${version}";
-    hash = "sha256-93Q1hEfZ7wwUK1OGhLQMvngSItMOgZbBjnTN9sS2yiM=";
+    hash = "sha256-X3PBNIRMcesNVMTJULs6egFyiXY1kmGu8SqVQHPFpxc=";
   };
 
   # buildFishPlugin moves only the .fish files, but Tide also has a tide configure function.
