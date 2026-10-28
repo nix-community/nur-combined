@@ -6,19 +6,19 @@
 
 buildGo126Module rec {
   pname = "gh-image";
-  version = "1.4.0";
+  version = "1.4.1";
 
   src = fetchFromGitHub {
     owner = "drogers0";
     repo = "gh-image";
     rev = "v${version}";
-    hash = "sha256-FqsenZoJ2ANRVYysx75AMiecJVqeI9sLpxiXMPiFx1s=";
+    hash = "sha256-5SeC6rer3pBMK7mnO+13JgGQLffqXCtNnP2n7KHCqz4=";
   };
 
   # go mod vendor matches every build tag, so it drags in the hbd-tagged
   # hackbrowserdata and chokes on an embedded .bin absent from its module zip.
   proxyVendor = true;
-  vendorHash = "sha256-RkxNYMDYDen43+5Kg66FHfxaiGSTJeSynkhJNjhnhX8=";
+  vendorHash = "sha256-vqdkmjDLI+wpOOV3zK4pT+KG5zC/SKYmAdgs4GM1OKQ=";
 
   env.CGO_ENABLED = 0;
 
