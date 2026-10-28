@@ -21,6 +21,7 @@
   gnugrep,
   gnused,
   python3,
+  nodejs,
   bun,
   procps,
   zsh,
@@ -52,13 +53,13 @@ buildGoModule (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "magpie";
-  version = "0.1.1749";
+  version = "0.1.1791";
 
   src = fetchFromGitHub {
     owner = "yetone";
     repo = "magpie";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-mecv/Vw4netYL2ME97H4aXJEh+rV6cVY5JXiQU47U/w=";
+    hash = "sha256-epwsFpF7pyjoRaYZZHBJjwnTT4rFk4pSRZ3M8s+0akc=";
   };
 
   vendorHash = "sha256-TnyCe6gD8SC4625Fc5iFSDLbs0a0ehdi0MlN1kANoQg=";
@@ -92,6 +93,7 @@ buildGoModule (finalAttrs: {
   '';
   nativeCheckInputs = [
     python3
+    nodejs
     bun
     zsh
   ]

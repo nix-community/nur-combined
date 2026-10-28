@@ -654,31 +654,6 @@ func patchChecks(files []*sourceFile, o options) error {
 					return true
 				})
 			}
-			// A started Linux executable can briefly expose an empty environ before
-			// its first user-space instruction. Read only after the fixture is ready.
-			if test && ((dir == "internal/proc" && fn.Name.Name == "TestEnvOfHelper") || (dir == "internal/provider" && fn.Name.Name == "TestCodexAppHomeHelper")) && !f.hasCall(fn.Body, "fmt", "Fprint") {
-				f.beforeCalls(fn.Body, func(call *ast.CallExpr) bool { return f.call(call, "time", "Sleep") }, func(_ *ast.BlockStmt) string {
-					return f.qualify("fmt", "Fprint") + "(" + f.qualify("os", "Stdout") + ", \"!\")"
-				})
-			}
-			if test && ((dir == "internal/proc" && fn.Name.Name == "TestEnvOfChild") || (dir == "internal/provider" && fn.Name.Name == "TestCodexAppServersOnHome")) && !strings.Contains(f.text(fn.Body), "nixReady") {
-				ast.Inspect(fn.Body, func(n ast.Node) bool {
-					call, ok := n.(*ast.CallExpr)
-					if !ok || f.text(call.Fun) != "cmd.Start" {
-						return true
-					}
-					f.replace(call, `func() error {
-nixReady, err := cmd.StdoutPipe()
-if err != nil { return err }
-if err := cmd.Start(); err != nil { return err }
-var signal [1]byte
-if _, err := `+f.qualify("io", "ReadFull")+`(nixReady, signal[:]); err != nil { return err }
-if signal[0] != '!' { return `+f.qualify("fmt", "Errorf")+`("child readiness: %q", signal) }
-return nil
-}()`)
-					return false
-				})
-			}
 			// Keep intentionally polls other writers on a five-second wall-clock
 			// beat. Place this 50 ms quiet-window assertion between those beats.
 			if test && dir == "internal/awake" && fn.Name.Name == "TestKeepOffWaitsForTheSetting" && !strings.Contains(f.text(fn.Body), "nixUntilPoll") {
