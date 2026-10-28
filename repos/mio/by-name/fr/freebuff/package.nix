@@ -50,7 +50,7 @@ let
   # bundles, ripgrep, ...), so every target has its own hash.
   workspaceDepsHashes = {
     x86_64-linux = "sha256-DZWTUUJybeI0flBFNDsCJtCYtHkoNN1TLptJr8Q8b60=";
-    aarch64-darwin = "sha256-t1LLE4yNc8Y+93a9JclfLQpxHCyKQ/+VFCtdFCu1bAc=";
+    aarch64-darwin = "sha256-94p8tlkSY6DHOSp4/DdoG1/0aYfA0tFN48pM2CV2iI8=";
   };
 
   workspaceDeps = stdenvNoCC.mkDerivation {
