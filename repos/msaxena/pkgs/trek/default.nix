@@ -23,6 +23,19 @@ buildNpmPackage (finalAttrs: {
 
   nativeBuildInputs = [ makeWrapper ];
 
+  # npmConfigHook only patches shebangs in the root node_modules, but npm
+  # keeps a workspace's dependency nested under <workspace>/node_modules
+  # whenever it conflicts with the hoisted copy (see installPhase). Since
+  # v5.0.0 that includes shared's build tool, and its unpatched
+  # `#!/usr/bin/env node` failed the build with "bad interpreter".
+  preBuild = ''
+    for ws in shared server client; do
+      if [ -d "$ws/node_modules" ]; then
+        patchShebangs "$ws/node_modules"
+      fi
+    done
+  '';
+
   # The root "build" script builds the npm workspaces in dependency order:
   # shared -> server -> client (mirrors the upstream Dockerfile stages).
   installPhase = ''
