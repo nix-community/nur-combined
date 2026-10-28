@@ -4,8 +4,7 @@ on:
   push:
     branches:
       - master
-  schedule:
-    - cron:  '51 2 * * *'
+  workflow_dispatch:
 jobs:
   tests:
     strategy:
@@ -14,8 +13,6 @@ jobs:
           - sikmir
         cachixName:
           - sikmir
-        nixPath:
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
         os:
           - ubuntu-latest
           - macos-latest
@@ -26,10 +23,11 @@ jobs:
     - name: Install nix
       uses: cachix/install-nix-action@v31
       with:
-        nix_path: "${{ matrix.nixPath }}"
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - name: Use nixpkgs from flake.lock
+      run: echo "NIX_PATH=nixpkgs=$(nix flake archive --json | jq -r .inputs.nixpkgs.path)" >> "$GITHUB_ENV"
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Setup cachix
