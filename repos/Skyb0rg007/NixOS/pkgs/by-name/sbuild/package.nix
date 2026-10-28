@@ -17,6 +17,7 @@
   man-db,
   shadow,
   testers,
+  nix-update-script,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "sbuild";
@@ -96,6 +97,10 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.tests.version = testers.testVersion {
     package = finalAttrs.finalPackage;
     version = builtins.replaceStrings [ "_" ] [ "~" ] finalAttrs.version;
+  };
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version-regex=^debian/([0-9.]+)$" ];
   };
 
   meta = {

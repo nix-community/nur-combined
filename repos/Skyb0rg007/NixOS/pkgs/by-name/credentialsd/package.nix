@@ -22,6 +22,7 @@
   udev,
   python3,
   nixosTests,
+  nix-update-script,
 }:
 let
   pythonEnv = python3.withPackages (ps: [
@@ -87,6 +88,8 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru.tests.nixos = nixosTests.credentialsd;
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Linux Credential Manager API";

@@ -28,6 +28,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
       + lib.optionalString stdenv.buildPlatform.isLinux " -Wno-error=stringop-overflow";
   };
 
+  passthru.updateScript = null; # upstream dormant, no git tags
+
   meta = {
     description = "DNS proxy and load balancer";
     homepage = "https://nlnetlabs.nl/projects/domain/mimir/";

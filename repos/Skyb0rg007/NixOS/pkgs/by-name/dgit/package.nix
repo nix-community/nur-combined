@@ -7,6 +7,7 @@
   makeWrapper,
   dpkg,
   git-buildpackage,
+  nix-update-script,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "dgit";
@@ -59,6 +60,10 @@ stdenv.mkDerivation (finalAttrs: {
         ]
       }"
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version-regex=^debian/([0-9.]+)$" ];
+  };
 
   meta = {
     description = "git integration with the Debian archive";

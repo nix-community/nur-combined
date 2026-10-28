@@ -5,6 +5,7 @@
   stdenvNoCC,
   linuxHeaders,
   glibc,
+  nix-update-script,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "filc-pizfix";
@@ -32,6 +33,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Fil-C toolchain (Pizfix)";

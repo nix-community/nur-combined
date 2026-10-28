@@ -18,10 +18,11 @@
   gzip,
   gnutar,
   coreutils,
+  nix-update-script,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "pristine-tar";
-  version = "1.49";
+  version = "1.50";
   strictDeps = true;
   __structuredAttrs = true;
 
@@ -29,8 +30,8 @@ stdenv.mkDerivation (finalAttrs: {
     domain = "salsa.debian.org";
     owner = "debian";
     repo = "pristine-tar";
-    tag = finalAttrs.version;
-    hash = "sha256-BSqBe6jHUwHxt+jc4UuWrpL2BfSGv+a0+N9lcV6hf3w=";
+    tag = "debian/${finalAttrs.version}";
+    hash = "sha256-k9H0GZLqCMD4NgJ/WVMhKMusVEC3a6qJ8jr9Bqm6sKY=";
   };
 
   nativeBuildInputs = [
@@ -135,6 +136,10 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postCheck
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version-regex=^debian/([0-9.]+)$" ];
+  };
 
   meta = {
     homepage = "https://salsa.debian.org/debian/pristine-tar";

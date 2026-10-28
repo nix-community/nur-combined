@@ -23,6 +23,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     install -m755 $src $out/bin/dnclient
   '';
 
+  passthru.updateScript = null; # proprietary, no public version feed
+
   meta = {
     homepage = "https://www.defined.net/";
     downloadPage = "https://www.defined.net/downloads/";

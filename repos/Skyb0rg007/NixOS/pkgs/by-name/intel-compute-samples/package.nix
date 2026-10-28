@@ -41,7 +41,10 @@ stdenv.mkDerivation {
     hash = "sha256-3KVXrPZgqCJa4w1teuTcwTQkS21SGDMGghzjVgcELa8=";
   };
 
-  passthru = { inherit mediadata; };
+  passthru = {
+    inherit mediadata;
+    updateScript = null; # upstream repository is archived
+  };
 
   nativeBuildInputs = [
     cmake

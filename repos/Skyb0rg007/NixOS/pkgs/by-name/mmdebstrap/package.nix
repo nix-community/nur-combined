@@ -11,6 +11,7 @@
   apt,
   debian-archive-keyring,
   help2man,
+  nix-update-script,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "mmdebstrap";
@@ -117,6 +118,10 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version-regex=^([0-9.]+)$" ];
+  };
 
   meta = {
     description = "Alternative to debootstrap which uses apt internally";

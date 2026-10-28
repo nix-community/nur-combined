@@ -12,6 +12,7 @@
   vips,
   ghostscript,
   poppler-utils,
+  nix-update-script,
 }:
 let
   baseOcamlPackages = ocaml-ng.ocamlPackages_4_14;
@@ -82,6 +83,10 @@ ocamlPackages.buildDunePackage (finalAttrs: {
         ]
       }
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version-regex=^v([0-9.]+)$" ];
+  };
 
   meta = {
     homepage = "https://dldc.lib.uchicago.edu/open/attachment-converter/";

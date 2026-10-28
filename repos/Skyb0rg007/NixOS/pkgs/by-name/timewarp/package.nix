@@ -2,6 +2,7 @@
   lib,
   fetchFromGitHub,
   stdenv,
+  nix-update-script,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "timewarp";
@@ -24,6 +25,10 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version=branch" ];
+  };
 
   meta = {
     description = "Run a command with a faked system time without LD_PRELOAD";

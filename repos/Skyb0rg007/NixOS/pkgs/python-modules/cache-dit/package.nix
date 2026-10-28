@@ -10,6 +10,7 @@
   diffusers,
   transformers,
   python,
+  nix-update-script,
 }:
 buildPythonPackage (finalAttrs: {
   pname = "cache-dit";
@@ -36,6 +37,10 @@ buildPythonPackage (finalAttrs: {
     torch
     transformers
   ];
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version-regex=^v([0-9.]+)$" ];
+  };
 
   meta = {
     description = "Cache-DiT: Accelerating Diffusion Transformers with Dynamic Feature Caching";

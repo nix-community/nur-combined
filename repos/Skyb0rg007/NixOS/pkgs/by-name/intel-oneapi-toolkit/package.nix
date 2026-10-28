@@ -252,6 +252,8 @@ stdenv.mkDerivation (finalAttrs: {
     "liboutputgenerator.so"
   ];
 
+  passthru.updateScript = null; # proprietary, download URL contains an opaque UUID
+
   meta = {
     description = "Intel oneAPI Toolkit";
     homepage = "https://www.intel.com/content/www/us/en/developer/tools/oneapi/oneapi-toolkit.html";

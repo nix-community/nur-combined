@@ -9,6 +9,7 @@
   tpm2-tss,
   protobuf,
   mbedtls,
+  nix-update-script,
 }:
 let
   trustedFirmwareA = fetchFromGitHub {
@@ -142,6 +143,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "unix-peer-credentials-authenticator"
     "jwt-svid-authenticator"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Platform AbstRaction for SECurity";

@@ -4,6 +4,7 @@
   mkTclDerivation,
   tcl,
   autoreconfHook,
+  nix-update-script,
 }:
 
 mkTclDerivation (finalAttrs: {
@@ -18,6 +19,8 @@ mkTclDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [ autoreconfHook ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Syslog interface for Tcl";

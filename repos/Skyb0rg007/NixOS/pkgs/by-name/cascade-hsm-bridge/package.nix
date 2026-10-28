@@ -6,6 +6,7 @@
   softhsm,
   installShellFiles,
   versionCheckHook,
+  nix-update-script,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cascade-hsm-bridge";
@@ -40,6 +41,15 @@ rustPlatform.buildRustPackage (finalAttrs: {
     # Build the debug release
     cargo build --bin cascade-hsm-bridge
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      # Only prereleases (0.1.0-alpha, 0.1.0-beta1) exist so far
+      "--version=unstable"
+      # Skip the stale v0.1.0-rc1 tag (2025), which sorts above 0.1.0-beta1 (2026)
+      "--version-regex=^([0-9].*)$"
+    ];
+  };
 
   meta = {
     description = "KMIP to PKCS#11 bridge for Cascade";

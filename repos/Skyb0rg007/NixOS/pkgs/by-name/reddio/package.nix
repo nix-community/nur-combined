@@ -26,6 +26,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   makeFlags = [ "PREFIX=$(out)" ];
 
+  passthru.updateScript = null; # upstream mostly dormant, last tag 2022
+
   meta = {
     description = "Command-line interface for Reddit";
     homepage = "https://gitlab.com/aaronNG/reddio/";

@@ -22,6 +22,8 @@ stdenv.mkDerivation (finalAttrs: {
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
 
+  passthru.updateScript = null; # upstream dormant since 2024, no git tags
+
   meta = {
     description = "Screensaver for terminals";
     homepage = "https://gitlab.com/mezantrop/ascsaver";

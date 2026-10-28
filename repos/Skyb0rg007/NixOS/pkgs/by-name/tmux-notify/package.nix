@@ -3,6 +3,7 @@
   lib,
   libnotify,
   tmuxPlugins,
+  nix-update-script,
 }:
 tmuxPlugins.mkTmuxPlugin rec {
   pluginName = "tmux-notify";
@@ -20,6 +21,8 @@ tmuxPlugins.mkTmuxPlugin rec {
   postInstall = ''
     find $target -type f -exec sed -i 's|notify-send |${lib.getExe libnotify} |g' {} +
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Tmux plugin to notify you when processes are finished";

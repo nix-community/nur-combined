@@ -2,6 +2,7 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
+  nix-update-script,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "island";
@@ -23,6 +24,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   doCheck = false;
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version=branch" ];
+  };
 
   meta = {
     description = "Sandboxing tool using Landlock for secure command execution";

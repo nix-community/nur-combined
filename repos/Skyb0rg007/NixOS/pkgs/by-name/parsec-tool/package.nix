@@ -19,6 +19,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-U79tTTj31LmuLyafNcuaYM2pRoSo3mx4AudD9fefYg8=";
 
+  passthru.updateScript = null; # upstream dormant since 2024
+
   meta = {
     description = "Parsec Command Line Interface";
     homepage = "https://parsec.community";
