@@ -86,9 +86,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
   dontWrapGApps = true;
 
   # deep-link registration runs update-desktop-database + xdg-mime to claim vacs://
+  # Upstream renamed the binary to `vacs` and ships a deb-only `vacs-client` shim that
+  # execs /usr/bin/vacs; replace it with a link to the wrapped binary.
   postFixup = ''
-    mv $out/bin/vacs-client $out/lib/vacs/vacs-client
-    makeWrapper $out/lib/vacs/vacs-client $out/bin/vacs-client \
+    rm $out/bin/vacs-client
+    mv $out/bin/vacs $out/lib/vacs/vacs
+    makeWrapper $out/lib/vacs/vacs $out/bin/vacs \
       "''${gappsWrapperArgs[@]}" \
       --suffix PATH : ${
         lib.makeBinPath [
@@ -97,6 +100,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
           zenity
         ]
       }
+    ln -s vacs $out/bin/vacs-client
   '';
 
   meta = {
@@ -111,7 +115,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       "x86_64-linux"
       "aarch64-linux"
     ];
-    mainProgram = "vacs-client";
+    mainProgram = "vacs";
     # Workspace declares rust-version = "1.95.0".
     broken = lib.versionOlder rustc.version "1.95.0";
   };

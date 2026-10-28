@@ -1,81 +1,61 @@
 {
   lib,
-  stdenv,
   fetchurl,
+  runCommand,
   appimageTools,
-  autoPatchelfHook,
-  makeWrapper,
-  pkgs,
 }:
 
 let
-  version = "4.1.0-beta.19";
+  version = "4.1.0-beta.22";
   pname = "vatis";
 
   src = fetchurl {
     # No versioned URL available; always serves latest
     url = "https://hub.vatis.app/download/linux";
-    hash = "sha256-Wn7vQepoI1wzP5oyAfUDMzVV28vGyR0DvKp6AaCuqB0=";
+    hash = "sha256-a10ftXmjv6npTWI8JWV8VCtmKY/kpELyWYJP7SfBy0k=";
     name = "vATIS-${version}.AppImage";
   };
 
-  appimageContents = appimageTools.extractType2 {
-    inherit pname version src;
-  };
+  # Since 4.1.0-beta.22 the AppImage payload is DwarFS (uruntime), which
+  # appimageTools cannot unpack; its static runtime extracts itself.
+  appimageContents = runCommand "${pname}-${version}-extracted" { } ''
+    install -m755 ${src} vatis.AppImage
+    ./vatis.AppImage --appimage-extract >/dev/null
+    mv "$(readlink -f squashfs-root)" $out # uruntime: squashfs-root -> AppDir
+  '';
 in
-stdenv.mkDerivation {
+# vATIS is a .NET single-file bundle: patchelf/strip shift the payload appended
+# to the ELF ("Failure processing application bundle"), so the binary runs
+# unmodified in an FHS environment instead.
+appimageTools.wrapAppImage {
   inherit pname version;
-
   src = appimageContents;
 
-  nativeBuildInputs = [
-    autoPatchelfHook
-    makeWrapper
-  ];
+  extraPkgs =
+    pkgs: with pkgs; [
+      icu
+      curl
+      zlib
+      fontconfig
+      libGL
+      vulkan-loader
+      libx11
+      libxcursor
+      libxi
+      libxrandr
+      libice
+      libsm
+      alsa-lib
+      libpulseaudio
+    ];
 
-  buildInputs = with pkgs; [
-    curl
-    zlib
-    fontconfig
-    stdenv.cc.cc.lib # libstdc++
-  ];
-
-  runtimeDependencies = [
-    (lib.getLib pkgs.icu)
-  ];
-
-  dontConfigure = true;
-  dontBuild = true;
-
-  installPhase = ''
-    runHook preInstall
-
-    mkdir -p $out/bin $out/lib $out/share/applications $out/share/icons/hicolor/256x256/apps
-
-    cp -r usr/bin/* $out/lib/
-    cp org.vatsim.vatis.png $out/share/icons/hicolor/256x256/apps/org.vatsim.vatis.png
-
-    # Desktop file
-    cp org.vatsim.vatis.desktop $out/share/applications/vatis.desktop
+  extraInstallCommands = ''
+    install -Dm644 ${appimageContents}/org.vatsim.vatis.png \
+      $out/share/icons/hicolor/256x256/apps/org.vatsim.vatis.png
+    install -Dm644 ${appimageContents}/org.vatsim.vatis.desktop \
+      $out/share/applications/vatis.desktop
     substituteInPlace $out/share/applications/vatis.desktop \
       --replace-fail 'Exec=vATIS' 'Exec=vatis'
-
-    makeWrapper $out/lib/vATIS $out/bin/vatis \
-      --set SSL_CERT_FILE "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt" \
-      --prefix LD_LIBRARY_PATH : "$out/lib:${lib.makeLibraryPath [
-        pkgs.libGL
-        pkgs.vulkan-loader
-        pkgs.xorg.libX11
-        pkgs.xorg.libXcursor
-        pkgs.xorg.libXi
-        pkgs.xorg.libXrandr
-        pkgs.xorg.libICE
-        pkgs.xorg.libSM
-        pkgs.alsa-lib
-        pkgs.libpulseaudio
-      ]}"
-
-    runHook postInstall
   '';
 
   meta = {
