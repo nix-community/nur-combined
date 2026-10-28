@@ -13,6 +13,17 @@ in
       description = "minimum arc size in gib to prevent ram starvation";
     };
 
+    arcMaxGiB = lib.mkOption {
+      type = lib.types.int;
+      default = 0;
+      description = ''
+        maximum arc size in gib (0 keeps `zfs_arc_max` unset, i.e. no cap).
+        Without a cap ZFS is allowed to grow the ARC up to all of RAM, which on
+        a box that also runs a large page-cache workload leaves the kernel in
+        permanent direct reclaim / swap-out.
+      '';
+    };
+
     aggressiveL2ARC = lib.mkOption {
       type = lib.types.bool;
       default = true;
@@ -30,6 +41,10 @@ in
     boot.extraModprobeConfig = ''
       # guarantee minimum l1 arc capacity
       options zfs zfs_arc_min=${toString (cfg.arcMinGiB * 1024 * 1024 * 1024)}
+      ${lib.optionalString (cfg.arcMaxGiB > 0) ''
+        # hard cap on the l1 arc so it cannot crowd out page cache and anon
+        options zfs zfs_arc_max=${toString (cfg.arcMaxGiB * 1024 * 1024 * 1024)}
+      ''}
 
       # disable vdev prefetch for random-access game packages
       options zfs zfs_prefetch_disable=${if cfg.disablePrefetch then "1" else "0"}

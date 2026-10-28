@@ -4,7 +4,7 @@ The [project README](../README.md) embeds the main views and describes the imple
 
 | View | Focus | Source |
 | --- | --- | --- |
-| [Overview](realm-overview.svg) | Transparent capture, private services, and SPIFFE identity | [D2](realm-overview.d2) |
+| [Overview](realm-overview.svg) | Node attestation, transparent capture, private services, and SPIFFE identity | [D2](realm-overview.d2) |
 | [Transparent agent](transparent-egress.svg) | Root controller, app cgroup BPF, unprivileged worker, DNS and existing SPIFFE egress | [D2](transparent-egress.d2) |
 | [Local transport](local-transport.svg) | Private networks, socket adapters, and peer checks | [D2](local-transport.d2) |
 | [Configuration](config-compiler.svg) | Declarations, automatic enrollment, static catalogs, and system configuration | [D2](config-compiler.d2) |
@@ -19,6 +19,13 @@ credentials, unit, cgroup and namespace; it starts one worker per active
 workload. Workers share the application's network namespace but stay outside
 its captured cgroup. They use distinct unprivileged accounts and have no SPIRE
 API access. SPIRE and the existing TLS proxies retain identity and authorization.
+
+Node bootstrap is separate from workload identity. Each Agent proves a
+short-lived HTTP FQDN challenge; the Server fetches the proof from the address
+pinned in `registry.toml`, without DNS, and the stable alias `agent/<host>`
+resolves to the attested `http_fqdn` Agent ID. The HTTP path adds no encryption
+or peer authentication, so the registry and the mesh transport are part of the
+bootstrap trust boundary. See [HTTP attestation](../docs/realm-http-attestation.md).
 
 Enabled isolated native services and supported rootless containers enroll
 automatically. Host-network gateways and external runtimes stay outside

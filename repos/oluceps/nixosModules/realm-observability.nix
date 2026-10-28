@@ -219,6 +219,21 @@ let
           ++ [ { handle = [ denied ]; } ];
         };
       }
+      // lib.optionalAttrs (config.realm.spire.metrics.enable or false) {
+        identity-svid = mtls [ "spiffe://${config.realm.trustDomain}/observer/identity/${hostName}" ] // {
+          listen = [ "127.0.0.1:${toString config.realm.spire.metrics.caddyPort}" ];
+          routes = [
+            {
+              handle = [
+                {
+                  handler = "static_response";
+                  status_code = 204;
+                }
+              ];
+            }
+          ];
+        };
+      }
       // lib.mapAttrs' (
         name: e:
         lib.nameValuePair "business-${name}" (

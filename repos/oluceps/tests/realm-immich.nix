@@ -83,6 +83,7 @@ let
     pkgs.writeShellScriptBin "immich-${mode}-fixture" ''
       exec ${pkgs.python3}/bin/python3 ${fixture} ${mode}
     '';
+  spireFixture = import ./realm-spire-fixture.nix { inherit pkgs; };
 in
 pkgs.testers.runNixOSTest {
   name = "realm-immich";
@@ -91,7 +92,7 @@ pkgs.testers.runNixOSTest {
     {
       imports = [
         ../nixosModules/realm-workloads.nix
-        ../nixosModules/realm-spire.nix
+        spireFixture.module
         ../nixosModules/realm-observability.nix
         ../nixosModules/service-discovery.nix
         (import ../mod/realm-caddy-policy.nix).flake.modules.nixos.realm
@@ -137,23 +138,15 @@ pkgs.testers.runNixOSTest {
 
       realm = {
         enable = true;
+        identityCatalog = {
+          machine = config.realm.localIdentities;
+          fixture.artex = "spiffe://nyaw.xyz/service/artex";
+        };
         serviceDiscovery = {
           enable = true;
           address = "::1";
         };
-        spire = {
-          serverAddress = "::1";
-          server = {
-            enable = true;
-            registrations.machine = lib.mapAttrs (
-              _: entry:
-              entry
-              // {
-                parentID = "spiffe://nyaw.xyz/agent/machine";
-              }
-            ) config.realm.spire.registrations;
-          };
-        };
+
         workloads = {
           caddy.spiffeID = config.realm.caddy.entrypointID;
           caddy.egress = {
@@ -211,10 +204,7 @@ pkgs.testers.runNixOSTest {
         return f"nsenter -t $(systemctl show -p MainPID --value {unit}.service) -n {command}"
 
     machine.start()
-    machine.wait_for_unit("spire-server.service")
-    machine.wait_for_unit("realm-spire-register.service")
-    machine.succeed("realm-enroll machine | realm-install-enrollment")
-    machine.wait_for_unit("spire-agent.service")
+    ${spireFixture.startAgent}
     for unit in ["postgresql", "redis-immich", "immich-server", "immich-machine-learning", "immich-public-proxy", "caddy", "imposter"]:
         machine.wait_for_unit(f"{unit}.service")
 

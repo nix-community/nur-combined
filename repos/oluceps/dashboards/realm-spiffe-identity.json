@@ -1,0 +1,4084 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "证书生命周期、独立 WireGuard 采集、逐进程 SVID、HTTP proof 与原生 SPIRE telemetry。六节点已部署，线上数据与 OIDC 登录视觉验收均已通过。缺失数据表示未知，不视为零错误或健康。",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "links": [
+    {
+      "includeVars": true,
+      "keepTime": true,
+      "targetBlank": false,
+      "title": "Envoy 网关流量与出站日志",
+      "type": "link",
+      "url": "/d/envoy-zero-trust-egress/envoy-zero-trust-egress-gateways"
+    }
+  ],
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1000,
+      "panels": [],
+      "title": "证书生命周期与采集覆盖",
+      "type": "row"
+    },
+    {
+      "gridPos": {
+        "h": 3,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 1001,
+      "options": {
+        "content": "六台节点已部署直接指标，独立 WireGuard、SPIFFE 网关、bootstrap 信任与各 collector 均已通过线上数据核验。预期节点固定为 Abhoth、Azasos、Eihort、Hastur、Nodens、Yidhra；不包含 Uubboo 和 Kaambl。**OIDC 登录与看板渲染已完成视觉验收。**\n\n按 unit / identity / source 列出证书观察目标。Ghostunnel status watch 与实际业务证书源分开。缺失、未首次观测、未发生事件均不是健康或 0 错误；dormant 表示未启动，不表示故障。",
+        "mode": "markdown"
+      },
+      "title": "当前观测范围",
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "仅 service/internet 的当前 SVID。15 分钟和 5 分钟是看板阈值，不是新建告警规则。缺失不能判定为正常。",
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red"
+              },
+              {
+                "color": "orange",
+                "value": 300
+              },
+              {
+                "color": "green",
+                "value": 900
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 0,
+        "y": 4
+      },
+      "id": 16,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "values": false
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "min by(instance) (envoy_listener_ssl_certificate_xyz_service_internet_expiration_unix_time_seconds{job=\"envoy\",instance=~\"${instance:regex}\"}) - time()",
+          "instant": true,
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Envoy 互联网网关 SVID 剩余时间",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "监测采集新鲜度，不是证书签发或续期时间。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 6,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "showPoints": "never"
+          },
+          "noValue": "缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              },
+              {
+                "color": "orange",
+                "value": 90
+              },
+              {
+                "color": "red",
+                "value": 180
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 8,
+        "y": 4
+      },
+      "id": 1002,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "time() - max by(instance) (timestamp(envoy_listener_ssl_certificate_xyz_service_internet_expiration_unix_time_seconds{job=\"envoy\",instance=~\"${instance:regex}\"}))",
+          "instant": true,
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "title": "证书指标距上次采样",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "仅 Envoy 已加载的信任 bundle。最晚到期不证明它包含当前签发根，也不代表磁盘 bootstrap bundle 有效。历史过期根可以与有效根共存。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 6,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "showPoints": "never"
+          },
+          "noValue": "缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 16,
+        "y": 4
+      },
+      "id": 1003,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "max by(instance) ({__name__=~\"envoy_listener_ssl_certificate_xyz_[0-9]+_expiration_unix_time_seconds\",job=\"envoy\",instance=~\"${instance:regex}\"}) - time()",
+          "instant": true,
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Envoy bundle 最晚到期时间",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "只有 service/internet 这一类 SVID。剩余时间上升可反映替换，但无法替代签发与续期成功计数。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 6,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "showPoints": "never"
+          },
+          "noValue": "缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 9
+      },
+      "id": 1004,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "min by(instance) (envoy_listener_ssl_certificate_xyz_service_internet_expiration_unix_time_seconds{job=\"envoy\",instance=~\"${instance:regex}\"}) - time()",
+          "instant": false,
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "title": "当前 SVID 剩余时间与轮换走势",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "每个查询窗口内的更新次数。证书和信任 bundle 更新都可能触发 context 更新，不能把它当成精确 SVID 续期次数。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 6,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "showPoints": "never"
+          },
+          "noValue": "缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 9
+      },
+      "id": 1005,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "sum by(instance) (increase(envoy_listener_server_ssl_socket_factory_ssl_context_update_by_sds{job=\"envoy\",instance=~\"${instance:regex}\"}[$__rate_interval]))",
+          "instant": false,
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "title": "SDS TLS context 更新次数",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "槽位编号不等于证书指纹。历史过期根会出现负值，不能以最小值判断当前 SVID 或签发根已经失效。不是磁盘 bootstrap bundle 检查。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 6,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "showPoints": "never"
+          },
+          "noValue": "缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "id": 1006,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "max by(instance,cert_slot) (label_replace({__name__=~\"envoy_listener_ssl_certificate_xyz_[0-9]+_expiration_unix_time_seconds\",job=\"envoy\",instance=~\"${instance:regex}\"},\"cert_slot\",\"$1\",\"__name__\",\"envoy_listener_ssl_certificate_xyz_([0-9]+)_expiration_unix_time_seconds\")) - time()",
+          "instant": false,
+          "legendFormat": "{{instance}} / slot {{cert_slot}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Envoy bundle 各槽位证书剩余时间",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 23
+      },
+      "id": 1007,
+      "panels": [],
+      "title": "节点认证服务与注册协调",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "显示 unit 的 active 状态。进程或 socket 就绪不等于 HTTP attestation 成功。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 6,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "showPoints": "never"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "非 active"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "active"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "color": "orange",
+                  "index": 2,
+                  "text": "缺少采集"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "noValue": "缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 0,
+        "y": 24
+      },
+      "id": 1008,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "node_systemd_unit_state{job=\"metrics\",instance=~\"${instance:regex}\",name=\"spire-agent.service\",state=\"active\"}",
+          "instant": true,
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "title": "SPIRE Agent 单元状态",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "显示 unit 的 active 状态。进程或 socket 就绪不等于 HTTP attestation 成功。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 6,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "showPoints": "never"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "非 active"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "active"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "color": "orange",
+                  "index": 2,
+                  "text": "缺少采集"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "noValue": "缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 8,
+        "y": 24
+      },
+      "id": 1009,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "node_systemd_unit_state{job=\"metrics\",instance=~\"${instance:regex}\",name=\"realm-node-attest-responder.service\",state=\"active\"}",
+          "instant": true,
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "title": "HTTP responder 单元状态",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "显示 unit 的 active 状态。进程或 socket 就绪不等于 HTTP attestation 成功。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 6,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "showPoints": "never"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "非 active"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "active"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "color": "orange",
+                  "index": 2,
+                  "text": "缺少采集"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "noValue": "缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 16,
+        "y": 24
+      },
+      "id": 1010,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "node_systemd_unit_state{job=\"metrics\",instance=~\"${instance:regex}\",name=\"realm-node-attest-http6.socket\",state=\"active\"}",
+          "instant": true,
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "title": "HTTP IPv6 socket 状态",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "显示 unit 的 active 状态。进程或 socket 就绪不等于 HTTP attestation 成功。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 6,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "showPoints": "never"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "非 active"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "active"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "color": "orange",
+                  "index": 2,
+                  "text": "缺少采集"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "noValue": "缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 0,
+        "y": 29
+      },
+      "id": 1011,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "node_systemd_unit_state{job=\"metrics\",instance=~\"${instance:regex}\",name=\"realm-node-attest-control.socket\",state=\"active\"}",
+          "instant": true,
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Root publication socket 状态",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "固定显示 Eihort 控制面。active 只表示 unit 状态，不能证明认证或注册内容正确。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 6,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "showPoints": "never"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "非 active"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "active"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "color": "orange",
+                  "index": 2,
+                  "text": "缺少采集"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "noValue": "缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 8,
+        "y": 29
+      },
+      "id": 1012,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "node_systemd_unit_state{job=\"metrics\",instance=\"eihort\",name=\"spire-server.service\",state=\"active\"}",
+          "instant": true,
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "title": "SPIRE Server · Eihort",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "固定显示 Eihort 控制面。active 只表示 unit 状态，不能证明认证或注册内容正确。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 6,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "showPoints": "never"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "非 active"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "active"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "color": "orange",
+                  "index": 2,
+                  "text": "缺少采集"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "noValue": "缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 16,
+        "y": 29
+      },
+      "id": 1013,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "node_systemd_unit_state{job=\"metrics\",instance=\"eihort\",name=\"realm-spire-register.service\",state=\"active\"}",
+          "instant": true,
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "title": "注册协调器 · Eihort",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 34
+      },
+      "id": 1014,
+      "panels": [],
+      "title": "mTLS、访问控制与连接池保护",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "Envoy 下游 TLS 握手信号，不是 SPIRE 节点 attestation 错误。缺失的序列不强制补零。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 6,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "showPoints": "never"
+          },
+          "noValue": "缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "ops"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 35
+      },
+      "id": 1015,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "sum by(instance) (rate(envoy_listener_ssl_fail_verify_error{job=\"envoy\",instance=~\"${instance:regex}\"}[$__rate_interval]))",
+          "instant": false,
+          "legendFormat": "{{instance}} / verify error",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "sum by(instance) (rate(envoy_listener_ssl_fail_verify_no_cert{job=\"envoy\",instance=~\"${instance:regex}\"}[$__rate_interval]))",
+          "instant": false,
+          "legendFormat": "{{instance}} / no client cert",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "sum by(instance) (rate(envoy_listener_ssl_fail_verify_san{job=\"envoy\",instance=~\"${instance:regex}\"}[$__rate_interval]))",
+          "instant": false,
+          "legendFormat": "{{instance}} / SAN mismatch",
+          "refId": "C"
+        }
+      ],
+      "title": "下游客户端证书校验失败速率",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "区分本端证书供应异常和 TLS 连接错误。错误也可能来自对端断开，需要结合认证服务状态。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 6,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "showPoints": "never"
+          },
+          "noValue": "缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "ops"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 35
+      },
+      "id": 1016,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "sum by(instance) (rate(envoy_listener_ssl_no_certificate{job=\"envoy\",instance=~\"${instance:regex}\"}[$__rate_interval]))",
+          "instant": false,
+          "legendFormat": "{{instance}} / no server certificate",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "sum by(instance) (rate(envoy_listener_ssl_connection_error{job=\"envoy\",instance=~\"${instance:regex}\"}[$__rate_interval]))",
+          "instant": false,
+          "legendFormat": "{{instance}} / connection error",
+          "refId": "B"
+        }
+      ],
+      "title": "缺少服务端证书与 TLS 连接错误速率",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "lineInterpolation": "smooth",
+            "lineWidth": 2
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 0,
+        "y": 42
+      },
+      "id": 17,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max",
+            "last"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "sum by (instance) (envoy_http_downstream_cx_ssl_active{job=\"envoy\",instance=~\"${instance:regex}\",instance!~\"kaambl|uubboo\", envoy_http_conn_manager_prefix=\"internet\"})",
+          "legendFormat": "mTLS Active CX ({{instance}})",
+          "refId": "A"
+        }
+      ],
+      "title": "活跃 SPIFFE mTLS 客户端连接数 (Active Downstream mTLS CX)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "stepAfter",
+            "lineWidth": 2
+          },
+          "unit": "short"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": ".*CX Open.*"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": ".*RQ Open.*"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": ".*Pending.*"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 8,
+        "y": 42
+      },
+      "id": 18,
+      "options": {
+        "legend": {
+          "calcs": [
+            "max",
+            "last"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "sum by (instance) (envoy_cluster_circuit_breakers_default_cx_open{job=\"envoy\",instance=~\"${instance:regex}\",instance!~\"kaambl|uubboo\", envoy_cluster_name=\"internet\"})",
+          "legendFormat": "CX Open ({{instance}})",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "sum by (instance) (envoy_cluster_circuit_breakers_default_rq_open{job=\"envoy\",instance=~\"${instance:regex}\",instance!~\"kaambl|uubboo\", envoy_cluster_name=\"internet\"})",
+          "legendFormat": "RQ Open ({{instance}})",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "sum by (instance) (envoy_cluster_circuit_breakers_default_rq_pending_open{job=\"envoy\",instance=~\"${instance:regex}\",instance!~\"kaambl|uubboo\", envoy_cluster_name=\"internet\"})",
+          "legendFormat": "Pending RQ Open ({{instance}})",
+          "refId": "C"
+        }
+      ],
+      "title": "连接池与请求队列熔断状态 (Circuit Breaker Status)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "lineInterpolation": "smooth",
+            "lineWidth": 2
+          },
+          "unit": "reqps"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": ".*Allowed.*"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byRegexp",
+              "options": ".*Denied.*"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 3
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 8,
+        "x": 16,
+        "y": 42
+      },
+      "id": 1017,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max",
+            "last"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "sum by (instance) (rate(envoy_http_rbac_allowed{job=\"envoy\",instance=~\"${instance:regex}\",instance!~\"kaambl|uubboo\", envoy_http_conn_manager_prefix=\"internet\"}[$__rate_interval]))",
+          "legendFormat": "RBAC Allowed ({{instance}})",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "sum by (instance) (rate(envoy_http_rbac_denied{job=\"envoy\",instance=~\"${instance:regex}\",instance!~\"kaambl|uubboo\", envoy_http_conn_manager_prefix=\"internet\"}[$__rate_interval]))",
+          "legendFormat": "RBAC Denied/Blocked ({{instance}})",
+          "refId": "B"
+        }
+      ],
+      "title": "零信任 RBAC 访问控制评估速率 (RBAC Allowed vs Denied)",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 49
+      },
+      "id": 1018,
+      "panels": [],
+      "title": "既有观测链路、直接指标部署进度与时钟",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "既有采集经过 SPIFFE 网关；下方独立 WireGuard realm-identity 不依赖该身份链路。线上已分别核验两条路径；up 只表示抓取成功。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 6,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "showPoints": "never"
+          },
+          "noValue": "缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 0,
+        "y": 50
+      },
+      "id": 1019,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "up{job=~\"metrics|envoy\",instance=~\"${instance:regex}\"}",
+          "instant": false,
+          "legendFormat": "{{instance}} / {{job}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Node exporter 与 Envoy 采集状态",
+      "type": "timeseries"
+    },
+    {
+      "gridPos": {
+        "h": 7,
+        "w": 12,
+        "x": 12,
+        "y": 50
+      },
+      "id": 1020,
+      "options": {
+        "content": "| 直接信号 | 范围与证据边界 |\n| --- | --- |\n| bootstrap / exact canary | 六节点已部署；校验当前 Server TLS 链、精确 observer 身份和证书有效期 |\n| Agent / alias | Eihort 本地管理 socket 元数据，按目标 node 筛选；不替代实时链校验 |\n| 逐进程 SVID | 178 个配置目标；inactive 标为 dormant，不为探测启动服务 |\n| Ghostunnel | 独立 status watch，不证明业务 watch 已加载新证书 |\n| Caddy / Envoy | 实际共享 SDK 源 / admin cert_chain 元数据 |\n| HTTP proof | 本地提交、验证后 attributes sent 分开；都不等于 Core 签发 |\n| 原生 SPIRE | 当前激活 CA 到期及成功签名计数；不等于每个业务进程已加载 |\n\n不采集私钥、token、nonce 或完整 proof。OIDC 登录与看板渲染已通过视觉验收；数据检查仍不等于对每个业务路径的验证。\n\n集中日志：五台由 Alloy 写入 Loki。Yidhra 因约 452 MB 内存显式禁用 Alloy，本次保留该限制；其日志仅在本地 journal，直接指标仍可用。",
+        "mode": "markdown"
+      },
+      "title": "直接指标 · 已部署范围与证据边界",
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "来自 Chrony 的偏移、根离散度和延迟估计。时钟会影响证书与短期 challenge 校验。缺失不按零误差处理。",
+      "fieldConfig": {
+        "defaults": {
+          "noValue": "缺少采集",
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 0,
+        "y": 57
+      },
+      "id": 1021,
+      "options": {
+        "colorMode": "none",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "instance:chrony_clock_error_seconds:abs{instance=~\"${instance:regex}\"}",
+          "instant": true,
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "title": "节点时钟误差预算估计",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "以 Envoy 预期目标作为节点清单。0 表示缺少时钟指标，不表示时钟误差为零。若节点清单本身不可用，则显示缺少采集。",
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "orange",
+                  "index": 0,
+                  "text": "缺少时钟指标"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "有时钟指标"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "noValue": "缺少采集",
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 12,
+        "y": 57
+      },
+      "id": 1022,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(count by(instance) (instance:chrony_clock_error_seconds:abs{instance=~\"${instance:regex}\"}) > bool 0) or on(instance) (up{job=\"envoy\",instance=~\"${instance:regex}\"} * 0)",
+          "instant": true,
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "title": "时钟指标覆盖 · 1 有数据 / 0 缺失",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 62
+      },
+      "id": 2000,
+      "panels": [],
+      "title": "直接节点组 · 独立采集、bootstrap 与精确 canary",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "realm-identity 是独立 WireGuard；identity-spiffe 是同一 exporter 的身份网关副本，不合并计数。-1 表示预期节点无 up；固定清单来自已部署的 realm_identity:expected_node 规则。up=1 只表示 HTTP scrape 成功，不证明内容或身份健康。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "采集失败",
+                  "color": "red",
+                  "index": 1
+                },
+                "1": {
+                  "text": "可采集（非身份健康）",
+                  "color": "green",
+                  "index": 2
+                },
+                "-1": {
+                  "text": "缺少目标 / 未知",
+                  "color": "orange",
+                  "index": 0
+                }
+              }
+            }
+          ],
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#808080",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 0,
+        "y": 63
+      },
+      "id": 2001,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "min by(instance) (up{job=\"realm-identity\",instance=~\"${instance:regex}\"}) or on(instance) (max by(instance) (realm_identity:expected_node{job=\"realm-identity\",instance=~\"${instance:regex}\"}) * -1)",
+          "instant": true,
+          "legendFormat": "{{instance}} / WireGuard direct",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "min by(instance) (up{job=\"identity-spiffe\",instance=~\"${instance:regex}\"})",
+          "instant": true,
+          "legendFormat": "{{instance}} / SPIFFE gateway",
+          "refId": "B"
+        }
+      ],
+      "title": "独立 WireGuard 与 SPIFFE 网关 · 分路径 up",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "只选 realm-identity。collector 成功在 65 秒内有效，并受实际证书有效期约束；0 是 exporter 的失败/未开始，不用零填补缺失。workloads 全部观测通过或 dormant 均可成功。agents / aliases 只在中央 Eihort 启用。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "失败 / 未就绪",
+                  "color": "red",
+                  "index": 0
+                },
+                "1": {
+                  "text": "当前观测通过",
+                  "color": "green",
+                  "index": 1
+                }
+              }
+            }
+          ],
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#808080",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 12,
+        "y": 63
+      },
+      "id": 2002,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(realm_identity_collector_success{job=\"realm-identity\",instance=~\"${instance:regex}\"}) and on(instance,job,monitor) (up{job=~\"realm-identity\"} == 1)",
+          "instant": true,
+          "legendFormat": "{{node}} / {{collector}}",
+          "refId": "A"
+        }
+      ],
+      "title": "直接 collector 当前结果 · 非签发计数",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "新鲜 TLS 1.3 握手以磁盘 pinned bundle 校验精确 SPIRE Server URI；不是 CA 数量或系统根检查。1 才是当前探测通过，0 是明确失败/未完成；缺失仍为未知。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "失败 / 未就绪",
+                  "color": "red",
+                  "index": 0
+                },
+                "1": {
+                  "text": "当前观测通过",
+                  "color": "green",
+                  "index": 1
+                }
+              }
+            }
+          ],
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#808080",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 0,
+        "y": 68
+      },
+      "id": 2003,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(realm_bootstrap_bundle_server_trust_valid{job=\"realm-identity\",instance=~\"${instance:regex}\"}) and on(instance,job,monitor) (up{job=~\"realm-identity\"} == 1)",
+          "instant": true,
+          "legendFormat": "{{node}} / pinned server trust",
+          "refId": "A"
+        }
+      ],
+      "title": "bootstrap pinned bundle · Server trust",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "active_valid 只表示本地 bundle CA 在有效期内，不能代替旁边的 server trust 握手。旧根可与新根共存；缺失不当作 0 个证书。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#808080",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 8,
+        "y": 68
+      },
+      "id": 2004,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(realm_bootstrap_bundle_active_valid_certificates{job=\"realm-identity\",instance=~\"${instance:regex}\"}) and on(instance,job,monitor) (up{job=~\"realm-identity\"} == 1)",
+          "instant": true,
+          "legendFormat": "{{node}} / 当前有效 CA",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(realm_bootstrap_bundle_certificates{job=\"realm-identity\",instance=~\"${instance:regex}\"}) and on(instance,job,monitor) (up{job=~\"realm-identity\"} == 1)",
+          "instant": true,
+          "legendFormat": "{{node}} / 全部 CA",
+          "refId": "B"
+        }
+      ],
+      "title": "bootstrap bundle · 有效 CA / 总 CA",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "kind=canary 是精确 observer/identity/<node>，不是任意 Workload API 返回的 SVID，也不是所有业务进程。失败、过期或 65 秒陈旧会撤销证书样本。阈值仅为看板提示，不创建告警。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 300
+              },
+              {
+                "color": "green",
+                "value": 900
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 16,
+        "y": 68
+      },
+      "id": 2005,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(realm_identity_certificate_not_after_seconds{job=\"realm-identity\",instance=~\"${instance:regex}\",kind=\"canary\"} - time()) and on(instance,job,monitor) (up{job=~\"realm-identity\"} == 1)",
+          "instant": true,
+          "legendFormat": "{{node}} / {{identity}}",
+          "refId": "A"
+        }
+      ],
+      "title": "exact canary SVID · 剩余有效期",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "last_success 是采集完成时间，不是签发/续期时间。零表示本进程从未成功，过滤后显示未知；65 秒以上陈旧需结合 collector 状态。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#808080",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 65
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 0,
+        "y": 73
+      },
+      "id": 2006,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(time() - (realm_identity_collector_last_success_timestamp_seconds{job=\"realm-identity\",instance=~\"${instance:regex}\",collector=\"canary\"} > 0)) and on(instance,job,monitor) (up{job=~\"realm-identity\"} == 1)",
+          "instant": true,
+          "legendFormat": "{{node}} / canary 观测年龄",
+          "refId": "A"
+        }
+      ],
+      "title": "exact canary · 距最近成功观测",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "last_collection 是成功或失败的最近完成时间；0 表示尚未完成。65 秒新鲜度不等于签发成功，需同时查看 collector_success。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#808080",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 65
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 8,
+        "y": 73
+      },
+      "id": 2007,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(time() - (realm_identity_collector_last_collection_timestamp_seconds{job=\"realm-identity\",instance=~\"${instance:regex}\"} > 0)) and on(instance,job,monitor) (up{job=~\"realm-identity\"} == 1)",
+          "instant": true,
+          "legendFormat": "{{node}} / {{collector}}",
+          "refId": "A"
+        }
+      ],
+      "title": "直接 collector · 距最近完成",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "仅 kind=canary。记录本 exporter 发现叶指纹改变的时间，不是精确 Core 续期时间或次数。首次观测无此序列，重启重置，轮询可能漏过中间变化；缺失不推断未续期。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#808080",
+                "value": null
+              }
+            ]
+          },
+          "unit": "dateTimeAsIso"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 16,
+        "y": 73
+      },
+      "id": 2008,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(realm_identity_last_rotation_timestamp_seconds{job=\"realm-identity\",instance=~\"${instance:regex}\",kind=\"canary\"}) and on(instance,job,monitor) (up{job=~\"realm-identity\"} == 1)",
+          "instant": true,
+          "legendFormat": "{{node}} / canary 变化",
+          "refId": "A"
+        }
+      ],
+      "title": "exact canary · 最近观测到的换证时间",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 78
+      },
+      "id": 2010,
+      "panels": [],
+      "title": "Eihort 中央管理元数据 · 按目标 node 筛选，不按 scrape instance",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "instance 固定 Eihort，node 匹配节点选择器。kind=agent 的 identity 是稳定 /agent/HOST 别名；值来自实际 http_fqdn Agent 的公开 x509svid_expires_at。不是现场证书链校验，不把 proof 成功当作 Core 签发。本 exporter 不导出 Core serial。过期样本可暂时保留负值供排障。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 300
+              },
+              {
+                "color": "green",
+                "value": 900
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 0,
+        "y": 79
+      },
+      "id": 2011,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(realm_identity_certificate_not_after_seconds{job=\"realm-identity\",instance=\"eihort\",node=~\"${instance:regex}\",kind=\"agent\"} - time()) and on(instance,job,monitor) (up{job=~\"realm-identity\"} == 1)",
+          "instant": true,
+          "legendFormat": "{{node}} / Agent metadata",
+          "refId": "A"
+        }
+      ],
+      "title": "Agent SVID 到期 · Eihort 管理元数据",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "node 是被检查主机，instance 始终 Eihort。metadata 要求唯一、有效、未 banned、can_reattest 的 http_fqdn Agent；alias 要求唯一稳定 ID、预期 parent/selector 与当前有效期。不是 live certificate trust。0 是明确校验失败/陈旧；无样本是未知。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "失败 / 未就绪",
+                  "color": "red",
+                  "index": 0
+                },
+                "1": {
+                  "text": "当前观测通过",
+                  "color": "green",
+                  "index": 1
+                }
+              }
+            }
+          ],
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#808080",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 12,
+        "y": 79
+      },
+      "id": 2012,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(realm_spire_agent_metadata_valid{job=\"realm-identity\",instance=\"eihort\",node=~\"${instance:regex}\"}) and on(instance,job,monitor) (up{job=~\"realm-identity\"} == 1)",
+          "instant": true,
+          "legendFormat": "{{node}} / Agent metadata",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(realm_spire_alias_matches_expected{job=\"realm-identity\",instance=\"eihort\",node=~\"${instance:regex}\"}) and on(instance,job,monitor) (up{job=~\"realm-identity\"} == 1)",
+          "instant": true,
+          "legendFormat": "{{node}} / stable alias",
+          "refId": "B"
+        }
+      ],
+      "title": "Agent metadata 与稳定别名 · 目标主机",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "固定中央观测器，不随目标 node 选择隐藏。中央命令失败或任一节点元数据失效可导致总体失败；应配合逐 node 指标。只使用独立 job。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "失败 / 未就绪",
+                  "color": "red",
+                  "index": 0
+                },
+                "1": {
+                  "text": "当前观测通过",
+                  "color": "green",
+                  "index": 1
+                }
+              }
+            }
+          ],
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#808080",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 0,
+        "y": 84
+      },
+      "id": 2013,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(realm_identity_collector_success{job=\"realm-identity\",instance=\"eihort\",collector=~\"agents|aliases\"}) and on(instance,job,monitor) (up{job=~\"realm-identity\"} == 1)",
+          "instant": true,
+          "legendFormat": "Eihort / {{collector}}",
+          "refId": "A"
+        }
+      ],
+      "title": "中央 agents / aliases collector · 固定 Eihort",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "最近完成不代表成功。0 时间戳过滤为未知；65 秒以上表示陈旧。中央观察者自身的 node=eihort 不能当成被观察节点过滤。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#808080",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 65
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 12,
+        "y": 84
+      },
+      "id": 2014,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(time() - (realm_identity_collector_last_collection_timestamp_seconds{job=\"realm-identity\",instance=\"eihort\",collector=~\"agents|aliases\"} > 0)) and on(instance,job,monitor) (up{job=~\"realm-identity\"} == 1)",
+          "instant": true,
+          "legendFormat": "Eihort / {{collector}}",
+          "refId": "A"
+        }
+      ],
+      "title": "中央管理采集新鲜度 · 固定 Eihort",
+      "type": "stat"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 89
+      },
+      "id": 2020,
+      "panels": [],
+      "title": "逐进程 SVID 清单 · unit / identity / source 与 dormant 分开",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "每个配置 unit 一行，保留 node、unit、identity、source。值由 success + 2*dormant 组成：success=0,dormant=1 是正常 inactive，不发起证书探测、不增加错误。失败/未完成/陈旧不是 dormant。ghostunnel_status_watch 通过也只证明独立 watch；caddy_loaded / envoy_loaded 才是实际 loaded 来源。只代表配置清单，不宣称覆盖所有进程。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "观测失败 / 未就绪",
+                  "color": "red",
+                  "index": 0
+                },
+                "1": {
+                  "text": "观测通过（见 source 边界）",
+                  "color": "green",
+                  "index": 1
+                },
+                "2": {
+                  "text": "健康 inactive · 无证书观测",
+                  "color": "blue",
+                  "index": 2
+                }
+              }
+            }
+          ],
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#808080",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short",
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "filterable": true
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 90
+      },
+      "id": 2021,
+      "options": {
+        "cellHeight": "sm",
+        "showHeader": true,
+        "sortBy": [
+          {
+            "displayName": "node",
+            "desc": false
+          }
+        ]
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(realm_workload_svid_observation_success{job=\"realm-identity\",instance=~\"${instance:regex}\"} + on(instance,job,monitor,node,unit,identity,source) (2 * realm_workload_svid_dormant{job=\"realm-identity\",instance=~\"${instance:regex}\"})) and on(instance,job,monitor) (up{job=~\"realm-identity\"} == 1)",
+          "instant": true,
+          "legendFormat": "",
+          "refId": "A",
+          "format": "table"
+        }
+      ],
+      "title": "逐进程清单 · 0 未就绪 / 1 观测通过 / 2 dormant",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "仅 caddy_loaded（现有 SDK SVID source）与 envoy_loaded（admin /certs 当前精确 URI 元数据）。Envoy 不是密码学链验证。多个不同 current leaf 会失败而非取任意证书；inactive/失败/陈旧撤销证书样本。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 300
+              },
+              {
+                "color": "green",
+                "value": 900
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 97
+      },
+      "id": 2022,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(realm_workload_svid_not_after_seconds{job=\"realm-identity\",instance=~\"${instance:regex}\",source=~\"caddy_loaded|envoy_loaded\"} - time()) and on(instance,job,monitor) (up{job=~\"realm-identity\"} == 1)",
+          "instant": true,
+          "legendFormat": "{{node}} / {{unit}} / {{source}}",
+          "refId": "A"
+        }
+      ],
+      "title": "实际业务 loaded 来源 · SVID 剩余时间",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "仅 ghostunnel_status_watch：status listener 的独立 Workload API watch，不能证明 Ghostunnel 实际业务 TLS source 加载同一证书。刻意与 Caddy / Envoy 实际 loaded 证据分开。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 300
+              },
+              {
+                "color": "green",
+                "value": 900
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 97
+      },
+      "id": 2023,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(realm_workload_svid_not_after_seconds{job=\"realm-identity\",instance=~\"${instance:regex}\",source=\"ghostunnel_status_watch\"} - time()) and on(instance,job,monitor) (up{job=~\"realm-identity\"} == 1)",
+          "instant": true,
+          "legendFormat": "{{node}} / {{unit}} / status watch",
+          "refId": "A"
+        }
+      ],
+      "title": "Ghostunnel status watch · 非业务证书证明",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "last_observed 在失败或 dormant 后保留；不能当成当前成功，必须结合上方状态和 source。0 表示本进程从未成功，过滤为未知；inactive 可以很久没有新观测而仍是正常 dormant。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#808080",
+                "value": null
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 103
+      },
+      "id": 2024,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(time() - (realm_workload_svid_last_observed_timestamp_seconds{job=\"realm-identity\",instance=~\"${instance:regex}\"} > 0)) and on(instance,job,monitor) (up{job=~\"realm-identity\"} == 1)",
+          "instant": true,
+          "legendFormat": "{{node}} / {{unit}} / {{source}}",
+          "refId": "A"
+        }
+      ],
+      "title": "逐进程 · 距最后成功证书观测",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "叶 DER 指纹或 Envoy 公共元数据 digest 的变化观测时间。首次没有此序列；失败/dormant 撤销当前证书与轮换样本，重启重置；轮询可能漏掉中间变化。不把这个时间或观测成功数当作精确续期次数。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#808080",
+                "value": null
+              }
+            ]
+          },
+          "unit": "dateTimeAsIso"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 103
+      },
+      "id": 2025,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(realm_workload_svid_last_rotation_timestamp_seconds{job=\"realm-identity\",instance=~\"${instance:regex}\"}) and on(instance,job,monitor) (up{job=~\"realm-identity\"} == 1)",
+          "instant": true,
+          "legendFormat": "{{node}} / {{unit}} / {{source}}",
+          "refId": "A"
+        }
+      ],
+      "title": "逐进程 · 最近观测到的叶变化时间",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "last_attempt 包括 dormant 状态读取，不是成功证书观测。0 为未完成，过滤为未知；65 秒以上陈旧。正常 dormant 应持续读取 unit 状态。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#808080",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 65
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 109
+      },
+      "id": 2026,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(time() - (realm_workload_svid_last_attempt_timestamp_seconds{job=\"realm-identity\",instance=~\"${instance:regex}\"} > 0)) and on(instance,job,monitor) (up{job=~\"realm-identity\"} == 1)",
+          "instant": true,
+          "legendFormat": "{{node}} / {{unit}} / {{source}}",
+          "refId": "A"
+        }
+      ],
+      "title": "逐进程 · 距最近探测 / inactive 状态读取",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "窗口 increase 统计观测操作，成功轮询并非换证；dormant 不增加成功或错误。错误为 0 只表示窗口未计数，不足以判健康；缺失不补零，需结合清单、up 与新鲜度。计数器随 exporter 重启重置。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 6,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "showPoints": "never"
+          },
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#808080",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 109
+      },
+      "id": 2027,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(increase(realm_workload_svid_observation_successes_total{job=\"realm-identity\",instance=~\"${instance:regex}\"}[$__rate_interval])) and on(instance,job,monitor) (up{job=~\"realm-identity\"} == 1)",
+          "instant": false,
+          "legendFormat": "{{node}} / {{unit}} / {{source}} / 观测成功",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(increase(realm_workload_svid_observation_errors_total{job=\"realm-identity\",instance=~\"${instance:regex}\"}[$__rate_interval])) and on(instance,job,monitor) (up{job=~\"realm-identity\"} == 1)",
+          "instant": false,
+          "legendFormat": "{{node}} / {{unit}} / {{source}} / 观测错误",
+          "refId": "B"
+        }
+      ],
+      "title": "逐进程观测次数 · 成功 / 错误，非续期",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 115
+      },
+      "id": 2030,
+      "panels": [],
+      "title": "HTTP attestation · Agent 本地 proof 提交 ≠ Server attributes ≠ Core 签发",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "Agent/responder 按主机选择，Server 固定 Eihort。HTTP scrape 可用不等于发生过 attestation，更不等于 Core 接受或签发。身份网关故障也可能导致这些目标不可采集。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "采集失败",
+                  "color": "red",
+                  "index": 1
+                },
+                "1": {
+                  "text": "可采集（非身份健康）",
+                  "color": "green",
+                  "index": 2
+                },
+                "-1": {
+                  "text": "缺少目标 / 未知",
+                  "color": "orange",
+                  "index": 0
+                }
+              }
+            }
+          ],
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#808080",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 0,
+        "y": 116
+      },
+      "id": 2031,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "up{job=~\"attestation-agent|attestation-responder\",instance=~\"${instance:regex}\"}",
+          "instant": true,
+          "legendFormat": "{{instance}} / {{job}}",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "up{job=\"attestation-server\",instance=\"eihort\"}",
+          "instant": true,
+          "legendFormat": "Eihort / attestation-server",
+          "refId": "B"
+        }
+      ],
+      "title": "HTTP 插件 / responder · 目标 up",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "以 pending gauge 是否存在检查数据可用性，不用事件 counter 缺失推断错误。pending=0 也会有系列，count=1 仅表示可读取，不表示认证健康。未发生事件的 counter / histogram 可能不存在。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#808080",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 12,
+        "y": 116
+      },
+      "id": 2032,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(count by(instance,job,monitor,component) (realm_http_attestation_pending{job=~\"attestation-agent|attestation-responder\",instance=~\"${instance:regex}\"})) and on(instance,job,monitor) (up{job=~\"attestation-agent|attestation-responder\"} == 1)",
+          "instant": true,
+          "legendFormat": "{{instance}} / {{component}} / gauge 系列",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(count by(instance,job,monitor,component) (realm_http_attestation_pending{job=\"attestation-server\",instance=\"eihort\"})) and on(instance,job,monitor) (up{job=~\"attestation-server\"} == 1)",
+          "instant": true,
+          "legendFormat": "Eihort / server / gauge 系列",
+          "refId": "B"
+        }
+      ],
+      "title": "HTTP proof 指标可用性 · 初始化 gauge",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "只计 response / proof_submitted：proof 发布且 ready response send 成功。它不是 Server 验证、Core 接受或 SVID 签发；后续 Core 取消不回撤本地提交结果。不补零。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 6,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "showPoints": "never"
+          },
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#808080",
+                "value": null
+              }
+            ]
+          },
+          "unit": "ops"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 121
+      },
+      "id": 2033,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(sum by(instance,job,monitor,node) (rate(realm_http_attestation_total{job=\"attestation-agent\",component=\"agent\",instance=~\"${instance:regex}\",node=~\"${instance:regex}\",outcome=\"success\",stage=\"response\",reason=\"proof_submitted\"}[$__rate_interval]))) and on(instance,job,monitor) (up{job=~\"attestation-agent\"} == 1)",
+          "instant": false,
+          "legendFormat": "{{node}} / 本地 proof 提交",
+          "refId": "A"
+        }
+      ],
+      "title": "Agent · 本地 proof_submitted 速率",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "仅验证与 quota 通过、生成 Agent ID 且 attributes send 成功的插件结果。不证明 Core 接受 attributes 或签发 SVID。quota 限制 verified proofs，不是 issued credentials。中央 node 为注册主机名，不按 instance 过滤目标主机。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 6,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "showPoints": "never"
+          },
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#808080",
+                "value": null
+              }
+            ]
+          },
+          "unit": "ops"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 121
+      },
+      "id": 2034,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(sum by(instance,job,monitor,node) (rate(realm_http_attestation_total{job=\"attestation-server\",component=\"server\",instance=\"eihort\",node=~\"${instance:regex}\",outcome=\"success\",stage=\"attributes\",reason=\"attributes_sent\"}[$__rate_interval]))) and on(instance,job,monitor) (up{job=~\"attestation-server\"} == 1)",
+          "instant": false,
+          "legendFormat": "{{node}} / verified + attributes sent",
+          "refId": "A"
+        }
+      ],
+      "title": "Server · proof verified + attributes_sent 速率",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "Agent/responder 为所选主机，Server 为所选 node 加 unknown（无法归属的输入）。skipped/no_challenge 不是成功；无事件或无序列是未知，不能按 0 错误宣称健康。responder 成功也只证明本地 proof 操作。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 6,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "showPoints": "never"
+          },
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#808080",
+                "value": null
+              }
+            ]
+          },
+          "unit": "ops"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 127
+      },
+      "id": 2035,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(sum by(instance,job,monitor,node,component,outcome,stage,reason) (rate(realm_http_attestation_total{job=~\"attestation-agent|attestation-responder\",instance=~\"${instance:regex}\",outcome=~\"failure|skipped\"}[$__rate_interval]))) and on(instance,job,monitor) (up{job=~\"attestation-agent|attestation-responder\"} == 1)",
+          "instant": false,
+          "legendFormat": "{{node}} / {{component}} / {{outcome}} / {{stage}} / {{reason}}",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(sum by(instance,job,monitor,node,component,outcome,stage,reason) (rate(realm_http_attestation_total{job=\"attestation-server\",instance=\"eihort\",node=~\"${instance:regex}|unknown\",outcome=~\"failure|skipped\"}[$__rate_interval]))) and on(instance,job,monitor) (up{job=~\"attestation-server\"} == 1)",
+          "instant": false,
+          "legendFormat": "{{node}} / server / {{outcome}} / {{stage}} / {{reason}}",
+          "refId": "B"
+        }
+      ],
+      "title": "HTTP proof 失败 / skipped · 固定 stage / reason",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "Agent 时间戳更新于本地提交，Server 更新于 verified + attributes sent。0 仅表示本进程还没有成功，过滤为未知；重启重置，长时间无 reattestation 不自动等于故障。Agent 与 Server 不建立事件级关联，不推算 Core 签发时间。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#808080",
+                "value": null
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 127
+      },
+      "id": 2036,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(time() - (realm_http_attestation_last_success_timestamp_seconds{job=\"attestation-agent\",component=\"agent\",instance=~\"${instance:regex}\",node=~\"${instance:regex}\"} > 0)) and on(instance,job,monitor) (up{job=~\"attestation-agent|attestation-server|attestation-responder\"} == 1)",
+          "instant": true,
+          "legendFormat": "{{node}} / Agent 本地提交",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(time() - (realm_http_attestation_last_success_timestamp_seconds{job=\"attestation-server\",component=\"server\",instance=\"eihort\",node=~\"${instance:regex}\"} > 0)) and on(instance,job,monitor) (up{job=~\"attestation-agent|attestation-server|attestation-responder\"} == 1)",
+          "instant": true,
+          "legendFormat": "{{node}} / Server attributes",
+          "refId": "B"
+        }
+      ],
+      "title": "距最近本地 proof 成功 · 不是签发时间",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "Agent success histogram 在 ready send 成功时停止（不含后续 stream 等待和清理）；Server 是插件操作完成时间。不表示端到端 Core 签发延迟。无样本、count=0 或未初始化时保持未知/NaN，不补 0。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 6,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "showPoints": "never"
+          },
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#808080",
+                "value": null
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 133
+      },
+      "id": 2037,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(histogram_quantile(0.95, sum by(instance,job,monitor,node,le) (rate(realm_http_attestation_duration_seconds_bucket{job=\"attestation-agent\",component=\"agent\",instance=~\"${instance:regex}\",node=~\"${instance:regex}\",outcome=\"success\"}[$__rate_interval])))) and on(instance,job,monitor) (up{job=~\"attestation-agent\"} == 1)",
+          "instant": false,
+          "legendFormat": "{{node}} / Agent submission p95",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(histogram_quantile(0.95, sum by(instance,job,monitor,node,le) (rate(realm_http_attestation_duration_seconds_bucket{job=\"attestation-server\",component=\"server\",instance=\"eihort\",node=~\"${instance:regex}\",outcome=\"success\"}[$__rate_interval])))) and on(instance,job,monitor) (up{job=~\"attestation-server\"} == 1)",
+          "instant": false,
+          "legendFormat": "{{node}} / Server plugin p95",
+          "refId": "B"
+        }
+      ],
+      "title": "成功 proof 延迟 p95 · 提交 / 插件完成",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "Agent pending 是活动 stream（提交成功后仍可能 pending）；responder 是存储 proof。Server pending 对所有 node 求和后对比固定中央 capacity=每代 32，配置换代可暂时超过 32。0 是实际 gauge 值，不是认证健康判断；缺失不补零。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 6,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "showPoints": "never"
+          },
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#808080",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 133
+      },
+      "id": 2038,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(realm_http_attestation_pending{job=~\"attestation-agent|attestation-responder\",instance=~\"${instance:regex}\"}) and on(instance,job,monitor) (up{job=~\"attestation-agent|attestation-responder\"} == 1)",
+          "instant": false,
+          "legendFormat": "{{node}} / {{component}} pending",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(sum by(instance,job,monitor) (realm_http_attestation_pending{job=\"attestation-server\",component=\"server\",instance=\"eihort\"})) and on(instance,job,monitor) (up{job=~\"attestation-server\"} == 1)",
+          "instant": false,
+          "legendFormat": "Eihort / Server all-node pending",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(realm_http_attestation_capacity{job=\"attestation-server\",component=\"server\",instance=\"eihort\"}) and on(instance,job,monitor) (up{job=~\"attestation-server\"} == 1)",
+          "instant": false,
+          "legendFormat": "Eihort / Server capacity per generation",
+          "refId": "C"
+        }
+      ],
+      "title": "proof pending / Server capacity · 非签发量",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 139
+      },
+      "id": 2040,
+      "panels": [],
+      "title": "原生 SPIRE telemetry · 先看目标与数据可用性，早期零值不代表健康",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "Agent 按所选主机，Server 固定 Eihort。此路径依赖 SPIFFE 网关，不是独立 WireGuard 检查。仅代表 scrape；无 up 仍为未知，不等于 0 错误。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "type": "value",
+              "options": {
+                "0": {
+                  "text": "采集失败",
+                  "color": "red",
+                  "index": 1
+                },
+                "1": {
+                  "text": "可采集（非身份健康）",
+                  "color": "green",
+                  "index": 2
+                },
+                "-1": {
+                  "text": "缺少目标 / 未知",
+                  "color": "orange",
+                  "index": 0
+                }
+              }
+            }
+          ],
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#808080",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 0,
+        "y": 140
+      },
+      "id": 2041,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "up{job=\"spire-agent\",instance=~\"${instance:regex}\"}",
+          "instant": true,
+          "legendFormat": "{{instance}} / native Agent",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "up{job=\"spire-server\",instance=\"eihort\"}",
+          "instant": true,
+          "legendFormat": "Eihort / native Server",
+          "refId": "B"
+        }
+      ],
+      "title": "原生 SPIRE · 目标 up",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "统计 spire_agent_* / spire_server_* 的实际系列，不把 exporter 通用 Go/process 指标误作 SPIRE 数据。无匹配保持未知；数量仅为覆盖，不是健康或签发计数。早期 counter 可能为 0 或尚未出现。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#808080",
+                "value": null
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 12,
+        "x": 12,
+        "y": 140
+      },
+      "id": 2042,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(count by(instance,job,monitor) ({__name__=~\"spire_agent_.+\",job=\"spire-agent\",instance=~\"${instance:regex}\"})) and on(instance,job,monitor) (up{job=~\"spire-agent\"} == 1)",
+          "instant": true,
+          "legendFormat": "{{instance}} / native Agent series",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(count by(instance,job,monitor) ({__name__=~\"spire_server_.+\",job=\"spire-server\",instance=\"eihort\"})) and on(instance,job,monitor) (up{job=~\"spire-server\"} == 1)",
+          "instant": true,
+          "legendFormat": "Eihort / native Server series",
+          "refId": "B"
+        }
+      ],
+      "title": "原生 SPIRE · telemetry 系列可用性",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "原生 spire_server_manager_x509_ca_rotate_expiration 表示 activated CA 期限，非磁盘 bootstrap bundle、Server TLS leaf 或 Agent SVID。Server 固定 Eihort。无数据表示未知；不能从本地 CA 库存数量推断此值。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "orange",
+                "value": 300
+              },
+              {
+                "color": "green",
+                "value": 900
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 0,
+        "y": 145
+      },
+      "id": 2043,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "value_and_name"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "(spire_server_manager_x509_ca_rotate_expiration{job=\"spire-server\",instance=\"eihort\"} - time()) and on(instance,job,monitor) (up{job=~\"spire-server\"} == 1)",
+          "instant": true,
+          "legendFormat": "Eihort / activated X.509 CA",
+          "refId": "A"
+        }
+      ],
+      "title": "SPIRE 当前 activated X.509 CA · 剩余时间",
+      "type": "stat"
+    },
+    {
+      "gridPos": {
+        "h": 6,
+        "w": 12,
+        "x": 12,
+        "y": 145
+      },
+      "id": 2044,
+      "options": {
+        "content": "### 六节点部署、数据核验与登录验收已完成\n- WireGuard 独立采集、SPIFFE 网关、各 collector、bootstrap 和稳定别名均已通过线上检查。\n- Agent proof_submitted、Server verified + attributes sent、Core 成功签名、业务源加载是四种不同事件。\n- 原生签名计数来自 SPIRE 成功创建 X.509 SVID 后的递增；不表示客户端已收到或业务进程已加载。\n- 初期事件 counter 可能为 0 或不存在。未观测到错误不等于健康；未观察到叶变化不等于轮换失败。\n- **OIDC 登录与看板渲染已完成视觉验收。** 浏览器会话为 Generic OAuth，用户 i@nyaw.xyz。",
+        "mode": "markdown"
+      },
+      "title": "成功边界与验收状态",
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "SPIRE 原生计数：成功创建 X.509 SVID 后递增。名称没有 _total 后缀；重启会重置。它不证明客户端收到证书，也不证明各业务进程已经加载轮换。没有签发需求时不要求增长。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 6,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "showPoints": "never"
+          },
+          "noValue": "未知 / 缺少采集",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "#808080",
+                "value": null
+              }
+            ]
+          },
+          "unit": "ops"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 151
+      },
+      "id": 2045,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "sum by(instance,job,monitor) (rate(spire_server_server_ca_sign_x509_svid{job=\"spire-server\",instance=\"eihort\"}[$__rate_interval])) and on(instance,job,monitor) (up{job=\"spire-server\"} == 1)",
+          "instant": false,
+          "legendFormat": "Eihort / Core 成功签名",
+          "refId": "A"
+        }
+      ],
+      "title": "SPIRE Core · 成功 X.509 SVID 签名速率",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 42,
+  "tags": [
+    "realm",
+    "spire",
+    "spiffe",
+    "certificates",
+    "attestation"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "P4169E866C3094E38"
+        },
+        "allValue": "(abhoth|azasos|eihort|hastur|nodens|yidhra)",
+        "definition": "abhoth,azasos,eihort,hastur,nodens,yidhra",
+        "description": "固定六节点 cohort，All / 多选均为主机名；目标掉线不会使选项消失。中央 Agent / alias 查询按 node 使用此选择器，而非中央 scrape instance。",
+        "includeAll": true,
+        "label": "节点",
+        "multi": true,
+        "name": "instance",
+        "options": [
+          {
+            "selected": true,
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "selected": false,
+            "text": "abhoth",
+            "value": "abhoth"
+          },
+          {
+            "selected": false,
+            "text": "azasos",
+            "value": "azasos"
+          },
+          {
+            "selected": false,
+            "text": "eihort",
+            "value": "eihort"
+          },
+          {
+            "selected": false,
+            "text": "hastur",
+            "value": "hastur"
+          },
+          {
+            "selected": false,
+            "text": "nodens",
+            "value": "nodens"
+          },
+          {
+            "selected": false,
+            "text": "yidhra",
+            "value": "yidhra"
+          }
+        ],
+        "query": "abhoth,azasos,eihort,hastur,nodens,yidhra",
+        "type": "custom"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "SPIFFE 证书与节点认证",
+  "uid": "realm-spiffe-identity",
+  "weekStart": ""
+}

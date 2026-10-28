@@ -249,7 +249,11 @@
           autoScrub.enable = true;
           optimization = {
             enable = true;
-            arcMinGiB = 8;
+            # The ARC used to be unbounded (zfs_arc_max unset => c_max = all of
+            # RAM) while it also had an 8G floor, so on this 32G box it competed
+            # with btrfs page cache and the indexer for memory.
+            arcMinGiB = 2;
+            arcMaxGiB = 8;
             aggressiveL2ARC = true;
             disablePrefetch = true;
           };

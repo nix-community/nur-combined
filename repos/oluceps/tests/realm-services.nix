@@ -126,6 +126,7 @@ let
         server.socket = tls.wrap_socket(server.socket, server_side=True)
         server.serve_forever()
   '';
+  spireFixture = import ./realm-spire-fixture.nix { inherit pkgs; };
 in
 pkgs.testers.runNixOSTest {
   name = "realm-extra-services";
@@ -136,7 +137,7 @@ pkgs.testers.runNixOSTest {
       imports = [
         ../nixosModules/realm-workloads.nix
         ../nixosModules/realm-http.nix
-        ../nixosModules/realm-spire.nix
+        spireFixture.module
         ../nixosModules/realm-observability.nix
         ../nixosModules/service-discovery.nix
         (import ../mod/realm-caddy-policy.nix).flake.modules.nixos.realm
@@ -265,19 +266,12 @@ pkgs.testers.runNixOSTest {
           enable = true;
           address = "::1";
         };
-        spire = {
-          serverAddress = "::1";
-          server = {
-            enable = true;
-            registrations.machine = lib.mapAttrs (
-              _: entry: entry // { parentID = "spiffe://nyaw.xyz/agent/machine"; }
-            ) config.realm.spire.registrations;
-          };
-        };
+
         http.gateways.eihort = {
           hosts = [
             "s3.nyaw.xyz"
             "oidc.nyaw.xyz"
+            "git.nyaw.xyz"
           ];
           service = "https-gateway";
           verifyID = config.realm.caddy.entrypointID;
@@ -383,12 +377,10 @@ pkgs.testers.runNixOSTest {
     };
   testScript = ''
     machine.start()
-    machine.succeed("openssl req -x509 -newkey rsa:2048 -nodes -keyout /var/lib/fixture/key.pem -out /var/lib/fixture/cert.pem -days 1 -subj /CN=mesh-fixture -addext 'subjectAltName=DNS:s3.nyaw.xyz,DNS:box.nyaw.xyz,DNS:oidc.nyaw.xyz'")
+    machine.succeed("openssl req -x509 -newkey rsa:2048 -nodes -keyout /var/lib/fixture/key.pem -out /var/lib/fixture/cert.pem -days 1 -subj /CN=mesh-fixture -addext 'subjectAltName=DNS:s3.nyaw.xyz,DNS:box.nyaw.xyz,DNS:oidc.nyaw.xyz,DNS:git.nyaw.xyz'")
     machine.succeed("nix-store --generate-binary-cache-key cache.nyaw.xyz /var/lib/fixture/cache.key /var/lib/fixture/cache.pub")
     machine.succeed("chmod 644 /var/lib/fixture/key.pem /var/lib/fixture/cache.key")
-    machine.wait_for_unit("realm-spire-register.service")
-    machine.succeed("realm-enroll machine | realm-install-enrollment")
-    machine.wait_for_unit("spire-agent.service")
+    ${spireFixture.startAgent}
     machine.wait_for_unit("postgresql.service")
     machine.succeed("runuser -u postgres -- psql -c 'ALTER DATABASE vaultwarden OWNER TO vault'")
     machine.succeed("systemctl restart s3-fixture.service stalwart.service")

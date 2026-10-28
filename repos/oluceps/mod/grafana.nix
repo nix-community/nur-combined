@@ -40,7 +40,13 @@
           service = "grafana";
           allow.groups = [ "public-caddy" ];
         };
-        http.internet = true;
+        http = {
+          internet = true;
+          gateway = {
+            ref = "eihort";
+            resolveHosts = [ "oidc.nyaw.xyz" ];
+          };
+        };
         egress = {
           loki = {
             service = "loki";

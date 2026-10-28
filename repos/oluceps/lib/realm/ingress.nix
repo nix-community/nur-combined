@@ -144,6 +144,9 @@ outputs.merge (
                   "--shutdown-timeout"
                   drainTimeout
                 ]
+                ++ lib.optionals (cfg.spire.metrics.enable or false) [
+                  "--status=https://127.0.0.1:${toString cfg.spire.metrics.statusPorts.${unit}}"
+                ]
                 ++ lib.concatMap (id: [
                   "--allow-uri"
                   id

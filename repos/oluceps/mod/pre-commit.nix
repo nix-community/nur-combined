@@ -9,7 +9,11 @@
         check.enable = true;
         settings.hooks = {
           nixfmt.enable = true;
-          detect-private-keys.enable = true;
+          detect-private-keys = {
+            enable = true;
+            # Tests embed synthetic PEM headers to check rejection paths.
+            excludes = [ "^tests/" ];
+          };
 
           dangerous-marker =
             let

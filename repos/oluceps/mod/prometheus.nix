@@ -24,6 +24,11 @@
         }
       ];
       socketFor = host: "/run/realm/vmagent/egress/observe-${host}.sock";
+      identityNodes = builtins.attrNames (
+        lib.filterAttrs (
+          _: system: system.config.realm.spire.metrics.independent.enable or false
+        ) self.nixosConfigurations
+      );
       observed =
         name: endpoint: extra:
         let
@@ -194,9 +199,15 @@
           "-httpListenAddr=127.0.0.1:8429"
           "-remoteWrite.maxDiskUsagePerURL=1GB"
           "-remoteWrite.queues=2"
-          "-remoteWrite.url=http://[fdcc::1]:9090/api/v1/write"
-          "-remoteWrite.url=http://[fdcc::3]:9090/api/v1/write"
-          "-remoteWrite.url=http://[fdcc::6]:9090/api/v1/write"
+          "-remoteWrite.url=${
+            if config.networking.hostName == "hastur" then "http://127.0.0.1:19090" else "http://[fdcc::1]:9090"
+          }/api/v1/write"
+          "-remoteWrite.url=${
+            if config.networking.hostName == "eihort" then "http://127.0.0.1:19090" else "http://[fdcc::3]:9090"
+          }/api/v1/write"
+          "-remoteWrite.url=${
+            if config.networking.hostName == "uubboo" then "http://127.0.0.1:19090" else "http://[fdcc::6]:9090"
+          }/api/v1/write"
           "-enableTCP6"
           "-remoteWrite.tmpDataPath=/var/cache/vmagent"
         ];
@@ -213,6 +224,46 @@
               (observed "victoriametrics" "victoriametrics" { })
               (observed "caddy" "caddy" { })
               (observed "envoy" "envoy" { })
+              (observed "spire-agent" "spire-agent" { })
+              (observed "spire-server" "spire-server" { })
+              (observed "identity-spiffe" "identity" { })
+              (observed "attestation-agent" "attestation-agent" {
+                metric_relabel_configs = [
+                  {
+                    source_labels = [ "node" ];
+                    regex = "([^.]+)\\.nyaw\\.xyz";
+                    target_label = "node";
+                    replacement = "$1";
+                  }
+                ];
+              })
+              (observed "attestation-server" "attestation-server" { })
+              (observed "attestation-responder" "attestation-responder" {
+                metric_relabel_configs = [
+                  {
+                    source_labels = [ "node" ];
+                    regex = "([^.]+)\\.nyaw\\.xyz";
+                    target_label = "node";
+                    replacement = "$1";
+                  }
+                ];
+              })
+              {
+                job_name = "realm-identity";
+                scrape_interval = "30s";
+                scrape_timeout = "10s";
+                static_configs = map (host: {
+                  targets = [
+                    "${self.nixosConfigurations.${host}.config.realm.spire.metrics.independent.address}:${
+                      toString self.nixosConfigurations.${host}.config.realm.spire.metrics.independent.port
+                    }"
+                  ];
+                  labels = {
+                    instance = host;
+                    transport = "wireguard";
+                  };
+                }) identityNodes;
+              }
               (observed "metrics" "node" { })
               (observed "ncps" "ncps" { })
               (observed "minecraft_metrics" "mc" { })
@@ -448,12 +499,8 @@
             in
             [ "http://${cfg.alertmanager.listenAddress}:${toString cfg.alertmanager.port}" ];
           "httpListenAddr" = "127.0.0.1:8880";
-          "datasource.url" = "http://[fdcc::${
-            toString (config.data.node.${config.networking.hostName}.id + 1)
-          }]:9090";
-          "remoteWrite.url" = "http://[fdcc::${
-            toString (config.data.node.${config.networking.hostName}.id + 1)
-          }]:9090";
+          "datasource.url" = "http://127.0.0.1:19090";
+          "remoteWrite.url" = "http://127.0.0.1:19090";
           "enableTCP6" = true;
         };
 
@@ -585,7 +632,8 @@
                 }
               ];
             }
-          ];
+          ]
+          ++ import ../lib/realm/identity-alerts.nix { nodes = identityNodes; };
         };
       };
       services.prometheus = {

@@ -9,8 +9,6 @@
 //	realm-helper launch COMMAND [ARG...]     container entrypoint adapter
 //	realm-helper spire-register ...          apply the declared SPIRE entries
 //	realm-helper wait-spire-agent ...        wait for the Agent API
-//	realm-helper enroll NODE                 issue a join token and trust bundle
-//	realm-helper install-enrollment         consume that JSON on the target node
 //
 // It is a static binary with no dependencies outside the Go standard library,
 // so the same artifact runs inside a hardened systemd sandbox and inside
@@ -27,8 +25,6 @@ const usage = `usage:
   realm-helper launch COMMAND [ARG...]
   realm-helper spire-register --spire-server PATH --socket PATH --manifest PATH --state PATH
   realm-helper wait-spire-agent --spire-agent PATH --socket PATH
-  realm-helper enroll NODE --spire-server PATH --socket PATH --manifest PATH --trust-domain DOMAIN
-  realm-helper install-enrollment --node HOSTNAME --systemctl PATH < enrollment.json
 `
 
 func main() {
@@ -60,14 +56,20 @@ func run(args []string) (int, error) {
 		return 0, spireRegisterCommand(args[1:])
 	case "wait-spire-agent":
 		return 0, waitSpireAgentCommand(args[1:])
-	case "enroll":
-		return 0, enrollCommand(args[1:])
-	case "install-enrollment":
-		return 0, installEnrollmentCommand(args[1:])
 	case "help", "-h", "--help":
 		fmt.Print(usage)
 		return 0, nil
 	default:
 		return 2, fmt.Errorf("unknown subcommand %q\n%s", args[0], usage)
 	}
+}
+
+// requireFlags reports the first required option that was left empty.
+func requireFlags(values map[string]string) error {
+	for _, name := range sortedKeys(values) {
+		if values[name] == "" {
+			return fmt.Errorf("--%s is required", name)
+		}
+	}
+	return nil
 }

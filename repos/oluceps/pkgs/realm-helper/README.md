@@ -10,8 +10,6 @@ realm-helper bridge --target ADDRESS      socket-activated listener -> TCP addre
 realm-helper launch COMMAND [ARG...]      container entrypoint adapter
 realm-helper spire-register ...           reconcile SPIRE registrations
 realm-helper wait-spire-agent ...         wait for the Agent API
-realm-helper enroll NODE                  issue a join token and trust bundle
-realm-helper install-enrollment           consume that JSON on the target node
 ```
 
 ## bridge
@@ -54,21 +52,6 @@ Each check has a five-second timeout. Failed checks retry after three seconds.
 If the Agent exits before the API is ready, the command fails.
 The unit's `TimeoutStartSec=300s` limits the total wait.
 
-## enroll / install-enrollment
-
-The two halves of node enrollment, joined by a pipe over the existing root SSH
-trust boundary:
-
-```sh
-ssh root@eihort realm-enroll abhoth | ssh root@abhoth realm-install-enrollment
-```
-
-`enroll` validates the node against the manifest keys, asks the server for a
-single-use token (`-ttl 600`) and prints `{node, token, bundle}` on stdout only.
-`install-enrollment` refuses to run unprivileged or for another hostname, writes
-`join-token` and `trust-bundle.pem` into `/var/lib/realm-spire` with
-`O_NOFOLLOW`/0600, then restarts `spire-agent`.
-
 ## Development
 
 ```sh
@@ -77,4 +60,4 @@ go test -race ./...
 ```
 
 The tests use Unix sockets, temporary files and local listeners to check socket
-bridging, registration updates, enrollment and child process exit status.
+bridging, registration updates, Agent readiness, and child process exit status.

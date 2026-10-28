@@ -31,6 +31,11 @@
               "nuenv"
             ];
         config = {
+          # radicle-node is in the dev shell. The package is marked insecure
+          # because private-repository traffic is neither encrypted nor
+          # authenticated. Pin the exact version instead of allowing all
+          # insecure packages, and do not use it for private repositories.
+          permittedInsecurePackages = [ "radicle-node-1.10.3" ];
           allowUnfreePredicate =
             pkg:
             builtins.elem (lib.getName pkg) [

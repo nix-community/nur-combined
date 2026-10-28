@@ -72,10 +72,19 @@ Declaring an egress does not grant receiver access. Unknown or ambiguous catalog
 references must fail configuration validation; manual targets require a separate
 review of their actual server identity and receiver policy.
 
-SPIRE enrollment uses the existing administrative SSH trust boundary. Join
-tokens, node keys, and the Server admin API are administrative capabilities,
-not application interfaces. Keep single-use enrollment tokens out of logs,
-Git, and the Nix store.
+Node enrollment uses the HTTP FQDN attestor over an explicitly trusted path.
+The Server dials registry-pinned literal node addresses. It does not use DNS or
+hosts resolution for proof fetches. Cluster deployment uses the existing
+WireGuard-backed mesh and trusts its bootstrap path, routing administrators, and
+participating host roots. That trust decision is separate from workload grants.
+
+A nonce and signature under a newly supplied key do not authenticate an untrusted
+HTTP path. An attacker who can replace that path can authorize another key. The
+root-only local publish socket is an administrative capability. Public GET
+responses contain only short-lived proofs. Agents authenticate the Server with
+a pretrusted public bundle. SSH supplies management access and initial bundle
+provisioning, not node enrollment tokens. No token fallback is configured.
+See [the HTTP attestation guide](docs/realm-http-attestation.md).
 
 ### Unix credentials and identity registrations
 

@@ -117,13 +117,26 @@ identity. Remote identity continues to come from its dedicated SPIFFE proxy.
 
 ## Data path
 
+The embedded object attaches these cgroup programs:
+
+| Hook | Purpose |
+| --- | --- |
+| `connect4`, `connect6` | Record the original TCP destination and redirect the connection to the local TCP adapter. |
+| `sendmsg4`, `sendmsg6` | Redirect UDP DNS to one of the local resolver slots; other external UDP is denied. |
+| `recvmsg4`, `recvmsg6` | Restore the resolver source address on UDP replies. |
+| `getpeername4`, `getpeername6` | Report the original peer address to the application. |
+| `sockops` | Publish the established TCP tuple and original destination; delete it on close. |
+
+Userspace performs DNS parsing, CONNECT, TLS and byte forwarding. The programs do not parse DNS messages or application payloads.
+
 TCP `connect4` / `connect6` store the original address in socket storage and
 rewrite the destination to the private namespace's TCP adapter. The active
 established sockops callback publishes the connection tuple and original
-destination in a bounded read-only-to-userspace map. The accepted worker socket
-uses its namespace cookie and peer tuple to find this record. An accepted socket
-has a different socket cookie from the client; `SO_ORIGINAL_DST` is not assumed.
-Missing records, including LRU eviction, close the connection.
+destination in a 16,384-entry LRU map that is read-only to userspace. The
+accepted worker socket uses its namespace cookie and peer tuple to find this
+record. An accepted socket has a different socket cookie from the client;
+`SO_ORIGINAL_DST` is not assumed. A normal TCP close deletes the entry. Missing
+records, including LRU eviction, close the connection.
 
 Internal targets use the most specific declared prefix/port route. Public
 targets require an allowed port and the configured Internet egress. The worker
@@ -133,12 +146,13 @@ before that check. HTTPS payloads and their certificate verification remain
 end to end. Existing loopback adapters remain usable.
 
 DNS uses connect and UDP sendmsg/recvmsg hooks, including TCP DNS. Each UDP
-socket has eight stable original-resolver slots mapped to eight local listener
-ports. Reply-source and peer-name hooks restore the resolver address seen by the
-application. This supports multiple simultaneous resolvers without treating the
-last send as the source of every reply. The kernel serializes the UDP address
-hooks with the socket lock. Exceeding eight distinct resolver peers on one socket
-fails rather than reassigning an outstanding peer's slot.
+socket has eight stable original-resolver slots. The worker binds those eight
+ports on both `127.0.0.1` and `::1`, giving 16 UDP listeners; TCP DNS uses the
+same TCP adapter as ordinary TCP when the original port is 53. Reply-source and
+peer-name hooks restore the resolver address seen by the application. This
+supports multiple simultaneous resolvers without treating the last send as the
+source of every reply. When all eight slots are occupied by other peers, the
+query is dropped rather than reassigning an outstanding slot.
 
 Declared DNS aliases are authoritative. Other queries use DNS-over-HTTPS through
 the same authenticated Internet egress, without needing a bootstrap DNS socket
@@ -178,11 +192,11 @@ Existing proxied connections can break during recovery and must be retried by
 the application; this is not a connection-preserving hot upgrade.
 
 Defaults are 256 concurrent TCP connections per workload, 64 concurrent DoH
-queries and 16,384 original-destination records. UDP DNS has 64 fixed workers
-and a 128-datagram queue shared by all listeners; excess requests are dropped
-before parsing, and truncated datagrams are rejected. Adapter ports are private
-to each namespace. Worker accounts have no login shell, no new privileges and
-are not dumpable.
+queries per workload and 16,384 original-destination records per workload map.
+UDP DNS has 64 fixed workers per workload and a 128-datagram queue shared by its
+16 listeners; excess requests are dropped before parsing, and truncated
+datagrams are rejected. Adapter ports are private to each namespace. Worker
+accounts have no login shell, no new privileges and are not dumpable.
 
 The controller requires a cgroup-v2 systemd unit with `Delegate=cpu memory pids`
 and `DelegateSubgroup=supervisor`; it refuses arbitrary/non-delegated launch
@@ -210,7 +224,8 @@ IP/port based, not a domain allowlist.
 Nix builds compile the BPF object with unwrapped Clang and execute Go unit tests.
 The package has no runtime dependency on libbpf or a C library. BPF hooks use
 the kernel's UAPI context fields. Kernel loading and attachment must be verified
-on each supported kernel; development validated Linux 6.18.54 on eihort.
+on each supported kernel; this branch was validated on Linux 6.18.x (6.18.54 on
+eihort). Re-check hook availability and behavior after a kernel upgrade.
 
 Configuration tests:
 

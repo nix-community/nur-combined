@@ -1,20 +1,8 @@
 # SPIRE control plane and per-node Agent (realm.spire).
 #
-# eihort runs the Server; every mesh node runs one Agent. The trust domain is
-# independent of the discovery DNS domain: SVIDs say spiffe://nyaw.xyz/... while
-# discovery answers come from mesh.nyaw.xyz.
-#
-# Enrollment is a bootstrapping step, not a workload capability. A node receives
-# a single-use join token and the public trust bundle over the existing root SSH
-# trust boundary:
-#
-#   ssh root@eihort realm-enroll eihort | ssh root@eihort realm-install-enrollment
-#   ssh root@eihort realm-enroll abhoth | ssh root@abhoth realm-install-enrollment
-#
-# After enrollment, registrations are declared in Nix. realm-workloads.nix adds
-# one entry per proxy/helper unit on its own node; mod/realm.nix collects them
-# from every enabled configuration, attaches the node's Agent as parent and
-# hands the result to the Server, where `realm-helper spire-register` applies it.
+# HTTP FQDN is the sole node attestor. Deployment supplies the trusted HTTP path
+# and public trust bundle. Registrations remain declarative: realm-workloads.nix
+# declares workloads, mod/realm.nix collects them, and the reconciler applies them.
 {
   config,
   lib,
@@ -25,36 +13,19 @@ let
   cfg = config.realm;
   scfg = cfg.spire;
   spire = pkgs.spire;
-  # Server admin API, used by the enrollment command and the reconciler only.
+  # Server admin API, used only by the reconciler.
   adminSocket = "/run/spire/server/private/api.sock";
   # The reconciler restarts when this file's store path changes.
   manifest = pkgs.writeText "realm-spire-registrations.json" (
     builtins.toJSON scfg.server.registrations
   );
-  # Administrative half of enrollment: issue a short-lived, single-use join token
-  # together with the public bundle. The caller pipes the JSON straight into the
-  # target node, so the token is never written to a log or to the Nix store.
-  #
-  # The command itself lives in realm-helper; these wrappers only fill in the
-  # paths and hostnames that must come from the configuration.
-  enroll = pkgs.writeShellScriptBin "realm-enroll" ''
-    exec ${lib.getExe' cfg.helperPackage "realm-helper"} enroll \
-      --spire-server ${lib.getExe' spire "spire-server"} \
-      --socket ${lib.escapeShellArg adminSocket} \
-      --manifest ${manifest} \
-      --trust-domain ${lib.escapeShellArg cfg.trustDomain} \
-      "$@"
-  '';
-  # Target half of enrollment. The hostname is compiled in, so a command sent to
-  # the wrong machine fails instead of enrolling it.
-  installEnrollment = pkgs.writeShellScriptBin "realm-install-enrollment" ''
-    exec ${lib.getExe' cfg.helperPackage "realm-helper"} install-enrollment \
-      --node ${lib.escapeShellArg config.networking.hostName} \
-      --systemctl ${lib.getExe' config.systemd.package "systemctl"} \
-      "$@"
-  '';
 in
 {
+  imports = [
+    ./realm-spire-http.nix
+    ./realm-identity-metrics.nix
+  ];
+
   options.realm.spire = {
     # Workload API socket. It lives in a root:realm-proxies directory, so only
     # proxy accounts and root can request an SVID.
@@ -110,16 +81,10 @@ in
               trust_domain = cfg.trustDomain;
               server_address = scfg.serverAddress;
               socket_path = scfg.socket;
-              # Written by realm-install-enrollment. The unit is skipped until the
-              # bundle exists, so an unenrolled node does not restart-loop.
-              join_token_file = "/var/lib/realm-spire/join-token";
-              trust_bundle_path = "/var/lib/realm-spire/trust-bundle.pem";
             };
             plugins = {
-              # Keys live in the state directory, so a restart or upgrade keeps
-              # the node identity instead of needing a new join token.
+              # Disk keys preserve the node identity across restarts and upgrades.
               KeyManager.disk.plugin_data.directory = "$STATE_DIRECTORY/keys";
-              NodeAttestor.join_token.plugin_data = { };
               # systemd attests the unit that requested the SVID, unix attests
               # the account that opened the socket. Proxy paths need both.
               WorkloadAttestor.systemd.plugin_data = { };
@@ -130,7 +95,6 @@ in
         systemd.services.spire-agent = {
           after = [ "network-online.target" ];
           wants = [ "network-online.target" ];
-          unitConfig.ConditionPathExists = "/var/lib/realm-spire/trust-bundle.pem";
           serviceConfig = {
             # root creates the socket in a 0750 directory owned by
             # root:realm-proxies. UMask 0007 keeps the socket away from everyone
@@ -152,7 +116,6 @@ in
             ];
           };
         };
-        environment.systemPackages = [ installEnrollment ];
       }
       (lib.mkIf scfg.server.enable {
         services.spire.server = {
@@ -172,7 +135,6 @@ in
                 database_type = "sqlite3";
                 connection_string = "$STATE_DIRECTORY/datastore.sqlite3";
               };
-              NodeAttestor.join_token.plugin_data = { };
             };
           };
         };
@@ -181,7 +143,6 @@ in
           after = [ "network-online.target" ];
           serviceConfig.RestartSec = "5s";
         };
-        environment.systemPackages = [ enroll ];
         # Applies the declarative registration set. Entry IDs are derived from
         # the manifest key, so re-running updates instead of duplicating, and
         # only entries this service created before are ever deleted.

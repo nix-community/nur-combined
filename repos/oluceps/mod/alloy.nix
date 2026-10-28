@@ -13,27 +13,72 @@
           localPort = 13030;
         };
       };
-      environment.etc = lib.mkIf (config.realm.internet.enable or false) {
-        "alloy/realm-internet.alloy".text = # alloy
-          ''
-            loki.source.journal "realm_internet" {
-                max_age       = "12h0m0s"
-                forward_to    = [loki.write.realm_internet.receiver]
-                matches       = "_SYSTEMD_UNIT=realm-internet.service"
-                labels        = {
-                    host = "${config.networking.hostName}",
-                    job  = "systemd-journal",
-                    unit = "realm-internet.service",
+      environment.etc = lib.mkMerge [
+        (lib.mkIf (config.realm.spire.metrics.enable or false) {
+          "alloy/realm-identity.alloy".text =
+            let
+              units = [
+                "spire-agent.service"
+                "spire-server.service"
+                "realm-node-attest-responder.service"
+                "realm-spire-register.service"
+                "realm-identity-metrics.service"
+                "realm-observability.service"
+              ]
+              ++ map (unit: "${unit}.service") (builtins.attrNames config.realm.spire.metrics.statusPorts);
+            in
+            ''
+              discovery.relabel "identity_journal" {
+                targets = []
+                rule {
+                  source_labels = ["__journal__systemd_unit"]
+                  target_label = "unit"
                 }
-            }
-            loki.write "realm_internet" {
-              endpoint {
-                url = "http://127.0.0.1:13030/loki/api/v1/push"
               }
-              external_labels = {}
-            }
-          '';
-      };
+              loki.source.journal "identity" {
+                max_age = "12h0m0s"
+                matches = "${lib.concatMapStringsSep " " (unit: "_SYSTEMD_UNIT=${unit}") units}"
+                relabel_rules = discovery.relabel.identity_journal.rules
+                forward_to = [loki.write.realm_identity.receiver]
+                labels = {
+                  host = "${config.networking.hostName}",
+                  job = "systemd-journal",
+                  subsystem = "identity",
+                }
+              }
+              loki.write "realm_identity" {
+                endpoint {
+                  url = "http://127.0.0.1:13030/loki/api/v1/push"
+                }
+                external_labels = {}
+              }
+            '';
+        })
+        (lib.mkIf (config.realm.internet.enable or false) {
+          "alloy/realm-internet.alloy".text = # alloy
+            ''
+              loki.source.journal "realm_internet" {
+                  max_age       = "12h0m0s"
+                  forward_to    = [loki.write.realm_internet.receiver]
+                  matches       = "_SYSTEMD_UNIT=realm-internet.service"
+                  labels        = {
+                      host = "${config.networking.hostName}",
+                      job  = "systemd-journal",
+                      unit = "realm-internet.service",
+                  }
+              }
+              loki.write "realm_internet" {
+                endpoint {
+                  url = "http://127.0.0.1:13030/loki/api/v1/push"
+                }
+                external_labels = {}
+              }
+            '';
+        })
+      ];
+      systemd.services.alloy.restartTriggers = lib.mkIf (config.realm.spire.metrics.enable or false) [
+        config.environment.etc."alloy/realm-identity.alloy".source
+      ];
     };
   flake.modules.nixos.alloy =
     {

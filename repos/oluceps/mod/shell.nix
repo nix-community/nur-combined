@@ -11,7 +11,7 @@
           rage
           b3sum
           nushell
-          radicle-node
+          # radicle-node
         ];
       };
 

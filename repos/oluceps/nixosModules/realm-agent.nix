@@ -331,9 +331,16 @@ in
           MemoryMax = lib.foldl' (sum: w: sum + w.transparent.workerMemoryMiB * 1024 * 1024) (
             288 * 1024 * 1024
           ) (builtins.attrValues active);
-          MemorySwapMax = 0;
+          # Small swap cushion: a transient overshoot now degrades into swap
+          # instead of an instant memcg OOM kill at MemoryMax.
+          MemorySwapMax = "256M";
           TasksMax = lib.foldl' (sum: w: sum + w.transparent.workerTasks) 128 (builtins.attrValues active);
           OOMPolicy = "continue";
+          # This agent is the control plane for every realm workload on the
+          # host. It must never be the OOM killer's first pick, and systemd-oomd
+          # should look elsewhere first.
+          OOMScoreAdjust = -900;
+          ManagedOOMPreference = "avoid";
         };
       };
     }

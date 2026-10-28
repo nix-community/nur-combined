@@ -59,6 +59,16 @@
                         {
                           handle = [
                             {
+                              handler = "reverse_proxy";
+                              upstreams = [ { dial = "127.0.0.1:22034"; } ];
+                            }
+                          ];
+                          match = [ { host = [ "adonbox.nyaw.xyz" ]; } ];
+                          terminal = true;
+                        }
+                        {
+                          handle = [
+                            {
                               handler = "rate_limit";
                               rate_limits = {
                                 static = {

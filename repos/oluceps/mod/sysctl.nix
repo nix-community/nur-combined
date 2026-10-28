@@ -98,6 +98,12 @@
       # prevent kswapd0 cpu spikes by disabling aggressive watermark boosting
       "vm.watermark_boost_factor" = 0;
 
+      # Wake kswapd earlier (2% of RAM per watermark instead of the 0.1%
+      # default) so a burst allocation cannot push allocations into direct
+      # reclaim. On eihort a meilisearch batch allocating ~1.3G against ~200M
+      # of free memory stalled the whole box for 5 minutes on 2026-10-28.
+      "vm.watermark_scale_factor" = 200;
+
       # optimize zswap single-page access by disabling swap read-ahead
       "vm.page-cluster" = 0;
 

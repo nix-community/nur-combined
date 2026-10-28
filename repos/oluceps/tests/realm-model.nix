@@ -15,6 +15,7 @@ let
           system.stateVersion = "26.05";
           realm = {
             enable = true;
+            spire.httpAttestation.trustHttpTransport = true;
             serviceDiscovery = {
               enable = true;
               address = "fdcc::3";

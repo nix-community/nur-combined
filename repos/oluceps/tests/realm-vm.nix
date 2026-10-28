@@ -5,6 +5,7 @@ let
     config.allowUnfree = true;
     overlays = [ ];
   };
+  spireFixture = import ./realm-spire-fixture.nix { inherit pkgs; };
 in
 pkgs.testers.runNixOSTest {
   name = "realm-workload-networking";
@@ -13,7 +14,7 @@ pkgs.testers.runNixOSTest {
     {
       imports = [
         ../nixosModules/realm-workloads.nix
-        ../nixosModules/realm-spire.nix
+        spireFixture.module
         ../nixosModules/realm-observability.nix
         ../nixosModules/service-discovery.nix
         (import ../mod/realm-internet.nix).flake.modules.nixos.realm-internet
@@ -151,19 +152,7 @@ pkgs.testers.runNixOSTest {
           enable = true;
           address = "::1";
         };
-        spire = {
-          serverAddress = "::1";
-          server = {
-            enable = true;
-            registrations.machine = pkgs.lib.mapAttrs (
-              _: entry:
-              entry
-              // {
-                parentID = "spiffe://nyaw.xyz/agent/machine";
-              }
-            ) config.realm.spire.registrations;
-          };
-        };
+
         workloads = {
           vmagent.egress.observation = {
             service = "observability-machine";
@@ -356,10 +345,7 @@ pkgs.testers.runNixOSTest {
     };
   testScript = ''
     machine.start()
-    machine.wait_for_unit("spire-server.service")
-    machine.wait_for_unit("realm-spire-register.service")
-    machine.succeed("realm-enroll machine | realm-install-enrollment")
-    machine.wait_for_unit("spire-agent.service")
+    ${spireFixture.startAgent}
     machine.wait_for_unit("receiver.service")
     machine.wait_for_unit("coredns.service")
     machine.succeed("dig @127.0.0.1 -p 8600 +short SRV receiver.svc.mesh.nyaw.xyz | grep -q '19429 receiver.machine.svc.mesh.nyaw.xyz.'")

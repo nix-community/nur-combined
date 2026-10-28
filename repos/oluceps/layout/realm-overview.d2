@@ -7,7 +7,7 @@ classes: {
   note: { style: { fill: "#fff6df"; stroke: "#aa8330"; border-radius: 8; font-size: 18 } }
   namespace: { style: { fill: "#f7f9fc"; stroke: "#71839b"; stroke-dash: 5; border-radius: 12; font-size: 22 } }
 }
-title: "Realm: Transparent Egress and SPIFFE Identity" { shape: text; style.font-size: 30 }
+title: "Realm: Node Attestation, Transparent Egress and SPIFFE Identity" { shape: text; style.font-size: 30 }
 users: "Public and internal users" { class: node }
 
 app_ns: "Workload A: private network namespace (ns)\nNative: realm-net-<app>.service / Container: own namespace\nlo + realm0 dummy / No external link or default route" {
@@ -30,7 +30,8 @@ host_ns: "Host network namespaces (one per host)\nProxies use host networking / 
   ingress: "Unix ingress socket for TCP backend\nOwner / Group: realm-<backend>\nSocket: 0660 / Directory: 0750" { class: node }
   native: "Gateways with their own mutual TLS\nObservability Caddy / Internet Envoy\nExtra group: realm-proxies" { class: gateway }
   controller: "realm-agent controller: host root\nOne daemon / Gate pins peer with pidfd\nChecks UID + actual cgroup/netns\nNative unit binding / Exclusive container UID" { class: agent }
-  agent: "Local SPIRE Agent on each host\nWorkload API access: realm-proxies group\nIssues identity by systemd unit + Unix user" { class: node }
+  agent: "Local SPIRE Agent on each host\nNode identity: HTTP FQDN proof with registry pins\nWorkload API access: realm-proxies group\nIssues workload identity by systemd unit + Unix user" { class: node }
+  responder: "HTTP attestation responder\nUnprivileged / assigned mesh address :18091\nPublishes proof through a root-only Unix socket" { class: node }
   caddy -> clients: "Declared upstream socket"
   egress -> clients: "Socket activation"
   clients -> receivers: "Mutual TLS\nSame host or across hosts"
@@ -39,6 +40,7 @@ host_ns: "Host network namespaces (one per host)\nProxies use host networking / 
   clients -> agent: "Certificates" { style.stroke-dash: 5 }
   receivers -> agent: "Certificates" { style.stroke-dash: 5 }
   native -> agent: "Certificates" { style.stroke-dash: 5 }
+  agent -> responder: "Publish proof (Unix, root-only)" { style.stroke-dash: 5 }
 }
 
 backend_ns: "Workload B: private backend network namespace" {
@@ -58,9 +60,11 @@ host_ns.controller -> app_ns.capture: "Attach BPF to attested app cgroup" { styl
 host_ns.controller -> app_ns.worker: "Enter netns, isolate mounts/resources, drop UID" { style.stroke-dash: 5 }
 host_ns.ingress -> backend_ns.adapter: "Socket activation"
 host_ns.receivers -> backend_ns.backend: "Declared Unix backend\nGroup access"
-host_ns.agent -> server: "Identity control" { style.stroke-dash: 5 }
+host_ns.agent -> server: "Node SVID request over TLS" { style.stroke-dash: 5 }
+server -> host_ns.responder: "Fetch proof at pinned IP\nNo DNS / no proxy"
+server -> host_ns.agent: "Verified node SVID" { style.stroke-dash: 5 }
 
-note: "Isolated native services and supported rootless containers enroll automatically; host-network / external workloads stay outside capture.\nRoot controller enforces local attribution; the worker opens only existing declared Unix egress sockets.\nGhostunnel and native gateways retain SPIFFE authentication and receiver allowlists. DNS supplies location, not identity.\nSolid links: requests. Dashed links: control / identity. Backend workloads can use the same capture path as workload A." { class: note }
+note: "Isolated native services and supported rootless containers enroll automatically; host-network / external workloads stay outside capture.\nRoot controller enforces local attribution; the worker opens only existing declared Unix egress sockets.\nGhostunnel and native gateways retain SPIFFE authentication and receiver allowlists. DNS supplies location, not identity.\nNode bootstrap uses HTTP FQDN proofs over the registry-pinned mesh; that HTTP path must be trusted because it adds no encryption.\nSolid links: requests. Dashed links: control / identity. Backend workloads can use the same capture path as workload A." { class: note }
 # Invisible edges arrange the title and note.
 title -> users: { style.opacity: 0 }
 title -> app_ns: { style.opacity: 0 }

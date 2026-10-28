@@ -69,6 +69,7 @@
           pkgs.signal-desktop
           pkgs.porsmo
           pkgs.libnotify # foot
+          pkgs.libsecret
           pkgs.bitwarden-cli
           pkgs.gpu-screen-recorder
           pkgs.mpv

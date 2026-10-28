@@ -321,13 +321,15 @@ let
       expected = [ ];
     };
     testDisabledNoUnits = {
-      expr = lib.filter (name: lib.hasPrefix "realm-" name) (
-        builtins.attrNames disabled.systemd.services
-      );
+      expr = lib.filter (
+        name: lib.hasPrefix "realm-" name && !(lib.hasPrefix "realm-node-attest-" name)
+      ) (builtins.attrNames disabled.systemd.services);
       expected = [ ];
     };
     testDisabledNoSockets = {
-      expr = lib.filter (name: lib.hasPrefix "realm-" name) (builtins.attrNames disabled.systemd.sockets);
+      expr = lib.filter (
+        name: lib.hasPrefix "realm-" name && !(lib.hasPrefix "realm-node-attest-" name)
+      ) (builtins.attrNames disabled.systemd.sockets);
       expected = [ ];
     };
     testDisabledNoRegistrations = {
@@ -339,6 +341,7 @@ let
       expected = [ ];
     };
   };
+  spireFixture = import ./realm-spire-fixture.nix { inherit pkgs; };
   runTest = if evalOnly then _: evalTests else pkgs.testers.runNixOSTest;
   backend = pkgs.writeText "fixture.cjs" ''
     const fs = require('node:fs');
@@ -393,7 +396,7 @@ runTest {
   nodes.machine = {
     imports = [
       ../nixosModules/realm-workloads.nix
-      ../nixosModules/realm-spire.nix
+      spireFixture.module
       ../nixosModules/service-discovery.nix
     ]
     ++ profileModules;
@@ -485,6 +488,7 @@ runTest {
   };
   testScript = ''
     machine.start()
+    ${spireFixture.startAgent}
     machine.wait_for_unit("podman-misskey.service", timeout=180)
     machine.wait_for_unit("podman-telegram-search-app.service", timeout=180)
     with subtest("Telegram Search uses rootless keep-id and publishes a Unix socket"):

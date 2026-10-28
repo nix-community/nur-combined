@@ -19,7 +19,9 @@
 
       services = {
         journald.settings.Journal = {
-          SystemMaxUse = "1G";
+          # 1G was rotating out the kernel OOM reports before they could be
+          # read; keep enough history to post-mortem an OOM storm.
+          SystemMaxUse = "4G";
         };
 
         #  = ''

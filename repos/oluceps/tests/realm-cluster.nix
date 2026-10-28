@@ -27,6 +27,7 @@ let
                   system.stateVersion = "26.05";
                   realm = {
                     enable = true;
+                    spire.httpAttestation.trustHttpTransport = true;
                     identityCatalog = lib.mapAttrs (_: s: s.config.realm.localIdentities) systems;
                     serviceDiscovery = {
                       enable = true;

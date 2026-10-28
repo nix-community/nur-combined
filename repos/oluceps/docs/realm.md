@@ -483,33 +483,25 @@ neither a private key nor the Workload API socket.
 
 ## Initial enrollment and deployment
 
-See [the first deployment runbook](realm-deployment.md) for the host order,
-bootstrap commands, secret prerequisites and application checks.
+HTTP FQDN is the sole node attestor. See [the deployment runbook](realm-deployment.md)
+for the per-node migration order, bundle provisioning, rollback state, and checks.
+The cluster keeps the existing Server CA, datastore, and trust domain during
+migration. It retains the public bundle at `/var/lib/realm-spire/trust-bundle.pem`.
+This is trust material, not a token installation interface.
 
-The SPIRE signing keys and datastore are persisted under /var/lib/spire;
-enrollment material is root-only under /var/lib/realm-spire. Include these
-paths in the host's normal persistence and backup strategy. Neither belongs
-in Git or the Nix store.
+The Server dials each node's registry mesh IP on TCP 18091 and checks the exact
+FQDN and session proof. Its control endpoint is `eihort.nyaw.xyz:8081`, mapped to
+`fdcc::3`. The independent responder works before node attestation. Neither Caddy
+nor application proxies participate in this bootstrap.
 
-Deploy eihort first so the Server and registration reconciler exist. Initial
-workload starts can fail until the Agent is enrolled. Enrollment is carried
-over the existing root SSH trust boundary:
+The actual Agent ID is `spiffe://nyaw.xyz/spire/agent/http_fqdn/<hostname>`.
+Managed entries map it to the stable `spiffe://nyaw.xyz/agent/<hostname>` parent.
+Workload IDs and receiver grants remain independent of the node attestor.
 
-```sh
-ssh root@eihort realm-enroll eihort | ssh root@eihort realm-install-enrollment
-ssh root@eihort realm-enroll abhoth | ssh root@abhoth realm-install-enrollment
-```
-
-Each command issues a short-lived, single-use token and transfers the public
-trust bundle directly to its destination. Do not print or save the enrollment
-JSON in a public log. Enroll each deployed mesh node and restart any failed
-workload units. Registration entries are generated from workload declarations
-across hosts, reconciled idempotently by `realm-helper spire-register` and
-pruned only from that reconciler's own managed set.
-
-Agent keys survive a restart. If an Agent's cached node identity expires
-while it is offline, join-token attestation requires fresh enrollment. The
-enrollment tools are administrative commands, not workload capabilities.
+Agent state survives restarts. Automatic reattestation needs a still-trusted
+Server bundle and a working approved HTTP path. Long offline periods can require
+an updated bootstrap bundle after CA rotation. Removing an old plugin or file
+does not revoke existing SVIDs or terminate connections.
 
 ## Verification
 

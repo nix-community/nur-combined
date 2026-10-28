@@ -40,6 +40,7 @@
             # xray
             # mc
             wgmesh
+            adonbox
 
           ])
         )

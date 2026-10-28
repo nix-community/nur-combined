@@ -89,25 +89,30 @@ outputs.merge (
             # verifies the peer URI SAN and serves plaintext on the egress
             # socket. A one-hour connection lifetime bounds the effect of a
             # later policy change; certificate expiry alone closes nothing.
-            ExecStart = lib.escapeShellArgs ([
-              "${cfg.ghostunnelPackage}/bin/ghostunnel"
-              "client"
-              "--use-workload-api"
-              "--cacert"
-              "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
-              "--use-workload-api-addr"
-              "unix://${cfg.spire.socket}"
-              "--listen"
-              "systemd:egress"
-              "--verify-uri"
-              endpoint.serverID
-              "--max-conn-lifetime"
-              "1h"
-              "--shutdown-timeout"
-              drainTimeout
-              "--target"
-              endpoint.target
-            ]);
+            ExecStart = lib.escapeShellArgs (
+              [
+                "${cfg.ghostunnelPackage}/bin/ghostunnel"
+                "client"
+                "--use-workload-api"
+                "--cacert"
+                "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+                "--use-workload-api-addr"
+                "unix://${cfg.spire.socket}"
+                "--listen"
+                "systemd:egress"
+                "--verify-uri"
+                endpoint.serverID
+                "--max-conn-lifetime"
+                "1h"
+                "--shutdown-timeout"
+                drainTimeout
+                "--target"
+                endpoint.target
+              ]
+              ++ lib.optionals (cfg.spire.metrics.enable or false) [
+                "--status=https://127.0.0.1:${toString cfg.spire.metrics.statusPorts.${unit}}"
+              ]
+            );
           };
         };
       }
