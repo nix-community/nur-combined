@@ -4,6 +4,7 @@
   credentialsd = ./credentialsd;
   cascade = ./cascade;
   debspawn = ./debspawn;
+  dell-command-monitor = ./dell-command-monitor;
   keepassxc = ./keepassxc;
   keylime = ./keylime;
   tubearchivist = ./tubearchivist;

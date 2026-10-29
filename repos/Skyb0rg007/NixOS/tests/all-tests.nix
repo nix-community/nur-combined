@@ -21,6 +21,13 @@
       services.keylime.package = packages.keylime;
     };
   };
+  dell-command-monitor = pkgs.testers.runNixOSTest {
+    imports = [ ./dell-command-monitor.nix ];
+    nodes.machine = {
+      imports = [ nixosModules.dell-command-monitor ];
+      services.dell-command-monitor.package = packages.dell-command-monitor;
+    };
+  };
   mxc-bwrap = pkgs.testers.runNixOSTest {
     imports = [ ./mxc-bwrap.nix ];
     node.specialArgs = {
