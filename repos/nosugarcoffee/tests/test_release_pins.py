@@ -71,6 +71,8 @@ class ReleasePinsTest(unittest.TestCase):
             pin = release_pins.parse_pin(json.loads(pin_file.read_text()), str(pin_file))
             for system in pin.hash:
                 self.assertTrue(release_pins.render_url(pin, system).startswith("https://"))
+            for name in pin.files:
+                self.assertTrue(release_pins.render_file_url(pin, name).startswith("https://"), pin_file)
             self.assertEqual(release_pins.dump_pin(pin), pin_file.read_text(), pin_file)
 
     def test_bumps_version_and_every_arch_hash(self) -> None:
@@ -391,6 +393,140 @@ class ReleasePinsTest(unittest.TestCase):
             release_pins.latest_release(pin, upstreams.http_get_json)
         self.assertIn("expected one asset matching", str(ctx.exception))
         self.assertIn("found 0", str(ctx.exception))
+
+    def test_tag_prefix_follows_the_component_release_and_its_extra_files(self) -> None:
+        self.write_pin("cua-driver", {
+            "source": {"type": "github", "repo": "trycua/cua", "tagPrefix": "cua-driver-rs-v"},
+            "version": "0.37.0",
+            "url": (
+                "https://github.com/trycua/cua/releases/download/cua-driver-rs-v{version}/"
+                "cua-driver-rs-{version}-{arch}.tar.gz"
+            ),
+            "arch": {"aarch64-darwin": "darwin-arm64", "x86_64-linux": "linux-x86_64"},
+            "hash": {"aarch64-darwin": "sha256-old-arm", "x86_64-linux": "sha256-old-linux"},
+            "files": {
+                "skills": {
+                    "url": (
+                        "https://github.com/trycua/cua/releases/download/cua-driver-rs-v{version}/"
+                        "cua-driver-rs-v{version}-skills.tar.gz"
+                    ),
+                    "hash": "sha256-old-skills",
+                }
+            },
+        })
+        page = "https://api.github.com/repos/trycua/cua/releases?per_page=100&page=1"
+        upstreams = FakeUpstreams({
+            page: [
+                {"tag_name": "nightly-cua-driver-rs-v0.39.0-nightly.1", "draft": False, "assets": []},
+                {"tag_name": "cua-spaces-v0.16.0", "draft": False, "assets": []},
+                {"tag_name": "cua-driver-rs-v9.9.9", "draft": True, "assets": []},
+                {"tag_name": "cua-driver-rs-v0.38.0", "draft": False, "prerelease": True, "assets": []},
+            ]
+        }, {})
+
+        summaries = release_pins.bump_all(self.pkgs, upstreams.http_get_json, upstreams.prefetch)
+
+        pin = self.read_pin("cua-driver")
+        self.assertEqual(pin["version"], "0.38.0")
+        self.assertEqual(pin["hash"], {"aarch64-darwin": FRESH, "x86_64-linux": FRESH})
+        self.assertEqual(pin["files"]["skills"]["hash"], FRESH)
+        self.assertEqual(pin["source"]["tagPrefix"], "cua-driver-rs-v")
+        self.assertEqual(
+            upstreams.prefetched,
+            [
+                (
+                    "https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.38.0/"
+                    "cua-driver-rs-0.38.0-darwin-arm64.tar.gz"
+                ),
+                (
+                    "https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.38.0/"
+                    "cua-driver-rs-0.38.0-linux-x86_64.tar.gz"
+                ),
+                (
+                    "https://github.com/trycua/cua/releases/download/cua-driver-rs-v0.38.0/"
+                    "cua-driver-rs-v0.38.0-skills.tar.gz"
+                ),
+            ],
+        )
+        self.assertEqual(summaries, ["- `cua-driver`: 0.37.0 -> 0.38.0"])
+        text = (self.pkgs / "cua-driver" / "pin.json").read_text()
+        self.assertEqual(release_pins.dump_pin(release_pins.parse_pin(json.loads(text), "cua-driver")), text)
+
+    def test_tag_prefix_current_release_downloads_nothing(self) -> None:
+        path = self.write_pin("cua-driver", {
+            "source": {"type": "github", "repo": "trycua/cua", "tagPrefix": "cua-driver-rs-v"},
+            "version": "0.38.0",
+            "url": "https://example.invalid/{version}-{arch}.tar.gz",
+            "arch": {"x86_64-linux": "linux-x86_64"},
+            "hash": {"x86_64-linux": "sha256-same"},
+            "files": {"skills": {"url": "https://example.invalid/{version}-skills.tar.gz", "hash": "sha256-skills"}},
+        })
+        before = path.read_text()
+        upstreams = FakeUpstreams({
+            "https://api.github.com/repos/trycua/cua/releases?per_page=100&page=1": [
+                {"tag_name": "cua-driver-rs-v0.38.0", "draft": False},
+            ]
+        }, {})
+
+        summaries = release_pins.bump_all(self.pkgs, upstreams.http_get_json, upstreams.prefetch)
+
+        self.assertEqual(summaries, [])
+        self.assertEqual(upstreams.prefetched, [])
+        self.assertEqual(path.read_text(), before)
+
+    def test_tag_prefix_scans_the_next_page_and_rejects_a_miss(self) -> None:
+        pin = release_pins.parse_pin({
+            "source": {"type": "github", "repo": "trycua/cua", "tagPrefix": "cua-driver-rs-v"},
+            "version": "0.1.0",
+            "url": "https://example.invalid/{version}.tar.gz",
+            "hash": {"x86_64-linux": "sha256-old"},
+        }, "inline")
+        page1 = [{"tag_name": f"cua-spaces-v0.0.{i}", "draft": False} for i in range(100)]
+        found = FakeUpstreams({
+            "https://api.github.com/repos/trycua/cua/releases?per_page=100&page=1": page1,
+            "https://api.github.com/repos/trycua/cua/releases?per_page=100&page=2": [
+                {"tag_name": "cua-driver-rs-v1.2.3", "draft": False},
+            ],
+        }, {})
+        self.assertEqual(release_pins.latest_release(pin, found.http_get_json).version, "1.2.3")
+
+        missing = FakeUpstreams({
+            "https://api.github.com/repos/trycua/cua/releases?per_page=100&page=1": [
+                {"tag_name": "cua-spaces-v0.16.0", "draft": False},
+            ]
+        }, {})
+        with self.assertRaises(release_pins.PinError) as ctx:
+            release_pins.latest_release(pin, missing.http_get_json)
+        self.assertIn("no release tagged cua-driver-rs-v*", str(ctx.exception))
+
+    def test_empty_tag_prefix_and_bad_files_are_rejected(self) -> None:
+        with self.assertRaises(release_pins.PinError):
+            release_pins.parse_pin({
+                "source": {"type": "github", "repo": "o/r", "tagPrefix": ""},
+                "version": "1",
+                "url": "https://example.invalid/a",
+                "hash": {"x86_64-linux": "sha256-x"},
+            }, "inline")
+        with self.assertRaises(release_pins.PinError):
+            release_pins.parse_pin({
+                "source": {"type": "github", "repo": "o/r"},
+                "version": "1",
+                "url": "https://example.invalid/a",
+                "hash": {"x86_64-linux": "sha256-x"},
+                "files": ["skills"],
+            }, "inline")
+
+    def test_extra_file_url_cannot_use_arch(self) -> None:
+        pin = release_pins.parse_pin({
+            "source": {"type": "github", "repo": "o/r"},
+            "version": "1",
+            "url": "https://example.invalid/{version}-{arch}.tar.gz",
+            "arch": {"x86_64-linux": "linux-x86_64"},
+            "hash": {"x86_64-linux": "sha256-x"},
+            "files": {"skills": {"url": "https://example.invalid/{version}-{arch}-skills.tar.gz", "hash": "sha256-s"}},
+        }, "inline")
+        with self.assertRaises(release_pins.PinError):
+            release_pins.render_file_url(pin, "skills")
 
 
 if __name__ == "__main__":

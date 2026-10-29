@@ -14,6 +14,7 @@ Modeled on [numtide/llm-agents.nix](https://github.com/numtide/llm-agents.nix).
 | [`albert`](https://albertlauncher.github.io) | aarch64-darwin | Keyboard launcher, built from source for macOS (nixpkgs' is Linux-only) |
 | [`cida`](https://github.com/Xuanwo/cida) | aarch64-darwin | Translate and polish text anywhere on macOS with an LLM of your choice |
 | [`clash-verge-rev`](https://www.clashverge.dev/) | aarch64-darwin | Clash Meta GUI (nixpkgs' is Linux-only) |
+| [`cua-driver`](https://github.com/trycua/cua) | aarch64-darwin, x86_64-linux, aarch64-linux | Computer-use MCP server and CLI. Link `cua-driver.skills` into `~/.claude/skills` |
 | [`digup`](https://github.com/ARahim3/DigUp) | aarch64-darwin | Search files by their content with on-device embeddings |
 | [`ego-lite`](https://lite.ego.app/) | aarch64-darwin | Chromium-based browser that shares your logged-in state with AI agents, plus the `ego-browser` CLI |
 | [`jetbrains-air`](https://air.dev/) | aarch64-darwin | JetBrains Air, an agentic development environment |
