@@ -24,11 +24,9 @@ hash="$(
 
 VERSION="$version" \
 COMMIT="$commit" \
-SHORT_COMMIT="$short_commit" \
 HASH="$hash" \
 perl -0pi -e '
   s{version = "[^"]+";}{version = "$ENV{VERSION}";};
   s{commit = "[^"]+";}{commit = "$ENV{COMMIT}";};
-  s{shortCommit = "[^"]+";}{shortCommit = "$ENV{SHORT_COMMIT}";};
   s{hash = "[^"]+";}{hash = "$ENV{HASH}";};
 ' "$package_file"

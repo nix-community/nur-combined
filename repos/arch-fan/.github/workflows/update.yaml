@@ -15,15 +15,22 @@ jobs:
       - uses: actions/checkout@v5
       - uses: cachix/install-nix-action@v31
         with:
+          # nix-update runs passthru.updateScript via `import <nixpkgs>`.
           nix_path: nixpkgs=flake:nixpkgs
+      # NUR builds these packages against its users' nixpkgs, not our lock:
+      # track nixos-unstable so breakage from nixpkgs shows up here first.
+      - name: Update nixpkgs
+        run: nix flake update
       - name: Update packages
         run: nix run .#update
+      - name: Check packages
+        run: nix flake check -L
       - uses: peter-evans/create-pull-request@v8
         id: cpr
         with:
           commit-message: "Automated package updates"
           title: "Automated package updates"
-          body: "Scheduled nix-update run via `./scripts/update.sh`."
+          body: "Scheduled `nix flake update` + `nix run .#update`, verified by `nix flake check`."
           branch: "updates/packages"
           delete-branch: true
           labels: |

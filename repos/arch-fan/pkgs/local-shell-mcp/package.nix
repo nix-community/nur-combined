@@ -11,9 +11,7 @@ stdenv.mkDerivation (finalAttrs: {
   version = "5.1.4";
 
   src = fetchurl {
-    url =
-      "https://github.com/fwerkor/local-shell-mcp/releases/download/"
-      + "v${finalAttrs.version}/local-shell-mcp-linux-x86_64.tar.gz";
+    url = "https://github.com/fwerkor/local-shell-mcp/releases/download/v${finalAttrs.version}/local-shell-mcp-linux-x86_64.tar.gz";
     hash = "sha256-JMV5AYPXrslmEmfyYwnB7VAJQKmsCoJBstckkxnTUWk=";
   };
 

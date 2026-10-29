@@ -2,10 +2,8 @@
   pkgs,
 }:
 
-{
-  chat-on-steroids = pkgs.callPackage ./pkgs/chat-on-steroids { };
-  crunchyroll = pkgs.callPackage ./pkgs/crunchyroll { };
-  limusic = pkgs.callPackage ./pkgs/limusic { };
-  rpcs3-bin = pkgs.callPackage ./pkgs/rpcs3-bin { };
-  local-shell-mcp = pkgs.callPackage ./pkgs/local-shell-mcp { };
+# Every pkgs/<name>/package.nix becomes the package `<name>`.
+pkgs.lib.packagesFromDirectoryRecursive {
+  inherit (pkgs) callPackage;
+  directory = ./pkgs;
 }

@@ -4,40 +4,27 @@
   lib,
 }:
 
-let
+appimageTools.wrapType2 (finalAttrs: {
   pname = "chat-on-steroids";
   version = "2.1.47";
 
   src = fetchurl {
-    url = "https://github.com/totec448-spec/chat-on-steroids/releases/download/v${version}/Chat-On-Steroids-Linux-x64.AppImage";
+    url = "https://github.com/totec448-spec/chat-on-steroids/releases/download/v${finalAttrs.version}/Chat-On-Steroids-Linux-x64.AppImage";
     hash = "sha256-PQkjNtcHCSKaYwc5i78gn+oHLGSVTsnW7bODZRq9mYQ=";
   };
 
-  contents = appimageTools.extract {
-    inherit pname version src;
-  };
-in
-appimageTools.wrapAppImage {
-  # Keep `src` (fetchurl) on the final derivation so nix-update can find
-  # `pkg.src.url`; `contents` is what actually runs.
-  inherit
-    pname
-    version
-    src
-    contents
-    ;
+  # The bundled libappindicator3 (tray icon) links against it.
+  extraPkgs = pkgs: [ pkgs.libdbusmenu-gtk3 ];
 
   extraInstallCommands = ''
     install -Dm444 \
-      ${contents}/com.chatonsteroids.app.desktop \
+      ${finalAttrs.contents}/com.chatonsteroids.app.desktop \
       $out/share/applications/com.chatonsteroids.app.desktop
 
     substituteInPlace $out/share/applications/com.chatonsteroids.app.desktop \
       --replace-fail 'Exec=AppRun' 'Exec=chat-on-steroids'
 
-    cp -r \
-      ${contents}/usr/share/icons \
-      $out/share/
+    cp -r ${finalAttrs.contents}/usr/share/icons $out/share/
   '';
 
   meta = {
@@ -47,4 +34,4 @@ appimageTools.wrapAppImage {
     platforms = [ "x86_64-linux" ];
     mainProgram = "chat-on-steroids";
   };
-}
+})
