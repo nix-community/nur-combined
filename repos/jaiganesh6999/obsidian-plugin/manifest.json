@@ -1,0 +1,11 @@
+{
+  "id": "seowebchecker-seo-audit",
+  "name": "SEOWebChecker SEO Audit",
+  "version": "1.0.1",
+  "minAppVersion": "1.7.2",
+  "description": "Audit Markdown notes for on-page SEO, analyze heading hierarchy, keyword density, reading time, and inspect live URLs with SEOWebChecker.",
+  "author": "SEOWebChecker",
+  "authorUrl": "https://seowebchecker.com/",
+  "fundingUrl": "https://seowebchecker.com/",
+  "isDesktopOnly": false
+}

@@ -1,0 +1,46 @@
+{
+  "name": "astro-seowebchecker",
+  "version": "1.0.0",
+  "description": "Official Astro Integration for automated build-time technical SEO audits, Core Web Vitals checks, and drop-in <SEO /> components.",
+  "author": "SEOWebChecker (https://seowebchecker.com/)",
+  "license": "MIT",
+  "homepage": "https://seowebchecker.com/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk"
+  },
+  "keywords": [
+    "astro",
+    "astro-component",
+    "astro-integration",
+    "withastro",
+    "seo",
+    "technical seo",
+    "seo audit",
+    "meta tags",
+    "core web vitals"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./components/SEO.astro": "./components/SEO.astro",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepack": "npm run build"
+  },
+  "peerDependencies": {
+    "astro": ">=4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "astro": "^4.0.0",
+    "typescript": "^5.3.0"
+  }
+}

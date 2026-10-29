@@ -1,0 +1,70 @@
+/**
+ * this is the main configuration file of your bit workspace.
+ * for full documentation, please see: https://bit.dev/reference/workspace/workspace-json
+ **/{
+  "$schema": "https://static.bit.dev/teambit/schemas/schema.json",
+  /**
+   * main configuration of the Bit workspace.
+   **/
+  "teambit.workspace/workspace": {
+    /**
+     * the name of the component workspace. used for development purposes.
+     **/
+    "name": "bit-components",
+    /**
+     * set the icon to be shown on the Bit server.
+     **/
+    "icon": "https://static.bit.dev/brands/bit-logo-min.png",
+    /**
+     * default directory to place a component during `bit import` and `bit create`.
+     * the following placeholders are available:
+     * name - component name includes namespace, e.g. 'ui/button'.
+     * scopeId - full scope-id includes the owner, e.g. 'teambit.compilation'.
+     * scope - scope name only, e.g. 'compilation'.
+     * owner - owner name in bit.dev, e.g. 'teambit'.
+     **/
+    "defaultDirectory": "{scope}/{name}",
+    /**
+     * default scope for all components in workspace.
+     **/
+    "defaultScope": "seowebchecker.seo-audit",
+    "resolveAspectsFromNodeModules": true,
+    "resolveEnvsFromRoots": true
+  },
+  /**
+  * Enable generator templates by uncommenting the desired environments below.
+  * These generators scaffold components for Node, React, Vue, and Angular.
+  * After uncommenting, run `bit install` to make them available in your workspace.
+  * Explore more dev environments at: https://bit.dev/docs/getting-started/composing/dev-environments
+  **/
+  "teambit.generator/generator": {
+    "envs": [
+      // "bitdev.node/node-env",
+      // "bitdev.react/react-env",
+      // "bitdev.vue/vue-env",
+      // "bitdev.angular/angular-env"
+      // "bitdev.symphony/envs/symphony-env"
+    ]
+  },
+  /**
+   * main configuration for component dependency resolution.
+   **/
+  "teambit.dependencies/dependency-resolver": {
+    /**
+     * Configure which dependencies are allowed to run install scripts.
+     * By default, no dependencies can run scripts. Set to true to allow, false to explicitly disallow.
+     * Example: { "esbuild": true, "core-js": false }
+     * See also: dangerouslyAllowAllScripts to allow all scripts (not recommended).
+     * This is a security-sensitive setting: enabling scripts may allow arbitrary code execution during install.
+     **/
+    "allowScripts": {},
+    "rootComponents": true,
+    "policy": {
+      "dependencies": {},
+      "peerDependencies": {}
+    }
+  },
+  "teambit.workspace/workspace-config-files": {
+    "enableWorkspaceConfigWrite": true
+  }
+}

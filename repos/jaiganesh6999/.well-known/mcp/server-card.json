@@ -1,0 +1,81 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json",
+  "serverInfo": {
+    "name": "seowebchecker",
+    "title": "SEOWebChecker MCP Server",
+    "version": "1.0.2",
+    "description": "On-page technical SEO audits, meta tag validation, heading hierarchy verification, and Core Web Vitals checks by SEOWebChecker."
+  },
+  "website": "https://seowebchecker.com/",
+  "authentication": {
+    "required": false
+  },
+  "tools": [
+    {
+      "name": "seowebchecker_audit",
+      "description": "Run a full on-page technical SEO audit on any URL. Analyzes title tags, meta descriptions, canonical URLs, heading hierarchy (H1-H6), image alt attributes, internal/external links, and provides an overall SEO score (0-100) with prioritized recommendations from SEOWebChecker.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "The full HTTP/HTTPS URL of the webpage to audit (e.g., https://example.com)"
+          }
+        },
+        "required": [
+          "url"
+        ]
+      }
+    },
+    {
+      "name": "seowebchecker_check_meta",
+      "description": "Check and validate essential SEO meta tags including Title, Description, Robots, Canonical URL, OpenGraph (og:title, og:description, og:image), and Twitter card tags for any URL.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "The URL to inspect meta tags for"
+          }
+        },
+        "required": [
+          "url"
+        ]
+      }
+    },
+    {
+      "name": "seowebchecker_core_web_vitals",
+      "description": "Inspect performance indicators and Core Web Vitals (Largest Contentful Paint LCP, Cumulative Layout Shift CLS, Interaction to Next Paint INP, First Contentful Paint FCP, and TTFB) with actionable web vitals optimization recommendations.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "The webpage URL to evaluate for Core Web Vitals and speed metrics"
+          }
+        },
+        "required": [
+          "url"
+        ]
+      }
+    },
+    {
+      "name": "seowebchecker_quick_score",
+      "description": "Calculate a fast 0-100 technical SEO health score for a URL, summarizing passed checks, critical warnings, and failed elements.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "The URL to calculate the SEO health score for"
+          }
+        },
+        "required": [
+          "url"
+        ]
+      }
+    }
+  ],
+  "resources": [],
+  "prompts": []
+}

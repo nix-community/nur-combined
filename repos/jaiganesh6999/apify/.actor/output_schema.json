@@ -1,0 +1,12 @@
+{
+  "actorOutputSchemaVersion": 1,
+  "title": "SEOWebChecker Audit Results",
+  "description": "Technical SEO audit scores, on-page diagnostic issues, and metadata extracted by SEOWebChecker.",
+  "properties": {
+    "results": {
+      "type": "string",
+      "title": "Dataset Items",
+      "template": "{{storages.datasets.default.apiUrl}}/items"
+    }
+  }
+}

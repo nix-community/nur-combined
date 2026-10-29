@@ -1,0 +1,93 @@
+---
+/**
+ * SEOWebChecker - Drop-In <SEO /> Component for Astro
+ * Platform & Documentation: https://seowebchecker.com/
+ */
+
+export interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+  image?: string;
+  noindex?: boolean;
+  nofollow?: boolean;
+  openGraph?: {
+    title?: string;
+    type?: string;
+    image?: string;
+    url?: string;
+    description?: string;
+    siteName?: string;
+  };
+  twitter?: {
+    card?: 'summary' | 'summary_large_image';
+    site?: string;
+    creator?: string;
+    title?: string;
+    description?: string;
+    image?: string;
+  };
+  schema?: Record<string, any>;
+  viewport?: string;
+  charset?: string;
+}
+
+const {
+  title,
+  description,
+  canonical = Astro.url ? Astro.url.href : undefined,
+  image,
+  noindex = false,
+  nofollow = false,
+  openGraph,
+  twitter,
+  schema,
+  viewport = 'width=device-width, initial-scale=1.0',
+  charset = 'utf-8'
+} = Astro.props;
+
+const ogTitle = openGraph?.title || title;
+const ogDescription = openGraph?.description || description;
+const ogImage = openGraph?.image || image;
+const ogType = openGraph?.type || 'website';
+const ogUrl = openGraph?.url || canonical;
+
+const twitterCard = twitter?.card || (ogImage ? 'summary_large_image' : 'summary');
+const twitterTitle = twitter?.title || title;
+const twitterDescription = twitter?.description || description;
+const twitterImage = twitter?.image || ogImage;
+
+const robots = [
+  noindex ? 'noindex' : 'index',
+  nofollow ? 'nofollow' : 'follow'
+].join(', ');
+---
+
+<meta charset={charset} />
+<meta name="viewport" content={viewport} />
+
+<title>{title}</title>
+{description && <meta name="description" content={description} />}
+{canonical && <link rel="canonical" href={canonical} />}
+<meta name="robots" content={robots} />
+
+<!-- OpenGraph / Facebook / LinkedIn -->
+<meta property="og:type" content={ogType} />
+<meta property="og:title" content={ogTitle} />
+{ogDescription && <meta property="og:description" content={ogDescription} />}
+{ogUrl && <meta property="og:url" content={ogUrl} />}
+{ogImage && <meta property="og:image" content={ogImage} />}
+{openGraph?.siteName && <meta property="og:site_name" content={openGraph.siteName} />}
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content={twitterCard} />
+<meta name="twitter:title" content={twitterTitle} />
+{twitterDescription && <meta name="twitter:description" content={twitterDescription} />}
+{twitterImage && <meta name="twitter:image" content={twitterImage} />}
+{twitter?.site && <meta name="twitter:site" content={twitter.site} />}
+{twitter?.creator && <meta name="twitter:creator" content={twitter.creator} />}
+
+<!-- Schema.org JSON-LD Structured Data -->
+{schema && (
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+)}

@@ -1,0 +1,14 @@
+seowebchecker.admin_dashboard:
+  path: '/admin/config/search/seowebchecker'
+  defaults:
+    _controller: '\Drupal\seowebchecker\Controller\SeoAuditController::dashboard'
+    _title: 'SEO Web Checker Dashboard'
+  requirements:
+    _permission: 'administer seowebchecker'
+
+seowebchecker.api_audit:
+  path: '/admin/config/search/seowebchecker/api/audit'
+  defaults:
+    _controller: '\Drupal\seowebchecker\Controller\SeoAuditController::auditApi'
+  requirements:
+    _permission: 'administer seowebchecker'

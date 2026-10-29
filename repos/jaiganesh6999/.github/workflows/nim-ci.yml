@@ -1,0 +1,51 @@
+name: Nim CI & Tests (nimble.directory)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'nim/**'
+      - '.github/workflows/nim-ci.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'nim/**'
+  workflow_dispatch:
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Nim Compiler
+        uses: iffy/install-nim@v5
+        with:
+          version: binary:stable
+
+      - name: Verify Nim and Nimble Versions
+        run: |
+          nim --version
+          nimble --version
+
+      - name: Check Package Definition
+        run: |
+          cd nim
+          nimble check
+
+      - name: Run Test Suite
+        run: |
+          cd nim
+          nim c -r tests/test_audit.nim
+
+      - name: Build Executable CLI Binary
+        run: |
+          cd nim
+          nimble build -y
+
+      - name: Test CLI Binary Execution
+        run: |
+          cd nim
+          ./seowebchecker --help

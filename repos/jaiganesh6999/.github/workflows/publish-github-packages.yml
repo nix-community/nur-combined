@@ -1,0 +1,66 @@
+name: Publish to GitHub Packages
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+      - '[0-9]+.[0-9]+.[0-9]+'
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish-nuget:
+    name: Publish NuGet Package to GitHub Packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Build & Pack NuGet Package
+        run: |
+          dotnet pack dotnet/src/SeoWebChecker.SeoAudit/SeoWebChecker.SeoAudit.csproj -c Release -o ./nupkg
+
+      - name: Push NuGet Package to GitHub Packages
+        run: |
+          dotnet nuget add source --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
+          dotnet nuget push ./nupkg/*.nupkg --source "github" --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }}
+
+  publish-container:
+    name: Publish Container Image to GitHub Container Registry (GHCR)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=raw,value=latest
+            type=raw,value=1.0.0
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: docker/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}

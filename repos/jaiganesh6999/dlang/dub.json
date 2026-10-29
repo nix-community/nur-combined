@@ -1,0 +1,30 @@
+{
+  "name": "seowebchecker",
+  "description": "Technical SEO audit library and CLI tool for on-page performance, meta tags, and content health",
+  "authors": [
+    "SEOWebChecker <support@seowebchecker.com>"
+  ],
+  "homepage": "https://seowebchecker.com/",
+  "license": "MIT",
+  "sourcePaths": ["source"],
+  "importPaths": ["source"],
+  "targetType": "library",
+  "configurations": [
+    {
+      "name": "library",
+      "targetType": "library",
+      "excludedSourceFiles": ["source/app.d"]
+    },
+    {
+      "name": "executable",
+      "targetType": "executable",
+      "mainSourceFile": "source/app.d",
+      "targetName": "seowebchecker"
+    },
+    {
+      "name": "unittest",
+      "targetType": "executable",
+      "mainSourceFile": "source/app.d"
+    }
+  ]
+}

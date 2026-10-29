@@ -1,0 +1,4 @@
+services:
+  seowebchecker.auditor:
+    class: Drupal\seowebchecker\Services\SeoAuditorService
+    arguments: ['@http_client', '@logger.factory']

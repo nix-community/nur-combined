@@ -1,0 +1,13 @@
+{
+  "actorSpecification": 1,
+  "name": "seowebchecker-seo-audit",
+  "title": "SEOWebChecker: Technical SEO Audit & On-Page Analyzer",
+  "description": "Crawl and audit websites for on-page technical SEO, meta tag validation, canonical URLs, heading hierarchy, image accessibility, and Core Web Vitals readiness.",
+  "version": "1.0",
+  "meta": {
+    "templateId": "project_empty"
+  },
+  "input": "./input_schema.json",
+  "output": "./output_schema.json",
+  "dockerfile": "./Dockerfile"
+}

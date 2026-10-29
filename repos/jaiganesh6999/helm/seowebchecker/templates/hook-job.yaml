@@ -1,0 +1,47 @@
+{{- if .Values.postDeployHook.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "seowebchecker.fullname" . }}-post-deploy-audit
+  labels:
+    {{- include "seowebchecker.labels" . | nindent 4 }}
+    app.kubernetes.io/component: hook
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+    "helm.sh/hook-weight": "5"
+    "helm.sh/hook-delete-policy": before-hook-creation,hook-succeeded
+spec:
+  backoffLimit: {{ .Values.postDeployHook.backoffLimit }}
+  template:
+    metadata:
+      labels:
+        {{- include "seowebchecker.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: hook
+    spec:
+      serviceAccountName: {{ include "seowebchecker.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      restartPolicy: Never
+      containers:
+        - name: post-deploy-auditor
+          image: "{{ .Values.postDeployHook.image.repository }}:{{ .Values.postDeployHook.image.tag }}"
+          imagePullPolicy: {{ .Values.postDeployHook.image.pullPolicy }}
+          command: ["python3", "/scripts/audit_runner.py"]
+          env:
+            - name: TARGETS_JSON
+              value: {{ toJson (list (dict "url" .Values.postDeployHook.targetUrl "name" "post-deploy-target")) | quote }}
+            - name: MIN_SCORE
+              value: {{ .Values.postDeployHook.minScore | quote }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          resources:
+            {{- toYaml .Values.postDeployHook.resources | nindent 12 }}
+          volumeMounts:
+            - name: scripts
+              mountPath: /scripts
+      volumes:
+        - name: scripts
+          configMap:
+            name: {{ include "seowebchecker.fullname" . }}-scripts
+            defaultMode: 0755
+{{- end }}

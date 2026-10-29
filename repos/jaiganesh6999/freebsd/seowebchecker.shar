@@ -1,0 +1,68 @@
+# This is a shell archive.  Save it in a file, remove anything before
+# this line, and then unpack it by entering "sh filename".
+#
+# Maintainer: support@seowebchecker.com
+# Target: FreeBSD Ports (www/seowebchecker)
+#
+echo c - seowebchecker
+mkdir -p seowebchecker > /dev/null 2>&1
+echo x - seowebchecker/Makefile
+sed 's/^X//' >seowebchecker/Makefile << 'END-of-seowebchecker/Makefile'
+XPORTNAME=	seowebchecker
+XDISTVERSIONPREFIX=	v
+XDISTVERSION=	1.0.2
+XCATEGORIES=	www
+X
+XMAINTAINER=	support@seowebchecker.com
+XCOMMENT=	Lightweight website SEO audit tool and CLI by SEOWebChecker
+XWWW=		https://seowebchecker.com/
+X
+XLICENSE=	MIT
+XLICENSE_FILE=	${WRKSRC}/LICENSE
+X
+XUSES=		nodejs:run
+X
+XUSE_GITHUB=	yes
+XGH_ACCOUNT=	jaiganesh6999
+XGH_PROJECT=	seowebchecker-seoaudit-sdk
+X
+XNO_ARCH=	yes
+XNO_BUILD=	yes
+X
+Xdo-install:
+X	${MKDIR} ${STAGEDIR}${PREFIX}/lib/node_modules/${PORTNAME}
+X	(cd ${WRKSRC}/npm && ${COPYTREE_SHARE} "bin lib index.d.ts index.js package.json README.md" ${STAGEDIR}${PREFIX}/lib/node_modules/${PORTNAME})
+X	${CHMOD} +x ${STAGEDIR}${PREFIX}/lib/node_modules/${PORTNAME}/bin/cli.js
+X	${RLN} ${STAGEDIR}${PREFIX}/lib/node_modules/${PORTNAME}/bin/cli.js ${STAGEDIR}${PREFIX}/bin/${PORTNAME}
+X	${RLN} ${STAGEDIR}${PREFIX}/lib/node_modules/${PORTNAME}/bin/cli.js ${STAGEDIR}${PREFIX}/bin/${PORTNAME}-audit
+X
+X.include <bsd.port.mk>
+END-of-seowebchecker/Makefile
+echo x - seowebchecker/distinfo
+sed 's/^X//' >seowebchecker/distinfo << 'END-of-seowebchecker/distinfo'
+XTIMESTAMP = 1790620958
+XSHA256 (jaiganesh6999-seowebchecker-seoaudit-sdk-v1.0.2_GH0.tar.gz) = 85de10b179b31f595417ddda79e7c1cb88b1e26a0006ee544cf777b00819f0c5
+XSIZE (jaiganesh6999-seowebchecker-seoaudit-sdk-v1.0.2_GH0.tar.gz) = 234820
+END-of-seowebchecker/distinfo
+echo x - seowebchecker/pkg-descr
+sed 's/^X//' >seowebchecker/pkg-descr << 'END-of-seowebchecker/pkg-descr'
+XSEOWebChecker is an open-source technical SEO audit client and CLI tool
+Xfor on-page analysis, meta tag validation, heading hierarchy verification,
+Xand Core Web Vitals checks.
+X
+XWWW: https://seowebchecker.com/
+END-of-seowebchecker/pkg-descr
+echo x - seowebchecker/pkg-plist
+sed 's/^X//' >seowebchecker/pkg-plist << 'END-of-seowebchecker/pkg-plist'
+Xbin/seowebchecker
+Xbin/seowebchecker-audit
+Xlib/node_modules/seowebchecker/bin/cli.js
+Xlib/node_modules/seowebchecker/index.d.ts
+Xlib/node_modules/seowebchecker/index.js
+Xlib/node_modules/seowebchecker/lib/auditor.js
+Xlib/node_modules/seowebchecker/lib/client.js
+Xlib/node_modules/seowebchecker/lib/formatters.js
+Xlib/node_modules/seowebchecker/package.json
+Xlib/node_modules/seowebchecker/README.md
+END-of-seowebchecker/pkg-plist
+exit

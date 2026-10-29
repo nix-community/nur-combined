@@ -1,0 +1,6 @@
+{
+  "install": {
+    "packageManager": "npm"
+  },
+  "startCommand": "npm run dev"
+}

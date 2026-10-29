@@ -1,0 +1,11 @@
+{
+  "galaxy.meteor.com": {
+    "env": {
+      "ROOT_URL": "https://seowebchecker.meteorapp.com"
+    }
+  },
+  "public": {
+    "appName": "SEOWebChecker Meteor Service",
+    "siteUrl": "https://seowebchecker.com/"
+  }
+}

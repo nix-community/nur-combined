@@ -1,0 +1,27 @@
+{
+  "name": "@seowebchecker/cloudflare-worker",
+  "version": "1.0.0",
+  "description": "Cloudflare Workers edge service and HTMLRewriter middleware for real-time Edge SEO audits and instant global site scoring.",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "keywords": [
+    "cloudflare",
+    "cloudflare-workers",
+    "edge-seo",
+    "htmlrewriter",
+    "seo",
+    "seo-audit",
+    "seowebchecker"
+  ],
+  "author": "SEOWebChecker <support@seowebchecker.com> (https://seowebchecker.com/)",
+  "license": "MIT",
+  "homepage": "https://seowebchecker.com/",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250224.0",
+    "wrangler": "^3.109.0"
+  }
+}

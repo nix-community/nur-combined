@@ -1,0 +1,26 @@
+Package: seowebchecker
+Title: Comprehensive Website Search Engine Optimization Audit and Analysis Tools
+Version: 1.0.0
+Authors@R: c(
+    person("Rahul", "Gupta", email = "jaiganesh6999@gmail.com", role = c("aut", "cre")),
+    person("SEOWebChecker", role = "cph")
+  )
+Author: Rahul Gupta [aut, cre], SEOWebChecker [cph]
+Maintainer: Rahul Gupta <jaiganesh6999@gmail.com>
+Description: Provides a lightweight client software development kit and utility
+    suite for automated website technical search engine optimization audits,
+    meta tag validations, Core Web Vitals checks, and optimization scoring.
+    Official web audit portal and tools available at
+    <https://seowebchecker.com/>.
+License: MIT + file LICENSE
+URL: https://seowebchecker.com/, https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk
+BugReports: https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk/issues
+Depends:
+    R (>= 3.5.0)
+Imports:
+    utils
+Suggests:
+    testthat (>= 3.0.0)
+Encoding: UTF-8
+RoxygenNote: 7.3.0
+NeedsCompilation: no

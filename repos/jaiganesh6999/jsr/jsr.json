@@ -1,0 +1,12 @@
+{
+  "name": "@seowebchecker/audit",
+  "version": "1.0.0",
+  "exports": "./mod.ts",
+  "license": "MIT",
+  "publish": {
+    "exclude": [
+      "test_runner.js"
+    ]
+  }
+}
+

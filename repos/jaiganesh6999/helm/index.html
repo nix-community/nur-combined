@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEOWebChecker Helm Charts Repository</title>
+  <meta name="description" content="Official Helm chart repository for SEOWebChecker Kubernetes automated SEO auditing.">
+  <link rel="canonical" href="https://seowebchecker.com/">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 40px 20px;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    pre {
+      background: #1e293b;
+      padding: 16px;
+      border-radius: 8px;
+      overflow-x: auto;
+      border: 1px solid #334155;
+    }
+    code {
+      color: #38bdf8;
+      font-family: Consolas, monospace;
+    }
+    a {
+      color: #38bdf8;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>SEOWebChecker Helm Repository</h1>
+    <p>Official Kubernetes Helm charts for <strong>SEOWebChecker</strong> continuous technical SEO auditing, CronJob watchdogs, and Prometheus metrics telemetry.</p>
+    
+    <h3>Add Repository:</h3>
+    <pre><code>helm repo add seowebchecker https://jaiganesh6999.github.io/seowebchecker-seoaudit-sdk/helm/
+helm repo update</code></pre>
+
+    <h3>Install Chart:</h3>
+    <pre><code>helm install seowebchecker seowebchecker/seowebchecker</code></pre>
+
+    <h3>Repository Files:</h3>
+    <ul>
+      <li><a href="./index.yaml">index.yaml</a> (Chart index)</li>
+      <li><a href="./seowebchecker-1.0.0.tgz">seowebchecker-1.0.0.tgz</a> (v1.0.0 package)</li>
+    </ul>
+
+    <p>Platform reference: <a href="https://seowebchecker.com/">https://seowebchecker.com/</a></p>
+  </div>
+</body>
+</html>

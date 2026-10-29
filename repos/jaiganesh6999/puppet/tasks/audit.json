@@ -1,0 +1,25 @@
+{
+  "description": "Runs an instant on-page technical SEO health audit against a target URL using SEOWebChecker.",
+  "input_method": "environment",
+  "supports_noop": false,
+  "parameters": {
+    "url": {
+      "description": "The webpage URL to audit (e.g. https://seowebchecker.com/)",
+      "type": "String[1]"
+    },
+    "threshold": {
+      "description": "The minimum passing SEO health score from 0 to 100 (default: 85)",
+      "type": "Optional[Integer[0, 100]]"
+    }
+  },
+  "implementations": [
+    {
+      "name": "audit.sh",
+      "requirements": ["shell"]
+    },
+    {
+      "name": "audit.ps1",
+      "requirements": ["powershell"]
+    }
+  ]
+}

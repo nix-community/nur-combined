@@ -1,0 +1,206 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "seowebchecker.fullname" . }}-scripts
+  labels:
+    {{- include "seowebchecker.labels" . | nindent 4 }}
+data:
+  audit_runner.py: |
+    #!/usr/bin/env python3
+    """
+    SEOWebChecker Kubernetes Audit Runner
+    Platform: https://seowebchecker.com/
+    """
+    import os
+    import sys
+    import json
+    import re
+    import urllib.request
+    import urllib.error
+
+    def audit_url(url):
+        req = urllib.request.Request(url, headers={'User-Agent': 'SEOWebChecker-K8s-Bot/1.0 (+https://seowebchecker.com/)'})
+        try:
+            with urllib.request.urlopen(req, timeout=20) as resp:
+                status = resp.status
+                html = resp.read().decode('utf-8', errors='ignore')
+        except Exception as e:
+            return {'url': url, 'status': 0, 'error': str(e), 'score': 0, 'grade': 'F', 'issues': [{'code': 'HTTP-ERR', 'severity': 'error', 'message': f'Failed to fetch: {e}'}]}
+
+        issues = []
+        score = 100
+
+        # Title
+        title_m = re.search(r'<title[^>]*>(.*?)</title>', html, re.I | re.S)
+        title = title_m.group(1).strip() if title_m else ""
+        if not title:
+            issues.append({'code': 'SEO-TITLE-01', 'severity': 'error', 'message': 'Missing <title> tag'})
+            score -= 20
+        elif len(title) < 30:
+            issues.append({'code': 'SEO-TITLE-02', 'severity': 'warning', 'message': f'Title too short ({len(title)} chars)'})
+            score -= 8
+        elif len(title) > 60:
+            issues.append({'code': 'SEO-TITLE-03', 'severity': 'warning', 'message': f'Title too long ({len(title)} chars)'})
+            score -= 8
+
+        # Description
+        desc_m = re.search(r'<meta[^>]*name=["\']description["\'][^>]*content=["\'](.*?)["\']', html, re.I) or \
+                 re.search(r'<meta[^>]*content=["\'](.*?)["\'][^>]*name=["\']description["\']', html, re.I)
+        desc = desc_m.group(1).strip() if desc_m else ""
+        if not desc:
+            issues.append({'code': 'SEO-DESC-01', 'severity': 'warning', 'message': 'Missing meta description'})
+            score -= 8
+        elif len(desc) < 70 or len(desc) > 160:
+            issues.append({'code': 'SEO-DESC-02', 'severity': 'warning', 'message': f'Meta description length non-optimal ({len(desc)} chars)'})
+            score -= 8
+
+        # Headings
+        h1s = re.findall(r'<h1[^>]*>(.*?)</h1>', html, re.I | re.S)
+        if len(h1s) == 0:
+            issues.append({'code': 'SEO-H1-01', 'severity': 'warning', 'message': 'Missing primary <h1> heading'})
+            score -= 8
+        elif len(h1s) > 1:
+            issues.append({'code': 'SEO-H1-02', 'severity': 'warning', 'message': f'Multiple <h1> tags detected ({len(h1s)} found)'})
+            score -= 8
+
+        # Images & Alts
+        imgs = re.findall(r'<img\b([^>]*)>', html, re.I)
+        missing_alts = sum(1 for img in imgs if not re.search(r'\balt\s*=\s*["\']', img, re.I))
+        if missing_alts > 0:
+            issues.append({'code': 'SEO-IMG-01', 'severity': 'warning', 'message': f'{missing_alts} image(s) missing alt attribute'})
+            score -= 8
+
+        # Viewport
+        if not re.search(r'<meta[^>]*name=["\']viewport["\']', html, re.I):
+            issues.append({'code': 'SEO-VIEWPORT-01', 'severity': 'error', 'message': 'Missing mobile viewport meta tag'})
+            score -= 20
+
+        # Canonical
+        if not re.search(r'<link[^>]*rel=["\']canonical["\']', html, re.I):
+            issues.append({'code': 'SEO-CANONICAL-01', 'severity': 'info', 'message': 'Missing canonical link tag'})
+            score -= 2
+
+        score = max(0, min(100, score))
+        grade = 'A+' if score >= 95 else 'A' if score >= 85 else 'B' if score >= 70 else 'C' if score >= 55 else 'D' if score >= 40 else 'F'
+
+        return {
+            'url': url,
+            'status': status,
+            'score': score,
+            'grade': grade,
+            'title': title,
+            'issues': issues
+        }
+
+    def main():
+        targets_json = os.environ.get('TARGETS_JSON', '[]')
+        min_score = int(os.environ.get('MIN_SCORE', '80'))
+        webhook = os.environ.get('ALERT_WEBHOOK', '')
+
+        try:
+            targets = json.loads(targets_json)
+        except Exception:
+            targets = [{'url': os.environ.get('TARGET_URL', 'https://seowebchecker.com/'), 'name': 'default'}]
+
+        print("=" * 60)
+        print(" 🔍 SEOWebChecker Kubernetes Audit Runner")
+        print(" Platform: https://seowebchecker.com/")
+        print("=" * 60)
+
+        has_failure = False
+        all_results = []
+
+        for target in targets:
+            url = target.get('url') if isinstance(target, dict) else str(target)
+            name = target.get('name', url) if isinstance(target, dict) else url
+            print(f"\nScanning: {name} ({url})")
+            result = audit_url(url)
+            all_results.append(result)
+
+            print(f"  Score: {result['score']}/100 (Grade: {result['grade']})")
+            for issue in result['issues']:
+                print(f"    [{issue['severity'].upper()}] {issue['code']}: {issue['message']}")
+
+            if result['score'] < min_score:
+                print(f"  ❌ FAIL: Score {result['score']}/100 is below minimum threshold ({min_score}/100)")
+                has_failure = True
+
+        # Send alert if webhook configured and failure detected
+        if has_failure and webhook:
+            try:
+                payload = json.dumps({
+                    'text': f"🚨 *SEOWebChecker Alert*: SEO regression detected! One or more targets failed the minimum score of {min_score}/100.\nResults: {json.dumps(all_results, indent=2)}"
+                }).encode('utf-8')
+                req = urllib.request.Request(webhook, data=payload, headers={'Content-Type': 'application/json'})
+                urllib.request.urlopen(req, timeout=10)
+                print("\nDispatched alert to configured webhook.")
+            except Exception as e:
+                print(f"\nFailed to dispatch alert webhook: {e}")
+
+        print("\n" + "=" * 60)
+        if has_failure:
+            print("Audit completed with failures.")
+            sys.exit(1)
+        else:
+            print("All targets passed technical SEO thresholds!")
+            sys.exit(0)
+
+    if __name__ == '__main__':
+        main()
+
+  server.py: |
+    #!/usr/bin/env python3
+    """
+    SEOWebChecker Kubernetes Microservice & Prometheus Exporter
+    Platform: https://seowebchecker.com/
+    """
+    import http.server
+    import socketserver
+    import urllib.parse
+    import json
+    from audit_runner import audit_url
+
+    PORT = 8080
+    LAST_AUDITS = {}
+
+    class SEOHandler(http.server.BaseHTTPRequestHandler):
+        def do_GET(self):
+            parsed = urllib.parse.urlparse(self.path)
+            if parsed.path == '/healthz':
+                self.send_response(200)
+                self.send_header('Content-Type', 'text/plain')
+                self.end_headers()
+                self.wfile.write(b'OK')
+            elif parsed.path == '/audit':
+                query = urllib.parse.parse_qs(parsed.query)
+                target_url = query.get('url', ['https://seowebchecker.com/'])[0]
+                result = audit_url(target_url)
+                LAST_AUDITS[target_url] = result
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/json')
+                self.end_headers()
+                self.wfile.write(json.dumps(result, indent=2).encode('utf-8'))
+            elif parsed.path == '/metrics':
+                self.send_response(200)
+                self.send_header('Content-Type', 'text/plain; version=0.0.4')
+                self.end_headers()
+                lines = [
+                    "# HELP seowebchecker_health_score Technical SEO Health Score (0-100)",
+                    "# TYPE seowebchecker_health_score gauge"
+                ]
+                for target, res in LAST_AUDITS.items():
+                    safe_url = target.replace('"', '\\"')
+                    lines.append(f'seowebchecker_health_score{{url="{safe_url}"}} {res["score"]}')
+                if not LAST_AUDITS:
+                    lines.append('seowebchecker_health_score{url="default"} 100')
+                self.wfile.write(("\n".join(lines) + "\n").encode('utf-8'))
+            else:
+                self.send_response(404)
+                self.end_headers()
+
+        def log_message(self, format, *args):
+            pass
+
+    with socketserver.TCPServer(("", PORT), SEOHandler) as httpd:
+        print(f"SEOWebChecker Microservice running on port {PORT}...")
+        httpd.serve_forever()

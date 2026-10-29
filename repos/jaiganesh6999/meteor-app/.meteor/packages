@@ -1,0 +1,12 @@
+meteor-base
+mobile-experience
+mongo
+reactive-var
+standard-minifier-css
+standard-minifier-js
+es5-shim
+ecmascript
+shell-server
+webapp
+fetch
+hot-module-replacement

@@ -1,0 +1,175 @@
+name: Publish to Launchpad PPA
+
+on:
+  workflow_dispatch:
+    inputs:
+      dummy:
+        description: 'Run dispatch'
+        required: false
+        default: 'true'
+  push:
+    tags:
+      - 'v*'
+
+env:
+  PACKAGE_NAME: seowebchecker
+  PACKAGE_VERSION: 1.0.1
+  PPA: ppa:seoaitools/seowebchecker
+
+jobs:
+  publish-ppa:
+    name: Build & Upload Debian Source Package
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        ubuntu_series:
+          - noble    # 24.04 LTS
+          - jammy    # 22.04 LTS
+          - focal    # 20.04 LTS
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ── Install build tools ───────────────────────────────────────────────
+      - name: Install packaging tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y \
+            devscripts debhelper python3-all python3-pip \
+            python3-setuptools python3-requests python3-bs4 \
+            dput gnupg2
+
+      # ── GPG Setup ─────────────────────────────────────────────────────────
+      - name: Import GPG key
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.LAUNCHPAD_GPG_PRIVATE_KEY }}
+          GPG_PASSPHRASE: ${{ secrets.LAUNCHPAD_GPG_PASSPHRASE }}
+        run: |
+          # Use runner home for GNUPGHOME (not /root which is permission-denied)
+          export GNUPGHOME="$HOME/.gnupg"
+          mkdir -p "$GNUPGHOME"
+          chmod 700 "$GNUPGHOME"
+
+          # Configure for non-interactive / loopback use
+          echo "no-tty" >> "$GNUPGHOME/gpg.conf"
+          echo "batch" >> "$GNUPGHOME/gpg.conf"
+          echo "pinentry-mode loopback" >> "$GNUPGHOME/gpg.conf"
+          echo "allow-loopback-pinentry" >> "$GNUPGHOME/gpg-agent.conf"
+
+          # Kill any existing agent and start fresh
+          gpgconf --kill gpg-agent 2>/dev/null || true
+
+          # Import the key
+          echo "$GPG_PRIVATE_KEY" | gpg --batch --import
+
+          # Get fingerprint
+          KEY_FP=$(gpg --list-secret-keys --with-colons 2>/dev/null \
+            | grep '^fpr' | head -1 | cut -d: -f10)
+          echo "GPG_FINGERPRINT=$KEY_FP" >> $GITHUB_ENV
+          echo "GNUPGHOME=$GNUPGHOME"   >> $GITHUB_ENV
+          echo "Key: $KEY_FP"
+
+          # Verify signing works with explicit passphrase
+          echo "test" | gpg --batch --yes \
+            --passphrase "$GPG_PASSPHRASE" \
+            --pinentry-mode loopback \
+            -u "$KEY_FP" --clearsign > /dev/null \
+            && echo "GPG sign test: OK" || echo "GPG sign test: FAILED"
+
+      # ── Prepare orig tarball ──────────────────────────────────────────────
+      - name: Create orig tarball
+        run: |
+          mkdir -p /tmp/ppa-build
+          ORIG="/tmp/ppa-build/${PACKAGE_NAME}_${PACKAGE_VERSION}.orig.tar.gz"
+          tar -czf "$ORIG" \
+            --exclude='./.git' \
+            --exclude='./dist' \
+            --exclude='./launchpad' \
+            --exclude='./.github' \
+            --transform "s|^\.|${PACKAGE_NAME}-${PACKAGE_VERSION}|" \
+            .
+          ls -lh "$ORIG"
+
+      # ── Set up per-series build dir ───────────────────────────────────────
+      - name: Set up build directory (${{ matrix.ubuntu_series }})
+        run: |
+          SERIES="${{ matrix.ubuntu_series }}"
+          SRC="${PACKAGE_NAME}-${PACKAGE_VERSION}"
+          BUILD_DIR="/tmp/ppa-build/$SERIES"
+          SRC_DIR="$BUILD_DIR/$SRC"
+          mkdir -p "$SRC_DIR"
+
+          rsync -a \
+            --exclude='.git' --exclude='dist/' \
+            --exclude='launchpad/' --exclude='.github/' \
+            . "$SRC_DIR/"
+
+          # Copy orig tarball into build dir
+          cp "/tmp/ppa-build/${PACKAGE_NAME}_${PACKAGE_VERSION}.orig.tar.gz" "$BUILD_DIR/"
+
+          # Copy debian/ packaging files
+          cp -r launchpad/debian "$SRC_DIR/"
+
+          # Add source format
+          mkdir -p "$SRC_DIR/debian/source"
+          echo "3.0 (quilt)" > "$SRC_DIR/debian/source/format"
+
+          # Update changelog for this series
+          sed -i "s/) noble; urgency/) $SERIES; urgency/" \
+            "$SRC_DIR/debian/changelog"
+
+          echo "BUILD_DIR=$BUILD_DIR" >> $GITHUB_ENV
+          echo "SRC_DIR=$SRC_DIR"     >> $GITHUB_ENV
+
+      # ── Build source package (unsigned) ──────────────────────────────────
+      - name: Build unsigned Debian source package (${{ matrix.ubuntu_series }})
+        env:
+          DEBFULLNAME: SEOWebChecker Team
+          DEBEMAIL: support@seowebchecker.com
+        run: |
+          cd "$SRC_DIR"
+          # Build source-only, skip signing — we sign manually next
+          dpkg-buildpackage -S -sa --no-check-builddeps -d --no-sign
+          echo "--- Built files ---"
+          ls -lh "$BUILD_DIR"/*.dsc "$BUILD_DIR"/*.changes 2>/dev/null
+
+      # ── Sign with GPG ─────────────────────────────────────────────────────
+      - name: Sign source package (${{ matrix.ubuntu_series }})
+        env:
+          GPG_PASSPHRASE: ${{ secrets.LAUNCHPAD_GPG_PASSPHRASE }}
+        run: |
+          CHANGES=$(ls "$BUILD_DIR"/*.changes | head -1)
+
+          echo '#!/bin/bash' > /tmp/gpg-sign-wrapper.sh
+          echo 'exec /usr/bin/gpg --batch --yes --pinentry-mode loopback --passphrase "$GPG_PASSPHRASE" "$@"' >> /tmp/gpg-sign-wrapper.sh
+          chmod +x /tmp/gpg-sign-wrapper.sh
+
+          echo "Signing package via debsign: $CHANGES"
+          debsign -p/tmp/gpg-sign-wrapper.sh -k"$GPG_FINGERPRINT" "$CHANGES"
+
+          echo "--- Signed files ---"
+          ls -lh "$BUILD_DIR"/*.dsc "$BUILD_DIR"/*.changes
+
+      # ── Upload to Launchpad PPA ───────────────────────────────────────────
+      - name: Configure dput
+        run: |
+          cat > ~/.dput.cf << 'EOF'
+          [launchpad]
+          fqdn = upload.ubuntu.com
+          method = ftp
+          incoming = ~seoaitools/ubuntu/seowebchecker/
+          login = anonymous
+          allow_unsigned_uploads = 0
+          EOF
+
+      - name: Upload to Launchpad PPA (${{ matrix.ubuntu_series }})
+        run: |
+          CHANGES=$(ls "$BUILD_DIR"/*.changes | head -1)
+          echo "Uploading: $CHANGES"
+          dput launchpad "$CHANGES"
+          echo "Upload complete!"
+          echo "PPA: https://launchpad.net/~seoaitools/+archive/ubuntu/seowebchecker"
+          echo "Builds: https://launchpad.net/~seoaitools/+archive/ubuntu/seowebchecker/+builds"

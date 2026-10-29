@@ -1,0 +1,25 @@
+{
+  "url": "/audit",
+  "method": "POST",
+  "body": {
+    "url": "{{parameters.url}}"
+  },
+  "response": {
+    "output": {
+      "id": "{{body.id}}",
+      "targetUrl": "{{body.url}}",
+      "score": "{{ifempty(body.score.overall, body.score)}}",
+      "grade": "{{ifempty(body.score.grade, body.grade)}}",
+      "status": "{{if(ifempty(body.score.overall, body.score) < parameters.alertThreshold; 'ALERT'; 'PASS')}}",
+      "isAlert": "{{ifempty(body.score.overall, body.score) < parameters.alertThreshold}}",
+      "title": "{{body.title}}",
+      "metaDescription": "{{body.metaDescription}}",
+      "issuesCount": "{{ifempty(body.stats.errors + body.stats.warnings, length(body.issues))}}",
+      "issues": "{{body.issues}}",
+      "passesCount": "{{ifempty(body.stats.passed, length(body.passes))}}",
+      "passes": "{{body.passes}}",
+      "auditedAt": "{{parseDate(body.timestamp; 'YYYY-MM-DDTHH:mm:ss.SSSZ')}}",
+      "platformUrl": "https://seowebchecker.com/"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "baseUrl": "https://seowebchecker.com/api/v1",
+  "headers": {
+    "Authorization": "Bearer {{connection.apiKey}}",
+    "X-API-Key": "{{connection.apiKey}}",
+    "User-Agent": "SEOWebChecker-Make-App/1.0.0 (+https://seowebchecker.com/)"
+  },
+  "response": {
+    "error": {
+      "message": "[{{statusCode}}] {{ifempty(body.message, body.error, 'An unexpected error occurred while communicating with the SEOWebChecker API.')}}"
+    }
+  }
+}

@@ -1,0 +1,94 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEOWebChecker — Meteor Cloud Edition</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    code, pre { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+
+<body class="bg-slate-50 min-h-screen text-slate-800 antialiased">
+  {{> dashboard}}
+</body>
+
+<template name="dashboard">
+  <!-- Header -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-md shadow-indigo-200">
+          <i class="fa-solid fa-chart-line text-lg"></i>
+        </div>
+        <div>
+          <div class="flex items-center space-x-2">
+            <span class="font-extrabold text-lg tracking-tight text-slate-900">SEOWebChecker</span>
+            <span class="text-xs bg-indigo-100 text-indigo-700 font-semibold px-2 py-0.5 rounded-full">Meteor Galaxy Cloud</span>
+          </div>
+          <p class="text-xs text-slate-500">Live SEO Audit Service on Galaxy Cloud US-East-1</p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-3">
+        <a href="https://seowebchecker.com/" target="_blank" class="text-xs font-semibold text-slate-600 hover:text-indigo-600 transition flex items-center gap-1">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> Official Site
+        </a>
+        <a href="https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk" target="_blank" class="text-xs bg-slate-900 text-white font-semibold px-3 py-1.5 rounded-lg hover:bg-slate-800 transition flex items-center gap-1.5">
+          <i class="fa-brands fa-github"></i> GitHub
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-6xl mx-auto px-4 py-8">
+    <div class="bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm mb-8">
+      <div class="max-w-3xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 mb-3">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          Galaxy Cloud Engine Online
+        </div>
+        <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight mb-2">
+          Real-Time Technical SEO Audits
+        </h1>
+        <p class="text-slate-600 text-sm mb-6">
+          Enter any URL to execute 50+ on-page SEO, meta tag, heading, image accessibility, and performance checks powered by <a href="https://seowebchecker.com/" class="text-indigo-600 font-semibold underline">SEOWebChecker</a>.
+        </p>
+
+        <!-- Form -->
+        <form id="auditForm" class="flex flex-col md:flex-row gap-3">
+          <div class="relative flex-grow">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              <i class="fa-solid fa-globe"></i>
+            </div>
+            <input 
+              type="url" 
+              id="targetUrl" 
+              name="url" 
+              required
+              placeholder="https://example.com"
+              value="https://moz.com"
+              class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:bg-white focus:outline-none text-sm transition"
+            />
+          </div>
+          <button 
+            type="submit" 
+            id="auditBtn"
+            class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white font-bold rounded-xl shadow-md shadow-indigo-200 transition flex items-center justify-center gap-2 text-sm"
+          >
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>Run SEO Audit</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Results Box -->
+    <div id="resultsCard" class="hidden bg-white rounded-2xl border border-slate-200 p-6 md:p-8 shadow-sm">
+      <h3 class="text-lg font-bold text-slate-900 mb-4">Audit Results</h3>
+      <pre id="resultsPre" class="bg-slate-900 text-emerald-400 p-4 rounded-xl text-xs overflow-x-auto"></pre>
+    </div>
+  </main>
+</template>

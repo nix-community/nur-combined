@@ -1,0 +1,46 @@
+name: Swift Test & CocoaPods Lint
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'swift/**'
+      - '*.podspec'
+      - '.github/workflows/test-and-lint-pod.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'swift/**'
+      - '*.podspec'
+      - '.github/workflows/test-and-lint-pod.yml'
+  workflow_dispatch:
+
+jobs:
+  lint_and_test:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Show Swift and CocoaPods versions
+        run: |
+          swift --version
+          pod --version
+
+      - name: Run Swift Package Tests
+        run: |
+          cd swift
+          swift test
+          cd ..
+
+      - name: Lint CocoaPods Specification
+        run: |
+          pod lib lint SeoWebChecker.podspec --allow-warnings --verbose
+
+      - name: Publish to CocoaPods Trunk
+        if: github.ref == 'refs/heads/main'
+        env:
+          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN || '43a176b2598c50f68df67b71f997aa27' }}
+        run: |
+          pod trunk push SeoWebChecker.podspec --allow-warnings

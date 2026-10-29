@@ -1,0 +1,50 @@
+name: Dlang DUB CI & Tests (code.dlang.org)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'dlang/**'
+      - 'dub.json'
+      - '.github/workflows/dlang-dub.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'dlang/**'
+      - 'dub.json'
+  workflow_dispatch:
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup D Compiler & DUB
+        uses: dlang-community/setup-dlang@v1
+        with:
+          compiler: dmd-latest
+
+      - name: Print D Compiler & DUB Versions
+        run: |
+          dmd --version
+          dub --version
+
+      - name: Run Unit Tests (dlang/ directory)
+        run: |
+          cd dlang
+          dub test
+
+      - name: Build Executable CLI Binary (dlang/ directory)
+        run: |
+          cd dlang
+          dub build -c executable
+          ./seowebchecker --help
+
+      - name: Test Root dub.json Package
+        run: |
+          dub test
+          dub build -c executable
+          ./seowebchecker --help

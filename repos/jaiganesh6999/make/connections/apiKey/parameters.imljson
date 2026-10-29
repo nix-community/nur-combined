@@ -1,0 +1,9 @@
+[
+  {
+    "name": "apiKey",
+    "type": "text",
+    "label": "API key",
+    "required": true,
+    "help": "Enter your SEOWebChecker API key. You can obtain or generate your key from your SEOWebChecker account at https://seowebchecker.com/."
+  }
+]

@@ -1,0 +1,18 @@
+{
+  "name": "purescript-seowebchecker",
+  "description": "PureScript client library for technical on-page SEO diagnostics and validations.",
+  "main": "src/SEOWebChecker.purs",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk.git"
+  },
+  "homepage": "https://seowebchecker.com/",
+  "dependencies": {
+    "purescript-console": ">=6.0.0 <7.0.0",
+    "purescript-effect": ">=3.0.0 <4.0.0",
+    "purescript-maybe": ">=6.0.0 <7.0.0",
+    "purescript-prelude": ">=6.0.0 <7.0.0",
+    "purescript-strings": ">=6.0.0 <7.0.0"
+  }
+}

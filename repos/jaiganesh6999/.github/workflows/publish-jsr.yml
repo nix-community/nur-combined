@@ -1,0 +1,33 @@
+name: Publish to JSR
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'jsr/**'
+      - '.github/workflows/publish-jsr.yml'
+  workflow_dispatch:
+
+jobs:
+  publish:
+    name: Publish @seowebchecker/audit
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # Required for JSR OIDC provenance
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run Package Tests
+        working-directory: ./jsr
+        run: node --experimental-strip-types test_runner.js
+
+      - name: Publish to JSR
+        working-directory: ./jsr
+        run: npx jsr publish

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEOWebChecker - Technical SEO & HTML Audit</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo-row">
+      <span class="brand-title">SEOWebChecker</span>
+      <span class="badge">Thunderbird</span>
+    </div>
+    <p class="subtitle">Email Newsletter & HTML SEO Diagnostic Tool</p>
+  </header>
+
+  <main class="content">
+    <div class="tabs">
+      <button class="tab active" id="tabAnalyzeCurrent">Current Email</button>
+      <button class="tab" id="tabCustomHtml">Custom HTML</button>
+      <button class="tab" id="tabUrlInspect">URL Inspect</button>
+    </div>
+
+    <!-- Mode 1: Current Displayed Email -->
+    <section id="sectionCurrent" class="tab-pane active">
+      <p class="description">Audit headings, links, canonical tags, and images in the selected email message.</p>
+      <button id="btnAuditCurrent" class="btn primary">Audit Current Message</button>
+    </section>
+
+    <!-- Mode 2: Custom HTML Snippet -->
+    <section id="sectionCustom" class="tab-pane">
+      <textarea id="customHtmlInput" rows="5" placeholder="Paste HTML email or web page markup here..."></textarea>
+      <button id="btnAuditCustom" class="btn primary">Analyze Custom HTML</button>
+    </section>
+
+    <!-- Mode 3: Remote URL -->
+    <section id="sectionUrl" class="tab-pane">
+      <input type="url" id="urlInput" placeholder="https://example.com" value="https://seowebchecker.com/">
+      <button id="btnAuditUrl" class="btn primary">Fetch & Audit URL</button>
+    </section>
+
+    <!-- Results Panel -->
+    <section id="resultsSection" class="results-container hidden">
+      <div class="score-card">
+        <div class="score-number" id="overallScore">--</div>
+        <div class="score-label">SEO & Structure Health</div>
+      </div>
+      <div id="diagnosticsList" class="diagnostics-list"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a href="https://seowebchecker.com/" target="_blank" rel="noopener noreferrer">SEOWebChecker Platform</a>
+    &bull;
+    <a href="https://seo-ai-tools.readthedocs.io/en/latest/" target="_blank" rel="noopener noreferrer">Docs</a>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>

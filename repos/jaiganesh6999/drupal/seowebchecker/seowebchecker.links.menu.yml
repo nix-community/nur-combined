@@ -1,0 +1,6 @@
+seowebchecker.admin_dashboard:
+  title: 'SEO Web Checker'
+  description: 'Run automated technical on-page SEO audits and inspect Core Web Vitals readiness.'
+  parent: system.admin_config_search
+  route_name: seowebchecker.admin_dashboard
+  weight: 50

@@ -1,0 +1,34 @@
+name: Build and Release Snap
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  snapcraft:
+    name: Build & Release Snap
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Build Snap Package
+        uses: snapcore/action-build@v1
+        id: build
+
+      - name: Upload Snap Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: seowebchecker-snap
+          path: ${{ steps.build.outputs.snap }}
+
+      - name: Publish to Snap Store
+        uses: snapcore/action-publish@v1
+        if: startsWith(github.ref, 'refs/tags/v') && env.SNAPCRAFT_STORE_CREDENTIALS != ''
+        env:
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
+        with:
+          snap: ${{ steps.build.outputs.snap }}
+          release: stable

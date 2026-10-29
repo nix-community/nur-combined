@@ -1,0 +1,63 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "json"
+require_relative "../lib/seowebchecker_seoaudit"
+
+target_url = ARGV[0]
+
+if target_url.nil? || ARGV.include?("--help") || ARGV.include?("-h")
+  puts <<~HELP
+    SEOWebChecker CLI — Website SEO Audit Tool (Ruby)
+    Official Website: https://seowebchecker.com/
+
+    Usage:
+      seowebchecker-audit <url> [options]
+
+    Options:
+      --format <pretty|json>   Output format (default: pretty)
+      --min-score <number>     Minimum acceptable score (exit 1 if lower)
+      --help, -h               Show this help message
+      --version, -v            Show version
+  HELP
+  exit(0)
+end
+
+if ARGV.include?("--version") || ARGV.include?("-v")
+  puts "seowebchecker-seoaudit-sdk v#{SeoWebChecker::SeoAudit::VERSION}"
+  exit(0)
+end
+
+auditor = SeoWebChecker::SeoAudit::Auditor.new
+result = auditor.audit(target_url)
+
+if ARGV.include?("--format") && ARGV[ARGV.index("--format") + 1] == "json"
+  puts JSON.pretty_generate(result)
+else
+  score = result[:score][:overall]
+  grade = result[:score][:grade]
+
+  puts "=" * 65
+  puts " SEOWebChecker SEO Audit Report: #{result[:url]}"
+  puts " Official: https://seowebchecker.com/ | Generated: #{result[:timestamp]}"
+  puts "=" * 65
+  puts "\n Overall Score: #{score}/100 | Grade: #{grade}"
+  puts " Checks: #{result[:stats][:passed]} Passed, #{result[:stats][:warnings]} Warnings, #{result[:stats][:errors]} Errors\n\n"
+
+  errors = result[:issues].select { |i| i[:severity] == "error" }
+  if errors.any?
+    puts "[!] High Priority Issues (Errors):"
+    errors.each do |e|
+      puts "  ✖ #{e[:title]}: #{e[:recommendation]}"
+    end
+  end
+end
+
+min_score_idx = ARGV.index("--min-score")
+if min_score_idx
+  min_score = ARGV[min_score_idx + 1].to_i
+  if result[:score][:overall] < min_score
+    warn "\n[CI/CD ERROR] Score #{result[:score][:overall]} is below minimum requirement of #{min_score}."
+    exit(1)
+  end
+end

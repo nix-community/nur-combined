@@ -1,0 +1,107 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "seowebchecker-seoaudit-sdk"
+version = "1.0.0"
+description = "Lightweight open-source client SDK and CLI tool for full website SEO audits, Core Web Vitals checks, and on-page optimization by SEOWebChecker."
+authors = ["SEOWebChecker Team <support@seowebchecker.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://seowebchecker.com/"
+repository = "https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk"
+documentation = "https://seowebchecker.com/"
+keywords = [
+    "seo",
+    "seo-audit",
+    "seo-checker",
+    "website-analyzer",
+    "meta-tags",
+    "core-web-vitals",
+    "technical-seo",
+    "seowebchecker",
+    "pypi-seo",
+    "on-page-seo"
+]
+packages = [{ include = "seowebchecker_seoaudit" }]
+
+[tool.poetry.dependencies]
+python = ">=3.8"
+requests = ">=2.25.0"
+beautifulsoup4 = ">=4.9.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = ">=7.0.0"
+flake8 = ">=6.0.0"
+
+[tool.poetry.scripts]
+seowebchecker-audit = "seowebchecker_seoaudit.cli:main"
+
+[project]
+name = "seowebchecker-seoaudit-sdk"
+version = "1.0.0"
+description = "Lightweight open-source client SDK and CLI tool for full website SEO audits, Core Web Vitals checks, and on-page optimization by SEOWebChecker."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [
+    { name = "SEOWebChecker Team", email = "support@seowebchecker.com" }
+]
+keywords = [
+    "seo",
+    "seo-audit",
+    "seo-checker",
+    "website-analyzer",
+    "meta-tags",
+    "core-web-vitals",
+    "technical-seo",
+    "seowebchecker",
+    "pypi-seo",
+    "on-page-seo"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Topic :: Internet :: WWW/HTTP :: Site Management",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Quality Assurance",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Operating System :: OS Independent"
+]
+dependencies = [
+    "requests>=2.25.0",
+    "beautifulsoup4>=4.9.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "flake8>=6.0.0",
+    "build>=0.10.0",
+    "twine>=4.0.0",
+]
+
+[project.scripts]
+seowebchecker-audit = "seowebchecker_seoaudit.cli:main"
+
+[project.urls]
+Homepage = "https://seowebchecker.com/"
+Documentation = "https://seowebchecker.com/"
+Repository = "https://github.com/seowebchecker/seowebchecker-seoaudit-sdk"
+"Issue Tracker" = "https://github.com/seowebchecker/seowebchecker-seoaudit-sdk/issues"
+"Free Audit Tool" = "https://seowebchecker.com/"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["seowebchecker_seoaudit*"]

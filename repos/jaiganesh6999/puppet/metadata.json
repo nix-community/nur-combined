@@ -1,0 +1,47 @@
+{
+  "name": "jaiganesh6999-seowebchecker",
+  "version": "1.0.0",
+  "author": "jaiganesh6999",
+  "summary": "Technical SEO audit monitoring agent, Bolt tasks, and quality gate automation for Puppet.",
+  "license": "Apache-2.0",
+  "source": "https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk",
+  "project_page": "https://seowebchecker.com/",
+  "issues_url": "https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk/issues",
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.13.1 < 10.0.0"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": ["7", "8", "9"]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": ["7", "8", "9"]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": ["18.04", "20.04", "22.04", "24.04"]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": ["10", "11", "12"]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 6.0.0 < 9.0.0"
+    }
+  ],
+  "tags": [
+    "seo",
+    "audit",
+    "monitoring",
+    "crawler",
+    "seowebchecker"
+  ]
+}

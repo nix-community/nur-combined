@@ -1,0 +1,263 @@
+{
+  "name": "SEOWebChecker - Automated Technical SEO Audit & Alert",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [1],
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "id": "11111111-1111-1111-1111-111111111101",
+      "name": "Schedule Trigger (Weekly)",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [220, 300]
+    },
+    {
+      "parameters": {},
+      "id": "11111111-1111-1111-1111-111111111102",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [220, 480]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cfg-url",
+              "name": "targetUrl",
+              "value": "https://example.com",
+              "type": "string"
+            },
+            {
+              "id": "cfg-threshold",
+              "name": "alertScoreThreshold",
+              "value": 85,
+              "type": "number"
+            },
+            {
+              "id": "cfg-notify-email",
+              "name": "notifyEmail",
+              "value": "seo-team@example.com",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "11111111-1111-1111-1111-111111111103",
+      "name": "Configure Audit Target",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [460, 380]
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $json.targetUrl }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "User-Agent",
+              "value": "Mozilla/5.0 (compatible; SEOWebChecker-Bot/1.0; +https://seowebchecker.com/)"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "text"
+            }
+          }
+        }
+      },
+      "id": "11111111-1111-1111-1111-111111111104",
+      "name": "Fetch Web Page HTML",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [680, 380]
+    },
+    {
+      "parameters": {
+        "jsCode": "// SEOWebChecker Technical SEO Audit Engine\n// Powered by SEOWebChecker (https://seowebchecker.com/)\n\nconst html = $input.first().json.data || '';\nconst targetUrl = $('Configure Audit Target').first().json.targetUrl;\nconst threshold = $('Configure Audit Target').first().json.alertScoreThreshold || 85;\n\nconst issues = [];\nconst passes = [];\nlet score = 100;\n\n// 1. Title Tag Check\nconst titleMatch = html.match(/<title[^>]*>([^<]*)<\\/title>/i);\nconst title = titleMatch ? titleMatch[1].trim() : null;\nif (!title) {\n  issues.push('Missing <title> tag (-20 pts)');\n  score -= 20;\n} else if (title.length < 30) {\n  issues.push(`Title tag too short (${title.length} chars, recommended 30-60) (-5 pts)`);\n  score -= 5;\n} else if (title.length > 60) {\n  issues.push(`Title tag may truncate in search (${title.length} chars, recommended 30-60) (-5 pts)`);\n  score -= 5;\n} else {\n  passes.push(`Title tag optimal (${title.length} chars)`);\n}\n\n// 2. Meta Description Check\nconst metaDescMatch = html.match(/<meta[^>]*name=[\"']description[\"'][^>]*content=[\"']([^\"']*)[\"'][^>]*>/i)\n  || html.match(/<meta[^>]*content=[\"']([^\"']*)[\"'][^>]*name=[\"']description[\"'][^>]*>/i);\nconst metaDesc = metaDescMatch ? metaDescMatch[1].trim() : null;\nif (!metaDesc) {\n  issues.push('Missing meta description tag (-15 pts)');\n  score -= 15;\n} else if (metaDesc.length < 70) {\n  issues.push(`Meta description too short (${metaDesc.length} chars, recommended 70-160) (-5 pts)`);\n  score -= 5;\n} else if (metaDesc.length > 160) {\n  issues.push(`Meta description exceeds recommended length (${metaDesc.length} chars) (-5 pts)`);\n  score -= 5;\n} else {\n  passes.push(`Meta description optimal (${metaDesc.length} chars)`);\n}\n\n// 3. Heading Hierarchy (H1 validation)\nconst h1Matches = html.match(/<h1[^>]*>/gi) || [];\nif (h1Matches.length === 0) {\n  issues.push('Missing <h1> tag (-15 pts)');\n  score -= 15;\n} else if (h1Matches.length > 1) {\n  issues.push(`Multiple <h1> tags detected (${h1Matches.length} found) (-10 pts)`);\n  score -= 10;\n} else {\n  passes.push('Exactly one <h1> heading present');\n}\n\n// 4. Viewport Mobile Readiness\nconst viewportMatch = html.match(/<meta[^>]*name=[\"']viewport[\"'][^>]*>/i);\nif (!viewportMatch) {\n  issues.push('Missing mobile viewport meta tag (-15 pts)');\n  score -= 15;\n} else {\n  passes.push('Mobile viewport meta tag configured');\n}\n\n// 5. Canonical Link Tag\nconst canonicalMatch = html.match(/<link[^>]*rel=[\"']canonical[\"'][^>]*>/i);\nif (!canonicalMatch) {\n  issues.push('Missing canonical link tag (-10 pts)');\n  score -= 10;\n} else {\n  passes.push('Canonical link tag present');\n}\n\n// 6. Image Accessibility (Alt text check)\nconst imgMatches = html.match(/<img[^>]*>/gi) || [];\nlet missingAltCount = 0;\nimgMatches.forEach(img => {\n  if (!img.match(/alt=[\"'][^\"']*[\"']/i)) {\n    missingAltCount++;\n  }\n});\nif (missingAltCount > 0) {\n  issues.push(`${missingAltCount} image(s) missing alt attribute (-10 pts)`);\n  score -= 10;\n} else if (imgMatches.length > 0) {\n  passes.push(`All ${imgMatches.length} images include alt attributes`);\n}\n\n// 7. OpenGraph Social Sharing Card Check\nconst ogTitle = html.match(/<meta[^>]*property=[\"']og:title[\"'][^>]*>/i);\nconst ogImage = html.match(/<meta[^>]*property=[\"']og:image[\"'][^>]*>/i);\nif (!ogTitle || !ogImage) {\n  issues.push('Incomplete OpenGraph tags (og:title / og:image missing) (-5 pts)');\n  score -= 5;\n} else {\n  passes.push('OpenGraph social tags present');\n}\n\nscore = Math.max(0, score);\nlet grade = 'F';\nif (score >= 90) grade = 'A';\nelse if (score >= 80) grade = 'B';\nelse if (score >= 70) grade = 'C';\nelse if (score >= 60) grade = 'D';\n\nconst status = score >= threshold ? 'PASS' : 'ALERT';\n\nreturn [{\n  json: {\n    targetUrl,\n    score,\n    grade,\n    status,\n    threshold,\n    title: title || 'N/A',\n    metaDescription: metaDesc || 'N/A',\n    issuesCount: issues.length,\n    issues,\n    passes,\n    timestamp: new Date().toISOString(),\n    platformUrl: 'https://seowebchecker.com/'\n  }\n}];"
+      },
+      "id": "11111111-1111-1111-1111-111111111105",
+      "name": "SEOWebChecker Analysis Engine",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [900, 380]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict"
+          },
+          "conditions": [
+            {
+              "id": "cond-score-alert",
+              "leftValue": "={{ $json.score }}",
+              "rightValue": "={{ $json.threshold }}",
+              "operator": {
+                "type": "number",
+                "operation": "lt"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "11111111-1111-1111-1111-111111111106",
+      "name": "Score Below Threshold?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [1140, 380]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "alert-msg",
+              "name": "notificationMessage",
+              "value": "=⚠️ SEOWebChecker Alert: Technical SEO score for {{ $json.targetUrl }} is {{ $json.score }}/100 (Grade {{ $json.grade }}), below threshold of {{ $json.threshold }}.\n\nIssues Found:\n- {{ $json.issues.join('\\n- ') }}\n\nDetailed Audit: https://seowebchecker.com/",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "11111111-1111-1111-1111-111111111107",
+      "name": "Format Alert Notification",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [1380, 280]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "pass-msg",
+              "name": "notificationMessage",
+              "value": "=✅ SEOWebChecker: Technical SEO audit passed for {{ $json.targetUrl }}! Score: {{ $json.score }}/100 (Grade {{ $json.grade }}).\n\nPlatform: https://seowebchecker.com/",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "11111111-1111-1111-1111-111111111108",
+      "name": "Format Success Summary",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [1380, 480]
+    }
+  ],
+  "connections": {
+    "Schedule Trigger (Weekly)": {
+      "main": [
+        [
+          {
+            "node": "Configure Audit Target",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Configure Audit Target",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Configure Audit Target": {
+      "main": [
+        [
+          {
+            "node": "Fetch Web Page HTML",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Web Page HTML": {
+      "main": [
+        [
+          {
+            "node": "SEOWebChecker Analysis Engine",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SEOWebChecker Analysis Engine": {
+      "main": [
+        [
+          {
+            "node": "Score Below Threshold?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Score Below Threshold?": {
+      "main": [
+        [
+          {
+            "node": "Format Alert Notification",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Format Success Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [
+    {
+      "name": "SEO"
+    },
+    {
+      "name": "Auditing"
+    },
+    {
+      "name": "Marketing"
+    },
+    {
+      "name": "DevOps"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+[package]
+name = "seowebchecker-seoaudit-sdk"
+version = "1.0.0"
+edition = "2021"
+authors = ["SEOWebChecker Team <support@seowebchecker.com>"]
+description = "Lightweight open-source client SDK and CLI tool for website SEO audits, on-page analysis, and Core Web Vitals checks by SEOWebChecker."
+homepage = "https://seowebchecker.com/"
+documentation = "https://docs.rs/seowebchecker-seoaudit-sdk"
+repository = "https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk"
+license = "MIT"
+readme = "README.md"
+keywords = ["seo", "seo-audit", "seowebchecker", "meta-tags", "website-audit"]
+categories = ["web-programming", "command-line-utilities", "development-tools"]
+
+[dependencies]
+regex = "1.10"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+[[bin]]
+name = "seowebchecker-audit"
+path = "src/main.rs"
+
+[lib]
+name = "seowebchecker_seoaudit"
+path = "src/lib.rs"

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<updates>
+  <update>
+    <name>System - SEOWebChecker</name>
+    <description>Automated on-page technical SEO audits, heading structure inspections, image accessibility analysis, and Core Web Vitals checks for Joomla 5.</description>
+    <element>seowebchecker</element>
+    <type>plugin</type>
+    <folder>system</folder>
+    <client>site</client>
+    <version>1.0.0</version>
+    <infourl title="SEOWebChecker Documentation">https://seo-ai-tools.readthedocs.io/en/latest/</infourl>
+    <downloads>
+      <downloadurl type="full" format="zip">https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk/raw/main/joomla/plg_system_seowebchecker.zip</downloadurl>
+    </downloads>
+    <targetplatform name="joomla" version="5\.[0-9]" />
+    <php_minimum>8.1</php_minimum>
+  </update>
+</updates>

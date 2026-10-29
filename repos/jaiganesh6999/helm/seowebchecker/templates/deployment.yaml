@@ -1,0 +1,53 @@
+{{- if .Values.server.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "seowebchecker.fullname" . }}-server
+  labels:
+    {{- include "seowebchecker.labels" . | nindent 4 }}
+    app.kubernetes.io/component: server
+spec:
+  replicas: {{ .Values.server.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "seowebchecker.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: server
+  template:
+    metadata:
+      labels:
+        {{- include "seowebchecker.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: server
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/metrics"
+        prometheus.io/port: "8080"
+    spec:
+      serviceAccountName: {{ include "seowebchecker.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: server
+          image: "{{ .Values.server.image.repository }}:{{ .Values.server.image.tag }}"
+          imagePullPolicy: {{ .Values.server.image.pullPolicy }}
+          command: ["python3", "/scripts/server.py"]
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.server.service.targetPort }}
+              protocol: TCP
+          livenessProbe:
+            {{- toYaml .Values.server.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.server.readinessProbe | nindent 12 }}
+          resources:
+            {{- toYaml .Values.server.resources | nindent 12 }}
+          volumeMounts:
+            - name: scripts
+              mountPath: /scripts
+      volumes:
+        - name: scripts
+          configMap:
+            name: {{ include "seowebchecker.fullname" . }}-scripts
+            defaultMode: 0755
+{{- end }}

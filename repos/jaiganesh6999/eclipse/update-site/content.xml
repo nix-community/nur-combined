@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?metadataRepository class='org.eclipse.equinox.internal.p2.metadata.repository.LocalMetadataRepository' version='1.0.0'?>
+<repository name='SEOWebChecker Update Site' type='org.eclipse.equinox.p2.metadata.repository.LocalMetadataRepository' version='1'>
+  <properties size='2'>
+    <property name='p2.timestamp' value='1728200000000'/>
+    <property name='p2.compressed' value='false'/>
+  </properties>
+  <units size='1'>
+    <unit id='com.seowebchecker.seoaudit' version='1.0.0'>
+      <update id='com.seowebchecker.seoaudit' range='[0.0.0,1.0.0)' severity='0'/>
+      <properties size='2'>
+        <property name='org.eclipse.equinox.p2.name' value='SEOWebChecker Technical SEO Audit &amp; Analyzer'/>
+        <property name='org.eclipse.equinox.p2.provider' value='SEOWebChecker'/>
+      </properties>
+      <provides size='3'>
+        <provided namespace='org.eclipse.equinox.p2.iu' name='com.seowebchecker.seoaudit' version='1.0.0'/>
+        <provided namespace='osgi.bundle' name='com.seowebchecker.seoaudit' version='1.0.0'/>
+        <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+      </provides>
+      <requires size='2'>
+        <required namespace='osgi.bundle' name='org.eclipse.ui' range='0.0.0'/>
+        <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='0.0.0'/>
+      </requires>
+      <artifacts size='1'>
+        <artifact classifier='osgi.bundle' id='com.seowebchecker.seoaudit' version='1.0.0'/>
+      </artifacts>
+      <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+    </unit>
+  </units>
+</repository>

@@ -1,0 +1,7 @@
+seowebchecker (1.0.1-1) noble; urgency=medium
+
+  * Initial Debian/Ubuntu packaging for Launchpad PPA.
+  * Full SEO audit SDK and CLI tool.
+  * Supports Ubuntu Noble (24.04), Jammy (22.04), Focal (20.04).
+
+ -- SEOWebChecker Team <support@seowebchecker.com>  Mon, 28 Sep 2026 00:00:00 +0000

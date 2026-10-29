@@ -1,0 +1,12 @@
+{
+  "name": "seowebchecker-meteor-app",
+  "private": true,
+  "scripts": {
+    "start": "meteor run",
+    "test": "meteor test --once --driver-package meteortesting:mocha"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.25.0",
+    "meteor-node-stubs": "^1.2.9"
+  }
+}

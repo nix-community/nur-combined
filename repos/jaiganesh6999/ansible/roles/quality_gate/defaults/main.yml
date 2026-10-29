@@ -1,0 +1,6 @@
+---
+# Defaults for seowebchecker.quality_gate role
+seo_quality_gate_url: "https://seowebchecker.com/"
+seo_quality_gate_min_score: 85
+seo_quality_gate_fail_on_alert: true
+seo_quality_gate_timeout: 15

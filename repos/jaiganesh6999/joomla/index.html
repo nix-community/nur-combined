@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SEOWebChecker for Joomla 5 - Interactive Live Demo &amp; Documentation</title>
+  <meta name="description" content="Live demonstration and documentation for the SEOWebChecker Joomla 5 System Plugin. Automated on-page technical SEO diagnostics, heading structure inspection, and accessibility analysis.">
+  <link rel="canonical" href="https://seowebchecker.com/">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --card-border: #334155;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --accent: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --joomla: #185a9d;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding: 0 16px 60px;
+    }
+    .header {
+      max-width: 900px;
+      margin: 40px auto 30px;
+      text-align: center;
+    }
+    .badge {
+      display: inline-block;
+      background: var(--joomla);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+    h1 {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #60a5fa, #34d399);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .subtitle {
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 650px;
+      margin: 0 auto 24px;
+    }
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-secondary { background: var(--card); color: var(--text); border: 1px solid var(--card-border); }
+    .btn-secondary:hover { border-color: #64748b; }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .card h2 {
+      font-size: 20px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 12px;
+      background: #0b1120;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+      font-family: inherit;
+    }
+    input[type="text"]:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .btn-audit {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-audit:hover { opacity: 0.95; }
+    .results {
+      margin-top: 24px;
+      display: none;
+    }
+    .score-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #0b1120;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 20px;
+    }
+    .score-number {
+      font-size: 36px;
+      font-weight: 800;
+    }
+    .grade-badge {
+      display: inline-block;
+      font-size: 24px;
+      font-weight: 800;
+      padding: 4px 16px;
+      border-radius: 8px;
+    }
+    .grade-A { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid #10b981; }
+    .grade-B { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid #3b82f6; }
+    .grade-C { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid #f59e0b; }
+    .grade-D { background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid #ef4444; }
+    .issue-item {
+      background: #0b1120;
+      border-left: 4px solid var(--muted);
+      border-radius: 4px 8px 8px 4px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+    }
+    .issue-item.pass { border-left-color: var(--accent); }
+    .issue-item.warning { border-left-color: var(--warning); }
+    .issue-item.error { border-left-color: var(--danger); }
+    .issue-title {
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+    .issue-desc {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .feature-card {
+      background: #0b1120;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .feature-card h3 {
+      font-size: 15px;
+      margin-bottom: 6px;
+      color: #60a5fa;
+    }
+    .feature-card p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    footer a { color: #60a5fa; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <span class="badge">Joomla 5 System Plugin</span>
+    <h1>SEOWebChecker Extension Live Demo</h1>
+    <p class="subtitle">
+      Automated on-page technical SEO diagnostics, heading structure inspections, image accessibility analysis, and Core Web Vitals checks engineered natively for Joomla 5.
+    </p>
+    <div class="actions">
+      <a class="btn btn-primary" href="https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk/raw/main/joomla/plg_system_seowebchecker.zip" download>
+        ⬇️ Download Plugin (.zip)
+      </a>
+      <a class="btn btn-secondary" href="https://seo-ai-tools.readthedocs.io/en/latest/joomla/">
+        📖 Documentation
+      </a>
+      <a class="btn btn-secondary" href="https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk/issues/new?title=%5BJoomla%5D+">
+        💬 Extension Support
+      </a>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Interactive Diagnostic Playground -->
+    <div class="card">
+      <h2>🔍 Interactive On-Page SEO Audit Simulator</h2>
+      <p style="color: var(--muted); font-size: 14px; margin-bottom: 16px;">
+        Simulate the exact inspection routine executed by <code>SeoAuditorHelper.php</code> when articles or URLs are published in Joomla.
+      </p>
+
+      <div class="form-group">
+        <label for="targetUrl">Audit Target URL</label>
+        <input type="text" id="targetUrl" value="https://seowebchecker.com/" placeholder="https://example.com/joomla-article">
+      </div>
+
+      <div class="form-group">
+        <label for="sampleHtml">HTML Content Preview (Edit or Audit Sample)</label>
+        <textarea id="sampleHtml" rows="8"><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SEOWebChecker: Automated Technical On-Page SEO Analyzer</title>
+  <meta name="description" content="Instant technical SEO diagnostics, Core Web Vitals scoring, heading analysis, and image accessibility inspection.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="canonical" href="https://seowebchecker.com/">
+  <meta property="og:title" content="SEOWebChecker">
+</head>
+<body>
+  <h1>Welcome to SEOWebChecker for Joomla</h1>
+  <p>Comprehensive technical SEO diagnostics running directly in your CMS workflow.</p>
+  <img src="logo.png" alt="SEOWebChecker Logo">
+</body>
+</html></textarea>
+      </div>
+
+      <button class="btn-audit" onclick="runAudit()">Run Live SEO Diagnostic</button>
+
+      <div id="results" class="results">
+        <div class="score-banner">
+          <div>
+            <div style="font-size: 12px; color: var(--muted); text-transform: uppercase;">Technical SEO Score</div>
+            <div class="score-number" id="scoreNum">100/100</div>
+          </div>
+          <div>
+            <div class="grade-badge grade-A" id="gradeBadge">Grade A</div>
+          </div>
+        </div>
+
+        <h3 style="font-size: 16px; margin-bottom: 12px;">Diagnostic Findings</h3>
+        <div id="issuesList"></div>
+      </div>
+    </div>
+
+    <!-- Architectural Overview -->
+    <div class="card">
+      <h2>⚙️ Native Joomla 5 Integration Details</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3>Services &amp; Dependency Injection</h3>
+          <p>Configured with Joomla 5's modern <code>services/provider.php</code> service provider, seamlessly registering with Joomla's event dispatcher.</p>
+        </div>
+        <div class="feature-card">
+          <h3>com_ajax REST Endpoint</h3>
+          <p>Exposes a secure JSON endpoint for asynchronous administrative audits: <code>index.php?option=com_ajax&amp;plugin=seowebchecker&amp;group=system&amp;format=json</code></p>
+        </div>
+        <div class="feature-card">
+          <h3>Automated Update Server</h3>
+          <p>Includes full update server integration via <code>update.xml</code>, enabling one-click updates directly from the Joomla Update Manager.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Zero Frontend Overhead</h3>
+          <p>Performs checks only during article drafting and administrative inspection. Client-side page rendering remains blisteringly fast.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>
+      SEOWebChecker Joomla Extension &copy; 2026. Licensed under GNU GPLv2+. Powered by <a href="https://seowebchecker.com/">SEOWebChecker</a>.
+    </p>
+  </footer>
+
+  <script>
+    function runAudit() {
+      const html = document.getElementById('sampleHtml').value;
+      const issues = [];
+      let score = 100;
+
+      // 1. Title Tag
+      const titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
+      if (!titleMatch || !titleMatch[1].trim()) {
+        score -= 20;
+        issues.push({ type: 'error', title: 'Missing <title> Tag', desc: 'Add a descriptive page title between 30 and 60 characters.' });
+      } else {
+        const titleLen = titleMatch[1].trim().length;
+        if (titleLen < 30 || titleLen > 60) {
+          score -= 5;
+          issues.push({ type: 'warning', title: `Title Length Warning (${titleLen} chars)`, desc: 'Optimal length is 30–60 characters for search snippet readiness.' });
+        } else {
+          issues.push({ type: 'pass', title: `Optimal Title Tag (${titleLen} chars)`, desc: `"${titleMatch[1].trim()}"` });
+        }
+      }
+
+      // 2. Meta Description
+      const descMatch = html.match(/<meta[^>]*name=["']description["'][^>]*content=["']([^"']*)["']/i) ||
+                        html.match(/<meta[^>]*content=["']([^"']*)["'][^>]*name=["']description["']/i);
+      if (!descMatch || !descMatch[1].trim()) {
+        score -= 15;
+        issues.push({ type: 'error', title: 'Missing Meta Description', desc: 'Add a meta description summarizing article content.' });
+      } else {
+        const descLen = descMatch[1].trim().length;
+        if (descLen < 70 || descLen > 160) {
+          score -= 5;
+          issues.push({ type: 'warning', title: `Meta Description Length (${descLen} chars)`, desc: 'Optimal length is 70–160 characters.' });
+        } else {
+          issues.push({ type: 'pass', title: `Optimal Meta Description (${descLen} chars)`, desc: 'Well-formed for SERP preview.' });
+        }
+      }
+
+      // 3. Viewport
+      if (!html.match(/<meta[^>]*name=["']viewport["']/i)) {
+        score -= 15;
+        issues.push({ type: 'error', title: 'Missing Viewport Meta Tag', desc: 'Add <meta name="viewport" content="width=device-width, initial-scale=1.0"> for mobile responsiveness.' });
+      } else {
+        issues.push({ type: 'pass', title: 'Mobile Viewport Configured', desc: 'Valid responsive viewport declared.' });
+      }
+
+      // 4. Headings
+      const h1Count = (html.match(/<h1[^>]*>/gi) || []).length;
+      if (h1Count === 0) {
+        score -= 15;
+        issues.push({ type: 'error', title: 'Missing Primary <h1> Heading', desc: 'Ensure every page features exactly one main <h1> heading.' });
+      } else if (h1Count > 1) {
+        score -= 5;
+        issues.push({ type: 'warning', title: `Multiple <h1> Headings Found (${h1Count})`, desc: 'Consolidate down to a single primary <h1> heading for proper hierarchy.' });
+      } else {
+        issues.push({ type: 'pass', title: 'Single <h1> Heading Configured', desc: 'Proper heading hierarchy established.' });
+      }
+
+      // 5. Image Alt Attributes
+      const imgTags = html.match(/<img[^>]*>/gi) || [];
+      let missingAlt = 0;
+      imgTags.forEach(tag => {
+        if (!tag.match(/alt=["'][^"']*["']/i)) missingAlt++;
+      });
+      if (missingAlt > 0) {
+        score -= (missingAlt * 5);
+        issues.push({ type: 'warning', title: `Missing Alt Attributes on ${missingAlt} Image(s)`, desc: 'Provide descriptive alt tags on all content images for accessibility.' });
+      } else if (imgTags.length > 0) {
+        issues.push({ type: 'pass', title: 'All Content Images Have Alt Tags', desc: `${imgTags.length} image(s) verified for accessibility.` });
+      }
+
+      // 6. Canonical
+      if (!html.match(/<link[^>]*rel=["']canonical["']/i)) {
+        score -= 5;
+        issues.push({ type: 'warning', title: 'Missing Canonical Tag', desc: 'Add a self-referencing canonical tag to prevent duplicate content indexing issues.' });
+      } else {
+        issues.push({ type: 'pass', title: 'Canonical Tag Present', desc: 'Canonical URL reference is configured.' });
+      }
+
+      score = Math.max(0, Math.min(100, score));
+
+      let grade = 'A';
+      let gradeClass = 'grade-A';
+      if (score < 60) { grade = 'F'; gradeClass = 'grade-D'; }
+      else if (score < 70) { grade = 'D'; gradeClass = 'grade-D'; }
+      else if (score < 80) { grade = 'C'; gradeClass = 'grade-C'; }
+      else if (score < 90) { grade = 'B'; gradeClass = 'grade-B'; }
+
+      document.getElementById('scoreNum').innerText = `${score}/100`;
+      const badge = document.getElementById('gradeBadge');
+      badge.innerText = `Grade ${grade}`;
+      badge.className = `grade-badge ${gradeClass}`;
+
+      const issuesList = document.getElementById('issuesList');
+      issuesList.innerHTML = '';
+      issues.forEach(i => {
+        const div = document.createElement('div');
+        div.className = `issue-item ${i.type}`;
+        div.innerHTML = `<div class="issue-title">[${i.type.toUpperCase()}] ${i.title}</div><div class="issue-desc">${i.desc}</div>`;
+        issuesList.appendChild(div);
+      });
+
+      document.getElementById('results').style.display = 'block';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+apiVersion: v2
+name: seowebchecker
+description: Enterprise Kubernetes Helm Chart for automated continuous technical SEO auditing, scheduled CronJob watchdogs, Prometheus metrics telemetry, and post-deploy lifecycle hooks.
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+keywords:
+  - seo
+  - technical-seo
+  - seo-audit
+  - monitoring
+  - observability
+  - prometheus
+  - cronjob
+  - web-vitals
+home: https://seowebchecker.com/
+sources:
+  - https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk
+maintainers:
+  - name: seowebchecker
+    email: support@seowebchecker.com
+    url: https://seowebchecker.com/
+icon: https://raw.githubusercontent.com/jaiganesh6999/seowebchecker-seoaudit-sdk/main/flatpak/com.seowebchecker.seowebchecker.png
+annotations:
+  artifacthub.io/displayName: "SEOWebChecker - Technical SEO & Core Web Vitals Auditor"
+  artifacthub.io/category: "monitoring-logging"
+  artifacthub.io/license: "MIT"
+  artifacthub.io/links: |
+    - name: Official Platform
+      url: https://seowebchecker.com/
+    - name: Source Code
+      url: https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk

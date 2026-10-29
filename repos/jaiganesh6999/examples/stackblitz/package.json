@@ -1,0 +1,18 @@
+{
+  "name": "seowebchecker-stackblitz-starter",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Live interactive SEO Audit & Core Web Vitals playground by SEOWebChecker on StackBlitz",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "seowebchecker-seoaudit-sdk": "^1.0.1"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  }
+}

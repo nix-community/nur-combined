@@ -1,0 +1,59 @@
+---
+description: 'A composable React badge component displaying real-time SEO health diagnostics, interactive URL testing, and Core Web Vitals readiness powered by SEOWebChecker.'
+labels: ['react', 'seo', 'seo-audit', 'core-web-vitals', 'badge', 'interactive-tester']
+---
+
+import { SeoAuditBadge } from './seo-audit-badge';
+
+## React SEO Audit Badge & Interactive URL Tester
+
+A drop-in component that allows developers to test their own website URLs, audit client domains, or let end-users enter and evaluate URLs interactively in a SaaS dashboard.
+
+---
+
+### Method 1: Programmatically Test Any URL via Props
+
+Pass any URL directly into the `url` property:
+
+```tsx
+import { SeoAuditBadge } from '@seowebchecker/seo-audit.seo-audit-badge';
+
+export function ClientPage() {
+  return (
+    <SeoAuditBadge
+      url="https://your-domain.com/"
+      initialScore={95}
+      showDetails={true}
+    />
+  );
+}
+```
+
+---
+
+### Method 2: Allow Interactive In-Page Testing (`allowCustomUrl={true}`)
+
+Allow users or team members to type any URL into an input box to test and inspect diagnostics on the fly:
+
+```tsx
+<SeoAuditBadge
+  url="https://seowebchecker.com/"
+  allowCustomUrl={true}
+  showDetails={true}
+  onAuditComplete={(score, diagnostics) => {
+    console.log('Audit completed for URL with score:', score, diagnostics);
+  }}
+/>
+```
+
+---
+
+### Component Properties
+
+| Prop | Type | Default | Description |
+| :--- | :--- | :--- | :--- |
+| `url` | `string` | `'https://seowebchecker.com/'` | Target webpage URL to audit |
+| `allowCustomUrl` | `boolean` | `true` | Enables interactive URL input field |
+| `initialScore` | `number` | `98` | Baseline SEO score (0-100) |
+| `showDetails` | `boolean` | `false` | Expand detailed diagnostics list |
+| `onAuditComplete` | `(score, items) => void` | `undefined` | Callback invoked with audit results |

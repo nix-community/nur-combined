@@ -1,0 +1,70 @@
+name: Build and Package Java (Maven)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build, Sign & Package for Sonatype Central
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build with Maven (Jar, Sources, Javadocs)
+        run: |
+          cd java
+          mvn clean package -DskipTests=false
+
+      - name: Generate GPG Key, Sign Artifacts & Create Maven Central Bundle
+        run: |
+          cd java
+          # 1. Generate RSA 4096 GPG Key for signing
+          export GPG_TTY=$(tty || echo "")
+          gpg --batch --passphrase '' --quick-generate-key "SEOWebChecker <support@seowebchecker.com>" rsa4096 default never
+          KEY_ID=$(gpg --list-keys --with-colons "support@seowebchecker.com" | awk -F: '/^pub:/ { print $5 }' | tail -n 1)
+          echo "Generated GPG Key ID: $KEY_ID"
+
+          # Publish public key to keyservers
+          gpg --keyserver hkp://keyserver.ubuntu.com --send-keys "$KEY_ID" || true
+          gpg --keyserver hkp://keys.openpgp.org --send-keys "$KEY_ID" || true
+
+          # 2. Setup standard Maven Repository Layout hierarchy
+          BUNDLE_DIR="bundle/com/seowebchecker/seowebchecker-seoaudit-sdk/1.0.0"
+          mkdir -p "$BUNDLE_DIR"
+
+          # 3. Copy artifacts into Maven coordinate directory
+          cp pom.xml "$BUNDLE_DIR/seowebchecker-seoaudit-sdk-1.0.0.pom"
+          cp target/seowebchecker-seoaudit-sdk-1.0.0.jar "$BUNDLE_DIR/"
+          cp target/seowebchecker-seoaudit-sdk-1.0.0-sources.jar "$BUNDLE_DIR/"
+          cp target/seowebchecker-seoaudit-sdk-1.0.0-javadoc.jar "$BUNDLE_DIR/"
+
+          # 4. Sign and create md5/sha1 checksums for each artifact
+          cd "$BUNDLE_DIR"
+          for f in *; do
+            if [[ -f "$f" ]]; then
+              echo "Signing and hashing: $f"
+              # Sign (.asc)
+              gpg --batch --yes --armor --detach-sign "$f"
+              # Checksums (.md5 and .sha1)
+              md5sum "$f" | awk '{print $1}' > "${f}.md5"
+              sha1sum "$f" | awk '{print $1}' > "${f}.sha1"
+            fi
+          done
+
+          echo "Final bundle layout:"
+          find "$GITHUB_WORKSPACE/java/bundle" -type f
+
+      - name: Upload Sonatype Central Bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: sonatype-central-bundle
+          path: java/bundle/

@@ -1,0 +1,16 @@
+# Smithery configuration file for SEOWebChecker MCP Server
+# https://smithery.ai/
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties:
+      userAgent:
+        type: string
+        description: "Custom User-Agent header for crawler requests (optional)"
+        default: "SEOWebChecker-MCPAgent/1.0 (+https://seowebchecker.com/)"
+  commandFunction: |-
+    (config) => ({
+      command: 'node',
+      args: ['mcp/index.js']
+    })

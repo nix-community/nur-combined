@@ -1,0 +1,22 @@
+schema_version = "1.0.0"
+
+id = "seowebchecker_3d"
+version = "1.0.0"
+name = "SEOWebChecker 3D Web Optimizer & SEO Auditor"
+tagline = "Audit 3D models for Web3D SEO and Google 3D Search"
+maintainer = "SEOWebChecker <support@seowebchecker.com>"
+type = "add-on"
+
+website = "https://seowebchecker.com/"
+tags = ["3D View", "Import-Export", "Pipeline", "User Interface"]
+
+blender_version_min = "4.2.0"
+
+license = [
+    "SPDX:GPL-3.0-or-later",
+]
+
+[permissions]
+network = "Audit live web pages hosting 3D models for SEO"
+clipboard = "Copy Schema.org 3DModel JSON-LD to clipboard"
+files = "Export Web3D SEO reports and structured data"

@@ -1,0 +1,38 @@
+name: 'SEOWebChecker SEO Audit'
+description: 'Automated on-page technical SEO, meta tag validation, and Core Web Vitals checks by SEOWebChecker.'
+author: 'SEOWebChecker'
+branding:
+  icon: 'search'
+  color: 'blue'
+inputs:
+  url:
+    description: 'Target URL to audit (e.g., https://example.com or preview deployment URL)'
+    required: true
+  min-score:
+    description: 'Minimum SEO score required to pass (0-100)'
+    required: false
+    default: '70'
+  fail-on-error:
+    description: 'Whether to fail the workflow step if score is below min-score'
+    required: false
+    default: 'true'
+  output-format:
+    description: 'Format for console output (markdown, json)'
+    required: false
+    default: 'markdown'
+outputs:
+  score:
+    description: 'Calculated overall SEO score (0-100)'
+  status:
+    description: 'Audit status (passed or failed)'
+  title:
+    description: 'Extracted page title'
+  description:
+    description: 'Extracted meta description'
+  canonical:
+    description: 'Extracted canonical URL'
+  audit-json:
+    description: 'Full JSON audit results'
+runs:
+  using: 'node20'
+  main: 'index.js'

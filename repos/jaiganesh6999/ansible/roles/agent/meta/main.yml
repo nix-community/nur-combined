@@ -1,0 +1,22 @@
+galaxy_info:
+  author: "SEOWebChecker"
+  description: "Provisions scheduled technical SEO auditing agents and reporting paths on web nodes."
+  company: "SEOWebChecker"
+  license: "Apache-2.0"
+  min_ansible_version: "2.11"
+  platforms:
+    - name: Ubuntu
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
+    - name: EL
+      versions:
+        - all
+  galaxy_tags:
+    - seo
+    - monitoring
+    - audit
+    - seowebchecker
+dependencies: []

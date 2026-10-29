@@ -1,0 +1,61 @@
+name: OCaml Dune Release to OPAM
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Git tag to release (e.g. v1.0.5)'
+        required: false
+        default: 'v1.0.5'
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    name: Automated Release via dune-release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up OCaml and Dune
+        uses: ocaml/setup-ocaml@v3
+        with:
+          ocaml-compiler: 4.14.x
+          dune-version: 3.x
+
+      - name: Install dune-release
+        run: |
+          opam install --yes dune-release
+
+      - name: Configure Git for dune-release
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Run dune-release distrib
+        run: |
+          opam exec -- dune-release distrib --yes
+
+      - name: Publish Distribution Tarball to GitHub
+        env:
+          DUNE_RELEASE_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          opam exec -- dune-release publish distrib --yes
+
+      - name: Generate OPAM Package Definition
+        run: |
+          opam exec -- dune-release opam pkg --yes
+
+      - name: Submit Package to ocaml/opam-repository
+        env:
+          DUNE_RELEASE_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          opam exec -- dune-release opam submit --yes --no-auto-open

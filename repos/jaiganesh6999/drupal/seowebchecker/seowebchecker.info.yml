@@ -1,0 +1,7 @@
+name: 'SEOWebChecker - Technical SEO & On-Page Analyzer'
+type: module
+description: 'Automated technical on-page SEO audits, heading structure inspections, image accessibility analysis, and Core Web Vitals readiness directly inside Drupal.'
+package: 'SEO'
+core_version_requirement: ^10 || ^11
+php: 8.2
+configure: seowebchecker.admin_dashboard

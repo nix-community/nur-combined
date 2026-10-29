@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description url="https://seowebchecker.com/">
+      SEOWebChecker: Technical SEO Audit &amp; Analyzer for Eclipse IDE.
+   </description>
+   <feature id="com.seowebchecker.seoaudit.feature" version="1.0.0">
+      <category name="seowebchecker"/>
+   </feature>
+   <category-def name="seowebchecker" label="SEOWebChecker Tools">
+      <description>
+         Tools and analyzers for on-page technical SEO, HTML diagnostics, and accessibility audits.
+      </description>
+   </category-def>
+</site>

@@ -1,0 +1,52 @@
+{{- if .Values.cronjob.enabled }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "seowebchecker.fullname" . }}-watchdog
+  labels:
+    {{- include "seowebchecker.labels" . | nindent 4 }}
+    app.kubernetes.io/component: watchdog
+spec:
+  schedule: {{ .Values.cronjob.schedule | quote }}
+  concurrencyPolicy: {{ .Values.cronjob.concurrencyPolicy }}
+  successfulJobsHistoryLimit: {{ .Values.cronjob.successfulJobsHistoryLimit }}
+  failedJobsHistoryLimit: {{ .Values.cronjob.failedJobsHistoryLimit }}
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            {{- include "seowebchecker.selectorLabels" . | nindent 12 }}
+            app.kubernetes.io/component: watchdog
+        spec:
+          serviceAccountName: {{ include "seowebchecker.serviceAccountName" . }}
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
+          restartPolicy: {{ .Values.cronjob.restartPolicy }}
+          containers:
+            - name: auditor
+              image: "{{ .Values.cronjob.image.repository }}:{{ .Values.cronjob.image.tag }}"
+              imagePullPolicy: {{ .Values.cronjob.image.pullPolicy }}
+              command: ["python3", "/scripts/audit_runner.py"]
+              env:
+                - name: TARGETS_JSON
+                  value: {{ toJson .Values.cronjob.targets | quote }}
+                - name: MIN_SCORE
+                  value: {{ .Values.cronjob.minScore | quote }}
+                {{- if .Values.cronjob.alertWebhook }}
+                - name: ALERT_WEBHOOK
+                  value: {{ .Values.cronjob.alertWebhook | quote }}
+                {{- end }}
+              securityContext:
+                {{- toYaml .Values.securityContext | nindent 16 }}
+              resources:
+                {{- toYaml .Values.cronjob.resources | nindent 16 }}
+              volumeMounts:
+                - name: scripts
+                  mountPath: /scripts
+          volumes:
+            - name: scripts
+              configMap:
+                name: {{ include "seowebchecker.fullname" . }}-scripts
+                defaultMode: 0755
+{{- end }}

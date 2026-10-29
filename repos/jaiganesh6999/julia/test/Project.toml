@@ -1,0 +1,3 @@
+[deps]
+SeoWebCheckerAudit = "a45f3051-2a39-4605-a347-339f745f1847"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"

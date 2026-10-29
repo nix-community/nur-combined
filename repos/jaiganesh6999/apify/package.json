@@ -1,0 +1,13 @@
+{
+  "name": "seowebchecker-apify-actor",
+  "version": "1.0.0",
+  "description": "Apify Actor for on-page technical SEO audits, meta tag inspection, and Core Web Vitals checks by SEOWebChecker.",
+  "main": "main.js",
+  "type": "module",
+  "dependencies": {
+    "apify": "^3.2.0",
+    "crawlee": "^3.11.0",
+    "node-fetch": "^3.3.2"
+  },
+  "license": "MIT"
+}

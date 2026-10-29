@@ -1,0 +1,42 @@
+name: Dart Test & Publish Check
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'dart/**'
+      - '.github/workflows/test-and-publish-dart.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'dart/**'
+      - '.github/workflows/test-and-publish-dart.yml'
+  workflow_dispatch:
+
+jobs:
+  test_and_dry_run:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: dart
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Dart SDK
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Verify formatting and analysis
+        run: dart analyze
+
+      - name: Run unit tests
+        run: dart test
+
+      - name: Run pub publish dry-run
+        run: dart pub publish --dry-run

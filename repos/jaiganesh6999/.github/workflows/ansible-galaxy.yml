@@ -1,0 +1,49 @@
+name: Ansible Galaxy Publish
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ansible/**'
+      - '.github/workflows/ansible-galaxy.yml'
+  workflow_dispatch:
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    env:
+      GALAXY_API_KEY: ${{ secrets.GALAXY_API_KEY }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Ansible Core & Linter
+        run: |
+          pip install --upgrade pip
+          pip install ansible-core ansible-lint
+
+      - name: Build Ansible Collection
+        run: |
+          cd ansible
+          rm -rf pkg/*.tar.gz
+          ansible-galaxy collection build --force --output-path pkg/
+          ls -la pkg/
+
+      - name: Publish to Ansible Galaxy
+        run: |
+          if [ -z "$GALAXY_API_KEY" ]; then
+            echo "::warning::GALAXY_API_KEY secret is not set in GitHub repository secrets. Skipping Ansible Galaxy API upload."
+            echo "To publish automatically, obtain your API token from https://galaxy.ansible.com/ (under Preferences/API Token) and add it as GALAXY_API_KEY in repository secrets."
+            exit 0
+          fi
+
+          TARBALL=$(ls ansible/pkg/jaiganesh6999-seowebchecker-*.tar.gz | head -n 1)
+          echo "Publishing $TARBALL to Ansible Galaxy..."
+          ansible-galaxy collection publish "$TARBALL" --api-key "$GALAXY_API_KEY"
+          echo "Successfully published to Ansible Galaxy!"

@@ -1,0 +1,35 @@
+{
+  "name": "seowebchecker-mcp-server",
+  "version": "1.0.2",
+  "description": "Official Model Context Protocol (MCP) server for technical SEO audits, Core Web Vitals, and on-page optimization by SEOWebChecker.",
+  "main": "index.js",
+  "bin": {
+    "seowebchecker-mcp-server": "index.js"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "serve:sse": "node sse-server.js"
+  },
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "seo",
+    "seo-audit",
+    "core-web-vitals",
+    "claude-desktop",
+    "cursor",
+    "windsurf",
+    "seowebchecker"
+  ],
+  "author": "SEOWebChecker Team <support@seowebchecker.com>",
+  "license": "MIT",
+  "homepage": "https://seowebchecker.com/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk/issues"
+  }
+}

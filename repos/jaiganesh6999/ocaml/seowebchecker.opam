@@ -1,0 +1,38 @@
+opam-version: "2.0"
+name: "seowebchecker"
+version: "1.0.5"
+synopsis: "Technical SEO Audit & On-Page Analyzer SDK for OCaml"
+description: """
+SEOWebChecker brings real-time technical SEO auditing, Core Web Vitals checks,
+heading structure verification, and accessibility audits to OCaml applications.
+Powered by the SEOWebChecker platform (https://seowebchecker.com/).
+"""
+maintainer: "jaiganesh6999 <jaiganesh6999@gmail.com>"
+authors: ["SEOWebChecker Team"]
+license: "MIT"
+homepage: "https://seowebchecker.com/"
+doc: "https://seo-ai-tools.readthedocs.io/en/latest/"
+bug-reports: "https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk/issues"
+depends: [
+  "dune" {>= "3.0"}
+  "ocaml" {>= "4.12.0"}
+  "cohttp-lwt-unix" {>= "5.0.0"}
+  "yojson" {>= "1.7.0"}
+  "lambdasoup" {>= "0.7.0"}
+  "lwt" {>= "5.0.0"}
+]
+build: [
+  ["dune" "subst"] {dev}
+  [
+    "dune"
+    "build"
+    "-p"
+    name
+    "-j"
+    jobs
+    "@install"
+    "@runtest" {with-test}
+    "@doc" {with-doc}
+  ]
+]
+dev-repo: "git+https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk.git"

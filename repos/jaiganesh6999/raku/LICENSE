@@ -1,0 +1,89 @@
+       The Artistic License 2.0
+
+           Copyright (c) 2026 Rahul Gupta <jaiganesh6999@gmail.com>
+
+     Everyone is permitted to copy and distribute verbatim copies
+      of this license document, but changing it is not allowed.
+
+Preamble
+
+This license establishes the terms under which a given free software
+Package may be copied, modified, distributed, and/or redistributed.
+The intent is that the Copyright Holder maintains some artistic
+control over the development of that Package while still keeping the
+Package available as open source and free software.
+
+You are always permitted to make any use of this software that would
+be allowed by "fair use" or "fair dealing" under copyright law, but
+any use of this software beyond that is governed by this license.
+
+Definitions
+
+"Copyright Holder" means the individual(s) or organization(s)
+named in the copyright notice for the entire Package.
+
+"Contributor" means any party that has contributed code or other
+material to the Package, in accordance with the Copyright Holder's
+procedures.
+
+"You" and "your" means any person who would like to copy, distribute,
+or modify the Package.
+
+"Package" means the collection of files distributed by the Copyright
+Holder, and derivatives of that collection of files created through
+textual modification.
+
+"Standard Version" refers to the Package if it has not been modified,
+or has been modified only in ways explicitly requested by the
+Copyright Holder.
+
+"Modified Version" means the Package, if it has been changed, and
+such changes were not explicitly requested by the Copyright Holder.
+
+"Original License" means this Artistic License as distributed with
+the Standard Version of the Package, in its current version or as
+it may be subsequently modified by the Copyright Holder.
+
+Permission for Use and Distribution Without Modification
+
+(1) You are permitted to use the Standard Version and distribute
+verbatim copies of the Package for any purpose, without restriction,
+provided that you duplicate all of the original copyright notices
+and associated disclaimers.
+
+Permission for Modified Versions Where You Are Not an Original Contributor
+
+(2) You are permitted to modify your copy of the Package in any way,
+provided that you insert a prominent notice in each changed file stating
+how and when you changed that file, and provided that you do at least
+ONE of the following:
+
+(a) distribute the Modified Version to the Copyright Holder and
+allow the Copyright Holder to include your changes in the Standard
+Version of the Package.
+
+(b) rename any non-standard executables so the names do not conflict
+with standard executables, which must also be provided, and provide
+a separate manual page for each non-standard executable that clearly
+documents how it differs from the Standard Version.
+
+(c) ensure that the distribution of your Modified Version includes
+this Original License and requires that any user of the Modified
+Version must comply with that license.
+
+Distribution of Modified Versions in Source Form
+
+(3) You may distribute your Modified Version as Source (either
+gratis or for a Distributor Fee, and with or without a Corresponding
+Transaction) provided that you include the Source for the Standard
+Version.
+
+Disclaimer of Warranty
+
+THE PACKAGE IS PROVIDED BY THE COPYRIGHT HOLDER AND CONTRIBUTORS "AS
+IS' AND WITHOUT ANY EXPRESS OR IMPLIED WARRANTIES. THE IMPLIED
+WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+NON-INFRINGEMENT ARE DISCLAIMED TO THE EXTENT PERMITTED BY YOUR LOCAL
+LAW. UNLESS REQUIRED BY LAW, NO COPYRIGHT HOLDER OR CONTRIBUTOR WILL
+BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES ARISING IN ANY WAY OUT OF THE USE OF THE PACKAGE.

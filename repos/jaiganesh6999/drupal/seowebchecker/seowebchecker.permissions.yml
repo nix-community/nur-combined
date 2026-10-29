@@ -1,0 +1,4 @@
+administer seowebchecker:
+  title: 'Administer SEOWebChecker'
+  description: 'Perform technical on-page SEO audits and manage SEOWebChecker configuration.'
+  restrict access: true

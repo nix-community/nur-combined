@@ -1,0 +1,19 @@
+[
+  {
+    "name": "url",
+    "type": "url",
+    "label": "Webpage URL",
+    "required": true,
+    "help": "Enter the full webpage URL to audit (e.g. https://example.com/)."
+  },
+  {
+    "name": "alertThreshold",
+    "type": "uinteger",
+    "label": "Alert score threshold",
+    "required": false,
+    "default": 85,
+    "min": 0,
+    "max": 100,
+    "help": "Trigger an alert flag if the technical SEO score drops below this number (0-100)."
+  }
+]

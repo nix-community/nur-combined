@@ -1,0 +1,36 @@
+name: Test Julia Package
+
+on:
+  push:
+    paths:
+      - 'julia/**'
+      - '.github/workflows/test-julia.yml'
+  pull_request:
+    paths:
+      - 'julia/**'
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Julia ${{ matrix.version }} - ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        version:
+          - '1.10'
+          - '1'
+        os:
+          - ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: julia-actions/setup-julia@v2
+        with:
+          version: ${{ matrix.version }}
+      - uses: julia-actions/cache@v2
+      - uses: julia-actions/julia-buildpkg@v1
+        with:
+          project: 'julia'
+      - uses: julia-actions/julia-runtest@v1
+        with:
+          project: 'julia'

@@ -1,0 +1,14 @@
+galaxy_info:
+  author: "SEOWebChecker"
+  description: "CI/CD deployment quality gate role to enforce technical SEO health score standards."
+  company: "SEOWebChecker"
+  license: "Apache-2.0"
+  min_ansible_version: "2.11"
+  platforms:
+    - name: any
+  galaxy_tags:
+    - seo
+    - quality_gate
+    - ci_cd
+    - seowebchecker
+dependencies: []

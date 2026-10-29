@@ -1,0 +1,28 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-10-17/server.schema.json",
+  "name": "io.github.jaiganesh6999/seowebchecker-mcp-server",
+  "title": "SEOWebChecker MCP Server",
+  "description": "On-page technical SEO audits, meta tag validation, and Core Web Vitals checks by SEOWebChecker.",
+  "version": "1.0.2",
+  "homepage": "https://seowebchecker.com/",
+  "repository": {
+    "url": "https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk",
+    "source": "github"
+  },
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "seowebchecker-mcp-server",
+      "version": "1.0.2",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ],
+  "remotes": [
+    {
+      "type": "sse",
+      "url": "https://mcp.seowebchecker.com/sse"
+    }
+  ]
+}

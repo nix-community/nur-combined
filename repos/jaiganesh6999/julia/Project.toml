@@ -1,0 +1,17 @@
+name = "SeoWebCheckerAudit"
+uuid = "a45f3051-2a39-4605-a347-339f745f1847"
+authors = ["SEOWebChecker <support@seowebchecker.com>"]
+version = "0.1.0"
+
+[deps]
+Downloads = "f43a241f-c20a-4ad4-852c-f6b1247861c6"
+
+[compat]
+Downloads = "1.6"
+julia = "1.10"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]

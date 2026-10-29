@@ -1,0 +1,126 @@
+# Default values for seowebchecker Helm Chart.
+# Platform & Documentation: https://seowebchecker.com/
+
+# ------------------------------------------------------------------------------
+# Pattern 1: Scheduled Kubernetes CronJob (Continuous SEO Regression Watchdog)
+# ------------------------------------------------------------------------------
+cronjob:
+  enabled: true
+  schedule: "0 2 * * *" # Daily at 2:00 AM UTC
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  restartPolicy: OnFailure
+  image:
+    repository: python
+    tag: 3.11-alpine
+    pullPolicy: IfNotPresent
+  # List of URLs to audit on each run
+  targets:
+    - url: "https://seowebchecker.com/"
+      name: "production-homepage"
+  # Minimum score required (0-100). Fails pod if score is lower to alert monitoring systems.
+  minScore: 80
+  # Optional Webhook URL (Slack, MS Teams, Discord, or generic endpoint)
+  alertWebhook: ""
+  resources:
+    limits:
+      cpu: 250m
+      memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+# ------------------------------------------------------------------------------
+# Pattern 2: Microservice & Prometheus Exporter (Cluster-Native SEO Telemetry)
+# ------------------------------------------------------------------------------
+server:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: python
+    tag: 3.11-alpine
+    pullPolicy: IfNotPresent
+  service:
+    type: ClusterIP
+    port: 8080
+    targetPort: 8080
+  # Exposes /metrics for Prometheus scraping
+  metrics:
+    enabled: true
+    path: /metrics
+    port: 8080
+  # Prometheus Operator ServiceMonitor integration
+  serviceMonitor:
+    enabled: false
+    interval: 60s
+    scrapeTimeout: 10s
+    labels:
+      release: prometheus
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  livenessProbe:
+    httpGet:
+      path: /healthz
+      port: 8080
+    initialDelaySeconds: 10
+    periodSeconds: 15
+  readinessProbe:
+    httpGet:
+      path: /healthz
+      port: 8080
+    initialDelaySeconds: 5
+    periodSeconds: 10
+
+# ------------------------------------------------------------------------------
+# Pattern 3: Helm Post-Deploy Hook (CI/CD Deployment Guard)
+# ------------------------------------------------------------------------------
+postDeployHook:
+  enabled: false
+  # URL to audit immediately after 'helm install' or 'helm upgrade'
+  targetUrl: "https://seowebchecker.com/"
+  # If true, fails the Helm deployment if critical SEO errors or regressions occur
+  failOnRegression: true
+  minScore: 85
+  image:
+    repository: python
+    tag: 3.11-alpine
+    pullPolicy: IfNotPresent
+  backoffLimit: 1
+  resources:
+    limits:
+      cpu: 200m
+      memory: 128Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+# ------------------------------------------------------------------------------
+# Shared Security & RBAC Configuration
+# ------------------------------------------------------------------------------
+serviceAccount:
+  create: true
+  name: ""
+  annotations: {}
+
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 10001
+  runAsGroup: 10001
+  fsGroup: 10001
+
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: false
+  capabilities:
+    drop:
+      - ALL
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

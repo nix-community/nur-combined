@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SEOWebChecker - Live StackBlitz Interactive Audit Playground</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --primary: #3b82f6;
+      --accent: #10b981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+    header {
+      margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+    }
+    h1 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .badge {
+      font-size: 0.75rem;
+      background-color: #2563eb;
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+    p.subtitle {
+      color: var(--muted);
+      margin-top: 0.4rem;
+      font-size: 0.95rem;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #cbd5e1;
+    }
+    textarea {
+      width: 100%;
+      height: 160px;
+      background: #090d16;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: #f1f5f9;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.85rem;
+      padding: 0.75rem;
+      resize: vertical;
+    }
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+    .btn {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.65rem 1.4rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: background-color 0.15s ease;
+      margin-top: 1rem;
+    }
+    .btn:hover {
+      background-color: #2563eb;
+    }
+    .results-grid {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 1.5rem;
+      align-items: start;
+    }
+    .score-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: #090d16;
+      border: 4px solid var(--accent);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin: 0 auto;
+    }
+    .score-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .score-grade {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+    .issues-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .issue-item {
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      background: #090d16;
+      border-left: 4px solid var(--border);
+      font-size: 0.875rem;
+    }
+    .issue-item.pass { border-left-color: #10b981; }
+    .issue-item.warning { border-left-color: #f59e0b; }
+    .issue-item.error { border-left-color: #ef4444; }
+    .issue-title {
+      font-weight: 600;
+      color: #fff;
+    }
+    .issue-desc {
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-top: 2rem;
+    }
+    footer a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>
+        SEOWebChecker Audit Playground
+        <span class="badge">CodeSandbox</span>
+      </h1>
+      <p class="subtitle">
+        Zero-install client SEO audit and Core Web Vitals analyzer powered by
+        <code>seowebchecker-seoaudit-sdk</code>.
+      </p>
+    </header>
+
+    <div class="card">
+      <label for="htmlInput">Input Target HTML Document:</label>
+      <textarea id="htmlInput"><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SEOWebChecker: Free SEO Audit & Analysis Tools</title>
+  <meta name="description" content="Audit your website for comprehensive SEO scoring and actionable fixes.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="canonical" href="https://seowebchecker.com/">
+</head>
+<body>
+  <h1>Search Engine Optimization Audit Tools</h1>
+  <p>Run immediate diagnostic checks inside your browser.</p>
+  <img src="https://seowebchecker.com/logo.png" alt="SEOWebChecker Logo">
+</body>
+</html></textarea>
+      <button id="runBtn" class="btn">Run SEO Audit</button>
+    </div>
+
+    <div id="resultCard" class="card" style="display: none;">
+      <div class="results-grid">
+        <div class="score-circle">
+          <div id="scoreVal" class="score-number">100</div>
+          <div id="scoreGrade" class="score-grade">Grade A</div>
+        </div>
+        <div>
+          <h2 style="font-size: 1.1rem; margin-bottom: 0.75rem;">Audit Findings</h2>
+          <div id="issuesList" class="issues-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      Powered by <a href="https://seowebchecker.com/" target="_blank">SEOWebChecker.com</a> • Running live in CodeSandbox
+    </footer>
+  </div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

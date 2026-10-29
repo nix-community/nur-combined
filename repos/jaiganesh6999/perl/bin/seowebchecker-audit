@@ -1,0 +1,32 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+use SeoWebChecker::SeoAudit;
+use JSON::PP;
+
+my $url = $ARGV[0];
+
+if (!defined $url || $url eq '--help' || $url eq '-h') {
+    print "SEOWebChecker CLI — Website SEO Audit Tool (Perl)\n";
+    print "Official Website: https://seowebchecker.com/\n\n";
+    print "Usage: seowebchecker-audit <url> [--format json]\n\n";
+    exit(0);
+}
+
+my $auditor = SeoWebChecker::SeoAudit->new();
+# Basic sample HTML for offline testing
+my $sample = '<html><head><title>Example Domain</title><meta name="viewport" content="width=device-width"></head><body><h1>Example</h1></body></html>';
+my $result = $auditor->audit_html($sample, $url);
+
+if (grep { $_ eq '--format' } @ARGV) {
+    print JSON::PP->new->pretty->encode($result);
+} else {
+    print "=================================================================\n";
+    print " SEOWebChecker SEO Audit Report: $result->{url}\n";
+    print " Official: https://seowebchecker.com/\n";
+    print "=================================================================\n\n";
+    print " Overall Score: $result->{score}{overall}/100 | Grade: $result->{score}{grade}\n";
+    print " Checks: $result->{stats}{passed} Passed, $result->{stats}{warnings} Warnings, $result->{stats}{errors} Errors\n";
+}

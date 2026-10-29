@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "SEOWebChecker",
+  "name_for_model": "seowebchecker",
+  "description_for_human": "Real-time technical SEO audits, health scores, and developer fix recommendations for any webpage.",
+  "description_for_model": "Plugin for auditing webpage URLs for technical SEO health. Validates on-page HTML, title tags, meta descriptions, mobile responsiveness, heading hierarchy (H1-H6), SSL/HTTPS transport, and Core Web Vitals indicators using the SEOWebChecker platform (https://seowebchecker.com/).",
+  "auth": {
+    "type": "none"
+  },
+  "api": {
+    "type": "openapi",
+    "url": "https://seowebchecker.com/api/v1/openapi.json"
+  },
+  "logo_url": "https://seowebchecker.com/favicon.ico",
+  "contact_email": "support@seowebchecker.com",
+  "legal_info_url": "https://seowebchecker.com/privacy-policy"
+}

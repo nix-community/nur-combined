@@ -1,0 +1,71 @@
+#!/usr/bin/env raku
+use v6.d;
+use SEO::WebChecker;
+
+#| Audit a webpage URL and display an executive SEO report.
+multi sub MAIN(
+    'audit',
+    Str $url,
+    Bool :$json = False,
+    Bool :$md = False,
+    Int :$threshold = 85
+) {
+    my $auditor = SEO::WebChecker.new(:alert-threshold($threshold));
+    note "==> Auditing $url with SEO::WebChecker..." unless $json;
+    my $res = $auditor.audit($url);
+
+    if $json {
+        say $res.to-json;
+    } elsif $md {
+        say $res.to-markdown;
+    } else {
+        say "==================================================";
+        say "  SEOWebChecker — Technical SEO Audit Report";
+        say "  Official Site: https://seowebchecker.com/";
+        say "==================================================";
+        say "Target URL  : " ~ $res.url;
+        say "Health Score: " ~ $res.score ~ " / 100 (" ~ $res.grade ~ ") - Status: " ~ $res.status;
+        say "Title Tag   : " ~ ($res.title || "[Missing]") ~ " (" ~ $res.title-length ~ " chars)";
+        say "Meta Desc   : " ~ ($res.meta-description || "[Missing]") ~ " (" ~ $res.meta-description-length ~ " chars)";
+        say "Viewport    : " ~ ($res.has-viewport ?? "Configured" !! "Missing");
+        say "Canonical   : " ~ ($res.has-canonical ?? $res.canonical-url !! "Missing");
+        say "HTTPS       : " ~ ($res.is-https ?? "Secure" !! "Insecure");
+        say "Word Count  : " ~ $res.word-count ~ " words";
+        say "Response    : " ~ $res.response-time-ms.round(0.01) ~ " ms";
+        say "--------------------------------------------------";
+        say "Passed      : " ~ $res.passes.elems ~ " checks";
+        say "Issues      : " ~ $res.issues.elems ~ " items";
+
+        if $res.issues.elems > 0 {
+            say "\nTop Issues to Fix:";
+            for $res.issues -> $i {
+                my $tag = $i<severity> eq 'error' ?? '[ERROR]' !! '[WARN] ';
+                say "  $tag $i<title>: $i<message>";
+                say "         Fix: $i<recommendation>";
+            }
+        }
+        say "==================================================";
+    }
+
+    exit($res.status eq 'PASS' ?? 0 !! 1);
+}
+
+#| Display quick technical SEO health score.
+multi sub MAIN(
+    'score',
+    Str $url
+) {
+    my $auditor = SEO::WebChecker.new;
+    my $res = $auditor.audit($url);
+    say "Score: " ~ $res.score ~ " | Grade: " ~ $res.grade ~ " | Status: " ~ $res.status;
+    exit($res.status eq 'PASS' ?? 0 !! 1);
+}
+
+#| Default shortcut to audit a URL.
+multi sub MAIN(
+    Str $url,
+    Bool :$json = False,
+    Bool :$md = False
+) {
+    MAIN('audit', $url, :$json, :$md);
+}

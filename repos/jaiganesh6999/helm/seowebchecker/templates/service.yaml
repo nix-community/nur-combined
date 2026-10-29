@@ -1,0 +1,19 @@
+{{- if .Values.server.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "seowebchecker.fullname" . }}
+  labels:
+    {{- include "seowebchecker.labels" . | nindent 4 }}
+    app.kubernetes.io/component: server
+spec:
+  type: {{ .Values.server.service.type }}
+  ports:
+    - port: {{ .Values.server.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "seowebchecker.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: server
+{{- end }}

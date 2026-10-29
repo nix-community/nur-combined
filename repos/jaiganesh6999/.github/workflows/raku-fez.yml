@@ -1,0 +1,50 @@
+name: Raku Fez Publish (raku.land)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'raku/**'
+      - '.github/workflows/raku-fez.yml'
+  workflow_dispatch:
+
+jobs:
+  test-and-publish:
+    runs-on: ubuntu-latest
+    env:
+      FEZ_KEY: ${{ secrets.FEZ_KEY }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Raku & Zef
+        uses: Raku/setup-raku@v1
+        with:
+          raku-version: 'latest'
+
+      - name: Install Dependencies & Test
+        run: |
+          cd raku
+          zef install --deps-only .
+          zef test .
+
+      - name: Install Fez Distribution Manager
+        run: zef install fez
+
+      - name: Publish to Raku.land (Fez)
+        run: |
+          if [ -z "$FEZ_KEY" ]; then
+            echo "::warning::FEZ_KEY secret is not set in GitHub repository secrets. Skipping Fez upload to raku.land."
+            exit 0
+          fi
+
+          raku -e 'use Fez::Util::Config; my %c = user-config; %c<un> = "jaiganesh6999"; %c<key> = %*ENV<FEZ_KEY>; %c<groups> = []; write-to-user-config(%c);'
+          mkdir -p ~/.fez
+          cp ~/.fez-config.json ~/.fez/config.json 2>/dev/null || true
+          chmod 600 ~/.fez-config.json ~/.fez/config.json 2>/dev/null || true
+          echo "Fez configuration successfully populated:"
+          cat ~/.fez-config.json | sed -E 's/"key": "[^"]+"/"key": "***"/'
+          cd raku
+          fez review
+          fez upload

@@ -1,0 +1,43 @@
+site_name: SEOWebChecker SEO Audit SDK
+site_url: https://seowebchecker.com/
+site_description: Lightweight open-source client SDK and CLI suite for website SEO audits, on-page optimization, and Core Web Vitals checks by SEOWebChecker.
+site_author: SEOWebChecker Team
+repo_url: https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk
+repo_name: jaiganesh6999/seowebchecker-seoaudit-sdk
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: deep purple
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: deep purple
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - content.code.copy
+
+nav:
+  - Overview: index.md
+  - Quickstart: quickstart.md
+  - Joomla Extension: joomla.md
+  - Multi-Ecosystem Distribution: distribution.md
+  - Publishing Guide: publishing.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables

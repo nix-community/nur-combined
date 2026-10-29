@@ -1,0 +1,453 @@
+{
+  "info": {
+    "_postman_id": "a9b1c2d3-e4f5-4678-90ab-cdef12345678",
+    "name": "SEOWebChecker API & SEO Audit Suite",
+    "description": "Comprehensive API collection for SEOWebChecker (https://seowebchecker.com/) — On-page technical SEO audits, meta tag validation, Open Graph verification, and Core Web Vitals checks.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://seowebchecker.com/",
+      "type": "string"
+    },
+    {
+      "key": "targetUrl",
+      "value": "https://seowebchecker.com/",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Quick SEO Health Score",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200 or successful\", function () {",
+              "    pm.response.to.be.success;",
+              "});",
+              "pm.test(\"Response time is acceptable (< 3000ms)\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(3000);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}api/score?url={{targetUrl}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "score"
+          ],
+          "query": [
+            {
+              "key": "url",
+              "value": "{{targetUrl}}",
+              "description": "Target website URL to calculate SEO score for."
+            }
+          ]
+        },
+        "description": "Returns a rapid 0-100 technical SEO score and letter grade (A+, A, B, C, D, F) for the specified URL."
+      },
+      "response": [
+        {
+          "name": "200 OK - Quick Health Score",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}api/score?url={{targetUrl}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "score"
+              ],
+              "query": [
+                {
+                  "key": "url",
+                  "value": "{{targetUrl}}"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"url\": \"{{#if $query.url}}{{$query.url}}{{else}}https://seowebchecker.com/{{/if}}\",\n  \"score\": 92,\n  \"grade\": \"A+\",\n  \"categories\": {\n    \"meta\": 95,\n    \"headings\": 90,\n    \"images\": 85,\n    \"links\": 88,\n    \"performance\": 95,\n    \"security\": 100,\n    \"social\": 90\n  },\n  \"source\": \"https://seowebchecker.com/\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "2. Full Technical SEO Audit",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200 or successful\", function () {",
+              "    pm.response.to.be.success;",
+              "});",
+              "pm.test(\"Response has valid audit structure\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.be.an('object');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"url\": \"{{targetUrl}}\",\n  \"options\": {\n    \"check_robots\": true,\n    \"check_sitemap\": true,\n    \"check_vitals\": true\n  }\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}api/audit",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "audit"
+          ]
+        },
+        "description": "Performs a 50+ check technical audit covering meta tags, content, headings, links, images, social preview tags, and Core Web Vitals diagnostics."
+      },
+      "response": [
+        {
+          "name": "200 OK - Full Technical Audit",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"url\": \"{{targetUrl}}\",\n  \"options\": {\n    \"check_robots\": true,\n    \"check_sitemap\": true,\n    \"check_vitals\": true\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}api/audit",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "audit"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"url\": \"{{#if $body.url}}{{$body.url}}{{else}}https://seowebchecker.com/{{/if}}\",\n  \"timestamp\": \"2026-09-29T14:00:00Z\",\n  \"score\": {\n    \"overall\": 92,\n    \"grade\": \"A+\",\n    \"passed_checks\": 46,\n    \"failed_checks\": 4,\n    \"total_checks\": 50,\n    \"categories\": {\n      \"meta\": {\"score\": 95, \"weight\": 0.25},\n      \"headings\": {\"score\": 90, \"weight\": 0.15},\n      \"images\": {\"score\": 85, \"weight\": 0.15},\n      \"links\": {\"score\": 88, \"weight\": 0.15},\n      \"performance\": {\"score\": 95, \"weight\": 0.15},\n      \"security\": {\"score\": 100, \"weight\": 0.10},\n      \"social\": {\"score\": 90, \"weight\": 0.05}\n    }\n  },\n  \"meta\": {\n    \"title\": \"SEOWebChecker — Free Technical SEO Audit & Analyzer\",\n    \"description\": \"Comprehensive SEO analysis tool checking on-page SEO, Core Web Vitals, images, headings, and schema markup.\",\n    \"canonical\": \"{{#if $body.url}}{{$body.url}}{{else}}https://seowebchecker.com/{{/if}}\",\n    \"robots\": \"index, follow\"\n  },\n  \"issues\": [\n    {\n      \"severity\": \"info\",\n      \"category\": \"images\",\n      \"message\": \"All 12 images have alt attributes.\",\n      \"passed\": true\n    },\n    {\n      \"severity\": \"warning\",\n      \"category\": \"performance\",\n      \"message\": \"Consider serving images in AVIF/WebP next-gen formats.\",\n      \"recommendation\": \"Convert PNG/JPEG assets to WebP or AVIF to reduce payload size.\"\n    }\n  ],\n  \"source\": \"https://seowebchecker.com/\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "3. Meta Tags & Social Previews",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200 or successful\", function () {",
+              "    pm.response.to.be.success;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}api/meta?url={{targetUrl}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "meta"
+          ],
+          "query": [
+            {
+              "key": "url",
+              "value": "{{targetUrl}}",
+              "description": "URL to inspect meta tags for."
+            }
+          ]
+        },
+        "description": "Inspects `<title>`, `<meta name=\"description\">`, `<link rel=\"canonical\">`, viewport, robots directives, and OpenGraph/Twitter Card markup."
+      },
+      "response": [
+        {
+          "name": "200 OK - Meta Tags Inspection",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}api/meta?url={{targetUrl}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "meta"
+              ],
+              "query": [
+                {
+                  "key": "url",
+                  "value": "{{targetUrl}}"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"url\": \"{{#if $query.url}}{{$query.url}}{{else}}https://seowebchecker.com/{{/if}}\",\n  \"title\": \"SEO Analysis Preview\",\n  \"title_length\": 49,\n  \"description\": \"Analyze your website SEO score, meta tags, Core Web Vitals, and technical health with SEOWebChecker.\",\n  \"description_length\": 100,\n  \"canonical\": \"{{#if $query.url}}{{$query.url}}{{else}}https://seowebchecker.com/{{/if}}\",\n  \"robots\": \"index, follow\",\n  \"open_graph\": {\n    \"og_title\": \"SEO Analysis Preview\",\n    \"og_description\": \"Analyze your website SEO score, meta tags, and Core Web Vitals.\",\n    \"og_image\": \"https://seowebchecker.com/assets/og-image.png\"\n  },\n  \"source\": \"https://seowebchecker.com/\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "4. Core Web Vitals Diagnostics",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200 or successful\", function () {",
+              "    pm.response.to.be.success;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}api/vitals?url={{targetUrl}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "vitals"
+          ],
+          "query": [
+            {
+              "key": "url",
+              "value": "{{targetUrl}}",
+              "description": "URL to evaluate Core Web Vitals metrics for."
+            }
+          ]
+        },
+        "description": "Evaluates page load speed, Largest Contentful Paint (LCP), Cumulative Layout Shift (CLS), Interaction to Next Paint (INP), and TTFB."
+      },
+      "response": [
+        {
+          "name": "200 OK - Core Web Vitals",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}api/vitals?url={{targetUrl}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "vitals"
+              ],
+              "query": [
+                {
+                  "key": "url",
+                  "value": "{{targetUrl}}"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"url\": \"{{#if $query.url}}{{$query.url}}{{else}}https://seowebchecker.com/{{/if}}\",\n  \"response_time_ms\": 245,\n  \"page_size_kb\": 182.4,\n  \"diagnostics\": {\n    \"ttfb\": \"Good\",\n    \"status\": \"Healthy\"\n  },\n  \"source\": \"https://seowebchecker.com/\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "5. Image & Alt Text Inspection",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200 or successful\", function () {",
+              "    pm.response.to.be.success;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}api/images?url={{targetUrl}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "images"
+          ],
+          "query": [
+            {
+              "key": "url",
+              "value": "{{targetUrl}}",
+              "description": "URL to scan image assets and accessibility tags for."
+            }
+          ]
+        },
+        "description": "Scans all `<img>` tags on the page for missing alt attributes, unoptimized formats, and accessibility compliance."
+      },
+      "response": [
+        {
+          "name": "200 OK - Image Alt & Asset Inspection",
+          "originalRequest": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}api/images?url={{targetUrl}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "images"
+              ],
+              "query": [
+                {
+                  "key": "url",
+                  "value": "{{targetUrl}}"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json; charset=utf-8"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"url\": \"{{#if $query.url}}{{$query.url}}{{else}}https://seowebchecker.com/{{/if}}\",\n  \"total_images\": 12,\n  \"missing_alt\": 0,\n  \"modern_formats\": 12,\n  \"source\": \"https://seowebchecker.com/\"\n}"
+        }
+      ]
+    }
+  ]
+}

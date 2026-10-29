@@ -1,0 +1,56 @@
+name: QGIS Plugin CI & Package (plugins.qgis.org)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'qgis-plugin/**'
+      - '.github/workflows/qgis-plugin.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'qgis-plugin/**'
+  workflow_dispatch:
+
+jobs:
+  test-and-package:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Validate Plugin Metadata Syntax
+        run: |
+          cd qgis-plugin/seowebchecker
+          python -c "
+          import configparser
+          config = configparser.ConfigParser()
+          config.read('metadata.txt')
+          assert 'general' in config, 'Missing [general] section'
+          for key in ['name', 'qgisMinimumVersion', 'description', 'version', 'author', 'email', 'about']:
+              assert key in config['general'], f'Missing required metadata key: {key}'
+          print('metadata.txt is valid!')
+          "
+
+      - name: Run GeoSEO Core Unit Tests
+        run: |
+          python test_qgis_core.py
+
+      - name: Build QGIS Plugin ZIP Package
+        run: |
+          mkdir -p qgis-plugin/pkg
+          cd qgis-plugin
+          zip -r pkg/seowebchecker.zip seowebchecker/ -x "*.pyc" "*__pycache__*"
+          ls -la pkg/seowebchecker.zip
+
+      - name: Upload Package Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: seowebchecker-qgis-plugin
+          path: qgis-plugin/pkg/seowebchecker.zip

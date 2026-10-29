@@ -1,0 +1,13 @@
+pkgbase = seowebchecker
+	pkgdesc = Lightweight website SEO audit tool and CLI by SEOWebChecker
+	pkgver = 1.0.1
+	pkgrel = 1
+	url = https://seowebchecker.com/
+	arch = any
+	license = MIT
+	makedepends = npm
+	depends = nodejs
+	source = https://registry.npmjs.org/seowebchecker-seoaudit-sdk/-/seowebchecker-seoaudit-sdk-1.0.1.tgz
+	sha256sums = 1f7844c86c6287fcaa7a149508f353deea5d3cdf24b8778704fa784e1d1f2c51
+
+pkgname = seowebchecker

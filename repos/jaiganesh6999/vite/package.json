@@ -1,0 +1,45 @@
+{
+  "name": "vite-plugin-seowebchecker",
+  "version": "1.0.0",
+  "description": "Build-time Vite plugin to audit HTML templates, validate OpenGraph/meta tags, and catch SEO regressions before production deployment.",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "keywords": [
+    "vite",
+    "vite-plugin",
+    "vite-plugin-seo",
+    "seo",
+    "seo-audit",
+    "technical-seo",
+    "seowebchecker",
+    "meta-tags",
+    "core-web-vitals"
+  ],
+  "author": "Rahul Gupta <jaiganesh6999@gmail.com> (https://seowebchecker.com/)",
+  "license": "MIT",
+  "homepage": "https://seowebchecker.com/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk/issues"
+  },
+  "dependencies": {
+    "seowebchecker-seoaudit-sdk": "^1.0.1"
+  },
+  "peerDependencies": {
+    "vite": ">=2.0.0"
+  },
+  "peerDependenciesMeta": {
+    "vite": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "scripts": {
+    "test": "node test/test.js"
+  }
+}

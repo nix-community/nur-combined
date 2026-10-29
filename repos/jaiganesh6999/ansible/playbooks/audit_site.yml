@@ -1,0 +1,37 @@
+---
+- name: Audit Website Technical SEO Health
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    target_url: "https://seowebchecker.com/"
+    min_score: 90
+
+  tasks:
+    - name: Run SEOWebChecker Audit
+      jaiganesh6999.seowebchecker.seo_audit:
+        url: "{{ target_url }}"
+        min_score: "{{ min_score }}"
+        fail_on_alert: true
+      register: seo_res
+
+    - name: Print Executive SEO Report
+      ansible.builtin.debug:
+        msg:
+          - "=================================================="
+          - "  SEOWebChecker Ansible Technical Audit"
+          - "=================================================="
+          - "Target       : {{ seo_res.url }}"
+          - "Health Score : {{ seo_res.score }}/100 ({{ seo_res.grade }})"
+          - "Status       : {{ seo_res.status }}"
+          - "Title Tag    : {{ seo_res.title }} ({{ seo_res.title_length }} chars)"
+          - "Meta Desc    : {{ seo_res.meta_description }} ({{ seo_res.meta_description_length }} chars)"
+          - "Viewport     : {{ 'Configured' if seo_res.has_viewport else 'Missing' }}"
+          - "Canonical    : {{ seo_res.canonical_url if seo_res.has_canonical else 'Missing' }}"
+          - "HTTPS        : {{ 'Secure' if seo_res.is_https else 'Insecure' }}"
+          - "Word Count   : {{ seo_res.word_count }} words"
+          - "Response     : {{ seo_res.response_time_ms }} ms"
+          - "Passed Checks: {{ seo_res.passes_count }}"
+          - "Issues Count : {{ seo_res.issues_count }}"
+          - "Platform Ref : {{ seo_res.platform_url }}"
+          - "=================================================="

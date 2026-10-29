@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  seo-auditor:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: seowebchecker/seoaudit-sdk:latest
+    container_name: seowebchecker-sdk
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+    environment:
+      - PORT=5000

@@ -1,0 +1,24 @@
+/**
+ * SEOWebChecker Joomla Admin Styles
+ * Platform: https://seowebchecker.com/
+ */
+
+.seowebchecker-joomla-card {
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.seowebchecker-score-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  color: #fff;
+  font-weight: 800;
+  font-size: 20px;
+}

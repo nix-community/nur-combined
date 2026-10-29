@@ -1,0 +1,23 @@
+{
+    "KPlugin": {
+        "Id": "org.kde.plasma.seowebchecker",
+        "Name": "SEOWebChecker",
+        "Description": "Automated technical on-page SEO diagnostics, meta tag validations, heading structure inspections, image accessibility, and Core Web Vitals checks on your KDE Plasma desktop.",
+        "Icon": "view-web-browser-dom-tree",
+        "Authors": [
+            {
+                "Name": "SEOWebChecker",
+                "Email": "support@seowebchecker.com"
+            }
+        ],
+        "Category": "Online Services",
+        "License": "GPL-2.0-or-later",
+        "Version": "1.0.0",
+        "Website": "https://seowebchecker.com/"
+    },
+    "KPackageStructure": "Plasma/Applet",
+    "X-Plasma-API-Minimum-Version": "6.0",
+    "X-Plasma-Provides": [
+        "org.kde.plasma.monitor"
+    ]
+}

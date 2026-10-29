@@ -1,0 +1,36 @@
+{
+  "name": "SEO::WebChecker",
+  "description": "Technical SEO audit engine & on-page analyzer for Raku. Inspects title tags, meta descriptions, canonical URLs, headings (H1-H6), mobile viewport, HTTPS, and Core Web Vitals.",
+  "version": "1.0.0",
+  "api": "1",
+  "auth": "zef:jaiganesh6999",
+  "authors": [
+    "Rahul Gupta <jaiganesh6999@gmail.com>"
+  ],
+  "license": "Artistic-2.0",
+  "source-url": "https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk.git",
+  "support": {
+    "source": "https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk",
+    "bugtracker": "https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk/issues"
+  },
+  "tags": [
+    "seo",
+    "audit",
+    "web",
+    "metadata",
+    "core-web-vitals",
+    "analyzer",
+    "crawler",
+    "seowebchecker"
+  ],
+  "depends": [
+    "JSON::Fast"
+  ],
+  "provides": {
+    "SEO::WebChecker": "lib/SEO/WebChecker.rakumod"
+  },
+  "bin": [
+    "bin/seowebchecker"
+  ],
+  "resources": []
+}

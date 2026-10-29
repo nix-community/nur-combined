@@ -1,0 +1,49 @@
+{
+  "id": "audit_1740000000000",
+  "targetUrl": "https://seowebchecker.com/",
+  "score": 96,
+  "grade": "A+",
+  "status": "PASS",
+  "isAlert": false,
+  "title": "Free SEO Audit Tool — Website SEO Checker",
+  "metaDescription": "SEO Web Checker, Run a free website SEO audit in seconds. 50+ checks: technical SEO, on-page, Core Web Vitals & more.",
+  "issuesCount": 0,
+  "issues": [],
+  "passesCount": 4,
+  "passes": [
+    {
+      "id": "title-optimal",
+      "category": "meta",
+      "severity": "pass",
+      "title": "Title tag optimal",
+      "message": "Title tag length is within recommended 30-60 characters.",
+      "recommendation": "No action needed."
+    },
+    {
+      "id": "meta-description-optimal",
+      "category": "meta",
+      "severity": "pass",
+      "title": "Meta description optimal",
+      "message": "Meta description length is within recommended 70-160 characters.",
+      "recommendation": "No action needed."
+    },
+    {
+      "id": "viewport-tag",
+      "category": "technical",
+      "severity": "pass",
+      "title": "Mobile viewport meta tag configured",
+      "message": "Responsive viewport meta tag is properly defined.",
+      "recommendation": "No action needed."
+    },
+    {
+      "id": "canonical-link",
+      "category": "technical",
+      "severity": "pass",
+      "title": "Canonical link tag present",
+      "message": "Self-referencing canonical URL is correctly declared.",
+      "recommendation": "No action needed."
+    }
+  ],
+  "auditedAt": "2026-10-19T10:00:00.000Z",
+  "platformUrl": "https://seowebchecker.com/"
+}

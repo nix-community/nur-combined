@@ -1,0 +1,21 @@
+{{- if and .Values.server.enabled .Values.server.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "seowebchecker.fullname" . }}
+  labels:
+    {{- include "seowebchecker.labels" . | nindent 4 }}
+    {{- with .Values.server.serviceMonitor.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "seowebchecker.selectorLabels" . | nindent 6 }}
+      app.kubernetes.io/component: server
+  endpoints:
+    - port: http
+      path: {{ .Values.server.metrics.path }}
+      interval: {{ .Values.server.serviceMonitor.interval }}
+      scrapeTimeout: {{ .Values.server.serviceMonitor.scrapeTimeout }}
+{{- end }}

@@ -1,0 +1,23 @@
+namespace: "jaiganesh6999"
+name: "seowebchecker"
+version: "1.0.1"
+readme: "README.md"
+authors:
+  - "SEOWebChecker <support@seowebchecker.com>"
+description: "Technical SEO audit monitoring, action module, and CI/CD quality gates for Ansible."
+license:
+  - "Apache-2.0"
+tags:
+  - "seo"
+  - "audit"
+  - "monitoring"
+  - "quality_gate"
+  - "seowebchecker"
+dependencies: {}
+repository: "https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk"
+documentation: "https://seowebchecker.com/"
+homepage: "https://seowebchecker.com/"
+issues: "https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk/issues"
+build_ignore:
+  - "*.tar.gz"
+  - ".git*"

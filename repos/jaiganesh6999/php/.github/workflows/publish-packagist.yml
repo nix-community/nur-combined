@@ -1,0 +1,35 @@
+name: Validate and Test PHP Package
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  release:
+    types: [published]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: ['8.2', '8.3']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: dom, json, libxml, mbstring
+
+      - name: Validate composer.json
+        run: |
+          cd php
+          composer validate --strict
+
+      - name: Run Test Suite
+        run: |
+          cd php
+          php tests/AuditorTest.php

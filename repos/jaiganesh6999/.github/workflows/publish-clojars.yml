@@ -1,0 +1,56 @@
+name: Test and Publish Clojure Package to Clojars
+
+on:
+  push:
+    paths:
+      - 'clojure/**'
+      - '.github/workflows/publish-clojars.yml'
+  workflow_dispatch:
+
+jobs:
+  test-and-publish:
+    name: Test and Build Clojure Library
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Install Leiningen
+        run: |
+          mkdir -p "$HOME/bin"
+          curl -s https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein > "$HOME/bin/lein"
+          chmod a+x "$HOME/bin/lein"
+          echo "$HOME/bin" >> $GITHUB_PATH
+
+      - name: Run Clojure Tests
+        run: |
+          cd clojure
+          lein test
+
+      - name: Build JAR & POM
+        run: |
+          cd clojure
+          lein jar
+          lein pom
+          ls -la target/
+
+      - name: Deploy to Clojars
+        if: env.CLOJARS_USERNAME != '' && env.CLOJARS_PASSWORD != ''
+        env:
+          CLOJARS_USERNAME: ${{ secrets.CLOJARS_USERNAME }}
+          CLOJARS_PASSWORD: ${{ secrets.CLOJARS_PASSWORD }}
+        run: |
+          cd clojure
+          lein deploy clojars
+
+      - name: Upload Built JAR Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: clojure-jar
+          path: clojure/target/*.jar

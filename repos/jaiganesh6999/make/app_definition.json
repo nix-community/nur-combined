@@ -1,0 +1,44 @@
+{
+  "name": "seowebchecker",
+  "label": "SEOWebChecker",
+  "description": "Performs real-time technical SEO audits and alerts for target webpages, validating on-page structure, meta tags, Core Web Vitals, and indexing signals.",
+  "theme": "#10b981",
+  "version": 1,
+  "public": true,
+  "platformUrl": "https://seowebchecker.com/",
+  "repository": "https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk",
+  "baseUrl": "https://seowebchecker.com/api/v1",
+  "groups": [
+    {
+      "name": "audits",
+      "label": "Audits"
+    },
+    {
+      "name": "other",
+      "label": "Other"
+    }
+  ],
+  "modules": [
+    {
+      "name": "seoaudit",
+      "label": "Run a technical SEO audit",
+      "type": "action",
+      "group": "audits",
+      "description": "Performs a real-time technical SEO audit for a target webpage URL, returning health scores, diagnostic issues, and threshold alerts."
+    },
+    {
+      "name": "apiCall",
+      "label": "Make an API call",
+      "type": "rest",
+      "group": "other",
+      "description": "Performs an arbitrary authorized API call to the SEOWebChecker API."
+    }
+  ],
+  "connections": [
+    {
+      "name": "seowebcheckerApiKey",
+      "label": "SEOWebChecker API key",
+      "type": "apiKey"
+    }
+  ]
+}

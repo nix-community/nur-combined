@@ -1,0 +1,58 @@
+name: Publish Meteor Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      create:
+        description: 'Publish with --create (first time registering package on Atmosphere)'
+        required: false
+        default: false
+        type: boolean
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    name: Publish to Atmosphere
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: meteor
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install Meteor
+        run: |
+          curl https://install.meteor.com/ | sh
+          echo "$HOME/.meteor" >> $GITHUB_PATH
+
+      - name: Verify Meteor CLI
+        run: meteor --version
+
+      - name: Authenticate with Meteor Developer Account
+        env:
+          METEOR_SESSION: ${{ secrets.METEOR_SESSION }}
+          METEOR_USER: ${{ secrets.METEOR_USER }}
+          METEOR_PASSWORD: ${{ secrets.METEOR_PASSWORD }}
+        run: |
+          if [ -n "$METEOR_SESSION" ]; then
+            mkdir -p ~/.meteor
+            echo "$METEOR_SESSION" > ~/.meteor/meteor-session.json
+            echo "Authenticated via METEOR_SESSION"
+          elif [ -n "$METEOR_USER" ] && [ -n "$METEOR_PASSWORD" ]; then
+            echo -e "$METEOR_USER\n$METEOR_PASSWORD" | meteor login
+            echo "Authenticated via METEOR_USER credentials"
+          else
+            echo "::error::Meteor authentication required. Please add METEOR_SESSION or METEOR_USER / METEOR_PASSWORD to Repository Secrets."
+            exit 1
+          fi
+
+      - name: Publish Package to Atmosphere
+        run: |
+          if [ "${{ github.event.inputs.create }}" = "true" ]; then
+            meteor publish --create
+          else
+            meteor publish
+          fi

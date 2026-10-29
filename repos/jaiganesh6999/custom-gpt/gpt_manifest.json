@@ -1,0 +1,27 @@
+{
+  "name": "SEOWebChecker - Technical SEO Auditor",
+  "description": "Instant technical SEO audits for any webpage. Get 0-100 health scores, on-page diagnostics, Core Web Vitals, and prioritized developer fixes.",
+  "category": "Productivity",
+  "author": "SEOWebChecker",
+  "platformUrl": "https://seowebchecker.com/",
+  "privacyPolicyUrl": "https://seowebchecker.com/privacy-policy",
+  "conversationStarters": [
+    "Audit https://seowebchecker.com/ and report technical issues",
+    "Analyze the technical SEO health of my website",
+    "Inspect meta tags, headings, and mobile readiness for a URL",
+    "Check Core Web Vitals and performance recommendations"
+  ],
+  "capabilities": {
+    "webBrowsing": true,
+    "codeInterpreter": true,
+    "imageGeneration": false
+  },
+  "actions": {
+    "schemaType": "openapi_3.1",
+    "schemaFile": "openapi.json",
+    "baseUrl": "https://seowebchecker.com/api/v1",
+    "authentication": {
+      "type": "none"
+    }
+  }
+}

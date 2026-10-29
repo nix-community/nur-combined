@@ -1,0 +1,25 @@
+name: seowebchecker
+description: A lightweight Dart and Flutter client SDK for automated on-page technical SEO audits, meta tag validations, and Core Web Vitals checks.
+version: 1.0.0
+homepage: https://seowebchecker.com/
+repository: https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk/tree/main/dart
+issue_tracker: https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk/issues
+funding:
+  - https://seowebchecker.com/
+
+topics:
+  - seo
+  - web
+  - audit
+  - scraper
+  - metadata
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  http: ^1.2.0
+
+dev_dependencies:
+  test: ^1.24.0
+  lints: ^3.0.0

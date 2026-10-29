@@ -1,0 +1,58 @@
+name: Deploy Meteor App to Galaxy Cloud
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_hostname:
+        description: 'Galaxy Hostname (e.g. seowebchecker.meteorapp.com)'
+        required: true
+        default: 'seowebchecker.meteorapp.com'
+  push:
+    branches:
+      - main
+    paths:
+      - 'meteor-app/**'
+
+jobs:
+  deploy:
+    name: Deploy to Galaxy Cloud
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: meteor-app
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Meteor CLI
+        run: |
+          curl https://install.meteor.com/ | sh
+          echo "$HOME/.meteor" >> $GITHUB_PATH
+
+      - name: Verify Meteor
+        run: meteor --version
+
+      - name: Authenticate with Meteor / Galaxy
+        env:
+          METEOR_SESSION: ${{ secrets.METEOR_SESSION }}
+          METEOR_USER: ${{ secrets.METEOR_USER }}
+          METEOR_PASSWORD: ${{ secrets.METEOR_PASSWORD }}
+        run: |
+          if [ -n "$METEOR_SESSION" ]; then
+            mkdir -p ~/.meteor
+            echo "$METEOR_SESSION" > ~/.meteor/meteor-session.json
+            echo "Authenticated via METEOR_SESSION"
+          elif [ -n "$METEOR_USER" ] && [ -n "$METEOR_PASSWORD" ]; then
+            echo -e "$METEOR_USER\n$METEOR_PASSWORD" | meteor login
+            echo "Authenticated via METEOR_USER credentials"
+          else
+            echo "::error::Meteor authentication required. Please add METEOR_SESSION or METEOR_USER and METEOR_PASSWORD to Repository Secrets."
+            exit 1
+          fi
+
+      - name: Deploy to Galaxy Cloud
+        env:
+          DEPLOY_HOSTNAME: ${{ github.event.inputs.target_hostname || 'seowebchecker.meteorapp.com' }}
+        run: |
+          meteor deploy "$DEPLOY_HOSTNAME" --settings settings.json --owner seowebchecker --free

@@ -1,0 +1,27 @@
+{
+  "name": "seowebchecker-seo-audit",
+  "version": "1.0.1",
+  "description": "Audit Markdown notes for on-page SEO, analyze heading hierarchy, keyword density, reading time, and inspect live URLs with SEOWebChecker.",
+  "main": "main.js",
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "build": "node esbuild.config.mjs production"
+  },
+  "keywords": [
+    "obsidian",
+    "seo",
+    "seo-audit",
+    "markdown-seo",
+    "readability",
+    "content-audit"
+  ],
+  "author": "SEOWebChecker",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "esbuild": "^0.25.0",
+    "obsidian": "latest",
+    "tslib": "^2.8.1",
+    "typescript": "^5.8.0"
+  }
+}

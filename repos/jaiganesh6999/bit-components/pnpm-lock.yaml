@@ -1,0 +1,239 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  dedupePeers: true
+  excludeLinksFromLockfile: true
+  injectWorkspacePackages: true
+
+importers:
+
+  .:
+    dependencies:
+      react:
+        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
+        version: 19.3.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.3.0(react@19.3.0)
+    devDependencies:
+      '@types/jest':
+        specifier: 26.0.20
+        version: 26.0.20
+      '@types/node':
+        specifier: 22.10.5
+        version: 22.10.5
+
+  node_modules/.bit_roots/teambit.harmony_node:
+    dependencies:
+      '@rinki/seowebchecker.seo-audit-badge':
+        specifier: workspace:*
+        version: file:seo-audit-badge(react@19.3.0)
+      react:
+        specifier: ^19.0.0
+        version: 19.3.0
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.3.0(react@19.3.0)
+
+  seo-audit-badge:
+    dependencies:
+      react:
+        specifier: ^17.0.0 || ^18.0.0 || ^19.0.0
+        version: 19.3.0
+    devDependencies:
+      '@types/jest':
+        specifier: 26.0.20
+        version: 26.0.20
+      '@types/node':
+        specifier: 22.10.5
+        version: 22.10.5
+
+packages:
+
+  '@jest/types@26.6.2':
+    resolution: {integrity: sha512-fC6QCp7Sc5sX6g8Tvbmj4XUTbyrik0akgRy03yjXbQaBWWNWGE7SGtJk98m0N8nzegD/7SggrUlivxo5ax4KWQ==}
+    engines: {node: '>= 10.14.2'}
+
+  '@rinki/seowebchecker.seo-audit-badge@file:seo-audit-badge':
+    resolution: {directory: seo-audit-badge, type: directory}
+    peerDependencies:
+      react: ^17.0.0 || ^18.0.0 || ^19.0.0
+
+  '@types/istanbul-lib-coverage@2.0.6':
+    resolution: {integrity: sha512-2QF/t/auWm0lsy8XtKVPG19v3sSOQlJe/YHZgfjb/KBBHOGSV+J2q/S671rcq9uTBrLAXmZpqJiaQbMT+zNU1w==}
+
+  '@types/istanbul-lib-report@3.0.3':
+    resolution: {integrity: sha512-NQn7AHQnk/RSLOxrBbGyJM/aVQ+pjj5HCgasFxc0K/KhoATfQ/47AyUl15I2yBUpihjmas+a+VJBOqecrFH+uA==}
+
+  '@types/istanbul-reports@3.0.4':
+    resolution: {integrity: sha512-pk2B1NWalF9toCRu6gjBzR69syFjP4Od8WRAX+0mmf9lAjCRicLOWc+ZrxZHx/0XRjotgkF9t6iaMJ+aXcOdZQ==}
+
+  '@types/jest@26.0.20':
+    resolution: {integrity: sha512-9zi2Y+5USJRxd0FsahERhBwlcvFh6D2GLQnY2FH2BzK8J9s9omvNHIbvABwIluXa0fD8XVKMLTO0aOEuUfACAA==}
+
+  '@types/node@22.10.5':
+    resolution: {integrity: sha512-F8Q+SeGimwOo86fiovQh8qiXfFEh2/ocYv7tU5pJ3EXMSSxk1Joj5wefpFK2fHTf/N6HKGSxIDBT9f3gCxXPkQ==}
+
+  '@types/yargs-parser@21.0.3':
+    resolution: {integrity: sha512-I4q9QU9MQv4oEOz4tAHJtNz1cwuLxn2F3xcc2iV5WdqLPpUnj30aUuxt1mAxYTG+oe8CZMV/+6rU4S4gRDzqtQ==}
+
+  '@types/yargs@15.0.20':
+    resolution: {integrity: sha512-KIkX+/GgfFitlASYCGoSF+T4XRXhOubJLhkLVtSfsRTe9jWMmuM2g28zQ41BtPTG7TRBb2xHW+LCNVE9QR/vsg==}
+
+  ansi-regex@5.0.1:
+    resolution: {integrity: sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==}
+    engines: {node: '>=8'}
+
+  ansi-styles@4.3.0:
+    resolution: {integrity: sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==}
+    engines: {node: '>=8'}
+
+  chalk@4.1.2:
+    resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
+    engines: {node: '>=10'}
+
+  color-convert@2.0.1:
+    resolution: {integrity: sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==}
+    engines: {node: '>=7.0.0'}
+
+  color-name@1.1.4:
+    resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
+
+  diff-sequences@26.6.2:
+    resolution: {integrity: sha512-Mv/TDa3nZ9sbc5soK+OoA74BsS3mL37yixCvUAQkiuA4Wz6YtwP/K47n2rv2ovzHZvoiQeA5FTQOschKkEwB0Q==}
+    engines: {node: '>= 10.14.2'}
+
+  has-flag@4.0.0:
+    resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
+    engines: {node: '>=8'}
+
+  jest-diff@26.6.2:
+    resolution: {integrity: sha512-6m+9Z3Gv9wN0WFVasqjCL/06+EFCMTqDEUl/b87HYK2rAPTyfz4ZIuSlPhY51PIQRWx5TaxeF1qmXKe9gfN3sA==}
+    engines: {node: '>= 10.14.2'}
+
+  jest-get-type@26.3.0:
+    resolution: {integrity: sha512-TpfaviN1R2pQWkIihlfEanwOXK0zcxrKEE4MlU6Tn7keoXdN6/3gK/xl0yEh8DOunn5pOVGKf8hB4R9gVh04ig==}
+    engines: {node: '>= 10.14.2'}
+
+  pretty-format@26.6.2:
+    resolution: {integrity: sha512-7AeGuCYNGmycyQbCqd/3PWH4eOoX/OiCa0uphp57NVTeAGdJGaAliecxwBDHYQCIvrW7aDBZCYeNTP/WX69mkg==}
+    engines: {node: '>= 10'}
+
+  react-dom@19.3.0:
+    resolution: {integrity: sha512-JDk8dgif51OjFoDE70+OT9ICyYr+69HlmihNwp1+Nsfbna3t5sIiCa9ZJktDmQ4/1b/rn26hIAR2uYXDMr5r0Q==}
+    peerDependencies:
+      react: ^19.3.0
+
+  react-is@17.0.2:
+    resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
+
+  react@19.3.0:
+    resolution: {integrity: sha512-E8LUcbtBWt20bbl2YoHfx4ZDBdxVTfOKtCZn9cDSJ4l6/nuoApcpIBcj47t2wZoVX8g2ZHuMHbiShgCR1T5Sog==}
+    engines: {node: '>=0.10.0'}
+
+  scheduler@0.28.0:
+    resolution: {integrity: sha512-juorfCmIkIw8tT+p5BXSm6PJjQF/ycEYmKyzURCIt/RaZIhL+PulbQ9Yu2z1HdOJDdqDTlxA1+xKBmHXJsczAw==}
+
+  supports-color@7.2.0:
+    resolution: {integrity: sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==}
+    engines: {node: '>=8'}
+
+  undici-types@6.20.0:
+    resolution: {integrity: sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg==}
+
+bit:
+  depsRequiringBuild: []
+
+snapshots:
+
+  '@jest/types@26.6.2':
+    dependencies:
+      '@types/istanbul-lib-coverage': 2.0.6
+      '@types/istanbul-reports': 3.0.4
+      '@types/node': 22.10.5
+      '@types/yargs': 15.0.20
+      chalk: 4.1.2
+
+  '@rinki/seowebchecker.seo-audit-badge@file:seo-audit-badge(react@19.3.0)':
+    dependencies:
+      react: 19.3.0
+
+  '@types/istanbul-lib-coverage@2.0.6': {}
+
+  '@types/istanbul-lib-report@3.0.3':
+    dependencies:
+      '@types/istanbul-lib-coverage': 2.0.6
+
+  '@types/istanbul-reports@3.0.4':
+    dependencies:
+      '@types/istanbul-lib-report': 3.0.3
+
+  '@types/jest@26.0.20':
+    dependencies:
+      jest-diff: 26.6.2
+      pretty-format: 26.6.2
+
+  '@types/node@22.10.5':
+    dependencies:
+      undici-types: 6.20.0
+
+  '@types/yargs-parser@21.0.3': {}
+
+  '@types/yargs@15.0.20':
+    dependencies:
+      '@types/yargs-parser': 21.0.3
+
+  ansi-regex@5.0.1: {}
+
+  ansi-styles@4.3.0:
+    dependencies:
+      color-convert: 2.0.1
+
+  chalk@4.1.2:
+    dependencies:
+      ansi-styles: 4.3.0
+      supports-color: 7.2.0
+
+  color-convert@2.0.1:
+    dependencies:
+      color-name: 1.1.4
+
+  color-name@1.1.4: {}
+
+  diff-sequences@26.6.2: {}
+
+  has-flag@4.0.0: {}
+
+  jest-diff@26.6.2:
+    dependencies:
+      chalk: 4.1.2
+      diff-sequences: 26.6.2
+      jest-get-type: 26.3.0
+      pretty-format: 26.6.2
+
+  jest-get-type@26.3.0: {}
+
+  pretty-format@26.6.2:
+    dependencies:
+      '@jest/types': 26.6.2
+      ansi-regex: 5.0.1
+      ansi-styles: 4.3.0
+      react-is: 17.0.2
+
+  react-dom@19.3.0(react@19.3.0):
+    dependencies:
+      react: 19.3.0
+      scheduler: 0.28.0
+
+  react-is@17.0.2: {}
+
+  react@19.3.0: {}
+
+  scheduler@0.28.0: {}
+
+  supports-color@7.2.0:
+    dependencies:
+      has-flag: 4.0.0
+
+  undici-types@6.20.0: {}

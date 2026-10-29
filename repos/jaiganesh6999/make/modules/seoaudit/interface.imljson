@@ -1,0 +1,142 @@
+[
+  {
+    "name": "id",
+    "type": "text",
+    "label": "Audit ID"
+  },
+  {
+    "name": "targetUrl",
+    "type": "text",
+    "label": "Target URL"
+  },
+  {
+    "name": "score",
+    "type": "number",
+    "label": "Technical SEO score (0-100)"
+  },
+  {
+    "name": "grade",
+    "type": "text",
+    "label": "Letter grade (A-F)"
+  },
+  {
+    "name": "status",
+    "type": "text",
+    "label": "Status (PASS or ALERT)"
+  },
+  {
+    "name": "isAlert",
+    "type": "boolean",
+    "label": "Is below threshold"
+  },
+  {
+    "name": "title",
+    "type": "text",
+    "label": "Page title"
+  },
+  {
+    "name": "metaDescription",
+    "type": "text",
+    "label": "Meta description"
+  },
+  {
+    "name": "issuesCount",
+    "type": "uinteger",
+    "label": "Issues count"
+  },
+  {
+    "name": "issues",
+    "type": "array",
+    "label": "Issues",
+    "spec": {
+      "type": "collection",
+      "spec": [
+        {
+          "name": "id",
+          "type": "text",
+          "label": "Issue ID"
+        },
+        {
+          "name": "category",
+          "type": "text",
+          "label": "Category"
+        },
+        {
+          "name": "severity",
+          "type": "text",
+          "label": "Severity"
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "label": "Title"
+        },
+        {
+          "name": "message",
+          "type": "text",
+          "label": "Message"
+        },
+        {
+          "name": "recommendation",
+          "type": "text",
+          "label": "Recommendation"
+        }
+      ]
+    }
+  },
+  {
+    "name": "passesCount",
+    "type": "uinteger",
+    "label": "Passes count"
+  },
+  {
+    "name": "passes",
+    "type": "array",
+    "label": "Passes",
+    "spec": {
+      "type": "collection",
+      "spec": [
+        {
+          "name": "id",
+          "type": "text",
+          "label": "Check ID"
+        },
+        {
+          "name": "category",
+          "type": "text",
+          "label": "Category"
+        },
+        {
+          "name": "severity",
+          "type": "text",
+          "label": "Severity"
+        },
+        {
+          "name": "title",
+          "type": "text",
+          "label": "Title"
+        },
+        {
+          "name": "message",
+          "type": "text",
+          "label": "Message"
+        },
+        {
+          "name": "recommendation",
+          "type": "text",
+          "label": "Recommendation"
+        }
+      ]
+    }
+  },
+  {
+    "name": "auditedAt",
+    "type": "date",
+    "label": "Audit timestamp"
+  },
+  {
+    "name": "platformUrl",
+    "type": "text",
+    "label": "Platform URL"
+  }
+]

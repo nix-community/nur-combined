@@ -1,0 +1,28 @@
+# Maintainer: Rahul Gupta <jaiganesh6999@gmail.com>
+pkgname=seowebchecker
+pkgver=1.0.1
+pkgrel=1
+pkgdesc="Lightweight website SEO audit tool and CLI by SEOWebChecker"
+arch=('any')
+url="https://seowebchecker.com/"
+license=('MIT')
+depends=('nodejs')
+makedepends=('npm')
+source=("https://registry.npmjs.org/seowebchecker-seoaudit-sdk/-/seowebchecker-seoaudit-sdk-${pkgver}.tgz")
+sha256sums=('1f7844c86c6287fcaa7a149508f353deea5d3cdf24b8778704fa784e1d1f2c51')
+
+package() {
+    cd "${srcdir}/package"
+
+    local _destdir="${pkgdir}/usr/lib/node_modules/${pkgname}"
+    install -d "${_destdir}"
+    cp -r * "${_destdir}"
+
+    install -d "${pkgdir}/usr/bin"
+    ln -s "/usr/lib/node_modules/${pkgname}/bin/cli.js" "${pkgdir}/usr/bin/seowebchecker"
+    ln -s "/usr/lib/node_modules/${pkgname}/bin/cli.js" "${pkgdir}/usr/bin/seowebchecker-audit"
+
+    if [ -f LICENSE ]; then
+        install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+    fi
+}

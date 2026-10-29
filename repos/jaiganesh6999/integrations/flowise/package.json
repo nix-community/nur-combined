@@ -1,0 +1,18 @@
+{
+  "name": "flowise-components-seowebchecker",
+  "version": "1.0.0",
+  "description": "Official Flowise AI integration node for SEOWebChecker SEO Audit SDK",
+  "main": "dist/SEOWebChecker.js",
+  "keywords": [
+    "flowise",
+    "flowise-tools",
+    "flowise-components",
+    "seo",
+    "seo-audit",
+    "seowebchecker",
+    "langchain"
+  ],
+  "author": "SEOWebChecker <support@seowebchecker.com> (https://seowebchecker.com/)",
+  "license": "MIT",
+  "homepage": "https://seowebchecker.com/"
+}

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>SeoWebChecker.SeoAudit</id>
+    <version>1.0.0</version>
+    <authors>SEOWebChecker Team</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <readme>README.md</readme>
+    <projectUrl>https://seowebchecker.com/</projectUrl>
+    <description>Lightweight open-source client SDK for website SEO audits, on-page analysis, and Core Web Vitals checks by SEOWebChecker.</description>
+    <tags>seo seo-audit website-audit seowebchecker meta-tags technical-seo core-web-vitals</tags>
+    <repository type="git" url="https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk" commit="e4d3751f0b7addfadaf94a9f4675e6e242ebbded" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\rinki\.gemini\antigravity\scratch\seowebchecker-seoaudit-sdk\dotnet\src\SeoWebChecker.SeoAudit\bin\Release\netstandard2.0\SeoWebChecker.SeoAudit.dll" target="lib\netstandard2.0\SeoWebChecker.SeoAudit.dll" />
+    <file src="C:\Users\rinki\.gemini\antigravity\scratch\seowebchecker-seoaudit-sdk\dotnet\src\SeoWebChecker.SeoAudit\bin\Release\netstandard2.0\SeoWebChecker.SeoAudit.xml" target="lib\netstandard2.0\SeoWebChecker.SeoAudit.xml" />
+    <file src="C:\Users\rinki\.gemini\antigravity\scratch\seowebchecker-seoaudit-sdk\dotnet\README.md" target="\README.md" />
+  </files>
+</package>

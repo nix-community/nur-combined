@@ -1,0 +1,44 @@
+name: seowebchecker
+title: SEOWebChecker SEO Audit CLI
+version: '1.0.1'
+summary: Lightweight website SEO audit tool and CLI by SEOWebChecker
+description: |
+  SEOWebChecker is an open-source technical SEO audit client and CLI tool
+  for on-page analysis, meta tag validation, heading hierarchy verification,
+  and Core Web Vitals checks.
+
+  Official Website: https://seowebchecker.com/
+  Documentation: https://seo-ai-tools.readthedocs.io/en/latest/
+
+  Features:
+  - Complete on-page technical SEO audits (Title, Description, Canonical, Robots, Meta tags)
+  - Heading structure (H1-H6) and semantic hierarchy verification
+  - Image accessibility and ALT attribute checks
+  - Link integrity and internal vs external link audits
+  - Core Web Vitals performance indicators
+  - Formatted console, Markdown, and JSON reporting
+
+contact: support@seowebchecker.com
+website: https://seowebchecker.com/
+issues: https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk/issues
+source-code: https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk
+license: MIT
+
+base: core22
+confinement: strict
+grade: stable
+
+apps:
+  seowebchecker:
+    command: bin/seowebchecker-audit
+    plugs:
+      - network
+      - network-bind
+      - home
+
+parts:
+  seowebchecker:
+    plugin: npm
+    source: npm
+    npm-include-node: true
+    npm-node-version: 20.18.0

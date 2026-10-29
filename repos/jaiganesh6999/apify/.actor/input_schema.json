@@ -1,0 +1,32 @@
+{
+  "title": "SEOWebChecker Audit Input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "startUrls": {
+      "title": "Start URLs",
+      "type": "array",
+      "description": "List of URLs or websites to audit for technical SEO.",
+      "prefill": [
+        { "url": "https://seowebchecker.com/" }
+      ],
+      "editor": "globs"
+    },
+    "timeoutSecs": {
+      "title": "Request Timeout (seconds)",
+      "type": "integer",
+      "description": "Max seconds to wait per audited page.",
+      "default": 15,
+      "minimum": 5,
+      "maximum": 60
+    },
+    "userAgent": {
+      "title": "User-Agent Header",
+      "type": "string",
+      "description": "Custom User-Agent header for the audit crawler.",
+      "default": "SEOWebChecker-ApifyBot/1.0 (+https://seowebchecker.com/)",
+      "editor": "textfield"
+    }
+  },
+  "required": ["startUrls"]
+}

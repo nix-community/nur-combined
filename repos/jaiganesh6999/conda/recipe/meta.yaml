@@ -1,0 +1,50 @@
+{% set name = "seowebchecker-seoaudit-sdk" %}
+{% set version = "1.0.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  path: ../../python
+
+build:
+  number: 0
+  noarch: python
+  script: "{{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv"
+  entry_points:
+    - seowebchecker = seowebchecker_seoaudit.cli:main
+
+requirements:
+  host:
+    - python >=3.8
+    - pip
+    - setuptools
+  run:
+    - python >=3.8
+    - requests >=2.25.0
+
+test:
+  imports:
+    - seowebchecker_seoaudit
+    - seowebchecker_seoaudit.checks
+  commands:
+    - seowebchecker --help
+
+about:
+  home: https://seowebchecker.com/
+  summary: "Lightweight client SDK for automated on-page technical SEO audits and Core Web Vitals checks."
+  description: |
+    Automated on-page technical SEO diagnostic engine and client SDK for meta tag validations,
+    heading structure inspections, image accessibility checks, and Core Web Vitals diagnostics.
+    Powered by SEOWebChecker (https://seowebchecker.com/).
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE
+  doc_url: https://seowebchecker.com/
+  dev_url: https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk
+
+extra:
+  recipe-maintainers:
+    - jaiganesh6999
+    - seoaitools

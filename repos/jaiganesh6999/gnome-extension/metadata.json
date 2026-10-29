@@ -1,0 +1,13 @@
+{
+  "uuid": "seo-audit@seowebchecker.com",
+  "name": "SEOWebChecker: SEO Audit & Web Monitor",
+  "description": "On-page technical SEO diagnostics, Core Web Vitals status, meta tag checker, and website health monitor in the GNOME top bar panel.",
+  "shell-version": [
+    "45",
+    "46",
+    "47",
+    "48"
+  ],
+  "url": "https://seowebchecker.com/",
+  "version": 1
+}

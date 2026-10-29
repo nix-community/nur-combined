@@ -1,0 +1,45 @@
+Source: seowebchecker
+Section: python
+Priority: optional
+Maintainer: SEOWebChecker Team <support@seowebchecker.com>
+Build-Depends:
+ debhelper-compat (= 13),
+ python3-all,
+ python3-pip,
+ python3-setuptools,
+ python3-requests,
+ python3-bs4,
+Standards-Version: 4.6.2
+Homepage: https://seowebchecker.com/
+Vcs-Git: https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk.git
+Vcs-Browser: https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk
+Rules-Requires-Root: no
+
+Package: python3-seowebchecker
+Architecture: all
+Depends:
+ ${python3:Depends},
+ ${misc:Depends},
+ python3-requests,
+ python3-bs4,
+Description: Lightweight SEO audit SDK and CLI for SEOWebChecker
+ A lightweight open-source client SDK and CLI tool for full website SEO
+ audits, Core Web Vitals checks, and on-page optimization powered by
+ SEOWebChecker (https://seowebchecker.com/).
+ .
+ Features include:
+  * Full on-page SEO audit (title, meta, headings, images, links)
+  * Core Web Vitals check via Google PageSpeed Insights
+  * Structured JSON output for CI/CD pipelines
+  * Command-line tool: seowebchecker-audit
+
+Package: seowebchecker
+Architecture: all
+Depends:
+ python3-seowebchecker (= ${binary:Version}),
+ ${misc:Depends},
+Description: SEO audit CLI tool for SEOWebChecker (metapackage)
+ This metapackage installs the seowebchecker-audit command-line tool.
+ .
+ Run a full SEO audit of any website using SEOWebChecker's API:
+   seowebchecker-audit --url https://seowebchecker.com/

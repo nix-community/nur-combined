@@ -1,0 +1,16 @@
+{
+  "name": "seowebchecker",
+  "version": "1.0.0",
+  "description": "SEOWebChecker is a technical SEO auditing engine that validates on-page HTML, headings, meta tags, and mobile readiness with automated alerts.",
+  "main": "index.js",
+  "author": "SEOWebChecker <https://seowebchecker.com/>",
+  "homepage": "https://seowebchecker.com/",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test",
+    "validate": "npx zapier-platform-cli validate"
+  },
+  "dependencies": {
+    "zapier-platform-core": "19.1.0"
+  }
+}

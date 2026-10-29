@@ -1,0 +1,7 @@
+{
+  "name": "@seowebchecker/audit",
+  "version": "1.0.0",
+  "description": "Cross-runtime TypeScript SEO auditor for Deno, Bun, and Edge functions with zero dependencies and native Web API support.",
+  "type": "module",
+  "main": "./mod.ts"
+}

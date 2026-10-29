@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.github.jaiganesh6999</groupId>
+    <artifactId>seowebchecker-parent</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+
+    <name>SEOWebChecker Multi-Language SDK Parent</name>
+    <description>Lightweight open-source client SDK for website SEO audits, on-page analysis, and Core Web Vitals checks by SEOWebChecker.</description>
+    <url>https://seowebchecker.com/</url>
+
+    <licenses>
+        <license>
+            <name>The MIT License</name>
+            <url>https://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>seowebchecker</id>
+            <name>SEOWebChecker Team</name>
+            <email>support@seowebchecker.com</email>
+            <organization>SEOWebChecker</organization>
+            <organizationUrl>https://seowebchecker.com/</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk.git</connection>
+        <developerConnection>scm:git:ssh://github.com:jaiganesh6999/seowebchecker-seoaudit-sdk.git</developerConnection>
+        <url>https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk</url>
+    </scm>
+
+    <modules>
+        <module>java</module>
+    </modules>
+</project>

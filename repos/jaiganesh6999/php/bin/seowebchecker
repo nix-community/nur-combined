@@ -1,0 +1,93 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+require_once __DIR__ . '/../src/AuditResult.php';
+require_once __DIR__ . '/../src/Auditor.php';
+require_once __DIR__ . '/../src/Client.php';
+
+use SeoWebChecker\SeoAudit\Auditor;
+
+$args = array_slice($argv, 1);
+
+if (empty($args) || in_array('--help', $args, true) || in_array('-h', $args, true)) {
+    echo <<<HELP
+SEOWebChecker CLI — Website SEO Audit Tool
+Official Website: https://seowebchecker.com/
+
+Usage:
+  php bin/seowebchecker <url> [options]
+
+Options:
+  --format <pretty|json|markdown>  Output format (default: pretty)
+  --output <file>                  Save output report to file
+  --min-score <number>             Minimum acceptable score (exit 1 if failed)
+  --help, -h                       Display this help message
+  --version, -v                    Show version number
+
+HELP;
+    exit(0);
+}
+
+if (in_array('--version', $args, true) || in_array('-v', $args, true)) {
+    echo "seowebchecker/seoaudit-sdk v1.0.0\n";
+    exit(0);
+}
+
+$targetUrl = $args[0];
+$format = 'pretty';
+$outputFile = null;
+$minScore = 0;
+
+for ($i = 1; $i < count($args); $i++) {
+    if ($args[$i] === '--format' && isset($args[$i + 1])) {
+        $format = $args[++$i];
+    } elseif ($args[$i] === '--output' && isset($args[$i + 1])) {
+        $outputFile = $args[++$i];
+    } elseif ($args[$i] === '--min-score' && isset($args[$i + 1])) {
+        $minScore = (int)$args[++$i];
+    }
+}
+
+$auditor = new Auditor();
+$result = $auditor->audit($targetUrl);
+
+if ($format === 'json') {
+    $out = $result->toJson();
+} elseif ($format === 'markdown') {
+    $out = $result->toMarkdown();
+} else {
+    $out = "====================================================================\n";
+    $out .= " SEOWebChecker SEO Audit Report: {$result->url}\n";
+    $out .= " Official: https://seowebchecker.com/ | Timestamp: {$result->timestamp}\n";
+    $out .= "====================================================================\n\n";
+    $out .= " Overall Score: {$result->score}/100 | Grade: {$result->grade}\n";
+    $out .= " Checks: {$result->stats['passed']} Passed, {$result->stats['warnings']} Warnings, {$result->stats['errors']} Errors\n\n";
+
+    $out .= "Category Breakdown:\n";
+    foreach ($result->categories as $name => $c) {
+        $out .= sprintf("  • %-12s : %3d/100 (%d pass, %d warn, %d err)\n", ucfirst($name), $c['score'], $c['passed_count'], $c['warning_count'], $c['error_count']);
+    }
+
+    if (!empty($result->errors)) {
+        $out .= "\n[!] High Priority Issues (Errors):\n";
+        foreach ($result->errors as $err) {
+            $out .= "  ✖ {$err['title']}: {$err['recommendation']}\n";
+        }
+    }
+}
+
+if ($outputFile) {
+    file_put_contents($outputFile, $out);
+    echo "Report successfully saved to {$outputFile}\n";
+} else {
+    echo $out . "\n";
+}
+
+if ($minScore > 0 && $result->score < $minScore) {
+    fwrite(STDERR, "\n[CI/CD ERROR] Score {$result->score} is below required threshold of {$minScore}.\n");
+    exit(1);
+}
+
+exit(0);

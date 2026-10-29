@@ -1,0 +1,331 @@
+/* SEOWebChecker SEO Audit Plugin Styles */
+
+.seowebchecker-container {
+  padding: 12px;
+  overflow-y: auto;
+  font-size: var(--font-ui-small);
+  color: var(--text-normal);
+}
+
+.seowebchecker-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.seowebchecker-title-area h4 {
+  margin: 0;
+  font-size: var(--font-ui-medium);
+  color: var(--text-normal);
+}
+
+.seowebchecker-subtitle {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.seowebchecker-icon-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: var(--radius-s);
+}
+
+.seowebchecker-icon-btn:hover {
+  background: var(--background-modifier-hover);
+}
+
+/* Hero Score Banner */
+.seowebchecker-hero {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border-radius: var(--radius-m);
+  margin-bottom: 14px;
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+}
+
+.seowebchecker-hero.grade-a-plus,
+.seowebchecker-hero.grade-a {
+  border-color: rgba(46, 204, 113, 0.4);
+  background: linear-gradient(135deg, var(--background-secondary) 70%, rgba(46, 204, 113, 0.12));
+}
+
+.seowebchecker-hero.grade-b {
+  border-color: rgba(52, 152, 219, 0.4);
+}
+
+.seowebchecker-hero.grade-c {
+  border-color: rgba(241, 196, 15, 0.4);
+}
+
+.seowebchecker-hero.grade-f {
+  border-color: rgba(231, 76, 60, 0.4);
+}
+
+.seowebchecker-score-circle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--background-primary);
+  border: 3px solid var(--interactive-accent);
+  margin-right: 14px;
+  flex-shrink: 0;
+}
+
+.grade-a-plus .seowebchecker-score-circle,
+.grade-a .seowebchecker-score-circle {
+  border-color: #2ecc71;
+}
+
+.grade-c .seowebchecker-score-circle {
+  border-color: #f1c40f;
+}
+
+.grade-f .seowebchecker-score-circle {
+  border-color: #e74c3c;
+}
+
+.score-number {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.score-max {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.seowebchecker-hero-details .grade-text {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.seowebchecker-hero-details .breakdown-text {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* Quick Metrics Bar */
+.seowebchecker-metrics-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.metric-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 4px;
+  background: var(--background-secondary);
+  border-radius: var(--radius-s);
+  border: 1px solid var(--background-modifier-border);
+}
+
+.metric-pill .pill-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+.metric-pill .pill-val {
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+/* Tab Navigation */
+.seowebchecker-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--background-modifier-border);
+  margin-bottom: 14px;
+  gap: 4px;
+}
+
+.seowebchecker-tab-btn {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.seowebchecker-tab-btn:hover {
+  color: var(--text-normal);
+}
+
+.seowebchecker-tab-btn.active {
+  color: var(--interactive-accent);
+  border-bottom-color: var(--interactive-accent);
+  font-weight: 600;
+}
+
+/* Section Box */
+.seowebchecker-section-box {
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.seowebchecker-section-box h5 {
+  margin: 0 0 8px 0;
+  font-size: 13px;
+  color: var(--text-normal);
+}
+
+.seowebchecker-kw-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  font-size: 12px;
+}
+
+/* Heading Count Badges */
+.heading-counts-row {
+  display: flex;
+  gap: 8px;
+}
+
+.heading-count-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px 8px;
+  background: var(--background-primary);
+  border-radius: var(--radius-s);
+  border: 1px solid var(--background-modifier-border);
+  min-width: 36px;
+}
+
+.heading-count-item .lvl {
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.heading-count-item .num {
+  font-weight: 600;
+  font-size: 13px;
+}
+
+/* Issue Items */
+.seowebchecker-issue-group {
+  margin-bottom: 14px;
+}
+
+.seowebchecker-issue-group h6 {
+  margin: 0 0 6px 0;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+.issue-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 8px 10px;
+  background: var(--background-primary);
+  border-radius: var(--radius-s);
+  border-left: 3px solid var(--background-modifier-border);
+  margin-bottom: 6px;
+}
+
+.issue-item.sev-pass {
+  border-left-color: #2ecc71;
+}
+
+.issue-item.sev-info {
+  border-left-color: #3498db;
+}
+
+.issue-item.sev-warning {
+  border-left-color: #f1c40f;
+}
+
+.issue-item.sev-critical {
+  border-left-color: #e74c3c;
+}
+
+.issue-icon {
+  margin-right: 8px;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.issue-text strong {
+  display: block;
+  font-size: 12px;
+  margin-bottom: 2px;
+}
+
+.issue-text p {
+  margin: 0;
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+
+/* Live URL Card */
+.live-audit-input-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.seowebchecker-input {
+  flex: 1;
+}
+
+.seowebchecker-live-card {
+  background: var(--background-primary);
+  border-radius: var(--radius-s);
+  padding: 10px;
+  border: 1px solid var(--background-modifier-border);
+}
+
+.seowebchecker-live-card h6 {
+  margin: 0 0 6px 0;
+}
+
+.seowebchecker-live-card ul {
+  padding-left: 18px;
+  margin: 0 0 8px 0;
+  font-size: 12px;
+}
+
+/* Footer */
+.seowebchecker-footer {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid var(--background-modifier-border);
+  font-size: 11px;
+}
+
+.seowebchecker-footer a {
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.seowebchecker-footer a:hover {
+  color: var(--interactive-accent);
+  text-decoration: underline;
+}

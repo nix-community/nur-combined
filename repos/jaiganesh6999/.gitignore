@@ -1,0 +1,74 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+/lib/
+/lib64/
+!dart/lib/
+!perl/lib/
+!ruby/lib/
+!npm/lib/
+!elixir/lib/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+.env
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+*.tgz
+vscode/out/
+!vscode/dist/
+!astro/dist/
+!helm/*.tgz
+
+# Composer / PHP
+/vendor/
+composer.phar
+*.phar
+
+# Logs and OS
+*.log
+.DS_Store
+Thumbs.db
+
+# Dart / Flutter
+.dart_tool/
+pubspec.lock
+
+# Elixir / Hex
+_build/
+deps/
+# Snapcraft packages
+*.snap
+*.spec
+
+# PureScript / Spago
+.spago/
+output/
+
+# Bit workspace cache
+bit-components/.bit/cache/
+bit-components/.bit/
+bit-components/node_modules/

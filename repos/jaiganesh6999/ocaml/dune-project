@@ -1,0 +1,8 @@
+(lang dune 3.0)
+(name seowebchecker)
+(version 1.0.5)
+(generate_opam_files true)
+(source (github jaiganesh6999/seowebchecker-seoaudit-sdk))
+(license MIT)
+(authors "SEOWebChecker Team <https://seowebchecker.com/>")
+(maintainers "jaiganesh6999 <jaiganesh6999@gmail.com>")

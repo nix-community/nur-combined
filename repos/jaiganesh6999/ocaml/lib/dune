@@ -1,0 +1,4 @@
+(library
+ (name seowebchecker)
+ (public_name seowebchecker)
+ (libraries cohttp-lwt-unix yojson lambdasoup lwt))

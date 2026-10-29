@@ -1,0 +1,89 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "SEOWebChecker Plugin API",
+    "description": "Real-time technical SEO auditing engine for ChatGPT. Platform: https://seowebchecker.com/",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://seowebchecker.com/api/v1",
+      "description": "Production API Server"
+    }
+  ],
+  "paths": {
+    "/audit": {
+      "post": {
+        "operationId": "runTechnicalSeoAudit",
+        "summary": "Execute a live technical SEO audit on a webpage URL",
+        "description": "Audits on-page HTML, metadata, headings, images, SSL, and performance metrics, returning a 0-100 score, letter grade, and diagnostic issues list.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["url"],
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "The full webpage URL to audit (e.g. https://example.com/)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Audit completed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "url": { "type": "string" },
+                    "timestamp": { "type": "string" },
+                    "score": {
+                      "type": "object",
+                      "properties": {
+                        "overall": { "type": "integer" },
+                        "grade": { "type": "string" }
+                      }
+                    },
+                    "stats": {
+                      "type": "object",
+                      "properties": {
+                        "total": { "type": "integer" },
+                        "passed": { "type": "integer" },
+                        "warnings": { "type": "integer" },
+                        "errors": { "type": "integer" }
+                      }
+                    },
+                    "title": { "type": "string" },
+                    "metaDescription": { "type": "string" },
+                    "issues": { "type": "array", "items": { "type": "object" } },
+                    "passes": { "type": "array", "items": { "type": "object" } },
+                    "platformUrl": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/audits": {
+      "get": {
+        "operationId": "checkAuditHealth",
+        "summary": "Check API status and connectivity",
+        "responses": {
+          "200": {
+            "description": "Service is healthy and ready"
+          }
+        }
+      }
+    }
+  }
+}

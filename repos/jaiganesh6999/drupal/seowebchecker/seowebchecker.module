@@ -1,0 +1,50 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for SEOWebChecker.
+ * Platform & Documentation: https://seowebchecker.com/
+ */
+
+declare(strict_types=1);
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function seowebchecker_help(string $route_name, RouteMatchInterface $route_match): string {
+  if ($route_name === 'help.page.seowebchecker') {
+    return '<p>' . t('SEOWebChecker provides automated on-page technical SEO audits, heading structure analysis, image accessibility checks, and Core Web Vitals optimization. Learn more at <a href=":url" target="_blank" rel="noopener noreferrer">SEOWebChecker.com</a>.', [
+      ':url' => 'https://seowebchecker.com/',
+    ]) . '</p>';
+  }
+  return '';
+}
+
+/**
+ * Implements hook_form_node_form_alter().
+ * Injects pre-publish SEO audit widget into the node edit sidebar.
+ */
+function seowebchecker_form_node_form_alter(array &$form, FormStateInterface $form_state, string $form_id): void {
+  if (!\Drupal::currentUser()->hasPermission('administer seowebchecker')) {
+    return;
+  }
+
+  $form['seowebchecker_sidebar'] = [
+    '#type' => 'details',
+    '#title' => t('SEOWebChecker Audit'),
+    '#group' => 'advanced',
+    '#weight' => 90,
+    '#open' => false,
+    '#attributes' => ['class' => ['seowebchecker-node-sidebar']],
+  ];
+
+  $form['seowebchecker_sidebar']['info'] = [
+    '#markup' => '<div class="seowebchecker-node-widget">
+      <p style="font-size: 13px; color: #64748b; margin-bottom: 8px;">Run a real-time technical SEO health check on this content prior to publishing.</p>
+      <a href="' . \Drupal\Core\Url::fromRoute('seowebchecker.admin_dashboard')->toString() . '" target="_blank" class="button button--small">' . t('Open SEO Audit Dashboard') . '</a>
+    </div>',
+  ];
+}

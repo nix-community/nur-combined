@@ -1,0 +1,18 @@
+---
+- name: Execute on-page technical SEO audit quality gate
+  jaiganesh6999.seowebchecker.seo_audit:
+    url: "{{ seo_quality_gate_url }}"
+    min_score: "{{ seo_quality_gate_min_score }}"
+    fail_on_alert: "{{ seo_quality_gate_fail_on_alert }}"
+    timeout: "{{ seo_quality_gate_timeout }}"
+  register: quality_gate_audit_result
+
+- name: Display SEO quality gate audit summary
+  ansible.builtin.debug:
+    msg:
+      - "Target URL    : {{ quality_gate_audit_result.url }}"
+      - "SEO Score     : {{ quality_gate_audit_result.score }}/100 ({{ quality_gate_audit_result.grade }})"
+      - "Audit Status  : {{ quality_gate_audit_result.status }}"
+      - "Passed Checks : {{ quality_gate_audit_result.passes_count }}"
+      - "Issues Found  : {{ quality_gate_audit_result.issues_count }}"
+      - "Platform URL  : {{ quality_gate_audit_result.platform_url }}"

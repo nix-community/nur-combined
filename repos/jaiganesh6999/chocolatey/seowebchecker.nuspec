@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <id>seowebchecker</id>
+    <version>1.0.0</version>
+    <packageSourceUrl>https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk</packageSourceUrl>
+    <owners>SEOWebChecker</owners>
+    <title>SEOWebChecker SEO Audit CLI</title>
+    <authors>SEOWebChecker Team</authors>
+    <projectUrl>https://seowebchecker.com/</projectUrl>
+    <copyright>© 2026 SEOWebChecker</copyright>
+    <licenseUrl>https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk/blob/main/LICENSE</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectSourceUrl>https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk</projectSourceUrl>
+    <docsUrl>https://seo-ai-tools.readthedocs.io/en/latest/</docsUrl>
+    <bugTrackerUrl>https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk/issues</bugTrackerUrl>
+    <tags>seo technical-seo seo-audit website-audit core-web-vitals seowebchecker</tags>
+    <summary>Lightweight website SEO audit tool and CLI by SEOWebChecker.</summary>
+    <description>
+SEOWebChecker SEO Audit SDK &amp; CLI is an open-source tool for full technical SEO audits, on-page analysis, and Core Web Vitals checks.
+
+Official Website: https://seowebchecker.com/
+Documentation: https://seo-ai-tools.readthedocs.io/en/latest/
+
+Features:
+- On-page technical SEO validation (title, description, canonicals, robots, meta tags)
+- Heading structure and content hierarchy analysis
+- Core Web Vitals and page performance checks
+- Cross-platform CLI execution
+    </description>
+    <releaseNotes>https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk/releases/tag/1.0.0</releaseNotes>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>

@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>SeoWebChecker.SeoAudit</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>SEOWebChecker Team</Authors>
+    <Company>SEOWebChecker</Company>
+    <Description>Lightweight open-source client SDK for website SEO audits, on-page analysis, and Core Web Vitals checks by SEOWebChecker.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://seowebchecker.com/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>seo;seo-audit;website-audit;seowebchecker;meta-tags;technical-seo;core-web-vitals</PackageTags>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>

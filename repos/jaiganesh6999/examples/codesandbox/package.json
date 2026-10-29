@@ -1,0 +1,24 @@
+{
+  "name": "seowebchecker-codesandbox-demo",
+  "version": "1.0.0",
+  "description": "Interactive SEO Audit & Core Web Vitals Playground by SEOWebChecker on CodeSandbox",
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "seowebchecker-seoaudit-sdk": "^1.0.1"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  },
+  "keywords": [
+    "seo",
+    "seo-audit",
+    "codesandbox",
+    "seowebchecker",
+    "core-web-vitals"
+  ]
+}

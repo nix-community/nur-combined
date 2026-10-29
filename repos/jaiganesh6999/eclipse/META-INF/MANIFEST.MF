@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: SEOWebChecker - Technical SEO Audit & Analyzer
+Bundle-SymbolicName: com.seowebchecker.seoaudit;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: com.seowebchecker.seoaudit.Activator
+Bundle-Vendor: SEOWebChecker (https://seowebchecker.com/)
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.eclipse.ui.ide,
+ org.eclipse.jface.text
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Bundle-ActivationPolicy: lazy
+Export-Package: com.seowebchecker.seoaudit

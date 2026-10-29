@@ -1,0 +1,157 @@
+{
+  "name": "seowebchecker",
+  "displayName": "SEOWebChecker - Technical SEO Audit & Analyzer",
+  "description": "Real-time technical SEO linter for HTML, JSX, TSX, Astro, Vue, Svelte, and Markdown. Detects missing alt tags, duplicate H1s, title/meta lengths, and OpenGraph issues.",
+  "version": "1.0.0",
+  "publisher": "seo-audit-tool",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Linters",
+    "Programming Languages",
+    "Other"
+  ],
+  "keywords": [
+    "seo",
+    "technical seo",
+    "seo audit",
+    "html",
+    "astro",
+    "react",
+    "jsx",
+    "tsx",
+    "meta tags",
+    "accessibility"
+  ],
+  "homepage": "https://seowebchecker.com/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk"
+  },
+  "main": "./dist/extension.js",
+  "icon": "icon.png",
+  "activationEvents": [
+    "onLanguage:html",
+    "onLanguage:javascriptreact",
+    "onLanguage:typescriptreact",
+    "onLanguage:astro",
+    "onLanguage:vue",
+    "onLanguage:svelte",
+    "onLanguage:php",
+    "onLanguage:markdown"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "seowebchecker.runAudit",
+        "title": "SEOWebChecker: Run Technical SEO Audit on Current File",
+        "category": "SEO"
+      },
+      {
+        "command": "seowebchecker.openDashboard",
+        "title": "SEOWebChecker: Open Visual SEO Audit Panel",
+        "category": "SEO"
+      },
+      {
+        "command": "seowebchecker.exportMarkdown",
+        "title": "SEOWebChecker: Export SEO Report as Markdown",
+        "category": "SEO"
+      },
+      {
+        "command": "seowebchecker.exportJson",
+        "title": "SEOWebChecker: Export SEO Report as JSON",
+        "category": "SEO"
+      }
+    ],
+    "configuration": {
+      "title": "SEOWebChecker",
+      "properties": {
+        "seowebchecker.minTitleLength": {
+          "type": "number",
+          "default": 30,
+          "description": "Minimum recommended characters for title tag (default: 30)."
+        },
+        "seowebchecker.maxTitleLength": {
+          "type": "number",
+          "default": 60,
+          "description": "Maximum recommended characters for title tag before search truncation (default: 60)."
+        },
+        "seowebchecker.minDescriptionLength": {
+          "type": "number",
+          "default": 70,
+          "description": "Minimum recommended characters for meta description (default: 70)."
+        },
+        "seowebchecker.maxDescriptionLength": {
+          "type": "number",
+          "default": 160,
+          "description": "Maximum recommended characters for meta description snippet (default: 160)."
+        },
+        "seowebchecker.checkHeadings": {
+          "type": "boolean",
+          "default": true,
+          "description": "Validate H1 presence and flag duplicate H1 tags."
+        },
+        "seowebchecker.checkImages": {
+          "type": "boolean",
+          "default": true,
+          "description": "Flag images missing alt text or using redundant alt descriptions."
+        },
+        "seowebchecker.checkLinks": {
+          "type": "boolean",
+          "default": true,
+          "description": "Check external links with target=\"_blank\" for rel=\"noopener noreferrer\"."
+        },
+        "seowebchecker.checkOpenGraph": {
+          "type": "boolean",
+          "default": true,
+          "description": "Check for og:title and og:image social cards."
+        },
+        "seowebchecker.checkCanonical": {
+          "type": "boolean",
+          "default": true,
+          "description": "Validate presence of canonical link tags."
+        },
+        "seowebchecker.checkMobileViewport": {
+          "type": "boolean",
+          "default": true,
+          "description": "Ensure mobile viewport meta tag exists and user zooming is not disabled."
+        },
+        "seowebchecker.checkThinContent": {
+          "type": "boolean",
+          "default": true,
+          "description": "Warn when full pages contain very thin content (< 300 words)."
+        },
+        "seowebchecker.minWordCount": {
+          "type": "number",
+          "default": 300,
+          "description": "Minimum word count threshold for full content pages."
+        },
+        "seowebchecker.enableStatusBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show live SEO score and diagnostic status in the VS Code status bar."
+        },
+        "seowebchecker.enableHover": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show SEO character counter and tips when hovering over tags."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "build": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node --minify",
+    "package": "vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "^1.80.0",
+    "@vscode/vsce": "^2.24.0",
+    "esbuild": "^0.20.0",
+    "typescript": "^5.3.0"
+  }
+}

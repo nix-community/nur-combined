@@ -1,0 +1,18 @@
+#!/usr/bin/make -f
+
+# The upstream Python package lives in the python/ subdirectory.
+# We use a simple rules that installs it directly with pip.
+
+%:
+	dh $@
+
+override_dh_auto_clean:
+	rm -rf python/build python/dist python/*.egg-info python/**/__pycache__ || true
+
+override_dh_auto_build:
+	cd python && python3 -m pip install --no-build-isolation --no-deps \
+	  --prefix=/usr --root=$(CURDIR)/debian/tmp . || true
+
+override_dh_auto_install:
+	cd python && python3 -m pip install --no-build-isolation --no-deps \
+	  --prefix=/usr --root=$(CURDIR)/debian/tmp .

@@ -1,0 +1,43 @@
+name: Lua Tests & LuaRocks Lint
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'lua/**'
+      - '*.rockspec'
+      - '.github/workflows/test-and-lint-lua.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'lua/**'
+      - '*.rockspec'
+      - '.github/workflows/test-and-lint-lua.yml'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        luaVersion: ["5.1", "5.2", "5.3", "5.4", "luajit-2.1"]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Lua ${{ matrix.luaVersion }}
+        uses: leafo/gh-actions-lua@v10
+        with:
+          luaVersion: ${{ matrix.luaVersion }}
+
+      - name: Setup LuaRocks
+        uses: leafo/gh-actions-luarocks@v4
+
+      - name: Run Lua Unit Tests
+        run: |
+          LUA_PATH="./lua/?.lua;;" lua lua/test.lua
+
+      - name: Lint Rockspec
+        run: |
+          luarocks lint seowebchecker-1.0.0-1.rockspec

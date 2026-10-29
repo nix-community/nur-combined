@@ -1,0 +1,64 @@
+[
+  {
+    "name": "url",
+    "type": "text",
+    "label": "URL",
+    "required": true,
+    "help": "Enter a relative URL to the SEOWebChecker API base (e.g., /audit or /audits)."
+  },
+  {
+    "name": "method",
+    "type": "select",
+    "label": "Method",
+    "required": true,
+    "default": "GET",
+    "options": [
+      {
+        "label": "GET",
+        "value": "GET"
+      },
+      {
+        "label": "POST",
+        "value": "POST"
+      },
+      {
+        "label": "PUT",
+        "value": "PUT"
+      },
+      {
+        "label": "PATCH",
+        "value": "PATCH"
+      },
+      {
+        "label": "DELETE",
+        "value": "DELETE"
+      },
+      {
+        "label": "HEAD",
+        "value": "HEAD"
+      }
+    ],
+    "help": "The HTTP method to use for the request."
+  },
+  {
+    "name": "headers",
+    "type": "collection",
+    "label": "Headers",
+    "required": false,
+    "help": "Additional HTTP headers to include with the request."
+  },
+  {
+    "name": "qs",
+    "type": "collection",
+    "label": "Query string",
+    "required": false,
+    "help": "Key-value pairs to append to the URL as query parameters."
+  },
+  {
+    "name": "body",
+    "type": "any",
+    "label": "Body",
+    "required": false,
+    "help": "Request body content (e.g. JSON object or raw text)."
+  }
+]

@@ -1,0 +1,14 @@
+{
+  "url": "/audits?limit=1",
+  "method": "GET",
+  "headers": {
+    "Authorization": "Bearer {{parameters.apiKey}}",
+    "X-API-Key": "{{parameters.apiKey}}",
+    "User-Agent": "SEOWebChecker-Make-App/1.0.0 (+https://seowebchecker.com/)"
+  },
+  "response": {
+    "error": {
+      "message": "[{{statusCode}}] {{ifempty(body.message, body.error, 'Invalid API key or unauthorized access.')}}"
+    }
+  }
+}

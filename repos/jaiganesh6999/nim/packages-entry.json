@@ -1,0 +1,15 @@
+{
+  "name": "seowebchecker",
+  "url": "https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk?subdir=nim",
+  "method": "git",
+  "tags": [
+    "seo",
+    "audit",
+    "analyzer",
+    "crawler",
+    "seowebchecker"
+  ],
+  "description": "Technical SEO audit library and CLI for on-page performance, tags, and content health",
+  "license": "MIT",
+  "web": "https://seowebchecker.com/"
+}

@@ -1,0 +1,31 @@
+{
+  "name": "seowebchecker",
+  "description": "Automated technical on-page SEO audit client SDK for validating meta tags, headings, OpenGraph social cards, Core Web Vitals, and image accessibility.",
+  "main": "dist/seowebchecker.js",
+  "authors": [
+    "Rahul Gupta <jaiganesh6999@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "seo",
+    "seo-audit",
+    "technical-seo",
+    "seowebchecker",
+    "meta-tags",
+    "core-web-vitals",
+    "open-graph",
+    "accessibility"
+  ],
+  "homepage": "https://seowebchecker.com/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk.git"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "tests",
+    "test"
+  ]
+}

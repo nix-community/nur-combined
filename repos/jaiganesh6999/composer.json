@@ -1,0 +1,39 @@
+{
+  "name": "seowebchecker/seoaudit-sdk",
+  "description": "Lightweight open-source client SDK and CLI tool for website SEO audits, on-page analysis, and Core Web Vitals checks by SEOWebChecker.",
+  "type": "library",
+  "license": "MIT",
+  "homepage": "https://seowebchecker.com/",
+  "authors": [
+    {
+      "name": "SEOWebChecker Team",
+      "email": "support@seowebchecker.com",
+      "homepage": "https://seowebchecker.com/"
+    }
+  ],
+  "keywords": [
+    "seo",
+    "seo-audit",
+    "seo-checker",
+    "meta-tags",
+    "core-web-vitals",
+    "website-audit",
+    "seowebchecker",
+    "packagist-seo"
+  ],
+  "require": {
+    "php": "^8.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "SeoWebChecker\\SeoAudit\\": "php/src/"
+    }
+  },
+  "bin": [
+    "php/bin/seowebchecker"
+  ],
+  "support": {
+    "issues": "https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk/issues",
+    "source": "https://github.com/jaiganesh6999/seowebchecker-seoaudit-sdk"
+  }
+}

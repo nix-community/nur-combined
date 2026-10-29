@@ -1,0 +1,27 @@
+---
+- name: Ensure SEOWebChecker log directory exists
+  ansible.builtin.file:
+    path: "{{ seowebchecker_log_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Ensure SEOWebChecker report directory exists
+  ansible.builtin.file:
+    path: "{{ seowebchecker_report_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Schedule automated SEO audits via cron
+  ansible.builtin.cron:
+    name: "SEOWebChecker Audit - {{ item.name }}"
+    user: root
+    hour: "{{ item.cron_hour | default('2') }}"
+    minute: "{{ item.cron_minute | default('30') }}"
+    job: >-
+      curl -s -L -A "SEOWebChecker-Cron/1.0 (+https://seowebchecker.com/)" --max-time 15 "{{ item.url }}" > /dev/null 2>&1
+  loop: "{{ seowebchecker_sites }}"
+  when: seowebchecker_sites is defined and seowebchecker_sites | length > 0

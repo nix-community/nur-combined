@@ -1,0 +1,13 @@
+C:\Users\rinki\.gemini\antigravity\scratch\seowebchecker-seoaudit-sdk\dotnet\src\SeoWebChecker.SeoAudit\bin\Debug\netstandard2.0\SeoWebChecker.SeoAudit.deps.json
+C:\Users\rinki\.gemini\antigravity\scratch\seowebchecker-seoaudit-sdk\dotnet\src\SeoWebChecker.SeoAudit\bin\Debug\netstandard2.0\SeoWebChecker.SeoAudit.dll
+C:\Users\rinki\.gemini\antigravity\scratch\seowebchecker-seoaudit-sdk\dotnet\src\SeoWebChecker.SeoAudit\bin\Debug\netstandard2.0\SeoWebChecker.SeoAudit.pdb
+C:\Users\rinki\.gemini\antigravity\scratch\seowebchecker-seoaudit-sdk\dotnet\src\SeoWebChecker.SeoAudit\bin\Debug\netstandard2.0\SeoWebChecker.SeoAudit.xml
+C:\Users\rinki\.gemini\antigravity\scratch\seowebchecker-seoaudit-sdk\dotnet\src\SeoWebChecker.SeoAudit\obj\Debug\netstandard2.0\SeoWebChecker.SeoAudit.csproj.AssemblyReference.cache
+C:\Users\rinki\.gemini\antigravity\scratch\seowebchecker-seoaudit-sdk\dotnet\src\SeoWebChecker.SeoAudit\obj\Debug\netstandard2.0\SeoWebChecker.SeoAudit.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rinki\.gemini\antigravity\scratch\seowebchecker-seoaudit-sdk\dotnet\src\SeoWebChecker.SeoAudit\obj\Debug\netstandard2.0\SeoWebChecker.SeoAudit.AssemblyInfoInputs.cache
+C:\Users\rinki\.gemini\antigravity\scratch\seowebchecker-seoaudit-sdk\dotnet\src\SeoWebChecker.SeoAudit\obj\Debug\netstandard2.0\SeoWebChecker.SeoAudit.AssemblyInfo.cs
+C:\Users\rinki\.gemini\antigravity\scratch\seowebchecker-seoaudit-sdk\dotnet\src\SeoWebChecker.SeoAudit\obj\Debug\netstandard2.0\SeoWebChecker.SeoAudit.csproj.CoreCompileInputs.cache
+C:\Users\rinki\.gemini\antigravity\scratch\seowebchecker-seoaudit-sdk\dotnet\src\SeoWebChecker.SeoAudit\obj\Debug\netstandard2.0\SeoWebChecker.SeoAudit.sourcelink.json
+C:\Users\rinki\.gemini\antigravity\scratch\seowebchecker-seoaudit-sdk\dotnet\src\SeoWebChecker.SeoAudit\obj\Debug\netstandard2.0\SeoWebChecker.SeoAudit.dll
+C:\Users\rinki\.gemini\antigravity\scratch\seowebchecker-seoaudit-sdk\dotnet\src\SeoWebChecker.SeoAudit\obj\Debug\netstandard2.0\SeoWebChecker.SeoAudit.xml
+C:\Users\rinki\.gemini\antigravity\scratch\seowebchecker-seoaudit-sdk\dotnet\src\SeoWebChecker.SeoAudit\obj\Debug\netstandard2.0\SeoWebChecker.SeoAudit.pdb

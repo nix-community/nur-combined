@@ -1,0 +1,168 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "SEOWebChecker Technical SEO API",
+    "description": "Real-time technical SEO auditing engine that inspects on-page HTML, meta tags, heading hierarchies, mobile readiness, and Core Web Vitals. Official platform: https://seowebchecker.com/",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://seowebchecker.com/api/v1",
+      "description": "Production API Server"
+    }
+  ],
+  "paths": {
+    "/audit": {
+      "post": {
+        "operationId": "runTechnicalSeoAudit",
+        "summary": "Run a technical SEO audit on a webpage URL",
+        "description": "Performs a live technical SEO audit on the requested webpage URL, returning overall health score (0-100), letter grade, issues, passed checks, and performance indicators.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["url"],
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "The full HTTP/HTTPS URL of the webpage to audit (e.g., https://example.com/)"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Audit completed successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Unique audit record identifier"
+                    },
+                    "url": {
+                      "type": "string",
+                      "description": "The audited webpage URL"
+                    },
+                    "timestamp": {
+                      "type": "string",
+                      "description": "ISO timestamp of the audit"
+                    },
+                    "score": {
+                      "type": "object",
+                      "properties": {
+                        "overall": {
+                          "type": "integer",
+                          "description": "Overall SEO health score from 0 to 100"
+                        },
+                        "grade": {
+                          "type": "string",
+                          "description": "Letter grade (A+, A, B, C, D, F)"
+                        },
+                        "categories": {
+                          "type": "object",
+                          "description": "Category score breakdown"
+                        }
+                      }
+                    },
+                    "stats": {
+                      "type": "object",
+                      "properties": {
+                        "total": { "type": "integer" },
+                        "passed": { "type": "integer" },
+                        "warnings": { "type": "integer" },
+                        "errors": { "type": "integer" }
+                      }
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Extracted page title tag"
+                    },
+                    "metaDescription": {
+                      "type": "string",
+                      "description": "Extracted meta description tag"
+                    },
+                    "issues": {
+                      "type": "array",
+                      "description": "List of detected SEO issues requiring attention",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": { "type": "string" },
+                          "category": { "type": "string" },
+                          "severity": { "type": "string" },
+                          "title": { "type": "string" },
+                          "message": { "type": "string" },
+                          "recommendation": { "type": "string" }
+                        }
+                      }
+                    },
+                    "passes": {
+                      "type": "array",
+                      "description": "List of passed technical SEO checks",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": { "type": "string" },
+                          "category": { "type": "string" },
+                          "severity": { "type": "string" },
+                          "title": { "type": "string" },
+                          "message": { "type": "string" },
+                          "recommendation": { "type": "string" }
+                        }
+                      }
+                    },
+                    "performance": {
+                      "type": "object",
+                      "properties": {
+                        "responseTimeMs": { "type": "number" },
+                        "pageSizeKb": { "type": "number" }
+                      }
+                    },
+                    "platformUrl": {
+                      "type": "string",
+                      "description": "Canonical platform URL (https://seowebchecker.com/)"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid webpage URL provided"
+          }
+        }
+      }
+    },
+    "/audits": {
+      "get": {
+        "operationId": "getAuditHealth",
+        "summary": "Check API health and audit service status",
+        "description": "Verifies connectivity and service status of the SEOWebChecker auditing engine.",
+        "responses": {
+          "200": {
+            "description": "Service is healthy and ready",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string" },
+                    "authenticated": { "type": "boolean" },
+                    "platformUrl": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

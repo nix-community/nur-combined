@@ -1,0 +1,14 @@
+{
+  "statusCode": 200,
+  "headers": {
+    "content-type": "application/json",
+    "x-ratelimit-limit": "100",
+    "x-ratelimit-remaining": "99"
+  },
+  "body": {
+    "status": "success",
+    "data": {
+      "audits": []
+    }
+  }
+}

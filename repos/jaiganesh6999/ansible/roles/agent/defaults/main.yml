@@ -1,0 +1,12 @@
+---
+# Defaults for seowebchecker.agent role
+seowebchecker_log_dir: "/var/log/seowebchecker"
+seowebchecker_report_dir: "/var/www/html/seo-reports"
+seowebchecker_default_threshold: 85
+
+seowebchecker_sites:
+  - name: "primary_site"
+    url: "https://seowebchecker.com/"
+    threshold: 85
+    cron_hour: "2"
+    cron_minute: "30"

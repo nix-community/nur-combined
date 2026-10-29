@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.seowebchecker</groupId>
+    <artifactId>com.seowebchecker.seoaudit</artifactId>
+    <version>1.0.0</version>
+    <packaging>eclipse-plugin</packaging>
+
+    <name>SEOWebChecker - Technical SEO Audit &amp; Analyzer for Eclipse IDE</name>
+    <description>Eclipse IDE plugin providing real-time technical SEO diagnostics, heading structure validation, and accessibility auditing.</description>
+    <url>https://seowebchecker.com/</url>
+
+    <properties>
+        <tycho.version>4.0.4</tycho.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.eclipse.tycho</groupId>
+                <artifactId>tycho-maven-plugin</artifactId>
+                <version>${tycho.version}</version>
+                <extensions>true</extensions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
