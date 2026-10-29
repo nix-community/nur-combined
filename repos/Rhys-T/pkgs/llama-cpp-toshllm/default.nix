@@ -3,7 +3,7 @@
     toshllm-hash = "sha256-+ZamcTXNTKGDFYXRjHQHsXHqf/HGWvNOgI1dGak2uAo=";
     llama-cpp-rev = "d81235049384534c167caea52b85a694f6103d14";
     llama-cpp-hash = "sha256-l6l6JIlIVTaVC6xh5M4fRHFtXsweQuugtkNTWHcZZF4=";
-    llama-cpp-npmDepsHash = "sha256-EtENJZGwm2CUH/z4K469T2ZXtlMMLM5SVZZ2e5HMokI=";
+    llama-cpp-npmDepsHash = "sha256-vPPviazkbTSDgVlXhXv5ICcIG6QJ9NmDGE0lFcOMOsg=";
     
     toshllmSrc = fetchFromGitHub {
         owner = "engeldlgado";
