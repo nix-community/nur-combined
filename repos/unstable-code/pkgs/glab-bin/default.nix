@@ -8,7 +8,7 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "glab-bin";
-  version = "1.125.0";
+  version = "1.126.0";
 
   # ⚠️ 소스 빌드가 아니라 **upstream 공식 바이너리**를 쓴다. 이유는 nixpkgs 의 갱신 지연이다 —
   #   gitlab-runner-bin 과 같은 사정이다. nixpkgs 의 glab 은 2026-10-21 기준 master 까지 1.114.0 이고
@@ -28,7 +28,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   #   갱신 절차: ./update.sh (GitLab releases API 의 최고 semver 를 보고 아래 version/hash 를 교체).
   src = fetchurl {
     url = "https://gitlab.com/gitlab-org/cli/-/releases/v${finalAttrs.version}/downloads/glab_${finalAttrs.version}_linux_amd64.tar.gz";
-    hash = "sha256-xzJfFOQIvib8wbpfen9x8CwaIKo6xgGKV/sEkB6lVJo=";
+    hash = "sha256-84ZRm6g+lIKXmZLuf2Du6+5NlblQ+V9P5yieChsep0w=";
   };
 
   # tarball 은 최상위에 bin/ 이 바로 있다(감싸는 디렉터리가 없다).
