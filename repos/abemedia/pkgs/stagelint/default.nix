@@ -9,22 +9,22 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    x86_64-linux = "1546hmsy789i3cppjrwny2kwl4ccn6z31dlxy94mnxhm5rb3biqx";
-    aarch64-linux = "1i6vnd36j6bcs9r96n67nm3x76d9r6g7wlgxcibsaxv49kbm5vz5";
-    x86_64-darwin = "1hnadx6f9n6yfc5dyppcx6dm4n2i39zi2a5s8gbkw3n03j6priyd";
-    aarch64-darwin = "1c4l60qswl70ck3vd7z8s4xwn7a6j02yqmrpv41zvqhad5w3v4h1";
+    x86_64-linux = "1yfzydwbzk2v0zsagx8nkaki1yxcgb49c7mj8bg493ph7accqla9";
+    aarch64-linux = "1dxr1lncdhgsgchq7whpr1wdlf784xnf8r7b6pcsbl7wljcaxw9c";
+    x86_64-darwin = "1rzkq54nvwsrjp52xw9mv3ah5s6s4lz0whdil9b2xc341qsw3qyw";
+    aarch64-darwin = "0l81dsn1kwkhl1bhvaykav41q314bpq2nwzis6i2w6i5h2mplwqp";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/abemedia/stagelint/releases/download/v0.2.1/stagelint-0.2.1-x86_64-unknown-linux-musl.tar.gz";
-    aarch64-linux = "https://github.com/abemedia/stagelint/releases/download/v0.2.1/stagelint-0.2.1-aarch64-unknown-linux-musl.tar.gz";
-    x86_64-darwin = "https://github.com/abemedia/stagelint/releases/download/v0.2.1/stagelint-0.2.1-x86_64-apple-darwin.tar.gz";
-    aarch64-darwin = "https://github.com/abemedia/stagelint/releases/download/v0.2.1/stagelint-0.2.1-aarch64-apple-darwin.tar.gz";
+    x86_64-linux = "https://github.com/abemedia/stagelint/releases/download/v0.2.2/stagelint-0.2.2-x86_64-unknown-linux-musl.tar.gz";
+    aarch64-linux = "https://github.com/abemedia/stagelint/releases/download/v0.2.2/stagelint-0.2.2-aarch64-unknown-linux-musl.tar.gz";
+    x86_64-darwin = "https://github.com/abemedia/stagelint/releases/download/v0.2.2/stagelint-0.2.2-x86_64-apple-darwin.tar.gz";
+    aarch64-darwin = "https://github.com/abemedia/stagelint/releases/download/v0.2.2/stagelint-0.2.2-aarch64-apple-darwin.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "stagelint";
-  version = "0.2.1";
+  version = "0.2.2";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
