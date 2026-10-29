@@ -41,13 +41,13 @@ stdenvNoCC.mkDerivation (
   in
   {
     pname = "doona-${if isLite then "lite" else "web"}";
-    version = "0.1.0-rc.2";
+    version = "0.1.0-rc.3";
 
     src = fetchFromGitHub {
       owner = "Zakkaus";
       repo = "doona";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-8nz7ijd/SvZ8K7j+78hzToDRsLqwptCIIAAPZY7FQCE=";
+      hash = "sha256-92zHiOBeIAfC7ueBAwYS4tO/rxNjmS4cPVsHG9kkstU=";
     };
 
     __structuredAttrs = true;
