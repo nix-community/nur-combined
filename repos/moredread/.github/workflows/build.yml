@@ -1,4 +1,4 @@
-name: "Build and populate cache"
+name: "Build"
 on:
   pull_request:
   push:
@@ -25,19 +25,10 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v7
     - name: Install nix
-      uses: cachix/install-nix-action@v31
+      uses: nixbuild/nix-quick-install-action@v35
       with:
-        extra_nix_config: |
+        nix_conf: |
           experimental-features = nix-command flakes
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-    - name: Setup cachix
-      # Disabled: auth token expired, Cachix support under review.
-      if: false
-      uses: cachix/cachix-action@v16
-      with:
-        name: moredread
-        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
     - name: Show nixpkgs version
       run: |
         nixpkgs=$(nix flake metadata --json ${{ matrix.nixpkgs.override }} . \
