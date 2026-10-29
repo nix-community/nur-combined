@@ -1,5 +1,7 @@
 # nurpkgs
 
+run a program: `nix run github:mio-19/nurpkgs#android-translation-layer_patched`
+
 see all packages: <https://nur.nix-community.org/repos/mio/> How to use (NUR guide) <https://nur.nix-community.org/documentation/> You will want to use `nur.repos.mio.*`
 
 See cachix pins for betterbird linux builds by shelvacu https://app.cachix.org/cache/mio#pins
