@@ -50,7 +50,7 @@ let
   #
   # `bun install` resolves the platform-specific payloads (the OpenTUI native
   # bundles, ripgrep, ...), so every target has its own hash.
-  workspaceDepsHashes = {
+  workspaceDepsHashes sha256-idg6ydzNgalKICYUZnQuRSxXx8I4wtRs1cmB4yNN33A=
     x86_64-linux = "sha256-I7RZGJHfhcNEY9iNW8ud56SCV57PEUEerulQBk6BYks=";
     aarch64-darwin = "sha256-94p8tlkSY6DHOSp4/DdoG1/0aYfA0tFN48pM2CV2iI8=";
   };
