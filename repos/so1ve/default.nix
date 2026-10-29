@@ -22,6 +22,7 @@ in
   herdr = pkgs.callPackage ./pkgs/herdr { };
   kelivo = pkgs.callPackage ./pkgs/kelivo { };
   kotlin-lsp = pkgs.callPackage ./pkgs/kotlin-lsp { };
+  magpie = pkgs.callPackage ./pkgs/magpie { };
   niri = pkgs.callPackage ./pkgs/niri { };
   peazip-rar = pkgs.callPackage ./pkgs/peazip-rar { };
   r-maple-mono-nf-cn = pkgs.callPackage ./pkgs/r-maple-mono-nf-cn { };

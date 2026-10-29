@@ -25,6 +25,7 @@ Ray's personal [NUR](https://github.com/nix-community/NUR) repository
 | `herdr` | [Upstream](https://github.com/herdrdev/herdr) |
 | `kelivo` | [Upstream](https://github.com/Chevey339/kelivo) |
 | `kotlin-lsp` | [Usage](pkgs/kotlin-lsp/README.md) |
+| `magpie` | [Upstream](https://github.com/yetone/magpie) |
 | `peazip-rar` | [Usage](pkgs/peazip-rar/README.md) |
 | `r-maple-mono-nf-cn` | [Usage](pkgs/r-maple-mono-nf-cn/README.md) |
 | `rea` | [Usage](pkgs/rea/README.md) |
