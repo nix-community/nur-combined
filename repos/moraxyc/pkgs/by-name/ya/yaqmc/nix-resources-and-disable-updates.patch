@@ -1,16 +1,23 @@
 diff --git a/apps/desktop/main/index.ts b/apps/desktop/main/index.ts
+index 034955d..916acd5 100644
 --- a/apps/desktop/main/index.ts
 +++ b/apps/desktop/main/index.ts
-@@ -65,7 +65,7 @@
+@@ -66,13 +66,11 @@ import { createHostLog, type HostLog } from './host-log';
  import { linuxGraphicsDiagnostics, linuxGraphicsSwitches } from './linux-graphics';
  import { mergeChromiumFeatureList, windowsOcclusionSwitches } from './windows/windows-occlusion';
  import { OVERLAY_VISUAL_DOCUMENT_GUARD } from './windows/surface-visual-document';
 -import { createElectronUpdaterPort, noopUpdaterPort } from './services/electron-updater-port';
 +import { noopUpdaterPort } from './services/electron-updater-port';
  import { createUpdater, type UpdaterHandle } from './services/updater';
- import { APP_SCHEME, appIndexUrl, serveAppUrl } from './protocol';
- import { applyAppWindowGuards, applySessionSecurity, VITE_DEV_ORIGIN } from './security';
-@@ -212,12 +212,12 @@
+ import { packageKind, type BuildIdentity } from './services/release-catalog';
+ import { readUpdatePreferences, writeUpdatePreferences } from './services/update-preferences';
+ import {
+-  atomicUpdateJson,
+-  launchNativeUpdate,
+   nativeUpdateHealth,
+   nativeUpdateResult,
+   recoverNativeUpdate,
+@@ -223,12 +221,12 @@ const repoRoot = path.resolve(desktopRoot, '../..');
  const harnessRoot = __YAQMC_QA_BUILD__ ? path.join(desktopRoot, 'harness') : '';
  const viteDist = path.join(repoRoot, 'dist');
  const methodAclPath = app.isPackaged
@@ -25,16 +32,50 @@ diff --git a/apps/desktop/main/index.ts b/apps/desktop/main/index.ts
  const nativeWayland = isNativeWaylandSession();
  
  function liveDisplayBackend(): string {
-@@ -524,7 +524,7 @@
-   port:
-     __YAQMC_QA_BUILD__ && smoke
-       ? noopUpdaterPort()
--      : createElectronUpdaterPort(updaterReleaseChannel()),
-+      : noopUpdaterPort(),
+@@ -589,41 +587,7 @@ async function confirmNativeUpdateHealth(healthy: boolean) {
+   if (target) await nativeUpdateHealth(appUpdateRoot, app.getVersion(), healthy, target);
+ }
+ const updaterHandle = createUpdater({
+-  port:
+-    __YAQMC_QA_BUILD__ && smoke
+-      ? noopUpdaterPort()
+-      : createElectronUpdaterPort({
+-          currentVersion: app.getVersion(),
+-          identity: updateIdentity,
+-          fetcher: (url, init) =>
+-            session.fromPartition('yaqmc-app-updater', { cache: false }).fetch(url, init),
+-          directory: path.join(appUpdateRoot, 'downloads'),
+-          beforeNsisInstall: (candidate) =>
+-            atomicUpdateJson(path.join(appUpdateRoot, 'nsis-pending.json'), {
+-              version: candidate.version,
+-              oldVersion: app.getVersion(),
+-              candidateId: candidate.id,
+-            }),
+-          installNative: (candidate, file) =>
+-            launchNativeUpdate({
+-              root: appUpdateRoot,
+-              helper: path.join(
+-                process.resourcesPath,
+-                'updater',
+-                process.platform === 'win32' ? 'yaqmc-update-helper.exe' : 'yaqmc-update-helper',
+-              ),
+-              target:
+-                updateIdentity.packageKind === 'portable'
+-                  ? (process.env.PORTABLE_EXECUTABLE_FILE ?? '')
+-                  : (process.env.APPIMAGE ?? ''),
+-              candidate,
+-              package: file,
+-              quit: () => {
+-                stopping = true;
+-                app.quit();
+-              },
+-            }),
+-        }),
++  port: noopUpdaterPort(),
    emit: (channel, payload) => {
      writeHostLog(`updater ${payload.state}`);
      fanoutEvent(channel, payload);
-@@ -538,7 +538,7 @@
+@@ -668,7 +632,7 @@ function packagedRendererRoot(): string | undefined {
    if (!app.isPackaged) {
      return undefined;
    }
@@ -43,7 +84,7 @@ diff --git a/apps/desktop/main/index.ts b/apps/desktop/main/index.ts
    if (existsSync(path.join(candidate, 'index.html'))) {
      return candidate;
    }
-@@ -1093,7 +1093,7 @@
+@@ -1228,7 +1192,7 @@ function startSupervisor(): Promise<void> {
    const launch = resolveCoreLaunch({
      env: process.env,
      stagedDir: path.join(desktopRoot, 'resources', 'core'),
@@ -52,3 +93,12 @@ diff --git a/apps/desktop/main/index.ts b/apps/desktop/main/index.ts
      cargoTargetDir: process.env.CARGO_TARGET_DIR,
      repoRoot,
      packaged: app.isPackaged,
+@@ -1348,7 +1312,7 @@ if (
+       await recoverNativeUpdate(
+         appUpdateRoot,
+         path.join(
+-          process.resourcesPath,
++          (process.env.YAQMC_NIX_RESOURCES ?? process.resourcesPath),
+           'updater',
+           process.platform === 'win32' ? 'yaqmc-update-helper.exe' : 'yaqmc-update-helper',
+         ),
