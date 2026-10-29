@@ -14,7 +14,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "terminal-browser";
-  version = "electron-v44.5.1";
+  version = "0.15.1";
 
   src = fetchFromGitHub {
     owner = "zenbu-labs";
@@ -82,7 +82,14 @@ stdenv.mkDerivation (finalAttrs: {
     name = "update-terminal-browser";
     text = ''
       export UPDATE_NIX_ATTR_PATH="terminal-browser"
-      exec ${lib.escapeShellArgs (nix-update-script { })} "$@"
+      exec ${
+        lib.escapeShellArgs (nix-update-script {
+          extraArgs = [
+            "--version-regex"
+            "^v([0-9.]+)$"
+          ];
+        })
+      } "$@"
     '';
   };
 
