@@ -1,0 +1,75 @@
+{
+  // Renovate config for Dauliac/nur-packages.
+  // Mirrors Dauliac/nix-oci; rationale lives inline, do not strip comments.
+  // Validate locally with:
+  //   nix run nixpkgs#renovate -- --platform=local --dry-run
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+
+  extends: [
+    "config:recommended",
+    ":semanticCommits",
+  ],
+
+  timezone: "UTC",
+  schedule: [ "before 6am on sunday" ],
+
+  platformAutomerge: true,
+  labels: [ "dependencies" ],
+
+  prConcurrentLimit: 5,
+  prHourlyLimit: 2,
+
+  // Flake inputs (nixpkgs) via the built-in manager.
+  nix: { enabled: true },
+
+  lockFileMaintenance: {
+    enabled: true,
+    schedule: [ "before 6am on the first day of the month" ],
+  },
+
+  packageRules: [
+    // One PR per flake input, for clean bisection.
+    {
+      matchManagers: [ "nix" ],
+      groupName: null,
+      commitMessageTopic: "flake input {{depName}}",
+    },
+    // This repo deliberately tracks nixpkgs-unstable: NUR itself indexes
+    // against unstable, so pinning to a release channel here would make the
+    // local build diverge from what the indexer evaluates.
+    {
+      matchManagers: [ "nix" ],
+      matchDepNames: [ "nixpkgs" ],
+      automerge: false,
+      labels: [ "dependencies", "nix-nixpkgs" ],
+    },
+    {
+      matchManagers: [ "github-actions" ],
+      matchUpdateTypes: [ "patch", "minor" ],
+      automerge: true,
+    },
+    {
+      matchManagers: [ "github-actions" ],
+      matchCurrentValue: "main",
+      enabled: false,
+    },
+  ],
+
+  // Must live at the top level: renovate-config-validator rejects
+  // `vulnerabilityAlerts` inside `packageRules`. Security bumps get a label
+  // for triage and are never auto-merged, so the decision stays human even
+  // for a patch.
+  vulnerabilityAlerts: {
+    labels: [ "security" ],
+    automerge: false,
+  },
+
+  // Deliberately NOT handled by Renovate: the vsm pin in pkgs/vsm/default.nix.
+  // Renovate can rewrite the version string but cannot compute a Nix
+  // fixed-output hash, so a regex-manager bump would produce a PR that fails
+  // to build every time. The `postUpgradeTasks` escape hatch is gated behind
+  // `allowedCommands`, which is self-hosted-only and ignored in this file.
+  // That pin is owned by .github/workflows/update-vsm.yml, which runs
+  // nix-update and rewrites version, src hash and cargoHash together.
+  ignorePaths: [ "pkgs/**" ],
+}
