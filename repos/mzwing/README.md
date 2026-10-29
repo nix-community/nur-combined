@@ -34,6 +34,7 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 | `manboster-beta` | [Usage](https://github.com/manboster/manboster) |
 | `manboster-canary` | [Usage](https://github.com/manboster/manboster) |
 | `manboster-rc` | [Usage](https://github.com/manboster/manboster) |
+| `regionrestrictioncheck` | [Usage](https://github.com/1-stream/RegionRestrictionCheck) |
 | `replay-fish` | [Usage](https://github.com/jorgebucaran/replay.fish) |
 | `sing-box-alpha` | [Usage](https://sing-box.sagernet.org/) |
 | `sing-box-beta` | [Usage](https://sing-box.sagernet.org/) |
