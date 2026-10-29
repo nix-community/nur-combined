@@ -2,6 +2,7 @@
 import os
 import re
 import urllib.request
+import urllib.parse
 import urllib.error
 import json
 import configparser
@@ -90,7 +91,7 @@ def get_latest_github_tag_by_date(owner, repo, current_rev=None, allow_prereleas
         req = urllib.request.Request(f"https://github.com/{owner}/{repo}/tags.atom")
         with urllib.request.urlopen(req, timeout=5) as response:
             content = response.read().decode()
-            tags = re.findall(r'href="[^"]+/releases/tag/([^"]+)"', content)
+            tags = [urllib.parse.unquote(t) for t in re.findall(r'href="[^"]+/releases/tag/([^"]+)"', content)]
             tags = [t for t in tags if is_stable_tag(t, allow_prerelease)]
             tags = filter_tags_by_prefix(tags, current_rev)
                         
@@ -290,6 +291,13 @@ def main():
                 
             with open(pkg_nix, 'r') as f:
                 content = f.read()
+
+            upstream_nix = os.path.join(pkg_path, 'upstream.nix')
+            if os.path.exists(upstream_nix):
+                with open(upstream_nix, 'r') as uf:
+                    ucontent = uf.read()
+                    ucontent = re.sub(r'^\{[^}]*\}:\s*', '', ucontent)
+                    content += "\nsrc = " + ucontent
                 
             if re.search(r'src\s*=\s*sources\.', content) and not any(x in content for x in ('fetchFromGitHub', 'fetchFromGitLab', 'fetchgit', 'fetchPypi', 'fetchurl')):
                 continue

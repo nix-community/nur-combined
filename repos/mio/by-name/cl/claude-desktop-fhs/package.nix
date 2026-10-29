@@ -6,7 +6,12 @@
 
 let
   upstream = import ../claude-desktop/upstream.nix { inherit fetchFromGitHub; };
+  fhs = callPackage (upstream + "/nix/fhs.nix") {
+    inherit claude-desktop;
+  };
 in
-callPackage (upstream + "/nix/fhs.nix") {
-  inherit claude-desktop;
-}
+fhs.overrideAttrs (prevAttrs: {
+  passthru = (prevAttrs.passthru or { }) // {
+    inherit (claude-desktop.passthru) updateScript;
+  };
+})
