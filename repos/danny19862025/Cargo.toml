@@ -6,6 +6,7 @@ description = "A keyboard-first native Linux productivity launcher"
 license = "MIT"
 
 [dependencies]
+semver = "1"
 gtk = { package = "gtk4", version = "0.10", features = ["v4_10"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"

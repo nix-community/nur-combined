@@ -918,6 +918,7 @@ dependencies = [
  "libc",
  "qrcodegen",
  "rand_core",
+ "semver",
  "serde",
  "serde_json",
  "wasmi",

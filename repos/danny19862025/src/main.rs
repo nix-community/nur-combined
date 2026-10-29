@@ -57,6 +57,7 @@ mod systemtools_ui;
 mod texttools;
 mod theme;
 mod todos;
+mod updates;
 #[cfg(test)]
 mod usability_smoke;
 mod wasmplugins;
@@ -5549,7 +5550,10 @@ impl Ui {
         done.set_hexpand(true);
         footer.append(&done);
         layout.append(&footer);
-        dialog.set_child(Some(&layout));
+        let overlay = gtk::Overlay::new();
+        overlay.set_child(Some(&layout));
+        about::opening_animation(&overlay);
+        dialog.set_child(Some(&overlay));
         let keys = gtk::EventControllerKey::new();
         let parent = dialog.downgrade();
         keys.connect_key_pressed(move |_, key, _, _| {
