@@ -66,6 +66,14 @@ func NixWriteFile(path string, data []byte, mode os.FileMode) error {
 	return NixWriteFixture(path, func() error { return os.WriteFile(path, data, mode) })
 }
 
+func NixRename(old, destination string) error {
+	return NixWriteFixture(destination, func() error { return os.Rename(old, destination) })
+}
+
+func NixSymlink(target, destination string) error {
+	return NixWriteFixture(destination, func() error { return os.Symlink(target, destination) })
+}
+
 // NixSave calibrates real local edits used by sync tests, leaving no-ops and errors intact.
 // Kernel-assigned mtimes can lag the wall clock used by backup.Created by several milliseconds.
 // Explicit time overrides after Save remain authoritative; internal sync restores are not wrapped.
