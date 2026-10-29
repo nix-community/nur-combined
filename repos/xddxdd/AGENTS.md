@@ -285,7 +285,7 @@ appimageTools.wrapType2 {
 ### 已知限制
 
 - 上游 git 子模块使用 SSH URL（如 `git@github.com:...`）的包无法被 nix-update 重新计算哈希；此类包应写独立 update.sh 自行计算哈希，或保持手动更新
-- 包装类包（override nixpkgs 包、无独立 src，如 lantianCustomized.materialgram/firefox-unwrapped/attic-telnyx-compatible、uncategorized.wechat-uos-sandboxed/nftables-fullcone/libnftnl-fullcone）继承自 nixpkgs 的 updateScript 在本仓库无法正确运行，已在 `helpers/update.nix` 的 `excludes` 列表中排除，它们跟随 nixpkgs flake 锁更新
+- 包装类包（override nixpkgs 包、无独立 src，如 lantianCustomized.materialgram/attic-telnyx-compatible、uncategorized.wechat-uos-sandboxed/nftables-fullcone/libnftnl-fullcone）继承自 nixpkgs 的 updateScript 在本仓库无法正确运行，已在 `helpers/update.nix` 的 `excludes` 列表中排除，它们跟随 nixpkgs flake 锁更新
 - python-packages 组的包因 nixpkgs `buildPythonPackage` 自动注入 `passthru.updateScript`，未迁移的包会被运行器的 `sources.` 过滤器跳过
 
 ## 源码管理

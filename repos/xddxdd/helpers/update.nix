@@ -24,11 +24,6 @@
   # they follow flake.lock updates instead of having their own update script.
   excludes ? [
     "lantianCustomized.materialgram"
-    "lantianCustomized.firefox-unwrapped"
-    # Pure wrapper over nixpkgs firefox-esr-153-unwrapped; it inherits the
-    # nixpkgs updateScript which references nixpkgs attribute names and can
-    # never run here. Follows flake.lock updates like firefox-unwrapped.
-    "lantianCustomized.firefox-esr-unwrapped"
     "lantianCustomized.attic-telnyx-compatible"
     "uncategorized.wechat-uos-sandboxed"
     "uncategorized.nftables-fullcone"
