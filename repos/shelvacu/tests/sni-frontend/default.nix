@@ -20,6 +20,9 @@ let
   zoneName = ".zone.test";
   zoneApex = "zone.test";
   zoneDeep = "deep.sub.zone.test";
+  # Issued by pebble, one per challenge type, so each relay path is exercised.
+  http01Domain = "http01.test";
+  alpnDomain = "alpn.test";
 
   rootCA = certs.selfSigned "sni-test-ca" {
     ca = true;
@@ -58,14 +61,21 @@ in
         wildcardApex
         zoneApex
         zoneDeep
+        http01Domain
+        alpnDomain
       ];
     };
   };
 
+  nodes.acme = { modulesPath, ... }: { imports = [ "${modulesPath}/../tests/common/acme/server" ]; };
+
   # The machine with the public address. It serves local.test itself and hands
   # passthru.test to the backend without decrypting it.
-  nodes.front = { config, ... }: {
+  nodes.front = { config, lib, ... }: {
     imports = [ vacuModules.sni-frontend ];
+
+    # Started by the test script, after it has checked that ACME fails without it.
+    systemd.services.nginx.wantedBy = lib.mkForce [ ];
 
     vacu.sniFrontend = {
       enable = true;
@@ -97,6 +107,26 @@ in
       virtualHosts."http://${plainDomain}".extraConfig = ''
         bind ${config.vacu.sniFrontend.httpBind}
         respond "plain {http.request.remote.host}"
+      '';
+      virtualHosts.${http01Domain}.extraConfig = ''
+        tls {
+          issuer acme {
+            dir https://${nodes.acme.test-support.acme.caDomain}/dir
+            trusted_roots ${nodes.acme.test-support.acme.caCert}
+            disable_tlsalpn_challenge
+          }
+        }
+        respond "acme"
+      '';
+      virtualHosts.${alpnDomain}.extraConfig = ''
+        tls {
+          issuer acme {
+            dir https://${nodes.acme.test-support.acme.caDomain}/dir
+            trusted_roots ${nodes.acme.test-support.acme.caCert}
+            disable_http_challenge
+          }
+        }
+        respond "acme"
       '';
     };
   };
@@ -143,9 +173,26 @@ in
   testScript = ''
     start_all()
 
+    acme_domains = ["${http01Domain}", "${alpnDomain}"]
+
+    acme.wait_for_unit("pebble.service")
+    acme.wait_for_open_port(443)
+    front.wait_for_unit("caddy.service")
+
+    with subtest("Caddy's ACME solver leaves the public ports to nginx"):
+        # Only nginx may answer a challenge. If the solver listened on :80 or
+        # :443 itself, it would answer these without nginx — and take the port
+        # nginx needs to start.
+        for domain in acme_domains:
+            front.wait_until_succeeds(
+                f"journalctl -u caddy | grep 'authorization failed' | grep -q '{domain}'",
+                timeout=420,
+            )
+        front.fail("ss -Htln '( sport = :80 or sport = :443 )' | grep -q .")
+
+    front.succeed("systemctl start nginx.service")
     backend.wait_for_unit("caddy.service")
     backend.wait_for_open_port(443)
-    front.wait_for_unit("caddy.service")
     front.wait_for_unit("nginx.service")
     front.wait_for_open_port(443)
     client.wait_for_unit("multi-user.target")
@@ -237,5 +284,12 @@ in
     with subtest("the plain-HTTP relay carries the client address too"):
         served_ip = client.succeed("curl -sS --fail http://${plainDomain}/").split()[1]
         assert served_ip == client_ip, f"expected client {client_ip}, Caddy saw {served_ip}"
+
+    with subtest("ACME challenges of both kinds are answered through the relay"):
+        for domain in acme_domains:
+            client.wait_until_succeeds(
+                f"curl -sS -k -w '%{{certs}}' -o /dev/null https://{domain}/ | grep -i '^Issuer:' | grep -q Pebble",
+                timeout=600,
+            )
   '';
 }

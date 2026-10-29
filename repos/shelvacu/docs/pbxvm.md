@@ -1,8 +1,8 @@
 # pbxvm — Asterisk + TFTP for the Cisco CP-8851
 
 A vacuvm on prophecy (tag 6, `10.78.77.6` / `2602:fce8:106:10::6`) that does two
-jobs: TFTP-provisions one Cisco IP Phone 8851 and gives it dial tone through a
-Telnyx SIP trunk.
+jobs: TFTP-provisions one Cisco IP Phone 8851 and gives it dial tone through
+SIP trunks (SignalWire and JMP.chat).
 
 ## Why it looks like this
 
@@ -22,7 +22,7 @@ Telnyx SIP trunk.
   which upstream deleted in Asterisk 21 and the patch reintroduces wholesale.
 
   So the phone is a `chan_sip` peer in `sip.conf` with `cisco=yes`, and the
-  Telnyx trunk stays a `chan_pjsip` endpoint. The two stacks are independent and
+  trunks stay `chan_pjsip` endpoints. The two stacks are independent and
   cannot share a bind, so chan_sip keeps 5060 (which is what the phone is told
   and what it falls back to) and chan_pjsip moves to 5062. Only outbound
   registration uses the latter, so the number is arbitrary — providers reply to
@@ -46,24 +46,25 @@ Telnyx SIP trunk.
   same flow the REGISTER opened, which is what survives the SNAT. Each AOR's
   `qualify_frequency=30` doubles as the keepalive that stops conntrack dropping
   that mapping.
-- **Telnyx is encrypted, JMP.chat can't be.** `vacu.pbx.trunks.<name>.encrypt`
+- **SignalWire is encrypted, JMP.chat can't be.** `vacu.pbx.trunks.<name>.encrypt`
   moves a trunk to SIP over TLS (server cert verified against the system CA
-  bundle) and SDES-SRTP media. Telnyx supports both. SignalWire's cert only has
+  bundle) and SDES-SRTP media. SignalWire supports both, but its cert only has
   `*.sip.signalwire.com`, and stock pjsip rejects wildcards (RFC 5922 §7.2), so
   the bundled pjproject is patched to accept them. JMP's SIP account is a direct
   connection to Bandwidth over plain UDP, with no TLS or SRTP on offer, so that
   trunk is cleartext signalling and media. Its only authentication is digest on
   the requests we send.
-- **Two trunks, two line buttons.** `vacu.pbx.trunks` generates a pjsip
+- **Line buttons pick the trunk.** `vacu.pbx.trunks` generates a pjsip
   endpoint/aor/registration set and a `from-<name>` inbound context per
   provider, so adding a third is a few lines.
 
   Each trunk also gets a **line button on the handset**, and that is how you
-  choose which way a call goes out. Each button is a chan_sip peer of its own —
-  10701 for Telnyx on button 1, 10702 for JMP.chat on button 2, counting up from
-  `vacu.pbx.extension` — so the button a call was placed on arrives at asterisk
-  as _which peer sent the INVITE_. Each peer has its own `from-phone-<trunk>`
-  context whose only job is to `Set(TRUNK=…)` before handing off to the shared
+  choose which way a call goes out. Button 1 is **Default**, which uses
+  `vacu.pbx.defaultTrunk`; after it comes one button per trunk. Each button is
+  a chan_sip peer of its own — 10701 for Default, 10702 for JMP.chat, 10703 for
+  SignalWire, counting up from `vacu.pbx.extension` — so the button a call was placed on arrives at asterisk
+  as _which peer sent the INVITE_. Each peer uses its trunk's `from-phone-<trunk>`
+  context, whose only job is to `Set(TRUNK=…)` before handing off to the shared
   dialplan. Nothing is dialled to select a trunk, so nothing interferes with the
   dial rules, and the normal timeouts apply unchanged.
 
@@ -83,8 +84,8 @@ Telnyx SIP trunk.
   digest username rather than its own. Context, callerid and dialplan stay the
   line's own, which is what leaves room for the scheme above.
 
-  Inbound, each trunk rings its own line, so the button that lights up tells you
-  which of your numbers was called.
+  Inbound, each trunk rings its own line (never Default), so the button that
+  lights up tells you which of your numbers was called.
 
   `dialPrefix` still exists as a second way in — a prefix that forces a trunk
   from any line — but no trunk sets one now.
@@ -179,10 +180,9 @@ ssh-keyscan 10.78.77.6
 git add common/hosts.nix secrets/hosts/pbxvm.yaml   # flakes only see tracked files
 ```
 
-- `telnyx.password` — the password of the Telnyx **credential connection** whose
-  username is `usertelnyx97122`. That connection must also have TLS transport
-  and SRTP enabled for inbound calls in the Telnyx portal: asterisk rejects an
-  unencrypted offer on this trunk, and Telnyx rejects an answer without one.
+- `signalwire.password` — the password of the SignalWire SIP endpoint `pbxvm`.
+  Its inbound calls must offer SRTP: asterisk rejects an unencrypted offer on
+  this trunk.
 - `jmpchat.password` — the JMP.chat / Bandwidth password for `c4986875698`.
 - `softphone.pixel.password`, `softphone.fw.password` — one per
   `vacu.pbx.softphones` entry; long and random, they face the internet.
@@ -222,17 +222,17 @@ same and more.
 # on pbxvm
 journalctl -fu darkhttpd                    # watch the phone fetch SEP….cnf.xml
 journalctl -fu atftpd                       # only if HTTP failed and it fell back
-asterisk -rx 'pjsip show registrations'     # telnyx and jmpchat → Registered
-asterisk -rx 'sip show peers'               # 10701 and 10702 → one row each, with
-                                            # a host:port, i.e. both lines are up
+asterisk -rx 'pjsip show registrations'     # signalwire and jmpchat → Registered
+asterisk -rx 'sip show peers'               # 10701–10703 → one row each, with
+                                            # a host:port, i.e. every line is up
 ```
 
-Both line peers must show a host:port. 10702 gets its one from 10701's
-registration (`register=` in `sip.conf`), so it appears a moment after the phone
-registers and not before — if 10701 is unregistered, both look dead.
+Every line peer must show a host:port. 10702 and 10703 get theirs from 10701's
+registration (`register=` in `sip.conf`), so they appear a moment after the
+phone registers and not before — if 10701 is unregistered, all of them look dead.
 
 Then dial **611** from the handset for an echo test — that proves RTP between
-phone and PBX without involving Telnyx or spending money. After that, dial a
+phone and PBX without involving a trunk or spending money. After that, dial a
 real number.
 
 ### SSH on the handset
@@ -355,18 +355,17 @@ curl -s http://<phone-ip>/FS/messages | grep -A6 'INVITE sip:'
 
 ### Picking a trunk
 
-Press the line button for the trunk you want — **Telnyx** on button 1, **JMP**
-on button 2 — then dial. Off-hook without pressing one takes button 1, so Telnyx
-stays the no-thought default (`vacu.pbx.defaultTrunk` decides which trunk that
-is, and it is always button 1).
+Press the line button for the trunk you want — **JMP** on button 2,
+**SignalWire** on button 3 — then dial. Off-hook without pressing one takes
+button 1, **Default**, which goes out `vacu.pbx.defaultTrunk` (SignalWire).
 
-The labels next to the buttons come from each trunk's `label`; the dialling
+The labels next to the trunk buttons come from each trunk's `label`; the dialling
 rules below are the same on every line.
 
 ### Numbers
 
 - 10 digits (`5555550123`), 11 (`15555550123`), or `+1…` — all normalised to
-  E.164 and sent to Telnyx.
+  E.164 and sent to the line's trunk.
 - Every rule is anchored on a literal leading digit (`1..........`, then
   `2.........` through `9.........` for the ten-digit case). `.` matches any
   character, so a bare ten-dot rule also matches the first ten keys of
@@ -495,15 +494,11 @@ minute or two after a boot, and the only reliable test of whether the dial rules
 are live is to dial a ten-digit number and see whether it sends on the last
 digit.
 
-`vacu.pbx.trunks.telnyx.outboundCallerId` is unset, so Telnyx picks the
-connection's default caller ID. Set it to an E.164 number you own to override.
+`vacu.pbx.trunks.<name>.outboundCallerId` is unset, so each provider picks its
+own default caller ID. Set it to an E.164 number you own to override.
 
 ## Things that will need attention later
 
-- `vacu.pbx.trunks.telnyx.signalingIps` is Telnyx's _US_ signalling pair from
-  <https://sip.telnyx.com/>. If the connection moves region, or Telnyx
-  renumbers, update it (inbound would still work via `line=yes`, but the
-  `identify` would stop matching).
 - No second handset, no CDR storage. All are additions to
   `hosts/pbxvm/asterisk.nix` rather than rework.
 - `<loadInformation>` is absent from the XML unless `vacu.pbx.firmwareLoad` is
@@ -620,8 +615,8 @@ go back down that connection, and the peer knows them by the registration's
   a number the peer advertises goes over the peering; if the peer cannot take
   it (`CHANUNAVAIL`/`CONGESTION`: unregistered, or it 404s) it falls back to the
   trunk. Busy or no answer does not fall back. Ours are
-  `vacu.pbx.advertisedNumbers`; a peer's call to one rings line 1 like a trunk
-  call (contacts, DND, voicemail). Remove a number there and redeploy to take it
+  `vacu.pbx.advertisedNumbers`; a peer's call to one rings the Default line,
+  otherwise like a trunk call (contacts, DND, voicemail). Remove a number there and redeploy to take it
   back off the peering; the peer needs to do nothing.
 - **What a peer can reach:** our device extensions and advertised numbers.
   Nothing else: no trunks, no voicemail menu. Anything else is a 404.

@@ -34,8 +34,8 @@ in
       description = ''
         The SIP username the phone's *first* line registers as. Each further
         line button counts up from here — with two trunks and the default
-        `10701`, the phone registers as 10701 and 10702. Numeric because of
-        that counting.
+        `10701`, the phone registers as 10701, 10702 and 10703. Numeric
+        because of that counting.
       '';
     };
     lines = mkOption {
@@ -43,8 +43,8 @@ in
       readOnly = true;
       type = types.listOf (types.attrsOf types.str);
       description = ''
-        The phone's line buttons, one per trunk, in button order: the default
-        trunk on button 1 and the rest after it. Computed, not set by hand —
+        The phone's line buttons, in button order: "Default" on button 1,
+        which uses `defaultTrunk`, then one per trunk. Computed, not set by hand —
         `trunks` and `extension` are the inputs. Each entry has `trunk`,
         `index`, `extension` and `label`.
 
@@ -243,10 +243,10 @@ in
     };
     defaultTrunk = mkOption {
       type = types.str;
-      default = "telnyx";
+      default = "signalwire";
       description = ''
-        Which `trunks` entry gets line button 1 on the phone, and so carries
-        any call placed without picking a line first.
+        Which `trunks` entry the phone's "Default" line (button 1) uses, and
+        so carries any call placed without picking a line first.
       '';
     };
     trunks = mkOption {
@@ -269,17 +269,17 @@ in
                   the display name its line registers with. The 8851 has room
                   for a short word.
                 '';
-                example = "Telnyx";
+                example = "SignalWire";
               };
               user = mkOption {
                 type = types.str;
                 description = "Credential username to register with.";
-                example = "usertelnyx97122";
+                example = "pbxvm";
               };
               domain = mkOption {
                 type = types.str;
                 description = "SIP FQDN to register to and dial through.";
-                example = "sip.telnyx.com";
+                example = "example.sip.signalwire.com";
               };
               port = mkOption {
                 type = types.port;
@@ -357,18 +357,27 @@ in
 
     vacu.pbx.phoneMac = "C444A03F4BD6";
     vacu.pbx.publicIp = "205.201.63.13";
-    # One line button per trunk, default trunk first. Every button is its own
+    # "Default" first, then one line button per trunk. Every button is its own
     # SIP registration, so the extensions count up from `extension`.
     vacu.pbx.lines =
-      let
-        names = [ cfg.defaultTrunk ] ++ lib.remove cfg.defaultTrunk (lib.attrNames cfg.trunks);
-      in
-      lib.imap1 (i: name: {
-        trunk = name;
-        index = toString i;
-        extension = toString (lib.toInt cfg.extension + i - 1);
-        inherit (cfg.trunks.${name}) label;
-      }) names;
+      lib.imap1
+        (i: l: {
+          inherit (l) trunk label;
+          index = toString i;
+          extension = toString (lib.toInt cfg.extension + i - 1);
+        })
+        (
+          [
+            {
+              trunk = cfg.defaultTrunk;
+              label = "Default";
+            }
+          ]
+          ++ lib.mapAttrsToList (name: t: {
+            trunk = name;
+            inherit (t) label;
+          }) cfg.trunks
+        );
 
     assertions = [
       {
@@ -389,18 +398,6 @@ in
         user = "pbxvm";
         domain = "shelvacu-d4076df7dc88.sip.signalwire.com";
         encrypt = true;
-      };
-      telnyx = {
-        label = "Telnyx";
-        user = "usertelnyx97122";
-        domain = "sip.telnyx.com";
-        encrypt = true;
-        # US signalling pair from <https://sip.telnyx.com/>; update if the
-        # connection moves region.
-        signalingIps = [
-          "192.76.120.10"
-          "64.16.250.10"
-        ];
       };
       jmpchat = {
         label = "JMP";

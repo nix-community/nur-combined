@@ -20,6 +20,9 @@ let
   # own; see sip.conf below.
   secondaryLines = builtins.tail cfg.lines;
 
+  # Every line but "Default": exactly one per trunk.
+  trunkLines = builtins.tail cfg.lines;
+
   anyEncrypted = lib.any (t: t.encrypt) (lib.attrValues trunks);
 
   softphones = lib.attrValues cfg.softphones;
@@ -237,7 +240,7 @@ in
       # expects a pile of proprietary SIP that only the usecallmanager.nz patch
       # speaks -- and that patch reintroduces chan_sip to carry it, because
       # upstream deleted chan_sip in Asterisk 21. So the phone is a chan_sip
-      # peer and the Telnyx trunk stays on chan_pjsip, each with its own bind:
+      # peer and the trunks stay on chan_pjsip, each with its own bind:
       # the two stacks are independent and cannot share a port.
       "sip.conf" = ''
         [general]
@@ -388,7 +391,7 @@ in
           bind=0.0.0.0:${toString cfg.pjsipTlsPort}
           ca_list_file=${config.security.pki.caBundle}
           verify_server=yes
-          ; The default is TLSv1.0 only, which Telnyx refuses.
+          ; The default is TLSv1.0 only.
           method=tlsv1_3
           ${natSettings}
         ''}
@@ -444,7 +447,7 @@ in
           [out-${l.trunk}]
           exten => _[*+0-9].,1,Set(TRUNK=${l.trunk})
            same => n,Goto(from-phone,''${EXTEN},1)
-        '') cfg.lines}
+        '') trunkLines}
 
         ;---------------------------------------------------------------------
         ; Device to device, and so also the target of a transfer. Every 10XXX
@@ -455,7 +458,8 @@ in
         include => devices
         ${lib.concatStringsSep "\n" (
           lib.mapAttrsToList (
-            name: p: "exten => _${p.prefix}${lib.strings.replicate p.extensionLength "X"},1,Dial(PJSIP/\${EXTEN}@${name},60)\n same => n,Hangup()"
+            name: p:
+            "exten => _${p.prefix}${lib.strings.replicate p.extensionLength "X"},1,Dial(PJSIP/\${EXTEN}@${name},60)\n same => n,Hangup()"
           ) cfg.peers
         )}
         ; Voicemail, for devices without a Messages button.
@@ -564,7 +568,7 @@ in
           [from-${l.trunk}]
           exten => _[+0-9].,1,NoOp(inbound ''${EXTEN} from ${l.trunk})
            same => n,Goto(ring-phone,${l.extension},1)
-        '') cfg.lines}
+        '') trunkLines}
 
         ;---------------------------------------------------------------------
         ; Peering. See "Peering" in docs/pbxvm.md.

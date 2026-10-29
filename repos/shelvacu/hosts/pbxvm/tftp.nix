@@ -473,7 +473,7 @@ in
           <alwaysUsePrimeLine>false</alwaysUsePrimeLine>
           <phoneLabel>${cfg.phoneLabel}</phoneLabel>
           <callStats>false</callStats>
-          <!-- One line button per trunk, the default trunk on button 1. Each
+          <!-- "Default" on button 1, then one line button per trunk. Each
                is a registration of its own, which is what makes the buttons a
                trunk selector: the INVITE reaches asterisk from that line's
                peer, and the peer's context pins the trunk. Going off-hook

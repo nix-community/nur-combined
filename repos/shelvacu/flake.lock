@@ -838,11 +838,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780527243,
-        "narHash": "sha256-+SzrvRI91RdMq7pTNuu7qk59ZFH/EfxeCJWj0qmgQfA=",
+        "lastModified": 1793231320,
+        "narHash": "sha256-waYllya3EUBwVSbcEPzr7v+ICOUmyG4rGZqFmurz3do=",
         "ref": "refs/heads/master",
-        "rev": "b5f5308d55c67caa32384a7576f727326bb9ad27",
-        "revCount": 42,
+        "rev": "2f5864ef6440cd2c329ab0fc23eac0cf847a181d",
+        "revCount": 45,
         "type": "git",
         "url": "https://git.uninsane.org/shelvacu/padtype.git"
       },

@@ -26,6 +26,16 @@ in
   boot.initrd.systemd.services."padtype" = padtypeServiceConfig;
   boot.initrd.systemd.storePaths = [ padtype-pkg ];
 
+  systemd.user.services."padtype-overlay" = {
+    wantedBy = [ "graphical-session.target" ];
+    partOf = [ "graphical-session.target" ];
+    after = [ "graphical-session.target" ];
+    serviceConfig = {
+      ExecStart = "${padtype-pkg}/bin/padtype-overlay";
+      Restart = "on-failure";
+    };
+  };
+
   # boot.initrd.preLVMCommands = lib.mkIf config.boot.initrd.systemd.enable ''
   #   ${padtype-pkg}/bin/padtype &
   # '';

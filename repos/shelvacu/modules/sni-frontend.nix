@@ -92,6 +92,19 @@ in
       '';
     };
 
+    acmeSolverPorts = {
+      http = mkOption {
+        type = types.port;
+        default = 8079;
+        description = "Loopback port Caddy's HTTP-01 solver listens on, unused by anything.";
+      };
+      tlsAlpn = mkOption {
+        type = types.port;
+        default = 8442;
+        description = "Loopback port Caddy's TLS-ALPN-01 solver listens on, unused by anything.";
+      };
+    };
+
     passthrough = mkOption {
       type = types.attrsOf types.str;
       default = { };
@@ -263,9 +276,10 @@ in
 
     # The Caddyfile adapter copies default_bind into the ACME challenge
     # bind_host, so the solver tries to listen on a TCP address made from the
-    # socket path and every issuance fails. Pointing it at the wildcard host
-    # makes it find nginx on the port, which it accepts as a cooperating
-    # listener; the challenge then arrives through the relay as usual.
+    # socket path and every issuance fails. It can't be pointed at the public
+    # ports either: whenever nginx isn't holding them (it starts after Caddy)
+    # the solver takes them itself and nginx can't bind. So it gets loopback
+    # ports nothing connects to, and challenges arrive through the relay.
     services.caddy.adapter = null;
     services.caddy.configFile =
       pkgs.runCommand "caddy-config.json"
@@ -278,7 +292,8 @@ in
         ''
           set -o pipefail
           HOME=$TMPDIR caddy adapt --adapter caddyfile --config ${options.services.caddy.configFile.default} \
-            | jq '(.apps.tls.automation.policies[]?.issuers[]?.challenges.bind_host | select(. != null and startswith("unix/"))) = "0.0.0.0"' \
+            | jq '(.apps.tls.automation.policies[]?.issuers[]?.challenges | select(.bind_host? // "" | startswith("unix/")))
+                |= (.bind_host = "127.0.0.1" | .http.alternate_port = ${toString cfg.acmeSolverPorts.http} | ."tls-alpn".alternate_port = ${toString cfg.acmeSolverPorts.tlsAlpn})' \
             > $out
         '';
 

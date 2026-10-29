@@ -28,16 +28,16 @@ let
     target_host = rns.beleth.net
     target_port = 4242
 
-    [[Quad4 TCP Node 1]]
+    [[g00n.cloud Hub]]
     type = TCPClientInterface
     enabled = Yes
-    target_host = rns.quad4.io
-    target_port = 4242
+    target_host = dfw.us.g00n.cloud
+    target_port = 6969
 
-    [[FireZen]]
+    [[StoppedCold]]
     type = TCPClientInterface
     enabled = Yes
-    target_host = firezen.com
+    target_host = rns.stoppedcold.com
     target_port = 4242
   '';
   lxmdConfig = pkgs.writeText "lxmd-config" ''
@@ -64,6 +64,7 @@ in
     wantedBy = [ "multi-user.target" ];
     wants = [ "network-online.target" ];
     after = [ "network-online.target" ];
+    environment.PYTHONUNBUFFERED = "1";
     preStart = ''
       mkdir -p ${stateDir}/rns
       ln -sfn ${rnsConfig} ${stateDir}/rns/config
