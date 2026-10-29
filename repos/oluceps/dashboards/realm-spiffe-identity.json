@@ -15,7 +15,7 @@
       }
     ]
   },
-  "description": "证书生命周期、独立 WireGuard 采集、逐进程 SVID、HTTP proof 与原生 SPIRE telemetry。六节点已部署，线上数据与 OIDC 登录视觉验收均已通过。缺失数据表示未知，不视为零错误或健康。",
+  "description": "证书生命周期、独立 WireGuard 采集、逐进程 SVID、HTTP proof 与原生 SPIRE telemetry。六节点已部署，线上数据与 OIDC 登录视觉验收均已通过。缺失数据表示未知，不视为零错误或健康。 Internet gateway 使用 Caddy HTTP 指标与 realm-identity loaded SVID 观测。",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
@@ -24,7 +24,7 @@
       "includeVars": true,
       "keepTime": true,
       "targetBlank": false,
-      "title": "Envoy 网关流量与出站日志",
+      "title": "Caddy Internet gateway 网关流量与出站日志",
       "type": "link",
       "url": "/d/envoy-zero-trust-egress/envoy-zero-trust-egress-gateways"
     }
@@ -63,7 +63,7 @@
         "type": "prometheus",
         "uid": "P4169E866C3094E38"
       },
-      "description": "仅 service/internet 的当前 SVID。15 分钟和 5 分钟是看板阈值，不是新建告警规则。缺失不能判定为正常。",
+      "description": "realm-identity 通过共享 Caddy SVID source 的 loopback TLS 观测端点校验 service/internet。失败、陈旧或 inactive 时撤销证书样本；不代表每条客户端连接。",
       "fieldConfig": {
         "defaults": {
           "noValue": "缺少采集",
@@ -110,13 +110,13 @@
             "type": "prometheus",
             "uid": "P4169E866C3094E38"
           },
-          "expr": "min by(instance) (envoy_listener_ssl_certificate_xyz_service_internet_expiration_unix_time_seconds{job=\"envoy\",instance=~\"${instance:regex}\"}) - time()",
+          "expr": "(realm_workload_svid_not_after_seconds{job=\"realm-identity\",instance=~\"${instance:regex}\",unit=\"realm-internet.service\",source=\"caddy_loaded\"} - time()) and on(instance,job,monitor) (up{job=\"realm-identity\"} == 1)",
           "instant": true,
           "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
-      "title": "Envoy 互联网网关 SVID 剩余时间",
+      "title": "Caddy Internet gateway · Loaded SVID 剩余时间",
       "type": "stat"
     },
     {
@@ -124,7 +124,7 @@
         "type": "prometheus",
         "uid": "P4169E866C3094E38"
       },
-      "description": "监测采集新鲜度，不是证书签发或续期时间。",
+      "description": "观测时间不是签发/续期时间；时间戳可能在失败后保留，必须结合 observation_success 与新鲜度。",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -183,13 +183,13 @@
             "type": "prometheus",
             "uid": "P4169E866C3094E38"
           },
-          "expr": "time() - max by(instance) (timestamp(envoy_listener_ssl_certificate_xyz_service_internet_expiration_unix_time_seconds{job=\"envoy\",instance=~\"${instance:regex}\"}))",
+          "expr": "(time() - (realm_workload_svid_last_observed_timestamp_seconds{job=\"realm-identity\",instance=~\"${instance:regex}\",unit=\"realm-internet.service\",source=\"caddy_loaded\"} > 0)) and on(instance,job,monitor) (up{job=\"realm-identity\"} == 1)",
           "instant": true,
           "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
-      "title": "证书指标距上次采样",
+      "title": "Caddy Internet gateway · 距最近成功证书观测",
       "type": "stat"
     },
     {
@@ -197,32 +197,7 @@
         "type": "prometheus",
         "uid": "P4169E866C3094E38"
       },
-      "description": "仅 Envoy 已加载的信任 bundle。最晚到期不证明它包含当前签发根，也不代表磁盘 bootstrap bundle 有效。历史过期根可以与有效根共存。",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "drawStyle": "line",
-            "fillOpacity": 6,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "showPoints": "never"
-          },
-          "noValue": "缺少采集",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              }
-            ]
-          },
-          "unit": "s"
-        },
-        "overrides": []
-      },
+      "description": "Caddy loaded-SVID 观测不导出已加载 trust bundle 的 CA 清单或到期时间。磁盘 bootstrap bundle 不能替代此证据。",
       "gridPos": {
         "h": 5,
         "w": 8,
@@ -231,38 +206,18 @@
       },
       "id": 1003,
       "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "value_and_name"
+        "mode": "markdown",
+        "content": "**未提供此指标 / No metric available**\n\nCaddy loaded-SVID 观测不导出已加载 trust bundle 的 CA 清单或到期时间。磁盘 bootstrap bundle 不能替代此证据。"
       },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P4169E866C3094E38"
-          },
-          "expr": "max by(instance) ({__name__=~\"envoy_listener_ssl_certificate_xyz_[0-9]+_expiration_unix_time_seconds\",job=\"envoy\",instance=~\"${instance:regex}\"}) - time()",
-          "instant": true,
-          "legendFormat": "{{instance}}",
-          "refId": "A"
-        }
-      ],
-      "title": "Envoy bundle 最晚到期时间",
-      "type": "stat"
+      "title": "Caddy Internet gateway · Loaded trust bundle 指标未提供",
+      "type": "text"
     },
     {
       "datasource": {
         "type": "prometheus",
         "uid": "P4169E866C3094E38"
       },
-      "description": "只有 service/internet 这一类 SVID。剩余时间上升可反映替换，但无法替代签发与续期成功计数。",
+      "description": "realm-identity 通过共享 Caddy SVID source 的 loopback TLS 观测端点校验 service/internet。失败、陈旧或 inactive 时撤销证书样本；不代表每条客户端连接。",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -314,13 +269,13 @@
             "type": "prometheus",
             "uid": "P4169E866C3094E38"
           },
-          "expr": "min by(instance) (envoy_listener_ssl_certificate_xyz_service_internet_expiration_unix_time_seconds{job=\"envoy\",instance=~\"${instance:regex}\"}) - time()",
+          "expr": "(realm_workload_svid_not_after_seconds{job=\"realm-identity\",instance=~\"${instance:regex}\",unit=\"realm-internet.service\",source=\"caddy_loaded\"} - time()) and on(instance,job,monitor) (up{job=\"realm-identity\"} == 1)",
           "instant": false,
           "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
-      "title": "当前 SVID 剩余时间与轮换走势",
+      "title": "Caddy Internet gateway · Loaded SVID 剩余时间",
       "type": "timeseries"
     },
     {
@@ -328,7 +283,7 @@
         "type": "prometheus",
         "uid": "P4169E866C3094E38"
       },
-      "description": "每个查询窗口内的更新次数。证书和信任 bundle 更新都可能触发 context 更新，不能把它当成精确 SVID 续期次数。",
+      "description": "叶指纹变化的观测 Unix 时间，不是 SDS 更新或精确续期次数。首次无序列，重启重置，轮询可能漏过中间变化。",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -342,15 +297,7 @@
             "showPoints": "never"
           },
           "noValue": "缺少采集",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              }
-            ]
-          },
-          "unit": "short"
+          "unit": "dateTimeAsIso"
         },
         "overrides": []
       },
@@ -380,13 +327,13 @@
             "type": "prometheus",
             "uid": "P4169E866C3094E38"
           },
-          "expr": "sum by(instance) (increase(envoy_listener_server_ssl_socket_factory_ssl_context_update_by_sds{job=\"envoy\",instance=~\"${instance:regex}\"}[$__rate_interval]))",
+          "expr": "(realm_workload_svid_last_rotation_timestamp_seconds{job=\"realm-identity\",instance=~\"${instance:regex}\",unit=\"realm-internet.service\",source=\"caddy_loaded\"}) and on(instance,job,monitor) (up{job=\"realm-identity\"} == 1)",
           "instant": false,
           "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
-      "title": "SDS TLS context 更新次数",
+      "title": "Caddy Internet gateway · 最近观测到的叶证书变化时间",
       "type": "timeseries"
     },
     {
@@ -394,32 +341,7 @@
         "type": "prometheus",
         "uid": "P4169E866C3094E38"
       },
-      "description": "槽位编号不等于证书指纹。历史过期根会出现负值，不能以最小值判断当前 SVID 或签发根已经失效。不是磁盘 bootstrap bundle 检查。",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "drawStyle": "line",
-            "fillOpacity": 6,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "showPoints": "never"
-          },
-          "noValue": "缺少采集",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              }
-            ]
-          },
-          "unit": "s"
-        },
-        "overrides": []
-      },
+      "description": "Caddy loaded-SVID 观测不导出已加载 trust bundle 的 CA 清单或到期时间。磁盘 bootstrap bundle 不能替代此证据。",
       "gridPos": {
         "h": 7,
         "w": 24,
@@ -428,32 +350,11 @@
       },
       "id": 1006,
       "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "displayMode": "table",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
+        "mode": "markdown",
+        "content": "**未提供此指标 / No metric available**\n\nCaddy loaded-SVID 观测不导出已加载 trust bundle 的 CA 清单或到期时间。磁盘 bootstrap bundle 不能替代此证据。"
       },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P4169E866C3094E38"
-          },
-          "expr": "max by(instance,cert_slot) (label_replace({__name__=~\"envoy_listener_ssl_certificate_xyz_[0-9]+_expiration_unix_time_seconds\",job=\"envoy\",instance=~\"${instance:regex}\"},\"cert_slot\",\"$1\",\"__name__\",\"envoy_listener_ssl_certificate_xyz_([0-9]+)_expiration_unix_time_seconds\")) - time()",
-          "instant": false,
-          "legendFormat": "{{instance}} / slot {{cert_slot}}",
-          "refId": "A"
-        }
-      ],
-      "title": "Envoy bundle 各槽位证书剩余时间",
-      "type": "timeseries"
+      "title": "Caddy Internet gateway · Loaded trust bundle 指标未提供",
+      "type": "text"
     },
     {
       "collapsed": false,
@@ -1036,7 +937,7 @@
       },
       "id": 1014,
       "panels": [],
-      "title": "mTLS、访问控制与连接池保护",
+      "title": "Caddy Internet gateway · mTLS 观测与 HTTP 访问结果",
       "type": "row"
     },
     {
@@ -1044,32 +945,7 @@
         "type": "prometheus",
         "uid": "P4169E866C3094E38"
       },
-      "description": "Envoy 下游 TLS 握手信号，不是 SPIRE 节点 attestation 错误。缺失的序列不强制补零。",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "drawStyle": "line",
-            "fillOpacity": 6,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "showPoints": "never"
-          },
-          "noValue": "缺少采集",
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green"
-              }
-            ]
-          },
-          "unit": "ops"
-        },
-        "overrides": []
-      },
+      "description": "app.http.metrics 不统计 TLS 握手拒绝。Loaded SVID 探测只验证观测端点，不代表生产监听器拒绝计数；不能用 HTTP 403 替代。",
       "gridPos": {
         "h": 7,
         "w": 12,
@@ -1078,59 +954,18 @@
       },
       "id": 1015,
       "options": {
-        "legend": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "displayMode": "table",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
+        "mode": "markdown",
+        "content": "**未提供此指标 / No metric available**\n\napp.http.metrics 不统计 TLS 握手拒绝。Loaded SVID 探测只验证观测端点，不代表生产监听器拒绝计数；不能用 HTTP 403 替代。"
       },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P4169E866C3094E38"
-          },
-          "expr": "sum by(instance) (rate(envoy_listener_ssl_fail_verify_error{job=\"envoy\",instance=~\"${instance:regex}\"}[$__rate_interval]))",
-          "instant": false,
-          "legendFormat": "{{instance}} / verify error",
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P4169E866C3094E38"
-          },
-          "expr": "sum by(instance) (rate(envoy_listener_ssl_fail_verify_no_cert{job=\"envoy\",instance=~\"${instance:regex}\"}[$__rate_interval]))",
-          "instant": false,
-          "legendFormat": "{{instance}} / no client cert",
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P4169E866C3094E38"
-          },
-          "expr": "sum by(instance) (rate(envoy_listener_ssl_fail_verify_san{job=\"envoy\",instance=~\"${instance:regex}\"}[$__rate_interval]))",
-          "instant": false,
-          "legendFormat": "{{instance}} / SAN mismatch",
-          "refId": "C"
-        }
-      ],
-      "title": "下游客户端证书校验失败速率",
-      "type": "timeseries"
+      "title": "Caddy Internet gateway · TLS 拒绝计数未提供",
+      "type": "text"
     },
     {
       "datasource": {
         "type": "prometheus",
         "uid": "P4169E866C3094E38"
       },
-      "description": "区分本端证书供应异常和 TLS 连接错误。错误也可能来自对端断开，需要结合认证服务状态。",
+      "description": "1 为当前成功观测，0 为失败/未完成/陈旧；inactive 需结合 dormant。不是生产 TLS 拒绝数，也不覆盖全部客户端 TLS 连接。",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1152,7 +987,7 @@
               }
             ]
           },
-          "unit": "ops"
+          "unit": "short"
         },
         "overrides": []
       },
@@ -1182,23 +1017,13 @@
             "type": "prometheus",
             "uid": "P4169E866C3094E38"
           },
-          "expr": "sum by(instance) (rate(envoy_listener_ssl_no_certificate{job=\"envoy\",instance=~\"${instance:regex}\"}[$__rate_interval]))",
+          "expr": "(realm_workload_svid_observation_success{job=\"realm-identity\",instance=~\"${instance:regex}\",unit=\"realm-internet.service\",source=\"caddy_loaded\"}) and on(instance,job,monitor) (up{job=\"realm-identity\"} == 1)",
           "instant": false,
-          "legendFormat": "{{instance}} / no server certificate",
+          "legendFormat": "Loaded SVID observation ({{instance}})",
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P4169E866C3094E38"
-          },
-          "expr": "sum by(instance) (rate(envoy_listener_ssl_connection_error{job=\"envoy\",instance=~\"${instance:regex}\"}[$__rate_interval]))",
-          "instant": false,
-          "legendFormat": "{{instance}} / connection error",
-          "refId": "B"
         }
       ],
-      "title": "缺少服务端证书与 TLS 连接错误速率",
+      "title": "Caddy Internet gateway · Loaded SVID 观测状态",
       "type": "timeseries"
     },
     {
@@ -1246,75 +1071,19 @@
             "type": "prometheus",
             "uid": "P4169E866C3094E38"
           },
-          "expr": "sum by (instance) (envoy_http_downstream_cx_ssl_active{job=\"envoy\",instance=~\"${instance:regex}\",instance!~\"kaambl|uubboo\", envoy_http_conn_manager_prefix=\"internet\"})",
-          "legendFormat": "mTLS Active CX ({{instance}})",
+          "expr": "sum by (instance) (caddy_http_requests_in_flight{job=\"internet-gateway\",server=\"internet\",handler=\"forward_proxy\",instance=~\"${instance:regex}\"})",
+          "legendFormat": "HTTP / CONNECT in flight ({{instance}})",
           "refId": "A"
         }
       ],
-      "title": "活跃 SPIFFE mTLS 客户端连接数 (Active Downstream mTLS CX)",
-      "type": "timeseries"
+      "title": "Caddy Internet gateway · 处理中 HTTP / CONNECT 请求",
+      "type": "timeseries",
+      "description": "forward_proxy 当前正在处理的请求数；不是 TLS / TCP 连接数，也不统计隧道内请求。"
     },
     {
       "datasource": {
         "type": "prometheus",
         "uid": "P4169E866C3094E38"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "custom": {
-            "drawStyle": "line",
-            "lineInterpolation": "stepAfter",
-            "lineWidth": 2
-          },
-          "unit": "short"
-        },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": ".*CX Open.*"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "red",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": ".*RQ Open.*"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "orange",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": ".*Pending.*"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "yellow",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          }
-        ]
       },
       "gridPos": {
         "h": 7,
@@ -1324,50 +1093,12 @@
       },
       "id": 18,
       "options": {
-        "legend": {
-          "calcs": [
-            "max",
-            "last"
-          ],
-          "displayMode": "table",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "desc"
-        }
+        "mode": "markdown",
+        "content": "**未提供此指标 / No metric available**\n\nCaddy app.http.metrics 不导出 Envoy circuit-breaker gauges；缺失不能解释为无熔断或零排队。"
       },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P4169E866C3094E38"
-          },
-          "expr": "sum by (instance) (envoy_cluster_circuit_breakers_default_cx_open{job=\"envoy\",instance=~\"${instance:regex}\",instance!~\"kaambl|uubboo\", envoy_cluster_name=\"internet\"})",
-          "legendFormat": "CX Open ({{instance}})",
-          "refId": "A"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P4169E866C3094E38"
-          },
-          "expr": "sum by (instance) (envoy_cluster_circuit_breakers_default_rq_open{job=\"envoy\",instance=~\"${instance:regex}\",instance!~\"kaambl|uubboo\", envoy_cluster_name=\"internet\"})",
-          "legendFormat": "RQ Open ({{instance}})",
-          "refId": "B"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "P4169E866C3094E38"
-          },
-          "expr": "sum by (instance) (envoy_cluster_circuit_breakers_default_rq_pending_open{job=\"envoy\",instance=~\"${instance:regex}\",instance!~\"kaambl|uubboo\", envoy_cluster_name=\"internet\"})",
-          "legendFormat": "Pending RQ Open ({{instance}})",
-          "refId": "C"
-        }
-      ],
-      "title": "连接池与请求队列熔断状态 (Circuit Breaker Status)",
-      "type": "timeseries"
+      "title": "Caddy Internet gateway · 连接池熔断指标未提供",
+      "type": "text",
+      "description": "Caddy app.http.metrics 不导出 Envoy circuit-breaker gauges；缺失不能解释为无熔断或零排队。"
     },
     {
       "datasource": {
@@ -1384,42 +1115,7 @@
           },
           "unit": "reqps"
         },
-        "overrides": [
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": ".*Allowed.*"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "green",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byRegexp",
-              "options": ".*Denied.*"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "red",
-                  "mode": "fixed"
-                }
-              },
-              {
-                "id": "custom.lineWidth",
-                "value": 3
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 7,
@@ -1449,8 +1145,8 @@
             "type": "prometheus",
             "uid": "P4169E866C3094E38"
           },
-          "expr": "sum by (instance) (rate(envoy_http_rbac_allowed{job=\"envoy\",instance=~\"${instance:regex}\",instance!~\"kaambl|uubboo\", envoy_http_conn_manager_prefix=\"internet\"}[$__rate_interval]))",
-          "legendFormat": "RBAC Allowed ({{instance}})",
+          "expr": "sum by (instance) (rate(caddy_http_request_duration_seconds_count{job=\"internet-gateway\",server=\"internet\",handler=\"forward_proxy\",instance=~\"${instance:regex}\",code=~\"2..\"}[$__rate_interval]))",
+          "legendFormat": "HTTP 2xx ({{instance}})",
           "refId": "A"
         },
         {
@@ -1458,13 +1154,14 @@
             "type": "prometheus",
             "uid": "P4169E866C3094E38"
           },
-          "expr": "sum by (instance) (rate(envoy_http_rbac_denied{job=\"envoy\",instance=~\"${instance:regex}\",instance!~\"kaambl|uubboo\", envoy_http_conn_manager_prefix=\"internet\"}[$__rate_interval]))",
-          "legendFormat": "RBAC Denied/Blocked ({{instance}})",
+          "expr": "sum by (instance) (rate(caddy_http_request_duration_seconds_count{job=\"internet-gateway\",server=\"internet\",handler=\"forward_proxy\",instance=~\"${instance:regex}\",code=\"403\"}[$__rate_interval]))",
+          "legendFormat": "HTTP 403 ({{instance}})",
           "refId": "B"
         }
       ],
-      "title": "零信任 RBAC 访问控制评估速率 (RBAC Allowed vs Denied)",
-      "type": "timeseries"
+      "title": "Caddy Internet gateway · HTTP 2xx 与 403 请求速率",
+      "type": "timeseries",
+      "description": "已完成代理请求的 HTTP 状态：2xx 为成功响应，403 为 HTTP 拒绝，可能涉及目标/端口策略。不是 RBAC 决策计数或 TLS 握手拒绝；不包含隧道内 HTTPS 状态。缺失不补零。"
     },
     {
       "collapsed": false,
@@ -1536,13 +1233,13 @@
             "type": "prometheus",
             "uid": "P4169E866C3094E38"
           },
-          "expr": "up{job=~\"metrics|envoy\",instance=~\"${instance:regex}\"}",
+          "expr": "up{job=~\"metrics|internet-gateway\",instance=~\"${instance:regex}\"}",
           "instant": false,
           "legendFormat": "{{instance}} / {{job}}",
           "refId": "A"
         }
       ],
-      "title": "Node exporter 与 Envoy 采集状态",
+      "title": "Node exporter 与 Caddy Internet gateway 采集状态",
       "type": "timeseries"
     },
     {
@@ -1612,7 +1309,7 @@
         "type": "prometheus",
         "uid": "P4169E866C3094E38"
       },
-      "description": "以 Envoy 预期目标作为节点清单。0 表示缺少时钟指标，不表示时钟误差为零。若节点清单本身不可用，则显示缺少采集。",
+      "description": "以 Caddy Internet gateway 预期目标作为节点清单。0 表示缺少时钟指标，不表示时钟误差为零。若节点清单本身不可用，则显示缺少采集。",
       "fieldConfig": {
         "defaults": {
           "mappings": [
@@ -1662,7 +1359,7 @@
             "type": "prometheus",
             "uid": "P4169E866C3094E38"
           },
-          "expr": "(count by(instance) (instance:chrony_clock_error_seconds:abs{instance=~\"${instance:regex}\"}) > bool 0) or on(instance) (up{job=\"envoy\",instance=~\"${instance:regex}\"} * 0)",
+          "expr": "(count by(instance) (instance:chrony_clock_error_seconds:abs{instance=~\"${instance:regex}\"}) > bool 0) or on(instance) (up{job=\"internet-gateway\",instance=~\"${instance:regex}\"} * 0)",
           "instant": true,
           "legendFormat": "{{instance}}",
           "refId": "A"
@@ -4078,7 +3775,7 @@
   },
   "timepicker": {},
   "timezone": "browser",
-  "title": "SPIFFE 证书与节点认证",
+  "title": "SPIFFE 证书与节点认证 · Caddy Internet gateway",
   "uid": "realm-spiffe-identity",
   "weekStart": ""
 }

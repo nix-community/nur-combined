@@ -9,7 +9,7 @@ let
   cfg = config.realm.internet;
   workload = config.realm.workloads.internet;
   ingress = workload.ingress.http;
-  settings = import ../lib/realm/envoy-internet.nix {
+  settings = import ../lib/realm/caddy-internet.nix {
     inherit lib;
     nodeID = config.networking.hostName;
     address = config.realm.address;
@@ -18,9 +18,14 @@ let
     allowedIDs = ingress.allowedIDs;
     trustDomain = config.realm.trustDomain;
     spireSocket = config.realm.spire.socket;
-    inherit (cfg) extraConnectPorts extraConnectPolicies adminPort;
+    inherit (cfg)
+      extraConnectPorts
+      extraConnectPolicies
+      adminPort
+      statusPort
+      ;
   };
-  envoy = pkgs.callPackage ../pkgs/by-name/envoy-realm.nix { };
+  caddy = pkgs.callPackage ../pkgs/by-name/caddy-realm.nix { };
   configfile = (pkgs.formats.json { }).generate "realm-internet.json" settings;
 in
 {
@@ -40,7 +45,12 @@ in
     adminPort = mkOption {
       type = types.port;
       default = 19329;
-      description = "Port for the loopback Envoy admin interface and Prometheus metrics.";
+      description = "Port for the loopback Caddy Prometheus endpoint; no configuration API is exposed.";
+    };
+    statusPort = mkOption {
+      type = types.port;
+      default = 19330;
+      description = "Port for the loopback TLS SVID observation endpoint, restricted to the local identity observer.";
     };
     allowedIDs = mkOption {
       type = types.listOf types.str;
@@ -73,6 +83,17 @@ in
         message = "realm.internet: enable realm to run the Internet proxy.";
       }
       {
+        assertion =
+          lib.length (
+            lib.unique [
+              cfg.port
+              cfg.adminPort
+              cfg.statusPort
+            ]
+          ) == 3;
+        message = "realm.internet: use distinct proxy, metrics and SVID observation ports.";
+      }
+      {
         assertion = ingress.allowedIDs != [ ];
         message = "realm.internet.allowedIDs: declare at least one allowed caller.";
       }
@@ -102,16 +123,16 @@ in
       }
     ];
     environment.etc."realm-internet/config.json".source = configfile;
-    realm.observability.endpoints.envoy = {
+    realm.observability.endpoints.internet-gateway = {
       port = cfg.adminPort;
-      path = "/stats/prometheus";
+      path = "/metrics";
     };
-    # Keep the gateway in its own unit and SPIFFE identity. SPIRE streams
-    # the SVID and trust bundle over SDS; private keys stay in memory.
+    # One process and one SPIFFE identity. Caddy's Workload API source and
+    # verifier follow SVID and trust-bundle changes for each new handshake.
     systemd.services.realm-internet = {
       wantedBy = [ "multi-user.target" ];
-      # Static route changes restart the unit. SDS rotates certificates
-      # without restarting the gateway.
+      # Static policy changes restart the unit. Workload API certificate and
+      # bundle updates do not require a gateway restart.
       restartTriggers = [ configfile ];
       requires = [ "spire-agent.service" ];
       after = lib.mkAfter [
@@ -120,13 +141,33 @@ in
       ];
       wants = [ "network-online.target" ];
       serviceConfig = {
-        Type = "simple";
+        Type = "notify";
         User = workload.user;
         Group = workload.group;
-        ExecStartPre = "${envoy}/bin/envoy --mode validate --config-path /etc/realm-internet/config.json";
-        ExecStart = "${envoy}/bin/envoy --config-path /etc/realm-internet/config.json --concurrency 2 --disable-hot-restart";
+        ExecStartPre = "${caddy}/bin/caddy validate --config /etc/realm-internet/config.json";
+        ExecStart = "${caddy}/bin/caddy run --config /etc/realm-internet/config.json";
         Restart = "on-failure";
         RestartSec = "3s";
+        StateDirectory = "realm-internet";
+        RuntimeDirectory = "realm-internet";
+        RuntimeDirectoryMode = "0700";
+        Environment = [
+          "XDG_DATA_HOME=/var/lib/realm-internet"
+          "XDG_CONFIG_HOME=/var/lib/realm-internet"
+          "HOME=/var/lib/realm-internet"
+        ];
+        # Keep destination ACL checks on the direct dial path. An inherited
+        # upstream proxy must not resolve or dial a destination on our behalf.
+        UnsetEnvironment = [
+          "HTTP_PROXY"
+          "HTTPS_PROXY"
+          "ALL_PROXY"
+          "NO_PROXY"
+          "http_proxy"
+          "https_proxy"
+          "all_proxy"
+          "no_proxy"
+        ];
         ProtectSystem = "strict";
         ProtectHome = true;
         PrivateDevices = true;

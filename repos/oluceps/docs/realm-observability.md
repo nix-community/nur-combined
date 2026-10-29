@@ -46,7 +46,8 @@ Eihort 先做试运行，Hastur 最后切换。Uubboo 和 Kaambl 未部署、未
 | 18496 | SPIRE Server 原生 telemetry，仅 Eihort |
 | 18499 | 观测 Caddy 的 canary-only mTLS 证书观察入口 |
 | 30000–39999 | 每个 Ghostunnel unit 的独立 loopback status 入口；按注册名稳定哈希分配 |
-| 19329 | 现有 Envoy admin；只读 `/certs` |
+| 19329 | Internet Caddy 的 loopback HTTP `/metrics`；由 `realm.internet.adminPort` 配置 |
+| 19330 | Internet Caddy 的 canary-only TLS 1.3 SVID 观察入口；由 `realm.internet.statusPort` 配置 |
 
 上述入口只监听 loopback。新增 status 端口同时有非 loopback 入站丢弃规则。
 status 端口由注册名的稳定哈希生成，新增或删除注册项不会移动其他 unit 的端口。
@@ -89,11 +90,17 @@ Responder 的 HTTP 读取也不是 proof 验证，更不是证书签发。
 | source | 实际检查 | 限制 |
 | --- | --- | --- |
 | `ghostunnel_status_watch` | mTLS GET `/_metrics/prometheus`；校验证书链、时间和精确 URI | Ghostunnel 1.10 的 status listener 有独立 Workload API watch，不能证明业务 watch 已接受轮换 |
-| `caddy_loaded` | 同一观测 Caddy 进程的共享 SVID 源，通过专用 loopback mTLS listener 返回 204 | 只描述这个 Caddy 进程，不代表公共 Caddy 的 Ghostunnel 代理 |
+| `caddy_loaded` | 对应 Caddy 进程的共享 SVID 源，通过专用 loopback mTLS listener 的 GET `/` 返回 204 | 分别观察观测 Caddy 和 Internet Caddy；不代表公共 Caddy 的 Ghostunnel 代理 |
 | `envoy_loaded` | 读取 loopback admin `/certs`，选择精确 URI 的当前 `cert_chain` | 读取的是已加载的公开元数据；不把 CA 条目当叶证书 |
 
 TLS 观察使用 exporter 自己的 canary、当前 Workload API bundle 和 TLS 1.3。
-Caddy 专用入口只允许本机 observer 身份。
+Caddy 专用入口只允许本机 observer 身份。Internet holder 保持
+`unit="realm-internet.service"` 和 `realm.workloads.internet.spiffeID`，来源改为 `caddy_loaded`，
+地址为 `127.0.0.1:${realm.internet.statusPort}`（默认 19330）。该 listener 必须与业务 listener
+在同一 Caddy 进程中共享实际 SVID automation source 和 expectedID，要求 TLS 1.3，
+只允许 `spiffe://<trustDomain>/observer/identity/<hostname>`，GET `/` 返回 204。
+不能把 plaintext `/metrics` 入口作为 holder 地址，也不能用 exporter canary 的身份替代 gateway 身份。
+`envoy_loaded` 仍是 exporter 支持的旧数据源，但 Internet holder 不再使用它。
 
 `realm_workload_svid_last_rotation_timestamp_seconds` 表示本 exporter 观察到叶指纹或 Envoy 元数据摘要发生变化的时间。
 它不是精确续期次数；首次采集、尚无变化或 exporter 重启后可以没有该序列。
@@ -123,6 +130,48 @@ Caddy 专用入口只允许本机 observer 身份。
 独立路径目前只中继元数据 exporter。原生 SPIRE 和 attestation 指标仍经过 SPIFFE 观测网关；看板分别显示路径是否可用。
 故障 VM 已验证：停止 Agent 后，独立 `/metrics` 仍响应，canary 变为失败，恢复 Agent 后重新成功。
 
+## Internet gateway 的 Caddy 监控契约
+
+本节描述 Envoy → 原生 SPIFFE Caddy forward proxy 的配置变更，尚未部署；上面的历史巡检结果不代表本次变更已验收。
+
+Gateway 模块需注册唯一的 `realm.observability.endpoints.internet-gateway`，
+`port = realm.internet.adminPort`（默认 19329），`path = "/metrics"`，后端为 `127.0.0.1` 的普通 HTTP。
+保留 adminPort 选项不表示开放 Caddy 管理写接口；观测路径只中继 `/metrics`。
+身份 exporter 使用独立的 statusPort（默认 19330），两者均只监听 loopback。
+启用身份指标时，端口唯一性断言检查这两个端口与其他 metrics/status 端口，防火墙同时丢弃它们的非 loopback 入站连接。
+Gateway 模块即使在身份指标关闭时也须保持 loopback 绑定；本模块不会为指标关闭的节点添加观测规则。
+
+`mod/prometheus.nix` 的 `internet-gateway` job 经现有 SPIFFE 观测路径抓取
+`/internet-gateway/metrics`，只发现声明该 endpoint 的主机。原 `caddy` job 继续抓取观测 Caddy，
+不能复用它来抓取 Internet Caddy；gateway 模块应移除旧的 `envoy` endpoint，避免重复发现。
+业务 server 必须命名为 `internet` 并启用 Caddy HTTP metrics；plaintext metrics server 命名为 `metrics`。
+
+- `InternetGatewayDown`：`up{job="internet-gateway"} == 0` 持续 2 分钟，critical。
+  这表示抓取路径失败，也可能是观测网关或 SPIFFE egress 故障；不等价于业务 CONNECT 探测。
+- `InternetGatewayHighErrorRate`：5 分钟窗口内完成响应的 5xx 比例超过 5%，持续 5 分钟，warning。
+  分子、分母均使用 `caddy_http_request_duration_seconds_count`，筛选
+  `job="internet-gateway", server="internet", handler="forward_proxy"`，分子另加 `code=~"5.."`。
+  按 instance 聚合，分母必须大于零；没有流量或缺失数据不伪造成零错误率。
+
+[Caddy 官方指标文档](https://caddyserver.com/docs/metrics)说明请求 duration histogram 包含 `code`，
+而 `caddy_http_requests_total` 不包含 `code`，`caddy_http_request_errors_total` 统计 middleware errors。
+因此 5xx 告警使用 histogram count，不把 middleware error counter 当成 HTTP 状态码。
+CONNECT 长连接通常在隧道结束后才进入完成响应统计；该规则不检查隧道内的上游应用响应，
+4xx 策略拒绝也不计为 5xx。父任务的集成验收需确认实际生成器暴露上述 server/handler 标签和状态码样本。
+
+CONNECT 字节统计以包内 vendor 的 Caddy 2.11.4 源码为准：
+`modules/caddyhttp/responsewriter.go` 的 `responseRecorder.Hijack()` 用 `hijackedConn` 包装连接，
+跟踪读取和写入字节；`metrics.go` 的 responseSize histogram 观察 `wrec.Size()`。
+因此不能笼统声称通用 Caddy size 指标不统计 CONNECT 隧道字节；响应 size 可以包含 hijack 后写向客户端的隧道字节。
+父任务 VM 的 CONNECT access log 已观察到 `bytes_read=1737, size=3142`；这是日志样本，
+不等同于已直接验证对应 Prometheus histogram 的数值。
+另一方面，requestSize histogram 使用 `computeApproximateRequestSize(r)`，估算请求 URL、方法、协议、
+headers、Host 和已知 ContentLength，并不使用 hijacked connection 的读取字节计数。
+这些通用 HTTP 指标仍未提供按 SPIFFE identity 区分、双向对称的专用隧道字节指标，
+不能将 request/response size histogram 当作完整的双向身份流量计量。
+
+旧 Envoy 看板不会自动变为 Caddy 看板；本次未修改其 JSON，也未发布看板或部署服务。
+
 ## 日志覆盖与限制
 
 `mod/alloy.nix` 增加身份 journal source，保留 host、unit、job 和 subsystem 标签。
@@ -147,7 +196,7 @@ Chrony 记录规则最初只覆盖四台，Abhoth 和 Yidhra 的缺失在看板�
 
 逐 unit 的历史清单可检测最近 15 分钟内消失的 holder。仅传入节点名的规则无法知道在这个窗口前就已被删除的 unit；配置生成清单仍需审查。
 现有 `RealmScraperStalled` 保留，30 分钟窗口加 15 分钟持续时间仍可能接近 45 分钟，不作为直接身份检查的替代。
-已有针对 Uubboo/Kaambl 的 `EnvoyDown` 不属于本次部署范围。
+旧 `EnvoyDown` / `EnvoyHighErrorRate` 已由上述 Internet gateway 规则替代；本次配置修改未执行部署。
 
 验收包括：
 

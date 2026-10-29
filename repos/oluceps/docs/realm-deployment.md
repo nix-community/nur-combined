@@ -32,6 +32,13 @@ openssl x509 -in /tmp/realm-spire-public-bundle.pem -noout -dates -fingerprint -
 `/var/lib/realm-spire/trust-bundle.pem`，由 root 管理。现有目录可以继续持久化。
 不要从未验证的 HTTP challenge 端点下载初始根，也不要把 CA 私钥放入 Nix store。
 
+同样的分发可以用 `just sync-trust-bundle` 完成：它从 Eihort 读取 `bundle show`
+的输出，拒绝包含私钥的内容，校验 SHA-256 后以 0600 root 原子安装到
+Eihort、Abhoth、Azasos、Nodens、Yidhra、Hastur；旧文件保留为
+`trust-bundle.pem.before-sync`。`REALM_TRUST_BUNDLE_DRY=1` 只做取回与校验。
+该文件是 bootstrap 材料：运行中的 Agent 会继续从 Server 同步 bundle，
+所以更新后无需重启，只有 Agent 冷启动才读取此文件。
+
 这个路径保留的是可信公共材料，不是旧 token 协议。新节点也可以用模块的
 `trustBundle.path` 或 `trustBundle.text` 分发同一份公共 bundle。
 Server CA 正常轮换后，长期离线节点仍可能需要更新 bootstrap bundle。
@@ -40,6 +47,11 @@ Server CA 正常轮换后，长期离线节点仍可能需要更新 bootstrap bu
 
 先构建目标 generation，检查激活差异。保留上一代 system profile 和能到达它的 SSH 管理路径。
 Nodens 使用 aarch64 构建器。Yidhra 内存较小，不进行无关 GC，不删除上一代 generation。
+
+网关的 `ExecStartPre` 会调用 `caddy validate`。该命令在 unit 之外手动执行会一直挂起，
+因为 SPIFFE 注册要求 `systemd:id` 与 `unix:user` 两个 selector 同时命中；详见
+[docs/troubleshooting/2026-10-29-caddy-validate-spiffe-hang.md](troubleshooting/2026-10-29-caddy-validate-spiffe-hang.md)。
+验证网关只能看运行后的端口与指标，不要依赖手动 validate。
 
 先让 Eihort 的 Server 加载 `http_fqdn`，生成节点允许列表和稳定别名注册。Server 继续使用现有状态目录。
 切换 Eihort 本机 Agent 也需要下面的缓存迁移步骤。不要假定改了插件名称就会得到新身份。

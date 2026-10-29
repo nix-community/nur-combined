@@ -144,5 +144,89 @@ resign-all:
 
 search-history *args:
     git log -S {{ args }}
+
+# Usage: just sync-trust-bundle
+#        just sync-trust-bundle abhoth hastur
+#        REALM_TRUST_BUNDLE_DRY=1 just sync-trust-bundle
+#
+# The Server admin socket only listens on eihort, so the bundle is read over the
+# existing SSH management path. `bundle show` returns public CA certificates
+# only; the recipe refuses to distribute anything containing a private key.
+# The file is bootstrap material: a running Agent keeps syncing its bundle from
+# the Server, so this only matters when an Agent starts cold, and for nodes that
+# still carry an outdated bootstrap root.
+#
+# Sync the public SPIRE trust bundle from the Server on eihort to the Realm nodes.
+sync-trust-bundle *nodes:
+    #!/usr/bin/env nu
+    use {{ loc }}/util.nu
+
+    let server = "eihort"
+    let realm_nodes = ["abhoth" "azasos" "nodens" "yidhra" "hastur" "eihort"]
+    let requested = "{{ nodes }}" | str trim
+    let targets = if ($requested | is-empty) { $realm_nodes } else { $requested | split words }
+    let dry_run = (($env.REALM_TRUST_BUNDLE_DRY? | default "0") != "0")
+    let server_addr = (do $env.get_addr ($env.map) $server)
+
+    let bundle = (mktemp -t)
+    print $"reading public bundle from ($server) ($server_addr)"
+    ^ssh -n $"root@($server_addr)" '/run/current-system/sw/bin/spire-server bundle show -socketPath /run/spire/server/private/api.sock' | save --force $bundle
+
+    let text = (open --raw $bundle)
+    if ($text | str length) == 0 { error make { msg: $"no bundle returned by ($server)" } }
+    if not ($text | str contains "-----BEGIN CERTIFICATE-----") {
+        error make { msg: "server output is not a PEM certificate bundle" }
+    }
+    if ($text | str contains "PRIVATE KEY") {
+        error make { msg: "refusing to distribute material containing a private key" }
+    }
+
+    let certs = ($text | lines | where {|l| $l | str contains "BEGIN CERTIFICATE" } | length)
+    let local_hash = (^sha256sum $bundle | split row " " | first)
+    print $"bundle: ($certs) public certs, ($text | str length) bytes, sha256 ($local_hash)"
+
+    # Install through a rename so a concurrent reader never sees a partial file,
+    # keep the previous copy, and print the resulting hash for comparison. The
+    # bundle arrives on stdin so only `ssh` is needed; some nodes run without a
+    # working sftp subsystem, which breaks `scp`.
+    let remote_install = 'set -eu
+        dir=/var/lib/realm-spire
+        tmp="$dir/.trust-bundle.pem.new"
+        mkdir -p "$dir"
+        cat > "$tmp"
+        chmod 600 "$tmp"
+        chown root:root "$tmp"
+        if [ -f "$dir/trust-bundle.pem" ] && ! cmp -s "$tmp" "$dir/trust-bundle.pem"; then
+            cp -a "$dir/trust-bundle.pem" "$dir/trust-bundle.pem.before-sync"
+        fi
+        mv -f "$tmp" "$dir/trust-bundle.pem"
+        sha256sum "$dir/trust-bundle.pem"'
+
+    let results = $targets | each {|node|
+        let addr = (do $env.get_addr ($env.map) $node)
+        try {
+            if $dry_run {
+                print $"($node) ($addr): would install ($certs) certs"
+                { state: "planned" }
+            } else {
+                let remote_hash = (open --raw $bundle | ^ssh $"root@($addr)" $remote_install | str trim | split row " " | first)
+                let state = if $remote_hash == $local_hash { "synced" } else { "hash-mismatch" }
+                print $"($node) ($addr): ($state) ($remote_hash)"
+                { state: $state }
+            }
+        } catch {|e|
+            print -e $"($node) ($addr): failed: ($e.msg)"
+            { state: "failed" }
+        }
+    }
+
+    let failed = ($results | where {|r| $r.state == "failed" or $r.state == "hash-mismatch" } | length)
+    if $failed > 0 { error make { msg: $"($failed) targets did not receive the bundle" } }
+    if $dry_run {
+        print "dry run: nothing installed"
+    } else {
+        print "done: running Agents keep their own bundle; this file is used on the next cold start"
+    }
+
 build-topo:
     nix build .#topology.x86_64-linux.config.output

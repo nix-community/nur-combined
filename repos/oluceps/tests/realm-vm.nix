@@ -1,20 +1,29 @@
-{ nixpkgs }:
+{
+  nixpkgs,
+  fixture ? null,
+  extraModule ? { },
+  extraTestScript ? "",
+  testName ? "realm-workload-networking",
+  internetTests ? true,
+}:
 let
   pkgs = import nixpkgs {
     system = "x86_64-linux";
     config.allowUnfree = true;
     overlays = [ ];
   };
-  spireFixture = import ./realm-spire-fixture.nix { inherit pkgs; };
+  spireFixture =
+    if fixture == null then import ./realm-spire-fixture.nix { inherit pkgs; } else fixture;
 in
 pkgs.testers.runNixOSTest {
-  name = "realm-workload-networking";
+  name = testName;
   nodes.machine =
     { config, ... }:
     {
       imports = [
         ../nixosModules/realm-workloads.nix
         spireFixture.module
+        extraModule
         ../nixosModules/realm-observability.nix
         ../nixosModules/service-discovery.nix
         (import ../mod/realm-internet.nix).flake.modules.nixos.realm-internet
@@ -27,6 +36,8 @@ pkgs.testers.runNixOSTest {
         pkgs.postgresql
         pkgs.openssl
         pkgs.dnsutils
+        pkgs.python3
+        pkgs.spire
       ];
       realm.observability = {
         enable = true;
@@ -153,6 +164,14 @@ pkgs.testers.runNixOSTest {
           address = "::1";
         };
 
+        spire.registrations.vm-status = {
+          spiffeID = "spiffe://nyaw.xyz/observer/identity/machine";
+          selectors = [ "unix:uid:0" ];
+        };
+        spire.registrations.vm-status-imposter = {
+          spiffeID = "spiffe://nyaw.xyz/test/status-imposter";
+          selectors = [ "unix:uid:0" ];
+        };
         workloads = {
           vmagent.egress.observation = {
             service = "observability-machine";
@@ -383,6 +402,8 @@ pkgs.testers.runNixOSTest {
         assert output.strip() in statuses, (url, output)
         assert connections() == before, f"Rejected request reached the backend: {url}"
 
+  ''
+  + pkgs.lib.optionalString internetTests ''
     with subtest("authenticated Internet proxy permits public destinations"):
         for address in ["198.51.100.1/32", "10.1.2.3/32", "100.64.0.1/32", "169.254.1.1/32", "172.16.0.1/32", "192.168.1.1/32"]:
             machine.succeed(f"ip address add {address} dev lo")
@@ -405,7 +426,32 @@ pkgs.testers.runNixOSTest {
         machine.succeed(internet("http://public.test/hostname"))
     with subtest("CONNECT passes application TLS unchanged"):
         machine.wait_until_succeeds(internet("https://public.test/", flags="--cacert /etc/public-fixture.crt -f"), timeout=30)
-    with subtest("SDS rotates the gateway certificate without a process restart"):
+    with subtest("raw HTTP/1.0 CONNECT preserves application TLS"):
+        import shlex
+        raw_connect = ${builtins.toJSON ''
+          import socket, ssl
+          with socket.create_connection(("127.0.0.1", 13128), timeout=10) as connection:
+              connection.sendall(b"CONNECT public.test:443 HTTP/1.0\r\n\r\n")
+              response = b""
+              while not response.endswith(b"\r\n\r\n"):
+                  chunk = connection.recv(1)
+                  assert chunk, response
+                  response += chunk
+                  assert len(response) < 16384, response
+              assert response.split(b"\r\n", 1)[0].split()[1] == b"200", response
+              context = ssl.create_default_context(cafile="/etc/public-fixture.crt")
+              with context.wrap_socket(connection, server_hostname="public.test") as tls:
+                  tls.sendall(b"GET / HTTP/1.0\r\nHost: public.test\r\n\r\n")
+                  body = b""
+                  while True:
+                      chunk = tls.recv(4096)
+                      if not chunk:
+                          break
+                      body += chunk
+                  assert b"realm Internet fixture" in body, body
+        ''};
+        machine.succeed("nsenter -t $(systemctl show -p MainPID --value sender.service) -n python3 -c " + shlex.quote(raw_connect))
+    with subtest("native SPIFFE rotates the gateway certificate without a process restart"):
         process = "systemctl show realm-internet.service -p MainPID -p NRestarts"
         before = machine.succeed(process)
         # The server sends its certificate before it rejects the missing client SVID.
@@ -444,7 +490,8 @@ pkgs.testers.runNixOSTest {
         before = connections(private=True)
         machine.succeed("printf '127.0.0.1 transition.test\\n198.51.100.1 mixed.test\\n127.0.0.1 mixed.test\\n' > /run/realm-dns-hosts")
         machine.succeed("systemctl kill --signal=HUP dnsmasq.service")
-        # Wait for a gateway refresh that receives the changed DNS answer.
+        # Requests trigger fresh resolution; wait until the changed answer is visible.
+        machine.succeed(internet("http://transition.test/hostname", flags="-o /dev/null"))
         machine.wait_until_succeeds("journalctl -u dnsmasq.service -o cat --no-pager | grep -F 'transition.test is 127.0.0.1'", timeout=90)
         assert machine.succeed("dig @127.0.0.1 +short A transition.test").strip() == "127.0.0.1"
         # A failed refresh may retain the previous public address.
@@ -467,6 +514,22 @@ pkgs.testers.runNixOSTest {
             for port in [80, 8443]:
                 denied(f"http://public.test:{port}/", tunnel=True, name=name)
             denied("http://public.test:8443/", name=name)
+  ''
+  + ''
+    with subtest("gateway exposes only loopback core metrics and authenticated status"):
+        machine.wait_until_succeeds("curl --noproxy '*' -fsS http://127.0.0.1:19329/metrics | grep '^caddy_'", timeout=30)
+        for path in ["/config/", "/debug/pprof/", "/stop", "/load"]:
+            machine.fail(f"curl --noproxy '*' -fsS --max-time 3 http://127.0.0.1:19329{path}")
+        machine.fail("curl --noproxy '*' -gfsS --max-time 3 http://[::1]:19329/metrics")
+        machine.fail("curl --noproxy '*' -ksf --max-time 3 https://127.0.0.1:19330/")
+        machine.succeed("mkdir -p /run/status-svid; spire-agent api fetch x509 -socketPath /run/spire/agent/public/api.sock -write /run/status-svid")
+        machine.succeed("for cert in /run/status-svid/svid.*.pem; do if openssl x509 -in \"$cert\" -noout -ext subjectAltName | grep -q 'URI:spiffe://nyaw.xyz/observer/identity/machine'; then cp \"$cert\" /run/status.crt; cp \"$(echo \"$cert\" | cut -d. -f1,2).key\" /run/status.key; fi; done; test -s /run/status.key")
+        machine.succeed("for cert in /run/status-svid/svid.*.pem; do if openssl x509 -in \"$cert\" -noout -ext subjectAltName | grep -q 'URI:spiffe://nyaw.xyz/test/status-imposter'; then cp \"$cert\" /run/status-imposter.crt; cp \"$(echo \"$cert\" | cut -d. -f1,2).key\" /run/status-imposter.key; fi; done; test -s /run/status-imposter.key")
+        machine.fail("curl --noproxy '*' -ksf --max-time 5 --cert /run/status-imposter.crt --key /run/status-imposter.key https://127.0.0.1:19330/")
+        status_probe = "curl --noproxy '*' -ksS --max-time 5 --cert /run/status.crt --key /run/status.key"
+        assert machine.succeed(status_probe + " -o /dev/null -w '%{http_code}' https://127.0.0.1:19330/") == "204"
+        machine.fail(status_probe + " -f --tls-max 1.2 https://127.0.0.1:19330/")
+        machine.fail(status_probe + " -f https://127.0.0.1:19330/config/")
     with subtest("native ingress replaces the gateway ghostunnel"):
         machine.fail("systemctl cat realm-ingress-internet-http.service")
         machine.fail("ss -lnt | grep -E '127.0.0.1:3128\\b'")
@@ -477,6 +540,8 @@ pkgs.testers.runNixOSTest {
         machine.wait_until_succeeds(observe("/fixture/metrics", "-f"), timeout=30)
         machine.fail(observe("/fixture/metrics", "-f", "sender"))
         machine.succeed(observe("/fixture/metrics", "-f") + " | grep -F /metrics")
+        machine.succeed(observe("/internet-gateway/metrics", "-f") + " | grep '^caddy_'")
+        machine.fail(observe("/internet-gateway/metrics", "-f", "sender"))
     with subtest("observation ingress cannot access business or debugging endpoints"):
         for path in ["/", "/debug/pprof", "/fixture/metrics?debug=1", "/fixture/../debug/pprof", "/fixture/%2fdebug/pprof"]:
             result = machine.succeed(observe(path, "-o /dev/null -w '%{http_code}'"))
@@ -513,6 +578,8 @@ pkgs.testers.runNixOSTest {
         machine.succeed("ip addr add 192.0.2.1/30 dev obs-host && ip link set obs-host up")
         machine.succeed("ip -n observation-untrusted addr add 192.0.2.2/30 dev obs-client && ip -n observation-untrusted link set obs-client up")
         machine.fail("ip netns exec observation-untrusted curl -sf --max-time 2 http://192.0.2.1:18083/probe")
+        for port, scheme, path in [(19329, "http", "/metrics"), (19330, "https", "/")]:
+            machine.fail(f"ip netns exec observation-untrusted curl --noproxy '*' -ksf --max-time 2 {scheme}://192.0.2.1:{port}{path}")
     with subtest("raw backend is private"):
         machine.fail("curl -sf --max-time 2 http://127.0.0.1:3030/hostname")
     with subtest("host sockets are hidden from workload"):
@@ -543,5 +610,6 @@ pkgs.testers.runNixOSTest {
     with subtest("idempotent registration synchronization"):
         machine.succeed("systemctl restart realm-spire-register.service")
         machine.succeed(probe("sender"))
+    ${extraTestScript}
   '';
 }

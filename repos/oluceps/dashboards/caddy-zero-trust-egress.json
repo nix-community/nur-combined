@@ -1,0 +1,859 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "links": [
+    {
+      "includeVars": true,
+      "keepTime": true,
+      "targetBlank": false,
+      "title": "SPIFFE 证书与节点认证",
+      "type": "link",
+      "url": "/d/realm-spiffe-identity/3211a3c"
+    }
+  ],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 100,
+      "title": "网关核心状态与健康指标 (Gateway Overview & Health)",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "DOWN"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "UP"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 12,
+        "x": 0,
+        "y": 1
+      },
+      "id": 1,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "values": false
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "up{job=\"internet-gateway\",instance=~\"${instance:regex}\"}",
+          "instant": true,
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Caddy Internet gateway · 采集状态",
+      "type": "stat",
+      "description": "up 仅表示 Prometheus 抓取成功。"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": 0
+              },
+              {
+                "color": "orange",
+                "value": 500
+              },
+              {
+                "color": "red",
+                "value": 900
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 12,
+        "x": 12,
+        "y": 1
+      },
+      "id": 3,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "values": false
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "sum by (instance) (caddy_http_requests_in_flight{job=\"internet-gateway\",server=\"internet\",handler=\"forward_proxy\",instance=~\"${instance:regex}\"})",
+          "instant": false,
+          "legendFormat": "HTTP / CONNECT in flight ({{instance}})",
+          "refId": "A"
+        }
+      ],
+      "title": "Caddy Internet gateway · 处理中 HTTP / CONNECT 请求",
+      "type": "stat",
+      "description": "forward_proxy 当前正在处理的请求数；不是 TLS / TCP 连接数，也不统计隧道内请求。"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 5
+      },
+      "id": 101,
+      "title": "Caddy Internet gateway · 请求频次与 HTTP 字节估计",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 15,
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            }
+          },
+          "unit": "reqps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 6
+      },
+      "id": 7,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max",
+            "last"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "sum by (instance, code) (rate(caddy_http_request_duration_seconds_count{job=\"internet-gateway\",server=\"internet\",handler=\"forward_proxy\",instance=~\"${instance:regex}\"}[$__rate_interval]))",
+          "legendFormat": "{{instance}} HTTP {{code}}",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "sum by (instance) (rate(caddy_http_request_duration_seconds_count{job=\"internet-gateway\",server=\"internet\",handler=\"forward_proxy\",instance=~\"${instance:regex}\"}[$__rate_interval]))",
+          "legendFormat": "Completed requests ({{instance}})",
+          "refId": "B"
+        }
+      ],
+      "title": "Caddy Internet gateway · 已完成请求速率 / HTTP 状态",
+      "type": "timeseries",
+      "description": "只计 forward_proxy 的已完成 HTTP / CONNECT 请求；长连接在 handler 返回时记录。隧道内 HTTPS 状态不可见。"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "lineInterpolation": "smooth",
+            "lineWidth": 2
+          },
+          "unit": "Bps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 6
+      },
+      "id": 8,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max",
+            "last"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "sum by (instance) (rate(caddy_http_request_size_bytes_sum{job=\"internet-gateway\",server=\"internet\",handler=\"forward_proxy\",instance=~\"${instance:regex}\"}[$__rate_interval]))",
+          "legendFormat": "HTTP request estimate ({{instance}})",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "sum by (instance) (rate(caddy_http_response_size_bytes_sum{job=\"internet-gateway\",server=\"internet\",handler=\"forward_proxy\",instance=~\"${instance:regex}\"}[$__rate_interval]))",
+          "legendFormat": "HTTP response recorded bytes ({{instance}})",
+          "refId": "B"
+        }
+      ],
+      "title": "Caddy Internet gateway · HTTP 请求 / 响应字节估计",
+      "type": "timeseries",
+      "description": "request_size 是 URL、方法、协议、头与已知 Content-Length 的近似值；response_size 来自响应 recorder。仅在请求结束时观察，不是完整 TCP / CONNECT 隧道字节数或实时隧道带宽。"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 14
+      },
+      "id": 102,
+      "title": "延迟与响应性能 (Latency & Performance Quantiles)",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "Caddy histogram 单位为秒，handler 返回后记录；CONNECT 包含隧道存续时间，不代表隧道内 HTTPS 应用延迟。默认 histogram 最大有限桶 10 秒，长隧道分位数受桶范围限制。",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "lineWidth": 2
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 15
+      },
+      "id": 9,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max",
+            "last"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "histogram_quantile(0.99, sum by (instance, le) (rate(caddy_http_request_duration_seconds_bucket{job=\"internet-gateway\",server=\"internet\",handler=\"forward_proxy\",instance=~\"${instance:regex}\"}[$__rate_interval])))",
+          "legendFormat": "P99 duration ({{instance}})",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "histogram_quantile(0.9, sum by (instance, le) (rate(caddy_http_request_duration_seconds_bucket{job=\"internet-gateway\",server=\"internet\",handler=\"forward_proxy\",instance=~\"${instance:regex}\"}[$__rate_interval])))",
+          "legendFormat": "P90 duration ({{instance}})",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "histogram_quantile(0.5, sum by (instance, le) (rate(caddy_http_request_duration_seconds_bucket{job=\"internet-gateway\",server=\"internet\",handler=\"forward_proxy\",instance=~\"${instance:regex}\"}[$__rate_interval])))",
+          "legendFormat": "P50 duration ({{instance}})",
+          "refId": "C"
+        }
+      ],
+      "title": "Caddy Internet gateway · 请求 / CONNECT 持续时间",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 23
+      },
+      "id": 103,
+      "title": "Caddy Internet gateway · HTTP 访问结果与错误",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "lineInterpolation": "smooth",
+            "lineWidth": 2
+          },
+          "unit": "reqps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 24
+      },
+      "id": 11,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max",
+            "last"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "sum by (instance) (rate(caddy_http_request_duration_seconds_count{job=\"internet-gateway\",server=\"internet\",handler=\"forward_proxy\",instance=~\"${instance:regex}\",code=~\"2..\"}[$__rate_interval]))",
+          "legendFormat": "HTTP 2xx ({{instance}})",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "sum by (instance) (rate(caddy_http_request_duration_seconds_count{job=\"internet-gateway\",server=\"internet\",handler=\"forward_proxy\",instance=~\"${instance:regex}\",code=\"403\"}[$__rate_interval]))",
+          "legendFormat": "HTTP 403 ({{instance}})",
+          "refId": "B"
+        }
+      ],
+      "title": "Caddy Internet gateway · HTTP 2xx 与 403 请求速率",
+      "type": "timeseries",
+      "description": "已完成代理请求的 HTTP 状态：2xx 为成功响应，403 为 HTTP 拒绝，可能涉及目标/端口策略。不是 RBAC 决策计数或 TLS 握手拒绝；不包含隧道内 HTTPS 状态。缺失不补零。"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "description": "网关已完成 HTTP / CONNECT 请求的响应比例，不含隧道内 HTTPS 状态。无请求不计算比例；缺失不补零。",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "line",
+            "fillOpacity": 20,
+            "lineInterpolation": "smooth",
+            "lineWidth": 2,
+            "thresholdsStyle": {
+              "mode": "area"
+            }
+          },
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 5
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 24
+      },
+      "id": 12,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max",
+            "last"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "sum by (instance) (rate(caddy_http_request_duration_seconds_count{job=\"internet-gateway\",server=\"internet\",handler=\"forward_proxy\",instance=~\"${instance:regex}\",code=~\"4..\"}[$__rate_interval])) / (sum by (instance) (rate(caddy_http_request_duration_seconds_count{job=\"internet-gateway\",server=\"internet\",handler=\"forward_proxy\",instance=~\"${instance:regex}\"}[$__rate_interval])) > 0) * 100",
+          "legendFormat": "4xx ({{instance}})",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "sum by (instance) (rate(caddy_http_request_duration_seconds_count{job=\"internet-gateway\",server=\"internet\",handler=\"forward_proxy\",instance=~\"${instance:regex}\",code=~\"5..\"}[$__rate_interval])) / (sum by (instance) (rate(caddy_http_request_duration_seconds_count{job=\"internet-gateway\",server=\"internet\",handler=\"forward_proxy\",instance=~\"${instance:regex}\"}[$__rate_interval])) > 0) * 100",
+          "legendFormat": "5xx ({{instance}})",
+          "refId": "B"
+        }
+      ],
+      "title": "Caddy Internet gateway · HTTP 4xx / 5xx 比例",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "P4169E866C3094E38"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "line",
+            "lineInterpolation": "smooth",
+            "lineWidth": 2
+          },
+          "unit": "reqps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 24
+      },
+      "id": 13,
+      "options": {
+        "legend": {
+          "calcs": [
+            "mean",
+            "max",
+            "last"
+          ],
+          "displayMode": "table",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "P4169E866C3094E38"
+          },
+          "expr": "sum by (instance) (rate(caddy_http_request_errors_total{job=\"internet-gateway\",server=\"internet\",handler=\"forward_proxy\",instance=~\"${instance:regex}\"}[$__rate_interval]))",
+          "legendFormat": "Middleware errors ({{instance}})",
+          "refId": "A"
+        }
+      ],
+      "title": "Caddy Internet gateway · Middleware 错误速率",
+      "type": "timeseries",
+      "description": "request_errors_total 统计 forward_proxy 返回的 middleware 错误；不区分连接失败、超时或活动请求断开，也不等于所有 HTTP 4xx / 5xx。"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 32
+      },
+      "id": 106,
+      "title": "出站域名审计与访问日志 (Outbound Domains & Egress Log Analysis)",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "P8E80F9AEF21F6940"
+      },
+      "description": "统计所选节点在所选时间范围内记录的访问日志。CONNECT 通常在隧道结束时记录，不等于隧道内 HTTPS 请求数。 Caddy JSON request.host 作为目标 authority；不是 Envoy authority 字段。",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            }
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 0,
+        "y": 33
+      },
+      "id": 19,
+      "options": {
+        "cellHeight": "sm",
+        "showHeader": true
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "P8E80F9AEF21F6940"
+          },
+          "editorMode": "code",
+          "expr": "topk(20, sum by (authority) (count_over_time({unit=\"realm-internet.service\",host=~\"${instance:regex}\"} | json authority=\"request.host\" | __error__=\"\" | authority!=\"\" [$__range])))",
+          "format": "table",
+          "instant": true,
+          "queryType": "instant",
+          "refId": "A"
+        }
+      ],
+      "title": "热门出站目标域名 Top 20 (Top Outbound Destination Domains - Loki)",
+      "transformations": [
+        {
+          "id": "labelsToFields",
+          "options": {
+            "mode": "columns"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true
+            },
+            "renameByName": {
+              "Value": "Request Count",
+              "authority": "Destination Domain"
+            }
+          }
+        },
+        {
+          "id": "sortBy",
+          "options": {
+            "sort": [
+              {
+                "desc": true,
+                "field": "Request Count"
+              }
+            ]
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "P8E80F9AEF21F6940"
+      },
+      "description": "统计所选节点在所选时间范围内记录的访问日志。CONNECT 通常在隧道结束时记录，不等于隧道内 HTTPS 请求数。",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 12,
+        "x": 12,
+        "y": 33
+      },
+      "id": 20,
+      "options": {
+        "legend": {
+          "displayMode": "table",
+          "placement": "right",
+          "values": [
+            "value",
+            "percent"
+          ]
+        },
+        "pieType": "donut",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "values": false
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "P8E80F9AEF21F6940"
+          },
+          "editorMode": "code",
+          "expr": "sum by (caller_spiffe_id) (count_over_time({unit=\"realm-internet.service\",host=~\"${instance:regex}\"} |= \"caller_spiffe_id\" | json | __error__=\"\" [$__range]))",
+          "instant": true,
+          "legendFormat": "{{caller_spiffe_id}}",
+          "queryType": "instant",
+          "refId": "A"
+        }
+      ],
+      "title": "调用方 SPIFFE 身份分布 (Requests by Caller SPIFFE Identity - Loki)",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "loki",
+        "uid": "P8E80F9AEF21F6940"
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 43
+      },
+      "id": 21,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "P8E80F9AEF21F6940"
+          },
+          "editorMode": "code",
+          "expr": "{unit=\"realm-internet.service\",host=~\"${instance:regex}\"} | json | __error__=\"\" | logger=~\"http.log.access.*\"",
+          "refId": "A"
+        }
+      ],
+      "title": "出站网关实时访问日志流 (Real-time Egress Access Logs - Loki)",
+      "type": "logs"
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 42,
+  "tags": [
+    "caddy",
+    "spiffe",
+    "zero-trust",
+    "egress",
+    "network"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allValue": ".*",
+        "current": {
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "P4169E866C3094E38"
+        },
+        "definition": "label_values(up{job=\"internet-gateway\"}, instance)",
+        "includeAll": true,
+        "label": "Gateway Instance",
+        "multi": true,
+        "name": "instance",
+        "options": [],
+        "query": {
+          "query": "label_values(up{job=\"internet-gateway\"}, instance)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "sort": 1,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h"
+    ]
+  },
+  "timezone": "browser",
+  "title": "Caddy Internet Gateway · Zero-Trust Egress",
+  "uid": "envoy-zero-trust-egress",
+  "weekStart": "",
+  "description": "Caddy 2.11.4 Internet gateway：HTTP / CONNECT 请求、响应状态、秒级耗时与 HTTP 字节估计。缺失数据为未知；不提供 TLS/TCP 连接数或完整隧道流量。"
+}

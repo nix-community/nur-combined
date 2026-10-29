@@ -187,6 +187,60 @@ let
     );
 in
 lib.runTests {
+  testOverlappingConnectPoliciesCombineGrants = {
+    expr =
+      let
+        settings = import ../lib/realm/caddy-internet.nix {
+          inherit lib;
+          nodeID = "fixture";
+          address = "::1";
+          port = 19328;
+          spiffeID = "spiffe://nyaw.xyz/service/internet";
+          trustDomain = "nyaw.xyz";
+          spireSocket = "/run/spire/agent/public/api.sock";
+          allowedIDs = [ "spiffe://nyaw.xyz/service/synapse" ];
+          extraConnectPorts."spiffe://nyaw.xyz/service/synapse" = [ 8448 ];
+          extraConnectPolicies = {
+            first = {
+              identities = [ "spiffe://nyaw.xyz/service/synapse" ];
+              ports = [ 9443 ];
+            };
+            second = {
+              identities = [ "spiffe://nyaw.xyz/service/synapse" ];
+              ports = [
+                8448
+                10443
+              ];
+            };
+          };
+        };
+        routes = settings.apps.http.servers.internet.routes;
+        identityRoutes = builtins.filter (
+          route: lib.any (match: match ? vars_regexp) (route.match or [ ])
+        ) routes;
+        identityRoute = builtins.head identityRoutes;
+        defaultRoute = lib.findFirst (
+          route: lib.any (match: match == { method = [ "CONNECT" ]; }) (route.match or [ ])
+        ) null routes;
+      in
+      {
+        grants = lib.sort builtins.lessThan (builtins.head identityRoute.handle).allowed_ports;
+        matcher = (builtins.head identityRoute.match).vars_regexp;
+        fallback = (builtins.head defaultRoute.handle).allowed_ports;
+        count = builtins.length identityRoutes;
+      };
+    expected = {
+      grants = [
+        443
+        8448
+        9443
+        10443
+      ];
+      matcher."{http.request.tls.client.san.uris.0}".pattern = "^spiffe://nyaw\\.xyz/service/synapse$";
+      fallback = [ 443 ];
+      count = 1;
+    };
+  };
   testLocalGatewaySupportsMultiplePublishers = {
     expr = realmAssertions localGateway;
     expected = [ ];

@@ -381,36 +381,46 @@ other optional server-side network integrations require separate egress
 declarations when enabled. Check database extension upgrades and backup
 privileges separately from the SPIFFE/peer authentication path.
 
-Internet access uses Envoy's dynamic forward proxy and CONNECT termination.
-Envoy is the native SPIFFE ingress on port 19328, registered as
-`internet-proxy`. Each Realm node runs a gateway. Both generated and manual
-`internet-proxy` egress declarations select the local node by default. An explicit
-`egress.<route>.node` can override that default. Clients retain their local proxy
-addresses, and the gateway uses the host's existing DNS and Internet routes.
-The shared caller allowlist and CONNECT port rules remain the same on every node.
-Local target selection does not restrict the listener to local callers or add
-automatic fallback to another gateway. SPIRE supplies
-its SVID and trust bundle through SDS. Updates apply to new connections without
-restarting the gateway or writing private keys to disk. The listener requires
-a client certificate whose URI SAN matches an exact ingress `allowedIDs` entry.
+Internet access uses Caddy with the pinned `forwardproxy` plugin for HTTP
+forwarding and CONNECT tunnels. Caddy is the native SPIFFE ingress on port
+19328, registered as `internet-proxy`. Each Realm node runs a gateway. Both
+generated and manual `internet-proxy` egress declarations select the local node
+by default. An explicit `egress.<route>.node` can override that default. The
+gateway uses the host's DNS and Internet routes. Local target selection does
+not restrict the listener to local callers or add automatic gateway fallback.
 
-The gateway permits public destinations without a domain allowlist. CONNECT
-preserves application TLS. The DNS cache removes private, loopback, link-local,
-multicast and Yggdrasil addresses from DNS answers. RBAC checks the saved
-resolved address and the selected upstream address, including IP literals.
-Private IPv4-mapped IPv6 destinations are also blocked. CONNECT permits port 443, with port
-8448 also permitted for the Synapse identity. Ordinary HTTP proxy requests
-permit ports 80 and 443. The listener waits for SDS credentials before it
-accepts connections. DNS publication does not wait for this readiness.
-Misskey's only proxy bypass is s3.nyaw.xyz, which uses its local adapter to the
-internal Caddy gateway.
+The current SPIFFE plugin obtains the gateway's SVID and trust bundle directly
+from the Workload API. Its client verifier checks the certificate chain,
+client-auth purpose and exact ingress `allowedIDs`. SVID and CA updates apply
+to new handshakes without restarting the gateway or writing private keys to
+disk. The historical static CA provider and Caddy source patch are not used.
 
-`mod/overlay.nix` exports and applies `overlays.envoy`. The package in
-`pkgs/by-name/envoy-realm.nix` pins Envoy 1.40.0 release binaries and hashes for
-x86_64-linux and aarch64-linux. The optional local Nix cache adapter is also
-configured for Envoy.
-Static gateway configuration changes restart `realm-internet.service`.
-Certificate updates use SDS and do not need a configuration reload.
+The gateway permits public destinations without a domain allowlist. Its ordered
+ACL rejects private, loopback, link-local, multicast, CGNAT and Yggdrasil
+addresses before the final allow rule. The proxy resolves the hostname, filters
+the candidates, and dials a checked numeric address. IPv4 CIDR checks also cover
+private IPv4-mapped IPv6 addresses. The service clears inherited proxy environment
+variables so an upstream proxy cannot bypass this direct dialing policy.
+
+CONNECT preserves application TLS. It permits port 443, with port 8448 also
+permitted for the Synapse identity. Ordinary HTTP proxy requests permit ports
+80 and 443. The reusable module combines all extra CONNECT grants per identity
+before emitting routes. GET, HEAD, OPTIONS and TRACE bodies are limited to 8 MiB
+because the forwardproxy plugin buffers those methods; other uploads stream.
+The listener waits for its Workload API identity before accepting connections.
+DNS publication does not wait for this readiness. Misskey's proxy bypass for
+s3.nyaw.xyz uses its local adapter to the internal Caddy gateway.
+
+`pkgs/by-name/caddy-realm.nix` combines the existing SPIFFE v0.2.0 plugin with
+`caddyserver/forwardproxy` pinned at `0aab84dad4fc`. Configuration changes restart
+`realm-internet.service`; certificate and trust-bundle updates need no reload.
+The loopback HTTP endpoint `127.0.0.1:19329/metrics` is scraped through the
+observation gateway as `internet-gateway`. The separate loopback TLS endpoint
+at port 19330 admits only the local identity observer and presents the same
+actual SVID source as the business listener. Caddy's configuration API is disabled.
+Core HTTP metrics cover requests and response errors. Access logs include the
+authenticated caller SPIFFE ID and completed CONNECT byte counts; the generic
+metrics do not provide dedicated, symmetric tunnel-byte totals per identity.
 
 ## Vaultix
 

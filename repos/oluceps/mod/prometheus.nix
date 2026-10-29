@@ -223,7 +223,7 @@
               (observed "alertmanager" "alertmanager" { })
               (observed "victoriametrics" "victoriametrics" { })
               (observed "caddy" "caddy" { })
-              (observed "envoy" "envoy" { })
+              (observed "internet-gateway" "internet-gateway" { })
               (observed "spire-agent" "spire-agent" { })
               (observed "spire-server" "spire-server" { })
               (observed "identity-spiffe" "identity" { })
@@ -561,27 +561,40 @@
               ];
             }
             {
-              name = "envoy";
+              name = "internet_gateway";
               rules = [
                 {
-                  alert = "EnvoyDown";
-                  expr = ''up{job="envoy"} == 0'';
+                  alert = "InternetGatewayDown";
+                  # A host that is entirely unreachable is already reported by
+                  # RealmIdentityScrapeDown over the independent WireGuard path,
+                  # so repeating it here only doubles the page. Gate on the host
+                  # still answering: either its identity exporter, or the
+                  # observability relay (which also covers hosts outside the
+                  # identity cohort, such as the laptops, while they are online).
+                  expr = ''
+                    (up{job="internet-gateway"} == 0)
+                      and on (instance) ((up{job="realm-identity"} == 1) or (up{job="metrics"} == 1))
+                  '';
                   for = "2m";
                   labels.severity = "critical";
                   annotations = {
-                    summary = "Envoy egress gateway down on {{ $labels.instance }}";
+                    summary = "Internet gateway down on {{ $labels.instance }}";
+                    description = "The host answers other scrapes but its gateway metrics do not. Check `systemctl status realm-internet`; the unit must run the Caddy binary declared in the current generation, not a stale Envoy process from an earlier one.";
                   };
                 }
                 {
-                  alert = "EnvoyHighErrorRate";
+                  alert = "InternetGatewayHighErrorRate";
+                  # Count completed responses at the forward proxy handler only;
+                  # requests_total has no status code, and middleware errors are
+                  # not equivalent to HTTP 5xx responses.
                   expr = ''
-                    sum by (instance) (rate(envoy_http_downstream_rq_xx{job="envoy",envoy_http_conn_manager_prefix="internet",envoy_response_code_class="5"}[5m]))
-                    / (sum by (instance) (rate(envoy_http_downstream_rq_completed{job="envoy",envoy_http_conn_manager_prefix="internet"}[5m])) > 0) * 100 > 5
+                    sum by (instance) (rate(caddy_http_request_duration_seconds_count{job="internet-gateway",server="internet",handler="forward_proxy",code=~"5.."}[5m]))
+                    / (sum by (instance) (rate(caddy_http_request_duration_seconds_count{job="internet-gateway",server="internet",handler="forward_proxy"}[5m])) > 0) * 100 > 5
                   '';
                   for = "5m";
                   labels.severity = "warning";
                   annotations = {
-                    summary = "Envoy 5xx error rate > 5% on {{ $labels.instance }}";
+                    summary = "Internet gateway 5xx error rate > 5% on {{ $labels.instance }}";
                   };
                 }
               ];
@@ -700,6 +713,20 @@
           let
             localId = config.data.node.${config.networking.hostName}.id;
             localAddr = "[fdcc::${toString (localId + 1)}]";
+            # Bounded notification body. The Alertmanager default template
+            # expands every label and annotation for every alert, so a normal
+            # multi-node incident renders past Telegram's 4096-character limit
+            # and is replaced by a generic "message length" notice. The shared
+            # template keeps severity, collector and node per alert; the alert
+            # name and node stay in the header, and the remainder is a count
+            # plus the Alertmanager link. It lives in the repository so the
+            # rendered text can be checked directly with amtool.
+            templateFile = pkgs.writeText "realm-alertmanager-telegram.tmpl" (
+              builtins.readFile ../lib/realm/telegram-compact.tmpl
+            );
+            # Both chat receivers use the same bounded body so a replica cannot
+            # send an unbounded default-template message.
+            telegramMessage = ''{{ template "realm.telegram.compact" . }}'';
           in
           {
             enable = true;
@@ -719,47 +746,46 @@
                 ]
               )
             );
-            configuration = {
-              global = {
-                resolve_timeout = "2m";
-              };
-              receivers = [
-                {
-                  name = "telegram";
-                  telegram_configs = [
-                    {
-                      bot_token_file = "/run/credentials/alertmanager.service/notifychan";
-                      chat_id = -1002215131569;
-                    }
-                  ];
-                }
-                {
-                  name = "bridge-channel";
-                  telegram_configs = [
-                    {
-                      bot_token_file = "/run/credentials/alertmanager.service/notifychan";
-                      chat_id = -1003020363451;
-                    }
-                  ];
-                }
-              ];
-              route = {
-                receiver = "telegram";
-                group_wait = "30s";
-                group_interval = "2m";
-                repeat_interval = "10m";
-                routes = [
-                  {
-                    matchers = [ "alertname = \"PierDown\"" ];
-                    receiver = "bridge-channel";
-                    group_wait = "30s";
-                    group_interval = "2m";
-                    repeat_interval = "60m";
-                    continue = false;
-                  }
-                ];
-              };
-            };
+            # Written as configText rather than an attribute set because the
+            # route needs an explicit group_by and the receivers need a
+            # template file. Live Eihort already ran such a grouping while
+            # Hastur kept the grouped-everything default; this makes every
+            # replica identical.
+            configText = ''
+              global:
+                resolve_timeout: 2m
+              templates:
+                - ${templateFile}
+              route:
+                receiver: telegram
+                group_by: [alertname]
+                group_wait: 30s
+                group_interval: 2m
+                repeat_interval: 10m
+                routes:
+                  - receiver: bridge-channel
+                    matchers:
+                      - alertname="PierDown"
+                    group_wait: 30s
+                    group_interval: 2m
+                    repeat_interval: 60m
+                    continue: false
+              receivers:
+                - name: telegram
+                  telegram_configs:
+                    - bot_token_file: /run/credentials/alertmanager.service/notifychan
+                      chat_id: -1002215131569
+                      parse_mode: HTML
+                      send_resolved: true
+                      message: '${telegramMessage}'
+                - name: bridge-channel
+                  telegram_configs:
+                    - bot_token_file: /run/credentials/alertmanager.service/notifychan
+                      chat_id: -1003020363451
+                      parse_mode: HTML
+                      send_resolved: true
+                      message: '${telegramMessage}'
+            '';
           };
       };
     };

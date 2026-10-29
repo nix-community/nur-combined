@@ -1,0 +1,9 @@
+{{- define "realm.telegram.compact" -}}
+{{- $limit := 20 -}}
+{{- $instance := .CommonLabels.instance -}}
+{{- if gt (len $instance) 80 -}}{{- $instance = printf "%.80s" $instance -}}{{- end -}}
+[{{ .Status | toUpper }}] {{ .CommonLabels.alertname }}{{ if $instance }} @ {{ $instance }}{{ end }} · {{ len .Alerts }} alerts
+{{ range $i, $a := .Alerts }}{{ if lt $i $limit }}- {{ with $a.Labels.severity }}{{ . }}{{ else }}unknown{{ end }}{{ with $a.Labels.collector }} · {{ . | printf "%.40s" }}{{ end }}{{ with $a.Labels.node }} · {{ . | printf "%.40s" }}{{ end }}{{ if ne $a.Status "firing" }} · {{ $a.Status }}{{ end }}
+{{ end }}{{ end }}{{ if gt (len .Alerts) $limit }}… showing first 20; see {{ .ExternalURL }}
+{{ end }}
+{{- end -}}

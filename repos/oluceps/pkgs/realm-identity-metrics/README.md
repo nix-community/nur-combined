@@ -91,8 +91,8 @@ Configure one observation target per holder process:
     {
       "unit": "realm-internet.service",
       "identity": "spiffe://nyaw.xyz/service/internet",
-      "address": "127.0.0.1:19329",
-      "source": "envoy_loaded"
+      "address": "127.0.0.1:19330",
+      "source": "caddy_loaded"
     }
   ]
 }
@@ -101,7 +101,8 @@ Configure one observation target per holder process:
 Targets require distinct `.service` unit names and distinct listener addresses. Several units can share one SPIFFE ID.
 Unit names have a 255-byte limit. Identities have a 2048-byte limit and must use the configured trust domain.
 Addresses contain only a literal loopback IP and a port. Schemes, paths, queries, and DNS names fail validation.
-The source enum has only the three values in this example. The parent must use the actual registered identity for each unit.
+The source enum supports the three values in the table below. The parent must use the actual registered identity for each unit.
+The Internet gateway uses `caddy_loaded`; `envoy_loaded` remains available for observing other Envoy holders.
 
 | Source | Fixed request | Observation |
 | --- | --- | --- |

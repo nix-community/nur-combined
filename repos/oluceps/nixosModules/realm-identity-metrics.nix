@@ -45,8 +45,8 @@ let
     ++ lib.optional (realm.internet.enable or false) {
       unit = "realm-internet.service";
       identity = realm.workloads.internet.spiffeID;
-      address = address realm.internet.adminPort;
-      source = "envoy_loaded";
+      address = address realm.internet.statusPort;
+      source = "caddy_loaded";
     };
   serverHost =
     if lib.hasInfix ":" realm.spire.serverAddress then
@@ -173,9 +173,13 @@ in
                     cfg.serverPort
                     cfg.caddyPort
                   ]
+                  ++ lib.optionals (realm.internet.enable or false) [
+                    realm.internet.statusPort
+                    realm.internet.adminPort
+                  ]
                   ++ builtins.attrValues cfg.statusPorts
                 )
-              ) == 4 + builtins.length proxyUnits;
+              ) == 4 + (if realm.internet.enable or false then 2 else 0) + builtins.length proxyUnits;
             message = "realm.spire.metrics: use distinct metrics and status ports.";
           }
           {
@@ -200,11 +204,20 @@ in
             "unix:user:root"
           ];
         };
-        networking.firewall.extraInputRules = lib.optionalString (cfg.statusPorts != { }) ''
-          iifname != "lo" tcp dport { ${
-            lib.concatMapStringsSep ", " toString ([ cfg.caddyPort ] ++ builtins.attrValues cfg.statusPorts)
-          } } drop
-        '';
+        networking.firewall.extraInputRules =
+          lib.optionalString (cfg.statusPorts != { } || (realm.internet.enable or false))
+            ''
+              iifname != "lo" tcp dport { ${
+                lib.concatMapStringsSep ", " toString (
+                  [ cfg.caddyPort ]
+                  ++ lib.optionals (realm.internet.enable or false) [
+                    realm.internet.statusPort
+                    realm.internet.adminPort
+                  ]
+                  ++ builtins.attrValues cfg.statusPorts
+                )
+              } } drop
+            '';
         systemd.services.realm-identity-metrics = {
           description = "SPIRE public certificate and bootstrap trust metrics";
           wantedBy = [ "multi-user.target" ];

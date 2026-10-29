@@ -15,6 +15,7 @@ pkgs.testers.runNixOSTest {
         ../nixosModules/realm-workloads.nix
         ../nixosModules/realm-spire.nix
         ../nixosModules/realm-observability.nix
+        ../nixosModules/realm-internet.nix
         ../nixosModules/service-discovery.nix
         fixture.module
       ];
@@ -44,6 +45,10 @@ pkgs.testers.runNixOSTest {
           address = "::1";
         };
         observability.enable = true;
+        internet = {
+          enable = true;
+          allowedIDs = [ "spiffe://nyaw.xyz/service/sender" ];
+        };
         spire.metrics = {
           enable = true;
           nodes = [ "eihort" ];
@@ -138,7 +143,12 @@ pkgs.testers.runNixOSTest {
     assert value(initial, "realm_spire_alias_matches_expected", node="eihort") == 1
     assert value(initial, "realm_identity_certificate_not_after_seconds", kind="agent") > time.time()
     assert value(initial, "realm_identity_certificate_not_after_seconds", kind="canary") > time.time()
-    assert value(initial, "realm_workload_svid_observation_success", source="caddy_loaded") == 1
+    assert value(initial, "realm_workload_svid_observation_success", unit="realm-observability.service", source="caddy_loaded") == 1
+    assert value(initial, "realm_workload_svid_observation_success", unit="realm-internet.service", source="caddy_loaded") == 1
+    assert value(initial, "realm_workload_svid_not_after_seconds", unit="realm-internet.service") > time.time()
+    machine.succeed("curl --noproxy '*' -fsS http://127.0.0.1:19329/metrics | grep '^caddy_'")
+    machine.fail("curl --noproxy '*' -fsS http://127.0.0.1:19329/config/")
+    machine.fail("curl --noproxy '*' -ksf https://127.0.0.1:19330/")
     assert value(initial, "realm_workload_svid_dormant", unit="realm-egress-sender-receiver.service") == 1
     assert "PRIVATE KEY" not in initial
 
@@ -162,7 +172,9 @@ pkgs.testers.runNixOSTest {
     machine.succeed("curl -fsS http://10.9.8.91:18497/metrics > /tmp/independent.metrics")
     machine.fail("curl --interface 127.0.0.2 --max-time 2 -fsS http://10.9.8.91:18497/metrics")
 
-    machine.wait_until_succeeds("curl -fsS http://127.0.0.1:18494/metrics | grep 'realm_workload_svid_last_rotation_timestamp_seconds.*caddy_loaded'", timeout=120)
+    gateway_process = machine.succeed("systemctl show realm-internet -p MainPID -p NRestarts")
+    machine.wait_until_succeeds("curl -fsS http://127.0.0.1:18494/metrics | grep 'realm_workload_svid_last_rotation_timestamp_seconds.*realm-internet.service'", timeout=120)
+    assert machine.succeed("systemctl show realm-internet -p MainPID -p NRestarts") == gateway_process
     old_pid = machine.succeed("systemctl show realm-identity-metrics -p MainPID --value").strip()
     machine.succeed("systemctl mask --runtime spire-agent.service; systemctl stop --job-mode=replace-irreversibly spire-agent.service")
     machine.wait_until_succeeds("curl -fsS http://10.9.8.91:18497/metrics | grep 'realm_identity_collector_success.*canary.* 0$'", timeout=90)

@@ -22,6 +22,7 @@ let
         ../nixosModules/realm-workloads.nix
         ../nixosModules/realm-spire.nix
         ../nixosModules/realm-observability.nix
+        ../nixosModules/realm-internet.nix
         ../nixosModules/service-discovery.nix
         {
           networking.hostName = "eihort";
@@ -34,6 +35,10 @@ let
               address = "::1";
             };
             observability.enable = true;
+            internet = {
+              enable = true;
+              allowedIDs = [ "spiffe://nyaw.xyz/service/sender" ];
+            };
             spire = {
               server.enable = true;
               httpAttestation = {
@@ -219,6 +224,7 @@ lib.runTests {
       "realm-egress-sender-receiver.service"
       "realm-ingress-receiver-http.service"
       "realm-observability.service"
+      "realm-internet.service"
     ];
   };
   testSourceSemantics = {
@@ -227,7 +233,29 @@ lib.runTests {
       "ghostunnel_status_watch"
       "ghostunnel_status_watch"
       "caddy_loaded"
+      "caddy_loaded"
     ];
+  };
+  testInternetCoreMetrics = {
+    expr = {
+      port = cfg.realm.observability.endpoints.internet-gateway.port;
+      path = cfg.realm.observability.endpoints.internet-gateway.path;
+      envoy = cfg.realm.observability.endpoints ? envoy;
+    };
+    expected = {
+      port = 19329;
+      path = "/metrics";
+      envoy = false;
+    };
+  };
+  testInternetStatusMetadata = {
+    expr = lib.findFirst (w: w.unit == "realm-internet.service") null metadata.workloads;
+    expected = {
+      unit = "realm-internet.service";
+      identity = "spiffe://nyaw.xyz/service/internet";
+      address = "127.0.0.1:19330";
+      source = "caddy_loaded";
+    };
   };
   testIPv6Endpoint = {
     expr = (doc (evaluate [ { realm.spire.serverAddress = "::1"; } ])).server_address;
