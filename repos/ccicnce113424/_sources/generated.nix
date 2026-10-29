@@ -54,16 +54,16 @@
   };
   dorion-git = {
     pname = "dorion-git";
-    version = "db1adbad3a46384ab4f7235d1d8ff3bc66e6f420";
+    version = "83d645fbddfdf2377c74ff1b4fc8f687ce36c1dd";
     src = fetchFromGitHub {
       owner = "SpikeHD";
       repo = "Dorion";
-      rev = "db1adbad3a46384ab4f7235d1d8ff3bc66e6f420";
+      rev = "83d645fbddfdf2377c74ff1b4fc8f687ce36c1dd";
       fetchSubmodules = false;
-      sha256 = "sha256-3GcStFkCS9BwtKzLKFqNS+qJRtGw6wfAPeoXh71zj0I=";
+      sha256 = "sha256-2KoYkoXNPZYrirYCLFhkC3EU3TJ3+rcujYhdVYT4jfM=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-3GcStFkCS9BwtKzLKFqNS+qJRtGw6wfAPeoXh71zj0I=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-2KoYkoXNPZYrirYCLFhkC3EU3TJ3+rcujYhdVYT4jfM=/src-tauri/Cargo.lock";
       outputHashes = {
         "simple-websockets-0.1.6" = "sha256-iySzwntHw5Wf5HwKMBYL8mrMl7kjGZrZonL7/zrkeCo=";
         "tauri-runtime-cef-0.1.0" = "sha256-U/ak4ipPGIAnVGuuBVTrVmTKoC75/Lo4vOL8RxUVQm0=";
@@ -73,7 +73,7 @@
         "rsrpc-0.29.0" = "sha256-7zS833bmy6JUjk4PqCENz6ikoTOtelcymXMi2pxD3V0=";
       };
     };
-    date = "2026-10-27";
+    date = "2026-10-28";
   };
   dxvk-gplall = {
     pname = "dxvk-gplall";
@@ -239,15 +239,15 @@
   };
   nix-auth = {
     pname = "nix-auth";
-    version = "28bc98c33f7882a1bb2ba8207f80695ff3423211";
+    version = "257d638e5a936989926a399ce90ed3de143dc97d";
     src = fetchFromGitHub {
       owner = "numtide";
       repo = "nix-auth";
-      rev = "28bc98c33f7882a1bb2ba8207f80695ff3423211";
+      rev = "257d638e5a936989926a399ce90ed3de143dc97d";
       fetchSubmodules = false;
-      sha256 = "sha256-v0QFoe4EnuV2Rc0vOLyXFNWzuh+dHXiEjr0vKmVUxPE=";
+      sha256 = "sha256-XGu0PSeEcj/Bf7YCdEgxmVaNWR7t3Zc3WxTJ4F2QzQI=";
     };
-    date = "2026-10-25";
+    date = "2026-10-28";
   };
   ntfsprogs-plus = {
     pname = "ntfsprogs-plus";
@@ -296,17 +296,17 @@
   };
   pipewire-bluez5-lhdc-git = {
     pname = "pipewire-bluez5-lhdc-git";
-    version = "10c6ec62736224f2b6e79133d7ecd02cf4aab545";
+    version = "be282a9c427d584d66e632806ce705ad4500170d";
     src = fetchgit {
       url = "https://gitlab.freedesktop.org/pipewire/pipewire.git";
-      rev = "10c6ec62736224f2b6e79133d7ecd02cf4aab545";
+      rev = "be282a9c427d584d66e632806ce705ad4500170d";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-AmrkFlKSsBDk2IaJLud+JUG7RQS7ACk5yW0xUNYlnX4=";
+      sha256 = "sha256-mghe0L70SbZSRcL+gt2nXWSB3+KejOY6+18IpiHI/UA=";
     };
-    date = "2026-10-27";
+    date = "2026-10-28";
   };
   pipewire-bluez5-lhdc-jd-git = {
     pname = "pipewire-bluez5-lhdc-jd-git";
