@@ -113,8 +113,5 @@ stdenv.mkDerivation (finalAttrs: {
       "x86_64-linux"
       "aarch64-linux"
     ];
-    badPlatforms = [
-      "aarch64-linux"
-    ];
   };
 })
