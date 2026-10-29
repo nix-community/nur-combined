@@ -21,4 +21,6 @@
       pkgs.glib
     ];
   });
+
+  icebath = pkgs.callPackage ./pkgs/icebath { };
 }
