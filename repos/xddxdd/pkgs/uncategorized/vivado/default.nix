@@ -1,0 +1,5 @@
+{
+  callPackage,
+}:
+
+callPackage ./wrapper.nix { }

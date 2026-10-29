@@ -18,6 +18,14 @@
   libva,
   pciutils,
   pipewire,
+  # Arguments that the NixOS firefox module injects through `cfg.package
+  # .override`. Forward them to the wrapper: `lib.makeOverridable` attaches
+  # `override` at THIS level (shadowing the wrapper's own), so an override
+  # here lands back on these outer-argument defaults and must be passed
+  # through.
+  cfg ? null,
+  extraPrefsFiles ? [ ],
+  nativeMessagingHosts ? [ ],
 }:
 
 let
@@ -132,10 +140,19 @@ let
     };
   });
 in
-(wrapFirefox unwrapped {
-  pname = "invisible-firefox-bin";
-  extraPolicies = policies;
-}).overrideAttrs
+(wrapFirefox unwrapped (
+  # Only pass cfg when the module injects it, so a direct `pkgs.nur-xddxdd
+  # .invisible-firefox-bin` call still gets the wrapper's own default (read
+  # from `config.${applicationName}`).
+  {
+    pname = "invisible-firefox-bin";
+    extraPolicies = policies;
+    inherit extraPrefsFiles nativeMessagingHosts;
+  }
+  // lib.optionalAttrs (cfg != null) {
+    inherit cfg;
+  }
+)).overrideAttrs
   (old: {
     passthru = old.passthru // {
       updateScript = [ (toString ./update.sh) ];
