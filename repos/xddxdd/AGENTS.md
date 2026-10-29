@@ -11,6 +11,7 @@
 - 一次改动涉及多个包时用逗号列出，例如 `ncmm, uni-api: fix package updates after upstream changes`
 - 自动化提交用 `auto: update packages`；整仓库性修复可用描述性标题，如 `Fix package evaluation errors`
 - 描述用简短的陈述/祈使句，不加结尾句号
+- **AGENTS.md 的增补并入对应包的提交**：随包变更更新的经验教训直接写进该包的 commit（描述仍以包名为前缀），不要单独开 `AGENTS.md: …` 提交，避免文档与代码在历史上脱节
 
 ## Nix 包定义规范
 
@@ -87,7 +88,7 @@
 - **打包 AMD Vivado（Xilinx 统一安装器）的关键机制**：包位于 `pkgs/uncategorized/vivado/`，未包装树 + buildFHSEnv 包装。要点：
   - **源码提供**：installer tar（`FPGAs_AdaptiveSoCs_Unified_SDI_*.tar`，约 104 GB）无法直接下载，用 `requireFile` 引用，用户本地执行 `nix store add --mode flat <tar>` 注入 store（`nix hash file` 预先算哈希）。
   - **无人值守安装**：先用 `xsetup -b ConfigGen -i CLI` 交互生成 install config，再 `sed "s/^Destination=.*/Destination=$out/; /Modules=/ s/:0/:1/g"` 修改目的地并开启全部 Modules 提交到 `install-config.txt`；安装命令 `bash ./xsetup -a XilinxEULA,3rdPartyEULA -b Install -c install_config.txt`。零设备 Modules 会直接报错退出，全部 `:1` 可绕过。注意安装器会写入 `$HOME` 与 `~/.Xilinx`（设 `HOME=$NIX_BUILD_TOP/vivado-home`）。
-  - **安装前必须修 shebang 与 ELF**：安装器源码树的 `*.sh` 全部用 `/bin/#!/bin/bash` 绝对路径，沙箱里 `/bin/bash` 不存在，导致 `ldlibpath.sh` 死亡从而 `java.library.path` 为空（报 `no xv_install in java.library.path`）；用 `sed '1s|^#! */bin/.*sh.*$|#!$BASH_BIN|'` 重写（BASH_BIN 为构建环境内的 bash 路径，安装器脚本不接受带参数的 shebang）。安装器源码树的 ELF（TPS JRE 等）用 `patchelf --set-interpreter` 指到 Nix 中的 dynamic-linker。
+  - **安装前必须修 shebang**：安装器源码树的 `*.sh` 全部用 `/bin/bash` 绝对路径，沙箱里 `/bin/bash` 不存在，导致 `ldlibpath.sh` 死亡从而 `java.library.path` 为空（报 `no xv_install in java.library.path`）；用 stdenv 自带的 `patchShebangs xsetup bin scripts installLibs.sh` 重写（可接受裸脚本名与目录等多种参数形式）。
   - **FHS 下的 dlopen 名称搜索**：buildFHSEnv 的 rootfs `/etc/ld.so.cache` 内只含 SONAME 条目，`ncurses5`（ABI5 兼容包）的 `libncurses.so.5` 文件是通往 wide 构建的同目录符号连接，无法匹配 SONAME；Vivado 运行时对 `libtinfo.so.6`/`libncurses.so.5` 等的 `dlopen` 只能靠文件名扫描（LD_LIBRARY_PATH），因此 buildFHSEnv 的 `profile` 里必须预置 `export LD_LIBRARY_PATH=/usr/lib64:/lib64`（Vivado 的 `ldlibpath.sh` 会保留已设值并前加自身目录）。目标系统库还需补 `pixman`、`libpng`、`libjpeg`（Vivado 自带 libcairo 但缺 pixman）。
   - **包装器文件名冲突**：buildFHSEnv 的默认入口名是 `pname`，若其下被包装的可执行文件也叫 `vivado` 会把 FHS runner 覆盖掉，必须给 buildFHSEnv 指定不同的 `executableName`（如 `vivado-fhs`），然后由 `extraInstallCommands` 把各入口符号连接到 `$out/bin`。
   - **安装式派生的文件检查用 installCheckPhase 而非 checkPhase**：stdenv 的 phase 顺序是 checkPhase 在 installPhase **之前**，而 Vivado 这类包的全部产物由安装器生成，checkPhase 时 `$out` 还不存在（`test -f` 静默失败且杀死后续 installPhase）；改用 `doInstallCheck = true` + `installCheckPhase`（stdenv 的 postCheck 等价物，运行在 fixupPhase 之后）。
