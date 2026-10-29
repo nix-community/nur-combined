@@ -14,6 +14,7 @@ Ray's personal [NUR](https://github.com/nix-community/NUR) repository
 | `baidunetdisk` | [Upstream](https://pan.baidu.com/) |
 | `baidupcs-go` | [Upstream](https://github.com/qjfoidnh/BaiduPCS-Go) |
 | `bluez-5_86` | [Upstream](https://github.com/bluez/bluez) |
+| `caddy-naive` | [Usage](pkgs/caddy-naive/README.md) |
 | `cargo-pretty` | [Upstream](https://github.com/romancitodev/cargo-pretty) |
 | `deepseek-harness` | [Usage](pkgs/deepseek-harness/README.md) |
 | `dsh-plugins` | [Plugin catalog and updates](pkgs/dsh-plugins/README.md) |

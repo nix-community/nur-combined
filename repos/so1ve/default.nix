@@ -11,6 +11,7 @@ in
   baidunetdisk = pkgs.callPackage ./pkgs/baidunetdisk { };
   baidupcs-go = pkgs.callPackage ./pkgs/baidupcs-go { };
   bluez-5_86 = pkgs.callPackage ./pkgs/bluez-5_86 { };
+  caddy-naive = pkgs.callPackage ./pkgs/caddy-naive { };
   cargo-pretty = pkgs.callPackage ./pkgs/cargo-pretty { };
   inherit deepseek-harness;
   dingtalk = pkgs.callPackage ./pkgs/dingtalk { };
