@@ -18,7 +18,7 @@ python3Packages.buildPythonPackage (finalAttrs: {
 
   build-system = with python3Packages; [ setuptools-scm ];
 
-  SETUPTOOLS_SCM_PRETEND_VERSION = finalAttrs.version;
+  env.SETUPTOOLS_SCM_PRETEND_VERSION = finalAttrs.version;
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
 

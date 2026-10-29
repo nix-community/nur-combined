@@ -25,7 +25,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     #setuptools-scm-git-archive
   ];
 
-  SETUPTOOLS_SCM_PRETEND_VERSION = finalAttrs.version;
+  env.SETUPTOOLS_SCM_PRETEND_VERSION = finalAttrs.version;
 
   dependencies = with python3Packages; [
     apispec

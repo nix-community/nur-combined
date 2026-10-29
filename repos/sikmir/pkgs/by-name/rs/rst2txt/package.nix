@@ -18,7 +18,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   build-system = with python3Packages; [ setuptools-scm ];
 
-  SETUPTOOLS_SCM_PRETEND_VERSION = finalAttrs.version;
+  env.SETUPTOOLS_SCM_PRETEND_VERSION = finalAttrs.version;
 
   dependencies = with python3Packages; [
     docutils

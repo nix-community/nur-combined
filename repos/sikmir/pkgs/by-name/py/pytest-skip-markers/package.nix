@@ -16,7 +16,7 @@ python3Packages.buildPythonPackage (finalAttrs: {
     hash = "sha256-+e+VhNDVC/585IIhnL4ARouWCbB3QzlAhRtjPN5+jls=";
   };
 
-  SETUPTOOLS_SCM_PRETEND_VERSION = finalAttrs.version;
+  env.SETUPTOOLS_SCM_PRETEND_VERSION = finalAttrs.version;
 
   build-system = with python3Packages; [
     setuptools-scm

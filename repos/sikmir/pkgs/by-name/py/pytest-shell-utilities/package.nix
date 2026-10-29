@@ -26,7 +26,7 @@ python3Packages.buildPythonPackage (finalAttrs: {
     })
   ];
 
-  SETUPTOOLS_SCM_PRETEND_VERSION = finalAttrs.version;
+  env.SETUPTOOLS_SCM_PRETEND_VERSION = finalAttrs.version;
 
   build-system = with python3Packages; [
     setuptools-scm
