@@ -23,13 +23,11 @@
 
   lain-kde-splashscreen = pkgs.callPackage ./pkgs/lain-kde-splashscreen { };
   artmatic = pkgs.callPackage ./pkgs/artmatic { };
-  cc-switch = pkgs.callPackage ./pkgs/cc-switch { };
   luker = pkgs.callPackage ./pkgs/luker { };
   metapi = pkgs.callPackage ./pkgs/metapi { };
   sub2api = pkgs.callPackage ./pkgs/sub2api { };
   xmcl = pkgs.callPackage ./pkgs/xmcl { };
   xmcl-bin = pkgs.callPackage ./pkgs/xmcl-bin { };
-  ai-toolbox = pkgs.callPackage ./pkgs/ai-toolbox { };
   sabaki = pkgs.callPackage ./pkgs/sabaki { };
   savedesktop = pkgs.callPackage ./pkgs/savedesktop { };
   unreal-gold = pkgs.callPackage ./pkgs/unreal-gold { };
