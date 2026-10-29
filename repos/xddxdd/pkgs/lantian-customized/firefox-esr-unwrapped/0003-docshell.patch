@@ -1,0 +1,375 @@
+diff --git a/docshell/base/BrowsingContext.cpp b/docshell/base/BrowsingContext.cpp
+index d7155e7936..f759ee0eb2 100644
+--- a/docshell/base/BrowsingContext.cpp
++++ b/docshell/base/BrowsingContext.cpp
+@@ -1051,6 +1051,34 @@ void BrowsingContext::Attach(bool aFromIPC, ContentParent* aOriginProcess) {
+   if (XRE_IsParentProcess()) {
+     Canonical()->CanonicalAttach();
+   }
++
++  // Stealth: if our `juggler.timezone.override` pref is set and this is a
++  // top-level BC with no override yet, seed it from the pref. This guarantees
++  // the pref is the single source of truth, even when no caller (Playwright,
++  // WebDriver, ...) ever invokes Browser.setTimezoneOverride. The setter
++  // triggers DidSet which propagates the value per-realm.
++  if (IsTop() && GetTimezoneOverride().IsEmpty() && XRE_IsParentProcess()) {
++    nsAutoString stealthTz;
++    Preferences::GetString("juggler.timezone.override", stealthTz);
++    if (!stealthTz.IsEmpty()) {
++      SetTimezoneOverride(stealthTz);
++    }
++  }
++
++  // Stealth: same single-source-of-truth pattern for the locale. The
++  // juggler.locale.override pref seeds the LanguageOverride FIELD, whose DidSet
++  // applies JS::SetRealmLocaleOverride per-realm — making Intl.DateTimeFormat /
++  // NumberFormat / toLocaleString follow the locale. languageOverride (docShell)
++  // only covers navigator.language + the Accept-Language header; without this the
++  // realm's default Intl locale stays at the build app locale (en-US), a
++  // navigator-vs-Intl mismatch flagged for non-US locales.
++  if (IsTop() && GetLanguageOverride().IsEmpty() && XRE_IsParentProcess()) {
++    nsAutoCString stealthLocale;
++    Preferences::GetCString("juggler.locale.override", stealthLocale);
++    if (!stealthLocale.IsEmpty()) {
++      SetLanguageOverride(stealthLocale);
++    }
++  }
+ }
+ 
+ void BrowsingContext::Detach(bool aFromIPC) {
+@@ -3525,8 +3553,18 @@ void BrowsingContext::DidSet(FieldIndex<IDX_LanguageOverride>,
+         if (languageOverride.IsEmpty()) {
+           JS::SetRealmLocaleOverride(realm, nullptr);
+         } else {
++          // The override may be an Accept-Language list ("fr-FR, fr") so that
++          // navigator.languages reports the full desktop-default list; the
++          // realm's Intl default locale must be a single BCP-47 tag, so apply
++          // only the primary one ("fr-FR").
++          nsCString primaryLocale(languageOverride);
++          int32_t comma = primaryLocale.FindChar(',');
++          if (comma >= 0) {
++            primaryLocale.Truncate(comma);
++          }
++          primaryLocale.Trim(" \t");
+           JS::SetRealmLocaleOverride(
+-              realm, PromiseFlatCString(languageOverride).get());
++              realm, PromiseFlatCString(primaryLocale).get());
+         }
+ 
+         if (Navigator* navigator = window->Navigator()) {
+@@ -3840,6 +3878,16 @@ void BrowsingContext::DidSet(FieldIndex<IDX_TimezoneOverride>,
+                              nsString&& aOldValue) {
+   MOZ_ASSERT(IsTop());
+ 
++  // Stealth: when our `juggler.timezone.override` pref is set, it wins
++  // over any per-context override Playwright (or anything else) tries to
++  // apply. The pref is the single source of truth: a downstream caller
++  // sending `null` to clear the timezone is silently rewritten to the
++  // pref value. This prevents Playwright's default `Browser.setTimezone-
++  // Override(null)` on first context creation from cancelling our pref.
++  nsAutoString stealthTz;
++  Preferences::GetString("juggler.timezone.override", stealthTz);
++  const bool stealthLocked = !stealthTz.IsEmpty();
++
+   const nsString& timezoneOverride = GetTimezoneOverride();
+ 
+   PreOrderWalk([&](BrowsingContext* aBrowsingContext) {
+@@ -3851,7 +3899,10 @@ void BrowsingContext::DidSet(FieldIndex<IDX_TimezoneOverride>,
+             nsGlobalWindowInner::Cast(window)->GetGlobalJSObject();
+         JS::Realm* realm = JS::GetObjectRealmOrNull(global);
+ 
+-        if (timezoneOverride.IsEmpty()) {
++        if (stealthLocked) {
++          JS::SetRealmTimezoneOverride(
++              realm, NS_ConvertUTF16toUTF8(stealthTz).get());
++        } else if (timezoneOverride.IsEmpty()) {
+           JS::SetRealmTimezoneOverride(realm, nullptr);
+         } else {
+           JS::SetRealmTimezoneOverride(
+diff --git a/docshell/base/CanonicalBrowsingContext.cpp b/docshell/base/CanonicalBrowsingContext.cpp
+index 00c69a2310..4934825c9a 100644
+--- a/docshell/base/CanonicalBrowsingContext.cpp
++++ b/docshell/base/CanonicalBrowsingContext.cpp
+@@ -1946,6 +1946,17 @@ void CanonicalBrowsingContext::LoadURI(nsIURI* aURI,
+     (void)SetIsCaptivePortalTab(true);
+   }
+ 
++  {
++    nsCOMPtr<nsIObserverService> observerService =
++        mozilla::services::GetObserverService();
++    if (observerService) {
++      observerService->NotifyObservers(
++          ToSupports(this), "juggler-navigation-started-browser",
++          NS_ConvertASCIItoUTF16(
++              nsPrintfCString("%" PRIu64, loadState->GetLoadIdentifier()))
++              .get());
++    }
++  }
+   LoadURI(loadState, true);
+ }
+ 
+@@ -1971,6 +1982,17 @@ void CanonicalBrowsingContext::FixupAndLoadURIString(
+     (void)SetIsCaptivePortalTab(true);
+   }
+ 
++  {
++    nsCOMPtr<nsIObserverService> observerService =
++        mozilla::services::GetObserverService();
++    if (observerService) {
++      observerService->NotifyObservers(
++          ToSupports(this), "juggler-navigation-started-browser",
++          NS_ConvertASCIItoUTF16(
++              nsPrintfCString("%" PRIu64, loadState->GetLoadIdentifier()))
++              .get());
++    }
++  }
+   LoadURI(loadState, true);
+ }
+ 
+diff --git a/docshell/base/nsDocShell.cpp b/docshell/base/nsDocShell.cpp
+index 275d0ce1d3..8000436308 100644
+--- a/docshell/base/nsDocShell.cpp
++++ b/docshell/base/nsDocShell.cpp
+@@ -2895,6 +2895,149 @@ nsDocShell* nsDocShell::GetInProcessChildAt(int32_t aIndex) {
+   return static_cast<nsDocShell*>(child);
+ }
+ 
++// Stealthfox: 5 attribute impls (storage only) added by Juggler patch series.
++NS_IMETHODIMP
++nsDocShell::GetFileInputInterceptionEnabled(bool* aEnabled) {
++  *aEnabled = mFileInputInterceptionEnabled;
++  return NS_OK;
++}
++NS_IMETHODIMP
++nsDocShell::SetFileInputInterceptionEnabled(bool aEnabled) {
++  mFileInputInterceptionEnabled = aEnabled;
++  return NS_OK;
++}
++NS_IMETHODIMP
++nsDocShell::GetOverrideHasFocus(bool* aEnabled) {
++  *aEnabled = mOverrideHasFocus;
++  return NS_OK;
++}
++NS_IMETHODIMP
++nsDocShell::SetOverrideHasFocus(bool aEnabled) {
++  mOverrideHasFocus = aEnabled;
++  return NS_OK;
++}
++NS_IMETHODIMP
++nsDocShell::GetBypassCSPEnabled(bool* aEnabled) {
++  *aEnabled = mBypassCSPEnabled;
++  return NS_OK;
++}
++NS_IMETHODIMP
++nsDocShell::SetBypassCSPEnabled(bool aEnabled) {
++  mBypassCSPEnabled = aEnabled;
++  return NS_OK;
++}
++NS_IMETHODIMP
++nsDocShell::GetForceActiveState(bool* aEnabled) {
++  *aEnabled = mForceActiveState;
++  return NS_OK;
++}
++NS_IMETHODIMP
++nsDocShell::SetForceActiveState(bool aEnabled) {
++  mForceActiveState = aEnabled;
++  return NS_OK;
++}
++NS_IMETHODIMP
++nsDocShell::GetDisallowBFCache(bool* aEnabled) {
++  *aEnabled = mDisallowBFCache;
++  return NS_OK;
++}
++NS_IMETHODIMP
++nsDocShell::SetDisallowBFCache(bool aEnabled) {
++  mDisallowBFCache = aEnabled;
++  return NS_OK;
++}
++
++NS_IMETHODIMP
++nsDocShell::GetLanguageOverride(nsAString& aLanguageOverride) {
++  aLanguageOverride = mLanguageOverride;
++  return NS_OK;
++}
++NS_IMETHODIMP
++nsDocShell::SetLanguageOverride(const nsAString& aLanguageOverride) {
++  mLanguageOverride = aLanguageOverride;
++  return NS_OK;
++}
++
++// Stealthfox: content-side timezone override. Applies the requested IANA
++// timezone to the current window's JS realm so Date / Intl.DateTimeFormat
++// report it immediately on the page that's currently loading.
++//
++// Parent-process Browser.setTimezoneOverride still propagates via the
++// BrowsingContext TimezoneOverride FIELD (BrowsingContext.cpp DidSet);
++// this method runs from juggler/content/main.js on every navigation and
++// covers the realm that was just created by docshell-restore.
++NS_IMETHODIMP
++nsDocShell::OverrideTimezone(const nsAString& aTimezone, bool* aRetval) {
++  NS_ENSURE_ARG_POINTER(aRetval);
++  *aRetval = false;
++
++  nsCOMPtr<nsPIDOMWindowOuter> outer = GetWindow();
++  if (!outer) {
++    return NS_OK;
++  }
++  nsPIDOMWindowInner* inner = outer->GetCurrentInnerWindow();
++  if (!inner) {
++    return NS_OK;
++  }
++  JSObject* global = nsGlobalWindowInner::Cast(inner)->GetGlobalJSObject();
++  if (!global) {
++    return NS_OK;
++  }
++  JS::Realm* realm = JS::GetObjectRealmOrNull(global);
++  if (!realm) {
++    return NS_OK;
++  }
++
++  if (aTimezone.IsEmpty()) {
++    JS::SetRealmTimezoneOverride(realm, nullptr);
++  } else {
++    NS_ConvertUTF16toUTF8 utf8(aTimezone);
++    JS::SetRealmTimezoneOverride(realm, utf8.get());
++  }
++  *aRetval = true;
++  return NS_OK;
++}
++
++// Stealthfox: content-side locale override, the counterpart of
++// OverrideTimezone above. Applies the requested BCP-47 locale to the current
++// window's JS realm so Intl.DateTimeFormat / Intl.NumberFormat / toLocaleString
++// report it immediately. languageOverride only feeds navigator.language and the
++// Accept-Language header; the realm's default Intl locale otherwise stays at the
++// build's app locale (en-US, the only packaged langpack), producing a
++// navigator-vs-Intl mismatch on non-US locales. This runs from
++// juggler/content/main.js on every navigation, covering the realm just created.
++NS_IMETHODIMP
++nsDocShell::OverrideLocale(const nsAString& aLocale, bool* aRetval) {
++  NS_ENSURE_ARG_POINTER(aRetval);
++  *aRetval = false;
++
++  nsCOMPtr<nsPIDOMWindowOuter> outer = GetWindow();
++  if (!outer) {
++    return NS_OK;
++  }
++  nsPIDOMWindowInner* inner = outer->GetCurrentInnerWindow();
++  if (!inner) {
++    return NS_OK;
++  }
++  JSObject* global = nsGlobalWindowInner::Cast(inner)->GetGlobalJSObject();
++  if (!global) {
++    return NS_OK;
++  }
++  JS::Realm* realm = JS::GetObjectRealmOrNull(global);
++  if (!realm) {
++    return NS_OK;
++  }
++
++  if (aLocale.IsEmpty()) {
++    JS::SetRealmLocaleOverride(realm, nullptr);
++  } else {
++    NS_ConvertUTF16toUTF8 utf8(aLocale);
++    JS::SetRealmLocaleOverride(realm, utf8.get());
++  }
++  *aRetval = true;
++  return NS_OK;
++}
++
+ NS_IMETHODIMP nsDocShell::SynchronizeLayoutHistoryState() {
+   if (mActiveEntry && mActiveEntry->GetLayoutHistoryState() &&
+       mBrowsingContext) {
+@@ -8883,6 +9026,22 @@ nsresult nsDocShell::InternalLoad(nsDocShellLoadState* aLoadState,
+   attrs.SetFirstPartyDomain(isTopLevelDoc, aLoadState->URI());
+ 
+   nsCOMPtr<nsIRequest> req;
++
++  // Juggler: report navigation started for non-same-document and non-javascript
++  // navigations.  This drives the Juggler protocol's Page.navigationStarted and
++  // ultimately Page.ready events.
++  if (!isJavaScript && !sameDocument) {
++    nsCOMPtr<nsIObserverService> observerService =
++        mozilla::services::GetObserverService();
++    if (observerService) {
++      observerService->NotifyObservers(
++          GetAsSupports(this), "juggler-navigation-started-renderer",
++          NS_ConvertASCIItoUTF16(
++              nsPrintfCString("%" PRIu64, aLoadState->GetLoadIdentifier()))
++              .get());
++    }
++  }
++
+   rv = DoURILoad(aLoadState, aCacheKey, getter_AddRefs(req));
+ 
+   if (NS_SUCCEEDED(rv)) {
+diff --git a/docshell/base/nsDocShell.h b/docshell/base/nsDocShell.h
+index aa834b35a1..57f1c80056 100644
+--- a/docshell/base/nsDocShell.h
++++ b/docshell/base/nsDocShell.h
+@@ -1322,6 +1322,17 @@ class nsDocShell final : public nsDocLoader,
+ 
+   bool mIsExecutingOnLoadHandler : 1;
+ 
++  // Stealthfox: 5 flags backing nsIDocShell attributes set by Juggler.
++  bool mFileInputInterceptionEnabled : 1;
++  bool mOverrideHasFocus : 1;
++  bool mBypassCSPEnabled : 1;
++  bool mForceActiveState : 1;
++  bool mDisallowBFCache : 1;
++
++  // Stealthfox: backing storage for nsIDocShell.languageOverride.  Stored
++  // only; actual locale propagation handled separately.
++  nsString mLanguageOverride;
++
+   bool mInvisible : 1;
+ 
+   // There has been an OnStartRequest for a non-about:blank URI
+diff --git a/docshell/base/nsIDocShell.idl b/docshell/base/nsIDocShell.idl
+index 4aa56b4ce1..4bff6b32d5 100644
+--- a/docshell/base/nsIDocShell.idl
++++ b/docshell/base/nsIDocShell.idl
+@@ -692,6 +692,43 @@ interface nsIDocShell : nsIDocShellTreeItem
+    */
+   void synchronizeLayoutHistoryState();
+ 
++  // Stealthfox: 5 attributes added by the Juggler patch series. Used by
++  // juggler/content/main.js and juggler/TargetRegistry.js. Without these,
++  // the JS code throws NS_ERROR_XPC_CANT_MODIFY_PROP_ON_WN at startup.
++  attribute boolean fileInputInterceptionEnabled;
++  attribute boolean overrideHasFocus;
++  attribute boolean bypassCSPEnabled;
++  attribute boolean forceActiveState;
++  attribute boolean disallowBFCache;
++
++  // Stealthfox: languageOverride attribute used by the Juggler protocol's
++  // Browser.setLocaleOverride command. Stores the requested locale string;
++  // the actual locale propagation is handled separately. Without this
++  // attribute the JS code in juggler/content/main.js throws on assignment
++  // and the page content process is killed by the GPU-init timeout.
++  attribute AString languageOverride;
++
++  // Stealthfox: overrideTimezone method used by the Juggler protocol's
++  // content-side timezone propagation (juggler/content/main.js, called on
++  // every navigation). Applies the IANA timezone to the current realm via
++  // JS::SetRealmTimezoneOverride. Returns true on success, false if no
++  // current window/realm is available. The parent-side
++  // Browser.setTimezoneOverride path goes through the BrowsingContext
++  // TimezoneOverride FIELD (BrowsingContext.cpp DidSet), this method is
++  // the content-side complement that runs on every new realm.
++  boolean overrideTimezone(in AString aTimezone);
++
++  // Stealthfox: overrideLocale method, the locale counterpart of
++  // overrideTimezone. Applies the requested BCP-47 locale to the current
++  // realm via JS::SetRealmLocaleOverride so Intl.DateTimeFormat /
++  // Intl.NumberFormat / toLocaleString report it immediately on the page
++  // that's loading. Without this, languageOverride sets navigator.language
++  // and the Accept-Language header but the realm's default Intl locale stays
++  // at the build's app locale (en-US) — a navigator-vs-Intl mismatch that
++  // browserscan's language check (Q0 intlLang) flags for non-US locales.
++  // Returns true on success, false if no current window/realm is available.
++  boolean overrideLocale(in AString aLocale);
++
+   /**
+    * This attempts to save any applicable layout history state (like
+    * scroll position) in the nsISHEntry. This is normally done
