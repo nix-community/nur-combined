@@ -142,7 +142,7 @@
     "clash-nyanpasu": {
         "cargoLock": {
             "backend/Cargo.lock": [
-                "sha256-i6dWg57kePBgnsg+40+UvYDgq2wAXgPA5+0YSjEx5fw=/backend/Cargo.lock",
+                "sha256-VwrQLkhF_df53vCm2gSCApwkksjaKFDqwL9I+USr8ZM=/backend/Cargo.lock",
                 {
                     "auto-launch-0.5.0": "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=",
                     "gpu-info-0.2.1": "sha256-dQ5cLLZf0Ao0MxaBeue2osQVpUs+G+7ewGf4X1nkKAM=",
@@ -169,12 +169,12 @@
             "name": null,
             "owner": "libnyanpasu",
             "repo": "clash-nyanpasu",
-            "rev": "8e1084e4e7c50531a5d16ca9a6c9dd2bb2f0f8e8",
-            "sha256": "sha256-i6dWg57kePBgnsg+40+UvYDgq2wAXgPA5+0YSjEx5fw=",
+            "rev": "2fadf212f161417dcdf2f37d81a305a37ff918a4",
+            "sha256": "sha256-VwrQLkhF/df53vCm2gSCApwkksjaKFDqwL9I+USr8ZM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "8e1084e4e7c50531a5d16ca9a6c9dd2bb2f0f8e8"
+        "version": "2fadf212f161417dcdf2f37d81a305a37ff918a4"
     },
     "clash-nyanpasu-stable": {
         "cargoLock": null,
@@ -384,11 +384,11 @@
     "gaze": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-7zu16WwkUoplzLgP9zuJ3Nj7Nxokvs8JZinvS+o8Liw=/Cargo.lock",
+                "sha256-OHNB5I8OisjTKmujsJ9nLA3QvKVMV_Si7V6jjQX36ug=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-10-28",
+        "date": "2026-10-29",
         "extract": null,
         "name": "gaze",
         "passthru": null,
@@ -400,12 +400,12 @@
             "name": null,
             "owner": "GunduLabs",
             "repo": "gaze",
-            "rev": "5fcec36e491b3c24f442dcadcdf775b7cac6043f",
-            "sha256": "sha256-7zu16WwkUoplzLgP9zuJ3Nj7Nxokvs8JZinvS+o8Liw=",
+            "rev": "cc74790105529416047922c5ed075291527b4307",
+            "sha256": "sha256-OHNB5I8OisjTKmujsJ9nLA3QvKVMV/Si7V6jjQX36ug=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5fcec36e491b3c24f442dcadcdf775b7cac6043f"
+        "version": "cc74790105529416047922c5ed075291527b4307"
     },
     "gaze-stable": {
         "cargoLock": null,
@@ -857,12 +857,12 @@
             "name": null,
             "owner": "nezhahq",
             "repo": "nezha",
-            "rev": "v2.6.0",
-            "sha256": "sha256-RNNWviZzYN5Wg1+2KiVrK3w3V54diYzofO4fAvOv/Ok=",
+            "rev": "v2.6.1",
+            "sha256": "sha256-NBGr4gQI0BzGBMU0mwukUtgaqmcMP04iGqGmNWPvp/A=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.6.0"
+        "version": "v2.6.1"
     },
     "nezha-agent": {
         "cargoLock": null,
@@ -889,8 +889,8 @@
         "cargoLock": null,
         "date": null,
         "extract": {
-            "package-lock.json": "sha256-9YMiuouq8kBLfoHccohrWsh9C6oDLWuUz1AzoOlpk2U=/package-lock.json",
-            "package.json": "sha256-9YMiuouq8kBLfoHccohrWsh9C6oDLWuUz1AzoOlpk2U=/package.json"
+            "package-lock.json": "sha256-rLavWiGNyBjpbaFAsetmWAJvYXdzHLYawlHOUzhQ4_U=/package-lock.json",
+            "package.json": "sha256-rLavWiGNyBjpbaFAsetmWAJvYXdzHLYawlHOUzhQ4_U=/package.json"
         },
         "name": "nezha-theme-admin",
         "passthru": null,
@@ -902,12 +902,12 @@
             "name": null,
             "owner": "nezhahq",
             "repo": "admin-frontend",
-            "rev": "v2.6.0",
-            "sha256": "sha256-9YMiuouq8kBLfoHccohrWsh9C6oDLWuUz1AzoOlpk2U=",
+            "rev": "v2.6.1",
+            "sha256": "sha256-rLavWiGNyBjpbaFAsetmWAJvYXdzHLYawlHOUzhQ4/U=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.6.0"
+        "version": "v2.6.1"
     },
     "nezha-theme-user": {
         "cargoLock": null,

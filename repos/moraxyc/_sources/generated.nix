@@ -87,16 +87,16 @@
   };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
-    version = "8e1084e4e7c50531a5d16ca9a6c9dd2bb2f0f8e8";
+    version = "2fadf212f161417dcdf2f37d81a305a37ff918a4";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "clash-nyanpasu";
-      rev = "8e1084e4e7c50531a5d16ca9a6c9dd2bb2f0f8e8";
+      rev = "2fadf212f161417dcdf2f37d81a305a37ff918a4";
       fetchSubmodules = false;
-      sha256 = "sha256-i6dWg57kePBgnsg+40+UvYDgq2wAXgPA5+0YSjEx5fw=";
+      sha256 = "sha256-VwrQLkhF/df53vCm2gSCApwkksjaKFDqwL9I+USr8ZM=";
     };
     cargoLock."backend/Cargo.lock" = {
-      lockFile = ./. + "/sha256-i6dWg57kePBgnsg+40+UvYDgq2wAXgPA5+0YSjEx5fw=/backend/Cargo.lock";
+      lockFile = ./. + "/sha256-VwrQLkhF_df53vCm2gSCApwkksjaKFDqwL9I+USr8ZM=/backend/Cargo.lock";
       outputHashes = {
         "auto-launch-0.5.0" = "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=";
         "runas-1.2.0" = "sha256-cTYTFtmdmCztL2JhgnOxwKhd+VfUmm5DB3gkNy92g04=";
@@ -235,21 +235,21 @@
   };
   gaze = {
     pname = "gaze";
-    version = "5fcec36e491b3c24f442dcadcdf775b7cac6043f";
+    version = "cc74790105529416047922c5ed075291527b4307";
     src = fetchFromGitHub {
       owner = "GunduLabs";
       repo = "gaze";
-      rev = "5fcec36e491b3c24f442dcadcdf775b7cac6043f";
+      rev = "cc74790105529416047922c5ed075291527b4307";
       fetchSubmodules = false;
-      sha256 = "sha256-7zu16WwkUoplzLgP9zuJ3Nj7Nxokvs8JZinvS+o8Liw=";
+      sha256 = "sha256-OHNB5I8OisjTKmujsJ9nLA3QvKVMV/Si7V6jjQX36ug=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-7zu16WwkUoplzLgP9zuJ3Nj7Nxokvs8JZinvS+o8Liw=/Cargo.lock";
+      lockFile = ./. + "/sha256-OHNB5I8OisjTKmujsJ9nLA3QvKVMV_Si7V6jjQX36ug=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-10-28";
+    date = "2026-10-29";
   };
   gaze-stable = {
     pname = "gaze-stable";
@@ -500,13 +500,13 @@
   };
   nezha = {
     pname = "nezha";
-    version = "v2.6.0";
+    version = "v2.6.1";
     src = fetchFromGitHub {
       owner = "nezhahq";
       repo = "nezha";
-      rev = "v2.6.0";
+      rev = "v2.6.1";
       fetchSubmodules = false;
-      sha256 = "sha256-RNNWviZzYN5Wg1+2KiVrK3w3V54diYzofO4fAvOv/Ok=";
+      sha256 = "sha256-NBGr4gQI0BzGBMU0mwukUtgaqmcMP04iGqGmNWPvp/A=";
     };
   };
   nezha-agent = {
@@ -522,17 +522,17 @@
   };
   nezha-theme-admin = {
     pname = "nezha-theme-admin";
-    version = "v2.6.0";
+    version = "v2.6.1";
     src = fetchFromGitHub {
       owner = "nezhahq";
       repo = "admin-frontend";
-      rev = "v2.6.0";
+      rev = "v2.6.1";
       fetchSubmodules = false;
-      sha256 = "sha256-9YMiuouq8kBLfoHccohrWsh9C6oDLWuUz1AzoOlpk2U=";
+      sha256 = "sha256-rLavWiGNyBjpbaFAsetmWAJvYXdzHLYawlHOUzhQ4/U=";
     };
     extract = {
-      "package-lock.json" = ./. + "/sha256-9YMiuouq8kBLfoHccohrWsh9C6oDLWuUz1AzoOlpk2U=/package-lock.json";
-      "package.json" = ./. + "/sha256-9YMiuouq8kBLfoHccohrWsh9C6oDLWuUz1AzoOlpk2U=/package.json";
+      "package-lock.json" = ./. + "/sha256-rLavWiGNyBjpbaFAsetmWAJvYXdzHLYawlHOUzhQ4_U=/package-lock.json";
+      "package.json" = ./. + "/sha256-rLavWiGNyBjpbaFAsetmWAJvYXdzHLYawlHOUzhQ4_U=/package.json";
     };
   };
   nezha-theme-user = {
