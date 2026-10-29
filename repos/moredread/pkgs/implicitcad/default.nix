@@ -5,40 +5,37 @@
 , blaze-markup
 , blaze-svg
 , bytestring
-, bytestring-builder
 , containers
 , criterion
+, data-default-class
 , deepseq
 , directory
 , fetchgit
 , filepath
+, hedgehog
 , hspec
+, HUnit
+, hw-hspec-hedgehog
 , JuicyPixels
-, monads-tf
+, lens
+, linear
 , mtl
-, NumInstances
 , optparse-applicative
 , parallel
 , parsec
+, prettyprinter
+, QuickCheck
 , random
-, silently
-, snap-core
-, snap-server
-, stdenv
-, storable-endian
+, show-combinators
 , text
-, transformers
-, unordered-containers
-, vector-space
-, hedgehog, hw-hspec-hedgehog, lens, linear, show-combinators
 }:
 mkDerivation rec {
   pname = "implicitcad";
-  version = "8827fb0a";
+  version = "afd5f77f";
   src = fetchgit {
     url = "https://github.com/colah/ImplicitCAD";
-    sha256 = "sha256-a0SaXCGipWr7sZY0R5xSfudNhVB1kFSOxqpgS68Mf+o=";
-    rev = "8827fb0a2553db0e70a8bf7495f9413007d6d8cb";
+    sha256 = "sha256-+mvu2PDg8vIK3VTBdEb8H/7eCccecodzb+sN9G/gGfY=";
+    rev = "afd5f77f05c7fdf30141520e4a6014493f9e397f";
     fetchSubmodules = true;
   };
   isLibrary = true;
@@ -49,64 +46,45 @@ mkDerivation rec {
     blaze-markup
     blaze-svg
     bytestring
-    bytestring-builder
     containers
-    criterion
+    data-default-class
     deepseq
     directory
     filepath
-    hspec
     JuicyPixels
-    monads-tf
-    NumInstances
-    parallel
-    parsec
-    silently
-    snap-core
-    snap-server
-    storable-endian
-    text
-    transformers
-    unordered-containers
-    vector-space
-    hedgehog
-    hw-hspec-hedgehog
     lens
     linear
+    mtl
+    parallel
+    parsec
+    prettyprinter
+    random
     show-combinators
+    text
   ];
   executableHaskellDepends = [
     base
-    blaze-builder
-    blaze-markup
-    blaze-svg
-    bytestring
-    containers
-    criterion
-    deepseq
-    directory
     filepath
-    JuicyPixels
-    monads-tf
     optparse-applicative
-    parallel
-    parsec
-    silently
-    snap-core
-    snap-server
-    storable-endian
     text
-    transformers
-    vector-space
+  ];
+  testHaskellDepends = [
+    base
+    bytestring
+    directory
     hedgehog
+    hspec
+    HUnit
     hw-hspec-hedgehog
     lens
     linear
-    show-combinators
+    parsec
+    QuickCheck
+    text
   ];
-  testHaskellDepends = [ base containers hspec mtl parsec ];
-  benchmarkHaskellDepends = [ base criterion parsec random ];
-  homepage = "http://kalli1.faikvm.com/ImplicitCAD/Stable";
-  description = "Warning: experimental package, might change at any time. Math-inspired programmatic 2&3D CAD, also known as extopenscad";
-  license = lib.licenses.agpl3Only;
+  benchmarkHaskellDepends = [ base criterion linear parsec ];
+  homepage = "http://implicitcad.org/";
+  description = "Math-inspired programmatic 2D & 3D CAD system, also known as extopenscad";
+  license = lib.licenses.agpl3Plus;
+  mainProgram = "extopenscad";
 }

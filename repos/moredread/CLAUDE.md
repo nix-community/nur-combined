@@ -15,7 +15,6 @@ nix build .#<pkg> --override-input nixpkgs github:NixOS/nixpkgs/nixos-unstable  
 nix flake show                          # list exposed packages
 nix-build ci.nix -A cacheOutputs        # everything CI-buildable (non-broken, free, cacheable)
 nix flake update                        # bump flake.lock
-scripts/joplin-version.sh               # latest Joplin AppImage URL + prefetch hash
 ```
 
 There are no tests; "building cleanly" is the check. CI (`.github/workflows/build.yml`) builds the package set against the locked input plus nixos-26.05 and nixos-unstable (the Cachix step is `if: false` for now) and on `main` pings the NUR update endpoint.

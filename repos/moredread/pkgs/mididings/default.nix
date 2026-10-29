@@ -2,14 +2,14 @@
 
 python.pkgs.buildPythonPackage rec {
   pname = "mididings";
-  version = "unstable-20250818";
+  version = "20260601";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "mididings";
     repo = "mididings";
-    rev = "7949b8ee038f3be1b8da17e122fbe646cb4bc02e";
-    hash = "sha256-+CGLUPZg/NtZOe3vAv9pEzReUmVRJe+CmfRyvIlGjF4=";
+    tag = version;
+    hash = "sha256-4aVVayhFqlZCQ3UE0hBmy221w0eAyh8stDszLdyqSFs=";
   };
 
   nativeBuildInputs = [
@@ -38,11 +38,10 @@ python.pkgs.buildPythonPackage rec {
     pyliblo3
     dbus-python
     pyxdg
-    inotify-simple # Alternative to pyinotify
+    watchdog # used by mididings.extra.inotify (AutoRestart)
   ]);
 
   # Note: pysmf is not available in nixpkgs, so MIDI file functionality won't work
-  # inotify-simple is used instead of pyinotify (same functionality)
 
 
   # Skip tests as they may require MIDI hardware

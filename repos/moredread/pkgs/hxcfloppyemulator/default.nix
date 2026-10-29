@@ -11,13 +11,13 @@
 
 stdenv.mkDerivation rec {
   pname = "hxcfloppyemulator";
-  version = "unstable-2025-07-13";
+  version = "unstable-2026-10-19";
 
   src = fetchFromGitHub {
     owner = "jfdelnero";
     repo = "HxCFloppyEmulator";
-    rev = "0ae0cb26f51d5af1a9fe16236b47639c95d1d1fa";
-    sha256 = "sha256-EOrJJjjfVXG5Axo2a0yGHyvErLwOqegZzd45+CFLf14=";
+    rev = "030d0ec5f8ee3c815a700809a55d7523f8d2c88c";
+    sha256 = "sha256-kGGQLTPw5pnIeIAqyMgiJxUAjPpRqDVFDSJKGijdffM=";
   };
 
   nativeBuildInputs = [
@@ -40,8 +40,8 @@ stdenv.mkDerivation rec {
     substituteInPlace HxCFloppyEmulator_software/build/Makefile \
       --replace-fail '-I $(BASEDIR)/thirdpartylibs/fltk/fltk-1.x.x/' '$(shell ${fltk14}/bin/fltk-config --cxxflags --use-images --use-cairo)' \
       --replace-fail '$(shell $(BASEDIR)/thirdpartylibs/fltk/fltk-1.x.x/fltk-config --ldflags)' '$(shell ${fltk14}/bin/fltk-config --ldflags --use-images --use-cairo)' \
-      --replace-fail 'FLTKLIB = $(BASEDIR)/thirdpartylibs/fltk/fltk-1.x.x/lib/libfltk.a $(BASEDIR)/thirdpartylibs/fltk/fltk-1.x.x/lib/libfltk_images.a' 'FLTKLIB = $(shell ${fltk14}/bin/fltk-config --libs --use-images --use-cairo)' \
-      --replace-fail '$(MAKE) fltk' '# Skip bundled FLTK build'
+      --replace-fail 'FLTKLIBS = $(FLTKLIB) $(BASEDIR)/thirdpartylibs/fltk/fltk-1.x.x/lib/libfltk_images.a' 'FLTKLIBS = $(shell ${fltk14}/bin/fltk-config --libs --use-images --use-cairo)' \
+      --replace-fail '$(MAKE) $(FLTKLIB)' '# Skip bundled FLTK build'
   '';
 
   preBuild = ''
