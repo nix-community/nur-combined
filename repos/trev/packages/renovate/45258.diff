@@ -3034,14 +3034,20 @@ index 00000000000..686e044152d
 +  });
 +});
 diff --git a/lib/modules/manager/nix/range.spec.ts b/lib/modules/manager/nix/range.spec.ts
-index 7b840b90fe5..1aaa834d3bb 100644
+index 7b840b90fe5..c4ac5c44c5e 100644
 --- a/lib/modules/manager/nix/range.spec.ts
 +++ b/lib/modules/manager/nix/range.spec.ts
-@@ -2,16 +2,24 @@ import type { RangeConfig } from '../types.ts';
+@@ -2,16 +2,34 @@ import type { RangeConfig } from '../types.ts';
  import { getRangeStrategy } from './index.ts';
  
  describe('modules/manager/nix/range', () => {
 -  it('returns replace if currentValue not null', () => {
++  it('uses update-lockfile for pinning', () => {
++    const config: RangeConfig = { rangeStrategy: 'pin' };
++
++    expect(getRangeStrategy(config)).toBe('update-lockfile');
++  });
++
 +  it('returns an explicitly configured strategy', () => {
 +    const config: RangeConfig = { rangeStrategy: 'replace' };
 +
@@ -3066,12 +3072,16 @@ index 7b840b90fe5..1aaa834d3bb 100644
 +
      expect(getRangeStrategy(config)).toBe('update-lockfile');
    });
++
++  it('defaults to update-lockfile when rangeStrategy is absent', () => {
++    expect(getRangeStrategy({})).toBe('update-lockfile');
++  });
  });
 diff --git a/lib/modules/manager/nix/range.ts b/lib/modules/manager/nix/range.ts
-index 7b98380cf5f..ae995c10722 100644
+index 7b98380cf5f..512ebaf0c3a 100644
 --- a/lib/modules/manager/nix/range.ts
 +++ b/lib/modules/manager/nix/range.ts
-@@ -1,9 +1,11 @@
+@@ -1,9 +1,12 @@
  import type { RangeStrategy } from '../../../types/index.ts';
  import type { RangeConfig } from '../types.ts';
  
@@ -3081,13 +3091,14 @@ index 7b98380cf5f..ae995c10722 100644
 +export function getRangeStrategy({
 +  rangeStrategy,
 +}: RangeConfig): RangeStrategy {
-+  if (rangeStrategy && rangeStrategy !== 'auto') {
++  // Treat pin like auto because supported inputs do not use version ranges.
++  if (rangeStrategy && rangeStrategy !== 'auto' && rangeStrategy !== 'pin') {
 +    return rangeStrategy;
    }
  
    return 'update-lockfile';
 diff --git a/lib/modules/manager/nix/readme.md b/lib/modules/manager/nix/readme.md
-index af3d80c5b0b..f34850b447d 100644
+index af3d80c5b0b..1d136b986a1 100644
 --- a/lib/modules/manager/nix/readme.md
 +++ b/lib/modules/manager/nix/readme.md
 @@ -1,9 +1,49 @@
@@ -3118,7 +3129,7 @@ index af3d80c5b0b..f34850b447d 100644
 +These updates refresh the revision in `flake.lock` without changing the URL in `flake.nix`, so a moving branch can produce a new update whenever its upstream revision changes.
 +Previously, these revisions were refreshed only by lock file maintenance.
 +
-+If you prefer to refresh those revisions through lock file maintenance, disable individual Nix digest updates:
++For nix inputs, the `pin` range strategy is treated as `update-lockfile`, matching the default `auto` strategy. If you prefer to refresh those revisions through lock file maintenance, disable individual Nix digest updates:
 +
 +```json
 +{
@@ -4153,6 +4164,96 @@ index 00000000000..ef7df0a62a7
 +  logger.debug({ depName, oldUrl, newUrl }, 'Successfully updated Nix flake');
 +  return updatedContent;
 +}
+diff --git a/lib/workers/repository/process/lookup/index.spec.ts b/lib/workers/repository/process/lookup/index.spec.ts
+index b934da80366..85e59a4d2b1 100644
+--- a/lib/workers/repository/process/lookup/index.spec.ts
++++ b/lib/workers/repository/process/lookup/index.spec.ts
+@@ -6033,6 +6033,85 @@ describe('workers/repository/process/lookup/index', () => {
+       ]);
+     });
+ 
++    it.each`
++      depName           | currentValue       | versioning          | versions
++      ${'nixos-wsl'}    | ${'release-26.05'} | ${'semver-coerced'} | ${['2605.7.2']}
++      ${'home-manager'} | ${'release-26.05'} | ${'semver-coerced'} | ${['release-26.05']}
++      ${'nixpkgs'}      | ${'nixos-26.05'}   | ${'nixpkgs'}        | ${['nixos-26.05']}
++      ${'disko'}        | ${'v1.13.0'}       | ${'semver-coerced'} | ${['v1.13.0']}
++    `(
++      'refreshes the $depName flake digest with rangeStrategy=pin',
++      async ({ depName, currentValue, versioning, versions }) => {
++        config.manager = 'nix';
++        config.packageFile = 'flake.nix';
++        config.depName = depName;
++        config.packageName = `https://github.com/nix-community/${depName}`;
++        config.datasource = GitRefsDatasource.id;
++        config.versioning = versioning;
++        config.rangeStrategy = 'pin';
++        config.currentValue = currentValue;
++        config.currentDigest = fakeSha('old');
++        vi.spyOn(GitRefsDatasource.prototype, 'getReleases')
++          .mockReset()
++          .mockResolvedValue({
++            releases: [currentValue, ...versions].map((version) => ({
++              version,
++            })),
++          });
++
++        const res = await Result.wrap(
++          lookup.lookupUpdates(config),
++        ).unwrapOrThrow();
++
++        expect(res.skipReason).toBeUndefined();
++        expect(res.updates).toEqual([
++          {
++            newDigest: '4b825dc642cb6eb9a060e54bf8d69288fbee4904',
++            newValue: currentValue,
++            updateType: 'digest',
++          },
++        ]);
++      },
++    );
++
++    it('updates flake version refs with rangeStrategy=pin', async () => {
++      config.manager = 'nix';
++      config.packageFile = 'flake.nix';
++      config.depName = 'disko';
++      config.packageName = 'https://github.com/nix-community/disko';
++      config.datasource = GitRefsDatasource.id;
++      config.versioning = 'semver-coerced';
++      config.rangeStrategy = 'pin';
++      config.currentValue = 'v1.13.0';
++      config.currentDigest = fakeSha('old');
++      vi.spyOn(GitRefsDatasource.prototype, 'getReleases')
++        .mockReset()
++        .mockResolvedValue({
++          releases: [{ version: 'v1.13.0' }, { version: 'v1.14.0' }],
++        });
++      vi.spyOn(GitRefsDatasource.prototype, 'getDigest')
++        .mockReset()
++        .mockResolvedValue(fakeSha('new'));
++
++      const res = await Result.wrap(
++        lookup.lookupUpdates(config),
++      ).unwrapOrThrow();
++
++      expect(res.skipReason).toBeUndefined();
++      expect(res.updates).toMatchObject([
++        {
++          newDigest: fakeSha('new'),
++          newValue: 'v1.14.0',
++          updateType: 'minor',
++        },
++        {
++          newDigest: fakeSha('new'),
++          newValue: 'v1.13.0',
++          updateType: 'digest',
++        },
++      ]);
++    });
++
+     it('handles git submodule update', async () => {
+       config.packageName = 'some-path';
+       config.versioning = gitVersioningId;
 diff --git a/lib/workers/repository/updates/generate.spec.ts b/lib/workers/repository/updates/generate.spec.ts
 index 47f36f89caa..691925a4160 100644
 --- a/lib/workers/repository/updates/generate.spec.ts
