@@ -25,8 +25,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "ttlns";
     repo = "Selenium-Driverless";
-    rev = "117fe84283535c976c973b9dfe0b3776b8f36b46";
-    hash = "sha256-eT3fzWjXT9Q/jQNina5YpbLMdaZN8lRy2/1TL0WnWVo=";
+    rev = "a09684455ccb3d1bcbfebcdbdb1390354cf6e455";
+    hash = "sha256-DL8h/A1CEmqY8Z7O0cNPm3ZAkUDN+0TVF9d5CrbBJ/U=";
   };
 
   /*
