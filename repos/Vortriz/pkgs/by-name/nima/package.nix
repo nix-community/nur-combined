@@ -4,7 +4,7 @@
     fetchFromGitHub,
 }:
 python3Packages.buildPythonPackage {
-    pname = "nix-manipulator";
+    pname = "nima";
     version = "unstable-2026-03-03";
 
     src = fetchFromGitHub {
