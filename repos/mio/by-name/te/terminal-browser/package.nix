@@ -14,7 +14,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "terminal-browser";
-  version = "0.15.1";
+  version = "electron-v44.5.1";
 
   src = fetchFromGitHub {
     owner = "zenbu-labs";

@@ -13,8 +13,8 @@ let
   src = fetchFromGitHub {
     owner = "CodebuffAI";
     repo = "freebuff";
-    rev = "43da2bdd74dfed2ec0c8faf5d0787e1f311e0fee";
-    hash = "sha256-SFxnCBsKcMGtvSxyNFfJHYHw6aD3rMoej6H3+GlzbDc=";
+    rev = "33c931e9e80482dd8a301e8e23b9f1f7d1b01f55";
+    hash = "sha256-K6d/v/YaJZgnyW2hr++pu14hCa3AJ5wNSEuBkn7uBjk=";
   };
 
   # The CLI validates its client environment at startup (common/src/env.ts) and
