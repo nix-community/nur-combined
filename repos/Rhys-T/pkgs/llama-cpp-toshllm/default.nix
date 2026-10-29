@@ -1,9 +1,9 @@
 { lib, fetchFromGitHub, llama-cpp, avx2Support ? true, maintainers }: let
-    toshllm-version = "0.87.29";
-    toshllm-hash = "sha256-4hX8NmLX8vkw3xBrhslVTGE/c5VBPCbnF5o1Zdb4+jg=";
+    toshllm-version = "0.87.30";
+    toshllm-hash = "sha256-+ZamcTXNTKGDFYXRjHQHsXHqf/HGWvNOgI1dGak2uAo=";
     llama-cpp-rev = "d81235049384534c167caea52b85a694f6103d14";
     llama-cpp-hash = "sha256-l6l6JIlIVTaVC6xh5M4fRHFtXsweQuugtkNTWHcZZF4=";
-    llama-cpp-npmDepsHash = "sha256-vPPviazkbTSDgVlXhXv5ICcIG6QJ9NmDGE0lFcOMOsg=";
+    llama-cpp-npmDepsHash = "sha256-EtENJZGwm2CUH/z4K469T2ZXtlMMLM5SVZZ2e5HMokI=";
     
     toshllmSrc = fetchFromGitHub {
         owner = "engeldlgado";
@@ -38,7 +38,7 @@
         # npm error `npm ci` can only install packages when your package.json and package-lock.json or npm-shrinkwrap.json are in sync. Please update your lock file with `npm install` before continuing.
         prePatch = (old.prePatch or "") + ''
             patches+=" $(find "$toshllmSrc/patches/llama" -name '*.patch' -print | \
-                awk -F/ '{print $NF"\t"$0}' | sort | cut -f2-) ${./package-lock.patch}"
+                awk -F/ '{print $NF"\t"$0}' | sort | cut -f2-)"
         '';
         cmakeFlags = builtins.filter (flag: !(lib.any (x: lib.hasInfix x flag) [
             "LLAMA_BUILD_NUMBER"
