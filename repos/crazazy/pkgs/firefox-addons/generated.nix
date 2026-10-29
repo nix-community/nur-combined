@@ -2,15 +2,14 @@
   {
     "bitwarden-password-manager" = buildFirefoxXpiAddon {
       pname = "bitwarden-password-manager";
-      version = "2026.9.3";
+      version = "2026.10.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5076543/bitwarden_password_manager-2026.9.3.xpi";
-      sha256 = "5dd6efa5d228dbeac7a0c6a883f951787dc66e57985322ce549210b0df8d054c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5125667/bitwarden_password_manager-2026.10.0.xpi";
+      sha256 = "a25e02e961f4ffcecda12584f32f1993102ad7509e9ca84582e5287109f5bd20";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
         description = "At home, at work, or on the go, Bitwarden easily secures all your passwords, passkeys, and sensitive information.";
-        license = licenses.gpl3;
         platforms = platforms.all;
       };
     };
@@ -29,10 +28,10 @@
     };
     "old-reddit-redirect" = buildFirefoxXpiAddon {
       pname = "old-reddit-redirect";
-      version = "3.0.3";
+      version = "4.0.0";
       addonId = "{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4989791/old_reddit_redirect-3.0.3.xpi";
-      sha256 = "0419a6e97a7644f34478529e67fd3d9c138fe64ab7d7e84442c6c5f962ae5f76";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5175184/old_reddit_redirect-4.0.0.xpi";
+      sha256 = "17ab83dc24aa19628199233de2aed2e0960702bdd5dd34fb2fd1f7f2cd7bb100";
       meta = with lib;
       {
         homepage = "https://github.com/tom-james-watson/old-reddit-redirect";
