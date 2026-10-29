@@ -373,8 +373,8 @@ in
       message = "realm.observability.endpoints.${name}: declare one backend and an explicit probe allowlist.";
     }) endpoints;
     environment.etc."realm-observability/config.json".source = configfile;
-    # Caddy replaces Envoy here because the same plugin set already ships in
-    # caddy-realm: the SVID and the trust bundle come from the Workload API, so
+    # caddy-realm supplies the SPIFFE plugin: the SVID and the trust bundle
+    # come from the Workload API, so
     # no certificate files exist on disk and renewal needs no reload.
     #
     # The gateway keeps a separate process from the public Caddy instance on

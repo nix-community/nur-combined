@@ -19,6 +19,12 @@ credentials, unit, cgroup and namespace; it starts one worker per active
 workload. Workers share the application's network namespace but stay outside
 its captured cgroup. They use distinct unprivileged accounts and have no SPIRE
 API access. SPIRE and the existing TLS proxies retain identity and authorization.
+Internet egress terminates at a separate Caddy process using the native SPIFFE
+plugin and forwardproxy destination/port policy. Its configuration API is disabled;
+loopback metrics and SVID observation use separate listeners. Forgejo uses ordinary
+TCP without application proxy settings. Mautrix Telegram likewise removes its
+SOCKS settings and uses transparent TCP; these diagrams describe configuration,
+not a new Telegram traffic or synchronization test.
 
 Node bootstrap is separate from workload identity. Each Agent proves a
 short-lived HTTP FQDN challenge; the Server fetches the proof from the address

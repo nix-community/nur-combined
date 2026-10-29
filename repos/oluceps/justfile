@@ -145,87 +145,163 @@ resign-all:
 search-history *args:
     git log -S {{ args }}
 
-# Usage: just sync-trust-bundle
-#        just sync-trust-bundle abhoth hastur
-#        REALM_TRUST_BUNDLE_DRY=1 just sync-trust-bundle
-#
-# The Server admin socket only listens on eihort, so the bundle is read over the
-# existing SSH management path. `bundle show` returns public CA certificates
-# only; the recipe refuses to distribute anything containing a private key.
-# The file is bootstrap material: a running Agent keeps syncing its bundle from
-# the Server, so this only matters when an Agent starts cold, and for nodes that
-# still carry an outdated bootstrap root.
-#
-# Sync the public SPIRE trust bundle from the Server on eihort to the Realm nodes.
+# Distribute the pinned public upstream CA; never fetch the Server's dynamic bundle.
+# REALM_TRUST_BUNDLE_DRY=1 performs local validation/planning only (no SSH).
+[positional-arguments]
 sync-trust-bundle *nodes:
+    #!/usr/bin/env nu
+    def main [...nodes: string] {
+        ^just _sync-trust-bundle pki/realm-spire/upstream-ca.pem pinned ...$nodes
+        exit $env.LAST_EXIT_CODE
+    }
+
+# Explicit migration-only override: supply a reviewed old+new public CA bundle.
+# This never changes the repository anchor or a generation-managed bundle.
+[positional-arguments]
+sync-trust-bundle-transition bundle +nodes:
+    #!/usr/bin/env nu
+    def main [bundle: string, ...nodes: string] {
+        ^just _sync-trust-bundle $bundle transition ...$nodes
+        exit $env.LAST_EXIT_CODE
+    }
+
+[private]
+[positional-arguments]
+_sync-trust-bundle bundle mode *nodes:
     #!/usr/bin/env nu
     use {{ loc }}/util.nu
 
-    let server = "eihort"
-    let realm_nodes = ["abhoth" "azasos" "nodens" "yidhra" "hastur" "eihort"]
-    let requested = "{{ nodes }}" | str trim
-    let targets = if ($requested | is-empty) { $realm_nodes } else { $requested | split words }
-    let dry_run = (($env.REALM_TRUST_BUNDLE_DRY? | default "0") != "0")
-    let server_addr = (do $env.get_addr ($env.map) $server)
-
-    let bundle = (mktemp -t)
-    print $"reading public bundle from ($server) ($server_addr)"
-    ^ssh -n $"root@($server_addr)" '/run/current-system/sw/bin/spire-server bundle show -socketPath /run/spire/server/private/api.sock' | save --force $bundle
-
-    let text = (open --raw $bundle)
-    if ($text | str length) == 0 { error make { msg: $"no bundle returned by ($server)" } }
-    if not ($text | str contains "-----BEGIN CERTIFICATE-----") {
-        error make { msg: "server output is not a PEM certificate bundle" }
-    }
-    if ($text | str contains "PRIVATE KEY") {
-        error make { msg: "refusing to distribute material containing a private key" }
-    }
-
-    let certs = ($text | lines | where {|l| $l | str contains "BEGIN CERTIFICATE" } | length)
-    let local_hash = (^sha256sum $bundle | split row " " | first)
-    print $"bundle: ($certs) public certs, ($text | str length) bytes, sha256 ($local_hash)"
-
-    # Install through a rename so a concurrent reader never sees a partial file,
-    # keep the previous copy, and print the resulting hash for comparison. The
-    # bundle arrives on stdin so only `ssh` is needed; some nodes run without a
-    # working sftp subsystem, which breaks `scp`.
-    let remote_install = 'set -eu
-        dir=/var/lib/realm-spire
-        tmp="$dir/.trust-bundle.pem.new"
-        mkdir -p "$dir"
-        cat > "$tmp"
-        chmod 600 "$tmp"
-        chown root:root "$tmp"
-        if [ -f "$dir/trust-bundle.pem" ] && ! cmp -s "$tmp" "$dir/trust-bundle.pem"; then
-            cp -a "$dir/trust-bundle.pem" "$dir/trust-bundle.pem.before-sync"
-        fi
-        mv -f "$tmp" "$dir/trust-bundle.pem"
-        sha256sum "$dir/trust-bundle.pem"'
-
-    let results = $targets | each {|node|
-        let addr = (do $env.get_addr ($env.map) $node)
-        try {
-            if $dry_run {
-                print $"($node) ($addr): would install ($certs) certs"
-                { state: "planned" }
-            } else {
-                let remote_hash = (open --raw $bundle | ^ssh $"root@($addr)" $remote_install | str trim | split row " " | first)
-                let state = if $remote_hash == $local_hash { "synced" } else { "hash-mismatch" }
-                print $"($node) ($addr): ($state) ($remote_hash)"
-                { state: $state }
-            }
-        } catch {|e|
-            print -e $"($node) ($addr): failed: ($e.msg)"
-            { state: "failed" }
+    def main [bundle: string, mode: string, ...nodes: string] {
+        if $mode not-in [pinned transition] { error make { msg: "unknown bundle mode" } }
+        let text = (open --raw $bundle)
+        if ($text | str contains "PRIVATE KEY") {
+            error make { msg: "refusing material containing a private-key marker" }
         }
-    }
+        let certs = ($text | parse --regex '(?s)(?P<pem>-----BEGIN CERTIFICATE-----.*?-----END CERTIFICATE-----)')
+        let remainder = ($certs | reduce --fold $text {|cert, rest| $rest | str replace --all $cert.pem "" } | str trim)
+        if ($certs | is-empty) or ($remainder | is-not-empty) {
+            error make { msg: "expected only PEM CERTIFICATE blocks and whitespace" }
+        }
+        if $mode == "pinned" and ($certs | length) != 1 {
+            error make { msg: "the permanent bootstrap must contain only the dedicated upstream intermediate" }
+        }
+        if $mode == "transition" and ($certs | length) < 2 {
+            error make { msg: "transition mode requires an explicitly reviewed old+new CA bundle" }
+        }
 
-    let failed = ($results | where {|r| $r.state == "failed" or $r.state == "hash-mismatch" } | length)
-    if $failed > 0 { error make { msg: $"($failed) targets did not receive the bundle" } }
-    if $dry_run {
-        print "dry run: nothing installed"
-    } else {
-        print "done: running Agents keep their own bundle; this file is used on the next cold start"
+        # Prefer an explicit executable or PATH. Otherwise resolve the locked
+        # project's OpenSSL output offline, without downloading or building it.
+        let openssl = if ($env.REALM_OPENSSL? | default "") != "" {
+            $env.REALM_OPENSSL
+        } else if (which openssl | is-not-empty) {
+            (which openssl | first | get path)
+        } else {
+            let resolved = (^nix eval --offline --no-write-lock-file --raw .#nixosConfigurations.eihort.pkgs.openssl.bin.outPath | complete)
+            if $resolved.exit_code != 0 {
+                error make { msg: "cannot resolve cached OpenSSL; set REALM_OPENSSL to a local openssl executable" }
+            }
+            let exe = ($resolved.stdout | str trim | path join bin openssl)
+            if not ($exe | path exists) {
+                error make { msg: "OpenSSL is not cached; provision once with nix build --no-link .#nixosConfigurations.eihort.pkgs.openssl.bin, or set REALM_OPENSSL" }
+            }
+            $exe
+        }
+        for cert in $certs {
+            let checked = ($cert.pem | ^$openssl x509 -noout -subject -issuer -dates -fingerprint -sha256 -ext basicConstraints -checkend 0 | complete)
+            if $checked.exit_code != 0 or not ($checked.stdout | str contains "CA:TRUE") {
+                error make { msg: "invalid, expired, or non-CA certificate in public bundle" }
+            }
+            print ($checked.stdout | str trim)
+        }
+        let local_hash = ($text | hash sha256)
+        print $"($mode) source: ($bundle), ($certs | length) CA certs, sha256 ($local_hash)"
+
+        # Realm membership comes from evaluated config, addresses from registry
+        # via the same util mapping as deployment. Include offline enabled nodes.
+        let evaluated = (^nix eval --offline --no-write-lock-file --json .#nixosConfigurations --apply 'systems: builtins.filter (name: systems.${name}.config.realm.enable or false) (builtins.attrNames systems)' | complete)
+        if $evaluated.exit_code != 0 {
+            print -e $evaluated.stderr
+            error make { msg: "cannot evaluate Realm node inventory offline" }
+        }
+        let enabled = ($evaluated.stdout | from json)
+        let targets = (if ($nodes | is-empty) { $enabled } else { $nodes } | uniq)
+        if ($targets | is-empty) { error make { msg: "no Realm targets" } }
+        # Validate the entire selection before any remote operation.
+        for node in $targets {
+            if $node not-in $enabled or $node not-in ($env.map | columns) {
+                error make { msg: $"($node): expected a registry node with realm.enable" }
+            }
+        }
+        let dry_run = (($env.REALM_TRUST_BUNDLE_DRY? | default "0") != "0")
+        if $dry_run {
+            for node in $targets {
+                let addr = (do $env.get_addr ($env.map) $node)
+                print $"($node) ($addr): planned; remote path unchecked; skip generation-managed paths, install only legacy runtime path"
+            }
+            print "dry run: local PEM validation and inventory only; no SSH, writes, or restarts"
+            return
+        }
+
+        # Inspect the loaded Agent unit's actual generated config, not the local
+        # flake's intended path. Refuse unknown layouts instead of guessing.
+        let remote_install = r#'set -eu
+            start=$(systemctl show spire-agent.service --property=ExecStart --value)
+            config=$(printf "%s\n" "$start" | sed -n 's/.*--config=\([^ ;"}]*\).*/\1/p')
+            case "$config" in /nix/store/*|/etc/*) ;; *) echo "cannot identify Agent config" >&2; exit 1;; esac
+            paths=$(sed -n 's/^[[:space:]]*"trust_bundle_path"[[:space:]]*:[[:space:]]*"\([^"]*\)"[[:space:]]*,*[[:space:]]*$/\1/p' "$config")
+            test "$(printf "%s\n" "$paths" | wc -l)" -eq 1
+            test -n "$paths"
+            resolved=$(readlink -m -- "$paths")
+            case "$paths:$resolved" in
+                /nix/store/*|/etc/*|*:/nix/store/*|*:/etc/*)
+                    hash=$(sha256sum -- "$paths" | cut -d " " -f1)
+                    printf "managed\t%s\t%s\n" "$paths" "$hash"
+                    exit 0;;
+            esac
+            test "$paths" = /var/lib/realm-spire/trust-bundle.pem || {
+                echo "refusing unrecognized runtime trust_bundle_path: $paths" >&2; exit 1;
+            }
+            test ! -L "$paths" || { echo "refusing runtime bundle symlink" >&2; exit 1; }
+            dir=/var/lib/realm-spire
+            umask 077
+            mkdir -p "$dir"
+            tmp=$(mktemp "$dir/.trust-bundle.pem.XXXXXX")
+            trap 'rm -f "$tmp"' EXIT HUP INT TERM
+            cat > "$tmp"
+            chmod 600 "$tmp"
+            chown root:root "$tmp"
+            if [ -f "$paths" ] && ! cmp -s "$tmp" "$paths" && [ ! -e "$paths.before-sync" ]; then
+                cp -a -- "$paths" "$paths.before-sync"
+            fi
+            mv -f -- "$tmp" "$paths"
+            hash=$(sha256sum -- "$paths" | cut -d " " -f1)
+            printf "synced\t%s\t%s\n" "$paths" "$hash"'#
+
+        let results = $targets | each {|node|
+            let addr = (do $env.get_addr ($env.map) $node)
+            try {
+                let remote = ($text | ^ssh -T -o BatchMode=yes -o ConnectTimeout=10 $"root@($addr)" $remote_install | complete)
+                if $remote.exit_code != 0 { error make { msg: ($remote.stderr | str trim) } }
+                let fields = ($remote.stdout | str trim | split row (char tab))
+                if ($fields | length) != 3 or $fields.0 not-in [managed synced] {
+                    error make { msg: "unexpected remote result" }
+                }
+                if $fields.0 == "managed" {
+                    print $"($node) ($addr): ($fields.1) is managed by declarative generation; no write"
+                }
+                if $fields.2 != $local_hash {
+                    error make { msg: $"($fields.1): SHA-256 differs; managed paths require a generation update" }
+                }
+                print $"($node) ($addr): ($fields.0), sha256 ($fields.2)"
+                { state: $fields.0 }
+            } catch {|e|
+                print -e $"($node) ($addr): failed: ($e.msg)"
+                { state: "failed" }
+            }
+        }
+        let failed = ($results | where state == "failed" | length)
+        if $failed > 0 { error make { msg: $"($failed) targets unresolved; do not treat this as propagation complete" } }
+        print "done: bootstrap checked; running Agent/workload dynamic bundle propagation still needs separate verification"
     }
 
 build-topo:

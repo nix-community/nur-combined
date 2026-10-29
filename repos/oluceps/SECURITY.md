@@ -289,5 +289,5 @@ after compromise of its trusted root/kernel.
 | Isolation and local capabilities | [Workload isolation](lib/realm/base.nix), [container integration](nixosModules/realm-container.nix) |
 | Identity and receiver grants | [SPIRE](nixosModules/realm-spire.nix), [egress](lib/realm/egress.nix), [ingress](lib/realm/ingress.nix), [native TLS](lib/realm/native.nix) |
 | Transparent capture and worker containment | [Agent source](pkgs/realm-agent/), [agent integration](nixosModules/realm-agent.nix), [architecture](layout/transparent-egress.svg) |
-| Gateway policy | [Internet restrictions](lib/realm/envoy-internet.nix), [site Internet grants](mod/realm-internet.nix), [Caddy identity policy](mod/realm-caddy-policy.nix) |
+| Gateway policy | [Internet restrictions](lib/realm/caddy-internet.nix), [site Internet grants](mod/realm-internet.nix), [Caddy identity policy](mod/realm-caddy-policy.nix) |
 | Secrets and administrative access | [Vaultix](mod/vaultix.nix), [host secret assignments](mod/age.nix), [SSH policy](mod/openssh.nix) |

@@ -62,12 +62,6 @@
             REGISTER_EMAIL_CONFIRM = true;
             REGISTER_MANUAL_CONFIRM = true;
           };
-          proxy = {
-            PROXY_ENABLED = true;
-            # Follow environment proxy selection, including NO_PROXY for private adapters.
-            PROXY_URL = "";
-            PROXY_HOSTS = "**";
-          };
           actions = {
             ENABLED = true;
           };

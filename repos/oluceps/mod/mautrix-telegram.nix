@@ -41,7 +41,6 @@
         isolation.allowUnixSockets = [ "/run/postgresql" ];
         isolation.runtimePaths = [ "/run/mautrix-telegram" ];
         ingressGroups = [ "mautrix-telegram" ];
-        socksProxy.enable = true;
         ingress.appservice = {
           port = 19317;
           backend = {
@@ -104,10 +103,8 @@
             };
           };
           network = {
-            proxy = {
-              type = "socks5";
-              address = "127.0.0.1:11080";
-            };
+            # Use ordinary TCP sockets; realm-agent supplies authenticated egress.
+            proxy.type = "disabled";
             api_id = 611335;
             api_hash = "d524b414d21f4d37f08684c1df41ac9c";
             device_info = {

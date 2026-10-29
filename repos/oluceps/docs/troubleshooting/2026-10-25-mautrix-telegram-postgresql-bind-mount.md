@@ -1,5 +1,9 @@
 # Telegram 桥接丢失 PostgreSQL socket：2026-10-25
 
+本文保留 2026-10-25 的故障与恢复记录。下文 Envoy 状态、临时覆盖和待部署说明均为当时情况；
+当前 Internet gateway 已由 Caddy 替代，桥接的透明 TCP 配置见
+[Realm 应用配置](../realm.md#application-profiles-and-observation-endpoints)。
+
 ## 现象与原因
 
 eihort 上 `mautrix-telegram.service` 显示 active，但 Telegram 群消息停止进入 Matrix。目标房间最后的消息时间是 2026-10-24 22:36:33 +08。检查时，matrix.org 没有联邦退避，Envoy 的 `accept_http_10` 也已启用。

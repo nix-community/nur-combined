@@ -119,7 +119,6 @@ let
   profileModules = [
     (import ../mod/realm-caddy-policy.nix).flake.modules.nixos.realm
     (import ../mod/misskey.nix).flake.modules.nixos.misskey
-    (import ../mod/telegram-search.nix).flake.modules.nixos.telegram-search
     (
       { ... }:
       {
@@ -173,37 +172,25 @@ let
       expr = profileFileStable "misskey";
       expected = true;
     };
-    testTelegramSearchRouteFileStable = {
-      expr = profileFileStable "telegram-search";
-      expected = true;
-    };
     testProfileIngressTargetsPreserved = {
       expr = [
         profiles.realm.workloads.misskey.ingress.http.target
         profiles.realm.workloads.redis-misskey.ingress.redis.target
-        profiles.realm.workloads.telegram-search.ingress.http.target
       ];
       expected = [
         "unix:/run/realm-misskey/backend/http.sock"
         "unix:/run/redis-misskey/redis.sock"
-        "unix:/run/realm-telegram-search/backend/http.sock"
       ];
     };
     testProfileIngressIdentitiesPreserved = {
       expr = [
         profiles.realm.workloads.misskey.ingress.http.allowedIDs
         profiles.realm.workloads.redis-misskey.ingress.redis.allowedIDs
-        profiles.realm.workloads.telegram-search.ingress.http.allowedIDs
       ];
       expected = [
         profiles.realm.caddy.allowedIDs.misskey
         [ "spiffe://nyaw.xyz/service/misskey" ]
-        [ "spiffe://nyaw.xyz/service/caddy" ]
       ];
-    };
-    testTelegramSearchLegacyS3IdentityPreserved = {
-      expr = profiles.realm.workloads.telegram-search.egress.s3.verifyID;
-      expected = "spiffe://nyaw.xyz/service/caddy";
     };
     testContainerInstanceCannotCombineWorkloads = {
       expr = failures duplicateInstance != [ ];
@@ -396,6 +383,7 @@ runTest {
   nodes.machine = {
     imports = [
       ../nixosModules/realm-workloads.nix
+      ../nixosModules/realm-container.nix
       spireFixture.module
       ../nixosModules/service-discovery.nix
     ]
@@ -415,7 +403,7 @@ runTest {
         catalog.fixture =
           lib.genAttrs
             [
-              "postgresql-telegram-search"
+              "fixture-database"
               "redis-misskey"
               "meilisearch"
               "https-gateway"
@@ -427,7 +415,7 @@ runTest {
               unit = "fixture.service";
               serverID = "spiffe://nyaw.xyz/service/${
                 {
-                  postgresql-telegram-search = "postgresql";
+                  fixture-database = "database";
                   redis-misskey = "redis-misskey";
                   meilisearch = "meilisearch";
                   https-gateway = "caddy";
@@ -438,32 +426,99 @@ runTest {
             });
       };
     };
-    vaultix.secrets.tg-search.path = toString (
-      pkgs.writeText "dummy-search.env" "DATABASE_URL=postgresql://unused:dummy@unreachable/unused\n"
-    );
+    users.groups.fixture = { };
+    users.users.fixture = {
+      isSystemUser = true;
+      uid = 1983;
+      group = "fixture";
+      home = "/var/lib/fixture";
+      createHome = true;
+      linger = true;
+      subUidRanges = [
+        {
+          startUid = 2147614720;
+          count = 65536;
+        }
+      ];
+      subGidRanges = [
+        {
+          startGid = 2147614720;
+          count = 65536;
+        }
+      ];
+    };
     virtualisation.podman.enable = true;
     virtualisation.oci-containers = {
       backend = "podman";
-      containers.telegram-search-app = {
-        image = lib.mkForce "realm-container-fixture:test";
+      containers.fixture-app = {
+        image = "realm-container-fixture:test";
         imageFile = image;
-        cmd = lib.mkForce [
+        networks = [ "none" ];
+        user = "0:0";
+        podman = {
+          user = "fixture";
+          sdnotify = "healthy";
+        };
+        entrypoint = "/realm/helper";
+        cmd = [
           "launch"
           "${pkgs.nodejs}/bin/node"
           "${backend}"
         ];
+        extraOptions = [
+          "--userns=keep-id:uid=0,gid=0"
+          "--cap-drop=ALL"
+          "--security-opt=no-new-privileges"
+          "--health-cmd=node /realm/health.cjs"
+          "--health-interval=5s"
+          "--health-start-period=30s"
+        ];
+        environment = {
+          REALM_INGRESS_PORT = "3333";
+          REALM_HEALTH_PORT = "3000";
+        };
       };
       containers.misskey = {
         image = lib.mkForce "realm-container-fixture:test";
         imageFile = image;
       };
     };
-    realm.workloads.telegram-search.egress.postgresql.socket =
-      "/run/realm-telegram-search/custom-egress/postgresql.sock";
+    realm.workloads.fixture = {
+      unit = "podman-fixture-app.service";
+      runtime = "container";
+      container = {
+        name = "fixture-app";
+        backendPath = "/run/fixture/backend";
+      };
+      ingressGroups = [ "fixture" ];
+      socksProxy.enable = true;
+      ingress.http = {
+        port = 13336;
+        backend = {
+          kind = "unix";
+          path = "/run/fixture/backend/http.sock";
+        };
+        service = "fixture-http";
+        allow.identities = [ "spiffe://nyaw.xyz/service/caddy" ];
+      };
+      egress = {
+        database = {
+          service = "fixture-database";
+          localPort = 15432;
+          socket = "/run/fixture/custom-egress/database.sock";
+        };
+        internet = {
+          service = "internet-proxy";
+          localPort = 13128;
+        };
+      };
+    };
     systemd.tmpfiles.rules = [
-      "d /run/realm-telegram-search/custom-egress 0750 root telegram-search -"
+      "d /run/fixture 0750 fixture realm-fixture -"
+      "d /run/fixture/backend 0750 fixture fixture -"
+      "d /run/fixture/custom-egress 0750 root fixture -"
     ];
-    systemd.services.realm-egress-telegram-search-postgresql = {
+    systemd.services.realm-egress-fixture-database = {
       requires = lib.mkForce [ ];
       after = lib.mkForce [ ];
       serviceConfig = {
@@ -490,25 +545,23 @@ runTest {
     machine.start()
     ${spireFixture.startAgent}
     machine.wait_for_unit("podman-misskey.service", timeout=180)
-    machine.wait_for_unit("podman-telegram-search-app.service", timeout=180)
-    with subtest("Telegram Search uses rootless keep-id and publishes a Unix socket"):
-        machine.wait_until_succeeds("curl -sf --unix-socket /run/realm-telegram-search/backend/http.sock http://localhost/ | grep -x 0:0:mesh", timeout=30)
-        machine.succeed("runuser -u telegram-search -- podman inspect telegram-search-app --format '{{.HostConfig.NetworkMode}}' | grep -x none")
-        actual = machine.succeed("runuser -u telegram-search -- podman exec telegram-search-app node -p process.env.DATABASE_URL").strip()
-        assert actual == "postgresql://telegram_search@127.0.0.1:15432/telegram_search?sslmode=disable", actual
-        machine.fail("runuser -u nobody -- curl -sf --max-time 2 --unix-socket /run/realm-telegram-search/backend/http.sock http://localhost/")
-        machine.fail("curl -sf --max-time 2 http://127.0.0.1:3336/")
+    machine.wait_for_unit("podman-fixture-app.service", timeout=180)
+    with subtest("rootless namespace-root fixture publishes a Unix socket"):
+        machine.wait_until_succeeds("curl -sf --unix-socket /run/fixture/backend/http.sock http://localhost/ | grep -x 0:0:mesh", timeout=30)
+        machine.succeed("runuser -u fixture -- podman inspect fixture-app --format '{{.HostConfig.NetworkMode}}' | grep -x none")
+        machine.fail("runuser -u nobody -- curl -sf --max-time 2 --unix-socket /run/fixture/backend/http.sock http://localhost/")
+        machine.fail("curl -sf --max-time 2 http://127.0.0.1:3333/")
     with subtest("custom egress sockets use an extra read-only bind mount"):
-        machine.succeed("runuser -u telegram-search -- podman inspect telegram-search-app --format '{{json .Mounts}}' | ${pkgs.python3}/bin/python3 -c 'import json,sys; mounts=json.load(sys.stdin); assert any(m[\"Source\"] == \"/run/realm-telegram-search/custom-egress\" and m[\"Destination\"] == \"/realm/egress-postgresql\" and not m[\"RW\"] for m in mounts)' ")
+        machine.succeed("runuser -u fixture -- podman inspect fixture-app --format '{{json .Mounts}}' | ${pkgs.python3}/bin/python3 -c 'import json,sys; mounts=json.load(sys.stdin); assert any(m[\"Source\"] == \"/run/fixture/custom-egress\" and m[\"Destination\"] == \"/realm/egress-database\" and not m[\"RW\"] for m in mounts)' ")
     with subtest("custom socket replacement remains visible through the directory mount"):
-        machine.succeed("systemctl stop realm-egress-telegram-search-postgresql.service realm-egress-telegram-search-postgresql.socket")
-        machine.succeed("systemctl start realm-egress-telegram-search-postgresql.socket")
-        machine.wait_until_succeeds("curl -sf --unix-socket /run/realm-telegram-search/backend/http.sock http://localhost/ | grep -x 0:0:mesh", timeout=30)
+        machine.succeed("systemctl stop realm-egress-fixture-database.service realm-egress-fixture-database.socket")
+        machine.succeed("systemctl start realm-egress-fixture-database.socket")
+        machine.wait_until_succeeds("curl -sf --unix-socket /run/fixture/backend/http.sock http://localhost/ | grep -x 0:0:mesh", timeout=30)
     with subtest("the SOCKS adapter is bridged to the container through a Unix socket"):
         # The bridge service is socket-activated, so this also proves that
         # realm-helper receives the listening descriptor from systemd.
         machine.succeed(
-            "runuser -u telegram-search -- ${pkgs.python3}/bin/python3 -c 'import socket; s=socket.socket(socket.AF_UNIX); s.connect(\"/run/realm/telegram-search/egress/socks.sock\"); s.sendall(b\"\\x05\\x01\\x00\"); assert s.recv(2) == b\"\\x05\\x00\"'"
+            "runuser -u fixture -- ${pkgs.python3}/bin/python3 -c 'import socket; s=socket.socket(socket.AF_UNIX); s.connect(\"/run/realm/fixture/egress/socks.sock\"); s.sendall(b\"\\x05\\x01\\x00\"); assert s.recv(2) == b\"\\x05\\x00\"'"
         )
     with subtest("container receives prepared configuration unchanged"):
         expected = machine.succeed("cat ${source}")

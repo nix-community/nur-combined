@@ -2,10 +2,13 @@
 
 直接指标已部署到 Abhoth、Azasos、Eihort、Hastur、Nodens 和 Yidhra。
 Eihort 先做试运行，Hastur 最后切换。Uubboo 和 Kaambl 未部署、未迁移。
-本次只更新观测配置，保留 SPIRE Server 数据库、密钥、CA、信任域和现有 HTTP Agent 状态。
+本文包含 2026-10-28/29 的部署与验收记录，并按当前实现更新 Internet Caddy 监控说明；历史巡检数量不代表当前配置清单。
 
 看板：[SPIFFE 证书与节点认证](https://gf.nyaw.xyz/d/realm-spiffe-identity/3211a3c)。
-原 Envoy 看板保留跳转链接。两个看板的 JSON 位于 `dashboards/`，供审查和恢复；不是自动 Nix provisioning。
+[Internet Caddy 看板](https://gf.nyaw.xyz/d/envoy-zero-trust-egress/envoy-zero-trust-egress-gateways)
+沿用既有稳定 UID `envoy-zero-trust-egress`，以兼容外部链接；名称和查询已对应 Caddy。
+两个看板的 JSON 位于 `dashboards/`，供审查和恢复；不是自动 Nix provisioning。
+本次仅同步仓库文件，没有发布看板或远程部署；下文线上查询和视觉验收均为历史记录，不构成本次 JSON 的验收。
 
 ## 部署后的检查结果
 
@@ -91,7 +94,6 @@ Responder 的 HTTP 读取也不是 proof 验证，更不是证书签发。
 | --- | --- | --- |
 | `ghostunnel_status_watch` | mTLS GET `/_metrics/prometheus`；校验证书链、时间和精确 URI | Ghostunnel 1.10 的 status listener 有独立 Workload API watch，不能证明业务 watch 已接受轮换 |
 | `caddy_loaded` | 对应 Caddy 进程的共享 SVID 源，通过专用 loopback mTLS listener 的 GET `/` 返回 204 | 分别观察观测 Caddy 和 Internet Caddy；不代表公共 Caddy 的 Ghostunnel 代理 |
-| `envoy_loaded` | 读取 loopback admin `/certs`，选择精确 URI 的当前 `cert_chain` | 读取的是已加载的公开元数据；不把 CA 条目当叶证书 |
 
 TLS 观察使用 exporter 自己的 canary、当前 Workload API bundle 和 TLS 1.3。
 Caddy 专用入口只允许本机 observer 身份。Internet holder 保持
@@ -100,16 +102,16 @@ Caddy 专用入口只允许本机 observer 身份。Internet holder 保持
 在同一 Caddy 进程中共享实际 SVID automation source 和 expectedID，要求 TLS 1.3，
 只允许 `spiffe://<trustDomain>/observer/identity/<hostname>`，GET `/` 返回 204。
 不能把 plaintext `/metrics` 入口作为 holder 地址，也不能用 exporter canary 的身份替代 gateway 身份。
-`envoy_loaded` 仍是 exporter 支持的旧数据源，但 Internet holder 不再使用它。
+当前 holder 清单仅使用上述两种来源；Internet gateway 的实际加载证据来自 `caddy_loaded`。
 
-`realm_workload_svid_last_rotation_timestamp_seconds` 表示本 exporter 观察到叶指纹或 Envoy 元数据摘要发生变化的时间。
+`realm_workload_svid_last_rotation_timestamp_seconds` 表示本 exporter 观察到叶证书指纹发生变化的时间。
 它不是精确续期次数；首次采集、尚无变化或 exporter 重启后可以没有该序列。
 指纹不作为指标标签，也不记录私钥、token、nonce、challenge ID 或完整 proof。
 
 ## 信任、有效期与缺失数据
 
 - `realm_bootstrap_bundle_server_trust_valid` 实际用 pinned bundle 验证当前 Server 的链、时间和 `spiffe://nyaw.xyz/spire/server` URI。
-  文件存在、bundle 中有未过期 CA、或 Envoy bundle 最晚到期时间，都不能替代此检查。
+  文件存在、bundle 中有未过期 CA、或 bundle 最晚到期时间，都不能替代此检查。
 - `realm_spire_agent_metadata_valid` 是管理元数据检查，不是实时 Agent TLS 握手。
 - `realm_spire_alias_matches_expected` 检查稳定别名、实际父 Agent、唯一 selector 和有限条目的到期时间。
 - 当前 SVID、当前激活签发 CA、包含历史根的 bundle 分开显示。不能用 bundle 中最早到期证书判断当前 SVID 失效。
@@ -132,19 +134,24 @@ Caddy 专用入口只允许本机 observer 身份。Internet holder 保持
 
 ## Internet gateway 的 Caddy 监控契约
 
-本节描述 Envoy → 原生 SPIFFE Caddy forward proxy 的配置变更，尚未部署；上面的历史巡检结果不代表本次变更已验收。
+Internet gateway 当前由原生 SPIFFE Caddy 和 forwardproxy 插件实现，已替代 Envoy。
+实现见 [`lib/realm/caddy-internet.nix`](../lib/realm/caddy-internet.nix) 和
+[`nixosModules/realm-internet.nix`](../nixosModules/realm-internet.nix)。
+上面的 2026-10-28 巡检早于替换；Caddy 的独立 VM 回归范围见
+[CA 验证记录](realm-spire-ca-validation.md#恢复-caddy-后的回归)，线上 `validate` 行为见
+[故障记录](troubleshooting/2026-10-29-caddy-validate-spiffe-hang.md)。这些记录不证明每条业务路径或当前看板查询均已在线复验。
 
-Gateway 模块需注册唯一的 `realm.observability.endpoints.internet-gateway`，
+Gateway 模块注册唯一的 `realm.observability.endpoints.internet-gateway`，
 `port = realm.internet.adminPort`（默认 19329），`path = "/metrics"`，后端为 `127.0.0.1` 的普通 HTTP。
 保留 adminPort 选项不表示开放 Caddy 管理写接口；观测路径只中继 `/metrics`。
 身份 exporter 使用独立的 statusPort（默认 19330），两者均只监听 loopback。
 启用身份指标时，端口唯一性断言检查这两个端口与其他 metrics/status 端口，防火墙同时丢弃它们的非 loopback 入站连接。
-Gateway 模块即使在身份指标关闭时也须保持 loopback 绑定；本模块不会为指标关闭的节点添加观测规则。
+Gateway 模块在身份指标关闭时仍保持 loopback 绑定；身份指标模块不会为指标关闭的节点添加观测规则。
 
 `mod/prometheus.nix` 的 `internet-gateway` job 经现有 SPIFFE 观测路径抓取
 `/internet-gateway/metrics`，只发现声明该 endpoint 的主机。原 `caddy` job 继续抓取观测 Caddy，
-不能复用它来抓取 Internet Caddy；gateway 模块应移除旧的 `envoy` endpoint，避免重复发现。
-业务 server 必须命名为 `internet` 并启用 Caddy HTTP metrics；plaintext metrics server 命名为 `metrics`。
+两者是不同的抓取目标；gateway 模块仅注册 `internet-gateway` endpoint，避免重复发现。
+业务 server 命名为 `internet` 并启用 Caddy HTTP metrics；plaintext metrics server 命名为 `metrics`。
 
 - `InternetGatewayDown`：`up{job="internet-gateway"} == 0` 持续 2 分钟，critical。
   这表示抓取路径失败，也可能是观测网关或 SPIFFE egress 故障；不等价于业务 CONNECT 探测。
@@ -157,20 +164,21 @@ Gateway 模块即使在身份指标关闭时也须保持 loopback 绑定；本�
 而 `caddy_http_requests_total` 不包含 `code`，`caddy_http_request_errors_total` 统计 middleware errors。
 因此 5xx 告警使用 histogram count，不把 middleware error counter 当成 HTTP 状态码。
 CONNECT 长连接通常在隧道结束后才进入完成响应统计；该规则不检查隧道内的上游应用响应，
-4xx 策略拒绝也不计为 5xx。父任务的集成验收需确认实际生成器暴露上述 server/handler 标签和状态码样本。
+4xx 策略拒绝也不计为 5xx。生成器使用上述 server/handler；本次文档同步未在线复验其全部状态码样本。
 
 CONNECT 字节统计以包内 vendor 的 Caddy 2.11.4 源码为准：
 `modules/caddyhttp/responsewriter.go` 的 `responseRecorder.Hijack()` 用 `hijackedConn` 包装连接，
 跟踪读取和写入字节；`metrics.go` 的 responseSize histogram 观察 `wrec.Size()`。
 因此不能笼统声称通用 Caddy size 指标不统计 CONNECT 隧道字节；响应 size 可以包含 hijack 后写向客户端的隧道字节。
-父任务 VM 的 CONNECT access log 已观察到 `bytes_read=1737, size=3142`；这是日志样本，
+既有 VM 记录中的 CONNECT access log 已观察到 `bytes_read=1737, size=3142`；这是日志样本，
 不等同于已直接验证对应 Prometheus histogram 的数值。
 另一方面，requestSize histogram 使用 `computeApproximateRequestSize(r)`，估算请求 URL、方法、协议、
 headers、Host 和已知 ContentLength，并不使用 hijacked connection 的读取字节计数。
 这些通用 HTTP 指标仍未提供按 SPIFFE identity 区分、双向对称的专用隧道字节指标，
 不能将 request/response size histogram 当作完整的双向身份流量计量。
 
-旧 Envoy 看板不会自动变为 Caddy 看板；本次未修改其 JSON，也未发布看板或部署服务。
+仓库中的 [`caddy-zero-trust-egress.json`](../dashboards/caddy-zero-trust-egress.json)
+使用 Caddy HTTP 指标和 JSON 访问日志。其历史 UID 仅用于链接兼容，不表示仍使用旧网关。
 
 ## 日志覆盖与限制
 
@@ -196,9 +204,9 @@ Chrony 记录规则最初只覆盖四台，Abhoth 和 Yidhra 的缺失在看板�
 
 逐 unit 的历史清单可检测最近 15 分钟内消失的 holder。仅传入节点名的规则无法知道在这个窗口前就已被删除的 unit；配置生成清单仍需审查。
 现有 `RealmScraperStalled` 保留，30 分钟窗口加 15 分钟持续时间仍可能接近 45 分钟，不作为直接身份检查的替代。
-旧 `EnvoyDown` / `EnvoyHighErrorRate` 已由上述 Internet gateway 规则替代；本次配置修改未执行部署。
+历史 `EnvoyDown` / `EnvoyHighErrorRate` 规则已由上述 Internet gateway 规则替代；本次没有执行部署。
 
-验收包括：
+以下是既有验收记录，不是本次文档与看板同步重新运行的结果：
 
 - `tests/realm-identity-metrics.nix`：25 项 Nix 配置检查。
 - `tests/realm-spire-http.nix`：42 项现有 HTTP 配置检查。
@@ -209,8 +217,11 @@ Chrony 记录规则最初只覆盖四台，Abhoth 和 Yidhra 的缺失在看板�
 
 ## 看板验收状态
 
-看板已通过 MCP 发布，包含 63 个 panel、70 条查询。
-结构检查和线上查询已完成。当前保存的 All/多选变量使用 `${instance:regex}`，中央 Agent/别名按目标 `node` 筛选。
+**历史记录（2026-10-29）。**
+
+当时的身份看板已通过 MCP 发布，包含 63 个 panel、70 条查询。
+当时已完成结构检查和线上查询。本次仓库 JSON 已移除旧证书来源查询，尚未重新发布或进行线上视觉验收。
+当前保存的 All/多选变量使用 `${instance:regex}`，中央 Agent/别名按目标 `node` 筛选。
 
 **浏览器视觉验收已完成。** 2026-10-29 使用 CDP 完成 Pocket ID OIDC 登录，Grafana 会话为 Generic OAuth，用户 `i@nyaw.xyz`。
 看板在浏览器中渲染正常，证书、采集覆盖和逐进程 panel 均显示线上数据。

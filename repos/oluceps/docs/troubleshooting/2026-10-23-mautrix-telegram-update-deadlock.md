@@ -1,5 +1,9 @@
 # Matrix Telegram 桥接停止同步：2026-10-23
 
+本文记录 2026-10-23 的故障。下文 SOCKS → Envoy 是当时的路径；当前配置移除桥接 SOCKS 设置，
+由 realm-agent 捕获普通 TCP，经已声明的 Internet egress 到 Internet Caddy。此配置迁移不构成消息同步恢复或重连实测。
+当前配置说明见 [Realm 应用配置](../realm.md#application-profiles-and-observation-endpoints)。
+
 ## 已确认的故障
 
 `mautrix-telegram` 0.2609.0 的一个 Telegram 登录停止同步，但 systemd 仍显示服务运行。
@@ -16,6 +20,8 @@
 另有独立的 Synapse 注册故障：桥接请求通过 Unix socket，没有 `X-Forwarded-For`。注册接口读取客户端 IP 时返回 HTTP 500。相同请求加上该头后返回正常参数错误。`mod/synapse.nix` 改用私有 TCP 入口，并保留 realm 身份认证。补充 journal socket 后，Synapse 应用日志恢复。
 
 ## 代理路径
+
+以下是故障发生时的历史路径。
 
 ```text
 mautrix Telegram 客户端

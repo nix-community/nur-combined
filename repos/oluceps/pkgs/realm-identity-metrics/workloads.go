@@ -2,18 +2,14 @@ package main
 
 import (
 	"context"
-	"crypto/sha256"
 	"crypto/tls"
 	"crypto/x509"
-	"encoding/hex"
-	"encoding/json"
 	"errors"
 	"io"
 	"net"
 	"net/http"
 	"path/filepath"
 	"regexp"
-	"sort"
 	"strings"
 	"time"
 
@@ -24,7 +20,6 @@ import (
 const (
 	sourceGhostunnel    = "ghostunnel_status_watch"
 	sourceCaddy         = "caddy_loaded"
-	sourceEnvoy         = "envoy_loaded"
 	maxWorkloads        = 512
 	workloadParallelism = 16
 	maxHolderBodyBytes  = 1 << 20
@@ -62,7 +57,7 @@ func (c Config) validateWorkloads() error {
 			return errors.New("workload addresses must be distinct loopback IPs and ports")
 		}
 		switch target.Source {
-		case sourceGhostunnel, sourceCaddy, sourceEnvoy:
+		case sourceGhostunnel, sourceCaddy:
 		default:
 			return errors.New("invalid workload source")
 		}
@@ -184,18 +179,14 @@ func (e *exporter) collectWorkloads(ctx context.Context, ready <-chan struct{}, 
 				case "inactive":
 					observation.dormant = true
 				case "active":
-					if job.target.Source == sourceEnvoy {
-						observation = observeHolder(ctx, job.target, canaryMetadata{})
-					} else {
-						select {
-						case <-ctx.Done():
-							observation.err = ctx.Err()
-						case <-ready:
-							if canary.err != nil {
-								observation.err = errors.New("workload_observer_unavailable")
-							} else {
-								observation = observeHolder(ctx, job.target, canary.metadata)
-							}
+					select {
+					case <-ctx.Done():
+						observation.err = ctx.Err()
+					case <-ready:
+						if canary.err != nil {
+							observation.err = errors.New("workload_observer_unavailable")
+						} else {
+							observation = observeHolder(ctx, job.target, canary.metadata)
 						}
 					}
 				default:
@@ -231,51 +222,45 @@ func observeHolder(parent context.Context, target WorkloadTarget, observer canar
 	defer cancel()
 	transport := &http.Transport{Proxy: nil, DisableKeepAlives: true, MaxResponseHeaderBytes: 16 << 10, DialContext: (&net.Dialer{}).DialContext, TLSHandshakeTimeout: operationTimeout, ResponseHeaderTimeout: operationTimeout}
 	defer transport.CloseIdleConnections()
-	scheme, path, wantStatus := "https", "/", http.StatusNoContent
+	path, wantStatus := "/", http.StatusNoContent
 	switch target.Source {
 	case sourceGhostunnel:
 		path = "/_metrics/prometheus"
 		wantStatus = http.StatusOK
 	case sourceCaddy:
-	case sourceEnvoy:
-		scheme = "http"
-		path = "/certs"
-		wantStatus = http.StatusOK
 	default:
 		o.err = errors.New("workload_source")
 		return o
 	}
 	chainExpiry := make(chan time.Time, 1)
-	if target.Source != sourceEnvoy {
-		if observer.SVID == nil || observer.SVID.PrivateKey == nil || observer.Bundle == nil || observer.Cert == nil || !certCurrent(observer.Cert, time.Now()) {
-			o.err = errors.New("workload_observer_unavailable")
-			return o
-		}
-		expected, err := spiffeid.FromString(target.Identity)
-		if err != nil {
-			o.err = errors.New("workload_identity")
-			return o
-		}
-		authorize := tlsconfig.AuthorizeID(expected)
-		transport.TLSClientConfig = tlsconfig.MTLSClientConfig(observer.SVID, observer.Bundle, func(id spiffeid.ID, chains [][]*x509.Certificate) error {
-			if err := authorize(id, chains); err != nil {
-				return err
-			}
-			if len(chains) == 0 || len(chains[0]) == 0 {
-				return errors.New("workload_chain")
-			}
-			var validUntil time.Time
-			for _, cert := range chains[0] {
-				validUntil = earlier(validUntil, cert.NotAfter)
-			}
-			chainExpiry <- validUntil
-			return nil
-		})
-		transport.TLSClientConfig.MinVersion = tls.VersionTLS13
-		o.validUntil = observer.Cert.NotAfter
+	if observer.SVID == nil || observer.SVID.PrivateKey == nil || observer.Bundle == nil || observer.Cert == nil || !certCurrent(observer.Cert, time.Now()) {
+		o.err = errors.New("workload_observer_unavailable")
+		return o
 	}
+	expected, err := spiffeid.FromString(target.Identity)
+	if err != nil {
+		o.err = errors.New("workload_identity")
+		return o
+	}
+	authorize := tlsconfig.AuthorizeID(expected)
+	transport.TLSClientConfig = tlsconfig.MTLSClientConfig(observer.SVID, observer.Bundle, func(id spiffeid.ID, chains [][]*x509.Certificate) error {
+		if err := authorize(id, chains); err != nil {
+			return err
+		}
+		if len(chains) == 0 || len(chains[0]) == 0 {
+			return errors.New("workload_chain")
+		}
+		var validUntil time.Time
+		for _, cert := range chains[0] {
+			validUntil = earlier(validUntil, cert.NotAfter)
+		}
+		chainExpiry <- validUntil
+		return nil
+	})
+	transport.TLSClientConfig.MinVersion = tls.VersionTLS13
+	o.validUntil = observer.Cert.NotAfter
 	client := &http.Client{Transport: transport, CheckRedirect: func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }}
-	request, err := http.NewRequestWithContext(ctx, http.MethodGet, scheme+"://"+target.Address+path, nil)
+	request, err := http.NewRequestWithContext(ctx, http.MethodGet, "https://"+target.Address+path, nil)
 	if err != nil {
 		o.err = errors.New("workload_request")
 		return o
@@ -303,9 +288,6 @@ func observeHolder(parent context.Context, target WorkloadTarget, observer canar
 		}
 		return o
 	}
-	if target.Source == sourceEnvoy {
-		return parseEnvoyCertificates(raw, target.Identity, time.Now())
-	}
 	select {
 	case validUntil := <-chainExpiry:
 		o.validUntil = earlier(o.validUntil, validUntil)
@@ -325,78 +307,4 @@ func observeHolder(parent context.Context, target WorkloadTarget, observer canar
 		o.err = errors.New("workload_expired")
 	}
 	return o
-}
-
-type envoySAN struct {
-	URI string `json:"uri"`
-	DNS string `json:"dns"`
-	IP  string `json:"ip_address"`
-}
-type envoyCertificate struct {
-	Serial string     `json:"serial_number"`
-	SANs   []envoySAN `json:"subject_alt_names"`
-	Before string     `json:"valid_from"`
-	After  string     `json:"expiration_time"`
-}
-
-func parseEnvoyCertificates(raw []byte, identity string, now time.Time) holderObservation {
-	failure := holderObservation{err: errors.New("workload_envoy_metadata")}
-	var envelope struct {
-		Certificates []struct {
-			Chain []envoyCertificate `json:"cert_chain"`
-		} `json:"certificates"`
-	}
-	if len(raw) > maxHolderBodyBytes || json.Unmarshal(raw, &envelope) != nil {
-		return failure
-	}
-	var selected holderObservation
-	for _, context := range envelope.Certificates {
-		for _, cert := range context.Chain {
-			uriCount := 0
-			uri := ""
-			var sans []string
-			if len(cert.SANs) > 64 {
-				return failure
-			}
-			for _, san := range cert.SANs {
-				if san.URI != "" {
-					uriCount++
-					uri = san.URI
-					sans = append(sans, "uri:"+san.URI)
-				}
-				if san.DNS != "" {
-					sans = append(sans, "dns:"+san.DNS)
-				}
-				if san.IP != "" {
-					sans = append(sans, "ip:"+san.IP)
-				}
-			}
-			if uriCount != 1 || uri != identity {
-				continue
-			}
-			before, err := time.Parse(time.RFC3339Nano, cert.Before)
-			if err != nil {
-				return failure
-			}
-			after, err := time.Parse(time.RFC3339Nano, cert.After)
-			if err != nil || cert.Serial == "" || len(cert.Serial) > 256 || !after.After(before) {
-				return failure
-			}
-			if now.Before(before) || !now.Before(after) {
-				continue
-			}
-			sort.Strings(sans)
-			normalized, _ := json.Marshal([]any{cert.Serial, sans, before.UTC().Format(time.RFC3339Nano), after.UTC().Format(time.RFC3339Nano)})
-			hash := sha256.Sum256(normalized)
-			digest := hex.EncodeToString(hash[:])
-			if selected.fingerprint != "" && selected.fingerprint != digest {
-				return holderObservation{err: errors.New("workload_envoy_ambiguous")}
-			}
-			selected = holderObservation{before: before, after: after, validUntil: after, fingerprint: digest}
-		}
-	}
-	if selected.fingerprint == "" {
-		return failure
-	}
-	return selected
 }

@@ -7,10 +7,10 @@ classes: {
   note: { style: { fill: "#fff6df"; stroke: "#aa8330"; border-radius: 8; font-size: 18 } }
 }
 title: "Transparent Egress: Forgejo Routes" { shape: text; style.font-size: 30 }
-forgejo: "Forgejo in private netns\nNo HTTP_PROXY / HTTPS_PROXY injection" { class: node }
+forgejo: "Forgejo in private netns\nNo application proxy settings / Transparent TCP" { class: node }
 capture: "App cgroup BPF hooks\nrealm-agent worker in app netns\nUser: rnet-forgejo / No SPIRE API" { class: agent }
-proxy: "Declared Internet Unix egress\nGhostunnel client: Forgejo SPIFFE ID\nInternet Envoy: mTLS + port / address policy" { class: gateway }
-https: "Declared s3.nyaw.xyz alias -> 127.0.0.1:443\nLocal adapter -> Ghostunnel -> HTTPS Caddy" { class: gateway }
+proxy: "Declared Internet Unix egress\nGhostunnel client: Forgejo SPIFFE ID\nInternet Caddy: mTLS + port / address policy" { class: gateway }
+https: "S3 / OIDC / self URL aliases -> 127.0.0.1:443\nLocal adapter -> Ghostunnel -> HTTPS Caddy" { class: gateway }
 smtp: "Explicit SMTP alias :465\nGhostunnel\nStalwart" { class: gateway }
 internet: "Allowed Internet targets" { class: node }
 private: "Private HTTPS site" { class: node }
@@ -22,7 +22,7 @@ forgejo -> https: "Hosts / authoritative alias keeps TLS hostname"
 https -> private
 forgejo -> smtp: "Existing loopback adapter"
 smtp -> mail
-note: "Aliases and proxy-independent DNS are answered by the worker; unknown DNS needs existing Internet egress.\nPublic TCP defaults to 443; other ports require client configuration and receiver permission.\nDirect Unix sockets, loopback adapters and explicit app proxy settings remain usable.\nApplication HTTPS / SMTPS stays end to end inside Realm mTLS; no gateway permission is added." { class: note }
+note: "Aliases and proxy-independent DNS are answered by the worker; unknown DNS needs existing Internet egress.\nPublic TCP defaults to 443; other ports require client configuration and receiver permission.\nForgejo uses ordinary TCP; direct Unix sockets and loopback adapters remain usable.\nApplication HTTPS / SMTPS stays end to end inside Realm mTLS; no gateway permission is added." { class: note }
 
 # Invisible edges place the title and note on their own rows.
 title -> forgejo: { style.opacity: 0 }

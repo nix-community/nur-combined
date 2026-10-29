@@ -26,10 +26,6 @@
           forgejo = {
             service = "forgejo";
           };
-          # telegram-search = {
-          #   service = "telegram-search";
-          #   verifyID = "spiffe://nyaw.xyz/service/telegram-search";
-          # };
           synapse = {
             service = "synapse";
           };
@@ -78,7 +74,6 @@
           service = "https-gateway";
           allow.identities = config.realm.http.gatewayClientIDs.eihort ++ [
             "spiffe://nyaw.xyz/service/misskey"
-            "spiffe://nyaw.xyz/service/telegram-search"
           ];
         };
       };
@@ -165,16 +160,6 @@
                           }
                         ];
                         match = [ { host = [ "git.nyaw.xyz" ]; } ];
-                        terminal = true;
-                      }
-                      {
-                        handle = [
-                          {
-                            handler = "reverse_proxy";
-                            upstreams = [ { dial = "unix//run/realm/caddy/egress/telegram-search.sock"; } ];
-                          }
-                        ];
-                        match = [ { host = [ "tgs.nyaw.xyz" ]; } ];
                         terminal = true;
                       }
                       {

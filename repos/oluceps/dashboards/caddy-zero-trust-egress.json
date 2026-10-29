@@ -630,7 +630,7 @@
         "type": "loki",
         "uid": "P8E80F9AEF21F6940"
       },
-      "description": "统计所选节点在所选时间范围内记录的访问日志。CONNECT 通常在隧道结束时记录，不等于隧道内 HTTPS 请求数。 Caddy JSON request.host 作为目标 authority；不是 Envoy authority 字段。",
+      "description": "统计所选节点在所选时间范围内记录的访问日志。CONNECT 通常在隧道结束时记录，不等于隧道内 HTTPS 请求数。Caddy JSON request.host 作为目标 authority。",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -855,5 +855,5 @@
   "title": "Caddy Internet Gateway · Zero-Trust Egress",
   "uid": "envoy-zero-trust-egress",
   "weekStart": "",
-  "description": "Caddy 2.11.4 Internet gateway：HTTP / CONNECT 请求、响应状态、秒级耗时与 HTTP 字节估计。缺失数据为未知；不提供 TLS/TCP 连接数或完整隧道流量。"
+  "description": "Caddy 2.11.4 Internet gateway：HTTP / CONNECT 请求、响应状态、秒级耗时与 HTTP 字节估计。缺失数据为未知；不提供 TLS/TCP 连接数或完整隧道流量。沿用稳定 UID envoy-zero-trust-egress 以兼容既有外部链接。"
 }

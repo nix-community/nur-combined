@@ -135,6 +135,11 @@ func TestWorkloadTLSIdentityTrustExpiryAndObserverAuth(t *testing.T) {
 	}{
 		{name: "ghostunnel_valid", signer: ca, serverID: c.Workloads[0].Identity, expiry: now.Add(time.Hour), source: sourceGhostunnel, valid: true},
 		{name: "caddy_valid", signer: ca, serverID: c.Workloads[0].Identity, expiry: now.Add(time.Hour), source: sourceCaddy, valid: true},
+		{name: "caddy_wrong_uri", signer: ca, serverID: "spiffe://example.org/service/other", expiry: now.Add(time.Hour), source: sourceCaddy},
+		{name: "caddy_wrong_ca", signer: other, serverID: c.Workloads[0].Identity, expiry: now.Add(time.Hour), source: sourceCaddy},
+		{name: "caddy_expired", signer: ca, serverID: c.Workloads[0].Identity, expiry: now.Add(-time.Second), source: sourceCaddy},
+		{name: "caddy_wrong_observer_ca", signer: ca, serverID: c.Workloads[0].Identity, expiry: now.Add(time.Hour), wrongObserver: true, source: sourceCaddy},
+		{name: "caddy_missing_observer", signer: ca, serverID: c.Workloads[0].Identity, expiry: now.Add(time.Hour), missingObserver: true, source: sourceCaddy},
 		{name: "wrong_uri", signer: ca, serverID: "spiffe://example.org/service/other", expiry: now.Add(time.Hour), source: sourceGhostunnel},
 		{name: "wrong_ca", signer: other, serverID: c.Workloads[0].Identity, expiry: now.Add(time.Hour), source: sourceGhostunnel},
 		{name: "expired", signer: ca, serverID: c.Workloads[0].Identity, expiry: now.Add(-time.Second), source: sourceGhostunnel},
@@ -174,7 +179,7 @@ func TestWorkloadTLSIdentityTrustExpiryAndObserverAuth(t *testing.T) {
 			if (got.err == nil) != tt.valid {
 				t.Fatalf("observation valid=%t, want %t", got.err == nil, tt.valid)
 			}
-			if tt.valid && (requests.Load() != 1 || got.fingerprint != fingerprint(leaf) || !got.after.Equal(leaf.NotAfter)) {
+			if tt.valid && (requests.Load() != 1 || got.fingerprint != fingerprint(leaf) || !got.before.Equal(leaf.NotBefore) || !got.after.Equal(leaf.NotAfter) || got.fingerprint == fingerprint(observer.Cert)) {
 				t.Fatal("wrong public certificate observation")
 			}
 			if !tt.valid && requests.Load() != 0 {
@@ -298,52 +303,6 @@ func TestWorkloadActivityAndDormancy(t *testing.T) {
 		t.Fatal("failed systemctl became dormant")
 	}
 }
-func envoyJSON(serial, before, after, identity string) []byte {
-	raw, _ := json.Marshal(map[string]any{"certificates": []any{map[string]any{"ca_cert": []any{map[string]any{"serial_number": "CA", "subject_alt_names": []any{map[string]string{"uri": identity}}, "valid_from": before, "expiration_time": after}}, "cert_chain": []any{map[string]any{"serial_number": serial, "subject_alt_names": []any{map[string]string{"uri": identity}}, "valid_from": before, "expiration_time": after}}}}})
-	return raw
-}
-func TestEnvoyLoadedCertificateParsing(t *testing.T) {
-	now := time.Now()
-	identity := "spiffe://example.org/service/internet"
-	before := now.Add(-time.Hour).UTC().Format(time.RFC3339)
-	after := now.Add(time.Hour).UTC().Format(time.RFC3339)
-	valid := envoyJSON("123", before, after, identity)
-	first := parseEnvoyCertificates(valid, identity, now)
-	if first.err != nil || first.fingerprint == "" {
-		t.Fatal("valid Envoy leaf missing")
-	}
-	for name, raw := range map[string][]byte{
-		"malformed": []byte("{"), "missing": []byte("{}"), "wrong_uri": envoyJSON("123", before, after, "spiffe://example.org/service/other"), "expired": envoyJSON("123", before, now.Add(-time.Second).UTC().Format(time.RFC3339), identity), "future": envoyJSON("123", now.Add(time.Minute).UTC().Format(time.RFC3339), after, identity), "bad_date": envoyJSON("123", "bad", after, identity), "missing_serial": envoyJSON("", before, after, identity), "ca_only": []byte(strings.ReplaceAll(string(valid), "cert_chain", "ignored_chain")),
-	} {
-		t.Run(name, func(t *testing.T) {
-			if parseEnvoyCertificates(raw, identity, now).err == nil {
-				t.Fatal("invalid Envoy certificate accepted")
-			}
-		})
-	}
-	// Duplicate TLS contexts with the same leaf are one observation.
-	var envelope map[string][]json.RawMessage
-	if json.Unmarshal(valid, &envelope) != nil {
-		t.Fatal("fixture")
-	}
-	envelope["certificates"] = append(envelope["certificates"], envelope["certificates"][0])
-	duplicate, _ := json.Marshal(envelope)
-	if got := parseEnvoyCertificates(duplicate, identity, now); got.err != nil || got.fingerprint != first.fingerprint {
-		t.Fatal("same loaded leaf across contexts became ambiguous")
-	}
-	var other map[string][]json.RawMessage
-	_ = json.Unmarshal(envoyJSON("456", before, after, identity), &other)
-	envelope["certificates"][1] = other["certificates"][0]
-	ambiguous, _ := json.Marshal(envelope)
-	if parseEnvoyCertificates(ambiguous, identity, now).err == nil {
-		t.Fatal("different current loaded leaves were silently combined")
-	}
-	// Bundle metadata and time-dependent day counts cannot count as a leaf change.
-	changedCA := strings.Replace(string(valid), `"serial_number":"CA"`, `"serial_number":"NEW_CA"`, 1)
-	if got := parseEnvoyCertificates([]byte(changedCA), identity, now); got.err != nil || got.fingerprint != first.fingerprint {
-		t.Fatal("bundle-only update changed leaf digest")
-	}
-}
 func TestWorkloadRotationFreshnessAndSourceLabels(t *testing.T) {
 	c := holderConfig()
 	e := newExporter(c, nil)
@@ -385,10 +344,16 @@ func TestWorkloadRotationFreshnessAndSourceLabels(t *testing.T) {
 	}
 }
 func TestWorkloadParallelDeadlineAndHTTPAvailability(t *testing.T) {
+	c := holderConfig()
+	now := time.Now()
+	ca := newCA(t, now.Add(-time.Hour), now.Add(2*time.Hour))
+	observer := observerCredentials(t, ca, c)
+	cert, _ := ca.leaf(t, []string{c.Workloads[0].Identity}, now.Add(-time.Minute), now.Add(time.Hour))
 	var active, peak atomic.Int32
-	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != "GET" || r.URL.Path != "/certs" {
-			t.Error("wrong Envoy request")
+	entered := make(chan struct{}, 64)
+	address := serveHolderTLS(t, cert, observer.Bundle, tlsconfig.AuthorizeID(spiffeid.RequireFromString(c.canaryID())), http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != "GET" || (r.URL.Path != "/" && r.URL.Path != "/_metrics/prometheus") {
+			t.Error("wrong holder request")
 		}
 		n := active.Add(1)
 		defer active.Add(-1)
@@ -398,31 +363,55 @@ func TestWorkloadParallelDeadlineAndHTTPAvailability(t *testing.T) {
 				break
 			}
 		}
+		entered <- struct{}{}
 		<-r.Context().Done()
 	}))
-	defer server.Close()
-	c := holderConfig()
+	identity := c.Workloads[0].Identity
 	c.Workloads = nil
-	// A shared test server stands in for distinct production listener ports.
+	// A shared TLS server stands in for distinct production listener ports.
 	for i := 0; i < 64; i++ {
-		c.Workloads = append(c.Workloads, WorkloadTarget{Unit: fmt.Sprintf("realm-internet-%d.service", i), Identity: "spiffe://example.org/service/internet", Source: sourceEnvoy, Address: strings.TrimPrefix(server.URL, "http://")})
+		source := sourceCaddy
+		if i%2 == 0 {
+			source = sourceGhostunnel
+		}
+		c.Workloads = append(c.Workloads, WorkloadTarget{Unit: fmt.Sprintf("realm-holder-%d.service", i), Identity: identity, Source: source, Address: address})
 	}
 	e := newExporter(c, nil)
 	e.command = func(context.Context, string, ...string) ([]byte, error) { return activityJSON(c.Workloads), nil }
-	ctx, cancel := context.WithTimeout(context.Background(), 150*time.Millisecond)
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 	ready := make(chan struct{})
+	close(ready)
 	var wg sync.WaitGroup
 	wg.Add(1)
 	start := time.Now()
-	go func() { defer wg.Done(); e.record(e.collectWorkloads(ctx, ready, &canaryResult{})) }()
+	go func() { defer wg.Done(); e.record(e.collectWorkloads(ctx, ready, &canaryResult{metadata: observer})) }()
+	// Check HTTP availability while multiple authenticated requests are pending.
+	for i := 0; i < 2; i++ {
+		select {
+		case <-entered:
+		case <-ctx.Done():
+			wg.Wait()
+			t.Fatal("TLS holder requests did not run concurrently")
+		}
+	}
 	response := httptest.NewRecorder()
-	e.handler().ServeHTTP(response, httptest.NewRequest("GET", "/metrics", nil))
-	if response.Code != 200 {
-		t.Fatal("metrics blocked by holder observations")
+	scraped := make(chan struct{})
+	go func() {
+		e.handler().ServeHTTP(response, httptest.NewRequest("GET", "/metrics", nil))
+		close(scraped)
+	}()
+	select {
+	case <-scraped:
+		if response.Code != 200 {
+			t.Error("metrics unavailable during holder observations")
+		}
+	case <-ctx.Done():
+		t.Error("metrics blocked by holder observations")
 	}
 	wg.Wait()
-	if time.Since(start) > time.Second || peak.Load() > workloadParallelism || peak.Load() < 2 {
+	<-scraped
+	if time.Since(start) > 2*time.Second || peak.Load() > workloadParallelism || peak.Load() < 2 {
 		t.Fatal("parallel observation bound or deadline failed")
 	}
 	for _, target := range c.Workloads {
@@ -430,24 +419,5 @@ func TestWorkloadParallelDeadlineAndHTTPAvailability(t *testing.T) {
 		if s.success || s.dormant || s.errors != 1 {
 			t.Fatal("timed out observation appeared healthy")
 		}
-	}
-}
-func TestEnvoyHTTPDoesNotNeedObserver(t *testing.T) {
-	c := holderConfig()
-	target := c.Workloads[0]
-	target.Source = sourceEnvoy
-	target.Identity = "spiffe://example.org/service/internet"
-	now := time.Now()
-	body := envoyJSON("1", now.Add(-time.Minute).UTC().Format(time.RFC3339), now.Add(time.Hour).UTC().Format(time.RFC3339), target.Identity)
-	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != "GET" || r.URL.Path != "/certs" {
-			t.Error("wrong Envoy path")
-		}
-		_, _ = w.Write(body)
-	}))
-	defer server.Close()
-	target.Address = strings.TrimPrefix(server.URL, "http://")
-	if got := observeHolder(context.Background(), target, canaryMetadata{}); got.err != nil {
-		t.Fatal("local Envoy observation required Workload API")
 	}
 }

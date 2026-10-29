@@ -1,5 +1,9 @@
 # Synapse 联邦入站停在 Loading：2026-10-23
 
+本文保留 2026-10-23 使用 Envoy 时的故障与临时恢复记录。当前 Internet gateway 已由
+[Caddy 实现](../../lib/realm/caddy-internet.nix)替代；下文 `accept_http_10`、运行时覆盖及待部署步骤只描述当时状态。
+Caddy 的 HTTP/1.0 CONNECT 回归另见 [CA 验证记录](../realm-spire-ca-validation.md#恢复-caddy-后的回归)。
+
 ## 已确认的故障
 
 matrix.org 上的账号加入 `#daeuniverse:nyaw.xyz` 时，Element Web 停在 Loading。别名指向的房间在本机存在。故障不在别名解析之后的加入流程。
@@ -45,7 +49,7 @@ retry_interval  39692188 ms，约 11 小时
 
 同一时间，其他服务器的 `.well-known` 开始返回正常的 `m.server`。修复前这些请求记录的是 426。
 
-`lib/realm/envoy-internet.nix` 已写入 `accept_http_10`。这次只改了源码，还没有通过正常部署生效。`/run` 里的临时配置在主机重启后消失。重启之后、完成部署之前，426 会恢复。
+当时的 `lib/realm/envoy-internet.nix` 已写入 `accept_http_10`（历史路径，已由 Caddy 生成器替代）。当时只改了源码，还没有通过正常部署生效。`/run` 里的临时配置在主机重启后消失。重启之后、完成部署之前，426 会恢复。
 
 ## 排除过的路径
 
@@ -56,6 +60,8 @@ Synapse 网络命名空间只有 `lo`，没有 `/etc/resolv.conf`。`getaddrinfo
 空闲隧道、并行密钥请求和 ghostunnel 管道时长都不能复现这批失败。失败请求往往没有对应的新出站隧道，因为 Envoy 在 CONNECT 握手阶段就已经拒绝。
 
 ## 后续检查
+
+以下步骤记录当时 Envoy 修复的待办，不适用于当前 Caddy 配置。
 
 部署包含 `accept_http_10` 的配置后，删除 `/run` 里的临时单元覆盖，并确认 `realm-internet` 使用部署后的配置。然后检查新的联邦请求不再出现 `Unexpected status on CONNECT: b'426'`。
 

@@ -225,7 +225,7 @@ func safeReason(err error) string {
 		return "none"
 	}
 	switch err.Error() {
-	case "workload_unit_metadata", "workload_unit_not_active", "workload_observer_unavailable", "workload_address", "workload_identity", "workload_source", "workload_chain", "workload_request", "workload_http_status", "workload_body", "workload_expired", "workload_envoy_metadata", "workload_envoy_ambiguous", "workload_metadata":
+	case "workload_unit_metadata", "workload_unit_not_active", "workload_observer_unavailable", "workload_address", "workload_identity", "workload_source", "workload_chain", "workload_request", "workload_http_status", "workload_body", "workload_expired", "workload_metadata":
 		return err.Error()
 	case "bundle_read", "bundle_format", "bundle_certificate", "bundle_limit", "bundle_empty", "bootstrap_domain", "bootstrap_identity", "bootstrap_handshake", "bootstrap_chain", "canary_connect", "canary_fetch", "canary_metadata", "canary_missing", "admin_command", "admin_output_limit", "agents_json", "agents_metadata", "alias_metadata":
 		return err.Error()
@@ -394,7 +394,7 @@ var metricHelp = map[string]string{
 	"realm_workload_svid_observation_errors_total":               "Failed observation attempts since process start. Dormant units do not count as errors.",
 	"realm_workload_svid_not_before_seconds":                     "Observed public leaf start of validity as Unix time. Source labels identify the interface.",
 	"realm_workload_svid_not_after_seconds":                      "Observed public leaf expiry as Unix time. Ghostunnel status watches do not prove business certificate state.",
-	"realm_workload_svid_last_rotation_timestamp_seconds":        "Unix time when this process observed a change in the leaf fingerprint or Envoy public metadata digest.",
+	"realm_workload_svid_last_rotation_timestamp_seconds":        "Unix time when this process observed a change in the TLS peer leaf fingerprint.",
 	"realm_identity_collector_success":                           "One if the latest collection succeeded and is fresh.",
 	"realm_identity_collector_successes_total":                   "Successful collections since process start.",
 	"realm_identity_collector_errors_total":                      "Failed collections since process start.",

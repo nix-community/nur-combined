@@ -101,27 +101,24 @@ Configure one observation target per holder process:
 Targets require distinct `.service` unit names and distinct listener addresses. Several units can share one SPIFFE ID.
 Unit names have a 255-byte limit. Identities have a 2048-byte limit and must use the configured trust domain.
 Addresses contain only a literal loopback IP and a port. Schemes, paths, queries, and DNS names fail validation.
-The source enum supports the three values in the table below. The parent must use the actual registered identity for each unit.
-The Internet gateway uses `caddy_loaded`; `envoy_loaded` remains available for observing other Envoy holders.
+The source enum supports only the two values in the table below. The parent must use the actual registered identity for each unit.
+The Internet gateway uses `caddy_loaded`.
 
 | Source | Fixed request | Observation |
 | --- | --- | --- |
 | `ghostunnel_status_watch` | HTTPS GET `/_metrics/prometheus`, HTTP 200 | The status listener's separate Workload API watch. It does not prove that the business TLS source loaded the certificate. |
-| `caddy_loaded` | HTTPS GET `/`, HTTP 204 | The dedicated listener must use Caddy's actual existing SVID source. |
-| `envoy_loaded` | HTTP GET `/certs`, HTTP 200 | Public certificate metadata from the local Envoy admin listener. |
+| `caddy_loaded` | HTTPS GET `/`, HTTP 204 | The TLS peer certificate served by the dedicated listener using Caddy's actual existing SVID source. This is evidence of the certificate loaded by that source. |
 
-TLS targets use TLS 1.3 and the observer's own SVID and Workload API bundle.
+All targets require mTLS and use TLS 1.3 and the observer's own SVID and Workload API bundle.
 The client checks the server chain, certificate times, and exact configured SPIFFE URI. It applies no DNS/IP hostname check to URI-only SVIDs.
 Ghostunnel's Workload API mode accepts a valid SPIFFE client with `AuthorizeAny`. The Caddy listener must authorize only the observer ID.
 The exporter never requests `/_status`, follows redirects, or dials a business backend. It uses no environment proxy.
 Each HTTP response has a 1 MiB body limit and a 16 KiB header limit.
 The parent supplies unique Ghostunnel status ports in the host network namespace and the Caddy listener that uses the existing source.
 
-Envoy observation selects current `certificates[].cert_chain[]` entries by the exact URI SAN and ignores `ca_cert` entries.
-Identical copies across loaded TLS contexts form one observation. Different current leaves for the same identity fail as ambiguous.
-The JSON interface exposes no DER fingerprint. The exporter hashes the serial, sorted SANs, and validity times as an internal change token.
-It ignores CA metadata, path names, and dynamic day counts for that token.
-Envoy JSON supplies loaded metadata rather than a cryptographic chain check. No key or raw certificate is available through this interface.
+Certificate times and rotation evidence come only from the authenticated TLS peer leaf, never from the HTTP body or the observer's own certificate.
+Caddy's listener must share the source used for business TLS; an independent status watch cannot establish that loaded claim.
+Ghostunnel's status certificate remains evidence only of its independent watch, even when its identity matches the business listener.
 
 Before probes, the collector reads all configured unit states in one command:
 
@@ -137,11 +134,12 @@ The `workloads` collector succeeds only when every target is either successfully
 A missing state or failed batch command fails all targets and clears their dormant indicators.
 
 At most 16 holder observations run at once. The batch state read and all probes share the existing 20-second cycle budget.
-The observer fetch runs in parallel with the batch state read. Envoy observations need no observer certificate.
-If the observer API fails, TLS observations fail and clear their certificate samples. Envoy can still report its local loaded metadata.
+One observer fetch per cycle runs in parallel with the batch state read. All active targets wait for that cycle's observer credentials.
+If the observer API fails, active observations fail and clear their certificate samples. Inactive and failed units do not wait for the observer.
+Bootstrap trust uses the pinned bundle independently; it cannot supply fallback observer credentials or holder trust.
 The HTTP metrics listener remains available while either operation waits or fails.
 
-Holder rotation timestamps record changes in the DER leaf fingerprint, or Envoy's public metadata digest.
+Holder rotation timestamps record changes in the authenticated TLS peer's DER leaf fingerprint.
 The first observation, unchanged polls, and CA-only updates do not create a rotation timestamp.
 A failure or dormant state preserves the last successful observation time and the internal change token, but removes the old certificate samples.
 A fresh successful observation restores samples. Failure, known expiry, or 65 seconds without a current result clears observation success.

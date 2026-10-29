@@ -40,13 +40,13 @@ private.worker -> host.socket: "Internal route: raw TCP\nInternet TCP and DNS Do
 
 receiver: "Receiving host: existing SPIFFE boundary" {
   class: boundary
-  gateway: "Internet Envoy / Service Ghostunnel\nValidate caller SPIFFE ID + receiver policy\nPrivate / reserved Internet addresses denied" { class: gateway }
+  gateway: "Internet Caddy / Service Ghostunnel\nValidate caller SPIFFE ID + receiver policy\nPrivate / reserved Internet addresses denied" { class: gateway }
   internal: "Declared private service\nUnix backend or private loopback adapter" { class: node }
   routing: "Internet gateway outbound routing\nHost TUN / sing-box may apply\nGateway and TUN stay outside app BPF capture" { class: gateway }
   internet: "Authorized public TCP target\nHTTPS payload TLS stays end to end" { class: node }
   doh: "HTTPS DNS upstream\nReal answers, not host fake-IP mappings" { class: node }
   gateway -> internal: "Declared service receiver"
-  gateway -> routing: "Internet Envoy"
+  gateway -> routing: "Internet Caddy"
   routing -> internet
   routing -> doh
 }

@@ -19,7 +19,7 @@ capture -> socket: "Explicit prefix/port route, or Internet CONNECT / DoH"
 socket -> client
 client -> server: "mTLS, including local calls"
 server -> backend
-native: "Alternate receiver\nObservability Caddy / Internet Envoy\nChecks mTLS without a Ghostunnel server" { class: gateway }
+native: "Alternate receiver\nObservability Caddy / Internet Caddy\nChecks mTLS without a Ghostunnel server" { class: gateway }
 peer: "Alternate: local PostgreSQL\nUnix socket with peer auth\nNo Ghostunnel or mTLS" { class: node }
 note: "Both local and cross-host service calls use the existing SPIFFE path.\nBPF does not give the app a host route or a certificate; host-network gateways are excluded.\nDirect PostgreSQL peer auth checks the local user; receiver allowlists still apply." { class: note }
 

@@ -4,12 +4,10 @@ import (
 	"bytes"
 	"context"
 	"crypto/x509"
-	"fmt"
 	"io"
 	"log/slog"
 	"net"
 	"net/http"
-	"net/http/httptest"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -136,7 +134,7 @@ func TestHTTPAvailableBeforeWorkloadAPIResponse(t *testing.T) {
 	}
 }
 
-func TestWorkloadCycleUsesOwnAPICredentialsAndKeepsEnvoyIndependent(t *testing.T) {
+func TestWorkloadCycleUsesOwnAPICredentialsAndIndependentBootstrapTrust(t *testing.T) {
 	c := holderConfig()
 	now := time.Now()
 	ca := newCA(t, now.Add(-time.Hour), now.Add(2*time.Hour))
@@ -149,17 +147,15 @@ func TestWorkloadCycleUsesOwnAPICredentialsAndKeepsEnvoyIndependent(t *testing.T
 		}
 		w.WriteHeader(204)
 	}))
-	envoyTarget := WorkloadTarget{Unit: "realm-internet.service", Identity: "spiffe://example.org/service/internet", Source: sourceEnvoy}
-	envoyBody := envoyJSON("1", now.Add(-time.Minute).UTC().Format(time.RFC3339), now.Add(time.Hour).UTC().Format(time.RFC3339), envoyTarget.Identity)
-	envoy := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != "GET" || r.URL.Path != "/certs" {
-			t.Error("wrong Envoy request")
+	watchTarget := WorkloadTarget{Unit: "realm-egress-watch.service", Identity: c.Workloads[0].Identity, Source: sourceGhostunnel}
+	watchCert, watchLeaf := ca.leaf(t, []string{watchTarget.Identity}, now.Add(-time.Minute), now.Add(30*time.Minute))
+	watchTarget.Address = serveHolderTLS(t, watchCert, observer.Bundle, tlsconfig.AuthorizeAny(), http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != "GET" || r.URL.Path != "/_metrics/prometheus" {
+			t.Error("wrong Ghostunnel watch request")
 		}
-		_, _ = w.Write(envoyBody)
+		w.WriteHeader(200)
 	}))
-	defer envoy.Close()
-	envoyTarget.Address = strings.TrimPrefix(envoy.URL, "http://")
-	c.Workloads = append(c.Workloads, envoyTarget)
+	c.Workloads = append(c.Workloads, watchTarget)
 	ownKey, err := x509.MarshalPKCS8PrivateKey(observer.SVID.PrivateKey)
 	if err != nil {
 		t.Fatal("encode in-memory observer key")
@@ -179,7 +175,7 @@ func TestWorkloadCycleUsesOwnAPICredentialsAndKeepsEnvoyIndependent(t *testing.T
 	e := newExporter(c, nil)
 	e.command = func(context.Context, string, ...string) ([]byte, error) { return activityJSON(c.Workloads), nil }
 	e.collect(context.Background())
-	if !e.states["canary"].success || !e.holders[c.Workloads[0].Unit].success || !e.holders[envoyTarget.Unit].success || e.states["bootstrap"].success {
+	if !e.states["canary"].success || !e.holders[c.Workloads[0].Unit].success || !e.holders[watchTarget.Unit].success || e.states["bootstrap"].success {
 		t.Fatal("observer context, holder trust, or bootstrap isolation failed")
 	}
 	var b bytes.Buffer
@@ -187,7 +183,13 @@ func TestWorkloadCycleUsesOwnAPICredentialsAndKeepsEnvoyIndependent(t *testing.T
 	if bytes.Contains(b.Bytes(), ownKey) || bytes.Contains(b.Bytes(), otherKey) || strings.Contains(b.String(), "PRIVATE KEY") {
 		t.Fatal("observer key reached metrics")
 	}
-	previous := e.holders[c.Workloads[0].Unit].observed
+	if e.holders[c.Workloads[0].Unit].fingerprint != fingerprint(serverCert.Leaf) || e.holders[watchTarget.Unit].fingerprint != fingerprint(watchLeaf) || e.holders[watchTarget.Unit].fingerprint == e.holders[c.Workloads[0].Unit].fingerprint {
+		t.Fatal("Caddy loaded and independent Ghostunnel watch evidence were combined")
+	}
+	previous := map[string]time.Time{}
+	for _, target := range c.Workloads {
+		previous[target.Unit] = e.holders[target.Unit].observed
+	}
 	e.fetch = func(ctx context.Context, _ Config) (canaryMetadata, error) {
 		<-ctx.Done()
 		return canaryMetadata{}, ctx.Err()
@@ -195,13 +197,17 @@ func TestWorkloadCycleUsesOwnAPICredentialsAndKeepsEnvoyIndependent(t *testing.T
 	ctx, cancel := context.WithTimeout(context.Background(), 80*time.Millisecond)
 	defer cancel()
 	e.collect(ctx)
-	holder := e.holders[c.Workloads[0].Unit]
-	if holder.success || holder.dormant || !holder.observed.Equal(previous) || !e.holders[envoyTarget.Unit].success {
-		t.Fatal("Workload API failure did not isolate TLS holders from local Envoy metadata")
+	for _, target := range c.Workloads {
+		holder := e.holders[target.Unit]
+		if holder.success || holder.dormant || !holder.observed.Equal(previous[target.Unit]) || holder.errors != 1 {
+			t.Fatal("Workload API failure retained holder success or lost observation history")
+		}
 	}
 	b.Reset()
 	e.metrics(&b, time.Now())
-	if strings.Contains(b.String(), fmt.Sprintf(`realm_workload_svid_not_after_seconds{node="eihort",unit="%s"`, c.Workloads[0].Unit)) {
-		t.Fatal("failed TLS observation retained old certificate")
+	for _, metric := range []string{"realm_workload_svid_not_before_seconds{", "realm_workload_svid_not_after_seconds{", "realm_workload_svid_last_rotation_timestamp_seconds{"} {
+		if strings.Contains(b.String(), metric) {
+			t.Fatal("failed TLS observation retained old certificate samples")
+		}
 	}
 }

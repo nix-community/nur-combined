@@ -12,13 +12,6 @@
         group = "postgres";
         isolation.runtimePaths = [ "/run/postgresql" ];
         ingress = {
-          # telegram-search = {
-          #   port = 15436;
-          #   target = "unix:/run/postgresql/.s.PGSQL.5432";
-          #   service = "postgresql-telegram-search";
-          #   backendUser = "realm-pg-telegram-search";
-          #   allowedIDs = [ "spiffe://nyaw.xyz/service/telegram-search" ];
-          # };
           autopeer = {
             port = 15438;
             backend = {

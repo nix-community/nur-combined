@@ -12,7 +12,7 @@ let
   up = ''up{job="realm-identity"} == 1'';
   fresh = collector: ''realm_identity:collector_fresh{collector="${collector}"}'';
   holderMatch = "on (instance, job, monitor, node, unit, identity, source)";
-  holderNote = "Source {{ $labels.source }}: ghostunnel_status_watch checks a separate certificate watch. caddy_loaded uses the actual SDK source. envoy_loaded reads public admin /certs metadata.";
+  holderNote = "Source {{ $labels.source }}: ghostunnel_status_watch checks a separate certificate watch and does not prove business TLS loaded it. caddy_loaded observes the TLS peer certificate from Caddy's actual SDK source.";
   alert = name: expr: duration: severity: description: {
     alert = name;
     inherit expr;

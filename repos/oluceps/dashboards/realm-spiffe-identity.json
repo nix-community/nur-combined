@@ -1094,11 +1094,11 @@
       "id": 18,
       "options": {
         "mode": "markdown",
-        "content": "**未提供此指标 / No metric available**\n\nCaddy app.http.metrics 不导出 Envoy circuit-breaker gauges；缺失不能解释为无熔断或零排队。"
+        "content": "**未提供此指标 / No metric available**\n\nCaddy app.http.metrics 不提供连接池熔断或排队 gauges；缺失不能解释为无熔断或零排队。"
       },
       "title": "Caddy Internet gateway · 连接池熔断指标未提供",
       "type": "text",
-      "description": "Caddy app.http.metrics 不导出 Envoy circuit-breaker gauges；缺失不能解释为无熔断或零排队。"
+      "description": "Caddy app.http.metrics 不提供连接池熔断或排队 gauges；缺失不能解释为无熔断或零排队。"
     },
     {
       "datasource": {
@@ -1251,7 +1251,7 @@
       },
       "id": 1020,
       "options": {
-        "content": "| 直接信号 | 范围与证据边界 |\n| --- | --- |\n| bootstrap / exact canary | 六节点已部署；校验当前 Server TLS 链、精确 observer 身份和证书有效期 |\n| Agent / alias | Eihort 本地管理 socket 元数据，按目标 node 筛选；不替代实时链校验 |\n| 逐进程 SVID | 178 个配置目标；inactive 标为 dormant，不为探测启动服务 |\n| Ghostunnel | 独立 status watch，不证明业务 watch 已加载新证书 |\n| Caddy / Envoy | 实际共享 SDK 源 / admin cert_chain 元数据 |\n| HTTP proof | 本地提交、验证后 attributes sent 分开；都不等于 Core 签发 |\n| 原生 SPIRE | 当前激活 CA 到期及成功签名计数；不等于每个业务进程已加载 |\n\n不采集私钥、token、nonce 或完整 proof。OIDC 登录与看板渲染已通过视觉验收；数据检查仍不等于对每个业务路径的验证。\n\n集中日志：五台由 Alloy 写入 Loki。Yidhra 因约 452 MB 内存显式禁用 Alloy，本次保留该限制；其日志仅在本地 journal，直接指标仍可用。",
+        "content": "| 直接信号 | 范围与证据边界 |\n| --- | --- |\n| bootstrap / exact canary | 六节点已部署；校验当前 Server TLS 链、精确 observer 身份和证书有效期 |\n| Agent / alias | Eihort 本地管理 socket 元数据，按目标 node 筛选；不替代实时链校验 |\n| 逐进程 SVID | 当前配置清单逐 unit 观察；inactive 标为 dormant，不为探测启动服务 |\n| Ghostunnel | 独立 status watch，不证明业务 watch 已加载新证书 |\n| Caddy | 观测与 Internet Caddy 的实际共享 SDK SVID 源 |\n| HTTP proof | 本地提交、验证后 attributes sent 分开；都不等于 Core 签发 |\n| 原生 SPIRE | 当前激活 CA 到期及成功签名计数；不等于每个业务进程已加载 |\n\n不采集私钥、token、nonce 或完整 proof。2026-10-29 的 OIDC 登录与看板渲染曾通过视觉验收；本次仓库 JSON 更新尚未发布或重新在线验收。数据检查不等于对每个业务路径的验证。\n\n集中日志：五台由 Alloy 写入 Loki。Yidhra 因约 452 MB 内存显式禁用 Alloy，本次保留该限制；其日志仅在本地 journal，直接指标仍可用。",
         "mode": "markdown"
       },
       "title": "直接指标 · 已部署范围与证据边界",
@@ -2275,7 +2275,7 @@
         "type": "prometheus",
         "uid": "P4169E866C3094E38"
       },
-      "description": "每个配置 unit 一行，保留 node、unit、identity、source。值由 success + 2*dormant 组成：success=0,dormant=1 是正常 inactive，不发起证书探测、不增加错误。失败/未完成/陈旧不是 dormant。ghostunnel_status_watch 通过也只证明独立 watch；caddy_loaded / envoy_loaded 才是实际 loaded 来源。只代表配置清单，不宣称覆盖所有进程。",
+      "description": "每个配置 unit 一行，保留 node、unit、identity、source。值由 success + 2*dormant 组成：success=0,dormant=1 是正常 inactive，不发起证书探测、不增加错误。失败/未完成/陈旧不是 dormant。ghostunnel_status_watch 通过也只证明独立 watch；caddy_loaded 才是当前配置的实际 loaded 来源。只代表配置清单，不宣称覆盖所有进程。",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2362,7 +2362,7 @@
         "type": "prometheus",
         "uid": "P4169E866C3094E38"
       },
-      "description": "仅 caddy_loaded（现有 SDK SVID source）与 envoy_loaded（admin /certs 当前精确 URI 元数据）。Envoy 不是密码学链验证。多个不同 current leaf 会失败而非取任意证书；inactive/失败/陈旧撤销证书样本。",
+      "description": "仅 caddy_loaded：观测 Caddy 和 Internet Caddy 的共享 SDK SVID source，经专用 loopback mTLS 入口观察并验证链、时间与精确 URI。身份、证书链或有效期校验失败时拒绝该观测；inactive/失败/陈旧撤销证书样本。",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2416,7 +2416,7 @@
             "type": "prometheus",
             "uid": "P4169E866C3094E38"
           },
-          "expr": "(realm_workload_svid_not_after_seconds{job=\"realm-identity\",instance=~\"${instance:regex}\",source=~\"caddy_loaded|envoy_loaded\"} - time()) and on(instance,job,monitor) (up{job=~\"realm-identity\"} == 1)",
+          "expr": "(realm_workload_svid_not_after_seconds{job=\"realm-identity\",instance=~\"${instance:regex}\",source=\"caddy_loaded\"} - time()) and on(instance,job,monitor) (up{job=~\"realm-identity\"} == 1)",
           "instant": true,
           "legendFormat": "{{node}} / {{unit}} / {{source}}",
           "refId": "A"
@@ -2430,7 +2430,7 @@
         "type": "prometheus",
         "uid": "P4169E866C3094E38"
       },
-      "description": "仅 ghostunnel_status_watch：status listener 的独立 Workload API watch，不能证明 Ghostunnel 实际业务 TLS source 加载同一证书。刻意与 Caddy / Envoy 实际 loaded 证据分开。",
+      "description": "仅 ghostunnel_status_watch：status listener 的独立 Workload API watch，不能证明 Ghostunnel 实际业务 TLS source 加载同一证书。刻意与 Caddy 实际 loaded 证据分开。",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2558,7 +2558,7 @@
         "type": "prometheus",
         "uid": "P4169E866C3094E38"
       },
-      "description": "叶 DER 指纹或 Envoy 公共元数据 digest 的变化观测时间。首次没有此序列；失败/dormant 撤销当前证书与轮换样本，重启重置；轮询可能漏掉中间变化。不把这个时间或观测成功数当作精确续期次数。",
+      "description": "叶证书 DER 指纹的变化观测时间。首次没有此序列；失败/dormant 撤销当前证书与轮换样本，重启重置；轮询可能漏掉中间变化。不把这个时间或观测成功数当作精确续期次数。",
       "fieldConfig": {
         "defaults": {
           "color": {

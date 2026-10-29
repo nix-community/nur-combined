@@ -28,7 +28,7 @@ host_ns: "Host network namespaces (one per host)\nProxies use host networking / 
   clients: "Realm clients: Ghostunnel\nUser / Group: realm-<app>\nExtra group: realm-proxies" { class: gateway }
   receivers: "Realm receivers: Ghostunnel\nUser / Group: realm-<backend> (default)\nExtra groups: realm-proxies + ingressGroups\nChecks caller SPIFFE allowlist" { class: gateway }
   ingress: "Unix ingress socket for TCP backend\nOwner / Group: realm-<backend>\nSocket: 0660 / Directory: 0750" { class: node }
-  native: "Gateways with their own mutual TLS\nObservability Caddy / Internet Envoy\nExtra group: realm-proxies" { class: gateway }
+  native: "Gateways with their own mutual TLS\nObservability Caddy / Internet Caddy\nExtra group: realm-proxies" { class: gateway }
   controller: "realm-agent controller: host root\nOne daemon / Gate pins peer with pidfd\nChecks UID + actual cgroup/netns\nNative unit binding / Exclusive container UID" { class: agent }
   agent: "Local SPIRE Agent on each host\nNode identity: HTTP FQDN proof with registry pins\nWorkload API access: realm-proxies group\nIssues workload identity by systemd unit + Unix user" { class: node }
   responder: "HTTP attestation responder\nUnprivileged / assigned mesh address :18091\nPublishes proof through a root-only Unix socket" { class: node }

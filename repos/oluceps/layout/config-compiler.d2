@@ -11,7 +11,7 @@ local: "Local exported data\nService identities, listener addresses, and ports\n
 aggregate: "Static catalogs\nDeclared identities and listeners\nBuilt during Nix evaluation" { class: gateway }
 compile: "Fixed output schema\nservices, sockets, userGroups, users\ntmpfiles, registrations, publications, assertions" { class: gateway }
 outputs: "Systemd setup\nSPIRE registration\nStatic DNS" { class: node }
-native: "Gateway configuration generators\nObservability Caddy / Internet Envoy" { class: node }
+native: "Gateway configuration generators\nObservability Caddy / Internet Caddy" { class: node }
 enrollment: "Automatic agent enrollment\nEnabled + private netns + supported runtime\nHost / workload opt-out; host-network / external excluded" { class: gateway }
 agent: "realm-agent JSON + service + gate\nApp unit binding / Dedicated worker accounts\nDelegated cgroups + per-worker budgets + minimal root\nInternet route from unique internet-proxy egress" { class: node }
 notes: "Nix reads local listener addresses and identities without resolving egress.\nEndpoint selection stays fixed until configuration changes." { class: note }

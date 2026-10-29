@@ -260,21 +260,30 @@ in
           (firing "RealmIdentityWorkloadFailed" (holder "nodens" // { source = "ghostunnel_status_watch"; }))
         ]
       )
-      (test "envoy loaded metadata near expiry preserves source"
-        (map (
-          s:
-          if at "nodens" s && isHolder s then
+      (test "independent ghostunnel watch failure cannot hide healthy Caddy loaded holder"
+        (
+          base
+          ++ map (
+            s:
             s
             // {
               labels = s.labels // {
-                source = "envoy_loaded";
+                unit = "realm-egress-observability.service";
+                source = "ghostunnel_status_watch";
               };
-              values = if is "realm_workload_svid_not_after_seconds" s then "500x20" else s.values;
+              values = if is "realm_workload_svid_observation_success" s then "0x20" else s.values;
             }
-          else
-            s
-        ) base)
-        [ (firing "RealmIdentityWorkloadNearExpiry" (holder "nodens" // { source = "envoy_loaded"; })) ]
+          ) (filter (s: at "nodens" s && isHolder s && !(is "realm_workload_svid_not_after_seconds" s)) base)
+        )
+        [
+          (firing "RealmIdentityWorkloadFailed" (
+            holder "nodens"
+            // {
+              unit = "realm-egress-observability.service";
+              source = "ghostunnel_status_watch";
+            }
+          ))
+        ]
       )
       (test "one missing independent target cannot be hidden by gateway duplicate" (
         (without (s: is "up" s && onExporter "azasos" s))
@@ -473,7 +482,7 @@ in
       (test "success with missing last observation" (without (
         s: at "nodens" s && is "realm_workload_svid_last_observed_timestamp_seconds" s
       )) [ (firing "RealmIdentityWorkloadCertificateMissing" (holder "nodens")) ])
-      (test "holder near expiry" (change (
+      (test "Caddy loaded TLS leaf near expiry" (change (
         s: at "nodens" s && is "realm_workload_svid_not_after_seconds" s
       ) "500x20") [ (firing "RealmIdentityWorkloadNearExpiry" (holder "nodens")) ])
       (test "removed holder retained by fifteen minute inventory" (map (

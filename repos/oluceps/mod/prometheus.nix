@@ -579,7 +579,7 @@
                   labels.severity = "critical";
                   annotations = {
                     summary = "Internet gateway down on {{ $labels.instance }}";
-                    description = "The host answers other scrapes but its gateway metrics do not. Check `systemctl status realm-internet`; the unit must run the Caddy binary declared in the current generation, not a stale Envoy process from an earlier one.";
+                    description = "The host answers other scrapes but its gateway metrics do not. Check `systemctl status realm-internet` and the Caddy metrics listener declared in the current generation.";
                   };
                 }
                 {

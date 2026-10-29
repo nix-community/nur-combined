@@ -2,6 +2,9 @@
 
 2026-10-22，在 `eihort` 实测 shh 建议，并测试加入限制后的服务。当前测试部署使用 `/run/systemd/system/*.service.d/95-shh-validation.conf`，没有切换整机 generation。仓库中的 Nix 配置供后续正常部署使用。主机重启会清除本次运行时覆盖。
 
+本文是 2026-10-22 的历史测试记录。下文 `realm-socks-mautrix-telegram` 等 unit 和计数属于当时配置；
+当前桥接已改为 realm-agent 透明 TCP，Internet gateway 使用 Caddy。这些历史测试不证明本次配置迁移后的业务行为。
+
 ## 范围
 
 | 项目 | 范围 |

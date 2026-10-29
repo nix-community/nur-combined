@@ -25,3 +25,25 @@ pane_history = true
 
 [remote]
 manage_ssh_config = true
+
+[ui.sidebar.agents]
+row_gap = 0
+rows = [
+  ["state_icon", "$title"],
+  ["$provider", "$limit"],
+  ["$cache_high", { token = "$cache_mid", fg = "#e0af68" }, { token = "$cache_low", fg = "#f7768e" }],
+  ["$context"],
+]
+
+# Agent Usage (usagebar) plugin shortcuts
+[[keys.command]]
+key = "ctrl+shift+u"
+type = "plugin_action"
+command = "usagebar.open-limits"
+description = "Agent Usage: open limits pane"
+
+[[keys.command]]
+key = "ctrl+shift+m"
+type = "plugin_action"
+command = "usagebar.refresh"
+description = "Agent Usage: refresh sidebar meters"

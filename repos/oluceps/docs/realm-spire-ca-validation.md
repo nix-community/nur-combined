@@ -2,7 +2,7 @@
 
 验证日期：2026-10-29。SPIRE 1.15.3。仅本机隔离进程与 NixOS VM；未连接或部署生产节点。
 
-**当前状态：Internet gateway 已在源码中恢复为 Caddy。** 后续完整 VM 回归确认，方案 3
+**当前状态：Internet gateway 已由 Caddy 替代 Envoy。** 后续完整 VM 回归确认，方案 3
 （intermediate 直接作为锚）和方案 4（独立 root）都通过 HTTP/CONNECT、SPIFFE 身份授权、
 自动/手工 CA 轮换、冷启动及重启。下文 Envoy 错误及“优先方案 4”的判断保留为切换前的
 历史证据，不代表当前 Caddy 的限制。原 Milieuim Root 的 `pathLen=1` 约束仍然存在：
@@ -86,16 +86,18 @@ OpenSSL 的差异已经实测：
 
 ## HTTP 和代理集成
 
+**历史记录：以下为切换前的 Envoy 集成。**
+
 `tests/realm-spire-upstream-vm.nix` 复用 `tests/realm-vm.nix` 的实际服务与代理，并在 VM 启动时生成临时 PKI。独立检查两种候选，覆盖原生 HTTP attestation、固定 bootstrap、Ghostunnel、Caddy、Envoy、自动和手工 CA 切换、重新认证及重启。
 
-已经观察到决定性的兼容性差异：
+当时观察到以下兼容性差异；本表不是当前 Caddy gateway 的验证结果：
 
 | 消费者 / 验证方式 | 方案 3：intermediate 信任锚 | 方案 4：独立 root |
 | --- | --- | --- |
 | SPIRE Server / Agent | 通过 | 通过 |
 | Ghostunnel 实际 mTLS | 通过 | 通过 |
 | Caddy 身份验证及业务入口 | 通过 | 通过 |
-| 当前 Envoy Internet gateway | 拒绝证书链 | 通过 |
+| 当时的 Envoy Internet gateway | 拒绝证书链 | 通过 |
 | OpenSSL 普通链验证 | 失败；需显式 `-partial_chain` | 通过 |
 
 方案 3 的 Envoy 错误为：
@@ -106,11 +108,13 @@ X509_verify_cert: certificate verification error at depth 2:
 unable to get issuer certificate
 ```
 
-同次运行的 Envoy `ssl.fail_verify` 计数也增长，初次为 `listener.[__1]_19328.ssl.fail_verify_error: 1`。SPIRE SDS 选用的是 `envoy.tls.cert_validator.spiffe`；这里的结论针对项目当前这条验证路径，不泛化为所有 Envoy 验证器。方案 3 的测试显式断言错误文本及计数，不能把该测试通过解读为 Internet 代理可用。未替换验证器或放宽验证策略。
+同次运行的 Envoy `ssl.fail_verify` 计数也增长，初次为 `listener.[__1]_19328.ssl.fail_verify_error: 1`。SPIRE SDS 选用的是 `envoy.tls.cert_validator.spiffe`；这里的结论针对当时这条验证路径，不泛化为所有 Envoy 验证器。方案 3 的测试显式断言错误文本及计数，不能把该测试通过解读为 Internet 代理可用。未替换验证器或放宽验证策略。
 
-因此，**当前项目优先采用方案 4**。方案 3 若要覆盖全部链路，需要另行配置并验证能够安全接受指定 intermediate 锚的消费者；把原 Milieuim Root 加回 bundle 仍会遇到 `pathLen` 限制。
+因此，**当时优先采用方案 4**。该判断基于当时 Envoy 的验证路径；后续 Caddy 回归已确认两种方案均通过，见下文。把原 Milieuim Root 加回 bundle 仍会遇到 `pathLen` 限制。
 
 ## 最终集成结果与复现
+
+**历史记录：本节结果与输出属于切换前的 Envoy，当前 Caddy 结果见下一节。**
 
 两个隔离 VM 用例都已成功完成，分别约 195 秒。方案 3 的成功包含对 Envoy 不兼容的预期拒绝断言；**只有方案 4 通过完整 Ghostunnel、Caddy 和 Envoy 正向业务链路**。
 
@@ -125,7 +129,9 @@ unable to get issuer certificate
 
 方案 4 还通过现有完整 Internet gateway 用例，包括 HTTP、HTTPS CONNECT、SOCKS、IPv6、DNS 地址切换、目的地址限制和端口授权。各生命周期阶段都复查 Envoy 实际 TLS 访问。
 
-复现命令，在仓库根目录执行：
+以下命令和输出记录当时的 Envoy 运行。当前源码中的同名测试已使用 Caddy；直接运行会执行下文的 Caddy 用例，不会重现旧 Envoy 结果。
+
+当时在仓库根目录执行：
 
 ```sh
 nix build -L --impure --no-link --print-out-paths --option sandbox true --expr \
@@ -135,7 +141,7 @@ nix build -L --impure --no-link --print-out-paths --option sandbox true --expr \
   '(import ./tests/realm-spire-upstream-vm.nix { nixpkgs = /nix/store/44zyg8i46md22kjs7hr3bdvia86rpd8p-source; }).case4'
 ```
 
-该 nixpkgs 路径对应当前锁定的 `e158d9ed9b51c98974c5e66e1ba1c9e0255fecaa`。成功运行的输出：
+该次使用的 nixpkgs 路径对应 `e158d9ed9b51c98974c5e66e1ba1c9e0255fecaa`。成功运行的输出：
 
 ```text
 /nix/store/aazhq62hxm82a438kshxbf7xarnkygmm-vm-test-run-realm-spire-upstream-case3
