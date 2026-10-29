@@ -2562,6 +2562,7 @@ dependencies = [
  "codex-utils-redacted-string",
  "codex-websocket-auth",
  "codex-windows-sandbox",
+ "core_test_support",
  "crossterm",
  "flate2",
  "futures",
@@ -2649,6 +2650,7 @@ dependencies = [
  "codex-config",
  "codex-core",
  "codex-http-client",
+ "codex-keyring-store",
  "codex-login",
  "codex-otel",
  "codex-protocol",
@@ -2661,6 +2663,7 @@ dependencies = [
  "thiserror 2.0.18",
  "tokio",
  "tracing",
+ "wiremock",
 ]
 
 [[package]]
@@ -3653,6 +3656,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "codex-guardian-v3"
+version = "0.0.0"
+dependencies = [
+ "codex-message-board",
+ "codex-protocol",
+ "codex-state",
+]
+
+[[package]]
 name = "codex-history"
 version = "0.0.0"
 dependencies = [
@@ -3682,6 +3694,7 @@ dependencies = [
  "codex-utils-output-truncation",
  "core_test_support",
  "http 1.4.0",
+ "insta",
  "pretty_assertions",
  "serde_json",
  "tempfile",
@@ -3932,6 +3945,7 @@ dependencies = [
  "codex-exec-server-test-support",
  "codex-login",
  "codex-model-provider",
+ "codex-network-proxy",
  "codex-otel",
  "codex-plugin",
  "codex-protocol",
@@ -4229,6 +4243,8 @@ name = "codex-network-proxy"
 version = "0.0.0"
 dependencies = [
  "anyhow",
+ "aws-credential-types",
+ "aws-sigv4",
  "base64 0.22.1",
  "chrono",
  "clap",
@@ -4605,6 +4621,7 @@ dependencies = [
  "pretty_assertions",
  "serde",
  "serde_json",
+ "sha2 0.10.9",
  "tempfile",
  "tracing",
  "uuid",
@@ -4906,6 +4923,7 @@ dependencies = [
  "serde",
  "serde_json",
  "thiserror 2.0.18",
+ "tracing",
  "urlencoding",
 ]
 
@@ -6129,9 +6147,9 @@ dependencies = [
 
 [[package]]
 name = "ctutils"
-version = "0.4.2"
+version = "0.4.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7d5515a3834141de9eafb9717ad39eea8247b5674e6066c404e8c4b365d2a29e"
+checksum = "38d28fb6aa7dd680b3ffd1a3e64e115c177bdba63c0ae7f9cd48129ff05c4fa0"
 dependencies = [
  "cmov",
 ]
