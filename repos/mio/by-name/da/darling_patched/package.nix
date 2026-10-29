@@ -143,11 +143,6 @@ darling.overrideAttrs (old: {
   pname = "darling_patched";
 
   patches = (old.patches or [ ]) ++ [
-    # https://github.com/darlinghq/darling/pull/1791
-    (pr "darling-pr-1791-asm-static-libraries.patch" "764ef432933d2c10cd293a32fed3530366fcb69b"
-      "sha256-NEmwzXsl4S9Ci6nqZsAc5DRDARJUVssZw67+nmHGMYI="
-      { }
-    )
     # https://github.com/darlinghq/darling/pull/1792
     # The file_cmds half is a submodule bump, swapped in below.
     (pr "darling-pr-1792-destdir.patch" "65c5bf55f9d9d4124f6bfc89d3e8fecff38d1438"

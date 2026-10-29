@@ -7,6 +7,8 @@
   electron_42,
   makeWrapper,
   ffmpeg-headless,
+  writeShellApplication,
+  nix-update-script,
 }:
 let
   yarn-berry = yarn-berry_4;
@@ -15,13 +17,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "losslesscut";
-  version = "3.70.1";
+  version = "3.70.2";
 
   src = fetchFromGitHub {
     owner = "mifi";
     repo = "lossless-cut";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-GT1oXlgg0uUdf171NRSXM5uZjetj7bRr3LgZQ8eLXK4=";
+    hash = "sha256-dG1jLOsAcRZHNcpWyrdYQEvK9fNEUG+YNZVwUKL0UUQ=";
   };
 
   patches = [
@@ -55,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
   missingHashes = ./missing-hashes.json;
   offlineCache = yarn-berry.fetchYarnBerryDeps {
     inherit (finalAttrs) src missingHashes patches;
-    hash = "sha256-VtmrYuRBvouzEDrp3CDIT1GWoHkU5dHp8Y93VwMk1oY=";
+    hash = "sha256-RPdiO/q99BN+gCPttBKb5/KBfGP1kRz/egMisR6WcEU=";
   };
 
   postConfigure = ''
@@ -92,6 +94,14 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  passthru.updateScript = writeShellApplication {
+    name = "update-losslesscut";
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="losslesscut"
+      exec ${lib.escapeShellArgs (nix-update-script { })} "$@"
+    '';
+  };
 
   meta = {
     description = "The swiss army knife of lossless video/audio editing";

@@ -3,6 +3,8 @@
   lib,
   runCommandWith,
   writeShellScript,
+  writeShellApplication,
+  nix-update-script,
   fetchFromGitHub,
   nixosTests,
 
@@ -112,14 +114,14 @@ let
 in
 stdenv.mkDerivation {
   pname = "darling";
-  version = "0.1.20260608-unstable-2026-09-06";
+  version = "0.1.20260608-unstable-2026-10-28";
 
   src = fetchFromGitHub {
     owner = "darlinghq";
     repo = "darling";
-    rev = "60ba801decee7a00782f74f6be4c8ffb013f79ff";
+    rev = "3447ff5ab8e837ea54a13a506c60d34d77e2bd15";
     fetchSubmodules = true;
-    hash = "sha256-jRmFodGqKH4YTCEY4UbvwizvlN9472K+zDi+FG6jY5U=";
+    hash = "sha256-NAKM0dYJtCeqTb38fJcCCh/7r93KYTa/7bsE7rHL20o=";
     # Remove 500MB of dependency test files to get under Hydra output limit
     postFetch = ''
       rm -r $out/src/external/openjdk/test
@@ -240,7 +242,20 @@ stdenv.mkDerivation {
       $out/libexec/darling/usr/libexec/darling/mldr
   '';
 
-  passthru.tests.nixos = nixosTests.darling;
+  passthru = {
+    tests.nixos = nixosTests.darling;
+    updateScript = writeShellApplication {
+      name = "update-darling";
+      text = ''
+        export UPDATE_NIX_ATTR_PATH="darling"
+        exec ${
+          lib.escapeShellArgs (nix-update-script {
+            extraArgs = [ "--version=branch" ];
+          })
+        } "$@"
+      '';
+    };
+  };
 
   meta = with lib; {
     description = "Open-source Darwin/macOS emulation layer for Linux";

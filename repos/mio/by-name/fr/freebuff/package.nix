@@ -3,16 +3,18 @@
   stdenvNoCC,
   bun,
   fetchFromGitHub,
+  writeShellApplication,
+  nix-update-script,
 }:
 
 let
-  version = "0.2.34-unstable-2026-10-28";
+  version = "1.0.679-unstable-2026-10-29";
 
   src = fetchFromGitHub {
     owner = "CodebuffAI";
     repo = "freebuff";
-    rev = "b9e69b7514b288410e5ef3a9bf5e00d494391bb6";
-    hash = "sha256-GIz1gdWN5OfbEw2ixMCAwYswEoKWKObszfIP8dBjWEI=";
+    rev = "43da2bdd74dfed2ec0c8faf5d0787e1f311e0fee";
+    hash = "sha256-SFxnCBsKcMGtvSxyNFfJHYHw6aD3rMoej6H3+GlzbDc=";
   };
 
   # The CLI validates its client environment at startup (common/src/env.ts) and
@@ -49,7 +51,7 @@ let
   # `bun install` resolves the platform-specific payloads (the OpenTUI native
   # bundles, ripgrep, ...), so every target has its own hash.
   workspaceDepsHashes = {
-    x86_64-linux = "sha256-DZWTUUJybeI0flBFNDsCJtCYtHkoNN1TLptJr8Q8b60=";
+    x86_64-linux = "sha256-I7RZGJHfhcNEY9iNW8ud56SCV57PEUEerulQBk6BYks=";
     aarch64-darwin = "sha256-94p8tlkSY6DHOSp4/DdoG1/0aYfA0tFN48pM2CV2iI8=";
   };
 
@@ -157,6 +159,18 @@ stdenvNoCC.mkDerivation {
 
     runHook postInstallCheck
   '';
+
+  passthru.updateScript = writeShellApplication {
+    name = "update-freebuff";
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="freebuff"
+      exec ${
+        lib.escapeShellArgs (nix-update-script {
+          extraArgs = [ "--version=branch" ];
+        })
+      } "$@"
+    '';
+  };
 
   meta = {
     description = "Free AI coding agent CLI (Freebuff)";

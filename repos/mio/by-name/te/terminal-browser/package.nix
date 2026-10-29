@@ -8,24 +8,26 @@
   nodejs,
   makeWrapper,
   electron,
+  writeShellApplication,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "terminal-browser";
-  version = "0.13.4";
+  version = "0.15.1";
 
   src = fetchFromGitHub {
     owner = "zenbu-labs";
     repo = "terminal-browser";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-UWEvvce32J5wlbdrB1+MZuuo1MG/FN2HaTV9W61sFXs=";
+    hash = "sha256-RQ7kJrHGzFrIZX0ABupv+eOYFDU100Z4H578zIVtXJ4=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     pnpm = pnpm_10;
     fetcherVersion = 4;
-    hash = "sha256-8EUQRKgrl5+XE/mF21KNZh4WPXjNyMy7/B+9ThQtEhc=";
+    hash = "sha256-hm4cwAY+wCtLPFiwVXFidXY4PgGpQqq38n04uxvf/n4=";
   };
 
   nativeBuildInputs = [
@@ -75,6 +77,14 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  passthru.updateScript = writeShellApplication {
+    name = "update-terminal-browser";
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="terminal-browser"
+      exec ${lib.escapeShellArgs (nix-update-script { })} "$@"
+    '';
+  };
 
   meta = with lib; {
     description = "Terminal Browser";

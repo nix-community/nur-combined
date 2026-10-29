@@ -6,17 +6,19 @@
   fontconfig,
   cacert,
   makeWrapper,
+  writeShellApplication,
+  nix-update-script,
 }:
 
 let
   pname = "pcl-me";
-  version = "1.0.0-beta.7-unstable-2026-10-26";
+  version = "1.0.0-beta.7-unstable-2026-10-28";
 
   src = fetchFromGitHub {
     owner = "TheUnknownThing";
     repo = "PCL-ME";
-    rev = "836a679b852042b2f8bcd7093cc713844496a125";
-    hash = "sha256-RdzeEysa/Ozrx62gLSSK0s8bOA4RyacHo8Q2vd7rkdc=";
+    rev = "0a040635d6aece366c689b6a9877da1886ffa0b2";
+    hash = "sha256-mNRWbOZhY6zhot5Kaw3csBwK4J1qjz24y3IRLNHCxHM=";
   };
 
   dotnet-sdk = dotnetCorePackages.sdk_10_0;
@@ -80,6 +82,18 @@ stdenv.mkDerivation {
     wrapProgram $out/bin/PCL.Frontend.Avalonia \
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ fontconfig ]}"
   '';
+
+  passthru.updateScript = writeShellApplication {
+    name = "update-pcl-me";
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="pcl-me"
+      exec ${
+        lib.escapeShellArgs (nix-update-script {
+          extraArgs = [ "--version=branch" ];
+        })
+      } "$@"
+    '';
+  };
 
   meta = with lib; {
     description = "A cross-platform Plain Craft Launcher";
