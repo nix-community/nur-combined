@@ -14,7 +14,7 @@
 }:
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "blueferry";
-  version = "0.8.1";
+  version = "0.9.0";
   __structuredAttrs = true;
   pyproject = true;
 
@@ -22,7 +22,7 @@ python3Packages.buildPythonPackage (finalAttrs: {
     owner = "erikwb";
     repo = "blueferry";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-XZtDMC8klQFeGCGN1yuT0ud5IXjTvAHDGVCdaO5uf/A=";
+    hash = "sha256-YW8LT9vt3ejQcO/BSI72CJxoLNwrq3FKmq3yAD7KpJg=";
   };
 
   build-system = [
@@ -95,10 +95,12 @@ python3Packages.buildPythonPackage (finalAttrs: {
   dependencies = [
     python3Packages.cryptography
     python3Packages.dbus-python
-    python3Packages.typer
-    python3Packages.textual
+    python3Packages.phonenumbers
     python3Packages.pygobject3
     python3Packages.pyside6
+    python3Packages.regex
+    python3Packages.textual
+    python3Packages.typer
   ];
 
   postPatch = ''
