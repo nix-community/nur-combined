@@ -70,10 +70,10 @@ in
       package = lib.mkDefault (
         pkgs.yggdrasil.overrideAttrs {
           src = pkgs.fetchurl {
-            url = "https://github.com/nagy/yggdrasil-go/archive/b38816e14872c865f374a383a3b23c30474fb84f.tar.gz";
-            hash = "sha256-91VxN/2PKBqjL0M0OkVcLYO3/L7VucayzZKd9CQQD4s=";
+            url = "https://github.com/nagy/yggdrasil-go/archive/9f1eaa532ec306c51427263f9732cb501222b352.tar.gz";
+            hash = "sha256-TeBnOet82EwQZV1rPvQ4LPS2Ta6CsRHAJAUm6OaQdqc=";
           };
-          vendorHash = "sha256-p9WrSGHn2nG+xH0u5fK0C5T8JougaVmZB/RYo4mEBgQ=";
+          vendorHash = "sha256-0WE6cqWqjl+aACn5fWYwAg7Xzp60TM2rPkQiCn4aDaM=";
         }
       );
       settings = {

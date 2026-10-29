@@ -103,7 +103,7 @@ let
     fontconfigEtc
     fontsConf
     fontsCheck
-  ;
+    ;
 
   sessionVarExports = lib.concatStringsSep "\n" (
     lib.mapAttrsToList (name: value: "export ${name}=\"${value}\"") (
@@ -130,24 +130,50 @@ let
       }
     else
       null;
+  # Agent sandbox config.  Same payload the NixOS module writes to
+  # /etc/agent/config.json, so the sandbox picks it up without a rebuild.
+  agentConfigFile =
+    if sys.config.environment.etc ? "agent/config.json" then
+      pkgs.writeText "agent-config.json" sys.config.environment.etc."agent/config.json".text
+    else
+      null;
+  envScript = pkgs.writeTextFile {
+    name = "my-build-env-script";
+    destination = "/env.sh";
+    text = ''
+      export PATH="${buildEnv}/bin:$PATH"
+      export MANPATH="${buildEnv}/share/man:$MANPATH"
+      export INFOPATH="${buildEnv}/share/info:$INFOPATH"
+      export NIX_PATH="nixpkgs=${lib.cleanSource pkgs.path}:$NIX_PATH"
+      ${sessionVarExports}
+      ${lib.optionalString (gitConfigSystem != null) "export GIT_CONFIG_SYSTEM=\"${gitConfigSystem}\""}
+      ${lib.optionalString (dockerConfigSystem != null) "export DOCKER_CONFIG=\"${dockerConfigSystem}\""}
+      ${lib.optionalString (agentConfigFile != null) "export AGENT_CONFIG=\"${agentConfigFile}\""}
+
+      export TYPST_FONT_PATHS="${lib.makeSearchPath "share/fonts/opentype" sys.config.fonts.packages}"
+      ${lib.optionalString fontconfigEnable ''
+        export FONTCONFIG_FILE="${fontsConf}"
+        export FONTCONFIG_PATH="${fontconfigEtc}"
+      ''}
+
+    '';
+  };
 in
-(pkgs.writeText "my-build-env-script" ''
-  export PATH="${buildEnv}/bin:$PATH"
-  export MANPATH="${buildEnv}/share/man:$MANPATH"
-  export INFOPATH="${buildEnv}/share/info:$INFOPATH"
-  export NIX_PATH="nixpkgs=${lib.cleanSource pkgs.path}:$NIX_PATH"
-  ${sessionVarExports}
-  ${lib.optionalString (gitConfigSystem != null) "export GIT_CONFIG_SYSTEM=\"${gitConfigSystem}\""}
-  ${lib.optionalString (dockerConfigSystem != null) "export DOCKER_CONFIG=\"${dockerConfigSystem}\""}
-
-  export TYPST_FONT_PATHS="${lib.makeSearchPath "share/fonts/opentype" sys.config.fonts.packages}"
-  ${lib.optionalString fontconfigEnable ''
-    export FONTCONFIG_FILE="${fontsConf}"
-    export FONTCONFIG_PATH="${fontconfigEtc}"
-  ''}
-
-'').overrideAttrs {
+pkgs.buildEnv {
+  name = "my-build-env";
+  paths = [
+    buildEnv
+    envScript
+  ];
   passthru = {
-    inherit buildEnv fontsConf fontsCheck;
+    inherit
+      buildEnv
+      envScript
+      agentConfigFile
+      fontconfigEnable
+      fontconfigEtc
+      fontsConf
+      fontsCheck
+      ;
   };
 }
