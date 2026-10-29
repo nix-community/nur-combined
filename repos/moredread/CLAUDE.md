@@ -2,7 +2,7 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-Personal [NUR](https://github.com/nix-community/NUR) repository (NUR name `moredread`, Cachix cache `moredread.cachix.org`), derived from `nix-community/nur-packages-template`.
+Personal [NUR](https://github.com/nix-community/NUR) repository (NUR name `moredread`; Cachix cache `moredread.cachix.org`, upload currently disabled in CI), derived from `nix-community/nur-packages-template`.
 
 ## Commands
 
@@ -18,7 +18,7 @@ nix flake update                        # bump flake.lock
 scripts/joplin-version.sh               # latest Joplin AppImage URL + prefetch hash
 ```
 
-There are no tests; "building cleanly" is the check. CI (`.github/workflows/build.yml`) builds the package set against the locked input plus nixos-26.05 and nixos-unstable, pushes to Cachix, and on `main` pings the NUR update endpoint.
+There are no tests; "building cleanly" is the check. CI (`.github/workflows/build.yml`) builds the package set against the locked input plus nixos-26.05 and nixos-unstable (the Cachix step is `if: false` for now) and on `main` pings the NUR update endpoint.
 
 ## Structure
 

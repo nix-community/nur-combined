@@ -31,6 +31,8 @@ jobs:
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Setup cachix
+      # Disabled: auth token expired, Cachix support under review.
+      if: false
       uses: cachix/cachix-action@v16
       with:
         name: moredread
