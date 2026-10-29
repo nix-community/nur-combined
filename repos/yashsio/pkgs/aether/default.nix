@@ -3,41 +3,42 @@
   stdenv,
   fetchFromGitHub,
   cmake,
-  qt6Packages,
+  pkg-config,
+  wayland,
+  wayland-scanner,
+  wayland-protocols,
+  libxkbcommon,
+  libffi,
 }:
 
 stdenv.mkDerivation {
   pname = "aether";
-  version = "0.4.1";
+  version = "0.5.0";
 
   src = fetchFromGitHub {
     owner = "yashsio";
     repo = "aether";
-    rev = "46ae72a8d1c57eac3eb907504b8d2e14f6fa7c9a";
-    hash = "sha256-vCole8LVbK4CmTxsH2j5y8jvFDl8IjSxCIAv42gwDJo=";
+    rev = "c4993890b3433044e65c8689095b9cbe86a58848";
+    hash = "sha256-zKwRZ9mm3Sleh7F1MnNJJyEhAwnmZn3I+tv7UALc434=";
   };
 
-  nativeBuildInputs = [
-    cmake
-    qt6Packages.wrapQtAppsHook
+  cmakeFlags = [
+    "-DWAYLAND_PROTOCOLS_DIR=${wayland-protocols}/share/wayland-protocols"
   ];
 
-  buildInputs = [
-    qt6Packages.qtbase
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
-     qt6Packages.qtwayland
-  ];
+  nativeBuildInputs = [ cmake pkg-config wayland-scanner ];
+
+  buildInputs = [ wayland wayland-protocols libxkbcommon libffi ];
 
   installPhase = ''
-    mkdir -p "$out/bin"
-    cp aether "$out/bin/aether"
+    install -Dm755 aether "$out/bin/aether"
   '';
 
   meta = {
-    description = "A minimal image viewer";
+    description = "A minimal wayland native image viewer";
     homepage = "https://github.com/yashsio/aether";
     license = lib.licenses.gpl3Only;
-    platforms = lib.platforms.unix;
+    platforms = lib.platforms.linux;
     mainProgram = "aether";
   };
 }
