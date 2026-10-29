@@ -9,7 +9,18 @@
   imports = [ (modulesPath + "/profiles/qemu-guest.nix") ];
 
   options = {
-    vacuvmGuest.ip = lib.mkOption { type = lib.types.str; };
+    vacuvmGuest.ip = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      description = "Private (NATed) IPv4 address, or null for none.";
+    };
+    vacuvmGuest.publicIp = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      description = ''
+        Routed public IPv4 address. Must match `vacu.qemuVMs.<name>.v4PublicAddress`
+        on the VM host. When set, it is the preferred source for the default route.
+      '';
+    };
     vacuvmGuest.gateway = lib.mkOption {
       type = lib.types.str;
       default = "10.78.77.1";
@@ -88,12 +99,16 @@
       matchConfig.Type = "ether";
       networkConfig = {
         DHCP = "no";
-        Address = "${config.vacuvmGuest.ip}/32";
         DNS = "10.78.79.1";
       };
-      addresses = lib.optional (config.vacuvmGuest.ipv6 != null) {
-        Address = "${config.vacuvmGuest.ipv6}/128";
-      };
+      addresses =
+        map (ip: { Address = "${ip}/32"; }) (
+          lib.filter (ip: ip != null) [
+            config.vacuvmGuest.ip
+            config.vacuvmGuest.publicIp
+          ]
+        )
+        ++ lib.optional (config.vacuvmGuest.ipv6 != null) { Address = "${config.vacuvmGuest.ipv6}/128"; };
       routes = [
         # A /32 address leaves nothing on-link, so the gateway itself needs an
         # explicit link-scope route before it can be used as a next hop.
@@ -103,11 +118,16 @@
         }
         # GatewayOnLink: don't require the gateway to be covered by an on-link
         # prefix (it isn't — see above).
-        {
-          Gateway = config.vacuvmGuest.gateway;
-          GatewayOnLink = true;
-          MTUBytes = vacuData.mtu.wgDoof;
-        }
+        (
+          {
+            Gateway = config.vacuvmGuest.gateway;
+            GatewayOnLink = true;
+            MTUBytes = vacuData.mtu.wgDoof;
+          }
+          // lib.optionalAttrs (config.vacuvmGuest.publicIp != null) {
+            PreferredSource = config.vacuvmGuest.publicIp;
+          }
+        )
       ]
       ++ lib.optionals (config.vacuvmGuest.ipv6 != null) [
         {

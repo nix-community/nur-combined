@@ -1,4 +1,9 @@
-{ lib, config, vacuData, ... }:
+{
+  lib,
+  config,
+  vacuData,
+  ...
+}:
 let
   inherit (lib) mkOption types;
   cfg = config.vacu.network;
@@ -25,6 +30,7 @@ in
   config = {
     vacu.network.ips = {
       doofStatic4 = "205.201.63.13";
+      doofRange4 = "205.201.63.128/28";
       doofStatic6 = "2602:fce8:106:10::1";
       doofStaticRange6 = "2602:fce8:106:10::/64";
     };
@@ -89,35 +95,27 @@ in
       # Prefer specific routes in the main table, but suppress its default
       # routes so all other traffic sourced from the Doof addresses falls
       # through to the tunnel table.
-      routingPolicyRules = [
-        {
-          Family = "ipv4";
-          From = "${cfg.ips.doofStatic4}/32";
-          Table = "main";
-          SuppressPrefixLength = 0;
-          Priority = 100;
-        }
-        {
-          Family = "ipv6";
-          From = cfg.ips.doofStaticRange6;
-          Table = "main";
-          SuppressPrefixLength = 0;
-          Priority = 100;
-        }
-        {
-          Family = "ipv4";
-          From = "${cfg.ips.doofStatic4}/32";
-          Table = tunnelName;
-          Priority = 200;
-        }
-        {
-          Family = "ipv6";
-          From = cfg.ips.doofStaticRange6;
-          Table = tunnelName;
-          Priority = 200;
-        }
-      ]
-      ++ vmPolicyRules;
+      routingPolicyRules =
+        lib.concatMap
+          (from: [
+            {
+              From = from;
+              Table = "main";
+              SuppressPrefixLength = 0;
+              Priority = 100;
+            }
+            {
+              From = from;
+              Table = tunnelName;
+              Priority = 200;
+            }
+          ])
+          [
+            "${cfg.ips.doofStatic4}/32"
+            cfg.ips.doofRange4
+            cfg.ips.doofStaticRange6
+          ]
+        ++ vmPolicyRules;
     };
     systemd.network.networks.${cfg.lan_bridge_network} = {
       address = lib.mkAfter [

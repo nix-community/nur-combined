@@ -3,6 +3,7 @@
   pkgs,
   lib,
   utils,
+  vaculib,
   ...
 }:
 let
@@ -81,14 +82,14 @@ let
           type = types.str;
           description = ''
             MAC address for the guest virtio-net NIC. Defaults to a unicast,
-            locally-administered address derived from `v4Address`
+            locally-administered address derived from the VM's private IPv4
             (02:00:<ip-bytes-in-hex>), so it is unique per guest, stable, and
             can never land on the multicast bit. Rarely needs to be set.
           '';
           example = "52:54:00:12:34:56";
           default =
             let
-              octets = lib.splitString "." config.v4Address;
+              octets = lib.splitString "." "${netCfg.v4Prefix}.${toString config.tag}";
               hexPair = n: lib.toLower (lib.fixedWidthString 2 "0" (lib.toHexString (lib.toInt n)));
             in
             "02:00:${lib.concatMapStringsSep ":" hexPair octets}";
@@ -102,14 +103,39 @@ let
           example = 2;
         };
         v4Address = mkOption {
-          type = types.str;
+          type = types.nullOr types.str;
           default = "${netCfg.v4Prefix}.${toString config.tag}";
           description = ''
-            Guest IPv4 address (no prefix). The host adds a /32 route to it via
-            the VM's tap interface. The guest should use this address and point
-            its default gateway at vacu.vmNet.gateway.
+            Guest private IPv4 address (no prefix), or null for none. The host
+            adds a /32 route to it via the VM's tap interface. The guest should
+            use this address and point its default gateway at
+            vacu.vmNet.gateway.
           '';
           example = "10.78.77.2";
+        };
+        v4PublicAddress = mkOption {
+          type = types.nullOr types.str;
+          default =
+            if netCfg.v4PublicRange == null then
+              null
+            else
+              let
+                parts = lib.splitString "/" netCfg.v4PublicRange;
+                octets = lib.splitString "." (lib.head parts);
+                size = vaculib.pow 2 (32 - lib.toInt (lib.last parts));
+              in
+              if config.tag >= size then
+                throw "vacu.qemuVMs.${name}: tag ${toString config.tag} doesn't fit in vacu.vmNet.v4PublicRange (${netCfg.v4PublicRange}); set v4PublicAddress explicitly"
+              else
+                lib.concatStringsSep "." (
+                  lib.init octets ++ [ (toString (lib.toInt (lib.last octets) + config.tag)) ]
+                );
+          description = ''
+            Optional routed public IPv4 address (no prefix). The host adds a
+            /32 route to it via the VM's tap interface. Defaults to the tag's
+            offset into vacu.vmNet.v4PublicRange, if set.
+          '';
+          example = "205.201.63.129";
         };
         v6Address = mkOption {
           type = types.nullOr types.str;
@@ -468,16 +494,22 @@ let
         IPv4ReversePathFilter = "strict";
       };
       addresses = lib.optional (vmCfg.v6Address != null) { Address = "${netCfg.ipv6Gateway}/128"; };
-      routes = [
-        {
-          Destination = "${vmCfg.v4Address}/32";
+      routes =
+        map
+          (addr: {
+            Destination = "${addr}/32";
+            Scope = "link";
+          })
+          (
+            lib.filter (a: a != null) [
+              vmCfg.v4Address
+              vmCfg.v4PublicAddress
+            ]
+          )
+        ++ lib.optional (vmCfg.v6Address != null) {
+          Destination = "${vmCfg.v6Address}/128";
           Scope = "link";
-        }
-      ]
-      ++ lib.optional (vmCfg.v6Address != null) {
-        Destination = "${vmCfg.v6Address}/128";
-        Scope = "link";
-      };
+        };
     }
   ) cfg;
 
@@ -615,6 +647,12 @@ in
       default = null;
       description = "Optional IPv6 prefix ending in `::`; VM tags are appended to it.";
     };
+    v4PublicRange = mkOption {
+      type = types.nullOr (types.strMatching ''([0-9]{1,3}\.){3}[0-9]{1,3}/[0-9]{1,2}'');
+      default = null;
+      description = "Optional routed public IPv4 block; VM tags are added to its base address.";
+      example = "205.201.63.128/28";
+    };
     gateway = mkOption {
       type = types.str;
       default = "${netCfg.v4Prefix}.1";
@@ -673,7 +711,12 @@ in
       {
         assertion =
           let
-            addresses = lib.mapAttrsToList (_: vmCfg: vmCfg.v4Address) cfg;
+            addresses = lib.filter (address: address != null) (
+              lib.concatMap (vmCfg: [
+                vmCfg.v4Address
+                vmCfg.v4PublicAddress
+              ]) (lib.attrValues cfg)
+            );
           in
           (builtins.length addresses) == (builtins.length (lib.uniqueStrings addresses));
         message = "vm addresses are not unique";

@@ -1,4 +1,4 @@
-{ vacuModules, ... }:
+{ config, vacuModules, ... }:
 let
   nixcache = {
     source = "/propdata/nixcache";
@@ -16,6 +16,7 @@ in
     enable = true;
     v4Prefix = "10.78.77";
     v6Prefix = "2602:fce8:106:10::";
+    v4PublicRange = config.vacu.network.ips.doofRange4;
   };
 
   vacu.qemuVMs = {

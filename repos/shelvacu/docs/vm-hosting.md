@@ -26,6 +26,15 @@
   through `wg-doof`; IPv4 is SNATed to 205.201.63.13 while IPv6 leaves with the
   guest's own address from 2602:fce8:106:10::/64.
 
+  Each VM also gets a public IPv4 from the routed Doof block
+  205.201.63.128/28 (`vacu.vmNet.v4PublicRange`): base + tag, e.g. vavm (tag 2)
+  is 205.201.63.130. It is routed to the tap like the private one and not
+  NATed. A guest only uses it once `vacuvmGuest.publicIp` is set, which also
+  makes it the default route's preferred source. `v4Address = null` drops the
+  private/NAT address. As with 205.201.63.13, traffic sourced from the
+  block uses main-table routes when specific (LAN 10.78.76.0/22 via `br-main`)
+  and the tunnel otherwise.
+
   Because each tap is a point-to-point link with the host as the only neighbour,
   **guests must hold a `/32`, not a `/24`** (see `modules/vacuvmGuest.nix`). A
   `/24` makes the guest think its siblings in 10.78.77.0/24 are on-link, so it
