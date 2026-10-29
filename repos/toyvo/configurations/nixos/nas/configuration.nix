@@ -45,7 +45,6 @@ in
     inputs.nixcfg.modules.nixos.syncthing
     inputs.nixcfg.modules.nixos.tmpfiles
     inputs.nixcfg.modules.nixos.authentik_container
-    inputs.nixcfg.modules.nixos.home-assistant_container
     inputs.nixcfg.modules.nixos.immich_container
     inputs.nixcfg.modules.nixos.jellyfin_container
     inputs.nixcfg.modules.nixos.monitoring_container
@@ -389,34 +388,8 @@ in
         domain = "diekvoss.com";
       };
     };
-    home-assistant = {
-      enable = true;
-      natInterface = "eno1";
-      stateDir = "/mnt/POOL/home-assistant";
-      package = stablePkgs.home-assistant.override {
-        extraComponents = [
-          "analytics"
-          "google_pubsub"
-          "google_translate"
-          "html5"
-          "isal"
-          "met"
-          "nest"
-          "radio_browser"
-          "shopping_list"
-          "tplink_omada"
-        ];
-        extraPackages = ps: with ps; [ grpcio ];
-      };
-      haConfig = {
-        default_config = { };
-        homeassistant = {
-          name = "Home";
-          unit_system = "metric";
-          temperature_unit = "F";
-        };
-      };
-    };
+    # home-assistant retired to k3s 2026-10-28 (module deleted); POOL state
+    # dirs remain on disk as backups. Rollback = revert this + the module.
     monitoring = {
       enable = true;
       natInterface = "eno1";

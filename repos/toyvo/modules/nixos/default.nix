@@ -5,7 +5,6 @@
   #
   # my-module = ./my-module;
   authentik_container = ./containers/authentik.nix;
-  home-assistant_container = ./containers/home-assistant.nix;
   immich_container = ./containers/immich.nix;
   jellyfin_container = ./containers/jellyfin.nix;
   minecraft_container = ./containers/minecraft.nix;
