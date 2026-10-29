@@ -1,6 +1,6 @@
 # Packages
 
-Generated from 84 packages.
+Generated from 85 packages.
 
 ## `ambient-build-vm`
 
@@ -305,11 +305,12 @@ Generated from 84 packages.
 - **Homepage:** [https://github.com/torvalds/linux/blob/master/tools/include/nolibc/nolibc.h](https://github.com/torvalds/linux/blob/master/tools/include/nolibc/nolibc.h)
 - **License:** GPL-2.0-only
 
-## `nolibcStdenv`
+## `ollama-openvino`
 
-- **Package name:** stdenv-linux
-- **Version:** 26.05pre-git
-- **Description:** Build environment that compiles C programs against nolibc
+- **Package name:** ollama-openvino
+- **Version:** 2026.4-unstable-2026-08-19
+- **Description:** Ollama with an OpenVINO GenAI backend for Intel CPUs, GPUs and NPUs
+- **Homepage:** [https://github.com/openvinotoolkit/openvino\_contrib/tree/master/modules/ollama\_openvino](https://github.com/openvinotoolkit/openvino_contrib/tree/master/modules/ollama_openvino)
 - **License:** MIT
 
 ## `parsec`
@@ -452,6 +453,7 @@ Generated from 84 packages.
 - **Package name:** quarry
 - **Version:** 0-unstable-2026-10-25
 - **Description:** TUF-based software distribution toolchain
+- **Homepage:** [https://github.com/amutable/quarry](https://github.com/amutable/quarry)
 - **License:** Apache-2.0
 
 ## `rad-ci`
@@ -517,6 +519,14 @@ Generated from 84 packages.
 - **Description:** Wrappers for systemd's run0 to replace pkexec, su, and sudo
 - **Homepage:** [https://github.com/thkukuk/run0-wrappers](https://github.com/thkukuk/run0-wrappers)
 - **License:** BSD-2-Clause
+
+## `run0edit`
+
+- **Package name:** run0edit
+- **Version:** 0.7.0
+- **Description:** Allow a permitted user to edit a file as root using run0
+- **Homepage:** [https://github.com/HastD/run0edit](https://github.com/HastD/run0edit)
+- **License:** MIT OR Apache-2.0
 
 ## `rune`
 

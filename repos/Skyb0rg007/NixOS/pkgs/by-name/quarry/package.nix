@@ -88,6 +88,7 @@ buildGoModule (finalAttrs: {
       Quarry is a TUF-based software distribution toolchain for immutable Linux
       distributions, with a protocol that is "dumb as rocks".
     '';
+    homepage = "https://github.com/amutable/quarry";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.skyesoss ];
     platforms = lib.platforms.linux;

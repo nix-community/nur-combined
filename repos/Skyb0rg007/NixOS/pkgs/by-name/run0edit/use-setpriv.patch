@@ -1,0 +1,45 @@
+--- a/run0edit_inner.py
++++ b/run0edit_inner.py
+@@ -18,6 +18,7 @@
+ import os
+ import pwd
+ import resource
++import shlex
+ import shutil
+ import stat
+ import struct
+@@ -512,13 +513,31 @@
+ 
+ def run_editor(*, uid: int, editor: str, path: str) -> None:
+     """Run the editor as the given UID to edit the file at the given path."""
+-    user = pwd.getpwuid(uid).pw_name
++    pw = pwd.getpwuid(uid)
+     try:
++        # Drop privileges with setpriv instead of runuser to avoid opening a PAM
++        # session, which may need DBus (e.g. pam_systemd_home). The root-owned
++        # script process provides a fresh pseudo-terminal, like `runuser --pty`.
+         # We use a login shell here to ensure the unprivileged editor has the environment
+         # associated with a fresh shell session for that user.
+-        run_command("runuser", "--pty", "-", user, "-c", 'exec "$0" "$1"', editor, path)
++        setpriv_cmd = shlex.join([
++            find_command("setpriv"),
++            f"--reuid={pw.pw_uid}",
++            f"--regid={pw.pw_gid}",
++            "--init-groups",
++            "--reset-env",
++            "--no-new-privs",
++            "--",
++            pw.pw_shell,
++            "-l",
++            "-c",
++            'exec "$0" "$1"',
++            editor,
++            path,
++        ])
++        run_command("script", "--quiet", "--return", "--command", setpriv_cmd, "/dev/null")
+     except CommandNotFoundError as e:
+-        print_err("failed to call runuser to start editor")
++        print_err("failed to call setpriv or script to start editor")
+         raise EditTempFileError from e
+     except SubprocessError as e:
+         print_err(f"failed to edit temporary file at {path}")
