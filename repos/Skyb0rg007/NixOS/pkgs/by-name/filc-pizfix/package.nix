@@ -9,13 +9,13 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "filc-pizfix";
-  version = "0.683";
+  version = "0.687";
   __structuredAttrs = true;
   strictDeps = true;
 
   src = fetchurl {
     url = "https://github.com/pizlonator/fil-c/releases/download/v${finalAttrs.version}/filc-${finalAttrs.version}-linux-x86_64.tar.xz";
-    hash = "sha256-D7whNa0w1bCt8xKJvMbw2gzI2yMj9OrCl41fg1ONEMY=";
+    hash = "sha256-qrU4QB94pHqyYe55r+2Ma5nh1ISOJjrhWadbA8EojaE=";
   };
 
   installPhase = ''

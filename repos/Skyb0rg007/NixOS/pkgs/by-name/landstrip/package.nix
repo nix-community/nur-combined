@@ -11,17 +11,17 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "landstrip";
-  version = "0.20.12";
+  version = "0.20.15";
   __structuredAttrs = true;
   src = fetchFromGitHub {
     owner = "landstrip";
     repo = "landstrip";
     tag = finalAttrs.version;
-    hash = "sha256-jCyx5R6xIpQPVsOjFeCHPFpLbc3yMHVSY6wBENnod/E=";
+    hash = "sha256-MjEV6g8MS72c2SVeKvQxakTDvIri4kDUDQ0wZc9TcvI=";
   };
   sourceRoot = "${finalAttrs.src.name}/packages/landstrip";
 
-  cargoHash = "sha256-20E+6n+dp9xloKmfhH+u4XINZmtH3z8Helv9hufLKcg=";
+  cargoHash = "sha256-1RPJEY5TsGsDmeBf6bSdkBcRnFkhE7SSXqfBazdVsLM=";
 
   nativeBuildInputs = [
     pkg-config

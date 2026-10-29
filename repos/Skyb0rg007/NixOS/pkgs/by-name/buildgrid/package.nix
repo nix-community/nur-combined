@@ -7,7 +7,7 @@
 
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "buildgrid";
-  version = "0.9.1";
+  version = "0.9.4";
   __structuredAttrs = true;
   pyproject = true;
 
@@ -15,7 +15,7 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
     owner = "BuildGrid";
     repo = "buildgrid";
     tag = finalAttrs.version;
-    hash = "sha256-8L7NYqDQe0Hg/c2yRdyh7Kj882FELiS+kjFGyEJL9J8=";
+    hash = "sha256-Law/N6psYGamdoickoxQGIZV1e0l7FMOvp0xuo7vtCk=";
   };
 
   pythonRelaxDeps = [
