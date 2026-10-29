@@ -15,7 +15,7 @@ buildDotnetModule (finalAttrs: {
     owner = "UnderminersTeam";
     repo = "UndertaleModTool";
     tag = finalAttrs.version;
-    hash = "sha256-I1UxVJ3AKRDPmYs0MoYXGukcj7krycVKb4jEZ4Y0pjI=";
+    hash = "sha256-bNSIU5SdyvFqDt1a63NUIuBWRxzk4bNYALSrCku6Cvg=";
     fetchSubmodules = true;
   };
 
