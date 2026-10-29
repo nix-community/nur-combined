@@ -12,10 +12,6 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "equicord";
-  # Upstream discourages inferring the package version from the package.json found in
-  # the Equicord repository. Dates as tags (and automatic releases) were the compromise
-  # we came to with upstream. Please do not change the version schema (e.g., to semver)
-  # unless upstream changes the tag schema from dates.
   version = "2026-10-08";
 
   src = fetchFromGitHub {
@@ -64,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script {
     extraArgs = [
       "--version-regex"
-      "^(\\d{4}-\\d{2}-\\d{2})$"
+      "^v(\\d+\\.\\d+\\.\\d+\\.\\d+)$"
     ];
   };
 
