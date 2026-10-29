@@ -42,6 +42,7 @@ let
       {
         ctranslate2 = super.ctranslate2.override { inherit ctranslate2-cpp; };
         whisperx = super.whisperx.override { inherit ctranslate2-cpp; };
+        mcp = super.mcp_1 or super.mcp;
       }
     );
   });
@@ -106,7 +107,7 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "voice-studio";
-  version = "0.5.6";
+  version = "0.5.7";
   __structuredAttrs = true;
   strictDeps = true;
 
@@ -114,7 +115,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     owner = "debpalash";
     repo = "VoiceStudio";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-FZzfS9Ig5DBY3fKkYjfWwS2tU1J5rm24jwBSaOcl5C8=";
+    hash = "sha256-VsOqIIxUmk0ewOQt1vQRZ1JmEpuBLlbX4fgvEf4ZzEU=";
   };
 
   # finalPackage so that overriding src propagates.
@@ -125,8 +126,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   patches = [
     # Don't build per-engine venvs with their own PyTorch.
     ./no-sidecar-install.patch
-    # torchaudio.info() was removed in torchaudio 2.9.
-    ./torchaudio-info.patch
   ];
 
   postPatch = ''
@@ -156,9 +155,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         'if isinstance(e, RuntimeError) and "could not load libtorchcodec" not in str(e).lower():' \
         'if isinstance(e, RuntimeError) and "could not load libtorchcodec" not in str(e).lower() and not hasattr(path_or_buf, "write"):'
 
-    substituteInPlace electron/src/main/updater.ts \
-      --replace-fail 'const supported = app.isPackaged;' 'const supported = false;'
-
     # Normally injected by electron-builder.
     substituteInPlace electron/package.json \
       --replace-fail '"version": "0.0.0-electron"' '"version": "${finalAttrs.version}"'
@@ -175,7 +171,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook preConfigure
 
     cp -R ${finalAttrs.node-modules}/. .
-    chmod -R u+w node_modules electron frontend
+    chmod -R u+w node_modules electron
     patchShebangs node_modules
 
     runHook postConfigure
@@ -207,23 +203,21 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         | sort -u
     )
 
-    cp -r backend omnivoice pyproject.toml uv.lock README.md LICENSE $share/
+    cp -r backend omnivoice pyproject.toml uv.lock README.md LICENSE LICENSE-NOTICE.md $share/
+    install -Dm644 -t $share/config config/app.json
+    install -Dm644 -t $share/electron electron/T3CODE-LICENSE.txt
     find $share/backend $share/omnivoice -type d -name tests -prune -exec rm -rf {} +
     ${pythonEnv.interpreter} -m compileall -q --invalidation-mode unchecked-hash \
       $share/backend $share/omnivoice
 
-    install -Dm644 frontend/src-tauri/icons/icon.png $share/brand/icon.png
-    install -Dm644 frontend/src-tauri/icons/32x32.png $share/brand/32x32.png
-    install -Dm644 frontend/src-tauri/icons/tray-recording.png $share/brand/tray-recording.png
+    install -Dm644 -t $share/brand electron/build/icons/{icon,32x32,tray-recording}.png
     ln -s ${lib.getExe finalAttrs.desktop-bridge} $share/native/voicestudio-desktop-bridge
     install -d $share/bin
     ln -s ${lib.getExe finalAttrs.omnivoice-cpp} $share/bin/omnivoice-tts-${ggufPlatform}
 
-    for size in 32 64 128; do
-      install -Dm644 frontend/src-tauri/icons/''${size}x''${size}.png \
-        $out/share/icons/hicolor/''${size}x''${size}/apps/voice-studio.png
-    done
-    install -Dm644 frontend/src-tauri/icons/icon.png \
+    install -Dm644 electron/build/icons/32x32.png \
+      $out/share/icons/hicolor/32x32/apps/voice-studio.png
+    install -Dm644 electron/build/icons/icon.png \
       $out/share/icons/hicolor/512x512/apps/voice-studio.png
 
     # OMNIVOICE_FROZEN disables pip installs from the Model Catalogue.
@@ -237,6 +231,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       --add-flags $share/app \
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}" \
       --set ELECTRON_FORCE_IS_PACKAGED 1 \
+      --set VOICESTUDIO_DISABLE_UPDATER 1 \
       --set-default OMNIVOICE_BACKEND_CMD $out/bin/voice-studio-server
 
     runHook postInstall

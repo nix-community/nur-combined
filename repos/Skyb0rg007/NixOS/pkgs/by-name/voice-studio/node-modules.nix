@@ -34,7 +34,6 @@ stdenvNoCC.mkDerivation {
 
     bun install \
       --filter=./electron \
-      --filter=./frontend \
       --force \
       --frozen-lockfile \
       --cpu="*" \
@@ -51,7 +50,7 @@ stdenvNoCC.mkDerivation {
 
     mkdir -p $out
     cp -R ./node_modules $out/node_modules
-    for ws in electron frontend; do
+    for ws in electron; do
       if [ -d $ws/node_modules ]; then
         mkdir -p $out/$ws
         cp -R $ws/node_modules $out/$ws/node_modules
@@ -61,7 +60,7 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  outputHash = "sha256-1YP7GxrksGtlGAwoxfy89BMYAOPg4eJOl1P/K+rNie8=";
+  outputHash = "sha256-BAZgZuU+EwZovXu3hP/A9/WePC3/AyTUEZxlvqvQL4E=";
   outputHashAlgo = "sha256";
   outputHashMode = "recursive";
 }
