@@ -12,10 +12,10 @@
     "npmDepsHash": "sha256-XFb0qetAfwveVsg4hGnGo5Yp87ggSJorWbEL2aE8wXE="
   },
   "github:YuJunZhiXue/dsh-purge": {
-    "version": "1.1.81",
-    "rev": "d508a834e090618fa7eb3048fcd9ed825dda4731",
-    "url": "https://codeload.github.com/YuJunZhiXue/dsh-purge/tar.gz/d508a834e090618fa7eb3048fcd9ed825dda4731",
-    "hash": "sha256-K8W02Ngu29RHazGCgrk9W0zmUQeVeFreaRg4MjiP85g="
+    "version": "1.1.82",
+    "rev": "0c933dc7d3252698f3f0f9756932dcc88355f532",
+    "url": "https://codeload.github.com/YuJunZhiXue/dsh-purge/tar.gz/0c933dc7d3252698f3f0f9756932dcc88355f532",
+    "hash": "sha256-YVNEEMavXPkOzwfr9t6hsrX4McnA48SJxFRwGnNZkwk="
   },
   "npm:@anionex/dsh-turn-rewind": {
     "version": "0.3.11",
