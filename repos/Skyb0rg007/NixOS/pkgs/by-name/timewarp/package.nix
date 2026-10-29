@@ -6,7 +6,7 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "timewarp";
-  version = "0-unstable-2026-03-04";
+  version = "0-unstable-2026-03-05";
   __structuredAttrs = true;
   strictDeps = true;
 
