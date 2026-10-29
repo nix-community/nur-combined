@@ -80,7 +80,7 @@ in
           else
             "${pkgs.writeShellScript "magpie-with-web-key" ''
               set -euo pipefail
-              export MAGPIE_WEB_KEY="$(< ${lib.escapeShellArg cfg.web.keyFile})"
+              export MAGPIE_WEB_KEY="$(< "$CREDENTIALS_DIRECTORY/web-key")"
               exec ${lib.escapeShellArgs ([ (lib.getExe' cfg.package "magpie") ] ++ shared.serveArgs)}
             ''}";
         User = cfg.user;
@@ -100,6 +100,9 @@ in
       }
       // lib.optionalAttrs (cfg.environmentFile != null) {
         EnvironmentFile = cfg.environmentFile;
+      }
+      // lib.optionalAttrs (cfg.web.keyFile != null) {
+        LoadCredential = [ "web-key:${cfg.web.keyFile}" ];
       };
     };
   };

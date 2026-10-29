@@ -36,8 +36,10 @@ in
         example = "/run/secrets/magpie-web-key";
         description = ''
           File containing the raw Web UI sign-in key, read at service startup.
-          Must be readable by the service user and contain at least 16 characters
-          from letters, digits, hyphens, periods, underscores and tildes.
+          On NixOS, systemd loads the file as a service credential, so it may be
+          root-owned. On Darwin, it must be readable by the service user.
+          Must contain at least 16 characters from letters, digits, hyphens,
+          periods, underscores and tildes.
           Keep this file outside the Nix store. Overrides MAGPIE_WEB_KEY from
           environmentFile when set.
         '';

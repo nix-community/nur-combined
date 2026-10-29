@@ -77,8 +77,10 @@ example, with agenix:
 services.magpie.web.keyFile = config.age.secrets.magpie-web-key.path;
 ```
 
-The service user must be able to read the file. The key must contain at least 16
-characters from letters, digits and `-._~`. It is read at startup, stays outside
+On NixOS, systemd loads the file via `LoadCredential`, so the source may remain
+root-owned with mode `0400`. On Darwin, the LaunchAgent user must be able to read
+the file. The key must contain at least 16 characters from letters, digits and
+`-._~`. It is read at startup, stays outside
 the Nix store, and overrides `MAGPIE_WEB_KEY` from `environmentFile`. Open
 `http://127.0.0.1:3430` and paste the key into the sign-in page. With `keyFile =
 null` (the default), Magpie uses its existing environment or random-key behavior.
