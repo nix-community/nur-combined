@@ -1,10 +1,8 @@
-{ inputs, ... }:
-{
+_: {
   perSystem =
     {
       pkgs,
       self',
-      system,
       ...
     }:
     {
@@ -18,7 +16,6 @@
 
         update = pkgs.mkShell {
           packages = with pkgs; [
-            inputs.mozilla-addons-to-nix.packages.${system}.default
             npins
             nushell
             nix-update

@@ -4,7 +4,6 @@
   nix-update-script,
   stdenv,
 
-  astal,
   glib,
   gobject-introspection,
   json-glib,
@@ -36,10 +35,6 @@ stdenv.mkDerivation {
     glib
     json-glib
   ];
-
-  postUnpack = ''
-    cp --remove-destination ${astal.source}/lib/gir.py gir.py
-  '';
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

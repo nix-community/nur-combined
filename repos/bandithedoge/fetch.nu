@@ -15,14 +15,6 @@ def fetch-npins [scope: string, commit: bool] {
     }
 }
 
-def fetch-firefox [commit: bool] {
-    let generated_path = "pkgs/firefoxAddons/_generated.nix"
-    ^mozilla-addons-to-nix pkgs/firefoxAddons/addons.json $generated_path
-    if $commit {
-        maybe-commit "firefoxAddons" $generated_path
-    }
-}
-
 def fetch [package: string, commit: bool] {
     let update_script = nix eval $".#($package).updateScript" --json | from json
 
@@ -56,7 +48,6 @@ def main [--commit, ...packages: string] {
     let npins_scopes = ["emacsPackages", "vimPlugins", "xplrPlugins", "yaziPlugins"]
     if ($packages | is-empty) {
         $npins_scopes | par-each {|scope| fetch-npins $scope $commit}
-        fetch-firefox $commit
 
         let update_scripts = nix eval .#_UPDATABLE --json | from json
         let failures = $update_scripts | each {|package|
@@ -78,10 +69,7 @@ def main [--commit, ...packages: string] {
             if $package in $npins_scopes {
                 fetch-npins $package $commit
             } else {
-                match $package {
-                    "firefoxAddons" => { fetch-firefox $commit }
-                    _ => { fetch $package $commit }
-                }
+                fetch $package $commit
             }
         }
     }

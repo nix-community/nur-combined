@@ -1,7 +1,9 @@
 [
   # keep-sorted start block=yes
+  [ "blender-radeon-prorender" ]
   [ "digits-bin" ]
   [ "fennel-language-server" ]
+  [ "firefoxAddons" ]
   [ "just-a-sample-bin" ]
   [ "kiwmi" ]
   [ "quetzalcoatl-bin" ]
@@ -12,7 +14,6 @@
   [ "venn" ]
   [ "vkdoom" ]
   [ "waterfox-bin" ]
-  [ "blender-radeon-prorender" ]
   [
     "vimPlugins"
     "null-ls-nvim"
