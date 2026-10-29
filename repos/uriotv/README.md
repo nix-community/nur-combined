@@ -29,7 +29,7 @@ redistribution.
 
 | Package | Version | Description | Public cache |
 |---|---|---|---|
-| `lantern-engine` | `0.9.37` | Lantern Engine by Awaken, built from source (needs your own game dump) | Yes |
+| `lantern-engine` | `0.9.38` | Lantern Engine by Awaken, built from source (needs your own game dump) | Yes |
 | `cybergrub2077` | `2.0.1-unstable-2026-02-28` | Cyberpunk 2077 inspired GRUB theme | Yes |
 | `nmssaveeditor` | `1.21.0` | Save editor for No Man's Sky | No: unfree |
 | `pig` | `0.5.3` | Pi coding agent rebuilt in Go as a native binary | Yes |

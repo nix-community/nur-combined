@@ -2,10 +2,10 @@
   copyDesktopItems, bash, python3, coreutils, findutils, gnugrep, gnused, gawk,
   util-linux, xdg-utils, cacert }:
 let
-  version = "0.9.37";
+  version = "0.9.38";
   src = fetchzip {
     url = "https://github.com/Awakenchan/LanternEngine/archive/refs/tags/v${version}.tar.gz";
-    hash = "sha256-3SMoo+s7i74yErvEleGgnQLUrpNecjJX8uJcw1yafV8=";
+    hash = "sha256-TatHogpV/4IBpiMQ50ZhOClnP2ZrcIl6MWPBPSO5zJ0=";
   };
   engine = callPackage ./engine.nix { inherit src version; };
   launcher = callPackage ./launcher.nix { inherit src version; };
@@ -13,7 +13,7 @@ let
 in
 stdenvNoCC.mkDerivation {
   pname = "lantern-engine";
-  inherit version;
+  inherit version src;
   dontUnpack = true;
   nativeBuildInputs = [ makeShellWrapper copyDesktopItems ];
   installPhase = ''
