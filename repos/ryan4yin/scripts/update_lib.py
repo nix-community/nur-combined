@@ -46,15 +46,24 @@ def write_json(path: Path, data: dict[str, Any]) -> None:
         raise
 
 
-def version_key(version: str) -> tuple[tuple[int, ...], bool, str]:
+def version_key(
+    version: str,
+) -> tuple[tuple[int, ...], tuple[int], tuple[tuple[int, int | str], ...]]:
     """Build a sort key for semver-ish versions, ignoring a leading v.
 
     A release without a prerelease suffix sorts above one with a suffix
-    (1.2.3 > 1.2.3-rc.1).
+    (1.2.3 > 1.2.3-rc.1), and numeric prerelease identifiers sort numerically
+    (rc.10 > rc.2). Build metadata is ignored.
     """
-    core, _, suffix = version.removeprefix("v").partition("-")
+    core, _, prerelease = version.removeprefix("v").partition("+")[0].partition("-")
     numbers = tuple(int(part) for part in core.split(".") if part.isdigit())
-    return (numbers, suffix == "", suffix)
+    if prerelease == "":
+        return (numbers, (1,), ())
+    identifiers = tuple(
+        (0, int(part)) if part.isdigit() else (1, part)
+        for part in prerelease.split(".")
+    )
+    return (numbers, (0,), identifiers)
 
 
 def is_newer(latest: str, current: str) -> bool:
@@ -102,6 +111,24 @@ def npm_latest_version(package: str, *, tag: str = "latest") -> str:
         check=True,
     )
     return result.stdout.strip()
+
+
+def npm_highest_version(package: str) -> str:
+    """Return the highest version across all npm dist-tags.
+
+    npm's default ``latest`` tag can lag behind ``next`` or ``alpha``. Track
+    every published release line instead of silently ignoring newer RCs.
+    """
+    result = run(
+        ["npm", "view", package, "dist-tags", "--json"],
+        capture_output=True,
+        check=True,
+    )
+    tags = json.loads(result.stdout)
+    versions = [str(version) for version in tags.values()]
+    if not versions:
+        raise SystemExit(f"no npm dist-tags found for {package}")
+    return max(versions, key=version_key)
 
 
 def nix_prefetch_file(url: str) -> str:

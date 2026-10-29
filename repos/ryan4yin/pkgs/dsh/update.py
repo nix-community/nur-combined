@@ -21,6 +21,7 @@ from update_lib import (  # noqa: E402 - the path above must run first
     is_newer,
     nix_build,
     nix_prefetch_file,
+    npm_highest_version,
     npm_latest_version,
     read_json,
     write_json,
@@ -77,16 +78,22 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--tag",
-        default="latest",
-        help="npm dist-tag to track (default: latest)",
+        default="all",
+        help="npm dist-tag to track, or 'all' for the highest version across "
+        "every dist-tag (default: all)",
     )
     args = parser.parse_args()
 
     hashes_file = PKG_DIR / "hashes.json"
     data = read_json(hashes_file)
     current = data["version"]
-    latest = npm_latest_version(PACKAGE, tag=args.tag)
-    print(f"current: {current}, latest ({args.tag}): {latest}")
+    if args.tag == "all":
+        latest = npm_highest_version(PACKAGE)
+        channel = "all dist-tags"
+    else:
+        latest = npm_latest_version(PACKAGE, tag=args.tag)
+        channel = args.tag
+    print(f"current: {current}, latest ({channel}): {latest}")
     if not is_newer(latest, current):
         print("already up to date")
         return
