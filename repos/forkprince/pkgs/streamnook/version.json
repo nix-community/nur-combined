@@ -6,16 +6,16 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "8.8.18",
+  "version": "8.8.19",
   "platforms": {
     "aarch64-darwin": {
       "file": "StreamNook.app.tar.gz",
-      "hash": "sha256-CIWCc18rcTrODW0APzoxo0vAvbea4DeTHFr0jNd7Ka4=",
+      "hash": "sha256-CS9nwH7vKM5MQZgupfLYYT8+dr4JKT5Cf8eHwW15i/E=",
       "unpack": true
     },
     "x86_64-darwin": {
       "file": "StreamNook.app.tar.gz",
-      "hash": "sha256-CIWCc18rcTrODW0APzoxo0vAvbea4DeTHFr0jNd7Ka4=",
+      "hash": "sha256-CS9nwH7vKM5MQZgupfLYYT8+dr4JKT5Cf8eHwW15i/E=",
       "unpack": true
     },
     "x86_64-linux": {

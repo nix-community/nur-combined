@@ -6,13 +6,13 @@
   pnpm_12,
   ...
 }: let
-  version = "1.15.13.0";
+  version = "1.15.14.0";
 
   src = fetchFromGitHub {
     owner = "Equicord";
     repo = "Equicord";
     tag = "v${version}";
-    hash = "sha256-tNDfbq1jWW9mpHY2psUkomTApp7A1sBKvZHx7YWWKd4=";
+    hash = "sha256-EClvWqCNUkQ9ajxZ2WLqjHcfVlpTHnAaLXKkGpFj/Lc=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -20,7 +20,7 @@
     inherit version src;
     pnpm = pnpm_12;
     fetcherVersion = 5;
-    hash = "sha256-X4muYcEHXLquPb+ORoU1DdMCiJRLlU5Oywn1VCx0R7s=";
+    hash = "sha256-V0csYDNjl8sYtM/fvObes+hInUauhbdHN8MyD2MsutI=";
   };
 in
   equicord.overrideAttrs (old: {

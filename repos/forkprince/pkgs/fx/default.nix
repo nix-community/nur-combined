@@ -6,13 +6,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "fx";
-  version = "0.0.15";
+  version = "0.0.16";
 
   src = fetchFromGitHub {
     owner = "vercel-labs";
     repo = "fx";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-7qCHTNYhYWeUvYUZ7yRKsEfCpZakY1mC0yqdYiPceHc=";
+    hash = "sha256-zAvoaadFqjLEsXQt9GyU0ziHaW6wMh2JRCR2PSB1AZU=";
   };
 
   nativeBuildInputs = [

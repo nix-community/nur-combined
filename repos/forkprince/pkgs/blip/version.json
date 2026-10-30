@@ -5,41 +5,41 @@
     "url": "{0}",
     "version_path": ".version"
   },
-  "version": "1.2.7",
+  "version": "1.2.8",
   "platforms": {
     "x86_64-linux": {
       "url_path": ".files[\"{1}\"].url",
-      "url": "https://static.blip.net/linux/blip-1.2.7-linux-amd64.tar.gz",
+      "url": "https://static.blip.net/linux/blip-1.2.8-linux-amd64.tar.gz",
       "substitutions": [
         "https://static.blip.net/linux/latest.json",
         "linux-amd64"
       ],
-      "hash": "sha256-ZJ4AegmVgOUpe5pkql6GOWIHweSXR7NvjNDV3zJU8pU="
+      "hash": "sha256-Wf0QIPfxk6rkNz9F85vznp4zN78K9u3pG9scjkwaxGM="
     },
     "aarch64-linux": {
       "url_path": ".files[\"{1}\"].url",
-      "url": "https://static.blip.net/linux/blip-1.2.7-linux-aarch64.tar.gz",
+      "url": "https://static.blip.net/linux/blip-1.2.8-linux-aarch64.tar.gz",
       "substitutions": [
         "https://static.blip.net/linux/latest.json",
         "linux-aarch64"
       ],
-      "hash": "sha256-X5HmjxlSfFa1GUacsF+xwCxNl/v7QHGjxpLbTulEMLY="
+      "hash": "sha256-fp+2YHQ1zrzZwfVOG5Shjp6u15AxzxtLefv8pHk/bsg="
     },
     "aarch64-darwin": {
       "url_path": ".url",
-      "url": "https://f000.backblazeb2.com/file/push-mac/Blip-20261027002206.zip",
+      "url": "https://f000.backblazeb2.com/file/push-mac/Blip-20261029214736.zip",
       "substitutions": [
         "https://formulae.brew.sh/api/cask/blip.json"
       ],
-      "hash": "sha256-nh2RNpl/LG7dl1crWcM5WTnMVxZQnQGW2Q39uI1Mmlk="
+      "hash": "sha256-EQnO1OgEAmxzuxCMKpsa4TJNmalLnX8XJdfB8ZGzeCU="
     },
     "x86_64-darwin": {
       "url_path": ".url",
-      "url": "https://f000.backblazeb2.com/file/push-mac/Blip-20261027002206.zip",
+      "url": "https://f000.backblazeb2.com/file/push-mac/Blip-20261029214736.zip",
       "substitutions": [
         "https://formulae.brew.sh/api/cask/blip.json"
       ],
-      "hash": "sha256-nh2RNpl/LG7dl1crWcM5WTnMVxZQnQGW2Q39uI1Mmlk="
+      "hash": "sha256-EQnO1OgEAmxzuxCMKpsa4TJNmalLnX8XJdfB8ZGzeCU="
     }
   }
 }
