@@ -83,6 +83,7 @@ This repository contains three types of packages:
 | [`micro`](pkgs/micro/default.nix) | micro |
 | [`moonplayer`](pkgs/moonplayer/default.nix) | [moonplayer](https://github.com/coslyk/moonplayer), video player that can play online videos from YouTube, Bilibili etc |
 | [`muxy`](pkgs/muxy/default.nix) | [muxy](https://muxy.app/), lightweight and Memory efficient terminal for Mac built with SwiftUI and libghostty |
+| [`nexa`](pkgs/nexa/default.nix) | [nexa](https://nexa.fish), end-to-end encrypted chat, calls and servers |
 | [`nintoolbox`](pkgs/nintoolbox/default.nix) | [nintoolbox](https://github.com/quatric/nintoolbox), toolbox for Nintendo game file formats |
 | [`nintoolbox-gui`](pkgs/nintoolbox-gui/default.nix) | [nintoolbox-gui](https://github.com/quatric/nintoolbox), graphical interface for the Nintoolbox command line tools |
 | [`noisetorch`](pkgs/noisetorch/default.nix) | [NoiseTorch](https://github.com/ForkPrince/NoiseTorch), virtual microphone device with noise supression for PulseAudio (ForkPrince fork) |

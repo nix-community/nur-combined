@@ -47,6 +47,7 @@
     armsx2 = lib.callPackage ./pkgs/armsx2 {};
     mcman = lib.callPackage ./pkgs/mcman {};
     nuvio = lib.callPackage ./pkgs/nuvio {};
+    nexa = lib.callPackage ./pkgs/nexa {};
     xuan = lib.callPackage ./pkgs/xuan {};
     sfw = lib.callPackage ./pkgs/sfw {};
     orb = lib.callPackage ./pkgs/orb {};
