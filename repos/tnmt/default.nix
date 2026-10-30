@@ -35,6 +35,7 @@
   msgvault =
     if bun2nix == null then null else pkgs.callPackage ./pkgs/msgvault { inherit bun2nix; };
   roots = pkgs.callPackage ./pkgs/roots { };
+  herdr-gpui = pkgs.callPackage ./pkgs/herdr-gpui { };
   givy = pkgs.callPackage ./pkgs/givy { };
   op-cached = pkgs.callPackage ./pkgs/op-cached { };
   symbol-desktop-wallet = pkgs.callPackage ./pkgs/symbol-desktop-wallet { };
