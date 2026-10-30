@@ -1,6 +1,11 @@
 { self, ... }:
 let
   hostPrivKey = "/var/lib/ssh/ssh_host_ed25519_key";
+  # A content-addressed public PEM avoids restarting the Server after unrelated
+  # flake-source changes. This expression never reads the private key.
+  realmSpireCA = builtins.toFile "realm-spire-upstream-ca.pem" (
+    builtins.readFile ../pki/realm-spire/upstream-ca.pem
+  );
 in
 {
   flake.modules.nixos."age/hastur" =
@@ -45,10 +50,26 @@ in
   flake.modules.nixos."age/eihort" =
     { config, ... }:
     {
+      realm.spire.server.upstream = {
+        enable = true;
+        certificate = realmSpireCA;
+        bundle = realmSpireCA;
+        keyFile = config.vaultix.secrets.realm-spire-upstream-key.path;
+      };
+      systemd.services.spire-server = {
+        requires = [ "vaultix-activate.service" ];
+        after = [ "vaultix-activate.service" ];
+        restartTriggers = [ config.vaultix.secrets.realm-spire-upstream-key.file ];
+      };
       vaultix = {
         settings.hostPubkey = self.data.node.${config.networking.hostName}.ssh_key;
         settings.flake = self;
         secrets = {
+          realm-spire-upstream-key = {
+            owner = "root";
+            group = "root";
+            mode = "0400";
+          };
           nuan = { };
           cfd = { };
           monitou = { };

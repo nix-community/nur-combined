@@ -285,6 +285,9 @@ in
         agent = {
           trust_bundle_path = bundlePath;
           rebootstrap_mode = "always";
+          # SPIRE defaults to 10m after an expired cache. Keep recovery within
+          # the Agent unit's 300s startup gate instead of timing out each retry.
+          rebootstrap_delay = lib.mkDefault "30s";
         };
         plugins.NodeAttestor = {
           http_fqdn = {

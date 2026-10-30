@@ -51,7 +51,9 @@
         spire.httpAttestation = {
           trustHttpTransport = true;
           fqdn = "${config.networking.hostName}.nyaw.xyz";
-          # Reuse the existing trusted public bundle during migration. This is not a join token.
+          # Pin the dedicated long-lived intermediate; short-lived signing CAs
+          # continue to rotate without changing Agent bootstrap trust.
+          trustBundle.path = ../pki/realm-spire/upstream-ca.pem;
           agent.trustBundlePath = "/var/lib/realm-spire/trust-bundle.pem";
           responder = {
             ipv4Address = null;

@@ -216,6 +216,19 @@ lib.runTests {
       checksBundle = true;
     };
   };
+  testExpiredCacheRebootstrapFitsStartupGate = {
+    expr =
+      let
+        delay = lib.toInt (
+          lib.removeSuffix "s" defaults.services.spire.agent.settings.agent.rebootstrap_delay
+        );
+        startup = lib.toInt (
+          lib.removeSuffix "s" defaults.systemd.services.spire-agent.serviceConfig.TimeoutStartSec
+        );
+      in
+      delay > 0 && delay + 120 <= startup;
+    expected = true;
+  };
   testHttpAgentRemovesJoinToken = {
     expr =
       (agentSettings.agent ? join_token_file)

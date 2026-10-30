@@ -1,26 +1,16 @@
 # Existing-state migration, using only disposable PKI generated inside the VM.
 # nix build -L --impure --no-link --option sandbox true --expr \
-#   'import ./tests/realm-spire-upstream-migration-vm.nix { nixpkgs = /nix/store/cc7ff4ysismx0c3778v8gc6b14plrz3z-source; }'
-{ nixpkgs }:
+#   'import ./tests/realm-spire-upstream-migration-vm.nix {}'
+{
+  nixpkgs ?
+    let
+      lock = builtins.fromJSON (builtins.readFile ../flake.lock);
+    in
+    (builtins.fetchTree lock.nodes.${lock.nodes.root.inputs.nixpkgs}.locked).outPath,
+}:
 let
-  # The supplied nixpkgs revision still packages 1.15.2. Pin the tested SPIRE
-  # release for both fixture CLIs and all NixOS services without changing modules.
-  spireOverlay = _: prev: {
-    spire = prev.spire.overrideAttrs (_: {
-      version = "1.15.3";
-      src = prev.fetchFromGitHub {
-        owner = "spiffe";
-        repo = "spire";
-        tag = "v1.15.3";
-        hash = "sha256-wDnYgaG6FlVetV7X3Js7u60xvV4eC4HQ33puTFaRTcY=";
-      };
-      vendorHash = "sha256-xMbi50XAT2iAG2heqr6BXjWfqeikGDFdZ4q9bU9j05U=";
-    });
-  };
-  pkgs = import nixpkgs {
-    system = "x86_64-linux";
-    overlays = [ spireOverlay ];
-  };
+  # Use the locked package set for CLIs, services and the shared realm VM.
+  pkgs = import nixpkgs { system = "x86_64-linux"; };
   base = import ./realm-spire-fixture.nix { inherit pkgs; };
 in
 import ./realm-vm.nix {
@@ -64,7 +54,11 @@ import ./realm-vm.nix {
         spiffeID = "spiffe://nyaw.xyz/test/chain";
         selectors = [ "unix:uid:0" ];
       };
-      services.spire.agent.settings.agent.workload_x509_svid_key_type = "ec-p384";
+      services.spire.agent.settings.agent = {
+        workload_x509_svid_key_type = "ec-p384";
+        # Native recovery path, accelerated from SPIRE's default 10-minute delay.
+        rebootstrap_delay = "5s";
+      };
       services.spire.server = {
         # A mutable *test-only* config lets the same daemon/state change upstream
         # after it has already issued self-signed credentials.
@@ -116,6 +110,7 @@ import ./realm-vm.nix {
     };
   extraTestScript = ''
     import base64
+    import datetime
     import hashlib
     import json
     import re
@@ -125,12 +120,25 @@ import ./realm-vm.nix {
     server = "${pkgs.spire}/bin/spire-server"
     admin = " -socketPath /run/spire/server/private/api.sock"
     agent = "${pkgs.spire}/bin/spire-agent"
-    fetch = agent + " api fetch x509 -socketPath /run/spire/agent/public/api.sock"
+    fetch = agent + " api fetch x509 -socketPath /run/spire/agent/public/api.sock -silent"
+    fetch_chain_command = (
+        "install -d -m 0700 /run/migration-chain && rm -f /run/migration-chain/* && "
+        + fetch + " -write /run/migration-chain && "
+        + "(for cert in /run/migration-chain/svid.*.pem; do if openssl x509 -in \"$cert\" -noout -ext subjectAltName | grep -q 'URI:spiffe://nyaw.xyz/test/chain'; then cp \"$cert\" /run/migration-chain/chain.pem; fi; done; test -s /run/migration-chain/chain.pem)"
+    )
     started = time.monotonic()
-    evidence = {}
+    evidence = {
+        "nixpkgs": "${toString nixpkgs}",
+        "spire_version": machine.succeed(server + " -version 2>&1").strip(),
+        "test_agent_ttl": "90s",
+        "test_rebootstrap_delay": "5s (SPIRE default: 10m)",
+    }
+    assert evidence["spire_version"] == "1.15.3", evidence
 
     def state(label):
-        value = json.loads(machine.succeed(server + " localauthority x509 show" + admin + " -output json"))
+        command = server + " localauthority x509 show" + admin + " -output json"
+        machine.wait_until_succeeds(command + " >/dev/null", timeout=60)
+        value = json.loads(machine.succeed(command))
         evidence[label] = value
         print(label, json.dumps(value, sort_keys=True))
         return value
@@ -143,8 +151,7 @@ import ./realm-vm.nix {
         return {hashlib.sha256(base64.b64decode(body)).hexdigest() for body in re.findall(r"-----BEGIN CERTIFICATE-----\s*(.*?)\s*-----END CERTIFICATE-----", pem, re.S)}
 
     def fetch_chain():
-        machine.succeed("mkdir -p /run/migration-chain; " + fetch + " -write /run/migration-chain")
-        machine.succeed("for cert in /run/migration-chain/svid.*.pem; do if openssl x509 -in \"$cert\" -noout -ext subjectAltName | grep -q 'URI:spiffe://nyaw.xyz/test/chain'; then cp \"$cert\" /run/migration-chain/chain.pem; fi; done; test -s /run/migration-chain/chain.pem")
+        machine.succeed(fetch_chain_command)
 
     def tls():
         machine.wait_until_succeeds(probe("sender"), timeout=90)
@@ -168,9 +175,10 @@ import ./realm-vm.nix {
 
     def verify_new_chain():
         # The workload must actually refresh; an old still-valid SVID is not proof.
-        machine.wait_until_succeeds("mkdir -p /run/migration-chain; " + fetch + " -write /run/migration-chain; for cert in /run/migration-chain/svid.*.pem; do if openssl x509 -in \"$cert\" -noout -ext subjectAltName | grep -q 'URI:spiffe://nyaw.xyz/test/chain'; then cp \"$cert\" /run/migration-chain/chain.pem; fi; done; openssl verify -partial_chain -trusted /run/migration-pki/anchor.pem -untrusted /run/migration-chain/chain.pem /run/migration-chain/chain.pem", timeout=90)
+        machine.wait_until_succeeds(fetch_chain_command + " && openssl verify -partial_chain -trusted /run/migration-pki/anchor.pem -untrusted /run/migration-chain/chain.pem /run/migration-chain/chain.pem", timeout=90)
         status, output = machine.execute("openssl verify -trusted /run/migration-pki/root.pem -untrusted /run/migration-chain/chain.pem /run/migration-chain/chain.pem 2>&1")
         assert status != 0 and "path length constraint exceeded" in output, output
+        evidence["root_pathlen_rejection"] = output
 
     with subtest("existing self-signed server, authenticated Agent and real workloads"):
         initial = state("initial")
@@ -188,7 +196,7 @@ import ./realm-vm.nix {
         # Quiescent snapshot includes SQLite, CA journal, KeyManager and Agent
         # cache/keys. This is test-local rollback evidence, never exported keys.
         stop_agent()
-        machine.succeed("systemctl stop spire-server.service; mkdir -p /run/migration-snapshot; cp -a /var/lib/spire/server /run/migration-snapshot/server; cp -a /var/lib/spire/agent /run/migration-snapshot/agent")
+        machine.succeed("systemctl stop spire-server.service; install -d -m 0700 /run/migration-snapshot /run/migration-snapshot/server /run/migration-snapshot/agent; cp -a /var/lib/spire/server/. /run/migration-snapshot/server/; cp -a /var/lib/spire/agent/. /run/migration-snapshot/agent/")
         machine.succeed("systemctl start spire-server.service")
         start_agent()
         db_inode = machine.succeed("stat -c %i /var/lib/spire/server/datastore.sqlite3").strip()
@@ -204,6 +212,8 @@ import ./realm-vm.nix {
         machine.succeed("test -s /var/lib/spire/server/keys.json")
         anchor = certs("/run/migration-pki/anchor.pem")
         assert len(anchor) == 1 and anchor.isdisjoint(old_certs)
+        machine.succeed(server + " bundle show" + admin + " > /run/bundle-before-prepare.pem")
+        evidence["bundle_sha256_before_prepare"] = sorted(certs("/run/bundle-before-prepare.pem"))
         anchor_ski = machine.succeed("openssl x509 -in /run/migration-pki/anchor.pem -noout -ext subjectKeyIdentifier").splitlines()[-1].strip().replace(":", "").lower()
         prepared_id = prepare()
         prepared = state("upstream-prepared")
@@ -213,6 +223,7 @@ import ./realm-vm.nix {
         machine.succeed(server + " bundle show" + admin + " > /run/dual-bundle.pem")
         dual = certs("/run/dual-bundle.pem")
         assert old_certs <= dual and anchor <= dual, (old_certs, anchor, dual)
+        evidence["bundle_sha256"] = {"old": sorted(old_certs), "anchor": sorted(anchor), "dual": sorted(dual)}
         # CLI bundle set explicitly rejects replacing this server's own bundle.
         status, output = machine.execute(server + " bundle set" + admin + " -id spiffe://nyaw.xyz -path /run/migration-pki/anchor.pem 2>&1")
         assert status != 0 and "own trust domain" in output, output
@@ -221,7 +232,8 @@ import ./realm-vm.nix {
         def propagated(_):
             fetch_chain()
             return dual <= certs("/run/migration-chain/bundle.0.pem")
-        retry(propagated, timeout=90)
+        retry(propagated, timeout=datetime.timedelta(seconds=90))
+        evidence["agent_bundle_sha256_before_activation"] = sorted(certs("/run/migration-chain/bundle.0.pem"))
         tls()
         machine.succeed("cp /run/migration-pki/anchor.pem /run/bootstrap.pem; sha256sum /run/bootstrap.pem > /run/long-bootstrap.sha256")
         machine.succeed(server + " localauthority x509 activate" + admin + " -authorityID " + shlex.quote(prepared_id))
@@ -256,6 +268,8 @@ import ./realm-vm.nix {
         logs = machine.succeed("journalctl -u spire-agent --after-cursor=" + shlex.quote(cursor) + " -o cat")
         assert "SVID is expired" in logs, logs
         assert "Starting node attestation" in logs, logs
+        assert "Trust Bundle and Server don't agree, rebootstrapping" in logs, logs
+        assert "Node attestation was successful" in logs, logs
         evidence["expired-cache-reattest"] = logs
         verify_new_chain()
         tls()
@@ -267,17 +281,29 @@ import ./realm-vm.nix {
         machine.succeed("systemctl start --no-block spire-agent.service")
         machine.wait_until_succeeds("journalctl -u spire-agent --after-cursor=" + shlex.quote(cursor) + " -o cat | grep -Ei 'unknown authority|certificate verify failed'", timeout=45)
         machine.fail(fetch + " -timeout 2s")
+        evidence["old_bootstrap_rejection"] = machine.succeed("journalctl -u spire-agent --after-cursor=" + shlex.quote(cursor) + " -o cat")
         stop_agent()
         machine.succeed("cp /run/migration-pki/anchor.pem /run/bootstrap.pem; sha256sum -c /run/long-bootstrap.sha256")
         start_agent()
         verify_new_chain()
         tls()
 
-    with subtest("configuration rollback alone retains migrated CA; full state rollback restores old PKI"):
+    with subtest("configuration rollback creates another self-signed CA; full state rollback restores old PKI"):
         use_config(False)
         rollback = state("configuration-only-rollback")
-        assert rollback["active"]["authority_id"] == prepared_id, rollback
-        tls()
+        # Without an upstream plugin, SPIRE only recovers local CA certificates
+        # that are themselves in the bundle. The upstream-signed ACTIVE is not
+        # a bundle anchor, and the former self-signed ACTIVE is now OLD. With
+        # no recoverable ACTIVE it prepares and activates a NEW self-signed CA.
+        assert rollback["active"]["authority_id"] not in [old_id, old_prepared_id, prepared_id], rollback
+        assert not rollback["active"].get("upstream_authority_subject_key_id"), rollback
+        stop_agent()
+        machine.succeed("rm -rf /var/lib/spire/agent/*; sha256sum -c /run/long-bootstrap.sha256")
+        cursor = machine.succeed("journalctl -u spire-agent -n 0 --show-cursor").split("-- cursor: ")[-1].strip()
+        machine.succeed("systemctl start --no-block spire-agent.service")
+        machine.wait_until_succeeds("journalctl -u spire-agent --after-cursor=" + shlex.quote(cursor) + " -o cat | grep -Ei 'unknown authority|certificate verify failed'", timeout=45)
+        machine.fail(fetch + " -timeout 2s")
+        evidence["configuration_rollback_bootstrap_rejection"] = machine.succeed("journalctl -u spire-agent --after-cursor=" + shlex.quote(cursor) + " -o cat")
         stop_agent()
         machine.succeed("systemctl stop spire-server.service; rm -rf /var/lib/spire/server/* /var/lib/spire/agent/*; cp -a /run/migration-snapshot/server/. /var/lib/spire/server/; cp -a /run/migration-snapshot/agent/. /var/lib/spire/agent/; cp /run/old-bootstrap.pem /run/bootstrap.pem; systemctl start spire-server.service")
         machine.wait_for_unit("spire-server.service")
@@ -292,8 +318,8 @@ import ./realm-vm.nix {
     evidence["migration_seconds"] = round(time.monotonic() - started, 2)
     machine.succeed("journalctl -u spire-server -u spire-agent --no-pager > /run/migration-validation.log")
     machine.succeed("cat > /run/migration-evidence.json <<'MIGRATION_EOF'\n" + json.dumps(evidence, indent=2) + "\nMIGRATION_EOF")
-    machine.copy_from_vm("/run/migration-evidence.json")
-    machine.copy_from_vm("/run/migration-validation.log")
+    machine.copy_from_machine("/run/migration-evidence.json")
+    machine.copy_from_machine("/run/migration-validation.log")
     print("MIGRATION PASSED", evidence["migration_seconds"], "seconds")
   '';
 }

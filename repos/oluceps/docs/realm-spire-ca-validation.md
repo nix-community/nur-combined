@@ -2,6 +2,10 @@
 
 验证日期：2026-10-29。SPIRE 1.15.3。仅本机隔离进程与 NixOS VM；未连接或部署生产节点。
 
+2026-10-30 已补充保留旧 Server DB/keys/journal 的迁移 VM，包括过期缓存重新认证及完整回滚；
+配置接线、测试证据和实际部署状态见[上游 CA 接入记录](realm-spire-upstream-rollout.md)。
+旧的 fresh-upstream 测试与新迁移测试、生产部署结果需分别判断。
+
 **当前状态：Internet gateway 已由 Caddy 替代 Envoy。** 后续完整 VM 回归确认，方案 3
 （intermediate 直接作为锚）和方案 4（独立 root）都通过 HTTP/CONNECT、SPIFFE 身份授权、
 自动/手工 CA 轮换、冷启动及重启。下文 Envoy 错误及“优先方案 4”的判断保留为切换前的
