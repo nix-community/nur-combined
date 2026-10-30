@@ -56,7 +56,7 @@ stdenvNoCC.mkDerivation {
   meta = {
     description = "A command line tool for rendering the CharmTone color palette.";
     homepage = "https://charm.land/";
-    license = lib.licenses.apache-2.0;
+    license = lib.licenses.asl20;
 
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
 
