@@ -128,13 +128,22 @@ impl Cache {
             },
         })?;
 
-        let mut file = File::options().append(true).create(true).open(&index_path)?;
+        let mut file = File::options()
+            .append(true)
+            .create(true)
+            .open(&index_path)?;
 
         // cacache format uses newline as entry separator (see cacache entry-index.js)
         // Only add newline prefix if file already has content, to maintain backwards compatibility
-        let needs_newline = fs::metadata(&index_path).map(|m| m.len() > 0).unwrap_or(false);
+        let needs_newline = fs::metadata(&index_path)
+            .map(|m| m.len() > 0)
+            .unwrap_or(false);
         let prefix = if needs_newline { "\n" } else { "" };
-        write!(file, "{prefix}{:x}\t{data}", Sha1::new().chain(&data).finalize())?;
+        write!(
+            file,
+            "{prefix}{:x}\t{data}",
+            Sha1::new().chain(&data).finalize()
+        )?;
 
         Ok(())
     }

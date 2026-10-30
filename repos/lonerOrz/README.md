@@ -4,7 +4,7 @@
 
 **NUR Sync Status:** [![NUR Sync Status](https://github.com/lonerOrz/loneros-nur/actions/workflows/nur-sync.yml/badge.svg)](https://github.com/lonerOrz/loneros-nur/actions/workflows/nur-sync.yml)
 
----
+______________________________________________________________________
 
 This is my personal [NUR (Nix User Repository)](https://github.com/nix-community/NUR), created for:
 
@@ -12,7 +12,7 @@ This is my personal [NUR (Nix User Repository)](https://github.com/nix-community
 - Providing more up-to-date versions of packages than those available in `nixpkgs`;
 - Offering automatic daily updates to ensure all software stays up to date.
 
----
+______________________________________________________________________
 
 ## 📦 Packages
 
@@ -25,7 +25,7 @@ This repository contains subjective package selections that I personally use. Th
 
 For a complete list of available packages, please browse the [pkgs/](./pkgs) directory.
 
----
+______________________________________________________________________
 
 ## 🛠 Usage (via the official NUR repository)
 
@@ -64,7 +64,7 @@ If you have enabled the [official NUR repository](https://github.com/nix-communi
 If you haven't enabled NUR yet, please refer to the setup guide:
 [https://github.com/nix-community/NUR#using-the-repository](https://github.com/nix-community/NUR#using-the-repository)
 
----
+______________________________________________________________________
 
 ## 🔄 Auto-Update Mechanism
 
@@ -81,7 +81,7 @@ The update process is handled by custom update scripts for each package, which c
 - Official download pages
 - CDN sources
 
----
+______________________________________________________________________
 
 ## 🙌 Contributing
 
@@ -93,14 +93,14 @@ If you also need the latest versions of certain software, you're welcome to cont
 
 The goal is to maintain a useful, reliable, and up-to-date NUR repository for both myself and others.
 
----
+______________________________________________________________________
 
 ## 📄 License
 
 Each package in this repository follows its original license.
 The build logic and repository scripts are released under the [MIT License](./LICENSE).
 
----
+______________________________________________________________________
 
 ## ☁️ Cache & Build Status
 

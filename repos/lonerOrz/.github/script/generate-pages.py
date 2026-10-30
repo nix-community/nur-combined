@@ -75,9 +75,7 @@ result = subprocess.check_output(
 
 packages = json.loads(result)
 
-packages.sort(
-    key=lambda pkg: pkg["name"].lower()
-)
+packages.sort(key=lambda pkg: pkg["name"].lower())
 
 packages_json = DIST_DIR / "packages.json"
 

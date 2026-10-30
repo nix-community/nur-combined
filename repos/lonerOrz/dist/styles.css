@@ -53,7 +53,14 @@ html {
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family:
+    "Inter",
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   position: relative;
   min-height: 100vh;
   overflow-x: hidden;
@@ -66,10 +73,26 @@ body::before {
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(ellipse 80% 60% at 10% 0%, rgba(88, 166, 255, 0.09) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 90% 10%, rgba(188, 140, 255, 0.07) 0%, transparent 55%),
-    radial-gradient(ellipse 70% 60% at 50% 100%, rgba(63, 185, 80, 0.05) 0%, transparent 60%),
-    radial-gradient(ellipse 100% 100% at 50% 50%, rgba(8, 12, 20, 0) 0%, var(--bg) 100%);
+    radial-gradient(
+      ellipse 80% 60% at 10% 0%,
+      rgba(88, 166, 255, 0.09) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 90% 10%,
+      rgba(188, 140, 255, 0.07) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 70% 60% at 50% 100%,
+      rgba(63, 185, 80, 0.05) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 100% 100% at 50% 50%,
+      rgba(8, 12, 20, 0) 0%,
+      var(--bg) 100%
+    );
   z-index: -2;
   pointer-events: none;
 }
@@ -79,16 +102,28 @@ body::after {
   position: fixed;
   inset: 0;
   background-image:
-    radial-gradient(circle at 20% 30%, rgba(88, 166, 255, 0.04) 0%, transparent 30%),
-    radial-gradient(circle at 80% 70%, rgba(188, 140, 255, 0.04) 0%, transparent 30%);
+    radial-gradient(
+      circle at 20% 30%,
+      rgba(88, 166, 255, 0.04) 0%,
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(188, 140, 255, 0.04) 0%,
+      transparent 30%
+    );
   z-index: -1;
   pointer-events: none;
   animation: driftBg 20s ease-in-out infinite alternate;
 }
 
 @keyframes driftBg {
-  from { transform: scale(1) translate(0, 0); }
-  to   { transform: scale(1.05) translate(-1%, 1%); }
+  from {
+    transform: scale(1) translate(0, 0);
+  }
+  to {
+    transform: scale(1.05) translate(-1%, 1%);
+  }
 }
 
 /* ── Particle Canvas ────────────────────────────────────────────────────────── */
@@ -148,7 +183,9 @@ body::after {
   text-transform: uppercase;
   margin-bottom: 20px;
   backdrop-filter: blur(8px);
-  box-shadow: 0 0 20px rgba(88, 166, 255, 0.08), inset 0 1px 0 rgba(88, 166, 255, 0.1);
+  box-shadow:
+    0 0 20px rgba(88, 166, 255, 0.08),
+    inset 0 1px 0 rgba(88, 166, 255, 0.1);
   animation: badgePulse 4s ease-in-out infinite;
 }
 
@@ -163,13 +200,29 @@ body::after {
 }
 
 @keyframes badgePulse {
-  0%, 100% { box-shadow: 0 0 20px rgba(88, 166, 255, 0.08), inset 0 1px 0 rgba(88, 166, 255, 0.1); }
-  50%       { box-shadow: 0 0 32px rgba(88, 166, 255, 0.18), inset 0 1px 0 rgba(88, 166, 255, 0.15); }
+  0%,
+  100% {
+    box-shadow:
+      0 0 20px rgba(88, 166, 255, 0.08),
+      inset 0 1px 0 rgba(88, 166, 255, 0.1);
+  }
+  50% {
+    box-shadow:
+      0 0 32px rgba(88, 166, 255, 0.18),
+      inset 0 1px 0 rgba(88, 166, 255, 0.15);
+  }
 }
 
 @keyframes dotPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: 0.6; transform: scale(0.75); }
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(0.75);
+  }
 }
 
 .hero h1 {
@@ -194,8 +247,12 @@ body::after {
 }
 
 @keyframes shimmer {
-  from { background-position: 0% center; }
-  to   { background-position: 200% center; }
+  from {
+    background-position: 0% center;
+  }
+  to {
+    background-position: 200% center;
+  }
 }
 
 .hero p {
@@ -220,8 +277,14 @@ body::after {
 }
 
 @keyframes fadeSlideUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ── Stat Cards ──────────────────────────────────────────────────────────────── */
@@ -240,10 +303,13 @@ body::after {
   border-radius: var(--radius);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.04);
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-              box-shadow 0.25s ease,
-              border-color 0.25s ease;
+  box-shadow:
+    var(--shadow-sm),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition:
+    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
   cursor: default;
   position: relative;
   overflow: hidden;
@@ -256,14 +322,22 @@ body::after {
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(88, 166, 255, 0.5), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(88, 166, 255, 0.5),
+    transparent
+  );
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
 .stat-card:hover {
   transform: translateY(-3px);
-  box-shadow: var(--shadow), 0 0 0 1px var(--border-glow), var(--shadow-glow);
+  box-shadow:
+    var(--shadow),
+    0 0 0 1px var(--border-glow),
+    var(--shadow-glow);
   border-color: var(--border-glow);
 }
 
@@ -315,7 +389,9 @@ body::after {
     border-color 0.25s ease,
     box-shadow 0.25s ease,
     background 0.25s ease;
-  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  box-shadow:
+    var(--shadow-sm),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .search-box input::placeholder {
@@ -324,7 +400,9 @@ body::after {
 
 .search-box input:focus {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.18), var(--shadow-sm);
+  box-shadow:
+    0 0 0 3px rgba(88, 166, 255, 0.18),
+    var(--shadow-sm);
   background: rgba(13, 17, 23, 0.95);
 }
 
@@ -353,7 +431,9 @@ body::after {
   background: var(--panel);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  box-shadow:
+    var(--shadow-lg),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
   animation: tableEnter 0.7s 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
   position: relative;
 }
@@ -365,7 +445,13 @@ body::after {
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent 5%, rgba(88, 166, 255, 0.3) 30%, rgba(126, 231, 135, 0.2) 70%, transparent 95%);
+  background: linear-gradient(
+    90deg,
+    transparent 5%,
+    rgba(88, 166, 255, 0.3) 30%,
+    rgba(126, 231, 135, 0.2) 70%,
+    transparent 95%
+  );
   z-index: 1;
 }
 
@@ -412,15 +498,39 @@ table {
   table-layout: fixed;
 }
 
-th:nth-child(1), td:nth-child(1) { width: 16%; }
-th:nth-child(2), td:nth-child(2) { width: 10%; white-space: normal; word-break: keep-all; }
-th:nth-child(3), td:nth-child(3) { width: 10%; }
-th:nth-child(4), td:nth-child(4) { width: 32%; }
-th:nth-child(5), td:nth-child(5) { width: 18%; }
-th:nth-child(6), td:nth-child(6) { width: 14%; }
+th:nth-child(1),
+td:nth-child(1) {
+  width: 16%;
+}
+th:nth-child(2),
+td:nth-child(2) {
+  width: 10%;
+  white-space: normal;
+  word-break: keep-all;
+}
+th:nth-child(3),
+td:nth-child(3) {
+  width: 10%;
+}
+th:nth-child(4),
+td:nth-child(4) {
+  width: 32%;
+}
+th:nth-child(5),
+td:nth-child(5) {
+  width: 18%;
+}
+th:nth-child(6),
+td:nth-child(6) {
+  width: 14%;
+}
 
 thead {
-  background: linear-gradient(180deg, rgba(22, 30, 45, 0.9) 0%, rgba(14, 20, 32, 0.7) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(22, 30, 45, 0.9) 0%,
+    rgba(14, 20, 32, 0.7) 100%
+  );
   position: sticky;
   top: 0;
   z-index: 10;
@@ -437,7 +547,9 @@ th {
   border-bottom: 1px solid var(--border);
   cursor: pointer;
   user-select: none;
-  transition: color 0.2s ease, background 0.2s ease;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
   white-space: nowrap;
 }
 
@@ -454,7 +566,9 @@ th[data-sort].sorted {
   margin-left: 6px;
   opacity: 0.4;
   font-size: 10px;
-  transition: opacity 0.2s ease, color 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    color 0.2s ease;
 }
 
 th[data-sort].sorted .sort-indicator {
@@ -477,8 +591,14 @@ tbody tr {
 }
 
 @keyframes rowEnter {
-  from { opacity: 0; transform: translateX(-6px); }
-  to   { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 tbody tr:last-child td {
@@ -507,7 +627,9 @@ code {
   font-weight: 500;
   word-break: break-all;
   letter-spacing: 0;
-  transition: background 0.2s ease, border-color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
 }
 
 tbody tr:hover code {
@@ -546,7 +668,9 @@ tbody tr:hover code {
   font-weight: 600;
   letter-spacing: 0.04em;
   white-space: nowrap;
-  transition: background 0.2s ease, border-color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
 }
 
 tbody tr:hover .license-badge {
@@ -600,7 +724,9 @@ tbody tr:hover .license-badge {
   text-decoration: none;
   font-size: 13px;
   font-weight: 500;
-  transition: color 0.2s ease, gap 0.2s ease;
+  transition:
+    color 0.2s ease,
+    gap 0.2s ease;
   padding: 4px 0;
 }
 
@@ -608,7 +734,9 @@ tbody tr:hover .license-badge {
   content: "↗";
   font-size: 11px;
   opacity: 0.6;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
 .homepage-link:hover {
@@ -691,7 +819,9 @@ tbody tr:hover .license-badge {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ── Responsive ──────────────────────────────────────────────────────────────── */
@@ -709,13 +839,23 @@ tbody tr:hover .license-badge {
     width: 100%;
   }
 
-  th, td {
+  th,
+  td {
     padding: 16px 18px;
   }
 
-  th:nth-child(4), td:nth-child(4) { width: 28%; }
-  th:nth-child(5), td:nth-child(5) { width: 16%; }
-  th:nth-child(6), td:nth-child(6) { width: 16%; }
+  th:nth-child(4),
+  td:nth-child(4) {
+    width: 28%;
+  }
+  th:nth-child(5),
+  td:nth-child(5) {
+    width: 16%;
+  }
+  th:nth-child(6),
+  td:nth-child(6) {
+    width: 16%;
+  }
 }
 
 @media (max-width: 640px) {
@@ -727,7 +867,12 @@ tbody tr:hover .license-badge {
     width: 100%;
   }
 
-  table, thead, tbody, th, td, tr {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
     display: block;
   }
 
@@ -746,7 +891,9 @@ tbody tr:hover .license-badge {
   }
 
   tbody tr:hover {
-    box-shadow: 0 0 0 1px var(--border-glow), var(--shadow-sm);
+    box-shadow:
+      0 0 0 1px var(--border-glow),
+      var(--shadow-sm);
     background: var(--panel-glass);
   }
 

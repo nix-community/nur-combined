@@ -28,7 +28,9 @@ pub fn get_url(url: &Url) -> Result<Body, anyhow::Error> {
                 if let Some(mirror) = mirrors.get(host).and_then(serde_json::Value::as_str) {
                     let mirror_url = Url::parse(mirror)?;
                     url.set_path(&(mirror_url.path().to_owned() + url.path()));
-                    url.set_host(Some(mirror_url.host_str().expect(format!("Mirror URL without host part: {mirror_url}").as_str())))?;
+                    url.set_host(Some(mirror_url.host_str().expect(
+                        format!("Mirror URL without host part: {mirror_url}").as_str(),
+                    )))?;
                     eprintln!("Replaced URL {url_} with {url}");
                 }
             }
@@ -55,7 +57,10 @@ pub fn get_url(url: &Url) -> Result<Body, anyhow::Error> {
         if let Ok(npm_tokens) = env::var("NIX_NPM_TOKENS") {
             if let Ok(tokens) = serde_json::from_str::<Map<String, Value>>(&npm_tokens) {
                 if let Some(token) = tokens.get(host).and_then(serde_json::Value::as_str) {
-                    info!("Found NPM token for {}. Adding authorization header to request.", host);
+                    info!(
+                        "Found NPM token for {}. Adding authorization header to request.",
+                        host
+                    );
                     request = request.header("Authorization", format!("Bearer {token}"));
                 }
             }

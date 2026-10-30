@@ -97,7 +97,8 @@ fn normalize_packument(
         }
     }
 
-    serde_json::to_vec(&json).map_err(|e| anyhow!("failed to re-serialize packument for {package_name}: {e}"))
+    serde_json::to_vec(&json)
+        .map_err(|e| anyhow!("failed to re-serialize packument for {package_name}: {e}"))
 }
 
 /// Fetch and cache packuments (package metadata) for all packages.
@@ -622,5 +623,4 @@ mod tests {
 
         Ok(())
     }
-
 }

@@ -88,7 +88,8 @@ stdenv.mkDerivation (finalAttrs: {
     libsecret
   ];
 
-    binaryName = if lib.versionAtLeast finalAttrs.version "2.0.0" then "antigravity-ide" else "antigravity";
+  binaryName =
+    if lib.versionAtLeast finalAttrs.version "2.0.0" then "antigravity-ide" else "antigravity";
 
   installPhase = ''
     runHook preInstall

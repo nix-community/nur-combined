@@ -66,7 +66,7 @@ def is_derivation(pkg_name):
         # 更加健壮的判定：同时检查 builtins.isDerivation 和 .type 属性
         expr = (
             f"let p = (import {ROOT_NIX_FILE} {{ pkgs = import <nixpkgs> {{}}; }}).{pkg_name}.passthru.updateScript; "
-            f"in (p.type or \"\") == \"derivation\" || builtins.isDerivation p"
+            f'in (p.type or "") == "derivation" || builtins.isDerivation p'
         )
         result = subprocess.run(
             [
@@ -191,7 +191,12 @@ def update_package(pkg_name, extra_args=None):
 
         if is_derivation(pkg_name):
             log(f"[NIX RUN] Running {pkg_name}'s updateScript as derivation...")
-            cmd = ["nix", "run", f".#{pkg_name}.passthru.updateScript", "--"] + combined_args
+            cmd = [
+                "nix",
+                "run",
+                f".#{pkg_name}.passthru.updateScript",
+                "--",
+            ] + combined_args
             try:
                 subprocess.run(cmd, check=True)
                 log(f"[OK] {pkg_name} updated via nix run")
@@ -234,7 +239,9 @@ def update_package(pkg_name, extra_args=None):
             log(f"[FAIL] {pkg_name} {msg}")
             record(pkg_name, "failed", msg)
 
-    except Exception as e:  # covers pre-update eval failures (check_auto_update/is_derivation/...)
+    except (
+        Exception
+    ) as e:  # covers pre-update eval failures (check_auto_update/is_derivation/...)
         msg = f"unexpected error in pre-update eval: {type(e).__name__}: {e}"
         log(f"[FAIL] {pkg_name} {msg}")
         record(pkg_name, "failed", msg)
@@ -250,13 +257,17 @@ def emit_summary():
         "generated_at": datetime.datetime.now(datetime.timezone.utc).isoformat(),
     }
     print(json.dumps(result, ensure_ascii=False))
-    log(f"[SUMMARY] {result['updated']} updated / {result['skipped']} skipped / {result['failed']} failed")
+    log(
+        f"[SUMMARY] {result['updated']} updated / {result['skipped']} skipped / {result['failed']} failed"
+    )
 
 
 def main():
     parser = argparse.ArgumentParser(description="Update Nix packages")
     parser.add_argument("--package", help="Update a single package")
-    parser.add_argument("extra_args", nargs="*", help="Additional args forwarded to update scripts")
+    parser.add_argument(
+        "extra_args", nargs="*", help="Additional args forwarded to update scripts"
+    )
     args = parser.parse_args()
 
     extra_args = list(args.extra_args)

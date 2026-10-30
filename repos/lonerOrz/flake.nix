@@ -25,6 +25,14 @@
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f system);
     in
     {
+      formatter = forAllSystems (
+        system:
+        let
+          pkgs = import nixpkgs { inherit system; };
+        in
+        pkgs.callPackage ./formatter.nix { inherit pkgs; }
+      );
+
       legacyPackages = forAllSystems (
         system:
         let

@@ -44,7 +44,11 @@ let
   # is stable regardless of the signature.
   src = stdenv.mkDerivation {
     name = baseNameOf source.src.url;
-    nativeBuildInputs = [ curl cacert jq ];
+    nativeBuildInputs = [
+      curl
+      cacert
+      jq
+    ];
     outputHashAlgo = "sha256";
     outputHash = lib.removePrefix "sha256-" source.src.hash;
     outputHashMode = "flat";

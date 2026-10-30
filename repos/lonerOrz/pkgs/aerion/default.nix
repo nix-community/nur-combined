@@ -33,7 +33,9 @@ stdenv.mkDerivation (finalAttrs: {
       hash = current.${hashKey} or (throw "Unsupported system: ${system}");
     in
     fetchzip {
-      url = "https://github.com/hkdb/aerion/releases/download/v${finalAttrs.version}/aerion-linux-${if system == "x86_64-linux" then "amd64" else "arm64"}.tar.gz";
+      url = "https://github.com/hkdb/aerion/releases/download/v${finalAttrs.version}/aerion-linux-${
+        if system == "x86_64-linux" then "amd64" else "arm64"
+      }.tar.gz";
       inherit hash;
       stripRoot = false;
     };

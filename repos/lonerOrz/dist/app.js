@@ -18,9 +18,9 @@ const PARTICLE_COUNT = 70;
 const CONNECTION_DIST = 140;
 const MOUSE_REPEL_DIST = 120;
 const COLORS = [
-  [88, 166, 255],   // blue
-  [126, 231, 135],  // green
-  [188, 140, 255],  // purple
+  [88, 166, 255], // blue
+  [126, 231, 135], // green
+  [188, 140, 255], // purple
 ];
 
 function debounce(fn, delay) {
@@ -130,10 +130,13 @@ function animateParticles() {
 initParticles();
 animateParticles();
 
-window.addEventListener("resize", debounce(() => {
-  resizeCanvas();
-  initParticles();
-}, 200));
+window.addEventListener(
+  "resize",
+  debounce(() => {
+    resizeCanvas();
+    initParticles();
+  }, 200),
+);
 
 document.addEventListener("visibilitychange", () => {
   particlesPaused = document.hidden;
@@ -156,8 +159,7 @@ async function loadPackages() {
 
   const loadingRow = document.createElement("tr");
   loadingRow.id = "loading-row";
-  loadingRow.innerHTML =
-    `<td colspan="6" style="text-align:center;padding:60px 0;border:none">
+  loadingRow.innerHTML = `<td colspan="6" style="text-align:center;padding:60px 0;border:none">
        <div class="spinner"></div>
        <div style="margin-top:18px;color:var(--muted);font-size:13px;letter-spacing:0.04em">Loading packages…</div>
      </td>`;
@@ -199,17 +201,21 @@ function getInstallCommand(name) {
 }
 
 function copyToClipboard(text, btn) {
-  navigator.clipboard.writeText(text).then(() => {
-    const original = btn.innerHTML;
-    btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!`;
-    btn.style.cssText = "background:rgba(63,185,80,0.28);border-color:rgba(63,185,80,0.6);color:#56d364;";
-    setTimeout(() => {
-      btn.innerHTML = original;
-      btn.style.cssText = "";
-    }, 1600);
-  }).catch(() => {
-    /* clipboard API unavailable */
-  });
+  navigator.clipboard
+    .writeText(text)
+    .then(() => {
+      const original = btn.innerHTML;
+      btn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied!`;
+      btn.style.cssText =
+        "background:rgba(63,185,80,0.28);border-color:rgba(63,185,80,0.6);color:#56d364;";
+      setTimeout(() => {
+        btn.innerHTML = original;
+        btn.style.cssText = "";
+      }, 1600);
+    })
+    .catch(() => {
+      /* clipboard API unavailable */
+    });
 }
 
 function normalizeLicense(license) {
@@ -268,10 +274,7 @@ function renderTable(packages) {
     .join("");
 
   // Animate counter
-  animateCounter(
-    document.getElementById("package-count"),
-    packages.length,
-  );
+  animateCounter(document.getElementById("package-count"), packages.length);
 
   document.getElementById("empty-state").style.display =
     packages.length === 0 ? "block" : "none";

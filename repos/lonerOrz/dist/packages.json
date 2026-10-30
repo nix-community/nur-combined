@@ -281,10 +281,7 @@
       "shortName": "unfree"
     },
     "name": "biu",
-    "platforms": [
-      "aarch64-linux",
-      "x86_64-linux"
-    ],
+    "platforms": ["aarch64-linux", "x86_64-linux"],
     "pname": "biu",
     "version": "1.16.0"
   },
@@ -469,9 +466,7 @@
       "url": "https://spdx.org/licenses/GPL-3.0-only.html"
     },
     "name": "duolingo-desktop",
-    "platforms": [
-      "x86_64-linux"
-    ],
+    "platforms": ["x86_64-linux"],
     "pname": "duolingo-desktop",
     "version": "4.2.0"
   },
@@ -626,10 +621,7 @@
       "url": "https://spdx.org/licenses/AGPL-3.0-only.html"
     },
     "name": "fluxer",
-    "platforms": [
-      "aarch64-linux",
-      "x86_64-linux"
-    ],
+    "platforms": ["aarch64-linux", "x86_64-linux"],
     "pname": "fluxer",
     "version": "0.0.8"
   },
@@ -882,10 +874,7 @@
       "url": "https://spdx.org/licenses/GPL-3.0.html"
     },
     "name": "helium",
-    "platforms": [
-      "x86_64-linux",
-      "aarch64-linux"
-    ],
+    "platforms": ["x86_64-linux", "aarch64-linux"],
     "pname": "helium",
     "version": "0.12.3.1"
   },
@@ -1501,9 +1490,7 @@
       "url": "https://spdx.org/licenses/MIT.html"
     },
     "name": "openscreen",
-    "platforms": [
-      "x86_64-linux"
-    ],
+    "platforms": ["x86_64-linux"],
     "pname": "openscreen",
     "version": "1.4.0"
   },
@@ -1761,10 +1748,7 @@
       "url": "https://spdx.org/licenses/GPL-3.0-or-later.html"
     },
     "name": "sparkle",
-    "platforms": [
-      "x86_64-linux",
-      "aarch64-linux"
-    ],
+    "platforms": ["x86_64-linux", "aarch64-linux"],
     "pname": "sparkle",
     "version": "1.7.0"
   },
