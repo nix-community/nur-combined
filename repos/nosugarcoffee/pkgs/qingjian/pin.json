@@ -3,14 +3,14 @@
     "type": "github",
     "repo": "qingjian-team/qingjian"
   },
-  "version": "0.3.1",
+  "version": "0.3.2",
   "url": "https://github.com/qingjian-team/qingjian/releases/download/v{version}/qingjian-{version}-macos-{arch}.pkg",
   "arch": {
     "aarch64-darwin": "arm64",
     "x86_64-darwin": "x86_64"
   },
   "hash": {
-    "aarch64-darwin": "sha256-JzYGvzGWMhFq089UfVQX5qqUZwHJvrl4fv+Mn7L+JYk=",
-    "x86_64-darwin": "sha256-Wpp8AW6y1RPDqsPC71he0ecuyRo9MQ63ZTtNG5UAtvg="
+    "aarch64-darwin": "sha256-SNDm6Mg0J9d+tJEDEwAY4aU6qi0eeTCFCnsOEbWBxEs=",
+    "x86_64-darwin": "sha256-iuBsYEtoESxaMuBDDai+UJg/VoWL5MdYvc3S0CKkXQk="
   }
 }
