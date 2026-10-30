@@ -3,18 +3,23 @@
   stdenvNoCC,
   bun,
   fetchFromGitHub,
-  writeShellApplication,
-  nix-update-script,
+  callPackage,
 }:
 
 let
-  version = "1.0.679-unstable-2026-10-29";
+  # The version is the one `npx freebuff` installs, i.e. the `latest` dist-tag
+  # of the npm package. CodebuffAI/freebuff's own tags do not track it (they
+  # stop at v1.0.679 while the npm wrapper is on 0.2.x), but the source snapshot
+  # of a release is the commit that sets freebuff/cli/release/package.json to
+  # that version. `update.py` resolves that commit from npm and keeps these in
+  # sync; the build below passes the version through to the binary.
+  version = "0.2.35";
 
   src = fetchFromGitHub {
     owner = "CodebuffAI";
     repo = "freebuff";
-    rev = "33c931e9e80482dd8a301e8e23b9f1f7d1b01f55";
-    hash = "sha256-K6d/v/YaJZgnyW2hr++pu14hCa3AJ5wNSEuBkn7uBjk=";
+    rev = "7f99e218b792bea12ca3573caa198ecb3c2de9eb";
+    hash = "sha256-5Y02a0X+c81g9GO22arYOyoKpXVLF38HQVTmUIVuRNA=";
   };
 
   # The CLI validates its client environment at startup (common/src/env.ts) and
@@ -22,7 +27,7 @@ let
   # during the build into the binary with `--define`. A binary built without
   # them stops with "Environment validation failed" before it can run a turn.
   #
-  # These are the public production values found in the official 0.2.34 release
+  # These are the public production values found in the official npm release
   # binary (Publishable/ingestion keys — the client halves of PostHog and
   # Stripe, not secrets). CODEBUFF_APP_URL can still be overridden at runtime.
   #
@@ -51,8 +56,8 @@ let
   # `bun install` resolves the platform-specific payloads (the OpenTUI native
   # bundles, ripgrep, ...), so every target has its own hash.
   workspaceDepsHashes = {
-    x86_64-linux = "sha256-I7RZGJHfhcNEY9iNW8ud56SCV57PEUEerulQBk6BYks=";
-    aarch64-darwin = "sha256-idg6ydzNgalKICYUZnQuRSxXx8I4wtRs1cmB4yNN33A=";
+    x86_64-linux = "sha256-BMxWm9Jo/SwsAjSEToK8vvZ9rJ15OJJcB3FBz9jI07I=";
+    aarch64-darwin = "sha256-u5jfsEfqRi8obOe4S36lXfg2v3jX+6TD780LVg7Xdoc=";
   };
 
   workspaceDeps = stdenvNoCC.mkDerivation {
@@ -109,6 +114,10 @@ stdenvNoCC.mkDerivation {
   env = clientEnv;
 
   postPatch = ''
+    # The version must describe the source we build: the npm release version is
+    # recorded in this file, so detect a mismatch before the long build.
+    grep -qF '"version": "${version}"' freebuff/cli/release/package.json
+
     # The SDK's .d.ts bundle type-checks the whole workspace and currently
     # fails on unrelated @ai-sdk provider type mismatches in this snapshot. The
     # CLI only consumes sdk/dist/index.mjs, so skip the declaration bundle.
@@ -160,16 +169,8 @@ stdenvNoCC.mkDerivation {
     runHook postInstallCheck
   '';
 
-  passthru.updateScript = writeShellApplication {
-    name = "update-freebuff";
-    text = ''
-      export UPDATE_NIX_ATTR_PATH="freebuff"
-      exec ${
-        lib.escapeShellArgs (nix-update-script {
-          extraArgs = [ "--version=branch" ];
-        })
-      } "$@"
-    '';
+  passthru.updateScript = callPackage ./update.nix {
+    attrPath = "freebuff";
   };
 
   meta = {
