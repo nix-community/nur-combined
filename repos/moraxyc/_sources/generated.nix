@@ -87,16 +87,16 @@
   };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
-    version = "2fadf212f161417dcdf2f37d81a305a37ff918a4";
+    version = "b38c9f2e83662ce6058b76d67a4d9901629ee9ab";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "clash-nyanpasu";
-      rev = "2fadf212f161417dcdf2f37d81a305a37ff918a4";
+      rev = "b38c9f2e83662ce6058b76d67a4d9901629ee9ab";
       fetchSubmodules = false;
-      sha256 = "sha256-VwrQLkhF/df53vCm2gSCApwkksjaKFDqwL9I+USr8ZM=";
+      sha256 = "sha256-osTI2KckRRxjXgbfqoK662AEQGAUhe37bdgjNM0qUww=";
     };
     cargoLock."backend/Cargo.lock" = {
-      lockFile = ./. + "/sha256-VwrQLkhF_df53vCm2gSCApwkksjaKFDqwL9I+USr8ZM=/backend/Cargo.lock";
+      lockFile = ./. + "/sha256-osTI2KckRRxjXgbfqoK662AEQGAUhe37bdgjNM0qUww=/backend/Cargo.lock";
       outputHashes = {
         "auto-launch-0.5.0" = "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=";
         "runas-1.2.0" = "sha256-cTYTFtmdmCztL2JhgnOxwKhd+VfUmm5DB3gkNy92g04=";
@@ -122,18 +122,18 @@
   };
   cpa-usage-keeper = {
     pname = "cpa-usage-keeper";
-    version = "5f8a59e1b3bbee02dd0d4c24e466d2752d08fce8";
+    version = "9db74cfc380d11064af80cf1626efd6e3d068217";
     src = fetchFromGitHub {
       owner = "Willxup";
       repo = "cpa-usage-keeper";
-      rev = "5f8a59e1b3bbee02dd0d4c24e466d2752d08fce8";
+      rev = "9db74cfc380d11064af80cf1626efd6e3d068217";
       fetchSubmodules = false;
-      sha256 = "sha256-tbY8t2EE3ZCof0bFe02MZyQl0SHGBsO2KQqzsaKTTBo=";
+      sha256 = "sha256-usCeT+84CIhhAK4jIsSjiBazckKR2lc3mE2xI0KVNZQ=";
     };
     extract = {
-      "web/package.json" = ./. + "/sha256-tbY8t2EE3ZCof0bFe02MZyQl0SHGBsO2KQqzsaKTTBo=/web/package.json";
-      "web/package-lock.json" = ./. + "/sha256-tbY8t2EE3ZCof0bFe02MZyQl0SHGBsO2KQqzsaKTTBo=/web/package-lock.json";
-    };date = "2026-10-29";
+      "web/package.json" = ./. + "/sha256-usCeT+84CIhhAK4jIsSjiBazckKR2lc3mE2xI0KVNZQ=/web/package.json";
+      "web/package-lock.json" = ./. + "/sha256-usCeT+84CIhhAK4jIsSjiBazckKR2lc3mE2xI0KVNZQ=/web/package-lock.json";
+    };date = "2026-10-30";
   };
   cpa-usage-keeper-stable = {
     pname = "cpa-usage-keeper-stable";
@@ -422,15 +422,15 @@
   };
   meta-rules-dat = {
     pname = "meta-rules-dat";
-    version = "be456e5c402c4a9c98519e73f09256c96914cefd";
+    version = "10f120b9f0cd1bcae8b8ff88b3f999237b919702";
     src = fetchFromGitHub {
       owner = "MetaCubeX";
       repo = "meta-rules-dat";
-      rev = "be456e5c402c4a9c98519e73f09256c96914cefd";
+      rev = "10f120b9f0cd1bcae8b8ff88b3f999237b919702";
       fetchSubmodules = false;
-      sha256 = "sha256-Ssiu+w39TQMDEjECoHSy9MHIYgcC1uRHQHCCV+7Ntec=";
+      sha256 = "sha256-QKGYlzMtoLFkAp2RA5ikVYWA66gqNBn0aUOWizmtJ60=";
     };
-    date = "2026-10-29";
+    date = "2026-10-30";
   };
   metacubex-geo = {
     pname = "metacubex-geo";
@@ -779,15 +779,15 @@
   };
   v2ray-rules-dat = {
     pname = "v2ray-rules-dat";
-    version = "5d688d2e99ca30215c96267e7d0ae3ee7c72ff45";
+    version = "9d1e09bb4c4ac2c797fea3a5d4fa6cfb3f882398";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "v2ray-rules-dat";
-      rev = "5d688d2e99ca30215c96267e7d0ae3ee7c72ff45";
+      rev = "9d1e09bb4c4ac2c797fea3a5d4fa6cfb3f882398";
       fetchSubmodules = false;
-      sha256 = "sha256-T7WDWt1cQ2nb2BqVK+fsqGArQYBK4qFnb2vKfjp1SO4=";
+      sha256 = "sha256-sToUFgRXc22Afnt5XaAwL3gBa1JWI2ZW0cAXKG9AgAY=";
     };
-    date = "2026-10-28";
+    date = "2026-10-29";
   };
   whois42d-ng = {
     pname = "whois42d-ng";
@@ -817,24 +817,24 @@
   };
   yaqmc = {
     pname = "yaqmc";
-    version = "c870878e2f4d083c2edd55a5fbf1fc2c1f61da22";
+    version = "1befe39682e878490acae227c4a659b42e004092";
     src = fetchFromGitHub {
       owner = "YAQMC";
       repo = "YAQMC";
-      rev = "c870878e2f4d083c2edd55a5fbf1fc2c1f61da22";
+      rev = "1befe39682e878490acae227c4a659b42e004092";
       fetchSubmodules = false;
-      sha256 = "sha256-jPydC5czV8vKeW+k1ETDRzRFpi/6RcjTbVi2xXsUJss=";
+      sha256 = "sha256-EqKFfzzI/Ia8IZy2Q3Wt7M954Vum0lVJxyrGZ96WqgU=";
     };
     extract = {
-      "package-lock.json" = ./. + "/sha256-jPydC5czV8vKeW+k1ETDRzRFpi_6RcjTbVi2xXsUJss=/package-lock.json";
-      "package.json" = ./. + "/sha256-jPydC5czV8vKeW+k1ETDRzRFpi_6RcjTbVi2xXsUJss=/package.json";
+      "package-lock.json" = ./. + "/sha256-EqKFfzzI_Ia8IZy2Q3Wt7M954Vum0lVJxyrGZ96WqgU=/package-lock.json";
+      "package.json" = ./. + "/sha256-EqKFfzzI_Ia8IZy2Q3Wt7M954Vum0lVJxyrGZ96WqgU=/package.json";
     };cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-jPydC5czV8vKeW+k1ETDRzRFpi_6RcjTbVi2xXsUJss=/Cargo.lock";
+      lockFile = ./. + "/sha256-EqKFfzzI_Ia8IZy2Q3Wt7M954Vum0lVJxyrGZ96WqgU=/Cargo.lock";
       outputHashes = {
         "qqmusic-api-0.1.0" = "sha256-jV/izHGLN2Jhrzl28zJtbOpdRxseG0qgZQgSxW0lb/U=";
       };
     };
-    date = "2026-10-27";
+    date = "2026-10-29";
   };
   yaqmc-stable = {
     pname = "yaqmc-stable";
