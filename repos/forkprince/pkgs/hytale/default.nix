@@ -99,10 +99,7 @@
       license = lib.licenses.unfreeRedistributable;
       maintainers = with lib.maintainers; [gepbird];
       mainProgram = "hytale-launcher";
-      platforms = [
-        "x86_64-linux"
-        "aarch64-darwin"
-      ];
+      platforms = lib.platforms.darwin ++ ["x86_64-linux"];
       sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     };
   };

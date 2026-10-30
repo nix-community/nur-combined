@@ -46,6 +46,7 @@ This repository contains three types of packages:
 | [`dockdoor`](pkgs/dockdoor/default.nix) | [dockdoor](https://dockdoor.net/), window peeking utility app |
 | [`dropshare`](pkgs/dropshare/default.nix) | [dropshare](https://dropshare.app/), file sharing solution |
 | [`effectcraft`](pkgs/effectcraft/default.nix) | [effectcraft](https://getartcraft.com/apps/effectcraft), motion graphics and visual effects compositor |
+| [`elixiroffice`](pkgs/elixiroffice/default.nix) | [elixiroffice](https://github.com/leag1234/ElixirOffice), open source office suite for users used to MS Office |
 | [`equibop`](pkgs/equibop/default.nix) | [equibop](https://github.com/Equicord/Equibop), custom Discord App aiming to give you better performance and improve linux support |
 | [`equicord`](pkgs/equicord/default.nix) | equicord |
 | [`figcraft`](pkgs/figcraft/default.nix) | [figcraft](https://getartcraft.com/apps/figcraft), interface design and prototyping |

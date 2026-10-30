@@ -33,7 +33,7 @@
     homepage = "https://github.com/silverling/xuan";
     changelog = "https://github.com/silverling/xuan/releases/tag/v${version}";
     license = lib.licenses.mit;
-    platforms = lib.platforms.linux ++ ["aarch64-darwin"];
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
     maintainers = with lib.maintainers; [Prinky];
     mainProgram = "xuan";
     sourceProvenance = [lib.sourceTypes.binaryNativeCode];

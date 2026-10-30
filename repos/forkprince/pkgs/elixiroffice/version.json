@@ -1,0 +1,20 @@
+{
+  "name": "ElixirOffice",
+  "source": {
+    "type": "github-release",
+    "repo": "leag1234/ElixirOffice",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "0.6.0",
+  "platforms": {
+    "x86_64-linux": {
+      "file": "ElixirOffice-{version}-x86_64.AppImage",
+      "hash": "sha256-HYZi3UzitE2ySOkJLr+rN1IQgvO3myHxy4Y8tek9rtE="
+    },
+    "aarch64-darwin": {
+      "file": "ElixirOffice-{version}-mac-arm64.dmg",
+      "hash": "sha256-ndq32IgVZRicmxlc1Uv3pkB0O6RN3OeB0kooTgc3TMg="
+    }
+  }
+}

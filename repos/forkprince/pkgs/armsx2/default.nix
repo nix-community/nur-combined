@@ -14,7 +14,7 @@
     homepage = "https://armsx2.net";
     maintainers = with lib.maintainers; [Prinky];
     license = with lib.licenses; [gpl3Plus lgpl3Plus];
-    platforms = ["aarch64-linux" "aarch64-darwin"];
+    platforms = lib.platforms.darwin ++ ["aarch64-linux"];
     mainProgram = "armsx2";
   };
 in

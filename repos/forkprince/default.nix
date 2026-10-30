@@ -26,6 +26,7 @@
     beeper-nightly = lib.callPackage ./pkgs/beeper-nightly {};
     app-librescore = lib.callPackage ./pkgs/app-librescore {};
     wiiudownloader = lib.callPackage ./pkgs/wiiudownloader {};
+    elixiroffice = lib.callPackage ./pkgs/elixiroffice {};
     ab-download-manager = lib.callPackage ./pkgs/abdm {};
     osu-tachyon = lib.callPackage ./pkgs/osu-tachyon {};
     nintoolbox = lib.callPackage ./pkgs/nintoolbox {};
