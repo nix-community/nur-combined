@@ -11,8 +11,9 @@ import urllib.request
 from collections.abc import Callable
 from dataclasses import dataclass, replace
 from pathlib import Path
+from xml.etree import ElementTree
 
-HttpGetJson = Callable[[str], object]
+HttpGet = Callable[[str], str]
 Prefetch = Callable[[str], str]
 
 PLACEHOLDER = re.compile(r"\{(\w+)\}")
@@ -53,7 +54,15 @@ class UnversionedUrlSource:
     pass
 
 
-Source = GithubSource | JetbrainsSource | UnversionedUrlSource
+@dataclass(frozen=True)
+class RssSource:
+    """A release feed whose item titles carry the version, e.g. "1Password CLI 2.41.1"."""
+
+    feed: str
+    title: str
+
+
+Source = GithubSource | JetbrainsSource | UnversionedUrlSource | RssSource
 
 
 @dataclass(frozen=True)
@@ -101,6 +110,11 @@ def parse_pin(raw: dict[str, object], where: str) -> Pin:
         source = JetbrainsSource(code=_expect(source_raw, "code", str, where))
     elif kind == "unversioned-url":
         source = UnversionedUrlSource()
+    elif kind == "rss":
+        title = _expect(source_raw, "title", str, where)
+        if "version" not in re.compile(title).groupindex:
+            raise PinError(f"{where}: source.title needs a (?P<version>...) group")
+        source = RssSource(feed=_expect(source_raw, "feed", str, where), title=title)
     else:
         raise PinError(f"{where}: unknown source.type {kind!r}")
     arch = raw.get("arch")
@@ -125,6 +139,8 @@ def dump_pin(pin: Pin) -> str:
             source["tagPrefix"] = pin.source.tag_prefix
     elif isinstance(pin.source, JetbrainsSource):
         source = {"type": "jetbrains", "code": pin.source.code}
+    elif isinstance(pin.source, RssSource):
+        source = {"type": "rss", "feed": pin.source.feed, "title": pin.source.title}
     else:
         source = {"type": "unversioned-url"}
     doc: dict[str, object] = {"source": source, "version": pin.version}
@@ -165,16 +181,18 @@ def _render(pin: Pin, template: str, system: str | None) -> str:
     return url
 
 
-def latest_release(pin: Pin, http_get_json: HttpGetJson) -> Release:
+def latest_release(pin: Pin, http_get: HttpGet) -> Release:
     source = pin.source
     if isinstance(source, UnversionedUrlSource):
         return Release(version=pin.version, vars=pin.vars)
+    if isinstance(source, RssSource):
+        return Release(version=_newest_feed_version(source, http_get(source.feed)), vars={})
     if isinstance(source, JetbrainsSource):
-        products = http_get_json(f"https://data.services.jetbrains.com/products?code={source.code}")
+        products = json.loads(http_get(f"https://data.services.jetbrains.com/products?code={source.code}"))
         if not isinstance(products, list) or not products:
             raise PinError(f"JetBrains returned no product for code {source.code}")
         return Release(version=products[0]["releases"][0]["build"], vars={})
-    release = _github_release(source, http_get_json)
+    release = _github_release(source, http_get)
     tag = str(release["tag_name"])
     version = tag.removeprefix(source.tag_prefix) if source.tag_prefix is not None else tag.removeprefix("v")
     if source.asset is None:
@@ -208,14 +226,14 @@ def bump_pin(name: str, pin: Pin, release: Release, prefetch: Prefetch) -> Bump 
     return Bump(pin=bumped, summary=f"- `{name}`: {_label(pin)} -> {_label(bumped)}")
 
 
-def bump_all(pkgs_dir: Path, http_get_json: HttpGetJson, prefetch: Prefetch) -> list[str]:
+def bump_all(pkgs_dir: Path, http_get: HttpGet, prefetch: Prefetch) -> list[str]:
     summaries: list[str] = []
     errors: list[str] = []
     for pin_file in sorted(pkgs_dir.glob("*/pin.json")):
         name = pin_file.parent.name
         try:
             pin = parse_pin(json.loads(pin_file.read_text()), str(pin_file))
-            bump = bump_pin(name, pin, latest_release(pin, http_get_json), prefetch)
+            bump = bump_pin(name, pin, latest_release(pin, http_get), prefetch)
             if bump is not None:
                 pin_file.write_text(dump_pin(bump.pin))
                 summaries.append(bump.summary)
@@ -232,13 +250,13 @@ def bump_all(pkgs_dir: Path, http_get_json: HttpGetJson, prefetch: Prefetch) -> 
     return summaries
 
 
-def http_get_json(url: str) -> object:
-    request = urllib.request.Request(url, headers={"Accept": "application/json", "User-Agent": "nur-packages-release-pins"})
+def http_get(url: str) -> str:
+    request = urllib.request.Request(url, headers={"User-Agent": "nur-packages-release-pins"})
     token = os.environ.get("GH_TOKEN")
     if token and url.startswith("https://api.github.com/"):
         request.add_header("Authorization", f"Bearer {token}")
     with urllib.request.urlopen(request, timeout=60) as response:
-        return json.load(response)
+        return response.read().decode()
 
 
 def nix_prefetch(url: str) -> str:
@@ -260,11 +278,11 @@ def write_step_output(summaries: list[str], output: Path | None) -> None:
             handle.write(text)
 
 
-def run(pkgs_dir: Path, http_get_json: HttpGetJson, prefetch: Prefetch) -> int:
+def run(pkgs_dir: Path, http_get: HttpGet, prefetch: Prefetch) -> int:
     summaries: list[str] = []
     exit_code = 0
     try:
-        summaries = bump_all(pkgs_dir, http_get_json, prefetch)
+        summaries = bump_all(pkgs_dir, http_get, prefetch)
     except PinError as exc:
         summaries = exc.summaries
         print(f"error: {exc}", file=sys.stderr)
@@ -275,7 +293,7 @@ def run(pkgs_dir: Path, http_get_json: HttpGetJson, prefetch: Prefetch) -> int:
 
 
 def main() -> None:
-    raise SystemExit(run(Path("pkgs"), http_get_json, nix_prefetch))
+    raise SystemExit(run(Path("pkgs"), http_get, nix_prefetch))
 
 
 _MAX_RELEASE_PAGES = 10
@@ -285,14 +303,14 @@ def _releases_page(repo: str, page: int) -> str:
     return f"https://api.github.com/repos/{repo}/releases?per_page=100&page={page}"
 
 
-def _github_release(source: GithubSource, http_get_json: HttpGetJson) -> dict[str, object]:
+def _github_release(source: GithubSource, http_get: HttpGet) -> dict[str, object]:
     if source.tag_prefix is None:
-        release = http_get_json(f"https://api.github.com/repos/{source.repo}/releases/latest")
+        release = json.loads(http_get(f"https://api.github.com/repos/{source.repo}/releases/latest"))
         if not isinstance(release, dict):
             raise PinError(f"{source.repo}: unexpected latest-release payload")
         return release
     for page in range(1, _MAX_RELEASE_PAGES + 1):
-        payload = http_get_json(_releases_page(source.repo, page))
+        payload = json.loads(http_get(_releases_page(source.repo, page)))
         if not isinstance(payload, list):
             raise PinError(f"{source.repo}: unexpected releases payload")
         for release in payload:
@@ -304,6 +322,22 @@ def _github_release(source: GithubSource, http_get_json: HttpGetJson) -> dict[st
         if len(payload) < 100:
             break
     raise PinError(f"{source.repo}: no release tagged {source.tag_prefix}*")
+
+
+def _newest_feed_version(source: RssSource, feed_xml: str) -> str:
+    pattern = re.compile(source.title)
+    titles = [item.findtext("title", "") for item in ElementTree.fromstring(feed_xml).iter("item")]
+    versions = [m["version"] for m in (pattern.fullmatch(t.strip()) for t in titles) if m]
+    if not versions:
+        raise PinError(f"{source.feed}: no item title matches {source.title}")
+    return max(versions, key=_version_key)
+
+
+def _version_key(version: str) -> tuple[int, ...]:
+    try:
+        return tuple(int(part) for part in version.split("."))
+    except ValueError as exc:
+        raise PinError(f"version {version!r} is not dot-separated numbers") from exc
 
 
 def _parse_files(value: object, where: str) -> dict[str, ExtraFile]:

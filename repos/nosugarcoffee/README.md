@@ -10,6 +10,8 @@ Modeled on [numtide/llm-agents.nix](https://github.com/numtide/llm-agents.nix).
 
 | Package | Platforms | Description |
 |---|---|---|
+| [`_1password-cli`](https://developer.1password.com/docs/cli/) | aarch64-darwin, x86_64-linux, aarch64-linux | 1Password CLI (`op`), signed official release; newer than nixpkgs' |
+| [`_1password-gui`](https://1password.com/) | aarch64-darwin | 1Password desktop app, notarized official release from the stable channel; newer than nixpkgs' |
 | [`agent-access`](https://github.com/bitwarden/agent-access) | aarch64-darwin, x86_64-linux | Bitwarden's CLI and SDK for giving agents credentials without exposing the whole vault (`aac`) |
 | [`albert`](https://albertlauncher.github.io) | aarch64-darwin | Keyboard launcher, built from source for macOS (nixpkgs' is Linux-only) |
 | [`cida`](https://github.com/Xuanwo/cida) | aarch64-darwin | Translate and polish text anywhere on macOS with an LLM of your choice |
@@ -23,7 +25,7 @@ Modeled on [numtide/llm-agents.nix](https://github.com/numtide/llm-agents.nix).
 | [`qingjian`](https://qingjian.app) | aarch64-darwin | Pinyin input method that shows a word in the language you are learning beside each candidate (installs under `Library/Input Methods`) |
 | [`scroll-reverser`](https://pilotmoon.com/scrollreverser/) | aarch64-darwin | nixpkgs' Scroll Reverser with the AppleDouble files that make Gatekeeper reject it removed |
 
-Several are unfree (`ego-lite`, `jetbrains-air`); allow unfree packages to use them.
+Several are unfree (`_1password-cli`, `_1password-gui`, `ego-lite`, `jetbrains-air`); allow unfree packages to use them.
 
 ## Usage
 
@@ -73,8 +75,8 @@ Packages are cached as built against this flake's pinned nixpkgs, so the cache s
 Each package is `pkgs/<name>/package.nix`, and if it follows an upstream release, a
 `pkgs/<name>/pin.json` with the version, URL template and per-system hashes. The
 [Update workflow](.github/workflows/update.yml) runs `scripts/release_pins.py` 4× a day: it asks
-each upstream (GitHub releases, the JetBrains products API, or a re-fetch for vendors with
-unversioned URLs) for its latest release, prefetches the new hashes, builds the bumped packages
+each upstream (GitHub releases, the JetBrains products API, a vendor's RSS release feed, or a
+re-fetch for vendors with unversioned URLs) for its latest release, prefetches the new hashes, builds the bumped packages
 on macOS, and merges the PR when they build. A failed build leaves the PR open.
 
 ## Adding a package

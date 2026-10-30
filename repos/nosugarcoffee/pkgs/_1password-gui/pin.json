@@ -1,0 +1,17 @@
+{
+  "source": {
+    "type": "rss",
+    "feed": "https://releases.1password.com/mac/stable/index.xml",
+    "title": "1Password for Mac (?P<version>[0-9]+[.][0-9]+[.][0-9]+)"
+  },
+  "version": "8.12.42",
+  "url": "https://downloads.1password.com/mac/1Password-{version}-{arch}.zip",
+  "arch": {
+    "aarch64-darwin": "aarch64",
+    "x86_64-darwin": "x86_64"
+  },
+  "hash": {
+    "aarch64-darwin": "sha256-TN+8YPp8tdQyGBd/uIt89AnH9Y9LMJLyzajwNMXuz5o=",
+    "x86_64-darwin": "sha256-EqgipT8uMzlBDT+8THvjurbP7GwEqwSQtnulJhjrUDM="
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "source": {
+    "type": "rss",
+    "feed": "https://releases.1password.com/developers/cli/index.xml",
+    "title": "1Password CLI (?P<version>[0-9]+[.][0-9]+[.][0-9]+)"
+  },
+  "version": "2.41.1",
+  "url": "https://cache.agilebits.com/dist/1P/op2/pkg/v{version}/op_{arch}_v{version}.zip",
+  "arch": {
+    "aarch64-darwin": "darwin_arm64",
+    "x86_64-darwin": "darwin_amd64",
+    "x86_64-linux": "linux_amd64",
+    "aarch64-linux": "linux_arm64"
+  },
+  "hash": {
+    "aarch64-darwin": "sha256-Iol3G2i1Ie49wdY6ATpqHFaR4MU+TE/nmvgEK2rTx/U=",
+    "x86_64-darwin": "sha256-53/JqOuyPBdv7XxW6m5KcYTSuJlX6aXZov63JOfgV0s=",
+    "x86_64-linux": "sha256-5SR2cAy6kgKsdGm9+yZI7NvzQ4rIWCIBD3cjATnnSWY=",
+    "aarch64-linux": "sha256-iavWDBfVxhQGbCDmq+2BZEnrAYxeBnntY9Vwcce+6F4="
+  }
+}
