@@ -240,7 +240,7 @@ clangStdenv.mkDerivation {
     license = with lib.licenses; [
       asl20
       bsd3
-      gpl2ClasspathPlus
+      #gpl2ClasspathPlus
       mit
     ];
     mainProgram = "mac-apk";
