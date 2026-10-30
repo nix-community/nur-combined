@@ -73,17 +73,17 @@ in buildFHSEnv {
     ibDerivation
 
     # Chromium dependencies. This might be incomplete.
-    xorg.libXfixes
+    libxfixes
     alsa-lib
-    xorg.libXcomposite
+    libxcomposite
     cairo
-    xorg.libxcb
+    libxcb
     pango
     glib
     atk
     at-spi2-core
     at-spi2-atk
-    xorg.libXext
+    libxext
     libdrm
     nspr
     #xorg.libxkbcommon
@@ -92,10 +92,10 @@ in buildFHSEnv {
     mesa
     expat
     dbus
-    xorg.libXdamage
-    xorg.libXrandr
-    xorg.libX11
-    xorg.libxshmfence
+    libxdamage
+    libxrandr
+    libx11
+    libxshmfence
     libxkbcommon
     systemd # for libudev.so.1
   ];
