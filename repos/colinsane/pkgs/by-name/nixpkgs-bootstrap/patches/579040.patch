@@ -1,0 +1,35 @@
+From 629ce2a144ba7ef67eea7f6c430cd4ad49d76c18 Mon Sep 17 00:00:00 2001
+From: whispers <whispersofthedawn@duck.com>
+Date: Sun, 25 Oct 2026 21:10:23 -0400
+Subject: [PATCH] openssl_3_5: disable afalg engine
+
+the linux kernel starting at 7.3 restricts access to AF_ALG and probably
+will drop this interface in the future. 4.0 and above dropped it along
+with engine support in https://github.com/openssl/openssl/commit/2db3f8cf8b432f0c39b619dd92269a732256449e.
+
+this seems extremely unlikely to cause breakage, as this is a nichely
+used API which was already linux-only and we had disabled on
+aarch64-linux as well.
+
+Co-authored-by: Markus Theil <theil.markus@gmail.com>
+---
+ pkgs/development/libraries/openssl/default.nix | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/pkgs/development/libraries/openssl/default.nix b/pkgs/development/libraries/openssl/default.nix
+index e2a921322408bead3cc1831096fb2c64fac40d39..d23cf48b322dcddb925680569736cef06c7d9dc2 100644
+--- a/pkgs/development/libraries/openssl/default.nix
++++ b/pkgs/development/libraries/openssl/default.nix
+@@ -209,7 +209,11 @@ let
+       # We select KTLS here instead of the configure-time detection (which we patch out).
+       # KTLS should work on FreeBSD 13+ as well, so we could enable it if someone tests it.
+       ++ lib.optional enableKTLS "enable-ktls"
+-      ++ lib.optional stdenv.hostPlatform.isAarch64 "no-afalgeng"
++      # Linux kernel starting with 7.3 restricts the access to AF_ALG and
++      # probably will drop this interface in the future. 4.0 and above dropped
++      # it along with engine support in
++      # https://github.com/openssl/openssl/commit/2db3f8cf8b432f0c39b619dd92269a732256449e
++      ++ lib.optional (lib.versionOlder version "4.0") "no-afalgeng"
+       # OpenSSL needs a specific `no-shared` configure flag.
+       # See https://wiki.openssl.org/index.php/Compilation_and_Installation#Configure_Options
+       # for a comprehensive list of configuration options.

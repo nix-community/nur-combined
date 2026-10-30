@@ -43,6 +43,7 @@ let
       # humanizer-12b-q4_k_m
       # lfm2_5-230m-fable-5-q8_0
       # lfm2_5-8b-a1b-ud-iq4_xs
+      lfm3-1_7b-q4_k_m
       # liquidai-lfm2-24b-a2b-iq4_xs
       minicpm5-2b-q4_k_m
       # minimax-m2_5

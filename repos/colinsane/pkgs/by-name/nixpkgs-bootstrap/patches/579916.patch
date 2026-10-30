@@ -1,0 +1,29 @@
+From 16205af615ba218a28e6ee0e8a908c5038c738fb Mon Sep 17 00:00:00 2001
+From: "R. Ryantm" <ryantm-bot@ryantm.com>
+Date: Wed, 28 Oct 2026 03:30:35 +0000
+Subject: [PATCH] wvkbd: 0.20 -> 0.21
+
+---
+ pkgs/by-name/wv/wvkbd/package.nix | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/pkgs/by-name/wv/wvkbd/package.nix b/pkgs/by-name/wv/wvkbd/package.nix
+index 7423e022bd77e598b280a656f9f7fdf34c35f2c7..99abc16a77092e2093697843b425d4b1a42f3b58 100644
+--- a/pkgs/by-name/wv/wvkbd/package.nix
++++ b/pkgs/by-name/wv/wvkbd/package.nix
+@@ -15,13 +15,13 @@
+ 
+ stdenv.mkDerivation (finalAttrs: {
+   pname = "wvkbd";
+-  version = "0.20";
++  version = "0.21";
+ 
+   src = fetchFromGitHub {
+     owner = "jjsullivan5196";
+     repo = "wvkbd";
+     tag = "v${finalAttrs.version}";
+-    hash = "sha256-Et1k3M8L/r5WnoNOuiCzVVgJrpXtWSbIUI+2/njiwj0=";
++    hash = "sha256-o186ow9kGTwWmmiAuTmC2t9fAiDbvKkYimZwzDGp/xE=";
+   };
+ 
+   nativeBuildInputs = [

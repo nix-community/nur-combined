@@ -1,7 +1,10 @@
-From b5906e30ca387b97a6f8507906554b41e326bfd2 Mon Sep 17 00:00:00 2001
+From edfb9fbdd57ddb6b417302df70d3a82d49c83883 Mon Sep 17 00:00:00 2001
 From: Colin <colin@uninsane.org>
 Date: Tue, 27 Oct 2026 05:52:02 +0000
 Subject: [PATCH] python3Packages.rdkit: fix hash for `yaehmop`
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
 its `rev` was changed in https://github.com/NixOS/nixpkgs/pull/446340
 but without updating its `hash`, so anyone with a cached copy of this
@@ -12,12 +15,14 @@ upstreamed. in fact, the _only_ difference between v2024.03.1 and
 v2025.03.1 is that it now contains the patch we were previously applying.
 
 https://github.com/greglandrum/yaehmop/compare/v2024.03.1...v2025.03.1
+
+Co-authored-by: Gaétan Lepage <gaetan@glepage.com>
 ---
  .../python-modules/rdkit/default.nix          | 21 +++++--------------
  1 file changed, 5 insertions(+), 16 deletions(-)
 
 diff --git a/pkgs/development/python-modules/rdkit/default.nix b/pkgs/development/python-modules/rdkit/default.nix
-index 6e5e7efcc2bc9c3c3fcb5f39293c2891ebcc03fe..42f166dd0265c39f504a17c807a51ae4aa8e2657 100644
+index 6e5e7efcc2bc9c3c3fcb5f39293c2891ebcc03fe..414b63f258f8967e6d86c6d4dd33c35c8428c9d9 100644
 --- a/pkgs/development/python-modules/rdkit/default.nix
 +++ b/pkgs/development/python-modules/rdkit/default.nix
 @@ -3,7 +3,6 @@
@@ -50,7 +55,7 @@ index 6e5e7efcc2bc9c3c3fcb5f39293c2891ebcc03fe..42f166dd0265c39f504a17c807a51ae4
 +    yaehmop = fetchFromGitHub {
 +      owner = "greglandrum";
 +      repo = "yaehmop";
-+      rev = "v2025.03.1";
++      tag = "v2025.03.1";
 +      hash = "sha256-wJrF/7uWPdX3IKumP06ZPDlEICETj7UEqHE+5d4t01k=";
      };
      freesasa = fetchFromGitHub {

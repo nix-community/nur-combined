@@ -155,7 +155,7 @@
         name = "authenticated";
         expression.any = [
           # this check is bypassable, but figuring out how to exploit it is a pretty good proof of work
-          ''headers["Cookie"].contains("gitea_incredible=")''
+          ''"Cookie" in headers && headers["Cookie"].contains("gitea_incredible=")''
           # i'm not sure if this is bypassable, but see above
           ''"Authorization" in headers''
         ];

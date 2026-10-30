@@ -1405,6 +1405,14 @@ super.lib.composeManyExtensions [
           ];
         });
 
+        cryptography = pysuper.cryptography.overridePythonAttrs (prevAttrs: {
+          # Chimera also disables this ~4 TiB allocation test with mimalloc:
+          # https://github.com/chimera-linux/cports/commit/45b26b7673b53291b09b8d27fe54e124882c888d
+          disabledTests = (prevAttrs.disabledTests or []) ++ lib.optional
+            ((final.musl.allocatorModel or "malloc-ng") == "mimalloc")
+            "test_argon2_malloc_failure";
+        });
+
         # 2026-10-03: still required
         # 2026-07-27: curl-cffi tests hang/fail on musl. Disable all tests to ensure build completes.
         curl-cffi = pysuper.curl-cffi.overridePythonAttrs (prevAttrs: {
@@ -1565,6 +1573,15 @@ super.lib.composeManyExtensions [
           hash = "sha256-ycclRqEWohv+Ur0gJjdTXb46GHnGc0ybwhIILE/j7kE=";
         })
       ];
+    });
+
+    rofi-unwrapped = prev.rofi-unwrapped.overrideAttrs (upstream: {
+      # Chimera disables this libnkutils suite due to a heap-buffer overflow:
+      # https://github.com/chimera-linux/cports/commit/5173df6c22771e556b72787e1670c9a451c0d3d0
+      # FIXME: this may be a real bug in rofi which needs fixing
+      mesonCheckFlags = (upstream.mesonCheckFlags or []) ++ lib.optional
+        ((final.musl.allocatorModel or "malloc-ng") == "mimalloc")
+        "--no-suite=format-string";
     });
 
     # 2026-10-25: Signal's native dependencies assume glibc.

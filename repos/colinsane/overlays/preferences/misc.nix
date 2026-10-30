@@ -40,6 +40,11 @@ self: super:
   #   ];
   # });
 
+  # XXX(2026-10-27): experimental: ship musl with a substantially more performant allocator.
+  musl = self.musl-mimalloc.override {
+    musl = super.musl;
+  };
+
   yt-dlp = let
     # XXX(2026-02-04): yt-dlp accepts one of 4 JS runtimes, in order:
     # - deno
