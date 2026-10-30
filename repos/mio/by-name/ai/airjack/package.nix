@@ -6,6 +6,10 @@
   python3Packages,
   makeWrapper,
   darwin,
+  hashcat,
+  hcxtools,
+  airsnare,
+  zizzania,
 }:
 
 # AirJack drives CoreWLAN and CoreLocation through PyObjC. Nixpkgs only ships
@@ -99,8 +103,21 @@ stdenv.mkDerivation (finalAttrs: {
     # store packages, so the store Python is used directly here. On macOS 15+
     # CoreWLAN redacts BSSIDs for such processes, and AirJack falls back to
     # recovering them from monitor-mode beacons (it needs tcpdump and sudo).
+    #
+    # AirJack locates its external tools by searching PATH (shutil.which) and
+    # only then falls back to ~/hashcat/hashcat, ~/airsnare/src/airsnare and
+    # ~/zizzania/src/zizzania. All four are provided here and appended to PATH
+    # (--prefix), so a copy earlier in the user's own PATH still wins.
     makeWrapper ${python}/bin/python3 "$out/bin/airjack" \
-      --add-flags "$out/share/airjack/airjack.py"
+      --add-flags "$out/share/airjack/airjack.py" \
+      --prefix PATH : ${
+        lib.makeBinPath [
+          hashcat
+          hcxtools
+          airsnare
+          zizzania
+        ]
+      }
 
     runHook postInstall
   '';
@@ -111,8 +128,8 @@ stdenv.mkDerivation (finalAttrs: {
       AirJack scans nearby Wi-Fi networks using CoreWLAN, helps pick a target,
       and orchestrates AirSnare/zizzania plus hcxpcapngtool to capture
       WPA/WPA2/WPA3 handshakes, then converts them for hashcat-based cracking.
-      The external capture and cracking tools (hashcat, hcxtools, AirSnare or
-      zizzania) are not bundled and have to be installed separately.
+      hashcat, hcxtools (hcxpcapngtool), AirSnare and zizzania are provided
+      and put on PATH by the wrapper.
     '';
     homepage = "https://github.com/rtulke/AirJack";
     license = lib.licenses.mit;
