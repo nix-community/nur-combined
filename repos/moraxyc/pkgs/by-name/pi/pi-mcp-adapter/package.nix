@@ -11,23 +11,44 @@ buildNpmPackage (finalAttrs: {
   inherit (source) src version pname;
 
   npmDeps = importNpmLock {
-    package = lib.importJSON source.extract."package.json";
+    package =
+      let
+        package = lib.importJSON source.extract."package.json";
+      in
+      package
+      // {
+        # Only the compiler is needed to build.
+        devDependencies = lib.getAttrs [ "typescript" ] package.devDependencies;
+      };
     packageLock =
       let
         lock = lib.importJSON source.extract."package-lock.json";
-        prefix = "node_modules/@earendil-works/pi-coding-agent/node_modules/@earendil-works/";
       in
       lock
       // {
-        packages = lib.filterAttrs (name: _: !(lib.hasPrefix prefix name)) (lock.packages or { });
+        packages = lib.filterAttrs (
+          name: package: !(package.dev or false) || name == "node_modules/typescript"
+        ) lock.packages;
       };
   };
   npmConfigHook = importNpmLock.npmConfigHook;
 
-  npmInstallFlags = [ "--omit=dev" ];
-  npmPackFlags = [ "--ignore-scripts" ];
+  npmFlags = [ "--legacy-peer-deps" ];
 
-  dontNpmBuild = true;
+  # Rebuild the committed dist/ that cli.js and the public subpath exports load.
+  postPatch = ''
+    rm -rf dist
+  '';
+
+  # Type checking needs the Pi dev dependencies, which the host provides at runtime.
+  buildPhase = ''
+    runHook preBuild
+
+    node_modules/.bin/tsc -p tsconfig.public.json --noCheck
+
+    runHook postBuild
+  '';
+  npmPackFlags = [ "--ignore-scripts" ];
 
   postInstall = ''
     mv $out/lib/node_modules/pi-mcp-adapter $out/lib/${finalAttrs.pname}

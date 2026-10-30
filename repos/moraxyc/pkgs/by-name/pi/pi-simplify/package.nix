@@ -1,6 +1,7 @@
 {
   lib,
   stdenvNoCC,
+  typescript,
 
   sources,
   source ? sources.pi-simplify,
@@ -16,16 +17,22 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     sourceRoot+=/packages/pi-simplify
   '';
 
-  postPatch = ''
-    # Pi loads TypeScript directly, so no compiled entry point is needed.
-    substituteInPlace package.json --replace-fail 'dist/index.js' 'src/index.ts'
+  nativeBuildInputs = [ typescript ];
+
+  # Type checking needs the Pi peer dependencies, which the host provides at runtime.
+  buildPhase = ''
+    runHook preBuild
+
+    tsc -p tsconfig.build.json --noCheck --composite false --declaration false --declarationMap false --sourceMap false
+
+    runHook postBuild
   '';
 
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/lib/${finalAttrs.pname}
-    cp -r src package.json $out/lib/${finalAttrs.pname}
+    cp -r dist package.json $out/lib/${finalAttrs.pname}
 
     runHook postInstall
   '';

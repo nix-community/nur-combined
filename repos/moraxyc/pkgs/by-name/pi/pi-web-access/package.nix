@@ -42,6 +42,10 @@ buildNpmPackage (finalAttrs: {
   npmFlags = [ "--legacy-peer-deps" ];
   dontNpmPrune = true;
 
+  postBuild = ''
+    node scripts/pi-extensions-dist.js dist
+  '';
+
   preInstall = ''
     rm -rf node_modules/{esbuild,@esbuild,typebox,.bin/esbuild}
   '';
@@ -49,6 +53,8 @@ buildNpmPackage (finalAttrs: {
   postInstall = ''
     mv $out/lib/node_modules/pi-web-access $out/lib/${finalAttrs.pname}
     rm -rf $out/lib/node_modules
+    # Pi loads the prebuilt dist bundle; TypeScript sources and media are unused.
+    rm $out/lib/${finalAttrs.pname}/{*.ts,banner.png,pi-web-fetch-demo.mp4,SECURITY.md}
     substituteInPlace $out/bin/pi-web-access-mcp \
       --replace-fail "$out/lib/node_modules/pi-web-access" "$out/lib/${finalAttrs.pname}"
   '';
