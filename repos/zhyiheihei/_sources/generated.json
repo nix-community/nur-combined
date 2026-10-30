@@ -215,12 +215,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media",
-            "rev": "v5.2.2",
-            "sha256": "sha256-TzXMiyyVl7NXTDnlh33KuQYEZyawjmuwX0UJDto/BmI=",
+            "rev": "v5.3.4",
+            "sha256": "sha256-gSNPMMVEaiT1wcho+GPzMARIyqln+VQxi2zHs8r0H1Q=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v5.2.2"
+        "version": "v5.3.4"
     },
     "nexus-media-web": {
         "cargoLock": null,
@@ -236,12 +236,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media-web",
-            "rev": "v5.2.2",
-            "sha256": "sha256-NY+gLtrQD9wnmanYENU5o30+SmOB7KBDdTBFRwVCRxQ=",
+            "rev": "v5.3.3",
+            "sha256": "sha256-lEA+5VPbwXyHjWvoop+f/xgdyUvCgj+irGDgHfKFvMw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v5.2.2"
+        "version": "v5.3.3"
     },
     "pinyin2hanzi": {
         "cargoLock": null,
@@ -303,11 +303,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ZmqUAzAT/7GZsU/gJZUTOzm1TTvVrO6zLfW6dwDfETM=",
+            "sha256": "sha256-+sj8b/0g7v+yvheXjWiR7ltENsiODz6UREPI0K4LTdY=",
             "type": "url",
-            "url": "https://github.com/qingjian-team/qingjian/releases/download/v0.3.1/qingjian-0.3.1-linux-x86_64.tar.gz"
+            "url": "https://github.com/qingjian-team/qingjian/releases/download/v0.3.2/qingjian-0.3.2-linux-x86_64.tar.gz"
         },
-        "version": "0.3.1"
+        "version": "0.3.2"
     },
     "sublinkpro-linux-amd64": {
         "cargoLock": null,
