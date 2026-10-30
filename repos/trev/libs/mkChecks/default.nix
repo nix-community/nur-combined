@@ -6,10 +6,7 @@
 builtins.mapAttrs (
   name: check:
   if lib.isDerivation check then
-    check.overrideAttrs {
-      doCheck = true;
-      doInstallCheck = true;
-    }
+    check
   else
     let
       nativeCheckInputs = check.packages or [ ];

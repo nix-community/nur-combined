@@ -74,6 +74,8 @@ let
     version = "1";
 
     dontUnpack = true;
+    doCheck = true;
+    doInstallCheck = true;
 
     checkPhase = ''
       touch checked
@@ -178,8 +180,8 @@ let
         };
       }).mkChecks-src-derivation-cross-failure;
 in
-assert checks.mkChecks-direct-derivation.doCheck;
-assert checks.mkChecks-direct-derivation.doInstallCheck;
+# derivations are passed through untouched so their hashes match the packages
+assert checks.mkChecks-direct-derivation.outPath == direct.outPath;
 checks
 // {
   mkChecks-src-derivation-cross-failure =
