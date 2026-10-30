@@ -20,7 +20,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   # example-package = pkgs.callPackage ./pkgs/example-package { };
-  arcana-world = pkgs.callPackage ./pkgs/arcana-world.nix { };
+  arcana-world = pkgs.callPackage ./pkgs/arcana-world { };
   pigma = pkgs.callPackage ./pkgs/pigma.nix { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
