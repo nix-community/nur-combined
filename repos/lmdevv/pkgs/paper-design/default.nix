@@ -9,18 +9,18 @@
 let
   inherit (stdenv) hostPlatform;
   pname = "paper-design";
-  version = "0.5.16";
+  version = "0.5.17";
 
   sources = {
     x86_64-linux = fetchurl {
-      name = "paper-desktop-0.5.16-x86_64.AppImage";
-      url = "https://download.todesktop.com/2601167vjw8xe/paper-desktop-0.5.16-build-261015tx3mukqib-x86_64.AppImage";
-      hash = "sha256-GlCugWbyhzdNOaQodkWr5vXsPDEJ1ie4DWXMyWYDCm4=";
+      name = "paper-desktop-0.5.17-x86_64.AppImage";
+      url = "https://download.todesktop.com/2601167vjw8xe/paper-desktop-0.5.17-build-261029t3v3jacnm-x86_64.AppImage";
+      hash = "sha256-oohMT0921mIDI5fioTso7ZM8vdWqMWdIQ3o4k0jb7VM=";
     };
     aarch64-darwin = fetchurl {
-      name = "paper-desktop-0.5.16-aarch64.dmg";
-      url = "https://download.todesktop.com/2601167vjw8xe/Paper%200.5.16%20-%20Build%20261015tx3mukqib-arm64.dmg";
-      hash = "sha256-6r3m83Lr2VC0NaOGn8vraspX+H3QMYZt6DkON9He4Ug=";
+      name = "paper-desktop-0.5.17-aarch64.dmg";
+      url = "https://download.todesktop.com/2601167vjw8xe/Paper%200.5.17%20-%20Build%20261029t3v3jacnm-arm64.dmg";
+      hash = "sha256-dN5PTgzJTil3zY/oox5MRy3lfzzPAS5/lzMmZf28GP0=";
     };
   };
 
