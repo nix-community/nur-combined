@@ -1,0 +1,43 @@
+diff --git a/runtime/translator/src/bionic_shim.cpp b/runtime/translator/src/bionic_shim.cpp
+index 3962b6d..0a813db 100644
+--- a/runtime/translator/src/bionic_shim.cpp
++++ b/runtime/translator/src/bionic_shim.cpp
+@@ -55432,11 +55432,34 @@ extern "C" uint32_t __macapk_shim___errno(uint32_t, uint32_t,
+ [[noreturn]] void __stack_chk_fail(void) {
+     static std::atomic<uint64_t> g_chk_count{0};
+     uint64_t k = g_chk_count.fetch_add(1);
++    // siglongjmp() needs a frame whose sigsetjmp(t_lifted_jmp) is still live on
++    // THIS thread, and the only such frame is __macapk_invoke_safe's
++    // ("int longjmp_kind = sigsetjmp(t_lifted_jmp, 1)"). Outside a lifted guest
++    // call -- e.g. guest code reached from a dyld initializer while the runtime
++    // dlopen()s a native library from main() -- t_lifted_active is 0 and this
++    // thread's jmp_buf is still zero-initialised. Jumping into that restores a
++    // null signal mask, so the process dies with SIGSEGV inside _longjmp and
++    // HotSpot reports "Problematic frame: _longjmp" with no trace of the guest
++    // code that actually failed its canary check. Abort instead: the fatal
++    // error report then carries the real call stack.
++    const bool can_recover = t_lifted_active != 0;
+     if (k < 16) {
+-        std::fprintf(stderr,
+-            "[macapk] stack canary check failed (#%llu) "
+-            "-- longjmp recovery via t_lifted_jmp\n",
+-            static_cast<unsigned long long>(k));
++        if (can_recover) {
++            std::fprintf(stderr,
++                "[macapk] stack canary check failed (#%llu) "
++                "-- longjmp recovery via t_lifted_jmp\n",
++                static_cast<unsigned long long>(k));
++        } else {
++            std::fprintf(stderr,
++                "[macapk] stack canary check failed (#%llu) on a thread with no "
++                "lifted recovery frame -- aborting so the fatal error report "
++                "keeps the real stack\n",
++                static_cast<unsigned long long>(k));
++        }
++        std::fflush(stderr);
++    }
++    if (!can_recover) {
++        std::abort();
+     }
+     siglongjmp(t_lifted_jmp, 5);
+ }

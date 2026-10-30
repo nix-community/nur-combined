@@ -61,6 +61,7 @@ clangStdenv.mkDerivation {
 
   patches = [
     ./macos15-nix.patch
+    ./stack-chk-fail-no-recovery-frame.patch
   ];
 
   dontUseCmakeConfigure = true;
