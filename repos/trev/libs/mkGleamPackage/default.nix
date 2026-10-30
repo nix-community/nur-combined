@@ -14,6 +14,9 @@
 #
 # With `gleamDepsHash`, `gleamDeps` is fetched with gleamFetchDeps instead, so
 # the source isn't read during evaluation (no import from derivation).
+#
+# With `gleamLibrary`, the package is built with `gleam build` and its HTML
+# docs are installed instead of an executable. `gleam test` runs by default.
 {
   beamMinimalPackages,
   callPackage,
@@ -137,6 +140,9 @@ lib.extendMkDerivation {
       # hash of gleamFetchDeps, to fetch the dependencies without reading the
       # manifest during evaluation. "" to get it from the hash mismatch.
       gleamDepsHash ? null,
+      # build a library and install its docs, instead of an app
+      gleamLibrary ? false,
+      doCheck ? true,
       nativeBuildInputs ? [ ],
       ...
     }@args:
@@ -173,6 +179,8 @@ lib.extendMkDerivation {
           else
             mkGleamDeps { inherit pname manifest; }
         );
+
+      inherit gleamLibrary doCheck;
 
       nativeBuildInputs = nativeBuildInputs ++ [ hooks.${gleamTarget} ];
     };

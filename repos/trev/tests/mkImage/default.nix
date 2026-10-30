@@ -18,12 +18,15 @@ let
     pname = "image-package";
     version = "1.2.3";
     stdenv.hostPlatform.go.GOARCH = "test-architecture";
+    src = {
+      rev = "0123456789abcdef";
+      meta.homepage = "https://example.invalid/source";
+    };
     meta = {
       mainProgram = "image-command";
       description = "short description";
       longDescription = "long description";
       homepage = "https://example.invalid/home";
-      downloadPage = "https://example.invalid/source";
       license = lib.licenses.mit;
       platforms = [
         "x86_64-linux"
@@ -48,6 +51,7 @@ let
     src = package;
     name = "custom-name";
     tag = "custom-tag";
+    revision = "custom-revision";
     architecture = "custom-architecture";
     meta.custom = true;
     config = {
@@ -68,6 +72,7 @@ in
     assert defaults.config.Labels."org.opencontainers.image.version" == "1.2.3";
     assert defaults.config.Labels."org.opencontainers.image.url" == "https://example.invalid/home";
     assert defaults.config.Labels."org.opencontainers.image.source" == "https://example.invalid/source";
+    assert defaults.config.Labels."org.opencontainers.image.revision" == "0123456789abcdef";
     assert defaults.config.Labels."org.opencontainers.image.licenses" == "MIT";
     assert
       defaults.meta.platforms == [
@@ -86,6 +91,8 @@ in
     assert overrides.config.Env == [ "EXAMPLE=value" ];
     assert overrides.config.Labels.custom == "label";
     assert overrides.config.Labels."org.opencontainers.image.title" == "image-package";
+    assert overrides.config.Labels."org.opencontainers.image.revision" == "custom-revision";
+    assert !(overrides ? revision);
     assert overrides.meta.custom;
     assert
       overrides.meta.platforms == [

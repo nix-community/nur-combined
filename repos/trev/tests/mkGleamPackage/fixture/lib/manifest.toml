@@ -1,0 +1,22 @@
+# Do not manually edit this file, it is managed by Gleam.
+#
+# This file locks the dependency versions used, to make your build
+# deterministic and to prevent unexpected versions from being included
+# in your application.
+#
+# You should check this file into your source control repository.
+
+packages = [
+  { name = "dep", version = "1.0.0", build_tools = [
+    "gleam",
+  ], requirements = [
+  ], source = "local", path = "../dep" },
+  { name = "telemetry", version = "1.4.2", build_tools = [
+    "rebar3",
+  ], requirements = [
+  ], otp_app = "telemetry", source = "hex", outer_checksum = "928F6495066506077862C0D1646609EED891A4326BEE3126BA54B60AF61FEBB1" },
+]
+
+[requirements]
+dep = { path = "../dep" }
+telemetry = { version = ">= 1.0.0 and < 2.0.0" }

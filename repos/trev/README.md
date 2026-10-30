@@ -633,10 +633,24 @@ pkgs.mkGleamPackage (finalAttrs: {
 });
 ```
 
+`gleamLibrary = true` builds a library with `gleam build` and `gleam docs build`, and installs its HTML docs to `$out` instead of an executable. Checks are enabled by default (`doCheck`), running `gleam test` when `test/<name>_test.gleam` exists.
+
+```nix
+pkgs.mkGleamPackage (finalAttrs: {
+  pname = "gleam-lib";
+  version = "1.0.0";
+  src = ./.;
+  gleamLibrary = true;
+});
+```
+
 ### gleamFetchDeps, gleamErlangHook & gleamJavascriptHook
 
 - Creates a fixed-output derivation for [gleam](https://gleam.run/) dependencies
 - Builds with either erlang (`gleamErlangHook`) or Javascript (`gleamJavascriptHook`)
+- `gleamConfigHook` runs after configure, setting up the dependencies, `HOME` and `REBAR_CACHE_DIR`
+- `gleamBuildPhase`, `gleamCheckPhase` and `gleamInstallPhase` are used when `buildPhase`, `checkPhase` or `installPhase` aren't set, and can be disabled with `dontUseGleamBuild`, `dontUseGleamCheck` and `dontUseGleamInstall`
+- Builds an executable, or a library and its docs with `gleamLibrary`
 
 ```nix
 pkgs.stdenv.mkDerivation (finalAttrs: {

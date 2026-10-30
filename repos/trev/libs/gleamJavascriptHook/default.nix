@@ -1,4 +1,5 @@
 {
+  concatText,
   makeSetupHook,
   tomlq,
   gleam,
@@ -6,15 +7,23 @@
   bash,
 }:
 
-makeSetupHook {
-  name = "gleam-javascript-hook";
-  propagatedBuildInputs = [
-    tomlq
-    gleam
-    nodejs
-  ];
-  substitutions = {
-    shell = "${bash}/bin/bash";
-    nodejs = "${nodejs}/bin/node";
-  };
-} ./javascriptHook.sh
+makeSetupHook
+  {
+    name = "gleam-javascript-hook";
+    propagatedBuildInputs = [
+      tomlq
+      gleam
+      nodejs
+    ];
+    substitutions = {
+      gleamTarget = "javascript";
+      shell = "${bash}/bin/bash";
+      nodejs = "${nodejs}/bin/node";
+    };
+  }
+  (
+    concatText "gleam-javascript-hook.sh" [
+      ../gleamHook/gleamHook.sh
+      ./javascriptHook.sh
+    ]
+  )

@@ -18,6 +18,9 @@ mkGleamPackage (finalAttrs: {
 
   gleamDepsHash = "sha256-ce9pf11ggXylubFvockwpt0lfduRpRg28oQVqIjJ2B4=";
 
+  # the tests clone mirego/elixir-security-advisories
+  doCheck = false;
+
   passthru.updateScript = nix-update-script {
     extraArgs = [
       "--custom-dep=gleamDeps"

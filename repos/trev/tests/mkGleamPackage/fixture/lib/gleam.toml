@@ -1,0 +1,6 @@
+name = "fixture_lib"
+version = "1.0.0"
+
+[dependencies]
+dep = { path = "../dep" }
+telemetry = ">= 1.0.0 and < 2.0.0"
