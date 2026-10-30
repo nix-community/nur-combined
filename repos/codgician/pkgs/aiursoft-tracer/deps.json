@@ -76,8 +76,8 @@
   },
   {
     "pname": "Aiursoft.DbTools.MySql",
-    "version": "10.0.41",
-    "hash": "sha256-2k7M77Jzf4Qp2psM+vrotfsEgYTwOAqVT94S5qSaJIc="
+    "version": "10.0.42",
+    "hash": "sha256-BRo7uwsogbjB6rKbCJenMwwpI2XDbqH0ZTjODo0BvRo="
   },
   {
     "pname": "Aiursoft.DbTools.Sqlite",
@@ -273,11 +273,6 @@
     "pname": "Microsoft.EntityFrameworkCore.Relational",
     "version": "10.0.0",
     "hash": "sha256-vOP2CE5YA551BlpbOuIy6RuAiAEPEpCVS1cEE33/zN4="
-  },
-  {
-    "pname": "Microsoft.EntityFrameworkCore.Relational",
-    "version": "10.0.13",
-    "hash": "sha256-fjxFwhCcIcHry+jp0p1Rd4Eex4tONn2AlUGK2BKIFfY="
   },
   {
     "pname": "Microsoft.EntityFrameworkCore.Relational",
@@ -546,8 +541,8 @@
   },
   {
     "pname": "Microting.EntityFrameworkCore.MySql",
-    "version": "10.0.13",
-    "hash": "sha256-fjSKz9Hoy0kAXQXWsng7+dApv1DNxIPiQ6joXP7tLPo="
+    "version": "10.0.14",
+    "hash": "sha256-MWhJe9gq1vkxcN4+Of3/kSyYkIlGnJfmUcIw2EStkA4="
   },
   {
     "pname": "Mono.TextTemplating",
