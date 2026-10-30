@@ -432,6 +432,7 @@ withLoadableExtensions (
             "test/issues/general/test_17757.test"
           ]
           ++ lib.optionals stdenv.hostPlatform.isStatic [
+            "Core extension downloads use managed HTTP transports"
             "test/extension/concurrent_load_extension.test"
             "test/extension/consistent_semicolon_extension_parse.test"
             "test/extension/load_extension.test"
@@ -443,6 +444,25 @@ withLoadableExtensions (
             "test/extension/test_loadable_optimizer.test"
             "test/extension/test_tags.test"
             "test/extension/update_extensions.test"
+            "test/extension/explicit_extension_schema_testing.test"
+            "test/extension/load_extension_capi_v2.test"
+            "test/extension/local_extension_coverage.test"
+            "test/extension/test_extensible_filter.test"
+            "test/extension/test_function_args_kwargs.test"
+            "test/extension/test_function_named_args.test"
+            "test/extension/test_loadable_dialect_extension.test"
+            "test/extension/test_loadable_grammar_extension.test"
+            "test/extension/volatile_aggregate.test"
+            "test/extension/window_extension.test"
+            "test/sql/extensions/aliasing.test"
+            "test/sql/extensions/load_use_extension_one_query.test"
+            "test/sql/extensions/quack_peeling.test"
+            # call quack_serve without requiring httpfs, which provides its crypto module
+            "test/sql/attach/external_resource_lifecycle.test"
+            "test/sql/attach/external_resource_logging.test"
+            # the server-side Quack log entry for the forwarded CONNECT is missing; loadable builds
+            # skip this test because quack is not linked into unittest
+            "test/sql/connect/connect_passthrough_quack.test"
           ]
           ++ lib.optionals stdenv.hostPlatform.isAarch64 [
             "test/sql/aggregate/aggregates/test_kurtosis.test"
