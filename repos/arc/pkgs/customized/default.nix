@@ -551,6 +551,11 @@ let
         buildInputs = old.buildInputs ++ [ perl ];
 
         patches = [
+          # glibc >=2.41 compat, see https://www.mail-archive.com/qemu-devel@nongnu.org/msg1092946.html
+          (fetchpatch {
+            url = "https://gitlab.com/qemu-project/qemu/-/commit/27a8d899c7a100fd5aa040a8b993bb257687c393.patch";
+            hash = "sha256-q1OZVFVZ/3m91c9xlDfti+ehxKoWfZxhuOy3C79VWDQ=";
+          })
           # glibc >=2.37 compat, see https://lore.kernel.org/qemu-devel/20230110174901.2580297-1-berrange@redhat.com/
           (fetchpatch {
             url = "https://gitlab.com/qemu-project/qemu/-/commit/9f0246539ae84a5e21efd1cc4516fc343f08115a.patch";
