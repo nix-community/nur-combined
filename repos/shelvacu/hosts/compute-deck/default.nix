@@ -43,6 +43,7 @@
 
   vacu.packages = ''
     _2ship2harkinian
+    deck-tdp
     jovianPackages.jupiter-hw-support
     jovianPackages.steamdeck-firmware
     jovianPackages.steamdeck-bios-fwupd
