@@ -87,16 +87,16 @@
   };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
-    version = "b38c9f2e83662ce6058b76d67a4d9901629ee9ab";
+    version = "1b5d73c53a7141d216a8a0a7751be38a295be059";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "clash-nyanpasu";
-      rev = "b38c9f2e83662ce6058b76d67a4d9901629ee9ab";
+      rev = "1b5d73c53a7141d216a8a0a7751be38a295be059";
       fetchSubmodules = false;
-      sha256 = "sha256-osTI2KckRRxjXgbfqoK662AEQGAUhe37bdgjNM0qUww=";
+      sha256 = "sha256-Bgi/3A6cqYsnFannOWwuWExJdVv7c5+zHyrAcmrw6UU=";
     };
     cargoLock."backend/Cargo.lock" = {
-      lockFile = ./. + "/sha256-osTI2KckRRxjXgbfqoK662AEQGAUhe37bdgjNM0qUww=/backend/Cargo.lock";
+      lockFile = ./. + "/sha256-Bgi_3A6cqYsnFannOWwuWExJdVv7c5+zHyrAcmrw6UU=/backend/Cargo.lock";
       outputHashes = {
         "auto-launch-0.5.0" = "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=";
         "runas-1.2.0" = "sha256-cTYTFtmdmCztL2JhgnOxwKhd+VfUmm5DB3gkNy92g04=";
@@ -110,7 +110,7 @@
         "processkit-2.2.5" = "sha256-aLH0vrplsy8uTBzm5ult//Ix4DGE/Qg5TQyCBlUCCJo=";
       };
     };
-    date = "2026-10-29";
+    date = "2026-10-30";
   };
   clash-nyanpasu-stable = {
     pname = "clash-nyanpasu-stable";
@@ -137,7 +137,7 @@
   };
   cpa-usage-keeper-stable = {
     pname = "cpa-usage-keeper-stable";
-    version = "v2.0.2";
+    version = "v2.0.3";
     src = fetchurl {
       url = "file:///dev/null";
       sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
@@ -218,16 +218,16 @@
   };
   ferstar-gestures = {
     pname = "ferstar-gestures";
-    version = "v0.8.3";
+    version = "v1.0.0";
     src = fetchFromGitHub {
       owner = "ferstar";
       repo = "gestures";
-      rev = "v0.8.3";
+      rev = "v1.0.0";
       fetchSubmodules = false;
-      sha256 = "sha256-o0nPFTvvf+g95bi2Vf0kZMbgY8dWoLBgrNTrPExO6ro=";
+      sha256 = "sha256-O9NF31XKkbe7qTNH/G7Pfcq7kJuksPxbhcndQY5Q7SI=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-o0nPFTvvf+g95bi2Vf0kZMbgY8dWoLBgrNTrPExO6ro=/Cargo.lock";
+      lockFile = ./. + "/sha256-O9NF31XKkbe7qTNH_G7Pfcq7kJuksPxbhcndQY5Q7SI=/Cargo.lock";
       outputHashes = {
         
       };
@@ -445,21 +445,21 @@
   };
   microfetch = {
     pname = "microfetch";
-    version = "07ed32637a126f443e7d2491b6b0dd0d6694b0e4";
+    version = "575210e857ebcbb999dfcb5c61736b23931de8a5";
     src = fetchFromGitHub {
       owner = "NotAShelf";
       repo = "microfetch";
-      rev = "07ed32637a126f443e7d2491b6b0dd0d6694b0e4";
+      rev = "575210e857ebcbb999dfcb5c61736b23931de8a5";
       fetchSubmodules = false;
-      sha256 = "sha256-y/BUjPoGPJ/X3a4x7Lv0AsXmu7d4R9yiNWvkZNAHZl4=";
+      sha256 = "sha256-6HinqqKWiZaM5MHVYn2ifFMfgUgWL2/7FF6bMaedLbo=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-y_BUjPoGPJ_X3a4x7Lv0AsXmu7d4R9yiNWvkZNAHZl4=/Cargo.lock";
+      lockFile = ./. + "/sha256-6HinqqKWiZaM5MHVYn2ifFMfgUgWL2_7FF6bMaedLbo=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-10-18";
+    date = "2026-10-30";
   };
   mm-geofeed-verifier = {
     pname = "mm-geofeed-verifier";
@@ -564,21 +564,21 @@
   };
   nyanpasu-service = {
     pname = "nyanpasu-service";
-    version = "e73b9f5cc2aa91ac74b4c71d0acc5b48e0fd2b34";
+    version = "f57a0fef930296d658bad79e0a408da918dd90fd";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "nyanpasu-service";
-      rev = "e73b9f5cc2aa91ac74b4c71d0acc5b48e0fd2b34";
+      rev = "f57a0fef930296d658bad79e0a408da918dd90fd";
       fetchSubmodules = false;
-      sha256 = "sha256-tqmbr7ksCddWDz1w7wZIOufXWz9ZvsTqrW6vWhg3mN0=";
+      sha256 = "sha256-3NCj1yltDtZL4gkLb7LNPVB3V+/SOMruAL3WzYoijX8=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-tqmbr7ksCddWDz1w7wZIOufXWz9ZvsTqrW6vWhg3mN0=/Cargo.lock";
+      lockFile = ./. + "/sha256-3NCj1yltDtZL4gkLb7LNPVB3V+_SOMruAL3WzYoijX8=/Cargo.lock";
       outputHashes = {
         "processkit-2.2.5" = "sha256-aLH0vrplsy8uTBzm5ult//Ix4DGE/Qg5TQyCBlUCCJo=";
       };
     };
-    date = "2026-10-28";
+    date = "2026-10-30";
   };
   nyanpasu-service-stable = {
     pname = "nyanpasu-service-stable";

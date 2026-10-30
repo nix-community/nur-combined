@@ -142,7 +142,7 @@
     "clash-nyanpasu": {
         "cargoLock": {
             "backend/Cargo.lock": [
-                "sha256-osTI2KckRRxjXgbfqoK662AEQGAUhe37bdgjNM0qUww=/backend/Cargo.lock",
+                "sha256-Bgi_3A6cqYsnFannOWwuWExJdVv7c5+zHyrAcmrw6UU=/backend/Cargo.lock",
                 {
                     "auto-launch-0.5.0": "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=",
                     "gpu-info-0.2.1": "sha256-dQ5cLLZf0Ao0MxaBeue2osQVpUs+G+7ewGf4X1nkKAM=",
@@ -157,7 +157,7 @@
                 }
             ]
         },
-        "date": "2026-10-29",
+        "date": "2026-10-30",
         "extract": null,
         "name": "clash-nyanpasu",
         "passthru": null,
@@ -169,12 +169,12 @@
             "name": null,
             "owner": "libnyanpasu",
             "repo": "clash-nyanpasu",
-            "rev": "b38c9f2e83662ce6058b76d67a4d9901629ee9ab",
-            "sha256": "sha256-osTI2KckRRxjXgbfqoK662AEQGAUhe37bdgjNM0qUww=",
+            "rev": "1b5d73c53a7141d216a8a0a7751be38a295be059",
+            "sha256": "sha256-Bgi/3A6cqYsnFannOWwuWExJdVv7c5+zHyrAcmrw6UU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b38c9f2e83662ce6058b76d67a4d9901629ee9ab"
+        "version": "1b5d73c53a7141d216a8a0a7751be38a295be059"
     },
     "clash-nyanpasu-stable": {
         "cargoLock": null,
@@ -228,7 +228,7 @@
             "type": "url",
             "url": "file:///dev/null"
         },
-        "version": "v2.0.2"
+        "version": "v2.0.3"
     },
     "dae": {
         "cargoLock": null,
@@ -358,7 +358,7 @@
     "ferstar-gestures": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-o0nPFTvvf+g95bi2Vf0kZMbgY8dWoLBgrNTrPExO6ro=/Cargo.lock",
+                "sha256-O9NF31XKkbe7qTNH_G7Pfcq7kJuksPxbhcndQY5Q7SI=/Cargo.lock",
                 {}
             ]
         },
@@ -374,12 +374,12 @@
             "name": null,
             "owner": "ferstar",
             "repo": "gestures",
-            "rev": "v0.8.3",
-            "sha256": "sha256-o0nPFTvvf+g95bi2Vf0kZMbgY8dWoLBgrNTrPExO6ro=",
+            "rev": "v1.0.0",
+            "sha256": "sha256-O9NF31XKkbe7qTNH/G7Pfcq7kJuksPxbhcndQY5Q7SI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.8.3"
+        "version": "v1.0.0"
     },
     "gaze": {
         "cargoLock": {
@@ -758,11 +758,11 @@
     "microfetch": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-y_BUjPoGPJ_X3a4x7Lv0AsXmu7d4R9yiNWvkZNAHZl4=/Cargo.lock",
+                "sha256-6HinqqKWiZaM5MHVYn2ifFMfgUgWL2_7FF6bMaedLbo=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-10-18",
+        "date": "2026-10-30",
         "extract": null,
         "name": "microfetch",
         "passthru": null,
@@ -774,12 +774,12 @@
             "name": null,
             "owner": "NotAShelf",
             "repo": "microfetch",
-            "rev": "07ed32637a126f443e7d2491b6b0dd0d6694b0e4",
-            "sha256": "sha256-y/BUjPoGPJ/X3a4x7Lv0AsXmu7d4R9yiNWvkZNAHZl4=",
+            "rev": "575210e857ebcbb999dfcb5c61736b23931de8a5",
+            "sha256": "sha256-6HinqqKWiZaM5MHVYn2ifFMfgUgWL2/7FF6bMaedLbo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "07ed32637a126f443e7d2491b6b0dd0d6694b0e4"
+        "version": "575210e857ebcbb999dfcb5c61736b23931de8a5"
     },
     "mm-geofeed-verifier": {
         "cargoLock": null,
@@ -963,13 +963,13 @@
     "nyanpasu-service": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-tqmbr7ksCddWDz1w7wZIOufXWz9ZvsTqrW6vWhg3mN0=/Cargo.lock",
+                "sha256-3NCj1yltDtZL4gkLb7LNPVB3V+_SOMruAL3WzYoijX8=/Cargo.lock",
                 {
                     "processkit-2.2.5": "sha256-aLH0vrplsy8uTBzm5ult//Ix4DGE/Qg5TQyCBlUCCJo="
                 }
             ]
         },
-        "date": "2026-10-28",
+        "date": "2026-10-30",
         "extract": null,
         "name": "nyanpasu-service",
         "passthru": null,
@@ -981,12 +981,12 @@
             "name": null,
             "owner": "libnyanpasu",
             "repo": "nyanpasu-service",
-            "rev": "e73b9f5cc2aa91ac74b4c71d0acc5b48e0fd2b34",
-            "sha256": "sha256-tqmbr7ksCddWDz1w7wZIOufXWz9ZvsTqrW6vWhg3mN0=",
+            "rev": "f57a0fef930296d658bad79e0a408da918dd90fd",
+            "sha256": "sha256-3NCj1yltDtZL4gkLb7LNPVB3V+/SOMruAL3WzYoijX8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "e73b9f5cc2aa91ac74b4c71d0acc5b48e0fd2b34"
+        "version": "f57a0fef930296d658bad79e0a408da918dd90fd"
     },
     "nyanpasu-service-stable": {
         "cargoLock": null,
