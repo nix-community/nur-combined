@@ -7,19 +7,19 @@
   autoPatchelfHook,
 }:
 let
-  version = "0.2.0";
+  version = "0.3.0";
   sources = {
     aarch64-darwin = fetchzip {
       url = "https://github.com/kristoff-it/ziggy/releases/download/v${version}/aarch64-macos.zip";
-      hash = "sha256-uw7M+g+Z2OPV7+C2sz2bQzIWCJRkuAbc5PnR6WfJkPg=";
+      hash = "sha256-0hOzC69FDXB/c9BBnnrY1t6yGoVIpcwqoJQjFAeVskE=";
     };
     aarch64-linux = fetchzip {
       url = "https://github.com/kristoff-it/ziggy/releases/download/v${version}/aarch64-linux.tar.xz";
-      hash = "sha256-JXZUG2od31CybCr5htqPAIFAHxnI6OPNGpy0+m/Dzfs=";
+      hash = "sha256-Z2NAJhEGXau2xXj++fRVX2Ydvb8Y/UFat3VkxVmt3Ns=";
     };
     x86_64-linux = fetchzip {
       url = "https://github.com/kristoff-it/ziggy/releases/download/v${version}/x86_64-linux-musl.tar.xz";
-      hash = "sha256-2e42BDgIQ8Sq3xYmkom3qJ2lrBva3oUzuVm5M2y738I=";
+      hash = "sha256-eMv/xjZ3huz2tyUgoPick7I76abmQZD1cNzehF6VmOA=";
     };
   };
 in

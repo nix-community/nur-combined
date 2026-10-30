@@ -7,14 +7,14 @@
 }:
 rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } (finalAttrs: {
   pname = "nixtopsy";
-  version = "0.1.0";
+  version = "0.1.1";
   src = fetchFromGitHub {
     owner = "manic-systems";
     repo = "nixtopsy";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-7sruBCkkco9xuDdlb9+wTr9/TuEXvIAm02M5q7lStIc=";
+    hash = "sha256-9bRgcG72LFGjlD5HyODxUd5Fo9YrnUdbIrixc90DZjU=";
   };
-  cargoHash = "sha256-Eub5UIGmQ/Co6zwHHea59xREZ3bliiOOqwZx1AKypPU=";
+  cargoHash = "sha256-OL5Hrz9tpf0iwbcxavoydw6ImoIf5Aiu9B7ARc9vRnw=";
 
   env.RUSTFLAGS = "-Clinker=clang";
 

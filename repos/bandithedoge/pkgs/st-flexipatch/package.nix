@@ -13,12 +13,12 @@
 }:
 stdenv.mkDerivation {
   pname = "st-flexipatch";
-  version = "371878-unstable-2026-07-04";
+  version = "371878-unstable-2026-10-30";
   src = fetchFromGitHub {
     owner = "bakkeby";
     repo = "st-flexipatch";
-    rev = "aa56259643e29080394ee1e36a833d18027a0628";
-    hash = "sha256-f31cIYIq/F9MCj2J57pbRhytHAWNN/ky3mr2BHXqMkc=";
+    rev = "9c733c4b78bf3a145f25a737beac38c52ad63b76";
+    hash = "sha256-5m9LivxQJtNbzYwJbNSI4L57lsSgcIRi4WnBjfFkxBA=";
   };
 
   nativeBuildInputs = [

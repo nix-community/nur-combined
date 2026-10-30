@@ -10,12 +10,12 @@
 }:
 stdenv.mkDerivation {
   pname = "dwm-flexipatch";
-  version = "0-unstable-2026-07-06";
+  version = "0-unstable-2026-10-30";
   src = fetchFromGitHub {
     owner = "bakkeby";
     repo = "dwm-flexipatch";
-    rev = "4c963b33681b277a0ff4d3bf39a27b2feab68950";
-    hash = "sha256-xYspDyPPBqTkO4SrB2+u1mUPTbWI52asXWjU0NFd2AU=";
+    rev = "f2fa97e18742c46847780c3342f07c7293ec1bb2";
+    hash = "sha256-QRWNxpsi/85lFMEkyO4xWV30eaeYuQJMxGX5Qtj8jBA=";
   };
 
   buildInputs = [
