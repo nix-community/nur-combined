@@ -25,6 +25,6 @@ rec {
   shimelinux = pkgs.callPackage ./pkgs/shimelinux { };
   twintaillauncher = pkgs.callPackage ./pkgs/twintaillauncher/twintaillauncher { inherit twintaillauncher-unwrapped; };
   twintaillauncher-unwrapped = pkgs.callPackage ./pkgs/twintaillauncher/twintaillauncher-unwrapped { };
-  utmt-cli = pkgs.callPackage ./pkgs/utmt-cli { };
+  # utmt-cli = pkgs.callPackage ./pkgs/utmt-cli { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
 }
