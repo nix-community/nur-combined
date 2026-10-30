@@ -25,6 +25,8 @@
 # needs tpm2-tss, and ClassIn's bundled libgcrypt needs libgpg-error in their
 # package buildInputs. autoPatchelf does not search arbitrary transitive
 # dependency closures; do not ignore missing required libraries.
+# Remove inputs left behind by replaced bundled libraries: ClassIn no longer
+# needs PCRE1 after replacing its bundled GLib/SELinux libraries.
 set -euo pipefail
 
 here=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
