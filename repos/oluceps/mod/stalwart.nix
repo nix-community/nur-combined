@@ -20,7 +20,10 @@
       # Keep public mail protocols on the edge; mesh applications use this ingress.
       realm.workloads.stalwart = {
         isolation.privateNetwork = false;
-        isolation.allowUnixSockets = [ "-/run/systemd/resolve" ];
+        isolation.allowUnixSockets = [
+          "-/run/systemd/resolve"
+          "-/run/systemd/journal"
+        ];
         ingress.submission = {
           port = 14650;
           backend = {
