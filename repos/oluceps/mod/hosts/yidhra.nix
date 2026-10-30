@@ -44,6 +44,7 @@
             # xray
             perlless
             space-opt
+            lowram
           ])
         )
         ++ [
@@ -116,6 +117,12 @@
             external_labels = {}
           }
         '';
+        minRam = {
+          enable = true;
+          # Optional: trim kernel modules tree if extreme pruning is desired
+          # trimModulesTree = true;
+        };
+
         swapDevices = [
           {
             device = "/var/swapfile";
@@ -123,16 +130,8 @@
             priority = 0;
           }
         ];
-        zramSwap.enable = false;
 
         boot = {
-          zswap = {
-            enable = true;
-            compressor = "lz4";
-            zpool = "zsmalloc";
-            maxPoolPercent = 20;
-            shrinkerEnabled = true;
-          };
           # supportedFilesystems = [ "tcp_bbr" ]; # removed typo
           loader = {
             timeout = 10;

@@ -41,6 +41,8 @@
             # mc
             wgmesh
             adonbox
+            proxypool
+            arti
 
           ])
         )
