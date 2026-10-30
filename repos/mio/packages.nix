@@ -43,6 +43,7 @@ let
     in
     flattened
     // {
+      nixpkgs_pkgs = pkgs;
       mkCutefishDerivation = self.callPackage ./pkgs/desktops/cutefish/mk.nix { };
       ocamlPackages =
         (pkgs.ocaml-ng.ocamlPackages_5_4.overrideScope (

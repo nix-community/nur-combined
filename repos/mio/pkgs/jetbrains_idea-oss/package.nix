@@ -143,29 +143,29 @@ let
         ) old.nativeBuildInputs;
 
         postPatch = (old.postPatch or "") + ''
-                    substituteInPlace \
-                      platform/build-scripts/src/org/jetbrains/intellij/build/kotlin/KotlinCompilerDependencyDownloader.kt \
-                      --replace-fail '${kotlinNixpkgs}' '${kotlinDist}'
+          substituteInPlace \
+            platform/build-scripts/src/org/jetbrains/intellij/build/kotlin/KotlinCompilerDependencyDownloader.kt \
+            --replace-fail '${kotlinNixpkgs}' '${kotlinDist}'
 
-                    # Ensure Maven doesn't try to download missing older versions of kotlin-jps-plugin-classpath
-                    find . \( -name "*.iml" -o -name "*.xml" \) -print0 | xargs -0 sed -i 's/kotlin-jps-plugin-classpath:2.2.0/kotlin-jps-plugin-classpath:2.4.0/g'
-                    find . \( -name "*.iml" -o -name "*.xml" \) -print0 | xargs -0 sed -i 's|kotlin-jps-plugin-classpath/2.2.0/kotlin-jps-plugin-classpath-2.2.0|kotlin-jps-plugin-classpath/2.4.0/kotlin-jps-plugin-classpath-2.4.0|g'
-                    find . \( -name "*.iml" -o -name "*.xml" \) -print0 | xargs -0 sed -i 's/kotlin-jps-plugin-classpath:2.3.20/kotlin-jps-plugin-classpath:2.4.0/g'
-                    find . \( -name "*.iml" -o -name "*.xml" \) -print0 | xargs -0 sed -i 's|kotlin-jps-plugin-classpath/2.3.20/kotlin-jps-plugin-classpath-2.3.20|kotlin-jps-plugin-classpath/2.4.0/kotlin-jps-plugin-classpath-2.4.0|g'
-                    find . \( -name "*.iml" -o -name "*.xml" \) -print0 | xargs -0 sed -i '/<verification>/,/<\/verification>/d'
+          # Ensure Maven doesn't try to download missing older versions of kotlin-jps-plugin-classpath
+          find . \( -name "*.iml" -o -name "*.xml" \) -print0 | xargs -0 sed -i 's/kotlin-jps-plugin-classpath:2.2.0/kotlin-jps-plugin-classpath:2.4.0/g'
+          find . \( -name "*.iml" -o -name "*.xml" \) -print0 | xargs -0 sed -i 's|kotlin-jps-plugin-classpath/2.2.0/kotlin-jps-plugin-classpath-2.2.0|kotlin-jps-plugin-classpath/2.4.0/kotlin-jps-plugin-classpath-2.4.0|g'
+          find . \( -name "*.iml" -o -name "*.xml" \) -print0 | xargs -0 sed -i 's/kotlin-jps-plugin-classpath:2.3.20/kotlin-jps-plugin-classpath:2.4.0/g'
+          find . \( -name "*.iml" -o -name "*.xml" \) -print0 | xargs -0 sed -i 's|kotlin-jps-plugin-classpath/2.3.20/kotlin-jps-plugin-classpath-2.3.20|kotlin-jps-plugin-classpath/2.4.0/kotlin-jps-plugin-classpath-2.4.0|g'
+          find . \( -name "*.iml" -o -name "*.xml" \) -print0 | xargs -0 sed -i '/<verification>/,/<\/verification>/d'
 
-                    # Fix compilation of buildScripts.bazel due to API changes in Kotlin 2.4 compiler CLI arguments
-                    sed -i '/argumentWithoutValue/,+2d' platform/build-scripts/bazel/src/org/jetbrains/intellij/build/bazel/BazelBuildFileGenerator.kt
-                    sed -i '/booleanArgumentWithValue/,+2d' platform/build-scripts/bazel/src/org/jetbrains/intellij/build/bazel/BazelBuildFileGenerator.kt
+          # Fix compilation of buildScripts.bazel due to API changes in Kotlin 2.4 compiler CLI arguments
+          sed -i '/argumentWithoutValue/,+2d' platform/build-scripts/bazel/src/org/jetbrains/intellij/build/bazel/BazelBuildFileGenerator.kt
+          sed -i '/booleanArgumentWithValue/,+2d' platform/build-scripts/bazel/src/org/jetbrains/intellij/build/bazel/BazelBuildFileGenerator.kt
 
-                    export COMPOSE_COMPILER_PLUGIN="${composeCompilerPlugin}"
-                    export KOTLIN_IDE_NEW=${escapeShellArg kotlinDistVersion}
-                    ${bumpKotlinIdeArtifacts}
-                    # source (not bash) so stdenv's substituteInPlace is in scope
-                    (
-                      set -euo pipefail
-                      source ${./fix-kotlin-compile.sh}
-                    )
+          export COMPOSE_COMPILER_PLUGIN="${composeCompilerPlugin}"
+          export KOTLIN_IDE_NEW=${escapeShellArg kotlinDistVersion}
+          ${bumpKotlinIdeArtifacts}
+          # source (not bash) so stdenv's substituteInPlace is in scope
+          (
+            set -euo pipefail
+            source ${./fix-kotlin-compile.sh}
+          )
         '';
 
         configurePhase = ''
