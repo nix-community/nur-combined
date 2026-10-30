@@ -1,0 +1,637 @@
+diff --git a/launcher/BundleGenerator.swift b/launcher/BundleGenerator.swift
+index 42e0ed4..79004e6 100644
+--- a/launcher/BundleGenerator.swift
++++ b/launcher/BundleGenerator.swift
+@@ -1016,7 +1016,7 @@ enum BundleGenerator {
+           <key>CFBundleIconFile</key><string>AppIcon</string>
+           <key>CFBundleVersion</key><string>\(spec.versionCode)</string>
+           <key>CFBundleShortVersionString</key><string>\(e(shortVer))</string>
+-          <key>LSMinimumSystemVersion</key><string>26.4</string>
++          <key>LSMinimumSystemVersion</key><string>15.0</string>
+           <key>NSHighResolutionCapable</key><true/>
+           <!-- TCC PURPOSE STRINGS. macOS REFUSES the capability outright, WITHOUT
+                PROMPTING, when the requesting bundle has no usage description;
+diff --git a/launcher/Info.plist b/launcher/Info.plist
+index 913332f..14dbdbf 100644
+--- a/launcher/Info.plist
++++ b/launcher/Info.plist
+@@ -74,7 +74,7 @@
+          NOTE: no double hyphen may appear in this comment. It terminates the XML
+          comment early; plutil accepts it anyway but strict parsers do not. -->
+     <key>LSMinimumSystemVersion</key>
+-    <string>26.4</string>
++    <string>15.0</string>
+     <key>NSPrincipalClass</key>
+     <string>NSApplication</string>
+     <key>NSHighResolutionCapable</key>
+diff --git a/runtime/CMakeLists.txt b/runtime/CMakeLists.txt
+index 9bd6f83..9ef4694 100644
+--- a/runtime/CMakeLists.txt
++++ b/runtime/CMakeLists.txt
+@@ -11,7 +11,7 @@ set(CMAKE_OBJCXX_STANDARD 17)
+ # is on macOS 26 so this is non-restrictive in practice; broader support
+ # would require pulling vendored libs that target the lowest-common
+ # version, which is out of scope for an experimental project.
+-set(CMAKE_OSX_DEPLOYMENT_TARGET "26.0")
++set(CMAKE_OSX_DEPLOYMENT_TARGET "15.0")
+ 
+ # Locate the keg-only Homebrew openjdk@21. We hard-code the brew prefix
+ # and let scripts/build.sh override JAVA_HOME if the user wants a
+@@ -85,9 +85,18 @@ endif()
+ # does not compile the VP8/VP9 sources) rather than FATAL_ERROR, matching
+ # the ANGLE pattern above: a machine without libvpx still gets a working
+ # build, just without VP8/VP9 decode.
+-set(LIBVPX_ROOT "/opt/homebrew/opt/libvpx")
++if(DEFINED ENV{LIBVPX_ROOT})
++  set(LIBVPX_ROOT "$ENV{LIBVPX_ROOT}")
++else()
++  set(LIBVPX_ROOT "/opt/homebrew/opt/libvpx")
++endif()
++if(DEFINED ENV{LIBVPX_INCLUDE_DIR})
++  set(LIBVPX_INCLUDE_DIR "$ENV{LIBVPX_INCLUDE_DIR}")
++else()
++  set(LIBVPX_INCLUDE_DIR "${LIBVPX_ROOT}/include")
++endif()
+ set(LIBVPX_HAVE OFF)
+-if(EXISTS "${LIBVPX_ROOT}/lib/libvpx.a" AND EXISTS "${LIBVPX_ROOT}/include/vpx/vpx_decoder.h")
++if(EXISTS "${LIBVPX_ROOT}/lib/libvpx.a" AND EXISTS "${LIBVPX_INCLUDE_DIR}/vpx/vpx_decoder.h")
+     set(LIBVPX_HAVE ON)
+     message(STATUS "Mac.apk: libvpx found at ${LIBVPX_ROOT} (static -- VP8/VP9 decode via MediaCodec)")
+ else()
+@@ -359,10 +368,11 @@ endforeach()
+ # We codesign with the entitlements on EVERY build: cmake links ad-hoc and
+ # carries none, so this POST_BUILD step is what actually applies them.
+ add_custom_command(TARGET macapk-runtime POST_BUILD
++    COMMAND vtool -set-build-version macos 12.0 12.0 -replace -output "$<TARGET_FILE:macapk-runtime>" "$<TARGET_FILE:macapk-runtime>"
+     COMMAND codesign --force --options runtime --sign -
+             --entitlements "${CMAKE_CURRENT_SOURCE_DIR}/scripts/jit-entitlements.plist"
+             "$<TARGET_FILE:macapk-runtime>"
+-    COMMENT "x18 + JIT entitlements: re-signing macapk-runtime")
++    COMMENT "x18 (sdk<13 + custom-x18-abi-toggle) + JIT entitlements: re-signing macapk-runtime")
+ 
+ target_include_directories(macapk-runtime PRIVATE
+     include
+@@ -425,7 +435,7 @@ target_link_libraries(macapk-runtime PRIVATE
+ # involvement -- a static archive is not a Mach-O dependency dyld resolves at
+ # load time, so none of the machinery the ANGLE block above needs applies.
+ if(LIBVPX_HAVE)
+-    target_include_directories(macapk-runtime PRIVATE "${LIBVPX_ROOT}/include")
++    target_include_directories(macapk-runtime PRIVATE "${LIBVPX_INCLUDE_DIR}")
+     target_link_libraries(macapk-runtime PRIVATE "${LIBVPX_ROOT}/lib/libvpx.a")
+ endif()
+ 
+diff --git a/runtime/scripts/build.sh b/runtime/scripts/build.sh
+index f93c96d..14a1771 100755
+--- a/runtime/scripts/build.sh
++++ b/runtime/scripts/build.sh
+@@ -415,7 +415,7 @@ ditto macapk-runtime "$BIN/macapk-runtime"
+ # codesign flag, whose leading double hyphen closed the comment. Validate with a
+ # strict parser HERE, so the failure names the actual file and the actual line.
+ ENT="$RT_DIR/scripts/jit-entitlements.plist"
+-if ! /usr/bin/python3 -c "import xml.dom.minidom,sys; xml.dom.minidom.parse(sys.argv[1])" "$ENT" 2>/tmp/macapk_ent_err.txt; then
++if ! python3 -c "import xml.dom.minidom,sys; xml.dom.minidom.parse(sys.argv[1])" "$ENT" 2>/tmp/macapk_ent_err.txt; then
+     echo "[build] FATAL: $ENT is not well-formed XML." >&2
+     sed 's/^/[build]   /' /tmp/macapk_ent_err.txt >&2
+     echo "[build]   Most likely a double hyphen inside an <!-- comment -->." >&2
+@@ -440,6 +440,7 @@ fi
+ # comment in jit-entitlements.plist makes AMFI reject the plist while
+ # `plutil -lint` accepts it, and the resulting error names neither the file nor
+ # the reason -- that cost real time on 2026-08-21.
++vtool -set-build-version macos 12.0 12.0 -replace -output "$BIN/macapk-runtime" "$BIN/macapk-runtime"
+ if ! codesign --force --options runtime --sign - \
+         --entitlements "$RT_DIR/scripts/jit-entitlements.plist" \
+         "$BIN/macapk-runtime"; then
+@@ -506,8 +507,9 @@ fi
+ # the framework-only build still succeed until contributors install it.
+ TRANSLATOR_DIR="$RT_DIR/translator"
+ TRANSLATOR_BUILD="$TRANSLATOR_DIR/build"
++CAPSTONE_ROOT="${CAPSTONE_ROOT:-/opt/homebrew/opt/capstone}"
+ if [[ -f "$TRANSLATOR_DIR/CMakeLists.txt" ]] && \
+-   [[ -f /opt/homebrew/opt/capstone/include/capstone/capstone.h ]]; then
++   [[ -f "$CAPSTONE_ROOT/include/capstone/capstone.h" ]]; then
+     echo "[build] Building translator (ARM32 -> arm64-darwin) + bionic shim..."
+     mkdir -p "$TRANSLATOR_BUILD"
+     ( cd "$TRANSLATOR_BUILD" && cmake -DCMAKE_BUILD_TYPE=Release "$TRANSLATOR_DIR" >/dev/null \
+@@ -528,15 +530,7 @@ if [[ -f "$TRANSLATOR_DIR/CMakeLists.txt" ]] && \
+     # ReconcileApkNativeExecutables records for the child to dlopen from.
+     if [[ -x "$TRANSLATOR_BUILD/macapk-elfexec" ]]; then
+         ditto "$TRANSLATOR_BUILD/macapk-elfexec" "$BIN/macapk-elfexec"
+-        # SAME entitlements as macapk-runtime, and for the same reason: this
+-        # process runs guest Android arm64 code, so it needs
+-        # com.apple.security.custom-x18-abi-toggle or XNU wipes the guest's x18
+-        # on every EL0 exception return (the x18 hazard). Entitlements live
+-        # INSIDE the Mach-O signature, so the copy the runtime drops into the
+-        # app's data dir keeps them. (The sdk<13 vtool fallback that used to be
+-        # mirrored here was removed at v1.0.1018 along with its twin above.)
+-        # FATAL for the same reason as macapk-runtime above: this process runs
+-        # guest arm64 code, so an unentitled copy corrupts x18 silently.
++        vtool -set-build-version macos 12.0 12.0 -replace -output "$BIN/macapk-elfexec" "$BIN/macapk-elfexec"
+         if ! codesign --force --options runtime --sign - \
+                 --entitlements "$RT_DIR/scripts/jit-entitlements.plist" \
+                 "$BIN/macapk-elfexec"; then
+@@ -608,7 +602,7 @@ echo "[build] Stamping build identity..."
+ # rewritten when the ids are unchanged -- build-id.txt's mtime therefore means
+ # "the last time the build identity actually changed", which debug/staleness.sh
+ # leans on to judge per-app caches that predate the current identity.
+-/usr/bin/python3 "$BUILD_IDS_PY" --lib-dir "$LIB" --bin-dir "$BIN" \
++python3 "$BUILD_IDS_PY" --lib-dir "$LIB" --bin-dir "$BIN" \
+     --java-home "$JAVA_HOME" > "$BUILD/.build-id.tmp"
+ # Never promote a truncated stamp over a good one. An empty or short JAVA_ID
+ # reads to the runtime as identity UNKNOWN, and unknown means "reuse every
+diff --git a/runtime/src/photos_bridge.mm b/runtime/src/photos_bridge.mm
+index a596e69..3bc9c70 100644
+--- a/runtime/src/photos_bridge.mm
++++ b/runtime/src/photos_bridge.mm
+@@ -258,10 +258,18 @@ jobjectArray JNICALL nList(JNIEnv* env, jclass, jboolean images, jboolean videos
+                 const bool video = a.mediaType == PHAssetMediaTypeVideo;
+                 NSString* base = [Clean(orig.originalFilename) stringByDeletingPathExtension];
+                 if (base.length == 0) base = video ? @"VID" : @"IMG";
+-                NSString* ext = res.contentType.preferredFilenameExtension;
++                NSString* ext = nil;
++                NSString* mime = nil;
++                if (@available(macOS 26.0, *)) {
++                    ext = res.contentType.preferredFilenameExtension;
++                    mime = res.contentType.preferredMIMEType;
++                } else if (res.uniformTypeIdentifier.length > 0) {
++                    UTType* ut = [UTType typeWithIdentifier:res.uniformTypeIdentifier];
++                    ext = ut.preferredFilenameExtension;
++                    mime = ut.preferredMIMEType;
++                }
+                 if (ext.length == 0) ext = orig.originalFilename.pathExtension;
+                 if (ext.length == 0) ext = video ? @"mov" : @"jpg";
+-                NSString* mime = res.contentType.preferredMIMEType;
+                 if (mime.length == 0) mime = video ? @"video/quicktime" : @"image/jpeg";
+                 long long created = a.creationDate
+                     ? (long long)(a.creationDate.timeIntervalSince1970 * 1000.0) : 0;
+diff --git a/runtime/translator/CMakeLists.txt b/runtime/translator/CMakeLists.txt
+index c5c65d3..b3328b9 100644
+--- a/runtime/translator/CMakeLists.txt
++++ b/runtime/translator/CMakeLists.txt
+@@ -15,11 +15,15 @@ set(CMAKE_CXX_STANDARD 20)
+ set(CMAKE_CXX_STANDARD_REQUIRED ON)
+ # v1.0.86: see ../CMakeLists.txt for the rationale (Homebrew lib mismatch
+ # warnings against macOS 26-built dylibs).
+-set(CMAKE_OSX_DEPLOYMENT_TARGET "26.0")
++set(CMAKE_OSX_DEPLOYMENT_TARGET "15.0")
+ 
+-# Locate Capstone via Homebrew. The keg-only formula prefix lives at
++# Locate Capstone via CAPSTONE_ROOT env or Homebrew. The keg-only formula prefix lives at
+ # /opt/homebrew/opt/capstone on Apple Silicon brew installs.
+-set(CAPSTONE_ROOT "/opt/homebrew/opt/capstone")
++if(DEFINED ENV{CAPSTONE_ROOT})
++    set(CAPSTONE_ROOT "$ENV{CAPSTONE_ROOT}")
++else()
++    set(CAPSTONE_ROOT "/opt/homebrew/opt/capstone")
++endif()
+ if(NOT EXISTS "${CAPSTONE_ROOT}/include/capstone/capstone.h")
+     # Fall back to the Cellar layout if the linked include is missing.
+     file(GLOB _capstone_cellar "/opt/homebrew/Cellar/capstone/*/")
+@@ -197,10 +201,19 @@ set_property(TARGET macapk-bionic-shim APPEND PROPERTY
+ # than chase every lifter bug, we override the cocos2d-x png decode
+ # entry point with a host-libpng decode that writes the resulting
+ # RGBA bytes back into the guest CCImage object.
+-set(LIBPNG_ROOT "/opt/homebrew/opt/libpng")
+-if(EXISTS "${LIBPNG_ROOT}/include/png.h")
++if(DEFINED ENV{LIBPNG_ROOT})
++    set(LIBPNG_ROOT "$ENV{LIBPNG_ROOT}")
++else()
++    set(LIBPNG_ROOT "/opt/homebrew/opt/libpng")
++endif()
++if(DEFINED ENV{LIBPNG_INCLUDE_DIR})
++    set(LIBPNG_INCLUDE_DIR "$ENV{LIBPNG_INCLUDE_DIR}")
++else()
++    set(LIBPNG_INCLUDE_DIR "${LIBPNG_ROOT}/include")
++endif()
++if(EXISTS "${LIBPNG_INCLUDE_DIR}/png.h" AND EXISTS "${LIBPNG_ROOT}/lib/libpng16.dylib")
+     target_include_directories(macapk-bionic-shim PRIVATE
+-        "${LIBPNG_ROOT}/include")
++        "${LIBPNG_INCLUDE_DIR}")
+     target_link_libraries(macapk-bionic-shim PRIVATE
+         "${LIBPNG_ROOT}/lib/libpng16.dylib")
+     set_property(TARGET macapk-bionic-shim APPEND PROPERTY
+diff --git a/runtime/translator/src/arm64_native.cpp b/runtime/translator/src/arm64_native.cpp
+index e6bf22c..80fd63f 100644
+--- a/runtime/translator/src/arm64_native.cpp
++++ b/runtime/translator/src/arm64_native.cpp
+@@ -335,22 +335,22 @@ static bool macapk_x18_capability_ok() {
+         dlsym(RTLD_DEFAULT, "os_set_custom_x18_abi_enabled") != nullptr;
+ 
+     // (b) Does it actually work HERE? Catches a stripped/absent entitlement on
+-    //     an otherwise new-enough host, which (a) cannot see. usleep() blocks,
+-    //     so the thread is genuinely descheduled and really does take the EL0
+-    //     return path we care about; a few rounds is plenty to catch a wipe.
+-    bool survives = false;
+-    if (have_api) {
+-        macapk_enable_x18_preservation();
+-        static const uint64_t kSentinel = 0xdeadbeefcafebabeULL;
+-        survives = true;
+-        for (int i = 0; i < 8 && survives; ++i) {
+-            macapk_x18_probe_set(kSentinel);
+-            usleep(1200);
+-            if (macapk_x18_probe_get() != kSentinel) survives = false;
+-        }
+-    }
+-
+-    const bool ok = have_api && survives;
++    //     an otherwise new-enough host, OR verifies that the sdk<13
++    //     LC_BUILD_VERSION kernel gate (ARM_MACHINE_THREAD_PRESERVE_X18 on
++    //     macOS 13-15) is active when os_set_custom_x18_abi_enabled is absent.
++    //     usleep() blocks, so the thread is genuinely descheduled and really
++    //     does take the EL0 return path we care about; a few rounds is plenty
++    //     to catch a wipe.
++    macapk_enable_x18_preservation();
++    static const uint64_t kSentinel = 0xdeadbeefcafebabeULL;
++    bool survives = true;
++    for (int i = 0; i < 8 && survives; ++i) {
++        macapk_x18_probe_set(kSentinel);
++        usleep(1200);
++        if (macapk_x18_probe_get() != kSentinel) survives = false;
++    }
++
++    const bool ok = survives;
+     if (!ok) {
+         std::fprintf(stderr,
+             "[x18] FATAL: x18 preservation is NOT ACTIVE on this host "
+@@ -358,12 +358,12 @@ static bool macapk_x18_capability_ok() {
+             "[x18]   arm64 guest code would silently corrupt memory: XNU zeroes "
+             "x18 on every return to userspace,\n"
+             "[x18]   and Bionic uses it as the TLS base.\n"
+-            "[x18]   Requires macOS 26.4+ AND the "
+-            "com.apple.security.custom-x18-abi-toggle entitlement.\n"
++            "[x18]   Requires either macOS 26.4+ with "
++            "com.apple.security.custom-x18-abi-toggle or the sdk<13 LC_BUILD_VERSION gate.\n"
+             "[x18]   Refusing to load arm64 guest code. Override at your own "
+             "risk with MACAPK_ALLOW_UNSAFE_X18=1.\n",
+             have_api ? "present" : "ABSENT (macOS < 26.4)",
+-            have_api ? (survives ? "pass" : "CLOBBERED") : "not run");
++            survives ? "pass" : "CLOBBERED");
+     }
+     memo = ok ? 1 : 0;
+     return ok;
+diff --git a/runtime/translator/src/bionic_shim.cpp b/runtime/translator/src/bionic_shim.cpp
+index 3962b6d..5b1aed5 100644
+--- a/runtime/translator/src/bionic_shim.cpp
++++ b/runtime/translator/src/bionic_shim.cpp
+@@ -46449,8 +46449,13 @@ extern "C" int __macapk_arm64_scandirat(int parent_fd, const char* path,
+     if (!macapk_path_shims_on()) {   // MACAPK_PATH_SHIMS=0: the pre-shim binding
+         // Darwin's scandirat is macOS 26.4+ (dirent.h:191); below that the import
+         // had nothing to bind to, and ENOSYS is the honest stand-in.
+-        if (__builtin_available(macOS 26.4, *)) {
+-            return ::scandirat(parent_fd, path, reinterpret_cast<struct dirent***>(namelist),
++        using scandirat_fn = int (*)(int, const char*, struct dirent***,
++                                     int (*)(const struct dirent*),
++                                     int (*)(const struct dirent**, const struct dirent**));
++        static const scandirat_fn fn =
++            reinterpret_cast<scandirat_fn>(dlsym(RTLD_DEFAULT, "scandirat"));
++        if (fn) {
++            return fn(parent_fd, path, reinterpret_cast<struct dirent***>(namelist),
+                 reinterpret_cast<int (*)(const struct dirent*)>(filter),
+                 reinterpret_cast<int (*)(const struct dirent**, const struct dirent**)>(compar));
+         }
+@@ -55224,8 +55229,8 @@ int __macapk_arm64___android_log_print(int /*prio*/, const char* /*tag*/,
+         "ret\n"
+     );
+ }
+-__attribute__((naked))
+-[[noreturn]] void __macapk_arm64___android_log_assert(const char* /*cond*/,
++[[noreturn]] __attribute__((naked))
++void __macapk_arm64___android_log_assert(const char* /*cond*/,
+                                                          const char* /*tag*/,
+                                                          const char* /*fmt*/,
+                                                          ...) {
+diff --git a/scripts/build_dist.sh b/scripts/build_dist.sh
+index d005454..bc14641 100755
+--- a/scripts/build_dist.sh
++++ b/scripts/build_dist.sh
+@@ -377,12 +377,16 @@ fi
+ # Inside-out order matters: these are all inside $APP, which is sealed below.
+ [ -f "$RES/jre/lib/jspawnhelper" ]   && sign "$RES/jre/lib/jspawnhelper" --entitlements "$ENT"
+ [ -f "$RES/appstub/MacApkAppStub" ]  && sign "$RES/appstub/MacApkAppStub" --identifier org.macapk.appstub
+-[ -f "$BIN/macapk-elfexec" ]         && sign "$BIN/macapk-elfexec" --entitlements "$ENT"
++if [ -f "$BIN/macapk-elfexec" ]; then
++    vtool -set-build-version macos 12.0 12.0 -replace -output "$BIN/macapk-elfexec" "$BIN/macapk-elfexec"
++    sign "$BIN/macapk-elfexec" --entitlements "$ENT"
++fi
+ [ -f "$BIN/macapk-installhelper" ]   && sign "$BIN/macapk-installhelper"
+ # "Mac.apk Location" (launcher/LocationHelperMain.swift): a nested app that must
+ # keep the location entitlement, or TCC refuses it without a prompt.
+ [ -d "$APP/Contents/Helpers/Mac.apk Location.app" ] && \
+     sign "$APP/Contents/Helpers/Mac.apk Location.app" --entitlements "$ENT" --identifier org.macapk.location
++vtool -set-build-version macos 12.0 12.0 -replace -output "$RES/macapk-runtime" "$RES/macapk-runtime"
+ sign "$RES/macapk-runtime" --entitlements "$ENT"
+ [ -f "$BIN/macapk-translator" ] && sign "$BIN/macapk-translator" --entitlements "$ENT"
+ # 5d. seal the whole bundle last (entitlements on the launcher executable too)
+diff --git a/scripts/build_launcher.sh b/scripts/build_launcher.sh
+index af380eb..f4b20f5 100755
+--- a/scripts/build_launcher.sh
++++ b/scripts/build_launcher.sh
+@@ -65,8 +65,8 @@ mkdir -p "$MACOS_DIR" "$RESOURCES_DIR"
+ # displays this, which is the easiest way to confirm a fresh build is
+ # actually running (otherwise Finder/Dock can launch a stale cached copy
+ # and you waste time chasing phantom bugs).
+-BUILD_STAMP="$(date '+%y%m%d.%H%M')"
+-GIT_HASH="$(git -C "$PROJECT_DIR" rev-parse --short HEAD 2>/dev/null || echo nogit)"
++BUILD_STAMP="${MACAPK_BUILD_STAMP:-$(date '+%y%m%d.%H%M')}"
++GIT_HASH="${MACAPK_GIT_HASH:-$(git -C "$PROJECT_DIR" rev-parse --short HEAD 2>/dev/null || echo nogit)}"
+ GIT_DIRTY=""
+ if ! git -C "$PROJECT_DIR" diff --quiet 2>/dev/null \
+    || ! git -C "$PROJECT_DIR" diff --cached --quiet 2>/dev/null; then
+@@ -109,7 +109,7 @@ echo "[1/5] Compiling launcher Swift sources..."
+ # current NSWorkspace.setDefaultApplication(at:toOpen:completionHandler:)
+ # used for .apk handler registration, whose LaunchServices C predecessor
+ # is API_DEPRECATED and banned here.
+-SWIFT_TARGET="arm64-apple-macos26.0"
++SWIFT_TARGET="arm64-apple-macos15.0"
+ 
+ swiftc \
+     -O \
+@@ -212,7 +212,7 @@ cat > "$LOC_APP/Contents/Info.plist" <<'LOCPLIST'
+     <key>CFBundleInfoDictionaryVersion</key><string>6.0</string>
+     <key>CFBundleShortVersionString</key><string>1.0</string>
+     <key>CFBundleVersion</key><string>1</string>
+-    <key>LSMinimumSystemVersion</key><string>26.4</string>
++    <key>LSMinimumSystemVersion</key><string>15.0</string>
+     <key>LSUIElement</key><true/>
+     <key>NSLocationWhenInUseUsageDescription</key><string>Android apps running in Mac.apk use your location through this. Each app also asks you separately, and only the apps you allow get it.</string>
+     <key>NSLocationUsageDescription</key><string>Android apps running in Mac.apk use your location through this. Each app also asks you separately, and only the apps you allow get it.</string>
+@@ -275,14 +275,16 @@ fi
+ if [ -f "$PROJECT_DIR/VERSION" ]; then
+     MACAPK_VER="$(tr -d '[:space:]' < "$PROJECT_DIR/VERSION")"
+     if [ -n "$MACAPK_VER" ]; then
+-        /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $MACAPK_VER" \
+-            "$CONTENTS/Info.plist" >/dev/null 2>&1 || \
+-          /usr/libexec/PlistBuddy -c "Add :CFBundleShortVersionString string $MACAPK_VER" \
+-            "$CONTENTS/Info.plist" >/dev/null 2>&1
+-        /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $MACAPK_VER" \
+-            "$CONTENTS/Info.plist" >/dev/null 2>&1 || \
+-          /usr/libexec/PlistBuddy -c "Add :CFBundleVersion string $MACAPK_VER" \
+-            "$CONTENTS/Info.plist" >/dev/null 2>&1
++        python3 - "$CONTENTS/Info.plist" "$MACAPK_VER" <<'PYSETVER'
++import plistlib, sys
++p, v = sys.argv[1], sys.argv[2]
++with open(p, "rb") as f:
++    d = plistlib.load(f)
++d["CFBundleShortVersionString"] = v
++d["CFBundleVersion"] = v
++with open(p, "wb") as f:
++    plistlib.dump(d, f)
++PYSETVER
+         echo "  Stamped version $MACAPK_VER into Info.plist"
+     fi
+ else
+@@ -545,6 +547,14 @@ if [ -f "$ICON_SRC" ]; then
+     done
+     if iconutil -c icns "$ICONSET" -o "$RESOURCES_DIR/AppIcon.icns" 2>/dev/null; then
+         echo "  Bundled Resources/AppIcon.icns"
++    elif python3 - "$ICON_SRC" "$RESOURCES_DIR/AppIcon.icns" <<'PYICNS' 2>/dev/null; then
++import struct, sys
++png = open(sys.argv[1], "rb").read()
++chunk = b"ic09" + struct.pack(">I", 8 + len(png)) + png
++icns = b"icns" + struct.pack(">I", 8 + len(chunk)) + chunk
++open(sys.argv[2], "wb").write(icns)
++PYICNS
++        echo "  Bundled Resources/AppIcon.icns (python fallback)"
+     else
+         echo "  WARN: iconutil failed; launcher will use the generic icon."
+     fi
+diff --git a/scripts/check-requirements.sh b/scripts/check-requirements.sh
+index 80c75b1..b999f77 100755
+--- a/scripts/check-requirements.sh
++++ b/scripts/check-requirements.sh
+@@ -68,13 +68,10 @@ case "$MACOS_MINOR" in ''|*[!0-9]*) MACOS_MINOR=0 ;; esac
+ # code corrupts SILENTLY (XNU checks a different per-thread flag there, so our
+ # TPIDR bit-48 write is inert). Apple pins the floor themselves:
+ # os_set_custom_x18_abi_enabled is API_AVAILABLE(macos(26.4)).
+-if (( MACOS_MAJOR > 26 || (MACOS_MAJOR == 26 && MACOS_MINOR >= 4) )); then
+-    ok "macOS $MACOS_VERSION (>= 26.4, the x18 entitlement floor)"
++if (( MACOS_MAJOR >= 15 )); then
++    ok "macOS $MACOS_VERSION (>= 15.0, supported via sdk<13 x18 gate on 15.x or custom-x18-abi-toggle on 26.4+)"
+ else
+-    printf "%s%s%s macOS %s is below the 26.4 minimum.\n" "$RED" "X" "$RST" "$MACOS_VERSION"
+-    printf "   The arm64 guest path needs com.apple.security.custom-x18-abi-toggle,\n"
+-    printf "   whose kernel support landed in 26.4. Below that, guest x18 is clobbered\n"
+-    printf "   on every return to userspace and native apps corrupt SILENTLY.\n"
++    printf "%s%s%s macOS %s is below the 15.0 minimum.\n" "$RED" "X" "$RST" "$MACOS_VERSION"
+     exit 2
+ fi
+ 
+diff --git a/scripts/gen_third_party_notices.sh b/scripts/gen_third_party_notices.sh
+index b5fad8a..5a5b4ff 100755
+--- a/scripts/gen_third_party_notices.sh
++++ b/scripts/gen_third_party_notices.sh
+@@ -26,8 +26,8 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+ # First existing path wins; empty when none exists (caller decides).
+ first() { for p in "$@"; do [ -f "$p" ] && { printf '%s' "$p"; return; }; done; }
+ 
+-CAP_KEG="$(ls -d /opt/homebrew/Cellar/capstone/*/ 2>/dev/null | sort -V | tail -1)"
+-PNG_KEG="$(ls -d /opt/homebrew/Cellar/libpng/*/ 2>/dev/null | sort -V | tail -1)"
++CAP_KEG="$( (ls -d /opt/homebrew/Cellar/capstone/*/ 2>/dev/null || true) | sort -V | tail -1 )"
++PNG_KEG="$( (ls -d /opt/homebrew/Cellar/libpng/*/ 2>/dev/null || true) | sort -V | tail -1 )"
+ 
+ # The LINKED keg of a Homebrew formula (what /opt/homebrew/opt/<f> points at) --
+ # the one the build links and scripts/stage_jre.sh copies dylibs from -- and its
+@@ -35,8 +35,8 @@ PNG_KEG="$(ls -d /opt/homebrew/Cellar/libpng/*/ 2>/dev/null | sort -V | tail -1)
+ # scripts/collect_lgpl_sources.sh --upload <tag>): the JRE's Homebrew dependencies and the statically
+ # linked libvpx had shipped with no notice at all (OpenJDK's own legal/ tree does
+ # not cover libraries a Homebrew-built JDK takes from the system).
+-keg() { local p; p="$(cd "/opt/homebrew/opt/$1" 2>/dev/null && pwd -P)"; printf '%s' "${p:-}"; }
+-kver() { local v; v="$(basename "$(keg "$1")")"; printf '%s' "${v%_*}"; }   # strip the Homebrew revision (10.47_1 -> 10.47)
++keg() { local p; p="$(cd "/opt/homebrew/opt/$1" 2>/dev/null && pwd -P || true)"; printf '%s' "${p:-}"; }
++kver() { local k v; k="$(keg "$1")"; [ -n "$k" ] && v="$(basename "$k")" || v=""; printf '%s' "${v%_*}"; }   # strip the Homebrew revision (10.47_1 -> 10.47)
+ LIC="$ROOT/thirdparty/licenses"   # canonical texts a keg does not carry
+ 
+ tmp="$(mktemp)"; trap 'rm -f "$tmp"' EXIT
+@@ -156,7 +156,7 @@ GPLv2); Mac.apk uses it under the FreeType License (FTL), reproduced below.
+ Source: https://freetype.org/ ."
+   emit "Brotli $(kver brotli) (jre/lib/libbrotlidec.1.dylib, libbrotlicommon.1.dylib) -- decoder used by FreeType" \
+        "MIT" \
+-       "$(keg brotli)/LICENSE" \
++       "$(first "$(keg brotli)/LICENSE")" \
+ "Source: https://github.com/google/brotli ."
+ 
+ 
+diff --git a/scripts/relink_bundle_deps.sh b/scripts/relink_bundle_deps.sh
+index ef7dd22..fbc6e66 100755
+--- a/scripts/relink_bundle_deps.sh
++++ b/scripts/relink_bundle_deps.sh
+@@ -82,8 +82,8 @@ ENTITLEMENTS="$PROJECT_DIR/runtime/scripts/jit-entitlements.plist"
+ # runtime/translator/CMakeLists.txt's CAPSTONE_ROOT/LIBPNG_ROOT already
+ # use for locating build-time deps; this is the same lookup, just done at
+ # packaging time instead of compile time).
+-CAPSTONE_SRC="/opt/homebrew/opt/capstone/lib/libcapstone.5.dylib"
+-LIBPNG_SRC="/opt/homebrew/opt/libpng/lib/libpng16.16.dylib"
++CAPSTONE_SRC="${CAPSTONE_SRC:-${CAPSTONE_ROOT:-/opt/homebrew/opt/capstone}/lib/libcapstone.5.dylib}"
++LIBPNG_SRC="${LIBPNG_SRC:-${LIBPNG_ROOT:-/opt/homebrew/opt/libpng}/lib/libpng16.16.dylib}"
+ # (The JDK's libjvm/libjli are NOT hardcoded here any more: section 4 reads the names
+ # the runtime actually recorded, because they depend on which JDK the ONE setting
+ # selected -- MACAPK_JDK, debug/jdk25_select.sh.)
+@@ -123,8 +123,8 @@ delete_rpath_if_present() {  # delete_rpath_if_present <binary> <path>
+ # signature we are about to replace kills them at the source instead of
+ # filtering the text and hoping the re-sign still happens. Same idiom the
+ # libcapstone/libpng blocks below already used.
+-unsign_before_edit() {  # unsign_before_edit <binary>
+-    codesign --remove-signature "$1" 2>/dev/null || true
++unsign_before_edit() {  # unsign_before_edit <binary> -- no-op on Xcode 16/26+ where --remove-signature breaks __LINKEDIT for install_name_tool
++    :
+ }
+ resign_plain() {  # resign_plain <binary> <label>
+     if codesign --force --sign - --timestamp=none "$1" 2>/dev/null \
+@@ -141,8 +141,8 @@ resign_plain() {  # resign_plain <binary> <label>
+ # dependents (the shim needs both; the translator needs capstone only) --
+ if [ -f "$CAPSTONE_SRC" ]; then
+     cp -f "$CAPSTONE_SRC" "$BIN_DIR/libcapstone.5.dylib"
+-    codesign --remove-signature "$BIN_DIR/libcapstone.5.dylib" 2>/dev/null || true
+-    install_name_tool -id "@rpath/libcapstone.5.dylib" "$BIN_DIR/libcapstone.5.dylib"
++    chmod u+w "$BIN_DIR/libcapstone.5.dylib"
++    install_name_tool -id "@rpath/libcapstone.5.dylib" "$BIN_DIR/libcapstone.5.dylib" 2>/dev/null
+     resign_plain "$BIN_DIR/libcapstone.5.dylib" "bin/libcapstone.5.dylib"
+     echo "  Staged bin/libcapstone.5.dylib: $(du -h "$BIN_DIR/libcapstone.5.dylib" | cut -f1)"
+ else
+@@ -150,8 +150,12 @@ else
+ fi
+ if [ -f "$LIBPNG_SRC" ]; then
+     cp -f "$LIBPNG_SRC" "$BIN_DIR/libpng16.16.dylib"
+-    codesign --remove-signature "$BIN_DIR/libpng16.16.dylib" 2>/dev/null || true
+-    install_name_tool -id "@rpath/libpng16.16.dylib" "$BIN_DIR/libpng16.16.dylib"
++    chmod u+w "$BIN_DIR/libpng16.16.dylib"
++    install_name_tool -id "@rpath/libpng16.16.dylib" "$BIN_DIR/libpng16.16.dylib" 2>/dev/null
++    OLD_Z="$(otool -L "$BIN_DIR/libpng16.16.dylib" | awk '/libz\..*\.dylib|libz\.dylib/{print $1; exit}')"
++    if [ -n "$OLD_Z" ] && [ "$OLD_Z" != "/usr/lib/libz.1.dylib" ]; then
++        install_name_tool -change "$OLD_Z" "/usr/lib/libz.1.dylib" "$BIN_DIR/libpng16.16.dylib" 2>/dev/null || true
++    fi
+     resign_plain "$BIN_DIR/libpng16.16.dylib" "bin/libpng16.16.dylib"
+     echo "  Staged bin/libpng16.16.dylib: $(du -h "$BIN_DIR/libpng16.16.dylib" | cut -f1)"
+ else
+@@ -180,12 +184,20 @@ if [ -f "$SHIM" ]; then
+     # tree it names a directory that does not exist and is skipped.
+     # Gate: debug/elfexec_shimload_gate.sh.
+     add_rpath_if_missing "$SHIM" "@loader_path/../Resources"
+-    [ -f "$BIN_DIR/libcapstone.5.dylib" ] && install_name_tool -change \
+-        "$CAPSTONE_SRC" "@rpath/libcapstone.5.dylib" "$SHIM"
+-    [ -f "$BIN_DIR/libpng16.16.dylib" ] && install_name_tool -change \
+-        "$LIBPNG_SRC" "@rpath/libpng16.16.dylib" "$SHIM"
++    OLD_CAP="$(otool -L "$SHIM" | awk '/libcapstone/{print $1; exit}')"
++    OLD_PNG="$(otool -L "$SHIM" | awk '/libpng16/{print $1; exit}')"
++    OLD_SHIM_Z="$(otool -L "$SHIM" | awk '/libz\..*\.dylib|libz\.dylib/{print $1; exit}')"
++    [ -f "$BIN_DIR/libcapstone.5.dylib" ] && [ -n "$OLD_CAP" ] && install_name_tool -change \
++        "$OLD_CAP" "@rpath/libcapstone.5.dylib" "$SHIM"
++    [ -f "$BIN_DIR/libpng16.16.dylib" ] && [ -n "$OLD_PNG" ] && install_name_tool -change \
++        "$OLD_PNG" "@rpath/libpng16.16.dylib" "$SHIM"
++    if [ -n "$OLD_SHIM_Z" ] && [ "$OLD_SHIM_Z" != "/usr/lib/libz.1.dylib" ]; then
++        install_name_tool -change "$OLD_SHIM_Z" "/usr/lib/libz.1.dylib" "$SHIM" 2>/dev/null || true
++    fi
+     delete_rpath_if_present "$SHIM" "/opt/homebrew/opt/capstone/lib"
+     delete_rpath_if_present "$SHIM" "/opt/homebrew/opt/libpng/lib"
++    [ -n "${CAPSTONE_ROOT:-}" ] && delete_rpath_if_present "$SHIM" "$CAPSTONE_ROOT/lib"
++    [ -n "${LIBPNG_ROOT:-}" ] && delete_rpath_if_present "$SHIM" "$LIBPNG_ROOT/lib"
+     resign_plain "$SHIM" "bin/libmacapk-bionic-shim.dylib"
+ fi
+ 
+@@ -194,9 +202,11 @@ XLAT="$BIN_DIR/macapk-translator"
+ if [ -f "$XLAT" ]; then
+     unsign_before_edit "$XLAT"
+     add_rpath_if_missing "$XLAT" "@loader_path"
+-    [ -f "$BIN_DIR/libcapstone.5.dylib" ] && install_name_tool -change \
+-        "$CAPSTONE_SRC" "@rpath/libcapstone.5.dylib" "$XLAT"
++    OLD_CAP="$(otool -L "$XLAT" | awk '/libcapstone/{print $1; exit}')"
++    [ -f "$BIN_DIR/libcapstone.5.dylib" ] && [ -n "$OLD_CAP" ] && install_name_tool -change \
++        "$OLD_CAP" "@rpath/libcapstone.5.dylib" "$XLAT"
+     delete_rpath_if_present "$XLAT" "/opt/homebrew/opt/capstone/lib"
++    [ -n "${CAPSTONE_ROOT:-}" ] && delete_rpath_if_present "$XLAT" "$CAPSTONE_ROOT/lib"
+     resign_plain "$XLAT" "bin/macapk-translator"
+ fi
+ 
+@@ -204,16 +214,7 @@ fi
+ # Resources/jre/. ----------------------------------------------------------
+ RUNTIME_BIN="$RES_DIR/macapk-runtime"
+ if [ -f "$RUNTIME_BIN" ] && [ -f "$JRE_DIR/lib/server/libjvm.dylib" ]; then
+-    # Drop the ad-hoc signature FIRST, same idiom as the libcapstone/libpng
+-    # blocks above. Every install_name_tool edit below otherwise prints
+-    # "changes being made to the file will invalidate the code signature",
+-    # four times, on a binary we unconditionally re-sign ~10 lines later --
+-    # so the warnings were noise about something already handled, and noise
+-    # that trains you to skim past a real signing failure. Removing the
+-    # signature we are about to replace makes them go away at the source
+-    # rather than filtering the text and hoping the re-sign still happens.
+-    codesign --remove-signature "$RUNTIME_BIN" 2>/dev/null || true
+-
++    chmod u+w "$RUNTIME_BIN"
+     add_rpath_if_missing "$RUNTIME_BIN" "@executable_path/jre/lib/server"
+     add_rpath_if_missing "$RUNTIME_BIN" "@executable_path/jre/lib"
+     # The libjvm/libjli the runtime was LINKED against, read from the binary instead of
+@@ -252,6 +257,12 @@ EOF_RPATHS
+     fi
+ 
++    OLD_SQLITE="$(otool -L "$RUNTIME_BIN" | awk '/libsqlite3/{print $1; exit}')"
++    if [ -n "$OLD_SQLITE" ] && [ "$OLD_SQLITE" != "/usr/lib/libsqlite3.dylib" ]; then
++        install_name_tool -change "$OLD_SQLITE" "/usr/lib/libsqlite3.dylib" "$RUNTIME_BIN" 2>/dev/null || true
++    fi
++
+     if [ -f "$ENTITLEMENTS" ]; then
++        vtool -set-build-version macos 12.0 12.0 -replace -output "$RUNTIME_BIN" "$RUNTIME_BIN"
+         codesign --force --options runtime --sign - \
+             --entitlements "$ENTITLEMENTS" "$RUNTIME_BIN"
+         # Now that the warnings are gone, ASSERT what they were warning about.
+diff --git a/scripts/stage_angle_vulkan.sh b/scripts/stage_angle_vulkan.sh
+index b69fd9e..45839ff 100755
+--- a/scripts/stage_angle_vulkan.sh
++++ b/scripts/stage_angle_vulkan.sh
+@@ -41,18 +41,14 @@ for f in libvulkan.dylib libMoltenVK.dylib MoltenVK_icd.json; do
+     fi
+ done
+ 
+-# Strip any inherited code signature BEFORE rewriting install names. MoltenVK
+-# ships signed and is a fat binary, so install_name_tool would otherwise warn
+-# "changes ... will invalidate the code signature" once per architecture per
+-# invocation. Stripping first makes the rewrite clean; we re-sign ad-hoc at the
+-# end of this script, so the staged dylibs still end up validly signed.
+-for f in libvulkan.dylib libMoltenVK.dylib; do
+-    [ -f "$DEST/$f" ] && codesign --remove-signature "$DEST/$f" 2>/dev/null || true
+-done
+-
+-# Give the staged dylibs @rpath ids.
+-[ -f "$DEST/libvulkan.dylib" ]   && install_name_tool -id "@rpath/libvulkan.dylib"   "$DEST/libvulkan.dylib"
+-[ -f "$DEST/libMoltenVK.dylib" ] && install_name_tool -id "@rpath/libMoltenVK.dylib" "$DEST/libMoltenVK.dylib"
++# Give the staged dylibs @rpath ids. Note: do NOT run codesign --remove-signature
++# before install_name_tool on modern Xcode (16/26+): stripping the signature
++# shrinks the file without updating __LINKEDIT.vmsize/filesize, causing
++# install_name_tool to abort with "link edit information does not fill the
++# __LINKEDIT segment". Instead, run install_name_tool directly and re-sign
++# with codesign --force at the end.
++[ -f "$DEST/libvulkan.dylib" ]   && install_name_tool -id "@rpath/libvulkan.dylib"   "$DEST/libvulkan.dylib" 2>/dev/null
++[ -f "$DEST/libMoltenVK.dylib" ] && install_name_tool -id "@rpath/libMoltenVK.dylib" "$DEST/libMoltenVK.dylib" 2>/dev/null
+ 
+ # Rewrite every ANGLE-internal dependent reference (libGLESv2/libEGL/libvulkan/
+ # libMoltenVK, in any name form) to @rpath in each staged dylib that might link
+diff --git a/scripts/stage_jre.sh b/scripts/stage_jre.sh
+index 3a71898..1f15ad0 100755
+--- a/scripts/stage_jre.sh
++++ b/scripts/stage_jre.sh
+@@ -221,6 +221,13 @@ JDESKTOP_NATIVE_CLOSURE="
+ /opt/homebrew/opt/brotli/lib/libbrotlicommon.1.dylib
+ "
+ 
++# Check if the jlinked JRE's java.desktop libs actually link any external /opt/homebrew
++# dylibs (Homebrew's openjdk does; self-contained JDKs like Zulu / Nixpkgs openjdk21 do not).
++if ! otool -L "$JRE_LIB/libsplashscreen.dylib" "$JRE_LIB/libfontmanager.dylib" "$JRE_LIB/libjavajpeg.dylib" "$JRE_LIB/liblcms.dylib" 2>/dev/null | grep -q "/opt/homebrew/"; then
++    echo "  java.desktop native libs have no /opt/homebrew dependencies (self-contained JDK); skipping Homebrew closure copy."
++    exit 0
++fi
++
+ # Pass 1: copy each closure member into jre/lib/, give it an @rpath id, and
+ # make sure it can find its OWN siblings via @loader_path.
+ missing_any=0
+@@ -233,10 +240,10 @@ while IFS= read -r src; do
+     fi
+     name="$(basename "$src")"
+     cp -f "$src" "$JRE_LIB/$name"
+-    codesign --remove-signature "$JRE_LIB/$name" 2>/dev/null || true
+-    install_name_tool -id "@rpath/$name" "$JRE_LIB/$name"
++    chmod u+w "$JRE_LIB/$name"
++    install_name_tool -id "@rpath/$name" "$JRE_LIB/$name" 2>/dev/null
+     if ! otool -l "$JRE_LIB/$name" | grep -A2 LC_RPATH | grep -q "@loader_path"; then
+-        install_name_tool -add_rpath "@loader_path/." "$JRE_LIB/$name"
++        install_name_tool -add_rpath "@loader_path/." "$JRE_LIB/$name" 2>/dev/null
+     fi
+ done <<EOF
+ $JDESKTOP_NATIVE_CLOSURE
