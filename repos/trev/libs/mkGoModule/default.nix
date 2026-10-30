@@ -6,6 +6,9 @@
 # with the source or version. Go's build cache is content-addressed, entries are
 # only reused when the compiler, flags and sources match.
 #
+# With `modules` (a gomod2nix.toml), `goModules` is built from its modules
+# instead, so `vendorHash` isn't needed and is ignored. See ./vendor.nix.
+#
 # With `vendorHash = null` (no dependencies, or a vendor directory in the
 # source) there's nothing to build separately, so `goCache` is null and this is
 # a plain buildGoModule.
@@ -15,12 +18,15 @@
 # renamed to match.
 {
   buildGoModule,
+  callPackage,
   lib,
   stdenv,
   zstd,
 }:
 
 let
+  importGoModules = callPackage ./vendor.nix { };
+
   # attributes that are specific to the real source or output. Unlike
   # mkRustPackage, go.mod is generated from vendor/modules.txt, so the source
   # isn't needed at all.
@@ -30,6 +36,7 @@ let
     "sourceRoot"
     "goCache"
     "goCacheArgs"
+    "modules"
     "overrideModAttrs"
     "modPostBuild"
     "modConfigurePhase"
@@ -80,6 +87,22 @@ let
   stripHash =
     name:
     if builtins.match "[0-9a-z]{32}-.*" name != null then builtins.substring 33 (-1) name else name;
+
+  # path of a directory relative to the unpacked source, inside `src`
+  srcPath =
+    {
+      src,
+      sourceRoot ? null,
+      ...
+    }:
+    dir:
+    lib.concatStringsSep "/" (
+      [ "${src}" ]
+      ++ lib.filter (part: part != "" && part != ".") (
+        lib.optionals (sourceRoot != null) (lib.drop 1 (lib.splitString "/" sourceRoot))
+        ++ lib.splitString "/" dir
+      )
+    );
 in
 
 lib.extendMkDerivation {
@@ -93,7 +116,9 @@ lib.extendMkDerivation {
     finalAttrs:
     {
       src,
-      vendorHash,
+      vendorHash ? throw "mkGoModule: either vendorHash or modules is required",
+      # path to a gomod2nix.toml, to fetch the dependencies without vendorHash
+      modules ? null,
       sourceRoot ? null,
       modRoot ? "./",
       nativeBuildInputs ? [ ],
@@ -120,7 +145,7 @@ lib.extendMkDerivation {
           stripHash (baseNameOf (builtins.unsafeDiscardStringContext "${src}"));
 
       goCache =
-        if vendorHash == null then
+        if modules == null && vendorHash == null then
           null
         else
           (buildGoModule (
@@ -164,10 +189,13 @@ lib.extendMkDerivation {
                 flags=(''${tags:+-tags=$(concatStringsSep "," tags)} -p "$NIX_BUILD_CORES")
 
                 # vendor/modules.txt lists every vendored package, including ones
-                # excluded by build constraints
+                # excluded by build constraints. With gomod2nix.toml it lists every
+                # package of the modules, which may import modules that aren't
+                # vendored, go doesn't build anything when one of them is passed.
+                # gomod2nix.toml generated with --with-deps lists the imported ones.
                 mapfile -t packages < <(
-                  go list -e "''${flags[@]}" -f '{{if not .Error}}{{.ImportPath}}{{end}}' \
-                    $(grep -v '^#' vendor/modules.txt)
+                  go list -e "''${flags[@]}" -f '{{if not (or .Error .DepsErrors)}}{{.ImportPath}}{{end}}' \
+                    ''${cachePackages:-$(grep -v '^#' vendor/modules.txt)}
                 )
                 echo "Building ''${#packages[@]} dependency packages"
 
@@ -184,6 +212,8 @@ lib.extendMkDerivation {
 
                 runHook postBuild
               '';
+
+              cachePackages = lib.optionals (modules != null) (lib.importTOML modules).cachePackages or [ ];
 
               buildTestDeps = finalAttrs.doCheck;
               doCheck = false;
@@ -212,7 +242,7 @@ lib.extendMkDerivation {
             (
               {
                 # use the main derivation's vendor directory, so its source isn't needed
-                inherit (finalAttrs) goModules;
+                inherit (finalAttrs) goModules vendorHash;
 
                 # the cache can contain store paths, e.g. of go when built without -trimpath
                 disallowedReferences = [ ];
@@ -222,6 +252,10 @@ lib.extendMkDerivation {
     in
     {
       goCache = args.goCache or goCache;
+
+      # buildGoModule only copies `goModules` with a vendorHash, the derivation it
+      # would use is replaced (see transformDrv)
+      vendorHash = if modules != null then "" else vendorHash;
 
       # without the version, which would change the output path of the dependency
       # derivation on every version bump
@@ -268,4 +302,22 @@ lib.extendMkDerivation {
       }
       // args.passthru or { };
     };
+
+  # buildGoModule always defines `goModules`, so it's replaced afterwards
+  transformDrv =
+    drv:
+    drv.overrideAttrs (
+      finalAttrs: previousAttrs: {
+        goModules =
+          if finalAttrs.modules or null != null then
+            importGoModules {
+              pname = finalAttrs.pname or (lib.getName finalAttrs.name);
+              inherit (finalAttrs) modules;
+              inherit (finalAttrs.passthru) go;
+              modDir = srcPath finalAttrs finalAttrs.modRoot;
+            }
+          else
+            previousAttrs.goModules;
+      }
+    );
 }

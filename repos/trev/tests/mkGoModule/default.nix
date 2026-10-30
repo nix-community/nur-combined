@@ -18,49 +18,57 @@ let
     substituteInPlace $out/main.go --replace-fail '"fmt"' '"fmt" // bumped'
   '';
 
-  mkFixture =
+  fixtureArgs = {
+    pname = "fixture";
+    version = "1.0.0";
+    inherit src;
+    vendorHash = "sha256-QMeGa7qA7zvyX7ZB7cgl0BGIyDuEU19vqFlewKubAz0=";
+    # dep/ is a separate module, replaced in go.mod
+    subPackages = [ "." ];
+
+    # logs the commands go runs, to check which packages are compiled
+    preBuild = ''
+      export GOFLAGS="$GOFLAGS -x"
+      goLog="$NIX_BUILD_TOP/build.log"
+      go() {
+        local status=0
+        command go "$@" 2> "$NIX_BUILD_TOP/go.stderr" || status=$?
+        tee -a "$goLog" < "$NIX_BUILD_TOP/go.stderr" >&2
+        return "$status"
+      }
+    '';
+
+    preCheck = ''
+      goLog="$NIX_BUILD_TOP/check.log"
+    '';
+
+    preInstall = ''
+      grep --quiet -- ' -p main ' "$NIX_BUILD_TOP/build.log"
+      if grep -E -- ' -p (example\.com/dep|github\.com/google/uuid) ' "$NIX_BUILD_TOP/build.log"; then
+        echo "the dependencies were rebuilt" >&2
+        exit 1
+      fi
+
+      grep --quiet -- ' -p main ' "$NIX_BUILD_TOP/check.log"
+      # cache entries for tests depend on the build directory
+      if [ "$(cat "$goCache/dir")" = "$PWD" ]; then
+        if grep -E -- ' -p (example\.com/dep|github\.com/google/uuid|testing) ' "$NIX_BUILD_TOP/check.log"; then
+          echo "the dependencies of tests were rebuilt" >&2
+          exit 1
+        fi
+      fi
+    '';
+  };
+
+  mkFixture = args: testPkgs.mkGoModule (fixtureArgs // args);
+
+  # the dependencies are fetched from gomod2nix.toml, without vendorHash
+  mkModulesFixture =
     args:
     testPkgs.mkGoModule (
-      {
-        pname = "fixture";
-        version = "1.0.0";
-        inherit src;
-        vendorHash = "sha256-BaQE3EMAEWUx46qS48fPY55MxEQILqB39maYRuKh3GM=";
-        # dep/ is a separate module, replaced in go.mod
-        subPackages = [ "." ];
-
-        # logs the commands go runs, to check which packages are compiled
-        preBuild = ''
-          export GOFLAGS="$GOFLAGS -x"
-          goLog="$NIX_BUILD_TOP/build.log"
-          go() {
-            local status=0
-            command go "$@" 2> "$NIX_BUILD_TOP/go.stderr" || status=$?
-            tee -a "$goLog" < "$NIX_BUILD_TOP/go.stderr" >&2
-            return "$status"
-          }
-        '';
-
-        preCheck = ''
-          goLog="$NIX_BUILD_TOP/check.log"
-        '';
-
-        preInstall = ''
-          grep --quiet -- ' -p main ' "$NIX_BUILD_TOP/build.log"
-          if grep -- ' -p example.com/dep ' "$NIX_BUILD_TOP/build.log"; then
-            echo "the dependency was rebuilt" >&2
-            exit 1
-          fi
-
-          grep --quiet -- ' -p main ' "$NIX_BUILD_TOP/check.log"
-          # cache entries for tests depend on the build directory
-          if [ "$(cat "$goCache/dir")" = "$PWD" ]; then
-            if grep -E -- ' -p (example\.com/dep|testing) ' "$NIX_BUILD_TOP/check.log"; then
-              echo "the dependencies of tests were rebuilt" >&2
-              exit 1
-            fi
-          fi
-        '';
+      removeAttrs fixtureArgs [ "vendorHash" ]
+      // {
+        modules = ./fixture/gomod2nix.toml;
       }
       // args
     );
@@ -90,8 +98,21 @@ let
     pname = "fixture";
     version = "1.0.0";
     inherit src;
-    vendorHash = "sha256-BaQE3EMAEWUx46qS48fPY55MxEQILqB39maYRuKh3GM=";
+    vendorHash = "sha256-QMeGa7qA7zvyX7ZB7cgl0BGIyDuEU19vqFlewKubAz0=";
     meta.platforms = testPkgs.lib.platforms.all;
+  };
+
+  modules = mkModulesFixture { };
+
+  modulesBumped = mkModulesFixture {
+    version = "1.1.0";
+    src = bumpedSrc;
+  };
+
+  withoutHash = testPkgs.mkGoModule {
+    pname = "fixture";
+    version = "1.0.0";
+    inherit src;
   };
 
   # without dependencies there's no vendor directory to build a cache from
@@ -116,6 +137,10 @@ assert !(builtins.tryEval proxyVendor.drvPath).success;
 assert (builtins.tryEval windows.goCache.drvPath).success;
 assert nodeps.goCache == null;
 assert nodeps.passthru.goCache == null;
+assert modules.goModules.outPath == modulesBumped.goModules.outPath;
+assert modules.goCache.outPath == modulesBumped.goCache.outPath;
+assert modules.outPath != modulesBumped.outPath;
+assert !(builtins.tryEval withoutHash.drvPath).success;
 {
   mkGoModule-build = testPkgs.runCommand "mkGoModule-build" { } ''
     test "$(${fixture}/bin/fixture)" = "hello from dep"
@@ -123,6 +148,10 @@ assert nodeps.passthru.goCache == null;
     test "$(${renamed}/bin/renamed)" = "hello from dep"
     test ! -e ${renamed}/bin/fixture
     test "$(${nodeps}/bin/nodeps)" = "hello without deps"
+    test "$(${modules}/bin/fixture)" = "hello from dep"
+    test "$(${modulesBumped}/bin/fixture)" = "hello from dep"
+    # the same as `go mod vendor`
+    diff ${fixture.goModules}/modules.txt ${modules.goModules}/modules.txt
     touch $out
   '';
 }
