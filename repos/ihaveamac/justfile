@@ -21,10 +21,14 @@ update:
 	nix-update --version=branch noods
 	nix-update --version=branch discordwikibot
 	nix-update --version=branch evi --override-filename pkgs/evi/common.nix
+	nix-update opentmux
 	nix-update gmodpatchtool
 	nix-update vacuumtube
 	nix-update retro-aim-server
 	nix-update wheelwizard
+	nix-update thextech
+	nix-update --version=skip thextech-smbx
+	nix-update --version=skip thextech-aod
 	python3 update-mediawiki.py
 
 	nix-shell build-readme.nix

@@ -61,6 +61,7 @@ stdenv.mkDerivation rec {
     ./wfslib-use-pkg-config-for-cryptopp.patch
     ./remove-fuse-check.patch
     ./wfslib-include-limits.patch
+    ./wfslib-include-cstdint.patch
   ]
   ++ lib.optional (!withFUSE) ./remove-wfs-fuse.patch;
 

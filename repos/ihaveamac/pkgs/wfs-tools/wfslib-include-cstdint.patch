@@ -1,0 +1,13 @@
+Submodule wfslib contains modified content
+diff --git a/wfslib/src/block.h b/wfslib/src/block.h
+index ab2ac34..bb2b414 100644
+--- a/wfslib/src/block.h
++++ b/wfslib/src/block.h
+@@ -11,6 +11,7 @@
+ #include <memory>
+ #include <span>
+ #include <vector>
++#include <cstdint>
+ 
+ #include "errors.h"
+ 

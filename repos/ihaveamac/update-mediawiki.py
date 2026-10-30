@@ -23,12 +23,9 @@ mediawiki_releases: dict[str, str] = {}
 for release in mediawiki_releases_raw["result"]["releases"]:
     mediawiki_releases[release["name"]] = release["latest"]["name"]
 
-print(mediawiki_releases)
-
 for branch, version in mediawiki_releases.items():
-    print(branch, version)
     nix_attr = "mediawiki_{}_{}".format(*branch.split('.'))
-    print(nix_attr)
     if nix_attr in attr_names:
+        print('Updating', nix_attr, '->', version)
         run(["nix-update", "--override-filename=default.nix", "--version=" + version, nix_attr])
         run(["nix-update", "--override-filename=default.nix", "--version=skip", nix_attr + "_core"])

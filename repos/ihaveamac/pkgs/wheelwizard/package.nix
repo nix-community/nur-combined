@@ -8,13 +8,13 @@
 
 buildDotnetModule rec {
   pname = "wheelwizard";
-  version = "2.6.2";
+  version = "2.6.4";
 
   src = fetchFromGitHub {
     owner = "TeamWheelWizard";
     repo = "WheelWizard";
     tag = "v${version}";
-    hash = "sha256-zFIboYTsK/dLf7zOL8mqOMWgQiuf5dwTZVtX/TYfcnM=";
+    hash = "sha256-4jd+SJ4WL//Gqlg+HJOlrMaf/grsG9I5CjI40GxJ8Hw=";
   };
 
   projectFile = "WheelWizard/WheelWizard.csproj";

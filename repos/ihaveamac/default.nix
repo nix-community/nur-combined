@@ -89,6 +89,7 @@ rec {
   chlink = callPackage ./pkgs/chlink/package.nix { };
   winscp = callPackage ./pkgs/winscp/package.nix { };
   notepad-plus-plus = callPackage ./pkgs/notepad-plus-plus/package.nix { };
+  opentmux = callPackage ./pkgs/opentmux/package.nix { };
 
   eviUtils = callPackage ./pkgs/evi/plugins/utils/vim-utils.nix { };
   evi = eviUtils.makeCustomizable ( callPackage ./pkgs/evi {} );
@@ -157,6 +158,7 @@ rec {
     { }
   else
     rec {
+      dymo-bluetooth = python3Packages.callPackage ./pkgs/dymo-bluetooth/package.nix { };
       wlmaker = callPackage ./pkgs/wlmaker/package.nix { };
       aeroshell-libplasma = qt6.callPackage ./pkgs/aeroshell-libplasma/package.nix { };
       aeroshell-kwin-components = qt6.callPackage ./pkgs/aeroshell-kwin-components/package.nix {
