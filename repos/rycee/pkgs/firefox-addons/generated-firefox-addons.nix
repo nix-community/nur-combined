@@ -373,10 +373,10 @@
     };
     "angular-devtools" = buildMozillaXpiAddon {
       pname = "angular-devtools";
-      version = "1.20.0";
+      version = "1.22.1";
       addonId = "{20a9bb38-ed7c-4faf-9aaf-7c5d241fd747}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4969230/angular_devtools-1.20.0.xpi";
-      sha256 = "d0d9a52525de8288ceb0700c271b27d81a601c76e3b580a1c886286464c7e021";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5176864/angular_devtools-1.22.1.xpi";
+      sha256 = "e2107acf5ef7bf1a233d2f65d6ce9283950068c43e00232faa6a69a82482a80e";
       meta = with lib;
       {
         homepage = "https://angular.dev/tools/devtools/";
@@ -1338,10 +1338,10 @@
     };
     "bitwarden" = buildMozillaXpiAddon {
       pname = "bitwarden";
-      version = "2026.10.0";
+      version = "2026.10.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5125667/bitwarden_password_manager-2026.10.0.xpi";
-      sha256 = "a25e02e961f4ffcecda12584f32f1993102ad7509e9ca84582e5287109f5bd20";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5182191/bitwarden_password_manager-2026.10.1.xpi";
+      sha256 = "25cd5e074628058474ca7578269c75e3e136569e6a821a0da07d56ed761e11fa";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -8794,10 +8794,10 @@
     };
     "metager-suche" = buildMozillaXpiAddon {
       pname = "metager-suche";
-      version = "1.29";
+      version = "1.31";
       addonId = "firefoxextension@metager.de";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5006299/metager_suche-1.29.xpi";
-      sha256 = "cb358c698ca68ae53f36394ce7a0b7d7c2aeadabdf65f0e00cbc4534009fa335";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5182550/metager_suche-1.31.xpi";
+      sha256 = "5dfaa082e51da627d2583c3ed855286d20b9fde9b55f343d7be14161189af682";
       meta = with lib;
       {
         homepage = "https://metager.org/kontakt";
@@ -8809,6 +8809,7 @@
           "webRequest"
           "declarativeNetRequestWithHostAccess"
           "alarms"
+          "scripting"
           "https://metager.org/*"
           "https://metager.de/*"
           "https://metager.de/meta/settings"
@@ -9688,16 +9689,17 @@
     };
     "old-reddit-redirect" = buildMozillaXpiAddon {
       pname = "old-reddit-redirect";
-      version = "3.0.3";
+      version = "4.0.0";
       addonId = "{9063c2e9-e07c-4c2c-9646-cfe7ca8d0498}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4989791/old_reddit_redirect-3.0.3.xpi";
-      sha256 = "0419a6e97a7644f34478529e67fd3d9c138fe64ab7d7e84442c6c5f962ae5f76";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5175184/old_reddit_redirect-4.0.0.xpi";
+      sha256 = "17ab83dc24aa19628199233de2aed2e0960702bdd5dd34fb2fd1f7f2cd7bb100";
       meta = with lib;
       {
         homepage = "https://github.com/tom-james-watson/old-reddit-redirect";
         description = "Ensure Reddit always loads the old design";
         license = licenses.mit;
         mozPermissions = [
+          "storage"
           "cookies"
           "declarativeNetRequestWithHostAccess"
           "*://*.reddit.com/*"
@@ -10376,10 +10378,10 @@
     };
     "print-friendly-pdf" = buildMozillaXpiAddon {
       pname = "print-friendly-pdf";
-      version = "7.3.6";
+      version = "7.4.0";
       addonId = "jid0-YQz0l1jthOIz179ehuitYAOdBEs@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5159101/print_friendly_pdf-7.3.6.xpi";
-      sha256 = "befd1f34a30fde8e372fd6a87cc8aeb1345a073425c746f04359057c759e784f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5180781/print_friendly_pdf-7.4.0.xpi";
+      sha256 = "809049b0236b11f611875c2da57223fae9348240e1fff40b94c34ddff3547a6c";
       meta = with lib;
       {
         homepage = "https://www.printfriendly.com/";
@@ -10424,7 +10426,7 @@
       meta = with lib;
       {
         homepage = "https://privacybadger.org/";
-        description = "Automatically learns to block hidden trackers. Made by the leading digital rights nonprofit EFF to stop companies from spying on you.";
+        description = "You need more than an ad blocker. Stop companies from spying on you with an extension developed by member-supported digital rights nonprofit EFF.";
         license = licenses.gpl3;
         mozPermissions = [
           "<all_urls>"
@@ -11395,10 +11397,10 @@
     };
     "react-devtools" = buildMozillaXpiAddon {
       pname = "react-devtools";
-      version = "6.1.1";
+      version = "8.0.0";
       addonId = "@react-devtools";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4432990/react_devtools-6.1.1.xpi";
-      sha256 = "b2d69e220402bd6b8bc7d833948915b1d6dcabb453a1d50872a3db860fd92c46";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5018049/react_devtools-8.0.0.xpi";
+      sha256 = "ad429f0b0db914a0505591f70160005d7c3e1a7865128c3bfa46392d28be34be";
       meta = with lib;
       {
         homepage = "https://github.com/facebook/react";
@@ -13114,10 +13116,10 @@
     };
     "statshunters" = buildMozillaXpiAddon {
       pname = "statshunters";
-      version = "3.4.1";
+      version = "3.4.2";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5082539/statshunters-3.4.1.xpi";
-      sha256 = "462a5ddd88f4d7d64ce1835d639c2c3d9599914a46b706215e874c21985edff2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5182947/statshunters-3.4.2.xpi";
+      sha256 = "4863fc0a9a0de0ec8a24c4d9eae9508f5e1d0ebe3168aa19f8f61dcce3ef136a";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -13174,6 +13176,8 @@
           "https://web.trailmap.fi/*"
           "https://trailmap.guide/*"
           "https://web.trailmap.guide/*"
+          "https://judise.nl/*"
+          "https://www.judise.nl/*"
         ];
         platforms = platforms.all;
       };
@@ -13253,10 +13257,10 @@
     };
     "stylebot-web" = buildMozillaXpiAddon {
       pname = "stylebot-web";
-      version = "4.0.5";
+      version = "4.1.0";
       addonId = "{52bda3fd-dc48-4b3d-a7b9-58af57879f1e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5133372/stylebot_web-4.0.5.xpi";
-      sha256 = "b70759d661f11128dcbe8a78b82d5b13dea464c50bde9125a2ea2b5c4b74d96a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5183869/stylebot_web-4.1.0.xpi";
+      sha256 = "f9574fde5c6230b54c6169bf13da642ce721127baebe9c6cc77ec55b084a3fc3";
       meta = with lib;
       {
         homepage = "https://stylebot.dev/";
@@ -13272,6 +13276,7 @@
           "identity"
           "<all_urls>"
           "https://stylebot.dev/*"
+          "https://gallery.stylebot.dev/*"
         ];
         platforms = platforms.all;
       };
@@ -15699,10 +15704,10 @@
     };
     "wakatimes" = buildMozillaXpiAddon {
       pname = "wakatimes";
-      version = "4.1.0";
+      version = "4.2.0";
       addonId = "addons@wakatime.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4491651/wakatimes-4.1.0.xpi";
-      sha256 = "8bcbe94e36612a1cd2cfcce25e941aa20f4ea75382f8663474d1efc9f75a18e9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5183280/wakatimes-4.2.0.xpi";
+      sha256 = "50df7c3567aa0479b996721916ba0f7c1fad765d755a8b37606fcdbb207629d0";
       meta = with lib;
       {
         homepage = "https://wakatime.com";
