@@ -1,16 +1,16 @@
 # Scripts
 
-## `index.js`
+Where we put custom scripts needed to help maintain this NUR repo.
 
-Updates a package's `version.json` from its upstream source.
+## Updater
+
+Updates a package's `version.json` from upstream.
 
 ```sh
 bun scripts/index.js pkgs/<name>/version.json
 ```
 
-Options: `-f`/`--force` (update even if locked or current), `-h`/`--help`.
-
-Example `version.json`:
+`-f` / `--force` ignores the current version and `locked`.
 
 ```json
 {
@@ -25,13 +25,13 @@ Example `version.json`:
 }
 ```
 
-`source.type`: `github-repo`, `github-release`, `forgejo-release`, `gitlab-release`, `api`, `redirect`.
+`source.type` is one of `github-repo`, `github-release`, `forgejo-release`, `gitlab-release`, `api`, `redirect`.
 
-Hashes under `platforms` or `variants` are updated separately.
+Platforms and variants get their own hashes. Variants share the top-level `version`; platforms share it unless an entry defines its own.
 
-Set `"locked": true` to skip a package or `"force": true` to always update it.
+Set `locked: true` to skip a package or `force: true` to always update it.
 
-## `readme.js`
+## README updater
 
 Regenerates the package table in `README.md`.
 
