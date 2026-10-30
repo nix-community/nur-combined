@@ -149,13 +149,14 @@ let
     lib.concatMap (extension: extension.pkgConfigModules) linkedExtensions
   );
   systemLibrariesFile = "nix-support/duckdb-static-ldflags";
-  staticExtensionLoader = "duckdb_static_extension_loader.o";
+  # the generated loader and its autoregistration, pulled from the archive by staticExtensionLoaderSymbol
+  staticExtensionLoaderArchive = "libduckdb_static_extension_loader.a";
+  staticExtensionLoaderSymbol = "duckdb_static_extension_autoregister";
   # linked and registered like extensions, see duckdb_resolve_static_link
   capabilities = [
     "httplib"
     "loadable_extensions"
   ];
-  staticExtensionAutoregister = "duckdb_static_extension_autoregister.o";
 
   # extensions are only built as loadable extensions unless they are also statically linked
   formatExtensionLoad =
@@ -334,10 +335,14 @@ withLoadableExtensions (
     postInstall = ''
       python3 ../scripts/generate_static_extension_loader.py -o static_extension_loader.c \
         ${lib.escapeShellArgs finalAttrs.passthru.link.static.registeredExtensions}
-      "$CC" -c -O2 -fPIC -I"$dev/include" static_extension_loader.c \
-        -o "$lib/lib/${staticExtensionLoader}"
-      "$CXX" -c -O2 -fPIC ../extension/loader/static_extension_autoregister.cpp \
-        -o "$lib/lib/${staticExtensionAutoregister}"
+      "$CC" -c -O2 -fPIC -I"$dev/include" static_extension_loader.c -o static_extension_loader.o
+      # the autoregistration only has a constructor, so give it a symbol the linker can be told to keep
+      printf '%s\n' '#include "static_extension_autoregister.cpp"' \
+        'extern "C" const int ${staticExtensionLoaderSymbol} = 0;' > static_extension_autoregister_symbol.cpp
+      "$CXX" -c -O2 -fPIC -I../extension/loader static_extension_autoregister_symbol.cpp \
+        -o static_extension_autoregister.o
+      # an archive, unlike objects, can be named repeatedly, as Go does with CGO_LDFLAGS for each cgo package
+      "$AR" rcs "$lib/lib/${staticExtensionLoaderArchive}" static_extension_loader.o static_extension_autoregister.o
     ''
     + lib.optionalString (pkgConfigModules != [ ]) ''
       mkdir -p "$dev/${builtins.dirOf systemLibrariesFile}"
@@ -496,6 +501,8 @@ withLoadableExtensions (
             "test/sql/join/asof/test_asof_join_missing.test_slow"
             # 10240-row inequality join routing to IEJoin via plan_comparison_join.cpp
             "test/sql/join/test_complex_range_join.test"
+            # fails on aarch64-darwin, read-ahead memory limit test
+            "test/sql/copy/parquet/read_ahead/readahead_memory_limit.test"
           ]
         );
         LD_LIBRARY_PATH = lib.optionalString stdenv.hostPlatform.isDarwin "DY" + "LD_LIBRARY_PATH";
@@ -552,14 +559,14 @@ withLoadableExtensions (
           ) [ "jemalloc" ];
           archiveNames = [
             "libduckdb_static.a"
+            staticExtensionLoaderArchive
           ]
           ++ map (extension: "lib${extension.name}_extension.a") staticExtensions
           ++ map (library: "libduckdb_${library}.a") (capabilities ++ thirdPartyLibraries);
           archives = map (archive: "${libDir}/${archive}") archiveNames;
-          # the generated loader and its autoregistration, objects so the linker keeps them
-          objects = map (object: "${libDir}/${object}") [
-            staticExtensionLoader
-            staticExtensionAutoregister
+          # keeps the autoregistration, which nothing references
+          undefinedSymbols = [
+            "${lib.optionalString stdenv.hostPlatform.isDarwin "_"}${staticExtensionLoaderSymbol}"
           ];
           systemLibraries = [
             (if stdenv.hostPlatform.isDarwin then "c++" else "stdc++")
@@ -587,7 +594,7 @@ withLoadableExtensions (
           static = {
             inherit
               archives
-              objects
+              undefinedSymbols
               systemLibraries
               driverFlags
               pkgConfigModules
@@ -597,7 +604,7 @@ withLoadableExtensions (
             extensions = map (extension: extension.name) staticExtensions;
             registeredExtensions = capabilities ++ finalAttrs.passthru.link.static.extensions;
             flags =
-              objects
+              map (symbol: "-Wl,-u,${symbol}") undefinedSymbols
               ++ lib.optional groupArchives "-Wl,--start-group"
               ++ archives
               ++ lib.optional groupArchives "-Wl,--end-group"

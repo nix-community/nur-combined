@@ -109,7 +109,9 @@ lib.listToAttrs (
         fi
       done
 
+      # repeated, as Go does with CGO_LDFLAGS for each cgo package
       $CC -I${duckdb.link.includeDir} ${./link-check.c} -o link-check \
+        ${lib.escapeShellArgs duckdb.link.static.flags} \
         ${lib.escapeShellArgs duckdb.link.static.flags}
       HOME="$(mktemp -d)" ./link-check ${lib.escapeShellArgs duckdb.link.static.extensions}
       touch $out
