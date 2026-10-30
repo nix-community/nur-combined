@@ -53,6 +53,7 @@ buildNpmPackage (finalAttrs: {
   postInstall = ''
     mv $out/lib/node_modules/pi-web-access $out/lib/${finalAttrs.pname}
     rm -rf $out/lib/node_modules
+    rm -f "$out/lib/${finalAttrs.pname}/node_modules/.package-lock.json"
     # Pi loads the prebuilt dist bundle; TypeScript sources and media are unused.
     rm $out/lib/${finalAttrs.pname}/{*.ts,banner.png,pi-web-fetch-demo.mp4,SECURITY.md}
     substituteInPlace $out/bin/pi-web-access-mcp \

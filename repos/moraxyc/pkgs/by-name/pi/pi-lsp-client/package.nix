@@ -31,6 +31,7 @@ buildNpmPackage (finalAttrs: {
   postInstall = ''
     mv $out/lib/node_modules/pi-lsp-client $out/lib/${finalAttrs.pname}
     rm -rf $out/lib/node_modules
+    rm -f "$out/lib/${finalAttrs.pname}/node_modules/.package-lock.json"
   '';
 
   meta = {
