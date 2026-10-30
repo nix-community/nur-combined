@@ -44,7 +44,6 @@
 , nspr
 , nss
 , pango
-, pcre
 , pipewire
 , pixman
 , pulseaudio
@@ -77,7 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
     fontconfig freetype glib keyutils libGL libdrm libgpg-error libice libkrb5 libselinux
     libsm libuuid libx11 libxcb libxcomposite libxcursor libxdamage libxext
     libxfixes libxi libxinerama libxkbcommon libxrandr libxrender libxscrnsaver
-    libxtst mesa nspr nss pango pcre pipewire pixman pulseaudio systemd util-linux
+    libxtst mesa nspr nss pango pipewire pixman pulseaudio systemd util-linux
     xcbutilimage xcbutilkeysyms xcbutilrenderutil xcbutilwm
   ];
 
@@ -98,6 +97,8 @@ stdenv.mkDerivation (finalAttrs: {
     # Keep the bundled libssl.so.1.1/libcrypto.so.1.1 — classin's libavformat.so
     # needs the OpenSSL 1.1 ABI, which nixpkgs no longer provides
     # (openssl_1_1 was removed upstream).
+    # On both architectures, only the removed libglib/libselinux need bundled
+    # PCRE1 (libpcre.so.3), so remove it too instead of depending on nixpkgs pcre.
     rm -f libpixman-1.so* libselinux.so* libcairo.so* libglib-2.0.so* \
           libgio-2.0.so* libgobject-2.0.so* libgmodule-2.0.so* \
           libgthread-2.0.so* libdbus-1.so* libfontconfig.so* \
