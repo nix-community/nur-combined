@@ -20,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "Equicord";
     repo = "Equicord";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-EClvWqCNUkQ9ajxZ2WLqjHcfVlpTHnAaLXKkGpFj/Lc=";
+    hash = "sha256-ijNxC/uR3Wy4JX/6qNnNGQwS5752+vK2T26N1bsLeG4=";
   };
 
   pnpmDeps = fetchPnpmDeps {
