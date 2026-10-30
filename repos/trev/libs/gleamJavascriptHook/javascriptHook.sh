@@ -38,13 +38,25 @@ gleamConfigHook() {
 gleamBuildHook() {
     echo "Executing gleamBuildHook"
 
+    if [ -n "${gleamRoot-}" ]; then
+      pushd "${gleamRoot}" || exit 1
+    fi
+
     gleam build --target javascript
+
+    if [ -n "${gleamRoot-}" ]; then
+      popd || exit 1
+    fi
 
     echo "Finished gleamBuildHook"
 }
 
 gleamInstallHook() {
     echo "Executing gleamInstallHook"
+
+    if [ -n "${gleamRoot-}" ]; then
+      pushd "${gleamRoot}" || exit 1
+    fi
 
     mkdir -p "${out}/bin" "${out}/lib"
     cp -a build/dev/javascript/. "${out}/lib"
@@ -62,6 +74,10 @@ EOF
 EOF
 
     chmod +x "${out}/bin/${name}"
+
+    if [ -n "${gleamRoot-}" ]; then
+      popd || exit 1
+    fi
 
     echo "Finished gleamInstallHook"
 }

@@ -18,8 +18,8 @@ in
   fetch-hash = pkgs.callPackage ./fetch-hash { };
   fix-hash = pkgs.callPackage ./fix-hash { };
   flake-release = pkgs.callPackage ./flake-release { };
-  gleescript = pkgs.callPackage ./gleescript { inherit (libs) gleamErlangHook gleamFetchDeps; };
-  go-over = pkgs.callPackage ./go-over { inherit (libs) gleamErlangHook gleamFetchDeps; };
+  gleescript = pkgs.callPackage ./gleescript { inherit (libs) mkGleamPackage; };
+  go-over = pkgs.callPackage ./go-over { inherit (libs) mkGleamPackage; };
   helium = pkgs.callPackage ./helium { };
   igsc = pkgs.callPackage ./igsc { };
   kotlin-lsp = pkgs.callPackage ./kotlin-lsp { };

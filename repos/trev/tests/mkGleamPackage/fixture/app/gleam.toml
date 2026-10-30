@@ -1,0 +1,7 @@
+name = "fixture"
+version = "1.0.0"
+
+[dependencies]
+dep = { path = "../dep" }
+gleam_stdlib = ">= 0.44.0 and < 2.0.0"
+justin = { git = "https://github.com/lpil/justin", ref = "v1.0.1" }

@@ -38,14 +38,26 @@ gleamConfigHook() {
 gleamBuildHook() {
     echo "Executing gleamBuildHook"
 
+    if [ -n "${gleamRoot-}" ]; then
+      pushd "${gleamRoot}" || exit 1
+    fi
+
     export REBAR_CACHE_DIR="${TMP}/.rebar-cache"
     gleam export erlang-shipment
+
+    if [ -n "${gleamRoot-}" ]; then
+      popd || exit 1
+    fi
 
     echo "Finished gleamBuildHook"
 }
 
 gleamInstallHook() {
     echo "Executing gleamInstallHook"
+
+    if [ -n "${gleamRoot-}" ]; then
+      pushd "${gleamRoot}" || exit 1
+    fi
 
     mkdir -p "${out}/bin" "${out}/lib"
     cp -a build/erlang-shipment/. "${out}/lib"
@@ -55,6 +67,10 @@ gleamInstallHook() {
     echo "@erl@ -pa ${out}/lib/*/ebin -eval \"${name}@@main:run(${name})\" -noshell -extra \"\$@\"" >> "${out}/bin/${name}"
 
     chmod +x "${out}/bin/${name}"
+
+    if [ -n "${gleamRoot-}" ]; then
+      popd || exit 1
+    fi
 
     echo "Finished gleamInstallHook"
 }

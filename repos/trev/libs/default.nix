@@ -15,6 +15,7 @@
   mkChecks = pkgs.callPackage ./mkChecks { };
   mkFlake = pkgs.callPackage ./mkFlake { };
   mkGleamBurrito = pkgs.callPackage ./mkGleamBurrito { };
+  mkGleamPackage = pkgs.callPackage ./mkGleamPackage { };
   mkGoModule = pkgs.callPackage ./mkGoModule { };
   mkImage = pkgs.callPackage ./mkImage { };
   mkRustPackage = pkgs.callPackage ./mkRustPackage { };

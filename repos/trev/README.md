@@ -610,6 +610,27 @@ pkgs.stdenv.mkDerivation (finalAttrs: {
 });
 ```
 
+### mkGleamPackage
+
+Builds a [gleam](https://gleam.run/) package with `gleamErlangHook` or `gleamJavascriptHook` (`gleamTarget`, `erlang` by default), fetching the dependencies from `manifest.toml`, so a hash isn't needed. The manifest is read from `src` (in `gleamRoot`) during evaluation, `manifest` can point to it elsewhere, e.g. to avoid import from derivation. Hex packages are fetched with their checksums, git packages with `builtins.fetchGit`. The dependency derivation is named without the version, and only changes with the manifest and the `gleam.toml` of local packages.
+
+`gleamDepsHash` fetches the dependencies with `gleamFetchDeps` instead, so nothing is read from `src` during evaluation, like `cargoHash` or `vendorHash`. Set it to `""` to get the hash from the mismatch, and pass `--custom-dep=gleamDeps` to nix-update (`--subpackage` looks for the hash in `mkGleamPackage`).
+
+```nix
+pkgs.mkGleamPackage (finalAttrs: {
+  pname = "gleam-pkg";
+  version = "1.0.0";
+  src = ./.;
+});
+
+pkgs.mkGleamPackage (finalAttrs: {
+  pname = "gleam-pkg";
+  version = "1.0.0";
+  src = fetchFromGitHub { ... };
+  gleamDepsHash = "sha256-...";
+});
+```
+
 ### gleamFetchDeps, gleamErlangHook & gleamJavascriptHook
 
 - Creates a fixed-output derivation for [gleam](https://gleam.run/) dependencies

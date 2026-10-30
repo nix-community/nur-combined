@@ -1,13 +1,11 @@
 {
   fetchFromGitHub,
-  gleamErlangHook,
-  gleamFetchDeps,
   lib,
+  mkGleamPackage,
   nix-update-script,
-  stdenv,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+mkGleamPackage (finalAttrs: {
   pname = "gleescript";
   version = "1.5.2";
 
@@ -18,18 +16,11 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-thKcoHYPM4/5oukpKIPIp8Q7HnhM6cvmBVWwWqmFnCg=";
   };
 
-  gleamDeps = gleamFetchDeps {
-    inherit (finalAttrs) pname version src;
-    hash = "sha256-syVA+0pueKjQHE3mR+QMbjfoZdWJttm0tJrSk/Ah6SU=";
-  };
-
-  nativeBuildInputs = [
-    gleamErlangHook
-  ];
+  gleamDepsHash = "sha256-syVA+0pueKjQHE3mR+QMbjfoZdWJttm0tJrSk/Ah6SU=";
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
-      "--subpackage=gleamDeps"
+      "--custom-dep=gleamDeps"
       "--commit"
       finalAttrs.pname
     ];

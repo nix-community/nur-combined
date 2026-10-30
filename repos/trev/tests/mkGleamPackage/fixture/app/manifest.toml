@@ -1,0 +1,28 @@
+# Do not manually edit this file, it is managed by Gleam.
+#
+# This file locks the dependency versions used, to make your build
+# deterministic and to prevent unexpected versions from being included
+# in your application.
+#
+# You should check this file into your source control repository.
+
+packages = [
+  { name = "dep", version = "1.0.0", build_tools = [
+    "gleam",
+  ], requirements = [
+  ], source = "local", path = "../dep" },
+  { name = "gleam_stdlib", version = "0.71.0", build_tools = [
+    "gleam",
+  ], requirements = [
+  ], otp_app = "gleam_stdlib", source = "hex", outer_checksum = "702F3BC2A14793906880B1078B19A6165F87323AEE8D0C4A34085846336FCAAE" },
+  { name = "justin", version = "1.0.1", build_tools = [
+    "gleam",
+  ], requirements = [
+    "gleam_stdlib",
+  ], source = "git", repo = "https://github.com/lpil/justin", commit = "4c5b3c61a1d0f79ab2f29c1f122aa80d5d171b6d" },
+]
+
+[requirements]
+dep = { path = "../dep" }
+gleam_stdlib = { version = ">= 0.44.0 and < 2.0.0" }
+justin = { git = "https://github.com/lpil/justin", ref = "v1.0.1" }

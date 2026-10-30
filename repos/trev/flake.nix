@@ -242,6 +242,7 @@
         // import ./tests/mkAppImage { inherit pkgs self; }
         // import ./tests/mkApps { inherit pkgs self; }
         // import ./tests/mkChecks { inherit pkgs self; }
+        // import ./tests/mkGleamPackage { inherit pkgs self; }
         // import ./tests/mkGoModule { inherit pkgs self; }
         // import ./tests/mkImage { inherit pkgs self; }
         // import ./tests/mkRustPackage { inherit pkgs self; }
