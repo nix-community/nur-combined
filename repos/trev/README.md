@@ -572,6 +572,8 @@ Dependencies of tests are cached for the build directory used on Linux, on Darwi
 
 Go names binaries after their package's directory, so when `meta.mainProgram` is set and a single binary is installed, it's renamed to `meta.mainProgram`.
 
+On Linux, binaries are built as position-independent executables (`-buildmode=pie`) for ASLR when cgo is enabled. On static platforms (`pkgsStatic`) they're linked as static PIE binaries by the external linker. With `CGO_ENABLED = 0` Go's own linker is used, which can't build static PIE binaries, so they're left static. Set `pie = false` to disable it.
+
 ```nix
 pkgs.mkGoModule (finalAttrs: {
   pname = "go-pkg";
