@@ -1,0 +1,30 @@
+{
+  "name": "OpenTubeX",
+  "source": {
+    "type": "github-release",
+    "repo": "OpenTubeX/OpenTubeX",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "0.37.1-beta",
+  "platforms": {
+    "x86_64-linux": {
+      "file": "opentubex_0.37.1_beta_amd64.deb",
+      "query": "[0].assets.find(a => a.name.endsWith('_amd64.deb')).name",
+      "hash": "sha256-9IrgX0LdeDRWRhyBY2aG7kGFeVFWj1LFfjpkUD0Y8sY="
+    },
+    "aarch64-linux": {
+      "file": "opentubex_0.37.1_beta_arm64.deb",
+      "query": "[0].assets.find(a => a.name.endsWith('_arm64.deb')).name",
+      "hash": "sha256-scAgrTK5OFIVGdorDUXS/2Aa/7OudMvXTa6Z1lIH7yo="
+    },
+    "x86_64-darwin": {
+      "file": "opentubex-{version}-mac-x64.zip",
+      "hash": "sha256-6VnunM9XhorPaC+j/AqG7oXaN353d64h/P8imt5GT94="
+    },
+    "aarch64-darwin": {
+      "file": "opentubex-{version}-mac-arm64.zip",
+      "hash": "sha256-SZwF52Duhxsl9LKJonImoaTyOxjlIpBJuWHYv4MTTUs="
+    }
+  }
+}

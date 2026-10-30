@@ -16,7 +16,6 @@
     syslock = lib.callPackage ./pkgs/syslock {};
     yapfast = lib.callPackage ./pkgs/yapfast {};
     sysbar = lib.callPackage ./pkgs/sysbar {};
-    xuan = lib.callPackage ./pkgs/xuan {};
 
     tinywiibackupmanager = lib.callPackage ./pkgs/tinywiibackupmanager {};
     note-block-studio = lib.callPackage ./pkgs/note-block-studio {};
@@ -37,6 +36,7 @@
     streamnook = lib.callPackage ./pkgs/streamnook {};
     altersend = lib.callPackage ./pkgs/altersend {};
     genoffice = lib.callPackage ./pkgs/genoffice {};
+    opentubex = lib.callPackage ./pkgs/opentubex {};
     equicord = lib.callPackage ./pkgs/equicord {};
     sm64plus = lib.callPackage ./pkgs/sm64plus {};
     orbolay = lib.callPackage ./pkgs/orbolay {};
@@ -47,6 +47,7 @@
     armsx2 = lib.callPackage ./pkgs/armsx2 {};
     mcman = lib.callPackage ./pkgs/mcman {};
     nuvio = lib.callPackage ./pkgs/nuvio {};
+    xuan = lib.callPackage ./pkgs/xuan {};
     sfw = lib.callPackage ./pkgs/sfw {};
     orb = lib.callPackage ./pkgs/orb {};
     fx = lib.callPackage ./pkgs/fx {};
