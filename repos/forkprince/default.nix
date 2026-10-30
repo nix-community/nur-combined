@@ -20,6 +20,7 @@
     tinywiibackupmanager = lib.callPackage ./pkgs/tinywiibackupmanager {};
     note-block-studio = lib.callPackage ./pkgs/note-block-studio {};
     re-lunatic-player = lib.callPackage ./pkgs/re-lunatic-player {};
+    emerald-launcher = lib.callPackage ./pkgs/emerald-launcher {};
     punktfunk-client = lib.callPackage ./pkgs/punktfunk-client {};
     quiver-launcher = lib.callPackage ./pkgs/quiver-launcher {};
     nintoolbox-gui = lib.callPackage ./pkgs/nintoolbox-gui {};

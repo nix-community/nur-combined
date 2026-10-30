@@ -1,0 +1,24 @@
+{
+  "name": "LCE Emerald Launcher",
+  "source": {
+    "type": "github-release",
+    "repo": "LCE-Hub/LCE-Emerald-Launcher",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "1.6.1",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "LCE.Emerald.Launcher_{version}_aarch64.dmg",
+      "hash": "sha256-4ubFClsLhH7XyFerikrkIfqGZglvPJ+ouyFvIWOdz9I="
+    },
+    "x86_64-darwin": {
+      "file": "LCE.Emerald.Launcher_{version}_x64.dmg",
+      "hash": "sha256-3YbD9jCIWF9xq5Ss18Pj7AtTX8Bu9x53cHQeCP5geC8="
+    },
+    "x86_64-linux": {
+      "file": "LCE.Emerald.Launcher_{version}_amd64.AppImage",
+      "hash": "sha256-PxNd+WAU5r+DztE6ibouxFmVMhBOYK6pfEXR0kbeYvI="
+    }
+  }
+}
