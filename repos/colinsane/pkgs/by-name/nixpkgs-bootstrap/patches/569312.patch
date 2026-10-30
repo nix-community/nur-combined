@@ -1,0 +1,117 @@
+From cba9c5c73a6b1f548acb64092a5bdb4598efe757 Mon Sep 17 00:00:00 2001
+From: curoky <cccuroky@gmail.com>
+Date: Fri, 2 Oct 2026 14:22:25 +0800
+Subject: [PATCH] gnutar: fix static linking with acl 2.4.0
+
+acl 2.4.0 exports xattr-at functions that conflict with GNU tar helpers during static linking. Extend the existing patch to namespace the GNU tar setxattrat, getxattrat, and listxattrat helpers.
+
+Assisted-by: TraeCode (GPT-5)
+---
+ .../gn/gnutar/acl-2.4.0-name-conflicts.patch  | 70 ++++++++++++++++---
+ pkgs/by-name/gn/gnutar/package.nix            |  6 +-
+ 2 files changed, 65 insertions(+), 11 deletions(-)
+
+diff --git a/pkgs/by-name/gn/gnutar/acl-2.4.0-name-conflicts.patch b/pkgs/by-name/gn/gnutar/acl-2.4.0-name-conflicts.patch
+index c871551bc772a38369ccbaae754cdaf5725a1953..bcd1fb16cb48fa8840585c0218f8c3d33e100482 100644
+--- a/pkgs/by-name/gn/gnutar/acl-2.4.0-name-conflicts.patch
++++ b/pkgs/by-name/gn/gnutar/acl-2.4.0-name-conflicts.patch
+@@ -1,3 +1,60 @@
++diff --git a/lib/xattr-at.c b/lib/xattr-at.c
++--- a/lib/xattr-at.c
+++++ b/lib/xattr-at.c
++@@ -36,2 +36,2 @@
++-/* setxattrat */
++-#define AT_FUNC_NAME setxattrat
+++/* tar_setxattrat */
+++#define AT_FUNC_NAME tar_setxattrat
++@@ -60,2 +60,2 @@
++-/* getxattrat */
++-#define AT_FUNC_NAME getxattrat
+++/* tar_getxattrat */
+++#define AT_FUNC_NAME tar_getxattrat
++@@ -88,2 +88,2 @@
++-/* listxattrat */
++-#define AT_FUNC_NAME listxattrat
+++/* tar_listxattrat */
+++#define AT_FUNC_NAME tar_listxattrat
++diff --git a/lib/xattr-at.h b/lib/xattr-at.h
++--- a/lib/xattr-at.h
+++++ b/lib/xattr-at.h
++@@ -35,2 +35,2 @@
++-   "at" suffix.  For example, setxattrat (AT_FDCWD, path, name, value, size,
++-   flags &c) is usually equivalent to setxattr (file, name, value, size,
+++   "at" suffix.  For example, tar_setxattrat (AT_FDCWD, path, name, value,
+++   size, flags &c) is usually equivalent to setxattr (file, name, value, size,
++@@ -44,2 +44,2 @@
++-int setxattrat (int dir_fd, const char *path, const char *name,
++-                const void *value, size_t size, int flags);
+++int tar_setxattrat (int dir_fd, const char *path, const char *name,
+++                    const void *value, size_t size, int flags);
++@@ -47 +47 @@
++-/* dir-fd-relative lsetxattr.  This function is just like setxattrat,
+++/* dir-fd-relative lsetxattr.  This function is just like tar_setxattrat,
++@@ -49 +49 @@
++-   symlink, while the setxattrat operates on the referent of the symlink.  */
+++   symlink, while tar_setxattrat operates on the referent of the symlink.  */
++@@ -57,2 +57,2 @@
++-ssize_t getxattrat (int dir_fd, const char *path, const char *name,
++-                    void *value, size_t size);
+++ssize_t tar_getxattrat (int dir_fd, const char *path, const char *name,
+++                        void *value, size_t size);
++@@ -60 +60 @@
++-/* dir-fd-relative lgetxattr.  This function is just like getxattrat,
+++/* dir-fd-relative lgetxattr.  This function is just like tar_getxattrat,
++@@ -62 +62 @@
++-   symlink, while the getxattrat operates on the referent of the symlink.  */
+++   symlink, while tar_getxattrat operates on the referent of the symlink.  */
++@@ -68 +68 @@
++-ssize_t listxattrat (int dir_fd, const char *path, char *list, size_t size);
+++ssize_t tar_listxattrat (int dir_fd, const char *path, char *list, size_t size);
++@@ -70 +70 @@
++-/* dir-fd-relative llistxattr.  This function is just like listxattrat,
+++/* dir-fd-relative llistxattr.  This function is just like tar_listxattrat,
++@@ -72 +72 @@
++-   symlink, while the listxattrat operates on the referent of the symlink.  */
+++   symlink, while tar_listxattrat operates on the referent of the symlink.  */
+ diff --git a/src/xattrs.c b/src/xattrs.c
+ index 86a7e59cbc..c872ae308d 100644
+ --- a/src/xattrs.c
+@@ -70,16 +127,13 @@ index 86a7e59cbc..c872ae308d 100644
+  	      file_name));
+  
+    acl_free (acl);
+-@@ -357,10 +357,10 @@
+-   char *val = NULL;
+-   acl_t acl;
+- 
++@@ -360 +360 @@
+ -  if (!(acl = acl_get_file_at (parentfd, file_name, type)))
+ +  if (!(acl = tar_acl_get_file_at (parentfd, file_name, type)))
+-     {
+-       if (errno != ENOTSUP)
++@@ -363 +363 @@
+ -        call_arg_warn ("acl_get_file_at", file_name);
+ +        call_arg_warn ("tar_acl_get_file_at", file_name);
+-       return;
+-     }
++@@ -624 +624 @@
++-        ret = setxattrat (chdir_fd, file_name, attr, ptr, len, 0);
+++        ret = tar_setxattrat (chdir_fd, file_name, attr, ptr, len, 0);
+  
+diff --git a/pkgs/by-name/gn/gnutar/package.nix b/pkgs/by-name/gn/gnutar/package.nix
+index c7b072b71d1058aa82d919d8719d8dbd31a92c26..80d3443f9b23fc1e9fccf474b952d2d16b96ac3d 100644
+--- a/pkgs/by-name/gn/gnutar/package.nix
++++ b/pkgs/by-name/gn/gnutar/package.nix
+@@ -29,9 +29,9 @@ stdenv.mkDerivation (finalAttrs: {
+     # https://savannah.gnu.org/bugs/index.php?64441
+     ./link-libiconv.patch
+ 
+-    # acl 2.4.0 adds functions that have name conflicts with internal
+-    # (`static`) functions from GNU tar. we prefix `tar_` to these names to
+-    # avoid this, matching the approach from
++    # acl 2.4.0 adds functions that have name conflicts with internal helper
++    # functions from GNU tar. we prefix `tar_` to these names to avoid this,
++    # matching the approach from
+     # https://lists.gnu.org/archive/html/bug-tar/2026-06/msg00013.html
+     ./acl-2.4.0-name-conflicts.patch
+   ];

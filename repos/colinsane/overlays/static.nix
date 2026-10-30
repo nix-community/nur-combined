@@ -29,6 +29,30 @@ in
     };
   });
 
+  python3Minimal = prev.python3Minimal.overrideAttrs (upstream: {
+    # Static linking exposes duplicate _mi_heap_{main,empty} symbols between
+    # CPython's bundled mimalloc (3.13+) and our mimalloc-backed musl.
+    configureFlags = upstream.configureFlags ++ final.lib.optionals (
+      final.stdenv.hostPlatform.isMusl
+      && (final.musl.allocatorModel or "malloc-ng") == "mimalloc"
+      && final.lib.versionAtLeast upstream.version "3.13"
+    ) [ "--without-mimalloc" ];
+
+    # The static stdenv propagates build inputs, selecting bash's dev output.
+    # Python needs the shell, not its headers.
+    postFixup = (upstream.postFixup or "") + ''
+      substituteInPlace "$out/nix-support/propagated-build-inputs" \
+        --replace-fail '${final.lib.getDev final.bashNonInteractive}' '${final.lib.getBin final.bashNonInteractive}'
+    '';
+
+    # --disable-test-modules also omits the test directories on Python 3.14+.
+    # With nullglob enabled, their cleanup otherwise runs `rm -R` with no args.
+    postInstall = final.lib.replaceStrings
+      [ "rm -R $out/lib/python*/test $out/lib/python*/**/test{,s}" ]
+      [ "rm -Rf $out/lib/python*/test $out/lib/python*/**/test{,s}" ]
+      upstream.postInstall;
+  });
+
   # networkmanager = prev.networkmanager.override {
   #   gobject-introspection = if hasSharedLibraries then gobject-introspection else null;
   # };

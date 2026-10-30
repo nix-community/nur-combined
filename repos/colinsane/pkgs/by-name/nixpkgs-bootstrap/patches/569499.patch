@@ -1,0 +1,32 @@
+From 84b9d9a696cf51a4d09607db26b026c4ceed2e55 Mon Sep 17 00:00:00 2001
+From: curoky <cccuroky@gmail.com>
+Date: Sat, 3 Oct 2026 00:19:58 +0800
+Subject: [PATCH] diffutils: fix musl cross and static tests
+
+Cross configure cannot run the getopt probe, and the existing cache value incorrectly assumes that musl provides GNU-compatible getopt behavior.
+
+The compiler wrapper also hides the static linker flag from configure, causing gnulib to incorrectly enable weak pthread references.
+
+Set the corresponding configure cache values so that gnulib selects its getopt replacement and disables weak references for static musl builds. This keeps the full test suite enabled.
+
+Assisted-by: TraeCode (GPT-5)
+Locally rebased: the pinned nixpkgs already limits the getopt cache override
+to GNU targets; retain only the missing static weak-symbol fix.
+---
+ pkgs/by-name/di/diffutils/package.nix | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/pkgs/by-name/di/diffutils/package.nix b/pkgs/by-name/di/diffutils/package.nix
+--- a/pkgs/by-name/di/diffutils/package.nix
++++ b/pkgs/by-name/di/diffutils/package.nix
+@@ -79,7 +79,9 @@ stdenv.mkDerivation (finalAttrs: {
+     ]
+     ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
+       "gl_cv_func_strcasecmp_works=yes"
+-    ];
++    ]
++    # The compiler wrapper hides its static linker flag from configure.
++    ++ lib.optional (stdenv.hostPlatform.isStatic && stdenv.hostPlatform.isMusl) "gl_cv_have_weak=no";
+ 
+   # Test failure on QEMU only (#300550)
+   doCheck = !stdenv.buildPlatform.isRiscV64;
