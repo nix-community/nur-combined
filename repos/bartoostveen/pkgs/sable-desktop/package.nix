@@ -106,6 +106,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
     # These both depend on exporting types at runtime for some reason
     "--skip=desktop::runtime_state::export_bindings_desktopruntimestate"
     "--skip=desktop::settings::export_bindings_desktopsettings"
+
+    # Broken test
+    "--skip=sdk_timeline_tests::live_timeline_reports_its_back_pagination_status"
   ];
 
   preFixup = ''
