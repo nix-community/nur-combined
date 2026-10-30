@@ -50,7 +50,10 @@ stdenv.mkDerivation (finalAttrs: {
   };
   __structuredAttrs = true;
   strictDeps = true;
-  patches = [ ./use-prebuilt-qsp-lib.patch ];
+  patches = [
+    ./use-prebuilt-qsp-lib.patch
+    ./qsp-init-seed.patch
+  ];
 
   nativeBuildInputs = [
     cmake

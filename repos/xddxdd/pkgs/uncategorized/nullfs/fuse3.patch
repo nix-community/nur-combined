@@ -1,0 +1,314 @@
+--- a/Makefile
++++ b/Makefile
+@@ -1,4 +1,5 @@
+-LDLIBS="-lfuse"
++CPPFLAGS += $(shell pkg-config --cflags fuse3)
++LDLIBS = $(shell pkg-config --libs fuse3)
+ T=nul1fs nullfs nulnfs
+ 
+ all: $(T)
+--- a/nul1fs.c
++++ b/nul1fs.c
+@@ -7,7 +7,7 @@
+ */
+ 
+ #define _FILE_OFFSET_BITS 64
+-#define FUSE_USE_VERSION 26
++#define FUSE_USE_VERSION 30
+ #include <sys/stat.h>
+ #include <time.h>
+ #include <fuse.h>
+@@ -32,7 +32,8 @@
+         || (strcmp(path, ".") == 0));
+ };
+ 
+-static int nullfs_getattr(const char *path, struct stat *stbuf) {
++static int nullfs_getattr(const char *path, struct stat *stbuf,
++struct fuse_file_info *fi) {
+     int res = 0;
+     if (! path) return -ENOENT;
+ 
+@@ -56,14 +57,15 @@
+ };
+ 
+ static int nullfs_readdir(const char *path, void *buf, fuse_fill_dir_t
+-filler, off_t offset, struct fuse_file_info *fi) {
++filler, off_t offset, struct fuse_file_info *fi,
++enum fuse_readdir_flags flags) {
+     (void) offset;
+     (void) fi;
+ 
+     if (! nullfs_isdir(path)) return -ENOENT;
+ 
+-    filler(buf, ".", NULL, 0);
+-    filler(buf, "..", NULL, 0);
++    filler(buf, ".", NULL, 0, 0);
++    filler(buf, "..", NULL, 0, 0);
+ 
+     return 0;
+ };
+@@ -114,28 +116,33 @@
+     return 0;
+ };
+ 
+-static int nullfs_rename(const char *src, const char *dst) {
++static int nullfs_rename(const char *src, const char *dst,
++unsigned int flags) {
++    if (flags) return -EINVAL;
+     (void) src;
+     (void) dst;
+ 
+     return 0;
+ };
+ 
+-static int nullfs_truncate(const char *path, off_t o) {
++static int nullfs_truncate(const char *path, off_t o,
++struct fuse_file_info *fi) {
+     (void) path;
+     (void) o;
+ 
+     return 0;
+ };
+ 
+-static int nullfs_chmod(const char *path, mode_t m) {
++static int nullfs_chmod(const char *path, mode_t m,
++struct fuse_file_info *fi) {
+     (void) path;
+     (void) m;
+ 
+     return 0;
+ };
+ 
+-static int nullfs_chown(const char *path, uid_t u, gid_t g) {
++static int nullfs_chown(const char *path, uid_t u, gid_t g,
++struct fuse_file_info *fi) {
+     (void) path;
+     (void) u;
+     (void) g;
+@@ -143,7 +150,8 @@
+     return 0;
+ };
+ 
+-static int nullfs_utimens(const char *path, const struct timespec ts[2]) {
++static int nullfs_utimens(const char *path, const struct timespec ts[2],
++struct fuse_file_info *fi) {
+     (void) path;
+     (void) ts;
+ 
+--- a/nullfs.c++
++++ b/nullfs.c++
+@@ -7,7 +7,7 @@
+ */
+ 
+ #define _FILE_OFFSET_BITS 64
+-#define FUSE_USE_VERSION 26
++#define FUSE_USE_VERSION 30
+ #include <fuse.h>
+ #include <stdio.h>
+ #include <string.h>
+@@ -43,7 +43,8 @@
+     return (pos != files.end());
+ };
+ 
+-static int nullfs_getattr(const char *path, struct stat *stbuf) {
++static int nullfs_getattr(const char *path, struct stat *stbuf,
++struct fuse_file_info *fi) {
+     int res = 0;
+ 
+     memset(stbuf, 0, sizeof(struct stat));
+@@ -62,15 +63,16 @@
+ };
+ 
+ static int nullfs_readdir(const char *path, void *buf, fuse_fill_dir_t
+-filler, off_t offset, struct fuse_file_info *fi) {
++filler, off_t offset, struct fuse_file_info *fi,
++enum fuse_readdir_flags flags) {
+     (void) offset;
+     (void) fi;
+ 
+     /*if (! nullfs_isdir(path)) return -ENOENT;*/
+ 
+-    filler(buf, ".", NULL, 0);
+-    filler(buf, "..", NULL, 0);
+-    filler(buf, "foo", NULL, 0);
++    filler(buf, ".", NULL, 0, (enum fuse_fill_dir_flags) 0);
++    filler(buf, "..", NULL, 0, (enum fuse_fill_dir_flags) 0);
++    filler(buf, "foo", NULL, 0, (enum fuse_fill_dir_flags) 0);
+ 
+     return 0;
+ };
+@@ -141,7 +143,9 @@
+     return 0;
+ };
+ 
+-static int nullfs_rename(const char *src, const char *dst) {
++static int nullfs_rename(const char *src, const char *dst,
++unsigned int flags) {
++    if (flags) return -EINVAL;
+     (void) src;
+     (void) dst;
+ 
+@@ -158,21 +162,24 @@
+     return 0;
+ };
+ 
+-static int nullfs_truncate(const char *path, off_t o) {
++static int nullfs_truncate(const char *path, off_t o,
++struct fuse_file_info *fi) {
+     (void) path;
+     (void) o;
+ 
+     return 0;
+ };
+ 
+-static int nullfs_chmod(const char *path, mode_t m) {
++static int nullfs_chmod(const char *path, mode_t m,
++struct fuse_file_info *fi) {
+     (void) path;
+     (void) m;
+ 
+     return 0;
+ };
+ 
+-static int nullfs_chown(const char *path, uid_t u, gid_t g) {
++static int nullfs_chown(const char *path, uid_t u, gid_t g,
++struct fuse_file_info *fi) {
+     (void) path;
+     (void) u;
+     (void) g;
+@@ -180,7 +187,8 @@
+     return 0;
+ };
+ 
+-static int nullfs_utimens(const char *path, const struct timespec ts[2]) {
++static int nullfs_utimens(const char *path, const struct timespec ts[2],
++struct fuse_file_info *fi) {
+     (void) path;
+     (void) ts;
+ 
+--- a/nulnfs.c
++++ b/nulnfs.c
+@@ -7,7 +7,7 @@
+ */
+ 
+ #define _FILE_OFFSET_BITS 64
+-#define FUSE_USE_VERSION 26
++#define FUSE_USE_VERSION 30
+ #include <stddef.h>
+ #include <sys/types.h>
+ #include <sys/stat.h>
+@@ -19,8 +19,7 @@
+ #include <errno.h>
+ #include <fcntl.h>
+ #include <stdlib.h>
+-#include <fuse/fuse_lowlevel.h>
+-#include <fuse/fuse_lowlevel_compat.h> // fuse_dirent_size in fuse-2.9.9
++#include <fuse_lowlevel.h>
+ #include "linux_list.h" // list_head
+ 
+ time_t start_t;
+@@ -46,7 +45,6 @@
+ 
+ static struct fuse_lowlevel_ops nullfs_ll_ops;
+ 
+-static char *mountpoint = NULL;
+ int n_inodes = 65536;
+ int n_dirents = 65536;
+ 
+@@ -235,7 +233,7 @@
+     const struct list_head *pos;
+ };
+ 
+-static struct size_and_pos calculate_ls_buf(
++static struct size_and_pos calculate_ls_buf(fuse_req_t req,
+ const struct nulnfs_inode *dinode,
+ const struct list_head *pos, size_t max_size) {
+     struct size_and_pos ls = {0, NULL};
+@@ -247,7 +245,9 @@
+             ls.pos, ls.pos->next);
+         const struct nulnfs_dirent *dirent = list_entry(ls.pos,
+             const struct nulnfs_dirent, ls_ent);
+-        size_t e_size = fuse_dirent_size(strlen(dirent->de.d_name));
++        size_t e_size = fuse_add_direntry(req, NULL, 0,
++            dirent->de.d_name, &all_inodes[dirent->de.d_ino - 1].st,
++            dirent->de.d_off);
+         if (ls.size + e_size > max_size) break;
+         ls.size += e_size;
+     };
+@@ -295,7 +295,7 @@
+         ls_pos = &dinode->ls_ent;
+     };
+     fprintf(stderr, "DEBUG readdir: ls_pos=%p\n", ls_pos);
+-    ls_buf_end = calculate_ls_buf(dinode, ls_pos, size);
++    ls_buf_end = calculate_ls_buf(req, dinode, ls_pos, size);
+     if (ls_buf_end.size == 0) {
+         fuse_reply_buf(req, NULL, 0);
+     };
+@@ -404,34 +404,46 @@
+ }
+ 
+ int main(int argc, char *argv[]) {
+-    int res;
++    int res = 1;
+     struct fuse_args args = FUSE_ARGS_INIT(argc, argv);
+-    struct fuse_chan *ch;
++    struct fuse_cmdline_opts opts;
++    struct fuse_session *se;
++
++    if (fuse_parse_cmdline(&args, &opts) != 0) goto out_args;
++    if (opts.show_help) {
++        printf("usage: %s [options] mountpoint\n", argv[0]);
++        fuse_cmdline_help();
++        fuse_lowlevel_help();
++        res = 0;
++        goto out_opts;
++    }
++    if (opts.show_version) {
++        printf("FUSE library version %s\n", fuse_pkgversion());
++        res = 0;
++        goto out_opts;
++    }
++    if (opts.mountpoint == NULL) goto out_opts;
+ 
+     res = init_fs(n_inodes, n_dirents);
+-    if (res) return res;
++    if (res) goto out_opts;
++    res = 1;
+ 
+     /* TODO: implement cmdline options for setting custom
+        n_inodes and n_dirents values */
+-    if (fuse_parse_cmdline(&args, &mountpoint, NULL, NULL) != -1
+-    && (ch = fuse_mount(mountpoint, &args)) != NULL) {
+-        struct fuse_session *se;
+-
+-        se = fuse_lowlevel_new(&args, &nullfs_ll_ops,
+-            sizeof(nullfs_ll_ops), NULL);
+-
+-        if (se != NULL) {
+-            if (fuse_set_signal_handlers(se) != -1) {
+-                fuse_session_add_chan(se, ch);
+-                res = fuse_session_loop(se);
+-                fuse_remove_signal_handlers(se);
+-                fuse_session_remove_chan(ch);
+-            }
+-            fuse_session_destroy(se);
+-        } else res = 3;
+-
+-        fuse_unmount(mountpoint, ch);
++    se = fuse_session_new(&args, &nullfs_ll_ops,
++        sizeof(nullfs_ll_ops), NULL);
++    if (se == NULL) goto out_opts;
++    if (fuse_set_signal_handlers(se) != 0) goto out_session;
++    if (fuse_session_mount(se, opts.mountpoint) == 0) {
++        res = fuse_session_loop(se);
++        fuse_session_unmount(se);
+     }
++    fuse_remove_signal_handlers(se);
++out_session:
++    fuse_session_destroy(se);
++out_opts:
++    free(opts.mountpoint);
++out_args:
+     fuse_opt_free_args(&args);
+ 
+     return res;

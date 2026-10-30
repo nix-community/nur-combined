@@ -1,11 +1,13 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i bash -p bash -p nodejs -p python3 -p prefetch-npm-deps -p nix-update
 # shellcheck shell=bash
+set -euo pipefail
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 
 NEW_VERSION=$(npm view @agegr/pi-web version)
 CURRENT_VERSION=$(nix eval --raw ".#$UPDATE_NIX_ATTR_PATH.version")
-if [ "$NEW_VERSION" = "$CURRENT_VERSION" ]; then
+if [ "$NEW_VERSION" = "$CURRENT_VERSION" ] &&
+  [ "$NEW_VERSION" = "$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["version"])' "$SCRIPT_DIR/package-lock.json")" ]; then
   exit 0
 fi
 nix-update "$UPDATE_NIX_ATTR_PATH" --version "$NEW_VERSION" --src-only
@@ -13,7 +15,7 @@ nix-update "$UPDATE_NIX_ATTR_PATH" --version "$NEW_VERSION" --src-only
 TMPDIR=$(mktemp -d)
 trap 'rm -rf "$TMPDIR"' EXIT
 
-cp -r "$(nix build --no-link --print-out-paths .#pi-web.src)" "$TMPDIR/source"
+cp -r "$(nix build --no-link --print-out-paths ".#$UPDATE_NIX_ATTR_PATH.src")" "$TMPDIR/source"
 chmod -R u+w "$TMPDIR/source"
 cd "$TMPDIR/source" || exit 1
 rm -f package-lock.json npm-shrinkwrap.json
@@ -31,3 +33,5 @@ EOF
 cp package-lock.json "$SCRIPT_DIR/package-lock.json"
 NEW_HASH=$(prefetch-npm-deps "$SCRIPT_DIR/package-lock.json")
 sed -i "s|npmDepsHash = \"sha256-[^\"]*\";|npmDepsHash = \"$NEW_HASH\";|" "$SCRIPT_DIR/default.nix"
+cd "$SCRIPT_DIR/../../.."
+nix build --no-link ".#$UPDATE_NIX_ATTR_PATH.npmDeps"

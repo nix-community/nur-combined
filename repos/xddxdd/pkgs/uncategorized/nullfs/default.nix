@@ -3,7 +3,8 @@
   unstableGitUpdater,
   stdenv,
   lib,
-  fuse,
+  fuse3,
+  pkg-config,
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "nullfs";
@@ -16,9 +17,13 @@ stdenv.mkDerivation (finalAttrs: {
   };
   __structuredAttrs = true;
   strictDeps = true;
-  patches = [ ./6-nulnfs-fix-warnings.patch ];
+  patches = [
+    ./6-nulnfs-fix-warnings.patch
+    ./fuse3.patch
+  ];
 
-  buildInputs = [ fuse ];
+  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [ fuse3 ];
 
   installPhase = ''
     runHook preInstall

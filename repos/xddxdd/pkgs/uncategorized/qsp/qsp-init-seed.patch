@@ -1,0 +1,21 @@
+diff --git a/qspgui/app.cpp b/qspgui/app.cpp
+--- a/qspgui/app.cpp
++++ b/qspgui/app.cpp
+@@ -17,6 +17,8 @@
+ 
+ #include "app.h"
+ #include "comtools.h"
++
++#include <ctime>
+ 
+ wxIMPLEMENT_APP(QSPApp);
+ 
+@@ -29,7 +31,7 @@ bool QSPApp::OnInit()
+     delete wxLog::SetActiveTarget(new wxLogStderr());
+ 
+     wxInitAllImageHandlers();
+-    QSPInit();
++    QSPInit(static_cast<unsigned int>(std::time(nullptr)));
+     InitUI();
+     return true;
+ }

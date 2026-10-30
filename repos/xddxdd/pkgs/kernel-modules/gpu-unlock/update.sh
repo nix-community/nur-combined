@@ -9,10 +9,14 @@ SOURCE=$(nix eval --raw ".#${UPDATE_NIX_ATTR_PATH}.src")
 python3 - "$SOURCE" "$SCRIPT_DIR/artifacts.json" <<'PY'
 import json
 from pathlib import Path
+import runpy
+import subprocess
 import sys
 
-manifest, = (Path(sys.argv[1]) / "firmware").glob("artifacts-*.json")
-entries = json.loads(manifest.read_text())["source_artifacts"]
-Path(sys.argv[2]).write_text(json.dumps([entries[0], entries[2]], indent=2) + "\n")
+entries = runpy.run_path(str(Path(sys.argv[1]) / "firmware/fetch_artifacts.py"))["INPUTS"]
+for entry in entries:
+    result = subprocess.check_output(["nix", "store", "prefetch-file", "--json", entry["url"]])
+    entry["sha256"] = json.loads(result)["hash"]
+Path(sys.argv[2]).write_text(json.dumps(entries, indent=2) + "\n")
 PY
 nix build ".#${UPDATE_NIX_ATTR_PATH}.firmware" --no-link
