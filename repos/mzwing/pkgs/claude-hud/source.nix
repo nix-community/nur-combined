@@ -3,12 +3,12 @@
 { fetchzip }:
 
 let
-  version = "0.13.1";
-  rev = "v0.13.1";
-  npmDepsHash = "sha256-e6L9J3gO3dA4lC13cBtXPW128vLSaXxHLpdfW07HAj0=";
+  version = "0.14.0";
+  rev = "v0.14.0";
+  npmDepsHash = "sha256-SLGFb4jvtq5SUxJpAG8/ahG7DT4Z3xFSsORCoYpb8aw=";
   src = fetchzip {
-    url = "https://codeload.github.com/jarrodwatts/claude-hud/tar.gz/v0.13.1";
-    hash = "sha256-i1/x1yZh3bAf2Vr0kaDBlOZmS+su5IHmmY/LsEnB/A0=";
+    url = "https://codeload.github.com/jarrodwatts/claude-hud/tar.gz/v0.14.0";
+    hash = "sha256-nDo77P/9Xz1fYUk+ATcHoQ81hWCNsLbYp7K93VIEfHk=";
     extension = "tar.gz";
   };
 in
