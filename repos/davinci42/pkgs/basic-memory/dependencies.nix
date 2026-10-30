@@ -16,7 +16,9 @@ let
         sha256 = locked.${name}.hash;
       };
       inherit dependencies;
-      pythonRelaxDeps = lib.optionals (name == "litellm") [ "importlib-metadata" ];
+      pythonRelaxDeps =
+        lib.optionals (name == "fastapi") [ "opentelemetry-api" ]
+        ++ lib.optionals (name == "litellm") [ "importlib-metadata" ];
       doCheck = false;
       pythonImportsCheck = imports;
       meta = {
@@ -28,6 +30,7 @@ let
     fastapi =
       (wheel "fastapi" (with python3Packages; [
         annotated-doc
+        opentelemetry-api
         pydantic
         starlette
         typing-extensions

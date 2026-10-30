@@ -14,14 +14,14 @@ let
 in
 pythonPackages.buildPythonApplication (finalAttrs: {
   pname = "basic-memory";
-  version = "0.24.1";
+  version = "1.0.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "basicmachines-co";
     repo = "basic-memory";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-yHtCT3WQlSvYIptRxwUiAQJrVWK4EJTuiaLd+0FR0mE=";
+    hash = "sha256-ClSY1QB11+KmohBZSrjA0IwuWmj813ayKY6zDOT4YNw=";
   };
 
   build-system = with pythonPackages; [
@@ -65,6 +65,7 @@ pythonPackages.buildPythonApplication (finalAttrs: {
       mdformat-gfm
       nest-asyncio
       openai
+      pathspec
       pillow
       psutil
       psycopg

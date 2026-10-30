@@ -1,8 +1,8 @@
 {
   "fastapi": {
-    "version": "0.139.0",
-    "url": "https://files.pythonhosted.org/packages/9e/7c/8e3c6ad324ea5cb36604fc3f968554887891c316d9dfde57761611d907ad/fastapi-0.139.0-py3-none-any.whl",
-    "hash": "cf15e1e9e667ddb0ad63811e60bd11390d1aac838ca4a7a23f421807b2308189"
+    "version": "0.162.0",
+    "url": "https://files.pythonhosted.org/packages/b4/4f/3f2c25c9b43970b5e9a08beb5e04776247edea684ddc0930f4f02f0bb6cb/fastapi-0.162.0-py3-none-any.whl",
+    "hash": "3785963de305dd09912426cb81f2d230fce98ab3521cdfe97265c8d14983128c"
   },
   "fastapi-redis-sdk": {
     "version": "0.8.1",

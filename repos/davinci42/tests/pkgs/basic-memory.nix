@@ -41,8 +41,8 @@ pkgs.runCommand "basic-memory-packaging-check"
         )
         async with Client(transport) as client:
             names = {tool.name for tool in await client.list_tools()}
-            assert {"write_note", "read_note", "edit_note", "search_notes"} <= names
-            result = await client.call_tool("write_note", {
+            assert {"bm_write", "bm_read", "bm_edit", "bm_search"} <= names
+            result = await client.call_tool("bm_write", {
                 "title": "Packaging Check",
                 "directory": "tests",
                 "content": "# Packaging Check\n\n## Observations\n- [fact] Persistent memory works\n",
@@ -52,24 +52,24 @@ pkgs.runCommand "basic-memory-packaging-check"
             note = Path(os.environ["BASIC_MEMORY_HOME"]) / "tests" / "Packaging Check.md"
             await wait_for_content(note, "Persistent memory works")
             assert list(Path(os.environ["BASIC_MEMORY_HOME"]).rglob("*.md")) == [note]
-            result = await client.call_tool("read_note", {
+            result = await client.call_tool("bm_read", {
                 "identifier": "tests/packaging-check", "project": "main",
             })
             assert not result.is_error, result
             assert "Persistent memory works" in str(result)
-            result = await client.call_tool("search_notes", {
+            result = await client.call_tool("bm_search", {
                 "query": "Packaging", "project": "main",
             })
             assert not result.is_error, result
             assert "Packaging Check" in str(result)
-            result = await client.call_tool("edit_note", {
-                "identifier": "tests/packaging-check", "operation": "append",
+            result = await client.call_tool("bm_edit", {
+                "identifier": "tests/packaging-check", "command": "append",
                 "content": "\n- [fact] Updates work\n", "project": "main",
             })
             assert not result.is_error, result
             await wait_for_content(note, "Updates work")
         async with Client(transport) as client:
-            result = await client.call_tool("read_note", {
+            result = await client.call_tool("bm_read", {
                 "identifier": "tests/packaging-check", "project": "main",
             })
             assert not result.is_error, result
