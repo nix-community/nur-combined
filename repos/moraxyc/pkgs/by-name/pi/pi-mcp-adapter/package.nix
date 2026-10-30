@@ -29,6 +29,13 @@ buildNpmPackage (finalAttrs: {
 
   dontNpmBuild = true;
 
+  postInstall = ''
+    mv $out/lib/node_modules/pi-mcp-adapter $out/lib/${finalAttrs.pname}
+    rm -rf $out/lib/node_modules
+    substituteInPlace $out/bin/pi-mcp-adapter \
+      --replace-fail "$out/lib/node_modules/pi-mcp-adapter" "$out/lib/${finalAttrs.pname}"
+  '';
+
   meta = {
     description = "MCP adapter for Pi coding agent";
     homepage = "https://github.com/nicobailon/pi-mcp-adapter";

@@ -239,10 +239,28 @@ src.github_tag = "router-for-me/pi-cliproxyapi-provider"
 fetch.github = "router-for-me/pi-cliproxyapi-provider"
 extract = ["package-lock.json", "package.json"]
 
+[pi-lsp-client]
+src.github_tag = "code-yeongyu/pi-lsp-client"
+fetch.github = "code-yeongyu/pi-lsp-client"
+extract = ["package-lock.json", "package.json"]
+
 [pi-mcp-adapter]
 src.github = "nicobailon/pi-mcp-adapter"
 fetch.github = "nicobailon/pi-mcp-adapter"
 extract = ["package-lock.json", "package.json"]
+
+[pi-plan-mode]
+src.github_tag = "qmx/pi-plan-mode"
+fetch.github = "qmx/pi-plan-mode"
+
+[pi-processes]
+src.github_tag = "aliou/pi-processes"
+fetch.github = "aliou/pi-processes"
+
+[pi-simplify]
+src.github_tag = "MattDevy/pi-extensions"
+src.include_regex = "^pi-simplify-v[0-9]+\\.[0-9]+\\.[0-9]+$"
+fetch.github = "MattDevy/pi-extensions"
 
 [pi-subagents]
 src.github = "nicobailon/pi-subagents"
@@ -252,6 +270,11 @@ extract = ["package-lock.json", "package.json"]
 [pi-token-speed]
 src.github_tag = "gsanhueza/pi-token-speed"
 fetch.github = "gsanhueza/pi-token-speed"
+
+[pi-web-access]
+src.github = "nicobailon/pi-web-access"
+fetch.github = "nicobailon/pi-web-access"
+extract = ["package-lock.json", "package.json"]
 
 [picoclaw]
 src.github_tag = "sipeed/picoclaw"

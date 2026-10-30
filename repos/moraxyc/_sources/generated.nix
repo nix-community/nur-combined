@@ -638,6 +638,21 @@
       "package.json" = ./. + "/sha256-PsmXW3yCr9zIDGpxsDz3nDfqE8NQPqEZNifbEo9GQCI=/package.json";
     };
   };
+  pi-lsp-client = {
+    pname = "pi-lsp-client";
+    version = "v0.2.0";
+    src = fetchFromGitHub {
+      owner = "code-yeongyu";
+      repo = "pi-lsp-client";
+      rev = "v0.2.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-YnBazeGvh3UdDklO2jPLLKnuqpZ9YCJ4l4uZELwwXGE=";
+    };
+    extract = {
+      "package-lock.json" = ./. + "/sha256-YnBazeGvh3UdDklO2jPLLKnuqpZ9YCJ4l4uZELwwXGE=/package-lock.json";
+      "package.json" = ./. + "/sha256-YnBazeGvh3UdDklO2jPLLKnuqpZ9YCJ4l4uZELwwXGE=/package.json";
+    };
+  };
   pi-mcp-adapter = {
     pname = "pi-mcp-adapter";
     version = "v7.0.0";
@@ -651,6 +666,39 @@
     extract = {
       "package-lock.json" = ./. + "/sha256-x2qh8hFRg4agNOCyroyAxz_ny3iwCp5x4xsisn_TrKk=/package-lock.json";
       "package.json" = ./. + "/sha256-x2qh8hFRg4agNOCyroyAxz_ny3iwCp5x4xsisn_TrKk=/package.json";
+    };
+  };
+  pi-plan-mode = {
+    pname = "pi-plan-mode";
+    version = "v0.4.8";
+    src = fetchFromGitHub {
+      owner = "qmx";
+      repo = "pi-plan-mode";
+      rev = "v0.4.8";
+      fetchSubmodules = false;
+      sha256 = "sha256-M9dAPDEEeeV38H1jWIP9thgIM9sHACq1YjrPI37Yn8w=";
+    };
+  };
+  pi-processes = {
+    pname = "pi-processes";
+    version = "v0.13.3";
+    src = fetchFromGitHub {
+      owner = "aliou";
+      repo = "pi-processes";
+      rev = "v0.13.3";
+      fetchSubmodules = false;
+      sha256 = "sha256-z6P4jc6XuHddD63jfyEI3ZJX7FvesPT1f8xrV/OQRrw=";
+    };
+  };
+  pi-simplify = {
+    pname = "pi-simplify";
+    version = "pi-simplify-v0.2.3";
+    src = fetchFromGitHub {
+      owner = "MattDevy";
+      repo = "pi-extensions";
+      rev = "pi-simplify-v0.2.3";
+      fetchSubmodules = false;
+      sha256 = "sha256-bFpHtHBpBop56ylNGwwNsy6090vcOz6aMUAn3i6SE4A=";
     };
   };
   pi-subagents = {
@@ -677,6 +725,21 @@
       rev = "0.12.0";
       fetchSubmodules = false;
       sha256 = "sha256-P6u5Og9SkEY6UQdx8IsV4xl4gBECUXHeofi6FxGDm/Q=";
+    };
+  };
+  pi-web-access = {
+    pname = "pi-web-access";
+    version = "v0.46.0";
+    src = fetchFromGitHub {
+      owner = "nicobailon";
+      repo = "pi-web-access";
+      rev = "v0.46.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-i/C22ovZYwUu3a7gzBeFVaMqvhIB+N/Z63wOCPdhwLs=";
+    };
+    extract = {
+      "package-lock.json" = ./. + "/sha256-i_C22ovZYwUu3a7gzBeFVaMqvhIB+N_Z63wOCPdhwLs=/package-lock.json";
+      "package.json" = ./. + "/sha256-i_C22ovZYwUu3a7gzBeFVaMqvhIB+N_Z63wOCPdhwLs=/package.json";
     };
   };
   picoclaw = {

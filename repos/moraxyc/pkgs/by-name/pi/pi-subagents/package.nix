@@ -26,8 +26,8 @@ buildNpmPackage (finalAttrs: {
   '';
 
   postInstall = ''
-    cp -r $out/lib/node_modules/pi-subagents/. $out
-    rm -rf $out/{bin,lib}
+    mv $out/lib/node_modules/pi-subagents $out/lib/${finalAttrs.pname}
+    rm -rf $out/bin $out/lib/node_modules
   '';
 
   meta = {

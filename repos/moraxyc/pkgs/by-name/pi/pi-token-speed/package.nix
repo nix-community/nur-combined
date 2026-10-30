@@ -14,8 +14,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    mkdir $out
-    cp -r src package.json $out
+    mkdir -p $out/lib/${finalAttrs.pname}
+    cp -r src package.json $out/lib/${finalAttrs.pname}
 
     runHook postInstall
   '';

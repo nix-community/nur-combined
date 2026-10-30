@@ -21,8 +21,8 @@ buildNpmPackage (finalAttrs: {
   dontNpmBuild = true;
 
   postInstall = ''
-    cp -r $out/lib/node_modules/@router-for-me/pi-cliproxyapi-provider/. $out
-    rm -rf $out/lib
+    mv $out/lib/node_modules/@router-for-me/pi-cliproxyapi-provider $out/lib/${finalAttrs.pname}
+    rm -rf $out/lib/node_modules
   '';
 
   meta = {
