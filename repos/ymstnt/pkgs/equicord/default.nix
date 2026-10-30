@@ -11,13 +11,15 @@
   buildWebExtension ? false,
 }:
 stdenv.mkDerivation (finalAttrs: {
+  # Upstream switched from date tags (e.g. 2026-10-08) to semver tags (e.g. v1.15.13.0).
+  # The old date tags still exist, so the update script only matches the semver ones.
   pname = "equicord";
   version = "2026-10-08";
 
   src = fetchFromGitHub {
     owner = "Equicord";
     repo = "Equicord";
-    tag = "${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-38mMUaDgS0nYwrW2WceQmuHDJk1vFU1PEi7HWvNxiZk=";
   };
 
