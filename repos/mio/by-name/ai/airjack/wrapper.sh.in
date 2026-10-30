@@ -1,0 +1,15 @@
+#!@shell@
+set -euo pipefail
+
+# AirJack resolves its external tools through PATH (shutil.which) before
+# falling back to hardcoded ~/ locations.
+export PATH="@binPath@${PATH:+:$PATH}"
+export PYTHONPATH="@site@${PYTHONPATH:+:$PYTHONPATH}"
+
+# The system interpreter is what gives the CoreLocation request an identity
+# (see package.nix); fall back to the store interpreter if macOS ever drops
+# /usr/bin/python3.
+if [ -x /usr/bin/python3 ]; then
+  exec /usr/bin/python3 "@script@" "$@"
+fi
+exec "@fallback@" "@script@" "$@"
