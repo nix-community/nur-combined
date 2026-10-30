@@ -141,6 +141,9 @@ jobs:
       - name: Update flake
         run: nix flake update
 
+      - name: Update README
+        run: bun scripts/readme.js
+
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
