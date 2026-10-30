@@ -6,12 +6,12 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "pi-web";
-  version = "0.12.2";
+  version = "0.13.0";
   src = fetchFromGitHub {
     owner = "agegr";
     repo = "pi-web";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-3SLxCRZVFYie1Ux73KlGCACFpJt2xaKTXc8eAdxPFy4=";
+    hash = "sha256-XJm2SKqG6T6mGmKDw3eKkPP+iywXA8ehBu5Y1W/dFNw=";
   };
   __structuredAttrs = true;
   strictDeps = true;

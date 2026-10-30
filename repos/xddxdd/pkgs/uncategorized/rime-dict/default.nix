@@ -6,12 +6,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "rime-dict";
-  version = "0-unstable-2026-03-14";
+  version = "0-unstable-2026-10-28";
   src = fetchFromGitHub {
     owner = "Iorest";
     repo = "rime-dict";
-    rev = "a2057baecf53e5a45dfd5b72f1ec50773d8c9271";
-    hash = "sha256-8XkMAy2PLu17kWexU9il6jPQNaDQ3IujFbr2bLno1QM=";
+    rev = "a559581be1b3c61c9da7d0beee192ec73b193de1";
+    hash = "sha256-5E/cDJ7jx2flxQZgoaNslN+uWSrqzbqdBYlQ9qOtXiY=";
   };
   __structuredAttrs = true;
   strictDeps = true;

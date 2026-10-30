@@ -6,18 +6,18 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "bin-cpuflags-x86";
-  version = "1.0.9";
+  version = "1.0.10";
 
   src = fetchFromGitHub {
     owner = "HanabishiRecca";
     repo = "bin-cpuflags-x86";
     tag = finalAttrs.version;
-    hash = "sha256-1+UHA6xWzO5ftaqZWVsfiXW75SBUQP2ukk1P1OYMVLk=";
+    hash = "sha256-Atq0vH6KB7jdetdG+ANiuJB8RE5LlEmgOOnt4Xx3WXk=";
   };
   __structuredAttrs = true;
   strictDeps = true;
 
-  cargoHash = "sha256-3il1w8Y2p3qt6WLyqSwIwt5ubh2QAM9Fdg14NS0UqkE=";
+  cargoHash = "sha256-dQ98aNa5f0LAM8ySoJaEpFbIfEgudYWXJ+XohmRc6As=";
 
   passthru.updateScript = nix-update-script { };
 

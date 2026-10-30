@@ -6,16 +6,16 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "oidc-tester-app";
-  version = "0-unstable-2026-10-27";
+  version = "0-unstable-2026-10-28";
   src = fetchFromGitHub {
     owner = "authelia";
     repo = "oidc-tester-app";
-    rev = "60f0660964364b1187c3ab3ce531ea1ab7008dff";
-    hash = "sha256-YkY+PGQPiIkj0EYyoxgNODFqzrFb+NClVFcXj9B889I=";
+    rev = "146cfd9429b6ee9623e556a45ecaec00c629492f";
+    hash = "sha256-IWPIOHKTKMYhnWCBanSkqqmD35uMU6tAg5ropvS2rIc=";
   };
   __structuredAttrs = true;
   strictDeps = true;
-  vendorHash = "sha256-/cLusGRFKwSte/iHWmKwdC6stY3ITHvKPv9ughn+YCQ=";
+  vendorHash = "sha256-YqwmYTkRb2NG+i4epl5QMSbgh63vY/91SBF43PWE4ME=";
 
   passthru.updateScript = nix-update-script {
     extraArgs = [

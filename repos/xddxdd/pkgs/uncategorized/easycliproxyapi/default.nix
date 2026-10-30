@@ -18,12 +18,12 @@
 }:
 
 let
-  version = "0.3.55";
+  version = "0.3.59-ui-polish.1";
   src = fetchFromGitHub {
     owner = "router-for-me";
     repo = "EasyCLIProxyAPI";
     tag = "v${version}";
-    hash = "sha256-P+BzsNd0LBfT+g9Naq2XU9xN/WP8AcHZe/78NXqeB1E=";
+    hash = "sha256-wnKcT7LdHcSe0wAQtzkhqJ0JMO1mEKIMogS0je2JLp4=";
   };
 
   frontend = buildNpmPackage {

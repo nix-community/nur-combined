@@ -16,8 +16,8 @@
 }:
 
 let
-  version = "b10826-c9c34bc";
-  hash = "sha256-njQAbnOekc4wa+ayThYvSDM642/qSSbbbbKJhuLsV24=";
+  version = "b10831-9d9efea";
+  hash = "sha256-RiUDltYHS6394GHklhzUzoc+Nj5hRw85FmKUd2/nfc8=";
 
   buildInfo = lib.match "b([0-9]+)-([0-9a-f]+)" version;
   buildNumber = if buildInfo != null then builtins.elemAt buildInfo 0 else "0";

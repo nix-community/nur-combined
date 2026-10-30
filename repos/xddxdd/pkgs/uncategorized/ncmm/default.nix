@@ -9,7 +9,7 @@ let
     {
       "aarch64-linux" = {
         archive = "arm64";
-        hash = "sha256-TAlnzc+oo/154KyQh/TKaSBmKD+4L/pyIXRUC4JgN3Y=";
+        hash = "";
       };
       "x86_64-linux" = {
         archive = "x86_64";
