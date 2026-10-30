@@ -3,6 +3,8 @@
   stdenvNoCC,
   fetchFromGitHub,
   writableTmpDirAsHomeHook,
+  writeShellApplication,
+  nix-update-script,
 }:
 
 let
@@ -13,13 +15,13 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "compositor";
-  version = "1.5.9";
+  version = "1.5.12";
 
   src = fetchFromGitHub {
     owner = "robbietilton";
     repo = "Compositor";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-UnUFDnO2ZIRIyyuYRbdbh3mnYBn+JPAnfY/1yfI7YX4=";
+    hash = "sha256-KZvt35+dBsuQJI3HjyFcIrkqO5x3pRZ8wqNNYtXSUAo=";
   };
 
   # Two expressions upstream's Xcode accepts are rejected by Xcode 26's
@@ -33,45 +35,62 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         'return (0..<count).map { i -> Float in let l: Float = lower?[i] ?? 0; let u: Float = upper?[i] ?? 0; return l * (1 - t) + u * t }'
   '';
 
-  passthru.spmDeps = stdenvNoCC.mkDerivation {
-    pname = "${finalAttrs.pname}-spm-deps";
-    inherit (finalAttrs) version src;
+  passthru = {
+    spmDeps = stdenvNoCC.mkDerivation {
+      pname = "${finalAttrs.pname}-spm-deps";
+      inherit (finalAttrs) version src;
 
-    outputHashMode = "recursive";
-    outputHash = "sha256-9eSSVS8/4caRbXZzMopicFPeFodsCAPliAA4h7vxXgY=";
+      outputHashMode = "recursive";
+      outputHash = "sha256-9eSSVS8/4caRbXZzMopicFPeFodsCAPliAA4h7vxXgY=";
 
-    nativeBuildInputs = [ writableTmpDirAsHomeHook ];
+      nativeBuildInputs = [ writableTmpDirAsHomeHook ];
 
-    sandboxProfile = xcodeSandboxProfile;
+      sandboxProfile = xcodeSandboxProfile;
 
-    buildCommand = ''
-      export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
-      export CFFIXED_USER_HOME=$HOME
-      export GIT_CONFIG_COUNT=1
-      export GIT_CONFIG_KEY_0=core.autocrlf
-      export GIT_CONFIG_VALUE_0=false
+      buildCommand = ''
+        export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
+        export CFFIXED_USER_HOME=$HOME
+        export GIT_CONFIG_COUNT=1
+        export GIT_CONFIG_KEY_0=core.autocrlf
+        export GIT_CONFIG_VALUE_0=false
 
-      cp -a "$src" src
-      chmod -R u+w src
-      cd src
+        cp -a "$src" src
+        chmod -R u+w src
+        cd src
 
-      mkdir -p "$out"
-      set +e
-      env PATH="$DEVELOPER_DIR/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH" \
-      xcodebuild -resolvePackageDependencies \
-        -scheme Compositor \
-        -clonedSourcePackagesDirPath "$out" \
-        -derivedDataPath "$TMPDIR/derived" \
-        -IDEPackageSupportDisableManifestSandbox=YES \
-        -IDEPackageSupportDisablePluginExecutionSandbox=YES
-      set -e
+        mkdir -p "$out"
+        set +e
+        env PATH="$DEVELOPER_DIR/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH" \
+        xcodebuild -resolvePackageDependencies \
+          -scheme Compositor \
+          -clonedSourcePackagesDirPath "$out" \
+          -derivedDataPath "$TMPDIR/derived" \
+          -IDEPackageSupportDisableManifestSandbox=YES \
+          -IDEPackageSupportDisablePluginExecutionSandbox=YES
+        set -e
 
-      rm -rf "$out/repositories"
-      find "$out" -name .git -print0 | xargs -0 rm -rf
-      find "$out" -type d -name xcuserdata -print0 | xargs -0 rm -rf
-      substituteInPlace "$out/workspace-state.json" \
-        --replace-fail "$out" '@SPM@'
-    '';
+        rm -rf "$out/repositories"
+        find "$out" -name .git -print0 | xargs -0 rm -rf
+        find "$out" -type d -name xcuserdata -print0 | xargs -0 rm -rf
+        substituteInPlace "$out/workspace-state.json" \
+          --replace-fail "$out" '@SPM@'
+      '';
+    };
+
+    updateScript = writeShellApplication {
+      name = "update-compositor";
+      text = ''
+        export UPDATE_NIX_ATTR_PATH="compositor"
+        exec ${
+          lib.escapeShellArgs (nix-update-script {
+            extraArgs = [
+              "--subpackage"
+              "spmDeps"
+            ];
+          })
+        } "$@"
+      '';
+    };
   };
 
   nativeBuildInputs = [ writableTmpDirAsHomeHook ];

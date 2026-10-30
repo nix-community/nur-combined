@@ -10,7 +10,9 @@
   nodejs,
   zlib,
   patchelf,
-  gitUpdater,
+  writeShellApplication,
+  git,
+  nix,
 }:
 
 # Note regarding upstream Nixpkgs PR #544899 and Issue #371320:
@@ -30,7 +32,7 @@ stdenv.mkDerivation (
     # needs its own hash. Kept outside the derivation attributes, which are
     # coerced to strings.
     depsHashes = {
-      x86_64-linux = "sha256-EEtgyG0F0MdkSlFxdjHhD3qt9JNzEkF2tssenp5uVNc=";
+      x86_64-linux = "sha256-Lt6+2wdjQEnoNaT8PO5PfyLuDt5jQOiWGuR0M6TVFC4=";
       aarch64-darwin = "sha256-uAMod+qlqhfHAyjtsULDcZoVdBvEAxv5OJbVGGFR7WY=";
     };
 
@@ -38,7 +40,7 @@ stdenv.mkDerivation (
     # from. The branch is rewritten on every clice release, so a branch URL would
     # make the fixed-output hash stale within a day; the commit keeps the build
     # reproducible. Bump it together with the hash when updating clice.
-    registryRev = "56c8db6fb3bfae32c16fe5374165d4109a766b72";
+    registryRev = "55895474675dcf8dddb284e0471898fa4f1f5902";
 
     # Extra flags of the darwin build: the server cannot listen in the sandbox
     # (--batch) and links cache ThinLTO output in $TMPDIR. The link action does
@@ -60,13 +62,13 @@ stdenv.mkDerivation (
   in
   {
     pname = "clice";
-    version = "0.1.2026102707";
+    version = "0.1.2026102908";
 
     src = fetchFromGitHub {
       owner = "clice-io";
       repo = "clice";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-l2IdqDqqJzBeCBcKxCe3KjzbNgnYOTQerZgWjuQIlRI=";
+      hash = "sha256-zw9DWCcr230LMwY4P4Va8QXnogpk04CDA5+fVU0vG9w=";
     };
 
     deps = stdenv.mkDerivation {
@@ -249,8 +251,17 @@ stdenv.mkDerivation (
 
     passthru = {
       inherit (finalAttrs) deps;
-      updateScript = gitUpdater {
-        rev-prefix = "v";
+      updateScript = writeShellApplication {
+        name = "update-clice";
+        runtimeInputs = [
+          python3
+          git
+          nix
+        ];
+        text = ''
+          export UPDATE_NIX_ATTR_PATH="clice"
+          exec ${python3}/bin/python3 ${./update.py} "$@"
+        '';
       };
     };
 

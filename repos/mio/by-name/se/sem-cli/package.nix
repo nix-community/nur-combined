@@ -6,20 +6,22 @@
   openssl,
   stdenv,
   apple-sdk,
+  writeShellApplication,
+  nix-update-script,
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "sem-cli";
-  version = "0.28.2";
+  version = "0.29.0";
 
   src = fetchFromGitHub {
     owner = "Ataraxy-Labs";
     repo = "sem";
     rev = "v${version}";
-    hash = "sha256-PZatqnOFOMEAb/qKivsUFo4WRGkPDjup9mWrpWgdyHE=";
+    hash = "sha256-FazZ6V94kfz9UyVWaNRiZXOeopbTZLgNx9mfIerWyyE=";
   };
 
-  cargoHash = "sha256-RvNbOP87D6TDe7VI6rZlud+fcFTUBuJv06DeeaUpF7o=";
+  cargoHash = "sha256-/gWMQe8nSUQ5BhVDMhMTtQ0gIAQ0r/9OBDVJLv0DSbs=";
 
   sourceRoot = "${src.name}/crates";
 
@@ -51,6 +53,14 @@ rustPlatform.buildRustPackage rec {
 
   # Tests require git and specific environment setups that might fail in sandbox
   doCheck = false;
+
+  passthru.updateScript = writeShellApplication {
+    name = "update-sem-cli";
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="sem-cli"
+      exec ${lib.escapeShellArgs (nix-update-script { })} "$@"
+    '';
+  };
 
   meta = {
     description = "Semantic version control CLI by Ataraxy Labs";
