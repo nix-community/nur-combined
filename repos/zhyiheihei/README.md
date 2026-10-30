@@ -65,8 +65,8 @@ Build artifacts are cached in the Attic binary cache:
 | - [ ] |  | `imou-bridge` | [imou-bridge](https://github.com/home-assistant-tools/imou-life) | 2026-08-16 | Imou/Lechange P2P bridge for Home Assistant and Frigate (go2rtc RTSP restream) |
 | - [x] |  | `jieba-next` | [jieba-next](https://github.com/mxcoras/jieba-next) | 1.0.0rc1 | Modern jieba fork with Rust speedups |
 | - [ ] |  | `navdash` | [navdash](https://github.com/zhyiheihei/navdash) | 0.7.1 | Personal service portal with native OIDC login and Nix-generated service cards |
-| - [x] |  | `nexus-media` | [nexus-media](https://github.com/linyuan0213/nexus-media) | 5.1.0 | Media library manager with automated downloading, media organization and subscription workflows |
-| - [ ] |  | `nexus-media-web` | [nexus-media-web](https://github.com/linyuan0213/nexus-media-web) | 5.1.0 | Vue 3 web frontend for the Nexus Media media library manager |
+| - [x] |  | `nexus-media` | [nexus-media](https://github.com/linyuan0213/nexus-media) | 5.2.2 | Media library manager with automated downloading, media organization and subscription workflows |
+| - [ ] |  | `nexus-media-web` | [nexus-media-web](https://github.com/linyuan0213/nexus-media-web) | 5.2.2 | Vue 3 web frontend for the Nexus Media media library manager |
 | - [x] |  | `pinyin2hanzi` | [Pinyin2Hanzi](https://github.com/someus/Pinyin2Hanzi) | 0.1.1 | Pinyin to Chinese character conversion engine |
 | - [x] |  | `proces` | [proces](https://github.com/Ailln/proces) | 0.1.7 | Text preprocess utilities |
 | - [x] |  | `pypika-tortoise` | [pypika-tortoise](https://github.com/tortoise/pypika-tortoise) | 0.6.5 | SQL query builder fork streamlined for tortoise-orm |
@@ -117,8 +117,8 @@ Build artifacts are cached in the Attic binary cache:
 | - [ ] |  | `uncategorized.hubproxy` | [hubproxy](https://github.com/sky22333/hubproxy) | 1.2.5 | Lightweight multi-purpose proxy for Docker images, GitHub and Hugging Face acceleration |
 | - [ ] |  | `uncategorized.imou-bridge` | [imou-bridge](https://github.com/home-assistant-tools/imou-life) | 2026-08-16 | Imou/Lechange P2P bridge for Home Assistant and Frigate (go2rtc RTSP restream) |
 | - [ ] |  | `uncategorized.navdash` | [navdash](https://github.com/zhyiheihei/navdash) | 0.7.1 | Personal service portal with native OIDC login and Nix-generated service cards |
-| - [ ] |  | `uncategorized.nexus-media` | [nexus-media](https://github.com/linyuan0213/nexus-media) | 5.1.0 | Media library manager with automated downloading, media organization and subscription workflows |
-| - [ ] |  | `uncategorized.nexus-media-web` | [nexus-media-web](https://github.com/linyuan0213/nexus-media-web) | 5.1.0 | Vue 3 web frontend for the Nexus Media media library manager |
+| - [ ] |  | `uncategorized.nexus-media` | [nexus-media](https://github.com/linyuan0213/nexus-media) | 5.2.2 | Media library manager with automated downloading, media organization and subscription workflows |
+| - [ ] |  | `uncategorized.nexus-media-web` | [nexus-media-web](https://github.com/linyuan0213/nexus-media-web) | 5.2.2 | Vue 3 web frontend for the Nexus Media media library manager |
 | - [ ] | `x86_64-linux` | `uncategorized.qingjian` | [qingjian](https://qingjian.app) | 0.3.1 | Pinyin input method with translation hints for language learners |
 | - [ ] |  | `uncategorized.rtkbt` | [rtkbt](https://github.com/radxa/rtkbt) | 2022-06-07 | Realtek Bluetooth UART attach tool and RTL8852BS firmware |
 | - [ ] |  | `uncategorized.sublinkpro` | [sublinkpro](https://github.com/ZeroDeng01/sublinkPro) | 1.2.22 | Modern proxy subscription management panel with smart tags, speed tests and relay chains |
