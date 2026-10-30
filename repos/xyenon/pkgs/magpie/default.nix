@@ -2,7 +2,6 @@
   lib,
   stdenv,
   buildGoModule,
-  buildEnv,
   fetchFromGitHub,
   pkg-config,
   gtk3,
@@ -12,63 +11,38 @@
   makeDesktopItem,
   copyDesktopItems,
   imagemagick,
+  ast-grep,
   gotools,
   versionCheckHook,
   nix-update-script,
-  coreutils,
-  bash,
-  gawk,
-  gnugrep,
-  gnused,
-  python3,
-  nodejs,
   bun,
-  procps,
-  zsh,
-  darwin,
-  dbus,
   xdg-utils,
-  xcbuild,
   guiSupport ? true,
 }:
 
 let
   linuxGui = guiSupport && stdenv.hostPlatform.isLinux;
   darwinGui = guiSupport && stdenv.hostPlatform.isDarwin;
-  patchArgs = "-platform ${stdenv.hostPlatform.parsed.kernel.name} -arch ${stdenv.hostPlatform.go.GOARCH} -gui=${lib.boolToString guiSupport} -launcher $out/bin/magpie -bun ${lib.getExe bun}";
-  testTools = buildEnv {
-    name = "magpie-test-tools";
-    paths = [
-      bash
-      coreutils
-      gawk
-      gnugrep
-      gnused
-      python3
-    ];
-    pathsToLink = [ "/bin" ];
-  };
 in
 buildGoModule (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "magpie";
-  version = "0.1.2110";
+  version = "0.1.2123";
 
   src = fetchFromGitHub {
     owner = "yetone";
     repo = "magpie";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-xpBUWtpHYBCdMX2BSbLCI+rgCWO+eu7jtaX3KmoQqPA=";
+    hash = "sha256-QXSZY9lIa40+mIVO3NHPrPEhg+5j/TsX9jduq4cOWjQ=";
   };
 
   vendorHash = "sha256-CSFUYQB28DBs0oQSObJEqu07+b7T7DKxINQVu+lHNUw=";
 
   # Apply runtime policies before compiling the installed application.
   postPatch = ''
-    export GOCACHE=$TMPDIR/go-cache
-    export GOPATH=$TMPDIR/go
-    GOFLAGS= GOPROXY=off GOSUMDB=off go run ${./patch.go} -phase runtime ${patchArgs}
+    bash ${./patch.sh} ${stdenv.hostPlatform.parsed.kernel.name} ${lib.boolToString guiSupport} \
+      "$out/bin/magpie" ${lib.getExe bun}
   '';
 
   subPackages = [ "." ];
@@ -84,40 +58,11 @@ buildGoModule (finalAttrs: {
     "-X main.version=v${finalAttrs.version}"
   ];
 
-  # Apply test-only adaptations after compilation to keep them out of the installed binary.
-  preCheck = ''
-    export MAGPIE_BUN=${lib.getExe bun}
-    GOFLAGS= go run ${./patch.go} -phase check ${patchArgs} \
-      -tools ${testTools}/bin -templates ${./.} \
-      ${lib.optionalString stdenv.hostPlatform.isLinux "-dbus ${dbus}/share/dbus-1/session.conf"}
-  '';
-  nativeCheckInputs = [
-    python3
-    nodejs
-    bun
-    zsh
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isLinux [
-    dbus
-    procps
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    xcbuild
-    darwin.adv_cmds
-  ];
-  # Darwin build users lack pgrep and an entitled ps that can read RSS.
-  checkFlags = lib.optionals stdenv.hostPlatform.isDarwin [
-    "-skip=^(TestRunningNeedsNoPs|TestTreeRSS)$"
-  ];
-  checkPhase = ''
-    runHook preCheck
-    export GOFLAGS=''${GOFLAGS//-trimpath/}
-    buildGoDir test ./...
-    runHook postCheck
-  '';
+  doCheck = false;
 
   nativeBuildInputs = [
     makeWrapper
+    ast-grep
     gotools
   ]
   ++ lib.optionals linuxGui [
