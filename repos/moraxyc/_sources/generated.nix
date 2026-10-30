@@ -623,6 +623,23 @@
       "package.json" = ./. + "/sha256-ysLqNhDlRMZJIvRhFtF5iFvmHIOkhd1esO4VvWs6Jqc=/package.json";
     };
   };
+  pi-ast-sgrep = {
+    pname = "pi-ast-sgrep";
+    version = "v2.6.0";
+    src = fetchFromGitHub {
+      owner = "AdityaVG13";
+      repo = "ast-sgrep";
+      rev = "v2.6.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-YwAXrkUUTb7uykIIG05WKchqKoZDBvSyilJl4mFyVvM=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-YwAXrkUUTb7uykIIG05WKchqKoZDBvSyilJl4mFyVvM=/Cargo.lock";
+      outputHashes = {
+        "tree-sitter-moonbit-0.1.0" = "sha256-Eq2IiNjNidorJOY65RNmFUbs6jcIo/y22SDxngcB9WA=";
+      };
+    };
+  };
   pi-cliproxyapi-provider = {
     pname = "pi-cliproxyapi-provider";
     version = "v1.4.23";

@@ -1063,6 +1063,34 @@
         },
         "version": "v0.26.6"
     },
+    "pi-ast-sgrep": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-YwAXrkUUTb7uykIIG05WKchqKoZDBvSyilJl4mFyVvM=/Cargo.lock",
+                {
+                    "tree-sitter-moonbit-0.1.0": "sha256-Eq2IiNjNidorJOY65RNmFUbs6jcIo/y22SDxngcB9WA="
+                }
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "pi-ast-sgrep",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "AdityaVG13",
+            "repo": "ast-sgrep",
+            "rev": "v2.6.0",
+            "sha256": "sha256-YwAXrkUUTb7uykIIG05WKchqKoZDBvSyilJl4mFyVvM=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v2.6.0"
+    },
     "pi-cliproxyapi-provider": {
         "cargoLock": null,
         "date": null,

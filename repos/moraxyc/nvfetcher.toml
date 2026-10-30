@@ -234,6 +234,11 @@ src.github = "grinev/opencode-telegram-bot"
 fetch.github = "grinev/opencode-telegram-bot"
 extract = ["package.json", "package-lock.json"]
 
+[pi-ast-sgrep]
+src.github = "AdityaVG13/ast-sgrep"
+fetch.github = "AdityaVG13/ast-sgrep"
+cargo_lock = ["Cargo.lock"]
+
 [pi-cliproxyapi-provider]
 src.github_tag = "router-for-me/pi-cliproxyapi-provider"
 fetch.github = "router-for-me/pi-cliproxyapi-provider"
