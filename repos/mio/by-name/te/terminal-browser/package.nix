@@ -14,20 +14,20 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "terminal-browser";
-  version = "0.15.1";
+  version = "0.15.2";
 
   src = fetchFromGitHub {
     owner = "zenbu-labs";
     repo = "terminal-browser";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-RQ7kJrHGzFrIZX0ABupv+eOYFDU100Z4H578zIVtXJ4=";
+    hash = "sha256-CAwAutMVbXoKZ0cMvOJSEU6IQyF9mTZYgY9a6l9kCOs=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     pnpm = pnpm_10;
     fetcherVersion = 4;
-    hash = "sha256-hm4cwAY+wCtLPFiwVXFidXY4PgGpQqq38n04uxvf/n4=";
+    hash = "sha256-msHKcwmY7T06s5OQBIf6FUO77xkCVwK8Mn8rs2GJ8FM=";
   };
 
   nativeBuildInputs = [

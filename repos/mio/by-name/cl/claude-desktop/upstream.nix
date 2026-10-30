@@ -3,6 +3,6 @@
 fetchFromGitHub {
   owner = "aaddrick";
   repo = "claude-desktop-debian";
-  tag = "v3.3.13+claude4.29.0";
-  hash = "sha256-GxA2xYTJLT0pgRYXGglgdW3ylxjq6pLO7wtjsLQ9MSQ=";
+  tag = "v3.3.14+claude4.29.0";
+  hash = "sha256-QX5suhGK6n7Rq9yYnJEAAKjyAFkgvXR36/0WfUHJ8+c=";
 }
