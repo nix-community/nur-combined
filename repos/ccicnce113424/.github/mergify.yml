@@ -10,6 +10,7 @@ queue_rules:
     batch_size:
       min: 1
       max: 8
+    checks_timeout: null
 
 pull_request_rules:
   - name: Queue when labeled
