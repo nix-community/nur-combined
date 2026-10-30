@@ -44,6 +44,9 @@ let
     NEXT_PUBLIC_POSTHOG_HOST_URL = "https://us.i.posthog.com";
     NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY = "pk_live_51Q0SA5KrNS6SjmqWMgRE0ar5v6cMvtizkyY3mXjYaZsU6AG9ctpNPKZMVf6xFK2ngqwkt8rHNIQgNiCFSbRdGb9Z00QEo13rfx";
     NEXT_PUBLIC_STRIPE_CUSTOMER_PORTAL = "https://billing.stripe.com/p/login/cN22bea8W6Ra2is144";
+    # Optional in env-schema.ts and therefore not set by our build unless given
+    # here; the official 0.2.35 binary bakes the public Prelude web SDK key.
+    NEXT_PUBLIC_PRELUDE_WEB_SDK_KEY = "sdk_1xLWzByLeEenx4AgNLhwbLqEqAp0YuTogKIO";
     NEXT_PUBLIC_WEB_PORT = "3000";
   };
 
