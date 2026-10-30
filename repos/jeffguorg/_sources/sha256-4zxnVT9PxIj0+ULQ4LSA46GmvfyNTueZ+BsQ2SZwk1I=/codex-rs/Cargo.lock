@@ -2065,7 +2065,6 @@ dependencies = [
  "base64 0.22.1",
  "chrono",
  "clap",
- "codex-agent-extension",
  "codex-analytics",
  "codex-app-server-daemon",
  "codex-app-server-protocol",
@@ -2179,6 +2178,7 @@ version = "0.0.0"
 dependencies = [
  "codex-app-server",
  "codex-app-server-protocol",
+ "codex-app-server-transport",
  "codex-arg0",
  "codex-config",
  "codex-core",
@@ -2513,7 +2513,6 @@ dependencies = [
  "codex-app-server-protocol",
  "codex-app-server-test-client",
  "codex-arg0",
- "codex-aws-auth",
  "codex-build-info",
  "codex-chatgpt",
  "codex-cloud-config",
@@ -2523,6 +2522,7 @@ dependencies = [
  "codex-core-plugins",
  "codex-exec",
  "codex-exec-server",
+ "codex-exec-server-cli",
  "codex-execpolicy",
  "codex-extension-api",
  "codex-features",
@@ -2570,7 +2570,6 @@ dependencies = [
  "insta",
  "jsonwebtoken",
  "libc",
- "libsqlite3-sys",
  "os_info",
  "owo-colors",
  "predicates",
@@ -2760,8 +2759,10 @@ dependencies = [
  "codex-http-client",
  "codex-otel",
  "codex-otel-trace-websocket",
+ "codex-plugin-host",
  "codex-protocol",
  "codex-utils-cargo-bin",
+ "codex-utils-process",
  "futures",
  "pretty_assertions",
  "prost",
@@ -2800,6 +2801,7 @@ version = "0.0.0"
 dependencies = [
  "base64 0.22.1",
  "codex-code-mode-protocol",
+ "codex-plugin-host",
  "codex-protocol",
  "deno_core_icudata",
  "futures",
@@ -2853,6 +2855,7 @@ dependencies = [
  "serde_path_to_error",
  "sha2 0.10.9",
  "tempfile",
+ "test-case",
  "thiserror 2.0.18",
  "tokio",
  "tokio-stream",
@@ -2954,6 +2957,7 @@ dependencies = [
  "codex-context-fragments",
  "codex-core-plugins",
  "codex-diagnostics",
+ "codex-direct-tool-timing",
  "codex-exec-server",
  "codex-exec-server-test-support",
  "codex-execpolicy",
@@ -2989,6 +2993,7 @@ dependencies = [
  "codex-rmcp-client",
  "codex-rollout",
  "codex-rollout-trace",
+ "codex-runtime-agent-instance",
  "codex-sandboxing",
  "codex-shell-command",
  "codex-skills",
@@ -3002,7 +3007,9 @@ dependencies = [
  "codex-utils-audio",
  "codex-utils-cache",
  "codex-utils-cargo-bin",
+ "codex-utils-critical-path",
  "codex-utils-git-discovery",
+ "codex-utils-head-tail-buffer",
  "codex-utils-home-dir",
  "codex-utils-image",
  "codex-utils-output-truncation",
@@ -3176,6 +3183,9 @@ version = "0.0.0"
 dependencies = [
  "codex-utils-critical-path",
  "pretty_assertions",
+ "test-case",
+ "tokio",
+ "tokio-util",
 ]
 
 [[package]]
@@ -3276,6 +3286,7 @@ dependencies = [
  "futures",
  "http 1.4.0",
  "libc",
+ "notify",
  "opentelemetry",
  "opentelemetry_sdk",
  "pretty_assertions",
@@ -3301,6 +3312,46 @@ dependencies = [
  "which 8.0.0",
  "windows-sys 0.61.2",
  "wiremock",
+]
+
+[[package]]
+name = "codex-exec-server-cli"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "assert_matches",
+ "clap",
+ "codex-api",
+ "codex-app-server",
+ "codex-arg0",
+ "codex-aws-auth",
+ "codex-build-info",
+ "codex-cloud-config",
+ "codex-config",
+ "codex-core",
+ "codex-exec-server",
+ "codex-http-client",
+ "codex-login",
+ "codex-model-provider",
+ "codex-protocol",
+ "codex-sandboxing",
+ "codex-utils-absolute-path",
+ "codex-utils-cargo-bin",
+ "codex-utils-cli",
+ "codex-utils-process",
+ "codex-websocket-auth",
+ "http 1.4.0",
+ "insta",
+ "pretty_assertions",
+ "serde",
+ "serde_json",
+ "tempfile",
+ "tikv-jemallocator",
+ "tokio",
+ "toml 0.9.11+spec-1.1.0",
+ "tracing",
+ "tracing-subscriber",
+ "url",
 ]
 
 [[package]]
@@ -3586,6 +3637,7 @@ dependencies = [
  "codex-history",
  "codex-protocol",
  "codex-protocol-test-support",
+ "codex-utils-output-truncation",
  "pretty_assertions",
  "serde",
  "serde_json",
@@ -3597,17 +3649,28 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "codex-analytics",
+ "codex-context-fragments",
  "codex-extension-api",
+ "codex-features",
  "codex-feedback",
  "codex-guardian-context",
+ "codex-history",
  "codex-mcp",
+ "codex-models-manager",
  "codex-otel",
  "codex-prompts",
  "codex-protocol",
+ "codex-protocol-test-support",
+ "codex-rmcp-client",
+ "codex-shell-command",
+ "codex-utils-output-truncation",
+ "codex-utils-path-uri",
+ "codex-utils-string",
  "opentelemetry",
  "opentelemetry_sdk",
  "pretty_assertions",
  "rand 0.9.3",
+ "rmcp",
  "serde",
  "serde_json",
  "test-case",
@@ -4129,6 +4192,7 @@ dependencies = [
  "codex-agent-identity",
  "codex-api",
  "codex-aws-auth",
+ "codex-features",
  "codex-feedback",
  "codex-http-client",
  "codex-keyring-store",
@@ -4138,12 +4202,16 @@ dependencies = [
  "codex-otel",
  "codex-protocol",
  "codex-response-debug-context",
+ "codex-runtime-agent-instance",
  "codex-secrets",
  "codex-utils-cargo-bin",
  "codex-utils-process",
  "codex-utils-redacted-string",
+ "codex-utils-rustls-provider",
  "http 1.4.0",
  "pretty_assertions",
+ "rcgen",
+ "rustls",
  "serde",
  "serde_json",
  "sha2 0.10.9",
@@ -4333,11 +4401,13 @@ dependencies = [
  "opentelemetry_sdk",
  "os_info",
  "pretty_assertions",
+ "rcgen",
  "reqwest 0.12.28",
  "seccompiler",
  "serde",
  "serde_json",
  "strum_macros 0.28.0",
+ "tempfile",
  "thiserror 2.0.18",
  "tokio",
  "tokio-tungstenite",
@@ -4370,6 +4440,23 @@ dependencies = [
  "pretty_assertions",
  "serde_json",
  "thiserror 2.0.18",
+]
+
+[[package]]
+name = "codex-plugin-host"
+version = "0.0.0"
+dependencies = [
+ "codex-utils-cargo-bin",
+ "codex-utils-process",
+ "codex-utils-pty",
+ "futures",
+ "libc",
+ "pretty_assertions",
+ "serde",
+ "serde_json",
+ "tempfile",
+ "tokio",
+ "tokio-util",
 ]
 
 [[package]]
@@ -4804,6 +4891,7 @@ dependencies = [
  "sqlx-macros",
  "sqlx-sqlite",
  "strum 0.27.2",
+ "tempfile",
  "tokio",
  "tracing",
  "tracing-subscriber",
@@ -5181,6 +5269,13 @@ dependencies = [
  "tempfile",
  "tokio",
  "tracing",
+]
+
+[[package]]
+name = "codex-utils-head-tail-buffer"
+version = "0.0.0"
+dependencies = [
+ "pretty_assertions",
 ]
 
 [[package]]
@@ -15916,6 +16011,7 @@ dependencies = [
  "tower-layer",
  "tower-service",
  "tracing",
+ "zstd",
 ]
 
 [[package]]
@@ -16514,8 +16610,7 @@ dependencies = [
 [[package]]
 name = "v8"
 version = "152.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a10fe1a92da5c32c7c7f838ce36c0ccfcfd5edf0865b58bdde820aa64cea9888"
+source = "git+https://github.com/seanh-oai/rusty_v8.git?rev=350c5a859a9b3c84ab8701b3ad51e3b7699b30c0#350c5a859a9b3c84ab8701b3ad51e3b7699b30c0"
 dependencies = [
  "bindgen",
  "bitflags 2.13.1",
