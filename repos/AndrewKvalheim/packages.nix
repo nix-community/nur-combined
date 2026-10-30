@@ -4,7 +4,7 @@ with import ./library/override-utils.lib.nix { inherit stable; nur = ./nur.nix; 
 
 let
   inherit (builtins) readFile;
-  inherit (lib) escapeShellArg makeBinPath throwIf;
+  inherit (lib) escapeShellArg makeBinPath throwIf unique;
   inherit (stable) lib writeTextDir;
 
   community-vscode-extensions = (import <community-vscode-extensions>).extensions.${stable.stdenv.hostPlatform.system}.forVSCodeVersion resolved.vscodium.vscodeVersion;
@@ -106,6 +106,7 @@ specify {
   pngquant-interactive = any;
   python39.search = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/f62d6734af4581af614cab0f2aa16bcecfc33c11.tar.gz") { overlays = [ ]; };
   pythonPackages.busylight-core.patch = ./library/assets/busylight-core_led-mask.patch;
+  pythonPackages.imageio.overlay = i: { disabledTests = unique (i.disabledTests or [ ] ++ [ "test_png" "test_png_16bit" ]); }; # Pending NixOS/nixpkgs#580682
   qgis = {
     env.GSETTINGS_SCHEMA_DIR = "${resolved.gtk3}/share/gsettings-schemas/${resolved.gtk3.name}/glib-2.0/schemas"; # Workaround for NixOS/nixpkgs#528925
     overlay = (w: { paths = w.paths ++ [ (writeTextDir "share/mime/packages/qgis.xml" (readFile (w.passthru.unwrapped.src + "/debian/qgis.xml"))) ]; }); # Workaround for NixOS/nixpkgs#356249

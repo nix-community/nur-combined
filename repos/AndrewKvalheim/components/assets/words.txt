@@ -15,6 +15,7 @@ AES
 AFAICT
 affordances
 Afienya
+agentic
 agentless
 agitative
 AGPL
@@ -772,6 +773,7 @@ keyserver
 keysigning
 Khazad-dûm
 KHTML
+kickstarted
 Kickstarter
 Kitsap
 KMonad
@@ -1699,6 +1701,8 @@ unviewable
 unviewed
 unwrappable
 unzstd
+upcycle
+upcycling
 updatable
 upsert
 upsmon

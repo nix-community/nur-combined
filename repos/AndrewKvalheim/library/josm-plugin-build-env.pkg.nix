@@ -25,7 +25,7 @@ let
 in
 {
   pname = "josm-plugin-build-env";
-  versionLegacy = "36514"; # TODO: Can this be derived from `pkgs.josm`?
+  versionLegacy = "36516"; # TODO: Can this be derived from `pkgs.josm`?
   versionTools = josm.version;
   version = "${josm-plugin-build-env.versionTools}-${josm-plugin-build-env.versionLegacy}";
   meta = {

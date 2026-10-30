@@ -19,18 +19,38 @@ let
   toStyles = a: concatLines (mapAttrsToListRecursive (p: v: "zstyle ${escapeShellArg (concatStringsSep ":" ([ "" ] ++ init p))} ${escapeShellArg (last p)} ${tryEscapeShellArgs (toList v)}") a);
 in
 {
-  systemd.user.services.direnv-use-bwrap-dbus-proxy = {
+  systemd.user.services.direnv-use-bwrap-dbus-proxy-session = {
     Install.WantedBy = [ "default.target" ]; # Socket activation pending flatpak/xdg-dbus-proxy#44
     Service = {
       SyslogIdentifier = "%N";
 
-      RuntimeDirectory = "%N";
+      RuntimeDirectory = "direnv-use-bwrap-dbus-proxy";
 
       ExecStart = ''
         ${getExe pkgs.xdg-dbus-proxy} \
           "''${DBUS_SESSION_BUS_ADDRESS}" \
-          '%t/%N/bus' \
-          --filter
+          '%t/direnv-use-bwrap-dbus-proxy/session' \
+          --log \
+          --filter \
+          --call=org.gnome.SessionManager=org.gnome.SessionManager.Inhibit@/org/gnome/SessionManager
+      '';
+    };
+  };
+
+  systemd.user.services.direnv-use-bwrap-dbus-proxy-system = {
+    Install.WantedBy = [ "default.target" ]; # Socket activation pending flatpak/xdg-dbus-proxy#44
+    Service = {
+      SyslogIdentifier = "%N";
+
+      RuntimeDirectory = "direnv-use-bwrap-dbus-proxy";
+
+      ExecStart = ''
+        ${getExe pkgs.xdg-dbus-proxy} \
+          'unix:path=/run/dbus/system_bus_socket' \
+          '%t/direnv-use-bwrap-dbus-proxy/system' \
+          --log \
+          --filter \
+          --talk=org.freedesktop.UPower.PowerProfiles
       '';
     };
   };

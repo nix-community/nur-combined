@@ -2,7 +2,7 @@
 
 let
   inherit (builtins) filter toFile;
-  inherit (lib) hasInfix hasPrefix recursiveUpdate remove versionAtLeast versionOlder warnIf;
+  inherit (lib) hasInfix hasPrefix recursiveUpdate remove unique versionAtLeast versionOlder warnIf;
   inherit (pkgs) callPackage fetchFromGitHub lib;
 
   isStable = hasPrefix "." lib.trivial.versionSuffix;
@@ -69,7 +69,14 @@ rec {
   journal-brief = callPackage ./library/journal-brief.pkg.nix { };
   little-a-map = callPackage ./library/little-a-map.pkg.nix { };
   mark-applier = callPackage ./library/mark-applier.pkg.nix { };
-  meshtastic-url = callPackage ./library/meshtastic-url.pkg.nix { };
+  meshtastic-url = (callPackage ./library/meshtastic-url.pkg.nix {
+    python3Packages = (pkgs.python3.override {
+      packageOverrides = _: pythonPackages: with pythonPackages; {
+        # Pending NixOS/nixpkgs#580269
+        imageio = imageio.overridePythonAttrs (i: { disabledTests = unique (i.disabledTests or [ ] ++ [ "test_png" "test_png_16bit" ]); });
+      };
+    }).pkgs;
+  });
   minemap = callPackage ./library/minemap.pkg.nix { };
   nbt-explorer = callPackage ./library/nbt-explorer.pkg.nix { };
   office-hours = (callPackage ./library/office-hours.pkg.nix {

@@ -137,7 +137,7 @@ in
         "php.validate.executablePath" = getExe pkgs.php;
         "prettier.prettierPath" = "${pkgs.prettier}/lib/node_modules/prettier/index.cjs";
         "python.formatting.blackPath" = getExe pkgs.black;
-        "rubyLsp.customRubyCommand" = "PATH=${makeBinPath (with pkgs; [ nodejs ruby ruby-lsp ])}:$PATH";
+        "rubyLsp.customRubyCommand" = "PATH=$PATH:${makeBinPath (with pkgs; [ nodejs ruby ruby-lsp ])}";
         "ruff.path" = [ (getExe pkgs.ruff) ];
         "ruff.nativeServer" = true;
         "rufo.exe" = getExe pkgs.rufo;

@@ -185,6 +185,8 @@ in
       mtr
       netdiscover
       oha
+      spf-check
+      spf-tree
       step-cli
       whois
       wireguard-tools

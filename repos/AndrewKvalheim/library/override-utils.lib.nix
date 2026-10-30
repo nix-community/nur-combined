@@ -21,6 +21,7 @@ let
     if isPath r then toString r
     else if r ? _name then r._name
     else if r ? _type && r._type == "pkgs" then r.lib.trivial.version
+    else if r ? pythonAtLeast then "${r.python.name}-packages"
     else throw "Not implemented";
 
   # Repositories
@@ -134,7 +135,7 @@ let
       # Package overlay
       package_with_overlay =
         if doOverlay then
-          package.overrideAttrs
+          package.${if doPythonPackages then "overridePythonAttrs" else "overrideAttrs"}
             (composeOverrides
               (a:
                 (optionalAttrs (patch != null) { patches = a.patches or [ ] ++ (toList patch); }) //
