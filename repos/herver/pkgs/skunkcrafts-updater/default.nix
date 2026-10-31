@@ -10,12 +10,12 @@
 
 let
   pname = "skunkcrafts-updater";
-  # Upstream only publishes an unversioned "latest" AppImage URL
-  version = "4.2.7";
+  # Versioned AppImage from the app's own update depot; update.sh reads the version from its skunkcrafts_updater.cfg
+  version = "4.2.10";
 
   src = fetchurl {
-    url = "https://1228098873.rsc.cdn77.org/updater/SkunkcraftsUpdater-x86_64.AppImage";
-    hash = "sha256-EvvZ+YjM9g7ZGVXbh1qtS+l0lcsR/y/9DhaIIWvo954=";
+    url = "https://1228098873.rsc.cdn77.org/updater/depot/SkunkcraftsUpdater-${version}-x86_64.AppImage";
+    hash = "sha256-wEywPo8MTOZAfGBgiZp2JfEw26qf0nyndXJgT5xcJUo=";
   };
 
   appimageContents = appimageTools.extract {
