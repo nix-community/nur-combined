@@ -5,85 +5,150 @@
 
 let
   inherit (lib)
+    # keep-sorted start
     makeScope
-    substring
+    mapAttrs
     recurseIntoAttrs
+    substring
+    # keep-sorted end
     ;
 in
 makeScope newScope (
   self:
   recurseIntoAttrs {
+    pluginUpdateScript = self.callPackage (
+      {
+        writeShellApplication,
+        curl,
+        jq,
+        nix-update,
+      }:
+
+      writeShellApplication {
+        name = "wordpress-update-plugin";
+
+        runtimeInputs = [
+          curl
+          jq
+          nix-update
+        ];
+
+        text = ''
+          plugin_id="$1"
+          shift
+
+          : "''${UPDATE_NIX_ATTR_PATH:?Missing UPDATE_NIX_ATTR_PATH}"
+
+          version="$(
+            curl -fsSG \
+              'https://api.wordpress.org/plugins/info/1.2/' \
+              --data-urlencode 'action=plugin_information' \
+              --data-urlencode "request[slug]=$plugin_id" |
+              jq -er '.version'
+          )"
+
+          echo "Updating $plugin_id to $version"
+
+          args=()
+
+          if [[ "''${UPDATE_NIX_FLAKE:-}" == "1" ]]; then
+            args+=(--flake)
+          fi
+
+          nix-update \
+            "''${args[@]}" \
+            --version="$version" \
+            "$@" \
+            "$UPDATE_NIX_ATTR_PATH"
+        '';
+      }
+    ) { };
+
     mkWpPlugin =
       {
+        lib,
         stdenv,
         fetchzip,
         pname,
         id,
         version,
         hash,
+        pluginUpdateScript,
         url ? "https://downloads.wordpress.org/plugin/${id}.${version}.zip",
       }:
 
       stdenv.mkDerivation {
-        inherit pname version;
+        inherit
+          pname
+          version
+          ;
+
         src = fetchzip {
           inherit url hash;
         };
+
         installPhase = "mkdir -p $out; cp -R * $out/";
+
+        passthru.updateScript = [
+          (lib.getExe pluginUpdateScript)
+          id
+        ];
       };
 
     plugins = {
-      antispam-bee = self.callPackage self.mkWpPlugin {
+      gutenberg = self.callPackage ../pkgs/gutenberg/package.nix { };
+    }
+    // mapAttrs (_: self.callPackage self.mkWpPlugin) {
+      antispam-bee = {
         pname = "antispam-bee";
         version = "2.11.13";
         id = "antispam-bee";
         hash = "sha256-kZ/I+alPro8v2Op1zuJCVrTiRkXQFJjMSySsPdvm2iY=";
       };
-      contact-form-7 = self.callPackage self.mkWpPlugin {
+      contact-form-7 = {
         pname = "wp-contact-form-7";
         version = "6.2.4.1";
         id = "contact-form-7";
         hash = "sha256-Brvh8vNb187DiaKPaY7KR29y7EP8DFF512sgWnOZgxY=";
       };
-      indexnow = self.callPackage self.mkWpPlugin {
+      indexnow = {
         pname = "indexnow";
         version = "1.0.4";
         id = "indexnow";
         url = "https://downloads.wordpress.org/plugin/indexnow.zip";
         hash = "sha256-YLzRJ7gXl03nUcEuYa3+jn5QdapDeyxZZHtYxgIoHOA=";
       };
-      generic-oidc = self.callPackage self.mkWpPlugin {
+      generic-oidc = {
         pname = "wp-generic-oidc";
         version = "3.11.3";
         id = "daggerhart-openid-connect-generic";
         hash = "sha256-/mqGWQz1lHsnA2dpQEZQVCWmqFSmDslFd4rzeEC4PA8=";
       };
-      gutenberg = self.callPackage ../pkgs/gutenberg/package.nix { };
-      gutenberg-carousel = self.callPackage self.mkWpPlugin {
+      gutenberg-carousel = {
         pname = "wp-gutenberg-carousel";
         version = "2.1.6";
         id = "carousel-block";
         hash = "sha256-rIaLGPvScOG/iCS2Ep54D7PEyKoE6I89rc5BpBRBofo=";
       };
-      modify-profile-fields = self.callPackage self.mkWpPlugin {
+      modify-profile-fields = {
         pname = "wp-modify-profile-fields";
         version = "1.3.0";
         id = "user-profile-dashboard-fields-control";
         hash = "sha256-sEAGsJs2RF0tAVO+vP2pt7ini1Sqa62eHJg7bgszXkc=";
       };
-      opengraph = self.callPackage self.mkWpPlugin {
+      opengraph = {
         pname = "opengraph";
         version = "3.0.1";
         id = "opengraph";
         hash = "sha256-wZh8uwARbcsazpWwz5h9pbhzY5N97VM1mvp/2tI30pY=";
       };
-      view-transitions = self.callPackage self.mkWpPlugin {
+      view-transitions = {
         pname = "wp-view-transitions";
         version = "1.2.1";
         id = "view-transitions";
         hash = "sha256-RNcdPFfRuRHljuh2IhR+L/NuayreNBeLAvuAEqLMrFA=";
       };
-      wp-user-avatars = self.callPackage self.mkWpPlugin {
+      wp-user-avatars = {
         pname = "wp-user-avatars";
         version = "2.2.0";
         id = "wp-user-avatars";
@@ -115,8 +180,8 @@ makeScope newScope (
         installPhase = "mkdir -p $out; cp -r ./wp-content/languages/* $out/";
       });
 
-    languages = {
-      nl = self.callPackage self.mkLanguage {
+    languages = mapAttrs (_: self.callPackage self.mkLanguage) {
+      nl = {
         language = "nl_NL";
         hash = "sha256-ExbytVCm1BAKO0O927/Kc1R5mmdOIOzzq2R2XFRXlIk=";
       };
