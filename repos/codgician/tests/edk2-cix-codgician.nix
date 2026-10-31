@@ -9,12 +9,12 @@
   pkg-config,
   cmocka,
   llvmPackages,
-  orion-o6-edk2,
+  edk2-cix-codgician,
 }:
 
 clangStdenv.mkDerivation {
-  pname = "orion-o6-edk2-host-tests";
-  inherit (orion-o6-edk2) version;
+  pname = "edk2-cix-codgician-host-tests";
+  inherit (edk2-cix-codgician) version;
 
   dontUnpack = true;
 
@@ -36,8 +36,8 @@ clangStdenv.mkDerivation {
   buildPhase = ''
     runHook preBuild
     mkdir workspace
-    ln -s ${orion-o6-edk2.edk2} workspace/edk2
-    ln -s ${orion-o6-edk2.edk2Platforms} workspace/edk2-platforms
+    ln -s ${edk2-cix-codgician.edk2} workspace/edk2
+    ln -s ${edk2-cix-codgician.edk2Platforms} workspace/edk2-platforms
     cmake -S workspace/edk2-platforms/Platform/CIX/Sky1/Test/HostTest -B build -G Ninja
     cmake --build build
     runHook postBuild
@@ -58,8 +58,8 @@ clangStdenv.mkDerivation {
   '';
 
   meta = {
-    description = "Host unit tests for orion-o6-edk2";
+    description = "Host unit tests for edk2-cix-codgician";
     license = lib.licenses.bsd2Patent;
-    inherit (orion-o6-edk2.meta) platforms;
+    inherit (edk2-cix-codgician.meta) platforms;
   };
 }

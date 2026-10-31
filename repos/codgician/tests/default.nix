@@ -36,6 +36,8 @@
 let
   nurPkgs = import ../pkgs { inherit pkgs; };
 in
-pkgs.lib.optionalAttrs (nurPkgs ? orion-o6-edk2) {
-  orion-o6-edk2 = pkgs.callPackage ./orion-o6-edk2.nix { inherit (nurPkgs) orion-o6-edk2; };
+pkgs.lib.optionalAttrs (nurPkgs ? edk2-cix-codgician) {
+  edk2-cix-codgician = pkgs.callPackage ./edk2-cix-codgician.nix {
+    inherit (nurPkgs) edk2-cix-codgician;
+  };
 }

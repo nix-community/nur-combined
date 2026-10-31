@@ -152,7 +152,7 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    # orion-o6-edk2 builds the same CIX tables and needs the same iasl pin.
+    # edk2-cix-codgician builds the same CIX tables and needs the same iasl pin.
     acpica-tools = acpica-tools-pinned;
     updateScript = nix-update-script { };
   };

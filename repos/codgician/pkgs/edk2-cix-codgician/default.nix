@@ -12,16 +12,17 @@
 }:
 
 gcc14Stdenv.mkDerivation (finalAttrs: {
-  pname = "orion-o6-edk2";
+  pname = "edk2-cix-codgician";
   version = "1.3.1-unstable-2026-10-30";
 
-  # Radxa's packaging repository supplies only the board build glue
-  # (src/Makefile); the firmware trees are the pins below.
+  # codgician/edk2-cix supplies the board build glue (src/Makefile) and records
+  # which revisions of the three firmware trees belong together. Its submodules
+  # are not fetched with it: the updater pins those revisions below.
   src = fetchFromGitHub {
-    owner = "radxa-pkg";
+    owner = "codgician";
     repo = "edk2-cix";
-    tag = "1.3.1";
-    hash = "sha256-SwxzKugIT2DR7Eq1KjkiKR160eAOK6FTwXN00VsEuys=";
+    rev = "1cd1b22a114445f6ad466918a15873a0334d4fe1";
+    hash = "sha256-X58n0y6QMs2A/+aXW76GulE+dba29sGa6n8ypudqio0=";
   };
 
   edk2 = fetchFromGitHub {
@@ -46,8 +47,8 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-N/q5R97fRw98OGrGjNMX1JPncl496sd1GsPrap/3HzA=";
   };
 
-  # Commit time of the edk2-platforms pin. It sets the SMBIOS release date and
-  # PrePi's __DATE__/__TIME__, so the same pins always give the same volumes.
+  # Commit time of the newest firmware-tree pin. It sets the SMBIOS release date
+  # and PrePi's __DATE__/__TIME__, so the same pins always give the same volumes.
   env.SOURCE_DATE_EPOCH = "1793366484";
 
   sourceRoot = "${finalAttrs.src.name}/src";
@@ -99,11 +100,13 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
 
   makeFlags = [
     "DSC=edk2-platforms/Platform/Radxa/Orion/O6/O6.dsc"
-    "COMMIT_HASH=${finalAttrs.src.tag}"
+    "COMMIT_HASH=${builtins.substring 0 7 finalAttrs.src.rev}"
     "EDK2_COMMIT_HASH=${builtins.substring 0 10 finalAttrs.edk2.rev}"
     "EDK2_NON_OSI_COMMIT_HASH=${builtins.substring 0 7 finalAttrs.edk2NonOsi.rev}"
     "EDK2_PLATFORMS_COMMIT_HASH=${builtins.substring 0 8 finalAttrs.edk2Platforms.rev}"
-    "DEB_VERSION=${finalAttrs.src.tag}"
+    # The release's debian/changelog version, which the updater keeps as the
+    # version prefix.
+    "DEB_VERSION=${lib.head (lib.splitString "-" finalAttrs.version)}"
     "Build/O6/RELEASE_GCC5/cix_flash_ota.bin"
     "Build/O6/RELEASE_GCC5/cix_flash_all.bin"
   ];
@@ -155,7 +158,7 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
     out_dir=Build/O6/RELEASE_GCC5
-    firmwareDir="$out/share/firmware/orion-o6-edk2"
+    firmwareDir="$out/share/edk2/radxa/orion-o6"
     mkdir -p "$firmwareDir"
     cp "$out_dir"/cix_flash_ota.bin "$out_dir"/cix_flash_all.bin "$out_dir"/BuildOptions "$firmwareDir/"
     cp "$out_dir/FV/FVMAIN_COMPACT.Fv" "$firmwareDir/SKY1_BL33_UEFI.fd"
@@ -184,16 +187,17 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     tests = {
-      inherit (nurTests) orion-o6-edk2;
+      inherit (nurTests) edk2-cix-codgician;
     };
     updateScript = ./update.sh;
   };
 
   meta = {
     description = "Radxa Orion O6 UEFI firmware with firmware TPM and measured boot";
-    homepage = "https://github.com/codgician/edk2-platforms";
+    homepage = "https://github.com/codgician/edk2-cix";
     license = with lib.licenses; [
       bsd2Patent
+      gpl3Plus
       unfreeRedistributableFirmware
     ];
     sourceProvenance = with lib.sourceTypes; [
