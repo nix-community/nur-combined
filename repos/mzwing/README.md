@@ -27,6 +27,7 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 | `haru` | [Usage](https://github.com/HyacinthHaru/haru) |
 | `hfd` | [Usage](https://gist.github.com/padeoe/697678ab8e528b85a2a7bddafea1fa4f) |
 | `icalingua++` | [Usage](https://github.com/Icalingua-plus-plus/Icalingua-plus-plus) |
+| `jplag` | [Usage](https://github.com/jplag/JPlag) |
 | `kelivo` | [Usage](https://github.com/Chevey339/kelivo) |
 | `lmfpd` | [Usage](https://github.com/Ikaleio/lm-detector) |
 | `magic-context` | [Usage](https://github.com/cortexkit/magic-context) |
@@ -34,6 +35,7 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 | `manboster-beta` | [Usage](https://github.com/manboster/manboster) |
 | `manboster-canary` | [Usage](https://github.com/manboster/manboster) |
 | `manboster-rc` | [Usage](https://github.com/manboster/manboster) |
+| `obelisk` | [Usage](https://github.com/tommy0103/obelisk) |
 | `regionrestrictioncheck` | [Usage](https://github.com/1-stream/RegionRestrictionCheck) |
 | `replay-fish` | [Usage](https://github.com/jorgebucaran/replay.fish) |
 | `sing-box-alpha` | [Usage](https://sing-box.sagernet.org/) |
