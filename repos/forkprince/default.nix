@@ -8,6 +8,7 @@
     overlays = import ./overlays;
     lib = import ./lib {inherit pkgs;};
 
+    kryoto-minecraft-launcher = lib.callPackage ./pkgs/kryoto-minecraft-launcher {};
     hyprcursor-bibata = lib.callPackage ./pkgs/hyprcursor-bibata {};
     twintaillauncher = lib.callPackage ./pkgs/twintaillauncher {};
     kryoto-desktop = lib.callPackage ./pkgs/kryoto-desktop {};

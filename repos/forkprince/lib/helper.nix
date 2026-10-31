@@ -305,6 +305,10 @@
     terminal ? false,
     extraDesktopItem ? {},
     extraInstallCommands ? "",
+    extraBwrapArgs ? [],
+    profile ? "",
+    passthru ? {},
+    extraPkgs ? [],
   }: let
     contents = pkgs.appimageTools.extract {inherit pname version src;};
 
@@ -317,7 +321,9 @@
       // extraDesktopItem);
   in
     pkgs.appimageTools.wrapType2 {
-      inherit pname version src meta;
+      inherit pname version src meta extraBwrapArgs profile passthru;
+
+      extraPkgs = _: extraPkgs;
 
       extraInstallCommands =
         ''

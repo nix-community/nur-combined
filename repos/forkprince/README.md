@@ -74,6 +74,7 @@ This repository contains three types of packages:
 | [`hytale`](pkgs/hytale/default.nix) | [hytale-launcher](https://hytale.com), official launcher for Hytale |
 | [`keka-external-helper`](pkgs/keka-external-helper/default.nix) | [keka-external-helper](https://github.com/aonez/Keka/wiki/Default-application), helper application for the Keka file archiver |
 | [`kryoto-desktop`](pkgs/kryoto-desktop/default.nix) | [kryoto-desktop](https://github.com/kyrotooooo/kryoto-desktop), find a game, download it and play it |
+| [`kryoto-minecraft-launcher`](pkgs/kryoto-minecraft-launcher/default.nix) | [kryoto-minecraft-launcher](https://github.com/Kryoto-Dev/kryoto-minecraft-launcher), minecraft: Java Edition launcher with Fabric, Quilt, Forge, NeoForge and Modrinth/CurseForge mods |
 | [`lightcraft`](pkgs/lightcraft/default.nix) | [lightcraft](https://getartcraft.com/apps/lightcraft), photo editor with color grading and RAW developing |
 | [`linearmouse`](pkgs/linearmouse/default.nix) | [linearmouse](https://linearmouse.org/), customise mouse behavior |
 | [`luxtorpeda-bin`](pkgs/luxtorpeda-bin/default.nix) | [luxtorpeda-bin](https://github.com/luxtorpeda-dev/luxtorpeda), steam Play compatibility tool to run games using native Linux engines (This is intended for use in the `programs.steam.extraCompatPackages` option only.) |
