@@ -17,10 +17,10 @@
     };
     "flagfox" = buildMozillaXpiAddon {
       pname = "flagfox";
-      version = "6.2.6";
+      version = "7.0.0";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5067561/flagfox-6.2.6.xpi";
-      sha256 = "ffc955454fb32a50a8a6d994802337fcfa82198ccf9dfcded94085ca6a950742";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5189167/flagfox-7.0.0.xpi";
+      sha256 = "3a0863c9a5a717c754c5b51892dc04a46d66537806bbac691015ed6a76a9786e";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
