@@ -108,22 +108,22 @@
   };
   nexus-media = {
     pname = "nexus-media";
-    version = "v5.3.4";
+    version = "v5.4.4";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media";
-      tag = "v5.3.4";
-      hash = "sha256-gSNPMMVEaiT1wcho+GPzMARIyqln+VQxi2zHs8r0H1Q=";
+      tag = "v5.4.4";
+      hash = "sha256-50uh3VuvrdCKfYrClWD4vB77G4WsYnfOrEXAbK4dAeI=";
     };
   };
   nexus-media-web = {
     pname = "nexus-media-web";
-    version = "v5.3.3";
+    version = "v5.4.4";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media-web";
-      tag = "v5.3.3";
-      hash = "sha256-lEA+5VPbwXyHjWvoop+f/xgdyUvCgj+irGDgHfKFvMw=";
+      tag = "v5.4.4";
+      hash = "sha256-5Ihy1UPqZ5pw6M8IK5PYsxVv33E9nLPS4gKEOC/R+Eo=";
     };
   };
   pinyin2hanzi = {
@@ -144,12 +144,12 @@
   };
   pyromark = {
     pname = "pyromark";
-    version = "v0.10.3";
+    version = "v0.10.4";
     src = fetchFromGitHub {
       owner = "monosans";
       repo = "pyromark";
-      tag = "v0.10.3";
-      hash = "sha256-MCCUi7olPSQ0atlJhz8hQXVa1Ot5NbkwnvuT3uLq9BM=";
+      tag = "v0.10.4";
+      hash = "sha256-YMhEQXm2zXsTj2ytuuKnu2fJMCRZNISiImny86k66/c=";
     };
   };
   qingjian = {

@@ -215,12 +215,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media",
-            "rev": "v5.3.4",
-            "sha256": "sha256-gSNPMMVEaiT1wcho+GPzMARIyqln+VQxi2zHs8r0H1Q=",
+            "rev": "v5.4.4",
+            "sha256": "sha256-50uh3VuvrdCKfYrClWD4vB77G4WsYnfOrEXAbK4dAeI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v5.3.4"
+        "version": "v5.4.4"
     },
     "nexus-media-web": {
         "cargoLock": null,
@@ -236,12 +236,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media-web",
-            "rev": "v5.3.3",
-            "sha256": "sha256-lEA+5VPbwXyHjWvoop+f/xgdyUvCgj+irGDgHfKFvMw=",
+            "rev": "v5.4.4",
+            "sha256": "sha256-5Ihy1UPqZ5pw6M8IK5PYsxVv33E9nLPS4gKEOC/R+Eo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v5.3.3"
+        "version": "v5.4.4"
     },
     "pinyin2hanzi": {
         "cargoLock": null,
@@ -287,12 +287,12 @@
             "name": null,
             "owner": "monosans",
             "repo": "pyromark",
-            "rev": "v0.10.3",
-            "sha256": "sha256-MCCUi7olPSQ0atlJhz8hQXVa1Ot5NbkwnvuT3uLq9BM=",
+            "rev": "v0.10.4",
+            "sha256": "sha256-YMhEQXm2zXsTj2ytuuKnu2fJMCRZNISiImny86k66/c=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.10.3"
+        "version": "v0.10.4"
     },
     "qingjian": {
         "cargoLock": null,
