@@ -350,7 +350,7 @@ checksum = "e6d5a32815ae3f33302d95fdcb2ce17862f8c65363dcfd29360480ba1001fc9c"
 
 [[package]]
 name = "gestures"
-version = "1.0.0"
+version = "1.1.0"
 dependencies = [
  "chrono",
  "clap",
@@ -359,7 +359,7 @@ dependencies = [
  "evdev",
  "input",
  "knuffel",
- "libxdo",
+ "libloading",
  "log",
  "miette 7.6.0",
  "nix 0.31.1",
@@ -547,6 +547,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bcc35a38544a891a5f7c865aca548a982ccb3b8650a5b06d0fd33a10283c56fc"
 
 [[package]]
+name = "libloading"
+version = "0.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "754ca22de805bb5744484a5b151a9e1a8e837d5dc232c2d7d8c2e3492edc8b60"
+dependencies = [
+ "cfg-if",
+ "windows-link",
+]
+
+[[package]]
 name = "libudev-sys"
 version = "0.1.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -554,25 +564,6 @@ checksum = "3c8469b4a23b962c1396b9b451dda50ef5b283e8dd309d69033475fa9b334324"
 dependencies = [
  "libc",
  "pkg-config",
-]
-
-[[package]]
-name = "libxdo"
-version = "0.6.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "00333b8756a3d28e78def82067a377de7fa61b24909000aeaa2b446a948d14db"
-dependencies = [
- "libxdo-sys",
-]
-
-[[package]]
-name = "libxdo-sys"
-version = "0.11.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "db23b9e7e2b7831bbd8aac0bbeeeb7b68cbebc162b227e7052e8e55829a09212"
-dependencies = [
- "libc",
- "x11",
 ]
 
 [[package]]
@@ -1389,16 +1380,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "05f360fc0b24296329c78fda852a1e9ae82de9cf7b27dae4b7f62f118f77b9ed"
 dependencies = [
  "tap",
-]
-
-[[package]]
-name = "x11"
-version = "2.21.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "502da5464ccd04011667b11c435cb992822c2c0dbde1770c988480d312a0db2e"
-dependencies = [
- "libc",
- "pkg-config",
 ]
 
 [[package]]

@@ -5939,9 +5939,9 @@ dependencies = [
 
 [[package]]
 name = "log"
-version = "0.4.34"
+version = "0.4.35"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f9f8bd3e56ce4dfc153cf470fffbfa98c7620958b312ca5c3a4b8d5181fd13c6"
+checksum = "5d15f86d12da44cd8d4ec3c73984537eb7f4cadcb9776a575a0a8a05ca11005c"
 
 [[package]]
 name = "loop9"
@@ -6792,6 +6792,7 @@ dependencies = [
 name = "nyanpasu-core-manager"
 version = "1.0.2"
 dependencies = [
+ "backon",
  "camino",
  "chrono",
  "clash-api",
@@ -7112,6 +7113,7 @@ dependencies = [
  "os_pipe",
  "parking_lot 0.13.0",
  "processkit",
+ "redb",
  "reqwest 0.13.5",
  "reqwest-websocket",
  "serde",

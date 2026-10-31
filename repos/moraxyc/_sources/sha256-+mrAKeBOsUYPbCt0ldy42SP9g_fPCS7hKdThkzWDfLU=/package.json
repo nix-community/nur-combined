@@ -40,6 +40,7 @@
     "check": "npm run docs:check && npm run lint && npm run test && npm run build",
     "ci:frontend-build": "tsc -b && vite build && node scripts/ci/verify-release-bundle.mjs --renderer dist && node scripts/ci/write-frontend-build-info.mjs",
     "release:bundle:check": "node scripts/ci/verify-release-bundle.mjs --renderer dist --desktop apps/desktop/dist",
+    "release:check:local": "node scripts/check-local-release.mjs",
     "ci:package-metadata": "node scripts/ci/write-build-info.mjs",
     "ci:test-scripts": "node --test scripts/ci/*.test.mjs",
     "ci:verify-workspace": "node scripts/ci/verify-workspace-contract.mjs",
