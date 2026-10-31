@@ -151,7 +151,11 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru = {
+    # orion-o6-edk2 builds the same CIX tables and needs the same iasl pin.
+    acpica-tools = acpica-tools-pinned;
+    updateScript = nix-update-script { };
+  };
 
   meta = {
     description = "EDK2 for CIX platforms";

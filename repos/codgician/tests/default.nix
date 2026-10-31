@@ -1,9 +1,10 @@
-# Top-level entry point for NUR NixOS VM tests.
+# Top-level entry point for NUR tests.
 #
 # Mirrors the upstream nixpkgs convention of keeping NixOS VM tests in a
 # dedicated tree (nixpkgs/nixos/tests/) rather than colocated next to the
-# packages they exercise. Each `.nix` file in this directory is a single
-# `pkgs.testers.runNixOSTest` definition; this file collects them all into
+# packages they exercise. Most `.nix` files in this directory are a single
+# `pkgs.testers.runNixOSTest` definition; other test derivations (such as host
+# unit-test suites) follow the same layout. This file collects them all into
 # the `nurTests` attrset, the NUR-local equivalent of upstream's
 # `pkgs.nixosTests`.
 #
@@ -16,29 +17,25 @@
 #     in the same shape `pkgs.nixosTests.<name>` is consumed in nixpkgs.
 #
 # Access paths:
-#   - `nix build .#legacyPackages.<system>.tests.litellm`     (this set)
-#   - `nix build .#litellm.tests.litellm`                     (passthru)
-#   - `nix build .#checks.<system>.litellm`                   (flake check)
-#   - `nix flake check`                                       (runs all)
+#   - `nix build .#legacyPackages.<system>.tests.<name>` (this set)
+#   - `nix build .#<name>.tests.<name>`                  (passthru)
+#   - `nix build .#checks.<system>.<name>`               (flake check)
+#   - `nix flake check`                                  (runs all)
 #
-# To add a new test:
+# To add a test:
 #   1. Drop `tests/<package-name>.nix` next to this file. Take whatever
-#      NUR-internal packages you need as function arguments (see
-#      tests/litellm.nix as an example).
-#   2. Register it below.
+#      NUR-internal packages you need as function arguments.
+#   2. Register it below; tests of platform-restricted packages exist only
+#      where the package does.
 #   3. Wire it back from the package via `passthru.tests`.
-
-# No NixOS VM tests are currently registered, so this set is empty and the
-# `{ inherit pkgs; }` argument from callers is ignored. To add a test, drop
-# `tests/<package>.nix` next to this file, switch the signature back to
-# `{ pkgs }:`, and register it as:
-#
-#   let nurPkgs = import ../pkgs { inherit pkgs; };
-#   in { <name> = pkgs.callPackage ./<name>.nix { inherit (nurPkgs) <name>; }; }
 #
 # Each test then surfaces under flake `checks` and is built by CI.
 
-{ ... }:
+{ pkgs }:
 
-{
+let
+  nurPkgs = import ../pkgs { inherit pkgs; };
+in
+pkgs.lib.optionalAttrs (nurPkgs ? orion-o6-edk2) {
+  orion-o6-edk2 = pkgs.callPackage ./orion-o6-edk2.nix { inherit (nurPkgs) orion-o6-edk2; };
 }
