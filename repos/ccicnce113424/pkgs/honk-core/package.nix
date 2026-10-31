@@ -74,11 +74,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
     env.RUSTC_BOOTSTRAP = "1";
 
-    preUnpack = ''
-      copyRustVendor() {
-        cp -a ${rustPlatform.rustVendorSrc}/. "$cargoDepsCopy/source-registry-0/"
-      }
-      postUnpackHooks+=(copyRustVendor)
+    postPatch = ''
+      cp -a ${rustPlatform.rustVendorSrc}/. "$cargoDepsCopy/source-registry-0/"
     '';
 
     buildPhase = ''
