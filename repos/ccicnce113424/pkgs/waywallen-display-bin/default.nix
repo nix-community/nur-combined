@@ -17,9 +17,9 @@ stdenv.mkDerivation {
     autoPatchelfHook
   ];
 
-  buildInputs = [
-    qt6.qtbase
-    qt6.qtdeclarative
+  buildInputs = with qt6; [
+    qtbase
+    qtdeclarative
   ];
 
   strictDeps = true;

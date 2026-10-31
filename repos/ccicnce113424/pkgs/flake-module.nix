@@ -41,9 +41,9 @@
     # nixpkgs in full
     # (`cfg.pkgs.appendOverlays cfg.overlays` in nixos/modules/misc/nixpkgs.nix).
     nixosModules.default = {
-      imports = [
-        self.nixosModules.modules
-        self.nixosModules.overlay
+      imports = with self.nixosModules; [
+        modules
+        overlay
       ];
     };
   };

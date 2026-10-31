@@ -24,9 +24,9 @@
       {
         virtualisation.vlans = [ 1 ];
 
-        environment.systemPackages = [
-          pkgs.curl
-          pkgs.jq
+        environment.systemPackages = with pkgs; [
+          curl
+          jq
         ];
 
         services.honk-core = {

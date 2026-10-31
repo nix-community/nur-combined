@@ -55,14 +55,16 @@ stdenv.mkDerivation (final: {
 
   hardeningDisable = [ "fortify" ];
 
-  buildInputs = [
-    bzip2
-    libarchive
-    qt6.qtbase
-    qt6.qtmultimedia
-    xz
-    zlib
-  ];
+  buildInputs =
+    builtins.attrValues {
+      inherit (qt6) qtbase qtmultimedia;
+    }
+    ++ [
+      bzip2
+      libarchive
+      xz
+      zlib
+    ];
 
   installPhase = ''
     runHook preInstall
