@@ -174,8 +174,13 @@ let
                 android("logcat -d -b crash; logcat -d -t 250"),
             ]
             for command in commands:
-                status, output = machine.execute(command)
-                print(f"Diagnostic (status {status}): {command}\n{output}")
+                try:
+                    status, output = machine.execute(command)
+                    print(f"Diagnostic (status {status}): {command}\n{output}")
+                except Exception as diagnostic_error:
+                    # A broken VM connection or output encoder should not hide
+                    # the original assertion/command failure.
+                    print(f"Diagnostic failed: {command}\n{diagnostic_error}")
 
         try:
             with subtest("real desktop services"):

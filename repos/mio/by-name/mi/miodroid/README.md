@@ -92,3 +92,9 @@ descriptor passing, disconnection, and permission preservation.
 
 Headless software rendering does not validate physical GPU/camera hardware,
 NVIDIA extensions, ARM translation, GApps, or every community Android image.
+The VM check lists and launches a preinstalled app; APK installation and removal
+are not covered yet. Upstream's WayDroid service commits a PackageInstaller
+session and returns before Android reports whether that operation completed, so
+the current host API cannot reliably assert either outcome. This also means a
+successful `miodroid app install` command is not proof that Android installed
+the APK.
