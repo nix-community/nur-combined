@@ -18,8 +18,8 @@
 
   implicitcad = pkgs.haskellPackages.callPackage ./pkgs/implicitcad { };
   # Removed from this repo; nixpkgs carries them now
-  joplin-desktop = pkgs.lib.warn "nur.repos.moredread.joplin-desktop is no longer maintained here, use joplin-desktop from nixpkgs" pkgs.joplin-desktop;
-  greaseweazel = pkgs.lib.warn "nur.repos.moredread.greaseweazel is no longer maintained here, use greaseweazle from nixpkgs" pkgs.greaseweazle;
+  joplin-desktop = pkgs.lib.warnOnInstantiate "nur.repos.moredread.joplin-desktop is no longer maintained here, use joplin-desktop from nixpkgs" pkgs.joplin-desktop;
+  greaseweazel = pkgs.lib.warnOnInstantiate "nur.repos.moredread.greaseweazel is no longer maintained here, use greaseweazle from nixpkgs" pkgs.greaseweazle;
 
   hxcfloppyemulator = pkgs.callPackage ./pkgs/hxcfloppyemulator { };
   mididings = pkgs.python3Packages.callPackage ./pkgs/mididings { };
