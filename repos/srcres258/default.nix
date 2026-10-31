@@ -25,7 +25,6 @@ in {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  example-package = pkgs.callPackage ./pkgs/example-package { };
   lceda-pro = pkgs.callPackage ./pkgs/lceda-pro {
       inherit maintainers;
   };
