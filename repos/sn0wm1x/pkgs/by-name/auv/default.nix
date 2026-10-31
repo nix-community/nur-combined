@@ -19,7 +19,7 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "auv";
-  version = "0.0.38";
+  version = "0.0.39";
 
   __structuredAttrs = true;
 
@@ -27,10 +27,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "moeru-ai";
     repo = "auv";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Y08dMwRzeSUXWFH05fJflZAhhxr0wMUdQz7a2PCA2Ug=";
+    hash = "sha256-4V+ODsxziasrgQ5a8Ljk+y1z83yIhM/dEV03uEoIJJs=";
   };
 
-  cargoHash = "sha256-VHSpFj6T5qrRsVy5VtjCWuLaBMHMT7O4MYxvgAlyNq0=";
+  cargoHash = "sha256-zXL3kTLQhrwpptTKeKgx1donzOnJc1ZsgmMKuvPJ238=";
 
   nativeBuildInputs = [
     buildPackages.protobuf
