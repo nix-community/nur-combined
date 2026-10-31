@@ -18,13 +18,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "renovate";
-  version = "44.198.2";
+  version = "44.198.3";
 
   src = fetchFromGitHub {
     owner = "renovatebot";
     repo = "renovate";
     tag = finalAttrs.version;
-    hash = "sha256-T4MINwJSCwGEPGG1W96gkq2T1j0/3CF9pPWTTHedeU4=";
+    hash = "sha256-G7ttuZ2N6m/D78yovobclCq4kepOviUQZ/dv2SXM7CA=";
   };
 
   patches = [
