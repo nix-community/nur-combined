@@ -29,12 +29,12 @@
 }:
 
 let
-  version = "151.0";
-  tag = "firefox-53";
+  version = "159.0";
+  tag = "firefox-54";
 
   hashes = {
-    aarch64-linux = "sha256-va47ri/0NFxJUINsaBrUTQSdO2PkMjQKWPa6aUxAX8c=";
-    x86_64-linux = "sha256-4G9HUySEaYMQaX+2jfGDDCUm7FaoOHEwxP0giVZfDI4=";
+    aarch64-linux = "sha256-bPQK0dvtBnLXLnDi7Xq9Uev/5tumzjjstsORLcyrHK0=";
+    x86_64-linux = "sha256-7Ed0DQ4JKN6eUsLkkfFiQ9i2lnNgl88DufIK1vNGLs8=";
   };
 
   arch = {

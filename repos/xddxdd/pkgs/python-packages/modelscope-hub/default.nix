@@ -13,14 +13,14 @@
 }:
 buildPythonPackage (finalAttrs: {
   pname = "modelscope-hub";
-  version = "0.6.0";
+  version = "0.6.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "modelscope";
     repo = "modelscope_hub";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-PkR3YjD1woOiWiecC1/TZl5ALmiBA2pbzgOTMDG+fJQ=";
+    hash = "sha256-ZfwPaNe6lLtvbP9ssgfxrbZIxc8uMp4MATbmhxLqWIY=";
   };
   __structuredAttrs = true;
   strictDeps = true;
