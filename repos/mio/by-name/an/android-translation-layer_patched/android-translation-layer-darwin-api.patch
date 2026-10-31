@@ -1,0 +1,167 @@
+--- a/src/api-impl/android/media/AudioTrack.java
++++ b/src/api-impl/android/media/AudioTrack.java
+@@ -25,7 +25,8 @@
+ 	int mode;
+ 	private int sessionId;
+ 	private int playbackState = PLAYSTATE_STOPPED;
+-	private int playbackHeadPosition = 0;
++	private volatile int playbackHeadPosition = 0;
++	private int notificationPeriod = 0;
+ 	private float volume = 1.f;
+ 
+ 	// for native code's use
+@@ -66,12 +67,13 @@
+ 	}
+ 
+ 	public int setPositionNotificationPeriod(int periodInFrames) {
+-		System.out.println("\n\nAudioTrack.nsetPositionNotificationPeriod(" + periodInFrames + "); called\n\n\n\n");
+-		return 0; // SUCCESS
++		if (periodInFrames < 0) return ERROR_BAD_VALUE;
++		notificationPeriod = periodInFrames;
++		return 0;
+ 	}
+ 
+ 	public int getPositionNotificationPeriod() {
+-		return this.frames;
++		return notificationPeriod;
+ 	}
+ 
+ 	public void play() {
+@@ -95,7 +97,7 @@
+ 	}
+ 
+ 	public int getState() {
+-		return 1; // TODO: fix up the native part and make this work properly
++		return pcm_handle != 0 ? 1 : 0;
+ 	}
+ 
+ 	public int write(byte[] audioData, int offsetInBytes, int sizeInBytes) {
+@@ -107,12 +109,13 @@
+ 			return ERROR_BAD_VALUE;
+ 		}
+ 
++		if (pcm_handle == 0 || channels == 0) return -3;
+ 		int framesToWrite = sizeInBytes / channels / 2; // 2 means PCM16
+ 		int ret = native_write(audioData, offsetInBytes, framesToWrite, volume);
+ 		if (ret > 0) {
+ 			playbackHeadPosition += ret;
+ 		}
+-		return ret * channels * 2; // 2 means PCM16
++		return ret < 0 ? ret : ret * channels * 2; // 2 means PCM16
+ 	}
+ 
+ 	public int write(ByteBuffer audioData, int sizeInBytes, int writeMode) {
+@@ -130,12 +133,13 @@
+ 			return ERROR_BAD_VALUE;
+ 		}
+ 
++		if (pcm_handle == 0 || channels == 0) return -3;
+ 		int framesToWrite = sizeInShorts / channels;
+ 		int ret = native_write(audioData, offsetInShorts, framesToWrite, volume);
+ 		if (ret > 0) {
+ 			playbackHeadPosition += ret;
+ 		}
+-		return ret * channels;
++		return ret < 0 ? ret : ret * channels;
+ 	}
+ 
+ 	public int getAudioSessionId() {
+@@ -180,6 +184,7 @@
+ 	private native int native_write(byte[] audioData, int offsetInBytes, int framesToWrite, float volume);
+ 	private native int native_write(short[] audioData, int offsetInShorts, int framesToWrite, float volume);
+ 	public native void native_release();
++	private native void native_flush();
+ 
+ 	public static int getNativeOutputSampleRate(int i) {
+ 		return -1;
+--- a/src/api-impl/android/media/AudioRecord.java
++++ b/src/api-impl/android/media/AudioRecord.java
+@@ -30,7 +30,7 @@
+ 	}
+ 
+ 	public int getState() {
+-		return /*STATE_INITIALIZED*/ 1;
++		return pcm_handle != 0 ? 1 : 0;
+ 	}
+ 
+ 	public int getRecordingState() {
+@@ -51,7 +51,9 @@
+ 			return ERROR_BAD_VALUE;
+ 		}
+ 
+-		return native_read(pcm_handle, audioData, offsetInShorts, sizeInShorts / channels) * channels;
++		if (pcm_handle == 0 || channels == 0) return -3;
++		int result = native_read(pcm_handle, audioData, offsetInShorts, sizeInShorts / channels);
++		return result < 0 ? result : result * channels;
+ 	}
+ 
+ 	public void stop() {
+--- a/src/api-impl/android/webkit/WebView.java
++++ b/src/api-impl/android/webkit/WebView.java
+@@ -87,16 +87,12 @@
+ 	}
+ 
+ 	public void loadUrl(String url) {
+-		if (url.startsWith("javascript:")) {
+-			System.out.println("loadUrl: " + url + " - not implemented yet");
+-			return;
+-		}
+ 		// webkit doesn't allow overwriting the file:// uri scheme. So we replace it with the android-asset:// scheme
+ 		url = url.replace("file:///android_asset/", "android-asset:///assets/");
+ 		native_loadUrl(widget, url);
+ 	}
+ 
+-	public void stopLoading() {}
++	public void stopLoading() { native_stopLoading(widget); }
+ 
+ 	// to be used by native code
+ 	@Export
+@@ -118,7 +114,7 @@
+ 		loadDataWithBaseURL("about:blank", data, mimeType, encoding, "about:blank");
+ 	}
+ 
+-	public void evaluateJavascript(String script, ValueCallback resultCallback) {}
++	public void evaluateJavascript(String script, ValueCallback resultCallback) { native_evaluateJavascript(widget, script, resultCallback); }
+ 
+ 	public static void setWebContentsDebuggingEnabled(boolean enabled) {}
+ 
+@@ -143,4 +139,6 @@
+ 	protected native long native_constructor(Context context, AttributeSet attrs);
+ 	private native void native_loadDataWithBaseURL(long widget, String baseUrl, String data, String mimeType, String encoding);
+ 	private native void native_loadUrl(long widget, String url);
++	private native void native_stopLoading(long widget);
++	private native void native_evaluateJavascript(long widget, String script, ValueCallback callback);
+ }
+--- a/src/api-impl/android/os/Vibrator.java
++++ b/src/api-impl/android/os/Vibrator.java
+@@ -10,7 +10,7 @@
+ 	}
+ 
+ 	public boolean hasVibrator() {
+-		return true;
++		return fd >= 0;
+ 	}
+ 
+ 	public void vibrate(long millis) {
+@@ -42,7 +42,9 @@
+ 		vibrateThread.start();
+ 	}
+ 
++	private native void native_cancel();
+ 	public void cancel() {
++		native_cancel();
+ 		if (vibrateThread != null) {
+ 			vibrateThread.interrupt();
+ 			vibrateThread = null;
+--- a/src/api-impl/android/media/session/MediaSession.java
++++ b/src/api-impl/android/media/session/MediaSession.java
+@@ -73,7 +73,8 @@
+ 		this.queue = queue;
+ 	}
+ 
+-	public void release() {}
++	public void release() { nativeRelease(); }
++	private native void nativeRelease();
+ 
+ 	public void setPlaybackToLocal(AudioAttributes audioAttributes) {}
+ 

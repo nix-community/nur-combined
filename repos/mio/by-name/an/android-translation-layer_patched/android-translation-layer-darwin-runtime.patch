@@ -1,0 +1,327 @@
+Subject: [PATCH] Darwin software decoding and host runtime safety
+
+--- a/src/api-impl-jni/media/android_media_MediaCodec.c
++++ b/src/api-impl-jni/media/android_media_MediaCodec.c
+@@ -12,9 +12,13 @@
+ #include <gdk/gdk.h>
+ #include <gtk/gtk.h>
+ 
++#ifndef __APPLE__
+ #include <drm_fourcc.h>
++#endif
+ #include <libavcodec/avcodec.h>
++#ifndef __APPLE__
+ #include <libavutil/hwcontext_drm.h>
++#endif
+ #include <libavutil/pixdesc.h>
+ #include <libswresample/swresample.h>
+ #include <libswscale/swscale.h>
+@@ -47,18 +51,24 @@
+ JNIEXPORT jlong JNICALL Java_android_media_MediaCodec_native_1constructor(JNIEnv *env, jobject this, jstring codec_name)
+ {
+ 	const char *name = (*env)->GetStringUTFChars(env, codec_name, NULL);
++	if (!name)
++		return 0;
+ 	const AVCodec *codec = avcodec_find_decoder_by_name(name);
++	(*env)->ReleaseStringUTFChars(env, codec_name, name);
+ 	if (!codec) {
+-		printf("Codec %s not found\n", name);
+-		exit(0);
+-	}
+-	(*env)->ReleaseStringUTFChars(env, codec_name, name);
+-	if (!codec)
++		jclass error = (*env)->FindClass(env, "java/lang/IllegalArgumentException");
++		if (error) (*env)->ThrowNew(env, error, "FFmpeg decoder is unavailable");
+ 		return 0;
+-	AVCodecContext *codec_ctx = avcodec_alloc_context3(codec);
+-
+-	struct ATL_codec_context *ctx = calloc(1, sizeof(struct ATL_codec_context));
+-	ctx->codec = codec_ctx;
++	}
++	struct ATL_codec_context *ctx = calloc(1, sizeof(*ctx));
++	if (ctx)
++		ctx->codec = avcodec_alloc_context3(codec);
++	if (!ctx || !ctx->codec) {
++		free(ctx);
++		jclass error = (*env)->FindClass(env, "java/lang/OutOfMemoryError");
++		if (error) (*env)->ThrowNew(env, error, "Cannot allocate FFmpeg decoder");
++		return 0;
++	}
+ 	return _INTPTR(ctx);
+ }
+ 
+@@ -100,6 +110,7 @@
+  * Helper functions for hardware accelerated video decoding using Wayland DMA-Buf protocol
+  */
+ 
++#ifndef __APPLE__
+ static const struct {
+ 	uint32_t format;
+ 	int nb_layers;
+@@ -146,6 +157,8 @@
+ 	return AV_PIX_FMT_NONE;
+ }
+ 
++#endif
++
+ struct render_frame_data {
+ 	AVFrame *frame;
+ 	GdkTexture *texture; // for software decoding
+@@ -167,6 +180,7 @@
+ 	return g_idle_add(render_fn, data);
+ }
+ 
++#ifndef __APPLE__
+ static void handle_dmabuftexture_destroy(void *data)
+ {
+ 	AVFrame *drm_frame = data;
+@@ -214,6 +228,8 @@
+ 	return texture;
+ }
+ 
++#endif
++
+ JNIEXPORT void JNICALL Java_android_media_MediaCodec_native_1configure_1video(JNIEnv *env, jobject this, jlong codec, jobject csd0, jobject csd1, jobject surface_obj)
+ {
+ 	struct ATL_codec_context *ctx = _PTR(codec);
+@@ -233,11 +249,11 @@
+ 	size_t extradata_size = sps_size + pps_size;
+ 	uint8_t *extradata = av_mallocz(extradata_size + AV_INPUT_BUFFER_PADDING_SIZE);
+ 	if (csd0) {
+-		memcpy(extradata, get_nio_buffer(env, csd0, &array_ref, &array), extradata_size);
++		memcpy(extradata, get_nio_buffer(env, csd0, &array_ref, &array), sps_size);
+ 		release_nio_buffer(env, array_ref, array);
+ 	}
+ 	if (csd1) {
+-		memcpy(extradata + sps_size, get_nio_buffer(env, csd1, &array_ref, &array), extradata_size);
++		memcpy(extradata + sps_size, get_nio_buffer(env, csd1, &array_ref, &array), pps_size);
+ 		release_nio_buffer(env, array_ref, array);
+ 	}
+ 
+@@ -250,6 +266,7 @@
+ 	ctx->video.extradata = extradata;
+ 	ctx->video.extradata_size = extradata_size;
+ 
++#ifndef __APPLE__
+ 	int i = 0;
+ 	while (1) {
+ 		const AVCodecHWConfig *config = avcodec_get_hw_config(codec_ctx->codec, i);
+@@ -274,6 +291,8 @@
+ 		i++;
+ 	}
+ 
++#endif
++
+ 	SurfaceViewWidget *surface_view_widget = SURFACE_VIEW_WIDGET(gtk_widget_get_first_child(_PTR(_GET_LONG_FIELD(surface_obj, "widget"))));
+ 	ctx->video.surface_view_widget = surface_view_widget;
+ }
+@@ -284,7 +303,8 @@
+ 	AVCodecContext *codec_ctx = ctx->codec;
+ 
+ 	if (avcodec_open2(codec_ctx, codec_ctx->codec, NULL) < 0) {
+-		printf("Codec cannot be found");
++		jclass error = (*env)->FindClass(env, "java/lang/IllegalStateException");
++		if (error) (*env)->ThrowNew(env, error, "Cannot open FFmpeg decoder");
+ 	}
+ }
+ 
+@@ -395,6 +415,7 @@
+ }
+ 
+ // callback to perform wayland stuff on main thread
++#ifndef __APPLE__
+ static gboolean render_frame(void *data)
+ {
+ 	struct render_frame_data *d = (struct render_frame_data *)data;
+@@ -426,6 +447,8 @@
+ 
+ 	return G_SOURCE_REMOVE;
+ }
++
++#endif
+ 
+ static gboolean render_texture(void *data)
+ {
+@@ -493,11 +516,15 @@
+ 			return;
+ 		}
+ 
++#ifndef __APPLE__
+ 		struct render_frame_data *data = malloc(sizeof(struct render_frame_data));
+ 		data->frame = frame;
+ 		data->release_time_ns = presentationTimeNs;
+ 		data->surface_view_widget = ctx->video.surface_view_widget;
+ 		schedule_render(render_frame, data, NULL);
++#else
++		av_frame_free(&frame);
++#endif
+ 	}
+ }
+ 
+@@ -510,8 +537,11 @@
+ JNIEXPORT void JNICALL Java_android_media_MediaCodec_native_1release(JNIEnv *env, jobject this, jlong codec)
+ {
+ 	struct ATL_codec_context *ctx = _PTR(codec);
+-	if (ctx->codec->codec_type == AVMEDIA_TYPE_VIDEO && ctx->video.sws) {
++	if (ctx->codec->codec_type == AVMEDIA_TYPE_VIDEO) {
+ 		sws_freeContext(ctx->video.sws);
++		av_freep(&ctx->video.extradata);
++	} else if (ctx->codec->codec_type == AVMEDIA_TYPE_AUDIO) {
++		swr_free(&ctx->audio.swr);
+ 	}
+ 
+ 	avcodec_free_context(&ctx->codec);
+--- a/src/libandroid/native_window.c
++++ b/src/libandroid/native_window.c
+@@ -436,7 +436,10 @@
+ 			.sType = VK_STRUCTURE_TYPE_MACOS_SURFACE_CREATE_INFO_MVK,
+ 			.pView = content_view,
+ 		};
+-		return vkCreateMacOSSurfaceMVK(instance, &macos_create_info, pAllocator, pSurface);
++		PFN_vkCreateMacOSSurfaceMVK create_surface = (PFN_vkCreateMacOSSurfaceMVK)vkGetInstanceProcAddr(instance, "vkCreateMacOSSurfaceMVK");
++		if (!create_surface)
++			return VK_ERROR_EXTENSION_NOT_PRESENT;
++		return create_surface(instance, &macos_create_info, pAllocator, pSurface);
+ #endif
+ 	} else {
+ 		fprintf(stderr, "bionic_vkCreateAndroidSurfaceKHR: the GDK backend is neither Wayland nor X11, no SurfaceView for you");
+@@ -446,24 +449,29 @@
+ 
+ VkResult bionic_vkCreateInstance(VkInstanceCreateInfo *pCreateInfo, const VkAllocationCallbacks *pAllocator, VkInstance *pInstance)
+ {
+-	int original_extension_count = pCreateInfo->enabledExtensionCount;
+-#ifdef __APPLE__
+-	int new_extension_count = original_extension_count + 1;
+-#else
+-	int new_extension_count = original_extension_count + 2;
+-#endif
+-	const char **enabled_exts = malloc(new_extension_count * sizeof(char *));
+-	memcpy(enabled_exts, pCreateInfo->ppEnabledExtensionNames, original_extension_count * sizeof(char *));
+-#ifdef __APPLE__
+-	enabled_exts[original_extension_count] = "VK_MVK_macos_surface";
+-#else
+-	enabled_exts[original_extension_count] = "VK_KHR_wayland_surface";
+-	enabled_exts[original_extension_count + 1] = "VK_KHR_xlib_surface";
+-#endif
+-
+-	pCreateInfo->enabledExtensionCount = new_extension_count;
+-	pCreateInfo->ppEnabledExtensionNames = enabled_exts;
+-	return vkCreateInstance(pCreateInfo, pAllocator, pInstance);
++	/* Android's surface extension must not reach the host Vulkan loader. */
++	uint32_t count = 0;
++	const char **extensions = calloc(pCreateInfo->enabledExtensionCount + 4, sizeof(*extensions));
++	if (!extensions)
++		return VK_ERROR_OUT_OF_HOST_MEMORY;
++	for (uint32_t i = 0; i < pCreateInfo->enabledExtensionCount; i++) {
++		const char *extension = pCreateInfo->ppEnabledExtensionNames[i];
++		if (strcmp(extension, "VK_KHR_android_surface") &&
++		    strcmp(extension, "VK_MVK_macos_surface") &&
++		    strcmp(extension, "VK_KHR_surface") &&
++		    strcmp(extension, "VK_KHR_portability_enumeration"))
++			extensions[count++] = extension;
++	}
++	extensions[count++] = "VK_KHR_surface";
++	extensions[count++] = "VK_MVK_macos_surface";
++	extensions[count++] = "VK_KHR_portability_enumeration";
++	VkInstanceCreateInfo info = *pCreateInfo;
++	info.flags |= VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
++	info.enabledExtensionCount = count;
++	info.ppEnabledExtensionNames = extensions;
++	VkResult result = vkCreateInstance(&info, pAllocator, pInstance);
++	free(extensions);
++	return result;
+ }
+ 
+ PFN_vkVoidFunction bionic_vkGetInstanceProcAddr(VkInstance instance, const char *pName)
+@@ -476,21 +484,18 @@
+ 
+ // FIXME 2: this BLATANTLY belongs elsewhere
+ 
+-typedef XrResult (*xr_func)();
+-
+-/* avoid hard dependency on libopenxr_loader for the three functions that we only ever call when running a VR app */
+-/* NOTE: our use of __builtin_va_arg_pack means this only works as long as we don't need to call a function
+- * that takes an integer type shorter than int or a floating point type shorter than double */
++/* Resolve typed entrypoints: Clang cannot forward __builtin_va_arg_pack. */
+ static void *openxr_loader_handle = NULL;
+-static inline __attribute__((__always_inline__)) XrResult xr_lazy_call(char *func_name, ...)
+-{
+-	if (!openxr_loader_handle) {
+-		openxr_loader_handle = dlopen("libopenxr_loader.so.1", RTLD_LAZY);
+-	}
+-
+-	xr_func func = dlsym(openxr_loader_handle, func_name);
+-	return -1;
+-}
++static void *xr_lookup(const char *name)
++{
++	if (!openxr_loader_handle)
++		openxr_loader_handle = dlopen("libopenxr_loader.dylib", RTLD_LAZY | RTLD_LOCAL);
++	return openxr_loader_handle ? dlsym(openxr_loader_handle, name) : NULL;
++}
++#define xr_lazy_call(name, ...) ({ \
++	PFN_##name function = (PFN_##name)xr_lookup(#name); \
++	function ? function(__VA_ARGS__) : XR_ERROR_RUNTIME_UNAVAILABLE; \
++})
+ 
+ static XrResult bionic_xrInitializeLoaderKHR(void *loaderInitInfo)
+ {
+@@ -521,7 +526,7 @@
+ 		fprintf(stderr, "xrCreateSession: The graphics binding type = %d\n", android_bind->type);
+ 	}
+ 
+-	return xr_lazy_call("xrCreateSession", instance, createInfo, session);
++	return xr_lazy_call(xrCreateSession, instance, createInfo, session);
+ }
+ 
+ /*
+@@ -529,7 +534,10 @@
+  */
+ XrResult bionic_xrGetInstanceProperties(XrInstance instance, XrInstanceProperties *instanceProperties)
+ {
+-	XrResult ret = xr_lazy_call("xrGetInstanceProperties", instance, instanceProperties);
++	XrResult ret = xr_lazy_call(xrGetInstanceProperties, instance, instanceProperties);
++
++	if (XR_FAILED(ret))
++		return ret;
+ 
+ 	strncat(instanceProperties->runtimeName, " (With ATL meta-layer)",
+ 	        XR_MAX_RUNTIME_NAME_SIZE - 1 - strlen(instanceProperties->runtimeName));
+@@ -573,7 +581,7 @@
+ 	for (int i = 0; i < createInfo->enabledExtensionCount; ++i)
+ 		fprintf(stderr, "## ---- %s\n", createInfo->enabledExtensionNames[i]);
+ 
+-	return xr_lazy_call("xrCreateInstance", createInfo, instance);
++	return xr_lazy_call(xrCreateInstance, createInfo, instance);
+ }
+ 
+ XrResult bionic_xrCreateReferenceSpace(XrSession session, const XrReferenceSpaceCreateInfo *createInfo, XrSpace *space)
+@@ -584,7 +592,7 @@
+ 	if (createInfo->referenceSpaceType > 100)
+ 		*(int *)(&createInfo->referenceSpaceType) = XR_REFERENCE_SPACE_TYPE_LOCAL_FLOOR_EXT;
+ 
+-	return xr_lazy_call("xrCreateReferenceSpace", session, createInfo, space);
++	return xr_lazy_call(xrCreateReferenceSpace, session, createInfo, space);
+ }
+ 
+ /*
+@@ -634,7 +642,7 @@
+ 		return XR_SUCCESS;
+ 	}
+ 
+-	return xr_lazy_call("xrGetInstanceProcAddr", instance, name, func);
++	return xr_lazy_call(xrGetInstanceProcAddr, instance, name, func);
+ }
+ 
+ typedef void *ANativeActivity;
+--- a/meson.build
++++ b/meson.build
+@@ -240,7 +240,7 @@
+                                                                   dependencies: [
+                                                                         extra_deps,
+                                                                   	dependency('gtk4', version: '>=4.14'), dependency('gl'), dependency('egl'), dependency('wayland-client'), dependency('jni'),
+-                                                                  	dependency('libportal'), dependency('sqlite3'), dependency('libavcodec', version: '>=59'), dependency('libdrm'),
++                                                                  	dependency('libportal'), dependency('sqlite3'), dependency('libavcodec', version: '>=59'), dependency('libswresample'), dependency('libdrm'),
+                                                                   	dependency('gudev-1.0'), dependency('libswscale'), dependency('webkitgtk-6.0'), dependency('libsecret-1'), dependency('gio-unix-2.0'),
+                                                                         libart_dep, wayland_protos_dep, upcalls_header
+                                                                   ],

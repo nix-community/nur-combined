@@ -8,10 +8,11 @@
   webp-pixbuf-loader,
   gdk-pixbuf,
   librsvg,
-  fetchpatch,
   wrapGAppsHook4,
   vulkan-loader,
   vulkan-headers,
+  openxr-loader,
+  SDL2,
 }:
 
 (android-translation-layer.override (
@@ -41,6 +42,7 @@
       ++ lib.optionals stdenv.hostPlatform.isDarwin [
         vulkan-loader
         vulkan-headers
+        SDL2
       ];
     patches =
       (old.patches or [ ])
@@ -84,13 +86,23 @@
       ]
       ++ lib.optionals stdenv.hostPlatform.isDarwin [
         ./android-translation-layer-darwin-compat.patch
+        ./android-translation-layer-darwin-runtime.patch
+        ./android-translation-layer-darwin-api.patch
       ];
     preConfigure =
       (old.preConfigure or "")
       + lib.optionalString stdenv.hostPlatform.isDarwin ''
+        cp -r ${./darwin} src/api-impl-jni/darwin
+        chmod -R +w src/api-impl-jni/darwin
+        python3 ${./darwin/configure.py}
         cp -r ${./darwin_compat_headers} $NIX_BUILD_TOP/darwin_headers
         chmod -R +w $NIX_BUILD_TOP/darwin_headers
+        substituteInPlace src/libandroid/native_window.c \
+          --replace-fail '"libopenxr_loader.dylib"' '"${lib.getLib openxr-loader}/lib/libopenxr_loader.dylib"'
+        export LDFLAGS="-lobjc -framework AppKit -framework WebKit -framework CoreLocation -framework MediaPlayer -framework UserNotifications -framework QuartzCore $LDFLAGS"
         export CFLAGS="-I$NIX_BUILD_TOP/darwin_headers -Wno-int-conversion -Wno-c23-extensions -Doff64_t=off_t -Dlseek64=lseek -Dftruncate64=ftruncate -Dpread64=pread -Dpwrite64=pwrite -DCLOCK_BOOTTIME=CLOCK_MONOTONIC $CFLAGS"
+        export OBJC="$CC"
+        export OBJCFLAGS="$CFLAGS -fobjc-arc -fblocks"
         substituteInPlace meson.build \
           --replace-fail "dependency('wayland-protocols', version: '>=1.12')" "dependency('dummy', required: false)" \
           --replace-fail "subdir('protocol')" "wl_proto_headers = []" \
@@ -112,34 +124,58 @@
       + lib.optionalString stdenv.hostPlatform.isDarwin ''
         # The loader looks for the boot image at $out/framework/boot.art, but ART cannot
         # write it there at runtime (the store is read-only), so pre-build it here.
+        app="$out/Applications/Android Translation Layer.app/Contents"
+        mkdir -p "$app/MacOS"
+        cp ${./darwin/Info.plist} "$app/Info.plist"
+        mv "$out/bin/android-translation-layer" "$app/MacOS/android-translation-layer"
+        makeWrapper "$app/MacOS/android-translation-layer" "$out/bin/android-translation-layer"
         mkdir -p $out/framework
         boot_jars=()
-        for j in ${art-standalone_patched}/lib/java/dex/art/*-hostdex.jar; do
+        # Keep this order identical to ART's parsed_options.cc default bootclasspath.
+        # A glob puts core-oj after its dependents and produces an incompatible image.
+        for jar in core-oj apachehttp apache-xml bouncycastle core-junit core-libart \
+          hamcrest junit-runner okhttp wolfssljni; do
+          j=${art-standalone_patched}/lib/java/dex/art/$jar-hostdex.jar
+          test -f "$j"
           boot_jars+=(--dex-file="$j" --dex-location="$j")
         done
         ${art-standalone_patched}/bin/dex2oat \
           --image=$out/framework/boot.art \
           "''${boot_jars[@]}" \
           --oat-file=$out/framework/boot.oat \
-          --instruction-set=arm64 \
-          --instruction-set-features=-a53,crc,-lse,fp16,dotprod \
-          --base=0x300000000 --host
+          --instruction-set=${if stdenv.hostPlatform.isAarch64 then "arm64" else "x86_64"} \
+          ${lib.optionalString stdenv.hostPlatform.isAarch64 "--instruction-set-features=-a53,crc,-lse,fp16,dotprod"} \
+          --base=${if stdenv.hostPlatform.isAarch64 then "0x300000000" else "0x70000000"} --host
       '';
-    preFixup = (old.preFixup or "") + ''
-      mkdir -p $out/lib/gdk-pixbuf-2.0/2.10.0
-      GDK_PIXBUF_MODULEDIR=${gdk-pixbuf}/lib/gdk-pixbuf-2.0/2.10.0/loaders ${gdk-pixbuf.dev}/bin/gdk-pixbuf-query-loaders > $out/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache
-      cat ${librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache >> $out/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache
-      GDK_PIXBUF_MODULEDIR=${webp-pixbuf-loader}/lib/gdk-pixbuf-2.0/2.10.0/loaders ${gdk-pixbuf.dev}/bin/gdk-pixbuf-query-loaders >> $out/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache
-
-      gappsWrapperArgs+=(
-        --set ANDROID_ROOT $out
-        --set GDK_PIXBUF_MODULE_FILE $out/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache
-      )
-    '';
-    postFixup =
-      (old.postFixup or "")
+    doCheck = stdenv.hostPlatform.isDarwin || (old.doCheck or false);
+    checkPhase =
+      if stdenv.hostPlatform.isDarwin then
+        ''
+          runHook preCheck
+          meson test --no-rebuild --print-errorlogs darwin-audio
+          runHook postCheck
+        ''
+      else
+        (old.checkPhase or "");
+    preFixup =
+      (old.preFixup or "")
       + lib.optionalString stdenv.hostPlatform.isDarwin ''
-        install_name_tool -add_rpath ${art-standalone_patched}/lib $out/bin/.android-translation-layer-wrapped || true
-        install_name_tool -add_rpath ${art-standalone_patched}/lib $out/lib/java/dex/android_translation_layer/natives/libtranslation_layer_main.dylib || true
+        for binary in \
+          "$out/Applications/Android Translation Layer.app/Contents/MacOS/android-translation-layer" \
+          $out/lib/java/dex/android_translation_layer/natives/libtranslation_layer_main.dylib; do
+          install_name_tool -add_rpath ${art-standalone_patched}/lib/art "$binary"
+          install_name_tool -add_rpath ${art-standalone_patched}/lib "$binary"
+        done
+      ''
+      + ''
+        mkdir -p $out/lib/gdk-pixbuf-2.0/2.10.0
+        GDK_PIXBUF_MODULEDIR=${gdk-pixbuf}/lib/gdk-pixbuf-2.0/2.10.0/loaders ${gdk-pixbuf.dev}/bin/gdk-pixbuf-query-loaders > $out/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache
+        cat ${librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache >> $out/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache
+        GDK_PIXBUF_MODULEDIR=${webp-pixbuf-loader}/lib/gdk-pixbuf-2.0/2.10.0/loaders ${gdk-pixbuf.dev}/bin/gdk-pixbuf-query-loaders >> $out/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache
+
+        gappsWrapperArgs+=(
+          --set ANDROID_ROOT $out
+          --set GDK_PIXBUF_MODULE_FILE $out/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache
+        )
       '';
   })

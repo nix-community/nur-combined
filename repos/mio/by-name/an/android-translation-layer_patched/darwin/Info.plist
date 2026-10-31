@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+<key>CFBundleIdentifier</key><string>org.androidtranslationlayer.ATL</string>
+<key>CFBundleName</key><string>Android Translation Layer</string>
+<key>CFBundleExecutable</key><string>android-translation-layer</string>
+<key>CFBundlePackageType</key><string>APPL</string>
+<key>CFBundleVersion</key><string>1</string>
+<key>NSHighResolutionCapable</key><true/>
+<key>NSMicrophoneUsageDescription</key><string>Provide microphone input to Android apps when ATL microphone access is enabled.</string>
+<key>NSLocationUsageDescription</key><string>Provide your location to Android apps when ATL location access is enabled.</string>
+<key>NSLocationWhenInUseUsageDescription</key><string>Provide your location to Android apps when ATL location access is enabled.</string>
+</dict></plist>
