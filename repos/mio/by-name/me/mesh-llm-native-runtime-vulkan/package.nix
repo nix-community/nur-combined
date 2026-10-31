@@ -1,4 +1,3 @@
-{ mesh-llm-native-runtime }:
-
-# nixpkgs-update: no auto update
-mesh-llm-native-runtime.override { vulkanSupport = true; }
+# Compatibility alias; use skippy-native-runtime-vulkan for new configurations.
+{ skippy-native-runtime-vulkan }:
+skippy-native-runtime-vulkan

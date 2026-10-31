@@ -4,10 +4,11 @@
 
 # Usage: update-release.sh ATTR VERSION [FILE]
 #
-# Points the mesh-llm-native-runtime `release` of ATTR (for example
-# mesh-llm-native-runtime) at MeshLLM VERSION and the llama.cpp release
-# (bNNNNN tag) that VERSION pins, then lets nix-update refresh both source
-# hashes. FILE is where that release is written, if not in ATTR's package.nix.
+# Points the skippy-native-runtime `release` of ATTR (for example
+# skippy-native-runtime) at MeshLLM VERSION and the llama.cpp release
+# (bNNNNN tag) that VERSION pins, then lets nix-update refresh the source
+# hashes and the cargo vendor hash (shared with mesh-llm and the automation
+# tool). FILE is where that release is written, if not in ATTR's package.nix.
 # Run from the nixpkgs root.
 
 set -euo pipefail
@@ -30,6 +31,10 @@ replace() {
 }
 
 old_version="$(value version)"
+if grep -qE '^\s+rev = "' "$file"; then
+  echo "the release in $file tracks a commit (rev); point it at a version by hand first" >&2
+  exit 1
+fi
 if [[ "$version" == "$old_version" ]]; then
   echo "$attr already uses MeshLLM $version"
   exit 0
@@ -53,4 +58,4 @@ fi
 
 replace "$(value llamaCppBuild)" "$llama_build"
 replace "$old_version" "$version"
-nix-update "$attr" --version skip --override-filename "$file" --subpackage meshLlmSrc
+nix-update "$attr" --version skip --override-filename "$file" --subpackage meshLlmSrc --subpackage automation
