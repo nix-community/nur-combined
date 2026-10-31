@@ -333,14 +333,4 @@ cargo_lock = ['Cargo.lock']
 src.github = "moraxyc/whois42d-ng"
 fetch.url = "file:///dev/null"
 
-[yaqmc]
-src.git = "https://github.com/YAQMC/YAQMC.git"
-fetch.github = "YAQMC/YAQMC"
-extract = ["package-lock.json", "package.json"]
-cargo_lock = ['Cargo.lock']
-
-[yaqmc-stable]
-src.github = "YAQMC/YAQMC"
-fetch.url = "file:///dev/null"
-
 # keep-sorted end

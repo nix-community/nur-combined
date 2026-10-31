@@ -1547,51 +1547,5 @@
             "url": "file:///dev/null"
         },
         "version": "v2.1.1"
-    },
-    "yaqmc": {
-        "cargoLock": {
-            "Cargo.lock": [
-                "sha256-+mrAKeBOsUYPbCt0ldy42SP9g_fPCS7hKdThkzWDfLU=/Cargo.lock",
-                {
-                    "qqmusic-api-0.1.0": "sha256-jV/izHGLN2Jhrzl28zJtbOpdRxseG0qgZQgSxW0lb/U="
-                }
-            ]
-        },
-        "date": "2026-10-31",
-        "extract": {
-            "package-lock.json": "sha256-+mrAKeBOsUYPbCt0ldy42SP9g_fPCS7hKdThkzWDfLU=/package-lock.json",
-            "package.json": "sha256-+mrAKeBOsUYPbCt0ldy42SP9g_fPCS7hKdThkzWDfLU=/package.json"
-        },
-        "name": "yaqmc",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "YAQMC",
-            "repo": "YAQMC",
-            "rev": "5dae10c8a29e026679d100713679358b2a902e2a",
-            "sha256": "sha256-+mrAKeBOsUYPbCt0ldy42SP9g/fPCS7hKdThkzWDfLU=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "5dae10c8a29e026679d100713679358b2a902e2a"
-    },
-    "yaqmc-stable": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "yaqmc-stable",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
-            "type": "url",
-            "url": "file:///dev/null"
-        },
-        "version": "v0.1.1"
     }
 }

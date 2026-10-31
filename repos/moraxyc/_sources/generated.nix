@@ -906,33 +906,4 @@
       sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
     };
   };
-  yaqmc = {
-    pname = "yaqmc";
-    version = "5dae10c8a29e026679d100713679358b2a902e2a";
-    src = fetchFromGitHub {
-      owner = "YAQMC";
-      repo = "YAQMC";
-      rev = "5dae10c8a29e026679d100713679358b2a902e2a";
-      fetchSubmodules = false;
-      sha256 = "sha256-+mrAKeBOsUYPbCt0ldy42SP9g/fPCS7hKdThkzWDfLU=";
-    };
-    extract = {
-      "package-lock.json" = ./. + "/sha256-+mrAKeBOsUYPbCt0ldy42SP9g_fPCS7hKdThkzWDfLU=/package-lock.json";
-      "package.json" = ./. + "/sha256-+mrAKeBOsUYPbCt0ldy42SP9g_fPCS7hKdThkzWDfLU=/package.json";
-    };cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-+mrAKeBOsUYPbCt0ldy42SP9g_fPCS7hKdThkzWDfLU=/Cargo.lock";
-      outputHashes = {
-        "qqmusic-api-0.1.0" = "sha256-jV/izHGLN2Jhrzl28zJtbOpdRxseG0qgZQgSxW0lb/U=";
-      };
-    };
-    date = "2026-10-31";
-  };
-  yaqmc-stable = {
-    pname = "yaqmc-stable";
-    version = "v0.1.1";
-    src = fetchurl {
-      url = "file:///dev/null";
-      sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
-    };
-  };
 }
