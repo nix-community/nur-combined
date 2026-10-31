@@ -22,6 +22,7 @@
   wl-clipboard,
   nix-update-script,
   callPackage,
+  pkgsStatic,
   withNftables ? true,
 }:
 
@@ -54,6 +55,14 @@
 # See: https://github.com/supechicken/waydroid-builds
 
 let
+  rootlessInit = pkgsStatic.stdenv.mkDerivation {
+    pname = "miodroid-rootless-init";
+    version = "1";
+    src = ./rootless-init.c;
+    dontUnpack = true;
+    buildPhase = "$CC -std=c11 -D_GNU_SOURCE -Os -Wall -Wextra -Werror -static $src -o miodroid-rootless-init";
+    installPhase = "install -Dm755 miodroid-rootless-init $out/bin/miodroid-rootless-init";
+  };
   package = python3Packages.buildPythonApplication rec {
     pname = "miodroid";
     version = "1.6.3";
@@ -383,7 +392,10 @@ let
               {} +
 
             # Fix cgroup permissions for Android 13 (LineageOS 20) by changing cgroup:ro to cgroup:mixed or rw
-            sed -i 's|cgroup:ro sys:ro proc|cgroup:mixed sys:ro proc|g' data/configs/config_base
+            sed -i \
+              -e 's|cgroup:ro sys:ro proc|cgroup:mixed sys:ro proc|g' \
+              -e '/lxc.hook.post-stop = \/dev\/null/d' \
+              data/configs/config_base
 
             # Both sides of the interface name contract: fail the build instead of
             # shipping a renamed script whose named instances are silently offline.
@@ -422,11 +434,8 @@ let
             # They are dead weight in the package and a sign that a patch drifted.
             find . -name "*.orig" -delete
 
-            # ── Patch 0007: rootless mode ──────────────────────────────────────────
-            #
-            # Applied here rather than in the series above: the rootless changes
-            # edit the rebranded code (miodroid paths, the multi-instance
-            # helpers) and add tools/helpers/rootless.py.
+            # Apply runtime fixes against the fully rebranded source tree.
+            patch -p1 --fuzz=0 < ${./patches/0008-rootless-runtime.patch}
 
     '';
 
@@ -459,6 +468,7 @@ let
     ++ lib.optional withNftables "USE_NFTABLES=1";
 
     postInstall = ''
+            install -m755 ${rootlessInit}/bin/miodroid-rootless-init $out/lib/miodroid/data/scripts/miodroid-rootless-init
             # The Makefile installs bin/miodroid as a symlink to the Python entry
             # point.  Put the instance wrapper in its place:
             # without it `miodroid -I <name>` hands the name to miodroid-net.sh while
@@ -549,6 +559,8 @@ package.overrideAttrs (old: {
       tests = (old.passthru.tests or { }) // {
         nixos = tests.rootful;
         nixos-rootless = tests.rootless;
+        nixos-rootless-grow = tests.rootless-grow;
+        desktop-sockets = tests.desktop-sockets;
       };
     };
 })

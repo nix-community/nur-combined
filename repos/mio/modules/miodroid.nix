@@ -10,18 +10,14 @@ let
   rootlessCfg = config.virtualisation.miodroid-rootless;
   miodroidEnabled = cfg.enable || rootlessCfg.enable;
   miodroidPackage = if rootlessCfg.enable then rootlessCfg.package else cfg.package;
-  imagePackage =
-    if rootlessCfg.enable && rootlessCfg.imagePackage != null then
-      rootlessCfg.imagePackage
-    else
-      cfg.imagePackage;
+  imagePackage = if rootlessCfg.enable then rootlessCfg.imagePackage else cfg.imagePackage;
   kCfg = config.lib.kernelConfig;
   # Extra environment for the rootless container: the image strategy is a
   # property of the process that starts it, so it travels in the environment of
   # whichever unit starts it (see the home-manager module).
-  rootlessStrategyEnv = lib.optionalString (
-    rootlessCfg.enable && rootlessCfg.imageStrategy == "overlay"
-  ) " MIODROID_ROOTLESS_OVERLAY=1";
+  rootlessStrategyEnv = " MIODROID_ROOTLESS_OVERLAY=${
+     if rootlessCfg.imageStrategy == "overlay" then "1" else "0"
+   }";
   rootlessHelper = pkgs.writeShellScript "miodroid-rootless-helper" ''
     set -eu
 
@@ -37,6 +33,13 @@ let
       ${pkgs.util-linux}/bin/mount -t binder binder /dev/binderfs
     fi
 
+    ${pkgs.python3}/bin/python3 - <<'PYBINDER'
+    import fcntl, os, struct
+    with open("/dev/binderfs/binder-control", "rb") as control:
+        for name in ("binder", "vndbinder", "hwbinder"):
+            if not os.path.exists("/dev/binderfs/" + name):
+                fcntl.ioctl(control, 0xc1086201, struct.pack("256sII", name.encode(), 0, 0))
+    PYBINDER
     for node in binder vndbinder hwbinder; do
       test -e "/dev/binderfs/$node"
       ${pkgs.coreutils}/bin/chmod 0660 "/dev/binderfs/$node"
@@ -103,7 +106,9 @@ in
       description = ''
         Unix group allowed to run rootless Miodroid containers. Add each
         account to this group and to lxc-user, and enable
-        users.users.<name>.autoSubUidGidRange = true for every account.
+        at least 131072 subordinate UIDs and GIDs for every account. Android
+        isolated processes use IDs near 100000, so the usual 65536-ID range
+        is too small. Allocate larger ranges for Android work profiles.
       '';
     };
     hostBinderfs = lib.mkOption {
@@ -113,12 +118,9 @@ in
         Prepare binderfs on the host: mount it, hand its device nodes to
         {option}`group` and keep them writable through a root oneshot service.
 
-        Off by default, because a user namespace may mount binderfs itself,
-        which is what lets the container bring up its own binder devices
-        without any host preparation, group membership or device nodes. Turn
-        this on if in-container binderfs does not work on your kernel (it is
-        how this module used to do it, and it is still what makes the *rootful*
-        container's binder nodes).
+        Legacy compatibility option for external tools that need host Binder
+        nodes. Miodroid itself always uses a private per-manager Binderfs
+        namespace in rootless mode, including its desktop integration services.
       '';
     };
     imageStrategy = lib.mkOption {
@@ -126,21 +128,20 @@ in
         "grow"
         "overlay"
       ];
-      default = "grow";
+      default = "overlay";
       description = ''
         How the rootless container gets a writable Android system and vendor
         image.
 
-        - `grow` (default): copy each OTA image into the work directory, fsck
+        - `grow`: copy each OTA image into the work directory, fsck
           it, grow it by 1 GiB and mount it read-write. Self-contained, but the
           images are copied and modified and Android writes into the image.
-        - `overlay`: mount the images read-only and absorb the writes in a
+        - `overlay` (default): mount the images read-only and absorb the writes in a
           host-side fuse-overlayfs overlay, the way rootful Miodroid and Valve's
           Lepton do. No image growth and no per-start fsck, and the OTA images
           stay pristine.
 
-        `overlay` is the better model and is meant to become the default once
-        it has seen some mileage; keep this in sync with
+        Keep this in sync with
         {option}`programs.miodroid-rootless.imageStrategy` in the home-manager
         module, which starts the same container.
       '';
@@ -149,6 +150,10 @@ in
 
   config = lib.mkIf miodroidEnabled {
     assertions = [
+      {
+        assertion = !(cfg.enable && rootlessCfg.enable);
+        message = "Choose one Miodroid mode per configuration: rootful or rootless.";
+      }
       {
         assertion = lib.versionAtLeast (lib.getVersion config.boot.kernelPackages.kernel) "4.18";
         message = "Miodroid needs user namespace support to work properly";
@@ -159,6 +164,10 @@ in
       (kCfg.isEnabled "ANDROID_BINDER_IPC")
       (kCfg.isEnabled "ANDROID_BINDERFS")
       (kCfg.isEnabled "MEMFD_CREATE")
+    ]
+    ++ lib.optionals rootlessCfg.enable [
+      (kCfg.isEnabled "USER_NS")
+      (kCfg.isEnabled "FUSE_FS")
     ];
 
     boot.kernelParams = [ "psi=1" ];
@@ -184,6 +193,12 @@ in
     # fusermount3 wrappers and user_allow_other in /etc/fuse.conf.  Setting
     # userAllowOther alone does nothing: nixpkgs writes fuse.conf and the
     # wrappers only when programs.fuse.enable is on.
+    # LXC requires privileged mapping helpers. account-utils-based NixOS
+    # configurations disable the shadow wrappers by default; its socket-based
+    # replacement is not detected as a mapping helper by LXC.
+    security.wrappers.newuidmap.enable = lib.mkIf rootlessCfg.enable (lib.mkForce true);
+    security.wrappers.newgidmap.enable = lib.mkIf rootlessCfg.enable (lib.mkForce true);
+
     programs.fuse = lib.mkIf rootlessCfg.enable {
       enable = true;
       userAllowOther = true;

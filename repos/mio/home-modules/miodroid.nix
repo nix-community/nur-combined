@@ -7,14 +7,14 @@
 
 let
   cfg = config.programs.miodroid-rootless;
-  wipWarning = "programs.miodroid-rootless is experimental: enable virtualisation.miodroid-rootless on the host, add this user to the NixOS rootless group and lxc-user, and enable users.users.<name>.autoSubUidGidRange = true.";
+  wipWarning = "programs.miodroid-rootless is experimental: enable virtualisation.miodroid-rootless on the host, add this user to the NixOS rootless group and lxc-user, and allocate at least 131072 subordinate UIDs and GIDs for this user.";
 
   env = [
     "MIODROID_ROOTLESS=1"
     "MIODROID_WORK=${cfg.workDirectory}"
+    "MIODROID_ROOTLESS_OVERLAY=${if cfg.imageStrategy == "overlay" then "1" else "0"}"
   ]
-  ++ lib.optional (cfg.instance != null) "MIODROID_INSTANCE=${cfg.instance}"
-  ++ lib.optional (cfg.imageStrategy == "overlay") "MIODROID_ROOTLESS_OVERLAY=1";
+  ++ lib.optional (cfg.instance != null) "MIODROID_INSTANCE=${cfg.instance}";
 
   # The image bundle is a store path, so it changes whenever the bundle does:
   # stamp the copy and only re-install the images when it actually differs,
@@ -52,7 +52,9 @@ in
     };
     workDirectory = lib.mkOption {
       type = lib.types.path;
-      default = "${config.xdg.dataHome}/miodroid";
+      default = "${config.xdg.dataHome}/miodroid${
+        lib.optionalString (cfg.instance != null) ".${cfg.instance}"
+      }";
       defaultText = lib.literalExpression ''"\${config.xdg.dataHome}/miodroid"'';
       description = ''
         Writable work directory for the experimental rootless Miodroid
@@ -94,7 +96,7 @@ in
         "grow"
         "overlay"
       ];
-      default = "grow";
+      default = "overlay";
       description = ''
         How the rootless container gets a writable Android system and vendor
         image: `grow` copies and enlarges the OTA images and mounts them
@@ -109,6 +111,12 @@ in
 
   config = lib.mkIf cfg.enable {
     warnings = [ wipWarning ];
+    assertions = [
+      {
+        assertion = cfg.instance == null || builtins.match "[a-zA-Z0-9_]{1,48}" cfg.instance != null;
+        message = "Miodroid instance names must contain 1-48 letters, digits, or underscores.";
+      }
+    ];
 
     home.packages = [ cfg.package ];
 
@@ -127,6 +135,9 @@ in
         ExecStart = "${cfg.package}/bin/miodroid container start";
         Environment = env;
         Restart = "on-failure";
+        Delegate = true;
+        Type = "dbus";
+        BusName = "id.miodro.Container${lib.optionalString (cfg.instance != null) ".i${cfg.instance}"}";
       };
       Install.WantedBy = [ "graphical-session.target" ];
     };

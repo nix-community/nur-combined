@@ -1,0 +1,1088 @@
+From: miodroid contributors
+Subject: [PATCH] private rootless Binder and desktop sockets; correct attach and ID maps
+
+--- a/data/configs/miodroid-binder.rc
++++ b/data/configs/miodroid-binder.rc
+@@ -1,31 +1,5 @@
+-# Waydroid: bring up the binder devices inside the container.
+-#
+-# A user namespace may mount binderfs, so nothing on the host has to provide
+-# /dev/binder, /dev/vndbinder or /dev/hwbinder for a rootless container: the
+-# container's own root mounts them and binderfs creates the nodes from the
+-# kernel's ANDROID_BINDER_DEVICES list (which the NixOS module pins to
+-# binder,vndbinder,hwbinder).  This is also why rootless Waydroid needs no root
+-# helper, no dedicated group and no device nodes on the host.
+-#
+-# Android's first-stage init would normally mount binderfs itself, but rootless
+-# mode skips that stage (device mknod is refused in a user namespace), so it
+-# happens from here instead.
++# Rootless Android: Binder devices come from the manager-owned private namespace.
+ on early-init
+-    mkdir /dev/binderfs 0755 root root
+-    exec - root root -- /system/bin/mount -t binder binder /dev/binderfs
+-    chmod 0755 /dev/binderfs
+-    chmod 0666 /dev/binderfs/binder
+-    chmod 0666 /dev/binderfs/vndbinder
+-    chmod 0666 /dev/binderfs/hwbinder
+-    chmod 0666 /dev/binderfs/binder-control
+-    symlink /dev/binderfs/binder /dev/binder
+-    symlink /dev/binderfs/vndbinder /dev/vndbinder
+-    symlink /dev/binderfs/hwbinder /dev/hwbinder
+-    chmod 0666 /dev/binder
+-    chmod 0666 /dev/vndbinder
+-    chmod 0666 /dev/hwbinder
+-    chmod 0666 /dev/random
+-    chmod 0666 /dev/urandom
+     setprop ro.cold_boot_done true
+     setprop bpf.progs_loaded 1
+
+--- a/data/scripts/miodroid-net.sh
++++ b/data/scripts/miodroid-net.sh
+@@ -8,8 +8,9 @@
+ if [ ! -z "$MIODROID_INSTANCE" ]; then
+     varrun="/run/miodroid-${MIODROID_INSTANCE}-lxc"
+     WORK="/var/lib/miodroid.${MIODROID_INSTANCE}"
+-    iface_name="miodroid0-${MIODROID_INSTANCE}"
+-fi
++    iface_name="miodro-$(printf %s "$MIODROID_INSTANCE" | sha256sum | cut -c1-7)"
++fi
++WORK="${MIODROID_WORK:-$WORK}"
+ varlib="/var/lib"
+ net_link_key="lxc.net.0.link"
+ case "$(lxc-info --version)" in [012].*) net_link_key="lxc.network.link" ;; esac
+@@ -23,18 +24,22 @@
+     echo "vnic is $iface_name"
+ fi
+
+-MD5HASH=$(echo -n "$MIODROID_INSTANCE" | md5sum | cut -d ' ' -f1 )
+-AS_DECIMAL=$(printf "%d" 0x$(echo "$MD5HASH" | cut -c1-8))
+-SUB_ADDR=$(($AS_DECIMAL % 16 + 2))
+-NET_ID=$(($AS_DECIMAL % 16 + 241))
+-
++# Separate Miodroid from upstream Waydroid, and keep all octets valid.
++# A /24 uses .1 as the gateway; DHCP must never allocate that address.
++SUBNET_HEX=$(printf %s "$MIODROID_INSTANCE" | sha256sum | cut -c1-2)
++NET_ID=$(printf "%d" "0x$SUBNET_HEX")
+ USE_LXC_BRIDGE="true"
+ LXC_BRIDGE="${iface_name}"
+-LXC_BRIDGE_MAC="00:16:3e:00:00:01"
+-LXC_ADDR="192.168.${NET_ID}.${SUB_ADDR}"
++LXC_BRIDGE_MAC="02:00:00:1d:${SUBNET_HEX}:01"
++LXC_ADDR="172.29.${NET_ID}.1"
+ LXC_NETMASK="255.255.255.0"
+-LXC_NETWORK="192.168.${NET_ID}.0/24"
+-LXC_DHCP_RANGE="192.168.${NET_ID}.16,192.168.${NET_ID}.254"
++LXC_NETWORK="172.29.${NET_ID}.0/24"
++LXC_DHCP_RANGE="172.29.${NET_ID}.2,172.29.${NET_ID}.254"
++# Detect hash collisions or a host network using the selected subnet.
++if [ "$1" = "start" ] && ip -4 route show exact "$LXC_NETWORK" | grep -qv "dev $LXC_BRIDGE "; then
++    echo "Miodroid subnet $LXC_NETWORK is already in use; choose a different instance name" >&2
++    exit 1
++fi
+ LXC_DHCP_MAX="253"
+ LXC_DHCP_CONFILE=""
+ LXC_DHCP_PING="true"
+--- a/tools/__init__.py
++++ b/tools/__init__.py
+@@ -16,7 +16,7 @@
+
+ def prep_args(args):
+     args.cache = {}
+-    args.work = os.environ.get("MIODROID_WORK", config.defaults["work"])
++    args.work = helpers.instance.get_work_dir()
+     if os.environ.get("MIODROID_ROOTLESS"):
+         suffix = len(config.defaults["work"])
+         for key in ("images_path", "rootfs", "overlay", "overlay_rw",
+@@ -54,7 +54,10 @@
+             args.log = "/tmp/tools.log"
+
+         if os.environ.get("MIODROID_ROOTLESS"):
+-            os.makedirs(args.work, exist_ok=True)
++            os.makedirs(args.work, mode=0o700, exist_ok=True)
++            if os.stat(args.work).st_uid != os.getuid():
++                raise RuntimeError("Rootless work directory must belong to the current user")
++            os.chmod(args.work, 0o700)
+         tools_logging.init(args)
+
+         dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+@@ -90,13 +93,13 @@
+             if args.subaction == "start":
+                 actions.container_manager.start(args)
+             elif args.subaction == "stop":
+-                actions.container_manager.stop(args)
++                helpers.ipc.DBusContainerService().Stop(True)
+             elif args.subaction == "restart":
+-                actions.container_manager.restart(args)
++                helpers.ipc.DBusContainerService().Restart()
+             elif args.subaction == "freeze":
+-                actions.container_manager.freeze(args)
++                helpers.ipc.DBusContainerService().Freeze()
+             elif args.subaction == "unfreeze":
+-                actions.container_manager.unfreeze(args)
++                helpers.ipc.DBusContainerService().Unfreeze()
+             else:
+                 logging.info(
+                     "Run miodroid {} -h for usage information.".format(args.action))
+--- a/tools/actions/container_manager.py
++++ b/tools/actions/container_manager.py
+@@ -41,6 +41,11 @@
+
+     @helpers.logging.log_exceptions
+     @dbus.service.method("id.miodro.ContainerManager", in_signature='', out_signature='')
++    def Restart(self):
++        restart(self.args)
++
++    @helpers.logging.log_exceptions
++    @dbus.service.method("id.miodro.ContainerManager", in_signature='', out_signature='')
+     def Freeze(self):
+         if not actions.initializer.is_initialized(self.args):
+             raise RuntimeError("Miodroid is not initialized")
+@@ -119,12 +124,17 @@
+     _container_manager = DbusContainerManager(mainloop, dbus.SessionBus() if os.environ.get("MIODROID_ROOTLESS") else dbus.SystemBus(), '/ContainerManager', args)
+
+     try:
+-        _name = dbus.service.BusName("id.miodro.Container", dbus.SessionBus() if os.environ.get("MIODROID_ROOTLESS") else dbus.SystemBus(), do_not_queue=True)
++        _name = dbus.service.BusName(helpers.instance.get_container_dbus_name(), dbus.SessionBus() if os.environ.get("MIODROID_ROOTLESS") else dbus.SystemBus(), do_not_queue=True)
+     except dbus.exceptions.NameExistsException:
+         logging.error("Container service is already running")
+         return
+
+-    mainloop.run()
++    try:
++        mainloop.run()
++    finally:
++        if os.environ.get("MIODROID_ROOTLESS"):
++            with suppress(Exception):
++                stop(args)
+
+     if initializer.worker_thread is not None:
+         initializer.worker_thread.kill()
+@@ -136,11 +146,28 @@
+     if prepared_drivers:
+         return
+
+-    # Load binder and ashmem drivers
++    if os.environ.get("MIODROID_ROOTLESS"):
++        helpers.drivers.loadBinderNodes(args)
++        args.vendor_type = tools.config.load(args)["miodroid"]["vendor_type"]
++        # Binder is bootstrapped inside the container, never borrowed from
++        # another installation or a sibling mount namespace.
++        args.BINDER_DRIVER = "binder"
++        args.VNDBINDER_DRIVER = "vndbinder"
++        args.HWBINDER_DRIVER = "hwbinder"
++        helpers.lxc.set_lxc_config(args)
++        prepared_drivers = True
++        return
++
++    # Migrate old configurations to Miodroid's own Binder devices; generic
++    # Waydroid devices must never be reused by a parallel installation.
+     cfg = tools.config.load(args)
+-    if cfg["miodroid"]["vendor_type"] == "MAINLINE":
+-        if helpers.drivers.probeBinderDriver(args) != 0:
+-            logging.error("Failed to load Binder driver")
++    args.vendor_type = cfg["miodroid"]["vendor_type"]
++    if args.vendor_type == "MAINLINE":
++        helpers.drivers.setupBinderNodes(args)
++        for key, attribute in (("binder", "BINDER_DRIVER"), ("vndbinder", "VNDBINDER_DRIVER"), ("hwbinder", "HWBINDER_DRIVER")):
++            cfg["miodroid"][key] = getattr(args, attribute)
++        tools.config.save(args, cfg)
++        helpers.lxc.set_lxc_config(args)
+         helpers.drivers.probeAshmemDriver(args)
+     helpers.drivers.loadBinderNodes(args)
+     set_permissions(args, [
+@@ -163,7 +190,7 @@
+
+     # Networking
+     command = [tools.config.tools_src +
+-               "/data/scripts/miodroid-net.sh", "start", args.instance or ""]
++               "/data/scripts/miodroid-net.sh", "start", helpers.instance.INSTANCE_NAME]
+
+     if not os.environ.get("MIODROID_ROOTLESS"):
+         tools.helpers.run.user(args, command)
+@@ -201,7 +228,8 @@
+         tools.helpers.run.user(args, command, check=False)
+
+     # Set permissions
+-    set_permissions(args)
++    if not os.environ.get("MIODROID_ROOTLESS"):
++        set_permissions(args)
+
+     # Create session-specific LXC config file
+     helpers.lxc.generate_session_lxc_config(args, session)
+@@ -218,12 +246,12 @@
+     helpers.protocol.set_aidl_version(args)
+
+     helpers.lxc.start(args)
+-    if os.path.exists("/dev/" + getattr(args, "BINDER_DRIVER", "binder")):
+-        services.hardware_manager.start(args)
++    services.hardware_manager.start(args)
+
+     args.session = session
+
+ def stop(args, quit_session=True):
++    global prepared_drivers
+     if not actions.initializer.is_initialized(args):
+         raise RuntimeError("Miodroid is not initialized")
+
+@@ -239,7 +267,7 @@
+
+         # Networking
+         command = [tools.config.tools_src +
+-                   "/data/scripts/miodroid-net.sh", "stop", args.instance or ""]
++                   "/data/scripts/miodroid-net.sh", "stop", helpers.instance.INSTANCE_NAME]
+         if not os.environ.get("MIODROID_ROOTLESS"):
+             tools.helpers.run.user(args, command, check=False)
+
+@@ -261,6 +289,8 @@
+
+         # Umount rootfs
+         helpers.images.umount_rootfs(args)
++        if os.environ.get("MIODROID_ROOTLESS"):
++            prepared_drivers = False
+
+         # Backwards compatibility
+         with suppress(Exception):
+@@ -278,8 +308,19 @@
+ def restart(args):
+     status = helpers.lxc.status(args)
+     if status == "RUNNING":
++        services.hardware_manager.stop(args)
++        thread = getattr(args, "hardware_manager", None)
++        if thread:
++            thread.join(timeout=5)
++            if thread.is_alive():
++                raise RuntimeError("Hardware integration thread did not stop")
+         helpers.lxc.stop(args)
+         helpers.lxc.start(args)
++        services.hardware_manager.start(args)
++        # A headless rootful restart has no desktop session bus to refresh.
++        # The container restart itself has succeeded; refresh when a session exists.
++        with suppress(dbus.DBusException):
++            helpers.ipc.DBusSessionService().RefreshServices()
+     else:
+         logging.error("Miodroid container is {}".format(status))
+
+--- a/tools/actions/session_manager.py
++++ b/tools/actions/session_manager.py
+@@ -19,6 +19,11 @@
+         self.args = args
+         self.looper = looper
+         dbus.service.Object.__init__(self, bus, object_path)
++
++    @dbus.service.method("id.miodro.SessionManager", in_signature='', out_signature='')
++    def RefreshServices(self):
++        stop_desktop_services(self.args)
++        start_desktop_services(self.args, self.args.desktop_session)
+
+     @dbus.service.method("id.miodro.SessionManager", in_signature='', out_signature='')
+     def Stop(self):
+@@ -63,24 +68,17 @@
+             logging.error("XDG_RUNTIME_DIR is not set; please don't start a Waydroid session with 'sudo'!")
+             sys.exit(1)
+         wayland_socket_path = os.path.join(xdg_runtime_dir, wayland_display)
+-    if os.path.exists(wayland_socket_path):
+-        try:
+-            os.chmod(wayland_socket_path, 0o777)
+-        except OSError:
+-            pass
+     if not os.path.exists(wayland_socket_path):
+         logging.error(f"Wayland socket '{wayland_socket_path}' doesn't exist; are you running a Wayland compositor?")
+         sys.exit(1)
+
+-    pulse_socket = os.path.join(session.get("pulse_runtime_path", ""), "native")
+-    if os.path.exists(pulse_socket):
+-        try:
+-            os.chmod(pulse_socket, 0o777)
+-        except OSError:
+-            pass
+     miodroid_data = session["miodroid_data"]
+     if not os.path.isdir(miodroid_data):
+         os.makedirs(miodroid_data)
++
++    # Android owns /data after init. Reserve a host-owned staging directory
++    # before it starts so unprivileged app installation can still write APKs.
++    os.makedirs(os.path.join(miodroid_data, "miodroid_tmp"), mode=0o755, exist_ok=True)
+
+     dpi = tools.helpers.props.host_get(args, "ro.sf.lcd_density")
+     if dpi == "":
+@@ -106,6 +104,8 @@
+     GLib.unix_signal_add(GLib.PRIORITY_HIGH, signal.SIGINT, sigint_handler, None)
+     GLib.unix_signal_add(GLib.PRIORITY_HIGH, signal.SIGTERM, sigint_handler, None)
+     GLib.unix_signal_add(GLib.PRIORITY_HIGH, signal.SIGUSR1, sigusr_handler, None)
++    from tools.helpers import socket_proxy
++    socket_proxy.start(args, session)
+     try:
+         tools.helpers.ipc.DBusContainerService().Start(session)
+     except dbus.DBusException as e:
+@@ -114,22 +114,36 @@
+             logging.error(e.get_dbus_message().splitlines()[-1])
+         else:
+             logging.error("Miodroid container is not listening")
+-        sys.exit(0)
++        socket_proxy.stop(args)
++        sys.exit(1)
+
+-    if os.path.exists("/dev/" + getattr(args, "BINDER_DRIVER", "binder")):
+-        services.user_manager.start(args, session, unlocked_cb)
+-        services.clipboard_manager.start(args)
+-        services.notification_manager.start(args, session)
+-    else:
+-        logging.warning("Binder device not present on host; skipping binder-dependent desktop integration")
+-        if unlocked_cb:
+-            unlocked_cb()
++    args.desktop_session = session
++    start_desktop_services(args, session, unlocked_cb)
+     service(args, mainloop)
+
++def start_desktop_services(args, session, unlocked_cb=None):
++    tools.helpers.drivers.loadBinderNodes(args)
++    services.user_manager.start(args, session, unlocked_cb)
++    services.clipboard_manager.start(args)
++    services.notification_manager.start(args, session)
++
++
++def stop_desktop_services(args):
++    for module, thread_name in ((services.user_manager, "user_manager"),
++                                (services.clipboard_manager, "clipboard_manager"),
++                                (services.notification_manager, "notification_manager")):
++        module.stop(args)
++        thread = getattr(args, thread_name, None)
++        if thread:
++            thread.join(timeout=5)
++            if thread.is_alive():
++                raise RuntimeError("Desktop integration thread did not stop: " + thread_name)
++
++
+ def do_stop(args, looper):
+-    services.user_manager.stop(args)
+-    services.clipboard_manager.stop(args)
+-    services.notification_manager.stop(args)
++    stop_desktop_services(args)
++    from tools.helpers import socket_proxy
++    socket_proxy.stop(args)
+     looper.quit()
+
+ def stop(args):
+--- a/tools/helpers/arguments.py
++++ b/tools/helpers/arguments.py
+@@ -186,6 +186,6 @@
+     return args
+
+ def validate_instance_name(name):
+-    if not re.match("^[a-zA-Z0-9_]+$", name):
+-        raise argparse.ArgumentError(None, "instance name must consist of letters, numbers and underscores only")
++    if not re.fullmatch("[a-zA-Z0-9_]{1,48}", name):
++        raise argparse.ArgumentError(None, "instance name must contain 1-48 letters, numbers or underscores")
+     return name
+--- a/tools/helpers/drivers.py
++++ b/tools/helpers/drivers.py
+@@ -14,24 +14,9 @@
+ def wrap_instance_suffix(input_array):
+     return [wrap_suffix(input) for input in input_array]
+
+-BINDER_DRIVERS = [
+-    "anbox-binder",
+-    "puddlejumper",
+-    "bonder",
+-    "binder"
+-]
+-VNDBINDER_DRIVERS = wrap_instance_suffix([
+-    "anbox-vndbinder",
+-    "vndpuddlejumper",
+-    "vndbonder",
+-    "vndbinder"
+-])
+-HWBINDER_DRIVERS = wrap_instance_suffix([
+-    "anbox-hwbinder",
+-    "hwpuddlejumper",
+-    "hwbonder",
+-    "hwbinder"
+-])
++BINDER_DRIVERS = [wrap_suffix("miodroid-binder")]
++VNDBINDER_DRIVERS = [wrap_suffix("miodroid-vndbinder")]
++HWBINDER_DRIVERS = [wrap_suffix("miodroid-hwbinder")]
+
+ 
+ def isBinderfsLoaded(args):
+@@ -110,10 +95,17 @@
+             command = ["mount", "-t", "binder", "binder", get_binderfs_dir()]
+             tools.helpers.run.user(args, command, check=False)
+             allocBinderNodes(args, binder_dev_nodes)
+-            command = ["ln", "-s"]
+-            command.extend(glob.glob(f"{get_binderfs_dir()}/*"))
+-            command.append("/dev/")
+-            tools.helpers.run.user(args, command, check=False)
++            # Only export our allocated devices. Kernel-configured generic
++            # nodes and binder-control belong to this mount, not /dev.
++            for node in binder_dev_nodes:
++                destination = "/dev/" + node
++                source = get_binderfs_dir() + "/" + node
++                if os.path.lexists(destination):
++                    if not os.path.islink(destination) or os.path.realpath(destination) != source:
++                        raise RuntimeError("Refusing to replace another Binder device: " + destination)
++                else:
++                    os.symlink(source, destination)
++
+
+     return 0
+
+--- a/tools/helpers/images.py
++++ b/tools/helpers/images.py
+@@ -164,7 +164,7 @@
+     read-only and absorb writes in a host-side fuse-overlayfs overlay, instead
+     of growing and writing to a copy of the image itself."""
+     return (bool(os.environ.get("MIODROID_ROOTLESS")) and
+-            bool(os.environ.get("MIODROID_ROOTLESS_OVERLAY")))
++            os.environ.get("MIODROID_ROOTLESS_OVERLAY", "1").lower() not in ("", "0", "false", "no"))
+
+ def mount_rootfs(args, images_dir, session):
+     cfg = tools.config.load(args)
+--- a/tools/helpers/instance.py
++++ b/tools/helpers/instance.py
+@@ -6,22 +6,31 @@
+ INSTANCE_NAME = os.environ.get("MIODROID_INSTANCE", "")
+
+ def get_container_dbus_name():
+-    return f"id.miodro.Container{get_suffix()}"
++    return "id.miodro.Container" + (".i" + INSTANCE_NAME if INSTANCE_NAME else "")
+
+ def get_container_name():
+     return "miodroid"
+
+ def get_session_dbus_name():
+-    return f"id.miodro.Session{get_suffix()}"
++    return "id.miodro.Session" + (".i" + INSTANCE_NAME if INSTANCE_NAME else "")
+
+ def get_work_dir():
+-    return os.environ.get("MIODROID_WORK", f"/var/lib/miodroid{get_suffix()}")
++    default = f"/var/lib/miodroid{get_suffix()}"
++    if os.environ.get("MIODROID_ROOTLESS"):
++        default = os.path.join(os.environ.get("XDG_DATA_HOME", os.path.expanduser("~/.local/share")),
++                               "miodroid" + get_suffix())
++    return os.path.abspath(os.environ.get("MIODROID_WORK", default))
+
+ def get_data_dir():
+     return f"/miodroid{get_suffix()}/data"
+
+ def get_inet_name():
+-    return "lxcbr0" if os.environ.get("MIODROID_ROOTLESS") else f"miodroid0{get_suffix_dash()}"
++    if os.environ.get("MIODROID_ROOTLESS"):
++        return "lxcbr0"
++    if not INSTANCE_NAME:
++        return "miodroid0"
++    import hashlib
++    return "miodro-" + hashlib.sha256(INSTANCE_NAME.encode()).hexdigest()[:7]
+
+ def get_suffix():
+     return f".{INSTANCE_NAME}" if INSTANCE_NAME else ""
+@@ -30,7 +39,7 @@
+     return f"-{INSTANCE_NAME}" if INSTANCE_NAME else ""
+
+ def get_binderfs_dir():
+-    return f"/dev/binderfs{get_suffix_dash()}"
++    return f"/dev/binderfs-miodroid{get_suffix_dash()}"
+
+ def wrap_suffix(input):
+     return f"{input}{get_suffix_dash()}"
+--- a/tools/helpers/lxc.py
++++ b/tools/helpers/lxc.py
+@@ -6,7 +6,6 @@
+ import glob
+ import shutil
+ import signal
+-import stat
+ import sys
+ import time
+ import platform
+@@ -53,10 +52,8 @@
+     if os.environ.get("MIODROID_ROOTLESS"):
+         make_entry("/dev/random")
+         make_entry("/dev/urandom")
+-        make_entry("/dev/kmsg", "dev/kmsg", options="bind,create=file 0 0")
++        make_entry("/dev/null", "dev/kmsg", options="bind,create=file 0 0")
+         make_entry("tmpfs", "dev/socket", "tmpfs", "mode=0755,create=dir 0 0", False)
+-        # Let the container mount its own binderfs: a user namespace is allowed
+-        # to, and that is what keeps rootless mode free of host device nodes.
+         make_entry(tools.config.tools_src + "/data/configs/miodroid-binder.rc",
+                    "system/etc/init/zz-miodroid-binder.rc",
+                    options="bind,create=file 0 0")
+@@ -83,21 +80,14 @@
+     for n in glob.glob("/dev/dma_heap/*"):
+         make_entry(n)
+
+-    # Binder dev nodes
+     if os.environ.get("MIODROID_ROOTLESS"):
+-        # The container brings up its own binderfs (see miodroid-binder.rc), so
+-        # only hand it host nodes if the host actually has some (the
+-        # hostBinderfs fallback).  Binding a node the container also creates
+-        # would shadow its own, and an unprivileged user cannot create them.
++        make_entry(tools.config.tools_src + "/data/scripts/miodroid-rootless-init",
++                   "miodroid-init", options="bind,ro,create=file 0 0")
++    else:
+         for driver, node in ((args.BINDER_DRIVER, "dev/binder"),
+                              (args.VNDBINDER_DRIVER, "dev/vndbinder"),
+                              (args.HWBINDER_DRIVER, "dev/hwbinder")):
+-            if os.path.exists("/dev/" + driver):
+-                make_entry("/dev/" + driver, node, check=False)
+-    else:
+-        make_entry("/dev/" + args.BINDER_DRIVER, "dev/binder", check=False)
+-        make_entry("/dev/" + args.VNDBINDER_DRIVER, "dev/vndbinder", check=False)
+-        make_entry("/dev/" + args.HWBINDER_DRIVER, "dev/hwbinder", check=False)
++            make_entry("/dev/" + driver, node, check=False)
+
+     if args.vendor_type != "MAINLINE":
+         if not make_entry("/dev/hwbinder", "dev/host_hwbinder"):
+@@ -197,6 +187,10 @@
+             for line in lines:
+                 output_line = line.replace("/var/lib/miodroid", get_work_dir())
+                 output_line = output_line.replace("miodroid0", get_inet_name())
++                if output_line.startswith("lxc.net.0.hwaddr ="):
++                    import hashlib
++                    address = hashlib.sha256(get_work_dir().encode()).digest()[:5]
++                    output_line = "lxc.net.0.hwaddr = 02:" + ":".join("{:02x}".format(x) for x in address) + "\n"
+                 output.write(output_line)
+     
+     tools.helpers.run.user(args, command)
+@@ -439,17 +433,50 @@
+         raise OSError("container failed to start")
+
+ def start(args):
++    rootless = bool(os.environ.get("MIODROID_ROOTLESS"))
+     command = ["lxc-start", "-P", tools.config.defaults["lxc"],
+-               "-F", "-n", get_container_name(), "--", "/init"] + (["second_stage"] if os.environ.get("MIODROID_ROOTLESS") else [])
+-    tools.helpers.run.user(args, command, output="background")
++               "-F", "-n", get_container_name(), "-l", "DEBUG", "-o", args.work + "/lxc.log",
++               "--", "/miodroid-init" if rootless else "/init"]
++    environment = os.environ.copy()
++    if rootless:
++        # systemd user units do not always inherit the login wrapper PATH.
++        environment["PATH"] = "/run/wrappers/bin:" + environment.get("PATH", "")
++    import threading
++    from tools.helpers.run_core import forward_stream
++    process = subprocess.Popen(command, stdin=subprocess.DEVNULL,
++                               stdout=subprocess.PIPE, stderr=subprocess.PIPE, env=environment)
++    for stream in (process.stdout, process.stderr):
++        threading.Thread(target=forward_stream, args=(stream, logging.DEBUG), daemon=True).start()
++    args.lxc_process = process
+     wait_for_running(args)
+-    # Workaround lxc-start changing stdout/stderr permissions to 700
+-    with suppress(OSError):
+-        os.chmod(args.log, 0o666)
++    if rootless:
++        from tools.helpers import rootless as rootless_helpers
++        rootless_helpers.expose_binder(args)
++
+
+ def stop(args):
+     command = ["lxc-stop", "-P",
+-               tools.config.defaults["lxc"], "-n", get_container_name(), "-k"]
++               tools.config.defaults["lxc"], "-n", get_container_name()]
++    if os.environ.get("MIODROID_ROOTLESS"):
++        # Unprivileged users cannot write cgroup.freeze. Ask the container
++        # namespace's init to exit directly; LXC reaps it and releases mounts.
++        import time
++        pid = tools.helpers.run.user(
++            args, ["lxc-info", "-P", tools.config.defaults["lxc"],
++                  "-n", get_container_name(), "-pH"],
++            check=False, output_return=True).strip()
++        if pid:
++            try:
++                os.kill(int(pid), signal.SIGKILL)
++            except ProcessLookupError:
++                pass
++            for _ in range(100):
++                if status(args) != "RUNNING":
++                    return
++                time.sleep(0.1)
++            raise RuntimeError("Rootless Miodroid container did not stop")
++    else:
++        command.append("-k")
+     tools.helpers.run.user(args, command)
+
+ def freeze(args):
+@@ -458,7 +485,7 @@
+
+ def unfreeze(args):
+     command = ["lxc-unfreeze", "-P",
+-               tools.config.defaults["lxc"], "-n", "miodroid"]
++               tools.config.defaults["lxc"], "-n", get_container_name()]
+     tools.helpers.run.user(args, command)
+
+ ANDROID_ENV = {
+@@ -473,12 +500,19 @@
+     "BOOTCLASSPATH": "/apex/com.android.art/javalib/core-oj.jar:/apex/com.android.art/javalib/core-libart.jar:/apex/com.android.art/javalib/core-icu4j.jar:/apex/com.android.art/javalib/okhttp.jar:/apex/com.android.art/javalib/bouncycastle.jar:/apex/com.android.art/javalib/apache-xml.jar:/system/framework/framework.jar:/system/framework/ext.jar:/system/framework/telephony-common.jar:/system/framework/voip-common.jar:/system/framework/ims-common.jar:/system/framework/framework-atb-backward-compatibility.jar:/apex/com.android.conscrypt/javalib/conscrypt.jar:/apex/com.android.media/javalib/updatable-media.jar:/apex/com.android.mediaprovider/javalib/framework-mediaprovider.jar:/apex/com.android.os.statsd/javalib/framework-statsd.jar:/apex/com.android.permission/javalib/framework-permission.jar:/apex/com.android.sdkext/javalib/framework-sdkextensions.jar:/apex/com.android.wifi/javalib/framework-wifi.jar:/apex/com.android.tethering/javalib/framework-tethering.jar"
+ }
+
++def attach_command(args):
++    command = ["lxc-attach", "-P", tools.config.defaults["lxc"],
++               "-n", get_container_name()]
++    if os.environ.get("MIODROID_ROOTLESS"):
++        command.append("--elevated-privileges=CGROUP")
++    return command
++
++
+ def android_env_attach_options(args):
+     local_env = ANDROID_ENV.copy()
+     # Include CLASSPATH env that was generated by Android
+-    command = ["lxc-attach", "-P", tools.config.defaults["lxc"],
+-               "-n", "miodroid", "--clear-env", "--",
+-               "/system/bin/cat" ,"/data/system/environ/classpath"]
++    command = attach_command(args) + ["--clear-env", "--",
++               "/system/bin/cat", "/data/system/environ/classpath"]
+     allowed = ["CLASSPATH", "SYSTEMSERVER"]
+     with suppress(Exception):
+         p = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+@@ -496,10 +530,8 @@
+     if state == "FROZEN":
+         unfreeze(args)
+     elif state != "RUNNING":
+-        logging.error("Miodroid container is {}".format(state))
+-        return
+-    command = ["lxc-attach", "-P", tools.config.defaults["lxc"],
+-               "-n", "miodroid", "--clear-env"]
++        raise RuntimeError("Miodroid container is {}".format(state))
++    command = attach_command(args) + ["--clear-env"]
+     command.extend(android_env_attach_options(args))
+     if args.uid is not None:
+         command.append("--uid="+str(args.uid))
+@@ -539,13 +571,12 @@
+     signal.signal(signal.SIGTERM, mock_sigint)
+     signal.signal(signal.SIGHUP, mock_sigint)
+
+-    perms = stat.S_IMODE(os.stat(sys.stdout.fileno()).st_mode)
+     try:
+-        subprocess.run(command)
++        result = subprocess.run(command, stdin=subprocess.DEVNULL if args.COMMAND else None)
++        if result.returncode:
++            raise RuntimeError("Android command exited with status {}".format(result.returncode))
+     except KeyboardInterrupt:
+         pass
+-    finally:
+-        os.chmod(sys.stdout.fileno(), perms)
+
+     if state == "FROZEN":
+         freeze(args)
+--- a/tools/helpers/net.py
++++ b/tools/helpers/net.py
+@@ -38,9 +38,19 @@
+     tools.helpers.run.user(args, ["adb", "disconnect", ip])
+
+ def get_device_ip_address():
+-    # The IP address is queried from the DHCP lease file.
+-    with suppress(IOError):
+-        with open("/var/lib/misc/dnsmasq.miodroid0.leases") as f:
+-            match = re.search(r"(\d{1,3}\.){3}\d{1,3}\s", f.read())
+-            if match:
+-                return match.group().strip()
++    # Query the selected LXC instance instead of a rootful-only DHCP lease.
++    # This also works with rootless lxcbr0 and named instances.
++    import subprocess
++    import ipaddress
++    import tools.config
++    from tools.helpers.instance import get_container_name
++    try:
++        result = subprocess.run(
++            ["lxc-info", "-P", tools.config.defaults["lxc"], "-n", get_container_name(), "-iH"],
++            capture_output=True, text=True, timeout=5, check=True)
++        for line in result.stdout.splitlines():
++            address = ipaddress.ip_address(line.strip())
++            if address.version == 4 and not address.is_loopback:
++                return str(address)
++    except (OSError, ValueError, subprocess.SubprocessError):
++        return None
+--- a/tools/helpers/rootless.py
++++ b/tools/helpers/rootless.py
+@@ -1,4 +1,5 @@
+ import tools.helpers.run
++import tools.config
+
+ import logging
+ import os
+@@ -60,7 +61,7 @@
+                     return int(fields[1]), int(fields[2])
+     except (OSError, ValueError):
+         pass
+-    return 100000, 65536
++    raise RuntimeError("Missing subordinate ID range in " + path + " for " + name)
+
+ def write_lxc_idmap(lxc_path):
+     """Write the rootless idmap and rootfs lines to a container config.
+@@ -79,15 +80,20 @@
+     except KeyError:
+         name = str(uid)
+     subuid, subuid_count = _subid_range("/etc/subuid", uid, name)
+-    subgid, subgid_count = _subid_range("/etc/subgid", gid, name)
++    subgid, subgid_count = _subid_range("/etc/subgid", uid, name)
++    if min(subuid_count, subgid_count) < 131072:
++        raise RuntimeError("Rootless Android requires at least 131072 subordinate UIDs and GIDs (including isolated app IDs)")
+     os.makedirs(os.path.join(lxc_path, "rootfs"), exist_ok=True)
+     with open(os.path.join(lxc_path, "config"), "a") as output:
+         output.write("lxc.idmap = u 0 {} 1\n".format(uid))
+         output.write("lxc.idmap = g 0 {} 1\n".format(gid))
+         output.write("lxc.idmap = u 1 {} {}\n".format(
+-            subuid, min(subuid_count, 65535)))
++            subuid, subuid_count - 1))
+         output.write("lxc.idmap = g 1 {} {}\n".format(
+-            subgid, min(subgid_count, 65535)))
++            subgid, subgid_count - 1))
++        # Android uses INT_MAX as a special UID/GID (for example CLAT).
++        output.write("lxc.idmap = u 2147483647 {} 1\n".format(subuid + subuid_count - 1))
++        output.write("lxc.idmap = g 2147483647 {} 1\n".format(subgid + subgid_count - 1))
+         output.write("lxc.rootfs.mount = {}/rootfs\n".format(lxc_path))
+
+ def bind(args, source, destination, create_folders=True, umount=False):
+@@ -107,8 +113,16 @@
+     # A run that died without stopping the container leaves its mounts
+     # behind; replacing them keeps "start" from stacking a second mount on a
+     # path that is already mounted.
+-    if _ismount(destination) and (umount or mount_type == "overlay"):
++    if umount:
+         umount_all(args, destination)
++    requested_destination = destination
++    if source.endswith(".img") and readonly:
++        # Keep lower mounts separate from the overlay mountpoints. Unmounting
++        # an image before overlaying it destroys the overlay's lower tree.
++        destination = os.path.join(args.work, "image-mounts", hashlib.sha256(os.fsencode(destination)).hexdigest())
++        if not hasattr(args, "rootless_lowerdirs"):
++            args.rootless_lowerdirs = {}
++        args.rootless_lowerdirs[requested_destination] = destination
+     os.makedirs(destination, exist_ok=True)
+     if source.endswith(".img"):
+         with open(source, "rb") as image:
+@@ -119,7 +133,7 @@
+         os.makedirs(cache_dir, exist_ok=True)
+         cache = os.path.join(
+             cache_dir,
+-            hashlib.sha256(os.fsencode(source)).hexdigest() + ".img")
++            hashlib.sha256(os.fsencode(source) + str((os.stat(source).st_size, os.stat(source).st_mtime_ns)).encode()).hexdigest() + ".img")
+         if not os.path.exists(cache):
+             if is_sparse:
+                 _run(args, ["simg2img", source, cache])
+@@ -139,7 +153,8 @@
+                     "e2fsck failed for rootless image: " + source)
+             _grow(args, cache)
+         source = cache
+-        mount_options = ["fakeroot"]
++        mount_options = ["fakeroot", "default_permissions",
++                         "uid=" + str(os.getuid()), "gid=" + str(os.getgid())]
+         mount_options.append("ro" if readonly else "rw")
+         if os.environ.get("MIODROID_ROOTLESS"):
+             mount_options.append("allow_other")
+@@ -149,18 +164,15 @@
+         command = ["fuse-overlayfs"]
+         if options:
+             opts = options.copy()
++            lowerdirs = getattr(args, "rootless_lowerdirs", {})
++            opts = ["lowerdir=" + ":".join(lowerdirs.get(path, path) for path in option.split("=", 1)[1].split(":"))
++                    if option.startswith("lowerdir=") else option for option in opts]
+             if os.environ.get("MIODROID_ROOTLESS"):
+-                # The container's root is mapped to the invoking user
+-                # (see write_lxc_idmap), so that account is the only
+-                # owner the daemon can give files it creates: it has
+-                # no CAP_CHOWN for any other id. The extra one-id
+-                # mapping keeps the image's root-owned files (uid 0)
+-                # looking like the container's root.
+-                uid = os.getuid()
+-                gid = os.getgid()
+-                opts.append("uidmapping={0}:0:65536,{0}:{0}:1".format(uid))
+-                opts.append("gidmapping={0}:0:65536,{0}:{0}:1".format(gid))
+-                opts.append("allow_other")
++                # Image trees are immutable OS files; keep the writable upper
++                # tree owned by the desktop user. Android app identities are
++                # preserved separately on the direct /data bind mount.
++                opts += ["squash_to_uid=" + str(os.getuid()),
++                         "squash_to_gid=" + str(os.getgid()), "xattr_permissions=2", "allow_other"]
+             command += ["-o", ",".join(opts)]
+         command.append(destination)
+     else:
+@@ -179,8 +191,53 @@
+              if len(words) >= 2 and
+              (words[1] == folder or words[1].startswith(folder + "/"))),
+             reverse=True)
+-    if not paths:
+-        return
+-    fusermount = _fusermount()
+-    for path in paths:
+-        _run(args, [fusermount, "-u", path])
++    if paths:
++        fusermount = _fusermount()
++        for path in paths:
++            _run(args, [fusermount, "-u", path])
++    if folder == os.path.realpath(tools.config.defaults["rootfs"]):
++        umount_all(args, os.path.join(args.work, "image-mounts"))
++        args.rootless_lowerdirs = {}
++
++
++
++def expose_binder(args):
++    """Give host integration access to the container's own private Binder."""
++    import subprocess
++    import time
++    from tools.helpers.instance import get_container_name
++    result = subprocess.run(
++        ["lxc-info", "-P", tools.config.defaults["lxc"], "-n", get_container_name(), "-pH"],
++        capture_output=True, text=True, timeout=5, check=True)
++    pid = int(result.stdout.strip())
++    # Follow the actual binderfs device path through procfs. The /dev/binder
++    # symlinks are absolute and resolve against the host root when traversed
++    # through /proc/PID/root, so they cannot be used as host-side paths.
++    source = "/proc/{}/root/dev/binderfs/".format(pid)
++    for _ in range(100):
++        try:
++            for name in ("binder", "vndbinder", "hwbinder"):
++                if not stat.S_ISCHR(os.stat(source + name).st_mode):
++                    raise FileNotFoundError(source + name)
++            break
++        except FileNotFoundError:
++            time.sleep(0.1)
++    else:
++        try:
++            with open("/proc/{}/root/data/miodroid-rootless-init.log".format(pid)) as log:
++                detail = log.read().strip()
++        except OSError as error:
++            detail = "bootstrap log unavailable: {}".format(error)
++        raise RuntimeError("Container did not create its Binder devices: " + detail)
++    cfg = tools.config.load(args)
++    for attribute, key, name in (("BINDER_DRIVER", "binder", "binder"),
++                                 ("VNDBINDER_DRIVER", "vndbinder", "vndbinder"),
++                                 ("HWBINDER_DRIVER", "hwbinder", "hwbinder")):
++        path = source + name
++        # Fail early if host desktop services cannot open the device.
++        descriptor = os.open(path, os.O_RDWR | os.O_CLOEXEC)
++        os.close(descriptor)
++        driver = os.path.relpath(path, "/dev")
++        setattr(args, attribute, driver)
++        cfg["miodroid"][key] = driver
++    tools.config.save(args, cfg)
+--- /dev/null
++++ b/tools/helpers/socket_proxy.py
+@@ -0,0 +1,104 @@
++"""Forward desktop sockets without changing their access permissions.
++
++SCM_RIGHTS forwarding is required by Wayland (buffers/keymaps) and PulseAudio
++(shared memory). The public end is only exposed inside the Android container;
++its parent directory remains private to the desktop user.
++"""
++import array
++import os
++import socket
++import threading
++
++
++class Proxy:
++    def __init__(self, source, destination):
++        self.source = source
++        self.connections = set()
++        self.listener = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
++        self.listener.bind(destination)
++        os.chmod(destination, 0o666)
++        self.listener.listen(16)
++        threading.Thread(target=self.accept, daemon=True).start()
++
++    def accept(self):
++        while True:
++            try:
++                client, _ = self.listener.accept()
++                upstream = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
++                upstream.connect(self.source)
++            except OSError:
++                if 'client' in locals():
++                    client.close()
++                return
++            self.connections.update((client, upstream))
++            for reader, writer in ((client, upstream), (upstream, client)):
++                threading.Thread(target=self.forward, args=(reader, writer), daemon=True).start()
++
++    def forward(self, reader, writer):
++        try:
++            while True:
++                data, ancillary, flags, _ = reader.recvmsg(65536, socket.CMSG_SPACE(256 * 4))
++                descriptors = []
++                for level, kind, value in ancillary:
++                    if level == socket.SOL_SOCKET and kind == socket.SCM_RIGHTS:
++                        fds = array.array('i')
++                        fds.frombytes(value[:len(value) - len(value) % fds.itemsize])
++                        descriptors.extend(fds)
++                try:
++                    if flags & socket.MSG_CTRUNC:
++                        raise OSError("Truncated desktop socket descriptors")
++                    if not data:
++                        break
++                    rights = [(level, kind, value) for level, kind, value in ancillary
++                              if level == socket.SOL_SOCKET and kind == socket.SCM_RIGHTS]
++                    sent = writer.sendmsg([data], rights)
++                    writer.sendall(data[sent:])
++                finally:
++                    for fd in descriptors:
++                        os.close(fd)
++        except OSError:
++            pass
++        finally:
++            for connection in (reader, writer):
++                try:
++                    connection.shutdown(socket.SHUT_RDWR)
++                except OSError:
++                    pass
++                connection.close()
++                self.connections.discard(connection)
++
++    def close(self):
++        self.listener.close()
++        for connection in tuple(self.connections):
++            try:
++                connection.shutdown(socket.SHUT_RDWR)
++            except OSError:
++                pass
++            connection.close()
++
++
++def start(args, session):
++    import tempfile
++    import shutil
++    runtime = session['xdg_runtime_dir']
++    directory = tempfile.mkdtemp(prefix='miodroid-sockets-', dir=runtime)
++    args.socket_proxy_directory = directory
++    args.socket_proxies = []
++    wayland = session['wayland_display']
++    if not os.path.isabs(wayland):
++        wayland = os.path.join(runtime, wayland)
++    args.socket_proxies.append(Proxy(wayland, directory + '/wayland'))
++    session['wayland_display'] = directory + '/wayland'
++    pulse = os.path.join(session['pulse_runtime_path'], 'native')
++    if os.path.exists(pulse):
++        args.socket_proxies.append(Proxy(pulse, directory + '/native'))
++        session['pulse_runtime_path'] = directory
++
++
++def stop(args):
++    import shutil
++    for proxy in getattr(args, 'socket_proxies', []):
++        proxy.close()
++    directory = getattr(args, 'socket_proxy_directory', None)
++    if directory:
++        shutil.rmtree(directory, ignore_errors=True)
+--- a/tools/services/notification_manager.py
++++ b/tools/services/notification_manager.py
+@@ -1,6 +1,7 @@
+ # Copyright 2025 Alessandro Astone
+ # SPDX-License-Identifier: GPL-3.0-or-later
+ import logging
++import hashlib
+ import os
+ import threading
+ import tools.config
+@@ -12,6 +13,7 @@
+ bus_signals = []
+
+ def start(args, session):
++    desktop_prefix = "miodroid-" + hashlib.sha256(args.work.encode()).hexdigest()[:12]
+
+     def onListenerDeath(listener):
+         listeners.remove(listener)
+@@ -28,7 +30,7 @@
+         app_icon = ""
+         actions_flat = [s for action in actions for s in (action.id, action.label)]
+         hints = {
+-            "desktop-entry": f"miodroid.{package_name}",
++            "desktop-entry": f"{desktop_prefix}.{package_name}",
+             "resident": dbus.types.Boolean(resident),
+             "transient": dbus.types.Boolean(transient),
+             "urgency": dbus.types.Byte(urgency),
+--- a/tools/services/user_manager.py
++++ b/tools/services/user_manager.py
+@@ -1,6 +1,10 @@
+ # Copyright 2021 Erfan Abdi
+ # SPDX-License-Identifier: GPL-3.0-or-later
+ import logging
++import hashlib
++import os
++import shlex
++from tools.helpers import instance
+ import threading
+ import tools.config
+ import tools.helpers.net
+@@ -15,6 +19,14 @@
+
+ def start(args, session, unlocked_cb=None):
+
++    desktop_prefix = "miodroid-" + hashlib.sha256(args.work.encode()).hexdigest()[:12]
++    launcher = ["env", "MIODROID_WORK=" + args.work]
++    if os.environ.get("MIODROID_ROOTLESS"):
++        launcher.append("MIODROID_ROOTLESS=1")
++    launcher.append("miodroid")
++    if instance.INSTANCE_NAME:
++        launcher += ["-I", instance.INSTANCE_NAME]
++    launcher = shlex.join(launcher)
+     apps_dir = Path(session["xdg_data_home"]) / "applications"
+     apps_dir.mkdir(0o700, exist_ok=True)
+
+@@ -64,19 +76,19 @@
+
+     # Migrate waydroid user configs after upgrade
+     def user_migration():
+-        if not any(apps_dir.glob('miodroid.*.desktop')):
++        if not any(apps_dir.glob(f"{desktop_prefix}.*.desktop")):
+             # first ever run, no need to migrate
+             return
+
+         migrated_main_path = miodroid_user_state_dir / ".migrated-main-desktop-file"
+         if not migrated_main_path.exists():
+-            main_app_path = apps_dir / "Waydroid.desktop"
++            main_app_path = apps_dir / "Miodroid.desktop"
+             main_app_path.unlink(missing_ok=True)
+             migrated_main_path.touch()
+
+         migrated_apps_path = miodroid_user_state_dir / ".migrated-app-settings-desktop-action"
+         if not migrated_apps_path.exists():
+-            for app in apps_dir.glob("miodroid.*.desktop"):
++            for app in apps_dir.glob(f"{desktop_prefix}.*.desktop"):
+                 with suppress(GLib.GError):
+                     desktop_file = GLib.KeyFile()
+                     flags = GLib.KeyFileFlags.KEEP_COMMENTS | GLib.KeyFileFlags.KEEP_TRANSLATIONS
+@@ -96,7 +108,7 @@
+             return
+
+         packageName = appInfo["packageName"]
+-        desktop_file_path = apps_dir / f"miodroid.{packageName}.desktop"
++        desktop_file_path = apps_dir / f"{desktop_prefix}.{packageName}.desktop"
+
+         showApp = False
+         for cat in appInfo["categories"]:
+@@ -116,7 +128,7 @@
+
+         desktop_file.set_string("Desktop Entry", "Type", "Application")
+         desktop_file.set_string("Desktop Entry", "Name", appInfo["name"])
+-        desktop_file.set_string("Desktop Entry", "Exec", f"miodroid app launch {packageName}")
++        desktop_file.set_string("Desktop Entry", "Exec", f"{launcher} app launch {packageName}")
+         desktop_file.set_string("Desktop Entry", "Icon", str(miodroid_data_icons_dir / f"{packageName}.png"))
+         glib_key_file_prepend_string_list(desktop_file, "Desktop Entry", "Categories", ["X-Miodroid-App"])
+         desktop_file.set_string_list("Desktop Entry", "X-Purism-FormFactor", ["Workstation", "Mobile"])
+@@ -125,7 +137,7 @@
+             desktop_file.set_boolean("Desktop Entry", "NoDisplay", True)
+
+         desktop_file.set_string("Desktop Action app-settings", "Name", "App Settings")
+-        desktop_file.set_string("Desktop Action app-settings", "Exec", f"miodroid app intent android.settings.APPLICATION_DETAILS_SETTINGS package:{packageName}")
++        desktop_file.set_string("Desktop Action app-settings", "Exec", f"{launcher} app intent android.settings.APPLICATION_DETAILS_SETTINGS package:{packageName}")
+         desktop_file.set_string("Desktop Action app-settings", "Icon", str(miodroid_data_icons_dir / "com.android.settings.png"))
+
+         desktop_file.save_to_file(str(desktop_file_path))
+@@ -145,8 +157,8 @@
+             appsList = platformService.getAppsInfo()
+             for app in appsList:
+                 updateDesktopFile(app)
+-            for existing in apps_dir.glob("miodroid.*.desktop"):
+-                if existing.name not in map(lambda appInfo: f"miodroid.{appInfo['packageName']}.desktop", appsList):
++            for existing in apps_dir.glob(f"{desktop_prefix}.*.desktop"):
++                if existing.name not in map(lambda appInfo: f"{desktop_prefix}.{appInfo['packageName']}.desktop", appsList):
+                     existing.unlink()
+         if unlocked_cb:
+             unlocked_cb()
+@@ -154,7 +166,7 @@
+     def packageStateChanged(mode, packageName, uid):
+         platformService = IPlatform.get_service(args)
+         if platformService:
+-            desktop_file_path = apps_dir / f"miodroid.{packageName}.desktop"
++            desktop_file_path = apps_dir / f"{desktop_prefix}.{packageName}.desktop"
+             if mode == IUserMonitor.PACKAGE_REMOVED:
+                 desktop_file_path.unlink(missing_ok=True)
+             else:

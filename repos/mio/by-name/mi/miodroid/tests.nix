@@ -1,464 +1,280 @@
 {
   package,
-  fetchurl,
   pkgs,
-  runCommand,
   testers,
+  runCommand,
+  callPackage,
 }:
-
 let
-  systemImage = fetchurl {
-    url = "https://sourceforge.net/projects/waydroid/files/images/system/lineage/waydroid_x86_64/lineage-20.0-20260927-VANILLA-waydroid_x86_64-system.zip/download";
-    hash = "sha256-BTVSclv0riXi0/fm8ZRyAylKqdc9wX/h86vmRuXTvYo=";
-  };
-  vendorImage = fetchurl {
-    url = "https://sourceforge.net/projects/waydroid/files/images/vendor/waydroid_x86_64/lineage-20.0-20260927-MAINLINE-waydroid_x86_64-vendor.zip/download";
-    hash = "sha256-2RG4NT9sgHuUeQscQcZ+hjqfPc0c8+wCMjUTmCNa/Xo=";
-  };
-  testFiles = runCommand "miodroid-rootful-test-files" { } ''
-    mkdir -p $out/system/lineage/waydroid_x86_64
-    mkdir -p $out/vendor/waydroid_x86_64
-    cp ${systemImage} $out/system.zip
-    cp ${vendorImage} $out/vendor.zip
-    cat > $out/system/lineage/waydroid_x86_64/VANILLA.json <<EOF
-    {"response":[{"datetime":1790539062,"filename":"system.zip","id":"053552725bf4ae25e2d3f7e6f1947203294aa9d73dc17fe1f3abe646e5d3bd8a","url":"http://127.0.0.1:8000/system.zip"}]}
-    EOF
-    cat > $out/vendor/waydroid_x86_64/MAINLINE.json <<EOF
-    {"response":[{"datetime":1790542319,"filename":"vendor.zip","id":"d911b8353f6c807b94790b1c41c67e863a9f3dcd1cf3ec0232351398235afd7a","url":"http://127.0.0.1:8000/vendor.zip"}]}
-    EOF
+  images = callPackage ./robotnix-image.nix { };
+  notificationReceiver = pkgs.writeShellScriptBin "miodroid-notification-receiver" ''
+    exec ${
+      pkgs.python3.withPackages (p: [
+        p.dbus-python
+        p.pygobject3
+      ])
+    }/bin/python3 ${./tests/notifications.py}
   '';
-in
-let
-  binderKernel = pkgs.linuxPackagesFor (
-    pkgs.linux_latest.override {
-      structuredExtraConfig = with pkgs.lib.kernel; {
-        ANDROID_BINDER_IPC = yes;
-        ANDROID_BINDERFS = yes;
-        MEMFD_CREATE = yes;
-        BRIDGE = yes;
-        BRIDGE_NETFILTER = yes;
-        NETFILTER = yes;
-        NETFILTER_ADVANCED = yes;
-        NETFILTER_XTABLES = yes;
-        NF_CONNTRACK = yes;
-        NF_NAT = yes;
-        IP_NF_IPTABLES = yes;
-        NETFILTER_XT_TARGET_MASQUERADE = yes;
-        NETFILTER_XT_MATCH_COMMENT = yes;
-        NETFILTER_XT_MATCH_CONNTRACK = yes;
-        NETFILTER_XT_MATCH_ADDRTYPE = yes;
-        NF_TABLES = yes;
-        NF_TABLES_INET = yes;
-        NFT_CT = yes;
-        NFT_MASQ = yes;
-        NFT_REDIR = yes;
-        NFT_NAT = yes;
-        NFT_FIB = module;
-        NFT_REJECT = yes;
-        NFT_COMPAT = yes;
-        FUSE_FS = yes;
-        USER_NS = yes;
+  # The standard Nixpkgs kernel already enables Binderfs, user namespaces,
+  # FUSE and the LXC network features. Test the kernel users actually install.
+  binderKernel = pkgs.linuxPackages;
+  mkTest =
+    {
+      rootless,
+      strategy ? "overlay",
+    }:
+    testers.runNixOSTest {
+      name = "miodroid-${if rootless then "rootless-${strategy}" else "rootful"}";
+      nodes.machine = { lib, ... }: {
+        imports = [ ../../../modules/miodroid.nix ];
+        virtualisation.miodroid = lib.mkIf (!rootless) {
+          enable = true;
+          inherit package;
+          imagePackage = images;
+        };
+        virtualisation.miodroid-rootless = lib.mkIf rootless {
+          enable = true;
+          inherit package;
+          imagePackage = images;
+          imageStrategy = strategy;
+        };
+        boot.kernelPackages = binderKernel;
+        boot.kernelModules = [ "binder_linux" ];
+        virtualisation.memorySize = 6144;
+        virtualisation.cores = 4;
+        virtualisation.diskSize = 24576;
+        users.users.alice = {
+          isNormalUser = true;
+          extraGroups = [
+            "video"
+            "render"
+          ]
+          ++ lib.optionals rootless [
+            "miodroid"
+            "lxc-user"
+          ];
+          subUidRanges = [
+            {
+              startUid = 100000;
+              count = 2097152;
+            }
+          ];
+          subGidRanges = [
+            {
+              startGid = 100000;
+              count = 2097152;
+            }
+          ];
+        };
+        # Android asks for best-effort scheduling priorities. Give the test
+        # login the same limits as a desktop multimedia session.
+        security.pam.loginLimits = [
+          {
+            domain = "alice";
+            item = "nice";
+            type = "-";
+            value = "-20";
+          }
+          {
+            domain = "alice";
+            item = "rtprio";
+            type = "-";
+            value = "40";
+          }
+        ];
+        systemd.user.settings.Manager = {
+          DefaultLimitNICE = "-20";
+          DefaultLimitRTPRIO = "40";
+        };
+        systemd.user.services.miodroid-test-notification-receiver = {
+          description = "Miodroid VM notification test receiver";
+          serviceConfig = {
+            ExecStart = "${notificationReceiver}/bin/miodroid-notification-receiver";
+            Restart = "on-failure";
+            StandardOutput = "append:/tmp/miodroid-notifications.log";
+            StandardError = "append:/tmp/miodroid-notifications.log";
+          };
+        };
+        networking.firewall.interfaces.lxcbr0.allowedTCPPorts = [ 8080 ];
+        environment.systemPackages = [
+          package
+          pkgs.weston
+          pkgs.pulseaudio
+          pkgs.wl-clipboard
+          pkgs.python3
+          notificationReceiver
+        ];
+        systemd.user.services.miodroid-test-container = lib.mkIf rootless {
+          serviceConfig = {
+            ExecStart = "${package}/bin/miodroid --details-to-stdout container start";
+            Delegate = true;
+            Type = "dbus";
+            BusName = "id.miodro.Container";
+            Environment = [
+              "MIODROID_ROOTLESS=1"
+              "MIODROID_WORK=/home/alice/.local/share/miodroid"
+              "MIODROID_ROOTLESS_OVERLAY=${if strategy == "overlay" then "1" else ""}"
+            ];
+          };
+        };
       };
-    }
-  );
+      testScript = ''
+        import shlex
+        import time
+
+        start_all()
+        machine.wait_for_unit("multi-user.target")
+        machine.succeed("loginctl enable-linger alice")
+        machine.wait_for_unit("user@1000.service")
+        machine.wait_until_succeeds("test -S /run/user/1000/bus")
+        env = {
+            "XDG_RUNTIME_DIR": "/run/user/1000",
+            "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/user/1000/bus",
+            "WAYLAND_DISPLAY": "wayland-0",
+            "PULSE_SERVER": "unix:/run/user/1000/pulse/native",
+        }
+        rootless = ${if rootless then "True" else "False"}
+        if rootless:
+            env.update(MIODROID_ROOTLESS="1", MIODROID_WORK="/home/alice/.local/share/miodroid",
+                       MIODROID_ROOTLESS_OVERLAY="${if strategy == "overlay" then "1" else ""}")
+        user_prefix = "runuser -u alice -- env " + " ".join(shlex.quote(k + "=" + v) for k, v in env.items()) + " "
+        def user(command):
+            return user_prefix + "sh -c " + shlex.quote(command)
+        def android(command, uid=None):
+            prefix = user_prefix if rootless else ""
+            identity = " --uid " + str(uid) if uid is not None else ""
+            return prefix + "miodroid --details-to-stdout shell" + identity + " -- /system/bin/sh -c " + shlex.quote(command) + " 2>&1 < /dev/null"
+        def wait_for_android():
+            for attempt in range(150):
+                status, _ = machine.execute(android("test $(getprop sys.boot_completed) = 1"))
+                if status == 0:
+                    return
+                if attempt == 30:
+                    probe = android("getprop sys.boot_completed; getprop init.svc.servicemanager; getprop init.svc.zygote; getprop init.svc.bootanim; ps -A; ls -l /dev/binder* /dev/binderfs/*")
+                    probe_status, output = machine.execute(probe)
+                    print(f"Android early-boot probe (status {probe_status}):\n{output}")
+                work = "/home/alice/.local/share/miodroid" if rootless else "/var/lib/miodroid"
+                prefix = user_prefix if rootless else ""
+                _, state = machine.execute(prefix + "lxc-info -P " + work + "/lxc -n miodroid -sH")
+                if attempt > 5 and "STOPPED" in state:
+                    raise Exception("Android container stopped before completing boot")
+                time.sleep(2)
+            raise Exception("Android did not complete boot within 300 seconds")
+        def diagnostics():
+            work = "/home/alice/.local/share/miodroid" if rootless else "/var/lib/miodroid"
+            commands = [
+                "journalctl -b --no-pager -n 200",
+                "cat " + work + "/miodroid.log " + work + "/lxc.log 2>/dev/null | tail -300",
+                "cat " + work + "/lxc/miodroid/rootfs/data/miodroid-rootless-init.log 2>/dev/null",
+                user("printf '%s\\n' \"$PATH\"; command -v newuidmap; ls -l /run/wrappers/bin/newuidmap /run/wrappers/bin/newgidmap"),
+                "cat /tmp/miodroid-session.log /tmp/weston.log /tmp/pulse.log 2>/dev/null | tail -150",
+                user("cat /tmp/miodroid-notifications.log 2>/dev/null; systemctl --user status miodroid-test-notification-receiver.service --no-pager; busctl --user list | grep -E 'Notifications|miodroid'"),
+                android("dumpsys activity activities; dumpsys window displays; dumpsys audio"),
+                android("settings get secure enabled_notification_listeners; dumpsys notification --noredact | grep -i -C 4 -E 'waydroid|miodroid|miodroid-vm|listener' | tail -200"),
+                android("logcat -d -b crash; logcat -d -t 250"),
+            ]
+            for command in commands:
+                status, output = machine.execute(command)
+                print(f"Diagnostic (status {status}): {command}\n{output}")
+
+        try:
+            with subtest("real desktop services"):
+                machine.succeed(user("weston --backend=headless --renderer=pixman --socket=wayland-0 --idle-time=0 > /tmp/weston.log 2>&1 &"))
+                machine.succeed(user("pulseaudio --daemonize=no -n --exit-idle-time=-1 --load='module-native-protocol-unix auth-anonymous=1 socket=/run/user/1000/pulse/native' --load='module-null-sink sink_name=test' > /tmp/pulse.log 2>&1 &"))
+                machine.wait_until_succeeds(user("test -S /run/user/1000/wayland-0 && pactl info"), timeout=30)
+                machine.succeed(user("chmod 0600 /run/user/1000/wayland-0 /run/user/1000/pulse/native"))
+                machine.succeed(user("systemctl --user start miodroid-test-notification-receiver.service"))
+                machine.wait_until_succeeds(user("busctl --user call org.freedesktop.Notifications /org/freedesktop/Notifications org.freedesktop.Notifications GetCapabilities"), timeout=30)
+                socket_modes = machine.succeed(user("stat -c '%a' /run/user/1000/wayland-0 /run/user/1000/pulse/native"))
+                machine.succeed(user("test $(stat -c %a /run/user/1000) = 700"))
+
+            with subtest("initialize from pinned images"):
+                prefix = user_prefix if rootless else ""
+                machine.succeed(prefix + "miodroid --details-to-stdout init", timeout=300)
+                work = "/home/alice/.local/share/miodroid" if rootless else "/var/lib/miodroid"
+                # WayDroid's notification relay is opt-in at Android service
+                # construction time. The host turns this base property into
+                # vendor/waydroid.prop when the session starts.
+                machine.succeed((user_prefix if rootless else "") + "printf '%s\\n' 'persist.waydroid.forward_notifications=true' >> " + work + "/miodroid_base.prop")
+                if rootless:
+                    machine.succeed(user("systemctl --user start miodroid-test-container.service"))
+                else:
+                    machine.wait_for_unit("miodroid-container.service")
+
+            with subtest("Android boot and host integration"):
+                machine.succeed(user("miodroid --details-to-stdout session start > /tmp/miodroid-session.log 2>&1 &"))
+                wait_for_android()
+                machine.succeed(android("test -c /dev/binder && test -c /dev/vndbinder && test -c /dev/hwbinder"))
+                machine.wait_until_succeeds(user("miodroid app list | grep com.android.settings"), timeout=120)
+                machine.succeed(android("settings put global device_provisioned 1; settings put secure user_setup_complete 1; settings put system screen_off_timeout 2147483647; input keyevent KEYCODE_WAKEUP; wm dismiss-keyguard"))
+                machine.succeed(user("miodroid show-full-ui"))
+                machine.succeed(user("miodroid app launch com.android.settings"))
+                machine.wait_until_succeeds(android("dumpsys activity activities | grep -E 'mResumedActivity.*[Ss]ettings|topResumedActivity.*[Ss]ettings'"), timeout=60)
+                machine.succeed(android("dumpsys SurfaceFlinger | grep -i GLES"))
+                for service in ("waydroidhardware", "waydroidusermonitor", "waydroidclipboard", "waydroidnotifications"):
+                    machine.wait_until_succeeds(android("service check " + service + " | grep ': found$'"), timeout=60)
+                machine.wait_until_succeeds(user("pactl list short clients | grep -i -E 'protocol-native|waydroid|miodroid'"), timeout=60)
+                assert machine.succeed(user("stat -c '%a' /run/user/1000/wayland-0 /run/user/1000/pulse/native")) == socket_modes
+                machine.succeed(user("test $(stat -c %a /run/user/1000) = 700"))
+                if rootless:
+                    # A rootless launch must not chmod host devices or require
+                    # global Binder nodes. Its Binder mount is per manager.
+                    machine.succeed("test ! -e /dev/binder")
+                    machine.succeed(android("test $(id -u) = 0"))
+                    machine.succeed(user("grep -q '2147483647' $MIODROID_WORK/lxc/miodroid/config"))
+
+            with subtest("desktop notification delivery"):
+                machine.succeed(android("cmd notification post -t 'Miodroid VM' miodroid-vm miodroid-vm-notification", uid=2000))
+                machine.wait_until_succeeds("grep -q miodroid-vm-notification /tmp/miodroid-notifications.jsonl", timeout=30)
+
+            with subtest("network and persistent userdata"):
+                machine.succeed(android("ip -4 addr show eth0 | grep 'inet '"))
+                machine.succeed("python3 -m http.server 8080 --directory /etc > /tmp/miodroid-http.log 2>&1 &")
+                bridge = "lxcbr0" if rootless else "miodroid0"
+                address = machine.succeed("ip -4 -o addr show dev " + bridge).split()[3].split('/')[0]
+                machine.wait_until_succeeds(android("printf 'GET /hostname HTTP/1.0\\r\\n\\r\\n' | toybox nc -w 5 " + address + " 8080 | grep machine"), timeout=30)
+                if rootless:
+                    machine.succeed(user("grep -q 'lxc.idmap = u 1 100000 2097151' $MIODROID_WORK/lxc/miodroid/config"))
+                    machine.succeed(user("grep -q 'lxc.idmap = u 2147483647 2197151 1' $MIODROID_WORK/lxc/miodroid/config"))
+                machine.succeed(android("echo miodroid-persistent > /data/local/tmp/miodroid-test"))
+                machine.succeed(user("miodroid prop set persist.miodroid.test working"))
+                machine.succeed(user("miodroid prop get persist.miodroid.test | grep working"))
+
+            with subtest("freeze, restart and stop"):
+                if rootless:
+                    # User delegated cgroups do not expose cgroup.freeze to an
+                    # unprivileged LXC manager; exercise the supported lifecycle
+                    # operations without claiming freeze support.
+                    machine.succeed(user("miodroid --details-to-stdout container restart"))
+                else:
+                    # Restart also refreshes the desktop session services, so
+                    # keep root privileges while pointing D-Bus at alice's bus.
+                    machine.succeed("env XDG_RUNTIME_DIR=/run/user/1000 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus miodroid --details-to-stdout container freeze")
+                    machine.succeed("env XDG_RUNTIME_DIR=/run/user/1000 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus miodroid --details-to-stdout container unfreeze")
+                    machine.succeed("env XDG_RUNTIME_DIR=/run/user/1000 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus miodroid --details-to-stdout container restart")
+                wait_for_android()
+                machine.succeed(android("grep miodroid-persistent /data/local/tmp/miodroid-test"))
+                if rootless:
+                    machine.succeed(user("miodroid session stop"))
+                else:
+                    machine.succeed("env XDG_RUNTIME_DIR=/run/user/1000 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus miodroid session stop")
+                work = "/home/alice/.local/share/miodroid" if rootless else "/var/lib/miodroid"
+                machine.wait_until_succeeds((user_prefix if rootless else "") + "lxc-info -P " + work + "/lxc -n miodroid -sH | grep STOPPED")
+        except Exception:
+            diagnostics()
+            raise
+      '';
+    };
 in
 {
-  rootful = testers.runNixOSTest {
-    name = "miodroid-rootful";
-
-    nodes.machine = {
-      imports = [ ../../../modules/miodroid.nix ];
-
-      virtualisation.miodroid = {
-        enable = true;
-        package = package;
-      };
-
-      virtualisation.memorySize = 4096;
-      virtualisation.diskSize = 8192;
-      boot.kernelPackages = binderKernel;
-      boot.extraModprobeConfig = "options binder_linux devices=binder,vndbinder,hwbinder";
-      environment.etc."miodroid-test".source = testFiles;
-      environment.systemPackages = [
-        pkgs.python3
-        pkgs.weston
-      ];
-    };
-
-    testScript = ''
-      machine.wait_for_unit("multi-user.target")
-      machine.succeed("zgrep -q 'ANDROID_BINDER_IPC=y' /proc/config.gz || test -e /sys/module/binder_linux")
-      machine.succeed("mkdir -p /dev/binderfs && mount -t binder binder /dev/binderfs")
-      machine.succeed("test -e /dev/binderfs/binder -a -e /dev/binderfs/vndbinder -a -e /dev/binderfs/hwbinder")
-      machine.wait_for_unit("miodroid-container.service")
-      machine.succeed("python3 -m http.server 8000 --directory /etc/miodroid-test >/tmp/miodroid-http.log 2>&1 &")
-      machine.succeed("miodroid init -c http://127.0.0.1:8000/system -v http://127.0.0.1:8000/vendor -r lineage -s VANILLA", timeout=3600)
-      machine.succeed("miodroid prop set ro.hardware.gralloc default")
-      machine.succeed("miodroid prop set ro.hardware.egl swiftshader")
-      machine.succeed("""cat > /tmp/miodroid-session-test.sh << 'EOF'
-      #!/bin/sh
-      set -eu
-      install -d -m 0700 /run/user/0
-      mkdir -p /run/user/0/pulse
-      # Start a real Wayland compositor for Waydroid to connect to,
-      # and a fake PulseAudio socket.
-      XDG_RUNTIME_DIR=/run/user/0 weston --backend=headless-backend.so --socket=wayland-0 --idle-time=0 >/tmp/weston.log 2>&1 &
-      wlserver=$!
-      python3 << 'PYEOF' &
-      import os, socket, time
-      for path in ["/run/user/0/pulse/native"]:
-          if os.path.exists(path):
-              os.unlink(path)
-          s = socket.socket(socket.AF_UNIX)
-          s.bind(path)
-          s.listen(1)
-      time.sleep(600)
-      PYEOF
-      pulseserver=$!
-
-      # `session start` stays in the foreground for as long as the session
-      # lives, so run it in the background and watch the container instead.
-      # The container has to stay up, not just reach RUNNING once; the session
-      # is left running, the assertions below stop it.
-      XDG_RUNTIME_DIR=/run/user/0 miodroid session start > /tmp/miodroid-session.log 2>&1 &
-      session=$!
-
-      running=0
-      for i in $(seq 1 180); do
-          if lxc-info -P /var/lib/miodroid/lxc -n miodroid -sH | grep -q RUNNING; then
-              running=$((running + 1))
-              if test $running -ge 10; then
-                  echo container-running
-                  break
-              fi
-          else
-              running=0
-          fi
-          if ! test -d /proc/$session; then
-              echo "session exited before the container came up"
-              break
-          fi
-          sleep 1
-      done
-
-      # RUNNING only means that Android's init started. A container that never
-      # reaches sys.boot_completed=1 is not a working Miodroid, so gate the
-      # test on Android's own boot flag instead of on the LXC state.
-      if test $running -ge 10; then
-          for i in $(seq 1 900); do
-              if lxc-attach -P /var/lib/miodroid/lxc -n miodroid -- \
-                      /system/bin/getprop sys.boot_completed 2>/dev/null |
-                      grep -q '^1'; then
-                  echo android-booted
-                  kill -9 $session $wlserver 2>/dev/null || true
-                  exit 0
-              fi
-              if ! test -d /proc/$session; then
-                  echo "session exited while Android was booting"
-                  break
-              fi
-              sleep 1
-          done
-          echo "Android never reported sys.boot_completed=1"
-      fi
-
-      echo "=== SESSION LOG ===" ; cat /tmp/miodroid-session.log || true
-      echo "=== LOGCAT ===" ; lxc-attach -P /home/alice/.local/share/miodroid/lxc -n miodroid -- /system/bin/logcat -d || true
-      echo "=== MIODROID LOG ===" ; cat /var/lib/miodroid/miodroid.log 2>/dev/null || true
-      echo "=== JOURNALCTL ===" ; journalctl --user -n 100 -xe || true
-      kill -9 $session $wlserver 2>/dev/null || true
-      exit 1
-      EOF
-      chmod 0755 /tmp/miodroid-session-test.sh""")
-      machine.succeed("dbus-run-session -- /tmp/miodroid-session-test.sh", timeout=1200)
-      machine.wait_for_unit("miodroid-container.service")
-      # A pre-installed imagePackage lands in /etc/miodroid-extra/images, and
-      # init records wherever it took them from as images_path -- so resolve
-      # that instead of assuming the OTA download location.
-      images_path = machine.succeed(
-          "sed -n 's/^images_path = //p' /var/lib/miodroid/miodroid.cfg"
-      ).strip()
-      assert images_path, "miodroid.cfg has no images_path"
-      machine.succeed(f"test -f {images_path}/system.img")
-      machine.succeed(f"test -f {images_path}/vendor.img")
-      machine.succeed("test -f /var/lib/miodroid/lxc/miodroid/config")
-      machine.succeed("test -f /var/lib/miodroid/lxc/miodroid/miodroid.seccomp")
-    '';
-  };
-
-  rootless = testers.runNixOSTest {
-    name = "miodroid-rootless";
-
-    nodes.machine = {
-      imports = [ ../../../modules/miodroid.nix ];
-
-      virtualisation.miodroid-rootless = {
-        enable = true;
-        package = package;
-        # imagePackage is left at its default: the Robotnix waydroid_x86_64
-        # build this repo produces, which is the image the rootless path is
-        # meant to run.
-      };
-
-      virtualisation.memorySize = 4096;
-      # The rootless "grow" strategy copies each image into the work directory
-      # and adds 1 GiB to the copy, on top of the downloaded images themselves,
-      # so the default 8 GiB is not enough for a real Android image pair.
-      virtualisation.diskSize = 16384;
-      boot.kernelPackages = binderKernel;
-      boot.extraModprobeConfig = "options binder_linux devices=binder,vndbinder,hwbinder";
-      environment.etc."miodroid-test".source = testFiles;
-      environment.systemPackages = [
-        pkgs.python3
-        pkgs.weston
-      ];
-
-      users.users.alice = {
-        isNormalUser = true;
-        extraGroups = [
-          "miodroid"
-          "lxc-user"
-          "fuse"
-        ];
-        subUidRanges = [
-          {
-            startUid = 100000;
-            count = 65536;
-          }
-        ];
-        subGidRanges = [
-          {
-            startGid = 100000;
-            count = 65536;
-          }
-        ];
-      };
-
-      programs.fuse.enable = true;
-
-      security.pam.loginLimits = [
-        {
-          domain = "*";
-          item = "nice";
-          type = "-";
-          value = "-20";
-        }
-        {
-          domain = "*";
-          item = "rtprio";
-          type = "-";
-          value = "40";
-        }
-      ];
-      systemd.settings.Manager.DefaultLimitNICE = "-20";
-      systemd.user.settings.Manager.DefaultLimitNICE = "-20";
-      systemd.settings.Manager.DefaultLimitRTPRIO = "40";
-      systemd.user.settings.Manager.DefaultLimitRTPRIO = "40";
-    };
-
-    testScript = ''
-      machine.wait_for_unit("multi-user.target")
-      machine.succeed("zgrep -q 'ANDROID_BINDER_IPC=y' /proc/config.gz || test -e /sys/module/binder_linux")
-      # Android's init logs to /dev/kmsg and the rootless container is given the
-      # host's node (mknod is refused inside a user namespace), so let the
-      # container's root write there.
-      machine.succeed("chmod 0666 /dev/kmsg /dev/dri/* /dev/fb* /dev/sw_sync 2>/dev/null || true")
-      machine.succeed("python3 -m http.server 8000 --directory /etc/miodroid-test >/tmp/miodroid-http.log 2>&1 &")
-      machine.succeed("sleep 2")
-      machine.succeed("loginctl enable-linger alice")
-      machine.wait_until_succeeds("test -S /run/user/1000/bus")
-      machine.wait_until_succeeds("su - alice -c 'DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus busctl --user call org.freedesktop.systemd1 /org/freedesktop/systemd1 org.freedesktop.DBus.Peer Ping'")
-      machine.succeed("install -d -m 0700 -o alice -g users /run/user/1000")
-      machine.succeed("""cat > /tmp/miodroid-rootless-test.sh <<'EOF'
-      #!/bin/sh
-      set -eu
-      if ! miodroid init -c http://127.0.0.1:8000/system \
-          -v http://127.0.0.1:8000/vendor -r lineage -s VANILLA; then
-          if test -f /tmp/tools.log; then cat /tmp/tools.log; fi
-          exit 1
-      fi
-      miodroid prop set ro.hardware.gralloc default
-      miodroid prop set ro.hardware.egl swiftshader
-      # The module pre-installs our Robotnix system.img/vendor.img in
-      # /etc/miodroid-extra/images, which init records as images_path instead
-      # of downloading an OTA into <work>/images. Assert the directory init
-      # settled on really holds both images rather than the work directory.
-      images_path=$(sed -n 's/^images_path = //p' "$MIODROID_WORK/miodroid.cfg")
-      if test ! -f "$images_path/system.img" ||
-          test ! -f "$images_path/vendor.img"; then
-          echo "init did not resolve usable images (images_path=$images_path)"
-          cat "$MIODROID_WORK/miodroid.cfg" || true
-          cat "$MIODROID_WORK/miodroid.log" || true
-          find "$MIODROID_WORK" -maxdepth 3 -type f -print || true
-          exit 1
-      fi
-      echo rootless-init-complete
-      EOF
-      chmod 0755 /tmp/miodroid-rootless-test.sh
-      """)
-      machine.succeed(
-          "su - alice -c 'env MIODROID_ROOTLESS=1 "
-          "MIODROID_WORK=/home/alice/.local/share/miodroid "
-          "XDG_RUNTIME_DIR=/run/user/1000 DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus "
-          "/tmp/miodroid-rootless-test.sh'",
-          timeout=420,
-      )
-      machine.succeed("test -f /home/alice/.local/share/miodroid/miodroid.cfg")
-      # The unprivileged network and the container's idmap are what make the
-      # rootless container reachable and able to run Android; assert them
-      # instead of only printing them while debugging.
-      machine.succeed("grep -q 'lxcbr0' /etc/lxc/lxc-usernet")
-      machine.succeed("grep -q 'lxc.idmap = u 0 1000 1' /home/alice/.local/share/miodroid/lxc/miodroid/config")
-      machine.succeed("grep -q 'lxc.rootfs.mount' /home/alice/.local/share/miodroid/lxc/miodroid/config")
-      # The container is told to bring up its own binderfs.
-      machine.succeed("grep -q 'zz-miodroid-binder.rc' /home/alice/.local/share/miodroid/lxc/miodroid/config_nodes")
-      machine.succeed("""cat > /tmp/test-session.sh << 'EOFSCRIPT'
-      #!/bin/sh
-      set -eu
-      export MIODROID_ROOTLESS=1
-      export MIODROID_WORK=/home/alice/.local/share/miodroid
-      export XDG_RUNTIME_DIR=/run/user/1000
-      export WAYLAND_DISPLAY=wayland-0
-      export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
-      prlimit --pid=$$ --rtprio=40:40 --nice=-20:-20 2>/dev/null || true
-
-      mkdir -p /run/user/1000/pulse
-      # Start a real Wayland compositor for Waydroid to connect to,
-      # and a fake PulseAudio socket.
-      XDG_RUNTIME_DIR=/run/user/1000 weston --backend=headless-backend.so --socket=wayland-0 --idle-time=0 >/tmp/weston.log 2>&1 &
-      wlserver=$!
-      # The listener has to outlive the session start, so it stays in the
-      # background: keep its output out of the test driver's pipe as well,
-      # otherwise the driver waits for this process instead of the script when
-      # the script fails early.
-      python3 << 'PYEOF' > /tmp/miodroid-pulse.log 2>&1 &
-      import os, socket, time
-      for path in ["/run/user/1000/pulse/native"]:
-          if os.path.exists(path):
-              os.unlink(path)
-          s = socket.socket(socket.AF_UNIX)
-          s.bind(path)
-          s.listen(1)
-      time.sleep(600)
-      PYEOF
-      pulseserver=$!
-
-      for i in $(seq 1 50); do
-          if test -S /run/user/1000/wayland-0 && test -S /run/user/1000/pulse/native; then
-              break
-          fi
-          sleep 0.1
-      done
-      chmod 0777 /run/user/1000 /run/user/1000/wayland-0* /run/user/1000/pulse /run/user/1000/pulse/* 2>/dev/null || true
-
-      # `session start` stays in the foreground for as long as the session
-      # lives, so run it in the background and watch the container instead.
-      # The container has to stay up, not just reach RUNNING once.
-      miodroid --details-to-stdout session start > /tmp/miodroid-session.log 2>&1 &
-      session=$!
-
-      attach() {
-          lxc-attach -s 'MOUNT|PID|IPC|UTSNAME|USER' -P /home/alice/.local/share/miodroid/lxc -n miodroid -- "$@"
-      }
-
-      running=0
-      for i in $(seq 1 180); do
-          if lxc-info -P /home/alice/.local/share/miodroid/lxc -n miodroid -sH | grep -q RUNNING; then
-              running=$((running + 1))
-              if test $running -ge 10; then
-                  echo container-running
-                  break
-              fi
-          else
-              running=0
-          fi
-          if ! test -d /proc/$session; then
-              echo "session exited before the container came up"
-              break
-          fi
-          sleep 1
-      done
-
-      # RUNNING only means that Android's init started; the interesting part of
-      # rootless mode is whether Android itself boots with its own binderfs,
-      # its idmapped root and the user's images.
-      if test $running -ge 10; then
-          # 420 iterations, not 900: each iteration costs an lxc-attach on top of
-          # the sleep, so 900 runs past this step's 1200s timeout and the failure
-          # diagnostics below never get to print.  The rootful test reaches
-          # boot_completed in ~65s, so this is still generous.
-          for i in $(seq 1 240); do
-              if attach /system/bin/getprop sys.boot_completed 2>/dev/null |
-                      grep -q '^1'; then
-                  echo android-booted
-                  # boot_completed=1 already implies that Android's
-                  # servicemanager opened /dev/binder, so this only makes the
-                  # reason for a failure obvious: the container must have
-                  # mounted its own binderfs, with no host device nodes.
-                  if ! attach /system/bin/ls -L /dev/binder /dev/vndbinder /dev/hwbinder; then
-                      echo "container is missing its binder devices"
-                      kill -9 $session $wlserver $pulseserver 2>/dev/null || true
-                      exit 1
-                  fi
-                  kill -9 $session $wlserver $pulseserver 2>/dev/null || true
-                  exit 0
-              fi
-              if ! test -d /proc/$session; then
-                  echo "session exited while Android was booting"
-                  break
-              fi
-              # Probe early and repeatedly, while the container is still up:
-              # once init's fatal-reboot abort kills PID 1, LXC tears the
-              # container down and lxc-attach fails with "Failed to get init
-              # pid".  At i=90 it was already gone.  dmesg is unreadable as
-              # this user (dmesg_restrict), so the container's own logcat is
-              # what carries a crashing service's message.
-              case "$i" in 20|45|90)
-                  echo "=== MIDBOOT DIAGNOSTICS at i=$i ==="
-                  attach /system/bin/ls -lL /dev/binder /dev/vndbinder /dev/hwbinder /dev/binderfs 2>&1 | head -14 || true
-                  attach /system/bin/logcat -d -v brief 2>&1 | grep -iE "abort|fatal|binder|zygote|servicemanager|apex" | tail -40 || true
-                  attach /system/bin/logcat -d -b crash -v brief 2>&1 | tail -30 || true
-                  coredumpctl --no-pager --no-legend list 2>&1 | tail -8 || true
-                  ;;
-              esac
-              sleep 1
-          done
-          echo "Android never reported sys.boot_completed=1"
-      fi
-
-      echo "=== SESSION LOG ===" ; cat /tmp/miodroid-session.log || true
-      echo "=== LOGCAT ===" ; attach /system/bin/logcat -d | tail -n 300 || true
-      echo "=== KMSG (container init) ===" ; dmesg | tail -n 80 || true
-      echo "=== JOURNALCTL ===" ; journalctl --user -n 100 -xe || true
-      # The container's own Android crashes surface through the VM's
-      # systemd-coredump (the container shares the PID namespace), so this is
-      # where an aborting service's message and backtrace are.
-      echo "=== CORE BACKTRACE (last abort) ===" ; coredumpctl --no-pager info 2>&1 | head -70 || true
-      echo "=== CONTAINER BINDER STATE ===" ; attach /system/bin/ls -lL /dev/binder /dev/vndbinder /dev/hwbinder /dev/binderfs 2>&1 | head -20 || true
-      echo "=== CONTAINER LOG, filtered ===" ; attach /system/bin/logcat -d -v brief 2>&1 | grep -iE "abort|fatal|binder|zygote|servicemanager|apex" | tail -60 || true
-      kill -9 $session $wlserver $pulseserver 2>/dev/null || true
-      # Reaching this point means Android never reported boot_completed, so the
-      # container is not a working Miodroid; fail with that reason.  (These
-      # diagnostics only reach the test log through the VM console: read the
-      # full log with `nix log <vm-test-run drv>` and search for "init:".)
-      echo "Failed to boot rootless container!"
-      exit 1
-      EOFSCRIPT
-      chmod 0755 /tmp/test-session.sh""")
-      status, out = machine.execute("su - alice -c '/tmp/test-session.sh'", timeout=1200)
-      print(f"=== TEST-SESSION OUTPUT (exit code {status}) ===\n{out}")
-      # Root-side, post-mortem evidence.  Android's init logs to the shared
-      # kernel log, so a crashing service's LOG(FATAL) message is here even
-      # though the container has exited -- and lxc-attach cannot be used in
-      # rootless mode at all (cgroup_attach_create_leaf: Permission denied, so
-      # even "Failed to attach to container"), which is also why the in-script
-      # getprop boot check above can never succeed.
-      machine.succeed(
-          "(journalctl -k --no-pager || dmesg) | "
-          "grep -iE 'init: |binder|servicemanager|abort|fatal|zygote|denied' | tail -120 || true"
-      )
-      machine.succeed("coredumpctl --no-pager --no-legend list || true")
-      assert status == 0, "miodroid rootless session failed (kernel log above)"
-    '';
+  desktop-sockets = runCommand "miodroid-desktop-sockets" { } ''
+    ${pkgs.python3}/bin/python3 ${./tests/socket-proxy.py} ${package}/lib/miodroid/tools/helpers/socket_proxy.py
+    touch $out
+  '';
+  rootful = mkTest { rootless = false; };
+  rootless = mkTest { rootless = true; };
+  rootless-grow = mkTest {
+    rootless = true;
+    strategy = "grow";
   };
 }

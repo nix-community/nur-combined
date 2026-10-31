@@ -39,6 +39,8 @@
       checks.x86_64-linux = {
         miodroid-nixos = self.legacyPackages.x86_64-linux.miodroid.tests.nixos;
         miodroid-nixos-rootless = self.legacyPackages.x86_64-linux.miodroid.tests.nixos-rootless;
+        miodroid-nixos-rootless-grow = self.legacyPackages.x86_64-linux.miodroid.tests.nixos-rootless-grow;
+        miodroid-desktop-sockets = self.legacyPackages.x86_64-linux.miodroid.tests.desktop-sockets;
       };
       cached-cuda = forAllSystems (
         system:
