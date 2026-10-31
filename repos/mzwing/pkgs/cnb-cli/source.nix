@@ -3,11 +3,11 @@
 { fetchurl }:
 
 let
-  version = "1.18.34";
+  version = "1.18.39";
   src = fetchurl {
     curlOptsList = [ "--compressed" ];
-    url = "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.18.34.tgz";
-    hash = "sha256-sLEjQCTm3YhmEts9XaRQ/i97ah56Qv8PfVt84L7KU60=";
+    url = "https://registry.npmjs.org/@cnbcool/cnb-cli/-/cnb-cli-1.18.39.tgz";
+    hash = "sha256-2OkHZKCzebDX5L/jQ4zPAz2BBs3yd02ZLTesCtiNBIk=";
   };
 in
 {
