@@ -417,14 +417,14 @@
     "open-orpheus-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-34zxduP2yBaB3fHwLWo7iRfmj4iNRFB1_OqPfuVXWSM=/Cargo.lock",
+                "sha256-6NjPa83LXBM0fkfQBhI1YQiJHVF2XPkB7wN881T+t+I=/Cargo.lock",
                 {
                     "avs3a-0.1.0": "sha256-OcI39YMDhcBpP6Tij11rATcKtp+mVrXHsjy8gRSm3eI=",
                     "font-kit-0.14.3": "sha256-1/5w7y6XhNNg7jRZmJazM188v6vWkdYHn+94WqmJpMg="
                 }
             ]
         },
-        "date": "2026-10-26",
+        "date": "2026-10-31",
         "extract": null,
         "name": "open-orpheus-dev",
         "passthru": null,
@@ -436,12 +436,12 @@
             "name": null,
             "owner": "YUCLing",
             "repo": "open-orpheus",
-            "rev": "0a0aaab1c339e324eb77eb675aa90131c17e4673",
-            "sha256": "sha256-34zxduP2yBaB3fHwLWo7iRfmj4iNRFB1/OqPfuVXWSM=",
+            "rev": "e05f1d0b302fe70f46bde957d8bfc89948f4b2af",
+            "sha256": "sha256-6NjPa83LXBM0fkfQBhI1YQiJHVF2XPkB7wN881T+t+I=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0a0aaab1c339e324eb77eb675aa90131c17e4673"
+        "version": "e05f1d0b302fe70f46bde957d8bfc89948f4b2af"
     },
     "piliplus": {
         "cargoLock": null,
@@ -625,11 +625,11 @@
     "splayer-next-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-ku17QiwfLPPZb4GMQDlj_M4Iys3gEpxySzQc5I1iGrc=/Cargo.lock",
+                "sha256-8hs+3LdlY5TN3CQ7xuEEzkose7eH7u+iJTS5RoPLURE=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-10-30",
+        "date": "2026-10-31",
         "extract": null,
         "name": "splayer-next-dev",
         "passthru": null,
@@ -641,12 +641,12 @@
             "name": null,
             "owner": "SPlayer-Dev",
             "repo": "SPlayer-Next",
-            "rev": "51917fda127e46ee3ff7ea54ac418c3b15c87f47",
-            "sha256": "sha256-ku17QiwfLPPZb4GMQDlj/M4Iys3gEpxySzQc5I1iGrc=",
+            "rev": "47d74cf1a87cc0f526c25110bb0cb924f6268f1d",
+            "sha256": "sha256-8hs+3LdlY5TN3CQ7xuEEzkose7eH7u+iJTS5RoPLURE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "51917fda127e46ee3ff7ea54ac418c3b15c87f47"
+        "version": "47d74cf1a87cc0f526c25110bb0cb924f6268f1d"
     },
     "svt-av1-essential": {
         "cargoLock": null,
