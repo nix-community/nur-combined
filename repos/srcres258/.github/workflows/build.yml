@@ -33,12 +33,6 @@ jobs:
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-    - name: Build iEDA via legacy entrypoint
-      run: nix-build -A ieda --show-trace
-    - name: Smoke test iEDA executable
-      run: test -x result/bin/iEDA
-    - name: Build iEDA via flake entrypoint
-      run: nix build --print-build-logs .#packages.x86_64-linux.ieda
     - name: Setup cachix
       uses: cachix/cachix-action@v16
       if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
@@ -46,6 +40,12 @@ jobs:
         name: ${{ matrix.cachixName }}
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+    - name: Build iEDA via legacy entrypoint
+      run: nix-build -A ieda --show-trace
+    - name: Smoke test iEDA executable
+      run: test -x result/bin/iEDA
+    - name: Build iEDA via flake entrypoint
+      run: nix build --print-build-logs .#packages.x86_64-linux.ieda
     - name: Check evaluation
       run: |
         nix-env -f . -qa \* --meta --xml \
@@ -58,5 +58,5 @@ jobs:
     - name: Build nix packages
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
     - name: Trigger NUR update
-      if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
+      if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' && matrix.nixPath == 'nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz' }}
       run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
