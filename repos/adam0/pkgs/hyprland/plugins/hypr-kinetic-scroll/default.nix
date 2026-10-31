@@ -6,18 +6,26 @@
   mkHyprlandPlugin,
   # keep-sorted end
 }: let
+  inherit
+    (lib)
+    # keep-sorted start
+    optionalString
+    versionAtLeast
+    # keep-sorted end
+    ;
+
   # The fork needs Hyprland 0.56 headers: earlier dev outputs ship no
   # include/hyprland/protocols, so the color-management header it includes is
   # missing.
   release =
-    if lib.versionAtLeast hyprland.version "0.56"
+    if versionAtLeast hyprland.version "0.56"
     then {
       version = "1.0.0";
       owner = "mihap";
       rev = "df9c399da0844fb1f52eaf9c002777f324e003c4";
       hash = "sha256-Iuo1HEYUgWzO+uohnKByvdIEa1fU6wl/Gk+DwrVlirE=";
     }
-    else if lib.versionAtLeast hyprland.version "0.55"
+    else if versionAtLeast hyprland.version "0.55"
     then {
       version = "0.4.0";
       owner = "savonovv";
@@ -40,6 +48,14 @@ in
       repo = "hypr-kinetic-scroll";
       inherit (release) hash rev;
     };
+
+    # Hyprland 0.57 moved Window.hpp under desktop/view/window/.
+    postPatch = optionalString (versionAtLeast hyprland.version "0.57") ''
+        substituteInPlace kinetic.cpp \
+          --replace-fail hyprland/src/desktop/view/Window.hpp hyprland/src/desktop/view/window/Window.hpp
+      substituteInPlace kinetic.cpp \
+        --replace-fail 'PWIN->m_class' 'PWIN->metadata().appID()'
+    '';
 
     installPhase = ''
       runHook preInstall
