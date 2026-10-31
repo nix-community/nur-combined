@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "bypass-paywalls-clean";
-  version = "4.4.8.2";
+  version = "4.4.8.3";
   addonId = "magnolia@12.34";
-  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.8.2.xpi";
-  sha256 = "a9fc8bba2de56c567d6bfd91812619608d91c9157ca4288d1869197ca2fbbdb4";
+  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.8.3.xpi";
+  sha256 = "63ed54bb1c6c60fb4d9d8ee9476aaef4b23f0efa0a52ef7377473c87d236d38c";
   meta = with lib; {
     homepage = "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean";
     description = "Bypass Paywalls of (custom) news sites";
@@ -98,7 +98,6 @@ buildFirefoxXpiAddon {
       "*://*.bloomberg.com/*"
       "*://*.bnd.com/*"
       "*://*.bndestem.nl/*"
-      "*://*.bnn.de/*"
       "*://*.boersen-zeitung.de/*"
       "*://*.bonappetit.com/*"
       "*://*.bordermail.com.au/*"
@@ -224,7 +223,6 @@ buildFirefoxXpiAddon {
       "*://*.diplomatique.org.br/*"
       "*://*.discovermagazine.com/*"
       "*://*.dispatch.com/*"
-      "*://*.dn.no/*"
       "*://*.dn.pt/*"
       "*://*.dn.se/*"
       "*://*.dna.fr/*"
@@ -277,7 +275,6 @@ buildFirefoxXpiAddon {
       "*://*.estrepublicain.fr/*"
       "*://*.euobserver.com/*"
       "*://*.european-rubber-journal.com/*"
-      "*://*.europower.no/*"
       "*://*.exame.com/*"
       "*://*.examiner.com.au/*"
       "*://*.expansion.com/*"
@@ -292,7 +289,6 @@ buildFirefoxXpiAddon {
       "*://*.financialexpress.com/*"
       "*://*.financialpost.com/*"
       "*://*.firstthings.com/*"
-      "*://*.fiskeribladet.no/*"
       "*://*.flair.nl/*"
       "*://*.flugrevue.de/*"
       "*://*.fmrmagazine.com/*"
@@ -359,7 +355,6 @@ buildFirefoxXpiAddon {
       "*://*.houstonchronicle.com/*"
       "*://*.hoy.es/*"
       "*://*.humo.be/*"
-      "*://*.hydrogeninsight.com/*"
       "*://*.iai.tv/*"
       "*://*.ideal.es/*"
       "*://*.igen.fr/*"
@@ -393,8 +388,6 @@ buildFirefoxXpiAddon {
       "*://*.insidehighered.com/*"
       "*://*.interestingengineering.com/*"
       "*://*.internazionale.it/*"
-      "*://*.intrafish.com/*"
-      "*://*.intrafish.no/*"
       "*://*.investors.com/*"
       "*://*.investorschronicle.co.uk/*"
       "*://*.ipolitics.ca/*"
@@ -428,7 +421,6 @@ buildFirefoxXpiAddon {
       "*://*.krautreporter.de/*"
       "*://*.ksta.de/*"
       "*://*.kurier.at/*"
-      "*://*.kystens.no/*"
       "*://*.la-croix.com/*"
       "*://*.labusinessjournal.com/*"
       "*://*.lacote.ch/*"
@@ -676,7 +668,6 @@ buildFirefoxXpiAddon {
       "*://*.quotidiano.net/*"
       "*://*.quotidianodipuglia.it/*"
       "*://*.qz.com/*"
-      "*://*.rechargenews.com/*"
       "*://*.reforme.net/*"
       "*://*.repubblica.it/*"
       "*://*.republicain-lorrain.fr/*"
@@ -858,7 +849,6 @@ buildFirefoxXpiAddon {
       "*://*.towardsdatascience.com/*"
       "*://*.townandcountrymag.com/*"
       "*://*.townsvillebulletin.com.au/*"
-      "*://*.tradewindsnews.com/*"
       "*://*.trailrunnermag.com/*"
       "*://*.tri-cityherald.com/*"
       "*://*.triathlete.com/*"
@@ -870,7 +860,6 @@ buildFirefoxXpiAddon {
       "*://*.twincities.com/*"
       "*://*.unherd.com/*"
       "*://*.uol.com.br/*"
-      "*://*.upstreamonline.com/*"
       "*://*.usatoday.com/*"
       "*://*.usinenouvelle.com/*"
       "*://*.utech-polyurethane.com/*"
