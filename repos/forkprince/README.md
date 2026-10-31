@@ -68,6 +68,7 @@ This repository contains three types of packages:
 | [`helixnotes`](pkgs/helixnotes/default.nix) | [helixnotes](https://helixnotes.com), a local, open-source Markdown note-taking app. |
 | [`heroic`](pkgs/heroic/default.nix) | [heroic](https://github.com/Heroic-Games-Launcher/HeroicGamesLauncher), native GOG, Epic, and Amazon Games Launcher for Linux, Windows and Mac |
 | [`highball`](pkgs/highball/default.nix) | [highball](https://gauthierpiarrette.github.io/highball/), run Windows games on Apple Silicon |
+| [`horizon`](pkgs/horizon/default.nix) | [horizon-launcher](https://playhorizon.dev/), launcher for Horizon, a Rust rewrite of the Minecraft: Java Edition client |
 | [`hyperkey`](pkgs/hyperkey/default.nix) | [hyperkey](https://hyperkey.app/), convert your caps lock key or any of your modifier keys to the hyper key |
 | [`hyprcursor-bibata`](pkgs/hyprcursor-bibata/default.nix) | [hyprcursor-bibata](https://github.com/LOSEARDES77/Bibata-Cursor-hyprcursor), material Based Cursor Theme for Hyprland |
 | [`hyprpanel`](pkgs/hyprpanel/default.nix) | [hyprpanel](https://github.com/pdf/hyprpanel), an opinionated panel/shell for the Hyprland compositor. |
