@@ -5,27 +5,23 @@
 }:
 stdenv.mkDerivation rec {
   pname = "nix-reaper";
-  version = "441bea3";
-
+  version = "64c1eae";
   src = fetchFromGitHub {
     owner = "ibuysausage";
     repo = "nix-reaper";
     rev = version;
-    sha256 = "sha256-CNfFJGSOuWZSvA8GrxLMtPkzxRHY0MQCQN96S0xlTAI=";
+    sha256 = "sha256-Yn81eep4O0JfI0XDsvIIyeJpQJkj+xrQK1mxjLNVoIY=";
   };
-
   buildPhase = ''
     runHook preBuild
     $CC -O2 -Wall -o nix-reaper nix-reaper.c
     runHook postBuild
   '';
-
   installPhase = ''
     runHook preInstall
     install -Dm755 nix-reaper $out/bin/nix-reaper
     runHook postInstall
   '';
-
   meta = with lib; {
     description = "Clean old Nix generations, garbage, caches and more";
     homepage = "https://github.com/ibuysausage/nix-reaper";
