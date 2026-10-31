@@ -11,7 +11,7 @@ Realm compiles local declarations into a fixed output record. No runtime control
 
 | File | Responsibility |
 | --- | --- |
-| `lib/realm/types.nix` | Workload and legacy option types |
+| `lib/realm/types.nix` | Workload option types, including internal normalized ingress fields |
 | `nixosModules/realm-model.nix` | Backend normalization, identity references and authorization reports |
 | `lib/realm/compile.nix` | Compose the local compiler stages |
 | `lib/realm/{base,egress,ingress,socks,native}.nix` | Generate isolation, adapters and identity registrations |
@@ -24,6 +24,8 @@ Realm compiles local declarations into a fixed output record. No runtime control
 The compiler returns `services`, `sockets`, `userGroups`, `users`, `tmpfiles`, `registrations`, `publications` and `assertions`. Each field has its own merge. The compiler does not inspect the internal representation of `mkIf` or `mkMerge`.
 
 Local identity exports depend only on enabled workload declarations. Cluster aggregation collects these exports and the published endpoints. Egress resolution uses the resulting catalog. Keep exports independent of egress resolution to avoid an evaluation cycle.
+
+`mod/realm.nix` sets `realm.systems` once to the Realm-enabled `nixosConfigurations`. Cluster aggregation, the HTTP gateway admission and the Internet gateway admission read that set instead of filtering the flake outputs separately.
 
 `mod/custom-modules.nix` exports module paths. This lets Nix deduplicate a reusable module imported by both the default module collection and a standalone service profile.
 
@@ -155,11 +157,11 @@ nix eval --json .#nixosConfigurations.eihort.config.realm.authorization.matrix
 nix eval --json .#nixosConfigurations.eihort.config.realm.authorization.connections
 ```
 
-The receiver table contains the final listener identities and grants. The connection report compares each caller with those grants. Manual targets have an unknown authorization result, represented by `null`.
+The receiver table contains the final listener identities and grants. Group references appear there in expanded form, so `allowedIDs` lists SPIFFE URIs rather than group names. The connection report compares each caller with those grants. Manual targets have an unknown authorization result, represented by `null`.
+
+Evaluation fails when a connection is denied (`allowed = false`). Declare an egress only on nodes whose identity the receiver admits. Test fixtures that deliberately exercise runtime rejection set `realm.authorization.rejectDeniedConnections = false`; production configurations keep the default.
 
 These reports describe identity admission. Caddy path rules, Internet gateway destination restrictions, database roles and application permissions still apply separately.
-
-The current Azasos Caddy declares Atuin and Rustypaste egresses that their receivers do not admit. The report marks both connections as denied. Their existing receiver policies remain unchanged.
 
 
 ## Workload declarations
@@ -534,7 +536,7 @@ These checks did not deploy the refactor to production nodes. The independent Sh
 
 `tests/realm-model.nix` checks typed backends, identity references and endpoint selection.
 `tests/realm-cluster.nix` checks cross-node aggregation, receiver admission and disabled workloads.
-`tests/realm-workloads.nix` checks evaluation and legacy policy wiring.
+`tests/realm-workloads.nix` checks workload evaluation, isolation, receiver policy and egress wiring.
 `tests/realm-vm.nix` checks actual SPIRE enrollment, direct TLS connections, authorized
 and rejected mTLS peers, PostgreSQL peer authentication, socket isolation,
 Internet proxy destination restrictions and registration

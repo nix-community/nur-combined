@@ -68,7 +68,8 @@ a name nor appearing in discovery proves that an endpoint is ready or trusted.
 
 Inter-service clients must verify the expected server SPIFFE identity. Receivers
 must authenticate the caller and enforce their explicit final identity policy.
-Declaring an egress does not grant receiver access. Unknown or ambiguous catalog
+Declaring an egress does not grant receiver access; configuration evaluation
+rejects catalog connections that the receiver does not admit. Unknown or ambiguous catalog
 references must fail configuration validation; manual targets require a separate
 review of their actual server identity and receiver policy.
 
@@ -171,7 +172,9 @@ transparent traffic, and recovery can break existing connections.
 ### Internet and shared HTTPS gateways
 
 The Internet gateway must authenticate admitted SPIFFE callers and enforce
-destination restrictions independently of the local agent. Review DNS answers,
+destination restrictions independently of the local agent. Caller admission is
+collected from workload `http.internet` and `internet-proxy` egress
+declarations, so review those declarations as gateway grants. Review DNS answers,
 IP literals, and the selected upstream address, including IPv4-mapped IPv6 and
 private, loopback, link-local, metadata, multicast, and other denied ranges.
 Additional CONNECT ports need receiver-side permission for the intended

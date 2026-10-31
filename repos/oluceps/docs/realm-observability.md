@@ -35,7 +35,7 @@ Eihort 先做试运行，Hastur 最后切换。Uubboo 和 Kaambl 未部署、未
 
 ## 直接指标与权限
 
-`realm.spire.metrics.enable` 控制直接指标。默认关闭；集群模块只对本次六节点启用。
+`realm.spire.metrics.enable` 控制直接指标。默认关闭；集群模块对 registry 中有 `id` 且未设置 `spire_metrics = false` 的节点启用（当前排除 kaambl 和 uubboo）。
 新 exporter 位于 `pkgs/realm-identity-metrics/`，独立于 SPIRE 的 systemd 启动依赖。
 即使 Workload API 不可用，`/metrics` 仍响应；`/healthz` 只在全部已启用 collector 和非 dormant 目标通过时返回成功。
 
