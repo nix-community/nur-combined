@@ -89,7 +89,8 @@ This repository contains three types of packages:
 | [`nexa`](pkgs/nexa/default.nix) | [nexa](https://nexa.fish), end-to-end encrypted chat, calls and servers |
 | [`nintoolbox`](pkgs/nintoolbox/default.nix) | [nintoolbox](https://github.com/quatric/nintoolbox), toolbox for Nintendo game file formats |
 | [`nintoolbox-gui`](pkgs/nintoolbox-gui/default.nix) | [nintoolbox-gui](https://github.com/quatric/nintoolbox), graphical interface for the Nintoolbox command line tools |
-| [`noisetorch`](pkgs/noisetorch/default.nix) | [NoiseTorch](https://github.com/ForkPrince/NoiseTorch), virtual microphone device with noise supression for PulseAudio (ForkPrince fork) |
+| [`noisetorch`](pkgs/noisetorch/default.nix) | [noisetorch](https://github.com/ForkPrince/NoiseTorch), virtual microphone device with noise suppression for PulseAudio (ForkPrince fork) |
+| [`noisetorch-next`](pkgs/noisetorch-next/default.nix) | [noisetorch-next](https://github.com/ForkPrince/NoiseTorch), virtual microphone device with noise suppression for PulseAudio (ForkPrince next fork) |
 | [`note-block-studio`](pkgs/note-block-studio/default.nix) | [note-block-studio](https://github.com/OpenNBS/NoteBlockStudio), an open-source Minecraft music maker. |
 | [`nuvio`](pkgs/nuvio/default.nix) | [nuvio](https://nuvio.tv/), watch your library, anywhere |
 | [`oak-editor`](pkgs/oak-editor/default.nix) | [oak-editor](https://github.com/OakVideoEditorCommunity/oak), a free non-linear video editor for Linux, macOS, and Windows |
