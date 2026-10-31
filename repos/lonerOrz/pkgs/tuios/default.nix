@@ -8,16 +8,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "tuios";
-  version = "0.12.0";
+  version = "0.12.1";
 
   src = fetchFromGitHub {
     owner = "Gaurav-Gosain";
     repo = "tuios";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-74V4F/xyDyWmJtmhIlpfSyAa0018SWw/dr2RsF4gGdM=";
+    hash = "sha256-MNjEA96Oo9Com09wltA/SnrJaXevC2zrq+QwhlVcd38=";
   };
 
-  vendorHash = "sha256-DtMxCwM/rv2JX72o7m5OEHVcvl+XZBgB9pvmRaPhUuU=";
+  vendorHash = "sha256-QY6NAVRDNpxUywPncZSUdWdt+Jo2JkHcJCAyW1jCEi8=";
 
   # Only build the main binary
   subPackages = [ "cmd/tuios" ];
