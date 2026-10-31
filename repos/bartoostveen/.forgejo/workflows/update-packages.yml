@@ -21,10 +21,6 @@ jobs:
         env:
           INPUT_FILTER: ${{ inputs.package_filter }}
         run: |
-          # Ensure we have in-tree update scripts
-          # TODO: fix this (seems unneccesary)
-          nix-build -A wordpressPackages.pluginUpdateScript
-
           updatables=$(nix eval --raw .#_bartPackages.updatablesJson)
           if [[ -n "$INPUT_FILTER" ]]; then
             echo "Applying package filter regex: $INPUT_FILTER"
@@ -52,6 +48,10 @@ jobs:
 
           echo "Processing package: ${{ matrix.attrPath }} (${{ matrix.version }})"
           export NIX_PATH="nixpkgs=$(nix eval --raw .#inputs.nixpkgs.outPath):$NIX_PATH"
+
+          # Ensure we have in-tree update scripts
+          # TODO: fix this (seems unneccesary)
+          nix-build -A wordpressPackages.pluginUpdateScript
 
           git checkout -B "$head" "origin/$base" || git checkout -b "$head"
           read -r -a update_script_cmd <<< "$(echo '${{ toJson(matrix.updateScript) }}' | jq -r 'join(" ")')"
