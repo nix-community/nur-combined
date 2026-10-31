@@ -14,6 +14,10 @@ go = '1.27.0'
     version = 'v3.5.0'
     hash = 'sha256-Ps7gEw0nkHDZO/iDru/s+X8rMaUkNmiZ7id1GsIKlDU='
 
+  [mod.'github.com/ProtonMail/go-crypto']
+    version = 'v1.5.2'
+    hash = 'sha256-ktdR54NRxa/vmGkObvvRp4+DPEtOzHnOdxMVpauFL4w='
+
   [mod.'github.com/RyuaNerin/go-krypto']
     version = 'v1.3.0'
     hash = 'sha256-45W4M2elRA7niZ9gxGWR3Sr9SmR7Oado1WRNlgpS6/c='
@@ -31,8 +35,8 @@ go = '1.27.0'
     hash = 'sha256-WOs/RQYjQbn41ui8ztHgWSd4jxydE+fvIrl/0dmHD9Y='
 
   [mod.'github.com/andybalholm/brotli']
-    version = 'v1.2.6'
-    hash = 'sha256-t3Z1bHg8mRr7cEdTbffO6f2ppPSaXK7IiaVEnjC8TuQ='
+    version = 'v1.2.7'
+    hash = 'sha256-yJ71dxEFVNc8q5AoOFp1QV5YV4FJhjQgoaXyIYEnDC8='
 
   [mod.'github.com/bahlo/generic-list-go']
     version = 'v0.2.0'
@@ -41,6 +45,14 @@ go = '1.27.0'
   [mod.'github.com/biter777/countries']
     version = 'v1.7.5'
     hash = 'sha256-WjaH9B5yD7NYfhICZQxd/GonOQ5Hj+4inkADbCQEsKQ='
+
+  [mod.'github.com/bodgit/plumbing']
+    version = 'v1.3.0'
+    hash = 'sha256-nmLdJAB2sWpwHb2lFrYTcMR4yusMM1U629Pm2K9hfm0='
+
+  [mod.'github.com/bodgit/windows']
+    version = 'v1.0.1'
+    hash = 'sha256-GSpAGboli54A5wDMpDEdZDYh55o1Zs8dZzFIf7hYdMY='
 
   [mod.'github.com/buke/quickjs-go']
     version = 'v0.7.7'
@@ -51,16 +63,20 @@ go = '1.27.0'
     hash = 'sha256-GpfG8K5YTWAt5MRg7RvpcemU7jfPV0A+mMbxSfA+2ws='
 
   [mod.'github.com/bytedance/sonic']
-    version = 'v1.15.4'
-    hash = 'sha256-vftTwJ77zsxARVt5zPqFDmTZVjZwNoVV/ehj9MnI/o4='
+    version = 'v1.15.5'
+    hash = 'sha256-UzP0CSLUOLnfVdmVrwGM5Qo+11BbBT5Iq2cXYmUCPt4='
 
   [mod.'github.com/bytedance/sonic/loader']
-    version = 'v0.5.2'
-    hash = 'sha256-tsrtIbjYXZadwLzlL3ZmC4DEytwmT1tvPDQT/nwNb20='
+    version = 'v0.5.3'
+    hash = 'sha256-/hToWpDK/MV+UP+4VOhonDu+xgJ0sAjtrBXn607A7vM='
 
   [mod.'github.com/cespare/xxhash/v2']
     version = 'v2.3.0'
     hash = 'sha256-7hRlwSR+fos1kx4VZmJ/7snR7zHh8ZFKX+qqqqGcQpY='
+
+  [mod.'github.com/cloudflare/circl']
+    version = 'v1.6.5'
+    hash = 'sha256-nrD+9cNt6xEohb0EA2bZCuSM03GXYPg/YMD0Y+HF8WU='
 
   [mod.'github.com/cloudwego/base64x']
     version = 'v0.1.7'
@@ -75,12 +91,16 @@ go = '1.27.0'
     hash = 'sha256-NMVLQ891UaXdnKQnpk+2WFAzencqeHVKistm7Uj3NzA='
 
   [mod.'github.com/creativeprojects/go-selfupdate']
-    version = 'v1.6.0'
-    hash = 'sha256-sLT5apuY2kLFuJU7JICxdQSd3qk6hfm9o4stFlf/qCg='
+    version = 'v1.7.0'
+    hash = 'sha256-U26lpXReXS3h/f2XERj1hVBdSRWQUPdcA5LZT4R7ako='
 
   [mod.'github.com/davidmz/go-pageant']
     version = 'v1.0.2'
     hash = 'sha256-gfwm6i0ZGQhX2c0lDRe7qVXyHkhoHeemYpaj+O0aYyw='
+
+  [mod.'github.com/dlclark/regexp2']
+    version = 'v1.12.0'
+    hash = 'sha256-PVX2rDCkiG0vyA1CbDi3bzLeZ2T8hcqJv3pZ5YwGzMI='
 
   [mod.'github.com/docker/go-units']
     version = 'v0.5.0'
@@ -95,12 +115,12 @@ go = '1.27.0'
     hash = 'sha256-Qa7BSAXtgH7CB5STBiXTTOCgivWUiA65u3KxDOSZCkQ='
 
   [mod.'github.com/easytier/easytier/easytier-go']
-    version = 'v0.0.0-20261010173533-7592951b808c'
-    hash = 'sha256-5I4RA63lr530L7zfPz80EwR9KvT/7rc8BlsCE7K05D0='
+    version = 'v0.0.0-20261030170501-24e0303fc55e'
+    hash = 'sha256-9oVlrk8+Fsv8RXPLNEN3bhn0jJoPPt32yzpzsK11tkc='
 
   [mod.'github.com/enfein/mieru/v3']
-    version = 'v3.38.1'
-    hash = 'sha256-PJXKEb8jDulZZU6laqprxwt6YTBZwI5QUi4h/nG7564='
+    version = 'v3.39.0'
+    hash = 'sha256-cK/oxZYFW55k6A1uPwqUSLpo+1kcl4mWJhPBgso3kUc='
 
   [mod.'github.com/ericlagergren/aegis']
     version = 'v0.0.0-20250325060835-cd0defd64358'
@@ -123,20 +143,20 @@ go = '1.27.0'
     hash = 'sha256-6LBLgsh4nKkMpgRKVsYFEaGDSU1fncBcWVSjKBdfgjU='
 
   [mod.'github.com/fxamacker/cbor/v2']
-    version = 'v2.9.6'
-    hash = 'sha256-rF42MKl4TDC0UOWBw8BDWXW1MzAiEij/JUF3of/+fWc='
+    version = 'v2.10.0'
+    hash = 'sha256-CwLEICe9iFIk4//nBn+KOCnYvFAZ++o7PWpEOYN7/+Q='
 
   [mod.'github.com/gabriel-vasile/mimetype']
-    version = 'v1.4.15'
-    hash = 'sha256-MSmdWIAtF32qz02SDQx+cuj8EZCFUemTCAQPFq42JN0='
+    version = 'v1.4.16'
+    hash = 'sha256-Rh2Hz9Dv7fcKnI6mepScae2KpmBdhjxqIJW5HVVOJWs='
 
   [mod.'github.com/gaukas/godicttls']
     version = 'v0.0.4'
     hash = 'sha256-Tok6mN6P7rnqK+VCiI6LOV9DBnOTjGyGrgfzZdMCMVk='
 
   [mod.'github.com/gin-contrib/sse']
-    version = 'v1.1.2'
-    hash = 'sha256-9QQPbX41wqHcdmG5WyT1gIkTSBkcqfqihFV/4odVYS0='
+    version = 'v1.2.0'
+    hash = 'sha256-DFpU2wTEO6mGElC6e5q7iXm3wQGCLU19wQlZ/k4iTiw='
 
   [mod.'github.com/gin-gonic/gin']
     version = 'v1.12.0'
@@ -175,16 +195,16 @@ go = '1.27.0'
     hash = 'sha256-I3BWBluCakfFuTKkwi5Dh+DlzpdcizOAxa4lKOUo8Ak='
 
   [mod.'github.com/goccy/go-json']
-    version = 'v0.11.2'
-    hash = 'sha256-MMFJd0ePB1LuLce8Mgpo0WxhJqSQT5Mt/oQfzMneWZM='
+    version = 'v0.12.0'
+    hash = 'sha256-b7f9gGIPjtbuRf5rOj0xz6Q7xCkU7+JDloW8iYzAnvc='
 
   [mod.'github.com/goccy/go-yaml']
     version = 'v1.19.2'
     hash = 'sha256-pkqkwtziwXoWlTOxJsPFdMc7Mj0mSC3Ll/xUmYAYcYE='
 
   [mod.'github.com/godbus/dbus/v5']
-    version = 'v5.2.2'
-    hash = 'sha256-j+LicPlXcB1R3oVFPa8cd4yVJLpBx+ca5gXmHqOJSN8='
+    version = 'v5.2.4'
+    hash = 'sha256-Fe3Twf6ZMd0mazs3M0/ZwV0Q/1onxnag5O6TzpexS0I='
 
   [mod.'github.com/gofrs/uuid/v5']
     version = 'v5.5.1'
@@ -215,8 +235,8 @@ go = '1.27.0'
     hash = 'sha256-F/Ve4oDaEqho8RryvdGSRR22/DbYHWZQa6M60n6oSYM='
 
   [mod.'github.com/google/pprof']
-    version = 'v0.0.0-20261008003335-7bae8d8c4c9e'
-    hash = 'sha256-nrjFbfyp33Rakgy4vxeDV4UBt6+ut8mUHoyzws2+omI='
+    version = 'v0.0.0-20261026192309-dbd0ed30aa88'
+    hash = 'sha256-JGXX5L612M9pFBlcUXghkAXFZ04E1/zKEBANmTBNVnA='
 
   [mod.'github.com/google/uuid']
     version = 'v1.6.0'
@@ -234,9 +254,13 @@ go = '1.27.0'
     version = 'v1.9.0'
     hash = 'sha256-sRr/50k8Wra0PJLCJgSkIxvR+ce3PItx4HpFvVijGYk='
 
+  [mod.'github.com/hashicorp/golang-lru/v2']
+    version = 'v2.0.7'
+    hash = 'sha256-t1bcXLgrQNOYUVyYEZ0knxcXpsTk4IuJZDjKvyJX75g='
+
   [mod.'github.com/insomniacslk/dhcp']
-    version = 'v0.0.0-20260901064844-234b97448fae'
-    hash = 'sha256-HH/+ZZA9mx+I++Px8OfqWHKEBU0E2mXIkKQB6/3ZsV8='
+    version = 'v0.0.0-20261014062924-c6bb46ad3f3a'
+    hash = 'sha256-Z1GSeSscCxjdk9r1KhueJ61d5Z7NFP2WiKsUkA6N0Pw='
 
   [mod.'github.com/jsimonetti/rtnetlink']
     version = 'v1.4.2'
@@ -251,12 +275,12 @@ go = '1.27.0'
     hash = 'sha256-ObDjMcu8LInBsJXAuwlh1LceWKo2rH4rnlyN4kllcuE='
 
   [mod.'github.com/klauspost/compress']
-    version = 'v1.20.1'
-    hash = 'sha256-saWVNlxTAS7/lNaGght51onyIDaAFV1Kx11g3+vPuX4='
+    version = 'v1.20.3'
+    hash = 'sha256-34ifN/7hw8GbGDEAjOxfYK2ndxkzeQJf4tS/ynJzhXM='
 
   [mod.'github.com/klauspost/cpuid/v2']
-    version = 'v2.4.0'
-    hash = 'sha256-nvTeRVxDekVNLd25aJ2NslBnG7nT25ewoSTk3iW5Xok='
+    version = 'v2.4.1'
+    hash = 'sha256-QLZs54cnVoXU56xmK3E83uRJELfC4bKgBc5wDMGu2p0='
 
   [mod.'github.com/klauspost/crc32']
     version = 'v1.3.0'
@@ -287,8 +311,12 @@ go = '1.27.0'
     hash = 'sha256-I4Dnd0QJ0MPLEOSV2ly4CYkWpTu2W8gyjQevtJCxHys='
 
   [mod.'github.com/mdlayher/socket']
-    version = 'v0.7.0'
-    hash = 'sha256-X02Ec3Nb9ZsrvCH66QdwQ6pNoJZMXSIw8DJF88581XU='
+    version = 'v0.8.0'
+    hash = 'sha256-iTXluOORKdsHPzgXCilT0gFCT2BFE2fn8Dx/vzuCCNQ='
+
+  [mod.'github.com/metacubex/age']
+    version = 'v0.0.0-20260603010618-28d156b4ea78'
+    hash = 'sha256-JRpnx8B0DNVKPOq2eld6RhmxRdyZfTGCtK9qzjuKm1I='
 
   [mod.'github.com/metacubex/amneziawg-go']
     version = 'v0.0.0-20260908071407-0c1c6f40ecd7'
@@ -313,6 +341,10 @@ go = '1.27.0'
   [mod.'github.com/metacubex/chacha']
     version = 'v0.1.5'
     hash = 'sha256-div7t5QFkThvKJB4mKA8EDnO7+SxXhvgEj6WzQoo+bo='
+
+  [mod.'github.com/metacubex/chi']
+    version = 'v0.1.1'
+    hash = 'sha256-8KV2uTjElfXtt4U4UKvRmgz4qSUkaRhXVR9yerCGwFo='
 
   [mod.'github.com/metacubex/connect-ip-go']
     version = 'v0.0.0-20260727083417-67ccdb0cf771'
@@ -366,17 +398,25 @@ go = '1.27.0'
     version = 'v0.0.0-20260105040817-550693377604'
     hash = 'sha256-mSoEP99j0lFbpPC6vfBiC05P5tQ2EiSqfjSsgJEfT20='
 
+  [mod.'github.com/metacubex/mhurl']
+    version = 'v0.1.0'
+    hash = 'sha256-tbTemUsYPT4fTqRZ/AiLiQSNp2mJY4PEaUztRalpJRM='
+
   [mod.'github.com/metacubex/mihomo']
-    version = 'v1.19.32'
-    hash = 'sha256-Ic472ZD/kMw2nMh3YtbjELSU7n2ou5RR4KG97z+WHkI='
+    version = 'v1.19.33'
+    hash = 'sha256-AJuBKrN1eqPlOr/GPcJCEfDD8QRypQz0EikRVYX0ixo='
 
   [mod.'github.com/metacubex/mipstack']
-    version = 'v0.0.0-20261006001519-f63e154680fb'
-    hash = 'sha256-145H1UymCWGASpXBiD1FS2X1GbPAI3RvaivVPIKzRPc='
+    version = 'v0.0.0-20261019124225-9a80a07eaeb9'
+    hash = 'sha256-sNQhf+OlwnA0Xa/AiQlkjgCVBmPoHSMFGaUSrfaMILk='
 
   [mod.'github.com/metacubex/mlkem']
     version = 'v0.1.0'
     hash = 'sha256-Lvsx9Po1+TVE+DFOBkFl3nsPN0TEmcFV4xa6gQqQnhk='
+
+  [mod.'github.com/metacubex/nftables']
+    version = 'v0.0.0-20260426003805-208c2c1ba2cb'
+    hash = 'sha256-19BEj3GsDawSbaG5zgFg1o/W8qOHABQsby0i1HGqKyc='
 
   [mod.'github.com/metacubex/qpack']
     version = 'v0.6.0'
@@ -394,9 +434,13 @@ go = '1.27.0'
     version = 'v0.1.9'
     hash = 'sha256-CJngSi8+AnFUd6J9h1EsXh6wH0MsXqdzk/Usmknd2TA='
 
+  [mod.'github.com/metacubex/sevenzip']
+    version = 'v1.6.4'
+    hash = 'sha256-NwuzVBB7gPkurPe63Yu3B5HP+g70/AntgpNE2bHUj9k='
+
   [mod.'github.com/metacubex/sing']
-    version = 'v0.5.8'
-    hash = 'sha256-JZ5NRSUJwga/3eWd6rFOxQ2hl3hdtzCmLTRnaVrjIoY='
+    version = 'v0.5.9'
+    hash = 'sha256-c/oNJdUdZMoknPpxyE7V7nimHbQFF/6nrYy81SKFXKY='
 
   [mod.'github.com/metacubex/sing-mux']
     version = 'v0.3.12'
@@ -413,6 +457,10 @@ go = '1.27.0'
   [mod.'github.com/metacubex/sing-shadowsocks2']
     version = 'v0.2.8'
     hash = 'sha256-59qOn11y09/lBTmpNhAwhWMXouyOcHX/gEqXyqh0kSE='
+
+  [mod.'github.com/metacubex/sing-tun']
+    version = 'v0.4.28'
+    hash = 'sha256-YQ2Yuks3OnaxhaKGWuji125eQORok/Lq7pZT/ZKvPcU='
 
   [mod.'github.com/metacubex/sing-vmess']
     version = 'v0.2.5'
@@ -439,12 +487,12 @@ go = '1.27.0'
     hash = 'sha256-c/y7tdpfH3KmyEkk0P3AotBvXdFKeJ5IHG+u15euMRU='
 
   [mod.'github.com/metacubex/tfo-go']
-    version = 'v0.0.0-20260623020846-376a77860b8c'
-    hash = 'sha256-G+GfS8s8QjaYbZQ0dIbzT1QPXPEbBOgNP3tzvaWo2Zk='
+    version = 'v0.0.0-20261026151606-08d83ec08c84'
+    hash = 'sha256-WvF4pceqGjTUqrCNNReL36+s9NMXGQT/tWOMEgECx5c='
 
   [mod.'github.com/metacubex/tls']
-    version = 'v0.1.8'
-    hash = 'sha256-3tHIEtRnak9j8aE5XkXMdakSjm9xfuYcn0MzuT2zW/k='
+    version = 'v0.1.9'
+    hash = 'sha256-hX6zTQrSQW7Az8Tq6EM1Mz13G3NWHA7VE/5FYgjMKAc='
 
   [mod.'github.com/metacubex/utls']
     version = 'v1.8.8'
@@ -479,8 +527,8 @@ go = '1.27.0'
     hash = 'sha256-vykcXvy2VBBAXnJott/XsGTT0gk2UL36JzZKfJ1KAUY='
 
   [mod.'github.com/minio/minio-go/v7']
-    version = 'v7.3.0'
-    hash = 'sha256-vshAV9zETYUb9ucAJhmdMzNNFdLwUkp9lKVI6RpWVJ4='
+    version = 'v7.4.1'
+    hash = 'sha256-A0722XXZwhi3lwZFi0j3rbOFN5nhplUpKn53WRVS7gc='
 
   [mod.'github.com/mitchellh/go-ps']
     version = 'v1.0.0'
@@ -506,37 +554,41 @@ go = '1.27.0'
     version = 'v0.1.21'
     hash = 'sha256-pIZrY4ivjlUDssuB66lAQqFTUT9lnkD4QnuLYPMuWec='
 
+  [mod.'github.com/oschwald/maxminddb-golang']
+    version = 'v1.13.1'
+    hash = 'sha256-vvgJJJYUz5X7h2vjbh9vf2QiPKcStLUePKRQbKjlnok='
+
   [mod.'github.com/oschwald/maxminddb-golang/v2']
-    version = 'v2.7.0'
-    hash = 'sha256-MBwpR/MEfkG2sgkddhf3Lxhso68Jegw2d9eAGU4OsYg='
+    version = 'v2.8.0'
+    hash = 'sha256-nditYeqToC1q/Jdp/qAmg8thqg437x0taMLvW3z8zfA='
 
   [mod.'github.com/pelletier/go-toml/v2']
     version = 'v2.4.3'
     hash = 'sha256-CyCjKBN+zUciGhQiaFpq54qv+NDITcuh5U2HmjArow4='
 
   [mod.'github.com/philhofer/fwd']
-    version = 'v1.2.0'
-    hash = 'sha256-cGx2/0QQay46MYGZuamFmU0TzNaFyaO+J7Ddzlr/3dI='
+    version = 'v1.2.1'
+    hash = 'sha256-fI4+jqn2z9H8fseQZmYr+LhtLUT/CCb2IzQEfLwpyd4='
 
   [mod.'github.com/pierrec/lz4/v4']
     version = 'v4.1.33'
     hash = 'sha256-HQl2KwOMGbkInrAhPYoleXBpHuHoZxFAopsK3+pTt24='
 
   [mod.'github.com/pires/go-proxyproto']
-    version = 'v0.15.0'
-    hash = 'sha256-0USeWryMsdST/kXMFhQR4vyZzscfckcPuNvTu/xVA64='
+    version = 'v0.16.0'
+    hash = 'sha256-KQE9Xje5Ki/SBjlYIW6mkMeROKloUGW8s0d1CA8yEho='
 
   [mod.'github.com/quic-go/qpack']
     version = 'v0.6.0'
     hash = 'sha256-xaxHnTKIZt1cHK5ZqTuSTOt5RNSjQB37GlrIgEGBskM='
 
   [mod.'github.com/quic-go/quic-go']
-    version = 'v0.63.0'
-    hash = 'sha256-ctsVUQiUjpXvs/yG75vd5lewqCphwLfaFo426WL5arE='
+    version = 'v0.64.1'
+    hash = 'sha256-lbt3F0zedf5iGYOTkNknGsrSQClxWy+/1i5GnmWgCI4='
 
   [mod.'github.com/rasky/go-lzo']
-    version = 'v0.0.0-20200203143853-96a758eda86e'
-    hash = 'sha256-fucekKH81HnkHuAwaw3RzK9Lni5wS70rYtoALXMCtWI='
+    version = 'v0.0.0-20261012164727-ad21c35a1111'
+    hash = 'sha256-uTFVM/9zZ/6gzLlB+hT7yaVSZhfpdkvSNdD3L0zO4xc='
 
   [mod.'github.com/robfig/cron/v3']
     version = 'v3.0.1'
@@ -549,6 +601,10 @@ go = '1.27.0'
   [mod.'github.com/safchain/ethtool']
     version = 'v0.7.0'
     hash = 'sha256-o2sSaYiITgNiwWDmZeOJ+pxWZV5acgz5L13Rd0Yz89o='
+
+  [mod.'github.com/sagernet/netlink']
+    version = 'v0.0.0-20260919000536-5d76abd97cf7'
+    hash = 'sha256-3tDkmUDqn0ymaQA9Pa9vO9IpAP1hETH/UHSqNMRtTh0='
 
   [mod.'github.com/samber/lo']
     version = 'v1.53.0'
@@ -571,8 +627,8 @@ go = '1.27.0'
     hash = 'sha256-biFLrkY532tBl5EuN9WRoZ6p04G6SQhkPQ2qjJ6Pv/Q='
 
   [mod.'github.com/sinspired/subs-check-pro-webui']
-    version = 'v1.7.0'
-    hash = 'sha256-7zN+TLmcT/+wkOz1TXD4Sikr9uX8cG6hI+8J4jt+Y5I='
+    version = 'v1.8.2'
+    hash = 'sha256-HDtTPiM3DIATKOBQ9+sCH3uyeZMPmqcw0ehLZT2Lb+8='
 
   [mod.'github.com/sirupsen/logrus']
     version = 'v1.10.2'
@@ -581,6 +637,10 @@ go = '1.27.0'
   [mod.'github.com/sohaha/zlsgo']
     version = 'v1.7.21'
     hash = 'sha256-zpHoci2N1I/UBYQ7BNf4zUiSMhM7lDajbTnQjFhQcRs='
+
+  [mod.'github.com/stangelandcl/ppmd']
+    version = 'v0.1.1'
+    hash = 'sha256-9eoFqbF8hYHlA7zN6+v0GzsEUai9yLLvjQ2e4j3OeEg='
 
   [mod.'github.com/tailscale/certstore']
     version = 'v0.1.1-0.20260409135935-3638fb84b77d'
@@ -618,6 +678,10 @@ go = '1.27.0'
     version = 'v0.5.17'
     hash = 'sha256-KkgxNnViDRkpJy/Xv4OFyLfmIaC7BPLEJTtpvuGP7Ks='
 
+  [mod.'github.com/vishvananda/netns']
+    version = 'v0.0.5'
+    hash = 'sha256-wYDmrmqdv9R8dAL5nuWJ+1Nh7fWWxdpd03UkLOtyJrk='
+
   [mod.'github.com/vmihailenco/msgpack/v5']
     version = 'v5.4.1'
     hash = 'sha256-pDplX6xU6UpNLcFbO1pRREW5vCnSPvSU+ojAwFDv3Hk='
@@ -627,8 +691,8 @@ go = '1.27.0'
     hash = 'sha256-M9QyaKhSmmYwsJk7gkjtqu9PuiqZHSmTkous8VWkWY0='
 
   [mod.'github.com/wailsapp/wails/v3']
-    version = 'v3.0.0-beta.28'
-    hash = 'sha256-wJF4shSI2PViJwRGaVEn9FqYxFKtL8Wma4bkoA4+CUw='
+    version = 'v3.0.0'
+    hash = 'sha256-zFx6a4gatyMqyu/C1ZByH93feW6C2y3WWuB10Sc5l2M='
 
   [mod.'github.com/x448/float16']
     version = 'v0.8.4'
@@ -683,12 +747,12 @@ go = '1.27.0'
     hash = 'sha256-33ioL7suoYfgBIEQDAeqy+lwhbCgy885BkcXavowffo='
 
   [mod.'golang.org/x/exp']
-    version = 'v0.0.0-20261011100332-faecfb24eb49'
-    hash = 'sha256-FfX9STXFhtZOxY/GgBZRcqCqDywm6GeWbWi922inrOA='
+    version = 'v0.0.0-20261014143641-f0251eb4aa3e'
+    hash = 'sha256-PLzyWDt9Ni7Qdd6uHw7avHSJxdSc+VEzf5JG9gFCywo='
 
   [mod.'golang.org/x/net']
-    version = 'v0.61.0'
-    hash = 'sha256-yCy7Bik5cvIVfX7G08rVYhkVDuro3sPk3iicVz4j/kA='
+    version = 'v0.62.0'
+    hash = 'sha256-BX+i/MyhVigz/sDRJNGydfkimaeAHAFtrRN//eXuZFY='
 
   [mod.'golang.org/x/oauth2']
     version = 'v0.37.0'
@@ -727,10 +791,6 @@ go = '1.27.0'
     version = 'v2.2.1'
     hash = 'sha256-GaXWRDxhGy4Z4mgE+bJ8OE9SVvYUa9TnNiydnp2s1Ms='
 
-  [mod.'gopkg.in/yaml.v3']
-    version = 'v3.0.1'
-    hash = 'sha256-FqL9TKYJ0XkNwJFnq9j0VvJ5ZUU1RvH/52h/f5bkYAU='
-
 [cacheModules]
   [cacheModules.'code.gitea.io/sdk/gitea']
     packages = [
@@ -754,6 +814,35 @@ go = '1.27.0'
   [cacheModules.'github.com/Masterminds/semver/v3']
     packages = [
       'github.com/Masterminds/semver/v3'
+    ]
+
+  [cacheModules.'github.com/ProtonMail/go-crypto']
+    packages = [
+      'github.com/ProtonMail/go-crypto/bitcurves',
+      'github.com/ProtonMail/go-crypto/brainpool',
+      'github.com/ProtonMail/go-crypto/eax',
+      'github.com/ProtonMail/go-crypto/ocb',
+      'github.com/ProtonMail/go-crypto/openpgp',
+      'github.com/ProtonMail/go-crypto/openpgp/aes/keywrap',
+      'github.com/ProtonMail/go-crypto/openpgp/armor',
+      'github.com/ProtonMail/go-crypto/openpgp/ecdh',
+      'github.com/ProtonMail/go-crypto/openpgp/ecdsa',
+      'github.com/ProtonMail/go-crypto/openpgp/ed25519',
+      'github.com/ProtonMail/go-crypto/openpgp/ed448',
+      'github.com/ProtonMail/go-crypto/openpgp/eddsa',
+      'github.com/ProtonMail/go-crypto/openpgp/elgamal',
+      'github.com/ProtonMail/go-crypto/openpgp/errors',
+      'github.com/ProtonMail/go-crypto/openpgp/mldsa_eddsa',
+      'github.com/ProtonMail/go-crypto/openpgp/mlkem_ecdh',
+      'github.com/ProtonMail/go-crypto/openpgp/packet',
+      'github.com/ProtonMail/go-crypto/openpgp/s2k',
+      'github.com/ProtonMail/go-crypto/openpgp/slhdsa',
+      'github.com/ProtonMail/go-crypto/openpgp/x25519',
+      'github.com/ProtonMail/go-crypto/openpgp/x448'
+    ]
+    deps = [
+      'github.com/cloudflare/circl',
+      'golang.org/x/crypto'
     ]
 
   [cacheModules.'github.com/RyuaNerin/go-krypto']
@@ -787,6 +876,16 @@ go = '1.27.0'
       'github.com/biter777/countries'
     ]
 
+  [cacheModules.'github.com/bodgit/plumbing']
+    packages = [
+      'github.com/bodgit/plumbing'
+    ]
+
+  [cacheModules.'github.com/bodgit/windows']
+    packages = [
+      'github.com/bodgit/windows'
+    ]
+
   [cacheModules.'github.com/buke/quickjs-go']
     packages = [
       'github.com/buke/quickjs-go'
@@ -795,6 +894,35 @@ go = '1.27.0'
   [cacheModules.'github.com/cespare/xxhash/v2']
     packages = [
       'github.com/cespare/xxhash/v2'
+    ]
+
+  [cacheModules.'github.com/cloudflare/circl']
+    packages = [
+      'github.com/cloudflare/circl/dh/x25519',
+      'github.com/cloudflare/circl/dh/x448',
+      'github.com/cloudflare/circl/ecc/goldilocks',
+      'github.com/cloudflare/circl/kem',
+      'github.com/cloudflare/circl/kem/mlkem/mlkem1024',
+      'github.com/cloudflare/circl/kem/mlkem/mlkem768',
+      'github.com/cloudflare/circl/math',
+      'github.com/cloudflare/circl/math/fp25519',
+      'github.com/cloudflare/circl/math/fp448',
+      'github.com/cloudflare/circl/math/mlsbset',
+      'github.com/cloudflare/circl/pke/kyber/kyber1024',
+      'github.com/cloudflare/circl/pke/kyber/kyber768',
+      'github.com/cloudflare/circl/sign',
+      'github.com/cloudflare/circl/sign/ed25519',
+      'github.com/cloudflare/circl/sign/ed448',
+      'github.com/cloudflare/circl/sign/mldsa/mldsa65',
+      'github.com/cloudflare/circl/sign/mldsa/mldsa87',
+      'github.com/cloudflare/circl/sign/slhdsa',
+      'github.com/cloudflare/circl/simd/keccakf1600',
+      'github.com/cloudflare/circl/xof',
+      'github.com/cloudflare/circl/xof/k12'
+    ]
+    deps = [
+      'golang.org/x/crypto',
+      'golang.org/x/sys'
     ]
 
   [cacheModules.'github.com/coreos/go-iptables']
@@ -810,11 +938,17 @@ go = '1.27.0'
     deps = [
       'code.gitea.io/sdk/gitea',
       'github.com/Masterminds/semver/v3',
+      'github.com/ProtonMail/go-crypto',
       'github.com/google/go-github/v86',
       'github.com/ulikunitz/xz',
       'gitlab.com/gitlab-org/api/client-go',
-      'golang.org/x/crypto',
-      'gopkg.in/yaml.v3'
+      'go.yaml.in/yaml/v3'
+    ]
+
+  [cacheModules.'github.com/dlclark/regexp2']
+    packages = [
+      'github.com/dlclark/regexp2',
+      'github.com/dlclark/regexp2/syntax'
     ]
 
   [cacheModules.'github.com/docker/go-units']
@@ -858,6 +992,7 @@ go = '1.27.0'
       'github.com/enfein/mieru/v3/apis/common',
       'github.com/enfein/mieru/v3/apis/constant',
       'github.com/enfein/mieru/v3/apis/model',
+      'github.com/enfein/mieru/v3/apis/server',
       'github.com/enfein/mieru/v3/apis/trafficpattern',
       'github.com/enfein/mieru/v3/pkg/appctl/appctlcommon',
       'github.com/enfein/mieru/v3/pkg/appctl/appctlpb',
@@ -1019,7 +1154,8 @@ go = '1.27.0'
 
   [cacheModules.'github.com/goccy/go-json']
     packages = [
-      'github.com/goccy/go-json'
+      'github.com/goccy/go-json',
+      'github.com/goccy/go-json/jsontext'
     ]
 
   [cacheModules.'github.com/goccy/go-yaml']
@@ -1084,6 +1220,12 @@ go = '1.27.0'
       'github.com/hashicorp/go-version'
     ]
 
+  [cacheModules.'github.com/hashicorp/golang-lru/v2']
+    packages = [
+      'github.com/hashicorp/golang-lru/v2',
+      'github.com/hashicorp/golang-lru/v2/simplelru'
+    ]
+
   [cacheModules.'github.com/insomniacslk/dhcp']
     packages = [
       'github.com/insomniacslk/dhcp/dhcpv4',
@@ -1104,6 +1246,7 @@ go = '1.27.0'
   [cacheModules.'github.com/klauspost/compress']
     packages = [
       'github.com/klauspost/compress',
+      'github.com/klauspost/compress/flate',
       'github.com/klauspost/compress/fse',
       'github.com/klauspost/compress/huff0',
       'github.com/klauspost/compress/s2',
@@ -1112,7 +1255,11 @@ go = '1.27.0'
 
   [cacheModules.'github.com/klauspost/cpuid/v2']
     packages = [
-      'github.com/klauspost/cpuid/v2'
+      'github.com/klauspost/cpuid/v2',
+      'github.com/klauspost/cpuid/v2/topology'
+    ]
+    deps = [
+      'golang.org/x/sys'
     ]
 
   [cacheModules.'github.com/klauspost/crc32']
@@ -1153,7 +1300,8 @@ go = '1.27.0'
   [cacheModules.'github.com/mdlayher/netlink']
     packages = [
       'github.com/mdlayher/netlink',
-      'github.com/mdlayher/netlink/nlenc'
+      'github.com/mdlayher/netlink/nlenc',
+      'github.com/mdlayher/netlink/nltest'
     ]
     deps = [
       'github.com/mdlayher/socket',
@@ -1169,6 +1317,16 @@ go = '1.27.0'
       'golang.org/x/net',
       'golang.org/x/sync',
       'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/metacubex/age']
+    packages = [
+      'github.com/metacubex/age',
+      'github.com/metacubex/age/armor'
+    ]
+    deps = [
+      'github.com/metacubex/hpke',
+      'golang.org/x/crypto'
     ]
 
   [cacheModules.'github.com/metacubex/amneziawg-go']
@@ -1222,6 +1380,14 @@ go = '1.27.0'
     ]
     deps = [
       'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/metacubex/chi']
+    packages = [
+      'github.com/metacubex/chi'
+    ]
+    deps = [
+      'github.com/metacubex/http'
     ]
 
   [cacheModules.'github.com/metacubex/connect-ip-go']
@@ -1334,15 +1500,23 @@ go = '1.27.0'
       'golang.org/x/time'
     ]
 
+  [cacheModules.'github.com/metacubex/mhurl']
+    packages = [
+      'github.com/metacubex/mhurl'
+    ]
+
   [cacheModules.'github.com/metacubex/mihomo']
     packages = [
       'github.com/metacubex/mihomo/adapter',
       'github.com/metacubex/mihomo/adapter/inbound',
       'github.com/metacubex/mihomo/adapter/outbound',
+      'github.com/metacubex/mihomo/adapter/outboundgroup',
+      'github.com/metacubex/mihomo/adapter/provider',
       'github.com/metacubex/mihomo/common/arc',
       'github.com/metacubex/mihomo/common/atomic',
       'github.com/metacubex/mihomo/common/buf',
       'github.com/metacubex/mihomo/common/callback',
+      'github.com/metacubex/mihomo/common/cmd',
       'github.com/metacubex/mihomo/common/contextutils',
       'github.com/metacubex/mihomo/common/convert',
       'github.com/metacubex/mihomo/common/deque',
@@ -1354,6 +1528,7 @@ go = '1.27.0'
       'github.com/metacubex/mihomo/common/net/packet',
       'github.com/metacubex/mihomo/common/observable',
       'github.com/metacubex/mihomo/common/once',
+      'github.com/metacubex/mihomo/common/orderedmap',
       'github.com/metacubex/mihomo/common/picker',
       'github.com/metacubex/mihomo/common/pool',
       'github.com/metacubex/mihomo/common/queue',
@@ -1363,19 +1538,29 @@ go = '1.27.0'
       'github.com/metacubex/mihomo/common/structure',
       'github.com/metacubex/mihomo/common/utils',
       'github.com/metacubex/mihomo/common/xsync',
+      'github.com/metacubex/mihomo/common/yaml',
+      'github.com/metacubex/mihomo/component/age',
       'github.com/metacubex/mihomo/component/auth',
       'github.com/metacubex/mihomo/component/ca',
+      'github.com/metacubex/mihomo/component/cidr',
       'github.com/metacubex/mihomo/component/dhcp',
       'github.com/metacubex/mihomo/component/dialer',
       'github.com/metacubex/mihomo/component/easytier',
       'github.com/metacubex/mihomo/component/ech',
       'github.com/metacubex/mihomo/component/ech/echparser',
       'github.com/metacubex/mihomo/component/fakeip',
+      'github.com/metacubex/mihomo/component/geodata',
+      'github.com/metacubex/mihomo/component/geodata/memconservative',
+      'github.com/metacubex/mihomo/component/geodata/router',
+      'github.com/metacubex/mihomo/component/geodata/standard',
+      'github.com/metacubex/mihomo/component/geodata/strmatcher',
+      'github.com/metacubex/mihomo/component/http',
       'github.com/metacubex/mihomo/component/iface',
       'github.com/metacubex/mihomo/component/iface/anet',
       'github.com/metacubex/mihomo/component/keepalive',
       'github.com/metacubex/mihomo/component/loopback',
       'github.com/metacubex/mihomo/component/memory',
+      'github.com/metacubex/mihomo/component/mmdb',
       'github.com/metacubex/mihomo/component/mptcp',
       'github.com/metacubex/mihomo/component/nat',
       'github.com/metacubex/mihomo/component/pool',
@@ -1385,18 +1570,59 @@ go = '1.27.0'
       'github.com/metacubex/mihomo/component/proxydialer',
       'github.com/metacubex/mihomo/component/resolver',
       'github.com/metacubex/mihomo/component/resolver/hosts',
+      'github.com/metacubex/mihomo/component/resource',
       'github.com/metacubex/mihomo/component/slowdown',
       'github.com/metacubex/mihomo/component/sniffer',
       'github.com/metacubex/mihomo/component/tls',
       'github.com/metacubex/mihomo/component/trie',
+      'github.com/metacubex/mihomo/component/wildcard',
+      'github.com/metacubex/mihomo/config',
       'github.com/metacubex/mihomo/constant',
       'github.com/metacubex/mihomo/constant/features',
       'github.com/metacubex/mihomo/constant/provider',
       'github.com/metacubex/mihomo/constant/sniffer',
       'github.com/metacubex/mihomo/context',
       'github.com/metacubex/mihomo/dns',
+      'github.com/metacubex/mihomo/listener',
+      'github.com/metacubex/mihomo/listener/anytls',
+      'github.com/metacubex/mihomo/listener/auth',
+      'github.com/metacubex/mihomo/listener/config',
+      'github.com/metacubex/mihomo/listener/http',
+      'github.com/metacubex/mihomo/listener/hysteria2_realm',
+      'github.com/metacubex/mihomo/listener/inbound',
+      'github.com/metacubex/mihomo/listener/inner',
+      'github.com/metacubex/mihomo/listener/jls',
+      'github.com/metacubex/mihomo/listener/mieru',
+      'github.com/metacubex/mihomo/listener/mixed',
+      'github.com/metacubex/mihomo/listener/reality',
+      'github.com/metacubex/mihomo/listener/redir',
+      'github.com/metacubex/mihomo/listener/restls',
+      'github.com/metacubex/mihomo/listener/shadowquic',
+      'github.com/metacubex/mihomo/listener/shadowsocks',
+      'github.com/metacubex/mihomo/listener/shadowtls',
+      'github.com/metacubex/mihomo/listener/sing',
+      'github.com/metacubex/mihomo/listener/sing_hysteria2',
+      'github.com/metacubex/mihomo/listener/sing_shadowsocks',
+      'github.com/metacubex/mihomo/listener/sing_tun',
+      'github.com/metacubex/mihomo/listener/sing_vless',
+      'github.com/metacubex/mihomo/listener/sing_vmess',
+      'github.com/metacubex/mihomo/listener/snell',
+      'github.com/metacubex/mihomo/listener/socks',
+      'github.com/metacubex/mihomo/listener/sudoku',
+      'github.com/metacubex/mihomo/listener/tlsmirror',
+      'github.com/metacubex/mihomo/listener/tproxy',
+      'github.com/metacubex/mihomo/listener/trojan',
+      'github.com/metacubex/mihomo/listener/trusttunnel',
+      'github.com/metacubex/mihomo/listener/tuic',
+      'github.com/metacubex/mihomo/listener/tunnel',
       'github.com/metacubex/mihomo/log',
       'github.com/metacubex/mihomo/ntp',
+      'github.com/metacubex/mihomo/rules',
+      'github.com/metacubex/mihomo/rules/bundle',
+      'github.com/metacubex/mihomo/rules/common',
+      'github.com/metacubex/mihomo/rules/logic',
+      'github.com/metacubex/mihomo/rules/provider',
+      'github.com/metacubex/mihomo/rules/wrapper',
       'github.com/metacubex/mihomo/transport/anytls',
       'github.com/metacubex/mihomo/transport/anytls/padding',
       'github.com/metacubex/mihomo/transport/anytls/pipe',
@@ -1428,6 +1654,7 @@ go = '1.27.0'
       'github.com/metacubex/mihomo/transport/shadowtls',
       'github.com/metacubex/mihomo/transport/simple-obfs',
       'github.com/metacubex/mihomo/transport/snell',
+      'github.com/metacubex/mihomo/transport/socks4',
       'github.com/metacubex/mihomo/transport/socks5',
       'github.com/metacubex/mihomo/transport/ssr/obfs',
       'github.com/metacubex/mihomo/transport/ssr/protocol',
@@ -1459,18 +1686,22 @@ go = '1.27.0'
     deps = [
       'github.com/bahlo/generic-list-go',
       'github.com/coreos/go-iptables',
+      'github.com/dlclark/regexp2',
       'github.com/easytier/easytier/easytier-go',
       'github.com/enfein/mieru/v3',
       'github.com/gobwas/ws',
       'github.com/gofrs/uuid/v5',
       'github.com/golang/snappy',
       'github.com/insomniacslk/dhcp',
+      'github.com/klauspost/compress',
       'github.com/mdlayher/netlink',
+      'github.com/metacubex/age',
       'github.com/metacubex/amneziawg-go',
       'github.com/metacubex/bart',
       'github.com/metacubex/bbolt',
       'github.com/metacubex/blake3',
       'github.com/metacubex/chacha',
+      'github.com/metacubex/chi',
       'github.com/metacubex/connect-ip-go',
       'github.com/metacubex/cpu',
       'github.com/metacubex/edwards25519',
@@ -1480,16 +1711,19 @@ go = '1.27.0'
       'github.com/metacubex/jls-quic-go',
       'github.com/metacubex/jls-tls',
       'github.com/metacubex/kcp-go',
+      'github.com/metacubex/mhurl',
       'github.com/metacubex/mipstack',
       'github.com/metacubex/mlkem',
       'github.com/metacubex/quic-go',
       'github.com/metacubex/randv2',
       'github.com/metacubex/restls-client-go',
+      'github.com/metacubex/sevenzip',
       'github.com/metacubex/sing',
       'github.com/metacubex/sing-mux',
       'github.com/metacubex/sing-quic',
       'github.com/metacubex/sing-shadowsocks',
       'github.com/metacubex/sing-shadowsocks2',
+      'github.com/metacubex/sing-tun',
       'github.com/metacubex/sing-vmess',
       'github.com/metacubex/sing-wireguard',
       'github.com/metacubex/smux',
@@ -1502,12 +1736,14 @@ go = '1.27.0'
       'github.com/miekg/dns',
       'github.com/mroth/weightedrand/v2',
       'github.com/openacid/low',
+      'github.com/oschwald/maxminddb-golang',
       'github.com/rasky/go-lzo',
       'github.com/samber/lo',
       'github.com/sirupsen/logrus',
       'github.com/vmihailenco/msgpack/v5',
       'github.com/yosida95/uritemplate/v3',
       'gitlab.com/go-extension/aes-ccm',
+      'go.yaml.in/yaml/v3',
       'go4.org/netipx',
       'golang.org/x/crypto',
       'golang.org/x/exp',
@@ -1528,6 +1764,20 @@ go = '1.27.0'
     ]
     deps = [
       'golang.org/x/crypto'
+    ]
+
+  [cacheModules.'github.com/metacubex/nftables']
+    packages = [
+      'github.com/metacubex/nftables',
+      'github.com/metacubex/nftables/alignedbuff',
+      'github.com/metacubex/nftables/binaryutil',
+      'github.com/metacubex/nftables/expr',
+      'github.com/metacubex/nftables/userdata',
+      'github.com/metacubex/nftables/xt'
+    ]
+    deps = [
+      'github.com/mdlayher/netlink',
+      'golang.org/x/sys'
     ]
 
   [cacheModules.'github.com/metacubex/qpack']
@@ -1579,6 +1829,17 @@ go = '1.27.0'
       'golang.org/x/sys'
     ]
 
+  [cacheModules.'github.com/metacubex/sevenzip']
+    packages = [
+      'github.com/metacubex/sevenzip',
+      'github.com/metacubex/sevenzip/afero'
+    ]
+    deps = [
+      'github.com/bodgit/plumbing',
+      'github.com/bodgit/windows',
+      'golang.org/x/text'
+    ]
+
   [cacheModules.'github.com/metacubex/sing']
     packages = [
       'github.com/metacubex/sing/common',
@@ -1589,6 +1850,7 @@ go = '1.27.0'
       'github.com/metacubex/sing/common/binary',
       'github.com/metacubex/sing/common/buf',
       'github.com/metacubex/sing/common/bufio',
+      'github.com/metacubex/sing/common/bufio/deadline',
       'github.com/metacubex/sing/common/cache',
       'github.com/metacubex/sing/common/canceler',
       'github.com/metacubex/sing/common/control',
@@ -1600,8 +1862,10 @@ go = '1.27.0'
       'github.com/metacubex/sing/common/network',
       'github.com/metacubex/sing/common/pipe',
       'github.com/metacubex/sing/common/random',
+      'github.com/metacubex/sing/common/ranges',
       'github.com/metacubex/sing/common/replay',
       'github.com/metacubex/sing/common/rw',
+      'github.com/metacubex/sing/common/shell',
       'github.com/metacubex/sing/common/task',
       'github.com/metacubex/sing/common/udpnat',
       'github.com/metacubex/sing/common/uot',
@@ -1686,6 +1950,22 @@ go = '1.27.0'
       'github.com/sina-ghaderi/rabaead',
       'gitlab.com/go-extension/aes-ccm',
       'golang.org/x/crypto'
+    ]
+
+  [cacheModules.'github.com/metacubex/sing-tun']
+    packages = [
+      'github.com/metacubex/sing-tun',
+      'github.com/metacubex/sing-tun/ping'
+    ]
+    deps = [
+      'github.com/metacubex/mipstack',
+      'github.com/metacubex/nftables',
+      'github.com/metacubex/sing',
+      'github.com/sagernet/netlink',
+      'go4.org/netipx',
+      'golang.org/x/exp',
+      'golang.org/x/net',
+      'golang.org/x/sys'
     ]
 
   [cacheModules.'github.com/metacubex/sing-vmess']
@@ -1879,6 +2159,14 @@ go = '1.27.0'
       'github.com/openacid/low/bitmap'
     ]
 
+  [cacheModules.'github.com/oschwald/maxminddb-golang']
+    packages = [
+      'github.com/oschwald/maxminddb-golang'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
   [cacheModules.'github.com/oschwald/maxminddb-golang/v2']
     packages = [
       'github.com/oschwald/maxminddb-golang/v2'
@@ -1940,6 +2228,16 @@ go = '1.27.0'
   [cacheModules.'github.com/rs/xid']
     packages = [
       'github.com/rs/xid'
+    ]
+
+  [cacheModules.'github.com/sagernet/netlink']
+    packages = [
+      'github.com/sagernet/netlink',
+      'github.com/sagernet/netlink/nl'
+    ]
+    deps = [
+      'github.com/vishvananda/netns',
+      'golang.org/x/sys'
     ]
 
   [cacheModules.'github.com/samber/lo']
@@ -2011,6 +2309,11 @@ go = '1.27.0'
       'golang.org/x/sync'
     ]
 
+  [cacheModules.'github.com/stangelandcl/ppmd']
+    packages = [
+      'github.com/stangelandcl/ppmd'
+    ]
+
   [cacheModules.'github.com/tinylib/msgp']
     packages = [
       'github.com/tinylib/msgp/msgp',
@@ -2039,6 +2342,14 @@ go = '1.27.0'
     packages = [
       'github.com/ulikunitz/xz',
       'github.com/ulikunitz/xz/lzma'
+    ]
+
+  [cacheModules.'github.com/vishvananda/netns']
+    packages = [
+      'github.com/vishvananda/netns'
+    ]
+    deps = [
+      'golang.org/x/sys'
     ]
 
   [cacheModules.'github.com/vmihailenco/msgpack/v5']
@@ -2133,17 +2444,12 @@ go = '1.27.0'
       'golang.org/x/crypto/curve25519',
       'golang.org/x/crypto/ed25519',
       'golang.org/x/crypto/hkdf',
-      'golang.org/x/crypto/openpgp',
-      'golang.org/x/crypto/openpgp/armor',
-      'golang.org/x/crypto/openpgp/elgamal',
-      'golang.org/x/crypto/openpgp/errors',
-      'golang.org/x/crypto/openpgp/packet',
-      'golang.org/x/crypto/openpgp/s2k',
       'golang.org/x/crypto/pbkdf2',
       'golang.org/x/crypto/poly1305',
       'golang.org/x/crypto/ripemd160',
       'golang.org/x/crypto/salsa20',
       'golang.org/x/crypto/salsa20/salsa',
+      'golang.org/x/crypto/scrypt',
       'golang.org/x/crypto/sha3',
       'golang.org/x/crypto/ssh',
       'golang.org/x/crypto/ssh/agent',
@@ -2203,7 +2509,10 @@ go = '1.27.0'
   [cacheModules.'golang.org/x/text']
     packages = [
       'golang.org/x/text/cases',
+      'golang.org/x/text/encoding',
+      'golang.org/x/text/encoding/unicode',
       'golang.org/x/text/language',
+      'golang.org/x/text/runes',
       'golang.org/x/text/secure/bidirule',
       'golang.org/x/text/transform',
       'golang.org/x/text/unicode/bidi',
@@ -2237,9 +2546,4 @@ go = '1.27.0'
   [cacheModules.'gopkg.in/natefinch/lumberjack.v2']
     packages = [
       'gopkg.in/natefinch/lumberjack.v2'
-    ]
-
-  [cacheModules.'gopkg.in/yaml.v3']
-    packages = [
-      'gopkg.in/yaml.v3'
     ]
