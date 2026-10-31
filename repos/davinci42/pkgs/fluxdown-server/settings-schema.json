@@ -306,6 +306,10 @@
       "default": "",
       "kind": "Text"
     },
+    "proxy_rules": {
+      "default": "",
+      "kind": "Text"
+    },
     "proxy_type": {
       "default": "http",
       "kind": "Enum",
@@ -341,10 +345,10 @@
       "kind": "Text"
     }
   },
-  "protocolVersion": 17,
+  "protocolVersion": 25,
   "sourceHashes": {
-    "native/protocol/src/daemon_config.rs": "091332924fb7acfaa9b26a2dab1c291621abc431195991b25ecb359a68027db5",
-    "native/protocol/src/rpc.rs": "a9f62948c37cc7d4eefad1cf5d02f250e9be000ee63068779f58d86e55f673d1"
+    "native/protocol/src/daemon_config.rs": "69077187794b5913538558bca0699c4b84114417f7c668a1b3198efc45fdb163",
+    "native/protocol/src/rpc.rs": "fbc5fbd9d925b779055c3886e6f58471c0bfd252d2cd944c463bef0f43148062"
   },
-  "version": "0.6.3"
+  "version": "0.6.4"
 }
