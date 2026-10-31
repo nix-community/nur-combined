@@ -1,12 +1,17 @@
 {
+  gsettings-desktop-schemas,
   gobject-introspection,
+  hicolor-icon-theme,
+  adwaita-icon-theme,
   fetchFromGitHub,
   buildGoModule,
+  wrapGAppsHook4,
   gdk-pixbuf,
   pkg-config,
   fetchgit,
   fetchurl,
   graphene,
+  dconf,
   pango,
   cairo,
   glib,
@@ -33,24 +38,31 @@
 in
   buildGoModule (finalAttrs: {
     pname = "noisetorch-next";
-    version = "0bd8ba1664cf53564c497d8faa52388e86a49467";
+    version = "b1573bca50da5cd3121453d369c0c6118aa1a68d";
 
     src = fetchFromGitHub {
       owner = "ForkPrince";
       repo = "NoiseTorch";
       rev = finalAttrs.version;
-      hash = "sha256-gNvY15Do6QlXNBkWyjfY+6X1b8LmdWRAyM5CxstLZ4w=";
+      hash = "sha256-rIcQ+ZSTBq5FohTi5yH7E8VXBPjaEJH2RpB1iKfl5UI=";
     };
 
     vendorHash = null;
     doCheck = false;
 
-    nativeBuildInputs = [pkg-config];
+    nativeBuildInputs = [
+      wrapGAppsHook4
+      pkg-config
+    ];
 
     buildInputs = [
+      gsettings-desktop-schemas
       gobject-introspection
+      adwaita-icon-theme
+      hicolor-icon-theme
       gdk-pixbuf
       graphene
+      dconf
       pango
       cairo
       glib
