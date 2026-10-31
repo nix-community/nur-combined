@@ -114,6 +114,9 @@ hold = 150
 
 CLI flags override config file values.
 
+The file is read again before every blink, so changes apply from the next
+blink on, without a restart.
+
 `color` also accepts an array. Each blink then picks one of the colors at
 random:
 
