@@ -35,7 +35,7 @@
             path = "/run/forgejo/forgejo.sock";
           };
           service = "forgejo";
-          allow.identities = config.realm.caddy.allowedIDs.forgejo;
+          allow.groups = [ "entry-caddy" ];
         };
         egress = {
           smtp = {

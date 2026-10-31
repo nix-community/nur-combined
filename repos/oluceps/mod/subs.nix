@@ -21,7 +21,7 @@
               port = 8004;
             };
             service = "subs";
-            allow.identities = config.realm.caddy.allowedIDs.subs;
+            allow.groups = [ "caddy-azasos" ];
           };
           http.internet = true;
         };

@@ -19,6 +19,8 @@ let
           system.stateVersion = "26.05";
           realm = {
             enable = true;
+            # Fixture receivers carry no caller policy; this suite checks routing.
+            authorization.rejectDeniedConnections = false;
             spire.httpAttestation.trustHttpTransport = true;
             serviceDiscovery = {
               enable = true;

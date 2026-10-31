@@ -10,7 +10,7 @@
             port = 8888;
           };
           service = "atuin";
-          allow.identities = config.realm.caddy.allowedIDs.atuin;
+          allow.groups = [ "relay-caddy" ];
         };
       };
 

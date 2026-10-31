@@ -21,41 +21,48 @@ let
             };
             realm.serviceDiscovery.nodes = lib.mkOption {
               type = lib.types.attrsOf lib.types.str;
-              default = {
-                eihort = "fdcc::3";
-              };
+              default = lib.genAttrs [
+                "abhoth"
+                "azasos"
+                "eihort"
+                "nodens"
+                "yidhra"
+              ] (_: "fdcc::1");
             };
           };
         }
       ];
-    }).config.realm.caddy;
+    }).config.realm;
+  ids = cfg.caddy.ids;
+  groups = cfg.authorization.groups;
 in
 lib.runTests {
   testNodesHaveDistinctIdentities = {
-    expr = cfg.ids.eihort != cfg.ids.nodens;
+    expr = ids.eihort != ids.nodens;
     expected = true;
   };
+  testIdentitiesFollowNodeList = {
+    expr = builtins.attrNames ids;
+    expected = builtins.attrNames cfg.serviceDiscovery.nodes;
+  };
   testPublicEdgeCannotReachStorageAdmin = {
-    expr = lib.elem cfg.ids.nodens cfg.allowedIDs.seaweedfs-master;
+    expr = lib.elem ids.nodens groups.entry-caddy;
     expected = false;
   };
   testStorageAdminRemainsAvailableToEihort = {
-    expr = lib.elem cfg.ids.eihort cfg.allowedIDs.seaweedfs-master;
-    expected = true;
+    expr = groups.entry-caddy;
+    expected = [ ids.eihort ];
   };
-  testPublicRelayOnlyAdmitsYidhra = {
-    expr = cfg.allowedIDs.public-http;
-    expected = [ cfg.ids.yidhra ];
+  testPerNodeGroupIsSingleIdentity = {
+    expr = groups.caddy-yidhra;
+    expected = [ ids.yidhra ];
   };
-  testPocketIDOnlyAdmitsEihort = {
-    expr =
-      lib.elem cfg.ids.eihort cfg.allowedIDs.pocket-id
-      && !(lib.elem cfg.ids.nodens cfg.allowedIDs.pocket-id)
-      && !(lib.elem cfg.ids.abhoth cfg.allowedIDs.pocket-id);
-    expected = true;
+  testRelayExcludesAzasos = {
+    expr = lib.elem ids.azasos groups.relay-caddy;
+    expected = false;
   };
   testLegacySharedIdentityIsNotAuthorized = {
-    expr = lib.any (lib.elem "spiffe://nyaw.xyz/service/caddy") (builtins.attrValues cfg.allowedIDs);
+    expr = lib.any (lib.elem "spiffe://nyaw.xyz/service/caddy") (builtins.attrValues groups);
     expected = false;
   };
 }

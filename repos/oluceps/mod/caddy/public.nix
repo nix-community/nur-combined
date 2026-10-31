@@ -5,9 +5,6 @@
     {
       imports = [ self.modules.nixos.caddy ];
       realm.workloads.caddy.egress = {
-        atuin = {
-          service = "atuin";
-        };
         immich = {
           service = "immich";
         };
@@ -34,9 +31,6 @@
         };
         s3 = {
           service = "seaweedfs-s3";
-        };
-        rustypaste = {
-          service = "rustypaste";
         };
         # Legacy HTTP routes terminate at the internal entrypoint, rather
         # than exposing their plaintext backend ports to public entrypoints.

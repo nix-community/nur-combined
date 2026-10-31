@@ -8,8 +8,11 @@
     }:
     {
       imports = [ self.modules.nixos.caddy-public ];
-      realm.workloads.caddy.egress.stalwart-web = {
-        service = "stalwart-web";
+      realm.workloads.caddy.egress = {
+        stalwart-web.service = "stalwart-web";
+        # Only abhoth, nodens and eihort are admitted by these receivers.
+        atuin.service = "atuin";
+        rustypaste.service = "rustypaste";
       };
 
       caddy = {

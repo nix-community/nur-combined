@@ -39,37 +39,46 @@ let
     options = {
       # Port on the node's mesh address; the published SRV record uses it.
       port = mkOption { type = types.port; };
+      # The options below are the compiler's normalized representation.
+      # nixosModules/realm-model.nix derives them from `backend` and `allow`;
+      # declare those instead.
       # Plaintext backend the ingress process dials after terminating mTLS.
       target = mkOption {
         type = types.nullOr types.str;
         default = null;
+        internal = true;
       };
       native = mkOption {
         type = types.bool;
         default = false;
+        internal = true;
         description = "The application terminates SPIFFE mTLS and enforces allowedIDs itself, using the Agent SDS API.";
       };
       # Service name this ingress publishes for SRV discovery.
       service = mkOption { type = types.str; };
-      # Callers ghostunnel (or the native application) accepts. The module
-      # rejects an empty list, so access is always stated explicitly.
+      # Final callers ghostunnel (or the native application) accepts. The
+      # module rejects an empty list, so access is always stated explicitly.
       allowedIDs = mkOption {
         type = types.listOf types.str;
         default = [ ];
+        internal = true;
       };
       privateLoopback = mkOption {
         type = types.bool;
         default = false;
+        internal = true;
         description = "Reach a TCP backend through a socket-activated adapter in the workload namespace.";
       };
       hostLoopback = mkOption {
         type = types.bool;
         default = false;
+        internal = true;
         description = "Explicit host-loopback backend for a public edge or Internet gateway.";
       };
       backendUser = mkOption {
         type = types.nullOr types.str;
         default = null;
+        internal = true;
         description = "Run this ingress as a dedicated local user to preserve Unix peer authentication.";
       };
     };

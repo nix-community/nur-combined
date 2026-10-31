@@ -19,7 +19,7 @@ Realm compiles local declarations into a fixed output record. No runtime control
 | `nixosModules/realm-http.nix` | HTTP proxy settings and shared internal HTTPS gateway adapters |
 | `nixosModules/realm-container.nix` | Shared container mounts and loopback routes |
 | `nixosModules/realm-internet.nix` | Reusable Internet gateway service |
-| `mod/realm-internet.nix` | Site caller policy and extra CONNECT permissions |
+| `mod/realm-internet.nix` | Caller admission collected from declarations and extra CONNECT permissions |
 
 The compiler returns `services`, `sockets`, `userGroups`, `users`, `tmpfiles`, `registrations`, `publications` and `assertions`. Each field has its own merge. The compiler does not inspect the internal representation of `mkIf` or `mkMerge`.
 
@@ -48,7 +48,7 @@ Receiver grants support three forms:
 
 The receiver needs a nonempty final policy. Unknown references and groups fail validation. A Unix `peerUser` still requires one authorized identity and a dedicated unprivileged account. Workloads that share a SPIFFE ID share its permissions.
 
-Legacy `target`, `native`, `privateLoopback`, `hostLoopback`, `backendUser` and `allowedIDs` remain available for existing integrations. Use one backend declaration style per ingress. The current service profiles use typed backends.
+`target`, `native`, `privateLoopback`, `hostLoopback`, `backendUser` and `allowedIDs` are internal options. The model derives them from `backend` and `allow`; the compiler and reports read them. Declare ingresses only through `backend` and `allow`.
 
 ### Endpoint identities
 
@@ -74,7 +74,10 @@ This generates an `internet-proxy` egress. With realm-agent and transparent
 capture enabled, ordinary TCP/DNS uses that declared route without proxy
 variable injection. Otherwise the module supplies uppercase and lowercase
 HTTP/HTTPS proxy variables; clients that ignore those variables need their own
-proxy settings. The Internet gateway must also admit the application's SPIFFE identity.
+proxy settings. `mod/realm-internet.nix` collects every enabled workload in the
+cluster that declares an `internet-proxy` egress into `realm.internet.allowedIDs`,
+so this declaration also admits the application's SPIFFE identity at the gateway.
+Destination ACLs and CONNECT port grants still apply per identity.
 
 For internal HTTPS access, the site defines this gateway:
 
@@ -212,8 +215,12 @@ SPIRE Agent socket to an application using proxy mode.
 Each workload has a separate proxy account. Its SPIRE registrations require
 both the actual proxy/helper systemd unit and its Unix user. The default
 SPIFFE ID is `spiffe://nyaw.xyz/service/<workload>`. Caddy uses
-`spiffe://nyaw.xyz/service/caddy-<host>`. Its receiver policies live in
-`mod/realm-caddy-policy.nix` and admit only the nodes that need each route.
+`spiffe://nyaw.xyz/service/caddy-<host>`, one per node in the registry.
+`mod/realm-caddy-policy.nix` defines Caddy role groups: `public-caddy`,
+`relay-caddy`, `entry-caddy`, `mail-caddy` and one `caddy-<host>` group per
+node. Receivers select a role with `allow.groups`, for example
+`allow.groups = [ "entry-caddy" ];`, and add non-Caddy callers through
+`allow.identities`. Each route admits only the nodes that need it.
 Other instances that share an ID still share authorization. Root on a node remains trusted.
 
 An ingress requires an explicit nonempty receiver policy. Declaring an

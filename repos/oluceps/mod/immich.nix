@@ -72,7 +72,8 @@
               port = 2283;
             };
             service = "immich";
-            allow.identities = config.realm.caddy.allowedIDs.immich ++ [
+            allow.groups = [ "public-caddy" ];
+            allow.identities = [
               "spiffe://nyaw.xyz/service/immich-public-proxy"
             ];
           };
@@ -123,7 +124,7 @@
               port = 3001;
             };
             service = "immich-public-proxy";
-            allow.identities = config.realm.caddy.allowedIDs.immich-public-proxy;
+            allow.groups = [ "public-caddy" ];
           };
           egress.immich = {
             service = "immich";

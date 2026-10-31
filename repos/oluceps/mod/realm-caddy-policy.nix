@@ -9,68 +9,44 @@
           inherit type default;
           readOnly = true;
         };
-      idsFor = hosts: map (host: policy.ids.${host}) hosts;
-      relayBackends = idsFor [
-        "abhoth"
-        "eihort"
-        "nodens"
-      ];
+      caddyID = host: "${config.realm.servicePrefix}caddy-${host}";
+      idsFor = map caddyID;
     in
     {
-      config.realm.authorization.groups.public-caddy = policy.publicIDs;
       options.realm.caddy = {
+        # One Caddy identity per mesh node, derived from the registry.
         ids = value (lib.types.attrsOf lib.types.str) (
-          lib.genAttrs (lib.unique (
-            [
-              "abhoth"
-              "azasos"
-              "eihort"
-              "hastur"
-              "kaambl"
-              "nodens"
-              "uubboo"
-              "yidhra"
-            ]
-            ++ builtins.attrNames config.realm.serviceDiscovery.nodes
-          )) (host: "${config.realm.servicePrefix}caddy-${host}")
+          lib.mapAttrs (host: _: caddyID host) config.realm.serviceDiscovery.nodes
         );
         localID = value lib.types.str policy.ids.${config.networking.hostName};
-        entrypointID = value lib.types.str policy.ids.eihort;
-        publicIDs = value (lib.types.listOf lib.types.str) (idsFor [
-          "abhoth"
-          "azasos"
-          "eihort"
-          "nodens"
-        ]);
-        allowedIDs = value (lib.types.attrsOf (lib.types.listOf lib.types.str)) (
-          lib.genAttrs [
-            "calibre"
-            "grafana"
-            "immich"
-            "immich-public-proxy"
-            "internal-https"
-            "meilisearch"
-            "misskey"
-            "seaweedfs-s3"
-            "synapse"
-            "vaultwarden"
-          ] (_: policy.publicIDs)
-          // {
-            atuin = relayBackends;
-            rustypaste = relayBackends;
-            forgejo = [ policy.entrypointID ];
-            pocket-id = [ policy.entrypointID ];
-            jellyfin = [ policy.entrypointID ];
-            seaweedfs-master = [ policy.entrypointID ];
-            ntfy = [ policy.ids.azasos ];
-            subs = [ policy.ids.azasos ];
-            stalwart-web = idsFor [
-              "abhoth"
-              "nodens"
-            ];
-            public-http = [ policy.ids.yidhra ];
-          }
-        );
+        entrypointID = value lib.types.str (caddyID "eihort");
       };
+
+      # Receivers reference these roles with `allow.groups`; the group set
+      # is the single place that decides which edge reaches which backend.
+      config.realm.authorization.groups =
+        # caddy-<host>: exactly one node's Caddy.
+        lib.mapAttrs' (host: id: lib.nameValuePair "caddy-${host}" [ id ]) policy.ids // {
+          # Public HTTPS entrypoints serving the shared nyaw.xyz routes.
+          public-caddy = idsFor [
+            "abhoth"
+            "azasos"
+            "eihort"
+            "nodens"
+          ];
+          # Entrypoints carrying the Atuin/Rustypaste routes (eihort via its relay).
+          relay-caddy = idsFor [
+            "abhoth"
+            "eihort"
+            "nodens"
+          ];
+          # The internal entrypoint; sole caller of admin-grade backends.
+          entry-caddy = idsFor [ "eihort" ];
+          # Entrypoints exposing the Stalwart web API.
+          mail-caddy = idsFor [
+            "abhoth"
+            "nodens"
+          ];
+        };
     };
 }

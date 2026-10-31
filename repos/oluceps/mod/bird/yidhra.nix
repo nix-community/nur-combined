@@ -7,8 +7,6 @@
         self.modules.nixos.bird
         self.modules.nixos.autopeer
       ];
-      realm.workloads.autopeer.egress.postgresql.target =
-        "[${config.data.node.eihort.unique_addr_nomask}]:15438";
       services.autopeer = {
         enable = true;
         localAsn = 4242420291;

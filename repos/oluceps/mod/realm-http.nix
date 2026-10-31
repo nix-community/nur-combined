@@ -1,4 +1,3 @@
-{ self, ... }:
 {
   flake.modules.nixos.realm =
     { config, lib, ... }:
@@ -25,7 +24,7 @@
                       lib.filterAttrs (_: w: w.enable && w.http.gateway.ref == gatewayName) system.config.realm.workloads
                     )
                   )
-                ) (lib.filterAttrs (_: system: system.config.realm.enable or false) self.nixosConfigurations)
+                ) config.realm.systems
               )
             )
           )

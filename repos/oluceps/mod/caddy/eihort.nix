@@ -62,7 +62,7 @@
             port = 443;
           };
           service = "internal-https";
-          allow.identities = config.realm.caddy.allowedIDs.internal-https;
+          allow.groups = [ "public-caddy" ];
         };
         ingress.https = {
           port = 19443;

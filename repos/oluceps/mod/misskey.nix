@@ -40,7 +40,7 @@
               path = "/run/realm-misskey/backend/http.sock";
             };
             service = "misskey";
-            allow.identities = config.realm.caddy.allowedIDs.misskey;
+            allow.groups = [ "public-caddy" ];
           };
           egress = {
             redis = {

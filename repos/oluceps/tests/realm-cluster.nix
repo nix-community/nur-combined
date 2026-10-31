@@ -14,7 +14,7 @@ let
             ../nixosModules/realm-http.nix
             ../nixosModules/realm-spire.nix
             ../nixosModules/service-discovery.nix
-            ((import ../mod/realm-http.nix { self.nixosConfigurations = systems; }).flake.modules.nixos.realm)
+            (import ../mod/realm-http.nix).flake.modules.nixos.realm
             (
               { config, ... }:
               {
@@ -27,6 +27,7 @@ let
                   system.stateVersion = "26.05";
                   realm = {
                     enable = true;
+                    inherit systems;
                     spire.httpAttestation.trustHttpTransport = true;
                     identityCatalog = lib.mapAttrs (_: s: s.config.realm.localIdentities) systems;
                     serviceDiscovery = {
@@ -48,7 +49,7 @@ let
                                 kind = "host-tcp";
                                 port = 443;
                               };
-                              allowedIDs = config.realm.http.gatewayClientIDs.eihort;
+                              allow.identities = config.realm.http.gatewayClientIDs.eihort;
                             };
                           };
                         }

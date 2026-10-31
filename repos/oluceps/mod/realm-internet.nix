@@ -3,6 +3,18 @@
     { config, lib, ... }:
     let
       hostName = config.networking.hostName;
+      nodeConfigs =
+        if config.realm.systems == { } then
+          [ config ]
+        else
+          map (system: system.config) (builtins.attrValues config.realm.systems);
+      callers =
+        node:
+        lib.mapAttrsToList (_: w: w.spiffeID) (
+          lib.filterAttrs (
+            _: w: w.enable && lib.any (e: e.service == "internet-proxy") (builtins.attrValues w.egress)
+          ) node.realm.workloads
+        );
     in
     {
       imports = [ ../nixosModules/realm-internet.nix ];
@@ -26,21 +38,12 @@
 
       config.realm.internet = {
         enable = true;
-        allowedIDs = map (n: config.realm.servicePrefix + n) [
-          "misskey"
-          "grafana"
-          "immich-ml"
-          "jellyfin"
-          "vaultwarden"
-          "forgejo"
-          "ncps"
-          "synapse"
-          "calibre"
-          "mautrix-telegram"
-          "ntfy"
-          "subs"
-          "pocket-id"
-        ];
+        # Admit every enabled workload in the cluster that declares an
+        # internet-proxy egress (http.internet or a manual route), matching
+        # the previous hand-written list. The caller declaration is the grant;
+        # destination ACLs and CONNECT ports still apply. Standalone
+        # evaluations without realm.systems collect from this node only.
+        allowedIDs = lib.unique (lib.concatMap callers nodeConfigs);
         extraConnectPolicies.synapse-federation = {
           identities = [ "${config.realm.servicePrefix}synapse" ];
           ports = [ 8448 ];

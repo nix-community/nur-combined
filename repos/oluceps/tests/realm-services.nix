@@ -254,6 +254,8 @@ pkgs.testers.runNixOSTest {
 
       realm = {
         enable = true;
+        # Stub receivers and imposter callers exercise runtime rejection.
+        authorization.rejectDeniedConnections = false;
         identityCatalog = {
           machine = config.realm.localIdentities;
           fixture = {
@@ -282,10 +284,12 @@ pkgs.testers.runNixOSTest {
             isolation.privateNetwork = false;
             ingress.https = {
               port = 19443;
-              target = "127.0.0.1:18443";
-              hostLoopback = true;
+              backend = {
+                kind = "host-tcp";
+                port = 18443;
+              };
               service = "https-gateway";
-              allowedIDs = [
+              allow.identities = [
                 "spiffe://nyaw.xyz/service/forgejo"
                 "spiffe://nyaw.xyz/service/ncps"
                 "spiffe://nyaw.xyz/service/vaultwarden"

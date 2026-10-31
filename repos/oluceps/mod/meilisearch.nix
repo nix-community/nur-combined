@@ -20,7 +20,8 @@
             port = 7700;
           };
           service = "meilisearch";
-          allow.identities = config.realm.caddy.allowedIDs.meilisearch ++ [
+          allow.groups = [ "public-caddy" ];
+          allow.identities = [
             "spiffe://nyaw.xyz/service/misskey"
           ];
         };

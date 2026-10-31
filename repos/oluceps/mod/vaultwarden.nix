@@ -19,7 +19,7 @@
             port = 8003;
           };
           service = "vaultwarden";
-          allow.identities = config.realm.caddy.allowedIDs.vaultwarden;
+          allow.groups = [ "public-caddy" ];
         };
         egress = {
           smtp = {

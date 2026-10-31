@@ -26,7 +26,7 @@
             path = "/run/calibre-web/http.sock";
           };
           service = "calibre";
-          allow.identities = config.realm.caddy.allowedIDs.calibre;
+          allow.groups = [ "public-caddy" ];
         };
         http.internet = true;
       };

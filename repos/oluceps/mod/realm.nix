@@ -2,6 +2,11 @@
 {
   flake.modules.nixos.realm =
     { config, lib, ... }:
+    let
+      hostName = config.networking.hostName;
+      node = config.data.node.${hostName};
+      systems = config.realm.systems;
+    in
     {
       imports = [
         {
@@ -17,31 +22,21 @@
       realm = {
         observability.enable = true;
         enable = true;
-        address = config.data.node.${config.networking.hostName}.unique_addr_nomask;
-        identityCatalog = lib.mapAttrs (_: system: system.config.realm.localIdentities) (
-          lib.filterAttrs (_: system: system.config.realm.enable or false) self.nixosConfigurations
-        );
+        # Every Realm node, computed once for all cluster-wide aggregations.
+        systems = lib.filterAttrs (_: system: system.config.realm.enable or false) self.nixosConfigurations;
+        address = node.unique_addr_nomask;
+        identityCatalog = lib.mapAttrs (_: system: system.config.realm.localIdentities) systems;
         spire.serverAddress = "eihort.nyaw.xyz";
         spire.metrics = {
-          enable =
-            (config.data.node.${config.networking.hostName} ? id)
-            && !(builtins.elem config.networking.hostName [
-              "uubboo"
-              "kaambl"
-            ]);
-          nodes = lib.mkIf (config.networking.hostName == "eihort") (
+          enable = (node ? id) && (node.spire_metrics or true);
+          nodes = lib.mkIf (hostName == "eihort") (
             builtins.attrNames (
-              lib.filterAttrs (
-                _: system:
-                (system.config.realm.enable or false) && (system.config.realm.spire.metrics.enable or false)
-              ) self.nixosConfigurations
+              lib.filterAttrs (_: system: system.config.realm.spire.metrics.enable or false) systems
             )
           );
           independent = {
-            enable = config.realm.spire.metrics.enable && (config.data.node.${config.networking.hostName} ? id);
-            address =
-              lib.optionalString (config.data.node.${config.networking.hostName} ? id)
-                "10.9.8.${toString (config.data.node.${config.networking.hostName}.id + 1)}";
+            enable = config.realm.spire.metrics.enable && (node ? id);
+            address = lib.optionalString (node ? id) "10.9.8.${toString (node.id + 1)}";
             observers = [
               "10.9.8.1/32"
               "10.9.8.3/32"
@@ -50,23 +45,23 @@
         };
         spire.httpAttestation = {
           trustHttpTransport = true;
-          fqdn = "${config.networking.hostName}.nyaw.xyz";
+          fqdn = "${hostName}.nyaw.xyz";
           # Pin the dedicated long-lived intermediate; short-lived signing CAs
           # continue to rotate without changing Agent bootstrap trust.
           trustBundle.path = ../pki/realm-spire/upstream-ca.pem;
           agent.trustBundlePath = "/var/lib/realm-spire/trust-bundle.pem";
           responder = {
             ipv4Address = null;
-            ipv6Address = config.data.node.${config.networking.hostName}.unique_addr_nomask;
+            ipv6Address = node.unique_addr_nomask;
           };
-          server.nodes = lib.mkIf (config.networking.hostName == "eihort") (
+          server.nodes = lib.mkIf (hostName == "eihort") (
             lib.mapAttrs (host: _: {
               fqdn = "${host}.nyaw.xyz";
               addresses = [ config.data.node.${host}.unique_addr_nomask ];
-            }) (lib.filterAttrs (_: system: system.config.realm.enable or false) self.nixosConfigurations)
+            }) systems
           );
         };
-        spire.server = lib.mkIf (config.networking.hostName == "eihort") {
+        spire.server = lib.mkIf (hostName == "eihort") {
           enable = true;
           registrations = lib.mapAttrs (
             host: system:
@@ -78,7 +73,7 @@
                 parentID = "spiffe://${config.realm.trustDomain}/agent/${host}";
               }
             ) system.config.realm.spire.registrations
-          ) (lib.filterAttrs (_: system: system.config.realm.enable or false) self.nixosConfigurations);
+          ) systems;
         };
       };
     };

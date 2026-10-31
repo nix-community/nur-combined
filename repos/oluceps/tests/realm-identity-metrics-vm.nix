@@ -66,10 +66,12 @@ pkgs.testers.runNixOSTest {
           };
           receiver.ingress.http = {
             port = 19429;
-            target = "127.0.0.1:3030";
-            privateLoopback = true;
+            backend = {
+              kind = "private-tcp";
+              port = 3030;
+            };
             service = "receiver";
-            allowedIDs = [ "spiffe://nyaw.xyz/service/sender" ];
+            allow.identities = [ "spiffe://nyaw.xyz/service/sender" ];
           };
         };
       };

@@ -34,10 +34,12 @@ let
               receiver = {
                 ingress.http = {
                   port = 19429;
-                  target = "127.0.0.1:3030";
-                  privateLoopback = true;
+                  backend = {
+                    kind = "private-tcp";
+                    port = 3030;
+                  };
                   service = "receiver";
-                  allowedIDs = [ "spiffe://nyaw.xyz/service/sender" ];
+                  allow.identities = [ "spiffe://nyaw.xyz/service/sender" ];
                 };
               };
             };
@@ -85,7 +87,7 @@ let
     }
   ];
   missing = evaluate [ { realm.workloads.sender.egress.receiver.service = lib.mkForce "missing"; } ];
-  bad = evaluate [ { realm.workloads.receiver.ingress.http.allowedIDs = lib.mkForce [ ]; } ];
+  bad = evaluate [ { realm.workloads.receiver.ingress.http.allow.identities = lib.mkForce [ ]; } ];
   realmAssertions =
     c: builtins.filter (a: !a.assertion && lib.hasPrefix "realm" a.message) c.assertions;
 in

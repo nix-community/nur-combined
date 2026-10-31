@@ -32,6 +32,8 @@ ygg_pubkey = "6368e736160c39e887509a1fba75e16f357ee92910a44edb77e135bbc87889c5"
 # identifiers = [{ name = "kaambl.local", type = "mdns" }]
 mac = "38:d5:7a:e2:19:7b"
 dn42 = false
+# Not scraped for SPIRE identity metrics.
+spire_metrics = false
 
 [node.eihort]
 # nas
@@ -95,6 +97,8 @@ wg_key = "ruJyKXSXmXg1zxFmFp/i9RYzZf6iwKN1ImcV1BdgaS4="
 ygg_pubkey = "2557a79ba3bf20908e9bc69f1502aeb36c0acc9890c022a0a09cfac5f16cc78b"
 mac = "c4:09:38:f2:3e:cb"
 dn42 = false
+# Not scraped for SPIRE identity metrics.
+spire_metrics = false
 
 [node.azasos]
 id = 6

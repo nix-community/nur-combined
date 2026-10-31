@@ -9,7 +9,7 @@
           port = 3999;
         };
         service = "rustypaste";
-        allow.identities = config.realm.caddy.allowedIDs.rustypaste;
+        allow.groups = [ "relay-caddy" ];
       };
       services.rustypaste = {
         enable = true;

@@ -82,6 +82,11 @@ let
 in
 {
   options.realm = {
+    systems = mkOption {
+      type = types.lazyAttrsOf types.raw;
+      default = { };
+      description = "Evaluated NixOS systems of every Realm node, for cluster-wide aggregation.";
+    };
     localIdentities = mkOption {
       type = types.attrsOf types.str;
       readOnly = true;
@@ -99,6 +104,11 @@ in
       type = types.attrsOf (types.listOf types.str);
       default = { };
       description = "Named groups of explicit SPIFFE identities.";
+    };
+    authorization.rejectDeniedConnections = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Fail evaluation when a declared egress targets a receiver whose policy excludes the caller. Tests exercising runtime rejection disable it.";
     };
     authorization.matrix = mkOption {
       type = types.listOf types.attrs;
@@ -208,40 +218,47 @@ in
     };
   };
   config = mkIf cfg.enable {
-    assertions = lib.concatLists (
-      lib.mapAttrsToList (
-        name: w:
-        lib.concatLists (
-          lib.mapAttrsToList (route: i: [
-            {
-              assertion =
-                i.backend == null
-                || (
-                  (
-                    if i.backend.kind == "unix" then
-                      i.backend.path != null && lib.hasPrefix "/" i.backend.path && i.backend.port == null
-                    else if i.backend.kind == "native" then
-                      i.backend.path == null && i.backend.port == null && i.backend.peerUser == null
-                    else
-                      i.backend.path == null && i.backend.port != null && i.backend.peerUser == null
-                  )
-                  && (i.backend.kind != "host-tcp" || i.backend.address == "127.0.0.1")
-                );
-              message = "realm.workloads.${name}.ingress.${route}.backend: declare the fields required by its kind.";
-            }
-            {
-              assertion = lib.all (ref: builtins.length (identitiesFor ref) == 1) i.allow.workloads;
-              message = "realm.workloads.${name}.ingress.${route}.allow: workload references must resolve to one identity. Qualify ambiguous names as node/workload.";
-            }
-            {
-              assertion =
-                lib.all (group: cfg.authorization.groups ? ${group}) i.allow.groups
-                && lib.all (id: lib.hasPrefix "spiffe://" id) i.allowedIDs;
-              message = "realm.workloads.${name}.ingress.${route}.allow: groups must exist and identities must be SPIFFE URIs.";
-            }
-          ]) w.ingress
-        )
-      ) active
-    );
+    # A declared egress the receiver does not admit can only fail at handshake;
+    # reject it during evaluation instead of generating a dead proxy.
+    assertions =
+      map (c: {
+        assertion = !cfg.authorization.rejectDeniedConnections || c.allowed != false;
+        message = "realm.workloads.${c.workload}.egress.${c.route}: receiver ${c.service} on ${c.node} does not admit ${c.callerID}.";
+      }) cfg.authorization.connections
+      ++ lib.concatLists (
+        lib.mapAttrsToList (
+          name: w:
+          lib.concatLists (
+            lib.mapAttrsToList (route: i: [
+              {
+                assertion =
+                  i.backend == null
+                  || (
+                    (
+                      if i.backend.kind == "unix" then
+                        i.backend.path != null && lib.hasPrefix "/" i.backend.path && i.backend.port == null
+                      else if i.backend.kind == "native" then
+                        i.backend.path == null && i.backend.port == null && i.backend.peerUser == null
+                      else
+                        i.backend.path == null && i.backend.port != null && i.backend.peerUser == null
+                    )
+                    && (i.backend.kind != "host-tcp" || i.backend.address == "127.0.0.1")
+                  );
+                message = "realm.workloads.${name}.ingress.${route}.backend: declare the fields required by its kind.";
+              }
+              {
+                assertion = lib.all (ref: builtins.length (identitiesFor ref) == 1) i.allow.workloads;
+                message = "realm.workloads.${name}.ingress.${route}.allow: workload references must resolve to one identity. Qualify ambiguous names as node/workload.";
+              }
+              {
+                assertion =
+                  lib.all (group: cfg.authorization.groups ? ${group}) i.allow.groups
+                  && lib.all (id: lib.hasPrefix "spiffe://" id) i.allowedIDs;
+                message = "realm.workloads.${name}.ingress.${route}.allow: groups must exist and identities must be SPIFFE URIs.";
+              }
+            ]) w.ingress
+          )
+        ) active
+      );
   };
 }

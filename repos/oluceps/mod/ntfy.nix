@@ -16,7 +16,7 @@
               path = "/run/ntfy-sh/http.sock";
             };
             service = "ntfy";
-            allow.identities = config.realm.caddy.allowedIDs.ntfy;
+            allow.groups = [ "caddy-azasos" ];
           };
           metrics = {
             port = 19099;

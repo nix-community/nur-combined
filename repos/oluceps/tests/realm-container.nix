@@ -188,7 +188,7 @@ let
         profiles.realm.workloads.redis-misskey.ingress.redis.allowedIDs
       ];
       expected = [
-        profiles.realm.caddy.allowedIDs.misskey
+        profiles.realm.authorization.groups.public-caddy
         [ "spiffe://nyaw.xyz/service/misskey" ]
       ];
     };
@@ -397,6 +397,8 @@ runTest {
     ];
     realm = {
       enable = true;
+      # Stub receivers and imposter callers exercise runtime rejection.
+      authorization.rejectDeniedConnections = false;
       serviceDiscovery = {
         enable = true;
         address = "::1";

@@ -65,7 +65,8 @@
                 port = 8008;
               };
               service = "synapse";
-              allow.identities = config.realm.caddy.allowedIDs.synapse ++ [
+              allow.groups = [ "public-caddy" ];
+              allow.identities = [
                 "spiffe://nyaw.xyz/service/mautrix-telegram"
               ];
             };

@@ -14,7 +14,7 @@
             port = 8096;
           };
           service = "jellyfin";
-          allow.identities = config.realm.caddy.allowedIDs.jellyfin;
+          allow.groups = [ "entry-caddy" ];
         };
         http.internet = true;
       };

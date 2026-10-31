@@ -138,6 +138,12 @@ pkgs.testers.runNixOSTest {
 
       realm = {
         enable = true;
+        # Stub receivers and imposter callers exercise runtime rejection.
+        authorization.rejectDeniedConnections = false;
+        # The imposter declares an Internet egress but must stay unauthorized.
+        internet.allowedIDs = lib.mkForce [
+          "spiffe://nyaw.xyz/service/immich-ml"
+        ];
         identityCatalog = {
           machine = config.realm.localIdentities;
           fixture.artex = "spiffe://nyaw.xyz/service/artex";

@@ -204,7 +204,7 @@ in
         backend.kind = "native";
         port = cfg.port;
         service = "internet-proxy";
-        allowedIDs = cfg.allowedIDs;
+        allow.identities = cfg.allowedIDs;
       };
     };
   };

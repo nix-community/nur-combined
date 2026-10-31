@@ -44,11 +44,9 @@
               port = 8333;
             };
             service = "seaweedfs-s3";
+            allow.groups = [ "public-caddy" ];
             allow.identities = [
               "spiffe://nyaw.xyz/service/loki"
-            ]
-            ++ config.realm.caddy.allowedIDs.seaweedfs-s3
-            ++ [
               "spiffe://nyaw.xyz/service/synapse"
               "spiffe://nyaw.xyz/service/synapse-s3-upload"
             ];
@@ -60,7 +58,7 @@
               port = 9333;
             };
             service = "seaweedfs-master";
-            allow.identities = config.realm.caddy.allowedIDs.seaweedfs-master;
+            allow.groups = [ "entry-caddy" ];
           };
           metrics = {
             port = 19768;

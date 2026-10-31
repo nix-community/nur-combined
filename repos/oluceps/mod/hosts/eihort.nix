@@ -29,7 +29,7 @@
               path = "/run/pocket-id/http.sock";
             };
             service = "pocket-id";
-            allow.identities = config.realm.caddy.allowedIDs.pocket-id;
+            allow.groups = [ "entry-caddy" ];
           };
           metrics = {
             port = 19464;

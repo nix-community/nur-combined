@@ -159,6 +159,13 @@ pkgs.testers.runNixOSTest {
 
       realm = {
         enable = true;
+        # Stub receivers and imposter callers exercise runtime rejection.
+        authorization.rejectDeniedConnections = false;
+        # Pin the gateway allowlist; the imposter's Internet egress stays unauthorized.
+        internet.allowedIDs = pkgs.lib.mkForce [
+          "spiffe://nyaw.xyz/service/sender"
+          "spiffe://nyaw.xyz/service/synapse"
+        ];
         serviceDiscovery = {
           enable = true;
           address = "::1";
@@ -194,10 +201,6 @@ pkgs.testers.runNixOSTest {
             verifyID = "spiffe://nyaw.xyz/service/observability-machine";
             localPort = 13191;
           };
-          internet.ingress.http.allowedIDs = pkgs.lib.mkForce [
-            "spiffe://nyaw.xyz/service/sender"
-            "spiffe://nyaw.xyz/service/synapse"
-          ];
           sender.egress = {
             internet = {
               service = "internet-proxy";
@@ -221,10 +224,13 @@ pkgs.testers.runNixOSTest {
             isolation.runtimePaths = [ "/run/postgresql" ];
             ingress.sender = {
               port = 19432;
-              target = "unix:/run/postgresql/.s.PGSQL.5432";
+              backend = {
+                kind = "unix";
+                path = "/run/postgresql/.s.PGSQL.5432";
+                peerUser = "realm-pg-sender";
+              };
               service = "postgresql-sender";
-              backendUser = "realm-pg-sender";
-              allowedIDs = [ "spiffe://nyaw.xyz/service/sender" ];
+              allow.identities = [ "spiffe://nyaw.xyz/service/sender" ];
             };
           };
           imposter.egress.receiver = {
@@ -256,10 +262,12 @@ pkgs.testers.runNixOSTest {
           };
           receiver.ingress.http = {
             port = 19429;
-            target = "127.0.0.1:3030";
-            privateLoopback = true;
+            backend = {
+              kind = "private-tcp";
+              port = 3030;
+            };
             service = "receiver";
-            allowedIDs = [
+            allow.identities = [
               "spiffe://nyaw.xyz/service/sender"
               "spiffe://nyaw.xyz/service/wrong-server"
             ];

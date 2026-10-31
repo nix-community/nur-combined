@@ -445,7 +445,7 @@ in
         backend.kind = "native";
         port = cfg.port;
         service = "observability-${hostName}";
-        allowedIDs = cfg.allowedIDs;
+        allow.identities = cfg.allowedIDs;
       };
     };
     # Business listeners export their identity and address through the same catalog.
