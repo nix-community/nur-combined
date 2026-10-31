@@ -23,7 +23,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "sable-next-unwrapped";
-  version = "2.2.2";
+  version = "2.2.3";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -33,12 +33,12 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "SableClient";
     repo = "sable-next";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-vMzTblJ+JvW18fwW6npOPsGJOxroUDP2GSAXUklEbo8=";
+    hash = "sha256-2SQ1dHegS9xRtdGCFF6dCn0WHn2FkmTmA0XWcGj0NZc=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) src;
-    hash = "sha256-j5Lvvbf8d2Mo+E4gU/cYCDZUc6zDUzMjjPpkvNHSaXw=";
+    hash = "sha256-+1RXksliz5ZHzICjGwdMZF6+gkPuCw0VX0NCpBLKabQ=";
   };
 
   postPatch = lib.optionalString withDeepfilternet ''
@@ -51,10 +51,8 @@ stdenv.mkDerivation (finalAttrs: {
     nodejs
     wasm-bindgen-cli
 
-    # because the build script of sable-next probes the rustc version for some reason
     rustPlatform.rust.rustc
     rustPlatform.rust.cargo
-
     rustPlatform.cargoSetupHook
     rustPlatform.bindgenHook
     llvmPackages.bintools
@@ -66,7 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
     fetcherVersion = 5;
-    hash = "sha256-zHsBR55ZvMBkmQF8VhTXutbmaQX/6A4z4CMYoMb+tl8=";
+    hash = "sha256-hSO5ABKNXwYSG6PQG2WvN/9xPHWJZyrXawe3PdJEyJM=";
   };
 
   env = {
@@ -92,7 +90,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script { extraArgs = [ "--subpackage=deepfilternet" ]; };
     inherit deepfilternet;
   };
 
