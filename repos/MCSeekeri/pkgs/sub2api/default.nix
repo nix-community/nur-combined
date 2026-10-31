@@ -11,12 +11,12 @@
   stdenvNoCC,
 }:
 let
-  version = "0.2.18";
+  version = "0.2.19";
   src = fetchFromGitHub {
     owner = "Wei-Shaw";
     repo = "sub2api";
     rev = "v${version}";
-    hash = "sha256-ILxtbR7INnR7XWd7Z7osZVjGpwx9cEzcFDMJl7oFQII=";
+    hash = "sha256-D94n8128IbzSPLgYW+6usEag/iK+/kN+sxCADDLbWHc=";
   };
 
   pnpmWorkspaceOverrides = ''
@@ -78,7 +78,7 @@ buildGo127Module {
   inherit version src;
 
   modRoot = "backend";
-  vendorHash = "sha256-w/KCiTofYSZGtDo+iDkA2YST1HWsPAu+v2ZGf/1OapM=";
+  vendorHash = "sha256-eniz63STYb8a928A3WqGubnWGOQN3airPgsLsEHYlQo=";
   postPatch = ''
     rm -rf backend/internal/web/dist
     mkdir -p backend/internal/web/dist
