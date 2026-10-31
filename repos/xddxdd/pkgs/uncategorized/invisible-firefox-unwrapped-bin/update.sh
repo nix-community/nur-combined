@@ -31,4 +31,4 @@ sed -i "s/^  version = \"[0-9.]*\";$/  version = \"$NEW_VERSION\";/" default.nix
 sed -i "s|^    x86_64-linux = \"sha256-[^\"]*\";|    x86_64-linux = \"$H_X86\";|" default.nix
 sed -i "s|^    aarch64-linux = \"sha256-[^\"]*\";|    aarch64-linux = \"$H_ARM\";|" default.nix
 
-nix build .#invisible-firefox-bin.unwrapped.src
+nix build .#invisible-firefox-unwrapped-bin.src

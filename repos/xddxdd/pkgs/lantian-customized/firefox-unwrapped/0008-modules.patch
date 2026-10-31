@@ -1,8 +1,8 @@
 diff --git a/modules/libpref/Preferences.cpp b/modules/libpref/Preferences.cpp
-index 6e2b95ff7f..0b3bc14a6f 100644
+index deb6f792..e7f1b123 100644
 --- a/modules/libpref/Preferences.cpp
 +++ b/modules/libpref/Preferences.cpp
-@@ -6458,6 +6458,7 @@ static const PrefListEntry sOverrideRestrictionsList[]{
+@@ -7302,6 +7302,7 @@ static const PrefListEntry sOverrideRestrictionsList[]{
  // StaticPrefList) and would normally by blocklisted but we allow them through
  // anyway, so this override list acts as an allowlist
  static const PrefListEntry sDynamicPrefOverrideList[]{
@@ -11,10 +11,44 @@ index 6e2b95ff7f..0b3bc14a6f 100644
      PREF_LIST_ENTRY("app.update.channel"),
      PREF_LIST_ENTRY("apz.subtest"),
 diff --git a/modules/libpref/init/StaticPrefList.yaml b/modules/libpref/init/StaticPrefList.yaml
-index 3d33f9916a..5075d50766 100644
+index 80be46d8..45f25176 100644
 --- a/modules/libpref/init/StaticPrefList.yaml
 +++ b/modules/libpref/init/StaticPrefList.yaml
-@@ -20873,6 +20873,193 @@
+@@ -10425,6 +10425,33 @@
+ #endif
+   mirror: always
+ 
++#---------------------------------------------------------------------------
++# Prefs starting with "juggler."
++#---------------------------------------------------------------------------
++
++# STEALTHFOX (firefox-50): the time zone and the language the SESSION
++# declares, written by invisible_core: an IANA zone, and an Accept-Language
++# list ("it-IT, it, en-US, en"). The only C++ reader is
++# intl/locale/StealthSessionPrefs.h.
++#
++# Static, with a default, so that they reach content processes: a string pref
++# with no default is kept in the parent (ShouldSanitizePreference), and the
++# language once reached no worker for that reason (71-bug-archive.md [B165]).
++# DataMutexString with a mirror, so that any thread reads them: a worker's
++# realm options are built on the main thread, but the fallback language of
++# text without `lang` may first be asked by an OffscreenCanvas on a worker
++# (nsLanguageAtomService::GetLocaleLanguage). They lived in all.js until
++# firefox-50, readable on the main thread only.
++- name: juggler.locale.override
++  type: DataMutexString
++  value: ""
++  mirror: always
++
++- name: juggler.timezone.override
++  type: DataMutexString
++  value: ""
++  mirror: always
++
+ #---------------------------------------------------------------------------
+ # Prefs starting with "layers."
+ #---------------------------------------------------------------------------
+@@ -21651,6 +21678,228 @@
    value: 20
    mirror: always
  
@@ -36,6 +70,41 @@ index 3d33f9916a..5075d50766 100644
 +- name: zoom.stealth.audio.sample_rate
 +  type: int32_t
 +  value: -1
++  mirror: always
++
++# Stealthfox [B300]: when above 0, the device enumeration is DECLARED, not
++# asked of the host. The speakers are not enumerated (with fake cameras and
++# microphones they were the only thing asked of the machine, through its audio
++# stack: retail Windows takes ~250 ms on its first enumeration, 251-255 ms
++# with fake devices too, and a host without audio a few ms), and the first
++# enumeration answers after this many milliseconds, which the client draws
++# from the session seed. 0 is stock Firefox.
++- name: zoom.stealth.media.enumeration_ms
++  type: uint32_t
++  value: 0
++  mirror: always
++
++# B149, rule 7-ter. Whether a toplevel X11 window that another window FULLY
++# covers is treated as occluded, which makes its pages `hidden` and inactive
++# (rAF and timers throttled, enumerateDevices waiting). Windows has the same
++# behaviour behind widget.windows.window_occlusion_tracking.enabled, which
++# invisible_core turns off; this is the Linux side of the same declaration,
++# emitted by the core from the same value. `true` keeps upstream behaviour for
++# a build launched without invisible_core.
++- name: zoom.stealth.widget.occlusion_tracking.enabled
++  type: RelaxedAtomicBool
++  value: true
++  mirror: always
++
++# B149. When true, a window does not give up its activation because the SYSTEM
++# took it (AppWindow::WindowDeactivated): another application or another
++# session's window on the same display. It still gives it up to this session's
++# own windows, whose activation lowers it first (AppWindow::WindowActivated).
++# Declared by invisible_core; `false` keeps upstream behaviour for a build
++# launched without it.
++- name: zoom.stealth.focus.ignore_os_deactivation
++  type: RelaxedAtomicBool
++  value: false
 +  mirror: always
 +
 +# Diagnostic gate (2026-06-22): when false, disable the per-session OfflineAudioContext
@@ -209,10 +278,10 @@ index 3d33f9916a..5075d50766 100644
  # End of prefs
  #---------------------------------------------------------------------------
 diff --git a/modules/libpref/init/all.js b/modules/libpref/init/all.js
-index 7f57c5510c..eeb841a8cf 100644
+index 26753001..5183f9ba 100644
 --- a/modules/libpref/init/all.js
 +++ b/modules/libpref/init/all.js
-@@ -1437,6 +1437,8 @@ pref("network.proxy.ssl_port",              0);
+@@ -1427,6 +1427,8 @@ pref("network.proxy.ssl_port",              0);
  pref("network.proxy.socks",                 "");
  pref("network.proxy.socks_port",            0);
  pref("network.proxy.socks_version",         5);
@@ -221,7 +290,19 @@ index 7f57c5510c..eeb841a8cf 100644
  pref("network.proxy.proxy_over_tls",        true);
  pref("network.proxy.no_proxies_on",         "");
  pref("network.proxy.failover_timeout",      1800); // 30 minutes
-@@ -3729,7 +3731,7 @@ pref("toolkit.legacyUserProfileCustomizations.stylesheets", false);
+@@ -1472,6 +1474,11 @@ pref("intl.accept_languages",               "und");
+ // OS locale set instead of the app locale set.
+ pref("intl.regional_prefs.use_os_locales",  false);
+ 
++// `juggler.locale.override` and `juggler.timezone.override`, the session's
++// language and zone, are static prefs since firefox-50 (StaticPrefList.yaml,
++// "juggler."): they need a default to reach content processes at all, and a
++// reader on every thread.
++
+ pref("font.cjk_pref_fallback_order",        "zh-cn,zh-hk,zh-tw,ja,ko");
+ 
+ // This pref controls pseudolocales for testing localization.
+@@ -3745,7 +3752,7 @@ pref("toolkit.legacyUserProfileCustomizations.stylesheets", false);
    pref("datareporting.policy.minimumPolicyVersion", 1);
    pref("datareporting.policy.minimumPolicyVersion.channel-beta", 2);
    pref("datareporting.policy.firstRunURL", "https://www.mozilla.org/privacy/firefox/");
@@ -230,3 +311,15 @@ index 7f57c5510c..eeb841a8cf 100644
  #endif
  
  #ifdef MOZ_SERVICES_HEALTHREPORT
+diff --git a/modules/libpref/moz.build b/modules/libpref/moz.build
+index 2c8b218c..b9e8f5a6 100644
+--- a/modules/libpref/moz.build
++++ b/modules/libpref/moz.build
+@@ -54,6 +54,7 @@ pref_groups = [
+     "image",
+     "intl",
+     "javascript",
++    "juggler",
+     "layers",
+     "layout",
+     "logging",

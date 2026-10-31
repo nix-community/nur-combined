@@ -13,6 +13,7 @@ let
       ./0002-browser.patch
       ./0003-docshell.patch
       ./0004-dom.patch
+      ./0005-intl.patch
       ./0006-js.patch
       ./0007-layout.patch
       ./0008-modules.patch
@@ -23,6 +24,10 @@ let
       ./0013-widget.patch
       ./0014-xpcom.patch
       ./0015-devtools.patch
+      ./0016-remote.patch
+      ./0017-third-party.patch
+      ./0018-xpfe.patch
+      ./0019-security.patch
     ];
 
     meta = {

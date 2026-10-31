@@ -1,6 +1,8 @@
---- a/toolkit/components/enterprisepolicies/EnterprisePoliciesParent.sys.mjs	2026-09-01 13:06:26.006225792 -0700
-+++ b/toolkit/components/enterprisepolicies/EnterprisePoliciesParent.sys.mjs	2026-09-01 13:06:50.969761456 -0700
-@@ -757,6 +757,19 @@
+diff --git a/toolkit/components/enterprisepolicies/EnterprisePoliciesParent.sys.mjs b/toolkit/components/enterprisepolicies/EnterprisePoliciesParent.sys.mjs
+index 2d3be893..d6c8378d 100644
+--- a/toolkit/components/enterprisepolicies/EnterprisePoliciesParent.sys.mjs
++++ b/toolkit/components/enterprisepolicies/EnterprisePoliciesParent.sys.mjs
+@@ -859,6 +859,19 @@ class JSONPoliciesProvider extends PoliciesProvider {
    }
  }
  
@@ -20,8 +22,125 @@
  class WindowsGPOPoliciesProvider extends PoliciesProvider {
    constructor() {
      super();
---- a/toolkit/xre/nsWindowsWMain.cpp	2026-09-01 13:06:26.082354711 -0700
-+++ b/toolkit/xre/nsWindowsWMain.cpp	2026-09-01 13:06:42.053959269 -0700
+diff --git a/toolkit/components/windowwatcher/JugglerWindowSize.cpp b/toolkit/components/windowwatcher/JugglerWindowSize.cpp
+new file mode 100644
+index 00000000..7321de10
+--- /dev/null
++++ b/toolkit/components/windowwatcher/JugglerWindowSize.cpp
+@@ -0,0 +1,25 @@
++/* This Source Code Form is subject to the terms of the Mozilla Public
++ * License, v. 2.0. If a copy of the MPL was not distributed with this
++ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
++
++#include "JugglerWindowSize.h"
++
++#include "nsIWebBrowserChrome.h"
++#include "nsWindowWatcher.h"
++
++namespace mozilla {
++
++uint32_t JugglerPopupChromeFlags(const dom::WindowFeatures& aFeatures) {
++  // Juggler reads this flag to tell a popup that asked for a size from one
++  // that did not: without it every popup got the browser context's default
++  // viewport, so window.open(url, '', 'width=500,height=400') reported the
++  // tab's 1920x947 where Firefox reports 499x400. HaveSpecifiedSize is the
++  // test nsWindowWatcher already uses to decide whether the window gets sized.
++  if (nsWindowWatcher::HaveSpecifiedSize(aFeatures)) {
++    return nsIWebBrowserChrome::CHROME_MINIMAL_POPUP |
++           kJugglerWindowExplicitSize;
++  }
++  return nsIWebBrowserChrome::CHROME_MINIMAL_POPUP;
++}
++
++}  // namespace mozilla
+diff --git a/toolkit/components/windowwatcher/JugglerWindowSize.h b/toolkit/components/windowwatcher/JugglerWindowSize.h
+new file mode 100644
+index 00000000..3ecf0953
+--- /dev/null
++++ b/toolkit/components/windowwatcher/JugglerWindowSize.h
+@@ -0,0 +1,33 @@
++/* This Source Code Form is subject to the terms of the Mozilla Public
++ * License, v. 2.0. If a copy of the MPL was not distributed with this
++ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
++
++#ifndef TOOLKIT_COMPONENTS_WINDOWWATCHER_JUGGLERWINDOWSIZE_H_
++#define TOOLKIT_COMPONENTS_WINDOWWATCHER_JUGGLERWINDOWSIZE_H_
++
++#include <stdint.h>
++
++#include "mozilla/dom/WindowFeatures.h"
++
++namespace mozilla {
++
++// Chrome flag set on a popup whose window.open features give a size. It is
++// ours, so it is not declared in nsIWebBrowserChrome.idl: Mozilla fills the
++// free bits there (159 took 1 << 25, where this flag used to be). Bit 1 is
++// one nsIWebBrowserChrome leaves free; juggler/TargetRegistry.js reads the
++// same value, and juggler/tests/explicit_size_flag_is_free.test.mjs checks
++// that both agree and that no CHROME_* flag uses the bit.
++// STEALTH-FLAG-SPACE(toolkit/components/browser/nsIWebBrowserChrome.idl, CHROME_)
++constexpr uint32_t kJugglerWindowExplicitSize = 1u << 1;
++
++/**
++ * The chrome flags of a popup that a page asked for (ShouldOpenPopup was true):
++ * CHROME_MINIMAL_POPUP, plus kJugglerWindowExplicitSize when the features
++ * give a size. Called by nsWindowWatcher::CalculateChromeFlagsForContent only
++ * on its popup branch.
++ */
++uint32_t JugglerPopupChromeFlags(const dom::WindowFeatures& aFeatures);
++
++}  // namespace mozilla
++
++#endif  // TOOLKIT_COMPONENTS_WINDOWWATCHER_JUGGLERWINDOWSIZE_H_
+diff --git a/toolkit/components/windowwatcher/moz.build b/toolkit/components/windowwatcher/moz.build
+index 4d1326db..4291fdc7 100644
+--- a/toolkit/components/windowwatcher/moz.build
++++ b/toolkit/components/windowwatcher/moz.build
+@@ -30,6 +30,7 @@ UNIFIED_SOURCES += [
+     "nsOpenWindowInfo.cpp",
+     "nsWindowWatcher.cpp",
+ ]
++UNIFIED_SOURCES += ["JugglerWindowSize.cpp"]
+ 
+ FINAL_LIBRARY = "xul"
+ # For nsJSUtils
+diff --git a/toolkit/components/windowwatcher/nsWindowWatcher.cpp b/toolkit/components/windowwatcher/nsWindowWatcher.cpp
+index a1044338..ebae376a 100644
+--- a/toolkit/components/windowwatcher/nsWindowWatcher.cpp
++++ b/toolkit/components/windowwatcher/nsWindowWatcher.cpp
+@@ -3,6 +3,7 @@
+  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+ 
+ #include "nsWindowWatcher.h"
++#include "JugglerWindowSize.h"
+ #include "nsAutoWindowStateHelper.h"
+ 
+ #include "nsCRT.h"
+@@ -1902,7 +1903,7 @@ uint32_t nsWindowWatcher::CalculateChromeFlagsForContent(
+     return nsIWebBrowserChrome::CHROME_DOCUMENT_PICTURE_IN_PICTURE_FLAGS;
+   }
+   *aIsPopupRequested = ShouldOpenPopup(aFeatures);
+-  return *aIsPopupRequested ? nsIWebBrowserChrome::CHROME_MINIMAL_POPUP
++  return *aIsPopupRequested ? JugglerPopupChromeFlags(aFeatures)
+                             : nsIWebBrowserChrome::CHROME_ALL;
+ }
+ 
+diff --git a/toolkit/toolkit.mozbuild b/toolkit/toolkit.mozbuild
+index c2ac333a..c2b16a4c 100644
+--- a/toolkit/toolkit.mozbuild
++++ b/toolkit/toolkit.mozbuild
+@@ -151,6 +151,7 @@ if CONFIG["MOZ_WIDGET_TOOLKIT"] == "gtk":
+ if CONFIG["ENABLE_WEBDRIVER"]:
+     DIRS += [
+         "/remote",
++        "/juggler",
+         "/testing/firefox-ui",
+         "/testing/marionette",
+         "/toolkit/components/telemetry/tests/marionette",
+diff --git a/toolkit/xre/nsWindowsWMain.cpp b/toolkit/xre/nsWindowsWMain.cpp
+index b7c376ea..81a843ed 100644
+--- a/toolkit/xre/nsWindowsWMain.cpp
++++ b/toolkit/xre/nsWindowsWMain.cpp
 @@ -14,9 +14,12 @@
  #endif
  
@@ -35,7 +154,7 @@
  
  #ifdef __MINGW32__
  
-@@ -114,6 +117,23 @@
+@@ -114,6 +117,23 @@ static void FreeAllocStrings(int argc, char** argv) {
  int wmain(int argc, WCHAR** argv) {
    SanitizeEnvironmentVariables();
    SetDllDirectoryW(L"");

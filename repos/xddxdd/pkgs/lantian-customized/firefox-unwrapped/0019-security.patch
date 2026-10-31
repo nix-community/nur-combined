@@ -1,0 +1,38 @@
+diff --git a/security/manager/ssl/nsCertOverrideService.cpp b/security/manager/ssl/nsCertOverrideService.cpp
+index 30ca5460..2dbfd8a0 100644
+--- a/security/manager/ssl/nsCertOverrideService.cpp
++++ b/security/manager/ssl/nsCertOverrideService.cpp
+@@ -24,6 +24,8 @@
+ #include "nsIOutputStream.h"
+ #ifdef ENABLE_WEBDRIVER
+ #  include "nsIRemoteAgent.h"
++// Juggler is built with the rest of the WebDriver tree (toolkit.mozbuild).
++#  include "nsIRemoteDebuggingPipe.h"
+ #endif
+ #include "SSLTokensCache.h"
+ #include "nsISafeOutputStream.h"
+@@ -617,6 +619,24 @@ void nsCertOverrideService::CountPermanentOverrideTelemetry(
+ 
+ static bool IsDebugger() {
+ #ifdef ENABLE_WEBDRIVER
++  // STEALTHFOX: Juggler is this build's automation agent, and an attached
++  // Juggler pipe is the same condition as the running Marionette or Remote
++  // Agent below. Without it Browser.setIgnoreHTTPSErrors failed with
++  // NS_ERROR_NOT_AVAILABLE on every call, so ignore_https_errors=True could
++  // not create a context at all. Upstream Playwright returns true here
++  // unconditionally; this keeps the stock refusal for any chrome code that
++  // runs without an automation client attached. Nothing here is visible to a
++  // page: it only decides whether the per-context switch may be flipped.
++  nsCOMPtr<nsIRemoteDebuggingPipe> jugglerPipe =
++      do_GetService("@mozilla.org/juggler/remotedebuggingpipe;1");
++  if (jugglerPipe) {
++    bool jugglerConnected = false;
++    jugglerPipe->GetConnected(&jugglerConnected);
++    if (jugglerConnected) {
++      return true;
++    }
++  }
++
+   nsCOMPtr<nsIMarionette> marionette = do_GetService(NS_MARIONETTE_CONTRACTID);
+   if (marionette) {
+     bool marionetteRunning = false;

@@ -1,8 +1,8 @@
 diff --git a/browser/app/profile/firefox.js b/browser/app/profile/firefox.js
-index d7f3045f1f..a677c6dc84 100644
+index 0f4b2915..838df50f 100644
 --- a/browser/app/profile/firefox.js
 +++ b/browser/app/profile/firefox.js
-@@ -1844,7 +1844,7 @@ pref("browser.newtab.preload", true);
+@@ -1954,7 +1954,7 @@ pref("browser.newtab.preload", true);
  // For further detail on the TOU prefs below, see the `preonboarding` feature in
  // FeatureManifest.yaml
  // Version of the TOU that the user last accepted
@@ -12,18 +12,18 @@ index d7f3045f1f..a677c6dc84 100644
  pref("termsofuse.acceptedDate", "0");
  // Stringified timestamp of when the user first accepted the TOU, only set if
 diff --git a/browser/app/winlauncher/LauncherProcessWin.cpp b/browser/app/winlauncher/LauncherProcessWin.cpp
-index 8337336dc8..326687d63e 100644
+index 3734e1d3..bea43635 100644
 --- a/browser/app/winlauncher/LauncherProcessWin.cpp
 +++ b/browser/app/winlauncher/LauncherProcessWin.cpp
-@@ -19,6 +19,7 @@
- #include "nsWindowsHelpers.h"
+@@ -21,6 +21,7 @@
+ #include "mozilla/mscom/ProcessRuntime.h"
  
  #include <windows.h>
 +#include <io.h>
  #include <processthreadsapi.h>
  #include <shlwapi.h>
- 
-@@ -493,6 +494,21 @@ Maybe<int> LauncherMain(int& argc, wchar_t* argv[]) {
+ #include <appmodel.h>
+@@ -580,6 +581,21 @@ Maybe<int> LauncherMain(int& argc, wchar_t* argv[]) {
  
    attrs.AddInheritableHandles(stdHandles);
  
@@ -45,16 +45,3 @@ index 8337336dc8..326687d63e 100644
    DWORD creationFlags = CREATE_SUSPENDED | CREATE_UNICODE_ENVIRONMENT;
  
    STARTUPINFOEXW siex;
-diff --git a/browser/installer/package-manifest.in b/browser/installer/package-manifest.in
-index 203811a0fb..7a37b60c7b 100644
---- a/browser/installer/package-manifest.in
-+++ b/browser/installer/package-manifest.in
-@@ -202,6 +202,8 @@
- #ifdef ENABLE_WEBDRIVER
- @RESPATH@/chrome/remote@JAREXT@
- @RESPATH@/chrome/remote.manifest
-+@RESPATH@/chrome/juggler@JAREXT@
-+@RESPATH@/chrome/juggler.manifest
- #endif
- 
- ; Modules

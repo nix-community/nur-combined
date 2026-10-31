@@ -1,6 +1,8 @@
---- a/js/src/debugger/Debugger.cpp	2026-09-01 13:03:17.090540983 -0700
-+++ b/js/src/debugger/Debugger.cpp	2026-09-01 13:05:25.970356609 -0700
-@@ -5099,16 +5099,42 @@
+diff --git a/js/src/debugger/Debugger.cpp b/js/src/debugger/Debugger.cpp
+index 73490492..0538c666 100644
+--- a/js/src/debugger/Debugger.cpp
++++ b/js/src/debugger/Debugger.cpp
+@@ -5093,16 +5093,42 @@ bool Debugger::addDebuggeeGlobal(JSContext* cx, Handle<GlobalObject*> global) {
      return false;
    }
  
@@ -30,8 +32,6 @@
 -  if (!globalDebuggers.append(Realm::DebuggerVectorEntry(this, debuggeeLink))) {
 -    ReportOutOfMemory(cx);
 -    return false;
--  }
--  auto globalDebuggersGuard = MakeScopeExit([&] { globalDebuggers.popBack(); });
 +  // (1) — skip the Realm debuggers_ registration for an invisible (stealth) attach.
 +  bool appendedGlobalDebugger = false;
 +  if (!isStealth) {
@@ -41,7 +41,8 @@
 +      return false;
 +    }
 +    appendedGlobalDebugger = true;
-+  }
+   }
+-  auto globalDebuggersGuard = MakeScopeExit([&] { globalDebuggers.popBack(); });
 +  auto globalDebuggersGuard = MakeScopeExit([&] {
 +    if (appendedGlobalDebugger) {
 +      global->getDebuggers(nogc).popBack();
@@ -50,7 +51,7 @@
  
    // (2)
    if (!debuggees.put(global)) {
-@@ -5130,25 +5156,33 @@
+@@ -5124,25 +5150,33 @@ bool Debugger::addDebuggeeGlobal(JSContext* cx, Handle<GlobalObject*> global) {
      }
    });
  
@@ -93,7 +94,7 @@
    }
  
    globalDebuggersGuard.release();
-@@ -5232,8 +5266,13 @@
+@@ -5226,8 +5260,13 @@ void Debugger::removeDebuggeeGlobal(JS::GCContext* gcx, GlobalObject* global,
    // the same zone. If after recomputing the debuggee zone set, this global's
    // zone is not in the set, then we must remove ourselves from the zone's
    // vector of observing debuggers.
@@ -109,9 +110,11 @@
  
    if (debugIter) {
      debugIter->remove();
---- a/js/src/debugger/Debugger.h	2026-09-01 13:03:17.090496505 -0700
-+++ b/js/src/debugger/Debugger.h	2026-09-01 13:04:57.993285365 -0700
-@@ -683,6 +683,11 @@
+diff --git a/js/src/debugger/Debugger.h b/js/src/debugger/Debugger.h
+index 50438c8f..814ec4d1 100644
+--- a/js/src/debugger/Debugger.h
++++ b/js/src/debugger/Debugger.h
+@@ -691,6 +691,11 @@ class Debugger : private mozilla::LinkedListElement<Debugger> {
    using AllocationsLog = js::TraceableFifo<AllocationsLogEntry>;
  
    AllocationsLog allocationsLog;
@@ -123,9 +126,11 @@
    bool trackingAllocationSites;
    double allocationSamplingProbability;
    size_t maxAllocationsLogLength;
---- a/js/src/debugger/Frame.cpp	2026-09-01 13:03:17.090338590 -0700
-+++ b/js/src/debugger/Frame.cpp	2026-09-01 13:04:57.993404575 -0700
-@@ -1052,13 +1052,15 @@
+diff --git a/js/src/debugger/Frame.cpp b/js/src/debugger/Frame.cpp
+index f02ae572..04bd8e4c 100644
+--- a/js/src/debugger/Frame.cpp
++++ b/js/src/debugger/Frame.cpp
+@@ -1053,13 +1053,15 @@ static bool EvaluateInEnv(
    AutoSetBypassCSPForDebugger setFlag(cx, evalOptions.bypassCSP());
  
    CompileOptions options(cx);
@@ -143,40 +148,34 @@
        /* Do not perform the Javascript filename validation security check for
         * javascript executions sent through the debugger. Besides making up
         * a filename for these codepaths, we must allow arbitrary JS execution
---- a/js/src/vm/DateTime.cpp	2026-09-01 13:03:17.083553020 -0700
-+++ b/js/src/vm/DateTime.cpp	2026-09-01 13:04:57.993500762 -0700
-@@ -817,6 +817,11 @@
-     // identifier rules, update the ICU default time zone to use this value.
-     if (IsOlsonCompatibleWindowsTimeZoneId(tz)) {
-       tzid = mozilla::Span(tz.data(), tz.length());
-+    } else if (tz.find('/') != std::string_view::npos) {
-+      // Stealth: also accept full IANA timezone IDs (e.g. "America/Chicago").
-+      // The original code only accepted Windows-compatible short forms.
-+      // IANA IDs always contain a '/' (e.g. "America/New_York", "Europe/Berlin").
-+      tzid = mozilla::Span(tz.data(), tz.length());
-     } else {
-       // If |tz| isn't a supported time zone identifier, use the default Windows
-       // time zone for ICU.
---- a/js/src/vm/SavedStacks.cpp	2026-09-01 13:03:17.083323872 -0700
-+++ b/js/src/vm/SavedStacks.cpp	2026-09-01 13:04:57.993594783 -0700
-@@ -1082,6 +1082,29 @@
+diff --git a/js/src/vm/SavedStacks.cpp b/js/src/vm/SavedStacks.cpp
+index db96f4fb..d807651e 100644
+--- a/js/src/vm/SavedStacks.cpp
++++ b/js/src/vm/SavedStacks.cpp
+@@ -1082,6 +1082,35 @@ JS_PUBLIC_API bool BuildStackString(JSContext* cx, JSPrincipals* principals,
                                              SavedFrameSelfHosted::Exclude,
                                              skippedNextAsync);
  
-+      // Stealth: skip chrome://juggler frames from stack traces visible to
-+      // web content. FingerprintJS Pro detects automation by checking
-+      // Error.stack for juggler/debugger-specific frame sources.
++      // Stealth: skip Juggler's frames from stack traces visible to web
++      // content. FingerprintJS Pro detects automation by checking Error.stack
++      // for juggler/debugger-specific frame sources. Juggler loads from
++      // resource://gre/modules/juggler/ (juggler/moz.build says why it is not
++      // a chrome package).
 +      {
++        static constexpr char kJuggler[] = "resource://gre/modules/juggler/";
++        static constexpr size_t kJugglerLength = sizeof(kJuggler) - 1;
 +        JSAtom* source = frame->getSource();
-+        if (source && source->length() >= 16) {
++        if (source && source->length() >= kJugglerLength) {
 +          JS::AutoCheckCannotGC nogc;
-+          bool skip = false;
++          bool skip = true;
 +          if (source->hasLatin1Chars()) {
 +            const JS::Latin1Char* chars = source->latin1Chars(nogc);
-+            skip = (memcmp(chars, "chrome://juggler", 16) == 0);
++            skip = memcmp(chars, kJuggler, kJugglerLength) == 0;
 +          } else {
 +            const char16_t* chars = source->twoByteChars(nogc);
-+            skip = (memcmp(chars, u"chrome://juggler", 16 * sizeof(char16_t)) == 0);
++            for (size_t i = 0; i < kJugglerLength && skip; i++) {
++              skip = chars[i] == char16_t(kJuggler[i]);
++            }
 +          }
 +          if (skip) {
 +            frame = nextFrame;
@@ -189,9 +188,84 @@
        switch (format) {
          case js::StackFormat::SpiderMonkey:
            if (!FormatSpiderMonkeyStackFrame(cx, sb, frame, indent,
---- a/js/xpconnect/src/Sandbox.cpp	2026-09-01 13:03:17.588765975 -0700
-+++ b/js/xpconnect/src/Sandbox.cpp	2026-09-01 13:04:57.993737059 -0700
-@@ -1375,8 +1375,15 @@
+diff --git a/js/xpconnect/src/Sandbox.cpp b/js/xpconnect/src/Sandbox.cpp
+index 34e0724f..6e87a293 100644
+--- a/js/xpconnect/src/Sandbox.cpp
++++ b/js/xpconnect/src/Sandbox.cpp
+@@ -6,6 +6,35 @@
+  * The Components.Sandbox object.
+  */
+ 
++#include "AccessCheck.h"
++#include "jsfriendapi.h"
++#include "js/Array.h"             // JS::GetArrayLength, JS::IsArrayObject
++#include "js/CallAndConstruct.h"  // JS::Call, JS::IsCallable
++#include "js/CharacterEncoding.h"
++#include "js/CompilationAndEvaluation.h"
++#include "js/Object.h"  // JS::GetClass, JS::GetCompartment, JS::GetReservedSlot
++#include "js/PropertyAndElement.h"  // JS_DefineFunction, JS_DefineFunctions, JS_DefineProperty, JS_GetElement, JS_GetProperty, JS_HasProperty, JS_SetProperty, JS_SetPropertyById
++#include "js/PropertyDescriptor.h"  // JS::PropertyDescriptor, JS_GetOwnPropertyDescriptorById, JS_GetPropertyDescriptorById
++#include "js/PropertySpec.h"
++#include "js/Proxy.h"
++#include "js/SourceText.h"
++#include "js/StructuredClone.h"
++#include "nsContentUtils.h"
++#include "nsGlobalWindowInner.h"
++#include "nsIException.h"  // for nsIStackFrame
++#include "nsIScriptContext.h"
++#include "nsIScriptObjectPrincipal.h"
++#include "nsIURI.h"
++#include "nsJSUtils.h"
++#include "nsNetUtil.h"
++#include "ExpandedPrincipal.h"
++#include "WrapperFactory.h"
++#include "xpcprivate.h"
++#include "xpc_make_class.h"
++#include "XPCWrapper.h"
++#include "XrayWrapper.h"
++#include "Crypto.h"
++#include "mozilla/Result.h"
+ #include "mozilla/dom/AbortControllerBinding.h"
+ #include "mozilla/dom/AutoEntryScript.h"
+ #include "mozilla/dom/BindingCallContext.h"
+@@ -822,6 +851,16 @@ bool SandboxProxyHandler::getPropertyDescriptorImpl(
+     if (!JS_GetOwnPropertyDescriptorById(cx, obj, id, desc_)) {
+       return false;
+     }
++  } else if (xpc::IsHybridXrayWrapper(obj)) {
++    // STEALTHFOX [B322]: in a caller's world the prototype is the page's
++    // window behind a hybrid Xray, and a bare name (`document`, the page's
++    // `myFunction`, its top-level `const config`) resolves by the hybrid rule,
++    // in the order the page's realm resolves it. Walking the wrapper
++    // generically would join the two views level by level, so a property the
++    // page put on the window could hide a standard one.
++    if (!xpc::HybridXrayGetBareName(cx, obj, id, desc_)) {
++      return false;
++    }
+   } else {
+     Rooted<JSObject*> holder(cx);
+     if (!JS_GetPropertyDescriptorById(cx, obj, id, desc_, &holder)) {
+@@ -1327,6 +1366,19 @@ nsresult xpc::CreateSandboxObject(JSContext* cx, MutableHandleValue vp,
+ 
+   bool isSystemPrincipal = principal->IsSystemPrincipal();
+ 
++  // STEALTHFOX [B322]: a caller's world has the page's own principal, and
++  // `hybridXrays` replaces `wantXrays` instead of adding to it: `wantXrays`
++  // would impose Xrays on the page reading the caller's objects as well.
++  if (options.hybridXrays &&
++      (isSystemPrincipal ||
++       BasePrincipal::Cast(principal)->Is<ExpandedPrincipal>() ||
++       options.wantXrays)) {
++    JS_ReportErrorASCII(cx,
++                        "hybridXrays needs a content principal and "
++                        "wantXrays: false");
++    return NS_ERROR_INVALID_ARG;
++  }
++
+   if (isSystemPrincipal) {
+     options.forceSecureContext = true;
+   }
+@@ -1384,8 +1436,15 @@ nsresult xpc::CreateSandboxObject(JSContext* cx, MutableHandleValue vp,
        const nsCString& localeOverride =
            window->GetBrowsingContext()->Top()->GetLanguageOverride();
        if (!localeOverride.IsEmpty()) {
@@ -209,24 +283,968 @@
        }
  
        const nsAString& timezoneOverride =
---- a/js/xpconnect/src/nsXPConnect.cpp	2026-09-01 13:03:17.588584807 -0700
-+++ b/js/xpconnect/src/nsXPConnect.cpp	2026-09-01 13:04:57.993845845 -0700
-@@ -553,8 +553,16 @@
-     nsCString locale = nsRFPService::GetSpoofedJSLocale();
-     aOptions.behaviors().setLocaleOverride(locale.get());
-   } else if (!aLanguageOverride.IsEmpty()) {
+@@ -1430,6 +1489,7 @@ nsresult xpc::CreateSandboxObject(JSContext* cx, MutableHandleValue vp,
+     MOZ_RELEASE_ASSERT(priv->isUAWidgetCompartment == options.isUAWidgetScope);
+     MOZ_RELEASE_ASSERT(priv->hasExclusiveExpandos == hasExclusiveExpandos);
+     MOZ_RELEASE_ASSERT(priv->wantXrays == wantXrays);
++    MOZ_RELEASE_ASSERT(priv->hybridXrays == options.hybridXrays);
+   } else {
+     CompartmentPrivate* priv = CompartmentPrivate::Get(sandbox);
+     priv->allowWaivers = options.allowWaivers;
+@@ -1437,6 +1497,7 @@ nsresult xpc::CreateSandboxObject(JSContext* cx, MutableHandleValue vp,
+     priv->isUAWidgetCompartment = options.isUAWidgetScope;
+     priv->hasExclusiveExpandos = hasExclusiveExpandos;
+     priv->wantXrays = wantXrays;
++    priv->hybridXrays = options.hybridXrays;
+   }
+ 
+   {
+@@ -2040,6 +2101,7 @@ bool SandboxOptions::Parse() {
+   bool ok = ParseObject("sandboxPrototype", &proto) &&
+             ParseObject("associatedWindow", &associatedWindow) &&
+             ParseBoolean("wantXrays", &wantXrays) &&
++            ParseBoolean("hybridXrays", &hybridXrays) &&
+             ParseBoolean("allowWaivers", &allowWaivers) &&
+             ParseBoolean("wantComponents", &wantComponents) &&
+             ParseBoolean("wantExportHelpers", &wantExportHelpers) &&
+diff --git a/js/xpconnect/src/XPCJSRuntime.cpp b/js/xpconnect/src/XPCJSRuntime.cpp
+index 785c2227..2076762a 100644
+--- a/js/xpconnect/src/XPCJSRuntime.cpp
++++ b/js/xpconnect/src/XPCJSRuntime.cpp
+@@ -204,6 +204,7 @@ CompartmentPrivate::CompartmentPrivate(
+     mozilla::BasePrincipal* origin, const SiteIdentifier& site)
+     : originInfo(origin, site),
+       wantXrays(false),
++      hybridXrays(false),
+       allowWaivers(true),
+       isWebExtensionContentScript(false),
+       isUAWidgetCompartment(false),
+diff --git a/js/xpconnect/src/nsXPConnect.cpp b/js/xpconnect/src/nsXPConnect.cpp
+index e9b93e5e..356fd776 100644
+--- a/js/xpconnect/src/nsXPConnect.cpp
++++ b/js/xpconnect/src/nsXPConnect.cpp
+@@ -12,6 +12,7 @@
+ #include "mozilla/dom/Exceptions.h"
+ #include "mozilla/dom/Promise.h"
+ #include "mozilla/dom/WorkerCommon.h"
++#include "mozilla/dom/StealthSessionDeclaration.h"
+ #include "mozilla/glean/bindings/Glean.h"
+ #include "mozilla/glean/bindings/GleanPings.h"
+ #include "mozilla/Likely.h"
+@@ -537,21 +538,11 @@ void InitGlobalObjectOptions(JS::RealmOptions& aOptions,
+     aOptions.creationOptions().setSecureContext(aSecureContext);
+   }
+ 
+-  if (aForceUTC) {
+-    nsCString timeZone = nsRFPService::GetSpoofedJSTimeZone();
+-    aOptions.behaviors().setTimeZoneOverride(timeZone.get());
+-  } else if (!aTimezoneOverride.IsEmpty()) {
+-    aOptions.behaviors().setTimeZoneOverride(
+-        NS_ConvertUTF16toUTF8(aTimezoneOverride).get());
+-  }
+   aOptions.creationOptions().setAlwaysUseFdlibm(aAlwaysUseFdlibm);
+-  if (aLocaleEnUS) {
+-    nsCString locale = nsRFPService::GetSpoofedJSLocale();
+-    aOptions.behaviors().setLocaleOverride(locale.get());
+-  } else if (!aLanguageOverride.IsEmpty()) {
 -    aOptions.behaviors().setLocaleOverride(
 -        PromiseFlatCString(aLanguageOverride).get());
-+    // The override may be an Accept-Language list ("fr-FR, fr") so that
-+    // navigator.languages reports the full desktop-default list; the realm's
-+    // Intl default locale must be a single BCP-47 tag, so use the primary one.
-+    nsAutoCString primaryLocale(aLanguageOverride);
-+    int32_t comma = primaryLocale.FindChar(',');
-+    if (comma >= 0) {
-+      primaryLocale.Truncate(comma);
-+    }
-+    primaryLocale.Trim(" \t");
-+    aOptions.behaviors().setLocaleOverride(primaryLocale.get());
-   }
+-  }
++  // STEALTHFOX (firefox-50): the zone and the default locale, by the rule the
++  // worker and worklet realms follow too (dom/base/StealthSessionDeclaration).
++  mozilla::dom::SetRealmTimeAndLanguage(aOptions, aForceUTC, aLocaleEnUS,
++                                        aLanguageOverride, aTimezoneOverride);
  }
  
+ bool InitGlobalObject(JSContext* aJSContext, JS::Handle<JSObject*> aGlobal,
+diff --git a/js/xpconnect/src/xpcprivate.h b/js/xpconnect/src/xpcprivate.h
+index 4e9ab1c7..d705efd8 100644
+--- a/js/xpconnect/src/xpcprivate.h
++++ b/js/xpconnect/src/xpcprivate.h
+@@ -2253,6 +2253,7 @@ class MOZ_STACK_CLASS SandboxOptions : public OptionsBase {
+                           JSObject* options = nullptr)
+       : OptionsBase(cx, options),
+         wantXrays(true),
++        hybridXrays(false),
+         allowWaivers(true),
+         wantComponents(true),
+         wantExportHelpers(false),
+@@ -2274,6 +2275,8 @@ class MOZ_STACK_CLASS SandboxOptions : public OptionsBase {
+   virtual bool Parse() override;
+ 
+   bool wantXrays;
++  // STEALTHFOX [B322]: see CompartmentPrivate::hybridXrays.
++  bool hybridXrays;
+   bool allowWaivers;
+   bool wantComponents;
+   bool wantExportHelpers;
+@@ -2563,7 +2566,7 @@ class CompartmentPrivate {
+     }
+ 
+     // Don't share if we have any weird state set.
+-    return !wantXrays && !isWebExtensionContentScript &&
++    return !wantXrays && !hybridXrays && !isWebExtensionContentScript &&
+            !isUAWidgetCompartment && mScope->XBLScopeStateMatches(principal);
+   }
+ 
+@@ -2574,6 +2577,14 @@ class CompartmentPrivate {
+   // reasons.
+   bool wantXrays;
+ 
++  // STEALTHFOX [B322]: this compartment is a caller's world, which reads
++  // same-origin content through hybrid Xrays (the standard definition of a
++  // name the standard defines, the page's for every other name) while that
++  // content reads its objects transparently. Set only by Cu.Sandbox's
++  // `hybridXrays` option, which only Juggler passes. The rule is written above
++  // HybridXrayWrapper in XrayWrapper.h.
++  bool hybridXrays;
++
+   // Controls whether this compartment is allowed to waive Xrays to content
+   // that it subsumes. This should generally be true, except in cases where we
+   // want to prevent code from depending on Xray Waivers (which might make it
+diff --git a/js/xpconnect/wrappers/WrapperFactory.cpp b/js/xpconnect/wrappers/WrapperFactory.cpp
+index 1d7fbf89..0d618010 100644
+--- a/js/xpconnect/wrappers/WrapperFactory.cpp
++++ b/js/xpconnect/wrappers/WrapperFactory.cpp
+@@ -375,6 +375,7 @@ static void DEBUG_CheckUnwrapSafety(HandleObject obj,
+           CompartmentPrivate::Get(target);
+       if (!originCompartmentPrivate->wantXrays &&
+           !targetCompartmentPrivate->wantXrays &&
++          !targetCompartmentPrivate->hybridXrays &&
+           CompartmentsMayHaveHadTransparentCCWs(originCompartmentPrivate,
+                                                 targetCompartmentPrivate)) {
+         // We should have a transparent CCW, unless we have a cross-origin
+@@ -445,6 +446,109 @@ static const Wrapper* SelectWrapper(bool securityWrapper, XrayType xrayType,
+   return &FilteringWrapper<CrossCompartmentSecurityWrapper, Opaque>::singleton;
+ }
+ 
++// STEALTHFOX [B322]: what the caller's world reads the page through. A hybrid
++// Xray where the object has a standard view, and the transparent wrapper
++// where it has none (a scripted Proxy, a generator): there the standard view
++// would be empty, so the page's answer is the only one. The rule is written
++// above HybridXrayWrapper in XrayWrapper.h.
++static const Wrapper* SelectHybridWrapper(XrayType xrayType) {
++  if (xrayType == XrayForDOMObject) {
++    return &HybridXrayDOM::singleton;
++  }
++  if (xrayType == XrayForJSObject) {
++    return &HybridXrayJS::singleton;
++  }
++  return &CrossCompartmentWrapper::singleton;
++}
++
++// STEALTHFOX [B322]: what the PAGE reads the caller's objects through, the
++// mirror of the hybrid Xray. An object the caller's code makes and hands to
++// the page (an argument of a page function, `window.x = {...}`, a callback,
++// an event's `detail`) keeps its identity and its own properties, shared both
++// ways; but its STANDARD prototypes are shown as the page's own intrinsics of
++// the same name, and everything inherited is looked up there, in the page's
++// realm. Through a plain transparent wrapper the page saw an object of
++// another realm: `arg instanceof Array` false, `arg.map` the caller's map, and
++// `cb.constructor('return globalThis')()` compiling code in the caller's
++// world. Through this one `instanceof` holds, `arr.map` is the page's own and
++// `cb.constructor` is the page's Function.
++//
++// The function kinds that compile code are mapped too: AsyncFunction,
++// GeneratorFunction and AsyncGeneratorFunction prototypes are plain objects
++// to JS::IdentifyStandardPrototype, and each leads to a constructor that
++// would compile in the caller's realm. What stays reachable is only what the
++// caller's code hands over itself (a sloppy function returning `this`).
++class CallerObjectWrapper : public CrossCompartmentWrapper {
++ public:
++  constexpr CallerObjectWrapper()
++      : CrossCompartmentWrapper(0, /* aHasPrototype = */ true) {}
++
++  virtual bool getPrototype(JSContext* cx, HandleObject wrapper,
++                            MutableHandleObject protop) const override;
++  virtual bool getPrototypeIfOrdinary(
++      JSContext* cx, HandleObject wrapper, bool* isOrdinary,
++      MutableHandleObject protop) const override;
++
++  static const CallerObjectWrapper singleton;
++};
++
++const CallerObjectWrapper CallerObjectWrapper::singleton;
++
++// The intrinsic of the caller's realm `proto` is, or JSProto_Null. Called in
++// the caller's realm.
++static bool CallerIntrinsicKey(JSContext* cx, HandleObject proto,
++                               JSProtoKey* key) {
++  *key = JSProto_Null;
++  if (js::IsCrossCompartmentWrapper(proto)) {
++    // the page's own object, set as a prototype: it crosses back as itself
++    return true;
++  }
++  *key = JS::IdentifyStandardPrototype(proto);
++  if (*key != JSProto_Null) {
++    return true;
++  }
++  for (JSProtoKey k : {JSProto_AsyncFunction, JSProto_GeneratorFunction,
++                       JSProto_AsyncGeneratorFunction}) {
++    RootedObject intrinsic(cx);
++    if (!JS_GetClassPrototype(cx, k, &intrinsic)) {
++      return false;
++    }
++    if (intrinsic == proto) {
++      *key = k;
++      return true;
++    }
++  }
++  return true;
++}
++
++bool CallerObjectWrapper::getPrototype(JSContext* cx, HandleObject wrapper,
++                                       MutableHandleObject protop) const {
++  RootedObject target(cx, wrappedObject(wrapper));
++  JSProtoKey key = JSProto_Null;
++  {
++    JSAutoRealm ar(cx, target);
++    if (!JS_GetPrototype(cx, target, protop)) {
++      return false;
++    }
++    if (protop && !CallerIntrinsicKey(cx, protop, &key)) {
++      return false;
++    }
++  }
++  if (key != JSProto_Null) {
++    // the intrinsic of the realm asking, which is one of the page's
++    return JS_GetClassPrototype(cx, key, protop);
++  }
++  return JS_WrapObject(cx, protop);
++}
++
++bool CallerObjectWrapper::getPrototypeIfOrdinary(
++    JSContext* cx, HandleObject wrapper, bool* isOrdinary,
++    MutableHandleObject protop) const {
++  // Computed for the realm asking, so never the target's own [[Prototype]].
++  *isOrdinary = false;
++  return true;
++}
++
+ JSObject* WrapperFactory::Rewrap(JSContext* cx, HandleObject existing,
+                                  HandleObject obj) {
+   MOZ_ASSERT(!IsWrapper(obj) || GetProxyHandler(obj) == &XrayWaiver ||
+@@ -476,6 +580,15 @@ JSObject* WrapperFactory::Rewrap(JSContext* cx, HandleObject existing,
+   CompartmentPrivate* targetCompartmentPrivate =
+       CompartmentPrivate::Get(target);
+ 
++  // STEALTHFOX [B322]: the caller's world (`hybridXrays`) wants Xrays when IT
++  // reads the page, as a `wantXrays` compartment does, but it does not impose
++  // them on the page reading ITS objects: the page sees those transparently,
++  // as it saw them when the caller's code ran in the page's own realm. Hence
++  // two flags where Gecko had one symmetric test.
++  bool targetHybrid = targetCompartmentPrivate->hybridXrays;
++  bool originForcesXrays = originCompartmentPrivate->wantXrays;
++  bool targetForcesXrays = targetCompartmentPrivate->wantXrays || targetHybrid;
++
+   // Track whether we decided to use a transparent wrapper because of
+   // document.domain usage, so we don't override that decision.
+   bool isTransparentWrapperDueToDocumentDomain = false;
+@@ -515,18 +628,29 @@ JSObject* WrapperFactory::Rewrap(JSContext* cx, HandleObject existing,
+            // Check for the more rare case of cross-origin objects before doing
+            // the more-likely-to-pass checks for wantXrays.
+            IsCrossOriginAccessibleObject(obj) &&
+-           (!targetSubsumesOrigin || (!originCompartmentPrivate->wantXrays &&
+-                                      !targetCompartmentPrivate->wantXrays))) {
++           (!targetSubsumesOrigin ||
++            (!originForcesXrays && !targetForcesXrays))) {
+     wrapper = &CrossOriginObjectWrapper::singleton;
+   }
+ 
++  // STEALTHFOX [B322]: a caller's object, read by the page it shares a
++  // principal with. It goes BEFORE the web-object case below, which would
++  // otherwise take it: the two compartments are same-origin and neither
++  // forces Xrays on the other, so that case hands the page a plain
++  // transparent wrapper, an object of another realm. A page that does not
++  // subsume the caller, or that wants Xrays (another sandbox), still gets
++  // what Gecko's rules give it.
++  else if (originCompartmentPrivate->hybridXrays && !targetHybrid &&
++           !targetIsChrome && targetSubsumesOrigin && !targetForcesXrays) {
++    wrapper = &CallerObjectWrapper::singleton;
++  }
++
+   // Special handling for other web objects.  Again, we only want this in
+   // web-like contexts (symmetric security relationships, no forced Xrays).  In
+   // this situation, if the two compartments may ever have had transparent CCWs
+   // between them, we want to keep using transparent CCWs.
+-  else if (originSubsumesTarget == targetSubsumesOrigin &&
+-           !originCompartmentPrivate->wantXrays &&
+-           !targetCompartmentPrivate->wantXrays &&
++  else if (originSubsumesTarget == targetSubsumesOrigin && !originForcesXrays &&
++           !targetForcesXrays &&
+            CompartmentsMayHaveHadTransparentCCWs(originCompartmentPrivate,
+                                                  targetCompartmentPrivate)) {
+     isTransparentWrapperDueToDocumentDomain = true;
+@@ -550,8 +674,7 @@ JSObject* WrapperFactory::Rewrap(JSContext* cx, HandleObject existing,
+     //
+     // Xrays are a bidirectional protection, since it affords clarity to the
+     // caller and privacy to the callee.
+-    bool sameOriginXrays = originCompartmentPrivate->wantXrays ||
+-                           targetCompartmentPrivate->wantXrays;
++    bool sameOriginXrays = originForcesXrays || targetForcesXrays;
+     bool wantXrays = !sameOrigin || sameOriginXrays;
+ 
+     XrayType xrayType = wantXrays ? GetXrayType(obj) : NotXray;
+@@ -562,7 +685,11 @@ JSObject* WrapperFactory::Rewrap(JSContext* cx, HandleObject existing,
+                       targetCompartmentPrivate->allowWaivers &&
+                       HasWaiveXrayFlag(obj);
+ 
+-    wrapper = SelectWrapper(securityWrapper, xrayType, waiveXrays, obj);
++    if (targetHybrid && !securityWrapper && !waiveXrays) {
++      wrapper = SelectHybridWrapper(xrayType);
++    } else {
++      wrapper = SelectWrapper(securityWrapper, xrayType, waiveXrays, obj);
++    }
+   }
+ 
+   if (!targetSubsumesOrigin && !isTransparentWrapperDueToDocumentDomain) {
+diff --git a/js/xpconnect/wrappers/XrayWrapper.cpp b/js/xpconnect/wrappers/XrayWrapper.cpp
+index 4559682d..565a78d4 100644
+--- a/js/xpconnect/wrappers/XrayWrapper.cpp
++++ b/js/xpconnect/wrappers/XrayWrapper.cpp
+@@ -2304,6 +2304,496 @@ bool XrayWrapper<Base, Traits>::getPropertyKeys(
+   return Traits::singleton.enumerateNames(cx, wrapper, flags, props);
+ }
+ 
++/*
++ * STEALTHFOX [B322]: HYBRID XRAYS. The rule, and why it lives in the wrapper,
++ * are written once, above the class in XrayWrapper.h.
++ */
++
++bool IsHybridXrayWrapper(JSObject* obj) {
++  if (!js::IsProxy(obj)) {
++    return false;
++  }
++  const BaseProxyHandler* handler = js::GetProxyHandler(obj);
++  return handler == &HybridXrayDOM::singleton ||
++         handler == &HybridXrayJS::singleton;
++}
++
++// The page's object behind a hybrid Xray. For a window that is the
++// WindowProxy, as for any wrapper: what the page itself reaches.
++static JSObject* HybridTarget(JSObject* wrapper) {
++  JSObject* target = Wrapper::wrappedObject(wrapper);
++  JS::ExposeObjectToActiveJS(target);
++  return target;
++}
++
++template <typename Traits>
++bool HybridXrayWrapper<Traits>::nativeOwnPropertyDescriptor(
++    JSContext* cx, HandleObject wrapper, HandleId id,
++    MutableHandle<Maybe<PropertyDescriptor>> desc) const {
++  desc.reset();
++  if constexpr (std::is_same_v<Traits, JSXrayTraits>) {
++    // The elements of a typed array are its data, and the Xray throws instead
++    // of answering for them: they are the page's, so the standard view does
++    // not know them.
++    RootedObject holder(cx, JSXrayTraits::singleton.ensureHolder(cx, wrapper));
++    if (!holder) {
++      return false;
++    }
++    if (IsTypedArrayKey(JSXrayTraits::getProtoKey(holder)) &&
++        !JSXrayTraits::isPrototype(holder) &&
++        IsArrayIndex(GetArrayIndexFromId(id))) {
++      return true;
++    }
++  }
++  return Base::getOwnPropertyDescriptor(cx, wrapper, id, desc);
++}
++
++// Is this level of the page's chain a STANDARD object, one the standards
++// define: a WebIDL object (an instance, an interface or prototype object, the
++// window) or a standard prototype or constructor of its realm. Every other
++// level (an ordinary instance, a class's prototype) the page created.
++static bool IsStandardLevel(JSObject* content) {
++  JSObject* obj = js::UncheckedUnwrap(content, /* stopAtWindowProxy = */ false);
++  return mozilla::dom::UseDOMXray(obj) ||
++         JS::IdentifyStandardPrototype(obj) != JSProto_Null ||
++         JS::IdentifyStandardConstructor(obj) != JSProto_Null;
++}
++
++// The native view of ONE standard level: the Xray's own resolution of it.
++static bool NativeOwn(JSContext* cx, HandleObject level, HandleId id,
++                      MutableHandle<Maybe<PropertyDescriptor>> desc) {
++  const BaseProxyHandler* handler = js::GetProxyHandler(level);
++  js::AutoEnterPolicy policy(cx, handler, level, id,
++                             BaseProxyHandler::GET_PROPERTY_DESCRIPTOR, true);
++  if (handler == &HybridXrayDOM::singleton) {
++    return HybridXrayDOM::singleton.nativeOwnPropertyDescriptor(cx, level, id,
++                                                                desc);
++  }
++  return HybridXrayJS::singleton.nativeOwnPropertyDescriptor(cx, level, id,
++                                                             desc);
++}
++
++// THE RULE, LEVEL BY LEVEL OF THE PAGE'S OWN CHAIN (XrayWrapper.h, above the
++// class). A standard level answers with its native view, which no replacement
++// the page made reaches; a level the page created answers with its own
++// properties. A name the native view of some standard level knows is
++// STANDARD for this object, and the answer is the first page-created level
++// that defines it before that standard level (Point.prototype.toString, a
++// custom element's click), or else the native definition: what the page added
++// on the standard levels does not count for it (document.querySelector =
++// trap). A name no standard level knows is not the standard's: `desc` stays
++// empty and the caller asks the page's object as the page would, so an
++// expando still shadows a class member of the same name.
++//
++// Walking the page's real chain has one price, and it is stated: a scripted
++// Proxy the page inserts AS A PROTOTYPE inside a standard chain is asked for
++// its own properties like any page-created level, and its traps run.
++static bool ChainLookup(JSContext* cx, HandleObject wrapper, HandleId id,
++                        MutableHandle<Maybe<PropertyDescriptor>> desc) {
++  desc.reset();
++  Rooted<Maybe<PropertyDescriptor>> pageFirst(cx);
++  Rooted<Maybe<PropertyDescriptor>> levelDesc(cx);
++  RootedObject level(cx, wrapper);
++  RootedObject content(cx);
++  RootedObject proto(cx);
++  while (level) {
++    content = js::UncheckedUnwrap(level, /* stopAtWindowProxy = */ true);
++    if (IsHybridXrayWrapper(level) && IsStandardLevel(content)) {
++      if (!NativeOwn(cx, level, id, &levelDesc)) {
++        return false;
++      }
++      if (levelDesc.isSome()) {
++        desc.set(pageFirst.isSome() ? pageFirst.get() : levelDesc.get());
++        return true;
++      }
++    } else if (pageFirst.isNothing()) {
++      {
++        JSAutoRealm ar(cx, content);
++        RootedId wrappedId(cx, id);
++        if (!JS_WrapId(cx, &wrappedId)) {
++          return false;
++        }
++        if (!JS_GetOwnPropertyDescriptorById(cx, content, wrappedId, &levelDesc)) {
++          return false;
++        }
++      }
++      if (levelDesc.isSome()) {
++        if (!JS_WrapPropertyDescriptor(cx, &levelDesc)) {
++          return false;
++        }
++        pageFirst.set(levelDesc.get());
++      }
++    }
++    {
++      JSAutoRealm ar(cx, content);
++      if (!JS_GetPrototype(cx, content, &proto)) {
++        return false;
++      }
++    }
++    if (!JS_WrapObject(cx, &proto)) {
++      return false;
++    }
++    level = proto;
++  }
++  return true;
++}
++
++// A name the standard does not define: the page's, own or inherited, as the
++// page's object answers it.
++static bool ContentLookup(JSContext* cx, HandleObject wrapper, HandleId id,
++                          MutableHandle<Maybe<PropertyDescriptor>> desc) {
++  RootedObject target(cx, HybridTarget(wrapper));
++  {
++    JSAutoRealm ar(cx, target);
++    RootedId wrappedId(cx, id);
++    if (!JS_WrapId(cx, &wrappedId)) {
++      return false;
++    }
++    RootedObject contentHolder(cx);
++    if (!JS_GetPropertyDescriptorById(cx, target, wrappedId, desc, &contentHolder)) {
++      return false;
++    }
++  }
++  return JS_WrapPropertyDescriptor(cx, desc);
++}
++
++bool HybridXrayGetBareName(JSContext* cx, HandleObject wrapper, HandleId id,
++                           MutableHandle<Maybe<PropertyDescriptor>> desc) {
++  MOZ_ASSERT(IsHybridXrayWrapper(wrapper));
++  if (!ChainLookup(cx, wrapper, id, desc)) {
++    return false;
++  }
++  if (desc.isSome()) {
++    return true;
++  }
++
++  // The page's top-level let, const and class: bindings of the global lexical
++  // environment, which the page's own bare names consult before the window's
++  // properties. Measured on the first candidate: `class Point` at the top of a
++  // page script, `pt instanceof Point` from an evaluate, "Point is not
++  // defined", where the page's realm finds it.
++  RootedObject global(cx, js::UncheckedUnwrap(wrapper,
++                                              /* stopAtWindowProxy = */ false));
++  if (JS_IsGlobalObject(global)) {
++    {
++      JSAutoRealm ar(cx, global);
++      RootedId wrappedId(cx, id);
++      if (!JS_WrapId(cx, &wrappedId)) {
++        return false;
++      }
++      RootedObject lexical(cx, JS_GlobalLexicalEnvironment(global));
++      if (!JS_GetOwnPropertyDescriptorById(cx, lexical, wrappedId, desc)) {
++        return false;
++      }
++      // A binding still in its temporal dead zone has no value to hand out:
++      // the page's own read would throw, and so does a missing name.
++      if (desc.isSome() && (!desc->hasValue() || desc->value().isMagic())) {
++        desc.reset();
++      }
++    }
++    if (desc.isSome()) {
++      return JS_WrapPropertyDescriptor(cx, desc);
++    }
++  }
++  return ContentLookup(cx, wrapper, id, desc);
++}
++
++// [[Get]] of a name the standard does not define, on the page's object. The
++// receiver crosses as any value does: the wrapper itself becomes the page's
++// object again.
++static bool ContentGet(JSContext* cx, HandleObject wrapper,
++                       HandleValue receiver, HandleId id,
++                       MutableHandleValue vp) {
++  RootedObject target(cx, HybridTarget(wrapper));
++  {
++    JSAutoRealm ar(cx, target);
++    RootedId wrappedId(cx, id);
++    if (!JS_WrapId(cx, &wrappedId)) {
++      return false;
++    }
++    RootedValue contentReceiver(cx, receiver);
++    if (!JS_WrapValue(cx, &contentReceiver) ||
++        !JS_ForwardGetPropertyTo(cx, target, wrappedId, contentReceiver, vp)) {
++      return false;
++    }
++  }
++  return JS_WrapValue(cx, vp);
++}
++
++template <typename Traits>
++bool HybridXrayWrapper<Traits>::getOwnPropertyDescriptor(
++    JSContext* cx, HandleObject wrapper, HandleId id,
++    MutableHandle<Maybe<PropertyDescriptor>> desc) const {
++  if (!nativeOwnPropertyDescriptor(cx, wrapper, id, desc)) {
++    return false;
++  }
++  if (desc.isSome()) {
++    return true;
++  }
++  RootedObject target(cx, HybridTarget(wrapper));
++  {
++    JSAutoRealm ar(cx, target);
++    RootedId wrappedId(cx, id);
++    if (!JS_WrapId(cx, &wrappedId)) {
++      return false;
++    }
++    if (!JS_GetOwnPropertyDescriptorById(cx, target, wrappedId, desc)) {
++      return false;
++    }
++  }
++  return JS_WrapPropertyDescriptor(cx, desc);
++}
++
++template <typename Traits>
++bool HybridXrayWrapper<Traits>::hasOwn(JSContext* cx, HandleObject wrapper,
++                                       HandleId id, bool* bp) const {
++  Rooted<Maybe<PropertyDescriptor>> desc(cx);
++  if (!nativeOwnPropertyDescriptor(cx, wrapper, id, &desc)) {
++    return false;
++  }
++  if (desc.isSome()) {
++    *bp = true;
++    return true;
++  }
++  RootedObject target(cx, HybridTarget(wrapper));
++  JSAutoRealm ar(cx, target);
++  RootedId wrappedId(cx, id);
++  if (!JS_WrapId(cx, &wrappedId)) {
++    return false;
++  }
++  return JS_HasOwnPropertyById(cx, target, wrappedId, bp);
++}
++
++template <typename Traits>
++bool HybridXrayWrapper<Traits>::has(JSContext* cx, HandleObject wrapper,
++                                    HandleId id, bool* bp) const {
++  Rooted<Maybe<PropertyDescriptor>> desc(cx);
++  if (!ChainLookup(cx, wrapper, id, &desc)) {
++    return false;
++  }
++  if (desc.isSome()) {
++    *bp = true;
++    return true;
++  }
++  RootedObject target(cx, HybridTarget(wrapper));
++  JSAutoRealm ar(cx, target);
++  RootedId wrappedId(cx, id);
++  if (!JS_WrapId(cx, &wrappedId)) {
++    return false;
++  }
++  return JS_HasPropertyById(cx, target, wrappedId, bp);
++}
++
++template <typename Traits>
++bool HybridXrayWrapper<Traits>::get(JSContext* cx, HandleObject wrapper,
++                                    HandleValue receiver, HandleId id,
++                                    MutableHandleValue vp) const {
++  Rooted<Maybe<PropertyDescriptor>> desc(cx);
++  if (!ChainLookup(cx, wrapper, id, &desc)) {
++    return false;
++  }
++  if (desc.isNothing()) {
++    return ContentGet(cx, wrapper, receiver, id, vp);
++  }
++
++  // Everything after here follows [[Get]] for ordinary objects, on the
++  // definition the rule picked.
++  desc->assertComplete();
++  if (desc->isDataDescriptor()) {
++    vp.set(desc->value());
++    return true;
++  }
++  RootedObject getter(cx, desc->getter());
++  if (!getter) {
++    vp.setUndefined();
++    return true;
++  }
++  return Call(cx, receiver, getter, HandleValueArray::empty(), vp);
++}
++
++template <typename Traits>
++bool HybridXrayWrapper<Traits>::set(JSContext* cx, HandleObject wrapper,
++                                    HandleId id, HandleValue v,
++                                    HandleValue receiver,
++                                    ObjectOpResult& result) const {
++  Rooted<Maybe<PropertyDescriptor>> desc(cx);
++  if (!ChainLookup(cx, wrapper, id, &desc)) {
++    return false;
++  }
++
++  // The accessor the rule picked runs its setter: the standard one for
++  // `el.textContent = x`, the page's own for an accessor its class defines.
++  if (desc.isSome() && desc->isAccessorDescriptor()) {
++    RootedObject setter(cx, desc->setter());
++    if (!setter) {
++      return result.failGetterOnly();
++    }
++    RootedValue ignored(cx);
++    if (!Call(cx, receiver, setter, HandleValueArray(v), &ignored)) {
++      return false;
++    }
++    return result.succeed();
++  }
++
++  // Everything else is a write the page must see: `window.x = 1`, an expando
++  // on a node, an element of the page's array.
++  RootedObject target(cx, HybridTarget(wrapper));
++  JSAutoRealm ar(cx, target);
++  RootedId wrappedId(cx, id);
++  if (!JS_WrapId(cx, &wrappedId)) {
++    return false;
++  }
++  RootedValue value(cx, v);
++  RootedValue contentReceiver(cx, receiver);
++  if (!JS_WrapValue(cx, &value) || !JS_WrapValue(cx, &contentReceiver)) {
++    return false;
++  }
++  return JS_ForwardSetPropertyTo(cx, target, wrappedId, value, contentReceiver,
++                                 result);
++}
++
++template <typename Traits>
++bool HybridXrayWrapper<Traits>::defineProperty(
++    JSContext* cx, HandleObject wrapper, HandleId id,
++    Handle<PropertyDescriptor> desc, ObjectOpResult& result) const {
++  RootedObject target(cx, HybridTarget(wrapper));
++  JSAutoRealm ar(cx, target);
++  RootedId wrappedId(cx, id);
++  if (!JS_WrapId(cx, &wrappedId)) {
++    return false;
++  }
++  Rooted<PropertyDescriptor> wrappedDesc(cx, desc);
++  if (!JS_WrapPropertyDescriptor(cx, &wrappedDesc)) {
++    return false;
++  }
++  return JS_DefinePropertyById(cx, target, wrappedId, wrappedDesc, result);
++}
++
++template <typename Traits>
++bool HybridXrayWrapper<Traits>::delete_(JSContext* cx, HandleObject wrapper,
++                                        HandleId id,
++                                        ObjectOpResult& result) const {
++  RootedObject target(cx, HybridTarget(wrapper));
++  JSAutoRealm ar(cx, target);
++  RootedId wrappedId(cx, id);
++  if (!JS_WrapId(cx, &wrappedId)) {
++    return false;
++  }
++  return JS_DeletePropertyById(cx, target, wrappedId, result);
++}
++
++template <typename Traits>
++bool HybridXrayWrapper<Traits>::ownPropertyKeys(
++    JSContext* cx, HandleObject wrapper, MutableHandleIdVector props) const {
++  // The page's own keys, in the page's order, then the standard own keys the
++  // page's object does not list.
++  RootedObject target(cx, HybridTarget(wrapper));
++  {
++    JSAutoRealm ar(cx, target);
++    if (!js::GetPropertyKeys(cx, target,
++                             JSITER_OWNONLY | JSITER_HIDDEN | JSITER_SYMBOLS,
++                             props)) {
++      return false;
++    }
++  }
++  for (size_t i = 0; i < props.length(); ++i) {
++    if (!JS_WrapId(cx, props[i])) {
++      return false;
++    }
++  }
++
++  RootedIdVector native(cx);
++  if (!Base::ownPropertyKeys(cx, wrapper, &native)) {
++    return false;
++  }
++  size_t contentCount = props.length();
++  for (size_t i = 0; i < native.length(); ++i) {
++    bool listed = false;
++    for (size_t j = 0; j < contentCount && !listed; ++j) {
++      listed = props[j] == native[i];
++    }
++    if (!listed && !props.append(native[i])) {
++      return false;
++    }
++  }
++  return true;
++}
++
++template <typename Traits>
++bool HybridXrayWrapper<Traits>::getOwnEnumerablePropertyKeys(
++    JSContext* cx, HandleObject wrapper, MutableHandleIdVector props) const {
++  return BaseProxyHandler::getOwnEnumerablePropertyKeys(cx, wrapper, props);
++}
++
++template <typename Traits>
++bool HybridXrayWrapper<Traits>::enumerate(JSContext* cx, HandleObject wrapper,
++                                          MutableHandleIdVector props) const {
++  return BaseProxyHandler::enumerate(cx, wrapper, props);
++}
++
++template <typename Traits>
++bool HybridXrayWrapper<Traits>::getPrototype(
++    JSContext* cx, HandleObject wrapper, MutableHandleObject protop) const {
++  // The page's prototype, so `el instanceof MyElement` and
++  // `obj instanceof PageClass` hold. It is the chain ChainLookup walks too.
++  RootedObject target(cx, HybridTarget(wrapper));
++  {
++    JSAutoRealm ar(cx, target);
++    if (!JS_GetPrototype(cx, target, protop)) {
++      return false;
++    }
++  }
++  return JS_WrapObject(cx, protop);
++}
++
++template <typename Traits>
++bool HybridXrayWrapper<Traits>::setPrototype(JSContext* cx,
++                                             HandleObject wrapper,
++                                             HandleObject proto,
++                                             ObjectOpResult& result) const {
++  RootedObject target(cx, HybridTarget(wrapper));
++  JSAutoRealm ar(cx, target);
++  RootedObject contentProto(cx, proto);
++  if (!JS_WrapObject(cx, &contentProto) ||
++      !JS_SetPrototype(cx, target, contentProto)) {
++    return false;
++  }
++  return result.succeed();
++}
++
++template <typename Traits>
++bool HybridXrayWrapper<Traits>::setImmutablePrototype(JSContext* cx,
++                                                      HandleObject wrapper,
++                                                      bool* succeeded) const {
++  RootedObject target(cx, HybridTarget(wrapper));
++  JSAutoRealm ar(cx, target);
++  return JS_SetImmutablePrototype(cx, target, succeeded);
++}
++
++template <typename Traits>
++bool HybridXrayWrapper<Traits>::preventExtensions(
++    JSContext* cx, HandleObject wrapper, ObjectOpResult& result) const {
++  RootedObject target(cx, HybridTarget(wrapper));
++  JSAutoRealm ar(cx, target);
++  return JS_PreventExtensions(cx, target, result);
++}
++
++template <typename Traits>
++bool HybridXrayWrapper<Traits>::isExtensible(JSContext* cx,
++                                             HandleObject wrapper,
++                                             bool* extensible) const {
++  RootedObject target(cx, HybridTarget(wrapper));
++  JSAutoRealm ar(cx, target);
++  return JS_IsExtensible(cx, target, extensible);
++}
++
++template <typename Traits>
++MOZ_GLOBINIT const xpc::HybridXrayWrapper<Traits>
++    xpc::HybridXrayWrapper<Traits>::singleton(0);
++
++template class HybridXrayDOM;
++template class HybridXrayJS;
++
+ /*
+  * The Permissive / Security variants should be used depending on whether the
+  * compartment of the wrapper is guranteed to subsume the compartment of the
+diff --git a/js/xpconnect/wrappers/XrayWrapper.h b/js/xpconnect/wrappers/XrayWrapper.h
+index 061f207b..04b8f607 100644
+--- a/js/xpconnect/wrappers/XrayWrapper.h
++++ b/js/xpconnect/wrappers/XrayWrapper.h
+@@ -383,6 +383,13 @@ class XrayWrapper : public Base {
+       : Base(flags | WrapperFactory::IS_XRAY_WRAPPER_FLAG,
+              /* aHasPrototype = */ true) {};
+ 
++ protected:
++  // For HybridXrayWrapper, which walks its prototypes itself [B322].
++  constexpr XrayWrapper(unsigned flags, bool aHasPrototype)
++      : Base(flags | WrapperFactory::IS_XRAY_WRAPPER_FLAG, aHasPrototype) {};
++
++ public:
++
+   /* Standard internal methods. */
+   virtual bool getOwnPropertyDescriptor(
+       JSContext* cx, JS::Handle<JSObject*> wrapper, JS::Handle<jsid> id,
+@@ -457,6 +464,130 @@ extern template class PermissiveXrayDOM;
+ extern template class PermissiveXrayJS;
+ extern template class PermissiveXrayOpaque;
+ 
++// STEALTHFOX [B322]: HYBRID XRAYS, the view the CALLER'S world has of the page.
++//
++// The caller's world is a sandbox with the page's principal in which
++// `page.evaluate` and the other ways of running the caller's code run. Its
++// name lookups follow one rule: THE BROWSER'S OWN APIS ARE THE ORIGINAL ONES,
++// AND WHAT THE PAGE ADDED IS THE PAGE'S. Applied level by level of the page's
++// own prototype chain (ChainLookup in XrayWrapper.cpp): a STANDARD level (a
++// WebIDL object, the window, a standard prototype or constructor) answers
++// with its native view, a level the PAGE CREATED (an instance, a class's
++// prototype) with its own properties. A name some standard level knows goes
++// to the first page-created level defining it before that level, else to
++// the native definition; what the page added ON a standard level does not
++// count for it. A name no standard level knows is the page's, looked up as
++// the page looks it up. So `document.querySelector` is the native method even
++// when the page replaced `Document.prototype.querySelector` (or set its own
++// on `document`) with a Proxy that counts its callers, while
++// `window.__NEXT_DATA__`, `el.__vue__`, a page class's `toString` and
++// `valueOf`, a custom element's `click` and a page function called by its
++// bare name are the page's.
++//
++// Neither existing view does both. A plain Xray (the utility world's) hides
++// what the page added, so `window.__APP_STATE__` reads undefined; the
++// transparent view (the page's own realm, where this code used to run) walks
++// through every replacement the page made. A JS membrane cannot be the
++// fallback either: the invariants of scripted proxies force the raw value on
++// non-configurable properties, and WebIDL refuses a scripted Proxy as `this`.
++// Here, in the wrapper itself, neither constraint applies.
++//
++// What that means trap by trap:
++//  - has/get/set: the rule above (ChainLookup); a name the rule leaves to the
++//    page reaches the page's object, and `set` reaches the page for every
++//    name whose answer is not an accessor, so `window.x = 1` is seen by it.
++//  - getOwnPropertyDescriptor and ownPropertyKeys: the standard own view
++//    joined with the page's own properties, so `Object.keys(el)` lists the
++//    expandos a framework put on the node.
++//  - defineProperty, delete and the prototype and extensibility traps: the
++//    page's object, as the page sees it, so `instanceof` with the page's
++//    classes holds.
++//  - call, construct, class name: the Xray's.
++// The explicit page view stays `.wrappedJSObject`, as for every Xray.
++//
++// The other direction is not an Xray at all: the page reads the caller's
++// objects through CallerObjectWrapper (WrapperFactory.cpp), transparent for
++// their own properties, with the caller's standard prototypes shown as the
++// page's own. The two share a principal, so nothing is granted that the
++// caller could not already take with a waiver, and only privileged code can
++// create such a compartment (Juggler is the one that does).
++template <typename Traits>
++class HybridXrayWrapper
++    : public XrayWrapper<js::CrossCompartmentWrapper, Traits> {
++  using Base = XrayWrapper<js::CrossCompartmentWrapper, Traits>;
++
++ public:
++  constexpr explicit HybridXrayWrapper(unsigned flags)
++      : Base(flags, /* aHasPrototype = */ false) {};
++
++  virtual bool getOwnPropertyDescriptor(
++      JSContext* cx, JS::Handle<JSObject*> wrapper, JS::Handle<jsid> id,
++      JS::MutableHandle<mozilla::Maybe<JS::PropertyDescriptor>> desc)
++      const override;
++  virtual bool defineProperty(JSContext* cx, JS::Handle<JSObject*> wrapper,
++                              JS::Handle<jsid> id,
++                              JS::Handle<JS::PropertyDescriptor> desc,
++                              JS::ObjectOpResult& result) const override;
++  virtual bool ownPropertyKeys(JSContext* cx, JS::Handle<JSObject*> wrapper,
++                               JS::MutableHandleIdVector props) const override;
++  virtual bool delete_(JSContext* cx, JS::Handle<JSObject*> wrapper,
++                       JS::Handle<jsid> id,
++                       JS::ObjectOpResult& result) const override;
++  virtual bool enumerate(JSContext* cx, JS::Handle<JSObject*> wrapper,
++                         JS::MutableHandleIdVector props) const override;
++  virtual bool getPrototype(JSContext* cx, JS::HandleObject wrapper,
++                            JS::MutableHandleObject protop) const override;
++  virtual bool setPrototype(JSContext* cx, JS::HandleObject wrapper,
++                            JS::HandleObject proto,
++                            JS::ObjectOpResult& result) const override;
++  virtual bool setImmutablePrototype(JSContext* cx, JS::HandleObject wrapper,
++                                     bool* succeeded) const override;
++  virtual bool preventExtensions(JSContext* cx, JS::Handle<JSObject*> wrapper,
++                                 JS::ObjectOpResult& result) const override;
++  virtual bool isExtensible(JSContext* cx, JS::Handle<JSObject*> wrapper,
++                            bool* extensible) const override;
++  virtual bool has(JSContext* cx, JS::Handle<JSObject*> wrapper,
++                   JS::Handle<jsid> id, bool* bp) const override;
++  virtual bool get(JSContext* cx, JS::Handle<JSObject*> wrapper,
++                   JS::HandleValue receiver, JS::Handle<jsid> id,
++                   JS::MutableHandle<JS::Value> vp) const override;
++  virtual bool set(JSContext* cx, JS::Handle<JSObject*> wrapper,
++                   JS::Handle<jsid> id, JS::Handle<JS::Value> v,
++                   JS::Handle<JS::Value> receiver,
++                   JS::ObjectOpResult& result) const override;
++  virtual bool hasOwn(JSContext* cx, JS::Handle<JSObject*> wrapper,
++                      JS::Handle<jsid> id, bool* bp) const override;
++  virtual bool getOwnEnumerablePropertyKeys(
++      JSContext* cx, JS::Handle<JSObject*> wrapper,
++      JS::MutableHandleIdVector props) const override;
++
++  // The native view of this one object: the Xray's own resolution of it,
++  // which ChainLookup asks of every standard level.
++  bool nativeOwnPropertyDescriptor(
++      JSContext* cx, JS::Handle<JSObject*> wrapper, JS::Handle<jsid> id,
++      JS::MutableHandle<mozilla::Maybe<JS::PropertyDescriptor>> desc) const;
++
++  static const HybridXrayWrapper singleton;
++};
++
++#define HybridXrayDOM xpc::HybridXrayWrapper<xpc::DOMXrayTraits>
++#define HybridXrayJS xpc::HybridXrayWrapper<xpc::JSXrayTraits>
++
++extern template class HybridXrayDOM;
++extern template class HybridXrayJS;
++
++bool IsHybridXrayWrapper(JSObject* obj);
++
++// A BARE name of the caller's code, which reaches the page's window through
++// the sandbox's prototype proxy. Resolved in the order the page's own realm
++// resolves it, inside the same rule: the standard definition first, then a
++// binding the page declared at its top level with let, const or class (its
++// global lexical environment: not a property of the window, so `window.name`
++// does not find it, in the page or here), then the window's properties.
++bool HybridXrayGetBareName(
++    JSContext* cx, JS::HandleObject wrapper, JS::HandleId id,
++    JS::MutableHandle<mozilla::Maybe<JS::PropertyDescriptor>> desc);
++
+ /*
+  * Slots for Xray expando objects.  See comments in XrayWrapper.cpp for details
+  * of how these get used; we mostly want the value of JSSLOT_EXPANDO_COUNT here.

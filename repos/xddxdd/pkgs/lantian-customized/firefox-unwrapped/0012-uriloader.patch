@@ -1,17 +1,258 @@
+diff --git a/uriloader/exthandler/StealthDownloadIntercept.cpp b/uriloader/exthandler/StealthDownloadIntercept.cpp
+new file mode 100644
+index 00000000..2077bc34
+--- /dev/null
++++ b/uriloader/exthandler/StealthDownloadIntercept.cpp
+@@ -0,0 +1,123 @@
++/* This Source Code Form is subject to the terms of the Mozilla Public
++ * License, v. 2.0. If a copy of the MPL was not distributed with this
++ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
++
++#include "StealthDownloadIntercept.h"
++
++#include "mozilla/ErrorNames.h"
++#include "nsComponentManagerUtils.h"
++#include "nsExternalHelperAppService.h"
++#include "nsIBackgroundFileSaver.h"
++#include "nsIChannel.h"
++#include "nsIFile.h"
++#include "nsIHttpChannelInternal.h"
++#include "nsILoadInfo.h"
++#include "nsIURI.h"
++#include "nsNetCID.h"
++
++// Same saver setup as nsExternalAppHandler::SetUpTempFile, but the target is
++// the file the interceptor chose and it is final: no ".part", no rename.
++// static
++nsresult StealthDownloadIntercept::CreateSaver(
++    nsExternalAppHandler* aHandler) {
++  MOZ_ASSERT(!aHandler->mSaver, "Output file initialization called twice!");
++  nsresult rv;
++  aHandler->mSaver =
++      do_CreateInstance(NS_BACKGROUNDFILESAVERSTREAMLISTENER_CONTRACTID, &rv);
++  NS_ENSURE_SUCCESS(rv, rv);
++
++  rv = aHandler->mSaver->SetObserver(aHandler);
++  if (NS_FAILED(rv)) {
++    aHandler->mSaver = nullptr;
++    return rv;
++  }
++
++  rv = aHandler->mSaver->EnableSha256();
++  NS_ENSURE_SUCCESS(rv, rv);
++
++  rv = aHandler->mSaver->EnableSignatureInfo();
++  NS_ENSURE_SUCCESS(rv, rv);
++
++  return aHandler->mSaver->SetTarget(aHandler->mTempFile, false);
++}
++
++// static
++bool StealthDownloadIntercept::Start(nsExternalAppHandler* aHandler,
++                                     nsIRequest* aRequest) {
++  MOZ_ASSERT(NS_IsMainThread());
++  nsCOMPtr<nsIDownloadInterceptor> interceptor =
++      aHandler->mExtProtSvc->mInterceptor;
++  if (!interceptor) {
++    return false;
++  }
++
++  nsCOMPtr<nsIFile> file;
++  bool intercepted = false;
++  nsresult rv = interceptor->InterceptDownloadRequest(
++      aHandler, aRequest, aHandler->mBrowsingContext, getter_AddRefs(file),
++      &intercepted);
++  // A throwing interceptor must not break downloads: act as if it declined.
++  if (NS_FAILED(rv) || !intercepted) {
++    return false;
++  }
++
++  // From here the interceptor expects one onDownloadComplete.
++  aHandler->mStealthIntercepted = true;
++
++  // Intercepted without a file: the client does not want the data.
++  if (!file) {
++    aHandler->Cancel(NS_BINDING_ABORTED);
++    return true;
++  }
++
++  // The file is the final destination, and no nsITransfer is created, which
++  // keeps the downloads UI and its JS components out of this download.
++  aHandler->mTempFile = file;
++  rv = file->GetLeafName(aHandler->mTempLeafName);
++  if (NS_SUCCEEDED(rv)) {
++    rv = CreateSaver(aHandler);
++  }
++  if (NS_FAILED(rv)) {
++    aRequest->Cancel(rv);
++    aHandler->Cancel(rv);
++    return true;
++  }
++
++  // Same channel preparation OnStartRequest does after SetUpTempFile.
++  nsCOMPtr<nsIChannel> channel = do_QueryInterface(aRequest);
++  nsCOMPtr<nsIHttpChannelInternal> httpInternal = do_QueryInterface(channel);
++  if (httpInternal) {
++    (void)httpInternal->SetChannelIsForDownload(true);
++  }
++  if (channel && aHandler->mSourceUrl &&
++      aHandler->mSourceUrl->SchemeIs("data")) {
++    nsCOMPtr<nsILoadInfo> loadInfo = channel->LoadInfo();
++    loadInfo->SetForceAllowDataURI(true);
++  }
++  return true;
++}
++
++// static
++void StealthDownloadIntercept::Complete(nsExternalAppHandler* aHandler,
++                                        nsresult aStatus) {
++  // The interceptor may drop its last reference to the handler.
++  RefPtr<nsExternalAppHandler> kungFuDeathGrip(aHandler);
++
++  // Cleared first: Cancel and OnSaveComplete both end here, only one reports.
++  if (!aHandler->mStealthIntercepted) {
++    return;
++  }
++  aHandler->mStealthIntercepted = false;
++
++  nsCOMPtr<nsIDownloadInterceptor> interceptor =
++      aHandler->mExtProtSvc->mInterceptor;
++  if (!interceptor) {
++    return;
++  }
++
++  nsAutoCString errorName;
++  if (NS_FAILED(aStatus)) {
++    mozilla::GetErrorName(aStatus, errorName);
++  }
++  (void)interceptor->OnDownloadComplete(aHandler, errorName);
++}
+diff --git a/uriloader/exthandler/StealthDownloadIntercept.h b/uriloader/exthandler/StealthDownloadIntercept.h
+new file mode 100644
+index 00000000..60d6bfd5
+--- /dev/null
++++ b/uriloader/exthandler/StealthDownloadIntercept.h
+@@ -0,0 +1,44 @@
++/* This Source Code Form is subject to the terms of the Mozilla Public
++ * License, v. 2.0. If a copy of the MPL was not distributed with this
++ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
++
++#ifndef StealthDownloadIntercept_h_
++#define StealthDownloadIntercept_h_
++
++#include "nscore.h"
++
++class nsExternalAppHandler;
++class nsIRequest;
++
++/**
++ * Stealthfox (automation/downloads): lets our automation's download
++ * interceptor (nsIDownloadInterceptor, installed with
++ * nsIExternalHelperAppService.setDownloadInterceptor) take over a download.
++ * Parent process, main thread only. Friend of nsExternalAppHandler, which
++ * only calls Start and Complete.
++ */
++class StealthDownloadIntercept final {
++ public:
++  /**
++   * Called from nsExternalAppHandler::OnStartRequest, where it would set up
++   * its own temp file. Asks the interceptor about this download. Returns true
++   * when the interceptor took it: the data goes to the file it chose (or the
++   * download is canceled when it chose none) and the caller must return
++   * NS_OK, skipping the transfer, the dialogs and the downloads UI. Returns
++   * false (nothing changed) when there is no interceptor, it declined or it
++   * failed, and the caller carries on exactly as stock Firefox.
++   */
++  static bool Start(nsExternalAppHandler* aHandler, nsIRequest* aRequest);
++
++  /**
++   * Called when the handler's download ended (saved, canceled or failed).
++   * Tells the interceptor once per intercepted download, with the error name
++   * (empty on success). Does nothing for downloads that were not intercepted.
++   */
++  static void Complete(nsExternalAppHandler* aHandler, nsresult aStatus);
++
++ private:
++  static nsresult CreateSaver(nsExternalAppHandler* aHandler);
++};
++
++#endif  // StealthDownloadIntercept_h_
+diff --git a/uriloader/exthandler/StealthDownloadInterceptor.idl b/uriloader/exthandler/StealthDownloadInterceptor.idl
+new file mode 100644
+index 00000000..ef67b2fa
+--- /dev/null
++++ b/uriloader/exthandler/StealthDownloadInterceptor.idl
+@@ -0,0 +1,33 @@
++/* This Source Code Form is subject to the terms of the Mozilla Public
++ * License, v. 2.0. If a copy of the MPL was not distributed with this
++ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
++
++#include "nsISupports.idl"
++
++// Types named by nsIDownloadInterceptor. nsIHelperAppLauncher is defined in
++// nsIExternalHelperAppService.idl, which includes this file, so it can only
++// be forward-declared here.
++interface nsIFile;
++interface nsIHelperAppLauncher;
++interface nsIRequest;
++webidl BrowsingContext;
++
++/**
++ * Stealthfox: Interceptor interface used by Juggler to redirect downloads
++ * into a developer-controlled location (Playwright's downloadOptions).
++ * Restored from FF146 stealth patch series — not present in vanilla FF150.
++ *
++ * Stealthfox: nsIExternalHelperAppService.setDownloadInterceptor() installs a
++ * Juggler-side download interceptor that takes over download routing (returns
++ * a target file from Playwright's downloadOptions). Called from
++ * juggler/TargetRegistry.js at constructor time. The setter is declared in
++ * nsIExternalHelperAppService.idl because an XPIDL method can only be declared
++ * inside its own interface block.
++ */
++[scriptable, uuid(9a20e9b0-75d0-11ea-bc55-0242ac130003)]
++interface nsIDownloadInterceptor : nsISupports
++{
++  boolean interceptDownloadRequest(in nsIHelperAppLauncher aHandler, in nsIRequest aRequest, in BrowsingContext aBrowsingContext, out nsIFile file);
++
++  void onDownloadComplete(in nsIHelperAppLauncher aHandler, in ACString aErrorName);
++};
+diff --git a/uriloader/exthandler/moz.build b/uriloader/exthandler/moz.build
+index a88b18c4..81587a33 100644
+--- a/uriloader/exthandler/moz.build
++++ b/uriloader/exthandler/moz.build
+@@ -18,6 +18,7 @@ XPIDL_SOURCES += [
+     "nsIHelperAppLauncherDialog.idl",
+     "nsISharingHandlerApp.idl",
+ ]
++XPIDL_SOURCES += ["StealthDownloadInterceptor.idl"]  # STEALTH-HOOK(automation/downloads)
+ 
+ XPIDL_MODULE = "exthandler"
+ 
+@@ -60,6 +61,7 @@ UNIFIED_SOURCES += [
+     "nsMIMEInfoImpl.cpp",
+     "nsOSHelperAppServiceChild.cpp",
+ ]
++UNIFIED_SOURCES += ["StealthDownloadIntercept.cpp"]  # STEALTH-HOOK(automation/downloads)
+ 
+ if CONFIG["MOZ_BUILD_APP"] == "browser":
+     DEFINES["MOZ_BUILD_APP_IS_BROWSER"] = True
 diff --git a/uriloader/exthandler/nsExternalHelperAppService.cpp b/uriloader/exthandler/nsExternalHelperAppService.cpp
-index 1eab401455..559645afd1 100644
+index ccebdcc8..6777f605 100644
 --- a/uriloader/exthandler/nsExternalHelperAppService.cpp
 +++ b/uriloader/exthandler/nsExternalHelperAppService.cpp
-@@ -387,6 +387,18 @@ NS_IMETHODIMP nsExternalHelperAppService::GetPreferredDownloadsDirectory(
+@@ -118,6 +118,7 @@
+ #include "mozilla/ClearOnShutdown.h"
+ #include "mozilla/Preferences.h"
+ #include "mozilla/ipc/URIUtils.h"
++#include "StealthDownloadIntercept.h"  // STEALTH-HOOK(automation/downloads)
+ 
+ using namespace mozilla;
+ using namespace mozilla::ipc;
+@@ -392,6 +393,13 @@ NS_IMETHODIMP nsExternalHelperAppService::GetPreferredDownloadsDirectory(
    return NS_OK;
  }
  
-+// Stealthfox: install/replace the Juggler-side download interceptor.
-+// Storage only; the actual intercept dispatch in CreateSaverForTempFile is
-+// not implemented in this minimal port — Juggler's interceptor receives
-+// constructor wiring but downloads still flow through the default save
-+// path. Sufficient to satisfy juggler/TargetRegistry.js startup; download
-+// intercept-and-redirect feature itself remains TODO.
++// STEALTH-HOOK(automation/downloads)
 +NS_IMETHODIMP nsExternalHelperAppService::SetDownloadInterceptor(
 +    nsIDownloadInterceptor* interceptor) {
 +  mInterceptor = interceptor;
@@ -21,61 +262,76 @@ index 1eab401455..559645afd1 100644
  /**
   * Obtains the initial directory to save downloads to. (This may differ from the
   * actual download directory if "browser.download.start_downloads_in_tmp_dir" is
+@@ -1753,6 +1761,9 @@ NS_IMETHODIMP nsExternalAppHandler::OnStartRequest(nsIRequest* request) {
+     return NS_OK;
+   }
+ 
++  // STEALTH-HOOK(automation/downloads): the interceptor may own the download.
++  if (StealthDownloadIntercept::Start(this, request)) return NS_OK;
++
+   rv = SetUpTempFile(aChannel);
+   if (NS_FAILED(rv)) {
+     nsresult transferError = rv;
+@@ -2341,6 +2352,7 @@ nsExternalAppHandler::OnSaveComplete(nsIBackgroundFileSaver* aSaver,
+     NotifyTransfer(aStatus);
+   }
+ 
++  StealthDownloadIntercept::Complete(this, aStatus);  // STEALTH-HOOK(automation/downloads)
+   return NS_OK;
+ }
+ 
+@@ -2837,6 +2849,7 @@ NS_IMETHODIMP nsExternalAppHandler::Cancel(nsresult aReason) {
+   // observer of the listener).
+   mDialogProgressListener = nullptr;
+ 
++  StealthDownloadIntercept::Complete(this, aReason);  // STEALTH-HOOK(automation/downloads)
+   return NS_OK;
+ }
+ 
 diff --git a/uriloader/exthandler/nsExternalHelperAppService.h b/uriloader/exthandler/nsExternalHelperAppService.h
-index 3f8586ed7e..90e18e1723 100644
+index 477afd0a..132b2bc6 100644
 --- a/uriloader/exthandler/nsExternalHelperAppService.h
 +++ b/uriloader/exthandler/nsExternalHelperAppService.h
-@@ -269,6 +269,11 @@ class nsExternalHelperAppService : public nsIExternalHelperAppService,
+@@ -302,6 +302,12 @@ class nsExternalHelperAppService : public nsIExternalHelperAppService,
        mozilla::dom::BrowsingContext* aContentContext, bool aForceSave,
        nsIInterfaceRequestor* aWindowContext,
        nsIStreamListener** aStreamListener);
 +
-+  // Stealthfox: Juggler-side download interceptor (set via
-+  // setDownloadInterceptor). When non-null, CreateSaverForTempFile
-+  // consults it to redirect downloads into Playwright's downloadOptions.
++  // Stealthfox: our automation's download interceptor (set via
++  // setDownloadInterceptor). When non-null, StealthDownloadIntercept::Start
++  // asks it to redirect each download into the automation's downloads folder.
 +  nsCOMPtr<nsIDownloadInterceptor> mInterceptor;
++  friend class StealthDownloadIntercept;  // STEALTH-HOOK(automation/downloads)
  };
  
  /**
+@@ -603,6 +609,9 @@ class nsExternalAppHandler final : public nsIStreamListener,
+   nsCOMPtr<nsIRequest> mRequest;
+ 
+   RefPtr<nsExternalHelperAppService> mExtProtSvc;
++
++  friend class StealthDownloadIntercept;  // STEALTH-HOOK(automation/downloads)
++  bool mStealthIntercepted = false;       // STEALTH-HOOK(automation/downloads)
+ };
+ 
+ #endif  // nsExternalHelperAppService_h_
 diff --git a/uriloader/exthandler/nsIExternalHelperAppService.idl b/uriloader/exthandler/nsIExternalHelperAppService.idl
-index f5c40986ad..0eeb1ef139 100644
+index f5c40986..e6bf3f0c 100644
 --- a/uriloader/exthandler/nsIExternalHelperAppService.idl
 +++ b/uriloader/exthandler/nsIExternalHelperAppService.idl
-@@ -12,8 +12,23 @@ interface nsIFile;
- interface nsIMIMEInfo;
- interface nsIWebProgressListener2;
- interface nsIInterfaceRequestor;
-+interface nsIHelperAppLauncher;
-+interface nsIRequest;
- webidl BrowsingContext;
+@@ -4,6 +4,7 @@
+  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
  
-+/**
-+ * Stealthfox: Interceptor interface used by Juggler to redirect downloads
-+ * into a developer-controlled location (Playwright's downloadOptions).
-+ * Restored from FF146 stealth patch series — not present in vanilla FF150.
-+ */
-+[scriptable, uuid(9a20e9b0-75d0-11ea-bc55-0242ac130003)]
-+interface nsIDownloadInterceptor : nsISupports
-+{
-+  boolean interceptDownloadRequest(in nsIHelperAppLauncher aHandler, in nsIRequest aRequest, in BrowsingContext aBrowsingContext, out nsIFile file);
-+
-+  void onDownloadComplete(in nsIHelperAppLauncher aHandler, in ACString aErrorName);
-+};
-+
- /**
-  * The external helper app service is used for finding and launching
-  * platform specific external applications for a given mime content type.
-@@ -86,6 +101,13 @@ interface nsIExternalHelperAppService : nsISupports
+ #include "nsICancelable.idl"
++#include "StealthDownloadInterceptor.idl" // STEALTH-HOOK(automation/downloads)
+ 
+ interface nsIURI;
+ interface nsIChannel;
+@@ -86,6 +87,7 @@ interface nsIExternalHelperAppService : nsISupports
     * `DownloadIntegration.sys.mjs`, which is implemented on all platforms.
     */
    nsIFile getPreferredDownloadsDirectory();
-+
-+  /**
-+   * Stealthfox: install a Juggler-side download interceptor that takes over
-+   * download routing (returns a target file from Playwright's downloadOptions).
-+   * Called from juggler/TargetRegistry.js at constructor time.
-+   */
-+  void setDownloadInterceptor(in nsIDownloadInterceptor interceptor);
++  void setDownloadInterceptor(in nsIDownloadInterceptor interceptor); // STEALTH-HOOK(automation/downloads)
  };
  
  /**

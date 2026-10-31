@@ -1,8 +1,8 @@
 diff --git a/python/mozbuild/mozbuild/backend/recursivemake.py b/python/mozbuild/mozbuild/backend/recursivemake.py
-index fa4d2b57b1..3185bdb3a5 100644
+index f5a2b8c4..2d758869 100644
 --- a/python/mozbuild/mozbuild/backend/recursivemake.py
 +++ b/python/mozbuild/mozbuild/backend/recursivemake.py
-@@ -1563,7 +1563,10 @@ class RecursiveMakeBackend(MakeBackend):
+@@ -1640,7 +1640,10 @@ class RecursiveMakeBackend(MakeBackend):
          if isinstance(obj, (Program, SharedLibrary)):
              obj_target = self._pretty_path(obj.output_path, backend_file)
  
@@ -15,10 +15,10 @@ index fa4d2b57b1..3185bdb3a5 100644
              # Don't bother with a list file if we're only linking objects built
              # in this directory.
 diff --git a/python/mozbuild/mozbuild/frontend/data.py b/python/mozbuild/mozbuild/frontend/data.py
-index cb0492f67c..89a783b294 100644
+index fb9fe225..077e3d89 100644
 --- a/python/mozbuild/mozbuild/frontend/data.py
 +++ b/python/mozbuild/mozbuild/frontend/data.py
-@@ -1174,8 +1174,13 @@ class UnifiedSources(BaseSources):
+@@ -1214,8 +1214,13 @@ class UnifiedSources(BaseSources):
              # On Windows, path names have a maximum length of 255 characters,
              # so avoid creating extremely long path names.
              unified_prefix = context.relsrcdir
@@ -35,10 +35,10 @@ index cb0492f67c..89a783b294 100644
  
              suffix = self.canonical_suffix[1:]
 diff --git a/python/mozbuild/mozbuild/jar.py b/python/mozbuild/mozbuild/jar.py
-index ffc4d2d5b3..42c5c2441a 100644
+index 17dbf405..516f14df 100644
 --- a/python/mozbuild/mozbuild/jar.py
 +++ b/python/mozbuild/mozbuild/jar.py
-@@ -563,6 +563,12 @@ class JarMaker:
+@@ -531,6 +531,12 @@ class JarMaker:
              except OSError as e:
                  if e.errno != errno.ENOENT:
                      raise
@@ -51,46 +51,3 @@ index ffc4d2d5b3..42c5c2441a 100644
              if "b" in mode:
                  return open(out, mode)
              else:
-diff --git a/third_party/python/vsdownload/vsdownload.py b/third_party/python/vsdownload/vsdownload.py
-old mode 100755
-new mode 100644
-index 28f2c660cf..ad86c2cda1
---- a/third_party/python/vsdownload/vsdownload.py
-+++ b/third_party/python/vsdownload/vsdownload.py
-@@ -24,6 +24,7 @@ import json
- import platform
- import re
- import shutil
-+import signal
- import socket
- import subprocess
- import sys
-@@ -634,7 +635,27 @@ def _downloadPayload(payload, destname, fileid, allowHashMismatch):
-             if "size" in payload:
-                 size = payload["size"]
-             print("Downloading %s (%s)" % (fileid, formatSize(size)), flush=True)
--            urllib.request.urlretrieve(payload["url"], destname)
-+            # Stealthfox: total per-file watchdog. socket.setdefaulttimeout only
-+            # catches a fully stalled connection, not a slow trickle from a flaky
-+            # CDN edge -- the Win11 SDK "X64 Debuggers And Tools" MSI dripped for
-+            # hours without ever erroring, so this 5-attempt loop never retried
-+            # and the cross-compile build hung. Cap each file and raise on
-+            # overrun so the loop reconnects (fresh CDN edge) instead of hanging.
-+            def _dl_watchdog(signum, frame):
-+                raise TimeoutError("download exceeded 120s for %s" % fileid)
-+            # signal.SIGALRM is Unix-only (the watchdog is for the Linux cross-build).
-+            # On native Windows it does not exist, so skip the alarm and rely on the
-+            # socket.setdefaulttimeout set in main() instead of crashing get_vs.
-+            _have_alarm = hasattr(signal, "SIGALRM")
-+            if _have_alarm:
-+                _prev_alarm = signal.signal(signal.SIGALRM, _dl_watchdog)
-+                signal.alarm(120)
-+            try:
-+                urllib.request.urlretrieve(payload["url"], destname)
-+            finally:
-+                if _have_alarm:
-+                    signal.alarm(0)
-+                    signal.signal(signal.SIGALRM, _prev_alarm)
-             if "sha256" in payload:
-                 if sha256File(destname).lower() != payload["sha256"].lower():
-                     if allowHashMismatch:

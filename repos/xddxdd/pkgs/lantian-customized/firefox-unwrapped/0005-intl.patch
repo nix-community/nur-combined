@@ -1,0 +1,219 @@
+diff --git a/intl/locale/LocaleService.cpp b/intl/locale/LocaleService.cpp
+index 49a16861..dc5d5c8e 100644
+--- a/intl/locale/LocaleService.cpp
++++ b/intl/locale/LocaleService.cpp
+@@ -15,6 +15,7 @@
+ #include "mozilla/intl/FluentBindings.h"
+ #include "mozilla/intl/OSPreferences.h"
+ #include "mozilla/intl/RegistryBindings.h"
++#include "mozilla/intl/StealthSessionPrefs.h"
+ #include "mozilla/intl/locale_service_glue_generated.h"
+ #include "nsContentUtils.h"
+ #include "nsDirectoryService.h"
+@@ -491,6 +492,27 @@ LocaleService::GetAppLocaleAsBCP47(nsACString& aRetVal) {
+   return NS_OK;
+ }
+ 
++// STEALTHFOX (firefox-50): the regional settings of the machine the session
++// declares, in place of this machine's: its language when one is declared,
++// else what the operating system says. Only the INPUT changes; the rule
++// below, which keeps the app locale unless the regional language matches
++// it, stays upstream's, because this is an en-US build and a real en-US
++// build on a de-DE machine formats as en-US. Before, the input was the
++// host's, so the same session gave en-GB on an en-GB machine and en-US on
++// any other, in the main runtime's default locale (XPCLocale), the locales
++// date and time inputs render with (GetWebExposedLocales, datetimebox.js)
++// and AppDateTimeFormat.
++static nsresult MachineRegionalPrefsLocales(nsTArray<nsCString>& aRetVal) {
++  nsAutoCString declared;
++  SessionLanguageTag(declared);
++  if (!declared.IsEmpty()) {
++    aRetVal.Clear();
++    aRetVal.AppendElement(declared);
++    return NS_OK;
++  }
++  return OSPreferences::GetInstance()->GetRegionalPrefsLocales(aRetVal);
++}
++
+ NS_IMETHODIMP
+ LocaleService::GetRegionalPrefsLocales(nsTArray<nsCString>& aRetVal) {
+   bool useOSLocales =
+@@ -499,8 +521,7 @@ LocaleService::GetRegionalPrefsLocales(nsTArray<nsCString>& aRetVal) {
+   // If the user specified that they want to use OS Regional Preferences
+   // locales, try to retrieve them and use.
+   if (useOSLocales) {
+-    if (NS_SUCCEEDED(
+-            OSPreferences::GetInstance()->GetRegionalPrefsLocales(aRetVal))) {
++    if (NS_SUCCEEDED(MachineRegionalPrefsLocales(aRetVal))) {
+       return NS_OK;
+     }
+ 
+@@ -519,8 +540,7 @@ LocaleService::GetRegionalPrefsLocales(nsTArray<nsCString>& aRetVal) {
+   AutoTArray<nsCString, 10> regionalPrefsLocales;
+   LocaleService::GetInstance()->GetAppLocaleAsBCP47(appLocale);
+ 
+-  if (NS_FAILED(OSPreferences::GetInstance()->GetRegionalPrefsLocales(
+-          regionalPrefsLocales))) {
++  if (NS_FAILED(MachineRegionalPrefsLocales(regionalPrefsLocales))) {
+     GetAppLocalesAsBCP47(aRetVal);
+     return NS_OK;
+   }
+diff --git a/intl/locale/StealthSessionPrefs.cpp b/intl/locale/StealthSessionPrefs.cpp
+new file mode 100644
+index 00000000..edd83068
+--- /dev/null
++++ b/intl/locale/StealthSessionPrefs.cpp
+@@ -0,0 +1,42 @@
++/* -*- Mode: C++; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
++/* This Source Code Form is subject to the terms of the Mozilla Public
++ * License, v. 2.0. If a copy of the MPL was not distributed with this
++ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
++
++#include "mozilla/intl/StealthSessionPrefs.h"
++
++#include "mozilla/StaticPrefs_juggler.h"
++#include "nsString.h"
++
++namespace mozilla::intl {
++
++void OrSessionLanguage(nsACString& aLanguage) {
++  if (aLanguage.IsEmpty()) {
++    auto declared = StaticPrefs::juggler_locale_override();
++    aLanguage = *declared;
++  }
++}
++
++void OrSessionTimezone(nsAString& aZone) {
++  if (aZone.IsEmpty()) {
++    auto declared = StaticPrefs::juggler_timezone_override();
++    CopyUTF8toUTF16(*declared, aZone);
++  }
++}
++
++void SessionLanguageTag(nsACString& aTag) {
++  nsAutoCString list;
++  OrSessionLanguage(list);
++  PrimaryLanguageTag(list, aTag);
++}
++
++void PrimaryLanguageTag(const nsACString& aList, nsACString& aTag) {
++  aTag = aList;
++  int32_t comma = aTag.FindChar(',');
++  if (comma >= 0) {
++    aTag.Truncate(comma);
++  }
++  aTag.Trim(" \t");
++}
++
++}  // namespace mozilla::intl
+diff --git a/intl/locale/StealthSessionPrefs.h b/intl/locale/StealthSessionPrefs.h
+new file mode 100644
+index 00000000..0d1d7ae5
+--- /dev/null
++++ b/intl/locale/StealthSessionPrefs.h
+@@ -0,0 +1,52 @@
++/* -*- Mode: C++; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
++/* This Source Code Form is subject to the terms of the Mozilla Public
++ * License, v. 2.0. If a copy of the MPL was not distributed with this
++ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
++
++#ifndef mozilla_intl_StealthSessionPrefs_h__
++#define mozilla_intl_StealthSessionPrefs_h__
++
++#include "nsStringFwd.h"
++
++namespace mozilla::intl {
++
++/**
++ * STEALTHFOX (firefox-50): the time zone and the language the SESSION
++ * declares, and the only code that reads them.
++ *
++ * invisible_core writes them as `juggler.timezone.override` (an IANA zone) and
++ * `juggler.locale.override` (an Accept-Language list, "it-IT, it, en-US, en"),
++ * static prefs that reach every process and any thread (StaticPrefList.yaml).
++ *
++ * A context may carry its own zone and language, in its top BrowsingContext's
++ * TimezoneOverride and LanguageOverride fields; the session's are the floor
++ * under them (dom/base/StealthSessionDeclaration.h), and the answer to the
++ * process-wide questions that have no context to ask: the regional settings
++ * of the machine (LocaleService::GetRegionalPrefsLocales, which still weighs
++ * them against the app locale as upstream does) and the fallback language of
++ * text without `lang` (nsLanguageAtomService::GetLocaleLanguage). Both asked
++ * the host's OSPreferences, so a page measured the machine.
++ *
++ * Empty only when nothing is declared, i.e. the engine was launched without
++ * the core: every caller then keeps Firefox's own path.
++ *
++ * Any thread.
++ */
++
++// A context's own declaration when it carries one, the session's otherwise:
++// the argument holds the context's value on entry (a top BrowsingContext's
++// field, or the copy a worker carried from it) and the declared one on exit.
++void OrSessionLanguage(nsACString& aLanguage);
++void OrSessionTimezone(nsAString& aZone);
++
++// The session's language as one tag, or empty.
++void SessionLanguageTag(nsACString& aTag);
++
++// The primary tag of an Accept-Language list: "fr-FR, fr, en-US, en" gives
++// "fr-FR"; a single tag passes through. The one place the list becomes a tag,
++// for every realm and every process-wide question that needs a BCP-47 tag.
++void PrimaryLanguageTag(const nsACString& aList, nsACString& aTag);
++
++}  // namespace mozilla::intl
++
++#endif  // mozilla_intl_StealthSessionPrefs_h__
+diff --git a/intl/locale/moz.build b/intl/locale/moz.build
+index 4d6ff042..7e753f0f 100644
+--- a/intl/locale/moz.build
++++ b/intl/locale/moz.build
+@@ -39,6 +39,7 @@ EXPORTS.mozilla.intl += [
+     "MozLocaleBindings.h",
+     "OSPreferences.h",
+     "Quotes.h",
++    "StealthSessionPrefs.h",
+ ]
+ 
+ UNIFIED_SOURCES += [
+@@ -50,6 +51,7 @@ UNIFIED_SOURCES += [
+     "nsUConvPropertySearch.cpp",
+     "OSPreferences.cpp",
+     "Quotes.cpp",
++    "StealthSessionPrefs.cpp",
+ ]
+ 
+ MOZ_SRC_FILES += [
+diff --git a/intl/locale/nsLanguageAtomService.cpp b/intl/locale/nsLanguageAtomService.cpp
+index 1761b528..e35d7f7b 100644
+--- a/intl/locale/nsLanguageAtomService.cpp
++++ b/intl/locale/nsLanguageAtomService.cpp
+@@ -7,6 +7,7 @@
+ #include "mozilla/Encoding.h"
+ #include "mozilla/intl/Locale.h"
+ #include "mozilla/intl/OSPreferences.h"
++#include "mozilla/intl/StealthSessionPrefs.h"
+ #include "MainThreadUtils.h"
+ #include "nsGkAtoms.h"
+ #include "nsUConvPropertySearch.h"
+@@ -114,6 +115,20 @@ nsAtom* nsLanguageAtomService::GetLocaleLanguage() {
+ 
+   AutoWriteLock lock(mLock);
+   if (!mLocaleLanguage) {
++    // STEALTHFOX (firefox-50): the language the session declares is the
++    // language of text that declares none, which picks the fonts of its
++    // language group (nsFontCache, EncodingToLang, a canvas with no `lang`).
++    // It was the host's regional settings, below. Per process, not per
++    // context: a second context with a language of its own keeps the
++    // session's here, in its layout and its canvas alike.
++    nsAutoCString declared;
++    intl::SessionLanguageTag(declared);
++    if (!declared.IsEmpty()) {
++      ToLowerCase(declared);
++      mLocaleLanguage = NS_Atomize(declared);
++      return mLocaleLanguage;
++    }
++
+     AutoTArray<nsCString, 10> regionalPrefsLocales;
+     // XXX Are the OSPreferences calls here safe to call from any thread?
+     // In practice GetLocaleLanguage will be called early on the main thread
