@@ -9,14 +9,14 @@
 
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pyrosm";
-  version = "0.15.0";
+  version = "0.28.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "HTenkanen";
     repo = "pyrosm";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-uKTXnE8kfczHb7S5VcRyg+2FTb55pH/zdViqZ3yvTEI=";
+    hash = "sha256-XjTpqqWmq/tMmy80u4LFvlaZ0H64pSlbW0WN/JK2eaQ=";
   };
 
   build-system = with python3Packages; [
@@ -30,7 +30,9 @@ python3Packages.buildPythonPackage (finalAttrs: {
     shapely
     cykhash
     protobuf
+    pyarrow
     pyrobuf
+    tqdm
   ];
 
   doCheck = false;

@@ -7,14 +7,14 @@
 
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pysbf2";
-  version = "1.0.5";
+  version = "1.0.7";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "pysbf2";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Q1QVHoqtnBzSG4eGYtgayBreZeUhNeMRzVaf5xRyGsI=";
+    hash = "sha256-XVbrjBOoKpRdKA0+Cmf5u/GHKgEa+jgRTHshLbLxDHg=";
   };
 
   build-system = with python3Packages; [ setuptools ];

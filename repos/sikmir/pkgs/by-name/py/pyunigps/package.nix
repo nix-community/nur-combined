@@ -7,14 +7,14 @@
 
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pyunigps";
-  version = "1.0.0";
+  version = "1.0.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "pyunigps";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-UuXtJTzsmjdYuWXt3bqQzj5sZLMfczVnCnDNt+X4lP4=";
+    hash = "sha256-fnSU/gUzRW3kexFjHc5xBaXeL+NgCR8nT0cds9t0frk=";
   };
 
   build-system = with python3Packages; [ setuptools ];
