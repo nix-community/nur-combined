@@ -1,0 +1,114 @@
+diff --git a/src/hosts/ollama.rs b/src/hosts/ollama.rs
+index 21509ba..3e25d9f 100644
+--- a/src/hosts/ollama.rs
++++ b/src/hosts/ollama.rs
+@@ -132,7 +132,7 @@ pub struct OllamaRequest<'a> {
+ 
+ #[derive(Debug, Serialize)]
+ pub struct OllamaModelOptions {
+-    temperature: f32,
++    temperature: Option<f32>,
+     top_p: Option<f32>,
+     top_k: Option<u32>,
+     repeat_penalty: Option<f32>,
+diff --git a/src/hosts/openai.rs b/src/hosts/openai.rs
+index 556d824..3828f8a 100644
+--- a/src/hosts/openai.rs
++++ b/src/hosts/openai.rs
+@@ -102,7 +102,6 @@ impl ModelHost for OpenAiHost {
+ 
+         let mut body = json!({
+             "model": options.full_model_spec().model_name(),
+-            "temperature": options.temperature,
+             "messages": messages
+         });
+ 
+@@ -114,6 +113,10 @@ impl ModelHost for OpenAiHost {
+             body["format"] = json!(val);
+         }
+ 
++        if let Some(val) = options.temperature.as_ref() {
++            body["temperature"] = json!(val);
++        }
++
+         if let Some(val) = options.presence_penalty.as_ref() {
+             body["presence_penalty"] = json!(val);
+         }
+@@ -136,7 +139,7 @@ impl ModelHost for OpenAiHost {
+ 
+         let mut response: ChatCompletion = request_with_retry(
+             self.create_base_request("chat/completions")
+-                .timeout(Duration::from_secs(30)),
++                .timeout(Duration::from_secs(300)),
+             body,
+         )
+         .map_err(map_model_response_err)?
+diff --git a/src/hosts/together.rs b/src/hosts/together.rs
+index 22e281a..e2b5e68 100644
+--- a/src/hosts/together.rs
++++ b/src/hosts/together.rs
+@@ -224,7 +224,7 @@ struct TogetherRequest<'a> {
+     pub prompt: &'a str,
+     pub stream: bool,
+     pub response_format: Option<TogetherRequestFormat>,
+-    pub temperature: f32,
++    pub temperature: Option<f32>,
+     pub top_p: Option<f32>,
+     pub top_k: Option<u32>,
+     pub repetition_penalty: Option<f32>,
+diff --git a/src/model.rs b/src/model.rs
+index dec58a9..07b4185 100644
+--- a/src/model.rs
++++ b/src/model.rs
+@@ -16,7 +16,7 @@ use crate::{
+ pub struct ModelOptions {
+     pub model: ModelSpec,
+     pub openai_key: Option<String>,
+-    pub temperature: f32,
++    pub temperature: Option<f32>,
+     pub format: Option<OutputFormat>,
+     pub top_k: Option<u32>,
+     pub top_p: Option<f32>,
+@@ -36,14 +36,13 @@ pub struct ModelOptions {
+ }
+ 
+ const DEFAULT_MODEL: &str = "gpt-3.5-turbo";
+-const DEFAULT_TEMPERATURE: f32 = 0.0;
+ 
+ impl Default for ModelOptions {
+     fn default() -> Self {
+         Self {
+             model: ModelSpec::default(),
+             openai_key: None,
+-            temperature: DEFAULT_TEMPERATURE,
++            temperature: None,
+             format: None,
+             top_k: None,
+             top_p: None,
+@@ -69,7 +68,7 @@ impl ModelOptions {
+             model: value.model.unwrap_or_default(),
+             // For security, don't allow setting openAI key in normal config or template files.
+             openai_key: None,
+-            temperature: value.temperature.unwrap_or(DEFAULT_TEMPERATURE),
++            temperature: value.temperature,
+             format: value.format,
+             top_p: value.top_p,
+             top_k: value.top_k,
+@@ -94,7 +93,7 @@ impl ModelOptions {
+         };
+ 
+         overwrite_from_option(&mut self.model, &model_spec);
+-        overwrite_from_option(&mut self.temperature, &args.temperature);
++        overwrite_option_from_option(&mut self.temperature, &args.temperature);
+         overwrite_option_from_option(&mut self.format, &args.format);
+         overwrite_from_option(&mut self.context.keep, &args.overflow_keep);
+         overwrite_option_from_option(&mut self.context.limit, &args.context_limit);
+@@ -138,7 +137,7 @@ impl ModelOptions {
+ 
+     pub fn update_from_model_input(&mut self, other: &ModelOptionsInput) {
+         overwrite_from_option(&mut self.model, &other.model);
+-        overwrite_from_option(&mut self.temperature, &other.temperature);
++        overwrite_option_from_option(&mut self.temperature, &other.temperature);
+         overwrite_option_from_option(&mut self.format, &other.format);
+         overwrite_option_from_option(&mut self.top_p, &other.top_p);
+         overwrite_option_from_option(&mut self.top_k, &other.top_k);

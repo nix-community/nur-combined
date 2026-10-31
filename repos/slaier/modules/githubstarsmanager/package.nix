@@ -7,12 +7,12 @@
 }:
 
 let
-  version = "0.8.7";
+  version = "0.8.9";
   src = fetchFromGitHub {
     owner = "AmintaCCCP";
     repo = "GithubStarsManager";
     rev = "v${version}";
-    hash = "sha256-a1c+uVG7aLmPfHFsvOKnV9Qmude/YvvL1AtMFomuAo8=";
+    hash = "sha256-JQ2u+vx1jWPS+bXPAzbR/1h6fbSkvIxId6wSo8knExM=";
   };
 
   frontend = buildNpmPackage {
@@ -21,7 +21,7 @@ let
     nodejs = nodejs_22;
     npmDeps = fetchNpmDeps {
       inherit version src;
-      hash = "sha256-3XgRyJe+cEukKQh9nv+ZdY3Hy9Cpk/THdMCBfXyV+v8=";
+      hash = "sha256-H24NMkRuekaUDgQPFQF4Lk/N1b/R/fD/oSHh3HShl9k=";
     };
     installPhase = ''
       runHook preInstall
@@ -35,7 +35,7 @@ let
     inherit version src;
     nodejs = nodejs_22;
     sourceRoot = "source/server";
-    npmDepsHash = "sha256-+Qt+cYvkdLFVhFtj8NRmbuKT790vKv6MpWya1PvJD2c=";
+    npmDepsHash = "sha256-rvPVqeeVR/eh7/tmnfwu1WaRkXbsX/2S7kaL9WK9DLw=";
     nativeBuildInputs = [ python3 ];
     postBuild = "npm prune --omit=dev";
     installPhase = ''

@@ -17,14 +17,15 @@ let
     presence-penalty = 0
     repeat-penalty = 1.0
 
-    [ornith-ai/Ornith-1.5-35B-A3B]
-    hf = ornith-ai/Ornith-1.5-35B-A3B-GGUF:Q4_K_M
+    [InternScience/Sage-A1.5]
+    hf = InternScience/Sage-A1.5-Q4_K_M-GGUF:Q4_K_M
     temperature = 0.6
     top-p = 0.95
     top-k = 20
     min-p = 0
     ot = blk\.[0-9]+\.ffn_.*exps.*=CPU
     ctx-size = 131072
+    reasoning = off
 
     [XHToken/Spark-X2.6-4B]
     hf = XHToken/Spark-X2.6-4B-GGUF:Q4_K_M
@@ -32,6 +33,7 @@ let
     top-p = 0.95
     top-k = -1
     ctx-size = 131072
+    reasoning = off
 
     [tencent/Hy-MT2-7B]
     hf = alexwkleung/Hy-MT2-7B-Abliterated-GGUF:Q4_K_M
@@ -50,6 +52,7 @@ in
     enable = true;
     package = llama-cpp;
     settings = {
+      host = "0.0.0.0";
       models-max = 1;
       "models-preset" = llama-cpp-presets;
     };

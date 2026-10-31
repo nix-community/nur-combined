@@ -266,7 +266,7 @@ with lib;
   home.file."${config.programs.firefox.configPath}/default/chrome".source = pkgs.fetchFromGitHub {
     owner = "akkva";
     repo = "gwfox";
-    rev = "v156.0.2";
-    sha256 = "sha256-daFPeNb1gk/XP/d2RSF9P1NQ884xkNLzvAOrgiiNPaw=";
+    rev = "v159.0";
+    sha256 = "sha256-QzhYPFQNSMuOvBfH9iPhPuOcgcm/yPL8tn0+zbBIlGM=";
   };
 }

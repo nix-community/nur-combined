@@ -11,4 +11,7 @@
   environment.systemPackages = with pkgs; [
     vagrant
   ];
+  nixpkgs.config.problems.handlers = {
+    libguestfs.broken = "warn";
+  };
 }

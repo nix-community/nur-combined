@@ -19,36 +19,48 @@
       plugin = [
         "${pkgs.rtk.src}/hooks/opencode/rtk.ts"
       ];
-      provider = {
-        google.options.apiKey = "{file:${config.sops.secrets.gemini_api_key.path}}";
-        opencode.options.apiKey = "{file:${config.sops.secrets.opencode_api_key.path}}";
+      providers = {
+        google.settings.apiKey = "{file:${config.sops.secrets.gemini_api_key.path}}";
+        opencode.settings.apiKey = "{file:${config.sops.secrets.opencode_api_key.path}}";
         "llama.cpp" = {
-          npm = "@ai-sdk/openai-compatible";
           name = "llama-server (local)";
-          options.baseURL = "http://127.0.0.1:8080/v1";
+          package = "@opencode/ai/providers/openai-compatible";
+          settings.baseURL = "http://127.0.0.1:8080/v1";
           models = {
-            "ornith-ai/Ornith-1.5-35B-A3B" = {
-              name = "Ornith-1.5-35B-A3B (local)";
-              limit = {
-                context = 131072;
-                output = 65536;
-              };
-              attachment = true;
-              family = "qwen";
-              modalities = {
+            "InternScience/Sage-A1.5" = {
+              name = "Sage-A1.5 (local)";
+              capabilities = {
                 input = [
                   "text"
                   "image"
                   "video"
                 ];
                 output = [ "text" ];
+                reasoning = {
+                  supported = true;
+                  effort = [ "max" ];
+                };
+                temperature = true;
+                tools = true;
               };
-              open_weights = true;
-              reasoning = true;
-              reasoning_options = [ ];
-              structured_output = true;
-              temperature = true;
-              tool_call = true;
+              limit.context = 131072;
+            };
+            "XHToken/Spark-X2.6-4B" = {
+              name = "Spark-X2.6-4B (local)";
+              capabilities = {
+                input = [ "text" ];
+                output = [ "text" ];
+                reasoning = {
+                  supported = true;
+                  effort = [
+                    "low"
+                    "high"
+                  ];
+                };
+                temperature = true;
+                tools = true;
+              };
+              limit.context = 131072;
             };
           };
         };
