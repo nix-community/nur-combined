@@ -49,14 +49,7 @@ makeScope newScope (
 
           echo "Updating $plugin_id to $version"
 
-          args=()
-
-          if [[ "''${UPDATE_NIX_FLAKE:-}" == "1" ]]; then
-            args+=(--flake)
-          fi
-
           nix-update \
-            "''${args[@]}" \
             --version="$version" \
             "$@" \
             "$UPDATE_NIX_ATTR_PATH"

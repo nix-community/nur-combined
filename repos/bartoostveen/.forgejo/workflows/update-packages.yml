@@ -21,6 +21,10 @@ jobs:
         env:
           INPUT_FILTER: ${{ inputs.package_filter }}
         run: |
+          # Ensure we have in-tree update scripts
+          # TODO: fix this (seems unneccesary)
+          nix-build -A wordpressPackages.pluginUpdateScript
+
           updatables=$(nix eval --raw .#_bartPackages.updatablesJson)
           if [[ -n "$INPUT_FILTER" ]]; then
             echo "Applying package filter regex: $INPUT_FILTER"
@@ -54,7 +58,7 @@ jobs:
 
           echo "Realising ${update_script_cmd[0]}"
           nix-store --realise "${update_script_cmd[0]}" || true
-          "${update_script_cmd[@]}" --flake --commit
+          "${update_script_cmd[@]}" --commit
 
           if [[ "$(git rev-list origin/"$base"..HEAD --count)" -ne 1 ]]; then
             echo "No changes for ${{ matrix.attrPath }}"
