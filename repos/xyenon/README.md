@@ -141,7 +141,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>magpie</code></strong> — Manage models, providers, and accounts for AI coding agents in one place</summary>
 
-- **Version:** `0.1.2295`
+- **Version:** `0.1.2377`
 - **License:** MIT
 - **Homepage:** [https://github.com/yetone/magpie](https://github.com/yetone/magpie)
 - **Build:** `nix build github:XYenon/nur-packages#magpie`
@@ -241,7 +241,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>rime-ice-unstable</code></strong> — Rime 配置：雾凇拼音 | 长期维护的简体词库</summary>
 
-- **Version:** `2026.06.30-unstable-2026-10-05`
+- **Version:** `2026.06.30-unstable-2026-10-31`
 - **License:** GPL-3.0-only
 - **Homepage:** [https://github.com/iDvel/rime-ice](https://github.com/iDvel/rime-ice)
 - **Build:** `nix build github:XYenon/nur-packages#rime-ice-unstable`
