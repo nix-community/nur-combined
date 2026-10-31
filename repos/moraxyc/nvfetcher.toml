@@ -244,6 +244,10 @@ src.github_tag = "router-for-me/pi-cliproxyapi-provider"
 fetch.github = "router-for-me/pi-cliproxyapi-provider"
 extract = ["package-lock.json", "package.json"]
 
+[pi-context-view]
+src.github = "dimk90/pi-context-view"
+fetch.github = "dimk90/pi-context-view"
+
 [pi-lsp-client]
 src.github_tag = "code-yeongyu/pi-lsp-client"
 fetch.github = "code-yeongyu/pi-lsp-client"

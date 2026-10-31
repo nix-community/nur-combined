@@ -655,6 +655,17 @@
       "package.json" = ./. + "/sha256-PsmXW3yCr9zIDGpxsDz3nDfqE8NQPqEZNifbEo9GQCI=/package.json";
     };
   };
+  pi-context-view = {
+    pname = "pi-context-view";
+    version = "v0.8.1";
+    src = fetchFromGitHub {
+      owner = "dimk90";
+      repo = "pi-context-view";
+      rev = "v0.8.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-J8Qsyn/6eA2ZfSzT3r+OxGHOAmJhWVj7J8x8TQk4WL8=";
+    };
+  };
   pi-lsp-client = {
     pname = "pi-lsp-client";
     version = "v0.2.0";
