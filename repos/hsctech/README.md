@@ -6,6 +6,8 @@ My [NUR](https://github.com/nix-community/NUR) repository.
 
 - **blobl_lsp** — language server for [Bloblang](https://warpstreamlabs.github.io/bento/docs/guides/bloblang/about/),
   the mapping language used by [Bento](https://warpstreamlabs.github.io/bento/).
+- **blobl_dbg** — interactive (Delve-style) debugger for Bloblang, including a
+  DAP server for editors.
 - **tree-sitter-bloblang** — tree-sitter grammar for Bloblang.
 - **helix-blobl** — [Helix](https://helix-editor.com) fork with Bloblang
   grammar and language-server support. The `helix-blobl` overlay also

@@ -18,8 +18,8 @@ let
         args = {
           owner = "hsctech";
           repo = "blobl_sitter";
-          rev = "e45bf9f42777ea4c8d353694118e30f34f2a0aa0"; # v0.2.4
-          hash = "sha256-fFQ98/j0FofrR4MKTZxYqMgpKCM+KBwUe+Pi+il7Sb4=";
+          rev = "81d932c9d8a37059bfff62f1215a6be25e688d23"; # main, post-v0.2.4
+          hash = "sha256-4gjD9qqM6MuyjQ7VZeCm/pVAnyhh5MBITpo6DWwt/eg=";
         };
       };
       subpath = null;

@@ -16,6 +16,12 @@ Glossary for this repository.
 - **blobl_lsp** — a language server for Bloblang (Bento's mapping language),
   packaged here from tagged releases of
   [codeberg.org/hsctech/blobl_lsp](https://codeberg.org/hsctech/blobl_lsp).
+- **blobl_dbg** — an interactive debugger for Bloblang with a DAP server,
+  packaged here from tagged releases of
+  [codeberg.org/hsctech/blobl_dbg](https://codeberg.org/hsctech/blobl_dbg).
+  Its go.mod replaces the bento fork, blobl_lsp, and blobl_sitter with sibling
+  checkouts; the package rewrites those replaces to fetched sources (bento
+  pinned to the fork's `blobl-debug` branch).
 - **blobl_sitter** — the tree-sitter grammar for Bloblang
   ([codeberg.org/hsctech/blobl_sitter](https://codeberg.org/hsctech/blobl_sitter)),
   packaged here as **tree-sitter-bloblang** from tagged releases.
