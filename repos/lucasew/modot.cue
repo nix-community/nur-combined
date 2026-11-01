@@ -467,6 +467,7 @@ modules: {
 	"personal-decsync":         #is_computer || #is_phone
 	"personal-zettel-org":      #is_computer || #is_phone
 	"personal-memes":           #is_computer || #is_phone || #is_grokbot
+	"personal-bots":            #is_massan || #is_phone || #is_grokbot
 	"personal-savegames":           #is_whiterun
 }
 
