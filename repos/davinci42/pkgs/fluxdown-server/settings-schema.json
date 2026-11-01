@@ -40,6 +40,136 @@
       "default": "true",
       "kind": "Bool"
     },
+    "bt_guard_ban_base_hours": {
+      "default": "24",
+      "kind": "Integer",
+      "max": 720,
+      "min": 1
+    },
+    "bt_guard_ban_max_days": {
+      "default": "30",
+      "kind": "Integer",
+      "max": 365,
+      "min": 1
+    },
+    "bt_guard_cloud_enabled": {
+      "default": "true",
+      "kind": "Bool"
+    },
+    "bt_guard_cloud_mode": {
+      "default": "observe",
+      "kind": "Enum",
+      "values": [
+        "off",
+        "observe",
+        "enforce"
+      ]
+    },
+    "bt_guard_downloading_max_action": {
+      "default": "throttle",
+      "kind": "Enum",
+      "values": [
+        "observe",
+        "throttle",
+        "choke",
+        "ban"
+      ]
+    },
+    "bt_guard_enabled": {
+      "default": "true",
+      "kind": "Bool"
+    },
+    "bt_guard_excess_ratio_pct": {
+      "default": "200",
+      "kind": "Integer",
+      "max": 1000,
+      "min": 110
+    },
+    "bt_guard_filter_urls": {
+      "default": "",
+      "kind": "Text"
+    },
+    "bt_guard_ipv6_prefix": {
+      "default": "64",
+      "kind": "Integer",
+      "max": 128,
+      "min": 48
+    },
+    "bt_guard_min_torrent_mib": {
+      "default": "64",
+      "kind": "Integer",
+      "max": 1048576,
+      "min": 0
+    },
+    "bt_guard_report_enabled": {
+      "default": "false",
+      "kind": "Bool"
+    },
+    "bt_guard_rewind_tolerance_pct": {
+      "default": "7",
+      "kind": "Integer",
+      "max": 100,
+      "min": 0
+    },
+    "bt_guard_rule_excessive": {
+      "default": "observe",
+      "kind": "Enum",
+      "values": [
+        "off",
+        "observe",
+        "enforce"
+      ]
+    },
+    "bt_guard_rule_fingerprint": {
+      "default": "observe",
+      "kind": "Enum",
+      "values": [
+        "off",
+        "observe",
+        "enforce"
+      ]
+    },
+    "bt_guard_rule_lag": {
+      "default": "observe",
+      "kind": "Enum",
+      "values": [
+        "off",
+        "observe",
+        "enforce"
+      ]
+    },
+    "bt_guard_rule_rerequest": {
+      "default": "observe",
+      "kind": "Enum",
+      "values": [
+        "off",
+        "observe",
+        "enforce"
+      ]
+    },
+    "bt_guard_rule_rewind": {
+      "default": "observe",
+      "kind": "Enum",
+      "values": [
+        "off",
+        "observe",
+        "enforce"
+      ]
+    },
+    "bt_guard_skip_lan": {
+      "default": "true",
+      "kind": "Bool"
+    },
+    "bt_guard_skip_private": {
+      "default": "true",
+      "kind": "Bool"
+    },
+    "bt_guard_throttle_kib": {
+      "default": "32",
+      "kind": "Integer",
+      "max": 1048576,
+      "min": 1
+    },
     "bt_mse_mode": {
       "default": "enabled",
       "kind": "Enum",
@@ -345,10 +475,10 @@
       "kind": "Text"
     }
   },
-  "protocolVersion": 25,
+  "protocolVersion": 26,
   "sourceHashes": {
-    "native/protocol/src/daemon_config.rs": "69077187794b5913538558bca0699c4b84114417f7c668a1b3198efc45fdb163",
-    "native/protocol/src/rpc.rs": "fbc5fbd9d925b779055c3886e6f58471c0bfd252d2cd944c463bef0f43148062"
+    "native/protocol/src/daemon_config.rs": "2a0540a6f3aeaba33a5eb313758def858a06cf4e3841e272d24a1a26a2ff565a",
+    "native/protocol/src/rpc.rs": "471fda2457fd730759cbf48cc318ad187e67cb70470bc3f5abc5caf79a25dad1"
   },
-  "version": "0.6.4"
+  "version": "0.6.5"
 }
