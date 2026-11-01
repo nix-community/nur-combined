@@ -512,18 +512,34 @@
                 {
                   alert = "OOM";
                   expr = "node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes < 0.1";
+                  labels.severity = "critical";
+                  annotations = {
+                    summary = "Available memory < 10% on {{ $labels.instance }}";
+                  };
                 }
                 {
                   alert = "DiskFull";
                   expr = ''node_filesystem_avail_bytes{mountpoint=~"/persist"} / node_filesystem_size_bytes < 0.1'';
+                  labels.severity = "critical";
+                  annotations = {
+                    summary = "Disk space available < 10% on {{ $labels.instance }} ({{ $labels.mountpoint }})";
+                  };
                 }
                 {
                   alert = "UnitFailed";
                   expr = ''node_systemd_unit_state{state="failed"} == 1'';
+                  labels.severity = "warning";
+                  annotations = {
+                    summary = "Systemd unit {{ $labels.name }} failed on {{ $labels.instance }}";
+                  };
                 }
                 {
                   alert = "BtrfsDevErr";
                   expr = "sum(rate(node_btrfs_device_errors_total[2m])) > 0";
+                  labels.severity = "critical";
+                  annotations = {
+                    summary = "Btrfs device error on {{ $labels.instance }}";
+                  };
                 }
               ];
             }

@@ -1,9 +1,37 @@
 {{- define "realm.telegram.compact" -}}
 {{- $limit := 20 -}}
-{{- $instance := .CommonLabels.instance -}}
-{{- if gt (len $instance) 80 -}}{{- $instance = printf "%.80s" $instance -}}{{- end -}}
-[{{ .Status | toUpper }}] {{ .CommonLabels.alertname }}{{ if $instance }} @ {{ $instance }}{{ end }} · {{ len .Alerts }} alerts
-{{ range $i, $a := .Alerts }}{{ if lt $i $limit }}- {{ with $a.Labels.severity }}{{ . }}{{ else }}unknown{{ end }}{{ with $a.Labels.collector }} · {{ . | printf "%.40s" }}{{ end }}{{ with $a.Labels.node }} · {{ . | printf "%.40s" }}{{ end }}{{ if ne $a.Status "firing" }} · {{ $a.Status }}{{ end }}
+{{- $commonInst := .CommonLabels.instance -}}
+{{- if gt (len $commonInst) 80 -}}{{- $commonInst = printf "%.80s" $commonInst -}}{{- end -}}
+[{{ .Status | toUpper }}] {{ .CommonLabels.alertname }}{{ if $commonInst }} @ {{ $commonInst }}{{ end }} · {{ len .Alerts }} alert{{ if ne (len .Alerts) 1 }}s{{ end }}
+{{ range $i, $a := .Alerts }}{{ if lt $i $limit }}- {{ with $a.Labels.severity }}[{{ . }}] {{ end -}}
+{{- if and $a.Labels.instance (ne $a.Labels.instance $commonInst) }}{{ $a.Labels.instance }}: {{ end -}}
+{{- with $a.Labels.name -}}
+  {{ . }}
+{{- else with $a.Labels.mountpoint -}}
+  {{ . }}{{ with $a.Labels.device }} ({{ . }}){{ end }}
+{{- else with $a.Labels.unit -}}
+  {{ . }}
+{{- else with $a.Labels.collector -}}
+  {{ . }}
+{{- else with $a.Labels.device -}}
+  {{ . }}
+{{- else with $a.Annotations.summary -}}
+  {{ . }}
+{{- else with $a.Annotations.description -}}
+  {{ . }}
+{{- else -}}
+  {{ or $a.Labels.job "alert" }}
+{{- end -}}
+{{- with $a.Labels.collector }}{{ if and (ne . $a.Labels.name) (ne . $a.Labels.unit) }} · {{ . }}{{ end }}{{ end -}}
+{{- with $a.Labels.node }}{{ if ne . $commonInst }} · {{ . | printf "%.40s" }}{{ end }}{{ end -}}
+{{- if or $a.Labels.name $a.Labels.mountpoint $a.Labels.unit $a.Labels.collector $a.Labels.device -}}
+  {{- with $a.Annotations.summary -}}
+    {{- if and (ne . $a.Labels.name) (ne . $a.Labels.mountpoint) (ne . $a.Labels.unit) }} · {{ . | printf "%.80s" }}{{ end -}}
+  {{- else with $a.Annotations.description -}}
+    {{- if and (ne . $a.Labels.name) (ne . $a.Labels.mountpoint) (ne . $a.Labels.unit) }} · {{ . | printf "%.80s" }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+{{- if eq $a.Status "resolved" }} · resolved{{ end }}
 {{ end }}{{ end }}{{ if gt (len .Alerts) $limit }}… showing first 20; see {{ .ExternalURL }}
 {{ end }}
 {{- end -}}

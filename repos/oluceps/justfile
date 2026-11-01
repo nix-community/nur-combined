@@ -39,7 +39,7 @@ renc:
     just sync-subsec
     touch .nix-dirty
     git add -N .nix-dirty
-    nix run $'.#vaultix.app.(uname | $'($in.machine)-($in.kernel-name | str downcase)').renc'
+    nix run $'.#vaultix.app.(uname | $'($in.machine)-($in.kernel-name | str lowercase)').renc'
     just sync-subsec
     git add ./sec
     rm .nix-dirty
@@ -111,7 +111,7 @@ edit-sec *args:
                                   reduce {|it, acc| $it + (char newline) + $acc } |
                                   fzf
     if (not ($encrypted_file_tob_edit | path exists)) { print -e "Not found"; exit }
-    nix run $'.?submodules=1#vaultix.app.(uname | $'($in.machine)-($in.kernel-name | str downcase)').edit' -- $encrypted_file_tob_edit
+    nix run $'.?submodules=1#vaultix.app.(uname | $'($in.machine)-($in.kernel-name | str lowercase)').edit' -- $encrypted_file_tob_edit
 
 decrypt *args:
     #!/usr/bin/env nu

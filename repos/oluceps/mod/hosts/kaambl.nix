@@ -143,7 +143,7 @@
           fileSystems = [ "/persist" ];
         };
 
-        blueman.enable = true;
+        # blueman.enable = true;
         logind = {
           settings.Login = {
             HandleLidSwitch = "suspend-then-hibernate";

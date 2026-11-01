@@ -118,7 +118,11 @@
             s.connect((dest_host, dest_port))
             return s"""
 
-        new_connect = """def _parse_proxy_target(url):
+        # 注意：上游 fetch 会全局劫持 socket.socket = socks.socksocket（经 Arti）且不恢复，
+        # 二段跳必须使用模块加载时保存的原始 socket，否则连前置代理本身也会被套进 Arti。
+        new_connect = """_RAW_SOCKET = socket.socket
+
+        def _parse_proxy_target(url):
             if not url:
                 return None, None, None
             m = re.match(r"^(socks5|socks5h|http)://([^:]+):(\d+)$", str(url).strip())
@@ -144,7 +148,7 @@
             f_scheme, f_host, f_port = _parse_proxy_target(front_proxy)
             if f_scheme in ("socks5", "socks5h") and f_host and f_port:
                 # ===== 二段跳逻辑: 本服务 -> 前置代理 (Arti) -> 国内代理 (ProxyPool) -> 目标 =====
-                s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                s = _RAW_SOCKET(socket.AF_INET, socket.SOCK_STREAM)
                 s.settimeout(timeout)
                 s.connect((f_host, f_port))
 
