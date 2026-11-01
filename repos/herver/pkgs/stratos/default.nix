@@ -65,14 +65,14 @@ stdenv.mkDerivation {
     nss
     pango
     stdenv.cc.cc.lib
-    xorg.libX11
-    xorg.libXcomposite
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXrandr
-    xorg.libxcb
-    xorg.libxshmfence
+    libx11
+    libxcomposite
+    libxdamage
+    libxext
+    libxfixes
+    libxrandr
+    libxcb
+    libxshmfence
   ];
 
   # Outside an AppImage ($APPIMAGE unset) electron-updater's checkForUpdates()
@@ -132,8 +132,8 @@ stdenv.mkDerivation {
         pkgs.libGL
         pkgs.libnotify
         pkgs.libpulseaudio
-        pkgs.xorg.libXScrnSaver
-        pkgs.xorg.libXtst
+        pkgs.libxscrnsaver
+        pkgs.libxtst
       ]}"
 
     runHook postInstall

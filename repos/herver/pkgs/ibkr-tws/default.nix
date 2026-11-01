@@ -42,17 +42,17 @@ let
     dbus
     cups
     libxkbcommon
-    xorg.libX11
-    xorg.libxcb
-    xorg.libXext
-    xorg.libXi
-    xorg.libXrender
-    xorg.libXtst
-    xorg.libXrandr
-    xorg.libXcursor
-    xorg.libXfixes
-    xorg.libXcomposite
-    xorg.libXdamage
+    libx11
+    libxcb
+    libxext
+    libxi
+    libxrender
+    libxtst
+    libxrandr
+    libxcursor
+    libxfixes
+    libxcomposite
+    libxdamage
     alsa-lib
     libpulseaudio
   ];

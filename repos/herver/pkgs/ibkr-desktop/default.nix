@@ -31,24 +31,24 @@ let
     freetype
     libGL
     libglvnd
-    xorg.libX11
-    xorg.libxcb
-    xorg.libXext
-    xorg.libXi
-    xorg.libXrandr
-    xorg.libXrender
-    xorg.libXtst
-    xorg.libXcomposite
-    xorg.libXdamage
-    xorg.libXfixes
-    xorg.libxshmfence
-    xorg.libxkbfile
+    libx11
+    libxcb
+    libxext
+    libxi
+    libxrandr
+    libxrender
+    libxtst
+    libxcomposite
+    libxdamage
+    libxfixes
+    libxshmfence
+    libxkbfile
     libxkbcommon
-    xorg.xcbutilcursor
-    xorg.xcbutilimage
-    xorg.xcbutilkeysyms
-    xorg.xcbutilrenderutil
-    xorg.xcbutilwm
+    libxcb-cursor
+    libxcb-image
+    libxcb-keysyms
+    libxcb-render-util
+    libxcb-wm
     alsa-lib
     libpulseaudio
     gtk3

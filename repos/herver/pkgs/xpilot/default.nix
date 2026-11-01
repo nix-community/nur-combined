@@ -98,13 +98,13 @@ let
           pkgs.openssl
           pkgs.alsa-lib
           pkgs.libpulseaudio
-          pkgs.xorg.libX11
-          pkgs.xorg.libICE
-          pkgs.xorg.libSM
-          pkgs.xorg.libXext
-          pkgs.xorg.libXcursor
-          pkgs.xorg.libXi
-          pkgs.xorg.libXrandr
+          pkgs.libx11
+          pkgs.libice
+          pkgs.libsm
+          pkgs.libxext
+          pkgs.libxcursor
+          pkgs.libxi
+          pkgs.libxrandr
         ]}"
 
       runHook postInstall
