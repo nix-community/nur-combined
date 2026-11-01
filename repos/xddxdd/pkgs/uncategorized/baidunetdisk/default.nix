@@ -18,11 +18,11 @@
 # https://aur.archlinux.org/packages/baidunetdisk-electron
 ################################################################################
 let
-  version = "8.9.6";
+  version = "8.9.7";
 
   src = fetchurl {
     url = "http://wppkg.baidupcs.com/issue/netdisk/Linuxguanjia/${version}/baidunetdisk_${version}_amd64.deb";
-    hash = "sha256-rmsgorL9hDE+Haci3+FOOdW0RmSbRttgD4OyXK91QeI=";
+    hash = "sha256-bApd9P6Q9/GqXgfppwROPk0bbMqnvqvcH3+cwl+jsxw=";
   };
 
   libraries = [

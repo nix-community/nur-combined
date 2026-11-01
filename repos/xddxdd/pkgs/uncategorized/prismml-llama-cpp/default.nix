@@ -16,8 +16,8 @@
 }:
 
 let
-  version = "b10831-9d9efea";
-  hash = "sha256-RiUDltYHS6394GHklhzUzoc+Nj5hRw85FmKUd2/nfc8=";
+  version = "b12128-d7b2896";
+  hash = "sha256-uG0p3hztns+OVLXEvnKnVdU/9b2g02hWs58dWVVtVaQ=";
 
   buildInfo = lib.match "b([0-9]+)-([0-9a-f]+)" version;
   buildNumber = if buildInfo != null then builtins.elemAt buildInfo 0 else "0";
@@ -66,7 +66,7 @@ effectiveStdenv.mkDerivation (finalAttrs: {
     ]
   );
 
-  npmDepsHash = "sha256-2Q7XhaLAArmviOLdQsNbYTfdyDE5pW9lR26cRHEVl9k=";
+  npmDepsHash = "sha256-XLtEZsSFdk+2SyfXzBp8HQ2e27PQPpDCn1YjePU1/9w=";
   npmDeps = fetchNpmDeps {
     name = "${finalAttrs.pname}-${finalAttrs.version}-npm-deps";
     inherit (finalAttrs) src patches;

@@ -7,12 +7,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "i915-sriov";
-  version = "2026.10.28-unstable-2026-10-28";
+  version = "2026.10.28-unstable-2026-10-31";
   src = fetchFromGitHub {
     owner = "strongtz";
     repo = "i915-sriov-dkms";
-    rev = "3e820c086b38be0feb2c4de36ace53533c20feae";
-    hash = "sha256-nL3TGK/VpHHmgry3dcRzb6+unZR/fKhSQvRuK1h9ykM=";
+    rev = "2cb513e3fd33a7722a473b333c207ab957fe225d";
+    hash = "sha256-0IL4jP2pMoAR+HiBHle/scwmXjljkMchZYTXzUaiLH8=";
   };
   __structuredAttrs = true;
   strictDeps = true;
