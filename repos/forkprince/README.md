@@ -38,6 +38,7 @@ This repository contains three types of packages:
 | [`compositor-meta`](pkgs/compositor-meta/default.nix) | compositor-meta |
 | [`convierto`](pkgs/convierto/default.nix) | [convierto](https://github.com/nuance-dev/convierto/), native macOS file converter app |
 | [`cot-editor`](pkgs/cot-editor/default.nix) | [cot-editor](https://coteditor.com/), plain-text editor for web pages, program source codes and more |
+| [`craft-anything`](pkgs/craft-anything/default.nix) | [craft-anything](https://getartcraft.com/apps/craft-anything), understand how software works, then craft your own |
 | [`creality-print`](pkgs/creality-print/default.nix) | [creality-print](https://github.com/CrealityOfficial/CrealityPrint), slicer and cloud services for some Creality FDM 3D printers |
 | [`crossover`](pkgs/crossover/default.nix) | [crossover](https://www.codeweavers.com/products/crossover-mac), tool to run Windows software |
 | [`deckcraft`](pkgs/deckcraft/default.nix) | [deckcraft](https://getartcraft.com/apps/deckcraft), presentation and slide deck editor |

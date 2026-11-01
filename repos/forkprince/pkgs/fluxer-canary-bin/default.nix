@@ -57,14 +57,14 @@ in
 
         if [ -d ${contents}/usr/share/icons ]; then
           cp -r ${contents}/usr/share/icons $out/share/ || true
-        fi
-
-        icon=$(find ${contents} -maxdepth 3 -name "*.png" -path "*/fluxer*" | head -n1)
-        if [ -z "$icon" ]; then
-          icon=$(find ${contents} -maxdepth 3 -name "*.png" | head -n1)
-        fi
-        if [ -n "$icon" ]; then
-          install -Dm444 "$icon" $out/share/icons/hicolor/512x512/apps/fluxer-canary.png || true
+        else
+          icon=$(find ${contents} -maxdepth 3 -name "*.png" -path "*/fluxer*" | head -n1)
+          if [ -z "$icon" ]; then
+            icon=$(find ${contents} -maxdepth 3 -name "*.png" | head -n1)
+          fi
+          if [ -n "$icon" ]; then
+            install -Dm444 "$icon" $out/share/icons/hicolor/512x512/apps/fluxer-canary.png || true
+          fi
         fi
       '';
     }

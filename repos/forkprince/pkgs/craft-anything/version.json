@@ -1,0 +1,28 @@
+{
+  "name": "Craft Anything",
+  "source": {
+    "type": "github-release",
+    "repo": "storytold/craft-anything",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "0.2.0",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "craft-anything-{version}-macos-universal.dmg",
+      "hash": "sha256-nOGKDQeLcjpLivdEcYOxIxfnYbqjf1z8c7zQgBBBn8k="
+    },
+    "x86_64-darwin": {
+      "file": "craft-anything-{version}-macos-universal.dmg",
+      "hash": "sha256-nOGKDQeLcjpLivdEcYOxIxfnYbqjf1z8c7zQgBBBn8k="
+    },
+    "x86_64-linux": {
+      "file": "craft-anything-{version}-linux-x86_64.AppImage",
+      "hash": "sha256-uoQj5sxOZyXYZ66KXhe5RNEAgBaSJR4wkgPqDnzvaYg="
+    },
+    "aarch64-linux": {
+      "file": "craft-anything-{version}-linux-aarch64.AppImage",
+      "hash": "sha256-j3+W9Z9BAdbHsLYls55/mDUxcWovHbsgiOWxSqm0LEs="
+    }
+  }
+}

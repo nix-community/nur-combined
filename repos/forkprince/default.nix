@@ -133,6 +133,7 @@
     helium-nightly = lib.callPackage ./pkgs/helium-nightly {};
     waterfox-bin = lib.callPackage ./pkgs/waterfox-bin {};
 
+    craft-anything = lib.callPackage ./pkgs/craft-anything {};
     vectorcraft = lib.callPackage ./pkgs/vectorcraft {};
     effectcraft = lib.callPackage ./pkgs/effectcraft {};
     designcraft = lib.callPackage ./pkgs/designcraft {};
