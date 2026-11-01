@@ -137,17 +137,27 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       --replace-fail 'git clone -b OpenSSL_1_1_1-stable https://github.com/openssl/openssl build/''${NAME}' \
         'cp -R "${finalAttrs.opensslSrc}" "build/''${NAME}" && chmod -R u+w "build/''${NAME}"'
 
+    # Copy the header contents with GNU cp, matching upstream's BSD cp layout.
+    # framework-inputs.sh and the Opus/FFmpeg bindings require opus/opus.h.
     substituteInPlace core-xprojects/libopus/libopus/build.sh \
-      --replace-fail 'cp -a $SOURCE_DIR/include/ $OUT_DIR/libopus/include/opus' \
-        'cp -a $SOURCE_DIR/include/* $OUT_DIR/libopus/include/opus/'
+      --replace-fail 'cp -a ''${SOURCE_DIR}/include/ ''${OUT_DIR}/libopus/include/opus' \
+        'cp -a "''${SOURCE_DIR}/include/." "''${OUT_DIR}/libopus/include/opus/"'
 
     # These scripts expect BSD cp semantics (copy directory contents).
     substituteInPlace core-xprojects/webrtc/webrtc/build.sh \
       --replace-fail 'cp -R $SOURCE_DIR $BUILD_DIR' 'cp -R "$SOURCE_DIR"/. "$BUILD_DIR"/'
     substituteInPlace core-xprojects/Mozjpeg/Mozjpeg/build.sh \
       --replace-fail 'mozjpeg/" "''${BUILD_DIR}build/"' 'mozjpeg/"/. "''${BUILD_DIR}build/"'
-    substituteInPlace core-xprojects/webrtc/webrtc.xcodeproj/project.pbxproj \
-      --replace-fail 'libopus/build/libopus/include/opus' 'libopus/build/libopus/include/opus/include'
+
+    # SceneEffects has no SwiftPM resources of its own. Its shaders are
+    # compiled into Telegram's main metallib, so load that bundle explicitly.
+    substituteInPlace packages/SceneEffects/Sources/InteractiveDiamond/DiamondRenderer.swift \
+      --replace-fail 'makeDefaultLibrary(bundle: .module)' 'makeDefaultLibrary(bundle: Bundle.main)'
+    substituteInPlace packages/SceneEffects/Sources/LiquidGlassShapes/LiquidGlassShapesPipelines.swift \
+      --replace-fail 'makeDefaultLibrary(bundle: .module)' 'makeDefaultLibrary(bundle: Bundle.main)'
+
+    python3 ${./files/fix-chat-header-width.py}
+
 
     # SwiftPM sandboxes manifest evaluation with sandbox-exec, which cannot
     # nest inside the build sandbox.
@@ -161,6 +171,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         --replace-fail 'for RUST_TARGET in aarch64-apple-darwin x86_64-apple-darwin' 'for RUST_TARGET in ${rustTarget}'
       sed -i '\|"$BUILD_DIR/lib/${foreignRustTarget}/release/|d' "$script"
     done
+
+    # XCFramework identifiers describe the slices actually built above.
+    substituteInPlace scripts/framework-inputs.sh \
+      --replace-fail 'macos-arm64_x86_64' 'macos-${arch}'
 
     mkdir -p submodules/telegram-ios/submodules/ffmpeg/Sources/FFMpeg/ffmpeg-8.1.2
     cp -R ${finalAttrs.ffmpegSrc}/. submodules/telegram-ios/submodules/ffmpeg/Sources/FFMpeg/ffmpeg-8.1.2/
@@ -200,7 +214,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       -IDEPackageSupportDisablePluginExecutionSandbox=YES \
       ARCHS=${arch} ONLY_ACTIVE_ARCH=YES \
       CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO \
-      'SWIFT_ACTIVE_COMPILATION_CONDITIONS=$(inherited) STABLE'
+      'SWIFT_ACTIVE_COMPILATION_CONDITIONS=$(inherited) STABLE' \
+      'OTHER_SWIFT_FLAGS=$(inherited) -disable-sandbox'
 
     install_metal_libraries build/Build/Products/Release
 
