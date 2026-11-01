@@ -8,25 +8,23 @@
 
 buildGoModule (finalAttrs: {
   pname = "zlib-cli";
-  version = "0.0.11";
+  version = "0.0.12";
 
   src = fetchFromGitHub {
     owner = "heartleo";
     repo = "zlib";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-14YUyq7CXZJK+09rCOQxMlRmqwWqiiJEkREXnrw4uko=";
+    hash = "sha256-IQ/KQSKlG4XFbLsO85GznccF+Qp2PPaFoL6mwARBxZQ=";
   };
 
-  vendorHash = "sha256-GE3FXOKnmtpCQQ1+QTyBqimJH2x9jQeT0C5zD9k+PVI=";
+  vendorHash = "sha256-qXzhQI8LCMnVi5Mu1a8QHPhSyzHeqxQEN0wfb0tlTms=";
 
   env.CGO_ENABLED = 0;
 
   ldflags = [
     "-s"
     "-w"
-    "-X github.com/heartleo/zlib.Version=${finalAttrs.version}"
-    "-X github.com/heartleo/zlib.Commit=v${finalAttrs.version}"
-    "-X github.com/heartleo/zlib.Date=unknown"
+    "-X github.com/heartleo/zlib/internal/zlib.Version=${finalAttrs.version}"
   ];
 
   subPackages = [ "cmd/zlib" ];
