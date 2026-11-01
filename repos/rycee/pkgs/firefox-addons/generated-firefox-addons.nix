@@ -7839,10 +7839,10 @@
     };
     "localcdn" = buildMozillaXpiAddon {
       pname = "localcdn";
-      version = "2.6.86";
+      version = "2.6.87";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5010046/localcdn_fork_of_decentraleyes-2.6.86.xpi";
-      sha256 = "2fcca5f9fd9d0de3b2b4e3b0260d1ca3645f46d6467b09a6d0c039262f425674";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5189789/localcdn_fork_of_decentraleyes-2.6.87.xpi";
+      sha256 = "e5a1dd02166c487f0409cd09df8dddb04ab0e4aeb432eeae5330501c615e2dc8";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -11146,10 +11146,10 @@
     };
     "purpleadblock" = buildMozillaXpiAddon {
       pname = "purpleadblock";
-      version = "2.7.0";
+      version = "2.7.1";
       addonId = "{a7399979-5203-4489-9861-b168187b52e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5107259/purpleadblock-2.7.0.xpi";
-      sha256 = "335bdc68dd912688e522db7d19c84c0a583ffc4829ab82b51a05cb70a15e6a0a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5191569/purpleadblock-2.7.1.xpi";
+      sha256 = "c13f22f9c814b330015e2bc5b1c8256db15191f20a675e626504db00ea2e4e3f";
       meta = with lib;
       {
         description = "Blocks the ads Twitch puts in live streams by editing the stream playlists inside the Twitch player. No proxy, no data collected.";
@@ -12021,10 +12021,10 @@
     };
     "return-youtube-dislikes" = buildMozillaXpiAddon {
       pname = "return-youtube-dislikes";
-      version = "4.0.6";
+      version = "4.1.1";
       addonId = "{762f9885-5a13-4abd-9c77-433dcd38b8fd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5012638/return_youtube_dislikes-4.0.6.xpi";
-      sha256 = "59719749f6df38c1601ca5f39c02158d5f005c43e9eeea1f19527f468c941217";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5192620/return_youtube_dislikes-4.1.1.xpi";
+      sha256 = "9ca13a43f03af8387c0553f6a466556e5d111c571e599fec94a4848c0e288c9c";
       meta = with lib;
       {
         description = "Returns ability to see dislike statistics on youtube";
@@ -13116,10 +13116,10 @@
     };
     "statshunters" = buildMozillaXpiAddon {
       pname = "statshunters";
-      version = "3.4.2";
+      version = "3.4.3";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5182947/statshunters-3.4.2.xpi";
-      sha256 = "4863fc0a9a0de0ec8a24c4d9eae9508f5e1d0ebe3168aa19f8f61dcce3ef136a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5190757/statshunters-3.4.3.xpi";
+      sha256 = "eaee4420743ed5602d815a3ccd2504fe127d2830fe7b9c88548ad130e7948854";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -13257,10 +13257,10 @@
     };
     "stylebot-web" = buildMozillaXpiAddon {
       pname = "stylebot-web";
-      version = "4.1.0";
+      version = "4.2.0";
       addonId = "{52bda3fd-dc48-4b3d-a7b9-58af57879f1e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5183869/stylebot_web-4.1.0.xpi";
-      sha256 = "f9574fde5c6230b54c6169bf13da642ce721127baebe9c6cc77ec55b084a3fc3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5191886/stylebot_web-4.2.0.xpi";
+      sha256 = "30e8963525e201f044e34b927ac71bc0eab74229fc4d9cce179539d09f099618";
       meta = with lib;
       {
         homepage = "https://stylebot.dev/";
@@ -13950,10 +13950,10 @@
     };
     "time-zone-converter-savvy-time" = buildMozillaXpiAddon {
       pname = "time-zone-converter-savvy-time";
-      version = "1.11.6";
+      version = "1.11.7";
       addonId = "yuriy@savvytime.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5179726/time_zone_converter_savvy_time-1.11.6.xpi";
-      sha256 = "dead25db2a169028feae8dccad36aa42029a2d9dbeac37dec367b7c78ae8b4bc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5191374/time_zone_converter_savvy_time-1.11.7.xpi";
+      sha256 = "752bd1de4806d0fe441756adb59937dadd73b9dba246f8cb9e708212f5043a6c";
       meta = with lib;
       {
         homepage = "https://savvytime.com/converter";
