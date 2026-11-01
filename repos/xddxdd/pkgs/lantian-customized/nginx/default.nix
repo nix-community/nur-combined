@@ -31,7 +31,6 @@ let
   };
 in
 (nginxMainline.override {
-  withImageFilter = true;
   modules = [
     (staticModule nginxModules.geoip2)
     (staticModule nginxModules.vts)
