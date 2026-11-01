@@ -5,7 +5,7 @@
 static-nix-shell.mkPython3 {
   pname = "sane-dtmf-generator";
   srcRoot = ./.;
-  pkgs = {
+  packages = {
     "python3.pkgs.numpy" = python3.pkgs.numpy;
     "python3.pkgs.scipy" = python3.pkgs.scipy;
   };

@@ -13,7 +13,7 @@ let
     srcRoot = ./.;
     # XXX(2025-12-30): nix-prefetch-github requires nix-prefetch-git ALSO be on path.
     # unclear why it doesn't wrap that.
-    pkgs = {
+    packages = {
       inherit
         curl
         gnused

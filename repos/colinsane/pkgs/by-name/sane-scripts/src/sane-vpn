@@ -1,5 +1,5 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
-#!nix-shell -i python3 ../../../../integrations/nix-shell --arg f 'ps: [ ps.bunpen ps.iproute2 ps.networkmanager-split.nmcli ps.python3 ps.sane-scripts.ip-check ps.systemd ]'
+#!nix-shell -i python3 ../../../.. -A static-nix-shell.mkPython3 --arg packages 'ps: [ ps.bunpen ps.iproute2 ps.networkmanager-split.nmcli ps.python3 ps.sane-scripts.ip-check ps.systemd ]'
 # vim: set filetype=python :
 USAGE = """
 sane-vpn: tool to route all system internet traffic through some VPN, or just one application's

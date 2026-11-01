@@ -1,5 +1,5 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
-#!nix-shell -i python3 ../../../integrations/nix-shell --arg f 'ps: [ ps.python3 ps.python3.pkgs.pydantic ps.python3.pkgs.pygobject3 ps.python3.pkgs.requests ]'
+#!nix-shell -i python3 ../../.. -A static-nix-shell.mkPython3 --arg packages 'ps: [ ps.python3 ps.python3.pkgs.pydantic ps.python3.pkgs.pygobject3 ps.python3.pkgs.requests ]'
 
 # API docs: <https://docs.nano-gpt.com/api-reference>
 

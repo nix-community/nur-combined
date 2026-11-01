@@ -4,7 +4,7 @@
 }: static-nix-shell.mkPython3 {
   pname = "mimeo-query-desktop";
   srcRoot = ./.;
-  pkgs = {
+  packages = {
     inherit mimeo;
   };
 }

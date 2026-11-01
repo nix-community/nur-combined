@@ -7,7 +7,7 @@
 static-nix-shell.mkPython3 {
   pname = "eg25-control";
   srcRoot = ./.;
-  pkgs = {
+  packages = {
     inherit curl;
     "modemmanager-split.mmcli" = modemmanager-split.mmcli;
     "python3.pkgs.libgpiod" = python3.pkgs.libgpiod;

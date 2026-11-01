@@ -539,6 +539,8 @@ let
           ++ (sandboxedNonBin.outputs or [ "out" ])
         );
       in runCommand "${pkgName}-sandboxed-all" {
+        ${if package ? pname then "pname" else null} = package.pname;
+        ${if package ? version then "version" else null} = "${package.version}-sandboxed-all";
         inherit outputs;
         preferLocalBuild = true;
         nativeBuildInputs = [ lndir ];

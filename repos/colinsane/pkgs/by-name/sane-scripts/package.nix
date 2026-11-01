@@ -92,7 +92,7 @@ let
     bt-add = static-nix-shell.mkPython3 {
       pname = "sane-bt-add";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         "python3.pkgs.requests" = python3.pkgs.requests;
         "sane-scripts.lib.bt" = sane-scripts.lib.bt;
       };
@@ -100,38 +100,38 @@ let
     bt-rm = static-nix-shell.mkPython3 {
       pname = "sane-bt-rm";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         "sane-scripts.lib.bt" = sane-scripts.lib.bt;
       };
     };
     bt-search = static-nix-shell.mkPython3 {
       pname = "sane-bt-search";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         "python3.pkgs.requests" = python3.pkgs.requests;
       };
     };
     bt-show = static-nix-shell.mkPython3 {
       pname = "sane-bt-show";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         "sane-scripts.lib.bt" = sane-scripts.lib.bt;
       };
     };
     clone = static-nix-shell.mkBash {
       pname = "sane-clone";
       srcRoot = ./src;
-      pkgs = { inherit nix; };
+      packages = { inherit nix; };
     };
     date-set = static-nix-shell.mkBash {
       pname = "sane-date-set";
       srcRoot = ./src;
-      pkgs = { inherit systemd; };
+      packages = { inherit systemd; };
     };
     deadlines = static-nix-shell.mkYsh {
       pname = "sane-deadlines";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         inherit
           coreutils-full
           gnused
@@ -141,7 +141,7 @@ let
     dev-cargo-loop = static-nix-shell.mkBash {
       pname = "sane-dev-cargo-loop";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         inherit
           inotify-tools
           ncurses
@@ -151,14 +151,14 @@ let
     find-dotfiles = static-nix-shell.mkBash {
       pname = "sane-find-dotfiles";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         inherit findutils;
       };
     };
     ip-check = static-nix-shell.mkPython3 {
       pname = "sane-ip-check";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         inherit miniupnpc;
         "python3.pkgs.requests" = python3.pkgs.requests;
         "sane-scripts.lib.ssdp" = sane-scripts.lib.ssdp;
@@ -167,7 +167,7 @@ let
     ip-port-forward = static-nix-shell.mkPython3 {
       pname = "sane-ip-port-forward";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         inherit
           inetutils
           miniupnpc
@@ -178,14 +178,14 @@ let
     private-do = static-nix-shell.mkBash {
       pname = "sane-private-do";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         inherit util-linux;
       };
     };
     private-unlock = static-nix-shell.mkBash {
       pname = "sane-private-unlock";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         inherit
           coreutils
           systemdMinimal
@@ -195,7 +195,7 @@ let
     private-unlock-remote = static-nix-shell.mkBash {
       pname = "sane-private-unlock-remote";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         inherit openssh;
         "sane-scripts.secrets-dump" = sane-scripts.secrets-dump;
       };
@@ -203,7 +203,7 @@ let
     profile = static-nix-shell.mkYsh {
       pname = "sane-profile";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         inherit
           flamegraph
           perf
@@ -213,14 +213,14 @@ let
     rcp = static-nix-shell.mkBash {
       pname = "sane-rcp";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         inherit rsync;
       };
     };
     reboot = static-nix-shell.mkBash {
       pname = "sane-reboot";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         inherit
           nettools
           systemd
@@ -234,12 +234,12 @@ let
     reclaim-disk-space = static-nix-shell.mkBash {
       pname = "sane-reclaim-disk-space";
       srcRoot = ./src;
-      pkgs = { inherit nix; };
+      packages = { inherit nix; };
     };
     secrets-dump = static-nix-shell.mkBash {
       pname = "sane-secrets-dump";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         inherit
           gnugrep
           sops
@@ -250,7 +250,7 @@ let
     secrets-unlock = static-nix-shell.mkBash {
       pname = "sane-secrets-unlock";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         inherit
           coreutils-full
           openssh
@@ -261,7 +261,7 @@ let
     secrets-update-keys = static-nix-shell.mkBash {
       pname = "sane-secrets-update-keys";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         inherit
           coreutils-full
           findutils
@@ -272,7 +272,7 @@ let
     shutdown = static-nix-shell.mkBash {
       pname = "sane-shutdown";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         inherit
           nettools
           systemd
@@ -282,21 +282,21 @@ let
     stop-all-servo = static-nix-shell.mkYsh {
       pname = "sane-stop-all-servo";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         inherit systemd;
       };
     };
     sudo-redirect = static-nix-shell.mkBash {
       pname = "sane-sudo-redirect";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         inherit coreutils-full;
       };
     };
     sync-from-iphone = static-nix-shell.mkZsh {
       pname = "sane-sync-from-iphone";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         inherit
           coreutils-full
           ifuse
@@ -307,7 +307,7 @@ let
     sync-music = static-nix-shell.mkPython3 {
       pname = "sane-sync-music";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         inherit
           ffmpeg
           sox
@@ -318,7 +318,7 @@ let
     tag-media = static-nix-shell.mkPython3 {
       pname = "sane-tag-media";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         "python3.pkgs.mutagen" = python3.pkgs.mutagen;
         "python3.pkgs.pyexiftool" = python3.pkgs.pyexiftool;
         "python3.pkgs.pykakasi" = python3.pkgs.pykakasi;
@@ -328,7 +328,7 @@ let
     vpn = static-nix-shell.mkPython3 {
       pname = "sane-vpn";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         inherit
           bunpen
           iproute2
@@ -341,7 +341,7 @@ let
     which = static-nix-shell.mkBash {
       pname = "sane-which";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         inherit
           coreutils-full
           file
@@ -352,7 +352,7 @@ let
     wipe = static-nix-shell.mkBash {
       pname = "sane-wipe";
       srcRoot = ./src;
-      pkgs = {
+      packages = {
         inherit
           dconf
           libsecret

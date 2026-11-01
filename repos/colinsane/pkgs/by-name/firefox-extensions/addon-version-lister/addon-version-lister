@@ -1,5 +1,5 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
-#!nix-shell -i ysh ../../../../integrations/nix-shell --arg f 'ps: [ ps.common-updater-scripts ps.coreutils ps.curl ps.oils-for-unix ]'
+#!nix-shell -i ysh ../../../.. -A static-nix-shell.mkYsh --arg packages 'ps: [ ps.common-updater-scripts ps.coreutils ps.curl ps.oils-for-unix ]'
 
 source $LIB_YSH/args.ysh
 

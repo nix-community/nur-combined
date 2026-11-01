@@ -1,5 +1,5 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
-#!nix-shell -i python3 ../../../integrations/nix-shell --arg f 'ps: [ ps.go2tv ps.python3 ps.sblast ]'
+#!nix-shell -i python3 ../../.. -A static-nix-shell.mkPython3 --arg packages 'ps: [ ps.go2tv ps.python3 ps.sblast ]'
 # vim: set filetype=python :
 """
 cast media (local video or audio files) to a device on the same network

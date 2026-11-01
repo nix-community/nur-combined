@@ -8,6 +8,34 @@ let
   inherit (final.stdenv.hostPlatform) hasSharedLibraries;
 in
 {
+  nodejs-slim_24 = prev.nodejs-slim_24.overrideAttrs (old: {
+    dontAddStaticConfigureFlags = true;
+    dontDisableShared = true;
+    # Node's configure.py does not accept Autoconf's --disable-shared.
+    configureFlags = final.lib.filter (
+      flag: !(builtins.elem flag [ "--enable-static" "--disable-shared" ])
+    ) old.configureFlags ++ [
+      "--fully-static"
+      # Shared Brotli libraries pull this in implicitly; archives do not.
+      "--shared-brotli-libname=brotlidec,brotlienc,brotlicommon"
+    ];
+    # Static musl cannot dlopen native addons, so do not build their shared test modules.
+    checkTarget = final.lib.concatStringsSep " " (final.lib.filter (
+      target: !(builtins.elem target [ "build-js-native-api-tests" "build-node-api-tests" ])
+    ) (final.lib.splitString " " old.checkTarget));
+    checkFlags = map (flag:
+      if final.lib.hasPrefix "CI_SKIP_TESTS=" flag then
+        flag + ",test-module-loading-error,test-process-dlopen-error-message-crash,test-module-loading"
+      else flag
+    ) old.checkFlags;
+    # The static stdenv propagates all library headers. The Node executable
+    # needs none of them (node-gyp's headers are linked into include/node).
+    # Leave libv8's propagated inputs intact for static library consumers.
+    postFixup = (old.postFixup or "") + ''
+      rm "$out/nix-support/propagated-build-inputs"
+    '';
+  });
+
   # nixpkgs' gobject-introspection has all `isStatic` platforms as badPlatforms,
   # but hopefully it's just `hasSharedLibraries == false` that's broken (untested)
   # gobject-introspection = prev.gobject-introspection.overrideAttrs (upstream: {

@@ -100,6 +100,15 @@ super.lib.composeManyExtensions [
   nodejsName = v: "nodejs-slim_${toString v}";
   nodejsOverrides = builtins.foldl' (acc: name: acc // {
     "${name}" = super."${name}".overrideAttrs (prevAttrs: {
+      # This GC test uses availableParallelism(), ignoring NIX_BUILD_CORES.
+      # On 512-core builders it creates thousands of clients and times out.
+      # https://github.com/nodejs/node/issues/54981
+      postPatch = (prevAttrs.postPatch or "") + ''
+        substituteInPlace test/sequential/test-gc-http-client-onerror.js \
+          --replace-fail "const cpus = require('os').availableParallelism();" \
+            "const cpus = Math.min(require('os').availableParallelism(), 16);"
+      '';
+
       # XXX(2026-10-17): nodejs fails build at high core count
       # measurements:
       # - 256 cores: peak memory 220 GB above baseline, but then fails tests:
@@ -169,6 +178,16 @@ in
 })
 (_: prev: {
   # Preserve beam.override: reduce-closure overrides wxSupport in a later overlay.
+
+  ada = prev.ada.overrideAttrs (old: {
+    # With a cross-compilation emulator (including pkgsStatic's `env`),
+    # CMake's legacy add_test form does not resolve executable target names.
+    postPatch = (old.postPatch or "") + ''
+      substituteInPlace cmake/add-cpp-test.cmake \
+        --replace-fail 'add_test(''${TEST_NAME} ''${CMAKE_CROSSCOMPILING_EMULATOR} ''${TEST_NAME})' \
+          'add_test(NAME ''${TEST_NAME} COMMAND ''${CMAKE_CROSSCOMPILING_EMULATOR} $<TARGET_FILE:''${TEST_NAME}>)'
+    '';
+  });
 
   bind = prev.bind.overrideAttrs {
     # XXX(2026-10-11): isc_rwlock_benchmark fails for extremely high core count (512).

@@ -32,7 +32,7 @@ in
     packageUnwrapped = pkgs.static-nix-shell.mkBash {
       pname = "swaync-service-dispatcher";
       srcRoot = ./.;
-      pkgs = {
+      packages = {
         inherit (pkgs) systemdMinimal;
       };
     };
@@ -48,7 +48,7 @@ in
     packageUnwrapped = pkgs.static-nix-shell.mkBash {
       pname = "swaync-fbcli";
       srcRoot = ./.;
-      pkgs = {
+      packages = {
         inherit (pkgs)
           feedbackd
           procps

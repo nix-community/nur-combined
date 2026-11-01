@@ -5,7 +5,7 @@
 }:
 static-nix-shell.mkPython3 {
   pname = "sane-cast";
-  pkgs = {
+  packages = {
     inherit
       go2tv
       sblast

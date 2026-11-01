@@ -9,7 +9,7 @@
 static-nix-shell.mkBash {
   pname = "sane-color-picker";
   srcRoot = ./.;
-  pkgs = {
+  packages = {
     inherit
       gnugrep
       wl-clipboard-rs

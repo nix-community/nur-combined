@@ -1,5 +1,5 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
-#!nix-shell -i zsh ../../../../integrations/nix-shell --arg f 'ps: [ ps.coreutils-full ps.ifuse ps.rsync ps.zsh ]'
+#!nix-shell -i zsh ../../../.. -A static-nix-shell.mkZsh --arg packages 'ps: [ ps.coreutils-full ps.ifuse ps.rsync ps.zsh ]'
 # this really does need zsh because bash `test -e` behaves differently
 
 set -eu

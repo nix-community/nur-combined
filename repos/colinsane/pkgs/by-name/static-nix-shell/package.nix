@@ -4,6 +4,7 @@
   makeBinaryWrapper,
   newScope,
   oils-for-unix,
+  pkgs,
   pkgsMusl,
   pkgsStatic,
   python3,
@@ -12,47 +13,76 @@
 }:
 
 let
+  pkgs' = pkgs // {
+    # XXX(2025-12-08): static bash is way faster than normal bash:
+    # `nix-build -A bash && hyperfine './result/bin/sh --version'`
+    # - 2.2 ms
+    # `nix-build -A pkgsCross.musl64.bash && hyperfine './result/bin/sh --version'`
+    # - 835.0 µs
+    # `nix-build -A pkgsStatic.bash && hyperfine './result/bin/sh --version'`
+    # - 262.8 µs
+    # bash' = pkgsStatic.bash;
+    # XXX(2026-01-20): `pkgsMusl.pkgsStatic.stdenv` doesn't build (but `pkgsMusl.pkgsMusl.bash` _does_ build.
+    inherit (pkgsMusl) bash;
+  };
+  resolvePkgs = packages: if lib.isList packages then
+    packages
+  else if lib.isAttrs packages then
+    builtins.attrValues packages
+  else # lib.isFunction packages
+    resolvePkgs (packages pkgs');
   # insert an element `ins` into a list `into`,
   # at its proper location assuming `into` is lexicographically ordered.
   # does not adjust the order of existing elements.
   insertTopo = ins: into: let
+    sortKey = v: v.name or v.pname or v;
     insertedUnlessLast = builtins.foldl' (acc: next:
       if builtins.elem ins acc then
         acc ++ [ next ]
-      else if (lib.naturalSort [ ins next ]) == [ ins next ] then
+      else if (lib.naturalSort [ (sortKey ins) (sortKey next) ]) == [ (sortKey ins) (sortKey next) ] then
         acc ++ [ ins next ]
       else
         acc ++ [ next ]
     ) [] into
     ;
   in
-    if builtins.elem ins insertedUnlessLast then
-      insertedUnlessLast
+    if lib.isList into then
+      if builtins.elem ins insertedUnlessLast then
+        insertedUnlessLast
+      else
+        into ++ [ ins ]
+    else if lib.isAttrs into then
+      into // {
+        "${ins.name or ins.pname}" = ins;
+      }
     else
-      into ++ [ ins ]
+      (pkgs: insertTopo ins (into pkgs))
     ;
 in lib.makeScope newScope (self: {
   # transform a file which uses `#!/usr/bin/env nix-shell` shebang
   # into a derivation that can be built statically.
   #
-  # pkgs may take the following form:
+  # packages may take the following form:
   # - { pkgNameA = pkgValueA; "pkg.name.b" = pkg.value.b; ... }
+  # - [ pkgValueA pkgValueB ... ]
   # - ps: <evaluate to one of the above exprs>
   mkShell = lib.extendMkDerivation {
     constructDrv = stdenvNoCC.mkDerivation;
     excludeDrvArgNames = [
+      "builderName"
       "interpreter"
       "interpreterName"
-      "pkgExprs"
-      "pkgsEnv"
+      "packages"
+      "pname"
       "srcPath"
     ];
     extendDrvArgs = finalAttrs: {
-      pname,
-      interpreter,
+      pname ? "static-nix-shell",
+      interpreterPackage,
+      interpreter ? if (interpreterPackage.meta.mainProgram or null) != null then lib.getExe interpreterPackage else lib.getExe' interpreterPackage interpreterName,
       interpreterName ? lib.last (builtins.split "/" interpreter),
-      pkgsEnv,
-      pkgExprs,
+      builderName,
+      packages ? [ ],
       merge ? "append",  #< "append" new {PATH,XDG_DATA_DIRS} entries to existing {PATH,XDG_DATA_DIRS}? or "prepend"?
       srcPath ? pname, #< N.B.: should not contain `/`'s
       srcRoot ? null,
@@ -64,10 +94,23 @@ in lib.makeScope newScope (self: {
     getPathToRoot = ascended: at:
       if at == repoRoot then
         ascended
+      else if ascended == "./." then
+        # parent of ./. is ../. -- not .././., etc.
+        # the full form is likely correct, but non-canonical.
+        getPathToRoot "../." (dirOf at)
+      else if ascended == "../." then
+        getPathToRoot "../.." (dirOf at)
       else
         getPathToRoot "../${ascended}" (dirOf at)
     ;
-    pathToRepoRoot = getPathToRoot "" (if srcRoot != null then srcRoot else src);
+    pathToRepoRoot = getPathToRoot "./." (
+      if srcRoot != null then
+        srcRoot
+      else if src != null then
+        src
+      else
+        repoRoot
+    );
 
     extraDerivArgs = lib.optionalAttrs (srcRoot != null) {
       # user can use `srcRoot` instead of `src` in most scenarios, to avoid including the entire directory containing their
@@ -77,16 +120,37 @@ in lib.makeScope newScope (self: {
         root = srcRoot; fileset = lib.path.append srcRoot srcPath;
       };
     };
-    pkgStrs = map (pname: "ps.${pname}") pkgExprs;
-    argStr = builtins.concatStringsSep " " (
-      [ "ps:" "[" ] ++ pkgStrs ++ [ "]" ]
-    );
-    nixShellImport = "${pathToRepoRoot}integrations/nix-shell";
+    srcText =
+      if (extraDerivArgs.src.origSrc or null) != null then
+        builtins.readFile (
+          lib.path.append extraDerivArgs.src.origSrc srcPath
+        )
+      else if src != null then
+        builtins.readFile (
+          lib.path.append src srcPath
+        )
+      else
+        null
+    ;
+    nixShellLineTemplate = "(.*\n)?#!nix-shell -i ${interpreterName} ${pathToRepoRoot} -A static-nix-shell.${builderName} --arg packages '([^'\n]*)'(\n.*)?";
+    nixShellLine = builtins.match nixShellLineTemplate srcText;
+    packagesText = if srcText != null then
+      lib.throwIf (nixShellLine == null) "could not extract expected text from ${attrs.pname or attrs.name}\nexpected\n${nixShellLineTemplate}" (builtins.elemAt nixShellLine 1)
+    else
+      null;
+    embeddedPackages = import (builtins.toFile "static-nix-shell-packages.nix" packagesText);
     # allow any package to be a list of packages, to support things like
     # -p python3.pkgs.foo.propagatedBuildInputs
-    pkgsEnv' = lib.flatten pkgsEnv;
+    resolvedPkgs = if srcText != null then
+      lib.flatten (resolvePkgs embeddedPackages)
+    else
+      null;
+    # resolvedSpec = insertTopo interpreterPackage (lib.flatten (resolvePkgs packages));
+    resolvedSpec = lib.flatten (resolvePkgs (insertTopo interpreterPackage packages));
+
   in {
       __structuredAttrs = true;
+      inherit pname;
       version = attrs.version or "0.1.0";  # default version
       preferLocalBuild = attrs.preferLocalBuild or true;
 
@@ -94,7 +158,12 @@ in lib.makeScope newScope (self: {
         makeBinaryWrapper
       ];
 
-      runtimePrefixes = attrs.runtimePrefixes or pkgsEnv';
+      runtimePrefixes = attrs.runtimePrefixes or (
+        if resolvePkgs != null then
+          resolvedPkgs
+        else
+          resolvedSpec
+      );
 
       configurePhase = attrs.configurePhase or ''
         runHook preConfigure
@@ -157,9 +226,11 @@ in lib.makeScope newScope (self: {
         fi
         substituteInPlace ${srcPath} \
           --replace-fail '#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell' '#!${interpreter}' \
-          --replace-fail \
-            '#!nix-shell -i ${interpreterName} ${nixShellImport} --arg f '"'"'${argStr}'"'"$'\n' \
-            $'# nix deps evaluated statically\n'"''${shellPreamble:-}"
+          ${lib.optionalString (packagesText != null) ''
+            --replace-fail \
+              '#!nix-shell -i ${interpreterName} ${pathToRepoRoot} -A static-nix-shell.${builderName} --arg packages '"'"'${packagesText}'"'"$'\n' \
+              $'# nix deps evaluated statically\n'"''${shellPreamble:-}"
+          ''}
 
         # if no specialized `shellPreamble` was populated, then inject dependencies via wrapper
         if [[ -z "''${shellPreamble:-}" ]]; then
@@ -193,18 +264,41 @@ in lib.makeScope newScope (self: {
         runHook postBuild
       '';
 
-      installPhase = attrs.installPhase or ''
+      installPhase = let
+        names = lib.map (p: p.pname or p.name);
+      in
+        attrs.installPhase or ''
         runHook preInstall
 
-        install -Dm755 ${srcPath} $out/bin/${srcPath}
+        install -Dm755 ${srcPath} $out/bin/${finalAttrs.meta.mainProgram}
+
+        if [ -z ''${dontCheckPackageConsistency:-} ]; then
+          ${lib.optionalString (resolvedSpec != null && resolvedPkgs != null) ''
+            if [[ "${toString (names resolvedSpec)}" != "${toString (names resolvedPkgs)}" ]]; then
+              # weaker name-based comparison
+              die "embedded package lists for '${pname}' differs from that specified in nix:"$'\n'"${toString (names resolvedPkgs)}"$'\n'"${toString (names resolvedSpec)}"
+            fi
+            if [ -z "''${relaxPackageConsistency:-}" ]; then
+              if [[ "${toString resolvedSpec}" != "${toString resolvedPkgs}" ]]; then
+                # stronger path-based comparison (in case one package was `.override`n while another wasn't)
+                die "embedded package lists for '${pname}' differs from that specified in nix:"$'\n'"${toString resolvedPkgs}"$'\n'"${toString resolvedSpec}"
+              fi
+            fi
+          ''}
+          # if declare -p resolvedPkgs && declare -p resolvedSpec; then
+          #   if [[ "''${resolvedPkgs[*]" != "''${resolvedSpec[*]}" ]]; then
+          #     die "embedded package lists for '${pname}' differs from that specified in nix:\n''${resolvedPkgs[*]}\n''${resolvedSpec[*]}"
+          #   fi
+          # fi
+        fi
 
         # ensure that all nix-shell references were substituted
-        (! grep '#![ \t]*nix-shell' $out/bin/${srcPath}) || die 'not all #!nix-shell directives were processed in ${srcPath}'
+        (! grep '#![ \t]*nix-shell' $out/bin/${finalAttrs.meta.mainProgram}) || die 'not all #!nix-shell directives were processed in ${finalAttrs.meta.mainProgram}'
         # ensure that there weren't some trailing deps we *didn't* substitute
-        grep '^# nix deps evaluated statically$' $out/bin/${srcPath} || die 'trailing characters in nix-shell directive for ${srcPath}'
+        grep '^# nix deps evaluated statically$' $out/bin/${finalAttrs.meta.mainProgram} || die 'trailing characters in nix-shell directive for ${finalAttrs.meta.mainProgram}'
 
         if [[ ''${#makeWrapperArgs[@]} != 0 ]]; then
-          wrapProgram $out/bin/${srcPath} \
+          wrapProgram $out/bin/${finalAttrs.meta.mainProgram} \
             "''${makeWrapperArgs[@]}"
         fi
 
@@ -216,7 +310,7 @@ in lib.makeScope newScope (self: {
       installCheckPhase = attrs.installCheckPhase or ''
         runHook preInstallCheck
 
-        timeout 15 $out/bin/${srcPath} --help
+        timeout 15 $out/bin/${finalAttrs.meta.mainProgram} --help
 
         runHook postInstallCheck
       '';
@@ -230,28 +324,13 @@ in lib.makeScope newScope (self: {
   };
 
   # `mkShell` specialization for `nix-shell -i bash` scripts.
-  mkBash = lib.extendMkDerivation {
+  # must be a function (not lib.extendMkDerivation), to support CLI-based invocations
+  mkBash = { packages ? [ ] , ... }@shellArgs: lib.extendMkDerivation {
     constructDrv = self.mkShell;
-    excludeDrvArgNames = [ "bash" "pkgs" ];
-    extendDrvArgs = finalAttrs: { pkgs ? {}, ...}@attrs:
-    let
-      # XXX(2025-12-08): static bash is way faster than normal bash:
-      # `nix-build -A bash && hyperfine './result/bin/sh --version'`
-      # - 2.2 ms
-      # `nix-build -A pkgsCross.musl64.bash && hyperfine './result/bin/sh --version'`
-      # - 835.0 µs
-      # `nix-build -A pkgsStatic.bash && hyperfine './result/bin/sh --version'`
-      # - 262.8 µs
-      # bash' = pkgsStatic.bash;
-      # XXX(2026-01-20): `pkgsMusl.pkgsStatic.stdenv` doesn't build (but `pkgsMusl.pkgsMusl.bash` _does_ build.
-      bash' = pkgsMusl.bash;
-      pkgsEnv = [ bash' ] ++ (builtins.attrValues pkgs);
-      pkgExprs = insertTopo "bash" (builtins.attrNames pkgs);
-    in {
-      inherit pkgs;
-      pkgsEnv = attrs.pkgsEnv or pkgsEnv;
-      pkgExprs = attrs.pkgExprs or pkgExprs;
-      interpreter = attrs.interpreter or (lib.getExe bash');
+    excludeDrvArgNames = [ "bash" ];
+    extendDrvArgs = finalAttrs: {...}@attrs: {
+      builderName = "mkBash";
+      interpreterPackage = attrs.interpreterPackage or pkgs'.bash;
       postConfigure = attrs.postConfigure or ''
         DOLLAR='$'
         if [[ -n "$append_PATH" ]]; then
@@ -279,21 +358,17 @@ in lib.makeScope newScope (self: {
         fi
       '';
     };
-  };
+  } shellArgs;
 
   # `mkShell` specialization for `nix-shell -i ysh` (oil) scripts.
-  mkYsh = lib.extendMkDerivation {
+  # must be a function (not lib.extendMkDerivation), to support CLI-based invocations
+  mkYsh = { packages ? [ ] , ... }@shellArgs: lib.extendMkDerivation {
     constructDrv = self.mkShell;
-    excludeDrvArgNames = [ "oils-for-unix" "pkgs" ];
-    extendDrvArgs = finalAttrs: { pkgs ? {}, ...}@attrs:
-    let
-      pkgsEnv = [ oils-for-unix ] ++ (builtins.attrValues pkgs);
-      pkgExprs = insertTopo "oils-for-unix" (builtins.attrNames pkgs);
-    in {
-      inherit pkgs;
-      pkgsEnv = attrs.pkgsEnv or pkgsEnv;
-      pkgExprs = attrs.pkgExprs or pkgExprs;
-      interpreter = attrs.interpreter or (lib.getExe' oils-for-unix "ysh");
+    excludeDrvArgNames = [ "oils-for-unix" ];
+    extendDrvArgs = finalAttrs: {...}@attrs: {
+      builderName = "mkYsh";
+      interpreterPackage = attrs.interpreterPackage or pkgs'.oils-for-unix;
+      interpreterName = attrs.interpreterName or "ysh";
       postConfigure = attrs.postConfigure or ''
         shellPreambleBody=
         if [[ -n "$append_PATH" ]]; then
@@ -345,21 +420,17 @@ in lib.makeScope newScope (self: {
         fi
       '';
     };
-  };
+  } shellArgs;
 
   # `mkShell` specialization for `nix-shell -i zsh` scripts.
-  mkZsh = lib.extendMkDerivation {
+  # must be a function (not lib.extendMkDerivation), to support CLI-based invocations
+  mkZsh = { packages ? [ ], ... }@shellArgs: lib.extendMkDerivation {
     constructDrv = self.mkShell;
-    excludeDrvArgNames = [ "pkgs" "zsh" ];
-    extendDrvArgs = finalAttrs: { pkgs ? {}, ...}@attrs:
-    let
-      pkgsEnv = [ zsh ] ++ (builtins.attrValues pkgs);
-      pkgExprs = insertTopo "zsh" (builtins.attrNames pkgs);
-    in {
-      inherit pkgs;
-      pkgsEnv = attrs.pkgsEnv or pkgsEnv;
-      pkgExprs = attrs.pkgExprs or pkgExprs;
-      interpreter = attrs.interpreter or (lib.getExe zsh);
+    excludeDrvArgNames = [ "zsh" ];
+    extendDrvArgs = finalAttrs: {...}@attrs: {
+      builderName = "mkZsh";
+      interpreterPackage = attrs.interpreterPackage or pkgs'.zsh;
+      interpreterName = attrs.interpreterName or "zsh";
       postConfigure = attrs.postConfigure or ''
         DOLLAR='$'
         if [[ -n "$append_PATH" ]]; then
@@ -387,21 +458,16 @@ in lib.makeScope newScope (self: {
         fi
       '';
     };
-  };
+  } shellArgs;
 
   # `mkShell` specialization for invocations of `nix-shell -i python3 -p python3 ...`
-  mkPython3 = lib.extendMkDerivation {
+  # must be a function (not lib.extendMkDerivation), to support CLI-based invocations
+  mkPython3 = { packages ? [ ], ... }@shellArgs: lib.extendMkDerivation {
     constructDrv = self.mkShell;
-    excludeDrvArgNames = [ "pkgs" "python3" ];
-    extendDrvArgs = finalAttrs: { pkgs ? {}, ... }@attrs:
-    let
-      pkgsEnv = builtins.attrValues pkgs;
-      pkgExprs = insertTopo "python3" (builtins.attrNames pkgs);
-    in {
-      inherit pkgs;
-      pkgsEnv = attrs.pkgsEnv or pkgsEnv;
-      pkgExprs = attrs.pkgExprs or pkgExprs;
-      interpreter = attrs.interpreter or (lib.getExe python3);
+    excludeDrvArgNames = [ "python3" ];
+    extendDrvArgs = finalAttrs: {...}@attrs: {
+      builderName = "mkPython3";
+      interpreterPackage = attrs.interpreterPackage or python3;
       interpreterName = attrs.interpreterName or "python3";
       # the logic for dealing with PYTHONPATH (which governs `import` search path)
       # comes from <repo:nixos/nixpkgs:pkgs/development/interpreters/python/wrap.sh>
@@ -474,5 +540,5 @@ in lib.makeScope newScope (self: {
         fi
       '';
     };
-  };
+  } shellArgs;
 })

@@ -3,7 +3,7 @@ let
   sops-gpg-adapter = pkgs.static-nix-shell.mkBash {
     pname = "sops-gpg-adapter";
     srcRoot = ./.;
-    pkgs = {
+    packages = {
       inherit (pkgs)
         gnused
         sops

@@ -32,7 +32,7 @@ lib.mkIf config.sane.persist.enable
     packageUnwrapped = pkgs.static-nix-shell.mkBash {
       pname = "provision-private-key";
       srcRoot = ./.;
-      pkgs = {
+      packages = {
         inherit (pkgs)
           coreutils-full
           gocryptfs
@@ -50,7 +50,7 @@ lib.mkIf config.sane.persist.enable
     packageUnwrapped = pkgs.static-nix-shell.mkBash {
       pname = "gocryptfs-private";
       srcRoot = ./.;
-      pkgs = {
+      packages = {
         inherit (pkgs) gocryptfs;
       };
     };

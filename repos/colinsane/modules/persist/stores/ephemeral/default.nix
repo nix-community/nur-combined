@@ -23,7 +23,7 @@ lib.mkIf config.sane.persist.enable
     packageUnwrapped = pkgs.static-nix-shell.mkBash {
       pname = "gocryptfs-ephemeral";
       srcRoot = ./.;
-      pkgs = {
+      packages = {
         inherit (pkgs)
           coreutils-full
           gocryptfs

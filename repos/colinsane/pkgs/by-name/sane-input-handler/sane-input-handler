@@ -1,5 +1,5 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
-#!nix-shell -i ysh ../../../integrations/nix-shell --arg f 'ps: [ ps.coreutils ps.killall ps.oils-for-unix ps.playerctl ps.procps ps.sane-open ps.sway ps.util-linux ps.wireplumber ]'
+#!nix-shell -i ysh ../../.. -A static-nix-shell.mkYsh --arg packages 'ps: [ ps.coreutils ps.killall ps.oils-for-unix ps.playerctl ps.procps ps.sane-open ps.sway ps.util-linux ps.wireplumber ]'
 # vim: set filetype=bash :
 
 # input map considerations

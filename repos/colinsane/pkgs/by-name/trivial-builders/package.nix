@@ -85,7 +85,9 @@
     else
       separateDoc;
   in
-    runCommandLocalOverridable "${pkg.pname or pkg.name}-${suffix}" ({
+    runCommandLocalOverridable "${pkg.name}-${suffix}" ({
+      ${if pkg ? pname then "pname" else null} = pkg.pname;
+      ${if pkg ? version then "version" else null} = pkg.version;
       outputs = [ "out" ] ++ lib.optionals separateMan' [ "man" ] ++ lib.optionals separateDoc' [ "doc" ];
       inputs = pkg.all;
       pathsToLink = paths;
@@ -192,7 +194,9 @@
   ;
 
   deepLinkIntoOwnPackage = pkg: { outputs ? [ "out" ] }: symlinkJoin {
-    name = pkg.pname or pkg.name;
+    ${if pkg ? name then "name" else null} = pkg.name;
+    ${if pkg ? pname then "pname" else null} = pkg.pname;
+    ${if pkg ? version then "version" else null} = pkg.version;
     paths = map (output: pkg."${output}") outputs;
     meta = pkg.meta or {};
     postBuild = ''

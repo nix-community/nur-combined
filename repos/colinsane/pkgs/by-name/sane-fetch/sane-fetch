@@ -1,5 +1,5 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
-#!nix-shell -i python3 ../../../integrations/nix-shell --arg f 'ps: [ ps.python3 ps.python3.pkgs.aiohttp-socks ps.python3.pkgs.crawl4ai ps.python3.pkgs.mcp ps.python3.pkgs.pypdf ps.python3.pkgs.stem ps.tor ps.tor.geoip ]'
+#!nix-shell -i python3 ../../.. -A static-nix-shell.mkPython3 --arg packages 'ps: [ ps.python3 ps.python3.pkgs.aiohttp-socks ps.python3.pkgs.crawl4ai ps.python3.pkgs.mcp ps.python3.pkgs.pypdf ps.python3.pkgs.stem ps.tor ps.tor.geoip ]'
 
 import argparse
 import asyncio

@@ -7,7 +7,7 @@ let
   update-guard = static-nix-shell.mkBash {
     pname = "update-guard";
     srcRoot = ./.;
-    pkgs = {
+    packages = {
       inherit coreutils;
     };
     passthru = {

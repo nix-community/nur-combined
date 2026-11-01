@@ -16,7 +16,7 @@ let
   remove-extra = static-nix-shell.mkPython3 {
     pname = "gpodder-ensure-feeds";
     srcRoot = ./.;
-    pkgs = {
+    packages = {
       # important for this to explicitly use `gpodder` here, because it may be overriden/different from the toplevel `gpodder`!
       inherit gpodder listparser;
     };

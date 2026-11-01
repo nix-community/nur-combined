@@ -1,5 +1,5 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
-#!nix-shell -i ysh ../../../../integrations/nix-shell --arg f 'ps: [ ps.coreutils-full ps.gnused ps.oils-for-unix ]'
+#!nix-shell -i ysh ../../../.. -A static-nix-shell.mkYsh --arg packages 'ps: [ ps.coreutils-full ps.gnused ps.oils-for-unix ]'
 
 # processes a tab-separated "deadlines" file and alerts for any upcoming events.
 #

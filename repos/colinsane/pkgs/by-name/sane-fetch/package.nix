@@ -6,7 +6,7 @@
 static-nix-shell.mkPython3 {
   pname = "sane-fetch";
   srcRoot = ./.;
-  pkgs = {
+  packages = {
     inherit tor;
     "python3.pkgs.aiohttp-socks" = python3.pkgs.aiohttp-socks;
     "python3.pkgs.crawl4ai" = python3.pkgs.crawl4ai;

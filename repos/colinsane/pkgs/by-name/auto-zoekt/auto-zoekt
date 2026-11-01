@@ -1,5 +1,5 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
-#!nix-shell -i python3 ../../../integrations/nix-shell --arg f 'ps: [ ps.auto-zoekt.zoekt ps.git ps.python3 ps.python3.pkgs.mcp ]'
+#!nix-shell -i python3 ../../.. -A static-nix-shell.mkPython3 --arg packages 'ps: [ ps.auto-zoekt.zoekt ps.git ps.python3 ps.python3.pkgs.mcp ]'
 """Minimal proof-of-concept code searcher which wraps the `zoekt` CLI.
 
 Exposes a `search` operation -- as an MCP tool and as a CLI subcommand --

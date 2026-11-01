@@ -14,7 +14,7 @@
 static-nix-shell.mkBash {
   pname = "sane-screenshot";
   srcRoot = ./.;
-  pkgs = {
+  packages = {
     inherit
       grim
       jq

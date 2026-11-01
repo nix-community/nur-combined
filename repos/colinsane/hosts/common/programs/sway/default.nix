@@ -37,7 +37,7 @@ let
   in
     pkgs.symlinkJoin {
       inherit (configuredSway) meta version;
-      name = "sway-wrapped";
+      pname = "sway";
       paths = [
         swayLauncher
         configuredSway

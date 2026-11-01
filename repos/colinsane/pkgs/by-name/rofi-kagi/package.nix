@@ -8,7 +8,7 @@
 static-nix-shell.mkBash {
   pname = "rofi-kagi";
   srcRoot = ./.;
-  pkgs = {
+  packages = {
     inherit
       rofi
       sane-open

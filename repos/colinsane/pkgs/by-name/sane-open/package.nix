@@ -14,7 +14,7 @@
 static-nix-shell.mkBash {
   pname = "sane-open";
   srcRoot = ./.;
-  pkgs = {
+  packages = {
     inherit
       glib
       jq
@@ -40,7 +40,7 @@ static-nix-shell.mkBash {
   passthru.clipboard = static-nix-shell.mkBash {
     pname = "sane-open-clipboard";
     srcRoot = ./.;
-    pkgs = {
+    packages = {
       inherit
         sane-open
         wl-clipboard-rs

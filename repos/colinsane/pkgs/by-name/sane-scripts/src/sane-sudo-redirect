@@ -1,5 +1,5 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
-#!nix-shell -i bash ../../../../integrations/nix-shell --arg f 'ps: [ ps.bash ps.coreutils-full ]'
+#!nix-shell -i bash ../../../.. -A static-nix-shell.mkBash --arg packages 'ps: [ ps.bash ps.coreutils-full ]'
 
 set -eu
 

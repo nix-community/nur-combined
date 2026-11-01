@@ -7,7 +7,7 @@
 let
   ipCmd = static-nix-shell.mkYsh {
     pname = "ip";
-    pkgs = {
+    packages = {
       inherit
         iproute2
         systemd

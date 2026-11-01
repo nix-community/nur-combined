@@ -5,7 +5,7 @@
 static-nix-shell.mkPython3 {
   pname = "nanogpt-api";
   srcRoot = ./.;
-  pkgs = {
+  packages = {
     "python3.pkgs.pydantic" = python3.pkgs.pydantic;
     "python3.pkgs.pygobject3" = python3.pkgs.pygobject3;
     "python3.pkgs.requests" = python3.pkgs.requests;

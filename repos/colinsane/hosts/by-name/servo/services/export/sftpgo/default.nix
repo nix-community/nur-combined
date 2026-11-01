@@ -22,7 +22,7 @@ let
   external_auth_hook = pkgs.static-nix-shell.mkPython3 {
     pname = "external_auth_hook";
     srcRoot = ./.;
-    pkgs = {
+    packages = {
       "python3.pkgs.passlib" = pkgs.python3.pkgs.passlib;
     };
   };

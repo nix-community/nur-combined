@@ -5,7 +5,7 @@
 static-nix-shell.mkPython3 {
   pname = "clightning-sane";
   srcRoot = ./.;
-  pkgs = {
+  packages = {
     inherit pyln-client;
   };
 }

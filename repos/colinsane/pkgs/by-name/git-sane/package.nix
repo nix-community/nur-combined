@@ -9,21 +9,21 @@ let
   git-cherry-pick = static-nix-shell.mkBash {
     pname = "git-cherry-pick";
     srcRoot = ./.;
-    pkgs = {
+    packages = {
       inherit git;
     };
   };
   git-pr = static-nix-shell.mkBash {
     pname = "git-pr";
     srcRoot = ./.;
-    pkgs = {
+    packages = {
       inherit git;
     };
   };
   git-pshow = static-nix-shell.mkBash {
     pname = "git-pshow";
     srcRoot = ./.;
-    pkgs = {
+    packages = {
       inherit
         delta
         difftastic
@@ -34,7 +34,7 @@ let
   git-work = static-nix-shell.mkBash {
     pname = "git-work";
     srcRoot = ./.;
-    pkgs = {
+    packages = {
       inherit git;
     };
   };

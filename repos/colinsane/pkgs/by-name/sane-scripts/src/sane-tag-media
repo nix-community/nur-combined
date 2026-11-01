@@ -1,5 +1,5 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
-#!nix-shell -i python3 ../../../../integrations/nix-shell --arg f 'ps: [ ps.python3 ps.python3.pkgs.mutagen ps.python3.pkgs.pyexiftool ps.python3.pkgs.pykakasi ps.python3.pkgs.unidecode ]'
+#!nix-shell -i python3 ../../../.. -A static-nix-shell.mkPython3 --arg packages 'ps: [ ps.python3 ps.python3.pkgs.mutagen ps.python3.pkgs.pyexiftool ps.python3.pkgs.pykakasi ps.python3.pkgs.unidecode ]'
 # vim: set filetype=python :
 USAGE = """
 tool which runs over a complete music library (or audiobooks, videos, ebooks (limited)) or a subset of it and:

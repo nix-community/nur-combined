@@ -75,8 +75,12 @@ in
         };
       };
     };
-    packageUnwrapped = pkgs.sane-input-handler.override {
+    packageUnwrapped = (pkgs.sane-input-handler.override {
       sway = config.sane.programs.sway.package;
+    }).overrideAttrs {
+      # the `sway` we build with here will differ from the `sway` which
+      # pkgs/by-name/sane-input-handler/sane-input-handler would receive if invoked directly.
+      relaxPackageConsistency = true;
     };
     suggestedPrograms = [
       "bonsai"

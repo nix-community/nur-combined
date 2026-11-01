@@ -10,7 +10,7 @@ let
   self = static-nix-shell.mkBash {
     pname = "vendor-patch-updater";
     srcRoot = ./.;
-    pkgs = {
+    packages = {
       inherit
         curl
         gitMinimal

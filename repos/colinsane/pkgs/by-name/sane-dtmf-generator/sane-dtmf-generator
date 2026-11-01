@@ -1,5 +1,5 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
-#!nix-shell -i python3 ../../../integrations/nix-shell --arg f 'ps: [ ps.python3 ps.python3.pkgs.numpy ps.python3.pkgs.scipy ]'
+#!nix-shell -i python3 ../../.. -A static-nix-shell.mkPython3 --arg packages 'ps: [ ps.python3 ps.python3.pkgs.numpy ps.python3.pkgs.scipy ]'
 # vim: set filetype=python :
 USAGE = """
 generate files for any of 16 DTMF tones 0-9, #, *, A, B, C, D,

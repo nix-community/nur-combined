@@ -36,7 +36,7 @@ stdenvNoCC.mkDerivation {
   passthru.systemComponent = static-nix-shell.mkBash {
     pname = "xdg-open-scheme-handler";
     srcRoot = ./.;
-    pkgs = {
+    packages = {
       inherit xdg-open;
     };
 

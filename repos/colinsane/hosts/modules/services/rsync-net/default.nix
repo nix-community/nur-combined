@@ -3,7 +3,7 @@ let
   cfg = config.sane.services.rsync-net;
   sane-backup-rsync-net = pkgs.static-nix-shell.mkBash {
     pname = "sane-backup-rsync-net";
-    pkgs = {
+    packages = {
       inherit (pkgs)
         nettools
         openssh

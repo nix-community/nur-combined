@@ -1,5 +1,5 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
-#!nix-shell -i ysh ../../../../integrations/nix-shell --arg f 'ps: [ ps.iproute2 ps.oils-for-unix ps.systemd ]'
+#!nix-shell -i ysh ../../../.. -A static-nix-shell.mkYsh --arg packages 'ps: [ ps.iproute2 ps.oils-for-unix ps.systemd ]'
 
 # this script intercepts tailscale's calls into the `ip` tool.
 # example invocations:

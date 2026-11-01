@@ -156,7 +156,7 @@ in
     packageUnwrapped = pkgs.static-nix-shell.mkBash {
       pname = "rofi-run-command";
       srcRoot = ./.;
-      pkgs = {
+      packages = {
         inherit (pkgs) sane-open;
       };
     };
@@ -176,14 +176,18 @@ in
   };
 
   sane.programs.rofi-snippets = {
-    packageUnwrapped = pkgs.static-nix-shell.mkBash {
+    packageUnwrapped = let
+      rofi' = pkgs.rofi.override {
+        inherit rofi-unwrapped;
+      };
+    in (pkgs.static-nix-shell.override (prev: {
+      pkgs = prev.pkgs // { rofi = rofi'; };
+    })).mkBash {
       pname = "rofi-snippets";
       srcRoot = ./.;
-      pkgs = {
+      packages = {
         inherit (pkgs) gnused wtype;
-        rofi = pkgs.rofi.override {
-          inherit rofi-unwrapped;
-        };
+        rofi = rofi';
       };
       nativeBuildInputs = [
         pkgs.copyDesktopItems

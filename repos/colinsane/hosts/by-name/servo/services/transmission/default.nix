@@ -27,7 +27,7 @@ let
   torrent-done = pkgs.static-nix-shell.mkBash {
     pname = "torrent-done";
     srcRoot = ./.;
-    pkgs = {
+    packages = {
       inherit (pkgs)
         acl
         coreutils

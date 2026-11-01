@@ -26,14 +26,39 @@ let
     "comment"
     "desktopName"
   ];
+  epiphanyForApp = epiphany.overrideAttrs (upstream: {
+    patches = (upstream.patches or []) ++ [
+      # 2026-06-25: when an Epiphany webapp is invoked a second time with a URL,
+      # it normally just presents the existing window and discards the URL.
+      # allow the remote instance to pass its URL through to the running app.
+      ./epiphany-appmode-remote-url.patch
+    ];
+    postPatch = (upstream.postPatch or "") + ''
+      # pretend we're running under Flatpak so that we *always* dispatch non-webapp URIs through the portal.
+      # XXX(2026-08-28): function name changes to `xdp_portal_running_under_sandbox` in future versions
+      substituteInPlace lib/ephy-file-helpers.c --replace-fail \
+        'ephy_is_running_inside_sandbox ()' \
+        'true'
+    '';
+    postInstall = (upstream.postInstall or "") + ''
+      mv $out/bin/epiphany $out/bin/_${appId}-epiphany
+    '';
+    meta = (upstream.meta or {}) // {
+      mainProgram = "_${appId}-epiphany";
+    };
+  });
 in
 # TODO: this doesn't really benefit from using static-nix-shell: port to something simpler/faster
-static-nix-shell.mkBash (finalAttrs: {
+static-nix-shell.mkBash (extraAttrs // {
   pname = appId;
   src = ./src;
-  pkgs = {
-    "epiphany" = finalAttrs.passthru.epiphany;
+  srcPath = "launcher";
+  packages = {
+    epiphany = epiphanyForApp;
   };
+  # the `epiphany` we provide here will differ from the `epiphany` the script would see
+  # if invoked directly from the repo, like `./launcher`
+  relaxPackageConsistency = true;
 
   nativeBuildInputs = [
     copyDesktopItems
@@ -53,40 +78,22 @@ static-nix-shell.mkBash (finalAttrs: {
   ];
 
   postPatch = ''
-    cp launcher ${finalAttrs.passthru.appId}
-    substituteInPlace ${finalAttrs.passthru.appId} \
-      --replace-fail '@appId@' '${finalAttrs.passthru.appId}' \
+    substituteInPlace launcher \
+      --replace-fail '@appId@' '${appId}' \
       --replace-fail '@baseUrl@' '${baseUrl}' \
-      --replace-fail '@epiphany@' '${lib.getExe finalAttrs.passthru.epiphany}' \
+      --replace-fail '@epiphany@' '${lib.getExe epiphanyForApp}' \
   '';
 
-  doInstallCheck = false;  # would need xvfb
+  doInstallCheck = extraAttrs.doInstallCheck or false;  # would need xvfb
   # preInstallCheck = ''
   #   export HOME=$(mktemp -d)
   # '';
 
   passthru = {
     inherit appId;
-    epiphany = epiphany.overrideAttrs (upstream: {
-      patches = (upstream.patches or []) ++ [
-        # 2026-06-25: when an Epiphany webapp is invoked a second time with a URL,
-        # it normally just presents the existing window and discards the URL.
-        # allow the remote instance to pass its URL through to the running app.
-        ./epiphany-appmode-remote-url.patch
-      ];
-      postPatch = (upstream.postPatch or "") + ''
-        # pretend we're running under Flatpak so that we *always* dispatch non-webapp URIs through the portal.
-        # XXX(2026-08-28): function name changes to `xdp_portal_running_under_sandbox` in future versions
-        substituteInPlace lib/ephy-file-helpers.c --replace-fail \
-          'ephy_is_running_inside_sandbox ()' \
-          'true'
-      '';
-      postInstall = (upstream.postInstall or "") + ''
-        mv $out/bin/epiphany $out/bin/_${appId}-epiphany
-      '';
-      meta = (upstream.meta or {}) // {
-        mainProgram = "_${appId}-epiphany";
-      };
-    });
-  };
+    epiphany = epiphanyForApp;
+  } // (extraAttrs.passthru or {});
+  meta = {
+    mainProgram = appId;
+  } // (extraAttrs.meta or {});
 } // extraAttrs)
