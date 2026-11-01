@@ -58,6 +58,9 @@ in {
   waveql = pkgs.callPackage ./pkgs/waveql {
       inherit maintainers;
   };
+  pi-furry-partner-hd = pkgs.callPackage ./pkgs/pi-furry-partner-hd {
+      inherit maintainers;
+  };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 } // pkgs.lib.optionalAttrs hasIeda {
