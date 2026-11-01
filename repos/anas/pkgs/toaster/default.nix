@@ -7,7 +7,7 @@
 
 let
   pname = "toaster";
-  version = "0.4.22";
+  version = "0.4.29";
 in
 buildNpmPackage rec {
   inherit pname version;
@@ -16,7 +16,7 @@ buildNpmPackage rec {
     owner = "StopBanning";
     repo = "toaster";
     rev = "v${version}";
-    hash = "sha256-vBPxHprRIHycIC/j40TE4xfIBh9BJE8vlNr9wI2Xr0k=";
+    hash = "sha256-Avo5krsX0XaGt7YSA4t/p1wFB3M1fTtjb3huyQAYMMc=";
   };
 
   patches = [
