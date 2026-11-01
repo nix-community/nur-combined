@@ -7,6 +7,49 @@
 }:
 let
   images = callPackage ./robotnix-image.nix { };
+  androidSdk = pkgs.androidenv.composeAndroidPackages {
+    platformVersions = [ "35" ];
+    buildToolsVersions = [ "35.0.0" ];
+    includeNDK = false;
+    includeEmulator = false;
+    includeSystemImages = false;
+    includeSources = false;
+  };
+  testApkManifest = pkgs.writeText "miodroid-vm-test-AndroidManifest.xml" ''
+    <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        package="org.miodroid.vmtest" android:versionCode="1" android:versionName="1">
+      <uses-sdk android:minSdkVersion="23" android:targetSdkVersion="32" />
+      <application android:label="Miodroid VM test" android:hasCode="false">
+        <activity android:name=".LauncherActivity" android:exported="true">
+          <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+          </intent-filter>
+        </activity>
+      </application>
+    </manifest>
+  '';
+  testApk =
+    pkgs.runCommand "miodroid-vm-test.apk"
+      {
+        nativeBuildInputs = [ pkgs.jdk17 ];
+      }
+      ''
+        sdk=${androidSdk.androidsdk}/libexec/android-sdk
+        mkdir -p work "$out"
+        cp ${testApkManifest} work/AndroidManifest.xml
+        "$sdk/build-tools/35.0.0/aapt2" link \
+          -I "$sdk/platforms/android-35/android.jar" \
+          --manifest work/AndroidManifest.xml \
+          --min-sdk-version 23 --target-sdk-version 32 \
+          -o work/unsigned.apk
+        keytool -genkeypair -keystore work/test.keystore -storepass android \
+          -keypass android -alias test -dname "CN=Miodroid VM Test" \
+          -keyalg RSA -validity 3650 -noprompt
+        "$sdk/build-tools/35.0.0/apksigner" sign \
+          --ks work/test.keystore --ks-pass pass:android --key-pass pass:android \
+          --out "$out/miodroid-vm-test.apk" work/unsigned.apk
+      '';
   notificationReceiver = pkgs.writeShellScriptBin "miodroid-notification-receiver" ''
     exec ${
       pkgs.python3.withPackages (p: [
@@ -96,6 +139,7 @@ let
           };
         };
         networking.firewall.interfaces.lxcbr0.allowedTCPPorts = [ 8080 ];
+        environment.etc."miodroid-vm-test.apk".source = "${testApk}/miodroid-vm-test.apk";
         environment.systemPackages = [
           package
           pkgs.weston
@@ -227,6 +271,13 @@ let
                     machine.succeed("test ! -e /dev/binder")
                     machine.succeed(android("test $(id -u) = 0"))
                     machine.succeed(user("grep -q '2147483647' $MIODROID_WORK/lxc/miodroid/config"))
+
+            with subtest("Android package install and removal results"):
+                machine.fail(user("miodroid app install /etc/hostname"), timeout=180)
+                machine.succeed(user("miodroid app install /etc/miodroid-vm-test.apk"), timeout=180)
+                machine.wait_until_succeeds(user("miodroid app list | grep org.miodroid.vmtest"), timeout=60)
+                machine.succeed(user("miodroid app remove org.miodroid.vmtest"), timeout=180)
+                machine.wait_until_fails(user("miodroid app list | grep org.miodroid.vmtest"), timeout=60)
 
             with subtest("desktop notification delivery"):
                 machine.succeed(android("cmd notification post -t 'Miodroid VM' miodroid-vm miodroid-vm-notification", uid=2000))

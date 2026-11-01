@@ -68,13 +68,19 @@ let
           mkdir -p $out/bin
           ln -s ${pkgs.binutils-unwrapped}/bin/nm $out/bin/nm
         '';
-        wdPatches = lib.mapAttrs (_: p: {
+        wdPatches = lib.mapAttrs (name: p: {
           gitPatches = builtins.map (f: "${extra}/${p.dir}/${f}") p.files;
           # Robotnix only runs its patch wrapper when `patches` or `postPatch` is
           # non-empty -- setting `gitPatches` alone is silently ignored (its own
           # waydroid flavor falls into this trap).  This no-op trips the wrapper so
           # the git patches above are actually applied.
-          postPatch = "true";
+          postPatch =
+            if name == "lineage-sdk" then
+              ''
+                ${pkgs.python3}/bin/python3 ${./patches/patch-package-installer-results.py}
+              ''
+            else
+              "true";
         }) patchMetadata;
       in
       {

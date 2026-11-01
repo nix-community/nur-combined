@@ -436,6 +436,7 @@ let
 
             # Apply runtime fixes against the fully rebranded source tree.
             patch -p1 --fuzz=0 < ${./patches/0008-rootless-runtime.patch}
+            patch -p1 --fuzz=0 < ${./patches/0009-package-operation-results.patch}
 
     '';
 
