@@ -126,6 +126,36 @@
     };
     date = "2026-10-01";
   };
+  magpie = {
+    pname = "magpie";
+    version = "v0.1.2561";
+    src = fetchFromGitHub {
+      owner = "yetone";
+      repo = "magpie";
+      rev = "v0.1.2561";
+      fetchSubmodules = false;
+      sha256 = "sha256-FTXWNi2fTWC+qt7eelwxAWM3YZkUaUh0dueuQJ+B4t4=";
+    };
+    extract = {
+      "internal/gui/icon-256.png" = ./. + "/sha256-FTXWNi2fTWC+qt7eelwxAWM3YZkUaUh0dueuQJ+B4t4=/internal/gui/icon-256.png";
+    };
+  };
+  magpie-bin-aarch64 = {
+    pname = "magpie-bin-aarch64";
+    version = "0.1.2561";
+    src = fetchurl {
+      url = "https://github.com/yetone/magpie-releases/releases/download/v0.1.2561/magpie-linux-arm64";
+      sha256 = "sha256-9ZsabXZM0v2hfISX1YQO3WcU/+NudhNV6Ngtk21JRn0=";
+    };
+  };
+  magpie-bin-x86_64 = {
+    pname = "magpie-bin-x86_64";
+    version = "0.1.2561";
+    src = fetchurl {
+      url = "https://github.com/yetone/magpie-releases/releases/download/v0.1.2561/magpie-linux-amd64";
+      sha256 = "sha256-04NnOMbztmQIqNLLV+AJmgEkeMvh6UBoDFjMmVZK9ao=";
+    };
+  };
   pi = {
     pname = "pi";
     version = "d981de1229ef899957bbe968bc8dcda02a21f477";

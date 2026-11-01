@@ -72,6 +72,7 @@ NPM_DEPS_HASH = {
 
 # nvfetcher record -> (package expression, extra callPackage arguments)
 GO_VENDOR_HASH = {
+    "magpie": ("pkgs/magpie/default.nix", "{ inherit sources; }"),
     "pixivbiu": ("pkgs/pixivbiu/default.nix", "{ inherit bun2nix sources; }"),
 }
 

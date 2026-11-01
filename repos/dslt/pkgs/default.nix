@@ -20,6 +20,8 @@ in
   classin = pkgs.callPackage ./classin { inherit sources; };
   hhsh = pkgs.callPackage ./hhsh { inherit sources; };
   linuxqq-clipsync = pkgs.callPackage ./linuxqq-clipsync { inherit sources; };
+  magpie = pkgs.callPackage ./magpie { inherit sources; };
+  magpie-bin = pkgs.callPackage ./magpie-bin { inherit sources; };
   mefrpc = pkgs.callPackage ./mefrpc { };
   pixivbiu = pkgs.callPackage ./pixivbiu { inherit bun2nix sources; };
   pixivbiu-bin = pkgs.callPackage ./pixivbiu-bin { inherit sources; };

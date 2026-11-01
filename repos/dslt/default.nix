@@ -39,6 +39,8 @@ in
   classin = pkgs.callPackage ./pkgs/classin { inherit sources; };
   hhsh = pkgs.callPackage ./pkgs/hhsh { inherit sources; };
   linuxqq-clipsync = pkgs.callPackage ./pkgs/linuxqq-clipsync { inherit sources; };
+  magpie = pkgs.callPackage ./pkgs/magpie { inherit sources; };
+  magpie-bin = pkgs.callPackage ./pkgs/magpie-bin { inherit sources; };
   mefrpc = pkgs.callPackage ./pkgs/mefrpc { };
   openssl_1_1 = (pkgs.callPackage ./pkgs/openssl-1.1 { }).openssl_1_1;
   pixivbiu = pkgs.callPackage ./pkgs/pixivbiu { inherit bun2nix sources; };
