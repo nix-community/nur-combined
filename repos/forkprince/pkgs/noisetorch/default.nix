@@ -53,8 +53,11 @@ in
     '';
 
     postInstall = ''
-      install -D assets/icon/noisetorch.png $out/share/icons/hicolor/256x256/apps/noisetorch.png
-      install -Dm444 assets/noisetorch.desktop $out/share/applications/noisetorch.desktop
+      install -Dm444 assets/icon/noisetorch.png $out/share/icons/hicolor/256x256/apps/io.github.noisetorch.NoiseTorch.png
+      install -Dm444 assets/noisetorch.desktop $out/share/applications/io.github.noisetorch.NoiseTorch.desktop
+
+      substituteInPlace $out/share/applications/io.github.noisetorch.NoiseTorch.desktop \
+        --replace-fail "Icon=noisetorch" "Icon=io.github.noisetorch.NoiseTorch"
     '';
 
     meta = {
