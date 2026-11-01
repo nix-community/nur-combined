@@ -30,6 +30,7 @@
 布尔型选项用 `lib.cmakeBool "OPTION" true|false`（产出 `-DOPTION:BOOL=TRUE/FALSE`），字符串/路径型选项用 `lib.cmakeFeature "OPTION" "value"`（产出 `-DOPTION:STRING=value`），不用 `-DX=ON/OFF` 字面量；生成器开关（如 `-GNinja`）与设为空字符串的特例（如 `-DCMAKE_OSX_ARCHITECTURES=""` 可用 `cmakeFeature` 传空串）除外
 - **优先使用 finalAttrs 而非 rec**：新包一律写成 `stdenv.mkDerivation (finalAttrs: { ... })`（或 `buildPythonPackage (finalAttrs: { ... })` 等 mkDerivation 风格构建器的等价形式），不用 `rec`；包内自引用统一用 `finalAttrs.<attr>`。src 的 URL/tag 中出现版本号字面量时改用 `${finalAttrs.version}` 插值——nix-update 只对 `version = "..."` 行做文本替换，插值 URL 会随 version 属性自动更新。注意：`writeShellApplication`、`appimageTools.wrapType2/extract` 等不接受 functor 参数的构建器不能这样转换；纯 `.overrideAttrs` 包装文件与 sources.json 多源包无版本字面量可引用，保持原样
 - **保持二进制文件名与源码一致**：安装二进制文件时，使用与源码中相同的文件名，不要重命名
+- **原样运行官方二进制的 FHS 包**：用独立派生安装上游文件并设置 `dontFixup = true`，避免默认 strip、ELF 修补和 shebang 改写；运行时库由 `buildFHSEnv.targetPkgs` 提供，不使用 autoPatchelf。可选硬件路径应在启动脚本中用 `test -e` 检查，不用求值期的 `builtins.pathExists`，让同一产物能跨主机使用；路径参数用 `lib.escapeShellArg` 引用（folia-major-bin 实例）。
 - **使用 versionCheckHook**：在可能的情况下，为包添加 `versionCheckHook` 以验证版本一致性。需要添加以下配置：
   - 在 `nativeInstallCheckInputs` 中添加 `versionCheckHook`
   - 设置 `doInstallCheck = true`

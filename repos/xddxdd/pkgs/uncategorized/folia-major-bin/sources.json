@@ -1,0 +1,12 @@
+{
+  "aarch64-linux": {
+    "version": "0.7.25",
+    "url": "https://github.com/chthollyphile/folia-major/releases/download/v0.7.25/folia-major-0.7.25-linux-arm64.tar.gz",
+    "hash": "sha256-TmpXdrR2q2CpdOhUXrzaT4/SVPYZW+IB3rkCmtIUnWQ="
+  },
+  "x86_64-linux": {
+    "version": "0.7.25",
+    "url": "https://github.com/chthollyphile/folia-major/releases/download/v0.7.25/folia-major-0.7.25-linux-x64.tar.gz",
+    "hash": "sha256-pmbkPXvPxKrxOJXa6fxp7iAvGN8J1XgCJwvoJetV5dY="
+  }
+}
