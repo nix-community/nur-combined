@@ -54,6 +54,7 @@
       ACTIVE_CODE_LIVE_MINUTES = 10080;
       # REGISTER_EMAIL_CONFIRM = false;
       # REGISTER_EMAIL_CONFIRM = true;  #< override REGISTER_MANUAL_CONFIRM
+      DISABLE_REGISTRATION = false;  #< nixpkgs defaults this to true
       REGISTER_MANUAL_CONFIRM = true;
       # not sure what this notifies *on*...
       ENABLE_NOTIFY_MAIL = true;

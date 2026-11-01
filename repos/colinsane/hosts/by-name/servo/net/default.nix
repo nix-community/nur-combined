@@ -52,6 +52,21 @@ in
         "10.78.79.51/22"
       ];
       networkConfig.DNS = [ "10.78.79.1" ];
+      # shelvacu's prophecy (10.78.79.22) and the doof/VM ranges behind it
+      routes = [
+        {
+          Destination = "205.201.63.13/32";
+          Scope = "link";
+        }
+        {
+          Destination = "205.201.63.128/28";
+          Gateway = "10.78.79.22";
+        }
+        {
+          Destination = "10.78.77.0/24";
+          Gateway = "10.78.79.22";
+        }
+      ];
     };
 
     sane.ports.openFirewall = true;
