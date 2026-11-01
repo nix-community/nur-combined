@@ -10,7 +10,7 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "prometheus-knot-exporter-go";
-  version = "3.5.3";
+  version = "3.5.3-unstable-2025-10-31";
   src = fetchFromGitHub {
     owner = "CZ-NIC";
     repo = "knot-exporter";
