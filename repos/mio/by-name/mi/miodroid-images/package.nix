@@ -1,4 +1,5 @@
 {
+  lib,
   fetchurl,
   runCommand,
   unzip,
@@ -14,21 +15,30 @@ let
       vendorUrl,
       vendorHash,
     }:
-    runCommand "${pname}-${version}" { } ''
-      mkdir -p "$out"
-      ${unzip}/bin/unzip -j ${
-        fetchurl {
-          url = systemUrl;
-          hash = systemHash;
-        }
-      } system.img -d "$out"
-      ${unzip}/bin/unzip -j ${
-        fetchurl {
-          url = vendorUrl;
-          hash = vendorHash;
-        }
-      } vendor.img -d "$out"
-    '';
+    runCommand "${pname}-${version}"
+      {
+        nativeBuildInputs = [ unzip ];
+        meta = {
+          description = "Prebuilt Android system and vendor image bundle for Miodroid";
+          license = lib.licenses.asl20;
+          platforms = [ "x86_64-linux" ];
+        };
+      }
+      ''
+        mkdir -p "$out"
+        unzip -j ${
+          fetchurl {
+            url = systemUrl;
+            hash = systemHash;
+          }
+        } system.img -d "$out"
+        unzip -j ${
+          fetchurl {
+            url = vendorUrl;
+            hash = vendorHash;
+          }
+        } vendor.img -d "$out"
+      '';
 
   a13 = mkImageBundle {
     pname = "miodroid-a13-robotnix";
@@ -48,8 +58,8 @@ let
     vendorHash = "sha256-KN+9DkI9/21cfS404VAR+69IZdp2nZkjuEZW2H6fTTw=";
   };
 in
-a16.overrideAttrs {
-  passthru = {
+a16.overrideAttrs (oldAttrs: {
+  passthru = (oldAttrs.passthru or { }) // {
     inherit a13 a16;
   };
-}
+})

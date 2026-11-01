@@ -43,6 +43,7 @@ in
     imagePackage = lib.mkOption {
       type = lib.types.nullOr lib.types.package;
       default = pkgs.callPackage ../by-name/mi/miodroid/robotnix-image.nix { };
+      defaultText = lib.literalExpression "pkgs.callPackage ../by-name/mi/miodroid/robotnix-image.nix { }";
       example = lib.literalExpression "pkgs.miodroid-images.a16";
       description = ''
         Declarative system.img and vendor.img bundle to make available in
@@ -51,11 +52,11 @@ in
       '';
     };
     workDirectory = lib.mkOption {
-      type = lib.types.path;
+      type = lib.types.str;
       default = "${config.xdg.dataHome}/miodroid${
         lib.optionalString (cfg.instance != null) ".${cfg.instance}"
       }";
-      defaultText = lib.literalExpression ''"\${config.xdg.dataHome}/miodroid"'';
+      defaultText = lib.literalExpression ''"''${config.xdg.dataHome}/miodroid"'';
       description = ''
         Writable work directory for the experimental rootless Miodroid
         instance: the images, LXC configuration and the instance's Android

@@ -86,6 +86,7 @@ in
     imagePackage = lib.mkOption {
       type = lib.types.nullOr lib.types.package;
       default = pkgs.callPackage ../by-name/mi/miodroid/robotnix-image.nix { };
+      defaultText = lib.literalExpression "pkgs.callPackage ../by-name/mi/miodroid/robotnix-image.nix { }";
       example = lib.literalExpression "pkgs.miodroid-images.a16";
       description = ''
         Declarative system.img and vendor.img bundle to install before
@@ -100,6 +101,7 @@ in
     imagePackage = lib.mkOption {
       type = lib.types.nullOr lib.types.package;
       default = pkgs.callPackage ../by-name/mi/miodroid/robotnix-image.nix { };
+      defaultText = lib.literalExpression "pkgs.callPackage ../by-name/mi/miodroid/robotnix-image.nix { }";
       example = lib.literalExpression "pkgs.miodroid-images.a16";
       description = ''
         Declarative system.img and vendor.img bundle to install before
