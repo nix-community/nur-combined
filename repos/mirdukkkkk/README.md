@@ -28,6 +28,7 @@
 | `firefox-addons.resourceoverride` | Override website resources with your own |
 | `firefox-addons.sponsorblock` | Skips sponsor segments in YouTube videos |
 | `firefox-addons.ublock-origin` | Content blocker |
+| `firefox-addons.violentmonkey` | Userscript manager |
 
 The add-on list lives in [`pkgs/firefox-addons/addons.json`](./pkgs/firefox-addons/addons.json);
 `generated.nix` is produced from it by

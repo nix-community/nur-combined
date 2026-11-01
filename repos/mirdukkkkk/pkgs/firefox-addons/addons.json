@@ -7,5 +7,6 @@
   { "slug": "reduxdevtools" },
   { "slug": "resourceoverride" },
   { "slug": "sponsorblock" },
-  { "slug": "ublock-origin" }
+  { "slug": "ublock-origin" },
+  { "slug": "violentmonkey" }
 ]

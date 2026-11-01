@@ -209,4 +209,30 @@
         platforms = platforms.all;
       };
     };
+    "violentmonkey" = buildMozillaXpiAddon {
+      pname = "violentmonkey";
+      version = "2.50.0";
+      addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5170937/violentmonkey-2.50.0.xpi";
+      sha256 = "5e074465c7fdd31934e5b4664e3d2eac54269df575a0c0db52c843fe9afd81df";
+      meta = with lib;
+      {
+        homepage = "https://violentmonkey.github.io/";
+        description = "Userscript support for browsers, open source.";
+        license = licenses.mit;
+        mozPermissions = [
+          "tabs"
+          "<all_urls>"
+          "webRequest"
+          "webRequestBlocking"
+          "notifications"
+          "storage"
+          "unlimitedStorage"
+          "clipboardWrite"
+          "contextMenus"
+          "cookies"
+        ];
+        platforms = platforms.all;
+      };
+    };
   }
