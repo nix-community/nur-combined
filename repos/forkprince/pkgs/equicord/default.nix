@@ -7,13 +7,13 @@
   pnpm_10_latest ? pnpm_10,
   ...
 }: let
-  version = "1.15.14.0";
+  version = "1.15.15.0";
 
   src = fetchFromGitHub {
     owner = "Equicord";
     repo = "Equicord";
     tag = "v${version}";
-    hash = "sha256-ijNxC/uR3Wy4JX/6qNnNGQwS5752+vK2T26N1bsLeG4=";
+    hash = "sha256-mqmFkVb0XZ8CQuokTIe60Ll4RMJ2rlL6HLKvo/mS0zA=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -21,7 +21,7 @@
     inherit version src;
     pnpm = pnpm_10_latest;
     fetcherVersion = 3;
-    hash = "sha256-vwGHq4chumYcdmiNcAh49bxErVv7GuxCnIyzgXO5pOE=";
+    hash = "sha256-M4mrhAMDh+HP5O6gJobUcrr/EkcC9V1E+2JdZHWufdU=";
   };
 in
   equicord.overrideAttrs (old: {
