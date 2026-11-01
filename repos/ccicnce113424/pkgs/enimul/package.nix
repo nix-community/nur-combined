@@ -6,12 +6,12 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "enimul";
-  version = "0.7.3";
+  version = "0.7.4";
   src = fetchFromGitHub {
     owner = "lzpls";
     repo = "enimul";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-kJcGg1kDB33ituWlE6PRx5XpZkwB4l+fQiKI7GF9FvQ=";
+    hash = "sha256-DmQfK8s4Q8SuV3jB2PbteyoRpgsiAILc74KUbRLPI+Y=";
   };
 
   vendorHash = "sha256-MdklXynEG8VWOcsAwgqRz556McYoN0XSh9FrzQseiT0=";
