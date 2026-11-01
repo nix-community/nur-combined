@@ -1,7 +1,12 @@
 { self, ... }:
 {
   flake.modules.nixos.realm =
-    { config, lib, ... }:
+    {
+      pkgs,
+      config,
+      lib,
+      ...
+    }:
     let
       hostName = config.networking.hostName;
       node = config.data.node.${hostName};
@@ -48,7 +53,7 @@
           fqdn = "${hostName}.nyaw.xyz";
           # Pin the dedicated long-lived intermediate; short-lived signing CAs
           # continue to rotate without changing Agent bootstrap trust.
-          trustBundle.path = ../pki/realm-spire/upstream-ca.pem;
+          trustBundle.path = self.fn.${pkgs.stdenv.hostPlatform.system}.pki.realm-spire_file;
           agent.trustBundlePath = "/var/lib/realm-spire/trust-bundle.pem";
           responder = {
             ipv4Address = null;

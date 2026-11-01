@@ -14,7 +14,7 @@
 - 长期 intermediate：`Milieuim Realm SPIRE Intermediate P384`。
 - 有效期：2026-10-29 05:37:53 UTC 至 2036-10-26 05:37:53 UTC。
 - SHA-256（DER）：`5B:A6:E1:B6:9D:98:4D:66:A7:E1:32:3A:95:1E:7D:C2:50:C1:97:45:4C:7B:8F:5F:02:27:35:08:BF:41:55:40`。
-- 公开 PEM：[upstream-ca.pem](../pki/realm-spire/upstream-ca.pem)。
+- 公开 PEM：在 [mod/constant.nix](../mod/constant.nix) 的 `pki-data.realm-spire` 中声明；不再从 `pki/realm-spire/upstream-ca.pem` 读取。
 - 原根的 `pathLen:1` 不允许验证经过两层下级 CA 的完整链；验证必须止于专用 intermediate。
 
 已比较证书和私钥导出的公钥，确认匹配；Vaultix 管理密文解密后的公钥也匹配。
@@ -24,18 +24,31 @@
 
 - `realm.spire.server.upstream` 提供可选的 disk 上游接线，仅 eihort 启用。
 - 公共 certificate/bundle 需为完整 PEM，拒绝私钥标记；私钥选项只接受绝对运行时字符串。
+- eihort 显式导入 `realm-server` 模块；上游 CA、Vaultix secret 及 Server 的凭据激活依赖统一在 [mod/realm-server.nix](../mod/realm-server.nix) 声明。
 - eihort 的 Vaultix secret 是 `realm-spire-upstream-key`，root:root、0400。
 - systemd 通过 `LoadCredential` 将私钥交给 Server；上游插件读取 `$CREDENTIALS_DIRECTORY/realm-upstream.key`。
 - 私钥只在 eihort 有对应主机加密缓存，管理密文保留管理员恢复 recipient。
-- 公共 CA 使用独立内容寻址文件，避免无关 flake-source 变动导致 Server 因证书路径变化而重启。
+- 公共 CA 由 `mod/constant.nix` 的 `pki-data.realm-spire` 统一声明；`mkFn` 通过 `pkgs.writeText "realm-spire.crt"` 生成独立 store 文件，并以 `self.fn.${pkgs.stdenv.hostPlatform.system}.pki.realm-spire_file` 暴露。
+  [mod/realm-server.nix](../mod/realm-server.nix) 的 Server `upstream.certificate` / `upstream.bundle` 与
+  [mod/realm.nix](../mod/realm.nix) 的 Agent `trustBundle.path` 均引用该文件。
+  文件内容不随无关 flake-source 变更而变化，避免因此改变 Server 的证书路径。
 - Server 明确保持 `ca_ttl = "24h"`，默认 workload SVID 保持 1h。
 - Agent 保持 `rebootstrap_mode = "always"`，明确设 `rebootstrap_delay = "30s"`。
   SPIRE 默认 10m 延迟超过本项目 300s 的 API readiness 启动门限；30s 留出重新认证余量。
 - 最终 Agent bootstrap 经 `trustBundle.path` 固定为单张长期 intermediate；运行时动态 bundle 仍由 SPIRE 管理。
 
-`just sync-trust-bundle` 的默认来源已经改为仓库固定公共锚，不再导出 Server 的动态短期 bundle。
+需要独立 PEM 做指纹检查或经管理通道分发时，可从 Nix 声明导出公共锚：
+
+```sh
+nix eval --offline --raw .#fn.x86_64-linux.pki.realm-spire > /tmp/realm-spire-upstream-ca.pem
+openssl x509 -in /tmp/realm-spire-upstream-ca.pem -noout -dates -fingerprint -sha256
+```
+
+`just sync-trust-bundle` 从 Nix 求值 `nixosConfigurations.eihort.config.fn.pki.realm-spire`，
+将公共锚写入临时 PEM，再交给现有校验和分发流程；结束后删除临时文件，并保留分发命令的退出码。
+Nix 求值失败时直接退出，不执行分发。命令不再依赖旧路径 `pki/realm-spire/upstream-ca.pem`。
 过渡 old+new bundle 使用显式的 `sync-trust-bundle-transition`，不覆盖 generation 管理的路径。
-本地 dry-run 验证 PEM、有效期、CA 属性和全部八台 Realm 节点清单，不访问远端。
+分发逻辑的本地 dry-run 验证 PEM、有效期、CA 属性和全部八台 Realm 节点清单，不访问远端。
 
 ## 隔离验收
 
@@ -157,8 +170,8 @@ rbw 解锁后完成生产切换。所有命令经已验证 SSH 执行，节点�
 
 ### 待办
 
-- Uubboo、Kaambl 恢复可达后，先经管理渠道安装固定公共锚（`just sync-trust-bundle <node>`），
-  再部署各自最终 generation 并冷认证验证。
+- Uubboo、Kaambl 恢复可达后，先经管理渠道安装从 Nix 声明导出的固定公共锚
+  （`just sync-trust-bundle <node>`），再部署各自最终 generation 并冷认证验证。
 - 主工作区的 Envoy 清理、mautrix/Forgejo 代理移除及 Telegram Search 删除尚未提交部署；
   本轮 CA 刻意不夹带。提交后部署将同时移除 `realm-socks-mautrix-telegram`。
 - 旧自签信任完全退出后（约 24h CA + 缓存 TTL），可复查各端 bundle 只含新锚。

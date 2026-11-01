@@ -151,8 +151,18 @@ search-history *args:
 sync-trust-bundle *nodes:
     #!/usr/bin/env nu
     def main [...nodes: string] {
-        ^just _sync-trust-bundle pki/realm-spire/upstream-ca.pem pinned ...$nodes
-        exit $env.LAST_EXIT_CODE
+        let evaluated = (^nix eval --offline --no-write-lock-file --raw .#nixosConfigurations.eihort.config.fn.pki.realm-spire | complete)
+        if $evaluated.exit_code != 0 {
+            print -e $evaluated.stderr
+            exit $evaluated.exit_code
+        }
+        let bundle = (^mktemp --tmpdir realm-spire-upstream-ca.XXXXXX.pem | str trim)
+        $evaluated.stdout | save --force $bundle
+        let result = (^just _sync-trust-bundle $bundle pinned ...$nodes | complete)
+        rm $bundle
+        if ($result.stdout | is-not-empty) { print -n $result.stdout }
+        if ($result.stderr | is-not-empty) { print -e -n $result.stderr }
+        exit $result.exit_code
     }
 
 # Explicit migration-only override: supply a reviewed old+new public CA bundle.

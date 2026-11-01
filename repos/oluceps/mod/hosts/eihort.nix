@@ -75,6 +75,7 @@
             fail2ban
             incus
             vaultix
+            realm-server
             shared-modules
             users
             sudo

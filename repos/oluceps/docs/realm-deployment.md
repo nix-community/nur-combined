@@ -18,6 +18,19 @@ Server 直接拨号到登记 IP，不查询公网 DNS或使用 NSS。FQDN 仍用
 
 ## 2. 保留并更新公共信任 bundle
 
+当前配置的长期公共锚在 [mod/constant.nix](../mod/constant.nix) 的 `pki-data.realm-spire` 中声明。
+Server 的上游 certificate/bundle 与 Agent 的 `trustBundle.path` 统一引用
+`self.fn.${pkgs.stdenv.hostPlatform.system}.pki.realm-spire_file`，由 `pkgs.writeText` 生成 store 文件。
+需要独立 PEM 时，可导出并核对指纹：
+
+```sh
+nix eval --offline --raw .#fn.x86_64-linux.pki.realm-spire > /tmp/realm-spire-upstream-ca.pem
+openssl x509 -in /tmp/realm-spire-upstream-ca.pem -noout -dates -fingerprint -sha256
+```
+
+长期上游 CA 的接入与生产记录见[上游 CA 接入记录](realm-spire-upstream-rollout.md)。
+以下从 Server 导出动态 bundle 的步骤用于原 HTTP 身份迁移或显式准备过渡信任材料。
+
 保留现有 SPIRE Server 签名密钥、数据库和信任域。本次不轮换根 CA，不删除 Server 状态。
 从 Eihort 已验证的管理通道导出公共 bundle：
 
@@ -32,16 +45,18 @@ openssl x509 -in /tmp/realm-spire-public-bundle.pem -noout -dates -fingerprint -
 `/var/lib/realm-spire/trust-bundle.pem`，由 root 管理。现有目录可以继续持久化。
 不要从未验证的 HTTP challenge 端点下载初始根，也不要把 CA 私钥放入 Nix store。
 
-同样的分发可以用 `just sync-trust-bundle` 完成：它从 Eihort 读取 `bundle show`
-的输出，拒绝包含私钥的内容，校验 SHA-256 后以 0600 root 原子安装到
-Eihort、Abhoth、Azasos、Nodens、Yidhra、Hastur；旧文件保留为
-`trust-bundle.pem.before-sync`。`REALM_TRUST_BUNDLE_DRY=1` 只做取回与校验。
-该文件是 bootstrap 材料：运行中的 Agent 会继续从 Server 同步 bundle，
-所以更新后无需重启，只有 Agent 冷启动才读取此文件。
+`just sync-trust-bundle` 从 Nix 求值 `nixosConfigurations.eihort.config.fn.pki.realm-spire`，
+将固定公共锚写入临时 PEM 后校验和分发，结束后清理临时文件。
+它不再读取旧路径 `pki/realm-spire/upstream-ca.pem`，也不从 Eihort 导出动态 bundle。
+显式准备的 old+new 过渡 bundle 可通过
+`just sync-trust-bundle-transition <bundle> <node>...` 分发；该命令拒绝私钥内容，
+校验 SHA-256，并跳过 generation 管理的信任路径。`REALM_TRUST_BUNDLE_DRY=1` 只做本地校验和计划，不访问远端。
 
+运行时 `/var/lib/realm-spire/trust-bundle.pem` 是保留给旧配置的 bootstrap 材料。
+当前固定 `trustBundle.path` 的节点由 generation 提供长期锚，运行中的 Agent 继续从 Server 同步动态 bundle。
 这个路径保留的是可信公共材料，不是旧 token 协议。新节点也可以用模块的
-`trustBundle.path` 或 `trustBundle.text` 分发同一份公共 bundle。
-Server CA 正常轮换后，长期离线节点仍可能需要更新 bootstrap bundle。
+`trustBundle.path` 或 `trustBundle.text` 分发同一份公共锚。
+使用短期动态 bundle 作 bootstrap 的长期离线节点可能需要重新分发；固定长期锚的行为见上游 CA 接入记录。
 
 ## 3. 准备 Server 和每台机器的回滚材料
 
