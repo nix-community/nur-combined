@@ -33,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "SableClient";
     repo = "sable-next";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-2SQ1dHegS9xRtdGCFF6dCn0WHn2FkmTmA0XWcGj0NZc=";
+    hash = "sha256-fbddPXKcLwkiyK6ahJh1K3o8rqwTky5kcjcHLAkVjxQ=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
