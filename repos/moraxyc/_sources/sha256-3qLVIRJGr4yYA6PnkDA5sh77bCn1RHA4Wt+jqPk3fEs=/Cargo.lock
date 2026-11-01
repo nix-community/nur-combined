@@ -955,7 +955,7 @@ dependencies = [
 
 [[package]]
 name = "gaze-cli"
-version = "0.4.1"
+version = "0.4.2"
 dependencies = [
  "anyhow",
  "clap",
@@ -975,7 +975,7 @@ dependencies = [
 
 [[package]]
 name = "gaze-core"
-version = "0.4.1"
+version = "0.4.2"
 dependencies = [
  "anyhow",
  "libc",
@@ -992,7 +992,7 @@ dependencies = [
 
 [[package]]
 name = "gaze-gui"
-version = "0.4.1"
+version = "0.4.2"
 dependencies = [
  "anyhow",
  "futures",
@@ -1010,7 +1010,7 @@ dependencies = [
 
 [[package]]
 name = "gaze-security"
-version = "0.4.1"
+version = "0.4.2"
 dependencies = [
  "aes-gcm",
  "anyhow",
@@ -1024,7 +1024,7 @@ dependencies = [
 
 [[package]]
 name = "gaze-vision"
-version = "0.4.1"
+version = "0.4.2"
 dependencies = [
  "anyhow",
  "gaze-core",
@@ -1041,7 +1041,7 @@ dependencies = [
 
 [[package]]
 name = "gazed"
-version = "0.4.1"
+version = "0.4.2"
 dependencies = [
  "aes-gcm",
  "anyhow",
@@ -2266,7 +2266,7 @@ dependencies = [
 
 [[package]]
 name = "pam-gaze"
-version = "0.4.1"
+version = "0.4.2"
 dependencies = [
  "anyhow",
  "futures",
@@ -2281,7 +2281,7 @@ dependencies = [
 
 [[package]]
 name = "pam-gaze-grosshack"
-version = "0.4.1"
+version = "0.4.2"
 dependencies = [
  "anyhow",
  "futures",
@@ -4206,9 +4206,9 @@ dependencies = [
 
 [[package]]
 name = "zip"
-version = "9.1.3"
+version = "9.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1156b39d142a34b999c2310a50455e0cb3760bf7efad0122f796d813bee26ccb"
+checksum = "3f5b58784007ff6e5f280ec82c8596686a3b9b5dd5836c63288d4479f84728b9"
 dependencies = [
  "aes",
  "bzip2",
