@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Daily FusionSolar collection via browserless on Nomad (no email). Usage: run_browserless.sh [YYYY-MM-DD]
 set -u
-D=${FUSIONSOLAR_DIR:-/workspace/bots/fusionsolar}; HERE=$(dirname "$(readlink -f "$0")"); DATE=${1:-$(date +%F)}; OUT=$D/out/$DATE; mkdir -p "$OUT"
+D=${FUSIONSOLAR_DIR:-$HOME/.personal/personal-bots/bots/fusionsolar}; HERE=$(dirname "$(readlink -f "$0")"); DATE=${1:-$(date +%F)}; OUT=$D/out/$DATE; mkdir -p "$OUT"
 set -a; . "${FUSIONSOLAR_ENV:-$HOME/.secrets/fusionsolar.env}"; set +a
 TOK="$BROWSERLESS_TOKEN"
 unset SENTRY_DSN BROWSERLESS_TOKEN SMTP_USER SMTP_PASSWD SMTP_PASSWORD SMTP_SERVER SMTP_DESTINATIONS SMTP_FROM

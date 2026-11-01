@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Daily FusionSolar report runner. Usage: run_report.sh [destinations]
 set -u
-D=${FUSIONSOLAR_DIR:-/workspace/bots/fusionsolar}; HERE=$(dirname "$(readlink -f "$0")")
+D=${FUSIONSOLAR_DIR:-$HOME/.personal/personal-bots/bots/fusionsolar}; HERE=$(dirname "$(readlink -f "$0")")
 DATE=$(date +%F); OUT=$D/out/$DATE; mkdir -p "$OUT"
 set -a; . "${FUSIONSOLAR_ENV:-$HOME/.secrets/fusionsolar.env}"; set +a
 export SMTP_PASSWD="${SMTP_PASSWD:-$SMTP_PASSWORD}"
