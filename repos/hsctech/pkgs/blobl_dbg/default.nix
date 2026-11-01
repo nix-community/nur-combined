@@ -35,13 +35,13 @@ in
 # buildGo127Module: default `go` (1.26) is older than go.mod's `go 1.27.3`.
 buildGo127Module (finalAttrs: {
   pname = "blobl_dbg";
-  version = "0.0.2";
+  version = "0.0.4";
 
   src = fetchFromCodeberg {
     owner = "hsctech";
     repo = "blobl_dbg";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-12EwEci6Xmc13DZqRm06xmgsqmcEWdStFDrZz60EkEE=";
+    hash = "sha256-kn35Bae5r621VaGPqPGneJCO0PO8AeAzBMGzyNOyqBQ=";
   };
 
   __structuredAttrs = true;
