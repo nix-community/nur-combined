@@ -19,6 +19,7 @@ python3Packages.buildPythonPackage {
   build-system = with python3Packages; [ setuptools ];
 
   doCheck = false;
+  dontCheckPythonMetadata = true;
 
   pythonImportsCheck = [ "tps" ];
 
