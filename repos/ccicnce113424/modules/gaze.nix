@@ -211,11 +211,12 @@ in
 
       lockScreen = lib.mkEnableOption ''
         hands-free face unlock on the KDE Plasma lock screen. KScreenLocker
-        starts the biometric PAM slots alongside the password field, so face
-        authentication begins without any key press. Gaze takes
-        `kde-fingerprint`, or `kde-smartcard` when a fingerprint reader already
-        owns the first, so face and finger race instead of queueing. The
-        equivalent of the `gaze-kde` package's lock screen wiring
+        starts `kde-fingerprint` alongside the password field, so face
+        authentication begins without any key press. Before Plasma 6.8 it starts
+        `kde-smartcard` too, and Gaze takes that one when a fingerprint reader
+        already owns the first, so face and finger race instead of queueing.
+        From 6.8 on Gaze shares `kde-fingerprint` with the reader and runs first.
+        The equivalent of the `gaze-kde` package's lock screen wiring
       '';
 
       loginScreen = lib.mkEnableOption ''
@@ -618,11 +619,17 @@ in
           # out of the way when a fingerprint reader owns the first one.
           readerOwnsFingerprintSlot = config.services.fprintd.enable;
           smartcardSlotExists = config.security.pam.p11.enable;
+          # Only before Plasma 6.8 does KScreenLocker start `kde-smartcard` up
+          # front. From 6.8 on that slot never runs, so Gaze cannot move there.
+          smartcardRunsUpFront = lib.versionOlder (pkgs.kdePackages.kscreenlocker.version or "0") "6.7.90";
 
           # `pam_fprintd` blocks for its whole timeout, so sharing a slot starves
           # whichever module runs second. Prefer the free slot when there is one.
           slot =
-            if readerOwnsFingerprintSlot && !smartcardSlotExists then "kde-smartcard" else "kde-fingerprint";
+            if readerOwnsFingerprintSlot && !smartcardSlotExists && smartcardRunsUpFront then
+              "kde-smartcard"
+            else
+              "kde-fingerprint";
           shareWithReader = slot == "kde-fingerprint" && readerOwnsFingerprintSlot;
         in
         {
