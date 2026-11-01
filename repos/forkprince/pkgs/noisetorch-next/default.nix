@@ -4,8 +4,8 @@
   hicolor-icon-theme,
   adwaita-icon-theme,
   fetchFromGitHub,
-  buildGoModule,
   wrapGAppsHook4,
+  buildGoModule,
   gdk-pixbuf,
   pkg-config,
   fetchgit,
@@ -38,13 +38,13 @@
 in
   buildGoModule (finalAttrs: {
     pname = "noisetorch-next";
-    version = "b1573bca50da5cd3121453d369c0c6118aa1a68d";
+    version = "458c5f2ce1d92e392333150b016f06ba9e71fd2d";
 
     src = fetchFromGitHub {
       owner = "ForkPrince";
       repo = "NoiseTorch";
       rev = finalAttrs.version;
-      hash = "sha256-rIcQ+ZSTBq5FohTi5yH7E8VXBPjaEJH2RpB1iKfl5UI=";
+      hash = "sha256-L/syI57ILW4idcXXovdnCEnZ0ESQXGze7DGzn3bCTmU=";
     };
 
     vendorHash = null;
@@ -90,6 +90,13 @@ in
       go generate
 
       rm ./scripts/*
+    '';
+
+    preFixup = ''
+      gappsWrapperArgs+=(
+        --prefix XDG_DATA_DIRS : "${adwaita-icon-theme}/share"
+        --prefix XDG_DATA_DIRS : "${hicolor-icon-theme}/share"
+      )
     '';
 
     postInstall = ''
