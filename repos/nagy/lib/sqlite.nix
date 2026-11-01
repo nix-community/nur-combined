@@ -28,7 +28,8 @@ rec {
 
   importSQLITE = {
     check = lib.hasSuffix ".db";
-    __functor = _self: filename:
+    __functor =
+      _self: filename:
       lib.importJSON (sqliteToJson {
         inherit filename;
       });

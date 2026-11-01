@@ -59,7 +59,7 @@ in
       ((pkgs.pass.override { dmenuSupport = false; }).withExtensions.override {
         pass = pkgs.passage;
       })
-      (subpkgs: [ subpkgs.pass-otp ])
+        (subpkgs: [ subpkgs.pass-otp ])
     )
     pkgs.ssh-to-age
     (pkgs.zbar.override {

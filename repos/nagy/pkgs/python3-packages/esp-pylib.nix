@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   fetchPypi,
   buildPythonPackage,
 
@@ -19,13 +20,13 @@
 
 buildPythonPackage rec {
   pname = "esp-pylib";
-  version = "1.1.5";
+  version = "1.2.0";
   pyproject = true;
 
   src = fetchPypi {
     pname = "esp_pylib";
     inherit version;
-    hash = "sha256-MAa8lWL5UmlX4J7oSIF0Y8Iv4QzPjqaLYVU5BsvAieA=";
+    hash = "sha256-UfDESg96kv3e2cq1S96SRBsitGT31oTtF5r7VwAL7XA=";
   };
 
   build-system = [
@@ -40,10 +41,15 @@ buildPythonPackage rec {
   passthru.optional-dependencies = {
     ide = [ websockets ];
     serial = [ pyserial ];
-    cli = [ rich-click click ];
+    cli = [
+      rich-click
+      click
+    ];
   };
 
   pythonImportsCheck = [ "esp_pylib" ];
+
+  passthru.updateScript = pkgs.nix-update-script { };
 
   meta = {
     description = "Python library for logging, utils and constants for Espressif Systems' Python projects";

@@ -23,8 +23,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   # The `server` binary is defined in the `server` workspace member. Build only
   # that package to avoid compiling the unused Python/maturin and example code.
-  cargoBuildFlags = [ "--package" "server" ];
-  cargoTestFlags = [ "--package" "server" ];
+  cargoBuildFlags = [
+    "--package"
+    "server"
+  ];
+  cargoTestFlags = [
+    "--package"
+    "server"
+  ];
 
   # Examples and tests require runtime model downloads (from_pretrained_hf),
   # so disable the test harness.

@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   pathspec,
   setuptools,
   fetchPypi,
@@ -9,12 +10,12 @@
 
 buildPythonApplication rec {
   pname = "ssort";
-  version = "0.17.0";
+  version = "0.19.0";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-rPs4QJR2Ugw+JVQcKC9875IBeQDYWfaxK+pI2kM0sZQ=";
+    sha256 = "sha256-G/8DakotgxvsyCK04R6ubk+L+z44buIHsIJGnTtgSmo=";
   };
 
   build-system = [
@@ -29,6 +30,8 @@ buildPythonApplication rec {
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
+
+  passthru.updateScript = pkgs.nix-update-script { };
 
   meta = {
     description = "Tool for sorting top level statements in python files";

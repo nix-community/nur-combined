@@ -3,8 +3,18 @@
 
   inputs.nixpkgs.url = "nixpkgs/nixos-unstable";
 
+  inputs.treefmt-nix = {
+    url = "github:numtide/treefmt-nix";
+    # One nixpkgs closure, no duplicates.
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
   outputs =
-    { self, nixpkgs }:
+    {
+      self,
+      nixpkgs,
+      treefmt-nix,
+    }:
     let
       system = "x86_64-linux";
       # allowBroken: some packages here track rolling nixpkgs and depend on
@@ -31,6 +41,9 @@
         callPackage = pkgs.callPackage;
       };
 
-      formatter.${system} = pkgs.nixfmt;
+      formatter.${system} = treefmt-nix.lib.mkWrapper pkgs {
+        projectRootFile = "flake.nix";
+        programs.nixfmt.enable = true;
+      };
     };
 }

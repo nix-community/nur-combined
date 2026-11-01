@@ -6,7 +6,8 @@
 }:
 
 let
-  mkNixCmds = short: subcommand: extraFlags:
+  mkNixCmds =
+    short: subcommand: extraFlags:
     let
       base = [ "nix" subcommand ] ++ extraFlags;
       withFile = file: base ++ [ "--file" file ];

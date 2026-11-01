@@ -54,11 +54,11 @@ let
   # RFC 10000 and up. Explicitly enumerated so that publishing new RFCs
   # does not invalidate the hash; nonexistent numbers are skipped by rsync.
   # Bump `last` (and the hash) to extend the snapshot deliberately.
-  last = 10052;
+  last = 10080;
   latest = fetchRFCTexts {
     name = "rfcs-latest";
     include = map (n: "rfc${toString n}.txt") (lib.range 10000 last);
-    hash = "sha256-cngWXUNScjFaGpxDK5iQYLvBLSY9FpClZULmCw8XWuA=";
+    hash = "sha256-sJ6NR/oabhyV1TimGheDCSjICoWWTDFUxrPMb0XJ6fE=";
   };
 in
 symlinkJoin {
@@ -71,6 +71,7 @@ symlinkJoin {
     description = "The complete set of IETF RFC texts (RFC 1-${toString last})";
     license = lib.licenses.unfreeRedistributable;
     platforms = lib.platforms.unix;
+    maintainers = with lib.maintainers; [ nagy ];
   };
   postBuild = ''
     mkdir -p $out/share/rfc

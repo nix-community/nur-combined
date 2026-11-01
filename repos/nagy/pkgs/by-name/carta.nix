@@ -3,21 +3,24 @@
   rustPlatform,
   fetchCrate,
   versionCheckHook,
+  nix-update-script,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "carta";
-  version = "0.0.11";
+  version = "0.0.13";
 
   src = fetchCrate {
     inherit (finalAttrs) pname version;
-    hash = "sha256-DDWxRUgTV8rs8CrFqBPV5cph9X7OQfLBuMKZHgaEWwk=";
+    hash = "sha256-kx6CmyGW8V033DxA4dOKopZ6i+LQvQcaVufVp2IvXhA=";
   };
 
-  cargoHash = "sha256-gs64SnajbBhILoEzGwpmPwA/S+tAT50yxa2ffYhnYK4=";
+  cargoHash = "sha256-WhOA/n8KTt8rdRCmHNcF8FkFcTUxGGseVV/WCq+8t0I=";
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Document converter: parse a source format and render it to a target format";

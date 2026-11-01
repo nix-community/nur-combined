@@ -57,7 +57,8 @@ rec {
 
   importQCOW2 = {
     check = lib.hasSuffix ".qcow2";
-    __functor = _self: filename:
+    __functor =
+      _self: filename:
       lib.importJSON (qcow2ToJson {
         inherit filename;
       });

@@ -161,7 +161,7 @@ rec {
       lib.pipe filename [
         (
           it:
-          pkgs.runCommandLocal "output.json" { nativeBuildInputs = [ (convertOrgToJson {}) ]; } ''
+          pkgs.runCommandLocal "output.json" { nativeBuildInputs = [ (convertOrgToJson { }) ]; } ''
             convert-org-to-json ${it} > $out
           ''
         )

@@ -1,5 +1,6 @@
 let
-  mkSystemctlCmds = prefix: base:
+  mkSystemctlCmds =
+    prefix: base:
     let
       list = sub: base ++ [ "list-${sub}" ];
       listJson = sub: list sub ++ [ "--output=json" ];

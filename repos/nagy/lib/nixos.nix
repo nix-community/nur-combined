@@ -52,8 +52,8 @@
       };
       diffedSessionVariables = lib.filterAttrs (
         name: value:
-          !(sysEmpty.config.environment.sessionVariables ? ${name})
-          || sysEmpty.config.environment.sessionVariables.${name} != value
+        !(sysEmpty.config.environment.sessionVariables ? ${name})
+        || sysEmpty.config.environment.sessionVariables.${name} != value
       ) sys.config.environment.sessionVariables;
       diffedFontPackages = lib.filter (
         font: !(lib.elem font sysEmpty.config.fonts.packages)

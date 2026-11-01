@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   fetchPypi,
   buildPythonApplication,
   iteround,
@@ -41,6 +42,8 @@ buildPythonApplication rec {
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
+
+  passthru.updateScript = pkgs.nix-update-script { };
 
   pythonImportsCheck = [ "flameshow" ];
 

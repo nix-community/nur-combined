@@ -29,7 +29,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     pkg-config
   ];
 
-  nativeCheckInputs = [ cacert writableTmpDirAsHomeHook ];
+  nativeCheckInputs = [
+    cacert
+    writableTmpDirAsHomeHook
+  ];
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;

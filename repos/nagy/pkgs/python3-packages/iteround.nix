@@ -6,7 +6,7 @@
   wheel,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "iteround";
   version = "1.0.4";
   pyproject = true;
@@ -14,9 +14,14 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "cgdeboer";
     repo = "iteround";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-0lHu01MTf+rdrUYuRDR2IUvQQKcw7NZXBOw+nbEmPMc=";
   };
+
+  # The v1.0.4 tag still declares `version="1.0.3"` in setup.py.
+  postPatch = ''
+    substituteInPlace setup.py --replace-fail 'version="1.0.3"' 'version="${finalAttrs.version}"'
+  '';
 
   nativeBuildInputs = [
     setuptools
@@ -32,4 +37,4 @@ buildPythonPackage rec {
     maintainers = with maintainers; [ nagy ];
     mainProgram = "iteround";
   };
-}
+})

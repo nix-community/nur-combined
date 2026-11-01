@@ -75,8 +75,7 @@ in
   config = {
     # Written as /etc/agent/config.json.  It is plain JSON, so it carries no
     # secret values unless `envs` names them.
-    environment.etc."agent/config.json".source =
-      pkgs.writers.writeJSON "agent-config.json" agentConfig;
+    environment.etc."agent/config.json".source = pkgs.writers.writeJSON "agent-config.json" agentConfig;
 
     environment.systemPackages = [
       llmAgentsPkgs.pi

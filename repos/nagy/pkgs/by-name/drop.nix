@@ -4,20 +4,21 @@
   buildGoModule,
   versionCheckHook,
   writableTmpDirAsHomeHook,
+  nix-update-script,
 }:
 
 buildGoModule (finalAttrs: {
   pname = "drop";
-  version = "0.3.0";
+  version = "0.3.1";
 
   src = fetchFromGitHub {
     owner = "wrr";
     repo = "drop";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-h6o/FRXmvf8avcg3gHBgYtdoYoGTvg2K3XZzhy+1dnM=";
+    hash = "sha256-Us5UOrFDRmSmZb+cBUcoA0TT1KboCnX6mTSlLb9DKWM=";
   };
 
-  vendorHash = "sha256-hNJTug2fA7TCGJQW8vEuFtLPQieDndYdkiNO85AGNTE=";
+  vendorHash = "sha256-JeheKUngdDI/9X1tDpw7seD7XirnvdBbcyvRzM2I7Gs=";
 
   env.CGO_ENABLED = 0;
 
@@ -33,6 +34,8 @@ buildGoModule (finalAttrs: {
     "-X"
     "main.Version=${finalAttrs.version}"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Linux sandboxing that doesn't get in your way";

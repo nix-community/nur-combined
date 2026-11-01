@@ -2,25 +2,28 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+  nix-update-script,
 }:
 
 buildGoModule {
   pname = "yggmail";
-  version = "0-unstable-2026-07-24";
+  version = "0-unstable-2026-10-24";
 
   src = fetchFromGitHub {
     owner = "neilalexander";
     repo = "yggmail";
-    rev = "727c60d038f12ee00b746cb356f199d09f340a6e";
-    hash = "sha256-vXKQ3bJm04IDMuUnnZhRa+v+qZaSQth9BQ4fn12zVW0=";
+    rev = "6973c70228a870b9cf8281af785085a85ca0322a";
+    hash = "sha256-xDVex5AFw8v69uVLB6ZUosSOqTRjiCDvNNNJj+49Z+A=";
   };
 
-  vendorHash = "sha256-Edf8Ugxi7IFWd8QARzomQy/jcL4wC3yYj2rOxek+6ms=";
+  vendorHash = "sha256-5Iy95KzTCdXfAL2uEFB0F957/Svk7RwWTZbgSi2RoHg=";
 
   ldflags = [
     "-s"
     "-w"
   ];
+
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {
     description = "End-to-end encrypted email for the mesh networking age";

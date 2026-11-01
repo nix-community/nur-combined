@@ -2,18 +2,19 @@
   lib,
   fetchPypi,
   python3,
+  nix-update-script,
 }:
 
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "freecad-mcp";
-  version = "0.1.27";
+  version = "0.1.28";
 
   pyproject = true;
 
   src = fetchPypi {
     pname = "freecad_mcp";
     inherit (finalAttrs) version;
-    hash = "sha256-TiK2APVqpwNUsZqbv6BobUydi1z7VycDhINBe5ci7BA=";
+    hash = "sha256-Bqj8YRIgqKEAPO5DfkDseQiYeIMKJma558aqS8PugrE=";
   };
 
   build-system = [
@@ -29,10 +30,17 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
     python3.pkgs.validators
   ];
 
+  # Upstream pins `certifi>=2026.10.19`, this nixpkgs carries an older release.
+  pythonRelaxDeps = [
+    "certifi"
+  ];
+
   pythonImportsCheck = [
     "freecad_mcp"
     "freecad_mcp.server"
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Model Context Protocol server that lets AI assistants control FreeCAD";
