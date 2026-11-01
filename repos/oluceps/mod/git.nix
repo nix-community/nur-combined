@@ -4,11 +4,11 @@
     { config, pkgs, ... }:
     {
       environment.systemPackages = [
-        pkgs.git-lfs
         pkgs.git-latexdiff
       ];
       programs.git = {
         enable = true;
+        lfs.enable = true;
       };
       systemd.tmpfiles.rules = [
         "L+ /home/${config.identity.user}/.gitconfig - - - - ${pkgs.writeText "gitconfig" ''

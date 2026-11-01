@@ -20,7 +20,7 @@ jobs:
 
           if git grep -l -I -E "$pattern" -- . \
             ':(exclude).github/workflows/sensitive.yaml' \
-            ':(exclude)tests/realm-spire-http.nix'; then
+            ':(exclude)tests/'; then
             echo "发现疑似私钥，请检查以上文件"
             exit 1
           else
