@@ -8,11 +8,11 @@
 let
   pname = "zen";
   description = "Zen is a firefox-based browser with the aim of pushing your productivity to a new level!";
-  version = "1.23.2b";
+  version = "1.24b";
 
   src = fetchurl {
     url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen-x86_64.AppImage";
-    hash = "sha256-A2Nz9FtJUwOsK9Q8qBWgpnuXVxdvhrRZ0N6rSzcGkdA=";
+    hash = "sha256-xesF42xf/cLYwgtE5HA/JeDyhhGOWbqQP4LSEhtKfic=";
   };
 
   lib = pkgs.lib;

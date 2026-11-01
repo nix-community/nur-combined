@@ -11,13 +11,12 @@
 
 {
   # The `lib`, `overlays`, `nixosModules`, `homeModules`,
-  # `darwinModules` and `flakeModules` names are special
+  # and `flakeModules` names are special
   lib = import ./lib { inherit pkgs; }; # functions
+  overlays = import ./overlays; # nixpkgs overlays
   nixosModules = import ./nixos-modules; # NixOS modules
   # homeModules = { }; # Home Manager modules
-  # darwinModules = { }; # nix-darwin modules
   # flakeModules = { }; # flake-parts modules
-  overlays = import ./overlays; # nixpkgs overlays
 
   appimagetool = pkgs.callPackage ./pkgs/appimagetool { };
   zen-browser = pkgs.callPackage ./pkgs/zen-browser { };
