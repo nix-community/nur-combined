@@ -1,6 +1,6 @@
 --- a/tools/actions/app_manager.py
 +++ b/tools/actions/app_manager.py
-@@ -29,10 +29,16 @@
+@@ -29,10 +29,17 @@
 -        if platformService:
 -            platformService.installApp("/data/miodroid_tmp/base.apk")
 -        else:
@@ -19,7 +19,8 @@
 +                logging.error("Failed to access IPlatform service")
 +        finally:
 +            try:
-+                os.remove(tmp_dir + "/base.apk")
++                if os.path.exists(tmp_dir + "/base.apk"):
++                    os.remove(tmp_dir + "/base.apk")
 +            finally:
 +                if session["state"] == "FROZEN":
 +                    cm.Freeze()
@@ -27,7 +28,7 @@
 +            raise RuntimeError("Android failed to install APK: {}".format(args.PACKAGE))
 +    except (dbus.DBusException, KeyError) as e:
 +        raise RuntimeError("Miodroid session is stopped") from e
-@@ -49,12 +55,16 @@
+@@ -49,12 +56,16 @@
 -        platformService = IPlatform.get_service(args)
 -        if platformService:
 -            ret = platformService.removeApp(args.PACKAGE)
@@ -54,5 +55,5 @@
 +                cm.Freeze()
 +        if ret != 0:
 +            raise RuntimeError("Android failed to uninstall package: {}".format(args.PACKAGE))
-+    except dbus.DBusException as e:
++    except (dbus.DBusException, KeyError) as e:
 +        raise RuntimeError("Miodroid session is stopped") from e

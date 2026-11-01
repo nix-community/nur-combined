@@ -58,6 +58,7 @@ int main(void) {
         if (chmod(path, 0666))
             fail("chmod binder device");
         snprintf(link, sizeof(link), "/dev/%s", names[i]);
+        unlink(link);
         if (symlink(path, link))
             fail("symlink binder device");
     }

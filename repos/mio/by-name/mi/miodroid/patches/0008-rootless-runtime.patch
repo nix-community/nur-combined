@@ -988,6 +988,14 @@ Subject: [PATCH] private rootless Binder and desktop sockets; correct attach and
              "resident": dbus.types.Boolean(resident),
              "transient": dbus.types.Boolean(transient),
              "urgency": dbus.types.Byte(urgency),
+@@ -92,6 +94,7 @@
+     stopping = True
+     for signal in bus_signals:
+         signal.remove()
++    bus_signals.clear()
+     try:
+         if args.notificationLoop:
+             args.notificationLoop.quit()
 --- a/tools/services/user_manager.py
 +++ b/tools/services/user_manager.py
 @@ -1,6 +1,10 @@

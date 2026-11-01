@@ -61,14 +61,22 @@ let
   };
   miodroidGbinderConf = pkgs.writeText "miodroid.conf" ''
     [Protocol]
-    /dev/binder = aidl2
-    /dev/vndbinder = aidl2
+    Default = aidl3
+    /dev/binder = aidl3
+    /dev/vndbinder = aidl3
     /dev/hwbinder = hidl
+    /dev/miodroid-binder = aidl3
+    /dev/miodroid-vndbinder = aidl3
+    /dev/miodroid-hwbinder = hidl
 
     [ServiceManager]
-    /dev/binder = aidl2
-    /dev/vndbinder = aidl2
+    Default = aidl3
+    /dev/binder = aidl3
+    /dev/vndbinder = aidl3
     /dev/hwbinder = hidl
+    /dev/miodroid-binder = aidl3
+    /dev/miodroid-vndbinder = aidl3
+    /dev/miodroid-hwbinder = hidl
   '';
 in
 {
@@ -175,7 +183,7 @@ in
     # binderfs from inside the container.  Loading it here is what replaced the
     # helper's "modprobe binder_linux": NixOS treats a module that is missing
     # (because it is built in) as a non-fatal failure.
-    boot.kernelModules = lib.mkIf rootlessCfg.enable [ "binder_linux" ];
+    boot.kernelModules = lib.mkIf miodroidEnabled [ "binder_linux" ];
     boot.extraModprobeConfig = lib.mkIf rootlessCfg.enable ''
       options binder_linux devices=binder,vndbinder,hwbinder
     '';

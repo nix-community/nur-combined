@@ -20,6 +20,7 @@
   util-linux,
   wrapGAppsHook3,
   wl-clipboard,
+  runtimeShell,
   nix-update-script,
   callPackage,
   pkgsStatic,
@@ -397,11 +398,6 @@ let
               -e '/lxc.hook.post-stop = \/dev\/null/d' \
               data/configs/config_base
 
-            # Both sides of the interface name contract: fail the build instead of
-            # shipping a renamed script whose named instances are silently offline.
-            grep -q 'f"miodroid0{get_suffix_dash()}"' tools/helpers/instance.py
-            grep -q 'iface_name="miodroid0-''${MIODROID_INSTANCE}"' data/scripts/miodroid-net.sh
-
             # ── Desktop entries, menu and metainfo ────────────────────────────────
             #
             # These keep upstream's file names, Exec= and Icon=, so they collide
@@ -437,6 +433,11 @@ let
             # Apply runtime fixes against the fully rebranded source tree.
             patch -p1 --fuzz=0 < ${./patches/0008-rootless-runtime.patch}
             patch -p1 --fuzz=0 < ${./patches/0009-package-operation-results.patch}
+
+            # Both sides of the interface name contract: fail the build instead of
+            # shipping a renamed script whose named instances are silently offline.
+            grep -q 'miodro-' tools/helpers/instance.py
+            grep -q 'iface_name="miodro-' data/scripts/miodroid-net.sh
 
     '';
 
@@ -499,10 +500,15 @@ let
             chmod 0755 $out/bin/miodroid
             substituteInPlace $out/bin/miodroid \
               --replace-fail '@entrypoint@' "$out/lib/miodroid/waydroid.py"
+            substituteInPlace $out/share/dbus-1/system-services/id.miodro.Container.service \
+              --replace-fail '/usr/bin/miodroid' "$out/bin/miodroid"
     '';
 
     preFixup = ''
       makeWrapperArgs+=("''${gappsWrapperArgs[@]}")
+
+      substituteInPlace $out/lib/miodroid/tools/helpers/run.py \
+        --replace-fail '"sh"' '"${runtimeShell}"'
 
       patchShebangs --host $out/lib/miodroid/data/scripts
       wrapProgram $out/lib/miodroid/data/scripts/miodroid-net.sh \
