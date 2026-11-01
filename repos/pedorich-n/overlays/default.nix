@@ -6,4 +6,6 @@
       overlayAttrs = import ../default.nix { pkgs = prev; };
     in
     removeAttrs overlayAttrs reserved;
+
+  bun = import ./bun.nix;
 }

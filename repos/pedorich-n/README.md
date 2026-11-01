@@ -15,6 +15,7 @@
 ### Packages (and overlays)
 
 - **[error-pages](https://tarampampam.github.io/error-pages)** `4.2.6` — Static error pages generator for HTTP servers
+- **[plannotator](https://plannotator.ai)** `0.28.42` — Interactive plan and code review surface for AI coding agents
 - **[rustic-exporter](https://github.com/timtorChen/rustic-exporter)** `0.1.0-rc.12` — Prometheus exporter for rustic/restic backup
 - **[safebucket](https://github.com/safebucket/safebucket)** `0.8.0` — On-prem file sharing made simple, fast and safe.
 - **[safebucket_main](https://github.com/safebucket/safebucket)** `0.8.0-unstable-2026-10-15` — On-prem file sharing made simple, fast and safe. (tracking main branch)
