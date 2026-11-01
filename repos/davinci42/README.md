@@ -3,12 +3,11 @@
 Personal Nix packages and NixOS modules using the caller's `pkgs`.
 `default.nix` exports packages and module paths.
 
-| Package           | Modules                                       | Documentation                                                 |
-| ----------------- | --------------------------------------------- | ------------------------------------------------------------- |
-| `basic-memory`    | None                                          | [Markdown memory and MCP server](pkgs/basic-memory/README.md) |
-| `fluxdown-server` | `nixosModules.fluxdown`                       | [FluxDown Server](pkgs/fluxdown-server/README.md)             |
-| `magpie`          | `nixosModules.magpie`, `darwinModules.magpie` | [Magpie gateway and agent manager](pkgs/magpie/README.md)     |
-| `mnamer-rs`       | None                                          | [mnamer Rust rewrite](pkgs/mnamer-rs/README.md)               |
+| Package           | Modules                                       | Documentation                                             |
+| ----------------- | --------------------------------------------- | --------------------------------------------------------- |
+| `fluxdown-server` | `nixosModules.fluxdown`                       | [FluxDown Server](pkgs/fluxdown-server/README.md)         |
+| `magpie`          | `nixosModules.magpie`, `darwinModules.magpie` | [Magpie gateway and agent manager](pkgs/magpie/README.md) |
+| `mnamer-rs`       | None                                          | [mnamer Rust rewrite](pkgs/mnamer-rs/README.md)           |
 
 ## Maintenance and tests
 
@@ -18,9 +17,9 @@ Run from the repository root with `<nixpkgs>` and `nix-command` enabled.
 ```sh
 nix-shell
 just --list
-just build basic-memory
-just update basic-memory
-just check basic-memory
+just build mnamer-rs
+just update mnamer-rs
+just check mnamer-rs
 just contract fluxdown-server
 NIXPKGS_ALLOW_UNFREE=1 just check-all
 NIXPKGS_ALLOW_UNFREE=1 just check-updates

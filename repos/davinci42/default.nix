@@ -2,7 +2,6 @@
   pkgs ? import <nixpkgs> { },
 }:
 {
-  basic-memory = pkgs.callPackage ./pkgs/basic-memory { };
   fluxdown-server = pkgs.callPackage ./pkgs/fluxdown-server { };
   magpie = pkgs.callPackage ./pkgs/magpie { };
   mnamer-rs = pkgs.callPackage ./pkgs/mnamer-rs { };
