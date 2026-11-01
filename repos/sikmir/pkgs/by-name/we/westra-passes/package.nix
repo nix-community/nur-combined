@@ -32,6 +32,8 @@ python3Packages.buildPythonPackage {
     cp -r data $out/share/westra-passes
   '';
 
+  dontCheckPythonMetadata = true;
+
   meta = {
     description = "Mountain passes for nakarte";
     homepage = "https://github.com/wladich/westra_passes_for_nakarte";
