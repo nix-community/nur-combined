@@ -128,6 +128,15 @@ fetch.github = "txperl/PixivBiu"
 # vendored bun2nix; the Go vendor hash is regenerated alongside it.
 extract = ["frontend/bun.lock"]
 
+[magpie]
+# magpie's Linux desktop build is a cgo/GTK 3 program; the same source also
+# builds the terminal-only variant with the nogui tag. The icon is extracted
+# so magpie-bin, whose release asset is a bare ELF binary, can install the
+# matching menu entry without fetching the source archive again.
+src.github = "yetone/magpie"
+fetch.github = "yetone/magpie"
+extract = ["internal/gui/icon-256.png"]
+
 [rikkahub-desktop]
 # The package is built from source at the release tag, matching the binaries in
 # rikkahub-desktop-bin; the tag is currently the branch tip as well.
@@ -177,6 +186,19 @@ fetch.url = "https://github.com/ldoubil/astral/releases/download/v$ver/astral-li
 src.github = "AstralSightStudios/AstroBox-NG"
 src.prefix = "v"
 fetch.url = "https://github.com/AstralSightStudios/AstroBox-NG/releases/download/v$ver/AstroBox-$ver_amd64.deb"
+
+[magpie-bin-x86_64]
+# magpie-releases is upstream's asset host; yetone/magpie mirrors the same
+# release only after every asset has finished uploading. The Linux assets are
+# bare ELF binaries (the desktop WebKitGTK build, not the nogui one).
+src.github = "yetone/magpie-releases"
+src.prefix = "v"
+fetch.url = "https://github.com/yetone/magpie-releases/releases/download/v$ver/magpie-linux-amd64"
+
+[magpie-bin-aarch64]
+src.github = "yetone/magpie-releases"
+src.prefix = "v"
+fetch.url = "https://github.com/yetone/magpie-releases/releases/download/v$ver/magpie-linux-arm64"
 
 [pixivbiu-bin-x86_64]
 src.github = "txperl/PixivBiu"

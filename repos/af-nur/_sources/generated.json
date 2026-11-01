@@ -203,6 +203,59 @@
         },
         "version": "8cdef645940bf8d7ffc77fef2b3b0caf38cbabda"
     },
+    "magpie": {
+        "cargoLock": null,
+        "date": null,
+        "extract": {
+            "internal/gui/icon-256.png": "sha256-FTXWNi2fTWC+qt7eelwxAWM3YZkUaUh0dueuQJ+B4t4=/internal/gui/icon-256.png"
+        },
+        "name": "magpie",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "yetone",
+            "repo": "magpie",
+            "rev": "v0.1.2561",
+            "sha256": "sha256-FTXWNi2fTWC+qt7eelwxAWM3YZkUaUh0dueuQJ+B4t4=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.1.2561"
+    },
+    "magpie-bin-aarch64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "magpie-bin-aarch64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-9ZsabXZM0v2hfISX1YQO3WcU/+NudhNV6Ngtk21JRn0=",
+            "type": "url",
+            "url": "https://github.com/yetone/magpie-releases/releases/download/v0.1.2561/magpie-linux-arm64"
+        },
+        "version": "0.1.2561"
+    },
+    "magpie-bin-x86_64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "magpie-bin-x86_64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-04NnOMbztmQIqNLLV+AJmgEkeMvh6UBoDFjMmVZK9ao=",
+            "type": "url",
+            "url": "https://github.com/yetone/magpie-releases/releases/download/v0.1.2561/magpie-linux-amd64"
+        },
+        "version": "0.1.2561"
+    },
     "pi": {
         "cargoLock": null,
         "date": null,
