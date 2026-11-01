@@ -134,7 +134,7 @@ let
   # /etc/agent/config.json, so the sandbox picks it up without a rebuild.
   agentConfigFile =
     if sys.config.environment.etc ? "agent/config.json" then
-      pkgs.writeText "agent-config.json" sys.config.environment.etc."agent/config.json".text
+      sys.config.environment.etc."agent/config.json".source
     else
       null;
   envScript = pkgs.writeTextFile {

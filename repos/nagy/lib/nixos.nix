@@ -14,7 +14,7 @@
   */
   mkNixosBuildEnv =
     {
-      nixosEval ? import <nixpkgs/nixos/lib/eval-config.nix>,
+      nixosEval ? import (pkgs.path + "/nixos/lib/eval-config.nix"),
       specialArgs ? {
         nur = import <nur> {
           inherit pkgs;
@@ -30,12 +30,14 @@
     let
       sysEmpty = nixosEval {
         inherit specialArgs;
+        system = pkgs.stdenv.hostPlatform.system;
         modules = [
           { system.stateVersion = "26.05"; }
         ];
       };
       sys = nixosEval {
         inherit specialArgs;
+        system = pkgs.stdenv.hostPlatform.system;
         modules = [
           { system.stateVersion = "26.05"; }
         ]

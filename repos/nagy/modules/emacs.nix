@@ -2,7 +2,6 @@
   config,
   pkgs,
   lib,
-  nur,
   ...
 }:
 
@@ -15,51 +14,57 @@ let
     anything
     package
     ;
+  repo = import ../. { inherit pkgs; };
   cfg = config.nagy.emacs;
   emacs = if config.services.xserver.enable then pkgs.emacs31-gtk3 else pkgs.emacs31-nox;
   emacsPackages = pkgs.emacsPackagesFor emacs;
   customEmacsPackages = emacsPackages.overrideScope (
     self: super:
     (
-      nur.repos.nagy.emacsPackages # add all packages from this repository
+      repo.emacsPackages # add all packages from this repository
       // {
 
         bruvtab =
           (builtins.getFlake "github:nagy/emacs-bruvtab").packages.${pkgs.stdenv.hostPlatform.system}.bruvtab;
 
         org-jxl-images =
-          (builtins.getFlake "github:nagy/org-jxl-images.el").packages.${pkgs.stdenv.hostPlatform.system}.org-jxl-images;
+          (builtins.getFlake "github:nagy/org-jxl-images.el")
+          .packages.${pkgs.stdenv.hostPlatform.system}.org-jxl-images;
 
         yublin =
           (builtins.getFlake "github:nagy/yublin.el").packages.${pkgs.stdenv.hostPlatform.system}.yublin;
 
         go-mod-ts-extras-mode =
-          (builtins.getFlake "github:nagy/go-mod-ts-extras-mode").packages.${pkgs.stdenv.hostPlatform.system}.go-mod-ts-extras-mode;
+          (builtins.getFlake "github:nagy/go-mod-ts-extras-mode")
+          .packages.${pkgs.stdenv.hostPlatform.system}.go-mod-ts-extras-mode;
 
-        gguf =
-          (builtins.getFlake "github:nagy/gguf.el").packages.${pkgs.stdenv.hostPlatform.system}.gguf;
+        gguf = (builtins.getFlake "github:nagy/gguf.el").packages.${pkgs.stdenv.hostPlatform.system}.gguf;
 
         crate =
           (builtins.getFlake "github:nagy/crate.el").packages.${pkgs.stdenv.hostPlatform.system}.crate;
 
         derivation =
-          (builtins.getFlake "github:nagy/derivation.el").packages.${pkgs.stdenv.hostPlatform.system}.derivation;
+          (builtins.getFlake "github:nagy/derivation.el")
+          .packages.${pkgs.stdenv.hostPlatform.system}.derivation;
 
         toml-ts-cargo-mode =
-          (builtins.getFlake "github:nagy/toml-ts-cargo-mode").packages.${pkgs.stdenv.hostPlatform.system}.toml-ts-cargo-mode;
+          (builtins.getFlake "github:nagy/toml-ts-cargo-mode")
+          .packages.${pkgs.stdenv.hostPlatform.system}.toml-ts-cargo-mode;
 
         ron-ts-mode =
-          (builtins.getFlake "github:nagy/emacs-ron-ts-mode").packages.${pkgs.stdenv.hostPlatform.system}.ron-ts-mode;
+          (builtins.getFlake "github:nagy/emacs-ron-ts-mode")
+          .packages.${pkgs.stdenv.hostPlatform.system}.ron-ts-mode;
 
         openrpc-mode =
-          (builtins.getFlake "github:nagy/emacs-openrpc-mode").packages.${pkgs.stdenv.hostPlatform.system}.openrpc-mode;
+          (builtins.getFlake "github:nagy/emacs-openrpc-mode")
+          .packages.${pkgs.stdenv.hostPlatform.system}.openrpc-mode;
 
         cid-mode =
-          (
-            builtins.getFlake "github:nagy/emacs-ipfs-modes"
-          ).packages.${pkgs.stdenv.hostPlatform.system}.cid-mode.overrideAttrs {
-            packageRequires = [ self.magit-section ];
-          };
+          (builtins.getFlake "github:nagy/emacs-ipfs-modes")
+          .packages.${pkgs.stdenv.hostPlatform.system}.cid-mode.overrideAttrs
+            {
+              packageRequires = [ self.magit-section ];
+            };
 
         magit = super.magit.overrideAttrs (
           {
@@ -86,16 +91,27 @@ let
           allowSubstitutes = false;
         };
 
-        magit-difftastic = nur.repos.nagy.emacsPackages.magit-difftastic.override {
+        ox-typst = super.ox-typst.overrideAttrs {
+          src = pkgs.fetchFromGitHub {
+            owner = "nagy";
+            repo = "ox-typst";
+            rev = "23b065ae230bc8e355c434b80ab37ffcffe72ef1";
+            hash = "sha256-ikHc+KeIRbbooeol8sIm2Z3DlkREVNmtNVy5l3QmVOk=";
+          };
+          preferLocalBuild = true;
+          allowSubstitutes = false;
+        };
+
+        magit-difftastic = repo.emacsPackages.magit-difftastic.override {
           magit = self.magit;
         };
 
         ctags-mode =
-          (
-            builtins.getFlake "github:nagy/emacs-ctags-mode"
-          ).packages.${pkgs.stdenv.hostPlatform.system}.ctags-mode.overrideAttrs {
-            packageRequires = [ self.magit-section ];
-          };
+          (builtins.getFlake "github:nagy/emacs-ctags-mode")
+          .packages.${pkgs.stdenv.hostPlatform.system}.ctags-mode.overrideAttrs
+            {
+              packageRequires = [ self.magit-section ];
+            };
 
         memoize = super.memoize.overrideAttrs {
           src = pkgs.fetchFromGitHub {
@@ -138,11 +154,11 @@ let
         );
 
         nixos =
-          (
-            builtins.getFlake "github:nagy/nixos.el"
-          ).packages.${pkgs.stdenv.hostPlatform.system}.nixos.overrideAttrs {
-            packageRequires = [ self.nix-mode ];
-          };
+          (builtins.getFlake "github:nagy/nixos.el")
+          .packages.${pkgs.stdenv.hostPlatform.system}.nixos.overrideAttrs
+            {
+              packageRequires = [ self.nix-mode ];
+            };
 
         lua = super.lua.override {
           lua = pkgs.lua5_4;
@@ -195,7 +211,7 @@ let
   mkDirectoryPackagesValues =
     paths: epkgs:
     (lib.attrValues (
-      nur.repos.nagy.lib.emacsMakeDirectoryScope {
+      repo.lib.emacsMakeDirectoryScope {
         inherit paths epkgs;
       }
     ));
@@ -259,9 +275,9 @@ in
     nixpkgs.overlays = lib.mkIf cfg.useEmacsOverlay [
       (import (
         builtins.fetchTarball {
-          # updated 2026-10-17
+          # updated 2026-10-31
           # to update: curl -s https://api.github.com/repos/nix-community/emacs-overlay/commits/master | head -2
-          url = "https://github.com/nix-community/emacs-overlay/archive/973c6db5f491e8f43da5b9768dee61c94f0b0f98.tar.gz";
+          url = "https://github.com/nix-community/emacs-overlay/archive/14c5c32cdc5804f17390919e75d05962bc7def09.tar.gz";
         }
       ))
     ];

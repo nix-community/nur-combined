@@ -6,8 +6,6 @@
   libxslt,
   pkg-config,
   flex,
-  pcre,
-  pcre-cpp,
   icu,
   utf8cpp,
   lttoolbox,
@@ -40,8 +38,6 @@ stdenv.mkDerivation (finalAttrs: {
     flex # runtime: apertium-gen-{de,re}format invoke it for user formats
     libxml2
     libxslt
-    pcre
-    pcre-cpp
     icu
     utf8cpp
     lttoolbox

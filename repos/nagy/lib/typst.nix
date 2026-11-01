@@ -4,14 +4,19 @@
 }:
 
 let
-  nixosEval = import <nixpkgs/nixos/lib/eval-config.nix>;
+  nixosEval = import (pkgs.path + "/nixos/lib/eval-config.nix");
   config =
     (nixosEval {
+      system = pkgs.stdenv.hostPlatform.system;
       modules = [
         ../modules/typst.nix
+        ../modules/emacs.nix
       ];
     }).config;
   cfg = config.nagy.typst;
+  # Emacs package set declared by modules/emacs.nix, with the pinned
+  # ox-typst.
+  epkgs = config.services.emacs.package.pkgs;
 in
 rec {
 
@@ -37,13 +42,7 @@ rec {
     pkgs.runCommandLocal "document.typ"
       {
         nativeBuildInputs = [
-          (pkgs.emacs.pkgs.withPackages (ps: [
-            (ps.ox-typst.overrideAttrs (
-              lib.optionalAttrs (lib.pathExists ~/ox-typst) {
-                src = lib.cleanSource ~/ox-typst;
-              }
-            ))
-          ]))
+          (epkgs.withPackages (ps: [ ps.ox-typst ]))
           pkgs.typstyle
         ];
         env = {
@@ -81,13 +80,7 @@ rec {
       toSuffix = ".typ";
     };
     runtimeInputs = [
-      (pkgs.emacs.pkgs.withPackages (ps: [
-        (ps.ox-typst.overrideAttrs (
-          lib.optionalAttrs (lib.pathExists ~/ox-typst) {
-            src = lib.cleanSource ~/ox-typst;
-          }
-        ))
-      ]))
+      (epkgs.withPackages (ps: [ ps.ox-typst ]))
     ];
     runtimeEnv = {
       # TYPST_FONT_PATHS = lib.makeSearchPath "share/fonts/openfont" config.fonts.packages;

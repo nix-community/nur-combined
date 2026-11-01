@@ -46,6 +46,11 @@ in
           f = "fetch";
           lol = "log --graph --decorate --pretty=oneline --abbrev-commit";
           lola = "lol --all";
+          # Global options (-c) can not go into a plain alias.
+          # A shell alias keeps all objects and drops rerere/reflog cruft.
+          gc-aggressive = "!git -c gc.reflogExpire=0 -c gc.reflogExpireUnreachable=0 -c gc.rerereResolved=0 -c gc.rerereUnresolved=0 -c gc.pruneExpire=now gc --aggressive";
+          # Same, with repo size printed before and after.
+          gc-aggressive-size = "!du -sh; git -c gc.reflogExpire=0 -c gc.reflogExpireUnreachable=0 -c gc.rerereResolved=0 -c gc.rerereUnresolved=0 -c gc.pruneExpire=now gc --aggressive; du -sh";
         };
         # spend more time to produce a smaller diff
         # https://git-scm.com/docs/diff-config#Documentation/diff-config.txt-diffalgorithm
