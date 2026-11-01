@@ -905,6 +905,7 @@
         "pynixos": "pynixos",
         "sm64baserom": "sm64baserom",
         "sops-nix": "sops-nix",
+        "sops-nix-unstable": "sops-nix-unstable",
         "tf2-nix": "tf2-nix",
         "treefmt-nix": "treefmt-nix_2",
         "vacu-keys": "vacu-keys"
@@ -945,6 +946,26 @@
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1793052255,
+        "narHash": "sha256-Y/JIHTnMlOabDfyaSBubWGLDIVGihLEUuoMhFvQKaDo=",
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "rev": "60182817ee048ac94b4c68ea76d5ef2e8aac730d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mic92",
+        "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "sops-nix-unstable": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs-unstable"
         ]
       },
       "locked": {

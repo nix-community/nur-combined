@@ -60,6 +60,10 @@ let
         key_groups = singleGroup (userKeysAge ++ agesOf "solis" ++ agesOf "prophecy");
       }
       {
+        path_regex = "/secrets/tpictures-oauth\\.yaml$";
+        key_groups = singleGroup (userKeysAge ++ agesOf "vavm" ++ agesOf "prophecy");
+      }
+      {
         path_regex = "/secrets/radicle-private\\.key$";
         key_groups = singleGroup (userKeysAge ++ agesOf "fw");
       }

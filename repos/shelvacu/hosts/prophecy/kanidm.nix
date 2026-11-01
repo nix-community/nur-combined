@@ -21,9 +21,11 @@ in
   imports = [
     vacuModules.solis-oauth-transmission
     vacuModules.copyparty-solis
+    vacuModules.tpictures-oauth
   ];
   vacu.oauthProxy.instances.solis-transmission.configureKanidm = true;
   vacu.copyparties.solis.configureKanidm = true;
+  vacu.oauthProxy.instances.tpictures.configureKanidm = true;
 
   systemd.services.ensure-kanidm-certs =
     let

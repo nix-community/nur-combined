@@ -71,6 +71,7 @@ let
         "agent-vm"
         "agent"
       ];
+      inp = [ "sops-nix" ];
       unstable = true;
     };
 

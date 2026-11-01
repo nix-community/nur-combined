@@ -18,6 +18,15 @@
     ];
   };
 
+  fileSystems."/t-pictures" = {
+    device = "t-pictures";
+    fsType = "virtiofs";
+    options = [
+      "nofail"
+      "X-mount.mkdir"
+    ];
+  };
+
   vacuvmGuest.ip = "10.78.77.2";
   vacuvmGuest.publicIp = "205.201.63.130";
   vacuvmGuest.ipv6 = "2602:fce8:106:10::2";

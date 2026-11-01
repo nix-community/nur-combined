@@ -29,6 +29,10 @@ in
       shares = {
         bigdata.source = "/propdata/vm-bigdata/vavm";
         inherit nixcache;
+        t-pictures = {
+          source = "/propdata/archive/t-pictures";
+          readOnly = true;
+        };
       };
     };
 

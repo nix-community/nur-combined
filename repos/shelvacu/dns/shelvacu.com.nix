@@ -112,6 +112,7 @@ in
     sol.CNAME = s "solis";
     solis.A = solisA;
     syncthing.A = propA;
+    tpictures = host "205.201.63.130" "2602:fce8:106:10::2";
     vaultwarden.A = propA;
     www.A = propA;
     xs.A = solisA;

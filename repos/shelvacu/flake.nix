@@ -102,6 +102,10 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops-nix-unstable = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     tf2-nix = {
       url = "gitlab:shelvacu-forks/tf2-nix/with-my-patches";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -154,7 +158,7 @@
           };
         in
         inner.config.vacu.withAsserts inner;
-      vacuDataEval = 
+      vacuDataEval =
         let
           inner = lib.evalModules {
             modules = [
