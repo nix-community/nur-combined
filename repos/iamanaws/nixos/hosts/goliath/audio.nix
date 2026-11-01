@@ -29,6 +29,18 @@ let
   };
 in
 {
+  # The XPS 8940 BIOS marks the front headset microphone pin as unused.
+  # Enable the verified input on 0x19 without repurposing headphone output 0x1b.
+  # The Realtek quirk matches subsystem 1028:09c5 in the ALC882-family driver.
+  # Test the C fixup without a firmware override masking its pin configuration.
+  # https://bugs.launchpad.net/bugs/1971232
+  boot.kernelPatches = [
+    {
+      name = "dell-xps8940-headset-mic";
+      patch = ./patches/0001-ALSA-hda-realtek-XPS-8940-headset-mic.patch;
+    }
+  ];
+
   environment.systemPackages = [ braveAudioReset ];
 
   # Brave retains a dead PulseAudio input context after pipewire-pulse restarts,
