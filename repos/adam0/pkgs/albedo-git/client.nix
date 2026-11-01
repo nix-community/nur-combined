@@ -35,7 +35,7 @@ in
     modRoot = "cli";
     subPackages = ["cmd/albedo"];
     # Must match the vendored modules of the pinned Albedo revision.
-    vendorHash = "sha256-JvLCRiPAIcDr1QfJvJufciGokbi5Wo8koxsxAc9wlvw=";
+    vendorHash = "sha256-+TcYMf+5z5u7ZIfndfCKp2Ti7OD8UBX1uRhsULmApa0=";
 
     # keep-sorted start
     ALBEDO_NO_BROWSER = "1";
