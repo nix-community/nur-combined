@@ -152,7 +152,8 @@
         "pbx"
         "phone-pbx"
       ];
-      primaryIp = "10.78.77.6";
+      # primaryIp = "10.78.77.6";
+      primaryIp = "205.201.63.134";
       ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID3GL1/SC3UvWhnqpxudeECjZ8HNSqRlVX0lNXFN+JGE";
     };
     prophecy = {
@@ -169,7 +170,8 @@
       ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFPmy1+1CL6mLbp0IfRTLwsVdjKmw5u0kbQqHin8oXMq";
     };
     quasar2 = {
-      primaryIp = "10.78.77.3";
+      # primaryIp = "10.78.77.3";
+      primaryIp = "205.201.63.131";
       ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJGciplj0+lsCNweAmLWObgliF3iATaGSAaSpLUJ5eN2";
     };
     ripper = {
@@ -180,7 +182,8 @@
       ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIICpAw20x1yB/sCJ6OFMb4VcuTwnRqvDbJDCoQDkO2Td";
     };
     savm = {
-      primaryIp = "10.78.77.4";
+      # primaryIp = "10.78.77.4";
+      primaryIp = "205.201.63.132";
       ssh.username = "agent";
       ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBIGkax9O+IowEk4cT7XXNF9nwcKORgt71332TatdDk9";
     };
@@ -196,7 +199,8 @@
         "agent-vm"
         "vacu-agent-vm"
       ];
-      primaryIp = "10.78.77.2";
+      # primaryIp = "10.78.77.2";
+      primaryIp = "205.201.63.130";
       ssh.username = "agent";
       ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBpQF6K3Zqxc0vlEgrJWCEkcIpWkBbR6ks6TA3Q5lc6B";
     };

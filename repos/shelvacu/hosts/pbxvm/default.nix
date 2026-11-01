@@ -351,12 +351,15 @@ in
   config = {
     vacu.hostName = "pbxvm";
 
-    vacuvmGuest.ip = "10.78.77.6";
-    vacuvmGuest.ipv6 = "2602:fce8:106:10::6";
-    vacuvmGuest.ipv6Gateway = "2602:fce8:106:10::1";
+    vacuvmGuest = {
+      ip = "10.78.77.6";
+      ipv6 = "2602:fce8:106:10::6";
+      ipv6Gateway = "2602:fce8:106:10::1";
+      publicIp = "205.201.63.134";
+    };
 
     vacu.pbx.phoneMac = "C444A03F4BD6";
-    vacu.pbx.publicIp = "205.201.63.13";
+    vacu.pbx.publicIp = "205.201.63.134";
     # "Default" first, then one line button per trunk. Every button is its own
     # SIP registration, so the extensions count up from `extension`.
     vacu.pbx.lines =
