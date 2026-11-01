@@ -68,6 +68,10 @@ buildGo126Module (finalAttrs: {
       {
         # FastMCP 3.x requires the MCP 1.x SDK.
         mcp = prev.mcp_1 or prev.mcp;
+        fastmcp = prev.fastmcp.overridePythonAttrs (old: {
+          # Match nixpkgs: server startup is flaky under pytest-xdist.
+          disabledTests = lib.unique ((old.disabledTests or []) ++ ["test_unauthorized_access"]);
+        });
       }
       // lib.optionalAttrs (python314Packages.py-key-value-aio.version == "0.3.0" && python314Packages.aws-sam-translator.disabled) {
         py-key-value-aio = prev.py-key-value-aio.overridePythonAttrs (old: {
