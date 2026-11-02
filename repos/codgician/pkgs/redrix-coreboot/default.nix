@@ -101,11 +101,17 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
     runHook preConfigure
     cp configs/adl/config.redrix.uefi .config
     cp ${redrix-ec}/share/firmware/redrix-ec/ec.RW.flat redrix-ec.RW.flat
+    # coreboot's ACPI tables fill the default 25-page ACPI reclaim bin, so any
+    # extra ACPI reclaim allocation lands at a boot-dependent address. That
+    # changes the e820 map and makes Linux reject hibernation images.
     util/scripts/config \
-      --set-str EC_GOOGLE_CHROMEEC_FIRMWARE_FILE redrix-ec.RW.flat
+      --set-str EC_GOOGLE_CHROMEEC_FIRMWARE_FILE redrix-ec.RW.flat \
+      --set-str EDK2_CUSTOM_BUILD_PARAMS \
+        "--pcd gUefiPayloadPkgTokenSpaceGuid.PcdMemoryTypeEfiACPIReclaimMemory=0x40"
     make "''${makeFlagsArray[@]}" olddefconfig
     # A source update selecting a new payload release requires updating its pin.
     grep -qx 'CONFIG_EDK2_TAG_OR_REV="${edk2Selector}"' .config
+    grep -qx 'CONFIG_EDK2_CUSTOM_BUILD_PARAMS=".*PcdMemoryTypeEfiACPIReclaimMemory=0x40"' .config
     runHook postConfigure
   '';
 

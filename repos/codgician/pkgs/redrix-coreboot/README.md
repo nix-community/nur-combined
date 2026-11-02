@@ -18,6 +18,12 @@ numeric coreboot tag from upstream, and the hash identifies the exact fork pin.
 MrChromebox's `next` branch does not descend from its `MrChromebox-*` release
 tags, so those releases cannot describe this branch's ancestry.
 
+The payload's EFI ACPI reclaim memory bin is raised from 25 to 64 pages.
+coreboot's ACPI tables already fill the default bin, so EDK2 otherwise places
+any further ACPI reclaim allocation at a boot-dependent address. That changes
+the firmware e820 map between boots, and Linux then rejects hibernation images
+as `Hibernate inconsistent memory map detected!`.
+
 `result/share/firmware/redrix-coreboot/` contains `coreboot.rom`,
 `UEFIPAYLOAD.fd`, the resolved `coreboot.config`, the CBFS listing, exact source
 pins, package and firmware versions, the embedded EC source revision and firmware
