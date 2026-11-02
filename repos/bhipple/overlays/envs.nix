@@ -89,6 +89,7 @@ in
       self.claude-code
       self.discord
       self.freerdp
+      self.pi-coding-agent
       self.signal-desktop
       self.yt-dlp
       self.zoom-us
