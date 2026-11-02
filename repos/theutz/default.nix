@@ -17,4 +17,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   find-up-cli = pkgs.callPackage ./pkgs/find-up-cli { };
+  watchexec = pkgs.callPackage ./pkgs/watchexec { };
 }
