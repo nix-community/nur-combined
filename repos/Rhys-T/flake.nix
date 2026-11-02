@@ -54,7 +54,7 @@
               inherit system;
               config.allowAliases = false;
               config.allowDeprecatedx86_64Darwin = true;
-              problems.handlers = {
+              config.problems.handlers = {
                 "gtk+".broken = "ignore";
               };
             };
