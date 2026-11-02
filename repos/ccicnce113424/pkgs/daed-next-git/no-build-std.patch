@@ -1,11 +1,10 @@
 diff --git a/crates/dae-build-support/src/lib.rs b/crates/dae-build-support/src/lib.rs
-index c30990a..0a0864c 100644
 --- a/crates/dae-build-support/src/lib.rs
 +++ b/crates/dae-build-support/src/lib.rs
-@@ -124,8 +124,6 @@ pub mod native_ebpf_build {
-             .env_remove("RUSTDOC")
+@@ -125,8 +125,6 @@
              .env_remove("RUSTFLAGS")
              .arg("build")
+             .arg("--locked")
 -            .arg("-Z")
 -            .arg("build-std=core")
              .arg("--manifest-path")
