@@ -5,12 +5,12 @@
       default = pkgs.mkShellNoCC {
         name = "NixOS-config";
 
-        packages = with pkgs; [
+        nativeBuildInputs = with pkgs; [
           nixpkgs-fmt
-        ] ++ config.pre-commit.settings.enabledPackages;
+        ];
 
         shellHook = ''
-          ${config.pre-commit.shellHook}
+          ${config.pre-commit.installationScript}
         '';
       };
     };
