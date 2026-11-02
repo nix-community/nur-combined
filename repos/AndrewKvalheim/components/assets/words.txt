@@ -976,6 +976,7 @@ NetworkManager
 newtype
 Nextcloud
 NFS
+nftables
 Ngauruhoe
 NGOs
 nheko

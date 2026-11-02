@@ -3,7 +3,7 @@
 let
   inherit (config) host;
   inherit (lib) mkOption;
-  inherit (lib.types) bool float int path submodule;
+  inherit (lib.types) bool float int path;
 in
 {
   imports = [

@@ -78,7 +78,6 @@ rec {
     }).pkgs;
   });
   minemap = callPackage ./library/minemap.pkg.nix { };
-  nbt-explorer = callPackage ./library/nbt-explorer.pkg.nix { };
   office-hours = (callPackage ./library/office-hours.pkg.nix {
     python3 = pkgs.python3.override {
       packageOverrides = _: pythonPackages: with pythonPackages; {

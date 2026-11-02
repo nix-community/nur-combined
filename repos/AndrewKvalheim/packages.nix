@@ -93,7 +93,6 @@ specify {
   moor.version = "≥2.16.3"; # walles/moor#453
   mozjpeg-simple = any;
   nautilus.overlay = n: throwIf (builtins.any (p: p.pname == "glycin-loaders") n.buildInputs) "nautilus no longer requires an override" { buildInputs = n.buildInputs ++ [ stable.glycin-loaders ]; }; # Pending NixOS/nixpkgs#555938
-  nbt-explorer = any;
   nix-preview = any;
   nix-update.version = "≥1.16"; # Works around “nix_update.errors.VersionError: Please specify the version” on `fetchCrate`
   nom-wrappers = any;

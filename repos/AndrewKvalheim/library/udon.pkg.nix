@@ -17,7 +17,7 @@ let
 in
 python3Packages.buildPythonApplication (udon: {
   pname = "udon";
-  version = "0.02";
+  version = "0.03";
   meta = {
     description = "Network messaging library and tools";
     homepage = "https://github.com/treedavies/udon";
@@ -31,7 +31,7 @@ python3Packages.buildPythonApplication (udon: {
     owner = "treedavies";
     repo = "udon";
     rev = "refs/tags/v${udon.version}";
-    hash = "sha256-RIHfsLONB37Bi04n44xd2I7I4vo51Bo19OkLfI2hfDo=";
+    hash = "sha256-F0jeHooQ0trG93lJpl2B1kGWDYzQr6FXd6VrKAu0DD8=";
   };
 
   patches = [

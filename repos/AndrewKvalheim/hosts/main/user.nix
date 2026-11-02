@@ -70,7 +70,6 @@ in
     nvtopPackages.amd
     meshtastic-url
     minemap
-    nbt-explorer
     picard
     (prismlauncher.override { jdks = [ jdk25 ]; })
     prusa-slicer
