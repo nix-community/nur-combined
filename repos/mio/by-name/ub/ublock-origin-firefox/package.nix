@@ -5,31 +5,34 @@
   bash,
   python3,
   zip,
+  writeShellApplication,
+  git,
+  nix,
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ublock-origin-firefox";
-  version = "1.75.0";
+  version = "1.75.2";
 
   src = fetchFromGitHub {
     owner = "gorhill";
     repo = "uBlock";
     rev = finalAttrs.version;
-    hash = "sha256-XAcC9pYB+kmVzjczefrNAJNBf1nF1y9xvZWNRFp5O2o=";
+    hash = "sha256-LSOxN1CGd3XNae2PH9WKX5DEwF5ce0t5h2Y8we62d5Q=";
   };
 
   uAssetsMain = fetchFromGitHub {
     owner = "uBlockOrigin";
     repo = "uAssets";
-    rev = "0cce6f0c5effc114a90cf2b675ce3331cb14422c";
-    hash = "sha256-Ooisl4tpctZAkdETWE5a9lBIYOjQyiQBrUhEQ+b2SgI=";
+    rev = "205b2124e08665b31ba6f1020378fa2ebbc67a6b";
+    hash = "sha256-usQWrpUdcS3RovowXRu1ek2/4/4q4L4CrZ9tf6Y4jbY=";
   };
 
   uAssetsProd = fetchFromGitHub {
     owner = "uBlockOrigin";
     repo = "uAssets";
-    rev = "8f0042e1f91a30ba1a9fdc7628908e047179b9f2";
-    hash = "sha256-F0MO/ovpfQUCRqMWl0d8DZdHlhcvBYzqW9tr7oRcacI=";
+    rev = "6aa26491a2a4e7fc8974c98baad25246dcbcf5d8";
+    hash = "sha256-yB+RXMT2aSNcvXct7Oqs1e+G8qgJ7XtBwkQdp0n2+js=";
   };
 
   nativeBuildInputs = [
@@ -60,6 +63,18 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru = {
     extid = "uBlock0@raymondhill.net";
+    updateScript = writeShellApplication {
+      name = "update-ublock-origin-firefox";
+      runtimeInputs = [
+        python3
+        git
+        nix
+      ];
+      text = ''
+        export UPDATE_NIX_ATTR_PATH="ublock-origin-firefox"
+        exec ${python3}/bin/python3 ${./update.py} "$@"
+      '';
+    };
   };
 
   meta = {

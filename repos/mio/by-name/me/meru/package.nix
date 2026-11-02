@@ -3,21 +3,26 @@
   stdenv,
   fetchFromGitHub,
   bun,
+  nodejs,
   makeWrapper,
   electron,
   copyDesktopItems,
   makeDesktopItem,
+  writeShellApplication,
+  python3,
+  git,
+  nix,
 }:
 
 let
   pname = "meru";
-  version = "3.63.2";
+  version = "3.64.0";
 
   src = fetchFromGitHub {
     owner = "zoidsh";
     repo = "meru";
     rev = "v${version}";
-    hash = "sha256-UuUr7ePeyqnPxY1HCcH+rqhFJzW3zKRwb+j/Qc1aEww=";
+    hash = "sha256-dd0AQqgKrcXcLvnL24KLluvZoNq5mkirJ5rH1vjySK4=";
   };
 
   # Fixed-output derivation to fetch all node_modules using bun
@@ -42,7 +47,7 @@ let
     installPhase = "true";
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
-    outputHash = "sha256-+u/dt03ZKrF8nLdDoVWTPpY5Nnj7oNuStciBzoISbr0=";
+    outputHash = "sha256-oZWttele3h8BGbRSriMRoiMcXfIEXRb55k6U6fwFpSI=";
   };
 
 in
@@ -51,6 +56,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [
     bun
+    nodejs
     makeWrapper
     copyDesktopItems
   ];
@@ -65,7 +71,10 @@ stdenv.mkDerivation {
 
     # copy node_modules to preserve relative symlinks to workspace packages
     cp -a ${node_modules}/node_modules node_modules
+    chmod -R u+w node_modules
+    patchShebangs node_modules
 
+    bun run i18n:compile
     bun run scripts/build.ts
     runHook postBuild
   '';
@@ -107,6 +116,22 @@ stdenv.mkDerivation {
       startupWMClass = "Meru";
     })
   ];
+
+  passthru = {
+    inherit node_modules;
+    updateScript = writeShellApplication {
+      name = "update-meru";
+      runtimeInputs = [
+        python3
+        git
+        nix
+      ];
+      text = ''
+        export UPDATE_NIX_ATTR_PATH="meru"
+        exec ${python3}/bin/python3 ${./update.py} "$@"
+      '';
+    };
+  };
 
   meta = {
     description = "Meru brings Gmail to your fingertips as a desktop app";

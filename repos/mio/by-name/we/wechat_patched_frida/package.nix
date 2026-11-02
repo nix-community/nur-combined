@@ -59,7 +59,10 @@ stdenv.mkDerivation {
   ];
 
   passthru = {
-    inherit (wechat) src fhsenv;
+    inherit (wechat) src;
+  }
+  // lib.optionalAttrs (wechat ? fhsenv) {
+    inherit (wechat) fhsenv;
   };
 
   meta = {

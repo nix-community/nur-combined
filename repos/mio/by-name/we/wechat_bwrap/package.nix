@@ -8,6 +8,7 @@
   bubblewrap,
   flatpak-xdg-utils,
   xdg-user-dirs,
+  buildFHSEnv,
   # Overlay real XDG dirs into the fake sandbox $HOME for send-file.
   bindDownloads ? true,
   bindDesktop ? false,
@@ -17,6 +18,31 @@
   wechat_appearance_plugin,
 }:
 
+let
+  fhsenv =
+    wechat.fhsenv or (buildFHSEnv {
+      name = "wechat-fhsenv";
+      targetPkgs = pkgs: [ wechat ];
+    }).fhsenv;
+
+  wechatOpt =
+    if
+      wechat ? src && builtins.isAttrs wechat.src && builtins.pathExists "${wechat.src}/opt/wechat"
+    then
+      "${wechat.src}/opt/wechat"
+    else
+      "${wechat}/opt/wechat";
+
+  wechatIcon =
+    if
+      wechat ? src && builtins.isAttrs wechat.src && builtins.pathExists "${wechat.src}/wechat.png"
+    then
+      "${wechat.src}/wechat.png"
+    else if builtins.pathExists "${wechat}/share/icons/hicolor/256x256/apps/wechat.png" then
+      "${wechat}/share/icons/hicolor/256x256/apps/wechat.png"
+    else
+      "${wechat}/share/icons/hicolor/256x256/apps/wechat-universal.png";
+in
 stdenv.mkDerivation {
   pname = "wechat-universal-bwrap";
   version = wechat.version;
@@ -46,7 +72,7 @@ stdenv.mkDerivation {
     # individual entries (e.g. the lsblk stub below) without mutating the FHS
     # env.  Same reason lib64 is expanded rather than symlinked.
     mkdir -p "$wechat_root/fhs-usr/bin"
-    for entry in "${wechat.fhsenv}"/usr/*; do
+    for entry in "${fhsenv}"/usr/*; do
       name=$(basename "$entry")
       case "$name" in
         bin)
@@ -82,7 +108,7 @@ stdenv.mkDerivation {
       --replace-fail "/{usr/lib/flatpak-xdg-utils,sandbox}/xdg-open" "${flatpak-xdg-utils}/bin/xdg-open /sandbox/xdg-open" \
       --replace-fail "/usr/lib/wechat-universal/common.sh" "$wechat_root/common.sh" \
       --replace-fail "/usr/lib/wechat-universal/pulse-client.conf" "$wechat_root/pulse-client.conf" \
-      --replace-fail "/opt/wechat-universal{,}" "${wechat.src}/opt/wechat /opt/wechat-universal" \
+      --replace-fail "/opt/wechat-universal{,}" "${wechatOpt} /opt/wechat-universal" \
       --replace-fail "{/usr/lib/wechat-universal,}/usr/lib/license" "$wechat_root/usr/lib/license /usr/lib/license" \
       --replace-fail "{/usr/lib/wechat-universal,}/etc/lsb-release" "$wechat_root/etc/lsb-release /etc/lsb-release" \
       --replace-fail "--ro-bind /usr{,}" "--ro-bind /nix /nix --ro-bind-try /run/current-system/sw /run/current-system/sw --ro-bind-try /run/opengl-driver /run/opengl-driver --ro-bind $wechat_root/fhs-usr /usr" \
@@ -119,7 +145,7 @@ stdenv.mkDerivation {
 
     install -Dm644 wechat-license $out/share/licenses/wechat-universal/wechat-license
 
-    install -Dm644 ${wechat.src}/wechat.png $out/share/icons/hicolor/256x256/apps/wechat-universal.png
+    install -Dm644 ${wechatIcon} $out/share/icons/hicolor/256x256/apps/wechat-universal.png
 
     runHook postInstall
   '';

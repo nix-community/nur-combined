@@ -3,11 +3,13 @@
   stdenvNoCC,
   fetchFromGitLab,
   zip,
+  writeShellApplication,
+  nix-update-script,
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "user-agent-switcher-firefox";
-  version = "1.4.112";
+  version = "1.4.113";
 
   extid = "user-agent-switcher@ninetailed.ninja";
 
@@ -16,7 +18,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     owner = "ntninja";
     repo = "user-agent-switcher";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-U5q5p1wBhviAZgza9RH+QoYpBtv82VhjFR7c756LopE=";
+    hash = "sha256-yxmEyxHrDAKuWwOWtF1/szEKFDpCBOs0bCevHOKyYLg=";
   };
 
   nativeBuildInputs = [ zip ];
@@ -44,6 +46,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru = {
     inherit (finalAttrs) extid;
+    updateScript = writeShellApplication {
+      name = "update-user-agent-switcher-firefox";
+      text = ''
+        export UPDATE_NIX_ATTR_PATH="user-agent-switcher-firefox"
+        exec ${lib.escapeShellArgs (nix-update-script { })} "$@"
+      '';
+    };
   };
 
   meta = {
