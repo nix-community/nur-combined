@@ -74,6 +74,18 @@
     includeAllModules = true;
     options.warningsAreErrors = false;  #< TODO: fix all my options to have `description`, then enable.
   };
+  # disable nixos-manual-html because it takes WAY TOO LONG to build (also disables `nixos-help`)
+  documentation.doc.enable = false;
+  # but `doc.enable = false` also kills /run/current-system/sw/share/doc; re-enable:
+  environment.pathsToLink = [
+    "/share/doc"
+    "/share/gtk-doc"
+    # "/share/devhelp" # empty; legacy?
+  ];
+  environment.extraOutputsToInstall = [
+    "doc"
+    "devdoc"
+  ];
 
   system.forbiddenDependenciesRegexes = [
     # XXX(2026-01-15): i'm working my way to a perl-less system especially because of cross-compilation woes;

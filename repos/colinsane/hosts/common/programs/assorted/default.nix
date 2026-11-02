@@ -476,7 +476,7 @@ in
       # "kid3"  # audio tagging
       "krita"
       # "libreoffice"  # TODO: replace with an office suite that uses saner packaging?
-      "losslesscut"
+      # "losslesscut"  # frequently uses a EOL electron
       # "makemkv"  # x86-only
       # "monero-gui"  # x86-only
       "mumble"

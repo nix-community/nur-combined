@@ -36,12 +36,13 @@ in
   services.avahi = lib.mkIf cfg.enabled {
     enable = true;
     package = cfg.packageUnwrapped;  #< use systemd sandboxing... not my own
-    publish.enable = true;
-    publish.userServices = true;
     nssmdns4 = true;
     nssmdns6 = true;
     # reflector = true;
-    allowInterfaces = [
+    settings.publish.disable-publishing = false;
+    settings.publish.disable-user-service-publishing = false;
+    settings.publish.publish-addresses = true;
+    settings.server.allow-interfaces = [
       # particularly, the default config disallows loopback, which is kinda fucking retarded, right?
       "ens1"  #< servo
       "enp5s0"  #< desko

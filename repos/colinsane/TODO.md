@@ -131,6 +131,8 @@
 - remove remaining users of `sudo`
 
 ### user experience
+- git: integrate better diff'ing
+  - <https://github.com/ivankovic/omnidiff>
 - setup a real calendar system, for recurring events and specific events
 - rofi: enable mouse mode?
 - mpv: add media looping controls (e.g. loop song, loop playlist)

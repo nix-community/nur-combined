@@ -127,31 +127,6 @@ in
   nodejsOverrides
 )
 (_: prev: let
-  electronNames = map (v: "electron_${toString v}") (super.lib.range 1 99);
-in
-  builtins.foldl' (acc: name: acc // super.lib.optionalAttrs (prev ? "${name}") {
-    "${name}" = prev.${name}.override {
-      electron-unwrapped = prev.${name}.unwrapped.overrideAttrs (old: {
-        # XXX(2026-10-24): build OOMs at high core count.
-        # NIX_BUILD_CORES=32 alone is not enough: it exhausts 384 GB RAM + 384 GB zswap.
-        # measurements for PYTHON_CPU_COUNT=NIX_BUILD_CORES=N:
-        # - 128 cores: peak memory 230 GB above baseline, build takes 1200s.
-        # - 64 cores: peak memory 120 GB above baseline, build takes 1900s.
-        # measurements for NIX_BUILD_CORES=N, without setting PYTHON_CPU_COUNT:
-        # - 128 cores: exhausts 384 GB RAM + 384 GB zswap. dies after 900s.
-        # - 64 cores: exhausts 384 GB RAM + 384 GB zswap. dies after 800s.
-        # - 32 cores: peak memory+zswap 580 GB above baseline, build takes 3400s.
-        preBuild = ''
-          if (( NIX_BUILD_CORES == 0 || NIX_BUILD_CORES > 128 )); then
-            export NIX_BUILD_CORES=128
-          fi
-          export PYTHON_CPU_COUNT="$NIX_BUILD_CORES"
-        '' + (old.preBuild or "");
-      });
-    };
-  }) {} electronNames
-)
-(_: prev: let
   applyBeamPrefs = beam: lib.makeOverridable (args: let
     beam' = beam.override args;
   in beam' // {
@@ -162,9 +137,12 @@ in
       else
         erlangPkgs.overrideScope (_: beamPrev: {
           rebar3 = beamPrev.rebar3.overrideAttrs (old: {
-            # XXX(2026-10-22): Common Test is excessively slow on high-core-count builders.
+            # Common Test is excessively slow on high-core-count builders.
+            # checkPhase replaces ERL_FLAGS with the CA certificate option, so
+            # use ERL_AFLAGS to cap schedulers during bootstrap AND tests.
+            # +S also caps the default number of dirty CPU schedulers.
             env = (old.env or {}) // {
-              ERL_FLAGS = (old.env.ERL_FLAGS or "") + " +S 16:16";
+              ERL_AFLAGS = (old.env.ERL_AFLAGS or "") + " +S 16:16";
             };
           });
         })
@@ -201,6 +179,31 @@ in
   #     NIX_CFLAGS_COMPILE = (prevAttrs.env.NIX_CFLAGS_COMPILE or "") + " -Wno-error=discarded-qualifiers";
   #   };
   # });
+
+  electron-source = lib.mapAttrs (k: v: (
+    if lib.hasPrefix "electron" k then
+      v.override (prevElectron: {
+        electron-unwrapped = prevElectron.electron-unwrapped.overrideAttrs (old: {
+          # XXX(2026-10-24): build OOMs at high core count.
+          # NIX_BUILD_CORES=32 alone is not enough: it exhausts 384 GB RAM + 384 GB zswap.
+          # measurements for PYTHON_CPU_COUNT=NIX_BUILD_CORES=N:
+          # - 128 cores: peak memory 230 GB above baseline, build takes 1200s.
+          # - 64 cores: peak memory 120 GB above baseline, build takes 1900s.
+          # measurements for NIX_BUILD_CORES=N, without setting PYTHON_CPU_COUNT:
+          # - 128 cores: exhausts 384 GB RAM + 384 GB zswap. dies after 900s.
+          # - 64 cores: exhausts 384 GB RAM + 384 GB zswap. dies after 800s.
+          # - 32 cores: peak memory+zswap 580 GB above baseline, build takes 3400s.
+          preBuild = ''
+            if (( NIX_BUILD_CORES == 0 || NIX_BUILD_CORES > 128 )); then
+              export NIX_BUILD_CORES=128
+            fi
+            export PYTHON_CPU_COUNT="$NIX_BUILD_CORES"
+          '' + (old.preBuild or "");
+        });
+      })
+    else
+      v
+  )) prev.electron-source;
 
   # XXX(2026-10-22): ha-mcp depends on broken fastmcp-slim
   # fix borrowed from <https://github.com/NixOS/nixpkgs/pull/577124>

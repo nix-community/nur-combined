@@ -90,112 +90,6 @@ let
   });
 in
 super.lib.composeManyExtensions [
-  (_: prev: let
-    electronNames = map (v: "electron_${toString v}") (prev.lib.range 1 99);
-  in builtins.foldl' (acc: name: acc // prev.lib.optionalAttrs (prev ? "${name}") {
-    # 2026-10-25: still required
-    "${name}" = prev.${name}.override {
-      electron-unwrapped = (prev.${name}.unwrapped.override {
-        chromium = final.chromium.override {
-          # musl has no glibc gconv/locale directories for the audio sandbox to whitelist.
-          newScope = scope: final.newScope (scope // { glibc = emptyDirectory; });
-        };
-      }).overrideAttrs (old: let
-        # electron takes 3 hours to build/link on musl, v.s. 30 minutes on glibc,
-        # because musl's default malloc-ng allocator is single-threaded.
-        # using mimalloc brings build/link back down to 30 minutes.
-        # nixpkgs firefox does a similar thing.
-        # Chimera Linux builds *everything* against mimalloc -- maybe we should too.
-        lldWithMimalloc = final.buildPackages.writeShellScriptBin "ld.lld" ''
-          export LD_PRELOAD=${lib.getLib final.buildPackages.mimalloc}/lib/libmimalloc.so''${LD_PRELOAD:+:$LD_PRELOAD}
-          exec ${final.buildPackages.rustc.llvmPackages.bintools}/bin/ld.lld "$@"
-        '';
-        gnFlags = old.gnFlags + lib.optionalString stdenv.buildPlatform.isMusl
-          " lld_path=\"${lldWithMimalloc}/bin\"";
-      in {
-        inherit gnFlags;
-        configurePhase = builtins.replaceStrings [ old.gnFlags ] [ gnFlags ] old.configurePhase;
-        passthru = (old.passthru or {}) // lib.optionalAttrs stdenv.buildPlatform.isMusl {
-          inherit lldWithMimalloc;
-        };
-        # GNU find's -exec batching under musl rejects this build's large environment.
-        nativeBuildInputs = [ final._pkgsGnu.findutils ] ++ old.nativeBuildInputs;
-        postPatch = (old.postPatch or "") + ''
-          # Bundled fontconfig's generated configuration assumes glibc's random_r.
-          substituteInPlace third_party/fontconfig/include/meson-config.h \
-            --replace-fail '#define HAVE_RANDOM_R 1' '/* #undef HAVE_RANDOM_R */'
-          # Electron includes a private glibc header; use the portable integer header instead.
-          substituteInPlace electron/shell/browser/ui/file_dialog.h \
-            --replace-fail '#include <bits/stdint-uintn.h>' '#include <stdint.h>'
-          # The glibc-version-dependent environment interposer cannot be used with musl.
-          substituteInPlace electron/BUILD.gn \
-            --replace-fail '"shell/app/environ_linux.cc",' ""
-        '';
-        patches = (old.patches or []) ++ [
-          (fetchCports {
-            # musl uses different threading and memory-management syscalls.
-            path = "main/chromium/patches/016-musl-sandbox.patch";
-            hash = "sha256-tTJOakjsRlAWpwNQcyNu2AC46TI2kcH/sfBvPIqawck=";
-          })
-          (fetchCports {
-            # musl's clone() rejects the sandbox's temporary TLS buffer (EINVAL).
-            path = "main/chromium/patches/022-no-sandbox-settls.patch";
-            hash = "sha256-i688sRm5yAR2neMkPfRS7f4QCvmUO+JoQ58+RlN7jDo=";
-          })
-          (fetchCports {
-            path = "main/chromium/patches/028-yes-musl.patch";
-            rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
-            hash = "sha256-k6xCVnrZBG6PfDOF8w/LWExLOAMJ60SrxhjgQPpY944=";
-          })
-          (fetchCports {
-            path = "main/chromium/patches/rust-tgt.patch";
-            rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
-            decode = "sed 's/-chimera-linux-musl/-unknown-linux-musl/g'";
-            hash = "sha256-pWfa1FIc7XVICkHQ3IXd5zIieIZlgLrxhwkjoZ50eIs=";
-          })
-          (fetchCports {
-            path = "main/chromium/patches/004-compiler.patch";
-            rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
-            includes = [ "build/config/compiler_cpu_abi.gn" ];
-            decode = "sed 's/-chimera-linux-musl/-unknown-linux-musl/g'";
-            hash = "sha256-LGSAruwlfdgbjD6XAeSMAPBz+DGpYVYoAOFgd361eX4=";
-          })
-          (fetchCports {
-            path = "main/chromium/patches/020-musl-no-mallinfo.patch";
-            rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
-            hash = "sha256-ONax55fJt08SvRYqKg68Nw8G/i/lfJp49grAw6PU+7U=";
-          })
-          (fetchCports {
-            path = "main/chromium/patches/cr143-libsync-__BEGIN_DECLS.patch";
-            rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
-            hash = "sha256-JUqk7j2+w5y9BWdCPf7JeEDtQYsRd240XfH2TFzEKrk=";
-          })
-          (fetchAports {
-            path = "community/chromium/no-execinfo.patch";
-            hash = "sha256-oHVQJelfp0Q2MiCY7GZjXiDjo4NbDM2J78+xPJa1/sw=";
-          })
-          (fetchAports {
-            path = "community/chromium/no-res-ninit-nclose.patch";
-            hash = "sha256-l1Rny5m3fR6NwyQ5JTR+BVo7VmiECjN6KhscJ8dP9iI=";
-          })
-          (fetchAports {
-            path = "community/chromium/disable-dns_config_service.patch";
-            hash = "sha256-5H2EvJnj4FDd6hdHJvwoqZodFLrvjt8RIOIMJrdNo1M=";
-          })
-          (fetchCports {
-            path = "main/chromium/patches/cr140-musl-prctl.patch";
-            rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
-            hash = "sha256-gJXne6eZntzbT1Nr5grecZZYCgE0BXtW3pOBFhn7W7I=";
-          })
-          (fetchCports {
-            path = "main/chromium/patches/cr145-iwyu-dev_t.patch";
-            rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
-            hash = "sha256-cHbQrnDuEvzvw/ecx/EvDs+rnYQpIkKMT4/O50s162w=";
-          })
-        ];
-      });
-    };
-  }) {} electronNames)
   (_: prev: {
     # XXX(2026-01-20): some things (e.g. securityWrapper) build from pkgsStatic, for dubious reasons;
     # `pkgsMusl.pkgsStatic.stdenv` is broken so just redirect it to ordinary `pkgs`.
@@ -451,6 +345,115 @@ super.lib.composeManyExtensions [
     # <https://github.com/void-linux/void-packages/issues/35132>
     discord = final._pkgsGnu.discord;
 
+    # 2026-10-25: still required
+    electron-source = lib.mapAttrs (k: v: (
+      if lib.hasPrefix "electron" k then
+        v.override (prevElectron: {
+          electron-unwrapped = (prevElectron.electron-unwrapped.override {
+            chromium = final.chromium.override {
+              # musl has no glibc gconv/locale directories for the audio sandbox to whitelist.
+              newScope = scope: final.newScope (scope // { glibc = emptyDirectory; });
+            };
+          }).overrideAttrs (old: let
+            # electron takes 3 hours to build/link on musl, v.s. 30 minutes on glibc,
+            # because musl's default malloc-ng allocator is single-threaded.
+            # using mimalloc brings build/link back down to 30 minutes.
+            # nixpkgs firefox does a similar thing.
+            # Chimera Linux builds *everything* against mimalloc -- maybe we should too.
+            doForceMimalloc = stdenv.buildPlatform.isMusl && (final.buildPackages.musl.allocatorModel or "malloc-ng") == "malloc-ng";
+            lldWithMimalloc = final.buildPackages.writeShellScriptBin "ld.lld" ''
+              export LD_PRELOAD=${lib.getLib final.buildPackages.mimalloc}/lib/libmimalloc.so''${LD_PRELOAD:+:$LD_PRELOAD}
+              exec ${final.buildPackages.rustc.llvmPackages.bintools}/bin/ld.lld "$@"
+            '';
+            gnFlags = old.gnFlags + lib.optionalString doForceMimalloc
+              " lld_path=\"${lldWithMimalloc}/bin\"";
+          in {
+            inherit gnFlags;
+            configurePhase = builtins.replaceStrings [ old.gnFlags ] [ gnFlags ] old.configurePhase;
+            passthru = (old.passthru or {}) // lib.optionalAttrs doForceMimalloc {
+              inherit lldWithMimalloc;
+            };
+            # GNU find's -exec batching under musl rejects this build's large environment.
+            nativeBuildInputs = [ final._pkgsGnu.findutils ] ++ old.nativeBuildInputs;
+            postPatch = (old.postPatch or "") + ''
+              # Bundled fontconfig's generated configuration assumes glibc's random_r.
+              substituteInPlace third_party/fontconfig/include/meson-config.h \
+                --replace-fail '#define HAVE_RANDOM_R 1' '/* #undef HAVE_RANDOM_R */'
+              # Electron includes a private glibc header; use the portable integer header instead.
+              substituteInPlace electron/shell/browser/ui/file_dialog.h \
+                --replace-fail '#include <bits/stdint-uintn.h>' '#include <stdint.h>'
+              # The glibc-version-dependent environment interposer cannot be used with musl.
+              substituteInPlace electron/BUILD.gn \
+                --replace-fail '"shell/app/environ_linux.cc",' ""
+            '';
+            patches = (old.patches or []) ++ [
+              (fetchCports {
+                # musl uses different threading and memory-management syscalls.
+                path = "main/chromium/patches/016-musl-sandbox.patch";
+                hash = "sha256-tTJOakjsRlAWpwNQcyNu2AC46TI2kcH/sfBvPIqawck=";
+              })
+              (fetchCports {
+                # musl's clone() rejects the sandbox's temporary TLS buffer (EINVAL).
+                path = "main/chromium/patches/022-no-sandbox-settls.patch";
+                hash = "sha256-i688sRm5yAR2neMkPfRS7f4QCvmUO+JoQ58+RlN7jDo=";
+              })
+              (fetchCports {
+                path = "main/chromium/patches/028-yes-musl.patch";
+                rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
+                hash = "sha256-k6xCVnrZBG6PfDOF8w/LWExLOAMJ60SrxhjgQPpY944=";
+              })
+              (fetchCports {
+                path = "main/chromium/patches/rust-tgt.patch";
+                rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
+                decode = "sed 's/-chimera-linux-musl/-unknown-linux-musl/g'";
+                hash = "sha256-pWfa1FIc7XVICkHQ3IXd5zIieIZlgLrxhwkjoZ50eIs=";
+              })
+              (fetchCports {
+                path = "main/chromium/patches/004-compiler.patch";
+                rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
+                includes = [ "build/config/compiler_cpu_abi.gn" ];
+                decode = "sed 's/-chimera-linux-musl/-unknown-linux-musl/g'";
+                hash = "sha256-LGSAruwlfdgbjD6XAeSMAPBz+DGpYVYoAOFgd361eX4=";
+              })
+              (fetchCports {
+                path = "main/chromium/patches/020-musl-no-mallinfo.patch";
+                rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
+                hash = "sha256-ONax55fJt08SvRYqKg68Nw8G/i/lfJp49grAw6PU+7U=";
+              })
+              (fetchCports {
+                path = "main/chromium/patches/cr143-libsync-__BEGIN_DECLS.patch";
+                rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
+                hash = "sha256-JUqk7j2+w5y9BWdCPf7JeEDtQYsRd240XfH2TFzEKrk=";
+              })
+              (fetchAports {
+                path = "community/chromium/no-execinfo.patch";
+                hash = "sha256-oHVQJelfp0Q2MiCY7GZjXiDjo4NbDM2J78+xPJa1/sw=";
+              })
+              (fetchAports {
+                path = "community/chromium/no-res-ninit-nclose.patch";
+                hash = "sha256-l1Rny5m3fR6NwyQ5JTR+BVo7VmiECjN6KhscJ8dP9iI=";
+              })
+              (fetchAports {
+                path = "community/chromium/disable-dns_config_service.patch";
+                hash = "sha256-5H2EvJnj4FDd6hdHJvwoqZodFLrvjt8RIOIMJrdNo1M=";
+              })
+              (fetchCports {
+                path = "main/chromium/patches/cr140-musl-prctl.patch";
+                rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
+                hash = "sha256-gJXne6eZntzbT1Nr5grecZZYCgE0BXtW3pOBFhn7W7I=";
+              })
+              (fetchCports {
+                path = "main/chromium/patches/cr145-iwyu-dev_t.patch";
+                rev = "c5ac74a45c801e4fd9748b21918b74067dc6fb24";
+                hash = "sha256-cHbQrnDuEvzvw/ecx/EvDs+rnYQpIkKMT4/O50s162w=";
+              })
+            ];
+          });
+        })
+      else
+        v
+    )) prev.electron-source;
+
     # 2026-10-03: still required
     ffmpeg_7 = prev.ffmpeg_7.overrideAttrs {
       # 2026-02-03: two tests fail: tests/data/hls-list.append.m3u8, tests/data/hls-list.m3u8
@@ -496,11 +499,6 @@ super.lib.composeManyExtensions [
       enableLTO = false;
       enablePGO = false;
     }).overrideAttrs (upstream: {
-      # the patches below change vendored rust files
-      # > error: the listed checksum of `/build/firefox-156.0/third_party/rust/audio_thread_priority/src/rt_linux.rs` has changed:
-      postPatch = (upstream.postPatch or "") + ''
-        sed -i 's/53204f6aa158b270a22b4099cde58558ec5ff96292ac8955581b4bcfbf3443d3/5364ffadc66df91d3f105f018aa8fa25ea61d0c3d09660cd82562ead4b7bb0b9/g' third_party/rust/audio_thread_priority/.cargo-checksum.json
-      '';
       patches = (upstream.patches or []) ++ [
         # (fetchVoid {
         #   # 2026-03-01: fixes "/build/firefox-148.0/dom/media/webrtc/libwebrtc_overrides/call/call_basic_stats.h:17:24: error: unknown type name 'int64_t'"
@@ -519,11 +517,6 @@ super.lib.composeManyExtensions [
           # 2026-02-03: fixes "/nix/store/hsvrmvp1i7k326fpvdrg99gmka863fwi-musl-1.2.5-dev/include/sys/prctl.h:88:8: error: redefinition of 'prctl_mm_map'"
           path = "community/firefox/musl-no-linux-prctl.patch";
           hash = "sha256-Mwyvdqc//WvSn7HqbkCILipl2C9Qo0T3ZQWbYPtGK8A=";
-        })
-        (fetchCports {
-          # 2026-09-17: fixes "no method named `to_ne_bytes` found for raw pointer `*mut c_void` in the current scope"
-          path = "main/firefox/patches/musl-rust-thread-id.patch";
-          hash = "sha256-dmgJrEcecPVB9ehBoPplxbsP/1uoQnUdIARYQ9Jjt08=";
         })
         (fetchVoid {
           # 2026-10-02: fixes "/build/firefox-157.0/third_party/parakeet.cpp/src/backend.hpp:116:39: error: unknown type name 'int64_t'"
