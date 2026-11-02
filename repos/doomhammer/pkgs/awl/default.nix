@@ -24,7 +24,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  vendorHash = "sha256-aodYnQFejXTu6orKpepNn5s52FSIghoQiItRk5+tV6Y=c";
+  vendorHash = "sha256-aodYnQFejXTu6orKpepNn5s52FSIghoQiItRk5+tV6Y=";
 
   meta = with lib; {
     description = "Securely connect your devices into a private network. Mesh VPN, socks5 proxy server/client";

@@ -28,7 +28,9 @@ jobs:
       - name: Update sources
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: nix run -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/$(nix run 'nixpkgs#jq' -- -r '.nodes.nixpkgs.locked.rev' flake.lock).tar.gz github:berberman/nvfetcher
+        run: |
+          nix run -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/$(nix run 'nixpkgs#jq' -- -r '.nodes.nixpkgs.locked.rev' flake.lock).tar.gz github:berberman/nvfetcher
+          nix run -I nixpkgs=https://github.com/NixOS/nixpkgs/archive/$(nix run 'nixpkgs#jq' -- -r '.nodes.nixpkgs.locked.rev' flake.lock).tar.gz github:Mic92/nix-update awl
       # - name: Update readme
       #   run: nix develop -c update-readme
       - name: Create Pull Request
