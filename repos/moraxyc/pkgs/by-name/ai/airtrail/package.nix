@@ -19,7 +19,7 @@ buildNpmPackage (finalAttrs: {
     cp ${./package-lock.json} package-lock.json
   '';
 
-  npmDepsHash = "sha256-dARqp3gsIBqauYefT6kWznvAbJu83KlLXiLYmP/FYwA=";
+  npmDepsHash = "sha256-8kh9B/5lZ6BDarh4CAjAJD61cgUM9tnkm1wbEIemKwQ=";
   npmFlags = [ "--legacy-peer-deps" ];
   npmRebuildFlags = [ "--ignore-scripts" ];
 
