@@ -23,7 +23,6 @@
             overlay
             identity
             openssh
-            fail2ban
             vaultix
             shared-modules
             users

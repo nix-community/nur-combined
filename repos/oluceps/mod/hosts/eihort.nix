@@ -72,7 +72,6 @@
             overlay
             identity
             openssh
-            fail2ban
             incus
             vaultix
             realm-server
