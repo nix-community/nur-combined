@@ -7,13 +7,13 @@
 
 beamPackages.buildMix rec {
   name = "nimble_options";
-  version = "1.1.1";
+  version = "1.2.0";
 
   src = fetchFromGitHub {
     owner = "dashbitco";
     repo = "nimble_options";
     rev = "v${version}";
-    hash = "sha256-RefSQXhRR8/uvQm+GtIIq87+9f7H9pW/3MUVCx/Fh7Q=";
+    hash = "sha256-OCAmpzmlRj90G/DGD9OSjNqeY80525jxcB/heh6fMFY=";
   };
 
   beamDeps = [ ];
