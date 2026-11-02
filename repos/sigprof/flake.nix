@@ -42,45 +42,36 @@
       })
     )
     // (
-      let
-        checkedSystems = with flake-utils.lib.system; [
-          x86_64-linux
-          x86_64-darwin
-          aarch64-linux
-          aarch64-darwin
-          # No `i686-linux` because `git-hooks-nix` does not evaluate
-        ];
-      in
-        flake-utils.lib.eachSystem checkedSystems (system: {
-          checks =
-            {
-              pre-commit = git-hooks-nix.lib.${system}.run {
-                src = ./.;
-                hooks = {
-                  alejandra.enable = true;
-                };
+      flake-utils.lib.eachDefaultSystem (system: {
+        checks =
+          {
+            pre-commit = git-hooks-nix.lib.${system}.run {
+              src = ./.;
+              hooks = {
+                alejandra.enable = true;
               };
-            }
-            // (
-              let
-                inherit (nixpkgs.lib) filterAttrs mapAttrs mapAttrs' nameValuePair pipe;
-                inherit (self.legacyPackages.${system}.lib) forceCached;
-              in
-                pipe self.nixosConfigurations [
-                  (mapAttrs' (name: host: (nameValuePair ("host/" + name) host.config.system.build.toplevel)))
-                  (filterAttrs (_: drv: drv.system == system))
-                  (mapAttrs (_: drv: forceCached drv))
-                ]
-            );
+            };
+          }
+          // (
+            let
+              inherit (nixpkgs.lib) filterAttrs mapAttrs mapAttrs' nameValuePair pipe;
+              inherit (self.legacyPackages.${system}.lib) forceCached;
+            in
+              pipe self.nixosConfigurations [
+                (mapAttrs' (name: host: (nameValuePair ("host/" + name) host.config.system.build.toplevel)))
+                (filterAttrs (_: drv: drv.system == system))
+                (mapAttrs (_: drv: forceCached drv))
+              ]
+          );
 
-          devShells.default = devshell.legacyPackages.${system}.mkShell {
-            name = "sigprof/nur-packages";
-            motd = "{6}🔨 Welcome to {bold}sigprof/nur-packages{reset}";
-            packages = [
-              git-hooks-nix.packages.${system}.alejandra
-            ];
-            devshell.startup.git-hooks-nix.text = self.checks.${system}.pre-commit.shellHook;
-          };
-        })
+        devShells.default = devshell.legacyPackages.${system}.mkShell {
+          name = "sigprof/nur-packages";
+          motd = "{6}🔨 Welcome to {bold}sigprof/nur-packages{reset}";
+          packages = [
+            git-hooks-nix.packages.${system}.alejandra
+          ];
+          devshell.startup.git-hooks-nix.text = self.checks.${system}.pre-commit.shellHook;
+        };
+      })
     );
 }
