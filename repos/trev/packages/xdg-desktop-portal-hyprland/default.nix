@@ -32,7 +32,7 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "xdg-desktop-portal-hyprland";
-  version = "1.4.1-unstable-2026-10-13";
+  version = "1.5.0-unstable-2026-10-28";
 
   # upstream with the RemoteDesktop and Clipboard portals: #428, its keyboard
   # fixes, screen casts in remote desktop sessions, and the portal's own input
@@ -40,8 +40,8 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "spotdemo4";
     repo = "xdg-desktop-portal-hyprland";
-    rev = "544e4b880b6019da7eb367f9d58302be5ab22f20";
-    hash = "sha256-N0Fiu4dH35fMc6koCUVg6iBGYAuDaRkaosQBokzukg0=";
+    rev = "f2ca40b21c004d38d47f9cc0bbd11a54869f2e44";
+    hash = "sha256-O2H/J6fC4aH/Zpkug4iwONVnn6LXmu1w1v6AOd4imEY=";
   };
 
   depsBuildBuild = [
