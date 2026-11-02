@@ -90,28 +90,6 @@ in lib.makeScope newScope (self: {
       ...
     }@attrs:
   let
-    repoRoot = ../../..;
-    getPathToRoot = ascended: at:
-      if at == repoRoot then
-        ascended
-      else if ascended == "./." then
-        # parent of ./. is ../. -- not .././., etc.
-        # the full form is likely correct, but non-canonical.
-        getPathToRoot "../." (dirOf at)
-      else if ascended == "../." then
-        getPathToRoot "../.." (dirOf at)
-      else
-        getPathToRoot "../${ascended}" (dirOf at)
-    ;
-    pathToRepoRoot = getPathToRoot "./." (
-      if srcRoot != null then
-        srcRoot
-      else if src != null then
-        src
-      else
-        repoRoot
-    );
-
     extraDerivArgs = lib.optionalAttrs (srcRoot != null) {
       # user can use `srcRoot` instead of `src` in most scenarios, to avoid including the entire directory containing their
       # source file in the closure, but *just* the source file itself.
@@ -132,12 +110,27 @@ in lib.makeScope newScope (self: {
       else
         null
     ;
-    nixShellLineTemplate = "(.*\n)?#!nix-shell -i ${interpreterName} ${pathToRepoRoot} -A static-nix-shell.${builderName} --arg packages '([^'\n]*)'(\n.*)?";
+    nixShellLineTemplate = "(.*\n)?#!nix-shell -i ${interpreterName} ([^ \n]+) -A static-nix-shell.${builderName} --arg packages '([^'\n]*)'(\n.*)?";
     nixShellLine = builtins.match nixShellLineTemplate srcText;
-    packagesText = if srcText != null then
-      lib.throwIf (nixShellLine == null) "could not extract expected text from ${attrs.pname or attrs.name}\nexpected\n${nixShellLineTemplate}" (builtins.elemAt nixShellLine 1)
+    nixShellMatch = if srcText != null then
+      lib.throwIf (nixShellLine == null) "could not extract expected text from ${attrs.pname or attrs.name}\nexpected\n${nixShellLineTemplate}" nixShellLine
     else
       null;
+    packagesText = if nixShellMatch != null then builtins.elemAt nixShellMatch 2 else null;
+
+    shellRootText = builtins.elemAt nixShellMatch 1;
+    scriptDir = if srcRoot != null then srcRoot else src;
+    shellRoot = scriptDir + "/${shellRootText}";  #< `path + string` normalizes `..` components; lib.path.append would not.
+    shellRootPkgs = let
+      expr = import shellRoot;
+    in
+      if lib.isFunction expr then expr { } else expr;
+    checkedShellRootText =
+      lib.throwIfNot (builtins.pathExists shellRoot)
+        "${pname}: `#!nix-shell` path '${shellRootText}' (${toString shellRoot}) does not exist"
+      (lib.throwIfNot (shellRootPkgs ? static-nix-shell.${builderName})
+        "${pname}: `#!nix-shell` path '${shellRootText}' (${toString shellRoot}) does not provide `static-nix-shell.${builderName}`"
+        shellRootText);
     embeddedPackages = import (builtins.toFile "static-nix-shell-packages.nix" packagesText);
     # allow any package to be a list of packages, to support things like
     # -p python3.pkgs.foo.propagatedBuildInputs
@@ -228,7 +221,7 @@ in lib.makeScope newScope (self: {
           --replace-fail '#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell' '#!${interpreter}' \
           ${lib.optionalString (packagesText != null) ''
             --replace-fail \
-              '#!nix-shell -i ${interpreterName} ${pathToRepoRoot} -A static-nix-shell.${builderName} --arg packages '"'"'${packagesText}'"'"$'\n' \
+              '#!nix-shell -i ${interpreterName} ${checkedShellRootText} -A static-nix-shell.${builderName} --arg packages '"'"'${packagesText}'"'"$'\n' \
               $'# nix deps evaluated statically\n'"''${shellPreamble:-}"
           ''}
 
