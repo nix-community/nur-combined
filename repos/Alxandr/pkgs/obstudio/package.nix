@@ -11,12 +11,12 @@
 }:
 
 let
-  version = "0.1.3";
+  version = "0.1.4";
   src = fetchFromGitHub {
     owner = "signalfx";
     repo = "obstudio";
     tag = "v${version}";
-    hash = "sha256-CU7N/fghIGpX2tavAe7CBgPTTnbQN+HewOH1eL88xVI=";
+    hash = "sha256-kaa/ntPciyi4cehd1HGKmi99XAHv572mDnOooUb1zi4=";
   };
   client = buildNpmPackage {
     pname = "obstudio-client";
