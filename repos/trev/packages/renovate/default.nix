@@ -27,11 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-HbaEegBLjYV3DAAH/6wGThjW+fyZQg/3RkiqZW14nvc=";
   };
 
-  patches = [
-    ./45258.diff
-    # update `rev` and `ref` attributes of flake inputs, applies on top of 45258
-    ./nix-rev-attributes.diff
-  ];
+  patches = [ ./45258.diff ];
 
   postPatch = ''
     substituteInPlace package.json \
