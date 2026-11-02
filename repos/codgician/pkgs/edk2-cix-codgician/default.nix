@@ -21,23 +21,23 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "codgician";
     repo = "edk2-cix";
-    rev = "16498d100c3a74b558d7e66219e4bad242cdeb4f";
+    rev = "3a09e915e7acde279d7b20786f55bdb3e43a601e";
     hash = "sha256-X58n0y6QMs2A/+aXW76GulE+dba29sGa6n8ypudqio0=";
   };
 
   edk2 = fetchFromGitHub {
     owner = "codgician";
     repo = "edk2";
-    rev = "62733cbe7a3b0b73a0e30a9d3b7766836485dd28";
+    rev = "ea01532bb776252b0e94387d0ba41f8a314af550";
     fetchSubmodules = true;
-    hash = "sha256-LxWTu6+u3PaPO3eXfNBfwml5jvLz3bY3lmyqM70A3a0=";
+    hash = "sha256-5Upcivnyi6EbCv4RqQShlxKgBw6CcdCbHvFpTSFL8/g=";
   };
 
   edk2Platforms = fetchFromGitHub {
     owner = "codgician";
     repo = "edk2-platforms";
-    rev = "9e06a9ab53529f4fede88a097200ac8c122dd2cd";
-    hash = "sha256-doqu9wM4pTAp/LzyxdtI53ICK/z98J/wAmlguq0BkXY=";
+    rev = "d6fd905b5cbad2de2d23d135771312401a29fe44";
+    hash = "sha256-KcCbXIeTj+rwA9GQ0E6Qk0J2Iq3Jb9RpCm7YJTB2eIg=";
   };
 
   edk2NonOsi = fetchFromGitHub {
@@ -49,7 +49,7 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
 
   # Commit time of the newest firmware-tree pin. It sets the SMBIOS release date
   # and PrePi's __DATE__/__TIME__, so the same pins always give the same volumes.
-  env.SOURCE_DATE_EPOCH = "1793603686";
+  env.SOURCE_DATE_EPOCH = "1793618328";
 
   sourceRoot = "${finalAttrs.src.name}/src";
 
