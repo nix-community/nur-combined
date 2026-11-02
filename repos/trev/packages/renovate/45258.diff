@@ -1,16 +1,16 @@
 diff --git a/docs/development/adding-a-package-manager.md b/docs/development/adding-a-package-manager.md
-index 8524cb6e057..13054df32cf 100644
+index 3a109cf5cb0..07ccd99bde6 100644
 --- a/docs/development/adding-a-package-manager.md
 +++ b/docs/development/adding-a-package-manager.md
-@@ -147,6 +147,8 @@ Use `updateDependency` if _both_ conditions apply:
+@@ -147,7 +147,7 @@ Use `updateDependency` if _both_ conditions apply:
  - the manager can't be updated to use the standard replacing mechanism
  - a custom replacement has to be provided
  
+-It returns the new package file content, or `null` on failure.
 +Return the updated package file content as a string, or return `null` when the dependency cannot be updated.
-+
- ### `updateLockedDependency` (optional)
- 
- Use `updateLockedDependency` to directly update dependencies in lock files.
+ If the update is also applied outside the package file, for example by modifying the checkout on disk, return `{ content, updatedOutOfBand: true }` instead.
+ Renovate then treats the package file as updated even if `content` is unchanged, so that `updateArtifacts` still runs for it.
+ The `git-submodules` manager uses this.
 diff --git a/lib/modules/manager/nix/artifacts.spec.ts b/lib/modules/manager/nix/artifacts.spec.ts
 index 84b470da398..c73fed3a843 100644
 --- a/lib/modules/manager/nix/artifacts.spec.ts
@@ -4165,10 +4165,10 @@ index 00000000000..ef7df0a62a7
 +  return updatedContent;
 +}
 diff --git a/lib/workers/repository/process/lookup/index.spec.ts b/lib/workers/repository/process/lookup/index.spec.ts
-index b934da80366..85e59a4d2b1 100644
+index 3b0ae59a196..004a7768fce 100644
 --- a/lib/workers/repository/process/lookup/index.spec.ts
 +++ b/lib/workers/repository/process/lookup/index.spec.ts
-@@ -6033,6 +6033,85 @@ describe('workers/repository/process/lookup/index', () => {
+@@ -6061,6 +6061,85 @@ describe('workers/repository/process/lookup/index', () => {
        ]);
      });
  
