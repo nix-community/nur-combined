@@ -21,7 +21,7 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "sbuild";
-  version = "0.91.10";
+  version = "0.91.11";
   __structuredAttrs = true;
   strictDeps = true;
 
@@ -30,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "debian";
     repo = "sbuild";
     tag = "debian/${finalAttrs.version}";
-    hash = "sha256-y/EwvmBoRECeIl9R0/t2S+CDxF7Cpk8Fn+xN8xKeJFU=";
+    hash = "sha256-DWX5g22eROipbcANbygwaiIYgiCQOOYA1PSEEUpsQDY=";
   };
 
   nativeBuildInputs = [

@@ -14,7 +14,7 @@
 }:
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "blueferry";
-  version = "0.9.0";
+  version = "0.9.1";
   __structuredAttrs = true;
   pyproject = true;
 
@@ -22,7 +22,7 @@ python3Packages.buildPythonPackage (finalAttrs: {
     owner = "erikwb";
     repo = "blueferry";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-YW8LT9vt3ejQcO/BSI72CJxoLNwrq3FKmq3yAD7KpJg=";
+    hash = "sha256-Z+PgZVAu2LyTQB4OefocJlFUieuvtal7T0+hPsCUkKQ=";
   };
 
   build-system = [
