@@ -1801,10 +1801,10 @@
     };
     "catppuccin-web-file-icons" = buildMozillaXpiAddon {
       pname = "catppuccin-web-file-icons";
-      version = "1.6.1";
+      version = "1.7.0";
       addonId = "{bbb880ce-43c9-47ae-b746-c3e0096c5b76}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4647055/catppuccin_web_file_icons-1.6.1.xpi";
-      sha256 = "a1ee2312bd2cb1306a38dec4b50edc55a43979d818733264dee955c6c04a7676";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5192809/catppuccin_web_file_icons-1.7.0.xpi";
+      sha256 = "7cd31912124af70627aee3de485afa251134a511fadae0fed1adad428780e2de";
       meta = with lib;
       {
         homepage = "https://github.com/catppuccin/web-file-explorer-icons";
@@ -1816,9 +1816,11 @@
           "activeTab"
           "*://bitbucket.org/*"
           "*://codeberg.org/*"
+          "*://git.sr.ht/*"
           "*://gitea.com/*"
           "*://github.com/*"
           "*://gitlab.com/*"
+          "*://hg.sr.ht/*"
           "*://tangled.org/*"
         ];
         platforms = platforms.all;
@@ -1898,10 +1900,10 @@
     };
     "chatgptbox" = buildMozillaXpiAddon {
       pname = "chatgptbox";
-      version = "2.7.1";
+      version = "2.7.2";
       addonId = "{b764208e-0a98-436d-a599-c1baa044f829}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5010280/chatgptbox-2.7.1.xpi";
-      sha256 = "cd6028d56ba9a18f22c7565a2825c06c7c289254f77cbe58abaf6c837ff55884";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5192858/chatgptbox-2.7.2.xpi";
+      sha256 = "d846aaa35adc772edc397d63291808b80bd8b722adafd3526251fa7c79c66342";
       meta = with lib;
       {
         homepage = "https://github.com/josStorer/chatGPTBox";
@@ -4441,7 +4443,7 @@
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
-        description = "Displays a country flag depicting the location of the current website's server and provides a multitude of tools such as site safety checks, whois, translation, similar sites, validation, URL shortening, and more...";
+        description = "Displays a country flag depicting the location of the current website's server and provides a multitude of tools such as site safety checks, whois, translation, validation, URL shortening, and more...";
         license = {
           shortName = "flagfox";
           fullName = "Flagfox License";
@@ -6158,10 +6160,10 @@
     };
     "jabref" = buildMozillaXpiAddon {
       pname = "jabref";
-      version = "3.2.2";
+      version = "3.2.3";
       addonId = "@jabfox";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4791467/jabref-3.2.2.xpi";
-      sha256 = "935acd20a9658a339371c79e30bfad89fb6902e1b9e69fcd72fbce669f582c9d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5193414/jabref-3.2.3.xpi";
+      sha256 = "cd12c5e5330a453497fe6396ee231b40b74894d8ee0417b825173050c3443be1";
       meta = with lib;
       {
         homepage = "http://www.jabref.org/";
@@ -6173,7 +6175,7 @@
           "tabs"
           "storage"
           "nativeMessaging"
-          "offscreen"
+          "downloads"
           "webRequest"
           "declarativeNetRequest"
         ];
@@ -7351,10 +7353,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.5.8";
+      version = "2.5.9";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5186809/lichess_tools_by_siderite-2.5.8.xpi";
-      sha256 = "34755e548ebb8858b92e6c45052d7101afa04ca89c85181af23d8b171affa6f7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5194411/lichess_tools_by_siderite-2.5.9.xpi";
+      sha256 = "8e73bceed4e4d0979e71bbfd095c87fcb56dba6c1cf55fb86679e0621afc2298";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -9995,10 +9997,10 @@
     };
     "page-assist" = buildMozillaXpiAddon {
       pname = "page-assist";
-      version = "1.5.89";
+      version = "1.5.90";
       addonId = "page-assist@nazeem";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5164959/page_assist-1.5.89.xpi";
-      sha256 = "b8a7c67d8856f71827d4ee8704c597a1d13628884d9c210be491aa4c920e69ae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5194381/page_assist-1.5.90.xpi";
+      sha256 = "3d27659b512266b3b27656017a6598528b79d8773b541647cb3bb63b6ee71114";
       meta = with lib;
       {
         homepage = "https://github.com/n4ze3m/page-assist";
@@ -12021,10 +12023,10 @@
     };
     "return-youtube-dislikes" = buildMozillaXpiAddon {
       pname = "return-youtube-dislikes";
-      version = "4.1.1";
+      version = "4.1.2";
       addonId = "{762f9885-5a13-4abd-9c77-433dcd38b8fd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5192620/return_youtube_dislikes-4.1.1.xpi";
-      sha256 = "9ca13a43f03af8387c0553f6a466556e5d111c571e599fec94a4848c0e288c9c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5193073/return_youtube_dislikes-4.1.2.xpi";
+      sha256 = "4849ac47ec9997351c1a6dc41759c3978dfc4f0879662bb22d416f4ff648f1ed";
       meta = with lib;
       {
         description = "Returns ability to see dislike statistics on youtube";
