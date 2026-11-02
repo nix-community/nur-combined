@@ -1,0 +1,21 @@
+name: expiring
+
+on:
+  schedule:
+    - cron: "0 9 * * *" # every day at 09:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pkgs:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+      - name: Initialize
+        uses: spotdemo4/nix-init@1501959c395e5bc6d66e87c7b84d1816c1b365bd # v1.73.0
+
+      - name: Check expiring packages
+        run: ./utils/expiring/expiring.sh

@@ -139,6 +139,7 @@
             packages = with pkgs; [
               nix-update
               python3
+              unzip
               (pkgs.callPackage ./packages/fix-hash { })
               (pkgs.callPackage ./packages/renovate { })
             ];
