@@ -24,7 +24,7 @@
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
-        description = "Displays a country flag depicting the location of the current website's server and provides a multitude of tools such as site safety checks, whois, translation, similar sites, validation, URL shortening, and more...";
+        description = "Displays a country flag depicting the location of the current website's server and provides a multitude of tools such as site safety checks, whois, translation, validation, URL shortening, and more...";
         mozPermissions = [
           "storage"
           "clipboardRead"
