@@ -1,43 +1,41 @@
-# Claude Code statusline plugin, compiled from TypeScript; $out doubles as the plugin root Claude Code loads.
+# Claude Code statusline plugin, run straight from its TypeScript source; $out doubles as the plugin root Claude Code loads.
 {
   lib,
-  buildNpmPackage,
+  stdenvNoCC,
   makeWrapper,
   nodejs_24,
   source,
 }: let
   inherit (source) version;
 in
-  buildNpmPackage {
+  stdenvNoCC.mkDerivation {
     pname = "claude-hud";
     inherit version;
-    inherit (source) src npmDepsHash;
-
-    nodejs = nodejs_24;
+    inherit (source) src;
 
     nativeBuildInputs = [makeWrapper];
 
     # Upstream opens the config with O_NOFOLLOW, rejecting the symlink that is the only shape home-manager can deliver.
     # The regular-file check on the opened descriptor, the bounded read and the JSON shape check stay.
     postPatch = ''
-      substituteInPlace src/config.ts \
+      substituteInPlace src/config.ts collector.mjs \
         --replace-fail 'fs.constants.O_RDONLY | (fs.constants.O_NOFOLLOW ?? 0)' 'fs.constants.O_RDONLY'
     '';
 
-    # npm run build deletes the dist/ upstream CI commits and recompiles it from src/.
+    dontBuild = true;
 
     installPhase = ''
       runHook preInstall
 
-      # Claude Code loads the plugin from $out itself, so the manifest, commands and the scripts they run stay at the root.
+      # Claude Code loads the plugin from $out itself, so the manifest, the skill and the code it runs stay at the root.
       mkdir -p $out
-      cp -r .claude-plugin commands dist scripts $out/
+      cp -r .claude-plugin dist scripts skills src collector.mjs fence.mjs hud.mjs install.mjs $out/
 
-      # dist/*.js are ESM; node reads the module type from this package.json.
+      # node reads the module type from package.json, and /hud doctor the plugin version.
       install -Dm644 package.json $out/package.json
 
       makeWrapper ${lib.getExe nodejs_24} $out/bin/claude-hud \
-        --add-flags $out/dist/index.js
+        --add-flags $out/hud.mjs
 
       install -Dm644 LICENSE README.md -t $out/share/doc/claude-hud
 
@@ -49,9 +47,7 @@ in
       runHook preInstallCheck
 
       grep -qF '"version": "${version}"' $out/.claude-plugin/plugin.json
-      test -f $out/commands/setup.md
-      test -f $out/commands/configure.md
-      test -f $out/scripts/setup.mjs
+      test -f $out/skills/hud/SKILL.md
 
       # The statusline renders one frame per stdin payload; this is upstream's own smoke input.
       payload='{"model":{"display_name":"Opus"},"context_window":{"current_usage":{"input_tokens":45000},"context_window_size":200000},"transcript_path":"/nonexistent/transcript.jsonl"}'

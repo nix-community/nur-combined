@@ -1,10 +1,7 @@
-import { defineSource, github, npm } from "nix-repin";
+import { github } from "nix-repin";
 
-export default defineSource(
-  github.tag({
-    repository: "jarrodwatts/claude-hud",
-    tagPattern: "v[0-9]+\\.[0-9]+\\.[0-9]+",
-    stripPrefix: "v",
-  }),
-  npm.lock("package-lock.json"),
-);
+export default github.tag({
+  repository: "jarrodwatts/claude-hud",
+  tagPattern: "v[0-9]+\\.[0-9]+\\.[0-9]+",
+  stripPrefix: "v",
+});
