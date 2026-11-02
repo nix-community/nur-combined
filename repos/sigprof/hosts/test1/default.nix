@@ -15,6 +15,7 @@ in
         system.stateVersion = "22.05";
         networking.hostName = "test1";
         fileSystems."/".device = "/dev/sda1";
+        fileSystems."/".fsType = "ext4";
         boot.loader.grub.device = "/dev/sda";
 
         services.printing.enable = true;
