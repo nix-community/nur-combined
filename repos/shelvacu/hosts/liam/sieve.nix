@@ -479,6 +479,11 @@ let
       )}
 
       ${pure_flags [ "healthchecks-io" "A" ] (from_matches "*@healthchecks.io")}
+      
+      ${pure_flags [ "telnyx-balance" "D" ] [
+        (from_matches "portal@telnyx.com")
+        (subject_matches "*Low Balance Alert*")
+      ]}
 
       ${pure_flags [ "offerup" ] (envelope_matches "offerup@shelvacu.com")}
       ${pure_flags [ "offerup-message" "A" ]
