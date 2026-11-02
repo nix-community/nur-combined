@@ -11,7 +11,7 @@
 }:
 
 let
-  commit = "fab15ea00541808992ebe0d0363e0f1b1a01033a";
+  commit = "ad468a13f6374f364467a9e4988e95938c37bb42";
 
   updateScript = writeShellApplication {
     name = "update-rpcs3-bin";
@@ -28,11 +28,11 @@ let
 in
 appimageTools.wrapAppImage (finalAttrs: {
   pname = "rpcs3";
-  version = "0.0.43-20550";
+  version = "0.0.43-20551";
 
   src = fetchurl {
     url = "https://github.com/RPCS3/rpcs3-binaries-linux/releases/download/build-${commit}/rpcs3-v${finalAttrs.version}-${lib.substring 0 8 commit}_linux64.AppImage";
-    hash = "sha256-RhB3ig719Lw/VNknz4VZI9z2qi05i42HNKyFCW/dIdE=";
+    hash = "sha256-xikf0/XlEo36hoFP93nUA2KUnnFvQz/pPKQTWJB55/w=";
   };
 
   # A uruntime (DwarFS) AppImage, which appimageTools.extract can't unpack:
