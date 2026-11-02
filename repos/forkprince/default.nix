@@ -148,6 +148,12 @@
     cadcraft = lib.callPackage ./pkgs/cadcraft {};
     figcraft = lib.callPackage ./pkgs/figcraft {};
 
+    capture-studio = lib.callPackage ./pkgs/capture-studio {};
+    photon-studio = lib.callPackage ./pkgs/photon-studio {};
+    vector-studio = lib.callPackage ./pkgs/vector-studio {};
+    folio-studio = lib.callPackage ./pkgs/folio-studio {};
+    light-studio = lib.callPackage ./pkgs/light-studio {};
+
     yaagl = lib.callPackage ./pkgs/yaagl {};
     yaagl-os = lib.callPackage ./pkgs/yaagl {region = "os";};
     yaagl-zzz = lib.callPackage ./pkgs/yaagl {game = "zzz";};

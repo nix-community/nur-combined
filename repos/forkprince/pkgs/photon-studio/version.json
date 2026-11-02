@@ -1,0 +1,30 @@
+{
+  "name": "Photon Studio",
+  "source": {
+    "type": "redirect",
+    "version_regex": "([0-9]+\\.[0-9]+\\.[0-9]+)"
+  },
+  "version": "0.1.65",
+  "platforms": {
+    "aarch64-darwin": {
+      "redirect_url": "https://tenzen.studio/api/v1/photon/download?platform=darwin&arch=arm64&kind=dmg",
+      "url": "https://downloads.tenzen.studio/photon/stable/darwin/0.1.65/Photon-Studio-0.1.65-mac-arm64.dmg",
+      "hash": "sha256-kc2ta4RbTtwxst7cxReAtdXKECTGxluceELm7isFHQI="
+    },
+    "x86_64-darwin": {
+      "redirect_url": "https://tenzen.studio/api/v1/photon/download?platform=darwin&arch=x64&kind=dmg",
+      "url": "https://downloads.tenzen.studio/photon/stable/darwin/0.1.65/Photon-Studio-0.1.65-mac-x64.dmg",
+      "hash": "sha256-pSGCkvIL1Co8BbTj0T4uzbU982kiQVhILyM5HMyK9OY="
+    },
+    "aarch64-linux": {
+      "redirect_url": "https://tenzen.studio/api/v1/photon/download?platform=linux&arch=arm64&kind=appimage",
+      "url": "https://downloads.tenzen.studio/photon/stable/linux/0.1.65/Photon-Studio-0.1.65-linux-arm64.AppImage",
+      "hash": "sha256-0b5IMAhAhsuyFR6f7V385nuc2kZocenQ7Z2GlaeOIn0="
+    },
+    "x86_64-linux": {
+      "redirect_url": "https://tenzen.studio/api/v1/photon/download?platform=linux&arch=x64&kind=appimage",
+      "url": "https://downloads.tenzen.studio/photon/stable/linux/0.1.65/Photon-Studio-0.1.65-linux-x64.AppImage",
+      "hash": "sha256-R/Mfn432nJxkVNRKUbrjyw+6O9ppWYhM20qeAcBXiP8="
+    }
+  }
+}

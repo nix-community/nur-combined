@@ -33,6 +33,7 @@ This repository contains three types of packages:
 | [`bluebubbles-server`](pkgs/bluebubbles-server/default.nix) | [bluebubbles-server](https://github.com/BlueBubblesApp/bluebubbles-server), server for forwarding iMessages to clients within the BlueBubbles App ecosystem |
 | [`boxtron-bin`](pkgs/boxtron-bin/default.nix) | [boxtron-bin](https://github.com/dreamer/boxtron), steam Play compatibility tool to run DOS games using native Linux DOSBox (This is intended for use in the `programs.steam.extraCompatPackages` option only.) |
 | [`cadcraft`](pkgs/cadcraft/default.nix) | [cadcraft](https://getartcraft.com/apps/cadcraft), computer-aided design and drafting application |
+| [`capture-studio`](pkgs/capture-studio/default.nix) | [capture-studio](https://tenzen.studio/capture/), screen recorder and video editor |
 | [`clop`](pkgs/clop/default.nix) | [clop](https://lowtechguys.com/clop/), image, video and clipboard optimiser |
 | [`compositor`](pkgs/compositor/default.nix) | [compositor](https://github.com/robbietilton/Compositor), the Photoshop alternative for Mac |
 | [`compositor-meta`](pkgs/compositor-meta/default.nix) | compositor-meta |
@@ -59,6 +60,7 @@ This repository contains three types of packages:
 | [`fluxer-canary-bin`](pkgs/fluxer-canary-bin/default.nix) | [fluxer-canary-bin](https://fluxer.app), fluxer desktop client (canary) |
 | [`fluxer-stable-bin`](pkgs/fluxer-stable-bin/default.nix) | [fluxer-stable-bin](https://fluxer.app), fluxer desktop client |
 | [`folder-preview-pro`](pkgs/folder-preview-pro/default.nix) | [folder-preview-pro](https://anybox.ltd/folder-preview-pro), quick Look extension for folders |
+| [`folio-studio`](pkgs/folio-studio/default.nix) | [folio-studio](https://tenzen.studio/folio/), free InDesign alternative for page layout and publishing |
 | [`fx`](pkgs/fx/default.nix) | [fx](https://fx.sh), unix-like coding agent |
 | [`genoffice`](pkgs/genoffice/default.nix) | [genoffice](https://genoffice.ai/), free, open-source AI Office suite: Docs, Sheets, Slides, PDF, Markdown and HTML editors with a built-in AI agent |
 | [`ghostty`](pkgs/ghostty/default.nix) | ghostty |
@@ -77,6 +79,7 @@ This repository contains three types of packages:
 | [`keka-external-helper`](pkgs/keka-external-helper/default.nix) | [keka-external-helper](https://github.com/aonez/Keka/wiki/Default-application), helper application for the Keka file archiver |
 | [`kryoto-desktop`](pkgs/kryoto-desktop/default.nix) | [kryoto-desktop](https://github.com/kyrotooooo/kryoto-desktop), find a game, download it and play it |
 | [`kryoto-minecraft-launcher`](pkgs/kryoto-minecraft-launcher/default.nix) | [kryoto-minecraft-launcher](https://github.com/Kryoto-Dev/kryoto-minecraft-launcher), minecraft: Java Edition launcher with Fabric, Quilt, Forge, NeoForge and Modrinth/CurseForge mods |
+| [`light-studio`](pkgs/light-studio/default.nix) | [light-studio](https://tenzen.studio/light/), lightroom alternative for photo library and RAW development |
 | [`lightcraft`](pkgs/lightcraft/default.nix) | [lightcraft](https://getartcraft.com/apps/lightcraft), photo editor with color grading and RAW developing |
 | [`linearmouse`](pkgs/linearmouse/default.nix) | [linearmouse](https://linearmouse.org/), customise mouse behavior |
 | [`luxtorpeda-bin`](pkgs/luxtorpeda-bin/default.nix) | [luxtorpeda-bin](https://github.com/luxtorpeda-dev/luxtorpeda), steam Play compatibility tool to run games using native Linux engines (This is intended for use in the `programs.steam.extraCompatPackages` option only.) |
@@ -117,6 +120,7 @@ This repository contains three types of packages:
 | [`pearcleaner`](pkgs/pearcleaner/default.nix) | [pearcleaner](https://itsalin.com/appInfo/?id=pearcleaner), a free, source-available and fair-code licensed mac app cleaner |
 | [`peazip`](pkgs/peazip/default.nix) | [peazip](https://peazip.github.io), file and archive manager |
 | [`photocraft`](pkgs/photocraft/default.nix) | [photocraft](https://getartcraft.com/apps/photocraft), photo editor for raster image editing |
+| [`photon-studio`](pkgs/photon-studio/default.nix) | [photon-studio](https://tenzen.studio/photon/), free Photoshop alternative for photo editing |
 | [`pixelflasher`](pkgs/pixelflasher/default.nix) | [pixelflasher](https://github.com/badabing2005/PixelFlasher), pixel™ phone flashing GUI utility with features |
 | [`playcover`](pkgs/playcover/default.nix) | [playcover](https://playcover.io/), sideload iOS apps and games |
 | [`proton-cachyos-arm-bin`](pkgs/proton-cachyos-bin/default.nix) | [proton-cachyos-gi-cn-bin](https://github.com/CachyOS/proton-cachyos), compatibility tool for Steam Play based on Wine and additional components (This is intended for use in the `programs.steam.extraCompatPackages` option only.) |
@@ -151,6 +155,7 @@ This repository contains three types of packages:
 | [`tiny-rdm`](pkgs/tiny-rdm/default.nix) | [tiny-rdm](https://github.com/tiny-craft/tiny-rdm), modern, colorful, super lightweight Redis GUI client |
 | [`tinywiibackupmanager`](pkgs/tinywiibackupmanager/default.nix) | [tinywiibackupmanager](https://github.com/mq1/TinyWiiBackupManager), a tiny game backup and homebrew app manager for the Wii |
 | [`twintaillauncher`](pkgs/twintaillauncher/default.nix) | [twintaillauncher](https://github.com/TwintailTeam/TwintailLauncher), a multi-platform launcher for your anime games |
+| [`vector-studio`](pkgs/vector-studio/default.nix) | [vector-studio](https://tenzen.studio/vector/), illustrator alternative for vector illustration and design |
 | [`vectorcraft`](pkgs/vectorcraft/default.nix) | [vectorcraft](https://getartcraft.com/apps/vectorcraft), vector graphics editor |
 | [`vmware-fusion`](pkgs/vmware-fusion/default.nix) | [vmware-fusion](https://www.vmware.com/products/desktop-hypervisor/workstation-and-fusion), create, manage, and run virtual machines |
 | [`vorssaint`](pkgs/vorssaint/default.nix) | [vorssaint](https://vorssaint.com), free and open-source macOS menu bar toolkit. |

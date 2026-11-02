@@ -1,0 +1,30 @@
+{
+  "name": "Light Studio",
+  "source": {
+    "type": "redirect",
+    "version_regex": "([0-9]+\\.[0-9]+\\.[0-9]+)"
+  },
+  "version": "0.1.30",
+  "platforms": {
+    "aarch64-darwin": {
+      "redirect_url": "https://tenzen.studio/api/v1/light-studio/download?platform=darwin&arch=arm64&kind=dmg",
+      "url": "https://downloads.tenzen.studio/light-studio/stable/darwin/0.1.30/Light-Studio-0.1.30-mac-arm64.dmg",
+      "hash": "sha256-3m6+Q4Yaw+rfGe5K/mlkRo5MmOZGj55WfBhT1Nwnjpo="
+    },
+    "x86_64-darwin": {
+      "redirect_url": "https://tenzen.studio/api/v1/light-studio/download?platform=darwin&arch=x64&kind=dmg",
+      "url": "https://downloads.tenzen.studio/light-studio/stable/darwin/0.1.30/Light-Studio-0.1.30-mac-x64.dmg",
+      "hash": "sha256-hq9zWuPgLdepoLrloGvAszhenSBwsSq4p/n3su9tk/Y="
+    },
+    "aarch64-linux": {
+      "redirect_url": "https://tenzen.studio/api/v1/light-studio/download?platform=linux&arch=arm64&kind=appimage",
+      "url": "https://downloads.tenzen.studio/light-studio/stable/linux/0.1.30/Light-Studio-0.1.30-linux-arm64.AppImage",
+      "hash": "sha256-+evXpq3vp54CG8cVDVhEHDoTkkODqfN7nXQ//mclKw8="
+    },
+    "x86_64-linux": {
+      "redirect_url": "https://tenzen.studio/api/v1/light-studio/download?platform=linux&arch=x64&kind=appimage",
+      "url": "https://downloads.tenzen.studio/light-studio/stable/linux/0.1.30/Light-Studio-0.1.30-linux-x64.AppImage",
+      "hash": "sha256-s6aSN00Bahgx86YACqG1awHzffoSmc/ZHNV9WHTz9Vs="
+    }
+  }
+}
