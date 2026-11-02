@@ -2,17 +2,18 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "zsh-sage";
-  version = "1.3.0";
+  version = "1.3.1";
 
   src = fetchFromGitHub {
     owner = "UtsavMandal2022";
     repo = "zsh-sage";
     rev = "refs/tags/v${finalAttrs.version}";
-    hash = "sha256-mh3p7dUaR5iiy/xAf1zUFs1V12dBvLfV3xp4aB2TkYU=";
+    hash = "sha256-6fLjyNExiuNnbyZi5nvoDUWHWTnmCYm38Ssj1dgqaDU=";
   };
 
   strictDeps = true;
@@ -27,6 +28,8 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Intelligent zsh autosuggestions with multi-signal ranking and confidence-colored ghost text";

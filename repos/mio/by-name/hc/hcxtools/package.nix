@@ -6,6 +6,7 @@
   curl,
   openssl,
   zlib,
+  nix-update-script,
 }:
 
 # Nixpkgs' hcxtools is marked linux-only, but it builds and runs on Darwin as
@@ -14,13 +15,13 @@
 # exists.
 stdenv.mkDerivation (finalAttrs: {
   pname = "hcxtools";
-  version = "7.1.2";
+  version = "8.0.0";
 
   src = fetchFromGitHub {
     owner = "ZerBea";
     repo = "hcxtools";
     tag = finalAttrs.version;
-    hash = "sha256-v33RpDKA4OeUU4YXXWhHpdlqQvxk4HIWQKCPskdTSTU=";
+    hash = "sha256-LvX1RPkNoo/neRsHFHYts9S8pZlaobxxjb8x/zSf3PA=";
   };
 
   nativeBuildInputs = [ pkg-config ];
@@ -38,6 +39,8 @@ stdenv.mkDerivation (finalAttrs: {
   preInstall = ''
     mkdir -p "${placeholder "out"}/bin"
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Tools for capturing wlan traffic and conversion to hashcat and John the Ripper formats";
