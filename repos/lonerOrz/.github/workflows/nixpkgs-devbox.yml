@@ -54,10 +54,29 @@ jobs:
           git config user.name "${GIT_USER_NAME:-$GITHUB_ACTOR}"
           git config user.email "${GIT_USER_EMAIL:-$GITHUB_ACTOR@users.noreply.github.com}"
 
-      - name: Setup upterm session
-        uses: owenthereal/action-upterm@v2
-        with:
-          limit-access-to-actor: true
-          wait-timeout-minutes: 60
+      - name: Connect to Tailscale
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          TS_OAUTH_CLIENT_ID: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          TS_OAUTH_SECRET: ${{ secrets.TS_OAUTH_SECRET }}
+        run: |
+          brew install tailscale
+          sudo tailscale up \
+            --auth-key="${{ secrets.TS_OAUTH_SECRET }}?preauthorized=true" \
+            --advertise-tags=tag:ci
+          sudo tailscale set --operator="$USER"
+
+      - name: Get Tailscale IP
+        id: tailscale-ip
+        run: |
+          IP=$(tailscale ip -4)
+          echo "ip=$IP" >> "$GITHUB_OUTPUT"
+          echo "Runner Tailscale IP: $IP"
+
+      - name: Setup SSH session (Tailscale)
+        uses: lexbritvin/ssh-session-action@v2
+        with:
+          ssh-server-host: ${{ steps.tailscale-ip.outputs.ip }}
+          ssh-server-port: 2222
+          use-actor-ssh-keys: true
+          wait-timeout: 3600
+          display-help-message: true
