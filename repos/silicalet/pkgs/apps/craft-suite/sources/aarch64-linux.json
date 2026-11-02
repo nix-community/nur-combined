@@ -1,72 +1,72 @@
 {
   "artcraft-launcher": {
-    "hash": "sha256-IrEYjHRAMPFtnhfCTUa1VLqHV29lHGQdnWqsVeoSM/k=",
-    "url": "https://github.com/storytold/craft-launcher/releases/download/v0.12.0/artcraft-launcher-0.12.0-linux-aarch64.tar.gz",
-    "version": "0.12.0"
+    "hash": "sha256-5a9eEsHtNkU9TnO43VAqt+FwqHfJLw0GV/v+JW8Xz9w=",
+    "url": "https://github.com/storytold/craft-launcher/releases/download/v0.13.0/artcraft-launcher-0.13.0-linux-aarch64.tar.gz",
+    "version": "0.13.0"
   },
   "cadcraft": {
-    "hash": "sha256-j7hOklMjxP3yF/0KRiKOoUJEzG2+Sak4WwMMiqs7F+I=",
-    "url": "https://github.com/storytold/cadcraft/releases/download/v0.15.1/cadcraft-0.15.1-linux-aarch64.tar.gz",
-    "version": "0.15.1"
-  },
-  "deckcraft": {
-    "hash": "sha256-/yXQyEaLzdNbZSdgPz5XtHl0HMcN/9EmGsrIP7QdnwM=",
-    "url": "https://github.com/storytold/deckcraft/releases/download/v0.13.1/deckcraft-0.13.1-linux-aarch64.tar.gz",
-    "version": "0.13.1"
-  },
-  "designcraft": {
-    "hash": "sha256-20JDgl1T9Jb5K9aHYFSI+NSK76AbpzzvUNyHt5FondA=",
-    "url": "https://github.com/storytold/designcraft/releases/download/v0.15.2/designcraft-0.15.2-linux-aarch64.tar.gz",
-    "version": "0.15.2"
-  },
-  "effectcraft": {
-    "hash": "sha256-klc3Ql0nO5RFw4ZLTcuhFybaiGV8qyDC62FpILJ++sY=",
-    "url": "https://github.com/storytold/effectcraft/releases/download/v0.19.0/effectcraft-0.19.0-linux-aarch64.tar.gz",
-    "version": "0.19.0"
-  },
-  "figcraft": {
-    "hash": "sha256-FMalp4K17rs1aiMtnqWloBPxnJLE83BW77v87NvQ2TU=",
-    "url": "https://github.com/storytold/figcraft/releases/download/v0.13.1/figcraft-0.13.1-linux-aarch64.tar.gz",
-    "version": "0.13.1"
-  },
-  "filmcraft": {
-    "hash": "sha256-LLZrj+JvADjzzXhTK5UbZiX+8WL4S4VkKJZ5u73OFCk=",
-    "url": "https://github.com/storytold/filmcraft/releases/download/v0.15.0/filmcraft-0.15.0-linux-aarch64.tar.gz",
-    "version": "0.15.0"
-  },
-  "gridcraft": {
-    "hash": "sha256-vCz7vJNIPtjEh/VQB/i4jBK9eAbxIJhEavhQ0CyS4wc=",
-    "url": "https://github.com/storytold/gridcraft/releases/download/v0.14.2/gridcraft-0.14.2-linux-aarch64.tar.gz",
-    "version": "0.14.2"
-  },
-  "lightcraft": {
-    "hash": "sha256-dZajp47csmLybxq+d5QTToICSeE+y54ODJocJQaHBGs=",
-    "url": "https://github.com/storytold/lightcraft/releases/download/v0.16.0/lightcraft-0.16.0-linux-aarch64.tar.gz",
+    "hash": "sha256-M4dtowkdZpiM+sGYpGez4Y57yRwAUuNkFuiGo9sYlts=",
+    "url": "https://github.com/storytold/cadcraft/releases/download/v0.16.0/cadcraft-0.16.0-linux-aarch64.tar.gz",
     "version": "0.16.0"
   },
-  "pdfcraft": {
-    "hash": "sha256-KQjpEnv4Dwv4ib1MKSmAvAbkf3SZmlv23Qk1fm9OWKQ=",
-    "url": "https://github.com/storytold/pdfcraft/releases/download/v0.16.1/pdfcraft-0.16.1-linux-aarch64.tar.gz",
-    "version": "0.16.1"
+  "deckcraft": {
+    "hash": "sha256-6lZZF0/oAHNv1qnml7EGxN6WL+AJRnB7v4hMI+JuyBw=",
+    "url": "https://github.com/storytold/deckcraft/releases/download/v0.14.1/deckcraft-0.14.1-linux-aarch64.tar.gz",
+    "version": "0.14.1"
   },
-  "photocraft": {
-    "hash": "sha256-Uf+tolWp5A+mi42AVatTjHs9v7npogvF7KNv6C58H9Y=",
-    "url": "https://github.com/storytold/photocraft/releases/download/v0.18.0/photocraft-0.18.0-linux-aarch64.tar.gz",
-    "version": "0.18.0"
+  "designcraft": {
+    "hash": "sha256-0NtHFRzyYSMLMYeCip74B8xu3cJ2+FrRfIHV27eAmAA=",
+    "url": "https://github.com/storytold/designcraft/releases/download/v0.16.0/designcraft-0.16.0-linux-aarch64.tar.gz",
+    "version": "0.16.0"
   },
-  "soundcraft": {
-    "hash": "sha256-WVz+F7FObDmGb1XNo45euEoSzBga7HSULYG04/tS+eo=",
-    "url": "https://github.com/storytold/soundcraft/releases/download/v0.15.0/soundcraft-0.15.0-linux-aarch64.tar.gz",
+  "effectcraft": {
+    "hash": "sha256-zcH8u4zCDLoyi4t522n330Wb4yx1GHrAWuITj+S0IFA=",
+    "url": "https://github.com/storytold/effectcraft/releases/download/v0.20.0/effectcraft-0.20.0-linux-aarch64.tar.gz",
+    "version": "0.20.0"
+  },
+  "figcraft": {
+    "hash": "sha256-F4Sej+5/pmVeAu8HHif3vbft0AGRcs0ujjUjIEyrBTU=",
+    "url": "https://github.com/storytold/figcraft/releases/download/v0.14.0/figcraft-0.14.0-linux-aarch64.tar.gz",
+    "version": "0.14.0"
+  },
+  "filmcraft": {
+    "hash": "sha256-irIMMOU9ZYbD25UTPFRuRWL0e5RYm3YQRh9DUaKmMI4=",
+    "url": "https://github.com/storytold/filmcraft/releases/download/v0.16.0/filmcraft-0.16.0-linux-aarch64.tar.gz",
+    "version": "0.16.0"
+  },
+  "gridcraft": {
+    "hash": "sha256-kLKyFhNUYwm77TA2WRS6nCDdb30XWsfe1+J7xo5lU5o=",
+    "url": "https://github.com/storytold/gridcraft/releases/download/v0.15.0/gridcraft-0.15.0-linux-aarch64.tar.gz",
     "version": "0.15.0"
   },
-  "vectorcraft": {
-    "hash": "sha256-J9MakPk6e/qNspf8k0CPEJXxXqMJl3kH0KQsSDgU0Zw=",
-    "url": "https://github.com/storytold/vectorcraft/releases/download/v0.19.0/vectorcraft-0.19.0-linux-aarch64.tar.gz",
+  "lightcraft": {
+    "hash": "sha256-bCmOaGFrtxoaGPb60R/ykp9gynhEqvbLLVqk2xlcUgM=",
+    "url": "https://github.com/storytold/lightcraft/releases/download/v0.17.0/lightcraft-0.17.0-linux-aarch64.tar.gz",
+    "version": "0.17.0"
+  },
+  "pdfcraft": {
+    "hash": "sha256-Ma7V5NfLwb8Nix2gZZ3LDGzWEUvVeDwP2quxbSmic70=",
+    "url": "https://github.com/storytold/pdfcraft/releases/download/v0.17.0/pdfcraft-0.17.0-linux-aarch64.tar.gz",
+    "version": "0.17.0"
+  },
+  "photocraft": {
+    "hash": "sha256-WUjo8Qw8AgqoyIA/GpA4ov+03ajrsbEpiByKQWstSK4=",
+    "url": "https://github.com/storytold/photocraft/releases/download/v0.19.0/photocraft-0.19.0-linux-aarch64.tar.gz",
     "version": "0.19.0"
   },
+  "soundcraft": {
+    "hash": "sha256-ppGjmZKemj0qOcIQcEVUiHvEbQe13mhHTkb1q8IIlXc=",
+    "url": "https://github.com/storytold/soundcraft/releases/download/v0.16.0/soundcraft-0.16.0-linux-aarch64.tar.gz",
+    "version": "0.16.0"
+  },
+  "vectorcraft": {
+    "hash": "sha256-bFVXKfzqqn/uPhvZrcNxXUBabUPR9vA2zODSDxCq0/8=",
+    "url": "https://github.com/storytold/vectorcraft/releases/download/v0.20.0/vectorcraft-0.20.0-linux-aarch64.tar.gz",
+    "version": "0.20.0"
+  },
   "wordcraft": {
-    "hash": "sha256-2mYnE1SLqeHZAeiJv8zYVIAyIBNa01kHNz64VtW29zQ=",
-    "url": "https://github.com/storytold/wordcraft/releases/download/v0.13.2/wordcraft-0.13.2-linux-aarch64.tar.gz",
-    "version": "0.13.2"
+    "hash": "sha256-oC4+8+qzZayjbFpqC4sAqSUlYskKt9qIS4PvcB366PA=",
+    "url": "https://github.com/storytold/wordcraft/releases/download/v0.14.0/wordcraft-0.14.0-linux-aarch64.tar.gz",
+    "version": "0.14.0"
   }
 }

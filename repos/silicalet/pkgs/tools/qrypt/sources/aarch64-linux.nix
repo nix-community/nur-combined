@@ -1,6 +1,6 @@
 rec {
-  version = "0.6.0";
+  version = "0.6.1";
   url = "https://github.com/yinzhenyu-su/qrypt/releases/download/v${version}/qrypt_${version}_linux_arm64.tar.gz";
-  hash = "sha256-1v2rBAby49VK2RY2IJON+6dYiuHK5t0Z7rUhb3/22l8=";
+  hash = "sha256-HgrNKEQutHaKZY7RoEBPVXafa4E/u0T1obDju0MBEXM=";
   binary = "qrypt-linux-arm64";
 }
