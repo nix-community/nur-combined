@@ -141,14 +141,25 @@ let
   elfTools = testPkgs.lib.optional testPkgs.stdenv.hostPlatform.isLinux testPkgs.binutils;
 
   # without dependencies there's no vendor directory to build a cache from
+  nodepsSrc = builtins.path {
+    name = "source";
+    path = ./fixture-nodeps;
+  };
+
   nodeps = testPkgs.mkGoModule {
     pname = "nodeps";
     version = "1.0.0";
-    src = builtins.path {
-      name = "source";
-      path = ./fixture-nodeps;
-    };
+    src = nodepsSrc;
     vendorHash = null;
+  };
+
+  # an empty gomod2nix.toml still builds a cache, which is empty without checks
+  nodepsModules = testPkgs.mkGoModule {
+    pname = "nodeps";
+    version = "1.0.0";
+    src = nodepsSrc;
+    modules = ./fixture-nodeps/gomod2nix.toml;
+    doCheck = false;
   };
 in
 # the dependencies don't change with the version or the main module's sources
@@ -179,6 +190,7 @@ assert !windows.pie;
     test "$(${renamed}/bin/renamed)" = "hello from dep"
     test ! -e ${renamed}/bin/fixture
     test "$(${nodeps}/bin/nodeps)" = "hello without deps"
+    test "$(${nodepsModules}/bin/nodeps)" = "hello without deps"
     test "$(${modules}/bin/fixture)" = "hello from dep"
     test "$(${modulesBumped}/bin/fixture)" = "hello from dep"
     # the same as `go mod vendor`

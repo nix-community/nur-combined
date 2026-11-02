@@ -260,6 +260,9 @@ lib.extendMkDerivation {
 
                 mkdir -p $out
                 echo "$PWD" > $out/dir
+                # go doesn't create the cache when there's nothing to build, e.g.
+                # without dependencies or checks
+                mkdir -p "$GOCACHE"
                 tar --create --owner=0 --group=0 --numeric-owner -C "$GOCACHE" . \
                   | zstd -T$NIX_BUILD_CORES -o $out/cache.tar.zst
 
