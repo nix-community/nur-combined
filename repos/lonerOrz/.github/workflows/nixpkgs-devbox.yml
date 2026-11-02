@@ -1,0 +1,64 @@
+name: nixpkgs devbox
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "nixpkgs fork branch (lonerOrz/nixpkgs)"
+        required: false
+        default: "master"
+        type: string
+      os:
+        description: "Runner arch (default macOS = aarch64-darwin)"
+        required: false
+        default: "macos-latest"
+        type: choice
+        options:
+          - macos-latest # aarch64-darwin (Apple Silicon)
+          - macos-13 # x86_64-darwin (Intel)
+          - ubuntu-24.04 # x86_64-linux
+          - ubuntu-24.04-arm # aarch64-linux
+
+jobs:
+  devbox:
+    runs-on: ${{ inputs.os }}
+    steps:
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            accept-flake-config = true
+
+      - name: Add Cachix (nixpkgs-darwin)
+        uses: cachix/cachix-action@v17
+        with:
+          name: nixpkgs-darwin
+          skipPush: true
+        continue-on-error: true
+
+      - name: Checkout nixpkgs
+        uses: actions/checkout@v7
+        with:
+          repository: lonerOrz/nixpkgs
+          ref: ${{ inputs.branch }}
+          token: ${{ secrets.GH_TOKEN }}
+          path: nixpkgs
+
+      - name: Configure git identity
+        working-directory: nixpkgs
+        env:
+          GIT_USER_NAME: ${{ secrets.GIT_USER_NAME }}
+          GIT_USER_EMAIL: ${{ secrets.GIT_USER_EMAIL }}
+        run: |
+          git config user.name "${GIT_USER_NAME:-$GITHUB_ACTOR}"
+          git config user.email "${GIT_USER_EMAIL:-$GITHUB_ACTOR@users.noreply.github.com}"
+
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+        with:
+          limit-access-to-actor: true
+          sudo: false
+          install-dependencies: false
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
