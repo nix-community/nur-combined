@@ -447,7 +447,7 @@
         "cargoLock": null,
         "date": null,
         "extract": {
-            "pubspec.lock": "sha256-PrXUQdEZUMNkTzaS7gGgQTrRWcF+4a0tFSpWqLwaubI=/pubspec.lock"
+            "pubspec.lock": "sha256-UffoFa_UwUeZij1vXw4oANd0HxnJN80pc6IRp8EBBqk=/pubspec.lock"
         },
         "name": "piliplus",
         "passthru": null,
@@ -459,12 +459,12 @@
             "name": null,
             "owner": "bggRGjQaUbCoE",
             "repo": "PiliPlus",
-            "rev": "2.1.6.2",
-            "sha256": "sha256-PrXUQdEZUMNkTzaS7gGgQTrRWcF+4a0tFSpWqLwaubI=",
+            "rev": "2.2.0",
+            "sha256": "sha256-UffoFa/UwUeZij1vXw4oANd0HxnJN80pc6IRp8EBBqk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2.1.6.2"
+        "version": "2.2.0"
     },
     "pipewire-bluez5-lhdc-git": {
         "cargoLock": null,
@@ -625,11 +625,11 @@
     "splayer-next-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-8hs+3LdlY5TN3CQ7xuEEzkose7eH7u+iJTS5RoPLURE=/Cargo.lock",
+                "sha256-BkN7GnM5ROcES7pqGQmQekEZDFkAvbj6pRXUKKNxfyc=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-10-31",
+        "date": "2026-11-02",
         "extract": null,
         "name": "splayer-next-dev",
         "passthru": null,
@@ -641,12 +641,12 @@
             "name": null,
             "owner": "SPlayer-Dev",
             "repo": "SPlayer-Next",
-            "rev": "47d74cf1a87cc0f526c25110bb0cb924f6268f1d",
-            "sha256": "sha256-8hs+3LdlY5TN3CQ7xuEEzkose7eH7u+iJTS5RoPLURE=",
+            "rev": "ba8dd9be6fb9cc3613ec56760e8bea232de3d9a8",
+            "sha256": "sha256-BkN7GnM5ROcES7pqGQmQekEZDFkAvbj6pRXUKKNxfyc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "47d74cf1a87cc0f526c25110bb0cb924f6268f1d"
+        "version": "ba8dd9be6fb9cc3613ec56760e8bea232de3d9a8"
     },
     "svt-av1-essential": {
         "cargoLock": null,

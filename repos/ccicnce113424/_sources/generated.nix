@@ -282,16 +282,16 @@
   };
   piliplus = {
     pname = "piliplus";
-    version = "2.1.6.2";
+    version = "2.2.0";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      rev = "2.1.6.2";
+      rev = "2.2.0";
       fetchSubmodules = false;
-      sha256 = "sha256-PrXUQdEZUMNkTzaS7gGgQTrRWcF+4a0tFSpWqLwaubI=";
+      sha256 = "sha256-UffoFa/UwUeZij1vXw4oANd0HxnJN80pc6IRp8EBBqk=";
     };
     extract = {
-      "pubspec.lock" = ./. + "/sha256-PrXUQdEZUMNkTzaS7gGgQTrRWcF+4a0tFSpWqLwaubI=/pubspec.lock";
+      "pubspec.lock" = ./. + "/sha256-UffoFa_UwUeZij1vXw4oANd0HxnJN80pc6IRp8EBBqk=/pubspec.lock";
     };
   };
   pipewire-bluez5-lhdc-git = {
@@ -395,21 +395,21 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "47d74cf1a87cc0f526c25110bb0cb924f6268f1d";
+    version = "ba8dd9be6fb9cc3613ec56760e8bea232de3d9a8";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "47d74cf1a87cc0f526c25110bb0cb924f6268f1d";
+      rev = "ba8dd9be6fb9cc3613ec56760e8bea232de3d9a8";
       fetchSubmodules = false;
-      sha256 = "sha256-8hs+3LdlY5TN3CQ7xuEEzkose7eH7u+iJTS5RoPLURE=";
+      sha256 = "sha256-BkN7GnM5ROcES7pqGQmQekEZDFkAvbj6pRXUKKNxfyc=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-8hs+3LdlY5TN3CQ7xuEEzkose7eH7u+iJTS5RoPLURE=/Cargo.lock";
+      lockFile = ./. + "/sha256-BkN7GnM5ROcES7pqGQmQekEZDFkAvbj6pRXUKKNxfyc=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-10-31";
+    date = "2026-11-02";
   };
   svt-av1-essential = {
     pname = "svt-av1-essential";
