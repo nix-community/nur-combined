@@ -199,6 +199,16 @@ Uncomment this if you use travis:
 </details>
 
 <details>
+<summary><strong><code>omnidiff</code></strong> — Fast, robust, accurate content-aware diffing</summary>
+
+- **Version:** `0.3.0`
+- **License:** AGPL-3.0-only
+- **Homepage:** [https://github.com/ivankovic/omnidiff](https://github.com/ivankovic/omnidiff)
+- **Build:** `nix build github:XYenon/nur-packages#omnidiff`
+
+</details>
+
+<details>
 <summary><strong><code>pgbot</code></strong> — In-database observability for PostgreSQL</summary>
 
 - **Version:** `1`
