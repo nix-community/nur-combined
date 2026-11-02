@@ -6,25 +6,25 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "0.37.2-beta",
+  "version": "0.37.3-beta",
   "platforms": {
     "x86_64-linux": {
-      "file": "opentubex_0.37.2_beta_amd64.deb",
+      "file": "opentubex_0.37.3_beta_amd64.deb",
       "query": "[0].assets.find(a => a.name.endsWith('_amd64.deb')).name",
-      "hash": "sha256-Zb23oHyYIHjmbJ0u8V3Tnu72xaaqoaRc9JmeTxZZBk8="
+      "hash": "sha256-pTgmS5CTiXQ9Iax/xyuQPHoLgJYPiQAFBHMjpETxfdA="
     },
     "aarch64-linux": {
-      "file": "opentubex_0.37.2_beta_arm64.deb",
+      "file": "opentubex_0.37.3_beta_arm64.deb",
       "query": "[0].assets.find(a => a.name.endsWith('_arm64.deb')).name",
-      "hash": "sha256-Du+dOiKVVmlv6O2Y4Z8tgniyL+v1wm1evpsI8WK9uXM="
+      "hash": "sha256-Fj5d7t5qsnnkcBMbz5j5Rd8MbDDA5Xbk65ApTeV2FEM="
     },
     "x86_64-darwin": {
       "file": "opentubex-{version}-mac-x64.zip",
-      "hash": "sha256-0UQ1kDTf3uPcURlhmeXNHCzn3PlvLj7XcwTlsF7jl60="
+      "hash": "sha256-osm/Dl0cDk58KodNSN3Tu3x/odDWDKxmmlkrMKd9Wn0="
     },
     "aarch64-darwin": {
       "file": "opentubex-{version}-mac-arm64.zip",
-      "hash": "sha256-7DyA7trdvniKMkRhQTQuYuMsFmW06zzWK5tDgHzuuRU="
+      "hash": "sha256-9J8LkUT8KQ6Hk/wTBM0z8ECtrx+sGyu8LGGk2E1IGG8="
     }
   }
 }

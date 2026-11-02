@@ -6,23 +6,23 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "0.16.0",
+  "version": "0.17.0",
   "platforms": {
     "aarch64-darwin": {
       "file": "lightcraft-{version}-macos-universal.dmg",
-      "hash": "sha256-j/Ghw9GphZVcvGVx0fuojjdUuwzM6IPoMtws0+c6UXU="
+      "hash": "sha256-ZWpNvjTtq+R49rocg49xjqZ+XKfGHBWRx74I3DYhoUs="
     },
     "x86_64-darwin": {
       "file": "lightcraft-{version}-macos-universal.dmg",
-      "hash": "sha256-j/Ghw9GphZVcvGVx0fuojjdUuwzM6IPoMtws0+c6UXU="
+      "hash": "sha256-ZWpNvjTtq+R49rocg49xjqZ+XKfGHBWRx74I3DYhoUs="
     },
     "x86_64-linux": {
       "file": "lightcraft-{version}-linux-x86_64.AppImage",
-      "hash": "sha256-DKHp5YUAjKbAAnFoq8bfJqGgyuiybXMYG7U+LOMuXXc="
+      "hash": "sha256-5ZKiepStIKCguu54k+ktkHnsQSSV+YepwIVLmewAshs="
     },
     "aarch64-linux": {
       "file": "lightcraft-{version}-linux-aarch64.AppImage",
-      "hash": "sha256-riDZm0MqJiO13KwPFyh/ojBwj1K6eNUVUdRKIOm6F3Q="
+      "hash": "sha256-w/Csop4S/Ge+PD/iInOaJRR5Xbklv/levF9FDjlQrt8="
     }
   }
 }

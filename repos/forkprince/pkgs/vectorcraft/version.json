@@ -6,23 +6,23 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "0.19.0",
+  "version": "0.20.0",
   "platforms": {
     "aarch64-darwin": {
       "file": "vectorcraft-{version}-macos-universal.dmg",
-      "hash": "sha256-YOA/hF0wUnP4j6MYkKZ3Y4F8GykcMD7wtSkBhJAvx30="
+      "hash": "sha256-kGH/OR3w1+SoQ/n7psLT/zos8RjT9M23LyQNvb7Dixg="
     },
     "x86_64-darwin": {
       "file": "vectorcraft-{version}-macos-universal.dmg",
-      "hash": "sha256-YOA/hF0wUnP4j6MYkKZ3Y4F8GykcMD7wtSkBhJAvx30="
+      "hash": "sha256-kGH/OR3w1+SoQ/n7psLT/zos8RjT9M23LyQNvb7Dixg="
     },
     "x86_64-linux": {
       "file": "vectorcraft-{version}-linux-x86_64.AppImage",
-      "hash": "sha256-GGlVS6/UKNs7No+kBbirSIsl0yTTgOdyvAsRi7rLNMU="
+      "hash": "sha256-tiW66AVY+V2Uuc0M50Ik0qgxgBBtqyYZVZVRyrIW6tQ="
     },
     "aarch64-linux": {
       "file": "vectorcraft-{version}-linux-aarch64.AppImage",
-      "hash": "sha256-W4NZOsH/rOlh3axqhYcGiC2+lq94UU+RyHpqLvkH4yc="
+      "hash": "sha256-onoHMnBSk/UJKtvk2uoZqWjFLYI/FN/gmQn1ISqtkJE="
     }
   }
 }

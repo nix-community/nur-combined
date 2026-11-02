@@ -5,15 +5,15 @@
     "repo": "rustdesk/rustdesk",
     "skip_prerelease": true
   },
-  "version": "1.5.0",
+  "version": "1.5.1",
   "platforms": {
     "aarch64-darwin": {
       "file": "rustdesk-{version}-aarch64.dmg",
-      "hash": "sha256-OSmwpDIefQ9WGjFwWXmL6ILWXezFloHrdwYfjv5W+/Q="
+      "hash": "sha256-G5QYLLojdeopoZbyyBg/f+qgBYhHTs12ySwjA//XDXs="
     },
     "x86_64-darwin": {
       "file": "rustdesk-{version}-x86_64.dmg",
-      "hash": "sha256-HKPL++fyvSi1DJP81Q1KC2cdx20YvifOqZ06ZXZ+tSY="
+      "hash": "sha256-RX5Fom0/CRkiHm2z37jGoSymUZAwe1OpB8PFG3YusAg="
     }
   }
 }
