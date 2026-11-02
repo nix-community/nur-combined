@@ -31,6 +31,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   patches = [
     # Use setpriv + script instead of runuser, which always opens a PAM session
     ./use-setpriv.patch
+    # Check RUN0EDIT_EDITOR before VISUAL and EDITOR
+    ./run0edit-editor-env.patch
   ];
 
   postPatch = ''

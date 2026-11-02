@@ -1,0 +1,37 @@
+--- a/docs/run0edit.1.md.in
++++ b/docs/run0edit.1.md.in
+@@ -59,11 +59,12 @@
+ 
+ # ENVIRONMENT
+ 
+-**VISUAL**, **EDITOR**
++**RUN0EDIT_EDITOR**, **VISUAL**, **EDITOR**
+ : These environment variables are read for the default text editor if the
+   **--editor** argument is not used and there is no editor configured in
+   **editor.conf** (see **FILES** section below).
+-: **VISUAL** has higher priority than **EDITOR**.
++: **RUN0EDIT_EDITOR** has the highest priority, followed by **VISUAL**, then
++  **EDITOR**.
+ 
+ # FILES
+ 
+--- a/run0edit_main.py
++++ b/run0edit_main.py
+@@ -156,7 +156,7 @@
+ 
+ def get_editor_path_from_env() -> str | None:
+     """Get path to editor executable from environment variables."""
+-    for env_var in ("VISUAL", "EDITOR"):
++    for env_var in ("RUN0EDIT_EDITOR", "VISUAL", "EDITOR"):
+         editor = os.environ.get(env_var)
+         if editor is None:
+             continue
+@@ -426,7 +426,7 @@
+     description = "run0edit allows a permitted user to edit a file as root."
+     epilog = f"""\
+     The default choice of text editor may be configured at {DEFAULT_CONF_PATH},
+-    or by setting the VISUAL or EDITOR environment variables.
++    or by setting the RUN0EDIT_EDITOR, VISUAL, or EDITOR environment variables.
+     """
+     parser = argparse.ArgumentParser(prog="run0edit", description=description, epilog=epilog)
+     parser.add_argument("-v", "--version", action="version", version=f"run0edit {__version__}")
