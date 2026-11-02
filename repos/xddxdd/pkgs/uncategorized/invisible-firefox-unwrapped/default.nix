@@ -16,7 +16,7 @@ let
         src = fetchFromGitHub {
           owner = "feder-cr";
           repo = "invisible-firefox";
-          tag = "firefox-54";
+          tag = "firefox-26";
           hash = "sha256-ndT88hFxE4I8JFrOKxmSE72NNDyGw5wdZqGhi4zJTuo=";
         };
 

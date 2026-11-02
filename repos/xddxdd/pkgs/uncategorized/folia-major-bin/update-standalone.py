@@ -1,18 +1,26 @@
 #!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p python3 nix
+#!nix-shell -i python3 -p python3 nix git
 import json
 import pathlib
+import re
 import subprocess
-import urllib.request
-import xml.etree.ElementTree as ET
 
 path = pathlib.Path(__file__).with_name("sources.json")
 sources = json.loads(path.read_text())
-with urllib.request.urlopen(
-    "https://github.com/chthollyphile/folia-major/releases.atom"
-) as response:
-    entry = ET.parse(response).find("{http://www.w3.org/2005/Atom}entry")
-tag = entry.find("{http://www.w3.org/2005/Atom}link").attrib["href"].rsplit("/", 1)[1]
+tags = subprocess.check_output(
+    [
+        "git",
+        "ls-remote",
+        "--tags",
+        "--refs",
+        "https://github.com/chthollyphile/folia-major",
+    ],
+    text=True,
+)
+tag = max(
+    re.findall(r"refs/tags/(v[0-9]+\.[0-9]+\.[0-9]+)$", tags, re.MULTILINE),
+    key=lambda tag: tuple(map(int, tag[1:].split("."))),
+)
 version = tag.removeprefix("v")
 for system, arch in {"aarch64-linux": "arm64", "x86_64-linux": "x64"}.items():
     url = (
