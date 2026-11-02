@@ -16,13 +16,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "shimelinux";
-  version = "1.4.2";
+  version = "1.4.3";
 
   src = fetchFromGitHub {
     owner = "BujjuIsABee";
     repo = "shimelinux";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-rZqFDsbHL5PU3J1aLYvkLqXD4lnqoghvnb3xd7z4zUc=";
+    hash = "sha256-rh6pdFaZKSbnSB7sXCS4cREwDUCn6DRZBH3Tc69ySqU=";
   };
 
   nativeBuildInputs = [
@@ -47,7 +47,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     src = "${finalAttrs.src}/shimelinux_wayland";
-    hash = "sha256-sBZyxekvNfyAG6GRaZgso9ez9Ajb7lc+HIS74F7He88=";
+    hash = "sha256-9ZfQ3tZzafGuEWgJ/xFnFCiprLp3r0J77VkmrPEurI4=";
   };
 
   cargoRoot = "shimelinux_wayland";
