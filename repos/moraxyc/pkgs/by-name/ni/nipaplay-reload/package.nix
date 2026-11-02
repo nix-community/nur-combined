@@ -16,9 +16,13 @@ callPackage (if isDarwin then ./darwin.nix else ./linux.nix) {
 
   meta = {
     description = "Modern, cross-platform local video player that supports bullet comments and multiple subtitle formats.";
-    homepage = "https://github.com/MCDFsteve/NipaPlay-Reload";
+    homepage = "https://github.com/AimesSoft/NipaPlay-Reload";
     license = lib.licenses.mit;
-    platforms = [ "x86_64-linux" ] ++ lib.platforms.darwin;
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ]
+    ++ lib.platforms.darwin;
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     maintainers = with lib.maintainers; [ moraxyc ];
     mainProgram = "nipaplay-reload";

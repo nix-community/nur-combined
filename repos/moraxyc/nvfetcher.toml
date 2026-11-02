@@ -202,15 +202,20 @@ extract = ["package-lock.json", "package.json"]
 src.github = "hamster1963/nezha-dash-v2"
 fetch.github = "hamster1963/nezha-dash-v2"
 
-[nipaplay-reload-darwin]
-src.github = "MCDFsteve/NipaPlay-Reload"
+[nipaplay-reload-aarch64-linux]
+src.github = "AimesSoft/NipaPlay-Reload"
 src.prefix = "v"
-fetch.url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v$ver/NipaPlay_$ver_macOS_Universal.dmg"
+fetch.url = "https://github.com/AimesSoft/NipaPlay-Reload/releases/download/v$ver/NipaPlay-$ver-Linux-arm64.tar.gz"
+
+[nipaplay-reload-darwin]
+src.github = "AimesSoft/NipaPlay-Reload"
+src.prefix = "v"
+fetch.url = "https://github.com/AimesSoft/NipaPlay-Reload/releases/download/v$ver/NipaPlay_$ver_macOS_Universal.dmg"
 
 [nipaplay-reload-x86_64-linux]
-src.github = "MCDFsteve/NipaPlay-Reload"
+src.github = "AimesSoft/NipaPlay-Reload"
 src.prefix = "v"
-fetch.url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v$ver/NipaPlay-$ver-Linux-amd64.AppImage"
+fetch.url = "https://github.com/AimesSoft/NipaPlay-Reload/releases/download/v$ver/NipaPlay-$ver-Linux-amd64.tar.gz"
 
 [nyanpasu-service]
 src.git = "https://github.com/libnyanpasu/nyanpasu-service.git"

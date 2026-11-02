@@ -550,16 +550,24 @@
     pname = "nipaplay-reload-darwin";
     version = "1.11.11";
     src = fetchurl {
-      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.11.11/NipaPlay_1.11.11_macOS_Universal.dmg";
+      url = "https://github.com/AimesSoft/NipaPlay-Reload/releases/download/v1.11.11/NipaPlay_1.11.11_macOS_Universal.dmg";
       sha256 = "sha256-Zn4oqfD3JwJBeHVjBIA63/vPPnowgi1x5x0clxDAOvU=";
+    };
+  };
+  nipaplay-reload-aarch64-linux = {
+    pname = "nipaplay-reload-aarch64-linux";
+    version = "1.11.11";
+    src = fetchurl {
+      url = "https://github.com/AimesSoft/NipaPlay-Reload/releases/download/v1.11.11/NipaPlay-1.11.11-Linux-arm64.tar.gz";
+      sha256 = "sha256-4dtNBkwx7pvrrY3+GskGbxKFL2RERu686eSe63qthBI=";
     };
   };
   nipaplay-reload-x86_64-linux = {
     pname = "nipaplay-reload-x86_64-linux";
     version = "1.11.11";
     src = fetchurl {
-      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.11.11/NipaPlay-1.11.11-Linux-amd64.AppImage";
-      sha256 = "sha256-6EXijEStV2MQiv0/VJEVgJuHc+KxUkABZ75Vq+X6Hcg=";
+      url = "https://github.com/AimesSoft/NipaPlay-Reload/releases/download/v1.11.11/NipaPlay-1.11.11-Linux-amd64.tar.gz";
+      sha256 = "sha256-IrK6nNmC2zX4iRaCkK4czFuxlzGtw/UihHqZQx4GIkY=";
     };
   };
   nyanpasu-service = {

@@ -930,6 +930,21 @@
         },
         "version": "v2.7.0"
     },
+    "nipaplay-reload-aarch64-linux": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "nipaplay-reload-aarch64-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-4dtNBkwx7pvrrY3+GskGbxKFL2RERu686eSe63qthBI=",
+            "type": "url",
+            "url": "https://github.com/AimesSoft/NipaPlay-Reload/releases/download/v1.11.11/NipaPlay-1.11.11-Linux-arm64.tar.gz"
+        },
+        "version": "1.11.11"
+    },
     "nipaplay-reload-darwin": {
         "cargoLock": null,
         "date": null,
@@ -941,7 +956,7 @@
             "name": null,
             "sha256": "sha256-Zn4oqfD3JwJBeHVjBIA63/vPPnowgi1x5x0clxDAOvU=",
             "type": "url",
-            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.11.11/NipaPlay_1.11.11_macOS_Universal.dmg"
+            "url": "https://github.com/AimesSoft/NipaPlay-Reload/releases/download/v1.11.11/NipaPlay_1.11.11_macOS_Universal.dmg"
         },
         "version": "1.11.11"
     },
@@ -954,9 +969,9 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-6EXijEStV2MQiv0/VJEVgJuHc+KxUkABZ75Vq+X6Hcg=",
+            "sha256": "sha256-IrK6nNmC2zX4iRaCkK4czFuxlzGtw/UihHqZQx4GIkY=",
             "type": "url",
-            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.11.11/NipaPlay-1.11.11-Linux-amd64.AppImage"
+            "url": "https://github.com/AimesSoft/NipaPlay-Reload/releases/download/v1.11.11/NipaPlay-1.11.11-Linux-amd64.tar.gz"
         },
         "version": "1.11.11"
     },
