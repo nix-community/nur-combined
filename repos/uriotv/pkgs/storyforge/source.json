@@ -1,7 +1,7 @@
 {
-  "version": "2.0.10",
-  "rev": "5e55d3871a71dfdf95bbe1ea6a4f2f8c9b28bd50",
+  "version": "2.0.11",
+  "rev": "fd5aec2c49a460cf16bf7597e53a9cc37cf57115",
   "mode": "release",
-  "releaseTag": "storyforge-v2.0.10",
-  "hash": "sha256-/afu56SELoPmh2+tW8r9WUw4dblb0KOqa7Ifzeh8mIQ="
+  "releaseTag": "storyforge-v2.0.11",
+  "hash": "sha256-lhCNMutBBrg2xFUhFgCspp32pcaawSHE3z4AnPFxYs8="
 }
