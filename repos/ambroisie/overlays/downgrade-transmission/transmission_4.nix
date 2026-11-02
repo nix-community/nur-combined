@@ -11,7 +11,6 @@
 , inotify-tools
 , systemd
 , zlib
-, pcre
 , libb64
 , libutp
 , libdeflate
@@ -51,7 +50,6 @@ let
       libpsl
       miniupnpc
       openssl
-      pcre
       zlib
     ]
     ++ optionals enableSystemd [ systemd ]
@@ -147,7 +145,6 @@ stdenv.mkDerivation (finalAttrs: {
     libutp
     miniupnpc
     openssl
-    pcre
     utf8cpp
     zlib
   ]
