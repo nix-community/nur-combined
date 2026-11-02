@@ -55,6 +55,8 @@ jobs:
     name: "Work"
     if: github.event_name == 'schedule' || inputs.worker
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
     concurrency:
       group: ciborg-turbo-${{ inputs.slot || 0 }}
       cancel-in-progress: false
@@ -66,6 +68,7 @@ jobs:
       env:
         MISE_CI_TOKEN: ${{ secrets.MISE_CI_TOKEN }}
         MISE_CI_CALLBACK: ${{ secrets.MISE_CI_CALLBACK }}
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         version=$(curl -fsSL "$MISE_CI_CALLBACK/version.txt" | sed 's;\([^-]*\).*;\1;')
         image="ghcr.io/lewtec/ciborg:$version"
@@ -83,6 +86,9 @@ jobs:
         done
 
         sudo journalctl -f -u "miseci-*" &
+
+        # Still running after 5h: start the next run for this slot before the 6h limit.
+        (sleep 5h && gh workflow run ciborg-turbo.yml -R "${{ github.repository }}" -f worker=true -f slot="${{ inputs.slot || 0 }}") &
 
         echo "Workers started. Waiting for them to finish (they stop on error)..."
         while true; do
