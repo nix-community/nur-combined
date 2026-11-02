@@ -20,16 +20,22 @@ let
 
   # nixpkgs already does it
   upstream = lib.functionArgs prev.gcc.cc.override ? enableDefaultStaticPie;
+
+  # musl's static PIE startup only applies relative relocations, but exported thread-local
+  # variables get TPOFF relocations, so don't export anything (-Wl,--export-dynamic)
+  noExport = lib.optionalString target.isMusl " -Wl,--no-export-dynamic";
+
+  # static -> static-pie, skipped if -r or -shared or -no-pie are set
+  specs =
+    "%{!r:%{!shared:%{!no-pie:%{static:%<static -static-pie${noExport}}}}}"
+    + lib.optionalString (noExport != "") " %{static-pie:${noExport}}";
 in
 {
   gcc =
     if target.isStatic && canReloc && !upstream then
       prev.gcc.override {
         cc = (prev.gcc.cc.override { enableDefaultPie = true; }).overrideAttrs (old: {
-          configureFlags = old.configureFlags ++ [
-            # static -> static-pie, skipped if -r or -shared or -no-pie are set
-            "--with-specs=%{!r:%{!shared:%{!no-pie:%{static:%<static -static-pie}}}}"
-          ];
+          configureFlags = old.configureFlags ++ [ "--with-specs=${specs}" ];
         });
       }
     else

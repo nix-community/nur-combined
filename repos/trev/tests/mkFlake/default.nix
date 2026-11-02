@@ -117,16 +117,50 @@ in
   mkFlake-static-pie =
     let
       hello = packages.hello.x86_64-unknown-linux-musl;
+      # a thread-local variable used by another file and exported, like jemalloc in duckdb's unittest
+      exportedTls = hello.stdenv.mkDerivation {
+        name = "exported-tls";
+        dontUnpack = true;
+        buildPhase = ''
+          echo '__thread long counter;' > counter.c
+          cat > main.c <<'EOF'
+          #include <pthread.h>
+          #include <stdio.h>
+          extern __thread long counter;
+          static void *run(void *arg) { return arg; }
+          int main(void) {
+            pthread_t thread;
+            counter = 1000;
+            if (pthread_create(&thread, 0, run, 0)) return 1;
+            pthread_join(thread, 0);
+            printf("%ld\n", counter);
+            return 0;
+          }
+          EOF
+          $CC -c counter.c main.c
+          $CC -static -Wl,--export-dynamic counter.o main.o -o exported-tls
+        '';
+        installPhase = ''
+          install -Dm755 exported-tls -t $out/bin
+        '';
+      };
     in
     pkgs.runCommand "mkFlake-static-pie" { nativeBuildInputs = [ pkgs.binutils ]; } ''
       test "$(${hello}/bin/hello)" = "Hello, world!"
+      test "$(${exportedTls}/bin/exported-tls)" = 1000
 
-      # the ELF type, 3 for position-independent executables
-      test "$(od -An -tu1 -j16 -N1 ${hello}/bin/hello | tr -d ' ')" = 3
+      for bin in ${hello}/bin/hello ${exportedTls}/bin/exported-tls; do
+        # the ELF type, 3 for position-independent executables
+        test "$(od -An -tu1 -j16 -N1 "$bin" | tr -d ' ')" = 3
 
-      # static PIE binaries don't have an interpreter
-      headers=$(readelf -lW ${hello}/bin/hello)
-      [[ $headers != *INTERP* ]]
+        # static PIE binaries don't have an interpreter
+        headers=$(readelf -lW "$bin")
+        [[ $headers != *INTERP* ]]
+
+        # musl's static PIE startup doesn't apply TPOFF relocations
+        relocations=$(readelf -rW "$bin")
+        [[ $relocations != *TPOFF* ]]
+      done
       touch $out
     '';
 

@@ -723,7 +723,7 @@ Python packages are added to every python package set (e.g. `pkgs.python3Package
 
 ### static-pie
 
-Makes gcc link static executables (e.g. `pkgsStatic`) as static PIE for ASLR, until [NixOS/nixpkgs#515233](https://github.com/NixOS/nixpkgs/pull/515233) lands. This rebuilds the static gcc, so static packages are no longer cached by cache.nixos.org.
+Makes gcc link static executables (e.g. `pkgsStatic`) as static PIE for ASLR, until [NixOS/nixpkgs#515233](https://github.com/NixOS/nixpkgs/pull/515233) lands. This rebuilds the static gcc, so static packages are no longer cached by cache.nixos.org. On musl, static PIE executables don't export symbols (`-Wl,--export-dynamic`), as musl can't relocate exported thread-local variables.
 
 ```nix
 import nixpkgs {
