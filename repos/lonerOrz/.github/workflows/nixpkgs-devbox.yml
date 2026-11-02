@@ -54,6 +54,14 @@ jobs:
           git config user.name "${GIT_USER_NAME:-$GITHUB_ACTOR}"
           git config user.email "${GIT_USER_EMAIL:-$GITHUB_ACTOR@users.noreply.github.com}"
 
+      - name: Install tmate
+        run: |
+          if [[ "$RUNNER_OS" == "macOS" ]]; then
+            brew install tmate
+          else
+            sudo apt-get update && sudo apt-get install -y tmate
+          fi
+
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
         with:
