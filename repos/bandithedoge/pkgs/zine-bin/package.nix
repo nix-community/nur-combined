@@ -5,23 +5,23 @@
   writeScript,
 }:
 let
-  version = "0.14.0";
+  version = "0.14.1";
   sources = {
     aarch64-darwin = fetchzip {
       url = "https://github.com/kristoff-it/zine/releases/download/v${version}/aarch64-macos.zip";
-      hash = "sha256-y+9jE8KdjdcNpU+etSx8InF1rjILc9dbhLLknSVU4I4=";
+      hash = "sha256-JPameR10TWLp/1ZrvSkHR0kP/vwSHXrkz57buTH97zU=";
     };
     aarch64-linux = fetchzip {
       url = "https://github.com/kristoff-it/zine/releases/download/v${version}/aarch64-linux-musl.tar.xz";
-      hash = "sha256-Bw90giM9Mjm9hOG6GcIW1QV5k4/sERVFjEOqHM0V7Zk=";
+      hash = "sha256-TUSuYs/1X0vQztpc3QVOSumCftR7YTFfxtmv0apWEsg=";
     };
     x86_64-darwin = fetchzip {
       url = "https://github.com/kristoff-it/zine/releases/download/v${version}/x86_64-macos.zip";
-      hash = "sha256-wP7YcoKV/bFZLNmPKBGGBJdsA3wdn6UMcIWZvf6JlMM=";
+      hash = "sha256-30DvdXxvtYE1ENJOFJR2qaMb8arsXnbEtlV94qfipcM=";
     };
     x86_64-linux = fetchzip {
       url = "https://github.com/kristoff-it/zine/releases/download/v${version}/x86_64-linux-musl.tar.xz";
-      hash = "sha256-Te+rT1mgHYhOeP89AhAcb+mKnA4AklnwsNRwNgX5lAo=";
+      hash = "sha256-v5YZnJWFt8y0vw7yhDBtlZiGokp3EiQV3z/f5MCresI=";
     };
   };
 in
