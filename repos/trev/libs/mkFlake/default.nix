@@ -90,6 +90,7 @@ let
     overlays.images
     overlays.libs
     overlays.trev
+    overlays.static-pie
   ];
 
   nixpkgsConfig = {

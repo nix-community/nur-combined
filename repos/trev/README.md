@@ -396,7 +396,7 @@ nix bundle --bundler github:spotdemo4/trevpkgs#deno-x86_64-linux
 
 Utility function to simplify creating flakes.
 
-- Imports nixpkgs and adds all the [overlays](#overlays)
+- Imports nixpkgs and adds all the [overlays](#overlays), including [static-pie](#static-pie)
 - Inserts system attributes where necessary (like [flake-utils.lib.eachDefaultSystem](https://github.com/numtide/flake-utils))
 - Creates cross-compiled sub-derivations for `packages`, `images` and `appimages`
 
@@ -720,6 +720,16 @@ import nixpkgs {
 ```
 
 Python packages are added to every python package set (e.g. `pkgs.python3Packages.modal`), BEAM packages to `pkgs.beamPackages` and images to `pkgs.image`.
+
+### static-pie
+
+Makes gcc link static executables (e.g. `pkgsStatic`) as static PIE for ASLR, until [NixOS/nixpkgs#515233](https://github.com/NixOS/nixpkgs/pull/515233) lands. This rebuilds the static gcc, so static packages are no longer cached by cache.nixos.org.
+
+```nix
+import nixpkgs {
+  overlays = [ trev.overlays.static-pie ];
+}
+```
 
 ### trev
 

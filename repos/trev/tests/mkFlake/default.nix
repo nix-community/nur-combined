@@ -114,6 +114,22 @@ in
       touch $out
     '';
 
+  mkFlake-static-pie =
+    let
+      hello = packages.hello.x86_64-unknown-linux-musl;
+    in
+    pkgs.runCommand "mkFlake-static-pie" { nativeBuildInputs = [ pkgs.binutils ]; } ''
+      test "$(${hello}/bin/hello)" = "Hello, world!"
+
+      # the ELF type, 3 for position-independent executables
+      test "$(od -An -tu1 -j16 -N1 ${hello}/bin/hello | tr -d ' ')" = 3
+
+      # static PIE binaries don't have an interpreter
+      headers=$(readelf -lW ${hello}/bin/hello)
+      [[ $headers != *INTERP* ]]
+      touch $out
+    '';
+
   mkFlake-darwin-structure =
     assert builtins.hasAttr target packages.hello;
     pkgs.runCommand "mkFlake-darwin-structure" { } ''
