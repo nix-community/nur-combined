@@ -3,14 +3,14 @@
     "type": "github",
     "repo": "clash-verge-rev/clash-verge-rev"
   },
-  "version": "2.5.8",
+  "version": "2.5.9",
   "url": "https://github.com/clash-verge-rev/clash-verge-rev/releases/download/v{version}/Clash.Verge_{version}_{arch}.dmg",
   "arch": {
     "aarch64-darwin": "aarch64",
     "x86_64-darwin": "x64"
   },
   "hash": {
-    "aarch64-darwin": "sha256-H3w6c5cPED/Dy5lEdEdy+hVAFg8FkR4DP/xX98n4YOw=",
-    "x86_64-darwin": "sha256-jN96AaHFSKCBM5r/IbJZnWD2dzDQVIXpCDH0u9vzsJM="
+    "aarch64-darwin": "sha256-PEh98wVGvL7lg2Pt2i3wwi+ZAKfASAf7jDlFqNd9FDY=",
+    "x86_64-darwin": "sha256-Kt/kc2mQaCQMmFUGa2EgfDYvWjpk+RoLeZQmZL29XOY="
   }
 }
