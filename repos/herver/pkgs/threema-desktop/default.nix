@@ -12,7 +12,7 @@
 let
   # Upstream releases are named e.g. `2.0~publicbeta66`; `~` is not a legal
   # character in a Nix store path, hence the substitution.
-  version = "2.0-publicbeta66";
+  version = "2.0-publicbeta67";
   pname = "threema-desktop";
 
   # Threema only ships the desktop beta for Linux as a Flatpak, self-hosting the
@@ -21,7 +21,7 @@ let
   # are provided by nixpkgs below.
   flatpakRepo = "https://releases.threema.ch/flatpak/threema-desktop/";
   flatpakRef = "app/ch.threema.threema-desktop/x86_64/master";
-  flatpakCommit = "83b2f4278cf5cca19ef57b2d399363f0af1fd45d990fac2406eb1a9f302f19f9";
+  flatpakCommit = "c3a69bd8276387610ea70263fc1a97cf7b3ec44f1ea8ff26df9ec8e68e4b51e5";
 
   src = stdenv.mkDerivation {
     pname = "${pname}-flatpak";
@@ -35,7 +35,7 @@ let
     # OSTree is content-addressed and checkouts are reproducible, so pinning the
     # resulting tree keeps the build verifiable and offline-capable.
     outputHashMode = "recursive";
-    outputHash = "sha256-FVHbQky84FrAQcRjlZEIEsFmCHOx5o60mJv+T5u230Q=";
+    outputHash = "sha256-HBR+RfkDlVi1EDHtbYe9HuB33o1cxRAiG/4WB/qfLt0=";
 
     dontUnpack = true;
     buildCommand = ''
