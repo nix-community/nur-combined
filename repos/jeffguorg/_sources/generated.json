@@ -452,11 +452,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-YoNeUazA8H0ZST2nNrchXTIk/VCZdUt+QsOw/cLrf0U=",
+            "sha256": "sha256-3IbGf/ZkGEA9z2KmK/gSn66PJOUKG0CZcWyNNpFP4gQ=",
             "type": "url",
-            "url": "https://github.com/can1357/oh-my-pi/releases/download/v18.14.2/omp-darwin-x64"
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v18.15.0/omp-darwin-x64"
         },
-        "version": "v18.14.2"
+        "version": "v18.15.0"
     },
     "oh-my-pi-bin-amd64-linux": {
         "cargoLock": null,
@@ -467,11 +467,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-zeC8SsjsMzxIgAOaUkL/M9v8ZUR0fWeuuZuwd4dK7sE=",
+            "sha256": "sha256-ZzfuJBVVWjZWzHuJwU0cJcGGWO5MD9T3MJcFFJzLew8=",
             "type": "url",
-            "url": "https://github.com/can1357/oh-my-pi/releases/download/v18.14.2/omp-linux-x64"
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v18.15.0/omp-linux-x64"
         },
-        "version": "v18.14.2"
+        "version": "v18.15.0"
     },
     "oh-my-pi-bin-arm64-darwin": {
         "cargoLock": null,
@@ -482,11 +482,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-m3vaC9jsjR/Y+N7aB2GA3u8tSSHuYOfS85BE7n2UN+4=",
+            "sha256": "sha256-0236vw7lLW8I7621nEbwNJVFxvaXVSJBetrilkbnPjQ=",
             "type": "url",
-            "url": "https://github.com/can1357/oh-my-pi/releases/download/v18.14.2/omp-darwin-arm64"
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v18.15.0/omp-darwin-arm64"
         },
-        "version": "v18.14.2"
+        "version": "v18.15.0"
     },
     "oh-my-pi-bin-arm64-linux": {
         "cargoLock": null,
@@ -497,11 +497,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-r73wS+PdvjSgfpHJE9220zWjoCEPUgrFoZeiRYiK1j4=",
+            "sha256": "sha256-bX1lAwulYtc8sGh7lxDgrFl7NioYXRkR57IRcG2t1Kw=",
             "type": "url",
-            "url": "https://github.com/can1357/oh-my-pi/releases/download/v18.14.2/omp-linux-arm64"
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v18.15.0/omp-linux-arm64"
         },
-        "version": "v18.14.2"
+        "version": "v18.15.0"
     },
     "pi-agent": {
         "cargoLock": null,
@@ -512,11 +512,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-0VXBbvb6AJYPv1iykRU26AsF8zcA4LFPvQiWft4MdCg=",
+            "sha256": "sha256-W/tmhIpMS4HGN86NITa+AZRbcKrI6FVrCRywIkGzhd8=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@earendil-works/pi-coding-agent/-/pi-coding-agent-1.4.0.tgz"
+            "url": "https://registry.npmjs.org/@earendil-works/pi-coding-agent/-/pi-coding-agent-1.5.0.tgz"
         },
-        "version": "1.4.0"
+        "version": "1.5.0"
     },
     "pi-agent-bin-amd64-darwin": {
         "cargoLock": null,
@@ -527,11 +527,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-G978nhB0wd5Fjqny5D5gE85JzQUyYAmz3hRANwNlheI=",
+            "sha256": "sha256-9BsmzZoXVKviWeBaQh+zOwCTZ3nLB4PIk6Y4nRvS7g0=",
             "type": "url",
-            "url": "https://github.com/earendil-works/pi/releases/download/v1.4.0/pi-darwin-x64.tar.gz"
+            "url": "https://github.com/earendil-works/pi/releases/download/v1.5.0/pi-darwin-x64.tar.gz"
         },
-        "version": "v1.4.0"
+        "version": "v1.5.0"
     },
     "pi-agent-bin-amd64-linux": {
         "cargoLock": null,
@@ -542,11 +542,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-8uTkMpYDIj0DJgzbi9UDPb3B9zuliriTnbLlZUbhFdI=",
+            "sha256": "sha256-34cLoONEy3szWNjY8ZOXuLjSJahml4RzataKXCFp1Ts=",
             "type": "url",
-            "url": "https://github.com/earendil-works/pi/releases/download/v1.4.0/pi-linux-x64.tar.gz"
+            "url": "https://github.com/earendil-works/pi/releases/download/v1.5.0/pi-linux-x64.tar.gz"
         },
-        "version": "v1.4.0"
+        "version": "v1.5.0"
     },
     "pi-agent-bin-arm64-darwin": {
         "cargoLock": null,
@@ -557,11 +557,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-edmXnXaipa23wo4n6bRGKZKMzQ3J+7aucheGC9Xovl0=",
+            "sha256": "sha256-qb8NgtWNKn0zf0rkFxtfyev/5CUJUnqDE2TEtlrfLN8=",
             "type": "url",
-            "url": "https://github.com/earendil-works/pi/releases/download/v1.4.0/pi-darwin-arm64.tar.gz"
+            "url": "https://github.com/earendil-works/pi/releases/download/v1.5.0/pi-darwin-arm64.tar.gz"
         },
-        "version": "v1.4.0"
+        "version": "v1.5.0"
     },
     "pi-agent-bin-arm64-linux": {
         "cargoLock": null,
@@ -572,11 +572,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-+lgpx++D/+rrugFXFcgwYiD4myqooAFU77upjdVEAVY=",
+            "sha256": "sha256-XVcRtIYAdWRzaC6GNgsCaxGr91keXREutBHU2iwQDZo=",
             "type": "url",
-            "url": "https://github.com/earendil-works/pi/releases/download/v1.4.0/pi-linux-arm64.tar.gz"
+            "url": "https://github.com/earendil-works/pi/releases/download/v1.5.0/pi-linux-arm64.tar.gz"
         },
-        "version": "v1.4.0"
+        "version": "v1.5.0"
     },
     "pi-agent-git": {
         "cargoLock": null,
@@ -587,11 +587,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ErFKXYEuBJoLIkSeJYnudkfDHwD5O7l9jSWv8OcZINo=",
+            "sha256": "sha256-V3rOZipGYybRpLQfgTV5rrWVdnnnlsV3uuZYIPrqXZo=",
             "type": "url",
-            "url": "https://github.com/earendil-works/pi/releases/download/v1.4.0/pi-1.4.0-source.tar.gz"
+            "url": "https://github.com/earendil-works/pi/releases/download/v1.5.0/pi-1.5.0-source.tar.gz"
         },
-        "version": "1.4.0"
+        "version": "1.5.0"
     },
     "vagrant-vmware-utility": {
         "cargoLock": null,
