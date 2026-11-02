@@ -20,8 +20,11 @@ for index in "${!packages[@]}"; do
     git checkout -B "update/${system}/${package}"
 
     if ! eval "${command}"; then
+        # discard the failed update so it doesn't leak into the next one
+        git checkout --force main
+
         echo "::endgroup::"
-        echo "Failed to update ${package}!"
+        echo "::warning title=Update failed::Failed to update ${package} on ${system}"
         continue
     fi
 

@@ -99,7 +99,7 @@ stdenv.mkDerivation (finalAttrs: {
       "--commit"
       "--version=branch=master"
       # the fork's tags are upstream's, prefixed with v
-      "--version-regex=v(.*)"
+      "--version-regex='v(.*)'"
       finalAttrs.pname
     ];
   };
