@@ -1,0 +1,87 @@
+diff -ur virt-manager-2.2.1.orig/setup.py virt-manager-2.2.1/setup.py
+--- virt-manager-2.2.1.orig/setup.py	2019-07-02 23:13:28.000000000 +0300
++++ virt-manager-2.2.1/setup.py	2026-11-02 15:00:21.389926788 +0300
+@@ -11,6 +11,7 @@
+ 
+ import glob
+ import fnmatch
++import importlib.util
+ import os
+ import unittest
+ 
+@@ -32,18 +33,14 @@
+     # A bit of crazyness to import the buildconfig file without importing
+     # the rest of virtinst, so the build process doesn't require all the
+     # runtime deps to be installed
+-    import warnings
+-
+-    # 'imp' is deprecated. We use it elsewhere though too. Deal with using
+-    # the modern replacement when we replace all usage
+-    with warnings.catch_warnings():
+-        warnings.filterwarnings("ignore", category=DeprecationWarning)
+-        import imp
+-        buildconfig = imp.load_source('buildconfig', 'virtinst/buildconfig.py')
+-        if "libvirt" in sys.modules:
+-            raise RuntimeError("Found libvirt in sys.modules. setup.py should "
+-                    "not import virtinst.")
+-        return buildconfig.BuildConfig
++    spec = importlib.util.spec_from_file_location(
++            'buildconfig', 'virtinst/buildconfig.py')
++    buildconfig = importlib.util.module_from_spec(spec)
++    spec.loader.exec_module(buildconfig)
++    if "libvirt" in sys.modules:
++        raise RuntimeError("Found libvirt in sys.modules. setup.py should "
++                "not import virtinst.")
++    return buildconfig.BuildConfig
+ 
+ 
+ BuildConfig = _import_buildconfig()
+diff -ur virt-manager-2.2.1.orig/tests/__init__.py virt-manager-2.2.1/tests/__init__.py
+--- virt-manager-2.2.1.orig/tests/__init__.py	2019-07-02 23:13:28.000000000 +0300
++++ virt-manager-2.2.1/tests/__init__.py	2026-11-02 14:59:47.969543800 +0300
+@@ -4,7 +4,9 @@
+ # See the COPYING file in the top-level directory.
+ 
+ import atexit
+-import imp
++import importlib
++import importlib.util
++import importlib.machinery
+ import os
+ 
+ # Need to do this before any tests or virtinst import
+@@ -16,7 +18,7 @@
+ from virtinst import buildconfig
+ from virtinst import log
+ # This sets all the cli bits back to their defaults
+-imp.reload(buildconfig)
++importlib.reload(buildconfig)
+ 
+ from tests import utils
+ 
+@@ -41,6 +43,16 @@
+         rootLogger.setLevel(logging.ERROR)
+ 
+ 
++def _load_source(modname, filename):
++    """Replacement for obsolete imp.load_source(modname, filename)."""
++    loader = importlib.machinery.SourceFileLoader(modname, filename)
++    spec = importlib.util.spec_from_file_location(modname, filename, loader=loader)
++    module = importlib.util.module_from_spec(spec)
++    sys.modules[module.__name__] = module
++    loader.exec_module(module)
++    return module
++
++
+ def setup_cli_imports():
+     _cleanup_imports = []
+ 
+@@ -51,7 +63,7 @@
+ 
+     def _import(name, path):
+         _cleanup_imports.append(path + "c")
+-        return imp.load_source(name, path)
++        return _load_source(name, path)
+ 
+     global virtinstall
+     global virtclone

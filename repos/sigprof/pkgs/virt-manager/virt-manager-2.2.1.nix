@@ -38,7 +38,7 @@ with lib;
 
     # Since NixOS/nixpkgs#421660 the following options are required:
     pyproject = true;
-    build-system = with python3Packages; [setuptools];
+    build-system = with python3Packages; [distutils setuptools];
 
     nativeBuildInputs = [
       intltool
@@ -76,6 +76,9 @@ with lib;
         url = "https://github.com/virt-manager/virt-manager/commit/46dc0616308a73d1ce3ccc6d716cf8bbcaac6474.patch";
         sha256 = "sha256-/RZG+7Pmd7rmxMZf8Fvg09dUggs2MqXZahfRQ5cLcuM=";
       })
+      # https://github.com/virt-manager/virt-manager/commit/758eb74ba3b687b6ed7e0af76865d6add8d96d06
+      # backported with significant adjustments due to more imp-using code
+      ./virt-manager-2.2.1-replace-imp-with-importlib.patch
     ];
 
     postPatch = ''
