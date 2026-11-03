@@ -478,7 +478,7 @@
   "protocolVersion": 26,
   "sourceHashes": {
     "native/protocol/src/daemon_config.rs": "2a0540a6f3aeaba33a5eb313758def858a06cf4e3841e272d24a1a26a2ff565a",
-    "native/protocol/src/rpc.rs": "471fda2457fd730759cbf48cc318ad187e67cb70470bc3f5abc5caf79a25dad1"
+    "native/protocol/src/rpc.rs": "af4dfb9e7a0fbb55dbafb024d5ba4ff3b54689268a854788e114375107c0ef40"
   },
-  "version": "0.6.5"
+  "version": "0.6.6"
 }
