@@ -5,7 +5,7 @@
 }:
 mkZoteroAddon rec {
     pname = "ZotLit";
-    version = "2.2.0";
+    version = "2.2.1";
 
     src = fetchurl {
         url = "https://github.com/aidenlx/zotlit/releases/download/zt-${version}/zotlit-zotero-${version}.xpi";
