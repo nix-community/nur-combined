@@ -4,11 +4,8 @@
 let
   packages = rec {
     codex-bin = pkgs.callPackage ./pkgs/codex-bin { };
-    delta = pkgs.callPackage ./pkgs/delta { };
-    deepseek-harness = pkgs.callPackage ./pkgs/deepseek-harness { };
     determinate-nix = pkgs.callPackage ./pkgs/determinate-nix { };
     fcitx5-vinput-lite = pkgs.callPackage ./pkgs/fcitx5-vinput-lite { };
-    kache = pkgs.callPackage ./pkgs/kache.nix { };
     kvlibadwaita-kvantum = pkgs.callPackage ./pkgs/kvlibadwaita-kvantum.nix { };
     symseek = pkgs.callPackage ./pkgs/symseek.nix { };
     t3code-bin = pkgs.callPackage ./pkgs/t3code-bin { channel = "stable"; };
