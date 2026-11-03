@@ -24,13 +24,25 @@ any further ACPI reclaim allocation at a boot-dependent address. That changes
 the firmware e820 map between boots, and Linux then rejects hibernation images
 as `Hibernate inconsistent memory map detected!`.
 
+coreboot measured boot is enabled. coreboot extends PCR 2 (SHA-256 bank only)
+with the FMAP, its bootblock and stages, each CBFS file it loads and the EDK2
+payload, and records every event in a TPM 2.0 event log. The flash regions
+holding UEFI variables, VPD and memory training data are not measured. CBFS
+device data that `redrix-flash` preserves, such as the HWID, is measured, so
+PCR 2 depends on the device as well as this ROM. Any firmware change changes it.
+
+Nothing after the payload is measured. Upstream disables EDK2's TPM support on
+Cr50 boards, and that support only drives memory-mapped TPMs, not Redrix's I2C
+Cr50. PCR 2 identifies the firmware, not the boot path: binding to it alone
+does not prevent another operating system from unsealing.
+
 `result/share/firmware/redrix-coreboot/` contains `coreboot.rom`,
 `UEFIPAYLOAD.fd`, the resolved `coreboot.config`, the CBFS listing, exact source
 pins, package and firmware versions, the embedded EC source revision and firmware
 version, and SHA-256 checksums. The build checks
-the 32 MiB ROM size, Redrix/UEFI configuration, payload presence, and embedded
-EC bytes and hash, and the generated coreboot version. It does not establish
-that the firmware boots on hardware.
+the 32 MiB ROM size, Redrix/UEFI and measured boot configuration, payload
+presence, embedded EC bytes and hash, and the generated coreboot version. It
+does not establish that the firmware boots on hardware.
 
 The ROM includes the descriptor, Intel ME, FSP, and microcode selected by
 upstream. This is a generic build, not a backup of a particular machine's

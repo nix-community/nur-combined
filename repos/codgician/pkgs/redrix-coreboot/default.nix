@@ -108,10 +108,19 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
       --set-str EC_GOOGLE_CHROMEEC_FIRMWARE_FILE redrix-ec.RW.flat \
       --set-str EDK2_CUSTOM_BUILD_PARAMS \
         "--pcd gUefiPayloadPkgTokenSpaceGuid.PcdMemoryTypeEfiACPIReclaimMemory=0x40"
+    # Neither upstream's configuration nor its EDK2 payload measures anything on
+    # this Cr50 board, leaving every PCR zero and PCR-bound TPM sealing unbound.
+    # coreboot measures its stages, the CBFS files it loads and the payload into
+    # PCR 2 and records them in a TPM 2.0 event log.
+    util/scripts/config --enable TPM_MEASURED_BOOT
     make "''${makeFlagsArray[@]}" olddefconfig
     # A source update selecting a new payload release requires updating its pin.
     grep -qx 'CONFIG_EDK2_TAG_OR_REV="${edk2Selector}"' .config
     grep -qx 'CONFIG_EDK2_CUSTOM_BUILD_PARAMS=".*PcdMemoryTypeEfiACPIReclaimMemory=0x40"' .config
+    # Sealing policies depend on this PCR, bank and event log format.
+    for option in TPM_MEASURED_BOOT=y TPM_LOG_TPM2=y TPM_HASH_SHA256=y PCR_SRTM=2; do
+      grep -qx "CONFIG_$option" .config
+    done
     runHook postConfigure
   '';
 
