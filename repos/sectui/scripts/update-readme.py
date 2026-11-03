@@ -45,23 +45,24 @@ def package_metadata(system: str) -> dict:
 
 
 def pinned_rev(name: str) -> str | None:
-    """Extract the literal `rev` pinned in pkgs/<name>/default.nix, resolving
-    a `${version}` interpolation if present."""
+    """Extract the literal `rev` or `tag` pinned in pkgs/<name>/default.nix,
+    resolving a `${version}` interpolation if present."""
     default_nix = PKGS_DIR / name / "default.nix"
     if not default_nix.is_file():
         return None
     content = default_nix.read_text()
 
-    rev_match = re.search(r'\brev\s*=\s*"([^"]+)"', content)
+    rev_match = re.search(r'\b(?:rev|tag)\s*=\s*"([^"]+)"', content)
     if not rev_match:
         return None
     rev = rev_match.group(1)
 
-    if "${version}" in rev:
-        version_match = re.search(r'\bversion\s*=\s*"([^"]+)"', content)
-        if not version_match:
-            return None
-        rev = rev.replace("${version}", version_match.group(1))
+    for ref in ("${version}", "${finalAttrs.version}"):
+        if ref in rev:
+            version_match = re.search(r'\bversion\s*=\s*"([^"]+)"', content)
+            if not version_match:
+                return None
+            rev = rev.replace(ref, version_match.group(1))
 
     return rev
 
@@ -90,10 +91,7 @@ def upstream_commit_date(homepage: str, rev: str) -> str | None:
 
 
 def render_table(meta: dict) -> str:
-    lines = [
-        "| Package | Description | Source | Updated |",
-        "| --- | --- | --- | --- |",
-    ]
+    rows = [["Package", "Description", "Source", "Updated"]]
     for name in sorted(meta):
         info = meta[name]
         description = info["description"].strip()
@@ -106,7 +104,13 @@ def render_table(meta: dict) -> str:
         if homepage and rev:
             updated = upstream_commit_date(homepage, rev) or ""
 
-        lines.append(f"| `{name}` | {description} | {source} | {updated} |")
+        rows.append([f"`{name}`", description, source, updated])
+
+    # Aligned, as prettier formats Markdown tables.
+    widths = [max(len(row[i]) for row in rows) for i in range(len(rows[0]))]
+    line = lambda cells: "| " + " | ".join(c.ljust(w) for c, w in zip(cells, widths)) + " |"
+    lines = [line(rows[0]), line(["-" * w for w in widths])]
+    lines += [line(row) for row in rows[1:]]
     return "\n".join(lines)
 
 
@@ -120,7 +124,7 @@ def main() -> None:
     if not pattern.search(content):
         raise SystemExit(f"README.md is missing {START}/{END} markers")
 
-    README.write_text(pattern.sub(f"{START}\n{table}\n{END}", content))
+    README.write_text(pattern.sub(f"{START}\n\n{table}\n\n{END}", content))
 
 
 if __name__ == "__main__":

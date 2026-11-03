@@ -1,0 +1,58 @@
+name: Update
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+  # A release can also ask for an update right away:
+  # gh api repos/sectui/nur/dispatches -f event_type=release
+  repository_dispatch:
+    types: [release]
+
+permissions:
+  contents: write
+
+concurrency: update
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Update every package to its latest release
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          failed=""
+          for pkg in $(nix eval --raw .#packages.x86_64-linux --apply 'p: toString (builtins.attrNames p)'); do
+            # --build checks the new version builds before --commit keeps it
+            nix run nixpkgs#nix-update -- --flake "$pkg" --version stable --build --commit || {
+              failed="$failed $pkg"
+              git checkout -- .
+            }
+          done
+          if [ -n "$failed" ]; then echo "::warning::could not update:$failed"; fi
+      - name: Refresh the README
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 scripts/update-readme.py
+          git commit -qam "README: refresh the package table" || true
+      - name: Push
+        id: push
+        run: |
+          if [ "$(git rev-parse HEAD)" = "$(git rev-parse origin/main)" ]; then
+            echo "Nothing to update"
+          else
+            git push
+            echo "pushed=true" >> "$GITHUB_OUTPUT"
+          fi
+      # A push with GITHUB_TOKEN starts no other workflow: tell NUR here.
+      - name: Trigger NUR update
+        if: steps.push.outputs.pushed == 'true'
+        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=sectui"

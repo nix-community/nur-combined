@@ -1,30 +1,52 @@
 {
   lib,
-  buildNpmPackage,
+  buildGoModule,
   fetchFromGitHub,
-  nodejs_26,
+  installShellFiles,
+  stdenv,
+  versionCheckHook,
 }:
-buildNpmPackage rec {
+buildGoModule (finalAttrs: {
   pname = "operations";
-  version = "0.1.2";
+  version = "0.0.1";
 
   src = fetchFromGitHub {
     owner = "sectui";
     repo = "operations";
-    rev = "v${version}";
-    hash = "sha256-08MQei5EFKCN/v4fgq2ppAFDn6Ggff6CAEy/UlL43qc=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-9e05N1gVmGacz+/sannIuDRZ2BluZQjwoZRofiHBgWI=";
   };
 
-  npmDepsHash = "sha256-npo+tzQv7w11gPs1wyfvkhLyasZ513wT/XFL4Da/Zxs=";
+  vendorHash = "sha256-AvrtpZkoGpRo08sV1QlIUYxacZaHNyC8CXB86kKEkr4=";
 
-  nodejs = nodejs_26;
+  subPackages = ["cmd/ops"];
 
-  meta = with lib; {
+  ldflags = [
+    "-s"
+    "-w"
+    "-X main.version=${finalAttrs.version}"
+  ];
+
+  nativeBuildInputs = [installShellFiles];
+
+  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+    installShellCompletion --cmd ops \
+      --bash <($out/bin/ops completions bash) \
+      --fish <($out/bin/ops completions fish) \
+      --zsh <($out/bin/ops completions zsh)
+  '';
+
+  nativeInstallCheckInputs = [versionCheckHook];
+  doInstallCheck = true;
+  versionCheckProgram = "${placeholder "out"}/bin/ops";
+  versionCheckProgramArg = "--version";
+
+  meta = {
     description = "CyberChef-like data transformations from the terminal";
     homepage = "https://github.com/sectui/operations";
-    changelog = "https://github.com/sectui/operations/releases/tag/v${version}";
-    license = licenses.mit;
-    platforms = platforms.unix;
+    changelog = "https://github.com/sectui/operations/releases/tag/v${finalAttrs.version}";
+    license = lib.licenses.mit;
+    platforms = lib.platforms.unix;
     maintainers = [
       {
         name = "Hadi";
@@ -34,4 +56,4 @@ buildNpmPackage rec {
     ];
     mainProgram = "ops";
   };
-}
+})
