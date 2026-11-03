@@ -1,14 +1,12 @@
 ```
-███    ██ ██    ██ ██████
-████   ██ ██    ██ ██   ██
-██ ██  ██ ██    ██ ██████
-██  ██ ██ ██    ██ ██   ██
-██   ████  ██████  ██   ██
+█▀▀ █▀▀ █▀▀ ▀█▀ █ █ █   ▄▀ █▄ █ █ █ █▀█
+▄▄█ ██▄ █▄▄  █  █▄█ █ ▄▀   █ ▀█ █▄█ █▀▄
 ```
 
-# sectui NUR
+# SecTUI Nix User Repository
 
-> A [NUR](https://github.com/nix-community/NUR) repository for the [sectui](https://github.com/sectui) security tools.
+> A [NUR](https://github.com/nix-community/NUR) repository for the
+> [sectui](https://github.com/sectui) security tools.
 
 ## Packages
 
@@ -63,5 +61,5 @@ nixpkgs.overlays = [ nur-sectui.overlays.default ];
 
 ## License
 
-The Nix expressions in this repository are released under the [MIT License](LICENSE).
-Each packaged tool keeps its own upstream license.
+The Nix expressions in this repository are released under the
+[MIT License](LICENSE). Each packaged tool keeps its own upstream license.
