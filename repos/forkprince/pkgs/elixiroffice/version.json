@@ -6,15 +6,15 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "0.6.2",
+  "version": "0.6.3",
   "platforms": {
     "x86_64-linux": {
       "file": "ElixirOffice-{version}-x86_64.AppImage",
-      "hash": "sha256-c/ahgFYEQ1gWIjb8wVwpYtY6GovKAWHuMo1p+BUgkvo="
+      "hash": "sha256-Ruh0LnPOw/LTRXClXLiJYMriU5sq0gB/lSVqz5kqdGw="
     },
     "aarch64-darwin": {
       "file": "ElixirOffice-{version}-mac-arm64.dmg",
-      "hash": "sha256-zLC37vXy7aDObC9/XjTc6MBOrBRwBVxgNS9z+GiYXVo="
+      "hash": "sha256-rJjCGbvbs+x+WAYFzhtnulp3yir4z8yBw2AryYxBRzg="
     }
   }
 }

@@ -6,19 +6,19 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "4.3.0",
+  "version": "4.3.1",
   "platforms": {
     "aarch64-darwin": {
       "file": "orbolay-aarch64-apple-darwin.app.zip",
-      "hash": "sha256-4KpQdO2VxEoooR3l2Cr6MGFiYVp/dSy+otBVZbdMTwA="
+      "hash": "sha256-4Zd56NpWPgqlOXuVVkN01EVDBWoQ7h9/VcRXQ0ECuM8="
     },
     "x86_64-darwin": {
       "file": "orbolay-x86_64-apple-darwin.app.zip",
-      "hash": "sha256-CNWIrwTOW/OQvc/8iKaHnPyap1kihR4ssPc4nonO730="
+      "hash": "sha256-Siwq2hTPYsdPAnAGk/UnUUZfgx/yF0mAEXY/6cTLsqc="
     },
     "x86_64-linux": {
       "file": "orbolay-x86_64-unknown-linux-gnu.AppImage",
-      "hash": "sha256-+SVEf/5sqMtzzlmwiH9YhIM4HKefYZSwcX1xLiUBQNc="
+      "hash": "sha256-YCvf5kOSABzeiQpzOqcHVEHlZLskw+fF7lszsOMZ8cI="
     }
   }
 }

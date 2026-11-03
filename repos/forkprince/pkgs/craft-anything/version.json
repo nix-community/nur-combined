@@ -6,23 +6,23 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "0.2.0",
+  "version": "0.3.0",
   "platforms": {
     "aarch64-darwin": {
       "file": "craft-anything-{version}-macos-universal.dmg",
-      "hash": "sha256-nOGKDQeLcjpLivdEcYOxIxfnYbqjf1z8c7zQgBBBn8k="
+      "hash": "sha256-DA/Q68YB5dEnJlTwJ+morhSLSgxio29cUeA24Un86t4="
     },
     "x86_64-darwin": {
       "file": "craft-anything-{version}-macos-universal.dmg",
-      "hash": "sha256-nOGKDQeLcjpLivdEcYOxIxfnYbqjf1z8c7zQgBBBn8k="
+      "hash": "sha256-DA/Q68YB5dEnJlTwJ+morhSLSgxio29cUeA24Un86t4="
     },
     "x86_64-linux": {
       "file": "craft-anything-{version}-linux-x86_64.AppImage",
-      "hash": "sha256-uoQj5sxOZyXYZ66KXhe5RNEAgBaSJR4wkgPqDnzvaYg="
+      "hash": "sha256-uSz0YGGN6fKXWUxlkjhGkPqZ/Enhk6RMIAhVGCLw5SI="
     },
     "aarch64-linux": {
       "file": "craft-anything-{version}-linux-aarch64.AppImage",
-      "hash": "sha256-j3+W9Z9BAdbHsLYls55/mDUxcWovHbsgiOWxSqm0LEs="
+      "hash": "sha256-SJXGpP00dEppXZAMMQg7wHGWIAH0NoX0Ca9W5sTP2yw="
     }
   }
 }
