@@ -97,7 +97,7 @@
       "kind": "tool",
       "ref": "github:docker/compose",
       "depName": "docker/compose",
-      "currentValue": "v5.3.0",
+      "currentValue": "v5.7.0",
       "datasource": "github-releases"
     },
     {
@@ -181,7 +181,7 @@
       "kind": "tool",
       "ref": "github:junegunn/fzf",
       "depName": "junegunn/fzf",
-      "currentValue": "v0.74.2",
+      "currentValue": "v0.74.5",
       "datasource": "github-releases"
     },
     {
