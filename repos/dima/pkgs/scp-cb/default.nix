@@ -1,9 +1,6 @@
 {
 	pkgs,
-	dataRoot,
-	savesDirectory ? "${dataRoot}/Saves",
-	mapsDirectory ? "${dataRoot}/Maps",
-	configuration ? "${dataRoot}/options.ini",
+	files,
 }:
 
 pkgs.stdenv.mkDerivation {
@@ -55,7 +52,14 @@ pkgs.stdenv.mkDerivation {
 		rm $out/lib/scp-cb/options.ini.bak
 	'';
 
-	installPhase = with pkgs; ''
+	installPhase = with pkgs;
+		let
+			installation = files.installation;
+			data = files.data or installation;
+			saves = files.saves or "${data}/Saves";
+			maps = files.maps or "${data}/Maps";
+			configuration = files.configuration or "${data}/options.ini";
+		in ''
 		runHook preInstall
 
 		mkdir -p $out/bin
@@ -71,19 +75,19 @@ pkgs.stdenv.mkDerivation {
 		ln -s ${configuration} $out/lib/scp-cb/options.ini
 
 		mv $out/lib/scp-cb/Loadingscreens/loadingscreens.ini $out/lib/scp-cb/Loadingscreens/loadingscreens.ini.bak
-		ln -s ${dataRoot}/loadingscreens.ini $out/lib/scp-cb/Loadingscreens/loadingscreens.ini
+		ln -s ${installation}/Loadingscreens/loadingscreens.ini $out/lib/scp-cb/Loadingscreens/loadingscreens.ini
 
 		mv $out/lib/scp-cb/Data/rooms.ini $out/lib/scp-cb/Data/rooms.ini.bak
-		ln -s ${dataRoot}/rooms.ini $out/lib/scp-cb/Data/rooms.ini
+		ln -s ${installation}/Data/rooms.ini $out/lib/scp-cb/Data/rooms.ini
 
 		mv $out/lib/scp-cb/Data/materials.ini $out/lib/scp-cb/Data/materials.ini.bak
-		ln -s ${dataRoot}/materials.ini $out/lib/scp-cb/Data/materials.ini
+		ln -s ${installation}/Data/materials.ini $out/lib/scp-cb/Data/materials.ini
 
 		rm -r $out/lib/scp-cb/Saves
-		ln -s ${savesDirectory} $out/lib/scp-cb/Saves
+		ln -s ${saves} $out/lib/scp-cb/Saves
 
 		mv $out/lib/scp-cb/Map\ Creator/Maps $out/lib/scp-cb/Map\ Creator/Maps.bak
-		ln -s ${mapsDirectory} $out/lib/scp-cb/Map\ Creator/Maps
+		ln -s ${maps} $out/lib/scp-cb/Map\ Creator/Maps
 
 		runHook postInstall
 	'';

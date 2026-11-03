@@ -18,8 +18,14 @@ rec {
 	vtt = pkgs.callPackage ./pkgs/vtt { };
 	stripzip = pkgs.callPackage ./pkgs/stripzip { };
 	scp-cb = pkgs.callPackage ./pkgs/scp-cb {
-		dataRoot = "/home/example/.local/share/scp-cb";
-		configuration = "/home/example/.config/scp-cb/options.ini";
+		files = {
+			installation = "/home/example/.local/share/scp-cb";
+
+			saves = "/home/example/saves/scp-cb/runs";
+			maps = "/home/example/saves/scp-cb/maps";
+
+			configuration = "/home/example/.config/scp-cb/options.ini";
+		};
 	};
 
 	rich-argparse-rich-13-9-4 = pkgs.callPackage ./pkgs/rich-argparse-rich-13-9-4 { inherit rich-13-9-4; };
