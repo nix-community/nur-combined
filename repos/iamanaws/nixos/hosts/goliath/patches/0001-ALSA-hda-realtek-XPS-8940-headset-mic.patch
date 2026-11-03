@@ -1,4 +1,4 @@
-From 60180015ab166e139603753a2a44eca0b4f3cf6a Mon Sep 17 00:00:00 2001
+From 2c056a765616c645d45b562346872ea7b1103a9a Mon Sep 17 00:00:00 2001
 From: Angel J <iamanaws@httpd.dev>
 Date: Wed, 28 Oct 2026 19:35:31 -0700
 Subject: [PATCH] ALSA: hda/realtek: Fix the Dell XPS 8940 headset microphone
@@ -13,7 +13,11 @@ Override NID 0x19 as a front microphone without independent presence
 detection. This gives the generic parser the dedicated microphone
 input and preserves NID 0x1b for simultaneous headphone playback.
 
-Link: https://bugs.launchpad.net/bugs/1971232
+I encountered this issue on my XPS 8940. Similar symptoms were also
+reported by a user on Ubuntu:
+https://bugs.launchpad.net/bugs/1971232
+
+Cc: stable@vger.kernel.org
 Assisted-by: Codex (GPT-6.1 Sol)
 ---
 

@@ -2,6 +2,7 @@
   inputs,
   hostConfig,
   lib,
+  nixosModules,
   ...
 }:
 let
@@ -10,6 +11,7 @@ in
 {
   imports = [
     inputs.nix-mineral.nixosModules.nix-mineral
+    nixosModules.services.chrony
   ];
 
   boot = {
@@ -80,6 +82,7 @@ in
 
       system = {
         lock-root = false;
+        secure-chrony = null; # Configure Chrony locally.
       };
     };
   };
