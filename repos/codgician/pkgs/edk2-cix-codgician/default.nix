@@ -21,7 +21,7 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "codgician";
     repo = "edk2-cix";
-    rev = "d6edf81e24868eef13566065cfee33436af64d00";
+    rev = "7616c0a5e8aa71249ea896f22449c0b80dfa8409";
     hash = "sha256-X58n0y6QMs2A/+aXW76GulE+dba29sGa6n8ypudqio0=";
   };
 
@@ -36,8 +36,8 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
   edk2Platforms = fetchFromGitHub {
     owner = "codgician";
     repo = "edk2-platforms";
-    rev = "b94231f4888ce6ca911d36178d1b8f0875cea890";
-    hash = "sha256-zcMXAnGEw2KIDVI6BeSn53DdEj+Sr4IWR31o0eq4v8M=";
+    rev = "01a48e3664cb9a424c1411d90bdf1efc2dffaa74";
+    hash = "sha256-HstIHsL/e1hGMyKSdQnFmUlNzYqGuOQWoKhVE5B2fRQ=";
   };
 
   edk2NonOsi = fetchFromGitHub {
@@ -49,7 +49,7 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
 
   # Commit time of the newest firmware-tree pin. It sets the SMBIOS release date
   # and PrePi's __DATE__/__TIME__, so the same pins always give the same volumes.
-  env.SOURCE_DATE_EPOCH = "1793623751";
+  env.SOURCE_DATE_EPOCH = "1793631711";
 
   sourceRoot = "${finalAttrs.src.name}/src";
 
