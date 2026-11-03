@@ -19,16 +19,16 @@
   };
   baibot = {
     pname = "baibot";
-    version = "v2026.11.02.0";
+    version = "v2026.11.02.1";
     src = fetchFromGitHub {
       owner = "etkecc";
       repo = "baibot";
-      rev = "v2026.11.02.0";
+      rev = "v2026.11.02.1";
       fetchSubmodules = false;
-      sha256 = "sha256-ZZVg6Mo1SFRj9h3O34xgEgOBqWCBy/C2/WOnoHM6vYU=";
+      sha256 = "sha256-8+P23OB/9M6YYqqcbwwd39CvVH7OnlFkzXhW2DczzUk=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-ZZVg6Mo1SFRj9h3O34xgEgOBqWCBy_C2_WOnoHM6vYU=/Cargo.lock";
+      lockFile = ./. + "/sha256-8+P23OB_9M6YYqqcbwwd39CvVH7OnlFkzXhW2DczzUk=/Cargo.lock";
       outputHashes = {
 
       };
@@ -558,13 +558,13 @@
   };
   secureboot_objects = {
     pname = "secureboot_objects";
-    version = "v1.7.1";
+    version = "v1.7.2";
     src = fetchFromGitHub {
       owner = "microsoft";
       repo = "secureboot_objects";
-      rev = "v1.7.1";
+      rev = "v1.7.2";
       fetchSubmodules = false;
-      sha256 = "sha256-SAEDsDADO2pNRhK1Z/83kZ7R2smk0zSGIU9rCJuCdlw=";
+      sha256 = "sha256-+d1YMA6+NnS3Zo5aCy99Iw9IVZevxYuspL3E95lUcWs=";
     };
   };
   telegram-send = {

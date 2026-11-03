@@ -23,7 +23,7 @@
     "baibot": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-ZZVg6Mo1SFRj9h3O34xgEgOBqWCBy_C2_WOnoHM6vYU=/Cargo.lock",
+                "sha256-8+P23OB_9M6YYqqcbwwd39CvVH7OnlFkzXhW2DczzUk=/Cargo.lock",
                 {}
             ]
         },
@@ -39,12 +39,12 @@
             "name": null,
             "owner": "etkecc",
             "repo": "baibot",
-            "rev": "v2026.11.02.0",
-            "sha256": "sha256-ZZVg6Mo1SFRj9h3O34xgEgOBqWCBy/C2/WOnoHM6vYU=",
+            "rev": "v2026.11.02.1",
+            "sha256": "sha256-8+P23OB/9M6YYqqcbwwd39CvVH7OnlFkzXhW2DczzUk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2026.11.02.0"
+        "version": "v2026.11.02.1"
     },
     "codestable": {
         "cargoLock": null,
@@ -855,12 +855,12 @@
             "name": null,
             "owner": "microsoft",
             "repo": "secureboot_objects",
-            "rev": "v1.7.1",
-            "sha256": "sha256-SAEDsDADO2pNRhK1Z/83kZ7R2smk0zSGIU9rCJuCdlw=",
+            "rev": "v1.7.2",
+            "sha256": "sha256-+d1YMA6+NnS3Zo5aCy99Iw9IVZevxYuspL3E95lUcWs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.7.1"
+        "version": "v1.7.2"
     },
     "telegram-send": {
         "cargoLock": null,

@@ -4,6 +4,7 @@
   rustc,
   lib,
   pkg-config,
+  cmake,
   openssl,
   sqlite,
   cacert,
@@ -12,7 +13,10 @@ rustPlatform.buildRustPackage {
   inherit (sources.baibot) pname version src;
   cargoLock = sources.baibot.cargoLock."Cargo.lock";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [
+    pkg-config
+    cmake
+  ];
   buildInputs = [
     openssl
     sqlite
