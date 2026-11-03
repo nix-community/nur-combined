@@ -60,18 +60,23 @@ let
         py.wheel
       ];
 
-      buildInputs = [ pkgsOld.darwin.libffi ];
-      nativeBuildInputs = [ pkgsOld.darwin.DarwinTools ]; # sw_vers
-
-      # The setup helper shells out to /usr/bin/sw_vers, which the sandbox does
-      # not have (same substitution nixpkgs' pyobjc packages use).
-      postPatch = ''
+      # The pyobjc archive is already an unpacked directory in the Nix store.
+      # Skip stdenv's unpack chmod and make a writable build-tree copy instead.
+      dontUnpack = true;
+      preBuild = ''
+        mkdir -p "$TMPDIR/pyobjc-source"
+        cp -R "$sourceRoot"/. "$TMPDIR/pyobjc-source/"
+        chmod -R u+w "$TMPDIR/pyobjc-source"
+        cd "$TMPDIR/pyobjc-source"
         if [ -f pyobjc_setup.py ]; then
           substituteInPlace pyobjc_setup.py \
             --replace "/usr/bin/sw_vers" "sw_vers" \
             --replace "/usr/bin/xcrun" "xcrun"
         fi
       '';
+
+      buildInputs = [ pkgsOld.darwin.libffi ];
+      nativeBuildInputs = [ pkgsOld.darwin.DarwinTools ]; # sw_vers
 
       env.NIX_CFLAGS_COMPILE = "-I${pkgsOld.darwin.libffi.dev}/include";
 
@@ -162,6 +167,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     install -Dm644 airjack.py "$out/share/airjack/airjack.py"
     install -Dm644 airjack.1 "$out/share/man/man1/airjack.1"
+    mkdir -p "$out/bin"
 
     substitute ${./wrapper.sh.in} "$out/bin/airjack" \
       --subst-var-by shell "${pkgsOld.bash}/bin/bash" \
