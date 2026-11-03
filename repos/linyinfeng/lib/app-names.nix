@@ -81,6 +81,11 @@ let
       };
     }
     {
+      "incusos-flasher" = {
+        "incusos-flasher" = "flasher-tool";
+      };
+    }
+    {
       "ly2video" = {
         "ly2video" = "ly2video";
         "midi-rubato" = "midi-rubato";

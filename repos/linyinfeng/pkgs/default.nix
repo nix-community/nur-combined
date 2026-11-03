@@ -37,6 +37,7 @@ lib.makeScope newScope (
       callPackage ./fish-plugins { fishPluginsToplevel = pkgs.fishPlugins; }
     );
     hexecute = callPackage ./hexecute { };
+    incusos-flasher = callPackage ./incusos-flasher { };
     libva-v4l2 = callPackage ./libva-v4l2 { };
     llm-wiki-compiler = callPackage ./llm-wiki-compiler { };
     lpac = callPackage ./lpac { };

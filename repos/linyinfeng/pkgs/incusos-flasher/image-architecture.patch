@@ -1,0 +1,14 @@
+--- a/incus-osd/internal/providers/provider_images.go
++++ b/incus-osd/internal/providers/provider_images.go
+@@ -390,6 +390,11 @@
+ 		return nil, err
+ 	}
+ 
++	imageArch := os.Getenv("INCUSOS_IMAGE_ARCHITECTURE")
++	if imageArch != "" {
++		archName = imageArch
++	}
++
+ 	index := &apiupdate.Index{}
+ 
+ 	if !p.ignoreSignedJSON { //nolint:nestif
