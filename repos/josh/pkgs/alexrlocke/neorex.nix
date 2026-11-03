@@ -15,8 +15,8 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "alexrlocke";
     repo = "neorex";
-    rev = "1c883075db2b5bb9b9e37af8adf904e9c864bc96";
-    hash = "sha256-qSjwjg0u97C9MPGBGH99SYzInHVyg3KoM0xCsfE6CM4=";
+    rev = "7b7c624497cac5a8193a960b47e0e965e76e3a70";
+    hash = "sha256-OCOSlPEtYzWKyW+mOwLc0x/S3L0TweEnnx1ipQ3MpQs=";
   };
 
   nativeBuildInputs = [
