@@ -8,24 +8,24 @@
 {
   awl = {
     pname = "awl";
-    version = "v0.19.0";
+    version = "v0.20.0";
     src = fetchFromGitHub {
       owner = "anywherelan";
       repo = "awl";
-      rev = "v0.19.0";
+      rev = "v0.20.0";
       fetchSubmodules = false;
-      sha256 = "sha256-Tg442iFLxGgqQfXHiKeHMX4Y7IAIi63wYdrD5TLlN3E=";
+      sha256 = "sha256-JXquMHslDASnQArOaut2ZMImR5jVKTxl+QpMM8P//nM=";
     };
   };
   awl-flutter = {
     pname = "awl-flutter";
-    version = "v0.19.0";
+    version = "v0.20.0";
     src = fetchFromGitHub {
       owner = "anywherelan";
       repo = "awl-flutter";
-      rev = "v0.19.0";
+      rev = "v0.20.0";
       fetchSubmodules = false;
-      sha256 = "sha256-zSKCM3OczzShOrBv14qVzbKueezbsvsNq+5bJ+NcVLQ=";
+      sha256 = "sha256-KZE89DHDRRtIaRwCEE2iveHDwl91AcY6woiyQieJ1uQ=";
     };
   };
   discovery-rs = {
@@ -47,16 +47,16 @@
   };
   gitpane = {
     pname = "gitpane";
-    version = "v0.17.1";
+    version = "v0.18.3";
     src = fetchFromGitHub {
       owner = "affromero";
       repo = "gitpane";
-      rev = "v0.17.1";
+      rev = "v0.18.3";
       fetchSubmodules = false;
-      sha256 = "sha256-v7rH/dQ8UDSPBpRL7ORowZcPUBanXD29z9VkPXv71Gc=";
+      sha256 = "sha256-r3nsQF/2GJxbEMZbokMtH57gFBi5OVd2tS17HFp8Oho=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-v7rH_dQ8UDSPBpRL7ORowZcPUBanXD29z9VkPXv71Gc=/Cargo.lock";
+      lockFile = ./. + "/sha256-r3nsQF_2GJxbEMZbokMtH57gFBi5OVd2tS17HFp8Oho=/Cargo.lock";
       outputHashes = {
         
       };
@@ -97,15 +97,15 @@
   };
   paperwm-spoon = {
     pname = "paperwm-spoon";
-    version = "2a561eb63df4fd72fc2556e411bd4e1c88f57f48";
+    version = "630411e7f1401fa124cc5fe7cad3ee562e328624";
     src = fetchFromGitHub {
       owner = "mogenson";
       repo = "PaperWM.spoon";
-      rev = "2a561eb63df4fd72fc2556e411bd4e1c88f57f48";
+      rev = "630411e7f1401fa124cc5fe7cad3ee562e328624";
       fetchSubmodules = false;
-      sha256 = "sha256-DrC2qq9Oy6hUQLFb1TDmP9gfcrjzbAgA98DLpj+jXUc=";
+      sha256 = "sha256-lhv67mAG1n0uppCMvjXOqNWRyyJhb4dHMi8gDUK6AFM=";
     };
-    date = "2026-10-13";
+    date = "2026-10-30";
   };
   powershell-beautifier = {
     pname = "powershell-beautifier";
