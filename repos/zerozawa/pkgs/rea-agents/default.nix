@@ -15,7 +15,6 @@
   binwalk,
   chromium,
   gdb,
-  ghidra,
   ilspycmd,
   jdk21_headless,
   mitmproxy,
@@ -68,6 +67,21 @@ let
       url = "https://github.com/NixOS/nixpkgs/archive/160b762eda6d139ac10ae081f8f78d640dd523eb.tar.gz";
       sha256 = "sha256-AqgkGHRrI6h/8FWuVbnkfFmXr4Bqsr4fV23aISqj/xg=";
     }) { system = stdenv.hostPlatform.system; }).sigrok-cli;
+
+  # Ghidra 12.2 (nixpkgs 9a6cbf4) declares `application.java.min=25` and sits
+  # past the 12.1 line REA 6.8.0 admits (`GhidraReleasePolicy` requires
+  # `minor === 12.1`; upstream only relaxed it in 0d1a454e, unreleased), so
+  # `rea doctor` rejects the whole provider and the installCheck below flips
+  # the build red. Keep REA's audited pair — Ghidra 12.1.4 with the packaged
+  # JDK 21 — by taking that Ghidra from the previous pin, exactly like
+  # sigrokCli above: one cached FOD download, no second flake input, and the
+  # rest of nixpkgs keeps rolling. Drop this pin once REA ships a release that
+  # accepts 12.2 (that release also wants JAVA_HOME at JDK 25 or newer).
+  ghidraPin =
+    (import (builtins.fetchTarball {
+      url = "https://github.com/NixOS/nixpkgs/archive/5c9de89ec55bff981cb8da1a4ee92b10f1438ffc.tar.gz";
+      sha256 = "sha256-WDValiY9se78X2Wh7aWWaq/c7HN29U555+OKbHEzYrw=";
+    }) { system = stdenv.hostPlatform.system; }).ghidra;
 
   # node_modules/frida is a source package: its install script runs
   # prebuild-install (or make) to place the N-API binding, which npmFlags
@@ -236,7 +250,7 @@ buildNpmPackage rec {
         --set-default REA_UNBLOB_COMMAND ${lib.getExe unblob} \
         --set-default REA_WABT_BIN_DIRECTORY ${wabt}/bin \
         --set-default REA_WAKARU_COMMAND ${lib.getExe wakaru} \
-        --set-default GHIDRA_INSTALL_DIR ${ghidra}/lib/ghidra \
+        --set-default GHIDRA_INSTALL_DIR ${ghidraPin}/lib/ghidra \
         --set-default JAVA_HOME ${jdk21_headless}
     done
   '';

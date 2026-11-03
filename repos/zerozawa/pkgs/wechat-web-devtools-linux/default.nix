@@ -74,7 +74,7 @@ let
   nodeVersion = "22.16.0";
   electronVersion = "36.6.0";
   compilerVersion = "0.2.0";
-  devtoolsVersion = "2.02.2608080";
+  devtoolsVersion = "2.02.2609240";
 
   # node 运行时不再打进 electron/：上游 bin/node 现在以 ELECTRON_RUN_AS_NODE
   # 复用 electron 二进制（CHANGELOG 2.02.2608070-2 "refactor: 移除node依赖"）。
@@ -98,7 +98,7 @@ let
       "https://devtools.wxqcloud.qq.com.cn/WechatWebDev/release/be1ec64cf6184b0fa64091919793f068/wechat_devtools_${devtoolsVersion}_win32_x64.exe"
       "https://dldir1.qq.com/WechatWebDev/release/be1ec64cf6184b0fa64091919793f068/wechat_devtools_${devtoolsVersion}_win32_x64.exe"
     ];
-    hash = "sha256-ijJV/nYmh5tHLcUUXhsp15f4bQpr2dd1CX8rpfm7dGc=";
+    hash = "sha256-+0Fv0DtR2StuyCuD9W+GH+amsrHOs/nlT6Pn/d/+miw=";
   };
   ripgrepTarball = fetchurl {
     url = "https://github.com/microsoft/ripgrep-prebuilt/releases/download/v15.0.0/ripgrep-v15.0.0-x86_64-unknown-linux-musl.tar.gz";
@@ -146,13 +146,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "wechat-web-devtools-linux";
-  version = "0-unstable-3612c4e";
+  version = "0-unstable-10b7fca";
 
   src = fetchFromGitHub {
     owner = "msojocs";
     repo = "wechat-web-devtools-linux";
-    rev = "3612c4e093845033ccf8dbc3aaf1a05479f960bd";
-    hash = "sha256-/Igus9n7nrWOVrfPNEiVoRpf9AIOg/efDRV1CAbDweY=";
+    rev = "10b7fca448223d1bb6b27b44fd720728cc2abff0";
+    hash = "sha256-Fgqs1pC07GndyDFJaGWsFxMn4SNLX+In5g2E1Rc4Lw0=";
   };
 
   nativeBuildInputs = [

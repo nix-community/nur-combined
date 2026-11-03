@@ -31,13 +31,13 @@ let
 in
 python313Packages.buildPythonApplication rec {
   pname = "picacg-qt";
-  version = "1.5.5.1";
+  version = "1.5.8";
 
   src = fetchFromGitHub {
     owner = "tonquer";
     repo = "picacg-qt";
     rev = "v${version}";
-    hash = "sha256-QM4HdPKnxub0ghBlUV2xHhSANp7inGz+50PUPO1Qk1w=";
+    hash = "sha256-/txY8HRx+OXwtda8QpaXCltiLnxv9o+qieBFQ8zXk4I=";
   };
 
   format = "other";
@@ -59,6 +59,8 @@ python313Packages.buildPythonApplication rec {
     pyside6
     websocket-client
     pillow
+    pillow-jxl-plugin
+    cachetools
     pysocks
     natsort
     webdavclient3
