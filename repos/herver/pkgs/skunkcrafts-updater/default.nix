@@ -11,11 +11,11 @@
 let
   pname = "skunkcrafts-updater";
   # Versioned AppImage from the app's own update depot; update.sh reads the version from its skunkcrafts_updater.cfg
-  version = "4.2.10";
+  version = "4.2.11";
 
   src = fetchurl {
     url = "https://1228098873.rsc.cdn77.org/updater/depot/SkunkcraftsUpdater-${version}-x86_64.AppImage";
-    hash = "sha256-wEywPo8MTOZAfGBgiZp2JfEw26qf0nyndXJgT5xcJUo=";
+    hash = "sha256-txwyse+hK9ysNRtOgawCNyqJUNX+doV0swmB4XbWE8c=";
   };
 
   appimageContents = appimageTools.extract {
