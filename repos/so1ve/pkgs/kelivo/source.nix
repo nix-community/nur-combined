@@ -3,11 +3,11 @@
 { fetchurl, stdenv }:
 
 let
-  version = "1.3.2";
+  version = "1.3.4";
   sources = {
     "x86_64-linux" = {
-      url = "https://github.com/Chevey339/kelivo/releases/download/v1.3.2/Kelivo_linux_1.3.2%2B81.tar.gz";
-      hash = "sha256-20YnjfZmZkyIHpb40RHWFoms6/FJEenN9Mmb63UKoTM=";
+      url = "https://github.com/Chevey339/kelivo/releases/download/v1.3.4/Kelivo_linux_1.3.4%2B84-NoImpeller.tar.gz";
+      hash = "sha256-dnbfFSiKKFbyQXuGvCbn4S5jPbfAXdgDuqji1M/4ru8=";
     };
   };
   source =
