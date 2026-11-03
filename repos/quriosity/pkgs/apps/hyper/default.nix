@@ -8,7 +8,6 @@
 , nix-update-script
 , glib
 , pango
-, gtk2
 , gtk3
 , systemd
 , alsa-lib
@@ -21,7 +20,6 @@
 , libGL
 , libglvnd
 , libgcc
-, libdbusmenu
 , libgbm
 , libX11
 , libXcomposite
@@ -76,7 +74,6 @@ stdenv.mkDerivation {
   buildInputs = [
     glib
     pango
-    gtk2
     gtk3
     systemd
     alsa-lib
@@ -89,7 +86,6 @@ stdenv.mkDerivation {
     libGL
     libglvnd
     libgcc
-    libdbusmenu
     libgbm
     libX11
     libXcomposite
@@ -102,13 +98,18 @@ stdenv.mkDerivation {
 
   dontConfigure = true;
   dontBuild = true;
-  autoPatchelfIgnoreMissingDeps = [ "libdbusmenu-gtk.so.4" ];
 
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/opt/hyper $out/bin
     cp -r . $out/opt/hyper
+
+    # The AppImage bundles legacy GTK2 libappindicator/libindicator libraries
+    # from older Electron releases. Current Electron implements the system tray
+    # over D-Bus (StatusNotifierItem), so drop them to avoid a GTK2 dependency.
+    rm -f $out/opt/hyper/usr/lib/libappindicator.so.1 \
+          $out/opt/hyper/usr/lib/libindicator.so.7
 
     makeWrapper $out/opt/hyper/hyper $out/bin/hyper \
       --add-flags "--no-sandbox" \

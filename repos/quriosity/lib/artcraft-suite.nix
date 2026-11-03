@@ -11,12 +11,14 @@ let
     "pdfcraft"
     "effectcraft"
     "designcraft"
-    "wordcraft"
-    "deckcraft"
-    "gridcraft"
-    "cadcraft"
-    "soundcraft"
     "figcraft"
+    "wordcraft"
+    "soundcraft"
+    "deckcraft"
+    "cadcraft"
+    "gridcraft"
+    "texturecraft"
+    "materialcraft"
   ];
 
   # ThemeChoice (crates/ui-egui/src/theme.rs): System | Dark | Light.

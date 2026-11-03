@@ -35,16 +35,16 @@ in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "vectorcraft";
-  version = "0.17.0";
+  version = "0.21.0";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "vectorcraft";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-5kfG3C6aKii2ov0j9N8K44LFiEY261saNSmJzvbyLhU=";
+    hash = "sha256-jHdKEfQK+O4WnEkyRnXuQ22248H4YVbrpWfnYz1xSgs=";
   };
 
-  cargoHash = "sha256-WtoC67BVtmNh0YFsDXVVrXV9qcdFYkSC2VBJ/zZlACo=";
+  cargoHash = "sha256-YXuVyRwq8dIT/KlBv/8Bkv1p+zJtPZC01b4pYUIpD8s=";
   cargoBuildFlags = [ "--package" "vectorcraft" "--package" "vectorcraft-cli" ];
   cargoTestFlags = [ "--package" "vectorcraft" "--package" "vectorcraft-cli" ];
 

@@ -29,8 +29,6 @@
 , libXfixes
 , libXrandr
 , libxcb
-, libdbusmenu
-, gtk2
 , dbus-glib
 , musl
 , libsecret
@@ -97,8 +95,6 @@ stdenv.mkDerivation {
     libXfixes
     libXrandr
     libxcb
-    libdbusmenu
-    gtk2
     dbus-glib
     musl
     libsecret
@@ -106,13 +102,18 @@ stdenv.mkDerivation {
 
   dontConfigure = true;
   dontBuild = true;
-  autoPatchelfIgnoreMissingDeps = [ "libdbusmenu-gtk3.so.4" "libdbusmenu-gtk.so.4" ];
 
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/opt/tabby $out/bin
     cp -r . $out/opt/tabby
+
+    # The AppImage bundles legacy GTK2 libappindicator/libindicator libraries
+    # from older Electron releases. Current Electron implements the system tray
+    # over D-Bus (StatusNotifierItem), so drop them to avoid a GTK2 dependency.
+    rm -f $out/opt/tabby/usr/lib/libappindicator.so.1 \
+          $out/opt/tabby/usr/lib/libindicator.so.7
 
     makeWrapper $out/opt/tabby/tabby $out/bin/tabby \
       --add-flags "--no-sandbox"
