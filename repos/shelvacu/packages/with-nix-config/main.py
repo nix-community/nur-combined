@@ -114,12 +114,26 @@ parser.add_argument(
 )
 parser.add_argument(
     "--self-builder-jobs",
-    nargs=1,
+    type=int,
 )
 parser.add_argument(
     "--self-builder-speed-factor",
-    nargs=1,
     type=float,
+)
+parser.add_argument(
+    "--negative-cache-ttl",
+    "--negative-cache",
+    "--negative-ttl",
+    "--cache-negative-ttl",
+    "--narinfo-cache-negative-ttl",
+    type=int,
+    default=-1,
+    metavar="TTL",
+)
+parser.add_argument(
+    "-v",
+    "--verbose",
+    action="store_true",
 )
 parser.add_argument(
     "-o",
@@ -141,14 +155,12 @@ for b in BUILDERS:
     parser.add_argument(
         *(f"--{n}-jobs" for n in b.names()),
         dest=f"{b.name}_jobs",
-        nargs=1,
         metavar="COUNT",
         type=int,
     )
     parser.add_argument(
         *(f"--{n}-speed-factor" for n in b.names()),
         dest=f"{b.name}_speed_factor",
-        nargs=1,
         metavar="FACTOR",
         type=float,
     )
@@ -163,6 +175,8 @@ if not args.command:
 if args.self_builder and args.no_local:
     parser.error("--self-builder and --no-local can't be used together")
 
+verbose:bool = args.verbose
+
 HOSTNAME = os.environ.get("HOSTNAME","")
 
 for b in BUILDERS:
@@ -176,6 +190,9 @@ for b in BUILDERS:
 new_config: list[tuple[str, str]] = []
 
 new_config.append(("builders-use-substitutes", "true"))
+
+if args.negative_cache_ttl != -1:
+    new_config.append(("narinfo-cache-negative-ttl", args.negative_cache_ttl))
 
 builders_list: list[Builder] = []
 
@@ -236,9 +253,13 @@ if len(new_config) > 0:
     if val != "" and val[-1] != "\n":
         val += "\n"
 
-    val += "\n".join(f"{k} = {v}" for (k, v) in new_config)
+    additional_config = "\n".join(f"{k} = {v}" for (k, v) in new_config)
+    if verbose:
+        print(f"{PROGRAM_NAME}: NIX_CONFIG +=\n{additional_config}\n\n", file=sys.stderr)
+
+    val += additional_config
     new_environ["NIX_CONFIG"] = val
 else:
-    print(f"{parser.prog}: warning, no nix config applied (NIX_CONFIG unchanged)", file=sys.stderr)
+    print(f"{PROGRAM_NAME}: warning: no nix config applied (NIX_CONFIG unchanged)", file=sys.stderr)
 
 os.execvpe(args.command[0], args.command, new_environ)
