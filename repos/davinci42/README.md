@@ -5,6 +5,7 @@ Personal Nix packages and NixOS modules using the caller's `pkgs`.
 
 | Package           | Modules                                       | Documentation                                             |
 | ----------------- | --------------------------------------------- | --------------------------------------------------------- |
+| `basic-memory`    | None                                          | [Markdown memory and MCP server](pkgs/basic-memory/README.md) |
 | `fluxdown-server` | `nixosModules.fluxdown`                       | [FluxDown Server](pkgs/fluxdown-server/README.md)         |
 | `magpie`          | `nixosModules.magpie`, `darwinModules.magpie` | [Magpie gateway and agent manager](pkgs/magpie/README.md) |
 | `mnamer-rs`       | None                                          | [mnamer Rust rewrite](pkgs/mnamer-rs/README.md)           |
