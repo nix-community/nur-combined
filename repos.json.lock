@@ -2419,6 +2419,11 @@
             "sha256": "1ryyc11hj9szq9zwl913vd3waiyfass792c0s6c0shpxdmp45rk2",
             "url": "https://github.com/SCOTT-HAMILTON/nur-packages"
         },
+        "shelvacu": {
+            "rev": "d244e672c738b6172f1d998db7764c785941868d",
+            "sha256": "12x5qwnk7k218fdjxhnyr900yfvgl5irx606jskjidgjs7bfpa0h",
+            "url": "https://git.uninsane.org/shelvacu/nix-stuff"
+        },
         "shirok1": {
             "rev": "ade2d4b5c640f3b58040056cddd2962e223c5998",
             "sha256": "1fyms72ni2qj1i4s2w71k6m7pxvc0d3m29xli42nvdmkccj7c4hx",
@@ -2737,8 +2742,8 @@
             "url": "https://gitlab.com/vdemeester/home"
         },
         "vieb-nix": {
-            "rev": "b31ba4bad2da47a26b74c048638d9170ee59edd9",
-            "sha256": "1ja85pvkwfamrnpls0vq5vz8sl28lf53b2chncsg7h4z44jz1n2s",
+            "rev": "8d1d54897fafcc2ae48ed2f39c4d5c5b99e9e747",
+            "sha256": "053fa7vc44phpcjv5z83f31vrrqfxrzvy37c5fwkpal25vx9bw26",
             "url": "https://github.com/tejing1/vieb-nix"
         },
         "vizqq": {
