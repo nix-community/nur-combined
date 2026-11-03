@@ -2,7 +2,7 @@
   lib,
   fetchFromGitHub,
   buildNpmPackage,
-  electron_42,
+  electron,
   makeWrapper,
   makeDesktopItem,
   copyDesktopItems,
@@ -41,7 +41,7 @@ buildNpmPackage (finalAttrs: {
     mkdir -p $out/lib/sabaki
     cp -r . $out/lib/sabaki/app
     install -Dm644 logo.png $out/share/icons/hicolor/512x512/apps/sabaki.png
-    makeWrapper ${electron_42}/bin/electron $out/bin/sabaki \
+    makeWrapper ${electron}/bin/electron $out/bin/sabaki \
       --set NODE_ENV production \
       --add-flags "--app=$out/lib/sabaki/app"
 
