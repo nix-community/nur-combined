@@ -1,58 +1,29 @@
+# The npm tarball is upstream's release build: one bun bundle that requires nothing beyond node built-ins. A source build needs a node_modules FOD whose hash follows the bun in each consumer's nixpkgs
 {
   lib,
   stdenvNoCC,
-  callPackage,
-  bun,
-  makeWrapper,
   nodejs_24,
   source,
 }: let
-  inherit (source) version;
-
-  # Refreshed by update-hashes via passthru.updateCustomDeps.
-  bunDepsHash = "sha256-rAFLkN5BNYzyHAbXeaYGq6sF/Khdc2w7pi4jZqGeXks=";
-
-  nodeModules = callPackage ./deps.nix {inherit source version bunDepsHash;};
-
   pkgDir = "$out/lib/node_modules/@cortexkit/magic-context";
 in
   stdenvNoCC.mkDerivation {
     pname = "magic-context";
-    inherit version;
-    inherit (source) src;
+    inherit (source) version src;
 
-    nativeBuildInputs = [bun makeWrapper];
+    buildInputs = [nodejs_24];
 
-    postPatch = ''
-      cp -R ${nodeModules}/. .
-      find . -maxdepth 3 -type d -name node_modules -prune -exec chmod -R u+w {} +
-    '';
-
-    buildPhase = ''
-      runHook preBuild
-
-      # The cwd matters: the @magic-context/core alias lives in this package's tsconfig paths.
-      cd packages/cli
-      bun build src/index.ts \
-        --outfile dist/index.js \
-        --target node \
-        --format esm \
-        --external node:sqlite
-      cd ../..
-
-      runHook postBuild
-    '';
+    dontBuild = true;
 
     installPhase = ''
       runHook preInstall
 
       # --version reads ../package.json relative to dist/index.js.
-      install -Dm644 packages/cli/package.json ${pkgDir}/package.json
-      install -Dm644 packages/cli/dist/index.js ${pkgDir}/dist/index.js
+      mkdir -p ${pkgDir} $out/bin
+      cp -r dist package.json ${pkgDir}/
 
       # No PATH injection: setup and doctor shell out to the user's own harness.
-      makeWrapper ${lib.getExe nodejs_24} $out/bin/magic-context \
-        --add-flags ${pkgDir}/dist/index.js
+      ln -s ${pkgDir}/dist/index.js $out/bin/magic-context
 
       runHook postInstall
     '';
@@ -61,23 +32,16 @@ in
     installCheckPhase = ''
       runHook preInstallCheck
 
-      $out/bin/magic-context --version | grep -Fx '${version}'
+      $out/bin/magic-context --version | grep -Fx '${source.version}'
       $out/bin/magic-context --help >/dev/null
 
       runHook postInstallCheck
     '';
 
-    passthru = {
-      inherit nodeModules;
-
-      # nix-update only knows its own hash attributes; update-hashes turns this into --custom-dep.
-      updateCustomDeps = ["nodeModules"];
-    };
-
     meta = {
       description = "Unbounded context. Memory that manages itself. One session, for life. The hippocampus for coding agents, part of CortexKit";
       homepage = "https://github.com/cortexkit/magic-context";
-      changelog = "https://github.com/cortexkit/magic-context/releases/tag/${source.rev}";
+      changelog = "https://github.com/cortexkit/magic-context/releases/tag/v${source.version}";
       license = lib.licenses.mit;
       mainProgram = "magic-context";
       maintainers = [

@@ -68,19 +68,7 @@ if [[ -n "$files" ]]; then
       fi
       echo "Updating hashes for $attr ($reason)"
       handled[$attr]=1
-
-      # nix-update only refreshes hash attributes it knows; updateCustomDeps names the rest.
-      custom_dep_args=()
-      mapfile -t custom_deps < <(
-        nix eval --json ".#packages.${SYSTEM}" \
-          --apply "pkgs: (builtins.getAttr \"$attr\" pkgs).updateCustomDeps or []" 2>/dev/null |
-          jq --raw-output '.[]' || true
-      )
-      for dep in "${custom_deps[@]}"; do
-        custom_dep_args+=(--custom-dep "$dep")
-      done
-
-      nix-update --flake "$attr" --version skip --override-filename "$file" "${custom_dep_args[@]}"
+      nix-update --flake "$attr" --version skip --override-filename "$file"
     else
       echo "Skipping $attr: no matching flake package" >&2
     fi

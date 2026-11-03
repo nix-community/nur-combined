@@ -6,7 +6,6 @@
       pkgs.findutils
       pkgs.git
       pkgs.gnugrep
-      pkgs.jq
       pkgs.nix
       pkgs.nix-update
     ];

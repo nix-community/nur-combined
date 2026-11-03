@@ -1,8 +1,3 @@
-import { github } from "nix-repin";
+import { npm } from "nix-repin";
 
-export default github.tag({
-  repository: "cortexkit/magic-context",
-  // The pattern excludes the dashboard's own `dashboard-v*` tag series.
-  tagPattern: "v[0-9]+\\.[0-9]+\\.[0-9]+",
-  stripPrefix: "v",
-});
+export default npm.tarball({ name: "@cortexkit/magic-context" });
