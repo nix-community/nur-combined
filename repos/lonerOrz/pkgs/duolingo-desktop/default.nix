@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
   version = current.version;
 
   src = fetchzip {
-    url = "https://github.com/hmlendea/dl-desktop/releases/download/v${finalAttrs.version}/dl-desktop_${finalAttrs.version}_linux.zip";
+    url = "https://github.com/hmlendea/dl-desktop/releases/download/v${finalAttrs.version}/dl-desktop_${finalAttrs.version}_linux_x64.zip";
     hash = current.hash;
     stripRoot = false;
   };

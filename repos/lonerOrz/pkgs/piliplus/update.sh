@@ -33,7 +33,7 @@ echo ">> [2/4] Discovering the AppImage asset name..."
 asset_name=$(curl -sS -L --fail --retry 3 \
   "${GITHUB_TOKEN:+-H}" "Authorization: Bearer $GITHUB_TOKEN" \
   "$release_url" \
-  | jq -r '.assets[].name | select(test("linux_.*_amd64\\.AppImage$")) | first')
+  | jq -r '[.assets[].name | select(test("linux_.*_amd64\\.AppImage$"))] | first')
 
 if [[ -z "$asset_name" ]]; then
   echo "ERROR: could not find an amd64 AppImage asset for $latest_tag" >&2
@@ -55,7 +55,7 @@ echo "OK: hash = $new_hash"
 echo ">> [4/4] Writing $version_file ..."
 tmp=$(mktemp)
 jq --arg v "$latest_tag" --arg a "$asset_name" --arg h "$new_hash" \
-  '.version = $v | .asset-name = $a | ."x86_64-linux-hash" = $h' \
+  '.version = $v | ."asset-name" = $a | ."x86_64-linux-hash" = $h' \
   "$version_file" > "$tmp" && mv "$tmp" "$version_file"
 
 echo "Done: $pname updated to $latest_tag ($asset_name)."
