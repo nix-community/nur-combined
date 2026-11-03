@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  pkgs,
+  bun,
   fetchFromGitHub,
   jj,
   git,
@@ -13,9 +13,6 @@
   versionCheckHook,
   writableTmpDirAsHomeHook,
 }:
-let
-  bun = (import ../../overlays/bun.nix pkgs pkgs).bun;
-in
 stdenv.mkDerivation (finalAttrs: {
   pname = "plannotator";
   version = "0.28.42";
