@@ -47,6 +47,7 @@
   qrypt-bin = pkgs.callPackage ./pkgs/tools/qrypt/binary.nix { };
   quarkpan = pkgs.callPackage ./pkgs/tools/quarkpan { };
   quien = pkgs.callPackage ./pkgs/tools/quien { };
+  rea = pkgs.callPackage ./pkgs/tools/rea { };
   seekey = pkgs.callPackage ./pkgs/apps/seekey { };
   uipro-cli = pkgs.callPackage ./pkgs/tools/uipro-cli { };
   winpodx-bin = pkgs.callPackage ./pkgs/apps/winpodx/binary.nix { };

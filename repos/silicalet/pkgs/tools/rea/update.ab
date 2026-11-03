@@ -1,0 +1,58 @@
+import { env_var_load } from "std/env"
+
+main {
+    // Update REA first; its new lockfile selects the matching Frida release.
+    $ nix-update rea --flake --format --use-github-releases --version-regex 'rea-agents-(.*)' $?
+    const source = $ nix build .#rea.src --no-link --print-out-paths $?
+    const version = $ jq -er '.packages["node_modules/frida"].version' {source}/package-lock.json $?
+    const pins = "pkgs/tools/rea/frida.json"
+    const current = $ jq -er '.version' {pins} $?
+
+    if version != current {
+        $ printf '%s\n' {version} | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+\$' $?
+        const napi = $ curl --fail --silent --show-error --location --retry 3 \
+            "https://registry.npmjs.org/frida/{version}" \
+            | jq -er '.binary.napi_versions | max | select(type == "number" and . > 0 and . == floor)' $?
+        const release_file = $ mktemp $?
+        const github_token = env_var_load("GITHUB_TOKEN", "/dev/null")
+        if github_token == "" {
+            $ curl --fail --silent --show-error --location --retry 3 \
+                "https://api.github.com/repos/frida/frida/releases/tags/{version}" \
+                --output {release_file} $?
+        } else {
+            $ curl --fail --silent --show-error --location --retry 3 \
+                --header "Authorization: Bearer {github_token}" \
+                "https://api.github.com/repos/frida/frida/releases/tags/{version}" \
+                --output {release_file} $?
+        }
+        const next_pins = $ mktemp $?
+        $ jq -n --arg version {version} --argjson napi {napi} \
+            '.version = \$version | .napiVersion = \$napi | .hashes = ([] | from_entries)' > {next_pins} $?
+        for system in ["x86_64-linux", "aarch64-linux"] {
+            let arch = "x64"
+            if system == "aarch64-linux" {
+                arch = "arm64"
+            }
+            const asset = "frida-v{version}-napi-v{napi}-linux-{arch}.tar.gz"
+            const url = "https://github.com/frida/frida/releases/download/{version}/{asset}"
+            const digest = $ jq -er --arg asset {asset} \
+                '.assets[] | select(.name == \$asset) | .digest // ""' {release_file} $?
+            let hash = ""
+            if digest != "" {
+                const hex = $ printf '%s\n' {digest} | sed 's/^sha256://' $?
+                hash = $ nix hash convert --hash-algo sha256 --to sri {hex} $?
+            } else {
+                hash = $ nix store prefetch-file --json {url} | jq -er '.hash' $?
+            }
+            const updated = $ mktemp $?
+            $ jq --arg system {system} --arg hash {hash} \
+                '.hashes[\$system] = \$hash' {next_pins} > {updated} $?
+            $ mv {updated} {next_pins} $?
+        }
+        $ mv {next_pins} {pins} $?
+        $ rm -f {release_file} $?
+        echo("Updated Frida bindings to {version} for both Linux architectures")
+    }
+
+    $ nix build .#rea --no-link $?
+}

@@ -9,6 +9,40 @@ Package expressions live under `pkgs/apps`, `pkgs/tools`, and `pkgs/lang`.
 Those directories are only for organization: exported attribute names, update
 commands, and NUR consumers stay flat.
 
+## REA
+
+`rea` packages [REA](https://github.com/morluto/rea), a reverse engineering CLI
+and MCP server. Nix supplies Node.js and Linux process utilities; no global npm
+installation is needed.
+
+```console
+nix run .#rea -- --help
+nix run .#rea -- setup --client codex --dry-run
+nix run .#update -- rea
+```
+
+The package follows official `rea-agents-*` releases and is included in daily
+updates. Each build checks the CLI version/help and an actual MCP stdio
+initialization and tool listing. CI builds it on native x86_64 and ARM64 Linux.
+Frida's matching native binding is included by default, pinned by version and
+hash for both architectures. The updater follows REA's locked Frida version,
+and the build checks local device access and process enumeration.
+Ghidra, JADX, browsers, and other analysis providers
+must be configured separately for the workflows that use them.
+
+Manage upgrades through Nix rather than `rea update`. Updating this repository
+does not upgrade your installed profile or Home Manager generation: update your
+flake input and rebuild, or upgrade the profile containing REA.
+
+For a declarative MCP configuration, set the command to `"${rea}/bin/rea"`
+(where `rea` is this repository's package in your Nix configuration) and arguments
+to `[ "mcp" ]`. Rebuilding then updates the command along with the package.
+Alternatively, use the absolute path to `rea` in a persistent Nix profile.
+Upstream `rea setup` records specific runtime and script paths; registrations
+created that way must be refreshed after a Nix upgrade to avoid starting an old
+store path. Use a persistent installation before applying setup; `nix run` alone
+does not keep the package rooted against garbage collection.
+
 ## NEU CLI
 
 `neu-cli` builds [neu-cli](https://github.com/silicalet/neu-cli) from source and

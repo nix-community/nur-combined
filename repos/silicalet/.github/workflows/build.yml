@@ -84,6 +84,8 @@ jobs:
           - { package: oh-dsh-bin, system: x86_64-linux, runner: ubuntu-latest }
           - { package: qrypt-bin, system: x86_64-linux, runner: ubuntu-latest }
           - { package: quien, system: x86_64-linux, runner: ubuntu-latest }
+          - { package: rea, system: x86_64-linux, runner: ubuntu-latest }
+          - { package: rea, system: aarch64-linux, runner: ubuntu-24.04-arm }
           - { package: seekey, system: x86_64-linux, runner: ubuntu-latest }
           - { package: uipro-cli, system: x86_64-linux, runner: ubuntu-latest }
           - { package: zlib-cli, system: x86_64-linux, runner: ubuntu-latest }
