@@ -9,14 +9,14 @@
 
 buildPythonPackage rec {
   pname = "pytest-datadir";
-  version = "1.8.0";
+  version = "1.9.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "gabrielcnr";
     repo = "pytest-datadir";
     tag = "v${version}";
-    hash = "sha256-ttzYFzePPpFY6DfMGLVImZMiehuR9IhmIFxBlgrDDmk=";
+    hash = "sha256-q15xlRzn8/9VQfAuEomzrR/i/czQwFyDroBnJxJLKpA=";
   };
 
   nativeBuildInputs = [
