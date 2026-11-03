@@ -12,7 +12,9 @@
   cat > "$out/share/doc/${pname}/SOURCE.md" <<'EOF'
   # Corresponding source
 
-  Albedo's own code is licensed under the Mozilla Public License 2.0 (LICENSE).
+  Albedo's own code is licensed under the GNU Affero General Public License v3.0
+  only with the Classpath exception 2.0 (LICENSE).
+  SPDX-License-Identifier: AGPL-3.0-only WITH Classpath-exception-2.0
   Third-party components retain their own licenses (THIRD_PARTY_NOTICES.md).
 
   The adjacent source symlink contains the complete, unmodified upstream source

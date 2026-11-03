@@ -49,7 +49,7 @@ in
       # keep-sorted end
     ];
 
-    meta.license = lib.licenses.mpl20;
+    meta.license = import ./license.nix {inherit lib;};
 
     postInstall =
       (import ./install-notices.nix {

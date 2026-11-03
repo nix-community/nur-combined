@@ -187,7 +187,7 @@ in
       inherit src;
     };
 
-    meta.license = lib.licenses.mpl20;
+    meta.license = import ./license.nix {inherit lib;};
 
     installPhase = ''
       runHook preInstall

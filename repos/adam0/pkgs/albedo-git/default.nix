@@ -12,8 +12,8 @@
 
   src = fetchFromTangled {
     did = "did:plc:l7hhzcbqqvpcquau5waryzdu";
-    rev = "154c6911d6a491aeeecacf26a06b6ae8c4bc70e1";
-    hash = "sha256-OxEm9iKmMqO2IHw1A5XEcc7Xq018M747eDCKoLNKCso=";
+    rev = "ff9d6dc0b83d4ee917f0e4b4dbf365a42684364d";
+    hash = "sha256-CqcCHkBiawEisqJBmeT93ViKbOw9uIlWLhNHktrPIMs=";
   };
 
   chrome-headless-shell = callPackage ./chrome-headless-shell.nix {};
@@ -87,7 +87,7 @@
       # keep-sorted start
       description = "Coding agent daemon with a Charm terminal client";
       homepage = "https://tangled.org/okami.mom/albedo";
-      license = licenses.mpl20;
+      license = import ./license.nix {inherit lib;};
       mainProgram = "albedo";
       platforms = platforms.unix;
       # keep-sorted end

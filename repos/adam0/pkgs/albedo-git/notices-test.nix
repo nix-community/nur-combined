@@ -17,7 +17,15 @@ in
   runCommand "albedo-license-notices" {} ''
     ${lib.concatMapStringsSep "\n" (component: ''
         doc=${component}/share/doc/${component.pname}
-        test "${component.meta.license.spdxId}" = "MPL-2.0"
+        test "${
+          if lib.licenses ? toSPDX
+          then lib.licenses.toSPDX component.meta.license
+          else component.meta.license.spdxId
+        }" = "AGPL-3.0-only WITH Classpath-exception-2.0"
+        grep -F 'GNU AFFERO GENERAL PUBLIC LICENSE' "$doc/LICENSE"
+        grep -F '"CLASSPATH" EXCEPTION' "$doc/LICENSE"
+        grep -F 'SPDX-License-Identifier: AGPL-3.0-only WITH Classpath-exception-2.0' "$doc/SOURCE.md"
+        ! grep -F 'Mozilla Public License' "$doc/SOURCE.md"
         test "$(readlink "$doc/source")" = "${package.src}"
         test -f "$doc/source/gleam.toml"
         test -f "$doc/source/cli/go.mod"
