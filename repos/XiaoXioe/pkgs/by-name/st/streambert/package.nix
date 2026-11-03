@@ -41,11 +41,11 @@
 
 stdenv.mkDerivation rec {
   pname = "streambert";
-  version = "2.6.0";
+  version = "2.7.0";
 
   src = fetchurl {
     url = "https://github.com/truelockmc/streambert/releases/download/${version}/streambert_${version}_amd64.deb";
-    sha256 = "sha256-QfmrSVrZdmyHnh7lTqDTWa4G7YXtDSONUFeZnw4xomI=";
+    sha256 = "sha256-bv3C3+I6N2MCa7up9bNsQ3eGRfxCQmHHQ4DTGxw2sRU=";
   };
 
   nativeBuildInputs = [
