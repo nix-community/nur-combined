@@ -72,7 +72,7 @@ Or, use variables from this repository in case I change them:
 |  | `asterisk-g72x` | [asterisk-g72x](https://github.com/arkadijs/asterisk-g72x) | 0-unstable-2026-09-07 | G.729 and G.723.1 codecs for Asterisk (Only G.729 is enabled) |
 |  | `awawausb-native-stub` | [awawausb-native-stub](https://github.com/ArcaneNibble/awawausb) | 0.2 | Native messaging stub for the awawausb WebUSB Firefox extension |
 |  | `axiom-syslog-proxy` | [axiom-syslog-proxy](https://github.com/axiomhq/axiom-syslog-proxy) | 0.8.0 | Syslog push interface to Axiom |
-|  | `axonhub` | [axonhub](https://github.com/looplj/axonhub) | 1.0.0-beta11 | Open-source AI gateway with built-in failover, load balancing, cost control and end-to-end tracing |
+|  | `axonhub` | [axonhub](https://github.com/looplj/axonhub) | 1.0.0-beta12 | Open-source AI gateway with built-in failover, load balancing, cost control and end-to-end tracing |
 | `x86_64-linux` | `baidunetdisk` | [baidunetdisk](https://pan.baidu.com/) | 8.9.7 | Baidu Netdisk |
 |  | `baidupcs-go` | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | 4.0.2-unstable-2026-09-09 | Baidu Netdisk commandline client, mimicking Linux shell file handling commands |
 | `x86_64-linux` | `bambu-studio-bin` | [bambu-studio-bin](https://github.com/bambulab/BambuStudio) | 02.05.02.51 | PC Software for BambuLab and other 3D printers |
@@ -91,7 +91,7 @@ Or, use variables from this repository in case I change them:
 |  | `cardpointers-cli` | [cardpointers-cli](https://github.com/cardpointers/cli) | 1.0.7 | Credit card rewards CLI for CardPointers |
 | `x86_64-linux` | `cleanuparr` | [cleanuparr](https://github.com/Cleanuparr/Cleanuparr) | 2.10.12 | Advanced download manager for the Servarr ecosystem |
 |  | `click-loglevel` | [click-loglevel](https://github.com/jwodder/click-loglevel) | 0.7.0 | Log level parameter type for Click |
-|  | `cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 8.0.51 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
+|  | `cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 8.0.52 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
 |  | `cockpy` | [cockpy](https://github.com/Hiro420/CockPY) | 0-unstable-2024-09-07 | Public and open source version of the cbt2 ps I'm working on |
 |  | `comp128` | [comp128](https://github.com/Takuto88/comp128-python) | 1.0.0 | Python implementation of the Comp128 v1-3 GSM authentication algorithms |
 |  | `cryptodev-unstable` | [cryptodev-linux](http://cryptodev-linux.org/) | 1.14-unstable-2025-11-03 | Device that allows access to Linux kernel cryptographic drivers |
@@ -114,13 +114,13 @@ Or, use variables from this repository in case I change them:
 |  | `drone-file-secret` | [drone-file-secret](https://github.com/xddxdd/drone-file-secret) | 0-unstable-2023-06-26 | Secret provider for Drone CI that reads secrets from a given folder |
 |  | `drone-vault` | [drone-vault](https://docs.drone.io/configure/secrets/external/vault/) | 1.3.0 | Drone plugin for integrating with the Vault secrets manager |
 |  | `dump978` | [dump978](https://github.com/flightaware/dump978) | 11.1 | FlightAware's 978MHz UAT demodulator |
-|  | `easycliproxyapi` | [easycliproxyapi](https://github.com/router-for-me/EasyCLIProxyAPI) | 0.3.65 | Desktop GUI for managing CLIProxyAPI and configuring AI agent clients |
+|  | `easycliproxyapi` | [easycliproxyapi](https://github.com/router-for-me/EasyCLIProxyAPI) | 0.3.67 | Desktop GUI for managing CLIProxyAPI and configuring AI agent clients |
 |  | `edge-tts` | [edge-tts](https://github.com/rany2/edge-tts) | 7.3.1 | Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key |
 |  | `ela-widget-tools` | [ela-widget-tools](https://github.com/Liniyous/ElaWidgetTools) | 0-unstable-2026-10-09 | Fluent-UI For QT-Widget |
 |  | `electron_11` | [electron](https://github.com/electron/electron) | 11.5.0 | Cross platform desktop application shell |
 |  | `electron_9` | [electron](https://github.com/electron/electron) | 9.4.4 | Cross platform desktop application shell |
 |  | `email-oauth2-proxy` | [email-oauth2-proxy](https://github.com/simonrob/email-oauth2-proxy) | 2026-07-03 | IMAP/POP/SMTP proxy that transparently adds OAuth 2.0 authentication for email clients |
-|  | `emperors-scepter` | [emperors-scepter](https://honkai-star-rail.fandom.com/wiki/As_I%27ve_Written/%CE%B4-me13.exe) | 0.1.0-6.18.59 | Idle kthreads for the twelve Scepter δ-me13 signals |
+|  | `emperors-scepter` | [emperors-scepter](https://honkai-star-rail.fandom.com/wiki/As_I%27ve_Written/%CE%B4-me13.exe) | 0.1.0-6.18.60 | Idle kthreads for the twelve Scepter δ-me13 signals |
 |  | `env-dedup` | [env-dedup](https://github.com/alexjp/env-dedup) | 0-unstable-2025-09-06 | Deduplicate the environment variables values |
 |  | `epub-to-xtc-converter` | [epub-to-xtc-converter](https://github.com/bigbag/epub-to-xtc-converter) | 0.9.0 | CLI tool for converting EPUB files to XTC/XTCH format for Xteink e-readers |
 |  | `etherguard` | [etherguard](https://github.com/KusakabeShi/EtherGuard-VPN) | 0.3.5-f5 | Layer 2 version of WireGuard with Floyd Warshall implementation in Go |
@@ -136,7 +136,7 @@ Or, use variables from this repository in case I change them:
 |  | `folia-major-bin` | [folia-major-bin](https://github.com/chthollyphile/folia-major) | 0.7.25 | Music player with animated lyrics and audio visualization |
 |  | `fr24feed` | [fr24feed](https://www.flightradar24.com/share-your-data) | 1.0.57-1 | Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24 |
 |  | `ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | FTP Proxy Server |
-|  | `funasr` | [funasr](https://www.funasr.com/) | 1.4.19-unstable-2026-11-01 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
+|  | `funasr` | [funasr](https://www.funasr.com/) | 1.4.20-unstable-2026-11-03 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
 |  | `geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2026.11.01 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
 |  | `glauth` | [glauth](https://github.com/glauth/glauth) | 2.5.4 | Lightweight LDAP server for development, home use, or CI |
 | `x86_64-linux` | `google-earth-pro` | [google-earth-pro](https://www.google.com/earth/) | 7.3.7.1327 | Google Earth Pro |
@@ -156,10 +156,10 @@ Or, use variables from this repository in case I change them:
 |  | `hoyo-glyphs` | [hoyo-glyphs](https://github.com/SpeedyOrc-C/Hoyo-Glyphs) | 20250529 | Constructed scripts by Hoyoverse 米哈游的架空文字 |
 | `x86_64-linux` | `i915-sriov` | [i915-sriov](https://github.com/strongtz/i915-sriov-dkms) | 2026.10.28-unstable-2026-11-01 | DKMS module of Linux i915 driver with SR-IOV support |
 |  | `igsc` | [igsc](https://github.com/intel/igsc) | 1.3.2 | Intel graphics system controller firmware update library |
-|  | `ik-llama-cpp` | [ik-llama-cpp](https://github.com/ikawrakow/ik_llama.cpp) | 0-unstable-2026-11-01 | High-performance llama.cpp fork with optimized i-quantization kernels |
-|  | `ik-llama-cpp-avx` | [ik-llama-cpp](https://github.com/ikawrakow/ik_llama.cpp) | 0-unstable-2026-11-01 | High-performance llama.cpp fork with optimized i-quantization kernels |
-|  | `ik-llama-cpp-avx2` | [ik-llama-cpp](https://github.com/ikawrakow/ik_llama.cpp) | 0-unstable-2026-11-01 | High-performance llama.cpp fork with optimized i-quantization kernels |
-|  | `ik-llama-cpp-cuda` | [ik-llama-cpp](https://github.com/ikawrakow/ik_llama.cpp) | 0-unstable-2026-11-01 | High-performance llama.cpp fork with optimized i-quantization kernels |
+|  | `ik-llama-cpp` | [ik-llama-cpp](https://github.com/ikawrakow/ik_llama.cpp) | 0-unstable-2026-11-02 | High-performance llama.cpp fork with optimized i-quantization kernels |
+|  | `ik-llama-cpp-avx` | [ik-llama-cpp](https://github.com/ikawrakow/ik_llama.cpp) | 0-unstable-2026-11-02 | High-performance llama.cpp fork with optimized i-quantization kernels |
+|  | `ik-llama-cpp-avx2` | [ik-llama-cpp](https://github.com/ikawrakow/ik_llama.cpp) | 0-unstable-2026-11-02 | High-performance llama.cpp fork with optimized i-quantization kernels |
+|  | `ik-llama-cpp-cuda` | [ik-llama-cpp](https://github.com/ikawrakow/ik_llama.cpp) | 0-unstable-2026-11-02 | High-performance llama.cpp fork with optimized i-quantization kernels |
 |  | `imewlconverter` | [imewlconverter](https://github.com/studyzy/imewlconverter) | 3.6.0 | FOSS program for converting IME dictionaries |
 |  | `invisible-firefox-unwrapped` | [invisible-firefox-unwrapped](https://github.com/feder-cr/invisible-firefox) | 151.0 | Firefox with anti fingerprinting modifications |
 |  | `invisible-firefox-unwrapped-bin` | [invisible-firefox-unwrapped-bin](https://github.com/feder-cr/firefox_antidetect_patch) | 159.0 | Anti-fingerprinting Firefox, packaged from upstream prebuilt Linux binaries |
@@ -176,7 +176,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `libcrystalhd` | [libcrystalhd](https://launchpad.net/ubuntu/+source/crystalhd) | 0-unstable-2021-01-26 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) userspace library |
 |  | `libnftnl-fullcone` | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.3.2 | Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
 |  | `liboqs` | [liboqs](https://openquantumsafe.org) | 0.16.0 | C library for prototyping and experimenting with quantum-resistant cryptography |
-|  | `liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2026-11-01 | C library for prototyping and experimenting with quantum-resistant cryptography |
+|  | `liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2026-11-02 | C library for prototyping and experimenting with quantum-resistant cryptography |
 |  | `lightpanda` | [lightpanda](https://lightpanda.io) | 1.0.2 | Headless browser designed for AI and automation |
 | `x86_64-linux` | `linguaspark-server` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-10-22 | Lightweight multilingual translation service powered by the pure Rust LinguaSpark inference engine, compatible with multiple translation frontend APIs |
 | `x86_64-linux` | `linguaspark-server-x86-64-v3` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-10-22 | Lightweight multilingual translation service powered by the pure Rust LinguaSpark inference engine, compatible with multiple translation frontend APIs |
@@ -184,7 +184,7 @@ Or, use variables from this repository in case I change them:
 |  | `lyrica` | [lyrica](https://github.com/chiyuki0325/lyrica) | 0.24 | Linux desktop lyrics widget focused on simplicity and integration |
 |  | `lyrica-plasmoid` | [lyrica](https://github.com/chiyuki0325/lyrica) | 0.24 | Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component) |
 |  | `lyrics-on-panel-backend` | [lyrics-on-panel-backend](https://github.com/KangweiZhu/lyrics-on-panel) | 2.0 | MPRIS2 WebSocket backend for the Lyrics-on-Panel KDE Plasma widget |
-|  | `mages-bin` | [mages-bin](https://github.com/mlm-games/Mages) | 5.3.4 | Experimental Matrix chat client built with Compose Multiplatform and matrix-rust-sdk |
+|  | `mages-bin` | [mages-bin](https://github.com/mlm-games/Mages) | 5.3.6 | Experimental Matrix chat client built with Compose Multiplatform and matrix-rust-sdk |
 |  | `magiskboot` | [magiskboot](https://topjohnwu.github.io/Magisk/tools.html) | 31.1 | Tool to unpack / repack boot images, parse / patch / extract cpio, patch dtb, hex patch binaries, and compress / decompress files with multiple algorithms |
 |  | `mautrix-gmessages` | [mautrix-gmessages](https://github.com/mautrix/gmessages) | 0.2610.0 | Matrix-Google Messages puppeting bridge |
 |  | `metapi` | [metapi](https://github.com/cita-777/metapi) | 1.3.0 | Meta-layer management and unified proxy for AI API aggregation platforms |
@@ -216,14 +216,14 @@ Or, use variables from this repository in case I change them:
 |  | `openai-edge-tts` | [openai-edge-tts](https://tts.travisvn.com/) | 2.0.0-unstable-2025-07-01 | Text-to-speech API endpoint compatible with OpenAI's TTS API endpoint, using Microsoft Edge TTS to generate speech for free locally |
 |  | `opencc-python-reimplemented` | [opencc-python-reimplemented](https://github.com/yichen0831/opencc-python) | 0-unstable-2023-02-11 | OpenCC made with Python |
 |  | `openedai-speech` | [openedai-speech](https://github.com/matatonic/openedai-speech) | 0.18.2 | OpenAI API compatible text to speech server using Coqui AI's xtts_v2 and/or piper tts as the backend |
-|  | `openssl-oqs-provider` | [openssl-oqs-provider](https://openquantumsafe.org) | 0.12.0-unstable-2026-11-01 | OpenSSL 3 provider containing post-quantum algorithms |
-|  | `osdlyrics` | [osdlyrics](https://github.com/osdlyrics/osdlyrics) | 0.5.16 | Standalone lyrics fetcher/displayer (windowed and OSD mode) |
+|  | `openssl-oqs-provider` | [openssl-oqs-provider](https://openquantumsafe.org) | 0.12.0-unstable-2026-11-02 | OpenSSL 3 provider containing post-quantum algorithms |
+|  | `osdlyrics` | [osdlyrics](https://github.com/osdlyrics/osdlyrics) | 0.6.0 | Standalone lyrics fetcher/displayer (windowed and OSD mode) |
 |  | `palworld-exporter` | [palworld-exporter](https://github.com/palworldlol/palworld-exporter) | 1.3.1 | Prometheus exporter for Palworld Server |
 |  | `palworld-worldoptions` | [palworld-worldoptions](https://github.com/legoduded/palworld-worldoptions) | 1.11.0 | Tool for managing Palworld dedicated server settings |
 |  | `peerbanhelper` | [peerbanhelper](https://github.com/Ghost-chu/PeerBanHelper) | 9.5.4 | Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission |
 |  | `phpmyadmin` | [phpmyadmin](https://www.phpmyadmin.net/) | 5.2.3 | Web interface for MySQL and MariaDB |
 |  | `phppgadmin` | [phppgadmin](https://github.com/phppgadmin/phppgadmin) | 7.14.8-mod | Premier web-based administration tool for PostgreSQL |
-|  | `pi-web` | [pi-web](https://github.com/agegr/pi-web) | 0.13.0 | Web UI for the pi coding agent |
+|  | `pi-web` | [pi-web](https://github.com/agegr/pi-web) | 0.14.2 | Web UI for the pi coding agent |
 |  | `picoclaw` | [picoclaw](https://github.com/afjcjsbx/picoclaw) | 0.5.3 | Lightweight personal AI assistant and agent gateway |
 |  | `plangothic-fonts` | [plangothic-fonts](https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project) | 2.9.5795 | Plangothic Project |
 |  | `plasma-panel-transparency-toggle` | [plasma-panel-transparency-toggle](https://github.com/sanjay-kr-commit/panelTransparencyToggleForPlasma6) | 0-unstable-2024-04-17 | Rewrite of Panel Transparency Button for Plasma 6 |
@@ -259,7 +259,7 @@ Or, use variables from this repository in case I change them:
 |  | `rime-zhwiki` | [rime-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki) | 20240509 | RIME dictionary file for entries from zh.wikipedia.org |
 |  | `rootutils` | [rootutils](https://pypi.org/project/rootutils/) | 1.0.7 | Simple python package to solve all your problems with pythonpath, work dir, file paths, module imports and environment variables |
 |  | `route-chain` | [route-chain](https://github.com/xddxdd/route-chain) | 1.1.0-unstable-2026-01-08 | Small app to generate a long path in traceroute |
-|  | `rtpengine` | [rtpengine](https://github.com/sipwise/rtpengine) | 0-unstable-2026-10-28 | Sipwise media proxy for Kamailio |
+|  | `rtpengine` | [rtpengine](https://github.com/sipwise/rtpengine) | 0-unstable-2026-11-02 | Sipwise media proxy for Kamailio |
 |  | `runpod` | [runpod](https://github.com/runpod/runpod-python) | 2.0.0 | Python library for RunPod API and serverless worker SDK |
 |  | `runpod-python` | [runpod](https://github.com/runpod/runpod-python) | 2.0.0 | Python library for RunPod API and serverless worker SDK |
 |  | `runpodctl` | [runpodctl](https://www.runpod.io) | 3.0.1 | RunPod CLI for pod management |
@@ -271,7 +271,7 @@ Or, use variables from this repository in case I change them:
 |  | `smartrent_py` | [smartrent_py](https://github.com/ZacheryThomas/smartrent.py) | 0.5.2 | Api for SmartRent locks, thermostats, moisture sensors and switches |
 |  | `smfc` | [smfc](https://github.com/petersulyok/smfc) | 6.2.0 | Super Micro Fan Control |
 |  | `space-cadet-pinball-full-tilt` | [SpaceCadetPinball](https://github.com/k4zmu2a/SpaceCadetPinball) | 2.1.0 | Reverse engineering of 3D Pinball for Windows – Space Cadet, a game bundled with Windows (With Full Tilt Pinball data) |
-|  | `strata` | [strata-runtime](https://github.com/Niko1221/Strata) | 0.2.9 | Local large language model inference stack with a CUDA engine and a self-managed data folder |
+|  | `strata` | [strata-runtime](https://github.com/Niko1221/Strata) | 0.2.10 | Local large language model inference stack with a CUDA engine and a self-managed data folder |
 |  | `stream-echo-nginx-module` | [stream-echo-nginx-module](https://github.com/openresty/stream-echo-nginx-module) | 0-unstable-2016-12-18 | TCP stream echo module for nginx |
 |  | `suwayomi-server` | [suwayomi-server](https://github.com/Suwayomi/Suwayomi-Server) | 2.4.2366 | Rewrite of Tachiyomi for the Desktop |
 | `x86_64-linux` | `svp` | [svp](https://www.svp-team.com/wiki/SVP:Linux) | 4.7.305-1 | SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player |
@@ -284,7 +284,7 @@ Or, use variables from this repository in case I change them:
 |  | `tqdm-loggable` | [tqdm-loggable](https://pypi.org/project/tqdm-loggable/) | 0-unstable-2026-03-16 | TQDM progress bar helpers for logging and other headless application |
 |  | `uesave` | [uesave](https://github.com/trumank/uesave-rs) | 0.7.1 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS) |
 |  | `uesave-0_3_0` | [uesave](https://github.com/trumank/uesave-rs) | 0.3.0 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS), older version that works with Palworld |
-|  | `uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 1.7.276-unstable-2026-11-01 | Unifies the management of LLM APIs across multiple backend services |
+|  | `uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 1.7.276-unstable-2026-11-02 | Unifies the management of LLM APIs across multiple backend services |
 | `x86_64-linux` | `unigine-heaven` | [unigine-heaven](https://benchmark.unigine.com/heaven) | 4.0 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `unigine-sanctuary` | [unigine-sanctuary](https://benchmark.unigine.com/sanctuary) | 2.3 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `unigine-superposition` | [unigine-superposition](https://benchmark.unigine.com/superposition) | 1.1 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
@@ -297,7 +297,7 @@ Or, use variables from this repository in case I change them:
 |  | `vk-hdr-layer` | [vk-hdr-layer](https://github.com/Zamundaaa/VK_hdr_layer) | 0-unstable-2026-08-05 | Vulkan layer utilizing a small color management / HDR protocol for experimentation |
 |  | `vlmcsd` | [vlmcsd](https://github.com/Wind4/vlmcsd) | 1113-unstable-2023-07-28 | KMS Emulator in C |
 |  | `vuetorrent-backend` | [vuetorrent-backend](https://github.com/VueTorrent/vuetorrent-backend) | 2.7.4 | Simple backend service to store configuration server-side |
-|  | `waline` | [waline](https://github.com/walinejs/waline) | 1.43.4 | Server for the Waline comment system |
+|  | `waline` | [waline](https://github.com/walinejs/waline) | 1.43.6 | Server for the Waline comment system |
 |  | `wechat-uos-sandboxed` | [wechat-uos](https://weixin.qq.com/) | 4.1.1.7 | WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
 | `x86_64-linux` | `wine-wechat` | [wine-wechat](https://weixin.qq.com/) | 3.9.12.57 | Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |
 | `x86_64-linux` | `wine-wechat-x86` | [wine-wechat-x86](https://weixin.qq.com/) | 3.9.12.56 | Wine WeChat x86 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |
@@ -305,7 +305,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `xdma` | [xdma](https://github.com/Xilinx/dma_ip_drivers) | 0-unstable-2026-10-22 | Xilinx XDMA PCIe kernel module |
 |  | `xstatic-asciinema-player` | [xstatic-asciinema-player](https://github.com/asciinema/asciinema-player) | 2.6.1.1 | Asciinema-player packaged for setuptools (easy_install) / pip |
 |  | `xstatic-font-awesome` | [xstatic-font-awesome](https://github.com/FortAwesome/Font-Awesome) | 6.2.1.2 | Font Awesome packaged for setuptools (easy_install) / pip |
-|  | `xt_rtpengine` | [xt_rtpengine](https://github.com/sipwise/rtpengine) | 0-unstable-2026-10-28 | Sipwise media proxy for Kamailio (kernel module) |
+|  | `xt_rtpengine` | [xt_rtpengine](https://github.com/sipwise/rtpengine) | 0-unstable-2026-11-02 | Sipwise media proxy for Kamailio (kernel module) |
 |  | `xue` | [xue](https://pypi.org/project/xue/) | 0.0.34 | Minimalist web front-end framework composed of HTMX and Python |
 |  | `xvcd` | [xvcd](https://github.com/tmbinc/xvcd) | 0-unstable-2025-03-06 | Xilinx Virtual Cable Daemon |
 |  | `zstd-nginx-module` | [zstd-nginx-module](https://github.com/HanadaLee/ngx_http_zstd_module) | 0-unstable-2026-10-18 | HTTP zstd compression module for nginx |
@@ -414,7 +414,7 @@ Or, use variables from this repository in case I change them:
 |  | `kernel-modules.cryptodev-unstable` | [cryptodev-linux](http://cryptodev-linux.org/) | 1.14-unstable-2025-11-03 | Device that allows access to Linux kernel cryptographic drivers |
 | `x86_64-linux` | `kernel-modules.crystalhd` | [crystalhd](https://github.com/dbason/crystalhd) | 0-unstable-2021-01-26 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) driver |
 |  | `kernel-modules.dpdk-kmod` | [dpdk-kmod](https://git.dpdk.org/dpdk-kmods/) | 0-unstable-2024-11-20 | DPDK kernel modules or add-ons |
-|  | `kernel-modules.emperors-scepter` | [emperors-scepter](https://honkai-star-rail.fandom.com/wiki/As_I%27ve_Written/%CE%B4-me13.exe) | 0.1.0-6.18.59 | Idle kthreads for the twelve Scepter δ-me13 signals |
+|  | `kernel-modules.emperors-scepter` | [emperors-scepter](https://honkai-star-rail.fandom.com/wiki/As_I%27ve_Written/%CE%B4-me13.exe) | 0.1.0-6.18.60 | Idle kthreads for the twelve Scepter δ-me13 signals |
 | `x86_64-linux` | `kernel-modules.gpu-unlock` | [gpu-unlock](https://github.com/Zagitta/gpu-unlock) | unraid-unstable-2026-10-28 | Early-boot Ampere GPU floating-point instruction rate unlock |
 | `x86_64-linux` | `kernel-modules.gpu-unlock-firmware` | [gpu-unlock-firmware](https://github.com/Zagitta/gpu-unlock) | unraid-unstable-2026-10-28 | Pinned NVIDIA firmware assets for gpu-unlock |
 | `x86_64-linux` | `kernel-modules.i915-sriov` | [i915-sriov](https://github.com/strongtz/i915-sriov-dkms) | 2026.10.28-unstable-2026-11-01 | DKMS module of Linux i915 driver with SR-IOV support |
@@ -424,7 +424,7 @@ Or, use variables from this repository in case I change them:
 |  | `kernel-modules.r8125` | [r8125](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 9.018.00-1 | Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface |
 |  | `kernel-modules.r8168` | [r8168](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 8.057.00 | Linux device driver for Realtek Ethernet controllers |
 | `x86_64-linux` | `kernel-modules.xdma` | [xdma](https://github.com/Xilinx/dma_ip_drivers) | 0-unstable-2026-10-22 | Xilinx XDMA PCIe kernel module |
-|  | `kernel-modules.xt_rtpengine` | [xt_rtpengine](https://github.com/sipwise/rtpengine) | 0-unstable-2026-10-28 | Sipwise media proxy for Kamailio (kernel module) |
+|  | `kernel-modules.xt_rtpengine` | [xt_rtpengine](https://github.com/sipwise/rtpengine) | 0-unstable-2026-11-02 | Sipwise media proxy for Kamailio (kernel module) |
 </details>
 
 <details>
@@ -550,65 +550,65 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `nvidia-grid.grid.20_1` | [nvidia-x11-grid](https://www.nvidia.com/object/unix.html) | 595.71.05 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.grid.20_2` | [nvidia-x11-grid](https://www.nvidia.com/object/unix.html) | 595.91.07 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.grid.9_2` | [nvidia-x11-grid](https://www.nvidia.com/object/unix.html) | 430.63 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.gridKmod.11_8` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 450.191.01-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.12_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 460.106.00-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.13_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.63.01-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.13_12` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.256.02-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.13_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.129.06-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.13_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.141.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.13_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.161.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.13_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.161.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.13_7` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.182.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.13_9` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.223.02-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.14_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.47.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.14_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.73.08-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.14_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.85.02-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.14_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.108.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.14_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.108.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.15_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.60.13-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.15_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.85.05-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.15_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.105.17-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.15_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.125.06-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.16_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.54.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.16_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.104.05-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.16_10` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.247.01-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.16_11` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.261.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.16_12` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.274.02-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.16_13` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.288.01-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.16_14` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.309.01-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.16_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.129.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.16_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.154.05-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.16_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.161.07-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.16_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.161.08-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.16_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.183.01-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.16_7` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.183.06-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.16_8` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.216.01-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.16_9` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.230.02-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.17_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.54.14-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.17_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.54.15-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.17_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.90.07-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.17_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.90.07-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.17_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.127.05-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.17_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.144.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.17_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.163.01-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.18_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.124.06-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.18_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.133.20-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.18_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.148.08-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.18_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.158.01-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.18_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.172.08-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.18_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.195.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.18_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.211.01-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.19_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.65.06-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.19_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.82.07-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.19_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.95.05-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.19_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.105.08-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.19_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.126.09-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.19_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.159.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.19_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.178.04-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.20_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 595.58.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.20_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 595.71.05-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.20_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 595.91.07-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.gridKmod.9_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 430.63-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.11_8` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 450.191.01-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.12_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 460.106.00-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.13_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.63.01-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.13_12` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.256.02-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.13_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.129.06-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.13_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.141.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.13_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.161.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.13_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.161.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.13_7` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.182.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.13_9` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.223.02-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.14_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.47.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.14_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.73.08-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.14_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.85.02-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.14_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.108.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.14_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.108.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.15_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.60.13-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.15_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.85.05-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.15_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.105.17-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.15_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.125.06-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.16_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.54.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.16_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.104.05-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.16_10` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.247.01-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.16_11` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.261.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.16_12` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.274.02-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.16_13` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.288.01-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.16_14` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.309.01-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.16_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.129.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.16_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.154.05-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.16_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.161.07-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.16_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.161.08-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.16_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.183.01-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.16_7` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.183.06-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.16_8` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.216.01-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.16_9` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.230.02-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.17_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.54.14-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.17_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.54.15-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.17_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.90.07-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.17_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.90.07-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.17_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.127.05-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.17_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.144.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.17_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.163.01-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.18_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.124.06-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.18_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.133.20-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.18_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.148.08-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.18_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.158.01-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.18_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.172.08-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.18_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.195.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.18_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.211.01-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.19_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.65.06-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.19_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.82.07-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.19_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.95.05-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.19_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.105.08-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.19_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.126.09-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.19_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.159.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.19_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.178.04-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.20_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 595.58.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.20_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 595.71.05-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.20_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 595.91.07-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.gridKmod.9_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 430.63-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
 | `x86_64-linux` | `nvidia-grid.guest.11_8` | [nvidia-x11-grid](https://www.nvidia.com/object/unix.html) | 450.191.01 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.guest.12_4` | [nvidia-x11-grid](https://www.nvidia.com/object/unix.html) | 460.106.00 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.guest.13_0` | [nvidia-x11-grid](https://www.nvidia.com/object/unix.html) | 470.63.01 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
@@ -668,65 +668,65 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `nvidia-grid.guest.20_1` | [nvidia-x11-grid](https://www.nvidia.com/object/unix.html) | 595.71.05 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.guest.20_2` | [nvidia-x11-grid](https://www.nvidia.com/object/unix.html) | 595.91.07 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.guest.9_2` | [nvidia-x11-grid](https://www.nvidia.com/object/unix.html) | 430.63 | NVIDIA vGPU guest driver (GRID driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.guestKmod.11_8` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 450.191.01-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.12_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 460.106.00-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.13_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.63.01-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.13_12` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.256.02-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.13_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.129.06-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.13_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.141.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.13_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.161.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.13_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.161.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.13_7` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.182.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.13_9` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.223.02-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.14_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.47.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.14_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.73.08-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.14_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.85.02-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.14_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.108.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.14_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.108.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.15_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.60.13-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.15_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.85.05-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.15_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.105.17-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.15_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.125.06-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.16_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.54.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.16_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.104.05-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.16_10` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.247.01-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.16_11` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.261.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.16_12` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.274.02-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.16_13` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.288.01-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.16_14` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.309.01-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.16_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.129.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.16_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.154.05-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.16_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.161.07-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.16_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.161.08-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.16_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.183.01-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.16_7` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.183.06-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.16_8` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.216.01-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.16_9` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.230.02-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.17_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.54.14-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.17_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.54.15-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.17_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.90.07-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.17_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.90.07-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.17_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.127.05-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.17_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.144.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.17_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.163.01-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.18_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.124.06-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.18_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.133.20-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.18_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.148.08-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.18_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.158.01-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.18_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.172.08-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.18_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.195.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.18_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.211.01-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.19_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.65.06-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.19_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.82.07-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.19_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.95.05-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.19_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.105.08-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.19_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.126.09-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.19_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.159.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.19_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.178.04-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.20_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 595.58.03-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.20_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 595.71.05-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.20_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 595.91.07-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.guestKmod.9_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 430.63-6.18.59 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.11_8` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 450.191.01-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.12_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 460.106.00-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.13_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.63.01-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.13_12` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.256.02-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.13_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.129.06-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.13_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.141.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.13_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.161.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.13_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.161.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.13_7` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.182.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.13_9` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.223.02-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.14_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.47.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.14_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.73.08-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.14_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.85.02-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.14_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.108.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.14_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.108.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.15_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.60.13-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.15_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.85.05-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.15_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.105.17-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.15_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.125.06-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.16_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.54.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.16_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.104.05-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.16_10` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.247.01-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.16_11` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.261.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.16_12` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.274.02-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.16_13` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.288.01-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.16_14` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.309.01-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.16_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.129.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.16_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.154.05-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.16_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.161.07-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.16_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.161.08-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.16_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.183.01-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.16_7` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.183.06-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.16_8` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.216.01-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.16_9` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.230.02-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.17_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.54.14-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.17_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.54.15-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.17_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.90.07-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.17_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.90.07-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.17_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.127.05-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.17_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.144.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.17_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.163.01-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.18_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.124.06-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.18_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.133.20-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.18_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.148.08-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.18_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.158.01-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.18_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.172.08-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.18_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.195.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.18_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.211.01-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.19_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.65.06-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.19_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.82.07-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.19_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.95.05-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.19_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.105.08-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.19_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.126.09-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.19_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.159.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.19_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.178.04-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.20_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 595.58.03-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.20_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 595.71.05-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.20_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 595.91.07-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.guestKmod.9_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 430.63-6.18.60 | NVIDIA vGPU guest driver (GRID driver, experimental package) - Kernel modules |
 | `x86_64-linux` | `nvidia-grid.host.11_8` | [nvidia-x11-vgpu](https://www.nvidia.com/object/unix.html) | 450.191 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.host.12_4` | [nvidia-x11-vgpu](https://www.nvidia.com/object/unix.html) | 460.107 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.host.13_0` | [nvidia-x11-vgpu](https://www.nvidia.com/object/unix.html) | 470.63 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
@@ -786,65 +786,65 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `nvidia-grid.host.20_1` | [nvidia-x11-vgpu](https://www.nvidia.com/object/unix.html) | 595.71.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.host.20_2` | [nvidia-x11-vgpu](https://www.nvidia.com/object/unix.html) | 595.91.04 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.host.9_2` | [nvidia-x11-vgpu](https://www.nvidia.com/object/unix.html) | 430.67 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.hostKmod.11_8` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 450.191-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.12_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 460.107-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.13_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.63-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.13_12` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.256.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.13_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.129.04-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.13_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.141.05-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.13_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.161.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.13_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.161.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.13_7` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.182.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.13_9` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.223.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.14_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.47.03-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.14_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.73.06-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.14_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.85.03-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.14_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.108.03-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.14_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.108.03-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.15_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.60.12-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.15_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.85.07-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.15_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.105.14-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.15_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.125.03-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.16_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.54.06-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.16_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.104.06-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.16_10` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.247.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.16_11` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.261.04-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.16_12` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.274.03-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.16_13` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.288.01-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.16_14` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.309.01-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.16_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.129.03-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.16_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.154.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.16_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.161.05-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.16_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.161.05-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.16_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.183.04-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.16_7` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.183.04-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.16_8` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.216.01-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.16_9` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.230.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.17_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.54.10-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.17_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.54.16-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.17_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.90.05-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.17_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.90.05-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.17_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.127.06-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.17_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.144.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.17_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.163.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.18_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.124.03-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.18_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.133.10-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.18_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.148.06-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.18_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.158.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.18_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.172.07-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.18_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.195.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.18_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.211.01-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.19_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.65.05-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.19_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.82.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.19_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.95.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.19_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.105.06-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.19_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.126.08-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.19_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.159.01-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.19_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.178.05-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.20_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 595.58.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.20_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 595.71.03-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.20_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 595.91.04-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.hostKmod.9_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 430.67-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.11_8` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 450.191-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.12_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 460.107-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.13_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.63-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.13_12` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.256.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.13_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.129.04-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.13_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.141.05-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.13_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.161.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.13_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.161.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.13_7` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.182.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.13_9` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.223.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.14_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.47.03-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.14_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.73.06-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.14_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.85.03-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.14_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.108.03-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.14_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.108.03-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.15_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.60.12-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.15_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.85.07-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.15_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.105.14-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.15_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.125.03-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.16_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.54.06-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.16_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.104.06-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.16_10` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.247.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.16_11` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.261.04-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.16_12` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.274.03-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.16_13` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.288.01-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.16_14` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.309.01-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.16_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.129.03-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.16_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.154.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.16_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.161.05-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.16_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.161.05-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.16_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.183.04-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.16_7` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.183.04-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.16_8` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.216.01-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.16_9` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.230.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.17_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.54.10-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.17_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.54.16-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.17_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.90.05-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.17_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.90.05-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.17_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.127.06-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.17_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.144.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.17_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.163.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.18_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.124.03-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.18_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.133.10-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.18_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.148.06-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.18_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.158.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.18_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.172.07-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.18_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.195.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.18_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.211.01-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.19_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.65.05-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.19_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.82.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.19_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.95.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.19_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.105.06-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.19_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.126.08-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.19_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.159.01-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.19_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.178.05-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.20_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 595.58.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.20_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 595.71.03-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.20_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 595.91.04-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.hostKmod.9_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 430.67-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
 | `x86_64-linux` | `nvidia-grid.vgpu.11_8` | [nvidia-x11-vgpu](https://www.nvidia.com/object/unix.html) | 450.191 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.vgpu.12_4` | [nvidia-x11-vgpu](https://www.nvidia.com/object/unix.html) | 460.107 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.vgpu.13_0` | [nvidia-x11-vgpu](https://www.nvidia.com/object/unix.html) | 470.63 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
@@ -904,65 +904,65 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `nvidia-grid.vgpu.20_1` | [nvidia-x11-vgpu](https://www.nvidia.com/object/unix.html) | 595.71.03 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.vgpu.20_2` | [nvidia-x11-vgpu](https://www.nvidia.com/object/unix.html) | 595.91.04 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
 | `x86_64-linux` | `nvidia-grid.vgpu.9_2` | [nvidia-x11-vgpu](https://www.nvidia.com/object/unix.html) | 430.67 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.11_8` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 450.191-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.12_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 460.107-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.13_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.63-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.13_12` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.256.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.13_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.129.04-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.13_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.141.05-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.13_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.161.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.13_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.161.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.13_7` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.182.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.13_9` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.223.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.14_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.47.03-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.14_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.73.06-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.14_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.85.03-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.14_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.108.03-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.14_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.108.03-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.15_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.60.12-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.15_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.85.07-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.15_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.105.14-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.15_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.125.03-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.54.06-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.104.06-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_10` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.247.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_11` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.261.04-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_12` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.274.03-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_13` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.288.01-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_14` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.309.01-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.129.03-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.154.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.161.05-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.161.05-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.183.04-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_7` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.183.04-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_8` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.216.01-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_9` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.230.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.17_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.54.10-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.17_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.54.16-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.17_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.90.05-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.17_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.90.05-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.17_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.127.06-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.17_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.144.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.17_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.163.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.18_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.124.03-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.18_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.133.10-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.18_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.148.06-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.18_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.158.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.18_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.172.07-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.18_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.195.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.18_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.211.01-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.19_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.65.05-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.19_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.82.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.19_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.95.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.19_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.105.06-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.19_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.126.08-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.19_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.159.01-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.19_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.178.05-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.20_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 595.58.02-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.20_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 595.71.03-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.20_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 595.91.04-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
-| `x86_64-linux` | `nvidia-grid.vgpuKmod.9_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 430.67-6.18.59 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.11_8` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 450.191-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.12_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 460.107-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.13_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.63-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.13_12` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.256.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.13_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.129.04-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.13_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.141.05-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.13_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.161.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.13_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.161.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.13_7` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.182.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.13_9` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 470.223.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.14_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.47.03-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.14_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.73.06-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.14_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.85.03-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.14_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.108.03-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.14_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 510.108.03-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.15_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.60.12-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.15_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.85.07-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.15_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.105.14-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.15_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 525.125.03-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.54.06-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.104.06-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_10` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.247.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_11` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.261.04-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_12` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.274.03-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_13` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.288.01-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_14` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.309.01-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.129.03-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.154.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.161.05-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.161.05-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.183.04-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_7` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.183.04-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_8` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.216.01-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.16_9` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 535.230.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.17_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.54.10-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.17_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.54.16-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.17_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.90.05-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.17_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.90.05-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.17_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.127.06-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.17_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.144.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.17_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 550.163.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.18_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.124.03-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.18_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.133.10-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.18_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.148.06-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.18_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.158.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.18_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.172.07-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.18_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.195.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.18_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 570.211.01-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.19_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.65.05-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.19_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.82.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.19_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.95.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.19_3` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.105.06-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.19_4` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.126.08-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.19_5` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.159.01-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.19_6` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 580.178.05-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.20_0` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 595.58.02-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.20_1` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 595.71.03-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.20_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 595.91.04-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
+| `x86_64-linux` | `nvidia-grid.vgpuKmod.9_2` | [nvidia-kernel-modules](https://www.nvidia.com/object/unix.html) | 430.67-6.18.60 | NVIDIA vGPU host driver (vGPU-KVM driver, experimental package) - Kernel modules |
 </details>
 
 <details>
@@ -1346,7 +1346,7 @@ Or, use variables from this repository in case I change them:
 |  | `python3Packages.drissionpage` | [drissionpage](https://github.com/g1879/DrissionPage) | 4.1.1.4 | Python based web automation tool |
 |  | `python3Packages.drissionrecord` | [drissionrecord](https://gitcode.com/g1879/DrissionRecord) | 2.0.2 | Python data recording toolkit |
 |  | `python3Packages.edge-tts` | [edge-tts](https://github.com/rany2/edge-tts) | 7.3.1 | Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key |
-|  | `python3Packages.funasr` | [funasr](https://www.funasr.com/) | 1.4.19-unstable-2026-11-01 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
+|  | `python3Packages.funasr` | [funasr](https://www.funasr.com/) | 1.4.20-unstable-2026-11-03 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
 |  | `python3Packages.kaldiio` | [kaldiio](https://github.com/nttcslab-sp/kaldiio) | 2.18.1 | Pure python module for reading and writing kaldi ark files |
 |  | `python3Packages.kb-manager` | [kb-manager](https://github.com/dubh3124/OpenWebUI-KB-Manager) | 0.2.0 | Command-line interface (CLI) tool for managing files and knowledge bases in OpenWebUI |
 |  | `python3Packages.loralib` | [loralib](https://arxiv.org/abs/2106.09685) | 0-unstable-2024-12-16 | Implementation of "LoRA: Low-Rank Adaptation of Large Language Models" |
@@ -1385,7 +1385,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.asterisk-g72x` | [asterisk-g72x](https://github.com/arkadijs/asterisk-g72x) | 0-unstable-2026-09-07 | G.729 and G.723.1 codecs for Asterisk (Only G.729 is enabled) |
 |  | `uncategorized.awawausb-native-stub` | [awawausb-native-stub](https://github.com/ArcaneNibble/awawausb) | 0.2 | Native messaging stub for the awawausb WebUSB Firefox extension |
 |  | `uncategorized.axiom-syslog-proxy` | [axiom-syslog-proxy](https://github.com/axiomhq/axiom-syslog-proxy) | 0.8.0 | Syslog push interface to Axiom |
-|  | `uncategorized.axonhub` | [axonhub](https://github.com/looplj/axonhub) | 1.0.0-beta11 | Open-source AI gateway with built-in failover, load balancing, cost control and end-to-end tracing |
+|  | `uncategorized.axonhub` | [axonhub](https://github.com/looplj/axonhub) | 1.0.0-beta12 | Open-source AI gateway with built-in failover, load balancing, cost control and end-to-end tracing |
 | `x86_64-linux` | `uncategorized.baidunetdisk` | [baidunetdisk](https://pan.baidu.com/) | 8.9.7 | Baidu Netdisk |
 |  | `uncategorized.baidupcs-go` | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | 4.0.2-unstable-2026-09-09 | Baidu Netdisk commandline client, mimicking Linux shell file handling commands |
 | `x86_64-linux` | `uncategorized.bambu-studio-bin` | [bambu-studio-bin](https://github.com/bambulab/BambuStudio) | 02.05.02.51 | PC Software for BambuLab and other 3D printers |
@@ -1403,7 +1403,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.calibre-cops` | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 4.6.1 | Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks |
 |  | `uncategorized.cardpointers-cli` | [cardpointers-cli](https://github.com/cardpointers/cli) | 1.0.7 | Credit card rewards CLI for CardPointers |
 | `x86_64-linux` | `uncategorized.cleanuparr` | [cleanuparr](https://github.com/Cleanuparr/Cleanuparr) | 2.10.12 | Advanced download manager for the Servarr ecosystem |
-|  | `uncategorized.cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 8.0.51 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
+|  | `uncategorized.cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 8.0.52 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
 |  | `uncategorized.cockpy` | [cockpy](https://github.com/Hiro420/CockPY) | 0-unstable-2024-09-07 | Public and open source version of the cbt2 ps I'm working on |
 |  | `uncategorized.dbip-lite` | [dbip-lite](https://db-ip.com/db/lite.php) | 2026-08 | DBIP's Lite GeoIP Country, City, and ASN databases |
 |  | `uncategorized.decluttarr` | [decluttarr](https://github.com/ManiMatter/decluttarr) | 2.2.0 | Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed |
@@ -1412,7 +1412,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.drone-file-secret` | [drone-file-secret](https://github.com/xddxdd/drone-file-secret) | 0-unstable-2023-06-26 | Secret provider for Drone CI that reads secrets from a given folder |
 |  | `uncategorized.drone-vault` | [drone-vault](https://docs.drone.io/configure/secrets/external/vault/) | 1.3.0 | Drone plugin for integrating with the Vault secrets manager |
 |  | `uncategorized.dump978` | [dump978](https://github.com/flightaware/dump978) | 11.1 | FlightAware's 978MHz UAT demodulator |
-|  | `uncategorized.easycliproxyapi` | [easycliproxyapi](https://github.com/router-for-me/EasyCLIProxyAPI) | 0.3.65 | Desktop GUI for managing CLIProxyAPI and configuring AI agent clients |
+|  | `uncategorized.easycliproxyapi` | [easycliproxyapi](https://github.com/router-for-me/EasyCLIProxyAPI) | 0.3.67 | Desktop GUI for managing CLIProxyAPI and configuring AI agent clients |
 |  | `uncategorized.ela-widget-tools` | [ela-widget-tools](https://github.com/Liniyous/ElaWidgetTools) | 0-unstable-2026-10-09 | Fluent-UI For QT-Widget |
 |  | `uncategorized.electron_11` | [electron](https://github.com/electron/electron) | 11.5.0 | Cross platform desktop application shell |
 |  | `uncategorized.electron_9` | [electron](https://github.com/electron/electron) | 9.4.4 | Cross platform desktop application shell |
@@ -1448,10 +1448,10 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.hi3-ii-martian-font` | [hi3-ii-martian-font](https://github.com/Wenti-D/HI3IIMartianFont) | 0-unstable-2023-10-12 | Font for Martian in Honkai Impact 3rd |
 |  | `uncategorized.hoyo-glyphs` | [hoyo-glyphs](https://github.com/SpeedyOrc-C/Hoyo-Glyphs) | 20250529 | Constructed scripts by Hoyoverse 米哈游的架空文字 |
 |  | `uncategorized.igsc` | [igsc](https://github.com/intel/igsc) | 1.3.2 | Intel graphics system controller firmware update library |
-|  | `uncategorized.ik-llama-cpp` | [ik-llama-cpp](https://github.com/ikawrakow/ik_llama.cpp) | 0-unstable-2026-11-01 | High-performance llama.cpp fork with optimized i-quantization kernels |
-|  | `uncategorized.ik-llama-cpp-avx` | [ik-llama-cpp](https://github.com/ikawrakow/ik_llama.cpp) | 0-unstable-2026-11-01 | High-performance llama.cpp fork with optimized i-quantization kernels |
-|  | `uncategorized.ik-llama-cpp-avx2` | [ik-llama-cpp](https://github.com/ikawrakow/ik_llama.cpp) | 0-unstable-2026-11-01 | High-performance llama.cpp fork with optimized i-quantization kernels |
-|  | `uncategorized.ik-llama-cpp-cuda` | [ik-llama-cpp](https://github.com/ikawrakow/ik_llama.cpp) | 0-unstable-2026-11-01 | High-performance llama.cpp fork with optimized i-quantization kernels |
+|  | `uncategorized.ik-llama-cpp` | [ik-llama-cpp](https://github.com/ikawrakow/ik_llama.cpp) | 0-unstable-2026-11-02 | High-performance llama.cpp fork with optimized i-quantization kernels |
+|  | `uncategorized.ik-llama-cpp-avx` | [ik-llama-cpp](https://github.com/ikawrakow/ik_llama.cpp) | 0-unstable-2026-11-02 | High-performance llama.cpp fork with optimized i-quantization kernels |
+|  | `uncategorized.ik-llama-cpp-avx2` | [ik-llama-cpp](https://github.com/ikawrakow/ik_llama.cpp) | 0-unstable-2026-11-02 | High-performance llama.cpp fork with optimized i-quantization kernels |
+|  | `uncategorized.ik-llama-cpp-cuda` | [ik-llama-cpp](https://github.com/ikawrakow/ik_llama.cpp) | 0-unstable-2026-11-02 | High-performance llama.cpp fork with optimized i-quantization kernels |
 |  | `uncategorized.imewlconverter` | [imewlconverter](https://github.com/studyzy/imewlconverter) | 3.6.0 | FOSS program for converting IME dictionaries |
 |  | `uncategorized.invisible-firefox-unwrapped` | [invisible-firefox-unwrapped](https://github.com/feder-cr/invisible-firefox) | 151.0 | Firefox with anti fingerprinting modifications |
 |  | `uncategorized.invisible-firefox-unwrapped-bin` | [invisible-firefox-unwrapped-bin](https://github.com/feder-cr/firefox_antidetect_patch) | 159.0 | Anti-fingerprinting Firefox, packaged from upstream prebuilt Linux binaries |
@@ -1465,14 +1465,14 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `uncategorized.libcrystalhd` | [libcrystalhd](https://launchpad.net/ubuntu/+source/crystalhd) | 0-unstable-2021-01-26 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) userspace library |
 |  | `uncategorized.libnftnl-fullcone` | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.3.2 | Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
 |  | `uncategorized.liboqs` | [liboqs](https://openquantumsafe.org) | 0.16.0 | C library for prototyping and experimenting with quantum-resistant cryptography |
-|  | `uncategorized.liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2026-11-01 | C library for prototyping and experimenting with quantum-resistant cryptography |
+|  | `uncategorized.liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2026-11-02 | C library for prototyping and experimenting with quantum-resistant cryptography |
 |  | `uncategorized.lightpanda` | [lightpanda](https://lightpanda.io) | 1.0.2 | Headless browser designed for AI and automation |
 | `x86_64-linux` | `uncategorized.linguaspark-server` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-10-22 | Lightweight multilingual translation service powered by the pure Rust LinguaSpark inference engine, compatible with multiple translation frontend APIs |
 | `x86_64-linux` | `uncategorized.linguaspark-server-x86-64-v3` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-10-22 | Lightweight multilingual translation service powered by the pure Rust LinguaSpark inference engine, compatible with multiple translation frontend APIs |
 |  | `uncategorized.lyrica` | [lyrica](https://github.com/chiyuki0325/lyrica) | 0.24 | Linux desktop lyrics widget focused on simplicity and integration |
 |  | `uncategorized.lyrica-plasmoid` | [lyrica](https://github.com/chiyuki0325/lyrica) | 0.24 | Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component) |
 |  | `uncategorized.lyrics-on-panel-backend` | [lyrics-on-panel-backend](https://github.com/KangweiZhu/lyrics-on-panel) | 2.0 | MPRIS2 WebSocket backend for the Lyrics-on-Panel KDE Plasma widget |
-|  | `uncategorized.mages-bin` | [mages-bin](https://github.com/mlm-games/Mages) | 5.3.4 | Experimental Matrix chat client built with Compose Multiplatform and matrix-rust-sdk |
+|  | `uncategorized.mages-bin` | [mages-bin](https://github.com/mlm-games/Mages) | 5.3.6 | Experimental Matrix chat client built with Compose Multiplatform and matrix-rust-sdk |
 |  | `uncategorized.magiskboot` | [magiskboot](https://topjohnwu.github.io/Magisk/tools.html) | 31.1 | Tool to unpack / repack boot images, parse / patch / extract cpio, patch dtb, hex patch binaries, and compress / decompress files with multiple algorithms |
 |  | `uncategorized.mautrix-gmessages` | [mautrix-gmessages](https://github.com/mautrix/gmessages) | 0.2610.0 | Matrix-Google Messages puppeting bridge |
 |  | `uncategorized.metapi` | [metapi](https://github.com/cita-777/metapi) | 1.3.0 | Meta-layer management and unified proxy for AI API aggregation platforms |
@@ -1494,14 +1494,14 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.oidc-tester-app` | [oidc-tester-app](https://github.com/authelia/oidc-tester-app) | 0-unstable-2026-10-28 | OpenID Connect relying party web application for testing OIDC providers such as Authelia |
 |  | `uncategorized.openai-edge-tts` | [openai-edge-tts](https://tts.travisvn.com/) | 2.0.0-unstable-2025-07-01 | Text-to-speech API endpoint compatible with OpenAI's TTS API endpoint, using Microsoft Edge TTS to generate speech for free locally |
 |  | `uncategorized.openedai-speech` | [openedai-speech](https://github.com/matatonic/openedai-speech) | 0.18.2 | OpenAI API compatible text to speech server using Coqui AI's xtts_v2 and/or piper tts as the backend |
-|  | `uncategorized.openssl-oqs-provider` | [openssl-oqs-provider](https://openquantumsafe.org) | 0.12.0-unstable-2026-11-01 | OpenSSL 3 provider containing post-quantum algorithms |
-|  | `uncategorized.osdlyrics` | [osdlyrics](https://github.com/osdlyrics/osdlyrics) | 0.5.16 | Standalone lyrics fetcher/displayer (windowed and OSD mode) |
+|  | `uncategorized.openssl-oqs-provider` | [openssl-oqs-provider](https://openquantumsafe.org) | 0.12.0-unstable-2026-11-02 | OpenSSL 3 provider containing post-quantum algorithms |
+|  | `uncategorized.osdlyrics` | [osdlyrics](https://github.com/osdlyrics/osdlyrics) | 0.6.0 | Standalone lyrics fetcher/displayer (windowed and OSD mode) |
 |  | `uncategorized.palworld-exporter` | [palworld-exporter](https://github.com/palworldlol/palworld-exporter) | 1.3.1 | Prometheus exporter for Palworld Server |
 |  | `uncategorized.palworld-worldoptions` | [palworld-worldoptions](https://github.com/legoduded/palworld-worldoptions) | 1.11.0 | Tool for managing Palworld dedicated server settings |
 |  | `uncategorized.peerbanhelper` | [peerbanhelper](https://github.com/Ghost-chu/PeerBanHelper) | 9.5.4 | Automatically bans unwanted, leeching, and anomalous BT clients, with support for custom rules for qBittorrent and Transmission |
 |  | `uncategorized.phpmyadmin` | [phpmyadmin](https://www.phpmyadmin.net/) | 5.2.3 | Web interface for MySQL and MariaDB |
 |  | `uncategorized.phppgadmin` | [phppgadmin](https://github.com/phppgadmin/phppgadmin) | 7.14.8-mod | Premier web-based administration tool for PostgreSQL |
-|  | `uncategorized.pi-web` | [pi-web](https://github.com/agegr/pi-web) | 0.13.0 | Web UI for the pi coding agent |
+|  | `uncategorized.pi-web` | [pi-web](https://github.com/agegr/pi-web) | 0.14.2 | Web UI for the pi coding agent |
 |  | `uncategorized.picoclaw` | [picoclaw](https://github.com/afjcjsbx/picoclaw) | 0.5.3 | Lightweight personal AI assistant and agent gateway |
 |  | `uncategorized.plangothic-fonts` | [plangothic-fonts](https://github.com/Fitzgerald-Porthmouth-Koenigsegg/Plangothic_Project) | 2.9.5795 | Plangothic Project |
 |  | `uncategorized.plasma-panel-transparency-toggle` | [plasma-panel-transparency-toggle](https://github.com/sanjay-kr-commit/panelTransparencyToggleForPlasma6) | 0-unstable-2024-04-17 | Rewrite of Panel Transparency Button for Plasma 6 |
@@ -1528,14 +1528,14 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.rime-moegirl` | [rime-moegirl](https://github.com/outloudvi/mw2fcitx/releases) | 20261024 | RIME dictionary file for entries from zh.moegirl.org.cn |
 |  | `uncategorized.rime-zhwiki` | [rime-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki) | 20240509 | RIME dictionary file for entries from zh.wikipedia.org |
 |  | `uncategorized.route-chain` | [route-chain](https://github.com/xddxdd/route-chain) | 1.1.0-unstable-2026-01-08 | Small app to generate a long path in traceroute |
-|  | `uncategorized.rtpengine` | [rtpengine](https://github.com/sipwise/rtpengine) | 0-unstable-2026-10-28 | Sipwise media proxy for Kamailio |
+|  | `uncategorized.rtpengine` | [rtpengine](https://github.com/sipwise/rtpengine) | 0-unstable-2026-11-02 | Sipwise media proxy for Kamailio |
 |  | `uncategorized.runpodctl` | [runpodctl](https://www.runpod.io) | 3.0.1 | RunPod CLI for pod management |
 |  | `uncategorized.sam-toki-mouse-cursors` | [sam-toki-mouse-cursors](https://github.com/SamToki/Sam-Toki-Mouse-Cursors) | 10.01 | Original mouse cursors (pointers) for Windows, with minimalistic design |
 | `x86_64-linux` | `uncategorized.sgx-software-enable` | [sgx-software-enable](https://github.com/intel/sgx-software-enable) | 1.0-unstable-2023-01-06 | Application to enable Intel SGX on Linux systems |
 |  | `uncategorized.sidestore-vpn` | [sidestore-vpn](https://github.com/xddxdd/sidestore-vpn) | 0-unstable-2026-05-21 | Allow SideStore to work across all iOS devices on your local network |
 | `x86_64-linux` | `uncategorized.skyline-speeder` | [skyline-speeder](https://github.com/CYBERVERSE-Research/skyline-speeder) | 0.5.4 | Sender-side TCP congestion control via eBPF struct_ops with a Rust control plane |
 |  | `uncategorized.space-cadet-pinball-full-tilt` | [SpaceCadetPinball](https://github.com/k4zmu2a/SpaceCadetPinball) | 2.1.0 | Reverse engineering of 3D Pinball for Windows – Space Cadet, a game bundled with Windows (With Full Tilt Pinball data) |
-|  | `uncategorized.strata` | [strata-runtime](https://github.com/Niko1221/Strata) | 0.2.9 | Local large language model inference stack with a CUDA engine and a self-managed data folder |
+|  | `uncategorized.strata` | [strata-runtime](https://github.com/Niko1221/Strata) | 0.2.10 | Local large language model inference stack with a CUDA engine and a self-managed data folder |
 |  | `uncategorized.suwayomi-server` | [suwayomi-server](https://github.com/Suwayomi/Suwayomi-Server) | 2.4.2366 | Rewrite of Tachiyomi for the Desktop |
 | `x86_64-linux` | `uncategorized.svp` | [svp](https://www.svp-team.com/wiki/SVP:Linux) | 4.7.305-1 | SmoothVideo Project 4 (SVP4) converts any video to 60 fps (and even higher) and performs this in real time right in your favorite video player |
 |  | `uncategorized.svp-mpv` | [mpv-with-scripts](https://mpv.io) | 0.41.0 | General-purpose media player, fork of MPlayer and mplayer2 |
@@ -1545,7 +1545,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.tel42verifier` | [tel42verifier](https://github.com/strexp/tel42verifier) | 0.0.3 | Multi-domain ENUM-based Caller ID verifier for Asterisk |
 |  | `uncategorized.uesave` | [uesave](https://github.com/trumank/uesave-rs) | 0.7.1 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS) |
 |  | `uncategorized.uesave-0_3_0` | [uesave](https://github.com/trumank/uesave-rs) | 0.3.0 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS), older version that works with Palworld |
-|  | `uncategorized.uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 1.7.276-unstable-2026-11-01 | Unifies the management of LLM APIs across multiple backend services |
+|  | `uncategorized.uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 1.7.276-unstable-2026-11-02 | Unifies the management of LLM APIs across multiple backend services |
 | `x86_64-linux` | `uncategorized.unigine-heaven` | [unigine-heaven](https://benchmark.unigine.com/heaven) | 4.0 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `uncategorized.unigine-sanctuary` | [unigine-sanctuary](https://benchmark.unigine.com/sanctuary) | 2.3 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `uncategorized.unigine-superposition` | [unigine-superposition](https://benchmark.unigine.com/superposition) | 1.1 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
@@ -1558,7 +1558,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.vk-hdr-layer` | [vk-hdr-layer](https://github.com/Zamundaaa/VK_hdr_layer) | 0-unstable-2026-08-05 | Vulkan layer utilizing a small color management / HDR protocol for experimentation |
 |  | `uncategorized.vlmcsd` | [vlmcsd](https://github.com/Wind4/vlmcsd) | 1113-unstable-2023-07-28 | KMS Emulator in C |
 |  | `uncategorized.vuetorrent-backend` | [vuetorrent-backend](https://github.com/VueTorrent/vuetorrent-backend) | 2.7.4 | Simple backend service to store configuration server-side |
-|  | `uncategorized.waline` | [waline](https://github.com/walinejs/waline) | 1.43.4 | Server for the Waline comment system |
+|  | `uncategorized.waline` | [waline](https://github.com/walinejs/waline) | 1.43.6 | Server for the Waline comment system |
 |  | `uncategorized.wechat-uos-sandboxed` | [wechat-uos](https://weixin.qq.com/) | 4.1.1.7 | WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
 | `x86_64-linux` | `uncategorized.wine-wechat` | [wine-wechat](https://weixin.qq.com/) | 3.9.12.57 | Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |
 | `x86_64-linux` | `uncategorized.wine-wechat-x86` | [wine-wechat-x86](https://weixin.qq.com/) | 3.9.12.56 | Wine WeChat x86 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |
