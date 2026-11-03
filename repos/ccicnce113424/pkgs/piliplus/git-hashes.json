@@ -6,6 +6,7 @@
   "canvas_danmaku": "sha256-IVIhIzK49yFqIT6MDo4KIzI3fEs8GfwvtiLcHd109ko=",
   "catcher_2": "sha256-CQ2l8iB+/YCrMtEZhCgsUmCl/C1buAj696PQ7KdIGQo=",
   "chat_bottom_container": "sha256-QnNfpuL5AX46Q/XIZP7xtn2sIXKT65IRqOYq36QU524=",
+  "dlna_dart": "sha256-I1mDwDKCuIG12tgZlml1+NJT0J8oW/NvvUA/4s585LU=",
   "extended_nested_scroll_view": "sha256-HZ4NJbkSBhvNet4i8ZtOI1ThBgWx+I17Dd/UbSERZkk=",
   "flutter_html": "sha256-+AsTeOCEVWSCHm9o+3igt1xVFNaDFycJsqbF6c59RWY=",
   "flutter_inappwebview_android": "sha256-9BD8Lv89jK5JgFuqGo6NmQmCYDZPmDJWMN4rLjr2j2w=",
@@ -25,6 +26,5 @@
   "native_device_orientation": "sha256-yVO1rf3kPn1WDwRgwGwVqrxJREHN41vN7FC4lJPyaIc=",
   "octo_image": "sha256-wWH3nH6uy75eD+jEiyKXjpI/JYkLbZcDqZfdLD6z2rA=",
   "super_sliver_list": "sha256-G24uRql1aIc1TDJwKqwQ72Pi4YbJybMn6lxOUySSDwk=",
-  "webdav_client": "sha256-euNF7HdDtZ68BqSEq9BvO10BK09MxX2wWGoElFS0yeE=",
-  "window_manager": "sha256-xUd5hG+/V6F+m0ZUL/3XGPACFG/zqI5JM6IaMVvLgx4="
+  "webdav_client": "sha256-euNF7HdDtZ68BqSEq9BvO10BK09MxX2wWGoElFS0yeE="
 }
