@@ -744,8 +744,8 @@
             "url": "https://github.com/danny19862025/spotlight"
         },
         "davinci42": {
-            "rev": "eb6b1154a402f24978ef9c5e96ae2e5ea1c4a909",
-            "sha256": "167i6ill0s87k5qg2v0qzdgmj8p87fdvc0m62p6b50f7yw10cb1b",
+            "rev": "6cf0800e324bebf691d59ae96f236bf6833f006b",
+            "sha256": "0jh0xfiipkbbxx8d0p16h62l3ka7gdfd3k2kj0487dg27iidc3ql",
             "url": "https://github.com/DaVinci42/nur-packages"
         },
         "dawidsowa": {
@@ -2370,8 +2370,8 @@
             "url": "https://github.com/SebRut/personal-nix-packages-repository"
         },
         "sectui": {
-            "rev": "a03d4b639adba5e4fe2ecdb628329a12e6c369b7",
-            "sha256": "1hxpvm9b9fjj30597zmaq903mbppy3qs9agmpv168v5dhc3v54xc",
+            "rev": "72eeb35c5a6ba0c643aa4f48cc709bacd2c15227",
+            "sha256": "0w7lqzpy1k6phqaawmnlpfgbqc7h7prl57n708rb1x9dvwmglbv4",
             "url": "https://github.com/sectui/nur"
         },
         "sedlund": {
