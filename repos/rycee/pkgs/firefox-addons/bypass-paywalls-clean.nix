@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "bypass-paywalls-clean";
-  version = "4.4.8.3";
+  version = "4.4.8.4";
   addonId = "magnolia@12.34";
-  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.8.3.xpi";
-  sha256 = "63ed54bb1c6c60fb4d9d8ee9476aaef4b23f0efa0a52ef7377473c87d236d38c";
+  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.8.4.xpi";
+  sha256 = "951f6c349c91fc1d840a8cfe5be48ff3fe9e0b50dc5a49479d5b58b9d5465414";
   meta = with lib; {
     homepage = "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean";
     description = "Bypass Paywalls of (custom) news sites";
@@ -660,7 +660,6 @@ buildFirefoxXpiAddon {
       "*://*.profil.at/*"
       "*://*.project-syndicate.org/*"
       "*://*.prospectmagazine.co.uk/*"
-      "*://*.public.fr/*"
       "*://*.publico.es/*"
       "*://*.puck.news/*"
       "*://*.pzc.nl/*"
@@ -829,7 +828,6 @@ buildFirefoxXpiAddon {
       "*://*.thestate.com/*"
       "*://*.thesun.co.uk/*"
       "*://*.thesun.ie/*"
-      "*://*.thetimes.com/*"
       "*://*.theverge.com/*"
       "*://*.theweek.com/*"
       "*://*.thewest.com.au/*"
