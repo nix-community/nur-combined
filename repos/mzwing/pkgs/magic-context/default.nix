@@ -10,7 +10,7 @@
   inherit (source) version;
 
   # Refreshed by update-hashes via passthru.updateCustomDeps.
-  bunDepsHash = "sha256-tFyLrWe/xaF75TkOZwoDJ8F2d/wgbWlBKTyz9Gg0lJU=";
+  bunDepsHash = "sha256-rAFLkN5BNYzyHAbXeaYGq6sF/Khdc2w7pi4jZqGeXks=";
 
   nodeModules = callPackage ./deps.nix {inherit source version bunDepsHash;};
 
