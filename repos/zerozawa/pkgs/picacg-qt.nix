@@ -31,13 +31,13 @@ let
 in
 python313Packages.buildPythonApplication rec {
   pname = "picacg-qt";
-  version = "1.5.8";
+  version = "1.5.7";
 
   src = fetchFromGitHub {
     owner = "tonquer";
     repo = "picacg-qt";
     rev = "v${version}";
-    hash = "sha256-/txY8HRx+OXwtda8QpaXCltiLnxv9o+qieBFQ8zXk4I=";
+    hash = "sha256-iIN0rzNm3y+cK1Wj0AkZHttAbz21VRrR2e1HlJa102g=";
   };
 
   format = "other";
