@@ -1,24 +1,24 @@
-# NOTE: originally based on https://github.com/gleachkr/nix-tools/blob/main/kani/default.nix
+# NOTE: originally based on https://github.com/model-checking/kani/pull/5098
 {
-  lib,
-  rust-overlay,
-  fetchurl,
-  fetchFromGitHub,
-  glibc,
-  extend,
-  rsync,
-  makeWrapper,
-  stdenv,
   autoPatchelfHook,
-  zlib,
+  fetchurl,
+  lib,
+  makeWrapper,
+  rust-overlay,
+  extend,
+  stdenv,
 }:
 let
-  version = "0.68.0";
-
+  target = stdenv.hostPlatform.rust.rustcTarget;
+  hashes = {
+    x86_64-linux = "sha256:1ls3g2pfk3a4gpk4xv4agm4j5515qiwhikx2cjzhppiysy2b9qij";
+    aarch64-linux = "sha256:0b4l3baz480192slmjqq31iki8gfmab9r9zlvrq04mgiidld4hh0";
+    x86_64-darwin = "sha256:0228qc6arg505si82rmnpvlxcgxyndw1yw1kw75anl0k9ilpydmi";
+    aarch64-darwin = "sha256:1663l3nz4zqxd4r5x3m24xwji5y3qsaz4qmaafjm70klbrfrmlx5";
+  };
   rustPkgs = extend (import rust-overlay);
-
   # Rust toolchain as specified in `$KANI_HOME/rust-toolchain-version`
-  rustHome = rustPkgs.rust-bin.nightly."2026-08-20".default.override {
+  rust-toolchain = rustPkgs.rust-bin.nightly."2026-08-21".default.override {
     extensions = [
       "rustc-dev"
       "rust-src"
@@ -26,112 +26,77 @@ let
       "rustfmt"
     ];
   };
-
-  rustPlatform = rustPkgs.makeRustPlatform {
-    cargo = rustHome;
-    rustc = rustHome;
-  };
-
-  releases = {
-    x86_64-linux = fetchurl {
-      url = "https://github.com/model-checking/kani/releases/download/kani-${version}/kani-${version}-x86_64-unknown-linux-gnu.tar.gz";
-      sha256 = "sha256:1ls3g2pfk3a4gpk4xv4agm4j5515qiwhikx2cjzhppiysy2b9qij";
-    };
-    aarch64-linux = fetchurl {
-      url = "https://github.com/model-checking/kani/releases/download/kani-${version}/kani-${version}-aarch64-unknown-linux-gnu.tar.gz";
-      sha256 = "sha256:0b4l3baz480192slmjqq31iki8gfmab9r9zlvrq04mgiidld4hh0";
-    };
-    x86_64-darwin = fetchurl {
-      url = "https://github.com/model-checking/kani/releases/download/kani-${version}/kani-${version}-x86_64-apple-darwin.tar.gz";
-      sha256 = "sha256:0228qc6arg505si82rmnpvlxcgxyndw1yw1kw75anl0k9ilpydmi";
-    };
-    aarch64-darwin = fetchurl {
-      url = "https://github.com/model-checking/kani/releases/download/kani-${version}/kani-${version}-aarch64-apple-darwin.tar.gz";
-      sha256 = "sha256:1663l3nz4zqxd4r5x3m24xwji5y3qsaz4qmaafjm70klbrfrmlx5";
-    };
-  };
-
-  kani-home = stdenv.mkDerivation {
-    name = "kani-home";
-
-    src =
-      releases.${stdenv.hostPlatform.system}
-        or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
-
-    buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
-      stdenv.cc.cc.lib # libs needed by patchelf
-    ];
-
-    runtimeDependencies = lib.optionals stdenv.hostPlatform.isLinux [
-      glibc # not detected as missing by patchelf for some reason
-    ];
-
-    nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
-
-    installPhase = ''
-      runHook preInstall
-      ${rsync}/bin/rsync -av ./ $out --exclude kani-compiler --exclude kani-driver
-      runHook postInstall
-    '';
-  };
 in
-rustPlatform.buildRustPackage {
+stdenv.mkDerivation (finalAttrs: {
   pname = "kani";
+  version = "0.68.0";
 
-  inherit version;
-
-  src = fetchFromGitHub {
-    owner = "model-checking";
-    repo = "kani";
-    tag = "kani-${version}";
-    hash = "sha256-OwjC0I06KxFxnQ4J/599v6ktZKqWgE3Kn/SY8hSk6DY=";
-    fetchSubmodules = true;
+  src = fetchurl {
+    url = "https://github.com/model-checking/kani/releases/download/kani-${finalAttrs.version}/kani-${finalAttrs.version}-${target}.tar.gz";
+    hash = hashes.${stdenv.hostPlatform.system};
   };
 
-  cargoPatches = [
-    ./deduplicate-tracing-tree.patch
+  nativeBuildInputs = [ makeWrapper ] ++ lib.optional stdenv.hostPlatform.isLinux autoPatchelfHook;
+  # On Linux, the bundled binaries need the C++ standard library (CBMC) and `librustc_driver`
+  # (kani-compiler). On macOS, they find the latter through `@loader_path/../toolchain/lib`.
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
+    rust-toolchain
+    stdenv.cc.cc.lib
   ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [
-    zlib
-  ];
+  dontConfigure = true;
+  dontBuild = true;
+  # The bundle holds precompiled Rust libraries that must stay as they are.
+  dontStrip = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  # `kani-driver` treats the parent of its own `bin/` as the installation directory.
+  installPhase = ''
+    runHook preInstall
 
-  postInstall = ''
-    mkdir -p $out/lib/
-    ${rsync}/bin/rsync -av ${kani-home}/ $out/lib/kani-${version} --perms --chmod=D+rw,F+rw
-    cp $out/bin/* $out/lib/kani-${version}/bin/
-    ln -s ${rustHome} $out/lib/kani-${version}/toolchain
+    mkdir -p $out/lib $out/bin
+    cp -r . $out/lib/kani
+    ln -s ${rust-toolchain} $out/lib/kani/toolchain
+
+    for bin in kani cargo-kani; do
+      makeWrapper $out/lib/kani/bin/kani-driver $out/bin/$bin \
+        --argv0 $bin \
+        --prefix PATH : $out/lib/kani/bin
+    done
+
+    runHook postInstall
   '';
 
-  postFixup = ''
-    wrapProgram $out/bin/kani --set KANI_HOME $out/lib/
-    wrapProgram $out/bin/cargo-kani --set KANI_HOME $out/lib/
+  # The bundle records the compiler it was built with; anything else cannot load `kani-compiler`.
+  doInstallCheck = true;
+  installCheckPhase = ''
+    runHook preInstallCheck
+
+    expected=$(cat $out/lib/kani/rustc-version)
+    actual=$(${rust-toolchain}/bin/rustc --version)
+    if [[ $expected != "$actual" ]]; then
+      echo "Kani ${finalAttrs.version} was built with '$expected', but the toolchain is '$actual'" >&2
+      exit 1
+    fi
+    $out/bin/kani --version
+
+    runHook postInstallCheck
   '';
-
-  cargoHash = "sha256-PjgKbmJqBXZrgKGIEZccuk4LmFGngG8CTsZpxZvCp6U=";
-
-  env = {
-    RUSTUP_HOME = "${rustHome}";
-    RUSTUP_TOOLCHAIN = "..";
-  };
 
   meta = {
-    description = "Kani Rust Verifier";
-    homepage = "https://model-checking.github.io/kani/";
-    changelog = "https://github.com/model-checking/kani/blob/main/CHANGELOG.md";
+    description = "Bit-precise model checker for Rust";
+    homepage = "https://github.com/model-checking/kani";
     license = with lib.licenses; [
-      mit
       asl20
+      mit
     ];
-    meta.platforms = [
-      "x86_64-linux"
+    mainProgram = "kani";
+    platforms = [
+      "aarch64-darwin"
       "aarch64-linux"
       "x86_64-darwin"
-      "aarch64-darwin"
+      "x86_64-linux"
     ];
+    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     maintainers = [ (import ../../maintainer.nix { inherit (lib) maintainers; }) ];
-    mainProgram = "kani";
   };
-}
+})
