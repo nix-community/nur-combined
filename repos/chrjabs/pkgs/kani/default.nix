@@ -7,6 +7,7 @@
   rust-overlay,
   extend,
   stdenv,
+  gcc,
 }:
 let
   target = stdenv.hostPlatform.rust.rustcTarget;
@@ -42,6 +43,10 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     rust-toolchain
     stdenv.cc.cc.lib
+  ];
+  propagatedBuildInputs = [
+    # goto-cc depends on gcc
+    gcc
   ];
 
   dontConfigure = true;
