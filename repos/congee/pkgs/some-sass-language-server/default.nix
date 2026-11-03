@@ -8,11 +8,11 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "some-sass-language-server";
-  version = "2.3.8";
+  version = "2.3.9";
 
   src = fetchurl {
     url = "https://registry.npmjs.org/some-sass-language-server/-/some-sass-language-server-${version}.tgz";
-    hash = "sha256-dTNM1MBb5RLwySTMZZWvHtwlpoSdlRQnG6hzaYpVXaw=";
+    hash = "sha256-/8EdX7KsRm865j6GUa9wVnh5MxEkkWaEZG+aNzebKso=";
   };
 
   installPhase = ''
