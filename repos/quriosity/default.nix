@@ -10,8 +10,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   # Apps
-  BedrockNix = pkgs.callPackage ./pkgs/apps/BedrockNix {};
-  olauncher = pkgs.callPackage ./pkgs/apps/olauncher {};
   leshade = pkgs.callPackage ./pkgs/apps/leshade {};
   zen-browser = pkgs.callPackage ./pkgs/apps/zen-browser {};
   zen-twilight = pkgs.callPackage ./pkgs/apps/zen-browser/twilight.nix {};
@@ -21,6 +19,11 @@
   openide = pkgs.callPackage ./pkgs/apps/openide {};
   materialgram = pkgs.callPackage ./pkgs/apps/materialgram {};
   paintdotjs = pkgs.callPackage ./pkgs/apps/paintdotjs {};
+  # Minecraft
+  bol = pkgs.callPackage ./pkgs/apps/minecraft/bol {};
+  olauncher = pkgs.callPackage ./pkgs/apps/minecraft/olauncher {};
+  cinnabar = pkgs.callPackage ./pkgs/apps/minecraft/cinnabar {};
+  horizon = pkgs.callPackage ./pkgs/apps/minecraft/horizon {};
   # Artcraft Suite
   artcraft-launcher = pkgs.callPackage ./pkgs/apps/artcraft-suite/artcraft-launcher {};
   photocraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/photocraft {};
@@ -38,6 +41,7 @@
   gridcraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/gridcraft {};
   texturecraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/texturecraft {};
   materialcraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/materialcraft {};
+
 
   # Compatibility tools
   ge-proton = pkgs.callPackage ./pkgs/compat-tools/ge-proton {};
