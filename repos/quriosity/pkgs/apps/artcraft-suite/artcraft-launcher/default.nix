@@ -31,10 +31,13 @@ let
     vulkan-loader
   ];
 
-  # craft-libs is a git dependency of craft-launcher (craft-ui, craft-quit, craft-fonts-build,
-  # craft-i18n all come from it). Its crates/menu/Cargo.toml overrides the workspace's
-  # craft-keymap with `default-features = false`, which Cargo rejects. We fetch it locally
-  # and redirect the git deps to the local copy so cargo metadata reads the patched workspace.
+  # craft-libs is a git dependency of craft-launcher (craft-ui, craft-quit,
+  # craft-fonts-build, craft-i18n all come from it). Its crates/menu/Cargo.toml
+  # overrides the workspace's craft-keymap with `default-features = false`,
+  # which Cargo rejects when cargo metadata runs during vendoring. We fetch
+  # craft-libs locally in prePatch (before vendoring) and redirect the git
+  # deps to local path deps so craft-libs never needs to be fetched during the
+  # vendor step.
   craftLibs = fetchFromGitHub {
     owner = "storytold";
     repo = "craft-libs";
@@ -56,43 +59,38 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoHash = "sha256-ywlE1xHrZodNIoqQAAM+p3GwgcchIzHF+Gvq4FZuDPs=";
   cargoPatches = [ ./remove-unused-egui-patches.patch ];
   prePatch = ''
-    # Use local patched craft-libs instead of the git dependency. craft-libs's
-    # crates/menu/Cargo.toml overrides workspace's craft-keymap with
-    # `default-features = false`, which Cargo forbids. By fetching craft-libs
-    # locally and pointing the git deps at it, cargo reads the local (patched)
-    # workspace instead of the git one.
+    # Copy craft-libs into the source tree so it's available before vendoring.
     cp -r ${craftLibs} ./craft-libs
     chmod -R u+w ./craft-libs
+
+    # craft-libs's crates/menu/Cargo.toml overrides workspace's craft-keymap
+    # with `default-features = false`, which Cargo forbids. Remove it.
     sed -i 's/default-features = false, //' ./craft-libs/crates/menu/Cargo.toml
-    # fontique and unicode-script are optional deps of craft-ui (only for system_fonts feature,
-    # not enabled here) and not in Cargo.lock, so they weren't vendored. Remove them.
+
+    # Optional/unvendored deps of craft-libs crates (not in Cargo.lock).
+    # Remove them so the offline build doesn't look for them.
     sed -i '/^fontique = /d' ./craft-libs/crates/ui/Cargo.toml
     sed -i '/^unicode-script = /d' ./craft-libs/crates/ui/Cargo.toml
     sed -i 's/system_fonts = \["dep:fontique", "dep:unicode-script"\]/system_fonts = []/' ./craft-libs/crates/ui/Cargo.toml
-    # wasm-bindgen-test is a wasm32-only dev-dep, not needed for x86_64 build and not vendored.
     sed -i '/^wasm-bindgen-test = /d' ./craft-libs/crates/ui/Cargo.toml
-    # skera is an optional dep of craft-fonts-build (only for subset feature,
-    # not enabled here) and not in Cargo.lock, so it wasn't vendored. Remove it.
     sed -i '/^skera = /d' ./craft-libs/crates/fonts-build/Cargo.toml
     sed -i '/^skrifa = /d' ./craft-libs/crates/fonts-build/Cargo.toml
     sed -i 's/subset = \["dep:skera", "dep:skrifa"\]/subset = []/' ./craft-libs/crates/fonts-build/Cargo.toml
-    # icu_collator is an optional dep of craft-i18n (only for collate feature,
-    # not enabled here) and not in Cargo.lock, so it wasn't vendored. Remove it.
     sed -i '/^icu_collator = /d' ./craft-libs/crates/i18n/Cargo.toml
     sed -i '/dep:icu_collator/d' ./craft-libs/crates/i18n/Cargo.toml
 
-    # Redirect craft-ui from git to the local patched copy
+    # Redirect craft-ui from git to local path dep
     sed -i 's|craft-ui = { version = "=0.1.0", git = "https://github.com/storytold/craft-libs", rev = "92d392cff132eaf53e13afff77f38b5c11b73aa0" }|craft-ui = { path = "./craft-libs/crates/ui" }|' Cargo.toml
 
-    # Redirect craft-quit from git to the local patched copy
+    # Redirect craft-quit from git to local path dep
     sed -i 's|craft-quit = { version = "0.1.0", git = "https://github.com/storytold/craft-libs", rev = "92d392cff132eaf53e13afff77f38b5c11b73aa0", features = \["egui"\] }|craft-quit = { path = "../../craft-libs/crates/quit", features = ["egui"] }|' apps/artcraft-launcher/Cargo.toml
 
     # craft-ui and craft-quit reference craft-fonts-build and craft-i18n as
-    # workspace deps; since they are now path deps inside craft-launcher's
-    # source tree, add them to this workspace's dependencies.
+    # workspace deps; since they are now path deps inside this source tree,
+    # add them to this workspace's dependencies.
     sed -i '/^craft-update = { version = "=0.1.0", git/a\craft-fonts-build = { path = "./craft-libs/crates/fonts-build" }\ncraft-i18n = { path = "./craft-libs/crates/i18n" }' Cargo.toml
 
-    # Update Cargo.lock: remove `source` lines for crates that are now path deps
+    # Update Cargo.lock: remove git source lines for crates that are now path deps
     awk '
       /^\[\[package\]\]/ { in_pkg = 1; name = "" }
       in_pkg && /^name = / { name = $0; sub(/^name = "/, "", name); sub(/".*$/, "", name) }
