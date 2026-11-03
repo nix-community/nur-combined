@@ -30,6 +30,51 @@ and the build checks local device access and process enumeration.
 Ghidra, JADX, browsers, and other analysis providers
 must be configured separately for the workflows that use them.
 
+`rea-full` combines REA and the extra tools listed below into one installable
+package. Installing it in a profile, `environment.systemPackages`, or
+`home.packages` exposes both REA and the tools' commands on your terminal PATH:
+
+```console
+nix profile add .#rea-full
+nix run .#rea-full -- --help
+nix shell .#rea-full -c jadx --version
+```
+
+It includes the same dependency list and has the same provider configuration
+and version limitations described below; it does not register MCP or configure
+external providers automatically.
+
+Extra analysis tools are exported as package lists. Add them to NixOS's
+`environment.systemPackages` or Home Manager's `home.packages` to make their
+commands available in your terminal as well as to REA:
+
+```nix
+let
+  reaDependencies = inputs.nur-packages-silicalet.lib.reaDependencies pkgs;
+in {
+  environment.systemPackages = [
+    inputs.nur-packages-silicalet.packages.${pkgs.stdenv.hostPlatform.system}.rea
+  ] ++ reaDependencies.all;
+  # Or select groups: reaDependencies.android ++ reaDependencies.packets
+}
+```
+
+The groups are `native` (Ghidra), `android` (JADX, JDK, adb), `browser`
+(Chromium), `packets` (Wireshark CLI and util-linux), `firmware` (binwalk,
+unblob and util-linux), and `captures` (mitmproxy). `all` combines these lists
+without duplicates. The function uses your supplied `pkgs`, so the tools follow
+your configuration's nixpkgs. With a traditional NUR import, use
+`nur.repos.silicalet.lib.reaDependencies.all` instead.
+
+This is a convenience list, not a guarantee that every REA provider is ready.
+In this repository's pinned nixpkgs, WABT is 1.0.41 rather than REA's required
+1.0.42, and sigrok-cli does not match REA's required 0.7.2; both are excluded.
+Commercial engines, specialized Python tools and format-specific firmware
+extractors are not included. Providers still need their upstream configuration;
+in particular, set the applicable `REA_*_PRLIMIT_COMMAND` to
+`${pkgs.util-linux}/bin/prlimit` on NixOS instead of `/usr/bin/prlimit`.
+Installing the lists does not set these environment variables or register MCP.
+
 Manage upgrades through Nix rather than `rea update`. Updating this repository
 does not upgrade your installed profile or Home Manager generation: update your
 flake input and rebuild, or upgrade the profile containing REA.

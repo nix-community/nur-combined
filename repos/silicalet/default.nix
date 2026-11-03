@@ -48,6 +48,10 @@
   quarkpan = pkgs.callPackage ./pkgs/tools/quarkpan { };
   quien = pkgs.callPackage ./pkgs/tools/quien { };
   rea = pkgs.callPackage ./pkgs/tools/rea { };
+  rea-full = pkgs.callPackage ./pkgs/tools/rea/full.nix {
+    rea = pkgs.callPackage ./pkgs/tools/rea { };
+    reaDependencies = (import ./lib { inherit pkgs; }).reaDependencies;
+  };
   seekey = pkgs.callPackage ./pkgs/apps/seekey { };
   uipro-cli = pkgs.callPackage ./pkgs/tools/uipro-cli { };
   winpodx-bin = pkgs.callPackage ./pkgs/apps/winpodx/binary.nix { };

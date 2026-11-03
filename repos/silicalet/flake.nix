@@ -29,6 +29,7 @@
 
     in
     {
+      lib.reaDependencies = pkgs: import ./lib/rea-dependencies.nix { inherit pkgs; };
       legacyPackages = forAllSystems (
         system:
         import ./default.nix {
