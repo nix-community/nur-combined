@@ -7,16 +7,16 @@
 }:
 buildGoModule rec {
   pname = "qq-jfryy";
-  version = "0.4.0";
+  version = "0.5.0";
 
   src = fetchFromGitHub {
     owner = "JFryy";
     repo = "qq";
     rev = "v${version}";
-    hash = "sha256-RW4k6E4/z0MMya8pgeoNDvGfnlfr8WPc+ETAmC+XKww=";
+    hash = "sha256-q3DZFAGwg/mBrokwVH58v074ifdh0WOOHYiqP3kwFhc=";
   };
 
-  vendorHash = "sha256-2qBVrMddlB7Zb1w27b2bwO/FuXZpKzG8OFBRlrTkrGE=";
+  vendorHash = "sha256-KVqWgcC0NBGyTkDBl+whkk9c5gETrk71FR8NkUXo7OM=";
 
   meta = {
     # keep-sorted start
