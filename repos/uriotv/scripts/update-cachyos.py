@@ -186,19 +186,33 @@ def main():
     check_schema(current, args.variant)
     meta = resolve_metadata(args.variant)
     resolved = {"configRev": meta["configRev"], "patchRev": meta["patchRev"]}
-    if version_key(meta["version"]) <= version_key(current["version"]):
+    newer_kernel = version_key(meta["version"]) > version_key(current["version"])
+    # Only BORE consumes this patch. A patch-only refresh must never change the
+    # pinned kernel/config, including when upstream's kernel version regresses.
+    patch_update = (args.variant == "bore" and not newer_kernel
+                    and meta["patchRev"] != current["patchRev"])
+    if not newer_kernel and not patch_update:
         print(f"{args.variant}: unchanged (pinned {current['version']}, live {meta['version']}; linux-cachyos={resolved['configRev']}, kernel-patches={resolved['patchRev']})")
         return 0
     if args.check:
-        print(f"{args.variant}: update available {current['version']} -> {meta['version']}; linux-cachyos={resolved['configRev']}, kernel-patches={resolved['patchRev']}")
+        change = (f"{current['version']} -> {meta['version']}" if newer_kernel else
+                  f"patch {current['patchRev']} -> {meta['patchRev']} (kernel {current['version']})")
+        print(f"{args.variant}: update available {change}; linux-cachyos={resolved['configRev']}, kernel-patches={resolved['patchRev']}")
         return 0
     temporary = None
     try:
-        candidate = candidate_hashes(meta)
+        if patch_update:
+            patch_path = f"{PATCH_RAW}/{meta['patchRev']}/{current['patchVersion']}/sched/0001-bore-cachy.patch"
+            curl_bytes(patch_path)  # Fail closed if the pinned kernel's patch disappeared.
+            candidate = {**current, "patchRev": meta["patchRev"],
+                         "patchHash": prefetch_git_root(meta["patchRev"], current["patchVersion"] + "/")}
+            expected = {**current, "patchRev": meta["patchRev"], "patchHash": candidate["patchHash"]}
+        else:
+            candidate = candidate_hashes(meta)
+            expected = {"version": meta["version"], "url": meta["url"], "configUrl": meta["configUrl"],
+                        "patchRev": meta["patchRev"], "patchVersion": meta["patchVersion"]}
         # Enforce source identities after discovery and after hashes are computed.
         check_schema(candidate, args.variant)
-        expected = {"version": meta["version"], "url": meta["url"], "configUrl": meta["configUrl"],
-                    "patchRev": meta["patchRev"], "patchVersion": meta["patchVersion"]}
         if any(candidate[key] != value for key, value in expected.items()):
             raise ValueError("candidate source identity changed during hash resolution")
         mode = source.stat().st_mode & 0o777
@@ -220,7 +234,7 @@ def main():
     finally:
         if temporary is not None:
             temporary.unlink(missing_ok=True)
-    print(f"{source.parent.name}: {current['version']} -> {candidate['version']}")
+    print(f"{source.parent.name}: {current['version']} -> {candidate['version']}; patch {current['patchRev']} -> {candidate['patchRev']}")
     return 0
 
 
