@@ -3,7 +3,7 @@
   stdenv,
   fetchFromGitHub,
   nix-update-script,
-  pnpm_11,
+  pnpm_12,
   nodejs_24,
   pnpmConfigHook,
   fetchPnpmDeps,
@@ -14,12 +14,12 @@
 }:
 
 let
-  pnpm = pnpm_11;
+  pnpm = pnpm_12;
   nodejs = nodejs_24;
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "github-readme-stats-extended-unwrapped";
-  version = "2.2.1";
+  version = "2.3.0";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -28,7 +28,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "stats-organization";
     repo = "github-stats-extended";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-/NF/qaxRKJGG+DC8pDgJa+f33YYLCTGXLERLCKru4zk=";
+    hash = "sha256-RDVWsoOtzaa39K3slhnmsR3nY0Fx2Vnax+tnm5mCyGs=";
   };
 
   nativeBuildInputs = [
@@ -49,7 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
       ;
     inherit pnpm;
     fetcherVersion = 5;
-    hash = "sha256-dZSYcbLP31Ezg34qtAGxy4/bnOP1ZJlOPr+lDPfy6J0=";
+    hash = "sha256-OjssOGjjm0e4E+k4Z3NIekpFAql047r/1oEMZC1nG/0=";
   };
 
   # Otherwise pnpm prune complains about not being able to ask for confirmation
@@ -76,7 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preInstall
 
     # cannot pnpm prune because installing with hoist won't actually hoist if not hoisted already, and the build requires non-hoisted dependencies, otherwise cjs breaks
-    rm -rf **/*/node_modules .node_modules
+    find . -type d -name node_modules -prune -exec rm -rf {} +
     pnpm install --prod --offline --ignore-scripts --frozen-lockfile --shamefully-hoist --node-linker=hoisted
 
     # express is a devDependency as upstream assumes vercel
@@ -94,6 +94,8 @@ stdenv.mkDerivation (finalAttrs: {
       $out/bin/github-stats-extended \
       --chdir "$out/backend" \
       --append-flag "express.js"
+
+    rm $out/backend/node_modules/@stats-organization/github-readme-stats-backend
 
     runHook postInstall
   '';
