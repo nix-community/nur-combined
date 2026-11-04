@@ -18,7 +18,7 @@ let
     ${lib.optionalString (cfg.web.keyFile != null) ''
       export MAGPIE_WEB_KEY="$(< ${lib.escapeShellArg cfg.web.keyFile})"
     ''}
-    ${shared.configureCmd null}
+    ${shared.configureCmd}
     exec ${lib.escapeShellArgs ([ (lib.getExe' cfg.package "magpie") ] ++ shared.serveArgs)}
   '';
 in

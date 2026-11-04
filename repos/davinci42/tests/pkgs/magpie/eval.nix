@@ -91,6 +91,19 @@ let
     };
   };
 
+  nixosCustomUser = evaluateNixos {
+    users.users.alice = {
+      isNormalUser = true;
+      home = "/home/alice";
+      group = "users";
+    };
+    services.magpie = {
+      enable = true;
+      user = "alice";
+      settings.noAutoUpdate = true;
+    };
+  };
+
   nixosConflict =
     name: value:
     evaluateNixos {
@@ -181,7 +194,7 @@ let
     nixosPreStartSyncsSettings =
       lib.hasInfix "magpie-configure.py" nixosCustom.systemd.services.magpie.preStart
       && lib.hasInfix "--settings-file /run/secrets/magpie-settings.json" nixosCustom.systemd.services.magpie.preStart
-      && lib.hasInfix "--config-dir /var/lib/magpie/magpie" nixosCustom.systemd.services.magpie.preStart;
+      && nixosCustom.systemd.services.magpie.environment.HOME == "/var/lib/magpie";
     nixosSecretFile =
       nixosCustom.systemd.services.magpie.serviceConfig.EnvironmentFile == "/run/secrets/magpie.env";
     nixosFreeformSettingsPreserved =
@@ -192,6 +205,15 @@ let
           2
           3
         ];
+
+    nixosCustomUserUsesHomeXdg =
+      nixosCustomUser.services.magpie.group == "users"
+      && nixosCustomUser.services.magpie.stateDir == "/home/alice"
+      && !(nixosCustomUser.users.users ? magpie)
+      && !(nixosCustomUser.users.groups ? magpie)
+      && nixosCustomUser.systemd.services.magpie.environment.HOME == "/home/alice"
+      && nixosCustomUser.systemd.services.magpie.serviceConfig.ReadWritePaths == [ "/home/alice" ]
+      && !(nixosCustomUser.systemd.services.magpie.serviceConfig ? StateDirectory);
 
     nixosRejectPartialTls = lib.any (
       item: !item.assertion && lib.hasInfix "tls.certFile" item.message

@@ -8,6 +8,7 @@ let
   cfg = config.services.magpie;
   common = import ./magpie-common.nix { inherit lib pkgs; };
   shared = common.helpers cfg;
+  isSystemUser = cfg.user == "magpie";
 in
 {
   options.services.magpie = common.commonOptions // {
@@ -21,13 +22,19 @@ in
 
     group = lib.mkOption {
       type = lib.types.str;
-      default = "magpie";
+      default = if isSystemUser then "magpie" else config.users.users.${cfg.user}.group or "users";
+      defaultText = lib.literalExpression ''if config.services.magpie.user == "magpie" then "magpie" else config.users.users.''${config.services.magpie.user}.group'';
       description = "Group under which Magpie runs.";
     };
 
     stateDir = lib.mkOption {
       type = lib.types.strMatching "/.*";
-      default = "/var/lib/magpie";
+      default =
+        if isSystemUser then
+          "/var/lib/magpie"
+        else
+          config.users.users.${cfg.user}.home or "/home/${cfg.user}";
+      defaultText = lib.literalExpression ''if config.services.magpie.user == "magpie" then "/var/lib/magpie" else config.users.users.''${config.services.magpie.user}.home'';
       description = "State directory holding Magpie configuration, credentials and caches.";
     };
   };
@@ -37,7 +44,7 @@ in
 
     environment.systemPackages = [ cfg.package ];
 
-    users.users = lib.mkIf (cfg.user == "magpie") {
+    users.users = lib.mkIf isSystemUser {
       magpie = {
         isSystemUser = true;
         inherit (cfg) group;
@@ -60,19 +67,10 @@ in
       after = [ "network-online.target" ];
       environment = lib.mkMerge [
         shared.baseEnvironment
-        {
-          HOME = "${cfg.stateDir}/home";
-          XDG_CONFIG_HOME = cfg.stateDir;
-          XDG_CACHE_HOME = "${cfg.stateDir}/cache";
-          XDG_DATA_HOME = "${cfg.stateDir}/data";
-          XDG_STATE_HOME = "${cfg.stateDir}/state";
-        }
+        { HOME = cfg.stateDir; }
         cfg.environment
       ];
-      preStart = ''
-        install -d -m 0700 "${cfg.stateDir}/home" "${cfg.stateDir}/magpie" "${cfg.stateDir}/cache" "${cfg.stateDir}/data" "${cfg.stateDir}/state"
-        ${shared.configureCmd "${cfg.stateDir}/magpie"}
-      '';
+      preStart = shared.configureCmd;
       serviceConfig = {
         ExecStart =
           if cfg.web.keyFile == null then
@@ -94,7 +92,7 @@ in
         ProtectSystem = "strict";
         ReadWritePaths = [ cfg.stateDir ];
       }
-      // lib.optionalAttrs (cfg.user == "magpie" && cfg.stateDir == "/var/lib/magpie") {
+      // lib.optionalAttrs (isSystemUser && cfg.stateDir == "/var/lib/magpie") {
         StateDirectory = "magpie";
         StateDirectoryMode = "0750";
       }

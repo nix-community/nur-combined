@@ -140,12 +140,10 @@ in
       );
       settingsJson = pkgs.writeText "magpie-settings.json" (builtins.toJSON declaredSettings);
       configureCmd =
-        configDirArg:
         "${pkgs.python3}/bin/python3 ${./magpie-configure.py} ${settingsJson}"
         + lib.optionalString (
           cfg.settingsFile != null
-        ) " --settings-file ${lib.escapeShellArg cfg.settingsFile}"
-        + lib.optionalString (configDirArg != null) " --config-dir ${lib.escapeShellArg configDirArg}";
+        ) " --settings-file ${lib.escapeShellArg cfg.settingsFile}";
       serveArgs = [
         "serve"
       ]

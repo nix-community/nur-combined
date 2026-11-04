@@ -34,6 +34,9 @@ nix build -f . magpie
 
 Defaults: gateway on `127.0.0.1:3425`, user `magpie`, state under
 `/var/lib/magpie`, telemetry disabled (`DO_NOT_TRACK=1`, `MAGPIE_NO_STATS=1`).
+When `services.magpie.user` is set to an existing user account, `group` and
+`stateDir` default to that user's primary group and home directory, using standard
+XDG paths (`~/.config/magpie`, `~/.cache`, `~/.local/share`, `~/.local/state`).
 
 ### nix-darwin module (`darwinModules.magpie`)
 
