@@ -2,6 +2,7 @@
   lib,
   fetchFromGitHub,
   python3Packages,
+  cee-syslog-handler,
 }:
 
 python3Packages.buildPythonPackage (finalAttrs: {
@@ -18,6 +19,8 @@ python3Packages.buildPythonPackage (finalAttrs: {
 
   postPatch = ''
     substituteInPlace pyproject.toml \
+      --replace-fail 'version = "0.0.0"' 'version = "${finalAttrs.version}"' \
+      --replace-fail "poetry-dynamic-versioning[plugin]" "poetry-dynamic-versioning" \
       --replace-fail "\"poetry-plugin-tweak-dependencies-version\"," "" \
       --replace-fail "\"poetry-plugin-drop-python-upper-constraint\"," ""
   '';
@@ -27,14 +30,21 @@ python3Packages.buildPythonPackage (finalAttrs: {
     poetry-dynamic-versioning
   ];
 
+  pythonRelaxDeps = true;
+
   dependencies = with python3Packages; [
     boltons
+    cee-syslog-handler
     lxml
     netifaces
+    pillow
     psycopg2
     pyramid
+    pyyaml
     requests
-    setuptools
+    ujson
+    urllib3
+    waitress
   ];
 
   doCheck = false;
@@ -45,6 +55,5 @@ python3Packages.buildPythonPackage (finalAttrs: {
     homepage = "https://github.com/camptocamp/c2cwsgiutils";
     license = lib.licenses.bsd2;
     maintainers = [ lib.maintainers.sikmir ];
-    broken = true;
   };
 })

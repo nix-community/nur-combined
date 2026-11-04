@@ -4,16 +4,15 @@
   fetchurl,
   autoconf,
   automake,
-  gnome-common,
+  gettext,
   libtool,
   p7zip,
   pkg-config,
-  gtk2,
+  expat,
+  gtk3,
   libmysqlclient,
   libxml2,
   pcre2,
-  which,
-  yelp-tools,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -30,16 +29,15 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     autoconf
     automake
-    gnome-common
+    gettext
     libtool
     p7zip
     pkg-config
-    which
-    yelp-tools
   ];
 
   buildInputs = [
-    gtk2
+    expat
+    gtk3
     libmysqlclient
     libxml2
     pcre2
@@ -48,11 +46,19 @@ stdenv.mkDerivation (finalAttrs: {
   hardeningDisable = [ "format" ];
 
   postPatch = ''
+    # dict is disabled, don't bootstrap it (requires intltool)
+    sed -i '/dict\/autogen.sh/d' autogen.sh
+    substituteInPlace tools/configure.ac \
+      --replace-fail "PKG_CHECK_MODULES(DSL2DICT, libpcre)" "PKG_CHECK_MODULES(DSL2DICT, libpcre2-8)"
     substituteInPlace tools/src/Makefile.am \
       --replace-fail "noinst_PROGRAMS =" "bin_PROGRAMS ="
   '';
 
-  preConfigure = "./autogen.sh";
+  preConfigure = ''
+    # AM_ICONV
+    export ACLOCAL_PATH="${gettext}/share/gettext/m4''${ACLOCAL_PATH:+:}''${ACLOCAL_PATH-}"
+    ./autogen.sh
+  '';
   configureFlags = [ (lib.enableFeature false "dict") ];
 
   env.NIX_CFLAGS_COMPILE = "-std=c++14";
@@ -71,6 +77,5 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
-    broken = true; # configure.ac:91: error: possibly undefined macro: AM_ICONV
   };
 })

@@ -2,7 +2,6 @@
   lib,
   fetchFromGitHub,
   python3Packages,
-  c2cwsgiutils,
 }:
 
 python3Packages.buildPythonApplication (finalAttrs: {
@@ -23,9 +22,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   postPatch = ''
     substituteInPlace pyproject.toml \
-      --replace-fail "\"poetry-plugin-tweak-dependencies-version\"," "" \
-      --replace-fail "\"poetry-plugin-tweak-dependencies-version>=1.1.0\"," "" \
-      --replace-fail "\"poetry-plugin-drop-python-upper-constraint\"" ""
+      --replace-fail 'version = "0.0.0"' 'version = "${finalAttrs.version}"'
   '';
 
   build-system = with python3Packages; [
@@ -34,11 +31,11 @@ python3Packages.buildPythonApplication (finalAttrs: {
   ];
 
   dependencies = with python3Packages; [
+    azure-core
     azure-storage-blob
     azure-identity
     boto3
     bottle
-    c2cwsgiutils
     cryptography
     pillow
     prometheus-client
@@ -54,6 +51,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
     site_packages=$out/lib/${python3Packages.python.libPrefix}/site-packages
     cp -r static tiles $site_packages
     substituteInPlace $out/bin/tc-viewer --subst-var site_packages
+    # bogus entry point, c2cciutils module isn't part of tilecloud
+    rm $out/bin/c2cciutils
   '';
 
   meta = {
@@ -61,6 +60,5 @@ python3Packages.buildPythonApplication (finalAttrs: {
     homepage = "https://github.com/camptocamp/tilecloud";
     license = lib.licenses.bsd2;
     maintainers = [ lib.maintainers.sikmir ];
-    broken = true;
   };
 })

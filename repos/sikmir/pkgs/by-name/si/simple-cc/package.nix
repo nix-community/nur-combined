@@ -20,6 +20,8 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   postPatch = ''
+    # empty stub prevents scripts/config from running
+    rm config.mk
     substituteInPlace scripts/build/tool/gnu.mk \
       --replace-fail "TOOL_LDFLAGS" "#TOOL_LDFLAGS"
     substituteInPlace scripts/rules.mk \
@@ -68,6 +70,5 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.linux;
     skip.ci = stdenv.hostPlatform.isDarwin;
-    broken = true;
   };
 })
