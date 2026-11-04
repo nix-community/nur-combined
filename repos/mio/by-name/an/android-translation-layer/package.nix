@@ -27,6 +27,9 @@
   makeWrapper,
   nixosTests,
   bintools,
+  git,
+  nix,
+  writeShellApplication,
 }:
 
 let
@@ -45,13 +48,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "android-translation-layer";
-  version = "0-unstable-2026-10-30";
+  version = "0-unstable-2026-11-04";
 
   src = fetchFromGitLab {
     owner = "android_translation_layer";
     repo = "android_translation_layer";
-    rev = "c65b272326673ab406bcb91a9fcc24adf52191a3";
-    hash = "sha256-nPw8RNVLrsq/y+hZwFqZkI+7ZuRM2XQbTbRxeyDLk6Q=";
+    rev = "bbb4d469405cdaea585475b17daef13202bc7e23";
+    hash = "sha256-fgRoIiMCkIdRtPwIl47BviJX8L9VBd/xIS9gz7IDne8=";
   };
 
   patches = [
@@ -67,8 +70,10 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace src/main-executable/main.c \
       --replace-fail '@out@' "$out"
 
+    sed -i -E \
+      "s|^xmvn_resolve = find_program.*$|xmvn_resolve = find_program('xmvn5-resolve', required: false)|" \
+      tools/jni_upcall_gen/meson.build
     substituteInPlace tools/jni_upcall_gen/meson.build \
-      --replace-fail "required: not download_tool_deps" "required: false" \
       --replace-fail "cmd = ['build.py'" "cmd = [find_program('python3'), files('build.py')"
 
     substituteInPlace tools/jni_upcall_gen/jni_upcall_gen.in \
@@ -121,6 +126,22 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru.tests = {
     inherit (nixosTests) android-translation-layer;
+  };
+
+  passthru.updateScript = writeShellApplication {
+    name = "update-android-translation-layer";
+    runtimeInputs = [
+      git
+      nix
+      python3
+    ];
+    text = ''
+      cd "$(git rev-parse --show-toplevel)"
+      exec python3 ${../../../scripts/update-gitlab-unstable.py} \
+        by-name/an/android-translation-layer \
+        gitlab.com/android_translation_layer/android_translation_layer \
+        android-translation-layer "$@"
+    '';
   };
 
   meta = {

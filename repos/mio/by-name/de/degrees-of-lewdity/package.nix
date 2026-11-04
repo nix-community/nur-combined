@@ -2,7 +2,7 @@
   lib,
   writeShellApplication,
   stdenvNoCC,
-  fetchFromGitLab,
+  fetchgit,
   tweego,
   makeWrapper,
   copyDesktopItems,
@@ -10,7 +10,9 @@
   writeText,
   electron,
   nodejs,
-  nix-update-script,
+  git,
+  nix,
+  python3,
   desktopToDarwinBundle,
   xvfb-run,
   curl,
@@ -18,14 +20,12 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "degrees-of-lewdity";
-  version = "0.5.13.7";
+  version = "0.5.13.8";
 
-  src = fetchFromGitLab {
-    domain = "gitgud.io";
-    owner = "Vrelnir";
-    repo = "degrees-of-lewdity";
-    tag = finalAttrs.version;
-    hash = "sha256-hlDGsc3b01g36exjj9g3nGSYd0UjARdkyORNPTdYvkI=";
+  src = fetchgit {
+    url = "https://gitgud.io/Vrelnir/degrees-of-lewdity.git";
+    rev = finalAttrs.version;
+    hash = "sha256-pdDizqfQBwHLKbD6KdSIWhNUHbeMRE663TDko8fEghk=";
   };
 
   strictDeps = true;
@@ -123,9 +123,17 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   passthru.updateScript = writeShellApplication {
     name = "update-degrees-of-lewdity";
+    runtimeInputs = [
+      git
+      nix
+      python3
+    ];
     text = ''
-      export UPDATE_NIX_ATTR_PATH="degrees-of-lewdity"
-      exec ${lib.escapeShellArgs (nix-update-script { })} "$@"
+      cd "$(git rev-parse --show-toplevel)"
+      exec python3 ${../../../scripts/update-gitlab-unstable.py} \
+        by-name/de/degrees-of-lewdity \
+        gitgud.io/Vrelnir/degrees-of-lewdity \
+        degrees-of-lewdity stable "$@"
     '';
   };
 

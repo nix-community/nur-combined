@@ -19,16 +19,19 @@
   libpng,
   makeWrapper,
   binutils,
+  git,
+  nix,
+  writeShellApplication,
 }:
 clangStdenv.mkDerivation (finalAttrs: {
   pname = "art-standalone";
-  version = "0-unstable-2026-10-18";
+  version = "0-unstable-2026-11-04";
 
   src = fetchFromGitLab {
     owner = "android_translation_layer";
     repo = "art_standalone";
-    rev = "a1edfc40e8cea3644d80e4e776d3fa7fc397a1c2";
-    hash = "sha256-2ct0OrwXDXF3/fvg5mdOmpqdf2/NvoBdwpFIm1IxoRg=";
+    rev = "7ead96be8423b3789457b920336149f3f35a61d0";
+    hash = "sha256-Zq/+pxIhbiEWDKVeploSxbKgyqahcXAEto4MEWKXetk=";
   };
 
   patches = [
@@ -96,6 +99,22 @@ clangStdenv.mkDerivation (finalAttrs: {
       --prefix LD_LIBRARY_PATH : $out/lib \
       --prefix PATH : ${lib.makeBinPath [ binutils ]}
   '';
+
+  passthru.updateScript = writeShellApplication {
+    name = "update-art-standalone";
+    runtimeInputs = [
+      git
+      nix
+      python3
+    ];
+    text = ''
+      cd "$(git rev-parse --show-toplevel)"
+      exec python3 ${../../../scripts/update-gitlab-unstable.py} \
+        by-name/ar/art-standalone \
+        gitlab.com/android_translation_layer/art_standalone \
+        art-standalone "$@"
+    '';
+  };
 
   meta = {
     description = "Art and dependencies with modifications to make it work on Linux";

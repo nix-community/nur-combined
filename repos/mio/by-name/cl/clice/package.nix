@@ -32,7 +32,7 @@ stdenv.mkDerivation (
     # needs its own hash. Kept outside the derivation attributes, which are
     # coerced to strings.
     depsHashes = {
-      x86_64-linux = "sha256-OigCxXf5SEUfzmWGI0j94cODAWBXGj1nMPOIqm9/x4U=";
+      x86_64-linux = "sha256-RH+YJX2SRs5ioL6fXpd8xRsxs/JSZgyu4d4G46e6g0c=";
       aarch64-darwin = "sha256-uAMod+qlqhfHAyjtsULDcZoVdBvEAxv5OJbVGGFR7WY=";
     };
 
@@ -62,13 +62,13 @@ stdenv.mkDerivation (
   in
   {
     pname = "clice";
-    version = "0.1.2026110209";
+    version = "0.1.2026110404";
 
     src = fetchFromGitHub {
       owner = "clice-io";
       repo = "clice";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-bUDjb5EuBv9GJ+w6ZNS9t5KKTtLHh9EKjGDMcOx7zDI=";
+      hash = "sha256-AxgJFDgXi8VfX1BD2o8GXZPUlPZUa3On0AMRR+pUKu8=";
     };
 
     deps = stdenv.mkDerivation {
@@ -259,6 +259,7 @@ stdenv.mkDerivation (
           nix
         ];
         text = ''
+          cd "$(git rev-parse --show-toplevel)"
           export UPDATE_NIX_ATTR_PATH="clice"
           exec ${python3}/bin/python3 ${./update.py} "$@"
         '';
