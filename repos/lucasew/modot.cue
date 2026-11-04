@@ -469,6 +469,7 @@ modules: {
 	"personal-memes":           #is_computer || #is_phone || #is_grokbot
 	"personal-bots":            #is_massan || #is_phone || #is_grokbot
 	"personal-savegames":           #is_whiterun
+	"personal-internal-playground": #is_whiterun || #is_massan || #is_grokbot
 }
 
 backup: {
