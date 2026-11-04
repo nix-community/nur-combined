@@ -2,23 +2,25 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
-  unstableGitUpdater,
+  nix-update-script,
 }:
 
 buildGoModule rec {
   pname = "cheap-switch-exporter";
-  version = "0-unstable-2026-09-27";
+  version = "0-unstable-2026-11-02";
 
   src = fetchFromGitHub {
     owner = "pvelati";
     repo = "cheap-switch-exporter";
-    rev = "40fead6d36ab7b588bbfaf6ee9206fd1e89db79c";
-    hash = "sha256-RUn1s1SXdPoAA1m15MSAbR/7Jl2jzwagGz2ixQbkIMQ=";
+    rev = "6fc170d3b82677d3b084501876950d7c97e26981";
+    hash = "sha256-VERzJdbyb1zPBMdhXreSNvvAUVEi4zcFyPMY4n8OtHw=";
   };
 
-  vendorHash = "sha256-cOjGMHQXQwTY4Kp0Bw69BA1C9CmGfA/cn3+5HOhAhPc=";
+  vendorHash = "sha256-lDkFfGcP9iqGyQzXtUiNV9vsqWE0CzaGHEn5YQRC99o=";
 
-  passthru.updateScript = unstableGitUpdater { hardcodeZeroVersion = true; };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version=branch" ];
+  };
 
   meta = {
     inherit (src.meta) homepage;
