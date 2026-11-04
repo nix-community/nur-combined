@@ -139,6 +139,7 @@ in
       self.snixembed
       self.sshfs
       self.vlc
+      (self.whisper-cpp.override { cudaSupport = true; }) # ~/bin/ptt
       self.xclip
       self.xdotool
       self.xsel
