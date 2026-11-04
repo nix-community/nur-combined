@@ -6,7 +6,7 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "pi-agent-browser-native";
-  version = "0.9.9";
+  version = "0.9.16";
 
   __structuredAttrs = true;
 
@@ -14,11 +14,11 @@ buildNpmPackage (finalAttrs: {
     owner = "fitchmultz";
     repo = "pi-agent-browser-native";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-1RoSotKHQXEmYaivkDW3zBteoQsUbL0bX1LdzPDSiWI=";
+    hash = "sha256-tKGHX/VFewN4fE55Kq0jNPt0hScFyE/3/g/YKo2x0Dg=";
   };
 
   npmDepsFetcherVersion = 2;
-  npmDepsHash = "sha256-5itW1CmGWVP4Kx/hvCF7P+CE8BTJbR2oMSV7Y8QhmEw=";
+  npmDepsHash = "sha256-TUIk+qJkqhzP/w1DmsBXHXn3MdxPyWgaU6FdaxsDpOk=";
 
   meta = {
     description = "Pi extension that exposes agent-browser as a native tool for browser automation";

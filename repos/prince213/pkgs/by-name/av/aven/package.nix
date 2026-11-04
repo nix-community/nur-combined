@@ -20,7 +20,7 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "aven";
-  version = "0.1.52";
+  version = "0.1.54";
 
   __structuredAttrs = true;
 
@@ -28,10 +28,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "raine";
     repo = "aven";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-oFiVEsCkb7o3+39/d0TMPgk0IstgURtZzAHtkYOwWsQ=";
+    hash = "sha256-1hzCcMB1PakO7tOGnlB3fVbWwlvXYHaHfrQ9hrSUyO4=";
   };
 
-  cargoHash = "sha256-XSnV+Ucvr4AZqx25LE4Fr/1dQp0x+lNcQ3euxT5yFBc=";
+  cargoHash = "sha256-rJRzn+7ybisUa/4QckZUed+BVLI+/rNfAZ6nuKdMJMo=";
 
   nativeBuildInputs = [
     installShellFiles
