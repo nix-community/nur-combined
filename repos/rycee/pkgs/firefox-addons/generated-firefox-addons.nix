@@ -243,10 +243,10 @@
     };
     "ahrefs-seo-toolbar" = buildMozillaXpiAddon {
       pname = "ahrefs-seo-toolbar";
-      version = "3.2.13";
+      version = "3.2.14";
       addonId = "ahrefs@AhrefsPteLtd";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5031292/ahrefs_seo_toolbar-3.2.13.xpi";
-      sha256 = "81c91d0c4c241df059aaf1230841583e9570819db99804e23fe7aa937b5068ee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5204346/ahrefs_seo_toolbar-3.2.14.xpi";
+      sha256 = "ebf8816aef3149885bed1309626a5aa65f12aa236840861a33b1cc7920fc0c46";
       meta = with lib;
       {
         homepage = "https://ahrefs.com/seo-toolbar";
@@ -5897,10 +5897,10 @@
     };
     "improved-tube" = buildMozillaXpiAddon {
       pname = "improved-tube";
-      version = "4.2400";
+      version = "4.2402";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5167563/youtube_addon-4.2400.xpi";
-      sha256 = "5b3a54beb294fa0912a0619c5b27cbbb3f88833f6cc0cc46a16d08c254b8930d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5201248/youtube_addon-4.2402.xpi";
+      sha256 = "2fad9d5e3248e448eddbe8bf19f1aa08e59a37aeb14c4c92f0cd44410758c360";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -7331,10 +7331,10 @@
     };
     "libredirect" = buildMozillaXpiAddon {
       pname = "libredirect";
-      version = "3.4.0";
+      version = "3.5.0";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4916828/libredirect-3.4.0.xpi";
-      sha256 = "c0fa9a5c2302eb734b1b614284371061330cf2e7b3519ee96c53e8be58ae298f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5203489/libredirect-3.5.0.xpi";
+      sha256 = "51822f2f86b321d659bbe9d76f20375850f9e72873962fb369bfa262cf4f3b30";
       meta = with lib;
       {
         homepage = "https://libredirect.manerakai.com/";
@@ -9129,10 +9129,10 @@
     };
     "muzli" = buildMozillaXpiAddon {
       pname = "muzli";
-      version = "33.1.15";
+      version = "33.1.17";
       addonId = "firefox@muz.li";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5088858/muzli-33.1.15.xpi";
-      sha256 = "de1eadcdb4cc9fa5ba9c567e2ac433f04dbd6fd3308c6ecd1dba975963e57056";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5201584/muzli-33.1.17.xpi";
+      sha256 = "0565525b0ab1ad954fd19943d348fbf8a120439a104459e61f1b88f534c34810";
       meta = with lib;
       {
         homepage = "https://muz.li";
@@ -12023,10 +12023,10 @@
     };
     "return-youtube-dislikes" = buildMozillaXpiAddon {
       pname = "return-youtube-dislikes";
-      version = "4.1.3";
+      version = "4.1.5";
       addonId = "{762f9885-5a13-4abd-9c77-433dcd38b8fd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5197718/return_youtube_dislikes-4.1.3.xpi";
-      sha256 = "696ed411897a0c0cdf8beaa287394d97096f71d7e122121790cf936dd5e19493";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5205580/return_youtube_dislikes-4.1.5.xpi";
+      sha256 = "82b780b5bab6a03aafa07cf89f17c4c49f4d13333867772e3e975c1c6c827a53";
       meta = with lib;
       {
         description = "Returns ability to see dislike statistics on youtube";
@@ -12058,24 +12058,15 @@
     };
     "rsshub-radar" = buildMozillaXpiAddon {
       pname = "rsshub-radar";
-      version = "1.10.3";
+      version = "2.3.1";
       addonId = "i@diygod.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4197124/rsshub_radar-1.10.3.xpi";
-      sha256 = "66a2aec4f67e27dd6a4a768ee8e87b3b321bac5385e3241b1664b95aae25077d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5198364/rsshub_radar-2.3.1.xpi";
+      sha256 = "d4f86a77b7bd6759ede3918cfc94ef3b0c272f37ae7d3c8e74b784ae261c626a";
       meta = with lib;
       {
         homepage = "https://github.com/DIYgod/RSSHub-Radar";
         description = "Easily find and subscribe to RSS and RSSHub.";
-        license = licenses.mit;
-        mozPermissions = [
-          "tabs"
-          "storage"
-          "notifications"
-          "alarms"
-          "idle"
-          "https://*/*"
-          "http://*/*"
-        ];
+        mozPermissions = [ "tabs" "storage" "alarms" "<all_urls>" ];
         platforms = platforms.all;
       };
     };
@@ -12208,10 +12199,10 @@
     };
     "save-all-images-webextension" = buildMozillaXpiAddon {
       pname = "save-all-images-webextension";
-      version = "0.8.6";
+      version = "1.1.0";
       addonId = "{32af1358-428a-446d-873e-5f8eb5f2a72e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4875074/save_all_images_webextension-0.8.6.xpi";
-      sha256 = "cf4f5b7ba628b32f37b35e7afd0621a674ea183bf0e292c3a02ec59e0bb2ab0d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5201606/save_all_images_webextension-1.1.0.xpi";
+      sha256 = "c04776bdafd6dd602383caf9a6ef66903af3867766e999806e5401baffa32ed6";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/save-images.html";
@@ -12220,10 +12211,11 @@
         mozPermissions = [
           "storage"
           "activeTab"
+          "scripting"
           "notifications"
-          "<all_urls>"
           "downloads"
           "unlimitedStorage"
+          "declarativeNetRequest"
         ];
         platforms = platforms.all;
       };
@@ -14083,10 +14075,10 @@
     };
     "topcashback-cashback-coupons" = buildMozillaXpiAddon {
       pname = "topcashback-cashback-coupons";
-      version = "7.15.0.0";
+      version = "7.16.0.0";
       addonId = "{f89939f9-1978-4203-9802-835ce5844ce7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5147126/topcashback_cashback_coupons-7.15.0.0.xpi";
-      sha256 = "b8b15243c9f18ab446b000abfac579d1e44cf752a4d35cc9619c712264e4d646";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5203357/topcashback_cashback_coupons-7.16.0.0.xpi";
+      sha256 = "4ff767a31c50d9ab2fd395d4873b7c1d209be17eaac892ad25983c3e2d8ccc5b";
       meta = with lib;
       {
         homepage = "https://www.topcashback.com";
@@ -14795,10 +14787,10 @@
     };
     "ublock-origin" = buildMozillaXpiAddon {
       pname = "ublock-origin";
-      version = "1.75.2";
+      version = "1.75.4";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5199068/ublock_origin-1.75.2.xpi";
-      sha256 = "b941eac9ac4b156edefa9273bdf5a313204919f751e1a86b8c81e254b9471599";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5203014/ublock_origin-1.75.4.xpi";
+      sha256 = "e2df503cce7cf5069130618c349695f62bdddb9eb8c189156d027269ae4ae267";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -15060,10 +15052,10 @@
     };
     "v2ex-polish" = buildMozillaXpiAddon {
       pname = "v2ex-polish";
-      version = "2.5.3";
+      version = "2.5.4";
       addonId = "leokudev@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5167451/v2ex_polish-2.5.3.xpi";
-      sha256 = "232db343fed79510fbc2947377f8a6eba69f414ab1c5026f2149eb3f10831809";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5205588/v2ex_polish-2.5.4.xpi";
+      sha256 = "4f82b251e13ae9712685a9171629f9c370073bf2e4984fb2541d8b50044c2a12";
       meta = with lib;
       {
         description = "专为 V2EX 用户设计，提供了丰富的扩展功能。";
@@ -15730,10 +15722,10 @@
     };
     "wallabagger" = buildMozillaXpiAddon {
       pname = "wallabagger";
-      version = "1.25.0";
+      version = "1.25.1";
       addonId = "{7a7b1d36-d7a4-481b-92c6-9f5427cb9eb1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5113938/wallabagger-1.25.0.xpi";
-      sha256 = "611ad5a9a0ce611d67997f57132b36a7e7c7b48dbe25deef93c430bc7725cc13";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5203887/wallabagger-1.25.1.xpi";
+      sha256 = "df1a7a48eb9d9f4751c5b0dcbad7d7752b8baf25de3038212133b9f8bb5bec8c";
       meta = with lib;
       {
         homepage = "https://github.com/wallabag/wallabagger";

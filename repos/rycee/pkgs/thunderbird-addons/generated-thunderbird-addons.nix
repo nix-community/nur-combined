@@ -2,10 +2,10 @@
   {
     "cardbook" = buildMozillaXpiAddon {
       pname = "cardbook";
-      version = "107.2";
+      version = "107.7";
       addonId = "cardbook@vigneau.philippe";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1054032/cardbook-107.2-tb.xpi?src=";
-      sha256 = "8c6d80e3c5d1b3372a7f87679c45814343f96614e6fcc7a2b5e776885d7aa2ea";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1054554/cardbook-107.7-tb.xpi?src=";
+      sha256 = "ca0c26b369176833919a7cbfcc32324ae80ba90743212ebd963ceafe6f64edcc";
       meta = with lib;
       {
         homepage = "https://gitlab.com/CardBook/CardBook";
@@ -136,10 +136,10 @@
     };
     "gmail-conversation-view" = buildMozillaXpiAddon {
       pname = "gmail-conversation-view";
-      version = "4.3.16";
+      version = "4.3.18";
       addonId = "gconversation@xulforum.org";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1052873/thunderbird_conversations-4.3.16-tb.xpi?src=";
-      sha256 = "24556ff9d464a3816eaababdaf010d837bba3a6d08c386d522f6c8166cdca6ee";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1054602/thunderbird_conversations-4.3.18-tb.xpi?src=";
+      sha256 = "34a3bc6fab43a38cb3ff6072d322d0720bf35935d609d9f18d5e6e33aad70841";
       meta = with lib;
       {
         homepage = "https://github.com/thunderbird-conversations/thunderbird-conversations/wiki";
@@ -258,10 +258,10 @@
     };
     "provider-for-google-calendar" = buildMozillaXpiAddon {
       pname = "provider-for-google-calendar";
-      version = "128.5.12";
+      version = "128.5.13";
       addonId = "{a62ef8ec-5fdc-40c2-873c-223b8a6925cc}";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1048156/provider_for_google_calendar-128.5.12-tb.xpi?src=";
-      sha256 = "81c3c2531d82033518c9f68f747adf99ef259e6ff0de9426751eae87d6023372";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1054520/provider_for_google_calendar-128.5.13-tb.xpi?src=";
+      sha256 = "bb47c959a480fc7d7775681de962d9c8db38a5b6dd9185b13a2ea24b183165d7";
       meta = with lib;
       {
         homepage = "https://github.com/kewisch/gdata-provider/wiki/FAQ";
