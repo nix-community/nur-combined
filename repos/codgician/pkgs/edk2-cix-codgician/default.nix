@@ -13,7 +13,7 @@
 
 gcc14Stdenv.mkDerivation (finalAttrs: {
   pname = "edk2-cix-codgician";
-  version = "1.3.1-unstable-2026-11-02";
+  version = "1.3.1-unstable-2026-11-03";
 
   # codgician/edk2-cix supplies the board build glue (src/Makefile) and records
   # which revisions of the three firmware trees belong together. Its submodules
@@ -21,7 +21,7 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "codgician";
     repo = "edk2-cix";
-    rev = "7616c0a5e8aa71249ea896f22449c0b80dfa8409";
+    rev = "25679f3c51c9b7ee12e106303a44e2abcd2333a7";
     hash = "sha256-X58n0y6QMs2A/+aXW76GulE+dba29sGa6n8ypudqio0=";
   };
 
@@ -36,8 +36,8 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
   edk2Platforms = fetchFromGitHub {
     owner = "codgician";
     repo = "edk2-platforms";
-    rev = "01a48e3664cb9a424c1411d90bdf1efc2dffaa74";
-    hash = "sha256-HstIHsL/e1hGMyKSdQnFmUlNzYqGuOQWoKhVE5B2fRQ=";
+    rev = "e79427a218672ffe5b6c6c49cc01a54346941d3a";
+    hash = "sha256-iq8kA7SEPgLTvnxo9O8bEpoCUA51yNnw9KqY02hjTe4=";
   };
 
   edk2NonOsi = fetchFromGitHub {
@@ -49,7 +49,7 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
 
   # Commit time of the newest firmware-tree pin. It sets the SMBIOS release date
   # and PrePi's __DATE__/__TIME__, so the same pins always give the same volumes.
-  env.SOURCE_DATE_EPOCH = "1793631711";
+  env.SOURCE_DATE_EPOCH = "1793703890";
 
   sourceRoot = "${finalAttrs.src.name}/src";
 
