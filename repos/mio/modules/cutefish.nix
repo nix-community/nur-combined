@@ -90,12 +90,14 @@ in
     environment.pathsToLink = [
       "/share/backgrounds"
       "/share/wayland-sessions"
+      "/share/X11/xkb"
     ];
 
     services.graphical-desktop.enable = true;
     qt.enable = lib.mkDefault true;
     hardware.graphics.enable = lib.mkDefault true;
     programs.xwayland.enable = lib.mkDefault true;
+    xdg.icons.enable = true;
 
     services.udev.packages = [ cu.cutefish-core ];
     services.dbus.packages = [ cu.cutefish-core ];

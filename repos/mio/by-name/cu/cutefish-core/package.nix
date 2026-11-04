@@ -27,7 +27,7 @@ mkCutefishDerivation {
         'exec "$(dirname "$(readlink -f "$0")")/cutefish-session" "$@"'
     substituteInPlace session/cutefish-wayland.desktop \
       --replace-fail 'Exec=/usr/bin/cutefish-wayland-session' "Exec=$out/bin/cutefish-wayland-session" \
-      --replace-fail 'TryExec=/usr/bin/cutefish-compositor' "TryExec=$out/bin/cutefish-wayland-session"
+      --replace-fail 'TryExec=/usr/bin/cutefish-compositor' 'TryExec=cutefish-compositor'
     substituteInPlace session/processmanager.cpp \
       --replace-fail 'static constexpr char kCompositor[] = "/usr/bin/cutefish-compositor";' \
         '/* cutefish-compositor is resolved from PATH. */' \
