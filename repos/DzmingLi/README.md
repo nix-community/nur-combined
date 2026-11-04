@@ -29,7 +29,6 @@ a clean checkout on x86_64 Linux:
 ```sh
 nix run .#update -- --list
 nix run .#update -- 115life -- --check
-nix run .#update -- wechat
 nix run .#update -- --all --commit
 nix build .#checks.x86_64-linux.update-transactions
 ```
