@@ -194,19 +194,19 @@ python3Packages.buildPythonPackage (finalAttrs: {
     pydantic-settings
     starlette-cramjam
     titiler-core
-    titiler-core.optional-dependencies.telemetry
     titiler-extensions
-    titiler-extensions.optional-dependencies.cogeo
-    titiler-extensions.optional-dependencies.stac
     titiler-mosaic
-    titiler-mosaic.optional-dependencies.mosaicjson
     titiler-xarray
-    titiler-xarray.optional-dependencies.fs
-  ];
+  ]
+  ++ titiler-core.optional-dependencies.telemetry
+  ++ titiler-extensions.optional-dependencies.cogeo
+  ++ titiler-extensions.optional-dependencies.stac
+  ++ titiler-mosaic.optional-dependencies.mosaicjson
+  ++ titiler-xarray.optional-dependencies.fs;
 
   nativeCheckInputs = with python3Packages; [
     boto3
-    brotlipy
+    brotli
     pytestCheckHook
     pytest-asyncio
     pytest-cov-stub

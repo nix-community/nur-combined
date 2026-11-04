@@ -7,7 +7,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnsstk";
-  version = "15.0.0";
+  version = "15.3.1";
 
   __structuredAttrs = true;
 
@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "SGL-UT";
     repo = "gnsstk";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-bVVLFnV3FZl8cAkvaAp453UEDT9gJc8gN9fz7rMnw1k=";
+    hash = "sha256-o2iL7Wh3dioxyIzDcVlsN20c40BSrc5+mFYISJ9YlpY=";
   };
 
   postPatch = ''

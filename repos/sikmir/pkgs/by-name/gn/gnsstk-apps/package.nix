@@ -8,7 +8,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gnsstk-apps";
-  version = "14.1.1";
+  version = "15.1.1";
 
   __structuredAttrs = true;
 
@@ -16,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "SGL-UT";
     repo = "gnsstk-apps";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-gnw42ebL8hxRq8hX2IvTDwbqKDws9n3jmcSXLvBre8A=";
+    hash = "sha256-iOTSTAt8YKpE6kQvTKlNEE5isOTzbP3+k9ETrWHA+48=";
   };
 
   nativeBuildInputs = [ cmake ];
