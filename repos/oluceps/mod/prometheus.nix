@@ -779,6 +779,16 @@
                 group_interval: 2m
                 repeat_interval: 10m
                 routes:
+                  # Keep kaambl alerts visible while suppressing all notifications.
+                  # Node labels also cover alerts observed from another instance.
+                  - receiver: muted-kaambl
+                    matchers:
+                      - instance="kaambl"
+                    continue: false
+                  - receiver: muted-kaambl
+                    matchers:
+                      - node="kaambl"
+                    continue: false
                   - receiver: bridge-channel
                     matchers:
                       - alertname="PierDown"
@@ -787,6 +797,7 @@
                     repeat_interval: 60m
                     continue: false
               receivers:
+                - name: muted-kaambl
                 - name: telegram
                   telegram_configs:
                     - bot_token_file: /run/credentials/alertmanager.service/notifychan

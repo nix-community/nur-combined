@@ -1,0 +1,1624 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index 0ba46fb6f46aba0f6c1b0a944a4ccf00aa289910..aa8736142d3bb68d34f3a7a287268c6ac6fb98de 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -35,6 +35,40 @@ version = "1.0.102"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "7f202df86484c868dbad7eaa557ef785d5c66295e41b460ef922eca0723b842c"
+ 
++[[package]]
++name = "async-broadcast"
++version = "0.7.2"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "435a87a52755b8f27fcf321ac4f04b2802e337c8c4872923137471ec39c37532"
++dependencies = [
++ "event-listener",
++ "event-listener-strategy",
++ "futures-core",
++ "pin-project-lite",
++]
++
++[[package]]
++name = "async-recursion"
++version = "1.2.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "4f8abc12baad266b1c8cec146854c195b5864b4221d4b2ca7296a7ae82d9e451"
++dependencies = [
++ "proc-macro2",
++ "quote",
++ "syn 3.0.9",
++]
++
++[[package]]
++name = "async-trait"
++version = "0.1.92"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "82f6aeea286b8eb4dd3431a1be1b59d290ace00f5bfd8e2a159bc2a05e2c1667"
++dependencies = [
++ "proc-macro2",
++ "quote",
++ "syn 3.0.9",
++]
++
+ [[package]]
+ name = "atomic"
+ version = "0.6.1"
+@@ -425,6 +459,33 @@ version = "1.15.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "48c757948c5ede0e46177b7add2e67155f70e33c07fea8284df6576da70b3719"
+ 
++[[package]]
++name = "endi"
++version = "1.1.1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "66b7e2430c6dff6a955451e2cfc438f09cea1965a9d6f87f7e3b90decc014099"
++
++[[package]]
++name = "enumflags2"
++version = "0.7.12"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "1027f7680c853e056ebcec683615fb6fbbc07dbaa13b4d5d9442b146ded4ecef"
++dependencies = [
++ "enumflags2_derive",
++ "serde",
++]
++
++[[package]]
++name = "enumflags2_derive"
++version = "0.7.12"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "67c78a4d8fdf9953a5c9d458f9efe940fd97a0cab0941c075a813ac594733827"
++dependencies = [
++ "proc-macro2",
++ "quote",
++ "syn 2.0.117",
++]
++
+ [[package]]
+ name = "equivalent"
+ version = "1.0.2"
+@@ -450,6 +511,26 @@ dependencies = [
+  "num-traits",
+ ]
+ 
++[[package]]
++name = "event-listener"
++version = "5.4.2"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "5a23add41df1562121a9393cb065eab5146a1242410f23a644851e90cfd669d2"
++dependencies = [
++ "parking",
++ "pin-project-lite",
++]
++
++[[package]]
++name = "event-listener-strategy"
++version = "0.5.4"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "8be9f3dfaaffdae2972880079a491a1a8bb7cbed0b8dd7a347f668b4150a3b93"
++dependencies = [
++ "event-listener",
++ "pin-project-lite",
++]
++
+ [[package]]
+ name = "fancy-regex"
+ version = "0.11.0"
+@@ -460,6 +541,12 @@ dependencies = [
+  "regex",
+ ]
+ 
++[[package]]
++name = "fastrand"
++version = "2.5.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "da7c62ceae207dd37ea5b845da6a0696c799f85e97da1ab5b7910be3c1c80223"
++
+ [[package]]
+ name = "fdeflate"
+ version = "0.3.7"
+@@ -568,6 +655,19 @@ version = "0.3.33"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "4577ecaa3c4f96589d473f679a71b596316f6641bc350038b962a5daf0085d7a"
+ 
++[[package]]
++name = "futures-lite"
++version = "2.6.1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "f78e10609fe0e0b3f4157ffab1876319b5b0db102a2c60dc4626306dc46b44ad"
++dependencies = [
++ "fastrand",
++ "futures-core",
++ "futures-io",
++ "parking",
++ "pin-project-lite",
++]
++
+ [[package]]
+ name = "futures-macro"
+ version = "0.3.33"
+@@ -702,6 +802,7 @@ dependencies = [
+  "widestring",
+  "windows-sys",
+  "wmi",
++ "zbus",
+ ]
+ 
+ [[package]]
+@@ -1072,6 +1173,22 @@ dependencies = [
+  "num-traits",
+ ]
+ 
++[[package]]
++name = "ordered-stream"
++version = "0.2.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "9aa2b01e1d916879f73a53d01d1d6cee68adbb31d6d9177a8cfce093cced1d50"
++dependencies = [
++ "futures-core",
++ "pin-project-lite",
++]
++
++[[package]]
++name = "parking"
++version = "2.2.1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "f38d5652c16fde515bb1ecef450ab0f6a219d619a7274976324d5e377f7dceba"
++
+ [[package]]
+ name = "parking_lot"
+ version = "0.12.5"
+@@ -1250,6 +1367,15 @@ dependencies = [
+  "syn 2.0.117",
+ ]
+ 
++[[package]]
++name = "proc-macro-crate"
++version = "3.5.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "e67ba7e9b2b56446f1d419b1d807906278ffa1a658a8a5d8a39dcb1f5a78614f"
++dependencies = [
++ "toml_edit 0.25.18+spec-1.1.0",
++]
++
+ [[package]]
+ name = "proc-macro2"
+ version = "1.0.106"
+@@ -1579,6 +1705,17 @@ dependencies = [
+  "zmij",
+ ]
+ 
++[[package]]
++name = "serde_repr"
++version = "0.1.21"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "8d3b1629de253c70a0508c3899572da79ca359fdab27c7920ff00406df418906"
++dependencies = [
++ "proc-macro2",
++ "quote",
++ "syn 3.0.9",
++]
++
+ [[package]]
+ name = "serde_spanned"
+ version = "0.6.9"
+@@ -1680,6 +1817,16 @@ version = "1.15.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "67b1b7a3b5fe4f1376887184045fcf45c69e92af734b7aaddc05fb777b6fbd03"
+ 
++[[package]]
++name = "socket2"
++version = "0.6.5"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "c3d1e2c7f27f8d4cb10542a02c49005dbd6e93095799d6f3be745fae9f8fedd4"
++dependencies = [
++ "libc",
++ "windows-sys",
++]
++
+ [[package]]
+ name = "static_assertions"
+ version = "1.1.0"
+@@ -1735,6 +1882,30 @@ dependencies = [
+  "unicode-ident",
+ ]
+ 
++[[package]]
++name = "syn"
++version = "3.0.9"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "d78c8dee4c7bf0e14673097256fed6142ce9d3b85a408189d07482442145823b"
++dependencies = [
++ "proc-macro2",
++ "quote",
++ "unicode-ident",
++]
++
++[[package]]
++name = "tempfile"
++version = "3.27.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "32497e9a4c7b38532efcdebeef879707aa9f794296a4f0244f6f69e9bc8574bd"
++dependencies = [
++ "fastrand",
++ "getrandom 0.4.2",
++ "once_cell",
++ "rustix",
++ "windows-sys",
++]
++
+ [[package]]
+ name = "terminfo"
+ version = "0.9.0"
+@@ -1891,7 +2062,9 @@ dependencies = [
+  "mio",
+  "pin-project-lite",
+  "signal-hook-registry",
++ "socket2",
+  "tokio-macros",
++ "tracing",
+  "windows-sys",
+ ]
+ 
+@@ -1914,8 +2087,8 @@ checksum = "dc1beb996b9d83529a9e75c17a1686767d148d70663143c7854d8b4a09ced362"
+ dependencies = [
+  "serde",
+  "serde_spanned",
+- "toml_datetime",
+- "toml_edit",
++ "toml_datetime 0.6.11",
++ "toml_edit 0.22.27",
+ ]
+ 
+ [[package]]
+@@ -1927,6 +2100,15 @@ dependencies = [
+  "serde",
+ ]
+ 
++[[package]]
++name = "toml_datetime"
++version = "1.1.2+spec-1.1.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "2b86d767906c6c42421dcba507eb9d203e779497710a47782a224bb871653053"
++dependencies = [
++ "serde_core",
++]
++
+ [[package]]
+ name = "toml_edit"
+ version = "0.22.27"
+@@ -1936,9 +2118,30 @@ dependencies = [
+  "indexmap",
+  "serde",
+  "serde_spanned",
+- "toml_datetime",
++ "toml_datetime 0.6.11",
+  "toml_write",
+- "winnow",
++ "winnow 0.7.15",
++]
++
++[[package]]
++name = "toml_edit"
++version = "0.25.18+spec-1.1.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "1ec6e78bd70db9420d8d212fa9dc97f116448a1ceff5d00eabb991d407e21396"
++dependencies = [
++ "indexmap",
++ "toml_datetime 1.1.2+spec-1.1.0",
++ "toml_parser",
++ "winnow 1.0.4",
++]
++
++[[package]]
++name = "toml_parser"
++version = "1.1.5+spec-1.1.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "baa693a8032d7e1cada7d0041e96126df243179ff061456783ac7f12bda4744c"
++dependencies = [
++ "winnow 1.0.4",
+ ]
+ 
+ [[package]]
+@@ -2020,6 +2223,17 @@ version = "0.1.7"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "2896d95c02a80c6d6a5d6e953d479f5ddf2dfdb6a244441010e373ac0fb88971"
+ 
++[[package]]
++name = "uds_windows"
++version = "1.2.1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "f2f6fb2847f6742cd76af783a2a2c49e9375d0a111c7bef6f71cd9e738c72d6e"
++dependencies = [
++ "memoffset",
++ "tempfile",
++ "windows-sys",
++]
++
+ [[package]]
+ name = "unicode-ident"
+ version = "1.0.24"
+@@ -2076,6 +2290,7 @@ dependencies = [
+  "atomic",
+  "getrandom 0.4.2",
+  "js-sys",
++ "serde_core",
+  "wasm-bindgen",
+ ]
+ 
+@@ -2437,6 +2652,15 @@ dependencies = [
+  "memchr",
+ ]
+ 
++[[package]]
++name = "winnow"
++version = "1.0.4"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "23b97319f7b8343df12cc98938e5c3eb436064524c8d2b4e30a1d3a36eecdf81"
++dependencies = [
++ "memchr",
++]
++
+ [[package]]
+ name = "winreg"
+ version = "0.10.1"
+@@ -2548,8 +2772,114 @@ dependencies = [
+  "windows-core",
+ ]
+ 
++[[package]]
++name = "zbus"
++version = "5.19.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "5db4be7c075cb421e4b7ee645541604239bd243ba7c357511f4ff3a74b555907"
++dependencies = [
++ "async-broadcast",
++ "async-recursion",
++ "async-trait",
++ "enumflags2",
++ "event-listener",
++ "futures-core",
++ "futures-lite",
++ "hex",
++ "libc",
++ "ordered-stream",
++ "rustix",
++ "serde",
++ "serde_repr",
++ "tokio",
++ "tracing",
++ "uds_windows",
++ "uuid",
++ "windows-sys",
++ "winnow 1.0.4",
++ "zbus_macros",
++ "zbus_names",
++ "zvariant",
++]
++
++[[package]]
++name = "zbus_macros"
++version = "5.19.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "2990635d09ade6df1868f72f8cac69a876a90981e8bd3c40b1be413f8dc88f40"
++dependencies = [
++ "proc-macro-crate",
++ "proc-macro2",
++ "quote",
++ "syn 3.0.9",
++ "zbus_names",
++ "zvariant",
++ "zvariant_utils",
++]
++
++[[package]]
++name = "zbus_names"
++version = "4.3.5"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "812a12be4ead7a59e18ea8f047d08add0066b73bc62fc1467066a2472ae088dd"
++dependencies = [
++ "serde",
++ "winnow 1.0.4",
++ "zvariant",
++]
++
++[[package]]
++name = "zcheapstr"
++version = "1.2.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "939f186d9ecebe044315a5cb6d6f78568bbc21152adc954d5a0c2f58bdbc9920"
++dependencies = [
++ "serde",
++]
++
+ [[package]]
+ name = "zmij"
+ version = "1.0.21"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "b8848ee67ecc8aedbaf3e4122217aff892639231befc6a1b58d29fff4c2cabaa"
++
++[[package]]
++name = "zvariant"
++version = "5.15.1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "80bf6d6cd6a4b601acb64cfb8284cdc643fcfa75ef26ae3c46ec8aa4e8a1fbb7"
++dependencies = [
++ "endi",
++ "enumflags2",
++ "serde",
++ "winnow 1.0.4",
++ "zcheapstr",
++ "zvariant_derive",
++ "zvariant_utils",
++]
++
++[[package]]
++name = "zvariant_derive"
++version = "5.15.1"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "ef2672456ba1cb54b5eaec136e63135b3c7495fb938e53b28a62e633496d486d"
++dependencies = [
++ "proc-macro-crate",
++ "proc-macro2",
++ "quote",
++ "syn 3.0.9",
++ "zvariant_utils",
++]
++
++[[package]]
++name = "zvariant_utils"
++version = "4.2.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "bad0294361a320b694a328460dc73add56c306150f5cb6bfafc44446120008a3"
++dependencies = [
++ "proc-macro2",
++ "quote",
++ "serde",
++ "syn 3.0.9",
++ "winnow 1.0.4",
++]
+diff --git a/Cargo.toml b/Cargo.toml
+index 09ceaf738e5046b6d781dfeeebd23b74a8250cd9..b7c07ad2a508919d9c8c3073bb3ce105243f1dcc 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -40,7 +40,7 @@ serde_ignored = "0.1.14"
+ serde_json = "1"
+ sha2 = "0.10"
+ time = { version = "0.3.47", features = ["formatting"] }
+-tokio = { version = "1", features = ["rt-multi-thread", "macros", "sync", "time", "process", "io-util"] }
++tokio = { version = "1", features = ["rt-multi-thread", "macros", "sync", "time", "process", "io-util", "net"] }
+ toml = "0.8"
+ tracing = "0.1.44"
+ tracing-subscriber = { version = "0.3.23", features = ["env-filter"] }
+@@ -51,6 +51,9 @@ schemars = { version = "1.2.1", features = ["derive"] }
+ [patch.crates-io]
+ portable-pty = { path = "vendor/portable-pty" }
+ 
++[target.'cfg(target_os = "linux")'.dependencies]
++zbus = { version = "5.19", default-features = false, features = ["tokio"] }
++
+ [target.'cfg(windows)'.dependencies]
+ # UTF-16 SDDL input for interprocess security descriptors.
+ widestring = "1.2"
+diff --git a/docs/next/website/src/content/docs/configuration.mdx b/docs/next/website/src/content/docs/configuration.mdx
+index 1975a43af93641af4d58849ea730183812a5ea23..54184b0fa281062dcef2bf119de6b24e45a3fecc 100644
+--- a/docs/next/website/src/content/docs/configuration.mdx
++++ b/docs/next/website/src/content/docs/configuration.mdx
+@@ -550,14 +550,16 @@ Restricting `cjk_ime_agents` avoids showing an extra hardware cursor in unrelate
+ 
+ ## Prefix input source switching
+ 
+-On macOS and Windows, Herdr can temporarily switch to an ASCII-capable input source while prefix commands and prefix-launched modes are active:
++On macOS, Windows, and Linux with niri/Wayland and Fcitx5, Herdr can temporarily switch to an ASCII-capable input source while prefix commands and prefix-launched modes are active:
+ 
+ ```toml
+ [experimental]
+ switch_ascii_input_source_in_prefix = true
+ ```
+ 
+-On macOS this switches to the current ASCII-capable keyboard layout; on Windows it switches the IME to English (ASCII) input. Herdr restores the previous input source when returning to terminal input or entering a text field. This setting has no effect on other platforms.
++On macOS this switches to the current ASCII-capable keyboard layout; on Windows it switches the IME to English (ASCII) input. On niri/Wayland it deactivates Fcitx5 while prefix mode is active, including the default `Ctrl+B` prefix. Configure an English keyboard layout as the first input method in your Fcitx5 group. The foreground client needs access to the session D-Bus and a valid `NIRI_SOCKET`; no `fcitx5-remote` command is required.
++
++Herdr restores the previous input source when returning to terminal input or entering a text field. On niri, restoration requires the same window to be focused and Fcitx5 to remain inactive. Switching is asynchronous and best effort; unavailable desktop services leave the input source unchanged. This setting has no effect on other platforms.
+ 
+ :::caution[Windows support is Korean IME only]
+ On Windows, support is currently limited to the Korean IME. With an IME for any other language, this setting leaves the input source unchanged.
+diff --git a/docs/next/website/src/content/docs/ja/configuration.mdx b/docs/next/website/src/content/docs/ja/configuration.mdx
+index 12802e849fdddaee79d45fee0abb435afda519cb..0093568c1c26e353225c8b5d4b126e5c25a0599a 100644
+--- a/docs/next/website/src/content/docs/ja/configuration.mdx
++++ b/docs/next/website/src/content/docs/ja/configuration.mdx
+@@ -546,14 +546,16 @@ cjk_ime_agents = ["claude", "pi", "codex"]
+ 
+ ## プレフィックス入力ソースの切り替え
+ 
+-macOS と Windows では、プレフィックスコマンドとプレフィックスから起動したモードがアクティブな間、Herdr が ASCII 対応の入力ソースへ一時的に切り替えるようにできます:
++macOS、Windows、および niri/Wayland と Fcitx5 を使用する Linux では、プレフィックスコマンドとプレフィックスから起動したモードがアクティブな間、Herdr が ASCII 対応の入力ソースへ一時的に切り替えるようにできます:
+ 
+ ```toml
+ [experimental]
+ switch_ascii_input_source_in_prefix = true
+ ```
+ 
+-macOS ではその時点の ASCII 対応キーボードレイアウトへ切り替えます。Windows では IME を英語（ASCII）入力へ切り替えます。ターミナル入力に戻るかテキストフィールドに入ると、Herdr は以前の入力ソースを復元します。この設定は他のプラットフォームには影響しません。
++macOS ではその時点の ASCII 対応キーボードレイアウトへ切り替えます。Windows では IME を英語（ASCII）入力へ切り替えます。niri/Wayland では、プレフィックスモード（既定は `Ctrl+B`）に入ると Fcitx5 を一時的に無効化します。Fcitx5 グループの最初の入力メソッドを英語キーボードレイアウトに設定してください。前面のクライアントにはセッション D-Bus へのアクセスと有効な `NIRI_SOCKET` が必要です。`fcitx5-remote` コマンドは不要です。
++
++ターミナル入力に戻るかテキストフィールドに入ると、Herdr は以前の入力ソースを復元します。niri では、同じウィンドウがフォーカスされ、Fcitx5 が無効のままである場合のみ復元します。切り替えは非同期のベストエフォート処理で、デスクトップサービスが利用できない場合は入力ソースを変更しません。この設定は他のプラットフォームには影響しません。
+ 
+ :::caution[Windows では韓国語 IME のみ対応]
+ Windows でのサポートは現時点で韓国語 IME に限定されています。それ以外の言語の IME を使用している場合、この設定は入力ソースを変更しません。
+diff --git a/docs/next/website/src/content/docs/zh-cn/configuration.mdx b/docs/next/website/src/content/docs/zh-cn/configuration.mdx
+index 9c1d5b2d3af9b2c7b4ecb8be6590888a8f568bf9..e49093fdb5b887d36c5055146b2c65573105a735 100644
+--- a/docs/next/website/src/content/docs/zh-cn/configuration.mdx
++++ b/docs/next/website/src/content/docs/zh-cn/configuration.mdx
+@@ -546,14 +546,16 @@ cjk_ime_agents = ["claude", "pi", "codex"]
+ 
+ ## 前缀输入源切换
+ 
+-在 macOS 和 Windows 上，当前缀命令和由前缀启动的模式处于活动状态时，Herdr 可以临时切换到支持 ASCII 的输入源：
++在 macOS、Windows 以及使用 niri/Wayland 和 Fcitx5 的 Linux 上，当前缀命令和由前缀启动的模式处于活动状态时，Herdr 可以临时切换到支持 ASCII 的输入源：
+ 
+ ```toml
+ [experimental]
+ switch_ascii_input_source_in_prefix = true
+ ```
+ 
+-在 macOS 上，会切换到当前支持 ASCII 的键盘布局；在 Windows 上，会将 IME 切换到英文（ASCII）输入。返回终端输入或进入文本字段时，Herdr 会恢复之前的输入源。此设置在其他平台上无效。
++在 macOS 上，会切换到当前支持 ASCII 的键盘布局；在 Windows 上，会将 IME 切换到英文（ASCII）输入。在 niri/Wayland 上，进入前缀模式（默认按 `Ctrl+B`）时会临时停用 Fcitx5。请将 Fcitx5 输入法组的第一项设为英文键盘布局。前台客户端需要能够访问会话 D-Bus，并具有有效的 `NIRI_SOCKET`，无需安装 `fcitx5-remote` 命令。
++
++返回终端输入或进入文本字段时，Herdr 会恢复之前的输入源。在 niri 上，仅当同一窗口仍处于聚焦状态且 Fcitx5 仍未启用时才恢复。切换为异步尽力操作；桌面服务不可用时保持原输入源。此设置在其他平台上无效。
+ 
+ :::caution[Windows 上仅支持韩语 IME]
+ 目前 Windows 上的支持仅限于韩语 IME。使用其他语言的 IME 时，此设置不会改变输入源。
+diff --git a/docs/next/website/src/data/config-reference.json b/docs/next/website/src/data/config-reference.json
+index 36afe337847c53b3fdaf2d10dbd789b2761fd713..2605df9410b7e639d4d7d1fff65a75e675526219 100644
+--- a/docs/next/website/src/data/config-reference.json
++++ b/docs/next/website/src/data/config-reference.json
+@@ -1514,7 +1514,7 @@
+           "key": "experimental.switch_ascii_input_source_in_prefix",
+           "type": "boolean",
+           "default": "false",
+-          "description": "While prefix mode is active, temporarily switch the host input source to an ASCII-capable mode so prefix commands are read as ASCII even when an IME is active, then restore the previous input source when prefix mode exits. On macOS this selects the ASCII-capable keyboard layout; on Windows it switches the IME to English (ASCII) input. Windows support is currently limited to the Korean IME; with an IME for any other language, the input source is left unchanged. macOS and Windows only; a no-op elsewhere and a best-effort no-op if the switch fails."
++          "description": "While prefix mode is active, temporarily switch the host input source to an ASCII-capable mode so prefix commands are read as ASCII even when an IME is active, then restore the previous input source when prefix mode exits. On macOS this selects the ASCII-capable keyboard layout; on Windows it switches the IME to English (ASCII) input. Windows support is currently limited to the Korean IME; with an IME for any other language, the input source is left unchanged. On Linux with niri/Wayland and Fcitx5, it temporarily deactivates Fcitx5 (the first input method in the current group should be an English keyboard layout). Restoration is best effort and requires the same niri window to be focused. A no-op elsewhere or if the switch is unavailable."
+         }
+       ]
+     }
+diff --git a/src/client/mod.rs b/src/client/mod.rs
+index cb4650961195c2d924ee249c064aa32bd96f1082..0da4f1914ecf9f8aa9ebdda7386f844094537700 100644
+--- a/src/client/mod.rs
++++ b/src/client/mod.rs
+@@ -590,7 +590,7 @@ async fn run_client_loop(
+     }
+ 
+     // This (foreground) client owns the prefix ASCII input-source switch
+-    // (implemented on macOS and Windows; a no-op on other platforms).
++    // (macOS, Windows, and Fcitx5 on niri/Wayland).
+     let mut prefix_input_source = crate::platform::RealPrefixInputSource::default();
+ 
+     // Main event loop.
+diff --git a/src/client/shell_runtime.rs b/src/client/shell_runtime.rs
+index 2e8d1c726a2e7536fc59eed5860a46239cbaebc2..89477724e1f5adfb3a189e16e3549f9f9317014a 100644
+--- a/src/client/shell_runtime.rs
++++ b/src/client/shell_runtime.rs
+@@ -134,6 +134,9 @@ pub(super) fn apply_client_shell_input_source_changes(
+     state: &mut ClientState,
+     prefix_input_source: &mut impl crate::platform::PrefixInputSource,
+ ) {
++    if let Some(shell) = state.shell.as_ref() {
++        prefix_input_source.set_focused(shell.host_focus_baseline());
++    }
+     let changes = state
+         .shell
+         .as_mut()
+@@ -798,3 +801,31 @@ pub(super) fn finish_client_shell_input(
+     }
+     Ok(false)
+ }
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++
++    #[test]
++    fn input_source_receives_focus_changes_without_a_prefix_transition() {
++        #[derive(Default)]
++        struct Capture(Vec<bool>);
++        impl crate::platform::PrefixInputSource for Capture {
++            fn switch_to_ascii(&mut self) {}
++            fn restore(&mut self) {}
++            fn set_focused(&mut self, focused: bool) {
++                self.0.push(focused);
++            }
++        }
++        let mut state = ClientState::test_new();
++        let mut input_source = Capture::default();
++        for event in [
++            crate::raw_input::RawInputEvent::OuterFocusLost,
++            crate::raw_input::RawInputEvent::OuterFocusGained,
++        ] {
++            state.shell.as_mut().unwrap().handle_raw_events(vec![event]);
++            apply_client_shell_input_source_changes(&mut state, &mut input_source);
++        }
++        assert_eq!(input_source.0, [false, true]);
++    }
++}
+diff --git a/src/config/model.rs b/src/config/model.rs
+index 6ef6274d0aab8a7a8acff4f01f09faeb9b3d0cec..50ea11ca2954fe2f330082a8b53e159702c2cc4d 100644
+--- a/src/config/model.rs
++++ b/src/config/model.rs
+@@ -1072,8 +1072,11 @@ pub struct ExperimentalConfig {
+     /// mode exits. On macOS this selects the ASCII-capable keyboard layout; on
+     /// Windows it switches the IME to English (ASCII) input. Windows support is
+     /// currently limited to the Korean IME; with an IME for any other language,
+-    /// the input source is left unchanged. macOS and Windows only; a no-op
+-    /// elsewhere and a best-effort no-op if the switch fails.
++    /// the input source is left unchanged. On Linux with niri/Wayland and
++    /// Fcitx5, it temporarily deactivates Fcitx5 (the first input method in the
++    /// current group should be an English keyboard layout). Restoration is
++    /// best effort and requires the same niri window to be focused. A no-op
++    /// elsewhere or if the switch is unavailable.
+     /// Default: false.
+     pub switch_ascii_input_source_in_prefix: bool,
+ }
+diff --git a/src/main.rs b/src/main.rs
+index 8cfe9b0b0e16a503c6b28a2afbfba071a930355f..ccc1af4d6b46bba5c68d3b717957d811729aa99c 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -414,7 +414,9 @@ pane_history = false
+ # active, then restore the previous input source when prefix mode exits. On
+ # macOS this selects the ASCII-capable keyboard layout; on Windows it toggles
+ # a Korean IME between Hangul and English (other IME languages are left
+-# unchanged). macOS and Windows only; best-effort. Default: false.
++# unchanged). On niri/Wayland, temporarily deactivate Fcitx5; configure an
++# English keyboard layout first in its input method group. Requires a valid
++# NIRI_SOCKET. Best-effort. Default: false.
+ # switch_ascii_input_source_in_prefix = false
+ # Expose the focused pane's cursor to the outer terminal so macOS input
+ # methods keep tracking the candidate window when TUIs paint their own
+diff --git a/src/platform/linux.rs b/src/platform/linux.rs
+index 7dd2879e2ece52dab508b90274524a1eb88434c7..df7fedc87a4448cedaf16888b815b1379d224e46 100644
+--- a/src/platform/linux.rs
++++ b/src/platform/linux.rs
+@@ -14,6 +14,9 @@ use super::{
+     LimitedRead, Signal,
+ };
+ 
++mod input_source;
++pub(crate) use input_source::RealPrefixInputSource;
++
+ pub(crate) use super::unix_common::{
+     configure_status_command, create_remote_private_dir, create_remote_ssh_config_dir,
+     create_remote_ssh_config_file, hostname, local_datetime, remote_bridge_endpoint_path,
+diff --git a/src/platform/linux/input_source.rs b/src/platform/linux/input_source.rs
+new file mode 100644
+index 0000000000000000000000000000000000000000..fa1775066362f0667d104ff668d35d0ea990e8fa
+--- /dev/null
++++ b/src/platform/linux/input_source.rs
+@@ -0,0 +1,367 @@
++//! Fcitx5 prefix input switching on niri/Wayland. Desktop calls run on one
++//! worker, never on the client's input/render path.
++
++use std::{
++    path::PathBuf,
++    sync::atomic::{AtomicBool, Ordering},
++    time::Duration,
++};
++
++use tokio::{
++    io::{AsyncBufReadExt, AsyncReadExt, AsyncWriteExt, BufReader},
++    sync::watch,
++};
++
++use crate::platform::PrefixInputSource;
++
++const CALL_TIMEOUT: Duration = Duration::from_millis(300);
++const FCITX_SERVICE: &str = "org.fcitx.Fcitx5";
++const FCITX_INTERFACE: &str = "org.fcitx.Fcitx.Controller1";
++
++const RESTORE_ATTEMPTS: usize = 3;
++
++#[derive(Clone, Copy, PartialEq, Eq)]
++struct Request {
++    active: bool,
++    focused: bool,
++    focus_generation: u64,
++}
++
++impl Default for Request {
++    fn default() -> Self {
++        Self {
++            active: false,
++            focused: true,
++            focus_generation: 0,
++        }
++    }
++}
++
++#[derive(Default)]
++pub(crate) struct RealPrefixInputSource {
++    request: Request,
++    desired: Option<watch::Sender<Request>>,
++    worker: Option<std::thread::JoinHandle<()>>,
++}
++
++impl PrefixInputSource for RealPrefixInputSource {
++    fn switch_to_ascii(&mut self) {
++        self.request.active = true;
++        if let Some(desired) = &self.desired {
++            desired.send_replace(self.request);
++            return;
++        }
++        let Some(socket) = std::env::var_os("NIRI_SOCKET").map(PathBuf::from) else {
++            return;
++        };
++        let (desired, receiver) = watch::channel(self.request);
++        // A separate runtime lets Drop finish restoring even when the client's
++        // main Tokio runtime is about to shut down on detach or error.
++        let worker = std::thread::Builder::new()
++            .name("herdr-fcitx5".into())
++            .spawn(move || {
++                match tokio::runtime::Builder::new_current_thread()
++                    .enable_all()
++                    .build()
++                {
++                    Ok(runtime) => runtime.block_on(run(receiver, socket, None)),
++                    Err(error) => tracing::debug!(%error, "Fcitx5 worker runtime unavailable"),
++                }
++            });
++        match worker {
++            Ok(worker) => {
++                self.desired = Some(desired);
++                self.worker = Some(worker);
++            }
++            Err(error) => tracing::debug!(%error, "Fcitx5 worker unavailable"),
++        }
++    }
++
++    fn set_focused(&mut self, focused: bool) {
++        if self.request.focused != focused {
++            self.request.focused = focused;
++            self.request.focus_generation = self.request.focus_generation.wrapping_add(1);
++            if let Some(desired) = &self.desired {
++                desired.send_replace(self.request);
++            }
++        }
++    }
++
++    fn restore(&mut self) {
++        self.request.active = false;
++        if let Some(desired) = &self.desired {
++            desired.send_replace(self.request);
++        }
++    }
++}
++
++impl Drop for RealPrefixInputSource {
++    fn drop(&mut self) {
++        drop(self.desired.take());
++        if let Some(worker) = self.worker.take() {
++            // Only client teardown waits. Every desktop request is bounded;
++            // normal prefix transitions remain nonblocking.
++            if worker.join().is_err() {
++                tracing::debug!("Fcitx5 input source worker panicked");
++            }
++        }
++    }
++}
++
++// Closing the channel restores before exiting; aborting the worker could
++// strand the desktop in the temporary input state.
++async fn run(
++    mut desired: watch::Receiver<Request>,
++    socket: PathBuf,
++    mut connection: Option<zbus::Connection>,
++) {
++    let mut restore: Option<Restore> = None;
++    let mut retries = 0;
++    loop {
++        let request = *desired.borrow_and_update();
++        let mut retry = false;
++        if request.focused && request.active {
++            if let Some(saved) = &restore {
++                if saved.activation_dispatched.load(Ordering::Acquire) {
++                    if let Err(error) = saved.reassert_ascii(&socket, &desired).await {
++                        tracing::debug!(%error, "Fcitx5 prefix reentry switch unavailable");
++                        retries += 1;
++                        retry = retries < RESTORE_ATTEMPTS;
++                    }
++                }
++            } else {
++                match switch(&mut connection, &socket, &desired).await {
++                    Ok(saved) => restore = saved,
++                    Err(error) => {
++                        connection = None;
++                        tracing::debug!(%error, "Fcitx5 prefix switch unavailable");
++                    }
++                }
++            }
++        } else if request.focused && !request.active {
++            if let Some(saved) = &restore {
++                match saved.restore(&socket, Some(&desired)).await {
++                    Ok(true) => restore = None,
++                    Ok(false) => {} // A newer prefix or focus event superseded this restore.
++                    Err(error) => {
++                        tracing::debug!(%error, "Fcitx5 prefix restore unavailable");
++                        retries += 1;
++                        retry = retries < RESTORE_ATTEMPTS;
++                    }
++                }
++            }
++        }
++        let closed = if retry {
++            tokio::select! {
++                result = desired.changed() => { retries = 0; result.is_err() }
++                _ = tokio::time::sleep(CALL_TIMEOUT) => false,
++            }
++        } else {
++            retries = 0;
++            desired.changed().await.is_err()
++        };
++        if closed {
++            if let Some(saved) = restore {
++                for _ in 0..RESTORE_ATTEMPTS {
++                    match saved.restore(&socket, None).await {
++                        Ok(true) => break,
++                        Ok(false) => {}
++                        Err(error) => tracing::debug!(%error, "Fcitx5 exit restore unavailable"),
++                    }
++                    tokio::time::sleep(CALL_TIMEOUT).await;
++                }
++            }
++            break;
++        }
++    }
++}
++
++struct Fcitx {
++    connection: zbus::Connection,
++    // Address the existing daemon directly: never auto-start Fcitx or restore
++    // state saved from a daemon that has since been replaced.
++    owner: String,
++}
++
++impl Fcitx {
++    async fn connect(connection: &mut Option<zbus::Connection>) -> zbus::Result<Self> {
++        if connection.is_none() {
++            *connection = Some(bounded(zbus::Connection::session()).await?);
++        }
++        let connection = connection
++            .as_ref()
++            .ok_or_else(|| zbus::Error::Failure("missing session bus".into()))?
++            .clone();
++        let reply = bounded(connection.call_method(
++            Some("org.freedesktop.DBus"),
++            "/org/freedesktop/DBus",
++            Some("org.freedesktop.DBus"),
++            "GetNameOwner",
++            &(FCITX_SERVICE,),
++        ))
++        .await?;
++        Ok(Self {
++            connection,
++            owner: reply.body().deserialize()?,
++        })
++    }
++
++    async fn call<R>(&self, method: &str) -> zbus::Result<R>
++    where
++        R: serde::de::DeserializeOwned + zbus::zvariant::Type,
++    {
++        let reply = bounded(self.connection.call_method(
++            Some(self.owner.as_str()),
++            "/controller",
++            Some(FCITX_INTERFACE),
++            method,
++            &(),
++        ))
++        .await?;
++        reply.body().deserialize()
++    }
++}
++
++struct Restore {
++    fcitx: Fcitx,
++    window: u64,
++    // An Activate may still execute after its reply timed out. A reentered
++    // prefix must enqueue Deactivate after it, rather than trust the saved token.
++    activation_dispatched: AtomicBool,
++}
++
++async fn switch(
++    connection: &mut Option<zbus::Connection>,
++    socket: &std::path::Path,
++    desired: &watch::Receiver<Request>,
++) -> zbus::Result<Option<Restore>> {
++    let request = *desired.borrow();
++    if !request.active || !request.focused || desired.has_changed().is_err() {
++        return Ok(None);
++    }
++    let Some(window) = focused_window(socket).await? else {
++        return Ok(None);
++    };
++    let fcitx = Fcitx::connect(connection).await?;
++    // State 0 has no usable context; 1 is already inactive (direct input).
++    if fcitx.call::<i32>("State").await? != 2 {
++        return Ok(None);
++    }
++    if focused_window(socket).await? != Some(window)
++        || *desired.borrow() != request
++        || desired.has_changed().is_err()
++    {
++        return Ok(None);
++    }
++    // Keep responsibility even on timeout: cancellation cannot retract a
++    // Deactivate already delivered to the daemon. Restore rechecks its state.
++    let restore = Restore {
++        fcitx,
++        window,
++        activation_dispatched: AtomicBool::new(false),
++    };
++    if let Err(error) = restore.fcitx.call::<()>("Deactivate").await {
++        tracing::debug!(%error, "Fcitx5 prefix deactivation failed");
++    }
++    Ok(Some(restore))
++}
++
++impl Restore {
++    async fn reassert_ascii(
++        &self,
++        socket: &std::path::Path,
++        desired: &watch::Receiver<Request>,
++    ) -> zbus::Result<()> {
++        let request = *desired.borrow();
++        if focused_window(socket).await? == Some(self.window)
++            && request.active
++            && request.focused
++            && *desired.borrow() == request
++            && desired.has_changed().is_ok()
++        {
++            self.fcitx.call::<()>("Deactivate").await?;
++            self.activation_dispatched.store(false, Ordering::Release);
++        }
++        Ok(())
++    }
++
++    // false retains the token when focus or a newer prefix prevents restoration;
++    // errors retain it for bounded retries against the same daemon owner.
++    async fn restore(
++        &self,
++        socket: &std::path::Path,
++        desired: Option<&watch::Receiver<Request>>,
++    ) -> zbus::Result<bool> {
++        let request = desired.map(|desired| *desired.borrow());
++        if request.is_some_and(|request| request.active || !request.focused) {
++            return Ok(false);
++        }
++        // Fcitx's controller targets the most recent input context. Do not
++        // reactivate another niri window or override a manual reactivation.
++        let state = match self.fcitx.call::<i32>("State").await {
++            Err(zbus::Error::MethodError(name, _, _))
++                if matches!(
++                    name.as_str(),
++                    "org.freedesktop.DBus.Error.NameHasNoOwner"
++                        | "org.freedesktop.DBus.Error.ServiceUnknown"
++                ) =>
++            {
++                // This unique owner is gone, so its queued commands cannot
++                // affect a replacement daemon. Allow the next prefix to reconnect.
++                return Ok(true);
++            }
++            result => result?,
++        };
++        if state != 1 {
++            return Ok(true);
++        }
++        if focused_window(socket).await? != Some(self.window) {
++            return Ok(desired.is_none());
++        }
++        if desired.is_some_and(|desired| {
++            Some(*desired.borrow()) != request || desired.has_changed().is_err()
++        }) {
++            return Ok(false);
++        }
++        self.activation_dispatched.store(true, Ordering::Release);
++        self.fcitx.call::<()>("Activate").await?;
++        Ok(true)
++    }
++}
++
++async fn bounded<T>(future: impl std::future::Future<Output = zbus::Result<T>>) -> zbus::Result<T> {
++    tokio::time::timeout(CALL_TIMEOUT, future)
++        .await
++        .map_err(|_| zbus::Error::Failure("desktop input source request timed out".into()))?
++}
++
++async fn focused_window(socket: &std::path::Path) -> zbus::Result<Option<u64>> {
++    bounded(async {
++        let mut stream = tokio::net::UnixStream::connect(socket).await?;
++        stream.write_all(b"\"FocusedWindow\"\n").await?;
++        // A niri IPC reply is one JSON line. Bound the read even if the peer
++        // closes without sending a newline or sends an unexpectedly large reply.
++        let mut reply = String::new();
++        BufReader::new(stream.take(64 * 1024))
++            .read_line(&mut reply)
++            .await?;
++        let reply: serde_json::Value = serde_json::from_str(&reply)
++            .map_err(|error| zbus::Error::Failure(error.to_string()))?;
++        let window = reply
++            .get("Ok")
++            .and_then(|reply| reply.get("FocusedWindow"))
++            .ok_or_else(|| zbus::Error::Failure("invalid niri focused-window reply".into()))?;
++        if window.is_null() {
++            return Ok(None);
++        }
++        window
++            .get("id")
++            .and_then(serde_json::Value::as_u64)
++            .map(Some)
++            .ok_or_else(|| zbus::Error::Failure("missing niri window id".into()))
++    })
++    .await
++}
++
++#[cfg(test)]
++mod tests;
+diff --git a/src/platform/linux/input_source/tests.rs b/src/platform/linux/input_source/tests.rs
+new file mode 100644
+index 0000000000000000000000000000000000000000..7149d95d20310aff422816dd7bffba58a22bae78
+--- /dev/null
++++ b/src/platform/linux/input_source/tests.rs
+@@ -0,0 +1,352 @@
++use super::*;
++use std::{
++    io::BufRead,
++    process::{Child, Command, Stdio},
++    sync::{
++        atomic::{AtomicI32, AtomicU64, Ordering},
++        Arc, Mutex,
++    },
++};
++use tokio::sync::Notify;
++
++fn prefix_request() -> (watch::Sender<Request>, watch::Receiver<Request>) {
++    watch::channel(Request {
++        active: true,
++        ..Request::default()
++    })
++}
++
++struct Niri {
++    socket: PathBuf,
++    window: Arc<AtomicU64>,
++    task: tokio::task::JoinHandle<()>,
++}
++
++impl Niri {
++    fn new() -> Self {
++        static NEXT: AtomicU64 = AtomicU64::new(0);
++        let socket = std::env::temp_dir().join(format!(
++            "herdr-input-{}-{}.sock",
++            std::process::id(),
++            NEXT.fetch_add(1, Ordering::Relaxed)
++        ));
++        let listener = tokio::net::UnixListener::bind(&socket).unwrap();
++        let window = Arc::new(AtomicU64::new(42));
++        let current = window.clone();
++        let task = tokio::spawn(async move {
++            loop {
++                let (stream, _) = listener.accept().await.unwrap();
++                let mut stream = BufReader::new(stream);
++                let mut request = String::new();
++                stream.read_line(&mut request).await.unwrap();
++                assert_eq!(request, "\"FocusedWindow\"\n");
++                let id = current.load(Ordering::Acquire);
++                let window = if id == 0 {
++                    serde_json::Value::Null
++                } else {
++                    serde_json::json!({"id": id})
++                };
++                let reply = serde_json::json!({"Ok": {"FocusedWindow": window}});
++                stream
++                    .write_all(format!("{reply}\n").as_bytes())
++                    .await
++                    .unwrap();
++            }
++        });
++        Self {
++            socket,
++            window,
++            task,
++        }
++    }
++}
++
++impl Drop for Niri {
++    fn drop(&mut self) {
++        self.task.abort();
++        let _ = std::fs::remove_file(&self.socket);
++    }
++}
++
++#[tokio::test]
++async fn niri_focused_window_handles_focused_and_empty_workspaces() {
++    let niri = Niri::new();
++    assert_eq!(focused_window(&niri.socket).await.unwrap(), Some(42));
++    niri.window.store(0, Ordering::Release);
++    assert_eq!(focused_window(&niri.socket).await.unwrap(), None);
++}
++
++#[tokio::test]
++async fn desktop_input_requests_are_bounded() {
++    let result = bounded(std::future::pending::<zbus::Result<()>>()).await;
++    assert!(result.is_err());
++}
++
++#[derive(Clone)]
++struct Controller {
++    state: Arc<AtomicI32>,
++    calls: Arc<Mutex<Vec<&'static str>>>,
++    changed: Arc<Notify>,
++    state_read: Arc<Notify>,
++    state_release: Arc<Mutex<Option<Arc<Notify>>>>,
++    deactivating: Arc<Notify>,
++    activating: Arc<Notify>,
++    activate_release: Arc<Mutex<Option<Arc<Notify>>>>,
++    serial: Arc<tokio::sync::Mutex<()>>,
++    // Pause a deactivation after delivery, to exercise rapid entry/exit and
++    // client teardown without timing-dependent sleeps.
++    release: Option<Arc<Notify>>,
++}
++
++#[zbus::interface(name = "org.fcitx.Fcitx.Controller1")]
++impl Controller {
++    async fn state(&self) -> i32 {
++        self.state_read.notify_one();
++        let _serial = self.serial.lock().await;
++        let release = self.state_release.lock().unwrap().take();
++        if let Some(release) = release {
++            release.notified().await;
++        }
++        self.state.load(Ordering::Acquire)
++    }
++
++    async fn deactivate(&self) {
++        let _serial = self.serial.lock().await;
++        self.deactivating.notify_one();
++        if let Some(release) = &self.release {
++            release.notified().await;
++        }
++        self.state.store(1, Ordering::Release);
++        self.calls.lock().unwrap().push("deactivate");
++        self.changed.notify_one();
++    }
++
++    async fn activate(&self) {
++        let _serial = self.serial.lock().await;
++        self.activating.notify_one();
++        let release = self.activate_release.lock().unwrap().take();
++        if let Some(release) = release {
++            release.notified().await;
++        }
++        self.state.store(2, Ordering::Release);
++        self.calls.lock().unwrap().push("activate");
++        self.changed.notify_one();
++    }
++}
++
++struct Bus(Child);
++
++impl Bus {
++    async fn start() -> (Self, zbus::Connection, zbus::Connection, Controller) {
++        let mut bus = Self(
++            Command::new("dbus-daemon")
++                .args(["--session", "--nofork", "--print-address=1"])
++                .stdout(Stdio::piped())
++                .spawn()
++                .unwrap(),
++        );
++        let mut address = String::new();
++        std::io::BufReader::new(bus.0.stdout.take().unwrap())
++            .read_line(&mut address)
++            .unwrap();
++        let controller = Controller {
++            state: Arc::new(AtomicI32::new(2)),
++            calls: Arc::default(),
++            changed: Arc::default(),
++            state_read: Arc::default(),
++            state_release: Arc::default(),
++            deactivating: Arc::default(),
++            activating: Arc::default(),
++            activate_release: Arc::default(),
++            serial: Arc::default(),
++            release: None,
++        };
++        let service = zbus::connection::Builder::address(address.trim())
++            .unwrap()
++            .name(FCITX_SERVICE)
++            .unwrap()
++            .serve_at("/controller", controller.clone())
++            .unwrap()
++            .build()
++            .await
++            .unwrap();
++        let client = zbus::connection::Builder::address(address.trim())
++            .unwrap()
++            .build()
++            .await
++            .unwrap();
++        (bus, service, client, controller)
++    }
++}
++
++impl Drop for Bus {
++    fn drop(&mut self) {
++        let _ = self.0.kill();
++        let _ = self.0.wait();
++    }
++}
++
++async fn notified(notify: &Notify) {
++    tokio::time::timeout(Duration::from_secs(3), notify.notified())
++        .await
++        .unwrap();
++}
++
++async fn join(task: tokio::task::JoinHandle<()>) {
++    tokio::time::timeout(Duration::from_secs(3), task)
++        .await
++        .unwrap()
++        .unwrap();
++}
++
++#[tokio::test]
++#[ignore = "requires dbus-daemon; uses a private bus and fake niri, never changes the host IME"]
++async fn fcitx_prefix_restores_only_an_input_method_it_deactivated() {
++    let (_bus, _service, client, controller) = Bus::start().await;
++    let niri = Niri::new();
++    for initial in [0, 1, 2] {
++        controller.state.store(initial, Ordering::Release);
++        let (desired, receiver) = prefix_request();
++        let task = tokio::spawn(run(receiver, niri.socket.clone(), Some(client.clone())));
++        notified(&controller.state_read).await;
++        if initial == 2 {
++            notified(&controller.changed).await;
++            assert_eq!(controller.state.load(Ordering::Acquire), 1);
++        }
++        drop(desired);
++        join(task).await;
++        assert_eq!(controller.state.load(Ordering::Acquire), initial);
++    }
++    assert_eq!(
++        *controller.calls.lock().unwrap(),
++        ["deactivate", "activate"]
++    );
++}
++
++#[tokio::test]
++#[ignore = "requires dbus-daemon; uses a private bus and fake niri, never changes the host IME"]
++async fn fcitx_restore_respects_window_changes_and_manual_reactivation() {
++    let (_bus, _service, client, controller) = Bus::start().await;
++    let niri = Niri::new();
++    for manual_reactivation in [false, true] {
++        niri.window.store(42, Ordering::Release);
++        controller.state.store(2, Ordering::Release);
++        let (desired, receiver) = prefix_request();
++        let task = tokio::spawn(run(receiver, niri.socket.clone(), Some(client.clone())));
++        notified(&controller.changed).await;
++        if manual_reactivation {
++            controller.state.store(2, Ordering::Release);
++        } else {
++            niri.window.store(99, Ordering::Release);
++        }
++        drop(desired);
++        join(task).await;
++    }
++    assert_eq!(
++        *controller.calls.lock().unwrap(),
++        ["deactivate", "deactivate"]
++    );
++}
++
++#[tokio::test]
++#[ignore = "requires dbus-daemon; uses a private bus and fake niri, never changes the host IME"]
++async fn fcitx_worker_coalesces_cancelled_prefix_and_serializes_reentry() {
++    let (_bus, _service, client, controller) = Bus::start().await;
++    let niri = Niri::new();
++    let (desired, receiver) = prefix_request();
++    // The prefix was cancelled before the worker could act.
++    desired.send_modify(|request| request.active = false);
++    drop(desired);
++    run(receiver, niri.socket.clone(), Some(client.clone())).await;
++    assert!(controller.calls.lock().unwrap().is_empty());
++
++    let (desired, receiver) = prefix_request();
++    let task = tokio::spawn(run(receiver, niri.socket.clone(), Some(client)));
++    notified(&controller.changed).await;
++    desired.send_modify(|request| request.active = false);
++    desired.send_modify(|request| request.active = true);
++    // The latest request still wants ASCII: no old restore may run after it.
++    drop(desired);
++    join(task).await;
++    assert_eq!(
++        *controller.calls.lock().unwrap(),
++        ["deactivate", "activate"]
++    );
++}
++
++#[tokio::test]
++#[ignore = "requires dbus-daemon; uses a private bus and fake niri, never changes the host IME"]
++async fn fcitx_saved_state_cannot_reactivate_a_replacement_daemon() {
++    let (_bus, service, client, controller) = Bus::start().await;
++    let niri = Niri::new();
++    let (_desired, receiver) = prefix_request();
++    let saved = switch(&mut Some(client.clone()), &niri.socket, &receiver)
++        .await
++        .unwrap()
++        .unwrap();
++    // The old unique owner disappears, even if a new daemon takes the public name.
++    service.close().await.unwrap();
++    client
++        .object_server()
++        .at("/controller", controller.clone())
++        .await
++        .unwrap();
++    client.request_name(FCITX_SERVICE).await.unwrap();
++    assert!(saved.restore(&niri.socket, None).await.unwrap());
++    assert_eq!(*controller.calls.lock().unwrap(), ["deactivate"]);
++    controller.state.store(2, Ordering::Release);
++    assert!(switch(&mut Some(client), &niri.socket, &receiver)
++        .await
++        .unwrap()
++        .is_some());
++    assert_eq!(
++        *controller.calls.lock().unwrap(),
++        ["deactivate", "deactivate"]
++    );
++}
++
++#[tokio::test]
++#[ignore = "requires dbus-daemon; uses a private bus and fake niri, never changes the host IME"]
++async fn fcitx_pending_deactivation_is_restored_on_cancellation_and_client_drop() {
++    for close_client in [false, true] {
++        let (_bus, service, client, controller) = Bus::start().await;
++        let release = Arc::new(Notify::new());
++        service
++            .object_server()
++            .interface::<_, Controller>("/controller")
++            .await
++            .unwrap()
++            .get_mut()
++            .await
++            .release = Some(release.clone());
++        let niri = Niri::new();
++        let (desired, receiver) = prefix_request();
++        let task = tokio::spawn(run(receiver, niri.socket.clone(), Some(client)));
++        notified(&controller.deactivating).await;
++        desired.send_modify(|request| request.active = false);
++        if close_client {
++            drop(desired);
++        }
++        release.notify_one();
++        if !close_client {
++            // Wait for both calls, then close the worker. Notifications can
++            // coalesce, so the recorded calls are the completion condition.
++            tokio::time::timeout(Duration::from_secs(3), async {
++                while controller.calls.lock().unwrap().len() < 2 {
++                    controller.changed.notified().await;
++                }
++            })
++            .await
++            .unwrap();
++            task.abort();
++        } else {
++            join(task).await;
++        }
++        assert_eq!(
++            *controller.calls.lock().unwrap(),
++            ["deactivate", "activate"]
++        );
++    }
++}
++
++mod races;
+diff --git a/src/platform/linux/input_source/tests/races.rs b/src/platform/linux/input_source/tests/races.rs
+new file mode 100644
+index 0000000000000000000000000000000000000000..363052def01196d402daeabb3e75a6ebcf8b7bd7
+--- /dev/null
++++ b/src/platform/linux/input_source/tests/races.rs
+@@ -0,0 +1,141 @@
++use super::*;
++
++#[tokio::test]
++#[ignore = "requires dbus-daemon; uses a private bus and fake niri, never changes the host IME"]
++async fn reentering_prefix_during_restore_keeps_fcitx_inactive() {
++    let (_bus, _service, client, controller) = Bus::start().await;
++    let niri = Niri::new();
++    let (desired, receiver) = prefix_request();
++    let saved = Arc::new(
++        switch(&mut Some(client), &niri.socket, &receiver)
++            .await
++            .unwrap()
++            .unwrap(),
++    );
++    notified(&controller.state_read).await;
++    let release = Arc::new(Notify::new());
++    *controller.state_release.lock().unwrap() = Some(release.clone());
++    desired.send_modify(|request| request.active = false);
++    let restoring = {
++        let saved = saved.clone();
++        let socket = niri.socket.clone();
++        let receiver = receiver.clone();
++        tokio::spawn(async move { saved.restore(&socket, Some(&receiver)).await })
++    };
++    notified(&controller.state_read).await;
++    desired.send_modify(|request| request.active = true);
++    release.notify_one();
++    assert!(!restoring.await.unwrap().unwrap());
++    assert_eq!(*controller.calls.lock().unwrap(), ["deactivate"]);
++    desired.send_modify(|request| request.active = false);
++    assert!(saved.restore(&niri.socket, Some(&receiver)).await.unwrap());
++    assert_eq!(
++        *controller.calls.lock().unwrap(),
++        ["deactivate", "activate"]
++    );
++}
++
++#[tokio::test]
++#[ignore = "requires dbus-daemon; uses a private bus and fake niri, never changes the host IME"]
++async fn losing_focus_cancels_pending_deactivation_even_after_focus_returns() {
++    let (_bus, _service, client, controller) = Bus::start().await;
++    let niri = Niri::new();
++    let (desired, receiver) = prefix_request();
++    desired.send_modify(|request| request.focused = false);
++    assert!(switch(&mut Some(client.clone()), &niri.socket, &receiver)
++        .await
++        .unwrap()
++        .is_none());
++    desired.send_modify(|request| request.focused = true);
++    let release = Arc::new(Notify::new());
++    *controller.state_release.lock().unwrap() = Some(release.clone());
++    let switching = {
++        let receiver = receiver.clone();
++        let socket = niri.socket.clone();
++        tokio::spawn(async move { switch(&mut Some(client), &socket, &receiver).await })
++    };
++    notified(&controller.state_read).await;
++    // Losing and regaining focus invalidates the request that started earlier,
++    // even when its final focus bool and niri window ID match again.
++    desired.send_modify(|request| request.focus_generation += 2);
++    release.notify_one();
++    assert!(switching.await.unwrap().unwrap().is_none());
++    assert!(controller.calls.lock().unwrap().is_empty());
++}
++
++#[tokio::test]
++#[ignore = "requires dbus-daemon; uses a private bus and fake niri, never changes the host IME"]
++async fn reentry_after_activation_timeout_reasserts_ascii() {
++    let (_bus, _service, client, controller) = Bus::start().await;
++    let niri = Niri::new();
++    let (desired, receiver) = prefix_request();
++    let task = tokio::spawn(run(receiver, niri.socket.clone(), Some(client)));
++    notified(&controller.changed).await;
++    let release = Arc::new(Notify::new());
++    *controller.activate_release.lock().unwrap() = Some(release.clone());
++    desired.send_modify(|request| request.active = false);
++    notified(&controller.activating).await;
++    desired.send_modify(|request| request.active = true);
++    // The timed-out activation is still queued in Fcitx. Its eventual success
++    // must be followed by deactivation while the new prefix remains active.
++    tokio::time::sleep(CALL_TIMEOUT + Duration::from_millis(50)).await;
++    release.notify_one();
++    tokio::time::timeout(Duration::from_secs(3), async {
++        while controller.calls.lock().unwrap().len() < 3 {
++            controller.changed.notified().await;
++        }
++    })
++    .await
++    .unwrap();
++    assert_eq!(controller.state.load(Ordering::Acquire), 1);
++    assert_eq!(
++        *controller.calls.lock().unwrap(),
++        ["deactivate", "activate", "deactivate"]
++    );
++    drop(desired);
++    join(task).await;
++    assert_eq!(controller.state.load(Ordering::Acquire), 2);
++}
++
++#[tokio::test]
++#[ignore = "requires dbus-daemon; uses a private bus and fake niri, never changes the host IME"]
++async fn timed_out_deactivation_and_cleanup_keep_restoration_responsibility() {
++    let (_bus, service, client, controller) = Bus::start().await;
++    let release = Arc::new(Notify::new());
++    service
++        .object_server()
++        .interface::<_, Controller>("/controller")
++        .await
++        .unwrap()
++        .get_mut()
++        .await
++        .release = Some(release.clone());
++    let niri = Niri::new();
++    let (desired, receiver) = prefix_request();
++    let task = tokio::spawn(run(receiver, niri.socket.clone(), Some(client)));
++    notified(&controller.deactivating).await;
++    notified(&controller.state_read).await;
++    let state_release = Arc::new(Notify::new());
++    *controller.state_release.lock().unwrap() = Some(state_release.clone());
++    desired.send_modify(|request| request.active = false);
++    // Deactivate times out; now hold the first cleanup State call past its
++    // timeout as well. Releasing the daemon must still lead to restoration.
++    notified(&controller.state_read).await;
++    tokio::time::sleep(CALL_TIMEOUT + Duration::from_millis(50)).await;
++    release.notify_one();
++    notified(&controller.changed).await;
++    state_release.notify_one();
++    tokio::time::timeout(Duration::from_secs(3), async {
++        while controller.calls.lock().unwrap().len() < 2 {
++            controller.changed.notified().await;
++        }
++    })
++    .await
++    .unwrap();
++    drop(desired);
++    join(task).await;
++    assert_eq!(
++        *controller.calls.lock().unwrap(),
++        ["deactivate", "activate"]
++    );
++}
+diff --git a/src/platform/mod.rs b/src/platform/mod.rs
+index eb84e0b1d7c8626232d61ff0c0e70ee8522eaff9..0563132a6e40cff92c53b012c8443481d1da3922 100644
+--- a/src/platform/mod.rs
++++ b/src/platform/mod.rs
+@@ -456,23 +456,22 @@ pub(crate) fn parse_agent_env_hint(environ: &[u8]) -> Option<crate::detect::Agen
+     None
+ }
+ 
+-#[cfg(not(any(target_os = "macos", target_os = "windows")))]
++#[cfg(not(any(target_os = "linux", target_os = "macos", target_os = "windows")))]
+ #[derive(Debug)]
+ pub(crate) struct InputSourceRestore;
+ 
+-#[cfg(not(any(target_os = "macos", target_os = "windows")))]
++#[cfg(not(any(target_os = "linux", target_os = "macos", target_os = "windows")))]
+ pub(crate) fn switch_to_ascii_input_source() -> Option<InputSourceRestore> {
+     None
+ }
+ 
+-#[cfg(not(any(target_os = "macos", target_os = "windows")))]
++#[cfg(not(any(target_os = "linux", target_os = "macos", target_os = "windows")))]
+ pub(crate) fn pump_input_source_runloop() {}
+ 
+ /// Switches the host keyboard input source while prefix mode is active.
+ ///
+-/// `App` drives this through a trait so the prefix-mode transitions can be
+-/// tested with a fake, without touching the real macOS APIs or leaking a
+-/// platform-specific restore type into `App`.
++/// The foreground client drives this through a trait so transitions can be
++/// tested without touching the desktop input method.
+ pub(crate) trait PrefixInputSource {
+     /// Switch to an ASCII-capable input source for prefix commands. No-op if
+     /// the current source is already ASCII-capable, the platform is
+@@ -480,16 +479,22 @@ pub(crate) trait PrefixInputSource {
+     /// keeps the source saved by the first call.
+     fn switch_to_ascii(&mut self);
+ 
++    /// Report host focus so asynchronous adapters can cancel stale requests.
++    /// Existing saved input state is retained until it is safe to restore.
++    fn set_focused(&mut self, _focused: bool) {}
++
+     /// Restore whatever `switch_to_ascii` saved. No-op if nothing was switched.
+     fn restore(&mut self);
+ }
+ 
+ /// Production [`PrefixInputSource`] backed by the per-platform API.
++#[cfg(not(target_os = "linux"))]
+ #[derive(Default)]
+ pub(crate) struct RealPrefixInputSource {
+     restore: Option<InputSourceRestore>,
+ }
+ 
++#[cfg(not(target_os = "linux"))]
+ impl PrefixInputSource for RealPrefixInputSource {
+     fn switch_to_ascii(&mut self) {
+         if self.restore.is_none() {

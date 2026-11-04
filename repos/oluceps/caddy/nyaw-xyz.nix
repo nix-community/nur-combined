@@ -15,6 +15,7 @@
     handle = [
       {
         handler = "reverse_proxy";
+        headers.request.set.Host = [ "{http.request.host}" ];
         upstreams = [ { dial = "unix//run/realm/caddy/egress/internal-https.sock"; } ];
         transport = {
           protocol = "http";
@@ -61,6 +62,7 @@
             handle = [
               {
                 handler = "reverse_proxy";
+                headers.request.set.Host = [ "{http.request.host}" ];
                 upstreams = [
                   { dial = "unix//run/realm/caddy/egress/internal-https.sock"; }
                 ];
@@ -94,6 +96,7 @@
       }
       {
         handler = "reverse_proxy";
+        headers.request.set.Host = [ "{http.request.host}" ];
         upstreams = [ { dial = "unix//run/realm/caddy/egress/internal-https.sock"; } ];
         transport = {
           protocol = "http";
@@ -108,6 +111,7 @@
     handle = [
       {
         handler = "reverse_proxy";
+        headers.request.set.Host = [ "{http.request.host}" ];
         upstreams = [ { dial = "unix//run/realm/caddy/egress/internal-https.sock"; } ];
         transport = {
           protocol = "http";
@@ -170,6 +174,7 @@
     handle = [
       {
         handler = "reverse_proxy";
+        headers.request.set.Host = [ "{http.request.host}" ];
         upstreams = [ { dial = "unix//run/realm/caddy/egress/internal-https.sock"; } ];
         transport = {
           protocol = "http";

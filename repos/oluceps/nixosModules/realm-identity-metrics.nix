@@ -255,7 +255,10 @@ in
               "-/var/lib/private/spire"
               "-/persist/keys"
             ];
-            MemoryMax = "96M";
+            # Server collection also runs the SPIRE admin CLI. Its executable
+            # and library pages share this cgroup's budget with the exporter;
+            # 96M causes page reclaim and collection timeouts on the server.
+            MemoryMax = if server then "256M" else "96M";
             TasksMax = 64;
             CPUQuota = "30%";
             UMask = "0077";
