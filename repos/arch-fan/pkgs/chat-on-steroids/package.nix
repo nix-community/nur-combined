@@ -6,11 +6,11 @@
 
 appimageTools.wrapType2 (finalAttrs: {
   pname = "chat-on-steroids";
-  version = "2.1.49";
+  version = "2.1.50";
 
   src = fetchurl {
     url = "https://github.com/totec448-spec/chat-on-steroids/releases/download/v${finalAttrs.version}/Chat-On-Steroids-Linux-x64.AppImage";
-    hash = "sha256-jeoyY0ruEUfvdF04ZX7GPYaz1VE76HXe2NhtT1U+muY=";
+    hash = "sha256-c2uy9LjL1+KenXcS6IzzHvoQpPXTHUH1I3EeKftwHO0=";
   };
 
   # The bundled libappindicator3 (tray icon) links against it.
