@@ -3,7 +3,7 @@
   fetchFromGitHub,
   flutter347,
   libayatana-appindicator,
-  buildGoModule,
+  buildGo127Module,
   rustPlatform,
   makeDesktopItem,
   copyDesktopItems,
@@ -14,7 +14,7 @@
 
 let
   pname = "flclash";
-  version = "0.8.99";
+  version = "0.9.3";
 
   src = fetchFromGitHub {
     owner = "chen08209";
@@ -25,7 +25,7 @@ let
       export GIT_CONFIG_KEY_0=url.https://github.com/.insteadOf
       export GIT_CONFIG_VALUE_0=git@github.com:
     '';
-    hash = "sha256-tjjIO4MLnDHiu9ff4lJgiK87J1kOquIkpYasajLo3C0=";
+    hash = "sha256-HVyVBCmFzSAdp2NtPS8vIwqo67d/e0klgAHd/MbJzEg=";
     fetchSubmodules = true;
   };
 
@@ -36,13 +36,13 @@ let
     maintainers = with lib.maintainers; [ VZstless ];
   };
 
-  core = buildGoModule {
+  core = buildGo127Module {
     pname = "core";
     inherit version src meta;
 
     modRoot = "core";
 
-    vendorHash = "sha256-1GWh1ftgF4XSj4s5f6nijAEhGWN+IZKo8gJDH0PbjLw=";
+    vendorHash = "sha256-9rvq8PtXDxwORx80GBQa4CHIm2b3iDqWRkA55osiQl0=";
 
     env.CGO_ENABLED = 0;
 
@@ -62,7 +62,7 @@ let
 
     sourceRoot = "${src.name}/plugins/rust_api/rust";
 
-    cargoHash = "sha256-59cjtvAvo62VksthtV+ej0mDPhVmCHev0hvyNddIMO8=";
+    cargoHash = "sha256-IWXqZxqjiV4frGpGeHSBvPPQWbr0tzzNDzp+9BQ0ZG4=";
 
     installPhase = ''
       runHook preInstall
@@ -83,7 +83,7 @@ let
 
     sourceRoot = "${src.name}/services/helper";
 
-    cargoHash = "sha256-G2c59JGaO/pLBKRCIUT1F5EE6pmSlUoNEMFaeFVdgzk=";
+    cargoHash = "sha256-M7m+rs96S4CkQK/mnJ+5IcHXQKMl3Yp2bovdpwc+Nn4=";
 
     preBuild = ''
       export CORE_SHA256="$(sha256sum ${core}/bin/FlClashCore | cut --delimiter=' ' --fields=1)"
@@ -147,8 +147,8 @@ flutter347.buildFlutterApplication {
     # body, so it can be dropped safely.
     sed --in-place --regexp-extended \
       's/^(\s*)final (VoidCallback\? onPressed,)$/\1\2/' \
-      lib/views/profiles/overwrite/custom/groups.dart \
-      lib/views/profiles/overwrite/custom/rules.dart
+      lib/views/profiles/custom/groups.dart \
+      lib/views/profiles/custom/rules.dart
   '';
 
   # RustLib.init() loads librust_api.so with dlopen(), which ignores
