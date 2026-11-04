@@ -12,12 +12,14 @@
   description = "Jorge's personal NUR packages";
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.*"; # current stable
+    fenix.url = "github:nix-community/fenix";
     pre-commit-hooks.url = "github:cachix/git-hooks.nix";
   };
   outputs =
     {
       self,
       nixpkgs,
+      fenix,
       pre-commit-hooks,
     }:
     let
@@ -45,8 +47,18 @@
       );
       packages = forAllSystems (
         system:
-        import ./default.nix {
+        let
           pkgs = import nixpkgs { inherit system; };
+          fenixPkgs = fenix.packages.${system};
+          # Use the minimal stable toolchain (Rust >= 1.99.0 as of now, >= 1.98.1 required)
+          rustToolchain = fenixPkgs.minimal.toolchain;
+        in
+        import ./default.nix {
+          inherit pkgs;
+          fenixRustPlatform = pkgs.makeRustPlatform {
+            cargo = rustToolchain;
+            rustc = rustToolchain;
+          };
         }
       );
       checks = forAllSystems (

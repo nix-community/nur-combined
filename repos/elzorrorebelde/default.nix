@@ -11,6 +11,7 @@
 {
   system ? builtins.currentSystem,
   pkgs ? import <nixpkgs> { inherit system; },
+  fenixRustPlatform ? null,
 }:
 
 rec {
@@ -20,6 +21,11 @@ rec {
   mkpsxiso = pkgs.callPackage ./packages/mkpsxiso { };
   ppf = pkgs.callPackage ./packages/ppf { };
   tilemolester = pkgs.callPackage ./packages/tilemolester { };
+
+  # rustel - Strudel pattern language engine
+  rustel = pkgs.callPackage ./packages/rustel {
+    rustPlatform = if fenixRustPlatform != null then fenixRustPlatform else pkgs.rustPlatform;
+  };
 
   # Redot Engine
   redot-engine = pkgs.callPackage ./packages/redot-engine { };
