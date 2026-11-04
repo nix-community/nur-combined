@@ -20,7 +20,7 @@ let
   vst3-pluginterfaces = fetchFromGitHub {
     owner = "steinbergmedia";
     repo = "vst3_pluginterfaces";
-    tag = "v3.8.1_build_84";
+    rev = "v3.8.1_build_84";
     hash = "sha256-Ey9+zHhsVuj9bqmBqCOQ/Ls6uwYcOzfgxxWefZJHIm0=";
   };
 in
