@@ -14,6 +14,9 @@ mkCutefishDerivation {
       --replace-fail 'project(unsplash-wallpapers)' 'project(unsplash-wallpapers NONE)' \
       --replace-fail 'DESTINATION /usr/share/backgrounds/cutefishos' \
         'DESTINATION share/backgrounds/cutefishos'
+    substituteInPlace avatars/CMakeLists.txt \
+      --replace-fail 'DESTINATION /usr/share/cutefish/avatars' \
+        'DESTINATION share/cutefish/avatars'
   '';
 
   meta = {
