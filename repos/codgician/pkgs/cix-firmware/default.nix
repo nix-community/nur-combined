@@ -5,7 +5,7 @@
   gitUpdater,
 }:
 
-# CIX P1 board firmware blobs (Wi-Fi, Bluetooth, Mali GPU, AMD GPU,
+# CIX P1 board firmware blobs (VPU codecs, Wi-Fi, Bluetooth, Mali GPU, AMD GPU,
 # SFH/sensor microcode). Sourced from CIX's proprietary GitHub repo;
 # these are redistributable but not built from source, so we tag the
 # meta accordingly to keep `nixpkgs.config.allowUnfree` honest.
@@ -33,6 +33,8 @@ stdenv.mkDerivation (finalAttrs: {
     for sub in cix_module_fw/*/; do
       cp -a "$sub"/. "$out/lib/firmware/"
     done
+    # The VPU codec firmware is packaged separately from cix_module_fw.
+    install -m644 cix_proprietary-debs/cix-vpu-umd/usr/lib/firmware/*.fwb "$out/lib/firmware/"
     runHook postInstall
   '';
 

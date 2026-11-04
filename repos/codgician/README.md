@@ -24,6 +24,8 @@ Out-of-tree kernel modules (packages whose expression takes a `kernel` argument,
 
 The top-level attribute (e.g. `cix-vpu-driver`) is built against nixpkgs' default kernel for CI and caching. Use it directly only for kernel-independent outputs such as UAPI headers.
 
+For `cix-vpu-driver`, also add `pkgs.nur.repos.codgician.cix-firmware` to `hardware.firmware` to provide the codec firmware loaded by the driver.
+
 ### GPU unlock
 
 `gpu-unlock` packages [gpu-unlock-ada](https://github.com/JustAResearcher/gpu-unlock-ada); `gpu-unlock-firmware` generates its pinned NVIDIA firmware assets and preserves their license notices. Import this flake's `nixosModules.gpu-unlock` (or the NUR repository's `modules.gpu-unlock`), then opt in explicitly:
