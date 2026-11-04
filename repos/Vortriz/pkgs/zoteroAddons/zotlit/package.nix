@@ -9,7 +9,7 @@ mkZoteroAddon rec {
 
     src = fetchurl {
         url = "https://github.com/aidenlx/zotlit/releases/download/zt-${version}/zotlit-zotero-${version}.xpi";
-        hash = "sha256-jpagkCNncIh4QMtXxmWu93OAVwaGF3wWY7CBKLqexV4=";
+        hash = "sha256-hkky2Iy8rW91lwwLA4JMB6br3mbjFh29+dbrlKWVfVc=";
     };
 
     addonId = "zotlit@aidenlx.site";
