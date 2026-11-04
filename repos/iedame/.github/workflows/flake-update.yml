@@ -1,0 +1,99 @@
+name: Flake update
+
+# Once a week, updates flake.lock (nixpkgs) and opens a pull request, which
+# CI then checks like any other. NUR doesn't read flake.lock: it evaluates
+# default.nix with its own nixpkgs. The lock is what this repository's CI
+# and anyone using its `packages` without `follows` build with.
+on:
+  schedule:
+    - cron: "0 0 * * 1" # Midnight UTC on Mondays
+  workflow_dispatch:
+
+# The job's own token only reads the repository; the branch and pull request
+# are created with a short-lived token from the bot's GitHub App (below).
+permissions:
+  contents: read
+
+jobs:
+  update-flake:
+    runs-on: ubuntu-24.04
+    steps:
+      # A GitHub App acts as the bot, so the pull request triggers CI (one
+      # opened with GITHUB_TOKEN doesn't) and I get notified. The same app as
+      # iedame/nixos-configs' flake update; it needs to be installed on this
+      # repository, with Contents and Pull requests set to read & write, plus:
+      #   - repository variable BOT_CLIENT_ID   (the app's Client ID)
+      #   - repository secret   BOT_PRIVATE_KEY (a private key generated for it)
+      - name: Get a token for the bot
+        id: bot-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ vars.BOT_CLIENT_ID }}
+          private-key: ${{ secrets.BOT_PRIVATE_KEY }}
+
+      - name: Work out the bot's commit identity
+        id: bot
+        env:
+          GH_TOKEN: ${{ steps.bot-token.outputs.token }}
+          SLUG: ${{ steps.bot-token.outputs.app-slug }}
+        run: |
+          id=$(gh api "/users/${SLUG}[bot]" --jq .id)
+          echo "identity=${SLUG}[bot] <${id}+${SLUG}[bot]@users.noreply.github.com>" >> "$GITHUB_OUTPUT"
+          echo "date=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install Nix
+        uses: nixbuild/nix-quick-install-action@9f63be77f412a248c9d9a65a4c82cf066cdf8f0c # v35
+
+      - name: Update flake inputs
+        run: nix flake update 2>&1 | tee /tmp/flake-update.log
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          if git diff --quiet flake.lock; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Generate update summary
+        if: steps.check_changes.outputs.has_changes == 'true'
+        run: |
+          {
+            echo "## Flake inputs updated"
+            echo ""
+            echo "Weekly \`nix flake update\` (Mondays)."
+            echo ""
+            echo "### Changes:"
+            echo '```'
+            # Only the lock changes ("• Updated input ..." and the two
+            # indented lines under each), not fetch progress or warnings
+            grep -E "^(• |    '|  → )" /tmp/flake-update.log
+            echo '```'
+          } > /tmp/pr_body.md
+          cat /tmp/pr_body.md >> "$GITHUB_STEP_SUMMARY"
+
+      # One rolling branch: if last week's pull request is still open, it is
+      # updated in place instead of a second one being opened. The review
+      # request notifies me whatever my watch setting for the repository is.
+      - name: Create pull request
+        if: steps.check_changes.outputs.has_changes == 'true'
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+        with:
+          token: ${{ steps.bot-token.outputs.token }}
+          author: ${{ steps.bot.outputs.identity }}
+          committer: ${{ steps.bot.outputs.identity }}
+          commit-message: "chore: flake update - ${{ steps.bot.outputs.date }}"
+          title: "chore: flake update - ${{ steps.bot.outputs.date }}"
+          body-path: /tmp/pr_body.md
+          branch: automated/flake-update
+          base: main
+          delete-branch: true
+          reviewers: iedame
+
+      - name: No changes
+        if: steps.check_changes.outputs.has_changes == 'false'
+        run: echo "No flake input updates available"

@@ -1,0 +1,147 @@
+name: CI
+
+# Checks every pull request and push to main: does the repository still
+# evaluate the way NUR evaluates it, is it formatted, and do the packages
+# build. On main, the free packages are also pushed to the Cachix cache.
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Evaluate and check formatting
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install Nix
+        uses: nixbuild/nix-quick-install-action@9f63be77f412a248c9d9a65a4c82cf066cdf8f0c # v35
+
+      - name: nix flake check
+        run: nix flake check --all-systems --print-build-logs
+
+      - name: Formatting
+        run: nix fmt -- --ci
+
+      # The same query NUR runs on the repository (ci/nur/eval.py in
+      # nix-community/NUR): restricted evaluation, with access to nothing
+      # but nixpkgs and this checkout. NUR leaves out a package that fails
+      # here without saying so; unfree ones always do, as NUR doesn't
+      # allow them.
+      - name: Evaluate as NUR does
+        run: |
+          nixpkgs=$(nix eval --raw --impure --expr "(builtins.getFlake \"$PWD\").inputs.nixpkgs.outPath")
+          nix-env -f . -qa '*' --meta --xml \
+            --allowed-uris https://static.rust-lang.org \
+            --option restrict-eval true \
+            --option allow-import-from-derivation true \
+            --drv-path --show-trace \
+            -I nixpkgs="$nixpkgs" \
+            -I "$PWD" > /dev/null
+
+  # Builds every package, unfree ones included. No Cachix here: unfree
+  # packages must not be uploaded to a public cache.
+  build:
+    name: Build ${{ matrix.system }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - system: x86_64-linux
+            os: ubuntu-24.04
+          - system: aarch64-linux
+            os: ubuntu-24.04-arm
+          - system: aarch64-darwin
+            os: macos-26
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      # Ubuntu 24.04 blocks unprivileged user namespaces through AppArmor,
+      # and single-user Nix needs them for its build sandbox; with
+      # sandbox-fallback off below, builds would fail instead of quietly
+      # running unsandboxed.
+      - name: Allow unprivileged user namespaces
+        if: runner.os == 'Linux'
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+
+      - name: Install Nix
+        uses: nixbuild/nix-quick-install-action@9f63be77f412a248c9d9a65a4c82cf066cdf8f0c # v35
+        with:
+          nix_conf: |
+            sandbox = ${{ runner.os == 'Linux' && 'true' || 'relaxed' }}
+            sandbox-fallback = false
+
+      - name: Build the packages
+        run: |
+          attrs=$(nix eval --json .#packages.${{ matrix.system }} --apply builtins.attrNames \
+            | jq -r '.[] | ".#packages.${{ matrix.system }}.\(.)"')
+          if [ -z "$attrs" ]; then
+            echo "No packages for ${{ matrix.system }}"
+          else
+            nix build --no-link --print-build-logs $attrs
+          fi
+
+  # Pushes the free packages (ci.nix: not broken, available on the
+  # platform, free licence, not preferLocalBuild) to iedame.cachix.org,
+  # from main only.
+  cache:
+    name: Cache ${{ matrix.system }}
+    if: github.event_name == 'push'
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - system: x86_64-linux
+            os: ubuntu-24.04
+          - system: aarch64-linux
+            os: ubuntu-24.04-arm
+          - system: aarch64-darwin
+            os: macos-26
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Allow unprivileged user namespaces
+        if: runner.os == 'Linux'
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
+
+      - name: Install Nix
+        uses: nixbuild/nix-quick-install-action@9f63be77f412a248c9d9a65a4c82cf066cdf8f0c # v35
+        with:
+          nix_conf: |
+            sandbox = ${{ runner.os == 'Linux' && 'true' || 'relaxed' }}
+            sandbox-fallback = false
+
+      # Uploads every store path built after this step, so nothing unfree
+      # may be built in this job
+      - name: Set up Cachix
+        uses: cachix/cachix-action@38b082610b782e7e93e209c35fd730d399dee866 # v17
+        with:
+          name: iedame
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+      # nixpkgs without allowUnfree, so an unfree package that slipped
+      # through ci.nix fails to evaluate rather than being uploaded
+      - name: Build the cacheable packages
+        run: |
+          nix build --no-link --print-build-logs --impure --expr "
+            let
+              flake = builtins.getFlake \"$PWD\";
+              pkgs = import flake.inputs.nixpkgs { system = \"${{ matrix.system }}\"; };
+            in
+            pkgs.writeText \"cache\" (toString (import ./ci.nix { inherit pkgs; }).cacheOutputs)
+          "
