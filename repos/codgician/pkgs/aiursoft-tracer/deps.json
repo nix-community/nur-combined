@@ -46,18 +46,18 @@
   },
   {
     "pname": "Aiursoft.ClickhouseLoggerProvider",
-    "version": "10.0.28",
-    "hash": "sha256-PKxHmI66vTz8SCTZ8gSd81VsA//BxNrW7dE0Ntlics4="
+    "version": "10.0.29",
+    "hash": "sha256-RJZqpTyLcoAeWlCQoF2obE8sdqgTJVEZlt1WOfcWTt4="
   },
   {
     "pname": "Aiursoft.ClickhouseSdk",
-    "version": "10.0.28",
-    "hash": "sha256-C0q/Dv5H7iM4dlB95+ypmzNWOsSTBat5QG5qGh6X0nY="
+    "version": "10.0.29",
+    "hash": "sha256-R731tBqQbgPTjPMLdvELttMJm+7MRR4Dtpa17YxOSr0="
   },
   {
     "pname": "Aiursoft.ClickhouseSdk.Abstractions",
-    "version": "10.0.27",
-    "hash": "sha256-50ZGl+Tl9UhwwGqDxsBXpIzeXqB+vy/nWd590xSziZA="
+    "version": "10.0.28",
+    "hash": "sha256-8HBXvZJxGnsV5waqXXqbtmZ6DQeb8lLqrjaRVLaVs8w="
   },
   {
     "pname": "Aiursoft.CSTools",

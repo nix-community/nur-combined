@@ -2,6 +2,9 @@
   lib,
   python3Packages,
   fetchFromGitHub,
+  bash,
+  coreutils,
+  gnugrep,
   linuxPackages,
   nix-update-script,
   runCommand,
@@ -9,19 +12,33 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "nvidia-linux-vbios-vix-loader";
-  version = "0-unstable-2026-10-29";
+  version = "0-unstable-2026-11-02";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "Panchovix";
     repo = "nvidia-linux-vbios-vix-loader";
-    rev = "c05415a69898c237bc60e2cdb3a8496a59fcad0e";
-    hash = "sha256-ZHnMaTt90R7opDXAyCMFzL3MDKrgj/4icZVQJ5ZeSQM=";
+    rev = "7bf011e3a6100fd6b470917256f73cc18bda0586";
+    hash = "sha256-SFxbGg9jHpL1nA+n6vxH/peUKCGyKcSUFEnYOwbhpWA=";
   };
 
   build-system = [ python3Packages.setuptools ];
 
-  nativeCheckInputs = [ python3Packages.pytestCheckHook ];
+  nativeCheckInputs = [
+    bash
+    coreutils
+    gnugrep
+    python3Packages.pytestCheckHook
+  ];
+  postPatch = ''
+    # Upstream fixtures assume FHS paths and PATH utilities; adapt them for the
+    # Nix sandbox without skipping coverage.
+    substituteInPlace tests/test_distribution_patches.py \
+      --replace-fail 'dir="/var/tmp"' 'dir=None' \
+      --replace-fail '#!/bin/sh' '#!${bash}/bin/bash' \
+      --replace-fail 'grep -q "echo five" conftest.sh' '${gnugrep}/bin/grep -q "echo five" conftest.sh' \
+      --replace-fail 'sleep 30' '${coreutils}/bin/sleep 30'
+  '';
   enabledTestPaths = [ "tests" ];
   disabledTests = [
     # Expects the launcher next to a source checkout, not the installed package.
