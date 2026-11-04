@@ -49,8 +49,19 @@
 # Keep the vendor Electron runtime: electron-panel-window requires module ABI 110.
 let
   version = "8.7.0";
+  # The vendor engine requires GTK2. Scope the exception to its retirement
+  # marker on this private dependency; preserve any other broken conditions.
+  gtk2ForBaidu = gtk2.overrideAttrs (old: {
+    meta = old.meta // lib.optionalAttrs
+      (lib.hasPrefix "gtk2 will be removed" (old.meta.problems.broken.message or ""))
+      {
+        problems = builtins.removeAttrs old.meta.problems [ "broken" ];
+      };
+  });
+
   # The vendor browser engine still uses GTK 2's C++ ABI.
   gtkmm2 = callPackage ./gtkmm2.nix {
+    gtk2 = gtk2ForBaidu;
     glibmm = glibmm_2_4;
     cairomm = cairomm_1_0;
     pangomm = pangomm_1_4;
@@ -90,7 +101,7 @@ let
     libgbm
     libglvnd
     gtkmm2
-    gtk2
+    gtk2ForBaidu
     atkmm
     glibmm_2_4
     cairomm_1_0

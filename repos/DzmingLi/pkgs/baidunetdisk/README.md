@@ -15,3 +15,8 @@
 
 `gtkmm2.nix` 从 nixpkgs 25.11 移植，为官方浏览器引擎提供旧 GTK C++ ABI；
 其许可见 `COPYING.nixpkgs`。
+
+新版 nixpkgs 因 GTK2 的退休计划将其标为 broken。本包为百度网盘及其
+gtkmm2 依赖使用私有 GTK2 覆盖，仅移除这项退休标记，保留其他 broken 检查。
+使用者无需在 NixOS 配置中全局放行 GTK2。官方引擎仍需要 GTK2；上游移除
+GTK2 后，仍需更新客户端或维护兼容库。
