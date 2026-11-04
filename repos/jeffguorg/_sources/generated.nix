@@ -28,34 +28,34 @@
   };
   claude-code-bin-amd64-darwin = {
     pname = "claude-code-bin-amd64-darwin";
-    version = "2.1.317";
+    version = "2.1.318";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.317/darwin-x64/claude";
-      sha256 = "sha256-AccUvH/r2wCPKOP2+ssdw35GpNj6jbWN8uKB7lHLMzw=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.318/darwin-x64/claude";
+      sha256 = "sha256-7pyFd6Uoqo76R4v1UrF++kC7WKpJgdKRPBPTg6TUCaQ=";
     };
   };
   claude-code-bin-amd64-linux = {
     pname = "claude-code-bin-amd64-linux";
-    version = "2.1.317";
+    version = "2.1.318";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.317/linux-x64/claude";
-      sha256 = "sha256-6yJEGeNEV1+qSh85spC2SUJaEM1e4u8dADSAzZrlfrA=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.318/linux-x64/claude";
+      sha256 = "sha256-cIx3sgTbMAhv9vHtNFd72gPhvnTO2AVXy/e1Qknr8L0=";
     };
   };
   claude-code-bin-arm64-darwin = {
     pname = "claude-code-bin-arm64-darwin";
-    version = "2.1.317";
+    version = "2.1.318";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.317/darwin-arm64/claude";
-      sha256 = "sha256-CfFTtGtd+eizRUcW1oKpGQHeAgy8pjD2HewaAVsytek=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.318/darwin-arm64/claude";
+      sha256 = "sha256-Z3oup79XbO3SDhkdlzkU7YpBeW9TpjsZIzgd3E1bXn0=";
     };
   };
   claude-code-bin-arm64-linux = {
     pname = "claude-code-bin-arm64-linux";
-    version = "2.1.317";
+    version = "2.1.318";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.317/linux-arm64/claude";
-      sha256 = "sha256-VjoNYK0MIj2UFXaCEJl6yw9xNOpR3Dwjjoi8Lhjd7vo=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.318/linux-arm64/claude";
+      sha256 = "sha256-U6DX4hnXsIBOy6XbwAJ0Xon3hsyUbS3oWmRw1bLR+wY=";
     };
   };
   codex = {
@@ -241,10 +241,10 @@
   };
   kimi-code = {
     pname = "kimi-code";
-    version = "2.4.1";
+    version = "2.5.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@moonshot-ai/kimi-code/-/kimi-code-2.4.1.tgz";
-      sha256 = "sha256-59rAT6ehVcUG2GCZWE/kQvl6Ii5E2iwEJ0mWjfyujgk=";
+      url = "https://registry.npmjs.org/@moonshot-ai/kimi-code/-/kimi-code-2.5.0.tgz";
+      sha256 = "sha256-VA/wwzZrr7+ySLukvrw/9jIbW7HXLxpluX1JUo508yQ=";
     };
   };
   kwok = {
