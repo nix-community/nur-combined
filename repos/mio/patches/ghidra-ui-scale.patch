@@ -1,5 +1,5 @@
---- a/Ghidra/RuntimeScripts/Common/support/launch.properties
-+++ b/Ghidra/RuntimeScripts/Common/support/launch.properties
+--- a/Ghidra/RuntimeScripts/support/launch.properties
++++ b/Ghidra/RuntimeScripts/support/launch.properties
 @@ -20,6 +20,6 @@
  VMARGS=-Dsun.java2d.opengl=false
  VMARGS_LINUX=-Dsun.java2d.pmoffscreen=false
