@@ -1,0 +1,19 @@
+[package]
+name = "ccd-tools"
+version = "0.1.0"
+edition = "2024"
+license = "MIT"
+description = "Concordium account tools using CCDExplorer"
+repository = "https://github.com/ijohanne/nur-packages"
+
+[[bin]]
+name = "ccd-status"
+path = "src/bin/ccd-status.rs"
+
+[dependencies]
+anyhow = "1"
+chrono = "0.4"
+clap = { version = "4", features = ["derive", "env"] }
+csv = "1"
+reqwest = { version = "0.12", default-features = false, features = ["blocking", "rustls-tls"] }
+scraper = "0.24"

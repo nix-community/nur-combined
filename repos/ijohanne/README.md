@@ -7,6 +7,9 @@
 
 It provides a pre-compiled binary cache for NixOS unstable.
 
+[ccd-tools](pkgs/ccd-tools/README.md) provides Concordium account status reports
+and a Home Manager module for a runtime accounts file, including sops-nix secrets.
+
 To configure Nix manually, add the following to your `nix.conf`:
 
 ```

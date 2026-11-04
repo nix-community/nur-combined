@@ -1,5 +1,6 @@
 { pkgs, sources, ... }:
 {
+  ccd-tools = pkgs.callPackage ./ccd-tools { };
   sddmThemes = pkgs.libsForQt5.callPackage ./sddm-themes { inherit sources; };
   fishPlugins = pkgs.lib.recurseIntoAttrs (pkgs.callPackage ./fish-plugins { inherit pkgs sources; });
   vimPlugins = pkgs.lib.recurseIntoAttrs (pkgs.callPackage ./vim-plugins { inherit pkgs sources; });

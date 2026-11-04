@@ -79,11 +79,24 @@
               shellcheck
               shfmt
               git
+              cargo
+              rustc
+              rustfmt
+              clippy
             ];
           };
         });
 
       overlays.default = import ./overlay.nix;
+
+      # Keep modules under lib so Nix's strict flake check accepts the output.
+      lib.homeManagerModules.ccd-tools = import ./home-manager/ccd-tools.nix;
+
+      checks = forPackSystems (system:
+        let pkgs = import nixpkgs { inherit system; };
+        in {
+          ccd-tools-home-manager = import ./pkgs/ccd-tools/tests/home-manager.nix { inherit pkgs; };
+        });
 
       nixosModules = (import ./modules) // {
         hrafnsyn = inputs.hrafnsyn.nixosModules.default;
