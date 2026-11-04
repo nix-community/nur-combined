@@ -45,9 +45,9 @@
     "version": "0.18.0"
   },
   "pdfcraft": {
-    "hash": "sha256-yzZlzEXMeqa6AchouffGncTYAL71LUHP/qi/UDfE620=",
-    "url": "https://github.com/storytold/pdfcraft/releases/download/v0.18.0/pdfcraft-0.18.0-linux-x86_64.tar.gz",
-    "version": "0.18.0"
+    "hash": "sha256-Qaa5+xaXDNNhDQXZhZlwAuQZv1J4+Gr2q0gHg/ib8fw=",
+    "url": "https://github.com/storytold/pdfcraft/releases/download/v0.18.1/pdfcraft-0.18.1-linux-x86_64.tar.gz",
+    "version": "0.18.1"
   },
   "photocraft": {
     "hash": "sha256-OYeH1Y/kaRnpnJ9W41VFVJ7wqqsAf4aakr7/fZ/lIjQ=",
@@ -65,8 +65,8 @@
     "version": "0.21.0"
   },
   "wordcraft": {
-    "hash": "sha256-uqzxgVgSSrw9RdxEhb/Hel1xf4CsULgGk7ZQHCZpjl0=",
-    "url": "https://github.com/storytold/wordcraft/releases/download/v0.15.0/wordcraft-0.15.0-linux-x86_64.tar.gz",
-    "version": "0.15.0"
+    "hash": "sha256-jG/KOAnqGsgWjE19k5LK3oSlD1QBi+H4gSG6TswEpVI=",
+    "url": "https://github.com/storytold/wordcraft/releases/download/v0.15.1/wordcraft-0.15.1-linux-x86_64.tar.gz",
+    "version": "0.15.1"
   }
 }
