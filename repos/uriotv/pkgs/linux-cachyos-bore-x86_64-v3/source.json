@@ -2,8 +2,8 @@
   "configHash": "sha256-gftW/jJmEqDcRwX8XsMJ0EvP/7SH2wy1hDkY/pKVGSc=",
   "configUrl": "https://raw.githubusercontent.com/CachyOS/linux-cachyos/66666177b78f29c32670ba4f78f882bc0b9cc03d/linux-cachyos-bore/config",
   "hash": "sha256-Pbopqo59zaQ67miY5MZt+/2ZfrXZAlELD66sxpbd+z8=",
-  "patchHash": "sha256-LEbS4Ioo8biY9w6f1XbjXg+Fl3h4k6N2+XDji6oEALA=",
-  "patchRev": "542948508e7098b6482d8269bc1097733dd27399",
+  "patchHash": "sha256-PPCqMQxKRBfxNQnv9dJvCPEDEV+FVmR9bRIfJ//T3hA=",
+  "patchRev": "f3770b16d069a1bce8dfa63841042137f8b43434",
   "patchVersion": "7.3",
   "url": "https://github.com/CachyOS/linux/releases/download/cachyos-7.3.1-1/cachyos-7.3.1-1.tar.gz",
   "version": "7.3.1"
