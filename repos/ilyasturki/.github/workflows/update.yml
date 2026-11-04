@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   update:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     # Two submodule prefetches (~490 MB for citron alone) plus a full NuGet
     # restore for ryujinx; check.yml budgets 350 minutes for the same trees.
     timeout-minutes: 350

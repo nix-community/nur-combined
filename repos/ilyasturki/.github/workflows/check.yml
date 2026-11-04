@@ -18,7 +18,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     # Citron is a yuzu-lineage C++ tree, PCSX2 and Panda3DS are large C++ trees
     # with vendored deps, and ryujinx-canary is a full .NET restore; none of them
     # finish anywhere near the 6 h default on a cold cache.
@@ -67,7 +67,7 @@ jobs:
         run: nix build --print-build-logs '.#${{ matrix.package }}'
 
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -93,7 +93,7 @@ jobs:
   merge:
     needs: [build, lint]
     if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/update/packages'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     permissions:
       actions: write
       contents: write

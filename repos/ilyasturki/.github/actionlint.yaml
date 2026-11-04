@@ -1,0 +1,4 @@
+# Newer than the bundled actionlint knows.
+self-hosted-runner:
+  labels:
+    - ubuntu-26.04
