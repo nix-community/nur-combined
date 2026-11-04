@@ -9,8 +9,8 @@ let
   pname = "pi-furry-partner-hd";
   version = "2.5.1-preview.6";
 
-  # Pinned to the `nix/hd-packaging` branch of the upstream repository. The
-  # branch keeps moving, so bump this rev deliberately instead of following it.
+  # Pinned to the `own` branch of the upstream repository. The branch keeps
+  # moving, so bump this rev deliberately instead of following it.
   #
   # Upstream filters this tree down to `editions/hd` with `cleanSourceWith`,
   # because there `src` is the flake's own `self`. That does not carry over:
@@ -21,8 +21,8 @@ let
   src = pkgs.fetchFromGitHub {
     owner = "srcres258";
     repo = "pi-furry-partner";
-    rev = "97084a903f9a7c0a8dc11c8c9e49ee6b1f866185";
-    hash = "sha256-5U6udmO+oHZgz9hqPgeKnOKKM36J0veSpZBhCWWzQps=";
+    rev = "5b15483d058e123c019458d9e04fd8e9d53472bc";
+    hash = "sha256-CVmkNu11xGjeUQtu40AgsuPnGGIaDo5CogMOCMbGCo4=";
   };
 
   node = pkgs.nodejs_24;
