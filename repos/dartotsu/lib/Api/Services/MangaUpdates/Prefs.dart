@@ -1,0 +1,41 @@
+import '../../../Core/Preferences/PrefManager.dart';
+import '../../../Core/Services/LayoutPref.dart';
+
+const kMangaUpdatesHomeSections = <String, bool>{
+  'Continue Reading': true,
+  'Planned Manga': true,
+  'On Hold': true,
+  'Dropped': true,
+  'Hidden Media': false,
+};
+
+const kMangaUpdatesFeedSections = <String, bool>{
+  'Trending Now': true,
+  'Most Popular': true,
+  'Top Rated': true,
+  'Latest Releases': true,
+  'Top Manhwa': true,
+  'Top Manhua': true,
+};
+
+class MangaUpdatesPref {
+  MangaUpdatesPref._();
+
+  static const token = Pref('mangaUpdatesToken', '', PrefLocation.PROTECTED);
+  static const username = Pref('mangaUpdatesUsername', '', PrefLocation.OTHER);
+
+  static const hideNsfw = Pref(
+    'mangaUpdatesHideNsfw',
+    true,
+    PrefLocation.OTHER,
+  );
+
+  static final homeLayout = layoutPref(
+    'mangaUpdatesHomeLayout',
+    kMangaUpdatesHomeSections,
+  );
+  static final feedLayout = layoutPref(
+    'mangaUpdatesFeedLayout',
+    kMangaUpdatesFeedSections,
+  );
+}

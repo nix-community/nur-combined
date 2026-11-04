@@ -1,0 +1,287 @@
+import '../../Utils/Nav/DpadNav.dart';
+
+import 'package:flutter/material.dart';
+
+import '../Core/Services/MediaServiceController.dart';
+import '../Core/Services/ServiceSwitcher.dart';
+import '../Utils/Animation/WidgetAnimations.dart';
+import '../Utils/Extensions/ContextExtensions.dart';
+import '../Widgets/Components/LoadSvg.dart';
+import '../Widgets/Components/ThemedContainer.dart';
+import 'Home/Components/AccountSheet.dart';
+import '../Core/State/State.dart';
+
+class FloatingBottomNavBar extends StatefulWidget {
+  final int selectedIndex;
+  final ValueChanged<int> onTabSelected;
+  final List<NavItem> items;
+  final bool standalone;
+  final GlobalKey<DpadRegionState>? laneKey;
+
+  const FloatingBottomNavBar({
+    super.key,
+    this.standalone = false,
+    this.laneKey,
+    required this.selectedIndex,
+    required this.onTabSelected,
+    required this.items,
+  });
+
+  @override
+  State<FloatingBottomNavBar> createState() => _FloatingBottomNavBarState();
+}
+
+class _FloatingBottomNavBarState extends State<FloatingBottomNavBar> {
+  MediaServiceController get _services => find();
+
+  final hoveredIndex = (-1).live;
+
+  List<NavItem> get _items {
+    final service = _services.currentService.value;
+    if (!widget.standalone && service is NavBarProvider) {
+      return (service as NavBarProvider).navBarItems;
+    }
+    return widget.items;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Watch(() {
+      final service = _services.currentService.value;
+
+      if (ContextExtensions(context).isPhone) {
+        return _buildMobile(context, service);
+      }
+
+      return _buildDesktop(context, service);
+    });
+  }
+
+  Widget _buildDesktop(BuildContext context, MediaService service) {
+    final theme = Theme.of(context).colorScheme;
+
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: ThemedContainer(
+          blur: true,
+          borderRadius: BorderRadius.circular(48),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+          child: _lane(
+            vertical: true,
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (!widget.standalone)
+                  _navButton(
+                    context: context,
+                    onTap: () => serviceSwitcher(context),
+                    iconBuilder: () => CircleAvatar(
+                      radius: 24,
+                      backgroundColor: Colors.transparent,
+                      child: loadSvg(
+                        service.iconPath,
+                        width: 26,
+                        height: 26,
+                        color: theme.onSurface,
+                      ),
+                    ).animateNavAvatar(),
+                  ),
+
+                ..._items.map(
+                  (item) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                    child: Watch(() {
+                      final hovered = hoveredIndex.value == item.index;
+                      final selected = widget.selectedIndex == item.index;
+
+                      return MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        onEnter: (_) => !(widget.selectedIndex == item.index)
+                            ? hoveredIndex.value = item.index
+                            : null,
+                        onExit: (_) {
+                          if (hoveredIndex.value == item.index) {
+                            hoveredIndex.value = -1;
+                          }
+                        },
+                        child: _buildItem(
+                          item,
+                          context,
+                          hovered: hovered,
+                          selected: selected,
+                        ),
+                      );
+                    }),
+                  ),
+                ),
+
+                if (!widget.standalone)
+                  _navButton(
+                    context: context,
+                    onTap: () => showAccountSheet(context, _services),
+                    iconBuilder: () => Icon(
+                      Icons.settings_rounded,
+                      size: 24,
+                      color: theme.onSurface.withValues(alpha: .72),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ).animateDropIn(),
+      ),
+    );
+  }
+
+  Widget _buildMobile(BuildContext context, MediaService service) {
+    final itemWidth = _items.length <= 3 ? 96.0 : 72.0;
+    const navHeight = 64.0;
+    return PositionedDirectional(
+      start: 0,
+      end: 0,
+      bottom: 32 + MediaQuery.paddingOf(context).bottom,
+      child: Align(
+        alignment: Alignment.bottomCenter,
+        child: SizedBox(
+          width: itemWidth * _items.length,
+          height: navHeight,
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: ThemedContainer(
+                  blur: true,
+                  borderRadius: BorderRadius.circular(32),
+                  padding: EdgeInsets.zero,
+                  child: SizedBox(
+                    width: itemWidth * _items.length,
+                    height: navHeight,
+                  ),
+                ),
+              ),
+
+              _lane(
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: _items.map((item) {
+                    return Expanded(
+                      child: Watch(() {
+                        final selected = widget.selectedIndex == item.index;
+                        final hovered = hoveredIndex.value == item.index;
+
+                        return MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          onEnter: (_) => !(widget.selectedIndex == item.index)
+                              ? hoveredIndex.value = item.index
+                              : null,
+                          onExit: (_) {
+                            if (hoveredIndex.value == item.index) {
+                              hoveredIndex.value = -1;
+                            }
+                          },
+                          child: _buildItem(
+                            item,
+                            context,
+                            selected: selected,
+                            hovered: hovered,
+                          ),
+                        );
+                      }),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ],
+          ),
+        ).animateFadeUp(begin: .2),
+      ),
+    );
+  }
+
+  Widget _lane(Widget child, {bool vertical = false}) => widget.laneKey == null
+      ? child
+      : DpadLane(
+          laneKey: widget.laneKey,
+          verticalEdge: vertical
+              ? DpadEdgeBehavior.stop
+              : DpadEdgeBehavior.leave,
+          horizontalEdge: vertical
+              ? DpadEdgeBehavior.leave
+              : DpadEdgeBehavior.stop,
+          child: child,
+        );
+
+  Widget _navButton({
+    required BuildContext context,
+    required VoidCallback onTap,
+    required Widget Function() iconBuilder,
+  }) {
+    return DpadFocusable(
+      onSelect: onTap,
+      builder: dpadIconFocus(radius: 22),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: SizedBox(
+          width: 56,
+          height: 56,
+          child: Center(child: iconBuilder()),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildItem(
+    NavItem item,
+    BuildContext context, {
+    required bool hovered,
+    required bool selected,
+  }) {
+    final theme = Theme.of(context).colorScheme;
+
+    return DpadFocusable(
+      onSelect: () => widget.onTabSelected(item.index),
+      builder: dpadIconFocus(radius: 22),
+      child: SizedBox(
+        width: 64,
+        height: 64,
+        child: Center(
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              AnimatedContainer(
+                duration: animDuration(200),
+                curve: Curves.easeOutCubic,
+                width: selected
+                    ? 68
+                    : hovered
+                    ? 56
+                    : 0,
+                height: 36,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(999),
+                  color: selected
+                      ? theme.primaryContainer
+                      : hovered
+                      ? theme.onSurface.withValues(alpha: .08)
+                      : Colors.transparent,
+                ),
+              ),
+              Icon(
+                item.icon,
+                size: 28,
+                color: selected
+                    ? theme.onPrimaryContainer
+                    : hovered
+                    ? theme.onSurface
+                    : theme.onSurfaceVariant,
+              ),
+            ],
+          ).animateNavItem(selected: selected, active: hovered),
+        ),
+      ),
+    );
+  }
+}

@@ -1,0 +1,86 @@
+import 'Prefs.dart';
+import '../../../Core/Services/Model/Media.dart';
+import '../../../Core/Services/MediaService.dart';
+import 'Auth.dart';
+import 'Screens/Calendar.dart';
+import 'Screens/Detail.dart';
+import 'Screens/Entity.dart';
+import 'Screens/Feed.dart';
+import 'Screens/Home.dart';
+import 'Screens/Notifications.dart';
+import 'Screens/Search.dart';
+import 'Screens/Settings.dart';
+import 'Screens/Social.dart';
+import '../../../Core/State/State.dart';
+import '../../../Screen/Settings/Sync/Data/SyncAdapter.dart';
+import 'Sync.dart';
+
+const anilistServiceId = 'anilist';
+
+const anilistContinueOrder = ContinueOrder(anilistServiceId);
+
+class AnilistService extends MediaService {
+  @override
+  bool isHiddenMedia(Media media) =>
+      super.isHiddenMedia(media) ||
+      AnilistPref.removeList.value.contains(media.id);
+
+  @override
+  String get id => anilistServiceId;
+
+  @override
+  String get name => 'AniList';
+
+  @override
+  String get iconPath => 'assets/svg/anilist.svg';
+
+  @override
+  Set<String> get linkHosts => const {'anilist.co', 'www.anilist.co'};
+
+  AnilistAuth get _auth => find();
+
+  @override
+  Queries get getQueries => _auth.queries;
+
+  @override
+  Mutations get apiMutations => _auth.mutations;
+
+  @override
+  late final SyncAdapter syncAdapter = AnilistSync(
+    _auth.queries,
+    _auth.mutations,
+  );
+
+  @override
+  ServiceAuth get auth => _auth;
+
+  @override
+  HomeScreenView get homeView => AnilistHomeView(this);
+
+  @override
+  List<MediaType> get feedTypes => const [MediaType.anime, MediaType.manga];
+
+  @override
+  FeedScreenView get feedView => AnilistFeedView(this);
+
+  @override
+  SearchScreenView get searchView => AnilistSearchView();
+
+  @override
+  DetailScreenView get detailView => AnilistDetailView(this);
+
+  @override
+  EntityScreenView get entityView => AnilistEntityView(this);
+
+  @override
+  SocialScreenView get socialView => AnilistSocialView(this);
+
+  @override
+  CalendarScreenView get calendarView => AnilistCalendarView();
+
+  @override
+  NotificationScreenView get notificationView => AnilistNotificationView();
+
+  @override
+  SettingsScreenView get settingsView => AnilistSettingsView();
+}

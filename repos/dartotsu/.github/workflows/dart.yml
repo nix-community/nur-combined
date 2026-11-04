@@ -1,0 +1,270 @@
+name: Dartotsu Build Workflow
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      build_targets:
+        description: "Select platforms to build"
+        required: true
+        type: choice
+        options:
+          - "all"
+          - "android"
+          - "windows"
+          - "linux"
+          - "ios"
+          - "macos"
+      clean_build:
+        description: "Clean build?"
+        required: false
+        type: boolean
+        default: false
+      ping_discord:
+        description: "Ping Discord role?"
+        required: false
+        type: boolean
+        default: false
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  FLUTTER_VERSION: 3.47.4
+
+jobs:
+  prune_caches:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    timeout-minutes: 10
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prune stale Actions caches
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FLUTTER_VERSION: "3.47.4"
+        run: bash scripts/ci/prune-actions-cache.sh
+
+  build_android:
+    needs: prune_caches
+    if: |
+      (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build.apk]') || contains(github.event.head_commit.message, '[build]') || contains(github.event.head_commit.message, '[build.all]'))) ||
+      (github.event_name == 'workflow_dispatch' && (inputs.build_targets == 'android' || inputs.build_targets == 'all'))
+    uses: ./.github/workflows/build-android.yml
+    with:
+      flutter-version: "3.47.4"
+      clean-build: ${{ github.event_name == 'workflow_dispatch' && inputs.clean_build || false }}
+      publish-mode: gdrive
+      universal-name: universal
+    secrets:
+      FLUTTER_VERSION: ${{ secrets.FLUTTER_VERSION }}
+      APK_SIGN: ${{ secrets.APK_SIGN }}
+      KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+      KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+      GOOGLE_FOLDER_ANDROID: ${{ secrets.GOOGLE_FOLDER_ANDROID }}
+      GOOGLE_KEY: ${{ secrets.GOOGLE_KEY }}
+
+  build_windows:
+    needs: prune_caches
+    if: |
+      (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build.windows]') || contains(github.event.head_commit.message, '[build.all]'))) ||
+      (github.event_name == 'workflow_dispatch' && (inputs.build_targets == 'windows' || inputs.build_targets == 'all'))
+    uses: ./.github/workflows/build-windows.yml
+    with:
+      flutter-version: "3.47.4"
+      clean-build: ${{ github.event_name == 'workflow_dispatch' && inputs.clean_build || false }}
+      publish-mode: gdrive
+    secrets:
+      FLUTTER_VERSION: ${{ secrets.FLUTTER_VERSION }}
+      PFX_FILE: ${{ secrets.PFX_FILE }}
+      PFX_PASSWORD: ${{ secrets.PFX_PASSWORD }}
+      GOOGLE_FOLDER_MAIN: ${{ secrets.GOOGLE_FOLDER_MAIN }}
+      GOOGLE_KEY: ${{ secrets.GOOGLE_KEY }}
+
+  build_linux:
+    needs: prune_caches
+    if: |
+      (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build.linux]') || contains(github.event.head_commit.message, '[build.all]') || contains(github.event.head_commit.message, '[build]'))) ||
+      (github.event_name == 'workflow_dispatch' && (inputs.build_targets == 'linux' || inputs.build_targets == 'all'))
+    uses: ./.github/workflows/build-linux.yml
+    with:
+      flutter-version: "3.47.4"
+      clean-build: ${{ github.event_name == 'workflow_dispatch' && inputs.clean_build || false }}
+      publish-mode: gdrive
+      zip-name-prefix: Dartotsu_Linux
+    secrets:
+      FLUTTER_VERSION: ${{ secrets.FLUTTER_VERSION }}
+      GOOGLE_FOLDER_MAIN: ${{ secrets.GOOGLE_FOLDER_MAIN }}
+      GOOGLE_KEY: ${{ secrets.GOOGLE_KEY }}
+
+  build_ios:
+    needs: prune_caches
+    if: |
+      (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build.ios]') || contains(github.event.head_commit.message, '[build.all]'))) ||
+      (github.event_name == 'workflow_dispatch' && (inputs.build_targets == 'ios' || inputs.build_targets == 'all'))
+    uses: ./.github/workflows/build-ios.yml
+    with:
+      flutter-version: "3.47.4"
+      clean-build: ${{ github.event_name == 'workflow_dispatch' && inputs.clean_build || false }}
+      publish-mode: gdrive
+    secrets:
+      FLUTTER_VERSION: ${{ secrets.FLUTTER_VERSION }}
+      GOOGLE_FOLDER_MAIN: ${{ secrets.GOOGLE_FOLDER_MAIN }}
+      GOOGLE_KEY: ${{ secrets.GOOGLE_KEY }}
+
+  build_macos:
+    needs: prune_caches
+    if: |
+      (github.event_name == 'push' && (contains(github.event.head_commit.message, '[build.macos]') || contains(github.event.head_commit.message, '[build.all]'))) ||
+      (github.event_name == 'workflow_dispatch' && (inputs.build_targets == 'macos' || inputs.build_targets == 'all'))
+    uses: ./.github/workflows/build-macos.yml
+    with:
+      flutter-version: "3.47.4"
+      clean-build: ${{ github.event_name == 'workflow_dispatch' && inputs.clean_build || false }}
+      publish-mode: gdrive
+    secrets:
+      FLUTTER_VERSION: ${{ secrets.FLUTTER_VERSION }}
+      GOOGLE_FOLDER_MAIN: ${{ secrets.GOOGLE_FOLDER_MAIN }}
+      GOOGLE_KEY: ${{ secrets.GOOGLE_KEY }}
+
+  sendMessage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: [build_android, build_windows, build_linux, build_ios, build_macos]
+    if: |
+      github.ref == 'refs/heads/main' &&
+      github.event_name != 'pull_request' &&
+      always() &&
+      !contains(needs.*.result, 'failure') &&
+      !contains(needs.*.result, 'cancelled') &&
+      (needs.build_android.result == 'success' ||
+       needs.build_windows.result == 'success' ||
+       needs.build_linux.result == 'success' ||
+       needs.build_ios.result == 'success' ||
+       needs.build_macos.result == 'success')
+    permissions:
+      contents: read
+      pull-requests: read
+      actions: read
+    outputs:
+      commit_logs: ${{ steps.set_output.outputs.commit_logs }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download last SHA artifact
+        uses: dawidd6/action-download-artifact@v6
+        with:
+          workflow: dart.yml
+          name: last-sha
+        continue-on-error: true
+
+      - name: Get Commits Since Last Run
+        run: |
+          if [ -f last_sha.txt ]; then
+            LAST_SHA=$(cat last_sha.txt)
+          else
+            LAST_SHA=$(git rev-list --max-parents=0 HEAD)
+          fi
+          echo "Commits since $LAST_SHA:"
+          COMMIT_LOGS=$(git log $LAST_SHA..HEAD --pretty=format:"● %s ~%an [֍](https://github.com/${{ github.repository }}/commit/%H)" --max-count=10)
+          COMMIT_LOGS="${COMMIT_LOGS//'%'/'%25'}"
+          COMMIT_LOGS="${COMMIT_LOGS//$'\n'/'%0A'}"
+          COMMIT_LOGS="${COMMIT_LOGS//$'\r'/'%0D'}"
+          echo "COMMIT_LOG=${COMMIT_LOGS}" >> $GITHUB_ENV
+          echo "$COMMIT_LOGS"
+          echo "$COMMIT_LOGS" > commit_log.txt
+        continue-on-error: true
+
+      - name: Save Current SHA for Next Run
+        run: echo ${{ github.sha }} > last_sha.txt
+
+      - name: Set output
+        id: set_output
+        run: echo "commit_logs=${{ env.COMMIT_LOG }}" >> $GITHUB_OUTPUT
+
+      - name: Check for Ping
+        env:
+          HEAD_MSG: ${{ github.event.head_commit.message }}
+          PING_INPUT: ${{ inputs.ping_discord }}
+        run: |
+          if [[ "${HEAD_MSG,,}" == *"[ping]"* ]] || [[ "$PING_INPUT" == "true" ]]; then
+            echo "PING_VARIABLE=<@&1434448534450606090>" >> $GITHUB_ENV
+          else
+            echo "PING_VARIABLE=noPing" >> $GITHUB_ENV
+          fi
+
+      - name: Discord alpha embed
+        env:
+          COMMIT_LOG: ${{ env.COMMIT_LOG }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          PING_VARIABLE: ${{ env.PING_VARIABLE }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: bash scripts/ci/discord_alpha_embed.sh
+
+      - name: Upload Current SHA as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: last-sha
+          path: last_sha.txt
+
+      - name: Discord download links
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          GOOGLE_FOLDER_ANDROID: ${{ secrets.GOOGLE_FOLDER_ANDROID }}
+          APK_DOWNLOAD_LINK: ${{ needs.build_android.outputs.apk_link }}
+          WINDOWS_DOWNLOAD_LINK: ${{ needs.build_windows.outputs.zip_link }}
+          LINUX_DOWNLOAD_LINK: ${{ needs.build_linux.outputs.zip_link }}
+          IOS_DOWNLOAD_LINK: ${{ needs.build_ios.outputs.ipa_link }}
+          MACOS_DOWNLOAD_LINK: ${{ needs.build_macos.outputs.dmg_link }}
+        run: bash scripts/ci/discord_alpha_links.sh
+
+  trigger_downloader:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs:
+      [build_android, build_windows, build_linux, build_ios, build_macos, sendMessage]
+    if: |
+      github.ref == 'refs/heads/main' &&
+      github.event_name != 'pull_request' &&
+      always() &&
+      !contains(needs.*.result, 'failure') &&
+      !contains(needs.*.result, 'cancelled') &&
+      (needs.build_android.result == 'success' ||
+       needs.build_windows.result == 'success' ||
+       needs.build_linux.result == 'success' ||
+       needs.build_ios.result == 'success' ||
+       needs.build_macos.result == 'success')
+    steps:
+      - name: Trigger Dartotsu-Downloader workflow
+        env:
+          TOKEN: ${{ secrets.DOWNLOADER_TRIGGER_TOKEN_SHEBY }}
+          COMMIT_SHA: ${{ github.sha }}
+          COMMIT_LOGS: ${{ needs.sendMessage.outputs.commit_logs }}
+          ANDROID: ${{ needs.build_android.result }}
+          WINDOWS: ${{ needs.build_windows.result }}
+          LINUX: ${{ needs.build_linux.result }}
+          IOS: ${{ needs.build_ios.result }}
+          MACOS: ${{ needs.build_macos.result }}
+        run: |
+          body=$(jq -n \
+            --arg sha "$COMMIT_SHA" --arg logs "$COMMIT_LOGS" \
+            --arg android "$ANDROID" --arg windows "$WINDOWS" --arg linux "$LINUX" \
+            --arg ios "$IOS" --arg macos "$MACOS" \
+            '{ref:"main", inputs:{commit_sha:$sha, commit_logs:$logs, build_android:$android, build_windows:$windows, build_linux:$linux, build_ios:$ios, build_macos:$macos}}')
+          curl -X POST \
+            -H "Authorization: token $TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/grayankit/Dartotsu-Downloader/actions/workflows/main.yml/dispatches \
+            -d "$body"

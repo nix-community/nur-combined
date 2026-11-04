@@ -1,0 +1,137 @@
+extension StringExtensions on String {
+  String get capitalizeFirst =>
+      isEmpty ? this : this[0].toUpperCase() + substring(1);
+
+  /// `SLICE_OF_LIFE` / `slice_of_life` -> `Slice Of Life`.
+  String get titleCase => toLowerCase()
+      .replaceAll('_', ' ')
+      .split(' ')
+      .map((w) => w.isEmpty ? w : '${w[0].toUpperCase()}${w.substring(1)}')
+      .join(' ');
+
+  String substringAfter(String pattern) {
+    final startIndex = indexOf(pattern);
+    if (startIndex == -1) return substring(0);
+
+    final start = startIndex + pattern.length;
+    return substring(start);
+  }
+
+  String substringAfterLast(String pattern) {
+    return split(pattern).last;
+  }
+
+  double toDouble() => double.parse(this);
+
+  int toInt() => int.parse(this);
+
+  int? toNullInt() => int.tryParse(this);
+
+  bool isEqualTo(String? other) {
+    return this == other;
+  }
+
+  String substringBefore(String pattern) {
+    final endIndex = indexOf(pattern);
+    if (endIndex == -1) return substring(0);
+
+    return substring(0, endIndex);
+  }
+
+  String substringBeforeLast(String pattern) {
+    final endIndex = lastIndexOf(pattern);
+    if (endIndex == -1) return substring(0);
+
+    return substring(0, endIndex);
+  }
+
+  String substringBetween(String left, String right) {
+    int startIndex = 0;
+    int index = indexOf(left, startIndex);
+    if (index == -1) return "";
+    int leftIndex = index + left.length;
+    int rightIndex = indexOf(right, leftIndex);
+    if (rightIndex == -1) return "";
+    startIndex = rightIndex + right.length;
+    return substring(leftIndex, rightIndex);
+  }
+
+  String replaceForbiddenCharacters(String source) {
+    return replaceAll(
+      RegExp(r'[\\/:*?"<>|\0]|(^CON$|^PRN$|^AUX$|^NUL$|^COM[1-9]$|^LPT[1-9]$)'),
+      source,
+    );
+  }
+
+  String get getUrlWithoutDomain {
+    final uri = Uri.parse(replaceAll(' ', '%20'));
+    String out = uri.path;
+    if (uri.query.isNotEmpty) {
+      out += '?${uri.query}';
+    }
+    if (uri.fragment.isNotEmpty) {
+      out += '#${uri.fragment}';
+    }
+    return out;
+  }
+
+  bool isMediaVideo() {
+    return videoExtensions.any(
+      (extension) => toLowerCase().endsWith(extension),
+    );
+  }
+
+  bool isImage() {
+    return imageExtensions.any(
+      (extension) => toLowerCase().endsWith(extension),
+    );
+  }
+
+  String get stripHtml => replaceAll(RegExp(r'<\s*br\s*/?\s*>'), '\n')
+      .replaceAll(RegExp(r'</\s*p\s*>'), '\n\n')
+      .replaceAll(RegExp(r'<[^>]+>'), '')
+      .replaceAll('&nbsp;', ' ')
+      .replaceAll('&amp;', '&')
+      .replaceAll('&quot;', '"')
+      .replaceAll('&#039;', "'")
+      .replaceAll('&mdash;', '—')
+      .replaceAll(RegExp(r'\n{3,}'), '\n\n')
+      .trim();
+}
+
+var videoExtensions = [
+  "3gp",
+  "avi",
+  "mpg",
+  "mpeg",
+  "webm",
+  "ogg",
+  "flv",
+  "m4v",
+  "mvp",
+  "mp4",
+  "wmv",
+  "mkv",
+  "mov",
+];
+var audioExtensions = [
+  "mp3",
+  "wav",
+  "ogg",
+  "flac",
+  "aac",
+  "m4a",
+  "opus",
+  "wma",
+  "alac",
+];
+var imageExtensions = [
+  "jpg",
+  "jpeg",
+  "png",
+  "gif",
+  "bmp",
+  "webp",
+  "tiff",
+  "svg",
+];

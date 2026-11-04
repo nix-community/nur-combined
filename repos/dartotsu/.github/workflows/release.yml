@@ -1,0 +1,296 @@
+name: RELEASE
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Build artifacts only (skip GH release, changelog push, Discord)"
+        type: boolean
+        default: true
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  FLUTTER_VERSION: 3.47.4
+
+jobs:
+  prune_caches:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    timeout-minutes: 10
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prune stale Actions caches
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FLUTTER_VERSION: "3.47.4"
+        run: bash scripts/ci/prune-actions-cache.sh
+
+  build_android:
+    needs: prune_caches
+    uses: ./.github/workflows/build-android.yml
+    with:
+      flutter-version: "3.47.4"
+      clean-build: false
+      publish-mode: artifact
+      universal-name: Universal
+    secrets:
+      FLUTTER_VERSION: ${{ secrets.FLUTTER_VERSION }}
+      APK_SIGN: ${{ secrets.APK_SIGN }}
+      KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+      KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+
+  build_windows:
+    needs: prune_caches
+    uses: ./.github/workflows/build-windows.yml
+    with:
+      flutter-version: "3.47.4"
+      clean-build: false
+      publish-mode: artifact
+    secrets:
+      FLUTTER_VERSION: ${{ secrets.FLUTTER_VERSION }}
+      PFX_FILE: ${{ secrets.PFX_FILE }}
+      PFX_PASSWORD: ${{ secrets.PFX_PASSWORD }}
+
+  build_linux:
+    needs: prune_caches
+    uses: ./.github/workflows/build-linux.yml
+    with:
+      flutter-version: "3.47.4"
+      clean-build: false
+      publish-mode: artifact
+      zip-name-prefix: Dartotsu_LinuxZip
+      build-appimage: true
+    secrets:
+      FLUTTER_VERSION: ${{ secrets.FLUTTER_VERSION }}
+
+  build_ios:
+    needs: prune_caches
+    uses: ./.github/workflows/build-ios.yml
+    with:
+      flutter-version: "3.47.4"
+      clean-build: false
+      publish-mode: artifact
+    secrets:
+      FLUTTER_VERSION: ${{ secrets.FLUTTER_VERSION }}
+
+  build_macos:
+    needs: prune_caches
+    uses: ./.github/workflows/build-macos.yml
+    with:
+      flutter-version: "3.47.4"
+      clean-build: false
+      publish-mode: artifact
+    secrets:
+      FLUTTER_VERSION: ${{ secrets.FLUTTER_VERSION }}
+
+  publish_release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: [build_android, build_windows, build_linux, build_ios, build_macos]
+    if: |
+      always() &&
+      !contains(needs.*.result, 'failure') &&
+      !contains(needs.*.result, 'cancelled') &&
+      (needs.build_android.result == 'success' ||
+       needs.build_windows.result == 'success' ||
+       needs.build_linux.result == 'success' ||
+       needs.build_ios.result == 'success' ||
+       needs.build_macos.result == 'success') &&
+      (github.event_name == 'push' || inputs.dry_run != true)
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download all build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-artifacts
+          merge-multiple: true
+
+      - name: List artifacts
+        run: find release-artifacts -type f | sort
+
+      - name: Generate changelog
+        run: |
+          echo "" > CHANGELOG.md
+          PREV_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          if [ -z "$PREV_TAG" ]; then
+            PREV_TAG=$(git rev-list --max-parents=0 HEAD)
+          fi
+          COMMITS=$(git log "$PREV_TAG"..HEAD --pretty=format:'%h %s' | tr '\n' '|')
+          FEATURES=""; BUG_FIXES=""; REFACTORS=""; STYLE_CHANGES=""; PERFORMANCE=""; CHORES=""
+          REPO_URL="https://github.com/${{ github.repository }}"
+          IFS='|' read -ra COMMIT_LIST <<< "$COMMITS"
+          for LINE in "${COMMIT_LIST[@]}"; do
+            [[ -z "$LINE" ]] && continue
+            HASH=$(echo "$LINE" | awk '{print $1}')
+            MESSAGE=$(echo "$LINE" | cut -d' ' -f2-)
+            LINK="[$HASH]($REPO_URL/commit/$HASH)"
+            FORMATTED_COMMIT="* $LINK: $MESSAGE"
+            if [[ $MESSAGE == feat* ]]; then FEATURES+="$FORMATTED_COMMIT\n"
+            elif [[ $MESSAGE == fix* || $MESSAGE == bug* || $MESSAGE == improvement* || $MESSAGE == patch* ]]; then BUG_FIXES+="$FORMATTED_COMMIT\n"
+            elif [[ $MESSAGE == refactor* ]]; then REFACTORS+="$FORMATTED_COMMIT\n"
+            elif [[ $MESSAGE == style* ]]; then STYLE_CHANGES+="$FORMATTED_COMMIT\n"
+            elif [[ $MESSAGE == perf* ]]; then PERFORMANCE+="$FORMATTED_COMMIT\n"
+            elif [[ $MESSAGE == chore* || $MESSAGE == docs* || $MESSAGE == build* || $MESSAGE == ci* ]]; then CHORES+="$FORMATTED_COMMIT\n"
+            fi
+          done
+          if [ -n "$FEATURES" ]; then echo "### 🎉 New Features" >> CHANGELOG.md; echo -e "$FEATURES" >> CHANGELOG.md; fi
+          if [ -n "$BUG_FIXES" ]; then echo "### 🛠️ Bug Fixes & Improvements" >> CHANGELOG.md; echo -e "$BUG_FIXES" >> CHANGELOG.md; fi
+          if [ -n "$REFACTORS" ]; then echo "### 🔧 Refactors" >> CHANGELOG.md; echo -e "$REFACTORS" >> CHANGELOG.md; fi
+          if [ -n "$STYLE_CHANGES" ]; then echo "### 🎨 Style Changes" >> CHANGELOG.md; echo -e "$STYLE_CHANGES" >> CHANGELOG.md; fi
+          if [ -n "$PERFORMANCE" ]; then echo "### 🚀 Performance Improvements" >> CHANGELOG.md; echo -e "$PERFORMANCE" >> CHANGELOG.md; fi
+          if [ -n "$CHORES" ]; then echo "### 🧹 Chores & Documentation" >> CHANGELOG.md; echo -e "$CHORES" >> CHANGELOG.md; fi
+
+      - name: Generate Fastlane changelog (IzzyOnDroid)
+        run: |
+          mkdir -p fastlane/metadata/android/en-US/changelogs
+          awk '/^### 🎉 New Features/{flag=1; next}/^### 🔧 Refactors/{flag=0}flag' CHANGELOG.md \
+            | sed -E 's/!\[[^]]*\]\([^)]*\)//g; s/\[[^]]*\]\([^)]*\)//g; s/^\*[[:space:]]+/-/; s/^\s+//; /^$/d' \
+            > fastlane/metadata/android/en-US/changelogs/default.txt || true
+          cat fastlane/metadata/android/en-US/changelogs/default.txt || echo "No fastlane changelog"
+
+      - name: Commit and push changelog
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add CHANGELOG.md fastlane/metadata/android/en-US/changelogs/default.txt
+          git commit -m "Update changelog for version ${{ github.ref_name }}" || echo "No changes to commit"
+          git fetch origin main
+          git push origin HEAD:main || {
+            echo "Direct push failed, retrying with rebase..."
+            git stash
+            git pull --rebase origin main
+            git stash pop || true
+            git add CHANGELOG.md fastlane/metadata/android/en-US/changelogs/default.txt
+            git commit -m "Update changelog for version ${{ github.ref_name }}" || echo "No changes to commit"
+            git push origin HEAD:main
+          }
+
+      - name: Create or update GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v3.0.2
+        with:
+          tag_name: ${{ github.ref_name }}
+          body_path: CHANGELOG.md
+          files: release-artifacts/**
+          fail_on_unmatched_files: false
+          prerelease: ${{ contains(github.ref_name, '-') }}
+          make_latest: ${{ contains(github.ref_name, '-') && 'false' || 'true' }}
+
+  update_nix_channels:
+    needs: [publish_release]
+    if: |
+      needs.publish_release.result == 'success' &&
+      startsWith(github.ref, 'refs/tags/') &&
+      (github.event_name == 'push' || inputs.dry_run != true)
+    permissions:
+      contents: write
+    uses: ./.github/workflows/update-nix-channels.yml
+
+  post-release-notes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    needs: [publish_release]
+    if: |
+      needs.publish_release.result == 'success' &&
+      startsWith(github.ref, 'refs/tags/') &&
+      (github.event_name == 'push' || inputs.dry_run != true)
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Resolve latest tag and release notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "LATEST_TAG=${GITHUB_REF_NAME}" >> "$GITHUB_ENV"
+          RELEASE_DATA=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/${{ github.repository }}/releases/tags/${GITHUB_REF_NAME}")
+          RELEASE_NOTES=$(echo "$RELEASE_DATA" | jq -r '.body // empty')
+          {
+            echo "RELEASE_NOTES<<EOF"
+            echo "$RELEASE_NOTES"
+            echo "EOF"
+          } >> "$GITHUB_ENV"
+
+      - name: Send release notes to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_RELEASE_URL }}
+          RELEASE_NOTES: ${{ env.RELEASE_NOTES }}
+          LATEST_TAG: ${{ env.LATEST_TAG }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: bash scripts/ci/discord_release_notes.sh
+
+  upload_download_url:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: [post-release-notes]
+    if: needs.post-release-notes.result == 'success'
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Fetch release asset links
+        env:
+          GH_TOKEN: ${{ secrets.FINE_GRAIN_TOKEN }}
+        run: |
+          # gh release view maps the download URL to .url. browser_download_url is null.
+          gh release view --repo "${{ github.repository }}" "${{ github.ref_name }}" \
+            --json assets --jq '.assets[].url' > asset_links.txt
+          cat asset_links.txt
+          if ! grep -q '[^[:space:]]' asset_links.txt; then
+            echo "No release asset download URLs found" >&2
+            exit 1
+          fi
+
+      - name: Format download message
+        run: |
+          LINKS=$(sort asset_links.txt)
+          MESSAGE="**Dartotsu ${{ github.ref_name }} Downloads:**\n\n"
+          while IFS= read -r LINK; do
+            [[ -z "$LINK" ]] && continue
+            if [[ $LINK == *"arm64"* ]]; then MESSAGE+="• [Android_arm64]($LINK)\n"
+            elif [[ $LINK == *"armeabi"* ]]; then MESSAGE+="• [Android_armeabi-v7a]($LINK)\n"
+            elif [[ $LINK == *"Android_x86"* ]]; then MESSAGE+="• [Android_x86_64]($LINK)\n"
+            elif [[ $LINK == *"Android_Universal"* ]]; then MESSAGE+="• [Android_Universal]($LINK)\n"
+            elif [[ $LINK == *"iOS"* ]]; then MESSAGE+="• [iOS]($LINK)\n"
+            elif [[ $LINK == *"LinuxZip"* ]]; then MESSAGE+="• [Linux]($LINK)\n"
+            elif [[ $LINK == *"Linux"* ]]; then MESSAGE+="• [Linux_AppImage]($LINK)\n"
+            elif [[ $LINK == *"macos"* ]]; then MESSAGE+="• [macOS]($LINK)\n"
+            elif [[ $LINK == *"Installer"* ]]; then MESSAGE+="• [Windows]($LINK)\n"
+            fi
+          done <<< "$LINKS"
+          if [[ "$MESSAGE" != *"• ["* ]]; then
+            echo "Release assets were found, but none matched a download label" >&2
+            echo "$MESSAGE" >&2
+            exit 1
+          fi
+          {
+            echo "MESSAGE<<EOF"
+            echo -e "$MESSAGE"
+            echo "EOF"
+          } >> "$GITHUB_ENV"
+
+      - name: Send download links to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_RELEASE_URL }}
+          MESSAGE: ${{ env.MESSAGE }}
+        run: bash scripts/ci/discord_release_links.sh

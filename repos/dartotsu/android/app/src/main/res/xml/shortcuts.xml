@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:shortcutId="continue"
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_play"
+        android:shortcutShortLabel="@string/shortcut_continue_short"
+        android:shortcutLongLabel="@string/shortcut_continue_long">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="dartotsu://app/continue"
+            android:targetClass="ani.aayush262.dartotsu.MainActivity"
+            android:targetPackage="ani.aayush262.dartotsu" />
+    </shortcut>
+    <shortcut
+        android:shortcutId="search"
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_search"
+        android:shortcutShortLabel="@string/shortcut_search_short"
+        android:shortcutLongLabel="@string/shortcut_search_long">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="dartotsu://app/search"
+            android:targetClass="ani.aayush262.dartotsu.MainActivity"
+            android:targetPackage="ani.aayush262.dartotsu" />
+    </shortcut>
+    <shortcut
+        android:shortcutId="downloads"
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_download"
+        android:shortcutShortLabel="@string/shortcut_downloads_short"
+        android:shortcutLongLabel="@string/shortcut_downloads_long">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="dartotsu://app/downloads"
+            android:targetClass="ani.aayush262.dartotsu.MainActivity"
+            android:targetPackage="ani.aayush262.dartotsu" />
+    </shortcut>
+    <shortcut
+        android:shortcutId="calendar"
+        android:enabled="true"
+        android:icon="@drawable/ic_shortcut_calendar"
+        android:shortcutShortLabel="@string/shortcut_calendar_short"
+        android:shortcutLongLabel="@string/shortcut_calendar_long">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="dartotsu://app/calendar"
+            android:targetClass="ani.aayush262.dartotsu.MainActivity"
+            android:targetPackage="ani.aayush262.dartotsu" />
+    </shortcut>
+</shortcuts>

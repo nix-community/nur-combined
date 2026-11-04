@@ -1,0 +1,83 @@
+import 'package:flutter/material.dart';
+
+import '../../../Model/Setting.dart';
+import '../../../Utils/Extensions/ContextExtensions.dart';
+import '../../../Widgets/Components/AppControls.dart';
+
+Setting segmentedSetting<T>({
+  required String name,
+  String? description,
+  required IconData icon,
+  required String label,
+  required T value,
+  required List<AppSegment<T>> segments,
+  required ValueChanged<T> onChanged,
+}) {
+  final values = [for (final s in segments) s.value];
+
+  bool onDirection(TraversalDirection direction) {
+    final i = values.indexOf(value);
+    if (direction == TraversalDirection.left && i > 0) {
+      onChanged(values[i - 1]);
+      return true;
+    }
+    if (direction == TraversalDirection.right && i < values.length - 1) {
+      onChanged(values[i + 1]);
+      return true;
+    }
+    return false;
+  }
+
+  return Setting.custom(
+    name: name,
+    description: description,
+    onDirection: onDirection,
+    builder: (context) => Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          width: double.infinity,
+          child: Wrap(
+            alignment: WrapAlignment.spaceBetween,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            runSpacing: 10,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(icon, size: 22, color: context.colorScheme.primary),
+                  const SizedBox(width: 20),
+                  Text(
+                    label,
+                    style: context.textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                ],
+              ),
+              AppSegmented<T>(
+                wrap: true,
+                value: value,
+                onChanged: onChanged,
+                segments: segments,
+              ),
+            ],
+          ),
+        ),
+        if (description != null) ...[
+          const SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsetsDirectional.only(start: 42),
+            child: Text(
+              description,
+              style: context.textTheme.bodySmall?.copyWith(
+                color: context.colorScheme.onSurfaceVariant,
+              ),
+            ),
+          ),
+        ],
+      ],
+    ),
+  );
+}

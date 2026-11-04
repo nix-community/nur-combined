@@ -1,0 +1,478 @@
+import 'package:flutter/widgets.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+
+import '../../Core/Preferences/PrefManager.dart';
+
+double get kAnimationSpeed => PrefName.animationSpeed.value;
+
+bool get animationsOff => kAnimationSpeed <= 0;
+
+Duration animDuration(int ms) {
+  final scaled = (ms * kAnimationSpeed).round();
+  return Duration(milliseconds: ms > 0 && scaled < 1 ? 1 : scaled);
+}
+
+Duration animDelay(Duration delay) =>
+    Duration(microseconds: (delay.inMicroseconds * kAnimationSpeed).round());
+
+extension AnimMs on int {
+  Duration get anim => animDuration(this);
+}
+
+class AppSwitcher extends StatelessWidget {
+  final Widget child;
+  final int duration;
+  final Offset slide;
+  final AlignmentGeometry alignment;
+
+  const AppSwitcher({
+    super.key,
+    required this.child,
+    this.duration = 240,
+    this.slide = const Offset(0, 0.02),
+    this.alignment = Alignment.topCenter,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (animationsOff) return child;
+    return AnimatedSwitcher(
+      duration: animDuration(duration),
+      reverseDuration: animDuration((duration * 0.6).round()),
+      switchInCurve: Curves.easeOutCubic,
+      switchOutCurve: Curves.easeIn,
+      layoutBuilder: (current, previous) =>
+          Stack(alignment: alignment, children: [...previous, ?current]),
+      transitionBuilder: (child, animation) => FadeTransition(
+        opacity: animation,
+        child: SlideTransition(
+          position: Tween(begin: slide, end: Offset.zero).animate(animation),
+          child: child,
+        ),
+      ),
+      child: child,
+    );
+  }
+}
+
+class AppSize extends StatelessWidget {
+  final Widget child;
+  final int duration;
+  final AlignmentGeometry alignment;
+
+  const AppSize({
+    super.key,
+    required this.child,
+    this.duration = 220,
+    this.alignment = Alignment.topCenter,
+  });
+
+  @override
+  Widget build(BuildContext context) => AnimatedSize(
+    duration: animDuration(duration),
+    curve: Curves.easeOutCubic,
+    alignment: alignment,
+    child: child,
+  );
+}
+
+extension WidgetAnimations on Widget {
+  Duration _duration(int ms) =>
+      Duration(milliseconds: (ms * kAnimationSpeed).round());
+
+  bool get _disabled => kAnimationSpeed <= 0;
+
+  Duration _delay(Duration delay) => animDelay(delay);
+
+  Animate _animation(bool target) => animate(target: target ? 1 : 0);
+
+  Animate _fade({
+    required bool target,
+    Duration delay = Duration.zero,
+    int duration = 250,
+    Curve curve = Curves.easeOut,
+  }) {
+    return _animation(target)
+        .fadeIn(delay: delay, duration: _duration(duration), curve: curve);
+  }
+
+  Animate _fadeScale({
+    required bool target,
+    Duration delay = Duration.zero,
+    int fadeDuration = 180,
+    Offset begin = const Offset(.9, .9),
+    Offset end = const Offset(1, 1),
+    int scaleDuration = 300,
+    Curve scaleCurve = Curves.easeOutBack,
+  }) {
+    return _fade(target: target, delay: delay, duration: fadeDuration).scale(
+      begin: begin,
+      end: end,
+      duration: _duration(scaleDuration),
+      curve: scaleCurve,
+    );
+  }
+
+  Widget animateSheetIn({bool target = true, Duration delay = Duration.zero}) {
+    if (_disabled) return this;
+
+    const emphasizedDecelerate = Cubic(0.05, 0.7, 0.1, 1.0);
+
+    return _animation(target)
+        .fade(
+          delay: _delay(delay),
+          duration: _duration(260),
+          curve: Curves.easeOut,
+        )
+        .moveY(
+          begin: 28,
+          end: 0,
+          delay: _delay(delay),
+          duration: _duration(380),
+          curve: emphasizedDecelerate,
+        )
+        .scale(
+          begin: const Offset(0.98, 0.98),
+          end: const Offset(1, 1),
+          delay: _delay(delay),
+          duration: _duration(380),
+          curve: emphasizedDecelerate,
+        );
+  }
+
+  Widget animateDropIn({bool target = true}) {
+    if (_disabled) return this;
+
+    return _animation(target)
+        .slide(
+          begin: const Offset(0, -0.9),
+          end: Offset.zero,
+          curve: Curves.easeOutCubic,
+          duration: _duration(250),
+        )
+        .scale(
+          begin: const Offset(0.55, 0.55),
+          end: const Offset(1, 1),
+          curve: Curves.easeOutCubic,
+          duration: _duration(350),
+        );
+  }
+
+  Widget animateHorizontalEntrance({
+    bool target = true,
+    int index = 0,
+    int direction = 1,
+    bool stagger = true,
+    bool instant = false,
+  }) {
+    if (_disabled) return this;
+    final delay = Duration(milliseconds: stagger && index < 8 ? 45 * index : 0);
+    return animate(target: target ? 1 : 0, value: instant ? 1 : null)
+        .slide(
+          begin: Offset(direction.sign.toDouble(), 0),
+          end: Offset.zero,
+          delay: _delay(delay),
+          curve: Curves.easeInOut,
+          duration: _duration(200),
+        )
+        .scale(
+          begin: const Offset(0.1, 0.1),
+          end: const Offset(1, 1),
+          delay: _delay(delay),
+          curve: Curves.easeInOut,
+          duration: _duration(400),
+        );
+  }
+
+  Widget animateVerticalEntrance({bool target = true}) {
+    if (_disabled) return this;
+    return _animation(target)
+        .slide(
+          begin: const Offset(0, -1),
+          end: Offset.zero,
+          curve: Curves.easeInOut,
+          duration: _duration(200),
+        )
+        .scale(
+          begin: const Offset(0.1, 0.1),
+          end: const Offset(1, 1),
+          curve: Curves.easeInOut,
+          duration: _duration(400),
+        );
+  }
+
+  Widget animateFadeUp({
+    bool target = true,
+    double begin = 0.3,
+    Duration delay = Duration.zero,
+    int duration = 400,
+    Curve curve = Curves.easeOutCubic,
+  }) {
+    if (_disabled || duration <= 0) return this;
+
+    return _fade(
+      target: target,
+      delay: _delay(delay),
+      duration: duration,
+    ).slideY(
+      begin: begin,
+      end: 0,
+      delay: _delay(delay),
+      duration: _duration(duration),
+      curve: curve,
+    );
+  }
+
+  Widget animateFadeSlideX({
+    bool target = true,
+    required double begin,
+    Duration delay = Duration.zero,
+    int duration = 400,
+    Curve curve = Curves.easeOutCubic,
+  }) {
+    if (_disabled || duration <= 0) return this;
+
+    return _fade(
+      target: target,
+      delay: _delay(delay),
+      duration: duration,
+    ).slideX(
+      begin: begin,
+      end: 0,
+      delay: _delay(delay),
+      duration: _duration(duration),
+      curve: curve,
+    );
+  }
+
+  Widget animateFadeScale({
+    bool target = true,
+    double slideBegin = 0.4,
+    Offset scaleBegin = const Offset(0.96, 0.96),
+    Duration delay = Duration.zero,
+  }) {
+    if (_disabled) return this;
+
+    return _fade(target: target, delay: _delay(delay), duration: 150)
+        .slideY(
+          begin: slideBegin,
+          end: 0,
+          delay: _delay(delay),
+          duration: _duration(250),
+          curve: Curves.easeOutCubic,
+        )
+        .scale(
+          begin: scaleBegin,
+          end: const Offset(1, 1),
+          duration: _duration(300),
+          curve: Curves.easeOutBack,
+        );
+  }
+
+  Widget animatePopIn({
+    bool target = true,
+    Offset begin = const Offset(0.5, 0.5),
+    Duration delay = Duration.zero,
+  }) {
+    if (_disabled) return this;
+
+    return _fadeScale(
+      target: target,
+      delay: _delay(delay),
+      fadeDuration: 800,
+      begin: begin,
+      end: const Offset(1, 1),
+      scaleDuration: 350,
+    );
+  }
+
+  Widget animateShimmerPop({
+    bool target = true,
+    Duration delay = const Duration(milliseconds: 200),
+  }) {
+    if (_disabled) return this;
+
+    return _animation(target)
+        .shimmer(delay: _delay(delay), duration: _duration(1200))
+        .then()
+        .scale(
+          begin: const Offset(0.94, 1),
+          end: const Offset(1, 1),
+          duration: _duration(300),
+          curve: Curves.easeOutBack,
+        );
+  }
+
+  Widget animateAttention({
+    bool target = true,
+    Duration delay = Duration.zero,
+  }) {
+    if (_disabled) return this;
+
+    return _fade(target: target, delay: _delay(delay), duration: 400)
+        .slideY(
+          begin: 0.3,
+          end: 0,
+          delay: _delay(delay),
+          duration: _duration(400),
+          curve: Curves.easeOutCubic,
+        )
+        .then()
+        .shake(hz: 2);
+  }
+
+  Widget animateBlurIn({
+    bool target = true,
+    double blur = 10,
+    Duration delay = Duration.zero,
+    int duration = 1200,
+  }) {
+    if (_disabled) return this;
+
+    return _fade(
+      target: target,
+      delay: _delay(delay),
+      duration: duration,
+    ).blurXY(
+      begin: blur,
+      end: 0,
+      delay: _delay(delay),
+      duration: _duration(duration),
+    );
+  }
+
+  Widget animatePageTransition(double animation) {
+    if (_disabled) return this;
+    final t = Curves.easeOutExpo.transform(animation);
+    final slid = FractionalTranslation(
+      translation: Offset(0.12 * (1 - t), 0),
+      child: this,
+    );
+    return PrefName.useGlassMode.value
+        ? slid
+        : Opacity(opacity: t, child: slid);
+  }
+
+  Widget animateNavItem({required bool selected, bool active = false}) {
+    if (_disabled) return this;
+
+    final enabled = selected || active;
+
+    return _animation(enabled).scale(
+      begin: const Offset(.94, .94),
+      end: active ? const Offset(1.08, 1.08) : const Offset(1, 1),
+      duration: _duration(260),
+      curve: Curves.easeOutBack,
+    );
+  }
+
+  Widget animateNavIcon({bool selected = false}) {
+    if (_disabled) return this;
+
+    return _animation(!selected)
+        .fade(begin: 0, end: 1, delay: _duration(80), duration: _duration(180))
+        .moveY(
+          begin: -8,
+          end: 0,
+          delay: _duration(80),
+          duration: _duration(220),
+          curve: Curves.easeOutCubic,
+        )
+        .scale(
+          begin: const Offset(.85, .85),
+          end: const Offset(1, 1),
+          delay: _duration(80),
+          duration: _duration(220),
+          curve: Curves.easeOutBack,
+        );
+  }
+
+  Widget animateNavLabel({bool selected = false}) {
+    if (_disabled) return this;
+
+    return _animation(selected)
+        .fade(begin: 0, end: 1, duration: _duration(160))
+        .moveY(
+          begin: 8,
+          end: 0,
+          duration: _duration(200),
+          curve: Curves.easeOutCubic,
+        )
+        .scale(
+          begin: const Offset(.92, .92),
+          end: const Offset(1, 1),
+          duration: _duration(200),
+          curve: Curves.easeOutBack,
+        );
+  }
+
+  Widget animateNavIndicator() {
+    if (_disabled) return this;
+
+    return animate()
+        .fade(duration: _duration(180))
+        .scaleX(
+          begin: .15,
+          end: 1,
+          duration: _duration(260),
+          curve: Curves.easeOutBack,
+        );
+  }
+
+  Widget animateNavSelection({required bool selected}) {
+    if (_disabled) return this;
+
+    return _fadeScale(
+      target: selected,
+      fadeDuration: 200,
+      begin: const Offset(.72, .72),
+      end: const Offset(1, 1),
+      scaleDuration: 280,
+    );
+  }
+
+  Widget animateNavAvatar({bool active = true}) {
+    if (_disabled) return this;
+
+    return _fadeScale(
+      target: active,
+      fadeDuration: 220,
+      begin: const Offset(.9, .9),
+      end: const Offset(1, 1),
+      scaleDuration: 300,
+    );
+  }
+
+  Widget animateStagger(
+    int index, {
+    int step = 45,
+    int max = 8,
+    int duration = 380,
+    double begin = 0.12,
+  }) => animateFadeUp(
+    delay: Duration(milliseconds: step * (index < max ? index : max)),
+    duration: duration,
+    begin: begin,
+  );
+
+  Widget animateFadeIn({
+    bool target = true,
+    Duration delay = Duration.zero,
+    int duration = 260,
+  }) {
+    if (_disabled || duration <= 0) return this;
+
+    return _fade(target: target, delay: delay, duration: duration);
+  }
+
+  Widget animatePress({required bool pressed, double scale = 0.96}) {
+    if (_disabled) return this;
+
+    return _animation(pressed).scale(
+      begin: const Offset(1, 1),
+      end: Offset(scale, scale),
+      duration: _duration(120),
+      curve: Curves.easeOut,
+    );
+  }
+}

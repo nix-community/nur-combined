@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="shortcut_continue_short">Continue</string>
+    <string name="shortcut_continue_long">Continue watching or reading</string>
+    <string name="shortcut_search_short">Search</string>
+    <string name="shortcut_search_long">Search</string>
+    <string name="shortcut_downloads_short">Downloads</string>
+    <string name="shortcut_downloads_long">Downloads</string>
+    <string name="shortcut_calendar_short">Calendar</string>
+    <string name="shortcut_calendar_long">Release calendar</string>
+    <string name="widget_name">Dartotsu</string>
+    <string name="widget_description">Continue where you left off and see what releases soon</string>
+    <string name="widget_play">Continue</string>
+</resources>

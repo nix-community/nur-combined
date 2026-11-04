@@ -1,0 +1,56 @@
+import 'package:dartotsu_extension_bridge/Extensions/DownloadablePlugin.dart';
+import 'package:dartotsu_extension_bridge/dartotsu_extension_bridge.dart';
+import 'package:flutter/material.dart';
+
+import '../../../Core/Preferences/PrefManager.dart';
+import '../../../Core/ThemeManager/LanguageSwitcher.dart';
+import '../../../Model/Setting.dart';
+import '../../Extension/Widgets/ExtensionManagerSheet.dart';
+import '../ExtensionSourceSettingsScreen.dart';
+import 'AddonSettings.dart';
+import '../../../Core/State/State.dart';
+import '../../../Utils/Extensions/StringExtensions.dart';
+
+List<Setting> extensionSettings(BuildContext context) {
+  final manager = find<ExtensionManager>();
+  return [
+    Setting.header(getString.sectionManagers),
+    for (final type in ItemType.values) ...[
+      Setting.normal(
+        name: getString.extensionsOfType(type.name.capitalizeFirst),
+        description: manager[type].name,
+        icon: switch (type) {
+          ItemType.anime => Icons.movie_filter_rounded,
+          ItemType.manga => Icons.import_contacts_rounded,
+          ItemType.novel => Icons.book_rounded,
+        },
+        isActivity: true,
+        onClick: () => showExtensionManagerSheet(context, type),
+      ),
+      if (manager[type].settings(context).isNotEmpty)
+        Setting.normal(
+          name: getString.extensionSettingsTitle(manager[type].name),
+          description: getString.extensionsOfType(type.name.capitalizeFirst),
+          icon: Icons.settings_rounded,
+          isActivity: true,
+          onClick: () => openExtensionSettings(context, manager[type]),
+        ),
+    ],
+    Setting.header(getString.sectionOptions),
+    Setting.switchType(
+      name: getString.loadExtensionsIcon,
+      description: getString.loadExtensionsIconDesc,
+      icon: Icons.image_outlined,
+      isChecked: PrefName.loadExtensionIcon.rx.value,
+      onSwitchChange: (v) => PrefName.loadExtensionIcon.rx.value = v,
+    ),
+    Setting.switchType(
+      name: getString.autoUpdateRuntimes,
+      description: getString.autoUpdateRuntimesDesc,
+      icon: Icons.system_update_alt_rounded,
+      isChecked: DownloadablePlugin.autoUpdateEnabled.value,
+      onSwitchChange: (v) => DownloadablePlugin.autoUpdateEnabled.value = v,
+    ),
+    ...addonSettings(context),
+  ];
+}

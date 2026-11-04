@@ -1,0 +1,46 @@
+PODS:
+  - fl_pip (0.0.1):
+    - Flutter
+  - Flutter (1.0.0)
+  - flutter_qjs (0.0.1):
+    - Flutter
+  - install_plugin (2.0.0):
+    - Flutter
+  - isar_community_flutter_libs (1.0.0):
+    - Flutter
+  - rhttp (0.0.1):
+    - Flutter
+
+DEPENDENCIES:
+  - fl_pip (from `.symlinks/plugins/fl_pip/ios`)
+  - Flutter (from `Flutter`)
+  - flutter_qjs (from `.symlinks/plugins/flutter_qjs/ios`)
+  - install_plugin (from `.symlinks/plugins/install_plugin/ios`)
+  - isar_community_flutter_libs (from `.symlinks/plugins/isar_community_flutter_libs/ios`)
+  - rhttp (from `.symlinks/plugins/rhttp/ios`)
+
+EXTERNAL SOURCES:
+  fl_pip:
+    :path: ".symlinks/plugins/fl_pip/ios"
+  Flutter:
+    :path: Flutter
+  flutter_qjs:
+    :path: ".symlinks/plugins/flutter_qjs/ios"
+  install_plugin:
+    :path: ".symlinks/plugins/install_plugin/ios"
+  isar_community_flutter_libs:
+    :path: ".symlinks/plugins/isar_community_flutter_libs/ios"
+  rhttp:
+    :path: ".symlinks/plugins/rhttp/ios"
+
+SPEC CHECKSUMS:
+  fl_pip: 8161c3d6fb04a73d698d7a80c1bf83cd046d738a
+  Flutter: 71a624a5bc0c04062bf19101d501e466baf2fb47
+  flutter_qjs: 24afb6e1b95cb2e5ffd8b9053eb7618459c42837
+  install_plugin: e17e38d6f504857748a3ec1299d8a2bbeeeea854
+  isar_community_flutter_libs: bede843185a61a05ff364a05c9b23209523f7e0d
+  rhttp: 359daed992674fc912552df3106bfbc746bcc929
+
+PODFILE CHECKSUM: 9c46fd01abff66081b39f5fa5767b3f1d0b11d76
+
+COCOAPODS: 1.17.0

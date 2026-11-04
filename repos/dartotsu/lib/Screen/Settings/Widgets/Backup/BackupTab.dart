@@ -1,0 +1,140 @@
+import 'package:flutter/material.dart';
+
+import '../../../../Core/Preferences/PrefBackup.dart';
+import '../../../../Core/Preferences/PrefManager.dart';
+import '../../../../Core/Preferences/StorageManager.dart';
+import '../../../../Core/Services/MediaServiceController.dart';
+import '../../../../Core/ThemeManager/LanguageSwitcher.dart';
+import '../../../../Utils/Extensions/ContextExtensions.dart';
+import '../../../../Utils/Functions/SnackBar.dart';
+import 'BackupActionButton.dart';
+import 'BackupCategoryTile.dart';
+import 'BackupSelection.dart';
+import 'PasswordField.dart';
+import '../../../../Core/State/State.dart';
+
+class BackupTab extends StatefulWidget {
+  final Map<PrefLocation, List<String>> keys;
+
+  const BackupTab({super.key, required this.keys});
+
+  @override
+  State<BackupTab> createState() => _BackupTabState();
+}
+
+class _BackupTabState extends State<BackupTab> {
+  final _busy = false.live;
+  final _selected = <PrefLocation, bool>{}.liveMap;
+  final _password = TextEditingController();
+  final _hidden = true.live;
+  final _hasPassword = false.live;
+
+  @override
+  void initState() {
+    super.initState();
+    _password.addListener(() => _hasPassword.value = _password.text.isNotEmpty);
+    for (final l in widget.keys.keys) {
+      _selected[l] = true;
+    }
+  }
+
+  @override
+  void dispose() {
+    _password.dispose();
+    super.dispose();
+  }
+
+  Future<void> _backup() async {
+    final chosen = chosenLocations(_selected);
+    if (chosen.isEmpty) {
+      snackString(getString.backupSelectOne);
+      return;
+    }
+    if (chosen.contains(PrefLocation.PROTECTED) && !_hasPassword.value) {
+      snackString(getString.backupProtectedNeedsPassword);
+      return;
+    }
+    final folder = await StorageManager.getDirectory(
+      subPath: 'backups',
+      useCustomPath: true,
+      useSystemPath: false,
+    );
+    if (folder == null) return;
+    final dir = folder.path;
+    _busy.value = true;
+    try {
+      final services = find<MediaServiceController>();
+      final name = await PrefBackup.create(
+        directory: dir,
+        locations: chosen,
+        password: _password.text.isEmpty ? null : _password.text,
+        accounts: services.accounts,
+        service: services.currentService.value.id,
+      );
+      snackString(getString.backupSaved(name));
+    } catch (e) {
+      snackString(getString.backupFailed('$e'));
+    } finally {
+      _busy.value = false;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = context.colorScheme;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Watch(() => SelectAllButton(selection: _selected)),
+        for (final entry in widget.keys.entries)
+          BackupCategoryTile(
+            location: entry.key,
+            keys: entry.value,
+            selected: _selected,
+          ),
+        const SizedBox(height: 8),
+        Watch(
+          () => PasswordField(
+            controller: _password,
+            hidden: _hidden,
+            hint: (_selected[PrefLocation.PROTECTED] ?? false)
+                ? getString.backupPasswordRequired
+                : getString.backupPasswordHint,
+          ),
+        ),
+        Watch(
+          () => (_selected[PrefLocation.PROTECTED] ?? false)
+              ? Padding(
+                  padding: const EdgeInsets.only(top: 8),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.warning_amber_rounded,
+                        size: 18,
+                        color: scheme.error,
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          getString.backupSensitive,
+                          style: context.textTheme.bodySmall?.copyWith(
+                            color: scheme.error,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              : const SizedBox.shrink(),
+        ),
+        const SizedBox(height: 16),
+        BackupActionButton(
+          icon: Icons.save_alt_rounded,
+          label: getString.backupCreate,
+          busy: _busy,
+          onPressed: _backup,
+        ),
+      ],
+    );
+  }
+}

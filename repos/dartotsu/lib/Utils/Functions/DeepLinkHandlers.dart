@@ -1,0 +1,87 @@
+import 'dart:async';
+
+import 'package:collection/collection.dart';
+import 'package:dartotsu_extension_bridge/ExtensionManager.dart';
+import 'package:flutter/widgets.dart';
+
+import '../../Core/Services/MediaServiceController.dart';
+import '../../Screen/Social/SocialNavigation.dart';
+import '../../Widgets/Components/AlertDialogBuilder.dart';
+import 'SnackBar.dart';
+import '../../Core/State/State.dart';
+import '../../Core/ThemeManager/LanguageSwitcher.dart';
+
+const appSchemes = {'dartotsu'};
+
+abstract class DeepLinkHandler {
+  bool matches(Uri uri);
+
+  Future<void> handle(BuildContext context, Uri uri);
+}
+
+class ExtensionRepoLinks extends DeepLinkHandler {
+  @override
+  bool matches(Uri uri) =>
+      uri.host == 'add-repo' &&
+      find<ExtensionManager>().managers.any(
+        (m) => m.schemes.contains(uri.scheme.toLowerCase()),
+      );
+
+  @override
+  Future<void> handle(BuildContext context, Uri uri) async {
+    final handler = find<ExtensionManager>().managers.firstWhere(
+      (m) => m.schemes.contains(uri.scheme.toLowerCase()),
+    );
+    final target = uri.queryParameters['url'] ?? uri.toString();
+    final accepted = Completer<bool>();
+    unawaited(
+      AlertDialogBuilder(context)
+          .setTitle(getString.addRepository)
+          .setMessage(getString.repoLinkConfirm(target))
+          .setPositiveButton(getString.addRepository, () {
+            if (!accepted.isCompleted) accepted.complete(true);
+          })
+          .setNegativeButton(getString.cancel, () {
+            if (!accepted.isCompleted) accepted.complete(false);
+          })
+          .setOnDismissListener(() {
+            if (!accepted.isCompleted) accepted.complete(false);
+          })
+          .show<void>(),
+    );
+    if (!await accepted.future) return;
+    handler.handleSchemes(uri);
+    snackString(getString.repoLinksAdded);
+  }
+}
+
+class ServiceLinks extends DeepLinkHandler {
+  static MediaService? serviceFor(Uri uri) {
+    final services = find<MediaServiceController>().services;
+    final scheme = uri.scheme.toLowerCase();
+    final host = uri.host.toLowerCase();
+    return services.firstWhereOrNull(
+      (s) =>
+          (appSchemes.contains(scheme) && host == s.id) ||
+          s.linkSchemes.contains(scheme) ||
+          ((scheme == 'http' || scheme == 'https') &&
+              s.linkHosts.contains(host)),
+    );
+  }
+
+  @override
+  bool matches(Uri uri) => serviceFor(uri)?.parseUri(uri) != null;
+
+  @override
+  Future<void> handle(BuildContext context, Uri uri) async {
+    final service = serviceFor(uri)!;
+    await service.ready();
+    if (!context.mounted) return;
+    return openAppLink(
+      context,
+      service,
+      uri.toString(),
+      link: service.parseUri(uri),
+    );
+  }
+}

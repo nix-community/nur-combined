@@ -1,0 +1,143 @@
+import 'dart:async';
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:path/path.dart' as p;
+
+import '../../../Core/Preferences/PrefManager.dart';
+import '../../../Core/ThemeManager/LanguageSwitcher.dart';
+import '../../../Core/ThemeManager/ThemeController.dart';
+import '../../../Core/ThemeManager/ThemeMode.dart';
+import '../../../Model/Setting.dart';
+import '../../../Utils/Extensions/ContextExtensions.dart';
+import '../../../Utils/Functions/DisplayMode.dart';
+import '../../../Utils/Functions/NavigateToScreen.dart';
+import '../../../Widgets/Components/AppControls.dart';
+import '../CardStyleScreen.dart';
+import '../Widgets/FontPickerSheet.dart';
+import '../Widgets/GlassBackgroundSheet.dart';
+import '../Widgets/SegmentedSetting.dart';
+import '../Widgets/ThemeDropdown.dart';
+import '../../../Core/State/State.dart';
+
+List<Setting> appearanceSettings(BuildContext context) =>
+    appearanceRows(context);
+
+List<Setting> appearanceRows(BuildContext context) {
+  final t = find<ThemeController>();
+  return [
+    Setting.header(getString.sectionColors),
+    Setting.normal(
+      name: getString.settingsAppearance,
+      icon: Icons.color_lens_rounded,
+      trailing: Icon(
+        Icons.chevron_right_rounded,
+        size: 18,
+        color: context.colorScheme.onSurfaceVariant,
+      ),
+      description: themeLabel(t),
+      onClick: () => openThemePicker(context),
+    ),
+    Setting.switchType(
+      name: getString.materialYou,
+      description: getString.materialYouDesc,
+      icon: Icons.color_lens_outlined,
+      isChecked: t.useMaterialYou.value,
+      onSwitchChange: t.setMaterialYou,
+    ),
+    Setting.switchType(
+      name: getString.followCover,
+      description: getString.followCoverDesc,
+      icon: Icons.palette_outlined,
+      isChecked: t.cover.enabled.value,
+      onSwitchChange: (v) => t.cover.enabled.value = v,
+    ),
+    if (t.cover.enabled.value)
+      Setting.switchType(
+        name: getString.followCoverMediaOnly,
+        description: getString.followCoverMediaOnlyDesc,
+        icon: Icons.movie_filter_outlined,
+        isChecked: t.cover.mediaOnly.value,
+        onSwitchChange: (v) => t.cover.mediaOnly.value = v,
+      ),
+    if (Platform.isLinux)
+      Setting.switchType(
+        name: getString.jsonTheme,
+        description: getString.jsonThemeDesc,
+        icon: Icons.insert_drive_file_outlined,
+        isChecked: t.useJsonTheme.value,
+        onSwitchChange: t.setUseJsonTheme,
+      ),
+    Setting.header(getString.sectionDisplay),
+    if (Platform.isAndroid)
+      Setting.switchType(
+        name: getString.highRefreshRate,
+        description: getString.highRefreshRateDesc,
+        icon: Icons.speed_rounded,
+        isChecked: PrefName.highRefreshRate.rx.value,
+        onSwitchChange: (v) {
+          PrefName.highRefreshRate.value = v;
+          unawaited(applyRefreshRate());
+        },
+      ),
+    segmentedSetting<ThemeModePref>(
+      name: getString.themeMode,
+      icon: Icons.brightness_6_rounded,
+      label: getString.mode,
+      value: t.mode.value,
+      onChanged: t.setThemeMode,
+      segments: const [
+        AppSegment(ThemeModePref.system, icon: Icons.brightness_auto_rounded),
+        AppSegment(ThemeModePref.light, icon: Icons.light_mode_rounded),
+        AppSegment(ThemeModePref.dark, icon: Icons.dark_mode_rounded),
+      ],
+    ),
+    Setting.switchType(
+      name: getString.amoledBlack,
+      description: getString.amoledBlackDesc,
+      icon: Icons.brightness_3_rounded,
+      isChecked: t.isOled.value,
+      onSwitchChange: t.setOled,
+    ),
+    Setting.switchType(
+      name: getString.glassMode,
+      description: getString.glassModeDesc,
+      icon: Icons.blur_on_rounded,
+      isChecked: t.useGlassMode.value,
+      onSwitchChange: t.setGlassEffect,
+    ),
+    Setting.switchType(
+      name: getString.shelfFrame,
+      description: getString.shelfFrameDesc,
+      icon: Icons.crop_square_rounded,
+      isChecked: PrefName.shelfFrame.rx.value,
+      onSwitchChange: (v) => PrefName.shelfFrame.rx.value = v,
+    ),
+    Setting.normal(
+      name: getString.glassBackground,
+      description: PrefName.glassBackgroundUrl.rx.value.isEmpty
+          ? getString.glassBackgroundDesc
+          : PrefName.glassBackgroundUrl.rx.value,
+      icon: Icons.wallpaper_rounded,
+      isActivity: true,
+      onClick: () => showGlassBackgroundSheet(context),
+    ),
+    Setting.header(getString.sectionStyle),
+    Setting.normal(
+      name: getString.cardStyle,
+      description: getString.cardStyleDesc,
+      icon: Icons.dashboard_customize_rounded,
+      isActivity: true,
+      onClick: () => navigateToPage(context, const CardStyleScreen()),
+    ),
+    Setting.normal(
+      name: getString.customFont,
+      description: t.useCustomFont.value
+          ? p.basenameWithoutExtension(t.customFontPath.value)
+          : getString.customFontDesc,
+      icon: Icons.text_fields_rounded,
+      isActivity: true,
+      onClick: () => showFontPicker(context),
+    ),
+  ];
+}

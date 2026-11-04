@@ -1,0 +1,125 @@
+import 'package:flutter/material.dart';
+import '../../Widgets/Components/AppBars.dart';
+
+import '../../Core/ThemeManager/LanguageSwitcher.dart';
+import '../../Model/Setting.dart';
+import '../../Utils/Extensions/ContextExtensions.dart';
+import '../../Utils/Extensions/Responsive.dart';
+import '../../Widgets/Components/ScrollConfig.dart';
+import 'Widgets/SettingsGroup.dart';
+import 'Widgets/SettingsSearchField.dart';
+import '../../Core/State/State.dart';
+
+class SettingsListView extends StatefulWidget {
+  final List<Setting> Function(BuildContext) searchable;
+  final List<Setting> Function(BuildContext)? menu;
+  final String? hint;
+
+  /// When set, renders an M3 large collapsing top app bar with this title as
+  /// the first sliver instead of leaving the caller's own [Scaffold.appBar].
+  final String? title;
+
+  /// Replaces the default [SettingsGroup] list for the empty-query state
+  /// (e.g. the top-level screen's category picker instead of a flat list).
+  final WidgetBuilder? emptyBuilder;
+
+  /// Header title -> icon: shows each titled section as a collapsed card
+  /// while the search field is empty (see [SettingsGroup.accordion]).
+  final Map<String, SectionStyle>? accordion;
+
+  const SettingsListView({
+    super.key,
+    required this.searchable,
+    this.menu,
+    this.hint,
+    this.title,
+    this.emptyBuilder,
+    this.accordion,
+  });
+
+  @override
+  State<SettingsListView> createState() => _SettingsListViewState();
+}
+
+class _SettingsListViewState extends State<SettingsListView> {
+  final _query = ''.live;
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomScrollConfig(
+      context,
+      children: [
+        if (widget.title != null) AppSliverBar(title: widget.title!),
+        SliverPadding(
+          padding: EdgeInsets.fromLTRB(
+            Dimens.pagePad,
+            Dimens.gapXs,
+            Dimens.pagePad,
+            Dimens.gapXl,
+          ),
+          sliver: SliverMainAxisGroup(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Column(
+                  children: [
+                    SettingsSearchField(query: _query, hint: widget.hint),
+                    SizedBox(height: Dimens.gap),
+                  ],
+                ),
+              ),
+              Watch(() {
+                final q = _query.value;
+                if (q.isEmpty) {
+                  final custom = widget.emptyBuilder?.call(context);
+                  if (custom != null) return SliverToBoxAdapter(child: custom);
+                  return SliverSettingsGroup(
+                    settings: (widget.menu ?? widget.searchable)(context),
+                    accordion: widget.accordion,
+                  );
+                }
+                final filtered = _filter(widget.searchable(context), q);
+                if (filtered.isEmpty) {
+                  return SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 64),
+                      child: Center(
+                        child: Text(
+                          getString.nothingMatches(q),
+                          style: context.textTheme.bodyMedium?.copyWith(
+                            color: context.colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                }
+                return SliverSettingsGroup(settings: filtered);
+              }),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  static List<Setting> _filter(List<Setting> all, String query) {
+    final out = <Setting>[];
+    for (var i = 0; i < all.length; i++) {
+      final s = all[i];
+      if (s.type == SettingType.header) {
+        var hit = false;
+        for (var j = i + 1; j < all.length; j++) {
+          if (all[j].type == SettingType.header) break;
+          if (all[j].matches(query)) {
+            hit = true;
+            break;
+          }
+        }
+        if (hit) out.add(s);
+      } else if (s.matches(query)) {
+        out.add(s);
+      }
+    }
+    return out;
+  }
+}
