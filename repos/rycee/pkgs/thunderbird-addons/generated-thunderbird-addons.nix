@@ -208,6 +208,33 @@
         platforms = platforms.all;
       };
     };
+    "mailmindr" = buildMozillaXpiAddon {
+      pname = "mailmindr";
+      version = "1.7.1";
+      addonId = "mailmindr@arndissler.net";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1031426/mailmindr-1.7.1-tb.xpi?src=";
+      sha256 = "d9736cde11380259529fadb41cd0d9483dab5d5985a0b8d0a6f88e768e04c698";
+      meta = with lib;
+      {
+        homepage = "https://mailmindr.net/";
+        description = "Follow up for Thunderbird E-Mails. \n\nWeb: <a rel=\"nofollow\" href=\"https://mailmindr.net/\">https://mailmindr.net/</a>\nTwitter: @mailmindr";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "activeTab"
+          "accountsRead"
+          "compose"
+          "menus"
+          "messagesModify"
+          "messagesMove"
+          "messagesRead"
+          "messagesUpdate"
+          "storage"
+          "tabs"
+          "unlimitedStorage"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "manually-sort-folders" = buildMozillaXpiAddon {
       pname = "manually-sort-folders";
       version = "2.3.0";

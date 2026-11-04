@@ -17,6 +17,16 @@
     "slug": "2fas-two-factor-authentication"
   },
   {
+    "slug": "7tv-new",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
+  },
+  {
     "slug": "a11ycss"
   },
   {
@@ -1551,6 +1561,9 @@
     "slug": "open-url-in-container"
   },
   {
+    "slug": "ophirofox"
+  },
+  {
     "slug": "org-capture"
   },
   {
@@ -1741,6 +1754,9 @@
     "slug": "quality-of-rwth"
   },
   {
+    "slug": "qui"
+  },
+  {
     "slug": "qwant-the-search-engine",
     "pname": "qwant-search"
   },
@@ -1753,6 +1769,9 @@
   },
   {
     "slug": "raindropio"
+  },
+  {
+    "slug": "rather-s-link-shortener"
   },
   {
     "slug": "re-enable-right-click"
