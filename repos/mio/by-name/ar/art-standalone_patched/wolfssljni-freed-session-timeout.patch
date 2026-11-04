@@ -11,15 +11,14 @@ Skip those sessions instead of aborting the handshake.
 
 --- a/external/wolfssljni/src/java/com/wolfssl/provider/jsse/WolfSSLImplementSSLSession.java
 +++ b/external/wolfssljni/src/java/com/wolfssl/provider/jsse/WolfSSLImplementSSLSession.java
-@@ -552,3 +552,10 @@
+@@ -552,7 +552,10 @@
      protected void setNativeTimeout(long in) {
--        ssl.setSessTimeout(in);
 +        if (ssl == null) {
 +            return;
 +        }
-+        try {
-+            ssl.setSessTimeout(in);
-+        } catch (IllegalStateException e) {
-+            /* Native WOLFSSL already freed; keep walking the session cache. */
-+        }
+         try {
+             ssl.setSessTimeout(in);
+         } catch (IllegalStateException e) {
+             /* WOLFSSL freed on connection close */
+         }
      }
