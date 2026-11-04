@@ -1,0 +1,8 @@
+result
+result-*
+
+# direnv
+.direnv
+
+# git-hooks
+.pre-commit-config.yaml
