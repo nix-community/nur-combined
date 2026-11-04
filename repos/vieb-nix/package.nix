@@ -3,7 +3,7 @@
   buildNpmPackage,
   fetchFromGitHub,
   electron,
-  electron_43 ? electron,
+  electron_45 ? electron,
   makeWrapper,
   python3,
   makeDesktopItem,
@@ -11,7 +11,7 @@
   lib,
 }:
 let
-  electron = electron_43;
+  electron = electron_45;
 in
 buildNpmPackage (finalAttrs: {
   pname = "vieb";
