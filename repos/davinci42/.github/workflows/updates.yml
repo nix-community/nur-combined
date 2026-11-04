@@ -27,7 +27,6 @@ jobs:
       PYTHONDONTWRITEBYTECODE: '1'
       NO_COLOR: '1'
       NIXPKGS_ALLOW_UNFREE: '1'
-      NIXPKGS_CONFIG: ${{ runner.temp }}/nur-nixpkgs-config.nix
       NIX_CONFIG: >-
         substituters =
         https://mirror.sjtu.edu.cn/nix-channels/store
@@ -44,6 +43,7 @@ jobs:
           token: ${{ secrets.UPDATE_TOKEN || github.token }}
       - name: Validate updates and open pull requests
         env:
+          NIXPKGS_CONFIG: ${{ runner.temp }}/nur-nixpkgs-config.nix
           GH_TOKEN: ${{ secrets.UPDATE_TOKEN || github.token }}
           GITHUB_TOKEN: ${{ secrets.UPDATE_TOKEN || github.token }}
           UPDATE_BASE: ${{ github.event.repository.default_branch }}
