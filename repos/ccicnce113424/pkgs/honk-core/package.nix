@@ -33,12 +33,12 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "honk-core";
-  version = "0.1.0-beta.4";
+  version = "0.1.0-beta.5";
   src = fetchFromGitHub {
     owner = "daeuniverse";
     repo = "honk";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-TeSTQEZwS2jMm7CJgRfJoHnhTBWyFN0MzA6DyZcsbkk=";
+    hash = "sha256-HHvfaSr69FFy3Aui10iWpkwo2FlEQr3S6CjW1XtzAYA=";
   };
 
   # crates/honk-ebpf is excluded from the workspace and pins its own toolchain
@@ -62,7 +62,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
         src
         cargoRoot
         ;
-      hash = "sha256-Q5O7QBjM3mO9aP5KF9BLMz3qQ1oPfYTFQ94mgbIHuZM=";
+      hash = "sha256-IQl1dBhyjAJ5a+ehuid4uJxoxKgrsQx3TtZ9wSYhr7o=";
     };
 
     nativeBuildInputs = [
@@ -108,7 +108,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     '';
   });
 
-  cargoHash = "sha256-yJVRm0I9JrtEnyI9ldi7Nmojjmj4rx9Dp/yuRVizRIk=";
+  cargoHash = "sha256-ZE5Axfwx3Tu/cbiH87Q0reS2jRpZI8EbJF29/KsYvYA=";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -172,7 +172,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   # Installed as honk-core.service — the name doona's restart notice uses.
   # The NixOS module consumes it through systemd.packages.
   postInstall = ''
-    install -Dm444 install/honk.service $out/lib/systemd/system/honk-core.service
+    install -Dm444 install/honk-core.service $out/lib/systemd/system/honk-core.service
   '';
 
   # honk-tool's `diagnose` shells out to `ip netns exec`; keep iproute2 on
