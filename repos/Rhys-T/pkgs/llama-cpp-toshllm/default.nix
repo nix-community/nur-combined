@@ -1,5 +1,5 @@
 { lib, fetchFromGitHub, llama-cpp, avx2Support ? true, maintainers }: let
-    toshllm-version = "0.87.32";
+    toshllm-version = "0.87.33";
     toshllm-hash = "sha256-0wT8On05Qt/WyeRFfLzgL+BpyhuOxdBDluEkoGyiY/c=";
     llama-cpp-rev = "d81235049384534c167caea52b85a694f6103d14";
     llama-cpp-hash = "sha256-l6l6JIlIVTaVC6xh5M4fRHFtXsweQuugtkNTWHcZZF4=";
