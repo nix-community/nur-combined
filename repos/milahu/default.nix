@@ -1672,6 +1672,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   gopro-labs-udtacopy = callPackage ./pkgs/by-name/gopro-labs-udtacopy/package.nix { };
 
+  camoufox-unwrapped = callPackage ./pkgs/by-name/ca/camoufox-unwrapped/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
