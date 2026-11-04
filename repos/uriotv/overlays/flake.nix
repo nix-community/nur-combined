@@ -14,7 +14,7 @@ let
     }) packageNames
   );
   kernels = {
-    inherit (pinned) linux-cachyos-latest-x86_64-v3 linux-cachyos-bore-x86_64-v3;
+    inherit (pinned) linux-cachyos-latest-x86_64-v3;
   };
 in
 packages

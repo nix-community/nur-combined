@@ -1,7 +1,7 @@
 # urio-nur
 
 My personal [NUR](https://github.com/nix-community/NUR) repository: a few
-packages, two CachyOS kernels, and a public binary cache at
+packages, a CachyOS kernel, and a public binary cache at
 [uriotv.cachix.org](https://uriotv.cachix.org).
 
 [![Build and populate cache](https://github.com/urioTV/urio-nur/actions/workflows/build.yml/badge.svg)](https://github.com/urioTV/urio-nur/actions/workflows/build.yml)
@@ -38,7 +38,6 @@ redistribution.
 | `storyforge` | `2.0.11` | Story Forge desktop application, built independently of the upstream flake | Yes |
 | `wowup-cf` | `2.25.4` | World of Warcraft addon manager with CurseForge support | Yes |
 | `linux-cachyos-latest-x86_64-v3` | `7.3.1` | CachyOS kernel, x86-64-v3, non-LTO | Yes |
-| `linux-cachyos-bore-x86_64-v3` | `7.3.1` | CachyOS kernel with BORE scheduler, x86-64-v3, non-LTO | Yes |
 
 ## Using the packages
 
@@ -108,7 +107,7 @@ Five workflows: one daily clock, one weekly lock update, and one branch that mar
 |---|---|---|
 | `update.yml` "Update packages" | every day at **02:00 `Europe/Warsaw`** (IANA timezone, follows DST), or manually | Checks every registered package for a newer upstream version and updates its pin. Successful changes go into one `auto-update-packages` PR with squash auto-merge. |
 | `build.yml` "Build and populate cache" | on PRs, on pushes to `main`, after a successful update run on `main`, or manually | Runs offline tests and Nix evaluation checks, then builds every eligible package on GitHub-hosted runners. On `main` it publishes eligible outputs to `uriotv` and verifies each `StorePath`. |
-| `kernel.yml` "Build CachyOS kernel (self-hosted)" | on every push to `main`, after a successful update run, or manually | Builds the two kernels from source on our self-hosted builder (or realises them when already published), then publishes them after a licence check. |
+| `kernel.yml` "Build CachyOS kernel (self-hosted)" | on every push to `main`, after a successful update run, or manually | Builds the kernel from source on our self-hosted builder (or realises it when already published), then publishes it after a licence check. |
 | `flake-update.yml` "Update flake.lock" | every **Sunday 03:00 `Europe/Warsaw`**, or manually | Updates every flake input in one PR with squash auto-merge. Kernels and packages then rebuild against the new lock. |
 | `cache-branch.yml` "Update cache branch" | after the build or kernel workflow completes on `main`, or manually | Moves the `cache` branch to the current `main` commit, only when every cache publication for that commit succeeded. |
 | `test-gate` (inside `build.yml`) | after every build run | Blocks merges unless the offline tests and package build both succeed. |
@@ -142,32 +141,34 @@ Required repository secrets:
 
 ## CachyOS kernels
 
-Two non-LTO kernels for x86-64-v3 CPUs, named like upstream
+One non-LTO kernel for x86-64-v3 CPUs, named like upstream
 [xddxdd/nix-cachyos-kernel](https://github.com/xddxdd/nix-cachyos-kernel):
 
 - `linux-cachyos-latest-x86_64-v3` (EEVDF scheduler)
-- `linux-cachyos-bore-x86_64-v3` (BORE scheduler)
 
-Use them in NixOS:
+Use it in NixOS:
 
 ```nix
-boot.kernelPackages = pkgs.linuxPackages-cachyos-bore-x86_64-v3;
-# or pkgs.linuxPackages-cachyos-latest-x86_64-v3
+boot.kernelPackages = pkgs.linuxPackages-cachyos-latest-x86_64-v3;
 ```
 
-How they are defined:
+The former `linuxPackages-cachyos-bore-x86_64-v3` output has been removed;
+consumers using it must switch to the standard kernel before updating this input.
 
-- **Independent recipe:** `lib/cachyos/default.nix` builds each kernel with
+How it is defined:
+
+- **Independent recipe:** `lib/cachyos/default.nix` builds the kernel with
   `buildLinux`. Nothing is imported from xddxdd's flake.
-- **Pinned sources:** each `pkgs/<kernel>/source.json` pins the CachyOS release
-  archive, the kernel config, and the `kernel-patches` tree, with hashes.
-- **Repository nixpkgs:** the kernels are built with this repository's nixpkgs from
+- **Pinned sources:** `pkgs/linux-cachyos-latest-x86_64-v3/source.json` pins the CachyOS release
+  archive, the kernel config, and the `kernel-patches` tree metadata, with hashes.
+  The standard kernel does not apply patches from that tree.
+- **Repository nixpkgs:** the kernel is built with this repository's nixpkgs from
   `flake.lock`, like every other package. Your own nixpkgs is not used, so a
   consumer that overrides `nixpkgs` gets different derivations.
 - **Updates:** the daily updater moves a kernel's `source.json` only when CachyOS
   publishes a strictly newer kernel version. `flake.lock` is updated weekly, which
-  changes the toolchain and rebuilds both kernels.
-- **Builds:** kernels are built on our own builder and published only to `uriotv`.
+  changes the toolchain and rebuilds the kernel.
+- **Builds:** the kernel is built on our own builder and published only to `uriotv`.
   Third-party kernel caches are not used as substituters.
 
 These derivations are not the same as xddxdd's: they use this repository's nixpkgs
@@ -177,7 +178,7 @@ and our source records, so do not expect substitution from xddxdd's cache. Compa
 To check which derivation your system gets:
 
 ```console
-nix eval --raw github:urioTV/urio-nur#packages.x86_64-linux.linux-cachyos-bore-x86_64-v3.drvPath
+nix eval --raw github:urioTV/urio-nur#packages.x86_64-linux.linux-cachyos-latest-x86_64-v3.drvPath
 ```
 
 See [the kernel recipe notes](lib/cachyos/README.md) for details.
@@ -198,7 +199,7 @@ inputs.urio-nur.url = "github:urioTV/urio-nur/cache";
 Use the flake overlay and no `inputs.nixpkgs.follows` on this input (see above);
 otherwise the kernel derivation is not the published one.
 
-The public cache `uriotv` serves every eligible package and both kernels at that
+The public cache `uriotv` serves every eligible package and the kernel at that
 commit. Packages that are not redistributable are never published, so they build
 locally.
 

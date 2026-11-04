@@ -32,7 +32,6 @@ let
     };
   kernelNames = [
     "linux-cachyos-latest-x86_64-v3"
-    "linux-cachyos-bore-x86_64-v3"
   ];
   checkKernel =
     name:

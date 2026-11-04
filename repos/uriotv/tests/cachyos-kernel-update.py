@@ -38,7 +38,7 @@ class UpdaterTests(unittest.TestCase):
         self.pkg.mkdir()
         self.source = self.pkg / "source.json"
         self.source.write_text(json.dumps(CURRENT))
-        self.other = Path(self.temp.name) / "linux-cachyos-bore-x86_64-v3" / "source.json"
+        self.other = Path(self.temp.name) / "unrelated-package" / "source.json"
         self.other.parent.mkdir()
         self.other.write_text(json.dumps({**CURRENT, "version": "7.2.10"}))
 
@@ -63,16 +63,15 @@ class UpdaterTests(unittest.TestCase):
         def raw(url):
             if url.endswith("/PKGBUILD"): return REALISTIC_PKGBUILD.encode()
             if url.endswith("/config"): return b"config-data"
-            if "/sched/0001-bore-cachy.patch" in url: return b"patch-data"
             raise AssertionError(url)
         with patch.object(UPDATER, "git_head", side_effect=head) as heads, \
              patch.object(UPDATER, "curl_bytes", side_effect=raw), \
              patch.object(UPDATER, "assert_url") as available:
-            data = UPDATER.resolve_metadata("bore")
+            data = UPDATER.resolve_metadata("latest")
         self.assertEqual(heads.call_count, 2)
         self.assertEqual(data["configRev"], KERNEL_REV)
         self.assertEqual(data["patchRev"], PATCH_REV)
-        self.assertEqual(data["configUrl"], f"{UPDATER.KERNEL_RAW}/{KERNEL_REV}/linux-cachyos-bore/config")
+        self.assertEqual(data["configUrl"], f"{UPDATER.KERNEL_RAW}/{KERNEL_REV}/linux-cachyos/config")
         self.assertEqual(data["url"], "https://github.com/CachyOS/linux/releases/download/cachyos-7.3.0-2/cachyos-7.3.0-2.tar.gz")
         available.assert_called_once_with(data["url"])
 
@@ -113,49 +112,6 @@ class UpdaterTests(unittest.TestCase):
                 self.assertEqual(self.source.read_bytes(), original)
         finally:
             sys.argv = old_argv
-
-    def test_bore_patch_only_update_preserves_kernel_and_config(self):
-        self.other.write_text(json.dumps({**CURRENT, "configUrl": f"{UPDATER.KERNEL_RAW}/{'a' * 40}/linux-cachyos-bore/config"}))
-        before = json.loads(self.other.read_text())
-        for version in ("7.2.11", "7.2.9"):
-            with self.subTest(version=version):
-                self.other.write_text(json.dumps(before))
-                metadata = {"version": version, "configRev": KERNEL_REV, "patchRev": PATCH_REV}
-                with patch.object(sys, "argv", ["updater", str(self.other.parent), "bore"]), \
-                     patch.object(UPDATER, "resolve_metadata", return_value=metadata), \
-                     patch.object(UPDATER, "curl_bytes", return_value=b"patch") as fetch, \
-                     patch.object(UPDATER, "prefetch_git_root", return_value=H2) as prefetch, \
-                     patch.object(UPDATER, "candidate_hashes", side_effect=AssertionError("kernel prefetch")), \
-                     patch.object(UPDATER, "run", return_value=before["version"]):
-                    self.assertEqual(UPDATER.main(), 0)
-                fetch.assert_called_once_with(f"{UPDATER.PATCH_RAW}/{PATCH_REV}/7.2/sched/0001-bore-cachy.patch")
-                prefetch.assert_called_once_with(PATCH_REV, "7.2/")
-                self.assertEqual(json.loads(self.other.read_text()), {**before, "patchRev": PATCH_REV, "patchHash": H2})
-
-    def test_bore_patch_check_and_missing_patch_do_not_write(self):
-        before = {**CURRENT, "configUrl": f"{UPDATER.KERNEL_RAW}/{'a' * 40}/linux-cachyos-bore/config"}
-        self.other.write_text(json.dumps(before))
-        original = self.other.read_bytes()
-        metadata = {"version": before["version"], "configRev": KERNEL_REV, "patchRev": PATCH_REV}
-        with patch.object(UPDATER, "resolve_metadata", return_value=metadata), \
-             patch.object(UPDATER, "prefetch_git_root", side_effect=AssertionError("unexpected prefetch")):
-            with patch.object(sys, "argv", ["updater", str(self.other.parent), "bore", "--check"]):
-                self.assertEqual(UPDATER.main(), 0)
-            with patch.object(sys, "argv", ["updater", str(self.other.parent), "bore"]), \
-                 patch.object(UPDATER, "curl_bytes", side_effect=RuntimeError("missing patch")):
-                with self.assertRaisesRegex(RuntimeError, "missing patch"):
-                    UPDATER.main()
-        self.assertEqual(self.other.read_bytes(), original)
-
-    def test_bore_unchanged_patch_does_not_prefetch(self):
-        before = {**CURRENT, "configUrl": f"{UPDATER.KERNEL_RAW}/{'a' * 40}/linux-cachyos-bore/config"}
-        self.other.write_text(json.dumps(before))
-        original = self.other.read_bytes()
-        with patch.object(sys, "argv", ["updater", str(self.other.parent), "bore"]), \
-             patch.object(UPDATER, "resolve_metadata", return_value={"version": before["version"], "configRev": KERNEL_REV, "patchRev": before["patchRev"]}), \
-             patch.object(UPDATER, "prefetch_git_root", side_effect=AssertionError("unexpected prefetch")):
-            self.assertEqual(UPDATER.main(), 0)
-        self.assertEqual(self.other.read_bytes(), original)
 
     def test_check_mode_reports_new_ref_without_prefetch_or_write(self):
         before = self.source.read_bytes()
@@ -207,7 +163,6 @@ class UpdaterTests(unittest.TestCase):
     def test_success_updates_only_target_for_both_variants(self):
         for variant, name, config_name in (
             ("latest", "linux-cachyos-latest-x86_64-v3", "linux-cachyos"),
-            ("bore", "linux-cachyos-bore-x86_64-v3", "linux-cachyos-bore"),
         ):
             with self.subTest(variant=variant), tempfile.TemporaryDirectory() as directory:
                 package = Path(directory) / name

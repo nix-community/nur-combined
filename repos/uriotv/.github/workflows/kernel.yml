@@ -48,7 +48,6 @@ jobs:
       matrix:
         kernel:
           - linux-cachyos-latest-x86_64-v3
-          - linux-cachyos-bore-x86_64-v3
     env:
       KERNEL_ATTR: ${{ matrix.kernel }}
     # Stays disabled until the cachix-builder runner exists. Set the repository

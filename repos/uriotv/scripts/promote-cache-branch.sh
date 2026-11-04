@@ -15,7 +15,6 @@ set -euo pipefail
 required=(
   cache/packages
   cache/kernel/linux-cachyos-latest-x86_64-v3
-  cache/kernel/linux-cachyos-bore-x86_64-v3
 )
 
 sha=$(gh api "repos/${REPO}/git/ref/heads/main" --jq '.object.sha')

@@ -7,7 +7,6 @@ let
   inherit (pkgs) lib;
   kernelNames = [
     "linux-cachyos-latest-x86_64-v3"
-    "linux-cachyos-bore-x86_64-v3"
   ];
   outputs = k: map (name: k.${name}.outPath) k.outputs;
   check =

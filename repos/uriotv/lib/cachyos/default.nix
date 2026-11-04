@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: GPL-2.0-only
 # Adapted from xddxdd/nix-cachyos-kernel, revision
 # 893cfece885f2af90edc71fd0d8f95a83d72c7e2 (mkCachyKernel/cachySettings).
-# Maintained here for our two non-LTO x86-64-v3 kernels; no upstream Nix import.
+# Maintained here for the non-LTO x86-64-v3 kernel; no upstream Nix import.
 # See COPYING and README.md for provenance and hash-compatibility constraints.
 {
   source,
@@ -14,28 +14,20 @@
 }@args:
 let
   inherit (pkgs) lib;
-  bore = variant == "linux-cachyos-bore";
   version = source.version;
   src = pkgs.fetchurl { inherit (source) url hash; };
   config = pkgs.fetchurl {
     url = source.configUrl;
     hash = source.configHash;
   };
-  patchesSrc = pkgs.fetchgit {
-    url = "https://github.com/CachyOS/kernel-patches.git";
-    rev = source.patchRev;
-    rootDir = "${source.patchVersion}/";
-    hash = source.patchHash;
-  };
-  cachyosPatches = lib.optional bore "${patchesSrc}/sched/0001-bore-cachy.patch";
+  cachyosPatches = [ ];
   patchedSrc = pkgs.applyPatches {
     name = "linux-src-patched";
     inherit src;
     patches = [
       pkgs.kernelPatches.bridge_stp_helper.patch
       pkgs.kernelPatches.request_key_helper.patch
-    ]
-    ++ cachyosPatches;
+    ];
     prePatch = "";
     postPatch = ''
       install -Dm644 ${config} arch/x86/configs/cachyos_defconfig
@@ -87,19 +79,15 @@ let
         X86_NATIVE_CPU = no;
         X86_64_VERSION = freeform "3";
       }
-      // lib.optionalAttrs bore { SCHED_BORE = lib.kernel.yes; }
     );
 in
-assert builtins.elem variant [
-  "linux-cachyos"
-  "linux-cachyos-bore"
-];
+assert variant == "linux-cachyos";
 assert !(args ? lto) || args.lto == "none";
 assert !(args ? processorOpt) || args.processorOpt == "x86_64-v3";
-assert !(args ? cpusched) || args.cpusched == (if bore then "bore" else "eevdf");
+assert !(args ? cpusched) || args.cpusched == "eevdf";
 # NixOS boot.kernelPackages supplies features/kernelPatches/randstructSeed.
-# Preserve them and other buildLinux arguments, while fixing our two supported
-# CPU/scheduler/compiler variants. Extra configuration deliberately changes hashes.
+# Preserve them and other buildLinux arguments, while fixing the supported
+# CPU/scheduler/compiler variant. Extra configuration deliberately changes hashes.
 pkgs.buildLinux (
   (builtins.removeAttrs args [
     "source"
@@ -130,5 +118,4 @@ pkgs.buildLinux (
     }
     // (args.extraPassthru or { });
   }
-  // lib.optionalAttrs bore { cpusched = "bore"; }
 )

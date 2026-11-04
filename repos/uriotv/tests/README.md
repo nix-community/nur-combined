@@ -59,7 +59,7 @@ full output selection, unfree builds, redistributable nonfree uploads,
 `overlay-pin.nix` checks that the flake overlay gives a consumer with a different
 nixpkgs the CI-built kernel derivation, including the NixOS `boot.kernelPackages` path.
 
-`cachyos-eval.nix` verifies both kernels against the repository nixpkgs, the actual
+`cachyos-eval.nix` verifies the kernel against the repository nixpkgs, the actual
 NixOS kernel override pathway and patch handling. `publication-cache.py` tests the
 cache-branch gate (publication status and branch promotion) with a fake `gh`.
 This fetches evaluation inputs if necessary but never compiles kernels.

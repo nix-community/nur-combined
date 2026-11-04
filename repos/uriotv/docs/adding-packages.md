@@ -113,7 +113,7 @@ updater side effect. See [the kernel recipe notes](../lib/cachyos/README.md).
 
 - Every supported, non-broken package is built, even if unfree or
   `preferLocalBuild = true`. Exception: `meta.ciBuild = false` (currently the
-  CachyOS latest v3 and BORE v3 kernels) is built out of band by `kernel.yml`, on the
+  CachyOS latest v3 kernel) is built out of band by `kernel.yml`, on the
   self-hosted builder; `build.yml` neither builds nor publishes it.
 - For each `meta.license` entry, an explicit `redistributable` boolean wins;
   otherwise `free == true` permits publication. Every entry must allow it.

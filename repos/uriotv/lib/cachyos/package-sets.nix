@@ -8,5 +8,4 @@
 }:
 {
   linuxPackages-cachyos-latest-x86_64-v3 = pkgs.linuxPackagesFor kernels.linux-cachyos-latest-x86_64-v3;
-  linuxPackages-cachyos-bore-x86_64-v3 = pkgs.linuxPackagesFor kernels.linux-cachyos-bore-x86_64-v3;
 }

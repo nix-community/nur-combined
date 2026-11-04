@@ -26,7 +26,6 @@ esac
 ALL_GREEN = {
     "cache/packages": "success",
     "cache/kernel/linux-cachyos-latest-x86_64-v3": "success",
-    "cache/kernel/linux-cachyos-bore-x86_64-v3": "success",
 }
 
 

@@ -1,9 +1,6 @@
 # Independent CachyOS kernel recipes
 
-`default.nix` is our minimal shared `buildLinux` constructor for two non-LTO,
-x86-64-v3 kernels: EEVDF (`linux-cachyos-latest-x86_64-v3`) and BORE
-(`linux-cachyos-bore-x86_64-v3`). Package entry points select the variant and read
-only their own `source.json`. No evaluation or updater needs the xddxdd flake.
+`default.nix` is our `buildLinux` constructor for the non-LTO x86-64-v3 EEVDF kernel (`linux-cachyos-latest-x86_64-v3`). Its package entry point reads `source.json`. No evaluation or updater needs the xddxdd flake.
 
 ## Inputs and updates
 
@@ -13,7 +10,7 @@ only their own `source.json`. No evaluation or updater needs the xddxdd flake.
   using nixpkgs `fetchgit` with `rootDir` (revision and tree SHA-256).
 - Toolchain and Nix kernel builder: the repository nixpkgs from `flake.lock`, passed
   in by `callPackage` as `pkgs`. A lock update changes the toolchain, so it rebuilds
-  both kernels; the weekly lock workflow makes this a single reviewed change.
+  the kernel; the weekly lock workflow makes this a single reviewed change.
 
 The package updater checks CachyOS directly and changes only the package's
 `source.json` for a strictly newer kernel version. Changing patches/config or the
@@ -22,7 +19,7 @@ config, patch branch and hashes consistent; never just edit `version`.
 
 ## Evaluation checks
 
-`tests/cachyos-eval.nix` evaluates both kernels without compiling and checks the
+`tests/cachyos-eval.nix` evaluates the kernel without compiling and checks the
 exported packages through the overlay fixpoint and NixOS's `boot.kernelPackages`
 override path. Run:
 
