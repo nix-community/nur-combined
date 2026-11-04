@@ -10,7 +10,6 @@ python3Packages.buildPythonApplication {
   version = "0-unstable-2025-06-16";
 
   pyproject = true;
-  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "canonical";

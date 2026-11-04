@@ -12,7 +12,6 @@ python3Packages.buildPythonApplication {
   version = "0-unstable-2026-10-13";
 
   format = "other";
-  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "Cisien";

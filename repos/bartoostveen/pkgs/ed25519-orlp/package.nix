@@ -5,12 +5,11 @@
   nix-update-script,
 }:
 
-python3Packages.buildPythonApplication (finalAttrs: {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "ed25519-orlp";
   version = "0.1.3";
 
   pyproject = true;
-  __structuredAttrs = true;
 
   src = fetchPypi {
     pname = "ed25519_orlp";

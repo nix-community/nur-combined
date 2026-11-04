@@ -1,7 +1,5 @@
 {
   lib,
-  pkgs,
-  callPackage,
   sable-next,
   pkg-config,
   wrapGAppsHook3,
@@ -15,14 +13,7 @@
   pnpmConfigHook,
   pnpmBuildHook,
   rustPlatform,
-  electron_45 ?
-    # TODO: remove once either https://github.com/NixOS/nixpkgs/pull/578912 gets merged or electron_45-src gets initialized
-    callPackage "${pkgs.path}/pkgs/development/tools/electron/binary/generic.nix" { } "45.0.0" {
-      aarch64-darwin = "896c3a50b148e89a158dca08a6996a022ddf39b23aac871e107f5b4087f8caa9";
-      aarch64-linux = "a80d92b1ad6c111545a12632b8a75cedce614a41866e500810d4050d947f90e9";
-      headers = "1xwf0ph68l3479v11n2rfzgyg8rfwi81whb10ngbalsc1v2jy68s";
-      x86_64-linux = "22f6a10bd3f7fef987ddbb379d3375ce664ad0c98a9a50f80c89f1718a0c3e3a";
-    },
+  electron_45,
   atk,
   cairo,
   dbus,

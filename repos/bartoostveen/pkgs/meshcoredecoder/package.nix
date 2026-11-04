@@ -7,13 +7,10 @@
 let
   pythonPackages = python314Packages;
 in
-pythonPackages.buildPythonPackage (finalAttrs: {
+pythonPackages.buildPythonApplication (finalAttrs: {
   pname = "meshcoredecoder";
   version = "0.3.2";
   pyproject = true;
-
-  __structuredAttrs = true;
-  strictDeps = true;
 
   src = pythonPackages.fetchPypi {
     inherit (finalAttrs) pname version;
@@ -52,5 +49,6 @@ pythonPackages.buildPythonPackage (finalAttrs: {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ bartoostveen ];
     platforms = lib.platforms.all;
+    mainProgram = "meshcore-decode";
   };
 })
