@@ -14,9 +14,9 @@ let
 
   filteredKernels =
     if inCI then
-      { "${prefix}lts-lto" = kernels."${prefix}lts-lto"; }
+      { "${prefix}latest-lto" = kernels."${prefix}latest-lto"; }
     else
-      lib.filterAttrs (n: v: lib.hasPrefix "${prefix}lts" n) kernels;
+      lib.filterAttrs (n: v: lib.hasPrefix "${prefix}latest" n) kernels;
 in
 lib.mapAttrs' (
   n: v:

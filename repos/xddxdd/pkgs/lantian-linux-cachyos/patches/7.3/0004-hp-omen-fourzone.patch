@@ -1,5 +1,5 @@
 diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
-index 550d4b39a92a..4aef885f41e8 100644
+index 615b4cf..870e28e 100644
 --- a/drivers/platform/x86/hp/hp-wmi.c
 +++ b/drivers/platform/x86/hp/hp-wmi.c
 @@ -9,6 +9,9 @@
@@ -12,18 +12,18 @@ index 550d4b39a92a..4aef885f41e8 100644
   */
  
  #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
-@@ -19,6 +22,7 @@
- #include <linux/slab.h>
- #include <linux/types.h>
+@@ -23,6 +26,7 @@
+ #include <linux/hwmon.h>
+ #include <linux/init.h>
  #include <linux/input.h>
 +#include <linux/input-event-codes.h>
  #include <linux/input/sparse-keymap.h>
- #include <linux/platform_device.h>
- #include <linux/platform_profile.h>
-@@ -257,6 +261,16 @@ enum hp_wmi_commandtype {
- 	HPWMI_POSTCODEERROR_QUERY	= 0x2a,
+ #include <linux/kernel.h>
+ #include <linux/kstrtox.h>
+@@ -407,6 +411,16 @@ enum hp_wmi_commandtype {
  	HPWMI_SYSTEM_DEVICE_MODE	= 0x40,
  	HPWMI_THERMAL_PROFILE_QUERY	= 0x4c,
+ 	HPWMI_GRAPHICS_MUX_QUERY	= 0x52,
 +
 +	HPWMI_MACRO_PROFILE_SET		= 15,
 +	HPWMI_MACRO_MODE_SET		= 23,
@@ -37,7 +37,7 @@ index 550d4b39a92a..4aef885f41e8 100644
  };
  
  struct victus_power_limits {
-@@ -292,6 +306,7 @@ enum hp_wmi_command {
+@@ -443,6 +457,7 @@ enum hp_wmi_command {
  	HPWMI_WRITE	= 0x02,
  	HPWMI_ODM	= 0x03,
  	HPWMI_GM	= 0x20008,
@@ -45,7 +45,7 @@ index 550d4b39a92a..4aef885f41e8 100644
  };
  
  enum hp_wmi_hardware_mask {
-@@ -344,6 +359,9 @@ struct bios_rfkill2_state {
+@@ -495,6 +510,9 @@ struct bios_rfkill2_state {
  	struct bios_rfkill2_device_state device[HPWMI_MAX_RFKILL2_DEVICES];
  };
  
@@ -55,7 +55,7 @@ index 550d4b39a92a..4aef885f41e8 100644
  static const struct key_entry hp_wmi_keymap[] = {
  	{ KE_KEY, 0x02,    { KEY_BRIGHTNESSUP } },
  	{ KE_KEY, 0x03,    { KEY_BRIGHTNESSDOWN } },
-@@ -362,6 +380,10 @@ static const struct key_entry hp_wmi_keymap[] = {
+@@ -513,6 +531,10 @@ static const struct key_entry hp_wmi_keymap[] = {
  	{ KE_KEY, 0x21a9,  { KEY_TOUCHPAD_OFF } },
  	{ KE_KEY, 0x121a9, { KEY_TOUCHPAD_ON } },
  	{ KE_KEY, 0x231b,  { KEY_HELP } },
@@ -66,9 +66,9 @@ index 550d4b39a92a..4aef885f41e8 100644
  	{ KE_IGNORE, 0x21ab, }, /* FnLock on */
  	{ KE_IGNORE, 0x121ab, }, /* FnLock off */
  	{ KE_IGNORE, 0x30021aa, }, /* kbd backlight: level 2 -> off */
-@@ -411,6 +433,18 @@ static const char * const tablet_chassis_types[] = {
- 
- #define DEVICE_MODE_TABLET	0x06
+@@ -615,6 +637,18 @@ static inline u8 pwm_to_rpm(u8 pwm, struct hp_wmi_hwmon_priv *priv)
+ 				       clamp_val(pwm, 0, U8_MAX));
+ }
  
 +/* Determine featureset for specific models */
 +
@@ -85,7 +85,7 @@ index 550d4b39a92a..4aef885f41e8 100644
  /* map output size to the corresponding WMI method id */
  static inline int encode_outsize_for_pvsz(int outsize)
  {
-@@ -2059,6 +2093,302 @@ static int thermal_profile_setup(struct platform_device *device)
+@@ -2515,6 +2549,302 @@ static int thermal_profile_setup(struct platform_device *device)
  
  static int hp_wmi_hwmon_init(void);
  
@@ -388,7 +388,7 @@ index 550d4b39a92a..4aef885f41e8 100644
  static int __init hp_wmi_bios_setup(struct platform_device *device)
  {
  	int err;
-@@ -2084,6 +2414,10 @@ static int __init hp_wmi_bios_setup(struct platform_device *device)
+@@ -2540,6 +2870,10 @@ static int __init hp_wmi_bios_setup(struct platform_device *device)
  	if (err < 0)
  		return err;
  
@@ -399,12 +399,12 @@ index 550d4b39a92a..4aef885f41e8 100644
  	thermal_profile_setup(device);
  
  	return 0;
-@@ -2110,6 +2444,8 @@ static void __exit hp_wmi_bios_remove(struct platform_device *device)
- 		rfkill_unregister(wwan_rfkill);
- 		rfkill_destroy(wwan_rfkill);
+@@ -2673,6 +3007,8 @@ static int hp_wmi_apply_fan_settings(struct hp_wmi_hwmon_priv *priv)
+ 		/* shouldn't happen */
+ 		return -EINVAL;
  	}
 +
 +	macro_key_remove(device);
  }
  
- static int hp_wmi_resume_handler(struct device *device)
+ static umode_t hp_wmi_hwmon_is_visible(const void *data,

@@ -63,15 +63,12 @@ with lib.kernel;
 
   # Prefer EXT4 driver
   EXT2_FS = no;
-  EXT3_FS = no;
   EXT4_USE_FOR_EXT2 = yes;
 
   # Prefer EXT4 driver - clear errors
   EXT2_FS_POSIX_ACL = lib.mkForce (option no);
   EXT2_FS_SECURITY = lib.mkForce (option no);
   EXT2_FS_XATTR = lib.mkForce (option no);
-  EXT3_FS_POSIX_ACL = lib.mkForce (option no);
-  EXT3_FS_SECURITY = lib.mkForce (option no);
 
   # Sched-ext
   SCHED_CLASS_EXT = yes;
@@ -107,10 +104,7 @@ with lib.kernel;
   ZRAM = module;
   ZRAM_DEF_COMP_ZSTD = yes;
   ZSWAP_COMPRESSOR_DEFAULT_ZSTD = yes;
-  ZSWAP_ZPOOL_DEFAULT_ZSMALLOC = yes;
   ZSWAP_DEFAULT_ON = yes;
-  ZBUD = lib.mkForce no;
-  Z3FOLD_DEPRECATED = no;
   ZSMALLOC = lib.mkForce yes;
 
 }

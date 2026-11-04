@@ -1,8 +1,8 @@
 diff --git a/drivers/usb/serial/qcserial.c b/drivers/usb/serial/qcserial.c
-index 83da8236e3c8..4f635516f6bb 100644
+index 105c0a0..2ea0b2a 100644
 --- a/drivers/usb/serial/qcserial.c
 +++ b/drivers/usb/serial/qcserial.c
-@@ -63,6 +63,7 @@ static const struct usb_device_id id_table[] = {
+@@ -62,6 +62,7 @@ static const struct usb_device_id id_table[] = {
  	{DEVICE_G1K(0x05c6, 0x9202)},	/* Generic Gobi Modem device */
  	{DEVICE_G1K(0x05c6, 0x9203)},	/* Generic Gobi Modem device */
  	{DEVICE_G1K(0x05c6, 0x9222)},	/* Generic Gobi Modem device */
@@ -10,7 +10,7 @@ index 83da8236e3c8..4f635516f6bb 100644
  	{DEVICE_G1K(0x05c6, 0x9008)},	/* Generic Gobi QDL device */
  	{DEVICE_G1K(0x05c6, 0x9009)},	/* Generic Gobi Modem device */
  	{DEVICE_G1K(0x05c6, 0x9201)},	/* Generic Gobi QDL device */
-@@ -278,7 +279,7 @@ static int qcprobe(struct usb_serial *serial, const struct usb_device_id *id)
+@@ -285,7 +286,7 @@ static int qcprobe(struct usb_serial *serial, const struct usb_device_id *id)
  		 * 2: AT-capable modem port
  		 * 3: QMI/net
  		 */
