@@ -3,11 +3,11 @@
 { fetchzip }:
 
 let
-  version = "1.9.5";
-  rev = "v1.9.5";
+  version = "1.9.6";
+  rev = "v1.9.6";
   src = fetchzip {
-    url = "https://codeload.github.com/Zencok/BakaMusic/tar.gz/v1.9.5";
-    hash = "sha256-eeM8cvqBcMVX7bGExa7DD9x46IzXvPdFQE9CDyAotow=";
+    url = "https://codeload.github.com/Zencok/BakaMusic/tar.gz/v1.9.6";
+    hash = "sha256-Bqqvo6TrHrfoVsfQeJ6662YEwImA+S4OsETpRVKhRHY=";
     extension = "tar.gz";
   };
 in
