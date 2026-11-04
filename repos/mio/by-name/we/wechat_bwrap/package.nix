@@ -13,9 +13,6 @@
   bindDownloads ? true,
   bindDesktop ? false,
   bindDocuments ? false,
-  # LD_PRELOAD libwechat_appearance.so (from wechat_appearance_plugin). Opt-in.
-  followSystemAppearance ? false,
-  wechat_appearance_plugin,
 }:
 
 let
@@ -122,14 +119,7 @@ stdenv.mkDerivation {
       --replace-fail '@bindDesktop@' '${if bindDesktop then "1" else "0"}' \
       --replace-fail '@bindDocuments@' '${if bindDocuments then "1" else "0"}' \
       --replace-fail '@xdgUserDir@' '${xdg-user-dirs}/bin/xdg-user-dir' \
-      --replace-fail '@appearancePreloadBlock@' ${
-        lib.escapeShellArg (
-          if followSystemAppearance then
-            "\n    # LD_PRELOAD follow-system appearance (wechat_appearance_plugin).\n        BWRAP_ARGS+=(--setenv LD_PRELOAD \"${wechat_appearance_plugin}/lib/libwechat_appearance.so\${LD_PRELOAD:+:$LD_PRELOAD}\")\n"
-          else
-            ""
-        )
-      }
+      --replace-fail '@appearancePreloadBlock@' ${lib.escapeShellArg ""}
 
     mkdir -p $out/bin
     ln -s $wechat_root/common.sh $out/bin/wechat-universal
