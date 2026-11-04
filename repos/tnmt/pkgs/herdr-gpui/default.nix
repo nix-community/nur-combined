@@ -1,6 +1,7 @@
 {
   lib,
   rustPlatform,
+  rustc,
   fetchFromGitHub,
   makeWrapper,
   pkg-config,
@@ -90,6 +91,8 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://herdrui.dev";
     license = lib.licenses.asl20;
     mainProgram = "herdr-gpui";
+    # workspace の rust-version が 1.96 を要求する。
+    broken = lib.versionOlder rustc.version "1.96";
     platforms = [
       "x86_64-linux"
       "aarch64-linux"
