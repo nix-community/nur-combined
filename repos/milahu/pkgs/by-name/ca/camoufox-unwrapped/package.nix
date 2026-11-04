@@ -161,6 +161,7 @@ buildMozillaMach {
     "--with-unsigned-addon-scopes=app,system"
   ];
 
+  # FIXME buildMozillaMach should not add "--enable-ffmpeg"
   # FIXME build nss in a separate derivation
   # TODO remove debug code
   # TODO restore full MOZ_PKG_VERSION. this was a try to fix the "--enable-ffmpeg" problem
