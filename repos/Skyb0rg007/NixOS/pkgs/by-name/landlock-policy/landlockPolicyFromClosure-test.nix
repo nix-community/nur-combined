@@ -1,7 +1,7 @@
-# Test for ./landlockConfigFromClosure.nix.
+# Test for ./landlockPolicyFromClosure.nix.
 #
 # Checks the generated configuration three ways: it validates against the
-# schema `llconfig` itself reports, it describes exactly the requested closure,
+# schema `landlock-policy` itself reports, it describes exactly the requested closure,
 # and it actually sandboxes a process when enforced.
 {
   runCommand,
@@ -10,15 +10,15 @@
   jq,
   coreutils,
   hello,
-  landlockconfig,
-  landlockConfigFromClosure,
+  landlock-policy,
+  landlockPolicyFromClosure,
 }:
 let
   # Defaults only.
-  defaultConfig = landlockConfigFromClosure { name = "default"; } [ hello ];
+  defaultConfig = landlockPolicyFromClosure { name = "default"; } [ hello ];
 
   # Every option set to something other than its default.
-  customConfig = landlockConfigFromClosure {
+  customConfig = landlockPolicyFromClosure {
     name = "custom";
     abi = 6;
     allowedAccess = [
@@ -38,7 +38,7 @@ let
 
   # Handle every filesystem access right, so that anything outside of the
   # closure is denied rather than merely ungranted.
-  enforcedConfig = landlockConfigFromClosure {
+  enforcedConfig = landlockPolicyFromClosure {
     name = "enforced";
     baseConfig.ruleset = [ { handledAccessFs = [ "abi.all" ]; } ];
   } [ coreutils ];
@@ -50,7 +50,7 @@ runCommand "landlock-config-from-closure-test"
     nativeBuildInputs = [
       check-jsonschema
       jq
-      landlockconfig
+      landlock-policy
     ];
   }
   ''
@@ -72,8 +72,8 @@ runCommand "landlock-config-from-closure-test"
       fi
     }
 
-    echo "=== generated configurations validate against 'llconfig schema'"
-    llconfig schema > schema.json
+    echo "=== generated configurations validate against 'landlock-policy schema'"
+    landlock-policy schema > schema.json
     for config in ${defaultConfig} ${customConfig} ${enforcedConfig}; do
       if check-jsonschema --schemafile schema.json "$config"; then
         ok "$config matches the schema"
@@ -122,13 +122,13 @@ runCommand "landlock-config-from-closure-test"
 
     echo "=== enforcement"
     # The closure of coreutils is granted; ${hello} is not part of it.
-    if llconfig run --json ${enforcedConfig} -- true 2> enforce.log; then
-      if llconfig run --json ${enforcedConfig} -- ls ${coreutils}/bin > /dev/null; then
+    if landlock-exec --json ${enforcedConfig} -- true 2> enforce.log; then
+      if landlock-exec --json ${enforcedConfig} -- ls ${coreutils}/bin > /dev/null; then
         ok "the closure is reachable from inside the sandbox"
       else
         fail "the closure is not reachable from inside the sandbox"
       fi
-      if llconfig run --json ${enforcedConfig} -- ls ${hello}/bin > /dev/null 2>&1; then
+      if landlock-exec --json ${enforcedConfig} -- ls ${hello}/bin > /dev/null 2>&1; then
         fail "a path outside of the closure is reachable from inside the sandbox"
       else
         ok "a path outside of the closure is denied"

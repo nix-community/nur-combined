@@ -1,11 +1,11 @@
-# Build a landlockconfig configuration granting access to every store path in
+# Build a Landlock policy configuration granting access to every store path in
 # the closure of `rootPaths`.
 #
 # This is the Landlock counterpart of nixpkgs' `apparmorRulesFromClosure`.
 # The result is a single JSON file following the schema printed by
-# `llconfig schema`, so it can be passed straight to `llconfig run --json`.
+# `landlock-policy schema`, so it can be passed straight to `landlock-policy run --json`.
 #
-# Landlock configurations compose (`llconfig run --json a.json --json b.json`),
+# Landlock configurations compose (`landlock-policy run --json a.json --json b.json`),
 # and a ruleset only denies the access rights it handles. The generated file
 # therefore only grants access; declare `ruleset.handledAccessFs` here through
 # `baseConfig`, or in a configuration composed alongside this one.
@@ -22,7 +22,7 @@
   # Landlock ABI version the generated configuration targets.
   abi ? 5,
   # Configuration the closure rules are composed into, as a Nix attribute set
-  # following the landlockconfig JSON schema. Use it to declare a `ruleset`,
+  # following the Landlock policy JSON schema. Use it to declare a `ruleset`,
   # extra `pathBeneath` rules or `netPort` rules. Its `pathBeneath` entries are
   # kept and the closure rule is appended to them.
   baseConfig ? { },

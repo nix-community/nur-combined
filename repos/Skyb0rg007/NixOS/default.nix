@@ -112,7 +112,7 @@ let
       directory = ./pkgs/by-name;
     }
     // {
-      inherit (packages.landlockconfig.passthru) landlockConfigFromClosure;
+      inherit (packages.landlock-policy.passthru) landlockPolicyFromClosure;
 
       inherit
         tcl9Packages
