@@ -3,9 +3,12 @@
 let
   isLinuxToDarwin = localSystem: crossSystem: localSystem.isLinux && crossSystem.isDarwin;
 
+  # Only stages that build for or run on darwin are touched, so build -> build
+  # (pkgsBuildBuild) keeps native hashes and toolchains like rustc stay cached.
   platformOverlay =
     final: prev:
     let
+      involvesDarwin = prev.stdenv.hostPlatform.isDarwin || prev.stdenv.targetPlatform.isDarwin;
       bootstrapAppleSdk = prev.apple-sdk.override { enableBootstrap = true; };
       overrideBintools =
         llvmPackages:
@@ -81,6 +84,25 @@ let
 
               exec ${lib.getBin llvmPrev.lld}/bin/ld64.lld "''${args[@]}"
             '';
+            # The strip hook always passes -p, which llvm-strip rejects for
+            # Mach-O, so outputs would silently stay unstripped.
+            darwinStrip = prev.buildPackages.writeShellScript "darwin-strip" ''
+              set -eu
+
+              args=()
+
+              for arg in "$@"; do
+                case "$arg" in
+                  -p|--preserve-dates)
+                    ;;
+                  *)
+                    args+=("$arg")
+                    ;;
+                esac
+              done
+
+              exec ${lib.getBin crossLlvm}/bin/llvm-strip "''${args[@]}"
+            '';
             darwinInstallNameTool = prev.buildPackages.writeShellScriptBin "install_name_tool" ''
               export LLVM_INSTALL_NAME_TOOL=${lib.escapeShellArg "${lib.getBin crossLlvm}/bin/llvm-install-name-tool"}
               export LDID=${lib.escapeShellArg "${lib.getBin prev.buildPackages.ldid}/bin/ldid"}
@@ -115,6 +137,7 @@ let
                   ln -sf ${lib.getBin crossLlvm}/bin/llvm-lipo "$out/bin/lipo"
                   ln -sf ${lib.getBin crossLlvm}/bin/llvm-otool "$out/bin/otool"
                   ln -sf ${darwinLd} "$out/bin/${old.passthru.targetPrefix}ld"
+                  ln -sf ${darwinStrip} "$out/bin/${old.passthru.targetPrefix}strip"
                 fi
               '';
               passthru = old.passthru // {
@@ -143,7 +166,7 @@ let
           }
         );
     in
-    {
+    lib.optionalAttrs involvesDarwin {
       apple-sdk = bootstrapAppleSdk;
       llvmPackages = final.llvmPackages_21;
       llvmPackages_21 = overrideBintools prev.llvmPackages_21;
