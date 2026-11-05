@@ -40,6 +40,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     package = finalAttrs.finalPackage;
     command = "rsb_device --version";
   };
+  passthru.tests.rsb_service-version = testers.testVersion {
+    package = finalAttrs.finalPackage;
+    command = "rsb_service --version";
+  };
 
   meta = {
     description = "CLI tools for Binder IPC on Linux";
