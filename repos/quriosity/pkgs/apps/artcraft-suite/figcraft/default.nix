@@ -39,7 +39,7 @@ let
     owner = "storytold";
     repo = "craft-libs";
     rev = "e11f9d9aebea5f6b8e74643c1ea1ed172ba5f545";
-    hash = "sha256-lvIf3bl2p6Tf6EoIaAnpfFiFM0k0xqFAxVfOH3aTUlU=";
+    hash = "sha256-yTMWFdJDxJnbwHbing7TsrbmKRMhrjceMz5RwFJYt5g=";
   };
 in
 
