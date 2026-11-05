@@ -31,6 +31,16 @@ let
     libGL
     vulkan-loader
   ];
+
+  # craft-libs is a git dependency of materialcraft. We fetch it locally in prePatch
+  # (before vendoring) and redirect the git deps to local path deps so
+  # craft-libs never needs to be fetched during the vendor step.
+  craftLibs = fetchFromGitHub {
+    owner = "storytold";
+    repo = "craft-libs";
+    rev = "f8f8829cc7be65d466d687dae381d1ca60e31242";
+    hash = "sha256-Z+gfMcoqaV7f0WDsD6eJquBl3swK1noytlsf9fKu6Bs=";
+  };
 in
 
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -83,7 +93,31 @@ rustPlatform.buildRustPackage (finalAttrs: {
       mv Cargo.lock.tmp Cargo.lock
     fi
 
+
+    # Copy craft-libs into the source tree so it's available before vendoring.
+    cp -r ${craftLibs} ./craft-libs
+    chmod -R u+w ./craft-libs
+
+    # craft-libs's crates/menu/Cargo.toml overrides workspace's craft-keymap
+    # with `default-features = false`, which Cargo forbids. Remove it.
+    sed -i 's/default-features = false, //' ./craft-libs/crates/menu/Cargo.toml
+
+    # Redirect craft-libs git dependencies to local path deps
+    for crate in $(grep -oP '^craft-[a-z-]+ = {[^}]*git = "https://github.com/storytold/craft-libs"' Cargo.toml | sed 's/ = .*//'); do
+      dir=$(echo "$crate" | sed 's/^craft-//')
+      sed -i "|$crate = {[^}]*git = "https://github.com/storytold/craft-libs"[^}]*}|$crate = { path = "./craft-libs/crates/$dir" }|" Cargo.toml
+    done
+
     cp Cargo.lock "$cargoDepsCopy/Cargo.lock"
+
+    # Remove git source lines from Cargo.lock for crates now using local paths
+    awk '
+      /^[[package]]/ { in_pkg = 1; name = "" }
+      in_pkg && /^name = / { name = $0; sub(/^name = ""/, "", name); sub(/".*$/, "", name) }
+      in_pkg && name ~ /^craft-/ && /^source = "git+https://github.com/storytold/craft-libs/ { next }
+      { print }
+    ' Cargo.lock > Cargo.lock.tmp && mv Cargo.lock.tmp Cargo.lock
+
   '';
   nativeBuildInputs = [
     autoPatchelfHook
