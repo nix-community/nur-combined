@@ -263,22 +263,22 @@
   };
   open-orpheus-dev = {
     pname = "open-orpheus-dev";
-    version = "bd51c9090a740c650a24d7ed55afb728900cb017";
+    version = "9d0b45310c7550b65f5063be0fc158d93e9deb34";
     src = fetchFromGitHub {
       owner = "YUCLing";
       repo = "open-orpheus";
-      rev = "bd51c9090a740c650a24d7ed55afb728900cb017";
+      rev = "9d0b45310c7550b65f5063be0fc158d93e9deb34";
       fetchSubmodules = false;
-      sha256 = "sha256-eG3mYu5mWUCwbgDWGEW5s0lmJXwQXwqt6uEFaieadb8=";
+      sha256 = "sha256-uA+r/sjbzjE/cB09VS59PBIDUtdFBk+nCIAMmeagK9k=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-eG3mYu5mWUCwbgDWGEW5s0lmJXwQXwqt6uEFaieadb8=/Cargo.lock";
+      lockFile = ./. + "/sha256-uA+r_sjbzjE_cB09VS59PBIDUtdFBk+nCIAMmeagK9k=/Cargo.lock";
       outputHashes = {
         "font-kit-0.14.3" = "sha256-1/5w7y6XhNNg7jRZmJazM188v6vWkdYHn+94WqmJpMg=";
         "avs3a-0.1.0" = "sha256-OcI39YMDhcBpP6Tij11rATcKtp+mVrXHsjy8gRSm3eI=";
       };
     };
-    date = "2026-11-04";
+    date = "2026-11-05";
   };
   piliplus = {
     pname = "piliplus";
@@ -395,21 +395,21 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "e944efeeca01017e6efa2b1169375c63e98d247e";
+    version = "642b1716b3f58b12939be285b755464a260fef97";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "e944efeeca01017e6efa2b1169375c63e98d247e";
+      rev = "642b1716b3f58b12939be285b755464a260fef97";
       fetchSubmodules = false;
-      sha256 = "sha256-dU/5ROBbUoDSvt/IfvbSLv7DMSZ2ugTKhKFA7oedTLE=";
+      sha256 = "sha256-LFAecUpZDaTpsGmfna9bNcT6glIwATVbOJzGvI8191E=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-dU_5ROBbUoDSvt_IfvbSLv7DMSZ2ugTKhKFA7oedTLE=/Cargo.lock";
+      lockFile = ./. + "/sha256-LFAecUpZDaTpsGmfna9bNcT6glIwATVbOJzGvI8191E=/Cargo.lock";
       outputHashes = {
         "ffmpeg_audio-0.4.0" = "sha256-sUDVvR61i+ZKfB3TlifQfiWYJ9F9rzCHP++p7ZkvYhc=";
       };
     };
-    date = "2026-11-03";
+    date = "2026-11-04";
   };
   svt-av1-essential = {
     pname = "svt-av1-essential";
