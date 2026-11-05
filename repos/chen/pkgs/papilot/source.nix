@@ -2,6 +2,6 @@
 fetchFromGitHub {
   owner = "PapilotAI";
   repo = "papilot";
-  rev = "5bc9a4836daa4d6a7a8535002aacdc42f6ff27d5";
-  hash = "sha256-9uUG5KckQA1785tRcTswj90hYpB+2Q+djDCl/tlHr8A=";
+  rev = "2bd98265f56f42b54467e6044c771f2635a097f7";
+  hash = "sha256-3ToOB8PgACEJEfFnLVos6+jbzUWodqR00uffXF9iCIs=";
 }
