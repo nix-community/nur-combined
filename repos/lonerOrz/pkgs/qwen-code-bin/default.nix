@@ -7,9 +7,9 @@
 }:
 let
   pname = "qwen-code";
-  version = "0.26.6";
-  srcHash = "sha256-bWiJrnHObzqJLVl7pzHt8aRfNPNEO6HlUIBRHReUucs=";
-  npmDepsHash = "sha256-m840rUDSWrlcE6hMLmlDVAr7cNc0WfXGhNKRDWnHADU=";
+  version = "0.26.8";
+  srcHash = "sha256-kjOo+OiEBKOl7k8jyZv3FF7cjeuXY1xxuOc7JLLYmdM=";
+  npmDepsHash = "sha256-yvaGiW7BF7jnZhtDFztNh3vXSotuFxsqTPwYimeQSGA=";
 
   src = runCommand "gemini-cli-src-with-lock" { } ''
     mkdir -p $out
