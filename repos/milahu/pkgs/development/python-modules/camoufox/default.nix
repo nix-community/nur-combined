@@ -83,6 +83,7 @@ buildPythonPackage rec {
     hash = "sha256-w5c8KvHSPMCyHG+V9m169Q5RCt/enDsJof+VnXpqmoU=";
     */
     # add support for offline packaging
+    # https://github.com/daijro/camoufox/pull/998
     rev = "b5eed9c1c34b98e471c7be813d601cfc9cbf1070";
     hash = "sha256-9B65NbTVqGHDk23radSeqLA/szXCjh3aLDiBBK/1RcM=";
   };
