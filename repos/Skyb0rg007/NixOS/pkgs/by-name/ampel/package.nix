@@ -10,17 +10,17 @@
 
 buildGoModule (finalAttrs: {
   pname = "ampel";
-  version = "1.4.1";
+  version = "1.5.0";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "policylabs";
     repo = "ampel";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-LMk3pYAbGvisJoTOkPKUofbpP84H4uE0WsKI5tBbaC8=";
+    hash = "sha256-YFT3s22yiL3950bS4pxRr8wyToXC0p9VKxDVAZxPM08=";
   };
 
-  vendorHash = "sha256-n1AQKR9xHNNYIUCG4fnbarCvvBHc+oujk55+6wSxG6Q=";
+  vendorHash = "sha256-ZCZOJqSuVIgJVwXtMUH3cuIrbiD7VBJDYx96u2fygf4=";
 
   excludedPackages = [ "e2e" ];
 

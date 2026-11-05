@@ -15,7 +15,7 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "mmdebstrap";
-  version = "1.5.7";
+  version = "1.7.0";
   __structuredAttrs = true;
   strictDeps = true;
 
@@ -24,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "josch";
     repo = "mmdebstrap";
     tag = finalAttrs.version;
-    hash = "sha256-P0S2FHKR2gKtj47xyB7wOZZV5K8p9uLGvJ5tlmgCtdc=";
+    hash = "sha256-Gy5egg4SgLCJ49cmGqK2MIKiCsfvL+6sWwcNOsO3o88=";
   };
 
   nativeBuildInputs = [

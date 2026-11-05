@@ -19,15 +19,15 @@ rustPlatform.buildRustPackage (
   in
   {
     pname = "landlock-policy";
-    version = "0-unstable-2026-11-03";
+    version = "0-unstable-2026-11-04";
     __structuredAttrs = true;
     strictDeps = true;
 
     src = fetchFromGitHub {
       owner = "landlock-lsm";
       repo = "landlock-policy";
-      rev = "c071a5b4667b06e263cd274514268348bcc5094e";
-      hash = "sha256-Q8zJGtPLF/KR8kAkO0aeJZaZCJPeOTpZEZugBogYozE=";
+      rev = "12c5216b582c6f20a70ab9aa246a7d7b25fc1d27";
+      hash = "sha256-G4OOI88GRhceBizhIyROdZTV+XDnib5X5FnMH+I2SoA=";
     };
 
     cargoHash = "sha256-CyPAJDtc27QF/eBXITLFgVhq3iDotiEiEKesPZusBrs=";

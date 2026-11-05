@@ -11,14 +11,14 @@
 }:
 buildPythonPackage (finalAttrs: {
   pname = "audioseal";
-  version = "0.2.0";
+  version = "0.2.1";
   __structuredAttrs = true;
   pyproject = true;
 
   # Upstream does not tag releases on GitHub.
   src = fetchPypi {
     inherit (finalAttrs) pname version;
-    hash = "sha256-VpoW64mHSOp/P11IXglOId3OvWgxSthzBRp56eW3CK4=";
+    hash = "sha256-/hhchHQknYZqCckrR4jYKJVslAf9JmTidVxX3XLYwak=";
   };
 
   # Only flit_core is used; the other pins are leftovers.
