@@ -2,6 +2,9 @@
   "chmod": {
     "description": "Execute `chmod` on the selected files to change their mode"
   },
+  "compress": {
+    "description": "Compress one or more selected files within Yazi:"
+  },
   "diff": {
     "description": "Diff the selected file with the hovered file, create a living patch, and copy it to the clipboard"
   },
