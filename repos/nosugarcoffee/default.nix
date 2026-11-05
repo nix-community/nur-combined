@@ -12,7 +12,7 @@ let
   );
 
   # Packages resolve each other by argument name. A package that adapts the
-  # nixpkgs package of the same name (albert, scroll-reverser) is handed the
+  # nixpkgs package of the same name (albert) is handed the
   # nixpkgs one, not itself.
   callPackage = lib.callPackageWith (pkgs // packages);
   packages = lib.genAttrs names (

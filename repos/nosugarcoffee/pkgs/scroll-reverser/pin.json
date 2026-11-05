@@ -1,0 +1,12 @@
+{
+  "source": {
+    "type": "github",
+    "repo": "pilotmoon/Scroll-Reverser"
+  },
+  "version": "2.1.1",
+  "url": "https://github.com/pilotmoon/Scroll-Reverser/releases/download/v{version}/ScrollReverser-{version}.zip",
+  "hash": {
+    "aarch64-darwin": "sha256-ZUoruzaPOc98qa3LTYPBLFcvLGSIbvUBKUmv2Bz2lpE=",
+    "x86_64-darwin": "sha256-ZUoruzaPOc98qa3LTYPBLFcvLGSIbvUBKUmv2Bz2lpE="
+  }
+}
