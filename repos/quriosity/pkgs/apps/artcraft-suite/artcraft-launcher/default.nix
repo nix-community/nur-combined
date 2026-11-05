@@ -82,10 +82,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     # Redirect craft-ui from git to local path dep
     sed -i 's|craft-ui = { version = "=0.1.0", git = "https://github.com/storytold/craft-libs", rev = "92d392cff132eaf53e13afff77f38b5c11b73aa0" }|craft-ui = { path = "./craft-libs/crates/ui" }|' Cargo.toml
 
-    # Отключаем автоматическую проверку обновлений по расписанию (check_every = Never).
+    # Disable the automatic update check in craft-ui (it tries to fetch from the internet, which is not allowed in Nix builds).
     sed -i 's/check_every: CheckEvery::Hour,/check_every: CheckEvery::Never,/' crates/ui-egui/src/settings.rs
 
-    # Отключаем самообновление лаунчера (обновления приходят через пакетный менеджер).
+    # Disable the self-update feature in craft-ui (it tries to fetch from the internet, which is not allowed in Nix builds).
     sed -i 's/self_update: self.shared.self_install.get().is_some_and(Option::is_some)/self_update: false/' crates/native/src/backend.rs
 
     # Redirect craft-quit from git to local path dep

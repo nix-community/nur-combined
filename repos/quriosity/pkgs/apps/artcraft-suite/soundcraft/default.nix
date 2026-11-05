@@ -122,7 +122,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     ' Cargo.lock > Cargo.lock.tmp && mv Cargo.lock.tmp Cargo.lock
 
 
-    # Отключаем автоматическую проверку обновлений при старте приложения.
+    # Disable the automatic update check in soundcraft (it tries to fetch from the internet, which is not allowed in Nix builds).
     sed -i 's/app.set_startup_update_check(true);/\/\/ app.set_startup_update_check(true);/' apps/soundcraft/src/main.rs
   '';
   nativeBuildInputs = [

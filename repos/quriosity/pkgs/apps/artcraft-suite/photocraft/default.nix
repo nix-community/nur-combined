@@ -121,7 +121,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     ' Cargo.lock > Cargo.lock.tmp && mv Cargo.lock.tmp Cargo.lock
 
 
-    # Отключаем автоматическую проверку обновлений внутри приложения.
+    # Disable the automatic update check in photocraft (it tries to fetch from the internet, which is not allowed in Nix builds).
     sed -i 's/automatically_check_updates: true,/automatically_check_updates: false,/' crates/engine/src/prefs.rs
   '';
   nativeBuildInputs = [

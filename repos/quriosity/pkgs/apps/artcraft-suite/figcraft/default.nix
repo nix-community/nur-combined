@@ -105,7 +105,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     # Redirect craft-libs git dependencies to local path deps
     for crate in $(grep -oP '^craft-[a-z-]+ = {[^}]*git = "https://github.com/storytold/craft-libs"' Cargo.toml | sed 's/ = .*//'); do
       dir=$(echo "$crate" | sed 's/^craft-//')
-      sed -i "|$crate = {[^}]*git = "https://github.com/storytold/craft-libs"[^}]*}|$crate = { path = "./craft-libs/crates/$dir" }|" Cargo.toml
+      sed -i "s|^$crate = .*git = \"https://github.com/storytold/craft-libs\".*|$crate = { path = \"./craft-libs/crates/$dir\" }|" Cargo.toml
     done
 
     cp Cargo.lock "$cargoDepsCopy/Cargo.lock"
@@ -119,7 +119,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     ' Cargo.lock > Cargo.lock.tmp && mv Cargo.lock.tmp Cargo.lock
 
 
-    # Отключаем автоматическую проверку обновлений при старте приложения.
+    # Disable the automatic update check in figcraft (it tries to fetch from the internet, which is not allowed in Nix builds).
     sed -i 's/fig.set_startup_update_check(true);/\/\/ fig.set_startup_update_check(true);/' apps/figcraft/src/main.rs
   '';
   nativeBuildInputs = [
