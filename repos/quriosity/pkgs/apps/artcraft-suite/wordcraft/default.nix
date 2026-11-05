@@ -31,6 +31,20 @@ let
     libGL
     vulkan-loader
   ];
+
+  # craft-libs is a git dependency of wordcraft (craft-pdf, craft-ui,
+  # craft-i18n, craft-fonts-build, craft-keymap all come from it). Its
+  # crates/menu/Cargo.toml overrides the workspace's craft-keymap with
+  # `default-features = false`, which Cargo rejects. We fetch craft-libs
+  # locally in prePatch (before vendoring) and redirect the git deps to
+  # local path deps so craft-libs never needs to be fetched during the
+  # vendor step.
+  craftLibs = fetchFromGitHub {
+    owner = "storytold";
+    repo = "craft-libs";
+    rev = "92d392cff132eaf53e13afff77f38b5c11b73aa0";
+    hash = "sha256-/8I9DcqtsznoYPo4ECc/rPQIal6P9gyPksrvVHDW6Mg=";
+  };
 in
 
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -81,7 +95,18 @@ rustPlatform.buildRustPackage (finalAttrs: {
         { print }
       ' Cargo.lock > Cargo.lock.tmp
       mv Cargo.lock.tmp Cargo.lock
-    fi
+    done
+
+    # Copy craft-libs into the source tree so it's available before vendoring.
+    cp -r ${craftLibs} ./craft-libs
+    chmod -R u+w ./craft-libs
+
+    # craft-libs's crates/menu/Cargo.toml overrides workspace's craft-keymap
+    # with `default-features = false`, which Cargo forbids. Remove it.
+    sed -i 's/default-features = false, //' ./craft-libs/crates/menu/Cargo.toml
+
+    # Redirect craft-pdf from git to local path dep
+    sed -i 's|craft-pdf = { git = "https://github.com/storytold/craft-libs", rev = "92d392cff132eaf53e13afff77f38b5c11b73aa0", version = "=0.1.0", default-features = false, features = \\["write"\\] }|craft-pdf = { path = "./craft-libs/crates/pdf", default-features = false, features = ["write"] }|' Cargo.toml
 
     cp Cargo.lock "$cargoDepsCopy/Cargo.lock"
 

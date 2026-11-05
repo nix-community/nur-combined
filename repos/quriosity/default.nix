@@ -42,7 +42,6 @@
   texturecraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/texturecraft {};
   materialcraft = pkgs.callPackage ./pkgs/apps/artcraft-suite/materialcraft {};
 
-
   # Compatibility tools
   ge-proton = pkgs.callPackage ./pkgs/compat-tools/ge-proton {};
   dwproton = pkgs.callPackage ./pkgs/compat-tools/dwproton {};
