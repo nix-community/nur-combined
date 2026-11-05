@@ -74,17 +74,17 @@
   };
   "mholt/caddy-l4" = {
     pname = "mholt/caddy-l4";
-    version = "96e1a6bf063c206c3bd09ca6dc4a0484a158d83f";
+    version = "ab22be7478d88b220f6f0e188ae472f6fde05904";
     src = fetchFromGitHub {
       owner = "mholt";
       repo = "caddy-l4";
-      rev = "96e1a6bf063c206c3bd09ca6dc4a0484a158d83f";
+      rev = "ab22be7478d88b220f6f0e188ae472f6fde05904";
       fetchSubmodules = false;
-      sha256 = "sha256-6JvWYeygSyKTQwXv+yR+fC9+eG8x3IVZxezaV+eaMys=";
+      sha256 = "sha256-nzlqMSYHDFwDoLWmZ0FbYROBo0xje4Pnmltqcf8VkAY=";
     };
     isCaddyPlugin = "true";
     moduleName = "github.com/mholt/caddy-l4";
-    date = "20261102072042";
+    date = "20261105154920";
   };
   "mholt/caddy-webdav" = {
     pname = "mholt/caddy-webdav";
@@ -163,14 +163,14 @@
   };
   yazi-rs-plugins = {
     pname = "yazi-rs-plugins";
-    version = "2e0d8cf9084bc007b835fcf7c492a32736aa2ff9";
+    version = "c0529fc34e4649effb79ff6f4a86aec46beebb7f";
     src = fetchFromGitHub {
       owner = "yazi-rs";
       repo = "plugins";
-      rev = "2e0d8cf9084bc007b835fcf7c492a32736aa2ff9";
+      rev = "c0529fc34e4649effb79ff6f4a86aec46beebb7f";
       fetchSubmodules = false;
-      sha256 = "sha256-pO6rUSWNqMeWN+ikT3TFoOGohBHl+9UXUneVLcOddFY=";
+      sha256 = "sha256-Wf10m6iY4xWKALLFQBOz1vgGXOQpPzryPnFS+s40QFg=";
     };
-    date = "2026-11-05";
+    date = "2026-11-06";
   };
 }
