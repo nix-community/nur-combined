@@ -17,7 +17,16 @@ let
         # default (gpu) device and SIGABRTs on GitHub's virtualized macOS
         # runners, which expose no usable Metal device. nixpkgs already runs
         # this suite against its CPU-only mlx.
-        mlx-lm = super.mlx-lm.overridePythonAttrs (prev: {
+        mlx-lm = super.mlx-lm.overridePythonAttrs (prev: rec {
+          # Upstream caps mlx-lm <0.32 until a coherence sweep clears it.
+          version = "0.31.3";
+          src = fetchFromGitHub {
+            owner = "ml-explore";
+            repo = "mlx-lm";
+            tag = "v${version}";
+            hash = "sha256-DPOJfsIucG8mWt4ZKenymCJo/i9Jw+a+iuIygIIYkA8=";
+          };
+          pythonRelaxDeps = (prev.pythonRelaxDeps or [ ]) ++ [ "transformers" ];
           doCheck = false;
           # sentencepiece is in the wheel's Requires-Dist, but nixpkgs only
           # supplies it via nativeCheckInputs; without the test env it has
