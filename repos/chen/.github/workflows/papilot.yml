@@ -1,0 +1,34 @@
+name: Papilot NixOS integration
+on:
+  pull_request:
+    paths: ['pkgs/papilot/**', 'default.nix', 'flake.nix', 'flake.lock', '.github/workflows/papilot.yml']
+  push:
+    branches: [master, main]
+    paths: ['pkgs/papilot/**', 'default.nix', 'flake.nix', 'flake.lock', '.github/workflows/papilot.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  desktop-vm:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v5
+      - uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:nixpkgs-unstable
+      - name: Evaluate the NUR entry points
+        run: |
+          nixpkgs=$(nix eval --impure --raw --expr '(builtins.getFlake (toString ./.)).inputs.nixpkgs.outPath')
+          nix-instantiate -I "nixpkgs=$nixpkgs" default.nix -A papilot -A papilot-cli
+          nix-env -f . -qa '*' --meta --xml --drv-path --show-trace \
+            --allowed-uris https://static.rust-lang.org \
+            --option restrict-eval true --option allow-import-from-derivation true \
+            -I "nixpkgs=$nixpkgs" -I "$PWD"
+          nix-instantiate -I "nixpkgs=$nixpkgs" ci.nix -A cacheOutputs
+      - name: Boot the packaged Electron app in NixOS
+        run: nix build -L .#checks.x86_64-linux.papilot-vm
+      - uses: actions/upload-artifact@v4
+        with:
+          name: papilot-nixos-evidence
+          path: result/

@@ -8,7 +8,11 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
-{
+let papilotPackages = pkgs.callPackage ./pkgs/papilot { };
+in {
+  papilot = papilotPackages.default;
+  papilot-cli = papilotPackages.cli;
+
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
