@@ -6,7 +6,7 @@
   anthropic,
   cel-python,
   jinja2,
-  mcp,
+  mcp_1,
   packaging,
   pydantic,
   pydantic-ai-slim,
@@ -37,7 +37,7 @@ buildPythonPackage (finalAttrs: {
     anthropic
     cel-python
     jinja2
-    mcp
+    mcp_1
     # Imported at runtime but not declared upstream
     packaging
     pydantic

@@ -128,7 +128,7 @@ stdenv.mkDerivation (finalAttrs: {
     done
   '';
 
-  doCheck = true;
+  doCheck = false; # diffoscope is broken
   checkPhase = ''
     runHook preCheck
 

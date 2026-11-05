@@ -98,5 +98,6 @@ ocamlPackages.buildDunePackage (finalAttrs: {
       "aarch64-linux"
     ];
     maintainers = [ lib.maintainers.skyesoss ];
+    broken = true; # ocamlnet depends on pcre, which was removed
   };
 })
