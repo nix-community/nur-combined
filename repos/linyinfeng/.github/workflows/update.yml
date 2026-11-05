@@ -62,10 +62,23 @@ jobs:
         # update and set variables
         # - CHANGELOG
         nix run .#devPackages/update
+    # An empty update branch still fails `gh pr create` (no commits), and the
+    # fallback used to resolve the head branch to the most recently updated
+    # pull request, which is the just merged one, overwriting its changelog.
+    - name: Check for changes
+      id: changes
+      run: |
+        if [ -n "$(git rev-list master..update)" ]; then
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "changed=false" >> "$GITHUB_OUTPUT"
+        fi
     - name: Push to remote
+      if: steps.changes.outputs.changed == 'true'
       run: |
         git push --set-upstream origin update --force
-    - name: Create pull request
+    - name: Create or update pull request
+      if: steps.changes.outputs.changed == 'true'
       run: |
         cat >/tmp/body-file <<'EOF'
         ###### Changelog
@@ -75,15 +88,26 @@ jobs:
         ```
         EOF
 
-        gh pr create \
+        # Resolve the open pull request explicitly: `gh pr edit update` would
+        # also match a closed or merged pull request with the same head branch.
+        pr_number=$(gh pr list \
             --base master \
-            --title 'Automated update' \
-            --body-file /tmp/body-file \
             --head update \
-            --assignee linyinfeng \
-            --reviewer linyinfeng \
-            --label 'auto update' || \
-        gh pr edit update \
-            --body-file /tmp/body-file
+            --state open \
+            --json number \
+            --jq '.[0].number // empty')
+        if [ -z "$pr_number" ]; then
+          gh pr create \
+              --base master \
+              --title 'Automated update' \
+              --body-file /tmp/body-file \
+              --head update \
+              --assignee linyinfeng \
+              --reviewer linyinfeng \
+              --label 'auto update'
+        else
+          gh pr edit "$pr_number" \
+              --body-file /tmp/body-file
+        fi
       env:
           GITHUB_TOKEN: ${{ secrets.PAT_FOR_CREATE_PULL_REQUEST }}
