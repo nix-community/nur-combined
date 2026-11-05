@@ -1,4 +1,4 @@
-{ lib, appimageTools, fetchurl, makeDesktopItem, stdenv, writeScript, nix-update-script }:
+{ lib, appimageTools, fetchurl, makeDesktopItem, makeWrapper, stdenv, writeScript, nix-update-script }:
 
 let
   pname = "horizon-launcher";
@@ -42,6 +42,7 @@ appimageTools.wrapType2 {
       rsync
       curl
       cacert
+      makeWrapper
     ];
 
   extraInstallCommands = ''
@@ -53,12 +54,8 @@ appimageTools.wrapType2 {
 
     # Отключаем встроенное самообновление лаунчера: обновления приходят через пакетный менеджер.
     mv $out/bin/${pname} $out/bin/${pname}-real
-    cat > $out/bin/${pname} <<EOF
-#!${stdenv.shell}
-export HORIZON_LAUNCHER_NO_SELF_UPDATE=1
-exec "\${0}-real" "\$@"
-EOF
-    chmod +x $out/bin/${pname}
+    makeWrapper $out/bin/${pname}-real $out/bin/${pname} \
+        --set HORIZON_LAUNCHER_NO_SELF_UPDATE 1
   '';
 
   passthru.updateScript = writeScript "update-horizon" ''
