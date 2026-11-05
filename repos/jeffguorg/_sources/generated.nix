@@ -182,10 +182,10 @@
   };
   dsh = {
     pname = "dsh";
-    version = "0.2.1-rc.5";
+    version = "0.2.2-rc.1";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@deepseek-ai/dsh/-/dsh-0.2.1-rc.5.tgz";
-      sha256 = "sha256-YJh1ZvGeDe0feRjACmXBnFbqJfWXfuC/1Wl8XBE+xOE=";
+      url = "https://registry.npmjs.org/@deepseek-ai/dsh/-/dsh-0.2.2-rc.1.tgz";
+      sha256 = "sha256-rSGWiu0DN6MmuFNQeiOzDqy77E1nqwfztv3mm3WxnNY=";
     };
   };
   dsh-tui = {
@@ -209,42 +209,42 @@
   };
   kagent-bin-amd64-darwin = {
     pname = "kagent-bin-amd64-darwin";
-    version = "v1.0.0-rc1";
+    version = "v1.0.0-rc2";
     src = fetchurl {
-      url = "https://github.com/kagent-dev/kagent/releases/download/v1.0.0-rc1/kagent-darwin-amd64";
-      sha256 = "sha256-XFeLWoO4EeZ/GGn813jQuwus6HzKRiR12lOgrXtvWYA=";
+      url = "https://github.com/kagent-dev/kagent/releases/download/v1.0.0-rc2/kagent-darwin-amd64";
+      sha256 = "sha256-7aLgbtU8Y/zlvk+Zj/PM3m+7yx22YANB0R4ykYl9v5E=";
     };
   };
   kagent-bin-amd64-linux = {
     pname = "kagent-bin-amd64-linux";
-    version = "v1.0.0-rc1";
+    version = "v1.0.0-rc2";
     src = fetchurl {
-      url = "https://github.com/kagent-dev/kagent/releases/download/v1.0.0-rc1/kagent-linux-amd64";
-      sha256 = "sha256-z3uYk25qyjfAyFyBA2A+GobuJGNKPXjdc8kC33PqM14=";
+      url = "https://github.com/kagent-dev/kagent/releases/download/v1.0.0-rc2/kagent-linux-amd64";
+      sha256 = "sha256-vG8hBCBKNsz+Fv/BNbgsY8dB9L89BlRH2Smw4NVn7vQ=";
     };
   };
   kagent-bin-arm64-darwin = {
     pname = "kagent-bin-arm64-darwin";
-    version = "v1.0.0-rc1";
+    version = "v1.0.0-rc2";
     src = fetchurl {
-      url = "https://github.com/kagent-dev/kagent/releases/download/v1.0.0-rc1/kagent-darwin-arm64";
-      sha256 = "sha256-tRsepkrs5riwpRIs21eDpzkuj8Jzo+iJHDny0XZM6X0=";
+      url = "https://github.com/kagent-dev/kagent/releases/download/v1.0.0-rc2/kagent-darwin-arm64";
+      sha256 = "sha256-WM4Fgi0RPaZSe0/gPlMIsVV2ToH+jm8Kgv6lqwHAWaE=";
     };
   };
   kagent-bin-arm64-linux = {
     pname = "kagent-bin-arm64-linux";
-    version = "v1.0.0-rc1";
+    version = "v1.0.0-rc2";
     src = fetchurl {
-      url = "https://github.com/kagent-dev/kagent/releases/download/v1.0.0-rc1/kagent-linux-arm64";
-      sha256 = "sha256-OAJbeXp9KaKz407qSTxo3smDFlm2biTmETslqMoKSSg=";
+      url = "https://github.com/kagent-dev/kagent/releases/download/v1.0.0-rc2/kagent-linux-arm64";
+      sha256 = "sha256-E29KV+4iUt0vbb4EK5hXsKxHH6/qiq0Abf6S6Sigzjg=";
     };
   };
   kimi-code = {
     pname = "kimi-code";
-    version = "2.5.0";
+    version = "2.5.1";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@moonshot-ai/kimi-code/-/kimi-code-2.5.0.tgz";
-      sha256 = "sha256-VA/wwzZrr7+ySLukvrw/9jIbW7HXLxpluX1JUo508yQ=";
+      url = "https://registry.npmjs.org/@moonshot-ai/kimi-code/-/kimi-code-2.5.1.tgz";
+      sha256 = "sha256-cebTF1p0cgiMZujiWy7L7O/qFaaoaptukk7tp9TK1io=";
     };
   };
   kwok = {
