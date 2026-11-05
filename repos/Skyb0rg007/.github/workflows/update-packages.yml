@@ -49,7 +49,6 @@ jobs:
                   -e 's#^pkgs/tcl-modules/([^/]+)/package.nix$#tcl9Packages.\1#' \
                 | sort
             )
-            attrs=$(grep -vxFf <(tr ' ' '\n' <<<"$SKIP_PACKAGES") <<<"$attrs")
           fi
           jq -R -s -c 'split("\n") | map(select(. != ""))' <<<"$attrs" \
             | sed 's/^/packages=/' >>"$GITHUB_OUTPUT"
@@ -99,6 +98,19 @@ jobs:
           # A dirty flake is evaluated from the working tree, so this picks up
           # the version the update script just wrote.
           echo "NEW_VERSION=$(version)" >>"$GITHUB_ENV"
+          # Evaluated after the update so version-specific links are current.
+          # Missing metadata should not cost us the update itself.
+          nix eval --json ".#legacyPackages.$system.$PACKAGE" --apply '
+            p: {
+              description = p.meta.description or null;
+              homepage = p.meta.homepage or null;
+              changelog = p.meta.changelog or null;
+              downloadPage = p.meta.downloadPage or null;
+            }
+          ' >"$RUNNER_TEMP/meta.json" || {
+            echo "::warning::Could not evaluate metadata for $PACKAGE"
+            echo '{}' >"$RUNNER_TEMP/meta.json"
+          }
 
       - name: Open pull request
         env:
@@ -107,9 +119,11 @@ jobs:
         run: |
           set -euo pipefail
 
+          title="$PACKAGE: $OLD_VERSION -> $NEW_VERSION"
+
           # Some update scripts commit themselves, others just edit the tree.
           if ! git diff --quiet || ! git diff --cached --quiet; then
-            git commit -a -m "$PACKAGE: $OLD_VERSION -> $NEW_VERSION"
+            git commit -a -m "$title"
           fi
 
           base=$GITHUB_REF_NAME
@@ -122,12 +136,35 @@ jobs:
           branch="update/$PACKAGE"
           git push --force "$PUSH_URL" "HEAD:refs/heads/$branch"
 
-          if [[ -n "$(gh pr list --head "$branch" --state open --json number --jq '.[].number')" ]]; then
+          run_url=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+
+          body=$RUNNER_TEMP/pr-body.md
+          {
+            echo "Automated update of \`$PACKAGE\` via \`passthru.updateScript\`, run by \`NixOS/scripts/nix-update.sh\`. Triggered by [workflow run]($run_url)."
+            echo
+            jq -r '
+              [
+                ["Description", .description],
+                ["Homepage", .homepage],
+                ["Changelog", .changelog],
+                ["Download page", .downloadPage]
+              ]
+              | .[]
+              | select(.[1] != null)
+              | "- **\(.[0]):** \(.[1])"
+            ' "$RUNNER_TEMP/meta.json"
+          } >"$body"
+
+          number=$(gh pr list --head "$branch" --state open --json number --jq '.[].number')
+          if [[ -n "$number" ]]; then
+            # The new version invalidates the title and any versioned links.
+            gh api --method PATCH "repos/$GITHUB_REPOSITORY/pulls/$number" \
+              -f title="$title" \
+              -F body=@"$body" \
+              --silent
             echo "Pull request for $branch is already open, pushed the update to it"
             exit 0
           fi
-
-          run_url=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
 
           # gh pr create fails outright if the label does not exist yet.
           gh label create "automated update" --color ededed \
@@ -136,6 +173,6 @@ jobs:
           gh pr create \
             --base "$base" \
             --head "$branch" \
-            --title "$PACKAGE: $OLD_VERSION -> $NEW_VERSION" \
+            --title "$title" \
             --label "automated update" \
-            --body "Automated update of \`$PACKAGE\` via \`passthru.updateScript\`, run by \`NixOS/scripts/nix-update.sh\`. Triggered by [workflow run]($run_url)."
+            --body-file "$body"
