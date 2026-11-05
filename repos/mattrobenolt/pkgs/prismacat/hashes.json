@@ -1,8 +1,8 @@
 {
   "hashes": {
-    "darwin_arm64": "sha256-wWCWqzlv/uH669TYxIX6+Q+uW9OUe08c8rEcnzMwZe4=",
-    "linux_amd64": "sha256-J0z/Lfuxe9PVmq5BIWkDS4NP/iBhCpgf++dHWKU3clc=",
-    "linux_arm64": "sha256-Hyz26R2RsH7DHq5QX6XIWBdJmKGXj4a2L4FxtwkFs6g="
+    "darwin_arm64": "sha256-MH3T7cd30hNDP0REGW7WLeDRCM965uuKWdI6SWuEWSo=",
+    "linux_amd64": "sha256-Pwxrx32rfDTySf1msMkEVU7Eclwf7Z3YaVRJeosbpFE=",
+    "linux_arm64": "sha256-UnFgCYNK65Ocd+nicsawg0S9dCGDnNR5OPAbkcyfZGE="
   },
-  "version": "0.2.0"
+  "version": "0.2.1"
 }
