@@ -7,13 +7,13 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "linguaspark-server";
-  version = "0-unstable-2026-10-22";
+  version = "0-unstable-2026-11-04";
   src = fetchFromGitHub {
     owner = "LinguaSpark";
     repo = "server";
-    rev = "5c72241382dead9b19996e806a601f7e89469314";
+    rev = "edd16a674b1484490a4a29d588dab9c1a191e6c3";
     fetchSubmodules = true;
-    hash = "sha256-M06EBW0/dJQJC9IZmvg28GUDy8SJN+f5WoqlvFPTb7s=";
+    hash = "sha256-JSbTAV78QItzQLoebSMntr1JO3wa+VyWrhv5O6UX190=";
   };
   __structuredAttrs = true;
   strictDeps = true;

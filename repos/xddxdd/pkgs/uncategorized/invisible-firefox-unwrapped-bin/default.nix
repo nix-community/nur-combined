@@ -18,11 +18,11 @@
 
 let
   version = "159.0";
-  tag = "firefox-54";
+  tag = "firefox-55";
 
   hashes = {
-    aarch64-linux = "sha256-bPQK0dvtBnLXLnDi7Xq9Uev/5tumzjjstsORLcyrHK0=";
-    x86_64-linux = "sha256-7Ed0DQ4JKN6eUsLkkfFiQ9i2lnNgl88DufIK1vNGLs8=";
+    aarch64-linux = "sha256-Foi4E7S6ULQTn7hV6WU1eofyhqU4YvO34DgnWjzEfqE=";
+    x86_64-linux = "sha256-H18c4NG18lnlYQotjzUNPcqfed+bOUZd4acD6khhKXQ=";
   };
 
   arch = {
