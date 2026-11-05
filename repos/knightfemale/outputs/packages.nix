@@ -6,10 +6,12 @@
       ...
     }:
     {
-      packages = builtins.intersectAttrs (lib.genAttrs [
-        "biu"
-        "comfyui-workflow-mcp"
-        "flake-show-ng"
-      ] (_: null)) pkgs;
+      packages = lib.filterAttrs (_: v: v != null) {
+        inherit (pkgs)
+          biu
+          comfyui-workflow-mcp
+          flake-show-ng
+          ;
+      };
     };
 }

@@ -1,12 +1,11 @@
 {
   config,
-  lib,
   inputs,
   ...
 }:
 {
   flake.overlays = {
-    default = import ./_overlays/default.nix { inherit lib; };
+    default = import ./_overlays/default.nix;
   };
 
   perSystem =

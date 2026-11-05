@@ -1,7 +1,3 @@
-{
-  lib,
-}:
-
 final: prev:
 let
   inherit (prev.stdenv.hostPlatform)
@@ -10,12 +6,9 @@ let
     ;
 in
 {
+  biu = if isLinux then final.callPackage ../_packages/biu { } else null;
   comfyui-workflow-mcp = final.callPackage ../_packages/comfyui-workflow-mcp { };
+  deviceTrees =
+    if (isLinux && isAarch64) then final.callPackage ../_legacyPackages/deviceTrees { } else null;
   flake-show-ng = final.callPackage ../_packages/flake-show-ng { };
-}
-// lib.optionalAttrs isLinux {
-  biu = final.callPackage ../_packages/biu { };
-}
-// lib.optionalAttrs (isLinux && isAarch64) {
-  deviceTrees = final.callPackage ../_legacyPackages/deviceTrees { };
 }

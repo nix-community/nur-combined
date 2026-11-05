@@ -6,8 +6,10 @@
       ...
     }:
     {
-      legacyPackages = builtins.intersectAttrs (lib.genAttrs [
-        "deviceTrees"
-      ] (_: null)) pkgs;
+      legacyPackages = lib.filterAttrs (_: v: v != null) {
+        inherit (pkgs)
+          deviceTrees
+          ;
+      };
     };
 }

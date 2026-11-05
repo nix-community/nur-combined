@@ -6,19 +6,10 @@
       ...
     }:
     {
-      apps =
-        lib.mapAttrs
-          (name: _: {
-            type = "app";
-            meta.description = self'.packages.${name}.meta.description;
-            program = lib.getExe self'.packages.${name};
-          })
-          (
-            builtins.intersectAttrs (lib.genAttrs [
-              "biu"
-              "comfyui-workflow-mcp"
-              "flake-show-ng"
-            ] (_: null)) self'.packages
-          );
+      apps = lib.mapAttrs (name: pkg: {
+        type = "app";
+        meta.description = pkg.meta.description;
+        program = lib.getExe pkg;
+      }) (lib.filterAttrs (_: pkg: (pkg.meta.mainProgram or null) != null) self'.packages);
     };
 }

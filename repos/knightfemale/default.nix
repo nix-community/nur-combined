@@ -2,39 +2,29 @@
   pkgs,
 }:
 let
-  inherit (pkgs) lib;
-  overlay = import ./outputs/_overlays/default.nix { inherit lib; };
+  overlay = import ./outputs/_overlays/default.nix;
   pkgs' = pkgs.extend overlay;
-  platform = pkgs'.stdenv.hostPlatform;
-  inherit (platform)
-    isAarch64
-    isLinux
-    ;
 in
 {
   overlays.default = overlay;
 
   inherit (pkgs')
+    biu
     comfyui-workflow-mcp
     flake-show-ng
     ;
 
-  legacyPackages = lib.optionalAttrs (isAarch64 && isLinux) {
+  legacyPackages = {
     inherit (pkgs')
       deviceTrees
       ;
   };
 
   nixosModules = {
-    openlist = import ./outputs/_nixosModules/openlist;
+    openlist = ./outputs/_nixosModules/openlist;
   };
 
   homeModules = {
-    comfyui-workflow-mcp = import ./outputs/_homeModules/comfyui-workflow-mcp;
+    comfyui-workflow-mcp = ./outputs/_homeModules/comfyui-workflow-mcp;
   };
-}
-// lib.optionalAttrs isLinux {
-  inherit (pkgs')
-    biu
-    ;
 }
