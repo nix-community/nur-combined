@@ -64,20 +64,29 @@ let
 
   pname = "trae";
   version = current.version;
+  buildId = current.buildId;
 
-  srcMap = {
-    x86_64-linux = fetchurl {
-      url = "https://lf-cdn.trae.ai/obj/trae-ai-us/pkg/app/releases/stable/${version}/linux/Trae-linux-x64.deb";
-      hash = current.x86_64-linux-hash;
-    };
-    aarch64-linux = fetchurl {
-      url = "https://lf-cdn.trae.ai/obj/trae-ai-us/pkg/app/releases/stable/${version}/linux/Trae-linux-arm64.deb";
-      hash = current.aarch64-linux-hash;
-    };
+  baseUrl = "https://lf-cdn.trae.ai/obj/trae-ai-us/pkg/app/releases/stable";
+
+  architectures = {
+    x86_64-linux = "x64";
+    aarch64-linux = "arm64";
   };
 
   system = stdenv.hostPlatform.system;
-  src = srcMap.${system} or (throw "Unsupported system: ${system}");
+
+  # Generate download URL for a given system and version.
+  debUrl =
+    system: buildId:
+    let
+      arch = architectures.${system} or (throw "trae: unsupported system: ${system}");
+    in
+    "${baseUrl}/${buildId}/linux/TRAE-linux-${arch}.deb";
+
+  src = fetchurl {
+    url = debUrl system buildId;
+    hash = current.${system + "-hash"};
+  };
 
   runtimeLibs = [
     glib.out
@@ -144,6 +153,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   autoPatchelfIgnoreMissingDeps = [
     "libc.musl-x86_64.so.1"
+    "libc.musl-aarch64.so.1"
     "libwebkit2gtk-4.1.so.0"
     "libsoup-3.0.so.0"
     "libsecret-1.so.0"
@@ -221,15 +231,50 @@ stdenv.mkDerivation (finalAttrs: {
       fetchMetaCommand = "${lib.getExe (
         callPackage ../../utils/fetch-urls.nix {
           inherit versionFile;
-          versionCommand = ''
-            # Trae has no GitHub releases or version API - distributed via CDN only
-            # Find the latest version from https://www.trae.ai/download or manually update VERSION
-            echo "2.3.29372"
-          '';
-          hashUrls = {
-            x86_64-linux = "https://lf-cdn.trae.ai/obj/trae-ai-us/pkg/app/releases/stable/$VERSION/linux/Trae-linux-x64.deb";
-            aarch64-linux = "https://lf-cdn.trae.ai/obj/trae-ai-us/pkg/app/releases/stable/$VERSION/linux/Trae-linux-arm64.deb";
+          templateCommands = {
+            VERSION = ''
+              curl -fsSL \
+                --retry 3 \
+                --retry-all-errors \
+                "https://icube-normal.trae.ai/icube/api/v1/native/version/trae/latest" |
+                jq -er '
+                  [
+                    .data.manifest.linux.versions[]
+                    | select(.region == "va")
+                    | .version
+                  ]
+                  | unique
+                  | if length == 1 then .[0]
+                    else error("Expected exactly one VERSION")
+                    end
+                '
+            '';
+
+            BUILDID = {
+              json.key = "buildId";
+
+              command = ''
+                curl -fsSL \
+                  --retry 3 \
+                  --retry-all-errors \
+                  "https://icube-normal.trae.ai/icube/api/v1/native/version/trae/latest" |
+                  jq -er '
+                    [
+                      .data.manifest.linux.versions[]
+                      | select(.region == "va")
+                      | .url
+                      | capture("/stable/(?<build>[^/]+)/linux/").build
+                    ]
+                    | unique
+                    | if length == 1 then .[0]
+                      else error("Expected exactly one BUILDID")
+                      end
+                  '
+              '';
+            };
           };
+
+          hashUrls = lib.mapAttrs (system: _arch: debUrl system "@BUILDID@") architectures;
         }
       )}";
     };
@@ -239,7 +284,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://www.trae.ai";
     license = lib.licenses.unfree;
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
-    platforms = builtins.attrNames srcMap;
+    platforms = builtins.attrNames architectures;
     mainProgram = "trae";
     maintainers = with lib.maintainers; [ lonerOrz ];
   };

@@ -140,7 +140,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Pear Desktop - unofficial YouTube Music desktop client";
     homepage = "https://github.com/pear-devs/pear-desktop";
     license = lib.licenses.mit;
-    platforms = lib.platforms.linux ++ lib.platforms.darwin;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ lonerOrz ];
     binaryNativeCode = true;
   };

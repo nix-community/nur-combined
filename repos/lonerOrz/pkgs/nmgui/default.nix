@@ -110,7 +110,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/s-adi-dev/nmgui";
     mainProgram = "nmgui";
     license = lib.licenses.gpl3;
-    platforms = lib.platforms.unix;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ lonerOrz ];
   };
 }

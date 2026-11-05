@@ -26,5 +26,6 @@ rustPlatform.buildRustPackage (finallAttrs: {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ lonerOrz ];
     mainProgram = "wsl-open";
+    platforms = lib.platforms.linux;
   };
 })

@@ -21,25 +21,37 @@ let
 
   pname = "sparkle";
   version = current.version;
+
+  versionFile = "pkgs/sparkle/version.json";
+
+  architectures = {
+    x86_64-linux = "amd64";
+    aarch64-linux = "arm64";
+  };
+
+  system = stdenv.hostPlatform.system;
+
+  arch = architectures.${system} or (throw "sparkle: unsupported system: ${system}");
+
+  # Generate the upstream release download URL.
+  releaseUrl =
+    arch: version:
+    "https://github.com/xishang0128/sparkle/releases/download/${version}/sparkle-linux-${version}-${arch}.deb";
+
 in
 stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
-    url = "https://github.com/xishang0128/sparkle/releases/download/${version}/sparkle-linux-${version}-${
-      {
-        x86_64-linux = "amd64";
-        aarch64-linux = "arm64";
-      }
-      .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}")
-    }.deb";
-    hash = current.${stdenv.hostPlatform.system + "-hash"};
+    url = releaseUrl arch version;
+    hash = current.${system + "-hash"};
   };
 
   nativeBuildInputs = [
     dpkg
     autoPatchelfHook
   ];
+
   buildInputs = [
     musl
     nss
@@ -54,8 +66,10 @@ stdenv.mkDerivation {
     mkdir -p $out/bin
     cp -r opt $out/opt
     cp -r usr/share $out/share
+
     substituteInPlace $out/share/applications/sparkle.desktop \
       --replace-fail "/opt/sparkle/sparkle" "sparkle"
+
     ln -s $out/opt/sparkle/sparkle $out/bin/sparkle
   '';
 
@@ -70,40 +84,37 @@ stdenv.mkDerivation {
       } $out/opt/sparkle/sparkle
   '';
 
-  passthru.updateScript =
-    let
-      versionFile = "pkgs/sparkle/version.json";
-    in
-    callPackage ../../utils/update.nix {
-      inherit versionFile;
-      pname = "sparkle";
-      updateMethod = "none";
-      fetchMetaCommand = "${lib.getExe (
-        callPackage ../../utils/fetch-urls.nix {
-          inherit versionFile;
-          versionCommand = ''
+  passthru.updateScript = callPackage ../../utils/update.nix {
+    inherit versionFile;
+    inherit pname;
+
+    updateMethod = "none";
+
+    fetchMetaCommand = lib.getExe (
+      callPackage ../../utils/fetch-urls.nix {
+        inherit versionFile;
+
+        templateCommands = {
+          VERSION = ''
             ${
               (callPackage ../../utils/fetcher.nix { }).githubRelease {
                 owner = "xishang0128";
                 repo = "sparkle";
               }
-            } | jq -r '.version'
+            } | jq -er '.version'
           '';
-          hashUrls = {
-            x86_64-linux = "https://github.com/xishang0128/sparkle/releases/download/$VERSION/sparkle-linux-$VERSION-amd64.deb";
-            aarch64-linux = "https://github.com/xishang0128/sparkle/releases/download/$VERSION/sparkle-linux-$VERSION-arm64.deb";
-          };
-        }
-      )}";
-    };
+        };
+
+        # Generate hash URL templates for all supported systems.
+        hashUrls = lib.mapAttrs (_system: arch: releaseUrl arch "@VERSION@") architectures;
+      }
+    );
+  };
 
   meta = {
     description = "Another Mihomo GUI";
     homepage = "https://github.com/xishang0128/sparkle";
-    platforms = [
-      "x86_64-linux"
-      "aarch64-linux"
-    ];
+    platforms = builtins.attrNames architectures;
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ lonerOrz ];
     mainProgram = "sparkle";

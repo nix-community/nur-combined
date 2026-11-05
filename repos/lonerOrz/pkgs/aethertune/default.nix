@@ -1,5 +1,6 @@
 {
   lib,
+  stdenv,
   rustPlatform,
   fetchFromGitHub,
   openssl,
@@ -21,6 +22,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoHash = "sha256-L8vnzYqc5cfd8Vv2n1zA59LJmCci/5BxEocxJxQjpTI=";
+
+  # Skip tests on Darwin: reqwest's system-configuration feature panics in the sandbox, though they pass on Linux.
+  doCheck = !stdenv.hostPlatform.isDarwin;
 
   buildInputs = [ openssl ];
   nativeBuildInputs = [ pkg-config ];

@@ -1,6 +1,7 @@
 {
   lib,
   stdenv,
+  apple-sdk,
   buildGoModule,
   fetchFromGitHub,
   pkg-config,
@@ -11,6 +12,7 @@
   makeDesktopItem,
   copyDesktopItems,
   imagemagick,
+  cacert,
   ast-grep,
   gotools,
   versionCheckHook,
@@ -71,10 +73,16 @@ buildGoModule (finalAttrs: {
     copyDesktopItems
     imagemagick
   ];
-  buildInputs = lib.optionals linuxGui [
-    gtk3
-    webkitgtk_4_1
-  ];
+
+  buildInputs =
+    lib.optionals linuxGui [
+      cacert
+      gtk3
+      webkitgtk_4_1
+    ]
+    ++ lib.optionals darwinGui [
+      apple-sdk
+    ];
 
   preFixup =
     if linuxGui then

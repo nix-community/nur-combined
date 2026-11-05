@@ -75,5 +75,6 @@ python3Packages.buildPythonPackage {
     homepage = "https://github.com/Fabric-Development/fabric";
     license = lib.licenses.agpl3Plus;
     maintainers = with lib.maintainers; [ lonerOrz ];
+    platforms = lib.platforms.linux;
   };
 }

@@ -41,7 +41,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     wrapGAppsHook4
   ];
 
-  buildInputs = lib.optionals stdenv.isLinux [
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     wayland
     libGL
     mesa
@@ -54,7 +54,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     gst-libav
   ];
 
-  dontWrapGApps = !stdenv.isLinux;
+  dontWrapGApps = !stdenv.hostPlatform.isLinux;
 
   meta = {
     description = "GPU-accelerated video wallpaper program for wayland compositors and macos";

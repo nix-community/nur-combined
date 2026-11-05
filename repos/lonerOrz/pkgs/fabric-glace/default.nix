@@ -8,6 +8,7 @@
   ninja,
   vala,
   wayland-scanner,
+  wayland,
   glib,
   gtk3,
 }:
@@ -33,6 +34,7 @@ stdenv.mkDerivation {
   ];
 
   buildInputs = [
+    wayland
     glib
     gtk3
   ];
@@ -48,6 +50,7 @@ stdenv.mkDerivation {
     description = "system glace for everyone";
     homepage = "https://github.com/your-github-username/gray";
     license = lib.licenses.agpl3Only;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ lonerOrz ];
   };
 }

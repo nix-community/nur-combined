@@ -1,5 +1,6 @@
 {
   lib,
+  stdenv,
   rustPlatform,
   fetchFromGitHub,
   pkg-config,
@@ -35,10 +36,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
     fontconfig
     freetype
     openssl
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
     wayland
   ];
 
-  postFixup = ''
+  postFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     patchelf \
       --add-rpath ${wayland}/lib \
       $out/bin/postman-gpui

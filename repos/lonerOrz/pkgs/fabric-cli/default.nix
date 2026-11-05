@@ -27,6 +27,7 @@ buildGoModule {
     '';
     homepage = "https://github.com/Fabric-Development/fabric-cli";
     license = lib.licenses.agpl3Only;
+    platforms = lib.platforms.linux;
     mainProgram = "fabric-cli";
     maintainers = with lib.maintainers; [ lonerOrz ];
   };

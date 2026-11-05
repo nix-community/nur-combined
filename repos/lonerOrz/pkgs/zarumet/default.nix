@@ -39,5 +39,6 @@ rustPlatform.buildRustPackage (finallAttrs: {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ lonerOrz ];
     mainProgram = "zarumet";
+    platforms = lib.platforms.linux;
   };
 })

@@ -41,7 +41,7 @@ rustPlatform.buildRustPackage (finallAttrs: {
     pango
     harfbuzz
   ]
-  ++ lib.optionals stdenv.isDarwin [
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
     # macOS-specific dependencies
     libiconv
   ];

@@ -21,24 +21,53 @@
 
 let
   current = lib.trivial.importJSON ./version.json;
-in
-stdenv.mkDerivation (finalAttrs: {
+
   pname = "aerion";
   version = current.version;
 
-  src =
+  versionFile = "pkgs/aerion/version.json";
+
+  # Map Nix system names to upstream release asset architecture names.
+  architectures = {
+    x86_64-linux = "amd64";
+    aarch64-linux = "arm64";
+  };
+
+  system = stdenv.hostPlatform.system;
+
+  arch = architectures.${system} or (throw "aerion: unsupported system: ${system}");
+
+  # Generate the upstream release archive URL.
+  releaseBase = "https://github.com/hkdb/aerion/releases/download";
+
+  urlFor =
+    version: system:
     let
-      system = stdenv.hostPlatform.system;
-      hashKey = "${system}-hash";
-      hash = current.${hashKey} or (throw "Unsupported system: ${system}");
+      assetArch = architectures.${system} or (throw "aerion: unsupported system: ${system}");
     in
-    fetchzip {
-      url = "https://github.com/hkdb/aerion/releases/download/v${finalAttrs.version}/aerion-linux-${
-        if system == "x86_64-linux" then "amd64" else "arm64"
-      }.tar.gz";
-      inherit hash;
-      stripRoot = false;
-    };
+    "${releaseBase}/v${version}/aerion-linux-${assetArch}.tar.gz";
+
+  # Generate URL templates for all supported systems.
+  hashUrls = lib.mapAttrs (system: _: urlFor "@VERSION@" system) architectures;
+
+  # Fetch the latest upstream GitHub Release version.
+  templateCommands = {
+    VERSION = ''
+      curl -fsSL \
+        "https://api.github.com/repos/hkdb/aerion/releases/latest" |
+        jq -er '.tag_name | ltrimstr("v")'
+    '';
+  };
+in
+stdenv.mkDerivation (finalAttrs: {
+  inherit pname version;
+
+  # Fetch and unpack the architecture-specific release archive.
+  src = fetchzip {
+    url = urlFor finalAttrs.version system;
+    hash = current.${system + "-hash"};
+    stripRoot = false;
+  };
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -111,35 +140,24 @@ stdenv.mkDerivation (finalAttrs: {
       }
   '';
 
-  passthru.updateScript =
-    let
-      versionFile = "pkgs/aerion/version.json";
-    in
-    callPackage ../../utils/update.nix {
-      inherit versionFile;
-      pname = "aerion";
-      updateMethod = "none";
-      fetchMetaCommand = "${lib.getExe (
-        callPackage ../../utils/fetch-urls.nix {
-          inherit versionFile;
-          versionCommand = ''
-            curl -sS https://api.github.com/repos/hkdb/aerion/releases/latest \
-              | jq -r '.tag_name | ltrimstr("v")'
-          '';
-          hashUrls = {
-            x86_64-linux = "https://github.com/hkdb/aerion/releases/download/v$VERSION/aerion-linux-amd64.tar.gz";
-            aarch64-linux = "https://github.com/hkdb/aerion/releases/download/v$VERSION/aerion-linux-arm64.tar.gz";
-          };
-          prefetchUnpack = true;
-        }
-      )}";
-    };
+  passthru.updateScript = callPackage ../../utils/update.nix {
+    inherit pname versionFile;
+
+    updateMethod = "none";
+
+    fetchMetaCommand = lib.getExe (
+      callPackage ../../utils/fetch-urls.nix {
+        inherit versionFile templateCommands hashUrls;
+        prefetchUnpack = true;
+      }
+    );
+  };
 
   meta = {
     description = "A modern, cross-platform email client";
     homepage = "https://github.com/hkdb/aerion";
     license = lib.licenses.gpl3Only;
-    platforms = lib.platforms.linux;
+    platforms = builtins.attrNames architectures;
     mainProgram = "aerion";
     maintainers = with lib.maintainers; [ lonerOrz ];
   };

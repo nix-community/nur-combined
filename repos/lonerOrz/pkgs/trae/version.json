@@ -1,5 +1,6 @@
 {
-  "version": "2.3.29372",
-  "x86_64-linux-hash": "sha256-QVzI1NO1IAGZ8Qgyoem5ynT/KtsXVs++672AICZQnZs=",
-  "aarch64-linux-hash": "sha256-I4oGNjCnGmeJNL7owPI4O9sxQU2Rqi/qhuzHfYiPpv4="
+  "version": "3.6.13",
+  "buildId": "2.3.99397",
+  "x86_64-linux-hash": "sha256-8LjeCP4HHYAhpb/L/LXeQhMqs0iZd6+l9a2ukIBYve0=",
+  "aarch64-linux-hash": "sha256-owkgoTYKVuslPru3VMRY1WdpYViTZj+mQcpbaKGm5mA="
 }

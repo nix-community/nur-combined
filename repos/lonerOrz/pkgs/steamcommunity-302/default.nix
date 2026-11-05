@@ -78,7 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Steamcommunity 302 for Linux";
     homepage = "https://www.dogfight360.com/blog/";
     license = lib.licenses.unfree;
-    platforms = lib.platforms.linux;
+    platforms = [ "x86_64-linux" ];
     binaryNativeCode = true;
   };
 })

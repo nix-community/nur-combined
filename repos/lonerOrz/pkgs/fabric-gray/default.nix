@@ -48,6 +48,7 @@ stdenv.mkDerivation {
     description = "system trays for everyone";
     homepage = "https://github.com/your-github-username/gray";
     license = lib.licenses.agpl3Only;
+    platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ lonerOrz ];
   };
 }
