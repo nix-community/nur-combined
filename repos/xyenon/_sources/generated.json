@@ -279,11 +279,11 @@
             "name": null,
             "owner": "yazi-rs",
             "repo": "plugins",
-            "rev": "0f28df231639070014ab7fc828c5000d9e3634f5",
-            "sha256": "sha256-02Pb7uSqD5CjgLU2qmXNutMMFkNxm88lNP7R5GUMuOI=",
+            "rev": "2e0d8cf9084bc007b835fcf7c492a32736aa2ff9",
+            "sha256": "sha256-pO6rUSWNqMeWN+ikT3TFoOGohBHl+9UXUneVLcOddFY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0f28df231639070014ab7fc828c5000d9e3634f5"
+        "version": "2e0d8cf9084bc007b835fcf7c492a32736aa2ff9"
     }
 }
