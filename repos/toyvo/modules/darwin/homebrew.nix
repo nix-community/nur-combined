@@ -19,25 +19,7 @@ in
       };
       casks = [
         {
-          name = "firefox";
-        }
-        {
-          name = "ghostty";
-        }
-        {
-          name = "onlyoffice";
-        }
-        {
-          name = "podman-desktop";
-        }
-        {
           name = "proton-drive";
-        }
-        {
-          name = "proton-mail";
-        }
-        {
-          name = "proton-pass";
         }
         {
           name = "protonvpn";
