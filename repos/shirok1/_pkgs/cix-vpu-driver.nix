@@ -3,6 +3,7 @@
   lib,
   fetchFromGitHub,
   kernel,
+  kernelModuleMakeFlags,
   quilt,
 }:
 
@@ -38,7 +39,8 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preBuild
 
     CONFIG_VIDEO_LINLON=m CONFIG_VIDEO_LINLON_MONO=y CONFIG_VIDEO_LINLON_IF_V4L2=y \
-    make -C "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" \
+    make ${lib.escapeShellArgs kernelModuleMakeFlags} \
+        -C "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" \
         M="$PWD/driver" \
         -j$NIX_BUILD_CORES \
         modules
@@ -49,7 +51,8 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    make -C "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" \
+    make ${lib.escapeShellArgs kernelModuleMakeFlags} \
+        -C "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" \
         M="$PWD/driver" \
         INSTALL_MOD_PATH="$out" \
         modules_install

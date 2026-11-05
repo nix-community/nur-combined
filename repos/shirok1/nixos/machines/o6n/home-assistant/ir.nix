@@ -33,36 +33,6 @@
         data.topic = "cmnd/tasmota_5E6E7B/IrSend";
         data.payload = ''{"Protocol":"SYMPHONY","Bits":12,"Data":"0xD84","DataLSB":"0xB021"}'';
       };
-      ir_ac_light.alias = "空调屏显 IR";
-      ir_ac_light.sequence = {
-        service = "mqtt.publish";
-        data.topic = "cmnd/tasmota_5E6E7B/IrSend";
-        data.payload = ''{"Protocol":"COOLIX","Bits":24,"Data":"0xB9F509","DataLSB":"0x9DAF90"}'';
-      };
-      ir_ac_swing_v_on.alias = "空调上下摆风开 IR";
-      ir_ac_swing_v_on.sequence = {
-        service = "mqtt.publish";
-        data.topic = "cmnd/tasmota_5E6E7B/IrSend";
-        data.payload = ''{"Protocol":"COOLIX","Bits":24,"Data":"0xB9F504","DataLSB":"0x9DAF20"}'';
-      };
-      ir_ac_swing_v_off.alias = "空调上下摆风关 IR";
-      ir_ac_swing_v_off.sequence = {
-        service = "mqtt.publish";
-        data.topic = "cmnd/tasmota_5E6E7B/IrSend";
-        data.payload = ''{"Protocol":"COOLIX","Bits":24,"Data":"0xB9F505","DataLSB":"0x9DAFA0"}'';
-      };
-      ir_ac_swing_h_on.alias = "空调左右摆风开 IR";
-      ir_ac_swing_h_on.sequence = {
-        service = "mqtt.publish";
-        data.topic = "cmnd/tasmota_5E6E7B/IrSend";
-        data.payload = ''{"Protocol":"COOLIX","Bits":24,"Data":"0xB9F507","DataLSB":"0x9DAFE0"}'';
-      };
-      ir_ac_swing_h_off.alias = "空调左右摆风关 IR";
-      ir_ac_swing_h_off.sequence = {
-        service = "mqtt.publish";
-        data.topic = "cmnd/tasmota_5E6E7B/IrSend";
-        data.payload = ''{"Protocol":"COOLIX","Bits":24,"Data":"0xB9F508","DataLSB":"0x9DAF10"}'';
-      };
       ir_tv_on_off.alias = "电视开关 IR";
       ir_tv_on_off.sequence = {
         service = "mqtt.publish";
@@ -122,27 +92,6 @@
       }
       {
         switch = [
-          {
-            name = "空调屏显";
-            unique_id = "db4fe1d1-c4d8-4218-bf1d-6353a933a3e3";
-            optimistic = true;
-            turn_on.action = "script.ir_ac_light";
-            turn_off.action = "script.ir_ac_light";
-          }
-          {
-            name = "空调上下摆风";
-            unique_id = "8ccd543d-bca1-474e-8c0a-16268c1c8fc6";
-            optimistic = true;
-            turn_on.action = "script.ir_ac_swing_v_on";
-            turn_off.action = "script.ir_ac_swing_v_off";
-          }
-          {
-            name = "空调左右摆风";
-            unique_id = "25cf3c50-0379-455b-ac13-c8b427f665e6";
-            optimistic = true;
-            turn_on.action = "script.ir_ac_swing_h_on";
-            turn_off.action = "script.ir_ac_swing_h_off";
-          }
           {
             name = "电视电源";
             unique_id = "e50aaea2-a3be-4898-939b-e0a3d74d7ac7";

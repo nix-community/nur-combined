@@ -101,7 +101,13 @@
           hash = "sha256-m6Az3HN/MfhCrB+QZfDtoBW+lnmPYQsrlAGrF72q7fU=";
         };
       }))
-      pkgs.shirok1.zuyan9-ha-cuk-ble
+      (pkgs.shirok1.zuyan9-ha-cuk-ble.overrideAttrs (oldAttrs: {
+        version = "0.3.6";
+        src = fetchGit {
+          url = /home/shiroki/code/ha-cuk-ble;
+          rev = "f12d2e668af9f096680db9250767e71deb3eabea";
+        };
+      }))
       pkgs.shirok1.bemfa-behome
       pkgs.shirok1.bemfa-cloud-ha
     ];

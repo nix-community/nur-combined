@@ -3,6 +3,7 @@
   lib,
   fetchFromGitHub,
   kernel,
+  kernelModuleMakeFlags,
   quilt,
   enableDevfreq ? true,
 }:
@@ -38,7 +39,8 @@ stdenv.mkDerivation (finalAttrs: {
   buildPhase = ''
     runHook preBuild
 
-    make -C "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"\
+    make ${lib.escapeShellArgs kernelModuleMakeFlags} \
+        -C "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"\
         M="$PWD/driver" \
         -j$NIX_BUILD_CORES \
         BUILD_AIPU_VERSION_KMD=BUILD_ZHOUYI_V3 \
@@ -52,7 +54,8 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    make -C "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" \
+    make ${lib.escapeShellArgs kernelModuleMakeFlags} \
+        -C "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build" \
         M="$PWD/driver" \
         INSTALL_MOD_PATH="$out" \
         modules_install

@@ -137,19 +137,6 @@
       gitui
       dive
 
-      (writeShellScriptBin "stata-mp-box64" ''
-        export LD_LIBRARY_PATH="${
-          lib.makeLibraryPath [
-            zlib
-            curl
-            ncurses
-          ]
-        }''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
-        ${box64}/bin/box64 ${shirok1-x86_64.stata.override { ignoreCurl = true; }}/stata-mp "$@"
-      '')
-      (writeShellScriptBin "stata-mp-fex" ''
-        ${fex}/bin/FEX ${shirok1-x86_64.stata}/stata-mp "$@"
-      '')
       nodejs
       ffmpeg
       mosh

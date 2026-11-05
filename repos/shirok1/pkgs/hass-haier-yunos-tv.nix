@@ -8,13 +8,13 @@
 buildHomeAssistantComponent {
   owner = "shirok1";
   domain = "haier_tv";
-  version = "0.1.1-unstable";
+  version = "0.2.3";
 
   src = fetchFromGitHub {
     owner = "shirok1";
     repo = "hass-haier-yunos-tv";
-    rev = "295dc0cce5736158f35120d31118e727c1721386";
-    hash = "sha256-6Bhu9X0yxs2OEQWmVjpywzT8uHYwiOaAldfY4HA2kT8=";
+    rev = "74676f57385917e5119656ce6dcc77e29c20f910";
+    hash = "sha256-02Kko7+ljDqfnm0cOd2554v46w8FbypeCpnunj5HLPE=";
   };
 
   dependencies =
