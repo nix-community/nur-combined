@@ -7,13 +7,13 @@
 
 swiftPackages.stdenv.mkDerivation rec {
   pname = "whatcable";
-  version = "1.4.0";
+  version = "1.5.0";
 
   src = fetchFromGitHub {
     owner = "darrylmorley";
     repo = "whatcable";
     rev = "v${version}";
-    hash = "sha256-1M/zTJcxFNDPM8EA+jeIBL2MtawUTA59373HILMrdzA=";
+    hash = "sha256-yvl5GrUEWEQ12WMipNf9BxEILpWRA8q+EN+6GYeNEqs=";
   };
 
   nativeBuildInputs = with swiftPackages; [
@@ -35,7 +35,7 @@ swiftPackages.stdenv.mkDerivation rec {
     }
 EOF
 
-    substituteInPlace Sources/WhatCableCore/Cable/CableDB.swift \
+    substituteInPlace Sources/WhatCableCore/Database/CableDB.swift \
       --replace-fail 'import SQLite3' 'import CSQLite'
 
     # Swift 5.10 in nixpkgs treats these weak-self captures as errors in
@@ -51,10 +51,10 @@ EOF
             Task { @MainActor in self.check(silent: true) }
         }' \
       --replace-fail \
-        '        URLSession.shared.dataTask(with: Self.makeReleaseRequest()) { [weak self] data, _, error in
+        '        URLSession.shared.dataTask(with: Self.makeReleaseRequest(includingBetas: betas)) { [weak self] data, _, error in
             Task { @MainActor in
                 guard let self else { return }' \
-        '        URLSession.shared.dataTask(with: Self.makeReleaseRequest()) { [weak self] data, _, error in
+        '        URLSession.shared.dataTask(with: Self.makeReleaseRequest(includingBetas: betas)) { [weak self] data, _, error in
             guard let self else { return }
             Task { @MainActor in'
 
