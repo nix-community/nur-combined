@@ -106,7 +106,7 @@ in
     prophecy.subdomains."*".A = propA;
     radicale.A = propA;
     "s3.garage.prophecy".A = propA;
-    savm.AAAA = s "2602:fce8:106:10::4";
+    savm = host "205.201.63.132" "2602:fce8:106:10::4";
     servacu.A = s "167.99.161.174";
     smtp.A = doA;
     sol.CNAME = s "solis";
