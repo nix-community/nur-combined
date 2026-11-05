@@ -3,15 +3,15 @@
 { fetchurl, stdenv }:
 
 let
-  version = "0.1.2894";
+  version = "0.1.3008";
   sources = {
     "aarch64-linux" = {
-      url = "https://github.com/yetone/magpie-releases/releases/download/v0.1.2894/magpie-linux-arm64";
-      hash = "sha256-RcpCFTbNNXE6ycb5xv7tyY2Qv48awT305K6EpX+musU=";
+      url = "https://github.com/yetone/magpie-releases/releases/download/v0.1.3008/magpie-linux-arm64";
+      hash = "sha256-ouYxyQEqhAoSpjVN1hVQjdyEsgAVetQg7DVQ9unl2r0=";
     };
     "x86_64-linux" = {
-      url = "https://github.com/yetone/magpie-releases/releases/download/v0.1.2894/magpie-linux-amd64";
-      hash = "sha256-5An5DF1xynC4hMGz22tQbROV93GT56jCO18+5Kb9yno=";
+      url = "https://github.com/yetone/magpie-releases/releases/download/v0.1.3008/magpie-linux-amd64";
+      hash = "sha256-h8UTyobj91226NOsFoeTuAZTmbiI6yang+OmLLBaHhk=";
     };
   };
   source =
