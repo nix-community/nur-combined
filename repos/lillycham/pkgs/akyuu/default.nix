@@ -3,6 +3,8 @@
   haskell,
   haskellPackages,
   fetchFromGitHub,
+  installShellFiles,
+  scdoc,
 }:
 let
   # The dependencies come from akyuu.nix of the project (cabal2nix output).
@@ -31,6 +33,7 @@ let
       tasty-quickcheck,
       text,
       time,
+      toml-parser,
       transformers,
       unix,
       wai,
@@ -38,12 +41,12 @@ let
     }:
     mkDerivation {
       pname = "akyuu";
-      version = "0.2.0.0";
+      version = "0.4.0.0-unstable-2026-11-05";
       src = fetchFromGitHub {
         owner = "lillycham";
         repo = "akyuu";
-        rev = "92ee544334bdde2021b1009a4396db479ac234f8"; # v0.2.0.0
-        hash = "sha256-6Xtq+WCBFibdVarhZpnfYelEPx1Zdz6dhN805+X3SDE=";
+        rev = "d6094b09243a66806736f4545036d47ddd1f816b";
+        hash = "sha256-rRK1fG1h0IeepdEt6zr+sHA6MWGFAFGrrMhxssifOJI=";
       };
       isLibrary = true;
       isExecutable = true;
@@ -66,6 +69,7 @@ let
         streaming-commons
         text
         time
+        toml-parser
         transformers
         unix
         wai
@@ -100,4 +104,18 @@ let
 in
 # Only the executable: no references to GHC or to the Haskell libraries, so
 # the closure is the binary and a few system libraries.
-haskell.lib.justStaticExecutables (haskell.lib.dontHaddock akyuu)
+haskell.lib.overrideCabal (haskell.lib.justStaticExecutables (haskell.lib.dontHaddock akyuu))
+  (drv: {
+    buildTools = (drv.buildTools or [ ]) ++ [
+      scdoc
+      installShellFiles
+    ];
+    postInstall = (drv.postInstall or "") + ''
+      for p in man/*.scd; do scdoc < "$p" > "''${p%.scd}"; done
+      installManPage man/akyuu.1 man/akyuu.5
+      installShellCompletion --cmd akyuu \
+        --bash <($out/bin/akyuu --bash-completion-script $out/bin/akyuu) \
+        --zsh <($out/bin/akyuu --zsh-completion-script $out/bin/akyuu) \
+        --fish <($out/bin/akyuu --fish-completion-script $out/bin/akyuu)
+    '';
+  })
