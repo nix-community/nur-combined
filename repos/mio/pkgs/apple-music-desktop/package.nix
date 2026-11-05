@@ -6,22 +6,25 @@
   fetchFromGitHub,
   makeDesktopItem,
   makeBinaryWrapper,
+  jq,
+  nix-update-script,
+  writeShellApplication,
 }:
 
 buildNpmPackage rec {
   pname = "apple-music-desktop";
-  version = "2.2.0-unstable-20260306";
+  version = "2.4.0-unstable-2026-11-04";
 
   src = fetchFromGitHub {
     owner = "Alex313031";
     repo = "apple-music-desktop";
-    rev = "60be23ca85577765d02cfcbf7c668b3a20319981";
-    hash = "sha256-SINvlS4br02G2s62jA7nsyNsBJhHHT6OOAOXCgE1/30=";
+    rev = "d64596153c15797c95c845cb1bc574869a46be05";
+    hash = "sha256-hPkZjENQKGeKYJa+Lc7fi8Xc5YuwmVVnVehhCQcuI3U=";
   };
 
   sourceRoot = "${src.name}/src";
 
-  npmDepsHash = "sha256-N/nJcHajV06K9febJtuFBptl/x56066KnraR6lWISgQ=";
+  npmDepsHash = "sha256-a/wAQuLUPjOCmVbycGrKITh4FywNCFVaTt54AF4ysg0=";
   forceGitDeps = true;
   makeCacheWritable = true;
   dontNpmBuild = true;
@@ -61,6 +64,31 @@ buildNpmPackage rec {
       ];
     })
   ];
+
+  passthru.updateScript = writeShellApplication {
+    name = "update-apple-music-desktop";
+    runtimeInputs = [ jq ];
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="apple-music-desktop"
+      ${
+        lib.escapeShellArgs (nix-update-script {
+          extraArgs = [ "--version=branch" ];
+        })
+      } "$@"
+
+      # nix-update takes the base version from the newest release tag, but this
+      # package tracks commits and upstream only keeps the real version in
+      # package.json. Rebase onto it, keeping the commit date nix-update wrote.
+      pkg_file=pkgs/apple-music-desktop/package.nix
+      src=$(nix build --no-link --print-out-paths ".#apple-music-desktop.src")
+      base=$(jq -r '.version // empty' "$src/src/package.json")
+      if [[ -n $base ]]; then
+        sed -i -E "s/^  version = \"[^\"]+-unstable-/  version = \"$base-unstable-/" "$pkg_file"
+      else
+        echo "warning: no version in src/package.json, keeping nix-update's version" >&2
+      fi
+    '';
+  };
 
   meta = {
     description = "Electron-based desktop client for Apple Music";

@@ -12,13 +12,13 @@
 
 let
   pname = "pcl-me";
-  version = "1.0.1-unstable-2026-11-03";
+  version = "1.0.1-unstable-2026-11-05";
 
   src = fetchFromGitHub {
     owner = "TheUnknownThing";
     repo = "PCL-ME";
-    rev = "b3b3802fbe6d5546df604a60a8ea3c83311db76c";
-    hash = "sha256-WsP+mxMMkDklUGoXFxWoy0fN9v4IhFD4yd/e8oB78UA=";
+    rev = "0b96ff72cee7f8ca9b508ed9679039172362d30d";
+    hash = "sha256-w1aXLy8PFbrNOp+Hlitv9unZjHhs4iA2qqMz4gLgMDY=";
   };
 
   dotnet-sdk = dotnetCorePackages.sdk_10_0;
@@ -70,7 +70,7 @@ stdenv.mkDerivation {
     # We must restore again using offline cache to generate obj/ files
     dotnet restore "Plain Craft Launcher 2.slnx" --source ${deps}
 
-    dotnet publish "PCL.Frontend.Avalonia/PCL.Frontend.Avalonia.csproj" \
+    dotnet publish "src/PCL.Frontend.Avalonia/PCL.Frontend.Avalonia.csproj" \
       --no-restore \
       -c Release \
       -o $out/bin \
