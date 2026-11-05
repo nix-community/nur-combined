@@ -1,5 +1,5 @@
 {
   flake.homeModules = {
-    comfyui-workflow-mcp = import ./_homeModules/comfyui-workflow-mcp;
+    comfyui-workflow-mcp = ./_homeModules/comfyui-workflow-mcp;
   };
 }

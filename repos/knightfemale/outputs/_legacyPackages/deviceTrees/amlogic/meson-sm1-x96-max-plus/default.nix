@@ -21,9 +21,9 @@ runCommand "${name}"
       description = "Prebuilt device tree blob for X96 Max+ (Amlogic S905X3)";
       homepage = "https://github.com/ophub/amlogic-s9xxx-armbian";
       license = lib.licenses.gpl2Only;
+      sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
       maintainers = with lib.maintainers; [ knightfemale ];
       platforms = [ "aarch64-linux" ];
-      sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     };
   }
   ''

@@ -1,5 +1,5 @@
 {
   flake.nixosModules = {
-    openlist = import ./_nixosModules/openlist;
+    openlist = ./_nixosModules/openlist;
   };
 }
