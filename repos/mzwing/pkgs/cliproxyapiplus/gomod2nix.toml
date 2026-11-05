@@ -1,5 +1,5 @@
 schema = 4
-go = '1.26.0'
+go = '1.26.10'
 
 [mod]
   [mod.'cloud.google.com/go/compute/metadata']
@@ -9,6 +9,11 @@ go = '1.26.0'
   [mod.'github.com/Microsoft/go-winio']
     version = 'v0.6.2'
     hash = 'sha256-tVNWDUMILZbJvarcl/E7tpSnkn7urqgSHa2Eaka5vSU='
+
+  [mod.'github.com/MoeForge/moego']
+    version = 'v0.1.1'
+    hash = 'sha256-/9nmOFSVevb9HZDjHgaxWC7WqnlJ+EpwqlOeiXvXrlw='
+    replaced = 'github.com/router-for-me/moego'
 
   [mod.'github.com/ProtonMail/go-crypto']
     version = 'v1.4.1'
@@ -131,12 +136,12 @@ go = '1.26.0'
     hash = 'sha256-icqMDeC/tEg/3979EuEN67Ml5KjdDA0R3QvR6iLLrSI='
 
   [mod.'github.com/go-git/go-billy/v6']
-    version = 'v6.0.0-alpha.1.0.20260519112248-0095b064a6c6'
-    hash = 'sha256-5xB9v4NRiAT1p4kzfSmHd3qiwZoQ3eS0XFpbDJlyvjI='
+    version = 'v6.0.0-alpha.2'
+    hash = 'sha256-qqhhuxHorEj5PgSdReABtLKKPYqWdx9AlK1+QjDnt98='
 
   [mod.'github.com/go-git/go-git/v6']
-    version = 'v6.0.0-alpha.4.0.20260520124234-0860a7d8a164'
-    hash = 'sha256-Oxt6NmGrVkyA55ZK55HRCENm07kyTMYRw+YTRl3vhRg='
+    version = 'v6.0.0-alpha.5'
+    hash = 'sha256-r1lcplSi5Rl+p3iqAIePYUVmrMn9tg5Jpm/KQFDE554='
 
   [mod.'github.com/go-playground/locales']
     version = 'v0.14.1'
@@ -259,8 +264,8 @@ go = '1.26.0'
     hash = 'sha256-hGo275DJlyLtcifSLpWnk8jardOksdeX9lH4lBeE3gI='
 
   [mod.'github.com/pelletier/go-toml/v2']
-    version = 'v2.2.2'
-    hash = 'sha256-ukxk1Cfm6cQW18g/aa19tLcUu5BnF7VmfAvrDHAOl6A='
+    version = 'v2.4.3-0.20260624044523-35f78d5908f1'
+    hash = 'sha256-fnK23BOcmZx7yuLTU78oh/sdE+FcC9goyakK/9288ro='
 
   [mod.'github.com/pierrec/xxHash']
     version = 'v0.1.5'
@@ -366,22 +371,6 @@ go = '1.26.0'
     version = 'v1.9.3'
     hash = 'sha256-EnxsWdEUPYid+aZ9H4/iMTs1XMvCLbXZRDyvj89Ebms='
 
-  [mod.'github.com/tidwall/gjson']
-    version = 'v1.18.0'
-    hash = 'sha256-CO6hqDu8Y58Po6A01e5iTpwiUBQ5khUZsw7czaJHw0I='
-
-  [mod.'github.com/tidwall/match']
-    version = 'v1.1.1'
-    hash = 'sha256-M2klhPId3Q3T3VGkSbOkYl/2nLHnsG+yMbXkPkyrRdg='
-
-  [mod.'github.com/tidwall/pretty']
-    version = 'v1.2.0'
-    hash = 'sha256-esRQGsn2Ee/CiySlwyuOICSLdqUkH4P7u8qXszos8Yc='
-
-  [mod.'github.com/tidwall/sjson']
-    version = 'v1.2.5'
-    hash = 'sha256-OYGNolkmL7E1Qs2qrQ3IVpQp5gkcHNU/AB/z2O+Myps='
-
   [mod.'github.com/tiktoken-go/tokenizer']
     version = 'v0.8.1'
     hash = 'sha256-ng+U9emzQ32RibigkiJ1kml2w+rQtesCcofL/gUoBOc='
@@ -415,32 +404,32 @@ go = '1.26.0'
     hash = 'sha256-zz9sbr+yT6eqjHVlVBfDZVmIkzOT6DZFpN3eaQT4Afw='
 
   [mod.'golang.org/x/crypto']
-    version = 'v0.54.0'
-    hash = 'sha256-m8jsqlPuoPxGDjClzcAVbXf1aiU07L+9j7vYcqJu/0Q='
+    version = 'v0.57.0'
+    hash = 'sha256-3/hkB+mZVBKnoxUaJv7DOzvxaL+8uQ7V6ofW4JiHhz4='
 
   [mod.'golang.org/x/net']
-    version = 'v0.57.0'
-    hash = 'sha256-gKo8UMw4hfETBHm8N5GOfuNadse9TWEQXJo2YWq5bY4='
+    version = 'v0.60.0'
+    hash = 'sha256-Xxed9Zp1f2+e8Gsrz8OQ4hI/Xo8+2RfwaV3+aaykvro='
 
   [mod.'golang.org/x/oauth2']
     version = 'v0.30.0'
     hash = 'sha256-btD7BUtQpOswusZY5qIU90uDo38buVrQ0tmmQ8qNHDg='
 
   [mod.'golang.org/x/sync']
-    version = 'v0.22.0'
-    hash = 'sha256-VZjl0fAM0p/nI81zh+pdBjzxFupx0UcKYXBBpL2ZS7k='
+    version = 'v0.23.0'
+    hash = 'sha256-nF8YZFVC+TitjkderlqgGwJkuMqJCxI+fIElVLjBT2M='
 
   [mod.'golang.org/x/sys']
-    version = 'v0.47.0'
-    hash = 'sha256-TpbRyWWqHjddP6QzUgAbaLd2EE0S+GYNRUIDJd18r98='
+    version = 'v0.48.0'
+    hash = 'sha256-u+LwI76YIeg1asQKZItD2mnL4Yvx8veLhBuL8wv60Ls='
 
   [mod.'golang.org/x/term']
-    version = 'v0.45.0'
-    hash = 'sha256-vPBeJkepEZ1D9k4oaV20IuQlVmfAFv15KQgnhl9MNgw='
+    version = 'v0.46.0'
+    hash = 'sha256-w/LexmQ91G8N1zdjIujuaEIONVfAg7U/DciHVYp0+QY='
 
   [mod.'golang.org/x/text']
-    version = 'v0.40.0'
-    hash = 'sha256-LJfnki46XEreGbSgjl+DeqgcTsINTOu2owyXNvijMcA='
+    version = 'v0.42.0'
+    hash = 'sha256-bviKbNmkN4Yf2dpgwmP6yNcZEakCcv1R+YyAxCdJGkY='
 
   [mod.'golang.org/x/time']
     version = 'v0.14.0'
@@ -466,6 +455,12 @@ go = '1.26.0'
   [cacheModules.'cloud.google.com/go/compute/metadata']
     packages = [
       'cloud.google.com/go/compute/metadata'
+    ]
+
+  [cacheModules.'github.com/MoeForge/moego']
+    packages = [
+      'github.com/MoeForge/moego/base64',
+      'github.com/MoeForge/moego/ojson'
     ]
 
   [cacheModules.'github.com/ProtonMail/go-crypto']
@@ -764,6 +759,7 @@ go = '1.26.0'
       'github.com/go-git/go-git/v6/utils/merkletrie/noder',
       'github.com/go-git/go-git/v6/utils/sync',
       'github.com/go-git/go-git/v6/utils/trace',
+      'github.com/go-git/go-git/v6/x/fdpool',
       'github.com/go-git/go-git/v6/x/plugin',
       'github.com/go-git/go-git/v6/x/plugin/config',
       'github.com/go-git/go-git/v6/x/plugin/zlib',
@@ -1273,33 +1269,6 @@ go = '1.26.0'
     ]
     deps = [
       'golang.org/x/sys'
-    ]
-
-  [cacheModules.'github.com/tidwall/gjson']
-    packages = [
-      'github.com/tidwall/gjson'
-    ]
-    deps = [
-      'github.com/tidwall/match',
-      'github.com/tidwall/pretty'
-    ]
-
-  [cacheModules.'github.com/tidwall/match']
-    packages = [
-      'github.com/tidwall/match'
-    ]
-
-  [cacheModules.'github.com/tidwall/pretty']
-    packages = [
-      'github.com/tidwall/pretty'
-    ]
-
-  [cacheModules.'github.com/tidwall/sjson']
-    packages = [
-      'github.com/tidwall/sjson'
-    ]
-    deps = [
-      'github.com/tidwall/gjson'
     ]
 
   [cacheModules.'github.com/tiktoken-go/tokenizer']
