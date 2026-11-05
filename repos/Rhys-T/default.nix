@@ -283,8 +283,9 @@ in {
                         nix-prefetch-git
                     ])}
                     set -euo pipefail
+                    curlVersion="$(curl -V | head -1 | cut -d' ' -f2)"
                     ghcurl() {
-                        curl -H 'X-GitHub-Api-Version: 2022-11-28' ''${GITHUB_TOKEN:+ -H "Authorization: bearer $GITHUB_TOKEN"} "$@"
+                        curl --user-agent "curl/$curlVersion Rhys-T NUR update script for picolisp-rolling https://github.com/Rhys-T/nur-packages" -H 'X-GitHub-Api-Version: 2022-11-28' ''${GITHUB_TOKEN:+ -H "Authorization: bearer $GITHUB_TOKEN"} "$@"
                     }
                     jqOrDump() {
                         local data

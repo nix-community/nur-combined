@@ -1,8 +1,9 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i bash -p curl gnugrep gnused gnutar nix common-updater-scripts
 set -euo pipefail
+curlVersion="$(curl -V | head -1 | cut -d' ' -f2)"
 latest="$(
-	curl -s 'https://invisible-island.net/archives/man2html/' | \
+	curl --user-agent "curl/$curlVersion Rhys-T NUR update script for man2html https://github.com/Rhys-T/nur-packages" -s 'https://invisible-island.net/archives/man2html/' | \
 	grep -Eo 'href="man2html-[0-9]{8}\.tgz"' | \
 	sed -E 's@href="man2html-([0-9]{8})\.tgz"@\1@g' | \
 	sort -nr | head -n1

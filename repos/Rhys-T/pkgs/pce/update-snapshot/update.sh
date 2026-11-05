@@ -1,8 +1,9 @@
 #!/usr/bin/env nix-shell
 #!nix-shell -i bash -p curl gnugrep gnused gnutar nix common-updater-scripts
 set -euo pipefail
+curlVersion="$(curl -V | head -1 | cut -d' ' -f2)"
 latest="$(
-	curl -s 'http://hampa.ch/pub/pce/pre/' | \
+	curl --user-agent "curl/$curlVersion Rhys-T NUR update script for pce-snapshot https://github.com/Rhys-T/nur-packages" -s 'http://hampa.ch/pub/pce/pre/' | \
 	grep -Eo 'href="pce-[0-9]{8}-[0-9a-f]{8}/"' | \
 	sed -E 's@href="pce-(.*)/"@\1@g' | \
 	sort -nr | head -n1

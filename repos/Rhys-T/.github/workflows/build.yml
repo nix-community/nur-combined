@@ -106,8 +106,7 @@ jobs:
               ("\($displayRunner)-\($displayNixpkgs)-\($subset)" | gsub(" "; "-")) as $cacheName |
               (if $qemuSystem then "TODO make qemu builds work again" | error else . end) |
               ($subset == "lix-game-darwin") as $flaky |
-              ($runner | startswith("ubuntu") and endswith("arm")) as $needsOpenapvWorkaround |
-              {$displayRunner, $runner, $qemuSystem, $qemuSystemForAction, $displayNixpkgs, $nixpkgs, $nixpkgsPath, $subset, $nurRepo, $cachixName, $cacheName, $flaky, $needsOpenapvWorkaround, $nixFastBuildFlakeArgs}
+              {$displayRunner, $runner, $qemuSystem, $qemuSystemForAction, $displayNixpkgs, $nixpkgs, $nixpkgsPath, $subset, $nurRepo, $cachixName, $cacheName, $flaky, $nixFastBuildFlakeArgs}
               ${{ github.event.inputs.jobfilter != '' && format(' | {0}', github.event.inputs.jobfilter) || '' }}
             ]}
             
@@ -221,23 +220,6 @@ jobs:
         set -ex
         nix-env -iA nixVersions.latest -f '<nixpkgs>'
         nix build --no-link 'myNixpkgs#hello'
-    - name: Manually grab openapv from cache.nixos.org
-      # See <https://github.com/NixOS/nixpkgs/issues/533028>
-      if: ${{ matrix.needsOpenapvWorkaround }}
-      run: |
-        set -x
-        brokenID='0mg3mag909yg8pk14cjsppxs2px7iqfv'
-        if [[ "$(nix-instantiate --eval --raw '<nixpkgs>' -A openapv.outPath)" == *"$brokenID"* ]]; then
-          mkdir -p /tmp/openapvCache/nar
-          pushd /tmp/openapvCache
-          curl -LO "https://cache.nixos.org/$brokenID.narinfo"
-          hash="$(grep -E '^NarHash:' "$brokenID.narinfo" | cut -d: -f3)"
-          sed -E -i.bak "/URL: / { s@nar/[^.]+@nar/$hash@; }" "$brokenID.narinfo"
-          pushd nar
-          curl -LO "https://cache.nixos.org/$(grep -E '^URL:' ../"$brokenID.narinfo" | cut -d' ' -f2)"
-          NIX_CONF_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/nix/nix.conf"
-          nix-build --no-out-link '<nixpkgs>' -A openapv --extra-substituters file:///tmp/openapvCache
-        fi
     - name: Setup cachix
       uses: cachix/cachix-action@38b082610b782e7e93e209c35fd730d399dee866 # v17
       # Don't replace <YOUR_CACHIX_NAME> here!
