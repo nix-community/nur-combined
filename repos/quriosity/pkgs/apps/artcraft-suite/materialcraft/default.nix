@@ -35,16 +35,16 @@ in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "materialcraft";
-  version = "0.1.0";
+  version = "0.1.2";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "materialcraft";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-v95y8NIEr1G8fMJEHaQmw1eUoCcsDHousVwUJnRjnY8=";
+    hash = "sha256-GXdLvk35t5FAgdJZKgbOfcjUnHznDPo+QiDjbLZPs88=";
   };
 
-  cargoHash = "sha256-ig8mjqF1wDg3ccAE05vqsWX6pH9f8yxeoTDTTerw5To=";
+  cargoHash = "sha256-ajuL6CF2uD02JqQrhJZwVyapNqShlghegu8XLpccan8=";
   cargoBuildFlags = [ "--package" "materialcraft" "--package" "materialcraft-cli" ];
   cargoTestFlags = [ "--package" "materialcraft" "--package" "materialcraft-cli" ];
 

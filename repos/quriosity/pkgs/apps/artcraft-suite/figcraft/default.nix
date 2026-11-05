@@ -35,16 +35,16 @@ in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "figcraft";
-  version = "0.15.0";
+  version = "0.15.1";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "figcraft";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-E3DdHHgJVdebbXqibZcrhytT0aDUUc+a+kpTUZocBK0=";
+    hash = "sha256-nkDYjqEixE1zRJj/AiqVNIHQC5XnzqTf5hZREBX1UFc=";
   };
 
-  cargoHash = "sha256-c33mZKKmttDf9jIhmm43bRguGnwQyXhhjg+tC1Ibk4o=";
+  cargoHash = "sha256-JJiPU/L2My3aGpw00NlGwmSg4CHTpr4QiA0XvbdK0Ps=";
   cargoBuildFlags = [ "--package" "figcraft" "--package" "figcraft-cli" ];
   cargoTestFlags = [ "--package" "figcraft" "--package" "figcraft-cli" ];
 
@@ -84,6 +84,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
     fi
 
     cp Cargo.lock "$cargoDepsCopy/Cargo.lock"
+
+    # Отключаем автоматическую проверку обновлений при старте приложения.
+    sed -i 's/fig.set_startup_update_check(true);/\/\/ fig.set_startup_update_check(true);/' apps/figcraft/src/main.rs
   '';
   nativeBuildInputs = [
     autoPatchelfHook

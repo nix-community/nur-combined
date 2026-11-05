@@ -35,16 +35,16 @@ in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cadcraft";
-  version = "0.17.0";
+  version = "0.17.1";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "cadcraft";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-Yf5bRRsvQbHdqBMScBb7qmsm18c8DSqvMx48Ab2Lli0=";
+    hash = "sha256-qRzZk4M5hk+zTDq9IK9zy4aoK+hkeomVkS1BNfFqtW8=";
   };
 
-  cargoHash = "sha256-n7BLuz7ensk1ro4tNW1J6wqbyOPxvqeHgYftlAaDSHo=";
+  cargoHash = "sha256-kilaA8T5ZFEn5+6Eh/8VGM4Z+WTt18u6B4zXepa7L3U=";
   cargoBuildFlags = [ "--package" "cadcraft" "--package" "cadcraft-cli" ];
   cargoTestFlags = [ "--package" "cadcraft" "--package" "cadcraft-cli" ];
 
@@ -84,6 +84,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
     fi
 
     cp Cargo.lock "$cargoDepsCopy/Cargo.lock"
+
+    # Отключаем автоматическую проверку обновлений при старте приложения.
+    sed -i 's/app.enable_update_check();/\/\/ app.enable_update_check();/' apps/cadcraft/src/main.rs
   '';
   nativeBuildInputs = [
     autoPatchelfHook

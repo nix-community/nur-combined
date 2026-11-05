@@ -37,20 +37,23 @@ in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "deckcraft";
-  version = "0.15.0";
+  version = "0.15.1";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "deckcraft";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-ffMDpDziPZ18qa7hHbgb67cvi5w6010o4Q3fHvanyYg=";
+    hash = "sha256-lWFYafZOIjz7uDe9imw4Pi+I2cLve34MyNdcIDD2YxU=";
   };
 
-  cargoHash = "sha256-bj8Wo0XuEieVKn+DbBHe+qJ94teIY4tu8XBO4Pqu4vw=";
+  cargoHash = "sha256-42sngkyPfSg7R0cW8EU0J2GZzX65gOPkbG8Mup8WjnI=";
   cargoPatches = [ ./remove-unused-egui-patches.patch ];
   postPatch = ''
     # Keep the vendored lockfile in sync with the patched one above.
     cp Cargo.lock "$cargoDepsCopy/Cargo.lock"
+
+    # Отключаем автоматическую проверку обновлений при старте приложения.
+    sed -i 's/app.enable_update_checks();/\/\/ app.enable_update_checks();/' apps/deckcraft/src/main.rs
   '';
   cargoBuildFlags = [ "--package" "deckcraft" "--package" "deckcraft-cli" ];
   cargoTestFlags = [ "--package" "deckcraft" "--package" "deckcraft-cli" ];

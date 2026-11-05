@@ -47,16 +47,16 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "artcraft-launcher";
-  version = "0.14.0";
+  version = "0.14.1";
 
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "craft-launcher";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-703BE+GictHFkfJPxkl5FhMZk4IS/HvBnp499kOGIeM=";
+    hash = "sha256-B9fL7JhAetm9qysaXpsnRyBBSQiNhUD1NeElYefr2+c=";
   };
 
-  cargoHash = "sha256-ywlE1xHrZodNIoqQAAM+p3GwgcchIzHF+Gvq4FZuDPs=";
+  cargoHash = "sha256-EjNtS12zO0j9o3Hr88I+uCqK7mtKiRGvHkIXFY2oRu4=";
   cargoPatches = [ ./remove-unused-egui-patches.patch ];
   prePatch = ''
     # Copy craft-libs into the source tree so it's available before vendoring.
@@ -81,6 +81,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
     # Redirect craft-ui from git to local path dep
     sed -i 's|craft-ui = { version = "=0.1.0", git = "https://github.com/storytold/craft-libs", rev = "92d392cff132eaf53e13afff77f38b5c11b73aa0" }|craft-ui = { path = "./craft-libs/crates/ui" }|' Cargo.toml
+
+    # Отключаем автоматическую проверку обновлений по расписанию (check_every = Never).
+    sed -i 's/check_every: CheckEvery::Hour,/check_every: CheckEvery::Never,/' crates/ui-egui/src/settings.rs
+
+    # Отключаем самообновление лаунчера (обновления приходят через пакетный менеджер).
+    sed -i 's/self_update: self.shared.self_install.get().is_some_and(Option::is_some)/self_update: false/' crates/native/src/backend.rs
 
     # Redirect craft-quit from git to local path dep
     sed -i 's|craft-quit = { version = "0.1.0", git = "https://github.com/storytold/craft-libs", rev = "92d392cff132eaf53e13afff77f38b5c11b73aa0", features = \["egui"\] }|craft-quit = { path = "../../craft-libs/crates/quit", features = ["egui"] }|' apps/artcraft-launcher/Cargo.toml

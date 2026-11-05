@@ -1,12 +1,12 @@
-{ lib, appimageTools, fetchurl, makeDesktopItem, writeScript, nix-update-script }:
+{ lib, appimageTools, fetchurl, makeDesktopItem, stdenv, writeScript, nix-update-script }:
 
 let
   pname = "horizon-launcher";
-  version = "0.2.37";
+  version = "0.2.42";
 
   src = fetchurl {
     url = "https://github.com/horizon-rust/horizon/releases/download/launcher%40${version}/horizon-launcher-linux-x86_64.AppImage";
-    hash = "sha256-acqmENt1zLYR/qdBtQNY5ZgivY/8duCY/FqKXbaybtg=";
+    hash = "sha256-SxnUdMlEYSmguumurGBYMi7iYrCiSAYX3PTDFNF3IvY=";
   };
 
   appimageContents = appimageTools.extract {
@@ -50,6 +50,15 @@ appimageTools.wrapType2 {
 
     install -m 444 -D ${appimageContents}/usr/share/icons/hicolor/512x512/apps/horizon.png \
       $out/usr/share/icons/hicolor/512x512/apps/horizon.png
+
+    # Отключаем встроенное самообновление лаунчера: обновления приходят через пакетный менеджер.
+    mv $out/bin/${pname} $out/bin/${pname}-real
+    cat > $out/bin/${pname} <<EOF
+#!${stdenv.shell}
+export HORIZON_LAUNCHER_NO_SELF_UPDATE=1
+exec "\${0}-real" "\$@"
+EOF
+    chmod +x $out/bin/${pname}
   '';
 
   passthru.updateScript = writeScript "update-horizon" ''
