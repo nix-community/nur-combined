@@ -39,6 +39,27 @@ jobs:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
     runs-on: ubuntu-latest
     steps:
+    # The stock ubuntu-latest image only leaves ~14 GB free, which is not
+    # enough for large Rust packages. runmat alone vendors ~1.6 GB of crates
+    # and its release build (occt/wgpu/cranelift) needs a lot of scratch
+    # space, so reclaim everything we do not need before building.
+    - name: Free disk space
+      uses: jlumbroso/free-disk-space@v2.0.0
+      with:
+        # Remove the pre-installed Android SDK, .NET, GHC, Docker images and
+        # the misc. large packages (Chrome, PowerShell, llvm, php, ...).
+        android: true
+        dotnet: true
+        haskell: true
+        large-packages: true
+        docker-images: true
+        # Node/Go/Python/Ruby from /opt/hostedtoolcache are not used here.
+        preinstalled-runtimes: true
+        # Keep the swap file: compiling wgpu/cranelift with 4 parallel rustc
+        # jobs can otherwise OOM on the 16 GB runners.
+        swap-storage: false
+    - name: Show disk space
+      run: df -h /
     - name: Checkout repository
       uses: actions/checkout@v6
     - name: Install nix
@@ -48,6 +69,9 @@ jobs:
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+          # Build one package at a time and let each build use all the cores,
+          # instead of interleaving several large builds on the small disk.
+          max-jobs = 1
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Setup cachix
