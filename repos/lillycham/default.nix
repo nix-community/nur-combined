@@ -15,6 +15,7 @@ in
   akyuu = pkgs.callPackage ./pkgs/akyuu { };
   dq = pkgs.callPackage ./pkgs/dq { };
   hydrus-tagger = pkgs.callPackage ./pkgs/hydrus-tagger { };
+  lambdash = pkgs.callPackage ./pkgs/lambdash { };
   nibble = pkgs.callPackage ./pkgs/nibble { inherit nibble-mlx-server; };
   nibble-gui = pkgs.callPackage ./pkgs/nibble-gui { };
   inherit nibble-mlx-server;
