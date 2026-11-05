@@ -6,13 +6,13 @@
 }:
 
 let
-  version = "4.1.0-beta.22";
+  version = "4.1.0-beta.23";
   pname = "vatis";
 
   src = fetchurl {
     # No versioned URL available; always serves latest
     url = "https://hub.vatis.app/download/linux";
-    hash = "sha256-a10ftXmjv6npTWI8JWV8VCtmKY/kpELyWYJP7SfBy0k=";
+    hash = "sha256-Ma9R3hU/dzRgnEXZaUdh8GmuuvbiXNUFGnGNZ2wwoB0=";
     name = "vATIS-${version}.AppImage";
   };
 
