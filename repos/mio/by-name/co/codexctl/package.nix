@@ -23,10 +23,14 @@ let
       hash = "sha256-0OadXWCMwi/0hDeRrQl/VU3TJUDdyb7XY4zG/qfBtLU=";
     };
 
+    strictDeps = true;
+
     nativeBuildInputs = [
       pkg-config
       which
     ];
+
+    enableParallelBuilding = true;
 
     configureFlags = [ "--disable-example" ];
 
@@ -58,6 +62,7 @@ let
         gpl2Only
         lgpl21Only
       ];
+      pkgConfigModules = [ "fuse" ];
       platforms = lib.platforms.linux;
     };
   });
@@ -66,7 +71,7 @@ let
   # are missing from nixpkgs are defined alongside it.
   python = python313.override {
     packageOverrides = pyfinal: _pyprev: {
-      fuse-python = pyfinal.buildPythonPackage rec {
+      fuse-python = pyfinal.buildPythonPackage (finalAttrs: {
         pname = "fuse-python";
         version = "1.0.9";
         format = "setuptools";
@@ -74,7 +79,7 @@ let
         src = fetchFromGitHub {
           owner = "libfuse";
           repo = "python-fuse";
-          tag = "v${version}";
+          tag = "v${finalAttrs.version}";
           hash = "sha256-qQum0roVQ4JYSkns5wK5nr6h3BPG4JUjS4rwRJwY7nM=";
         };
 
@@ -82,7 +87,10 @@ let
         buildInputs = [ libfuse2 ];
         nativeBuildInputs = [ pkg-config ];
 
+        # Tests mount a FUSE filesystem, which the build sandbox forbids.
         doCheck = false;
+
+        pythonImportsCheck = [ "fuse" ];
 
         meta = {
           description = "Python bindings for the libfuse 2.x API";
@@ -90,9 +98,9 @@ let
           license = lib.licenses.lgpl21Only;
           platforms = lib.platforms.linux;
         };
-      };
+      });
 
-      libconf = pyfinal.buildPythonPackage rec {
+      libconf = pyfinal.buildPythonPackage (finalAttrs: {
         pname = "libconf";
         version = "2.0.1";
         format = "setuptools";
@@ -100,20 +108,22 @@ let
         src = fetchFromGitHub {
           owner = "Grk0";
           repo = "python-libconf";
-          tag = version;
+          tag = finalAttrs.version;
           hash = "sha256-pcacR2EZSqAKKLmxddgmHQGPH/p/KvrskoAB85r9C0o=";
         };
 
-        doCheck = false;
+        nativeCheckInputs = [ pyfinal.pytestCheckHook ];
+
+        pythonImportsCheck = [ "libconf" ];
 
         meta = {
           description = "Pure-Python libconfig reader/writer";
           homepage = "https://github.com/Grk0/python-libconf";
           license = lib.licenses.mit;
         };
-      };
+      });
 
-      ext4 = pyfinal.buildPythonPackage rec {
+      ext4 = pyfinal.buildPythonPackage (finalAttrs: {
         pname = "ext4";
         version = "1.4.1";
         pyproject = true;
@@ -121,7 +131,7 @@ let
         src = fetchFromGitHub {
           owner = "Eeems";
           repo = "python-ext4";
-          tag = "v${version}";
+          tag = "v${finalAttrs.version}";
           hash = "sha256-keE6o8SLCleU0CWzCdegAxtSheyO+Zl386fGdImVrq8=";
         };
 
@@ -145,7 +155,10 @@ let
         # Upstream pins exact versions; nixpkgs tracks newer patch releases.
         pythonRelaxDeps = [ "cachetools" ];
 
+        # Tests require ext4 images and loop devices.
         doCheck = false;
+
+        pythonImportsCheck = [ "ext4" ];
 
         meta = {
           description = "Read-only interactions with an ext4 filesystem";
@@ -153,9 +166,9 @@ let
           license = lib.licenses.mit;
           platforms = lib.platforms.all;
         };
-      };
+      });
 
-      remarkable-update-image = pyfinal.buildPythonPackage rec {
+      remarkable-update-image = pyfinal.buildPythonPackage (finalAttrs: {
         pname = "remarkable_update_image";
         version = "1.4.2";
         pyproject = true;
@@ -163,7 +176,7 @@ let
         src = fetchFromGitHub {
           owner = "Eeems";
           repo = "remarkable-update-image";
-          tag = version;
+          tag = finalAttrs.version;
           hash = "sha256-3QFy9hnDcY6wNDc6pVO7jM6z7xDNnLcCWdLc9jCPDAk=";
         };
 
@@ -178,9 +191,11 @@ let
           protobuf
         ];
 
-        # nixpkgs' protobuf exposes no pythonPath, so the metadata check
-        # cannot resolve it without an explicit path.
+        # nixpkgs' protobuf exposes no pythonPath, so neither the metadata
+        # check nor pythonImportsCheck can resolve it without an explicit path.
         env.PYTHONPATH = "${pyfinal.protobuf}/${pyfinal.python.sitePackages}";
+
+        nativeBuildInputs = [ pyfinal.pythonRelaxDepsHook ];
 
         pythonRelaxDeps = [
           "cachetools"
@@ -200,7 +215,10 @@ let
           ${protobuf}/bin/protoc -I protobuf --python_out=remarkable_update_image protobuf/update_metadata.proto
         '';
 
+        # Tests download firmware images and require loop devices.
         doCheck = false;
+
+        pythonImportsCheck = [ "remarkable_update_image" ];
 
         meta = {
           description = "Read reMarkable update images";
@@ -208,9 +226,9 @@ let
           license = lib.licenses.mit;
           platforms = lib.platforms.all;
         };
-      };
+      });
 
-      remarkable-update-fuse = pyfinal.buildPythonPackage rec {
+      remarkable-update-fuse = pyfinal.buildPythonPackage (finalAttrs: {
         pname = "remarkable_update_fuse";
         version = "1.4.2";
         pyproject = true;
@@ -218,7 +236,7 @@ let
         src = fetchFromGitHub {
           owner = "Eeems-Org";
           repo = "remarkable-update-fuse";
-          tag = version;
+          tag = finalAttrs.version;
           hash = "sha256-VsqNnNMiMW+7t1ltPrgXIptaut4Bg1o57HlF0sC3HCU=";
         };
 
@@ -242,7 +260,14 @@ let
           "remarkable-update-image"
         ];
 
+        # Tests mount a FUSE filesystem, which the build sandbox forbids.
         doCheck = false;
+
+        # Imports remarkable_update_image, which needs protobuf on sys.path
+        # (nixpkgs' protobuf exposes no pythonPath).
+        env.PYTHONPATH = "${pyfinal.protobuf}/${pyfinal.python.sitePackages}";
+
+        pythonImportsCheck = [ "remarkable_update_fuse" ];
 
         meta = {
           description = "Userspace filesystem for reMarkable update files";
@@ -250,7 +275,7 @@ let
           license = lib.licenses.mit;
           platforms = lib.platforms.linux;
         };
-      };
+      });
     };
   };
 
@@ -287,15 +312,6 @@ python.pkgs.buildPythonApplication (finalAttrs: {
 
   nativeBuildInputs = [ python.pkgs.pythonRelaxDepsHook ];
 
-  # nixpkgs' protobuf exposes no pythonPath, so the generated wrapper leaves
-  # google.protobuf off sys.path even though remarkable_update_image needs it.
-  makeWrapperArgs = [
-    "--prefix"
-    "PYTHONPATH"
-    ":"
-    "${python.pkgs.protobuf}/${python.sitePackages}"
-  ];
-
   # Upstream pins exact versions; nixpkgs tracks newer releases.
   pythonRelaxDeps = [
     "loguru"
@@ -306,11 +322,21 @@ python.pkgs.buildPythonApplication (finalAttrs: {
     "requests"
   ];
 
+  # nixpkgs' protobuf exposes no pythonPath, so the generated wrapper leaves
+  # google.protobuf off sys.path even though remarkable_update_image needs it.
+  makeWrapperArgs = [
+    "--prefix"
+    "PYTHONPATH"
+    ":"
+    "${python.pkgs.protobuf}/${python.sitePackages}"
+  ];
+
   pythonImportsCheck = [ "codexctl" ];
 
   meta = {
     description = "Automated update management for the reMarkable tablet";
     homepage = "https://github.com/Jayy001/codexctl";
+    changelog = "https://github.com/Jayy001/codexctl/releases";
     license = lib.licenses.gpl3Only;
     mainProgram = "codexctl";
     platforms = lib.platforms.unix;
