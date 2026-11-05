@@ -15,6 +15,8 @@
   libxkbcommon,
   libGL,
   vulkan-loader,
+  dbus,
+  writeShellScriptBin,
   nix-update-script,
 }:
 
@@ -89,6 +91,27 @@ rustPlatform.buildRustPackage (finalAttrs: {
     autoPatchelfHook
     makeWrapper
     pkg-config
+  ];
+
+  # The portal tests spawn a private `dbus-daemon` session bus. In the build sandbox there
+  # is no `/etc/dbus-1/session.conf`, so `--session` aborts without printing an address and
+  # the tests fail on `Address("Invalid address")`. Point dbus at its own packaged config.
+  nativeCheckInputs = [
+    (writeShellScriptBin "dbus-daemon" ''
+      args=()
+      has_config=0
+      for arg in "$@"; do
+        case "$arg" in
+          --session) ;;
+          --config-file*) has_config=1; args+=("$arg") ;;
+          *) args+=("$arg") ;;
+        esac
+      done
+      if [ "$has_config" = 0 ]; then
+        args+=(--config-file="${dbus}/share/dbus-1/session.conf")
+      fi
+      exec "${dbus}/bin/dbus-daemon" "''${args[@]}"
+    '')
   ];
 
   buildInputs = runtimeLibs;
