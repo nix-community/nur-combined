@@ -2,6 +2,7 @@
   lib,
   fetchFromGitHub,
   haskell,
+  nix-update-script,
 }:
 let
   # MultilineStrings requires GHC >= 9.12
@@ -75,6 +76,8 @@ haskellPackages.mkDerivation rec {
     text
     transformers
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   description = "Domain-specific language for work-queue algorithms";
   homepage = "https://fixen-lang.org/";

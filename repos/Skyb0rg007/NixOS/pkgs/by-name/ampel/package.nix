@@ -5,6 +5,7 @@
   buildGoModule,
   installShellFiles,
   versionCheckHook,
+  nix-update-script,
 }:
 
 buildGoModule (finalAttrs: {
@@ -42,6 +43,8 @@ buildGoModule (finalAttrs: {
   doInstallCheck = true;
   nativeInstallCheckInputs = [ versionCheckHook ];
   versionCheckProgramArg = "version";
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Lightweight supply chain policy engine";

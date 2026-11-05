@@ -1,6 +1,6 @@
 # Packages
 
-Generated from 85 packages.
+Generated from 90 packages.
 
 ## `ambient-build-vm`
 
@@ -18,6 +18,14 @@ Generated from 85 packages.
 - **Homepage:** [https://ambient.liw.fi/](https://ambient.liw.fi/)
 - **License:** AGPL-3.0-or-later
 
+## `ampel`
+
+- **Package name:** ampel
+- **Version:** 1.4.1
+- **Description:** Lightweight supply chain policy engine
+- **Homepage:** [https://github.com/policylabs/ampel](https://github.com/policylabs/ampel)
+- **License:** Apache-2.0
+
 ## `anemoi`
 
 - **Package name:** anemoi
@@ -34,14 +42,6 @@ Generated from 85 packages.
 - **Homepage:** [https://gitlab.com/mezantrop/ascsaver](https://gitlab.com/mezantrop/ascsaver)
 - **License:** BSD-3-Clause
 
-## `attachment-converter`
-
-- **Package name:** attachment-converter
-- **Version:** 0.2.2
-- **Description:** Tool for converting email attachments' formats
-- **Homepage:** [https://dldc.lib.uchicago.edu/open/attachment-converter/](https://dldc.lib.uchicago.edu/open/attachment-converter/)
-- **License:** GPL-3.0-or-later
-
 ## `bgd-browser`
 
 - **Package name:** bgd-browser
@@ -53,7 +53,7 @@ Generated from 85 packages.
 ## `blueferry`
 
 - **Package name:** blueferry
-- **Version:** 0.8.1
+- **Version:** 0.9.1
 - **Description:** iPhone iMessage/SMS and notifications bridge to Linux over Bluetooth
 - **Homepage:** [https://github.com/erikwb/blueferry](https://github.com/erikwb/blueferry)
 - **License:** GPL-2.0-only
@@ -61,7 +61,7 @@ Generated from 85 packages.
 ## `brush`
 
 - **Package name:** brush
-- **Version:** 0.4.0-unstable-2026-10-24
+- **Version:** 0.4.0-unstable-2026-11-01
 - **Description:** Bash/POSIX-compatible shell implemented in Rust
 - **Homepage:** [https://github.com/reubeno/brush](https://github.com/reubeno/brush)
 - **License:** MIT
@@ -69,7 +69,7 @@ Generated from 85 packages.
 ## `buildgrid`
 
 - **Package name:** buildgrid
-- **Version:** 0.9.1
+- **Version:** 0.9.5
 - **Description:** Python remote execution service
 - **Homepage:** [https://buildgrid.build](https://buildgrid.build)
 - **License:** Apache-2.0
@@ -122,6 +122,14 @@ Generated from 85 packages.
 - **Homepage:** [https://github.com/lkhq/debspawn](https://github.com/lkhq/debspawn)
 - **License:** LGPL-3.0-or-later
 
+## `dell-command-monitor`
+
+- **Package name:** dell-command-monitor
+- **Version:** 10.13.0-26
+- **Description:** Dell Command | Monitor hardware monitoring agent
+- **Homepage:** [https://www.dell.com/support/kbdoc/en-us/000177080/dell-command-monitor](https://www.dell.com/support/kbdoc/en-us/000177080/dell-command-monitor)
+- **License:** LicenseRef-nixos-unfree
+
 ## `dgit`
 
 - **Package name:** dgit
@@ -140,7 +148,7 @@ Generated from 85 packages.
 ## `docker-sbx`
 
 - **Package name:** docker-sbx
-- **Version:** 0.50.0-rc1
+- **Version:** 0.51.0-rc6
 - **Description:** Safe environments for agents
 - **Homepage:** [https://docs.docker.com/reference/cli/sbx/](https://docs.docker.com/reference/cli/sbx/)
 - **License:** LicenseRef-nixos-unfree
@@ -148,10 +156,18 @@ Generated from 85 packages.
 ## `filc-pizfix`
 
 - **Package name:** filc-pizfix
-- **Version:** 0.683
+- **Version:** 0.687
 - **Description:** Fil-C toolchain (Pizfix)
 - **Homepage:** [https://fil-c.org/pizfix](https://fil-c.org/pizfix)
 - **License:** (Apache-2.0 WITH LLVM-exception) AND (BSD-2-Clause AND BSD-3-Clause)
+
+## `fixen`
+
+- **Package name:** fixen
+- **Version:** 26.7
+- **Description:** Domain-specific language for work-queue algorithms
+- **Homepage:** [https://fixen-lang.org/](https://fixen-lang.org/)
+- **License:** MIT
 
 ## `flirt`
 
@@ -180,7 +196,7 @@ Generated from 85 packages.
 ## `image-builder`
 
 - **Package name:** image-builder
-- **Version:** 87.0.0
+- **Version:** 89.0.0
 - **Description:** Tools to build and deploy disk-images
 - **Homepage:** [https://osbuild.org](https://osbuild.org)
 - **License:** Apache-2.0
@@ -217,18 +233,33 @@ Generated from 85 packages.
 - **Homepage:** [https://keylime.dev](https://keylime.dev)
 - **License:** Apache-2.0
 
-## `landlockconfig`
+## `landlock-observability`
 
-- **Package name:** landlockconfig
-- **Version:** 0-unstable-2026-07-22
+- **Package name:** landlock-observability
+- **Version:** 0-unstable-2026-10-02
+- **Description:** Library for observing Landlock
+- **Homepage:** [https://github.com/landlock-lsm/landlock-observability](https://github.com/landlock-lsm/landlock-observability)
+- **License:** (MIT OR Apache-2.0) AND GPL-2.0-only
+
+## `landlock-policy`
+
+- **Package name:** landlock-policy
+- **Version:** 0-unstable-2026-11-03
 - **Description:** Landlock configuration library
 - **Homepage:** [https://landlock.io](https://landlock.io)
 - **License:** MIT OR Apache-2.0
 
+## `landlock-sandboxer`
+
+- **Package name:** landlock-sandboxer
+- **Version:** 7.3
+- **Description:** Simple Landlock sandbox manager
+- **License:** BSD-3-Clause
+
 ## `landstrip`
 
 - **Package name:** landstrip
-- **Version:** 0.20.12
+- **Version:** 0.20.17
 - **Description:** Run tools in OS-level sandboxes
 - **Homepage:** [https://github.com/landstrip/landstrip](https://github.com/landstrip/landstrip)
 - **License:** LGPL-3.0-or-later
@@ -276,7 +307,7 @@ Generated from 85 packages.
 ## `mkosi-HEAD`
 
 - **Package name:** mkosi-HEAD
-- **Version:** 27.1-unstable-2026-10-25
+- **Version:** 27.1-unstable-2026-11-02
 - **Description:** Build legacy-free OS images, built from git master
 - **Homepage:** [https://github.com/systemd/mkosi](https://github.com/systemd/mkosi)
 - **License:** LGPL-2.1-only
@@ -371,7 +402,7 @@ Generated from 85 packages.
 ## `python3Packages.cache-dit`
 
 - **Package name:** cache-dit
-- **Version:** 1.5.2
+- **Version:** 1.5.3
 - **Description:** Cache-DiT: Accelerating Diffusion Transformers with Dynamic Feature Caching
 - **Homepage:** [https://github.com/vipshop/cache-dit](https://github.com/vipshop/cache-dit)
 - **License:** Apache-2.0
@@ -451,7 +482,7 @@ Generated from 85 packages.
 ## `quarry`
 
 - **Package name:** quarry
-- **Version:** 0-unstable-2026-10-25
+- **Version:** 0-unstable-2026-10-29
 - **Description:** TUF-based software distribution toolchain
 - **Homepage:** [https://github.com/amutable/quarry](https://github.com/amutable/quarry)
 - **License:** Apache-2.0
@@ -483,10 +514,10 @@ Generated from 85 packages.
 ## `raven`
 
 - **Package name:** raven
-- **Version:** 0-unstable-2026-10-25
+- **Version:** 0-unstable-2026-11-02
 - **Description:** Runs Windows applications on Linux without a virtual machine
 - **Homepage:** [https://useraven.org/](https://useraven.org/)
-- **License:** GPL-3.0-or-later AND MIT AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-2-Clause AND Unicode-3.0 AND Zlib AND libpng-2.0 AND IJG AND libtiff AND X11 AND LicenseRef-nixos-publicDomain AND ISC-Veillard
+- **License:** GPL-3.0-or-later AND MIT AND GPL-2.0-only AND LGPL-2.1-or-later AND Unicode-3.0 AND Zlib AND libpng-2.0 AND IJG AND libtiff AND X11 AND LicenseRef-nixos-publicDomain AND blessing AND ISC-Veillard
 
 ## `reddio`
 
@@ -531,7 +562,7 @@ Generated from 85 packages.
 ## `rune`
 
 - **Package name:** rune
-- **Version:** 0.1-unstable-2026-10-26
+- **Version:** 0.1-unstable-2026-11-01
 - **Description:** Compiler and runtime for Standard ML '97
 - **Homepage:** [https://github.com/ruudkoot/rune](https://github.com/ruudkoot/rune)
 - **License:** CC0-1.0
@@ -555,7 +586,7 @@ Generated from 85 packages.
 ## `sbuild`
 
 - **Package name:** sbuild
-- **Version:** 0.91.10
+- **Version:** 0.91.11
 - **Description:** Tool for building Debian binary packages from Debian sources
 - **Homepage:** [https://salsa.debian.org/debian/sbuild](https://salsa.debian.org/debian/sbuild)
 - **License:** GPL-2.0-or-later
@@ -595,7 +626,7 @@ Generated from 85 packages.
 ## `timewarp`
 
 - **Package name:** timewarp
-- **Version:** 0-unstable-2026-03-04
+- **Version:** 0-unstable-2026-03-05
 - **Description:** Run a command with a faked system time without LD\_PRELOAD
 - **Homepage:** [https://github.com/renard/timewarp](https://github.com/renard/timewarp)
 - **License:** AGPL-3.0-or-later
@@ -643,12 +674,21 @@ Generated from 85 packages.
 ## `voice-studio`
 
 - **Package name:** voice-studio
-- **Version:** 0.5.6
+- **Version:** 0.5.7
 - **Description:** Open-source voice cloning, voice design, dubbing and transcription studio
 - **Homepage:** [https://github.com/debpalash/VoiceStudio](https://github.com/debpalash/VoiceStudio)
 - **License:** AGPL-3.0-only
 
 # Broken Packages
+
+## `attachment-converter`
+
+- **Package name:** attachment-converter
+- **Version:** 0.2.2
+- **Description:** Tool for converting email attachments' formats
+- **Homepage:** [https://dldc.lib.uchicago.edu/open/attachment-converter/](https://dldc.lib.uchicago.edu/open/attachment-converter/)
+- **License:** GPL-3.0-or-later
+- **Status:** Broken
 
 ## `browsertrix-crawler`
 

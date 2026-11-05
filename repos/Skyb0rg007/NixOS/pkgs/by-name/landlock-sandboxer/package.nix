@@ -22,9 +22,12 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = null;
+
   meta = {
     description = "Simple Landlock sandbox manager";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.linux;
+    mainProgram = "landlock-sandboxer";
   };
 })

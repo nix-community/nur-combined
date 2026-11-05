@@ -25,9 +25,8 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "ublk-org";
     repo = "ublksrv";
-    # tag = "v${finalAttrs.version}";
-    rev = "e36fae3f0995c4940b9007eb10d020beaba6a7e2";
-    hash = "sha256-hg4ioxUqO+6Z2JxEXewUMg4x0a7jdxTOWXpQP9QiwRc=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-kCcCaAj4HuV9XYszbuipDnLS/IGJHhm31Uz286cfD54=";
   };
 
   nativeBuildInputs = [
