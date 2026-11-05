@@ -15,7 +15,7 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "fnox";
-  version = "1.43.0";
+  version = "1.47.0";
 
   __structuredAttrs = true;
 
@@ -23,10 +23,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "jdx";
     repo = "fnox";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-GWvPXx+JwFuavRMBGSZiKmqxaaQbhvl8Q4EmQ7AoSqA=";
+    hash = "sha256-3Z/JjP8mjzCFCZUhbD5BnRh39loLt2g4dqkQqWCeH5I=";
   };
 
-  cargoHash = "sha256-ubz4CWKa9WiB66DOPIEiZIfNxMpKJg4lq2Sr14ITaDA=";
+  cargoHash = "sha256-VokoB+4gheYF0HunlOYYA+gu4pimb6uG9qfNZWeubMU=";
 
   nativeBuildInputs = [
     installShellFiles
