@@ -37,15 +37,21 @@ jobs:
   test-update-scripts:
     # Never grant a workflow_run from PR/untrusted code a publication path.
     if: >-
-      github.event_name != 'workflow_run' ||
+      (github.event_name != 'pull_request' ||
+       (github.event.pull_request.user.login == github.repository_owner &&
+        github.event.pull_request.head.repo.full_name == github.repository)) &&
+      (github.event_name != 'workflow_run' ||
       (github.event.workflow_run.conclusion == 'success' &&
        github.event.workflow_run.head_branch == 'main' &&
        github.event.workflow_run.head_repository.full_name == github.repository &&
-       (github.event.workflow_run.event == 'schedule' || github.event.workflow_run.event == 'workflow_dispatch'))
-    runs-on: ubuntu-latest
+       (github.event.workflow_run.event == 'schedule' || github.event.workflow_run.event == 'workflow_dispatch')))
+    runs-on: [self-hosted, nixos, cachix-builder]
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup-runner-tools
       - name: Run offline workflow and update-script tests
         run: |
           ./tests/run-tests.sh
@@ -56,7 +62,7 @@ jobs:
     permissions:
       contents: read
       statuses: write
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, nixos, cachix-builder]
     timeout-minutes: 120
     strategy:
       fail-fast: false
@@ -65,17 +71,10 @@ jobs:
         cachixName: [uriotv]
     steps:
       - uses: actions/checkout@v7
-      - name: Install Nix
-        uses: cachix/install-nix-action@v31
         with:
-          extra_nix_config: |
-            experimental-features = nix-command flakes
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - name: Configure read-only Cachix
-        uses: cachix/cachix-action@v17
-        with:
-          name: ${{ matrix.cachixName }}
-          skipPush: true
+          persist-credentials: false
+      - uses: ./.github/actions/setup-runner-tools
+      # The NixOS runner already configures uriotv as a read-only substituter.
       - name: Evaluate CI manifest
         env:
           CI_MANIFEST_PATH: ${{ runner.temp }}/ci-manifest.json
@@ -127,9 +126,12 @@ jobs:
         run: bash scripts/publication-status.sh cache/packages "$CACHIX_OUTCOME"
 
   test-gate:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, nixos, cachix-builder]
     needs: [test-update-scripts, tests]
-    if: always()
+    if: >-
+      always() && (github.event_name != 'pull_request' ||
+      (github.event.pull_request.user.login == github.repository_owner &&
+       github.event.pull_request.head.repo.full_name == github.repository))
     steps:
       - name: Check test results
         env:

@@ -173,7 +173,7 @@ class WorkflowPolicyTests(unittest.TestCase):
         body = (ROOT / ".github/workflows/build.yml").read_text()
         gate = body.split("  test-gate:\n", 1)[1]
         self.assertIn("needs: [test-update-scripts, tests]", gate)
-        self.assertIn("if: always()", gate)
+        self.assertIn("always() && (github.event_name != 'pull_request'", gate)
         script = "\n".join(line[10:] for line in gate.split("        run: |\n", 1)[1].splitlines())
         for a, b in itertools.product(("success", "failure", "cancelled", "skipped"), repeat=2):
             with self.subTest(a=a, b=b):
@@ -181,9 +181,23 @@ class WorkflowPolicyTests(unittest.TestCase):
                                         env={**os.environ, "UPDATE_RESULT": a, "TESTS_RESULT": b})
                 self.assertEqual(result.returncode == 0, a == b == "success")
 
+    def test_self_hosted_and_pr_security_policy(self):
+        workflows = ROOT / ".github/workflows"
+        for path in workflows.glob("*.yml"):
+            self.assertNotIn("runs-on: ubuntu-latest", path.read_text(), str(path))
+        body = (workflows / "build.yml").read_text()
+        self.assertIn("github.event.pull_request.user.login == github.repository_owner", body)
+        self.assertIn("github.event.pull_request.head.repo.full_name == github.repository", body)
+        rejection = (workflows / "reject-external-pr.yml").read_text()
+        self.assertIn("pull_request_target:", rejection)
+        self.assertIn("github.event.pull_request.user.login != github.repository_owner", rejection)
+        self.assertIn("state: 'closed'", rejection)
+        self.assertNotIn("actions/checkout", rejection)
+
     def test_write_credentials_only_available_in_main_publish_step(self):
         body = (ROOT / ".github/workflows/build.yml").read_text()
-        self.assertIn("skipPush: true", body)
+        self.assertNotIn("cachix/install-nix-action", body)
+        self.assertIn("./.github/actions/setup-runner-tools", body)
         before, after = body.split("      - name: Publish eligible outputs", 1)
         self.assertNotIn("CACHIX_AUTH_TOKEN", before)
         self.assertIn("github.ref == 'refs/heads/main'", after)

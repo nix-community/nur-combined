@@ -1,0 +1,18 @@
+name: Prepare self-hosted runner tools
+description: Provide tools from the repository's locked nixpkgs without modifying the runner profile.
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      run: |
+        set -euo pipefail
+        nix build --no-link --print-out-paths --no-write-lock-file --inputs-from . \
+          nixpkgs#coreutils nixpkgs#gawk nixpkgs#gnugrep nixpkgs#gnused \
+          nixpkgs#findutils nixpkgs#diffutils nixpkgs#curl nixpkgs#jq \
+          nixpkgs#python3 nixpkgs#git nixpkgs#gh nixpkgs#cachix \
+          nixpkgs#nix-update nixpkgs#nix-prefetch-git nixpkgs#gnutar \
+          nixpkgs#gzip nixpkgs#xz nixpkgs#unzip nixpkgs#zip nixpkgs#util-linux \
+          > "$RUNNER_TEMP/urio-tool-paths"
+        while IFS= read -r path; do
+          [[ ! -d "$path/bin" ]] || echo "$path/bin" >> "$GITHUB_PATH"
+        done < "$RUNNER_TEMP/urio-tool-paths"

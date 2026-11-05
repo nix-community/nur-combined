@@ -1,0 +1,29 @@
+name: Reject external pull requests
+
+# This public repository accepts PRs from its owner only. Never check out or
+# execute PR code in this privileged pull_request_target workflow. GitHub can
+# still accept a PR before this job closes it; fork workflow approval must also
+# be set to all external contributors in the repository settings.
+on:
+  pull_request_target:
+    types: [opened, reopened]
+
+permissions: {}
+
+jobs:
+  close-external-pr:
+    if: github.event.pull_request.user.login != github.repository_owner
+    runs-on: [self-hosted, nixos, cachix-builder]
+    permissions:
+      pull-requests: write
+    timeout-minutes: 10
+    steps:
+      - uses: actions/github-script@v8
+        with:
+          script: |
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              state: 'closed',
+            });
