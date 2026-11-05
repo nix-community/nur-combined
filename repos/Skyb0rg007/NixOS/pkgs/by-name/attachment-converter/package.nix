@@ -28,6 +28,12 @@ let
         propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ self.bstr ];
       });
       keith-prelude = self.callPackage ./keith-prelude.nix { };
+      ocamlnet = super.ocamlnet.overrideAttrs (oldAttrs: {
+        buildInputs = lib.filter (
+          p: !(lib.hasPrefix "ocaml${super.ocaml.version}-pcre-" p.name)
+        ) oldAttrs.buildInputs;
+        preConfigure = lib.replaceStrings [ "-enable-pcre" ] [ "-disable-pcre" ] oldAttrs.preConfigure;
+      });
     }
   );
 in
@@ -98,6 +104,5 @@ ocamlPackages.buildDunePackage (finalAttrs: {
       "aarch64-linux"
     ];
     maintainers = [ lib.maintainers.skyesoss ];
-    broken = true; # ocamlnet depends on pcre, which was removed
   };
 })
