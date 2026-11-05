@@ -53,10 +53,10 @@
     };
     "7tv-new" = buildMozillaXpiAddon {
       pname = "7tv-new";
-      version = "1.10.6";
+      version = "1.10.7";
       addonId = "seventv-next@7tv.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5182438/7tv_new-1.10.6.xpi";
-      sha256 = "444b281a7a9612e104f637827993ba0e2aa81677754309a8a52208d1417063ea";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5210187/7tv_new-1.10.7.xpi";
+      sha256 = "5420b1e410b9baaa9a97e2abbacaf7b53af9b94bc8ea04b8cd8c33eabb3be291";
       meta = with lib;
       {
         description = "Improve your viewing experience with 7TV on Twitch and YouTube with new features, emotes, vanity and performance.";
@@ -392,10 +392,10 @@
     };
     "angular-devtools" = buildMozillaXpiAddon {
       pname = "angular-devtools";
-      version = "1.22.1";
+      version = "1.22.2";
       addonId = "{20a9bb38-ed7c-4faf-9aaf-7c5d241fd747}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5176864/angular_devtools-1.22.1.xpi";
-      sha256 = "e2107acf5ef7bf1a233d2f65d6ce9283950068c43e00232faa6a69a82482a80e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5210558/angular_devtools-1.22.2.xpi";
+      sha256 = "a1f0fa9f7eb28b1acfae176d5cb7f9c34a8301eb0bed8e2f6ba06683c6ebafdb";
       meta = with lib;
       {
         homepage = "https://angular.dev/tools/devtools/";
@@ -2540,10 +2540,10 @@
     };
     "control-panel-for-youtube" = buildMozillaXpiAddon {
       pname = "control-panel-for-youtube";
-      version = "1.38.0";
+      version = "1.38.1";
       addonId = "control-panel-for-youtube@jbscript.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5131419/control_panel_for_youtube-1.38.0.xpi";
-      sha256 = "9201de3d8ae9e362beaecc1e0765d826d783602e569c7674a873c204a00b71c9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5210415/control_panel_for_youtube-1.38.1.xpi";
+      sha256 = "6a757ab4c6773c7e602b0edcff38c12a8c215ddd4301cf25c954209b9c4dca7b";
       meta = with lib;
       {
         homepage = "https://soitis.dev/control-panel-for-youtube";
@@ -3056,10 +3056,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "160.0.20261104.21706";
+      version = "160.0.20261104.181552";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5207717/dansk_da_language_pack-160.0.20261104.21706.xpi";
-      sha256 = "d80eada673a6268a23eeccdd8d47465fed38b1a2a8b722d3cd5b30f069d19714";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5209712/dansk_da_language_pack-160.0.20261104.181552.xpi";
+      sha256 = "565153b550decd85ab295ceafda7e94b68cca1f30635e6b4d552695b816ff786";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3272,10 +3272,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "160.0.20261104.21706";
+      version = "160.0.20261104.181552";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5207718/deutsch_de_language_pack-160.0.20261104.21706.xpi";
-      sha256 = "9cbd93fab5e9c98c24063365a9293c900996dcd56c634a95e010e5e121e49ee2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5209708/deutsch_de_language_pack-160.0.20261104.181552.xpi";
+      sha256 = "4729fd2fd6273f460b5cbed8de8125cf5bc69e1727aa2fb2af84a770196e728d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4774,10 +4774,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "160.0.20261104.21706";
+      version = "160.0.20261104.181552";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5207731/francais_language_pack-160.0.20261104.21706.xpi";
-      sha256 = "9f4d8d45ecdf30958589563afc43fc028cc4494ddd20a8b4b8cdeebea6ebaf0c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5209706/francais_language_pack-160.0.20261104.181552.xpi";
+      sha256 = "5b711026cb310bcbea68d18101198dcb362c33b6ad129a9511b5bbe608f19518";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4811,10 +4811,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "160.0.20261104.21706";
+      version = "160.0.20261104.181552";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5207724/gaidhlig_language_pack-160.0.20261104.21706.xpi";
-      sha256 = "2d4c7e90ad5aa0b5f1fee733b86eac519e35e4054f59b628a6aa0d19bc914220";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5209769/gaidhlig_language_pack-160.0.20261104.181552.xpi";
+      sha256 = "6f415639167e296d12e692e6ae7ceae4bc401733ad227ccab965861690ff7f9b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -4917,10 +4917,10 @@
     };
     "ghostery" = buildMozillaXpiAddon {
       pname = "ghostery";
-      version = "10.6.10";
+      version = "10.6.11";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5178400/ghostery-10.6.10.xpi";
-      sha256 = "8583522c6513d4793bb5e66d6df94a8a151669a297ce9959821d6db13f0b9018";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5208467/ghostery-10.6.11.xpi";
+      sha256 = "f82beb500bf5b935f09c235d094771b70d4f40e6d3750ab8ca1140c9b9abc59d";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -6061,10 +6061,10 @@
     };
     "instagram-video-control" = buildMozillaXpiAddon {
       pname = "instagram-video-control";
-      version = "1.9.4";
+      version = "1.9.5";
       addonId = "{a831defa-a6c9-4ca9-9593-9ccaf98462d9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5129669/instagram_video_control-1.9.4.xpi";
-      sha256 = "a3119a623bd02e51174d3513f6c0c22a08faa42a3695fd4a6c00ee82f60bd77c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5208646/instagram_video_control-1.9.5.xpi";
+      sha256 = "ae43a1428f716b898978bdd595d2f3d98ad0e8563251a122e27d2a961a96a461";
       meta = with lib;
       {
         homepage = "https://github.com/Arcus92/instagram-video-control/";
@@ -13005,10 +13005,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "160.0.20261104.21706";
+      version = "160.0.20261104.181552";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5207625/scots_language_pack-160.0.20261104.21706.xpi";
-      sha256 = "a2c4da15b9c5f1649a71f0c9dd9a78934abf13dcd2b5fc1c0d81ba4f0bb47acb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5209685/scots_language_pack-160.0.20261104.181552.xpi";
+      sha256 = "be855440cc86914d1fe9c5f73e55c859b410ca7275a6ae6015aaf1b39ed5b0a8";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -13531,10 +13531,10 @@
     };
     "single-file" = buildMozillaXpiAddon {
       pname = "single-file";
-      version = "1.34.0";
+      version = "1.35.0";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5199928/single_file-1.34.0.xpi";
-      sha256 = "5d354af5044f57fbfdba4660dcd5de299d0813e41fd5b3c6cd0948dd6a6de2da";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5208988/single_file-1.35.0.xpi";
+      sha256 = "a1ed8c24d886b54a192b7f6944adb1157aa129b894ae679c48da979ece37c472";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";
@@ -14670,10 +14670,10 @@
     };
     "time-zone-converter-savvy-time" = buildMozillaXpiAddon {
       pname = "time-zone-converter-savvy-time";
-      version = "2026.11.0";
+      version = "2026.11.1";
       addonId = "yuriy@savvytime.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5199200/time_zone_converter_savvy_time-2026.11.0.xpi";
-      sha256 = "8d7acc0cd744d1c4af3d7b387cef00e39f4873fc908d80aa46be08f952d5baa8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5210428/time_zone_converter_savvy_time-2026.11.1.xpi";
+      sha256 = "6a86f185449b212c6192ac8532b59a98f0d56b9d67be6da8f7800304e6189624";
       meta = with lib;
       {
         homepage = "https://savvytime.com/converter";
