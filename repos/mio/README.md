@@ -2,6 +2,8 @@
 
 run a program: `nix run github:mio-19/nurpkgs#android-translation-layer_patched`
 
+every `<name>_patched` package is also exposed under the `patched` attribute set, so `patched.android-translation-layer` and `android-translation-layer_patched` are the same derivation
+
 see all packages: <https://nur.nix-community.org/repos/mio/> How to use (NUR guide) <https://nur.nix-community.org/documentation/> You will want to use `nur.repos.mio.*`
 
 See cachix pins for betterbird linux builds by shelvacu https://app.cachix.org/cache/mio#pins

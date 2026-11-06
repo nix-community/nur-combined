@@ -14,167 +14,179 @@
   no-ifd ? true,
 }:
 with (import ./private.nix { inherit pkgs; });
-{
-  # The `lib`, `modules`, and `overlays` names are special
-  lib = import ./lib { inherit pkgs; }; # functions
-  modules = import ./modules; # NixOS modules
-  nixosModules = import ./modules;
-  homeModules = import ./home-modules; # Home Manager modules
-  overlays = import ./overlays; # nixpkgs overlays
-}
-// import ./packages.nix { inherit pkgs no-ifd; }
-// rec {
-  aria2 = v3override (
-    pkgs.aria2.overrideAttrs (old: {
-      patches = (old.patches or [ ]) ++ [
-        (pkgs.fetchpatch {
-          name = "fix patch aria2 fast.patch";
-          url = "https://github.com/agalwood/aria2/commit/baf6f1d02f7f8b81cd45578585bdf1152d81f75f.patch";
-          sha256 = "sha256-bLGaVJoHuQk9vCbBg2BOG79swJhU/qHgdkmYJNr7rIQ=";
-        })
-      ];
-    })
-  );
-  aria2-wrapped = pkgs.writeShellScriptBin "aria2" ''
-    ${aria2}/bin/aria2c -s65536 -j65536 -x256 -k1k --file-allocation=none "$@"
-  '';
-  caddy =
-    let
-      # Table mapping NixOS version + Caddy version + Go version to plugins hash
-      # Key format: "<nixosVersion>:<caddyVersion>:<goVersion>"
-      caddyPluginsHashTable = {
-        "26.05:2.11.3:go1.26.3" = "sha256-0TRYdgQthch/FWqRIcbISHLUQK9UH9VUpEzN3vMeUo0=";
-        "26.11:2.11.3:go1.26.3" = "sha256-0TRYdgQthch/FWqRIcbISHLUQK9UH9VUpEzN3vMeUo0=";
-        "26.11:2.11.4:go1.26.3" = "sha256-gg2FrWBzumTkp77AA5faAPOQx68JzureGMignc0r1lA=";
-        "26.05:2.11.4:go1.26.3" = "sha256-gg2FrWBzumTkp77AA5faAPOQx68JzureGMignc0r1lA=";
-        "26.05:2.11.4:go1.26.4" = "sha256-Bv00eNLSJof+kWkLaJAPRjGzaXd/gvKoPt9fmBYG3uw=";
-        "26.11:2.11.4:go1.26.4" = "sha256-Bv00eNLSJof+kWkLaJAPRjGzaXd/gvKoPt9fmBYG3uw=";
-        "2.11.4:go1.26.5" = "sha256-QVKOjWXBEEQQkTJNcisiKMr2D63jjH9Gcv09aMaJkGk=";
-        "2.11.4:go1.26.6" = "sha256-osGij5iuxA1hivbPLOSwVRGNLDRQDys9zMEvDFPSzAM=";
-        "2.11.4:go1.26.7" = "sha256-W96s8vBrDuddi7pZ/bB+Ped21kfyxrZEqheb8Luz69o=";
-        "2.11.4:go1.26.8" = "sha256-He7CJIZWCGXNfWxt5g+OSnp1zfAxlq3P484x/5E7Pt4=";
-        "2.11.7:go1.26.8" = "sha256-vzszdV4bCGitOwIlypM7iBOCY1zQ6HoGK5iyBzVzODA=";
-        "2.11.7:go1.26.9" = "sha256-uTLEiufQgJuyW26eLOTzl5rH8zlVVXmuRjt3s0n1FmQ=";
-        "2.11.7:go1.26.10" = "sha256-NipEUMcDqSFOhqdWHcKX8hKnFX1L0ers2CQe8Ww+x1s=";
-      };
-      nixosVersion = pkgs.lib.versions.majorMinor pkgs.lib.version;
-      caddyVersion = pkgs.caddy.version;
-      goVersion = pkgs.caddy.passthru.go.version;
-      lookupKey = "${nixosVersion}:${caddyVersion}:go${goVersion}";
-      lookup2 = "${caddyVersion}:go${goVersion}";
-      pluginsHash =
-        caddyPluginsHashTable.${lookupKey} or caddyPluginsHashTable.${lookup2}
-          or (throw "Unknown caddy version combination: ${lookupKey}. Please update caddyPluginsHashTable in default.nix");
-    in
-    (goV3OverrideAttrs pkgs.caddy).withPlugins {
-      # https://github.com/crowdsecurity/example-docker-compose/blob/main/caddy/Dockerfile
-      # https://github.com/NixOS/nixpkgs/pull/358586
-      plugins = [
-        "github.com/caddy-dns/cloudflare@v0.2.4"
-        "github.com/porech/caddy-maxmind-geolocation@v1.0.3"
-        # "github.com/hslatman/caddy-crowdsec-bouncer/http@main"
-      ];
-      hash = pluginsHash;
-    };
-  openssh = v3override (
-    (pkgs.openssh_10_2 or pkgs.openssh).overrideAttrs (old: {
-      patches = (old.patches or [ ]) ++ [ ./patches/openssh.patch ];
-      #doCheck = false;
-    })
-  );
-  openssh_hpn = v3override (
-    pkgs.openssh_hpn.overrideAttrs (old: {
-      patches = (old.patches or [ ]) ++ [ ./patches/openssh.patch ];
-    })
-  );
-  grub2_patched = nodarwin (
-    v3overridegcc (
-      pkgs.grub2.overrideAttrs (old: {
-        patches = (old.patches or [ ]) ++ [ ./patches/grub-os-prober-title.patch ];
+let
+  base = {
+    # The `lib`, `modules`, and `overlays` names are special
+    lib = import ./lib { inherit pkgs; }; # functions
+    modules = import ./modules; # NixOS modules
+    nixosModules = import ./modules;
+    homeModules = import ./home-modules; # Home Manager modules
+    overlays = import ./overlays; # nixpkgs overlays
+  }
+  // import ./packages.nix { inherit pkgs no-ifd; }
+  // rec {
+    aria2 = v3override (
+      pkgs.aria2.overrideAttrs (old: {
+        patches = (old.patches or [ ]) ++ [
+          (pkgs.fetchpatch {
+            name = "fix patch aria2 fast.patch";
+            url = "https://github.com/agalwood/aria2/commit/baf6f1d02f7f8b81cd45578585bdf1152d81f75f.patch";
+            sha256 = "sha256-bLGaVJoHuQk9vCbBg2BOG79swJhU/qHgdkmYJNr7rIQ=";
+          })
+        ];
       })
-    )
-  );
-  bees = nodarwin (v3overridegcc pkgs.bees);
-  netdata = (v3override (goV3OverrideAttrs pkgs.netdata)).override { withCloudUi = true; };
-  # https://gist.github.com/nstarke/baa031e0cab64a608c9bd77d73c50fc6
-  ghidra_hidpi = v3override (
-    pkgs.ghidra.overrideAttrs (old: {
-      patches = (old.patches or [ ]) ++ [ ./patches/ghidra-ui-scale.patch ];
-    })
-  );
+    );
+    aria2-wrapped = pkgs.writeShellScriptBin "aria2" ''
+      ${aria2}/bin/aria2c -s65536 -j65536 -x256 -k1k --file-allocation=none "$@"
+    '';
+    caddy =
+      let
+        # Table mapping NixOS version + Caddy version + Go version to plugins hash
+        # Key format: "<nixosVersion>:<caddyVersion>:<goVersion>"
+        caddyPluginsHashTable = {
+          "26.05:2.11.3:go1.26.3" = "sha256-0TRYdgQthch/FWqRIcbISHLUQK9UH9VUpEzN3vMeUo0=";
+          "26.11:2.11.3:go1.26.3" = "sha256-0TRYdgQthch/FWqRIcbISHLUQK9UH9VUpEzN3vMeUo0=";
+          "26.11:2.11.4:go1.26.3" = "sha256-gg2FrWBzumTkp77AA5faAPOQx68JzureGMignc0r1lA=";
+          "26.05:2.11.4:go1.26.3" = "sha256-gg2FrWBzumTkp77AA5faAPOQx68JzureGMignc0r1lA=";
+          "26.05:2.11.4:go1.26.4" = "sha256-Bv00eNLSJof+kWkLaJAPRjGzaXd/gvKoPt9fmBYG3uw=";
+          "26.11:2.11.4:go1.26.4" = "sha256-Bv00eNLSJof+kWkLaJAPRjGzaXd/gvKoPt9fmBYG3uw=";
+          "2.11.4:go1.26.5" = "sha256-QVKOjWXBEEQQkTJNcisiKMr2D63jjH9Gcv09aMaJkGk=";
+          "2.11.4:go1.26.6" = "sha256-osGij5iuxA1hivbPLOSwVRGNLDRQDys9zMEvDFPSzAM=";
+          "2.11.4:go1.26.7" = "sha256-W96s8vBrDuddi7pZ/bB+Ped21kfyxrZEqheb8Luz69o=";
+          "2.11.4:go1.26.8" = "sha256-He7CJIZWCGXNfWxt5g+OSnp1zfAxlq3P484x/5E7Pt4=";
+          "2.11.7:go1.26.8" = "sha256-vzszdV4bCGitOwIlypM7iBOCY1zQ6HoGK5iyBzVzODA=";
+          "2.11.7:go1.26.9" = "sha256-uTLEiufQgJuyW26eLOTzl5rH8zlVVXmuRjt3s0n1FmQ=";
+          "2.11.7:go1.26.10" = "sha256-NipEUMcDqSFOhqdWHcKX8hKnFX1L0ers2CQe8Ww+x1s=";
+        };
+        nixosVersion = pkgs.lib.versions.majorMinor pkgs.lib.version;
+        caddyVersion = pkgs.caddy.version;
+        goVersion = pkgs.caddy.passthru.go.version;
+        lookupKey = "${nixosVersion}:${caddyVersion}:go${goVersion}";
+        lookup2 = "${caddyVersion}:go${goVersion}";
+        pluginsHash =
+          caddyPluginsHashTable.${lookupKey} or caddyPluginsHashTable.${lookup2}
+            or (throw "Unknown caddy version combination: ${lookupKey}. Please update caddyPluginsHashTable in default.nix");
+      in
+      (goV3OverrideAttrs pkgs.caddy).withPlugins {
+        # https://github.com/crowdsecurity/example-docker-compose/blob/main/caddy/Dockerfile
+        # https://github.com/NixOS/nixpkgs/pull/358586
+        plugins = [
+          "github.com/caddy-dns/cloudflare@v0.2.4"
+          "github.com/porech/caddy-maxmind-geolocation@v1.0.3"
+          # "github.com/hslatman/caddy-crowdsec-bouncer/http@main"
+        ];
+        hash = pluginsHash;
+      };
+    openssh = v3override (
+      (pkgs.openssh_10_2 or pkgs.openssh).overrideAttrs (old: {
+        patches = (old.patches or [ ]) ++ [ ./patches/openssh.patch ];
+        #doCheck = false;
+      })
+    );
+    openssh_hpn = v3override (
+      pkgs.openssh_hpn.overrideAttrs (old: {
+        patches = (old.patches or [ ]) ++ [ ./patches/openssh.patch ];
+      })
+    );
+    grub2_patched = nodarwin (
+      v3overridegcc (
+        pkgs.grub2.overrideAttrs (old: {
+          patches = (old.patches or [ ]) ++ [ ./patches/grub-os-prober-title.patch ];
+        })
+      )
+    );
+    bees = nodarwin (v3overridegcc pkgs.bees);
+    netdata = (v3override (goV3OverrideAttrs pkgs.netdata)).override { withCloudUi = true; };
+    # https://gist.github.com/nstarke/baa031e0cab64a608c9bd77d73c50fc6
+    ghidra_hidpi = v3override (
+      pkgs.ghidra.overrideAttrs (old: {
+        patches = (old.patches or [ ]) ++ [ ./patches/ghidra-ui-scale.patch ];
+      })
+    );
 
-  cached-set =
-    let
-      self = import ./default.nix {
-        inherit pkgs;
-        no-ifd = false;
-      };
-    in
-    if no-ifd then
-      { }
-    else
-      {
-        pkgscachelinux = (
-          pkgs.symlinkJoin {
-            name = "pkgscachelinux";
-            paths = with self; [
-              rain
-              wireguird
-              nix-software-center
-              uplink
-            ];
-          }
-        );
-        pkgscachelinuxextra = (
-          pkgs.symlinkJoin {
-            name = "pkgscachelinuxextra";
-            paths = with self; [
-            ];
-          }
-        );
-        pkgscachecommon = (
-          pkgs.symlinkJoin {
-            name = "pkgscachecommon";
-            paths = with self; [
-              chatbox
-              nurl_patched
-              aria2
-              aria2-wrapped
-              openssh_hpn
-              caddy
-              minetest591client
-              minetest580client
-              musescore-alex
-              omnimux
-            ];
-          }
-        );
-        pkgscachex86linux = (
-          pkgs.symlinkJoin {
-            name = "pkgscache";
-            paths = with self; [
-              #newpipe
-              cb
-              beammp-launcher
-              mdbook-generate-summary
-              #betterbird
-              ghidra_hidpi
-              prismlauncher-diegiwg
-              android-translation-layer_patched
-              pake # started failing recently
-              #cider # started failing recently
-              rocksmith2tab
-              darling
-              darling_patched
-              supertuxkart-evolution
-            ];
-          }
-        );
-      };
-}
-// lib.optionalAttrs no-ifd {
-  brave-origin = null;
-  cargo-kani = null;
-  claude-desktop = null;
-  claude-desktop-fhs = null;
-}
+    cached-set =
+      let
+        self = import ./default.nix {
+          inherit pkgs;
+          no-ifd = false;
+        };
+      in
+      if no-ifd then
+        { }
+      else
+        {
+          pkgscachelinux = (
+            pkgs.symlinkJoin {
+              name = "pkgscachelinux";
+              paths = with self; [
+                rain
+                wireguird
+                nix-software-center
+                uplink
+              ];
+            }
+          );
+          pkgscachelinuxextra = (
+            pkgs.symlinkJoin {
+              name = "pkgscachelinuxextra";
+              paths = with self; [
+              ];
+            }
+          );
+          pkgscachecommon = (
+            pkgs.symlinkJoin {
+              name = "pkgscachecommon";
+              paths = with self; [
+                chatbox
+                nurl_patched
+                aria2
+                aria2-wrapped
+                openssh_hpn
+                caddy
+                minetest591client
+                minetest580client
+                musescore-alex
+                omnimux
+              ];
+            }
+          );
+          pkgscachex86linux = (
+            pkgs.symlinkJoin {
+              name = "pkgscache";
+              paths = with self; [
+                #newpipe
+                cb
+                beammp-launcher
+                mdbook-generate-summary
+                #betterbird
+                ghidra_hidpi
+                prismlauncher-diegiwg
+                android-translation-layer_patched
+                pake # started failing recently
+                #cider # started failing recently
+                rocksmith2tab
+                darling
+                darling_patched
+                supertuxkart-evolution
+              ];
+            }
+          );
+        };
+  }
+  // lib.optionalAttrs no-ifd {
+    brave-origin = null;
+    cargo-kani = null;
+    claude-desktop = null;
+    claude-desktop-fhs = null;
+  };
+  # `<name>_patched` stays where it is, and is also reachable as
+  # `patched.<name>` (e.g. `patched.uutils-diffutils`).
+  patchedNames = builtins.filter (name: pkgs.lib.hasSuffix "_patched" name) (builtins.attrNames base);
+  patched = builtins.listToAttrs (
+    map (name: {
+      name = pkgs.lib.removeSuffix "_patched" name;
+      value = base.${name};
+    }) patchedNames
+  );
+in
+base // { inherit patched; }
