@@ -5,19 +5,19 @@
     "url": "https://nexa.fish/api/v1/desktop/latest",
     "version_path": ".version"
   },
-  "version": "1.2.10",
+  "version": "1.2.11",
   "platforms": {
     "x86_64-linux": {
       "url": "https://nexa.fish/desktop/nexa-{version}-linux-x86_64.AppImage",
-      "hash": "sha256-fsrIwBas+sEstnFlR63xxPY9J9wVIw7No1VhREMYCWI="
+      "hash": "sha256-qtZFJxOx+onMMXIc2CSHVXmk0cgpr2B67LAfyk7tJmI="
     },
     "aarch64-darwin": {
       "url": "https://nexa.fish/desktop/nexa-{version}-mac-arm64.zip",
-      "hash": "sha256-TrGQARIPDhEOsYQBs9MDTEWKXzLIhQXgGdd6iXP+IpA="
+      "hash": "sha256-iCuzGceTMtED+Kq63Nx7BWcc+R3yZFymJsyWGIbOuPk="
     },
     "x86_64-darwin": {
       "url": "https://nexa.fish/desktop/nexa-{version}-mac-x64.zip",
-      "hash": "sha256-H8GekqhbmxAqX6m+khyklEYsAJq30KO0RxbwPoOnjF8="
+      "hash": "sha256-qxIRW7YoAnrjHdWk4KiDwR+9aVzO1IJp/Pl8YTtofrE="
     }
   }
 }
