@@ -101,6 +101,53 @@ in
         export npm_config_audit="false"
         export npm_config_fund="false"
         export HOME="$TMPDIR"
+
+        # Upstream build.rs shells out to bare `npm`, and the .bin shims
+        # `npm ci` installs carry `#!/usr/bin/env node` shebangs, which
+        # don't resolve in the Linux sandbox (no /usr/bin/env; Darwin
+        # has one, which is why local mac builds pass). Wrap npm so every
+        # invocation re-points freshly installed shims at the store node.
+        mkdir -p "$TMPDIR/npm-bin"
+        cat > "$TMPDIR/npm-bin/npm" <<'EOF'
+        #!${stdenv.shell}
+        patch_shims() {
+          prefix=""
+          prev=""
+          for arg in "$@"; do
+            case "$arg" in
+              --prefix=*) prefix=$(echo "$arg" | sed 's/^--prefix=//') ;;
+              *)
+                if [ "$prev" = "--prefix" ]; then prefix="$arg"; fi
+                prev="$arg"
+                ;;
+            esac
+          done
+          if [ -n "$prefix" ]; then
+            case "$prefix" in
+              /*) root="$prefix" ;;
+              *) root="$PWD/$prefix" ;;
+            esac
+            if [ -d "$root/node_modules" ]; then
+              find "$root/node_modules" -type d -name .bin | while IFS= read -r bindir; do
+                for link in "$bindir"/*; do
+                  [ -e "$link" ] || continue
+                  target=$(readlink -f "$link")
+                  if [ -f "$target" ] && [ "$(head -n 1 "$target")" = "#!/usr/bin/env node" ]; then
+                    sed -i '1s|^#!/usr/bin/env node|#!${nodejs}/bin/node|' "$target"
+                  fi
+                done
+              done
+            fi
+          fi
+        }
+        patch_shims "$@"
+        ${nodejs}/bin/npm "$@"
+        status=$?
+        patch_shims "$@"
+        exit $status
+        EOF
+        chmod +x "$TMPDIR/npm-bin/npm"
+        export PATH="$TMPDIR/npm-bin:$PATH"
       '';
 
       # The binary gets a --version install check instead of the test suite.

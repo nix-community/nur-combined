@@ -70,6 +70,21 @@ in
       '';
     };
 
+    defaultModel = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      example = "opencode-go/muse-spark-1.3-contributor";
+      description = ''
+        Full `<backend>/<model>` id advertised first by
+        infinity-provider-models-dev, making it the default model for
+        new sessions. Exported as INFINITY_DEFAULT_MODEL in the shell
+        environment, which the provider (spawned from the daemon,
+        itself launched from a shell) inherits. Requires
+        infinity-provider-models-dev 0.3.0+; null keeps the
+        first-model-of-first-provider behavior.
+      '';
+    };
+
     # Nix-built RAP servers by default. Kept separate from `toolSets` so a
     # host setting `toolSets` (which replaces the default) doesn't silently
     # drop them; both lists are concatenated in rap.json.
@@ -121,6 +136,10 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = [ cfg.package ];
+
+    home.sessionVariables = lib.mkIf (cfg.defaultModel != null) {
+      INFINITY_DEFAULT_MODEL = cfg.defaultModel;
+    };
 
     home.file = {
       # builtins.toJSON sorts attrset keys alphabetically, which would put

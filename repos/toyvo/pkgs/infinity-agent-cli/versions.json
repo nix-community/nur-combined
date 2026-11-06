@@ -7,10 +7,10 @@
   "npmUiHash": "sha256-XPcMBNDs2ScvDipvY08Zjl2owPqYh8NffX4jzn1cU6Q=",
   "npmWebHash": "sha256-ihtZPEeMXPmjNzTPqdsN4TsTnUkMt2h3+n+z8tnArio=",
   "modelsDev": {
-    "version": "0.2.2",
-    "tag": "v0.2.2",
-    "rev": "a06400b007f1accc90bbcd4b4c971328129fc621",
-    "hash": "sha256-g9VLHiQv9kaNTBrWwp8Xsi73W22Pp4borSMGjngnwx8=",
-    "cargoHash": "sha256-7gH0YmhFyFFKJgr+y3TreuHhUEs2ezs4gnKnJRxNnvw="
+    "version": "0.3.0",
+    "tag": "v0.3.0",
+    "rev": "3bf4e38e6db4a5abd0e2855e9ded2d225039ecac",
+    "hash": "sha256-oZtzfrRJ8px/P+yDDhNzRe8qV39JKqUFBK1RebGiKGg=",
+    "cargoHash": "sha256-5i940EaDAD1mi0zS9XY+CcpYelAYxQIrYE30LxVHwsA="
   }
 }
