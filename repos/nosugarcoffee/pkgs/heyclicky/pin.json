@@ -1,0 +1,12 @@
+{
+  "source": {
+    "type": "github",
+    "repo": "farzaa/clicky-releases"
+  },
+  "version": "1.1.2",
+  "url": "https://github.com/farzaa/clicky-releases/releases/download/v{version}/HeyClicky.dmg",
+  "hash": {
+    "aarch64-darwin": "sha256-/Plxhy4E4RFpY3Ct4Vxo9vOBJVnV+EO0JLs6eoANz/w=",
+    "x86_64-darwin": "sha256-/Plxhy4E4RFpY3Ct4Vxo9vOBJVnV+EO0JLs6eoANz/w="
+  }
+}

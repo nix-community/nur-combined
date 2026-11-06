@@ -19,13 +19,14 @@ Modeled on [numtide/llm-agents.nix](https://github.com/numtide/llm-agents.nix).
 | [`cua-driver`](https://github.com/trycua/cua) | aarch64-darwin, x86_64-linux, aarch64-linux | Computer-use MCP server and CLI. Link `cua-driver.skills` into `~/.claude/skills` |
 | [`digup`](https://github.com/ARahim3/DigUp) | aarch64-darwin | Search files by their content with on-device embeddings |
 | [`ego-lite`](https://lite.ego.app/) | aarch64-darwin | Chromium-based browser that shares your logged-in state with AI agents, plus the `ego-browser` CLI |
+| [`heyclicky`](https://www.heyclicky.com/) | aarch64-darwin | Screen-aware AI assistant that talks you through a task or does it for you |
 | [`jetbrains-air`](https://air.dev/) | aarch64-darwin | JetBrains Air, an agentic development environment |
 | [`obs-studio`](https://obsproject.com/) | aarch64-darwin | Streaming and screen recording (nixpkgs' is Linux-only) |
 | [`pulsar`](https://pulsar-edit.dev/) | aarch64-darwin | Community-led hyperhackable text editor, the Atom successor (nixpkgs' is Linux-only) |
 | [`qingjian`](https://qingjian.app) | aarch64-darwin | Pinyin input method that shows a word in the language you are learning beside each candidate (installs under `Library/Input Methods`) |
 | [`scroll-reverser`](https://pilotmoon.com/scrollreverser/) | aarch64-darwin | Reverse the scroll direction, signed official release; newer than nixpkgs' |
 
-Several are unfree (`_1password-cli`, `_1password-gui`, `ego-lite`, `jetbrains-air`); allow unfree packages to use them.
+Several are unfree (`_1password-cli`, `_1password-gui`, `ego-lite`, `heyclicky`, `jetbrains-air`); allow unfree packages to use them.
 
 ## Usage
 
