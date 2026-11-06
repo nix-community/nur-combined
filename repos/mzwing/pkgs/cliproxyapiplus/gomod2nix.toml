@@ -11,8 +11,8 @@ go = '1.26.10'
     hash = 'sha256-tVNWDUMILZbJvarcl/E7tpSnkn7urqgSHa2Eaka5vSU='
 
   [mod.'github.com/MoeForge/moego']
-    version = 'v0.1.1'
-    hash = 'sha256-/9nmOFSVevb9HZDjHgaxWC7WqnlJ+EpwqlOeiXvXrlw='
+    version = 'v0.1.2'
+    hash = 'sha256-EehOTCRXr7EDfI+mdQB4hJZPIj+PnO5FRpM3MBHklM8='
     replaced = 'github.com/router-for-me/moego'
 
   [mod.'github.com/ProtonMail/go-crypto']
@@ -394,6 +394,10 @@ go = '1.26.10'
   [mod.'github.com/xo/terminfo']
     version = 'v0.0.0-20220910002029-abceb7e1c41e'
     hash = 'sha256-GyCDxxMQhXA3Pi/TsWXpA8cX5akEoZV7CFx4RO3rARU='
+
+  [mod.'go.etcd.io/bbolt']
+    version = 'v1.5.0'
+    hash = 'sha256-+qJ2eJTioYQjZ6UOLVqPu1jmAYc9pQgFpdrT9i7GipQ='
 
   [mod.'go.uber.org/atomic']
     version = 'v1.11.0'
@@ -1298,6 +1302,15 @@ go = '1.26.10'
   [cacheModules.'github.com/xo/terminfo']
     packages = [
       'github.com/xo/terminfo'
+    ]
+
+  [cacheModules.'go.etcd.io/bbolt']
+    packages = [
+      'go.etcd.io/bbolt',
+      'go.etcd.io/bbolt/errors'
+    ]
+    deps = [
+      'golang.org/x/sys'
     ]
 
   [cacheModules.'go.uber.org/atomic']
