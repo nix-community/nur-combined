@@ -115,6 +115,17 @@ let
       ;
   };
 
+  # gcc can't link static PIE binaries for 32-bit ARM
+  staticArmv7 = testPkgs.pkgsCross.armv7l-hf-multiplatform.pkgsStatic.mkGoModule {
+    inherit (fixtureArgs)
+      pname
+      version
+      src
+      vendorHash
+      subPackages
+      ;
+  };
+
   # buildGoModule defaults to go's platforms, which don't include windows
   windows = testPkgs.pkgsCross.mingwW64.mkGoModule {
     pname = "fixture";
@@ -183,6 +194,8 @@ assert !withoutPie.goCache.pie;
 assert !(fixture.overrideAttrs { pie = false; }).goCache.pie;
 assert static.pie == testPkgs.stdenv.hostPlatform.isLinux;
 assert !windows.pie;
+assert !staticArmv7.pie;
+assert !staticArmv7.goCache.pie;
 {
   mkGoModule-build = testPkgs.runCommand "mkGoModule-build" { nativeBuildInputs = elfTools; } ''
     test "$(${fixture}/bin/fixture)" = "hello from dep"

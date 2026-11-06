@@ -572,7 +572,7 @@ Dependencies of tests are cached for the build directory used on Linux, on Darwi
 
 Go names binaries after their package's directory, so when `meta.mainProgram` is set and a single binary is installed, it's renamed to `meta.mainProgram`.
 
-On Linux, binaries are built as position-independent executables (`-buildmode=pie`) for ASLR when cgo is enabled. On static platforms (`pkgsStatic`) they're linked as static PIE binaries by the external linker. With `CGO_ENABLED = 0` Go's own linker is used, which can't build static PIE binaries, so they're left static. Set `pie = false` to disable it.
+On Linux, binaries are built as position-independent executables (`-buildmode=pie`) for ASLR when cgo is enabled. On static platforms (`pkgsStatic`) they're linked as static PIE binaries by the external linker. With `CGO_ENABLED = 0` Go's own linker is used, which can't build static PIE binaries, so they're left static. Static 32-bit ARM binaries are also left static, as gcc can't link static PIE binaries for it. Set `pie = false` to disable it.
 
 ```nix
 pkgs.mkGoModule (finalAttrs: {
@@ -723,7 +723,7 @@ Python packages are added to every python package set (e.g. `pkgs.python3Package
 
 ### static-pie
 
-Makes gcc link static executables (e.g. `pkgsStatic`) as static PIE for ASLR, until [NixOS/nixpkgs#515233](https://github.com/NixOS/nixpkgs/pull/515233) lands. This rebuilds the static gcc, so static packages are no longer cached by cache.nixos.org. On musl, static PIE executables don't export symbols (`-Wl,--export-dynamic`), as musl can't relocate exported thread-local variables.
+Makes gcc link static executables (e.g. `pkgsStatic`) as static PIE for ASLR, until [NixOS/nixpkgs#515233](https://github.com/NixOS/nixpkgs/pull/515233) lands. This rebuilds the static gcc, so static packages are no longer cached by cache.nixos.org. On musl, static PIE executables don't export symbols (`-Wl,--export-dynamic`), as musl can't relocate exported thread-local variables. 32-bit ARM, MIPS, SPARC and m68k are left as plain static executables, as gcc's link spec for them doesn't support static PIE.
 
 ```nix
 import nixpkgs {

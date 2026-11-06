@@ -117,6 +117,8 @@ in
   mkFlake-static-pie =
     let
       hello = packages.hello.x86_64-unknown-linux-musl;
+      hasStaticPieSpecs =
+        pkg: pkgs.lib.any (pkgs.lib.hasPrefix "--with-specs=") pkg.stdenv.cc.cc.configureFlags;
       # a thread-local variable used by another file and exported, like jemalloc in duckdb's unittest
       exportedTls = hello.stdenv.mkDerivation {
         name = "exported-tls";
@@ -145,6 +147,10 @@ in
         '';
       };
     in
+    assert hasStaticPieSpecs hello;
+    # gcc's link spec for 32-bit ARM has no static-pie case, -static-pie would link dynamically
+    assert !hasStaticPieSpecs packages.hello.armv7l-unknown-linux-musleabihf;
+    assert !hasStaticPieSpecs packages.hello.armv6l-unknown-linux-musleabihf;
     pkgs.runCommand "mkFlake-static-pie" { nativeBuildInputs = [ pkgs.binutils ]; } ''
       test "$(${hello}/bin/hello)" = "Hello, world!"
       test "$(${exportedTls}/bin/exported-tls)" = 1000

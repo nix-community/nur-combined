@@ -18,6 +18,10 @@ let
     || target.isFreeBSD
     || target.isNetBSD;
 
+  # gcc's link spec for these linux targets has no static-pie case, so -static-pie
+  # doesn't pass -Bstatic or --no-dynamic-linker and links against libc.so
+  hasStaticPie = !(target.isAarch32 || target.isMips || target.isSparc || target.isM68k);
+
   # nixpkgs already does it
   upstream = lib.functionArgs prev.gcc.cc.override ? enableDefaultStaticPie;
 
@@ -32,7 +36,7 @@ let
 in
 {
   gcc =
-    if target.isStatic && canReloc && !upstream then
+    if target.isStatic && canReloc && hasStaticPie && !upstream then
       prev.gcc.override {
         cc = (prev.gcc.cc.override { enableDefaultPie = true; }).overrideAttrs (old: {
           configureFlags = old.configureFlags ++ [ "--with-specs=${specs}" ];

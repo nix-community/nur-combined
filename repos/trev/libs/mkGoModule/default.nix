@@ -21,7 +21,8 @@
 # (`-buildmode=pie`) for ASLR when cgo is enabled. On static platforms they're
 # linked as static PIE binaries by the external linker. With CGO_ENABLED=0 go's
 # own linker is used, which can't build static PIE binaries, so they're left
-# static. `pie = false` disables it.
+# static. 32-bit ARM binaries are left static too, as gcc can't link static PIE
+# binaries for it. `pie = false` disables it.
 {
   buildGoModule,
   callPackage,
@@ -159,8 +160,12 @@ lib.extendMkDerivation {
       overrideModAttrs ? (finalAttrs: previousAttrs: { }),
       # extra arguments for the dependency derivation
       goCacheArgs ? { },
-      # position-independent executables, only used with cgo
-      pie ? stdenv.hostPlatform.isLinux && lib.elem stdenv.hostPlatform.go.GOARCH pieArchs,
+      # position-independent executables, only used with cgo. gcc's link spec for
+      # 32-bit ARM has no static-pie case, so those would be linked dynamically
+      pie ?
+        stdenv.hostPlatform.isLinux
+        && lib.elem stdenv.hostPlatform.go.GOARCH pieArchs
+        && !(stdenv.hostPlatform.isStatic && stdenv.hostPlatform.isAarch32),
       ...
     }@args:
 
