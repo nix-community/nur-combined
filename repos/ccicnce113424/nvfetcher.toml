@@ -154,6 +154,6 @@ src.github = "waywallen/waywallen"
 src.prefix = "v"
 
 [waywallen-display-bin]
-fetch.url = "https://github.com/waywallen/waywallen-display/releases/download/v$ver/waywallen-kde-$ver-x86_64-embed.zip"
+fetch.url = "https://github.com/waywallen/waywallen-display/releases/download/v$ver/waywallen-kde-$ver-x86_64.zip"
 src.github = "waywallen/waywallen-display"
 src.prefix = "v"
