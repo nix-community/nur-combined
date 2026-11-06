@@ -800,7 +800,8 @@ pub fn capture_x11_root() -> anyhow::Result<capture::ScreenCapture> {
     // ZPixmap on 24-bit TrueColor (little-endian): 4 bytes per pixel BGRX
     // u32::from_le_bytes([B,G,R,X]) = 0xXXRRGGBB = our XRGB format (top byte unused).
     let xrgb: Vec<u32> = data[..expected_bytes]
-        .chunks_exact(4)
+        .as_chunks::<4>().0
+        .iter()
         .map(|c| u32::from_le_bytes([c[0], c[1], c[2], c[3]]) & 0x00FF_FFFF)
         .collect();
 

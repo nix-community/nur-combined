@@ -10,7 +10,7 @@ StartupNotify=false
 Terminal=false
 
 StartupWMClass=ie-r
-SkipTaskbar=true
+X-SkipTaskbar=true
 
 # ------------------------------------------------------------------
 # THE MAGIC 🪄

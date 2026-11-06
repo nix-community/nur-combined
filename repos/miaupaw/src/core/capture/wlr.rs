@@ -251,7 +251,7 @@ fn convert_to_xrgb(ptr: *const u8, width: u32, height: u32, stride: u32, format:
         // Xbgr8888 little-endian: [R,G,B,X] → swap R↔B to get 0x00RRGGBB
         let byte_len = num_pixels * 4;
         let slice = unsafe { std::slice::from_raw_parts(ptr, byte_len) };
-        return slice.chunks_exact(4).map(|c| {
+        return slice.as_chunks::<4>().0.iter().map(|c| {
             ((c[0] as u32) << 16) | ((c[1] as u32) << 8) | (c[2] as u32)
         }).collect();
     }
@@ -265,7 +265,7 @@ fn convert_to_xrgb(ptr: *const u8, width: u32, height: u32, stride: u32, format:
             Ok(s) => s,
             Err(_) => {
                 // Misaligned mmap — byte-by-byte fallback
-                return slice.chunks_exact(4)
+                return slice.as_chunks::<4>().0.iter()
                     .map(|c| u32::from_ne_bytes([c[0], c[1], c[2], c[3]]))
                     .collect();
             }

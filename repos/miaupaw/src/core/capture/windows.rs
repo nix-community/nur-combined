@@ -267,7 +267,7 @@ fn bgra_to_xrgb(ptr: *const u8, width: u32, height: u32, stride: u32) -> Vec<u32
     for row in 0..height {
         let row_ptr = unsafe { ptr.add((row * stride) as usize) };
         let row_slice = unsafe { std::slice::from_raw_parts(row_ptr, (width * 4) as usize) };
-        for chunk in row_slice.chunks_exact(4) {
+        for chunk in row_slice.as_chunks::<4>().0 {
             let b = chunk[0] as u32;
             let g = chunk[1] as u32;
             let r = chunk[2] as u32;

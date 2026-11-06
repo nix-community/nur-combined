@@ -73,7 +73,7 @@ yay -S ie-r
 The PKGBUILD installs the binary, `.desktop` file, and icon to standard system paths. KWin authorization works out of the box.
 
 ### AppImage
-Download the latest `ie-r-vX.X.X-linux-x86_64.AppImage` from Releases:
+Download the latest `ie-r-vX.X.X-x86_64.AppImage` from Releases:
 ```bash
 chmod +x ie-r-v*.AppImage
 ./ie-r-v*.AppImage

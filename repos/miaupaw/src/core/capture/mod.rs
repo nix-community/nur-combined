@@ -486,7 +486,7 @@ pub(crate) fn rgba_to_capture(img: &image::RgbaImage) -> ScreenCapture {
     let raw = img.as_raw();
     let num = (w * h) as usize;
     let mut buf = Vec::with_capacity(num);
-    for chunk in raw.chunks_exact(4) {
+    for chunk in raw.as_chunks::<4>().0 {
         buf.push(((chunk[0] as u32) << 16) | ((chunk[1] as u32) << 8) | (chunk[2] as u32));
     }
     ScreenCapture {

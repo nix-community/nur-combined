@@ -41,7 +41,7 @@ let
                 'StartupNotify=false' \
                 'Terminal=false' \
                 'StartupWMClass=ie-r' \
-                'SkipTaskbar=true' \
+                'X-SkipTaskbar=true' \
                 'X-KDE-DBUS-Restricted-Interfaces=org.kde.KWin.ScreenShot2' \
                 > "$DESKTOP"
 
@@ -97,7 +97,7 @@ let
             'StartupNotify=false' \
             'Terminal=false' \
             'StartupWMClass=ie-r' \
-            'SkipTaskbar=true' \
+            'X-SkipTaskbar=true' \
             'X-KDE-DBUS-Restricted-Interfaces=org.kde.KWin.ScreenShot2' \
             > "$DESKTOP_DIR/ie-r.desktop"
 
@@ -238,7 +238,7 @@ let
     pname = "ie-r-appimage";
     inherit version;
     dontUnpack = true;
-    nativeBuildInputs = [ pkgs.squashfsTools ];
+    nativeBuildInputs = [ pkgs.squashfsTools pkgs.imagemagick ];
 
     buildPhase = '' # bash
         mkdir AppDir
@@ -248,16 +248,27 @@ let
         cp ${appRun} AppDir/AppRun
         chmod +x AppDir/AppRun
         cp AppDir/share/ie-r.desktop AppDir/ie-r.desktop
+
+        # Exec arrives from package.nix as an absolute /nix/store path (KWin
+        # ScreenShot2 authorization needs it there). Inside an AppImage that
+        # path exists nowhere, so restore the plain name. Launching goes
+        # through AppRun regardless; this file is what third-party desktop
+        # integrators read.
+        sed -i 's|^Exec=.*|Exec=ie-r|' AppDir/ie-r.desktop
         cp AppDir/share/icons/hicolor/scalable/apps/ie-r.svg AppDir/ie-r.svg
-        ln -s ie-r.svg AppDir/.DirIcon
+
+        # .DirIcon must be PNG — file-manager thumbnailers don't render SVG.
+        # Same magick invocation windows.nix uses for the .ico.
+        magick -background none AppDir/ie-r.svg -resize 256x256 PNG32:AppDir/ie-r.png
+        ln -sf ie-r.png AppDir/.DirIcon
 
         mksquashfs AppDir appdir.sqfs -root-owned -noappend -comp gzip
     '';
 
     installPhase = '' # bash
         mkdir -p $out
-        cat ${appimage-runtime} appdir.sqfs > $out/ie-r-v${version}-linux-x86_64.AppImage
-        chmod +x $out/ie-r-v${version}-linux-x86_64.AppImage
+        cat ${appimage-runtime} appdir.sqfs > $out/ie-r-v${version}-x86_64.AppImage
+        chmod +x $out/ie-r-v${version}-x86_64.AppImage
     '';
   };
 
@@ -266,10 +277,10 @@ let
   # NixOS (no standard FHS); test on Ubuntu/Fedora after export.
   appimage-export = {
     type = "app";
-    meta.description = "Export IE-R AppImage (builds/ie-r-vVERSION-linux-x86_64.AppImage)";
+    meta.description = "Export IE-R AppImage (builds/ie-r-vVERSION-x86_64.AppImage)";
     program = let
       script = pkgs.writeShellScriptBin "appimage-ie-r" '' # bash
-          APPIMAGE="ie-r-v${version}-linux-x86_64.AppImage"
+          APPIMAGE="ie-r-v${version}-x86_64.AppImage"
           echo -e "\033[1;32m▸ Exporting AppImage to builds/...\033[0m"
           mkdir -p "./builds"
           rm -f "./builds/$APPIMAGE"
