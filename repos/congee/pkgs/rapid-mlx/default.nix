@@ -38,14 +38,14 @@ let
 in
 python3Packages.buildPythonApplication rec {
   pname = "rapid-mlx";
-  version = "0.15.5";
+  version = "1.0.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "raullenchai";
     repo = "Rapid-MLX";
     rev = "v${version}";
-    hash = "sha256-5P4pD8ZVj0hwUwzm9ieHfBc83SRKjBDQRjg6RUjKOMA=";
+    hash = "sha256-GhtBhay+3FI4isBDQf6PmDwBL02x5B+d/fR00x84W0w=";
   };
 
   build-system = with python3Packages; [
@@ -53,41 +53,78 @@ python3Packages.buildPythonApplication rec {
     wheel
   ];
 
-  dependencies = with python3Packages; [
-    argcomplete
-    fastapi
-    huggingface-hub
-    jsonschema
-    llguidance
-    mcp
-    mlx
-    mlx-lm
-    numpy
-    openai-harmony
-    pillow
-    psutil
-    pyyaml
-    referencing
-    requests
-    tabulate
-    tokenizers
-    tomli-w
-    tqdm
-    transformers
-    uvicorn
-    websockets
+  dependencies =
+    with python3Packages;
+    [
+      argcomplete
+      certifi
+      fastapi
+      httpx
+      huggingface-hub
+      jsonschema
+      llguidance
+      mcp
+      mlx
+      mlx-lm
+      numpy
+      openai-harmony
+      pillow
+      prompt-toolkit
+      psutil
+      pydantic-ai-slim
+      pypdf
+      pyyaml
+      referencing
+      requests
+      rich
+      safetensors
+      sentencepiece
+      tabulate
+      tiktoken
+      tokenizers
+      tomli-w
+      tqdm
+      transformers
+      uvicorn
+      websockets
+    ]
+    # pydantic-ai-slim[openai]
+    ++ [ openai ];
+
+  # Text-only, like upstream's Homebrew formula: the image/audio/video
+  # stacks (torch, mflux, mlx-vlm, ...) are not packaged here.
+  pythonRemoveDeps = [
+    "imageio"
+    "mflux"
+    "mlx-arsenal"
+    "mlx-audio"
+    "mlx-video-with-audio"
+    "mlx-vlm"
+    "opencv-python"
+    "soundfile"
+    "torch"
+    "torchvision"
   ];
 
   # Upstream excludes the broken 5.13.0 (its _LazyAutoMapping.register
   # dereferenced key.__module__, which mlx-lm's string-name tokenizer
   # registration tripped over) and caps <5.16 only as a precaution against
   # unvalidated minors; nixpkgs' 5.16+ imports fine.
-  pythonRelaxDeps = [ "transformers" ];
+  pythonRelaxDeps = [
+    "huggingface-hub"
+    "mcp"
+    "pydantic-ai-slim"
+    "tokenizers"
+    "transformers"
+  ];
 
   # tests require downloaded models and a live server
   doCheck = false;
 
-  pythonImportsCheck = [ "vllm_mlx" ];
+  pythonImportsCheck = [
+    "rapid_mlx"
+    "rapid_mlx.cli"
+  ];
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   versionCheckProgramArg = "--version";
