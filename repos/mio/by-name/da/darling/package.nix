@@ -256,7 +256,11 @@ stdenv.mkDerivation {
         export UPDATE_NIX_ATTR_PATH="darling"
 
         nix-update() {
-          ${lib.escapeShellArgs (nix-update-script { extraArgs = [ "--version=branch" ]; })} "$@"
+          ${
+            lib.escapeShellArgs (nix-update-script {
+              extraArgs = [ "--version=branch" ];
+            })
+          } "$@"
         }
 
         # nix-update writes the new revision and version before it fetches the
@@ -266,7 +270,11 @@ stdenv.mkDerivation {
         # mismatch in place. Verify the pinned revision and update its hash
         # explicitly; after a successful fetch this is a store hit.
         update_hash() {
-          ${lib.escapeShellArgs (nix-update-script { extraArgs = [ "--version=skip" ]; })} "$@"
+          ${
+            lib.escapeShellArgs (nix-update-script {
+              extraArgs = [ "--version=skip" ];
+            })
+          } "$@"
         }
 
         if ! nix-update "$@"; then

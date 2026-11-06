@@ -179,14 +179,24 @@ let
     claude-desktop = null;
     claude-desktop-fhs = null;
   };
-  # `<name>_patched` stays where it is, and is also reachable as
-  # `patched.<name>` (e.g. `patched.uutils-diffutils`).
-  patchedNames = builtins.filter (name: pkgs.lib.hasSuffix "_patched" name) (builtins.attrNames base);
-  patched = builtins.listToAttrs (
-    map (name: {
-      name = pkgs.lib.removeSuffix "_patched" name;
-      value = base.${name};
-    }) patchedNames
+  names_patched = builtins.filter (name: pkgs.lib.hasSuffix "_patched" name) (
+    builtins.attrNames base
   );
+  names-patched = builtins.filter (name: pkgs.lib.hasSuffix "-patched" name) (
+    builtins.attrNames base
+  );
+  patched =
+    builtins.listToAttrs (
+      map (name: {
+        name = pkgs.lib.removeSuffix "_patched" name;
+        value = base.${name};
+      }) names_patched
+    )
+    // builtins.listToAttrs (
+      map (name: {
+        name = pkgs.lib.removeSuffix "-patched" name;
+        value = base.${name};
+      }) names-patched
+    );
 in
 base // { inherit patched; }
