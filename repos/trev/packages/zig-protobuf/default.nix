@@ -8,13 +8,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "zig-protobuf";
-  version = "6.0.1";
+  version = "7.0.0";
 
   src = fetchFromGitHub {
     owner = "Arwalk";
     repo = "zig-protobuf";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-c5EVhghAC93j7W6Wa5JDkQJebi1Z0s/ieyVPKsFPIHk=";
+    hash = "sha256-zn+tMJv+yoA9ZEYTFL9wb+2ASkIqXV8GVVsq6pfyHW0=";
   };
 
   postPatch = ''
@@ -25,7 +25,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   zigDeps = zig.fetchDeps {
     inherit (finalAttrs) src pname version;
-    hash = "sha256-r0xm3EUduf0lUXrCMBm0TFYnRn9uRK0maVGhMrs7rMk=";
+    hash = "sha256-p0XV1SisVWCuRsZ1bpAPyMlG1qEGCUEyoKYa/ckCs2A=";
     fetchAll = true;
   };
 
