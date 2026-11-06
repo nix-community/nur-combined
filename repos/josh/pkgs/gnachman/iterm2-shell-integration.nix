@@ -16,13 +16,13 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "iterm2-shell-integration";
-  version = "0-unstable-2026-10-31";
+  version = "0-unstable-2026-11-06";
 
   src = fetchFromGitHub {
     owner = "gnachman";
     repo = "iTerm2-shell-integration";
-    rev = "8a38b8d0962b2dbe9c99431ab6a4de3101d16016";
-    hash = "sha256-axqOVxhr+rSBZTDANk3Qr7lQi/PzNKLA94wKU0hoAEY=";
+    rev = "3105170eafb5f8a9d0bf0188bed3666332171709";
+    hash = "sha256-ACDeUBOMLJO7Oe/1+UnN/mJIRwgsZF/v4xioYNN4EOI=";
   };
 
   nativeBuildInputs = [
