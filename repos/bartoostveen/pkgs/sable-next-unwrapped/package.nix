@@ -1,6 +1,5 @@
 {
   lib,
-  callPackage,
   stdenv,
   rustPlatform,
   nix-update-script,
@@ -12,18 +11,16 @@
   wasm-bindgen-cli_0_2_130,
   llvmPackages,
   binaryen,
-  withDeepfilternet ? true,
 }:
 
 let
   pnpm = pnpm_12;
   nodejs = nodejs_26;
   wasm-bindgen-cli = wasm-bindgen-cli_0_2_130;
-  deepfilternet = callPackage ./deepfilternet.nix { };
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "sable-next-unwrapped";
-  version = "2.3.4";
+  version = "2.3.5";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -33,17 +30,13 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "SableClient";
     repo = "sable-next";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-9tQMDc6MKM8sVa61G7FWmh7bA6ONFC5r5JNjqrKG+DU=";
+    hash = "sha256-RA4t2Nm92EqW3J7cz6g7O1CiTjaXeLRRi6TDqRGozaE=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) src;
-    hash = "sha256-vjSE30/8piwABkgoc396DJK951CfTGqJMiHT+amOXik=";
+    hash = "sha256-l/Kmr/2H58WXHICCv7Th1g3nCyPngzFWK4ycX3aJFJA=";
   };
-
-  postPatch = lib.optionalString withDeepfilternet ''
-    cp --no-preserve all -r ${finalAttrs.passthru.deepfilternet} static/deepfilternet3
-  '';
 
   nativeBuildInputs = [
     pnpm
@@ -64,15 +57,12 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
     fetcherVersion = 5;
-    hash = "sha256-HuJ+AjPmrQN/jabvm9J3tycOa7iGtV1HaoQJpRhxF3Q=";
+    hash = "sha256-UnCclfJOCOb0EeJTOWeKIMHUa8I2Q+pTBvRQBhSVPS4=";
   };
 
   env = {
     VITE_BUILD_HASH = finalAttrs.src.rev;
     SABLE_BUILD_FLAVOR = "stable";
-  }
-  // lib.optionalAttrs (!withDeepfilternet) {
-    SABLE_SKIP_DEEPFILTERNET = true;
   };
 
   buildPhase = ''
@@ -89,10 +79,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru = {
-    updateScript = nix-update-script { extraArgs = [ "--subpackage=deepfilternet" ]; };
-    inherit deepfilternet;
-  };
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Sable rewrite in Rust and Svelte. An almost stable Matrix client";
