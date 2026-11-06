@@ -8,8 +8,8 @@ let
   src = fetchFromGitHub {
     owner = "lillycham";
     repo = "lambdash";
-    rev = "77e5a0f9f3afe5001b4781421c090b018bd1bb8a";
-    hash = "sha256-1npVgqVGEmXmi84orjnOZlN2ybzLHySIabQCw4K9GN4=";
+    rev = "16f3cca4296c714aa0e6f732fd8468cace0a7648";
+    hash = "sha256-rzjRcvP3dh5eKl3xwD6EGnpMQUnHRbgNLz88TTD0gyE=";
   };
   # Keep the shell's Ctrl-C, type-ahead and non-terminal input fixes.
   shellPackages = haskellPackages.override {
@@ -20,6 +20,7 @@ let
   lambdash = shellPackages.callPackage (
     {
       mkDerivation,
+      aeson,
       async,
       base,
       bytestring,
@@ -31,6 +32,7 @@ let
       lsp-types,
       megaparsec,
       mtl,
+      optparse-applicative,
       process,
       stm,
       text,
@@ -39,11 +41,12 @@ let
     }:
     mkDerivation {
       pname = "lambdash";
-      version = "0.1.0.0-unstable-2026-11-05";
+      version = "0.1.0.0-unstable-2026-11-06";
       inherit src;
       isLibrary = true;
       isExecutable = true;
       libraryHaskellDepends = [
+        aeson
         async
         base
         bytestring
@@ -58,7 +61,18 @@ let
         transformers
         unix
       ];
-      executableHaskellDepends = [ base directory filepath isocline lsp lsp-types text unix ];
+      executableHaskellDepends = [
+        aeson
+        base
+        directory
+        filepath
+        isocline
+        lsp
+        lsp-types
+        optparse-applicative
+        text
+        unix
+      ];
       # Upstream runs the terminal and real-program suites in its dev shell.
       doCheck = false;
       postInstall = ''
