@@ -9,7 +9,7 @@
 
 let
   pname = "gitpane";
-  version = "0.17.1";
+  version = "0.18.4";
 in
 rustPlatform.buildRustPackage rec {
   inherit pname version;
@@ -18,10 +18,10 @@ rustPlatform.buildRustPackage rec {
     owner = "affromero";
     repo = "gitpane";
     rev = "v${version}";
-    hash = "sha256-v7rH/dQ8UDSPBpRL7ORowZcPUBanXD29z9VkPXv71Gc=";
+    hash = "sha256-Lnr+kn+rfq8F9pdoCFaP/xHxw1nkDPsz9wr1D0oGYqs=";
   };
 
-  cargoHash = "sha256-vmSQ5fAyPlBvBDD350kV2tCJCIP2oEUQAaW4vhrJCog=";
+  cargoHash = "sha256-HwyaxKTsRBkmLQbZP444o4q0YL2MSja1r8dy43DGhoE=";
 
   nativeBuildInputs = [
     pkg-config
