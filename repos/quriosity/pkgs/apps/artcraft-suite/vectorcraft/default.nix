@@ -32,15 +32,6 @@ let
     vulkan-loader
   ];
 
-  # craft-libs is a git dependency of vectorcraft. We fetch it locally in prePatch
-  # (before vendoring) and redirect the git deps to local path deps so
-  # craft-libs never needs to be fetched during the vendor step.
-  craftLibs = fetchFromGitHub {
-    owner = "storytold";
-    repo = "craft-libs";
-    rev = "9be9a63782298ab59cd9b7a42ee9cba4f42a5ccb";
-    hash = "sha256-8XS9Oc40FbHMjTATKoz3TUBdEA3A6blhctjAvKQ0O5Q=";
-  };
 in
 
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -59,68 +50,57 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoTestFlags = [ "--package" "vectorcraft" "--package" "vectorcraft-cli" ];
 
   prePatch = ''
-    # Remove patch entries that Cargo.lock reports as unused.
-    unused_names=$(awk '/^\[\[patch\.unused\]\]/{getline; match($0,/name = "([^"]+)"/,m); if (m[1] != "") print m[1]}' Cargo.lock | sort -u)
-    for crate in $unused_names; do
-      if [ -f Cargo.toml ]; then
-        awk -v c="$crate" '$0 !~ "^" c " = " {print}' Cargo.toml > Cargo.toml.tmp
-        mv Cargo.toml.tmp Cargo.toml
-      fi
-    done
-
+    # Cargo.lock lists some egui crates under [[patch.unused]] because the app
+    # pins them in [patch.crates-io], but the reviewed egui fork does not ship
+    # them. Cargo refuses to build when a patch points at a missing package, so
+    # drop both the unused patch entries and their lockfile blocks.
+    # All awk scripts written to files to avoid Nix string quoting issues
+    cat > /tmp/extract-unused.awk << 'EOF'
+/^\[\[patch\.unused\]\]/ {
+  getline
+  gsub(/.*name = "/, "")
+  gsub(/".*/, "")
+  print
+}
+EOF
+    unused_names=$(awk -f /tmp/extract-unused.awk Cargo.lock | sort -u)
     if [ -n "$unused_names" ]; then
-      awk -v names="$unused_names" '
-        BEGIN {
-          n=split(names, a, "\n")
-          for (i=1;i<=n;i++) if (a[i] != "") want[a[i]]=1
-          skip=0
-        }
-        /^\[\[patch\.unused\]\]$/ {
-          getline nameline
-          name=""
-          if (match(nameline, /name = "([^"]+)"/, m)) name=m[1]
-          if (name != "" && want[name] == 1) {
-            while ((getline line) > 0 && line != "") { }
-            next
-          } else {
-            print "[[patch.unused]]"
-            print nameline
-            next
-          }
-        }
-        { print }
-      ' Cargo.lock > Cargo.lock.tmp
+      # Export for awk scripts
+      export unused_names
+      cat > /tmp/filter-toml.awk << 'EOF'
+BEGIN { n=split(ENVIRON["unused_names"],a,"\n"); for (i=1;i<=n;i++) if (a[i] != "") want[a[i]]=1 }
+/^\[/ { section=$0 }
+section == "[patch.crates-io]" && /^[A-Za-z0-9_-]+ = / { if ($1 in want) next }
+{ print }
+EOF
+      awk -f /tmp/filter-toml.awk Cargo.toml > Cargo.toml.tmp
+      mv Cargo.toml.tmp Cargo.toml
+
+      cat > /tmp/remove-unused-lock.awk << 'EOF'
+BEGIN { n=split(ENVIRON["unused_names"],a,"\n"); for (i=1;i<=n;i++) if (a[i] != "") want[a[i]]=1 }
+/^\[\[patch\.unused\]\]$/ {
+  getline nameline
+  name=""
+  if (match(nameline, /name = "([^"]+)"/)) name=substr(nameline, RSTART+6, RLENGTH-7)
+  if (name != "" && want[name] == 1) {
+    while ((getline line) > 0 && line != "") { }
+    next
+  }
+  print "[[patch.unused]]"
+  print nameline
+  next
+}
+{ print }
+EOF
+      awk -f /tmp/remove-unused-lock.awk Cargo.lock > Cargo.lock.tmp
       mv Cargo.lock.tmp Cargo.lock
     fi
-
-
-    # Copy craft-libs into the source tree so it's available before vendoring.
-    cp -r ${craftLibs} ./craft-libs
-    chmod -R u+w ./craft-libs
-
-    # craft-libs's crates/menu/Cargo.toml overrides workspace's craft-keymap
-    # with `default-features = false`, which Cargo forbids. Remove it.
-    sed -i 's/default-features = false, //' ./craft-libs/crates/menu/Cargo.toml
-
-    # Redirect craft-libs git dependencies to local path deps
-    for crate in $(grep -oP '^craft-[a-z-]+ = {[^}]*git = "https://github.com/storytold/craft-libs"' Cargo.toml | sed 's/ = .*//'); do
-      dir=$(echo "$crate" | sed 's/^craft-//')
-      sed -i "|$crate = {[^}]*git = "https://github.com/storytold/craft-libs"[^}]*}|$crate = { path = "./craft-libs/crates/$dir" }|" Cargo.toml
-    done
-
-    cp Cargo.lock "$cargoDepsCopy/Cargo.lock"
-
-    # Remove git source lines from Cargo.lock for crates now using local paths
-    awk '
-      /^[[package]]/ { in_pkg = 1; name = "" }
-      in_pkg && /^name = / { name = $0; sub(/^name = ""/, "", name); sub(/".*$/, "", name) }
-      in_pkg && name ~ /^craft-/ && /^source = "git+https://github.com/storytold/craft-libs/ { next }
-      { print }
-    ' Cargo.lock > Cargo.lock.tmp && mv Cargo.lock.tmp Cargo.lock
-
-
-    # Disable the automatic update check in vectorcraft (it tries to fetch from the internet, which is not allowed in Nix builds).
     sed -i 's/app.set_startup_update_check(true);/\/\/ app.set_startup_update_check(true);/' apps/vectorcraft/src/main.rs
+  '';
+
+  postPatch = ''
+    # Keep the vendored lockfile in sync with the patched one above.
+    cp Cargo.lock "$cargoDepsCopy/Cargo.lock"
   '';
   nativeBuildInputs = [
     autoPatchelfHook

@@ -31,16 +31,6 @@ let
     libGL
     vulkan-loader
   ];
-
-  # craft-libs is a git dependency of cadcraft. We fetch it locally in prePatch
-  # (before vendoring) and redirect the git deps to local path deps so
-  # craft-libs never needs to be fetched during the vendor step.
-  craftLibs = fetchFromGitHub {
-    owner = "storytold";
-    repo = "craft-libs";
-    rev = "92d392cff132eaf53e13afff77f38b5c11b73aa0";
-    hash = "sha256-eF/jYZxRgaAcl5zrvhQLWv5mtt81TZzH/p3kJf3u0qw=";
-  };
 in
 
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -59,68 +49,29 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoTestFlags = [ "--package" "cadcraft" "--package" "cadcraft-cli" ];
 
   prePatch = ''
-    # Remove patch entries that Cargo.lock reports as unused.
-    unused_names=$(awk '/^\[\[patch\.unused\]\]/{getline; match($0,/name = "([^"]+)"/,m); if (m[1] != "") print m[1]}' Cargo.lock | sort -u)
-    for crate in $unused_names; do
-      if [ -f Cargo.toml ]; then
-        awk -v c="$crate" '$0 !~ "^" c " = " {print}' Cargo.toml > Cargo.toml.tmp
-        mv Cargo.toml.tmp Cargo.toml
-      fi
-    done
-
+    # Cargo.lock lists some egui crates under [[patch.unused]] because the app
+    # pins them in [patch.crates-io], but the reviewed egui fork does not ship
+    # them. Cargo refuses to build when a patch points at a missing package, so
+    # drop both the unused patch entries and their lockfile blocks.
+    unused_names=$(awk '/^\[\[patch\.unused\]\]/{getline; if (match($0,/name = "([^"]+)"/,m)) print m[1]}' Cargo.lock | sort -u)
     if [ -n "$unused_names" ]; then
-      awk -v names="$unused_names" '
-        BEGIN {
-          n=split(names, a, "\n")
-          for (i=1;i<=n;i++) if (a[i] != "") want[a[i]]=1
-          skip=0
-        }
-        /^\[\[patch\.unused\]\]$/ {
-          getline nameline
-          name=""
-          if (match(nameline, /name = "([^"]+)"/, m)) name=m[1]
-          if (name != "" && want[name] == 1) {
-            while ((getline line) > 0 && line != "") { }
-            next
-          } else {
-            print "[[patch.unused]]"
-            print nameline
-            next
-          }
-        }
-        { print }
+      for crate in $unused_names; do
+        sed -i "/^$crate = /d" Cargo.toml
+      done
+      awk '
+        /^\[\[patch\.unused\]\]$/ { skip = 1; next }
+        skip && /^$/ { skip = 0; next }
+        !skip { print }
       ' Cargo.lock > Cargo.lock.tmp
       mv Cargo.lock.tmp Cargo.lock
     fi
 
-
-    # Copy craft-libs into the source tree so it's available before vendoring.
-    cp -r ${craftLibs} ./craft-libs
-    chmod -R u+w ./craft-libs
-
-    # craft-libs's crates/menu/Cargo.toml overrides workspace's craft-keymap
-    # with `default-features = false`, which Cargo forbids. Remove it.
-    sed -i 's/default-features = false, //' ./craft-libs/crates/menu/Cargo.toml
-
-    # Redirect craft-libs git dependencies to local path deps
-    for crate in $(grep -oP '^craft-[a-z-]+ = {[^}]*git = "https://github.com/storytold/craft-libs"' Cargo.toml | sed 's/ = .*//'); do
-      dir=$(echo "$crate" | sed 's/^craft-//')
-      sed -i "s|^$crate = .*git = \"https://github.com/storytold/craft-libs\".*|$crate = { path = \"./craft-libs/crates/$dir\" }|" Cargo.toml
-    done
-
-    cp Cargo.lock "$cargoDepsCopy/Cargo.lock"
-
-    # Remove git source lines from Cargo.lock for crates now using local paths
-    awk '
-      /^[[package]]/ { in_pkg = 1; name = "" }
-      in_pkg && /^name = / { name = $0; sub(/^name = ""/, "", name); sub(/".*$/, "", name) }
-      in_pkg && name ~ /^craft-/ && /^source = "git+https://github.com/storytold/craft-libs/ { next }
-      { print }
-    ' Cargo.lock > Cargo.lock.tmp && mv Cargo.lock.tmp Cargo.lock
-
-
     # Disable the automatic update check in cadcraft (it tries to fetch from the internet, which is not allowed in Nix builds).
     sed -i 's/app.enable_update_check();/\/\/ app.enable_update_check();/' apps/cadcraft/src/main.rs
+  '';
+  postPatch = ''
+    # Keep the vendored lockfile in sync with the patched one above.
+    cp Cargo.lock "$cargoDepsCopy/Cargo.lock"
   '';
   nativeBuildInputs = [
     autoPatchelfHook
