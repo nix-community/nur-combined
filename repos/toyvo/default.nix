@@ -63,6 +63,7 @@ let
   purpurServers = safeSet ./pkgs/purpurServers;
   tinycastPackages = safeSet ./pkgs/tinycast;
   packages = {
+    infinity-agent-cli = callPackage ./pkgs/infinity-agent-cli;
     jellyfin-plugin-ldap-authentication = callPackage ./pkgs/jellyfin-plugin-ldap-authentication;
     libpcpnatpmp = callPackage ./pkgs/libpcpnatpmp;
     mcsmanager = callPackage ./pkgs/mcsmanager;
