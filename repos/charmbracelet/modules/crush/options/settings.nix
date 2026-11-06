@@ -517,6 +517,18 @@ lib.mkOption {
               description = "Notification style to use. Options: auto (default), native, osc, bell, disabled. Auto selects based on environment: native for local sessions, osc for SSH (with automatic OSC 99/777 detection).";
             };
 
+            pinentry_cache_timeout = lib.mkOption {
+              type = lib.types.nullOr lib.types.int;
+              default = 0;
+              description = "Seconds Crush keeps an entered GPG passphrase in memory so repeated signing operations do not re-prompt. 0 (the default) disables it; gpg-agent's own cache applies regardless.";
+            };
+
+            pinentry_integrated = lib.mkOption {
+              type = lib.types.nullOr lib.types.bool;
+              default = true;
+              description = "Render GPG passphrase prompts as a native Crush dialog instead of an external pinentry program. Works with file-based keys and security keys and never modifies GPG or git configuration.";
+            };
+
             progress = lib.mkOption {
               type = lib.types.nullOr lib.types.bool;
               default = true;
@@ -633,10 +645,28 @@ lib.mkOption {
       permissions = lib.mkOption {
         type = lib.types.submodule {
           options = {
+            allowed_commands = lib.mkOption {
+              type = lib.types.nullOr (lib.types.listOf lib.types.str);
+              default = null;
+              description = "Shell commands to drop from the dangerous list so they stop prompting";
+            };
+
             allowed_tools = lib.mkOption {
               type = lib.types.nullOr (lib.types.listOf lib.types.str);
               default = null;
               description = "List of tools that don't require permission prompts";
+            };
+
+            blocked_commands = lib.mkOption {
+              type = lib.types.nullOr (lib.types.listOf lib.types.str);
+              default = null;
+              description = "Extra shell commands to treat as dangerous (prompted for in normal mode)";
+            };
+
+            safe_commands = lib.mkOption {
+              type = lib.types.nullOr (lib.types.listOf lib.types.str);
+              default = null;
+              description = "Exact command lines that skip the permission prompt. Matched literally with no extra arguments";
             };
 
           };
