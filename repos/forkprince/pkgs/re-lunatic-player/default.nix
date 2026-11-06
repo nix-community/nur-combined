@@ -86,12 +86,24 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     })
   ];
 
-  pnpmDeps = fetchPnpmDeps {
-    inherit (finalAttrs) pname version src;
-    pnpm = pnpm_11;
-    fetcherVersion = 4;
-    hash = "sha256-jP1sXb0n0PIofi/6kJfBxPxeYzPKrken4shGiXvgZoM=";
-  };
+  # TODO: Once 26.11 drops remove the fixup.
+  pnpmDeps =
+    (fetchPnpmDeps {
+      inherit (finalAttrs) pname version src;
+      pnpm = pnpm_11;
+      fetcherVersion = 4;
+      hash = "sha256-jP1sXb0n0PIofi/6kJfBxPxeYzPKrken4shGiXvgZoM=";
+    }).overrideAttrs (old: {
+      fixupPhase =
+        lib.replaceStrings [
+          ''rm "$storePath/v11/index.db"''
+        ] [
+          ''
+            rm "$storePath/v11/index.db"
+            sed -i "s/,x'/,X'/g" "$storePath/v11/index.db.sql"
+          ''
+        ] (old.fixupPhase or "");
+    });
 
   buildPhase = ''
     export npm_config_nodedir=${electron.headers}
