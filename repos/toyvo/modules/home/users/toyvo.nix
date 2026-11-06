@@ -18,6 +18,7 @@ in
     ../sops.nix
     ../programs/git.nix
     ../programs/jujutsu.nix
+    ../programs/infinity.nix
     ../programs/pi.nix
     ../programs/ssh.nix
     ../programs/editors/helix.nix
@@ -25,6 +26,7 @@ in
     ../programs/editors/opencode.nix
     ../programs/editors/zed.nix
     ../programs/terminals/alacritty.nix
+    ../programs/terminals/ghostty.nix
     ../programs/terminals/hyper.nix
     ../programs/terminals/kitty.nix
     ../programs/terminals/rio.nix
@@ -38,6 +40,7 @@ in
       packages = with pkgs; [
         ast-grep
         inputs.nixcfg.packages.${system}.toyvo-neovim
+        inputs.nixcfg.packages.${system}.infinity-agent-cli
         inputs.tuios.packages.${system}.tuios
         proton-pass-cli
         ripgrep

@@ -23,6 +23,7 @@
   helix = ./programs/editors/helix.nix;
   hyper = ./programs/terminals/hyper.nix;
   ideavim = ./programs/editors/ideavim.nix;
+  infinity = ./programs/infinity.nix;
   ion = ./programs/shells/ion.nix;
   jujutsu = ./programs/jujutsu.nix;
   kde = ./programs/kde.nix;

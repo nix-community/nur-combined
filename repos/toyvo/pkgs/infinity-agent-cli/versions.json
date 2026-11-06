@@ -1,9 +1,16 @@
 {
   "version": "0.2.0",
   "tag": "infinity-agent-cli-v0.2.0",
-  "rev": "97c2f06ea4715bd62577a0f25182aab88a54e76b",
-  "hash": "sha256-y6GmeED5F/DKHxG7cHTd9bki6QuDCIrlNxXrFbJxkUc=",
-  "cargoHash": "sha256-3iYfEWOrVQoaSrWbdi1X4+QYqqbd1chVGDe4DImYG6Q=",
+  "rev": "1abc6fcff1f186124f924b56aa92c3a3684c90c5",
+  "hash": "sha256-XnOhHgcDREfrkR8oJfmKHEA8t0TIzIlR9b0vCkFHSKc=",
+  "cargoHash": "sha256-ZmkdUFl8/WQ97ChrBHA7cbTR+yb4Jxp/wbttzx8ZKKY=",
   "npmUiHash": "sha256-XPcMBNDs2ScvDipvY08Zjl2owPqYh8NffX4jzn1cU6Q=",
-  "npmWebHash": "sha256-ihtZPEeMXPmjNzTPqdsN4TsTnUkMt2h3+n+z8tnArio="
+  "npmWebHash": "sha256-ihtZPEeMXPmjNzTPqdsN4TsTnUkMt2h3+n+z8tnArio=",
+  "modelsDev": {
+    "version": "0.2.2",
+    "tag": "v0.2.2",
+    "rev": "a06400b007f1accc90bbcd4b4c971328129fc621",
+    "hash": "sha256-g9VLHiQv9kaNTBrWwp8Xsi73W22Pp4borSMGjngnwx8=",
+    "cargoHash": "sha256-7gH0YmhFyFFKJgr+y3TreuHhUEs2ezs4gnKnJRxNnvw="
+  }
 }

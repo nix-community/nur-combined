@@ -56,6 +56,7 @@ let
   osModules = import ./modules/os; # Shared NixOS / nix-darwin modules
   flakeModules = import ./modules/flake; # flake-parts modules
 
+  infinityAgentPackages = safeSet ./pkgs/infinity-agent-cli;
   VintagestoryServers = safeSet ./pkgs/VintagestoryServers;
   fabricServers = safeSet ./pkgs/fabricServers;
   neoforgeServers = safeSet ./pkgs/neoforgeServers;
@@ -63,7 +64,6 @@ let
   purpurServers = safeSet ./pkgs/purpurServers;
   tinycastPackages = safeSet ./pkgs/tinycast;
   packages = {
-    infinity-agent-cli = callPackage ./pkgs/infinity-agent-cli;
     jellyfin-plugin-ldap-authentication = callPackage ./pkgs/jellyfin-plugin-ldap-authentication;
     libpcpnatpmp = callPackage ./pkgs/libpcpnatpmp;
     mcsmanager = callPackage ./pkgs/mcsmanager;
@@ -78,6 +78,7 @@ let
     toyvo-neovim = callPackage ./pkgs/toyvo-neovim;
     # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   }
+  // infinityAgentPackages
   // VintagestoryServers
   // fabricServers
   // neoforgeServers

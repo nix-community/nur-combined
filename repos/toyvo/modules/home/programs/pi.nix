@@ -62,10 +62,24 @@ in
       '';
     };
 
+    # auth.json is mutable runtime state for pi (lock files, `/login`
+    # saves, availability refresh) and must NOT be a read-only store
+    # symlink — that fails every write with EACCES. Seed a real file on
+    # first activation instead; pi then owns it. Changing the nix-side
+    # `auth` later requires deleting the file (or merging by hand), since
+    # overwriting here would clobber tokens pi saved itself.
+    home.activation.piCodingAgentAuthSeed = lib.mkIf (cfg.auth != { }) (
+      lib.hm.dag.entryAfter [ "linkGeneration" ] ''
+        authFile="${cfg.configDir}/auth.json"
+        if [ ! -f "$authFile" ]; then
+          mkdir -p "$(dirname "$authFile")"
+          cp ${jsonFormat.generate "pi-coding-agent-auth.json" cfg.auth} "$authFile"
+          chmod 600 "$authFile"
+        fi
+      ''
+    );
+
     home.file = {
-      "${cfg.configDir}/auth.json" = lib.mkIf (cfg.auth != { }) {
-        source = jsonFormat.generate "pi-coding-agent-auth.json" cfg.auth;
-      };
       "${cfg.configDir}/mcp.json" = lib.mkIf (cfg.mcpServers != { }) {
         source = jsonFormat.generate "pi-coding-agent-mcp.json" {
           mcpServers = cfg.mcpServers;

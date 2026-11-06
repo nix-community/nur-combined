@@ -4,16 +4,10 @@
   config,
   ...
 }:
-{
-  imports = [ ../../gui.nix ];
-
-  home.packages =
-    with pkgs;
-    lib.mkIf (stdenv.hostPlatform.isLinux && config.nixcfg.gui.enable) [
-      ghostty
-    ];
-  xdg.configFile."ghostty/config".text = ''
+let
+  ghosttyConfig = ''
     background-opacity = 0.8
+    background-blur = true
     font-family = MonaspiceAr Nerd Font Mono
     font-feature = calt
     font-feature = ss01
@@ -31,4 +25,21 @@
     confirm-close-surface = false
     quit-after-last-window-closed = true
   '';
+in
+{
+  imports = [ ../../gui.nix ];
+
+  home.packages =
+    with pkgs;
+    lib.mkIf (stdenv.hostPlatform.isLinux && config.nixcfg.gui.enable) [
+      ghostty
+    ];
+  xdg.configFile."ghostty/config" = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
+    text = ghosttyConfig;
+  };
+  # Ghostty on macOS reads ~/Library/Application Support/com.mitchellh.ghostty/config.ghostty,
+  # not the XDG path, so manage that path on Darwin (same content, see hyper.nix pattern).
+  home.file."Library/Application Support/com.mitchellh.ghostty/config.ghostty" = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
+    text = ghosttyConfig;
+  };
 }
