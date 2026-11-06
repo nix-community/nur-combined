@@ -17,7 +17,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "farbzen";
     repo = "mixedupmh";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Nf/K09z0E0nb5/v/8ik6uYha7sQx0UxxhoEurilt+dk=";
+    hash = "sha256-zGs+dV7ty8+/DBLeey+5jlG6Lmbnjzo65ftTWvSKPww=";
   };
 
   cargoHash = "sha256-XPtseVwxCCbwY+RonazJEn9A5JBlwb4zX6yYoAgsD7Q=";
