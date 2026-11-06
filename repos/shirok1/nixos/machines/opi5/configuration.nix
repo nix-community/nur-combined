@@ -220,7 +220,6 @@
 
   services.daed = {
     enable = true;
-    package = pkgs.daed;
     listen = "0.0.0.0:2023";
     openFirewall = {
       enable = true;

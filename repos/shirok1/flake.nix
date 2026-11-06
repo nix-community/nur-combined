@@ -13,6 +13,8 @@
     rules.url = "github:shirok1/rules.nix";
     rules.inputs.nixpkgs.follows = "nixpkgs";
     flake-parts.url = "github:hercules-ci/flake-parts";
+    microvm.url = "github:microvm-nix/microvm.nix";
+    microvm.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs =
     {
@@ -66,7 +68,9 @@
                   x86_64 = pkgs64;
                   shirok1-x86_64 = import ./default.nix { pkgs = pkgs64; };
                 })
-                inputs.llm-agents.overlays.shared-nixpkgs
+                (final: _prev: {
+                  llm-agents = inputs.llm-agents.packages.${final.stdenv.hostPlatform.system};
+                })
                 inputs.rules.overlays.default
               ];
             };
