@@ -313,11 +313,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1793997905,
-        "narHash": "sha256-d0awgFpJFzxmu/WW1LGErO98KzwP0YKZBsbJIGHPZRQ=",
+        "lastModified": 1794002523,
+        "narHash": "sha256-LWY6rGZk+y/mlHtWl4OOHYSa/niyk6zVijxNFDE0sAo=",
         "owner": "ijohanne",
         "repo": "hrafnsyn",
-        "rev": "b550ca8e816fc5f93e72a4a2d15066ab47d142d6",
+        "rev": "d2439fad5d310ccea53f4d2c7b6149d92ff37cac",
         "type": "github"
       },
       "original": {
