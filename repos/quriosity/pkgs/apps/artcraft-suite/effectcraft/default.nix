@@ -47,7 +47,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
     hash = "sha256-xI7yvrY6POSIhqsK2OuKwfy+EqY6N2APPPHXZuuFDIA=";
   };
 
-  cargoHash = "sha256-8Y9IuwXSWbd/8YmtcSq3m4n5ebueSFlOGKgZokXcQT8=";
+  # Patch craft-libs before cargo vendor scans its workspace manifests.
+  cargoHash = "sha256-8OlgOphOMTz0j/kpJja1JJiehNcJl6s5PYRREb0ioik=";
+  depsExtraArgs.postBuild = ''
+    menuManifest="$out/git/92d392cff132eaf53e13afff77f38b5c11b73aa0/crates/menu/Cargo.toml"
+    if [ ! -f "$menuManifest" ]; then
+      echo "craft-libs menu manifest not found in cargo vendor staging" >&2
+      exit 1
+    fi
+    sed -i 's/default-features = false, //' "$menuManifest"
+  '';
   cargoBuildFlags = [ "--package" "effectcraft" "--package" "effectcraft-cli" ];
   cargoTestFlags = [ "--package" "effectcraft" "--package" "effectcraft-cli" ];
 

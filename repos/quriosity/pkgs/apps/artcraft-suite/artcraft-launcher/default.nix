@@ -34,10 +34,8 @@ let
   # craft-libs is a git dependency of craft-launcher (craft-ui, craft-quit,
   # craft-fonts-build, craft-i18n all come from it). Its crates/menu/Cargo.toml
   # overrides the workspace's craft-keymap with `default-features = false`,
-  # which Cargo rejects when cargo metadata runs during vendoring. We fetch
-  # craft-libs locally in prePatch (before vendoring) and redirect the git
-  # deps to local path deps so craft-libs never needs to be fetched during the
-  # vendor step.
+  # which Cargo rejects when cargo metadata runs during vendoring. Patch the
+  # staged Git checkout before Cargo vendor scans its crate manifests.
   craftLibs = fetchFromGitHub {
     owner = "storytold";
     repo = "craft-libs";
@@ -56,10 +54,20 @@ rustPlatform.buildRustPackage (finalAttrs: {
     hash = "sha256-B9fL7JhAetm9qysaXpsnRyBBSQiNhUD1NeElYefr2+c=";
   };
 
-  cargoHash = "sha256-EjNtS12zO0j9o3Hr88I+uCqK7mtKiRGvHkIXFY2oRu4=";
+  # Patch the Git checkout before fetchCargoVendor runs cargo metadata on it.
+  cargoHash = "sha256-w9Em50o8OlgD6Zb66yji6dIOSzz1VkzUYeBufaLKgos=";
+  # fetchCargoVendor uses a separate staging tree; prePatch runs too late to fix it.
+  depsExtraArgs.postBuild = ''
+    menuManifest="$out/git/92d392cff132eaf53e13afff77f38b5c11b73aa0/crates/menu/Cargo.toml"
+    if [ ! -f "$menuManifest" ]; then
+      echo "craft-libs menu manifest not found in cargo vendor staging" >&2
+      exit 1
+    fi
+    sed -i 's/default-features = false, //' "$menuManifest"
+  '';
   cargoPatches = [ ./remove-unused-egui-patches.patch ];
   prePatch = ''
-    # Copy craft-libs into the source tree so it's available before vendoring.
+    # Copy craft-libs into the source tree for the offline build.
     cp -r ${craftLibs} ./craft-libs
     chmod -R u+w ./craft-libs
 

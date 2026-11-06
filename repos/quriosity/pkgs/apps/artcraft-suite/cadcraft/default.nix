@@ -44,7 +44,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
     hash = "sha256-qRzZk4M5hk+zTDq9IK9zy4aoK+hkeomVkS1BNfFqtW8=";
   };
 
-  cargoHash = "sha256-kilaA8T5ZFEn5+6Eh/8VGM4Z+WTt18u6B4zXepa7L3U=";
+  # Patch craft-libs before cargo vendor scans its workspace manifests.
+  cargoHash = "sha256-ZxT3g5vQA7noA5qKhTnlP8AiPZlIUyzUne4y/VfgiJc=";
+  depsExtraArgs.postBuild = ''
+    menuManifest="$out/git/92d392cff132eaf53e13afff77f38b5c11b73aa0/crates/menu/Cargo.toml"
+    if [ ! -f "$menuManifest" ]; then
+      echo "craft-libs menu manifest not found in cargo vendor staging" >&2
+      exit 1
+    fi
+    sed -i 's/default-features = false, //' "$menuManifest"
+  '';
   cargoBuildFlags = [ "--package" "cadcraft" "--package" "cadcraft-cli" ];
   cargoTestFlags = [ "--package" "cadcraft" "--package" "cadcraft-cli" ];
 

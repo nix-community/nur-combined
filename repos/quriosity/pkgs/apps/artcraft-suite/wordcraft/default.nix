@@ -45,7 +45,16 @@ rustPlatform.buildRustPackage (finalAttrs: {
     hash = "sha256-e6L//Dhvziy4d6thhJ9tnjKwiiO+hB9lDq3DOX43Meo=";
   };
 
-  cargoHash = "sha256-HfzRe099PpXccZ9lGdNjAgr7WH/38t3H1d6Eq+4WXIU=";
+  # Patch craft-libs before cargo vendor scans its workspace manifests.
+  cargoHash = "sha256-6TwYHpYpbWyZqaIsdcAB51cTbhyqFqFMQi84AB1x4z4=";
+  depsExtraArgs.postBuild = ''
+    menuManifest="$out/git/92d392cff132eaf53e13afff77f38b5c11b73aa0/crates/menu/Cargo.toml"
+    if [ ! -f "$menuManifest" ]; then
+      echo "craft-libs menu manifest not found in cargo vendor staging" >&2
+      exit 1
+    fi
+    sed -i 's/default-features = false, //' "$menuManifest"
+  '';
   cargoBuildFlags = [ "--package" "wordcraft" "--package" "wordcraft-cli" ];
   cargoTestFlags = [ "--package" "wordcraft" "--package" "wordcraft-cli" ];
 
