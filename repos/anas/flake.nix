@@ -51,19 +51,11 @@
 
               # Misc
               jq
-              pre-commit
-              just
               fzf
 
               # Firefox add-on lock file updates
               curlMinimal
             ];
-
-            shellHook = ''
-              if [ -f .pre-commit-config.yaml ] && ! grep -q "pre-commit" .git/hooks/pre-commit 2>/dev/null; then
-                pre-commit install
-              fi
-            '';
           };
         });
     };

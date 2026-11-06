@@ -9,7 +9,7 @@
 
 let
   pname = "patent";
-  version = "0.14.1";
+  version = "0.14.3";
 in
 rustPlatform.buildRustPackage rec {
   inherit pname version;
@@ -18,10 +18,10 @@ rustPlatform.buildRustPackage rec {
     owner = "r14dd";
     repo = "patent";
     rev = "v${version}";
-    hash = "sha256-GZqgrtpUWt1ilu+slWq1Ys/OJCeslV2gvbjOr43oOko=";
+    hash = "sha256-NB8fomYaSUOQrAECX/pY5iXEsUFlApbydZyeWqj3Vp4=";
   };
 
-  cargoHash = "sha256-xkz71MWTn/9xYBvuiNtfqz+TNoYKLaqDWKKcbyhHCMQ=";
+  cargoHash = "sha256-sOxWTQALQyTBwvx5yAPWUmd1BDsCMeZpFt2eyI0l4KM=";
 
   nativeBuildInputs = [
     pkg-config
