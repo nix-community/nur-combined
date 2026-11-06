@@ -1150,10 +1150,10 @@
     };
     "betterttv" = buildMozillaXpiAddon {
       pname = "betterttv";
-      version = "7.7.29";
+      version = "7.7.30";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5173066/betterttv-7.7.29.xpi";
-      sha256 = "6dc280936a27dcf65e5e783e6a2b8751b6ecd81fa2e4558954afe0fcfb36f8fa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5214637/betterttv-7.7.30.xpi";
+      sha256 = "73cfb19b616a21f81a4d35df61195388e0543d512fdaf324ba7eec09d1a7e197";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -3056,10 +3056,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "160.0.20261104.181552";
+      version = "161.0.20261105.132721";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5209712/dansk_da_language_pack-160.0.20261104.181552.xpi";
-      sha256 = "565153b550decd85ab295ceafda7e94b68cca1f30635e6b4d552695b816ff786";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5214710/dansk_da_language_pack-161.0.20261105.132721.xpi";
+      sha256 = "0b21cc3db424c1a0022581a05a7a38f9e5084984c9b91e885d15e11982cf3a6d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3272,10 +3272,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "160.0.20261104.181552";
+      version = "161.0.20261105.132721";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5209708/deutsch_de_language_pack-160.0.20261104.181552.xpi";
-      sha256 = "4729fd2fd6273f460b5cbed8de8125cf5bc69e1727aa2fb2af84a770196e728d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5214704/deutsch_de_language_pack-161.0.20261105.132721.xpi";
+      sha256 = "7b2f390f070c27dd29dc982f34c7f68d5967ec96351576de2c0c5c12b8eb48ee";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4774,10 +4774,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "160.0.20261104.181552";
+      version = "161.0.20261105.132721";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5209706/francais_language_pack-160.0.20261104.181552.xpi";
-      sha256 = "5b711026cb310bcbea68d18101198dcb362c33b6ad129a9511b5bbe608f19518";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5214755/francais_language_pack-161.0.20261105.132721.xpi";
+      sha256 = "753a1b9d936677c8e4115d181be3b6fe79d2c61d043c2e4405c690a792dfa2c1";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4811,10 +4811,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "160.0.20261104.181552";
+      version = "161.0.20261105.132721";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5209769/gaidhlig_language_pack-160.0.20261104.181552.xpi";
-      sha256 = "6f415639167e296d12e692e6ae7ceae4bc401733ad227ccab965861690ff7f9b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5214625/gaidhlig_language_pack-161.0.20261105.132721.xpi";
+      sha256 = "dc3f3e3647bc4c48a90124e9980ff18cfb165e8c02eb9c7741420aab3dc53389";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -7323,10 +7323,10 @@
     };
     "libkey-nomad" = buildMozillaXpiAddon {
       pname = "libkey-nomad";
-      version = "1.60.0";
+      version = "1.61.2";
       addonId = "{f282d54d-83cc-45f5-b3e5-65888de1682b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5052613/libkey_nomad-1.60.0.xpi";
-      sha256 = "b26f506c8c0e99830762856eb300b1eb0efff90c4c3ecf1c0ac28138abbf1b3c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5214822/libkey_nomad-1.61.2.xpi";
+      sha256 = "f6f165201572522b60c9a94454c54b5fdd2a8dfb6ee366b4184014edc18b0db1";
       meta = with lib;
       {
         homepage = "https://thirdiron.com/libkey-nomad/";
@@ -7340,7 +7340,8 @@
         mozPermissions = [
           "storage"
           "alarms"
-          "webNavigation"
+          "contextMenus"
+          "menus"
           "http://*/*"
           "https://*/*"
           "file://*/*"
@@ -7372,10 +7373,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.5.9";
+      version = "2.5.10";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5194411/lichess_tools_by_siderite-2.5.9.xpi";
-      sha256 = "8e73bceed4e4d0979e71bbfd095c87fcb56dba6c1cf55fb86679e0621afc2298";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5211470/lichess_tools_by_siderite-2.5.10.xpi";
+      sha256 = "aafe3306d967bc3489f82df816d8dbe1ca7c7aed61651b767f503126ee9ed59f";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -7941,10 +7942,10 @@
     };
     "mal-sync" = buildMozillaXpiAddon {
       pname = "mal-sync";
-      version = "0.12.5";
+      version = "0.13.0";
       addonId = "{c84d89d9-a826-4015-957b-affebd9eb603}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4999907/mal_sync-0.12.5.xpi";
-      sha256 = "5ee3c2a032d4605ec884ef7f9dee62716cb33bf467b8f03640d3610ce63190a1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5211961/mal_sync-0.13.0.xpi";
+      sha256 = "fc249ab022b91f08846be13d5ff7a12178f293db158bdb37365194296a92b88f";
       meta = with lib;
       {
         homepage = "https://github.com/lolamtisch/MALSync";
@@ -7967,6 +7968,7 @@
           "*://malsync.moe/mal/oauth*"
           "*://malsync.moe/anilist/oauth*"
           "*://malsync.moe/mangabaka/oauth*"
+          "*://malsync.moe/animeoshi/oauth*"
           "*://malsync.moe/shikimori/oauth*"
           "*://anilist.co/*"
           "*://kitsu.app/*"
@@ -7982,7 +7984,6 @@
           "*://*.www.turkanime.co/anime/*"
           "*://app.emby.media/*"
           "*://app.emby.tv/*"
-          "*://www.netflix.com/*"
           "*://*.animeflv.net/anime/*"
           "*://*.animeflv.net/ver/*"
           "*://jkanime.net/*"
@@ -8126,6 +8127,8 @@
           "*://*.tranimeizle.top/*"
           "*://tranimeizle.io/*"
           "*://www.tranimeizle.io/*"
+          "*://tranimeizle.live/*"
+          "*://www.tranimeizle.live/*"
           "*://furyosociety.com/*"
           "*://www.animeid.tv/*"
           "*://myanimelist.net/anime/*/*/episode/*"
@@ -8134,6 +8137,7 @@
           "*://*.animeunity.cc/anime/*"
           "*://*.animeunity.to/anime/*"
           "*://*.animeunity.so/anime/*"
+          "*://*.animeunity.co/anime/*"
           "*://*.mangahere.cc/manga/*"
           "*://*.fanfox.net/manga/*"
           "*://*.mangafox.la/manga/*"
@@ -8164,15 +8168,11 @@
           "*://cubari.moe/*"
           "*://guya.cubari.moe/*"
           "*://mangahub.io/*"
-          "*://www.bentomanga.com/*"
-          "*://bentomanga.com/*"
           "*://readmanhua.net/manga*"
           "*://immortalupdates.com/manga*"
           "*://lhtranslation.net/manga*"
           "*://mangas-origines.fr/oeuvre*"
-          "*://*.bluesolo.org/manga/*"
           "*://disasterscans.com/*"
-          "*://aniworld.to/*"
           "*://betteranime.net/anime/*"
           "*://*.manga.bilibili.com/*"
           "*://mangareader.to/*"
@@ -8192,7 +8192,6 @@
           "*://animationdigitalnetwork.com/*"
           "*://aniyan.net/*"
           "*://docchi.pl/*"
-          "*://fmteam.fr/*"
           "*://www.animelon.com/*"
           "*://animelon.com/*"
           "*://anime-sama.tv/*"
@@ -8239,6 +8238,8 @@
           "*://*.tune.pk/*"
           "*://*.href.li/*"
           "*://*.vk.com/*"
+          "*://*.vk.ru/*"
+          "*://*.vkvideo.ru/*"
           "*://*.cloudvideo.tv/*"
           "*://*.fembed.net/*"
           "*://*.fembed.com/*"
@@ -8336,6 +8337,8 @@
           "*://*.miiiixdrop.net/e/*"
           "*://*.miixdrop.com/e/*"
           "*://*.miixdrop.top/e/*"
+          "*://*.mxdrop.top/e/*"
+          "*://*.mxdrop.click/e/*"
           "*://gdriveplayer.me/embed*"
           "*://sendvid.net/v/*"
           "*://sendvid.com/embed/*"
@@ -8496,6 +8499,15 @@
           "*://jessicachoosemake.com/e/*"
           "*://stevenfamilyedge.com/e/*"
           "*://tracylocalschool.com/e/*"
+          "*://eugenemakedraw.com/e/*"
+          "*://johnfullwonder.com/e/*"
+          "*://jamesbornmain.com/e/*"
+          "*://jeremyparticipantanything.com/e/*"
+          "*://teresapoliticallearn.com/e/*"
+          "*://derricknationtop.com/e/*"
+          "*://ashleyhardat.com/e/*"
+          "*://shanelocaldog.com/e/*"
+          "*://shannoncoldalready.com/e/*"
           "*://nxload.com/*"
           "*://uqload.com/*"
           "*://uqload.is/*"
@@ -13005,10 +13017,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "160.0.20261104.181552";
+      version = "161.0.20261105.132721";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5209685/scots_language_pack-160.0.20261104.181552.xpi";
-      sha256 = "be855440cc86914d1fe9c5f73e55c859b410ca7275a6ae6015aaf1b39ed5b0a8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5214648/scots_language_pack-161.0.20261105.132721.xpi";
+      sha256 = "a058967e392d9deb79f818553c23470c17bc96194c317b4c58adb31a3163c323";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -13507,10 +13519,10 @@
     };
     "simplifygmail" = buildMozillaXpiAddon {
       pname = "simplifygmail";
-      version = "3.4.12";
+      version = "3.4.13";
       addonId = "{a4c1064c-95dd-47a7-9b02-bb30213b7b29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5167317/simplifygmail-3.4.12.xpi";
-      sha256 = "0fc9423d7409c3543a065c1712454e9570fd158281ad13a998451ffd5f2302f7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5213943/simplifygmail-3.4.13.xpi";
+      sha256 = "28837e35c2bb9c6aa1828acf4c08a3aee617755e9e82e28f5e0eca4b0b803057";
       meta = with lib;
       {
         homepage = "https://simpl.fyi";
@@ -15778,10 +15790,10 @@
     };
     "v2ex-polish" = buildMozillaXpiAddon {
       pname = "v2ex-polish";
-      version = "2.5.4";
+      version = "2.5.5";
       addonId = "leokudev@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5205588/v2ex_polish-2.5.4.xpi";
-      sha256 = "4f82b251e13ae9712685a9171629f9c370073bf2e4984fb2541d8b50044c2a12";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5211098/v2ex_polish-2.5.5.xpi";
+      sha256 = "2aefde799927cace4b5aa1be875a7967dcdc41c8c032f6433b778ceaf6bb676f";
       meta = with lib;
       {
         description = "专为 V2EX 用户设计，提供了丰富的扩展功能。";
@@ -15805,6 +15817,34 @@
           "https://edge.v2ex.com/*"
           "https://staging.v2ex.com/*"
           "https://global.v2ex.co/*"
+          "https://v2ex.com/mission/daily"
+          "https://v2ex.com/mission/daily/*"
+          "https://www.v2ex.com/mission/daily"
+          "https://www.v2ex.com/mission/daily/*"
+          "https://cn.v2ex.com/mission/daily"
+          "https://cn.v2ex.com/mission/daily/*"
+          "https://jp.v2ex.com/mission/daily"
+          "https://jp.v2ex.com/mission/daily/*"
+          "https://de.v2ex.com/mission/daily"
+          "https://de.v2ex.com/mission/daily/*"
+          "https://us.v2ex.com/mission/daily"
+          "https://us.v2ex.com/mission/daily/*"
+          "https://hk.v2ex.com/mission/daily"
+          "https://hk.v2ex.com/mission/daily/*"
+          "https://global.v2ex.com/mission/daily"
+          "https://global.v2ex.com/mission/daily/*"
+          "https://fast.v2ex.com/mission/daily"
+          "https://fast.v2ex.com/mission/daily/*"
+          "https://s.v2ex.com/mission/daily"
+          "https://s.v2ex.com/mission/daily/*"
+          "https://origin.v2ex.com/mission/daily"
+          "https://origin.v2ex.com/mission/daily/*"
+          "https://edge.v2ex.com/mission/daily"
+          "https://edge.v2ex.com/mission/daily/*"
+          "https://staging.v2ex.com/mission/daily"
+          "https://staging.v2ex.com/mission/daily/*"
+          "https://global.v2ex.co/mission/daily"
+          "https://global.v2ex.co/mission/daily/*"
           "https://v2ex.com/t/*"
           "https://www.v2ex.com/t/*"
           "https://cn.v2ex.com/t/*"
@@ -17211,10 +17251,10 @@
     };
     "yang" = buildMozillaXpiAddon {
       pname = "yang";
-      version = "2.1.2";
+      version = "2.1.3";
       addonId = "{0a3250b1-58e0-48cb-9383-428f5adc3dc1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5116521/yang_addon-2.1.2.xpi";
-      sha256 = "21d6961c9712a4b2c03c665decc41be9f7952653cbdde3da0cee82a3287eb9ad";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5211751/yang_addon-2.1.3.xpi";
+      sha256 = "e370f2e6d98f0af5fc3832a3e06dcc37d898bfe090f634deea12640a83e4d8c3";
       meta = with lib;
       {
         homepage = "https://github.com/dmlls/yang";
