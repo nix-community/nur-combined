@@ -60,7 +60,7 @@ let
     '';
 
     outputHashMode = "recursive";
-    outputHash = "sha256-SqSifgc34fTxMpnZrgCWofZzbt92cAKGZw47qvytRLo=";
+    outputHash = "sha256-J9B1Dr9YXBbHvw+7sEmsvB8zKfNCqYsS07qNMpr0Y1U=";
   };
 in
 runCommand "racket-langserver"
