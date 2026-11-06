@@ -5,7 +5,8 @@
 //   capture_output_dbus(conn, name) — capture a specific monitor by name.
 //   capture_screen_dbus(conn)       — capture the active screen (single-tile fallback).
 //
-// Protocol: SCM_RIGHTS passes fd to KWin, which writes raw XRGB directly into it.
+// Protocol: SCM_RIGHTS passes fd to KWin, which writes raw pixels directly into it
+// (byte order and stride from the reply metadata).
 // Authorization: silent → interactive retry on NoAuthorized.
 // ══════════════════════════════════════════════════════════════════════════════
 
@@ -70,7 +71,7 @@ fn perform_kwin_capture(
     let t0 = Instant::now();
 
     // 1. FD setup (File Descriptor Matrix)
-    // Create a Unix temp file. KWin will dump raw XRGB pixels directly into it.
+    // Create a Unix temp file. KWin will dump raw pixels directly into it.
     // No PNG encoding — raw bytes only.
     let temp_file = NamedTempFile::new()?;
 
@@ -121,10 +122,30 @@ fn perform_kwin_capture(
         .and_then(|v| <&str>::try_from(v).ok())
         .unwrap_or("unknown");
 
+    // KWin sends the QImage::Format and bytesPerLine of the raw buffer.
+    // Plasma 6.8 reads back via glReadPixels(GL_RGBA) → Format_RGBX8888; older
+    // KWin sent ARGB32. Missing keys (very old KWin) → assume tight ARGB32.
+    let format = metadata.get("format").and_then(|v| u32::try_from(v).ok());
+    let stride = metadata
+        .get("stride")
+        .and_then(|v| u32::try_from(v).ok())
+        .unwrap_or(width * 4);
+
     if width == 0 || height == 0 {
         return Err(anyhow!("KWin capture: invalid dimensions {}x{}", width, height));
     }
-    let expected_size = width as u64 * height as u64 * 4;
+    let layout = if reply_type == "raw" {
+        let layout = RawLayout::from_qimage_format(format).ok_or_else(|| {
+            anyhow!("KWin capture: unsupported QImage format {:?} — falling back", format)
+        })?;
+        if stride < width * 4 {
+            return Err(anyhow!("KWin capture: stride {} too small for width {}", stride, width));
+        }
+        Some(layout)
+    } else {
+        None
+    };
+    let expected_size = stride as u64 * height as u64;
     // Pre-allocate: we know the exact size (14MB for 2560×1440).
     // Without this, Vec grows through 3-4 reallocs (0→4K→32K→...→14MB).
     let mut bytes = Vec::with_capacity(expected_size as usize);
@@ -159,23 +180,13 @@ fn perform_kwin_capture(
         return Err(anyhow!("DBus capture resulted in empty or incomplete data"));
     }
 
-    if reply_type == "raw" && width > 0 && height > 0 {
+    if let Some(layout) = layout {
         if bytes.len() >= expected_size as usize {
-            let num_pixels = (width * height) as usize;
-            bytes.truncate(num_pixels * 4);
-
-            // Safe conversion Vec<u8> → Vec<u32>
-            // try_cast_vec: zero-copy if allocator returned an aligned pointer (usually yes).
-            // Fallback: copy via from_ne_bytes (if alignment didn't match).
-            let xrgb: Vec<u32> = match bytemuck::try_cast_vec(bytes) {
-                Ok(v) => v,
-                Err((_err, bytes)) => bytes
-                    .as_chunks::<4>().0
-                    .iter()
-                    .map(|c| u32::from_ne_bytes([c[0], c[1], c[2], c[3]]))
-                    .collect(),
-            };
-            log_step("Capture", &format!("Total: {}ms ({}x{}, type={})", t0.elapsed().as_millis(), width, height, reply_type));
+            let xrgb = raw_to_xrgb(bytes, width, height, stride, layout);
+            log_step("Capture", &format!(
+                "Total: {}ms ({}x{}, type={}, format={:?}, stride={})",
+                t0.elapsed().as_millis(), width, height, reply_type, format, stride
+            ));
             return Ok(ScreenCapture {
                 xrgb_buffer: xrgb,
                 width,
@@ -190,3 +201,67 @@ fn perform_kwin_capture(
     let dyn_img = reader.decode()?;
     Ok(rgba_to_capture(&dyn_img.to_rgba8()))
 }
+
+/// Byte order of a 32-bit raw KWin buffer, derived from its QImage::Format.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+enum RawLayout {
+    /// RGB32 / ARGB32 / ARGB32_Premultiplied: native u32 0xAARRGGBB,
+    /// little-endian memory [B,G,R,A].
+    Bgrx,
+    /// RGBX8888 / RGBA8888 / RGBA8888_Premultiplied: memory [R,G,B,A].
+    Rgbx,
+}
+
+impl RawLayout {
+    /// Map a QImage::Format value. Premultiplied alpha is ignored: screen
+    /// pixels are opaque. Anything else (10-bit, 16-bit, float) → None.
+    fn from_qimage_format(format: Option<u32>) -> Option<Self> {
+        match format {
+            // Format_RGB32 = 4, Format_ARGB32 = 5, Format_ARGB32_Premultiplied = 6
+            None | Some(4..=6) => Some(RawLayout::Bgrx),
+            // Format_RGBX8888 = 16, Format_RGBA8888 = 17, Format_RGBA8888_Premultiplied = 18
+            Some(16..=18) => Some(RawLayout::Rgbx),
+            _ => None,
+        }
+    }
+}
+
+/// Convert a raw KWin buffer to XRGB u32, honoring stride and byte order.
+/// Caller guarantees `bytes.len() >= stride * height` and `stride >= width * 4`.
+fn raw_to_xrgb(mut bytes: Vec<u8>, width: u32, height: u32, stride: u32, layout: RawLayout) -> Vec<u32> {
+    let num_pixels = (width * height) as usize;
+
+    // Fast path: tightly packed native ARGB32 — zero-copy cast if the
+    // allocator returned an aligned pointer (usually yes), then mask alpha.
+    if layout == RawLayout::Bgrx && stride == width * 4 {
+        bytes.truncate(num_pixels * 4);
+        let mut xrgb: Vec<u32> = match bytemuck::try_cast_vec(bytes) {
+            Ok(v) => v,
+            Err((_err, bytes)) => bytes
+                .as_chunks::<4>().0
+                .iter()
+                .map(|c| u32::from_le_bytes([c[0], c[1], c[2], c[3]]))
+                .collect(),
+        };
+        xrgb.iter_mut().for_each(|p| *p &= 0x00FF_FFFF);
+        return xrgb;
+    }
+
+    // Slow path: byte-by-byte, row by row (padding between rows)
+    let mut buf = Vec::with_capacity(num_pixels);
+    for row in bytes.chunks_exact(stride as usize).take(height as usize) {
+        for c in row[..width as usize * 4].as_chunks::<4>().0 {
+            let (r, g, b) = match layout {
+                RawLayout::Rgbx => (c[0], c[1], c[2]),
+                RawLayout::Bgrx => (c[2], c[1], c[0]),
+            };
+            buf.push(((r as u32) << 16) | ((g as u32) << 8) | (b as u32));
+        }
+    }
+    buf
+}
+
+// Tests live in kwin_tests.rs (test mechanics out of the logic file).
+#[cfg(test)]
+#[path = "kwin_tests.rs"]
+mod tests;
