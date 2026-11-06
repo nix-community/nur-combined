@@ -44,7 +44,7 @@ Once published in the [NUR](https://github.com/nix-community/NUR), packages are 
 ```nix
 # configuration.nix
 environment.systemPackages = [
-  pkgs.nur.repos.chiloute.jwt-tui
+  pkgs.nur.repos.Chiloute.jwt-tui
 ];
 ```
 
