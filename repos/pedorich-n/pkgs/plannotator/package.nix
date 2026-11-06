@@ -15,7 +15,7 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "plannotator";
-  version = "0.28.47";
+  version = "0.28.50";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -24,7 +24,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "backnotprop";
     repo = "plannotator";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-7rZr524w3AZvYHaLK6ProngipakMMXpcsvdlSkvs7Zs=";
+    hash = "sha256-EnhPLCoghUYxB1CFCxFv4pshYyhjx3qwSsNB84WQH/E=";
   };
 
   nodeModules = stdenv.mkDerivation {
@@ -73,7 +73,7 @@ stdenv.mkDerivation (finalAttrs: {
     dontFixup = true;
 
     outputHashMode = "recursive";
-    outputHash = "sha256-Q9OiXdlyvcU93iq6VE6lLAdbyrIDfg49GWAg+z7n6Wg=";
+    outputHash = "sha256-N+E7Uh1+KdbxgM50DjIHlMosxIEIpI1cFsDQEc134m8=";
   };
 
   nativeBuildInputs = [

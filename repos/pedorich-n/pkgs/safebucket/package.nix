@@ -7,13 +7,13 @@
 }:
 buildGo127Module (finalAttrs: {
   pname = "safebucket";
-  version = "0.8.0";
+  version = "0.8.1";
 
   src = fetchFromGitHub {
     owner = "safebucket";
     repo = "safebucket";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-aBOPPXedChviNnmXq+o7Cuc88IuHhLdiVvZLtOPllFA=";
+    hash = "sha256-4Qm1cj8xe4he0+X3NMfOL4mIZSksjM8E4BCWJ7CB5kg=";
   };
 
   vendorHash = "sha256-+fJq6b+ByFfaXXYGYcqA8FyUvGtP2TweU4nBGjTyKZc=";
