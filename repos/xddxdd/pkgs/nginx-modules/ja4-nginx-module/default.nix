@@ -7,15 +7,15 @@
 
 mkNginxPlugin (finalAttrs: {
   pname = "ja4-nginx-module";
-  version = "0-unstable-2026-10-26";
+  version = "0-unstable-2026-11-05";
   __structuredAttrs = true;
   strictDeps = true;
 
   src = fetchFromGitHub {
     owner = "FoxIO-LLC";
     repo = "ja4-nginx-module";
-    rev = "99cc308c0b4d03a869fd196b729a6254b18996e1";
-    hash = "sha256-ENEgvtzZDJvep0AyOqc+ijoHLhxt8moesPSRDJHxJoY=";
+    rev = "50bd33092d819c8145b677acc28112c62449692b";
+    hash = "sha256-fpUVMVLeIZs0cIXEol+p7ktXlbJ3AAAL4xVXStwwD2I=";
   };
 
   passthru.updateScript = unstableGitUpdater {

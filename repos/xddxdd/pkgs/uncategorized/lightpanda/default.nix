@@ -9,12 +9,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "lightpanda";
-  version = "1.0.2";
+  version = "1.0.3";
   src =
     if stdenv.hostPlatform.isx86_64 then
       fetchurl {
         url = "https://github.com/lightpanda-io/browser/releases/download/${finalAttrs.version}/lightpanda-x86_64-linux";
-        hash = "sha256-rn0B0mHvueSA4YzjQkUzMyiDhjvPcLEqQyG1cz834Z4=";
+        hash = "sha256-U+s02gkVnc+PBIZdv+PmPpplIGJoRJWqfO1d3XyC6LA=";
       }
     else if stdenv.hostPlatform.isAarch64 then
       fetchurl {
