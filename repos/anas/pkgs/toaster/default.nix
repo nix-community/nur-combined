@@ -7,7 +7,7 @@
 
 let
   pname = "toaster";
-  version = "0.4.29";
+  version = "0.5.1";
 in
 buildNpmPackage rec {
   inherit pname version;
@@ -16,7 +16,7 @@ buildNpmPackage rec {
     owner = "StopBanning";
     repo = "toaster";
     rev = "v${version}";
-    hash = "sha256-Avo5krsX0XaGt7YSA4t/p1wFB3M1fTtjb3huyQAYMMc=";
+    hash = "sha256-wAp7Ugf1oFlbB04hBTBEqr2m3smCJ2vIWe54ELHOhCo=";
   };
 
   patches = [
@@ -24,7 +24,7 @@ buildNpmPackage rec {
     ./0002-chore-npm-update-the-packages.patch
   ];
 
-  npmDepsHash = "sha256-MLMwA7Q1LNNexMmTpcDpZmytCKPTOCJW5AXOGApV3C0=";
+  npmDepsHash = "sha256-G6oo0ieMBCX7pi8kV6R+S/N4DNbAFMXu2UKsQPZrf8o=";
 
   # Electron is only needed for development (via `npm start`), not at runtime:
   # the app runs on the nixpkgs Electron below.
