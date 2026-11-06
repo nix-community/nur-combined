@@ -9,6 +9,7 @@
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system: f nixpkgs.legacyPackages.${system});
     in
     {
+      homeModules.shiki = import ./modules/shiki.nix;
       legacyPackages = forAllSystems (pkgs: import ./default.nix { inherit pkgs; });
       packages = forAllSystems (pkgs:
         nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v && nixpkgs.lib.meta.availableOn pkgs.stdenv.hostPlatform v)

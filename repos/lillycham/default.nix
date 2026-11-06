@@ -9,14 +9,18 @@ in
 {
   # Special attributes for NUR.
   lib = { };
-  modules = { };
+  modules.shiki = ./modules/shiki.nix;
   overlays = { };
 
   akyuu = pkgs.callPackage ./pkgs/akyuu { };
+  cern-httpd = pkgs.callPackage ./pkgs/cern-httpd { };
   dq = pkgs.callPackage ./pkgs/dq { };
   hydrus-tagger = pkgs.callPackage ./pkgs/hydrus-tagger { };
   lambdash = pkgs.callPackage ./pkgs/lambdash { };
   nibble = pkgs.callPackage ./pkgs/nibble { inherit nibble-mlx-server; };
   nibble-gui = pkgs.callPackage ./pkgs/nibble-gui { };
+  shiki = pkgs.callPackage ./pkgs/shiki { };
+  why = pkgs.callPackage ./pkgs/why { };
+  worldwideweb = pkgs.callPackage ./pkgs/worldwideweb { };
   inherit nibble-mlx-server;
 }
