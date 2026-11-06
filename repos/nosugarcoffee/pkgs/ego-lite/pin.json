@@ -9,7 +9,7 @@
     "x86_64-darwin": "x64"
   },
   "hash": {
-    "aarch64-darwin": "sha256-E7BQBgNKzMBI35EXW7PMBkKAo3ZsfSGufxvtLTfWLMM=",
-    "x86_64-darwin": "sha256-GuALPTHsiJlh7NNYAN4H3x3GOm+PGHmfcSv0p9vNTu8="
+    "aarch64-darwin": "sha256-6JGu2cBNzn7/cSzz4QiOfYPZU9S53ua4Pv9telIGBcE=",
+    "x86_64-darwin": "sha256-m4I2+f+iLj3ZJ20KMlX04ZrBZxLsenFDJYcgTtwOa3U="
   }
 }
