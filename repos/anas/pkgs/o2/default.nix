@@ -7,7 +7,7 @@
 
 let
   pname = "o2";
-  version = "0.3.7";
+  version = "0.3.8";
   owner = "coignard";
 in
 rustPlatform.buildRustPackage rec {
@@ -17,10 +17,10 @@ rustPlatform.buildRustPackage rec {
     inherit owner;
     repo = pname;
     rev = "${version}";
-    hash = "sha256-XvJkyoR9xxzcfJH7DEdkcF1CQ3JiOjpxRv8CgFSYdBE=";
+    hash = "sha256-9pI+a9RiCxaLAa04MJ9pjb1m0gFHsNoe85MwIg420C8=";
   };
 
-  cargoHash = "sha256-lhWAi/hae1oOAaagA3ztlGzAOkAusRoRv93xh5gVHZM=";
+  cargoHash = "sha256-E/BSXBelI89hxsQ0j846gcYIRfy4E0XFm3eNolTHrRI=";
 
   nativeBuildInputs = [
     pkg-config
