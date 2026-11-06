@@ -3,11 +3,11 @@
 { fetchzip }:
 
 let
-  version = "18.1.8";
-  rev = "v18.1.8";
+  version = "18.1.9";
+  rev = "v18.1.9";
   src = fetchzip {
-    url = "https://codeload.github.com/amzxyz/rime-wanxiang/tar.gz/v18.1.8";
-    hash = "sha256-F+e4dWE4rk8CNPl5HO3Hd9C+2jNYTu5eX9tR+ZpqqBM=";
+    url = "https://codeload.github.com/amzxyz/rime-wanxiang/tar.gz/v18.1.9";
+    hash = "sha256-crDA051UO12bCQLoTtPbVZ67e4eCnoIRhAOdolG6xNs=";
     extension = "tar.gz";
   };
 in
