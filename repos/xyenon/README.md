@@ -81,7 +81,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>kazv</code></strong> — Convergent qml/kirigami matrix client based on libkazv</summary>
 
-- **Version:** `0.7.0-unstable-2026-10-22`
+- **Version:** `0.7.0-unstable-2026-11-05`
 - **License:** AGPL-3.0-or-later
 - **Homepage:** [https://lily-is.land/kazv/kazv](https://lily-is.land/kazv/kazv)
 - **Build:** `nix build github:XYenon/nur-packages#kazv`
@@ -141,7 +141,7 @@ Uncomment this if you use travis:
 <details>
 <summary><strong><code>magpie</code></strong> — Manage models, providers, and accounts for AI coding agents in one place</summary>
 
-- **Version:** `0.1.3075`
+- **Version:** `0.1.3098`
 - **License:** MIT
 - **Homepage:** [https://github.com/yetone/magpie](https://github.com/yetone/magpie)
 - **Build:** `nix build github:XYenon/nur-packages#magpie`
