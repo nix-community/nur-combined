@@ -2803,6 +2803,9 @@ dependencies = [
  "codex-code-mode-protocol",
  "codex-plugin-host",
  "codex-protocol",
+ "codex-utils-audio",
+ "codex-utils-output-truncation",
+ "codex-utils-string",
  "deno_core_icudata",
  "futures",
  "opentelemetry",
@@ -3320,6 +3323,7 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "assert_matches",
+ "chrono",
  "clap",
  "codex-api",
  "codex-app-server",
@@ -3340,8 +3344,10 @@ dependencies = [
  "codex-utils-cli",
  "codex-utils-process",
  "codex-websocket-auth",
+ "futures",
  "http 1.4.0",
  "insta",
+ "jsonwebtoken",
  "pretty_assertions",
  "serde",
  "serde_json",
@@ -3352,6 +3358,7 @@ dependencies = [
  "tracing",
  "tracing-subscriber",
  "url",
+ "wiremock",
 ]
 
 [[package]]
@@ -3392,6 +3399,7 @@ name = "codex-execpolicy"
 version = "0.0.0"
 dependencies = [
  "anyhow",
+ "caseless",
  "clap",
  "codex-utils-absolute-path",
  "multimap",
@@ -3403,6 +3411,7 @@ dependencies = [
  "tempfile",
  "thiserror 2.0.18",
  "tokio",
+ "unicode-normalization",
 ]
 
 [[package]]
@@ -3962,6 +3971,7 @@ dependencies = [
  "codex-secrets",
  "codex-terminal-detection",
  "codex-utils-cargo-bin",
+ "codex-utils-path",
  "codex-utils-process",
  "codex-utils-template",
  "codex-workload-identity",
@@ -3988,6 +3998,7 @@ dependencies = [
  "url",
  "urlencoding",
  "webbrowser",
+ "windows-sys 0.61.2",
  "wiremock",
 ]
 
@@ -4033,6 +4044,7 @@ dependencies = [
  "tokio-util",
  "tracing",
  "url",
+ "uuid",
 ]
 
 [[package]]
@@ -4154,18 +4166,34 @@ dependencies = [
  "caseless",
  "chrono",
  "codex-attachment-store",
+ "codex-message-board-mcp",
  "codex-protocol",
  "codex-state",
  "codex-tools",
  "codex-utils-output-truncation",
  "futures",
  "pretty_assertions",
+ "rmcp",
  "serde",
  "serde_json",
  "sqlx",
  "tempfile",
  "tokio",
  "tracing",
+ "uuid",
+]
+
+[[package]]
+name = "codex-message-board-mcp"
+version = "0.0.0"
+dependencies = [
+ "codex-attachment-store",
+ "codex-message-board",
+ "codex-protocol",
+ "codex-tools",
+ "codex-utils-output-truncation",
+ "rmcp",
+ "serde_json",
  "uuid",
 ]
 
@@ -5522,6 +5550,8 @@ dependencies = [
  "pretty_assertions",
  "schemars 0.8.22",
  "serde_json",
+ "tempfile",
+ "tokio",
  "url",
 ]
 
@@ -5890,6 +5920,7 @@ dependencies = [
  "anyhow",
  "assert_cmd",
  "base64 0.22.1",
+ "codex-agent-graph-store",
  "codex-analytics",
  "codex-arg0",
  "codex-attachment-store",
@@ -10392,9 +10423,9 @@ dependencies = [
 
 [[package]]
 name = "mio"
-version = "1.2.0"
+version = "1.2.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "50b7e5b27aa02a74bac8c3f23f448f8d87ff11f92d3aac1a6ed369ee08cc56c1"
+checksum = "1788edb87fdc09c7e26304471e2f5be8cdefb1b6930d6e3985fc02ff53bf86ee"
 dependencies = [
  "libc",
  "log",
