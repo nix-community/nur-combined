@@ -115,7 +115,7 @@
     },
     "mholt/caddy-l4": {
         "cargoLock": null,
-        "date": "20261105154920",
+        "date": "20261106090308",
         "extract": null,
         "name": "mholt/caddy-l4",
         "passthru": {
@@ -130,12 +130,12 @@
             "name": null,
             "owner": "mholt",
             "repo": "caddy-l4",
-            "rev": "ab22be7478d88b220f6f0e188ae472f6fde05904",
-            "sha256": "sha256-nzlqMSYHDFwDoLWmZ0FbYROBo0xje4Pnmltqcf8VkAY=",
+            "rev": "1da0f2bd8fc82466b0a77656ac00c965b7a6bcb2",
+            "sha256": "sha256-egrl5VdWjf5pyIOVh2qV6fb7HZQd5OuqaLfY6MHcy9k=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "ab22be7478d88b220f6f0e188ae472f6fde05904"
+        "version": "1da0f2bd8fc82466b0a77656ac00c965b7a6bcb2"
     },
     "mholt/caddy-webdav": {
         "cargoLock": null,
