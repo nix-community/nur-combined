@@ -12,6 +12,13 @@ let
   noConfigFile = cfg.configFile == null;
   bindPrivileged = cfg.port < 1024;
 
+  # systemd cannot parse hostnames in ListenStream, so map the default host.
+  socketHost = if cfg.host == "localhost" then "127.0.0.1" else cfg.host;
+  tcpListenStream = "${
+    if lib.hasInfix ":" socketHost then "[${socketHost}]" else socketHost
+  }:${toString cfg.port}";
+  useSocket = cfg.socketActivation || cfg.unixSocket != null;
+
   # Generate merged ddns-go config with secrets.
   gen-ddns-go-config = pkgs.writeShellApplication {
     name = "gen-ddns-go-config";
@@ -86,6 +93,46 @@ in
         '';
       };
 
+      socketActivation = lib.mkOption {
+        type = lib.types.bool;
+        default = true;
+        description = ''
+          Whether to use systemd socket activation for the web interface.
+
+          systemd binds {option}`services.ddns-go.host` and {option}`services.ddns-go.port`
+          and passes the socket to ddns-go. This requires the patched ddns-go package
+          from this repository; the upstream package will fail to bind the port.
+          The service still starts at boot, since DDNS updates do not depend on HTTP requests.
+        '';
+      };
+
+      unixSocket = lib.mkOption {
+        type = with lib.types; nullOr path;
+        default = null;
+        example = "/run/ddns-go/ddns-go.sock";
+        description = ''
+          Unix socket on which the ddns-go web interface listens, instead of
+          {option}`services.ddns-go.host` and {option}`services.ddns-go.port`.
+          Implies {option}`services.ddns-go.socketActivation`. systemd creates the
+          socket with mode `0660`; when {option}`services.ddns-go.configureNginx`
+          is enabled its group is set to nginx's group. Override
+          `systemd.sockets.ddns-go.socketConfig` to change the permissions.
+        '';
+      };
+
+      configureNginx = lib.mkOption {
+        type = lib.types.bool;
+        default = false;
+        description = "Whether to configure nginx as a reverse proxy for ddns-go.";
+      };
+
+      domain = lib.mkOption {
+        type = lib.types.str;
+        default = "localhost";
+        example = "ddns.example.org";
+        description = "Domain name for the nginx virtual host.";
+      };
+
       settings = lib.mkOption {
         type = lib.types.submodule {
           freeformType = settingsFormat.type;
@@ -114,9 +161,37 @@ in
       }
     ];
 
+    services.nginx = lib.mkIf cfg.configureNginx {
+      enable = lib.mkDefault true;
+      virtualHosts.${cfg.domain} = {
+        locations."/" = {
+          proxyPass =
+            if cfg.unixSocket != null then
+              "http://unix:${cfg.unixSocket}:/"
+            else
+              "http://${socketHost}:${toString cfg.port}";
+          recommendedProxySettings = true;
+          proxyWebsockets = true;
+        };
+      };
+    };
+
+    systemd.sockets.ddns-go = lib.mkIf useSocket {
+      description = "ddns-go socket";
+      wantedBy = [ "sockets.target" ];
+      wants = [ "network-online.target" ];
+      after = [ "network-online.target" ];
+      listenStreams = [ (if cfg.unixSocket != null then cfg.unixSocket else tcpListenStream) ];
+      socketConfig = lib.mkIf (cfg.unixSocket != null) {
+        SocketMode = lib.mkDefault "0660";
+        SocketGroup = lib.mkIf cfg.configureNginx (lib.mkDefault config.services.nginx.group);
+      };
+    };
+
     systemd.services.ddns-go = {
       description = "ddns-go dynamic DNS service";
-      after = [ "network.target" ];
+      after = [ "network.target" ] ++ lib.optional useSocket "ddns-go.socket";
+      requires = lib.optional useSocket "ddns-go.socket";
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         # Pre-start hook to generate the config file if configFile is not set.

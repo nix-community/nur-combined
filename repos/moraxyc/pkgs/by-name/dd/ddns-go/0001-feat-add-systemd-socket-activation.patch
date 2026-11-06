@@ -1,0 +1,70 @@
+From 058e14474105937487a3d57255f81c9e27ebc289 Mon Sep 17 00:00:00 2001
+From: moraxyc <i@qaq.li>
+Date: Fri, 6 Nov 2026 19:46:15 +0800
+Subject: [PATCH] feat: add systemd socket activation
+
+---
+ main.go | 41 +++++++++++++++++++++++++++++++++++++----
+ 1 file changed, 37 insertions(+), 4 deletions(-)
+
+diff --git a/main.go b/main.go
+index c3b0a0c..4bd3e35 100644
+--- a/main.go
++++ b/main.go
+@@ -204,16 +204,49 @@ func runWebServer() error {
+ 	http.HandleFunc("/webhookTest", web.Auth(web.WebhookTest))
+ 	http.HandleFunc("/logout", web.Auth(web.Logout))
+ 
+-	util.Log("监听 %s", *listen)
+-
+-	l, err := net.Listen("tcp", *listen)
++	l, err := systemdListener()
+ 	if err != nil {
+-		return errors.New(util.LogStr("监听端口发生异常, 请检查端口是否被占用! %s", err))
++		return err
++	}
++	if l != nil {
++		util.Log("使用 systemd socket 监听 %s", l.Addr())
++	} else {
++		util.Log("监听 %s", *listen)
++		l, err = net.Listen("tcp", *listen)
++		if err != nil {
++			return errors.New(util.LogStr("监听端口发生异常, 请检查端口是否被占用! %s", err))
++		}
+ 	}
+ 
+ 	return http.Serve(l, nil)
+ }
+ 
++// systemdListener returns the socket passed by systemd socket activation
++// (LISTEN_PID/LISTEN_FDS, fd 3), or nil if this process was not socket-activated.
++func systemdListener() (net.Listener, error) {
++	pid, err := strconv.Atoi(os.Getenv("LISTEN_PID"))
++	if err != nil || pid != os.Getpid() {
++		return nil, nil
++	}
++	fds, err := strconv.Atoi(os.Getenv("LISTEN_FDS"))
++	if err != nil || fds < 1 {
++		return nil, nil
++	}
++	os.Unsetenv("LISTEN_PID")
++	os.Unsetenv("LISTEN_FDS")
++	os.Unsetenv("LISTEN_FDNAMES")
++
++	const sdListenFdsStart = 3
++	f := os.NewFile(sdListenFdsStart, "systemd-socket")
++	defer f.Close()
++	// net.FileListener duplicates the fd, so closing f above is safe.
++	l, err := net.FileListener(f)
++	if err != nil {
++		return nil, fmt.Errorf("use systemd socket failed: %w", err)
++	}
++	return l, nil
++}
++
+ // 以守护/分离进程方式运行（Unix 使用 setsid，Windows 使用 DETACHED_PROCESS）
+ func runAsDaemon() error {
+ 	exe, err := os.Executable()
+-- 
+2.56.0
+
