@@ -10,14 +10,25 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "neorex";
-  version = "0-unstable-2026-11-03";
+  version = "0-unstable-2026-11-05";
 
   src = fetchFromGitHub {
     owner = "alexrlocke";
     repo = "neorex";
-    rev = "cfd28b186b253fa109be0e6d5ee8ca57b3e39c32";
-    hash = "sha256-Ez3pwbPDJLpQ6lXdDoifjlPhVUikygnEjAy5vxEj0i4=";
+    rev = "b9b97dd72e145b08e5003578b2b3091117faa98b";
+    hash = "sha256-lFD0TQVf/TQvYYnSCpNixmARE2xMTyB+J4ZNxlKFoJA=";
   };
+
+  # Fail in the Nix sandbox
+  postPatch = ''
+    substituteInPlace src/nvim/windows.zig \
+      --replace-fail \
+        "test \"a window Neovim resizes itself snaps back to its pane's size\" {" \
+        "test \"a window Neovim resizes itself snaps back to its pane's size\" { if (true) return error.SkipZigTest;" \
+      --replace-fail \
+        "test \"a window Neovim resizes asks for its pane to be resized\" {" \
+        "test \"a window Neovim resizes asks for its pane to be resized\" { if (true) return error.SkipZigTest;"
+  '';
 
   nativeBuildInputs = [
     zig_0_17.hook
