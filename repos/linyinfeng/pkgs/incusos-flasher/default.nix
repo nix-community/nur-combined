@@ -14,8 +14,8 @@ buildGoModule (finalAttrs: {
   src = fetchFromGitHub {
     owner = "lxc";
     repo = "incus-os";
-    rev = "6af34019d6db4249298c9febac780944bd82783c";
-    hash = "sha256-ZjDREGP1uXMU6MJL/1RR6R6qQ71FSj3AqO+F6YGCVi8=";
+    rev = "74eb5dcf116ea97d290522b2c0bb58808c0db098";
+    hash = "sha256-HQ8AuqrQ/Qmt7H01XAnUCKDCsbAKPofCjmAfevdPhg8=";
   };
 
   modRoot = "incus-osd";
