@@ -31,7 +31,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "credentialsd";
-  version = "0.3.1";
+  version = "0.4.0";
   __structuredAttrs = true;
   strictDeps = true;
 
@@ -39,12 +39,12 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "linux-credentials";
     repo = "credentialsd";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-wCkgO/T8UCQLMAY6HyxEL0HlGFlRhqGC+bZc6XhcTwU=";
+    hash = "sha256-7IlHBJtRUObfPB/H8WJaSNcOJidB8JumTO1okIkYlus=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) pname version src;
-    hash = "sha256-+YEr2bPkJwl0DEWMjKDCjIgq5SX54T2jsbYRbRPGOwQ=";
+    hash = "sha256-hZzFXHUZ5D9geNyBZSvBUoIFhdfhSVzhtTFBayndGu8=";
   };
 
   nativeBuildInputs = [
