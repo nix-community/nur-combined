@@ -1,16 +1,16 @@
 {
   darling,
-  coreutils,
   fetchFromGitHub,
   fetchpatch,
   fetchurl,
   lib,
 }:
 
-# Upstream darling, plus open PRs that apply on that commit:
-# Clang/CMake/DESTDIR build fixes, SysV semaphore IDs, libc++ filesystem
-# symbols, host-path linking (darpath), the GLUT and MediaLibrary stubs, the
-# cli-only CoreData stub, and the cocotron X11 window and open-file fixes.
+# Upstream darling, plus open PRs that apply on that commit: SysV semaphore
+# IDs, libc++ filesystem symbols, cross-compiling, host-path linking (darpath),
+# the GLUT and MediaLibrary stubs, the cli-only CoreData stub, and the cocotron
+# X11 window and open-file fixes. The DESTDIR, MIG and Clang changes these
+# patches used to carry are upstream now.
 # Drafts, ARM64 ports, Docker/RPM packaging, and off-by-default options are
 # not included. The cocotron text-truncation, icns, and Backup-and-Sync pulls
 # are not included: the truncation search is wrong, the icns change releases
@@ -63,12 +63,6 @@ let
       repo = "darling-libcxx";
       rev = "7d5d86d3546aea24b50c38ad25a0d141ee5271d8";
       hash = "sha256-n2zVSU03GIQNqRR1zIJWoKzIJIf2ZPq4VfvXuqUWhgI=";
-    };
-    # https://github.com/darlinghq/darling/pull/1792
-    "src/external/file_cmds" = submodule {
-      repo = "darling-file_cmds";
-      rev = "35f7c7e689afc4bba78058eee8d9d76c2f59e368";
-      hash = "sha256-990uti0RjrGNfd2i+uBMQQqO8p/U8JqxvmQ3Eo4MMpY=";
     };
     # https://github.com/darlinghq/darling/pull/1790
     "src/external/xnu" = submodule {
@@ -143,24 +137,6 @@ darling.overrideAttrs (old: {
   pname = "darling_patched";
 
   patches = (old.patches or [ ]) ++ [
-    # https://github.com/darlinghq/darling/pull/1792
-    # The file_cmds half is a submodule bump, swapped in below.
-    (pr "darling-pr-1792-destdir.patch" "65c5bf55f9d9d4124f6bfc89d3e8fecff38d1438"
-      "sha256-3wOgVkVY346x5fgwrjM3CgvVGunuOUghXunZ5981aOk="
-      {
-        excludes = [ "src/external/file_cmds" ];
-      }
-    )
-    # https://github.com/darlinghq/darling/pull/1794
-    (pr "darling-pr-1794-mig-fail.patch" "77997c9141a1225495c9acd6db10e1dd55938df4"
-      "sha256-/jcNFlgjSfxf22FKVyfmcEiFgb1epCw+mzHysqIxbxo="
-      { }
-    )
-    # https://github.com/darlinghq/darling/pull/1795
-    (pr "darling-pr-1795-no-objc-constant-literals.patch" "8a226a0b439e8cf9549704fe008791df799cd293"
-      "sha256-SnBJBO6Mw/tPzX9Cvdnf2w+0jWNI+CTnkiq72lJuQMY="
-      { }
-    )
     # https://github.com/darlinghq/darling/pull/1800
     (pr "darling-pr-1800-cross-compiling.patch" "b7a065afaed919e243da80ae9041d094bc70a23d"
       "sha256-4jat8UkJCnTN3PfJzdhCHboYkXEt4QHcmY6FQqEfGio="
@@ -200,11 +176,6 @@ darling.overrideAttrs (old: {
   postPatch =
     old.postPatch
     + ''
-      # Nix has no /bin/mkdir. A bare `mkdir` is also a Darling target, so CMake
-      # would turn the MIG custom command into a dependency cycle. PR 1794 stops
-      # ignoring a failing mkdir, which is what hid this.
-      substituteInPlace cmake/mig.cmake --replace-fail /bin/mkdir ${coreutils}/bin/mkdir
-
       replace_submodule() {
         local dest=$1 src=$2
         chmod -R u+w "$dest"

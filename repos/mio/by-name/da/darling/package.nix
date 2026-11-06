@@ -27,6 +27,7 @@
   ffmpeg,
   pulseaudio,
 
+  coreutils,
   makeWrapper,
   python2,
   python3,
@@ -114,14 +115,14 @@ let
 in
 stdenv.mkDerivation {
   pname = "darling";
-  version = "0.1.20260608-unstable-2026-11-02";
+  version = "0.1.20260608-unstable-2026-11-04";
 
   src = fetchFromGitHub {
     owner = "darlinghq";
     repo = "darling";
-    rev = "148c4cee8f08de0be8435588dbcda667ec165050";
+    rev = "8ca2c84f33f918c70de127ef1fa54bf754375c7a";
     fetchSubmodules = true;
-    hash = "sha256-axFIpf/iI2xAZ6srcKnlATDLDj9EAxf0P5N0/FH6TcA=";
+    hash = "sha256-XIvSF9esSyR/I4hqX6Lkeocag88WyVHd7G6olLStHnY=";
     # Remove 500MB of dependency test files to get under Hydra output limit
     postFetch = ''
       rm -r $out/src/external/openjdk/test
@@ -150,12 +151,17 @@ stdenv.mkDerivation {
 
     substituteInPlace src/startup/CMakeLists.txt --replace-warn SETUID ""
     substituteInPlace src/external/basic_cmds/CMakeLists.txt --replace-warn SETGID ""
+
+    # Nix has no /bin/mkdir, and a bare `mkdir` would resolve to the Darling
+    # target, which makes the MIG custom command a dependency cycle.
+    substituteInPlace cmake/mig.cmake --replace-warn /bin/mkdir ${coreutils}/bin/mkdir
   '';
 
   nativeBuildInputs = [
     bison
     ccWrapperBypass
     cmake
+    coreutils
     flex
     makeWrapper
     ninja
@@ -248,11 +254,31 @@ stdenv.mkDerivation {
       name = "update-darling";
       text = ''
         export UPDATE_NIX_ATTR_PATH="darling"
-        exec ${
-          lib.escapeShellArgs (nix-update-script {
-            extraArgs = [ "--version=branch" ];
-          })
-        } "$@"
+
+        nix-update() {
+          ${lib.escapeShellArgs (nix-update-script { extraArgs = [ "--version=branch" ]; })} "$@"
+        }
+
+        # nix-update writes the new revision and version before it fetches the
+        # source for its hash, and that fetch pulls in every submodule and takes
+        # a long time. If it is interrupted, the revision has moved but the hash
+        # is stale, and later runs report "Not updating version" and leave the
+        # mismatch in place. Verify the pinned revision and update its hash
+        # explicitly; after a successful fetch this is a store hit.
+        update_hash() {
+          ${lib.escapeShellArgs (nix-update-script { extraArgs = [ "--version=skip" ]; })} "$@"
+        }
+
+        if ! nix-update "$@"; then
+          echo "nix-update failed; updating the hash for the pinned revision" >&2
+          update_hash || true
+          exit 1
+        fi
+
+        if ! nix build --no-link .#darling.src; then
+          echo "source hash is stale for the pinned revision; updating it" >&2
+          update_hash "$@"
+        fi
       '';
     };
   };
