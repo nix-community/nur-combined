@@ -17,6 +17,29 @@ let
     ;
 
   defaultDatabaseUrl = "postgresql://ghostfolio@localhost/ghostfolio?host=/run/postgresql";
+
+  listenStream =
+    host: port: "${if lib.hasInfix ":" host then "[${host}]" else host}:${toString port}";
+
+  # Ghostfolio does not implement systemd socket activation. This preload adopts
+  # the socket passed on fd 3 for the first listen() on $PORT, and only when
+  # systemd has set LISTEN_PID to this process.
+  socketActivationPreload = pkgs.writeText "ghostfolio-socket-activation.cjs" ''
+    const net = require("node:net");
+
+    const { LISTEN_PID, LISTEN_FDS, PORT } = process.env;
+    if (LISTEN_PID === String(process.pid) && LISTEN_FDS === "1" && PORT) {
+      const listen = net.Server.prototype.listen;
+      net.Server.prototype.listen = function (...args) {
+        const [first] = args;
+        const port = first !== null && typeof first === "object" ? first.port : first;
+        if (String(port) !== PORT) return listen.apply(this, args);
+        net.Server.prototype.listen = listen;
+        const callbacks = args.filter((arg) => typeof arg === "function");
+        return listen.call(this, { fd: 3 }, ...callbacks);
+      };
+    }
+  '';
 in
 {
   meta.maintainers = with lib.maintainers; [ moraxyc ];
@@ -36,6 +59,20 @@ in
       type = types.port;
       default = 3333;
       description = "Port Ghostfolio listens on.";
+    };
+
+    unixSocket = mkOption {
+      type = types.nullOr types.path;
+      default = null;
+      example = "/run/ghostfolio/ghostfolio.sock";
+      description = ''
+        Unix socket on which Ghostfolio listens, instead of
+        {option}`services.ghostfolio.host` and {option}`services.ghostfolio.port`.
+        `services.ghostfolio.port` is still passed to Ghostfolio, which uses it
+        to identify the listening socket. systemd creates the socket with mode
+        `0660`; override `systemd.sockets.ghostfolio.socketConfig` to change
+        its owner or group.
+      '';
     };
 
     rootUrl = mkOption {
@@ -179,13 +216,25 @@ in
       port = cfg.redis.port;
     };
 
+    systemd.sockets.ghostfolio = {
+      description = "Ghostfolio socket";
+      wantedBy = [ "sockets.target" ];
+      wants = [ "network-online.target" ];
+      after = [ "network-online.target" ];
+      listenStreams = [
+        (if cfg.unixSocket != null then cfg.unixSocket else listenStream cfg.host cfg.port)
+      ];
+      socketConfig = lib.mkIf (cfg.unixSocket != null) {
+        SocketMode = lib.mkDefault "0660";
+      };
+    };
+
     systemd.services.ghostfolio = {
       description = "Ghostfolio";
       documentation = [ "https://ghostfol.io/" ];
 
-      wantedBy = [ "multi-user.target" ];
-
       after = [
+        "ghostfolio.socket"
         "network-online.target"
       ]
       ++ optional cfg.database.createLocally "postgresql.service"
@@ -193,11 +242,14 @@ in
 
       wants = [ "network-online.target" ];
 
-      requires =
-        optional cfg.database.createLocally "postgresql.service"
-        ++ optional cfg.redis.createLocally "redis-ghostfolio.service";
+      requires = [
+        "ghostfolio.socket"
+      ]
+      ++ optional cfg.database.createLocally "postgresql.service"
+      ++ optional cfg.redis.createLocally "redis-ghostfolio.service";
 
       environment = {
+        NODE_OPTIONS = "--require ${socketActivationPreload}";
         HOST = cfg.host;
         PORT = toString cfg.port;
         ROOT_URL = cfg.rootUrl;

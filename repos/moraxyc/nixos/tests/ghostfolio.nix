@@ -22,11 +22,13 @@ pkgs.testers.runNixOSTest {
   };
 
   testScript = ''
+    # Connecting to the socket starts the service, so do not probe the port first.
+    machine.wait_for_unit("ghostfolio.socket")
+    machine.fail("systemctl is-active --quiet ghostfolio.service")
+    machine.succeed("curl -fs http://localhost:3333/api/v1/info")
+    machine.wait_for_unit("ghostfolio.service")
     machine.wait_for_unit("postgresql.service")
     machine.wait_for_unit("redis-ghostfolio.service")
-    machine.wait_for_unit("ghostfolio.service")
-    machine.wait_for_open_port(3333)
-    machine.succeed("curl -fs http://localhost:3333/api/v1/info")
   '';
 
   meta.maintainers = with lib.maintainers; [ moraxyc ];

@@ -9,6 +9,8 @@ let
   cfg = config.services.airtrail;
   defaultDatabaseUrl = "postgresql://airtrail@localhost/airtrail?host=/run/postgresql";
   toEnvValue = value: if lib.isBool value then lib.boolToString value else toString value;
+  listenStream =
+    host: port: "${if lib.hasInfix ":" host then "[${host}]" else host}:${toString port}";
 in
 {
   options.services.airtrail = {
@@ -27,6 +29,20 @@ in
       type = lib.types.port;
       default = 3000;
       description = "TCP port on which the AirTrail web server listens.";
+    };
+
+    unixSocket = lib.mkOption {
+      type = with lib.types; nullOr path;
+      default = null;
+      example = "/run/airtrail/airtrail.sock";
+      description = ''
+        Unix socket on which the AirTrail web server listens, instead of
+        {option}`services.airtrail.host` and {option}`services.airtrail.port`.
+        systemd creates the socket with mode `0660`; when
+        {option}`services.airtrail.configureNginx` is enabled its group is set
+        to nginx's group. Override `systemd.sockets.airtrail.socketConfig` to
+        change the permissions.
+      '';
     };
 
     origin = lib.mkOption {
@@ -144,6 +160,13 @@ in
   config = lib.mkIf cfg.enable {
     assertions = [
       {
+        assertion = cfg.unixSocket != null -> !cfg.openFirewall;
+        message = ''
+          services.airtrail.openFirewall cannot be used together with
+          services.airtrail.unixSocket.
+        '';
+      }
+      {
         assertion = cfg.database.createLocally -> cfg.database.url == defaultDatabaseUrl;
         message = ''
           services.airtrail.database.url must not be changed while
@@ -171,20 +194,41 @@ in
       enable = lib.mkDefault true;
       virtualHosts.${cfg.domain} = {
         locations."/" = {
-          proxyPass = "http://127.0.0.1:${toString cfg.port}";
+          proxyPass =
+            if cfg.unixSocket != null then
+              "http://unix:${cfg.unixSocket}:/"
+            else
+              "http://127.0.0.1:${toString cfg.port}";
           recommendedProxySettings = true;
           proxyWebsockets = true;
         };
       };
     };
 
+    systemd.sockets.airtrail = {
+      description = "AirTrail socket";
+      wantedBy = [ "sockets.target" ];
+      wants = [ "network-online.target" ];
+      after = [ "network-online.target" ];
+      listenStreams = [
+        (if cfg.unixSocket != null then cfg.unixSocket else listenStream cfg.host cfg.port)
+      ];
+      socketConfig = lib.mkIf (cfg.unixSocket != null) {
+        SocketMode = lib.mkDefault "0660";
+        SocketGroup = lib.mkIf cfg.configureNginx (lib.mkDefault config.services.nginx.group);
+      };
+    };
+
     systemd.services.airtrail = {
       description = "AirTrail personal flight tracker";
       documentation = [ "https://github.com/johanohly/AirTrail" ];
-      wantedBy = [ "multi-user.target" ];
       wants = [ "network-online.target" ];
-      after = [ "network-online.target" ] ++ lib.optional cfg.database.createLocally "postgresql.service";
-      requires = lib.optional cfg.database.createLocally "postgresql.service";
+      after = [
+        "airtrail.socket"
+        "network-online.target"
+      ]
+      ++ lib.optional cfg.database.createLocally "postgresql.service";
+      requires = [ "airtrail.socket" ] ++ lib.optional cfg.database.createLocally "postgresql.service";
 
       environment =
         (lib.mapAttrs (_: toEnvValue) cfg.environment)

@@ -39,9 +39,11 @@ pkgs.testers.runNixOSTest {
   };
 
   testScript = ''
-    machine.wait_for_unit("airtrail.service")
-    machine.wait_for_open_port(3000)
+    # Connecting to the socket starts the service, so do not probe the port first.
+    machine.wait_for_unit("airtrail.socket")
+    machine.fail("systemctl is-active --quiet airtrail.service")
     machine.succeed("curl --fail http://127.0.0.1:3000/api/ping")
+    machine.wait_for_unit("airtrail.service")
   '';
 
   meta.maintainers = with lib.maintainers; [ moraxyc ];
