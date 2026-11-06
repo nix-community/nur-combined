@@ -61,13 +61,22 @@ jobs:
           sudo swapon /mnt/swapfile 2>&1 | grep -v "Permission denied" || true
           sudo swapon /swapfile 2>&1 | grep -v "Permission denied" || true
           free -h 2>&1 | grep -v "Permission denied" || true; swapon --show 2>&1 | grep -v "Permission denied" || cat /proc/swaps 2>&1 | grep -v "Permission denied" || true; df -h 2>&1 | grep -v "Permission denied" | head -n 20 || true
-      - uses: wimpysworld/nothing-but-nix@main
+      - uses: wimpysworld/nothing-but-nix@v11
         if: runner.os == 'Linux'
         with:
           hatchet-protocol: "cleave"
           witness-carnage: true
           root-safe-haven: "1024"
           mnt-safe-haven: "2048"
+      # nothing-but-nix v11 把 TMPDIR 指向 /nix/tmp，而 Nix 多用户安装器会
+      # chown -R root:nixbld /nix，把已解包的 tarball 一起改归属，导致安装失败。
+      # 见 https://github.com/wimpysworld/nothing-but-nix/issues/57
+      - name: Move TMPDIR off /nix for the nix installer
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          echo "ORIGINAL_TMPDIR=${TMPDIR}" >> "$GITHUB_ENV"
+          echo "TMPDIR=/tmp" >> "$GITHUB_ENV"
       - name: Install nix
         uses: cachix/install-nix-action@v31
         with:
@@ -80,6 +89,10 @@ jobs:
             extra-trusted-public-keys = nix.mcseekeri.com-1:3gd0/2u7IOF7YooxEiBbWTvRCYGC53S2UoqFdnCUYHc=
             max-substitution-jobs = 4
             ${{ matrix.extraConfig }}
+      - name: Restore TMPDIR for builds
+        if: runner.os == 'Linux'
+        shell: bash
+        run: echo "TMPDIR=${ORIGINAL_TMPDIR}" >> "$GITHUB_ENV"
       - name: Setup niks3
         uses: Mic92/niks3-action@v1
         with:

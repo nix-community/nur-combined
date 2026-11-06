@@ -30,7 +30,7 @@ let
     ;
 
   src = fetchFromGitHub (
-    srcArgs // { hash = "sha256-3c+EthXMrB5CkDx/8McLesiEFIAOQX/+ThYnE6k5Sjs="; }
+    srcArgs // { hash = "sha256-q3uzd25ON4jeLrp6rtui90rhQZZZcwsYIj4BA59rskY="; }
   );
 
   pnpmDeps = fetchPnpmDeps {
@@ -121,6 +121,9 @@ symlinkJoin {
     launcher
     desktopItem
   ];
+
+  # symlinkJoin 走 runCommand，默认 preferLocalBuild，会导致 CI 永远不构建它
+  preferLocalBuild = false;
 
   passthru = {
     updateScript = nix-update-script { };

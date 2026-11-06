@@ -16,20 +16,20 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "artmatic";
-  version = "0.3.0-unstable-2026-10-29";
+  version = "0.3.0-unstable-2026-11-05";
 
   src = fetchFromGitHub {
     owner = "OxygenNine";
     repo = "artmatic";
-    rev = "0c8fb9d0d84fefc451bb82d1fd2a62497b3d0cf5";
-    hash = "sha256-TrAK4VferiZICZvLD9G0huy6eDeYfUtaFQEcKHUFHrE=";
+    rev = "658958bd5ea0e7bc153236d37db815f1761fe7bc";
+    hash = "sha256-+qEIVWhD1cR4t/Nqk2st2yQrOh9TVVLdKyjl3EQ15Ww=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     pnpm = pnpm_12;
     fetcherVersion = 4;
-    hash = "sha256-340sVwK6gV8fjCfViIKhXDtOuUxuIKbWnhaNL7DXxMQ=";
+    hash = "sha256-43mHw8B7Jd+feux5WF+8BSj8RClRONobhHWSBzvMVdk=";
   };
 
   strictDeps = true;
