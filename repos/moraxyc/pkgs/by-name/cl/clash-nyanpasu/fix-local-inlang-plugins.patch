@@ -1,5 +1,5 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index b9c2c6d..f1e27bd 100644
+index b2d9502..ca15f19 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
 @@ -60,6 +60,8 @@
@@ -10,7 +10,7 @@ index b9c2c6d..f1e27bd 100644
 +    "@inlang/plugin-message-format": "^4.6.0",
      "@monaco-editor/react": "4.7.0",
      "@tailwindcss/vite": "4.3.4",
-     "@tanstack/react-query": "5.105.3",
+     "@tanstack/react-query": "5.106.1",
 diff --git a/frontend/nyanpasu/project.inlang/settings.json b/frontend/nyanpasu/project.inlang/settings.json
 index 1eb1a9a..5d024c1 100644
 --- a/frontend/nyanpasu/project.inlang/settings.json
@@ -27,7 +27,7 @@ index 1eb1a9a..5d024c1 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index be4a0ff..9927c15 100644
+index 48b94ab..f4cb6c8 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -437,6 +437,12 @@ importers:

@@ -1922,7 +1922,7 @@ dependencies = [
  "windows-registry 0.6.1",
  "windows-sys 0.61.2",
  "winreg 0.56.0",
- "zip 9.3.0",
+ "zip 9.4.0",
  "zip-extensions",
 ]
 
@@ -6140,9 +6140,9 @@ dependencies = [
 
 [[package]]
 name = "mime"
-version = "0.3.17"
+version = "0.3.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6877bb514081ee2a7ff5ef9de3281f14a4dd4bceac4c09388074a6b5df8a139a"
+checksum = "d5848f5a9e8117cf94f2f90faac24a87ff81600ff8628c1e3deaab572e76bfa1"
 
 [[package]]
 name = "minimal-lexical"
@@ -6764,6 +6764,7 @@ dependencies = [
  "fs-err",
  "futures",
  "futures-util",
+ "getrandom 0.4.3",
  "gxhash",
  "hex",
  "indexmap 2.14.2",
@@ -6820,7 +6821,7 @@ dependencies = [
  "whoami",
  "windows-sys 0.61.2",
  "winreg 0.56.0",
- "zip 9.3.0",
+ "zip 9.4.0",
  "zstd",
 ]
 
@@ -6895,7 +6896,7 @@ dependencies = [
  "sysinfo",
  "tempfile",
  "windows-registry 0.6.1",
- "zip 9.3.0",
+ "zip 9.4.0",
 ]
 
 [[package]]
@@ -11597,7 +11598,7 @@ dependencies = [
  "tokio",
  "url",
  "windows-sys 0.61.2",
- "zip 9.3.0",
+ "zip 9.4.0",
 ]
 
 [[package]]
@@ -14750,9 +14751,9 @@ dependencies = [
 
 [[package]]
 name = "zip"
-version = "9.3.0"
+version = "9.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "eaeb7f16d2605b49aef586996ded29e65642fab7259a3077e537351df6d80426"
+checksum = "3cec733c9820347a592f6375c3c0089b479ba0a0b1cbf3dd1958b02959b7c033"
 dependencies = [
  "aes",
  "bzip2",
