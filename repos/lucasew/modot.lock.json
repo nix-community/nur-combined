@@ -27,7 +27,7 @@
       "kind": "tool",
       "ref": "github:anomalyco/opencode",
       "depName": "anomalyco/opencode",
-      "currentValue": "v1.19.4",
+      "currentValue": "v2.2.5",
       "datasource": "github-releases"
     },
     {
