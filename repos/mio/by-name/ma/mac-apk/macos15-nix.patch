@@ -303,7 +303,7 @@ diff --git a/scripts/build_dist.sh b/scripts/build_dist.sh
 index d005454..bc14641 100755
 --- a/scripts/build_dist.sh
 +++ b/scripts/build_dist.sh
-@@ -377,12 +377,16 @@ fi
+@@ -377,7 +377,10 @@
  # Inside-out order matters: these are all inside $APP, which is sealed below.
  [ -f "$RES/jre/lib/jspawnhelper" ]   && sign "$RES/jre/lib/jspawnhelper" --entitlements "$ENT"
  [ -f "$RES/appstub/MacApkAppStub" ]  && sign "$RES/appstub/MacApkAppStub" --identifier org.macapk.appstub
@@ -315,8 +315,10 @@ index d005454..bc14641 100755
  [ -f "$BIN/macapk-installhelper" ]   && sign "$BIN/macapk-installhelper"
  # "Mac.apk Location" (launcher/LocationHelperMain.swift): a nested app that must
  # keep the location entitlement, or TCC refuses it without a prompt.
- [ -d "$APP/Contents/Helpers/Mac.apk Location.app" ] && \
-     sign "$APP/Contents/Helpers/Mac.apk Location.app" --entitlements "$ENT" --identifier org.macapk.location
+@@ -386,6 +389,7 @@
+ # The system broker (SMAppService agent's BundleProgram) hosts a JVM: $ENT.
+ [ -f "$APP/Contents/Helpers/macapk-system" ] && \
+     sign "$APP/Contents/Helpers/macapk-system" --entitlements "$ENT" --identifier org.macapk.system
 +vtool -set-build-version macos 12.0 12.0 -replace -output "$RES/macapk-runtime" "$RES/macapk-runtime"
  sign "$RES/macapk-runtime" --entitlements "$ENT"
  [ -f "$BIN/macapk-translator" ] && sign "$BIN/macapk-translator" --entitlements "$ENT"

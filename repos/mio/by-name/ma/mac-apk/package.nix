@@ -20,11 +20,13 @@
   python3,
   darwin,
   rsync,
+  writeShellApplication,
+  nix-update-script,
 }:
 
 let
-  version = "1.0.2303-unstable-2026-10-29";
-  rev = "f87be03575a79c7eeed578f421ee852bf99a814b";
+  version = "1.0.2379-unstable-2026-11-06";
+  rev = "57c99122f9a164c9ddcc97cfaf5d14dde89d7152";
 
   # Android 16 (API 36) AOSP frameworks/base/core/res source tree (Apache-2.0).
   # Google's gitiles +archive tarballs embed request-time timestamps in gzip/tar
@@ -56,7 +58,7 @@ clangStdenv.mkDerivation {
     owner = "kksimp";
     repo = "Mac.apk";
     inherit rev;
-    hash = "sha256-Yypt10xHWqC1l947yj1VV71qq1OfnB/pnzRLxMAqkoQ=";
+    hash = "sha256-23rCwmFCd5XirTwfDCn1fxeO1hBxnl1elUCn4wjCpGE=";
   };
 
   patches = [
@@ -177,6 +179,14 @@ clangStdenv.mkDerivation {
     exec "${darwin.sigtool}/bin/codesign" "''${args[@]}" "''${real_files[@]}"
     EOF
     chmod +x "$TMPDIR/bin/codesign"
+
+    # /usr/bin/plutil lives outside the build sandbox; scripts/build_launcher.sh
+    # validates its generated launch agent with `plutil -lint`.
+    cat > "$TMPDIR/bin/plutil" <<'EOF'
+    #!${clangStdenv.shell}
+    exec python3 ${./files/plutil.py} "$@"
+    EOF
+    chmod +x "$TMPDIR/bin/plutil"
     export PATH="$TMPDIR/bin:$PATH"
   '';
 
@@ -234,6 +244,19 @@ clangStdenv.mkDerivation {
   # hooks would rewrite load commands or strip signatures and invalidate the
   # x18/JIT entitlements.
   dontFixup = true;
+
+  passthru.updateScript = writeShellApplication {
+    name = "update-mac-apk";
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="mac-apk"
+      exec ${
+        lib.escapeShellArgs (nix-update-script {
+          # Upstream only tags releases occasionally; follow main instead.
+          extraArgs = [ "--version=branch" ];
+        })
+      } "$@"
+    '';
+  };
 
   meta = {
     description = "Run Android APKs natively on Apple Silicon macOS (Dalvik/DEX-to-JVM + ARM64/ARM32 Bionic-to-Darwin + GLES-to-Metal)";

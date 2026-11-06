@@ -25,6 +25,25 @@ package_json="$(
 }
 mapfile -t packages < <(jq -r '.[]' <<<"$package_json")
 
+# Update scripts that need macOS tooling (Xcode) are run by the darwin job of
+# the update workflow; skip them here when SKIP_PACKAGES lists them.
+read -r -a skip_packages <<<"${SKIP_PACKAGES:-}"
+if (( ${#skip_packages[@]} > 0 )); then
+  filtered=()
+  for package in "${packages[@]}"; do
+    skip=0
+    for skipped in "${skip_packages[@]}"; do
+      if [[ "$package" == "$skipped" ]]; then
+        skip=1
+      fi
+    done
+    if (( skip == 0 )); then
+      filtered+=("$package")
+    fi
+  done
+  packages=("${filtered[@]}")
+fi
+
 if (( ${#packages[@]} == 0 )); then
   echo "No executable package update scripts found for ${system}." >&2
   exit 0

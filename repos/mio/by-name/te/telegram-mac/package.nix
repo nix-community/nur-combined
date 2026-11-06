@@ -19,11 +19,14 @@
   pkg-config,
   meson,
   writableTmpDirAsHomeHook,
+  writeShellApplication,
+  git,
+  nix-update,
 }:
 
 let
-  version = "13.1.0-unstable-2026-10-30";
-  rev = "7b3a0836dc8f5e68be862ad1315791f9ee743863";
+  version = "13.1.0-unstable-2026-11-04";
+  rev = "561169337e838c3281f7cfe24652757a5b522df9";
 
   arch = stdenvNoCC.hostPlatform.darwinArch;
   rustTarget = stdenvNoCC.hostPlatform.rust.rustcTarget;
@@ -48,7 +51,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     owner = "TelegramMessenger";
     repo = "telegram-macos";
     inherit rev;
-    hash = "sha256-svjbpIk0opy44A7/iPslOwhUZAPpE+ACXXe1V1le4L0=";
+    hash = "sha256-xzWR+UdjnfwyRjnn6wbHdaIpU0Wi22IQocHZ/GN80M8=";
     # Unused private widget submodules are not part of the app's package graph.
     # Resolve the remaining submodules before fetchgit removes all Git metadata.
     postCheckout = ''
@@ -63,6 +66,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       git submodule update --init --recursive --depth 1
     '';
   };
+
+  patches = [ ./xcode26-typecheck.patch ];
 
   ffmpegSrc = fetchzip {
     name = "ffmpeg-8.1.2-source";
@@ -246,6 +251,19 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     runHook postInstallCheck
   '';
+
+  passthru.updateScript = writeShellApplication {
+    name = "update-telegram-mac";
+    runtimeInputs = [
+      git
+      python3
+      nix-update
+    ];
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="telegram-mac"
+      exec python3 ${./update.py} "$@"
+    '';
+  };
 
   meta = {
     description = "Native Telegram client for macOS";
