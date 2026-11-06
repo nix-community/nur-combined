@@ -54,6 +54,21 @@
       sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
     };
   };
+  artex = {
+    pname = "artex";
+    version = "ce279d77d36d1d2d4c8c4dac1d41448cbf65b08a";
+    src = fetchFromGitHub {
+      owner = "BaaRai";
+      repo = "ARTEX";
+      rev = "ce279d77d36d1d2d4c8c4dac1d41448cbf65b08a";
+      fetchSubmodules = false;
+      sha256 = "sha256-bQAPS1+AQZxvQFIvNEXtunUZNEn24FXzWRVxfT6ZSyg=";
+    };
+    extract = {
+      "web/package.json" = ./. + "/sha256-bQAPS1+AQZxvQFIvNEXtunUZNEn24FXzWRVxfT6ZSyg=/web/package.json";
+      "web/package-lock.json" = ./. + "/sha256-bQAPS1+AQZxvQFIvNEXtunUZNEn24FXzWRVxfT6ZSyg=/web/package-lock.json";
+    };date = "2026-11-05";
+  };
   bark-server = {
     pname = "bark-server";
     version = "640deaa151ddf79193202927b35ca2f14f65ee1d";

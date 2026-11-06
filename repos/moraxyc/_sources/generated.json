@@ -82,6 +82,30 @@
         },
         "version": "v2.3.3"
     },
+    "artex": {
+        "cargoLock": null,
+        "date": "2026-11-05",
+        "extract": {
+            "web/package-lock.json": "sha256-bQAPS1+AQZxvQFIvNEXtunUZNEn24FXzWRVxfT6ZSyg=/web/package-lock.json",
+            "web/package.json": "sha256-bQAPS1+AQZxvQFIvNEXtunUZNEn24FXzWRVxfT6ZSyg=/web/package.json"
+        },
+        "name": "artex",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "BaaRai",
+            "repo": "ARTEX",
+            "rev": "ce279d77d36d1d2d4c8c4dac1d41448cbf65b08a",
+            "sha256": "sha256-bQAPS1+AQZxvQFIvNEXtunUZNEn24FXzWRVxfT6ZSyg=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "ce279d77d36d1d2d4c8c4dac1d41448cbf65b08a"
+    },
     "bark-server": {
         "cargoLock": null,
         "date": "2026-10-10",

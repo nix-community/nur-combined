@@ -16,6 +16,11 @@ cargo_lock = ['Cargo.lock']
 src.github = "messense/aliyundrive-webdav"
 fetch.url = "file:///dev/null"
 
+[artex]
+src.git = "https://github.com/BaaRai/ARTEX.git"
+fetch.github = "BaaRai/ARTEX"
+extract = ["web/package-lock.json", "web/package.json"]
+
 [bark-server]
 src.git = "https://github.com/Finb/bark-server.git"
 fetch.github = "Finb/bark-server"
