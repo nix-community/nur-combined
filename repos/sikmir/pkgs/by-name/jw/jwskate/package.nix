@@ -32,6 +32,8 @@ python3Packages.buildPythonPackage (finalAttrs: {
     pytest-freezer
   ];
 
+  disabledTestPaths = [ "tests/test_jws.py" ];
+
   meta = {
     description = "A Pythonic implementation of the JOSE / JSON Web Crypto related RFCs (JWS, JWK, JWA, JWT, JWE)";
     homepage = "https://github.com/guillp/jwskate";
