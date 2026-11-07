@@ -265,11 +265,11 @@
         "nur-packages": "nur-packages_2"
       },
       "locked": {
-        "lastModified": 1793910605,
-        "narHash": "sha256-XEBqFg7f8SJoJr9oTdJDLYnhm+aJV+mEAh0tWPScMyI=",
+        "lastModified": 1794068746,
+        "narHash": "sha256-jMb+rR3Q/GyIGcWYOMpPff7VrDD7R/G1+psPcWYy2AE=",
         "owner": "nagy",
         "repo": "emacs-ipfs-modes",
-        "rev": "481f3e001048138f910658f2cd4c0f9c65c990d3",
+        "rev": "b3a6ea894d19166d39e9fc4048dee547365e1aad",
         "type": "github"
       },
       "original": {

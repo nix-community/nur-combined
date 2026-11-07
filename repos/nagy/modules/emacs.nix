@@ -43,6 +43,13 @@ let
               emacs = self.emacs;
             };
 
+        ipfs-modes =
+          (flakes.emacs-ipfs-modes or (builtins.getFlake "github:nagy/emacs-ipfs-modes"))
+          .packages.${pkgs.stdenv.hostPlatform.system}.default.override
+            {
+              emacs = self.emacs;
+            };
+
         openstack =
           (flakes.emacs-openstack-modes or (builtins.getFlake "github:nagy/emacs-openstack-modes"))
           .packages.${pkgs.stdenv.hostPlatform.system}.default.override
@@ -99,13 +106,6 @@ let
         openrpc-mode =
           (flakes.emacs-openrpc-mode or (builtins.getFlake "github:nagy/emacs-openrpc-mode"))
           .packages.${pkgs.stdenv.hostPlatform.system}.openrpc-mode;
-
-        cid-mode =
-          (flakes.emacs-ipfs-modes or (builtins.getFlake "github:nagy/emacs-ipfs-modes"))
-          .packages.${pkgs.stdenv.hostPlatform.system}.cid-mode.overrideAttrs
-            {
-              packageRequires = [ self.magit-section ];
-            };
 
         magit = super.magit.overrideAttrs (
           {
