@@ -148,6 +148,22 @@
         "type": "github"
       }
     },
+    "dot": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794084674,
+        "narHash": "sha256-Re//rV0Ly6aslk4SwSXqTnDMnFAHt79BL94iJiyU8to=",
+        "owner": "nagy",
+        "repo": "dotfiles",
+        "rev": "34f5258b5ee6f2492cb7f9bddc6da87f1680f640",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nagy",
+        "repo": "dotfiles",
+        "type": "github"
+      }
+    },
     "emacs-bruvtab": {
       "inputs": {
         "bruvtab": "bruvtab_2",
@@ -386,11 +402,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794058532,
-        "narHash": "sha256-saIvGWoyqW3lX539yOMAs6Atrl0LIfTETr43h4BBNSg=",
+        "lastModified": 1794082425,
+        "narHash": "sha256-QjaBB+H2GWI2JYjF0c0xAapwdT4XsP3dP8+QXONoZDM=",
         "owner": "nagy",
         "repo": "emacs-openstack-modes",
-        "rev": "a86e3a5006575c01c75ddc81c06d3e3a707778e6",
+        "rev": "098a7499ffabe383b3627b008800c995ca6a2240",
         "type": "github"
       },
       "original": {
@@ -402,11 +418,11 @@
     "emacs-overlay": {
       "flake": false,
       "locked": {
-        "lastModified": 1794064472,
-        "narHash": "sha256-wJkTDCVqMP/Dmc6Z5c/Voh/w2A7EjTfKClIz0MmXhrs=",
+        "lastModified": 1794083988,
+        "narHash": "sha256-a53PIoCgw45UAPosSeD8KQa+kTSvLJoe1hrtidHkkq0=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "524e43e92fa90d59c67c6e9c63bd3ee38fc825a7",
+        "rev": "583f1d5257d8502f6704b8d9e99d5ee6fd3a6edc",
         "type": "github"
       },
       "original": {
@@ -1110,11 +1126,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794080805,
-        "narHash": "sha256-UAtD0/IXp6ANSjQtIUadZlVSx/9JE5AmmXjxOxOaOYs=",
+        "lastModified": 1794082768,
+        "narHash": "sha256-HqmGZDtD54Zznbb1yvk54oQaZCU2m/s+j78c5VgzWZM=",
         "owner": "numtide",
         "repo": "llm-agents.nix",
-        "rev": "83bf989369ecee05dcdb3d7d58cad53f35b079ae",
+        "rev": "f24cf34af902f72498f7cebdbc7c73b8bc54c722",
         "type": "github"
       },
       "original": {
@@ -1484,11 +1500,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1794081009,
-        "narHash": "sha256-4b/UBBcZeTU6w4Pvyv633OztEZvcStQ7vUUAX189rko=",
+        "lastModified": 1794084659,
+        "narHash": "sha256-0b/mbOcndjybkeYShHP7gAYJTWUa4MH/TMkA6hy8xWc=",
         "owner": "nix-community",
         "repo": "NUR",
-        "rev": "258b1c1adee6fd5a1749f5ae7f59c7ac0083aa48",
+        "rev": "6296af63327e9c2be5c93d26d081f3e061933400",
         "type": "github"
       },
       "original": {
@@ -1558,6 +1574,7 @@
         "bruvtab": "bruvtab",
         "crate": "crate",
         "derivation": "derivation",
+        "dot": "dot",
         "emacs-bruvtab": "emacs-bruvtab",
         "emacs-buffer-url": "emacs-buffer-url",
         "emacs-ctags-mode": "emacs-ctags-mode",

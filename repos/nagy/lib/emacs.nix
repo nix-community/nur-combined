@@ -42,18 +42,26 @@ rec {
   emacsMakeSingleFilePackage =
     {
       src,
-      pname ? lib.removeSuffix ".el" (baseNameOf src),
+      pname ? builtins.unsafeDiscardStringContext (
+        lib.removeSuffix ".el" (baseNameOf src)
+      ),
       version ? "0.0.1",
       epkgs ? pkgs.emacs.pkgs,
       packageRequires ? emacsParsePackageSet { inherit src epkgs; },
     }:
+    let
+      # melpaBuild strips a 32 character hash prefix from the source file
+      # name during unpack.  A file inside another store path has no such
+      # prefix, so give it a store path of its own.
+      fileSrc = builtins.path { path = src; };
+    in
     (epkgs.melpaBuild {
       inherit
         pname
         version
-        src
         packageRequires
         ;
+      src = fileSrc;
       turnCompilationWarningToError = true;
       preferLocalBuild = true;
       allowSubstitutes = false;
@@ -78,7 +86,7 @@ rec {
       elFiles = lib.filter (x: lib.hasSuffix ".el" x) allFiles;
       final = lib.listToAttrs (
         map (filepath: {
-          name = lib.removeSuffix ".el" (baseNameOf filepath);
+          name = lib.removeSuffix ".el" (builtins.unsafeDiscardStringContext (baseNameOf filepath));
           value = emacsMakeSingleFilePackage {
             src = filepath;
             epkgs = epkgs.overrideScope (_self: _super: final);

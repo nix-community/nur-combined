@@ -29,6 +29,13 @@
     inputs.treefmt-nix.follows = "treefmt-nix";
   };
 
+  # Private dotfiles tree.  my-build-env needs it, and the tree is not a
+  # flake, so it arrives as a plain source path.
+  inputs.dot = {
+    url = "github:nagy/dotfiles";
+    flake = false;
+  };
+
   # Inputs that modules used to fetch with builtins.getFlake.  Pinning them
   # here keeps evaluation offline and lets the modules get one nixpkgs.
   inputs.llm-agents = {
@@ -163,6 +170,7 @@
       treefmt-nix,
       nur,
       jsonrpc-httpproxy,
+      dot,
       ...
     }:
     let
@@ -216,7 +224,12 @@
       # It carries lib, modules, python3Packages, emacsPackages, my-build-env
       # and the package sets that are not plain derivations.
       legacyPackages.${system} = import ./. {
-        inherit pkgs jsonrpc-httpproxy flakes;
+        inherit
+          pkgs
+          jsonrpc-httpproxy
+          flakes
+          dot
+          ;
         nur = nurPkgs;
       };
 
