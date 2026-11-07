@@ -18,7 +18,7 @@
 | `cheatmd`    | Executable Markdown cheatsheets                                                                                                         | [cheatmd-dev/cheatmd](https://github.com/cheatmd-dev/cheatmd) | 2026-07-14 |
 | `operations` | CyberChef-like data transformations from the terminal                                                                                   | [sectui/operations](https://github.com/sectui/operations)     | 2026-11-03 |
 | `revshell`   | TUI to search, render and copy reverse shell one-liners: bind shells, MSFVenom, HoaxShell and shellcode included, with a scriptable CLI | [sectui/revshell](https://github.com/sectui/revshell)         | 2026-11-06 |
-| `steep`      | TUI to edit, replay and fuzz raw HTTP requests, powered by ffuf                                                                         | [sectui/steep](https://github.com/sectui/steep)               | 2026-11-06 |
+| `steep`      | TUI to edit, replay and fuzz raw HTTP requests, powered by ffuf                                                                         | [sectui/steep](https://github.com/sectui/steep)               | 2026-11-07 |
 
 <!-- PACKAGES:END -->
 
