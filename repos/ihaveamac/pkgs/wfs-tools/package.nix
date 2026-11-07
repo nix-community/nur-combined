@@ -7,11 +7,13 @@
   cmake,
   boost,
   cryptopp,
-  fuse,
+  #fuse,
   darwinMinVersionHook,
-  withFUSE ? !stdenv.hostPlatform.isWindows,
+  #withFUSE ? !stdenv.hostPlatform.isWindows,
+  withFUSE ? false, # currently not usable
 }:
 
+if withFUSE then throw "withFUSE cannot be used due to the removal of fuse_2 from nixpkgs" else
 let
   realCryptopp =
     if stdenv.hostPlatform.isWindows then
@@ -77,18 +79,18 @@ stdenv.mkDerivation rec {
     echo 'set(CMAKE_EXE_LINKER_FLAGS "''${CMAKE_EXE_LINKER_FLAGS} -lstdc++exp")' >> CMakeLists.txt
   '';
 
-  cmakeFlags = lib.optionals withFUSE (
-    if stdenv.hostPlatform.isDarwin then
-      [
-        (lib.cmakeFeature "FUSE_INCLUDE_DIR" "${fuse}/include")
-        (lib.cmakeFeature "FUSE_LIBRARIES" "/usr/local/lib/libfuse.2.dylib")
-      ]
-    else
-      [
-        (lib.cmakeFeature "FUSE_INCLUDE_DIR" "${fuse.dev}/include")
-        (lib.cmakeFeature "FUSE_LIBRARIES" "${fuse.out}/lib/libfuse${stdenv.hostPlatform.extensions.library}")
-      ]
-  );
+  #cmakeFlags = lib.optionals withFUSE (
+  #  if stdenv.hostPlatform.isDarwin then
+  #    [
+  #      (lib.cmakeFeature "FUSE_INCLUDE_DIR" "${fuse}/include")
+  #      (lib.cmakeFeature "FUSE_LIBRARIES" "/usr/local/lib/libfuse.2.dylib")
+  #    ]
+  #  else
+  #    [
+  #      (lib.cmakeFeature "FUSE_INCLUDE_DIR" "${fuse.dev}/include")
+  #      (lib.cmakeFeature "FUSE_LIBRARIES" "${fuse.out}/lib/libfuse${stdenv.hostPlatform.extensions.library}")
+  #    ]
+  #);
 
   installPhase = ''
     mkdir -p $out/bin
@@ -101,7 +103,7 @@ stdenv.mkDerivation rec {
     boost
     realCryptopp
   ]
-  ++ lib.optional withFUSE fuse
+  #++ lib.optional withFUSE fuse
   ++ lib.optional stdenv.hostPlatform.isDarwin (darwinMinVersionHook "13.3");
 
   nativeBuildInputs = [
