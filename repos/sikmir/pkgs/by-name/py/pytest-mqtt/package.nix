@@ -7,14 +7,14 @@
 
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pytest-mqtt";
-  version = "0.7.0";
+  version = "0.7.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "mqtt-tools";
     repo = "pytest-mqtt";
     tag = finalAttrs.version;
-    hash = "sha256-rrcJBb4aXflUeLaOjQaFeb8vV+dKuDtQdyDR80/yJJc=";
+    hash = "sha256-KP2agZcR+xplY8O9VpzJonyX53P7azM02rcG8MgCj4s=";
   };
 
   build-system = with python3Packages; [ setuptools ];
