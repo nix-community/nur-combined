@@ -9,17 +9,18 @@
   typing-extensions,
   textual,
   protobuf5,
+  flamegraph-textual,
   versionCheckHook,
 }:
 
 buildPythonApplication rec {
   pname = "flameshow";
-  version = "1.1.4";
+  version = "1.1.5";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-aJqrZeWMIymC8iWBMdL6DJpTY8U8sOaZDWZu8H7NTh0=";
+    hash = "sha256-K3qQczjQo/inHUa5BEnYYDYzR4RC0FqAbpBXan3llzI=";
   };
 
   nativeBuildInputs = [
@@ -32,6 +33,7 @@ buildPythonApplication rec {
     textual
     protobuf5
     iteround
+    flamegraph-textual
   ];
 
   pythonRelaxDeps = [

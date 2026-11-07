@@ -84,8 +84,6 @@ in
             (makeXpiPath nur.repos.rycee.firefox-addons.vimium)
             # "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi"
             (makeXpiPath nur.repos.rycee.firefox-addons.darkreader)
-            # "https://addons.mozilla.org/firefox/downloads/latest/old-reddit-redirect/latest.xpi"
-            (makeXpiPath nur.repos.rycee.firefox-addons.old-reddit-redirect)
             # # "https://addons.mozilla.org/firefox/downloads/latest/toggley/latest.xpi"
             # (makeXpiPath nur.repos.rycee.firefox-addons.toggley)
             # "https://github.com/pschmitt/bruvtab"

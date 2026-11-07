@@ -181,6 +181,7 @@ in
     # GitLab CLI
     GLAB_CHECK_UPDATE = "false";
     GLAB_SEND_TELEMETRY = "false";
+    GLAB_CONFIG_DIR = "/dev/null"; # Prevent config file creation
 
     # GitHub CLI
     GH_TELEMETRY = "false";
