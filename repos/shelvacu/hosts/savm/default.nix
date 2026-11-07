@@ -13,4 +13,8 @@
   vacuvmGuest.ip = "10.78.77.4";
   vacuvmGuest.publicIp = "205.201.63.132";
   vacuvmGuest.ipv6 = "2602:fce8:106:10::4";
+
+  vacu.packages = ''
+    nodejs
+  '';
 }
