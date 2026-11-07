@@ -25,6 +25,13 @@ let
       repo.emacsPackages # add all packages from this repository
       // {
 
+        tired =
+          (flakes.tired or (builtins.getFlake "github:nagy/tired"))
+          .packages.${pkgs.stdenv.hostPlatform.system}.default.override
+            {
+              emacs = self.emacs;
+            };
+
         bruvtab =
           (flakes.emacs-bruvtab or (builtins.getFlake "github:nagy/emacs-bruvtab"))
           .packages.${pkgs.stdenv.hostPlatform.system}.bruvtab;
@@ -106,6 +113,13 @@ let
         openrpc-mode =
           (flakes.emacs-openrpc-mode or (builtins.getFlake "github:nagy/emacs-openrpc-mode"))
           .packages.${pkgs.stdenv.hostPlatform.system}.openrpc-mode;
+
+        map-extras =
+          (flakes.emacs-map-extras or (builtins.getFlake "github:nagy/emacs-map-extras"))
+          .packages.${pkgs.stdenv.hostPlatform.system}.map-extras.override
+            {
+              emacs = self.emacs;
+            };
 
         magit = super.magit.overrideAttrs (
           {

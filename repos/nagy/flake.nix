@@ -26,6 +26,7 @@
   inputs.jsonrpc-httpproxy = {
     url = "github:nagy/jsonrpc-httpproxy";
     inputs.nixpkgs.follows = "nixpkgs";
+    inputs.treefmt-nix.follows = "treefmt-nix";
   };
 
   # Inputs that modules used to fetch with builtins.getFlake.  Pinning them
@@ -33,6 +34,7 @@
   inputs.llm-agents = {
     url = "github:numtide/llm-agents.nix";
     inputs.nixpkgs.follows = "nixpkgs";
+    inputs.treefmt-nix.follows = "treefmt-nix";
   };
 
   inputs.bruvtab = {
@@ -48,31 +50,37 @@
   inputs.emacs-buffer-url = {
     url = "github:nagy/emacs-buffer-url";
     inputs.nixpkgs.follows = "nixpkgs";
+    inputs.treefmt-nix.follows = "treefmt-nix";
   };
 
   inputs.emacs-git-bug = {
     url = "github:nagy/emacs-git-bug";
     inputs.nixpkgs.follows = "nixpkgs";
+    inputs.treefmt-nix.follows = "treefmt-nix";
   };
 
   inputs.emacs-openstack-modes = {
     url = "github:nagy/emacs-openstack-modes";
     inputs.nixpkgs.follows = "nixpkgs";
+    inputs.treefmt-nix.follows = "treefmt-nix";
   };
 
   inputs.emacs-gitlab-modes = {
     url = "github:nagy/emacs-gitlab-modes";
     inputs.nixpkgs.follows = "nixpkgs";
+    inputs.treefmt-nix.follows = "treefmt-nix";
   };
 
   inputs.emacs-network-modes = {
     url = "github:nagy/emacs-network-modes";
     inputs.nixpkgs.follows = "nixpkgs";
+    inputs.treefmt-nix.follows = "treefmt-nix";
   };
 
   inputs.org-jxl-images = {
     url = "github:nagy/org-jxl-images.el";
     inputs.nixpkgs.follows = "nixpkgs";
+    inputs.treefmt-nix.follows = "treefmt-nix";
   };
 
   inputs.yublin = {
@@ -88,6 +96,7 @@
   inputs.gguf = {
     url = "github:nagy/gguf.el";
     inputs.nixpkgs.follows = "nixpkgs";
+    inputs.treefmt-nix.follows = "treefmt-nix";
   };
 
   inputs.crate = {
@@ -98,6 +107,7 @@
   inputs.derivation = {
     url = "github:nagy/derivation.el";
     inputs.nixpkgs.follows = "nixpkgs";
+    inputs.treefmt-nix.follows = "treefmt-nix";
   };
 
   inputs.toml-ts-cargo-mode = {
@@ -108,11 +118,13 @@
   inputs.emacs-ron-ts-mode = {
     url = "github:nagy/emacs-ron-ts-mode";
     inputs.nixpkgs.follows = "nixpkgs";
+    inputs.treefmt-nix.follows = "treefmt-nix";
   };
 
   inputs.emacs-openrpc-mode = {
     url = "github:nagy/emacs-openrpc-mode";
     inputs.nixpkgs.follows = "nixpkgs";
+    inputs.treefmt-nix.follows = "treefmt-nix";
   };
 
   inputs.emacs-ipfs-modes = {
@@ -120,14 +132,28 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
+  inputs.emacs-map-extras = {
+    url = "github:nagy/emacs-map-extras";
+    inputs.nixpkgs.follows = "nixpkgs";
+    inputs.treefmt-nix.follows = "treefmt-nix";
+  };
+
   inputs.emacs-ctags-mode = {
     url = "github:nagy/emacs-ctags-mode";
     inputs.nixpkgs.follows = "nixpkgs";
+    inputs.treefmt-nix.follows = "treefmt-nix";
   };
 
   inputs.nixos-el = {
     url = "github:nagy/nixos.el";
     inputs.nixpkgs.follows = "nixpkgs";
+    inputs.treefmt-nix.follows = "treefmt-nix";
+  };
+
+  inputs.tired = {
+    url = "github:nagy/tired";
+    inputs.nixpkgs.follows = "nixpkgs";
+    inputs.treefmt-nix.follows = "treefmt-nix";
   };
 
   outputs =
