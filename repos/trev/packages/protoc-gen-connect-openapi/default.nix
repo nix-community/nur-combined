@@ -10,13 +10,13 @@
 
 buildGoModule (finalAttrs: {
   pname = "protoc-gen-connect-openapi";
-  version = "0.29.0";
+  version = "0.30.0";
 
   src = fetchFromGitHub {
     owner = "sudorandom";
     repo = "protoc-gen-connect-openapi";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-rfrbdbgKb+ON16qD1+FgcyDqOVSOEDyNUhZ5PrYXfAY=";
+    hash = "sha256-mBWG8KWaiV6ZleRktUTVuvS/+cOv6txsY+6oGDe1dHY=";
   };
 
   # vacuum is upstream's linter, and its html-report embeds built files that
@@ -55,7 +55,7 @@ buildGoModule (finalAttrs: {
     dontFixup = true;
 
     outputHashMode = "flat";
-    outputHash = "sha256-Q7lYL1eMIwj+dC8Xb3S/AP3QCf/CYBSkWCNU11h0FTA=";
+    outputHash = "sha256-FA3fCFoUrZ+1Omw6ZdyHeszYdE3Vkrf+38YOhZgb9RE=";
   };
 
   passthru.updateScript = nix-update-script {
