@@ -39,6 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/geoflow3d/gfp-las";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
+    broken = true;
     skip.ci = true;
   };
 })

@@ -37,5 +37,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/geoflow3d/gfp-basic3d";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
+    broken = true;
   };
 })
