@@ -6,23 +6,23 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "0.16.1",
+  "version": "0.17.0",
   "platforms": {
     "aarch64-darwin": {
       "file": "gridcraft-{version}-macos-universal.dmg",
-      "hash": "sha256-9zXqAaif7O75TuvCU0V6+ywUY+334Kc1FlHAdaD+y4E="
+      "hash": "sha256-NbpgbkSNv14Q25UINUWTRopO850pdkThLBeeVbcv8Kc="
     },
     "x86_64-darwin": {
       "file": "gridcraft-{version}-macos-universal.dmg",
-      "hash": "sha256-9zXqAaif7O75TuvCU0V6+ywUY+334Kc1FlHAdaD+y4E="
+      "hash": "sha256-NbpgbkSNv14Q25UINUWTRopO850pdkThLBeeVbcv8Kc="
     },
     "x86_64-linux": {
       "file": "gridcraft-{version}-linux-x86_64.AppImage",
-      "hash": "sha256-l7atP75HHS3pTeqqfbMSYko53WPl7h679rOFY9Yqrlc="
+      "hash": "sha256-BFXIY1NYItlRoakf3ujdApNp4PL5P3rJnEkW73Cod2E="
     },
     "aarch64-linux": {
       "file": "gridcraft-{version}-linux-aarch64.AppImage",
-      "hash": "sha256-OyQci6YIwDVSeAWAIFLtADUDrRFQFmjLfCgkrWGdN6I="
+      "hash": "sha256-6HdR0GdocCUorMTo79ufynRzYqasFyi5FzXItq711Uw="
     }
   }
 }

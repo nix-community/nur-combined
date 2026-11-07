@@ -10,6 +10,6 @@
     "file": "OrcaSlicer_Mac_universal_V{version}.dmg",
     "unpack": false
   },
-  "version": "2.4.2",
-  "hash": "sha256-4V57sbZiFOxulrFps4gAQXnE9fcF7/za+MgNSZLuA2Y="
+  "version": "2.5.0",
+  "hash": "sha256-Bh4Mb/EEw3ZVyDGQclrCQglg8jw5tWqum1RubFQpldU="
 }
