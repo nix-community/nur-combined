@@ -108,22 +108,22 @@
   };
   nexus-media = {
     pname = "nexus-media";
-    version = "v5.8.1";
+    version = "v5.9.3";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media";
-      tag = "v5.8.1";
-      hash = "sha256-0K0U4sUwhdvljbljAYVxqg+agxvcZiva6l8zaWbeGaA=";
+      tag = "v5.9.3";
+      hash = "sha256-D5Pds46PQM4qB+SwPvFuua8d7Yqq7FC15D88T0Bd3hI=";
     };
   };
   nexus-media-web = {
     pname = "nexus-media-web";
-    version = "v5.8.1";
+    version = "v5.9.3";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media-web";
-      tag = "v5.8.1";
-      hash = "sha256-9sikunWMpZaYl5oSHQLKVAFYUfxUbNLm3ahJtW1G+E8=";
+      tag = "v5.9.3";
+      hash = "sha256-L0HLTRsigRQGdhASeeUNluDKf/CK2EbtMfBqo9EPCr4=";
     };
   };
   pinyin2hanzi = {
@@ -154,10 +154,10 @@
   };
   qingjian = {
     pname = "qingjian";
-    version = "0.3.2";
+    version = "0.3.3";
     src = fetchurl {
-      url = "https://github.com/qingjian-team/qingjian/releases/download/v0.3.2/qingjian-0.3.2-linux-x86_64.tar.gz";
-      hash = "sha256-+sj8b/0g7v+yvheXjWiR7ltENsiODz6UREPI0K4LTdY=";
+      url = "https://github.com/qingjian-team/qingjian/releases/download/v0.3.3/qingjian-0.3.3-linux-x86_64.tar.gz";
+      hash = "sha256-tu7veMdER4jIchTkDWcOiFUauVWO0npiYKShSRBVL+Q=";
     };
   };
   sublinkpro-linux-amd64 = {
