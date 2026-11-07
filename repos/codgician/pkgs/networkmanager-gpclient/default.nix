@@ -1,6 +1,7 @@
 {
   lib,
   stdenv,
+  callPackage,
   fetchFromGitHub,
   nix-update-script,
   cmake,
@@ -9,7 +10,6 @@
   wrapGAppsHook3,
   gobject-introspection,
   python3,
-  gpclient,
   glib,
   gtk3,
   gtk4,
@@ -27,6 +27,15 @@
   bash,
 }:
 let
+  src = fetchFromGitHub {
+    owner = "WMP";
+    repo = "GlobalProtect-SAML-NetworkManager";
+    rev = "e696aec22b057e98c7937c927dea098b51d66836";
+    hash = "sha256-+fXd79V9hAC9u4M3NB4BbS3NoMptNjGtqY0eieRj3I0=";
+    # external/GlobalProtect-openconnect: the gpclient the service is written for
+    fetchSubmodules = true;
+  };
+  gpclient = callPackage ./gpclient.nix { inherit src; };
   python = python3.withPackages (ps: [
     ps.sdbus
     ps.pygobject3
@@ -51,12 +60,7 @@ stdenv.mkDerivation {
   pname = "networkmanager-gpclient";
   version = "1.5.0-unstable-2026-10-29";
 
-  src = fetchFromGitHub {
-    owner = "WMP";
-    repo = "GlobalProtect-SAML-NetworkManager";
-    rev = "e696aec22b057e98c7937c927dea098b51d66836";
-    hash = "sha256-Md7MxpfEuuKMsB9d7Cao3VLn6ssHuQAmGkVrOFeqE6o=";
-  };
+  inherit src;
 
   nativeBuildInputs = [
     cmake
@@ -92,7 +96,8 @@ stdenv.mkDerivation {
       --replace-fail /usr/bin/gpclient ${gpclient}/bin/gpclient \
       --replace-fail /usr/libexec/gpclient/browser-wrapper "$out/libexec/gpclient/browser-wrapper" \
       --replace-fail /usr/libexec/gpclient/edge-wrapper "$out/libexec/gpclient/edge-wrapper" \
-      --replace-fail /usr/bin/microsoft-edge /run/current-system/sw/bin/microsoft-edge
+      --replace-fail /usr/bin/microsoft-edge /run/current-system/sw/bin/microsoft-edge \
+      --replace-fail /usr/lib/NetworkManager/gpclient-nm-script "$out/lib/NetworkManager/gpclient-nm-script"
     substituteInPlace auth-dialog/nm-gpclient-auth-dialog.py \
       --replace-fail '#!/usr/bin/env python3' '#!${python}/bin/python3'
     substituteInPlace scripts/browser-wrapper.sh \
@@ -130,6 +135,8 @@ stdenv.mkDerivation {
     install -Dm755 scripts/browser-wrapper.sh "$out/libexec/gpclient/browser-wrapper"
     install -Dm755 scripts/edge-wrapper.sh "$out/libexec/gpclient/edge-wrapper"
     install -Dm755 config/90-gpclient-routing "$out/libexec/gpclient/90-gpclient-routing"
+    install -Dm755 config/gpclient-nm-notify "$out/libexec/gpclient/90-gpclient-notify"
+    install -Dm755 config/gpclient-nm-script "$out/lib/NetworkManager/gpclient-nm-script"
     install -Dm644 config/nm-gpclient.conf "$out/share/dbus-1/system.d/nm-gpclient.conf"
     install -Dm644 plugins/gnome/nm-gpclient-service.name "$out/lib/NetworkManager/VPN/nm-gpclient-service.name"
     install -m644 plugins/gnome/*.so "$out/lib/NetworkManager/"
@@ -183,12 +190,18 @@ stdenv.mkDerivation {
         # Upstream also publishes pr-N releases; keep a numeric version prefix.
         "--version-regex"
         "v?([0-9]+[.][0-9]+[.][0-9]+-unstable-.*)"
+        # cargoHash of the bundled gpclient follows the submodule.
+        "--subpackage"
+        "gpclient"
       ];
     };
 
     networkManagerPlugin = "VPN/nm-gpclient-service.name";
     plasmaPlugin = "${pluginDir}/plasmanetworkmanagement_gpclientui.so";
+    # vpnc-script hooks: routing for connect.d and disconnect.d; notify, which
+    # reports the configured tunnel to the service, for post-connect.d and reconnect.d.
     routingHook = "libexec/gpclient/90-gpclient-routing";
+    notifyHook = "libexec/gpclient/90-gpclient-notify";
     inherit gpclient;
   };
 
