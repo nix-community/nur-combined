@@ -74,12 +74,18 @@ in
     services.dbus.packages = [ cfg.package ];
     systemd.packages = [ cfg.package ];
     systemd.user.services = {
-      "xyz.iinuwa.credentialsd.Credentials".wantedBy = [ "default.target" ];
-      "xyz.iinuwa.credentialsd.UiControl".wantedBy = [ "default.target" ];
       xdg-desktop-portal = {
         environment.XDG_DESKTOP_PORTAL_ENABLE_EXPERIMENTAL = "Credential";
-        # An empty path stops NixOS from replacing the session PATH, which the
-        # portal needs to launch applications by their bare Exec= names.
+        # Stops NixOS from replacing the session PATH.
+        # GLib uses that PATH to resolve desktop files among other things.
+        path = lib.mkForce [ ];
+      };
+      "xyz.iinuwa.credentialsd.Credentials" = {
+        wantedBy = [ "default.target" ];
+        path = lib.mkForce [ ];
+      };
+      "xyz.iinuwa.credentialsd.UiControl" = {
+        wantedBy = [ "default.target" ];
         path = lib.mkForce [ ];
       };
     };
@@ -89,9 +95,6 @@ in
     xdg.portal = {
       enable = true;
       extraPortals = [ cfg.package ];
-      # The portal merges every config it finds, so this adds to the desktop's
-      # own defaults. A desktop-specific xdg.portal.config.<desktop> takes this
-      # file's place, and then needs this key as well.
       config.common."org.freedesktop.impl.portal.experimental.Credential" = "credentialsd";
     };
 

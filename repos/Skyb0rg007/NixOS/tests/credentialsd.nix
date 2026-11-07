@@ -78,12 +78,15 @@
           timeout=60,
       )
 
-    with subtest("the portal keeps the session PATH"):
-      pid = machine.succeed(
-          alice("systemctl --user show -P MainPID xdg-desktop-portal.service")
-      ).strip()
-      machine.succeed(
-          f"xargs -0 -n1 < /proc/{pid}/environ | grep -E '^PATH=.*/run/current-system/sw/bin'"
-      )
+    with subtest("services keep the session PATH"):
+      for unit in [
+          "xdg-desktop-portal.service",
+          "xyz.iinuwa.credentialsd.Credentials.service",
+          "xyz.iinuwa.credentialsd.UiControl.service",
+      ]:
+          pid = machine.succeed(alice(f"systemctl --user show -P MainPID {unit}")).strip()
+          machine.succeed(
+              f"xargs -0 -n1 < /proc/{pid}/environ | grep -E '^PATH=.*/run/current-system/sw/bin'"
+          )
   '';
 }
