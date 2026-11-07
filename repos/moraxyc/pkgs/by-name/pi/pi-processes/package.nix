@@ -27,7 +27,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     pnpm = pnpm_11;
     fetcherVersion = 5;
     pnpmInstallFlags = finalAttrs.pnpmInstallFlags;
-    hash = "sha256-D3OBzrOI6P95Qme3w/2cHtxqS6QAdnrJEyhEIwWVW+8=";
+    hash = "sha256-lEOEUBU8qdkkjWzqBzIwRS225b5g9BzrbN9YfL4OZKg=";
   };
   # Pi supplies the optional peer dependencies of the utility packages.
   pnpmInstallFlags = [
