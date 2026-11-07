@@ -26,7 +26,7 @@ in
       (lib.concatStringsSep "\n")
     ]}
     fi
-    if [[ -z path ]]; then
+    if [[ -z $path ]]; then
       svl_eprintln "unrecognized alias $base"
       return 1
     fi
@@ -49,6 +49,10 @@ in
     # keep-sorted start
     bb = "~/dev/beatblock-as-src";
     bbd = "~/dev/beatblock-dissection";
+    bbm = "~/dev/beatblock-mods";
+    c = "~/dev/colin-nix-files";
+    cnf = c;
+    cns = c;
     d = "~/dev";
     dev = d;
     gg = "~/dev/gallerygrab";
