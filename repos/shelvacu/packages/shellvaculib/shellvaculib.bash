@@ -592,53 +592,30 @@ svl_expand_into() {
   if [[ $1 == _shellvaculib_svl_expand_into__* ]]; then
     svl_throw_skip 1 "bad var name"
   fi
-  declare -A _shellvaculib_svl_expand_into__shopt_new_values=(
-    [dotglob]=set
-    [extglob]=set
-    [failglob]=unset
-    [globasciiranges]=set
-    [globskipdots]=set
-    [globstar]=set
-    [nocaseglob]=unset
-    [nocasematch]=unset
-    [nullglob]=set
+  declare -a _shellvaculib_svl_expand_into__shopt_set=(
+    dotglob
+    extglob
+    globasiiranges
+    globskipdots
+    globstar
+    nullglob
   )
-  declare -a _shellvaculib_svl_expand_into__shopt_will_set=() _shellvaculib_svl_expand_into__shopt_will_unset=()
-  declare _shellvaculib_svl_expand_into__shopt_name
-  for _shellvaculib_svl_expand_into__shopt_name in "${!_shellvaculib_svl_expand_into__shopt_new_values[@]}"; do
-    declare _shellvaculib_svl_expand_into__old_value
-    if shopt -q "$_shellvaculib_svl_expand_into__shopt_name"; then
-      _shellvaculib_svl_expand_into__old_value="set"
-    else
-      _shellvaculib_svl_expand_into__old_value="unset"
-    fi
-    declare _shellvaculib_svl_expand_into__new_value="${_shellvaculib_svl_expand_into__shopt_new_values["$_shellvaculib_svl_expand_into__shopt_name"]}"
-    if [[ $_shellvaculib_svl_expand_into__old_value == "$_shellvaculib_svl_expand_into__new_value" ]]; then
-      continue
-    elif [[ $_shellvaculib_svl_expand_into__new_value == set ]]; then
-      _shellvaculib_svl_expand_into__shopt_will_set+=("$_shellvaculib_svl_expand_into__shopt_name")
-    elif [[ $_shellvaculib_svl_expand_into__new_value == unset ]]; then
-      _shellvaculib_svl_expand_into__shopt_will_unset+=("$_shellvaculib_svl_expand_into__shopt_name")
-    else
-      svl_throw "this shouldn't be possible"
-    fi
-  done
-  if [[ ${#_shellvaculib_svl_expand_into__shopt_will_set[@]} != 0 ]]; then
-    shopt -s "${_shellvaculib_svl_expand_into__shopt_will_set[@]}"
-  fi
-  if [[ ${#_shellvaculib_svl_expand_into__shopt_will_unset[@]} != 0 ]]; then
-    shopt -u "${_shellvaculib_svl_expand_into__shopt_will_unset[@]}"
-  fi
+  declare -a _shellvaculib_svl_expand_into__shopt_unset=(
+    failglob
+    nocaseglob
+    nocasematch
+  )
+  declare _shellvaculib_svl_expand_into__shopt_restore=""
+  _shellvaculib_svl_expand_into__shopt_restore=$(shopt -p "${_shellvaculib_svl_expand_into__shopt_set[@]}" "${_shellvaculib_svl_expand_into__shopt_unset[@]}")
+  shopt -s "${_shellvaculib_svl_expand_into__shopt_set[@]}"
+  shopt -u "${_shellvaculib_svl_expand_into__shopt_unset[@]}"
+
+  declare -i _shellvaculib_svl_expand_into__inner_return=0
   # intentional expansion of arg
   # shellcheck disable=SC2086
-  svl_args_into "$1" $2
-  # inverse of what we did above, to put things back as they were
-  if [[ ${#_shellvaculib_svl_expand_into__shopt_will_set[@]} != 0 ]]; then
-    shopt -u "${_shellvaculib_svl_expand_into__shopt_will_set[@]}"
-  fi
-  if [[ ${#_shellvaculib_svl_expand_into__shopt_will_unset[@]} != 0 ]]; then
-    shopt -s "${_shellvaculib_svl_expand_into__shopt_will_unset[@]}"
-  fi
+  svl_args_into "$1" $2 || _shellvaculib_svl_expand_into__inner_return=$?
+  eval "$_shellvaculib_svl_expand_into__shopt_restore"
+  return $_shellvaculib_svl_expand_into__inner_return
 }
 
 # svl_count_matches {pattern}
