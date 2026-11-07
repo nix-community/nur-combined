@@ -30,7 +30,6 @@ buildGoModule (finalAttrs: {
   doCheck = false;
 
   postInstall = ''
-    mv $out/bin/{app,revdiff}
     installShellCompletion completions/*
   '';
 
