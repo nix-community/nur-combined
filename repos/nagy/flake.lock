@@ -359,6 +359,22 @@
         "type": "github"
       }
     },
+    "emacs-overlay": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1794064472,
+        "narHash": "sha256-wJkTDCVqMP/Dmc6Z5c/Voh/w2A7EjTfKClIz0MmXhrs=",
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "rev": "524e43e92fa90d59c67c6e9c63bd3ee38fc825a7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "emacs-overlay",
+        "type": "github"
+      }
+    },
     "emacs-ron-ts-mode": {
       "inputs": {
         "flake-parts": "flake-parts_12",
@@ -1433,6 +1449,7 @@
         "emacs-network-modes": "emacs-network-modes",
         "emacs-openrpc-mode": "emacs-openrpc-mode",
         "emacs-openstack-modes": "emacs-openstack-modes",
+        "emacs-overlay": "emacs-overlay",
         "emacs-ron-ts-mode": "emacs-ron-ts-mode",
         "gguf": "gguf",
         "go-mod-ts-extras-mode": "go-mod-ts-extras-mode",

@@ -1,6 +1,7 @@
 {
   pkgs,
   lib ? pkgs.lib,
+  flakes ? { },
 }:
 
 let
@@ -8,6 +9,7 @@ let
   config =
     (nixosEval {
       system = pkgs.stdenv.hostPlatform.system;
+      specialArgs = { inherit flakes; };
       modules = [
         ../modules/typst.nix
         ../modules/emacs.nix

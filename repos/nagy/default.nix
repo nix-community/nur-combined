@@ -71,12 +71,12 @@ packages
   );
 
   systemBuilder = import <nixpkgs/nixos/lib/eval-config.nix> {
-    specialArgs = { inherit nur; };
+    specialArgs = { inherit nur flakes; };
     modules = [ <nixos-config> ];
   };
 
   systemBuilderLiveCD = import <nixpkgs/nixos/lib/eval-config.nix> {
-    specialArgs = { inherit nur; };
+    specialArgs = { inherit nur flakes; };
     modules = [
       (
         { modulesPath, ... }:

@@ -15,6 +15,14 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
+  # Plain source tree, not a flake.  modules/emacs.nix imports it as an
+  # overlay with `import inputs.emacs-overlay`.  Tracks upstream master;
+  # flake.lock pins the revision.
+  inputs.emacs-overlay = {
+    url = "github:nix-community/emacs-overlay";
+    flake = false;
+  };
+
   inputs.jsonrpc-httpproxy = {
     url = "github:nagy/jsonrpc-httpproxy";
     inputs.nixpkgs.follows = "nixpkgs";
