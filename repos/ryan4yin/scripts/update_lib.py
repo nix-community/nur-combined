@@ -13,6 +13,7 @@ import os
 import re
 import subprocess
 import tempfile
+import uuid
 from pathlib import Path
 from typing import Any
 from urllib.request import Request, urlopen
@@ -26,6 +27,24 @@ def run(cmd: list[str], **kwargs: Any) -> subprocess.CompletedProcess[str]:
     """Run a command with text I/O; never raises unless check=True."""
     kwargs.setdefault("text", True)
     return subprocess.run(cmd, **kwargs)
+
+
+def write_output(key: str, value: str) -> None:
+    """Append a step output to GITHUB_OUTPUT, or print it locally.
+
+    Multi-line values use the heredoc form GitHub Actions requires.
+    """
+    if "\n" in value:
+        delimiter = f"EOF_{uuid.uuid4().hex}"
+        entry = f"{key}<<{delimiter}\n{value}\n{delimiter}\n"
+    else:
+        entry = f"{key}={value}\n"
+    path = os.environ.get("GITHUB_OUTPUT")
+    if path:
+        with open(path, "a") as handle:
+            handle.write(entry)
+    else:
+        print(entry, end="")
 
 
 def read_json(path: Path) -> dict[str, Any]:

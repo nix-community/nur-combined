@@ -70,7 +70,9 @@ Run an updater locally from the repository root:
     nix run .#dsh.updateScript
 
 Discovery treats any package exposing updateScript as updatable, so new
-packages are picked up automatically.
+packages are picked up automatically. Set meta.changelog to the version's
+GitHub release tag page (`https://github.com/<owner>/<repo>/releases/tag/<tag>`)
+so update PRs link the release and a compare view against the previous tag.
 
 Both workflows use the default GITHUB_TOKEN, so they need write access to the
 repository contents: Settings -> Actions -> General -> Workflow permissions ->

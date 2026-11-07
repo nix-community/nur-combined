@@ -14,7 +14,10 @@ import os
 import subprocess
 from pathlib import Path
 
-# Only packages that expose an updater are candidates.
+from update_lib import write_output
+
+# Only packages that expose an updater are candidates. The changelog is
+# recorded before updating so the PR can link a diff from the old release.
 NIX_EXPR = """
 pkgs:
 builtins.listToAttrs
@@ -22,26 +25,21 @@ builtins.listToAttrs
     (name:
       let pkg = pkgs.${name}; in
       if pkg ? updateScript
-      then [ { inherit name; value = pkg.version; } ]
+      then [ {
+        inherit name;
+        value = {
+          inherit (pkg) version;
+          changelog = pkg.meta.changelog or "";
+        };
+      } ]
       else [ ])
     (builtins.attrNames
       (builtins.removeAttrs pkgs [ "lib" "modules" "overlays" ])))
 """
 
 
-def write_output(key: str, value: str) -> None:
-    """Append a key=value pair to GITHUB_OUTPUT, or print it locally."""
-    path = os.environ.get("GITHUB_OUTPUT")
-    line = f"{key}={value}\n"
-    if path:
-        with open(path, "a") as handle:
-            handle.write(line)
-    else:
-        print(line, end="")
-
-
-def package_versions(system: str) -> dict[str, str]:
-    """Map package name -> version for every package with an updateScript."""
+def package_versions(system: str) -> dict[str, dict[str, str]]:
+    """Map package name -> {version, changelog} for every updatable package."""
     result = subprocess.run(
         [
             "nix",
@@ -79,8 +77,8 @@ def main() -> None:
     items: list[dict[str, str]] = []
     if wanted("package"):
         items += [
-            {"type": "package", "name": name, "version": version}
-            for name, version in sorted(package_versions(system).items())
+            {"type": "package", "name": name, **info}
+            for name, info in sorted(package_versions(system).items())
             if not packages_filter or name in packages_filter
         ]
     if wanted("flake-input"):

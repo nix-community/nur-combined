@@ -50,6 +50,7 @@ stdenv.mkDerivation {
   meta = {
     description = "MCP server and CLI to control a Linux desktop";
     homepage = "https://github.com/agent-sh/computer-use-linux";
+    changelog = "https://github.com/agent-sh/computer-use-linux/releases/tag/v${version}";
     license = lib.licenses.mit;
     platforms = [
       "x86_64-linux"

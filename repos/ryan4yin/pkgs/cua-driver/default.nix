@@ -49,6 +49,7 @@ stdenv.mkDerivation {
   meta = {
     description = "Desktop-automation driver for computer-use agents (MCP/CLI)";
     homepage = "https://github.com/trycua/cua";
+    changelog = "https://github.com/trycua/cua/releases/tag/cua-driver-rs-v${version}";
     license = lib.licenses.mit;
     platforms = [ "x86_64-linux" ];
     mainProgram = "cua-driver";

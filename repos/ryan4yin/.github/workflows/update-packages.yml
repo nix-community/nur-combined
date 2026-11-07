@@ -68,10 +68,8 @@ jobs:
         env:
           NAME: ${{ matrix.name }}
           OLD_VERSION: ${{ matrix.version }}
-        run: |
-          new=$(nix eval --raw ".#packages.x86_64-linux.$NAME.version")
-          echo "title=$NAME: $OLD_VERSION -> $new" >> "$GITHUB_OUTPUT"
-          echo "commit=chore($NAME): update to $new" >> "$GITHUB_OUTPUT"
+          OLD_CHANGELOG: ${{ matrix.changelog }}
+        run: python3 scripts/pr_metadata.py
       - name: Create or update pull request
         uses: peter-evans/create-pull-request@v8
         with:
@@ -81,7 +79,4 @@ jobs:
           labels: dependencies,automated
           title: ${{ steps.pr.outputs.title }}
           commit-message: ${{ steps.pr.outputs.commit }}
-          body: |
-            Automated update from .github/workflows/update-packages.yml.
-
-            - package: ${{ matrix.name }}
+          body: ${{ steps.pr.outputs.body }}

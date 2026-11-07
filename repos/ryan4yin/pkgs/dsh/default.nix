@@ -161,7 +161,7 @@ let
     meta = {
       description = "Open-source agent harness developed by DeepSeek AI";
       homepage = "https://github.com/deepseek-ai/deepseek-harness";
-      changelog = "https://github.com/deepseek-ai/deepseek-harness/releases";
+      changelog = "https://github.com/deepseek-ai/deepseek-harness/releases/tag/dsh-v${version}";
       downloadPage = "https://www.npmjs.com/package/@deepseek-ai/dsh";
       license = lib.licenses.mit;
       sourceProvenance = with lib.sourceTypes; [
