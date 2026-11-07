@@ -2,6 +2,8 @@
   lib,
   rustPlatform,
   fetchCrate,
+  pkg-config,
+  aws-lc,
   nix-update-script,
   callPackage,
 }:
@@ -20,6 +22,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
   postPatch = ''
     cp ${./Cargo.lock} Cargo.lock
   '';
+
+  nativeBuildInputs = [
+    pkg-config
+  ];
+
+  buildInputs = [
+    aws-lc
+  ];
 
   doCheck = false;
 
