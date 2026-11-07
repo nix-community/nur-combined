@@ -7,6 +7,7 @@
 let
   cfg = config.services.credentialsd;
 
+  firefoxExtensionId = "credentialsd-helper@iinuwa.xyz";
   nativeMessagingHostName = "xyz.iinuwa.credentialsd_helper";
   nativeMessagingHostFile = "${nativeMessagingHostName}.json";
   chromiumNativeMessagingHost = pkgs.writeText "credentialsd-chromium-native-messaging-host.json" (
@@ -25,11 +26,26 @@ in
 
     package = lib.mkPackageOption pkgs "credentialsd" { };
 
+    portalPackage = lib.mkPackageOption pkgs "xdg-desktop-portal-HEAD" {
+      extraDescription = ''
+        It must provide the experimental Credential portal, which no
+        xdg-desktop-portal release has yet. This replaces
+        `pkgs.xdg-desktop-portal` for the whole system.
+      '';
+    };
+
     browserIntegration = {
       firefox.enable = lib.mkOption {
         type = lib.types.bool;
         default = true;
-        description = "Whether to configure the Firefox native messaging host.";
+        description = ''
+          Whether to configure the Firefox native messaging host and
+          force-install the credentialsd add-on.
+
+          The add-on is unsigned, so it only installs in Firefox builds that
+          honor `xpinstall.signatures.required = false`, such as Developer
+          Edition and Nightly, in profiles with that preference set.
+        '';
       };
 
       chrome = {
@@ -60,13 +76,32 @@ in
     systemd.user.services = {
       "xyz.iinuwa.credentialsd.Credentials".wantedBy = [ "default.target" ];
       "xyz.iinuwa.credentialsd.UiControl".wantedBy = [ "default.target" ];
+      xdg-desktop-portal = {
+        environment.XDG_DESKTOP_PORTAL_ENABLE_EXPERIMENTAL = "Credential";
+        # An empty path stops NixOS from replacing the session PATH, which the
+        # portal needs to launch applications by their bare Exec= names.
+        path = lib.mkForce [ ];
+      };
     };
 
-    xdg.portal.extraPortals = [ cfg.package ];
+    nixpkgs.overlays = [ (_: _: { xdg-desktop-portal = cfg.portalPackage; }) ];
 
-    programs.firefox.nativeMessagingHosts.packages = lib.mkIf cfg.browserIntegration.firefox.enable [
-      cfg.package
-    ];
+    xdg.portal = {
+      enable = true;
+      extraPortals = [ cfg.package ];
+      # The portal merges every config it finds, so this adds to the desktop's
+      # own defaults. A desktop-specific xdg.portal.config.<desktop> takes this
+      # file's place, and then needs this key as well.
+      config.common."org.freedesktop.impl.portal.experimental.Credential" = "credentialsd";
+    };
+
+    programs.firefox = lib.mkIf cfg.browserIntegration.firefox.enable {
+      nativeMessagingHosts.packages = [ cfg.package ];
+      policies.ExtensionSettings.${firefoxExtensionId} = {
+        installation_mode = "force_installed";
+        install_url = "file://${cfg.package}/share/credentialsd/credentialsd-firefox-helper.xpi";
+      };
+    };
 
     environment.etc =
       lib.mkIf

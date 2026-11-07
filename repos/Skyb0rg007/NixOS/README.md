@@ -1,6 +1,6 @@
 # Packages
 
-Generated from 92 packages.
+Generated from 93 packages.
 
 ## `ambient-build-vm`
 
@@ -702,6 +702,14 @@ Generated from 92 packages.
 - **Description:** Open-source voice cloning, voice design, dubbing and transcription studio
 - **Homepage:** [https://github.com/debpalash/VoiceStudio](https://github.com/debpalash/VoiceStudio)
 - **License:** AGPL-3.0-only
+
+## `xdg-desktop-portal-HEAD`
+
+- **Package name:** xdg-desktop-portal-HEAD
+- **Version:** 1.22.1-unstable-2026-11-06
+- **Description:** Desktop integration portals for sandboxed apps, built from git main
+- **Homepage:** [https://flatpak.github.io/xdg-desktop-portal](https://flatpak.github.io/xdg-desktop-portal)
+- **License:** LGPL-2.0-or-later
 
 # Broken Packages
 

@@ -1,6 +1,6 @@
 {
   name = "credentialsd";
-  meta.timeout = 120;
+  meta.timeout = 300;
 
   nodes.machine =
     { config, lib, ... }:
@@ -12,21 +12,22 @@
         ];
       };
 
-      # `/share/xdg-desktop-portal` is only linked into the system path when
-      # the portal module is enabled, so exercise the portal registration here.
-      xdg.portal = {
-        enable = true;
-        config.common.default = "*";
+      users.users.alice = {
+        isNormalUser = true;
+        linger = true;
+      };
+
+      # The portal unit requires graphical-session.target, which refuses a
+      # manual start and is normally bound to by the desktop session.
+      systemd.user.targets.test-session = {
+        wantedBy = [ "default.target" ];
+        bindsTo = [ "graphical-session.target" ];
       };
 
       assertions = [
         {
           assertion = lib.elem config.services.credentialsd.package config.programs.firefox.nativeMessagingHosts.packages;
           message = "credentialsd should register its Firefox native messaging host package";
-        }
-        {
-          assertion = lib.elem config.services.credentialsd.package config.xdg.portal.extraPortals;
-          message = "credentialsd should register its xdg-desktop-portal implementation";
         }
       ];
     };
@@ -60,9 +61,29 @@
           machine.succeed(f"grep -q 'chrome-extension://abcdefghijklmnopabcdefghijklmnop/' {manifest}")
           machine.succeed(f"grep -q '/bin/credentialsd-firefox-helper' {manifest}")
 
-    with subtest("xdg-desktop-portal implementation is registered"):
+    def alice(command):
+        return (
+            "su - alice -c "
+            f"'XDG_RUNTIME_DIR=/run/user/1000 {command}'"
+        )
+
+    with subtest("the portal exposes the Credential interface in a user session"):
+      machine.wait_for_unit("user@1000.service")
+      machine.wait_until_succeeds(
+          alice(
+              "busctl --user introspect org.freedesktop.portal.Desktop "
+              "/org/freedesktop/portal/desktop "
+              "| grep -F org.freedesktop.portal.experimental.Credential"
+          ),
+          timeout=60,
+      )
+
+    with subtest("the portal keeps the session PATH"):
+      pid = machine.succeed(
+          alice("systemctl --user show -P MainPID xdg-desktop-portal.service")
+      ).strip()
       machine.succeed(
-          "test -e /run/current-system/sw/share/xdg-desktop-portal/portals/credentialsd.portal"
+          f"xargs -0 -n1 < /proc/{pid}/environ | grep -E '^PATH=.*/run/current-system/sw/bin'"
       )
   '';
 }

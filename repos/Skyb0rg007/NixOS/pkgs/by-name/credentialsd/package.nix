@@ -19,6 +19,7 @@
   libnfc,
   openssl,
   pcsclite,
+  publicsuffix-list,
   udev,
   python3,
   nixosTests,
@@ -75,6 +76,10 @@ stdenv.mkDerivation (finalAttrs: {
   postPatch = ''
     substituteInPlace credentialsd-ui/data/resources/icons/copy-icons.py \
       --replace-fail '#!/usr/bin/python3' '#!${python3.interpreter}'
+
+    substituteInPlace "$cargoDepsCopy"/*/libwebauthn-*/src/ops/webauthn/psl/dat.rs \
+      --replace-fail '/usr/share/publicsuffix/public_suffix_list.dat' \
+        '${publicsuffix-list}/share/publicsuffix/public_suffix_list.dat'
   '';
 
   dontWrapGApps = true;
