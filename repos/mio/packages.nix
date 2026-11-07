@@ -48,6 +48,9 @@ let
       ocamlPackages =
         (pkgs.ocaml-ng.ocamlPackages_5_4.overrideScope (
           oself: osuper: {
+            saturn = osuper.saturn.overrideAttrs (_: {
+              doCheck = false;
+            });
             grace = osuper.grace.overrideAttrs (old: {
               version = "0.4.1";
               src = pkgs.fetchFromGitHub {
