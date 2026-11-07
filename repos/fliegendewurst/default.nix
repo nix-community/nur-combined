@@ -14,8 +14,27 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  arzg-sema = pkgs.vscode-utils.buildVscodeMarketplaceExtension {
+    mktplcRef = {
+      name = "sema";
+      publisher = "arzg";
+      version = "1.12.1";
+      hash = "sha256-GdybJA3G39F/alrrGruHhlQQ0KMx9IVATVagdw1oRvs=";
+    };
+
+    meta = {
+      description = "Theme based on semantic code information";
+      downloadPage = "https://marketplace.visualstudio.com/items?itemName=arzg.sema";
+      homepage = "https://github.com/arzg/sema";
+      license = pkgs.lib.licenses.mit;
+      maintainers = [ pkgs.lib.maintainers.fliegendewurst ];
+    };
+  };
+
   diskgraph = pkgs.callPackage ./pkgs/diskgraph { };
   freqtop = pkgs.callPackage ./pkgs/freqtop { };
+  jerboa-editor = pkgs.callPackage ./pkgs/jerboa-editor { };
+  jerboa-studio = pkgs.callPackage ./pkgs/jerboa-studio { };
   map = pkgs.callPackage ./pkgs/map { };
   microsoft-ergonomic-keyboard = pkgs.callPackage ./pkgs/microsoft-ergonomic-keyboard {
     kernel = pkgs.linuxPackages.kernel;
