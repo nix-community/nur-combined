@@ -12,13 +12,13 @@
 
 gcc13Stdenv.mkDerivation (finalAttrs: {
   pname = "redrix-ec";
-  version = "2.0.30151-g01164455";
+  version = "2.0.30154-g321c2648";
 
   src = fetchFromGitHub {
     owner = "codgician";
     repo = "redrix-ec";
-    rev = "01164455484c55f0f15e6c88f6d6b84f5e670269";
-    hash = "sha256-n1eAExD2klFs5zLafU6PRHM/EYZh2mQA9LUms+WVGg4=";
+    rev = "321c2648f732f088d8952aa7b95d2f29a477447f";
+    hash = "sha256-MDlwd6PY+YJh5R90DOcE6neCiIcOJs7jDffGE/6pqGs=";
   };
 
   cryptoc = fetchgit {
