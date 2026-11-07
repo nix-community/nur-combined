@@ -8,9 +8,6 @@
   dot,
   # Optional extra NixOS module, for example a host-specific one.
   localModule ? null,
-  # Flake or flake-like attrset.  Kept as a whole so this file also works
-  # from `nix-build`, where the default fetches the flake itself.
-  jsonrpc-httpproxy ? builtins.getFlake "github:nagy/jsonrpc-httpproxy",
   # Flake inputs for the modules, for example flakes.emacs-bruvtab.  Empty
   # means NIX_PATH-free fallback to builtins.getFlake inside each module.
   flakes ? { },
@@ -18,6 +15,9 @@
 
 let
   self = import ./.. { inherit pkgs nur; };
+  # From the flake input, or fetched directly so this file also works from
+  # `nix-build`.
+  jsonrpc-httpproxy = flakes.jsonrpc-httpproxy or (builtins.getFlake "github:nagy/jsonrpc-httpproxy");
   diffResult = self.lib.mkNixosBuildEnv {
     inherit nur flakes;
     name = "my-build-env";

@@ -15,7 +15,6 @@
   # Legacy NIX_PATH lookup: `-I local-module=...` sets this argument.
   localModule ?
     if builtins.elem "local-module" (map (x: x.prefix) builtins.nixPath) then <local-module> else null,
-  jsonrpc-httpproxy ? builtins.getFlake "github:nagy/jsonrpc-httpproxy",
   # Flake inputs for modules that would otherwise call builtins.getFlake.
   flakes ? { },
 }:
@@ -34,7 +33,6 @@ packages
       nur
       dot
       localModule
-      jsonrpc-httpproxy
       flakes
       ;
   };

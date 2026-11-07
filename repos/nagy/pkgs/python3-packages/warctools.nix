@@ -8,13 +8,14 @@
 buildPythonPackage rec {
   pname = "warctools";
   version = "4.10.0";
+  pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
     hash = "sha256-zgxuJ024rIgQ98l7OUPo6N6tvD9cmC23fN2q4tKuYXA=";
   };
 
-  propagatedBuildInputs = [ setuptools ];
+  build-system = [ setuptools ];
 
   doCheck = false;
 
