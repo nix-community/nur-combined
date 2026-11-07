@@ -1,4 +1,5 @@
 import '../../../Logger.dart';
+
 import 'dart:convert';
 
 import 'package:flutter/widgets.dart';
@@ -9,6 +10,7 @@ import '../../../Widgets/Components/ListEditorFields.dart';
 import '../../../Screen/Detail/DetailWidgets.dart';
 import '../../Preferences/Pref.dart';
 import '../Model/Media.dart';
+import '../Model/CommunityList.dart';
 import '../Model/News.dart';
 import '../MediaService.dart';
 import '../../ThemeManager/LanguageSwitcher.dart';
@@ -271,8 +273,64 @@ class ListEditorScreenView {
   ];
 }
 
+class TrackerListEditorView extends ListEditorScreenView {
+  TrackerListEditorView(super.service);
+
+  bool get hasPrivate => false;
+
+  @override
+  Map<String, String> statuses({required bool anime}) => {
+    'CURRENT': anime ? getString.watching : getString.reading,
+    'PLANNING': anime ? getString.planToWatch : getString.planToRead,
+    'COMPLETED': getString.completed,
+    'PAUSED': getString.onHold,
+    'DROPPED': getString.dropped,
+    'REPEATING': anime ? getString.rewatching : getString.rereading,
+  };
+
+  @override
+  List<ScreenWidget> build(Media media, ListEditorDraft draft) => [
+    ScreenWidget.extra(
+      ListStatusField(
+        draft: draft,
+        statuses: statuses(anime: media.isAnime),
+      ),
+    ),
+    ScreenWidget.extra(
+      ListProgressField(draft: draft, total: media.totalUnits),
+    ),
+    ScreenWidget.extra(ListScoreField(draft: draft)),
+    ScreenWidget.extra(ListDatesField(draft: draft)),
+    ScreenWidget.extra(
+      ListRepeatField(
+        draft: draft,
+        label: media.isAnime ? getString.timesRewatched : getString.timesReread,
+      ),
+    ),
+    if (hasPrivate)
+      ScreenWidget.extra(
+        ListPrivateField(draft: draft, hideFromStatusLists: false),
+      ),
+    ScreenWidget.extra(ListNotesField(draft: draft, label: getString.comments)),
+  ];
+}
+
 abstract class CalendarScreenView {
   Stream<List<CalendarEntry>> schedule();
+}
+
+abstract class CommunityListsView {
+  List<(String, String)> get kinds;
+
+  List<(String, String)> get sorts;
+
+  Future<CommunityListPage> lists({
+    required String kind,
+    required String sort,
+    int page = 1,
+  });
+
+  Future<void> open(BuildContext context, CommunityList list);
 }
 
 abstract class NewsScreenView {
