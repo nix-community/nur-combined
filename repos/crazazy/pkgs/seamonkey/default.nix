@@ -1,15 +1,14 @@
-{ nvsrcs, lib, gtk2, gtk3, gdk-pixbuf, dbus-glib, xorg, stdenv, libpulseaudio, autoPatchelfHook, makeWrapper, wrapGAppsHook3 }:
+{ nvsrcs, lib, gtk3, gdk-pixbuf, dbus-glib, libxdamage, libxt, stdenv, libpulseaudio, autoPatchelfHook, makeWrapper, wrapGAppsHook3 }:
 stdenv.mkDerivation {
   name = "seamonkey";
   inherit (nvsrcs.seamonkey) src version;
   buildInputs = [
-    xorg.libXdamage
-    gtk2
+    libxdamage
     gtk3
     gdk-pixbuf
     makeWrapper
     dbus-glib
-    xorg.libXt
+    libxt
   ]; # ++ firefox-unwrapped.buildInputs;
   nativeBuildInputs = [
     wrapGAppsHook3
