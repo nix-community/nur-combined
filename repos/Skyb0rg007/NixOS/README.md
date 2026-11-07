@@ -1,6 +1,6 @@
 # Packages
 
-Generated from 90 packages.
+Generated from 92 packages.
 
 ## `ambient-build-vm`
 
@@ -21,7 +21,7 @@ Generated from 90 packages.
 ## `ampel`
 
 - **Package name:** ampel
-- **Version:** 1.4.1
+- **Version:** 1.5.0
 - **Description:** Lightweight supply chain policy engine
 - **Homepage:** [https://github.com/policylabs/ampel](https://github.com/policylabs/ampel)
 - **License:** Apache-2.0
@@ -42,6 +42,14 @@ Generated from 90 packages.
 - **Homepage:** [https://gitlab.com/mezantrop/ascsaver](https://gitlab.com/mezantrop/ascsaver)
 - **License:** BSD-3-Clause
 
+## `attachment-converter`
+
+- **Package name:** attachment-converter
+- **Version:** 0.2.2
+- **Description:** Tool for converting email attachments' formats
+- **Homepage:** [https://dldc.lib.uchicago.edu/open/attachment-converter/](https://dldc.lib.uchicago.edu/open/attachment-converter/)
+- **License:** GPL-3.0-or-later
+
 ## `bgd-browser`
 
 - **Package name:** bgd-browser
@@ -58,10 +66,10 @@ Generated from 90 packages.
 - **Homepage:** [https://github.com/erikwb/blueferry](https://github.com/erikwb/blueferry)
 - **License:** GPL-2.0-only
 
-## `brush`
+## `brush-HEAD`
 
 - **Package name:** brush
-- **Version:** 0.4.0-unstable-2026-11-01
+- **Version:** 0.4.0-unstable-2026-11-05
 - **Description:** Bash/POSIX-compatible shell implemented in Rust
 - **Homepage:** [https://github.com/reubeno/brush](https://github.com/reubeno/brush)
 - **License:** MIT
@@ -69,7 +77,7 @@ Generated from 90 packages.
 ## `buildgrid`
 
 - **Package name:** buildgrid
-- **Version:** 0.9.5
+- **Version:** 0.9.6
 - **Description:** Python remote execution service
 - **Homepage:** [https://buildgrid.build](https://buildgrid.build)
 - **License:** Apache-2.0
@@ -101,7 +109,7 @@ Generated from 90 packages.
 ## `credentialsd`
 
 - **Package name:** credentialsd
-- **Version:** 0.3.1
+- **Version:** 0.4.0
 - **Description:** Linux Credential Manager API
 - **Homepage:** [https://github.com/linux-credentials/credentialsd](https://github.com/linux-credentials/credentialsd)
 - **License:** LGPL-3.0-only
@@ -148,7 +156,7 @@ Generated from 90 packages.
 ## `docker-sbx`
 
 - **Package name:** docker-sbx
-- **Version:** 0.51.0-rc6
+- **Version:** 0.51.0
 - **Description:** Safe environments for agents
 - **Homepage:** [https://docs.docker.com/reference/cli/sbx/](https://docs.docker.com/reference/cli/sbx/)
 - **License:** LicenseRef-nixos-unfree
@@ -180,7 +188,7 @@ Generated from 90 packages.
 ## `grant`
 
 - **Package name:** grant
-- **Version:** 0.6.8
+- **Version:** 0.7.0
 - **Description:** CLI tool for checking licenses
 - **Homepage:** [https://github.com/anchore/grant](https://github.com/anchore/grant)
 - **License:** Apache-2.0
@@ -244,7 +252,7 @@ Generated from 90 packages.
 ## `landlock-policy`
 
 - **Package name:** landlock-policy
-- **Version:** 0-unstable-2026-11-03
+- **Version:** 0-unstable-2026-11-04
 - **Description:** Landlock configuration library
 - **Homepage:** [https://landlock.io](https://landlock.io)
 - **License:** MIT OR Apache-2.0
@@ -259,7 +267,7 @@ Generated from 90 packages.
 ## `landstrip`
 
 - **Package name:** landstrip
-- **Version:** 0.20.17
+- **Version:** 0.20.22
 - **Description:** Run tools in OS-level sandboxes
 - **Homepage:** [https://github.com/landstrip/landstrip](https://github.com/landstrip/landstrip)
 - **License:** LGPL-3.0-or-later
@@ -315,7 +323,7 @@ Generated from 90 packages.
 ## `mmdebstrap`
 
 - **Package name:** mmdebstrap
-- **Version:** 1.5.7
+- **Version:** 1.7.0
 - **Description:** Alternative to debootstrap which uses apt internally
 - **Homepage:** [https://gitlab.mister-muffin.de/josch/mmdebstrap/](https://gitlab.mister-muffin.de/josch/mmdebstrap/)
 - **License:** MIT
@@ -383,10 +391,18 @@ Generated from 90 packages.
 - **Homepage:** [https://salsa.debian.org/debian/pristine-tar](https://salsa.debian.org/debian/pristine-tar)
 - **License:** BSD-3-Clause AND bzip2-1.0.6 AND GPL-2.0-or-later
 
+## `provenant`
+
+- **Package name:** provenant
+- **Version:** 1.0.17
+- **Description:** Fast Rust scanner for provenance data
+- **Homepage:** [https://getprovenant.dev/](https://getprovenant.dev/)
+- **License:** Apache-2.0
+
 ## `python3Packages.audioseal`
 
 - **Package name:** audioseal
-- **Version:** 0.2.0
+- **Version:** 0.2.1
 - **Description:** Localized watermarking for AI-generated speech
 - **Homepage:** [https://github.com/facebookresearch/audioseal](https://github.com/facebookresearch/audioseal)
 - **License:** MIT
@@ -482,7 +498,7 @@ Generated from 90 packages.
 ## `quarry`
 
 - **Package name:** quarry
-- **Version:** 0-unstable-2026-10-29
+- **Version:** 0-unstable-2026-11-04
 - **Description:** TUF-based software distribution toolchain
 - **Homepage:** [https://github.com/amutable/quarry](https://github.com/amutable/quarry)
 - **License:** Apache-2.0
@@ -514,7 +530,7 @@ Generated from 90 packages.
 ## `raven`
 
 - **Package name:** raven
-- **Version:** 0-unstable-2026-11-02
+- **Version:** 0-unstable-2026-11-05
 - **Description:** Runs Windows applications on Linux without a virtual machine
 - **Homepage:** [https://useraven.org/](https://useraven.org/)
 - **License:** GPL-3.0-or-later AND MIT AND GPL-2.0-only AND LGPL-2.1-or-later AND Unicode-3.0 AND Zlib AND libpng-2.0 AND IJG AND libtiff AND X11 AND LicenseRef-nixos-publicDomain AND blessing AND ISC-Veillard
@@ -663,6 +679,14 @@ Generated from 90 packages.
 - **Homepage:** [https://github.com/ublk-org/ublksrv](https://github.com/ublk-org/ublksrv)
 - **License:** (MIT OR GPL-2.0-only) AND (MIT OR LGPL-2.1-only) AND GPL-2.0-only
 
+## `util-linux-HEAD`
+
+- **Package name:** util-linux-HEAD
+- **Version:** 2.43-devel-unstable-2026-11-05
+- **Description:** Set of system utilities for Linux, built from git master
+- **Homepage:** [https://github.com/util-linux/util-linux](https://github.com/util-linux/util-linux)
+- **License:** GPL-1.0-or-later AND GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND MIT AND BSD-2-Clause AND BSD-3-Clause AND EUPL-1.2 AND LicenseRef-nixos-publicDomain
+
 ## `vmdb2`
 
 - **Package name:** vmdb2
@@ -680,15 +704,6 @@ Generated from 90 packages.
 - **License:** AGPL-3.0-only
 
 # Broken Packages
-
-## `attachment-converter`
-
-- **Package name:** attachment-converter
-- **Version:** 0.2.2
-- **Description:** Tool for converting email attachments' formats
-- **Homepage:** [https://dldc.lib.uchicago.edu/open/attachment-converter/](https://dldc.lib.uchicago.edu/open/attachment-converter/)
-- **License:** GPL-3.0-or-later
-- **Status:** Broken
 
 ## `browsertrix-crawler`
 
