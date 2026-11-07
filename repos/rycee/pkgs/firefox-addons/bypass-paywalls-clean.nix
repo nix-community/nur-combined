@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "bypass-paywalls-clean";
-  version = "4.4.8.4";
+  version = "4.4.8.6";
   addonId = "magnolia@12.34";
-  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.8.4.xpi";
-  sha256 = "951f6c349c91fc1d840a8cfe5be48ff3fe9e0b50dc5a49479d5b58b9d5465414";
+  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.8.6.xpi";
+  sha256 = "9ab0a6caeb39c43e91dcc75ea8845e1c5327089f1a7f24ae9eebfe00c5aba137";
   meta = with lib; {
     homepage = "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean";
     description = "Bypass Paywalls of (custom) news sites";
@@ -21,7 +21,6 @@ buildFirefoxXpiAddon {
       "webRequest"
       "webRequestBlocking"
       "*://*.11freunde.de/*"
-      "*://*.24heures.ch/*"
       "*://*.360dx.com/*"
       "*://*.60millions-mag.com/*"
       "*://*.abc.es/*"
@@ -75,7 +74,6 @@ buildFirefoxXpiAddon {
       "*://*.baltimoresun.com/*"
       "*://*.bangkokpost.com/*"
       "*://*.barandbench.com/*"
-      "*://*.bazonline.ch/*"
       "*://*.bbc.com/*"
       "*://*.bd.nl/*"
       "*://*.belfasttelegraph.co.uk/*"
@@ -84,7 +82,6 @@ buildFirefoxXpiAddon {
       "*://*.beobachter.ch/*"
       "*://*.berliner-zeitung.de/*"
       "*://*.berlingske.dk/*"
-      "*://*.bernerzeitung.ch/*"
       "*://*.betamtb.com/*"
       "*://*.betternutrition.com/*"
       "*://*.betterprogramming.pub/*"
@@ -205,7 +202,6 @@ buildFirefoxXpiAddon {
       "*://*.demorgen.be/*"
       "*://*.denik.cz/*"
       "*://*.denverpost.com/*"
-      "*://*.derbund.ch/*"
       "*://*.desmoinesregister.com/*"
       "*://*.derstandard.at/*"
       "*://*.destentor.nl/*"
@@ -467,7 +463,6 @@ buildFirefoxXpiAddon {
       "*://*.lemessager.fr/*"
       "*://*.lemonde.fr/*"
       "*://*.lenordvaudois.ch/*"
-      "*://*.lenouveleconomiste.fr/*"
       "*://*.lenouvelliste.ch/*"
       "*://*.leparisien.fr/*"
       "*://*.lepoint.fr/*"
@@ -491,7 +486,6 @@ buildFirefoxXpiAddon {
       "*://*.liberation.fr/*"
       "*://*.linda.nl/*"
       "*://*.lindependant.fr/*"
-      "*://*.linforme.com/*"
       "*://*.literaryreview.co.uk/*"
       "*://*.livelaw.in/*"
       "*://*.livemint.com/*"
@@ -756,10 +750,8 @@ buildFirefoxXpiAddon {
       "*://*.swarajyamag.com/*"
       "*://*.sydsvenskan.se/*"
       "*://*.syracuse.com/*"
-      "*://*.tagesanzeiger.ch/*"
       "*://*.tagesspiegel.de/*"
       "*://*.tampabay.com/*"
-      "*://*.tdg.ch/*"
       "*://*.techinasia.com/*"
       "*://*.technologyreview.com/*"
       "*://*.techtarget.com/*"

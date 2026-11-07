@@ -53,10 +53,10 @@
     };
     "7tv-new" = buildMozillaXpiAddon {
       pname = "7tv-new";
-      version = "1.10.7";
+      version = "1.10.8";
       addonId = "seventv-next@7tv.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5210187/7tv_new-1.10.7.xpi";
-      sha256 = "5420b1e410b9baaa9a97e2abbacaf7b53af9b94bc8ea04b8cd8c33eabb3be291";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5217988/7tv_new-1.10.8.xpi";
+      sha256 = "0678ba1daa02a945abad69c7e1acd1eec859eec2f5eeac64affaec1ec88dd2a8";
       meta = with lib;
       {
         description = "Improve your viewing experience with 7TV on Twitch and YouTube with new features, emotes, vanity and performance.";
@@ -3152,10 +3152,10 @@
     };
     "darkreader" = buildMozillaXpiAddon {
       pname = "darkreader";
-      version = "4.9.134";
+      version = "4.9.135";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5175215/darkreader-4.9.134.xpi";
-      sha256 = "700633395aa2f639a1bed4253e27309eb676f346d599b0ae2b7a0453232e0aec";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5216111/darkreader-4.9.135.xpi";
+      sha256 = "bfed4591d6cc69857f5ed33a2d3cbfbc5811d5b92c4323d0735d2f1757e2dce4";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -5798,7 +5798,7 @@
       meta = with lib;
       {
         homepage = "https://qsniyg.github.io/maxurl/";
-        description = "Finds larger/original versions of images (supporting 10,000+ websites), including a powerful media popup feature";
+        description = "Finds larger/original versions of images (supporting 11,000+ websites), including a powerful media popup feature";
         license = licenses.asl20;
         mozPermissions = [
           "storage"
@@ -6615,10 +6615,10 @@
     };
     "lastpass-password-manager" = buildMozillaXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.154.2";
+      version = "4.157.0";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4868824/lastpass_password_manager-4.154.2.xpi";
-      sha256 = "de9496ab4960134aff1914af66da4e043cf8b0eb64e2ab8c0f94d625323b82fd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5210227/lastpass_password_manager-4.157.0.xpi";
+      sha256 = "8a5a1ca5f8c6b5a86f0fe19b069c9f373441cff5f13a48036dc6dc5cf4798ba1";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -6642,6 +6642,7 @@
           "webRequestBlocking"
           "alarms"
           "cookies"
+          "declarativeNetRequest"
           "http://*/*"
           "https://*/*"
           "https://lastpass.com/vault/*"
@@ -7883,10 +7884,10 @@
     };
     "lockedin-yt" = buildMozillaXpiAddon {
       pname = "lockedin-yt";
-      version = "1.2.2";
+      version = "1.2.3";
       addonId = "kartik@lockedin.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5077908/lockedin_yt-1.2.2.xpi";
-      sha256 = "2d2e3668b518fb7b1fcd5b5a207e1039baeaa85f3e9497e4503288b83ff1b9d6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5216616/lockedin_yt-1.2.3.xpi";
+      sha256 = "7736d5ff11c78779924df604fc1769c4389f5718e66c2386255fc7e0744ec38a";
       meta = with lib;
       {
         homepage = "https://kartikrashmin.github.io/LockedIn-YT/";
@@ -8827,10 +8828,10 @@
     };
     "metager-suche" = buildMozillaXpiAddon {
       pname = "metager-suche";
-      version = "1.33";
+      version = "1.34";
       addonId = "firefoxextension@metager.de";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5197876/metager_suche-1.33.xpi";
-      sha256 = "8f4ce9488e593a4599394b897d15aedb78b373ce52c039025f84cc677e27818a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5216394/metager_suche-1.34.xpi";
+      sha256 = "ad141cf7ff86359b6849842ec39f0e81c7e7cf8a91f852f3dade9d25d5042b71";
       meta = with lib;
       {
         homepage = "https://metager.org/kontakt";
@@ -11070,10 +11071,10 @@
     };
     "private-grammar-checker-harper" = buildMozillaXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "3.0.0";
+      version = "3.1.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5171001/private_grammar_checker_harper-3.0.0.xpi";
-      sha256 = "037f4c65163eb14be4b98430500304e88e6787234eae7e5ea0e305c63eb21648";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5218868/private_grammar_checker_harper-3.1.0.xpi";
+      sha256 = "807d10dfce40fc3ea98218c54876734a3442eabe79499ced5963e7f86d95a234";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -12702,10 +12703,10 @@
     };
     "refined-github" = buildMozillaXpiAddon {
       pname = "refined-github";
-      version = "26.10.26";
+      version = "26.11.6";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5167698/refined_github-26.10.26.xpi";
-      sha256 = "12c2828bc4c31718f9a2595a007fa7b0300970b5b0d2eadd0aaf3754dbf7f1ff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5216077/refined_github-26.11.6.xpi";
+      sha256 = "877286e8034e868ba79b325195dbd7ddea9726dcb326568f1c656d057ae83fff";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -13543,10 +13544,10 @@
     };
     "single-file" = buildMozillaXpiAddon {
       pname = "single-file";
-      version = "1.35.0";
+      version = "1.36.0";
       addonId = "{531906d3-e22f-4a6c-a102-8057b88a1a63}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5208988/single_file-1.35.0.xpi";
-      sha256 = "a1ed8c24d886b54a192b7f6944adb1157aa129b894ae679c48da979ece37c472";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5218789/single_file-1.36.0.xpi";
+      sha256 = "aa4e6de6fe46d59985e12a897882c29e2a7f54f3a838b2e391e6ac51d1ea3c97";
       meta = with lib;
       {
         homepage = "https://www.getsinglefile.com";
@@ -13848,10 +13849,10 @@
     };
     "statshunters" = buildMozillaXpiAddon {
       pname = "statshunters";
-      version = "3.4.3";
+      version = "3.4.4";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5190757/statshunters-3.4.3.xpi";
-      sha256 = "eaee4420743ed5602d815a3ccd2504fe127d2830fe7b9c88548ad130e7948854";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5216253/statshunters-3.4.4.xpi";
+      sha256 = "3ff05fbb3198f5bd1b7fb37df69c40a78dc9b05de72936f2ab5b175fd4fee405";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -13910,6 +13911,8 @@
           "https://web.trailmap.guide/*"
           "https://judise.nl/*"
           "https://www.judise.nl/*"
+          "https://applepicycle.com/*"
+          "https://www.applepicycle.com/*"
         ];
         platforms = platforms.all;
       };
@@ -15790,10 +15793,10 @@
     };
     "v2ex-polish" = buildMozillaXpiAddon {
       pname = "v2ex-polish";
-      version = "2.5.5";
+      version = "2.5.7";
       addonId = "leokudev@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5211098/v2ex_polish-2.5.5.xpi";
-      sha256 = "2aefde799927cace4b5aa1be875a7967dcdc41c8c032f6433b778ceaf6bb676f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5215455/v2ex_polish-2.5.7.xpi";
+      sha256 = "cb0211908baa0cfd155665c0a7df7d7a5eaae68928c106507931f0f52f0f798a";
       meta = with lib;
       {
         description = "专为 V2EX 用户设计，提供了丰富的扩展功能。";
