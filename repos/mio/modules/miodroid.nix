@@ -12,12 +12,6 @@ let
   miodroidPackage = if rootlessCfg.enable then rootlessCfg.package else cfg.package;
   imagePackage = if rootlessCfg.enable then rootlessCfg.imagePackage else cfg.imagePackage;
   kCfg = config.lib.kernelConfig;
-  # Extra environment for the rootless container: the image strategy is a
-  # property of the process that starts it, so it travels in the environment of
-  # whichever unit starts it (see the home-manager module).
-  rootlessStrategyEnv = " MIODROID_ROOTLESS_OVERLAY=${
-     if rootlessCfg.imageStrategy == "overlay" then "1" else "0"
-   }";
   rootlessHelper = pkgs.writeShellScript "miodroid-rootless-helper" ''
     set -eu
 
@@ -56,7 +50,8 @@ let
     text = ''
       [D-BUS Service]
       Name=id.miodro.Container
-      Exec=${pkgs.bash}/bin/bash -c "exec env MIODROID_ROOTLESS=1 MIODROID_WORK=''${XDG_DATA_HOME:-$HOME/.local/share}/miodroid${rootlessStrategyEnv} ${miodroidPackage}/bin/miodroid --details-to-stdout container start"
+      Exec=${pkgs.systemd}/bin/systemctl --user start miodroid-container.service
+      SystemdService=miodroid-container.service
     '';
   };
   miodroidGbinderConf = pkgs.writeText "miodroid.conf" ''

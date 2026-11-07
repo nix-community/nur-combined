@@ -21,6 +21,9 @@ configured Miodroid group and `lxc-user`, and allocate subordinate UID/GID range
 processes). The usual automatic 65536-ID allocation is too small. The kernel needs Binderfs, user namespaces, and FUSE. NixOS
 prepares the LXC network bridge and the normal LXC/FUSE mapping helpers; the
 container manager itself runs as the desktop user, with cgroup delegation.
+The Home Manager package supplies a `miodroid` CLI that selects rootless mode
+for shell commands and desktop entries. Its user services use the same mode,
+image strategy, work directory, and optional instance name.
 
 A small static bootstrap mounts Binderfs inside LXC's own user/mount namespace
 and explicitly allocates missing Binder devices before executing Android init.

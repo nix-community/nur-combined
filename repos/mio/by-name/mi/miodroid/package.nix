@@ -435,6 +435,11 @@ python3Packages.buildPythonApplication (finalAttrs: {
           patch -p1 --fuzz=0 < ${./patches/0008-rootless-runtime.patch}
           patch -p1 --fuzz=0 < ${./patches/0009-package-operation-results.patch}
 
+          # A failed command before initialization must fail to its caller.
+          # Otherwise shell scripts report success without running Android.
+          sed -i '/Miodroid is not initialized, run "miodroid init"/{n;s/return 0/return 1/;}' tools/__init__.py
+          grep -A1 'Miodroid is not initialized, run "miodroid init"' tools/__init__.py | grep -q 'return 1'
+
           # Both sides of the interface name contract: fail the build instead of
           # shipping a renamed script whose named instances are silently offline.
           grep -q 'miodro-' tools/helpers/instance.py
@@ -487,11 +492,20 @@ python3Packages.buildPythonApplication (finalAttrs: {
         INSTANCE="$arg"
         break
       fi
+      if [ "$PREV" = "-l" ] || [ "$PREV" = "--log" ]; then
+        PREV=""
+        continue
+      fi
       case "$arg" in
+        --) break ;;
+        -I|--instance) PREV="$arg"; continue ;;
+        -l|--log) PREV="$arg"; continue ;;
         -I*) INSTANCE="''${arg#-I}"; break ;;
         --instance=*) INSTANCE="''${arg#--instance=}"; break ;;
+        -*) ;;
+        *) break ;;
       esac
-      PREV="$arg"
+      PREV=""
     done
     if [ -n "$INSTANCE" ]; then
       export MIODROID_INSTANCE="$INSTANCE"

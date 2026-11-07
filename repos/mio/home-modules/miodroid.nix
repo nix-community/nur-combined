@@ -13,8 +13,33 @@ let
     "MIODROID_ROOTLESS=1"
     "MIODROID_WORK=${cfg.workDirectory}"
     "MIODROID_ROOTLESS_OVERLAY=${if cfg.imageStrategy == "overlay" then "1" else "0"}"
+    "XDG_DATA_HOME=${config.xdg.dataHome}"
   ]
   ++ lib.optional (cfg.instance != null) "MIODROID_INSTANCE=${cfg.instance}";
+
+  defaultWorkDirectory = "${config.xdg.dataHome}/miodroid${
+    lib.optionalString (cfg.instance != null) ".${cfg.instance}"
+  }";
+  # Commands launched from a shell or desktop entry need the same mode as the
+  # user units. Keep the normal work path implicit so -I selects its own state.
+  rootlessCliScript = pkgs.writeShellScriptBin "miodroid" ''
+    export MIODROID_ROOTLESS=1
+    export MIODROID_ROOTLESS_OVERLAY=${if cfg.imageStrategy == "overlay" then "1" else "0"}
+    export XDG_DATA_HOME=${lib.escapeShellArg config.xdg.dataHome}
+    ${lib.optionalString (
+      cfg.instance != null
+    ) "export MIODROID_INSTANCE=${lib.escapeShellArg cfg.instance}"}
+    ${lib.optionalString (
+      cfg.workDirectory != defaultWorkDirectory
+    ) "export MIODROID_WORK=${lib.escapeShellArg cfg.workDirectory}"}
+    exec ${cfg.package}/bin/miodroid "$@"
+  '';
+  rootlessCli = pkgs.runCommand "miodroid-rootless-cli" { } ''
+    mkdir -p $out/bin
+    ln -s ${rootlessCliScript}/bin/miodroid $out/bin/miodroid
+    ln -s ${cfg.package}/share $out/share
+    ln -s ${cfg.package}/etc $out/etc
+  '';
 
   # The image bundle is a store path, so it changes whenever the bundle does:
   # stamp the copy and only re-install the images when it actually differs,
@@ -53,9 +78,7 @@ in
     };
     workDirectory = lib.mkOption {
       type = lib.types.str;
-      default = "${config.xdg.dataHome}/miodroid${
-        lib.optionalString (cfg.instance != null) ".${cfg.instance}"
-      }";
+      default = defaultWorkDirectory;
       defaultText = lib.literalExpression ''"''${config.xdg.dataHome}/miodroid"'';
       description = ''
         Writable work directory for the experimental rootless Miodroid
@@ -119,7 +142,7 @@ in
       }
     ];
 
-    home.packages = [ cfg.package ];
+    home.packages = [ rootlessCli ];
 
     systemd.user.services.miodroid-container = {
       Unit = {
