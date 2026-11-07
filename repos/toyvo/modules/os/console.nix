@@ -42,6 +42,8 @@ in
             graphviz
             gzip
             helix
+            herdr
+            herdr-core
             httpie
             jq
             just

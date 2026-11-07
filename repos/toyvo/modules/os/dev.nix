@@ -65,7 +65,10 @@ in
             ])
             [
               deno
-              neovide
+              # Pinned to stable: nixos-unstable neovide 0.17.1 is broken
+              # upstream (vendor staging fails with missing Cargo.lock).
+              # Same pattern as cargo-generate above. Unpin once upstream fixes it.
+              stablePkgs.neovide
             ];
     };
   };

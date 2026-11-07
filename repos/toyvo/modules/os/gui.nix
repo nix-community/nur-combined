@@ -34,6 +34,7 @@ in
         [
           # brave
           inkscape
+          herdr-desktop
         ]
         ++ lib.optionals stdenv.hostPlatform.isLinux [
           element-desktop

@@ -69,4 +69,5 @@ Outstanding work and follow-up items for this repository.
 
 ## Neovim
 
+- [ ] Unpin `neovide` in `modules/os/dev.nix` from `stablePkgs` (0.16.2) back to `pkgs` once nixos-unstable ships a fixed 0.17.1+ (2026-11-07 CI failure: vendor staging fails with missing `Cargo.lock`).
 - [ ] Drop vendored `mega.logging`/`mega.cmdparse` from `pkgs/toyvo-neovim/default.nix` once nvf packages avante.nvim's `ColinKennedy/mega.*` dependencies upstream
