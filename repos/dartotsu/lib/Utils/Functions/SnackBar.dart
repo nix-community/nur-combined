@@ -36,7 +36,7 @@ void snackString(
                 color: Colors.transparent,
                 child: ThemedContainer(
                   blur: true,
-                  borderRadius: BorderRadius.circular(18),
+                  borderRadius: BorderRadius.circular(20),
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
                     vertical: 14,
@@ -47,6 +47,7 @@ void snackString(
                     children: [
                       icon == null
                           ? ClipOval(
+                              clipBehavior: Clip.antiAliasWithSaveLayer,
                               child: Image.asset(
                                 'assets/images/logo.png',
                                 width: 20,
