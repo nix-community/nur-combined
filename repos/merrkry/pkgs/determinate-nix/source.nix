@@ -1,11 +1,11 @@
 { fetchFromGitHub }:
 
 rec {
-  version = "3.24.1";
+  version = "3.24.2";
   src = fetchFromGitHub {
     owner = "DeterminateSystems";
     repo = "nix-src";
     tag = "v${version}";
-    hash = "sha256-pDSWr7TQd9V9thIxlsqHzVGkuymDkckQpgaXLf7EuJ0=";
+    hash = "sha256-QY69Nw0WhXSvT2n2ldI5gt0h4ofbAVoi7EYGJGyNLl0=";
   };
 }
