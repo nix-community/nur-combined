@@ -108,22 +108,22 @@
   };
   nexus-media = {
     pname = "nexus-media";
-    version = "v5.7.2";
+    version = "v5.8.1";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media";
-      tag = "v5.7.2";
-      hash = "sha256-fARLD7FbjAX0YPh+RYPXTYm2NtxQcefiPa1DGOCDnPk=";
+      tag = "v5.8.1";
+      hash = "sha256-0K0U4sUwhdvljbljAYVxqg+agxvcZiva6l8zaWbeGaA=";
     };
   };
   nexus-media-web = {
     pname = "nexus-media-web";
-    version = "v5.7.2";
+    version = "v5.8.1";
     src = fetchFromGitHub {
       owner = "linyuan0213";
       repo = "nexus-media-web";
-      tag = "v5.7.2";
-      hash = "sha256-4tMRMaCjCeDszGYv4K0CmqqAUcFEbhUuTI2RosTlMr4=";
+      tag = "v5.8.1";
+      hash = "sha256-9sikunWMpZaYl5oSHQLKVAFYUfxUbNLm3ahJtW1G+E8=";
     };
   };
   pinyin2hanzi = {
@@ -162,18 +162,18 @@
   };
   sublinkpro-linux-amd64 = {
     pname = "sublinkpro-linux-amd64";
-    version = "1.2.22";
+    version = "1.3.0";
     src = fetchurl {
-      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.22/sublinkPro-linux-amd64";
-      hash = "sha256-j1WvJQKs8OS27Q1X7o9hxwqEfvsNtVyj1qWB9MWAhEY=";
+      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.3.0/sublinkPro-linux-amd64";
+      hash = "sha256-6EKNseJrLKl9uH0+TrIkkQ4+61wvTdUFKG6zv92kdnU=";
     };
   };
   sublinkpro-linux-arm64 = {
     pname = "sublinkpro-linux-arm64";
-    version = "1.2.22";
+    version = "1.3.0";
     src = fetchurl {
-      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.22/sublinkPro-linux-arm64";
-      hash = "sha256-OeOdOq7mHXs6WWshAjHEMy7c4ij763xItZSY2ExRAZY=";
+      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.3.0/sublinkPro-linux-arm64";
+      hash = "sha256-RtQEARjwiHgGzCXlsYcvxx8+M7k6G74H+O2WU9OOH8M=";
     };
   };
   sun-panel = {
@@ -216,18 +216,18 @@
   };
   vaults3-linux-amd64 = {
     pname = "vaults3-linux-amd64";
-    version = "5.0.7";
+    version = "5.0.8";
     src = fetchurl {
-      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v5.0.7/vaults3-linux-amd64.tar.gz";
-      hash = "sha256-0KGFIXzxHMB81S6Pbuj1b43YT8T4ub5tvBKufPkkCrM=";
+      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v5.0.8/vaults3-linux-amd64.tar.gz";
+      hash = "sha256-rgfEIkSscjN96S7vr3z+TAE0ZGxSv0ExA4WJmgYs6qQ=";
     };
   };
   vaults3-linux-arm64 = {
     pname = "vaults3-linux-arm64";
-    version = "5.0.7";
+    version = "5.0.8";
     src = fetchurl {
-      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v5.0.7/vaults3-linux-arm64.tar.gz";
-      hash = "sha256-Kwab8fZEquJIgWFyH4EE/krG6DdeXGYI3pc2KoJlwUU=";
+      url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v5.0.8/vaults3-linux-arm64.tar.gz";
+      hash = "sha256-4P/EIlOjX8s0VMFRP1M4TSorfwA87bRd2WWvD7Mfk7s=";
     };
   };
   vertex = {

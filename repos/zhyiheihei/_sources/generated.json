@@ -215,12 +215,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media",
-            "rev": "v5.7.2",
-            "sha256": "sha256-fARLD7FbjAX0YPh+RYPXTYm2NtxQcefiPa1DGOCDnPk=",
+            "rev": "v5.8.1",
+            "sha256": "sha256-0K0U4sUwhdvljbljAYVxqg+agxvcZiva6l8zaWbeGaA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v5.7.2"
+        "version": "v5.8.1"
     },
     "nexus-media-web": {
         "cargoLock": null,
@@ -236,12 +236,12 @@
             "name": null,
             "owner": "linyuan0213",
             "repo": "nexus-media-web",
-            "rev": "v5.7.2",
-            "sha256": "sha256-4tMRMaCjCeDszGYv4K0CmqqAUcFEbhUuTI2RosTlMr4=",
+            "rev": "v5.8.1",
+            "sha256": "sha256-9sikunWMpZaYl5oSHQLKVAFYUfxUbNLm3ahJtW1G+E8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v5.7.2"
+        "version": "v5.8.1"
     },
     "pinyin2hanzi": {
         "cargoLock": null,
@@ -318,11 +318,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-j1WvJQKs8OS27Q1X7o9hxwqEfvsNtVyj1qWB9MWAhEY=",
+            "sha256": "sha256-6EKNseJrLKl9uH0+TrIkkQ4+61wvTdUFKG6zv92kdnU=",
             "type": "url",
-            "url": "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.22/sublinkPro-linux-amd64"
+            "url": "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.3.0/sublinkPro-linux-amd64"
         },
-        "version": "1.2.22"
+        "version": "1.3.0"
     },
     "sublinkpro-linux-arm64": {
         "cargoLock": null,
@@ -333,11 +333,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-OeOdOq7mHXs6WWshAjHEMy7c4ij763xItZSY2ExRAZY=",
+            "sha256": "sha256-RtQEARjwiHgGzCXlsYcvxx8+M7k6G74H+O2WU9OOH8M=",
             "type": "url",
-            "url": "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.22/sublinkPro-linux-arm64"
+            "url": "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.3.0/sublinkPro-linux-arm64"
         },
-        "version": "1.2.22"
+        "version": "1.3.0"
     },
     "sun-panel": {
         "cargoLock": null,
@@ -426,11 +426,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-0KGFIXzxHMB81S6Pbuj1b43YT8T4ub5tvBKufPkkCrM=",
+            "sha256": "sha256-rgfEIkSscjN96S7vr3z+TAE0ZGxSv0ExA4WJmgYs6qQ=",
             "type": "url",
-            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v5.0.7/vaults3-linux-amd64.tar.gz"
+            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v5.0.8/vaults3-linux-amd64.tar.gz"
         },
-        "version": "5.0.7"
+        "version": "5.0.8"
     },
     "vaults3-linux-arm64": {
         "cargoLock": null,
@@ -441,11 +441,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-Kwab8fZEquJIgWFyH4EE/krG6DdeXGYI3pc2KoJlwUU=",
+            "sha256": "sha256-4P/EIlOjX8s0VMFRP1M4TSorfwA87bRd2WWvD7Mfk7s=",
             "type": "url",
-            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v5.0.7/vaults3-linux-arm64.tar.gz"
+            "url": "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v5.0.8/vaults3-linux-arm64.tar.gz"
         },
-        "version": "5.0.7"
+        "version": "5.0.8"
     },
     "vertex": {
         "cargoLock": null,
