@@ -3,6 +3,6 @@
 { }:
 
 {
-  version = "0.0.1793980608989";
-  npmDepsHash = "sha256-fp5ophlDzoIj3m5GUWz78SdEZg+ytVRUy+3Sqb9MNDA=";
+  version = "0.0.1793988963335";
+  npmDepsHash = "sha256-Vf3QWmrBkq1nJbrd1rHRiTuEgSAH0i4GZP4E5W5E4xE=";
 }
