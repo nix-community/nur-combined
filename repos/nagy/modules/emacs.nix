@@ -36,6 +36,13 @@ let
               emacs = self.emacs;
             };
 
+        git-bug =
+          (flakes.emacs-git-bug or (builtins.getFlake "github:nagy/emacs-git-bug"))
+          .packages.${pkgs.stdenv.hostPlatform.system}.default.override
+            {
+              emacs = self.emacs;
+            };
+
         openstack =
           (flakes.emacs-openstack-modes or (builtins.getFlake "github:nagy/emacs-openstack-modes"))
           .packages.${pkgs.stdenv.hostPlatform.system}.default.override

@@ -42,6 +42,11 @@
     inputs.nixpkgs.follows = "nixpkgs";
   };
 
+  inputs.emacs-git-bug = {
+    url = "github:nagy/emacs-git-bug";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
   inputs.emacs-openstack-modes = {
     url = "github:nagy/emacs-openstack-modes";
     inputs.nixpkgs.follows = "nixpkgs";
