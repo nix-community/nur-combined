@@ -8,15 +8,15 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "whisper-vamp-plugin-bin";
-  version = "4.0.0";
+  version = "5.0.0";
   src = fetchzip {
-    url = "https://github.com/Ircam-Partiels/whisper-vamp-plugin/releases/download/${finalAttrs.version}/Whisper-Linux.tar.gz";
-    sha256 = "sha256-dN/K5GLO7JsE5RDibSYl+wbA8goIIB5Ro54KN/77dW0=";
+    url = "https://github.com/Ircam-Partiels/whisper-vamp-plugin/releases/download/${finalAttrs.version}/Whisper-Vamp-Linux.zip";
+    sha256 = "sha256-5Ytoqmf4oHoIj38e6W6n1cCZiv+WfzMbIatcrRnK/n4=";
   };
+  sourceRoot = ".";
 
   outputs = [
     "out"
-    "lib"
   ];
 
   preferLocalBuild = true;
@@ -33,10 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preBuild
 
     mkdir -p $out/lib/vamp
-    cp ircamwhisper.* $out/lib/vamp
-
-    mkdir -p $lib/libexec
-    cp *.bin $lib/libexec
+    cp -r source $out/lib/vamp/ircamwhisper.vamp
 
     runHook postBuild
   '';

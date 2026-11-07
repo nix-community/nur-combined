@@ -6,6 +6,7 @@
   [ "firefoxAddons" ]
   [ "just-a-sample-bin" ]
   [ "kiwmi" ]
+  [ "klknn" ]
   [ "quetzalcoatl-bin" ]
   [ "sable" ]
   [ "snyk-ls-bin" ]

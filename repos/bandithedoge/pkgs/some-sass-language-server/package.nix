@@ -9,15 +9,15 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "some-sass-language-server";
-  version = "2.3.8";
+  version = "2.3.9";
   src = fetchFromGitHub {
     owner = "wkillerud";
     repo = "some-sass";
     rev = "some-sass-language-server@${finalAttrs.version}";
-    hash = "sha256-jmpkZReeVuf10juWMy7QO/q1Sm7kye3NTpMCeB8kG48=";
+    hash = "sha256-m4lDB0/Kp/08XzWNOzTHnGibgX8vlyJeFCCVK2mrF/I=";
   };
 
-  npmDepsHash = "sha256-sSumbDqiztUuTs+amYv83I6odbrIOOawXeJxdF2xkA4=";
+  npmDepsHash = "sha256-2/18p9X+BXYDw8x9fYpEf8dlXUDPwAFt3g6XMa6H/Fo=";
 
   npmBuildScript = "build:production";
   npmRebuildFlags = [ "--ignore-scripts" ];

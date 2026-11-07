@@ -8,11 +8,12 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "crepe-vamp-plugin-bin";
-  version = "3.0.0";
+  version = "4.1.0";
   src = fetchzip {
-    url = "https://github.com/Ircam-Partiels/crepe-vamp-plugin/releases/download/${finalAttrs.version}/Crepe-Linux.tar.gz";
-    sha256 = "sha256-dIFwxJN43dptdpp1jGChUyl9k06sC+L9ZpeXAZBXPeo=";
+    url = "https://github.com/Ircam-Partiels/crepe-vamp-plugin/releases/download/${finalAttrs.version}/Crepe-Vamp-Linux.zip";
+    sha256 = "sha256-AIIxsXtp3cgQ1CC+AFbplOvznY0nu28cP0ANvrGG9vI=";
   };
+  sourceRoot = ".";
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -26,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preBuild
 
     mkdir -p $out/lib/vamp
-    cp ircamcrepe.* $out/lib/vamp
+    cp -r source $out/lib/vamp/ircamcrepe.vamp
 
     runHook postBuild
   '';

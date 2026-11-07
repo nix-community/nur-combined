@@ -9,14 +9,14 @@
   symlinkJoin,
 }:
 let
-  version = "7.0.0";
+  version = "7.0.0-unstable-2026-11-06";
 
   src = fetchFromGitHub {
     owner = "bethington";
     repo = "ghidra-mcp";
-    rev = "v${version}";
+    rev = "ad0dfdb6f13d0af7591b5b3b11327ddaa2671b7d";
     fetchSubmodules = false;
-    sha256 = "sha256-0RWq1bX3fHY2DR0HQ75ylNCWQbKczvsk8m8/8eSW/Sk=";
+    sha256 = "sha256-54gLjtOl/kTKzl9hZZfm7Gp8XnibkKDP1eONN+FW2VE=";
   };
 in
 symlinkJoin {
@@ -82,7 +82,12 @@ symlinkJoin {
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
 
   meta = {
     description = "Production-ready Model Context Protocol (MCP) server that bridges Ghidra's powerful reverse engineering capabilities with modern AI tools and automation frameworks";
