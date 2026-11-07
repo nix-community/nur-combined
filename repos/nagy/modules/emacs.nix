@@ -27,6 +27,34 @@ let
         bruvtab =
           (builtins.getFlake "github:nagy/emacs-bruvtab").packages.${pkgs.stdenv.hostPlatform.system}.bruvtab;
 
+        buffer-url =
+          (builtins.getFlake "github:nagy/emacs-buffer-url")
+          .packages.${pkgs.stdenv.hostPlatform.system}.default.override
+            {
+              emacs = self.emacs;
+            };
+
+        openstack =
+          (builtins.getFlake "github:nagy/emacs-openstack-modes")
+          .packages.${pkgs.stdenv.hostPlatform.system}.default.override
+            {
+              emacs = self.emacs;
+            };
+
+        gitlab-modes =
+          (builtins.getFlake "github:nagy/emacs-gitlab-modes")
+          .packages.${pkgs.stdenv.hostPlatform.system}.default.override
+            {
+              emacs = self.emacs;
+            };
+
+        network-modes =
+          (builtins.getFlake "github:nagy/emacs-network-modes")
+          .packages.${pkgs.stdenv.hostPlatform.system}.default.override
+            {
+              emacs = self.emacs;
+            };
+
         org-jxl-images =
           (builtins.getFlake "github:nagy/org-jxl-images.el")
           .packages.${pkgs.stdenv.hostPlatform.system}.org-jxl-images;
@@ -249,6 +277,8 @@ in
           # updated 2026-10-31
           # to update: curl -s https://api.github.com/repos/nix-community/emacs-overlay/commits/master | head -2
           url = "https://github.com/nix-community/emacs-overlay/archive/14c5c32cdc5804f17390919e75d05962bc7def09.tar.gz";
+          # Pinned, so flake evaluation stays pure.
+          sha256 = "13qbpw4bcgl6y9ak1n2rdlq0w92zhr87i3rmw3lzd4fq01zmflgg";
         }
       ))
     ];

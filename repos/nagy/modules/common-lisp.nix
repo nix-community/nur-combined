@@ -4,6 +4,9 @@
   ...
 }:
 
+let
+  self = import ../. { inherit pkgs; };
+in
 {
   environment.systemPackages = [
     (pkgs.sbcl.withPackages (ps: [
@@ -26,6 +29,6 @@
       # ps.april
       ps.serapeum
     ]))
-    nur.repos.nagy.hyperspec
+    self.hyperspec
   ];
 }
