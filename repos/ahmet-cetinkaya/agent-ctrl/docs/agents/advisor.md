@@ -1,0 +1,9 @@
+# `advisor` composition
+
+- **Target and responsibility:** Read-only architecture, stuck-debugging, and independent risk-review advisor.
+- **Sources:** [oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent) Oracle agent, consultation scope, reasoning, and output; [SuperClaude Framework](https://github.com/SuperClaude-Org/SuperClaude_Framework) `src/superclaude/agents/system-architect.md`, architecture tradeoff sections; [SuperClaude Framework](https://github.com/SuperClaude-Org/SuperClaude_Framework) `src/superclaude/agents/root-cause-analyst.md`, evidence and hypothesis testing; [Everything Claude Code](https://github.com/affaan-m/ECC) `agents/code-reviewer.md`, concrete-failure review contract; current [oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent) `packages/omo-opencode/src/agents/oracle.ts`, consultant role.
+- **Behavior taken:** Expensive-only routing, multiple alternatives or hypotheses, evidence-led recommendation, concrete findings, tradeoffs, and confidence.
+- **Merge:** Architect, devil's-advocate, root-cause escalation, and reviewer roles become one read-only advisory leaf selected by risk.
+- **Provider adaptation:** `Skill` loads review/security contracts; the `tools` allowlist of read and search tools (no shell, no web) prevents edits, execution, and network access, with no `Task` or provider invocation. Claude Code alone routes this deep-consultation role to `fable` through `models.claude`; other platforms remain unpinned.
+- **Exclusions:** Mandatory review of every change, arbitrary style rules, blind patches, shell execution, and persona panels were removed.
+- **Attribution:** Original rewrite drawing on [oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent) (Sustainable Use License), [SuperClaude Framework](https://github.com/SuperClaude-Org/SuperClaude_Framework) (MIT), and [Everything Claude Code](https://github.com/affaan-m/ECC) (MIT); no upstream prose is copied verbatim.

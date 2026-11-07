@@ -1,6 +1,7 @@
 name: NestJS
 description: "NestJS / Node.js framework development — skills for modular, dependency-injected enterprise backends."
 tags:
+  - framework
   - nestjs
   - node
   - typescript

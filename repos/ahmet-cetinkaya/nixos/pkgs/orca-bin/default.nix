@@ -13,7 +13,7 @@
 
   # Extract the AppImage contents so we can lift out the .desktop entry and
   # icons and rewire the Exec line to the wrapped binary.
-  appimageContents = appimageTools.extractType2 {inherit pname version src;};
+  appimageContents = appimageTools.extract {inherit pname version src;};
 in
   appimageTools.wrapType2 {
     inherit pname version src;

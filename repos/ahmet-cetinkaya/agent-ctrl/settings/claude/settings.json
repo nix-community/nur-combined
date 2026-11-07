@@ -1,77 +1,264 @@
 {
-  "env": {
-    "ANTHROPIC_AUTH_TOKEN": "${OMNIROUTE_AUTH_TOKEN}",
-    "ANTHROPIC_BASE_URL": "${OMNIROUTE_BASE_URL}",
-    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "combo/lite-models",
-    "ANTHROPIC_SMALL_FAST_MODEL": "combo/lite-models",
-    "ANTHROPIC_DEFAULT_OPUS_MODEL": "combo/high-models",
-    "ANTHROPIC_DEFAULT_SONNET_MODEL": "combo/mid-models",
-    "ANTHROPIC_MODEL": "combo/the-model"
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "showThinkingSummaries": true,
+  "askUserQuestionTimeout": "10m",
+  "preferredNotifChannel": "notifications_disabled",
+  "agent": "lead",
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
   },
-  "model": "combo/the-model",
+  "disableRemoteControl": true,
 
-  "editorMode": "normal",
-  "autoCompactEnabled": true,
-  "includeCoAuthoredBy": false,
+  "env": {
+    "DISABLE_AUTOUPDATER": "1",
+    "PYTHONSAFEPATH": "1",
+    "CLAUDE_CODE_NEW_INIT": "1",
+
+    "ASPIRE_CLI_START_TIMEOUT": "600",
+
+    "GIT_ALLOW_PROTOCOL": "https:ssh",
+
+    "ANTHROPIC_BASE_URL": "${OMNIROUTE_BASE_URL}",
+    "ANTHROPIC_AUTH_TOKEN": "${OMNIROUTE_AUTH_TOKEN}",
+
+    "ANTHROPIC_DEFAULT_FABLE_MODEL": "cc/claude-fable-5-1[1m]",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "cc/claude-opus-5-5[1m]",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "cc/claude-sonnet-5-5[1m]",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "cc/claude-haiku-5-5",
+
+    "CLAUDE_CODE_SUBAGENT_MODEL": "sonnet",
+
+    "CLAUDE_CODE_ENABLE_TODO_TOOLS": "1"
+  },
+
+  "modelPicker": {
+    "replaceBuiltInOptions": true,
+    "options": [
+      {
+        "model": "cc/claude-fable-5-1[1m]",
+        "label": "Claude Fable 5.1",
+        "behavesAs": "claude-fable-5-1"
+      },
+      {
+        "model": "cc/claude-opus-5-5[1m]",
+        "label": "Claude Opus 5.5",
+        "behavesAs": "claude-opus-5-5"
+      },
+      {
+        "model": "cc/claude-sonnet-5-5[1m]",
+        "label": "Claude Sonnet 5.5",
+        "behavesAs": "claude-sonnet-5-5"
+      },
+      {
+        "model": "cc/claude-haiku-5-5",
+        "label": "Claude Haiku 5.5",
+        "behavesAs": "claude-haiku-5-5"
+      },
+      {
+        "model": "cx/gpt-6-luna[1m]",
+        "label": "GPT-6 Luna",
+        "behavesAs": "claude-haiku-5-5"
+      },
+      {
+        "model": "glm/glm-5.3[1m]",
+        "label": "GLM 5.3",
+        "behavesAs": "claude-opus-5-5"
+      },
+      {
+        "model": "glm/glm-5.3-flash[1m]",
+        "label": "GLM 5.3 Flash",
+        "behavesAs": "claude-sonnet-5-5"
+      },
+      {
+        "model": "combo/max-models",
+        "label": "Max Models",
+        "behavesAs": "claude-fable-5-1"
+      },
+      {
+        "model": "combo/high-models",
+        "label": "High Models",
+        "behavesAs": "claude-opus-5-5"
+      },
+      {
+        "model": "combo/mid-models",
+        "label": "Mid Models",
+        "behavesAs": "claude-sonnet-5-5"
+      },
+      {
+        "model": "combo/lite-models",
+        "label": "Lite Models",
+        "behavesAs": "claude-haiku-5-5"
+      },
+      {
+        "model": "auto/coding:free",
+        "label": "Auto Coding Free",
+        "behavesAs": "claude-sonnet-5-5"
+      }
+    ]
+  },
+
+  "modelSettings": {
+    "cx/gpt-6-luna[1m]": {
+      "autoCompactWindow": 800000
+    },
+    "combo/max-models": {
+      "autoCompactWindow": 800000
+    },
+    "combo/high-models": {
+      "autoCompactWindow": 800000
+    },
+    "combo/mid-models": {
+      "autoCompactWindow": 800000
+    },
+    "combo/lite-models": {
+      "autoCompactWindow": 800000
+    }
+  },
+
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "permission_prompt|idle_prompt|elicitation_dialog",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"$HOME/.agent-ctrl/settings/claude/notify.sh\" \"ℹ️ Girdi bekliyor\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"$HOME/.agent-ctrl/settings/claude/notify.sh\" \"✅ Tamamlandı\""
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=\"$CLAUDE_PROJECT_DIR/_system/scripts/hooks/session-context.mjs\"; [ -f \"$f\" ] && exec bun \"$f\"; exit 0",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=\"$CLAUDE_PROJECT_DIR/_system/scripts/hooks/prompt-context.mjs\"; [ -f \"$f\" ] && exec bun \"$f\"; exit 0",
+            "timeout": 5
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=\"$CLAUDE_PROJECT_DIR/_system/scripts/hooks/session-summary.mjs\"; [ -f \"$f\" ] && exec bun \"$f\"; exit 0",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  },
+
+  "enabledPlugins": {
+    "keep-awake@claude-community": true,
+    "cc-plugin-you-should-know@builtin": true
+  },
 
   "statusLine": {
     "type": "command",
-    "command": "bunx -y ccstatusline@latest",
+    "command": "bunx -y ccstatusline@2.2.30",
     "padding": 0,
     "refreshInterval": 10
   },
 
-  "extraKnownMarketplaces": {
-    "claude-notifications-go": {
-      "source": {
-        "source": "github",
-        "repo": "777genius/claude-notifications-go"
-      }
-    }
-  },
-  "enabledPlugins": {
-    "claude-notifications-go@claude-notifications-go": true
+  "permissions": {
+    "defaultMode": "auto",
+    "additionalDirectories": ["${SECOND_BRAIN_DIR}"],
+    "deny": [
+      "Read(~/.ssh/**)",
+      "Read(~/.gnupg/**)",
+      "Read(~/.aws/**)",
+      "Read(~/.config/gh/**)",
+      "Read(~/.docker/**)",
+      "Read(~/.npmrc)",
+      "Read(~/.config/google-chrome/**)",
+      "Read(~/.config/chromium/**)",
+      "Read(~/.config/BraveSoftware/**)",
+      "Read(~/.thunderbird/**)",
+      "Read(~/.claude/.credentials.json)",
+      "Read(~/.claude/settings.json)",
+      "Read(~/Configs/agent-ctrl/.env)",
+      "Read(~/.codex/auth.json)",
+      "Read(~/.gemini/oauth_creds.json)",
+      "Read(~/.gemini/google_accounts.json)",
+      "Read(~/.local/share/opencode/auth.json)",
+      "Read(~/.nuget/NuGet/NuGet.Config)",
+      "Read(~/.config/Slack/**)",
+      "Read(~/.config/Code/User/globalStorage/**)",
+      "Read(~/.config/VSCodium/User/globalStorage/**)",
+      "Read(~/.claude.json)",
+      "Read(~/Configs/zsh/.env)",
+      "Read(~/.microsoft/usersecrets/**)",
+      "Read(~/.azure/**)",
+      "Read(~/.git-credentials)",
+      "Read(~/.netrc)",
+      "Read(~/.kube/**)",
+      "Read(~/.config/github-copilot/**)",
+      "Read(~/.mozilla/**)",
+      "Read(~/.local/share/keyrings/**)",
+      "Read(~/.zsh_history)",
+      "Read(~/.bash_history)",
+      "Read(**/.env)",
+      "Read(**/.env.local)",
+      "Read(**/.env.*.local)",
+      "Read(**/.env.development)",
+      "Read(**/.env.dev)",
+      "Read(**/.env.staging)",
+      "Read(**/.env.production)",
+      "Read(**/.env.prod)"
+    ],
+    "ask": [
+      "Bash(gh secret *)",
+      "Bash(gh auth token*)",
+      "Bash(gh repo delete *)",
+      "Bash(gh release delete *)",
+      "Bash(gh pr merge *)",
+      "Bash(agent-ctrl apply *)",
+      "Edit(~/Configs/agent-ctrl/settings/claude/**)",
+      "Edit(~/Configs/zsh/**)",
+      "Edit(~/Configs/nixos/modules/apps/ai/**)"
+    ]
   },
 
-  "allowedTools": [
-    "Bash(echo *)",
-    "Bash(pwd *)",
-    "Bash(cat *)",
-    "Bash(head *)",
-    "Bash(tail *)",
-    "Bash(wc *)",
-    "Bash(ls *)",
-    "Bash(find *)",
-    "Bash(grep *)",
-    "Bash(sed *)",
-    "Bash(awk *)",
-    "Bash(mkdir *)",
-    "Bash(touch *)",
-    "Bash(jq *)",
-    "Bash(git status *)",
-    "Bash(git diff *)",
-    "Bash(git log *)",
-    "Bash(git branch *)",
-    "Bash(git show *)",
-    "Bash(git rev-parse *)",
-    "Bash(git fetch *)",
-    "Bash(npm test *)",
-    "Bash(bun test *)",
-    "Bash(bunx tsc *)",
-    "Bash(bunx eslint *)",
-    "Bash(bunx prettier *)",
-    "Bash(bunx vitest *)",
-    "Bash(dotnet build *)",
-    "Bash(dotnet test *)",
-    "Bash(dotnet restore *)",
-    "Bash(dotnet clean *)",
-    "Bash(dotnet --version *)",
-    "Bash(cargo test *)",
-    "Bash(cargo build *)",
-    "Bash(cargo check *)",
-    "Bash(go test *)",
-    "Bash(go build *)",
-    "Bash(go vet *)",
-    "Bash(python3 -m *)"
-  ]
+  "sandbox": {
+    "enabled": false
+  },
+
+  "autoMode": {
+    "classifyAllShell": true,
+    "environment": [
+      "$defaults",
+      "**Host containment**: Claude Code runs on the user's own NixOS workstation, without a sandbox, with real SSH, GPG, GitHub, and cloud credentials in the home directory. Treat every credential file on this machine as sensitive."
+    ],
+    "soft_deny": [
+      "$defaults",
+      "Credential File Read: a shell command that reads, prints, copies, encodes, or uploads the contents of ~/.ssh, ~/.gnupg, ~/.aws, ~/.azure, ~/.kube, ~/.docker/config.json, ~/.config/gh, ~/.git-credentials, ~/.netrc, ~/.npmrc, ~/.claude.json, ~/.claude/.credentials.json, ~/.microsoft/usersecrets, ~/.local/share/keyrings, a browser profile, ~/Configs/zsh/.env, ~/Configs/agent-ctrl/.env, or a project .env file other than .env.example, .env.sample, or .env.template, unless the user named that file in this request. Listing a directory or testing that a file exists is fine.",
+      "Secret Environment Dump: printing or sending the whole environment (env, printenv, set, /proc/*/environ) or any variable whose name contains TOKEN, KEY, SECRET, or PASSWORD, unless the user asked for that variable by name."
+    ]
+  }
 }

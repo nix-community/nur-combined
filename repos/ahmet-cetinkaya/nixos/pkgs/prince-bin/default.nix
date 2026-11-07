@@ -11,7 +11,7 @@
   zlib,
 }: let
   pname = "prince-bin";
-  version = "16.2";
+  version = "17";
   runtimeLibs = [
     fontconfig
     libidn
@@ -27,13 +27,13 @@
     then
       fetchurl {
         url = "https://www.princexml.com/download/prince-${version}-linux-generic-x86_64.tar.gz";
-        sha256 = "131eece0b07ee832adef8291c6056156b3d04bfebc11ca40274948f8e40a8bbc";
+        sha256 = "dd52e3704dd5569305acfeb962ceccda425471f25a3ac67d2135c596c7e4d25b";
       }
     else if stdenvNoCC.hostPlatform.system == "aarch64-linux"
     then
       fetchurl {
         url = "https://www.princexml.com/download/prince-${version}-linux-generic-aarch64.tar.gz";
-        sha256 = "4ea3d160724456d8174ec219bef1d1604ad351ed6229867bf1459e2cdbfab258";
+        sha256 = "db1d561acb5636251a3299c5d6f0b5773b1e71be8c7bd4e228a53c65d44ecd56";
       }
     else throw "Unsupported system for ${pname}: ${stdenvNoCC.hostPlatform.system}";
 in

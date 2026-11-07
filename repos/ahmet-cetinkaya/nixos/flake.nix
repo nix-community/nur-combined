@@ -99,10 +99,17 @@
       name = "karakiz";
       system = "x86_64-linux";
       overlays = [
+        # `pcre` (PCRE1) was removed from nixpkgs as EOL, but dikte-bin's soname
+        # shim still needs the real library (the AppImage's bundled glib links
+        # libpcre.so.3). Source it from stable nixpkgs, like fonts.nix does.
+        (final: prev: {pcre = inputs.nixpkgs-stable.legacyPackages.${prev.stdenv.hostPlatform.system}.pcre;})
         (import ./pkgs)
         inputs.nur.overlays.default
         inputs.antigravity-nix.overlays.default
         inputs.areofyl-fetch.overlays.default
+        # `pinned` builds the kernel with upstream's own nixpkgs revision, which matches its
+        # binary cache (cache.lantian.pub). `default` uses ours, so every flake.lock bump
+        # misses the cache and compiles the kernel locally. Do not add `follows` to the input.
         inputs.nix-cachyos-kernel.overlays.pinned
       ];
       extraModules = [

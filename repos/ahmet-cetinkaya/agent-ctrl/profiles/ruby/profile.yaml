@@ -1,6 +1,7 @@
 name: Ruby
 description: "Ruby / Rails development — rules and conventions for web application development."
 tags:
+  - language
   - ruby
   - rails
   - web

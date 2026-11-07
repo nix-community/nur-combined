@@ -1,0 +1,259 @@
+// Oh My Openagent configuration
+// Agent/category roles - see docs/omo-docs.md for details
+// GPT kotası bitti — Claude + GLM (z.ai) only
+{
+  "$schema": "https://raw.githubusercontent.com/code-yeongyu/oh-my-openagent/dev/assets/omo.schema.json",
+  // Shared base key, read by the Senpi (native) harness too — NOT nested under [opencode].
+  // Pins for regular task() delegation in the main session (extensions loaded there, fine).
+  "categories": {
+    "quick": {
+      "model": "omni/glm/glm-5.3-flash"
+    },
+    // init-deep writers: no anthropic provider connected; pin to the working omni GLM lane
+    "unspecified-high": {
+      "model": "omni/glm/glm-5.3-flash"
+    }
+  },
+  // Built-in model_profiles (capable/simple-work/deep-work) reference generic provider ids
+  // (anthropic, openai-codex...) that never match our custom "omni" gateway, so activating
+  // them as-is silently no-ops. Define our own "capable" chain for the main session.
+  "model_profiles": {
+    "capable": {
+      "models": [
+        { "model": "omni/claude/claude-opus-5", "reasoning": "max" },
+        { "model": "omni/glm/glm-5.3", "reasoning": "max" }
+      ]
+    }
+  },
+  "model_profile": "capable",
+  "telemetry": {
+    "enabled": false
+  },
+  "[opencode]": {
+    "git_master": {
+      "include_co_authored_by": false,
+      "commit_footer": false,
+      "git_env_prefix": "GIT_MASTER=1"
+    },
+    "claude_code": {
+      "mcp": false,
+      "commands": false,
+      "skills": false,
+      "hooks": false,
+      "plugins": false,
+      "agents": false
+    },
+    "runtime_fallback": {
+      "enabled": true,
+      "retry_on_errors": [
+        400,
+        401,
+        403,
+        404,
+        429,
+        500,
+        502,
+        503,
+        504
+      ],
+      "max_fallback_attempts": 2,
+      "cooldown_seconds": 15,
+      "timeout_seconds": 10,
+      "notify_on_fallback": true,
+      "restore_primary_after_cooldown": true
+    },
+    "agents": {
+      "sisyphus": {
+        "prompt": "file://~/.config/opencode/.omo/custom_prompts/SISYPHUS.md",
+        "model": "omniroute/claude/claude-opus-5",
+        "variant": "high",
+        "fallback_models": [
+          {
+            "model": "omniroute/glm/glm-5.3"
+          }
+        ]
+      },
+      "hephaestus": {
+        "model": "omniroute/claude/claude-sonnet-5",
+        "reasoning": "medium",
+        "fallback_models": [
+          {
+            "model": "omniroute/glm/glm-5.3"
+          }
+        ]
+      },
+      "oracle": {
+        "model": "omniroute/claude/claude-opus-5",
+        "variant": "xhigh",
+        "fallback_models": [
+          {
+            "model": "omniroute/claude/claude-fable-5",
+            "variant": "max"
+          },
+          {
+            "model": "omniroute/glm/glm-5.3-max"
+          }
+        ]
+      },
+      "librarian": {
+        "prompt": "file://~/.config/opencode/.omo/custom_prompts/LIBRARIAN.md",
+        "model": "omniroute/claude/claude-haiku-4-5-20251001",
+        "fallback_models": [
+          {
+            "model": "omniroute/glm/glm-5.3-flash"
+          }
+        ]
+      },
+      "explore": {
+        "prompt": "file://~/.config/opencode/.omo/custom_prompts/EXPLORE.md",
+        "model": "omniroute/claude/claude-haiku-4-5-20251001",
+        "fallback_models": [
+          {
+            "model": "omniroute/glm/glm-5.3-flash"
+          }
+        ]
+      },
+      "multimodal-looker": {
+        "model": "omniroute/glm/glm-4.6v",
+        "fallback_models": [
+          {
+            "model": "omniroute/claude/claude-sonnet-5"
+          }
+        ]
+      },
+      "prometheus": {
+        "model": "omniroute/claude/claude-fable-5",
+        "reasoning": "high"
+      },
+      "metis": {
+        "model": "omniroute/claude/claude-opus-5",
+        "reasoning": "high"
+      },
+      "momus": {
+        "model": "omniroute/claude/claude-opus-5",
+        "variant": "high",
+        "fallback_models": [
+          {
+            "model": "omniroute/claude/claude-fable-5",
+            "variant": "xhigh"
+          },
+          {
+            "model": "omniroute/glm/glm-5.3-max"
+          }
+        ]
+      },
+      "atlas": {
+        "prompt": "file://~/.config/opencode/.omo/custom_prompts/ATLAS.md",
+        "model": "omniroute/claude/claude-sonnet-5",
+        "fallback_models": [
+          {
+            "model": "omniroute/glm/glm-5.3"
+          }
+        ]
+      },
+      "sisyphus-junior": {
+        "model": "omniroute/claude/claude-sonnet-5",
+        "fallback_models": [
+          {
+            "model": "omniroute/glm/glm-5.3"
+          }
+        ]
+      }
+    },
+    "categories": {
+      "visual-engineering": {
+        "models": [
+          {
+            "model": "omniroute/claude/claude-opus-5",
+            "reasoning": "max"
+          },
+          {
+            "model": "omniroute/glm/glm-5.3"
+          }
+        ]
+      },
+      "ultrabrain": {
+        "models": [
+          {
+            "model": "omniroute/claude/claude-opus-5",
+            "reasoning": "max"
+          },
+          {
+            "model": "omniroute/claude/claude-fable-5",
+            "reasoning": "high"
+          }
+        ]
+      },
+      "deep-low": {
+        "models": [
+          {
+            "model": "omniroute/claude/claude-sonnet-5",
+            "reasoning": "medium"
+          },
+          {
+            "model": "omniroute/glm/glm-5.3"
+          }
+        ]
+      },
+      "artistry": {
+        "models": [
+          {
+            "model": "omniroute/claude/claude-fable-5",
+            "reasoning": "high"
+          },
+          {
+            "model": "omniroute/claude/claude-opus-5",
+            "reasoning": "high"
+          }
+        ]
+      },
+      "quick": {
+        "models": [
+          {
+            "model": "omniroute/claude/claude-haiku-4-5-20251001"
+          },
+          {
+            "model": "omniroute/glm/glm-5.3-flash"
+          }
+        ]
+      },
+      "unspecified-low": {
+        "models": [
+          {
+            "model": "omniroute/claude/claude-sonnet-5",
+            "reasoning": "low"
+          },
+          {
+            "model": "omniroute/glm/glm-5.3-flash"
+          }
+        ]
+      },
+      "unspecified-high": {
+        "models": [
+          {
+            "model": "omniroute/claude/claude-opus-5",
+            "reasoning": "high"
+          },
+          {
+            "model": "omniroute/glm/glm-5.3"
+          }
+        ]
+      },
+      "writing": {
+        "models": [
+          {
+            "model": "omniroute/claude/claude-opus-5",
+            "reasoning": "low"
+          },
+          {
+            "model": "omniroute/glm/glm-5.3"
+          }
+        ]
+      }
+    }
+  },
+  "_migrations": [
+    "2026-08-reasoning-unification",
+    "2026-09-category-deep-split"
+  ]
+}

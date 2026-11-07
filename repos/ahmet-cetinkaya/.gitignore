@@ -36,6 +36,7 @@ temp/
 *.backup
 *.orig
 *.old
+*_backup.json
 
 # Neovim
 *.swp
@@ -126,14 +127,16 @@ hs_err_pid*
 *.sqlite3
 
 # AI Agent files
-**/**/.codegraph/
-**/**/.omo/
 *AGENTS.md
 *CLAUDE.md
 *GEMINI.md
 *QWEN.md
 .ai/
+**/.agents/
 .claude/
+.codegraph
+/.mcp.json
+.omo/
 .gemini/
 .opencode/
 .qwen/
@@ -141,6 +144,10 @@ hs_err_pid*
 .specify/
 graphify-out/
 opencode.json
+
+# Nix build outputs
+/nixos/result
+/nixos/result-*
 
 # Archives
 *.7z
@@ -151,3 +158,4 @@ opencode.json
 *.rar
 *.tar
 *.zip
+agent-ctrl/.local/

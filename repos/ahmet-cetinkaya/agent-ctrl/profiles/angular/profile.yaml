@@ -1,6 +1,7 @@
 name: Angular
 description: "Angular framework development — rules and skills for building reactive enterprise web applications."
 tags:
+  - framework
   - frontend
   - angular
   - typescript

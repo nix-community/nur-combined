@@ -86,13 +86,14 @@
   # CUDA team's Hydra jobset.
   nix.settings.extra-substituters = [
     "https://cache.nixos-cuda.org"
-    "https://cuda-maintainers.cachix.org"
     "https://nix-community.cachix.org"
+    # Prebuilt CachyOS kernels (nix-cachyos-kernel); only hit with the `pinned` overlay.
+    "https://cache.lantian.pub/lantian"
   ];
   nix.settings.extra-trusted-public-keys = [
     "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
-    "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E="
     "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    "lantian:WVGO7vsRMSEN+h7Lp7kv6SAmrkEXgUGbbXm7jMDjBuQ="
   ];
 
   # CachyOS kernel (custom module) + upstream system optimizations.
@@ -103,8 +104,8 @@
     # Ryzen 7 7800X3D uses AMD Zen 4.
     kernel.march = "zen4";
   };
-  # cachyos.settings.enable activates system-level tuning (zram, I/O schedulers, audio, systemd)
-  # via cachyos-settings-nix, independent of the kernel module above.
+  # cachyos.settings.enable only gates cachyos-settings-nix; each tuning area (zram, sysctl,
+  # I/O schedulers, ...) applies only once its own `enable` is set. Swap lives in swap.nix.
   cachyos.settings.enable = true;
 
   boot.loader.systemd-boot = {

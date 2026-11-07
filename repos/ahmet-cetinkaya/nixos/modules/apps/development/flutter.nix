@@ -18,6 +18,7 @@
     platformVersions = [
       "34"
       "35"
+      "36"
     ];
     abiVersions = [
       "armeabi-v7a"
@@ -26,6 +27,7 @@
     buildToolsVersions = [
       "34.0.0"
       "35.0.0"
+      "36.0.0"
     ];
     includeEmulator = true; # Keep local emulator development available without a separate SDK install.
     includeSources = false;

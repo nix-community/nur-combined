@@ -269,7 +269,7 @@ JSDOM (used by Vitest/Jest) cannot:
 - Handle iframes, popups, downloads, cross-origin flows
 - Run real network in a controlled environment with full DevTools support
 
-For any of those, use Playwright Component Testing (component test in real browser) or full E2E. See [e2e-testing skill](../e2e-testing/SKILL.md).
+For any of those, use Playwright Component Testing (component test in real browser) or full E2E. See `e2e-testing skill`.
 
 Decision boundary:
 
@@ -353,8 +353,8 @@ CI=true vitest run --coverage
 
 ## Related
 
-- Rules: [rules/react/testing.md](../../rules/react/testing.md)
-- Skills: [react-patterns](../react-patterns/SKILL.md), [accessibility](../accessibility/SKILL.md), [e2e-testing](../e2e-testing/SKILL.md), [tdd-workflow](../tdd-workflow/SKILL.md)
+- Rules: [rules/testing.md](../../rules/testing.md)
+- Skills: [react-patterns](../react-patterns/SKILL.md), [accessibility](../accessibility/SKILL.md), `e2e-testing`, `tdd-workflow`
 - Agents: `react-reviewer` (reviews test quality during code review), `tdd-guide` (enforces TDD process)
 - Commands: `/react-test`, `/react-review`
 

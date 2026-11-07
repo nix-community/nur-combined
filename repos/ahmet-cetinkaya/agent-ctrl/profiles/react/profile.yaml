@@ -1,6 +1,7 @@
 name: React
 description: "React development — agents, commands, MCPs, rules, and skills for component-driven UI and SPAs."
 tags:
+  - framework
   - react
   - jsx
   - components

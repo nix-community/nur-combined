@@ -1,8 +1,6 @@
 # Local secrets for agent-ctrl catalog integrations
 .env
-.mcp.json
-opencode.json
-.omo/
 
-# Cloned upstream repos used only as local reference (ECC, gd-agentic-skills, etc.)
-.local/
+# Local backup files created by editors or manual saves
+*.bak
+*.bak.*

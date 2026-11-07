@@ -1,0 +1,7 @@
+{
+  "theme": "dark",
+  "packages": [
+    "npm:omniroute-pi-ext-integration",
+    "npm:pi-subagents"
+  ]
+}

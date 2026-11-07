@@ -36,7 +36,7 @@
 
           shellAliases = {
             ll = "ls -l";
-            ls = "eza --icons=auto --hyperlink";
+            ls = "eza --icons=auto --hyperlink=auto";
           };
 
           initContent = ''

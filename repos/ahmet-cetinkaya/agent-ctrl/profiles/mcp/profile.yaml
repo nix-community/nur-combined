@@ -1,6 +1,7 @@
-name: MCP
+name: MCP Development
 description: "Model Context Protocol — skills for building, testing, and integrating MCP servers and clients."
 tags:
+  - integration
   - mcp
   - protocol
   - tools

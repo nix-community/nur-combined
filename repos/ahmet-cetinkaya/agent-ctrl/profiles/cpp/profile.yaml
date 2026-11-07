@@ -1,6 +1,7 @@
 name: C++
 description: "C++ systems programming — agents, commands, rules, and skills for performance-critical, low-level, and embedded development."
 tags:
+  - language
   - cpp
   - systems
   - programming

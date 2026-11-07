@@ -1,6 +1,7 @@
-name: Web Platform
+name: Web Application Platform
 description: "General web platform development — agents, MCPs, and rules spanning HTML, CSS, HTTP, and browser APIs."
 tags:
+  - platform
   - web
   - html
   - css

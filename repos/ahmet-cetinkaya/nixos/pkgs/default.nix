@@ -1,6 +1,24 @@
 final: prev: {
   antigravity-tools-bin = final.callPackage ./antigravity-tools-bin {};
+  dikte-bin = final.callPackage ./dikte-bin {};
+  mempalace = final.python314Packages.callPackage ./mempalace {};
+  # Craft App Suite (storytold) — shared builder + per-app pins.
+  # See craft-apps/builder.nix; only pdfcraft is installed on hosts.
+  craftBuilder = final.callPackage ./craft-apps/builder.nix {};
+  photocraft-bin = final.craftBuilder (import ./craft-apps/photocraft/default.nix);
+  lightcraft-bin = final.craftBuilder (import ./craft-apps/lightcraft/default.nix);
+  filmcraft-bin = final.craftBuilder (import ./craft-apps/filmcraft/default.nix);
+  designcraft-bin = final.craftBuilder (import ./craft-apps/designcraft/default.nix);
+  vectorcraft-bin = final.craftBuilder (import ./craft-apps/vectorcraft/default.nix);
+  pdfcraft-bin = final.craftBuilder (import ./craft-apps/pdfcraft/default.nix);
+  effectcraft-bin = final.craftBuilder (import ./craft-apps/effectcraft/default.nix);
+  wordcraft-bin = final.craftBuilder (import ./craft-apps/wordcraft/default.nix);
+  deckcraft-bin = final.craftBuilder (import ./craft-apps/deckcraft/default.nix);
+  gridcraft-bin = final.craftBuilder (import ./craft-apps/gridcraft/default.nix);
+  cadcraft-bin = final.craftBuilder (import ./craft-apps/cadcraft/default.nix);
+  soundcraft-bin = final.craftBuilder (import ./craft-apps/soundcraft/default.nix);
   openfortigui = final.callPackage ./openfortigui {};
+  munder-difflin-bin = final.callPackage ./munder-difflin-bin {};
   orca-bin = final.callPackage ./orca-bin {};
   prince-bin = final.callPackage ./prince-bin {};
   zed-preview-bin = final.callPackage ./zed-preview-bin {};
@@ -13,10 +31,16 @@ final: prev: {
   #   (used transitively via pdfplumber → markitdown)
   # optuna: logging + visualization tests fail on Python 3.14
   #   (used transitively via pyannote-pipeline → whisperx)
+  # posthog: marked broken only for its tests (fail with mcp >= 2); the client
+  #   itself works (used transitively via chromadb → mempalace)
   python314Packages = (prev.python314.override {
     packageOverrides = pyfinal: pyprev: {
       pandas-stubs = pyprev.pandas-stubs.overridePythonAttrs (_: { doCheck = false; pythonImportsCheck = []; });
       optuna = pyprev.optuna.overridePythonAttrs (_: { doCheck = false; });
+      posthog = pyprev.posthog.overridePythonAttrs (old: {
+        doCheck = false;
+        meta = (old.meta or {}) // {broken = false;};
+      });
     };
   }).pkgs;
 

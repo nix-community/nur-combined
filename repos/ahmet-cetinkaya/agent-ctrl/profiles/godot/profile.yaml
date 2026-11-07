@@ -1,6 +1,7 @@
 name: Godot
 description: "Godot Engine / GDScript development — MCPs and skills for 2D/3D game creation."
 tags:
+  - platform
   - godot
   - gdscript
   - game

@@ -1,0 +1,1 @@
+/ac:fix Invoice totals crash with decimal.InvalidOperation when a line amount has a thousands separator, for example "1,234.50".

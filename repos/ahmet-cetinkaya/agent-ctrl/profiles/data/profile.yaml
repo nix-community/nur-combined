@@ -1,6 +1,7 @@
-name: Data
+name: Data Engineering
 description: "Data engineering — skills for pipelines, ETL, warehousing, and data modeling."
 tags:
+  - data-ai
   - data
   - etl
   - pipelines

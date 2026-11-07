@@ -1,0 +1,1 @@
+/ac:fix Some invoice lines are one cent short. A line of 2.675 with no tax is shown as 2.67; finance expects 2.68.

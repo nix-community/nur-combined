@@ -1,8 +1,8 @@
-name: Networking
+name: Network Infrastructure
 description: "Networking / infrastructure — agents and skills for protocols, routing, and network systems."
 tags:
+  - infrastructure
   - networking
   - tcp-ip
   - routing
-  - infrastructure
   - protocols

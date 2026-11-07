@@ -1,6 +1,7 @@
 name: C#
 description: "C# / .NET development — agents, rules, and skills for building robust applications on the .NET runtime."
 tags:
+  - language
   - csharp
   - dotnet
   - dotnet-core

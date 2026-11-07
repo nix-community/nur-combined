@@ -1,0 +1,9 @@
+# `researcher` composition
+
+- **Target and responsibility:** Read-only external/library/API researcher anchored to installed versions and authoritative citations.
+- **Sources:** [oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent) Librarian agent, internal-versus-external boundary, version pinning, source order, and cited output; [SuperClaude Framework](https://github.com/SuperClaude-Org/SuperClaude_Framework) `src/superclaude/agents/deep-research.md`, source evaluation and synthesis sections; [Everything Claude Code](https://github.com/affaan-m/ECC) `skills/search-first/SKILL.md`, candidate evaluation and Adopt/Extend/Compose/Build; current [oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent) `packages/omo-opencode/src/agents/librarian.ts`, request classification and documentation discovery.
+- **Behavior taken:** Version-first research, primary sources, changelog checks, real usage when needed, contradiction handling, and citations.
+- **Merge:** The broad deep-research persona is narrowed into a practical solution and API research leaf governed by `solution-research`.
+- **Provider adaptation:** `Skill` loads the shared research contract, a `tools` allowlist of read, web, `context7`, and `parallel-search` tools with no shell replaces provider-only calls, and no delegation tool is present. Claude Code alone routes this synthesis role to `sonnet` through `models.claude`.
+- **Exclusions:** Maximum-saturation teams, paywall bypass, implementation, installation, and hardcoded research MCP dependencies were omitted.
+- **Attribution:** Original rewrite drawing on [oh-my-openagent](https://github.com/code-yeongyu/oh-my-openagent) (Sustainable Use License), [SuperClaude Framework](https://github.com/SuperClaude-Org/SuperClaude_Framework) (MIT), and [Everything Claude Code](https://github.com/affaan-m/ECC) (MIT); no upstream prose is copied verbatim.

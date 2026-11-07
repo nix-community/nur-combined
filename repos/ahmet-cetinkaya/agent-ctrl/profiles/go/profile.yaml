@@ -1,6 +1,7 @@
 name: Go
 description: "Go development — agents, commands, rules, and skills for concurrent services, CLIs, and cloud-native systems."
 tags:
+  - language
   - golang
   - go
   - backend

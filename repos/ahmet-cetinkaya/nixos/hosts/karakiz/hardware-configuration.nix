@@ -57,14 +57,6 @@
     };
   };
 
-  swapDevices = [
-    {
-      # Keep booting when the local swap partition is unavailable.
-      device = "/dev/disk/by-uuid/55671379-832b-4ccc-af9b-b78f5c029983";
-      options = ["nofail"];
-    }
-  ];
-
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   # Load AMD CPU microcode updates when redistributable firmware is permitted.
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

@@ -1,0 +1,5 @@
+{
+  version = "0.19.0";
+  x86_64-linux = "3657aa40fe146d4af40fab0507c97f6ee2c6ce5ba9938567194439be3335ba8b";
+  aarch64-linux = "bb7ef777f3cb8874f6028a35942a6093ae0a30eb009b5c6e5ee1247846389f11";
+}

@@ -1,6 +1,7 @@
 name: Vue
 description: "Vue development — agents, commands, rules, and skills for progressive reactive UIs."
 tags:
+  - framework
   - vue
   - vuex
   - pinia

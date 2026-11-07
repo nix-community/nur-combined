@@ -1,6 +1,7 @@
-name: Media
+name: Media Processing
 description: "Media processing — skills for audio, video, image generation, and transcoding pipelines."
 tags:
+  - domain
   - media
   - audio
   - video

@@ -1,0 +1,15 @@
+<Project>
+  <!--
+    The Claude Code sandbox forbids Unix sockets, which MSBuild worker nodes and the Roslyn
+    compiler server use. Inside the sandbox, build one project after another in the main
+    process. SANDBOX_RUNTIME is set only for sandboxed commands, so builds outside the
+    sandbox, such as `aspire run`, keep their parallel nodes and the compiler server.
+    A solution build also needs `-m:1`; this file cannot set that.
+  -->
+  <PropertyGroup Condition="'$(SANDBOX_RUNTIME)' != ''">
+    <BuildInParallel>false</BuildInParallel>
+    <RestoreBuildInParallel>false</RestoreBuildInParallel>
+    <UseSharedCompilation>false</UseSharedCompilation>
+    <EnableSourceControlManagerQueries>false</EnableSourceControlManagerQueries>
+  </PropertyGroup>
+</Project>

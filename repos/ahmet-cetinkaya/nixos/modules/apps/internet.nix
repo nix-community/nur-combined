@@ -2,7 +2,18 @@
   pkgs,
   inputs,
   ...
-}: {
+}: let
+  zenPackages = inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system};
+  zen = pkgs.symlinkJoin {
+    name = "zen-browser";
+    paths = [zenPackages.default];
+    nativeBuildInputs = [pkgs.makeWrapper];
+    postBuild = ''
+      wrapProgram "$out/bin/zen" \
+        --prefix LD_LIBRARY_PATH : "${pkgs.lib.makeLibraryPath [pkgs.ffmpeg]}"
+    '';
+  };
+in {
   # Flatpak
   services.flatpak.packages = [
     # Social
@@ -15,9 +26,7 @@
   # System packages
   environment.systemPackages = with pkgs; [
     # Browsers
-    inputs.zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
-    brave
-    firefox
+    zen
     chromium
   ];
 

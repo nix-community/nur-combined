@@ -1,6 +1,7 @@
-name: Backend
+name: Backend Development
 description: "General backend development — skills for APIs, services, persistence, and distributed systems."
 tags:
+  - domain
   - backend
   - api
   - microservices

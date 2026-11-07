@@ -1,6 +1,7 @@
 name: Python
 description: "Python development — agents, commands, rules, and skills for web, data, scripting, and ML workloads."
 tags:
+  - language
   - python
   - scripting
   - data

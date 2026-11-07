@@ -2,12 +2,16 @@
   "mcpServers": {
     "codegraph": {
       "type": "stdio",
-      "command": "codegraph",
-      "args": [
-        "serve",
-        "--mcp"
-      ],
-      "description": "Local SQLite code-graph exploration \u2014 AST-indexed symbol search, call paths, and blast-radius analysis across the codebase."
+      "command": "/home/ac/.omo/codegraph/bin/codegraph",
+      "args": ["serve", "--mcp"],
+      "env": {
+        "CODEGRAPH_MCP_TOOLS": "explore",
+        "CODEGRAPH_NO_DAEMON": "1",
+        "CODEGRAPH_NO_INSTALL_REFRESH": "1",
+        "CODEGRAPH_NO_UPDATE_CHECK": "1",
+        "CODEGRAPH_TELEMETRY": "0"
+      },
+      "description": "Local SQLite code-graph exploration — AST-indexed symbol search, call paths, and blast-radius analysis. Complements Serena: CodeGraph for persistent graph/flow/impact discovery, Serena for live LSP diagnostics and symbol edits."
     }
   }
 }

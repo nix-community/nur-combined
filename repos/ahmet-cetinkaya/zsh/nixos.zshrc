@@ -23,3 +23,11 @@ bindkey '^r' zaw-history            # Zaw history search
 if [[ "$LINES" -gt 20 ]]; then
   fastfetch --config "$HOME/Configs/fastfetch/mini-config.jsonc"
 fi
+
+# QODER_DISPATCHER_PATH v1
+path=("$HOME/.qoder/entry" ${path:#"$HOME/.qoder/entry"})
+export PATH
+# END QODER_DISPATCHER_PATH v1
+
+# Added by get-aspire-cli.sh
+export PATH="$HOME/.aspire/bin:$PATH"

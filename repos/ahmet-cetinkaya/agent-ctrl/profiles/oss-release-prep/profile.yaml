@@ -1,6 +1,7 @@
-name: OSS Release Prep
+name: OSS Release Preparation
 description: "OSS release preparation — agents and skills for safely fork/sanitize/package private projects before publishing."
 tags:
+  - workflow
   - oss-release
   - open-source
   - sanitization

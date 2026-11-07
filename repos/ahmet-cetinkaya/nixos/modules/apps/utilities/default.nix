@@ -18,11 +18,13 @@
     jq
     killall
     nano
+    tmux
     tree
 
     # Download Tools
     curl
     wget
+    yt-dlp
 
     # Version Control
     gh

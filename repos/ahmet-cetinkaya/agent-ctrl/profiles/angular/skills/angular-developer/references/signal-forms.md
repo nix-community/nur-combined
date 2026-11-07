@@ -46,7 +46,7 @@ import {form, FormField} from '@angular/forms/signals';
 export class Example {
   // 1. Define your model with initial values (avoid undefined)
   userModel = signal({
-    name: '', // CRITICAL: NEVER use null or undefined as initial values
+    name: '', // Use a concrete value such as '', never null or undefined
     email: '',
     age: 0, // Use 0 for numbers, NOT null
     address: {
@@ -166,8 +166,8 @@ import {FormField} from '@angular/forms/signals';
 All props on state, such as `disabled`, `hidden`, `readonly` and `name` are bound automatically.
 Do _NOT_ bind the `name` field.
 
-**CRITICAL: FORBIDDEN ATTRIBUTES**
-When using `[formField]`, you MUST NOT set the following attributes in the template (either static or bound):
+**Forbidden attributes**
+With `[formField]`, do not set the following attributes in the template (either static or bound):
 
 - `min`, `max` (Use validators in the schema instead)
 - `value`, `[value]`, `[attr.value]` (Already handled by `[formField]`)
@@ -224,7 +224,7 @@ const isHidden = this.userForm().hidden();
 const isReadonly = this.userForm().readonly();
 ```
 
-IMPORTANT!: Make sure to call the field to get it state.
+Call the field to read its state.
 
 ```ts
 form().invalid()
@@ -246,7 +246,7 @@ form.client.addresses.length  // No "()"
 
 Use the `submit()` function. It automatically marks all fields as touched before running the action.
 
-**CRITICAL**: The callback to `submit()` MUST be `async` and MUST return a Promise.
+The callback to `submit()` must be `async` and return a Promise.
 
 ```ts
 import { submit } from '@angular/forms/signals';
@@ -284,7 +284,7 @@ When there are no errors, return undefined
 
 ### Context
 
-Functions passed to rules like `validate()`, `disabled()`, `applyWhen` take a context object. It is **CRITICAL** to understand its structure:
+Functions passed to rules like `validate()`, `disabled()`, `applyWhen` take a context object. Its structure is:
 
 ```ts
 validate(

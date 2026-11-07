@@ -17,4 +17,8 @@
     "org.inkscape.Inkscape"
     "org.upscayl.Upscayl"
   ];
+
+  # Natively packaged: prebuilt upstream binary with dlopen'ed GPU/windowing
+  # libs handled by the wrapper in pkgs/craft-apps/builder.nix.
+  environment.systemPackages = [pkgs.photocraft-bin];
 }

@@ -1,0 +1,1 @@
+/ac:fix After the nightly price import updates base prices, the shop keeps showing the old prices for products that were viewed before the import.

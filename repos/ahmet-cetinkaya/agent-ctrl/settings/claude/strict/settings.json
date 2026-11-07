@@ -1,0 +1,144 @@
+{
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "allowUnsandboxedCommands": false,
+    "excludedCommands": [
+      "gh",
+      "gh *",
+      "git push",
+      "git push *",
+      "git commit",
+      "git commit *",
+      "git fetch",
+      "git fetch *",
+      "git pull",
+      "git pull *",
+      "git branch",
+      "git branch *",
+      "podman *",
+      "docker *",
+      "podman-compose *",
+      "aspire *",
+      "agent-browser *",
+      "npx playwright *",
+      "bunx playwright *",
+      "pnpm exec playwright *",
+      "agent-ctrl apply *"
+    ],
+    "filesystem": {
+      "allowWrite": [
+        "~/.npm",
+        "/tmp"
+      ],
+      "allowRead": [
+        "~/.nuget/NuGet/NuGet.Config"
+      ],
+      "denyWrite": [
+        "~/.zshrc",
+        "~/.zshenv",
+        "~/.bashrc",
+        "~/.profile",
+        "~/Configs/zsh",
+        "~/.config/autostart",
+        "~/.config/environment.d",
+        "~/.config/systemd",
+        "~/.local/bin",
+        "~/.local/share/applications",
+        "~/.dotnet/tools",
+        "~/.claude/settings.json",
+        "~/.claude.json",
+        "~/Configs/agent-ctrl/settings/claude",
+        "~/Configs/nixos"
+      ],
+      "denyRead": [
+        "~/.ssh",
+        "~/.gnupg",
+        "~/.aws",
+        "~/.microsoft/usersecrets",
+        "~/.zsh_history",
+        "~/.bash_history",
+        "~/.config/gh",
+        "~/.docker",
+        "~/.npmrc",
+        "~/.config/google-chrome",
+        "~/.config/chromium",
+        "~/.config/BraveSoftware",
+        "~/.thunderbird",
+        "~/.claude/.credentials.json",
+        "~/.claude/settings.json",
+        "~/Configs/agent-ctrl/.env",
+        "~/.codex/auth.json",
+        "~/.gemini/oauth_creds.json",
+        "~/.gemini/google_accounts.json",
+        "~/.local/share/opencode/auth.json",
+        "~/.config/Slack",
+        "~/.config/Code/User/globalStorage",
+        "~/.config/VSCodium/User/globalStorage",
+        "~/.claude.json",
+        "~/Configs/zsh/.env"
+      ]
+    },
+    "network": {
+      "strictAllowlist": false,
+      "allowedDomains": [
+        "github.com",
+        "*.github.com",
+        "*.githubusercontent.com",
+        "registry.npmjs.org",
+        "cache.nixos.org",
+        "models.dev",
+        "*.nuget.org",
+        "mcr.microsoft.com",
+        "*.data.mcr.microsoft.com",
+        "registry-1.docker.io",
+        "auth.docker.io",
+        "production.cloudflare.docker.com",
+        "aka.ms",
+        "dotnetcli.azureedge.net",
+        "builds.dotnet.microsoft.com"
+      ],
+      "deniedDomains": [
+        "pastebin.com",
+        "transfer.sh",
+        "*.ngrok.io",
+        "*.ngrok-free.app",
+        "webhook.site",
+        "requestbin.net",
+        "*.trycloudflare.com"
+      ]
+    },
+    "credentials": {
+      "envVars": [
+        {
+          "name": "ANTHROPIC_AUTH_TOKEN",
+          "mode": "deny"
+        },
+        {
+          "name": "OMNIROUTE_AUTH_TOKEN",
+          "mode": "deny"
+        },
+        {
+          "name": "OMNIROUTE_API_KEY",
+          "mode": "deny"
+        },
+        {
+          "name": "DOKPLOY_API_KEY",
+          "mode": "deny"
+        },
+        {
+          "name": "HF_TOKEN",
+          "mode": "deny"
+        },
+        {
+          "name": "CLAUDE_CODE_MESSAGING_TOKEN",
+          "mode": "deny"
+        },
+        {
+          "name": "WHPH_MCP_TOKEN",
+          "mode": "deny"
+        }
+      ]
+    }
+  }
+}

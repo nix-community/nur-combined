@@ -1,6 +1,7 @@
 name: Nuxt
 description: "Nuxt / Vue framework development — rules and skills for SSR and full-stack Vue applications."
 tags:
+  - framework
   - nuxt
   - vue
   - ssr

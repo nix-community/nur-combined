@@ -7,7 +7,7 @@ CURRENT_VERSION=$(grep 'version = "' default.nix | sed 's/.*version = "\(.*\)".*
 echo "📌 Current version: $CURRENT_VERSION"
 
 DOWNLOAD_PAGE=$(curl -sSL "https://www.princexml.com/download/")
-LATEST_VERSION=$(echo "$DOWNLOAD_PAGE" | grep -oiE 'Prince [0-9]+\.[0-9]+(\.[0-9]+)?' | head -1 | sed 's/[Pp]rince //')
+LATEST_VERSION=$(echo "$DOWNLOAD_PAGE" | grep -oiE 'Prince [0-9]+(\.[0-9]+)*' | head -1 | sed 's/[Pp]rince //' || true)
 echo "🏷️  Latest version: $LATEST_VERSION"
 
 if [ -z "$LATEST_VERSION" ]; then

@@ -28,6 +28,7 @@ in {
     whph
     obsidian
     affine
+    pdfcraft-bin # PDF editor; replaces Okular, which plasma.nix excludes
   ];
 
   # Firewall

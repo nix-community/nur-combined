@@ -100,14 +100,5 @@ in {
       "net.core.default_qdisc" = "fq";
       "net.ipv4.tcp_congestion_control" = "bbr";
     };
-
-    # Fetch pre-built CachyOS kernels from upstream binary cache.
-    # Without this, every rebuild compiles the kernel locally.
-    nix.settings.extra-substituters = [
-      "https://attic.xuyh0120.win/lantian"
-    ];
-    nix.settings.extra-trusted-public-keys = [
-      "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
-    ];
   };
 }

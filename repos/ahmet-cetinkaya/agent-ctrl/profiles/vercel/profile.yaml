@@ -1,6 +1,7 @@
 name: Vercel
 description: "Vercel platform — MCPs for deployments, edge functions, and frontend cloud hosting."
 tags:
+  - platform
   - vercel
   - edge
   - deployments

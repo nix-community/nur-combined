@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "whph": {
+      "command": "bunx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "http://127.0.0.1:44041/mcp",
+        "--header",
+        "Authorization:Bearer ${WHPH_MCP_TOKEN}"
+      ],
+      "description": "WHPH local MCP server (Streamable HTTP, IPv4 loopback only) exposing user-authorized WHPH actions. Disabled by default: enable it in WHPH Settings, create a named connection with the needed scopes, and export the one-time token as WHPH_MCP_TOKEN in mcps/.env. Use the port shown in Settings if it differs from 44041. WHPH must keep running. Bridged to stdio via mcp-remote because agent-ctrl does not render HTTP headers."
+    }
+  }
+}
