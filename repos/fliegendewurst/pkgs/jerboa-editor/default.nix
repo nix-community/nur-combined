@@ -17,6 +17,8 @@ maven.buildMavenPackage rec {
     hash = "sha256-7QvyozLZNmuh7KyUW8Juw49EYD81FAkte+cvGxLx59M=";
   };
 
+  preferLocalBuild = true;
+
   mvnHash = "sha256-U1AyGreyw6QGWp5IOoUh3liVz461a9ISQUMaQv78tGQ=";
   mvnParameters = "-P release";
 
