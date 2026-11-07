@@ -8,7 +8,7 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "unpoller-dashboards";
-  version = "0-unstable-2026-10-01";
+  version = "0-unstable-2026-11-07";
 
   outputs = [
     "out"
@@ -19,8 +19,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "unpoller";
     repo = "dashboards";
-    rev = "adbe342f09d0fe06b1cc152d28ab0bae5ee3d8b9";
-    hash = "sha256-K4bVK6p1B1BSQpvygg0+9uZv6wiVpfgRkBldEBUKe9Y=";
+    rev = "1c979584361caa6dcb99432352be2fe902f036d2";
+    hash = "sha256-RnHKG4wzLz5Vg673YjEoq3rRCFyvd35TmDyL9c5Or8Y=";
   };
 
   installPhase = ''
