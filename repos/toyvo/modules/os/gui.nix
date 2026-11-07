@@ -8,6 +8,26 @@
 }:
 let
   cfg = config.nixcfg;
+  # herdr-desktop from nixpkgs ships a macOS bundle without
+  # NSLocalNetworkUsageDescription, so macOS 15+ Local Network privacy
+  # silently blocks its LAN connections (ssh: No route to host) and never
+  # prompts. Inject the key and re-sign ad-hoc. This must run in postFixup:
+  # fixupPhase strips binaries (invalidating any earlier signature) and runs
+  # before installCheckPhase, so signing here covers the final bits and the
+  # version check exercises the shipped signature. Linux is unaffected: the
+  # appended postFixup is empty there, yielding an identical derivation.
+  # TODO: drop once upstream herdrdev/herdr-app ships the key in its bundle
+  # (nixpkgs picks it up automatically); then this becomes plain `herdr-desktop`.
+  herdr-desktop-fixed = pkgs.herdr-desktop.overrideAttrs (old: {
+    postFixup =
+      (old.postFixup or "")
+      + lib.optionalString pkgs.stdenv.hostPlatform.isDarwin ''
+        app=$out/Applications/Herdr.app
+        /usr/bin/plutil -insert NSLocalNetworkUsageDescription -string "Herdr connects to your machines over SSH on the local network." "$app/Contents/Info.plist" 2>/dev/null \
+          || /usr/bin/plutil -replace NSLocalNetworkUsageDescription -string "Herdr connects to your machines over SSH on the local network." "$app/Contents/Info.plist"
+        /usr/bin/codesign --force --deep --sign - "$app"
+      '';
+  });
 in
 {
   options.nixcfg.gui.enable = lib.mkEnableOption "GUI Applications" // {
@@ -34,7 +54,7 @@ in
         [
           # brave
           inkscape
-          herdr-desktop
+          herdr-desktop-fixed
         ]
         ++ lib.optionals stdenv.hostPlatform.isLinux [
           element-desktop

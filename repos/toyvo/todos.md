@@ -71,3 +71,7 @@ Outstanding work and follow-up items for this repository.
 
 - [ ] Unpin `neovide` in `modules/os/dev.nix` from `stablePkgs` (0.16.2) back to `pkgs` once nixos-unstable ships a fixed 0.17.1+ (2026-11-07 CI failure: vendor staging fails with missing `Cargo.lock`).
 - [ ] Drop vendored `mega.logging`/`mega.cmdparse` from `pkgs/toyvo-neovim/default.nix` once nvf packages avante.nvim's `ColinKennedy/mega.*` dependencies upstream
+
+## Herdr
+
+- [ ] Drop `herdr-desktop-fixed` override in `modules/os/gui.nix` (injects `NSLocalNetworkUsageDescription` + ad-hoc re-sign) once upstream `herdrdev/herdr-app` ships the key in its macOS bundle (nixpkgs picks it up automatically). Without it, macOS 15+ Local Network privacy silently blocks Herdr's LAN SSH (`No route to host`). Note: nix store-path churn invalidates the Settings grant on every Herdr update, so expect to re-allow + restart Herdr after each bump regardless.

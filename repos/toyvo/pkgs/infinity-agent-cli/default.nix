@@ -29,6 +29,8 @@
   pkg-config,
   openssl,
   versionCheckHook,
+  makeWrapper,
+  bubblewrap,
   ...
 }:
 let
@@ -219,6 +221,25 @@ in
         "-p"
         "sandbox-local"
       ];
+      # crates/sandbox-local/build.rs probes `bwrap --version` and, when
+      # absent, falls back to install-bwrap.sh, which `git clone`s bubblewrap
+      # from the network (no git/network in the Linux sandbox -> exit 127).
+      # Providing bubblewrap satisfies the probe so the fallback never runs.
+      # Non-Linux builds skip this: build.rs returns early off Linux, and
+      # bubblewrap is Linux-only, so the inputs stay empty there.
+      nativeBuildInputs =
+        common.nativeBuildInputs
+        ++ lib.optionals stdenv.isLinux [
+          bubblewrap
+          makeWrapper
+        ];
+      # The server shells out to `bwrap` at runtime (wired as an MCP
+      # toolset command in modules/home/programs/infinity.nix), so keep it
+      # on PATH next to the binary instead of relying on the host system.
+      postFixup = lib.optionalString stdenv.isLinux ''
+        wrapProgram $out/bin/sandbox-local \
+          --prefix PATH : "${lib.makeBinPath [ bubblewrap ]}"
+      '';
       doInstallCheck = false;
 
       meta = {
