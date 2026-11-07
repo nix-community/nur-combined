@@ -12,7 +12,7 @@
 }:
 
 let
-  version = "0.2.11";
+  version = "0.2.12";
   llamaRev = "3cf03257f219afbe7334045ff7c6a06ac68c627d";
   llamaSrc = fetchFromGitHub {
     owner = "ggml-org";
@@ -47,7 +47,7 @@ let
       owner = "Niko1221";
       repo = "Strata";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-YTKrlOqN97ISsaNZfpEqzLBAvglOI8Lq5G2KFTKQXWE=";
+      hash = "sha256-iMjGRmrr2luO7O0x5QF4iIWpOVRQp1mlSeTWFDGZEVo=";
     };
 
     __structuredAttrs = true;
