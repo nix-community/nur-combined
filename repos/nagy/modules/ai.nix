@@ -2,12 +2,14 @@
   config,
   pkgs,
   lib,
+  flakes ? { },
   ...
 }:
 
 let
   self = import ../. { inherit pkgs; };
-  llmAgentsPkgs = (builtins.getFlake "github:numtide/llm-agents.nix").packages.x86_64-linux;
+  llmAgentsPkgs =
+    (flakes.llm-agents or (builtins.getFlake "github:numtide/llm-agents.nix")).packages.x86_64-linux;
 
   inherit (lib) mkOption;
   inherit (lib.types) attrsOf listOf str;

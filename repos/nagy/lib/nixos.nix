@@ -10,24 +10,19 @@
     ("baseline") evaluation.  Returns all intermediates so callers can
     also inspect session variables, fonts, etc.
 
-    Defaults assume `<nur>` and `<nixpkgs>` are present on NIX_PATH.
+    Callers must pass `nur` explicitly.  Legacy entry points (default.nix)
+    supply it from `<nur>`, flake callers use the flake input.
   */
   mkNixosBuildEnv =
     {
+      nur,
+      flakes ? { },
       nixosEval ? import (pkgs.path + "/nixos/lib/eval-config.nix"),
-      specialArgs ? {
-        nur = import <nur> {
-          inherit pkgs;
-          nurpkgs = pkgs;
-          repoOverrides = {
-            nagy = import ../. { inherit pkgs; };
-          };
-        };
-      },
       targetModules ? [ ],
       name ? "nixos-diff-env",
     }:
     let
+      specialArgs = { inherit nur flakes; };
       sysEmpty = nixosEval {
         inherit specialArgs;
         system = pkgs.stdenv.hostPlatform.system;

@@ -2,16 +2,44 @@
   pkgs ? import <nixpkgs> { },
   lib ? pkgs.lib,
   callPackage ? pkgs.callPackage,
+  # Legacy NIX_PATH lookups live in this file only.  Flake callers pass
+  # explicit values, so their evaluation stays pure.
+  nur ? import <nur> {
+    inherit pkgs;
+    nurpkgs = pkgs;
+    repoOverrides = {
+      nagy = import ./. { inherit pkgs; };
+    };
+  },
+  dot ? <dot>,
+  # Legacy NIX_PATH lookup: `-I local-module=...` sets this argument.
+  localModule ?
+    if builtins.elem "local-module" (map (x: x.prefix) builtins.nixPath) then <local-module> else null,
+  jsonrpc-httpproxy ? builtins.getFlake "github:nagy/jsonrpc-httpproxy",
+  # Flake inputs for modules that would otherwise call builtins.getFlake.
+  flakes ? { },
 }:
 
-# The main packages
-(lib.packagesFromDirectoryRecursive {
-  directory = ./pkgs/by-name;
-  callPackage = callPackage;
-})
-# Extras
+let
+  packages = lib.packagesFromDirectoryRecursive {
+    directory = ./pkgs/by-name;
+    callPackage = callPackage;
+  };
+in
+packages
 // {
+  # Needs private inputs, so this file does not live in ./pkgs/by-name.
+  my-build-env = callPackage ./pkgs/my-build-env.nix {
+    inherit
+      nur
+      dot
+      localModule
+      jsonrpc-httpproxy
+      flakes
+      ;
+  };
 
+  # Extras
   lib = lib.foldr lib.mergeAttrs { } (
     map (x: import x { inherit pkgs; })
       # fileset
@@ -43,28 +71,12 @@
   );
 
   systemBuilder = import <nixpkgs/nixos/lib/eval-config.nix> {
-    specialArgs = {
-      nur = import <nur> {
-        nurpkgs = pkgs;
-        pkgs = pkgs;
-        repoOverrides = {
-          nagy = import ./. { pkgs = pkgs; };
-        };
-      };
-    };
+    specialArgs = { inherit nur; };
     modules = [ <nixos-config> ];
   };
 
   systemBuilderLiveCD = import <nixpkgs/nixos/lib/eval-config.nix> {
-    specialArgs = {
-      nur = import <nur> {
-        nurpkgs = pkgs;
-        pkgs = pkgs;
-        repoOverrides = {
-          nagy = import ./. { pkgs = pkgs; };
-        };
-      };
-    };
+    specialArgs = { inherit nur; };
     modules = [
       (
         { modulesPath, ... }:

@@ -3,12 +3,14 @@
   lib,
   pkgs,
   nur,
+  flakes ? { },
   ...
 }:
 
 let
   bruvtabPkgs =
-    (builtins.getFlake "github:pschmitt/bruvtab").packages.${pkgs.stdenv.hostPlatform.system};
+    (flakes.bruvtab or (builtins.getFlake "github:pschmitt/bruvtab"))
+    .packages.${pkgs.stdenv.hostPlatform.system};
   cfg = config.programs.firefox;
 
   # Bake the whole configuration into the binary via wrapFirefox's
