@@ -102,7 +102,7 @@
     },
     "wasmfxtime": {
         "cargoLock": null,
-        "date": "2026-10-29",
+        "date": "2026-11-05",
         "extract": null,
         "name": "wasmfxtime",
         "passthru": null,
@@ -114,11 +114,11 @@
             "name": null,
             "owner": "wasmfx",
             "repo": "wasmfxtime",
-            "rev": "b039fa52e40c2882cffe7fd99289da57b34071f2",
-            "sha256": "sha256-uoTNNIfTSQxtVwj3Q8Nx2cagDXP2OqdJQudGVWyNdHo=",
+            "rev": "00e46c20098207a0592c90b449577361b9b92ae4",
+            "sha256": "sha256-YZOqyYVsngpMuHvIwT3bRfYMw+ibfnb2UQOFUhA7HbU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b039fa52e40c2882cffe7fd99289da57b34071f2"
+        "version": "00e46c20098207a0592c90b449577361b9b92ae4"
     }
 }

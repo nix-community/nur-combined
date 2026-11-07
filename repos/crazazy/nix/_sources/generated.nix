@@ -65,14 +65,14 @@
   };
   wasmfxtime = {
     pname = "wasmfxtime";
-    version = "b039fa52e40c2882cffe7fd99289da57b34071f2";
+    version = "00e46c20098207a0592c90b449577361b9b92ae4";
     src = fetchFromGitHub {
       owner = "wasmfx";
       repo = "wasmfxtime";
-      rev = "b039fa52e40c2882cffe7fd99289da57b34071f2";
+      rev = "00e46c20098207a0592c90b449577361b9b92ae4";
       fetchSubmodules = true;
-      sha256 = "sha256-uoTNNIfTSQxtVwj3Q8Nx2cagDXP2OqdJQudGVWyNdHo=";
+      sha256 = "sha256-YZOqyYVsngpMuHvIwT3bRfYMw+ibfnb2UQOFUhA7HbU=";
     };
-    date = "2026-10-29";
+    date = "2026-11-05";
   };
 }
