@@ -15,7 +15,10 @@ let
     }:
     [ "${nix-update}/bin/nix-update" ] ++ extraArgs ++ lib.optionals (attrPath != null) [ attrPath ];
 
-  nixosModules = import ./modules/nixos;
+  nixosModules = import ./modules/nixos {
+    inherit lib;
+    packagesFor = _: packages;
+  };
   nixosTests = import ./tests/all-tests.nix {
     inherit pkgs nixosModules packages;
   };

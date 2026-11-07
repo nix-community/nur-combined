@@ -42,13 +42,8 @@
   };
   credentialsd = pkgs.testers.runNixOSTest {
     imports = [ ./credentialsd.nix ];
-    node.pkgsReadOnly = false;
     nodes.machine = {
       imports = [ nixosModules.credentialsd ];
-      services.credentialsd = {
-        package = packages.credentialsd;
-        portalPackage = packages.xdg-desktop-portal-HEAD;
-      };
     };
   };
   ublksrv = pkgs.testers.runNixOSTest {

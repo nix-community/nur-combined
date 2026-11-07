@@ -1,3 +1,4 @@
+{ packagesFor }:
 {
   pkgs,
   lib,
@@ -6,6 +7,8 @@
 }:
 let
   cfg = config.services.credentialsd;
+
+  skyenet = packagesFor pkgs;
 
   firefoxExtensionId = "credentialsd-helper@iinuwa.xyz";
   nativeMessagingHostName = "xyz.iinuwa.credentialsd_helper";
@@ -24,13 +27,16 @@ in
   options.services.credentialsd = {
     enable = lib.mkEnableOption "credentialsd";
 
-    package = lib.mkPackageOption pkgs "credentialsd" { };
+    package = lib.mkPackageOption skyenet "credentialsd" { pkgsText = "skyenet"; };
 
-    portalPackage = lib.mkPackageOption pkgs "xdg-desktop-portal-HEAD" {
+    portalPackage = lib.mkPackageOption skyenet "xdg-desktop-portal-HEAD" {
+      pkgsText = "skyenet";
       extraDescription = ''
         It must provide the experimental Credential portal, which no
-        xdg-desktop-portal release has yet. This replaces
-        `pkgs.xdg-desktop-portal` for the whole system.
+        xdg-desktop-portal release has yet. Only the xdg-desktop-portal
+        service runs from this package; everything else, including
+        xdg-document-portal and xdg-permission-store, stays on
+        `pkgs.xdg-desktop-portal`.
       '';
     };
 
@@ -76,6 +82,10 @@ in
     systemd.user.services = {
       xdg-desktop-portal = {
         environment.XDG_DESKTOP_PORTAL_ENABLE_EXPERIMENTAL = "Credential";
+        serviceConfig.ExecStart = [
+          ""
+          "${cfg.portalPackage}/libexec/xdg-desktop-portal"
+        ];
         # Stops NixOS from replacing the session PATH.
         # GLib uses that PATH to resolve desktop files among other things.
         path = lib.mkForce [ ];
@@ -89,8 +99,6 @@ in
         path = lib.mkForce [ ];
       };
     };
-
-    nixpkgs.overlays = [ (_: _: { xdg-desktop-portal = cfg.portalPackage; }) ];
 
     xdg.portal = {
       enable = true;

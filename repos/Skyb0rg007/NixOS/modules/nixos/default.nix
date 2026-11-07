@@ -1,7 +1,8 @@
+{ lib, packagesFor }:
 {
   blueferry = ./blueferry;
   dnclient = ./dnclient;
-  credentialsd = ./credentialsd;
+  credentialsd = lib.modules.importApply ./credentialsd { inherit packagesFor; };
   cascade = ./cascade;
   debspawn = ./debspawn;
   dell-command-monitor = ./dell-command-monitor;

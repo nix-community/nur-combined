@@ -114,6 +114,9 @@
       hydraJobs = {
         inherit (self.packages) "x86_64-linux";
       };
-      nixosModules = import ./modules/nixos;
+      nixosModules = import ./modules/nixos {
+        inherit lib;
+        packagesFor = pkgs: self.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+      };
     };
 }
