@@ -15,6 +15,7 @@ in
   akyuu = pkgs.callPackage ./pkgs/akyuu { };
   cern-httpd = pkgs.callPackage ./pkgs/cern-httpd { };
   dq = pkgs.callPackage ./pkgs/dq { };
+  engi = pkgs.callPackage ./pkgs/engi { };
   hydrus-tagger = pkgs.callPackage ./pkgs/hydrus-tagger { };
   lambdash = pkgs.callPackage ./pkgs/lambdash { };
   nibble = pkgs.callPackage ./pkgs/nibble { inherit nibble-mlx-server; };
