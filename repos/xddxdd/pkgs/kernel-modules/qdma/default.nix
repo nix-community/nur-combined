@@ -20,6 +20,8 @@ stdenv.mkDerivation (finalAttrs: {
   __structuredAttrs = true;
   strictDeps = true;
 
+  patches = [ ./qdma-linux-7.3-strncpy.patch ];
+
   postPatch = ''
     substituteInPlace QDMA/linux-kernel/driver/Makefile \
       QDMA/linux-kernel/driver/src/Makefile \

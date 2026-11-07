@@ -25,7 +25,10 @@ stdenv.mkDerivation (finalAttrs: {
   env.KSRC = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
   env.INSTALL_MOD_PATH = placeholder "out";
 
-  patches = [ ./nullfsvfs-change-reported-free-space.patch ];
+  patches = [
+    ./nullfsvfs-change-reported-free-space.patch
+    ./nullfsvfs-linux-7.3-create-signature.patch
+  ];
 
   makeFlags = kernel.commonMakeFlags or kernel.makeFlags;
   preBuild = ''

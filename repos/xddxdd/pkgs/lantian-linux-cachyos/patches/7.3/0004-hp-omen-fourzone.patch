@@ -1,5 +1,5 @@
 diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
-index 615b4cf..870e28e 100644
+index 615b4cf..7968d7f 100644
 --- a/drivers/platform/x86/hp/hp-wmi.c
 +++ b/drivers/platform/x86/hp/hp-wmi.c
 @@ -9,6 +9,9 @@
@@ -399,12 +399,12 @@ index 615b4cf..870e28e 100644
  	thermal_profile_setup(device);
  
  	return 0;
-@@ -2673,6 +3007,8 @@ static int hp_wmi_apply_fan_settings(struct hp_wmi_hwmon_priv *priv)
- 		/* shouldn't happen */
- 		return -EINVAL;
- 	}
+@@ -2571,6 +2905,8 @@ static void __exit hp_wmi_bios_remove(struct platform_device *device)
+ 	priv = platform_get_drvdata(device);
+ 	if (priv)
+ 		cancel_delayed_work_sync(&priv->keep_alive_dwork);
 +
 +	macro_key_remove(device);
  }
  
- static umode_t hp_wmi_hwmon_is_visible(const void *data,
+ static int hp_wmi_resume_handler(struct device *device)

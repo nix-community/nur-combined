@@ -1,0 +1,36 @@
+diff --git a/QDMA/linux-kernel/driver/libqdma/qdma_compat.h b/QDMA/linux-kernel/driver/libqdma/qdma_compat.h
+index 14227bc..89a93dd 100755
+--- a/QDMA/linux-kernel/driver/libqdma/qdma_compat.h
++++ b/QDMA/linux-kernel/driver/libqdma/qdma_compat.h
+@@ -104,4 +104,19 @@
+ #endif /* timer */
+ 
+ 
++/* strncpy() was removed in Linux 7.3 */
++#if LINUX_VERSION_CODE >= KERNEL_VERSION(7, 3, 0)
++static inline char *strncpy(char *dest, const char *src, size_t n)
++{
++	size_t i;
++
++	for (i = 0; i < n && src[i] != '\0'; i++)
++		dest[i] = src[i];
++	for (; i < n; i++)
++		dest[i] = '\0';
++
++	return dest;
++}
++#endif
++
+ #endif /* #ifndef __QDMA_COMPAT_H */
+diff --git a/QDMA/linux-kernel/driver/libqdma/qdma_platform.c b/QDMA/linux-kernel/driver/libqdma/qdma_platform.c
+index 0d7c5be..bb29cef 100755
+--- a/QDMA/linux-kernel/driver/libqdma/qdma_platform.c
++++ b/QDMA/linux-kernel/driver/libqdma/qdma_platform.c
+@@ -17,6 +17,7 @@
+  * the file called "COPYING".
+  */
+ #include "qdma_platform.h"
++#include "qdma_compat.h"
+ #include "qdma_regs.h"
+ #include "qdma_access_errors.h"
+ #include <linux/errno.h>
