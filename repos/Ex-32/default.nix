@@ -12,7 +12,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   ccc = pkgs.callPackage ./pkgs/ccc {};
-  devcontainer-cli = pkgs.callPackage ./pkgs/devcontainer-cli {};
   pokemon-colorscripts = pkgs.callPackage ./pkgs/pokemon-colorscripts {};
   # vramfs = pkgs.callPackage ./pkgs/vramfs {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
