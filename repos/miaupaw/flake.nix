@@ -78,10 +78,10 @@
             CARGO_TARGET_X86_64_PC_WINDOWS_GNU_LINKER = "${mingwCC}/bin/x86_64-w64-mingw32-gcc";
             CARGO_TARGET_X86_64_PC_WINDOWS_GNU_RUSTFLAGS = "-L ${mingwPthreads}/lib";
 
-            shellHook = '' # bash
-                echo -e "\033[1;32mIE-R\033[0m Command Center Active"
-                echo -e "\033[0;90mRust: $(rustc --version)\033[0m"
-            '';
+            # The banner lives in nix/banner.sh so flake.nix stays an
+            # orchestrator. The script is then a plain .sh file: native
+            # highlighting, no Nix-string escaping.
+            shellHook = builtins.readFile ./nix/banner.sh;
         };
 
         # ── Commands & Apps ──────────────────────────────────────────────────

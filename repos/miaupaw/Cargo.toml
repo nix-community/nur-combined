@@ -2,6 +2,8 @@
 name = "ie-r"
 version = "0.1.2"
 edition = "2024"
+# Floor comes from the dependency tree (uuid 1.89), not from edition 2024 (1.85).
+rust-version = "1.89"
 
 # ── Cross-platform ────────────────────────────────────────────────
 [dependencies]

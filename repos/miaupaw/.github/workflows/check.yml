@@ -22,6 +22,7 @@ jobs:
           sudo apt-get install -y libwayland-dev libxkbcommon-dev libdbus-1-dev libfontconfig-dev \
             pkg-config libx11-dev libxcursor-dev libxrandr-dev libxi-dev
       - run: cargo check
+      - run: cargo test
       - run: cargo clippy -- -D warnings
 
   windows:

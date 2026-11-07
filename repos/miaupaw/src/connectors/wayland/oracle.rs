@@ -16,15 +16,24 @@
 ///
 /// The Wayland spec states: `wl_pointer::Enter` provides surface-local coordinates.
 /// `Standard` is the default behavior (Plasma, Sway, any unknown compositor).
-/// `Hyprland` deviates from the norm and requires correction.
+/// `HyprlandLegacy` is the Hyprland < 0.57 deviation and requires correction.
 ///
-/// ## Standard (Plasma, Sway, Mutter and all unknowns)
+/// ## Standard (Plasma, Sway, Mutter, Hyprland ≥ 0.57 and all unknowns)
 ///
 /// Compositor sends exactly one Enter to the active monitor.
 /// `raw = cursor_local` — Wayland spec. No phantom Enters.
 /// Use raw directly.
 ///
-/// ## Hyprland (detected via HYPRLAND_INSTANCE_SIGNATURE)
+/// ## HyprlandLegacy (Hyprland < 0.57, version read from the IPC socket)
+///
+/// Before 0.57 `CLayerSurface::onMap()` force-set pointer focus onto an
+/// exclusive-keyboard layer (`setPointerFocus(surface, LOCAL)`) — the source of
+/// both the batch-Enter to every layer and the odd raw formula. 0.57.0 (PR #15899)
+/// replaced the forced focus with `simulateMouseMovement()`: Enter now comes from
+/// the regular hit-test, once, with honest surface-local coordinates. On 0.57 the
+/// correction below pushed the real Enter past the overlay edge and dropped it as
+/// a phantom — the magnifier stayed invisible until the first Motion (measured
+/// 2026-11-07 on 0.57.1, single monitor positioned at 1920×0).
 ///
 /// Two Enter types:
 ///
@@ -43,11 +52,92 @@
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum CompositorHint {
     /// Wayland-spec behavior: raw = cursor_local, one Enter per active monitor.
-    /// Default for Plasma, Sway, Mutter and any unknown compositor.
+    /// Default for Plasma, Sway, Mutter, Hyprland ≥ 0.57 and any unknown compositor.
     Standard,
-    /// Non-standard batch-Enter: raw = cursor_global - 2*output_pos.
-    /// Detected via the HYPRLAND_INSTANCE_SIGNATURE env var.
-    Hyprland,
+    /// Non-standard Hyprland < 0.57 batch-Enter: raw = cursor_global - 2*output_pos.
+    /// Chosen by `detect()` from HYPRLAND_INSTANCE_SIGNATURE + the IPC socket version.
+    HyprlandLegacy,
+}
+
+/// First Hyprland release with spec-compliant Enter (PR #15899 landed in 0.57.0).
+const HYPRLAND_SPEC_ENTER_SINCE: (u32, u32) = (0, 57);
+
+impl CompositorHint {
+    /// Picks the strategy from the environment. Non-Hyprland → Standard with zero
+    /// syscalls. Hyprland → ask the compositor itself over the IPC socket: below 0.57
+    /// → Legacy, otherwise Standard. Unreadable version (socket unavailable, unknown
+    /// reply format) → Standard: that is the spec and every new release follows it;
+    /// Legacy is a dying exception and must not be picked blindly.
+    pub fn detect() -> Self {
+        let Ok(signature) = std::env::var("HYPRLAND_INSTANCE_SIGNATURE") else {
+            return Self::Standard;
+        };
+        match hyprland_version(&signature) {
+            Some(v) if v < HYPRLAND_SPEC_ENTER_SINCE => {
+                crate::core::terminal::log_step("Oracle",
+                    &format!("Hyprland {}.{} → legacy batch-Enter correction", v.0, v.1));
+                Self::HyprlandLegacy
+            }
+            Some(v) => {
+                crate::core::terminal::log_step("Oracle",
+                    &format!("Hyprland {}.{} → spec-compliant Enter", v.0, v.1));
+                Self::Standard
+            }
+            None => {
+                crate::core::terminal::log_warn(
+                    "Hyprland version unknown (IPC socket unreadable) — assuming spec-compliant Enter");
+                Self::Standard
+            }
+        }
+    }
+}
+
+/// Asks Hyprland IPC for `version` (`$XDG_RUNTIME_DIR/hypr/<sig>/.socket.sock`,
+/// pre-0.40 `/tmp/hypr/<sig>/`). One round-trip at daemon start, short timeouts:
+/// a stuck socket must not delay startup.
+fn hyprland_version(signature: &str) -> Option<(u32, u32)> {
+    use std::io::{Read, Write};
+    use std::os::unix::net::UnixStream;
+    use std::time::Duration;
+
+    let runtime_dir = std::env::var("XDG_RUNTIME_DIR").unwrap_or_else(|_| "/run/user/1000".into());
+    let candidates = [
+        format!("{runtime_dir}/hypr/{signature}/.socket.sock"),
+        format!("/tmp/hypr/{signature}/.socket.sock"),
+    ];
+    for path in &candidates {
+        let Ok(mut stream) = UnixStream::connect(path) else { continue };
+        let timeout = Some(Duration::from_millis(200));
+        let _ = stream.set_read_timeout(timeout);
+        let _ = stream.set_write_timeout(timeout);
+        if stream.write_all(b"version").is_err() { continue; }
+        let mut reply = String::new();
+        let _ = stream.read_to_string(&mut reply);
+        if let Some(v) = parse_hyprland_version(&reply) {
+            return Some(v);
+        }
+    }
+    None
+}
+
+/// Extracts (major, minor) from a `hyprctl version` reply. Two formats: new —
+/// `Hyprland 0.57.1 built from branch …`, old — no version on the first line but
+/// `Tag: v0.41.2, commits: …`. Takes the first version-looking token following the
+/// word `Hyprland` or `Tag:`.
+pub(crate) fn parse_hyprland_version(reply: &str) -> Option<(u32, u32)> {
+    let mut after_anchor = false;
+    for word in reply.split_whitespace() {
+        if after_anchor {
+            let v = word.trim_start_matches('v').trim_end_matches(',');
+            let mut parts = v.split('.');
+            if let (Some(maj), Some(min)) = (parts.next(), parts.next())
+                && let (Ok(maj), Ok(min)) = (maj.parse::<u32>(), min.parse::<u32>()) {
+                    return Some((maj, min));
+                }
+        }
+        after_anchor = matches!(word.trim_end_matches(','), "Hyprland" | "Tag:");
+    }
+    None
 }
 
 pub enum EnterKind {
@@ -96,14 +186,14 @@ impl Oracle {
 
     /// Classifies an Enter event.
     ///
-    /// For Hyprland: corrected = raw + logical_pos.
+    /// For HyprlandLegacy (< 0.57): corrected = raw + logical_pos.
     /// If corrected falls outside [0, ovl_w) × [0, ovl_h) — phantom.
     ///
     /// Motion events do not go through this method — they are always surface-local
     /// and require no classification. See `motion_to_buffer`.
     pub fn classify_enter(&self, raw_x: i32, raw_y: i32) -> EnterKind {
         match self.hint {
-            CompositorHint::Hyprland => {
+            CompositorHint::HyprlandLegacy => {
                 // Batch-Enter: raw = cursor_global - 2*output_pos.
                 // Batch-Enter: raw = cursor_global - 2*output_pos.
                 // Correct: corrected = raw + logical_pos = cursor_local.

@@ -263,13 +263,10 @@ impl IEWaylandState {
         let shm = Shm::bind(globals, qh).ok();
         let viewporter = globals.bind::<WpViewporter, _, _>(qh, 1..=1, ()).ok();
 
-        // Detect Hyprland explicitly — its non-standard batch-Enter requires correction.
-        // Everything else (Plasma, Sway, unknown) gets Standard: Wayland spec.
-        let compositor_hint = if std::env::var("HYPRLAND_INSTANCE_SIGNATURE").is_ok() {
-            oracle::CompositorHint::Hyprland
-        } else {
-            oracle::CompositorHint::Standard
-        };
+        // The Enter strategy depends on the compositor AND its version: Hyprland < 0.57
+        // needs the batch-Enter correction, everything else (Plasma, Sway, Hyprland
+        // ≥ 0.57, unknown) gets Standard: Wayland spec. The switch lives in oracle.rs.
+        let compositor_hint = oracle::CompositorHint::detect();
 
         Self {
             conn,
