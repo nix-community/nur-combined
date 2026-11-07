@@ -10,6 +10,14 @@ file: home: {
 				theme:     "modot"
 				plugin: ["opencode-gemini-auth"]
 				provider: {
+					cheaperinference: {
+						npm:  "@ai-sdk/openai-compatible"
+						name: "CheaperInference",
+						options: {baseURL: "https://api.cheaperinference.com/v1"}
+						models: {
+							"deepseek-v4.1-flash-1017": {name: "deepseek-v4.1-flash-1017"}
+						}
+					}
 					llamacpp: {
 						npm:  "@ai-sdk/openai-compatible"
 						name: "llama.cpp"
