@@ -4,11 +4,13 @@
   fetchFromGitHub,
   nodejs_22,
   zip,
+  nix-update-script,
+  writeShellApplication,
 }:
 
 buildNpmPackage (finalAttrs: {
   pname = "dark-reader";
-  version = "4.9.134";
+  version = "4.9.135";
 
   extid = "addon@darkreader.org";
 
@@ -26,12 +28,12 @@ buildNpmPackage (finalAttrs: {
     owner = "darkreader";
     repo = "darkreader";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-G0Z9MOvRpWRspTu81nW2d/WPjr7KPbkIgf/O6TCsEBQ=";
+    hash = "sha256-UkquWrrlEBLosXeIgmadwlxtIgNE6A0sP/hiB6Mbgsg=";
   };
 
   nodejs = nodejs_22;
 
-  npmDepsHash = "sha256-HDenlMeBZJjPbzeqoU5rWYrXcFovBCwei5oW+GUbedo=";
+  npmDepsHash = "sha256-RuRB9sUdBKqb0SV1wa/JpBoXecILgDPH64ooKqHJzmg=";
 
   buildPhase = ''
     runHook preBuild
@@ -56,6 +58,13 @@ buildNpmPackage (finalAttrs: {
 
   passthru = {
     inherit (finalAttrs) extid;
+    updateScript = writeShellApplication {
+      name = "update-dark-reader";
+      text = ''
+        export UPDATE_NIX_ATTR_PATH="dark-reader"
+        exec ${lib.escapeShellArgs (nix-update-script { })} "$@"
+      '';
+    };
   };
 
   meta = {

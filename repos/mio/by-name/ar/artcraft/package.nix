@@ -27,14 +27,17 @@
   librsvg,
   dbus,
   libayatana-appindicator,
+  python3,
+  nix,
+  writeShellApplication,
 }:
 let
-  version = "0.41.0";
+  version = "0.41.1";
   src = fetchFromGitHub {
     owner = "storytold";
     repo = "artcraft";
     tag = "artcraft-v${version}";
-    hash = "sha256-kO4kHtU6cINVDpzxtTzq8s1nf8zqilHcJc7Fsi+iN0U=";
+    hash = "sha256-nQFYSHRZFT5TZlDGj3/NG8DYprkoOfK5D+KQuyP4u0A=";
   };
   frontendSrc = runCommand "artcraft-frontend-src-${version}" { } ''
     cp -r ${src}/frontend $out
@@ -55,7 +58,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   npmRoot = "frontend";
   npmDeps = fetchNpmDeps {
     src = frontendSrc;
-    hash = "sha256-SFHNSKXd6geJ8qYSPSwZSnG+0wmMDVfbasOPWNyLr5A=";
+    hash = "sha256-MEfbgOH529EzHJDKm+m9c+OPCp9kUPcPKRnwUAW9RbM=";
   };
   npmDepsFetcherVersion = 2;
   makeCacheWritable = true;
@@ -65,7 +68,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   buildAndTestSubdir = "crates/desktop/artcraft";
-  cargoHash = "sha256-6XJlxw2NymY9oOj1j+MA3SkdypasSYTiAVE7nrxORMk=";
+  cargoHash = "sha256-DZqD7J14yLbASc00UMfvV3QUa3DGN+m1ZlmDh4VLFKw=";
 
   nativeBuildInputs = [
     cargo-tauri.hook
@@ -200,6 +203,22 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
 
   doCheck = false;
+
+  passthru = {
+    updateScript = writeShellApplication {
+      name = "update-artcraft";
+      runtimeInputs = [
+        python3
+        git
+        nix
+      ];
+      text = ''
+        cd "$(git rev-parse --show-toplevel)"
+        export UPDATE_NIX_ATTR_PATH="artcraft"
+        exec ${python3}/bin/python3 ${./update.py} "$@"
+      '';
+    };
+  };
 
   meta = {
     description = "IDE for interactive AI image and video creation";

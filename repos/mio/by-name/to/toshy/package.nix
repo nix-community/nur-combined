@@ -36,19 +36,21 @@
   zenity,
   libnotify,
   xdg-utils,
+  nix-update-script,
+  writeShellApplication,
   # "main" or "dev_beta" — selects which vendored keymapper copy inside
   # the Toshy source tree to build.
   keymapperBranch ? "main",
 }:
 
 let
-  version = "26.08.0";
+  version = "26.11.0";
 
   src = fetchFromGitHub {
     owner = "RedBearAK";
     repo = "toshy";
     rev = "Toshy_v${version}";
-    hash = "sha256-akmdwHhAMEDnk8Mh57UhM32ffgE3YSWdUPAecXG7R/0=";
+    hash = "sha256-gyUpQ18qSppxthXY4fWet0bN7yFv8APjd5IBgFBONoA=";
   };
 
   # Version pins applied as an overlay so every package in the set resolves
@@ -216,6 +218,20 @@ runCommand "toshy-${keymapperBranch}-${version}"
     inherit src;
     passthru = {
       inherit src pythonEnv xwaykeyz;
+      updateScript = writeShellApplication {
+        name = "update-toshy";
+        text = ''
+          export UPDATE_NIX_ATTR_PATH="toshy"
+          exec ${
+            lib.escapeShellArgs (nix-update-script {
+              extraArgs = [
+                "--version-regex"
+                "Toshy_v(.*)"
+              ];
+            })
+          } "$@"
+        '';
+      };
     };
     meta = {
       description = "Mac-style keyboard remapping for Linux (Toshy runtime environment)";

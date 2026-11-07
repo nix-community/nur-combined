@@ -7,6 +7,8 @@
   imagemagick,
   plymouth,
   plasma-overdose-kde-theme,
+  nix-update-script,
+  writeShellApplication,
 }:
 
 let
@@ -14,13 +16,13 @@ let
 in
 stdenvNoCC.mkDerivation {
   pname = "windose20";
-  version = "0-unstable-2026-03-29";
+  version = "0-unstable-2026-11-05";
 
   src = fetchFromGitHub {
     owner = "ArThirtyFour";
     repo = "windose20";
-    rev = "d0a51fad532e1a63012210817fabc063de4f65b3";
-    hash = "sha256-B272o5LcrE9yCK4c36gjVwW5utg/XVJpPEMVjeilSD0=";
+    rev = "da5ad1b90d77c2de0ea4a4fbdd270b74d6bbe55c";
+    hash = "sha256-pgbfsa0BUjR+iXvgaLxAitSnPTiqJYN1RECHZ4MteOM=";
   };
 
   nativeBuildInputs = [
@@ -213,6 +215,18 @@ stdenvNoCC.mkDerivation {
 
     runHook postInstall
   '';
+
+  passthru.updateScript = writeShellApplication {
+    name = "update-windose20";
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="windose20"
+      exec ${
+        lib.escapeShellArgs (nix-update-script {
+          extraArgs = [ "--version=branch" ];
+        })
+      } "$@"
+    '';
+  };
 
   meta = {
     description = "Windose20 branding assets and configs for the Needy Girl Overdose KDE rice";

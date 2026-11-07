@@ -18,17 +18,19 @@
   makeDesktopItem,
   libva,
   writableTmpDirAsHomeHook,
+  nix-update-script,
+  writeShellApplication,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "bilibili";
-  version = "1.20.0-1";
+  version = "1.20.0-2";
 
   src = fetchFromGitHub {
     owner = "msojocs";
     repo = "bilibili-linux";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-3SDHQfgtSTrYkbvtREhjkXaMLP+FmewN76nEW2H1dhM=";
+    hash = "sha256-NRBi84ZJmN2M5PZNszrdrI9yl9DYlGL6ug5ES77HAco=";
   };
 
   bilibiliInstaller = fetchurl {
@@ -137,6 +139,17 @@ stdenv.mkDerivation (finalAttrs: {
       ];
     })
   ];
+
+  passthru = {
+    inherit (finalAttrs) pnpmDeps;
+    updateScript = writeShellApplication {
+      name = "update-bilibili";
+      text = ''
+        export UPDATE_NIX_ATTR_PATH="bilibili"
+        exec ${lib.escapeShellArgs (nix-update-script { })} "$@"
+      '';
+    };
+  };
 
   meta = {
     description = "Electron-based bilibili desktop client";

@@ -17,11 +17,13 @@
   cjson,
   client ? "bambu_studio", # or "orca_slicer"
   pluginVersion ? "02.05.00.99",
+  nix-update-script,
+  writeShellApplication,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "open-bamboo-networking";
-  version = "2.2.0";
+  version = "2.3.0";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -30,7 +32,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "ClusterM";
     repo = "open-bamboo-networking";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-VSX5j4FmLavPGs5x3ONGrI1b8Du5BKD4WzsmwJFFOak=";
+    hash = "sha256-0yrbsZvpeZozAq0baDbInxnmXoOI/8rL8G106PwbfFg=";
   };
 
   nativeBuildInputs = [
@@ -64,6 +66,14 @@ stdenv.mkDerivation (finalAttrs: {
       "-DFETCHCONTENT_SOURCE_DIR_ECLIPSE_MOSQUITTO=$TMPDIR/source/mosquitto-src"
     )
   '';
+
+  passthru.updateScript = writeShellApplication {
+    name = "update-open-bamboo-networking";
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="open-bamboo-networking"
+      exec ${lib.escapeShellArgs (nix-update-script { })} "$@"
+    '';
+  };
 
   meta = {
     changelog = "https://github.com/ClusterM/open-bamboo-networking/releases/tag/v${finalAttrs.version}";
