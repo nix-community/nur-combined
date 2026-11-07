@@ -2,7 +2,9 @@ name: Update NixOS Packages
 
 on:
   schedule:
-    - cron: '0 3 * * *' # Daily, 03:00 UTC
+    # Weekly so each run lands one batched update commit instead of daily churn.
+    # 03 UTC falls outside both US and European working hours.
+    - cron: '0 3 * * 5' # Friday 03:00 UTC = 06:00 Europe/Istanbul
   workflow_dispatch:
 
 permissions:
