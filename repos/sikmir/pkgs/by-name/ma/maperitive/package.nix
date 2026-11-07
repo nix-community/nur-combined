@@ -4,19 +4,19 @@
   fetchurl,
   unzip,
   mono,
-  gtk2,
+  gtk3,
   makeWrapper,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "maperitive";
-  version = "2.4.3";
+  version = "2.5.10";
 
   __structuredAttrs = true;
 
   src = fetchurl {
     url = "http://maperitive.net/download/Maperitive-${finalAttrs.version}.zip";
-    hash = "sha256-yhslRj4CjUY0kviQTI7z8LvSiWvjf7K8+tDMeA9zNEk=";
+    hash = "sha256-D55ONHci3BzusXFIQsYwtQCp+VAIotAxWs1FmAk7Ax4=";
   };
 
   nativeBuildInputs = [
@@ -29,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r . $out/opt/maperitive
 
     makeWrapper ${mono}/bin/mono $out/bin/maperitive \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ gtk2 ]} \
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ gtk3 ]} \
       --run "[ -d \$HOME/.maperitive ] || { cp -r $out/opt/maperitive \$HOME/.maperitive && chmod -R +w \$HOME/.maperitive; }" \
       --add-flags "--desktop \$HOME/.maperitive/Maperitive.exe"
   '';

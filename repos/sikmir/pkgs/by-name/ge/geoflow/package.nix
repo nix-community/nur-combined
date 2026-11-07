@@ -5,7 +5,7 @@
   cmake,
   pkg-config,
   glfw3,
-  gtk2,
+  gtk3,
   nlohmann_json,
   proj,
   sqlite,
@@ -36,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [
     glfw3
-    gtk2
+    gtk3
     nlohmann_json
     proj
     sqlite
@@ -58,5 +58,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "geof";
+    broken = true; # gtk2
   };
 })
