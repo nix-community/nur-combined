@@ -30,6 +30,13 @@ redistribution.
 | Package | Version | Description | Public cache |
 |---|---|---|---|
 | `lantern-engine` | `0.9.38` | Lantern Engine by Awaken, built from source (needs your own game dump) | Yes |
+| `wordcraft` | `0.16.0` | Word processor (official binary release) | No: redistribution review pending |
+| `gridcraft` | `0.17.0` | Spreadsheet editor (official binary release) | No: redistribution review pending |
+| `deckcraft` | `0.16.0` | Presentation editor (official binary release) | No: redistribution review pending |
+| `pdfcraft` | `0.19.0` | PDF viewer and editor (official binary release) | No: redistribution review pending |
+| `photocraft` | `0.21.0` | Image editor (official binary release) | No: redistribution review pending |
+| `filmcraft` | `0.18.0` | Video editor (official binary release) | No: redistribution review pending |
+| `soundcraft` | `0.18.0` | Digital audio workstation (official binary release) | No: redistribution review pending |
 | `meitou-launcher` | `1.9.0` | Source-built launcher that downloads Meitou versions (requires Kenshi) | Yes |
 | `cybergrub2077` | `2.0.1-unstable-2026-02-28` | Cyberpunk 2077 inspired GRUB theme | Yes |
 | `nmssaveeditor` | `1.21.0` | Save editor for No Man's Sky | No: unfree |
@@ -102,6 +109,15 @@ By default the launcher excludes Mesa's llvmpipe Vulkan driver: some Meitou
 versions can rank this CPU renderer above an integrated GPU. Explicit Vulkan or
 Mesa device selections are respected. To deliberately allow software rendering,
 launch with `VK_LOADER_DRIVERS_DISABLE="" meitou-launcher`.
+
+### ArtCraft applications
+
+WordCraft, GridCraft, DeckCraft, PdfCraft, PhotoCraft, FilmCraft and SoundCraft
+are packaged from upstream's official x86_64 Linux tarballs, not AppImages or
+Flatpaks. Vulkan, Wayland/X11, ALSA and VA-API libraries are available at runtime;
+actual GPU/video acceleration and audio devices depend on the host drivers.
+These packages run without Flatpak's sandbox. Public Cachix publication is disabled
+pending a review of the binaries' bundled assets and redistribution terms.
 
 ### Story Forge
 

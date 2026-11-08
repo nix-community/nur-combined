@@ -28,6 +28,9 @@ strict-Bash updater, then runs:
   failures; only 429 becomes a visible deferred-request warning, not a hidden
   failure or a falsely claimed accepted refresh. No network or retry waits.
 
+- `artcraft-update.py`: official binary selection, hash verification, downgrade
+  prevention and atomic rollback for ArtCraft packages.
+
 - `meitou-update.py`: stable launcher release selection, game and nightly
   exclusion, downgrade prevention and NuGet lock regeneration.
 
