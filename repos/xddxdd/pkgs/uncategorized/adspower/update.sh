@@ -3,7 +3,7 @@
 # shellcheck shell=bash
 set -euo pipefail
 
-NEW_VERSION=$(curl -fsSL 'https://www.adspower.com/en/download' | grep -oP '"https://version\.adspower\.net/software/linux-x64-global/[^"]+/AdsPower-Global-\K[^"]+(?=-x64\.deb)' | head -n1 || true)
+NEW_VERSION=$(curl -fsSL 'https://www.adspower.com/en/download' | grep -oP '"https://version(?:-v2)?\.adspower\.net/software/linux-x64-global/[^"]+/AdsPower-Global-\K[^"]+(?=-x64\.deb)' | head -n1 || true)
 if [ -z "$NEW_VERSION" ]; then
   echo "Failed to detect new version" >&2
   exit 1

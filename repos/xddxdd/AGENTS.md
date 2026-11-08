@@ -229,6 +229,7 @@ appimageTools.wrapType2 {
 
 ### 版本约定
 
+- **多平台二进制更新先确认 release 资产齐全**：tag 已发布不代表全部架构的二进制已经上传。先从 release 的资产列表确认每个受支持平台的精确文件名，缺失时警告并保留当前完整版本，不下载猜测的 URL；网络错误仍应失败。所有平台预取成功且哈希非空后再写入版本与哈希（invisible-firefox-unwrapped-bin 实例）。
 - **自定义更新脚本必须防止部分写入和空哈希**：Shell 脚本开启 `set -euo pipefail`，用 `jq -er .hash` 拒绝 null 或缺失的哈希；修复哈希的正则应能匹配已有的空字符串，否则一次下载失败就会让更新永久卡住（ncmm 实例）。用 sed 写入 SRI 哈希时不要用 `/` 作分隔符，base64 本身可能含 `/`。
 - **更新前先检查源码归档是否仍含可构建项目**：上游可能把完整源码仓库改成补丁系列，但继续发布同名 tag（invisible-firefox 实例）。先预取并检查归档中的权威版本文件，再改写 version/tag/hash；归档已变为补丁集时明确警告并保留最后可用的完整源码 pin，不要把 HTTP 404 正文当版本号，也不要只推进 tag。
 - **普通 GitHub release/tag**：直接 `nix-update-script { }`；v 前缀 tag（如 tag 为 `v1.2.0`、version 为 `1.2.0`）会被 nix-update 自动识别处理，无需额外参数
@@ -313,6 +314,8 @@ appimageTools.wrapType2 {
 - 嵌套更深的包（如 asterisk 编解码器 `pkgs/asterisk-digium-codecs/` 下按版本分目录）需逐级引用：`nix build '.#asteriskDigiumCodecs."24".g729a'`
 
 ## pnpm 前端构建
+
+- **SWC 原生载荷的缓存安全检查可能拒绝 Nix 沙箱根目录**：`@swc/core` 1.16.18 的原生载荷会检查缓存目录的所有祖先，所有者既不是 root 也不是当前用户时，即使目录不可写仍报 `ERR_SWC_NATIVE_CACHE`；Nix 沙箱根目录可能归 `nobody` 所有，修改构建目录权限无效。仅在受信任的隔离前端构建派生中设置 `env.SWC_NATIVE_BINDING_CACHE_SKIP_SECURITY_CHECK = "1";`，使用上游提供的祖先检查豁免，不传播到应用运行环境；完整构建前端并重跑更新器，继续修复被前端失败掩盖的依赖哈希错误（axonhub 实例）。
 
 ### fetchPnpmDeps 配置
 

@@ -16,15 +16,22 @@ if [ "$NEW_REV" = "$OLD_REV" ]; then
 fi
 NEW_TAG="firefox-$NEW_REV"
 
-ASSETS=$(curl -sL "https://github.com/feder-cr/firefox_antidetect_patch/releases/expanded_assets/$NEW_TAG")
-NEW_VERSION=$(sed -n 's#.*firefox-\([0-9.]*\)-stealth-linux-x86_64\.tar\.gz.*#\1#p' <<<"$ASSETS" | head -1)
+ASSETS=$(curl -fsSL "https://github.com/feder-cr/firefox_antidetect_patch/releases/expanded_assets/$NEW_TAG")
+NEW_VERSION=$(sed -n 's#.*firefox-\([0-9.]*\)-stealth-linux-\(x86_64\|arm64\)\.tar\.gz.*#\1#p' <<<"$ASSETS" | head -1)
 [ -n "$NEW_VERSION" ] || {
-  echo "cannot determine Firefox version from $NEW_TAG assets" >&2
-  exit 1
+  echo "WARN: $NEW_TAG lacks supported Linux binaries; keeping the current release" >&2
+  exit 0
 }
 
-H_X86=$(nix store prefetch-file --json "https://github.com/feder-cr/firefox_antidetect_patch/releases/download/$NEW_TAG/firefox-$NEW_VERSION-stealth-linux-x86_64.tar.gz" | jq -r .hash)
-H_ARM=$(nix store prefetch-file --json "https://github.com/feder-cr/firefox_antidetect_patch/releases/download/$NEW_TAG/firefox-$NEW_VERSION-stealth-linux-arm64.tar.gz" | jq -r .hash)
+for ARCH in linux-x86_64 linux-arm64; do
+  if ! grep -Fq "href=\"/feder-cr/firefox_antidetect_patch/releases/download/$NEW_TAG/firefox-$NEW_VERSION-stealth-$ARCH.tar.gz\"" <<<"$ASSETS"; then
+    echo "WARN: $NEW_TAG lacks $ARCH; keeping the current release" >&2
+    exit 0
+  fi
+done
+
+H_X86=$(nix store prefetch-file --json "https://github.com/feder-cr/firefox_antidetect_patch/releases/download/$NEW_TAG/firefox-$NEW_VERSION-stealth-linux-x86_64.tar.gz" | jq -er .hash)
+H_ARM=$(nix store prefetch-file --json "https://github.com/feder-cr/firefox_antidetect_patch/releases/download/$NEW_TAG/firefox-$NEW_VERSION-stealth-linux-arm64.tar.gz" | jq -er .hash)
 
 sed -i "s/^  tag = \"firefox-[0-9]*\";$/  tag = \"$NEW_TAG\";/" default.nix
 sed -i "s/^  version = \"[0-9.]*\";$/  version = \"$NEW_VERSION\";/" default.nix
