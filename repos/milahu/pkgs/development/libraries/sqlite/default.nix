@@ -38,7 +38,7 @@ let
         # nixpkgs-update: no auto update
         # NB! Make sure to update ./tools.nix src (in the same directory).
         version = "3.45.1";
-        hash = "sha256-lP2afdRDHXIEwfdv4eXs0tZ+R6suSzWJFbN0u1jPNn4=";
+        hash = "sha256-EkbF/fcUthSE3breGP8fGovOKeqrMeACvpQC3CR+Vm8=";
         rev = "version-${version}";
       }
     else if sqliteBranch == "reuse-schema" then
