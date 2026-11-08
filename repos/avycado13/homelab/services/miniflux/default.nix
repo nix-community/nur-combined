@@ -94,7 +94,7 @@ in
         })
         {
           services.caddy.virtualHosts."${cfg.url}" = {
-            useACMEHost = "avyay.in";
+            useACMEHost = hl.acmeHostFor cfg.url;
             extraConfig = ''
               reverse_proxy http://${cfg.host}:${toString port}
             '';

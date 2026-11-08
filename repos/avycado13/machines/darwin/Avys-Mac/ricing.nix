@@ -176,9 +176,25 @@ _: {
           run = "move-node-to-workspace M";
         }
         {
+          # "if" = "test %{app-bundle-id} = com.tinyspeck.slackmacgap";
+          "if".app-id = "dev.slick.byoe.handoff";
+          run = "move-node-to-workspace M";
+        }
+        {
           # "if" = "test %{app-bundle-id} = com.apple.MobileSMS";
           "if".app-id = "com.apple.MobileSMS";
           run = "move-node-to-workspace M";
+        }
+        {
+          # "if" = "test %{app-bundle-id} = com.apple.MobileSMS";
+          "if".app-id = "com.apple.calculator";
+          run = "layout floating";
+        }
+        {
+          # "if" = "test %{app-bundle-id} = com.apple.MobileSMS";
+          "if".app-id = "com.apple.Music";
+          "if".window-title-regex-substring = "MiniPlayer";
+          run = "layout floating";
         }
       ];
     };

@@ -78,6 +78,7 @@
   homelab = {
     enable = true;
     baseDomainName = "avyay.in";
+    domains = [ "avyay.in" ];
     email = "avycado13@icloud.com";
     cloudflare.dnsCredentialsFile = config.sops.secrets.cloudflare-dns-credentials.path;
 

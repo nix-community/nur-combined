@@ -92,7 +92,7 @@ in
       })
       {
         services.caddy.virtualHosts."${cfg.url}" = {
-          useACMEHost = hl.baseDomainName;
+          useACMEHost = hl.acmeHostFor cfg.url;
           extraConfig = ''
             reverse_proxy http://${proxyHost}:${toString port}
           '';

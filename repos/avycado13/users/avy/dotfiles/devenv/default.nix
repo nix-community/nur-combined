@@ -335,7 +335,7 @@ in
       pkgs.nix-tree
       pkgs.cachix
       pkgs.omnix
-      pkgs.autoflake
+      # pkgs.autoflake
       pkgs.nix-search-cli
       pkgs.sops
       pkgs.nix-fast-build
@@ -384,6 +384,7 @@ in
     ++ lib.optionals config.dots.devenv.cloud.enable [
       gdk
       pkgs.oci-cli
+      pkgs.cloudfox
     ]
     ++ lib.optionals config.dots.devenv.android.enable [
       pkgs.gradle

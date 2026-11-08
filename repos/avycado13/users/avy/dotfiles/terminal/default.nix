@@ -12,10 +12,18 @@ let
         url = "https://st.suckless.org/patches/kitty-graphics-protocol/st-kitty-graphics-20251230-0.9.3.diff";
         sha256 = "sha256-+b0LySNZlrjjLzXq7XU7lPQhBnQs91sJjD30tAbXKRA=";
       })
-      (pkgs.fetchpatch {
-        url = "https://st.suckless.org/patches/drag-n-drop/st-drag-n-drop-0.9.2.diff";
-        hash = "sha256-sqlZUjZheykBdfXwhIURp95aEiyiZUp6My7gnWrd3qY=";
-      })
+      (pkgs.runCommand "st-drag-n-drop-kitty-compat.patch" { } ''
+        cp ${
+          pkgs.fetchpatch {
+            url = "https://st.suckless.org/patches/drag-n-drop/st-drag-n-drop-0.9.2.diff";
+            hash = "sha256-sqlZUjZheykBdfXwhIURp95aEiyiZUp6My7gnWrd3qY=";
+          }
+        } $out
+        # kitty-graphics adds mouse_col/mouse_row after win; retain that context.
+        substituteInPlace $out \
+          --replace-fail '@@ -220,6 +231,7 @@ static DC dc;' '@@ -220,7 +231,8 @@ static DC dc;'
+        sed -i '/^ static TermWindow win;$/a\ static unsigned int mouse_col = 0, mouse_row = 0;' $out
+      '')
       (pkgs.fetchpatch {
         url = "https://st.suckless.org/patches/clickurl/st-clickurl-0.8.5.diff";
         hash = "sha256-2/pEVF6GUJKKaOAbi4Rlgu5GJh0zHKMOzo4bv8TacIo=";

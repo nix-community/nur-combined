@@ -8,7 +8,7 @@ let
   service = "irc";
   hl = config.homelab;
   cfg = hl.services.${service};
-  certDir = config.security.acme.certs.${hl.baseDomainName}.directory;
+  certDir = config.security.acme.certs.${hl.acmeHostFor cfg.url}.directory;
   backupData = import ../../lib/backupData.nix { inherit lib; };
 in
 {
@@ -87,7 +87,7 @@ in
           Group = "soju";
         };
 
-        security.acme.certs.${hl.baseDomainName}.reloadServices = [ "soju.service" ];
+        security.acme.certs.${hl.acmeHostFor cfg.url}.reloadServices = [ "soju.service" ];
 
         networking.firewall.allowedTCPPorts = [ cfg.port ];
 
@@ -97,7 +97,7 @@ in
       })
       {
         services.caddy.virtualHosts."${cfg.url}" = {
-          useACMEHost = hl.baseDomainName;
+          useACMEHost = hl.acmeHostFor cfg.url;
           extraConfig = ''
             root * ${pkgs.compressDrvWeb pkgs.gamja { }}
             file_server browse {

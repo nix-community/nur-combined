@@ -40,18 +40,18 @@
     ];
     security.acme = {
       acceptTerms = true;
-      defaults.email = "${config.homelab.email}";
-      certs.${config.homelab.baseDomainName} = {
+      defaults.email = config.homelab.email;
+      certs = lib.genAttrs config.homelab.domains (domain: {
         reloadServices = [ "caddy.service" ];
-        domain = "${config.homelab.baseDomainName}";
-        extraDomainNames = [ "*.${config.homelab.baseDomainName}" ];
+        extraDomainNames = [ "*.${domain}" ];
         dnsProvider = "cloudflare";
         dnsResolver = "1.1.1.1:53";
         dnsPropagationCheck = true;
         group = config.services.caddy.group;
         environmentFile = config.homelab.cloudflare.dnsCredentialsFile;
-      };
+      });
     };
+    services.tailscale.permitCertUid = "caddy";
     services.caddy = {
       enable = true;
       package = pkgs.caddy.withPlugins {
@@ -64,18 +64,21 @@
       globalConfig = ''
         auto_https off
       '';
-      virtualHosts = {
-        "https://${config.homelab.baseDomainName}" = {
-          extraConfig = ''
-            redir https://{host}{uri}
-          '';
-        };
-        "http://*.${config.homelab.baseDomainName}" = {
-          extraConfig = ''
-            redir https://{host}{uri}
-          '';
-        };
-      };
+      virtualHosts = lib.mkMerge (
+        map (domain: {
+          # "https://${domain}" = {
+          #   useACMEHost = domain;
+          #   extraConfig = ''
+          #     redir https://{host}{uri}
+          #   '';
+          # };
+          "http://*.${domain}" = {
+            extraConfig = ''
+              redir https://{host}{uri}
+            '';
+          };
+        }) config.homelab.domains
+      );
     };
   };
 
@@ -83,6 +86,7 @@
     ./miniflux
     ./auth
     ./glance
+    ./gatus
     ./niks3
     ./cloudrun
     ./scrutiny

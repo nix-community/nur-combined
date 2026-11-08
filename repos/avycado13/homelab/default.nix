@@ -37,6 +37,31 @@ in
         Base domain name to be used to access the homelab services via Caddy reverse proxy
       '';
     };
+    domains = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ cfg.baseDomainName ];
+      description = "Domains for which to issue apex and wildcard ACME certificates";
+    };
+    acmeHostFor = lib.mkOption {
+      type = lib.types.functionTo lib.types.str;
+      internal = true;
+      readOnly = true;
+      default = hostname:
+        let
+          matches = builtins.filter (
+            domain:
+            hostname == domain
+            || (
+              lib.hasSuffix ".${domain}" hostname
+              && !(lib.hasInfix "." (lib.removeSuffix ".${domain}" hostname))
+            )
+          ) cfg.domains;
+        in
+        if matches == [ ] then
+          throw "homelab: no wildcard ACME certificate in homelab.domains covers ${hostname}"
+        else
+          builtins.head matches;
+    };
     cloudflare.dnsCredentialsFile = lib.mkOption {
       type = lib.types.path;
       example = ''

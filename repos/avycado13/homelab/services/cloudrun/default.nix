@@ -42,7 +42,7 @@ in
     services.caddy.virtualHosts = lib.mapAttrs' (
       _: svc:
       lib.nameValuePair svc.url {
-        useACMEHost = hl.baseDomainName;
+        useACMEHost = hl.acmeHostFor svc.url;
         extraConfig = ''
           reverse_proxy https://${svc.cloudRunHost} {
             header_up Host ${svc.cloudRunHost}

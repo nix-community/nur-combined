@@ -146,7 +146,7 @@ in
               "PORT=${toString cfg.port}"
               "NODE_ENV=production"
               "DATABASE_URL=${cfg.dataDir}/data/indiko.db"
-              "COOKIE_DOMAIN=.${hl.baseDomainName}"
+              "COOKIE_DOMAIN=.${hl.acmeHostFor cfg.domain}"
             ];
 
             NoNewPrivileges = true;
@@ -159,6 +159,7 @@ in
       })
       {
         services.caddy.virtualHosts.${cfg.domain} = {
+          useACMEHost = hl.acmeHostFor cfg.domain;
           extraConfig = ''
             reverse_proxy ${cfg.host}:${toString cfg.port}
              header {

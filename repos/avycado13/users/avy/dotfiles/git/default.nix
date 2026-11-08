@@ -105,11 +105,11 @@
         pkgs.gh-stack
         pkgs.gh-markdown-preview
         pkgs.gh-skyline
-        pkgs.gh-actions-lock
+        # pkgs.gh-actions-lock
       ];
     };
     programs.gh-dash = {
-      enable = false;
+      enable = true;
       settings = {
         prSections = [
           {
