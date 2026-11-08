@@ -11,7 +11,7 @@
         # security
         trufflehog.enable = true;
         # nix
-        flake-checker.enable = true;
+        # flake-checker.enable = true;
       };
     };
   };
