@@ -80,6 +80,11 @@ in
       description = "What to back up for niks3; see homelab/services/restic";
     };
 
+    gatus = import ../../lib/gatusEndpoint.nix {
+      inherit lib;
+      name = "Niks3";
+      url = "https://${cfg.url}/health";
+    };
     glance.name = lib.mkOption {
       type = lib.types.str;
       default = "Niks3";

@@ -46,6 +46,11 @@ in
       default = true;
       description = "Allow books to be uploaded via the Calibre-Web UI";
     };
+    gatus = import ../../lib/gatusEndpoint.nix {
+      inherit lib;
+      name = "Calibre-Web";
+      url = "https://${cfg.url}";
+    };
     glance.name = lib.mkOption {
       type = lib.types.str;
       default = "Calibre-Web";

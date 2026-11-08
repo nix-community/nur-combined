@@ -40,6 +40,11 @@ in
       default = "glance.${hl.baseDomainName}";
       description = "Domain to serve Glance on";
     };
+    gatus = import ../../lib/gatusEndpoint.nix {
+      inherit lib;
+      name = "Glance";
+      url = "https://${cfg.url}";
+    };
     glance.name = lib.mkOption {
       type = lib.types.str;
       default = "Glance";

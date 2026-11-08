@@ -61,6 +61,11 @@ in
         lives outside the library directory.
       '';
     };
+    gatus = import ../../lib/gatusEndpoint.nix {
+      inherit lib;
+      name = "Navidrome";
+      url = "https://${cfg.url}";
+    };
     glance.name = lib.mkOption {
       type = lib.types.str;
       default = "Navidrome";

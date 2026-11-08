@@ -16,6 +16,11 @@ let
           default = "${name}.${hl.baseDomainName}";
           description = "Domain to serve this Cloud Run service on";
         };
+        gatus = import ../../lib/gatusEndpoint.nix {
+          inherit lib;
+          inherit name;
+          url = "https://${config.url}";
+        };
         glance.name = lib.mkOption {
           type = lib.types.str;
           default = name;

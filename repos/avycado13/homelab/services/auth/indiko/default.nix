@@ -69,6 +69,11 @@ in
       description = "EnvironmentFile with indiko secrets";
     };
 
+    gatus = import ../../../lib/gatusEndpoint.nix {
+      inherit lib;
+      name = "Indiko";
+      url = "https://${cfg.dmain}/health";
+    };
     glance.name = lib.mkOption {
       type = lib.types.str;
       default = "Auth";

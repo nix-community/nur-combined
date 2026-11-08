@@ -101,6 +101,21 @@ GitHub Actions workflows in `.github/workflows/`:
 - **Auto-format**: Run `treefmt` to format all files
 - Exclusions: `*.lock`, `.gitignore`, `secrets/*`
 
+## Adding a Homelab Service
+
+- Add the service module under `homelab/services/<service>/` and import it from `homelab/services/default.nix`.
+- Give every new service a Gatus endpoint option alongside its other `homelab.services.<service>` options. Prefer a dedicated unauthenticated health endpoint when available:
+
+  ```nix
+  gatus = import ../../lib/gatusEndpoint.nix {
+    inherit lib;
+    name = "Service Name";
+    url = "https://${cfg.url}/healthz";
+  };
+  ```
+
+  The helper defaults to checking `[STATUS] < 400` every `5m`; override `gatus.condition` or `gatus.interval` if needed. Gatus automatically collects endpoints from enabled services (and enabled Cloud Run services) when `homelab.services.gatus.enable` is set. Set a service's `gatus = null` only when it cannot be meaningfully checked.
+
 ## Gotchas
 
 - **State Version**: Varies by host — `"25.05"` (pi1, eclipse), `"25.11"` (pi0), `"26.05"` (oracle, gce), `5` (Avys-Mac Darwin)
@@ -111,7 +126,7 @@ GitHub Actions workflows in `.github/workflows/`:
 - **Hardware Modules**: NixOS configs may include hardware-specific modules (e.g., `nixos-hardware.nixosModules.raspberry-pi-3`)
 - **pi0**: Currently commented out in `flake.nix` outputs
 - **mkService**: Some homelab services (postgres, lldap) use the `mkService.nix` factory in `homelab/lib/mkService.nix`, imported via `import ../../lib/mkService.nix`
-- **Homelab services**: `homelab/services/default.nix` currently imports `miniflux`, `auth`, `glance`, `niks3`, `retrom`, `cloudrun`, `scrutiny`, `restic`, `isponsorblocktv`, `lard`, `calibre-web`, `asterisk`, `irc`, `navidrome`. Enabled on pi1: all except `retrom`.
+- **Homelab services**: `homelab/services/default.nix` lists the imported services; `machines/nixos/pi1/homelab.nix` selects which ones are enabled.
 
 ## Secrets Management
 

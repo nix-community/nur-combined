@@ -48,6 +48,11 @@ in
       default = 6697;
       description = "Port soju listens on for IRC-over-TLS connections";
     };
+    gatus = import ../../lib/gatusEndpoint.nix {
+      inherit lib;
+      name = "IRC";
+      url = "https://${cfg.url}";
+    };
     glance.name = lib.mkOption {
       type = lib.types.str;
       default = "Soju";

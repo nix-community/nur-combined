@@ -58,6 +58,11 @@ in
       default = [ ];
       description = "indiko profile URLs (\"me\") allowed to call lard; empty allows any authenticated indiko user";
     };
+    gatus = import ../../lib/gatusEndpoint.nix {
+      inherit lib;
+      name = "Lard";
+      url = "https://${cfg.url}";
+    };
     glance.name = lib.mkOption {
       type = lib.types.str;
       default = "Lard";

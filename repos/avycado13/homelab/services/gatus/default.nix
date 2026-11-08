@@ -8,30 +8,24 @@ let
   hl = config.homelab;
   port = 8087;
 
-  # Keep the monitored endpoints explicit until we decide which services to
-  # discover automatically. These are public URLs, not local service ports.
-  hosts = [
-    {
-      name = "Auth";
-      url = "https://auth.avyay.in";
-    }
-    {
-      name = "Miniflux";
-      url = "https://news.avyay.in";
-    }
-    {
-      name = "Glance";
-      url = "https://glance.avyay.in";
-    }
-    {
-      name = "Nix cache";
-      url = "https://cache.avyay.in";
-    }
-    {
-      name = "Navidrome";
-      url = "https://music.avyay.in";
-    }
-  ];
+  toEndpoint = name: svc: {
+    name = svc.glance.name or name;
+    inherit (svc.gatus) url interval;
+    conditions = [ svc.gatus.condition ];
+  };
+  endpoints =
+    (lib.pipe hl.services [
+      (lib.filterAttrs (
+        name: svc:
+        name != "gatus" && lib.isAttrs svc && (svc.enable or false) && (svc.gatus or null) != null
+      ))
+      (lib.mapAttrsToList toEndpoint)
+    ])
+    ++ lib.optionals hl.services.cloudrun.enable (
+      lib.mapAttrsToList toEndpoint (
+        lib.filterAttrs (_: svc: svc.gatus != null) hl.services.cloudrun.services
+      )
+    );
 in
 {
   options.homelab.services.gatus = {
@@ -60,14 +54,7 @@ in
           address = "127.0.0.1";
           inherit port;
         };
-        endpoints = map (
-          host:
-          host
-          // {
-            interval = "5m";
-            conditions = [ "[STATUS] < 400" ];
-          }
-        ) hosts;
+        inherit endpoints;
       };
     };
 

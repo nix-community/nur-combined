@@ -41,6 +41,11 @@ in
       description = "Shoutrrr notification URLs for disk failure alerts";
       example = [ "ntfy://ntfy.example.com/disk-alerts" ];
     };
+    gatus = import ../../lib/gatusEndpoint.nix {
+      inherit lib;
+      name = "Scrutiny";
+      url = "https://${cfg.domain}";
+    };
     glance.name = lib.mkOption {
       type = lib.types.str;
       default = "Scrutiny";

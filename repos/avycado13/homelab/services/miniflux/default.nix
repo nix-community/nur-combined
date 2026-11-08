@@ -34,6 +34,11 @@ in
       type = lib.types.str;
       default = "news.avyay.in";
     };
+    gatus = import ../../lib/gatusEndpoint.nix {
+      inherit lib;
+      name = "Miniflux";
+      url = "https://${cfg.url}/healthz";
+    };
     glance.name = lib.mkOption {
       type = lib.types.str;
       default = "Miniflux";

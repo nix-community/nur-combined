@@ -26,6 +26,11 @@ in
       default = "pbx.${hl.baseDomainName}";
       description = "Domain for SIP registration and Caddy admin UI";
     };
+    gatus = import ../../lib/gatusEndpoint.nix {
+      inherit lib;
+      name = "Asterisk";
+      url = "https://${cfg.url}";
+    };
     glance.name = lib.mkOption {
       type = lib.types.str;
       default = "Asterisk PBX";
