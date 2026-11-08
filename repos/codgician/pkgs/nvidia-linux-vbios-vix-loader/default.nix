@@ -12,14 +12,14 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "nvidia-linux-vbios-vix-loader";
-  version = "0-unstable-2026-11-05";
+  version = "0-unstable-2026-11-07";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "Panchovix";
     repo = "nvidia-linux-vbios-vix-loader";
-    rev = "9094f26da94efc4122000abc78a07ed8c1e32b22";
-    hash = "sha256-KgeRmYnwg8BUb4WBJBJRzE6MHfnTlrJ4UVHjoWu/SLQ=";
+    rev = "8a6b9e3b21a96f86684dd0131d5bec73cd9adfd4";
+    hash = "sha256-PuXR5iGCVQkG2r2H8u4JmyqEvFK0O3fDUrnGshSnf+k=";
   };
 
   build-system = [ python3Packages.setuptools ];
