@@ -5,16 +5,16 @@
 }:
 pkgs.buildNpmPackage rec {
   pname = "obsidian-scroll-offset";
-  version = "1.0.4";
+  version = "1.0.7";
 
   src = pkgs.fetchFromGitHub {
     owner = "lijyze";
     repo = "scroll-offset";
     rev = version;
-    sha256 = "sha256-IMItXZPSFMTwS3uP+iQOBqf+cXwZh6obF2hliuYAI30=";
+    sha256 = "sha256-DGDpT71n8Ke5+hMbV/AN/d+UIq+Nss0WXVXdyq9WXI8=";
   };
 
-  npmDepsHash = "sha256-jejcRiHXqhKWgikOeq5ED1VxHc0f3PjX+Nrv539a4f8=";
+  npmDepsHash = "sha256-vA56+BgK02iiDnGqgDggHxS/TafwzbYhxekwzkwBxDc=";
 
   installPhase =
     # bash

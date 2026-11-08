@@ -10,7 +10,7 @@ buildNpmPackage rec {
 
   src = fetchgit {
     url = "https://github.com/vicinaehq/extensions";
-    rev = "0e3953058fb787d2a96e5ac0cec462440c07cd07";
+    rev = "181904331f5289b53ee3443f98cfa5441d399f35";
     sha256 = "sha256-UXHOAQkZygiF0ktRLqw6Xj0FaA/ZY4QfXm9m4bX9wuc=";
     sparseCheckout = [
       "/extensions/${pname}"
