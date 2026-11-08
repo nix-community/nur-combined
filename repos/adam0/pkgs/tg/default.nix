@@ -13,12 +13,12 @@
 }:
 buildGo126Module (finalAttrs: {
   pname = "tg";
-  version = "0.6.0-unstable-2026-11-06";
+  version = "0.6.0-unstable-2026-11-07";
 
   src = fetchFromTangled {
     did = "did:plc:g5uweck3xar3m745g43giuhr";
-    rev = "0df8c8114baa9213124ef2064b6c3f107bd60a86";
-    hash = "sha256-Hp8rh4YTyACksRZzgFXb1koMIuAEjra7pjrI9cxsGE4=";
+    rev = "55df0aec3fdf74d2809af712171556ea25649fd9";
+    hash = "sha256-d/q1V1LAB0f7eClh66gZ6gMAwT4F0fTiLf3cKfUQbpM=";
   };
 
   vendorHash = "sha256-CdtyEv4P2ZdWlVSh/RJyfNEXdrTDjhJivITya1w081A=";
