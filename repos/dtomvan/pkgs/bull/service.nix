@@ -32,6 +32,7 @@ in
 
     extraArgs = mkOption {
       description = "Extra arguments passed to bull";
+      default = [ ];
       type = listOf str;
     };
 
@@ -53,7 +54,7 @@ in
       "--content"
       cfg.content
       "serve"
-      "--listen=127.0.0.1:${toString cfg.port}"
+      "--listen=${cfg.listen}"
     ]
     ++ cfg.extraArgs;
   }
