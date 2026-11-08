@@ -67,5 +67,25 @@ class MeitouUpdaterTests(unittest.TestCase):
         self.assertFalse(self.log.exists())
 
 
+class MeitouVulkanPolicyTests(unittest.TestCase):
+    def test_software_driver_filter_respects_explicit_user_selection(self):
+        expression = (ROOT / "pkgs/meitou-launcher/default.nix").read_text()
+        profile = expression.split("  profile = ''\n", 1)[1].split("\n  '';", 1)[0]
+        profile = profile.replace("''${", "${")
+        variables = ("VK_LOADER_DRIVERS_DISABLE", "VK_LOADER_DRIVERS_SELECT", "VK_DRIVER_FILES",
+                     "VK_ICD_FILENAMES", "MESA_VK_DEVICE_SELECT")
+        clean_env = {k: v for k, v in os.environ.items() if k not in variables}
+        def result(extra):
+            cmd = profile + '\nprintf "%s" "${VK_LOADER_DRIVERS_DISABLE-unset}"'
+            return subprocess.run(["bash", "-c", cmd], env={**clean_env, **extra}, text=True,
+                                  capture_output=True, check=True).stdout
+        self.assertEqual(result({}), "*lvp*")
+        self.assertEqual(result({"VK_LOADER_DRIVERS_DISABLE": ""}), "")
+        self.assertEqual(result({"VK_LOADER_DRIVERS_DISABLE": "custom"}), "custom")
+        for variable in variables[1:]:
+            with self.subTest(variable=variable):
+                self.assertEqual(result({variable: "explicit"}), "unset")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

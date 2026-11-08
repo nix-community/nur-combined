@@ -98,6 +98,11 @@ NixOS. A legal Kenshi installation and a Vulkan-capable GPU are required.
 The launcher's NuGet dependencies include prebuilt native libraries. The
 launcher manages downloaded game binaries and their updates independently of Nix.
 
+By default the launcher excludes Mesa's llvmpipe Vulkan driver: some Meitou
+versions can rank this CPU renderer above an integrated GPU. Explicit Vulkan or
+Mesa device selections are respected. To deliberately allow software rendering,
+launch with `VK_LOADER_DRIVERS_DISABLE="" meitou-launcher`.
+
 ### Story Forge
 
 Use `urio-nur.packages.${pkgs.system}.storyforge` or `pkgs.storyforge` after enabling

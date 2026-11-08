@@ -46,6 +46,16 @@ buildFHSEnv {
     libxfixes libxi libxkbcommon libxrandr libxrender libvpx openal openssl
     stdenv.cc.cc.lib vulkan-loader wayland zlib
   ];
+  # Meitou can score llvmpipe above an integrated GPU because it counts the
+  # software driver's large RAM heap as VRAM. Exclude Mesa's CPU ICD by default,
+  # but preserve explicit Vulkan/Mesa driver selections and allow software-only
+  # use via VK_LOADER_DRIVERS_DISABLE="".
+  profile = ''
+    if [[ ! ''${VK_LOADER_DRIVERS_DISABLE+x} && ! ''${VK_LOADER_DRIVERS_SELECT+x} && \
+          ! ''${VK_DRIVER_FILES+x} && ! ''${VK_ICD_FILENAMES+x} && ! ''${MESA_VK_DEVICE_SELECT+x} ]]; then
+      export VK_LOADER_DRIVERS_DISABLE='*lvp*'
+    fi
+  '';
   runScript = "${launcher}/bin/meitou-launcher";
   nativeBuildInputs = [ copyDesktopItems ];
   desktopItems = [ desktop ];
