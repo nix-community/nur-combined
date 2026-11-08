@@ -19,6 +19,9 @@ jobs:
     permissions:
       contents: read
     runs-on: [self-hosted, nixos, cachix-builder]
+    # create-pull-request parses Git's English stash output.
+    env:
+      LC_ALL: C
     timeout-minutes: 60
     steps:
       - name: Require update PR token

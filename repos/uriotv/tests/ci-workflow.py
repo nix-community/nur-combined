@@ -174,12 +174,22 @@ class WorkflowPolicyTests(unittest.TestCase):
         gate = body.split("  test-gate:\n", 1)[1]
         self.assertIn("needs: [test-update-scripts, tests]", gate)
         self.assertIn("always() && (github.event_name != 'pull_request'", gate)
+        self.assertIn("github.event_name != 'workflow_run'", gate)
+        self.assertIn("github.event.workflow_run.conclusion == 'success'", gate)
+        self.assertIn("github.event.workflow_run.head_repository.full_name == github.repository", gate)
         script = "\n".join(line[10:] for line in gate.split("        run: |\n", 1)[1].splitlines())
         for a, b in itertools.product(("success", "failure", "cancelled", "skipped"), repeat=2):
             with self.subTest(a=a, b=b):
                 result = subprocess.run(["bash", "-c", script], capture_output=True,
                                         env={**os.environ, "UPDATE_RESULT": a, "TESTS_RESULT": b})
                 self.assertEqual(result.returncode == 0, a == b == "success")
+
+    def test_update_jobs_force_english_git_and_provide_perl(self):
+        workflows = ROOT / ".github/workflows"
+        for name in ("update.yml", "flake-update.yml"):
+            self.assertIn("      LC_ALL: C", (workflows / name).read_text())
+        setup = (ROOT / ".github/actions/setup-runner-tools/action.yml").read_text()
+        self.assertIn("nixpkgs#perl", setup)
 
     def test_self_hosted_and_pr_security_policy(self):
         workflows = ROOT / ".github/workflows"

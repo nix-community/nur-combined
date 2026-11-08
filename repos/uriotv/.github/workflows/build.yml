@@ -131,7 +131,12 @@ jobs:
     if: >-
       always() && (github.event_name != 'pull_request' ||
       (github.event.pull_request.user.login == github.repository_owner &&
-       github.event.pull_request.head.repo.full_name == github.repository))
+       github.event.pull_request.head.repo.full_name == github.repository)) &&
+      (github.event_name != 'workflow_run' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.head_branch == 'main' &&
+       github.event.workflow_run.head_repository.full_name == github.repository &&
+       (github.event.workflow_run.event == 'schedule' || github.event.workflow_run.event == 'workflow_dispatch')))
     steps:
       - name: Check test results
         env:
