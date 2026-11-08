@@ -3,6 +3,7 @@
   rustPlatform,
   pkg-config,
   cmake,
+  zstd,
   lib,
 }: let
   ver = lib.helper.read ./version.json;
@@ -20,6 +21,8 @@ in
     cargoBuildFlags = ["--package" "orb-cli"];
 
     nativeBuildInputs = [cmake pkg-config];
+
+    buildInputs = [zstd];
 
     doCheck = false;
 

@@ -4,6 +4,8 @@
   rustPlatform,
   pkg-config,
   openssl,
+  bzip2,
+  zstd,
   lib,
   ...
 }:
@@ -29,7 +31,11 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [pkg-config];
 
-  buildInputs = [openssl];
+  buildInputs = [
+    openssl
+    bzip2
+    zstd
+  ];
 
   postInstall = ''
     cp -r $src/res $out/res

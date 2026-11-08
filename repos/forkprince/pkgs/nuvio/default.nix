@@ -1,10 +1,10 @@
 {
+  webkitgtk_4_1,
+  mpv-unwrapped,
   stdenvNoCC,
   fetchurl,
   _7zz,
   lib,
-  mpv-unwrapped,
-  webkitgtk_4_1,
 }: let
   ver = lib.helper.read ./version.json;
 
