@@ -101,7 +101,14 @@ in
     '';
 
     postFixup = ''
-      patchelf --replace-needed libplacebo.so.360 libplacebo.so.387 "$out"/lib/x86_64-linux-gnu/mocktail/libvulkan.so || true
+      placebo_so=$(ls ${libplacebo}/lib/libplacebo.so.* 2>/dev/null | head -n1 || true)
+      if [ -n "$placebo_so" ]; then
+        placebo_soname=$(basename "$placebo_so")
+        if [ "$placebo_soname" != "libplacebo.so.360" ]; then
+          patchelf --replace-needed libplacebo.so.360 "$placebo_soname" \
+            "$out"/lib/x86_64-linux-gnu/mocktail/libvulkan.so || true
+        fi
+      fi
 
       for bin in "$out"/bin/mocktail "$out"/lib/x86_64-linux-gnu/mocktail/mocktail*; do
         [ -f "$bin" ] && [ -x "$bin" ] || continue
