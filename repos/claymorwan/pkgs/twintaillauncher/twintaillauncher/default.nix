@@ -61,7 +61,6 @@ buildFHSEnv {
     gnugrep
     psmisc
     opencl-headers
-
   ]
   ++ extraPkgs pkgs
   ;
@@ -119,7 +118,6 @@ buildFHSEnv {
     SDL2
     curl
     graphite2
-    gtk2
     gtk3
     udev
     ncurses
