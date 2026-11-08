@@ -51,6 +51,15 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoBuildFlags = [ "--package" "photocraft" "--package" "photocraft-cli" ];
   cargoTestFlags = [ "--package" "photocraft" "--package" "photocraft-cli" ];
 
+  patches = [
+    # The build sandbox has no cgroup filesystem mounted, so the memory detector could not
+    # read a limit and failed closed to "0 bytes available". PSD imports were then refused
+    # with `PsdImportBudget { limit: 0 }` and the CLI tests failed. Upstream fix (after
+    # v0.21.0): a confirmed absent `/sys/fs/cgroup` plus a mountinfo list without any cgroup
+    # mount means no limit is observable, so host memory applies. Any doubt stays fail-closed.
+    ./cgroup-unmounted-sandbox.patch
+  ];
+
   prePatch = ''
     # Cargo.lock lists some egui crates under [[patch.unused]] because the app
     # pins them in [patch.crates-io], but the reviewed egui fork does not ship

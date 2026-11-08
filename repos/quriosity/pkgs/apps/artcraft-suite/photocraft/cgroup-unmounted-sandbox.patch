@@ -1,0 +1,129 @@
+diff --git a/crates/raster/src/memory/system.rs b/crates/raster/src/memory/system.rs
+index ac2e4b772..998720b8b 100644
+--- a/crates/raster/src/memory/system.rs
++++ b/crates/raster/src/memory/system.rs
+@@ -206,6 +206,16 @@ pub(super) mod linux {
+             MembershipParse::Malformed => return CgroupLimits::Unreadable,
+         };
+         let mountinfo = std::fs::read_to_string(proc_root.join("self/mountinfo")).ok();
++        // A sandbox with no cgroup filesystem mounted and no `/sys/fs/cgroup` at all (Flatpak)
++        // shows the process its membership path but no interface files, so no limit is
++        // observable. Failing closed there reported 0 bytes free and refused every PSD on a
++        // machine with tens of GB. A present directory still takes the guarded path below.
++        // Only a confirmed NotFound counts as absent: a stat that fails for another reason
++        // (permissions) leaves the directory possibly present, so that case stays fail-closed.
++        let sys_root_absent = matches!(std::fs::metadata(sys_root), Err(e) if e.kind() == std::io::ErrorKind::NotFound);
++        if sys_root_absent && mountinfo.as_deref().is_some_and(lists_mounts_without_cgroup) {
++            return CgroupLimits::NotConstrained;
++        }
+ 
+         if let Some(path) = membership.v1_memory {
+             let Some(dir) = resolve_dir(sys_root, mountinfo.as_deref(), path, "cgroup", Some("memory")) else {
+@@ -336,6 +346,21 @@ pub(super) mod linux {
+         best.map(|(_, _, dir)| dir)
+     }
+ 
++    /// A cgroup (v1 or v2) filesystem.
++    fn is_cgroup_mount(mount: &Mount) -> bool {
++        mount.fstype == "cgroup" || mount.fstype == "cgroup2"
++    }
++
++    /// `mountinfo` parsed to at least one mount, none of them a cgroup filesystem. An empty or
++    /// garbled file parses to no mounts at all, which proves nothing about cgroups; a live kernel
++    /// always lists the process's own root, so only a real list can show a cgroup mount is absent.
++    /// Every non-empty line must parse: a skipped truncated line could be the cgroup mount.
++    fn lists_mounts_without_cgroup(info: &str) -> bool {
++        let mounts = parse_mountinfo(info);
++        let lines = info.lines().filter(|l| !l.trim().is_empty()).count();
++        !mounts.is_empty() && mounts.len() == lines && !mounts.iter().any(is_cgroup_mount)
++    }
++
+     /// Trims trailing slashes so `Path` equality holds while walking ancestors, keeping `/`.
+     fn normalize_root(point: &str) -> PathBuf {
+         let trimmed = point.trim_end_matches('/');
+@@ -933,6 +958,33 @@ mod tests {
+         assert_eq!(linux::cgroup_limits(&proc, &sys), linux::CgroupLimits::Unreadable, "without metadata the absence of a constraint cannot be established");
+         std::fs::remove_dir_all(proc.parent().unwrap()).unwrap();
+ 
++        // No cgroup filesystem mounted (Flatpak): the limit is invisible, host memory applies.
++        let (proc, _) = fixture("no-cgroup-mount");
++        let sys = proc.parent().unwrap().join("absent-sys");
++        write(&proc.join("self/cgroup"), "0::/app.slice/app-flatpak.scope\n");
++        write(&proc.join("self/mountinfo"), "25 20 0:23 / /proc rw - proc proc rw\n");
++        assert_eq!(linux::cgroup_limits(&proc, &sys), linux::CgroupLimits::NotConstrained);
++        std::fs::remove_dir_all(proc.parent().unwrap()).unwrap();
++
++        // A truncated mount line may be the cgroup mount: with /sys/fs/cgroup absent, fail closed.
++        let (proc, _) = fixture("truncated-mountinfo-line");
++        let sys = proc.parent().unwrap().join("absent-sys");
++        write(&proc.join("self/cgroup"), "0::/app\n");
++        write(&proc.join("self/mountinfo"), "25 20 0:23 / /proc rw - proc proc rw\n30 20 0:26 / /sys/fs/cgroup rw - cgroup2\n");
++        assert_eq!(linux::cgroup_limits(&proc, &sys), linux::CgroupLimits::Unreadable);
++        std::fs::remove_dir_all(proc.parent().unwrap()).unwrap();
++
++        // A cgroup2 mount at an alternate path must be honoured while /sys/fs/cgroup is absent.
++        let (proc, _) = fixture("alternate-cgroup-mount");
++        let sys = proc.parent().unwrap().join("absent-sys");
++        let alt = proc.parent().unwrap().join("alt-cgroup");
++        write(&proc.join("self/cgroup"), "0::/app\n");
++        write(&proc.join("self/mountinfo"), &format!("30 20 0:26 / {} rw - cgroup2 cgroup2 rw\n", alt.display()));
++        write(&alt.join("app/memory.max"), "1073741824\n");
++        write(&alt.join("app/memory.current"), "0\n");
++        assert_eq!(linux::cgroup_limits(&proc, &sys), linux::CgroupLimits::Limited { ram: Some(1 << 30), swap: None });
++        std::fs::remove_dir_all(proc.parent().unwrap()).unwrap();
++
+         // Available but not delegated anywhere on the path: no cgroup limit applies.
+         let (proc, sys) = fixture("v2-not-enabled");
+         write(&proc.join("self/cgroup"), "0::/app\n");
+@@ -1153,6 +1205,51 @@ mod tests {
+         std::fs::remove_dir_all(proc.parent().unwrap()).unwrap();
+     }
+ 
++    /// A missing `/sys/fs/cgroup` only means "no limit visible" when `mountinfo` was read, parsed
++    /// to real mounts and lists no cgroup filesystem; every other combination stays fail-closed.
++    #[cfg(target_os = "linux")]
++    #[test]
++    fn linux_absent_cgroup_root_needs_proof_before_it_means_unconstrained() {
++        let cases: [(&str, Option<&str>); 3] =
++            [("mountinfo-missing", None), ("mountinfo-empty", Some("")), ("mountinfo-garbage", Some("not a mountinfo line\n\n- - -\n"))];
++        for (name, mountinfo) in cases {
++            let (proc, _) = fixture(name);
++            let sys = proc.parent().unwrap().join("absent-sys");
++            write(&proc.join("self/cgroup"), "0::/app\n");
++            if let Some(text) = mountinfo {
++                write(&proc.join("self/mountinfo"), text);
++            }
++            assert_eq!(linux::cgroup_limits(&proc, &sys), linux::CgroupLimits::Unreadable, "{name}");
++            std::fs::remove_dir_all(proc.parent().unwrap()).unwrap();
++        }
++
++        // A stat error that is not NotFound (a path component that is a file) may hide a real
++        // directory, so it is not "absent" either.
++        let (proc, _) = fixture("sys-root-not-a-directory");
++        write(&proc.join("self/cgroup"), "0::/app\n");
++        write(&proc.join("self/mountinfo"), "25 20 0:23 / /proc rw - proc proc rw\n");
++        let sys = proc.join("self/cgroup/fs/cgroup");
++        assert_eq!(linux::cgroup_limits(&proc, &sys), linux::CgroupLimits::Unreadable);
++        std::fs::remove_dir_all(proc.parent().unwrap()).unwrap();
++    }
++
++    /// A cgroup mount listed at an alternate path means a limit may exist: v1 and v2 alike, and
++    /// when its files cannot be read the answer is fail-closed, not "unconstrained".
++    #[cfg(target_os = "linux")]
++    #[test]
++    fn linux_alternate_cgroup_mounts_with_unreadable_limits_fail_closed() {
++        for (name, membership, fstype, options) in [("alt-v1", "4:memory:/app\n", "cgroup", "rw,memory"), ("alt-v2", "0::/app\n", "cgroup2", "rw")] {
++            let (proc, _) = fixture(name);
++            let sys = proc.parent().unwrap().join("absent-sys");
++            let alt = proc.parent().unwrap().join("alt-cgroup");
++            write(&proc.join("self/cgroup"), membership);
++            write(&proc.join("self/mountinfo"), &format!("30 20 0:26 / {} rw - {fstype} {fstype} {options}\n", alt.display()));
++            std::fs::create_dir_all(alt.join("app")).unwrap();
++            assert_eq!(linux::cgroup_limits(&proc, &sys), linux::CgroupLimits::Unreadable, "{name}");
++            std::fs::remove_dir_all(proc.parent().unwrap()).unwrap();
++        }
++    }
++
+     #[cfg(target_os = "linux")]
+     #[test]
+     fn linux_snapshot_combines_host_meminfo_and_cgroup_room() {
