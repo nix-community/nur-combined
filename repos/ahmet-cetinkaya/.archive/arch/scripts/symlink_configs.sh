@@ -31,7 +31,7 @@ declare -A links
 links=(
   ["$HOME/Configs/fastfetch"]="$HOME/.config/fastfetch"
   ["$HOME/Configs/zsh/.zshrc"]="$HOME/.zshrc"
-  ["$HOME/vs-codium/settings.json"]="$HOME/.config/VSCodium/User/settings.json"
+  ["$HOME/Configs/vs-codium/settings.json"]="$HOME/.config/VSCodium/User/settings.json"
   ["$HOME/Configs/vs-codium/product.json"]="$HOME/.config/VSCodium/product.json"
 )
 
@@ -49,10 +49,10 @@ echo "✅ Basic symlink operations completed."
 # Floorp profile symlink creation
 read -r -p "Enter the Floorp profile ID (e.g., rw8fe1of.default-release): " PROFILE_ID
 
-SOURCE_USER_JS="$HOME/Configs/firefox/user.js"
+SOURCE_USER_JS="$HOME/Configs/.archive/firefox/user.js"
 TARGET_USER_JS="$HOME/.var/app/one.ablaze.floorp/cache/floorp/$PROFILE_ID/user.js"
 
-SOURCE_CHROME="$HOME/Configs/firefox/chrome/"
+SOURCE_CHROME="$HOME/Configs/.archive/firefox/chrome/"
 TARGET_CHROME="$HOME/.var/app/one.ablaze.floorp/cache/floorp/$PROFILE_ID/"
 
 # Ensure the target directories exist

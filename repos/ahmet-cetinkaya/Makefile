@@ -1,7 +1,7 @@
 SHELL := /usr/bin/env bash
 .DEFAULT_GOAL := help
 
-EXCLUDED_PATHS := -path './.git' -o -path './agent-ctrl' -o -path './_archived' -o -path './claude-code' -o -path './claude-code.bak' -o -path './konsave' -o -path './quickshell' -o -path './zsh/zsh-autosuggestions' -o -path './zsh/zsh-syntax-highlighting'
+EXCLUDED_PATHS := -path './.git' -o -path './agent-ctrl' -o -path './.archive' -o -path './claude-code' -o -path './claude-code.bak' -o -path './konsave' -o -path './zsh/zsh-autosuggestions' -o -path './zsh/zsh-syntax-highlighting'
 
 .PHONY: format lint help
 
@@ -41,7 +41,7 @@ format: ## Format tracked configuration files when their formatter is installed.
 lint: ## Run shell and Nix checks.
 	@set -euo pipefail; \
 	echo '----- Shell lint -----'; \
-	mapfile -d '' -t shell_files < <(find ./arch ./hyprland ./nixos -type f -name '*.sh' -print0); \
+	mapfile -d '' -t shell_files < <(find ./nixos -type f -name '*.sh' -print0); \
 	if [ "$${#shell_files[@]}" -gt 0 ]; then shellcheck "$${shell_files[@]}"; fi; \
 	echo '----- Nix flake check -----'; \
 	alejandra ./nixos; \

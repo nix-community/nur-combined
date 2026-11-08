@@ -6,60 +6,40 @@
 [![GitHub last commit](https://img.shields.io/github/last-commit/ahmet-cetinkaya/dotfiles?style=flat&logo=git&logoColor=white)](https://github.com/ahmet-cetinkaya/dotfiles/commits/main)
 [![GitHub license](https://img.shields.io/github/license/ahmet-cetinkaya/dotfiles?style=flat)](https://github.com/ahmet-cetinkaya/dotfiles/blob/main/LICENSE)
 
-Personal configuration files for my Linux and Windows machines — managed declaratively with NixOS and synced across desktops.
+Personal configuration files for my NixOS machines — managed declaratively and synced across desktops.
 
 ![NixOS](https://img.shields.io/badge/NixOS-5277C3?style=flat&logo=nixos&logoColor=white)
-![Arch Linux](https://img.shields.io/badge/Arch%20Linux-1793D1?style=flat&logo=archlinux&logoColor=white)
-![Hyprland](https://img.shields.io/badge/Hyprland-58E1FF?style=flat&logo=hyprland&logoColor=black)
-![Windows](https://img.shields.io/badge/Windows-0078D6?style=flat&logo=windows&logoColor=white)
 
 </div>
 
 ## ✨ Highlights
 
 - **Declarative NixOS**: Flake-based, modular system configuration with custom packages and Home Manager.
-- **Multi-OS**: Configs for NixOS, Arch Linux, and Windows (Atlas OS) living side by side.
-- **Wayland-first**: Hyprland compositor with Quickshell, Waybar, SwayNC, and Rofi.
-- **Consistent shell**: Zsh + Starship/Oh My Posh prompt, with Fastfetch and shared aliases.
-- **Editors ready**: Neovim, VSCodium, Zed, and Visual Studio settings.
+- **NixOS first**: App configs at the repo root are linked by Home Manager.
+- **Consistent shell**: Zsh + Starship prompt, with Fastfetch and shared aliases.
+- **Editors ready**: Neovim, VSCodium, and Zed settings.
+- **Archive**: Configs I no longer use are kept in `.archive/` with their history.
 
 ## 📂 Structure
 
 ```text
 .
 ├── nixos/            # Flake-based NixOS configuration (see nixos/README.md)
-├── arch/             # Arch Linux install script & package lists (see arch/README.md)
-├── atlas-os/         # Windows (Atlas OS) tweaks
-│
-├── hyprland/         # Wayland compositor config
-├── quickshell/       # Quickshell (Noctalia) desktop shell
-├── waybar/           # Status bar
-├── swaync/           # Notification center
-├── rofi/             # Application launcher
-├── eww/              # Widgets
-├── albert/           # Launcher (X11)
 │
 ├── kitty/            # Terminal emulator
 ├── zsh/              # Shell + plugins (submodules)
 ├── starship/         # Prompt
-├── oh-my-posh/       # Prompt (Windows/PowerShell)
 ├── fastfetch/        # System info
 │
 ├── neovim/           # Neovim config
 ├── vs-codium/        # VSCodium settings
 ├── zed/              # Zed editor settings
-├── visual-studio/    # Visual Studio settings
 │
-├── firefox/          # Browser config
 ├── vesktop/          # Discord client settings
 ├── konsave/          # KDE config snapshots
 │
-├── windows-terminal/ # Windows Terminal settings
-├── powershell/       # PowerShell profile
-├── zebar/            # Windows status bar
-├── glaze-vm/         # GlazeWM tiling window manager
-│
-└── prettier/         # Formatting config
+├── agent-ctrl/       # AI agent profiles and settings
+└── .archive/         # Unused configs (Arch, Hyprland stack, Windows tools, Firefox, prettier)
 ```
 
 ## 🚀 Getting Started
@@ -73,7 +53,7 @@ cd ~/Configs
 
 > [!TIP]
 > If you already cloned without `--recurse-submodules`, run
-> `git submodule update --init --recursive` to fetch the Zsh plugins and Quickshell themes.
+> `git submodule update --init --recursive` to fetch the Zsh plugins.
 
 ### 🐧 NixOS
 
@@ -84,19 +64,6 @@ sudo nixos-rebuild switch --flake ./nixos#karakiz
 ```
 
 See [nixos/README.md](nixos/README.md) for details on structure, custom packages, and updating inputs.
-
-### 🏗️ Arch Linux
-
-```bash
-cd arch
-chmod +x install.sh && sudo ./install.sh
-```
-
-See [arch/README.md](arch/README.md) for prerequisites and post-install scripts.
-
-### 🪟 Windows
-
-Windows-specific configs (Windows Terminal, PowerShell, Zebar, Glaze VM, Atlas OS) are copied manually to their respective locations.
 
 ## 🛠️ Maintenance
 

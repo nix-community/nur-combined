@@ -11,5 +11,5 @@
 	path = zsh/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
 [submodule "quickshell/noctalia-shell"]
-	path = quickshell/noctalia-shell
+	path = .archive/quickshell/noctalia-shell
 	url = https://github.com/ahmet-cetinkaya/dotfiles-noctalia-shell
