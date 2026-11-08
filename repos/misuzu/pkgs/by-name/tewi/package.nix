@@ -15,14 +15,14 @@ let
 in
 python.pkgs.buildPythonApplication rec {
   pname = "tewi";
-  version = "3.1.0";
+  version = "4.0.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "anlar";
     repo = "tewi";
     rev = "v${version}";
-    sha256 = "sha256-/Wduoz2au1svnSbUvCN1PqRKwVEyD8/ECCGpD3PJW+8=";
+    sha256 = "sha256-dfAgEkk0fflFffX8tAn/RZrKG8XVIbkEg6AA5rXH2dE=";
   };
 
   build-system = [ python.pkgs.setuptools ];
@@ -46,6 +46,7 @@ python.pkgs.buildPythonApplication rec {
 
   pythonRelaxDeps = [
     "shtab"
+    "transmission-rpc"
   ];
 
   preBuild = ''
