@@ -2,11 +2,12 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "ds4";
-  version = "0-unstable-2026-10-07";
+  version = "0-unstable-2026-11-03";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -14,11 +15,13 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "antirez";
     repo = "ds4";
-    rev = "fc80bd695da76ee14bcb86820bf900a5cdfda806";
-    hash = "sha256-0e9pONUeb93KDlPbAzUjK7pLgyqGhg0mWkKnvc1Ty5k=";
+    rev = "b3f50180ec2c7324892be1f50bc83555ccb8d5e7";
+    hash = "sha256-XccxnYqo33w1mNZNAMFx/rdPhO57lxQ/oKPGSyxzh0E=";
   };
 
   enableParallelBuilding = true;
+
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   # For a native build nixpkgs offers stdenv.adapters.impureUseNativeOptimizations.
   makeFlags = [ "cpu" ];

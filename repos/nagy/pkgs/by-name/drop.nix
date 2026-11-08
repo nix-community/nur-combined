@@ -9,16 +9,16 @@
 
 buildGoModule (finalAttrs: {
   pname = "drop";
-  version = "0.3.1";
+  version = "0.3.2";
 
   src = fetchFromGitHub {
     owner = "wrr";
     repo = "drop";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Us5UOrFDRmSmZb+cBUcoA0TT1KboCnX6mTSlLb9DKWM=";
+    hash = "sha256-pbsQSO6jrJidz6YwizuVIm829WY7IEIFy407++znkPQ=";
   };
 
-  vendorHash = "sha256-JeheKUngdDI/9X1tDpw7seD7XirnvdBbcyvRzM2I7Gs=";
+  vendorHash = "sha256-mkuM1M1JAnkaNbPMEAtqgU8Gmc4QnJ5Cd2upvNwPYDA=";
 
   env.CGO_ENABLED = 0;
 

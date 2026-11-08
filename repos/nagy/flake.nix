@@ -1,7 +1,7 @@
 {
   description = "NUR packages of @nagy";
 
-  inputs.nixpkgs.url = "nixpkgs/nixos-unstable";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
   # Outputs are assembled with flake-parts, same as the flakes below.
   inputs.flake-parts = {

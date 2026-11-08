@@ -66,7 +66,7 @@ in
       withXorg = false;
       enableVideo = false;
     })
-    pkgs.ffmpeg_7-full
+    pkgs.ffmpeg-full
     pkgs.pandoc
     # Spelling
     (pkgs.aspellWithDicts (ps: [

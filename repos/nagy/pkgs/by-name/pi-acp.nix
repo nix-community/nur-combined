@@ -2,7 +2,6 @@
   lib,
   fetchFromGitHub,
   buildNpmPackage,
-  nodejs_22,
 }:
 
 buildNpmPackage (finalAttrs: {
@@ -17,8 +16,6 @@ buildNpmPackage (finalAttrs: {
   };
 
   npmDepsHash = "sha256-BvLNtFfp1cMVjzWcMRSdhTqiJrTfbFoUbWkkPW9200o=";
-
-  nodejs = nodejs_22;
 
   meta = {
     description = "ACP (Agent Client Protocol) adapter for the pi coding agent";

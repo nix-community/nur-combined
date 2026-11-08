@@ -4,11 +4,11 @@
   # https://github.com/NixOS/nixpkgs/issues/323016
   # https://github.com/NixOS/nixpkgs/issues/323083
   environment.systemPackages = [
-    pkgs.lua5_4
+    pkgs.lua
     pkgs.luaformatter
     pkgs.lua-language-server
 
-    pkgs.lua5_4.pkgs.fennel
+    pkgs.lua.pkgs.fennel
   ];
 
   boot.binfmt.registrations.lua = {
