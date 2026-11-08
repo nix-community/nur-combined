@@ -7,7 +7,6 @@ Personal [NUR](https://github.com/nix-community/NUR) package set (flake, `x86_64
 | Package | Description |
 | --- | --- |
 | `chat-on-steroids` | [Chat On Steroids](https://github.com/totec448-spec/chat-on-steroids): local coding bridge for ChatGPT (MCP, Chrome integration, multi-agent workflows), wrapped from the upstream AppImage |
-| `crunchyroll` | Desktop entry launching Crunchyroll as a Chromium `--app` window (WideVine enabled) |
 | `limusic` | [Limusic](https://github.com/SimoHypers/limusic): native desktop YouTube Music client (Tauri, ad-free playback via libmpv), wrapped from the upstream AppImage |
 | `local-shell-mcp` | [local-shell-mcp](https://github.com/fwerkor/local-shell-mcp): MCP server giving LLMs a shell, from the upstream binary release |
 | `rpcs3-bin` | [RPCS3](https://rpcs3.net/) PlayStation 3 emulator, wrapped from the upstream nightly AppImage |
@@ -23,7 +22,7 @@ Through NUR (`nur.repos.arch-fan.limusic`) or as a flake input (NixOS example):
 ```nix
 environment.systemPackages = [
   inputs.nur-packages.packages.x86_64-linux.limusic
-  inputs.nur-packages.packages.x86_64-linux.crunchyroll
+  inputs.nur-packages.packages.x86_64-linux.rpcs3-bin
 ];
 ```
 
@@ -75,6 +74,6 @@ Conventions for `scripts/update.sh`:
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
   ```
 
-- **Opting out**: a package nix-update cannot evaluate (no `version`, e.g. the
-  `crunchyroll` desktop entry) gets a `pkgs/<name>/no-auto-update` file
+- **Opting out**: a package nix-update cannot evaluate (no `version`, e.g. a
+  static desktop entry) gets a `pkgs/<name>/no-auto-update` file
   explaining why; the script skips it.
