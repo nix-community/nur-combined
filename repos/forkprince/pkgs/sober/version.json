@@ -1,0 +1,14 @@
+{
+  "name": "Sober",
+  "locked": true,
+  "source": {
+    "type": "api",
+    "url": "https://flathub.org/api/v2/appstream/org.vinegarhq.Sober",
+    "version_path": ".releases[0].version"
+  },
+  "version": "1.8.0",
+  "asset": {
+    "url": "https://sober.vinegarhq.org/artifacts/2026-11-05_c107424/70444a9ca845e0b116c0e441a9605b5166ca5c3f13dc7e50db849169d73e827c/sober-binaries-unified.tar.zst",
+    "hash": "sha256-cERKnKhF4LEWwORBqWBbUWbKXD8T3H5Q24SRadc+gnw="
+  }
+}

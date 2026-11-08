@@ -9,3 +9,5 @@ else
   echo "Error: Neither bun nor nix-shell is installed." >&2
   exit 1
 fi
+
+git add README.md

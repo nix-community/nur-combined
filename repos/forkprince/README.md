@@ -89,8 +89,10 @@ This repository contains three types of packages:
 | [`mcman`](pkgs/mcman/default.nix) | [mcman](https://github.com/deniz-blue/mcman), powerful Minecraft Server Manager CLI |
 | [`mcpelauncher-swift`](pkgs/mcpelauncher-swift/default.nix) | [mcpelauncher-swift](https://github.com/hugonote/mcpelauncher-swift), native SwiftUI launcher for Minecraft Bedrock on macOS |
 | [`micro`](pkgs/micro/default.nix) | micro |
+| [`mocktail`](pkgs/mocktail/default.nix) | [mocktail](https://github.com/komaruworld/mocktail), play Roblox on Linux |
 | [`moonplayer`](pkgs/moonplayer/default.nix) | [moonplayer](https://github.com/coslyk/moonplayer), video player that can play online videos from YouTube, Bilibili etc |
 | [`muxy`](pkgs/muxy/default.nix) | [muxy](https://muxy.app/), lightweight and Memory efficient terminal for Mac built with SwiftUI and libghostty |
+| [`nightcap`](pkgs/nightcap/default.nix) | [nightcap](https://github.com/CoderDayton/nightcap), roblox on Linux, tuned for desktop play |
 | [`nintoolbox`](pkgs/nintoolbox/default.nix) | [nintoolbox](https://github.com/quatric/nintoolbox), toolbox for Nintendo game file formats |
 | [`nintoolbox-gui`](pkgs/nintoolbox-gui/default.nix) | [nintoolbox-gui](https://github.com/quatric/nintoolbox), graphical interface for the Nintoolbox command line tools |
 | [`noisetorch`](pkgs/noisetorch/default.nix) | [noisetorch](https://github.com/ForkPrince/NoiseTorch), virtual microphone device with noise suppression for PulseAudio (ForkPrince fork) |
@@ -142,6 +144,7 @@ This repository contains three types of packages:
 | [`screendrop`](pkgs/screendrop/default.nix) | [screendrop](https://github.com/fayazara/screendrop), a beautiful screenshot, screen recording and loom alternative |
 | [`sfw`](pkgs/sfw/default.nix) | [sfw](https://github.com/SocketDev/sfw-free), wraps your package manager, preventing installation of malicious packages. |
 | [`sm64plus`](pkgs/sm64plus/default.nix) | [sm64plus](https://github.com/MorsGames/sm64plus), a standalone fork of the Super Mario 64 PC port with quality of life improvements |
+| [`sober`](pkgs/sober/default.nix) | [sober](https://sober.vinegarhq.org/), play, chat & explore on Roblox |
 | [`sonixd`](pkgs/sonixd/default.nix) | [sonixd](https://github.com/jeffvli/sonixd), full-featured Subsonic/Jellyfin compatible desktop music player |
 | [`soundcraft`](pkgs/soundcraft/default.nix) | [soundcraft](https://getartcraft.com/apps/soundcraft), digital audio workstation for audio recording, editing and mixing |
 | [`steam`](pkgs/steam/default.nix) | [steam](https://store.steampowered.com/), digital distribution platform |

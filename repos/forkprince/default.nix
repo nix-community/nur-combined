@@ -13,10 +13,13 @@
     twintaillauncher = lib.callPackage ./pkgs/twintaillauncher {};
     kryoto-desktop = lib.callPackage ./pkgs/kryoto-desktop {};
     hyprpanel = lib.callPackage ./pkgs/hyprpanel {};
+    nightcap = lib.callPackage ./pkgs/nightcap {};
+    mocktail = lib.callPackage ./pkgs/mocktail {};
     rhythia = lib.callPackage ./pkgs/rhythia {};
     syslock = lib.callPackage ./pkgs/syslock {};
     yapfast = lib.callPackage ./pkgs/yapfast {};
     sysbar = lib.callPackage ./pkgs/sysbar {};
+    sober = lib.callPackage ./pkgs/sober {};
 
     tinywiibackupmanager = lib.callPackage ./pkgs/tinywiibackupmanager {};
     note-block-studio = lib.callPackage ./pkgs/note-block-studio {};

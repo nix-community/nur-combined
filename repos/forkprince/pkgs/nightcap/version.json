@@ -1,0 +1,16 @@
+{
+  "name": "Nightcap",
+  "source": {
+    "type": "github-release",
+    "repo": "CoderDayton/nightcap",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "0.5.1",
+  "platforms": {
+    "x86_64-linux": {
+      "file": "nightcap_{version}_amd64.deb",
+      "hash": "sha256-tmfdrq/H4dUuR6t4QAi+yyCbtKeHkDBJE1dw/Hq7se4="
+    }
+  }
+}

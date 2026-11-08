@@ -1,0 +1,15 @@
+{
+  "name": "Mocktail",
+  "source": {
+    "type": "github-release",
+    "repo": "komaruworld/mocktail",
+    "skip_prerelease": true
+  },
+  "version": "1.0.5",
+  "platforms": {
+    "x86_64-linux": {
+      "file": "mocktail_{version}_amd64.deb",
+      "hash": "sha256-PSJ9e5fUt791IRfXrbi6e9l9tHjMOuchW7iyyk5KskQ="
+    }
+  }
+}
