@@ -84,6 +84,7 @@
 
   imports = [
     ./miniflux
+    ./shiori
     ./auth
     ./glance
     ./gatus
