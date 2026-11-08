@@ -4,27 +4,27 @@
     "type": "redirect",
     "version_regex": "([0-9]+\\.[0-9]+\\.[0-9]+)"
   },
-  "version": "0.1.69",
+  "version": "0.1.70",
   "platforms": {
     "aarch64-darwin": {
       "redirect_url": "https://tenzen.studio/api/v1/photon/download?platform=darwin&arch=arm64&kind=dmg",
-      "url": "https://downloads.tenzen.studio/photon/stable/darwin/0.1.69/Photon-Studio-0.1.69-mac-arm64.dmg",
-      "hash": "sha256-T9pwOj/SHWf64xtlgNSuqdVRpzYC1ohYPQ9HC0YBFOM="
+      "url": "https://downloads.tenzen.studio/photon/stable/darwin/0.1.70/Photon-Studio-0.1.70-mac-arm64.dmg",
+      "hash": "sha256-df1EOOY4S5hVWep2A44PnocPJFodAYrj553kahnV2yM="
     },
     "x86_64-darwin": {
       "redirect_url": "https://tenzen.studio/api/v1/photon/download?platform=darwin&arch=x64&kind=dmg",
-      "url": "https://downloads.tenzen.studio/photon/stable/darwin/0.1.69/Photon-Studio-0.1.69-mac-x64.dmg",
-      "hash": "sha256-Avkh103xG4CpN1eKTvzQs3MWU0rUpky2xtesjQ4JcG4="
+      "url": "https://downloads.tenzen.studio/photon/stable/darwin/0.1.70/Photon-Studio-0.1.70-mac-x64.dmg",
+      "hash": "sha256-HWWR8ziJqPL0u1VRzgd4jNHlWUHVAogrniSpeeOs+gc="
     },
     "aarch64-linux": {
       "redirect_url": "https://tenzen.studio/api/v1/photon/download?platform=linux&arch=arm64&kind=appimage",
-      "url": "https://downloads.tenzen.studio/photon/stable/linux/0.1.69/Photon-Studio-0.1.69-linux-arm64.AppImage",
-      "hash": "sha256-O7R3aLeyl6SuuS7wbmyIQR1A+2EKeFu3+LOoXcN9V5c="
+      "url": "https://downloads.tenzen.studio/photon/stable/linux/0.1.70/Photon-Studio-0.1.70-linux-arm64.AppImage",
+      "hash": "sha256-bzZ86JPvWwYQowl6V6u6jBoE8qQdy36o3I1tArplPUs="
     },
     "x86_64-linux": {
       "redirect_url": "https://tenzen.studio/api/v1/photon/download?platform=linux&arch=x64&kind=appimage",
-      "url": "https://downloads.tenzen.studio/photon/stable/linux/0.1.69/Photon-Studio-0.1.69-linux-x64.AppImage",
-      "hash": "sha256-M/ULRv8E2IC2gcXQQudcrTP+G8UA8UyIuHi9kE0fPgo="
+      "url": "https://downloads.tenzen.studio/photon/stable/linux/0.1.70/Photon-Studio-0.1.70-linux-x64.AppImage",
+      "hash": "sha256-jrVi9NWb+B/oDQk72KwzJcDqsAEDtZqKaghamVm0w6s="
     }
   }
 }
