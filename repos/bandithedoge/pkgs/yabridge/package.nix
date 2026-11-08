@@ -22,12 +22,12 @@
 let
   wine = wineWow64Packages.staging;
 
-  version = "5.1.1-unstable-2026-11-01";
+  version = "5.1.1-unstable-2026-11-07";
   src = fetchFromGitHub {
     owner = "robbert-vdh";
     repo = "yabridge";
-    rev = "f1fc21e668e18a324915010912700727c8626619";
-    hash = "sha256-4UnbfDlRY3JAQGVNpgTP1TXoOKoLslHiUSyVeIfFE4s=";
+    rev = "9bf41b6098647064534a633e85f0d2eda6ea89e1";
+    hash = "sha256-Jk/ZQZjzFE/Fc9gLTZg4x+edzO6LrmaPeOyyW/Lzb8M=";
   };
 
   yabridge = stdenv.mkDerivation {
