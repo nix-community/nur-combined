@@ -299,11 +299,11 @@ def main():
                     ucontent = re.sub(r'^\{[^}]*\}:\s*', '', ucontent)
                     content += "\nsrc = " + ucontent
                 
-            if re.search(r'src\s*=\s*sources\.', content) and not any(x in content for x in ('fetchFromGitHub', 'fetchFromGitLab', 'fetchgit', 'fetchPypi', 'fetchurl')):
+            if re.search(r'src\s*=\s*sources\.', content) and not any(x in content for x in ('fetchFromGitHub', 'fetchFromGitLab', 'fetchFromGitea', 'fetchgit', 'fetchPypi', 'fetchurl')):
                 continue
                 
             all_matches = []
-            for m in re.finditer(r'\bsrc\s*=\s*(?:pkgs\.)?fetchFrom(GitHub|GitLab)\s*\{(.+?)\n\s*\}', content, re.MULTILINE | re.DOTALL):
+            for m in re.finditer(r'\bsrc\s*=\s*(?:pkgs\.)?fetchFrom(GitHub|GitLab|Gitea)\s*\{(.+?)\n\s*\}', content, re.MULTILINE | re.DOTALL):
                 all_matches.append(('git', m))
             for m in re.finditer(r'\bsrc\s*=\s*(?:pkgs\.)?fetchgit\s*\{(.+?)\n\s*\}', content, re.MULTILINE | re.DOTALL):
                 all_matches.append(('fetchgit', m))
@@ -350,6 +350,8 @@ def main():
                     domain = "github.com"
                     if forge == "GitLab":
                         domain = domain_m.group(1) if domain_m else "gitlab.com"
+                    elif forge == "Gitea":
+                        domain = domain_m.group(1) if domain_m else "gitea.com"
                     else:
                         domain = domain_m.group(1) if domain_m else "github.com"
                         
@@ -455,7 +457,7 @@ def main():
                         print(f"[WARN]   {name_display}: Could not fetch latest version from {url}")
             elif git_match or fetchgit_match:
                 print(f"[WARN]   {pkg}: Could not parse src owner/repo/rev from {pkg_nix}")
-            elif re.search(r'\bsrc\s*=\s*(?:pkgs\.)?fetch(?:FromGitHub|FromGitLab|git)\b', content):
+            elif re.search(r'\bsrc\s*=\s*(?:pkgs\.)?fetch(?:FromGitHub|FromGitLab|FromGitea|git)\b', content):
                 print(f"[WARN]   {pkg}: Could not parse src block from {pkg_nix}")
 
     if not updates_found:

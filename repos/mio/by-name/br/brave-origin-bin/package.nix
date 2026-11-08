@@ -1,15 +1,32 @@
 {
   callPackage,
   fetchFromGitea,
+  writeShellApplication,
+  coreutils,
+  git,
+  gnused,
+  nix,
 }:
 
 let
-  upstream = fetchFromGitea {
-    domain = "codeberg.org";
-    owner = "buckley310";
-    repo = "brave-browser-nix";
-    rev = "35bfbc3349e6145f9b4cc840b8c0ced7121c55a2";
-    hash = "sha256-1kahbxlsma1KNavOrhBjgRnyzieWTwlij7DkkfDVxEQ=";
+  upstream = import ./upstream.nix { inherit fetchFromGitea; };
+  updateScript = writeShellApplication {
+    name = "update-brave-origin-bin";
+    runtimeInputs = [
+      coreutils
+      git
+      gnused
+      nix
+    ];
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="brave-origin-bin"
+      exec ${./update.sh} "$@"
+    '';
   };
+  pkg = (callPackage (upstream + "/brave") { }).brave-origin;
 in
-(callPackage (upstream + "/brave") { }).brave-origin
+pkg.overrideAttrs (prevAttrs: {
+  passthru = (prevAttrs.passthru or { }) // {
+    inherit updateScript;
+  };
+})
