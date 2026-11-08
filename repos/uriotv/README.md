@@ -30,7 +30,7 @@ redistribution.
 | Package | Version | Description | Public cache |
 |---|---|---|---|
 | `lantern-engine` | `0.9.38` | Lantern Engine by Awaken, built from source (needs your own game dump) | Yes |
-| `meitou-client` | `0.17.1` | Source-built Kenshi engine reimplementation (requires your own game installation) | Yes |
+| `meitou-launcher` | `1.9.0` | Source-built launcher that downloads Meitou versions (requires Kenshi) | Yes |
 | `cybergrub2077` | `2.0.1-unstable-2026-02-28` | Cyberpunk 2077 inspired GRUB theme | Yes |
 | `nmssaveeditor` | `1.21.0` | Save editor for No Man's Sky | No: unfree |
 | `pig` | `0.5.3` | Pi coding agent rebuilt in Go as a native binary | Yes |
@@ -87,14 +87,16 @@ nix.settings = {
 Apply this once before building packages. The cache is public and read-only for
 users; only the repository's `main` workflows can write to it.
 
-### Meitou Client
+### Meitou Launcher
 
-`meitou-client` builds the game engine from the tagged C# sources rather than
-using the AppImage or launcher. Install it from the overlay or run
-`nix run github:urioTV/urio-nur#meitou-client`. It requires a legal Kenshi
-installation, a Vulkan-capable GPU and working drivers; set `KENSHI_PATH` if the
-installation is not detected. Optional DLSS/FSR vendor runtimes are not bundled.
-The .NET/NuGet dependencies include prebuilt native libraries.
+`meitou-launcher` builds the launcher from C# sources, not an AppImage. Run
+`nix run github:urioTV/urio-nur#meitou-launcher` to manage settings and download
+official game versions. Downloads are upstream binaries managed by the launcher,
+not built or updated by Nix; an FHS environment provides Linux compatibility on
+NixOS. A legal Kenshi installation and a Vulkan-capable GPU are required.
+
+The launcher's NuGet dependencies include prebuilt native libraries. The
+launcher manages downloaded game binaries and their updates independently of Nix.
 
 ### Story Forge
 

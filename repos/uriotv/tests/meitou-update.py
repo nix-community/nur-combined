@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Offline tests for Meitou game release selection and NuGet refresh."""
+"""Offline tests for Meitou launcher release selection and NuGet refresh."""
 import json
 import os
 from pathlib import Path
@@ -8,7 +8,7 @@ import tempfile
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
-SCRIPT = ROOT / "pkgs/meitou-client/update.sh"
+SCRIPT = ROOT / "pkgs/meitou-launcher/update.sh"
 
 
 class MeitouUpdaterTests(unittest.TestCase):
@@ -18,11 +18,13 @@ class MeitouUpdaterTests(unittest.TestCase):
         self.root = Path(self.tmp.name)
         self.bin = self.root / "bin"
         self.bin.mkdir()
-        (self.root / "pkgs/meitou-client").mkdir(parents=True)
+        (self.root / "pkgs/meitou-launcher").mkdir(parents=True)
         self.log = self.root / "calls"
         self.fixture = self.root / "releases.json"
         self.fixture.write_text(json.dumps([
             {"tag_name": "launcher-v9.0.0", "draft": False, "prerelease": False},
+            {"tag_name": "launcher-v11.0.0", "draft": True, "prerelease": False},
+            {"tag_name": "launcher-v10.0.0-nightly", "draft": False, "prerelease": True},
             {"tag_name": "v0.17.1-nightly", "draft": False, "prerelease": True},
             {"tag_name": "v0.20.0", "draft": True, "prerelease": False},
             {"tag_name": "v0.9.0", "draft": False, "prerelease": False},
@@ -38,29 +40,29 @@ class MeitouUpdaterTests(unittest.TestCase):
         p.write_text("#!/usr/bin/env bash\nset -euo pipefail\n" + body + "\n")
         p.chmod(0o755)
 
-    def run_updater(self, version):
+    def run_updater(self, version, script=SCRIPT):
         env = {**os.environ, "PATH": f"{self.bin}:{os.environ['PATH']}", "FIXTURE": str(self.fixture),
                "CURRENT": version, "CALLS": str(self.log), "STUBDIR": str(self.bin)}
-        return subprocess.run(["bash", str(SCRIPT)], cwd=self.root, env=env, text=True, capture_output=True)
-
-    def test_picks_newest_stable_game_and_regenerates_deps(self):
-        result = self.run_updater("0.16.0")
-        self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(self.log.read_text().splitlines(), [
-            "nix-update --flake meitou-client --version 0.17.1",
-            "fetch-deps pkgs/meitou-client/deps.json",
-        ])
+        return subprocess.run(["bash", str(script)], cwd=self.root, env=env, text=True, capture_output=True)
 
     def test_same_or_older_upstream_never_downgrades(self):
-        for version in ("0.17.1", "1.0.0"):
+        for version in ("9.0.0", "10.0.0"):
             with self.subTest(version=version):
                 result = self.run_updater(version)
                 self.assertEqual(result.returncode, 0, result.stderr)
                 self.assertFalse(self.log.exists())
 
-    def test_missing_stable_game_release_fails_closed(self):
-        self.fixture.write_text(json.dumps([{"tag_name": "launcher-v9.0.0", "draft": False, "prerelease": False}]))
-        result = self.run_updater("0.1.0")
+    def test_launcher_selects_launcher_release_and_refreshes_deps(self):
+        result = self.run_updater("1.9.0")
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(self.log.read_text().splitlines(), [
+            "nix-update --flake meitou-launcher --version 9.0.0",
+            "fetch-deps pkgs/meitou-launcher/deps.json",
+        ])
+
+    def test_launcher_ignores_game_releases(self):
+        self.fixture.write_text(json.dumps([{"tag_name": "v99.0.0", "draft": False, "prerelease": False}]))
+        result = self.run_updater("1.9.0")
         self.assertNotEqual(result.returncode, 0)
         self.assertFalse(self.log.exists())
 
