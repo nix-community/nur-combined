@@ -166,7 +166,7 @@
     "clash-nyanpasu": {
         "cargoLock": {
             "backend/Cargo.lock": [
-                "sha256-lISWuUX9_XiyfWvZBsw7q4HMWzkPHDRXb1Ya1azcs7g=/backend/Cargo.lock",
+                "sha256-hgaJwxYxg4K5oF4FO_8IOl5s6KUTvd_A0Sjhlg94Ya8=/backend/Cargo.lock",
                 {
                     "auto-launch-0.5.0": "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=",
                     "gpu-info-0.2.1": "sha256-dQ5cLLZf0Ao0MxaBeue2osQVpUs+G+7ewGf4X1nkKAM=",
@@ -193,12 +193,12 @@
             "name": null,
             "owner": "libnyanpasu",
             "repo": "clash-nyanpasu",
-            "rev": "59724e85c34abb6995c22d101c876cc06dc16576",
-            "sha256": "sha256-lISWuUX9/XiyfWvZBsw7q4HMWzkPHDRXb1Ya1azcs7g=",
+            "rev": "542edeac4964bddbb74074d8a84f4e6b4f8ea08e",
+            "sha256": "sha256-hgaJwxYxg4K5oF4FO/8IOl5s6KUTvd/A0Sjhlg94Ya8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "59724e85c34abb6995c22d101c876cc06dc16576"
+        "version": "542edeac4964bddbb74074d8a84f4e6b4f8ea08e"
     },
     "clash-nyanpasu-stable": {
         "cargoLock": null,
@@ -217,10 +217,10 @@
     },
     "cpa-usage-keeper": {
         "cargoLock": null,
-        "date": "2026-11-06",
+        "date": "2026-11-08",
         "extract": {
-            "web/package-lock.json": "sha256-0SfP9EdUIidkaXR0UPrgMQ72PNW0E_28pnxRgBNLj7s=/web/package-lock.json",
-            "web/package.json": "sha256-0SfP9EdUIidkaXR0UPrgMQ72PNW0E_28pnxRgBNLj7s=/web/package.json"
+            "web/package-lock.json": "sha256-ktCwPFE+CtwoRlAb455ioElbox1vSBBkYftNqadMSJs=/web/package-lock.json",
+            "web/package.json": "sha256-ktCwPFE+CtwoRlAb455ioElbox1vSBBkYftNqadMSJs=/web/package.json"
         },
         "name": "cpa-usage-keeper",
         "passthru": null,
@@ -232,12 +232,12 @@
             "name": null,
             "owner": "Willxup",
             "repo": "cpa-usage-keeper",
-            "rev": "aa687529e392833e17ad0eb7ccfc4dec8eda0982",
-            "sha256": "sha256-0SfP9EdUIidkaXR0UPrgMQ72PNW0E/28pnxRgBNLj7s=",
+            "rev": "621cef1ebee0edb753ce29040c42bdc459c4c99e",
+            "sha256": "sha256-ktCwPFE+CtwoRlAb455ioElbox1vSBBkYftNqadMSJs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "aa687529e392833e17ad0eb7ccfc4dec8eda0982"
+        "version": "621cef1ebee0edb753ce29040c42bdc459c4c99e"
     },
     "cpa-usage-keeper-stable": {
         "cargoLock": null,
@@ -408,11 +408,11 @@
     "gaze": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-zETld1vHTX83hQxBv9MLDXZ6Ltd9W2QxMIe2Kv++imw=/Cargo.lock",
+                "sha256-gdi9yNfD3yXgLBsf63C9K2Qyh9wKuBrxNVjLRdBzhe4=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-11-07",
+        "date": "2026-11-08",
         "extract": null,
         "name": "gaze",
         "passthru": null,
@@ -424,12 +424,12 @@
             "name": null,
             "owner": "GunduLabs",
             "repo": "gaze",
-            "rev": "65f8537f1a7f013171335b7cc83a6591f2c4be7c",
-            "sha256": "sha256-zETld1vHTX83hQxBv9MLDXZ6Ltd9W2QxMIe2Kv++imw=",
+            "rev": "1c09560f58fe39f44c74e7ccca8bf82b4313a98d",
+            "sha256": "sha256-gdi9yNfD3yXgLBsf63C9K2Qyh9wKuBrxNVjLRdBzhe4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "65f8537f1a7f013171335b7cc83a6591f2c4be7c"
+        "version": "1c09560f58fe39f44c74e7ccca8bf82b4313a98d"
     },
     "gaze-stable": {
         "cargoLock": null,
@@ -445,6 +445,36 @@
             "url": "file:///dev/null"
         },
         "version": "v0.5.0"
+    },
+    "geolite2-asn": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "geolite2-asn",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-IaaQPswoXOPRh8t/aItPesUv7kJcR5yON31bHAEnU3o=",
+            "type": "url",
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.07/GeoLite2-ASN.mmdb"
+        },
+        "version": "2026.11.07"
+    },
+    "geolite2-city": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "geolite2-city",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-nbBOikRB7FQYNTfYd0wI5Ccg8iQxN91C6cx/eOorkns=",
+            "type": "url",
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.07/GeoLite2-City.mmdb"
+        },
+        "version": "2026.11.07"
     },
     "geolite2-country": {
         "cargoLock": null,
@@ -530,6 +560,21 @@
         },
         "version": "ce7569c8473b70f6f8359385f2dbd6af66f21e55"
     },
+    "hmcl-dev-bin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "hmcl-dev-bin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-Mq2ax7SUnUQdx/D/zE4zE+CeShItdpLI/w8VFtrFaAo=",
+            "type": "url",
+            "url": "https://github.com/HMCL-dev/HMCL/releases/download/v3.17.0.365/HMCL-3.17.0.365.jar"
+        },
+        "version": "3.17.0.365"
+    },
     "hmcl-dev-exe": {
         "cargoLock": null,
         "date": null,
@@ -539,11 +584,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-LbazCPAoVIZ73meVtTVyykDlTfuhCr/URuH6SshcvIQ=",
+            "sha256": "sha256-OsZY/UhyxCsDGBF4ycaY+eTYNvwXXrR/M1EIjtziEnQ=",
             "type": "url",
-            "url": "https://github.com/HMCL-dev/HMCL/releases/download/v3.17.0.364/HMCL-3.17.0.364.exe"
+            "url": "https://github.com/HMCL-dev/HMCL/releases/download/v3.17.0.365/HMCL-3.17.0.365.exe"
         },
-        "version": "3.17.0.364"
+        "version": "3.17.0.365"
     },
     "hmcl-dev-src": {
         "cargoLock": null,
@@ -559,12 +604,12 @@
             "name": null,
             "owner": "HMCL-dev",
             "repo": "HMCL",
-            "rev": "v3.17.0.364",
-            "sha256": "sha256-nqlxhkfl6NPIB8u1gwhWhxDSy5XHYNfQ9Q8Cwas//ak=",
+            "rev": "v3.17.0.365",
+            "sha256": "sha256-h473j1FajiZeO5NVnckgItWv9fhJuqEgTYdLRs7eCxc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.17.0.364"
+        "version": "v3.17.0.365"
     },
     "hysteria-realm-server": {
         "cargoLock": null,
@@ -921,6 +966,36 @@
             "sha256": "sha256-4dtNBkwx7pvrrY3+GskGbxKFL2RERu686eSe63qthBI=",
             "type": "url",
             "url": "https://github.com/AimesSoft/NipaPlay-Reload/releases/download/v1.11.11/NipaPlay-1.11.11-Linux-arm64.tar.gz"
+        },
+        "version": "1.11.11"
+    },
+    "nipaplay-reload-darwin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "nipaplay-reload-darwin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-Zn4oqfD3JwJBeHVjBIA63/vPPnowgi1x5x0clxDAOvU=",
+            "type": "url",
+            "url": "https://github.com/AimesSoft/NipaPlay-Reload/releases/download/v1.11.11/NipaPlay_1.11.11_macOS_Universal.dmg"
+        },
+        "version": "1.11.11"
+    },
+    "nipaplay-reload-x86_64-linux": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "nipaplay-reload-x86_64-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-IrK6nNmC2zX4iRaCkK4czFuxlzGtw/UihHqZQx4GIkY=",
+            "type": "url",
+            "url": "https://github.com/AimesSoft/NipaPlay-Reload/releases/download/v1.11.11/NipaPlay-1.11.11-Linux-amd64.tar.gz"
         },
         "version": "1.11.11"
     },

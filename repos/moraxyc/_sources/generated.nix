@@ -102,16 +102,16 @@
   };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
-    version = "59724e85c34abb6995c22d101c876cc06dc16576";
+    version = "542edeac4964bddbb74074d8a84f4e6b4f8ea08e";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "clash-nyanpasu";
-      rev = "59724e85c34abb6995c22d101c876cc06dc16576";
+      rev = "542edeac4964bddbb74074d8a84f4e6b4f8ea08e";
       fetchSubmodules = false;
-      sha256 = "sha256-lISWuUX9/XiyfWvZBsw7q4HMWzkPHDRXb1Ya1azcs7g=";
+      sha256 = "sha256-hgaJwxYxg4K5oF4FO/8IOl5s6KUTvd/A0Sjhlg94Ya8=";
     };
     cargoLock."backend/Cargo.lock" = {
-      lockFile = ./. + "/sha256-lISWuUX9_XiyfWvZBsw7q4HMWzkPHDRXb1Ya1azcs7g=/backend/Cargo.lock";
+      lockFile = ./. + "/sha256-hgaJwxYxg4K5oF4FO_8IOl5s6KUTvd_A0Sjhlg94Ya8=/backend/Cargo.lock";
       outputHashes = {
         "auto-launch-0.5.0" = "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=";
         "runas-1.2.0" = "sha256-cTYTFtmdmCztL2JhgnOxwKhd+VfUmm5DB3gkNy92g04=";
@@ -137,18 +137,18 @@
   };
   cpa-usage-keeper = {
     pname = "cpa-usage-keeper";
-    version = "aa687529e392833e17ad0eb7ccfc4dec8eda0982";
+    version = "621cef1ebee0edb753ce29040c42bdc459c4c99e";
     src = fetchFromGitHub {
       owner = "Willxup";
       repo = "cpa-usage-keeper";
-      rev = "aa687529e392833e17ad0eb7ccfc4dec8eda0982";
+      rev = "621cef1ebee0edb753ce29040c42bdc459c4c99e";
       fetchSubmodules = false;
-      sha256 = "sha256-0SfP9EdUIidkaXR0UPrgMQ72PNW0E/28pnxRgBNLj7s=";
+      sha256 = "sha256-ktCwPFE+CtwoRlAb455ioElbox1vSBBkYftNqadMSJs=";
     };
     extract = {
-      "web/package.json" = ./. + "/sha256-0SfP9EdUIidkaXR0UPrgMQ72PNW0E_28pnxRgBNLj7s=/web/package.json";
-      "web/package-lock.json" = ./. + "/sha256-0SfP9EdUIidkaXR0UPrgMQ72PNW0E_28pnxRgBNLj7s=/web/package-lock.json";
-    };date = "2026-11-06";
+      "web/package.json" = ./. + "/sha256-ktCwPFE+CtwoRlAb455ioElbox1vSBBkYftNqadMSJs=/web/package.json";
+      "web/package-lock.json" = ./. + "/sha256-ktCwPFE+CtwoRlAb455ioElbox1vSBBkYftNqadMSJs=/web/package-lock.json";
+    };date = "2026-11-08";
   };
   cpa-usage-keeper-stable = {
     pname = "cpa-usage-keeper-stable";
@@ -250,21 +250,21 @@
   };
   gaze = {
     pname = "gaze";
-    version = "65f8537f1a7f013171335b7cc83a6591f2c4be7c";
+    version = "1c09560f58fe39f44c74e7ccca8bf82b4313a98d";
     src = fetchFromGitHub {
       owner = "GunduLabs";
       repo = "gaze";
-      rev = "65f8537f1a7f013171335b7cc83a6591f2c4be7c";
+      rev = "1c09560f58fe39f44c74e7ccca8bf82b4313a98d";
       fetchSubmodules = false;
-      sha256 = "sha256-zETld1vHTX83hQxBv9MLDXZ6Ltd9W2QxMIe2Kv++imw=";
+      sha256 = "sha256-gdi9yNfD3yXgLBsf63C9K2Qyh9wKuBrxNVjLRdBzhe4=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-zETld1vHTX83hQxBv9MLDXZ6Ltd9W2QxMIe2Kv++imw=/Cargo.lock";
+      lockFile = ./. + "/sha256-gdi9yNfD3yXgLBsf63C9K2Qyh9wKuBrxNVjLRdBzhe4=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-11-07";
+    date = "2026-11-08";
   };
   gaze-stable = {
     pname = "gaze-stable";
@@ -272,6 +272,22 @@
     src = fetchurl {
       url = "file:///dev/null";
       sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
+    };
+  };
+  geolite2-asn = {
+    pname = "geolite2-asn";
+    version = "2026.11.07";
+    src = fetchurl {
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.07/GeoLite2-ASN.mmdb";
+      sha256 = "sha256-IaaQPswoXOPRh8t/aItPesUv7kJcR5yON31bHAEnU3o=";
+    };
+  };
+  geolite2-city = {
+    pname = "geolite2-city";
+    version = "2026.11.07";
+    src = fetchurl {
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.11.07/GeoLite2-City.mmdb";
+      sha256 = "sha256-nbBOikRB7FQYNTfYd0wI5Ccg8iQxN91C6cx/eOorkns=";
     };
   };
   geolite2-country = {
@@ -323,23 +339,31 @@
       "package.json" = ./. + "/sha256-JR+VLwXqMKACWB+4AIgWLIpZh0xtU9uCsiskra71BHQ=/package.json";
     };date = "2026-03-16";
   };
+  hmcl-dev-bin = {
+    pname = "hmcl-dev-bin";
+    version = "3.17.0.365";
+    src = fetchurl {
+      url = "https://github.com/HMCL-dev/HMCL/releases/download/v3.17.0.365/HMCL-3.17.0.365.jar";
+      sha256 = "sha256-Mq2ax7SUnUQdx/D/zE4zE+CeShItdpLI/w8VFtrFaAo=";
+    };
+  };
   hmcl-dev-exe = {
     pname = "hmcl-dev-exe";
-    version = "3.17.0.364";
+    version = "3.17.0.365";
     src = fetchurl {
-      url = "https://github.com/HMCL-dev/HMCL/releases/download/v3.17.0.364/HMCL-3.17.0.364.exe";
-      sha256 = "sha256-LbazCPAoVIZ73meVtTVyykDlTfuhCr/URuH6SshcvIQ=";
+      url = "https://github.com/HMCL-dev/HMCL/releases/download/v3.17.0.365/HMCL-3.17.0.365.exe";
+      sha256 = "sha256-OsZY/UhyxCsDGBF4ycaY+eTYNvwXXrR/M1EIjtziEnQ=";
     };
   };
   hmcl-dev-src = {
     pname = "hmcl-dev-src";
-    version = "v3.17.0.364";
+    version = "v3.17.0.365";
     src = fetchFromGitHub {
       owner = "HMCL-dev";
       repo = "HMCL";
-      rev = "v3.17.0.364";
+      rev = "v3.17.0.365";
       fetchSubmodules = false;
-      sha256 = "sha256-nqlxhkfl6NPIB8u1gwhWhxDSy5XHYNfQ9Q8Cwas//ak=";
+      sha256 = "sha256-h473j1FajiZeO5NVnckgItWv9fhJuqEgTYdLRs7eCxc=";
     };
   };
   hysteria-realm-server = {
@@ -543,6 +567,22 @@
     src = fetchurl {
       url = "https://github.com/AimesSoft/NipaPlay-Reload/releases/download/v1.11.11/NipaPlay-1.11.11-Linux-arm64.tar.gz";
       sha256 = "sha256-4dtNBkwx7pvrrY3+GskGbxKFL2RERu686eSe63qthBI=";
+    };
+  };
+  nipaplay-reload-darwin = {
+    pname = "nipaplay-reload-darwin";
+    version = "1.11.11";
+    src = fetchurl {
+      url = "https://github.com/AimesSoft/NipaPlay-Reload/releases/download/v1.11.11/NipaPlay_1.11.11_macOS_Universal.dmg";
+      sha256 = "sha256-Zn4oqfD3JwJBeHVjBIA63/vPPnowgi1x5x0clxDAOvU=";
+    };
+  };
+  nipaplay-reload-x86_64-linux = {
+    pname = "nipaplay-reload-x86_64-linux";
+    version = "1.11.11";
+    src = fetchurl {
+      url = "https://github.com/AimesSoft/NipaPlay-Reload/releases/download/v1.11.11/NipaPlay-1.11.11-Linux-amd64.tar.gz";
+      sha256 = "sha256-IrK6nNmC2zX4iRaCkK4czFuxlzGtw/UihHqZQx4GIkY=";
     };
   };
   nyanpasu-service = {
