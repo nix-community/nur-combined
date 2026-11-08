@@ -21,8 +21,8 @@ let
   src = pkgs.fetchFromGitHub {
     owner = "srcres258";
     repo = "pi-furry-partner";
-    rev = "54bdff92bd2433c1ed0301344bb837c571084b9f";
-    hash = "sha256-bbwSh3BdUjCYbWyPTj2F1EBWZawKcX7OGkXRG0C01wY=";
+    rev = "7ea64707fbb9a5aa7b28fa200ac7ce4a31012588";
+    hash = "sha256-YAGnD38jNETEesF2ikDd4O3GzOB7/91cPIfpw2LEzH8=";
   };
 
   node = pkgs.nodejs_24;
