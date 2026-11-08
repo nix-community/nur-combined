@@ -7,7 +7,7 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "htmx";
-  version = "4.0.0";
+  version = "4.0.1";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -16,10 +16,10 @@ buildNpmPackage (finalAttrs: {
     owner = "bigskysoftware";
     repo = "htmx";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-SX2hAFDkOEyAjSxlr6Hsl1NEr46V4L+bWVyzdlRr7R0=";
+    hash = "sha256-CtDnTsXax/mSkd/3wvU36uUz/8WKwus1xlgAqc2oX8o=";
   };
 
-  npmDepsHash = "sha256-+rg0PWj1oPiCkhIhqdFVUaSJlk75GSYxsXl65qjJYXY=";
+  npmDepsHash = "sha256-ygmrKcEja45bO45mAUFIK7mB6+nM/IoGUarLTEuW+r8=";
 
   installPhase = ''
     runHook preInstall

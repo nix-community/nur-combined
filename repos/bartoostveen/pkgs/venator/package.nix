@@ -24,8 +24,8 @@ buildGo127Module (finalAttrs: {
   src = fetchFromCodeberg {
     owner = "matrix-venator";
     repo = "venator";
-    rev = "18a50fad586d8eb0703d2e0c49323476d228f64b";
-    hash = "sha256-tvsOexuHB8YCiHid8fMrv9CVpei/axxX+qYgkjKdZoo=";
+    rev = "87027ca417db62846ff627f51d8396eaeff1847a";
+    hash = "sha256-QAzNwC9aBpjpmaa1Tn8RziYi6/ki+0DpW/eFUuPuSAM=";
   };
 
   vendorHash = "sha256-cDo4Eu8is4QnERppqyjfh+OskVz3l/4oSdRLsOJIG/c=";
