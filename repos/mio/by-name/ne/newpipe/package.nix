@@ -11,6 +11,9 @@
   makeWrapper,
   writeText,
   desktopToDarwinBundle,
+  nix-update-script,
+  writeShellApplication,
+  jq,
 }:
 
 let
@@ -38,13 +41,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "newpipe";
-  version = "0.29.1";
+  version = "0.29.2";
 
   src = fetchFromGitHub {
     owner = "TeamNewPipe";
     repo = "NewPipe";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-pzwqMrDZKN4zmmorRK1jN1Wzg4OVZ5zDtAjIEDLoAnY=";
+    hash = "sha256-qdulNERZa+z5TxWadnk58ofngQnRsd8GDb1xrtrYX4Q=";
   };
 
   patches = [
@@ -158,6 +161,19 @@ stdenv.mkDerivation (finalAttrs: {
       startupWMClass = "org.schabi.newpipe";
     })
   ];
+
+  passthru.updateScript = writeShellApplication {
+    name = "update-newpipe";
+    runtimeInputs = [ jq ];
+    text = ''
+      export UPDATE_NIX_ATTR_PATH="newpipe"
+      ${lib.escapeShellArgs (nix-update-script { })} "$@"
+      depsFile="by-name/ne/newpipe/deps.json"
+      if [ -f "$depsFile" ]; then
+        jq 'del(."https:/"?."api.github")' "$depsFile" > "$depsFile.tmp" && mv "$depsFile.tmp" "$depsFile"
+      fi
+    '';
+  };
 
   meta = {
     description = "NewPipe Android app built from source, launched via patched Android Translation Layer";

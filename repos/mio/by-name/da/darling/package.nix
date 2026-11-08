@@ -26,6 +26,7 @@
   fuse3,
   ffmpeg,
   pulseaudio,
+  systemdMinimal,
 
   coreutils,
   makeWrapper,
@@ -115,14 +116,14 @@ let
 in
 stdenv.mkDerivation {
   pname = "darling";
-  version = "0.1.20260608-unstable-2026-11-04";
+  version = "0.1.20260608-unstable-2026-11-07";
 
   src = fetchFromGitHub {
     owner = "darlinghq";
     repo = "darling";
-    rev = "8ca2c84f33f918c70de127ef1fa54bf754375c7a";
+    rev = "8cead6ab8db902d2cebbc476f40fd263ec1c46d7";
     fetchSubmodules = true;
-    hash = "sha256-XIvSF9esSyR/I4hqX6Lkeocag88WyVHd7G6olLStHnY=";
+    hash = "sha256-DBLWj3QB+e8/7TSyDonQBoWIR4G6XAB1iLpzyn6e/5o=";
     # Remove 500MB of dependency test files to get under Hydra output limit
     postFetch = ''
       rm -r $out/src/external/openjdk/test
@@ -141,20 +142,41 @@ stdenv.mkDerivation {
   ];
 
   postPatch = ''
-    # We have to be careful - Patching everything indiscriminately
-    # would affect Darwin scripts as well
-    chmod +x src/external/bootstrap_cmds/migcom.tproj/mig.sh
-    patchShebangs \
-      src/external/bootstrap_cmds/migcom.tproj/mig.sh \
-      src/external/darlingserver/scripts \
-      src/external/openssl_certificates/scripts
+        # We have to be careful - Patching everything indiscriminately
+        # would affect Darwin scripts as well
+        chmod +x src/external/bootstrap_cmds/migcom.tproj/mig.sh
+        patchShebangs \
+          src/external/bootstrap_cmds/migcom.tproj/mig.sh \
+          src/external/darlingserver/scripts \
+          src/external/openssl_certificates/scripts
 
-    substituteInPlace src/startup/CMakeLists.txt --replace-warn SETUID ""
-    substituteInPlace src/external/basic_cmds/CMakeLists.txt --replace-warn SETGID ""
+        substituteInPlace src/startup/CMakeLists.txt --replace-warn SETUID ""
+        substituteInPlace src/external/basic_cmds/CMakeLists.txt --replace-warn SETGID ""
 
-    # Nix has no /bin/mkdir, and a bare `mkdir` would resolve to the Darling
-    # target, which makes the MIG custom command a dependency cycle.
-    substituteInPlace cmake/mig.cmake --replace-warn /bin/mkdir ${coreutils}/bin/mkdir
+        # Nix has no /bin/mkdir or /bin/chmod, and bare commands would resolve to the Darling
+        # targets, which makes the MIG custom command a dependency cycle.
+        substituteInPlace cmake/mig.cmake --replace-warn /bin/mkdir ${coreutils}/bin/mkdir
+        substituteInPlace src/external/bootstrap_cmds/CMakeLists.txt --replace-warn /bin/chmod ${coreutils}/bin/chmod
+
+        # Upstream PR #1842 requires libsystem_kernel to publish DARLING_OS_* properties,
+        # which is pending xnu submodule update (darling-xnu#46).
+        substituteInPlace src/frameworks/CoreServices/CMakeLists.txt \
+          --replace-warn 'if (NOT DARLING_OS_PRODUCT_VERSION OR NOT DARLING_OS_BUILD_VERSION)' \
+                         'if (NOT DARLING_OS_PRODUCT_VERSION)
+      set(DARLING_OS_PRODUCT_VERSION "26.4")
+    endif()
+    if (NOT DARLING_OS_BUILD_VERSION)
+      set(DARLING_OS_BUILD_VERSION "25E246")
+    endif()
+    if (FALSE)'
+
+        # Top-level enable_testing() creates a phony `test` target in every subdirectory,
+        # which conflicts with shell_cmds's `test` binary (output of test-bin).
+        substituteInPlace CMakeLists.txt \
+          --replace-warn "enable_testing()" ""
+
+        # In sandbox package builds there are no running containers and no sudo.
+        echo "exit 0" > tools/shutdown-user.sh
   '';
 
   nativeBuildInputs = [
@@ -173,6 +195,7 @@ stdenv.mkDerivation {
     libbsd
     openssl
     stdenv.cc.libc.linuxHeaders
+    systemdMinimal
   ];
 
   # Breaks valid paths like
@@ -235,7 +258,7 @@ stdenv.mkDerivation {
     echo "Checking for references to $NIX_STORE in Darling root..."
 
     set +e
-    grep -r --exclude=mldr "$NIX_STORE" $out/libexec/darling
+    grep -r --exclude=mldr --exclude=darpath "$NIX_STORE" $out/libexec/darling
     ret=$?
     set -e
 

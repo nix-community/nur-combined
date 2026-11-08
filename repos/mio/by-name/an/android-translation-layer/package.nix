@@ -48,13 +48,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "android-translation-layer";
-  version = "0-unstable-2026-11-04";
+  version = "0-unstable-2026-11-07";
 
   src = fetchFromGitLab {
     owner = "android_translation_layer";
     repo = "android_translation_layer";
-    rev = "bbb4d469405cdaea585475b17daef13202bc7e23";
-    hash = "sha256-fgRoIiMCkIdRtPwIl47BviJX8L9VBd/xIS9gz7IDne8=";
+    rev = "45e675b80f00e8a233bd1d5e87fa5239f381f6ff";
+    hash = "sha256-8qA5PBhcSumpaeTRJYrO4Xg5uvk8hIrlhGovRYUisxw=";
   };
 
   patches = [
