@@ -1161,6 +1161,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   e9patch = callPackage ./pkgs/development/tools/e9patch/e9patch.nix { };
 
+  sqlite-main-branch = callPackage ./pkgs/development/libraries/sqlite { };
+
   sqlite-reuse-schema = callPackage ./pkgs/development/libraries/sqlite {
     sqliteBranch = "reuse-schema";
   };
