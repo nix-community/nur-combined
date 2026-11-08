@@ -27,7 +27,7 @@ jobs:
       id-token: write
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@51e2e49aaf181feb402ad2bcf9089273f5f4ad85 # v1.74.0
+        uses: spotdemo4/nix-init@392955b6ae2230bd7cbb0d8d90051ddd9b8d537e # v1.75.0
 
       - name: Check flake
         env:
@@ -61,7 +61,7 @@ jobs:
       id-token: write
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@51e2e49aaf181feb402ad2bcf9089273f5f4ad85 # v1.74.0
+        uses: spotdemo4/nix-init@392955b6ae2230bd7cbb0d8d90051ddd9b8d537e # v1.75.0
         with:
           shell: check
 
@@ -85,13 +85,13 @@ jobs:
       id-token: write
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@51e2e49aaf181feb402ad2bcf9089273f5f4ad85 # v1.74.0
+        uses: spotdemo4/nix-init@392955b6ae2230bd7cbb0d8d90051ddd9b8d537e # v1.75.0
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch_depth: 0
 
       - name: Run pi
-        uses: trev-zip/pi-action@19f064a6269bd5e4d7315730968b15c491ba948b # v0.5.1
+        uses: trev-zip/pi-action@710274d3492c95042fa6da2f5b162212312d26c7 # v0.6.0
         with:
           base-url: ${{ secrets.PI_ACTION_BASE_URL }}
           api-key: ${{ secrets.PI_ACTION_API_KEY }}

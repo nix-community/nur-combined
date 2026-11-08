@@ -15,7 +15,7 @@ jobs:
       id-token: write
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@51e2e49aaf181feb402ad2bcf9089273f5f4ad85 # v1.74.0
+        uses: spotdemo4/nix-init@392955b6ae2230bd7cbb0d8d90051ddd9b8d537e # v1.75.0
 
       - name: Check expiring packages
         run: ./utils/expiring/expiring.sh
