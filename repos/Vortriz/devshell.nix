@@ -1,47 +1,14 @@
-{ inputs, ... }:
-{
-    imports = [ inputs.devshell.flakeModule ];
-
+{ inputs, ... }: {
     perSystem =
+        { pkgs, system, ... }:
         {
-            config,
-            lib,
-            pkgs,
-            ...
-        }:
-        {
-            devshells.default =
-                let
-                    python = pkgs.python3.withPackages (_p: [
-                        config.legacyPackages.nima
-                    ]);
-                in
-                {
-                    devshell.motd = "";
+            devShells.default = pkgs.mkShellNoCC {
+                packages = with pkgs; [
+                    nix-init
+                    inputs.tack.packages.${system}.default
+                ];
 
-                    packages =
-                        with pkgs;
-                        [
-                            nix-init
-                            nix-prefetch-scripts
-                            nix-prefetch-github
-
-                            ruff
-                        ]
-                        ++ [ python ];
-
-                    commands = [
-                        {
-                            name = "update";
-                            help = "Update flake lock and update all packages using nix-update";
-                            category = "[chore]";
-                            command = ''
-                                nix flake update
-                                ${lib.getExe python} update.py pkgs
-                                nix fmt
-                            '';
-                        }
-                    ];
-                };
+                TACK_NIX_CONF_TOKENS = 1;
+            };
         };
 }

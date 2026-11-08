@@ -1,16 +1,13 @@
 {
+    inputs,
     lib,
     mkZoteroAddon,
-    fetchurl,
 }:
-mkZoteroAddon rec {
+mkZoteroAddon {
     pname = "ZotLit";
-    version = "2.2.1";
+    version = inputs._meta.zotlit.version;
 
-    src = fetchurl {
-        url = "https://github.com/aidenlx/zotlit/releases/download/zt-${version}/zotlit-zotero-${version}.xpi";
-        hash = "sha256-hkky2Iy8rW91lwwLA4JMB6br3mbjFh29+dbrlKWVfVc=";
-    };
+    src = inputs.zotlit;
 
     addonId = "zotlit@aidenlx.site";
 

@@ -1,0 +1,161 @@
+{
+  "$declared": {
+    "bunny.yazi": "github:stelcodes/bunny.yazi",
+    "custom-shell.yazi": "github:AnirudhG07/custom-shell.yazi",
+    "doi2bib3": "github:archisman-panigrahi/doi2bib3",
+    "enhance-piper.yazi": "github:boydaihungst/enhance-piper.yazi",
+    "file-extra-metadata.yazi": "github:boydaihungst/file-extra-metadata.yazi",
+    "flake-parts": "github:hercules-ci/flake-parts",
+    "nixpkgs": "github:nixos/nixpkgs/nixpkgs-unstable",
+    "systems": "github:nix-systems/x86_64-linux",
+    "tack": "github:manic-systems/tack",
+    "treefmt-nix": "github:numtide/treefmt-nix",
+    "what-size.yazi": "github:pirafrank/what-size.yazi",
+    "zotero-better-bibtex": "https://github.com/retorquere/zotero-better-bibtex/releases/download/v{version}/zotero-better-bibtex-{version}.xpi",
+    "zotero-scipdf": "https://github.com/syt2/zotero-scipdf/releases/download/V{version}/sci-pdf.xpi",
+    "zotlit": "https://github.com/aidenlx/zotlit/releases/download/zt-{version}/zotlit-zotero-{version}.xpi",
+    "zotmoov": "https://github.com/wileyyugioh/zotmoov/releases/download/{version}/zotmoov-{version}-fx.xpi"
+  },
+  "bunny.yazi": {
+    "type": "github",
+    "owner": "stelcodes",
+    "repo": "bunny.yazi",
+    "rev": "8f3f84e20ea0545d032c134cf184784eaff55d13",
+    "narHash": "sha256-AX7ILZTXPKqvEI3jgVADsfVeSR39qHB7Ti6NGHL0yag=",
+    "lastModified": 1792528728,
+    "archive": {
+      "hash": "sha256-p5y68oWy/NzwoBVbnAP+q+QxJHY7xYioEoTAWAK55/U=",
+      "outHash": "sha256-nDg3Uqs5WgodbmSflYF0RKvYcpScz+N5fMDw6uBByiU="
+    }
+  },
+  "custom-shell.yazi": {
+    "type": "github",
+    "owner": "AnirudhG07",
+    "repo": "custom-shell.yazi",
+    "rev": "6f684046fc44465bd310969ae1e42d4d8a19685b",
+    "narHash": "sha256-vEX6E9lfMV77wrgEgAIOHTb8ibbW0UUQIWiwo/fPN2w=",
+    "lastModified": 1786121562,
+    "archive": {
+      "hash": "sha256-iwzvtm7cxkR724AuYyOmDxYOoMBU3P4Unw4bPOwDAwE=",
+      "outHash": "sha256-juRdoWHNtPIMqexhUUmyX9bGJq9TJ7Wtv9WXB0BEN+o="
+    }
+  },
+  "doi2bib3": {
+    "type": "github",
+    "owner": "archisman-panigrahi",
+    "repo": "doi2bib3",
+    "rev": "e41eaef5f002799a4a48cee2706a0157b5fb8692",
+    "narHash": "sha256-hhe1opgkPTaaLopGzPtiCZqk1/qGtN5TbBSKeQFJ9xw=",
+    "lastModified": 1793212171,
+    "tag": "v1.7.1",
+    "version": "1.7.1"
+  },
+  "enhance-piper.yazi": {
+    "type": "github",
+    "owner": "boydaihungst",
+    "repo": "enhance-piper.yazi",
+    "rev": "b9115b132858b5c6767b34a9597572cbeed172fd",
+    "narHash": "sha256-YtJwT7KGea0oBzTN9Y9f7ntqmsthA5V1kyKzqtNiZjM=",
+    "lastModified": 1788871413,
+    "archive": {
+      "hash": "sha256-33cgk5z/T8ZjL5FiRS8zpEsRnpoyxr1XiP34K12voSI=",
+      "outHash": "sha256-nIa1KuIBUHorddpZxJtQvv4iStUcySZ3X3Istlv6x20="
+    }
+  },
+  "file-extra-metadata.yazi": {
+    "type": "github",
+    "owner": "boydaihungst",
+    "repo": "file-extra-metadata.yazi",
+    "rev": "98baba68b611a11636c1323d061f42d51e8f5e4f",
+    "narHash": "sha256-iPNMy/UGMNMyUg4zRC5X/J427bMM0UStixUNsNIu5zI=",
+    "lastModified": 1788870970,
+    "archive": {
+      "hash": "sha256-Daz3NJoPsDbp3yaQMK8RrnOsJpCfJBaV9MZi/3bI2K0=",
+      "outHash": "sha256-Bchxge6LA8YbkHLjkPUix2b9XwbfmBJqwOntPjBUENI="
+    }
+  },
+  "flake-parts": {
+    "type": "github",
+    "owner": "hercules-ci",
+    "repo": "flake-parts",
+    "rev": "ea2630b7470978622c7689a1ff75d2b389175399",
+    "narHash": "sha256-V1h85lUaJBQoHFrB2vpXZOE0Ju1MYSnIpsehoVZYlDo=",
+    "lastModified": 1793576659
+  },
+  "nixpkgs": {
+    "type": "github",
+    "owner": "nixos",
+    "repo": "nixpkgs",
+    "rev": "4fe25e12eb9f4c744966dd3de5a05246cf098601",
+    "narHash": "sha256-WrSODdZFVIs/Hh2NzC0bY+ROByi0bATg8WfePX8dPj8=",
+    "lastModified": 1793977579
+  },
+  "systems": {
+    "type": "github",
+    "owner": "nix-systems",
+    "repo": "x86_64-linux",
+    "rev": "2ecfcac5e15790ba6ce360ceccddb15ad16d08a8",
+    "narHash": "sha256-Gtqg8b/v49BFDpDetjclCYXm8mAnTrUzR0JnE2nv5aw=",
+    "lastModified": 1680978846
+  },
+  "tack": {
+    "type": "github",
+    "owner": "manic-systems",
+    "repo": "tack",
+    "rev": "cd02f41558f0ccf8b1ae67fd96950ed0e6553129",
+    "narHash": "sha256-NkEQK3h5pn39Cj4zMf/EYoxUo0/SNnkR0yGaYvJ96DA=",
+    "lastModified": 1794039014
+  },
+  "treefmt-nix": {
+    "type": "github",
+    "owner": "numtide",
+    "repo": "treefmt-nix",
+    "rev": "0d6d739a833ba9a9c93034862e4a7b061a062a1c",
+    "narHash": "sha256-C3alQ2MEt0zVrUSho5NUDo3jmhbff72++bfwoqT9Omo=",
+    "lastModified": 1791885023
+  },
+  "what-size.yazi": {
+    "type": "github",
+    "owner": "pirafrank",
+    "repo": "what-size.yazi",
+    "rev": "1cb456f8c428a393a65708b45b8c56404d52f326",
+    "narHash": "sha256-lhanC44L4haM7cgqCOhfxk0Rpi/FueBgIdXDiXuzevc=",
+    "lastModified": 1788384853,
+    "archive": {
+      "hash": "sha256-AqaPnv9bcyuPXL82icP9ysiKNsdMXjgDdqGrY2LR8OE=",
+      "outHash": "sha256-JhnAmeJ3xvkz20KWm8O8IZpCzQqcfSHkLq4352J6iHQ="
+    }
+  },
+  "zotero-better-bibtex": {
+    "type": "fixed",
+    "url": "https://github.com/retorquere/zotero-better-bibtex/releases/download/v9.0.77/zotero-better-bibtex-9.0.77.xpi",
+    "sha256": "sha256-pfHSuvj/QshXYbej2PZ5n/wwbwgugCTVuDzoDoWSvQs=",
+    "unpack": "file",
+    "tag": "v9.0.77",
+    "version": "9.0.77"
+  },
+  "zotero-scipdf": {
+    "type": "fixed",
+    "url": "https://github.com/syt2/zotero-scipdf/releases/download/V8.1.1/sci-pdf.xpi",
+    "sha256": "sha256-fOCH/mzTIsqs53xfd1/5mVKlMU4xBOumbKPglH96nXA=",
+    "unpack": "file",
+    "tag": "V8.1.1",
+    "version": "8.1.1"
+  },
+  "zotlit": {
+    "type": "fixed",
+    "url": "https://github.com/aidenlx/zotlit/releases/download/zt-2.2.1/zotlit-zotero-2.2.1.xpi",
+    "sha256": "sha256-hkky2Iy8rW91lwwLA4JMB6br3mbjFh29+dbrlKWVfVc=",
+    "unpack": "file",
+    "tag": "zt-2.2.1",
+    "version": "2.2.1"
+  },
+  "zotmoov": {
+    "type": "fixed",
+    "url": "https://github.com/wileyyugioh/zotmoov/releases/download/1.2.34/zotmoov-1.2.34-fx.xpi",
+    "sha256": "sha256-PK1oxs9DcGY3YHQ9mbEWpFxv0cF3MvUMfQM1t/IMeFQ=",
+    "unpack": "file",
+    "tag": "1.2.34",
+    "version": "1.2.34"
+  }
+}

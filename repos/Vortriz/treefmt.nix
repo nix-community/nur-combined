@@ -14,13 +14,12 @@
                 statix.enable = true;
                 nixfmt.enable = true;
 
-                ruff-format.enable = true;
-                ruff-check.enable = true;
-
                 prettier.enable = true;
             };
 
             settings = {
+                global.excludes = [ ".tack/*" ];
+
                 formatter = {
                     deadnix.priority = 1;
                     statix.priority = 2;
@@ -30,9 +29,6 @@
                         ];
                         priority = 3;
                     };
-
-                    ruff-check.priority = 1;
-                    ruff-format.priority = 2;
 
                     prettier.options = [
                         "--tab-width"

@@ -1,0 +1,89 @@
+# tack pins
+# edit by hand or with tack add / rm / alias
+# nix reads pins.lock.json
+# this file drives tack update
+
+# shorturl schemes
+# scheme rest expands rest into {path}
+[shorturls]
+gh = "github:{path}"
+
+# all_follow maps input names to the top-level pin they follow
+# opt out per-input with exclude_follow
+[all_follow]
+nixpkgs = "nixpkgs"
+# nixpkgs = ["nixpkgs-stable", "nixpkgs-unstable"]
+
+# inputs.<name> fields
+#   url             required, shorturl ok, ?rev=<sha> pins an exact commit
+#   type            flake (default), fetch, or fixed
+#   flake           legacy false means type = "fetch"
+#   follows         { child = "pin" } override map
+#   exclude_follow  all_follow names to skip
+#   dir             subdir holding flake.nix
+#   submodules      fetch git submodules
+#   unpack          fixed-only tarball or file
+[inputs]
+
+[inputs.nixpkgs]
+url = "gh:nixos/nixpkgs/nixpkgs-unstable"
+
+[inputs.systems]
+url = "gh:nix-systems/x86_64-linux"
+
+[inputs.treefmt-nix]
+url = "gh:numtide/treefmt-nix"
+
+[inputs.flake-parts]
+url = "gh:hercules-ci/flake-parts"
+
+[inputs.tack]
+url = "gh:manic-systems/tack"
+
+[inputs.doi2bib3]
+url = "gh:archisman-panigrahi/doi2bib3"
+type = "fetch"
+tag = "v{version}"
+
+[inputs."bunny.yazi"]
+url = "gh:stelcodes/bunny.yazi"
+type = "fetch"
+
+[inputs."custom-shell.yazi"]
+url = "gh:AnirudhG07/custom-shell.yazi"
+type = "fetch"
+
+[inputs."enhance-piper.yazi"]
+url = "gh:boydaihungst/enhance-piper.yazi"
+type = "fetch"
+
+[inputs."file-extra-metadata.yazi"]
+url = "gh:boydaihungst/file-extra-metadata.yazi"
+type = "fetch"
+
+[inputs."what-size.yazi"]
+url = "gh:pirafrank/what-size.yazi"
+type = "fetch"
+
+[inputs.zotero-better-bibtex]
+url = "https://github.com/retorquere/zotero-better-bibtex/releases/download/v{version}/zotero-better-bibtex-{version}.xpi"
+type = "fixed"
+tag = "v{version}"
+
+[inputs.zotero-scipdf]
+url = "https://github.com/syt2/zotero-scipdf/releases/download/V{version}/sci-pdf.xpi"
+type = "fixed"
+tag = "V{version}"
+
+[inputs.zotlit]
+url = "https://github.com/aidenlx/zotlit/releases/download/zt-{version}/zotlit-zotero-{version}.xpi"
+type = "fixed"
+tag = "zt-{version}"
+
+[inputs.zotmoov]
+url = "https://github.com/wileyyugioh/zotmoov/releases/download/{version}/zotmoov-{version}-fx.xpi"
+type = "fixed"
+tag = "{version}"
+
+[tack]
+recomposable = true

@@ -23,7 +23,7 @@ let
 in
 stdenv.mkDerivation rec {
     # https://gitlab.freedesktop.org/libfprint/libfprint/-/merge_requests/413#note_2476573
-    pname = "libfprint-focaltech-2808-a658-alt";
+    pname = "libfprint-focaltech-2808-a658";
     version = "1.94.4";
 
     src = fetchurl {

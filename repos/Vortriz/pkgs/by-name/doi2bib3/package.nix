@@ -1,20 +1,14 @@
 {
+    inputs,
     lib,
     python3Packages,
-    fetchFromGitHub,
 }:
-
 python3Packages.buildPythonApplication {
     pname = "doi2bib3";
-    version = "1.7.1";
+    version = inputs._meta.doi2bib3.version;
     pyproject = true;
 
-    src = fetchFromGitHub {
-        owner = "archisman-panigrahi";
-        repo = "doi2bib3";
-        tag = "v1.7.1";
-        hash = "sha256-hhe1opgkPTaaLopGzPtiCZqk1/qGtN5TbBSKeQFJ9xw=";
-    };
+    src = inputs.doi2bib3;
 
     build-system = with python3Packages; [
         setuptools

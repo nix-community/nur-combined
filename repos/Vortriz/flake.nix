@@ -1,23 +1,13 @@
 {
-    description = "My personal NUR repository";
-
-    inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-        systems.url = "github:nix-systems/x86_64-linux";
-        flake-parts.url = "github:hercules-ci/flake-parts";
-        devshell = {
-            url = "github:numtide/devshell";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-        treefmt-nix = {
-            url = "github:numtide/treefmt-nix";
-            inputs.nixpkgs.follows = "nixpkgs";
-        };
-    };
+    description = "My pkgs";
 
     outputs =
-        { nixpkgs, flake-parts, ... }@inputs:
-        flake-parts.lib.mkFlake { inherit inputs; } {
+        { self, ... }@args:
+        let
+            inputs = (import ./.tack) { overrides = args.tackOverrides or { }; };
+            date = builtins.concatStringsSep "-" (builtins.match "(.{4})(.{2})(.{2}).*" self.lastModifiedDate);
+        in
+        inputs.flake-parts.lib.mkFlake { inherit inputs self; } {
             systems = import inputs.systems;
 
             imports = [
@@ -27,21 +17,95 @@
 
             perSystem =
                 {
+                    lib,
                     pkgs,
                     system,
                     ...
                 }:
+                let
+                    inherit (lib.filesystem) packagesFromDirectoryRecursive;
+                    inherit (lib.attrsets) recurseIntoAttrs;
+
+                    mkZoteroAddon =
+                        {
+                            stdenvNoCC ? pkgs.stdenvNoCC,
+                            pname,
+                            version,
+                            src,
+                            addonId,
+                            meta ? { },
+                            ...
+                        }:
+                        stdenvNoCC.mkDerivation {
+                            inherit pname version src;
+
+                            preferLocalBuild = true;
+                            allowSubstitutes = true;
+
+                            buildCommand = ''
+                                dst="$out/share/zotero/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                                mkdir -p "$dst"
+                                install -v -m644 "$src" "$dst/${addonId}.xpi"
+                            '';
+
+                            inherit meta;
+                        };
+
+                    callPackage = lib.callPackageWith (pkgs // { inherit inputs date; });
+                    callYaziPlugin = lib.callPackageWith (
+                        pkgs
+                        // {
+                            inherit inputs date;
+                            inherit (pkgs.yaziPlugins) mkYaziPlugin;
+                        }
+                    );
+                    callZoteroAddon = lib.callPackageWith (pkgs // { inherit inputs date mkZoteroAddon; });
+                in
                 {
-                    _module.args.pkgs = import nixpkgs {
+                    _module.args.pkgs = import inputs.nixpkgs {
                         inherit system;
                         config.allowUnfree = true;
                     };
 
-                    legacyPackages = import ./default.nix { inherit pkgs; };
+                    legacyPackages =
+                        packagesFromDirectoryRecursive {
+                            inherit callPackage;
+                            directory = ./pkgs/by-name;
+                        }
+                        // {
+                            espansoPackages = packagesFromDirectoryRecursive {
+                                inherit callPackage;
+                                directory = ./pkgs/espansoPackages;
+                            };
+                        }
+                        // {
+                            fonts = recurseIntoAttrs (packagesFromDirectoryRecursive {
+                                inherit callPackage;
+                                directory = ./pkgs/fonts;
+                            });
+                        }
+                        // {
+                            yaziPlugins = recurseIntoAttrs (packagesFromDirectoryRecursive {
+                                callPackage = callYaziPlugin;
+                                directory = ./pkgs/yaziPlugins;
+                            });
+                        }
+                        // {
+                            zoteroAddons = recurseIntoAttrs (packagesFromDirectoryRecursive {
+                                callPackage = callZoteroAddon;
+                                directory = ./pkgs/zoteroAddons;
+                            });
+                        };
                 };
 
             flake = {
-                overlays = import ./overlay.nix;
+                overlays.default =
+                    final: prev:
+                    (prev.lib.packagesFromDirectoryRecursive {
+                        callPackage = prev.lib.callPackageWith (final // { inherit inputs date; });
+                        directory = ./pkgs/by-name;
+                    });
+
                 homeModules = import ./modules/home-manager;
             };
         };
