@@ -31,6 +31,13 @@
     name=org.vinegarhq.Sober
     runtime=org.gnome.Platform/x86_64/51
 
+    [Context]
+    shared=ipc;network
+    sockets=wayland;fallback-x11;pulseaudio
+    devices=dri
+    features=devel
+    filesystems=xdg-run/app/com.discordapp.Discord:create;xdg-run/discord-ipc-0
+
     [Instance]
     instance-id=sober
     arch=x86_64
