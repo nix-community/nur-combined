@@ -28,6 +28,9 @@ strict-Bash updater, then runs:
   failures; only 429 becomes a visible deferred-request warning, not a hidden
   failure or a falsely claimed accepted refresh. No network or retry waits.
 
+- `meitou-update.py`: stable game release selection, launcher/nightly exclusion,
+  downgrade prevention and NuGet lock regeneration.
+
 - `cachyos-kernel-update.py`: offline fixtures for direct CachyOS metadata,
   numeric version-only updates, coupled source/config/patch hashes, malformed
   metadata, package-directory isolation and rollback on evaluation errors.

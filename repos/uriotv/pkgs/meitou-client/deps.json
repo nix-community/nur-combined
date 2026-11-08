@@ -1,0 +1,142 @@
+[
+  {
+    "pname": "BepuPhysics",
+    "version": "2.4.0",
+    "hash": "sha256-SDr9TB7k7T+1sYXl35fAzV33tG2EUGYgwDqN88tQSjo="
+  },
+  {
+    "pname": "BepuUtilities",
+    "version": "2.4.0",
+    "hash": "sha256-ZoESQ8IR9ocAw8QZbnRGHkdgaaebVDEjQd0ah6zXd6Y="
+  },
+  {
+    "pname": "DotRecast.Core",
+    "version": "2026.3.1",
+    "hash": "sha256-+Ws7cPW7t0dKdP/npYFPI3ENVi5ORb23zJ/N2VzUqSs="
+  },
+  {
+    "pname": "DotRecast.Recast",
+    "version": "2026.3.1",
+    "hash": "sha256-dwBSXXCLzJRrQyYYfJq9vNmLLtD6oy++GZxYmh2Ea6A="
+  },
+  {
+    "pname": "FreeTypeSharp",
+    "version": "3.1.0",
+    "hash": "sha256-KTOonOtMfoyzvAhdrwTmmY0qpelb0iL9lYUkPTJ2uZg="
+  },
+  {
+    "pname": "Lib.Harmony",
+    "version": "2.4.3",
+    "hash": "sha256-8HrxGg1iRH5+G24/zx4o/HXZ+NGr8tbueaq83E20Pog="
+  },
+  {
+    "pname": "Microsoft.DotNet.PlatformAbstractions",
+    "version": "3.1.6",
+    "hash": "sha256-RfM2qXiqdiamPkXr4IDkNc0IZSF9iTZv4uou/E7zNS0="
+  },
+  {
+    "pname": "Microsoft.Extensions.DependencyModel",
+    "version": "9.0.9",
+    "hash": "sha256-0ygY8JLOIKuYFwwdVCtDl8/8fV5IC9JgivfzXsjXXsI="
+  },
+  {
+    "pname": "NVorbis",
+    "version": "0.10.5",
+    "hash": "sha256-1DKSHcK+KcBiqVyuJH4SlVybcJ/TR4I9Ad/WihbFOHo="
+  },
+  {
+    "pname": "Silk.NET.Core",
+    "version": "2.23.0",
+    "hash": "sha256-LgrnZcux09Vx7JUlfH4+ycJZO5Iv6PSy+5kV+I6owwE="
+  },
+  {
+    "pname": "Silk.NET.GLFW",
+    "version": "2.23.0",
+    "hash": "sha256-kSQbC+gTLvhEWnkKWQCwSsGuDIGV209isyzlrFDSOxU="
+  },
+  {
+    "pname": "Silk.NET.Input",
+    "version": "2.23.0",
+    "hash": "sha256-eHQR7IBgwstnS80ZDa2vIg902iYlFggPKiEIVol7V2Y="
+  },
+  {
+    "pname": "Silk.NET.Input.Common",
+    "version": "2.23.0",
+    "hash": "sha256-gg9EC1xS6gyjP/SrvlKinqnTBK+GNEtqUVHragousWw="
+  },
+  {
+    "pname": "Silk.NET.Input.Glfw",
+    "version": "2.23.0",
+    "hash": "sha256-GgwsvmrwVyBcSF8QBqGjlJVFFIAxlLPIaJqdxudAhO4="
+  },
+  {
+    "pname": "Silk.NET.Maths",
+    "version": "2.23.0",
+    "hash": "sha256-bEcetJ2bWXsQ4VvgsktjurRFI975SA4zGOCPvAFxz0o="
+  },
+  {
+    "pname": "Silk.NET.OpenAL",
+    "version": "2.23.0",
+    "hash": "sha256-IKbF3BVQtSu67ajuvLJzJo1Btfn05c7i52/Z2tL7U2E="
+  },
+  {
+    "pname": "Silk.NET.OpenAL.Soft.Native",
+    "version": "1.23.1",
+    "hash": "sha256-/LodBwNk89bXVtyA6U1SwvQnVBCap1aBMzdHq1gUY+o="
+  },
+  {
+    "pname": "Silk.NET.Shaderc",
+    "version": "2.23.0",
+    "hash": "sha256-p1wzO9MRwgNLmTzby9fuQ7Zblem7ogb+3H5wtH90plM="
+  },
+  {
+    "pname": "Silk.NET.Shaderc.Native",
+    "version": "2.23.0",
+    "hash": "sha256-UPZ9Xrrv6XvVX5sO7UBE9XySVnXVUQDTWlFxjMq5SL4="
+  },
+  {
+    "pname": "Silk.NET.Vulkan",
+    "version": "2.23.0",
+    "hash": "sha256-bXlKSRPHb4tEZ8hum0gLtzLZuRPHY0iPKfZu5vnk5SE="
+  },
+  {
+    "pname": "Silk.NET.Vulkan.Extensions.EXT",
+    "version": "2.23.0",
+    "hash": "sha256-Nf71k3ZNwGV83yUEcul2HYj/8J7kGeHyWVTRaJ1kCyQ="
+  },
+  {
+    "pname": "Silk.NET.Vulkan.Extensions.KHR",
+    "version": "2.23.0",
+    "hash": "sha256-9kYroJsQohE3EN1Roxp7YeBFuCm3iq4nuS9AINZFMNw="
+  },
+  {
+    "pname": "Silk.NET.Windowing",
+    "version": "2.23.0",
+    "hash": "sha256-YNF5lB/2v01vTkbfUWVbpQD5y72zDqLcx7JFcfdc+mY="
+  },
+  {
+    "pname": "Silk.NET.Windowing.Common",
+    "version": "2.23.0",
+    "hash": "sha256-abwAZM9952XoEfng91UsCBSJNHRI5wqJy8LgPh0BLhY="
+  },
+  {
+    "pname": "Silk.NET.Windowing.Glfw",
+    "version": "2.23.0",
+    "hash": "sha256-jxZMuUUqt+AUWy5h0BRzA8gyD2rWqWMrJPtgd4h6ANY="
+  },
+  {
+    "pname": "StbImageSharp",
+    "version": "2.30.16",
+    "hash": "sha256-e8acj+iix2TQfeMgqiAJuxVgOSiuAEzeRWhsAQbKhJs="
+  },
+  {
+    "pname": "StbTrueTypeSharp",
+    "version": "1.26.12",
+    "hash": "sha256-Hau6dELqN1z4+9JbUCwi72C1pJ4TV7arop6BmQnRksw="
+  },
+  {
+    "pname": "Ultz.Native.GLFW",
+    "version": "3.4.0",
+    "hash": "sha256-+BIUZO+IwVvBxCHaTjnEApoRbYmU04pgD7uejZidE74="
+  }
+]
