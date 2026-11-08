@@ -13,9 +13,13 @@ symlinkJoin {
       name = "nix-preview-user";
       runtimeInputs = [ nom-wrappers nvd ];
       text = ''
-        nom-home-manager build --show-trace "$@"
-        nvd diff "$HOME/.local/state/home-manager/gcroots/current-home" 'result'
-        rm 'result'
+        dir="$(mktemp --directory)"
+
+        env --chdir="$dir" nom-home-manager build --show-trace "$@"
+        nvd diff "$HOME/.local/state/home-manager/gcroots/current-home" "$dir/result"
+
+        rm "$dir/result"
+        rmdir "$dir"
       '';
     })
 
@@ -23,9 +27,13 @@ symlinkJoin {
       name = "nix-preview-system";
       runtimeInputs = [ nom-wrappers nvd ];
       text = ''
-        sudo nom-nixos-rebuild build --show-trace "$@"
-        nvd diff '/nix/var/nix/profiles/system' 'result'
-        rm 'result'
+        dir="$(mktemp --directory)"
+
+        env --chdir="$dir" sudo nom-nixos-rebuild build --show-trace "$@"
+        nvd diff '/nix/var/nix/profiles/system' "$dir/result"
+
+        rm "$dir/result"
+        rmdir "$dir"
       '';
     })
   ];

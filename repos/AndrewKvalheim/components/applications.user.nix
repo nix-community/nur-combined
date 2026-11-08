@@ -27,7 +27,6 @@ in
     # Unfree packages
     nixpkgs.config.allowUnfreePackages = [
       "ffmpeg"
-      "vagrant"
     ];
 
     # Associations
@@ -96,7 +95,6 @@ in
 
       # Container/VM
       dive
-      vagrant
 
       # Command line
       just
@@ -197,6 +195,7 @@ in
       audit-nix-roots
       bubblewrap # Dependency of nixpkgs-review --sandbox
       hydra-check
+      nix-fast-build
       nix-output-monitor
       nix-preview
       nix-top
@@ -359,19 +358,6 @@ in
       net-in-color = blue;
       net-out-color = red;
     };
-    home.file.".vagrant.d/Vagrantfile".text =
-      let ip = "192.168.56.1" /* networking.interfaces.vboxnet0 */; in ''
-        Vagrant.configure('2') do |config|
-          config.vm.provision :shell, name: 'APT cache', inline: <<~BASH
-            if [[ -d '/etc/apt' ]]; then
-              tee '/etc/apt/apt.conf.d/02cache' <<APT
-            Acquire::http::Proxy "http://${ip}:3142";
-            Acquire::https::Proxy "false";
-            APT
-            fi
-          BASH
-        end
-      '';
     xdg.configFile."gopass/config".text = toINI { } config.programs.gopass.settings;
     xdg.configFile."watchlog/config.scfg".text = ''
       delay: 1m

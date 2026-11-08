@@ -2,30 +2,15 @@
 
 let
   inherit (config) host;
+  inherit (config.services) apt-cacher-ng;
   inherit (lib) mkIf mkMerge;
+  inherit (lib.generators) toYAML;
 
   identity = import ../library/identity.lib.nix { inherit lib; };
+  toCloudConfig = data: "#cloud-config\n${toYAML { } data}";
 in
 mkMerge [
   {
-    # Docker
-    virtualisation.docker = {
-      enable = true;
-      enableOnBoot = false;
-      autoPrune.enable = true;
-      daemon.settings = {
-        bip = "10.222.222.1/24";
-        default-address-pools = [
-          { base = "10.222.0.0/17"; size = 24; }
-          { base = "fd22:2222:2222::/49"; size = 64; }
-        ];
-        fixed-cidr = "10.222.128.0/17";
-        fixed-cidr-v6 = "fd22:2222:2222:8000::/49";
-      };
-    };
-    systemd.timers.docker-prune.unitConfig.ConditionACPower = true;
-    users.extraGroups.docker.members = [ identity.username ];
-
     # Podman
     virtualisation.containers.registries.search = [ "docker.io" ];
     virtualisation.podman = { enable = true; autoPrune.enable = true; };
@@ -33,6 +18,50 @@ mkMerge [
     users.extraGroups.podman.members = [ identity.username ];
   }
   (mkIf host.features.vm {
+    # Incus
+    virtualisation.incus = {
+      enable = true;
+      socketActivation = true;
+      preseed = let gateway = "10.26.0.1"; in {
+        storage_pools = [{
+          name = "default";
+          driver = "btrfs";
+          config.source = "/var/lib/incus/storage-pools/default";
+        }];
+        networks = [{
+          name = "incusbr0";
+          config = {
+            "ipv4.address" = "${gateway}/24";
+            "ipv4.nat" = "true";
+            "ipv6.address" = "none";
+          };
+        }];
+        profiles = [
+          {
+            name = "default";
+            devices = {
+              root = { type = "disk"; path = "/"; pool = "default"; };
+              eth0 = { type = "nic"; name = "eth0"; network = "incusbr0"; };
+            };
+          }
+          {
+            name = "apt_cache";
+            config."cloud-init.user-data" = toCloudConfig {
+              apt = {
+                http_proxy = "http://${gateway}:${toString apt-cacher-ng.port}";
+                https_proxy = "DIRECT";
+              };
+            };
+          }
+        ];
+      };
+    };
+    users.extraGroups.incus-admin.members = [ identity.username ];
+    networking.firewall.interfaces.incusbr0 = {
+      allowedTCPPorts = [ apt-cacher-ng.port ];
+      allowedUDPPorts = [ 53 67 ];
+    };
+
     # VirtualBox
     virtualisation.virtualbox.host.enable = true;
     users.extraGroups.vboxusers.members = [ identity.username ];

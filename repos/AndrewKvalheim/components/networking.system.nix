@@ -23,6 +23,9 @@ in
       StaleRetentionSec = 3600;
     };
 
+    # Firewall
+    networking.nftables.enable = true;
+
     # Permissions
     users.users.${identity.username}.extraGroups = [ groups.networkmanager.name ];
 

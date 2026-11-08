@@ -45,9 +45,8 @@ rec {
       "github.com/darkweak/storages/badger/caddy@v0.0.19"
     ];
     hash = {
-      "2.11.7@1.26.8" = "sha256-vVufU6+PdcQMZ8B0uFi3YqN6iay6cpO5wJJaFA1yFfY=";
-      "2.11.7@1.26.9" = "sha256-2OhUPnuOqvjDvyGNO8i4jTZu2EhMgSy3bzVVVfRlsIQ=";
       "2.11.7@1.26.10" = "sha256-UNzLCpkhO67lV6pOqVGNn+rqGht1ySLyblIQDdNlc8Y=";
+      "2.11.9@1.27.3" = "sha256-OOh/aV6l1+i5fukbB7qQw5Lut+QMjUqrqjIQtPMlPCs=";
     }."${pkgs.caddy.version}@${pkgs.caddy.go.version}";
   };
   cc-icons-unicode = callPackage ./library/cc-icons-unicode.pkg.nix { };
@@ -69,14 +68,7 @@ rec {
   journal-brief = callPackage ./library/journal-brief.pkg.nix { };
   little-a-map = callPackage ./library/little-a-map.pkg.nix { };
   mark-applier = callPackage ./library/mark-applier.pkg.nix { };
-  meshtastic-url = (callPackage ./library/meshtastic-url.pkg.nix {
-    python3Packages = (pkgs.python3.override {
-      packageOverrides = _: pythonPackages: with pythonPackages; {
-        # Pending NixOS/nixpkgs#580269
-        imageio = imageio.overridePythonAttrs (i: { disabledTests = unique (i.disabledTests or [ ] ++ [ "test_png" "test_png_16bit" ]); });
-      };
-    }).pkgs;
-  });
+  meshtastic-url = (callPackage ./library/meshtastic-url.pkg.nix { });
   minemap = callPackage ./library/minemap.pkg.nix { };
   office-hours = (callPackage ./library/office-hours.pkg.nix {
     python3 = pkgs.python3.override {

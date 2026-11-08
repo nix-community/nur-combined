@@ -6,6 +6,8 @@
 
   # Dependencies
 , cmake
+, pkg-config
+, zstd
 }:
 
 let
@@ -32,7 +34,8 @@ rustPlatform.buildRustPackage (little-a-map: {
 
   cargoHash = "sha256-Jabyrtl3JPHz/aQxt3wljI9VtkW2FsLHvf/u3+Cera4=";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [ cmake pkg-config ];
+  buildInputs = [ zstd ];
 
   preCheck = ''
     export TEST_OUTPUT_PATH="$TMPDIR"

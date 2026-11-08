@@ -83,7 +83,7 @@ in
       # Adapted from https://github.com/direnv/direnv/wiki/Customizing-cache-location
       declare -A direnv_layout_dirs
       direnv_layout_dir() {
-        local id; id="$(systemd-escape --path "$PWD")"
+        local id; id="$(<<<"$PWD" cksum --algorithm 'sha2' --length '256' --untagged | head --bytes 32)-''${PWD##*/}"
         local store; case "$PWD" in
           "$HOME/project/"*|"$HOME/akorg/project/"*) store='user-state-cache';;
           *) store='user-runtime';;

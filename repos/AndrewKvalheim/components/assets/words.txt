@@ -337,6 +337,7 @@ debconf
 debiasing
 deboss
 debouncer
+declaratively
 declutter
 decolonial
 decompilation
@@ -880,6 +881,7 @@ Mergiraf
 Meshtastic
 mesophyll
 metacharacter
+metapackage
 metapopulation
 metaprogramming
 methylation

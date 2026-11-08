@@ -4,9 +4,7 @@ set -Eeuo pipefail
 . use-udo
 
 # Ephemeral data
-docker system prune --force --volumes
 udo podman system prune --force --volumes
-udo vagrant box prune
 
 # Nix channels
 nix-channel --update

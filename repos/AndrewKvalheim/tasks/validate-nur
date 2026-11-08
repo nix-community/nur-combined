@@ -1,39 +1,131 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
-shopt -s lastpipe
+shopt -s extglob lastpipe
 
-[[ ! -v 1 ]] || readonly attr="$1"
+[[ ! -v 1 ]] || readonly select_attr="$1"
 
-trap 'exit 1' SIGINT SIGTERM
+readonly sgr_pattern=$'\e\[''*([0-9;:])m' # extglob
+readonly support_dir="${BASH_SOURCE[0]%/*}/support"
 
-results=()
 return_code='0'
+declare -a failures
+declare -A reasons reasons_pending
 
-for channel in 'unstable-small' 'nixpkgs'; do
-  nix_args=(
-    -I './'
-    -I "$channel=$(realpath "$(nix-instantiate --find-file "$channel")")"
-    --arg 'pkgs' "import <$channel> { config.allowUnfree = true; overlays = [ ]; }"
-  )
+debug() { [[ ! -v DEBUG ]] || echo "[2m┃ $1[22m" >&2; }
+fail() { echo "[31m┃ $1[39m" >&2; exit 1; }
+trace() { [[ ! -v DEBUG ]] || echo "[2;90m┃ $1[22;39m" >&2; }
+warn() { echo "[33m$1[39m" >&2; }
 
-  nix-env "${nix_args[@]}" --file 'nur.nix' --query '*' --available --meta --json \
-  | jq --raw-output 'to_entries[] | "\(.key)\(.value.meta.problems.broken != null)"' \
-  | while IFS='' read -r name broken; do
-     [[ ! -v attr || "$name" == "$attr" ]] || continue
+get_drv() { local attr_channel="$1"
+  [[ "$attr_channel" =~ ^(.*)@(.*)$ ]]
+  local attr="${BASH_REMATCH[1]}"
+  local channel="${BASH_REMATCH[2]}"
 
-    echo "[34mValidating $name@$channel[39m"
-    if [[ "$broken" == 'true' ]]; then
-      results+=("[33m$name@$channel marked as broken[39m")
-    elif nix-build "${nix_args[@]}" 'nur.nix' --attr "$name" --no-out-link; then
-      results+=("$name@$channel successfully built")
+  nix-instantiate \
+    --quiet \
+    'nur.nix' \
+    --arg 'pkgs' "import <$channel> { config.allowUnfree = true; overlays = [ ]; }" \
+    --attr "$attr" \
+  2> >(grep --invert-match "did not specify '--add-root'" >&2)
+}
+
+result_to_attr() { local json="$1"
+  local attr; attr="$(<<<"$json" jq --raw-output '.attr')"
+  echo "${attr//\"/}"
+}
+
+handle_log() {
+  [[ -v panicking || "${line}" != 'error:'* ]] || { panicking='✓'; return_code='1'; }
+  [[ ! -v panicking ]] || { echo "$line" >&2; return; }
+
+  if [[ "${line}" =~ ^evaluation\ warning:\ (.*)$ ]]; then
+    message="${BASH_REMATCH[1]}"
+    warn "${message}"
+  elif [[ "${line}" =~ ^\"([^\"\>]*)\"\>\ (.*)$ ]]; then
+    attr="${BASH_REMATCH[1]}"
+    entry="${BASH_REMATCH[2]//$sgr_pattern/}" # Workaround to NixOS/nix#5214
+
+    if [[ "$entry" =~ ^error:\ Cannot\ build\ \'([^\']*\.drv)\' ]]; then
+      drv="${BASH_REMATCH[1]}"
+      debug "reasons_pending ${attr@A} ${drv@A}"
+      reasons_pending["$attr"]="$drv"
     else
-      results+=("[31m$name@$channel failed to build[39m")
-      return_code='1'
+      if [[ -n "${reasons_pending["$attr"]:-}" && "$entry" =~ ^[[:space:]]*Reason:\ (.*)\.$ ]]; then
+        reason="${BASH_REMATCH[1]}"
+        drv="${reasons_pending["$attr"]}"
+
+        debug "reasons ${drv@A} ${reason@A}"
+        reasons["$drv"]="$reason"
+      fi
+
+      reasons_pending["$attr"]=''
     fi
-  done
+  fi
+}
+
+handle_result() {
+  case "$(<<<"$line" jq --raw-output '.type')" in
+    'BUILD')
+      case "$(<<<"$line" jq --raw-output '.success')" in
+        'false') debug "failures ${line@A}"; failures+=("$line");;
+        'true') echo "$(result_to_attr "$line"): ok";;
+        *) fail "Not implemented for success: ${line@A}";;
+      esac
+      ;;
+    'EVAL')
+      case "$(<<<"$line" jq --raw-output '.success')" in
+        'true') ;;
+        *) fail "Not implemented for success: ${line@A}";;
+      esac
+      ;;
+    *) fail "Not implemented for type: ${line@A}";;
+  esac
+}
+
+nix_fast_build_args=(
+  --arg 'channels' '[ "nixpkgs" "unstable-small" ]'
+  --eval-workers '1'
+  --file "$support_dir/checks.nix"
+  --stream-json-lines
+)
+if [[ -v select_attr ]]; then
+  nix_fast_build_args+=(--argstr 'package' "$select_attr")
+fi
+
+{
+  NO_COLOR='1' \
+    nix-fast-build "${nix_fast_build_args[@]}" \
+    3>&1 \
+    1> >(stdbuf -oL -eL sed 's/^/1/' >&3) \
+    2> >(stdbuf -oL -eL sed 's/^/2/' >&3) \
+  ||:
+} | while IFS='' read -r tag line; do
+  trace "${tag@A} ${line@A}"
+
+  case "$tag" in
+    '1') handle_result "$line";;
+    '2') handle_log "$line";;
+    *) fail "Not implemented for: ${tag@A} ${line@A}";;
+  esac
 done
 
-printf '\nValidation results:\n\n'
-printf '  - %s\n' "${results[@]}" | sort
+for json in "${failures[@]}"; do
+  attr="$(result_to_attr "$json")"
+  drv="$(get_drv "$attr")"
+
+  if [[ -v reasons["$drv"] ]]; then
+    reason="${reasons["$drv"]}"
+    if [[ "$reason" =~ dependenc(y|ies)\ failed ]]; then
+      echo "[33m$attr: $reason[39m"
+    else
+      echo "[31m$attr: $reason[39m"
+      return_code='1'
+    fi
+  else
+    warn "No reason detected for failure of $drv ($attr)"
+    echo "[31m$attr: $(<<<"$line" jq --raw-output '.error')[39m"
+    return_code='1'
+  fi
+done
 
 exit "$return_code"

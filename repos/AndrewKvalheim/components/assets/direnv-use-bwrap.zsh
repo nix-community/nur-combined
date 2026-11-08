@@ -8,11 +8,13 @@ _direnv_use_bwrap() {
     zparseopts -D -F -- \
       -allow-env+:=allow_env \
       -allow-gopass+:=allow_gopass \
+      -allow-kvm=allow_kvm \
       -allow-ro+:=allow_ro \
       -allow-rw+:=allow_rw
 
-    local id="$(systemd-escape --path "$DIRENV_USE_BWRAP")"
-    local -aU create_dir expose_env expose_ns expose_path_ro expose_path_rw maybe_expose_path_ro
+    local dir="$DIRENV_USE_BWRAP"
+    local id="$(<<<"$dir" cksum --algorithm 'sha2' --length '256' --untagged | head --bytes 32)-''${dir##*/}"
+    local -aU create_dir expose_dev expose_env expose_ns expose_path_ro expose_path_rw maybe_expose_path_ro
     local -A expose_fd_as expose_path_ro_as expose_path_rw_as maybe_expose_path_ro_as set_env
 
     #
@@ -26,6 +28,9 @@ _direnv_use_bwrap() {
       'XDG_RUNTIME_DIR'
     )
     if [[ -v XDG_RUNTIME_DIR ]] create_dir+=("$XDG_RUNTIME_DIR")
+
+    # Virtualization
+    if (( "${#allow_kvm[@]}" == 1 )) expose_dev+=('/dev/kvm')
 
     # Sensors
     expose_path_ro+=(
@@ -188,7 +193,7 @@ _direnv_use_bwrap() {
 
     # Project
     expose_path_rw+=(
-      "$DIRENV_USE_BWRAP"
+      "$dir"
     )
     for _ p in "${(@)allow_ro}"; expose_path_ro+=("${p:a}")
     for _ p in "${(@)allow_rw}"; expose_path_rw+=("${p:a}")

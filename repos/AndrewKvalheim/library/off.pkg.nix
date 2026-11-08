@@ -22,7 +22,6 @@ resholve.writeScriptBin "off"
   ];
   fake.external = [
     # Runtime dependencies
-    "docker"
     "nix-channel"
     "poweroff"
     "systemctl"
