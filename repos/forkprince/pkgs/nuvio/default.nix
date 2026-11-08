@@ -3,6 +3,8 @@
   fetchurl,
   _7zz,
   lib,
+  mpv-unwrapped,
+  webkitgtk_4_1,
 }: let
   ver = lib.helper.read ./version.json;
 
@@ -34,4 +36,9 @@ in
       desktopId = "Nuvio";
       categories = ["AudioVideo" "Video"];
       startupWMClass = "com-nuvio-app-MainKt";
+
+      extraPkgs = [
+        mpv-unwrapped
+        webkitgtk_4_1
+      ];
     }
