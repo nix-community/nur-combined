@@ -5,12 +5,12 @@
 }:
 stdenv.mkDerivation rec {
   pname = "nix-reaper";
-  version = "fb8b24f";
+  version = "4de38aa";
   src = fetchFromGitHub {
     owner = "ibuysausage";
     repo = "nix-reaper";
     rev = version;
-    sha256 = "sha256-kLiWC5PLFCryHtdLICikmtar3DijJgXiE8rugZCmVrM=";
+    sha256 = "sha256-9ryVygJ8nChxy8yO8EQ1ydiqcPYnVKDFCTic1wnot6Q=";
   };
   buildPhase = ''
     runHook preBuild
