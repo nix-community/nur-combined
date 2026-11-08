@@ -293,7 +293,7 @@
     "linux-enable-ir-emitter": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-lHNo00xhyk3objKR1RUPofSxImJ12V1yShAibjKZ7lw=/Cargo.lock",
+                "sha256-8uQne04IvT439y8Z+63wF08nXDijMs5F8DoUWkXIFhA=/Cargo.lock",
                 {
                     "ansipix-2.0.0": "sha256-RkwicughatQcuXnPIRtnL36xkfFzCsHDgL+VZCi46WY="
                 }
@@ -311,12 +311,12 @@
             "name": null,
             "owner": "EmixamPP",
             "repo": "linux-enable-ir-emitter",
-            "rev": "7.0.0-beta",
-            "sha256": "sha256-lHNo00xhyk3objKR1RUPofSxImJ12V1yShAibjKZ7lw=",
+            "rev": "7.0.0",
+            "sha256": "sha256-8uQne04IvT439y8Z+63wF08nXDijMs5F8DoUWkXIFhA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "7.0.0-beta"
+        "version": "7.0.0"
     },
     "loveiwara": {
         "cargoLock": null,
