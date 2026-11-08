@@ -46,7 +46,7 @@ buildGoApplication {
     "-w"
     "-X=github.com/sagernet/sing-box/constant.Version=${source.version}"
     # release/LDFLAGS; 1.14 renamed the knob from `internal/godebug.defaultGODEBUG`.
-    "-X=runtime.godebugDefault=multipathtcp=0,tlssha1=1,tlsunsafeekm=1"
+    "-X=runtime.godebugDefault=multipathtcp=0,tlssha1=1"
     "-checklinkname=0"
   ];
 
