@@ -5,7 +5,7 @@
   fetchurl,
   buildFHSEnv,
   writeShellScript,
-  renderNode ? "/dev/dri/by-path/pci-0000:01:00.0-render",
+  renderNode ? null,
 }:
 let
   sources = builtins.fromJSON (builtins.readFile ./sources.json);
