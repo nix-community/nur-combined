@@ -8,7 +8,7 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "out-of-your-element";
-  version = "3.7";
+  version = "3.8.2";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -18,14 +18,14 @@ buildNpmPackage (finalAttrs: {
     owner = "cadence";
     repo = "out-of-your-element";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-JMT5wPTYXeqXP832Lm9QTXj1ukaCXXJGtSsXNj6GnIs=";
+    hash = "sha256-o5T/feGrwKTB0BJ5HZbaw/q2e+/uzSzBBHJHpgrGKnI=";
   };
 
   patches = [
     ./0001-fix-setup-remove-connectivity-check.patch
   ];
 
-  npmDepsHash = "sha256-SYxAef1MJTGCLPMBM+RVKUEY1UNR6tSHMeU62CqF1OM=";
+  npmDepsHash = "sha256-a/4bZ1tKpI28ndOqdzsB+PsrPpnJTlBygOkMjNSmPY4=";
   dontNpmBuild = true;
 
   nativeInstallInputs = [

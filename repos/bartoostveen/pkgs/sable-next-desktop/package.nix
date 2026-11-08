@@ -15,6 +15,7 @@
   rustPlatform,
   electron_45,
   atk,
+  aws-lc,
   cairo,
   dbus,
   gdk-pixbuf,
@@ -71,6 +72,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [
     atk
+    aws-lc
     cairo
     dbus
     gdk-pixbuf

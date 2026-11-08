@@ -3,6 +3,7 @@
   rustPlatform,
   fetchFromForgejo,
   pkg-config,
+  aws-lc,
   cacert,
   nix-update-script,
 }:
@@ -26,6 +27,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   nativeBuildInputs = [
     pkg-config
+  ];
+
+  buildInputs = [
+    aws-lc
   ];
 
   nativeCheckInputs = [

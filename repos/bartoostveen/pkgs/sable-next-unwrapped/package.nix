@@ -20,7 +20,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "sable-next-unwrapped";
-  version = "2.3.6";
+  version = "2.3.8";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -30,12 +30,12 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "SableClient";
     repo = "sable-next";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-SOsJ+ZFWzOxg/ijfDzZnmXaxPMAU9B5XHGg4ieJAak8=";
+    hash = "sha256-bCb1vN9LkwkuAjshp6Gq6cibMSUXl6ltzpVThlcrE+s=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) src;
-    hash = "sha256-7C8c0IEtA+/ev4WUL9DLfHSYVZ3P9jZf4h+KIICV6GM=";
+    hash = "sha256-BAg6nljjuDaIAXhplI0vFBX1h4eJCR72vo0CIUlTeY8=";
   };
 
   nativeBuildInputs = [
@@ -57,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
     fetcherVersion = 5;
-    hash = "sha256-SP8VW5AXFhZ9jr6XhrsH4w8cJUYcsoeSqXo8gGrjlng=";
+    hash = "sha256-1tgo7mxHHz2J5BT3NCSKONZIhwg5ouyZbtv5vBkhRn8=";
   };
 
   env = {
