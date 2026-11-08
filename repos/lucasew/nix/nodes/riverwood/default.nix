@@ -89,6 +89,8 @@ in
   };
 
   services.hardware.openrgb.enable = true;
+  
+  services.nomad.enable = true;
 
   networking.hostName = hostname; # Define your hostname.
 
