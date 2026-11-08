@@ -3,7 +3,9 @@
   glib-networking,
   buildFHSEnv,
   stdenvNoCC,
+  writeText,
   fetchurl,
+  flatpak,
   zstd,
   glib,
   lib,
@@ -24,6 +26,19 @@
     sourceProvenance = [lib.sourceTypes.binaryNativeCode];
   };
 
+  flatpakInfo = writeText "flatpak-info" ''
+    [Application]
+    name=org.vinegarhq.Sober
+    runtime=org.gnome.Platform/x86_64/51
+
+    [Instance]
+    instance-id=sober
+    arch=x86_64
+    flatpak-version=${flatpak.version}
+    branch=stable
+    sandbox=true
+  '';
+
   unwrapped = stdenvNoCC.mkDerivation {
     pname = "${pname}-unwrapped";
     inherit version src;
@@ -32,6 +47,7 @@
 
     sourceRoot = ".";
     dontBuild = true;
+    dontStrip = true;
     dontFixup = true;
 
     unpackPhase = ''
@@ -100,10 +116,17 @@ in
       ];
 
     profile = ''
+      export container=flatpak
       export XDG_DATA_DIRS="${gsettings-desktop-schemas}/share/gsettings-schemas/${gsettings-desktop-schemas.name}:$XDG_DATA_DIRS"
       export GIO_EXTRA_MODULES="${glib.out}/lib/gio/modules"
       export GIO_MODULE_DIR="${glib-networking}/lib/gio/modules"
     '';
+
+    extraBwrapArgs = [
+      "--ro-bind"
+      "${flatpakInfo}"
+      "/.flatpak-info"
+    ];
 
     runScript = "${unwrapped}/bin/sober";
 
