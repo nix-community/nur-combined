@@ -1,11 +1,13 @@
 {
   # keep-sorted start
+  aws-lc,
   fetchFromGitHub,
   fetchurl,
   lib,
   libheif,
   pkg-config,
   rustPlatform,
+  zstd,
   # keep-sorted end
 }: let
   # Match the test_documents submodule revision pinned by the release.
@@ -68,7 +70,8 @@ in
     '';
 
     nativeBuildInputs = [pkg-config];
-    buildInputs = [libheif];
+    # nixpkgs' cargo setup hook links these crates against system libraries.
+    buildInputs = [aws-lc libheif zstd];
 
     # Enable all format parsers without OCR, model runtimes, or PDFium.
     buildNoDefaultFeatures = true;
