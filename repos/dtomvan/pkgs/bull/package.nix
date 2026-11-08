@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   buildGoModule,
   fetchFromGitHub,
@@ -34,7 +33,7 @@ buildGoModule (finalAttrs: {
     updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
     services.default = {
-      imports = lib.singleton (lib.modules.importApply ./service.nix { inherit pkgs; });
+      imports = [ ./service.nix ];
       bull.package = finalAttrs.finalPackage;
     };
   };
