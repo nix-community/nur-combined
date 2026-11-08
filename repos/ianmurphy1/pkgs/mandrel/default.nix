@@ -90,11 +90,11 @@ let
   mandrel = stdenv.mkDerivation (
     {
       pname = "mandrel";
-      version = "25.0.4.1";
+      version = "25.0.5.0";
 
       src = builtins.fetchurl {
-        url = "https://github.com/graalvm/mandrel/releases/download/mandrel-25.0.4.1-Final/mandrel-java25-linux-amd64-25.0.4.1-Final.tar.gz";
-        sha256 = "0cac0n4qka19cbxwhg7gc7xa4fvgzi4rlp66zn1b9nx8wszzczz4";
+        url = "https://github.com/graalvm/mandrel/releases/download/mandrel-25.0.5.0-Final/mandrel-java25-linux-amd64-25.0.5.0-Final.tar.gz";
+        sha256 = "2436bb98b96b2cf439e218dfa3df53978588bc23c6e9f2cfed6a408db189951d";
       };
 
       unpackPhase = ''

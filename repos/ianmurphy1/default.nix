@@ -15,12 +15,12 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   r2-sync = pkgs.callPackage ./pkgs/r2-sync {};
-  # commafeed = 
-  #   let
-  #     mandrel = pkgs.callPackage ./pkgs/mandrel {};
-  #   in
-  #     pkgs.callPackage ./pkgs/commafeed {inherit mandrel;};
-  commanfeed = pkgs.callPackage ./pkgs/commafeed {};
+  commafeed = 
+    let
+      mandrel = pkgs.callPackage ./pkgs/mandrel {};
+    in
+      pkgs.callPackage ./pkgs/commafeed {inherit mandrel;};
+  # commafeed = pkgs.callPackage ./pkgs/commafeed {};
   # zot = pkgs.callPackage ./pkgs/zot {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
