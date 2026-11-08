@@ -109,4 +109,11 @@
                 homeModules = import ./modules/home-manager;
             };
         };
+
+    nixConfig = {
+        extra-substituters = [ "https://cache.manic.systems" ];
+        extra-trusted-public-keys = [
+            "cache.manic.systems-1:s6OZanN8Us8vRi0jVivP3qlMn0cYHBjBALKrNe5nH8s="
+        ];
+    };
 }
