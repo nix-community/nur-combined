@@ -4,6 +4,7 @@
   fetchFromGitHub,
   git,
   lib,
+  oniguruma,
   openssl,
   pkg-config,
   rustPlatform,
@@ -26,7 +27,8 @@ rustPlatform.buildRustPackage rec {
   cargoTestFlags = ["-p" pname "--" "--skip" "add_template_registry_download_keeps_tempdir_alive" "--skip" "with_template_two_level_generation"];
 
   nativeBuildInputs = [git pkg-config];
-  buildInputs = [openssl];
+  # nixpkgs' cargo setup hook links these crates against system libraries.
+  buildInputs = [oniguruma openssl];
   SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
   doInstallCheck = true;
