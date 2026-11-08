@@ -116,10 +116,10 @@
     };
     "adaptive-tab-bar-colour" = buildMozillaXpiAddon {
       pname = "adaptive-tab-bar-colour";
-      version = "4.3.0";
+      version = "4.3.1";
       addonId = "ATBC@EasonWong";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5072867/adaptive_tab_bar_colour-4.3.0.xpi";
-      sha256 = "5c259df117f67be9ce6fa5e7fe3452f7344441df332b367cfc1d511b2d67c842";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5220770/adaptive_tab_bar_colour-4.3.1.xpi";
+      sha256 = "a6f560b62341dd4969a13acd401a41d11c9f2881bd3c056440280161fee21cf9";
       meta = with lib;
       {
         homepage = "https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour";
@@ -1150,10 +1150,10 @@
     };
     "betterttv" = buildMozillaXpiAddon {
       pname = "betterttv";
-      version = "7.7.30";
+      version = "7.7.31";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5214637/betterttv-7.7.30.xpi";
-      sha256 = "73cfb19b616a21f81a4d35df61195388e0543d512fdaf324ba7eec09d1a7e197";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5222173/betterttv-7.7.31.xpi";
+      sha256 = "905048a2fbb24cfb88e66a10e229986368586da1fe2e24b91326215791218260";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -3765,10 +3765,10 @@
     };
     "dualsub" = buildMozillaXpiAddon {
       pname = "dualsub";
-      version = "2.71.1";
+      version = "2.72.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4911904/dualsub-2.71.1.xpi";
-      sha256 = "3c7fce0cab619775c7a2f604e7b84dbd14affc5ec7ca64c85a75001d6c53927e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5223189/dualsub-2.72.0.xpi";
+      sha256 = "6ba0bdf67d2b3647ab66ce7c0284d1271c6ba74a8fe0897d0f3a239f63750673";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -3783,11 +3783,6 @@
           "storage"
           "https://www.youtube.com/*"
           "https://m.youtube.com/*"
-          "https://www.iflix.com/*"
-          "https://www.iq.com/*"
-          "https://www.viki.com/*"
-          "https://www.youku.tv/*"
-          "https://wetv.vip/*"
         ];
         platforms = platforms.all;
       };
@@ -11273,10 +11268,10 @@
     };
     "purpleadblock" = buildMozillaXpiAddon {
       pname = "purpleadblock";
-      version = "2.7.1";
+      version = "2.7.2";
       addonId = "{a7399979-5203-4489-9861-b168187b52e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5191569/purpleadblock-2.7.1.xpi";
-      sha256 = "c13f22f9c814b330015e2bc5b1c8256db15191f20a675e626504db00ea2e4e3f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5222539/purpleadblock-2.7.2.xpi";
+      sha256 = "e0c12660896828d7348d09f94c4d33505269b8cafffcf7732357743e5fed8329";
       meta = with lib;
       {
         description = "Blocks the ads Twitch puts in live streams by editing the stream playlists inside the Twitch player. No proxy, no data collected.";
@@ -12762,10 +12757,10 @@
     };
     "return-youtube-dislikes" = buildMozillaXpiAddon {
       pname = "return-youtube-dislikes";
-      version = "4.1.5";
+      version = "4.1.7";
       addonId = "{762f9885-5a13-4abd-9c77-433dcd38b8fd}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5205580/return_youtube_dislikes-4.1.5.xpi";
-      sha256 = "82b780b5bab6a03aafa07cf89f17c4c49f4d13333867772e3e975c1c6c827a53";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5222672/return_youtube_dislikes-4.1.7.xpi";
+      sha256 = "ac52f0786bbf4e4a669009be0e2847c21c642e60cfe358c01a80057c52d507d6";
       meta = with lib;
       {
         description = "Returns ability to see dislike statistics on youtube";
@@ -12938,10 +12933,10 @@
     };
     "save-all-images-webextension" = buildMozillaXpiAddon {
       pname = "save-all-images-webextension";
-      version = "1.1.0";
+      version = "1.1.1";
       addonId = "{32af1358-428a-446d-873e-5f8eb5f2a72e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5201606/save_all_images_webextension-1.1.0.xpi";
-      sha256 = "c04776bdafd6dd602383caf9a6ef66903af3867766e999806e5401baffa32ed6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5219892/save_all_images_webextension-1.1.1.xpi";
+      sha256 = "e11fd826158c4b033047761fef50e865351bbdb3f73b5ece83ce6c2a5985e2d4";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/save-images.html";
@@ -15793,10 +15788,10 @@
     };
     "v2ex-polish" = buildMozillaXpiAddon {
       pname = "v2ex-polish";
-      version = "2.5.7";
+      version = "2.5.8";
       addonId = "leokudev@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/5215455/v2ex_polish-2.5.7.xpi";
-      sha256 = "cb0211908baa0cfd155665c0a7df7d7a5eaae68928c106507931f0f52f0f798a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/5220984/v2ex_polish-2.5.8.xpi";
+      sha256 = "2c216a6e90d253a9371bac78a046a2e3d44e30d6e45082e762acbdc22485b678";
       meta = with lib;
       {
         description = "专为 V2EX 用户设计，提供了丰富的扩展功能。";
