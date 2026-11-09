@@ -8,6 +8,7 @@
   hdf5,
   cmake,
   perl,
+  aws-lc,
   nix-update-script,
 }:
 
@@ -31,6 +32,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   buildInputs = [
+    aws-lc
     openblas
     openssl
     hdf5
