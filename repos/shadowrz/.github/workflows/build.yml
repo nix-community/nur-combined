@@ -1,4 +1,4 @@
-name: "Build"
+name: build
 
 on:
   workflow_dispatch:
@@ -6,47 +6,132 @@ on:
   push:
     branches:
       - master
-  schedule:
-    # rebuild everyday at 1:10
-    # TIP: Choose a random time here so not all repositories are build at once:
-    # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
-    - cron:  '10 1 * * *'
 
 jobs:
-  build:
+  eval:
     strategy:
+      fail-fast: false
       matrix:
-        nixpkgs:
-          - nixpkgs-unstable
-          - nixos-unstable
-          - nixos-26.05
-    runs-on: ubuntu-latest
+        include:
+          - system: x86_64-linux
+            os: ubuntu-latest
+          - system: aarch64-linux
+            os: ubuntu-26.04-arm
+          - system: aarch64-darwin
+            os: macos-latest
+    runs-on: ${{ matrix.os }}
+    name: "eval (${{ matrix.system }})"
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v5
-    - name: Install Nix
-      uses: nixbuild/nix-quick-install-action@v35
-      with:
-        nix_conf: |
-          experimental-features = nix-command flakes ca-derivations
-          extra-experimental-features = nix-command flakes ca-derivations
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-          keep-going = true
-          log-lines = 25
-          substituters = https://nix-community.cachix.org https://cache.nixos.org/
-          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
-          trusted-substituters = https://nix-community.cachix.org https://cache.nixos.org/
-    - name: Setup cachix
-      uses: cachix/cachix-action@v15
-      with:
-        name: shadowrz
-        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-    - name: Show nixpkgs version
-      env:
-        NIXPKGS_VERSION: ${{ matrix.nixpkgs }}
-      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version' -I "nixpkgs=https://channels.nixos.org/${NIXPKGS_VERSION}/nixexprs.tar.zst"
-    - name: Build
-      env:
-        NIXPKGS_VERSION: ${{ matrix.nixpkgs }}
-      run: nix run github:Mic92/nix-fast-build -- --file . --skip-cached -I "nixpkgs=https://channels.nixos.org/${NIXPKGS_VERSION}/nixexprs.tar.zst"
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install Nix
+        uses: nixbuild/nix-quick-install-action@9f63be77f412a248c9d9a65a4c82cf066cdf8f0c # v35
+      - name: Configure Cachix
+        uses: cachix/cachix-action@38b082610b782e7e93e209c35fd730d399dee866 # v17
+        with:
+          name: shadowrz
+          extraPullNames: nix-community
+          skipPush: true
+      - name: Eval
+        run: |
+          all_drvs="$(nix run nixpkgs#nix-eval-jobs --inputs-from . -- --flake '.#packages.${{ matrix.system }}' --force-recurse --check-cache-status)"
+          unbuilt_drvs="$(echo "${all_drvs}" | jq --compact-output '
+            select (.cacheStatus == "notBuilt")
+            | {
+              attr,
+              attrPath,
+              outPaths: .outputs | join(" "),
+              system,
+              os: "${{ matrix.os }}",
+            }
+          ')"
+          echo "${unbuilt_drvs}" | jq
+          echo "${unbuilt_drvs}" > eval-${{ matrix.system }}
+
+      - name: Upload Result
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: eval-${{ matrix.system }}
+          path: eval-${{ matrix.system }}
+
+  aggregate:
+    needs: eval
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.aggregate.outputs.matrix }}
+
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: eval-*
+          merge-multiple: true
+          path: eval-results
+
+      - name: Aggregate
+        id: aggregate
+        run: |
+          concat_drvs="$(cat eval-results/* | jq --slurp --compact-output)"
+          echo "${concat_drvs}" | jq
+
+          # GHA requires that at least one entry is presented in the matrix.
+          matrix="$(echo "${concat_drvs}" | jq --compact-output '
+            if length == 0 then
+              [{
+                attr: "dummy",
+                attrPath: ["dummy"],
+                outPaths: [],
+                system: "x86_64-linux",
+                os: "ubuntu-latest",
+                skip: true
+              }]
+            else
+              map(. + { skip: false })
+            end
+          ')"
+          echo "matrix=${matrix}" >> ${GITHUB_OUTPUT}
+
+  build:
+    needs: aggregate
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJson(needs.aggregate.outputs.matrix) }}
+    name: build (${{ matrix.attr }}, ${{ matrix.system }})
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        if: ${{ !matrix.skip }}
+        with:
+          persist-credentials: false
+      - name: Install Nix
+        uses: nixbuild/nix-quick-install-action@9f63be77f412a248c9d9a65a4c82cf066cdf8f0c # v35
+        if: ${{ !matrix.skip }}
+      - name: Configure Cachix
+        uses: cachix/cachix-action@38b082610b782e7e93e209c35fd730d399dee866 # v17
+        if: ${{ !matrix.skip }}
+        with:
+          name: shadowrz
+          extraPullNames: nix-community
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          pathsToPush: ${{ matrix.outPaths }}
+      - name: Build
+        if: ${{ !matrix.skip }}
+        env:
+          ATTR_PATH: ${{ matrix.attr }}
+        run: nix build ".#${ATTR_PATH}^*" --print-build-logs
+
+  build-ok:
+    needs: build
+    runs-on: ubuntu-slim
+    if: always()
+    steps:
+      - name: Build OK
+        run: |
+          if [[ "${{ needs.build.result }}" != "success" ]]; then
+            echo "Some builds failed"
+            exit 1
+          fi
