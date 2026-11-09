@@ -40,7 +40,7 @@ redistribution.
 | `meitou-launcher` | `1.9.0` | Source-built launcher that downloads Meitou versions (requires Kenshi) | Yes |
 | `cybergrub2077` | `2.0.1-unstable-2026-02-28` | Cyberpunk 2077 inspired GRUB theme | Yes |
 | `nmssaveeditor` | `1.21.0` | Save editor for No Man's Sky | No: unfree |
-| `pig` | `0.5.3` | Pi coding agent rebuilt in Go as a native binary | Yes |
+| `pig` | `0.7.0` | Pi coding agent rebuilt in Go as a native binary | Yes |
 | `rimsort-appimage` | `1.17.4` | RimWorld mod manager | Yes |
 | `scopebuddy` | `1.5.0` | Gamescope manager | Yes |
 | `storyforge` | `2.0.11` | Story Forge desktop application, built independently of the upstream flake | Yes |
