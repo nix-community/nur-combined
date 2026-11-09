@@ -116,6 +116,22 @@
       hash = "sha256-6TxzO+cuRHNbyKY5s6LZX6gKRLWrTHVsklXESDF9JxA=";
     };
   };
+  nexttodo-linux-arm64 = {
+    pname = "nexttodo-linux-arm64";
+    version = "0.1.145";
+    src = fetchurl {
+      url = "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.145/nexttodo-linux-arm64";
+      hash = "sha256-a/CL88c/xep13Jjj+Np/WKZenE60KZRQgJKt6DSvkTs=";
+    };
+  };
+  nexttodo-linux-x64 = {
+    pname = "nexttodo-linux-x64";
+    version = "0.1.145";
+    src = fetchurl {
+      url = "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.145/nexttodo-linux-x64";
+      hash = "sha256-o2Qz1oAmsuZsyFw20JRzSTNrYhAkw5WySW0YrhvFffk=";
+    };
+  };
   nexus-media = {
     pname = "nexus-media";
     version = "v5.9.4";

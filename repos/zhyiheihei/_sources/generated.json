@@ -222,6 +222,36 @@
         },
         "version": "v0.7.1"
     },
+    "nexttodo-linux-arm64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "nexttodo-linux-arm64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-a/CL88c/xep13Jjj+Np/WKZenE60KZRQgJKt6DSvkTs=",
+            "type": "url",
+            "url": "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.145/nexttodo-linux-arm64"
+        },
+        "version": "0.1.145"
+    },
+    "nexttodo-linux-x64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "nexttodo-linux-x64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-o2Qz1oAmsuZsyFw20JRzSTNrYhAkw5WySW0YrhvFffk=",
+            "type": "url",
+            "url": "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v0.1.145/nexttodo-linux-x64"
+        },
+        "version": "0.1.145"
+    },
     "nexus-media": {
         "cargoLock": null,
         "date": null,

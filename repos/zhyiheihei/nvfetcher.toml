@@ -43,6 +43,16 @@ src.github_tag = "mxcoras/jieba-next"
 fetch.github = "zhyiheihei/navdash"
 src.github_tag = "zhyiheihei/navdash"
 
+[nexttodo-linux-arm64]
+fetch.url = "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v$ver/nexttodo-linux-arm64"
+src.github = "JunieXD/NextTodo"
+src.prefix = "v"
+
+[nexttodo-linux-x64]
+fetch.url = "https://gh-proxy.com/https://github.com/JunieXD/NextTodo/releases/download/v$ver/nexttodo-linux-x64"
+src.github = "JunieXD/NextTodo"
+src.prefix = "v"
+
 [nexus-media]
 fetch.github = "linyuan0213/nexus-media"
 src.github = "linyuan0213/nexus-media"
