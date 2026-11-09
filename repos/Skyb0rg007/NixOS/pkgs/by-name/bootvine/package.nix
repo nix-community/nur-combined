@@ -28,6 +28,23 @@ rustPlatform.buildRustPackage (finalAttrs: {
     systemdLibs
   ];
 
+  cargoBuildFlags = [
+    "--package=bootvine"
+  ];
+  cargoTestFlags = finalAttrs.cargoBuildFlags;
+
+  postInstall = ''
+    for unit in \
+      bootvine.service \
+      bootvine-shutdown.service \
+      systemd-hibernate-resume.service.d/bootvine.conf
+    do
+      install -Dm644 bootvine/system-files/systemd/$unit $out/lib/systemd/system/$unit
+      substituteInPlace $out/lib/systemd/system/$unit \
+        --replace-fail /usr/bin/bootvine $out/bin/bootvine
+    done
+  '';
+
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
 
@@ -36,6 +53,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     homepage = "https://codeberg.org/wvhulle/bootvine/";
+    changelog = "https://codeberg.org/wvhulle/bootvine/src/tag/v${finalAttrs.version}/CHANGELOG.md";
     mainProgram = "bootvine";
     maintainers = [ lib.maintainers.skyesoss ];
   };
