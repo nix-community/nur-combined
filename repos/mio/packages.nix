@@ -81,6 +81,16 @@ exportedByName
   graphene-hardened-malloc = v3overrideAttrs pkgs.graphene-hardened-malloc;
   "art-standalone-patched" = art-standalone_patched;
   macapk = mac-apk;
+  sniffnet_patched = sniffnet-patched;
+  "chatgpt-patched" = chatgpt_patched;
+  "codex-patched" = codex_patched;
+  "polarity-patched" = polarity_patched;
+  "rayburst-patched" = rayburst_patched;
+  "rustdesk-patched" = rustdesk_patched;
+  "sem-cli-patched" = sem-cli_patched;
+  "splayer-next-patched" = splayer-next_patched;
+  "tectonic-patched" = tectonic_patched;
+  "thonny-patched" = thonny_patched;
 
   # https://github.com/a1ive/grub — a1ive's GRUB fork with mouse/touchscreen support
   # (efi_mouse + ps2mouse modules). Archived upstream but buildable.

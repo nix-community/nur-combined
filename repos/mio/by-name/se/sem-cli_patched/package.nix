@@ -1,5 +1,0 @@
-{
-  sem-cli,
-}:
-
-sem-cli
