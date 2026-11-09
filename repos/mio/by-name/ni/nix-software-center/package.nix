@@ -96,6 +96,7 @@ stdenv.mkDerivation rec {
     libadwaita
     libxml2
     openssl
+    sqlite
     wayland
     adwaita-icon-theme
     desktop-file-utils
