@@ -159,13 +159,6 @@
     inputs.flake-parts.follows = "flake-parts";
   };
 
-  inputs.emacs-openrpc-mode = {
-    url = "github:nagy/emacs-openrpc-mode";
-    inputs.nixpkgs.follows = "nixpkgs";
-    inputs.treefmt-nix.follows = "treefmt-nix";
-    inputs.flake-parts.follows = "flake-parts";
-  };
-
   inputs.emacs-ipfs-modes = {
     url = "github:nagy/emacs-ipfs-modes";
     inputs.nixpkgs.follows = "nixpkgs";

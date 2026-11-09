@@ -404,32 +404,6 @@
         "type": "github"
       }
     },
-    "emacs-openrpc-mode": {
-      "inputs": {
-        "flake-parts": [
-          "flake-parts"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "treefmt-nix": [
-          "treefmt-nix"
-        ]
-      },
-      "locked": {
-        "lastModified": 1793910604,
-        "narHash": "sha256-mjASMjIwYYHfNNH0KH/aCuoiZwtXf96nW9wd53ik0+g=",
-        "owner": "nagy",
-        "repo": "emacs-openrpc-mode",
-        "rev": "b0623817b50602317f8f6e36a6a3f0b687d3c1d5",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nagy",
-        "repo": "emacs-openrpc-mode",
-        "type": "github"
-      }
-    },
     "emacs-openstack-modes": {
       "inputs": {
         "flake-parts": [
@@ -928,7 +902,6 @@
         "emacs-ipfs-modes": "emacs-ipfs-modes",
         "emacs-map-extras": "emacs-map-extras",
         "emacs-network-modes": "emacs-network-modes",
-        "emacs-openrpc-mode": "emacs-openrpc-mode",
         "emacs-openstack-modes": "emacs-openstack-modes",
         "emacs-overlay": "emacs-overlay",
         "emacs-ron-ts-mode": "emacs-ron-ts-mode",

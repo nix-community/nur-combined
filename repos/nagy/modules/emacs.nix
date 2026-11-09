@@ -113,10 +113,6 @@ let
           (flakes.emacs-ron-ts-mode or (builtins.getFlake "github:nagy/emacs-ron-ts-mode"))
           .packages.${pkgs.stdenv.hostPlatform.system}.ron-ts-mode;
 
-        openrpc-mode =
-          (flakes.emacs-openrpc-mode or (builtins.getFlake "github:nagy/emacs-openrpc-mode"))
-          .packages.${pkgs.stdenv.hostPlatform.system}.openrpc-mode;
-
         map-extras =
           (flakes.emacs-map-extras or (builtins.getFlake "github:nagy/emacs-map-extras"))
           .packages.${pkgs.stdenv.hostPlatform.system}.map-extras.override
