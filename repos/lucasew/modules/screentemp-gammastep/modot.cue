@@ -7,14 +7,14 @@ file: home: {
 			type: "ini"
 			values: {
 				general: {
-					"temp-day":          5500
-					"temp-night":        3700
+					"temp-day":          options.screentemp.temperature.day
+					"temp-night":        options.screentemp.temperature.night
 					"location-provider": "manual"
 					"adjustment-method": "wayland"
 				}
 				manual: {
-					lat: -24.0
-					lon: -54.0
+					lat: options.screentemp.location.latitude
+					lon: options.screentemp.location.longitude
 				}
 			}
 		}

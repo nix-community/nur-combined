@@ -211,7 +211,6 @@ modules: {
 	script_directory: {input: "self:modules/script-directory", enable: true}
 	mise: {input: "self:modules/mise", enable: true}
 	nix: {input: "self:modules/nix", enable: true}
-	gammastep: {input: "self:modules/gammastep", enable: true}
 	herdr: {input: "self:modules/herdr", enable: true}
 	helix: {input: "self:modules/helix", enable: true}
 	grok: {input: "self:modules/grok", enable: true}
@@ -630,5 +629,27 @@ file: home: {
 				terminal: default_shell: "/opt/homebrew/bin/bash"
 			}
 		}
+	}
+}
+
+// screentemp module
+modules: {
+	screentemp: {
+		input: "self:modules/screentemp"
+		enable: true
+	}
+	screentemp_gammastep: {
+		input: "self:modules/screentemp-gammastep"
+		enable: true
+	}
+}
+options: screentemp: {
+	location: {
+		latitude:  -24
+		longitude: -54
+	}
+	temperature: {
+		day:   5500
+		night: 3700
 	}
 }
