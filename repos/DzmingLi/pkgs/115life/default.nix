@@ -66,11 +66,11 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "115life";
-  version = "37.3.2";
+  version = "37.3.3";
 
   src = fetchurl {
     url = "https://down.115.com/client/115pc/lin/115Life_${finalAttrs.version}.deb";
-    hash = "sha256-tlMPMheHxefqTADM0Lxu7h2ZtZl/jNqPcB0N0AwCL34=";
+    hash = "sha256-FfKqZlrD5FulMM3ucfCoOx4GuYLYSw5F8M95J4VVsVg=";
   };
 
   nativeBuildInputs = [
@@ -162,7 +162,7 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "115 Life cloud storage desktop client";
     homepage = "https://115.com/";
-    downloadPage = "https://q.115.com/115/T987928.html";
+    downloadPage = "https://q.115.com/115/T988755.html";
     license = lib.licenses.unfree;
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     platforms = [ "x86_64-linux" ];
