@@ -1,12 +1,14 @@
-{ lib, appimageTools, fetchurl, makeDesktopItem, nix-update-script }:
+{ lib, appimageTools, fetchurl, makeDesktopItem, writeScript, nix-update-script }:
 
 let
   pname = "BedrockOnLinux";
-  version = "2.2.10";
+  version = "2.3.0";
 
   src = fetchurl {
     url = "https://github.com/Wyze3306/BedrockOnLinux/releases/download/v${version}/BedrockOnLinux-${version}-x86_64.AppImage";
-    hash = "sha256-LWlnPwdYGxla2QqtSQvbINbX0Fq2iQi04Hb/N1rMMxs=";
+    hash = "sha256-bY/HJDvIGc5z7KoAmB830qEo3M5hFzuzOwRordCLLpM=";
+  } // {
+    tag = "refs/tags/v${version}";
   };
 
   appimageContents = appimageTools.extract {
@@ -61,7 +63,13 @@ appimageTools.wrapType2 {
       $out/share/icons/hicolor/256x256/apps/${pname}.png
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = writeScript "update-bedrockonlinux" ''
+      #!/usr/bin/env nix-shell
+      #!nix-shell -i bash -p curl jq common-updater-scripts
+      repo="https://api.github.com/repos/Wyze3306/BedrockOnLinux/releases/latest"
+      version="$(curl -fsSL "$repo" | jq -er '.tag_name | select(startswith("v"))')"
+      update-source-version bol "''${version#v}"
+    '';
 
   meta = with lib; {
     description = "Run Minecraft Bedrock seamlessly on Linux";

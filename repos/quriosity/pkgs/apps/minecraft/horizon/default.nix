@@ -2,11 +2,11 @@
 
 let
   pname = "horizon-launcher";
-  version = "launcher@0.2.54";
+  version = "launcher@0.2.58";
 
   src = fetchurl {
     url = "https://github.com/horizon-rust/horizon/releases/download/${version}/horizon-launcher-linux-x86_64.AppImage";
-    hash = "sha256-Z4oZrmy3cKPJSsVwjyPhhT7nxwuEE7xV6tagWkhFPHM=";
+    hash = "sha256-DUBAsIt3JAz9ypUQeLkpUNAHqRNUxau1tvHpk5qjoBE=";
   };
 
   appimageContents = appimageTools.extract {
