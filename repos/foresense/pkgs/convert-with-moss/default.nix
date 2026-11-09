@@ -13,23 +13,26 @@
   xorg,
 }:
 let
-  jdk = (pkgs.jdk23.override { enableJavaFX = true; });
+  # Stock (prebuilt) JDK + OpenJFX provided via --module-path in the wrapper.
+  # An FX-enabled JDK variant (jdk25.override { enableJavaFX = true; }) is never
+  # built by Hydra, forcing a multi-hour local OpenJDK+OpenJFX compile.
+  jdk = pkgs.jdk25;
 in
 
 maven.buildMavenPackage rec {
   pname = "convertwithmoss";
-  version = "13.1.0";
+  version = "20.3.0";
 
   src = fetchFromGitHub {
     owner = "git-moss";
     repo = "ConvertWithMoss";
     rev = version;
-    hash = "sha256-eqE4lJHau5L6cCtMxOVl0197us3uopvk7vK7IX7dpuo=";
+    hash = "sha256-aPHFxpmCA7SuJhaMKHzx3KotgfCOUd9VJii12wuN8ew=";
   };
 
   inherit jdk;
 
-  mvnHash = "sha256-S3xlYpzPpF+tMX1oKfc3NSI3/nWXhH0HQRNnMyzrBKQ=";
+  mvnHash = "sha256-oXvTOd5/OmCEICglPkY4NLX/TI18L9PC9SXoEr08ueM=";
   mvnJdk = jdk;
 
   nativeBuildInputs = [ makeWrapper ];
@@ -38,7 +41,7 @@ maven.buildMavenPackage rec {
     glib
     glibc
     gsettings-desktop-schemas
-    javaPackages.openjfx23
+    javaPackages.openjfx25
     libglibutil
     xorg.libXxf86vm
     jdk
@@ -53,9 +56,10 @@ maven.buildMavenPackage rec {
 
     install -dm755 $out/share/${pname}
 
-    cp target/lib/convertwithmoss*.jar $out/share/${pname}/convertwithmoss.jar
-    cp target/lib/*-linux.jar $out/share/${pname}/
-    cp target/lib/uitools-*.jar $out/share/${pname}/
+    # The jar manifest uses addClasspath, so all sibling jars from
+    # target/lib must be installed (upstream 20.3.0 layout).
+    cp target/lib/*.jar $out/share/${pname}/
+    mv $out/share/${pname}/convertwithmoss-*.jar $out/share/${pname}/convertwithmoss.jar
 
     install -Dm644 linux/de.mossgrabers.ConvertWithMoss.desktop -t $out/share/applications/
     install -Dm644 linux/de.mossgrabers.ConvertWithMoss.appdata.xml -t $out/share/metainfo/
@@ -65,7 +69,7 @@ maven.buildMavenPackage rec {
         $out/bin/${pname} \
         --add-flags "-jar $out/share/${pname}/convertwithmoss.jar" \
         --add-flags "-Xmx64G" \
-        --add-flags "--module-path ${javaPackages.openjfx23}/lib --add-modules javafx.controls,javafx.fxml,javafx.graphics"
+        --add-flags "--module-path ${javaPackages.openjfx25}/lib --add-modules javafx.controls,javafx.fxml,javafx.graphics"
 
     runHook postInstall
   '';

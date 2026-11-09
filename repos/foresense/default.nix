@@ -3,7 +3,6 @@
 }:
 let
   inherit (pkgs) callPackage;
-  libprinthex = callPackage ./pkgs/libprinthex { };
 in
 {
   lib = import ./lib { inherit pkgs; };
@@ -12,8 +11,6 @@ in
 
   # packages
   convert-with-moss = callPackage ./pkgs/convert-with-moss { };
-  id3edit = callPackage ./pkgs/id3edit { inherit libprinthex; };
-  gearmulator = callPackage ./pkgs/gearmulator { };
   # loomer
   loomer-architect = callPackage ./pkgs/loomer/architect.nix { };
   loomer-aspect = callPackage ./pkgs/loomer/aspect.nix { };
