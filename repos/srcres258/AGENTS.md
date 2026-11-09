@@ -17,7 +17,7 @@ nix eval --json .#channels.<channel>.packages.x86_64-linux \
 - Build CI-selected (buildable + cacheable) outputs for a channel:
 ```bash
 targets=$(nix eval --raw .#channels.<channel>.cacheOutputs.x86_64-linux \
-  --apply 'ds: builtins.concatStringsSep " " (map (d: d.drvPath) ds)')
+  --apply 'ds: builtins.concatStringsSep " " (map (d: "${d.drvPath}^*") ds)')
 nix build --keep-going --print-build-logs --no-link $targets
 ```
 - Channels live in `flake.lock`, so tests are reproducible without NIX_PATH: `nixpkgs-unstable`, `nixos-unstable`, `nixos-25-05` (branch `nixos-25.05`).
@@ -32,7 +32,7 @@ nix build --keep-going --print-build-logs --no-link $targets
 ## CI
 - GitHub Actions (`build.yml`) builds against **3 nixpkgs channels**: `nixpkgs-unstable`, `nixos-unstable`, and `nixos-25-05` (one matrix leg each), selected through the flake, not `NIX_PATH`.
 - `nix build` never evaluates `meta`; CI runs an explicit `nix eval ... --apply (pkgs: ... p.meta)` step because NUR tooling (`nix-env -q --meta`, `nix search`) does. Dropping that step hides broken `meta` attributes behind a green run.
-- Flake installables must be derivations or paths, so the `cacheOutputs` list is expanded to one drv path per output before `nix build --keep-going`.
+- Flake installables must be derivations or paths, so the `cacheOutputs` list is expanded to one installable per output. Each installable **must** carry the `^*` suffix: a bare `.drv` path is itself a valid store path, so `nix build $drv` silently builds nothing and the leg goes green without building.
 - Cache upload is **implicit**: `cachix/cachix-action@v16` runs in its default daemon mode, registering a Nix `post-build-hook` that pushes each *newly built* store path to cache `nur-packages-srcres258`. Its post step only flushes that daemon; there is no explicit `cachix push` step.
 - **Keep `Setup cachix` above every build step** (both the iEDA build and the per-channel `cacheOutputs` build). The hook does not exist before the action runs, and daemon mode never scans the store afterwards, so anything built earlier is silently never cached.
 - Substituted paths are not re-pushed, so a green run that uploads zero paths can simply mean everything was already cached — not a broken setup. Expect uploads only when something is genuinely rebuilt.

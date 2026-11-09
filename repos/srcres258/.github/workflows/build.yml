@@ -63,9 +63,11 @@ jobs:
     - name: Build nix packages
       run: |
         # Flake installables must be derivations or paths, so expand the
-        # cacheable-output list from the flake into one drv path per output.
+        # cacheable-output list from the flake into one installable per output.
+        # The `^*` suffix is what makes nix BUILD each derivation: a bare .drv
+        # path is already a valid store path, so `nix build $drv` is a no-op.
         targets=$(nix eval --raw .#channels.${{ matrix.channel }}.cacheOutputs.x86_64-linux \
-          --apply 'ds: builtins.concatStringsSep " " (map (d: d.drvPath) ds)')
+          --apply 'ds: builtins.concatStringsSep " " (map (d: "${d.drvPath}^*") ds)')
         nix build --keep-going --print-build-logs --no-link $targets
     - name: Trigger NUR update
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' && matrix.triggerNurUpdate }}
