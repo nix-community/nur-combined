@@ -192,14 +192,15 @@
         ],
         "nixpkgs": [
           "nixpkgs"
-        ]
+        ],
+        "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1792442590,
-        "narHash": "sha256-BYMcsO8yEtoMJRyYTQFQ71u2UI8VlMxSgkpg2p643TA=",
+        "lastModified": 1794264028,
+        "narHash": "sha256-bCFrrhUm9b1bn+uZW3NXvyG4rs9Dxe1uAR7PJgFVYMM=",
         "owner": "nagy",
         "repo": "emacs-bruvtab",
-        "rev": "1a86566d8a56c55c7bcf8993027e5004b46872d4",
+        "rev": "062093637c5a835221c9091eb5a4aa9cec3b6e04",
         "type": "github"
       },
       "original": {
@@ -942,7 +943,7 @@
         "org-jxl-images": "org-jxl-images",
         "tired": "tired",
         "toml-ts-cargo-mode": "toml-ts-cargo-mode",
-        "treefmt-nix": "treefmt-nix",
+        "treefmt-nix": "treefmt-nix_2",
         "yublin": "yublin"
       }
     },
@@ -1011,6 +1012,27 @@
       }
     },
     "treefmt-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "emacs-bruvtab",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1791885023,
+        "narHash": "sha256-C3alQ2MEt0zVrUSho5NUDo3jmhbff72++bfwoqT9Omo=",
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "rev": "0d6d739a833ba9a9c93034862e4a7b061a062a1c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "treefmt-nix_2": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"

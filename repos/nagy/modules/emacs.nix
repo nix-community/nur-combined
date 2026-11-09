@@ -34,7 +34,10 @@ let
 
         bruvtab =
           (flakes.emacs-bruvtab or (builtins.getFlake "github:nagy/emacs-bruvtab"))
-          .packages.${pkgs.stdenv.hostPlatform.system}.bruvtab;
+          .packages.${pkgs.stdenv.hostPlatform.system}.bruvtab.override
+            {
+              emacs = self.emacs;
+            };
 
         buffer-url =
           (flakes.emacs-buffer-url or (builtins.getFlake "github:nagy/emacs-buffer-url"))
