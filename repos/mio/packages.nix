@@ -87,7 +87,6 @@ exportedByName
   "polarity-patched" = polarity_patched;
   "rayburst-patched" = rayburst_patched;
   "rustdesk-patched" = rustdesk_patched;
-  "sem-cli-patched" = sem-cli_patched;
   "splayer-next-patched" = splayer-next_patched;
   "tectonic-patched" = tectonic_patched;
   "thonny-patched" = thonny_patched;
