@@ -17,14 +17,14 @@
 
 buildPythonPackage rec {
   pname = "cs3client";
-  version = "1.7.1";
+  version = "1.8.0";
   pyproject = true;
 
   disabled = pythonOlder "3.7";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-gd7/sherjmbdGZtyN3qdBXiximukchMpuzYpb1waGGw=";
+    hash = "sha256-p22KESN9Wr+6oAHxgst0Ij+A3DRj78ugI4R2FvL6YzA=";
   };
 
   PACKAGE_VERSION = version;
