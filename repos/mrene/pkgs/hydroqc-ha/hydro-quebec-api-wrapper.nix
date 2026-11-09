@@ -1,7 +1,7 @@
 {
   lib,
   buildPythonPackage,
-  fetchFromGitLab,
+  fetchFromGitHub,
   setuptools,
   setuptools-scm,
   aiocache,
@@ -13,14 +13,14 @@
 
 buildPythonPackage rec {
   pname = "hydro-quebec-api-wrapper";
-  version = "4.2.6";
+  version = "4.3.1";
   pyproject = true;
 
-  src = fetchFromGitLab {
+  src = fetchFromGitHub {
     owner = "hydroqc";
     repo = "hydroqc";
-    tag = version;
-    hash = "sha256-UPaRi3wyQRLN18SVkxueij9qsBeNyfmFMEJ2JQGLocg=";
+    tag = "v${version}";
+    hash = "sha256-oiF6oE6voT1J0SpOWZxnZltABAYWnkB/h0wfk9St3/Y=";
   };
 
   # Version comes from setuptools_scm, which cannot see git metadata in the archive.
@@ -46,7 +46,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Python wrapper for the Hydro-Québec API";
-    homepage = "https://gitlab.com/hydroqc/hydroqc";
+    homepage = "https://github.com/hydroqc/hydroqc";
     license = lib.licenses.lgpl3Plus;
     maintainers = with lib.maintainers; [ mrene ];
   };

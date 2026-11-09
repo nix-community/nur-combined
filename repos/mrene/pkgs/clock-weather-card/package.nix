@@ -8,13 +8,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "clock-weather-card";
-  version = "3.0.0";
+  version = "3.1.0";
 
   src = fetchFromGitHub {
     owner = "pkissling";
     repo = "clock-weather-card";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-CZ9tRHBrVP1EV8JgH9pYIYxnGCWNvCDftL2t5lURI0o=";
+    hash = "sha256-UbYPhGsTqrOKP2DmuQccyH33C59zFhh4C5calXUKy30=";
   };
 
   missingHashes = ./missing-hashes.json;
@@ -30,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   offlineCache = yarn-berry_4.fetchYarnBerryDeps {
     inherit (finalAttrs) src missingHashes postPatch;
-    hash = "sha256-Pp7fNLBhL9XZXIIVvQA4ZMsMdmS7ADXnp8bLuvuiJlI=";
+    hash = "sha256-d94N1mkXge7MuskFPcQb6ObcqZ/6KlSK2e8EgMBAHIE=";
   };
 
   nativeBuildInputs = [

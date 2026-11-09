@@ -6,16 +6,16 @@
 
 buildGoModule rec {
   pname = "resterm";
-  version = "1.16.1";
+  version = "1.18.0";
 
   src = fetchFromGitHub {
     owner = "unkn0wn-root";
     repo = "resterm";
     rev = "v${version}";
-    hash = "sha256-vzyNJGqZO8eWXPOJemeXttsnuIx/z/GOVfAbu4MR/yI=";
+    hash = "sha256-INZAqyQXRYbc0O0+k6M1XHbiiEHK3Nn21+ONHSW6keA=";
   };
 
-  vendorHash = "sha256-H4V0F8dJEhs6HdHTIMGx0CEv4ZM277lkILXjNFT2oPg=";
+  vendorHash = "sha256-nFQEVLXeltpz6CDEpZ71uKKs+yrM+fphaX13N4qULAU=";
 
   ldflags = [
     "-s"

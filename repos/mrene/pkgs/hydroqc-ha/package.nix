@@ -11,13 +11,13 @@ in
 buildHomeAssistantComponent rec {
   owner = "hydroqc";
   domain = "hydroqc";
-  version = "0.7.0";
+  version = "0.9.0";
 
   src = fetchFromGitHub {
     owner = "hydroqc";
     repo = "hydroqc-ha";
     tag = "v${version}";
-    hash = "sha256-ULxTVySOVeTRJYohNMlIBzBAc7G+kXQ+f5YR1I6KQO8=";
+    hash = "sha256-kRLMLd17+gwbbpRyj8mJV7YwYYoOgidcoEVIATbOXQk=";
   };
 
   dependencies = [ hydro-quebec-api-wrapper ];

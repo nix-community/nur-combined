@@ -40,7 +40,7 @@ let
   sources = {
     x86_64-linux = {
       debArch = "amd64";
-      hash = "sha256-JM9EDlUkvltN2dMmxzCHuINkIT6ukwMN5OrraiSnjyM=";
+      hash = "sha256-UJA4KeDRMBLU6CtJ7lgynHC/6qhjUIq1PyFwIp0S8v0=";
     };
     aarch64-linux = {
       debArch = "arm64";
@@ -55,7 +55,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "open-knowledge";
-  version = "0.88.2";
+  version = "0.89.3";
 
   src = fetchurl {
     url = "https://github.com/inkeep/open-knowledge/releases/download/v${finalAttrs.version}/OpenKnowledge-${source.debArch}.deb";

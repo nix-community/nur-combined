@@ -24,13 +24,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "gr-smart-meters";
-  version = "0-unstable-2023-09-25";
+  version = "0-unstable-2026-11-08";
 
   src = fetchFromGitHub {
     owner = "BitBangingBytes";
     repo = "gr-smart_meters";
-    rev = "eae55c97ba0a14ba389e21a3e2ed32e6a1e66cdd";
-    hash = "sha256-Q5ODvprUNYo00QjPS0Hnon+IiOBfTG0f168BgDrxu2c=";
+    rev = "eae80a64d64a59afb4ac642e45812a199c3d357f";
+    hash = "sha256-t69QR97osRxK5CMeioqDw3B1OEgmB9sUtcFBMVocavM=";
   };
 
   nativeBuildInputs = [
