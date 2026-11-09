@@ -1,13 +1,12 @@
 {
   callPackage,
   callPackages,
-  codex,
   lib,
   channel,
   versionCheckHook,
   writableTmpDirAsHomeHook,
   githubReleaseUpdater ? callPackage ../../lib/github-release-updater.nix { },
-  providerPackages ? [ codex ],
+  providerPackages ? [ ],
   commandLineArgs ? "",
   sources ? (callPackage ./sources.nix { }).${channel},
   cliUnwrapped ? callPackage ./unwrapped.nix {

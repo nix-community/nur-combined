@@ -9,14 +9,17 @@
   pnpmConfigHook,
   pkg-config,
   wrapGAppsHook4,
+  aws-lc,
   dbus,
   glib-networking,
   gst_all_1,
   gtk3,
   libayatana-appindicator,
   librsvg,
+  oniguruma,
   openssl,
   webkitgtk_4_1,
+  zstd,
   cacert,
   git,
 }:
@@ -55,6 +58,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     wrapGAppsHook4
   ];
   buildInputs = [
+    aws-lc
     dbus
     glib-networking
     gst_all_1.gstreamer
@@ -63,8 +67,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     gtk3
     libayatana-appindicator
     librsvg
+    oniguruma
     openssl
     webkitgtk_4_1
+    zstd
   ];
 
   tauriBundleType = "deb";

@@ -20,6 +20,8 @@
   zsh,
   coreutils,
   bash,
+  sqlite,
+  zstd,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -100,7 +102,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
     autoPatchelfHook
     makeWrapper
   ];
-  buildInputs = [ stdenv.cc.cc.lib ];
+  buildInputs = [
+    stdenv.cc.cc.lib
+    sqlite
+    zstd
+  ];
 
   # Upstream rewrites Vite's banners and log prefixes to identify Vite+.
   # Skip its Git restore step for source archives, which contain no checkout.

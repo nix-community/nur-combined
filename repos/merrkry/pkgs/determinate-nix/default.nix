@@ -37,11 +37,17 @@ let
   components = lib.makeScope pkgs.newScope (
     final:
     let
+      deps = dependencies final;
       packages = upstreamComponents final;
     in
-    dependencies final
+    deps
     // packages
     // {
+      wasmtime = deps.wasmtime.overrideAttrs (old: {
+        nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ];
+        buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.zstd ];
+      });
+
       nix-store = packages.nix-store.overrideAttrs {
         # The source already contains a build/ directory, as in nixpkgs' Nix.
         mesonBuildDir = "meson-build-dir";
