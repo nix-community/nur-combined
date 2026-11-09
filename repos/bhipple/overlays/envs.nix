@@ -59,6 +59,7 @@ in
       self.hwinfo
       self.jq
       self.killall # used by i3
+      self.librewolf
       self.par
       self.pass
       self.pinentry-curses
