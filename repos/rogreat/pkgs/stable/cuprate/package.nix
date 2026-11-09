@@ -6,6 +6,7 @@
   openssl,
   pkg-config,
   rustPlatform,
+  sqlite,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -42,6 +43,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   buildInputs = [
     openssl
+    sqlite
   ];
 
   preCheck = ''
@@ -49,8 +51,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
 
   env = {
-    # https://docs.rs/openssl/latest/openssl/
-    OPENSSL_NO_VENDOR = 1;
     # https://doc.rust-lang.org/beta/unstable-book/compiler-environment-variables/RUSTC_BOOTSTRAP.html
     RUSTC_BOOTSTRAP = 1;
   };
