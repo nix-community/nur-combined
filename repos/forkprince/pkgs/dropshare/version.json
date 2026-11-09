@@ -6,9 +6,9 @@
     "version_path": ".version",
     "url_path": ".url"
   },
-  "version": "6.15,6261",
+  "version": "6.16,6286",
   "asset": {
-    "url": "https://d2wvuuix8c9e48.cloudfront.net/Dropshare6-6261.app.zip",
-    "hash": "sha256-ttCqgUlzZpqoRXFYyx67HUSPF4RTGsAe04fRauYyMQE="
+    "url": "https://d2wvuuix8c9e48.cloudfront.net/Dropshare6-6286.app.zip",
+    "hash": "sha256-1AjF3cEBU1VyUSH9r06eA2gYjsLqzLEynNVoxFOmib0="
   }
 }

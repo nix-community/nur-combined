@@ -6,23 +6,23 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "0.16.0",
+  "version": "0.17.0",
   "platforms": {
     "aarch64-darwin": {
       "file": "wordcraft-{version}-macos-universal.dmg",
-      "hash": "sha256-QHy3uhSVQ3gQvwZteZFB4KtDJUBghFVr4UIjaL0Is3c="
+      "hash": "sha256-vl2JojkFw6kd9NWPAPgnrAaqjFDL60Hm59n337hkpYo="
     },
     "x86_64-darwin": {
       "file": "wordcraft-{version}-macos-universal.dmg",
-      "hash": "sha256-QHy3uhSVQ3gQvwZteZFB4KtDJUBghFVr4UIjaL0Is3c="
+      "hash": "sha256-vl2JojkFw6kd9NWPAPgnrAaqjFDL60Hm59n337hkpYo="
     },
     "x86_64-linux": {
       "file": "wordcraft-{version}-linux-x86_64.AppImage",
-      "hash": "sha256-mArB1pGPHB4MJA2Fk3TyKxnlJNOvM3La7xNExaCXrhc="
+      "hash": "sha256-YGs64zDHZ8+hkoA9uo63udKcZs3ynQyr3gg/F/Bq0Ws="
     },
     "aarch64-linux": {
       "file": "wordcraft-{version}-linux-aarch64.AppImage",
-      "hash": "sha256-vAPSjmqohBOsKOOjiO15DlQzIrsiE6vSI2RhweM993s="
+      "hash": "sha256-OwROhthBgKBaSItCJJMRqdHtg1GQwTxK8Rzq9Yec7fw="
     }
   }
 }

@@ -6,11 +6,11 @@
     "skip_prerelease": false,
     "tag_prefix": "v"
   },
-  "version": "0.4.0-nightly.20261107.12",
+  "version": "0.4.0-nightly.20261109.14",
   "platforms": {
     "x86_64-linux": {
       "file": "Yapfast-{version}-x86_64.AppImage",
-      "hash": "sha256-S9hcbZyq1Vzr8AqdwZ7fec26c6Tj7kL1Dv4RYaUHrAA="
+      "hash": "sha256-xILK/KyqqFNL+4b8oopOGxvYFMST6ZmK5zijLzqEg/k="
     }
   }
 }
