@@ -4,6 +4,7 @@
   rustPlatform,
   fetchFromGitHub,
   autoPatchelfHook,
+  aws-lc,
   makeWrapper,
   pkg-config,
   libxcb,
@@ -30,6 +31,7 @@ let
     libxrandr
     libGL
     vulkan-loader
+    aws-lc
   ];
 
 in
