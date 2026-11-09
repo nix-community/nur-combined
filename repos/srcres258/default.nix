@@ -14,6 +14,10 @@ let
     maintainers = import ./maintainers.nix;
     hasIeda = pkgs.stdenv.hostPlatform.system == "x86_64-linux";
     hasZig_0_16 = pkgs ? zig_0_16;
+    hasDocxCli = builtins.elem pkgs.stdenv.hostPlatform.system [
+        "x86_64-linux"
+        "aarch64-linux"
+    ];
     resolvedIeda =
       if ieda != null then ieda else let
         lock = builtins.fromJSON (builtins.readFile ./flake.lock);
@@ -67,6 +71,10 @@ in {
   ieda = resolvedIeda;
 } // pkgs.lib.optionalAttrs hasZig_0_16 {
   kwm = pkgs.callPackage ./pkgs/kwm {
+      inherit maintainers;
+  };
+} // pkgs.lib.optionalAttrs hasDocxCli {
+  docx-cli = pkgs.callPackage ./pkgs/docx-cli {
       inherit maintainers;
   };
 }
