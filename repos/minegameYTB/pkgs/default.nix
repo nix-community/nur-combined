@@ -11,6 +11,7 @@ rec {
   GLFfetch-glfos = GLFfetch.override { glfIcon = "GLFos"; };
   gsettings-diff = callPackage ./tools/gsettings-diff { };
   kvm-archive = callPackage ./tools/kvm-archive { };
+  rea = callPackage ./tools/rea { };
 
   ### dev set
   dev = rec {
