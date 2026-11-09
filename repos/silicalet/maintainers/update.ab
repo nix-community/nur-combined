@@ -88,6 +88,7 @@ main (args) {
         }
     }
 
+    let failures = [Text]
     for package in packages {
         const package_updater = "nur-update-{package}"
         let has_package_updater = false
@@ -98,10 +99,23 @@ main (args) {
 
         if has_package_updater {
             echo("==> Updating {package} for {arch}")
-            $ {package_updater} {arch} $?
+            $ {package_updater} {arch} $
+            failed {
+                echo("error: failed to update {package} for {arch}")
+                failures += [package]
+            }
         } else {
             echo("==> Updating {package}")
-            $ nix-update {package} --flake --build --format --use-github-releases $?
+            $ nix-update {package} --flake --build --format --use-github-releases $
+            failed {
+                echo("error: failed to update {package}")
+                failures += [package]
+            }
         }
+    }
+
+    if len(failures) > 0 {
+        echo("error: package updates failed: {failures}")
+        exit(1)
     }
 }

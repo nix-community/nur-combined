@@ -244,7 +244,9 @@ nix run .#update -- --arch aarch64-linux nyaterm-bin meatshell-bin
 
 The updater is written in [Amber](./maintainers/update.ab). It invokes
 `nix-update` with build validation and formatting for regular packages, while
-packages with their own `update.ab` use that package-local updater. The binary
+packages with their own `update.ab` use that package-local updater. A failure
+in one package is reported and the remaining packages still update; the
+command exits nonzero after the full set if any package failed. The binary
 package updaters select the requested system's GitHub Release asset, version,
 and hash. The default update set uses `meatshell-bin` to avoid rebuilding its
 slower source package. `nyaterm` is binary-only and updates through `nyaterm-bin`.
