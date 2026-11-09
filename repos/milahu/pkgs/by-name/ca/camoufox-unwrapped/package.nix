@@ -55,6 +55,7 @@ in
 
 (
 (
+(
 buildMozillaMach {
   pname = "camoufox";
 
@@ -206,6 +207,14 @@ buildMozillaMach {
     fi
   '';
 
+  # FIXME buildMozillaMach should pass unexpected arguments to stdenv.mkDerivation
+  # error: function 'anonymous lambda' called with unexpected argument 'passthru'
+  /*
+  passthru = {
+    inherit (src) firefoxVersion camoufoxVersion;
+  };
+  */
+
   meta = {
     description = "Camoufox privacy and automation browser built from source";
     homepage = "https://github.com/daijro/camoufox";
@@ -223,3 +232,8 @@ buildMozillaMach {
   enableOfficialBranding = true;
 }
 )
+).overrideAttrs (oldAttrs: {
+  passthru = {
+    inherit (src) firefoxVersion camoufoxVersion;
+  };
+})
