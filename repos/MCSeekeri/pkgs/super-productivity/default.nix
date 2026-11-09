@@ -30,11 +30,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "super-productivity";
-  version = "19.3.1";
+  version = "20.0.0";
 
   src = fetchurl {
     url = "https://github.com/super-productivity/super-productivity/releases/download/v${finalAttrs.version}/superProductivity-amd64.deb";
-    hash = "sha256-PMhLuGT3sT1JY9MHUKoQZ6VaglslZce+wynlH5cVWY8=";
+    hash = "sha256-XaTv36i5NnKj9W9YEr6heqkzNzCAJEtqCDtZCe82BOY=";
   };
 
   nativeBuildInputs = [

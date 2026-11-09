@@ -11,12 +11,12 @@
   stdenvNoCC,
 }:
 let
-  version = "0.2.19";
+  version = "0.2.20";
   src = fetchFromGitHub {
     owner = "Wei-Shaw";
     repo = "sub2api";
     rev = "v${version}";
-    hash = "sha256-D94n8128IbzSPLgYW+6usEag/iK+/kN+sxCADDLbWHc=";
+    hash = "sha256-BHWYIZqFja4PPvp960Eakcx6BHI0megSq7WSXz1CHd8=";
   };
 
   pnpmWorkspaceOverrides = ''
@@ -33,7 +33,7 @@ let
     fetcherVersion = 4;
     sourceRoot = "source/frontend";
     postPatch = pnpmWorkspaceOverrides;
-    hash = "sha256-vqWhnCnlaf1i6Dh4n51ICPZhMC6so8rnS/VhqiGveX4=";
+    hash = "sha256-tZJ8POONv35qVA+9J3qToFnijdC+vtnaQIiQ+5u1+YM=";
   };
 
   frontend = stdenvNoCC.mkDerivation {
@@ -78,7 +78,7 @@ buildGo127Module {
   inherit version src;
 
   modRoot = "backend";
-  vendorHash = "sha256-eniz63STYb8a928A3WqGubnWGOQN3airPgsLsEHYlQo=";
+  vendorHash = "sha256-DAJCqSiIpkR/y6xF/JYjeEhhdgDFQ/CYfuwZvxb+xhg=";
   postPatch = ''
     rm -rf backend/internal/web/dist
     mkdir -p backend/internal/web/dist
