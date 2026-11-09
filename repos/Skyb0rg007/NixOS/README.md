@@ -1,6 +1,6 @@
 # Packages
 
-Generated from 93 packages.
+Generated from 94 packages.
 
 ## `ambient-build-vm`
 
@@ -66,10 +66,18 @@ Generated from 93 packages.
 - **Homepage:** [https://github.com/erikwb/blueferry](https://github.com/erikwb/blueferry)
 - **License:** GPL-2.0-only
 
+## `bootvine`
+
+- **Package name:** bootvine
+- **Version:** 0.1.3
+- **Description:** Boot and shutdown progress for systemd on the console
+- **Homepage:** [https://codeberg.org/wvhulle/bootvine/](https://codeberg.org/wvhulle/bootvine/)
+- **License:** GPL-3.0-or-later
+
 ## `brush-HEAD`
 
 - **Package name:** brush
-- **Version:** 0.4.0-unstable-2026-11-05
+- **Version:** 0.4.0-unstable-2026-11-09
 - **Description:** Bash/POSIX-compatible shell implemented in Rust
 - **Homepage:** [https://github.com/reubeno/brush](https://github.com/reubeno/brush)
 - **License:** MIT
@@ -93,7 +101,7 @@ Generated from 93 packages.
 ## `cascade`
 
 - **Package name:** cascade
-- **Version:** 0.1.0-beta7
+- **Version:** 0.1.0-beta8
 - **Description:** Friendly DNSSEC signing pipeline
 - **Homepage:** [https://blog.nlnetlabs.nl/cascade/](https://blog.nlnetlabs.nl/cascade/)
 - **License:** BSD-3-Clause
@@ -150,6 +158,7 @@ Generated from 93 packages.
 
 - **Package name:** dnclient
 - **Version:** 0.9.7
+- **Description:** Client for Defined Networking managed Nebula overlay networks
 - **Homepage:** [https://www.defined.net/](https://www.defined.net/)
 - **License:** LicenseRef-nixos-unfree
 
@@ -180,7 +189,7 @@ Generated from 93 packages.
 ## `flirt`
 
 - **Package name:** flirt
-- **Version:** 0-unstable-2026-10-07
+- **Version:** 0-unstable-2026-11-05
 - **Description:** Review tool for patch series workflows
 - **Homepage:** [https://codeberg.org/flirt/flirt](https://codeberg.org/flirt/flirt)
 - **License:** AGPL-3.0-or-later
@@ -204,7 +213,7 @@ Generated from 93 packages.
 ## `image-builder`
 
 - **Package name:** image-builder
-- **Version:** 89.0.0
+- **Version:** 90.0.0
 - **Description:** Tools to build and deploy disk-images
 - **Homepage:** [https://osbuild.org](https://osbuild.org)
 - **License:** Apache-2.0
@@ -252,7 +261,7 @@ Generated from 93 packages.
 ## `landlock-policy`
 
 - **Package name:** landlock-policy
-- **Version:** 0-unstable-2026-11-04
+- **Version:** 0-unstable-2026-11-05
 - **Description:** Landlock configuration library
 - **Homepage:** [https://landlock.io](https://landlock.io)
 - **License:** MIT OR Apache-2.0
@@ -262,12 +271,13 @@ Generated from 93 packages.
 - **Package name:** landlock-sandboxer
 - **Version:** 7.3
 - **Description:** Simple Landlock sandbox manager
+- **Homepage:** [https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/samples/landlock](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/samples/landlock)
 - **License:** BSD-3-Clause
 
 ## `landstrip`
 
 - **Package name:** landstrip
-- **Version:** 0.20.22
+- **Version:** 0.20.26
 - **Description:** Run tools in OS-level sandboxes
 - **Homepage:** [https://github.com/landstrip/landstrip](https://github.com/landstrip/landstrip)
 - **License:** LGPL-3.0-or-later
@@ -315,7 +325,7 @@ Generated from 93 packages.
 ## `mkosi-HEAD`
 
 - **Package name:** mkosi-HEAD
-- **Version:** 27.1-unstable-2026-11-02
+- **Version:** 27.1-unstable-2026-11-09
 - **Description:** Build legacy-free OS images, built from git master
 - **Homepage:** [https://github.com/systemd/mkosi](https://github.com/systemd/mkosi)
 - **License:** LGPL-2.1-only
@@ -388,6 +398,7 @@ Generated from 93 packages.
 
 - **Package name:** pristine-tar
 - **Version:** 1.50
+- **Description:** Regenerate pristine tarballs from a VCS checkout
 - **Homepage:** [https://salsa.debian.org/debian/pristine-tar](https://salsa.debian.org/debian/pristine-tar)
 - **License:** BSD-3-Clause AND bzip2-1.0.6 AND GPL-2.0-or-later
 
@@ -530,10 +541,10 @@ Generated from 93 packages.
 ## `raven`
 
 - **Package name:** raven
-- **Version:** 0-unstable-2026-11-05
+- **Version:** 0-unstable-2026-11-09
 - **Description:** Runs Windows applications on Linux without a virtual machine
 - **Homepage:** [https://useraven.org/](https://useraven.org/)
-- **License:** GPL-3.0-or-later AND MIT AND GPL-2.0-only AND LGPL-2.1-or-later AND Unicode-3.0 AND Zlib AND libpng-2.0 AND IJG AND libtiff AND X11 AND LicenseRef-nixos-publicDomain AND blessing AND ISC-Veillard
+- **License:** GPL-3.0-or-later AND MIT AND Unicode-3.0 AND Zlib AND IJG AND libtiff AND X11 AND blessing AND ISC-Veillard
 
 ## `reddio`
 
@@ -546,7 +557,7 @@ Generated from 93 packages.
 ## `rsbinder-tools`
 
 - **Package name:** rsbinder-tools
-- **Version:** 0.12.0
+- **Version:** 0.13.0
 - **Description:** CLI tools for Binder IPC on Linux
 - **Homepage:** [https://github.com/hiking90/rsbinder](https://github.com/hiking90/rsbinder)
 - **License:** Apache-2.0
@@ -570,7 +581,7 @@ Generated from 93 packages.
 ## `run0edit`
 
 - **Package name:** run0edit
-- **Version:** 0.7.0
+- **Version:** 0.7.1
 - **Description:** Allow a permitted user to edit a file as root using run0
 - **Homepage:** [https://github.com/HastD/run0edit](https://github.com/HastD/run0edit)
 - **License:** MIT OR Apache-2.0
@@ -578,7 +589,7 @@ Generated from 93 packages.
 ## `rune`
 
 - **Package name:** rune
-- **Version:** 0.1-unstable-2026-11-01
+- **Version:** 0.2-unstable-2026-11-08
 - **Description:** Compiler and runtime for Standard ML '97
 - **Homepage:** [https://github.com/ruudkoot/rune](https://github.com/ruudkoot/rune)
 - **License:** CC0-1.0
@@ -610,7 +621,7 @@ Generated from 93 packages.
 ## `sequin`
 
 - **Package name:** sequin
-- **Version:** 0-unstable-2026-10-25
+- **Version:** 0-unstable-2026-11-09
 - **Description:** Contact-centric PGP certificate manager built on Sequoia
 - **Homepage:** [https://gitlab.com/sequoia-pgp/sequin](https://gitlab.com/sequoia-pgp/sequin)
 - **License:** GPL-3.0-only

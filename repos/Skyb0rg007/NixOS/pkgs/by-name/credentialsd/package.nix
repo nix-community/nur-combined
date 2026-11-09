@@ -106,5 +106,7 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/linux-credentials/credentialsd/blob/${finalAttrs.src.tag}/CHANGELOG.md";
     license = lib.licenses.lgpl3Only;
     platforms = lib.platforms.linux;
+    maintainers = [ lib.maintainers.skyesoss ];
+    mainProgram = "credentialsd";
   };
 })

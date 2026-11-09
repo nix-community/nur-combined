@@ -139,5 +139,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
     license = lib.licenses.lgpl21Only;
     mainProgram = "mkosi";
     platforms = lib.platforms.linux;
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })

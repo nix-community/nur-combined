@@ -36,5 +36,6 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
     mainProgram = "mkbstosi";
     license = lib.licenses.lgpl21Plus;
     platforms = lib.platforms.linux;
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })

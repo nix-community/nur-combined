@@ -74,5 +74,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     license = lib.licenses.asl20;
     mainProgram = "provenant";
     inherit (rustc.meta) platforms;
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })

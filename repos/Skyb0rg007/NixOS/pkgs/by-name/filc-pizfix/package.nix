@@ -68,6 +68,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         ])
       ];
     mainProgram = "filcc";
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 
 })

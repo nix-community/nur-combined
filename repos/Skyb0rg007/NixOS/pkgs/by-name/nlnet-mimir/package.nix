@@ -37,5 +37,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     mainProgram = "mimir";
     license = lib.licenses.mpl20;
     broken = true;
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })

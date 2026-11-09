@@ -76,5 +76,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     ];
     platforms = lib.platforms.linux;
     mainProgram = "run0edit";
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })

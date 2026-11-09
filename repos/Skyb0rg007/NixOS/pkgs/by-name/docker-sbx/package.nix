@@ -122,5 +122,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       lib.maintainers.skyesoss
       lib.maintainers.erics118
     ];
+    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
   };
 })

@@ -113,5 +113,6 @@ stdenv.mkDerivation {
     ];
     badPlatforms = lib.platforms.darwin;
     maintainers = [ lib.maintainers.skyesoss ];
+    mainProgram = "tubearchivist";
   };
 }

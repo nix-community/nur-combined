@@ -40,5 +40,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://github.com/torvalds/linux/blob/master/tools/include/nolibc/nolibc.h";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.linux;
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })

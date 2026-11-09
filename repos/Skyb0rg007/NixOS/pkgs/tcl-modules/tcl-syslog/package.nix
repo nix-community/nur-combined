@@ -28,5 +28,6 @@ mkTclDerivation (finalAttrs: {
     changelog = "https://github.com/mxmanghi/tcl-syslog/blob/${finalAttrs.src.tag}/ChangeLog";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.unix;
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })

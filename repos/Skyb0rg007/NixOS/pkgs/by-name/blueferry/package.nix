@@ -142,5 +142,6 @@ python3Packages.buildPythonPackage (finalAttrs: {
     license = lib.licenses.gpl2Only;
     mainProgram = "blueferry";
     platforms = lib.platforms.linux;
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })

@@ -39,5 +39,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     ];
     platforms = lib.platforms.linux;
     mainProgram = "island";
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })

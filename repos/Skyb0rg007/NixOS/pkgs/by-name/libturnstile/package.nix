@@ -80,5 +80,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     license = lib.licenses.mit;
     mainProgram = "turnstile-sandbox";
     platforms = lib.platforms.linux;
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })

@@ -142,6 +142,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
+    description = "Regenerate pristine tarballs from a VCS checkout";
     homepage = "https://salsa.debian.org/debian/pristine-tar";
     license = lib.licenses.AND [
       lib.licenses.bsd3
@@ -150,5 +151,6 @@ stdenv.mkDerivation (finalAttrs: {
     ];
     platforms = lib.platforms.linux;
     mainProgram = "pristine-tar";
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })

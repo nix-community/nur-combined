@@ -155,5 +155,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     mainProgram = "parsec";
     platforms = lib.platforms.linux;
     hydraPlatforms = [ ];
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })

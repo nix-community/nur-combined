@@ -55,5 +55,6 @@ buildPythonPackage (finalAttrs: {
     changelog = "https://github.com/supertone-inc/supertonic-py/blob/${finalAttrs.src.tag}/CHANGELOG.md";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.skyesoss ];
+    mainProgram = "supertonic";
   };
 })

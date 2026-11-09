@@ -62,5 +62,6 @@ stdenv.mkDerivation (finalAttrs: {
       C runtime, and requires no cooperation from the target binary's linker
       setup.
     '';
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })

@@ -26,8 +26,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Simple Landlock sandbox manager";
+    homepage = "https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/samples/landlock";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.linux;
     mainProgram = "landlock-sandboxer";
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })

@@ -268,5 +268,6 @@ stdenv.mkDerivation (finalAttrs: {
       skyesoss
     ];
     platforms = [ "x86_64-linux" ];
+    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
   };
 })

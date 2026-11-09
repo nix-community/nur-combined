@@ -68,10 +68,11 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "git integration with the Debian archive";
     homepage = "https://salsa.debian.org/dgit-team/dgit";
-    changelog = "https://salsa.debian.org/debian/sbuild/-/blob/${finalAttrs.src.tag}/debian/changelog";
+    changelog = "https://salsa.debian.org/dgit-team/dgit/-/blob/${finalAttrs.src.tag}/debian/changelog";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     badPlatforms = [ "aarch64-linux" ];
     mainProgram = "dgit";
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })

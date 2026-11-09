@@ -26,10 +26,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   passthru.updateScript = null; # proprietary, no public version feed
 
   meta = {
+    description = "Client for Defined Networking managed Nebula overlay networks";
     homepage = "https://www.defined.net/";
     downloadPage = "https://www.defined.net/downloads/";
     changelog = "https://docs.defined.net/dnclient-changelog/";
     license = lib.licenses.unfree;
     platforms = [ "x86_64-linux" ]; # XXX: more
+    maintainers = [ lib.maintainers.skyesoss ];
+    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
   };
 })

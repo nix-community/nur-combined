@@ -130,5 +130,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
     mainProgram = "mmdebstrap";
+    maintainers = [ lib.maintainers.skyesoss ];
   };
 })
